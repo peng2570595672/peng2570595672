@@ -1,0 +1,23 @@
+{
+	"pages": [
+		"pages/default/index/index"
+	],
+	"window": {
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#FFFFFF",
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "ETC"
+	},
+	"subpackages": [
+		{
+			"root": "pages/test_sub_package",
+			"name": "pages/test_sub_package",
+			"pages": [
+				"index/index"
+			]
+		}
+	],
+	"navigateToMiniProgramAppIdList": [
+	],
+	"sitemapLocation": "sitemap.json"
+}

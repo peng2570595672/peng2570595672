@@ -1,0 +1,121 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": [
+			{
+				"type": "file",
+				"value": ".gitignore"
+			},
+			{
+				"type": "file",
+				"value": ".eslintrc.js"
+			},
+			{
+				"type": "file",
+				"value": "package.json"
+			},
+			{
+				"type": "folder",
+				"value": "node_modules"
+			},
+			{
+				"type": "folder",
+				"value": ".idea"
+			},
+			{
+				"type": "folder",
+				"value": ".git"
+			},
+			{
+				"type": "suffix",
+				"value": ".styl"
+			},
+			{
+				"type": "suffix",
+				"value": ".md"
+			},
+			{
+				"type": "suffix",
+				"value": ".xml"
+			}
+		]
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"enhance": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"autoAudits": false,
+		"uglifyFileName": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		},
+		"bundle": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.9.2",
+	"appid": "wxc4f4bbf790beb17b",
+	"projectname": "etc_home",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 0,
+			"list": [
+				{
+					"id": 0,
+					"name": "pages/test_sub_package/index/index",
+					"pathName": "pages/test_sub_package/index/index",
+					"query": "pages/test",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "activate_obu/neimeng/index/index",
+					"pathName": "activate_obu/neimeng/index/index",
+					"query": "serverInfoId=607886715545190401&setMealId=627888126932549632",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "online_distribution/pages/connect_bluetooth_for_qinghaiartc/connect_bluetooth_for_qinghaiartc",
+					"pathName": "online_distribution/pages/connect_bluetooth_for_qinghaiartc/connect_bluetooth_for_qinghaiartc",
+					"query": "serverInfoId=607886715545190401&setMealId=627888126932549632",
+					"scene": null
+				}
+			]
+		}
+	}
+}
