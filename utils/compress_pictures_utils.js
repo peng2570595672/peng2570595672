@@ -1,17 +1,21 @@
 function getCanvasImage(canvasId, imagePath, imageW, imageH, getImgsuccess) {
 	const ctx = wx.createCanvasContext(canvasId);
 	ctx.drawImage(imagePath, 0, 0, imageW, imageH);
-	ctx.draw(false, () => {
+	ctx.draw(true, () => {
 		wx.canvasToTempFilePath({
 			canvasId: canvasId,
 			x: 0,
 			y: 0,
 			width: imageW,
 			height: imageH,
-			quality: .95,
+			quality: 1,
 			fileType: 'jpg',
 			success(res) {
 				getImgsuccess(res.tempFilePath);
+			},
+			fail(res) {
+				// 直接将未处理图片返回
+				getImgsuccess();
 			}
 		});
 	});
