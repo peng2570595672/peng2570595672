@@ -8,6 +8,8 @@ function getCanvasImage(canvasId, imagePath, imageW, imageH, getImgsuccess) {
 			y: 0,
 			width: imageW,
 			height: imageH,
+			destWidth: imageW,
+			destHeight: imageH,
 			quality: 1,
 			fileType: 'jpg',
 			success(res) {
@@ -37,12 +39,34 @@ function  processingPictures (self, path, canvasId, width ,success) {
 				});
 				wx.nextTick(() => {
 					getCanvasImage(canvasId, path,targetWidth, targetHeight, (res) => {
-						success(res)
-					})
+						if (res) {
+							wx.getImageInfo({
+								src: res,
+								success: (r) => {
+									let width = r.width;
+									let height = r.height;
+									// 计算原始宽高比和压缩后的宽高比 如果一直 则通过 否则压缩视为无效
+									if (parseInt(targetWidth) / parseInt(targetHeight) === parseInt(width) / parseInt(height)) {
+										success(res)
+									} else {
+										success();
+									}
+								},
+								fail: () => {
+									success();
+								}
+							});
+						} else {
+							success();
+						}
+					});
 				});
 			} else {
 				success();
 			}
+		},
+		fail: () => {
+			success();
 		}
 	})
 }
