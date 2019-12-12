@@ -1,3 +1,150 @@
 <view class="index">
-	123123
+	<!--	欢迎语句开始-->
+	<view class="welcome">欢迎
+		<text>小男孩</text>
+	</view>
+	<!--	欢迎语句结束-->
+	<!--	轮播图开始-->
+	<swiper
+		class="my-swiper"
+		indicator-dots="{{true}}"
+		autoplay="{{true}}"
+		interval="{{5000}}"
+		circular="{{true}}">
+		<swiper-item class="my-swiper-item"></swiper-item>
+		<swiper-item class="my-swiper-item"></swiper-item>
+		<swiper-item class="my-swiper-item"></swiper-item>
+	</swiper>
+	<!--	轮播图结束-->
+
+	<!--	免费办理开始-->
+	<view class="free-processing">
+		<view class="btn" catchtap="freeProcessing">免费办理</view>
+		<view class="tips">免费办理ETC高速通行95折</view>
+	</view>
+	<!--	免费办理结束-->
+
+	<!--	办理中开始-->
+	<view class="processing" wx:if="{{false}}">
+		<view class="processing-title">
+			<view>贵A2ZM91</view>
+			<view class="iconfont">查看所有ETC</view>
+		</view>
+		<view class="btn">继续办理</view>
+		<view class="tips">这是你离成功最近的一次</view>
+	</view>
+	<!--	办理中结束-->
+
+	<!--	查看进度开始-->
+	<view class="viewing-process" wx:if="{{false}}">
+		<view class="processing-title">
+			<view>贵A2ZM91</view>
+			<view class="iconfont">查看所有ETC</view>
+		</view>
+		<view class="btn">查看进度</view>
+		<view class="tips">客服小姐姐正埋头审核中...</view>
+	</view>
+	<!--	查看进度结束-->
+
+	<!--	修改资料开始-->
+	<view class="update-info" wx:if="{{false}}">
+		<view class="processing-title">
+			<view>贵A2ZM91</view>
+			<view class="iconfont">查看所有ETC</view>
+		</view>
+		<view class="btn">修改资料</view>
+		<view class="tips"><text>你的资料审核有误，</text>请仔细检查</view>
+	</view>
+	<!--	修改资料结束-->
+
+<!--	审核失败开始-->
+	<view class="audit-failure" wx:if="{{false}}">
+		<view class="processing-title">
+			<view>贵A2ZM91</view>
+			<view class="iconfont">查看所有ETC</view>
+		</view>
+		<view class="failed">审核失败</view>
+		<view class="tips">说明原因</view>
+	</view>
+<!--	审核失败结束-->
+
+<!--	确认收货并激活开始-->
+	<view class="confirm-receipt" wx:if="{{false}}">
+		<view class="processing-title">
+			<view>贵A2ZM91</view>
+			<view class="iconfont">查看所有ETC</view>
+		</view>
+		<view class="btn">确认收货并激活</view>
+		<view class="tips">你的ETC即将到达，期待...</view>
+	</view>
+<!--	确认收货并激活结束-->
+
+	<!--	恢复签约开始-->
+	<view class="resume-contract" wx:if="{{false}}">
+		<view class="processing-title">
+			<view>贵A2ZM91</view>
+			<view class="iconfont">查看所有ETC</view>
+		</view>
+		<view class="btn">恢复签约</view>
+		<view class="tips"><text>赶紧恢复！</text>这将严重影响你的高速通行</view>
+	</view>
+	<!--	恢复签约结束-->
+
+<!--	账单开始-->
+	<view class="bill" wx:if="{{false}}">
+		<view class="processing-title">
+			<view>最近一次账单</view>
+			<view class="iconfont">查看所有账单</view>
+		</view>
+		<!--		有通行订单-->
+		<block wx:if="{{false}}">
+			<view class="bill-info">
+				<view>
+					<view>贵A2ZM91</view>
+					<view class="succeed" wx:if="{{false}}">11-10 15: 49 </view>
+					<view class="failed">扣款失败</view>
+				</view>
+				<view>
+					<view class="up"><text>上</text>黔东南罗甸</view>
+					<view class="down"><text>下</text>贵阳西环城北</view>
+					<view class="price">-84.46</view>
+				</view>
+			</view>
+		</block>
+		<!--		无通行订单-->
+		<block>
+			<view class="bill-empty">
+				<image src="https://p0.ssl.qhimgs4.com/t0147447b6140b14014.png"/>
+				<view>
+					<view>最近您好像没有出行</view>
+					<view>多出去走走哦</view>
+				</view>
+			</view>
+		</block>
+	</view>
+<!--	账单结束-->
+	<!--	分割线开始-->
+	<view class="split"></view>
+	<!--	分割线结束-->
+	<!--	底部导航开始-->
+	<view class="nav">
+		<view class="item">
+			<view></view>
+			<view>违章查询</view>
+		</view>
+		<view class="item">
+			<view></view>
+			<view>会员权益</view>
+		</view>
+		<view class="item">
+			<view></view>
+			<view>在线客服</view>
+		</view>
+		<view class="item">
+			<view></view>
+			<view>个人中心</view>
+		</view>
+
+	</view>
+	<!--	底部导航结束-->
 </view>

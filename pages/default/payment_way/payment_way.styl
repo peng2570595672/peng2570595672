@@ -1,0 +1,57 @@
+@import "../../../style/base.styl";
+.payment-way
+	display flex
+	flex-direction column
+	min-height 100vh
+	// 标题
+	.title
+		margin-top 40rpx
+		display flex
+		align-items center
+		padding 0 30rpx
+		height 56rpx
+		font-size 40rpx
+		&::before
+			margin-right 10rpx
+			content ''
+			width 10rpx
+			height 10rpx
+			border 6rpx solid $deepThemeColor
+			border-radius 50%
+	// 选择支付方式
+	.wrapper
+		display flex
+		align-items center
+		margin 20rpx  40rpx 0
+		height 154rpx
+		border-radius 32rpx
+		background: linear-gradient(to right , $deepThemeColor, $shallowThemeColor)
+		.iconfont
+			width 100%
+			display flex
+			align-items center
+			padding 0 40rpx
+			font-size 28rpx
+			color #fff
+			& > text
+				flex 1
+			&::after
+				content '\e601'
+				color #FFEC9A
+				font-size 22rpx
+	// 高度填充
+	.fill
+		flex 1
+	// 下一步
+	.btn
+		display flex
+		align-items center
+		justify-content center
+		margin 20rpx 60rpx 40rpx
+		height 98rpx
+		font-size 40rpx
+		color #fff
+		border-radius 48rpx
+		background: linear-gradient(to right , $deepThemeColor, $shallowThemeColor)
+		&.unavailable
+			opacity .2

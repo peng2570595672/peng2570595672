@@ -96,8 +96,8 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/test_sub_package/index/index",
-					"pathName": "pages/test_sub_package/index/index",
+					"name": "pages/default/payment_way/payment_way",
+					"pathName": "pages/default/payment_way/payment_way",
 					"query": "pages/test",
 					"scene": null
 				},

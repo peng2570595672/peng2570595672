@@ -1,0 +1,197 @@
+@import "../../../style/base.styl";
+.receiving_address
+	display flex
+	flex-direction column
+	min-height 100vh
+	// 标题
+	.title
+		margin-top 40rpx
+		display flex
+		align-items center
+		padding 0 30rpx
+		height 56rpx
+		font-size 40rpx
+		&::before
+			margin-right 10rpx
+			content ''
+			width 10rpx
+			height 10rpx
+			border 6rpx solid $deepThemeColor
+			border-radius 50%
+		& > text
+			margin-left 12rpx
+			font-size 24rpx
+			color $fontColor9
+			transform translateY(8rpx)
+	// 车牌号
+	.car-no-wrapper
+		margin-top 21rpx
+		display flex
+		align-items center
+		justify-content center
+		& > view
+			margin-right 18rpx
+			flex 0 0 60rpx
+			width 60rpx
+			&.selected
+				& > view:last-of-type
+					background: linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
+			&:nth-child(2)
+				margin-right  30rpx
+			& > view
+				&:first-of-type
+					display flex
+					align-items center
+					justify-content center
+					height 84rpx
+					font-size 60rpx
+				&:last-of-type
+					height 8rpx
+					background: $fontColor9
+					border-radius 4rpx
+			&.unselected
+				margin-right 0
+				flex 0 0 66rpx
+				width 66rpx
+				transform translateY(18rpx)
+				& > view
+					&:first-of-type
+						height 66rpx
+						color #F5C065
+						border 2rpx dotted #F5C065
+						border-radius 8rpx
+					&:last-of-type
+						text-align center
+						height auto
+						font-size 16rpx
+						color $deepThemeColor
+						background: rgba(0,0,0,0)
+						transform translateY(18rpx)
+	// 车牌颜色
+	.choose-car-no-color
+		margin-top 56rpx
+		margin-bottom 30rpx
+		padding 0 60rpx
+		display flex
+		align-items center
+		height 58rpx
+		color $fontColor6
+		.color-wrapper
+			margin-left 10rpx
+			display flex
+			& > view
+				display flex
+				margin-right 30rpx
+				align-items center
+				padding 0 14rpx
+				height 58rpx
+				font-size 20rpx
+				border-style solid
+				border-width 2rpx
+				border-radius 12rpx
+				&.blue
+					border-color #0EAFE6
+					color #0EAFE6
+					&.selected
+						color #fff
+						background: #0EAFE6
+				&.green
+					border-color $deepThemeColor
+					color $deepThemeColor
+					&.selected
+						color #fff
+						background: $deepThemeColor
+				&.yellow
+					border-color #F7B500
+					color #F7B500
+					&.selected
+						color #fff
+						background: #F7B500
+	// 分割线
+	.split
+		height 20rpx
+		background: #F7F7F7
+	// 输入开始
+	.input-wrapper
+		padding-left 60rpx
+		padding-top 34rpx
+		.input-item
+			display flex
+			align-items center
+			padding-right 60rpx
+			padding-top 30rpx
+			padding-bottom 10rpx
+			border-bottom 1rpx solid #E8E8E8
+			& > view
+				display flex
+				align-items center
+				flex 0 0 148rpx
+				height 48rpx
+				color $fontColor9
+				font-size 32rpx
+			& > input
+				display flex
+				align-items center
+				flex 1
+				height 48rpx
+			// 自动填充
+			.auto-fill
+				flex 0 0 98rpx
+				width 0 0 98rpx
+				gradualChange(to right, $deepThemeColor, $shallowThemeColor)
+				font-size 24rpx
+			// 自动定位
+			.iconfont
+				&::before
+					display inline-block
+					content '\e600'
+					flex 0 0 28rpx
+					height 40rpx
+					font-size 40rpx
+					gradualChange(to top, $deepThemeColor, $shallowThemeColor)
+			// 获取验证码
+			.validate-code
+				display flex
+				align-items center
+				height 48rpx
+				font-size 30rpx
+				color $fontColor9
+	// 高度填充
+	.fill
+		flex 1
+	// 协议
+	.agreement
+		display flex
+		align-items center
+		justify-content center
+		height 48rpx
+		font-size 24rpx
+		color $fontColor9
+		& > text
+			color $deepThemeColor
+		&::before
+			display flex
+			margin-right 10rpx
+			align-items center
+			justify-content center
+			width 28rpx
+			height 28rpx
+			content '\e6e4'
+			font-size 30rpx
+			color $fontColor9
+			border-radius 50%
+		&.selected::before
+			color $shallowThemeColor
+	// 下一步
+	.btn
+		display flex
+		align-items center
+		justify-content center
+		margin 20rpx 60rpx 40rpx
+		height 98rpx
+		font-size 40rpx
+		color #fff
+		border-radius 48rpx
+		background: linear-gradient(to right , $deepThemeColor, $shallowThemeColor)
+		&.unavailable
+			opacity .2

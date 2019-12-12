@@ -5,20 +5,34 @@
  * @version 1.0
  */
 const CryptoJS = require('./crypto-js.js');
-let app;
+let app = getApp();
 
 function setApp(a) {
 	app = a;
 }
 
-// DES 加密
-function desEncrypt(message) {
-	let keyHex = CryptoJS.enc.Utf8.parse('&*^%(IU1');
+//DES  ECB模式加密
+function encryptByDESModeEBC(message) {
+	let keyHex = CryptoJS.enc.Utf8.parse(app.globalData.plamKey);
 	let encrypted = CryptoJS.DES.encrypt(message, keyHex, {
 		mode: CryptoJS.mode.ECB,
 		padding: CryptoJS.pad.Pkcs7
 	});
-	return encrypted.toString();
+	return encrypted.ciphertext.toString();
+}
+
+
+//DES  ECB模式解密
+function decryptByDESModeEBC(ciphertext) {
+	let keyHex = CryptoJS.enc.Utf8.parse(app.globalData.plamKey);
+	let decrypted = CryptoJS.DES.decrypt({
+		ciphertext: CryptoJS.enc.Hex.parse(ciphertext)
+	}, keyHex, {
+		mode: CryptoJS.mode.ECB,
+		padding: CryptoJS.pad.Pkcs7
+	});
+	let result_value = decrypted.toString(CryptoJS.enc.Utf8);
+	return result_value;
 }
 
 // md5 加密
@@ -53,7 +67,7 @@ function parseBase64(message) {
  * @param token token
  * @param online 是否为二发签名 plamKey不一样
  */
-function signature(params, token = '', online) {
+function signature(params, token = '') {
 	// 先以对象key排序
 	let keys = Object.keys(params).sort();
 	let sign = '';
@@ -61,13 +75,13 @@ function signature(params, token = '', online) {
 	for (let key of keys) {
 		let value = params[key];
 		// value是个对象
-		if (typeof value === 'object') {
+		if (typeof value === 'object' && value !== null) {
 			// 对value为对象的数据进行序列化成字符串，然后按照ascii排序
 			let v = JSON.stringify(params[key]);
 			v = v.split('').sort().join('');
 			sign += `${key}=${v}&`;
 		} else { // 非对象
-			if (value === undefined) {
+			if (value !== 0 && !value) {
 				params[key] = '';
 				sign += `${key}=&`;
 			} else {
@@ -75,18 +89,14 @@ function signature(params, token = '', online) {
 			}
 		}
 	}
-	let plamKey = online ? app.globalData.plamKey : app.globalData.plamSelfKey
+	let plamKey = app.globalData.plamKey;
 	sign += token === '' ? `key=${plamKey}` : `key=${plamKey}&token=${token}`;
 	return md5Encrypt(sign);
 }
+
 // 签名 二发调用
 function getSignature(params, token = '') {
-	return signature(params, token, true)
-}
-
-// 签名 小程序正常接口调用
-function getSignatureForSelf(params, token = '') {
-	return signature(params, token, true);
+	return signature(params, token)
 }
 
 /**
@@ -96,25 +106,27 @@ function getSignatureForSelf(params, token = '') {
  * @param fail 失败后的回调
  */
 function getDataFromServer(path, params, fail, success, token = '', complete) {
-	if (path.indexOf('consumer-etc') === -1) {
-		path = path.replace('consumer', 'consumer-etc');
-	}
 	// 移除sign属性
 	delete params.sign;
-	params['sign'] = getSignatureForSelf(params, token);
+	params['sign'] = getSignature(params, token);
 	wx.request({
 		url: app.globalData.host + path,
 		method: 'POST',
 		data: params,
 		success: (res) => {
-				// 做一次拦截
+			// 做一次拦截 签名错误
 			if (res.data.code === 112) {
-				showToastNoIcon('当前账户已在其他地方登录，请重新登录！');
-				setTimeout(() => {
-					wx.redirectTo({
-						url: '/pages/login/login'
-					});
-				}, 3000);
+				// 隐藏类似加载中的动画
+				wx.hideLoading();
+				alert({
+					title: '安全提示',
+					content: '当前账号已在其他地方登录，请注意账号安全！',
+					confirm: () => {
+						wx.redirectTo({
+							url: '/pages/login/login'
+						});
+					}
+				});
 			} else {
 				success && success(res.data);
 			}
@@ -127,29 +139,6 @@ function getDataFromServer(path, params, fail, success, token = '', complete) {
 		}
 	});
 }
-
-// 小于10的前补0操作
-const formatNumber = (n) => {
-	n = n.toString();
-	return n[1] ? n : `0${n}`;
-};
-
-const format = (date) => {
-	const year = date.getFullYear();
-	const month = date.getMonth() + 1;
-	const day = date.getDate();
-	const hour = date.getHours();
-	const minute = date.getMinutes();
-	const second = date.getSeconds();
-	if (date.getMilliseconds().toString().length === 3) {
-		return [year, month, day].map(formatNumber).join('') + [hour, minute, second].map(formatNumber).join('') + date.getMilliseconds();
-	}
-	if (date.getMilliseconds().toString().length === 2) {
-		return `${[year, month, day].map(formatNumber).join('') + [hour, minute, second].map(formatNumber).join('') + date.getMilliseconds()}0`;
-	} else {
-		return `${[year, month, day].map(formatNumber).join('') + [hour, minute, second].map(formatNumber).join('') + date.getMilliseconds()}00`;
-	}
-};
 /**
  *  格式化时间
  * @param date 日期
@@ -174,16 +163,6 @@ function go(url) {
 		url: url
 	});
 }
-
-/**
- *  拨打电话
- */
-function phoneCall(phoneNumber) {
-	wx.makePhoneCall({
-		phoneNumber: phoneNumber
-	});
-}
-
 /**
  *  弹出吐司提示 不带icon
  * @param content 提示内容
@@ -301,6 +280,7 @@ function showLoading({
 		mask: mask
 	});
 }
+
 // 根据日期计算汉字
 function getDateDiff(dateTimeStamp) {
 	let result = '';
@@ -338,162 +318,49 @@ function getDateDiff(dateTimeStamp) {
 function mobilePhoneReplace(res) {
 	if (!res) return '';
 	let reg = /(\d{3})\d{4}(\d{4})/ig;
-	return res.replace(reg,'$1****$2')
+	return res.replace(reg, '$1****$2')
 }
 
+// 比较微信基础库版本
+function compareVersion(v1, v2) {
+	v1 = v1.split('.');
+	v2 = v2.split('.');
+	const len = Math.max(v1.length, v2.length);
 
-/**
- *  发送错误信息到服务器
- * @param area 区域表示 如青海二发金溢
- * @param cosArr 指令数组 如：['00A40000023F00', '0084000004']
- * @param code 执行执行返回的code 如果没有 填-1
- * @param result 指令执行的结果
- */
-function sendException2Server(area, cosArr, code, result) {
-	try {
-		try {
-			let r = JSON.stringify(result);
-			result = r
-		} catch (e) {
-		}
-		let msg = `【${area}】指令：=》 ${JSON.stringify(cosArr)} =》 code：${code} =》 执行结果：${result}`;
-		getDataFromServer('consumer/etc/public/w_logger', {msg: msg}, () => {
-			console.log('发送异常到服务器失败！');
-		}, () => {
-			console.log('发送异常到服务器成功！');
-		});
-	} catch (e) {
-		console.log(e);
+	while (v1.length < len) {
+		v1.push('0');
 	}
+	while (v2.length < len) {
+		v2.push('0');
+	}
+
+	for (let i = 0; i < len; i++) {
+		const num1 = parseInt(v1[i]);
+		const num2 = parseInt(v2[i]);
+
+		if (num1 > num2) {
+			return 1;
+		} else if (num1 < num2) {
+			return -1;
+		}
+	}
+	return 0;
 }
-
-/**
- *  校验二发订单数据合法性
- * @param info
- * let info = {
-			"enableTime": "2019-09-29",
-			"expireTime": "2029-09-29",
-			"plateNo": "晋JAM087",
-			"plateColor": 0,
-			"carType": 1,
-			"userName": "杨江",
-			"userIdNum": "141122198806220013",
-			"userIdType": "0",
-			"type": 1,
-			"outsideDimensions": "4671×1902×1697mm",
-			"engineNum": "J100045411111111",
-			"approvedCount": "5人"
-		}
- * @returns {boolean}
- */
-function validateOnlineDistribution(encodeToGb2312, info, self) {
-	let isOk = true;
-	let msg = '';
-	// 姓名是否为空
-	if (!info.userName) {
-		isOk = false;
-		msg = '姓名为空，请检查！';
-	} else { //姓名编码校验
-		try {
-			encodeToGb2312(info.userName);
-		} catch (e) {
-			// 姓名编码异常
-			isOk = false;
-			msg = '姓名编码转换出错，请检查！';
-		}
-	}
-
-	// 车牌是否为空
-	if (!info.plateNo) {
-		isOk = false;
-		msg = '车牌为空，请检查！';
-	} else { // 车牌编码校验
-		try {
-			encodeToGb2312(info.plateNo);
-		} catch (e) {
-			// 车牌编码异常
-			isOk = false;
-			msg = '车牌编码转换出错，请检查！';
-		}
-	}
-
-	// 轮廓尺寸校验
-	if (!info.outsideDimensions) {
-		isOk = false;
-		msg = '轮廓尺寸为空，请检查！';
-	} else {
-		let result = info.outsideDimensions.match(/\d{4}/ig);
-		if (result.length !== 3) {
-			isOk = false;
-			msg = '轮廓尺寸有误，请检查！';
-		}
-	}
-	if (!info.engineNum) {
-		isOk = false;
-		msg = '发动机引擎编号为空，请检查！';
-	} else {
-		// 发动机长度校验
-		if (info.engineNum.length > 16) {
-			isOk = false;
-			msg = '发动机引擎编号过长，请检查！';
-		}
-	}
-	if (!isOk) {
-		self.isOver();
-		showToastNoIcon(msg);
-	}
-	return isOk;
-}
-
-
-/**
- * 计算卡片有效期
- * @param res 对象
- * @returns {*}
- */
-function calculationValidityPeriod (res) {
-	let currentTime = Date.now();
-	let time = new Date('2020/01/01');
-	let date = new Date();
-	let fullYear = date.getFullYear();
-	let month = date.getMonth() + 1;
-	month = month < 10 ? '0' + month : month;
-	let day = date.getDate();
-	day = day < 10 ? '0' + day : day;
-	//  写入卡片的时间都为当前时间
-	res.cardEnableTime = `${fullYear}-${month}-${day}`;
-	res.cardExpireTime = `${fullYear + 10}-${month}-${day}`;
-	// 写入obu时间
-	// 2020/01/01之后 或者非货车
-	// carType 11 12分别为蓝牌货车 黄牌货车
-	if (((res.carType === 11 || res.carType === 12) && currentTime >= time.getTime()) || (res.carType === 1 || res.carType === 2)) {
-		res.enableTime = `${fullYear}-${month}-${day}`;
-		res.expireTime = `${fullYear + 10}-${month}-${day}`;
-	} else {
-		// 启用时间为2020年一月一日
-		res.enableTime = '2020-01-01';
-		res.expireTime = '2030-01-01'
-	}
-	return res;
-}
-
 module.exports = {
 	setApp,
 	getDataFromServer, // 从服务器上获取数据
 	parseBase64,
 	formatTime, // 格式化时间
 	go, // 常规跳转
-	phoneCall, // 拨打电话
 	showToastNoIcon,
 	uploadOcrFile,
 	uploadFile,
 	isJsonString,
-	getSignature,
 	alert,
 	showLoading,
 	getDateDiff,
 	mobilePhoneReplace,
-	sendException2Server,
-	validateOnlineDistribution,
-	calculationValidityPeriod
+	encryptByDESModeEBC,
+	decryptByDESModeEBC,
+	compareVersion
 };

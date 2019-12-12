@@ -1,0 +1,62 @@
+.payment-way {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.payment-way .title {
+  margin-top: 40rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 30rpx;
+  height: 56rpx;
+  font-size: 40rpx;
+}
+.payment-way .title::before {
+  margin-right: 10rpx;
+  content: '';
+  width: 10rpx;
+  height: 10rpx;
+  border: 6rpx solid #14ac69;
+  border-radius: 50%;
+}
+.payment-way .wrapper {
+  display: flex;
+  align-items: center;
+  margin: 20rpx 40rpx 0;
+  height: 154rpx;
+  border-radius: 32rpx;
+  background: linear-gradient(to right, #14ac69, #84d157);
+}
+.payment-way .wrapper .iconfont {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 40rpx;
+  font-size: 28rpx;
+  color: #fff;
+}
+.payment-way .wrapper .iconfont > text {
+  flex: 1;
+}
+.payment-way .wrapper .iconfont::after {
+  content: '\e601';
+  color: #ffec9a;
+  font-size: 22rpx;
+}
+.payment-way .fill {
+  flex: 1;
+}
+.payment-way .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20rpx 60rpx 40rpx;
+  height: 98rpx;
+  font-size: 40rpx;
+  color: #fff;
+  border-radius: 48rpx;
+  background: linear-gradient(to right, #14ac69, #84d157);
+}
+.payment-way .btn.unavailable {
+  opacity: 0.2;
+}

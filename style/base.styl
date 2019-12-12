@@ -1,0 +1,17 @@
+// 渐变主题色
+// 深色
+$deepThemeColor = #14AC69;
+// 浅色
+$shallowThemeColor = #84D157;
+// 文字主色
+$fontColor3 = #33333D;
+$fontColor6 = #66666D;
+$fontColor9 = #99999D;
+// 错误信息
+$error = #FF563C;
+
+// 文字渐变
+gradualChange($direction, $startColor, $endColor)
+	background: linear-gradient($direction, $startColor, $endColor);
+	-webkit-background-clip: text;
+	color: transparent;

@@ -7,19 +7,10 @@ App({
 		uploadOcrUrl: 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址
 		uploadUrl: 'https://file.cyzl.com/file/upload', // 上传图片无需审核地址
 		plamKey: '7cbadfb0cb144733b866239b7adbca8c', // 签名用到的key --- 二发
-		plamSelfKey: '62638495b4f44a2e8c043bd43c771112', // 签名用到的key 暂时无用
 		platformId: '', // 平台id
 		SDKVersion: '',// 小程序基础库版本
-		userInfo: {},
-		orderId: '', // 二发时所用
-		memberId: '', // 二发时所用
-		token: '',// 二发时所用
 		quality: 80,
-		finishCount: 0,
-		openId: '',
-		serverInfoId: '',
-		channel: '',
-		fromMiniProgram: false
+		serverInfoId: ''
 	},
 	onLaunch (options) {
 		util.setApp(this);
@@ -29,22 +20,6 @@ App({
 				this.globalData.SDKVersion = res.SDKVersion;
 			}
 		});
-		// 获取其他小程序跳转过来携带的参数  platformId  orderId  memberId  token serverInfoId，channel
-		let extra = options.referrerInfo.extraData;
-		if (extra) {
-			let keys = Object.keys(extra);
-			if (keys.length === 5) {
-				for (let key of keys) {
-					this.globalData[key] = extra[key];
-				}
-				this.globalData.fromMiniProgram = true;
-			} else {
-				util.alert({
-					title: '错误提示',
-					content: '参数错误，所需参数：platformId、orderId、memberId、token、serverInfoId、channel'
-				});
-			}
-		}
 		// 检测更新
 		this.checkUpdate();
 	},
@@ -71,8 +46,5 @@ App({
 				});
 			}
 		});
-	},
-	onShow () {
-
 	}
 });

@@ -1,12 +1,13 @@
 {
 	"pages": [
-		"pages/default/index/index"
+		"pages/default/index/index",
+		"pages/default/receiving_address/receiving_address",
+		"pages/default/payment_way/payment_way"
 	],
 	"window": {
 		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#FFFFFF",
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "ETC"
+		"navigationBarTextStyle": "black"
 	},
 	"subpackages": [
 		{

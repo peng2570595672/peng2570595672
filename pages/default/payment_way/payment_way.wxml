@@ -1,0 +1,15 @@
+<view class="payment-way">
+	<!--	车牌号标题开始-->
+	<view class="title">扣款方式</view>
+<!--	选择支付方式开始-->
+	<view class="wrapper">
+		<view class="iconfont">
+			<text>授权绑定银行卡，作为ETC的扣款方式</text>
+		</view>
+	</view>
+	<!--	选择支付方式结束-->
+	<view class="fill"></view>
+	<!--	按钮开始-->
+	<view class="btn unavailable">签约免密支付</view>
+	<!--	按钮结束-->
+</view>
