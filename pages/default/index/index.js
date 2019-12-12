@@ -1,3 +1,7 @@
+/**
+ * @author 狂奔的蜗牛
+ * @desc 首页
+ */
 const util = require('../../../utils/util.js');
 Page({
 	data: {
