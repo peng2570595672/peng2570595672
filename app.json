@@ -11,8 +11,8 @@
 	},
 	"subpackages": [
 		{
-			"root": "pages/test_sub_package",
-			"name": "pages/test_sub_package",
+			"root": "pages/personal_center",
+			"name": "pages/personal_center",
 			"pages": [
 				"index/index"
 			]
