@@ -1,6 +1,7 @@
 <view class="payment-way">
 	<!--	车牌号标题开始-->
 	<view class="title">扣款方式</view>
+	<!--	车牌号标题结束-->
 <!--	选择支付方式开始-->
 	<view class="wrapper">
 		<view class="iconfont">
