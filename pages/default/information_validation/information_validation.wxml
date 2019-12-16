@@ -65,7 +65,7 @@
 	<!--	展开信息开始-->
 	<view class="open">
 		<view></view>
-		<text class="iconfont {{opened ? 'opened' : ''}}" catchtap="onClickToggleOpenOrCloseHandle">展开信息</text>
+		<text class="iconfont {{opened ? 'opened' : ''}}" catchtap="onClickToggleOpenOrCloseHandle">{{opened ? '收起信息' : '展开信息'}}</text>
 	</view>
 	<!--	展开信息结束-->
 	<!--	自动填充开始-->
