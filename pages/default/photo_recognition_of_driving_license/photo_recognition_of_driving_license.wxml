@@ -16,21 +16,21 @@
 			<cover-view class="preview-view-wrapper">
 				<cover-view class="preview-view {{type === 0 ? 'selected' : ''}}" data-index="0" catchtap="onClickRetryHandle">
 					<cover-image class="preview"
-					             src="https://ss1.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a9e671b9a551f3dedcb2bf64a4eff0ec/4610b912c8fcc3cef70d70409845d688d53f20f7.jpg"></cover-image>
+					             src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576509286468&di=d0da26db50bddc4a776f22a7df3273e8&imgtype=0&src=http%3A%2F%2Fwww.chachaba.com%2Fnews%2Fuploads%2F191118%2F7183_191118093418_1.jpg"></cover-image>
 				</cover-view>
 				<cover-image class="status" src="/pages/default/assets/icon_succeed.png"/>
 			</cover-view>
 			<cover-view class="preview-view-wrapper">
 				<cover-view class="preview-view  {{type === 1 ? 'selected' : ''}}" data-index="1" catchtap="onClickRetryHandle">
 					<cover-image class="preview"
-					             src="https://ss1.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a9e671b9a551f3dedcb2bf64a4eff0ec/4610b912c8fcc3cef70d70409845d688d53f20f7.jpg"></cover-image>
+					             src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576509286468&di=d0da26db50bddc4a776f22a7df3273e8&imgtype=0&src=http%3A%2F%2Fwww.chachaba.com%2Fnews%2Fuploads%2F191118%2F7183_191118093418_1.jpg"></cover-image>
 				</cover-view>
 				<cover-image class="status" src="/pages/default/assets/icon_failed.png"/>
 			</cover-view>
 			<cover-view class="preview-view-wrapper">
 				<cover-view class="preview-view  {{type === 2 ? 'selected' : ''}}" data-index="2" catchtap="onClickRetryHandle">
 					<cover-image class="preview"
-					             src="https://ss1.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a9e671b9a551f3dedcb2bf64a4eff0ec/4610b912c8fcc3cef70d70409845d688d53f20f7.jpg"></cover-image>
+					             src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576509286468&di=d0da26db50bddc4a776f22a7df3273e8&imgtype=0&src=http%3A%2F%2Fwww.chachaba.com%2Fnews%2Fuploads%2F191118%2F7183_191118093418_1.jpg"></cover-image>
 				</cover-view>
 				<cover-image wx:if="{{false}}" class="status" src="/pages/default/assets/icon_succeed.png"/>
 			</cover-view>
