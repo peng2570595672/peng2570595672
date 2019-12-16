@@ -92,7 +92,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 3,
 			"list": [
 				{
 					"id": 0,
@@ -113,6 +113,13 @@
 					"name": "online_distribution/pages/connect_bluetooth_for_qinghaiartc/connect_bluetooth_for_qinghaiartc",
 					"pathName": "online_distribution/pages/connect_bluetooth_for_qinghaiartc/connect_bluetooth_for_qinghaiartc",
 					"query": "serverInfoId=607886715545190401&setMealId=627888126932549632",
+					"scene": null
+				},
+				{
+					"id": 3,
+					"name": "pages/personal_center/my_order/my_order",
+					"pathName": "pages/personal_center/my_order/my_order",
+					"query": "",
 					"scene": null
 				}
 			]

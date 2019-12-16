@@ -16,7 +16,8 @@
 			"root": "pages/personal_center",
 			"name": "pages/personal_center",
 			"pages": [
-				"index/index"
+				"index/index",
+				"my_order/my_order"
 			]
 		}
 	],
