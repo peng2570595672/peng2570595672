@@ -194,8 +194,9 @@
 }
 .payment-way .input-wrapper .input-item > view {
   margin-right: 30rpx;
-  flex: 0 0 128rpx;
+  flex: 0 0 134rpx;
   color: #99999d;
+  box-sizing: border-box;
 }
 .payment-way .input-wrapper .input-item > input {
   flex: 1;
