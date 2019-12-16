@@ -1,6 +1,6 @@
 /**
  * @author 狂奔的蜗牛
- * @desc 签约成功
+ * @desc 信息确认
  */
 const util = require('../../../utils/util.js');
 Page({

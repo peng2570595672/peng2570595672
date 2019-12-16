@@ -1,6 +1,6 @@
 /**
  * @author 狂奔的蜗牛
- * @desc 签约成功
+ * @desc 行驶证拍照
  */
 const util = require('../../../utils/util.js');
 Page({
