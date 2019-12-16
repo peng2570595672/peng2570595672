@@ -1,3 +1,9 @@
+page {
+  background: #fcfcfd;
+}
+.my_order {
+  padding-bottom: 240rpx;
+}
 .my_order .total-cost {
   height: 60rpx;
   background: #f6f6f6;
@@ -7,5 +13,101 @@
   text-indent: 58rpx;
 }
 .my_order .order-list {
-  background: #fcfcfd;
+  padding: 10rpx 34rpx 0;
+}
+.my_order .order-list .order-list-content {
+  padding: 0 24rpx;
+  height: 184rpx;
+  background: #fff;
+  box-shadow: 4rpx 4rpx 46rpx 0px rgba(126,132,156,0.1);
+  border-radius: 34rpx;
+  margin-top: 20rpx;
+}
+.my_order .order-list .order-list-content .order-list-top {
+  display: flex;
+  height: 90rpx;
+  line-height: 90rpx;
+  border-bottom: 1rpx solid #f1f1f1;
+  padding-right: 15rpx;
+}
+.my_order .order-list .order-list-content .order-list-top .license-plate {
+  flex: 5;
+  font-size: 40rpx;
+  font-weight: 500;
+  color: #33333d;
+}
+.my_order .order-list .order-list-content .order-list-top .time {
+  flex: 5;
+  font-size: 24rpx;
+  color: #99999d;
+  text-align: right;
+}
+.my_order .order-list .order-list-content .order-list-top .buckling-failure {
+  font-size: 28rpx;
+  color: #f00;
+}
+.my_order .order-list .order-list-content .order-list-bottom {
+  display: flex;
+  align-items: center;
+  height: 92rpx;
+  line-height: 92rpx;
+  font-size: 28rpx;
+  color: #99999d;
+  padding-right: 15rpx;
+}
+.my_order .order-list .order-list-content .order-list-bottom .start,
+.my_order .order-list .order-list-content .order-list-bottom .end {
+  flex: 3.5;
+  display: flex;
+  align-items: center;
+  height: 92rpx;
+  line-height: 92rpx;
+}
+.my_order .order-list .order-list-content .order-list-bottom .start::before,
+.my_order .order-list .order-list-content .order-list-bottom .end::before {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28rpx;
+  height: 28rpx;
+  font-size: 20rpx;
+  color: #fff;
+  border-radius: 28rpx;
+  background: #ffaf9a;
+  content: '上';
+  margin-right: 10rpx;
+}
+.my_order .order-list .order-list-content .order-list-bottom .end::before {
+  content: '下';
+  background: #8cd5b5;
+}
+.my_order .order-list .order-list-content .order-list-bottom .money {
+  flex: 3;
+  font-size: 48rpx;
+  color: #2fb565;
+  text-align: right;
+}
+.my_order .payment {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 240rpx;
+  font-size: 24rpx;
+  color: #9d9da0;
+  text-align: center;
+  background: #fff;
+}
+.my_order .payment .payment-prompt {
+  padding: 34rpx 0 20rpx;
+}
+.my_order .payment button {
+  width: 84%;
+  height: 98rpx;
+  line-height: 98rpx;
+  background: linear-gradient(45deg, #14ac69 0%, #84d157 100%);
+  box-shadow: 0px 8rpx 10rpx 0px rgba(132,209,87,0.2);
+  border-radius: 50rpx;
+  font-size: 40rpx;
+  color: #fff;
 }

@@ -2,5 +2,8 @@
 	"navigationBarBackgroundColor": "#FFFFFF",
 	"backgroundColor": "#FFFFFF",
 	"navigationBarTextStyle": "black",
-	"navigationBarTitleText": "测试"
+	"navigationBarTitleText": "我的账单",
+	"usingComponents": {
+		"dropdownmenu": "/components/dropdownmenu/dropdownmenu"
+	}
 }

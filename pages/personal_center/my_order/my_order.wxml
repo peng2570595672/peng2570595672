@@ -1,8 +1,40 @@
 <view class="my_order">
+	<dropdownmenu dropDownMenuTitle='{{dropDownMenuTitle}}' dropDownMenuFilterData='{{data2}}' dropDownMenuDistrictData='{{data1}}'  bind:selectedItem='selectedItem' />
+	<!--	通行总额开始-->
 	<view class="total-cost">通行总额：625.20元；扣款失败：32.05元</view>
+	<!--	通行总额结束-->
+	<!--订单列表开始-->
 	<view class="order-list">
-		<view>
-
+		<view class="order-list-content"  catchtap="go">
+			<view class="order-list-top">
+				<view class="license-plate">贵A66983</view>
+				<view class="time">2019-11-10 15: 49 </view>
+			</view>
+			<view class="order-list-bottom">
+				<view class="start">黔东南罗甸</view>
+				<view class="end">贵阳西环城北</view>
+				<view class="money">-84.46</view>
+			</view>
+		</view>
+		<view class="order-list-content"  catchtap="go">
+			<view class="order-list-top">
+				<view class="license-plate">贵A66983</view>
+				<view class="buckling-failure">扣款失败</view>
+			</view>
+			<view class="order-list-bottom">
+				<view class="start">黔东南罗甸</view>
+				<view class="end">贵阳西环城北</view>
+				<view class="money">-84.46</view>
+			</view>
 		</view>
 	</view>
+	<!--订单列表结束-->
+	<!--底部补缴开始-->
+	<view class="payment ">
+		<view class="payment-prompt">欠费有可能被列为黑名单，影响您的高速通行，请及时补缴！</view>
+		<view>
+			<button>补缴</button>
+		</view>
+	</view>
+	<!--底部补缴结束-->
 </view>

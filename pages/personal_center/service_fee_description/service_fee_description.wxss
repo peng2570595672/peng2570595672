@@ -1,0 +1,30 @@
+.service_fee_description {
+  font-size: 30rpx;
+  line-height: 44rpx;
+  color: #66666d;
+  padding-top: 20rpx;
+}
+.service_fee_description .cont1 {
+  font-size: 30rpx;
+  text-align: justify;
+  padding: 50rpx 54rpx 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+.service_fee_description .cont1 .label {
+  width: 28rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  text-align: center;
+  font-size: 20rpx;
+  color: #99999d;
+  border-radius: 28rpx;
+  background: #d8d8d8;
+  margin-top: 6rpx;
+  margin-right: 20rpx;
+}
+.service_fee_description .cont1 .char {
+  flex: 9.5;
+}

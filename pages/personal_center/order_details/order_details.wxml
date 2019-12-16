@@ -1,0 +1,70 @@
+<view class="order_details">
+	<!--	扣费金额开始-->
+	<view class="deduction-amount">
+		<view class="deduction-amount-title">扣费金额</view>
+		<view>-320.23</view>
+		<view class="failure-prompted">扣款失败，请检查余额是否充足</view>
+	</view>
+	<!--扣费金额结束-->
+	<!--扣费详情开始-->
+	<view class="deduction-details">
+		<view>
+			<view>扣费类型</view>
+			<view>高速扣费</view>
+		</view>
+		<view>
+			<view>扣费时间</view>
+			<view>2019-11-21 12:12:23</view>
+		</view>
+		<view>
+			<view>扣费方式</view>
+			<view>微信零钱支付</view>
+		</view>
+		<view>
+			<view>应付金额</view>
+			<view>¥458</view>
+		</view>
+		<view>
+			<view>通行抵扣卡优惠</view>
+			<view>¥120</view>
+		</view>
+		<view>
+			<view>服务费</view>
+			<view>¥12</view>
+		</view>
+		<view class="instructions" catchtap="go">服务费扣费说明 》</view>
+	</view>
+	<!--扣费详情结束-->
+	<!--车辆详情开始-->
+	<view class="deduction-details">
+		<view>
+			<view>车牌号码</view>
+			<view>贵A66983</view>
+		</view>
+		<view>
+			<view>进站时间</view>
+			<view>2019-11-21 12:12:23</view>
+		</view>
+		<view>
+			<view>进站口</view>
+			<view>贵阳北</view>
+		</view>
+		<view>
+			<view>出站时间</view>
+			<view>2019-11-21 14:12:25</view>
+		</view>
+		<view>
+			<view>出站口</view>
+			<view>遵义南</view>
+		</view>
+	</view>
+	<!--车辆详情结束-->
+	<!--底部补缴开始-->
+	<view class="payment ">
+		<view class="payment-prompt">欠费有可能被列为黑名单，影响您的高速通行，请及时补缴！</view>
+		<view>
+			<button>补缴</button>
+		</view>
+	</view>
+	<!--底部补缴结束-->
+</view>

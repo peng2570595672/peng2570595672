@@ -1,0 +1,10 @@
+<view class="service_fee_description">
+	<view class="cont1">
+		<view class="label">1</view>
+		<view class="char">车辆欠费超48小时候，开始计算服务费。 </view>
+	</view>
+	<view class="cont1">
+		<view class="label">2</view>
+		<view class="char">服务费为欠款的万分之五，每日在本金的基础上+万分之五，最高不超过100%，补缴进高速账户。例如：欠费1000，开始计算服务费期间，每日为0.5元，服务费最高只能到1000元， 1000元后不再算服务费。 计算公式：（实付通行费 x 万分之五 x N）+ 实付通行费，N指天数。</view>
+	</view>
+</view>
