@@ -1,0 +1,11 @@
+.my_order .total-cost {
+  height: 60rpx;
+  background: #f6f6f6;
+  font-size: 24rpx;
+  color: #a9a9ac;
+  line-height: 60rpx;
+  text-indent: 58rpx;
+}
+.my_order .order-list {
+  background: #fcfcfd;
+}

@@ -1,0 +1,8 @@
+<view class="my_order">
+	<view class="total-cost">通行总额：625.20元；扣款失败：32.05元</view>
+	<view class="order-list">
+		<view>
+
+		</view>
+	</view>
+</view>

@@ -1,6 +1,5 @@
 {
 	"devDependencies": {
-
 		"eslint": "^4.15.0",
 		"eslint-config-standard": "^10.2.1",
 		"eslint-plugin-promise": "^3.4.0",
