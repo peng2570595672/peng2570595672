@@ -38,21 +38,24 @@ Page({
 	onLoad() {
 		let date = new Date();
 		this.formatTime(date);
-		console.log(this.formatTime(date))
+		console.log(this.formatTime(date));
 		this.setData({
 			[ 'dropDownMenuTitle[0]']:this.formatTime(date)
 		})
-		this.setData({
-			// dropDownMenuTitle: options.id ? options.id : '', // 车辆信息id
-		});
 	},
+	//账单详情
+	go() {
+		util.go('/pages/personal_center/order_details/order_details');
+	},
+	//转换时间
 	formatTime(date) {
 		const year = date.getFullYear();
 		const month = date.getMonth() + 1;
 		return `${year}年${month}月`;
 	},
-	selectedItem: function (e) {
-		console.log(e)
+	//下拉选择
+	selectedItem(e) {
+		console.log(e);
 		// console.log('id --' + e.detail.selectedId + "cityname = " + e.detail.selectedTitle);
 	},
 });

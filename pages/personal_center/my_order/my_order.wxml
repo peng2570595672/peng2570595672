@@ -5,7 +5,7 @@
 	<!--	通行总额结束-->
 	<!--订单列表开始-->
 	<view class="order-list">
-		<view class="order-list-content">
+		<view class="order-list-content"  catchtap="go">
 			<view class="order-list-top">
 				<view class="license-plate">贵A66983</view>
 				<view class="time">2019-11-10 15: 49 </view>
@@ -16,7 +16,7 @@
 				<view class="money">-84.46</view>
 			</view>
 		</view>
-		<view class="order-list-content">
+		<view class="order-list-content"  catchtap="go">
 			<view class="order-list-top">
 				<view class="license-plate">贵A66983</view>
 				<view class="buckling-failure">扣款失败</view>
