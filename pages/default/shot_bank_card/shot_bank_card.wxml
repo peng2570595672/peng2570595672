@@ -1,0 +1,18 @@
+<view class="shot_bank_card">
+	<view class="title">请拍摄银行卡数字面</view>
+	<!--	相加开始-->
+	<camera class="camera" device-position="back" flash="auto" binderror="cameraErrorHandle">
+		<cover-image class="border" src="{{picPath}}"></cover-image>
+		<cover-view class="photo-wrapper" wx:if="{{type === 1 || type === 2}}">
+			<cover-image class="preview iconfont succeed" src="https://ss1.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a9e671b9a551f3dedcb2bf64a4eff0ec/4610b912c8fcc3cef70d70409845d688d53f20f7.jpg"></cover-image>
+			<cover-image class="preview  iconfont failed" src="https://ss1.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a9e671b9a551f3dedcb2bf64a4eff0ec/4610b912c8fcc3cef70d70409845d688d53f20f7.jpg"></cover-image>
+		</cover-view>
+	</camera>
+	<!--	相加结束-->
+	<!--	底部按钮区域开始-->
+	<view class="btns">
+		<view class="iconfont choice-from-album" catchtap="choiceFromAbumHandle"></view>
+		<view class="iconfont take-photo" catchtap="takePhotoHandle"><image src="/pages/default/assets/icon_camera.png"/></view>
+	</view>
+	<!--	底部按钮区域结束-->
+</view>

@@ -1,0 +1,115 @@
+.shot_bank_card {
+  height: 100vh;
+  background: #33333c;
+}
+.shot_bank_card .title {
+  display: flex;
+  align-items: center;
+  height: 56rpx;
+  padding-left: 60rpx;
+  font-size: 40rpx;
+  color: #fff;
+}
+.shot_bank_card .camera {
+  position: relative;
+  margin-top: 24rpx;
+  width: 100%;
+  height: 748rpx;
+  box-sizing: border-box;
+}
+.shot_bank_card .camera .border {
+  margin: 0 auto;
+  width: 690rpx;
+  margin-top: 130rpx;
+  height: 435.6rpx;
+}
+.shot_bank_card .camera .photo-wrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 182rpx;
+  display: flex;
+  align-items: center;
+}
+.shot_bank_card .camera .photo-wrapper .preview {
+  margin-left: 30rpx;
+  display: inline-block;
+  flex: 0 0 152rpx;
+  width: 152rpx !important;
+  height: 104rpx;
+  border-radius: 4rpx;
+  overflow: auto;
+}
+.shot_bank_card .camera .photo-wrapper .preview:nth-child(1).succeed::before,
+.shot_bank_card .camera .photo-wrapper .preview:nth-child(1).failed::before {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34rpx;
+  height: 34rpx;
+  position: absolute;
+  top: 24rpx;
+  left: 166rpx;
+  content: '\e630';
+  font-size: 36rpx;
+  color: #14ac69;
+}
+.shot_bank_card .camera .photo-wrapper .preview:nth-child(1).failed::before {
+  content: '\e626';
+  color: #ff563c;
+}
+.shot_bank_card .camera .photo-wrapper .preview:nth-child(2).succeed::before,
+.shot_bank_card .camera .photo-wrapper .preview:nth-child(2).failed::before {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34rpx;
+  height: 34rpx;
+  position: absolute;
+  top: 24rpx;
+  left: 342rpx;
+  content: '\e630';
+  font-size: 36rpx;
+  color: #14ac69;
+}
+.shot_bank_card .camera .photo-wrapper .preview:nth-child(2).failed::before {
+  content: '\e626';
+  color: #ff563c;
+}
+.shot_bank_card .btns {
+  position: relative;
+  margin-top: 66rpx;
+  background: #f00;
+}
+.shot_bank_card .btns .choice-from-album {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 46rpx;
+  left: 78rpx;
+  width: 62.6rpx;
+  height: 50rpx;
+}
+.shot_bank_card .btns .choice-from-album::before {
+  content: '\e646';
+  color: #fff;
+  font-size: 70rpx;
+}
+.shot_bank_card .btns .take-photo {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  background: #fff;
+  left: 50%;
+  margin-left: -70rpx;
+}
+.shot_bank_card .btns .take-photo > image {
+  width: 64rpx;
+  height: 54rpx;
+}

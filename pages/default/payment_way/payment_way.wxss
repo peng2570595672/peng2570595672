@@ -19,6 +19,28 @@
   border: 6rpx solid #14ac69;
   border-radius: 50%;
 }
+.payment-way .title.other-title {
+  display: flex;
+  align-items: center;
+  margin-top: 64rpx;
+}
+.payment-way .title.other-title > view.text {
+  flex: 1;
+}
+.payment-way .title.other-title > view:last-of-type {
+  padding-right: 50rpx;
+  display: flex;
+  align-items: center;
+  height: 92rpx;
+}
+.payment-way .title.other-title > view:last-of-type::before {
+  display: inline-block;
+  width: 42rpx;
+  height: 36rpx;
+  content: '\e61a';
+  font-size: 36rpx;
+  color: #14ac69;
+}
 .payment-way .wrapper {
   display: flex;
   align-items: center;
@@ -42,6 +64,144 @@
   content: '\e601';
   color: #ffec9a;
   font-size: 22rpx;
+}
+.payment-way .choice-payment-way-mask {
+  margin: 20rpx 40rpx;
+  padding: 1rpx;
+  height: 154rpx;
+  background: linear-gradient(to right, #14ac69, #84d157);
+  border-radius: 32rpx;
+  overflow: hidden;
+}
+.payment-way .choice-payment-way-mask .choice-payment-way {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 32rpx;
+}
+.payment-way .choice-payment-way-mask .choice-payment-way .left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding-left: 40rpx;
+}
+.payment-way .choice-payment-way-mask .choice-payment-way .left > image {
+  flex: 0 0 78rpx;
+  width: 78rpx;
+  height: 78rpx;
+}
+.payment-way .choice-payment-way-mask .choice-payment-way .left > view {
+  margin-left: 20rpx;
+}
+.payment-way .choice-payment-way-mask .choice-payment-way .left > view .left-title {
+  display: flex;
+  align-items: center;
+  height: 56rpx;
+  font-size: 40rpx;
+}
+.payment-way .choice-payment-way-mask .choice-payment-way .left > view .left-sub-title {
+  display: flex;
+  align-items: center;
+  height: 44rpx;
+  font-size: 28rpx;
+  color: #66666d;
+}
+.payment-way .choice-payment-way-mask .choice-payment-way .right {
+  display: flex;
+  align-items: center;
+  padding-right: 40rpx;
+  height: 36rpx;
+  color: #55c28b;
+}
+.payment-way .tips {
+  display: flex;
+  align-items: center;
+  padding-left: 60rpx;
+  height: 40rpx;
+  font-size: 24rpx;
+  color: #66666d;
+}
+.payment-way .bank-no {
+  display: flex;
+  align-items: center;
+  margin: 20rpx 40rpx 20rpx;
+  padding-left: 54rpx;
+  height: 92rpx;
+  background: #fff6f3;
+  border-radius: 12rpx;
+}
+.payment-way .bank-no > input {
+  flex: 1;
+  font-size: 28rpx;
+}
+.payment-way .bank-no > view {
+  padding-right: 40rpx;
+  display: flex;
+  align-items: center;
+  height: 92rpx;
+}
+.payment-way .bank-no > view::before {
+  display: inline-block;
+  width: 42rpx;
+  height: 36rpx;
+  content: '\e61a';
+  font-size: 36rpx;
+  color: #14ac69;
+  pointer-events: none;
+}
+.payment-way .shot-id-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 40rpx 30rpx 28rpx;
+  width: 284rpx;
+  height: 70rpx;
+  font-size: 28rpx;
+  color: #fff;
+  border-radius: 35rpx;
+  background: linear-gradient(to right, #14ac69, #84d157);
+}
+.payment-way .shot-id-card::before {
+  display: inline-block;
+  margin-right: 10rpx;
+  width: 42rpx;
+  height: 36rpx;
+  content: '\e65c';
+  font-size: 44rpx;
+  color: #fff;
+  transform: translateY(-6rpx);
+  pointer-events: none;
+}
+.payment-way .input-wrapper {
+  padding: 0 40rpx;
+}
+.payment-way .input-wrapper .photo-wrapper {
+  padding: 10rpx 20rpx 8rpx;
+}
+.payment-way .input-wrapper .photo-wrapper > image {
+  display: inline-block;
+  margin-right: 20rpx;
+  width: 110rpx;
+  height: 70rpx;
+}
+.payment-way .input-wrapper .input-item {
+  display: flex;
+  padding: 16rpx 30rpx 10rpx;
+  font-size: 32rpx;
+  border-bottom: 1rpx solid #f4f4f4;
+}
+.payment-way .input-wrapper .input-item > view {
+  margin-right: 30rpx;
+  flex: 0 0 128rpx;
+  color: #99999d;
+}
+.payment-way .input-wrapper .input-item > input {
+  flex: 1;
+}
+.payment-way .input-wrapper .input-item:last-of-type {
+  margin-bottom: 20rpx;
 }
 .payment-way .fill {
   flex: 1;

@@ -1,0 +1,13 @@
+<view class="signed_successfully">
+	<!--	成功提示开始-->
+	<image src="/pages/default/assets/signed_successfully.png"/>
+	<view class="signed_title">签约成功</view>
+	<view class="signed_subtitle">办理还剩下最后一步</view>
+	<!--	成功提示结束-->
+	<!--	操作部分开始-->
+	<view class="btns">
+		<view class="iconfont upload">上传行驶证信息</view>
+		<view><view>行驶证不在身边，稍后上传！</view></view>
+	</view>
+	<!--	操作部分结束-->
+</view>
