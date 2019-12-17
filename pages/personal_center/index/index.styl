@@ -2,4 +2,92 @@
 $themeColor1 = #1FD1B1;
 $themeColor2 = #5DE59A;
 .index
-	color red
+	background #F6F6F6
+	height 2000rpx
+	//顶部
+	.top
+		width 100%
+		height 592rpx
+		background linear-gradient(156deg,rgba(23,173,105,1) 0%,rgba(127,208,88,1) 100%)
+		//头像
+		.head_portrait
+			position relative
+			display flex
+			align-items center
+			& > image
+				background rgba(255,255,255,0.4)
+				margin-top 150rpx
+				margin-left 316rpx
+				width 120rpx
+				height 120rpx
+				border-radius 50%
+		//登陆状态
+		.landing_status
+			display flex
+			margin-top 22rpx
+			margin-left 324rpx
+			& > view
+				display inline-block
+				margin-top 19rpx
+				font-size 36rpx
+				color white
+		//会员权益
+		.vip_equity
+			display flex
+			margin-top 22rpx
+			margin-left 276rpx
+			& > view
+				width 200rpx
+				height 50rpx
+				background rgba(255,255,255,0.3)
+				border-radius 30rpx
+				border 2rpx solid rgba(255,255,255,0.5)
+				font-weight 600
+				text-align center
+				padding-top 10rpx
+				color white
+	//用户操作选项
+	.items
+		margin -100rpx 30rpx
+		width 682rpx
+		height 200rpx
+		background rgba(255,255,255,1)
+		border-radius 20rpx
+		color #FFFFFF
+		& > view
+			display flex
+			padding-top 35rpx
+			// 户操作选项按钮
+			& > button
+				display flex
+				flex-direction column
+				justify-content center
+				align-items center
+				flex 0 0 100rpx
+				height 150rpx
+				padding 0
+				font-size 24rpx
+				background white
+				// 用户操作选项图标展示
+				.icon_image
+					display block
+					width 72rpx
+					height 72rpx
+					background rgba(255,199,94,1)
+					border-radius 50%
+				& > view
+					display flex
+					color rgba(153,153,153,1)
+	//关注活动
+	.activity_follow
+		margin 130rpx 30rpx
+		width 682rpx
+		height 140rpx
+		background rgba(255,255,255,1)
+		border-radius 20rpx
+		color #FFFFFF
+
+
+
+
+
