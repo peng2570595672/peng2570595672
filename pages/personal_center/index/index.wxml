@@ -17,7 +17,7 @@
 	<!--	用户操作选项-->
 	<view class="items">
 		<view>
-			<button>
+			<button catchtap="myEtc">
 				<image class="icon_image btn_item"></image>
 				<view>我的ETC</view>
 			</button>
