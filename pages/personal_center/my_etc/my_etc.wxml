@@ -1,0 +1,23 @@
+<view class="index">
+    <!--    我的车辆-->
+    <view class="new_item new_item_other">
+        <block>
+            <!--            车辆信息-->
+            <view class="new_item_top">
+                <view>
+                    <view>贵A88888</view>
+                    <view>黔通卡</view>
+                </view>
+                <view>办理中</view>
+            </view>
+            <view class="new_item_bottom">
+                <view> 扣款方式：微信零钱支付 </view>
+                <view> 继续办理 </view>
+            </view>
+        </block>
+    </view>
+    <!--    新增车辆-->
+    <view class="bottom_container" catchtap="newVehicle">
+        <button>新增办理</button>
+    </view>
+</view>

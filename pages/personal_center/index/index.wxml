@@ -1,3 +1,42 @@
 <view class="index">
-	123123
+	<!--	顶部-->
+	<view class="top">
+		<!--		头像-->
+		<view class="head_portrait">
+			<image src=""></image>
+		</view>
+		<!--		登陆状态-->
+		<view class="landing_status">
+			<view>未登陆</view>
+		</view>
+		<!--		会员权益-->
+		<view class="vip_equity">
+			<view>会员权益</view>
+		</view>
+	</view>
+	<!--	用户操作选项-->
+	<view class="items">
+		<view>
+			<button catchtap="myEtc">
+				<image class="icon_image btn_item"></image>
+				<view>我的ETC</view>
+			</button>
+			<button>
+				<image class="icon_image btn_item"></image>
+				<view>ETC账单</view>
+			</button>
+			<button>
+				<image class="icon_image btn_item"></image>
+				<view>我的卡劵</view>
+			</button>
+			<button>
+				<image class="icon_image btn_item"></image>
+				<view>客服中心</view>
+			</button>
+		</view>
+	</view>
+	<!--	关注活动-->
+	<view class="activity_follow">
+		<!--		活动展示-->
+	</view>
 </view>

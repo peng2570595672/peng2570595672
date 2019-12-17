@@ -1,0 +1,75 @@
+<view class="information_validation">
+	<!--	轮播图开始-->
+	<swiper
+		class="my-swiper"
+		indicator-dots="{{false}}"
+		autoplay="{{false}}"
+		previous-margin="40rpx"
+		next-margin="52rpx"
+		display-multiple-items="{{1}}"
+		bindchange="onChangeHandle"
+		>
+		<swiper-item class="my-swiper-item">
+			<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576509286468&di=d0da26db50bddc4a776f22a7df3273e8&imgtype=0&src=http%3A%2F%2Fwww.chachaba.com%2Fnews%2Fuploads%2F191118%2F7183_191118093418_1.jpg">
+				<view class="iconfont animated {{current === 0 ? 'fadeIn' : 'fadeOut'}}" wx:if="{{current === 0}}">点击重新拍摄</view>
+			</image>
+		</swiper-item>
+		<swiper-item class="my-swiper-item">
+			<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576509286468&di=d0da26db50bddc4a776f22a7df3273e8&imgtype=0&src=http%3A%2F%2Fwww.chachaba.com%2Fnews%2Fuploads%2F191118%2F7183_191118093418_1.jpg">
+				<view class="iconfont animated {{current === 1 ? 'fadeIn' : 'fadeOut'}}"  wx:if="{{current === 1}}">点击重新拍摄</view>
+			</image>
+		</swiper-item>
+	</swiper>
+	<!--	轮播图结束-->
+	<!--	标题开始-->
+	<view class="title">核对信息</view>
+	<!--	标题结束-->
+	<!--	提示开始-->
+	<view class="tips">*请仔细核对以下信息，有误项可点击修改</view>
+	<!--	提示结束-->
+	<!--	内容开始-->
+	<view class="content-wrapper {{opened ? 'opened' : ''}}">
+		<view class="item">
+			<view>车主姓名</view>
+			<view>小男孩</view>
+		</view>
+		<view class="item">
+			<view>车牌号</view>
+			<view>粤A 12334</view>
+		</view>
+		<view class="item">
+			<view>发动机号</view>
+			<view>J6QY1233519</view>
+		</view>
+		<view class="item">
+			<view>车辆识别号</view>
+			<view>LZAHDT12122211223</view>
+		</view>
+		<block wx:if="{{opened}}">
+			<view class="split"></view>
+			<view class="item">
+				<view>车辆类型</view>
+				<view>小型轿车</view>
+			</view>
+			<view class="item">
+				<view>地址</view>
+				<view>贵州省贵阳市乌当区</view>
+			</view>
+			<view class="item">
+				<view>使用性质</view>
+				<view>非运营</view>
+			</view>
+		</block>
+	</view>
+	<!--	内容结束-->
+	<!--	展开信息开始-->
+	<view class="open">
+		<view></view>
+		<text class="iconfont {{opened ? 'opened' : ''}}" catchtap="onClickToggleOpenOrCloseHandle">{{opened ? '收起信息' : '展开信息'}}</text>
+	</view>
+	<!--	展开信息结束-->
+	<!--	自动填充开始-->
+	<view class="auto-fill"></view>
+	<!--	自动填充结束-->
+	<view class="btn" catchtap="onClickComfirmHandle">我已确认</view>
+</view>

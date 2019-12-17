@@ -1,3 +1,6 @@
 {
-	"navigationBarTitleText": "支付方式"
+	"navigationBarTitleText": "支付方式",
+	"usingComponents": {
+		"choice_bank": "/components/choice_bank/choice_bank"
+	}
 }

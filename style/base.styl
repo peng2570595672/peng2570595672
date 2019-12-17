@@ -15,3 +15,7 @@ gradualChange($direction, $startColor, $endColor)
 	background: linear-gradient($direction, $startColor, $endColor);
 	-webkit-background-clip: text;
 	color: transparent;
+// 适配
+rpx2vmin($rpx)
+	return ($rpx * 100 / 750)vmin
+

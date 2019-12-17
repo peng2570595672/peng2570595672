@@ -89,6 +89,8 @@
 				border-style solid
 				border-width 2rpx
 				border-radius 12rpx
+				&:last-of-type
+					margin-right 0
 				&.blue
 					border-color #0EAFE6
 					color #0EAFE6
@@ -136,10 +138,12 @@
 				height 48rpx
 			// 自动填充
 			.auto-fill
-				flex 0 0 98rpx
-				width 0 0 98rpx
+				flex 0 0 100rpx
+				width 0 0 100rpx
+
 				gradualChange(to right, $deepThemeColor, $shallowThemeColor)
 				font-size 24rpx
+				box-sizing content-box
 			// 自动定位
 			.iconfont
 				&::before
@@ -156,6 +160,7 @@
 				height 48rpx
 				font-size 30rpx
 				color $fontColor9
+				box-sizing content-box
 	// 高度填充
 	.fill
 		flex 1

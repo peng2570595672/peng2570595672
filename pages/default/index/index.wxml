@@ -11,9 +11,15 @@
 		autoplay="{{true}}"
 		interval="{{5000}}"
 		circular="{{true}}">
-		<swiper-item class="my-swiper-item"></swiper-item>
-		<swiper-item class="my-swiper-item"></swiper-item>
-		<swiper-item class="my-swiper-item"></swiper-item>
+		<swiper-item class="my-swiper-item">
+			<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576509286468&di=d0da26db50bddc4a776f22a7df3273e8&imgtype=0&src=http%3A%2F%2Fwww.chachaba.com%2Fnews%2Fuploads%2F191118%2F7183_191118093418_1.jpg"/>
+		</swiper-item>
+		<swiper-item class="my-swiper-item">
+			<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576509286468&di=d0da26db50bddc4a776f22a7df3273e8&imgtype=0&src=http%3A%2F%2Fwww.chachaba.com%2Fnews%2Fuploads%2F191118%2F7183_191118093418_1.jpg"/>
+		</swiper-item>
+		<swiper-item class="my-swiper-item">
+			<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576509286468&di=d0da26db50bddc4a776f22a7df3273e8&imgtype=0&src=http%3A%2F%2Fwww.chachaba.com%2Fnews%2Fuploads%2F191118%2F7183_191118093418_1.jpg"/>
+		</swiper-item>
 	</swiper>
 	<!--	轮播图结束-->
 

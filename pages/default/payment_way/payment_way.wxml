@@ -1,16 +1,86 @@
 <view class="payment-way">
-	<!--	车牌号标题开始-->
+	<!--	扣款方式标题开始-->
 	<view class="title">扣款方式</view>
-	<!--	车牌号标题结束-->
-<!--	选择支付方式开始-->
-	<view class="wrapper">
-		<view class="iconfont">
+	<!--	扣款方式标题结束-->
+	<!--	选择支付方式开始-->
+	<view class="wrapper" wx:if="{{!choiceObj}}">
+		<view class="iconfont" catchtap="choiceBank">
 			<text>授权绑定银行卡，作为ETC的扣款方式</text>
 		</view>
 	</view>
 	<!--	选择支付方式结束-->
+	<block wx:else>
+		<!--	回显支付方式开始-->
+		<view class="choice-payment-way-mask">
+			<view class="choice-payment-way">
+				<view class="left">
+					<image
+						src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576212803176&di=400c841f2b1499b1644d6181c9e44eea&imgtype=0&src=http%3A%2F%2Fcdn053.yun-img.com%2Fstatic%2Fupload%2Fjiachenzhiye%2Fteam%2F20180625170841_30355.png"/>
+					<view>
+						<view class="left-title">中国工商银行</view>
+						<view class="left-sub-title">再送30元高速通行券</view>
+					</view>
+				</view>
+				<view class="right" catchtap="choiceBank">点击更改</view>
+			</view>
+		</view>
+		<!--	回显支付方式结束-->
+		<!--	文本提示开始-->
+		<view class="tips">* 签约成功后需扣取0.01元作为账户验证，随即退回</view>
+		<!--	文本提示结束-->
+		<!--	扣款方式标题开始-->
+		<view class="title">银行卡号</view>
+		<!--	扣款方式标题结束-->
+		<!--	银行卡号开始-->
+		<view class="bank-no">
+			<input type="number" placeholder="请输入或拍摄工商银行卡卡号" placeholder-class="placeholder"/>
+			<view class="iconfont" catchtap="onClickShotBankCardHandle" data-type="0"></view>
+		</view>
+		<!--	银行卡号结束-->
+		<!--	文本提示开始-->
+		<view class="tips">* 该银行卡号应为微信本人所有</view>
+		<!--	文本提示结束-->
+
+		<!--	扣款方式标题开始-->
+		<view class="title other-title">
+			<view class="text">微信本人实名信息</view>
+			<view class="iconfont"  catchtap="onClickShotBankCardHandle" data-type="1"></view>
+		</view>
+		<!--	扣款方式标题结束-->
+
+		<!--	拍摄身份证开始-->
+		<view class="shot-id-card iconfont" wx:if="{{false}}">拍摄身份证</view>
+		<!--	拍摄身份证结束-->
+
+		<!--	输入身份证号 和身份证姓名开始-->
+		<view class="input-wrapper">
+			<view class="photo-wrapper">
+				<image
+					src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576230567947&di=8fdbe0e6f59bc99999aa94bae9ef92b3&imgtype=0&src=http%3A%2F%2F02.imgmini.eastday.com%2Fmobile%2F20180712%2F20180712200500_f623ba2cff37018a6fb82b17b08bd3de_1.jpeg"/>
+				<image
+					src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576230567947&di=8fdbe0e6f59bc99999aa94bae9ef92b3&imgtype=0&src=http%3A%2F%2F02.imgmini.eastday.com%2Fmobile%2F20180712%2F20180712200500_f623ba2cff37018a6fb82b17b08bd3de_1.jpeg"/>
+			</view>
+			<view class="input-item">
+				<view>姓名</view>
+				<input type="text" placeholder="小男孩" placeholder-class="placeholder"/>
+			</view>
+			<view class="input-item">
+				<view>身份证号</view>
+				<input type="text" placeholder="220625198904071555" placeholder-class="placeholder"/>
+			</view>
+		</view>
+		<!--	输入身份证号 和身份证姓名结束-->
+		<!--	文本提示开始-->
+		<view class="tips">* 签约免密支付，需提供微信本人身份信息</view>
+		<!--	文本提示结束-->
+	</block>
 	<view class="fill"></view>
 	<!--	按钮开始-->
-	<view class="btn unavailable">签约免密支付</view>
+	<view class="btn" catchtap="next">签约免密支付</view>
 	<!--	按钮结束-->
+
+	<!--	选择支付方式开始-->
+	<choice_bank id="choiceBank" bindonClickTranslucentHandle="onClickTranslucentHandle"
+	             bindonClickItemHandle="onClickItemHandle"></choice_bank>
+	<!--	选择支付方式结束-->
 </view>

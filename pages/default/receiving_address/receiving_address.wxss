@@ -98,6 +98,9 @@
   border-width: 2rpx;
   border-radius: 12rpx;
 }
+.receiving_address .choose-car-no-color .color-wrapper > view:last-of-type {
+  margin-right: 0;
+}
 .receiving_address .choose-car-no-color .color-wrapper > view.blue {
   border-color: #0eafe6;
   color: #0eafe6;
@@ -153,12 +156,13 @@
   height: 48rpx;
 }
 .receiving_address .input-wrapper .input-item .auto-fill {
-  flex: 0 0 98rpx;
-  width: 0 0 98rpx;
+  flex: 0 0 100rpx;
+  width: 0 0 100rpx;
   background: linear-gradient(to right, #14ac69, #84d157);
   -webkit-background-clip: text;
   color: transparent;
   font-size: 24rpx;
+  box-sizing: content-box;
 }
 .receiving_address .input-wrapper .input-item .iconfont::before {
   display: inline-block;
@@ -176,6 +180,7 @@
   height: 48rpx;
   font-size: 30rpx;
   color: #99999d;
+  box-sizing: content-box;
 }
 .receiving_address .fill {
   flex: 1;

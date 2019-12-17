@@ -1,0 +1,50 @@
+<view class="photo_recognition_of_driving_license">
+	<!--	左边相机部分开始-->
+	<camera class="camera" device-position="back" flash="auto" binderror="cameraErrorHandle">
+		<cover-view class="nav">
+			<cover-view  class="back" catchtap="onClickBackHandle">
+				<cover-image class="back_arrow" src="/pages/default/assets/icon_back.png"></cover-image>
+			</cover-view>
+			<cover-view class="title">{{title}}</cover-view>
+		</cover-view>
+		<cover-view class="left">
+			<cover-image class="border" src="{{picPath}}"></cover-image>
+			<cover-view class="tips">请按照拍摄框内指引进行拍摄</cover-view>
+		</cover-view>
+		<!--		预览图开始-->
+		<cover-view class="right">
+			<cover-view class="preview-view-wrapper">
+				<cover-view class="preview-view {{type === 0 ? 'selected' : ''}}" data-index="0" catchtap="onClickRetryHandle">
+					<cover-image class="preview"
+					             src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576509286468&di=d0da26db50bddc4a776f22a7df3273e8&imgtype=0&src=http%3A%2F%2Fwww.chachaba.com%2Fnews%2Fuploads%2F191118%2F7183_191118093418_1.jpg"></cover-image>
+				</cover-view>
+				<cover-image class="status" src="/pages/default/assets/icon_succeed.png"/>
+			</cover-view>
+			<cover-view class="preview-view-wrapper">
+				<cover-view class="preview-view  {{type === 1 ? 'selected' : ''}}" data-index="1" catchtap="onClickRetryHandle">
+					<cover-image class="preview"
+					             src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576509286468&di=d0da26db50bddc4a776f22a7df3273e8&imgtype=0&src=http%3A%2F%2Fwww.chachaba.com%2Fnews%2Fuploads%2F191118%2F7183_191118093418_1.jpg"></cover-image>
+				</cover-view>
+				<cover-image class="status" src="/pages/default/assets/icon_failed.png"/>
+			</cover-view>
+			<cover-view class="preview-view-wrapper">
+				<cover-view class="preview-view  {{type === 2 ? 'selected' : ''}}" data-index="2" catchtap="onClickRetryHandle">
+					<cover-image class="preview"
+					             src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576509286468&di=d0da26db50bddc4a776f22a7df3273e8&imgtype=0&src=http%3A%2F%2Fwww.chachaba.com%2Fnews%2Fuploads%2F191118%2F7183_191118093418_1.jpg"></cover-image>
+				</cover-view>
+				<cover-image wx:if="{{false}}" class="status" src="/pages/default/assets/icon_succeed.png"/>
+			</cover-view>
+		</cover-view>
+		<!--		预览图结束-->
+	</camera>
+	<!--	左边相机部分结束-->
+	<!--	右边按钮部分开始-->
+	<view class="btns">
+		<view>
+			<view class="iconfont take-photo {{retry ? 'retry' : ''}}" catchtap="takePhotoHandle"><image src="{{retry ? '/pages/default/assets/icon_camera_white.png' : '/pages/default/assets/icon_camera.png'}}"/></view>
+			<view class="retry-title" wx:if="{{retry}}">重新拍摄</view>
+		</view>
+		<view class="iconfont choice-from-album" catchtap="choiceFromAbumHandle"></view>
+	</view>
+	<!--	右边按钮部分结束-->
+</view>
