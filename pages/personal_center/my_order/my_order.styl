@@ -1,6 +1,4 @@
-//渐变主题色
-$themeColor1 = #99999D;
-$themeColor2 = #5DE59A;
+@import "../../../style/base.styl";
 page
 	background #FCFCFD
 .my_order
@@ -33,11 +31,11 @@ page
 					flex 5
 					font-size 40rpx
 					font-weight 500
-					color #33333D
+					color $fontColor3
 				.time
 					flex 5
 					font-size 24rpx
-					color $themeColor1
+					color $fontColor9
 					text-align right
 				.buckling-failure
 					font-size 28rpx
@@ -48,7 +46,7 @@ page
 				height 92rpx
 				line-height 92rpx
 				font-size 28rpx
-				color $themeColor1
+				color $fontColor9
 				padding-right 15rpx
 				.start,
 				.end
@@ -95,7 +93,7 @@ page
 			width 84%
 			height 98rpx
 			line-height 98rpx
-			background linear-gradient(45deg,rgba(20,172,105,1) 0%,rgba(132,209,87,1) 100%)
+			background linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
 			box-shadow 0px 8rpx 10rpx 0px rgba(132,209,87,0.2)
 			border-radius 50rpx
 			font-size 40rpx

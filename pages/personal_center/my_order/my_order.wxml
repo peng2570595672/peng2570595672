@@ -1,5 +1,5 @@
 <view class="my_order">
-	<dropdownmenu dropDownMenuTitle='{{dropDownMenuTitle}}' dropDownMenuFilterData='{{data2}}' dropDownMenuDistrictData='{{data1}}'  bind:selectedItem='selectedItem' />
+	<dropdownmenu dropDownMenuTitle='{{dropDownMenuTitle}}' dropDownMenuFilterData='{{vehicleList}}' dropDownMenuDistrictData='{{timeList}}'  bind:selectedItem='selectedItem' />
 	<!--	通行总额开始-->
 	<view class="total-cost">通行总额：625.20元；扣款失败：32.05元</view>
 	<!--	通行总额结束-->
