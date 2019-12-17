@@ -1,0 +1,118 @@
+.my_order {
+  padding-bottom: 240rpx;
+}
+.my_order .license-plate {
+  font-size: 36rpx;
+  color: #474750;
+  text-indent: 56rpx;
+  padding-top: 48rpx;
+}
+.my_order .order-list {
+  padding: 10rpx 34rpx 0;
+}
+.my_order .order-list .order-list-content {
+  padding: 0 36rpx;
+  height: 332rpx;
+  background: #fff;
+  box-shadow: 4rpx 4rpx 46rpx 0px rgba(126,132,156,0.1);
+  border-radius: 34rpx;
+  margin-top: 20rpx;
+}
+.my_order .order-list .order-list-content .order-list-title {
+  height: 78rpx;
+  line-height: 78rpx;
+  font-size: 28rpx;
+  color: $themeColor1;
+  border-bottom: 1rpx solid #f1f1f1;
+}
+.my_order .order-list .order-list-content .order-list-top {
+  display: flex;
+  align-items: center;
+  height: 98rpx;
+  line-height: 98rpx;
+  font-size: 32rpx;
+  color: $themeColor1;
+  padding-right: 15rpx;
+  border-bottom: 1rpx solid #f1f1f1;
+}
+.my_order .order-list .order-list-content .order-list-top .start,
+.my_order .order-list .order-list-content .order-list-top .end {
+  flex: 4;
+  display: flex;
+  align-items: center;
+  height: 92rpx;
+  line-height: 92rpx;
+}
+.my_order .order-list .order-list-content .order-list-top .start::before,
+.my_order .order-list .order-list-content .order-list-top .end::before {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28rpx;
+  height: 28rpx;
+  font-size: 20rpx;
+  color: #fff;
+  border-radius: 28rpx;
+  background: #ffaf9a;
+  content: '上';
+  margin-right: 10rpx;
+}
+.my_order .order-list .order-list-content .order-list-top .end::before {
+  content: '下';
+  background: #8cd5b5;
+}
+.my_order .order-list .order-list-content .order-list-top .money {
+  flex: 2;
+  font-size: 48rpx;
+  color: #2fb565;
+  text-align: right;
+}
+.my_order .order-list .order-list-content .order-list-bottom {
+  padding-right: 15rpx;
+}
+.my_order .order-list .order-list-content .order-list-bottom>view {
+  display: flex;
+  font-size: 28rpx;
+  color: $themeColor1;
+  line-height: 40rpx;
+  padding-top: 22rpx;
+}
+.my_order .order-list .order-list-content .order-list-bottom>view>view {
+  flex: 5;
+}
+.my_order .order-list .order-list-content .order-list-bottom>view>view:last-child {
+  text-align: right;
+  color: #474750;
+}
+.my_order .instructions {
+  text-align: right;
+  font-size: 24rpx;
+  color: $themeColor1;
+  line-height: 48rpx;
+  margin-top: 20rpx;
+  margin-right: 30rpx;
+}
+.my_order .payment {
+  position: fixed;
+  left: 0;
+  bottom: 40rpx;
+  width: 100%;
+  font-size: 28rpx;
+  color: #9d9da0;
+  text-align: center;
+  background: #fff;
+}
+.my_order .payment button {
+  width: 84%;
+  height: 98rpx;
+  line-height: 98rpx;
+  background: linear-gradient(to right, #14ac69, #84d157);
+  box-shadow: 0px 8rpx 10rpx 0px rgba(132,209,87,0.2);
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  color: #fff;
+}
+.my_order .payment button text {
+  font-size: 40rpx;
+  margin-right: 22rpx;
+}

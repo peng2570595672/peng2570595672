@@ -1,0 +1,104 @@
+@import "../../../style/base.styl";
+.my_order
+	padding-bottom 240rpx
+	//通行总额
+	.license-plate
+		font-size 36rpx
+		color #474750
+		text-indent 56rpx
+		padding-top 48rpx
+	//订单列表
+	.order-list
+		padding 10rpx 34rpx 0
+		.order-list-content
+			padding 0 36rpx
+			height 332rpx
+			background #fff
+			box-shadow 4rpx 4rpx 46rpx 0px rgba(126,132,156,0.1)
+			border-radius 34rpx
+			margin-top 20rpx
+			.order-list-title
+				height 78rpx
+				line-height 78rpx
+				font-size 28rpx
+				color $themeColor1
+				border-bottom 1rpx solid #F1F1F1
+			.order-list-top
+				display flex
+				align-items center
+				height 98rpx
+				line-height 98rpx
+				font-size 32rpx
+				color $themeColor1
+				padding-right 15rpx
+				border-bottom 1rpx solid #F1F1F1
+				.start,
+				.end
+					flex 4
+					display flex
+					align-items center
+					height 92rpx
+					line-height 92rpx
+					&::before
+						display flex
+						align-items center
+						justify-content center
+						width 28rpx
+						height 28rpx
+						font-size 20rpx
+						color #fff
+						border-radius 28rpx
+						background #FFAF9A
+						content '上'
+						margin-right 10rpx
+				.end
+					&::before
+						content '下'
+						background #8CD5B5
+				.money
+					flex 2
+					font-size 48rpx
+					color #2FB565
+					text-align right
+			.order-list-bottom
+				padding-right 15rpx
+				&>view
+					display flex
+					font-size 28rpx
+					color $themeColor1
+					line-height 40rpx
+					padding-top 22rpx
+					&>view
+						flex 5
+					&>view:last-child
+						text-align right
+						color #474750
+	.instructions
+		text-align right
+		font-size 24rpx
+		color $themeColor1
+		line-height 48rpx
+		margin-top 20rpx
+		margin-right 30rpx
+	//底部补缴
+	.payment
+		position fixed
+		left 0
+		bottom 40rpx
+		width 100%
+		font-size 28rpx
+		color #9D9DA0
+		text-align center
+		background #fff
+		button
+			width 84%
+			height 98rpx
+			line-height 98rpx
+			background linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
+			box-shadow 0px 8rpx 10rpx 0px rgba(132,209,87,0.2)
+			border-radius 50rpx
+			font-size 28rpx
+			color #FFFFFF
+			text
+				font-size 40rpx
+				margin-right 22rpx
