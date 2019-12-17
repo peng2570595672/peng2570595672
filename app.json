@@ -20,6 +20,7 @@
 			"name": "pages/personal_center",
 			"pages": [
 				"index/index",
+				"my_etc/my_etc",
 				"my_order/my_order",
 				"order_details/order_details",
 				"service_fee_description/service_fee_description"
