@@ -6,7 +6,8 @@
 		"pages/default/payment_way/payment_way",
 		"pages/default/signed_successfully/signed_successfully",
 		"pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
-		"pages/default/information_validation/information_validation"
+		"pages/default/information_validation/information_validation",
+		"pages/default/processing_progress/processing_progress"
 	],
 	"window": {
 		"navigationBarBackgroundColor": "#FFFFFF",

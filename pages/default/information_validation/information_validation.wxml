@@ -71,5 +71,5 @@
 	<!--	自动填充开始-->
 	<view class="auto-fill"></view>
 	<!--	自动填充结束-->
-	<view class="btn">我已确认</view>
+	<view class="btn" catchtap="onClickComfirmHandle">我已确认</view>
 </view>

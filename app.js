@@ -9,6 +9,8 @@ App({
 		plamKey: '7cbadfb0cb144733b866239b7adbca8c', // 签名用到的key --- 二发
 		platformId: '', // 平台id
 		SDKVersion: '',// 小程序基础库版本
+		pixelRatio: 2,
+		screenWidth: 750,
 		quality: 80,
 		serverInfoId: ''
 	},
@@ -17,7 +19,10 @@ App({
 		// 获取是否为iphone x系列
 		wx.getSystemInfo({
 			success: (res) => {
+				console.log(res);
 				this.globalData.SDKVersion = res.SDKVersion;
+				this.globalData.pixelRatio = res.pixelRatio;
+				this.globalData.screenWidth = res.screenWidth;
 			}
 		});
 		// 检测更新

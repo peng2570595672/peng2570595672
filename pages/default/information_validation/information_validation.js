@@ -21,5 +21,9 @@ Page({
 		this.setData({
 			current: e.detail.current
 		});
+	},
+	// 提交信息
+	onClickComfirmHandle () {
+		util.go('/pages/default/processing_progress/processing_progress');
 	}
 });
