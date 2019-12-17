@@ -128,6 +128,20 @@
 					"pathName": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
 					"query": "type=2",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "个人中心",
+					"pathName": "pages/personal_center/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的ETC",
+					"pathName": "pages/personal_center/my_etc/my_etc",
+					"query": "",
+					"scene": null
 				}
 			]
 		}
