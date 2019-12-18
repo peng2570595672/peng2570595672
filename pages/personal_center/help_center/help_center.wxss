@@ -155,3 +155,9 @@ page .mask .wrapper .is-scroll {
   background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, #fff 100%);
   padding-top: 74rpx;
 }
+page .replace {
+  padding-top: 58rpx;
+  color: #0091ff;
+  text-align: center;
+  font-size: 32rpx;
+}
