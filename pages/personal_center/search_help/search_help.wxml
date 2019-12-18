@@ -1,0 +1,27 @@
+<view class="help-center">
+	<!--帮助列表开始-->
+	<view class="help-list">
+		<view class="help-search">
+			<input  confirm-type="search" name="search" type='text'  placeholder="请输入关键词" bindconfirm="bindconfirm" />
+		</view>
+		<view class="list">
+			<view class="list-title">热门搜索</view>
+			<view wx:for="{{list}}" wx:key="index" class="list-content" catchtap="showDetail" data-content="{{item}}">
+				{{item.title}}
+			</view>
+		</view>
+	</view>
+	<!--帮助列表结束-->
+	<!--弹出详情开始-->
+	<view class="mask animated {{showDetailWtapper?'slideInUp':'slideInDown'}}" wx:if="{{showDetailMask}}">
+		<view class="top" catchtap="hide"></view>
+		<view class="wrapper animated {{showDetailWtapper?'slideInDown':'slideOutDown'}}">
+			<view class="details-title">{{detailsContent.title}}</view>
+			<view wx:for="{{detailsContent.des}}" wx:key="index" class="details-list">
+				<view class="label">·</view>
+				<view class="char">{{item.content}} </view>
+			</view>
+		</view>
+	</view>
+	<!--弹出详情结束-->
+</view>

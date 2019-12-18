@@ -1,0 +1,88 @@
+@import "../../../style/base.styl";
+page
+	background #F7F7F7
+	.help-center
+		// 帮助列表
+		.help-list
+			.help-search
+				background #fff
+				padding 60rpx 0 40rpx
+				margin-bottom 20rpx
+				&>input
+					width 92%
+					height 70rpx
+					line-height 70rpx
+					box-sizing border-box
+					font-size 32rpx
+					color #17AD69
+					padding-left 40rpx
+					background #F5F5F5
+					border-radius 35rpx
+					margin 0 auto
+			.list
+				background #fff
+				.list-title
+					width 100%
+					height 98rpx
+					line-height 98rpx
+					font-size 32rpx
+					text-indent 44rpx
+					color $fontColor3
+					border-bottom 2rpx solid #ECECEC
+				.list-content
+					height 98rpx
+					line-height 98rpx
+					font-size 28rpx
+					color $fontColor6
+					border-bottom 2rpx solid #ECECEC
+					margin-left 40rpx
+				&>view:last-child
+					border-bottom 0
+	// 弹出详情
+	.mask
+		position fixed
+		left 0
+		top 0
+		right 0
+		bottom 0
+		z-index 1
+		background: rgba(0, 0, 0, .6)
+		.top
+			position fixed
+			left 0
+			top 0
+			bottom 0
+			width 100%
+			height 25%
+			background: rgba(0, 0, 0, 0)
+		.wrapper
+			position fixed
+			left 0rpx
+			top 25%
+			right 0
+			bottom 0
+			height 75%
+			background #fff
+			border-radius 32rpx 32rpx 0px 0px
+			.details-title
+				padding 90rpx 52rpx 0
+				font-size 40rpx
+				color $fontColor3
+			.details-list
+				font-size 30rpx
+				text-align justify
+				padding 50rpx 54rpx 0
+				display flex
+				line-height 44rpx
+				color $fontColor6
+				flex-direction row
+				flex-wrap nowrap
+				justify-content flex-start
+				.label
+					text-align center
+					font-size 100rpx
+					color $fontColor3
+					margin-top -5rpx
+					margin-right 20rpx
+				.char
+					flex 9.5
