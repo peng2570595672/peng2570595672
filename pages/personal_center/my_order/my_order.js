@@ -80,8 +80,12 @@ Page({
 		});
 	},
 	// 账单详情
-	go () {
+	goDetails () {
 		util.go('/pages/personal_center/order_details/order_details');
+	},
+	// 去补缴
+	go () {
+		util.go('/pages/personal_center/payment_confirmation/payment_confirmation');
 	},
 	// 下拉选择
 	selectedItem (e) {

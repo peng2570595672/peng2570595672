@@ -1,0 +1,48 @@
+<view class="help-center">
+	<!--售后服务/在线客服开始-->
+	<view class="service">
+		<view class="service-name">Hi！张晓晓</view>
+		<view class="service-btn">
+			<button><text>售后服务</text></button>
+			<button><text>在线客服</text></button>
+		</view>
+	</view>
+	<!--售后服务/在线客服结束-->
+	<!--帮助列表开始-->
+	<view class="help-list">
+		<view class="help-search">
+			<view catchtap="goSearch">
+				<text>请输入关键词</text>
+			</view>
+		</view>
+		<view class="list">
+			<scroll-view class="list-title" scroll-x>
+				<view class="list-title-child {{tabIndex == index ?'tab_index':''}}" wx:for="{{datas}}" wx:key="index" catchtap="tab" data-index="{{index}}">
+					{{item.title}}
+					<view></view>
+				</view>
+			</scroll-view>
+			<view wx:for="{{datas[tabIndex].sub}}" wx:key="index" class="list-content" catchtap="showDetail" data-content="{{item}}">
+				{{item.title}}
+			</view>
+		</view>
+	</view>
+	<!--帮助列表结束-->
+	<!--弹出详情开始-->
+	<view class="mask animated {{showDetailWtapper?'slideInUp':'slideInDown'}}" wx:if="{{showDetailMask}}">
+		<view class="top" catchtap="hide"></view>
+		<view class="wrapper animated {{showDetailWtapper?'slideInDown':'slideOutDown'}}">
+			<view class="details-title">{{detailsContent.title}}</view>
+			<view class="details-list">
+				<view class="details-list-box">
+					<view wx:for="{{detailsContent.des}}" wx:key="index" class="cont1">
+						<view class="label">·</view>
+						<view class="char">{{item.content}} </view>
+					</view>
+				</view>
+			</view>
+			<view class="is-scroll" wx:if="{{fatherHeight <= childHeight ? 'showScroll': ''}}">向下划动查看全部内容</view>
+		</view>
+	</view>
+	<!--弹出详情结束-->
+</view>

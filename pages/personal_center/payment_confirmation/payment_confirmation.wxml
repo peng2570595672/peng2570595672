@@ -4,7 +4,7 @@
 	<!--	通行总额结束-->
 	<!--订单列表开始-->
 	<view class="order-list">
-		<view class="order-list-content"  catchtap="go">
+		<view class="order-list-content">
 			<view class="order-list-title">高速通行</view>
 			<view class="order-list-top">
 				<view class="start">黔东南罗甸</view>
@@ -22,7 +22,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="order-list-content"  catchtap="go">
+		<view class="order-list-content">
 			<view class="order-list-title">高速通行</view>
 			<view class="order-list-top">
 				<view class="start">黔东南罗甸</view>
@@ -42,7 +42,7 @@
 		</view>
 	</view>
 	<!--订单列表结束-->
-	<view class="instructions" catchtap="go">服务费扣费说明 》</view>
+	<view class="instructions" catchtap="goInstructions">服务费扣费说明 》</view>
 	<!--底部补缴开始-->
 	<view class="payment ">
 		<button>合计支付：<text>669.56</text>立即补缴</button>
