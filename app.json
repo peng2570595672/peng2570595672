@@ -26,6 +26,7 @@
 				"payment_confirmation/payment_confirmation",
 				"service_fee_description/service_fee_description",
 				"help_center/help_center",
+				"member_benefits/member_benefits",
 				"search_help/search_help"
 			]
 		}
