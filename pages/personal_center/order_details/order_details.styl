@@ -1,6 +1,4 @@
-//渐变主题色
-$themeColor1 = #99999D;
-$themeColor2 = #5DE59A;
+@import "../../../style/base.styl";
 page
 	background #F7F7F7
 .order_details
@@ -9,21 +7,25 @@ page
 		text-align center
 		font-size 76rpx
 		font-weight 500
-		color #33333D
+		color $fontColor3
 		line-height 53px
-		padding 86rpx 0 66rpx
-		border-bottom 1rpx solid #ccc
+		padding 80rpx 16rpx 0rpx 28rpx
 		background #fff
-		.deduction-amount-title
-				font-size 32rpx
-				color #99999D
-				font-weight 400
-				line-height 44rpx
-				margin-top 86rpx
-		.failure-prompted
-			font-size 24rpx
-			color #FF0000
-			line-height 24rpx
+		.deduction-amount-box
+			padding-bottom 66rpx
+			border-image: -webkit-linear-gradient(to right,#FFFFFF , $fontColor9 , #FFFFFF)1 10 1;
+			border-image: -moz-linear-gradient(to right,#FFFFFF , $fontColor9 , #FFFFFF)1 10 1;
+			border-image: linear-gradient(to right,#FFFFFF , $fontColor9 , #FFFFFF)1 10 1;
+			border-bottom 5rpx dashed
+			.deduction-amount-title
+					font-size 32rpx
+					color $fontColor9
+					font-weight 400
+					line-height 44rpx
+			.failure-prompted
+				font-size 24rpx
+				color #FF0000
+				line-height 24rpx
 	//扣费详情
 	.deduction-details
 		background #fff
@@ -32,20 +34,20 @@ page
 		&>view
 			display flex
 			font-size 28rpx
-			padding-top 30rpx
+			padding-top 20rpx
 			&>view:first-child
 				flex 4
 				height 48rpx
-				color #66666D
+				color $fontColor6
 			&>view:last-child
 				flex 6
 				text-align right
-				color #33333D
+				color $fontColor3
 		&>view.instructions
 			display block
 			text-align right
 			font-size 24rpx
-			color #99999D
+			color $fontColor9
 	//底部补缴
 	.payment
 		position fixed
@@ -63,7 +65,7 @@ page
 			width 84%
 			height 98rpx
 			line-height 98rpx
-			background linear-gradient(45deg,rgba(20,172,105,1) 0%,rgba(132,209,87,1) 100%)
+			background linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
 			box-shadow 0px 8rpx 10rpx 0px rgba(132,209,87,0.2)
 			border-radius 50rpx
 			font-size 40rpx

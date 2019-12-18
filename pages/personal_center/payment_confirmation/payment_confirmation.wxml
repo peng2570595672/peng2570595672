@@ -1,0 +1,51 @@
+<view class="my_order">
+	<!--	通行总额开始-->
+	<view class="license-plate">贵A6HG01</view>
+	<!--	通行总额结束-->
+	<!--订单列表开始-->
+	<view class="order-list">
+		<view class="order-list-content">
+			<view class="order-list-title">高速通行</view>
+			<view class="order-list-top">
+				<view class="start">黔东南罗甸</view>
+				<view class="end">贵阳西环城北</view>
+				<view class="money">-84.46</view>
+			</view>
+			<view class="order-list-bottom">
+				<view>
+					<view>卡券优惠</view>
+					<view>15</view>
+				</view>
+				<view>
+					<view>服务费（欠费5天）</view>
+					<view>-3</view>
+				</view>
+			</view>
+		</view>
+		<view class="order-list-content">
+			<view class="order-list-title">高速通行</view>
+			<view class="order-list-top">
+				<view class="start">黔东南罗甸</view>
+				<view class="end">贵阳西环城北</view>
+				<view class="money">-84.46</view>
+			</view>
+			<view class="order-list-bottom">
+				<view>
+					<view>卡券优惠</view>
+					<view>15</view>
+				</view>
+				<view>
+					<view>服务费（欠费5天）</view>
+					<view>-3</view>
+				</view>
+			</view>
+		</view>
+	</view>
+	<!--订单列表结束-->
+	<view class="instructions" catchtap="goInstructions">服务费扣费说明 》</view>
+	<!--底部补缴开始-->
+	<view class="payment ">
+		<button>合计支付：<text>669.56</text>立即补缴</button>
+	</view>
+	<!--底部补缴结束-->
+</view>

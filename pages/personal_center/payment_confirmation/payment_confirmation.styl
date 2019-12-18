@@ -1,56 +1,40 @@
 @import "../../../style/base.styl";
-page
-	background #FCFCFD
 .my_order
 	padding-bottom 240rpx
 	//通行总额
-	.total-cost
-		height 60rpx
-		background #f6f6f6
-		font-size 24rpx
-		color #A9A9AC
-		line-height 60rpx
-		text-indent 58rpx
+	.license-plate
+		font-size 36rpx
+		color #474750
+		text-indent 56rpx
+		padding-top 48rpx
 	//订单列表
 	.order-list
 		padding 10rpx 34rpx 0
 		.order-list-content
-			padding 0 24rpx
-			height 184rpx
+			padding 0 36rpx
+			height 332rpx
 			background #fff
 			box-shadow 4rpx 4rpx 46rpx 0px rgba(126,132,156,0.1)
 			border-radius 34rpx
 			margin-top 20rpx
+			.order-list-title
+				height 78rpx
+				line-height 78rpx
+				font-size 28rpx
+				color $themeColor1
+				border-bottom 1rpx solid #F1F1F1
 			.order-list-top
 				display flex
-				height 90rpx
-				line-height 90rpx
-				border-bottom 1rpx solid #F1F1F1
-				padding-right 15rpx
-				.license-plate
-					flex 5
-					font-size 40rpx
-					font-weight 500
-					color $fontColor3
-				.time
-					flex 5
-					font-size 24rpx
-					color $fontColor9
-					text-align right
-				.buckling-failure
-					font-size 28rpx
-					color #FF0000
-			.order-list-bottom
-				display flex
 				align-items center
-				height 92rpx
-				line-height 92rpx
-				font-size 28rpx
-				color $fontColor9
+				height 98rpx
+				line-height 98rpx
+				font-size 32rpx
+				color $themeColor1
 				padding-right 15rpx
+				border-bottom 1rpx solid #F1F1F1
 				.start,
 				.end
-					flex 3.5
+					flex 4
 					display flex
 					align-items center
 					height 92rpx
@@ -72,23 +56,40 @@ page
 						content '下'
 						background #8CD5B5
 				.money
-					flex 3
+					flex 2
 					font-size 48rpx
 					color #2FB565
 					text-align right
+			.order-list-bottom
+				padding-right 15rpx
+				&>view
+					display flex
+					font-size 28rpx
+					color $themeColor1
+					line-height 40rpx
+					padding-top 22rpx
+					&>view
+						flex 5
+					&>view:last-child
+						text-align right
+						color #474750
+	.instructions
+		text-align right
+		font-size 24rpx
+		color $themeColor1
+		line-height 48rpx
+		margin-top 20rpx
+		margin-right 30rpx
 	//底部补缴
 	.payment
 		position fixed
 		left 0
-		bottom 0
+		bottom 40rpx
 		width 100%
-		height 240rpx
-		font-size 24rpx
+		font-size 28rpx
 		color #9D9DA0
 		text-align center
 		background #fff
-		.payment-prompt
-			padding 34rpx 0 20rpx
 		button
 			width 84%
 			height 98rpx
@@ -96,5 +97,8 @@ page
 			background linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
 			box-shadow 0px 8rpx 10rpx 0px rgba(132,209,87,0.2)
 			border-radius 50rpx
-			font-size 40rpx
+			font-size 28rpx
 			color #FFFFFF
+			text
+				font-size 40rpx
+				margin-right 22rpx

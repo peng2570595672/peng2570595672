@@ -10,18 +10,23 @@ page {
   font-weight: 500;
   color: #33333d;
   line-height: 53px;
-  padding: 86rpx 0 66rpx;
-  border-bottom: 1rpx solid #ccc;
+  padding: 80rpx 16rpx 0rpx 28rpx;
   background: #fff;
 }
-.order_details .deduction-amount .deduction-amount-title {
+.order_details .deduction-amount .deduction-amount-box {
+  padding-bottom: 66rpx;
+  border-image: -webkit-linear-gradient(to right, #fff, #99999d, #fff) 1 10 1;
+  border-image: -moz-linear-gradient(to right, #fff, #99999d, #fff) 1 10 1;
+  border-image: linear-gradient(to right, #fff, #99999d, #fff) 1 10 1;
+  border-bottom: 5rpx dashed;
+}
+.order_details .deduction-amount .deduction-amount-box .deduction-amount-title {
   font-size: 32rpx;
   color: #99999d;
   font-weight: 400;
   line-height: 44rpx;
-  margin-top: 86rpx;
 }
-.order_details .deduction-amount .failure-prompted {
+.order_details .deduction-amount .deduction-amount-box .failure-prompted {
   font-size: 24rpx;
   color: #f00;
   line-height: 24rpx;
@@ -34,7 +39,7 @@ page {
 .order_details .deduction-details>view {
   display: flex;
   font-size: 28rpx;
-  padding-top: 30rpx;
+  padding-top: 20rpx;
 }
 .order_details .deduction-details>view>view:first-child {
   flex: 4;
@@ -70,7 +75,7 @@ page {
   width: 84%;
   height: 98rpx;
   line-height: 98rpx;
-  background: linear-gradient(45deg, #14ac69 0%, #84d157 100%);
+  background: linear-gradient(to right, #14ac69, #84d157);
   box-shadow: 0px 8rpx 10rpx 0px rgba(132,209,87,0.2);
   border-radius: 50rpx;
   font-size: 40rpx;

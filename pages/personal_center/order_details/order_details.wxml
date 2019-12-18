@@ -1,9 +1,11 @@
 <view class="order_details">
 	<!--	扣费金额开始-->
 	<view class="deduction-amount">
-		<view class="deduction-amount-title">扣费金额</view>
-		<view>-320.23</view>
-		<view class="failure-prompted">扣款失败，请检查余额是否充足</view>
+		<view class="deduction-amount-box">
+			<view class="deduction-amount-title">扣费金额</view>
+			<view>-320.23</view>
+			<view class="failure-prompted">扣款失败，请检查余额是否充足</view>
+		</view>
 	</view>
 	<!--扣费金额结束-->
 	<!--扣费详情开始-->
@@ -32,7 +34,7 @@
 			<view>服务费</view>
 			<view>¥12</view>
 		</view>
-		<view class="instructions" catchtap="go">服务费扣费说明 》</view>
+		<view class="instructions" catchtap="goInstructions">服务费扣费说明 》</view>
 	</view>
 	<!--扣费详情结束-->
 	<!--车辆详情开始-->
@@ -63,7 +65,7 @@
 	<view class="payment ">
 		<view class="payment-prompt">欠费有可能被列为黑名单，影响您的高速通行，请及时补缴！</view>
 		<view>
-			<button>补缴</button>
+			<button catchtap="go">补缴</button>
 		</view>
 	</view>
 	<!--底部补缴结束-->
