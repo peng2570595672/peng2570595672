@@ -249,7 +249,7 @@ button::after {
   background-size: auto 37px;
   animation: am-rotate-white 1s steps(12) infinite;
   -webkit-animation: am-rotate-white 1s steps(12) infinite;
-  transform: scale(0.7);
+  transform: scale(0.8);
 }
 .my-scale {
   animation: my-scale 1.5s infinite;

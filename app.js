@@ -7,6 +7,7 @@ App({
 		uploadOcrUrl: 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址
 		uploadUrl: 'https://file.cyzl.com/file/upload', // 上传图片无需审核地址
 		plamKey: '7cbadfb0cb144733b866239b7adbca8c', // 签名用到的key --- 二发
+		mapKey: '4EYBZ-L6QC4-NCLUW-XFDUD-TANS7-DZFNG', // 腾讯地图所使用key
 		platformId: '', // 平台id
 		SDKVersion: '',// 小程序基础库版本
 		pixelRatio: 2,

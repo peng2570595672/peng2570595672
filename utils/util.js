@@ -5,6 +5,7 @@
  * @version 1.0
  */
 const CryptoJS = require('./crypto-js.js');
+const QQMapWX = require('../libs/qqmap-wx-jssdk.min.js');
 let app = getApp();
 
 function setApp(a) {
@@ -247,7 +248,8 @@ function alert({
 	               showCancel = false,
 	               confirmText = '我知道了',
 	               cancelText = '取消',
-	               confirmColor = '#1FD1B1',
+	               confirmColor = '#14AC69',
+	               cancelColor = '#99999D',
 	               confirm = () => {
 	               },
 	               cancel = () => {
@@ -260,6 +262,7 @@ function alert({
 		confirmText: confirmText,
 		cancelText: cancelText,
 		confirmColor: confirmColor,
+		cancelColor: cancelColor,
 		success(res) {
 			if (res.confirm) {
 				confirm();
@@ -346,6 +349,55 @@ function compareVersion(v1, v2) {
 	}
 	return 0;
 }
+
+/**
+ *  根据地址查看经纬度等信息
+ * @param address 地址
+ * @param success 成功的回调
+ */
+function getInfoByAddress(address, success, fail) {
+	let qqMap = new QQMapWX({
+		key: app.globalData.mapKey // 必填
+	});
+	qqMap.geocoder({
+		address: address,
+		success: function (res) {
+			success && success(res);
+		},
+		fail: function (res) {
+			fail && fail(res);
+		},
+		complete: function (res) {
+		}
+	});
+}
+/**
+ *  根据经纬度查询腾讯api 获取地址信息
+ * @param lat 经度
+ * @param lng 纬度
+ * @param callback
+ */
+function getAddressInfo(lat, lng, success, fail, complete) {
+	let qqMap = new QQMapWX({
+		key: app.globalData.mapKey // 必填
+	});
+	qqMap.reverseGeocoder({
+		location: {
+			latitude: lat,
+			longitude: lng
+		},
+		get_poi: 1,
+		success: function (res) {
+			success && success(res);
+		},
+		fail: function (res) {
+			fail && fail(res);
+		},
+		complete: function (res) {
+			complete && complete(res);
+		}
+	});
+}
 module.exports = {
 	setApp,
 	getDataFromServer, // 从服务器上获取数据
@@ -362,5 +414,7 @@ module.exports = {
 	mobilePhoneReplace,
 	encryptByDESModeEBC,
 	decryptByDESModeEBC,
-	compareVersion
+	compareVersion,
+	getInfoByAddress,
+	getAddressInfo
 };
