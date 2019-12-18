@@ -142,6 +142,12 @@
 					"pathName": "pages/personal_center/my_etc/my_etc",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "设备详情页",
+					"pathName": "pages/personal_center/my_etc_details/my_etc_details",
+					"scene": null
 				}
 			]
 		}

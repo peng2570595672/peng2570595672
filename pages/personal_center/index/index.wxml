@@ -21,7 +21,7 @@
 				<image class="icon_image btn_item"></image>
 				<view>我的ETC</view>
 			</button>
-			<button>
+			<button catchtap="myOrder">
 				<image class="icon_image btn_item"></image>
 				<view>ETC账单</view>
 			</button>
@@ -29,7 +29,7 @@
 				<image class="icon_image btn_item"></image>
 				<view>我的卡劵</view>
 			</button>
-			<button>
+			<button catchtap="helpCenter">
 				<image class="icon_image btn_item"></image>
 				<view>客服中心</view>
 			</button>

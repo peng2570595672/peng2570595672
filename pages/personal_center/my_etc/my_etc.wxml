@@ -1,6 +1,6 @@
 <view class="index">
     <!--    我的车辆-->
-    <view class="new_item new_item_other">
+    <view class="new_item new_item_other" catchtap="goDetails">
         <block>
             <!--            车辆信息-->
             <view class="new_item_top">

@@ -21,6 +21,7 @@
 			"pages": [
 				"index/index",
 				"my_etc/my_etc",
+				"my_etc_details/my_etc_details",
 				"my_order/my_order",
 				"order_details/order_details",
 				"payment_confirmation/payment_confirmation",
