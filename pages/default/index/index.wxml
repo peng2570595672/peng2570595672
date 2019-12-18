@@ -152,7 +152,7 @@
 			</view>
 			<view>在线客服</view>
 		</view>
-		<view class="item">
+		<view class="item" catchtap="onClickForJumpPersonalCenterHandle" data-url="index">
 			<view>
 				<image src="/pages/default/assets/icon_for_personal_center.svg"></image>
 			</view>
