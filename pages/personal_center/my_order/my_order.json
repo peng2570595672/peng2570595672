@@ -4,6 +4,6 @@
 	"navigationBarTextStyle": "black",
 	"navigationBarTitleText": "我的账单",
 	"usingComponents": {
-		"dropdownmenu": "/components/dropdownmenu/dropdownmenu"
+		"dropdownmenu": "/components/dropdown_menu/dropdown_menu"
 	}
 }
