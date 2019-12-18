@@ -29,52 +29,30 @@
 			height 182rpx
 			display flex
 			align-items center
-			.preview
-				margin-left 30rpx
-				display inline-block
-				flex 0 0 152rpx
-				width 152rpx!important
-				height 104rpx
-				border-radius 4rpx
-				overflow auto
-				&:nth-child(1)
-					&.succeed,
-					&.failed
-						&::before
-							display flex
-							align-items center
-							justify-content center
-							width 34rpx
-							height 34rpx
-							position absolute
-							top 24rpx
-							left 166rpx
-							content '\e630'
-							font-size 36rpx
-							color $deepThemeColor
-					&.failed
-						&::before
-							content '\e626'
-							color $error
-				&:nth-child(2)
-					&.succeed,
-					&.failed
-						&::before
-							display flex
-							align-items center
-							justify-content center
-							width 34rpx
-							height 34rpx
-							position absolute
-							top 24rpx
-							left 342rpx
-							content '\e630'
-							font-size 36rpx
-							color $deepThemeColor
-					&.failed
-						&::before
-							content '\e626'
-							color $error
+			.photo
+				position relative
+				display flex
+				align-items center
+				justify-content center
+				width 186rpx
+				height 138rpx
+				margin-left 15rpx
+				&:last-of-type
+					margin-left 0
+				.preview
+					width 152rpx
+					height 104rpx
+					border-radius 4rpx
+					border 2rpx solid rgba(0,0,0,0)
+					box-sizing border-box
+					&.selected
+						border 4rpx solid $shallowThemeColor
+				.status
+					position absolute
+					top 2rpx
+					right 2rpx
+					width 34rpx
+					height 34rpx
 	// 按钮区域
 	.btns
 		position relative

@@ -193,12 +193,16 @@
 			&:first-of-type
 				margin-left 0
 			& > view
+				& > image
+					width 100%
+					height 100%
 				&:first-of-type
-					display 100rpx
+					width 100rpx
 					height 100rpx
+					padding 20rpx
+					box-sizing border-box
 					border-radius 20rpx
 					box-shadow:0 6rpx 10rpx 0 rgba(126,132,156,0.1)
-					background: linear-gradient(to left bottom, $deepThemeColor, $shallowThemeColor)
 				&:last-of-type
 					margin-top 8rpx
 					font-size 24rpx

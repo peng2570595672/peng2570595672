@@ -17,7 +17,7 @@ Page({
 				type: parseInt(options.type)
 			});
 			this.setData({
-				picPath: this.data.type === 1 ? '/pages/default/assets/driving_license_back_border.png' : this.data.type === 2 ? '/pages/default/assets/car_head_45.png' : '/pages/default/assets/driving_license_face_border.png',
+				picPath: this.data.type === 1 ? '/pages/default/assets/driving_license_back_border.png' : this.data.type === 2 ? '/pages/default/assets/car_head_45_border.png' : '/pages/default/assets/driving_license_face_border.png',
 				title: this.data.type === 1 ? '车辆行驶证-副页' : this.data.type === 2 ? '车辆45度照片' : '车辆行驶证-副页'
 			});
 		}
@@ -74,8 +74,8 @@ Page({
 		index = parseInt(index);
 		this.setData({
 			type: index,
-			picPath: index === 1 ? '/pages/default/assets/driving_license_back_border.png' : index ? '/pages/default/assets/car_head_45.png' : '/pages/default/assets/driving_license_face_border.png',
-			title: index === 1 ? '车辆行驶证-副页' : index ? '车辆45度照片' : '车辆行驶证-副页',
+			picPath: index === 1 ? '/pages/default/assets/driving_license_back_border.png' : index ? '/pages/default/assets/car_head_45_border.png' : '/pages/default/assets/driving_license_face_border.png',
+			title: index === 1 ? '车辆行驶证-副页' : index ? '车辆45度照片' : '车辆行驶证-主页',
 			retry: true
 		});
 	}

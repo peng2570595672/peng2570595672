@@ -4,8 +4,14 @@
 	<camera class="camera" device-position="back" flash="auto" binderror="cameraErrorHandle">
 		<cover-image class="border" src="{{picPath}}"></cover-image>
 		<cover-view class="photo-wrapper" wx:if="{{type === 1 || type === 2}}">
-			<cover-image class="preview iconfont succeed" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576509286468&di=d0da26db50bddc4a776f22a7df3273e8&imgtype=0&src=http%3A%2F%2Fwww.chachaba.com%2Fnews%2Fuploads%2F191118%2F7183_191118093418_1.jpg"></cover-image>
-			<cover-image class="preview  iconfont failed" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576509286468&di=d0da26db50bddc4a776f22a7df3273e8&imgtype=0&src=http%3A%2F%2Fwww.chachaba.com%2Fnews%2Fuploads%2F191118%2F7183_191118093418_1.jpg"></cover-image>
+			<cover-view class="photo" data-type="1" catchtap="onClickSwitchHandle">
+				<cover-image class="preview {{type === 1 ? 'selected' : ''}}" src="/pages/default/assets/id_card_face.png"></cover-image>
+				<cover-image class="status" src="/pages/default/assets/icon_succeed.png"></cover-image>
+			</cover-view>
+			<cover-view class="photo" data-type="2" catchtap="onClickSwitchHandle">
+				<cover-image class="preview  {{type === 2 ? 'selected' : ''}}" src="/pages/default/assets/id_card_back.png"></cover-image>
+				<cover-image class="status" src="/pages/default/assets/icon_failed.png"></cover-image>
+			</cover-view>
 		</cover-view>
 	</camera>
 	<!--	相加结束-->
