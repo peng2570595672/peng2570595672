@@ -13,7 +13,8 @@
 		.nav
 			display flex
 			align-items center
-			height rpx2vmin(156)
+			margin-top rpx2vmin(50)
+			height rpx2vmin(56)
 			& > cover-view
 			    float left
 			.back
@@ -28,14 +29,15 @@
 				color #fff
 		// 框及文字提示
 		.left
+			margin-top rpx2vmin(12)
 			float left
-			padding-left rpx2vmin(120)
+			padding-left rpx2vmin(60)
 			width rpx2vmin(824)
 			box-sizing border-box
 			.border
-				flex 0 0 rpx2vmin(704)
-				width rpx2vmin(704)
-				height rpx2vmin(450)
+				flex 0 0 rpx2vmin(764)
+				width rpx2vmin(764)
+				height rpx2vmin(488)
 			.tips
 				margin-top rpx2vmin(10 * 2)
 				display flex
@@ -57,11 +59,13 @@
 				padding rpx2vmin(7 * 2)
 				margin-bottom rpx2vmin(16 * 2)
 				box-sizing border-box
+				&:first-of-type
+					margin-top rpx2vmin(52)
 				.preview-view
 					margin 0 auto
 					padding rpx2vmin(2 * 2)
-					width rpx2vmin(76 * 2)
-					height rpx2vmin(55 * 2)
+					width rpx2vmin(77 * 2)
+					height rpx2vmin(46 * 2)
 					background: rgba(0,0,0,0)
 					border-radius rpx2vmin(2 * 2)
 					box-sizing border-box
@@ -72,8 +76,8 @@
 						border-radius rpx2vmin(2 * 2)
 				.status
 					position absolute
-					top 0
-					right 0
+					top  0
+					right  0
 					width rpx2vmin(17 * 2)
 					height rpx2vmin(17 * 2)
 	.btns

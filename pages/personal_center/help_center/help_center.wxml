@@ -45,4 +45,5 @@
 		</view>
 	</view>
 	<!--弹出详情结束-->
+	<view class="replace">换一批</view>
 </view>

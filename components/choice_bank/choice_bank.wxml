@@ -10,7 +10,27 @@
 					<view class="li-sub-title">送30元高速通行费</view>
 				</view>
 			</view>
-
+			<view class="li" catchtap="onClickItemHandle">
+				<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576212803176&di=400c841f2b1499b1644d6181c9e44eea&imgtype=0&src=http%3A%2F%2Fcdn053.yun-img.com%2Fstatic%2Fupload%2Fjiachenzhiye%2Fteam%2F20180625170841_30355.png"/>
+				<view class="li-right">
+					<view class="li-title">工行信用卡</view>
+					<view class="li-sub-title">送30元高速通行费</view>
+				</view>
+			</view>
+			<view class="li" catchtap="onClickItemHandle">
+				<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576212803176&di=400c841f2b1499b1644d6181c9e44eea&imgtype=0&src=http%3A%2F%2Fcdn053.yun-img.com%2Fstatic%2Fupload%2Fjiachenzhiye%2Fteam%2F20180625170841_30355.png"/>
+				<view class="li-right">
+					<view class="li-title">工行信用卡</view>
+					<view class="li-sub-title">送30元高速通行费</view>
+				</view>
+			</view>
+			<view class="li" catchtap="onClickItemHandle">
+				<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576212803176&di=400c841f2b1499b1644d6181c9e44eea&imgtype=0&src=http%3A%2F%2Fcdn053.yun-img.com%2Fstatic%2Fupload%2Fjiachenzhiye%2Fteam%2F20180625170841_30355.png"/>
+				<view class="li-right">
+					<view class="li-title">工行信用卡</view>
+					<view class="li-sub-title">送30元高速通行费</view>
+				</view>
+			</view>
 			<!--具体支付方式结束-->
 		</view>
 		<view class="split"></view>

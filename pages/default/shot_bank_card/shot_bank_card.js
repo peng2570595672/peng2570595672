@@ -5,7 +5,7 @@
 const util = require('../../../utils/util.js');
 Page({
 	data: {
-		type: 0,// 0 银行卡 1身份证正面 2 身份证反面
+		type: 1,// 0 银行卡 1身份证正面 2 身份证反面
 		picPath: '/pages/default/assets/bank_border.png'
 	},
 	onLoad (options) {
@@ -51,6 +51,15 @@ Page({
 			fail: (res) => {
 				console.log(res);
 			}
+		});
+	},
+	// 切换身份证正反两面
+	onClickSwitchHandle (e) {
+		let type = e.currentTarget.dataset.type;
+		type = parseInt(type);
+		this.setData({
+			type,
+			picPath: type === 1 ? '/pages/default/assets/id_card_face_border.png' : type === 2 ? '/pages/default/assets/id_card_back_border.png' : '/pages/default/assets/bank_border.png'
 		});
 	}
 });

@@ -117,8 +117,8 @@
 				},
 				{
 					"id": 3,
-					"name": "pages/personal_center/help_center/help_center",
-					"pathName": "pages/personal_center/help_center/help_center",
+					"name": "pages/personal_center/order_details/order_details",
+					"pathName": "pages/personal_center/order_details/order_details",
 					"query": "",
 					"scene": null
 				},

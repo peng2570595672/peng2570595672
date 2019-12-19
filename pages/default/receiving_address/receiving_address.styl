@@ -1,4 +1,5 @@
 @import "../../../style/base.styl";
+@import "../../../style/my_animate.styl";
 .receiving_address
 	display flex
 	flex-direction column
@@ -35,7 +36,13 @@
 			width 60rpx
 			&.selected
 				& > view:last-of-type
-					background: linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
+					&::before
+						left 0
+						right 0
+						width 100%
+						background: linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
+						transition all .5s ease-in-out
+						border-radius 4rpx
 			&:nth-child(2)
 				margin-right  30rpx
 			& > view
@@ -46,9 +53,19 @@
 					height 84rpx
 					font-size 60rpx
 				&:last-of-type
+					position relative
 					height 8rpx
 					background: $fontColor9
 					border-radius 4rpx
+					&::before
+						content ''
+						display block
+						position absolute
+						width 0
+						top 0
+						bottom 0
+						left 50%
+						right 50%
 			&.unselected
 				margin-right 0
 				flex 0 0 66rpx
@@ -61,6 +78,7 @@
 						border 2rpx dotted #F5C065
 						border-radius 8rpx
 					&:last-of-type
+						position relative
 						text-align center
 						height auto
 						font-size 16rpx
@@ -115,12 +133,11 @@
 		background: #F7F7F7
 	// 输入开始
 	.input-wrapper
-		padding-left 60rpx
+		padding 0 60rpx
 		padding-top 34rpx
 		.input-item
 			display flex
 			align-items center
-			padding-right 60rpx
 			padding-top 30rpx
 			padding-bottom 10rpx
 			border-bottom 1rpx solid #E8E8E8
@@ -131,16 +148,22 @@
 				height 48rpx
 				color $fontColor9
 				font-size 32rpx
-			& > input
+			& > input,
+			& > picker
 				display flex
 				align-items center
 				flex 1
 				height 48rpx
+			.detail-info
+				width 580rpx!important
+			.picker
+				color #ccc
+				&.have-value
+					color $fontColor3
 			// 自动填充
 			.auto-fill
 				flex 0 0 100rpx
 				width 0 0 100rpx
-
 				gradualChange(to right, $deepThemeColor, $shallowThemeColor)
 				font-size 24rpx
 				box-sizing content-box
@@ -185,6 +208,7 @@
 			font-size 30rpx
 			color $fontColor9
 			border-radius 50%
+			transform translateY(2rpx)
 		&.selected::before
 			color $shallowThemeColor
 	// 下一步
@@ -198,5 +222,9 @@
 		color #fff
 		border-radius 48rpx
 		background: linear-gradient(to right , $deepThemeColor, $shallowThemeColor)
+		&.available
+			animation btnFadeIn .3s
+			animation-fill-mode forwards
 		&.unavailable
-			opacity .2
+			animation btnFadeOut .3s
+			animation-fill-mode forwards

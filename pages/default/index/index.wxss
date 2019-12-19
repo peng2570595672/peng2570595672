@@ -256,12 +256,17 @@
 .index .nav .item:first-of-type {
   margin-left: 0;
 }
+.index .nav .item > view > image {
+  width: 100%;
+  height: 100%;
+}
 .index .nav .item > view:first-of-type {
-  display: 100rpx;
+  width: 100rpx;
   height: 100rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
   border-radius: 20rpx;
   box-shadow: 0 6rpx 10rpx 0 rgba(126,132,156,0.1);
-  background: linear-gradient(to left bottom, #14ac69, #84d157);
 }
 .index .nav .item > view:last-of-type {
   margin-top: 8rpx;

@@ -32,50 +32,34 @@
   display: flex;
   align-items: center;
 }
-.shot_bank_card .camera .photo-wrapper .preview {
-  margin-left: 30rpx;
-  display: inline-block;
-  flex: 0 0 152rpx;
-  width: 152rpx !important;
+.shot_bank_card .camera .photo-wrapper .photo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 186rpx;
+  height: 138rpx;
+  margin-left: 15rpx;
+}
+.shot_bank_card .camera .photo-wrapper .photo:last-of-type {
+  margin-left: 0;
+}
+.shot_bank_card .camera .photo-wrapper .photo .preview {
+  width: 152rpx;
   height: 104rpx;
   border-radius: 4rpx;
-  overflow: auto;
+  border: 2rpx solid rgba(0,0,0,0);
+  box-sizing: border-box;
 }
-.shot_bank_card .camera .photo-wrapper .preview:nth-child(1).succeed::before,
-.shot_bank_card .camera .photo-wrapper .preview:nth-child(1).failed::before {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.shot_bank_card .camera .photo-wrapper .photo .preview.selected {
+  border: 4rpx solid #84d157;
+}
+.shot_bank_card .camera .photo-wrapper .photo .status {
+  position: absolute;
+  top: 2rpx;
+  right: 2rpx;
   width: 34rpx;
   height: 34rpx;
-  position: absolute;
-  top: 24rpx;
-  left: 166rpx;
-  content: '\e630';
-  font-size: 36rpx;
-  color: #14ac69;
-}
-.shot_bank_card .camera .photo-wrapper .preview:nth-child(1).failed::before {
-  content: '\e626';
-  color: #ff563c;
-}
-.shot_bank_card .camera .photo-wrapper .preview:nth-child(2).succeed::before,
-.shot_bank_card .camera .photo-wrapper .preview:nth-child(2).failed::before {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 34rpx;
-  height: 34rpx;
-  position: absolute;
-  top: 24rpx;
-  left: 342rpx;
-  content: '\e630';
-  font-size: 36rpx;
-  color: #14ac69;
-}
-.shot_bank_card .camera .photo-wrapper .preview:nth-child(2).failed::before {
-  content: '\e626';
-  color: #ff563c;
 }
 .shot_bank_card .btns {
   position: relative;

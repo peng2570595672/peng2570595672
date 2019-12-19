@@ -12,7 +12,8 @@
 .photo_recognition_of_driving_license .camera .nav {
   display: flex;
   align-items: center;
-  height: 20.8vmin;
+  margin-top: 6.666666666666667vmin;
+  height: 7.466666666666667vmin;
 }
 .photo_recognition_of_driving_license .camera .nav > cover-view,
 .photo_recognition_of_driving_license .camera .nav float left,
@@ -32,15 +33,16 @@
   color: #fff;
 }
 .photo_recognition_of_driving_license .camera .left {
+  margin-top: 1.6vmin;
   float: left;
-  padding-left: 16vmin;
+  padding-left: 8vmin;
   width: 109.86666666666666vmin;
   box-sizing: border-box;
 }
 .photo_recognition_of_driving_license .camera .left .border {
-  flex: 0 0 93.86666666666666vmin;
-  width: 93.86666666666666vmin;
-  height: 60vmin;
+  flex: 0 0 101.86666666666666vmin;
+  width: 101.86666666666666vmin;
+  height: 65.06666666666666vmin;
 }
 .photo_recognition_of_driving_license .camera .left .tips {
   margin-top: 2.666666666666667vmin;
@@ -66,11 +68,14 @@
   margin-bottom: 4.266666666666667vmin;
   box-sizing: border-box;
 }
+.photo_recognition_of_driving_license .camera .right .preview-view-wrapper:first-of-type {
+  margin-top: 6.933333333333334vmin;
+}
 .photo_recognition_of_driving_license .camera .right .preview-view-wrapper .preview-view {
   margin: 0 auto;
   padding: 0.533333333333333vmin;
-  width: 20.266666666666666vmin;
-  height: 14.666666666666666vmin;
+  width: 20.533333333333335vmin;
+  height: 12.266666666666667vmin;
   background: rgba(0,0,0,0);
   border-radius: 0.533333333333333vmin;
   box-sizing: border-box;
