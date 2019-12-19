@@ -4,7 +4,22 @@
  */
 const util = require('../../../utils/util.js');
 Page({
-	data: {
+	data: {},
+	onLoad () {
+		wx.login({
+			success: (res) => {
+				util.getDataFromServer('consumer/member/common/applet/code', {
+					code: res.code
+				}, () => {
+					util.showToastNoIcon('登录失败！');
+				}, (res) => {
+					console.log(res);
+				});
+			},
+			fail: () => {
+				util.showToastNoIcon('登录失败！');
+			}
+		});
 	},
 	// 免费办理
 	freeProcessing () {

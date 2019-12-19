@@ -9,6 +9,7 @@ const QQMapWX = require('../libs/qqmap-wx-jssdk.min.js');
 let app = getApp();
 
 function setApp(a) {
+	console.log(1);
 	app = a;
 }
 
@@ -65,10 +66,10 @@ function parseBase64(message) {
 /**
  *  计算签名
  * @param params 请求参数
+ * @param path 路径
  * @param token token
- * @param online 是否为二发签名 plamKey不一样
  */
-function signature(params, token = '') {
+function signature(params, path, token = '') {
 	// 先以对象key排序
 	let keys = Object.keys(params).sort();
 	let sign = '';
@@ -79,6 +80,7 @@ function signature(params, token = '') {
 		if (typeof value === 'object' && value !== null) {
 			// 对value为对象的数据进行序列化成字符串，然后按照ascii排序
 			let v = JSON.stringify(params[key]);
+			// 对value转为字符串进行排序处理
 			v = v.split('').sort().join('');
 			sign += `${key}=${v}&`;
 		} else { // 非对象
@@ -90,14 +92,19 @@ function signature(params, token = '') {
 			}
 		}
 	}
-	let plamKey = app.globalData.plamKey;
-	sign += token === '' ? `key=${plamKey}` : `key=${plamKey}&token=${token}`;
+	// 拼接url
+	sign += `url=${path}&`;
+	// 拼接token
+	sign += token ? `accessToken=${token}&` : '';
+	// 拼接key
+	sign += 'key=' + app.globalData.plamKey;
+	console.log(sign);
 	return md5Encrypt(sign);
 }
 
 // 签名 二发调用
-function getSignature(params, token = '') {
-	return signature(params, token)
+function getSignature(params, path, token = '') {
+	return signature(params, path, token)
 }
 
 /**
@@ -107,30 +114,24 @@ function getSignature(params, token = '') {
  * @param fail 失败后的回调
  */
 function getDataFromServer(path, params, fail, success, token = '', complete) {
+	// 携带平台id
+	params['platformId'] = app.globalData.platformId;
 	// 移除sign属性
-	delete params.sign;
-	params['sign'] = getSignature(params, token);
+	path = path.indexOf('/') === 0 ? path : `/${path}`;
+	//请求头
+	let header = {
+		sign: getSignature(params, path, token)
+	};
+	if (token) {
+		header.accessToken = token;
+	}
 	wx.request({
 		url: app.globalData.host + path,
 		method: 'POST',
+		header: header, // 请求头
 		data: params,
 		success: (res) => {
-			// 做一次拦截 签名错误
-			if (res.data.code === 112) {
-				// 隐藏类似加载中的动画
-				wx.hideLoading();
-				alert({
-					title: '安全提示',
-					content: '当前账号已在其他地方登录，请注意账号安全！',
-					confirm: () => {
-						wx.redirectTo({
-							url: '/pages/login/login'
-						});
-					}
-				});
-			} else {
-				success && success(res.data);
-			}
+			success && success(res.data);
 		},
 		fail: (res) => {
 			fail && fail(res);
@@ -140,6 +141,7 @@ function getDataFromServer(path, params, fail, success, token = '', complete) {
 		}
 	});
 }
+
 /**
  *  格式化时间
  * @param date 日期
@@ -164,6 +166,7 @@ function go(url) {
 		url: url
 	});
 }
+
 /**
  *  弹出吐司提示 不带icon
  * @param content 提示内容
@@ -371,6 +374,7 @@ function getInfoByAddress(address, success, fail) {
 		}
 	});
 }
+
 /**
  *  根据经纬度查询腾讯api 获取地址信息
  * @param lat 经度
@@ -398,6 +402,7 @@ function getAddressInfo(lat, lng, success, fail, complete) {
 		}
 	});
 }
+
 module.exports = {
 	setApp,
 	getDataFromServer, // 从服务器上获取数据
@@ -416,5 +421,6 @@ module.exports = {
 	decryptByDESModeEBC,
 	compareVersion,
 	getInfoByAddress,
-	getAddressInfo
+	getAddressInfo,
+	getSignature
 };

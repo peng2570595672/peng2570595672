@@ -1,14 +1,14 @@
 // 是否为测试 TODO
-const IS_TEST = false;
+const IS_TEST = true;
 const util = require('./utils/util.js');
 App({
 	globalData: {
-		host: IS_TEST ? 'https://etctest.cyzl.com/' : 'https://etc.cyzl.com/', // 接口主机地址 正式 etc.cyzl.com/ 测试 etctest.cyzl.com/
+		host: IS_TEST ? 'http://129.204.11.115:8700' : 'https://etc.cyzl.com', // 接口主机地址 正式 etc.cyzl.com/ 测试 etctest.cyzl.com/
 		uploadOcrUrl: 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址
 		uploadUrl: 'https://file.cyzl.com/file/upload', // 上传图片无需审核地址
-		plamKey: '7cbadfb0cb144733b866239b7adbca8c', // 签名用到的key --- 二发
+		plamKey: '123456', // 签名用到的key --- 二发
 		mapKey: '4EYBZ-L6QC4-NCLUW-XFDUD-TANS7-DZFNG', // 腾讯地图所使用key
-		platformId: '', // 平台id
+		platformId: '123456789012345678', // 平台id
 		SDKVersion: '',// 小程序基础库版本
 		pixelRatio: 2,
 		screenWidth: 750,
