@@ -10,18 +10,18 @@
 			<view>未登陆</view>
 		</view>
 		<!--		会员权益-->
-		<view class="vip_equity">
+		<view class="vip_equity" catchtap="go" data-url="member_benefits">
 			<view>会员权益</view>
 		</view>
 	</view>
 	<!--	用户操作选项-->
 	<view class="items">
 		<view>
-			<button catchtap="myEtc">
+			<button catchtap="go" data-url="my_etc">
 				<image class="icon_image btn_item"></image>
 				<view>我的ETC</view>
 			</button>
-			<button>
+			<button catchtap="go" data-url="my_order">
 				<image class="icon_image btn_item"></image>
 				<view>ETC账单</view>
 			</button>
@@ -29,9 +29,9 @@
 				<image class="icon_image btn_item"></image>
 				<view>我的卡劵</view>
 			</button>
-			<button>
+			<button catchtap="go" data-url="help_center">
 				<image class="icon_image btn_item"></image>
-				<view>客服中心</view>
+				<view>帮助中心</view>
 			</button>
 		</view>
 	</view>

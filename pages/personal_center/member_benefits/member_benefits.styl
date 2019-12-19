@@ -1,3 +1,156 @@
 @import "../../../style/base.styl";
+$fontColor1 = #87592B;
+$fontColor2 = #433224;
+//渐变主题色
+$themeColor1 = #CA9961;
+$themeColor2 = #EAC290;
 page
 	background #2A273E
+	.member_benefits
+		width 100%
+		height 100vh
+		overflow hidden
+		// 会员头部
+		.members-top
+			position relative
+			width 100%
+			height 24vh
+			margin-top 3vh
+			image
+				width 100%
+				height 24vh
+			.is-members
+				position absolute
+				top 0
+				left 0
+				width 100%
+				height 24vh
+				box-sizing border-box
+				padding-top 50rpx
+				text-align center
+				.vip-image
+					image
+						width 134rpx
+						height 88rpx
+				.name
+					padding-top 20rpx
+					font-size 40rpx
+					font-weight 500
+					color $fontColor1
+					line-height 56rpx
+				.lighten
+					font-size 28rpx
+					color $fontColor1
+					line-height 40rpx
+				.btn
+					margin-top 28rpx
+					button
+						width 200rpx
+						height 60rpx
+						line-height 60rpx
+						color #F2CA98
+						font-size 28rpx
+						background $fontColor1
+						border-radius 30rpx
+		// 会员权益列表
+		.benefits-list
+			position relative
+			width 100%
+			height 59vh
+			.benefits-bg
+				position absolute
+				top -3vh
+				left 0
+				width 100%
+				height 59vh
+				image
+					width 100%
+					height 59vh
+			.benefits-content
+				position absolute
+				top 0
+				left 0
+				z-index 1
+				width 100%
+				height 59vh
+				.benefits-top
+					text-align center
+					font-size 40rpx
+					font-weight 600
+					color rgba(67,50,36,1)
+					line-height 56rpx
+					padding-top 92rpx
+				.list-box
+					height 50vh
+					padding 0 54rpx
+					.list-content
+						float left
+						width 130rpx
+						text-align center
+						padding-top 50rpx
+						.list-image
+							image
+								width 130rpx
+								height 130rpx
+								background #F7F1E6
+								border-radius 32rpx
+						.list-title
+							padding-top 20rpx
+							color $fontColor2
+							font-size 28rpx
+					&>view:nth-child(3n-1)
+						margin 0 116rpx
+		// 弹出详情
+		.mask
+			position fixed
+			left 0
+			top 0
+			right 0
+			bottom 0
+			z-index 1
+			background: rgba(0, 0, 0, .6)
+			.top
+				position fixed
+				left 0
+				top 0
+				bottom 0
+				width 100%
+				height 20%
+				background: rgba(0, 0, 0, 0)
+			.wrapper
+				position fixed
+				left 0rpx
+				top 20%
+				right 0
+				bottom 0
+				height 80%
+				background #fff
+				border-radius 32rpx 32rpx 0px 0px
+				.details-title
+					padding 72rpx 74rpx 24rpx
+					font-size 40rpx
+					font-weight 600
+					line-height 56rpx
+					color $fontColor2
+				.details-content
+					color $fontColor3
+					font-size 30rpx
+					line-height 42rpx
+					padding 0 73rpx
+				.details-image
+					text-align center
+					padding 20rpx 0 82rpx
+					image
+						width 460rpx
+						height 392rpx
+				.details-btn
+					text-align center
+					button
+						width 84%
+						height 98rpx
+						line-height 98rpx
+						background linear-gradient(to right, $themeColor1, $themeColor2)
+						box-shadow 0px 8rpx 10rpx 0px rgba(132,209,87,0.2)
+						border-radius 50rpx
+						font-size 28rpx
+						color #FFFFFF
