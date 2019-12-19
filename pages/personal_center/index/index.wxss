@@ -82,10 +82,31 @@
   color: #999;
 }
 .index .activity_follow {
+  display: flex;
+  flex-direction: row;
   margin: 130rpx 30rpx;
   width: 682rpx;
   height: 140rpx;
   background: #fff;
   border-radius: 20rpx;
   color: #fff;
+}
+.index .activity_follow>view:nth-child(1) {
+  width: 90rpx;
+  height: 50rpx;
+  margin-left: 50rpx;
+  background: #ff445f;
+  margin-top: 50rpx;
+}
+.index .activity_follow>view:nth-child(2) {
+  margin-left: 50rpx;
+  margin-top: 30rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+}
+.index .activity_follow>view:nth-child(2)>view:first-child {
+  font-size: 16px;
+  color: #333;
+}
+.index .activity_follow>view:nth-child(2)>view:last-child {
+  color: #999;
 }

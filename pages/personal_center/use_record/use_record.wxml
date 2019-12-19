@@ -1,0 +1,46 @@
+<view class="use_record">
+  <block>
+<!--    <template is="listLoadingTemplate" data="{{...showLoading}}"></template>-->
+  </block>
+  <block>
+    <view class="content">
+      <block>
+      <view class="date">2019年1月</view>
+      <view class="item" catchtap="showDetail" data_index="{{index}}">
+        <view class="left">1/23</view>
+        <view class="middle">
+          <view class="car_no">贵A888888</view>
+          <view class="info">贵阳北站 -> 遵义南站</view>
+        </view>
+        <view class="right">100元</view>
+      </view>
+      </block>
+    </view>
+  </block>
+  <view class="empty">
+    <image src="https://file.cyzl.com/g001/M00/00/FA/oYYBAFxvrfeAQYANAAAVo1t3MCc394.png"></image>
+    <view>暂无使用记录</view>
+  </view>
+  <!--加载更多动画-->
+<!--  <block>-->
+<!--    <template is="listLoadingTemplate" data="{{...showLoadingMore}}"></template>-->
+<!--  </block>-->
+
+  <view class="detail_mask animated {{showDetailWrapper ? 'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
+    <view class="detail_wrapper animated {{showDetailWrapper ? 'slideInUp':'slideOutDown'}}" wx:if="{{showDetailMask}}">
+      <view class="top">
+        <view class="title">{{showObj.remark}}</view>
+        <view class="price">￥<text>100</text></view>
+        <view class="tip">抵扣金额</view>
+      </view>
+      <view class="bottom">
+        <view class="item">使用车辆：贵A88888</view>
+        <view class="item">入站时间：2019-1-12 12:12:23</view>
+        <view class="item">出站时间：2019-1-12 17:12:23</view>
+        <view class="item">账单金额：￥157</view>
+        <view class="item">实付金额：￥57</view>
+        <view class="detail_btn" catchtap="hideDetail">我知道了</view>
+      </view>
+    </view>
+  </view>
+</view>
