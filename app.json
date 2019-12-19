@@ -21,13 +21,15 @@
 			"pages": [
 				"index/index",
 				"my_etc/my_etc",
+				"my_etc_details/my_etc_details",
 				"my_order/my_order",
 				"order_details/order_details",
 				"payment_confirmation/payment_confirmation",
 				"service_fee_description/service_fee_description",
 				"help_center/help_center",
 				"member_benefits/member_benefits",
-				"search_help/search_help"
+				"search_help/search_help",
+				"use_record/use_record"
 			]
 		}
 	],

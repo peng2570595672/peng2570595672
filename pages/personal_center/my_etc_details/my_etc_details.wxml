@@ -1,0 +1,63 @@
+<view class="index">
+    <!--    设备详情顶部-->
+    <view class="equipment_top">
+        <!--        设备图片-->
+        <view>
+        <!--            <img  alt="" src=""/>-->
+            <view></view>
+        </view>
+        <!--        车牌号码-->
+        <view>
+            <view>车牌号码</view>
+            <view>贵A88888</view>
+        </view>
+        <!--        设备状态-->
+        <view>
+            <view>设备状态</view>
+            <view>办理中</view>
+        </view>
+        <!--        扣款方式-->
+        <view>
+            <view>扣款方式</view>
+            <view>工商银行(0089)</view>
+        </view>
+    </view>
+    <!--    设备详情中部-->
+    <view class="equipment_center">
+        <!--        所属人-->
+        <view>
+            <view>所属人</view>
+            <view>张三</view>
+        </view>
+        <!--        发行卡种-->
+        <view>
+            <view>发行卡种</view>
+            <view>黔通卡</view>
+        </view>
+        <!--        发行卡号-->
+        <view>
+            <view>发行卡号</view>
+            <view>01234567899876543210</view>
+        </view>
+        <!--        设备编号-->
+        <view>
+            <view>设备(OBU)编号</view>
+            <view>123456789987654321</view>
+        </view>
+    </view>
+    <!--    设备详情底部-->
+    <view class="equipment_bottom">
+        <!--        办理日期-->
+        <view>
+            <view>办理日期</view>
+            <view>2019-2-14 12:12:12</view>
+        </view>
+        <!--        继续办理-->
+        <button>继续办理</button>
+        <!--        取消办理&客服中心-->
+        <view>
+            <view catchtap="cancelOrder">取消办理</view>
+            <view>客服中心</view>
+        </view>
+    </view>
+</view>
