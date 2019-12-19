@@ -1,0 +1,31 @@
+<template name="passTicketTemplate">
+  <view class="pass-ticket {{i % 2 === 0 ?'other':''}}  {{coupon_status === 0? '' : coupon_status === 1?'' :coupon_status === 2? 'used' :coupon_status === 8? 'expire' :coupon_status === 9? 'delete':'' }}" catchtap="goVoucherDetail" data-index="{{i}}">
+    <view class="left">
+      <view class="inner-left">{{coupon_mode !== 2?'￥':''}}<text>{{coupon_mode !== 2 ? face_amount / 100 : discount_rate * 10}}</text>{{coupon_mode === 2?'折':''}}</view>
+      <view class="inner-right">
+        <view class="title">{{short_name}}</view>
+        <view class="des">有效期：{{expire_time}}</view>
+      </view>
+    </view>
+    <view class="right" wx:if="{{coupon_mode === 1}}">
+      <text>代</text>
+      <text>金</text>
+      <text>券</text>
+    </view>
+    <view class="right" wx:if="{{coupon_mode === 2}}">
+      <text>抵</text>
+      <text>扣</text>
+      <text>券</text>
+    </view>
+    <view class="right" wx:if="{{coupon_mode === 3}}">
+      <text>定</text>
+      <text>价</text>
+      <text>券</text>
+    </view>
+    <view class="right" wx:if="{{coupon_mode === 4}}">
+      <text>兑</text>
+      <text>换</text>
+      <text>券</text>
+    </view>
+  </view>
+</template>

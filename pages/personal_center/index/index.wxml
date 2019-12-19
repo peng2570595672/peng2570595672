@@ -25,7 +25,7 @@
 				<image class="icon_image btn_item"></image>
 				<view>ETC账单</view>
 			</button>
-			<button>
+			<button catchtap="go" data-url="servicec_card_voucher">
 				<image class="icon_image btn_item"></image>
 				<view>我的卡劵</view>
 			</button>
