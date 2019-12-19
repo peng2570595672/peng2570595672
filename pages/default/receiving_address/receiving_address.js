@@ -17,6 +17,7 @@ Page({
 		available: false,
 		getAgreement: false,
 		isRequest: false,// shifou
+		isNewPowerCar: false,
 		formData: {
 			currentCarNoColor: 0, // 0 蓝色 1 渐变绿 2黄色
 			region: ['省', '市', '区'], // 省市区
@@ -50,12 +51,22 @@ Page({
 			let keyboard = this.selectComponent('#keyboard');
 			keyboard.indexMethod(e.detail.index, this.data.currentIndex);
 		}
+		let formData = this.data.formData;
+		formData.currentCarNoColor = e.detail.carNo.join('').length === 8 ? 1 : 0;
 		this.setData({
 			carNo: e.detail.carNo,
 			carNoStr: e.detail.carNo.join(''),
 			currentIndex: e.detail.index,
-			showKeyboard: e.detail.show
+			showKeyboard: e.detail.show,
+			formData
 		});
+		// 不是新能源 输入车牌最后一位
+		if (!this.data.isNewPowerCar && this.data.currentIndex === 7) {
+			this.setData({
+				showKeyboard: false,
+				currentIndex: -1
+			});
+		}
 		if (app.globalData.SDKVersion < '2.6.1') {
 			let keyboard = this.selectComponent('#keyboard');
 			keyboard.showMethod(this.data.showKeyboard);
@@ -96,8 +107,18 @@ Page({
 		let formData = this.data.formData;
 		formData.currentCarNoColor = parseInt(index);
 		this.setData({
-			formData
+			formData,
+			isNewPowerCar: formData.currentCarNoColor === 1// 如果选择了新能源 那么最后一个显示可输入
 		});
+		// 不是新能源 车牌为8位 去掉最后一位输入的车牌
+		if (!this.data.isNewPowerCar && this.data.carNoStr.length === 8) {
+			let carNo = this.data.carNo;
+			carNo[7] = '';
+			this.setData({
+				carNoStr: this.data.carNoStr.substring(0,7), // 车牌字符串
+				carNo: carNo// 车牌对应的数组
+			});
+		}
 		this.setData({
 			available: this.validateAvailable()
 		});
@@ -146,7 +167,6 @@ Page({
 				} else if (e.errMsg !== 'chooseAddress:fail cancel') {
 					util.showToastNoIcon('选择收货地址失败！');
 				}
-				console.log(e);
 			}
 		});
 	},
@@ -194,9 +214,8 @@ Page({
 						}
 					});
 				} else if (e.errMsg !== 'chooseLocation:fail cancel') {
-					util.showToastNoIcon('选择收货地址失败！');
+					util.showToastNoIcon('获取地理位置信息失败！');
 				}
-				console.log(e);
 			}
 		});
 	},
@@ -316,11 +335,19 @@ Page({
 			// 进行正则匹配
 			if (isOk) {
 				let xreg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF]$)|([DF][A-HJ-NP-Z0-9][0-9]{4}$))/;
-				xreg = creg.test(this.data.carNoStr);
+				xreg = xreg.test(this.data.carNoStr);
 			}
 		} else {
 			isOk = false;
 		}
 		return isOk;
+	},
+	// 点击添加新能源
+	onClickNewPowerCarHandle (e) {
+		this.setData({
+			isNewPowerCar: true,
+			currentCarNoColor: 1
+		});
+		this.setCurrentCarNo(e);
 	}
 });

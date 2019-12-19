@@ -1,3 +1,174 @@
 page {
   background: #2a273e;
 }
+page .member_benefits {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+page .member_benefits .members-top {
+  position: relative;
+  width: 100%;
+  height: 24vh;
+  margin-top: 3vh;
+}
+page .member_benefits .members-top image {
+  width: 100%;
+  height: 24vh;
+}
+page .member_benefits .members-top .is-members {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 24vh;
+  box-sizing: border-box;
+  padding-top: 50rpx;
+  text-align: center;
+}
+page .member_benefits .members-top .is-members .vip-image image {
+  width: 134rpx;
+  height: 88rpx;
+}
+page .member_benefits .members-top .is-members .name {
+  padding-top: 20rpx;
+  font-size: 40rpx;
+  font-weight: 500;
+  color: #87592b;
+  line-height: 56rpx;
+}
+page .member_benefits .members-top .is-members .lighten {
+  font-size: 28rpx;
+  color: #87592b;
+  line-height: 40rpx;
+}
+page .member_benefits .members-top .is-members .btn {
+  margin-top: 28rpx;
+}
+page .member_benefits .members-top .is-members .btn button {
+  width: 200rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  color: #f2ca98;
+  font-size: 28rpx;
+  background: #87592b;
+  border-radius: 30rpx;
+}
+page .member_benefits .benefits-list {
+  position: relative;
+  width: 100%;
+  height: 59vh;
+}
+page .member_benefits .benefits-list .benefits-bg {
+  position: absolute;
+  top: -3vh;
+  left: 0;
+  width: 100%;
+  height: 59vh;
+}
+page .member_benefits .benefits-list .benefits-bg image {
+  width: 100%;
+  height: 59vh;
+}
+page .member_benefits .benefits-list .benefits-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 59vh;
+}
+page .member_benefits .benefits-list .benefits-content .benefits-top {
+  text-align: center;
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #433224;
+  line-height: 56rpx;
+  padding-top: 92rpx;
+}
+page .member_benefits .benefits-list .benefits-content .list-box {
+  height: 50vh;
+  padding: 0 54rpx;
+}
+page .member_benefits .benefits-list .benefits-content .list-box .list-content {
+  float: left;
+  width: 130rpx;
+  text-align: center;
+  padding-top: 50rpx;
+}
+page .member_benefits .benefits-list .benefits-content .list-box .list-content .list-image image {
+  width: 130rpx;
+  height: 130rpx;
+  background: #f7f1e6;
+  border-radius: 32rpx;
+}
+page .member_benefits .benefits-list .benefits-content .list-box .list-content .list-title {
+  padding-top: 20rpx;
+  color: #433224;
+  font-size: 28rpx;
+}
+page .member_benefits .benefits-list .benefits-content .list-box>view:nth-child(3n-1) {
+  margin: 0 116rpx;
+}
+page .member_benefits .mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  background: rgba(0,0,0,0.6);
+}
+page .member_benefits .mask .top {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 20%;
+  background: rgba(0,0,0,0);
+}
+page .member_benefits .mask .wrapper {
+  position: fixed;
+  left: 0rpx;
+  top: 20%;
+  right: 0;
+  bottom: 0;
+  height: 80%;
+  background: #fff;
+  border-radius: 32rpx 32rpx 0px 0px;
+}
+page .member_benefits .mask .wrapper .details-title {
+  padding: 72rpx 74rpx 24rpx;
+  font-size: 40rpx;
+  font-weight: 600;
+  line-height: 56rpx;
+  color: #433224;
+}
+page .member_benefits .mask .wrapper .details-content {
+  color: #33333d;
+  font-size: 30rpx;
+  line-height: 42rpx;
+  padding: 0 73rpx;
+}
+page .member_benefits .mask .wrapper .details-image {
+  text-align: center;
+  padding: 20rpx 0 82rpx;
+}
+page .member_benefits .mask .wrapper .details-image image {
+  width: 460rpx;
+  height: 392rpx;
+}
+page .member_benefits .mask .wrapper .details-btn {
+  text-align: center;
+}
+page .member_benefits .mask .wrapper .details-btn button {
+  width: 84%;
+  height: 98rpx;
+  line-height: 98rpx;
+  background: linear-gradient(to right, #ca9961, #eac290);
+  box-shadow: 0px 8rpx 10rpx 0px rgba(132,209,87,0.2);
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  color: #fff;
+}

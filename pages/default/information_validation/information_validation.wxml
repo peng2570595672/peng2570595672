@@ -31,33 +31,33 @@
 	<view class="content-wrapper {{opened ? 'opened' : ''}}">
 		<view class="item">
 			<view>车主姓名</view>
-			<view>小男孩</view>
+			<input type="text" value="小男孩"/>
 		</view>
 		<view class="item">
 			<view>车牌号</view>
-			<view>粤A 12334</view>
+			<input type="text" value="粤A 12334"/>
 		</view>
 		<view class="item">
 			<view>发动机号</view>
-			<view>J6QY1233519</view>
+			<input type="text" value="J6QY1233519"/>
 		</view>
 		<view class="item">
 			<view>车辆识别号</view>
-			<view>LZAHDT12122211223</view>
+			<input type="text" value="LZAHDT12122211223"/>
 		</view>
 		<block wx:if="{{opened}}">
 			<view class="split"></view>
 			<view class="item">
 				<view>车辆类型</view>
-				<view>小型轿车</view>
+				<input type="text" value="小型轿车"/>
 			</view>
 			<view class="item">
 				<view>地址</view>
-				<view>贵州省贵阳市乌当区</view>
+				<input type="text" value="贵州省贵阳市乌当区"/>
 			</view>
 			<view class="item">
 				<view>使用性质</view>
-				<view>非运营</view>
+				<input type="text" value="非运营"/>
 			</view>
 		</block>
 	</view>

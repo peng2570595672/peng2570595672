@@ -156,6 +156,9 @@ Component({
 			this.setData({
 				currentDatas: datas
 			});
+		},
+		stop () {
+			console.log(11);
 		}
 	},
 	lifetimes: {

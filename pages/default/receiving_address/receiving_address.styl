@@ -164,6 +164,8 @@
 			.auto-fill
 				flex 0 0 100rpx
 				width 0 0 100rpx
+				height 48rpx
+				line-height 46rpx
 				gradualChange(to right, $deepThemeColor, $shallowThemeColor)
 				font-size 24rpx
 				box-sizing content-box
@@ -178,12 +180,18 @@
 					gradualChange(to top, $deepThemeColor, $shallowThemeColor)
 			// 获取验证码
 			.validate-code
+				flex 0 0 210rpx
+				width 210rpx
 				display flex
 				align-items center
-				height 48rpx
+				justify-content flex-end
+				height 44rpx
 				font-size 30rpx
 				color $fontColor9
 				box-sizing content-box
+				border-left 1rpx solid #D8D8D8
+				&.acquisition
+					color $deepThemeColor
 	// 高度填充
 	.fill
 		flex 1

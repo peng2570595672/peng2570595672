@@ -1,5 +1,51 @@
-<view class="help-center">
-	<!--会员权益开始-->
-	<view>会员权益</view>
-	<!--会员权益结束-->
+<view class="member_benefits">
+	<!--会员头部开始-->
+	<view class="members-top">
+		<image src="https://file.cyzl.com/g001/M05/E0/3F/oYYBAF36zWWASIn5AAbRqm6lMBM055.svg" mode="widthFix"></image>
+		<view class="is-members">
+			<view wx:if = '{{isMembers}}' class="vip-image">
+				<image src="https://file.cyzl.com/g001/M05/E0/48/oYYBAF36zpCAHD44AAARR1hSxZU707.svg"></image>
+			</view>
+			<view class="name">别叫我就是睡不醒</view>
+			<view wx:if = '{{!isMembers}}' class="lighten">成为ETC会员点亮所有权益</view>
+			<view wx:if = '{{isMembers}}' class="lighten">所有权益都已为你点亮，快去体验吧</view>
+			<view wx:if = '{{!isMembers}}' class="btn">
+				<button>成为会员</button>
+			</view>
+		</view>
+	</view>
+	<!--会员头部结束-->
+	<!--会员权益列表开始-->
+	<view class="benefits-list">
+		<view class="benefits-bg">
+			<image src="https://file.cyzl.com/g001/M05/E0/40/oYYBAF36zYaAEF_-AAAGom_9ZX4991.svg" mode="widthFix"></image>
+		</view>
+		<view class="benefits-content">
+			<view class="benefits-top">会员权益</view>
+			<view class="list-box">
+				<view wx:for="{{benefitsList}}" wx:key="index" class="list-content" catchtap="showDetail" data-content="{{item}}">
+					<view class="list-image">
+						<image src="{{item.img}}"></image>
+					</view>
+					<view class="list-title">{{item.title}}</view>
+				</view>
+			</view>
+		</view>
+	</view>
+	<!--会员权益列表结束-->
+	<!--弹出详情开始-->
+	<view class="mask animated {{showDetailWtapper?'slideInUp':'slideInDown'}}" wx:if="{{showDetailMask}}">
+		<view class="top" catchtap="hide"></view>
+		<view class="wrapper animated {{showDetailWtapper?'slideInDown':'slideOutDown'}}">
+			<view class="details-title">{{detailsContent.title}}</view>
+			<view class="details-content">{{detailsContent.content}}</view>
+			<view class="details-image">
+				<image src="{{detailsContent.img}}"></image>
+			</view>
+			<view class="details-btn">
+				<button>{{isMembers?'一键体验':'成为会员'}}</button>
+			</view>
+		</view>
+	</view>
+	<!--弹出详情结束-->
 </view>

@@ -200,6 +200,8 @@
 .receiving_address .input-wrapper .input-item .auto-fill {
   flex: 0 0 100rpx;
   width: 0 0 100rpx;
+  height: 48rpx;
+  line-height: 46rpx;
   background: linear-gradient(to right, #14ac69, #84d157);
   -webkit-background-clip: text;
   color: transparent;
@@ -217,12 +219,19 @@
   color: transparent;
 }
 .receiving_address .input-wrapper .input-item .validate-code {
+  flex: 0 0 210rpx;
+  width: 210rpx;
   display: flex;
   align-items: center;
-  height: 48rpx;
+  justify-content: flex-end;
+  height: 44rpx;
   font-size: 30rpx;
   color: #99999d;
   box-sizing: content-box;
+  border-left: 1rpx solid #d8d8d8;
+}
+.receiving_address .input-wrapper .input-item .validate-code.acquisition {
+  color: #14ac69;
 }
 .receiving_address .fill {
   flex: 1;

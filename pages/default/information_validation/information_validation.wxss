@@ -86,8 +86,13 @@
   border-bottom: 1rpx solid #f8f8f8;
   box-sizing: border-box;
 }
-.information_validation .content-wrapper .item > view:first-of-type {
-  flex: 1;
+.information_validation .content-wrapper .item > view {
+  flex: 0.35;
+}
+.information_validation .content-wrapper .item > input,
+.information_validation .content-wrapper .item > picker {
+  flex: 0.65;
+  text-align: right;
 }
 .information_validation .content-wrapper .split {
   margin: 0 32rpx;

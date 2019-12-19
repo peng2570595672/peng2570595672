@@ -1,16 +1,16 @@
 <view class="shot_bank_card">
-	<view class="title">请拍摄银行卡数字面</view>
+	<view class="title">{{title}}</view>
 	<!--	相加开始-->
-	<camera class="camera" device-position="back" flash="auto" binderror="cameraErrorHandle">
+	<camera class="camera" device-position="back" flash="auto" binderror="onCameraErrorHandle">
 		<cover-image class="border" src="{{picPath}}"></cover-image>
 		<cover-view class="photo-wrapper" wx:if="{{type === 1 || type === 2}}">
 			<cover-view class="photo" data-type="1" catchtap="onClickSwitchHandle">
-				<cover-image class="preview {{type === 1 ? 'selected' : ''}}" src="/pages/default/assets/id_card_face.png"></cover-image>
-				<cover-image class="status" src="/pages/default/assets/icon_succeed.png"></cover-image>
+				<cover-image class="preview {{type === 1 ? 'selected' : ''}}" src="{{pic1 ? pic1 : '/pages/default/assets/id_card_face.png'}}"></cover-image>
+				<cover-image wx:if="{{pic1IdentifyResult !== -1}}" class="status" src="{{pic1IdentifyResult === 0 ? '/pages/default/assets/icon_succeed.png' : '/pages/default/assets/icon_failed.png'}}"></cover-image>
 			</cover-view>
 			<cover-view class="photo" data-type="2" catchtap="onClickSwitchHandle">
-				<cover-image class="preview  {{type === 2 ? 'selected' : ''}}" src="/pages/default/assets/id_card_back.png"></cover-image>
-				<cover-image class="status" src="/pages/default/assets/icon_failed.png"></cover-image>
+				<cover-image class="preview  {{type === 2 ? 'selected' : ''}}" src="{{pic2 ? pic2: '/pages/default/assets/id_card_back.png'}}"></cover-image>
+				<cover-image wx:if="{{pic2IdentifyResult !== -1}}" class="status" src="{{pic2IdentifyResult === 0 ? '/pages/default/assets/icon_succeed.png' : '/pages/default/assets/icon_failed.png'}}"></cover-image>
 			</cover-view>
 		</cover-view>
 	</camera>
