@@ -1,0 +1,69 @@
+$themeColor = #1AAD19
+.pass-ticket
+	position relative
+	display flex
+	height 232rpx
+	border-radius 20rpx
+	color #fff
+	background url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-QSaAaFFpAABaajvkHHg602.png") no-repeat top
+	-webkit-background-size: contain
+	background-size: contain
+	background-position: 0 15rpx
+	font-size 28rpx
+	box-sizing border-box
+	&.other
+		background url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-RD2ALYEEAABW1CaqUz8590.png") no-repeat top
+		-webkit-background-size: contain
+		background-size: contain
+		background-position: 0 15rpx
+	&.expire
+	&.used,
+	&.delete
+		background url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-RFyAd73JAAAJQ_tX6mQ138.png") no-repeat top
+		-webkit-background-size: contain
+		background-size: contain
+		background-position: 0 15rpx
+		&::after
+			position absolute
+			top 50%
+			right 87rpx
+			transform translateY(-70%) rotate(-24deg)
+			content '已过期'
+			font-size 60rpx
+			color #999
+	&.used
+		&::after
+			content '已使用'
+	&.delete
+		&::after
+			content '已作废'
+	& > view
+		&:first-of-type
+			flex 1
+			display flex
+			& > view
+				display flex
+				justify-content center
+				&:first-of-type
+					align-items center
+					flex .4
+					font-size 27rpx
+					transform translateY(-20rpx)
+					& > text
+						font-size 72rpx
+						margin-top 32rpx
+				&:last-of-type
+					flex-direction column
+					flex .6
+					.title
+						font-size 36rpx
+					.desc
+						font-size 28rpx
+						color #F8FAFE
+		&:last-of-type
+			flex 0 0 132rpx
+			width 132rpx
+			display flex
+			flex-direction column
+			justify-content center
+			align-items center

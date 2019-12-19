@@ -1,0 +1,7 @@
+.service-card-voucher {
+  background: #fff;
+  min-height: 100vh;
+}
+.service-card-voucher .content {
+  padding: 30rpx;
+}
