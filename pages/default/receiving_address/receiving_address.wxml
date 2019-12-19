@@ -32,11 +32,11 @@
 			<view>{{carNo[6]}}</view>
 			<view></view>
 		</view>
-		<view wx:if="{{currentIndex === 7 || carNo[7]}}" class="animated {{currentIndex === 7 ? 'selected' : ''}} {{currentIndex === 7 || carNo[7] ? 'fadeIn' : 'fadeOut'}}" data-index="7" catchtap="setCurrentCarNo">
+		<view wx:if="{{isNewPowerCar}}" class="animated {{currentIndex === 7 ? 'selected' : ''}} {{isNewPowerCar? 'fadeIn' : 'fadeOut'}}" data-index="7" catchtap="setCurrentCarNo">
 			<view>{{carNo[7]}}</view>
 			<view></view>
 		</view>
-		<view wx:else class="unselected animated {{currentIndex === 7 || carNo[7] ? 'fadeOut' : 'fadeIn'}}" data-index="7" catchtap="setCurrentCarNo">
+		<view wx:else class="unselected animated {{isNewPowerCar ? 'fadeOut' : 'fadeIn'}}" data-index="7" catchtap="onClickNewPowerCarHandle">
 			<view>+</view>
 			<view>新能源</view>
 		</view>
@@ -90,7 +90,7 @@
 			<input type="number" placeholder="输入验证码" placeholder-class="placeholder" value="{{formData.verifyCode}}"
 			       bindinput="onInputChangedHandle" data-key="verifyCode"
 			/>
-			<text class="validate-code" bindtap="sendVerifyCode">{{identifyingCode}}</text>
+			<text class="validate-code {{identifyingCode === '获取验证码' || identifyingCode ==='重新获取' ? '' : 'acquisition'}}" bindtap="sendVerifyCode">{{identifyingCode}}</text>
 		</view>
 	</view>
 	<!--	输入结束-->
