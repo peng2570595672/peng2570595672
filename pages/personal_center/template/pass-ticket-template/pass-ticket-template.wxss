@@ -1,0 +1,81 @@
+.pass-ticket {
+  position: relative;
+  display: flex;
+  height: 232rpx;
+  border-radius: 20rpx;
+  color: #fff;
+  background: url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-QSaAaFFpAABaajvkHHg602.png") no-repeat top;
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-position: 0 15rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+.pass-ticket.other {
+  background: url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-RD2ALYEEAABW1CaqUz8590.png") no-repeat top;
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-position: 0 15rpx;
+}
+.pass-ticket.expire,
+.pass-ticket.used,
+.pass-ticket.delete {
+  background: url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-RFyAd73JAAAJQ_tX6mQ138.png") no-repeat top;
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-position: 0 15rpx;
+}
+.pass-ticket.expire::after,
+.pass-ticket.used::after,
+.pass-ticket.delete::after {
+  position: absolute;
+  top: 50%;
+  right: 87rpx;
+  transform: translateY(-70%) rotate(-24deg);
+  content: '已过期';
+  font-size: 60rpx;
+  color: #999;
+}
+.pass-ticket.used::after {
+  content: '已使用';
+}
+.pass-ticket.delete::after {
+  content: '已作废';
+}
+.pass-ticket > view:first-of-type {
+  flex: 1;
+  display: flex;
+}
+.pass-ticket > view:first-of-type > view {
+  display: flex;
+  justify-content: center;
+}
+.pass-ticket > view:first-of-type > view:first-of-type {
+  align-items: center;
+  flex: 0.4;
+  font-size: 27rpx;
+  transform: translateY(-20rpx);
+}
+.pass-ticket > view:first-of-type > view:first-of-type > text {
+  font-size: 72rpx;
+  margin-top: 32rpx;
+}
+.pass-ticket > view:first-of-type > view:last-of-type {
+  flex-direction: column;
+  flex: 0.6;
+}
+.pass-ticket > view:first-of-type > view:last-of-type .title {
+  font-size: 36rpx;
+}
+.pass-ticket > view:first-of-type > view:last-of-type .desc {
+  font-size: 28rpx;
+  color: #f8fafe;
+}
+.pass-ticket > view:last-of-type {
+  flex: 0 0 132rpx;
+  width: 132rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

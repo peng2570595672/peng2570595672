@@ -1,0 +1,92 @@
+page {
+  background: #f00;
+}
+.pass-card {
+  position: relative;
+  height: 332rpx;
+  border-radius: 20rpx;
+  color: #fff;
+  background: url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-QYOABK1jAACGv26cCAA449.png") no-repeat top;
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-position: 0 15rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+.pass-card.other {
+  background: url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-RLqAfBwHAACG_IrILOE400.png") no-repeat top;
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-position: 0 15rpx;
+}
+.pass-card.expire,
+.pass-card.used,
+.pass-card.delete {
+  background: url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-RMuAZ5_FAAAIUgWTIBU462.png") no-repeat top;
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-position: 0 15rpx;
+}
+.pass-card.expire::after,
+.pass-card.used::after,
+.pass-card.delete::after {
+  position: absolute;
+  top: 50%;
+  right: 87rpx;
+  transform: translateY(-140%) rotate(-24deg);
+  content: '已过期';
+  font-size: 60rpx;
+  color: #999;
+}
+.pass-card.used::after {
+  content: '已使用';
+}
+.pass-card.delete::after {
+  content: '已作废';
+}
+.pass-card .top {
+  display: flex;
+  padding-top: 66rpx;
+  padding-left: 58rpx;
+  font-size: 27rpx;
+  align-items: start;
+}
+.pass-card .top > text {
+  font-size: 72rpx;
+  transform: translateY(-18rpx);
+}
+.pass-card .bottom {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.pass-card .bottom > view:first-of-type {
+  margin-top: 15rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 0.6;
+  padding-left: 60rpx;
+}
+.pass-card .bottom > view:first-of-type .title {
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 36rpx;
+}
+.pass-card .bottom > view:first-of-type .des {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+}
+.pass-card .bottom > view:last-of-type {
+  flex: 0.4;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.pass-card .bottom > view:last-of-type > text {
+  margin: 0 15rpx;
+  font-size: 71rpx;
+  transform: translateY(15rpx);
+}
