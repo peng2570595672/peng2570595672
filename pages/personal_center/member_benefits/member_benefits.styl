@@ -1,105 +1,165 @@
 @import "../../../style/base.styl";
 $fontColor1 = #87592B;
 $fontColor2 = #433224;
-//渐变主题色
-$themeColor1 = #CA9961;
-$themeColor2 = #EAC290;
 page
-	background #2A273E
+	width 100%
+	height 100vh
+	overflow hidden
+	background #F5F7FD
 	.member_benefits
+		position relative
 		width 100%
 		height 100vh
-		overflow hidden
+		box-sizing border-box
+		margin 0 35rpx
 		// 会员头部
 		.members-top
-			position relative
-			width 100%
-			height 24vh
-			margin-top 3vh
-			image
-				width 100%
-				height 24vh
-			.is-members
-				position absolute
-				top 0
-				left 0
-				width 100%
-				height 24vh
-				box-sizing border-box
-				padding-top 50rpx
-				text-align center
-				.vip-image
-					image
-						width 134rpx
-						height 88rpx
-				.name
-					padding-top 20rpx
-					font-size 40rpx
-					font-weight 500
-					color $fontColor1
-					line-height 56rpx
-				.lighten
-					font-size 28rpx
-					color $fontColor1
-					line-height 40rpx
-				.btn
-					margin-top 28rpx
-					button
-						width 200rpx
-						height 60rpx
-						line-height 60rpx
-						color #F2CA98
-						font-size 28rpx
-						background $fontColor1
-						border-radius 30rpx
-		// 会员权益列表
-		.benefits-list
-			position relative
-			width 100%
-			height 59vh
-			.benefits-bg
-				position absolute
-				top -3vh
-				left 0
-				width 100%
-				height 59vh
+			position absolute
+			top 17%
+			z-index 1
+			width 90.6%
+			height 41.5vh
+			box-sizing border-box
+			padding 0 10rpx
+			margin auto
+			background $fontColor3
+			border-radius 16rpx
+			opacity 0.77
+			.members-top-bg
 				image
 					width 100%
+					height 317rpx
+					border-radius 16rpx
+					margin-top -170rpx
+			.members-top-content
+				display flex
+				margin-top -270rpx
+				.header
+					flex 2
+					text-align right
+					image
+						width 100rpx
+						height 100rpx
+						border-radius 100rpx
+				.user
+					flex 5
+					color #fff
+					text-align left
+					padding-left 20rpx
+					&>view:first-child
+						font-size 36rpx
+						font-weight 500
+						line-height 50rpx
+						padding-top 8rpx
+						padding-left 10rpx
+					&>view:last-child
+						width 128rpx
+						button
+							width 128rpx
+							height 38rpx
+							line-height 38rpx
+							font-size 24rpx
+							color #fff
+							background #484F62
+							border-radius 25rpx
+							opacity 0.65
+							padding 0
+						button.active
+							background #DCAA63
+				.member
+					flex 3
+					font-size 24rpx
+					color #F7B500
+					padding-top 70rpx
+					text-indent 36rpx
+				.member::after
+					content '\e601'
+					color #F7B500
+					font-size 24rpx
+		// 会员权益列表
+		.benefits
+			position absolute
+			top 46%
+			z-index 2
+			width 90.6%
+			height 50vh
+			background #fff
+			border-radius 0px 0px 16rpx 16rpx
+			box-shadow 8rpx 12rpx 26rpx 0px rgba(219,224,238,0.54)
+			.benefits-list
+				position relative
+				width 100%
+				height 50vh
+				background #fff
+				transform skewY(4deg) translate(0rpx,10rpx)
+				margin-top -250rpx
+				.benefits-content
+					position absolute
+					top 0
+					left 0
+					z-index 2
+					width 100%
 					height 59vh
-			.benefits-content
+					transform skewY(-5deg) translate(0rpx,0rpx)
+					.benefits-top
+						font-size 28rpx
+						color $fontColor3
+						line-height 56rpx
+						padding-top 33rpx
+						padding-left 40rpx
+					.list-box
+						min-height 40vh
+						padding 0 54rpx
+						.list-content
+							display flex
+							float left
+							width 50%
+							height 100rpx
+							align-items center
+							text-align center
+							padding-top 50rpx
+							.list-title
+								color $fontColor2
+								font-size 28rpx
+								line-height 100rpx
+								align-items center
+						.list-content::before
+							content '\e601'
+							color #C7C8C8
+							font-size 100rpx
+						.icon-active::before
+							color #219E61
+			.benefits-button-bg
 				position absolute
-				top 0
-				left 0
 				z-index 1
 				width 100%
-				height 59vh
-				.benefits-top
-					text-align center
-					font-size 40rpx
-					font-weight 600
-					color rgba(67,50,36,1)
-					line-height 56rpx
-					padding-top 92rpx
-				.list-box
-					height 50vh
-					padding 0 54rpx
-					.list-content
-						float left
-						width 130rpx
-						text-align center
-						padding-top 50rpx
-						.list-image
-							image
-								width 130rpx
-								height 130rpx
-								background #F7F1E6
-								border-radius 32rpx
-						.list-title
-							padding-top 20rpx
-							color $fontColor2
-							font-size 28rpx
-					&>view:nth-child(3n-1)
-						margin 0 116rpx
+				height 10vh
+				border-radius 0px 0px 16rpx 16rpx
+				margin-top -20rpx
+		.as-member
+			transform skewY(0.8deg) translate(0rpx,0rpx)
+			padding-top 60rpx
+			button
+				width 83%
+				height 98rpx
+				line-height 98rpx
+				border-radius 98rpx
+				font-size 40rpx
+				font-weight 500
+				color #fff
+				background linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
+		.prompt
+			transform skewY(0.7deg) translate(0rpx,0rpx)
+			text-align center
+			font-size 24rpx
+			color $fontColor9
+			line-height 34rpx
+			padding-top 40rpx
+			text::before
+				content '\e601'
+				color #F7B500
+				font-size 24rpx
+				padding-right 10rpx
 		// 弹出详情
 		.mask
 			position fixed
@@ -107,50 +167,47 @@ page
 			top 0
 			right 0
 			bottom 0
-			z-index 1
-			background: rgba(0, 0, 0, .6)
+			z-index 5
+			background rgba(0, 0, 0, .6)
 			.top
 				position fixed
 				left 0
 				top 0
 				bottom 0
 				width 100%
-				height 20%
+				height 37%
 				background: rgba(0, 0, 0, 0)
 			.wrapper
 				position fixed
 				left 0rpx
-				top 20%
+				top 37%
 				right 0
 				bottom 0
-				height 80%
+				height 63%
 				background #fff
 				border-radius 32rpx 32rpx 0px 0px
+				padding 0 68rpx
 				.details-title
-					padding 72rpx 74rpx 24rpx
+					display flex
+					align-items center
 					font-size 40rpx
 					font-weight 600
-					line-height 56rpx
-					color $fontColor2
-				.details-content
+					line-height 100rpx
 					color $fontColor3
-					font-size 30rpx
-					line-height 42rpx
-					padding 0 73rpx
-				.details-image
-					text-align center
-					padding 20rpx 0 82rpx
-					image
-						width 460rpx
-						height 392rpx
-				.details-btn
-					text-align center
-					button
-						width 84%
-						height 98rpx
-						line-height 98rpx
-						background linear-gradient(to right, $themeColor1, $themeColor2)
-						box-shadow 0px 8rpx 10rpx 0px rgba(132,209,87,0.2)
-						border-radius 50rpx
-						font-size 28rpx
-						color #FFFFFF
+					padding-top 58rpx
+				.details-title::before
+					content '\e601'
+					color #15AD69
+					font-size 100rpx
+					padding-right 10rpx
+				.details-content
+					color $fontColor6
+					font-size 32rpx
+					line-height 48rpx
+					padding-top 30rpx
+				.as-member,
+				.prompt
+					transform skewY(0deg) translate(0rpx,0rpx)
+				.as-member
+					padding-top 100rpx
+

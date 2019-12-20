@@ -1,4 +1,3 @@
-$themeColor = #1AAD19
 .pass-ticket
 	position relative
 	display flex
@@ -17,8 +16,6 @@ $themeColor = #1AAD19
 		background-size: contain
 		background-position: 0 15rpx
 	&.expire
-	&.used,
-	&.delete
 		background url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-RFyAd73JAAAJQ_tX6mQ138.png") no-repeat top
 		-webkit-background-size: contain
 		background-size: contain
@@ -31,12 +28,6 @@ $themeColor = #1AAD19
 			content '已过期'
 			font-size 60rpx
 			color #999
-	&.used
-		&::after
-			content '已使用'
-	&.delete
-		&::after
-			content '已作废'
 	& > view
 		&:first-of-type
 			flex 1

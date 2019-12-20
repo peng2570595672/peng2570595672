@@ -1,3 +1,153 @@
+.pass-ticket {
+  position: relative;
+  display: flex;
+  height: 232rpx;
+  border-radius: 20rpx;
+  color: #fff;
+  background: url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-QSaAaFFpAABaajvkHHg602.png") no-repeat top;
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-position: 0 15rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+.pass-ticket.other {
+  background: url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-RD2ALYEEAABW1CaqUz8590.png") no-repeat top;
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-position: 0 15rpx;
+}
+.pass-ticket.expire {
+  background: url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-RFyAd73JAAAJQ_tX6mQ138.png") no-repeat top;
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-position: 0 15rpx;
+}
+.pass-ticket.expire::after {
+  position: absolute;
+  top: 50%;
+  right: 87rpx;
+  transform: translateY(-70%) rotate(-24deg);
+  content: '已过期';
+  font-size: 60rpx;
+  color: #999;
+}
+.pass-ticket > view:first-of-type {
+  flex: 1;
+  display: flex;
+}
+.pass-ticket > view:first-of-type > view {
+  display: flex;
+  justify-content: center;
+}
+.pass-ticket > view:first-of-type > view:first-of-type {
+  align-items: center;
+  flex: 0.4;
+  font-size: 27rpx;
+  transform: translateY(-20rpx);
+}
+.pass-ticket > view:first-of-type > view:first-of-type > text {
+  font-size: 72rpx;
+  margin-top: 32rpx;
+}
+.pass-ticket > view:first-of-type > view:last-of-type {
+  flex-direction: column;
+  flex: 0.6;
+}
+.pass-ticket > view:first-of-type > view:last-of-type .title {
+  font-size: 36rpx;
+}
+.pass-ticket > view:first-of-type > view:last-of-type .desc {
+  font-size: 28rpx;
+  color: #f8fafe;
+}
+.pass-ticket > view:last-of-type {
+  flex: 0 0 132rpx;
+  width: 132rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.pass-card {
+  position: relative;
+  height: 332rpx;
+  border-radius: 20rpx;
+  color: #fff;
+  background: url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-QYOABK1jAACGv26cCAA449.png") no-repeat top;
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-position: 0 15rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+.pass-card.other {
+  background: url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-RLqAfBwHAACG_IrILOE400.png") no-repeat top;
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-position: 0 15rpx;
+}
+.pass-card.expire {
+  background: url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-RMuAZ5_FAAAIUgWTIBU462.png") no-repeat top;
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-position: 0 15rpx;
+}
+.pass-card.expire::after {
+  position: absolute;
+  top: 50%;
+  right: 87rpx;
+  transform: translateY(-140%) rotate(-24deg);
+  content: '已过期';
+  font-size: 60rpx;
+  color: #999;
+}
+.pass-card .top {
+  display: flex;
+  padding-top: 66rpx;
+  padding-left: 58rpx;
+  font-size: 27rpx;
+  align-items: start;
+}
+.pass-card .top > text {
+  font-size: 72rpx;
+  transform: translateY(-18rpx);
+}
+.pass-card .bottom {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.pass-card .bottom > view:first-of-type {
+  margin-top: 15rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 0.6;
+  padding-left: 60rpx;
+}
+.pass-card .bottom > view:first-of-type .title {
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 36rpx;
+}
+.pass-card .bottom > view:first-of-type .des {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+}
+.pass-card .bottom > view:last-of-type {
+  flex: 0.4;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.pass-card .bottom > view:last-of-type > text {
+  margin: 0 15rpx;
+  font-size: 71rpx;
+  transform: translateY(15rpx);
+}
 .service-card-voucher {
   background: #fff;
   min-height: 100vh;
