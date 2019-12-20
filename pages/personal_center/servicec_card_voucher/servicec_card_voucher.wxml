@@ -5,8 +5,8 @@
 	<view class="content">
 		<block>
 			<block>
-				<template is="passTicketTemplate"></template>
-			</block>
+			<template is="passTicketTemplate"></template>
+		</block>
 			<block>
 				<template is="passCardTemplate"></template>
 			</block>
