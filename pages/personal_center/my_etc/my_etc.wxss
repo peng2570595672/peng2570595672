@@ -19,6 +19,7 @@
   display: flex;
   align-items: center;
   box-sizing: border-box;
+  padding-top: 20rpx;
   margin-bottom: 10rpx;
 }
 .index .new_item .new_item_top > view:first-of-type {
@@ -48,16 +49,16 @@
   font-size: 24rpx;
   color: #999;
 }
-.index .new_item .new_item_bottom > view:first-of-type {
-  flex: 5;
+.index .new_item .new_item_bottom > view {
   font-size: 28rpx;
   color: #99999d;
+}
+.index .new_item .new_item_bottom > view:first-of-type {
+  flex: 5;
 }
 .index .new_item .new_item_bottom > view:last-of-type {
   flex: 5;
   text-align: right;
-  font-size: 28rpx;
-  color: #99999d;
 }
 .index .bottom_container {
   position: absolute;
@@ -69,7 +70,7 @@
 .index .bottom_container button {
   width: 630rpx;
   height: 98rpx;
-  background: linear-gradient(45deg, #14ac69 0%, #84d157 100%);
+  background: linear-gradient(to right, #14ac69, #84d157);
   box-shadow: 0rpx 8rpx 10rpx 0rpx rgba(132,209,87,0.2);
   border-radius: 49rpx;
   font-size: 40rpx;
