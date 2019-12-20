@@ -28,6 +28,14 @@ page .help-center .service .service-btn button {
   background: rgba(255,255,255,0.3);
   border-radius: 20rpx;
 }
+page .help-center .service .service-btn button text::before {
+  content: '\e602';
+  color: #fff;
+  font-size: 38rpx;
+}
+page .help-center .service .service-btn button .online-service::before {
+  content: '\e612';
+}
 page .help-center .service .service-btn>button:last-child {
   float: right;
 }
@@ -46,6 +54,16 @@ page .help-center .help-list .help-search>view {
   background: #f5f5f5;
   border-radius: 35rpx;
   margin: 0 auto;
+}
+page .help-center .help-list .help-search>view text {
+  display: flex;
+  align-items: center;
+}
+page .help-center .help-list .help-search>view text::before {
+  content: '\e744';
+  color: #d4d4d6;
+  font-size: 60rpx;
+  margin: 0 10rpx 0 30rpx;
 }
 page .help-center .help-list .list .list-title {
   width: 100%;

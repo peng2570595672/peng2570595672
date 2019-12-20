@@ -117,8 +117,8 @@
 				},
 				{
 					"id": 3,
-					"name": "pages/personal_center/member_benefits/member_benefits",
-					"pathName": "pages/personal_center/member_benefits/member_benefits",
+					"name": "pages/personal_center/help_center/help_center",
+					"pathName": "pages/personal_center/help_center/help_center",
 					"query": "",
 					"scene": null
 				},
