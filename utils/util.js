@@ -94,6 +94,7 @@ function signature(params, path, token = '') {
 	}
 	// 拼接url
 	sign += `url=${path}&`;
+
 	// 拼接token
 	sign += token ? `accessToken=${token}&` : '';
 	// 拼接key
@@ -113,23 +114,14 @@ function getSignature(params, path, token = '') {
  * @param success 成功后的回调g
  * @param fail 失败后的回调
  */
-function getDataFromServer(path, params, fail, success, token = '', complete) {
-	// 携带平台id
-	params['platformId'] = app.globalData.platformId;
+function getDataFromServer(path, params, fail, success, token = '', complete, method = 'POST') {
+	method = method.toUpperCase();
 	// 移除sign属性
 	path = path.indexOf('/') === 0 ? path : `/${path}`;
-	//请求头
-	let header = {
-		sign: getSignature(params, path, token)
-	};
-	if (token) {
-		header.accessToken = token;
-	}
-	wx.request({
+	// 封装请求对象
+	let obj = {
 		url: app.globalData.host + path,
-		method: 'POST',
-		header: header, // 请求头
-		data: params,
+		method: method,
 		success: (res) => {
 			success && success(res.data);
 		},
@@ -139,7 +131,37 @@ function getDataFromServer(path, params, fail, success, token = '', complete) {
 		complete: (res) => {
 			complete && complete();
 		}
-	});
+	};
+	let header = {};
+	// POST请求
+	if (method === 'POST') {
+		// 设置签名
+		header = {
+			sign: getSignature(params, path, token)
+		};
+		// 设置请求体
+		obj['data'] = params;
+	} else { // GET请求
+		// 拼接请求路径
+		let url = obj.url + '?';
+		for (let key of Object.keys(params)) {
+			url += `${key}=${params[key]}&`
+		}
+		url = url.substring(0, url.length - 1);
+		obj.url = url;
+		// 设置签名
+		header = {
+			sign: getSignature({}, obj.url.replace(app.globalData.host, ''), token)
+		};
+	}
+	// 设置token
+	if (token) {
+		header.accessToken = token;
+	}
+	// 设置请求头
+	obj.header = header;
+	// 执行请求
+	wx.request(obj);
 }
 
 /**
@@ -286,9 +308,11 @@ function showLoading({
 		mask: mask
 	});
 }
+
 function hideLoading() {
 	wx.hideLoading();
 }
+
 // 根据日期计算汉字
 function getDateDiff(dateTimeStamp) {
 	let result = '';

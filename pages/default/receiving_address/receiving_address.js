@@ -289,7 +289,9 @@ Page({
 				util.showToastNoIcon(res.message);
 			}
 			console.log(res);
-		}, app.globalData.userInfo.accessToken);
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		},'GET');
 	},
 	// 输入框输入值
 	onInputChangedHandle (e) {

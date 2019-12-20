@@ -17,17 +17,13 @@
   background-size: contain;
   background-position: 0 15rpx;
 }
-.pass-ticket.expire,
-.pass-ticket.used,
-.pass-ticket.delete {
+.pass-ticket.expire {
   background: url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-RFyAd73JAAAJQ_tX6mQ138.png") no-repeat top;
   -webkit-background-size: contain;
   background-size: contain;
   background-position: 0 15rpx;
 }
-.pass-ticket.expire::after,
-.pass-ticket.used::after,
-.pass-ticket.delete::after {
+.pass-ticket.expire::after {
   position: absolute;
   top: 50%;
   right: 87rpx;
@@ -35,12 +31,6 @@
   content: '已过期';
   font-size: 60rpx;
   color: #999;
-}
-.pass-ticket.used::after {
-  content: '已使用';
-}
-.pass-ticket.delete::after {
-  content: '已作废';
 }
 .pass-ticket > view:first-of-type {
   flex: 1;

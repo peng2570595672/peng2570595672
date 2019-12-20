@@ -1,6 +1,3 @@
-page {
-  background: #f00;
-}
 .pass-card {
   position: relative;
   height: 332rpx;
@@ -19,17 +16,13 @@ page {
   background-size: contain;
   background-position: 0 15rpx;
 }
-.pass-card.expire,
-.pass-card.used,
-.pass-card.delete {
+.pass-card.expire {
   background: url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-RMuAZ5_FAAAIUgWTIBU462.png") no-repeat top;
   -webkit-background-size: contain;
   background-size: contain;
   background-position: 0 15rpx;
 }
-.pass-card.expire::after,
-.pass-card.used::after,
-.pass-card.delete::after {
+.pass-card.expire::after {
   position: absolute;
   top: 50%;
   right: 87rpx;
@@ -37,12 +30,6 @@ page {
   content: '已过期';
   font-size: 60rpx;
   color: #999;
-}
-.pass-card.used::after {
-  content: '已使用';
-}
-.pass-card.delete::after {
-  content: '已作废';
 }
 .pass-card .top {
   display: flex;

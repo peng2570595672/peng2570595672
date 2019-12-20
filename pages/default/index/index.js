@@ -18,6 +18,7 @@ Page({
 		wx.login({
 			success: (res) => {
 				util.getDataFromServer('consumer/member/common/applet/code', {
+					platformId: app.globalData.platformId,
 					code: res.code
 				}, () => {
 					util.hideLoading();
