@@ -116,7 +116,7 @@ function getSignature(params, path, token = '') {
  */
 function getDataFromServer(path, params, fail, success, token = '', complete, method = 'POST') {
 	method = method.toUpperCase();
-	// 移除sign属性
+	// 对请求路径是否开头带/进行处理
 	path = path.indexOf('/') === 0 ? path : `/${path}`;
 	// 封装请求对象
 	let obj = {
