@@ -117,8 +117,8 @@
 				},
 				{
 					"id": 3,
-					"name": "pages/personal_center/servicec_card_voucher/servicec_card_voucher",
-					"pathName": "pages/personal_center/servicec_card_voucher/servicec_card_voucher",
+					"name": "pages/personal_center/member_benefits/member_benefits",
+					"pathName": "pages/personal_center/member_benefits/member_benefits",
 					"query": "",
 					"scene": null
 				},
@@ -154,6 +154,7 @@
 					"id": -1,
 					"name": "优惠券详情",
 					"pathName": "pages/personal_center/use_record/use_record",
+					"query": "",
 					"scene": null
 				}
 			]
