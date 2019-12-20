@@ -10,12 +10,12 @@
 		bindchange="onChangeHandle"
 		>
 		<swiper-item class="my-swiper-item">
-			<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576509286468&di=d0da26db50bddc4a776f22a7df3273e8&imgtype=0&src=http%3A%2F%2Fwww.chachaba.com%2Fnews%2Fuploads%2F191118%2F7183_191118093418_1.jpg">
+			<image src="{{drivingLicenseFace.fileUrl}}">
 				<view class="iconfont animated {{current === 0 ? 'fadeIn' : 'fadeOut'}}" wx:if="{{current === 0}}">点击重新拍摄</view>
 			</image>
 		</swiper-item>
 		<swiper-item class="my-swiper-item">
-			<image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576509286468&di=d0da26db50bddc4a776f22a7df3273e8&imgtype=0&src=http%3A%2F%2Fwww.chachaba.com%2Fnews%2Fuploads%2F191118%2F7183_191118093418_1.jpg">
+			<image src="{{drivingLicenseBack.fileUrl}}">
 				<view class="iconfont animated {{current === 1 ? 'fadeIn' : 'fadeOut'}}"  wx:if="{{current === 1}}">点击重新拍摄</view>
 			</image>
 		</swiper-item>
@@ -28,39 +28,107 @@
 	<view class="tips">*请仔细核对以下信息，有误项可点击修改</view>
 	<!--	提示结束-->
 	<!--	内容开始-->
-	<view class="content-wrapper {{opened ? 'opened' : ''}}">
+	<block wx:if="{{current === 0}}">
+		<view class="content-wrapper {{opened ? 'opened' : ''}}">
 		<view class="item">
 			<view>车主姓名</view>
-			<input type="text" value="小男孩"/>
+			<input type="text" value="{{drivingLicenseFace.ocrObject.owner}}"/>
 		</view>
 		<view class="item">
 			<view>车牌号</view>
-			<input type="text" value="粤A 12334"/>
+			<input type="text" value="{{drivingLicenseFace.ocrObject.numberPlates}}"/>
 		</view>
 		<view class="item">
-			<view>发动机号</view>
-			<input type="text" value="J6QY1233519"/>
+			<view>车辆类型</view>
+			<input type="text" value="{{drivingLicenseFace.ocrObject.vehicleType}}"/>
 		</view>
 		<view class="item">
-			<view>车辆识别号</view>
-			<input type="text" value="LZAHDT12122211223"/>
+			<view>住址</view>
+			<textarea auto-height="{{true}}" value="{{drivingLicenseFace.ocrObject.address}}"/>
 		</view>
 		<block wx:if="{{opened}}">
 			<view class="split"></view>
 			<view class="item">
-				<view>车辆类型</view>
-				<input type="text" value="小型轿车"/>
-			</view>
-			<view class="item">
-				<view>地址</view>
-				<input type="text" value="贵州省贵阳市乌当区"/>
-			</view>
-			<view class="item">
 				<view>使用性质</view>
-				<input type="text" value="非运营"/>
+				<input type="text" value="{{drivingLicenseFace.ocrObject.useCharacter}}"/>
+			</view>
+			<view class="item">
+				<view>品牌型号</view>
+				<input type="text" value="{{drivingLicenseFace.ocrObject.model}}"/>
+			</view>
+			<view class="item">
+				<view>车辆识别代码</view>
+				<input type="text" value="{{drivingLicenseFace.ocrObject.vin}}"/>
+			</view>
+			<view class="item">
+				<view>发动机号码</view>
+				<input type="text" value="{{drivingLicenseFace.ocrObject.engineNo}}"/>
+			</view>
+			<view class="item">
+				<view>注册日期</view>
+				<input type="text" value="{{drivingLicenseFace.ocrObject.issueDate}}"/>
+			</view>
+			<view class="item">
+				<view>发证日期</view>
+				<input type="text" value="{{drivingLicenseFace.ocrObject.resgisterDate}}"/>
 			</view>
 		</block>
 	</view>
+	</block>
+	<block wx:else>
+		<view class="content-wrapper {{opened ? 'opened' : ''}}">
+
+			<view class="item">
+				<view>车牌号</view>
+				<input type="text" value="{{drivingLicenseBack.ocrObject.numberPlates}}"/>
+			</view>
+			<view class="item">
+				<view>档案编号</view>
+				<input type="text" value="{{drivingLicenseBack.ocrObject.fileNumber}}"/>
+			</view>
+			<view class="item">
+				<view>核载人数</view>
+				<picker
+					bindchange="onPersonsCapacityPickerChange"
+					value="{{personIndex}}"
+					range="{{personsArr}}"
+				>
+					<view>{{personsArr[personIndex]}}人</view>
+				</picker>
+			</view>
+			<view class="item">
+				<view>总质量</view>
+				<input type="text" value="{{drivingLicenseBack.ocrObject.totalMass}}"/>
+			</view>
+			<block wx:if="{{opened}}">
+				<view class="split"></view>
+				<view class="item">
+					<view>整备质量</view>
+					<input type="text" value="{{drivingLicenseBack.ocrObject.curbWeight}}"/>
+				</view>
+				<view class="item">
+					<view>核定载质量</view>
+					<input type="text" value="{{drivingLicenseBack.ocrObject.loadQuality}}"/>
+				</view>
+				<view class="item">
+					<view>外廓尺寸</view>
+					<input type="text" value="{{drivingLicenseBack.ocrObject.size}}"/>
+				</view>
+				<view class="item">
+					<view>准牵引总质量</view>
+					<input type="text" value="{{drivingLicenseBack.ocrObject.tractionMass}}"/>
+				</view>
+				<view class="item">
+					<view>备注</view>
+					<input type="text"/>
+				</view>
+				<view class="item">
+					<view>检验记录</view>
+					<input type="text" value="{{drivingLicenseBack.ocrObject.recode}}"/>
+				</view>
+			</block>
+		</view>
+	</block>
 	<!--	内容结束-->
 	<!--	展开信息开始-->
 	<view class="open">

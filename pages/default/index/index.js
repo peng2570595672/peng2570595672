@@ -3,23 +3,91 @@
  * @desc 首页
  */
 const util = require('../../../utils/util.js');
+const app = getApp();
 Page({
-	data: {},
+	data: {
+		loginInfo: {},// 登录信息
+		orderInfo: {} // 订单信息
+	},
 	onLoad () {
+		this.login();
+	},
+	// 自动登录
+	login () {
+		util.showLoading();
 		wx.login({
 			success: (res) => {
 				util.getDataFromServer('consumer/member/common/applet/code', {
 					code: res.code
 				}, () => {
+					util.hideLoading();
 					util.showToastNoIcon('登录失败！');
 				}, (res) => {
-					console.log(res);
+					if (res.code === 0) {
+						this.setData({
+							loginInfo: res.data
+						});
+						// 已经绑定了订单
+						if (res.data.needBindingPhone !== 1) {
+							app.globalData.userInfo = res.data;
+							this.getStatus();
+						} else {
+							util.hideLoading();
+						}
+					} else {
+						util.hideLoading();
+						util.showToastNoIcon(res.message);
+					}
 				});
 			},
 			fail: () => {
+				util.hideLoading();
 				util.showToastNoIcon('登录失败！');
 			}
 		});
+	},
+	// 获取手机号
+	onGetPhoneNumber (e) {
+		// 允许授权
+		if (e.detail.errMsg === 'getPhoneNumber:ok') {
+			let encryptedData = e.detail.encryptedData;
+			let iv = e.detail.iv;
+			util.showLoading({
+				title: '绑定中...'
+			});
+			util.getDataFromServer('consumer/member/common/applet/bindingPhone', {
+				certificate: this.data.loginInfo.certificate,
+				encryptedData: encryptedData,
+				iv: iv
+			}, () => {
+				util.hideLoading();
+				util.showToastNoIcon('绑定手机号失败！');
+			}, (res) => {
+				if (res.code === 0) {
+					app.globalData.uesrInfo = res.data;
+					this.getStatus();
+				} else {
+					util.hideLoading();
+					util.showToastNoIcon(res.message);
+				}
+			});
+		}
+	},
+	getStatus () {
+		util.getDataFromServer('consumer/order/home-info', {
+		}, () => {
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				if (res.data.orderInfo) {
+					console.log(res.data.orderInfo);
+				}
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+			console.log(res);
+		}, app.globalData.userInfo.accessToken);
 	},
 	// 免费办理
 	freeProcessing () {

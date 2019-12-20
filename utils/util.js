@@ -286,7 +286,9 @@ function showLoading({
 		mask: mask
 	});
 }
-
+function hideLoading() {
+	wx.hideLoading();
+}
 // 根据日期计算汉字
 function getDateDiff(dateTimeStamp) {
 	let result = '';
@@ -415,6 +417,7 @@ module.exports = {
 	isJsonString,
 	alert,
 	showLoading,
+	hideLoading,
 	getDateDiff,
 	mobilePhoneReplace,
 	encryptByDESModeEBC,

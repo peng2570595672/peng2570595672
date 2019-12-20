@@ -13,6 +13,7 @@ App({
 		pixelRatio: 2,
 		screenWidth: 750,
 		quality: 80,
+		userInfo: {},// 用户信息
 		serverInfoId: ''
 	},
 	onLaunch (options) {

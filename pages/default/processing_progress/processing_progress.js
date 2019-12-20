@@ -15,7 +15,7 @@ Page({
 		util.go('/pages/default/payment_way/payment_way');
 	},
 	// 上传行驶证
-	onClickUploadDrivingLicenseHandle() {
+	onClickUploadDrivingLicenseHandle () {
 		util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license?type=0');
 	}
 });

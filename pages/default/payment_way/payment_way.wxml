@@ -33,7 +33,7 @@
 		<!--	扣款方式标题结束-->
 		<!--	银行卡号开始-->
 		<view class="bank-no">
-			<input type="number" placeholder="请输入或拍摄工商银行卡卡号" placeholder-class="placeholder"/>
+			<input type="number" placeholder="请输入或拍摄工商银行卡卡号" placeholder-class="placeholder" value="{{bankCardIdentifyResult.ocrObject.cardNo}}"/>
 			<view class="iconfont" catchtap="onClickShotBankCardHandle" data-type="0"></view>
 		</view>
 		<!--	银行卡号结束-->
@@ -55,18 +55,18 @@
 		<!--	输入身份证号 和身份证姓名开始-->
 		<view class="input-wrapper">
 			<view class="photo-wrapper">
-				<image
-					src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576230567947&di=8fdbe0e6f59bc99999aa94bae9ef92b3&imgtype=0&src=http%3A%2F%2F02.imgmini.eastday.com%2Fmobile%2F20180712%2F20180712200500_f623ba2cff37018a6fb82b17b08bd3de_1.jpeg"/>
-				<image
-					src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576230567947&di=8fdbe0e6f59bc99999aa94bae9ef92b3&imgtype=0&src=http%3A%2F%2F02.imgmini.eastday.com%2Fmobile%2F20180712%2F20180712200500_f623ba2cff37018a6fb82b17b08bd3de_1.jpeg"/>
+				<!--身份证正面-->
+				<image src="{{idCardFace.fileUrl}}"/>
+				<!--身份证反面-->
+				<image src="{{idCardBack.fileUrl}}"/>
 			</view>
 			<view class="input-item">
 				<view>姓名</view>
-				<input type="text" placeholder="小男孩" placeholder-class="placeholder"/>
+				<input type="text" placeholder="小男孩" placeholder-class="placeholder" value="{{idCardFace.ocrObject.name}}"/>
 			</view>
 			<view class="input-item">
 				<view>身份证号</view>
-				<input type="text" placeholder="220625198904071555" placeholder-class="placeholder"/>
+				<input type="text" placeholder="220625198904071555" placeholder-class="placeholder" value="{{idCardFace.ocrObject.idNumber}}"/>
 			</view>
 		</view>
 		<!--	输入身份证号 和身份证姓名结束-->

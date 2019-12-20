@@ -275,7 +275,21 @@ Page({
 			util.showToastNoIcon('手机号格式错误');
 			return;
 		}
-		this.startTimer();
+		util.showLoading({
+			title: '请求中...'
+		});
+		util.getDataFromServer('consumer/order/send-receive-phone-verification-code', {
+			receivePhone: this.data.formData.telNumber
+		}, () => {
+				util.hideLoading();
+		}, (res) => {
+			if (res.code === 0) {
+				this.startTimer();
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+			console.log(res);
+		}, app.globalData.userInfo.accessToken);
 	},
 	// 输入框输入值
 	onInputChangedHandle (e) {

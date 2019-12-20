@@ -147,3 +147,7 @@
   color: #fff;
   font-size: 9.333333333333334vmin;
 }
+.photo_recognition_of_driving_license .press-canvas {
+  position: fixed;
+  left: -3000rpx;
+}

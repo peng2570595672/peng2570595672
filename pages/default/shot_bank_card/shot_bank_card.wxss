@@ -96,3 +96,7 @@
   width: 64rpx;
   height: 54rpx;
 }
+.shot_bank_card .press-canvas {
+  position: fixed;
+  left: -3000rpx;
+}

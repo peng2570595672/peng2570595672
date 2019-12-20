@@ -80,7 +80,7 @@
   display: flex;
   align-items: center;
   padding: 0 40rpx;
-  height: 88rpx;
+  min-height: 88rpx;
   font-size: 32rpx;
   color: #99999d;
   border-bottom: 1rpx solid #f8f8f8;
@@ -90,9 +90,13 @@
   flex: 0.35;
 }
 .information_validation .content-wrapper .item > input,
-.information_validation .content-wrapper .item > picker {
+.information_validation .content-wrapper .item > picker,
+.information_validation .content-wrapper .item > textarea {
   flex: 0.65;
   text-align: right;
+}
+.information_validation .content-wrapper .item > textarea {
+  padding: 30rpx 0;
 }
 .information_validation .content-wrapper .split {
   margin: 0 32rpx;

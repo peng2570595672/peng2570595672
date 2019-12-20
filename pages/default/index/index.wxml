@@ -1,7 +1,7 @@
 <view class="index">
 	<!--	欢迎语句开始-->
 	<view class="welcome">欢迎
-		<text>小男孩</text>
+		<text>{{loginInfo.nickName ? loginInfo.nickName : '登录中...'}}</text>
 	</view>
 	<!--	欢迎语句结束-->
 	<!--	轮播图开始-->
@@ -25,7 +25,8 @@
 
 	<!--	免费办理开始-->
 	<view class="free-processing">
-		<view class="btn" catchtap="freeProcessing">免费办理</view>
+		<view wx:if="{{loginInfo.needBindingPhone !== 1}}" class="btn" catchtap="freeProcessing">免费办理</view>
+		<button wx:else class="btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">免费办理</button>
 		<view class="tips">免费办理ETC高速通行95折</view>
 	</view>
 	<!--	免费办理结束-->

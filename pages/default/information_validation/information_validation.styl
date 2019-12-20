@@ -74,7 +74,7 @@
 			display flex
 			align-items center
 			padding 0 40rpx
-			height 88rpx
+			min-height 88rpx
 			font-size 32rpx
 			color $fontColor9
 			border-bottom 1rpx solid #F8F8F8
@@ -82,10 +82,12 @@
 			& > view
 					flex .35
 			& > input,
-			& > picker
+			& > picker,
+			& > textarea
 				flex .65
 				text-align right
-
+			& > textarea
+				padding 30rpx 0
 		.split
 			margin 0 32rpx
 			border-bottom 1rpx dashed #979797

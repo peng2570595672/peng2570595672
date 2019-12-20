@@ -37,6 +37,7 @@ function  processingPictures (self, path, canvasId, width ,success) {
 					pictureWidth: targetWidth,
 					pictureHeight: targetHeight
 				});
+				console.log(2);
 				wx.nextTick(() => {
 					getCanvasImage(canvasId, path,targetWidth, targetHeight, (res) => {
 						if (res) {
