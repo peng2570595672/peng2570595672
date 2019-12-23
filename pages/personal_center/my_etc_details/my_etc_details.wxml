@@ -7,17 +7,30 @@
             <view></view>
         </view>
         <!--        车牌号码-->
-        <view>
+        <view class="list">
             <view>车牌号码</view>
             <view>贵A88888</view>
         </view>
         <!--        设备状态-->
-        <view>
+        <view class="list">
             <view>设备状态</view>
-            <view>办理中</view>
+            <view class="status {{status === 0 ? 'servicing' : ''}} {{status === 1 || status === 7 ? 'pass' : ''}} {{status === 2 || status === 3 ? 'fail' : ''}}">
+	            {{status === 0 ? '办理中' : ''}}
+	            {{status === 1 ? '正常使用' : ''}}
+	            {{status === 2 ? '扣费失败' : ''}}
+	            {{status === 3 ? '申请失败' : ''}}
+	            {{status === 4 ? '待签约' : ''}}
+	            {{status === 5 ? '待激活' : ''}}
+	            {{status === 6 ? '审核中' : ''}}
+	            {{status === 7 ? '审核通过' : ''}}
+            </view>
         </view>
+	    <view class="prompt" wx:if="{{status === 2 || status === 3}}">
+		    {{status === 2 ? '该设备有扣费失败账单 ，请立即补缴通行费并检查关联账户是否余额充足。扣费异常可能导致设备被拉黑名单。' : ''}}
+		    {{status === 3 ? '您的车牌号已经办理了ETC，不能再次申请。' : ''}}
+	    </view>
         <!--        扣款方式-->
-        <view>
+        <view class="list">
             <view>扣款方式</view>
             <view>工商银行(0089)</view>
         </view>
@@ -25,38 +38,44 @@
     <!--    设备详情中部-->
     <view class="equipment_center">
         <!--        所属人-->
-        <view>
+        <view class="list">
             <view>所属人</view>
             <view>张三</view>
         </view>
         <!--        发行卡种-->
-        <view>
+        <view class="list">
             <view>发行卡种</view>
             <view>黔通卡</view>
         </view>
         <!--        发行卡号-->
-        <view>
+        <view class="list">
             <view>发行卡号</view>
             <view>01234567899876543210</view>
         </view>
         <!--        设备编号-->
-        <view>
+        <view class="list">
             <view>设备(OBU)编号</view>
             <view>123456789987654321</view>
         </view>
     </view>
     <!--    设备详情底部-->
-    <view class="equipment_bottom">
+    <view class="equipment_bottom {{status === 2 || status === 3 ? 'bottom-height' : ''}}">
         <!--        办理日期-->
-        <view>
+        <view class="list">
             <view>办理日期</view>
             <view>2019-2-14 12:12:12</view>
         </view>
         <!--        继续办理-->
-        <button>继续办理</button>
+        <button wx:if="{{status != 1 && status != 2 && status != 3}}">
+	        {{status === 0 ? '继续办理' : ''}}
+	        {{status === 4 ? '立即签约' : ''}}
+	        {{status === 5 ? '查看进度' : ''}}
+	        {{status === 6 ? '查看进度' : ''}}
+	        {{status === 7 ? '查看进度' : ''}}
+        </button>
         <!--        取消办理&客服中心-->
-        <view>
-            <view catchtap="cancelOrder">取消办理</view>
+        <view class="cancel" wx:if="{{status != 4 && status != 5 && status != 6 && status != 7}}">
+            <view catchtap="cancelOrder" wx:if="{{status != 1 && status != 2}}">取消办理</view>
             <view>客服中心</view>
         </view>
     </view>

@@ -3,8 +3,8 @@
 	<view class="service">
 		<view class="service-name">Hi！张晓晓</view>
 		<view class="service-btn">
-			<button><text>售后服务</text></button>
-			<button><text>在线客服</text></button>
+			<button><text class="iconfont">售后服务</text></button>
+			<button><text class="iconfont online-service">在线客服</text></button>
 		</view>
 	</view>
 	<!--售后服务/在线客服结束-->
@@ -12,7 +12,7 @@
 	<view class="help-list">
 		<view class="help-search">
 			<view catchtap="goSearch">
-				<text>请输入关键词</text>
+				<text class="iconfont">请输入关键词</text>
 			</view>
 		</view>
 		<view class="list">

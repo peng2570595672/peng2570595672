@@ -26,6 +26,12 @@ page
 					color #fff
 					background rgba(255,255,255,0.3)
 					border-radius 20rpx
+					text::before
+						content '\e602'
+						color #fff
+						font-size 38rpx
+					.online-service::before
+						content '\e612'
 				&>button:last-child
 					float right
 		// 帮助列表
@@ -42,6 +48,14 @@ page
 					background #F5F5F5
 					border-radius 35rpx
 					margin 0 auto
+					text
+						display flex
+						align-items center
+					text::before
+						content '\e744'
+						color #D4D4D6
+						font-size 60rpx
+						margin 0 10rpx 0 30rpx
 			.list
 				.list-title
 					width 100%

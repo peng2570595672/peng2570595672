@@ -1,184 +1,56 @@
+page {
+  height: 100vh;
+  overflow: hidden;
+}
 .index {
   background: #f5f5f5;
   min-height: 100vh;
+  overflow: hidden;
 }
 .index .equipment_top {
   width: 100%;
-  height: 42vh;
   background: #fff;
+  padding-bottom: 20rpx;
+}
+.index .equipment_top .prompt {
+  margin: 20rpx 56rpx 0;
+  padding: 8rpx 12rpx;
+  color: #f00;
+  text-align: right;
+  background: rgba(51,51,61,0.05);
+  border-radius: 10rpx;
+  font-size: 24rpx;
+  line-height: 40rpx;
 }
 .index .equipment_top>view:nth-child(1) {
-  padding-top: 58rpx;
-  padding-left: 250rpx;
+  padding: 72rpx 0 60rpx;
+  border-bottom: 1rpx solid #ccc;
 }
 .index .equipment_top>view:nth-child(1) > view {
+  margin: auto;
   width: 262rpx;
   height: 184rpx;
   background: #474b48;
 }
-.index .equipment_top>view:nth-child(2) {
-  display: flex;
-  flex-direction: row;
-  padding-top: 80rpx;
-  font-size: 28rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-}
-.index .equipment_top>view:nth-child(2)>view:first-child {
-  flex: 5;
-  color: #66666d;
-  padding-left: 60rpx;
-}
-.index .equipment_top>view:nth-child(2)>view:last-child {
-  flex: 5;
-  text-align: right;
-  color: #33333d;
-  padding-right: 60rpx;
-}
-.index .equipment_top>view:nth-child(3) {
-  display: flex;
-  flex-direction: row;
-  padding-top: 22rpx;
-  font-size: 28rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-}
-.index .equipment_top>view:nth-child(3)>view:first-child {
-  flex: 5;
-  font-size: 28rpx;
-  color: #66666d;
-  padding-left: 60rpx;
-}
-.index .equipment_top>view:nth-child(3)>view:last-child {
-  flex: 5;
-  text-align: right;
-  color: #e02020;
-  padding-right: 60rpx;
-}
-.index .equipment_top>view:nth-child(4) {
-  display: flex;
-  flex-direction: row;
-  padding-top: 22rpx;
-  font-size: 28rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-}
-.index .equipment_top>view:nth-child(4)>view:first-child {
-  flex: 5;
-  font-size: 28rpx;
-  color: #66666d;
-  padding-left: 60rpx;
-}
-.index .equipment_top>view:nth-child(4)>view:last-child {
-  flex: 5;
-  text-align: right;
-  color: #33333d;
-  padding-right: 60rpx;
-}
 .index .equipment_center {
   width: 100%;
-  height: 23vh;
   background: #fff;
   margin-top: 20rpx;
-}
-.index .equipment_center>view:nth-child(1) {
-  display: flex;
-  flex-direction: row;
-  padding-top: 32rpx;
-  font-size: 28rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-}
-.index .equipment_center>view:nth-child(1)>view:first-child {
-  flex: 5;
-  color: #66666d;
-  padding-left: 60rpx;
-}
-.index .equipment_center>view:nth-child(1)>view:last-child {
-  flex: 5;
-  text-align: right;
-  color: #33333d;
-  padding-right: 60rpx;
-}
-.index .equipment_center>view:nth-child(2) {
-  display: flex;
-  flex-direction: row;
-  padding-top: 16rpx;
-  font-size: 28rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-}
-.index .equipment_center>view:nth-child(2)>view:first-child {
-  flex: 5;
-  color: #66666d;
-  padding-left: 60rpx;
-}
-.index .equipment_center>view:nth-child(2)>view:last-child {
-  flex: 5;
-  text-align: right;
-  color: #33333d;
-  padding-right: 60rpx;
-}
-.index .equipment_center>view:nth-child(3) {
-  display: flex;
-  flex-direction: row;
-  padding-top: 16rpx;
-  font-size: 28rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-}
-.index .equipment_center>view:nth-child(3)>view:first-child {
-  flex: 5;
-  color: #66666d;
-  padding-left: 60rpx;
-}
-.index .equipment_center>view:nth-child(3)>view:last-child {
-  flex: 5;
-  text-align: right;
-  color: #33333d;
-  padding-right: 60rpx;
-}
-.index .equipment_center>view:nth-child(4) {
-  display: flex;
-  flex-direction: row;
-  padding-top: 16rpx;
-  font-size: 28rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-}
-.index .equipment_center>view:nth-child(4)>view:first-child {
-  flex: 5;
-  color: #66666d;
-  padding-left: 60rpx;
-}
-.index .equipment_center>view:nth-child(4)>view:last-child {
-  flex: 5;
-  text-align: right;
-  color: #33333d;
-  padding-right: 60rpx;
+  padding-bottom: 20rpx;
 }
 .index .equipment_bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  height: 31.5vh;
+  height: 314rpx;
   background: #fff;
-  margin-top: 20rpx;
-}
-.index .equipment_bottom>view:nth-child(1) {
-  display: flex;
-  flex-direction: row;
-  padding-top: 32rpx;
-  font-size: 28rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-}
-.index .equipment_bottom>view:nth-child(1)>view:first-child {
-  flex: 5;
-  color: #66666d;
-  padding-left: 60rpx;
-}
-.index .equipment_bottom>view:nth-child(1)>view:last-child {
-  flex: 5;
-  text-align: right;
-  color: #33333d;
-  padding-right: 60rpx;
 }
 .index .equipment_bottom>button {
   width: 630rpx;
   height: 98rpx;
   margin-top: 31px;
-  background: linear-gradient(45deg, #14ac69 0%, #84d157 100%);
+  background: linear-gradient(to right, #14ac69, #84d157);
   box-shadow: 0rpx 8rpx 10rpx 0rpx rgba(132,209,87,0.2);
   border-radius: 49rpx;
   font-size: 40rpx;
@@ -186,20 +58,53 @@
   font-weight: 500;
   color: #fff;
 }
-.index .equipment_bottom>view:nth-child(3) {
+.index .equipment_bottom .cancel {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   display: flex;
   flex-direction: row;
-  padding-top: 50rpx;
+  height: 80rpx;
+  line-height: 80rpx;
   font-size: 32rpx;
+  text-align: center;
   font-family: PingFangSC-Regular, PingFang SC;
   color: #0091ff;
 }
-.index .equipment_bottom>view:nth-child(3)>view:first-child {
+.index .equipment_bottom .cancel>view:first-child {
   flex: 5;
-  margin-left: 170rpx;
 }
-.index .equipment_bottom>view:nth-child(3)>view:last-child {
+.index .equipment_bottom .cancel>view:last-child {
+  flex: 5;
+}
+.index .bottom-height {
+  height: 200rpx;
+}
+.index .list {
+  display: flex;
+  flex-direction: row;
+  padding: 32rpx 56rpx 0;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+}
+.index .list>view:first-child {
+  flex: 5;
+  color: #66666d;
+}
+.index .list>view:last-child {
   flex: 5;
   text-align: right;
-  padding-right: 170rpx;
+  color: #33333d;
+}
+.index .list>view.status {
+  color: #f9c844;
+}
+.index .list>view.servicing {
+  color: #e02020;
+}
+.index .list>view.fail {
+  color: #f00;
+}
+.index .list>view.pass {
+  color: #16ad69;
 }
