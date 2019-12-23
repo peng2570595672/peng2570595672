@@ -119,12 +119,12 @@ page
 							text-align center
 							padding-top 50rpx
 							.list-title
-								color $fontColor2
-								font-size 28rpx
+								color $fontColor3
+								font-size 32rpx
 								line-height 100rpx
 								align-items center
+								text-indent 16rpx
 						.list-content::before
-							content '\e601'
 							color #C7C8C8
 							font-size 100rpx
 						.icon-active::before
@@ -149,17 +149,19 @@ page
 				color #fff
 				background linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
 		.prompt
+			display flex
 			transform skewY(0.7deg) translate(0rpx,0rpx)
-			text-align center
-			font-size 24rpx
+			font-size 26rpx
+			width 100%
 			color $fontColor9
+			align-items center
+			justify-content center
 			line-height 34rpx
 			padding-top 40rpx
-			text::before
-				content '\e601'
-				color #F7B500
-				font-size 24rpx
-				padding-right 10rpx
+			image
+				width 28rpx
+				height 26rpx
+				margin-right 10rpx
 		// 弹出详情
 		.mask
 			position fixed
@@ -196,8 +198,8 @@ page
 					color $fontColor3
 					padding-top 58rpx
 				.details-title::before
-					content '\e601'
 					color #15AD69
+					font-weight 400
 					font-size 100rpx
 					padding-right 10rpx
 				.details-content
@@ -210,4 +212,13 @@ page
 					transform skewY(0deg) translate(0rpx,0rpx)
 				.as-member
 					padding-top 100rpx
-
+	.icon0::before
+		content '\e60c'
+	.icon1::before
+		content '\e610'
+	.icon2::before
+		content '\e60d'
+	.icon3::before
+		content '\e60b'
+	.icon4::before
+		content '\e60a'

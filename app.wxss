@@ -211,13 +211,9 @@
   }
 }
 @font-face {
-	font-family: 'iconfont';  /* project id 1514406 */
-	src: url('//at.alicdn.com/t/font_1514406_qi6300w4qy.eot');
-	src: url('//at.alicdn.com/t/font_1514406_qi6300w4qy.eot?#iefix') format('embedded-opentype'),
-	url('//at.alicdn.com/t/font_1514406_qi6300w4qy.woff2') format('woff2'),
-	url('//at.alicdn.com/t/font_1514406_qi6300w4qy.woff') format('woff'),
-	url('//at.alicdn.com/t/font_1514406_qi6300w4qy.ttf') format('truetype'),
-	url('//at.alicdn.com/t/font_1514406_qi6300w4qy.svg#iconfont') format('svg');
+  font-family: 'iconfont'; /* project id 1514406 */
+  src: url("//at.alicdn.com/t/font_1514406_cfnzjl0g6aq.eot");
+  src: url("//at.alicdn.com/t/font_1514406_cfnzjl0g6aq.eot?#iefix") format('embedded-opentype'), url("//at.alicdn.com/t/font_1514406_cfnzjl0g6aq.woff2") format('woff2'), url("//at.alicdn.com/t/font_1514406_cfnzjl0g6aq.woff") format('woff'), url("//at.alicdn.com/t/font_1514406_cfnzjl0g6aq.ttf") format('truetype'), url("//at.alicdn.com/t/font_1514406_cfnzjl0g6aq.svg#iconfont") format('svg');
 }
 page {
   font-family: -apple-system-font, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", Arial, sans-serif !important;

@@ -133,13 +133,13 @@ page .member_benefits .benefits .benefits-list .benefits-content .list-box .list
   padding-top: 50rpx;
 }
 page .member_benefits .benefits .benefits-list .benefits-content .list-box .list-content .list-title {
-  color: #433224;
-  font-size: 28rpx;
+  color: #33333d;
+  font-size: 32rpx;
   line-height: 100rpx;
   align-items: center;
+  text-indent: 16rpx;
 }
 page .member_benefits .benefits .benefits-list .benefits-content .list-box .list-content::before {
-  content: '\e601';
   color: #c7c8c8;
   font-size: 100rpx;
 }
@@ -169,18 +169,20 @@ page .member_benefits .as-member button {
   background: linear-gradient(to right, #14ac69, #84d157);
 }
 page .member_benefits .prompt {
+  display: flex;
   transform: skewY(0.7deg) translate(0rpx, 0rpx);
-  text-align: center;
-  font-size: 24rpx;
+  font-size: 26rpx;
+  width: 100%;
   color: #99999d;
+  align-items: center;
+  justify-content: center;
   line-height: 34rpx;
   padding-top: 40rpx;
 }
-page .member_benefits .prompt text::before {
-  content: '\e601';
-  color: #f7b500;
-  font-size: 24rpx;
-  padding-right: 10rpx;
+page .member_benefits .prompt image {
+  width: 28rpx;
+  height: 26rpx;
+  margin-right: 10rpx;
 }
 page .member_benefits .mask {
   position: fixed;
@@ -221,8 +223,8 @@ page .member_benefits .mask .wrapper .details-title {
   padding-top: 58rpx;
 }
 page .member_benefits .mask .wrapper .details-title::before {
-  content: '\e601';
   color: #15ad69;
+  font-weight: 400;
   font-size: 100rpx;
   padding-right: 10rpx;
 }
@@ -238,4 +240,19 @@ page .member_benefits .mask .wrapper .prompt {
 }
 page .member_benefits .mask .wrapper .as-member {
   padding-top: 100rpx;
+}
+page .icon0::before {
+  content: '\e60c';
+}
+page .icon1::before {
+  content: '\e610';
+}
+page .icon2::before {
+  content: '\e60d';
+}
+page .icon3::before {
+  content: '\e60b';
+}
+page .icon4::before {
+  content: '\e60a';
 }

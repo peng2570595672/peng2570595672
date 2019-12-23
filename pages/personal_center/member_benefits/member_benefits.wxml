@@ -30,7 +30,10 @@
 				<view class="as-member" wx:if="{{!isMembers}}">
 					<button>成为会员</button>
 				</view>
-				<view class="prompt" wx:if="{{!isMembers}}"><text class="iconfont">升级为会员后，可激活所有功能</text></view>
+				<view class="prompt" wx:if="{{!isMembers}}">
+					<image src="https://file.cyzl.com/g001/M05/F8/CA/oYYBAF4AIeOAEGYDAAALspApwSg389.svg"></image>
+					<text>升级为会员后，可激活所有功能</text>
+				</view>
 			</view>
 		</view>
 		<view class="benefits-button-bg"></view>
@@ -45,7 +48,10 @@
 			<view class="as-member" wx:if="{{!isMembers}}">
 				<button>成为会员</button>
 			</view>
-			<view class="prompt" wx:if="{{!isMembers}}"><text class="iconfont">升级为会员后，可激活所有功能</text></view>
+			<view class="prompt" wx:if="{{!isMembers}}">
+				<image src="https://file.cyzl.com/g001/M05/F8/CA/oYYBAF4AIeOAEGYDAAALspApwSg389.svg"></image>
+				<text>升级为会员后，可激活所有功能</text>
+			</view>
 		</view>
 	</view>
 	<!--弹出详情结束-->
