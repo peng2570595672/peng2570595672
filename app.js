@@ -14,7 +14,10 @@ App({
 		screenWidth: 750,
 		quality: 80,
 		userInfo: {},// 用户信息
-		serverInfoId: ''
+		serverInfoId: '',
+		orderInfo: {
+			orderId: ''
+		}
 	},
 	onLaunch (options) {
 		util.setApp(this);

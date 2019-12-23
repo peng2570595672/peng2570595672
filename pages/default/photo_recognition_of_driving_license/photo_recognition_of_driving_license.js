@@ -8,19 +8,20 @@ const app = getApp();
 Page({
 	data: {
 		type: 3,// 3 行驶证正面 4行驶证反面 0 车头45度
-		title: '车辆行驶证-主页',
-		picPath: '/pages/default/assets/driving_license_face_border.png',
-		retry: false,
-		pic0: '',
-		pic3: '',
-		pic4: '',
-		pic0IdentifyResult: -1, // 图片识别结果 -1 未知 0成功 1失败
-		pic3IdentifyResult: -1, // 图片识别结果 -1 未知 0成功 1失败
-		pic4IdentifyResult: -1,
+		title: '车辆行驶证-主页', // 当前拍照提示标题
+		picPath: '/pages/default/assets/driving_license_face_border.png', // 拍摄区域边框
+		retry: false, // 是否重新拍摄
+		pic0: '', // 车头45度
+		pic3: '', // 行驶证正面
+		pic4: '', // 行驶证反面
+		pic0IdentifyResult: -1, // 车头照图片识别结果 -1 未知 0成功 1失败
+		pic3IdentifyResult: -1, // 行驶证正面图片识别结果 -1 未知 0成功 1失败
+		pic4IdentifyResult: -1, // 行驶证反面图片识别结果 -1 未知 0成功 1失败
 		pictureWidth: 0, // 压缩图片
 		pictureHeight: 0
 	},
 	onLoad (options) {
+		// 拍摄识别类型
 		let reg = new RegExp(`^(0|1|2)$`);
 		if (reg.test(options.type)) {
 			this.setData({
@@ -31,7 +32,7 @@ Page({
 				title: this.data.type === 3 ? '车辆行驶证-主页' : this.data.type === 4 ? '车辆行驶证-副页' : '车辆45度照片'
 			});
 		}
-
+		// 设置ios上拉下滑漏出部分背景
 		wx.canIUse('setBackgroundColor') && wx.setBackgroundColor({
 			backgroundColorBottom: '#33333C'
 		});
@@ -42,7 +43,20 @@ Page({
 	},
 	// 相机初始化失败
 	cameraErrorHandle (e) {
-		console.log(e);
+		// 拒绝定位导致失败
+		if (e.detail.errMsg === 'insertCamera:fail authorize no response') {
+			util.alert({
+				title: '提示',
+				content: '由于您拒绝了摄像头拍摄授权，导致无法正常初始化相机，是否重新授权？',
+				showCancel: true,
+				confirmText: '重新授权',
+				confirm: () => {
+					wx.openSetting();
+				}
+			});
+		} else {
+			util.showToastNoIcon('相加初始化失败！');
+		}
 	},
 	// 从相册选择图片
 	choiceFromAbumHandle () {
@@ -99,22 +113,26 @@ Page({
 			this.uploadDrivingLicenseOrcFile(4);
 		}
 	},
-	// 上传身份证
+	// 上传行驶证
 	uploadDrivingLicenseOrcFile (type) {
+		// ！== -1表示已识别
 		if (this.data.pic3IdentifyResult !== -1 && this.data.pic4IdentifyResult !== -1) {
 			// 车头照没有上传
 			if (this.data.pic0IdentifyResult === -1) {
 				this.uploadCarHeadPic();
 			} else {
 				util.hideLoading();
+				// 行驶证正反两面识别成功
 				if (this.data.pic3IdentifyResult === 0 && this.data.pic4IdentifyResult === 0) {
 					this.isOver();
 				}
 			}
 			return;
 		}
+		// 裁剪压缩图片
 		compressPicturesUtils.processingPictures(this, this.data[`pic${type}`], 'pressCanvas', 640, (res) => {
 			let path = res ? res : this.data[`pic${type}`];
+			// 上传并识别图片
 			util.uploadOcrFile(path, type, () => {
 				let obj = {};
 				obj[`pic${type}IdentifyResult`] = 1;
@@ -123,33 +141,36 @@ Page({
 			}, (res) => {
 				if (res) {
 					res = JSON.parse(res);
-					if (res.code === 0) {
+					if (res.code === 0) { // 识别成功
 						let obj = {};
 						obj[`pic${type}IdentifyResult`] = 0;
 						this.setData(obj);
 						wx.setStorageSync(type === 3 ? 'driving_license_face' : 'driving_license_back', JSON.stringify(res));
-					} else {
+					} else { // 识别失败
 						util.hideLoading();
 						util.showToastNoIcon(res.message);
 						let obj = {};
 						obj[`pic${type}IdentifyResult`] = 1;
 						this.setData(obj);
 					}
-				} else {
+				} else { // 识别失败
 					let obj = {};
 					obj[`pic${type}IdentifyResult`] = 1;
 					this.setData(obj);
 					util.showToastNoIcon('识别失败！');
 				}
 			}, () => {
+				// 再次调用 上传行驶证反面
 				this.uploadDrivingLicenseOrcFile(4);
 			});
 		});
 	},
 	// 识别银行卡
 	uploadCarHeadPic () {
+		// 裁剪压缩图片
 		compressPicturesUtils.processingPictures(this, this.data.pic0, 'pressCanvas', 640, (res) => {
 			let path = res ? res : this.data.pic0;
+			// 上传文件
 			util.uploadFile(path, () => {
 				this.setData({
 					pic0IdentifyResult: 1
@@ -158,19 +179,19 @@ Page({
 			}, (res) => {
 				if (res) {
 					res = JSON.parse(res);
-					if (res.code === 0) {
+					if (res.code === 0) { // 文件上传成功
 						this.setData({
 							pic0IdentifyResult: 0
 						});
 						wx.setStorageSync('car_head_45', JSON.stringify(res));
 						this.isOver();
-					} else {
+					} else { // 文件上传失败
 						this.setData({
 							pic0IdentifyResult: 1
 						});
 						util.showToastNoIcon(res.message);
 					}
-				} else {
+				} else { // 文件上传失败
 					this.setData({
 						pic0IdentifyResult: 1
 					});

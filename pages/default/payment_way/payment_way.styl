@@ -1,4 +1,5 @@
 @import "../../../style/base.styl";
+@import "../../../style/my_animate.styl";
 .payment-way
 	display flex
 	flex-direction column
@@ -194,6 +195,10 @@
 		color #fff
 		border-radius 48rpx
 		background: linear-gradient(to right , $deepThemeColor, $shallowThemeColor)
+		&.available
+			animation btnFadeIn .3s
+			animation-fill-mode forwards
 		&.unavailable
-			opacity .2
+			animation btnFadeOut .3s
+			animation-fill-mode forwards
 

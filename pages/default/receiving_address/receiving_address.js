@@ -14,18 +14,18 @@ Page({
 		carNo: ['贵', '', '', '', '', '', '', ''], // 车牌对应的数组
 		identifyingCode: '获取验证码',
 		time: 59,// 倒计时
-		available: false,
-		getAgreement: false,
-		isRequest: false,// shifou
-		isNewPowerCar: false,
+		getAgreement: false, // 是否接受协议
+		available: false, // 按钮是否可点击
+		isRequest: false,// 是否请求中
+		isNewPowerCar: false, // 是否为新能源
 		formData: {
 			currentCarNoColor: 0, // 0 蓝色 1 渐变绿 2黄色
 			region: ['省', '市', '区'], // 省市区
-			regionCode: [],
-			userName: '',
-			telNumber: '',
-			detailInfo: '',
-			verifyCode: ''
+			regionCode: [], // 省份编码
+			userName: '', // 收货人姓名
+			telNumber: '', // 电话号码
+			detailInfo: '', // 收货地址详细信息
+			verifyCode: '' // 验证码
 		} // 提交数据
 	},
 	// 下一步
@@ -34,43 +34,82 @@ Page({
 			return;
 		}
 		this.setData({
-			available: false,
-			isRequest: true
+			available: false, // 禁用按钮
+			isRequest: true // 设置状态为请求中
 		});
-		setTimeout(() => {
+		let formData = this.data.formData; // 输入信息
+		let params = {
+			orderId: app.globalData.orderInfo.orderId, // 订单id
+			dataType: '12', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
+			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
+			vehPlates: this.data.carNoStr, // 车牌号
+			vehColor: formData.currentCarNoColor === 1 ? 4 : formData.currentCarNoColor === 2 ? 1 : 0, // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
+			receiveMan: formData.userName, // 收货人姓名 【dataType包含2】
+			receivePhone: formData.telNumber, // 收货人手机号 【dataType包含2】
+			receiveProvince: formData.region[0], // 收货人省份 【dataType包含2】
+			receiveCity: formData.region[1], // 收货人城市 【dataType包含2】
+			receiveCounty: formData.region[2], // 收货人区县 【dataType包含2】
+			receiveAddress: formData.detailInfo, // 收货人详细地址 【dataType包含2】
+			receivePhoneCode: formData.verifyCode // 收货人手机号验证码, 手机号没有修改时不需要 【dataType包含2】
+		};
+		util.getDataFromServer('consumer/order/save-order-info', params, () => {
+			util.showToastNoIcon('提交数据失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				app.globalData.orderInfo.orderId = res.data.orderId; // 订单id
+				// 选择套餐页面
+				util.go('/pages/default/payment_way/payment_way');
+			} else if (res.code === 301) { // 已存在当前车牌未完成订单
+				// 订单id
+				app.globalData.orderInfo.orderId = res.data.id; // 订单id
+				util.alert({
+					content: '系统检测到当前车牌您已在办理中，是否更新信息？',
+					showCancel: true,
+					confirmText: '更新',
+					confirm: () => {
+						this.next();
+					}
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
 			this.setData({
-				isRequest: false,
-				available: true
+				available: true,
+				isRequest: false
 			});
-			util.go('/pages/default/payment_way/payment_way');
-		}, 3000);
+		});
 	},
 	// 车牌输入回调
 	valueChange (e) {
+		// 兼容处理
 		if (app.globalData.SDKVersion < '2.6.1') {
 			let keyboard = this.selectComponent('#keyboard');
 			keyboard.indexMethod(e.detail.index, this.data.currentIndex);
 		}
+		// 设置数据
 		let formData = this.data.formData;
 		formData.currentCarNoColor = e.detail.carNo.join('').length === 8 ? 1 : 0;
 		this.setData({
-			carNo: e.detail.carNo,
-			carNoStr: e.detail.carNo.join(''),
-			currentIndex: e.detail.index,
-			showKeyboard: e.detail.show,
+			carNo: e.detail.carNo, // 车牌号数组
+			carNoStr: e.detail.carNo.join(''), // 车牌号字符串
+			currentIndex: e.detail.index, // 当前输入车牌号位置
+			showKeyboard: e.detail.show, // 是否显示键盘
 			formData
 		});
-		// 不是新能源 输入车牌最后一位
+		// 不是新能源 输入车牌最后一位隐藏键盘
 		if (!this.data.isNewPowerCar && this.data.currentIndex === 7) {
 			this.setData({
 				showKeyboard: false,
 				currentIndex: -1
 			});
 		}
+		// 兼容处理是否显示或者隐藏键盘
 		if (app.globalData.SDKVersion < '2.6.1') {
 			let keyboard = this.selectComponent('#keyboard');
 			keyboard.showMethod(this.data.showKeyboard);
 		}
+		// 键盘关闭
 		if (!this.data.showKeyboard) {
 			this.setData({
 				currentIndex: -1
@@ -115,7 +154,7 @@ Page({
 			let carNo = this.data.carNo;
 			carNo[7] = '';
 			this.setData({
-				carNoStr: this.data.carNoStr.substring(0,7), // 车牌字符串
+				carNoStr: this.data.carNoStr.substring(0, 7), // 车牌字符串
 				carNo: carNo// 车牌对应的数组
 			});
 		}
@@ -140,7 +179,6 @@ Page({
 	onClickAutoFillHandle () {
 		wx.chooseAddress({
 			success: (res) => {
-				console.log(res);
 				let formData = this.data.formData;
 				formData.userName = res.userName; // 姓名
 				formData.telNumber = res.telNumber; // 电话
@@ -190,10 +228,12 @@ Page({
 			success: (res) => {
 				let address = res.address;
 				if (address) {
+					// 根据地理位置信息获取经纬度
 					util.getInfoByAddress(address, (res) => {
 						let result = res.result;
 						if (result) {
 							let location = result.location;
+							// 根据经纬度信息 反查详细地址信息
 							this.getAddressInfo(location, address);
 						}
 					}, (res) => {
@@ -203,6 +243,7 @@ Page({
 				console.log(res);
 			},
 			fail: (e) => {
+				// 选择地址未允许授权
 				if (e.errMsg === 'chooseLocation:fail auth deny') {
 					util.alert({
 						title: '提示',
@@ -225,12 +266,13 @@ Page({
 			if (res.result) {
 				let info = res.result.ad_info;
 				let formData = this.data.formData;
-				formData.region = [info.province, info.city, info.district];
-				formData.regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
-				formData.detailInfo = address.replace(info.province + info.city + info.district, '');
+				formData.region = [info.province, info.city, info.district]; // 省市区
+				formData.regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode]; // 省市区区域编码
+				formData.detailInfo = address.replace(info.province + info.city + info.district, ''); // 详细地址
 				this.setData({
 					formData
 				});
+				// 校验数据
 				this.setData({
 					available: this.validateAvailable()
 				});
@@ -279,9 +321,9 @@ Page({
 			title: '请求中...'
 		});
 		util.getDataFromServer('consumer/order/send-receive-phone-verification-code', {
-			receivePhone: this.data.formData.telNumber
+			receivePhone: this.data.formData.telNumber // 手机号
 		}, () => {
-				util.hideLoading();
+			util.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
 				this.startTimer();
@@ -291,7 +333,7 @@ Page({
 			console.log(res);
 		}, app.globalData.userInfo.accessToken, () => {
 			util.hideLoading();
-		},'GET');
+		}, 'GET');
 	},
 	// 输入框输入值
 	onInputChangedHandle (e) {
@@ -299,9 +341,9 @@ Page({
 		let formData = this.data.formData;
 		// 手机号
 		if (key === 'telNumber' && e.detail.value.length > 11) {
-			formData[key] = e.detail.value.substring(0,11);
+			formData[key] = e.detail.value.substring(0, 11);
 		} else if (key === 'verifyCode' && e.detail.value.length > 4) { // 验证码
-			formData[key] = e.detail.value.substring(0,4);
+			formData[key] = e.detail.value.substring(0, 4);
 		} else {
 			formData[key] = e.detail.value;
 		}

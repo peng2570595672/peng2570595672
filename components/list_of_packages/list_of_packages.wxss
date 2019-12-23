@@ -210,7 +210,7 @@
     -webkit-transform: scale(1);
   }
 }
-.choice-bank {
+.list-of-packages {
   position: fixed;
   left: 0;
   right: 0;
@@ -219,7 +219,7 @@
   background: rgba(0,0,0,0.5);
   z-index: 9999999999999;
 }
-.choice-bank .choice-bank-wrapper {
+.list-of-packages .list-of-packages-wrapper {
   position: fixed;
   left: 0;
   right: 0;
@@ -231,7 +231,7 @@
   border-top-left-radius: 32rpx;
   border-top-right-radius: 32rpx;
 }
-.choice-bank .choice-bank-wrapper .choice-bank-title {
+.list-of-packages .list-of-packages-wrapper .choice-bank-title {
   margin-top: 20rpx;
   display: flex;
   align-items: center;
@@ -239,13 +239,13 @@
   height: 96rpx;
   font-size: 40rpx;
 }
-.choice-bank .choice-bank-wrapper .ul {
+.list-of-packages .list-of-packages-wrapper .ul {
   display: flex;
   flex-wrap: wrap;
   width: 670rpx;
   margin: 0 auto;
 }
-.choice-bank .choice-bank-wrapper .ul .li {
+.list-of-packages .list-of-packages-wrapper .ul .li {
   display: flex;
   align-items: center;
   flex: 0 0 320rpx;
@@ -255,41 +255,41 @@
   border: 1rpx solid #dcdcdd;
   box-sizing: border-box;
 }
-.choice-bank .choice-bank-wrapper .ul .li:nth-child(2n) {
+.list-of-packages .list-of-packages-wrapper .ul .li:nth-child(2n) {
   margin-left: 30rpx;
 }
-.choice-bank .choice-bank-wrapper .ul .li:nth-child(n+3) {
+.list-of-packages .list-of-packages-wrapper .ul .li:nth-child(n+3) {
   margin-top: 20rpx;
 }
-.choice-bank .choice-bank-wrapper .ul .li > image {
+.list-of-packages .list-of-packages-wrapper .ul .li > image {
   margin-left: 20rpx;
   flex: 0 0 70rpx;
   width: 70rpx;
   height: 70rpx;
 }
-.choice-bank .choice-bank-wrapper .ul .li > view {
+.list-of-packages .list-of-packages-wrapper .ul .li > view {
   margin-left: 20rpx;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.choice-bank .choice-bank-wrapper .ul .li > view .li-title {
+.list-of-packages .list-of-packages-wrapper .ul .li > view .li-title {
   display: flex;
   align-items: center;
   height: 44rpx;
   font-size: 28rpx;
 }
-.choice-bank .choice-bank-wrapper .ul .li > view .li-sub-title {
+.list-of-packages .list-of-packages-wrapper .ul .li > view .li-sub-title {
   display: flex;
   align-items: center;
   height: 28rpx;
   font-size: 20rpx;
   color: #99999d;
 }
-.choice-bank .choice-bank-wrapper .split {
+.list-of-packages .list-of-packages-wrapper .split {
   flex: 1;
 }
-.choice-bank .choice-bank-wrapper .choice-bank-card {
+.list-of-packages .list-of-packages-wrapper .choice-bank-card {
   display: flex;
   align-items: center;
   justify-content: center;

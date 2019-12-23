@@ -15,11 +15,12 @@ Page({
 	// 自动登录
 	login () {
 		util.showLoading();
+		// 调用微信接口获取code
 		wx.login({
 			success: (res) => {
 				util.getDataFromServer('consumer/member/common/applet/code', {
-					platformId: app.globalData.platformId,
-					code: res.code
+					platformId: app.globalData.platformId, // 平台id
+					code: res.code // 从微信获取的code
 				}, () => {
 					util.hideLoading();
 					util.showToastNoIcon('登录失败！');
@@ -28,9 +29,10 @@ Page({
 						this.setData({
 							loginInfo: res.data
 						});
-						// 已经绑定了订单
+						// 已经绑定了手机号
 						if (res.data.needBindingPhone !== 1) {
 							app.globalData.userInfo = res.data;
+							// 查询最后一笔订单状态
 							this.getStatus();
 						} else {
 							util.hideLoading();
@@ -58,15 +60,16 @@ Page({
 			});
 			util.getDataFromServer('consumer/member/common/applet/bindingPhone', {
 				certificate: this.data.loginInfo.certificate,
-				encryptedData: encryptedData,
-				iv: iv
+				encryptedData: encryptedData, // 微信加密数据
+				iv: iv // 微信加密数据
 			}, () => {
 				util.hideLoading();
 				util.showToastNoIcon('绑定手机号失败！');
 			}, (res) => {
+				// 绑定手机号成功
 				if (res.code === 0) {
-					app.globalData.uesrInfo = res.data;
-					this.getStatus();
+					app.globalData.uesrInfo = res.data; // 用户登录信息
+					this.getStatus(); // 获取最后一笔订单状态
 				} else {
 					util.hideLoading();
 					util.showToastNoIcon(res.message);
@@ -74,6 +77,7 @@ Page({
 			});
 		}
 	},
+	// 获取最后有一笔订单信息
 	getStatus () {
 		util.getDataFromServer('consumer/order/home-info', {
 		}, () => {

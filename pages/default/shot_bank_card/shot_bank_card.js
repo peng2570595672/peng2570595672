@@ -7,18 +7,19 @@ const compressPicturesUtils = require('../../../utils/compress_pictures_utils.js
 const app = getApp();
 Page({
 	data: {
-		type: 2,// 0 银行卡 1身份证正面 2 身份证反面
-		picPath: '/pages/default/assets/bank_border.png',
-		title: '请拍摄银行卡数字面',
-		pic0: '',
-		pic1: '',
-		pic2: '',
-		pic1IdentifyResult: -1, // 图片识别结果 -1 未知 0成功 1失败
-		pic2IdentifyResult: -1,
+		type: 0,// 0 银行卡 1身份证正面 2 身份证反面
+		picPath: '/pages/default/assets/bank_border.png', // 拍摄区域边框
+		title: '请拍摄银行卡数字面', // 当前拍摄标题
+		pic0: '', // 银行卡图片url
+		pic1: '', // 身份证图片正面url
+		pic2: '', // 身份证图片反面url
+		pic1IdentifyResult: -1, // 身份证正面图片识别结果 -1 未知 0成功 1失败
+		pic2IdentifyResult: -1,// 身份证反面图片识别结果 -1 未知 0成功 1失败
 		pictureWidth: 0, // 压缩图片
 		pictureHeight: 0
 	},
 	onLoad (options) {
+		// 当前拍照类型
 		let reg = new RegExp(`^(0|1|2)$`);
 		if (reg.test(options.type)) {
 			this.setData({
@@ -29,13 +30,14 @@ Page({
 				title: this.data.type === 1 ? '请拍摄身份证正面' : this.data.type === 2 ? '请拍摄身份证反面' : '请拍摄银行卡数字面'
 			});
 		}
+		// 设置ios滑动上下部分背景
 		wx.canIUse('setBackgroundColor') && wx.setBackgroundColor({
 			backgroundColorBottom: '#33333C'
 		});
 	},
 	// 相机初始化失败
 	onCameraErrorHandle (e) {
-		console.log(e);
+		// 拒绝定位导致失败
 		if (e.detail.errMsg === 'insertCamera:fail authorize no response') {
 			util.alert({
 				title: '提示',
@@ -105,8 +107,10 @@ Page({
 			this.uploadBankCardOcrFile();
 		} else {
 			if (this.data.pic1IdentifyResult === -1) {
+				// 行驶证正面
 				this.uploadIdCardOrcFile(1);
 			} else {
+				// 行驶证反面
 				this.uploadIdCardOrcFile(2);
 			}
 		}
@@ -115,7 +119,7 @@ Page({
 	uploadIdCardOrcFile (type) {
 		if (this.data.pic1IdentifyResult !== -1 && this.data.pic2IdentifyResult !== -1) {
 			util.hideLoading();
-			// 都识别成功了
+			// 行驶证正面反面都识别成功了
 			if (this.data.pic1IdentifyResult === 0 && this.data.pic2IdentifyResult === 0) {
 				wx.showToast({
 					title: '识别成功',
@@ -130,8 +134,10 @@ Page({
 			}
 			return;
 		}
+		// 裁剪压缩图片
 		compressPicturesUtils.processingPictures(this, this.data[`pic${type}`], 'pressCanvas', 640, (res) => {
 			let path = res ? res : this.data[`pic${type}`];
+			// 上传并识别图片
 			util.uploadOcrFile(path, type, () => {
 				let obj = {};
 				obj[`pic${type}IdentifyResult`] = 1;
@@ -140,19 +146,19 @@ Page({
 			}, (res) => {
 				if (res) {
 					res = JSON.parse(res);
-					if (res.code === 0) {
+					if (res.code === 0) { // 识别成功
 						let obj = {};
 						obj[`pic${type}IdentifyResult`] = 0;
 						this.setData(obj);
 						wx.setStorageSync(type === 1 ? 'id_card_face' : 'id_card_back', JSON.stringify(res));
-					} else {
+					} else { // 识别失败
 						util.hideLoading();
 						util.showToastNoIcon(res.message);
 						let obj = {};
 						obj[`pic${type}IdentifyResult`] = 1;
 						this.setData(obj);
 					}
-				} else {
+				} else { // 识别失败
 					let obj = {};
 					obj[`pic${type}IdentifyResult`] = 1;
 					this.setData(obj);
@@ -165,6 +171,7 @@ Page({
 	},
 	// 识别银行卡
 	uploadBankCardOcrFile () {
+		// 裁剪压缩图片
 		compressPicturesUtils.processingPictures(this, this.data.pic0, 'pressCanvas', 640, (res) => {
 			let path = res ? res : this.data.pic0;
 			util.uploadOcrFile(path, 9, () => {
@@ -173,7 +180,7 @@ Page({
 				if (res) {
 					res = JSON.parse(res);
 					util.hideLoading();
-					if (res.code === 0) {
+					if (res.code === 0) { // 识别成功
 						wx.showToast({
 							title: '识别成功',
 							icon: 'success',
@@ -185,10 +192,10 @@ Page({
 								delta: 1
 							});
 						}, 2000);
-					} else {
+					} else { // 识别失败
 						util.showToastNoIcon(res.message);
 					}
-				} else {
+				} else { // 识别失败
 					util.hideLoading();
 					util.showToastNoIcon('识别失败！');
 				}

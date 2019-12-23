@@ -1,86 +1,88 @@
 <view class="payment-way">
-	<!--	扣款方式标题开始-->
-	<view class="title">扣款方式</view>
-	<!--	扣款方式标题结束-->
-	<!--	选择支付方式开始-->
-	<view class="wrapper" wx:if="{{!choiceObj}}">
-		<view class="iconfont" catchtap="choiceBank">
-			<text>授权绑定银行卡，作为ETC的扣款方式</text>
+	<block wx:if="{{orderInfo}}">
+		<!--	扣款方式标题开始-->
+		<view class="title">扣款方式</view>
+		<!--	扣款方式标题结束-->
+		<!--	选择支付方式开始-->
+		<view class="wrapper animated fadeIn" wx:if="{{!choiceObj}}">
+			<view class="iconfont" catchtap="choiceSetMeal">
+				<text>授权绑定银行卡，作为ETC的扣款方式</text>
+			</view>
 		</view>
-	</view>
-	<!--	选择支付方式结束-->
-	<block wx:else>
-		<!--	回显支付方式开始-->
-		<view class="choice-payment-way-mask">
-			<view class="choice-payment-way">
-				<view class="left">
-					<image
-						src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576212803176&di=400c841f2b1499b1644d6181c9e44eea&imgtype=0&src=http%3A%2F%2Fcdn053.yun-img.com%2Fstatic%2Fupload%2Fjiachenzhiye%2Fteam%2F20180625170841_30355.png"/>
-					<view>
-						<view class="left-title">中国工商银行</view>
-						<view class="left-sub-title">再送30元高速通行券</view>
+		<!--	选择支付方式结束-->
+		<block wx:else>
+			<!--	回显支付方式开始-->
+			<view class="choice-payment-way-mask animated fadeIn">
+				<view class="choice-payment-way">
+					<view class="left">
+						<image src="{{choiceObj.productLogo}}"/>
+						<view>
+							<view class="left-title">{{choiceObj.productName}}</view>
+							<view class="left-sub-title">{{choiceObj.remarks}}</view>
+						</view>
 					</view>
+					<view class="right" catchtap="choiceSetMeal">点击更改</view>
 				</view>
-				<view class="right" catchtap="choiceBank">点击更改</view>
 			</view>
-		</view>
-		<!--	回显支付方式结束-->
-		<!--	文本提示开始-->
-		<view class="tips">* 签约成功后需扣取0.01元作为账户验证，随即退回</view>
-		<!--	文本提示结束-->
-		<!--	扣款方式标题开始-->
-		<view class="title">银行卡号</view>
-		<!--	扣款方式标题结束-->
-		<!--	银行卡号开始-->
-		<view class="bank-no">
-			<input type="number" placeholder="请输入或拍摄工商银行卡卡号" placeholder-class="placeholder" value="{{bankCardIdentifyResult.ocrObject.cardNo}}"/>
-			<view class="iconfont" catchtap="onClickShotBankCardHandle" data-type="0"></view>
-		</view>
-		<!--	银行卡号结束-->
-		<!--	文本提示开始-->
-		<view class="tips">* 该银行卡号应为微信本人所有</view>
-		<!--	文本提示结束-->
+			<!--	回显支付方式结束-->
+			<!--	文本提示开始-->
+			<view class="tips">* 签约成功后需扣取0.01元作为账户验证，随即退回</view>
+			<!--	文本提示结束-->
+			<block wx:if="{{choiceObj && choiceObj.isBankcard !== 0}}">
+				<!--	扣款方式标题开始-->
+				<view class="title">银行卡号</view>
+				<!--	扣款方式标题结束-->
+				<!--	银行卡号开始-->
+				<view class="bank-no">
+					<input type="number" placeholder="请输入或拍摄工商银行卡卡号" placeholder-class="placeholder" value="{{bankCardIdentifyResult.ocrObject.cardNo}}"/>
+					<view class="iconfont" catchtap="onClickShotBankCardHandle" data-type="0"></view>
+				</view>
+				<!--	银行卡号结束-->
+				<!--	文本提示开始-->
+				<view class="tips">* 该银行卡号应为微信本人所有</view>
+				<!--	文本提示结束-->
+			</block>
+			<!--	扣款方式标题开始-->
+			<view class="title {{idCardFace.fileUrl && idCardBack.fileUrl ? 'other-title' : ''}}">
+				<view class="text">微信本人实名信息</view>
+				<view class="iconfont"  wx:if="{{idCardFace.fileUrl && idCardBack.fileUrl}}" catchtap="onClickShotBankCardHandle" data-type="1"></view>
+			</view>
+			<!--	扣款方式标题结束-->
 
-		<!--	扣款方式标题开始-->
-		<view class="title other-title">
-			<view class="text">微信本人实名信息</view>
-			<view class="iconfont"  catchtap="onClickShotBankCardHandle" data-type="1"></view>
-		</view>
-		<!--	扣款方式标题结束-->
+			<!--	拍摄身份证开始-->
+			<view class="shot-id-card iconfont" wx:if="{{!(idCardFace.fileUrl && idCardBack.fileUrl)}}" catchtap="onClickShotBankCardHandle" data-type="1">拍摄身份证</view>
+			<!--	拍摄身份证结束-->
 
-		<!--	拍摄身份证开始-->
-		<view class="shot-id-card iconfont" wx:if="{{false}}">拍摄身份证</view>
-		<!--	拍摄身份证结束-->
+			<!--	输入身份证号 和身份证姓名开始-->
+			<view class="input-wrapper" wx:else>
+				<view class="photo-wrapper">
+					<!--身份证正面-->
+					<image src="{{idCardFace.fileUrl}}" catchtap="onPreviewPicture" data-url="{{idCardFace.fileUrl}}" data-url1="{{idCardBack.fileUrl}}"/>
+					<!--身份证反面-->
+					<image src="{{idCardBack.fileUrl}}" catchtap="onPreviewPicture" data-url="{{idCardBack.fileUrl}}" data-url1="{{idCardFace.fileUrl}}"/>
+				</view>
+				<view class="input-item">
+					<view>姓名</view>
+					<input type="text" placeholder="小男孩" placeholder-class="placeholder" value="{{idCardFace.ocrObject.name}}" bindinput="onInputChangedHandle" data-key="name"/>
+				</view>
+				<view class="input-item">
+					<view>身份证号</view>
+					<input type="text" placeholder="220625198904071555" placeholder-class="placeholder" value="{{idCardFace.ocrObject.idNumber}}" bindinput="onInputChangedHandle" data-key="idNumber"/>
+				</view>
+			</view>
+			<!--	输入身份证号 和身份证姓名结束-->
+			<!--	文本提示开始-->
+			<view class="tips">* 签约免密支付，需提供微信本人身份信息</view>
+			<!--	文本提示结束-->
+		</block>
+		<view class="fill"></view>
+		<!--	按钮开始-->
+		<view wx:if="{{choiceObj}}" class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next"><view class="animate" wx:if="{{isRequest}}"></view>签约免密支付</view>
+		<!--	按钮结束-->
 
-		<!--	输入身份证号 和身份证姓名开始-->
-		<view class="input-wrapper">
-			<view class="photo-wrapper">
-				<!--身份证正面-->
-				<image src="{{idCardFace.fileUrl}}"/>
-				<!--身份证反面-->
-				<image src="{{idCardBack.fileUrl}}"/>
-			</view>
-			<view class="input-item">
-				<view>姓名</view>
-				<input type="text" placeholder="小男孩" placeholder-class="placeholder" value="{{idCardFace.ocrObject.name}}"/>
-			</view>
-			<view class="input-item">
-				<view>身份证号</view>
-				<input type="text" placeholder="220625198904071555" placeholder-class="placeholder" value="{{idCardFace.ocrObject.idNumber}}"/>
-			</view>
-		</view>
-		<!--	输入身份证号 和身份证姓名结束-->
-		<!--	文本提示开始-->
-		<view class="tips">* 签约免密支付，需提供微信本人身份信息</view>
-		<!--	文本提示结束-->
+		<!--	选择支付方式开始-->
+		<list_of_packages id="choiceSetMeal" bindonClickTranslucentHandle="onClickTranslucentHandle"
+		             bindonClickItemHandle="onClickItemHandle"></list_of_packages>
+		<!--	选择支付方式结束-->
 	</block>
-	<view class="fill"></view>
-	<!--	按钮开始-->
-	<view class="btn" catchtap="next">签约免密支付</view>
-	<!--	按钮结束-->
-
-	<!--	选择支付方式开始-->
-	<choice_bank id="choiceBank" bindonClickTranslucentHandle="onClickTranslucentHandle"
-	             bindonClickItemHandle="onClickItemHandle"></choice_bank>
-	<!--	选择支付方式结束-->
 </view>
