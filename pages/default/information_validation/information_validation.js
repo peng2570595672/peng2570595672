@@ -117,11 +117,13 @@ Page({
 			util.showToastNoIcon(`车牌格式与下单时车牌颜色（${color}）不符，请检查！`);
 			return;
 		}
+		// 校验外廓尺寸
 		isOk = /^[1-9][0-9]{3,4}(([×*x][1-9][0-9]{3}){2})[m]{2}$/.test(back.size);
 		if (!isOk) {
 			util.showToastNoIcon('外廓尺寸单位必须为毫米 如：4500*1780*1560mm，请修改！');
 			return;
 		}
+		// 提价哦数据
 		this.setData({
 			isRequest: true,
 			available: false
@@ -198,9 +200,10 @@ Page({
 		let value = e.detail.value.trim();
 		let drivingLicenseFace = this.data.drivingLicenseFace;
 		let drivingLicenseBack = this.data.drivingLicenseBack;
+		// 行驶证正面
 		if (parseInt(type) === 3) {
 			drivingLicenseFace.ocrObject[key] = value;
-		} else {
+		} else { // 行驶证反面
 			drivingLicenseBack.ocrObject[key] = value;
 		}
 		// 如果修改项为车牌 则对行驶证反面和正面车牌数据同时修改
