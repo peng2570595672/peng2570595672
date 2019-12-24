@@ -33,8 +33,8 @@
 				<view class="title">银行卡号</view>
 				<!--	扣款方式标题结束-->
 				<!--	银行卡号开始-->
-				<view class="bank-no">
-					<input type="number" placeholder="请输入或拍摄工商银行卡卡号" placeholder-class="placeholder" value="{{bankCardIdentifyResult.ocrObject.cardNo}}"/>
+				<view class="bank-no {{bankCardIdentifyResult.ocrObject.cardNo ? 'have_card_no' : ''}}">
+					<input type="number" placeholder="请输入或拍摄工商银行卡卡号" placeholder-class="placeholder" value="{{bankCardIdentifyResult.ocrObject.cardNo}}" bindinput="onCardNoInputChangedHandle"/>
 					<view class="iconfont" catchtap="onClickShotBankCardHandle" data-type="0"></view>
 				</view>
 				<!--	银行卡号结束-->

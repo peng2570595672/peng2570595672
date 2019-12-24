@@ -428,7 +428,88 @@ function getAddressInfo(lat, lng, success, fail, complete) {
 		}
 	});
 }
+/**
+ * @author い 狂奔的蜗牛
+ * @param bankno 银行卡号
+ * @returns {boolean} 是银行卡号返回 true 否则false
+ * @description 银行卡号验证
+ */
+function luhmCheck(bankno) {
+	if (bankno.length < 16 || bankno.length > 19) {
+		return false;
+	}
+	// 全数字
+	let num = /^\d*$/;
+	if (!num.exec(bankno)) {
+		return false;
+	}
+	// 开头6位
+	let strBin = '10,18,30,35,37,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,58,60,62,65,68,69,84,87,88,94,95,98,99';
+	if (strBin.indexOf(bankno.substring(0, 2)) === -1) {
+		return false;
+	}
+	let lastNum = parseInt(bankno.substr(bankno.length - 1, 1)); // 取出最后一位（与luhm进行比较）
 
+	let first15Num = bankno.substr(0, bankno.length - 1); // 前15或18位
+	let newArr = new Array();
+	for (let i = first15Num.length - 1; i > -1; i--) { // 前15或18位倒序存进数组
+		newArr.push(first15Num.substr(i, 1));
+	}
+	// 奇数位*2的积 <9
+	let arrJiShu = new Array();
+	// 奇数位*2的积 >9
+	let arrJiShu2 = new Array();
+	// 偶数位数组
+	let arrOuShu = new Array();
+	for (let j = 0; j < newArr.length; j++) {
+		if ((j + 1) % 2 === 1) { // 奇数位
+			if (parseInt(newArr[j]) * 2 < 9) {
+				arrJiShu.push(parseInt(newArr[j]) * 2);
+			} else {
+				arrJiShu2.push(parseInt(newArr[j]) * 2);
+			}
+		} else { // 偶数位
+			arrOuShu.push(newArr[j]);
+		}
+	}
+
+	let jishuChild1 = new Array(); // 奇数位*2 >9 的分割之后的数组个位数
+	let jishuChild2 = new Array(); // 奇数位*2 >9 的分割之后的数组十位数
+	for (let h = 0; h < arrJiShu2.length; h++) {
+		jishuChild1.push(parseInt(arrJiShu2[h]) % 10);
+		jishuChild2.push(parseInt(arrJiShu2[h]) / 10);
+	}
+
+	let sumJiShu = 0; // 奇数位*2 < 9 的数组之和
+	let sumOuShu = 0; // 偶数位数组之和
+	let sumJiShuChild1 = 0; // 奇数位*2 >9 的分割之后的数组个位数之和
+	let sumJiShuChild2 = 0; // 奇数位*2 >9 的分割之后的数组十位数之和
+	let sumTotal = 0;
+	for (let m = 0; m < arrJiShu.length; m++) {
+		sumJiShu = sumJiShu + parseInt(arrJiShu[m]);
+	}
+
+	for (let n = 0; n < arrOuShu.length; n++) {
+		sumOuShu = sumOuShu + parseInt(arrOuShu[n]);
+	}
+
+	for (let p = 0; p < jishuChild1.length; p++) {
+		sumJiShuChild1 = sumJiShuChild1 + parseInt(jishuChild1[p]);
+		sumJiShuChild2 = sumJiShuChild2 + parseInt(jishuChild2[p]);
+	}
+	// 计算总和
+	sumTotal = parseInt(sumJiShu) + parseInt(sumOuShu) + parseInt(sumJiShuChild1) + parseInt(sumJiShuChild2);
+
+	// 计算Luhm值
+	let k = parseInt(sumTotal) % 10 === 0 ? 10 : parseInt(sumTotal) % 10;
+	let luhm = 10 - k;
+
+	if (lastNum === luhm) {
+		return true;
+	} else {
+		return false;
+	}
+};
 module.exports = {
 	setApp,
 	getDataFromServer, // 从服务器上获取数据
@@ -449,5 +530,6 @@ module.exports = {
 	compareVersion,
 	getInfoByAddress,
 	getAddressInfo,
-	getSignature
+	getSignature,
+	luhmCheck
 };

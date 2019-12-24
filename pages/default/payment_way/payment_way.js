@@ -23,6 +23,8 @@ Page({
 		orderInfo: undefined // 订单信息
 	},
 	onLoad () {
+		app.globalData.orderInfo.orderId = '658608879176781824';
+		app.globalData.userInfo.accessToken = 'NjU3NjE0MDE0NjQ1MjcyNTc2OjEyMzQ1Njc4OTAxMjM0NTY3ODo1OTlhNDU2MjVmYTE0YzkyYmZkNmUwMDkxMWYwNjE3Mg==';
 		this.getOrderInfo();
 	},
 	// 获取订单信息
@@ -30,7 +32,7 @@ Page({
 		util.showLoading();
 		util.getDataFromServer('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
-			dataType: '4'
+			dataType: '45'
 		}, () => {
 		}, (res) => {
 			if (res.code === 0) {
@@ -141,6 +143,15 @@ Page({
 			idCardPositiveUrl: this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含4】
 			idCardNegativeUrl: this.data.idCardBack.fileUrl // 实名身份证反面地址 【dataType包含4】
 		};
+		// 银行卡 3.0
+		if (this.data.choiceObj.isBankcard === 1) {
+			params.dataType = '345';
+			params['bankAccountNo'] = this.data.bankCardIdentifyResult.ocrObject.cardNo; // 银行卡号 【dataType包含5】
+			params['bankCardUrl'] = this.data.bankCardIdentifyResult.fileUrl; // 银行卡图片地址 【dataType包含5】
+			params['bankName'] = this.data.bankCardIdentifyResult.ocrObject.cardName; // 银行名称 【dataType包含5】
+			params['bankAccountType'] = 1; // 账户类型 1-一类户 2-二类户 3-三类户 【dataType包含5】允许值: 1, 2, 3
+			params['bankCardType'] = this.data.bankCardIdentifyResult.ocrObject.cardType === '借记卡' ? 1 : 2; // 银行卡种 1-借记卡 2-贷记卡 【dataType包含5】允许值: 1, 2;
+		}
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
@@ -159,6 +170,12 @@ Page({
 	validateAvailable () {
 		// 是否接受协议
 		let isOk = this.data.choiceObj ? true : false;
+		// 银行卡验证
+		if (isOk && this.data.choiceObj.isBankcard === 1) {
+			console.log(1);
+			isOk = isOk && this.data.bankCardIdentifyResult.fileUrl;
+			isOk = isOk && this.data.bankCardIdentifyResult.ocrObject.cardNo && util.luhmCheck(this.data.bankCardIdentifyResult.ocrObject.cardNo);
+		}
 		// 是否为微信2.0
 		if (isOk && this.data.choiceObj.isBankcard === 0) {
 			// 验证图片是否存在
@@ -188,6 +205,15 @@ Page({
 		wx.previewImage({
 			current: url, // 当前显示图片的http链接
 			urls: [url, url1] // 需要预览的图片http链接列表
+		});
+	},
+	onCardNoInputChangedHandle (e) {
+		let value = e.detail.value.trim();
+		let bankCardIdentifyResult = this.data.bankCardIdentifyResult;
+		bankCardIdentifyResult.ocrObject.cardNo = value;
+		this.setData({
+			bankCardIdentifyResult,
+			available: this.validateAvailable()
 		});
 	}
 });
