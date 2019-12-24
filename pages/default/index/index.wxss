@@ -6,7 +6,7 @@
   font-size: 40rpx;
   color: #fff;
   border-radius: 49rpx;
-  background: linear-gradient(to right, #14ac69, #84d157);
+  background: linear-gradient(to right, #15ad69, #84d157);
   box-shadow: 0 8rpx 10rpx 0 rgba(132,209,87,0.2);
 }
 .index .tips {
@@ -41,7 +41,7 @@
 }
 .index .my-swiper .my-swiper-item {
   height: 364rpx !important;
-  background: linear-gradient(to right, #14ac69, #84d157);
+  background: linear-gradient(to right, #15ad69, #84d157);
   border-radius: 32rpx;
 }
 .index .my-swiper .my-swiper-item > image {
@@ -215,7 +215,7 @@
 .index .bill .bill-info > view:last-of-type .price {
   flex: 1;
   text-align: right;
-  color: #14ac69;
+  color: #2fb565;
   font-size: 48rpx;
 }
 .index .bill .bill-empty {

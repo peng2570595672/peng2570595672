@@ -19,7 +19,7 @@
   content: '';
   width: 10rpx;
   height: 10rpx;
-  border: 6rpx solid #14ac69;
+  border: 6rpx solid #2fb565;
   border-radius: 50%;
 }
 .processing_progress .user-info {
@@ -49,13 +49,13 @@
   border-left: 1rpx dashed #cdcdcf;
 }
 .processing_progress .progress_wrapper .item.current::before {
-  background: #14ac69;
+  background: #2fb565;
 }
 .processing_progress .progress_wrapper .item.finished .content-title {
-  color: #14ac69;
+  color: #2fb565;
 }
 .processing_progress .progress_wrapper .item.finished::before {
-  background: #14ac69;
+  background: #2fb565;
 }
 .processing_progress .progress_wrapper .item.finished::after {
   position: absolute;
@@ -65,7 +65,7 @@
   display: inline-block;
   width: 4rpx;
   height: 100%;
-  background: #14ac69;
+  background: #2fb565;
 }
 .processing_progress .progress_wrapper .item::before {
   position: absolute;
@@ -114,7 +114,7 @@
   align-items: center;
   margin-left: 20rpx;
   font-size: 24rpx;
-  color: #1797f7;
+  color: #39a6f8;
 }
 .processing_progress .progress_wrapper .item .content-des .refresh::after {
   margin-left: 12rpx;
@@ -125,7 +125,7 @@
   margin-left: 20rpx;
   display: flex;
   align-items: center;
-  color: #1797f7;
+  color: #39a6f8;
   font-size: 24rpx;
 }
 .processing_progress .progress_wrapper .item .content-des .edit::after {
@@ -144,7 +144,7 @@
   height: 98rpx;
   font-size: 40rpx;
   color: #fff;
-  background: linear-gradient(to right, #14ac69, #84d157);
+  background: linear-gradient(to right, #15ad69, #84d157);
   border-radius: 49rpx;
 }
 .processing_progress .auto-fill {
@@ -158,5 +158,5 @@
   height: 40rpx;
   align-items: center;
   font-size: 24rpx;
-  color: #1797f7;
+  color: #39a6f8;
 }

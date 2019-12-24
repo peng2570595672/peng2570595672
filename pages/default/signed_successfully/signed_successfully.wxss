@@ -34,7 +34,7 @@
 .signed_successfully .btns > view.upload {
   font-size: 32rpx;
   color: #fff;
-  background: linear-gradient(to right, #14ac69, #84d157);
+  background: linear-gradient(to right, #15ad69, #84d157);
 }
 .signed_successfully .btns > view.upload::before {
   margin-right: 20rpx;
@@ -50,8 +50,8 @@
   padding: 3rpx;
   margin-top: 40rpx;
   font-size: 28rpx;
-  color: #14ac69;
-  background: linear-gradient(to right, #14ac69, #84d157);
+  color: #2fb565;
+  background: linear-gradient(to right, #15ad69, #84d157);
   overflow: hidden;
 }
 .signed_successfully .btns > view:last-of-type > view {

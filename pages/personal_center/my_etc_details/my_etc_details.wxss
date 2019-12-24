@@ -50,7 +50,7 @@ page {
   width: 630rpx;
   height: 98rpx;
   margin-top: 31px;
-  background: linear-gradient(to right, #14ac69, #84d157);
+  background: linear-gradient(to right, #15ad69, #84d157);
   box-shadow: 0rpx 8rpx 10rpx 0rpx rgba(132,209,87,0.2);
   border-radius: 49rpx;
   font-size: 40rpx;

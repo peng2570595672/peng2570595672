@@ -166,7 +166,7 @@ page .member_benefits .as-member button {
   font-size: 40rpx;
   font-weight: 500;
   color: #fff;
-  background: linear-gradient(to right, #14ac69, #84d157);
+  background: linear-gradient(to right, #15ad69, #84d157);
 }
 page .member_benefits .prompt {
   display: flex;

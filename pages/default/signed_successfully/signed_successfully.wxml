@@ -7,7 +7,7 @@
 	<!--	操作部分开始-->
 	<view class="btns">
 		<view class="iconfont upload" catchtap="onClickUploadDrivingLicenseHandle">上传行驶证信息</view>
-		<view><view>行驶证不在身边，稍后上传！</view></view>
+		<view><view catchtap="onClickHandle">行驶证不在身边，稍后上传！</view></view>
 	</view>
 	<!--	操作部分结束-->
 </view>

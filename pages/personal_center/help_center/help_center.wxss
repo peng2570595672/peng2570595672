@@ -3,7 +3,7 @@ page {
 }
 page .help-center .service {
   height: 234rpx;
-  background: linear-gradient(to bottom, #14ac69, #84d157);
+  background: linear-gradient(to bottom, #15ad69, #84d157);
   filter: blur(0px);
   color: #fff;
   padding: 0 30rpx;
@@ -87,7 +87,7 @@ page .help-center .help-list .list .list-title .list-title-child>view {
 }
 page .help-center .help-list .list .list-title .tab_index>view {
   border-radius: 6rpx;
-  background: linear-gradient(to right, #14ac69, #84d157);
+  background: linear-gradient(to right, #15ad69, #84d157);
 }
 page .help-center .help-list .list .list-content {
   height: 98rpx;

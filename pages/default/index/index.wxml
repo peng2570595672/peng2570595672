@@ -24,7 +24,7 @@
 	<!--	轮播图结束-->
 
 	<!--	免费办理开始-->
-	<view class="free-processing">
+	<view class="free-processing" wx:if="{{!orderInfo}}">
 		<view wx:if="{{loginInfo.needBindingPhone !== 1}}" class="btn" catchtap="freeProcessing">免费办理</view>
 		<button wx:else class="btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">免费办理</button>
 		<view class="tips">免费办理ETC高速通行95折</view>
@@ -32,7 +32,7 @@
 	<!--	免费办理结束-->
 
 	<!--	办理中开始-->
-	<view class="processing" wx:if="{{false}}">
+	<view class="processing" wx:if="{{orderInfo.status === 0}}">
 		<view class="processing-title">
 			<view>贵A2ZM91</view>
 			<view class="iconfont">查看所有ETC</view>
@@ -43,12 +43,12 @@
 	<!--	办理中结束-->
 
 	<!--	查看进度开始-->
-	<view class="viewing-process" wx:if="{{false}}">
+	<view class="viewing-process" wx:if="{{orderInfo.status === 1 && orderInfo.auditStatus === 0}}">
 		<view class="processing-title">
-			<view>贵A2ZM91</view>
+			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont">查看所有ETC</view>
 		</view>
-		<view class="btn">查看进度</view>
+		<view class="btn" catchtap="onClickViewProcessingProgressHandle">查看进度</view>
 		<view class="tips">客服小姐姐正埋头审核中...</view>
 	</view>
 	<!--	查看进度结束-->

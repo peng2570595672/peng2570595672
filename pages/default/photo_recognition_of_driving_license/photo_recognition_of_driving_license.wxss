@@ -114,7 +114,7 @@
   margin-left: -9.333333333333334vmin;
 }
 .photo_recognition_of_driving_license .btns .take-photo.retry {
-  background: linear-gradient(to right, #14ac69, #84d157);
+  background: linear-gradient(to right, #15ad69, #84d157);
 }
 .photo_recognition_of_driving_license .btns .take-photo > image {
   width: 8.533333333333333vmin;

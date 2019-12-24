@@ -32,7 +32,7 @@
   content: '';
   width: 10rpx;
   height: 10rpx;
-  border: 6rpx solid #14ac69;
+  border: 6rpx solid #2fb565;
   border-radius: 50%;
 }
 .receiving_address .title > text {
@@ -56,7 +56,7 @@
   left: 0;
   right: 0;
   width: 100%;
-  background: linear-gradient(to right, #14ac69, #84d157);
+  background: linear-gradient(to right, #15ad69, #84d157);
   transition: all 0.5s ease-in-out;
   border-radius: 4rpx;
 }
@@ -103,7 +103,7 @@
   text-align: center;
   height: auto;
   font-size: 16rpx;
-  color: #14ac69;
+  color: #2fb565;
   background: rgba(0,0,0,0);
   transform: translateY(18rpx);
 }
@@ -143,12 +143,12 @@
   background: #0eafe6;
 }
 .receiving_address .choose-car-no-color .color-wrapper > view.green {
-  border-color: #14ac69;
-  color: #14ac69;
+  border-color: #2fb565;
+  color: #2fb565;
 }
 .receiving_address .choose-car-no-color .color-wrapper > view.green.selected {
   color: #fff;
-  background: #14ac69;
+  background: #2fb565;
 }
 .receiving_address .choose-car-no-color .color-wrapper > view.yellow {
   border-color: #f7b500;
@@ -202,7 +202,7 @@
   width: 0 0 100rpx;
   height: 48rpx;
   line-height: 46rpx;
-  background: linear-gradient(to right, #14ac69, #84d157);
+  background: linear-gradient(to right, #15ad69, #84d157);
   -webkit-background-clip: text;
   color: transparent;
   font-size: 24rpx;
@@ -214,7 +214,7 @@
   flex: 0 0 28rpx;
   height: 40rpx;
   font-size: 40rpx;
-  background: linear-gradient(to top, #14ac69, #84d157);
+  background: linear-gradient(to top, #15ad69, #84d157);
   -webkit-background-clip: text;
   color: transparent;
 }
@@ -231,7 +231,7 @@
   border-left: 1rpx solid #d8d8d8;
 }
 .receiving_address .input-wrapper .input-item .validate-code.acquisition {
-  color: #14ac69;
+  color: #2fb565;
 }
 .receiving_address .fill {
   flex: 1;
@@ -245,7 +245,7 @@
   color: #99999d;
 }
 .receiving_address .agreement > text {
-  color: #14ac69;
+  color: #2fb565;
 }
 .receiving_address .agreement::before {
   display: flex;
@@ -272,7 +272,7 @@
   font-size: 40rpx;
   color: #fff;
   border-radius: 48rpx;
-  background: linear-gradient(to right, #14ac69, #84d157);
+  background: linear-gradient(to right, #15ad69, #84d157);
 }
 .receiving_address .btn.available {
   animation: btnFadeIn 0.3s;

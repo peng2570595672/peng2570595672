@@ -70,7 +70,7 @@
   content: '';
   width: 10rpx;
   height: 10rpx;
-  border: 6rpx solid #14ac69;
+  border: 6rpx solid #2fb565;
   border-radius: 50%;
 }
 .information_validation .tips {
@@ -156,7 +156,7 @@
   font-size: 40rpx;
   color: #fff;
   border-radius: 49rpx;
-  background: linear-gradient(to right, #14ac69, #84d157);
+  background: linear-gradient(to right, #15ad69, #84d157);
 }
 .information_validation .btn.available {
   animation: btnFadeIn 0.3s;

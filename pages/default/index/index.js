@@ -86,7 +86,9 @@ Page({
 			util.hideLoading();
 			if (res.code === 0) {
 				if (res.data.orderInfo) {
-					console.log(res.data.orderInfo);
+					this.setData({
+						orderInfo: res.data.orderInfo
+					});
 				}
 			} else {
 				util.showToastNoIcon(res.message);
@@ -102,5 +104,10 @@ Page({
 	onClickForJumpPersonalCenterHandle (e) {
 		let url = e.currentTarget.dataset.url;
 		util.go(`/pages/personal_center/${url}/${url}`);
+	},
+	// 查看办理进度
+	onClickViewProcessingProgressHandle () {
+		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+		util.go('/pages/default/processing_progress/processing_progress');
 	}
 });

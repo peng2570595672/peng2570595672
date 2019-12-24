@@ -32,7 +32,7 @@
   content: '';
   width: 10rpx;
   height: 10rpx;
-  border: 6rpx solid #14ac69;
+  border: 6rpx solid #2fb565;
   border-radius: 50%;
 }
 .payment-way .title.other-title {
@@ -55,7 +55,7 @@
   height: 36rpx;
   content: '\e61a';
   font-size: 36rpx;
-  color: #14ac69;
+  color: #2fb565;
 }
 .payment-way .wrapper {
   display: flex;
@@ -63,7 +63,7 @@
   margin: 20rpx 40rpx 0;
   height: 154rpx;
   border-radius: 32rpx;
-  background: linear-gradient(to right, #14ac69, #84d157);
+  background: linear-gradient(to right, #15ad69, #84d157);
 }
 .payment-way .wrapper .iconfont {
   width: 100%;
@@ -85,7 +85,7 @@
   margin: 20rpx 40rpx;
   padding: 1rpx;
   height: 154rpx;
-  background: linear-gradient(to right, #14ac69, #84d157);
+  background: linear-gradient(to right, #15ad69, #84d157);
   border-radius: 32rpx;
   overflow: hidden;
 }
@@ -129,7 +129,7 @@
   align-items: center;
   padding-right: 40rpx;
   height: 36rpx;
-  color: #55c28b;
+  color: #2fb565;
 }
 .payment-way .tips {
   display: flex;
@@ -168,7 +168,7 @@
   height: 36rpx;
   content: '\e61a';
   font-size: 36rpx;
-  color: #14ac69;
+  color: #2fb565;
   pointer-events: none;
 }
 .payment-way .shot-id-card {
@@ -181,7 +181,7 @@
   font-size: 28rpx;
   color: #fff;
   border-radius: 35rpx;
-  background: linear-gradient(to right, #14ac69, #84d157);
+  background: linear-gradient(to right, #15ad69, #84d157);
 }
 .payment-way .shot-id-card::before {
   display: inline-block;
@@ -236,7 +236,7 @@
   font-size: 40rpx;
   color: #fff;
   border-radius: 48rpx;
-  background: linear-gradient(to right, #14ac69, #84d157);
+  background: linear-gradient(to right, #15ad69, #84d157);
 }
 .payment-way .btn.available {
   animation: btnFadeIn 0.3s;
