@@ -1,8 +1,240 @@
 @import "../../../style/base.styl";
-@import "../template/pass-ticket-template/pass-ticket-template.styl";
-@import "../template/pass-card-template/pass-card-template.styl";
+page
+	background #F2F2F2
 .service-card-voucher
-	background: #fff
+	background: #F2F2F2
 	min-height 100vh
-	.content
-		padding 30rpx
+	//通用券&抵扣券
+	.list-box
+		padding-top 32rpx
+		padding-bottom 21vh
+		//通用券&抵扣券列表
+		.list-content-box
+			margin 20rpx auto 0
+			width 92%
+	// 通用券列表&兑换成功卡券
+	.list,
+	.ticket
+		display flex
+		width 100%
+		height 172rpx
+		color #fff
+		box-sizing border-box
+		background url("https://file.cyzl.com/g001/M05/FE/07/oYYBAF4BbgiAdNacAAAjbz2ewpY073.png") no-repeat top
+		-webkit-background-size: 100% 172rpx
+		background-size: 100% 172rpx
+		padding 38rpx 0rpx 32rpx
+		.left
+			flex 3
+			position relative
+			font-size 96rpx
+			font-family ArialMT
+			line-height 80rpx
+			margin-right 20rpx
+			margin-left 30rpx
+			sup
+				font-size 32rpx
+				line-height 34rpx
+				vertical-align top
+		.center
+			flex 4.5
+			font-size 24rpx
+			line-height 44rpx
+			&>view:first-child
+				font-size 28rpx
+				line-height 48rpx
+				margin-top -10rpx
+			.limit
+				line-height 24rpx
+		.right
+			flex 2.5
+			text-align right
+			padding-right 30rpx
+			&>view:first-child
+				margin-top -10rpx
+				height 32rpx
+				text-align right
+				button
+					float right
+					width 104rpx
+					height 32rpx
+					line-height 32rpx
+					font-size 16rpx
+					color #fff
+					background rgba(255,255,255,0.19)
+					border-radius 18rpx
+					padding 0
+			&>view:last-child
+				margin-top 60rpx
+				font-size 16rpx
+				&::after
+					display inline-block
+					content '\e60e'
+					transform rotateZ(180deg)
+	.invalid
+		background url("https://file.cyzl.com/g001/M05/FD/FE/oYYBAF4BbTyAMXeWAAAwEscVmQs262.png") no-repeat top
+	//添加卡券
+	.add-coupon
+		position fixed
+		bottom 14vh
+		left 0
+		z-index 1
+		width 100%
+		text-align right
+		text
+			display inline-block
+			width 166rpx
+			height 68rpx
+			line-height 68rpx
+			color #fff
+			text-align center
+			background linear-gradient(46deg,rgba(47,181,101,1) 0%,rgba(132,209,87,1) 100%)
+			box-shadow 0px 4rpx 12rpx 0px rgba(68,106,83,0.5)
+			border-radius 200rpx 0px 0px 200rpx
+	// 查看过期
+	.check-overdue
+		position fixed
+		bottom 0
+		left 0
+		z-index 1
+		width 100%
+		height 14vh
+		text-align center
+		font-size 24rpx
+		color #39A6F8
+		line-height 14vh
+		background: #F2F2F2
+		text::after
+			display inline-block
+			content '\e60e'
+			-webkit-transform rotateZ(180deg)
+			transform rotateZ(180deg)
+	.no-fixed
+		position static
+		height 34rpx
+		line-height 34rpx
+		padding-top 10rpx
+	// 没有卡券
+	.empty
+		text-align center
+		color $fontColor6
+		font-size 32rpx
+		image
+			margin 23.5vh 0 9.5vh
+		view
+			line-height 44rpx
+	// 弹出详情
+	.mask
+		position fixed
+		left 0
+		top 0
+		right 0
+		bottom 0
+		z-index 1
+		background: rgba(0, 0, 0, .6)
+		// 添加卡券弹窗
+		.cash-card-voucher
+			position fixed
+			left 0
+			top 21.7%
+			right 0
+			width 73%
+			z-index 2
+			margin 0 auto
+			box-sizing border-box
+			padding 0 32rpx 0 46rpx
+			background #fff
+			border-radius 32rpx
+			.conversion-code
+				display flex
+				width 100%
+				height 40rpx
+				line-height 40rpx
+				background #EEEEEE
+				border-radius 18rpx
+				margin-bottom 30rpx
+				padding 20rpx 0
+				input
+					flex 8
+					height 40rpx
+					line-height 40rpx
+					margin-left 32rpx
+				text
+					flex 2
+					&::after
+						content '\e65c'
+						font-size 40rpx
+						color #219E61
+			.exchange
+				height 82rpx
+				line-height 82rpx
+				text-align center
+				color #15AD69
+				font-size 32rpx
+				border-top 2rpx solid #F6F6F6
+		.successful
+			position fixed
+			left 0
+			top 21.7%
+			right 0
+			width 73%
+			z-index 2
+			margin 0 auto
+			box-sizing border-box
+			padding 0 40rpx 0 36rpx
+			background #fff
+			border-radius 32rpx
+			.successful-title
+				text-align center
+				color $fontColor3
+				font-size 36rpx
+				line-height 50rpx
+				font-weight 500
+			.ticket
+				display flex
+				width 100%
+				height 118rpx
+				color #fff
+				box-sizing border-box
+				background url("https://file.cyzl.com/g001/M05/FE/07/oYYBAF4BbgiAdNacAAAjbz2ewpY073.png") no-repeat top
+				-webkit-background-size: 100% 118rpx
+				background-size: 100% 118rpx
+				padding 22rpx 0rpx
+				margin 40rpx 0
+				.left
+					font-size 66rpx
+					margin-left 20rpx
+					margin-right 10rpx
+					sup
+						font-size 22rpx
+				.center
+					flex 5
+					font-size 17rpx
+					line-height 26rpx
+					&>view:first-child
+						font-size 19rpx
+						line-height 30rpx
+						margin-top 0
+					.limit
+						line-height 20rpx
+				.right
+					padding-right 20rpx
+					&>view:first-child
+						margin-top 0rpx
+						text-align right
+			.go-package
+				height 82rpx
+				line-height 82rpx
+				text-align center
+				color #15AD69
+				font-size 32rpx
+				border-top 2rpx solid #F6F6F6
+		.close
+			display flex
+			color $fontColor6
+			font-size 16rpx
+			padding 30rpx 0 50rpx
+			&::after
+				flex 1
+				content '\e603'
+				text-align right

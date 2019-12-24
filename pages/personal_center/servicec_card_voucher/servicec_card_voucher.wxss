@@ -1,157 +1,285 @@
-.pass-ticket {
-  position: relative;
-  display: flex;
-  height: 232rpx;
-  border-radius: 20rpx;
-  color: #fff;
-  background: url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-QSaAaFFpAABaajvkHHg602.png") no-repeat top;
-  -webkit-background-size: contain;
-  background-size: contain;
-  background-position: 0 15rpx;
-  font-size: 28rpx;
-  box-sizing: border-box;
-}
-.pass-ticket.other {
-  background: url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-RD2ALYEEAABW1CaqUz8590.png") no-repeat top;
-  -webkit-background-size: contain;
-  background-size: contain;
-  background-position: 0 15rpx;
-}
-.pass-ticket.expire {
-  background: url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-RFyAd73JAAAJQ_tX6mQ138.png") no-repeat top;
-  -webkit-background-size: contain;
-  background-size: contain;
-  background-position: 0 15rpx;
-}
-.pass-ticket.expire::after {
-  position: absolute;
-  top: 50%;
-  right: 87rpx;
-  transform: translateY(-70%) rotate(-24deg);
-  content: '已过期';
-  font-size: 60rpx;
-  color: #999;
-}
-.pass-ticket > view:first-of-type {
-  flex: 1;
-  display: flex;
-}
-.pass-ticket > view:first-of-type > view {
-  display: flex;
-  justify-content: center;
-}
-.pass-ticket > view:first-of-type > view:first-of-type {
-  align-items: center;
-  flex: 0.4;
-  font-size: 27rpx;
-  transform: translateY(-20rpx);
-}
-.pass-ticket > view:first-of-type > view:first-of-type > text {
-  font-size: 72rpx;
-  margin-top: 32rpx;
-}
-.pass-ticket > view:first-of-type > view:last-of-type {
-  flex-direction: column;
-  flex: 0.6;
-}
-.pass-ticket > view:first-of-type > view:last-of-type .title {
-  font-size: 36rpx;
-}
-.pass-ticket > view:first-of-type > view:last-of-type .desc {
-  font-size: 28rpx;
-  color: #f8fafe;
-}
-.pass-ticket > view:last-of-type {
-  flex: 0 0 132rpx;
-  width: 132rpx;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.pass-card {
-  position: relative;
-  height: 332rpx;
-  border-radius: 20rpx;
-  color: #fff;
-  background: url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-QYOABK1jAACGv26cCAA449.png") no-repeat top;
-  -webkit-background-size: contain;
-  background-size: contain;
-  background-position: 0 15rpx;
-  font-size: 28rpx;
-  box-sizing: border-box;
-}
-.pass-card.other {
-  background: url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-RLqAfBwHAACG_IrILOE400.png") no-repeat top;
-  -webkit-background-size: contain;
-  background-size: contain;
-  background-position: 0 15rpx;
-}
-.pass-card.expire {
-  background: url("https://file.cyzl.com/g001/M00/01/4B/oYYBAFx-RMuAZ5_FAAAIUgWTIBU462.png") no-repeat top;
-  -webkit-background-size: contain;
-  background-size: contain;
-  background-position: 0 15rpx;
-}
-.pass-card.expire::after {
-  position: absolute;
-  top: 50%;
-  right: 87rpx;
-  transform: translateY(-140%) rotate(-24deg);
-  content: '已过期';
-  font-size: 60rpx;
-  color: #999;
-}
-.pass-card .top {
-  display: flex;
-  padding-top: 66rpx;
-  padding-left: 58rpx;
-  font-size: 27rpx;
-  align-items: start;
-}
-.pass-card .top > text {
-  font-size: 72rpx;
-  transform: translateY(-18rpx);
-}
-.pass-card .bottom {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-.pass-card .bottom > view:first-of-type {
-  margin-top: 15rpx;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex: 0.6;
-  padding-left: 60rpx;
-}
-.pass-card .bottom > view:first-of-type .title {
-  display: block;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  font-size: 36rpx;
-}
-.pass-card .bottom > view:first-of-type .des {
-  margin-top: 6rpx;
-  font-size: 24rpx;
-}
-.pass-card .bottom > view:last-of-type {
-  flex: 0.4;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-}
-.pass-card .bottom > view:last-of-type > text {
-  margin: 0 15rpx;
-  font-size: 71rpx;
-  transform: translateY(15rpx);
+page {
+  background: #f2f2f2;
 }
 .service-card-voucher {
-  background: #fff;
+  background: #f2f2f2;
   min-height: 100vh;
 }
-.service-card-voucher .content {
-  padding: 30rpx;
+.service-card-voucher .list-box {
+  padding-top: 32rpx;
+  padding-bottom: 21vh;
+}
+.service-card-voucher .list-box .list-content-box {
+  margin: 20rpx auto 0;
+  width: 92%;
+}
+.service-card-voucher .list,
+.service-card-voucher .ticket {
+  display: flex;
+  width: 100%;
+  height: 172rpx;
+  color: #fff;
+  box-sizing: border-box;
+  background: url("https://file.cyzl.com/g001/M05/FE/07/oYYBAF4BbgiAdNacAAAjbz2ewpY073.png") no-repeat top;
+  -webkit-background-size: 100% 172rpx;
+  background-size: 100% 172rpx;
+  padding: 38rpx 0rpx 32rpx;
+}
+.service-card-voucher .list .left,
+.service-card-voucher .ticket .left {
+  flex: 3;
+  position: relative;
+  font-size: 96rpx;
+  font-family: ArialMT;
+  line-height: 80rpx;
+  margin-right: 20rpx;
+  margin-left: 30rpx;
+}
+.service-card-voucher .list .left sup,
+.service-card-voucher .ticket .left sup {
+  font-size: 32rpx;
+  line-height: 34rpx;
+  vertical-align: top;
+}
+.service-card-voucher .list .center,
+.service-card-voucher .ticket .center {
+  flex: 4.5;
+  font-size: 24rpx;
+  line-height: 44rpx;
+}
+.service-card-voucher .list .center>view:first-child,
+.service-card-voucher .ticket .center>view:first-child {
+  font-size: 28rpx;
+  line-height: 48rpx;
+  margin-top: -10rpx;
+}
+.service-card-voucher .list .center .limit,
+.service-card-voucher .ticket .center .limit {
+  line-height: 24rpx;
+}
+.service-card-voucher .list .right,
+.service-card-voucher .ticket .right {
+  flex: 2.5;
+  text-align: right;
+  padding-right: 30rpx;
+}
+.service-card-voucher .list .right>view:first-child,
+.service-card-voucher .ticket .right>view:first-child {
+  margin-top: -10rpx;
+  height: 32rpx;
+  text-align: right;
+}
+.service-card-voucher .list .right>view:first-child button,
+.service-card-voucher .ticket .right>view:first-child button {
+  float: right;
+  width: 104rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  font-size: 16rpx;
+  color: #fff;
+  background: rgba(255,255,255,0.19);
+  border-radius: 18rpx;
+  padding: 0;
+}
+.service-card-voucher .list .right>view:last-child,
+.service-card-voucher .ticket .right>view:last-child {
+  margin-top: 60rpx;
+  font-size: 16rpx;
+}
+.service-card-voucher .list .right>view:last-child::after,
+.service-card-voucher .ticket .right>view:last-child::after {
+  display: inline-block;
+  content: '\e60e';
+  transform: rotateZ(180deg);
+}
+.service-card-voucher .invalid {
+  background: url("https://file.cyzl.com/g001/M05/FD/FE/oYYBAF4BbTyAMXeWAAAwEscVmQs262.png") no-repeat top;
+}
+.service-card-voucher .add-coupon {
+  position: fixed;
+  bottom: 14vh;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  text-align: right;
+}
+.service-card-voucher .add-coupon text {
+  display: inline-block;
+  width: 166rpx;
+  height: 68rpx;
+  line-height: 68rpx;
+  color: #fff;
+  text-align: center;
+  background: linear-gradient(46deg, #2fb565 0%, #84d157 100%);
+  box-shadow: 0px 4rpx 12rpx 0px rgba(68,106,83,0.5);
+  border-radius: 200rpx 0px 0px 200rpx;
+}
+.service-card-voucher .check-overdue {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 14vh;
+  text-align: center;
+  font-size: 24rpx;
+  color: #39a6f8;
+  line-height: 14vh;
+  background: #f2f2f2;
+}
+.service-card-voucher .check-overdue text::after {
+  display: inline-block;
+  content: '\e60e';
+  -webkit-transform: rotateZ(180deg);
+  transform: rotateZ(180deg);
+}
+.service-card-voucher .no-fixed {
+  position: static;
+  height: 34rpx;
+  line-height: 34rpx;
+  padding-top: 10rpx;
+}
+.service-card-voucher .empty {
+  text-align: center;
+  color: #66666d;
+  font-size: 32rpx;
+}
+.service-card-voucher .empty image {
+  margin: 23.5vh 0 9.5vh;
+}
+.service-card-voucher .empty view {
+  line-height: 44rpx;
+}
+.service-card-voucher .mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  background: rgba(0,0,0,0.6);
+}
+.service-card-voucher .mask .cash-card-voucher {
+  position: fixed;
+  left: 0;
+  top: 21.7%;
+  right: 0;
+  width: 73%;
+  z-index: 2;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0 32rpx 0 46rpx;
+  background: #fff;
+  border-radius: 32rpx;
+}
+.service-card-voucher .mask .cash-card-voucher .conversion-code {
+  display: flex;
+  width: 100%;
+  height: 40rpx;
+  line-height: 40rpx;
+  background: #eee;
+  border-radius: 18rpx;
+  margin-bottom: 30rpx;
+  padding: 20rpx 0;
+}
+.service-card-voucher .mask .cash-card-voucher .conversion-code input {
+  flex: 8;
+  height: 40rpx;
+  line-height: 40rpx;
+  margin-left: 32rpx;
+}
+.service-card-voucher .mask .cash-card-voucher .conversion-code text {
+  flex: 2;
+}
+.service-card-voucher .mask .cash-card-voucher .conversion-code text::after {
+  content: '\e65c';
+  font-size: 40rpx;
+  color: #219e61;
+}
+.service-card-voucher .mask .cash-card-voucher .exchange {
+  height: 82rpx;
+  line-height: 82rpx;
+  text-align: center;
+  color: #15ad69;
+  font-size: 32rpx;
+  border-top: 2rpx solid #f6f6f6;
+}
+.service-card-voucher .mask .successful {
+  position: fixed;
+  left: 0;
+  top: 21.7%;
+  right: 0;
+  width: 73%;
+  z-index: 2;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0 40rpx 0 36rpx;
+  background: #fff;
+  border-radius: 32rpx;
+}
+.service-card-voucher .mask .successful .successful-title {
+  text-align: center;
+  color: #33333d;
+  font-size: 36rpx;
+  line-height: 50rpx;
+  font-weight: 500;
+}
+.service-card-voucher .mask .successful .ticket {
+  display: flex;
+  width: 100%;
+  height: 118rpx;
+  color: #fff;
+  box-sizing: border-box;
+  background: url("https://file.cyzl.com/g001/M05/FE/07/oYYBAF4BbgiAdNacAAAjbz2ewpY073.png") no-repeat top;
+  -webkit-background-size: 100% 118rpx;
+  background-size: 100% 118rpx;
+  padding: 22rpx 0rpx;
+  margin: 40rpx 0;
+}
+.service-card-voucher .mask .successful .ticket .left {
+  font-size: 66rpx;
+  margin-left: 20rpx;
+  margin-right: 10rpx;
+}
+.service-card-voucher .mask .successful .ticket .left sup {
+  font-size: 22rpx;
+}
+.service-card-voucher .mask .successful .ticket .center {
+  flex: 5;
+  font-size: 17rpx;
+  line-height: 26rpx;
+}
+.service-card-voucher .mask .successful .ticket .center>view:first-child {
+  font-size: 19rpx;
+  line-height: 30rpx;
+  margin-top: 0;
+}
+.service-card-voucher .mask .successful .ticket .center .limit {
+  line-height: 20rpx;
+}
+.service-card-voucher .mask .successful .ticket .right {
+  padding-right: 20rpx;
+}
+.service-card-voucher .mask .successful .ticket .right>view:first-child {
+  margin-top: 0rpx;
+  text-align: right;
+}
+.service-card-voucher .mask .successful .go-package {
+  height: 82rpx;
+  line-height: 82rpx;
+  text-align: center;
+  color: #15ad69;
+  font-size: 32rpx;
+  border-top: 2rpx solid #f6f6f6;
+}
+.service-card-voucher .mask .close {
+  display: flex;
+  color: #66666d;
+  font-size: 16rpx;
+  padding: 30rpx 0 50rpx;
+}
+.service-card-voucher .mask .close::after {
+  flex: 1;
+  content: '\e603';
+  text-align: right;
 }

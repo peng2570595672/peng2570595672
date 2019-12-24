@@ -1,15 +1,78 @@
-<import src="/pages/personal_center/template/pass-ticket-template/pass-ticket-template.wxml"/>
-<import src="/pages/personal_center/template/pass-card-template/pass-card-template.wxml"/>
 <view class="service-card-voucher">
-	<!--列表-->
-	<view class="content">
-		<block>
-			<block>
-			<template is="passTicketTemplate"></template>
-		</block>
-			<block>
-				<template is="passCardTemplate"></template>
-			</block>
-		</block>
+	<view wx:if="{{list && list.length > 0}}">
+		<view class="list-box">
+			<!--通用券开始-->
+			<view class="list-content-box" wx:for="{{10}}" wx:key="index">
+				<!--通用券介绍开始-->
+				<view class="list {{isEffective?'':'invalid'}}">
+					<view class="left"><sup>￥</sup>500</view>
+					<view class="center">
+						<view>通用抵扣券</view>
+						<view class="limit" wx:if="{{index === 2}}">满1000元可用</view>
+						<view>有效期：2019-12-09</view>
+					</view>
+					<view class="right">
+						<view><button>抵扣券</button></view>
+						<view catchtap="go" class="iconfont">查看详情</view>
+					</view>
+				</view>
+				<!--通用券介绍结束-->
+			</view>
+			<!--通用券结束-->
+		</view>
+		<!--添加卡券开始-->
+		<view class="add-coupon">
+			<text catchtap="addCoupon">添加卡券</text>
+		</view>
+		<!--添加卡券结束-->
 	</view>
+	<!--没有卡券开始-->
+	<view class="empty" wx:if="{{list && list.length === 0}}">
+		<image src="https://file.cyzl.com/g001/M00/00/FA/oYYBAFxvrfeAQYANAAAVo1t3MCc394.png"></image>
+		<view>暂无电子券～</view>
+	</view>
+	<!--没有卡券结束-->
+	<!--查看过期券开始-->
+	<view class="check-overdue {{list.length === 0 ? 'no-fixed':''}}" catchtap="checkVoucher"><text class="iconfont">{{isEffective?'查看无效电子券':'查看有效电子券'}}</text></view>
+	<!--查看过期券结束-->
+	<!--添加卡券弹窗开始-->
+	<view wx:if="{{showAddCoupon}}" class="mask">
+		<view class="cash-card-voucher">
+			<view class="close iconfont" catchtap="close"></view>
+			<view class="conversion-code">
+				<input type="text" placeholder="请输入兑换码"/>
+				<text class="iconfont" catchtap="getExchangeCodeFromScan"></text>
+			</view>
+			<view class="exchange" catchtap="exchange">立即兑换</view>
+		</view>
+	</view>
+	<!--添加卡券弹窗结束-->
+	<!--兑换卡券成功弹窗开始-->
+	<view class="mask" wx:if="{{showSuccessful}}">
+		<view class="successful">
+			<view class="close iconfont" catchtap="close"></view>
+			<view class="successful-title">
+				<view>恭喜你</view>
+				<view>获得一张卡券</view>
+			</view>
+			<view class="ticket">
+				<view class="left"><sup>￥</sup>500</view>
+				<view class="center">
+					<view>通用抵扣券</view>
+					<view class="limit">满1000元可用</view>
+					<view>有效期：2019-12-09</view>
+				</view>
+				<view class="right">
+					<view><button>剩余次数8/10</button></view>
+				</view>
+			</view>
+			<view class="go-package">放入卡包</view>
+		</view>
+	</view>
+	<!--兑换卡券成功弹窗结束-->
+	<!--https://file.cyzl.com/g001/M05/FD/FC/oYYBAF4BbP6ALvaRAAAE7TwAkWo151.png   红-->
+<!--https://file.cyzl.com/g001/M05/FD/FD/oYYBAF4BbSSAbqUHAAAFFd7hjiY196.png   黄-->
+	<!--https://file.cyzl.com/g001/M05/FD/FE/oYYBAF4BbTyAMXeWAAAwEscVmQs262.png  灰色-->
+	<!--https://file.cyzl.com/g001/M05/FE/07/oYYBAF4BbgiAdNacAAAjbz2ewpY073.png  蓝色-->
+	<!--https://file.cyzl.com/g001/M05/FE/07/oYYBAF4Bbh-ANJ6VAAAsZWOPMEE162.png  绿-->
 </view>
