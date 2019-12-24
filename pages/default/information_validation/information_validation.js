@@ -19,7 +19,7 @@ Page({
 		personsArr: [2, 3, 4, 5, 6, 7, 8, 9], // 核载人数选择框
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
-		orderInfo: undefined
+		orderInfo: undefined // 订单信息
 	},
 	onLoad () {
 		app.globalData.orderInfo.orderId = '658608879176781824';
@@ -70,7 +70,7 @@ Page({
 			if (res.code === 0) {
 				this.setData({
 					orderInfo: res.data,
-					available: true
+					available: true // 下一步按钮可用
 				});
 			} else {
 				util.showToastNoIcon(res.message);
