@@ -109,5 +109,22 @@ Page({
 	onClickViewProcessingProgressHandle () {
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 		util.go('/pages/default/processing_progress/processing_progress');
+	},
+	// 我的ETC
+	onClickMyETCHandle () {
+		util.go('/pages/personal_center/my_etc/my_etc');
+	},
+	// 继续办理
+	onClickContinueHandle () {
+		// 服务商套餐id，0表示还未选择套餐，其他表示已经选择套餐
+		// 只提交了车牌 车牌颜色 收货地址 前往套餐选择
+		if (this.data.orderInfo.shopProductId === 0) {
+			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+			util.go('/pages/default/payment_way/payment_way');
+		} else if (this.data.orderInfo.isVehicle === 0) {
+			// 是否上传行驶证， 0未上传，1已上传
+			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+			util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
+		}
 	}
 });

@@ -63,11 +63,11 @@
 				</view>
 				<view class="input-item">
 					<view>姓名</view>
-					<input type="text" placeholder="小男孩" placeholder-class="placeholder" value="{{idCardFace.ocrObject.name}}" bindinput="onInputChangedHandle" data-key="name"/>
+					<input type="text" placeholder="请输入姓名" placeholder-class="placeholder" value="{{idCardFace.ocrObject.name}}" bindinput="onInputChangedHandle" data-key="name"/>
 				</view>
 				<view class="input-item">
 					<view>身份证号</view>
-					<input type="text" placeholder="220625198904071555" placeholder-class="placeholder" value="{{idCardFace.ocrObject.idNumber}}" bindinput="onInputChangedHandle" data-key="idNumber"/>
+					<input type="text" placeholder="请输入身份证号" placeholder-class="placeholder" value="{{idCardFace.ocrObject.idNumber}}" bindinput="onInputChangedHandle" data-key="idNumber"/>
 				</view>
 			</view>
 			<!--	输入身份证号 和身份证姓名结束-->

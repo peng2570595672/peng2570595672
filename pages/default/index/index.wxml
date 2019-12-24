@@ -34,10 +34,10 @@
 	<!--	办理中开始-->
 	<view class="processing" wx:if="{{orderInfo.status === 0}}">
 		<view class="processing-title">
-			<view>贵A2ZM91</view>
-			<view class="iconfont">查看所有ETC</view>
+			<view>{{orderInfo.vehPlates}}</view>
+			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
 		</view>
-		<view class="btn">继续办理</view>
+		<view class="btn" catchtap="onClickContinueHandle">继续办理</view>
 		<view class="tips">这是你离成功最近的一次</view>
 	</view>
 	<!--	办理中结束-->
@@ -46,7 +46,7 @@
 	<view class="viewing-process" wx:if="{{orderInfo.status === 1 && orderInfo.auditStatus === 0}}">
 		<view class="processing-title">
 			<view>{{orderInfo.vehPlates}}</view>
-			<view class="iconfont">查看所有ETC</view>
+			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
 		</view>
 		<view class="btn" catchtap="onClickViewProcessingProgressHandle">查看进度</view>
 		<view class="tips">客服小姐姐正埋头审核中...</view>
@@ -57,7 +57,7 @@
 	<view class="update-info" wx:if="{{false}}">
 		<view class="processing-title">
 			<view>贵A2ZM91</view>
-			<view class="iconfont">查看所有ETC</view>
+			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
 		</view>
 		<view class="btn">修改资料</view>
 		<view class="tips"><text>你的资料审核有误，</text>请仔细检查</view>
@@ -68,7 +68,7 @@
 	<view class="audit-failure" wx:if="{{false}}">
 		<view class="processing-title">
 			<view>贵A2ZM91</view>
-			<view class="iconfont">查看所有ETC</view>
+			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
 		</view>
 		<view class="failed">审核失败</view>
 		<view class="tips">说明原因</view>
@@ -79,7 +79,7 @@
 	<view class="confirm-receipt" wx:if="{{false}}">
 		<view class="processing-title">
 			<view>贵A2ZM91</view>
-			<view class="iconfont">查看所有ETC</view>
+			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
 		</view>
 		<view class="btn">确认收货并激活</view>
 		<view class="tips">你的ETC即将到达，期待...</view>
@@ -90,7 +90,7 @@
 	<view class="resume-contract" wx:if="{{false}}">
 		<view class="processing-title">
 			<view>贵A2ZM91</view>
-			<view class="iconfont">查看所有ETC</view>
+			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
 		</view>
 		<view class="btn">恢复签约</view>
 		<view class="tips"><text>赶紧恢复！</text>这将严重影响你的高速通行</view>
