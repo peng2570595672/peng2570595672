@@ -92,7 +92,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 9,
+			"current": 3,
 			"list": [
 				{
 					"id": 0,
@@ -117,8 +117,8 @@
 				},
 				{
 					"id": 3,
-					"name": "pages/personal_center/help_center/help_center",
-					"pathName": "pages/personal_center/help_center/help_center",
+					"name": "pages/personal_center/servicec_card_voucher/servicec_card_voucher",
+					"pathName": "pages/personal_center/servicec_card_voucher/servicec_card_voucher",
 					"query": "",
 					"scene": null
 				},
@@ -159,8 +159,8 @@
 				},
 				{
 					"id": 9,
-					"name": "pages/personal_center/member_benefits/member_benefits",
-					"pathName": "pages/personal_center/member_benefits/member_benefits",
+					"name": "pages/personal_center/servicec_card_voucher/servicec_card_voucher",
+					"pathName": "pages/personal_center/servicec_card_voucher/servicec_card_voucher",
 					"query": "",
 					"scene": null
 				}

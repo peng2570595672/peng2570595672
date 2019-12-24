@@ -10,29 +10,39 @@
 	<!--售后服务/在线客服结束-->
 	<!--帮助列表开始-->
 	<view class="help-list">
+		<!--搜索开始-->
 		<view class="help-search">
 			<view catchtap="goSearch">
 				<text class="iconfont">请输入关键词</text>
 			</view>
 		</view>
+		<!--搜索结束-->
 		<view class="list">
+			<!--tab切换列表开始-->
 			<scroll-view class="list-title" scroll-x>
 				<view class="list-title-child {{tabIndex == index ?'tab_index':''}}" wx:for="{{datas}}" wx:key="index" catchtap="tab" data-index="{{index}}">
 					{{item.title}}
 					<view></view>
 				</view>
 			</scroll-view>
+			<!--tab切换列表结束-->
+			<!--列表开始-->
 			<view wx:for="{{datas[tabIndex].sub}}" wx:key="index" class="list-content" catchtap="showDetail" data-content="{{item}}">
 				{{item.title}}
 			</view>
+			<!--列表结束-->
 		</view>
 	</view>
 	<!--帮助列表结束-->
 	<!--弹出详情开始-->
 	<view class="mask animated {{showDetailWtapper?'slideInUp':'slideInDown'}}" wx:if="{{showDetailMask}}">
+		<!--顶部蒙版开始-->
 		<view class="top" catchtap="hide"></view>
+		<!--顶部蒙版结束-->
 		<view class="wrapper animated {{showDetailWtapper?'slideInDown':'slideOutDown'}}">
+			<!--详情列表标题开始-->
 			<view class="details-title">{{detailsContent.title}}</view>
+			<!--详情列表内容结束-->
 			<view class="details-list">
 				<view class="details-list-box">
 					<view wx:for="{{detailsContent.des}}" wx:key="index" class="cont1">
@@ -41,7 +51,10 @@
 					</view>
 				</view>
 			</view>
+			<!--详情列表内容结束-->
+			<!--详情列表超出显示提示开始-->
 			<view class="is-scroll" wx:if="{{fatherHeight <= childHeight ? 'showScroll': ''}}">向下划动查看全部内容</view>
+			<!--详情列表超出显示提示结束-->
 		</view>
 	</view>
 	<!--弹出详情结束-->
