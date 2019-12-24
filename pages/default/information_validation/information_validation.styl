@@ -1,4 +1,5 @@
 @import "../../../style/base.styl";
+@import "../../../style/my_animate.styl";
 .information_validation
 	display flex
 	flex-direction column
@@ -128,4 +129,10 @@
 		font-size 40rpx
 		color #fff
 		border-radius 49rpx
-		background: linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
+		background: linear-gradient(to right , $deepThemeColor, $shallowThemeColor)
+		&.available
+			animation btnFadeIn .3s
+			animation-fill-mode forwards
+		&.unavailable
+			animation btnFadeOut .3s
+			animation-fill-mode forwards

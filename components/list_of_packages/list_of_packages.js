@@ -98,8 +98,6 @@ Component({
 		},
 		// 获取数据
 		init () {
-			app.globalData.orderInfo.orderId = '658608879176781824';
-			app.globalData.userInfo.accessToken = 'NjU3NjE0MDE0NjQ1MjcyNTc2OjEyMzQ1Njc4OTAxMjM0NTY3ODo1OTlhNDU2MjVmYTE0YzkyYmZkNmUwMDkxMWYwNjE3Mg==';
 			// 是否缓存了定位信息
 			let locationInfo = wx.getStorageSync('location-info');
 			if (locationInfo) {
