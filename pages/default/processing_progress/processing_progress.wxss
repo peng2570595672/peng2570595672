@@ -48,6 +48,9 @@
   padding-bottom: 40rpx;
   border-left: 1rpx dashed #cdcdcf;
 }
+.processing_progress .progress_wrapper .item.current::before {
+  background: #14ac69;
+}
 .processing_progress .progress_wrapper .item.finished .content-title {
   color: #14ac69;
 }

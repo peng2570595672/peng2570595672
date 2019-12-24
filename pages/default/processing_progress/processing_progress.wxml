@@ -1,15 +1,15 @@
 <view class="processing_progress">
 	<!--	车牌开始-->
-	<view class="title">粤A12345</view>
+	<view class="title">{{info.vehPlates}}</view>
 	<!--	车牌结束-->
 	<!--	用户信息开始-->
 	<view class="user-info">
 		<view>
-			<text>小男孩</text>
-			<text>12345678900</text>
+			<text>{{info.receiveMan}}</text>
+			<text>{{info.receivePhone}}</text>
 		</view>
 		<view>
-			贵州省贵阳市白云区白沙街道1111号
+			{{info.receiveProvince}}{{info.receiveCity}}{{info.receiveCounty}}{{info.receiveAddress}}
 		</view>
 	</view>
 	<!--	用户信息结束-->
@@ -18,19 +18,21 @@
 	<!--	办理进度失败-->
 	<!--	进度开始-->
 	<view class="progress_wrapper">
-		<view class="item finished">
+		<view class="item finished"  wx:if="{{info.accountVerify !== -1}}">
 			<view class="content-title finished">账户验证</view>
 			<view class="content-des">正在验证中....<text class="refresh iconfont">刷新结果</text></view>
 		</view>
-		<view class="item finished last">
+		<view class="item  {{info.accountVerify === -1 || info.accountVerify === 2  ? 'current' : ''}} {{info.auditStatus !== 0 ? 'finished' : ''}}">
 			<view class="content-title">资料审核</view>
-			<view class="content-des error iconfont">审核不通过<text class="edit iconfont">修改资料</text></view>
+			<view class="content-des iconfont {{info.auditStatus === 1 || info.auditStatus === 9 ? 'error' : ''}}" wx:if="{{info.auditStatus === 1 || info.auditStatus === 9}}">审核不通过<text class="edit iconfont" wx:if="{{info.auditStatus === 1}}">修改资料</text></view>
+			<view class="content-des" wx:else>{{info.auditStatus === 0 ? '正在排队审核中，预计1个工作日内完成' : '审核通过'}}</view>
 		</view>
-		<view class="item">
+		<view class="item  {{info.auditStatus !== 0 ? 'current' : ''}} {{info.logisticsId !== 0 ? 'finished' : ''}}">
 			<view class="content-title">快递配送</view>
-			<view class="content-des">发货后可查看实时物流信息</view>
+			<view class="content-des" wx:if="{{info.logisticsId === 0}}">发货后可查看实时物流信息</view>
+			<view class="content-des" wx:else>已发货<text class="edit iconfont">查看实时物流</text></view>
 		</view>
-		<view class="item">
+		<view class="item  {{info.obuStatus !== 0 ? 'finished' : ''}} {{info.logisticsId !== 0 ? 'current' : ''}} last">
 			<view class="content-title">安装激活</view>
 			<view class="content-des">收货后可根据操作手册自主安装激活使用，请在 使用过程中保证扣款渠道余额充足，以免产生扣 费失败情况导致账户被拉黑</view>
 		</view>

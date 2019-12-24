@@ -22,8 +22,6 @@ Page({
 		orderInfo: undefined // 订单信息
 	},
 	onLoad () {
-		app.globalData.orderInfo.orderId = '658608879176781824';
-		app.globalData.userInfo.accessToken = 'NjU3NjE0MDE0NjQ1MjcyNTc2OjEyMzQ1Njc4OTAxMjM0NTY3ODo1OTlhNDU2MjVmYTE0YzkyYmZkNmUwMDkxMWYwNjE3Mg==';
 		// 行驶证正面
 		let drivingLicenseFace = wx.getStorageSync('driving_license_face');
 		if (drivingLicenseFace) {

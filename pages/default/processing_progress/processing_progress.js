@@ -6,9 +6,31 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
-		dashedHeight: 0
+		dashedHeight: 0,
+		info: undefined
 	},
 	onLoad () {
+		app.globalData.orderInfo.orderId = '658608879176781824';
+		app.globalData.userInfo.accessToken = 'NjU3NjE0MDE0NjQ1MjcyNTc2OjEyMzQ1Njc4OTAxMjM0NTY3ODo1N2MzNDExYzFiZDY0NzMzYTNlNzMzNWI0YjE4MDg2OQ==';
+		this.getProcessingProgress();
+	},
+	// 获取办理进度
+	getProcessingProgress () {
+		util.showLoading();
+		util.getDataFromServer('consumer/order/transact-schedule', {
+			orderId: app.globalData.orderInfo.orderId
+		}, () => {
+		}, (res) => {
+			if (res.code === 0) {
+				this.setData({
+					info: res.data
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
 	},
 	// 下一步
 	next () {
