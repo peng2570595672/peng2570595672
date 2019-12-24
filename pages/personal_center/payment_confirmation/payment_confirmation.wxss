@@ -22,7 +22,7 @@
   height: 78rpx;
   line-height: 78rpx;
   font-size: 28rpx;
-  color: $themeColor1;
+  color: #99999d;
   border-bottom: 1rpx solid #f1f1f1;
 }
 .my_order .order-list .order-list-content .order-list-top {
@@ -31,13 +31,12 @@
   height: 98rpx;
   line-height: 98rpx;
   font-size: 32rpx;
-  color: $themeColor1;
-  padding-right: 15rpx;
+  color: #474750;
   border-bottom: 1rpx solid #f1f1f1;
 }
 .my_order .order-list .order-list-content .order-list-top .start,
 .my_order .order-list .order-list-content .order-list-top .end {
-  flex: 4;
+  flex: 4.5;
   display: flex;
   align-items: center;
   height: 92rpx;
@@ -62,9 +61,8 @@
   background: #8cd5b5;
 }
 .my_order .order-list .order-list-content .order-list-top .money {
-  flex: 2;
-  font-size: 48rpx;
-  color: #2fb565;
+  flex: 1;
+  font-size: 36rpx;
   text-align: right;
 }
 .my_order .order-list .order-list-content .order-list-bottom {
@@ -73,7 +71,7 @@
 .my_order .order-list .order-list-content .order-list-bottom>view {
   display: flex;
   font-size: 28rpx;
-  color: $themeColor1;
+  color: #99999d;
   line-height: 40rpx;
   padding-top: 22rpx;
 }
@@ -87,7 +85,7 @@
 .my_order .instructions {
   text-align: right;
   font-size: 24rpx;
-  color: $themeColor1;
+  color: #99999d;
   line-height: 48rpx;
   margin-top: 20rpx;
   margin-right: 30rpx;
