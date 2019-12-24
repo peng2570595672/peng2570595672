@@ -48,5 +48,11 @@ Page({
 			showAddCoupon: false,
 			showSuccessful: true
 		});
+	},
+	// 放入卡包
+	goPackage () {
+		this.setData({
+			showSuccessful: false
+		});
 	}
 });
