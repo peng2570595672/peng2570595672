@@ -39,7 +39,7 @@
 	</view>
 	<!--	进度结束-->
 	<!--	按钮开始-->
-	<view class="btn">确认收货并激活</view>
+	<view class="btn" wx:if="{{info.logisticsId !== 0}}">确认收货并激活</view>
 <!--	按钮结束-->
 	<view class="auto-fill"></view>
 
