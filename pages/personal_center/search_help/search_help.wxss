@@ -70,14 +70,18 @@ page .mask .wrapper {
   border-radius: 32rpx 32rpx 0px 0px;
 }
 page .mask .wrapper .details-title {
-  padding: 90rpx 52rpx 0;
+  padding: 90rpx 52rpx 50rpx;
   font-size: 40rpx;
   color: #33333d;
 }
 page .mask .wrapper .details-list {
+  height: 60%;
+  overflow-y: scroll;
+}
+page .mask .wrapper .details-list .details-list-box .cont1 {
   font-size: 30rpx;
   text-align: justify;
-  padding: 50rpx 54rpx 0;
+  padding: 0 54rpx 50rpx;
   display: flex;
   line-height: 44rpx;
   color: #66666d;
@@ -85,13 +89,28 @@ page .mask .wrapper .details-list {
   flex-wrap: nowrap;
   justify-content: flex-start;
 }
-page .mask .wrapper .details-list .label {
+page .mask .wrapper .details-list .details-list-box .cont1 .label {
   text-align: center;
   font-size: 100rpx;
   color: #33333d;
   margin-top: -5rpx;
   margin-right: 20rpx;
 }
-page .mask .wrapper .details-list .char {
+page .mask .wrapper .details-list .details-list-box .cont1 .char {
   flex: 9.5;
+}
+page .mask .wrapper .details-list .details-list-box>view:last-child {
+  padding-bottom: 0;
+}
+page .mask .wrapper .is-scroll {
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+  width: 100%;
+  font-size: 28rpx;
+  line-height: 184rpx;
+  text-align: center;
+  color: #66666d;
+  background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, #fff 100%);
+  padding-top: 74rpx;
 }

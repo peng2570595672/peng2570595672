@@ -13,14 +13,26 @@
 	</view>
 	<!--帮助列表结束-->
 	<!--弹出详情开始-->
-	<view class="mask animated {{showDetailWtapper?'slideInUp':'slideInDown'}}" wx:if="{{showDetailMask}}">
+	<view class="mask animated {{showDetailWtapper?'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
+		<!--顶部蒙版开始-->
 		<view class="top" catchtap="hide"></view>
-		<view class="wrapper animated {{showDetailWtapper?'slideInDown':'slideOutDown'}}">
+		<!--顶部蒙版结束-->
+		<view class="wrapper animated {{showDetailWtapper?'slideInUp':'slideOutDown'}}">
+			<!--详情列表标题开始-->
 			<view class="details-title">{{detailsContent.title}}</view>
-			<view wx:for="{{detailsContent.des}}" wx:key="index" class="details-list">
-				<view class="label">·</view>
-				<view class="char">{{item.content}} </view>
+			<!--详情列表内容结束-->
+			<view class="details-list">
+				<view class="details-list-box">
+					<view wx:for="{{detailsContent.des}}" wx:key="index" class="cont1">
+						<view class="label">·</view>
+						<view class="char">{{item.content}} </view>
+					</view>
+				</view>
 			</view>
+			<!--详情列表内容结束-->
+			<!--详情列表超出显示提示开始-->
+			<view class="is-scroll" wx:if="{{fatherHeight <= childHeight ? 'showScroll': ''}}">向下划动查看全部内容</view>
+			<!--详情列表超出显示提示结束-->
 		</view>
 	</view>
 	<!--弹出详情结束-->

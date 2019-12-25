@@ -35,11 +35,11 @@
 	</view>
 	<!--帮助列表结束-->
 	<!--弹出详情开始-->
-	<view class="mask animated {{showDetailWtapper?'slideInUp':'slideInDown'}}" wx:if="{{showDetailMask}}">
+	<view class="mask animated {{showDetailWtapper?'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
 		<!--顶部蒙版开始-->
 		<view class="top" catchtap="hide"></view>
 		<!--顶部蒙版结束-->
-		<view class="wrapper animated {{showDetailWtapper?'slideInDown':'slideOutDown'}}">
+		<view class="wrapper animated {{showDetailWtapper?'slideInUp':'slideOutDown'}}">
 			<!--详情列表标题开始-->
 			<view class="details-title">{{detailsContent.title}}</view>
 			<!--详情列表内容结束-->

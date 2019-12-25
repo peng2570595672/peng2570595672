@@ -159,8 +159,8 @@
 				},
 				{
 					"id": 9,
-					"name": "pages/personal_center/my_order/my_order",
-					"pathName": "pages/personal_center/my_order/my_order",
+					"name": "pages/personal_center/index/index",
+					"pathName": "pages/personal_center/index/index",
 					"query": "",
 					"scene": null
 				}
