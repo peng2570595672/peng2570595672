@@ -70,14 +70,19 @@ Page({
 			this.setData({
 				bankCardIdentifyResult: bankCardIdentifyResult.data[0]
 			});
-			// wx.removeStorageSync('bank_card_identify_result');
+			this.setData({
+				available: this.validateAvailable()
+			});
+			wx.removeStorageSync('bank_card_identify_result');
 		}
 		// 身份证正面
 		let idCardFace = wx.getStorageSync('id_card_face');
 		if (idCardFace) {
 			idCardFace = JSON.parse(idCardFace);
 			this.setData({
-				idCardFace: idCardFace.data[0],
+				idCardFace: idCardFace.data[0]
+			});
+			this.setData({
 				available: this.validateAvailable()
 			});
 			wx.removeStorageSync('id_card_face');
@@ -87,7 +92,9 @@ Page({
 		if (idCardBack) {
 			idCardBack = JSON.parse(idCardBack);
 			this.setData({
-				idCardBack: idCardBack.data[0],
+				idCardBack: idCardBack.data[0]
+			});
+			this.setData({
 				available: this.validateAvailable()
 			});
 			wx.removeStorageSync('id_card_back');
@@ -177,7 +184,7 @@ Page({
 			isOk = isOk && this.data.bankCardIdentifyResult.ocrObject.cardNo && util.luhmCheck(this.data.bankCardIdentifyResult.ocrObject.cardNo);
 		}
 		// 是否为微信2.0
-		if (isOk && this.data.choiceObj.isBankcard === 0) {
+		if (isOk) {
 			// 验证图片是否存在
 			isOk = isOk && this.data.idCardFace.fileUrl && this.data.idCardBack.fileUrl;
 			// 验证姓名

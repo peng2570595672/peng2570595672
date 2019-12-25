@@ -47,39 +47,44 @@
   padding-top: 10rpx;
   color: #fff;
 }
-.index .items {
+.index .user_nav {
+  display: flex;
+  justify-content: center;
+  background: #fff;
+  border-radius: 20rpx;
   margin: -100rpx 30rpx;
   width: 682rpx;
   height: 200rpx;
   background: #fff;
-  border-radius: 20rpx;
-  color: #fff;
+  color: #99999d;
 }
-.index .items > view {
-  display: flex;
-  padding-top: 35rpx;
-}
-.index .items > view > button {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.index .user_nav .user_item {
+  margin-left: 70rpx;
+  text-align: center;
   flex: 0 0 100rpx;
-  height: 150rpx;
-  padding: 0;
-  font-size: 24rpx;
-  background: #fff;
+  margin-top: 30rpx;
 }
-.index .items > view > button .icon_image {
-  display: block;
-  width: 72rpx;
-  height: 72rpx;
+.index .user_nav .user_item:first-of-type {
+  margin-left: 0;
+}
+.index .user_nav .user_item > view > image {
+  width: 100%;
+  height: 100%;
+}
+.index .user_nav .user_item > view:first-of-type {
   background: #ffc75e;
-  border-radius: 50%;
+  width: 100rpx;
+  height: 100rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  border-radius: 50rpx;
+  box-shadow: 0 6rpx 10rpx 0 rgba(126,132,156,0.1);
 }
-.index .items > view > button > view {
-  display: flex;
-  color: #999;
+.index .user_nav .user_item > view:last-of-type {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  line-height: 40rpx;
+  color: $fontColor6;
 }
 .index .activity_follow {
   display: flex;
@@ -87,26 +92,25 @@
   margin: 130rpx 30rpx;
   width: 682rpx;
   height: 140rpx;
-  background: #fff;
   border-radius: 20rpx;
-  color: #fff;
+  background: #fff;
 }
-.index .activity_follow>view:nth-child(1) {
-  width: 90rpx;
-  height: 50rpx;
+.index .activity_follow .activity_img {
   margin-left: 50rpx;
-  background: #ff445f;
-  margin-top: 50rpx;
 }
-.index .activity_follow>view:nth-child(2) {
+.index .activity_follow .activity_img > image {
+  width: 130rpx;
+  height: 130rpx;
+}
+.index .activity_follow .activity_msg {
   margin-left: 50rpx;
   margin-top: 30rpx;
   font-family: PingFangSC-Regular, PingFang SC;
 }
-.index .activity_follow>view:nth-child(2)>view:first-child {
+.index .activity_follow .activity_msg>view:first-child {
   font-size: 16px;
   color: #333;
 }
-.index .activity_follow>view:nth-child(2)>view:last-child {
+.index .activity_follow .activity_msg>view:last-child {
   color: #999;
 }

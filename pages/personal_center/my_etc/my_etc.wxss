@@ -1,80 +1,76 @@
-.index {
-  padding-top: 20rpx;
-  padding-bottom: 20rpx;
-  background: #f5f5f5;
-  min-height: 100vh;
+.my-etc .item {
+  margin: 0 34rpx;
+  margin-top: 20rpx;
+  padding: 0 24rpx;
+  height: 220rpx;
+  box-shadow: 4rpx 4rpx 46rpx 0 rgba(126,132,156,0.1);
+  border-radius: 32rpx;
 }
-.index .new_item {
-  margin: 20rpx 30rpx;
-  margin-top: 0;
-  padding: 0 28rpx;
+.my-etc .item:first-of-type {
+  margin-top: 48rpx;
+}
+.my-etc .item:last-of-type {
+  margin-bottom: 20rpx;
+}
+.my-etc .item .top {
   display: flex;
-  flex-direction: column;
-  min-height: 208rpx;
-  border-radius: 20rpx;
-  box-shadow: 0 4rpx 20rpx 0 rgba(153,153,153,0.2);
-  background: #fff;
+  height: 122rpx;
+  padding-top: 24rpx;
+  border-bottom: 1rpx solid #f2f2f2;
+  box-sizing: border-box;
 }
-.index .new_item .new_item_top {
+.my-etc .item .top .left {
+  flex: 1;
+  padding-left: 6rpx;
+}
+.my-etc .item .top .left .car-no {
   display: flex;
   align-items: center;
-  box-sizing: border-box;
-  padding-top: 20rpx;
-  margin-bottom: 10rpx;
-}
-.index .new_item .new_item_top > view:first-of-type {
-  flex: 5;
-  flex-direction: column;
-}
-.index .new_item .new_item_top > view:first-of-type>view:first-child {
+  height: 56rpx;
   font-size: 40rpx;
-  color: #33333d;
-  font-family: PingFangSC-Medium, PingFang SC;
 }
-.index .new_item .new_item_top > view:first-of-type>view:last-child {
+.my-etc .item .top .left .channel {
+  margin-top: -4rpx;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
   font-size: 24rpx;
   color: #99999d;
-  font-family: PingFangSC-Regular, PingFang SC;
 }
-.index .new_item .new_item_top > view:last-of-type {
-  flex: 5;
-  text-align: right;
+.my-etc .item .top .right {
+  margin-top: 8rpx;
+  padding-right: 12rpx;
+  font-size: 28rpx;
+}
+.my-etc .item .top .right.caution {
   color: #f7b500;
 }
-.index .new_item .new_item_bottom {
-  border-top: 1rpx solid #e5e5e5;
-  display: flex;
-  align-items: center;
-  flex: 0 0 88rpx;
-  font-size: 24rpx;
-  color: #999;
+.my-etc .item .top .right.failed {
+  color: #ff563c;
 }
-.index .new_item .new_item_bottom > view {
-  font-size: 28rpx;
+.my-etc .item .top .right.succeed {
+  color: #2fb565;
+}
+.my-etc .item .bottom {
+  display: flex;
+  padding-top: 24rpx;
+  padding-bottom: 28rpx;
+}
+.my-etc .item .bottom > view {
+  display: flex;
+  height: 44rpx;
   color: #99999d;
 }
-.index .new_item .new_item_bottom > view:first-of-type {
-  flex: 5;
+.my-etc .item .bottom > view:first-of-type {
+  flex: 1;
 }
-.index .new_item .new_item_bottom > view:last-of-type {
-  flex: 5;
-  text-align: right;
+.my-etc .item .bottom > view.iconfont {
+  display: flex;
+  align-items: center;
+  padding-right: 12rpx;
 }
-.index .bottom_container {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 40rpx;
-  width: 100%;
-}
-.index .bottom_container button {
-  width: 630rpx;
-  height: 98rpx;
-  background: linear-gradient(to right, #15ad69, #84d157);
-  box-shadow: 0rpx 8rpx 10rpx 0rpx rgba(132,209,87,0.2);
-  border-radius: 49rpx;
-  font-size: 40rpx;
-  font-family: PingFangSC-Medium, PingFang SC;
-  font-weight: 500;
-  color: #fff;
+.my-etc .item .bottom > view.iconfont::after {
+  content: '\e60e';
+  font-size: 32rpx;
+  transform: rotateZ(-180deg);
 }
