@@ -1,83 +1,58 @@
 const util = require('../../../utils/util.js');
 Page({
 	data: {
-		dropDownMenuTitle: ['全部车辆', ''],
-		dates: '2019-2',
-		timeList: [
-			{
-				id: '0',
-				title: '',
-				childModel: [
-					{ id: '0-1', title: '1月' },
-					{ id: '0-2', title: '2月' },
-					{ id: '0-3', title: '3月' },
-					{ id: '0-4', title: '4月' },
-					{ id: '0-5', title: '5月' },
-					{ id: '0-6', title: '6月' },
-					{ id: '0-7', title: '7月' },
-					{ id: '0-8', title: '8月' },
-					{ id: '0-9', title: '9月' },
-					{ id: '0-10', title: '10月' },
-					{ id: '0-11', title: '11月' },
-					{ id: '0-12', title: '12月' }
-				]
-			},
-			{
-				id: 1,
-				title: '',
-				childModel: [
-					{ id: '1-1', title: '1月' },
-					{ id: '1-2', title: '2月' },
-					{ id: '1-3', title: '3月' },
-					{ id: '1-4', title: '4月' },
-					{ id: '1-5', title: '5月' },
-					{ id: '1-6', title: '6月' },
-					{ id: '1-7', title: '7月' },
-					{ id: '1-8', title: '8月' },
-					{ id: '1-9', title: '9月' },
-					{ id: '1-10', title: '10月' },
-					{ id: '1-11', title: '11月' },
-					{ id: '1-12', title: '12月' }
-				]
-			},
-			{
-				id: 2,
-				title: '',
-				childModel: [
-					{ id: '2-1', title: '1月' },
-					{ id: '2-2', title: '2月' },
-					{ id: '2-3', title: '3月' },
-					{ id: '2-4', title: '4月' },
-					{ id: '2-5', title: '5月' },
-					{ id: '2-6', title: '6月' },
-					{ id: '2-7', title: '7月' },
-					{ id: '2-8', title: '8月' },
-					{ id: '2-9', title: '9月' },
-					{ id: '2-10', title: '10月' },
-					{ id: '2-11', title: '11月' },
-					{ id: '2-12', title: '12月' }
-				]
-			}
+		year: '',
+		dropDownMenuTitle: ['', ''],
+		timeList: [],
+		childModel: [
+			{ id: '1-1', title: '1' },
+			{ id: '1-2', title: '2' },
+			{ id: '1-3', title: '3' },
+			{ id: '1-4', title: '4' },
+			{ id: '1-5', title: '5' },
+			{ id: '1-6', title: '6' },
+			{ id: '1-7', title: '7' },
+			{ id: '1-8', title: '8' },
+			{ id: '1-9', title: '9' },
+			{ id: '1-10', title: '10' },
+			{ id: '1-11', title: '11' },
+			{ id: '1-12', title: '12' }
 		],
-		vehicleList: [
-			{id: 0, title: '全部车辆'},
-			{id: 1, title: '贵A6HG01'},
-			{id: 2, title: '贵A6HG02'},
-			{id: 3, title: '贵A6HG03'}
-		],
-		year: ''
+		list: [],
+		vehicleList: ['贵ZZZABC', '贵ZZZABF', '贵ZZZDBF'],
+		chooseTime: ''
 	},
 	onLoad () {
 		let date = new Date();
 		const year = date.getFullYear();
 		const month = date.getMonth() + 1;
+		const time = year - 2017;
+		for (let i = 0; i <= time; i = i + 1) {
+			for (let k = 0; k < this.data.childModel.length; k = k + 1) {
+				this.data.childModel[k].id = `${i}-${k + 1}`;
+				const obj = {};
+				obj.id = this.data.childModel[k].id;
+				obj.title = this.data.childModel[k].title;
+				const h = time - i;
+				this.data.list.push(obj);
+				this.setData({
+					list: this.data.list,
+					[`timeList[${time - i}].childModel`]: this.data.list
+				});
+			}
+			this.setData({
+				list: [],
+				[`timeList[${time - i}].title`]: `${year - i}年`,
+				[`timeList[${time - i}].id`]: `${i}`
+			});
+		}
 		this.setData({
+			[`dropDownMenuTitle[0]`]: this.data.vehicleList[0],
 			[`dropDownMenuTitle[1]`]: `${year}年${month}月`,
-			[`timeList[0].title`]: `${year - 2}年`,
-			[`timeList[1].title`]: `${year - 1}年`,
-			[`timeList[2].title`]: `${year}年`,
-			year: `${year}`
+			year: `${year}`,
+			chooseTime: `${year}-${util.formatNumber(month)}`
 		});
+		console.log(this.data.timeList);
 	},
 	// 账单详情
 	goDetails () {
@@ -89,18 +64,14 @@ Page({
 	},
 	// 下拉选择
 	selectedItem (e) {
-		if (e.detail.selectedTitle.search('月') === -1) {
-			console.log('id --' + e.detail.selectedId + 'val =' + e.detail.selectedTitle);
+		if (!e.detail.selectedId) {
+			let index = this.data.vehicleList.findIndex((value) => value === e.detail.selectedTitle);
+			console.log(index);
 		} else {
 			const month = e.detail.selectedId.match(/-(\S*)/)[1];
-			const year = e.detail.selectedId.match(/(\S*)-/)[1];
-			if (parseInt(year) === 0) {
-				console.log(`当前选择: ${this.data.year - 2}年${month}月`);
-			} else if (parseInt(year) === 1) {
-				console.log(`当前选择: ${this.data.year - 1}年${month}月`);
-			} else {
-				console.log(`当前选择: ${this.data.year}年${month}月`);
-			}
+			const id = e.detail.selectedId.match(/(\S*)-/)[1];
+			console.log(month);
+			console.log(`${this.data.year - id}-${util.formatNumber(month)}`);
 		}
 	}
 });
