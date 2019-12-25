@@ -4,7 +4,6 @@
 		<!--    设备详情顶部开始-->
 		<view class="equipment_top">
 			<view>
-				<!--            <img  alt="" src=""/>-->
 				<view>
 					<image src="https://file.cyzl.com/g001/M05/00/23/oYYBAF4BqFWAdJMfAAAhUXZ996o842.svg"></image>
 				</view>
