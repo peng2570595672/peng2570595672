@@ -46,38 +46,41 @@ $themeColor2 = #5DE59A;
 				text-align center
 				padding-top 10rpx
 				color white
-	//用户操作选项
-	.items
+	//用户导航栏
+	.user_nav
+		display flex
+		justify-content center
+		background rgba(255,255,255,1)
+		border-radius 20rpx
 		margin -100rpx 30rpx
 		width 682rpx
 		height 200rpx
 		background rgba(255,255,255,1)
-		border-radius 20rpx
-		color #FFFFFF
-		& > view
-			display flex
-			padding-top 35rpx
-			// 户操作选项按钮
-			& > button
-				display flex
-				flex-direction column
-				justify-content center
-				align-items center
-				flex 0 0 100rpx
-				height 150rpx
-				padding 0
-				font-size 24rpx
-				background white
-				// 用户操作选项图标展示
-				.icon_image
-					display block
-					width 72rpx
-					height 72rpx
-					background rgba(255,199,94,1)
-					border-radius 50%
-				& > view
-					display flex
-					color rgba(153,153,153,1)
+		color #99999d
+		.user_item
+			margin-left 70rpx
+			text-align center
+			flex 0 0 100rpx
+			margin-top 30rpx
+			&:first-of-type
+				margin-left 0
+			& > view
+				& > image
+					width 100%
+					height 100%
+				&:first-of-type
+					background #FFC75E
+					width 100rpx
+					height 100rpx
+					padding 20rpx
+					box-sizing border-box
+					border-radius 50rpx
+					box-shadow:0 6rpx 10rpx 0 rgba(126,132,156,0.1)
+				&:last-of-type
+					margin-top 8rpx
+					font-size 24rpx
+					line-height 40rpx
+					color $fontColor6
 	//关注活动
 	.activity_follow
 		display flex
@@ -85,16 +88,14 @@ $themeColor2 = #5DE59A;
 		margin 130rpx 30rpx
 		width 682rpx
 		height 140rpx
-		background rgba(255,255,255,1)
 		border-radius 20rpx
-		color #FFFFFF
-		&>view:nth-child(1)
-			width 90rpx
-			height 50rpx
+		background white
+		.activity_img
 			margin-left 50rpx
-			background #FF445F
-			margin-top 50rpx
-		&>view:nth-child(2)
+			& > image
+				width 130rpx
+				height 130rpx
+		.activity_msg
 			margin-left  50rpx
 			margin-top 30rpx
 			font-family PingFangSC-Regular,PingFang SC

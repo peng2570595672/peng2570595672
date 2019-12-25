@@ -23,14 +23,17 @@ page {
   line-height: 40rpx;
 }
 .index .equipment_top>view:nth-child(1) {
-  padding: 72rpx 0 60rpx;
-  border-bottom: 1rpx solid #ccc;
+  text-align: center;
+  border-bottom: 4rpx dashed #fff;
+  background: linear-gradient(to right, #fff, #99999d, #fff);
+  background-origin: border-box;
 }
 .index .equipment_top>view:nth-child(1) > view {
-  margin: auto;
-  width: 262rpx;
+  padding: 72rpx 0 60rpx;
+  background: #fff;
+}
+.index .equipment_top>view:nth-child(1) > view image {
   height: 184rpx;
-  background: #474b48;
 }
 .index .equipment_center {
   width: 100%;
@@ -107,4 +110,33 @@ page {
 }
 .index .list>view.pass {
   color: #16ad69;
+}
+.cancellation-box {
+  height: 100vh;
+  overflow: hidden;
+  background: #f7f7f7;
+}
+.cancellation-box .prompt {
+  height: 50.7vh;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 48rpx;
+  line-height: 76rpx;
+  color: #33333d;
+  background: #fff;
+  padding: 92rpx 0 206rpx;
+}
+.cancellation-box .prompt image {
+  width: 308rpx;
+  height: 238rpx;
+}
+.cancellation-box .advertising {
+  height: 47.6vh;
+  box-sizing: border-box;
+  background: #fff;
+  margin-top: 1.7vh;
+  padding: 60rpx 40rpx;
+}
+.cancellation-box .advertising image {
+  width: 100%;
 }
