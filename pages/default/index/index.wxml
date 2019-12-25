@@ -127,10 +127,10 @@
 	</view>
 <!--	账单结束-->
 	<!--	分割线开始-->
-	<view class="split" wx:if="{{orderInfo}}"></view>
+	<view class="split"></view>
 	<!--	分割线结束-->
 	<!--	底部导航开始-->
-	<view class="nav animated fadeIn"  wx:if="{{orderInfo}}">
+	<view class="nav">
 		<view class="item">
 			<view>
 				<image src="/pages/default/assets/icon_for_violation_of_regulations.svg"></image>
@@ -155,7 +155,6 @@
 			</view>
 			<view>个人中心</view>
 		</view>
-
 	</view>
 	<!--	底部导航结束-->
 </view>
