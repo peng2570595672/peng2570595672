@@ -3,29 +3,32 @@
 		<view class="nav-title">{{selected_filter_name.length > 0 ?selected_filter_name : dropDownMenuTitle[0]}}</view>
 		<view class="icon"></view>
 	</view>
-  <view class="nav-child {{district_open? 'active' : ''}}" bindtap="tapDistrictNav" hidden='{{dropDownMenuDistrictData.length > 0 ? false :true}}' data-nav="1">
-    <view class="nav-title">{{district_right_select_name.length > 0 ?district_right_select_name : dropDownMenuTitle[1]}}</view>
-    <view class="icon"></view>
-  </view>
+	<view class="nav-child {{district_open? 'active' : ''}}" bindtap="tapDistrictNav" hidden='{{dropDownMenuDistrictData.length > 0 ? false :true}}' data-nav="1">
+		<view class="nav-title">{{district_right_select_name.length > 0 ?district_right_select_name : dropDownMenuTitle[1]}}</view>
+		<view class="icon"></view>
+	</view>
 </view>
 <view class="container container_hd {{filter_open ? 'show' : 'disappear'}} ">
 	<view class='z-height'>
 		<view>
 			<block wx:for="{{dropDownMenuFilterData}}" wx:key="unique">
-				<view class="sortitem {{selected_filter_id==item.id ? ' active ' : ' '}}" data-model='{{item}}' bindtap='selectFilterItem'><text data-model='{{item}}' bindtap='selectFilterItem'> {{item.title}}</text></view>
+				<view class="sortitem {{selected_filter_name == item ? ' active ' : ' '}}"  data-model='{{item}}'  bindtap='selectFilterItem'><text data-model='{{item}}' bindtap='selectFilterItem'> {{item}}</text></view>
 			</block>
 		</view>
 	</view>
 </view>
 <view class="district {{district_open ? 'show' : 'disappear'}} ">
-  <view class="half half-top">
-    <view class="{{district_left_select == item.id ? 'current_left_select' : ''}}" wx:for="{{dropDownMenuDistrictData}}" bindtap="selectDistrictTop" data-model='{{item}}' wx:key="unique">
-     <text bindtap="selectDistrictTop" data-model='{{item}}'> {{item.title}}</text>
-    </view>
-  </view>
-  <view class="half half-bottom">
-    <view class="{{district_right_select == item.id ? 'current_right_select' : ''}}" wx:for="{{dropDownMenuDistrictDataRight}}" bindtap="selectDistrictBottom" data-model='{{item}}' wx:key="unique">
-      <text bindtap="selectDistrictBottom" data-model='{{item}}'>{{item.title}}</text>
-    </view>
-  </view>
+	<view style="background: #fff;height: 150rpx"></view>
+	<view class="half-top-box">
+		<scroll-view class="half half-top" scroll-x>
+			<view class="{{district_left_select == item.id ? 'current_left_select' : ''}}" wx:for="{{dropDownMenuDistrictData}}" bindtap="selectDistrictTop" data-model='{{item}}' wx:key="unique">
+				<text bindtap="selectDistrictTop" data-model='{{item}}'> {{item.title}}</text>
+			</view>
+		</scroll-view>
+	</view>
+	<view class="half half-bottom">
+		<view class="{{district_right_select == item.id ? 'current_right_select' : ''}} {{(chooseYear === year && month < item.title) ? ' forbidden-choose ' : ' '}}" wx:for="{{dropDownMenuDistrictDataRight}}" bindtap="selectDistrictBottom" data-model='{{item}}' wx:key="unique">
+			<text bindtap="selectDistrictBottom" data-model='{{item}}'>{{item.title}}月</text>
+		</view>
+	</view>
 </view>

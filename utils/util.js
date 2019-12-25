@@ -164,6 +164,12 @@ function getDataFromServer(path, params, fail, success, token = '', complete, me
 	wx.request(obj);
 }
 
+// 小于10的前补0操作
+const formatNumber = (n) => {
+	n = n.toString();
+	return n[1] ? n : `0${n}`;
+};
+
 /**
  *  格式化时间
  * @param date 日期
@@ -512,6 +518,7 @@ function luhmCheck(bankno) {
 };
 module.exports = {
 	setApp,
+	formatNumber,
 	getDataFromServer, // 从服务器上获取数据
 	parseBase64,
 	formatTime, // 格式化时间

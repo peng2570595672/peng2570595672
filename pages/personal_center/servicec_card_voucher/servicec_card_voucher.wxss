@@ -10,7 +10,7 @@ page {
   padding-bottom: 21vh;
 }
 .service-card-voucher .list-box .list-content-box {
-  margin: 20rpx auto 0;
+  margin: 0 auto;
   width: 92%;
 }
 .service-card-voucher .list,
@@ -192,7 +192,7 @@ page {
   flex: 2;
 }
 .service-card-voucher .mask .cash-card-voucher .conversion-code text::after {
-  content: '\e65c';
+  content: '\e63c';
   font-size: 40rpx;
   color: #219e61;
 }

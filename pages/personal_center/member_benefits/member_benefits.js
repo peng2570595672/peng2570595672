@@ -1,7 +1,7 @@
 const util = require('../../../utils/util.js');
 Page({
 	data: {
-		isMembers: false,
+		isMembers: true,
 		benefitsList: [
 			{
 				id: 0,
