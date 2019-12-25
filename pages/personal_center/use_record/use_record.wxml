@@ -1,46 +1,91 @@
-<view class="use_record">
-  <block>
-<!--    <template is="listLoadingTemplate" data="{{...showLoading}}"></template>-->
-  </block>
-  <block>
-    <view class="content">
-      <block>
-      <view class="date">2019年1月</view>
-      <view class="item" catchtap="showDetail" data_index="{{index}}">
-        <view class="left">1/23</view>
-        <view class="middle">
-          <view class="car_no">贵A888888</view>
-          <view class="info">贵阳北站 -> 遵义南站</view>
-        </view>
-        <view class="right">100元</view>
-      </view>
-      </block>
-    </view>
-  </block>
-  <view class="empty">
-    <image src="https://file.cyzl.com/g001/M00/00/FA/oYYBAFxvrfeAQYANAAAVo1t3MCc394.png"></image>
-    <view>暂无使用记录</view>
-  </view>
-  <!--加载更多动画-->
-<!--  <block>-->
-<!--    <template is="listLoadingTemplate" data="{{...showLoadingMore}}"></template>-->
-<!--  </block>-->
-
-  <view class="detail_mask animated {{showDetailWrapper ? 'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
-    <view class="detail_wrapper animated {{showDetailWrapper ? 'slideInUp':'slideOutDown'}}" wx:if="{{showDetailMask}}">
-      <view class="top">
-        <view class="title">{{showObj.remark}}</view>
-        <view class="price">￥<text>100</text></view>
-        <view class="tip">抵扣金额</view>
-      </view>
-      <view class="bottom">
-        <view class="item">使用车辆：贵A88888</view>
-        <view class="item">入站时间：2019-1-12 12:12:23</view>
-        <view class="item">出站时间：2019-1-12 17:12:23</view>
-        <view class="item">账单金额：￥157</view>
-        <view class="item">实付金额：￥57</view>
-        <view class="detail_btn" catchtap="hideDetail">我知道了</view>
-      </view>
-    </view>
-  </view>
+<view class="use-record">
+	<!--卡券开始-->
+	<view class="ticket-content">
+		<!--卡券图文开始-->
+		<view class="ticket-box">
+			<view class="ticket">
+				<view class="left"><sup>￥</sup>500</view>
+				<view class="center">
+					<view>通用抵扣券</view>
+					<view class="limit">满1000元可用</view>
+					<view>有效期：2019-12-09</view>
+				</view>
+				<view class="right">
+					<view><button>剩余次数8/10</button></view>
+				</view>
+			</view>
+		</view>
+		<!--卡券图文结束-->
+		<!--卡券详情开始-->
+		<view class="ticket-details">
+			<view>名称：<text>平安通行费折扣卡</text></view>
+			<view>类型：<text>通行费折扣卡</text></view>
+			<view>折扣额度：<text>95折</text></view>
+			<view>使用次数：<text>10次当前剩余8次</text></view>
+		</view>
+		<!--卡券详情结束-->
+		<!--使用说明开始-->
+		<view class="instructions">使用说明：仅限于高速通行使用抵扣高速通行费用</view>
+		<!--使用说明结束-->
+	</view>
+	<!--卡券结束-->
+	<!--卡券使用记录开始-->
+	<view class="use-record-box">
+		<!--使用记录列表开始-->
+		<view class="order-list">
+			<view class="order-list-title">2019年11月</view>
+			<view class="order-list-content" wx:for="{{3}}" wx:key="index" catchtap="showDetail">
+				<view class="order-list-top">
+					<view class="license-plate">贵A66983</view>
+					<view class="time">2019-11-10 15: 49 </view>
+				</view>
+				<view class="order-list-bottom">
+					<view class="start">黔东南罗甸</view>
+					<view class="end">贵阳西环城北</view>
+					<view class="money">-84.46</view>
+				</view>
+			</view>
+		</view>
+		<!--使用记录列表结束-->
+	</view>
+	<!--卡券使用记录结束-->
+	<!--弹出详情开始-->
+	<view class="mask animated {{showDetailWtapper?'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
+		<view class="top" catchtap="hide"></view>
+		<view class="wrapper animated {{showDetailWtapper?'slideInUp':'slideOutDown'}}">
+			<!--	扣费金额开始-->
+			<view class="deduction-amount">
+				<view class="deduction-amount-box">
+					<view class="deduction-amount-title">扣费金额</view>
+					<view>-320.23</view>
+				</view>
+			</view>
+			<!--扣费金额结束-->
+			<!--扣费详情开始-->
+			<view class="deduction-details">
+				<view>
+					<view>扣费类型</view>
+					<view>高速扣费</view>
+				</view>
+				<view>
+					<view>扣费时间</view>
+					<view>2019-11-21 12:12:23</view>
+				</view>
+				<view>
+					<view>扣费方式</view>
+					<view>微信零钱支付</view>
+				</view>
+				<view>
+					<view>应付金额</view>
+					<view>¥458</view>
+				</view>
+				<view>
+					<view>通行抵扣卡优惠</view>
+					<view>¥120</view>
+				</view>
+			</view>
+			<!--扣费详情结束-->
+		</view>
+	</view>
+	<!--弹出详情结束-->
 </view>

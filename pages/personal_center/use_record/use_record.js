@@ -1,28 +1,20 @@
 const util = require('../../../utils/util.js');
-
-const app = getApp();
 Page({
 	data: {
-		showLoading: {
-			show: true,
-			text: '加载中...'
-		},
-		info: {},
-		showDetailWrapper: false,
-		showDetailMask: false,
-		showObj: {}
+		showDetailWtapper: false,
+		showDetailMask: false
 	},
 	// 显示详情
 	showDetail (e) {
 		this.setData({
-			showDetailWrapper: true,
-			showDetailMask: true
+			showDetailMask: true,
+			showDetailWtapper: true
 		});
 	},
-	// 隐藏优惠券选择面板
-	hideDetail () {
+	// 关闭详情
+	hide () {
 		this.setData({
-			showDetailWrapper: false
+			showDetailWtapper: false
 		});
 		setTimeout(() => {
 			this.setData({

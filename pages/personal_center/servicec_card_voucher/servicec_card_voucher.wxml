@@ -74,10 +74,10 @@
 			<view class="go-package" catchtap="goPackage">放入卡包</view>
 		</view>
 	</view>
+	<!--https://file.cyzl.com/g001/M05/06/F5/oYYBAF4DIO2AXDkLAAApZ90llo4270.png  绿-->
+	<!--https://file.cyzl.com/g001/M05/06/F6/oYYBAF4DIRGAUEpWAAAmYN_2QM8580.png 蓝-->
+	<!--https://file.cyzl.com/g001/M05/06/F7/oYYBAF4DISWAGG8dAAAz8oWj6oY740.png 灰-->
+	<!--https://file.cyzl.com/g001/M05/06/F7/oYYBAF4DITeAdipvAAACzsOCHEE048.png 黄-->
+	<!--https://file.cyzl.com/g001/M05/06/F8/oYYBAF4DIU2AbXR8AAACwylG7dY236.png 红-->
 	<!--兑换卡券成功弹窗结束-->
-	<!--https://file.cyzl.com/g001/M05/FD/FC/oYYBAF4BbP6ALvaRAAAE7TwAkWo151.png   红-->
-<!--https://file.cyzl.com/g001/M05/FD/FD/oYYBAF4BbSSAbqUHAAAFFd7hjiY196.png   黄-->
-	<!--https://file.cyzl.com/g001/M05/FD/FE/oYYBAF4BbTyAMXeWAAAwEscVmQs262.png  灰色-->
-	<!--https://file.cyzl.com/g001/M05/FE/07/oYYBAF4BbgiAdNacAAAjbz2ewpY073.png  蓝色-->
-	<!--https://file.cyzl.com/g001/M05/FE/07/oYYBAF4Bbh-ANJ6VAAAsZWOPMEE162.png  绿-->
 </view>
