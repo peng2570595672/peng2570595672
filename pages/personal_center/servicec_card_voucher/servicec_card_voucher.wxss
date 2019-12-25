@@ -218,11 +218,36 @@ page {
   border-radius: 32rpx;
 }
 .service-card-voucher .mask .successful .successful-title {
+  position: relative;
   text-align: center;
   color: #33333d;
   font-size: 36rpx;
   line-height: 50rpx;
   font-weight: 500;
+}
+.service-card-voucher .mask .successful .successful-title .square text:first-child {
+  position: absolute;
+  left: 20%;
+  top: 20%;
+  width: 20rpx;
+  height: 20rpx;
+  border: 4rpx solid #ffaf9a;
+  transform: rotateZ(60deg);
+}
+.service-card-voucher .mask .successful .successful-title .square text:nth-child(2),
+.service-card-voucher .mask .successful .successful-title .square text:last-child {
+  position: absolute;
+  left: 30%;
+  top: -30%;
+  width: 14rpx;
+  height: 14rpx;
+  border: 4rpx solid #ffec9a;
+  transform: rotateZ(10deg);
+}
+.service-card-voucher .mask .successful .successful-title .square text:last-child {
+  position: absolute;
+  left: 80%;
+  top: 70%;
 }
 .service-card-voucher .mask .successful .ticket {
   display: flex;

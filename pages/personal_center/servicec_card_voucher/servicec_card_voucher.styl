@@ -185,11 +185,34 @@ page
 			background #fff
 			border-radius 32rpx
 			.successful-title
+				position relative
 				text-align center
 				color $fontColor3
 				font-size 36rpx
 				line-height 50rpx
 				font-weight 500
+				.square
+					text:first-child
+						position absolute
+						left 20%
+						top 20%
+						width 20rpx
+						height 20rpx
+						border 4rpx solid #FFAF9A
+						transform rotateZ(60deg)
+					text:nth-child(2),
+					text:last-child
+						position absolute
+						left 30%
+						top -30%
+						width 14rpx
+						height 14rpx
+						border 4rpx solid #FFEC9A
+						transform rotateZ(10deg)
+					text:last-child
+						position absolute
+						left 80%
+						top 70%
 			.ticket
 				display flex
 				width 100%
