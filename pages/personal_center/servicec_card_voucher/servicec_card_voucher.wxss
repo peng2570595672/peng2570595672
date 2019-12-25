@@ -59,6 +59,7 @@ page {
 }
 .service-card-voucher .list .right,
 .service-card-voucher .ticket .right {
+  position: relative;
   flex: 2.5;
   text-align: right;
   padding-right: 30rpx;
@@ -96,6 +97,13 @@ page {
   background: url("https://file.cyzl.com/g001/M05/06/F7/oYYBAF4DISWAGG8dAAAz8oWj6oY740.png") no-repeat top;
   -webkit-background-size: contain;
   background-size: contain;
+}
+.service-card-voucher .overdue image {
+  position: absolute;
+  width: 160rpx;
+  height: 160rpx;
+  top: -30rpx;
+  left: -45rpx;
 }
 .service-card-voucher .add-coupon {
   position: fixed;
@@ -147,6 +155,8 @@ page {
   font-size: 32rpx;
 }
 .service-card-voucher .empty image {
+  width: 192rpx;
+  height: 242rpx;
   margin: 23.5vh 0 9.5vh;
 }
 .service-card-voucher .empty view {

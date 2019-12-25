@@ -14,6 +14,7 @@
 					<view class="right">
 						<view><button>抵扣券</button></view>
 						<view catchtap="go" class="iconfont">查看详情</view>
+						<!--<view class="overdue"><image src="https://file.cyzl.com/g001/M05/07/1C/oYYBAF4DJgOARNBxAACkMGC8pRE396.svg"></image></view>-->
 					</view>
 				</view>
 				<!--通用券介绍结束-->
@@ -28,7 +29,7 @@
 	</view>
 	<!--没有卡券开始-->
 	<view class="empty" wx:if="{{list && list.length === 0}}">
-		<image src="https://file.cyzl.com/g001/M00/00/FA/oYYBAFxvrfeAQYANAAAVo1t3MCc394.png"></image>
+		<image src="https://file.cyzl.com/g001/M05/07/08/oYYBAF4DI1KAdQQAAABMmqEDnsc709.svg"></image>
 		<view>暂无电子券～</view>
 	</view>
 	<!--没有卡券结束-->
@@ -79,5 +80,6 @@
 	<!--https://file.cyzl.com/g001/M05/06/F7/oYYBAF4DISWAGG8dAAAz8oWj6oY740.png 灰-->
 	<!--https://file.cyzl.com/g001/M05/06/F7/oYYBAF4DITeAdipvAAACzsOCHEE048.png 黄-->
 	<!--https://file.cyzl.com/g001/M05/06/F8/oYYBAF4DIU2AbXR8AAACwylG7dY236.png 红-->
+	<!--https://file.cyzl.com/g001/M05/07/1C/oYYBAF4DJgOARNBxAACkMGC8pRE396.svg 过期-->
 	<!--兑换卡券成功弹窗结束-->
 </view>

@@ -47,6 +47,7 @@ page
 			.limit
 				line-height 24rpx
 		.right
+			position relative
 			flex 2.5
 			text-align right
 			padding-right 30rpx
@@ -75,6 +76,13 @@ page
 		background url("https://file.cyzl.com/g001/M05/06/F7/oYYBAF4DISWAGG8dAAAz8oWj6oY740.png") no-repeat top
 		-webkit-background-size: contain
 		background-size: contain
+	.overdue
+		image
+			position absolute
+			width 160rpx
+			height 160rpx
+			top -30rpx
+			left -45rpx
 	//添加卡券
 	.add-coupon
 		position fixed
@@ -122,6 +130,8 @@ page
 		color $fontColor6
 		font-size 32rpx
 		image
+			width 192rpx
+			height 242rpx
 			margin 23.5vh 0 9.5vh
 		view
 			line-height 44rpx
