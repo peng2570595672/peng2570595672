@@ -92,7 +92,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 3,
+			"current": 9,
 			"list": [
 				{
 					"id": 0,
@@ -159,8 +159,8 @@
 				},
 				{
 					"id": 9,
-					"name": "pages/personal_center/my_etc_details/my_etc_details",
-					"pathName": "pages/personal_center/my_etc_details/my_etc_details",
+					"name": "pages/personal_center/my_order/my_order",
+					"pathName": "pages/personal_center/my_order/my_order",
 					"query": "",
 					"scene": null
 				}

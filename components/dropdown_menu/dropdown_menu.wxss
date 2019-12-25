@@ -1,103 +1,110 @@
 .page {
-  width: 100%;
-  height: 100%;
-  background: #fff;
-  overflow: hidden;
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	overflow: hidden;
 }
 
 .position {
-  position: absolute;
+	position: absolute;
 }
 
 .nav {
-  position: relative;
-  z-index: 99;
-  display: flex;
-  border-bottom: 1px solid #f7f7f7;
-  background: #fff;
+	position: relative;
+	z-index: 999;
+	display: flex;
+	height: 130rpx;
+	line-height: 130rpx;
+	color: #66666D;
+	/*border-bottom: 1px solid #f7f7f7;*/
+	background: #fff;
 }
 
 .nav-child {
-  display: flex;
-  flex: 1;
-  text-align: center;
-  height: 48rpx;
-  align-items: center;
-  justify-content: center;
-  font-size: 32rpx;
-  margin: 20rpx 0;
+	display: flex;
+	flex: 1;
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+	font-size: 32rpx;
 }
 .nav-title {
-  display: inline-block;
+	display: inline-block;
 }
 
 .icon {
-  display: inline-block;
-  border: 4px solid transparent;
-  border-top: 4px solid #9b9b9b;
-  margin-left: 5px;
-  margin-top: 10rpx;
+	display: inline-block;
+	border: 4px solid transparent;
+	border-top: 4px solid #9b9b9b;
+	margin-left: 5px;
+	margin-top: 10rpx;
 }
 
 .container {
-  position: relative;
-  z-index: 4;
-  font-size: 14px;
+	position: relative;
+	z-index: 4;
+	font-size: 14px;
 }
 
 
 .slidedown {
-  transform: translateY(0%);
+	transform: translateY(0%);
 }
 
 .district {
-  position: absolute;
+	position: absolute;
 	top:0;
-  display: none;
-  z-index: 5;
-  width: 100%;
-  height: 100%;
-  overflow-y: scroll;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.half view {
-  float: left;
+	display: none;
+	z-index: 111;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
 .half-center,.half-top {
-  background: #fff;
+	background: #fff;
+}
+.half-top-box{
+	padding: 0 30rpx 0  68rpx;
+	background: #fff;
 }
 .half-top{
-	display: flex;
+	width:100%;
+	overflow-x: auto;
+	white-space:nowrap;
 	font-size: 28rpx;
-	padding-top: 150rpx;
+	height: 100rpx;
 	line-height: 100rpx;
 }
-.half-top>view{
-	flex: 3;
+.half-top view{
 	text-align: center;
+	display: inline-block;
+}
+.half-top text{
+	margin-right: 150rpx;
 }
 .half-bottom {
 	height: 392rpx;
 	line-height: 98rpx;
 	font-size: 28rpx;
-  background: #fff;
+	background: #fff;
 }
 
 .half-bottom view {
 	height: 98rpx;
 	float: left;
 	width: 33.3%;
+	background: #fff;
 	text-align: center;
-  border-bottom: 1px solid #f7f7f7;
+	border-bottom: 1px solid #f7f7f7;
 }
 
 .current_left_select text{
-  display: inline-block;
+	display: inline-block;
 	width:158rpx;
 	height:60rpx;
 	line-height:60rpx;
+	text-align: center;
 	background:linear-gradient(90deg,rgba(22,173,105,1) 0%,rgba(144,213,107,1) 100%);
 	box-shadow:0px 8rpx 10rpx 0px rgba(34,174,111,0.2);
 	border-radius:30rpx;
@@ -112,6 +119,7 @@
 	height:72rpx;
 	line-height:72rpx;
 	border-radius:36rpx;
+	text-align: center;
 	font-size:32rpx;
 	color:rgba(255,255,255,1);
 	background:linear-gradient(180deg,rgba(23,173,105,1) 0%,rgba(153,217,119,1) 100%);
@@ -120,99 +128,99 @@
 }
 
 .nav-child.active .nav-title {
-  color: #16AD69;
+	color: #16AD69;
 }
 
 .nav-child.active .icon {
-  border-bottom: 4px solid #16AD69;
-  border-top: 0;
+	border-bottom: 4px solid #16AD69;
+	border-top: 0;
 }
 
 @keyframes slidown {
-  from {
-    transform: translateY(-100%);
-  }
+	from {
+		transform: translateY(-100%);
+	}
 
-  to {
-    transform: translateY(0%);
-  }
+	to {
+		transform: translateY(0%);
+	}
 }
 
 .slidown {
-  display: block;
-  animation: slidown 0.2s ease-in both;
+	display: block;
+	animation: slidown 0.2s ease-in both;
 }
 
 @keyframes slidup {
-  from {
-    transform: translateY(0%);
-  }
+	from {
+		transform: translateY(0%);
+	}
 
-  to {
-    transform: translateY(-100%);
-  }
+	to {
+		transform: translateY(-100%);
+	}
 }
 
 .z-height {
-  overflow-y: scroll;
-  background: #fff;
+	overflow-y: scroll;
+	background: #fff;
 }
 
 .slidup {
-  display: block;
-  animation: slidup 0.2s ease-in both;
+	display: block;
+	animation: slidup 0.2s ease-in both;
 }
 
 .disappear {
-  display: none;
+	display: none;
 }
 
 .show {
-  display: block;
+	display: block;
 }
 
 .slidowntop {
-  display: flex;
-  flex-direction: row;
-  padding: 20rpx 24rpx 10rpx 24rpx;
+	display: flex;
+	flex-direction: row;
+	padding: 20rpx 24rpx 10rpx 24rpx;
 }
 
 .emptyall {
-  margin-left: 475rpx;
-  color: #16AD69;
+	margin-left: 475rpx;
+	color: #16AD69;
 }
 
 .emptyallright {
-  width: 80rpx;
-  text-align: center;
+	width: 80rpx;
+	text-align: center;
 }
 
 .endselect {
-  width: 350rpx;
-  text-align: left;
+	width: 350rpx;
+	text-align: left;
 }
 
 .return {
-  margin-left: 200rpx;
-  color: #16AD69;
+	margin-left: 200rpx;
+	color: #16AD69;
 }
 
 .slidowncenter {
-  margin-top: 20rpx;
-  padding-top: 20rpx;
-  padding-left: 24rpx;
-  display: flex;
-  flex-direction: row;
-  align-content: space-between;
-  border-top: solid #d1d3d4 1rpx;
+	margin-top: 20rpx;
+	padding-top: 20rpx;
+	padding-left: 24rpx;
+	display: flex;
+	flex-direction: row;
+	align-content: space-between;
+	border-top: solid #d1d3d4 1rpx;
 }
 
 .slidownbottom {
-  margin-top: 10rpx;
-  padding: 10rpx;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+	margin-top: 10rpx;
+	padding: 10rpx;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
 }
 
 .sortitem {
@@ -220,13 +228,19 @@
 	height: 98rpx;
 	line-height: 98rpx;
 	text-indent: 36rpx;
-  border-bottom: solid #f7f7f7 1rpx;
-  justify-content: space-between;
+	padding-left: 76rpx;
+	border-image: -webkit-linear-gradient(to right, #fff, #E9E9EA, #fff) 1 7 1;
+	border-image: -moz-linear-gradient(to right, #fff, #E9E9EA, #fff) 1 7 1;
+	border-image: linear-gradient(to right, #fff, #E9E9EA, #fff) 1 7 1;
+	border-bottom: 5rpx dashed;
+	justify-content: space-between;
 }
-
+.forbidden-choose{
+	color: #ccc;
+}
 .sortitem.active {
 	text-indent: 18rpx;
-  color: #fff;
+	color: #fff;
 }
 .sortitem.active text{
 	display: inline-block;
@@ -241,9 +255,9 @@
 	margin-top: 15rpx;
 }
 .container_hd {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  overflow-y: scroll;
-  background-color: rgba(0, 0, 0, 0.5);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 222;
+	background-color: rgba(0, 0, 0, 0.5);
 }
