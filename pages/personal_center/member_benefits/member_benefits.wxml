@@ -48,9 +48,10 @@
 	</view>
 	<!--会员权益列表盒子结束-->
 	<!--弹出详情开始-->
-	<view class="mask animated {{showDetailWtapper?'slideInUp':'slideInDown'}}" wx:if="{{showDetailMask}}">
+	<!--{{showDetailWtapper?'slideInUp':'slideInDown'}}-->
+	<view class="mask animated {{showDetailWtapper?'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
 		<view class="top" catchtap="hide"></view>
-		<view class="wrapper animated {{showDetailWtapper?'slideInDown':'slideOutDown'}}">
+		<view class="wrapper animated {{showDetailWtapper?'slideInUp':'slideOutDown'}}">
 			<view class="details-title iconfont icon{{detailsContent.id}}"><text>{{detailsContent.title}}</text></view>
 			<view class="details-content">{{detailsContent.content}}</view>
 			<view class="as-member" wx:if="{{!isMembers}}">

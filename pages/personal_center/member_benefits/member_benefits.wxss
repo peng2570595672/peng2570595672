@@ -87,7 +87,7 @@ page .member_benefits .members-top .members-top-content .member::after {
 }
 page .member_benefits .benefits {
   position: absolute;
-  top: 46%;
+  top: 44%;
   z-index: 2;
   width: 90.6%;
   height: 50vh;
@@ -100,7 +100,7 @@ page .member_benefits .benefits .benefits-list {
   width: 100%;
   height: 50vh;
   background: #fff;
-  transform: skewY(4deg) translate(0rpx, 10rpx);
+  transform: skewY(5deg) translate(0rpx, 10rpx);
   margin-top: -250rpx;
 }
 page .member_benefits .benefits .benefits-list .benefits-content {
@@ -137,7 +137,7 @@ page .member_benefits .benefits .benefits-list .benefits-content .list-box .list
   font-size: 32rpx;
   line-height: 100rpx;
   align-items: center;
-  text-indent: 16rpx;
+  text-indent: 20rpx;
 }
 page .member_benefits .benefits .benefits-list .benefits-content .list-box .list-content::before {
   color: #c7c8c8;
