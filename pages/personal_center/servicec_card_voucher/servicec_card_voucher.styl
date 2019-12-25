@@ -64,7 +64,7 @@ page
 					background rgba(255,255,255,0.19)
 					border-radius 18rpx
 					padding 0
-			&>view:last-child
+			&>view:nth-child(2)
 				margin-top 60rpx
 				font-size 16rpx
 				&::after
@@ -225,6 +225,7 @@ page
 				padding 22rpx 0rpx
 				margin 40rpx 0
 				.left
+					flex 2.5
 					font-size 66rpx
 					margin-left 20rpx
 					margin-right 10rpx
@@ -241,7 +242,8 @@ page
 					.limit
 						line-height 20rpx
 				.right
-					padding-right 20rpx
+					flex 2.5
+					//padding-right 20rpx
 					&>view:first-child
 						margin-top 0rpx
 						text-align right

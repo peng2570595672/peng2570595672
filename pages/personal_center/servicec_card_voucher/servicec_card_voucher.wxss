@@ -81,13 +81,13 @@ page {
   border-radius: 18rpx;
   padding: 0;
 }
-.service-card-voucher .list .right>view:last-child,
-.service-card-voucher .ticket .right>view:last-child {
+.service-card-voucher .list .right>view:nth-child(2),
+.service-card-voucher .ticket .right>view:nth-child(2) {
   margin-top: 60rpx;
   font-size: 16rpx;
 }
-.service-card-voucher .list .right>view:last-child::after,
-.service-card-voucher .ticket .right>view:last-child::after {
+.service-card-voucher .list .right>view:nth-child(2)::after,
+.service-card-voucher .ticket .right>view:nth-child(2)::after {
   display: inline-block;
   content: '\e60e';
   transform: rotateZ(180deg);
@@ -262,6 +262,7 @@ page {
   margin: 40rpx 0;
 }
 .service-card-voucher .mask .successful .ticket .left {
+  flex: 2.5;
   font-size: 66rpx;
   margin-left: 20rpx;
   margin-right: 10rpx;
@@ -283,7 +284,7 @@ page {
   line-height: 20rpx;
 }
 .service-card-voucher .mask .successful .ticket .right {
-  padding-right: 20rpx;
+  flex: 2.5;
 }
 .service-card-voucher .mask .successful .ticket .right>view:first-child {
   margin-top: 0rpx;
