@@ -1,48 +1,76 @@
 <view class="index">
-	<!--	顶部-->
+	<!--顶部开始-->
 	<view class="top">
-		<!--		头像-->
+		<!--头像-->
 		<view class="head_portrait">
 			<image src=""></image>
 		</view>
-		<!--		登陆状态-->
+
+		<!--登陆状态-->
 		<view class="landing_status">
 			<view>未登陆</view>
 		</view>
-		<!--		会员权益-->
+
+		<!--会员权益-->
 		<view class="vip_equity" catchtap="go" data-url="member_benefits">
 			<view>会员权益</view>
 		</view>
 	</view>
-	<!--	用户操作选项-->
-	<view class="items">
-		<view>
-			<button catchtap="go" data-url="my_etc">
-				<image class="icon_image btn_item"></image>
+	<!--顶部结束-->
+
+	<!--用户导航栏开始-->
+	<view class="user_nav">
+			<!--我的ETC开始-->
+			<view class="user_item" catchtap="go" data-url="my_etc">
+				<view>
+					<image src="https://file.cyzl.com/g001/M05/E8/58/oYYBAF38MB2AEVy2AAAHs-lCkIE924.svg"></image>
+				</view>
 				<view>我的ETC</view>
-			</button>
-			<button catchtap="go" data-url="my_order">
-				<image class="icon_image btn_item"></image>
+			</view>
+			<!--我的ETC结束-->
+
+			<!--ETC账单开始-->
+			<view class="user_item" catchtap="go" data-url="my_order">
+				<view>
+					<image src="https://file.cyzl.com/g001/M05/E8/5A/oYYBAF38MDqADSuhAAAHG02DtVo378.svg"></image>
+				</view>
 				<view>ETC账单</view>
-			</button>
-			<button catchtap="go" data-url="servicec_card_voucher">
-				<image class="icon_image btn_item"></image>
+			</view>
+			<!--ETC账单结束-->
+
+			<!--我的卡劵开始-->
+			<view class="user_item" catchtap="go" data-url="servicec_card_voucher">
+				<view>
+					<image src="https://file.cyzl.com/g001/M05/E8/59/oYYBAF38MC2AQHw8AAAHPRh_znM612.svg"></image>
+				</view>
 				<view>我的卡劵</view>
-			</button>
-			<button catchtap="go" data-url="help_center">
-				<image class="icon_image btn_item"></image>
+			</view>
+			<!--我的卡劵结束-->
+
+			<!--帮助中心开始-->
+			<view class="user_item" catchtap="go" data-url="help_center">
+				<view>
+					<image src="https://file.cyzl.com/g001/M05/E8/57/oYYBAF38MACANQ9iAAAH7y25oH0858.svg"></image>
+				</view>
 				<view>帮助中心</view>
-			</button>
-		</view>
+			</view>
+			<!--帮助中心结束-->
 	</view>
-	<!--	关注活动-->
+	<!--用户操作选项结束-->
+
+	<!--关注公众号活动开始-->
 	<view class="activity_follow">
-		<!--		活动logo展示-->
-		<view></view>
-		<!--		活动文字描述-->
-		<view>
+		<!--活动logo展示-->
+		<view class="activity_img">
+			<image src="https://file.cyzl.com/g001/M05/00/22/oYYBAF4BqEaAKGuRAAARqy9QsRU750.svg" ></image>
+		</view>
+
+		<!--活动文字描述开始-->
+		<view class="activity_msg">
 			<view>关注公众号</view>
 			<view>最新资讯秒服务秒GET!</view>
 		</view>
+		<!--活动文字描述结束-->
 	</view>
+	<!--关注公众号活动结束-->
 </view>
