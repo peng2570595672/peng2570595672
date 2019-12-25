@@ -1,7 +1,6 @@
 <view class="index">
 	<!--	欢迎语句开始-->
-	<view class="welcome">欢迎
-		<text>{{loginInfo.nickName ? loginInfo.nickName : '登录中...'}}</text>
+	<view class="welcome">欢迎<text>{{loginInfo.nickName ? loginInfo.nickName : '登录中...'}}</text>
 	</view>
 	<!--	欢迎语句结束-->
 	<!--	轮播图开始-->
