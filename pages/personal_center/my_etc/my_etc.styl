@@ -1,74 +1,64 @@
 @import "../../../style/base.styl";
-.index
-	padding-top 20rpx
-	padding-bottom 20rpx
-	background: #F5F5F5
-	min-height 100vh
-	//我的车辆
-	.new_item
-		margin 20rpx 30rpx
-		margin-top 0
-		padding 0 28rpx
-		display flex
-		flex-direction column
-		min-height 208rpx
-		border-radius 20rpx
-		box-shadow:0 4rpx 20rpx 0 rgba(153,153,153,0.2);
-		background: #fff
-		//我的车辆信息顶部
-		.new_item_top
+.my-etc
+	.item
+		margin 0 34rpx
+		margin-top 20rpx
+		padding 0 24rpx
+		height 220rpx
+		box-shadow 4rpx 4rpx 46rpx 0 rgba(126,132,156,0.1)
+		border-radius 32rpx
+		&:first-of-type
+			margin-top 48rpx
+		&:last-of-type
+			margin-bottom 20rpx
+		// 顶部开始
+		.top
 			display flex
-			align-items center
+			height 122rpx
+			padding-top 24rpx
+			border-bottom 1rpx solid #F2F2F2
 			box-sizing border-box
-			padding-top 20rpx
-			margin-bottom 10rpx
-			& > view
-				//display flex
-				&:first-of-type
-					flex 5
-					flex-direction: column
-					&>view:first-child
-						font-size 40rpx
-						color $fontColor3
-						font-family PingFangSC-Medium,PingFang SC
-					&>view:last-child
-						font-size 24rpx
-						color $fontColor9
-						font-family PingFangSC-Regular,PingFang SC
-				&:last-of-type
-					flex 5
-					text-align right
-					color rgba(247,181,0,1)
-		//我的车辆信息底部
-		.new_item_bottom
-			border-top 1rpx solid #E5E5E5
-			display flex
-			align-items center
-			flex 0 0 88rpx
-			font-size 24rpx
-			color #999
-			& > view
+			.left
+				flex 1
+				padding-left 6rpx
+				.car-no
+					display flex
+					align-items center
+					height 56rpx
+					font-size 40rpx
+				.channel
+					margin-top -4rpx
+					display flex
+					align-items center
+					margin-bottom 10rpx
+					font-size 24rpx
+					color $fontColor9
+			.right
+				margin-top 8rpx
+				padding-right 12rpx
 				font-size 28rpx
+				&.caution
+					color #F7B500
+				&.failed
+					color $error
+				&.succeed
+					color $fontColor
+		// 顶部结束
+		.bottom
+			display flex
+			padding-top 24rpx
+			padding-bottom 28rpx
+			& > view
+				display flex
+				height 44rpx
 				color $fontColor9
 				&:first-of-type
-					flex 5
-				&:last-of-type
-					flex 5
-					text-align right
-	//新增车辆
-	.bottom_container
-		position absolute
-		left 0
-		right 0
-		bottom 40rpx
-		width 100%
-		button
-			width 630rpx
-			height 98rpx
-			background linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
-			box-shadow 0rpx 8rpx 10rpx 0rpx rgba(132,209,87,0.2)
-			border-radius 49rpx
-			font-size 40rpx
-			font-family PingFangSC-Medium,PingFang SC
-			font-weight 500
-			color rgba(255,255,255,1)
+					flex 1
+				&.iconfont
+					display flex
+					align-items center
+					padding-right 12rpx
+					&::after
+						content '\e60e'
+						font-size 32rpx
+						transform rotateZ(-180deg)

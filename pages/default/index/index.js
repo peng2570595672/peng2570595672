@@ -7,7 +7,7 @@ const app = getApp();
 Page({
 	data: {
 		loginInfo: {},// 登录信息
-		orderInfo: {} // 订单信息
+		orderInfo: undefined // 订单信息
 	},
 	onLoad () {
 		this.login();
@@ -85,11 +85,9 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
-				if (res.data.orderInfo) {
-					this.setData({
-						orderInfo: res.data.orderInfo
-					});
-				}
+				this.setData({
+					orderInfo: res.data.orderInfo ? res.data.orderInfo : {}
+				});
 			} else {
 				util.showToastNoIcon(res.message);
 			}
