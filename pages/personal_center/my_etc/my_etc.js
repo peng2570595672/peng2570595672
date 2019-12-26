@@ -61,6 +61,7 @@ Page({
 	},
 	// 新增
 	onClickAddNewHandle () {
+		app.globalData.orderInfo.orderId = '';
 		util.go('/pages/default/receiving_address/receiving_address');
 	}
 });

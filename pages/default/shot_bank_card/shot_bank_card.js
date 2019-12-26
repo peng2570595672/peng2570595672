@@ -91,6 +91,14 @@ Page({
 			obj[`pic${this.data.type}IdentifyResult`] = -1;
 		}
 		this.setData(obj);
+		// 切换到身份证反面
+		if (this.data.type === 1) {
+			this.setData({
+				type: 2,
+				title: '请拍摄身份证反面',
+				picPath: '/pages/default/assets/id_card_back_border.png'
+			});
+		}
 		// 判断是否进行识别
 		if (this.data.pic0 || (this.data.pic1 && this.data.pic2)) {
 			// 开始识别

@@ -6,7 +6,7 @@
 		<!--	选择支付方式开始-->
 		<view class="wrapper animated fadeIn" wx:if="{{!choiceObj}}">
 			<view class="iconfont" catchtap="choiceSetMeal">
-				<text>授权绑定银行卡，作为ETC的扣款方式</text>
+				<text>授权绑定银行卡或微信钱包，作为ETC的扣款方式</text>
 			</view>
 		</view>
 		<!--	选择支付方式结束-->
@@ -26,7 +26,7 @@
 			</view>
 			<!--	回显支付方式结束-->
 			<!--	文本提示开始-->
-			<view class="tips">* 签约成功后需扣取0.01元作为账户验证，随即退回</view>
+			<view class="tips" wx:if="{{choiceObj && choiceObj.isBankcard !== 0}}">* 签约成功后需扣取0.01元作为账户验证，随即退回</view>
 			<!--	文本提示结束-->
 			<block wx:if="{{choiceObj && choiceObj.isBankcard !== 0}}">
 				<!--	扣款方式标题开始-->

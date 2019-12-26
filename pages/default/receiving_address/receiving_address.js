@@ -8,6 +8,7 @@ const app = getApp();
 let timer;
 Page({
 	data: {
+		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
 		showKeyboard: false, // 是否显示键盘
 		currentIndex: -1, // 当前选中的输入车牌位置
 		carNoStr: '', // 车牌字符串

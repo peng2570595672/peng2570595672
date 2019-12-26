@@ -244,6 +244,9 @@
   font-size: 24rpx;
   color: #99999d;
 }
+.receiving_address .agreement.iphone::before {
+  transform: translateY(-6rpx);
+}
 .receiving_address .agreement > text {
   color: #2fb565;
 }

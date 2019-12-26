@@ -10,8 +10,7 @@ App({
 		mapKey: '4EYBZ-L6QC4-NCLUW-XFDUD-TANS7-DZFNG', // 腾讯地图所使用key
 		platformId: '123456789012345678', // 平台id
 		SDKVersion: '',// 小程序基础库版本
-		pixelRatio: 2,
-		screenWidth: 750,
+		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
 		quality: 80,
 		userInfo: {},// 用户信息
 		serverInfoId: '',
@@ -26,8 +25,15 @@ App({
 			success: (res) => {
 				console.log(res);
 				this.globalData.SDKVersion = res.SDKVersion;
-				this.globalData.pixelRatio = res.pixelRatio;
-				this.globalData.screenWidth = res.screenWidth;
+				if (res.model.toLowerCase().search('iphone x') !== -1) {
+					this.globalData.mobilePhoneMode = 1;
+				} else if (res.model.toLowerCase().search('iphone') !== -1) {
+					this.globalData.mobilePhoneMode = 0; // iphone 678
+				} else if (!res.windowWidth * res.pixelRatio === 1080) {
+					this.globalData.mobilePhoneMode = 2; // 1080
+				} else {
+					this.globalData.mobilePhoneMode = 3; // 安卓全面屏
+				}
 			}
 		});
 		// 检测更新

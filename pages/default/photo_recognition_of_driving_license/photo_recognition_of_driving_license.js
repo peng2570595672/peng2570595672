@@ -95,6 +95,14 @@ Page({
 		// 设置为未知结果
 		obj[`pic${this.data.type}IdentifyResult`] = -1;
 		this.setData(obj);
+		// 切换到行驶证反面或者车头照
+		if (this.data.type === 3 || this.data.type === 4) {
+			this.setData({
+				type: this.data.type === 3 ? 4 : 0,
+				picPath: this.data.type === 3 ? '/pages/default/assets/driving_license_back_border.png' : '/pages/default/assets/car_head_45_border.png',
+				title: this.data.type === 3 ? '车辆行驶证-副页' : '车辆45度照片'
+			});
+		}
 		// 判断是否进行识别
 		if (this.data.pic0 && this.data.pic3 && this.data.pic4) {
 			// 开始识别
