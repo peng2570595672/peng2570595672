@@ -4,9 +4,33 @@ Page({
 		showAddCoupon: false,// 控制显示兑换码弹窗
 		showSuccessful: false,// 控制显示兑换码弹窗
 		isEffective: true,// 查看有效&无效电子券
+		listHeight: '',// 卡券列表高度
+		bottomHeight: '',// 底部查看电子券高度
+		windowHeight: '',// 屏幕高度
 		list: [
 			{}
 		]
+	},
+	onLoad () {
+		let listHeight = wx.createSelectorQuery();
+		listHeight.select('.list-box').boundingClientRect();
+		listHeight.exec(res => {
+			console.log(res[0].height);
+			this.setData({
+				listHeight: res[0].height
+			});
+		});
+		let bottomHeight = wx.createSelectorQuery();
+		bottomHeight.select('.check-overdue').boundingClientRect();
+		bottomHeight.exec(res => {
+			console.log(res[0].height);
+			this.setData({
+				bottomHeight: res[0].height
+			});
+		});
+		this.setData({
+			windowHeight: wx.getSystemInfoSync().windowHeight
+		});
 	},
 	// 添加卡券弹窗
 	addCoupon () {

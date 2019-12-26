@@ -19,7 +19,7 @@ Page({
 			{ id: '1-12', title: '12' }
 		],
 		list: [],
-		vehicleList: ['贵ZZZABC', '贵ZZZABF', '贵ZZZDBF'],
+		vehicleList: ['贵ZZZABC', '贵ZZZABF', '贵ZZZDEF', '贵ZSZDBF', '贵ZZVDBF'],
 		chooseTime: ''
 	},
 	onLoad () {
@@ -67,6 +67,7 @@ Page({
 	},
 	// 下拉选择
 	selectedItem (e) {
+		console.log(e);
 		if (!e.detail.selectedId) {
 			let index = this.data.vehicleList.findIndex((value) => value === e.detail.selectedTitle);
 			console.log(index);

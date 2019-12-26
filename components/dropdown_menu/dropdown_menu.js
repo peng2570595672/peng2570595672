@@ -12,21 +12,14 @@ Component({
 		dropDownMenuDistrictData: {
 			type: Array,
 			value: []
-		},
-		dropDownMenuSourceData: {
-			type: Array,
-			value: []
-		},
-		dropDownMenuStyleData: {
-			type: Array,
-			value: []
 		}
 	},
 	data: {
 		// private properity
 		district_open: false,
-		source_open: false,
-		style_open: false,
+		district_open_wtapper: false,
+		filter_open: false,
+		filter_open_wtapper: false,
 		shownavindex: '',
 		dropDownMenuDistrictDataRight: {},
 		district_left_select: '',
@@ -36,7 +29,7 @@ Component({
 		selected_filter_id: 0,
 		year: '',
 		chooseYear: '',
-		month:'',
+		month: '',
 		selected_filter_name: ''
 	},
 	methods: {
@@ -50,51 +43,51 @@ Component({
 			});
 			if (!this.data.district_right_select_name) {
 				this.setData({
-					dropDownMenuDistrictDataRight: this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length-1].childModel,
-					district_left_select: this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length-1].id,
-					district_right_select: this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length-1].childModel[month].id,
-					selected_year_name: this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length-1].title,
-					chooseYear: parseInt(this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length-1].title),
+					dropDownMenuDistrictDataRight: this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length - 1].childModel,
+					district_left_select: this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length - 1].id,
+					district_right_select: this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length - 1].childModel[month].id,
+					selected_year_name: this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length - 1].title,
+					chooseYear: parseInt(this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length - 1].title)
 				});
 			}
 			if (this.data.district_open) {
 				this.setData({
 					district_open: false,
-					source_open: false,
-					style_open: false,
+					district_open_wtapper: false,
 					filter_open: false,
+					filter_open_wtapper: false,
 					shownavindex: 0
 				});
 			} else {
 				this.setData({
 					district_open: true,
-					style_open: false,
-					source_open: false,
+					district_open_wtapper: true,
 					filter_open: false,
+					filter_open_wtapper: false,
 					shownavindex: e.currentTarget.dataset.nav
 				});
 			}
 		},
 		tapFilterNav: function (e) {
-			if(!this.data.selected_filter_name){
+			if (!this.data.selected_filter_name) {
 				this.setData({
 					selected_filter_name: this.data.dropDownMenuTitle[0]
 				});
 			}
 			if (this.data.filter_open) {
 				this.setData({
-					source_open: false,
-					style_open: false,
 					district_open: false,
+					district_open_wtapper: false,
 					filter_open: false,
+					filter_open_wtapper: false,
 					shownavindex: 0
 				});
 			} else {
 				this.setData({
-					source_open: false,
-					style_open: false,
 					district_open: false,
+					district_open_wtapper: false,
 					filter_open: true,
+					filter_open_wtapper: true,
 					shownavindex: e.currentTarget.dataset.nav
 				});
 			}
@@ -115,6 +108,18 @@ Component({
 				this.triggerEvent('selectedItem', { index: this.data.shownavindex, selectedId: selectedId, selectedTitle: selectedTitle });
 			}
 		},
+		hide () {
+			this.setData({
+				district_open_wtapper: false,
+				filter_open_wtapper: false
+			});
+			setTimeout(() => {
+				this.setData({
+					district_open: false,
+					filter_open: false
+				});
+			}, 400);
+		},
 		selectDistrictBottom: function (e) {
 			let date = new Date();
 			let selectedId = e.target.dataset.model.id;
@@ -125,7 +130,7 @@ Component({
 			this.closeHyFilter();
 			this.setData({
 				district_right_select: selectedId,
-				district_right_select_name: this.data.selected_year_name + selectedTitle +'月'
+				district_right_select_name: this.data.selected_year_name + selectedTitle + '月'
 			});
 			this.triggerEvent('selectedItem', { index: this.data.shownavindex, selectedId: selectedId, selectedTitle: selectedTitle });
 		},
@@ -141,32 +146,26 @@ Component({
 		closeHyFilter: function () {
 			if (this.data.district_open) {
 				this.setData({
-					district_open: false,
-					source_open: false,
-					style_open: false,
+					district_open_wtapper: false,
+					filter_open_wtapper: false,
 					filter_open: false
 				});
-			} else if (this.data.source_open) {
-				this.setData({
-					source_open: false,
-					style_open: false,
-					district_open: false,
-					filter_open: false
-				});
-			} else if (this.data.style_open) {
-				this.setData({
-					source_open: false,
-					style_open: false,
-					district_open: false,
-					filter_open: false
-				});
+				setTimeout(() => {
+					this.setData({
+						district_open: false
+					});
+				}, 400);
 			} else if (this.data.filter_open) {
 				this.setData({
-					source_open: false,
-					style_open: false,
 					district_open: false,
-					filter_open: false
+					district_open_wtapper: false,
+					filter_open_wtapper: false,
 				});
+				setTimeout(() => {
+					this.setData({
+						filter_open: false
+					});
+				}, 400);
 			}
 		}
 	},

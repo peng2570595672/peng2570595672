@@ -35,6 +35,7 @@ page .member_benefits .members-top .members-top-content {
   margin-top: -270rpx;
 }
 page .member_benefits .members-top .members-top-content .header {
+  position: relative;
   flex: 2;
   text-align: right;
 }
@@ -42,6 +43,15 @@ page .member_benefits .members-top .members-top-content .header image {
   width: 100rpx;
   height: 100rpx;
   border-radius: 100rpx;
+  border: 4rpx solid #fff;
+}
+page .member_benefits .members-top .members-top-content .crown::before {
+  position: absolute;
+  content: '\e640';
+  color: #f7a93c;
+  font-size: 65rpx;
+  top: -15rpx;
+  left: 78rpx;
 }
 page .member_benefits .members-top .members-top-content .user {
   flex: 5;
@@ -87,7 +97,7 @@ page .member_benefits .members-top .members-top-content .member::after {
 }
 page .member_benefits .benefits {
   position: absolute;
-  top: 44%;
+  top: 40%;
   z-index: 2;
   width: 90.6%;
   height: 50vh;
@@ -118,45 +128,68 @@ page .member_benefits .benefits .benefits-list .benefits-content .benefits-top {
   line-height: 56rpx;
   padding-top: 33rpx;
   padding-left: 40rpx;
+  transform: skewY(-1.2deg) translate(0rpx, 0rpx);
 }
 page .member_benefits .benefits .benefits-list .benefits-content .list-box {
-  min-height: 40vh;
-  padding: 0 54rpx;
+  height: 360rpx;
+  padding: 0 60rpx 0 56rpx;
 }
 page .member_benefits .benefits .benefits-list .benefits-content .list-box .list-content {
   display: flex;
   float: left;
   width: 50%;
-  height: 100rpx;
+  height: 78rpx;
   align-items: center;
   text-align: center;
-  padding-top: 50rpx;
+  padding-top: 42rpx;
 }
 page .member_benefits .benefits .benefits-list .benefits-content .list-box .list-content .list-title {
+  display: flex;
   color: #33333d;
   font-size: 32rpx;
-  line-height: 100rpx;
+  line-height: 78rpx;
   align-items: center;
-  text-indent: 20rpx;
 }
-page .member_benefits .benefits .benefits-list .benefits-content .list-box .list-content::before {
+page .member_benefits .benefits .benefits-list .benefits-content .list-box .list-content .list-title::before {
   color: #c7c8c8;
-  font-size: 100rpx;
+  font-size: 78rpx;
+  margin-right: 16rpx;
 }
-page .member_benefits .benefits .benefits-list .benefits-content .list-box .icon-active::before {
+page .member_benefits .benefits .benefits-list .benefits-content .list-box .list-content .icon-active::before {
   color: #219e61;
+}
+page .member_benefits .benefits .benefits-list .benefits-content .list-box>view:nth-child(2n) {
+  text-align: right;
+}
+page .member_benefits .benefits .benefits-list .benefits-content .list-box>view:nth-child(2n) .list-title {
+  margin-left: auto;
 }
 page .member_benefits .benefits .benefits-button-bg {
   position: absolute;
   z-index: 1;
   width: 100%;
   height: 10vh;
+  background: #fff;
   border-radius: 0px 0px 16rpx 16rpx;
   margin-top: -20rpx;
 }
-page .member_benefits .as-member {
-  transform: skewY(0.8deg) translate(0rpx, 0rpx);
-  padding-top: 60rpx;
+page .member_benefits .benefits .benefits-button-bg .lighting-members {
+  position: absolute;
+  width: 90%;
+  left: 20rpx;
+  right: 20rpx;
+  bottom: 0rpx;
+  z-index: 5;
+  text-align: center;
+  height: 94rpx;
+  line-height: 94rpx;
+  color: #99999d;
+  font-size: 24rpx;
+  margin: 94rpx 20rpx 0;
+  border-top: 1rpx solid #efefef;
+}
+page .member_benefits .benefits-height {
+  height: 36vh;
 }
 page .member_benefits .as-member button {
   width: 83%;
@@ -170,7 +203,6 @@ page .member_benefits .as-member button {
 }
 page .member_benefits .prompt {
   display: flex;
-  transform: skewY(0.7deg) translate(0rpx, 0rpx);
   font-size: 26rpx;
   width: 100%;
   color: #99999d;
@@ -218,15 +250,15 @@ page .member_benefits .mask .wrapper .details-title {
   align-items: center;
   font-size: 40rpx;
   font-weight: 600;
-  line-height: 100rpx;
+  line-height: 74rpx;
   color: #33333d;
   padding-top: 58rpx;
 }
 page .member_benefits .mask .wrapper .details-title::before {
   color: #15ad69;
   font-weight: 400;
-  font-size: 100rpx;
-  padding-right: 10rpx;
+  font-size: 74rpx;
+  padding-right: 20rpx;
 }
 page .member_benefits .mask .wrapper .details-content {
   color: #66666d;
