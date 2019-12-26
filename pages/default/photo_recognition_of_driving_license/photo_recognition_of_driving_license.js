@@ -40,7 +40,6 @@ Page({
 	onShow () {
 		let type = wx.getStorageSync('photo_recognition_of_driving_license_type');
 		if (type) {
-			console.log(1);
 			this.setData({
 				type: parseInt(type)
 			});
