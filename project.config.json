@@ -131,8 +131,8 @@
 				},
 				{
 					"id": 5,
-					"name": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
-					"pathName": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
+					"name": "pages/default/information_validation/information_validation",
+					"pathName": "pages/default/information_validation/information_validation",
 					"query": "",
 					"scene": null
 				},

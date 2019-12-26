@@ -231,5 +231,14 @@ Page({
 		this.setData({
 			drivingLicenseFace
 		});
+	},
+	// 重新拍照识别
+	onClickPhotoHandle (e) {
+		let type = e.currentTarget.dataset.type;
+		type = parseInt(type);
+		wx.setStorageSync('photo_recognition_of_driving_license_type', type);
+		wx.navigateBack({
+			delta: 1
+		});
 	}
 });

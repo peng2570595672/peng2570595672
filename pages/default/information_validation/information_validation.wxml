@@ -11,12 +11,12 @@
 		>
 		<swiper-item class="my-swiper-item">
 			<image src="{{drivingLicenseFace.fileUrl}}">
-				<view class="iconfont animated {{current === 0 ? 'fadeIn' : 'fadeOut'}}" wx:if="{{current === 0}}">点击重新拍摄</view>
+				<view class="iconfont animated {{current === 0 ? 'fadeIn' : 'fadeOut'}}" wx:if="{{current === 0}}" catchtap="onClickPhotoHandle" data-type="3">点击重新拍摄</view>
 			</image>
 		</swiper-item>
 		<swiper-item class="my-swiper-item">
 			<image src="{{drivingLicenseBack.fileUrl}}">
-				<view class="iconfont animated {{current === 1 ? 'fadeIn' : 'fadeOut'}}"  wx:if="{{current === 1}}">点击重新拍摄</view>
+				<view class="iconfont animated {{current === 1 ? 'fadeIn' : 'fadeOut'}}"  wx:if="{{current === 1}}"  catchtap="onClickPhotoHandle" data-type="4">点击重新拍摄</view>
 			</image>
 		</swiper-item>
 	</swiper>

@@ -30,6 +30,11 @@ Page({
 			verifyCode: '' // 验证码
 		} // 提交数据
 	},
+	onLoad () {
+		this.setData({
+			mobilePhoneMode: app.globalData.mobilePhoneMode
+		});
+	},
 	// 下一步
 	next () {
 		if (!this.data.available || this.data.isRequest) {

@@ -12,7 +12,7 @@ Page({
 	},
 	// 上传行驶证
 	onClickUploadDrivingLicenseHandle () {
-		util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license?type=0');
+		util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license?type=3');
 	},
 	onClickHandle () {
 		wx.reLaunch({

@@ -8,7 +8,7 @@ Page({
 	data: {
 		carList: undefined
 	},
-	onLoad () {
+	onShow () {
 		this.getMyETCList();
 	},
 	getMyETCList () {
