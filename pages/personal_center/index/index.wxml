@@ -1,19 +1,25 @@
 <view class="index">
 	<!--顶部开始-->
 	<view class="top">
+
+		<!--扫一扫-->
+		<view class="scan iconfont" catchtap="scan"></view>
+
 		<!--头像-->
 		<view class="head_portrait">
-			<image src=""></image>
+			<image src="https://file.cyzl.com/g001/M05/06/AA/oYYBAF4DGH2AbtywAAAJ4NK4Ik0837.png"></image>
 		</view>
 
 		<!--登陆状态-->
 		<view class="landing_status">
-			<view>未登陆</view>
+			<view>未登录</view>
 		</view>
 
 		<!--会员权益-->
 		<view class="vip_equity" catchtap="go" data-url="member_benefits">
-			<view>会员权益</view>
+			<view>
+				<text class="iconfont">会员权益</text>
+			</view>
 		</view>
 	</view>
 	<!--顶部结束-->
@@ -59,7 +65,7 @@
 	<!--用户操作选项结束-->
 
 	<!--关注公众号活动开始-->
-	<view class="activity_follow">
+	<view class="activity_follow iconfont" catchtap="showDetail">
 		<!--活动logo展示-->
 		<view class="activity_img">
 			<image src="https://file.cyzl.com/g001/M05/00/22/oYYBAF4BqEaAKGuRAAARqy9QsRU750.svg" ></image>
@@ -72,5 +78,21 @@
 		</view>
 		<!--活动文字描述结束-->
 	</view>
+
+	<!--关注公众号活动弹框-->
+	<view class="detail_mask animated {{showDetailWrapper ? 'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
+		<view class="detail_wrapper animated {{showDetailWrapper ? 'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
+			<view class="top1">
+				<image src="https://file.cyzl.com/g001/M05/06/D6/oYYBAF4DHV-AX8S8AABiDQ58WJ0402.png">
+				</image>
+				<button class="activity_button">发送数字“9”关注</button>
+			</view>
+<!--			<view class="activity_button">-->
+<!--&lt;!&ndash;				<text>发送数字“9”关注</text>&ndash;&gt;-->
+<!--			</view>-->
+		</view>
+	</view>
 	<!--关注公众号活动结束-->
+
+
 </view>
