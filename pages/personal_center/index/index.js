@@ -28,5 +28,11 @@ Page({
 			showDetailWrapper: true,
 			showDetailMask: true
 		});
+	},
+	// 监听返回按钮
+	onClickBackHandle () {
+		wx.navigateBack({
+			delta: 1
+		});
 	}
 });
