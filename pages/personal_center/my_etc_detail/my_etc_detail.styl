@@ -1,0 +1,76 @@
+@import "../../../style/base.styl";
+.my-etc-detail
+	display flex
+	min-height 97vh
+	flex-direction column
+	// 设备图开始
+	& > image
+		margin 60rpx auto 0
+		width 322rpx
+		height 224rpx
+	// 分割线
+	.border
+		margin-top 6rpx
+		margin-bottom 15rpx
+		border-bottom: 2rpx dashed #fff
+		background: linear-gradient(to right, #fff, #9F9FA3,#fff)
+		background-origin border-box
+	// 信息显示开始
+	.item
+		display flex
+		align-items center
+		padding 0 60rpx
+		height 70rpx
+		&.first
+			margin-top 15rpx
+		& > view
+			&:first-of-type
+				flex 1
+				color $fontColor6
+			&.caution
+				color #F7B500
+			&.failed
+				color $error
+			&.succeed
+				color $fontColor
+	// 失败说明
+	.des
+		display flex
+		padding 0 11rpx
+		align-items center
+		margin 0 60rpx
+		height 100rpx
+		line-height 40rpx
+		background: #F5F5F5
+		border-radius 10rpx
+		font-size 24rpx
+		color $error
+	.split
+		margin-top 10rpx
+		height 20rpx
+		background: #F7F7F7
+	.auto-fill
+		flex 1
+	// 按钮开始
+	.btns
+		margin 51rpx 60rpx 0
+		height 166rpx
+		box-sizing border-box
+		.btn
+			display flex
+			align-items center
+			justify-content center
+			height 98rpx
+			font-size 40rpx
+			color #fff
+			border-radius 49rpx
+			background: linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
+		.btn-wrapper
+			display flex
+			& > view
+				padding-top 28rpx
+				padding-bottom 34rpx
+				flex 1
+				text-align center
+				font-size 32rpx
+				color #0091FF

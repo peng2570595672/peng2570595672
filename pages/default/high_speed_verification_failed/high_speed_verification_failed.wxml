@@ -1,0 +1,17 @@
+<view class="high_speed_verification_failed">
+	<!--	图标开始-->
+	<image src="/pages/default/assets/high_speed_verification_failed.png"/>
+	<!--	图标结束-->
+	<!--	文字描述开始-->
+	<view class="content">
+		<view class="title">高速验证未通过!</view>
+		<view class="subtitle">检测到<text>【{{carNo}}】</text>已办理过ETC</view>
+		<view class="subtitle">若需重新办理需注销原有ETC</view>
+		<view class="back-home" catchtap="onClickGoHomeHandle">返回首页</view>
+	</view>
+	<!--	文字描述结束-->
+	<view class="split"></view>
+	<!--	广告图开始-->
+	<image class="ad" src="https://file.cyzl.com/g001/M05/04/00/oYYBAF4CzrCAKK9zAACuVWoDsXo412.png"></image>
+	<!--	广告图结束-->
+</view>

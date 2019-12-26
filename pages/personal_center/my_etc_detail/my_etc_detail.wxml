@@ -1,0 +1,63 @@
+<view class="my-etc-detail">
+	<!--	设备图开始-->
+	<image src="/pages/personal_center/assets/etc_device.png"/>
+	<!--	设备图结束-->
+	<!--	分割线开始-->
+	<view class="border"></view>
+	<!--	分割线结束-->
+	<!--	信息开始-->
+	<view class="item">
+		<view>车牌号码</view>
+		<view>{{orderInfo.vehPlates}}</view>
+	</view>
+	<view class="item">
+		<view>订单状态</view>
+		<view class="caution" wx:if="{{orderInfo.selfStatus === 2}}">待签约</view>
+		<view class="caution" wx:elif="{{orderInfo.selfStatus === 4}}">审核中</view>
+		<view class="failed" wx:elif="{{orderInfo.selfStatus === 5}}">申请失败</view>
+		<view class="caution" wx:else>办理中</view>
+	</view>
+	<view class="des" wx:if="{{selfStatus === 3}}">该设备有扣费失败账单 ，请检查余额是否充足，扣费异常有可能导致设备被拉黑无法正常通行</view>
+	<view class="item">
+		<view>扣费方式</view>
+		<view>{{orderInfo.productName}}</view>
+	</view>
+	<view class="split"></view>
+	<view class="item first">
+		<view>所属人</view>
+		<view>{{orderInfo.receiveMan}}</view>
+	</view>
+	<view class="item">
+		<view>发行卡种</view>
+		<view>{{orderInfo.cardName}}</view>
+	</view>
+	<view class="item" wx:if="{{orderInfo.etcNo}}">
+		<view>发行卡号</view>
+		<view>{{orderInfo.etcNo}}</view>
+	</view>
+	<view class="item" wx:if="{{orderInfo.obuNo}}">
+		<view>设备（OBU）编号</view>
+		<view>{{orderInfo.obuNo}}</view>
+	</view>
+	<!--	分割线开始-->
+	<view class="split"></view>
+	<!--	分割线结束-->
+	<view class="item first">
+		<view>办理日期</view>
+		<view>{{orderInfo.addTime}}</view>
+	</view>
+	<!--	信息结束-->
+	<view class="auto-fill"></view>
+	<!--	按钮开始-->
+	<view class="btns">
+		<view class="btn" wx:if="{{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 3}}" catchtap="onClickContinueHandle">继续办理</view>
+		<view class="btn" wx:elif="{{orderInfo.selfStatus === 2}}">恢复签约</view>
+		<view class="btn" wx:elif="{{orderInfo.selfStatus === 4}}" catchtap="onClickViewProcessingProgressHandle">查看进度</view>
+		<view class="btn" wx:elif="{{orderInfo.selfStatus === 5}}">修改资料</view>
+		<view class="btn-wrapper">
+			<view catchtap="onClickCancelHandle">取消办理</view>
+			<view>客服中心</view>
+		</view>
+	</view>
+	<!--	按钮结束-->
+</view>

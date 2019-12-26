@@ -35,39 +35,47 @@
 			width 670rpx
 			margin 0 auto
 			.li
-				display flex
-				align-items center
 				flex 0 0 320rpx
 				width 320rpx
 				height 132rpx
+				padding 1rpx
 				border-radius 4rpx
-				border 1rpx solid #DCDCDD
 				box-sizing border-box
+				background: #DCDCDD
+				overflow hidden
+				&.selected
+					background: linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
 				&:nth-child(2n)
 					margin-left 30rpx
 				&:nth-child(n+3)
 					margin-top 20rpx
-				& > image
-					margin-left 20rpx
-					flex 0 0 70rpx
-					width 70rpx
-					height 70rpx
 				& > view
-					margin-left 20rpx
 					display flex
-					flex-direction column
-					justify-content center
-					.li-title
+					align-items center
+					height 100%
+					background: #fff
+					border-radius 4rpx
+					& > image
+						margin-left 20rpx
+						flex 0 0 70rpx
+						width 70rpx
+						height 70rpx
+					& > view
+						margin-left 20rpx
 						display flex
-						align-items center
-						height 44rpx
-						font-size 28rpx
-					.li-sub-title
-						display flex
-						align-items center
-						height 28rpx
-						font-size 20rpx
-						color $fontColor9
+						flex-direction column
+						justify-content center
+						.li-title
+							display flex
+							align-items center
+							height 44rpx
+							font-size 28rpx
+						.li-sub-title
+							display flex
+							align-items center
+							height 28rpx
+							font-size 20rpx
+							color $fontColor9
 		// 占位
 		.split
 			flex 1

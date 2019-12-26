@@ -1,12 +1,12 @@
 <view class="my-etc">
 	<!--	etc列表开始-->
 	<block wx:for="{{carList}}" wx:key="index">
-		<view class="item  animated fadeIn">
+		<view class="item  animated fadeIn" catchtap="onClickGoETCDetailHandle" data-index="{{index}}">
 			<!--上部分开始-->
 			<view class="top">
 				<view class="left">
 					<view class="car-no">{{item.vehPlates}}</view>
-					<view class="channel">黔通卡</view>
+					<view class="channel">{{item.cardName ? item.cardName : ''}}</view>
 				</view>
 				<view class="right caution" wx:if="{{item.status === 0}}">办理中</view>
 				<view class="right caution" wx:elif="{{item.etcContractId === 0}}">待签约</view>
@@ -17,11 +17,11 @@
 			<!--上部分结束-->
 			<!--下部分开始-->
 			<view class="bottom">
-				<view>扣款方式：工商银行（0098）</view>
-				<view class="iconfont" wx:if="{{item.status !== 1}}" data-index="{{index}}"  catchtap="onClickContinueHandle">继续办理</view>
-				<view class="iconfont" wx:elif="{{item.etcContractId === 0}}">恢复签约</view>
-				<view class="iconfont" wx:elif="{{item.auditStatus === 0}}" data-index="{{index}}"  catchtap="onClickViewProcessingProgressHandle">查看进度</view>
-				<view class="iconfont" wx:elif="{{item.auditStatus === 1}}">修改资料</view>
+				<view>扣款方式：{{item.productName ? item.productName : ''}}</view>
+				<view class="iconfont" wx:if="{{item.selfStatus === 0 || item.selfStatus === 1 || item.selfStatus === 3}}" data-index="{{index}}"  catchtap="onClickContinueHandle">继续办理</view>
+				<view class="iconfont" wx:elif="{{item.selfStatus === 2}}">恢复签约</view>
+				<view class="iconfont" wx:elif="{{item.selfStatus === 4}}" data-index="{{index}}"  catchtap="onClickViewProcessingProgressHandle">查看进度</view>
+				<view class="iconfont" wx:elif="{{item.auditStatus === 5}}">修改资料</view>
 			</view>
 			<!--下部分结束-->
 		</view>
@@ -31,6 +31,6 @@
 	<view class="auto-fill"></view>
 	<!--	高度填充结束-->
 	<!--	新增办理开始-->
-	<view class="btn" catchtap="onClickAddNewHandle">新增办理</view>
+	<view class="btn" wx:if="{{carList}}" catchtap="onClickAddNewHandle">新增办理</view>
 	<!--	新增办理结束-->
 </view>

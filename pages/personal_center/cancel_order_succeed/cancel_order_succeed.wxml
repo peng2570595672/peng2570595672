@@ -1,0 +1,11 @@
+<view class="cancel_order_succeed">
+	<!--	成功提示开始-->
+	<image src="/pages/default/assets/signed_successfully.png"/>
+	<view class="title">取消办理成功</view>
+	<!--	成功提示结束-->
+	<!--	文字描述结束-->
+	<view class="split"></view>
+	<!--	广告图开始-->
+	<image class="ad" src="https://file.cyzl.com/g001/M05/04/00/oYYBAF4CzrCAKK9zAACuVWoDsXo412.png"></image>
+	<!--	广告图结束-->
+</view>
