@@ -18,7 +18,8 @@ Page({
 		pic3IdentifyResult: -1, // 行驶证正面图片识别结果 -1 未知 0成功 1失败
 		pic4IdentifyResult: -1, // 行驶证反面图片识别结果 -1 未知 0成功 1失败
 		pictureWidth: 0, // 压缩图片
-		pictureHeight: 0
+		pictureHeight: 0,
+		isFromRe: false// 是否来自重新拍照行驶证
 	},
 	onLoad (options) {
 		// 拍摄识别类型
@@ -41,6 +42,7 @@ Page({
 		let type = wx.getStorageSync('photo_recognition_of_driving_license_type');
 		if (type) {
 			this.setData({
+				isFromRe: true,
 				type: parseInt(type)
 			});
 			// 读取缓存
@@ -242,6 +244,11 @@ Page({
 	},
 	// 返回
 	onClickBackHandle () {
+		// 重新拍照行驶证点击左上角返回
+		if (this.data.isFromRe) {
+			this.isOver();
+			return;
+		}
 		wx.navigateBack({
 			delta: 1
 		});
