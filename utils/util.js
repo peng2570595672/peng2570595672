@@ -99,7 +99,6 @@ function signature(params, path, token = '') {
 	sign += token ? `accessToken=${token}&` : '';
 	// 拼接key
 	sign += 'key=' + app.globalData.plamKey;
-	console.log(sign);
 	return md5Encrypt(sign);
 }
 
@@ -123,7 +122,11 @@ function getDataFromServer(path, params, fail, success, token = '', complete, me
 		url: app.globalData.host + path,
 		method: method,
 		success: (res) => {
-			success && success(res.data);
+			if (res.data.code === 118) { // 在别处登录了 重新自动登录一次
+				reAutoLogin(path, params, fail, success, token, complete, method);
+			} else {
+				success && success(res.data);
+			}
 		},
 		fail: (res) => {
 			fail && fail(res);
@@ -163,7 +166,32 @@ function getDataFromServer(path, params, fail, success, token = '', complete, me
 	// 执行请求
 	wx.request(obj);
 }
-
+/**
+ * 签名错误 重新登录
+ * @param path
+ * @param params
+ * @param fail
+ * @param success
+ * @param token
+ * @param complete
+ */
+function reAutoLogin(path, params, fail, success, token = '', complete, method) {
+	wx.login({
+		success: (r) => {
+			// 自动登录
+			getDataFromServer('consumer/member/common/applet/code', {
+				platformId: app.globalData.platformId,
+				code: r.code
+			}, () => {
+				util.showToastNoIcon('网络错误，请关闭小程序重新进入！');
+			}, (res) => {
+				app.globalData.userInfo = res.data;
+				// 重新获取所需数据
+				getDataFromServer(path, params, fail, success, res.data.accessToken, complete, method);
+			});
+		}
+	});
+}
 // 小于10的前补0操作
 const formatNumber = (n) => {
 	n = n.toString();
@@ -279,7 +307,7 @@ function alert({
 	               showCancel = false,
 	               confirmText = '我知道了',
 	               cancelText = '取消',
-	               confirmColor = '#14AC69',
+	               confirmColor = '#2FB565',
 	               cancelColor = '#99999D',
 	               confirm = () => {
 	               },
@@ -516,6 +544,25 @@ function luhmCheck(bankno) {
 		return false;
 	}
 };
+
+/**
+ *  获取订单办理状态
+ */
+function  getStatus (orderInfo) {
+	let status = 0;
+	if (orderInfo.status === 0 && orderInfo.etcContractId === 0) {
+		status = 1; // 办理中 待签约
+	}  else if (orderInfo.status === 1 && orderInfo.etcContractId === 0) {
+		status = 2; // 办理完成 未签约
+	}   else if (orderInfo.status === 0 && orderInfo.etcContractId !== 1) {
+		status = 3; // 办理中 已签约
+	} else if (orderInfo.status === 1 && orderInfo.auditStatus === 0) {
+		status = 4; // 查看进度 待审核
+	} else if (orderInfo.status === 1 && orderInfo.auditStatus === 1) {
+		status = 5; // 资料被拒绝 修改资料
+	}
+	return status;
+}
 module.exports = {
 	setApp,
 	formatNumber,
@@ -538,5 +585,6 @@ module.exports = {
 	getInfoByAddress,
 	getAddressInfo,
 	getSignature,
-	luhmCheck
+	luhmCheck,
+	getStatus
 };

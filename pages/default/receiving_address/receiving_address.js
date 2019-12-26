@@ -77,6 +77,8 @@ Page({
 						this.next();
 					}
 				});
+			} else if (res.code === 104 && res.message === '该车牌已存在订单') {
+				util.go(`/pages/default/high_speed_verification_failed/high_speed_verification_failed?carNo=${this.data.carNoStr}`);
 			} else {
 				util.showToastNoIcon(res.message);
 			}

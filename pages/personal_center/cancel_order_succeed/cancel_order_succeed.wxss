@@ -1,0 +1,23 @@
+.cancel_order_succeed > image {
+  display: block;
+  margin: 80rpx auto 0;
+  width: 304rpx;
+  height: 238rpx;
+}
+.cancel_order_succeed .title {
+  display: flex;
+  margin-bottom: 206rpx;
+  align-items: center;
+  justify-content: center;
+  height: 76rpx;
+  font-size: 48rpx;
+}
+.cancel_order_succeed .split {
+  height: 20rpx;
+  background: #f7f7f7;
+}
+.cancel_order_succeed .ad {
+  margin-top: 60rpx;
+  width: 670rpx;
+  height: 364rpx;
+}

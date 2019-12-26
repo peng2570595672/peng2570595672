@@ -1,0 +1,85 @@
+.my-etc-detail {
+  display: flex;
+  min-height: 97vh;
+  flex-direction: column;
+}
+.my-etc-detail > image {
+  margin: 60rpx auto 0;
+  width: 322rpx;
+  height: 224rpx;
+}
+.my-etc-detail .border {
+  margin-top: 6rpx;
+  margin-bottom: 15rpx;
+  border-bottom: 2rpx dashed #fff;
+  background: linear-gradient(to right, #fff, #9f9fa3, #fff);
+  background-origin: border-box;
+}
+.my-etc-detail .item {
+  display: flex;
+  align-items: center;
+  padding: 0 60rpx;
+  height: 70rpx;
+}
+.my-etc-detail .item.first {
+  margin-top: 15rpx;
+}
+.my-etc-detail .item > view:first-of-type {
+  flex: 1;
+  color: #66666d;
+}
+.my-etc-detail .item > view.caution {
+  color: #f7b500;
+}
+.my-etc-detail .item > view.failed {
+  color: #ff563c;
+}
+.my-etc-detail .item > view.succeed {
+  color: #2fb565;
+}
+.my-etc-detail .des {
+  display: flex;
+  padding: 0 11rpx;
+  align-items: center;
+  margin: 0 60rpx;
+  height: 100rpx;
+  line-height: 40rpx;
+  background: #f5f5f5;
+  border-radius: 10rpx;
+  font-size: 24rpx;
+  color: #ff563c;
+}
+.my-etc-detail .split {
+  margin-top: 10rpx;
+  height: 20rpx;
+  background: #f7f7f7;
+}
+.my-etc-detail .auto-fill {
+  flex: 1;
+}
+.my-etc-detail .btns {
+  margin: 51rpx 60rpx 0;
+  height: 166rpx;
+  box-sizing: border-box;
+}
+.my-etc-detail .btns .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 98rpx;
+  font-size: 40rpx;
+  color: #fff;
+  border-radius: 49rpx;
+  background: linear-gradient(to right, #15ad69, #84d157);
+}
+.my-etc-detail .btns .btn-wrapper {
+  display: flex;
+}
+.my-etc-detail .btns .btn-wrapper > view {
+  padding-top: 28rpx;
+  padding-bottom: 34rpx;
+  flex: 1;
+  text-align: center;
+  font-size: 32rpx;
+  color: #0091ff;
+}

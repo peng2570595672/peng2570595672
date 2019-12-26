@@ -98,8 +98,13 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
+				// 判断状态
+				let orderInfo = res.data.orderInfo;
+				if (orderInfo) {
+					orderInfo['selfStatus'] = util.getStatus(orderInfo);
+				}
 				this.setData({
-					orderInfo: res.data.orderInfo ? res.data.orderInfo : ''
+					orderInfo: orderInfo ? orderInfo : ''
 				});
 			} else {
 				util.showToastNoIcon(res.message);
@@ -133,10 +138,18 @@ Page({
 		if (this.data.orderInfo.shopProductId === 0) {
 			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 			util.go('/pages/default/payment_way/payment_way');
+		} else if (this.data.orderInfo.etcContractId === 0) {
+			// 签约id，0表示未签约，其他表示已签约
+			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+			this.getDataFromServerForSign();
 		} else if (this.data.orderInfo.isVehicle === 0) {
 			// 是否上传行驶证， 0未上传，1已上传
 			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 			util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
 		}
+	},
+	// 办理中 - 请求数据签约
+	getDataFromServerForSign () {
+
 	}
 });

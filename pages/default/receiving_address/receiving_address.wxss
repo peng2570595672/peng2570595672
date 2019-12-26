@@ -245,7 +245,7 @@
   color: #99999d;
 }
 .receiving_address .agreement.iphone::before {
-  transform: translateY(-6rpx);
+  transform: translateY(-19%);
 }
 .receiving_address .agreement > text {
   color: #2fb565;

@@ -11,14 +11,19 @@ Page({
 	onShow () {
 		this.getMyETCList();
 	},
+	// 加载ETC列表
 	getMyETCList () {
 		util.showLoading();
-		util.getDataFromServer('consumer/order/my-etc-list', {
-
-		}, () => {
+		util.getDataFromServer('consumer/order/my-etc-list', {}, () => {
 			util.showToastNoIcon('获取车辆列表失败！');
 		}, (res) => {
 			if (res.code === 0) {
+				// 计算订单状态
+				for (let i = 0; i < res.data.length; i++) {
+					let orderInfo = res.data[i];
+					orderInfo['selfStatus'] = util.getStatus(orderInfo);
+					res.data[i] = orderInfo;
+				}
 				this.setData({
 					carList: res.data
 				});
@@ -30,12 +35,10 @@ Page({
 		});
 	},
 	//	查看详情
-	goDetails () {
-		util.go('/pages/personal_center/my_etc_details/my_etc_details');
-	},
-	// 免费办理
-	newVehicle () {
-		util.go('/pages/default/receiving_address/receiving_address');
+	onClickGoETCDetailHandle (e) {
+		let index = e.currentTarget.dataset.index;
+		console.log(index);
+		util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.data.carList[parseInt(index)].id}`);
 	},
 	// 查看进度
 	onClickViewProcessingProgressHandle (e) {

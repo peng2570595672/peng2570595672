@@ -28,7 +28,7 @@
 	<!--	免费办理结束-->
 
 	<!--	办理中开始-->
-	<view class="processing" wx:if="{{orderInfo.status === 0}}">
+	<view class="processing" wx:if="{{orderInfo.selfStatus === 0 || orderInfo.selfStatus === 1 || orderInfo.selfStatus === 3}}">
 		<view class="processing-title">
 			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
@@ -39,7 +39,7 @@
 	<!--	办理中结束-->
 
 	<!--	查看进度开始-->
-	<view class="viewing-process" wx:if="{{orderInfo.status === 1 && orderInfo.auditStatus === 0}}">
+	<view class="viewing-process" wx:if="{{orderInfo.selfStatus === 4}}">
 		<view class="processing-title">
 			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
@@ -50,9 +50,9 @@
 	<!--	查看进度结束-->
 
 	<!--	修改资料开始-->
-	<view class="update-info" wx:if="{{false}}">
+	<view class="update-info" wx:if="{{orderInfo.selfStatus === 5}}">
 		<view class="processing-title">
-			<view>贵A2ZM91</view>
+			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
 		</view>
 		<view class="btn">修改资料</view>
@@ -63,7 +63,7 @@
 <!--	审核失败开始-->
 	<view class="audit-failure" wx:if="{{false}}">
 		<view class="processing-title">
-			<view>贵A2ZM91</view>
+			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
 		</view>
 		<view class="failed">审核失败</view>
@@ -74,7 +74,7 @@
 <!--	确认收货并激活开始-->
 	<view class="confirm-receipt" wx:if="{{false}}">
 		<view class="processing-title">
-			<view>贵A2ZM91</view>
+			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
 		</view>
 		<view class="btn">确认收货并激活</view>
@@ -83,9 +83,9 @@
 <!--	确认收货并激活结束-->
 
 	<!--	恢复签约开始-->
-	<view class="resume-contract" wx:if="{{false}}">
+	<view class="resume-contract" wx:if="{{orderInfo.selfStatus === 2}}">
 		<view class="processing-title">
-			<view>贵A2ZM91</view>
+			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
 		</view>
 		<view class="btn">恢复签约</view>

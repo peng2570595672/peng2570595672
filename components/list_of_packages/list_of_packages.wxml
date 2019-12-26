@@ -3,14 +3,15 @@
 		<view class="choice-bank-title">新开账户</view>
 		<view class="ul">
 		<!--具体支付方式开始-->
-			<view class="li" catchtap="onClickItemHandle" wx:for="{{listOfPackages}}" wx:key="index" data-index="{{index}}">
-				<image src="{{item.productLogo}}"/>
-				<view class="li-right">
-					<view class="li-title">{{item.productName}}</view>
-					<view class="li-sub-title">{{item.remarks}}</view>
+			<view class="li {{current === index ? 'selected' : ''}}" catchtap="onClickItemHandle" wx:for="{{listOfPackages}}" wx:key="index" data-index="{{index}}">
+				<view>
+					<image src="{{item.productLogo}}"/>
+					<view class="li-right">
+						<view class="li-title">{{item.productName}}</view>
+						<view class="li-sub-title">{{item.remarks}}</view>
+					</view>
 				</view>
 			</view>
-
 			<!--具体支付方式结束-->
 		</view>
 		<view class="split"></view>

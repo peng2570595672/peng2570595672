@@ -2,6 +2,7 @@
 	"pages": [
 		"pages/default/index/index",
 		"pages/default/receiving_address/receiving_address",
+		"pages/default/high_speed_verification_failed/high_speed_verification_failed",
 		"pages/default/agreement/agreement",
 		"pages/default/shot_bank_card/shot_bank_card",
 		"pages/default/signed_successfully/signed_successfully",
@@ -22,7 +23,8 @@
 			"pages": [
 				"index/index",
 				"my_etc/my_etc",
-				"my_etc_details/my_etc_details",
+				"my_etc_detail/my_etc_detail",
+				"pages/default/cancel_order_succeed/cancel_order_succeed",
 				"my_order/my_order",
 				"order_details/order_details",
 				"payment_confirmation/payment_confirmation",

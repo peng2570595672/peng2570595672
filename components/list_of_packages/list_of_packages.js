@@ -1,7 +1,12 @@
 const util = require('../../utils/util.js');
 const app = getApp();
 Component({
-	properties: {},
+	properties: {
+		current: {
+			type: Number,
+			value: -1
+		}
+	},
 	data: {
 		mask: false,
 		wrapper: false,
@@ -44,6 +49,9 @@ Component({
 		onClickItemHandle (e) {
 			let index = e.currentTarget.dataset.index;
 			index = parseInt(index);
+			this.setData({
+				current: index
+			});
 			let obj = this.data.listOfPackages[index];
 			obj['areaCode'] = this.data.regionCode[0];
 			this.triggerEvent('onClickItemHandle', {
