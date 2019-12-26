@@ -16,7 +16,7 @@
 				<view class="money">-84.46</view>
 			</view>
 		</view>
-		<view class="order-list-content"  catchtap="goDetails">
+		<view class="order-list-content"  catchtap="goDetails"  wx:for="{{5}}" wx:key="index">
 			<view class="order-list-top">
 				<view class="license-plate">贵A66983</view>
 				<view class="buckling-failure">扣款失败</view>

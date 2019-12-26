@@ -2,7 +2,7 @@
 	<view wx:if="{{list && list.length > 0}}">
 		<view class="list-box">
 			<!--通用券开始-->
-			<view class="list-content-box" wx:for="{{10}}" wx:key="index">
+			<view class="list-content-box" wx:for="{{1}}" wx:key="index">
 				<!--通用券介绍开始-->
 				<view class="list {{isEffective?'':'invalid'}}">
 					<view class="left"><sup>￥</sup>500</view>
@@ -34,7 +34,7 @@
 	</view>
 	<!--没有卡券结束-->
 	<!--查看过期券开始-->
-	<view class="check-overdue {{list.length === 0 ? 'no-fixed':''}}" catchtap="checkVoucher"><text class="iconfont">{{isEffective?'查看无效电子券':'查看有效电子券'}}</text></view>
+	<view class="check-overdue {{list.length === 0 ? 'no-list':''}} {{windowHeight <(bottomHeight+listHeight) ? 'no-fixed':''}}" catchtap="checkVoucher"><text class="iconfont">{{isEffective?'查看无效电子券':'查看有效电子券'}}</text></view>
 	<!--查看过期券结束-->
 	<!--添加卡券弹窗开始-->
 	<view wx:if="{{showAddCoupon}}" class="mask">

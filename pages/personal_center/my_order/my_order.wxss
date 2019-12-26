@@ -2,6 +2,7 @@ page {
   background: #fcfcfd;
 }
 .my_order {
+  padding-top: 130rpx;
   padding-bottom: 240rpx;
 }
 .my_order .total-cost {

@@ -7,7 +7,6 @@ page {
 }
 .service-card-voucher .list-box {
   padding-top: 32rpx;
-  padding-bottom: 21vh;
 }
 .service-card-voucher .list-box .list-content-box {
   margin: 20rpx auto 0;
@@ -130,12 +129,10 @@ page {
   left: 0;
   z-index: 1;
   width: 100%;
-  height: 14vh;
   text-align: center;
   font-size: 24rpx;
   color: #39a6f8;
-  line-height: 14vh;
-  background: #f2f2f2;
+  line-height: 210rpx;
 }
 .service-card-voucher .check-overdue text::after {
   display: inline-block;
@@ -143,11 +140,14 @@ page {
   -webkit-transform: rotateZ(180deg);
   transform: rotateZ(180deg);
 }
-.service-card-voucher .no-fixed {
+.service-card-voucher .no-list {
   position: static;
   height: 34rpx;
   line-height: 34rpx;
   padding-top: 10rpx;
+}
+.service-card-voucher .no-fixed {
+  position: static;
 }
 .service-card-voucher .empty {
   text-align: center;

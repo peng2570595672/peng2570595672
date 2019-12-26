@@ -9,7 +9,7 @@
 		<!--会员头部背景结束-->
 		<!--会员头部内容开始-->
 		<view class="members-top-content">
-			<view class="header">
+			<view class="header iconfont {{isMembers === true ? 'crown':''}}">
 				<image src="https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1493390342,3676083771&fm=26&gp=0.jpg"></image>
 			</view>
 			<view class="user">
@@ -22,29 +22,33 @@
 	</view>
 	<!--会员头部结束-->
 	<!--会员权益列表盒子开始-->
-	<view class="benefits">
+	<view class="benefits {{isMembers === true ? 'benefits-height':''}}">
 		<view class="benefits-list">
 			<view class="benefits-content">
 				<!--会员列表开始-->
 				<view class="benefits-top">会员权益</view>
 				<view class="list-box">
-					<view wx:for="{{benefitsList}}" wx:key="index" class="list-content iconfont icon{{item.id}} {{isMembers === true ? 'icon-active':''}}" catchtap="showDetail" data-content="{{item}}">
-						<view class="list-title">{{item.title}}</view>
+					<view wx:for="{{benefitsList}}" wx:key="index" class="list-content" catchtap="showDetail" data-content="{{item}}">
+						<view class="list-title iconfont icon{{item.id}} {{isMembers === true ? 'icon-active':''}}">{{item.title}}</view>
 					</view>
 				</view>
 				<!--会员列表结束-->
-				<!--会员底部开始-->
-				<view class="as-member" wx:if="{{!isMembers}}">
-					<button>成为会员</button>
-				</view>
-				<view class="prompt" wx:if="{{!isMembers}}">
-					<image src="https://file.cyzl.com/g001/M05/F8/CA/oYYBAF4AIeOAEGYDAAALspApwSg389.svg"></image>
-					<text>升级为会员后，可激活所有功能</text>
-				</view>
-				<!--会员底部结束-->
 			</view>
 		</view>
-		<view class="benefits-button-bg"></view>
+		<view class="benefits-button-bg">
+			<!--会员底部成为会员开始-->
+			<view class="as-member" wx:if="{{!isMembers}}">
+				<button>成为会员</button>
+			</view>
+			<view class="prompt" wx:if="{{!isMembers}}">
+				<image src="https://file.cyzl.com/g001/M05/F8/CA/oYYBAF4AIeOAEGYDAAALspApwSg389.svg"></image>
+				<text>升级为会员后，可激活所有功能</text>
+			</view>
+			<!--会员底部成为会员结束-->
+			<!--会员底部点亮会员开始-->
+			<view class="lighting-members" wx:if="{{isMembers}}">所有权益都已为你点亮，快去体验吧</view>
+			<!--会员底部点亮会员结束-->
+		</view>
 	</view>
 	<!--会员权益列表盒子结束-->
 	<!--弹出详情开始-->
