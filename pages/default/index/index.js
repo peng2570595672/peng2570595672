@@ -26,6 +26,7 @@ Page({
 					util.showToastNoIcon('登录失败！');
 				}, (res) => {
 					if (res.code === 0) {
+						res.data['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
 						this.setData({
 							loginInfo: res.data
 						});
@@ -68,8 +69,10 @@ Page({
 			}, (res) => {
 				// 绑定手机号成功
 				if (res.code === 0) {
+					res.data['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
 					app.globalData.userInfo = res.data; // 用户登录信息
 					let loginInfo = this.data.loginInfo;
+					loginInfo['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
 					loginInfo.needBindingPhone = 0;
 					this.setData({
 						loginInfo

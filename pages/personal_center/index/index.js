@@ -2,7 +2,7 @@ const util = require('../../../utils/util.js');
 Page({
 	data: {
 		showDetailWrapper: false,
-		showDetailMask: false,
+		showDetailMask: false
 	},
 	// 跳转
 	go (e) {
@@ -28,5 +28,5 @@ Page({
 			showDetailWrapper: true,
 			showDetailMask: true
 		});
-	},
+	}
 });
