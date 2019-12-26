@@ -12,6 +12,11 @@ Page({
 	onLoad () {
 		this.login();
 	},
+	onShow () {
+		if (app.globalData.userInfo.accessToken) {
+			this.getStatus();
+		}
+	},
 	// 自动登录
 	login () {
 		util.showLoading();
@@ -86,7 +91,7 @@ Page({
 		}
 	},
 	// 获取最后有一笔订单信息
-	getStatus (token) {
+	getStatus () {
 		util.getDataFromServer('consumer/order/home-info', {
 		}, () => {
 			util.hideLoading();

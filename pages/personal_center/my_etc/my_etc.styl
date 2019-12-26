@@ -1,5 +1,8 @@
 @import "../../../style/base.styl";
 .my-etc
+	min-height 100vh
+	display flex
+	flex-direction column
 	.item
 		margin 0 34rpx
 		margin-top 20rpx
@@ -62,3 +65,16 @@
 						content '\e60e'
 						font-size 32rpx
 						transform rotateZ(-180deg)
+	.auto-fill
+		flex 1
+	// 新增办理开始
+	.btn
+		display flex
+		align-items center
+		justify-content center
+		margin 26rpx 60rpx 40rpx
+		height 98rpx
+		font-size 40rpx
+		color #fff
+		background: linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
+		border-radius 49rpx

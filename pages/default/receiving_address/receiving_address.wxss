@@ -271,7 +271,7 @@
   height: 98rpx;
   font-size: 40rpx;
   color: #fff;
-  border-radius: 48rpx;
+  border-radius: 49rpx;
   background: linear-gradient(to right, #15ad69, #84d157);
 }
 .receiving_address .btn.available {

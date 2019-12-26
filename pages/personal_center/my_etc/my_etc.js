@@ -58,5 +58,9 @@ Page({
 			app.globalData.orderInfo.orderId = obj.id;
 			util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
 		}
+	},
+	// 新增
+	onClickAddNewHandle () {
+		util.go('/pages/default/receiving_address/receiving_address');
 	}
 });

@@ -1,3 +1,8 @@
+.my-etc {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 .my-etc .item {
   margin: 0 34rpx;
   margin-top: 20rpx;
@@ -73,4 +78,18 @@
   content: '\e60e';
   font-size: 32rpx;
   transform: rotateZ(-180deg);
+}
+.my-etc .auto-fill {
+  flex: 1;
+}
+.my-etc .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 26rpx 60rpx 40rpx;
+  height: 98rpx;
+  font-size: 40rpx;
+  color: #fff;
+  background: linear-gradient(to right, #15ad69, #84d157);
+  border-radius: 49rpx;
 }
