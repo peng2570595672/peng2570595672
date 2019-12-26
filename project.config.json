@@ -41,7 +41,7 @@
 		]
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"enhance": true,
 		"postcss": true,
@@ -131,8 +131,8 @@
 				},
 				{
 					"id": 5,
-					"name": "pages/personal_center/member_benefits/member_benefits",
-					"pathName": "pages/personal_center/member_benefits/member_benefits",
+					"name": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
+					"pathName": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
 					"query": "",
 					"scene": null
 				},

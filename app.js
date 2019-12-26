@@ -3,7 +3,7 @@ const IS_TEST = true;
 const util = require('./utils/util.js');
 App({
 	globalData: {
-		host: IS_TEST ? 'http://129.204.11.115:8700' : 'https://etc.cyzl.com', // 接口主机地址 正式 etc.cyzl.com/ 测试 etctest.cyzl.com/
+		host: IS_TEST ? 'https://etctest.cyzl.com/etc2-client' : 'https://etc.cyzl.com', // 接口主机地址 正式 etc.cyzl.com/ 测试 etctest.cyzl.com/
 		uploadOcrUrl: 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址
 		uploadUrl: 'https://file.cyzl.com/file/upload', // 上传图片无需审核地址
 		plamKey: '123456', // 签名用到的key --- 二发

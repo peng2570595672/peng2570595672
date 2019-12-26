@@ -2,6 +2,7 @@
 	"pages": [
 		"pages/default/index/index",
 		"pages/default/receiving_address/receiving_address",
+		"pages/default/agreement/agreement",
 		"pages/default/shot_bank_card/shot_bank_card",
 		"pages/default/signed_successfully/signed_successfully",
 		"pages/default/payment_way/payment_way",

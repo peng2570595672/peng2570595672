@@ -407,5 +407,9 @@ Page({
 			currentCarNoColor: 1
 		});
 		this.setCurrentCarNo(e);
+	},
+	// 查看办理协议
+	onClickGoAgreementHandle () {
+		util.go('/pages/default/agreement/agreement');
 	}
 });
