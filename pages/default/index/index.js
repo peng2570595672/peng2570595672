@@ -68,7 +68,12 @@ Page({
 			}, (res) => {
 				// 绑定手机号成功
 				if (res.code === 0) {
-					app.globalData.uesrInfo = res.data; // 用户登录信息
+					app.globalData.userInfo = res.data; // 用户登录信息
+					let loginInfo = this.data.loginInfo;
+					loginInfo.needBindingPhone = 0;
+					this.setData({
+						loginInfo
+					});
 					this.getStatus(); // 获取最后一笔订单状态
 				} else {
 					util.hideLoading();
@@ -78,7 +83,7 @@ Page({
 		}
 	},
 	// 获取最后有一笔订单信息
-	getStatus () {
+	getStatus (token) {
 		util.getDataFromServer('consumer/order/home-info', {
 		}, () => {
 			util.hideLoading();
@@ -86,17 +91,18 @@ Page({
 			util.hideLoading();
 			if (res.code === 0) {
 				this.setData({
-					orderInfo: res.data.orderInfo ? res.data.orderInfo : {}
+					orderInfo: res.data.orderInfo ? res.data.orderInfo : ''
 				});
 			} else {
 				util.showToastNoIcon(res.message);
 			}
-			console.log(res);
 		}, app.globalData.userInfo.accessToken);
 	},
 	// 免费办理
 	freeProcessing () {
-		util.go('/pages/default/receiving_address/receiving_address');
+		if (app.globalData.userInfo.accessToken) {
+			util.go('/pages/default/receiving_address/receiving_address');
+		}
 	},
 	// 跳转到个人中心
 	onClickForJumpPersonalCenterHandle (e) {
