@@ -14,6 +14,7 @@ Page({
 		carNo: ['贵', '', '', '', '', '', '', ''], // 车牌对应的数组
 		identifyingCode: '获取验证码',
 		time: 59,// 倒计时
+		isGetIdentifyingCoding: false, // 获取验证码中
 		getAgreement: false, // 是否接受协议
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
@@ -297,6 +298,7 @@ Page({
 				clearInterval(timer);
 				this.setData({
 					time: 59,
+					isGetIdentifyingCoding: false,
 					identifyingCode: '重新获取'
 				});
 			} else {
@@ -317,6 +319,9 @@ Page({
 			util.showToastNoIcon('手机号格式错误');
 			return;
 		}
+		this.setData({
+			isGetIdentifyingCoding: true
+		});
 		util.showLoading({
 			title: '请求中...'
 		});

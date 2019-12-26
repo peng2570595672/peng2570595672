@@ -258,7 +258,7 @@
   font-size: 30rpx;
   color: #99999d;
   border-radius: 50%;
-  transform: translateY(-1rpx);
+  transform: translateY(2rpx);
 }
 .receiving_address .agreement.selected::before {
   color: #84d157;
