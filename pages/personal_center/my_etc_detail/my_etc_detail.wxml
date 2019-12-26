@@ -1,4 +1,4 @@
-<view class="my-etc-detail">
+<view class="my-etc-detail animated fadeIn" wx:if="{{orderInfo}}">
 	<!--	设备图开始-->
 	<image src="/pages/personal_center/assets/etc_device.png"/>
 	<!--	设备图结束-->
