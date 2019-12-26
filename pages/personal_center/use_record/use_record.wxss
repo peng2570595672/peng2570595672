@@ -1,127 +1,250 @@
 page {
-  background: #f3f3f3;
+  background: #f7f7f7;
 }
-.use_record {
-  min-height: 100vh;
-  background: #f3f3f3;
-}
-.use_record .content .date {
-  display: flex;
-  align-items: center;
-  padding-left: 32rpx;
-  height: 120rpx;
-  font-size: 36rpx;
-  color: #666;
-  background: #f3f3f3;
-}
-.use_record .content .item {
-  display: flex;
+page .ticket-content {
   background: #fff;
+  padding: 42rpx 0 60rpx;
+  margin-bottom: 20rpx;
 }
-.use_record .content .item .left {
-  padding-top: 38rpx;
-  text-align: center;
-  width: 139rpx;
-  flex: 0 0 139rpx;
-  font-size: 36rpx;
-  color: #999;
-}
-.use_record .content .item .middle {
-  flex: 1;
-  padding: 38rpx 0;
-  border-bottom: 1rpx solid #e5e5e5;
-}
-.use_record .content .item .middle .car_no {
-  font-size: 40rpx;
-}
-.use_record .content .item .middle .info {
-  margin-top: 5rpx;
-  font-size: 30rpx;
-  color: #999;
-}
-.use_record .content .item .right {
-  display: flex;
-  padding: 0 29rpx;
-  align-items: center;
-  font-size: 36rpx;
-  color: #1aad19;
-  font-weight: bold;
-  border-bottom: 1rpx solid #e5e5e5;
-}
-.use_record .empty {
+page .ticket-content .ticket-box {
+  width: 92%;
   margin: 0 auto;
-  margin-top: 50%;
-  width: 388rpx;
-  transform: translateY(-50%);
 }
-.use_record .empty > image {
+page .ticket-content .ticket-box .ticket {
+  display: flex;
   width: 100%;
-  height: 281rpx;
+  height: 172rpx;
+  color: #fff;
+  box-sizing: border-box;
+  background: url("https://file.cyzl.com/g001/M05/FD/FE/oYYBAF4BbTyAMXeWAAAwEscVmQs262.png") no-repeat top;
+  -webkit-background-size: contain;
+  background-size: contain;
+  padding: 38rpx 0rpx 32rpx;
 }
-.use_record .empty > view {
-  margin-top: 48rpx;
-  text-align: center;
+page .ticket-content .ticket-box .ticket .left {
+  flex: 3;
+  position: relative;
+  font-size: 96rpx;
+  font-family: ArialMT;
+  line-height: 80rpx;
+  margin-right: 20rpx;
+  margin-left: 30rpx;
+}
+page .ticket-content .ticket-box .ticket .left sup {
   font-size: 32rpx;
-  color: #ccc;
+  line-height: 34rpx;
+  vertical-align: top;
 }
-.use_record .detail_mask {
+page .ticket-content .ticket-box .ticket .center {
+  flex: 4.5;
+  font-size: 24rpx;
+  line-height: 44rpx;
+}
+page .ticket-content .ticket-box .ticket .center>view:first-child {
+  font-size: 28rpx;
+  line-height: 48rpx;
+  margin-top: -10rpx;
+}
+page .ticket-content .ticket-box .ticket .center .limit {
+  line-height: 24rpx;
+}
+page .ticket-content .ticket-box .ticket .right {
+  flex: 2.5;
+  text-align: right;
+  padding-right: 30rpx;
+}
+page .ticket-content .ticket-box .ticket .right>view:first-child {
+  margin-top: -10rpx;
+  height: 32rpx;
+  text-align: right;
+}
+page .ticket-content .ticket-box .ticket .right>view:first-child button {
+  float: right;
+  width: 104rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  font-size: 16rpx;
+  color: #fff;
+  background: rgba(255,255,255,0.19);
+  border-radius: 18rpx;
+  padding: 0;
+}
+page .ticket-content .ticket-box .ticket .right>view:nth-child(2) {
+  margin-top: 60rpx;
+  font-size: 16rpx;
+}
+page .ticket-content .ticket-box .ticket .right>view:nth-child(2)::after {
+  display: inline-block;
+  content: '\e60e';
+  transform: rotateZ(180deg);
+}
+page .ticket-content .ticket-details {
+  line-height: 40rpx;
+  font-size: 28rpx;
+  color: #66666d;
+  margin: 20rpx 60rpx 0;
+  border-bottom: 1px solid #ccc;
+}
+page .ticket-content .ticket-details view {
+  margin-bottom: 20rpx;
+}
+page .ticket-content .ticket-details view text {
+  color: #33333d;
+}
+page .ticket-content .instructions {
+  color: #66666d;
+  line-height: 34rpx;
+  font-size: 24rpx;
+  padding: 20rpx 60rpx 0;
+}
+page .use-record-box {
+  background: #fff;
+  padding: 60rpx 34rpx 26rpx;
+}
+page .use-record-box .order-list .order-list-title {
+  font-size: 36rpx;
+  color: #33333d;
+  line-height: 50rpx;
+  padding-left: 34rpx;
+}
+page .use-record-box .order-list .order-list-content {
+  padding: 0 24rpx;
+  height: 184rpx;
+  background: #fff;
+  box-shadow: 4rpx 4rpx 46rpx 0px rgba(126,132,156,0.1);
+  border-radius: 34rpx;
+  margin-top: 20rpx;
+}
+page .use-record-box .order-list .order-list-content .order-list-top {
+  display: flex;
+  height: 90rpx;
+  line-height: 90rpx;
+  border-bottom: 1rpx solid #f1f1f1;
+  padding-right: 15rpx;
+}
+page .use-record-box .order-list .order-list-content .order-list-top .license-plate {
+  flex: 5;
+  font-size: 40rpx;
+  font-weight: 500;
+  color: #33333d;
+}
+page .use-record-box .order-list .order-list-content .order-list-top .time {
+  flex: 5;
+  font-size: 24rpx;
+  color: #99999d;
+  text-align: right;
+}
+page .use-record-box .order-list .order-list-content .order-list-top .buckling-failure {
+  font-size: 28rpx;
+  color: #f00;
+}
+page .use-record-box .order-list .order-list-content .order-list-bottom {
+  display: flex;
+  align-items: center;
+  height: 92rpx;
+  line-height: 92rpx;
+  font-size: 28rpx;
+  color: #99999d;
+  padding-right: 15rpx;
+}
+page .use-record-box .order-list .order-list-content .order-list-bottom .start,
+page .use-record-box .order-list .order-list-content .order-list-bottom .end {
+  flex: 3.5;
+  display: flex;
+  align-items: center;
+  height: 92rpx;
+  line-height: 92rpx;
+}
+page .use-record-box .order-list .order-list-content .order-list-bottom .start::before,
+page .use-record-box .order-list .order-list-content .order-list-bottom .end::before {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28rpx;
+  height: 28rpx;
+  font-size: 20rpx;
+  color: #fff;
+  border-radius: 28rpx;
+  background: #ffaf9a;
+  content: '上';
+  margin-right: 10rpx;
+}
+page .use-record-box .order-list .order-list-content .order-list-bottom .end::before {
+  content: '下';
+  background: #8cd5b5;
+}
+page .use-record-box .order-list .order-list-content .order-list-bottom .money {
+  flex: 3;
+  font-size: 48rpx;
+  color: #2fb565;
+  text-align: right;
+}
+page .mask {
   position: fixed;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0,0,0,0.4);
+  z-index: 5;
+  background: rgba(0,0,0,0.6);
 }
-.use_record .detail_mask .detail_wrapper {
+page .mask .top {
   position: fixed;
   left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 37%;
+  background: rgba(0,0,0,0);
+}
+page .mask .wrapper {
+  position: fixed;
+  left: 0rpx;
+  top: 37%;
   right: 0;
   bottom: 0;
+  height: 63%;
   background: #fff;
-  border-top-left-radius: 20rpx;
-  border-top-right-radius: 20rpx;
+  border-radius: 32rpx 32rpx 0px 0px;
+  overflow: hidden;
 }
-.use_record .detail_mask .detail_wrapper .top {
+page .mask .wrapper .deduction-amount {
   text-align: center;
-  border-bottom: 1rpx solid #e5e5e5;
-  margin: 0 45rpx;
-  padding-bottom: 31rpx;
-  box-sizing: border-box;
+  font-size: 76rpx;
+  font-weight: 500;
+  color: #15ad69;
+  line-height: 53px;
+  border-bottom: 5rpx dashed #fff;
+  background: linear-gradient(to right, #fff, #99999d, #fff);
+  background-origin: border-box;
 }
-.use_record .detail_mask .detail_wrapper .top .title {
-  margin-top: 50rpx;
+page .mask .wrapper .deduction-amount .deduction-amount-box {
+  padding: 46rpx 16rpx 54rpx 28rpx;
+  background: #fff;
+}
+page .mask .wrapper .deduction-amount .deduction-amount-box .deduction-amount-title {
   font-size: 32rpx;
-  color: #000;
+  color: #99999d;
+  font-weight: 400;
+  line-height: 44rpx;
 }
-.use_record .detail_mask .detail_wrapper .top .price {
-  margin-top: 20rpx;
-  font-size: 32rpx;
+page .mask .wrapper .deduction-details {
+  background: #fff;
+  padding: 20rpx 60rpx;
+  margin-bottom: 20rpx;
 }
-.use_record .detail_mask .detail_wrapper .top .price > text {
-  font-size: 69rpx;
-}
-.use_record .detail_mask .detail_wrapper .top .tip {
-  font-size: 24rpx;
-  color: #999;
-}
-.use_record .detail_mask .detail_wrapper .bottom {
-  width: 100%;
-}
-.use_record .detail_mask .detail_wrapper .bottom .item {
-  margin-top: 20rpx;
-  padding-left: 170rpx;
-  font-size: 30rpx;
-  color: #666;
-}
-.use_record .detail_mask .detail_wrapper .bottom .detail_btn {
-  margin: 60rpx auto;
+page .mask .wrapper .deduction-details>view {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 300rpx;
-  height: 70rpx;
-  font-size: 32rpx;
-  color: #fff;
-  border-radius: 35rpx;
-  background: #1aad19;
+  font-size: 28rpx;
+  padding-top: 20rpx;
+}
+page .mask .wrapper .deduction-details>view>view:first-child {
+  flex: 4;
+  height: 48rpx;
+  color: #66666d;
+}
+page .mask .wrapper .deduction-details>view>view:last-child {
+  flex: 6;
+  text-align: right;
+  color: #33333d;
 }

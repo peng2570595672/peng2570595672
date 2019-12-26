@@ -35,6 +35,7 @@ page .help-center .service .service-btn button text::before {
 }
 page .help-center .service .service-btn button .online-service::before {
   content: '\e612';
+  margin-right: 20rpx;
 }
 page .help-center .service .service-btn>button:last-child {
   float: right;

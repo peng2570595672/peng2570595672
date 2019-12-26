@@ -55,7 +55,10 @@ Page({
 		console.log(this.data.timeList);
 	},
 	// 账单详情
-	goDetails () {
+	goDetails (e) {
+		// let index = e.currentTarget.dataset['index'];
+		// index = parseInt(index);
+		// wx.setStorageSync('etc-order-info', JSON.stringify(this.data.info.list[index]));
 		util.go('/pages/personal_center/order_details/order_details');
 	},
 	// 去补缴

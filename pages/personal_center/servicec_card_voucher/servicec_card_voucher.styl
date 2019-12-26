@@ -10,7 +10,7 @@ page
 		padding-bottom 21vh
 		//通用券&抵扣券列表
 		.list-content-box
-			margin 0 auto
+			margin 20rpx auto 0
 			width 92%
 	// 通用券列表&兑换成功卡券
 	.list,
@@ -20,9 +20,9 @@ page
 		height 172rpx
 		color #fff
 		box-sizing border-box
-		background url("https://file.cyzl.com/g001/M05/FE/07/oYYBAF4BbgiAdNacAAAjbz2ewpY073.png") no-repeat top
-		-webkit-background-size: 100% 172rpx
-		background-size: 100% 172rpx
+		background url("https://file.cyzl.com/g001/M05/06/F8/oYYBAF4DIU2AbXR8AAACwylG7dY236.png") no-repeat top
+		-webkit-background-size: contain
+		background-size: contain
 		padding 38rpx 0rpx 32rpx
 		.left
 			flex 3
@@ -47,6 +47,7 @@ page
 			.limit
 				line-height 24rpx
 		.right
+			position relative
 			flex 2.5
 			text-align right
 			padding-right 30rpx
@@ -72,7 +73,16 @@ page
 					content '\e60e'
 					transform rotateZ(180deg)
 	.invalid
-		background url("https://file.cyzl.com/g001/M05/FD/FE/oYYBAF4BbTyAMXeWAAAwEscVmQs262.png") no-repeat top
+		background url("https://file.cyzl.com/g001/M05/06/F7/oYYBAF4DISWAGG8dAAAz8oWj6oY740.png") no-repeat top
+		-webkit-background-size: contain
+		background-size: contain
+	.overdue
+		image
+			position absolute
+			width 160rpx
+			height 160rpx
+			top -30rpx
+			left -45rpx
 	//添加卡券
 	.add-coupon
 		position fixed
@@ -120,6 +130,8 @@ page
 		color $fontColor6
 		font-size 32rpx
 		image
+			width 192rpx
+			height 242rpx
 			margin 23.5vh 0 9.5vh
 		view
 			line-height 44rpx

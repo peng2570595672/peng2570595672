@@ -48,7 +48,6 @@
 	</view>
 	<!--会员权益列表盒子结束-->
 	<!--弹出详情开始-->
-	<!--{{showDetailWtapper?'slideInUp':'slideInDown'}}-->
 	<view class="mask animated {{showDetailWtapper?'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
 		<view class="top" catchtap="hide"></view>
 		<view class="wrapper animated {{showDetailWtapper?'slideInUp':'slideOutDown'}}">

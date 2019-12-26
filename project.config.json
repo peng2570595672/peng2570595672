@@ -159,8 +159,15 @@
 				},
 				{
 					"id": 9,
-					"name": "pages/personal_center/my_order/my_order",
-					"pathName": "pages/personal_center/my_order/my_order",
+					"name": "pages/personal_center/use_record/use_record",
+					"pathName": "pages/personal_center/use_record/use_record",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/personal_center/servicec_card_voucher/servicec_card_voucher",
+					"pathName": "pages/personal_center/servicec_card_voucher/servicec_card_voucher",
 					"query": "",
 					"scene": null
 				}

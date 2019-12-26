@@ -6,6 +6,16 @@ Page({
 				title: '为什么要填收货地址',
 				des: [
 					{content: '为保障您的车辆不被他人用以申办ETC，需要上传车辆的行驶证和车主身份证照片、车头照，企业用户还需上传营业执照照片; '},
+					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'},
+					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'},
+					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'},
+					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'},
+					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'},
+					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'},
+					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'},
+					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'},
+					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'},
+					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'},
 					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'}
 				]
 			},
@@ -24,8 +34,11 @@ Page({
 		],
 		showDetailMask: false,
 		showDetailWtapper: false,
+		childHeight: '',
+		fatherHeight: '',
 		detailsContent: ''
 	},
+	// 弹出详情
 	// 弹出详情
 	showDetail (e) {
 		let content = e.currentTarget.dataset['content'];
@@ -33,6 +46,20 @@ Page({
 			detailsContent: content,
 			showDetailMask: true,
 			showDetailWtapper: true
+		});
+		let fatherHeight = wx.createSelectorQuery();
+		fatherHeight.select('.details-list').boundingClientRect();
+		fatherHeight.exec(res => {
+			this.setData({
+				fatherHeight: res[0].height
+			});
+		});
+		let childHeight = wx.createSelectorQuery();
+		childHeight.select('.details-list-box').boundingClientRect();
+		childHeight.exec(res => {
+			this.setData({
+				childHeight: res[0].height
+			});
 		});
 	},
 	// 关闭详情
