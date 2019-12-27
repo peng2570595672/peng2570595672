@@ -49,6 +49,7 @@ page .ticket-content .ticket-box .ticket .center .limit {
   line-height: 24rpx;
 }
 page .ticket-content .ticket-box .ticket .right {
+  position: relative;
   flex: 2.5;
   text-align: right;
   padding-right: 30rpx;
@@ -69,14 +70,12 @@ page .ticket-content .ticket-box .ticket .right>view:first-child button {
   border-radius: 18rpx;
   padding: 0;
 }
-page .ticket-content .ticket-box .ticket .right>view:nth-child(2) {
-  margin-top: 60rpx;
-  font-size: 16rpx;
-}
-page .ticket-content .ticket-box .ticket .right>view:nth-child(2)::after {
-  display: inline-block;
-  content: '\e60e';
-  transform: rotateZ(180deg);
+page .ticket-content .ticket-box .ticket .right .overdue image {
+  position: absolute;
+  width: 160rpx;
+  height: 160rpx;
+  top: -30rpx;
+  left: -45rpx;
 }
 page .ticket-content .ticket-details {
   line-height: 40rpx;

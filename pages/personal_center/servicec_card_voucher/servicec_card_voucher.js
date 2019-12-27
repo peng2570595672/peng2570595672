@@ -51,6 +51,10 @@ Page({
 			isEffective: !this.data.isEffective
 		});
 	},
+	// 查看详情
+	go () {
+		util.go('/pages/personal_center/use_record/use_record');
+	},
 	// 照相机扫码识别兑换码
 	getExchangeCodeFromScan () {
 		// 只允许从相机扫码
