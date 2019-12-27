@@ -230,8 +230,8 @@
   color: transparent;
 }
 .receiving_address .input-wrapper .input-item .validate-code {
-  flex: 0 0 212rpx;
-  width: 212rpx;
+  flex: 0 0 216rpx;
+  width: 216rpx;
   display: flex;
   align-items: center;
   justify-content: center;

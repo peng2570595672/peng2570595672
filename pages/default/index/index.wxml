@@ -88,7 +88,7 @@
 			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
 		</view>
-		<view class="btn" catchtap="getDataFromServerForSign">恢复签约</view>
+		<view class="btn">恢复签约</view>
 		<view class="tips"><text>赶紧恢复！</text>这将严重影响你的高速通行</view>
 	</view>
 	<!--	恢复签约结束-->

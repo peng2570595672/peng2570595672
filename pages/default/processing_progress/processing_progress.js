@@ -11,7 +11,6 @@ Page({
 	},
 	onLoad () {
 		this.getProcessingProgress();
-		console.log(getCurrentPages());
 	},
 	// 获取办理进度
 	getProcessingProgress () {
@@ -40,9 +39,6 @@ Page({
 		util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license?type=0');
 	},
 	onUnload () {
-		// 在C页面内 navigateBack，将返回A页面
-		wx.navigateBack({
-			delta: getCurrentPages().length
-		});
+		util.goHome(true);
 	}
 });
