@@ -52,6 +52,9 @@
   flex: 0 0 60rpx;
   width: 60rpx;
 }
+.receiving_address .car-no-wrapper > view:last-of-type {
+  margin-right: 0;
+}
 .receiving_address .car-no-wrapper > view.selected > view:last-of-type::before {
   left: 0;
   right: 0;
@@ -88,8 +91,8 @@
 }
 .receiving_address .car-no-wrapper > view.unselected {
   margin-right: 0;
-  flex: 0 0 66rpx;
-  width: 66rpx;
+  flex: 0 0 60rpx;
+  width: 60rpx;
   transform: translateY(18rpx);
 }
 .receiving_address .car-no-wrapper > view.unselected > view:first-of-type {
