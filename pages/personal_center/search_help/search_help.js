@@ -196,9 +196,9 @@ Page({
 	},
 	// 搜索
 	bindconfirm (e) {
-		// let discountName = e.detail.value['search - input'] ? e.detail.value['search - input'] : e.detail.value;
+		let discountName = e.detail.value['search - input'] ? e.detail.value['search - input'] : e.detail.value;
 		this.setData({
-			searchContent: ''
+			searchContent: discountName
 		});
 		this.questionList(false);
 	}

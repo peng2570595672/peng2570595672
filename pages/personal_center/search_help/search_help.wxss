@@ -112,12 +112,13 @@ page .mask .wrapper .details-list .details-list-box .cont1 {
   flex-wrap: nowrap;
   justify-content: flex-start;
 }
-page .mask .wrapper .details-list .details-list-box .cont1 .label {
-  text-align: center;
-  font-size: 100rpx;
+page .mask .wrapper .details-list .details-list-box .cont1 .label::before {
+  flex: 0.5;
+  content: '\e604';
+  line-height: 28rpx;
   color: #33333d;
-  margin-top: -5rpx;
-  margin-right: 20rpx;
+  font-size: 24rpx;
+  margin-right: 18rpx;
 }
 page .mask .wrapper .details-list .details-list-box .cont1 .char {
   flex: 9.5;

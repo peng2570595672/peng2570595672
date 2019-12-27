@@ -46,7 +46,7 @@
 			<view class="details-list">
 				<view class="details-list-box">
 					<view wx:for="{{detailsContent}}" wx:key="index" class="cont1">
-						<view class="label">·</view>
+						<view class="label iconfont"></view>
 						<view class="char">{{item.answerContent}} </view>
 					</view>
 				</view>

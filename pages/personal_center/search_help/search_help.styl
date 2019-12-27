@@ -85,12 +85,13 @@ page
 						flex-direction row
 						flex-wrap nowrap
 						justify-content flex-start
-						.label
-							text-align center
-							font-size 100rpx
+						.label::before
+							flex .5
+							content '\e604'
+							line-height 28rpx
 							color $fontColor3
-							margin-top -5rpx
-							margin-right 20rpx
+							font-size 24rpx
+							margin-right 18rpx
 						.char
 							flex 9.5
 					&>view:last-child
