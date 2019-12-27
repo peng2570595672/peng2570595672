@@ -1,65 +1,92 @@
 const util = require('../../../utils/util.js');
+const app = getApp();
 Page({
 	data: {
-		list: [
-			{
-				title: '为什么要填收货地址',
-				des: [
-					{content: '为保障您的车辆不被他人用以申办ETC，需要上传车辆的行驶证和车主身份证照片、车头照，企业用户还需上传营业执照照片; '},
-					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'},
-					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'},
-					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'},
-					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'},
-					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'},
-					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'},
-					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'},
-					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'},
-					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'},
-					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'},
-					{content: ' 您申办微信的微信实名制认证姓名、车主姓名、身份证姓名、绑定银行卡姓名必须为同一人方能办理。'}
-				]
-			},
-			{
-				title: '快递进度查询',
-				des: '您的申办审核通过后,并且选择的为线上办理。我们将邮寄您的ETC设备,您可以在【我的ETC】-【查看办理进度】界面查看快递信息。'
-			},
-			{
-				title: '设备功能说明',
-				des: 'ETC专用电子标签设备包括蓝牙OBU设备及ETC卡片,安装激活后可实现ETC应用场景的不停车通行。'
-			},
-			{
-				title: '是否包邮',
-				des: '是的，当您申办成功后，您设备的邮寄费用由我们为您承担。但若因您的操作导致设备需邮寄返回，费用需要您自行承担。'
-			}
-		],
-		showDetailMask: false,
-		showDetailWtapper: false,
-		childHeight: '',
-		fatherHeight: '',
-		detailsContent: ''
+		num: 5,// 热门搜索显示条数
+		page: 1,// 当前页
+		pageSize: 10,// 每页多少条数据
+		totalPages: '',// 总页数
+		isHot: true,
+		topSearchList: [],// 热门搜索
+		searchContent: '',// 搜索内容
+		showDetailMask: false,// 弹窗
+		showDetailWtapper: false,// 弹窗
+		showScroll: false,// 弹窗内容是否显示底部滚动盒子
+		detailsContent: '',// 问题详情内容
+		detailsTitle: '',// 问题详情标题
+		fatherHeight: '',// 弹窗列表高度
+		childHeight: '',// 弹窗列表内容高度
+		showLoading: {
+			show: true,
+			text: '加载中...'
+		},
+		showLoadingMore: {
+			hideLoading: false,
+			show: false,
+			text: '加载中...'
+		}
 	},
-	// 弹出详情
+	onShow () {
+		this.hotIssue();
+	},
+	// 获取热门问题
+	hotIssue () {
+		util.showLoading();
+		let params = {
+			num: this.data.num
+		};
+		util.getDataFromServer('consumer/system/help/get-hot-question-list', params, () => {
+			util.showToastNoIcon('获取问题列表失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				this.setData({
+					topSearchList: res.data
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
 	// 弹出详情
 	showDetail (e) {
 		let content = e.currentTarget.dataset['content'];
-		this.setData({
-			detailsContent: content,
-			showDetailMask: true,
-			showDetailWtapper: true
-		});
-		let fatherHeight = wx.createSelectorQuery();
-		fatherHeight.select('.details-list').boundingClientRect();
-		fatherHeight.exec(res => {
-			this.setData({
-				fatherHeight: res[0].height
-			});
-		});
-		let childHeight = wx.createSelectorQuery();
-		childHeight.select('.details-list-box').boundingClientRect();
-		childHeight.exec(res => {
-			this.setData({
-				childHeight: res[0].height
-			});
+		util.showLoading();
+		let params = {
+			questionId: content.id
+		};
+		util.getDataFromServer('consumer/system/help/get-answer-list', params, () => {
+			util.showToastNoIcon('获取问题详情失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				this.setData({
+					detailsContent: res.data,
+					detailsTitle: content.questionTitle,
+					showDetailMask: true,
+					showDetailWtapper: true
+				});
+				// 获取弹窗列表高度
+				let fatherHeight = wx.createSelectorQuery();
+				fatherHeight.select('.details-list').boundingClientRect();
+				fatherHeight.exec(res => {
+					this.setData({
+						fatherHeight: res[0].height
+					});
+				});
+				// 获取弹窗列表内容高度
+				let childHeight = wx.createSelectorQuery();
+				childHeight.select('.details-list-box').boundingClientRect();
+				childHeight.exec(res => {
+					this.setData({
+						childHeight: res[0].height
+					});
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
 		});
 	},
 	// 关闭详情
@@ -73,10 +100,106 @@ Page({
 			});
 		}, 400);
 	},
+	// 获取问题列表
+	questionList (isLoadingMore) {
+		util.showLoading();
+		let params = {
+			page: this.data.page,
+			pageSize: this.data.pageSize,
+			keyword: this.data.searchContent
+		};
+		util.getDataFromServer('consumer/system/help/get-question-page-list', params, () => {
+			// 隐藏加载中动画
+			this.hideAnim(isLoadingMore);
+			util.showToastNoIcon('获取问题列表失败！');
+		}, (res) => {
+			this.setData({
+				isHot: false,
+				totalPages: res.data.pages
+			});
+			if (res.code !== 0) {
+				// 隐藏加载中动画
+				this.hideAnim(isLoadingMore);
+				util.showToastNoIcon(res.message);
+				this.setData({
+					topSearchList: []
+				});
+				return;
+			}
+			// 隐藏加载中动画
+			this.hideAnim(isLoadingMore);
+			if (!isLoadingMore) {
+				this.setData({
+					topSearchList: res.data.list
+				});
+			} else {
+				let info = this.data.topSearchList;
+				info = info.concat(res.data.list);
+				this.setData({
+					topSearchList: info
+				});
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			// 隐藏加载中动画
+			this.hideAnim(isLoadingMore);
+			util.hideLoading();
+		});
+	},
+	// 隐藏加载中动画
+	hideAnim(isLoadingMore) {
+		let tempObj = this.data.showLoading;
+		tempObj.show = false;
+		this.setData({
+			showLoading: tempObj
+		});
+		isLoadingMore ? this.hideLoadingMore() : wx.stopPullDownRefresh();
+	},
+	hideLoadingMore() {
+		this.setData({
+			showLoadingMore: {
+				show: false,
+				text: '加载中...'
+			}
+		});
+	},
+	// 下滑重新加载
+	onPullDownRefresh () {
+		this.setData({
+			page: 1
+		});
+		this.questionList(false);
+	},
+	// 上滑分页加载
+	onReachBottom () {
+		if (this.data.topSearchList.length < this.data.pageSize) return;
+		this.setData({
+			showLoadingMore: {
+				show: true,
+				text: '加载中...'
+			}
+		});
+		this.setData({
+			page: ++this.data.page
+		});
+		if (this.data.page > this.data.totalPages) {
+			this.setData({
+				page: --this.data.page,
+				showLoadingMore: {
+					hideLoading: true,
+					show: true,
+					text: '我是有底线的~'
+				}
+			});
+			return;
+		}
+		this.questionList(true);
+	},
 	// 搜索
 	bindconfirm (e) {
-		const that = this;
-		const discountName = e.detail.value['search - input'] ? e.detail.value['search - input'] : e.detail.value;
-		console.log('e.detail.value', discountName);
+		// let discountName = e.detail.value['search - input'] ? e.detail.value['search - input'] : e.detail.value;
+		this.setData({
+			searchContent: ''
+		});
+		this.questionList(false);
 	}
 });

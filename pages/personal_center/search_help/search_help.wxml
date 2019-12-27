@@ -1,3 +1,4 @@
+<import src="/pages/personal_center/template/list-loading-template/list-loading-template.wxml"/>
 <view class="help-center">
 	<!--帮助列表开始-->
 	<view class="help-list">
@@ -5,12 +6,17 @@
 			<input  confirm-type="search" name="search" type='text' focus="true"  placeholder="请输入关键词" bindconfirm="bindconfirm" />
 		</view>
 		<view class="list">
-			<view class="list-title">热门搜索</view>
-			<view wx:for="{{list}}" wx:key="index" class="list-content" catchtap="showDetail" data-content="{{item}}">
-				{{item.title}}
+			<view class="list-title" wx:if="{{isHot}}">热门搜索</view>
+			<view wx:for="{{topSearchList}}" wx:key="index" class="list-content" catchtap="showDetail" data-content="{{item}}">
+				{{item.questionTitle}}
 			</view>
 		</view>
 	</view>
+	<!--加载更多动画开始-->
+	<block>
+		<template is="listLoadingTemplate" data="{{...showLoadingMore}}"></template>
+	</block>
+	<!--加载更多动画结束-->
 	<!--帮助列表结束-->
 	<!--弹出详情开始-->
 	<view class="mask animated {{showDetailWtapper?'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
@@ -19,13 +25,13 @@
 		<!--顶部蒙版结束-->
 		<view class="wrapper animated {{showDetailWtapper?'slideInUp':'slideOutDown'}}">
 			<!--详情列表标题开始-->
-			<view class="details-title">{{detailsContent.title}}</view>
+			<view class="details-title">{{detailsTitle}}</view>
 			<!--详情列表内容结束-->
 			<view class="details-list">
 				<view class="details-list-box">
-					<view wx:for="{{detailsContent.des}}" wx:key="index" class="cont1">
+					<view wx:for="{{detailsContent}}" wx:key="index" class="cont1">
 						<view class="label">·</view>
-						<view class="char">{{item.content}} </view>
+						<view class="char">{{item.answerContent}} </view>
 					</view>
 				</view>
 			</view>
