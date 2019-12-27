@@ -105,9 +105,25 @@ page .index .user_nav .user_item .user_item_icon {
   margin-top: 40rpx;
   margin-bottom: 14rpx;
 }
-page .index .user_nav .user_item .user_item_icon > image {
-  width: 45rpx;
-  height: 45rpx;
+page .index .user_nav .user_item .user_item_icon.user_icon_etc::before {
+  content: '\e64b';
+  color: #fff;
+  font-size: 50rpx;
+}
+page .index .user_nav .user_item .user_item_icon.user_icon_order::before {
+  content: '\e649';
+  color: #fff;
+  font-size: 55rpx;
+}
+page .index .user_nav .user_item .user_item_icon.user_icon_card::before {
+  content: '\e64c';
+  color: #fff;
+  font-size: 55rpx;
+}
+page .index .user_nav .user_item .user_item_icon.user_icon_help::before {
+  content: '\e645';
+  color: #fff;
+  font-size: 55rpx;
 }
 page .index .user_nav .user_item .user_item_text {
   font-size: 24rpx;
@@ -140,16 +156,16 @@ page .index .activity_follow .activity_msg>view:first-child {
   color: #333;
 }
 page .index .activity_follow .activity_msg>view:last-child {
+  width: 300rpx;
   color: #999;
 }
 page .index .activity_follow::after {
-  width: 28rpx;
-  height: 52rpx;
-  margin-left: 200rpx;
+  margin-left: 140rpx;
   color: #999;
   display: inline-block;
   content: '\e60e';
   transform: scaleX(-1);
+  font-size: 40rpx;
 }
 page .index .detail_mask {
   position: fixed;
