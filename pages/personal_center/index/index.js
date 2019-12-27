@@ -34,5 +34,16 @@ Page({
 		wx.navigateBack({
 			delta: 1
 		});
+	},
+	// 关闭详情
+	hide () {
+		this.setData({
+			showDetailWtapper: false
+		});
+		setTimeout(() => {
+			this.setData({
+				showDetailMask: false
+			});
+		}, 0);
 	}
 });
