@@ -146,7 +146,7 @@ Page({
 		});
 	},
 	// 隐藏加载中动画
-	hideAnim(isLoadingMore) {
+	hideAnim (isLoadingMore) {
 		let tempObj = this.data.showLoading;
 		tempObj.show = false;
 		this.setData({
@@ -154,7 +154,7 @@ Page({
 		});
 		isLoadingMore ? this.hideLoadingMore() : wx.stopPullDownRefresh();
 	},
-	hideLoadingMore() {
+	hideLoadingMore () {
 		this.setData({
 			showLoadingMore: {
 				show: false,
