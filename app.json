@@ -24,7 +24,6 @@
 				"index/index",
 				"my_etc/my_etc",
 				"my_etc_detail/my_etc_detail",
-				"pages/default/cancel_order_succeed/cancel_order_succeed",
 				"my_order/my_order",
 				"order_details/order_details",
 				"payment_confirmation/payment_confirmation",
