@@ -71,6 +71,7 @@ page .index .top .vip_equity > view {
   color: #fff;
 }
 page .index .top .vip_equity > view > text::after {
+  font-size: 24rpx;
   margin-left: 16rpx;
   display: inline-block;
   content: '\e60e';
