@@ -132,8 +132,8 @@
 				},
 				{
 					"id": 5,
-					"name": "pages/default/information_validation/information_validation",
-					"pathName": "pages/default/information_validation/information_validation",
+					"name": "pages/personal_center/cancel_order_succeed/cancel_order_succeed",
+					"pathName": "pages/personal_center/cancel_order_succeed/cancel_order_succeed",
 					"query": "",
 					"scene": null
 				},

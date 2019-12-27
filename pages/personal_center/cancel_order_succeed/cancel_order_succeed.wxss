@@ -11,6 +11,7 @@
   justify-content: center;
   height: 76rpx;
   font-size: 48rpx;
+  font-weight: 500;
 }
 .cancel_order_succeed .split {
   height: 20rpx;

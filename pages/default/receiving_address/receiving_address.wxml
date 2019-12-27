@@ -37,7 +37,7 @@
 			<view></view>
 		</view>
 		<view wx:else class="unselected animated {{isNewPowerCar ? 'fadeOut' : 'fadeIn'}}" data-index="7" catchtap="onClickNewPowerCarHandle">
-			<view>+</view>
+			<view class="iconfont"></view>
 			<view>新能源</view>
 		</view>
 	</view>
@@ -90,7 +90,7 @@
 			<input type="number" placeholder="输入验证码" placeholder-class="placeholder" value="{{formData.verifyCode}}"
 			       bindinput="onInputChangedHandle" data-key="verifyCode"
 			/>
-			<text class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}}" bindtap="sendVerifyCode">{{identifyingCode}}</text>
+			<text class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} {{mobilePhoneIsOk ? 'ok' : ''}}" bindtap="sendVerifyCode">{{identifyingCode}}</text>
 		</view>
 	</view>
 	<!--	输入结束-->

@@ -55,7 +55,7 @@
   width: 57rpx;
   height: 46rpx;
   content: '\e65c';
-  font-size: 52rpx;
+  font-size: 56rpx;
 }
 .information_validation .title {
   margin-top: 40rpx;
@@ -64,6 +64,7 @@
   padding: 0 40rpx;
   height: 56rpx;
   font-size: 40rpx;
+  font-weight: 500;
 }
 .information_validation .title::before {
   margin-right: 24rpx;
@@ -96,23 +97,28 @@
   display: flex;
   align-items: center;
   padding: 0 40rpx;
-  min-height: 88rpx;
   font-size: 32rpx;
   color: #99999d;
   border-bottom: 1rpx solid #f8f8f8;
   box-sizing: border-box;
 }
 .information_validation .content-wrapper .item > view {
+  padding-top: 30rpx;
+  padding-bottom: 10rpx;
   flex: 0.35;
 }
 .information_validation .content-wrapper .item > input,
 .information_validation .content-wrapper .item > picker,
 .information_validation .content-wrapper .item > textarea {
+  padding-top: 30rpx;
+  padding-bottom: 10rpx;
   flex: 0.65;
+  line-height: 48rpx;
   text-align: right;
+  color: #66666d;
 }
 .information_validation .content-wrapper .item > textarea {
-  padding: 30rpx 0;
+  line-height: 0;
 }
 .information_validation .content-wrapper .split {
   margin: 0 32rpx;
@@ -154,6 +160,7 @@
   margin-bottom: 40rpx;
   height: 98rpx;
   font-size: 40rpx;
+  font-weight: 500;
   color: #fff;
   border-radius: 49rpx;
   background: linear-gradient(to right, #15ad69, #84d157);
