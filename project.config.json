@@ -49,6 +49,7 @@
 		"newFeature": true,
 		"coverView": true,
 		"autoAudits": false,
+		"showShadowRootInWxmlPanel": true,
 		"uglifyFileName": false,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
@@ -61,7 +62,7 @@
 		"bundle": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.9.2",
+	"libVersion": "2.9.4",
 	"appid": "wxc4f4bbf790beb17b",
 	"projectname": "etc_home",
 	"debugOptions": {

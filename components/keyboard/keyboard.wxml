@@ -1,5 +1,5 @@
 <view class="keyboard animated  {{wrapper ? 'slideInUp':'slideOutDown'}}" wx:if="{{myShow}}" catchtap="stop">
-  <text wx:for="{{currentDatas}}" wx:for-index="i" wx:key="{{i}}"
+  <text wx:for="{{currentDatas}}" wx:for-index="i" wx:key="i"
         class="iconfont {{index === 1 && i <= 9 ? 'disabled' : ''}}  {{item === 'del' ? 'del' : ''}}  {{item === 'b' ? 'half' : ''}} {{item === '' ? 'empty' : ''}} {{item === '完成' ? 'ok' : ''}}"
         catchtap="clickKeyboard" data-index="{{i}}"
   >{{item === 'del' || item === 'b' ? '' : item}}
