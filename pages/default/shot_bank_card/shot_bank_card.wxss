@@ -49,7 +49,7 @@
   height: 98rpx;
   border-radius: 8rpx;
   border: 2rpx solid rgba(0,0,0,0);
-  box-sizing: border-box;
+  box-sizing: content-box;
 }
 .shot_bank_card .camera .photo-wrapper .photo .preview.selected {
   border: 4rpx solid #84d157;

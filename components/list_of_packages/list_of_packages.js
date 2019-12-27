@@ -99,8 +99,17 @@ Component({
 					});
 				},
 				fail: (res) => {
-					// 加载套餐
-					this.getListOfPackages();
+					console.log(res);
+					if (res.errMsg === 'getLocation:fail auth deny') {
+						util.alert({
+							content: '由于您拒绝了定位授权，导致无法获取扣款方式，请允许定位授权！',
+							showCancel: true,
+							confirmText: '允许授权',
+							confirm: () => {
+								wx.openSetting();
+							}
+						});
+					}
 				}
 			});
 		},
