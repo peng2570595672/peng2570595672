@@ -37,7 +37,7 @@
 						width 57rpx
 						height 46rpx
 						content '\e65c'
-						font-size 52rpx
+						font-size 56rpx
 	// 标题
 	.title
 		margin-top 40rpx
@@ -46,6 +46,7 @@
 		padding 0 40rpx
 		height 56rpx
 		font-size 40rpx
+		font-weight 500
 		&::before
 			margin-right 24rpx
 			content ''
@@ -75,20 +76,25 @@
 			display flex
 			align-items center
 			padding 0 40rpx
-			min-height 88rpx
 			font-size 32rpx
 			color $fontColor9
 			border-bottom 1rpx solid #F8F8F8
 			box-sizing border-box
 			& > view
-					flex .35
+				padding-top 30rpx
+				padding-bottom 10rpx
+				flex .35
 			& > input,
 			& > picker,
 			& > textarea
+				padding-top 30rpx
+				padding-bottom 10rpx
 				flex .65
+				line-height 48rpx
 				text-align right
+				color $fontColor6
 			& > textarea
-				padding 30rpx 0
+				line-height 0
 		.split
 			margin 0 32rpx
 			border-bottom 1rpx dashed #979797
@@ -127,6 +133,7 @@
 		margin-bottom 40rpx
 		height 98rpx
 		font-size 40rpx
+		font-weight 500
 		color #fff
 		border-radius 49rpx
 		background: linear-gradient(to right , $deepThemeColor, $shallowThemeColor)

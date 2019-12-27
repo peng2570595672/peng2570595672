@@ -26,6 +26,7 @@
   padding: 0 30rpx;
   height: 56rpx;
   font-size: 40rpx;
+  font-weight: 500;
 }
 .payment-way .title::before {
   margin-right: 10rpx;
@@ -63,7 +64,7 @@
   margin: 20rpx 40rpx 0;
   height: 154rpx;
   border-radius: 32rpx;
-  background: linear-gradient(to right, #15ad69, #84d157);
+  background: linear-gradient(45deg, #1aae68, #66c75c);
 }
 .payment-way .wrapper .iconfont {
   width: 100%;
@@ -77,9 +78,9 @@
   flex: 1;
 }
 .payment-way .wrapper .iconfont::after {
-  content: '\e601';
+  content: '\e63e';
   color: #ffec9a;
-  font-size: 22rpx;
+  font-size: 24rpx;
 }
 .payment-way .choice-payment-way-mask {
   margin: 20rpx 40rpx;
@@ -129,7 +130,9 @@
   align-items: center;
   padding-right: 40rpx;
   height: 36rpx;
+  font-size: 26rpx;
   color: #2fb565;
+  font-weight: 400;
 }
 .payment-way .tips {
   display: flex;
@@ -234,6 +237,7 @@
   margin: 20rpx 60rpx 40rpx;
   height: 98rpx;
   font-size: 40rpx;
+  font-weight: 500;
   color: #fff;
   border-radius: 49rpx;
   background: linear-gradient(to right, #15ad69, #84d157);

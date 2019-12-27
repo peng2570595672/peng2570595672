@@ -150,6 +150,7 @@ Page({
 	},
 	// 办理中 - 请求数据签约
 	getDataFromServerForSign () {
-
+		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+		util.go('/pages/default/processing_progress/processing_progress');
 	}
 });

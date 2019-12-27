@@ -13,6 +13,7 @@ Page({
 		currentIndex: -1, // 当前选中的输入车牌位置
 		carNoStr: '', // 车牌字符串
 		carNo: ['贵', '', '', '', '', '', '', ''], // 车牌对应的数组
+		mobilePhoneIsOk: false,
 		identifyingCode: '获取验证码',
 		time: 59,// 倒计时
 		isGetIdentifyingCoding: false, // 获取验证码中
@@ -296,7 +297,7 @@ Page({
 	startTimer () {
 		// 设置状态
 		this.setData({
-			identifyingCode: `${this.data.time}秒后重试`
+			identifyingCode: `${this.data.time}s`
 		});
 		// 清倒计时
 		clearInterval(timer);
@@ -311,7 +312,7 @@ Page({
 				});
 			} else {
 				this.setData({
-					identifyingCode: `${this.data.time}秒后重试`
+					identifyingCode: `${this.data.time}s`
 				});
 			}
 		}, 1000);
@@ -353,6 +354,11 @@ Page({
 		let key = e.currentTarget.dataset.key;
 		let formData = this.data.formData;
 		// 手机号
+		if (key === 'telNumber') {
+			this.setData({
+				mobilePhoneIsOk: /^1[0-9]{10}$/.test(e.detail.value.substring(0, 11))
+			});
+		}
 		if (key === 'telNumber' && e.detail.value.length > 11) {
 			formData[key] = e.detail.value.substring(0, 11);
 		} else if (key === 'verifyCode' && e.detail.value.length > 4) { // 验证码
