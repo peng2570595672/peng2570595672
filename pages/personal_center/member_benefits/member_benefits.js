@@ -1,4 +1,5 @@
 const util = require('../../../utils/util.js');
+const app = getApp();
 Page({
 	data: {
 		isMembers: false,
@@ -37,6 +38,33 @@ Page({
 		detailsContent: '',
 		showDetailMask: false,
 		showDetailWtapper: false
+	},
+	onShow () {
+		this.getMyETCList();
+	},
+	// 加载ETC列表
+	getMyETCList () {
+		util.showLoading();
+		util.getDataFromServer('consumer/order/my-etc-list', {}, () => {
+			util.showToastNoIcon('获取车辆列表失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				console.log(res);
+				if (res.data.length === 0) {
+					this.setData({
+						isMembers: false
+					});
+				} else {
+					this.setData({
+						isMembers: true
+					});
+				}
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
 	},
 	// 弹出详情
 	showDetail (e) {
