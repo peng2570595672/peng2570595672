@@ -5,7 +5,7 @@ page
 	width 100%
 	height 100vh
 	overflow hidden
-	background:rgba(246,246,246,1);
+	background rgba(246,246,246,1);
 	.index
 		//顶部
 		.top
@@ -44,18 +44,17 @@ page
 			//登录状态
 			.landing_status
 				display flex
-				margin-left 324rpx
+				justify-content center
 				& > view
 					font-size 36rpx
-					font-family PingFangSC-Regular,PingFang SC
-					font-weight 400
 					color rgba(255,255,255,1)
-					line-height 50rpx
+					font-weight 400
+					font-family PingFangSC-Regular,PingFang SC
 			//会员权益
 			.vip_equity
 				display flex
 				margin-top 20rpx
-				margin-left 276rpx
+				justify-content center
 				& > view
 					width 200rpx
 					height 50rpx
@@ -99,9 +98,32 @@ page
 					text-align center
 					margin-top 40rpx
 					margin-bottom 14rpx
-					& > image
-						width 45rpx
-						height 45rpx
+					& > view
+						width 20rpx
+						height 20rpx
+						background rgba(255,0,0,1)
+						border-radius 50%
+						margin -82rpx 0 0 64rpx
+					&.user_icon_etc
+						&::before
+							content '\e64b'
+							color rgba(255,255,255,1)
+							font-size 50rpx
+					&.user_icon_order
+						&::before
+							content '\e649'
+							color rgba(255,255,255,1)
+							font-size 55rpx
+					&.user_icon_card
+						&::before
+							content '\e64c'
+							color rgba(255,255,255,1)
+							font-size 55rpx
+					&.user_icon_help
+						&::before
+							content '\e645'
+							color rgba(255,255,255,1)
+							font-size 55rpx
 				.user_item_text
 					font-size 24rpx
 					font-family PingFangSC-Regular,PingFang SC
@@ -119,8 +141,8 @@ page
 			.activity_img
 				margin-left 30rpx
 				& > image
-					width 130rpx
-					height 130rpx
+					width 110rpx
+					height 110rpx
 			.activity_msg
 				margin-left 20rpx
 				font-family PingFangSC-Regular,PingFang SC
@@ -128,15 +150,15 @@ page
 					font-size 16px
 					color rgba(51,51,51,1)
 				&>view:last-child
+					width 300rpx
 					color rgba(153,153,153,1)
 			&::after
-				width:28rpx
-				height:52rpx
-				margin-left 200rpx
-				color:rgba(153,153,153,1)
+				margin-left 140rpx
+				color rgba(153,153,153,1)
 				display inline-block
 				content '\e60e'
 				transform scaleX(-1)
+				font-size 40rpx
 		//关注活动弹框
 		.detail_mask
 			position fixed
@@ -144,21 +166,44 @@ page
 			top 0
 			right 0
 			bottom 0
-			background: rgba(0, 0, 0, .4)
+			background rgba(0, 0, 0, .7)
 			.detail_wrapper
 				.top1
+					position absolute
+					z-index 1
 					& > image
 						width 600rpx
 						height 800rpx
 						margin 268rpx 74rpx 0 72rpx
 				.activity_button
+					position absolute
+					left 0
+					right 0
+					margin 0 auto
+					text-align center
+					z-index 2
 					width 360rpx
 					height 80rpx
 					background linear-gradient(108deg,rgba(255,173,62,1) 0%,rgba(255,131,37,1) 100%)
 					box-shadow 0rpx 8rpx 10rpx 0rpx rgba(255,136,40,0.3)
 					border-radius 45rpx
 					margin-top -150rpx
-					color white
+					line-height 80rpx
+					& > text
+						font-size 32rpx
+						font-family PingFangSC-Medium,PingFang SC
+						font-weight 500
+						color rgba(255,255,255,1)
+				.close_button
+					position absolute
+					left 638rpx
+					right 0
+					margin-top -790rpx
+					z-index 2
+					&::before
+						content '\e63d'
+						color #ffffff
+						font-size 18rpx
 
 
 

@@ -15,7 +15,7 @@
 
 		<!--登陆状态-->
 		<view class="landing_status">
-			<view>未登录</view>
+			<view>别叫我，就是睡醒</view>
 		</view>
 
 		<!--会员权益-->
@@ -31,8 +31,9 @@
 	<view class="user_nav">
 		<!--我的ETC开始-->
 		<view class="user_item" catchtap="go" data-url="my_etc">
-			<view class="user_item_icon">
-<!--					<image src="https://file.cyzl.com/g001/M05/E8/58/oYYBAF38MB2AEVy2AAAHs-lCkIE924.svg"></image>-->
+			<view class="user_item_icon iconfont user_icon_etc">
+				<!--更新提示-->
+				<view></view>
 			</view>
 			<view class="user_item_text">我的ETC</view>
 		</view>
@@ -40,8 +41,9 @@
 
 		<!--ETC账单开始-->
 		<view class="user_item" catchtap="go" data-url="my_order">
-			<view class="user_item_icon">
-<!--				<image src="https://file.cyzl.com/g001/M05/E8/5A/oYYBAF38MDqADSuhAAAHG02DtVo378.svg"></image>-->
+			<view class="user_item_icon iconfont user_icon_order">
+				<!--更新提示-->
+				<view></view>
 			</view>
 			<view class="user_item_text">ETC账单</view>
 		</view>
@@ -49,17 +51,19 @@
 
 		<!--我的卡劵开始-->
 		<view class="user_item" catchtap="go" data-url="servicec_card_voucher">
-			<view class="user_item_icon">
-<!--				<image src="https://file.cyzl.com/g001/M05/E8/59/oYYBAF38MC2AQHw8AAAHPRh_znM612.svg"></image>-->
+			<view class="user_item_icon iconfont user_icon_card">
+				<!--更新提示-->
+				<view></view>
 			</view>
-			<view class="user_item_text">我的卡劵</view>
+			<view class="user_item_text iconfont">我的卡劵</view>
 		</view>
 		<!--我的卡劵结束-->
 
 		<!--帮助中心开始-->
 		<view class="user_item" catchtap="go" data-url="help_center">
-			<view class="user_item_icon">
-<!--				<image src="https://file.cyzl.com/g001/M05/E8/57/oYYBAF38MACANQ9iAAAH7y25oH0858.svg"></image>-->
+			<view class="user_item_icon iconfont user_icon_help">
+				<!--更新提示-->
+				<view></view>
 			</view>
 			<view class="user_item_text">帮助中心</view>
 		</view>
@@ -86,9 +90,11 @@
 	<view class="detail_mask animated {{showDetailWrapper ? 'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
 		<view class="detail_wrapper animated {{showDetailWrapper ? 'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
 			<view class="top1">
-				<image src="https://file.cyzl.com/g001/M05/06/D6/oYYBAF4DHV-AX8S8AABiDQ58WJ0402.png">
-				</image>
-				<button class="activity_button">发送数字“9”关注</button>
+				<image src="https://file.cyzl.com/g001/M05/06/D6/oYYBAF4DHV-AX8S8AABiDQ58WJ0402.png">=</image>
+				<view class="activity_button">
+					<text>发送数字“9”关注</text>
+				</view>
+				<view class="close_button iconfont" catchtap="hide"></view>
 			</view>
 		</view>
 	</view>
