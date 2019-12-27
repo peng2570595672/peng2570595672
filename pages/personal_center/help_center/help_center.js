@@ -119,9 +119,6 @@ Page({
 	},
 	// 换一批
 	replace () {
-		if (this.data.page === this.data.totalPages) {
-			return;
-		}
 		if (this.data.page < this.data.totalPages) {
 			this.setData({
 				page: this.data.page + 1

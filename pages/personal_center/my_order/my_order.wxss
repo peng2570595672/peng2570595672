@@ -3,7 +3,7 @@ page {
 }
 .my_order {
   padding-top: 130rpx;
-  padding-bottom: 240rpx;
+  padding-bottom: 260rpx;
 }
 .my_order .total-cost {
   height: 60rpx;
