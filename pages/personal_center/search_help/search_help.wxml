@@ -2,7 +2,7 @@
 	<!--帮助列表开始-->
 	<view class="help-list">
 		<view class="help-search">
-			<input  confirm-type="search" name="search" type='text'  placeholder="请输入关键词" bindconfirm="bindconfirm" />
+			<input  confirm-type="search" name="search" type='text' focus="true"  placeholder="请输入关键词" bindconfirm="bindconfirm" />
 		</view>
 		<view class="list">
 			<view class="list-title">热门搜索</view>

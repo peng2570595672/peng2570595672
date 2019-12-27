@@ -38,7 +38,7 @@
 		<view class="benefits-button-bg">
 			<!--会员底部成为会员开始-->
 			<view class="as-member" wx:if="{{!isMembers}}">
-				<button>成为会员</button>
+				<button catchtap="go">成为会员</button>
 			</view>
 			<view class="prompt" wx:if="{{!isMembers}}">
 				<image src="https://file.cyzl.com/g001/M05/F8/CA/oYYBAF4AIeOAEGYDAAALspApwSg389.svg"></image>
@@ -57,8 +57,8 @@
 		<view class="wrapper animated {{showDetailWtapper?'slideInUp':'slideOutDown'}}">
 			<view class="details-title iconfont icon{{detailsContent.id}}"><text>{{detailsContent.title}}</text></view>
 			<view class="details-content">{{detailsContent.content}}</view>
-			<view class="as-member" wx:if="{{!isMembers}}">
-				<button>成为会员</button>
+			<view class="as-member">
+				<button catchtap="go">{{isMembers === true ? '一键体验':'成为会员'}}</button>
 			</view>
 			<view class="prompt" wx:if="{{!isMembers}}">
 				<image src="https://file.cyzl.com/g001/M05/F8/CA/oYYBAF4AIeOAEGYDAAALspApwSg389.svg"></image>

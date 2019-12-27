@@ -1,7 +1,7 @@
 const util = require('../../../utils/util.js');
 Page({
 	data: {
-		isMembers: true,
+		isMembers: false,
 		benefitsList: [
 			{
 				id: 0,
@@ -57,5 +57,11 @@ Page({
 				showDetailMask: false
 			});
 		}, 400);
+	},
+	// 成为会员&一键体验
+	go () {
+		if (!this.data.isMembers) {
+			util.go('/pages/default/receiving_address/receiving_address');
+		}
 	}
 });
