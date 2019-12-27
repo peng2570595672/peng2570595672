@@ -225,9 +225,7 @@
   flex: 0 0 28rpx;
   height: 40rpx;
   font-size: 40rpx;
-  background: linear-gradient(to top, #15ad69, #84d157);
-  -webkit-background-clip: text;
-  color: transparent;
+  color: #2fb565;
 }
 .receiving_address .input-wrapper .input-item .validate-code {
   flex: 0 0 216rpx;
