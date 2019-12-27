@@ -12,6 +12,7 @@
 		padding 0 30rpx
 		height 56rpx
 		font-size 40rpx
+		font-weight 500
 		&::before
 			margin-right 10rpx
 			content ''
@@ -45,7 +46,7 @@
 		margin 20rpx  40rpx 0
 		height 154rpx
 		border-radius 32rpx
-		background: linear-gradient(to right , $deepThemeColor, $shallowThemeColor)
+		background: linear-gradient(45deg, #1AAE68, #66C75C)
 		.iconfont
 			width 100%
 			display flex
@@ -56,9 +57,9 @@
 			& > text
 				flex 1
 			&::after
-				content '\e601'
+				content '\e63e'
 				color #FFEC9A
-				font-size 22rpx
+				font-size 24rpx
 	// 确认支付方式
 	.choice-payment-way-mask
 		margin 20rpx 40rpx
@@ -101,7 +102,9 @@
 				align-items center
 				padding-right 40rpx
 				height 36rpx
+				font-size 26rpx
 				color $fontColor
+				font-weight 400
 	// 提示
 	.tips
 		display flex
@@ -195,6 +198,7 @@
 		margin 20rpx 60rpx 40rpx
 		height 98rpx
 		font-size 40rpx
+		font-weight 500
 		color #fff
 		border-radius 49rpx
 		background: linear-gradient(to right , $deepThemeColor, $shallowThemeColor)

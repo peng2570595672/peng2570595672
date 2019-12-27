@@ -14,8 +14,6 @@ Page({
 	},
 	// 返回首页
 	onClickGoHomeHandle () {
-		wx.navigateBack({
-			delta: getCurrentPages().length
-		});
+		util.goHome();
 	}
 });

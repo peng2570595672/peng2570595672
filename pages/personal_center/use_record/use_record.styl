@@ -43,6 +43,7 @@ page
 					.limit
 						line-height 24rpx
 				.right
+					position relative
 					flex 2.5
 					text-align right
 					padding-right 30rpx
@@ -60,13 +61,13 @@ page
 							background rgba(255,255,255,0.19)
 							border-radius 18rpx
 							padding 0
-					&>view:nth-child(2)
-						margin-top 60rpx
-						font-size 16rpx
-						&::after
-							display inline-block
-							content '\e60e'
-							transform rotateZ(180deg)
+					.overdue
+						image
+							position absolute
+							width 160rpx
+							height 160rpx
+							top -30rpx
+							left -45rpx
 		// 卡券详情
 		.ticket-details
 			line-height 40rpx

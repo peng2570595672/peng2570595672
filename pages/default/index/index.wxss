@@ -4,8 +4,10 @@
   justify-content: center;
   height: 98rpx;
   font-size: 40rpx;
+  font-weight: 500;
   color: #fff;
   border-radius: 49rpx;
+  font-weight: 500;
   background: linear-gradient(to right, #15ad69, #84d157);
   box-shadow: 0 8rpx 10rpx 0 rgba(132,209,87,0.2);
 }
@@ -27,6 +29,7 @@
   padding-left: 60rpx;
   font-size: 60rpx;
   line-height: 60rpx;
+  font-weight: 500;
 }
 .index .welcome > text {
   margin-left: 26rpx;
@@ -52,6 +55,7 @@
   margin-bottom: -18rpx;
 }
 .index .my-swiper .wx-swiper-dots-horizontal .wx-swiper-dot {
+  margin-right: 4rpx;
   width: 10rpx;
   height: 10rpx;
   background: #e3e5e6;

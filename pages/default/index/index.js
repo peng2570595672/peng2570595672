@@ -150,6 +150,5 @@ Page({
 	},
 	// 办理中 - 请求数据签约
 	getDataFromServerForSign () {
-
 	}
 });

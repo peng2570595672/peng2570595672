@@ -146,12 +146,14 @@ page .member_benefits .benefits .benefits-list .benefits-content .list-box .list
 page .member_benefits .benefits .benefits-list .benefits-content .list-box .list-content .list-title {
   display: flex;
   color: #33333d;
+  font-weight: 600;
   font-size: 32rpx;
   line-height: 78rpx;
   align-items: center;
 }
 page .member_benefits .benefits .benefits-list .benefits-content .list-box .list-content .list-title::before {
   color: #c7c8c8;
+  font-weight: 400;
   font-size: 78rpx;
   margin-right: 16rpx;
 }

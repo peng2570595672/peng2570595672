@@ -1,0 +1,6 @@
+<template name="listLoadingTemplate">
+  <view class="list-loading" wx:if="{{show}}">
+    <view class="loading" wx:if="{{!hideLoading}}"></view>
+    <text>{{text}}</text>
+  </view>
+</template>

@@ -3,7 +3,7 @@ page {
 }
 .my_order {
   padding-top: 130rpx;
-  padding-bottom: 240rpx;
+  padding-bottom: 260rpx;
 }
 .my_order .total-cost {
   height: 60rpx;
@@ -84,6 +84,7 @@ page {
 }
 .my_order .order-list .order-list-content .order-list-bottom .money {
   flex: 3;
+  font-weight: bold;
   font-size: 48rpx;
   color: #2fb565;
   text-align: right;

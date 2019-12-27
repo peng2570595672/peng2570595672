@@ -12,6 +12,10 @@
 				</view>
 				<view class="right">
 					<view><button>剩余次数8/10</button></view>
+					<view class="overdue">
+						 <image src="https://file.cyzl.com/g001/M05/0F/0E/oYYBAF4Fn6qAG5GnAAA6ni5gcFA987.svg"></image>
+						<!--已过期<image src="https://file.cyzl.com/g001/M05/0F/0C/oYYBAF4Fn2CADCyAAAA8iqFl6PA886.svg"></image>-->
+					</view>
 				</view>
 			</view>
 		</view>

@@ -166,6 +166,7 @@ function getDataFromServer(path, params, fail, success, token = '', complete, me
 	// 执行请求
 	wx.request(obj);
 }
+
 /**
  * 签名错误 重新登录
  * @param path
@@ -192,6 +193,7 @@ function reAutoLogin(path, params, fail, success, token = '', complete, method) 
 		}
 	});
 }
+
 // 小于10的前补0操作
 const formatNumber = (n) => {
 	n = n.toString();
@@ -462,6 +464,7 @@ function getAddressInfo(lat, lng, success, fail, complete) {
 		}
 	});
 }
+
 /**
  * @author い 狂奔的蜗牛
  * @param bankno 银行卡号
@@ -548,13 +551,13 @@ function luhmCheck(bankno) {
 /**
  *  获取订单办理状态
  */
-function  getStatus (orderInfo) {
+function getStatus(orderInfo) {
 	let status = 0;
 	if (orderInfo.status === 0 && orderInfo.etcContractId === 0) {
 		status = 1; // 办理中 待签约
-	}  else if (orderInfo.status === 1 && orderInfo.etcContractId === 0) {
+	} else if (orderInfo.status === 1 && orderInfo.etcContractId === 0) {
 		status = 2; // 办理完成 未签约
-	}   else if (orderInfo.status === 0 && orderInfo.etcContractId !== 1) {
+	} else if (orderInfo.status === 0 && orderInfo.etcContractId !== 1) {
 		status = 3; // 办理中 已签约
 	} else if (orderInfo.status === 1 && orderInfo.auditStatus === 0) {
 		status = 4; // 查看进度 待审核
@@ -563,6 +566,20 @@ function  getStatus (orderInfo) {
 	}
 	return status;
 }
+
+/**
+ * 返回首页
+ */
+function goHome(unload) {
+	let len = getCurrentPages().length;
+	let delta = unload ? len - 2 : len - 1;
+	if (delta > 0) {
+		wx.navigateBack({
+			delta: delta // 默认值是1
+		});
+	}
+}
+
 module.exports = {
 	setApp,
 	formatNumber,
@@ -586,5 +603,6 @@ module.exports = {
 	getAddressInfo,
 	getSignature,
 	luhmCheck,
-	getStatus
+	getStatus,
+	goHome
 };

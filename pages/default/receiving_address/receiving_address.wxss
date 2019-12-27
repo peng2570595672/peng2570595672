@@ -26,6 +26,7 @@
   padding: 0 30rpx;
   height: 56rpx;
   font-size: 40rpx;
+  font-weight: 500;
 }
 .receiving_address .title::before {
   margin-right: 10rpx;
@@ -38,7 +39,7 @@
 .receiving_address .title > text {
   margin-left: 12rpx;
   font-size: 24rpx;
-  color: #99999d;
+  color: #7a7f83;
   transform: translateY(8rpx);
 }
 .receiving_address .car-no-wrapper {
@@ -51,6 +52,9 @@
   margin-right: 18rpx;
   flex: 0 0 60rpx;
   width: 60rpx;
+}
+.receiving_address .car-no-wrapper > view:last-of-type {
+  margin-right: 0;
 }
 .receiving_address .car-no-wrapper > view.selected > view:last-of-type::before {
   left: 0;
@@ -88,8 +92,8 @@
 }
 .receiving_address .car-no-wrapper > view.unselected {
   margin-right: 0;
-  flex: 0 0 66rpx;
-  width: 66rpx;
+  flex: 0 0 60rpx;
+  width: 60rpx;
   transform: translateY(18rpx);
 }
 .receiving_address .car-no-wrapper > view.unselected > view:first-of-type {
@@ -97,6 +101,13 @@
   color: #f5c065;
   border: 2rpx dotted #f5c065;
   border-radius: 8rpx;
+}
+.receiving_address .car-no-wrapper > view.unselected > view:first-of-type.iconfont::before {
+  display: block;
+  font-size: 24rpx;
+  content: '\e63d';
+  font-weight: bold;
+  transform: rotateZ(45deg);
 }
 .receiving_address .car-no-wrapper > view.unselected > view:last-of-type {
   position: relative;
@@ -108,12 +119,12 @@
   transform: translateY(18rpx);
 }
 .receiving_address .choose-car-no-color {
-  margin-top: 56rpx;
-  margin-bottom: 30rpx;
+  margin-top: 50rpx;
+  margin-bottom: 40rpx;
   padding: 0 60rpx;
   display: flex;
   align-items: center;
-  height: 58rpx;
+  height: 48rpx;
   color: #66666d;
 }
 .receiving_address .choose-car-no-color .color-wrapper {
@@ -122,10 +133,10 @@
 }
 .receiving_address .choose-car-no-color .color-wrapper > view {
   display: flex;
-  margin-right: 30rpx;
+  margin-right: 20rpx;
   align-items: center;
-  padding: 0 14rpx;
-  height: 58rpx;
+  padding: 0 12rpx;
+  height: 40rpx;
   font-size: 20rpx;
   border-style: solid;
   border-width: 2rpx;
@@ -169,8 +180,9 @@
 .receiving_address .input-wrapper .input-item {
   display: flex;
   align-items: center;
-  padding-top: 30rpx;
-  padding-bottom: 10rpx;
+  padding-top: 28rpx;
+  padding-bottom: 20rpx;
+  font-size: 32rpx;
   border-bottom: 1rpx solid #e8e8e8;
 }
 .receiving_address .input-wrapper .input-item > view {
@@ -179,7 +191,6 @@
   flex: 0 0 148rpx;
   height: 48rpx;
   color: #99999d;
-  font-size: 32rpx;
 }
 .receiving_address .input-wrapper .input-item > input,
 .receiving_address .input-wrapper .input-item > picker {
@@ -187,6 +198,7 @@
   align-items: center;
   flex: 1;
   height: 48rpx;
+  font-size: 32rpx;
 }
 .receiving_address .input-wrapper .input-item .detail-info {
   width: 580rpx !important;
@@ -198,14 +210,13 @@
   color: #33333d;
 }
 .receiving_address .input-wrapper .input-item .auto-fill {
-  flex: 0 0 100rpx;
-  width: 0 0 100rpx;
   height: 48rpx;
   line-height: 46rpx;
   background: linear-gradient(to right, #15ad69, #84d157);
   -webkit-background-clip: text;
   color: transparent;
-  font-size: 24rpx;
+  font-size: 26rpx;
+  font-weight: 500;
   box-sizing: content-box;
 }
 .receiving_address .input-wrapper .input-item .iconfont::before {
@@ -214,24 +225,28 @@
   flex: 0 0 28rpx;
   height: 40rpx;
   font-size: 40rpx;
-  background: linear-gradient(to top, #15ad69, #84d157);
-  -webkit-background-clip: text;
-  color: transparent;
+  color: #2fb565;
 }
 .receiving_address .input-wrapper .input-item .validate-code {
-  flex: 0 0 210rpx;
-  width: 210rpx;
+  flex: 0 0 216rpx;
+  width: 216rpx;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
+  padding-left: 50rpx;
   height: 44rpx;
-  font-size: 30rpx;
+  font-size: 32rpx;
   color: #99999d;
-  box-sizing: content-box;
   border-left: 1rpx solid #d8d8d8;
+  box-sizing: border-box;
+}
+.receiving_address .input-wrapper .input-item .validate-code.ok {
+  font-weight: 500;
+  color: #2fb565;
 }
 .receiving_address .input-wrapper .input-item .validate-code.acquisition {
   color: #2fb565;
+  font-weight: 400 !important;
 }
 .receiving_address .fill {
   flex: 1;
@@ -269,6 +284,7 @@
   margin: 20rpx 60rpx 40rpx;
   height: 98rpx;
   font-size: 40rpx;
+  font-weight: 500;
   color: #fff;
   border-radius: 49rpx;
   background: linear-gradient(to right, #15ad69, #84d157);

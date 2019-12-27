@@ -13,6 +13,7 @@
 }
 .processing_progress .title.other-title {
   margin-top: 40rpx;
+  font-weight: bold;
 }
 .processing_progress .title::before {
   margin-right: 10rpx;
@@ -25,8 +26,8 @@
 .processing_progress .user-info {
   margin-top: 10rpx;
   padding-left: 80rpx;
+  color: #66666d;
   font-size: 24rpx;
-  color: #7d7d83;
 }
 .processing_progress .user-info > view {
   display: flex;
@@ -91,6 +92,7 @@
   align-items: center;
   height: 48rpx;
   font-size: 32rpx;
+  font-weight: 500;
   transform: translateY(-24rpx);
 }
 .processing_progress .progress_wrapper .item .content-des {
@@ -99,7 +101,8 @@
   padding-left: 26rpx;
   padding-right: 80rpx;
   line-height: 40rpx;
-  color: #99999d;
+  color: #66666d;
+  font-size: 24rpx;
   transform: translateY(-24rpx);
 }
 .processing_progress .progress_wrapper .item .content-des.error {
@@ -143,6 +146,7 @@
   margin: 40rpx 60rpx 0;
   height: 98rpx;
   font-size: 40rpx;
+  font-weight: 500;
   color: #fff;
   background: linear-gradient(to right, #15ad69, #84d157);
   border-radius: 49rpx;

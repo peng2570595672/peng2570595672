@@ -20,15 +20,15 @@
 		<view class="list">
 			<!--tab切换列表开始-->
 			<scroll-view class="list-title" scroll-x>
-				<view class="list-title-child {{tabIndex == index ?'tab_index':''}}" wx:for="{{datas}}" wx:key="index" catchtap="tab" data-index="{{index}}">
-					{{item.title}}
+				<view class="list-title-child {{tabIndex == index ?'tab_index':''}}" wx:for="{{tabTitle}}" wx:key="index" catchtap="tab" data-index="{{index}}" data-id="{{item.id}}">
+					{{item.classifyName}}
 					<view></view>
 				</view>
 			</scroll-view>
 			<!--tab切换列表结束-->
 			<!--列表开始-->
-			<view wx:for="{{datas[tabIndex].sub}}" wx:key="index" class="list-content" catchtap="showDetail" data-content="{{item}}">
-				{{item.title}}
+			<view wx:for="{{tabList}}" wx:key="index" class="list-content" catchtap="showDetail" data-content="{{item}}">
+				{{item.questionTitle}}
 			</view>
 			<!--列表结束-->
 		</view>
@@ -41,13 +41,13 @@
 		<!--顶部蒙版结束-->
 		<view class="wrapper animated {{showDetailWtapper?'slideInUp':'slideOutDown'}}">
 			<!--详情列表标题开始-->
-			<view class="details-title">{{detailsContent.title}}</view>
+			<view class="details-title">{{detailsTitle}}</view>
 			<!--详情列表内容结束-->
 			<view class="details-list">
 				<view class="details-list-box">
-					<view wx:for="{{detailsContent.des}}" wx:key="index" class="cont1">
-						<view class="label">·</view>
-						<view class="char">{{item.content}} </view>
+					<view wx:for="{{detailsContent}}" wx:key="index" class="cont1">
+						<view class="label iconfont"></view>
+						<view class="char">{{item.answerContent}} </view>
 					</view>
 				</view>
 			</view>
@@ -58,5 +58,5 @@
 		</view>
 	</view>
 	<!--弹出详情结束-->
-	<view class="replace">换一批</view>
+	<view class="replace" catchtap="replace">换一批</view>
 </view>

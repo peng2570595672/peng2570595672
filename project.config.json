@@ -93,7 +93,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 9,
+			"current": 10,
 			"list": [
 				{
 					"id": 0,
@@ -118,8 +118,8 @@
 				},
 				{
 					"id": 3,
-					"name": "pages/personal_center/servicec_card_voucher/servicec_card_voucher",
-					"pathName": "pages/personal_center/servicec_card_voucher/servicec_card_voucher",
+					"name": "pages/personal_center/index/index",
+					"pathName": "pages/personal_center/index/index",
 					"query": "",
 					"scene": null
 				},
@@ -132,8 +132,8 @@
 				},
 				{
 					"id": 5,
-					"name": "pages/default/information_validation/information_validation",
-					"pathName": "pages/default/information_validation/information_validation",
+					"name": "pages/personal_center/cancel_order_succeed/cancel_order_succeed",
+					"pathName": "pages/personal_center/cancel_order_succeed/cancel_order_succeed",
 					"query": "",
 					"scene": null
 				},
@@ -167,8 +167,8 @@
 				},
 				{
 					"id": 10,
-					"name": "pages/personal_center/my_order/my_order",
-					"pathName": "pages/personal_center/my_order/my_order",
+					"name": "pages/personal_center/servicec_card_voucher/servicec_card_voucher",
+					"pathName": "pages/personal_center/servicec_card_voucher/servicec_card_voucher",
 					"query": "",
 					"scene": null
 				}
