@@ -69,7 +69,7 @@ App({
 			const {appId} = res.referrerInfo;
 			// 车主服务签约
 			if (appId === 'wxbcad394b3d99dac9') {
-
+				util.go('/pages/default/signed_successfully/signed_successfully');
 			}
 		}
 	}
