@@ -62,5 +62,15 @@ App({
 				});
 			}
 		});
+	},
+	onShow (res) {
+		console.log(res);
+		if (res && res.scene === 1038 && this.globalData.signAContract !== -1) { // 场景值1038：从被打开的小程序返回
+			const {appId} = res.referrerInfo;
+			// 车主服务签约
+			if (appId === 'wxbcad394b3d99dac9') {
+
+			}
+		}
 	}
 });
