@@ -33,15 +33,17 @@ page .index .top .scan::before {
 page .index .top .head_portrait {
   position: relative;
   display: flex;
-  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
   color: rgba(255,255,255,0.4);
 }
-page .index .top .head_portrait > image {
-  margin-top: -18rpx;
-  margin-left: 316rpx;
+page .index .top .head_portrait .uesr_head {
+  overflow: hidden;
+  display: block;
   width: 120rpx;
   height: 120rpx;
-  opacity: 0.25;
+  border-radius: 50%;
+  text-align: center;
 }
 page .index .top .landing_status {
   display: flex;

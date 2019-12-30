@@ -10,12 +10,14 @@
 
 		<!--头像-->
 		<view class="head_portrait">
-			<image src="https://file.cyzl.com/g001/M05/06/AA/oYYBAF4DGH2AbtywAAAJ4NK4Ik0837.png"></image>
+			<view>
+				<open-data class="uesr_head" type="userAvatarUrl"></open-data>
+			</view>
 		</view>
 
 		<!--登陆状态-->
 		<view class="landing_status">
-			<view>别叫我，就是睡醒</view>
+			<view> <open-data type="userNickName" lang="zh_CN"></open-data></view>
 		</view>
 
 		<!--会员权益-->
@@ -88,7 +90,7 @@
 
 	<!--关注公众号活动弹框-->
 	<view class="detail_mask animated {{showDetailWrapper ? 'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
-		<view class="detail_wrapper animated {{showDetailWrapper ? 'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
+		<view class="detail_wrapper animated {{showDetailWrapper ? 'zoomIn':'zoomOut'}}" wx:if="{{showDetailMask}}">
 			<view class="top1">
 				<image src="https://file.cyzl.com/g001/M05/06/D6/oYYBAF4DHV-AX8S8AABiDQ58WJ0402.png">=</image>
 				<view class="activity_button">
