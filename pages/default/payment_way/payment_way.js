@@ -148,7 +148,8 @@ Page({
 			idCardTrueName: this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含4】
 			idCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含4】
 			idCardPositiveUrl: this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含4】
-			idCardNegativeUrl: this.data.idCardBack.fileUrl // 实名身份证反面地址 【dataType包含4】
+			idCardNegativeUrl: this.data.idCardBack.fileUrl, // 实名身份证反面地址 【dataType包含4】
+			needSignContract: true // 是否需要签约 true-是，false-否 允许值: true, false
 		};
 		// 银行卡 3.0
 		if (this.data.choiceObj.isBankcard === 1) {
@@ -163,7 +164,9 @@ Page({
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
 			if (res.code === 0) {
-				util.go('/pages/default/signed_successfully/signed_successfully');
+				console.log(res);
+
+				// util.go('/pages/default/signed_successfully/signed_successfully');
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -201,7 +204,9 @@ Page({
 		let idCardFace = this.data.idCardFace;
 		idCardFace.ocrObject[key] = value;
 		this.setData({
-			idCardFace,
+			idCardFace
+		});
+		this.setData({
 			available: this.validateAvailable()
 		});
 	},
