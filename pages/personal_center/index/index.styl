@@ -33,14 +33,18 @@ page
 			.head_portrait
 				position relative
 				display flex
-				align-items center
+				justify-content center
+				border-radius 50%
 				color rgba(255,255,255,0.4)
-				& > image
-					margin-top -18rpx
-					margin-left 316rpx
-					width 120rpx
-					height 120rpx
-					opacity 0.25
+				.uesr_head
+					overflow:hidden;
+					display: block;
+					width: 120rpx;
+					height: 120rpx;
+					border-radius: 50%;
+					text-align center
+					//border: 2px solid #fff;
+					//box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
 			//登录状态
 			.landing_status
 				display flex
