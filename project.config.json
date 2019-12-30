@@ -171,6 +171,13 @@
 					"pathName": "pages/personal_center/servicec_card_voucher/servicec_card_voucher",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": 11,
+					"name": "pages/default/upload_car_no/upload_car_no",
+					"pathName": "pages/default/update_id_card/update_id_card",
+					"query": "carNo=贵A2ZM91",
+					"scene": null
 				}
 			]
 		}

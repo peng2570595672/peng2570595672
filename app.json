@@ -9,7 +9,9 @@
 		"pages/default/signed_successfully/signed_successfully",
 		"pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
 		"pages/default/information_validation/information_validation",
-		"pages/default/processing_progress/processing_progress"
+		"pages/default/processing_progress/processing_progress",
+		"pages/default/update_car_no/update_car_no",
+		"pages/default/update_id_card/update_id_card"
 	],
 	"window": {
 		"navigationBarBackgroundColor": "#FFFFFF",

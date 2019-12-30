@@ -1,0 +1,6 @@
+{
+	"navigationBarTitleText": "修改车牌信息",
+	"usingComponents": {
+		"keyboard": "/components/keyboard/keyboard"
+	}
+}
