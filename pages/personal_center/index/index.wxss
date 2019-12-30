@@ -7,7 +7,7 @@ page {
 page .index .top {
   width: 100%;
   height: 592rpx;
-  background: linear-gradient(156deg, #17ad69 0%, #7fd058 100%);
+  background: linear-gradient(to right, #17ad69, #7fd058);
 }
 page .index .top .back {
   display: flex;
@@ -202,7 +202,7 @@ page .index .detail_mask .detail_wrapper .activity_button {
   z-index: 2;
   width: 360rpx;
   height: 80rpx;
-  background: linear-gradient(108deg, #ffad3e 0%, #ff8325 100%);
+  background: linear-gradient(to right, #ffad3e, #ff8325);
   box-shadow: 0rpx 8rpx 10rpx 0rpx rgba(255,136,40,0.3);
   border-radius: 45rpx;
   margin-top: -150rpx;
