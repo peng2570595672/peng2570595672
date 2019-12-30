@@ -62,7 +62,8 @@ Component({
 		getListOfPackages () {
 			util.showLoading();
 			util.getDataFromServer('consumer/system/get-usable-product', {
-				areaCode: this.data.regionCode[0]
+				areaCode: this.data.regionCode[0],
+				productType: '2'
 			}, () => {
 			}, (res) => {
 				if (res.code === 0) {
