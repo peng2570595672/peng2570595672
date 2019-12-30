@@ -69,8 +69,31 @@ App({
 			const {appId} = res.referrerInfo;
 			// 车主服务签约
 			if (appId === 'wxbcad394b3d99dac9') {
-				util.go('/pages/default/signed_successfully/signed_successfully');
+				this.queryContract();
 			}
 		}
+	},
+	// 查询车主服务签约
+	queryContract () {
+		util.showLoading({
+			title: '签约查询中...'
+		});
+		util.getDataFromServer('consumer/order/query-contract', {
+			orderId: this.globalData.orderInfo.orderId
+		}, () => {
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				// 签约成功 userState: "NORMAL"
+				if (res.data.contractStatus === 1 && res.data.userState === 'NORMAL') {
+					util.go('/pages/default/signed_successfully/signed_successfully');
+				} else {
+					util.showToastNoIcon('暂未查到签约信息，请稍后再试！');
+				}
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, this.globalData.userInfo.accessToken);
 	}
 });

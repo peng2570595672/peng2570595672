@@ -52,8 +52,9 @@ Page({
 		let index = e.currentTarget.dataset.index;
 		let obj = this.data.carList[parseInt(index)];
 		// 服务商套餐id，0表示还未选择套餐，其他表示已经选择套餐
-		// 只提交了车牌 车牌颜色 收货地址 前往套餐选择
-		if (obj.shopProductId === 0) {
+		// 只提交了车牌 车牌颜色 收货地址 或者未签约 前往套餐选择
+		// "etcContractId": "", //签约id，0表示未签约，其他表示已签约
+		if (obj.shopProductId === 0 || obj.etcContractId === 0) {
 			app.globalData.orderInfo.orderId = obj.id;
 			util.go('/pages/default/payment_way/payment_way');
 		} else if (obj.isVehicle === 0) {
