@@ -89,31 +89,32 @@
 	background: #fff;
 }
 
-.half-bottom view {
+.half-bottom>view {
+	position: relative;
 	height: 98rpx;
 	float: left;
-	width: 33.3%;
+	width: 33.2%;
+	box-sizing: border-box;
 	background: #fff;
 	text-align: center;
-	border-bottom: 1px solid #f7f7f7;
+	/*border-bottom: 1px solid #f7f7f7;*/
 }
-.half-bottom>view:nth-child(3n-2){
-	border-image: -webkit-linear-gradient(to right, #fff, #F4F4F5) 4 6 ;
-	border-image: -moz-linear-gradient(to right, #fff, #F4F4F5) 4 6  ;
-	border-image: linear-gradient(to right, #fff, #F4F4F5) 4 6  ;
-	border-bottom: 5rpx dashed;
+.half-bottom>view .line{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 2rpx;
+	background: linear-gradient(to right, #fff, #E9E9EA,#fff);
 }
-.half-bottom>view:nth-child(3n-1){
-	border-image: -webkit-linear-gradient(to right, #F4F4F5, #E8E8E9, #F4F4F5) 1 7 1;
-	border-image: -moz-linear-gradient(to right, #F4F4F5, #E8E8E9,#F4F4F5) 1 7 1 ;
-	border-image: linear-gradient(to right, #F4F4F5, #E8E8E9, #F4F4F5) 1 7 1  ;
-	border-bottom: 5rpx dashed;
+.half-bottom>view:nth-child(3n-2) .line{
+	background: linear-gradient(to right, #fff, #F4F4F5)
 }
-.half-bottom>view:nth-child(3n){
-	border-image: -webkit-linear-gradient(to right, #F4F4F5, #fff) 6 4 ;
-	border-image: -moz-linear-gradient(to right, #F4F4F5, #fff) 6 4 ;
-	border-image: linear-gradient(to right, #F4F4F5, #fff) 6 4;
-	border-bottom: 5rpx dashed;
+.half-bottom>view:nth-child(3n-1) .line{
+	background: linear-gradient(to right, #F4F4F5, #E8E8E9, #F4F4F5);
+}
+.half-bottom>view:nth-child(3n) .line{
+	background: linear-gradient(to right, #F4F4F5, #fff);
 }
 .half-top text{
 	display: inline-block;
@@ -235,15 +236,20 @@
 }
 
 .sortitem {
+	position: relative;
 	font-size: 28rpx;
 	height: 98rpx;
 	line-height: 98rpx;
 	padding-left: 36rpx;
-	border-image: -webkit-linear-gradient(to right, #fff, #E9E9EA, #fff) 1 7 1;
-	border-image: -moz-linear-gradient(to right, #fff, #E9E9EA, #fff) 1 7 1;
-	border-image: linear-gradient(to right, #fff, #E9E9EA, #fff) 1 7 1;
-	border-bottom: 5rpx dashed;
 	justify-content: space-between;
+}
+.sortitem .line{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 2rpx;
+	background: linear-gradient(to right, #fff, #E9E9EA,#fff);
 }
 .forbidden-choose{
 	color: #ccc;

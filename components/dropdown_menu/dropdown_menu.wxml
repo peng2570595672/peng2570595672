@@ -13,7 +13,7 @@
 	<view class="z-height animated {{filter_open_wtapper?'slideInDown':'slideOutDown'}}">
 		<view>
 			<block wx:for="{{dropDownMenuFilterData}}" wx:key="unique">
-				<view class="sortitem {{selected_filter_name == item ? ' active ' : ' '}}"  data-model='{{item}}'  bindtap='selectFilterItem'><text data-model='{{item}}' bindtap='selectFilterItem'> {{item}}</text></view>
+				<view class="sortitem {{selected_filter_name == item ? ' active ' : ' '}}"  data-model='{{item}}'  bindtap='selectFilterItem'><text data-model='{{item}}' bindtap='selectFilterItem'> {{item}}</text><view class="line"></view></view>
 			</block>
 		</view>
 	</view>
@@ -31,6 +31,7 @@
 		<view class="half half-bottom">
 			<view class="{{district_right_select == item.id ? 'current_right_select' : ''}} {{(chooseYear === year && month < item.title) ? ' forbidden-choose ' : ' '}}" wx:for="{{dropDownMenuDistrictDataRight}}" bindtap="selectDistrictBottom" data-model='{{item}}' wx:key="unique">
 				<text bindtap="selectDistrictBottom" data-model='{{item}}'>{{item.title}}月</text>
+				<view class="line"></view>
 			</view>
 		</view>
 	</view>
