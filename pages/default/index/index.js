@@ -16,6 +16,15 @@ Page({
 		if (app.globalData.userInfo.accessToken) {
 			this.getStatus();
 		}
+		// 登录页返回
+		let loginInfoFinal = wx.getStorageSync('login_info_final');
+		if (loginInfoFinal) {
+			this.setData({
+				loginInfo: JSON.parse(loginInfoFinal)
+			});
+			this.getStatus();
+			wx.removeStorageSync('login_info_final');
+		}
 	},
 	// 自动登录
 	login () {
@@ -119,6 +128,12 @@ Page({
 	},
 	// 跳转到个人中心
 	onClickForJumpPersonalCenterHandle (e) {
+		// 未登录
+		if (!app.globalData.userInfo.accessToken) {
+			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+			util.go('/pages/login/login/login');
+			return;
+		}
 		let url = e.currentTarget.dataset.url;
 		util.go(`/pages/personal_center/${url}/${url}`);
 	},
@@ -129,6 +144,12 @@ Page({
 	},
 	// 我的ETC
 	onClickMyETCHandle () {
+		// 未登录
+		if (!app.globalData.userInfo.accessToken) {
+			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+			util.go('/pages/login/login/login');
+			return;
+		}
 		util.go('/pages/personal_center/my_etc/my_etc');
 	},
 	// 继续办理

@@ -132,8 +132,8 @@
 				},
 				{
 					"id": 5,
-					"name": "pages/personal_center/cancel_order_succeed/cancel_order_succeed",
-					"pathName": "pages/personal_center/cancel_order_succeed/cancel_order_succeed",
+					"name": "pages/login/login/login",
+					"pathName": "pages/login/login/login",
 					"query": "",
 					"scene": null
 				},

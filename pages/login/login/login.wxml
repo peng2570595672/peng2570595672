@@ -1,0 +1,11 @@
+<view class="login">
+	<image src="https://file.cyzl.com/g001/M01/3D/52/oYYBAF1eb_mAHwIDAAA7RJNQERo234.png"></image>
+	<view class="title">ETC+</view>
+	<view class="wrapper">
+			<view class="animated slideInRight">
+				<view class="sub-title">该程序将获取以下授权</view>
+				<view class="des">·将获取您的微信注册手机号以便快速登录，您也可以使用其他手机号登录</view>
+				<button class="btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">登录</button>
+			</view>
+	</view>
+</view>

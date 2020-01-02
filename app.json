@@ -37,6 +37,13 @@
 				"servicec_card_voucher/servicec_card_voucher",
 				"use_record/use_record"
 			]
+		},
+		{
+			"root": "pages/login",
+			"name": "pages/login",
+			"pages": [
+				"login/login"
+			]
 		}
 	],
 	"navigateToMiniProgramAppIdList": [
