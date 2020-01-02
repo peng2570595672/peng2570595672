@@ -26,7 +26,7 @@ Page({
 		let date = new Date();
 		const year = date.getFullYear();
 		const month = date.getMonth() + 1;
-		const time = year - 2017;
+		const time = year - 2018;
 		for (let i = 0; i <= time; i = i + 1) {
 			for (let k = 0; k < this.data.childModel.length; k = k + 1) {
 				this.data.childModel[k].id = `${i}-${k + 1}`;
