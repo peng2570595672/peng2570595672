@@ -98,20 +98,20 @@ Page({
 		let back = this.data.drivingLicenseBack.ocrObject;
 		let carHead45 = this.data.carHead45;
 		// 比对之前输入车牌和当前行驶证车牌是否一致
-		if (face.numberPlates !== this.data.orderInfo['1'].vehPlates.trim()) {
-			util.showToastNoIcon(`行驶证车牌${face.numberPlates}与下单时车牌${this.data.orderInfo['1'].vehPlates.trim()}不一致，请检查！`);
+		if (face.numberPlates !== this.data.orderInfo['base'].vehPlates.trim()) {
+			util.showToastNoIcon(`行驶证车牌${face.numberPlates}与下单时车牌${this.data.orderInfo['base'].vehPlates.trim()}不一致，请检查！`);
 			return;
 		}
 		let isOk = true;
 		// 比对车牌颜色和车牌位数是否一致
 		// 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
 		if (face.numberPlates.length === 7) {
-			isOk = this.data.orderInfo['1'].vehColor === 0 || this.data.orderInfo['1'].vehColor === 1;
+			isOk = this.data.orderInfo['base'].vehColor === 0 || this.data.orderInfo['base'].vehColor === 1;
 		} else {
-			isOk = this.data.orderInfo['1'].vehColor === 4;
+			isOk = this.data.orderInfo['base'].vehColor === 4;
 		}
 		if (!isOk) {
-			let color = this.data.orderInfo['1'].vehColor === 1 ? '黄色' : this.data.orderInfo['1'].vehColor === 4 ? '渐变绿色' : '蓝色';
+			let color = this.data.orderInfo['base'].vehColor === 1 ? '黄色' : this.data.orderInfo['base'].vehColor === 4 ? '渐变绿色' : '蓝色';
 			util.showToastNoIcon(`车牌格式与下单时车牌颜色（${color}）不符，请检查！`);
 			return;
 		}
@@ -133,7 +133,7 @@ Page({
 			vehicleInfo: {
 				carType: 1,
 				vehPlates: face.numberPlates,
-				platesColor: this.data.orderInfo['1'].vehColor,
+				platesColor: this.data.orderInfo['base'].vehColor,
 				owner: face.owner, // 车辆所有者 【dataType包含6】
 				ownerAddress: face.address, // 所有人地址 【dataType包含6】
 				engineNo: face.engineNo, // 发动机编号 【dataType包含6】

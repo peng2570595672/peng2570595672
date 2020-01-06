@@ -34,7 +34,7 @@ Page({
 					orderInfo: res.data
 				});
 				// 获取实名信息
-				let temp = this.data.orderInfo['4'];
+				let temp = this.data.orderInfo['idCard'];
 				if (temp.idCardStatus === 1) {
 					let idCardFace = this.data.idCardFace;
 					// 身份证反面
@@ -89,6 +89,7 @@ Page({
 	},
 	// 签约
 	next () {
+		console.log(this.data.orderInfo);
 		if (!this.data.available || this.data.isRequest) {
 			return;
 		}
@@ -100,7 +101,7 @@ Page({
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: '4', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
-			idCardStatus: this.data.orderInfo['4'].idCardStatus,
+			idCardStatus: this.data.orderInfo['idCard'].idCardStatus,
 			idCardTrueName: this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含4】
 			idCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含4】
 			idCardPositiveUrl: this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含4】

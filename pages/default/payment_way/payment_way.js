@@ -40,7 +40,7 @@ Page({
 					orderInfo: res.data
 				});
 				// 获取实名信息
-				let temp = this.data.orderInfo['4'];
+				let temp = this.data.orderInfo['idCard'];
 				if (temp.idCardStatus === 1) {
 					let idCardFace = this.data.idCardFace;
 					// 身份证反面
@@ -144,7 +144,7 @@ Page({
 			shopProductId: this.data.choiceObj.shopProductId,
 			areaCode: this.data.choiceObj.areaCode,
 			shopId: this.data.choiceObj.shopId,
-			idCardStatus: this.data.orderInfo['4'].idCardStatus,
+			idCardStatus: this.data.orderInfo['idCard'].idCardStatus,
 			idCardTrueName: this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含4】
 			idCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含4】
 			idCardPositiveUrl: this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含4】

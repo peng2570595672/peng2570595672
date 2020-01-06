@@ -62,7 +62,7 @@
 		"bundle": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.9.4",
+	"libVersion": "2.10.0",
 	"appid": "wxc4f4bbf790beb17b",
 	"projectname": "etc_home",
 	"debugOptions": {
