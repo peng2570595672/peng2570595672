@@ -104,7 +104,7 @@ Page({
 			idCardStatus: this.data.orderInfo['idCard'].idCardStatus,
 			idCardTrueName: this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含4】
 			idCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含4】
-			idCardPositiveUrl: this.data.idCardFace.R, // 实名身份证正面地址 【dataType包含4】
+			idCardPositiveUrl: this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含4】
 			idCardNegativeUrl: this.data.idCardBack.fileUrl // 实名身份证反面地址 【dataType包含4】
 		};
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
