@@ -6,7 +6,7 @@
 				<!--通用券介绍开始-->
 				<view class="list {{isEffective?'':'invalid'}} {{item.couponType === 2 && item.couponMode === 1 ? 'general-notes' : ''}} {{item.couponType === 1 && item.couponMode === 1 ? 'deduction-card' : ''}}">
 					<view class="left" wx:if="{{item.couponMode === 1}}">
-						<sup>￥</sup>{{item.faceAmount*100}}
+						<sup>￥</sup>{{item.faceAmount/100}}
 					</view>
 					<view class="left" wx:if="{{item.couponMode === 2}}">
 						{{item.discountRate*100}}<sup>折</sup>
@@ -83,7 +83,7 @@
 					<!--<view><button>剩余次数8/10</button></view>-->
 				<!--</view>-->
 				<view class="left" wx:if="{{exchangeData.couponMode === 1}}">
-					<sup>￥</sup>{{exchangeData.faceAmount*100}}
+					<sup>￥</sup>{{exchangeData.faceAmount/100}}
 				</view>
 				<view class="left" wx:if="{{exchangeData.couponMode === 2}}">
 					{{exchangeData.discountRate*100}}<sup>折</sup>
