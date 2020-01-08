@@ -43,7 +43,7 @@ Page({
 			status: this.data.isEffective === true ? 'usable' : 'notUsable'
 		};
 		util.getDataFromServer('consumer/voucher/get-coupon-page-list', params, () => {
-			util.showToastNoIcon('获取问题列表失败！');
+			util.showToastNoIcon('获取卡券列表失败！');
 		}, (res) => {
 			res.data.list.forEach((item,i) => {
 				item.expireTime = item.expireTime.match(/(\S*) /)[1];
@@ -118,7 +118,7 @@ Page({
 			activateCode: this.data.exchangeCode
 		};
 		util.getDataFromServer('consumer/voucher/activate-coupon', params, () => {
-			util.showToastNoIcon('获取问题列表失败！');
+			util.showToastNoIcon('获取兑换码失败！');
 		}, (res) => {
 			if (res.code === 0) {
 				this.setData({
