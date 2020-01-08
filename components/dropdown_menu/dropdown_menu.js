@@ -67,6 +67,9 @@ Component({
 					shownavindex: e.currentTarget.dataset.nav
 				});
 			}
+			this.setData({
+				toview: 'year0'
+			});
 		},
 		tapFilterNav: function (e) {
 			if (!this.data.selected_filter_name) {
