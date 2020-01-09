@@ -23,7 +23,7 @@
 	<view class="mask-box animated {{district_open_wtapper?'slideInDown':'slideOutDown'}}">
 		<view class="half-top-box">
 			<scroll-view class="half half-top" scroll-x='true' scroll-into-view="{{toview}}" scroll-with-animation="true" >
-				<view class="{{district_left_select == item.id ? 'current_left_select' : ''}}" wx:for="{{dropDownMenuDistrictData}}" id="year{{item.id}}" bindtap="selectDistrictTop" data-model='{{item}}' wx:key="unique">
+				<view class="{{district_left_select == item.id ? 'current_left_select' : ''}} year{{item.id}}" wx:for="{{dropDownMenuDistrictData}}" id="year{{item.id}}" bindtap="selectDistrictTop" data-model='{{item}}' wx:key="unique">
 					<text bindtap="selectDistrictTop" data-model='{{item}}'> {{item.title}}</text>
 				</view>
 			</scroll-view>
