@@ -3,6 +3,8 @@
  * @desc 选择支付方式
  */
 const util = require('../../../utils/util.js');
+// 数据统计
+let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -115,6 +117,8 @@ Page({
 	},
 	// 具体支付方式
 	onClickItemHandle (e) {
+		// 统计点击事件
+		mta.Event.stat('030',{});
 		this.setData({
 			choiceObj: e.detail.targetObj
 		});
@@ -130,6 +134,8 @@ Page({
 	},
 	// 签约
 	next () {
+		// 统计点击事件
+		mta.Event.stat('028',{});
 		if (!this.data.available || this.data.isRequest) {
 			return;
 		}
@@ -145,6 +151,8 @@ Page({
 			areaCode: this.data.choiceObj.areaCode,
 			shopId: this.data.choiceObj.shopId,
 			idCardStatus: this.data.orderInfo['idCard'].idCardStatus,
+			idCardValidDate: this.data.orderInfo['idCard'].idCardValidDate,
+			idCardAddress: this.data.orderInfo['idCard'].idCardAddress,
 			idCardTrueName: this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含4】
 			idCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含4】
 			idCardPositiveUrl: this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含4】
@@ -248,5 +256,9 @@ Page({
 			bankCardIdentifyResult,
 			available: this.validateAvailable()
 		});
+	},
+	onUnload () {
+		// 统计点击事件
+		mta.Event.stat('029',{});
 	}
 });

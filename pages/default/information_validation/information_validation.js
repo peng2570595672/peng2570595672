@@ -3,6 +3,8 @@
  * @desc 信息确认
  */
 const util = require('../../../utils/util.js');
+// 数据统计
+let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -91,6 +93,8 @@ Page({
 	},
 	// 提交信息
 	onClickComfirmHandle () {
+		// 统计点击事件
+		mta.Event.stat('035',{});
 		if (!this.data.available || this.data.isRequest) {
 			return;
 		}

@@ -3,6 +3,8 @@
  * @desc 填写车牌和收货信息
  */
 const util = require('../../../utils/util.js');
+// 数据统计
+let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 // 倒计时计时器
 let timer;
@@ -38,6 +40,8 @@ Page({
 	},
 	// 下一步
 	next () {
+		// 统计点击事件
+		mta.Event.stat('024',{});
 		if (!this.data.available || this.data.isRequest) {
 			return;
 		}
@@ -187,6 +191,8 @@ Page({
 	},
 	// 从微信选择地址
 	onClickAutoFillHandle () {
+		// 统计点击事件
+		mta.Event.stat('027',{});
 		wx.chooseAddress({
 			success: (res) => {
 				let formData = this.data.formData;
@@ -234,6 +240,8 @@ Page({
 	},
 	// 选择当前地址
 	onClickChooseLocationHandle () {
+		// 统计点击事件
+		mta.Event.stat('026',{});
 		wx.chooseLocation({
 			success: (res) => {
 				let address = res.address;
@@ -430,5 +438,9 @@ Page({
 	// 查看办理协议
 	onClickGoAgreementHandle () {
 		util.go('/pages/default/agreement/agreement');
+	},
+	onUnload () {
+		// 统计点击事件
+		mta.Event.stat('025',{});
 	}
 });

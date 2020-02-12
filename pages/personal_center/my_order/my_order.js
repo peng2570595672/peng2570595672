@@ -1,9 +1,15 @@
 const util = require('../../../utils/util.js');
+const app = getApp();
+// 数据统计
+let mta = require('../../../libs/mta_analysis.js');
 Page({
 	data: {
 		year: '',
 		dropDownMenuTitle: ['', ''],
 		timeList: [],
+		totalPages: '',// 总页数
+		page: 1,// 当前页
+		pageSize: 5,// 每页多少条数据
 		childModel: [
 			{ id: '1-1', title: '1' },
 			{ id: '1-2', title: '2' },
@@ -19,7 +25,8 @@ Page({
 			{ id: '1-12', title: '12' }
 		],
 		list: [],
-		vehicleList: ['贵ZZZABC', '贵ZZZABF', '贵ZZZDEF', '贵ZSZDBF', '贵ZZVDBF'],
+		orderList:[],
+		vehicleList: ['全部车辆'],
 		chooseTime: ''
 	},
 	onLoad () {
@@ -52,17 +59,69 @@ Page({
 			year: `${year}`,
 			chooseTime: `${year}-${util.formatNumber(month)}`
 		});
-		console.log(this.data.timeList);
+		this.getMyETCList();
+	},
+	// 加载ETC列表
+	getMyETCList () {
+		util.showLoading();
+		util.getDataFromServer('consumer/order/my-etc-list', {}, () => {
+			util.showToastNoIcon('获取车辆列表失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				res.data.map((item) => {
+					this.data.vehicleList.push(item.vehPlates);
+					this.setData({
+						vehicleList: this.data.vehicleList
+					});
+				});
+				this.setData({
+					orderList: res.data
+				});
+				this.getBill(0);// 0  全部车辆
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
+	// 账单列表
+	getBill (index) {
+		// 未完成
+		console.log(index);
+		console.log(this.data.vehicleList[index]);
+		let vehPlate;
+		if (index === 0) {
+		} else {
+			vehPlate = this.data.vehicleList[index];
+		}
+		let params = {
+			vehPlate: vehPlate,
+			channel: this.data.channel,
+			page: this.data.page,
+			pageSize: this.data.pageSize
+		};
+		// 优先把失败的展示出来吧，超过20条了全部展示
+		util.getDataFromServer('consumer/etc/get-bill', params, () => {
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken);
 	},
 	// 账单详情
 	goDetails (e) {
-		// let index = e.currentTarget.dataset['index'];
-		// index = parseInt(index);
-		// wx.setStorageSync('etc-order-info', JSON.stringify(this.data.info.list[index]));
+		// 统计点击事件
+		mta.Event.stat('018',{});
 		util.go('/pages/personal_center/order_details/order_details');
 	},
 	// 去补缴
 	go () {
+		// 统计点击事件
+		mta.Event.stat('019',{});
 		util.go('/pages/personal_center/payment_confirmation/payment_confirmation');
 	},
 	// 下拉选择
@@ -71,6 +130,11 @@ Page({
 		if (!e.detail.selectedId) {
 			let index = this.data.vehicleList.findIndex((value) => value === e.detail.selectedTitle);
 			console.log(index);
+			if (index === 0) { // 统计点击全部车辆
+				// 统计点击事件
+				mta.Event.stat('017',{});
+			}
+			this.getBill(index);
 		} else {
 			const month = e.detail.selectedId.match(/-(\S*)/)[1];
 			const id = e.detail.selectedId.match(/(\S*)-/)[1];

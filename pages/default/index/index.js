@@ -3,6 +3,8 @@
  * @desc 首页
  */
 const util = require('../../../utils/util.js');
+// 数据统计
+let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -122,12 +124,16 @@ Page({
 	},
 	// 免费办理
 	freeProcessing () {
+		// 统计点击事件
+		mta.Event.stat('001',{});
 		if (app.globalData.userInfo.accessToken) {
 			util.go('/pages/default/receiving_address/receiving_address');
 		}
 	},
 	// 跳转到个人中心
 	onClickForJumpPersonalCenterHandle (e) {
+		// 统计点击事件
+		mta.Event.stat('010',{});
 		// 未登录
 		if (!app.globalData.userInfo.accessToken) {
 			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
@@ -139,6 +145,8 @@ Page({
 	},
 	// 查看办理进度
 	onClickViewProcessingProgressHandle () {
+		// 统计点击事件
+		mta.Event.stat('003',{});
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 		util.go('/pages/default/processing_progress/processing_progress');
 	},
@@ -154,6 +162,8 @@ Page({
 	},
 	// 继续办理
 	onClickContinueHandle () {
+		// 统计点击事件
+		mta.Event.stat('002',{});
 		// 服务商套餐id，0表示还未选择套餐，其他表示已经选择套餐
 		// 只提交了车牌 车牌颜色 收货地址 或者未签约 前往套餐选择
 		// "etcContractId": "", //签约id，0表示未签约，其他表示已签约

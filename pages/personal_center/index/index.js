@@ -1,4 +1,6 @@
 const util = require('../../../utils/util.js');
+// 数据统计
+let mta = require('../../../libs/mta_analysis.js');
 Page({
 	data: {
 		showDetailWrapper: false,
@@ -12,6 +14,8 @@ Page({
 	},
 	// 扫码
 	scan () {
+		// 统计点击事件
+		mta.Event.stat('023',{});
 		// 只允许从相机扫码
 		wx.scanCode({
 			onlyFromCamera: true,

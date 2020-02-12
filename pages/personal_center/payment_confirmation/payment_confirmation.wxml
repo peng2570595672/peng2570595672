@@ -44,7 +44,7 @@
 	<!--订单列表结束-->
 	<view class="instructions" catchtap="goInstructions">服务费扣费说明 》</view>
 	<!--底部补缴开始-->
-	<view class="payment ">
+	<view class="payment " catchtap="payment">
 		<button>合计支付：<text>669.56</text>立即补缴</button>
 	</view>
 	<!--底部补缴结束-->
