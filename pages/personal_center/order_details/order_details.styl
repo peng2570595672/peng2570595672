@@ -4,6 +4,7 @@ page
 .order_details
 	padding-bottom 240rpx
 	.deduction-amount
+		position relative
 		text-align center
 		font-size 76rpx
 		font-weight 500
@@ -12,6 +13,25 @@ page
 		border-bottom 5rpx dashed #fff
 		background linear-gradient(to right, #FFFFFF , $fontColor9 , #FFFFFF)
 		background-origin border-box
+		.doubt
+			position absolute
+			top 32rpx
+			right 62rpx
+			line-height 38rpx
+			background #fff
+			text
+				position absolute
+				top 5rpx
+				right -10rpx
+				display inline-block
+				width 20rpx
+				height 20rpx
+				background #f00
+				border-radius 50%
+		.doubt::before
+			content '\e650'
+			color #039EEB
+			font-size 38rpx
 		.deduction-amount-box
 			padding 80rpx 16rpx 68rpx 28rpx
 			background #fff

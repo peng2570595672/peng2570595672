@@ -5,6 +5,7 @@ page {
   padding-bottom: 240rpx;
 }
 .order_details .deduction-amount {
+  position: relative;
   text-align: center;
   font-size: 76rpx;
   font-weight: 500;
@@ -13,6 +14,28 @@ page {
   border-bottom: 5rpx dashed #fff;
   background: linear-gradient(to right, #fff, #99999d, #fff);
   background-origin: border-box;
+}
+.order_details .deduction-amount .doubt {
+  position: absolute;
+  top: 32rpx;
+  right: 62rpx;
+  line-height: 38rpx;
+  background: #fff;
+}
+.order_details .deduction-amount .doubt text {
+  position: absolute;
+  top: 5rpx;
+  right: -10rpx;
+  display: inline-block;
+  width: 20rpx;
+  height: 20rpx;
+  background: #f00;
+  border-radius: 50%;
+}
+.order_details .deduction-amount .doubt::before {
+  content: '\e650';
+  color: #039eeb;
+  font-size: 38rpx;
 }
 .order_details .deduction-amount .deduction-amount-box {
   padding: 80rpx 16rpx 68rpx 28rpx;

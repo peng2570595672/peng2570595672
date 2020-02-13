@@ -1,0 +1,15 @@
+<view class="order_complaint">
+	<view class="problem">
+		<view class="title">
+			<input class="input-item" placeholder="标题"  placeholder-class="placeholder-class"/>
+		</view>
+		<view class="content">
+			<textarea class="weui-textarea" placeholder="请描述您遇到的问题……" placeholder-class="placeholder-class"/>
+		</view>
+	</view>
+	<!--提交开始-->
+	<view class="payment ">
+		<button catchtap="go">提交</button>
+	</view>
+	<!--提交结束-->
+</view>
