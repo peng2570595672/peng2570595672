@@ -16,15 +16,15 @@
 				<view class="money">{{item.totalMmout/100}}</view>
 			</view>
 		</view>
-		<view class="order-list-content"  catchtap="goDetails" wx:for="{{failBillList}}" wx:key="index">
+		<view class="order-list-content"  catchtap="goDetails" wx:for="{{successBillList}}" wx:key="index">
 			<view class="order-list-top">
 				<view class="license-plate">{{item.vehPlate}}</view>
 				<view class="time">2019-11-10 15: 49 </view>
 			</view>
 			<view class="order-list-bottom">
-				<view class="start">黔东南罗甸</view>
-				<view class="end">贵阳西环城北</view>
-				<view class="money">-84.46</view>
+				<view class="start">{{item.inStationName}}</view>
+				<view class="end">{{item.stationName}}</view>
+				<view class="money">{{item.totalMmout/100}}</view>
 			</view>
 		</view>
 	</view>

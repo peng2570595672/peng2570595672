@@ -19,6 +19,5 @@ Page({
 	},
 	// 提交
 	go () {
-		util.go('/pages/personal_center/complaint_details/complaint_details');
 	}
 });

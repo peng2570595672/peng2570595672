@@ -167,8 +167,8 @@
 				},
 				{
 					"id": 10,
-					"name": "pages/personal_center/order_complaint/order_complaint",
-					"pathName": "pages/personal_center/order_complaint/order_complaint",
+					"name": "pages/personal_center/my_order/my_order",
+					"pathName": "pages/personal_center/my_order/my_order",
 					"query": "",
 					"scene": null
 				},

@@ -27,8 +27,10 @@ Page({
 		list: [],
 		orderList: [],
 		failBillList: [],
+		successBillList: [],
 		vehicleList: ['全部车辆'],
-		chooseTime: ''
+		chooseTime: '',
+		chooseVehPlates: '全部车辆'
 	},
 	onLoad () {
 		let date = new Date();
@@ -58,7 +60,7 @@ Page({
 			[`dropDownMenuTitle[0]`]: this.data.vehicleList[0],
 			[`dropDownMenuTitle[1]`]: `${year}年${month}月`,
 			year: `${year}`,
-			chooseTime: `${year}-${util.formatNumber(month)}`
+			chooseTime: `${year}${util.formatNumber(month)}`
 		});
 		this.getMyETCList();
 	},
@@ -73,20 +75,24 @@ Page({
 				let obuStatusList;
 				// obuStatusList = res.data.filter(item => item.obuStatus === 1); // 正式数据
 				obuStatusList = res.data.filter(item => item.etcChannelCode === '1'); // 测试数据处理
-				console.log(obuStatusList)
-				if (obuStatusList.length === 0) { // 没有激活车辆
-				} else {
+				if (obuStatusList.length > 0) {
 					// 需要过滤未激活的套餐
+					this.setData({
+						orderList: obuStatusList
+					});
+					let date = new Date();
+					const year = date.getFullYear();
+					const month = date.getMonth() + 1;
 					obuStatusList.map((item) => {
 						this.data.vehicleList.push(item.vehPlates);
 						this.setData({
 							vehicleList: this.data.vehicleList
 						});
+						this.getFailBill(item.vehPlates);
+						this.getSuccessBill(item.vehPlates,year + util.formatNumber(month));
 					});
-					this.setData({
-						orderList: res.data
-					});
-					this.getFailBill(0);// 0  全部车辆
+				} else {
+					// 没有激活车辆
 				}
 			} else {
 				util.showToastNoIcon(res.message);
@@ -95,32 +101,61 @@ Page({
 			util.hideLoading();
 		});
 	},
-	// 失败账单列表
-	getFailBill (index) {
-		// 未完成
-		console.log(index);
-		console.log(this.data.vehicleList[index]);
-		let vehPlate,channel;
-		if (index === 0) {
-		} else {
-			vehPlate = this.data.vehicleList[index];
-			channel = this.data.orderList.filter(item => item.vehPlates === vehPlate);
-			console.log(channel)
-		}
+	// 成功账单列表
+	getSuccessBill (vehPlates,month) {
+		let channel;
+		channel = this.data.orderList.filter(item => item.vehPlates === vehPlates);
 		let params = {
-			vehPlate: vehPlate,
-			channel: channel[0].etcChannelCode,
-			page: this.data.page,
-			pageSize: this.data.pageSize
+			vehPlate: vehPlates,
+			month: month,
+			channel: channel[0].etcChannelCode
 		};
-		// 优先把失败的展示出来吧，超过20条了全部展示
+		util.getDataFromServer('consumer/etc/get-bill', params, () => {
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				this.setData({
+					successBillList: this.data.successBillList.concat(res.data)
+				});
+				// 数组去重
+				var hash = [];
+				this.data.successBillList = this.data.successBillList.reduce(function (item1, item2) {
+					hash[item2['id']] ? '' : hash[item2['id']] = true && item1.push(item2);
+					return item1;
+				}, []);
+				this.setData({
+					successBillList: this.data.successBillList
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken);
+	},
+	// 失败账单列表
+	getFailBill (vehPlates) {
+		let channel;
+		channel = this.data.orderList.filter(item => item.vehPlates === vehPlates);
+		let params = {
+			vehPlate: vehPlates,
+			channel: channel[0].etcChannelCode
+		};
 		util.getDataFromServer('consumer/etc/get-fail-bill', params, () => {
 			util.hideLoading();
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
 				this.setData({
-					failBillList: res.data
+					failBillList: this.data.failBillList.concat(res.data)
+				});
+				// 数组去重
+				var hash = [];
+				this.data.failBillList = this.data.failBillList.reduce(function (item1, item2) {
+					hash[item2['id']] ? '' : hash[item2['id']] = true && item1.push(item2);
+					return item1;
+				}, []);
+				this.setData({
+					failBillList: this.data.failBillList
 				});
 			} else {
 				util.showToastNoIcon(res.message);
@@ -148,13 +183,43 @@ Page({
 			if (index === 0) { // 统计点击全部车辆
 				// 统计点击事件
 				mta.Event.stat('017',{});
+				this.setData({
+					chooseVehPlates: '全部车辆'
+				});
+				this.data.vehicleList.map((item) => {
+					console.log(item);
+					if (item !== '全部车辆') {
+						this.getFailBill(item);
+						this.getSuccessBill(item,this.data.chooseTime);
+					}
+				});
+			} else {
+				this.setData({
+					failBillList: [],
+					successBillList: [],
+					chooseVehPlates: this.data.vehicleList[index]
+				});
+				this.getFailBill(this.data.vehicleList[index]);
+				this.getSuccessBill(this.data.vehicleList[index],this.data.chooseTime);
 			}
-			this.getFailBill(index);
 		} else {
 			const month = e.detail.selectedId.match(/-(\S*)/)[1];
 			const id = e.detail.selectedId.match(/(\S*)-/)[1];
-			console.log(month);
-			console.log(`${this.data.year - id}-${util.formatNumber(month)}`);
+			this.setData({
+				chooseTime: `${this.data.year - id}${util.formatNumber(month)}`,
+				successBillList: []
+			});
+			if (this.data.chooseVehPlates === '全部车辆') {
+				this.data.vehicleList.map((item) => {
+					console.log(item);
+					if (item !== '全部车辆') {
+						this.getFailBill(item);
+						this.getSuccessBill(item,this.data.chooseTime);
+					}
+				});
+			} else {
+				this.getSuccessBill(this.data.chooseVehPlates,this.data.chooseTime);
+			}
 		}
 	}
 });

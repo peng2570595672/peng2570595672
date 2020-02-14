@@ -1,14 +1,19 @@
 <view class="order_complaint">
+	<!--问题输入开始-->
 	<view class="problem">
 		<view class="title">
-			<input class="input-item" placeholder="标题"  placeholder-class="placeholder-class"/>
+			<input class="input-item" placeholder="标题"  placeholder-class="placeholder-class" value="{{title}}" bindinput="onInputChangedHandle" data-key="title"/>
 		</view>
 		<view class="content">
-			<textarea class="weui-textarea" placeholder="请描述您遇到的问题……" placeholder-class="placeholder-class"/>
+			<textarea class="weui-textarea" placeholder="请描述您遇到的问题……" placeholder-class="placeholder-class" value="{{content}}" bindinput="onInputChangedHandle" data-key="content"/>
 		</view>
 	</view>
+	<!--问题输入结束-->
+	<!--提示开始-->
+	<view class="prompt">提交后，我们将在48小时内解答您的疑问！</view>
+	<!--提示结束-->
 	<!--提交开始-->
-	<view class="payment ">
+	<view class="payment {{available ? 'available' : 'unavailable'}}">
 		<button catchtap="go">提交</button>
 	</view>
 	<!--提交结束-->
