@@ -5,14 +5,14 @@
 	<!--反馈信息开始-->
 	<view class="complaint_information feedback_information">
 		<view>
-			<view>申诉信息</view>
+			<view>反馈信息</view>
 			<view>2019-12-24 15:32</view>
 		</view>
 	</view>
 	<!--反馈信息结束-->
 	<!--反馈问题开始-->
 	<view class="complaint_problem feedback_problem">
-		<view>退款金额：32.00</view>
+		<!--<view>退款金额：32.00</view>-->
 		<view>尊敬的用户：由于高速系统故障，错误记录您的通行记录导致产生重复扣费。我们已将重复收取的通行费退还到了您的微信账户，请查收。</view>
 		<view>如有疑问，请咨询400-1096138</view>
 	</view>

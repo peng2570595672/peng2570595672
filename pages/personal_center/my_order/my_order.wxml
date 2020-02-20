@@ -5,7 +5,7 @@
 	<!--	通行总额结束-->
 	<!--订单列表开始-->
 	<view class="order-list">
-		<view class="order-list-content"  catchtap="goDetails"  wx:for="{{failBillList}}" wx:key="index">
+		<view class="order-list-content" catchtap="goDetails" data-model="{{item}}"  wx:for="{{failBillList}}" wx:key="index">
 			<view class="order-list-top">
 				<view class="license-plate">{{item.vehPlate}}</view>
 				<view class="buckling-failure">扣款失败</view>
@@ -16,7 +16,7 @@
 				<view class="money">{{item.totalMmout/100}}</view>
 			</view>
 		</view>
-		<view class="order-list-content"  catchtap="goDetails" wx:for="{{successBillList}}" wx:key="index">
+		<view class="order-list-content" catchtap="goDetails" data-model="{{item}}" wx:for="{{successBillList}}" wx:key="index">
 			<view class="order-list-top">
 				<view class="license-plate">{{item.vehPlate}}</view>
 				<view class="time">2019-11-10 15: 49 </view>

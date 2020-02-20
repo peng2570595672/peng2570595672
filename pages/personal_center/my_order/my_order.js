@@ -164,9 +164,10 @@ Page({
 	},
 	// 账单详情
 	goDetails (e) {
+		let model = e.currentTarget.dataset.model;
 		// 统计点击事件
 		mta.Event.stat('018',{});
-		util.go('/pages/personal_center/order_details/order_details');
+		util.go('/pages/personal_center/order_details/order_details?details=' + JSON.stringify(model));
 	},
 	// 去补缴
 	go () {

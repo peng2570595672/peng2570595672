@@ -44,9 +44,6 @@ page {
   font-weight: 400;
   line-height: 34rpx;
 }
-.complaint_details .feedback_information>view>view:first-child {
-  color: #2fb565;
-}
 .complaint_details .feedback_problem {
   padding-bottom: 42rpx;
   background: rgba(47,181,101,0.8);

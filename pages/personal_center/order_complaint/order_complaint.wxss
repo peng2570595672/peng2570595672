@@ -6,35 +6,49 @@ page {
 }
 .order_complaint .problem {
   background: #fff;
-  margin-top: 20rpx;
+  margin: 20rpx 40rpx 0;
+  padding: 0 30rpx;
 }
 .order_complaint .problem .title {
-  padding: 30rpx 40rpx 28rpx;
+  padding: 30rpx 0rpx 28rpx;
   border-bottom: 1rpx solid #ededed;
 }
 .order_complaint .problem .title .placeholder-class {
-  color: #66666d;
+  color: #33333d;
 }
 .order_complaint .problem .title input {
-  font-size: 32rpx;
+  font-size: 40rpx;
+  font-weight: 500;
   line-height: 48rpx;
-  color: #66666d;
+  color: #33333d;
 }
 .order_complaint .problem .content {
-  padding: 30rpx 40rpx 28rpx;
+  padding: 30rpx 0rpx 28rpx;
 }
 .order_complaint .problem .content .placeholder-class {
-  color: #99999d;
+  color: #66666d;
 }
 .order_complaint .problem .content textarea {
   width: 100%;
   height: 230rpx;
-  font-size: 28rpx;
+  font-size: 32rpx;
   line-height: 48rpx;
-  color: #99999d;
+  color: #66666d;
+}
+.order_complaint .phone .title {
+  border: 0;
+}
+.order_complaint .phone .title .placeholder-class {
+  color: #66666d;
+}
+.order_complaint .phone .title input {
+  font-size: 32rpx;
+  font-weight: 400;
+  line-height: 48rpx;
+  color: #66666d;
 }
 .order_complaint .prompt {
-  padding: 20rpx 40rpx;
+  padding: 20rpx 70rpx;
   line-height: 34rpx;
   font-size: 24rpx;
   color: #66666d;
@@ -47,16 +61,22 @@ page {
   height: 178rpx;
   font-size: 24rpx;
   color: #9d9da0;
-  text-align: center;
 }
 .order_complaint .payment button {
-  width: 84%;
+  display: inline-block;
+  width: 302rpx;
   height: 98rpx;
   line-height: 98rpx;
-  background: linear-gradient(to right, #15ad69, #84d157);
+  background: #ccc;
   box-shadow: 0px 8rpx 10rpx 0px rgba(132,209,87,0.2);
   border-radius: 50rpx;
   font-size: 40rpx;
   color: #fff;
   margin-top: 40rpx;
+  margin-left: 40rpx;
+}
+.order_complaint .payment button:last-child {
+  float: right;
+  right: 40rpx;
+  background: linear-gradient(45deg, #14ac69 0%, #84d157 100%);
 }
