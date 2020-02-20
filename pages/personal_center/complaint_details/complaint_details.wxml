@@ -1,34 +1,52 @@
 <view class="complaint_details">
 	<!--提示开始-->
-	<view class="prompt">提交成功，客服将在24小时内为您答疑</view>
+	<view class="prompt">
+		{{complaintDetails.status === 0 ? '提交成功，客服将在24小时内为您答疑' : '已为您解答'}}
+
+	</view>
 	<!--提示结束-->
 	<!--反馈信息开始-->
-	<view class="complaint_information feedback_information">
+	<view class="complaint_information feedback_information" wx:if="{{complaintDetails.replyContent}}">
 		<view>
 			<view>反馈信息</view>
-			<view>2019-12-24 15:32</view>
+			<view>{{complaintDetails.auditTime}}</view>
 		</view>
 	</view>
 	<!--反馈信息结束-->
 	<!--反馈问题开始-->
-	<view class="complaint_problem feedback_problem">
-		<!--<view>退款金额：32.00</view>-->
-		<view>尊敬的用户：由于高速系统故障，错误记录您的通行记录导致产生重复扣费。我们已将重复收取的通行费退还到了您的微信账户，请查收。</view>
-		<view>如有疑问，请咨询400-1096138</view>
+	<view class="complaint_problem feedback_problem" wx:if="{{complaintDetails.replyContent}}">
+		<view>{{complaintDetails.replyContent}}</view>
 	</view>
 	<!--反馈问题结束-->
 	<!--申诉信息开始-->
 	<view class="complaint_information">
 		<view>
 			<view>申诉信息</view>
-			<view>2019-12-24 15:32</view>
+			<view>{{complaintDetails.addTime}}</view>
 		</view>
 	</view>
 	<!--申诉信息结束-->
 	<!--申诉问题开始-->
 	<view class="complaint_problem">
-		<view>重复扣费了</view>
-		<view>扣了两次费，通行一次扣两次费用，请退还请退还。不还就生气，就绝交，生气绝交。。</view>
+		<view>{{complaintDetails.title}}</view>
+		<view>{{complaintDetails.appContent}}</view>
 	</view>
 	<!--申诉问题结束-->
 </view>
+<!--addTime: "2020-02-20 09:37:39"-->
+<!--addUser: "660038950542376960"-->
+<!--appContent: "咕咕咕咕"-->
+<!--auditTime: "1900-01-01 01:01:01"-->
+<!--auditUser: 0-->
+<!--billId: 4-->
+<!--id: "679985006674710528"-->
+<!--lastOpTime: "2020-02-20 11:17:07"-->
+<!--lastOpUser: 0-->
+<!--phone: "18224621104"-->
+<!--platformId: "123456789012345678"-->
+<!--remark: ""-->
+<!--replyContent: "不好意思，您的问题我不明白，如果还有问题，请拨打电话110"-->
+<!--status: 1-->
+<!--title: "GGGG"-->
+<!--type: 0-->
+<!--vehPlate: "贵ZZ3124"-->

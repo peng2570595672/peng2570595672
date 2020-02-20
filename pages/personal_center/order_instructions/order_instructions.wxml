@@ -41,7 +41,9 @@
 	<!--欠费说明结束-->
 	<!--我要申诉开始-->
 	<view class="payment ">
-		<button catchtap="go">有疑问，我要申诉</button>
+		<button catchtap="go">
+			{{isComplaintDetails ? '已申诉，查看详情' : '有疑问，我要申诉'}}
+		</button>
 	</view>
 	<!--我要申诉结束-->
 </view>

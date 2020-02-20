@@ -1,7 +1,9 @@
 const util = require('../../../utils/util.js');
+const app = getApp();
 Page({
 	data: {
 		details: '',
+		isComplaintDetails: true,
 		arrearsInstructionsList: [
 			{ title: '1.为什么产生服务费？',content: '车辆产生高速通行费且扣费失败时，由我司垫付这笔通行费给高速，若此笔通行费在扣费失败的48小时内我司主动补扣未成功或车主未补缴成功这笔通行费，则我司会额外向用户收取服务费。' },
 			{title: '2.服务费收取标准是什么？',content: '服务费每日按应付通行费的万分之五进行计算，累计服务费每年不超过通行费的18%。'},
@@ -13,9 +15,34 @@ Page({
 		this.setData({
 			details: JSON.parse(options.details)
 		});
+		this.getComplaintDetails();
 	},
-	// 去补缴
+	// 通过账单id获取账单申诉详情
+	getComplaintDetails () {
+		util.showLoading();
+		let params = {
+			billId: this.data.details.id
+		};
+		util.getDataFromServer('consumer/etc/get-bill-complain-by-bill-id', params, () => {
+			util.showToastNoIcon('获取账单申诉详情失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				this.setData({
+					isComplaintDetails: res.data ? true : false
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
+	// 去申诉
 	go () {
-		util.go('/pages/personal_center/order_complaint/order_complaint?details=' + JSON.stringify(this.data.details));
+		if (this.data.isComplaintDetails) {
+			util.go('/pages/personal_center/complaint_details/complaint_details?details=' + JSON.stringify(this.data.details));
+		} else {
+			util.go('/pages/personal_center/order_complaint/order_complaint?details=' + JSON.stringify(this.data.details));
+		}
 	}
 });

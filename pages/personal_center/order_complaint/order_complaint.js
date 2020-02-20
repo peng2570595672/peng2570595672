@@ -101,7 +101,7 @@ Page({
 			util.showToastNoIcon('提交账单申诉失败！');
 		}, (res) => {
 			if (res.code === 0) {
-				util.go('/pages/personal_center/complaint_details/complaint_details');
+				util.go('/pages/personal_center/complaint_details/complaint_details?details=' + JSON.stringify(this.data.details));
 			} else {
 				util.showToastNoIcon(res.message);
 			}

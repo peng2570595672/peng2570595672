@@ -178,6 +178,19 @@
 					"pathName": "pages/default/update_id_card/update_id_card",
 					"query": "carNo=贵A2ZM91",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/personal_center/order_complaint/order_complaint",
+					"pathName": "pages/personal_center/order_complaint/order_complaint",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/personal_center/complaint_details/complaint_details",
+					"pathName": "pages/personal_center/complaint_details/complaint_details",
+					"scene": null
 				}
 			]
 		}
