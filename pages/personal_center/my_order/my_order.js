@@ -5,6 +5,7 @@ let mta = require('../../../libs/mta_analysis.js');
 Page({
 	data: {
 		year: '',
+		isOwe: false, // 是否欠费
 		dropDownMenuTitle: ['', ''],
 		timeList: [],
 		totalPages: '',// 总页数
@@ -157,6 +158,15 @@ Page({
 				this.setData({
 					failBillList: this.data.failBillList
 				});
+				if (this.data.failBillList.length > 0) {
+					this.setData({
+						isOwe: true
+					});
+				} else {
+					this.setData({
+						isOwe: false
+					});
+				}
 			} else {
 				util.showToastNoIcon(res.message);
 			}

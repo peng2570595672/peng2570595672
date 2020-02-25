@@ -1,40 +1,49 @@
-<view class="my_order">
-	<dropdownmenu dropDownMenuTitle='{{dropDownMenuTitle}}' dropDownMenuFilterData='{{vehicleList}}' dropDownMenuDistrictData='{{timeList}}'  bind:selectedItem='selectedItem' />
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<view class="my_order {{isOwe ? 'is_owes' : ''}}">
+	<!--欠费通知开始-->
+	<view class="notice" wx:if="{{isOwe}}">
+		<view class="notice-box">
+			<view>你有累计欠费账单5条，欠费总额:4289</view>
+			<view>查看</view>
+		</view>
+	</view>
+	<!--欠费通知结束-->
+	<dropdownmenu isOwe="{{isOwe}}" dropDownMenuTitle='{{dropDownMenuTitle}}' dropDownMenuFilterData='{{vehicleList}}' dropDownMenuDistrictData='{{timeList}}'  bind:selectedItem='selectedItem' />
 	<!--	通行总额开始-->
-	<view class="total-cost">通行总额：625.20元；扣款失败：32.05元</view>
+	<view class="total-cost" wx:if="{{failBillList.length > 0 && successBillList.length > 0}}">
+		<view>共30条，通行总额：625.20元</view>
+		<view>因高速通行存在账单延时，以下查询结果为已出账的通行记录</view>
+		<view>未出账记录请过一段时间再次查询</view>
+	</view>
 	<!--	通行总额结束-->
 	<!--订单列表开始-->
 	<view class="order-list">
 		<view class="order-list-content" catchtap="goDetails" data-model="{{item}}"  wx:for="{{failBillList}}" wx:key="index">
 			<view class="order-list-top">
-				<view class="license-plate">{{item.vehPlate}}</view>
-				<view class="buckling-failure">扣款失败</view>
+				<view class="license-plate">{{item.vehPlate}}<text>[高速扣费]</text></view>
+				<view class="fail-money">{{item.totalMmout/100}}</view>
+			</view>
+			<view class="site">
+				{{item.stationName}}<text class="iconfont"></text>{{item.stationName}}
 			</view>
 			<view class="order-list-bottom">
-				<view class="start">{{item.inStationName}}</view>
-				<view class="end">{{item.stationName}}</view>
-				<view class="money">{{item.totalMmout/100}}</view>
+				<view class="accounting-time">出账时间：{{tools.substring(item.deductTime,5,16)}}</view>
+				<view class="processing-fail">扣款失败</view>
 			</view>
 		</view>
-		<view class="order-list-content" catchtap="goDetails" data-model="{{item}}" wx:for="{{successBillList}}" wx:key="index">
+		<view class="order-list-content" catchtap="goDetails" data-model="{{item}}"  wx:for="{{successBillList}}" wx:key="index">
 			<view class="order-list-top">
-				<view class="license-plate">{{item.vehPlate}}</view>
-				<view class="time">2019-11-10 15: 49 </view>
+				<view class="license-plate">{{item.vehPlate}}<text>[高速扣费]</text></view>
+				<view class="success-money">{{item.totalMmout/100}}</view>
+			</view>
+			<view class="site">
+				{{item.stationName}}<text class="iconfont"></text>{{item.stationName}}
 			</view>
 			<view class="order-list-bottom">
-				<view class="start">{{item.inStationName}}</view>
-				<view class="end">{{item.stationName}}</view>
-				<view class="money">{{item.totalMmout/100}}</view>
+				<view class="accounting-time">出账时间：{{tools.substring(item.deductTime,5,16)}}</view>
+				<view class="processing-time">扣款时间：{{tools.substring(item.deductTime,5,16)}}</view>
 			</view>
 		</view>
 	</view>
 	<!--订单列表结束-->
-	<!--底部补缴开始-->
-	<view class="payment " wx:if="{{failBillList.length > 0}}">
-		<view class="payment-prompt">欠费有可能被列为黑名单，影响您的高速通行，请及时补缴！</view>
-		<view>
-			<button catchtap="go">补缴</button>
-		</view>
-	</view>
-	<!--底部补缴结束-->
 </view>

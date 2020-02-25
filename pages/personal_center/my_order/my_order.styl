@@ -1,102 +1,95 @@
 @import "../../../style/base.styl";
 page
-	background #FCFCFD
+	min-height 100vh
+	background #fff
 .my_order
-	padding-top 130rpx
-	padding-bottom 260rpx
+	padding-top 88rpx
+	// 欠费通知
+	.notice
+		position fixed
+		top 0
+		z-index 999
+		width 100%
+		height 120rpx
+		background #F4F4F4
+		.notice-box
+			background #fff
+			height 60rpx
+			line-height 60rpx
+			display flex
+			padding 0 30rpx
+			margin 30rpx
+			&>view:first-child
+				flex 8
+				font-size 24rpx
+				color #FF563C
+			&>view:last-child
+				flex 2
+				font-size 20rpx
+				color #6D7278
+				text-align right
 	//通行总额
 	.total-cost
-		height 60rpx
-		background #f6f6f6
+		padding 20rpx 0 18rpx
 		font-size 24rpx
-		color #A9A9AC
-		line-height 60rpx
-		text-indent 58rpx
+		color $fontColor9
+		line-height 40rpx
+		text-indent 40rpx
+		border-bottom 1rpx solid #E7E7E7
+		&>view:first-child
+			color $fontColor6
+			font-weight 600
 	//订单列表
 	.order-list
-		padding 10rpx 34rpx 0
 		.order-list-content
-			padding 0 24rpx
-			height 184rpx
-			background #fff
-			box-shadow 4rpx 4rpx 46rpx 0px rgba(126,132,156,0.1)
-			border-radius 34rpx
-			margin-top 20rpx
+			padding 34rpx 40rpx 28rpx
+			border-bottom 1rpx solid #E7E7E7
 			.order-list-top
 				display flex
-				height 90rpx
-				line-height 90rpx
-				border-bottom 1rpx solid #F1F1F1
-				padding-right 15rpx
+				height 64rpx
+				line-height 56rpx
 				.license-plate
-					flex 5
+					flex 6
 					font-size 40rpx
 					font-weight 500
 					color $fontColor3
-				.time
-					flex 5
-					font-size 24rpx
-					color $fontColor9
+					text
+						vertical-align middle
+						font-size 20rpx
+						color #39A6F8
+						margin-left 28rpx
+				.fail-money,
+				.success-money
+					flex 4
+					font-size 40rpx
+					color #FF563C
+					line-height 64rpx
 					text-align right
-				.buckling-failure
-					font-size 28rpx
-					color #FF0000
+				.success-money
+					color #2FB565
+			.site
+				font-size 24rpx
+				line-height 40rpx
+				color $fontColor6
+				padding 10rpx 0
+				text::after
+					content '\e651'
+					color $fontColor6
+					font-size 24rpx
 			.order-list-bottom
 				display flex
-				align-items center
-				height 92rpx
-				line-height 92rpx
-				font-size 28rpx
+				font-size 24rpx
 				color $fontColor9
-				padding-right 15rpx
-				.start,
-				.end
-					flex 3.5
-					display flex
-					align-items center
-					height 92rpx
-					line-height 92rpx
-					&::before
-						display flex
-						align-items center
-						justify-content center
-						width 28rpx
-						height 28rpx
-						font-size 20rpx
-						color #fff
-						border-radius 28rpx
-						background #FFAF9A
-						content '上'
-						margin-right 10rpx
-				.end
-					&::before
-						content '下'
-						background #8CD5B5
-				.money
-					flex 3
-					font-weight bold
-					font-size 48rpx
-					color #2FB565
+				line-height 30rpx
+				.accounting-time,
+				.processing-fail,
+				.processing-time
+					flex 5
+				.processing-fail
 					text-align right
-	//底部补缴
-	.payment
-		position fixed
-		left 0
-		bottom 0
-		width 100%
-		height 240rpx
-		font-size 24rpx
-		color #9D9DA0
-		text-align center
-		background #fff
-		.payment-prompt
-			padding 34rpx 0 20rpx
-		button
-			width 84%
-			height 98rpx
-			line-height 98rpx
-			background linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
-			box-shadow 0px 8rpx 10rpx 0px rgba(132,209,87,0.2)
-			border-radius 50rpx
-			font-size 40rpx
-			color #FFFFFF
+					color #FF563C
+					line-height 40rpx
+				.processing-time
+					text-align right
+.is_owes
+	padding-top 208rpx

@@ -12,6 +12,9 @@ Component({
 		dropDownMenuDistrictData: {
 			type: Array,
 			value: []
+		},
+		isOwe: {
+			type: Boolean
 		}
 	},
 	data: {
@@ -34,6 +37,7 @@ Component({
 	},
 	methods: {
 		tapDistrictNav: function (e) {
+			console.log(this.data.isOwe)
 			let date = new Date();
 			const year = date.getFullYear();
 			const month = date.getMonth();
