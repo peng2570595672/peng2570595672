@@ -172,6 +172,10 @@ Page({
 			}
 		}, app.globalData.userInfo.accessToken);
 	},
+	// 查看失败账单列表
+	goArrearsBill () {
+		util.go('/pages/personal_center/arrears_bill/arrears_bill');
+	},
 	// 账单详情
 	goDetails (e) {
 		let model = e.currentTarget.dataset.model;

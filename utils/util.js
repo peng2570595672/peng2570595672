@@ -69,7 +69,7 @@ function parseBase64(message) {
  * @param path 路径
  * @param token token
  */
-function signature(params, path, token = '') {
+function signature(params, path, token = '',  timestamp, nonceStr) {
 	// 先以对象key排序
 	let keys = Object.keys(params).sort();
 	let sign = '';
@@ -97,16 +97,25 @@ function signature(params, path, token = '') {
 
 	// 拼接token
 	sign += token ? `accessToken=${token}&` : '';
+	sign += `timestamp=${timestamp}&`;
+	sign += `nonceStr=${nonceStr}&`;
 	// 拼接key
 	sign += 'key=' + app.globalData.plamKey;
 	return md5Encrypt(sign);
 }
 
 // 签名 二发调用
-function getSignature(params, path, token = '') {
-	return signature(params, path, token)
+function getSignature(params, path, token = '', timestamp, nonceStr) {
+	return signature(params, path, token, timestamp, nonceStr)
 }
-
+// js 生成uuid
+function getUuid() {
+	return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+		var r = Math.random() * 16 | 0,
+			v = c == 'x' ? r : (r & 0x3 | 0x8);
+		return v.toString(16);
+	});
+}
 /**
  *  从网络获取数据
  * @param json 请求参数
@@ -136,11 +145,17 @@ function getDataFromServer(path, params, fail, success, token = '', complete, me
 		}
 	};
 	let header = {};
+	// timestamp 时间戳  nonceStr随机字符串 uuid
+	let timestamp,nonceStr;
+	nonceStr = getUuid();
+	timestamp = parseInt(new Date().getTime() /1000);
 	// POST请求
 	if (method === 'POST') {
 		// 设置签名
 		header = {
-			sign: getSignature(params, path, token)
+			sign: getSignature(params, path, token, timestamp, nonceStr),
+			timestamp: timestamp,
+			nonceStr: nonceStr
 		};
 		// 设置请求体
 		obj['data'] = params;
@@ -154,7 +169,9 @@ function getDataFromServer(path, params, fail, success, token = '', complete, me
 		obj.url = url;
 		// 设置签名
 		header = {
-			sign: getSignature({}, obj.url.replace(app.globalData.host, ''), token)
+			sign: getSignature({}, obj.url.replace(app.globalData.host, ''), token, timestamp, nonceStr),
+			timestamp:timestamp,
+			nonceStr:nonceStr
 		};
 	}
 	// 设置token

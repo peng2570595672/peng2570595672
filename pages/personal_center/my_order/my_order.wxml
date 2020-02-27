@@ -1,7 +1,7 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="my_order {{isOwe ? 'is_owes' : ''}}">
 	<!--欠费通知开始-->
-	<view class="notice" wx:if="{{isOwe}}">
+	<view class="notice" wx:if="{{isOwe}}" catchtap="goArrearsBill">
 		<view class="notice-box">
 			<view>你有累计欠费账单5条，欠费总额:4289</view>
 			<view>查看</view>
