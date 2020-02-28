@@ -160,7 +160,7 @@ Page({
 			needSignContract: true // 是否需要签约 true-是，false-否 允许值: true, false
 		};
 		// 银行卡 3.0
-		if (this.data.choiceObj.isBankcard === 1) {
+		if (this.data.choiceObj.productProcess === 3) {
 			params.dataType = '345';
 			params['bankAccountNo'] = this.data.bankCardIdentifyResult.ocrObject.cardNo; // 银行卡号 【dataType包含5】
 			params['bankCardUrl'] = this.data.bankCardIdentifyResult.fileUrl; // 银行卡图片地址 【dataType包含5】
@@ -210,7 +210,7 @@ Page({
 		// 是否接受协议
 		let isOk = this.data.choiceObj ? true : false;
 		// 银行卡验证
-		if (isOk && this.data.choiceObj.isBankcard === 1) {
+		if (isOk && this.data.choiceObj.productProcess === 5) {
 			console.log(1);
 			isOk = isOk && this.data.bankCardIdentifyResult.fileUrl;
 			isOk = isOk && this.data.bankCardIdentifyResult.ocrObject.cardNo && util.luhmCheck(this.data.bankCardIdentifyResult.ocrObject.cardNo);

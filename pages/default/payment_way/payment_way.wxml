@@ -26,9 +26,9 @@
 			</view>
 			<!--	回显支付方式结束-->
 			<!--	文本提示开始-->
-			<view class="tips" wx:if="{{choiceObj && choiceObj.isBankcard !== 0}}">* 签约成功后需扣取0.01元作为账户验证，随即退回</view>
+			<view class="tips" wx:if="{{choiceObj && choiceObj.fenCheck === 1}}">* 签约成功后需扣取0.01元作为账户验证，随即退回</view>
 			<!--	文本提示结束-->
-			<block wx:if="{{choiceObj && choiceObj.isBankcard !== 0}}">
+			<block wx:if="{{choiceObj && choiceObj.productProcess === 3}}">
 				<!--	扣款方式标题开始-->
 				<view class="title">银行卡号</view>
 				<!--	扣款方式标题结束-->
