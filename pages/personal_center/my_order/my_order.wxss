@@ -109,3 +109,16 @@ page {
 .is_owes {
   padding-top: 208rpx;
 }
+.empty {
+  text-align: center;
+  color: #66666d;
+  font-size: 32rpx;
+}
+.empty image {
+  width: 192rpx;
+  height: 242rpx;
+  margin: 23.5vh 0 9.5vh;
+}
+.empty view {
+  line-height: 44rpx;
+}
