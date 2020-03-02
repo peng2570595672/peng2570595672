@@ -1,5 +1,5 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
-<view class="my_order {{isOwe ? 'is_owes' : ''}}" wx:if="{{failBillList.length > 0 && successBillList.length > 0}}">
+<view class="my_order {{isOwe ? 'is_owes' : ''}}" wx:if="{{failBillList.length > 0 || successBillList.length > 0}}">
 	<!--欠费通知开始-->
 	<view class="notice" wx:if="{{isOwe}}" catchtap="goArrearsBill">
 		<view class="notice-box">
