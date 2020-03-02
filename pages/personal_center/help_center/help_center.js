@@ -8,7 +8,7 @@ Page({
 		tabTitle: [],// tab列表
 		totalPages: '',// 总页数
 		page: 1,// 当前页
-		pageSize: 3,// 每页多少条数据
+		pageSize: 5,// 每页多少条数据
 		classifyId: '',// 问题分类id
 		tabList: '',// 问题列表
 		showDetailMask: false,// 弹窗
