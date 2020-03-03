@@ -110,7 +110,6 @@ Page({
 		this.data.orderList.map((item) => {
 			channel.push(item.etcChannelCode);
 		});
-		console.log(channel)
 		// 数组去重
 		let hash = [];
 		channel = channel.reduce(function (item1, item2) {
