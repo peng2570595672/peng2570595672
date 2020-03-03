@@ -3,7 +3,7 @@
 	<!--欠费通知开始-->
 	<view class="notice" wx:if="{{isOwe}}" catchtap="goArrearsBill">
 		<view class="notice-box">
-			<view>你有累计欠费账单5条，欠费总额:4289</view>
+			<view>你有累计欠费账单{{failBillMessage.count}}条，欠费总额:{{failBillMessage.etcMoney/100}}</view>
 			<view>查看</view>
 		</view>
 	</view>

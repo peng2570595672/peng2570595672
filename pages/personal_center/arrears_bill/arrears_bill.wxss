@@ -111,7 +111,7 @@ page {
   height: 80rpx;
   background: #f4f4f4;
 }
-.my_order .prompt viewtransact-schedule {
+.my_order .prompt view {
   width: 100%;
   height: 80rpx;
   background: #ff563c;

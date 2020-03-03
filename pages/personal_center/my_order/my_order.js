@@ -28,6 +28,7 @@ Page({
 		list: [],
 		orderList: [],
 		failBillList: [],
+		failBillMessage: '',
 		successBillList: [],
 		vehicleList: ['全部车辆'],
 		chooseTime: '',
@@ -92,6 +93,7 @@ Page({
 						this.getFailBill(item.vehPlates);
 						this.getSuccessBill(item.vehPlates,year + util.formatNumber(month));
 					});
+					this.getFailBillMessage();
 				} else {
 					// 没有激活车辆
 				}
@@ -101,6 +103,35 @@ Page({
 		}, app.globalData.userInfo.accessToken, () => {
 			util.hideLoading();
 		});
+	},
+	// 获取失败账单信息
+	getFailBillMessage (vehPlates) {
+		let channel = [];
+		this.data.orderList.map((item) => {
+			channel.push(item.etcChannelCode);
+		});
+		console.log(channel)
+		// 数组去重
+		let hash = [];
+		channel = channel.reduce(function (item1, item2) {
+			hash[item2] ? '' : hash[item2] = true && item1.push(item2);
+			return item1;
+		}, []);
+		let params = {
+			channels: channel
+		};
+		util.getDataFromServer('consumer/etc/get-fail-bill-info', params, () => {
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				this.setData({
+					failBillMessage: res.data
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken);
 	},
 	// 成功账单列表
 	getSuccessBill (vehPlates,month) {
@@ -120,7 +151,7 @@ Page({
 					successBillList: this.data.successBillList.concat(res.data)
 				});
 				// 数组去重
-				var hash = [];
+				let hash = [];
 				this.data.successBillList = this.data.successBillList.reduce(function (item1, item2) {
 					hash[item2['id']] ? '' : hash[item2['id']] = true && item1.push(item2);
 					return item1;
@@ -150,7 +181,7 @@ Page({
 					failBillList: this.data.failBillList.concat(res.data)
 				});
 				// 数组去重
-				var hash = [];
+				let hash = [];
 				this.data.failBillList = this.data.failBillList.reduce(function (item1, item2) {
 					hash[item2['id']] ? '' : hash[item2['id']] = true && item1.push(item2);
 					return item1;
