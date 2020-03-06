@@ -57,18 +57,23 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
-				this.setData({
-					failBillList: this.data.failBillList.concat(res.data)
+				let total = 0;
+				res.data.map(item => {
+					total += item.etcMoney;
 				});
-				// 数组去重
-				var hash = [];
-				this.data.failBillList = this.data.failBillList.reduce(function (item1, item2) {
-					hash[item2['id']] ? '' : hash[item2['id']] = true && item1.push(item2);
-					return item1;
-				}, []);
+				console.log(total);
+				let order = {};
+				order.vehPlates = vehPlates;
+				order.total = total;
+				order.list = res.data;
+				this.data.failBillList.push(order);
+				console.log(this.data.failBillList);
 				this.setData({
 					failBillList: this.data.failBillList
 				});
+				if (this.data.failBillList.length === 0) {
+					util.go('/pages/personal_center/my_order/my_order');
+				}
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -77,10 +82,60 @@ Page({
 	// 账单详情
 	goDetails (e) {
 		let model = e.currentTarget.dataset.model;
+		console.log(model);
 		util.go('/pages/personal_center/order_details/order_details?details=' + JSON.stringify(model));
 	},
-	// 去补缴
-	go () {
-		util.go('/pages/personal_center/payment_confirmation/payment_confirmation');
+	// 补缴
+	payment (e) {
+		let model = e.currentTarget.dataset.model;
+		console.log(model);
+		let vehPlateMsg = this.data.orderList.find(item => {
+			return item.vehPlates === model.vehPlates;
+		});
+		let idList = [];
+		model.list.map(item => {
+			idList.push(item.id);
+		});
+		console.log(idList);
+		console.log(vehPlateMsg);
+		util.showLoading();
+		let params = {
+			billIdList: idList,// 账单id集合，采用json数组格式[xx,xx]
+			payChannelId: vehPlateMsg.payChannelId,// 支付渠道id   payChannelId
+			vehPlates: model.vehPlates,// 车牌号
+			payAmount: model.total / 100,// 补缴金额
+			etcCardType: vehPlateMsg.obuCardType// 卡类型   obuCardType
+		};
+		util.getDataFromServer('consumer/order/bill-pay', params, () => {
+			util.showToastNoIcon('获取支付参数失败！');
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				wx.requestPayment({
+					nonceStr: res.data.nonceStr,
+					package: res.data.package,
+					paySign: res.data.paySign,
+					signType: res.data.signType,
+					timeStamp: `${res.data.timeStamp}`,
+					success: (res) => {
+						if (res.errMsg === 'requestPayment:ok') {
+							this.getMyETCList();
+							// 差查询详情接口
+						} else {
+							util.showToastNoIcon('支付失败！');
+						}
+					},
+					fail: (res) => {
+						if (res.errMsg !== 'requestPayment:fail cancel') {
+							util.showToastNoIcon('支付失败！');
+						}
+					}
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
 	}
 });

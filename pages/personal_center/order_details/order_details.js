@@ -9,6 +9,7 @@ Page({
 		this.setData({
 			details: JSON.parse(options.details)
 		});
+		// 差查询详情接口
 		this.getMyETCList();
 	},
 	// 去账单说明
@@ -45,10 +46,10 @@ Page({
 		let vehPlateMsg = this.data.orderList.find(item => {
 			return item.vehPlates === this.data.details.vehPlate;
 		});
-		console.log(vehPlateMsg)
+		console.log(vehPlateMsg);
 		util.showLoading();
 		let params = {
-			billIdList: this.data.details.id,// 账单id集合，采用json数组格式[xx,xx]
+			billIdList: [this.data.details.id],// 账单id集合，采用json数组格式[xx,xx]
 			payChannelId: vehPlateMsg.payChannelId,// 支付渠道id   payChannelId
 			vehPlates: this.data.details.vehPlate,// 车牌号
 			payAmount: this.data.details.etcMoney / 100,// 补缴金额
@@ -57,7 +58,28 @@ Page({
 		util.getDataFromServer('consumer/order/bill-pay', params, () => {
 			util.showToastNoIcon('获取支付参数失败！');
 		}, (res) => {
+			util.hideLoading();
 			if (res.code === 0) {
+				wx.requestPayment({
+					nonceStr: res.data.nonceStr,
+					package: res.data.package,
+					paySign: res.data.paySign,
+					signType: res.data.signType,
+					timeStamp: `${res.data.timeStamp}`,
+					success: (res) => {
+						if (res.errMsg === 'requestPayment:ok') {
+							this.getMyETCList();
+							// 差查询详情接口
+						} else {
+							util.showToastNoIcon('支付失败！');
+						}
+					},
+					fail: (res) => {
+						if (res.errMsg !== 'requestPayment:fail cancel') {
+							util.showToastNoIcon('支付失败！');
+						}
+					}
+				});
 			} else {
 				util.showToastNoIcon(res.message);
 			}

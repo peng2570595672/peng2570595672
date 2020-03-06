@@ -1,10 +1,10 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="my_order">
 	<!--订单列表开始-->
-	<view class="order-list" wx:for="{{3}}" wx:key="index">
+	<view class="order-list" wx:for="{{failBillList}}" wx:key="index">
 		<!--账单信息列表开始-->
 		<view class="bill-list">
-			<view class="order-list-content" catchtap="goDetails" data-model="{{item}}"  wx:for="{{failBillList}}" wx:key="index">
+			<view class="order-list-content" catchtap="goDetails" data-model="{{item}}"  wx:for="{{item.list}}" wx:key="index">
 				<view class="order-list-top">
 					<view class="license-plate">{{item.vehPlate}}<text>[高速扣费]</text></view>
 					<view class="fail-money">{{item.totalMmout/100}}</view>
@@ -20,10 +20,10 @@
 		</view>
 		<!--账单信息列表结束-->
 		<!--欠费总计开始-->
-		<view class="total-arrears ">
-			<view class="licence-plate">贵A93J97</view>
-			<view class="arrears">累计欠费：500.00元</view>
-			<view class="btn"><button>补费</button></view>
+		<view class="total-arrears " wx:if="{{item.list.length > 0}}">
+			<view class="licence-plate">{{item.vehPlates}}</view>
+			<view class="arrears">累计欠费：{{item.total/100}}元</view>
+			<view class="btn"><button catchtap="payment" data-model="{{item}}">补费</button></view>
 		</view>
 		<!--欠费总计结束-->
 	</view>

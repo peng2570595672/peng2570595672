@@ -112,7 +112,7 @@ Page({
 		});
 		// 数组去重
 		let hash = [];
-		channel = channel.reduce(function (item1, item2) {
+		channel = channel.reduce((item1, item2) => {
 			hash[item2] ? '' : hash[item2] = true && item1.push(item2);
 			return item1;
 		}, []);
@@ -151,7 +151,7 @@ Page({
 				});
 				// 数组去重
 				let hash = [];
-				this.data.successBillList = this.data.successBillList.reduce(function (item1, item2) {
+				this.data.successBillList = this.data.successBillList.reduce((item1, item2) => {
 					hash[item2['id']] ? '' : hash[item2['id']] = true && item1.push(item2);
 					return item1;
 				}, []);
@@ -181,7 +181,7 @@ Page({
 				});
 				// 数组去重
 				let hash = [];
-				this.data.failBillList = this.data.failBillList.reduce(function (item1, item2) {
+				this.data.failBillList = this.data.failBillList.reduce((item1, item2) => {
 					hash[item2['id']] ? '' : hash[item2['id']] = true && item1.push(item2);
 					return item1;
 				}, []);
