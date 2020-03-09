@@ -151,8 +151,8 @@ Page({
 			areaCode: this.data.choiceObj.areaCode,
 			shopId: this.data.choiceObj.shopId,
 			idCardStatus: this.data.orderInfo['idCard'].idCardStatus,
-			idCardValidDate: this.data.orderInfo['idCard'].idCardValidDate,
-			idCardAddress: this.data.orderInfo['idCard'].idCardAddress,
+			idCardValidDate: this.data.orderInfo['idCard'].idCardValidDate ? this.data.orderInfo['idCard'].idCardValidDate : this.data.idCardBack.ocrObject.validDate,
+			idCardAddress: this.data.orderInfo['idCard'].idCardAddress ? this.data.orderInfo['idCard'].idCardAddress : this.data.idCardFace.ocrObject.validDate,
 			idCardTrueName: this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含4】
 			idCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含4】
 			idCardPositiveUrl: this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含4】

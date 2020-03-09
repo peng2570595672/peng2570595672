@@ -5,7 +5,7 @@
 		<view class="deduction-amount-box">
 			<view class="deduction-amount-title">扣费金额</view>
 			<view>-{{details.totalMmout/100}}</view>
-			<view class="failure-prompted" wx:if="{{details.deductStatus === 2}}">扣款失败，请检查余额是否充足</view>
+			<view class="failure-prompted" wx:if="{{details.deductStatus === 2}}">{{details.errCodeDes}}</view>
 		</view>
 	</view>
 	<!--扣费金额结束-->
@@ -21,7 +21,7 @@
 		</view>
 		<view>
 			<view>微信减免</view>
-			<view>0.00</view>
+			<view>{{details.wxDiscountAmount}}</view>
 		</view>
 		<view>
 			<view>扣费类型</view>

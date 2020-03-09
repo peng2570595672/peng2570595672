@@ -83,7 +83,7 @@ Page({
 	goDetails (e) {
 		let model = e.currentTarget.dataset.model;
 		console.log(model);
-		util.go('/pages/personal_center/order_details/order_details?details=' + JSON.stringify(model));
+		util.go(`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
 	},
 	// 补缴
 	payment (e) {

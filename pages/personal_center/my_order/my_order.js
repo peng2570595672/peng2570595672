@@ -211,7 +211,7 @@ Page({
 		let model = e.currentTarget.dataset.model;
 		// 统计点击事件
 		mta.Event.stat('018',{});
-		util.go('/pages/personal_center/order_details/order_details?details=' + JSON.stringify(model));
+		util.go(`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
 	},
 	// 去补缴
 	go () {

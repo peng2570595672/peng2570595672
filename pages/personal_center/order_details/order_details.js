@@ -6,16 +6,35 @@ Page({
 		details: ''
 	},
 	onLoad (options) {
-		this.setData({
-			details: JSON.parse(options.details)
-		});
-		// 差查询详情接口
+		this.setData({details: options});
+		this.getBillDetail();
 		this.getMyETCList();
 	},
 	// 去账单说明
 	goOrderInstructions () {
 		util.go('/pages/personal_center/order_instructions/order_instructions?details=' + JSON.stringify(this.data.details));
 	},
+	// 查询账单详情
+	getBillDetail () {
+		util.showLoading();
+		let params = {
+			channel: this.data.details.channel,
+			id: this.data.details.id,
+			month: this.data.details.month
+		};
+		util.getDataFromServer('consumer/etc/get-bill-by-id', params, () => {
+			util.showToastNoIcon('获取账单详情失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				this.setData({details: res.data});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
+	// 查询ETC列表
 	getMyETCList () {
 		util.showLoading();
 		util.getDataFromServer('consumer/order/my-etc-list', {}, () => {
