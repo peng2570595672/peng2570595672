@@ -2,21 +2,29 @@
 	<view wx:if="{{list && list.length > 0}}">
 		<view class="list-box">
 			<!--通用券开始-->
-			<view class="list-content-box" wx:for="{{5}}" wx:key="index">
+			<view class="list-content-box" wx:for="{{list}}" wx:key="index">
 				<!--通用券介绍开始-->
-				<view class="list {{isEffective?'':'invalid'}}">
-					<view class="left"><sup>￥</sup>500</view>
+				<view class="list {{isEffective?'':'invalid'}} {{item.couponType === 2 && item.couponMode === 1 ? 'general-notes' : ''}} {{item.couponType === 1 && item.couponMode === 1 ? 'deduction-card' : ''}}">
+					<view class="left" wx:if="{{item.couponMode === 1}}">
+						<sup>￥</sup>{{item.faceAmount/100}}
+					</view>
+					<view class="left" wx:if="{{item.couponMode === 2}}">
+						{{item.discountRate*100}}<sup>折</sup>
+					</view>
 					<view class="center">
-						<view>通用抵扣券</view>
-						<view class="limit" wx:if="{{index === 2}}">满1000元可用</view>
-						<view>有效期：2019-12-09</view>
+						<view>{{item.shortName}}</view>
+						<view class="limit" wx:if="{{item.couponType === 2 && item.couponMode === 1}}">满{{item.doorAmount}}元可用</view>
+						<view>有效期：{{item.expireTime}}</view>
 					</view>
 					<view class="right">
-						<view><button>抵扣券</button></view>
+						<view>
+							<button wx:if="{{item.couponType === 2}}">抵扣券</button>
+							<text wx:else>剩余次数{{item.totalCount}}</text>
+						</view>
 						<view catchtap="go" class="iconfont">查看详情</view>
 						<view class="overdue">
-							<!--已使用 <image src="https://file.cyzl.com/g001/M05/0F/0E/oYYBAF4Fn6qAG5GnAAA6ni5gcFA987.svg"></image>-->
-							<!--已过期<image src="https://file.cyzl.com/g001/M05/0F/0C/oYYBAF4Fn2CADCyAAAA8iqFl6PA886.svg"></image>-->
+							<image wx:if="{{item.status === 2}}" src="https://file.cyzl.com/g001/M05/0F/0E/oYYBAF4Fn6qAG5GnAAA6ni5gcFA987.svg"></image>
+							<image wx:if="{{item.status === 8}}" src="https://file.cyzl.com/g001/M05/0F/0C/oYYBAF4Fn2CADCyAAAA8iqFl6PA886.svg"></image>
 						</view>
 					</view>
 				</view>
@@ -24,12 +32,12 @@
 			</view>
 			<!--通用券结束-->
 		</view>
-		<!--添加卡券开始-->
-		<view class="add-coupon">
-			<text catchtap="addCoupon">添加卡券</text>
-		</view>
-		<!--添加卡券结束-->
 	</view>
+	<!--添加卡券开始-->
+	<view class="add-coupon">
+		<text catchtap="addCoupon">添加卡券</text>
+	</view>
+	<!--添加卡券结束-->
 	<!--没有卡券开始-->
 	<view class="empty" wx:if="{{list && list.length === 0}}">
 		<image src="https://file.cyzl.com/g001/M05/07/08/oYYBAF4DI1KAdQQAAABMmqEDnsc709.svg"></image>
@@ -37,14 +45,14 @@
 	</view>
 	<!--没有卡券结束-->
 	<!--查看过期券开始-->
-	<view class="check-overdue {{list.length === 0 ? 'no-list':''}} {{windowHeight <(bottomHeight+listHeight) ? 'no-fixed':''}}" catchtap="checkVoucher"><text class="iconfont">{{isEffective?'查看无效电子券':'查看有效电子券'}}</text></view>
+	<view class="check-overdue {{list.length === 0 ? 'no-list':''}} {{windowHeight <(bottomHeight+listHeight) ? 'no-fixed':''}}"><text class="iconfont" catchtap="checkVoucher">{{isEffective?'查看无效电子券':'查看有效电子券'}}</text></view>
 	<!--查看过期券结束-->
 	<!--添加卡券弹窗开始-->
 	<view wx:if="{{showAddCoupon}}" class="mask">
 		<view class="cash-card-voucher">
 			<view class="close iconfont" catchtap="close"></view>
 			<view class="conversion-code">
-				<input type="text" placeholder="请输入兑换码"/>
+				<input type="text" placeholder="请输入兑换码"  value="{{exchangeCode}}" bindinput="exchangeCodeValueChange"/>
 				<text class="iconfont" catchtap="getExchangeCodeFromScan"></text>
 			</view>
 			<view class="exchange" catchtap="exchange">立即兑换</view>
@@ -65,17 +73,34 @@
 				</view>
 			</view>
 			<view class="ticket">
-				<view class="left"><sup>￥</sup>500</view>
+				<!--<view class="left"><sup>￥</sup>500</view>-->
+				<!--<view class="center">-->
+					<!--<view>通用抵扣券</view>-->
+					<!--<view class="limit">满1000元可用</view>-->
+					<!--<view>有效期：2019-12-09</view>-->
+				<!--</view>-->
+				<!--<view class="right">-->
+					<!--<view><button>剩余次数8/10</button></view>-->
+				<!--</view>-->
+				<view class="left" wx:if="{{exchangeData.couponMode === 1}}">
+					<sup>￥</sup>{{exchangeData.faceAmount/100}}
+				</view>
+				<view class="left" wx:if="{{exchangeData.couponMode === 2}}">
+					{{exchangeData.discountRate*100}}<sup>折</sup>
+				</view>
 				<view class="center">
-					<view>通用抵扣券</view>
-					<view class="limit">满1000元可用</view>
-					<view>有效期：2019-12-09</view>
+					<view>{{exchangeData.shortName}}</view>
+					<view class="limit" wx:if="{{exchangeData.couponType === 2 && exchangeData.couponMode === 1}}">满{{exchangeData.doorAmount}}元可用</view>
+					<view>有效期：{{exchangeData.expireTime}}</view>
 				</view>
 				<view class="right">
-					<view><button>剩余次数8/10</button></view>
+					<view>
+						<button wx:if="{{exchangeData.couponType === 2}}">抵扣券</button>
+						<text wx:else>剩余次数{{exchangeData.totalCount}}</text>
+					</view>
 				</view>
 			</view>
-			<view class="go-package" catchtap="goPackage">放入卡包</view>
+			<view class="go-package" catchtap="close">放入卡包</view>
 		</view>
 	</view>
 	<!--https://file.cyzl.com/g001/M05/06/F5/oYYBAF4DIO2AXDkLAAApZ90llo4270.png  绿-->

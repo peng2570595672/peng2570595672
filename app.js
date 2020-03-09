@@ -1,6 +1,8 @@
 // 是否为测试 TODO
 const IS_TEST = true;
 const util = require('./utils/util.js');
+// 数据统计
+let mta = require('./libs/mta_analysis.js');
 App({
 	globalData: {
 		host: IS_TEST ? 'https://etctest.cyzl.com/etc2-client' : 'https://etc.cyzl.com', // 接口主机地址 正式 etc.cyzl.com/ 测试 etctest.cyzl.com/
@@ -19,6 +21,16 @@ App({
 		}
 	},
 	onLaunch (options) {
+		// 统计逻辑开始
+		mta.App.init({
+			'appID': '500710698',
+			'eventID': '500710700',
+			'autoReport': true,// 每个页面自动上报
+			'statParam': false,
+			'ignoreParams': [],
+			'lauchOpts': options
+		});
+		// 统计逻辑结束
 		util.setApp(this);
 		// 获取是否为iphone x系列
 		wx.getSystemInfo({

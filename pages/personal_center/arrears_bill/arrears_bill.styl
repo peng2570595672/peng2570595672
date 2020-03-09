@@ -1,46 +1,15 @@
 @import "../../../style/base.styl";
 page
 	min-height 100vh
-	background #fff
+	background #F4F4F4
 .my_order
-	padding-top 88rpx
-	// 欠费通知
-	.notice
-		position fixed
-		top 0
-		z-index 999
-		width 100%
-		height 120rpx
-		background #F4F4F4
-		.notice-box
-			background #fff
-			height 60rpx
-			line-height 60rpx
-			display flex
-			padding 0 30rpx
-			margin 30rpx
-			&>view:first-child
-				flex 8
-				font-size 24rpx
-				color #FF563C
-			&>view:last-child
-				flex 2
-				font-size 20rpx
-				color #6D7278
-				text-align right
-	//通行总额
-	.total-cost
-		padding 20rpx 0 18rpx
-		font-size 24rpx
-		color $fontColor9
-		line-height 40rpx
-		text-indent 40rpx
-		border-bottom 1rpx solid #E7E7E7
-		&>view:first-child
-			color $fontColor6
-			font-weight 600
+	padding 58rpx 30rpx 90rpx
 	//订单列表
-	.order-list
+	.bill-list
+		box-shadow 4rpx 4rpx 46rpx 0px rgba(126,132,156,0.1)
+		border-radius 10rpx
+		background #fff
+		// 账单信息列表
 		.order-list-content
 			padding 34rpx 40rpx 28rpx
 			border-bottom 1rpx solid #E7E7E7
@@ -91,16 +60,47 @@ page
 					line-height 40rpx
 				.processing-time
 					text-align right
-.is_owes
-	padding-top 208rpx
-	// 没有卡券
-.empty
-	text-align center
-	color $fontColor6
-	font-size 32rpx
-	image
-		width 192rpx
-		height 242rpx
-		margin 23.5vh 0 9.5vh
-	view
-		line-height 44rpx
+	// 欠费总计
+	.total-arrears
+		display flex
+		padding 20rpx 0 80rpx
+		font-size 28rpx
+		line-height 64rpx
+		color $fontColor6
+		.licence-plate
+			flex 2
+		.arrears
+			flex 5
+			text-align right
+		.btn
+			flex 3
+			button
+				float right
+				padding 0
+				margin 0
+				width 158rpx
+				height 64rpx
+				line-height 64rpx
+				font-size 32rpx
+				font-weight 500
+				color #fff
+				background linear-gradient(45deg,rgba(20,172,105,1) 0%,rgba(132,209,87,1) 100%)
+				box-shadow 0px 8rpx 10rpx 0px rgba(132,209,87,0.2)
+				border-radius 49rpx
+	// 提示
+	.prompt
+		position fixed
+		bottom 0
+		left 0
+		width 100%
+		height 80rpx
+		background #F4F4F4
+		view
+			width 100%
+			height 80rpx
+			background #FF563C
+			opacity .52
+			text-align center
+			font-size 24rpx
+			line-height 80rpx
+			color rgba(244,244,244,1)

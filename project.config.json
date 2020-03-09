@@ -160,15 +160,15 @@
 				},
 				{
 					"id": 9,
-					"name": "pages/personal_center/member_benefits/member_benefits",
-					"pathName": "pages/personal_center/member_benefits/member_benefits",
+					"name": "pages/default/receiving_address/receiving_address",
+					"pathName": "pages/default/receiving_address/receiving_address",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": 10,
-					"name": "pages/personal_center/servicec_card_voucher/servicec_card_voucher",
-					"pathName": "pages/personal_center/servicec_card_voucher/servicec_card_voucher",
+					"name": "pages/personal_center/my_order/my_order",
+					"pathName": "pages/personal_center/my_order/my_order",
 					"query": "",
 					"scene": null
 				},
@@ -177,6 +177,19 @@
 					"name": "pages/default/upload_car_no/upload_car_no",
 					"pathName": "pages/default/update_id_card/update_id_card",
 					"query": "carNo=贵A2ZM91",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/personal_center/order_complaint/order_complaint",
+					"pathName": "pages/personal_center/order_complaint/order_complaint",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/personal_center/complaint_details/complaint_details",
+					"pathName": "pages/personal_center/complaint_details/complaint_details",
 					"scene": null
 				}
 			]

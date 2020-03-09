@@ -3,6 +3,8 @@
  * @desc 签约成功
  */
 const util = require('../../../utils/util.js');
+// 数据统计
+let mta = require('../../../libs/mta_analysis.js');
 Page({
 	data: {
 	},
@@ -12,9 +14,15 @@ Page({
 	},
 	// 上传行驶证
 	onClickUploadDrivingLicenseHandle () {
+		// 统计点击事件
+		mta.Event.stat('033',{});
 		util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license?type=3');
 	},
 	onClickHandle () {
 		util.goHome();
+	},
+	onUnload () {
+		// 统计点击事件
+		mta.Event.stat('034',{});
 	}
 });

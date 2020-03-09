@@ -4,6 +4,8 @@
  */
 const util = require('../../../utils/util.js');
 const app = getApp();
+// 数据统计
+let mta = require('../../../libs/mta_analysis.js');
 Page({
 	data: {
 		carList: undefined
@@ -36,6 +38,8 @@ Page({
 	},
 	//	查看详情
 	onClickGoETCDetailHandle (e) {
+		// 统计点击事件
+		mta.Event.stat('016',{});
 		let index = e.currentTarget.dataset.index;
 		console.log(index);
 		util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.data.carList[parseInt(index)].id}`);
@@ -65,6 +69,8 @@ Page({
 	},
 	// 新增
 	onClickAddNewHandle () {
+		// 统计点击事件
+		mta.Event.stat('015',{});
 		app.globalData.orderInfo.orderId = '';
 		util.go('/pages/default/receiving_address/receiving_address');
 	}

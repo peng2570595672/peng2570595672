@@ -1,4 +1,4 @@
-<view class="nav">
+<view class="nav {{isOwe ? 'is_owes' : ''}}">
 	<view class="nav-child {{filter_open ? 'active' : ''}}" bindtap="tapFilterNav" hidden='{{dropDownMenuFilterData.length > 0 ? false : true}}' data-nav="0">
 		<view class="nav-title">{{selected_filter_name.length > 0 ?selected_filter_name : dropDownMenuTitle[0]}}</view>
 		<view class="icon"></view>
@@ -8,7 +8,7 @@
 		<view class="icon"></view>
 	</view>
 </view>
-<view class="container  animated {{filter_open_wtapper ? 'show' : 'disappear'}} " wx:if="{{filter_open}}">
+<view class="container  animated {{filter_open_wtapper ? 'show' : 'disappear'}} {{isOwe ? 'is_owe' : ''}}" wx:if="{{filter_open}}">
 	<view class="top" catchtap="hide"></view>
 	<view class="z-height animated {{filter_open_wtapper?'slideInDown':'slideOutDown'}}">
 		<view>
@@ -18,12 +18,12 @@
 		</view>
 	</view>
 </view>
-<view class="district animated {{district_open_wtapper  ? 'show' : 'disappear'}} " wx:if="{{district_open}}">
+<view class="district animated {{district_open_wtapper  ? 'show' : 'disappear'}} {{isOwe ? 'is_owe' : ''}}" wx:if="{{district_open}}">
 	<view class="top" catchtap="hide"></view>
 	<view class="mask-box animated {{district_open_wtapper?'slideInDown':'slideOutDown'}}">
 		<view class="half-top-box">
-			<scroll-view class="half half-top" scroll-x>
-				<view class="{{district_left_select == item.id ? 'current_left_select' : ''}}" wx:for="{{dropDownMenuDistrictData}}" bindtap="selectDistrictTop" data-model='{{item}}' wx:key="unique">
+			<scroll-view class="half half-top" scroll-x='true' scroll-into-view="{{toview}}" scroll-with-animation="true" >
+				<view class="{{district_left_select == item.id ? 'current_left_select' : ''}} year{{item.id}}" wx:for="{{dropDownMenuDistrictData}}" id="year{{item.id}}" bindtap="selectDistrictTop" data-model='{{item}}' wx:key="unique">
 					<text bindtap="selectDistrictTop" data-model='{{item}}'> {{item.title}}</text>
 				</view>
 			</scroll-view>

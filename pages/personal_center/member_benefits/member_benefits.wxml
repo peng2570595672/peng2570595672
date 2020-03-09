@@ -16,7 +16,7 @@
 				<view>小男孩</view>
 				<view><button class="{{isMembers === true ? 'active':''}}">普通用户</button></view>
 			</view>
-			<view class="member iconfont" wx:if="{{!isMembers}}"><text >成为会员</text></view>
+			<view class="member iconfont" wx:if="{{!isMembers}}" catchtap="go"><text >成为会员</text></view>
 		</view>
 		<!--会员头部内容结束-->
 	</view>

@@ -1,0 +1,49 @@
+<view class="order_instructions">
+	<!--	欠费信息开始-->
+	<view class="arrears_information">
+		<view>应缴费日期：2019-12-31 12:52</view>
+		<view>欠费时长：5天14小时</view>
+	</view>
+	<!--欠费信息结束-->
+	<!--欠费金额开始-->
+	<view class="arrears_amount">
+		<view class="line">
+			<view>应付金额</view>
+			<view>¥320.00</view>
+		</view>
+		<view class="line">
+			<view>通行抵扣卡优惠</view>
+			<view>-¥17.00</view>
+		</view>
+		<view>
+			<view class="line">
+				<view>服务费</view>
+				<view>0.54</view>
+			</view>
+			<view class="explain">实付通行费 x 万分之五 x欠费天数</view>
+		</view>
+		<view>
+			<view class="line">
+				<view>实付金额</view>
+				<view>¥458</view>
+			</view>
+			<view class="explain">应付金额-通行抵扣卡优惠+服务费</view>
+		</view>
+	</view>
+	<!--欠费金额结束-->
+	<!--欠费说明开始-->
+	<view class="arrears_instructions">
+		<view  wx:for="{{arrearsInstructionsList}}" wx:key="index">
+			<view>{{item.title}}</view>
+			<view>{{item.content}}</view>
+		</view>
+	</view>
+	<!--欠费说明结束-->
+	<!--我要申诉开始-->
+	<view class="payment ">
+		<button catchtap="go">
+			{{isComplaintDetails ? '已申诉，查看详情' : '有疑问，我要申诉'}}
+		</button>
+	</view>
+	<!--我要申诉结束-->
+</view>

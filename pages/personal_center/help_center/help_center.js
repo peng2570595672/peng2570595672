@@ -1,12 +1,14 @@
 const util = require('../../../utils/util.js');
 const app = getApp();
+// 数据统计
+let mta = require('../../../libs/mta_analysis.js');
 Page({
 	data: {
 		tabIndex: 0,// tab下标
 		tabTitle: [],// tab列表
 		totalPages: '',// 总页数
 		page: 1,// 当前页
-		pageSize: 3,// 每页多少条数据
+		pageSize: 5,// 每页多少条数据
 		classifyId: '',// 问题分类id
 		tabList: '',// 问题列表
 		showDetailMask: false,// 弹窗
@@ -119,6 +121,8 @@ Page({
 	},
 	// 换一批
 	replace () {
+		// 统计点击事件
+		mta.Event.stat('022',{});
 		if (this.data.page < this.data.totalPages) {
 			this.setData({
 				page: this.data.page + 1

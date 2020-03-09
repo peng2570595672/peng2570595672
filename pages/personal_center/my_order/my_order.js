@@ -1,9 +1,16 @@
 const util = require('../../../utils/util.js');
+const app = getApp();
+// 数据统计
+let mta = require('../../../libs/mta_analysis.js');
 Page({
 	data: {
 		year: '',
+		isOwe: false, // 是否欠费
 		dropDownMenuTitle: ['', ''],
 		timeList: [],
+		totalPages: '',// 总页数
+		page: 1,// 当前页
+		pageSize: 20,// 每页多少条数据
 		childModel: [
 			{ id: '1-1', title: '1' },
 			{ id: '1-2', title: '2' },
@@ -19,8 +26,13 @@ Page({
 			{ id: '1-12', title: '12' }
 		],
 		list: [],
-		vehicleList: ['贵ZZZABC', '贵ZZZABF', '贵ZZZDEF', '贵ZSZDBF', '贵ZZVDBF'],
-		chooseTime: ''
+		orderList: [],
+		failBillList: [],
+		failBillMessage: '',
+		successBillList: [],
+		vehicleList: ['全部车辆'],
+		chooseTime: '',
+		chooseVehPlates: '全部车辆'
 	},
 	onLoad () {
 		let date = new Date();
@@ -50,19 +62,161 @@ Page({
 			[`dropDownMenuTitle[0]`]: this.data.vehicleList[0],
 			[`dropDownMenuTitle[1]`]: `${year}年${month}月`,
 			year: `${year}`,
-			chooseTime: `${year}-${util.formatNumber(month)}`
+			chooseTime: `${year}${util.formatNumber(month)}`
 		});
-		console.log(this.data.timeList);
+		this.getMyETCList();
+	},
+	// 加载ETC列表
+	getMyETCList () {
+		util.showLoading();
+		util.getDataFromServer('consumer/order/my-etc-list', {}, () => {
+			util.showToastNoIcon('获取车辆列表失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				// 过滤未激活订单
+				let obuStatusList;
+				// obuStatusList = res.data.filter(item => item.obuStatus === 1); // 正式数据
+				obuStatusList = res.data.filter(item => item.etcChannelCode === '1'); // 测试数据处理
+				if (obuStatusList.length > 0) {
+					// 需要过滤未激活的套餐
+					this.setData({
+						orderList: obuStatusList
+					});
+					let date = new Date();
+					const year = date.getFullYear();
+					const month = date.getMonth() + 1;
+					obuStatusList.map((item) => {
+						this.data.vehicleList.push(item.vehPlates);
+						this.setData({
+							vehicleList: this.data.vehicleList
+						});
+						this.getFailBill(item.vehPlates);
+						this.getSuccessBill(item.vehPlates,year + util.formatNumber(month));
+					});
+					this.getFailBillMessage();
+				} else {
+					// 没有激活车辆
+				}
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
+	// 获取失败账单信息
+	getFailBillMessage (vehPlates) {
+		let channel = [];
+		this.data.orderList.map((item) => {
+			channel.push(item.etcChannelCode);
+		});
+		// 数组去重
+		let hash = [];
+		channel = channel.reduce((item1, item2) => {
+			hash[item2] ? '' : hash[item2] = true && item1.push(item2);
+			return item1;
+		}, []);
+		let params = {
+			channels: channel
+		};
+		util.getDataFromServer('consumer/etc/get-fail-bill-info', params, () => {
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				this.setData({
+					failBillMessage: res.data
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken);
+	},
+	// 成功账单列表
+	getSuccessBill (vehPlates,month) {
+		let channel;
+		channel = this.data.orderList.filter(item => item.vehPlates === vehPlates);
+		let params = {
+			vehPlate: vehPlates,
+			month: month,
+			channel: channel[0].etcChannelCode
+		};
+		util.getDataFromServer('consumer/etc/get-bill', params, () => {
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				this.setData({
+					successBillList: this.data.successBillList.concat(res.data)
+				});
+				// 数组去重
+				let hash = [];
+				this.data.successBillList = this.data.successBillList.reduce((item1, item2) => {
+					hash[item2['id']] ? '' : hash[item2['id']] = true && item1.push(item2);
+					return item1;
+				}, []);
+				this.setData({
+					successBillList: this.data.successBillList
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken);
+	},
+	// 失败账单列表
+	getFailBill (vehPlates) {
+		let channel;
+		channel = this.data.orderList.filter(item => item.vehPlates === vehPlates);
+		let params = {
+			vehPlate: vehPlates,
+			channel: channel[0].etcChannelCode
+		};
+		util.getDataFromServer('consumer/etc/get-fail-bill', params, () => {
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				this.setData({
+					failBillList: this.data.failBillList.concat(res.data)
+				});
+				// 数组去重
+				let hash = [];
+				this.data.failBillList = this.data.failBillList.reduce((item1, item2) => {
+					hash[item2['id']] ? '' : hash[item2['id']] = true && item1.push(item2);
+					return item1;
+				}, []);
+				this.setData({
+					failBillList: this.data.failBillList
+				});
+				if (this.data.failBillList.length > 0) {
+					this.setData({
+						isOwe: true
+					});
+				} else {
+					this.setData({
+						isOwe: false
+					});
+				}
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken);
+	},
+	// 查看失败账单列表
+	goArrearsBill () {
+		util.go('/pages/personal_center/arrears_bill/arrears_bill');
 	},
 	// 账单详情
 	goDetails (e) {
-		// let index = e.currentTarget.dataset['index'];
-		// index = parseInt(index);
-		// wx.setStorageSync('etc-order-info', JSON.stringify(this.data.info.list[index]));
-		util.go('/pages/personal_center/order_details/order_details');
+		let model = e.currentTarget.dataset.model;
+		// 统计点击事件
+		mta.Event.stat('018',{});
+		util.go(`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
 	},
 	// 去补缴
 	go () {
+		// 统计点击事件
+		mta.Event.stat('019',{});
 		util.go('/pages/personal_center/payment_confirmation/payment_confirmation');
 	},
 	// 下拉选择
@@ -71,11 +225,46 @@ Page({
 		if (!e.detail.selectedId) {
 			let index = this.data.vehicleList.findIndex((value) => value === e.detail.selectedTitle);
 			console.log(index);
+			if (index === 0) { // 统计点击全部车辆
+				// 统计点击事件
+				mta.Event.stat('017',{});
+				this.setData({
+					chooseVehPlates: '全部车辆'
+				});
+				this.data.vehicleList.map((item) => {
+					console.log(item);
+					if (item !== '全部车辆') {
+						this.getFailBill(item);
+						this.getSuccessBill(item,this.data.chooseTime);
+					}
+				});
+			} else {
+				this.setData({
+					failBillList: [],
+					successBillList: [],
+					chooseVehPlates: this.data.vehicleList[index]
+				});
+				this.getFailBill(this.data.vehicleList[index]);
+				this.getSuccessBill(this.data.vehicleList[index],this.data.chooseTime);
+			}
 		} else {
 			const month = e.detail.selectedId.match(/-(\S*)/)[1];
 			const id = e.detail.selectedId.match(/(\S*)-/)[1];
-			console.log(month);
-			console.log(`${this.data.year - id}-${util.formatNumber(month)}`);
+			this.setData({
+				chooseTime: `${this.data.year - id}${util.formatNumber(month)}`,
+				successBillList: []
+			});
+			if (this.data.chooseVehPlates === '全部车辆') {
+				this.data.vehicleList.map((item) => {
+					console.log(item);
+					if (item !== '全部车辆') {
+						this.getFailBill(item);
+						this.getSuccessBill(item,this.data.chooseTime);
+					}
+				});
+			} else {
+				this.getSuccessBill(this.data.chooseVehPlates,this.data.chooseTime);
+			}
 		}
 	}
 });

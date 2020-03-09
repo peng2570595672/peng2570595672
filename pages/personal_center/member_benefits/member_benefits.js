@@ -52,11 +52,11 @@ Page({
 				console.log(res);
 				if (res.data.length === 0) {
 					this.setData({
-						isMembers: false
+						// isMembers: false
 					});
 				} else {
 					this.setData({
-						isMembers: true
+						// isMembers: true
 					});
 				}
 			} else {
@@ -88,8 +88,9 @@ Page({
 	},
 	// 成为会员&一键体验
 	go () {
-		if (!this.data.isMembers) {
+		// if (!this.data.isMembers) {
+		app.globalData.orderInfo.orderId = '';
 			util.go('/pages/default/receiving_address/receiving_address');
-		}
+		// }
 	}
 });

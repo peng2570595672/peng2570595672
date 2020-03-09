@@ -12,6 +12,9 @@ Component({
 		dropDownMenuDistrictData: {
 			type: Array,
 			value: []
+		},
+		isOwe: {
+			type: Boolean
 		}
 	},
 	data: {
@@ -34,6 +37,7 @@ Component({
 	},
 	methods: {
 		tapDistrictNav: function (e) {
+			console.log(this.data.isOwe)
 			let date = new Date();
 			const year = date.getFullYear();
 			const month = date.getMonth();
@@ -67,6 +71,9 @@ Component({
 					shownavindex: e.currentTarget.dataset.nav
 				});
 			}
+			this.setData({
+				toview: 'year0'
+			});
 		},
 		tapFilterNav: function (e) {
 			if (!this.data.selected_filter_name) {
@@ -101,7 +108,7 @@ Component({
 				district_left_select: selectedId,
 				district_right_select: '',
 				selected_year_name: selectedTitle,
-				chooseYear: parseInt(selectedTitle),
+				chooseYear: parseInt(selectedTitle)
 			});
 			if (model == null || model.length === 0) {
 				this.closeHyFilter();
@@ -159,7 +166,7 @@ Component({
 				this.setData({
 					district_open: false,
 					district_open_wtapper: false,
-					filter_open_wtapper: false,
+					filter_open_wtapper: false
 				});
 				setTimeout(() => {
 					this.setData({

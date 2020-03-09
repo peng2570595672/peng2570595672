@@ -3,6 +3,8 @@
  * @desc 选择支付方式
  */
 const util = require('../../../utils/util.js');
+// 数据统计
+let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -115,6 +117,8 @@ Page({
 	},
 	// 具体支付方式
 	onClickItemHandle (e) {
+		// 统计点击事件
+		mta.Event.stat('030',{});
 		this.setData({
 			choiceObj: e.detail.targetObj
 		});
@@ -130,6 +134,8 @@ Page({
 	},
 	// 签约
 	next () {
+		// 统计点击事件
+		mta.Event.stat('028',{});
 		if (!this.data.available || this.data.isRequest) {
 			return;
 		}
@@ -145,6 +151,8 @@ Page({
 			areaCode: this.data.choiceObj.areaCode,
 			shopId: this.data.choiceObj.shopId,
 			idCardStatus: this.data.orderInfo['idCard'].idCardStatus,
+			idCardValidDate: this.data.orderInfo['idCard'].idCardValidDate ? this.data.orderInfo['idCard'].idCardValidDate : this.data.idCardBack.ocrObject.validDate,
+			idCardAddress: this.data.orderInfo['idCard'].idCardAddress ? this.data.orderInfo['idCard'].idCardAddress : this.data.idCardFace.ocrObject.validDate,
 			idCardTrueName: this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含4】
 			idCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含4】
 			idCardPositiveUrl: this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含4】
@@ -152,7 +160,7 @@ Page({
 			needSignContract: true // 是否需要签约 true-是，false-否 允许值: true, false
 		};
 		// 银行卡 3.0
-		if (this.data.choiceObj.isBankcard === 1) {
+		if (this.data.choiceObj.productProcess === 3) {
 			params.dataType = '345';
 			params['bankAccountNo'] = this.data.bankCardIdentifyResult.ocrObject.cardNo; // 银行卡号 【dataType包含5】
 			params['bankCardUrl'] = this.data.bankCardIdentifyResult.fileUrl; // 银行卡图片地址 【dataType包含5】
@@ -202,7 +210,7 @@ Page({
 		// 是否接受协议
 		let isOk = this.data.choiceObj ? true : false;
 		// 银行卡验证
-		if (isOk && this.data.choiceObj.isBankcard === 1) {
+		if (isOk && this.data.choiceObj.productProcess === 5) {
 			console.log(1);
 			isOk = isOk && this.data.bankCardIdentifyResult.fileUrl;
 			isOk = isOk && this.data.bankCardIdentifyResult.ocrObject.cardNo && util.luhmCheck(this.data.bankCardIdentifyResult.ocrObject.cardNo);
@@ -248,5 +256,9 @@ Page({
 			bankCardIdentifyResult,
 			available: this.validateAvailable()
 		});
+	},
+	onUnload () {
+		// 统计点击事件
+		mta.Event.stat('029',{});
 	}
 });

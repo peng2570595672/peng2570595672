@@ -92,6 +92,16 @@ page {
   content: '\e60e';
   transform: rotateZ(180deg);
 }
+.service-card-voucher .general-notes {
+  background: url("https://file.cyzl.com/g001/M05/06/F5/oYYBAF4DIO2AXDkLAAApZ90llo4270.png") no-repeat top;
+  -webkit-background-size: contain;
+  background-size: contain;
+}
+.service-card-voucher .deduction-card {
+  background: url("https://file.cyzl.com/g001/M05/06/F7/oYYBAF4DITeAdipvAAACzsOCHEE048.png") no-repeat top;
+  -webkit-background-size: contain;
+  background-size: contain;
+}
 .service-card-voucher .invalid {
   background: url("https://file.cyzl.com/g001/M05/06/F7/oYYBAF4DISWAGG8dAAAz8oWj6oY740.png") no-repeat top;
   -webkit-background-size: contain;
