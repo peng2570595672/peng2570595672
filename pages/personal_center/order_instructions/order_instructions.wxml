@@ -1,31 +1,31 @@
 <view class="order_instructions">
 	<!--	欠费信息开始-->
 	<view class="arrears_information">
-		<view>应缴费日期：2019-12-31 12:52</view>
-		<view>欠费时长：5天14小时</view>
+		<view>应缴费日期：{{details.payTime}}</view>
+		<view>欠费时长：{{details.dateSpan}} <text>(从应缴费日期起28天后开始计算)</text></view>
 	</view>
 	<!--欠费信息结束-->
 	<!--欠费金额开始-->
 	<view class="arrears_amount">
 		<view class="line">
 			<view>应付金额</view>
-			<view>¥320.00</view>
+			<view>¥{{details.etcMoney/100}}</view>
 		</view>
 		<view class="line">
 			<view>通行抵扣卡优惠</view>
-			<view>-¥17.00</view>
+			<view>-¥{{details.discountMount/100}}</view>
 		</view>
 		<view>
 			<view class="line">
 				<view>服务费</view>
-				<view>0.54</view>
+				<view>{{details.serviceMoney >0 ? -details.serviceMoney/100 : 0}}</view>
 			</view>
 			<view class="explain">实付通行费 x 万分之五 x欠费天数</view>
 		</view>
 		<view>
 			<view class="line">
 				<view>实付金额</view>
-				<view>¥458</view>
+				<view>¥{{details.totalMmout/100}}</view>
 			</view>
 			<view class="explain">应付金额-通行抵扣卡优惠+服务费</view>
 		</view>

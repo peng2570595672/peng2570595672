@@ -17,7 +17,7 @@
 		</view>
 		<view>
 			<view>通行折扣券减免</view>
-			<view>¥{{details.discountMount/100}}</view>
+			<view>{{details.discountMount/100}}</view>
 		</view>
 		<view>
 			<view>微信减免</view>
@@ -33,11 +33,11 @@
 		</view>
 		<view>
 			<view>扣费时间</view>
-			<view>2019-11-21 12:12:23</view>
+			<view>{{details.deductTime}}</view>
 		</view>
 		<view>
 			<view>出账时间</view>
-			<view>2019-11-21 12:12:23</view>
+			<view>{{details.payTime}}</view>
 		</view>
 	</view>
 	<!--扣费详情结束-->
