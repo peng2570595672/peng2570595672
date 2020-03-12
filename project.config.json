@@ -206,6 +206,12 @@
 					"pathName": "pages/personal_center/servicec_card_voucher_details/servicec_card_voucher_details",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/default/receiving_address/receiving_address",
+					"pathName": "pages/default/receiving_address/receiving_address",
+					"scene": null
 				}
 			]
 		}

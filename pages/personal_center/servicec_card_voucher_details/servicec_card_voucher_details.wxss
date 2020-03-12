@@ -1,5 +1,5 @@
 .servicec_card_voucher_details {
-  padding: 42rpx 30rpx 0;
+  padding: 42rpx 30rpx 20rpx;
 }
 .servicec_card_voucher_details .ticket-card {
   background: #fff;
@@ -8,6 +8,7 @@
   border-radius: 20rpx;
 }
 .servicec_card_voucher_details .ticket-card .ticket-top {
+  position: relative;
   text-align: center;
   color: #66666d;
   font-size: 28rpx;
@@ -24,6 +25,22 @@
   font-weight: 400;
   opacity: 0.85;
   margin: 40rpx 0 90rpx;
+}
+.servicec_card_voucher_details .ticket-card .ticket-top .ticket-status {
+  position: absolute;
+  right: 0rpx;
+  top: 20rpx;
+  color: #99999d;
+}
+.servicec_card_voucher_details .ticket-card .ticket-top .ticket-status::after {
+  text-align: right;
+  font-size: 140rpx;
+}
+.servicec_card_voucher_details .ticket-card .ticket-top .ticket-status-used::after {
+  content: '\e653';
+}
+.servicec_card_voucher_details .ticket-card .ticket-top .ticket-status-overdue::after {
+  content: '\e654';
 }
 .servicec_card_voucher_details .ticket-card .ticket-bottom .ticket-bottom-item {
   padding: 28rpx 0 30rpx;
@@ -62,6 +79,7 @@
 .servicec_card_voucher_details .use-record-box {
   background: #fff;
   padding: 60rpx 34rpx 26rpx;
+  border-radius: 20rpx;
 }
 .servicec_card_voucher_details .use-record-box .order-list .order-list-title {
   font-size: 36rpx;

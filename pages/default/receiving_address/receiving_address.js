@@ -80,6 +80,9 @@ Page({
 					confirmText: '更新',
 					confirm: () => {
 						this.next();
+					},
+					cancel: () => {
+						app.globalData.orderInfo.orderId = '';
 					}
 				});
 			} else if (res.code === 104 && res.message === '该车牌已存在订单') {
@@ -385,6 +388,13 @@ Page({
 		this.setData({
 			available: this.validateAvailable()
 		});
+		if (e.detail.value.length === 4) {
+			wx.hideKeyboard({
+				complete: res => {
+					console.log('hideKeyboard res', res)
+				}
+			})
+		}
 	},
 	// 是否接受协议
 	onClickAgreementHandle () {

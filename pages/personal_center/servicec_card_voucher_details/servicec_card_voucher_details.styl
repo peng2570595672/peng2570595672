@@ -1,6 +1,6 @@
 @import "../../../style/base.styl";
 .servicec_card_voucher_details
-	padding 42rpx 30rpx 0
+	padding 42rpx 30rpx 20rpx
 	//卡券
 	.ticket-card
 		background #fff
@@ -9,6 +9,7 @@
 		border-radius 20rpx
 		// 卡券顶部
 		.ticket-top
+			position relative
 			text-align center
 			color $fontColor6
 			font-size 28rpx
@@ -23,6 +24,20 @@
 				font-weight 400
 				opacity .85
 				margin 40rpx 0 90rpx
+			.ticket-status
+				position absolute
+				right 0rpx
+				top 20rpx
+				color $fontColor9
+				&::after
+					text-align right
+					font-size 140rpx
+			.ticket-status-used
+				&::after
+					content '\e653'
+			.ticket-status-overdue
+				&::after
+					content '\e654'
 		// 卡券底部
 		.ticket-bottom
 			.ticket-bottom-item
@@ -52,11 +67,11 @@
 					.show-elaborate::after
 						//transform rotateZ(180deg)
 						transform: rotate(180deg)
-
 	//卡券使用记录
 	.use-record-box
 		background #fff
 		padding 60rpx 34rpx 26rpx
+		border-radius 20rpx
 		//使用记录列表
 		.order-list
 			.order-list-title

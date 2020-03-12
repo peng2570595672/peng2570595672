@@ -11,6 +11,7 @@ Page({
 		title: '车辆行驶证-主页', // 当前拍照提示标题
 		picPath: '/pages/default/assets/driving_license_face_border.png', // 拍摄区域边框
 		retry: false, // 是否重新拍摄
+		showInfo: true, // 用于判断拒绝授权后重新授权camera重新加载显示
 		pic0: '', // 车头45度
 		pic3: '', // 行驶证正面
 		pic4: '', // 行驶证反面
@@ -102,6 +103,9 @@ Page({
 		let that = this;
 		let _options = {type: this.data.type};
 		if (e.detail.errMsg === 'insertCamera:fail authorize no response' || e.detail.errMsg === 'insertCamera:fail auth deny' || e.detail.errMsg === 'insertCamera:fail:auth denied') {
+			that.setData({
+				showInfo: false
+			});
 			util.alert({
 				title: '提示',
 				content: '由于您拒绝了摄像头拍摄授权，导致无法正常初始化相机，是否重新授权？',
@@ -110,9 +114,9 @@ Page({
 					wx.openSetting({
 						success (res) {
 							that.onLoad(_options);
-							// wx.navigateBack({
-							// 	delta: 1
-							// });
+							that.setData({
+								showInfo: true
+							});
 						}
 					});
 				}

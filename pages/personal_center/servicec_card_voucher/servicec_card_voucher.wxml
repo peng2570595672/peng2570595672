@@ -21,7 +21,7 @@
 			</view>
 			<!--卡券右边部分结束-->
 			<!--图标开始-->
-			<view class="list-item-bg used expired"></view>
+			<view class="iconfont list-item-bg used expired"></view>
 			<!--图标结束-->
 		</view>
 	</view>
@@ -85,5 +85,4 @@
 			<!--放入卡包结束-->
 		</view>
 	</view>
-	<image src="https://file.cyzl.com/g001/M00/00/C2/ooYBAFzBY5mAOMp-AABMX3xxvHs336.svg"></image>
 </view>

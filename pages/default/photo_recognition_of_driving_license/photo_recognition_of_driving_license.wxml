@@ -1,6 +1,6 @@
 <view class="photo_recognition_of_driving_license">
 	<!--	左边相机部分开始-->
-	<camera class="camera" device-position="back" flash="auto" binderror="cameraErrorHandle">
+	<camera class="camera" device-position="back" flash="auto" binderror="cameraErrorHandle" wx:if="{{showInfo}}">
 		<cover-view class="nav">
 			<cover-view  class="back" catchtap="onClickBackHandle">
 				<cover-image class="back_arrow" src="/pages/default/assets/icon_back.png"></cover-image>
