@@ -83,6 +83,7 @@ Component({
 		},
 		// 定位
 		getLocationInfo () {
+			util.showLoading();
 			wx.getLocation({
 				type: 'wgs84',
 				success: (res) => {

@@ -11,11 +11,15 @@ App({
 		plamKey: '123456', // 签名用到的key --- 二发
 		mapKey: '4EYBZ-L6QC4-NCLUW-XFDUD-TANS7-DZFNG', // 腾讯地图所使用key
 		platformId: '123456789012345678', // 平台id
+		belongToPlatform: '123456789012345678', // 套餐所属平台id,用于判断流程
 		SDKVersion: '',// 小程序基础库版本
 		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
 		quality: 80,
 		userInfo: {},// 用户信息
 		serverInfoId: '',
+		shopProductId: '', // 套餐id
+		isHeadImg: true, // 是否上传车头照
+		myEtcList: {}, // 车辆列表
 		orderInfo: {
 			orderId: ''
 		}
@@ -99,7 +103,13 @@ App({
 			if (res.code === 0) {
 				// 签约成功 userState: "NORMAL"
 				if (res.data.contractStatus === 1 && res.data.userState === 'NORMAL') {
-					util.go('/pages/default/signed_successfully/signed_successfully');
+					// if (this.globalData.belongToPlatform === this.globalData.platformId) {
+						// 本本台签约
+						util.go('/pages/default/signed_successfully/signed_successfully');
+					// } else {
+					// 	// 其他平台签约 :业务员端/h5
+					// 	util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
+					// }
 				} else {
 					util.showToastNoIcon('暂未查到签约信息，请稍后再试！');
 				}

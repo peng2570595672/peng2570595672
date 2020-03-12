@@ -15,6 +15,6 @@
 			<!--具体支付方式结束-->
 		</view>
 		<view class="split"></view>
-		<view class="choice-bank-card">选择银行卡</view>
+		<!--<view class="choice-bank-card">选择银行卡</view>-->
 	</view>
 </view>

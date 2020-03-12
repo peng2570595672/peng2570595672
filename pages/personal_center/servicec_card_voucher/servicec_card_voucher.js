@@ -10,6 +10,12 @@ Page({
 		windowHeight: '',// 屏幕高度
 		exchangeCode: '',// 兑换码
 		exchangeData: '',// 兑换数据
+		currentTab: 0,
+		cardVoucherStatus: [
+			{name: '可使用'},
+			{name: '已使用'},
+			{name: '已过期'}
+		],
 		list: [
 			{}
 		]
@@ -35,6 +41,18 @@ Page({
 		this.setData({
 			windowHeight: wx.getSystemInfoSync().windowHeight
 		});
+	},
+	//  tab切换逻辑
+	switchCardVoucherStatus (e) {
+		console.log(e)
+		let that = this;
+		if (this.data.currentTab === e.target.dataset.current) {
+			return false;
+		} else {
+			that.setData({
+				currentTab: e.target.dataset.current
+			});
+		}
 	},
 	// 获取卡券列表
 	getCardVoucherList () {
@@ -80,8 +98,9 @@ Page({
 		this.getCardVoucherList();
 	},
 	// 查看详情
-	go () {
-		util.go('/pages/personal_center/use_record/use_record');
+	go (e) {
+		console.log(e.target.dataset.model)
+		util.go('/pages/personal_center/servicec_card_voucher_details/servicec_card_voucher_details');
 	},
 	// 照相机扫码识别兑换码
 	getExchangeCodeFromScan () {

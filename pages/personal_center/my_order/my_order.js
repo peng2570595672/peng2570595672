@@ -76,7 +76,8 @@ Page({
 				// 过滤未激活订单
 				let obuStatusList;
 				// obuStatusList = res.data.filter(item => item.obuStatus === 1); // 正式数据
-				obuStatusList = res.data.filter(item => item.etcChannelCode === '1'); // 测试数据处理
+				obuStatusList = res.data.filter(item => item.etcContractId !== 0); // 测试数据处理
+				console.log(obuStatusList)
 				if (obuStatusList.length > 0) {
 					// 需要过滤未激活的套餐
 					this.setData({
@@ -108,7 +109,7 @@ Page({
 	getFailBillMessage (vehPlates) {
 		let channel = [];
 		this.data.orderList.map((item) => {
-			channel.push(item.etcChannelCode);
+			channel.push(item.obuCardType);
 		});
 		// 数组去重
 		let hash = [];
@@ -139,7 +140,7 @@ Page({
 		let params = {
 			vehPlate: vehPlates,
 			month: month,
-			channel: channel[0].etcChannelCode
+			channel: channel[0].obuCardType
 		};
 		util.getDataFromServer('consumer/etc/get-bill', params, () => {
 			util.hideLoading();
@@ -169,7 +170,7 @@ Page({
 		channel = this.data.orderList.filter(item => item.vehPlates === vehPlates);
 		let params = {
 			vehPlate: vehPlates,
-			channel: channel[0].etcChannelCode
+			channel: channel[0].obuCardType
 		};
 		util.getDataFromServer('consumer/etc/get-fail-bill', params, () => {
 			util.hideLoading();

@@ -19,9 +19,11 @@ Page({
 		pic4IdentifyResult: -1, // 行驶证反面图片识别结果 -1 未知 0成功 1失败
 		pictureWidth: 0, // 压缩图片
 		pictureHeight: 0,
+		isCarHead: true, //  是否上传车头照
 		isFromRe: false// 是否来自重新拍照行驶证
 	},
 	onLoad (options) {
+		console.log('onLoad');
 		// 拍摄识别类型
 		let reg = new RegExp(`^(0|1|2)$`);
 		if (reg.test(options.type)) {
@@ -39,6 +41,8 @@ Page({
 		});
 	},
 	onShow () {
+		console.log('onShow');
+		this.getProduct();
 		let type = wx.getStorageSync('photo_recognition_of_driving_license_type');
 		if (type) {
 			this.setData({
@@ -48,9 +52,14 @@ Page({
 			// 读取缓存
 			let drivingLicenseFace = JSON.parse(wx.getStorageSync('driving_license_face'));
 			let drivingLicenseBack = JSON.parse(wx.getStorageSync('driving_license_back'));
-			let carHeadCard = JSON.parse(wx.getStorageSync('car_head_45'));
+			let carHeadCard = {};
+			if (wx.getStorageSync('car_head_45')) {
+				carHeadCard = JSON.parse(wx.getStorageSync('car_head_45'));
+				this.setData({
+					pic0: carHeadCard.data[0].fileUrl
+				});
+			}
 			this.setData({
-				pic0: carHeadCard.data[0].fileUrl,
 				pic3: drivingLicenseFace.data[0].fileUrl,
 				pic4: drivingLicenseBack.data[0].fileUrl,
 				retry: true,
@@ -63,21 +72,49 @@ Page({
 			wx.removeStorageSync('photo_recognition_of_driving_license_type');
 		}
 	},
+	// 根据套餐id获取套餐信息
+	getProduct () {
+		util.showLoading();
+		util.getDataFromServer('consumer/system/get-product-by-id', {
+			shopProductId: app.globalData.orderInfo.shopProductId
+		}, () => {
+		}, (res) => {
+			if (res.code === 0) {
+				app.globalData.isHeadImg = res.data.isHeadImg === 1 ? true : false;
+				this.setData({
+					isCarHead: res.data.isHeadImg === 1 ? true : false
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
 	// 下一步
 	next () {
 		util.go('/pages/default/payment_way/payment_way');
 	},
 	// 相机初始化失败
 	cameraErrorHandle (e) {
+		console.log(e);
 		// 拒绝定位导致失败
-		if (e.detail.errMsg === 'insertCamera:fail authorize no response') {
+		let that = this;
+		let _options = {type: this.data.type};
+		if (e.detail.errMsg === 'insertCamera:fail authorize no response' || e.detail.errMsg === 'insertCamera:fail auth deny' || e.detail.errMsg === 'insertCamera:fail:auth denied') {
 			util.alert({
 				title: '提示',
 				content: '由于您拒绝了摄像头拍摄授权，导致无法正常初始化相机，是否重新授权？',
-				showCancel: true,
 				confirmText: '重新授权',
 				confirm: () => {
-					wx.openSetting();
+					wx.openSetting({
+						success (res) {
+							that.onLoad(_options);
+							// wx.navigateBack({
+							// 	delta: 1
+							// });
+						}
+					});
 				}
 			});
 		} else {
@@ -130,9 +167,16 @@ Page({
 			});
 		}
 		// 判断是否进行识别
-		if (this.data.pic0 && this.data.pic3 && this.data.pic4) {
-			// 开始识别
-			this.identifyResult();
+		if (this.data.pic4 && this.data.pic3) {
+			if (app.globalData.isHeadImg) {
+				if (this.data.pic0) {
+					// 开始识别
+					this.identifyResult();
+				}
+			} else {
+				// 开始识别
+				this.identifyResult();
+			}
 		}
 	},
 	// 开始识别结果
@@ -152,7 +196,7 @@ Page({
 		// ！== -1表示已识别
 		if (this.data.pic3IdentifyResult !== -1 && this.data.pic4IdentifyResult !== -1) {
 			// 车头照没有上传
-			if (this.data.pic0IdentifyResult === -1) {
+			if (this.data.pic0IdentifyResult === -1 && app.globalData.isHeadImg) {
 				this.uploadCarHeadPic();
 			} else {
 				util.hideLoading();
@@ -176,10 +220,19 @@ Page({
 				if (res) {
 					res = JSON.parse(res);
 					if (res.code === 0) { // 识别成功
-						let obj = {};
-						obj[`pic${type}IdentifyResult`] = 0;
-						this.setData(obj);
-						wx.setStorageSync(type === 3 ? 'driving_license_face' : 'driving_license_back', JSON.stringify(res));
+						// 因OCR行驶证正面识别有问题,因此加判断
+						if (type === 3 && !res.data[0].ocrObject.owner) {
+							util.hideLoading();
+							util.showToastNoIcon('照片不能正常识别!请重新拍照上传');
+							let obj = {};
+							obj[`pic${type}IdentifyResult`] = 1;
+							this.setData(obj);
+						} else {
+							let obj = {};
+							obj[`pic${type}IdentifyResult`] = 0;
+							this.setData(obj);
+							wx.setStorageSync(type === 3 ? 'driving_license_face' : 'driving_license_back', JSON.stringify(res));
+						}
 					} else { // 识别失败
 						util.hideLoading();
 						util.showToastNoIcon(res.message);

@@ -25,7 +25,7 @@
 				</cover-view>
 				<cover-image class="status animated fadeIn" wx:if="{{pic4IdentifyResult !== -1}}" src="{{pic4IdentifyResult === 0 ? '/pages/default/assets/icon_succeed.png' : '/pages/default/assets/icon_failed.png'}}"/>
 			</cover-view>
-			<cover-view class="preview-view-wrapper">
+			<cover-view class="preview-view-wrapper" wx:if="{{isCarHead}}">
 				<cover-view class="preview-view  {{type === 0 ? 'selected' : ''}}" data-index="0" catchtap="onClickRetryHandle">
 					<cover-image class="preview" src="{{pic0 ? pic0 : '/pages/default/assets/car_head_45.png'}}"></cover-image>
 				</cover-view>

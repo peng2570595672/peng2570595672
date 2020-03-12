@@ -2,7 +2,7 @@
 	<!--	欠费信息开始-->
 	<view class="arrears_information">
 		<view>应缴费日期：{{details.payTime}}</view>
-		<view>欠费时长：{{details.dateSpan}} <text>(从应缴费日期起28天后开始计算)</text></view>
+		<view>欠费时长：{{details.dateSpan}}</view>
 	</view>
 	<!--欠费信息结束-->
 	<!--欠费金额开始-->

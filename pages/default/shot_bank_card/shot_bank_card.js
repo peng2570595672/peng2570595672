@@ -49,6 +49,7 @@ Page({
 				}
 			});
 		} else {
+			wx.openSetting();
 			util.showToastNoIcon('相加初始化失败！');
 		}
 	},

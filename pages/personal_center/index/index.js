@@ -1,6 +1,7 @@
 const util = require('../../../utils/util.js');
 // 数据统计
 let mta = require('../../../libs/mta_analysis.js');
+const app = getApp();
 Page({
 	data: {
 		showDetailWrapper: false,
@@ -20,6 +21,25 @@ Page({
 		wx.scanCode({
 			onlyFromCamera: true,
 			success: (res) => {
+				console.log(res);
+				let key = res.result.match(/(\S*)=/);
+				let val = res.result.match(/=(\S*)/);
+				if (key && val && key[1] && val[1].length === 18 && key[1] === 'orderId') {
+					util.getDataFromServer('consumer/member/bind-order', {
+						orderId: val[1]
+					}, () => {
+						util.hideLoading();
+					}, (res) => {
+						util.hideLoading();
+						if (res.code === 0) {
+							// 判断状态
+						} else {
+							util.showToastNoIcon(res.message);
+						}
+					}, app.globalData.userInfo.accessToken);
+				} else {
+					util.showToastNoIcon('不支持的数据格式');
+				}
 			},
 			fail: (res) => {
 				util.showToastNoIcon('扫码失败');

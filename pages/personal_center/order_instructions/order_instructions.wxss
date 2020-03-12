@@ -14,10 +14,6 @@ page {
   line-height: 48rpx;
   margin-bottom: 20rpx;
 }
-.order_instructions .arrears_information>view text {
-  font-size: 24rpx;
-  color: #99999d;
-}
 .order_instructions .arrears_amount {
   background: #fff;
   padding: 30rpx 0rpx;

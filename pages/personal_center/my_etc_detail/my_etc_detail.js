@@ -73,6 +73,55 @@ Page({
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 		util.go('/pages/default/processing_progress/processing_progress');
 	},
+	//  恢复签约
+	onClickBackToSign () {
+		util.showLoading('加载中');
+		let params = {
+			orderId: this.data.orderId,// 订单id
+			dataComplete: 1,// 订单资料是否已完善 1-是，0-否
+			needSignContract: true // 是否需要签约 true-是，false-否
+		};
+		util.getDataFromServer('consumer/order/save-order-info', params, () => {
+			util.showToastNoIcon('提交数据失败！');
+			util.hideLoading();
+		}, (res) => {
+			if (res.code === 0) {
+				util.hideLoading();
+				let result = res.data.contract;
+				// 签约车主服务 2.0
+				app.globalData.belongToPlatform = this.data.orderInfo.platformId;
+				app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+				if (result.version === 'v2') {
+					wx.navigateToMiniProgram({
+						appId: 'wxbcad394b3d99dac9',
+						path: 'pages/route/index',
+						extraData: result.extraData,
+						fail () {
+							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
+						}
+					});
+				} else { // 签约车主服务 3.0
+					wx.navigateToMiniProgram({
+						appId: 'wxbcad394b3d99dac9',
+						path: 'pages/etc/index',
+						extraData: {
+							preopen_id: result.extraData.peropen_id
+						},
+						fail () {
+							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
+						}
+					});
+				}
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			this.setData({
+				available: true,
+				isRequest: false
+			});
+		});
+	},
 	// 继续办理
 	onClickContinueHandle () {
 		// 服务商套餐id，0表示还未选择套餐，其他表示已经选择套餐
@@ -83,7 +132,7 @@ Page({
 			util.go('/pages/default/payment_way/payment_way');
 		} else if (this.data.orderInfo.isVehicle === 0) {
 			// 是否上传行驶证， 0未上传，1已上传
-			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+			app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
 			util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
 		}
 	}

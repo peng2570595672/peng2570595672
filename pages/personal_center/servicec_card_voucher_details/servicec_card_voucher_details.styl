@@ -1,0 +1,190 @@
+@import "../../../style/base.styl";
+.servicec_card_voucher_details
+	padding 42rpx 30rpx 0
+	//卡券
+	.ticket-card
+		background #fff
+		padding 42rpx 28rpx 0rpx
+		margin-bottom 20rpx
+		border-radius 20rpx
+		// 卡券顶部
+		.ticket-top
+			text-align center
+			color $fontColor6
+			font-size 28rpx
+			line-height 40rpx
+			font-weight 500
+			.card-voucher-name
+				font-size 48rpx
+				line-height 64rpx
+				color $fontColor3
+				margin 50rpx 0 10rpx
+			.period-of-validity
+				font-weight 400
+				opacity .85
+				margin 40rpx 0 90rpx
+		// 卡券底部
+		.ticket-bottom
+			.ticket-bottom-item
+				padding 28rpx 0 30rpx
+				border-top 2rpx dashed #EBEBED
+				.entry
+					display flex
+					font-size 28rpx
+					color $fontColor6
+					line-height 40rpx
+					&>view:first-child
+						flex 4
+						text-indent 12rpx
+					&>view:last-child
+						flex 6
+						text-align right
+					&>view:nth-child(2)
+						margin-bottom 20rpx
+				.instructions
+					font-size 32rpx
+					color $fontColor3
+					.elaborate::after
+						text-align right
+						content '\e652'
+						font-size 24rpx
+						color $fontColor9
+					.show-elaborate::after
+						//transform rotateZ(180deg)
+						transform: rotate(180deg)
+
+	//卡券使用记录
+	.use-record-box
+		background #fff
+		padding 60rpx 34rpx 26rpx
+		//使用记录列表
+		.order-list
+			.order-list-title
+				font-size 36rpx
+				color $fontColor3
+				line-height 50rpx
+				padding-left 34rpx
+			.order-list-content
+				padding 0 24rpx
+				height 184rpx
+				background #fff
+				box-shadow 4rpx 4rpx 46rpx 0px rgba(126,132,156,0.1)
+				border-radius 34rpx
+				margin-top 20rpx
+				.order-list-top
+					display flex
+					height 90rpx
+					line-height 90rpx
+					border-bottom 1rpx solid #F1F1F1
+					padding-right 15rpx
+					.license-plate
+						flex 5
+						font-size 40rpx
+						font-weight 500
+						color $fontColor3
+					.time
+						flex 5
+						font-size 24rpx
+						color $fontColor9
+						text-align right
+					.buckling-failure
+						font-size 28rpx
+						color #FF0000
+				.order-list-bottom
+					display flex
+					align-items center
+					height 92rpx
+					line-height 92rpx
+					font-size 28rpx
+					color $fontColor9
+					padding-right 15rpx
+					.start,
+					.end
+						flex 3.8
+						display flex
+						align-items center
+						height 92rpx
+						line-height 92rpx
+						&::before
+							display flex
+							align-items center
+							justify-content center
+							width 28rpx
+							height 28rpx
+							font-size 20rpx
+							color #fff
+							border-radius 28rpx
+							background #FFAF9A
+							content '上'
+							margin-right 10rpx
+					.end
+						&::before
+							content '下'
+							background #8CD5B5
+					.money
+						flex 3
+						font-size 48rpx
+						color #2FB565
+						text-align right
+	// 弹出详情
+	.mask
+		position fixed
+		left 0
+		top 0
+		right 0
+		bottom 0
+		z-index 5
+		background rgba(0, 0, 0, .6)
+		.top
+			position fixed
+			left 0
+			top 0
+			bottom 0
+			width 100%
+			height 37%
+			background: rgba(0, 0, 0, 0)
+		.wrapper
+			position fixed
+			left 0rpx
+			top 37%
+			right 0
+			bottom 0
+			height 63%
+			background #fff
+			border-radius 32rpx 32rpx 0px 0px
+			overflow hidden
+			//金额
+			.deduction-amount
+				text-align center
+				font-size 76rpx
+				font-weight 500
+				color #15AD69
+				line-height 53px
+				border-bottom 5rpx dashed #fff
+				background linear-gradient(to right, #FFFFFF , $fontColor9 , #FFFFFF)
+				background-origin border-box
+				.deduction-amount-box
+					padding 46rpx 16rpx 54rpx 28rpx
+					background #fff
+					.deduction-amount-title
+						font-size 32rpx
+						color $fontColor9
+						font-weight 400
+						line-height 44rpx
+			//扣费详情
+			.deduction-details
+				background #fff
+				padding 20rpx 60rpx
+				margin-bottom 20rpx
+				&>view
+					display flex
+					font-size 28rpx
+					padding-top 20rpx
+					&>view:first-child
+						flex 4
+						height 48rpx
+						color $fontColor6
+					&>view:last-child
+						flex 6
+						text-align right
+						color $fontColor3

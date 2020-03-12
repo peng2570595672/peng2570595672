@@ -122,6 +122,8 @@ Page({
 		this.setData({
 			choiceObj: e.detail.targetObj
 		});
+		app.globalData.isHeadImg = e.detail.targetObj.isHeadImg === 1 ? true : false;
+		app.globalData.orderInfo.shopProductId = e.detail.targetObj.shopProductId;
 		this.setData({
 			available: this.validateAvailable()
 		});
@@ -129,6 +131,10 @@ Page({
 	},
 	// 拍照 银行卡
 	onClickShotBankCardHandle (e) {
+		// 如果身份证已经实名;禁止修改身份证
+		// if (this.data.orderInfo.idCard.idCardStatus === 1) {
+		// 	return false;
+		// }
 		let type = e.currentTarget.dataset.type;
 		util.go(`/pages/default/shot_bank_card/shot_bank_card?type=${type}`);
 	},
@@ -174,6 +180,7 @@ Page({
 			if (res.code === 0) {
 				let result = res.data.contract;
 				// 签约车主服务 2.0
+				app.globalData.belongToPlatform = this.data.orderInfo.platformId;
 				if (result.version === 'v2') {
 					wx.navigateToMiniProgram({
 						appId: 'wxbcad394b3d99dac9',

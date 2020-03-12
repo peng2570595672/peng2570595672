@@ -173,7 +173,9 @@ Page({
 		} else if (this.data.orderInfo.isVehicle === 0) {
 			// 是否上传行驶证， 0未上传，1已上传
 			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+			app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
 			util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
 		}
+		// platformId判断是哪个平台进入的  home-info/ETC详情接口/ETC列表接口可查,用于判断流程,是否去签约
 	}
 });

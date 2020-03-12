@@ -5,7 +5,7 @@
 		<view class="deduction-amount-box">
 			<view class="deduction-amount-title">扣费金额</view>
 			<view>-{{details.totalMmout/100}}</view>
-			<view class="failure-prompted" wx:if="{{details.deductStatus === 2}}">{{details.errCodeDes}}</view>
+			<view class="failure-prompted" wx:if="{{details.etcMoney > 0}}">{{details.errCodeDes}}</view>
 		</view>
 	</view>
 	<!--扣费金额结束-->
@@ -66,7 +66,7 @@
 	</view>
 	<!--车辆详情结束-->
 	<!--底部补缴开始-->
-	<view class="payment " wx:if="{{details.deductStatus === 2}}">
+	<view class="payment " wx:if="{{details.etcMoney > 0}}">
 		<view class="payment-prompt">欠费有可能被列为黑名单，影响您的高速通行，请及时补缴！</view>
 		<view>
 			<button catchtap="go">补缴</button>

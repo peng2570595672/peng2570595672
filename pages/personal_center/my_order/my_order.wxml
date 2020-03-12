@@ -1,5 +1,6 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
-<view class="my_order {{isOwe ? 'is_owes' : ''}}" wx:if="{{failBillList.length > 0 || successBillList.length > 0}}">
+<view class="my_order {{isOwe ? 'is_owes' : ''}}" >
+<!--<view class="my_order {{isOwe ? 'is_owes' : ''}}" wx:if="{{failBillList.length > 0 || successBillList.length > 0}}">-->
 	<!--欠费通知开始-->
 	<view class="notice" wx:if="{{isOwe}}" catchtap="goArrearsBill">
 		<view class="notice-box">
@@ -21,7 +22,7 @@
 		<view class="order-list-content" catchtap="goDetails" data-model="{{item}}"  wx:for="{{failBillList}}" wx:key="index">
 			<view class="order-list-top">
 				<view class="license-plate">{{item.vehPlate}}<text>[高速扣费]</text></view>
-				<view class="fail-money">{{item.totalMmout/100}}</view>
+				<view class="fail-money">{{item.etcMoney/100}}</view>
 			</view>
 			<view class="site">
 				{{item.stationName}}<text class="iconfont"></text>{{item.stationName}}
@@ -50,6 +51,6 @@
 <!--没有账单开始-->
 <view class="empty" wx:if="{{failBillList.length === 0 && successBillList.length === 0}}">
 	<image src="https://file.cyzl.com/g001/M05/37/3E/oYYBAF5YcpCAQTcCAAAXEOqiWpY099.jpg"></image>
-	<view>你目前没有账单噢~</view>
+	<view>你当前月没有账单噢~</view>
 </view>
 <!--没有账单结束-->

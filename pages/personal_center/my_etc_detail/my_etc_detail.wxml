@@ -51,7 +51,7 @@
 	<!--	按钮开始-->
 	<view class="btns">
 		<view class="btn" wx:if="{{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 3}}" catchtap="onClickContinueHandle">继续办理</view>
-		<view class="btn" wx:elif="{{orderInfo.selfStatus === 2}}">恢复签约</view>
+		<view class="btn" wx:elif="{{orderInfo.selfStatus === 2}}" catchtap="onClickBackToSign">恢复签约</view>
 		<view class="btn" wx:elif="{{orderInfo.selfStatus === 4}}" catchtap="onClickViewProcessingProgressHandle">查看进度</view>
 		<view class="btn" wx:elif="{{orderInfo.selfStatus === 5}}">修改资料</view>
 		<view class="btn-wrapper">

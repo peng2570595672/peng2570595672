@@ -14,7 +14,7 @@ Page({
 		showKeyboard: false, // 是否显示键盘
 		currentIndex: -1, // 当前选中的输入车牌位置
 		carNoStr: '', // 车牌字符串
-		carNo: ['贵', '', '', '', '', '', '', ''], // 车牌对应的数组
+		carNo: ['', '', '', '', '', '', '', ''], // 车牌对应的数组
 		mobilePhoneIsOk: false,
 		identifyingCode: '获取验证码',
 		time: 59,// 倒计时
@@ -163,6 +163,11 @@ Page({
 			formData,
 			isNewPowerCar: formData.currentCarNoColor === 1// 如果选择了新能源 那么最后一个显示可输入
 		});
+		if (parseInt(index) === 0 && this.data.carNoStr.length === 8) {
+			util.showToastNoIcon('当前车牌号为绿牌车！');
+		} else if (parseInt(index) === 1 && this.data.carNoStr.length === 7) {
+			util.showToastNoIcon('当前车牌号为蓝牌车！');
+		}
 		// 不是新能源 车牌为8位 去掉最后一位输入的车牌
 		if (!this.data.isNewPowerCar && this.data.carNoStr.length === 8) {
 			let carNo = this.data.carNo;
@@ -333,7 +338,7 @@ Page({
 			util.showToastNoIcon('请输入手机号');
 			return;
 		} else if (!/^1[0-9]{10}$/.test(this.data.formData.telNumber)) {
-			util.showToastNoIcon('手机号格式错误');
+			util.showToastNoIcon('手机号输入不合法');
 			return;
 		}
 		this.setData({
