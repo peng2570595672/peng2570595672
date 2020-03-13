@@ -130,11 +130,18 @@ Page({
 		if (this.data.orderInfo.shopProductId === 0 || this.data.orderInfo.etcContractId === 0) {
 			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 			util.go('/pages/default/payment_way/payment_way');
+		} else if (this.data.orderInfo.shopProductId !== 0 || this.data.orderInfo.etcContractId === 0) {
+			// 未签约
+			this.onClickBackToSign();
 		} else if (this.data.orderInfo.isVehicle === 0) {
 			// 是否上传行驶证， 0未上传，1已上传
 			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 			app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
 			util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
+		} else if (this.data.orderInfo.isVehicle === 1 && this.data.orderInfo.isOwner === 1) {
+			// 已上传行驶证， 未上传车主身份证
+			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+			util.go('/pages/default/update_id_card/update_id_card?type=normal_process');
 		}
 	},
 	// 在线客服

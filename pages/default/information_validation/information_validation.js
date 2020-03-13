@@ -178,11 +178,8 @@ Page({
 				recode: back.recode // 检验记录 【dataType包含6】
 			}
 		};
-		console.log(this.data.orderInfo.idCard.idCardTrueName)
-		console.log(face.owner)
-		console.log(this.data.productInfo.isOwner)
 		// 判断套餐是否需要上传车主身份证 && 行驶证姓名同车主身份证是否一致
-		if (this.data.productInfo.isOwner === 1 && this.data.orderInfo.idCard.idCardTrueName === face.owner) {
+		if (parseInt(this.data.productInfo.isOwner) === 1 && this.data.orderInfo.idCard.idCardTrueName !== face.owner) {
 			params['dataComplete'] = 0;// 订单资料是否已完善 1-是，0-否
 		} else {
 			params['dataComplete'] = 1;
@@ -199,24 +196,24 @@ Page({
 		} else {
 			params['dataType'] = '6';
 		}
-		// util.getDataFromServer('consumer/order/save-order-info', params, () => {
-		// 	util.showToastNoIcon('提交数据失败！');
-		// }, (res) => {
-		// 	if (res.code === 0) {
-		// 		if (this.data.productInfo.isOwner === 1 && this.data.orderInfo.idCard.idCardTrueName === face.owner) {
-		// 			util.go(`/pages/default/update_id_card/update_id_card?type=normal_process&owner=${face.owner}`);
-		// 		} else {
-		// 			util.go('/pages/default/processing_progress/processing_progress');
-		// 		}
-		// 	} else {
-		// 		util.showToastNoIcon(res.message);
-		// 	}
-		// }, app.globalData.userInfo.accessToken, () => {
-		// 	this.setData({
-		// 		available: true,
-		// 		isRequest: false
-		// 	});
-		// });
+		util.getDataFromServer('consumer/order/save-order-info', params, () => {
+			util.showToastNoIcon('提交数据失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				if (this.data.productInfo.isOwner === 1 && this.data.orderInfo.idCard.idCardTrueName !== face.owner) {
+					util.go(`/pages/default/update_id_card/update_id_card?type=normal_process`);
+				} else {
+					util.go('/pages/default/processing_progress/processing_progress?type=main_process');
+				}
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			this.setData({
+				available: true,
+				isRequest: false
+			});
+		});
 	},
 	// 选择人数
 	onPersonsCapacityPickerChange (e) {

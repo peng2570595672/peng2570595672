@@ -128,7 +128,7 @@
 				</view>
 				<view class="item">
 					<view>检验记录</view>
-					<input type="text" value="{{drivingLicenseBack.ocrObject.recode}}" data-key="recode" data-type="4" bindinput="onInputChangedHandle"/>
+					<textarea auto-height="{{true}}"  value="{{drivingLicenseBack.ocrObject.recode}}" data-key="recode" data-type="4" bindinput="onInputChangedHandle"/>
 				</view>
 			</block>
 		</view>

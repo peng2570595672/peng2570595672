@@ -20,17 +20,35 @@ Page({
 	 onLoad (options) {
 		console.log(options);
 		 this.setData({
-			 type: options.type,
-			 owner: options.owner
+			 type: options.type
 		 });
+		 this.getOrderInfo();
 	 },
 	onShow() {
-		if (this.data.type === 'normal_process') {
-			console.log('....');
-		} else {
-			console.log('....//////');
+		if (this.data.type !== 'normal_process') {
+			this.getOwnerIdCard();
 		}
 	},
+	// 获取订单信息
+	getOrderInfo () {
+		util.showLoading();
+		util.getDataFromServer('consumer/order/get-order-info', {
+			orderId: app.globalData.orderInfo.orderId,
+			dataType: '6'
+		}, () => {
+		}, (res) => {
+			if (res.code === 0) {
+				this.setData({
+					owner: res.data.vehicle.owner
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
+	// 获取缓存身份证
 	getOwnerIdCard () {
 		// 身份证正面
 		let idCardFace = wx.getStorageSync('id_card_face');
@@ -70,7 +88,7 @@ Page({
 			return;
 		}
 		if (this.data.owner !== this.data.idCardFace.ocrObject.name) {
-			util.showToastNoIcon('提交的身份信息与行驶证信息不匹配！');
+			util.showToastNoIcon('请上传车主本人身份证！');
 			return;
 		}
 		this.setData({
@@ -92,7 +110,7 @@ Page({
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
 			if (res.code === 0) {
-				util.go('/pages/default/processing_progress/processing_progress');
+				util.go('/pages/default/processing_progress/processing_progress?type=main_process');
 			} else {
 				util.showToastNoIcon(res.message);
 			}

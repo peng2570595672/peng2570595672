@@ -170,6 +170,11 @@ Page({
 				title: this.data.type === 3 ? '车辆行驶证-副页' : '车辆45度照片'
 			});
 		}
+		if (!app.globalData.isHeadImg) {
+			this.setData({
+				title:  '车辆行驶证-副页'
+			});
+		}
 		// 判断是否进行识别
 		if (this.data.pic4 && this.data.pic3) {
 			if (app.globalData.isHeadImg) {

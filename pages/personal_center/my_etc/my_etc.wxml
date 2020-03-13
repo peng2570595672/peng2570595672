@@ -8,20 +8,20 @@
 					<view class="car-no">{{item.vehPlates}}</view>
 					<view class="channel">{{item.cardName ? item.cardName : ''}}</view>
 				</view>
-				<view class="right caution" wx:if="{{item.status === 0}}">办理中</view>
-				<view class="right caution" wx:elif="{{item.etcContractId === 0}}">待签约</view>
-				<view class="right caution" wx:elif="{{item.auditStatus === 0}}">审核中</view>
-				<view class="right failed" wx:elif="{{item.auditStatus === 1}}">审核失败</view>
-				<view class="right succeed" wx:else>正常使用</view>
+				<view class="right caution" wx:if="{{item.selfStatus === 1 || item.selfStatus === 3}}">办理中</view>
+				<view class="right caution" wx:elif="{{item.selfStatus === 2}}">待签约</view>
+				<view class="right caution" wx:elif="{{item.selfStatus === 4}}">审核中</view>
+				<view class="right failed" wx:elif="{{item.selfStatus === 5}}">审核失败</view>
+				<view class="right succeed" wx:elif="{{item.selfStatus === 7}}">正常使用</view>
 			</view>
 			<!--上部分结束-->
 			<!--下部分开始-->
 			<view class="bottom">
 				<view>扣款方式：{{item.productName ? item.productName : ''}}</view>
-				<view class="iconfont" wx:if="{{item.selfStatus === 0 || item.selfStatus === 1 || item.selfStatus === 3}}" data-index="{{index}}"  catchtap="onClickContinueHandle">继续办理</view>
-				<view class="iconfont" wx:elif="{{item.selfStatus === 2}}">恢复签约</view>
+				<view class="iconfont" wx:if="{{item.selfStatus === 1 || item.selfStatus === 3}}" data-index="{{index}}"  catchtap="onClickContinueHandle">继续办理</view>
+				<view class="iconfont" wx:elif="{{item.selfStatus === 2}}" data-index="{{index}}" catchtap="onClickBackToSign">恢复签约</view>
 				<view class="iconfont" wx:elif="{{item.selfStatus === 4}}" data-index="{{index}}"  catchtap="onClickViewProcessingProgressHandle">查看进度</view>
-				<view class="iconfont" wx:elif="{{item.auditStatus === 5}}">修改资料</view>
+				<view class="iconfont" wx:elif="{{item.selfStatus === 5}}" data-index="{{index}}"  catchtap="onClickModifiedData">修改资料</view>
 			</view>
 			<!--下部分结束-->
 		</view>
@@ -31,6 +31,6 @@
 	<view class="auto-fill"></view>
 	<!--	高度填充结束-->
 	<!--	新增办理开始-->
-	<view class="btn" wx:if="{{carList}}" catchtap="onClickAddNewHandle">新增办理</view>
+	<view class="btn {{carList[0].obuStatus == 0 ? 'banned-click' : ''}}" wx:if="{{carList}}" catchtap="onClickAddNewHandle">新增办理</view>
 	<!--	新增办理结束-->
 </view>

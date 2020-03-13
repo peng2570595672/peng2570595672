@@ -180,9 +180,10 @@ Page({
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
 			if (res.code === 0) {
+				app.globalData.orderInfo.shopProductId = this.data.choiceObj.shopProductId;
 				let result = res.data.contract;
 				// 签约车主服务 2.0
-				app.globalData.belongToPlatform = this.data.orderInfo.platformId;
+				app.globalData.belongToPlatform = app.globalData.platformId;
 				if (result.version === 'v2') {
 					wx.navigateToMiniProgram({
 						appId: 'wxbcad394b3d99dac9',
@@ -200,7 +201,7 @@ Page({
 							preopen_id: result.extraData.peropen_id
 						},
 						fail () {
-							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
+							util.showToastNoIcon('调起车主服务签约失败, 请重试!');
 						}
 					});
 				}

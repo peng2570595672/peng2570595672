@@ -154,11 +154,10 @@ Page({
 		}
 	},
 	// 恢复签约
-	//  恢复签约
 	onClickBackToSign () {
 		util.showLoading('加载中');
 		let params = {
-			orderId: this.data.orderId,// 订单id
+			orderId: this.data.orderInfo.id,// 订单id
 			dataComplete: 1,// 订单资料是否已完善 1-是，0-否
 			needSignContract: true // 是否需要签约 true-是，false-否
 		};
@@ -235,6 +234,10 @@ Page({
 			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 			app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
 			util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
+		} else if (this.data.orderInfo.isVehicle === 1 && this.data.orderInfo.isOwner === 1) {
+			// 已上传行驶证， 未上传车主身份证
+			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+			util.go('/pages/default/update_id_card/update_id_card?type=normal_process');
 		}
 		// platformId判断是哪个平台进入的  home-info/ETC详情接口/ETC列表接口可查,用于判断流程,是否去签约
 	}

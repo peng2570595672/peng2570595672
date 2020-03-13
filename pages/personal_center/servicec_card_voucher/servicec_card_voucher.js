@@ -4,9 +4,8 @@ Page({
 	data: {
 		showAddCoupon: false,// 控制显示兑换码弹窗
 		showSuccessful: false,// 控制显示兑换码弹窗
-		isEffective: true,// 查看有效&无效电子券
+		checkEffective: ['usable', 'used', 'notUsable'],// 查看有效&无效电子券
 		listHeight: '',// 卡券列表高度
-		bottomHeight: '',// 底部查看电子券高度
 		windowHeight: '',// 屏幕高度
 		exchangeCode: '',// 兑换码
 		exchangeData: '',// 兑换数据
@@ -21,7 +20,7 @@ Page({
 		]
 	},
 	onLoad () {
-		this.getCardVoucherList();
+		this.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
 		let listHeight = wx.createSelectorQuery();
 		listHeight.select('.list-box').boundingClientRect();
 		listHeight.exec(res => {
@@ -30,21 +29,13 @@ Page({
 				listHeight: res[0].height
 			});
 		});
-		let bottomHeight = wx.createSelectorQuery();
-		bottomHeight.select('.check-overdue').boundingClientRect();
-		bottomHeight.exec(res => {
-			console.log(res[0].height);
-			this.setData({
-				bottomHeight: res[0].height
-			});
-		});
 		this.setData({
 			windowHeight: wx.getSystemInfoSync().windowHeight
 		});
 	},
 	//  tab切换逻辑
 	switchCardVoucherStatus (e) {
-		console.log(e)
+		console.log(e);
 		let that = this;
 		if (this.data.currentTab === e.target.dataset.current) {
 			return false;
@@ -52,13 +43,14 @@ Page({
 			that.setData({
 				currentTab: e.target.dataset.current
 			});
+			that.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
 		}
 	},
 	// 获取卡券列表
-	getCardVoucherList () {
+	getCardVoucherList (key) {
 		util.showLoading();
 		let params = {
-			status: this.data.isEffective === true ? 'usable' : 'notUsable'
+			status: key
 		};
 		util.getDataFromServer('consumer/voucher/get-coupon-page-list', params, () => {
 			util.showToastNoIcon('获取卡券列表失败！');
@@ -89,13 +81,6 @@ Page({
 			showAddCoupon: false,
 			showSuccessful: false
 		});
-	},
-	// 查看有效&无效电子券
-	checkVoucher () {
-		this.setData({
-			isEffective: !this.data.isEffective
-		});
-		this.getCardVoucherList();
 	},
 	// 查看详情
 	go (e) {

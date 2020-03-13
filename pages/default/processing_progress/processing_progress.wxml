@@ -34,7 +34,7 @@
 		</view>
 		<view class="item  {{info.obuStatus !== 0 ? 'finished' : ''}} {{info.logisticsId !== 0 ? 'current' : ''}} last">
 			<view class="content-title">安装激活</view>
-			<view class="content-des">收货后可根据操作手册自主安装激活使用，请在 使用过程中保证扣款渠道余额充足，以免产生扣 费失败情况导致账户被拉黑</view>
+			<view class="content-des">收货后可根据操作手册自主安装激活使用，请在使用过程中保证扣款渠道余额充足，以免产生扣费失败情况导致账户被拉黑</view>
 		</view>
 	</view>
 	<!--	进度结束-->

@@ -9,7 +9,12 @@ Page({
 		dashedHeight: 0,
 		info: undefined
 	},
-	onLoad () {
+	onLoad (options) {
+		if (options.type) {
+			this.setData({
+				type: options.type
+			});
+		}
 		this.getProcessingProgress();
 	},
 	// 获取办理进度
@@ -58,6 +63,8 @@ Page({
 		util.go(`/pages/web/web/web?type=online_customer_service`);
 	},
 	onUnload () {
-		util.goHome(true);
+		if (this.data.type === 'main_process') {
+			util.goHome(true);
+		}
 	}
 });

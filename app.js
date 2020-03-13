@@ -81,8 +81,12 @@ App({
 	},
 	onShow (res) {
 		console.log(res);
-		if (res && res.scene === 1038 ) {
-		//	pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license
+		if (res.path === 'pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license'
+			|| res.path === 'pages/default/shot_bank_card/shot_bank_card'
+			|| res.path === 'pages/default/information_validation/information_validation'
+		) {
+			// 解决安卓平台上传行驶证自动返回上一页
+			return;
 		}
 		if (res && res.scene === 1038 && this.globalData.signAContract !== -1) { // 场景值1038：从被打开的小程序返回
 			const {appId} = res.referrerInfo;
@@ -106,13 +110,13 @@ App({
 			if (res.code === 0) {
 				// 签约成功 userState: "NORMAL"
 				if (res.data.contractStatus === 1 && res.data.userState === 'NORMAL') {
-					// if (this.globalData.belongToPlatform === this.globalData.platformId) {
+					if (this.globalData.belongToPlatform === this.globalData.platformId) {
 						// 本本台签约
 						util.go('/pages/default/signed_successfully/signed_successfully');
-					// } else {
+					} else {
 					// 	// 其他平台签约 :业务员端/h5
-					// 	util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
-					// }
+						util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
+					}
 				} else {
 					util.showToastNoIcon('暂未查到签约信息，请稍后再试！');
 				}

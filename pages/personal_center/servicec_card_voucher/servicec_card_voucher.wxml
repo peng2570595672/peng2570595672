@@ -5,7 +5,7 @@
 	</view>
 	<!--顶部tab结束-->
 	<!--卡券列表开始-->
-	<view class="list-box">
+	<view class="list-box" wx:if="{{list.length > 0}}">
 		<view wx:for="{{6}}" wx:key="index" class="list-item" catchtap="go" data-model="{{item}}">
 			<!--卡券左边部分开始-->
 			<view class="list-item-left">

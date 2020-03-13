@@ -570,16 +570,20 @@ function luhmCheck(bankno) {
  */
 function getStatus(orderInfo) {
 	let status = 0;
-	if (orderInfo.status === 0 && orderInfo.etcContractId === 0) {
-		status = 1; // 办理中 待签约
-	} else if (orderInfo.status === 1 && orderInfo.etcContractId === 0) {
-		status = 2; // 办理完成 未签约
-	} else if (orderInfo.status === 0 && orderInfo.etcContractId !== 1) {
+	if (orderInfo.shopProductId === 0 && orderInfo.etcContractId === 0) {
+		status = 1; // 办理中 选择套餐
+	} else if (orderInfo.shopProductId !== 0 && orderInfo.etcContractId === 0) {
+		status = 2; // 待签约
+	} else if (orderInfo.status === 0 && orderInfo.etcContractId !== 0) {
 		status = 3; // 办理中 已签约
 	} else if (orderInfo.status === 1 && orderInfo.auditStatus === 0) {
 		status = 4; // 查看进度 待审核
 	} else if (orderInfo.status === 1 && orderInfo.auditStatus === 1) {
 		status = 5; // 资料被拒绝 修改资料
+	} else if (orderInfo.obuStatus === 0 && orderInfo.auditStatus === 1) {
+		status = 6; // 审核通过  待激活
+	} else if (orderInfo.obuStatus === 1 && orderInfo.auditStatus === 1) {
+		status = 7; // 审核通过  已激活
 	}
 	return status;
 }

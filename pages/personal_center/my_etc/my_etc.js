@@ -66,13 +66,82 @@ Page({
 			app.globalData.orderInfo.orderId = obj.id;
 			app.globalData.orderInfo.shopProductId = obj.shopProductId;
 			util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
+		} else if (obj.isVehicle === 1 && obj.isOwner === 1) {
+			// 已上传行驶证， 未上传车主身份证
+			app.globalData.orderInfo.orderId = obj.id;
+			util.go('/pages/default/update_id_card/update_id_card?type=normal_process');
 		}
 	},
 	// 新增
 	onClickAddNewHandle () {
 		// 统计点击事件
 		mta.Event.stat('015',{});
-		app.globalData.orderInfo.orderId = '';
-		util.go('/pages/default/receiving_address/receiving_address');
+		if (this.data.carList[0].obuStatus === 0) {
+			util.alert({
+				content: '你当前有未完成订单'
+			});
+		} else {
+			app.globalData.orderInfo.orderId = '';
+			util.go('/pages/default/receiving_address/receiving_address');
+		}
+	},
+	// 恢复签约
+	onClickBackToSign (e) {
+		let index = e.currentTarget.dataset.index;
+		let obj = this.data.carList[parseInt(index)];
+		util.showLoading('加载中');
+		let params = {
+			orderId: obj.id,// 订单id
+			dataComplete: 1,// 订单资料是否已完善 1-是，0-否
+			needSignContract: true // 是否需要签约 true-是，false-否
+		};
+		util.getDataFromServer('consumer/order/save-order-info', params, () => {
+			util.showToastNoIcon('提交数据失败！');
+			util.hideLoading();
+		}, (res) => {
+			if (res.code === 0) {
+				util.hideLoading();
+				let result = res.data.contract;
+				// 签约车主服务 2.0
+				app.globalData.belongToPlatform = this.data.orderInfo.platformId;
+				app.globalData.orderInfo.orderId = obj.id;
+				if (result.version === 'v2') {
+					wx.navigateToMiniProgram({
+						appId: 'wxbcad394b3d99dac9',
+						path: 'pages/route/index',
+						extraData: result.extraData,
+						fail () {
+							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
+						}
+					});
+				} else { // 签约车主服务 3.0
+					wx.navigateToMiniProgram({
+						appId: 'wxbcad394b3d99dac9',
+						path: 'pages/etc/index',
+						extraData: {
+							preopen_id: result.extraData.peropen_id
+						},
+						fail () {
+							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
+						}
+					});
+				}
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			this.setData({
+				available: true,
+				isRequest: false
+			});
+		});
+	},
+	// 修改资料
+	onClickModifiedData (e) {
+		let index = e.currentTarget.dataset.index;
+		let obj = this.data.carList[parseInt(index)];
+		app.globalData.orderInfo.orderId = obj.id;
+		app.globalData.orderInfo.shopProductId = obj.shopProductId;
+		util.go('/pages/default/information_validation/information_validation');
 	}
 });

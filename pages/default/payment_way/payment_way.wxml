@@ -43,14 +43,14 @@
 				<!--	文本提示结束-->
 			</block>
 			<!--	扣款方式标题开始-->
-			<view class="title {{idCardFace.fileUrl && idCardBack.fileUrl ? 'other-title' : ''}}" >
+			<view class="title {{idCardFace.fileUrl && idCardBack.fileUrl ? 'other-title' : ''}}" wx:if="{{orderInfo.idCard.idCardStatus === 0}}">
 				<view class="text">微信本人实名信息</view>
 				<view class="iconfont"  wx:if="{{idCardFace.fileUrl && idCardBack.fileUrl}}" catchtap="onClickShotBankCardHandle" data-type="1"></view>
 			</view>
 			<!--	扣款方式标题结束-->
 
 			<!--	拍摄身份证开始-->
-			<view class="shot-id-card iconfont" wx:if="{{!(idCardFace.fileUrl && idCardBack.fileUrl ) }}" catchtap="onClickShotBankCardHandle" data-type="1">拍摄身份证</view>
+			<view class="shot-id-card iconfont" wx:if="{{!(idCardFace.fileUrl && idCardBack.fileUrl) &&orderInfo.idCard.idCardStatus === 0 }}" catchtap="onClickShotBankCardHandle" data-type="1">拍摄身份证</view>
 			<!--	拍摄身份证结束-->
 
 			<!--	输入身份证号 和身份证姓名开始-->
