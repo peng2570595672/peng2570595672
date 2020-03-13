@@ -388,7 +388,7 @@ Page({
 		this.setData({
 			available: this.validateAvailable()
 		});
-		if (e.detail.value.length === 4) {
+		if (e.detail.value.length === 4 && key === 'verifyCode') {
 			wx.hideKeyboard({
 				complete: res => {
 					console.log('hideKeyboard res', res)

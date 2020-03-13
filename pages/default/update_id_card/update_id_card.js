@@ -12,51 +12,26 @@ Page({
 		idCardBack: {
 			ocrObject: {}
 		},// 身份证反面
+		type: '', // 判断小程序入口,控制身份证显示隐藏
+		owner: '', // 车主本人
 		available: false, // 按钮是否可点击
-		isRequest: false,// 是否请求中
-		orderInfo: undefined // 订单信息
+		isRequest: false// 是否请求中
 	},
-	onLoad () {
-		// app.globalData.orderInfo.orderId = '658608879176781824';
-		// app.globalData.userInfo.accessToken = 'NjU3NjE0MDE0NjQ1MjcyNTc2OjEyMzQ1Njc4OTAxMjM0NTY3ODo1N2MzNDExYzFiZDY0NzMzYTNlNzMzNWI0YjE4MDg2OQ==';
-		this.getOrderInfo();
+	 onLoad (options) {
+		console.log(options);
+		 this.setData({
+			 type: options.type,
+			 owner: options.owner
+		 });
+	 },
+	onShow() {
+		if (this.data.type === 'normal_process') {
+			console.log('....');
+		} else {
+			console.log('....//////');
+		}
 	},
-	// 获取订单信息
-	getOrderInfo () {
-		util.showLoading();
-		util.getDataFromServer('consumer/order/get-order-info', {
-			orderId: app.globalData.orderInfo.orderId,
-			dataType: '45'
-		}, () => {
-		}, (res) => {
-			if (res.code === 0) {
-				this.setData({
-					orderInfo: res.data
-				});
-				// 获取实名信息
-				let temp = this.data.orderInfo['idCard'];
-				if (temp.idCardStatus === 1) {
-					let idCardFace = this.data.idCardFace;
-					// 身份证反面
-					let idCardBack = this.data.idCardBack;
-					idCardBack.fileUrl = temp.idCardNegativeUrl;
-					// 身份证正面
-					idCardFace.fileUrl = temp.idCardPositiveUrl;
-					idCardFace.ocrObject.name = temp.idCardTrueName;
-					idCardFace.ocrObject.idNumber = temp.idCardNumber;
-					this.setData({
-						idCardFace,
-						idCardBack
-					});
-				}
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-		});
-	},
-	onShow () {
+	getOwnerIdCard () {
 		// 身份证正面
 		let idCardFace = wx.getStorageSync('id_card_face');
 		if (idCardFace) {
@@ -82,15 +57,20 @@ Page({
 			wx.removeStorageSync('id_card_back');
 		}
 	},
-	// 拍照 银行卡
 	onClickShotBankCardHandle (e) {
+		this.setData({
+			type: ''
+		});
 		let type = e.currentTarget.dataset.type;
 		util.go(`/pages/default/shot_bank_card/shot_bank_card?type=${type}`);
 	},
 	// 签约
 	next () {
-		console.log(this.data.orderInfo);
 		if (!this.data.available || this.data.isRequest) {
+			return;
+		}
+		if (this.data.owner !== this.data.idCardFace.ocrObject.name) {
+			util.showToastNoIcon('提交的身份信息与行驶证信息不匹配！');
 			return;
 		}
 		this.setData({
@@ -99,19 +79,20 @@ Page({
 		});
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
-			dataType: '4', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
-			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
-			idCardStatus: this.data.orderInfo['idCard'].idCardStatus,
-			idCardTrueName: this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含4】
-			idCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含4】
-			idCardPositiveUrl: this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含4】
-			idCardNegativeUrl: this.data.idCardBack.fileUrl // 实名身份证反面地址 【dataType包含4】
+			dataType: '8', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
+			dataComplete: 1, // 订单资料是否已完善 1-是，0-否
+			ownerIdCardTrueName: this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含8】
+			ownerIdCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含8】
+			ownerIdCardPositiveUrl: this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含8】
+			ownerIdCardNegativeUrl: this.data.idCardBack.fileUrl, // 实名身份证反面地址 【dataType包含8】
+			ownerIdCardValidDate: this.data.idCardBack.ocrObject.validDate,
+			ownerIdCardAddress: this.data.idCardFace.ocrObject.address
 		};
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
 			if (res.code === 0) {
-				util.go('/pages/default/signed_successfully/signed_successfully');
+				util.go('/pages/default/processing_progress/processing_progress');
 			} else {
 				util.showToastNoIcon(res.message);
 			}

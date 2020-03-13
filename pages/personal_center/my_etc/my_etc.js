@@ -64,6 +64,7 @@ Page({
 		} else if (obj.isVehicle === 0) {
 			// 是否上传行驶证， 0未上传，1已上传
 			app.globalData.orderInfo.orderId = obj.id;
+			app.globalData.orderInfo.shopProductId = obj.shopProductId;
 			util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
 		}
 	},

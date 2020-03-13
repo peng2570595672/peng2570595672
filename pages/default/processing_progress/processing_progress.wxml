@@ -18,9 +18,9 @@
 	<!--	办理进度失败-->
 	<!--	进度开始-->
 	<view class="progress_wrapper">
-		<view class="item finished"  wx:if="{{info.accountVerify !== -1}}">
+		<view class="item finished"  wx:if="{{info.orderVerificationId}}">
 			<view class="content-title finished">账户验证</view>
-			<view class="content-des">正在验证中....<text class="refresh iconfont">刷新结果</text></view>
+			<view class="content-des">正在验证中....<text class="refresh iconfont" catchtap="refreshCheck">刷新结果</text></view>
 		</view>
 		<view class="item  {{info.accountVerify === -1 || info.accountVerify === 2  ? 'current' : ''}} {{info.auditStatus !== 0 ? 'finished' : ''}}">
 			<view class="content-title">资料审核</view>
@@ -44,6 +44,6 @@
 	<view class="auto-fill"></view>
 
 	<!--	在线客服开始-->
-	<view class="online-server">在线客服</view>
+	<view class="online-server" catchtap="goOnlineServer">在线客服</view>
 	<!--	在线客服结束-->
 </view>

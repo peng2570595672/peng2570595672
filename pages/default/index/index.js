@@ -130,18 +130,78 @@ Page({
 			util.go('/pages/default/receiving_address/receiving_address');
 		}
 	},
-	// 跳转到个人中心
-	onClickForJumpPersonalCenterHandle (e) {
-		// 统计点击事件
-		mta.Event.stat('010',{});
-		// 未登录
-		if (!app.globalData.userInfo.accessToken) {
-			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-			util.go('/pages/login/login/login');
-			return;
-		}
+	// 底部跳转跳转
+	go (e) {
 		let url = e.currentTarget.dataset.url;
-		util.go(`/pages/personal_center/${url}/${url}`);
+		if (url === 'online_customer_service' || url === 'violation_enquiry') {
+			if (url === 'violation_enquiry') {
+				// 统计点击进入违章查询
+				mta.Event.stat('036',{});
+			}
+			util.go(`/pages/web/web/web?type=${url}`);
+		} else {
+			// 未登录
+			if (!app.globalData.userInfo.accessToken) {
+				wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+				util.go('/pages/login/login/login');
+				return;
+			}
+			if (url === 'index') {
+				// 统计点击进入个人中心事件
+				mta.Event.stat('010',{});
+			}
+			util.go(`/pages/personal_center/${url}/${url}`);
+		}
+	},
+	// 恢复签约
+	//  恢复签约
+	onClickBackToSign () {
+		util.showLoading('加载中');
+		let params = {
+			orderId: this.data.orderId,// 订单id
+			dataComplete: 1,// 订单资料是否已完善 1-是，0-否
+			needSignContract: true // 是否需要签约 true-是，false-否
+		};
+		util.getDataFromServer('consumer/order/save-order-info', params, () => {
+			util.showToastNoIcon('提交数据失败！');
+			util.hideLoading();
+		}, (res) => {
+			if (res.code === 0) {
+				util.hideLoading();
+				let result = res.data.contract;
+				// 签约车主服务 2.0
+				app.globalData.belongToPlatform = this.data.orderInfo.platformId;
+				app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+				if (result.version === 'v2') {
+					wx.navigateToMiniProgram({
+						appId: 'wxbcad394b3d99dac9',
+						path: 'pages/route/index',
+						extraData: result.extraData,
+						fail () {
+							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
+						}
+					});
+				} else { // 签约车主服务 3.0
+					wx.navigateToMiniProgram({
+						appId: 'wxbcad394b3d99dac9',
+						path: 'pages/etc/index',
+						extraData: {
+							preopen_id: result.extraData.peropen_id
+						},
+						fail () {
+							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
+						}
+					});
+				}
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			this.setData({
+				available: true,
+				isRequest: false
+			});
+		});
 	},
 	// 查看办理进度
 	onClickViewProcessingProgressHandle () {

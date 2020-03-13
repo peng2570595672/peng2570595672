@@ -2,7 +2,7 @@
 	<block>
 			<!--	扣款方式标题开始-->
 			<view class="title {{idCardFace.fileUrl && idCardBack.fileUrl ? 'other-title' : ''}}">
-				<view class="text">微信本人实名信息</view>
+				<view class="text">车主本人信息</view>
 				<view class="iconfont"  wx:if="{{idCardFace.fileUrl && idCardBack.fileUrl}}" catchtap="onClickShotBankCardHandle" data-type="1"></view>
 			</view>
 			<!--	扣款方式标题结束-->
@@ -28,10 +28,12 @@
 			</view>
 			<!--	输入身份证号 和身份证姓名结束-->
 			<!--	文本提示开始-->
-			<view class="tips">* 签约免密支付，需提供微信本人身份信息</view>
+			<view class="tips">* 用于高速办理ETC身份验证</view>
 			<!--	文本提示结束-->
 		<!--	按钮开始-->
-		<view  class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next"><view class="animate" wx:if="{{isRequest}}"></view>重新签约</view>
+		<view class="submit">
+			<view  class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next"><view class="animate" wx:if="{{isRequest}}"></view>提交</view>
+		</view>
 		<!--	按钮结束-->
 	</block>
 </view>

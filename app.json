@@ -48,6 +48,13 @@
 			"pages": [
 				"login/login"
 			]
+		},
+		{
+			"root": "pages/web",
+			"name": "pages/web",
+			"pages": [
+				"web/web"
+			]
 		}
 	],
 	"navigateToMiniProgramAppIdList": [

@@ -29,6 +29,7 @@ Page({
 		orderList: [],
 		failBillList: [],
 		failBillMessage: '',
+		successBillMessage: '',
 		successBillList: [],
 		vehicleList: ['全部车辆'],
 		chooseTime: '',
@@ -94,7 +95,7 @@ Page({
 						this.getFailBill(item.vehPlates);
 						this.getSuccessBill(item.vehPlates,year + util.formatNumber(month));
 					});
-					this.getFailBillMessage();
+					this.getMessage();
 				} else {
 					// 没有激活车辆
 				}
@@ -105,8 +106,8 @@ Page({
 			util.hideLoading();
 		});
 	},
-	// 获取失败账单信息
-	getFailBillMessage (vehPlates) {
+	// 获取失败/成功账单信息
+	getMessage (vehPlates) {
 		let channel = [];
 		this.data.orderList.map((item) => {
 			channel.push(item.obuCardType);
@@ -117,6 +118,28 @@ Page({
 			hash[item2] ? '' : hash[item2] = true && item1.push(item2);
 			return item1;
 		}, []);
+		this.getFailBillMessage(channel);
+		this.getSuccessMessage(channel);
+	},
+	getSuccessMessage (channel) {
+		let params = {
+			channels: channel,
+			month: this.data.chooseTime
+		};
+		util.getDataFromServer('consumer/etc/get-bill-info', params, () => {
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				this.setData({
+					successBillMessage: res.data
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken);
+	},
+	getFailBillMessage (channel) {
 		let params = {
 			channels: channel
 		};

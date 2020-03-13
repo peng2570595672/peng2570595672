@@ -122,7 +122,13 @@
 .payment-way .fill {
   flex: 1;
 }
-.payment-way .btn {
+.payment-way .submit {
+  position: fixed;
+  left: 0;
+  bottom: 0rpx;
+  width: 100%;
+}
+.payment-way .submit .btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -134,11 +140,11 @@
   border-radius: 49rpx;
   background: linear-gradient(to right, #15ad69, #84d157);
 }
-.payment-way .btn.available {
+.payment-way .submit .btn.available {
   animation: btnFadeIn 0.3s;
   animation-fill-mode: forwards;
 }
-.payment-way .btn.unavailable {
+.payment-way .submit .btn.unavailable {
   animation: btnFadeOut 0.3s;
   animation-fill-mode: forwards;
 }

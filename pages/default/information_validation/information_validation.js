@@ -21,6 +21,7 @@ Page({
 		personsArr: [2, 3, 4, 5, 6, 7, 8, 9], // 核载人数选择框
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
+		productInfo: undefined,// 套餐信息
 		orderInfo: undefined // 订单信息
 	},
 	onLoad () {
@@ -58,13 +59,32 @@ Page({
 		}
 		// 加载订单信息
 		this.getOrderInfo();
+		this.getProductOrderInfo();
+	},
+	// 根据订单id获取套餐信息
+	getProductOrderInfo () {
+		util.showLoading();
+		util.getDataFromServer('consumer/order/get-product-by-order-id', {
+			orderId: app.globalData.orderInfo.orderId
+		}, () => {
+		}, (res) => {
+			if (res.code === 0) {
+				this.setData({
+					productInfo: res.data
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
 	},
 	// 获取订单信息
 	getOrderInfo () {
 		util.showLoading();
 		util.getDataFromServer('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
-			dataType: '1'
+			dataType: '14'
 		}, () => {
 		}, (res) => {
 			if (res.code === 0) {
@@ -132,7 +152,6 @@ Page({
 		});
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
-			dataComplete: 1, // 订单资料是否已完善 1-是，0-否
 			vehicleInfo: {
 				carType: 1,
 				vehPlates: face.numberPlates,
@@ -159,6 +178,16 @@ Page({
 				recode: back.recode // 检验记录 【dataType包含6】
 			}
 		};
+		console.log(this.data.orderInfo.idCard.idCardTrueName)
+		console.log(face.owner)
+		console.log(this.data.productInfo.isOwner)
+		// 判断套餐是否需要上传车主身份证 && 行驶证姓名同车主身份证是否一致
+		if (this.data.productInfo.isOwner === 1 && this.data.orderInfo.idCard.idCardTrueName === face.owner) {
+			params['dataComplete'] = 0;// 订单资料是否已完善 1-是，0-否
+		} else {
+			params['dataComplete'] = 1;
+		}
+		// 是否需要上传车头照
 		if (this.data.requireCarPic) {
 			params['headstockInfo'] = {
 				vehPlate: face.numberPlates,// 车牌号 【dataType包含7】
@@ -170,20 +199,24 @@ Page({
 		} else {
 			params['dataType'] = '6';
 		}
-		util.getDataFromServer('consumer/order/save-order-info', params, () => {
-			util.showToastNoIcon('提交数据失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				util.go('/pages/default/processing_progress/processing_progress');
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			this.setData({
-				available: true,
-				isRequest: false
-			});
-		});
+		// util.getDataFromServer('consumer/order/save-order-info', params, () => {
+		// 	util.showToastNoIcon('提交数据失败！');
+		// }, (res) => {
+		// 	if (res.code === 0) {
+		// 		if (this.data.productInfo.isOwner === 1 && this.data.orderInfo.idCard.idCardTrueName === face.owner) {
+		// 			util.go(`/pages/default/update_id_card/update_id_card?type=normal_process&owner=${face.owner}`);
+		// 		} else {
+		// 			util.go('/pages/default/processing_progress/processing_progress');
+		// 		}
+		// 	} else {
+		// 		util.showToastNoIcon(res.message);
+		// 	}
+		// }, app.globalData.userInfo.accessToken, () => {
+		// 	this.setData({
+		// 		available: true,
+		// 		isRequest: false
+		// 	});
+		// });
 	},
 	// 选择人数
 	onPersonsCapacityPickerChange (e) {

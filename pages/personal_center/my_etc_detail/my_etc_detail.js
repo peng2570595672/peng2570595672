@@ -132,8 +132,13 @@ Page({
 			util.go('/pages/default/payment_way/payment_way');
 		} else if (this.data.orderInfo.isVehicle === 0) {
 			// 是否上传行驶证， 0未上传，1已上传
+			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 			app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
 			util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
 		}
+	},
+	// 在线客服
+	goOnlineServer () {
+		util.go(`/pages/web/web/web?type=online_customer_service`);
 	}
 });

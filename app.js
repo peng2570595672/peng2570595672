@@ -81,6 +81,9 @@ App({
 	},
 	onShow (res) {
 		console.log(res);
+		if (res && res.scene === 1038 ) {
+		//	pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license
+		}
 		if (res && res.scene === 1038 && this.globalData.signAContract !== -1) { // 场景值1038：从被打开的小程序返回
 			const {appId} = res.referrerInfo;
 			// 车主服务签约
@@ -105,7 +108,6 @@ App({
 				if (res.data.contractStatus === 1 && res.data.userState === 'NORMAL') {
 					// if (this.globalData.belongToPlatform === this.globalData.platformId) {
 						// 本本台签约
-						//  解决从会员权益进入办理:页面栈超过10个问题
 						util.go('/pages/default/signed_successfully/signed_successfully');
 					// } else {
 					// 	// 其他平台签约 :业务员端/h5

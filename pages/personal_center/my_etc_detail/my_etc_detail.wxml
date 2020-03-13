@@ -56,7 +56,7 @@
 		<view class="btn" wx:elif="{{orderInfo.selfStatus === 5}}">修改资料</view>
 		<view class="btn-wrapper">
 			<view catchtap="onClickCancelHandle">取消办理</view>
-			<view>客服中心</view>
+			<view catchtap="goOnlineServer">客服中心</view>
 		</view>
 	</view>
 	<!--	按钮结束-->

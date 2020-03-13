@@ -131,10 +131,6 @@ Page({
 	},
 	// 拍照 银行卡
 	onClickShotBankCardHandle (e) {
-		// 如果身份证已经实名;禁止修改身份证
-		// if (this.data.orderInfo.idCard.idCardStatus === 1) {
-		// 	return false;
-		// }
 		let type = e.currentTarget.dataset.type;
 		util.go(`/pages/default/shot_bank_card/shot_bank_card?type=${type}`);
 	},
@@ -151,7 +147,7 @@ Page({
 		});
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
-			dataType: '34', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
+			dataType: '348', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			shopProductId: this.data.choiceObj.shopProductId,
 			areaCode: this.data.choiceObj.areaCode,
@@ -163,6 +159,12 @@ Page({
 			idCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含4】
 			idCardPositiveUrl: this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含4】
 			idCardNegativeUrl: this.data.idCardBack.fileUrl, // 实名身份证反面地址 【dataType包含4】
+			ownerIdCardTrueName: this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含8】
+			ownerIdCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含8】
+			ownerIdCardPositiveUrl: this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含8】
+			ownerIdCardNegativeUrl: this.data.idCardBack.fileUrl, // 实名身份证反面地址 【dataType包含8】
+			ownerIdCardValidDate: this.data.orderInfo['idCard'].idCardValidDate ? this.data.orderInfo['idCard'].idCardValidDate : this.data.idCardBack.ocrObject.validDate,
+			ownerIdCardAddress: this.data.orderInfo['idCard'].idCardAddress ? this.data.orderInfo['idCard'].idCardAddress : this.data.idCardFace.ocrObject.address,
 			needSignContract: true // 是否需要签约 true-是，false-否 允许值: true, false
 		};
 		// 银行卡 3.0

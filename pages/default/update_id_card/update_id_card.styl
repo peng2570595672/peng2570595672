@@ -98,21 +98,26 @@
 	.fill
 		flex 1
 	// 下一步
-	.btn
-		display flex
-		align-items center
-		justify-content center
-		margin 86rpx 60rpx 40rpx
-		height 98rpx
-		font-size 40rpx
-		font-weight 500
-		color #fff
-		border-radius 49rpx
-		background: linear-gradient(to right , $deepThemeColor, $shallowThemeColor)
-		&.available
-			animation btnFadeIn .3s
-			animation-fill-mode forwards
-		&.unavailable
-			animation btnFadeOut .3s
-			animation-fill-mode forwards
+	.submit
+		position fixed
+		left 0
+		bottom 0rpx
+		width 100%
+		.btn
+			display flex
+			align-items center
+			justify-content center
+			margin 86rpx 60rpx 40rpx
+			height 98rpx
+			font-size 40rpx
+			font-weight 500
+			color #fff
+			border-radius 49rpx
+			background: linear-gradient(to right , $deepThemeColor, $shallowThemeColor)
+			&.available
+				animation btnFadeIn .3s
+				animation-fill-mode forwards
+			&.unavailable
+				animation btnFadeOut .3s
+				animation-fill-mode forwards
 
