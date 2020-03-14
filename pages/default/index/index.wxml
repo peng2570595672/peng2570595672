@@ -28,7 +28,7 @@
 	<!--	免费办理结束-->
 
 	<!--	办理中开始-->
-	<view class="processing" wx:if="{{orderInfo.selfStatus === 0 || orderInfo.selfStatus === 1 || orderInfo.selfStatus === 3}}">
+	<view class="processing" wx:if="{{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 3}}">
 		<view class="processing-title">
 			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
@@ -39,7 +39,7 @@
 	<!--	办理中结束-->
 
 	<!--	查看进度开始-->
-	<view class="viewing-process" wx:if="{{orderInfo.selfStatus === 4}}">
+	<view class="viewing-process" wx:if="{{orderInfo.selfStatus === 4 || orderInfo.selfStatus === 7}}">
 		<view class="processing-title">
 			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
@@ -72,7 +72,7 @@
 <!--	审核失败结束-->
 
 <!--	确认收货并激活开始-->
-	<view class="confirm-receipt" wx:if="{{false}}">
+	<view class="confirm-receipt" wx:if="{{orderInfo.selfStatus === 6}}">
 		<view class="processing-title">
 			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>

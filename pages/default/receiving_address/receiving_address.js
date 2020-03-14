@@ -457,5 +457,11 @@ Page({
 	onUnload () {
 		// 统计点击事件
 		mta.Event.stat('025',{});
+		util.alert({
+			content: '您还未领取免费ETC设备 确认取消吗？？',
+			showCancel: true,
+			cancelText: '取消办理',
+			confirmText: '手误了'
+		});
 	}
 });

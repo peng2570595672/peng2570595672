@@ -13,7 +13,7 @@
 	<view class="item">
 		<view>订单状态</view>
 		<view class="caution" wx:if="{{orderInfo.selfStatus === 2}}">待签约</view>
-		<view class="caution" wx:elif="{{orderInfo.selfStatus === 4}}">审核中</view>
+		<view class="caution" wx:elif="{{orderInfo.selfStatus === 4 || orderInfo.selfStatus === 7}}">审核中</view>
 		<view class="failed" wx:elif="{{orderInfo.selfStatus === 5}}">申请失败</view>
 		<view class="caution" wx:else>办理中</view>
 	</view>
@@ -52,8 +52,8 @@
 	<view class="btns">
 		<view class="btn" wx:if="{{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 3}}" catchtap="onClickContinueHandle">继续办理</view>
 		<view class="btn" wx:elif="{{orderInfo.selfStatus === 2}}" catchtap="onClickBackToSign">恢复签约</view>
-		<view class="btn" wx:elif="{{orderInfo.selfStatus === 4}}" catchtap="onClickViewProcessingProgressHandle">查看进度</view>
-		<view class="btn" wx:elif="{{orderInfo.selfStatus === 5}}">修改资料</view>
+		<view class="btn" wx:elif="{{orderInfo.selfStatus === 4 || orderInfo.selfStatus === 7}}" catchtap="onClickViewProcessingProgressHandle">查看进度</view>
+		<view class="btn" wx:elif="{{orderInfo.selfStatus === 5}}"  catchtap="onClickModifiedData">修改资料</view>
 		<view class="btn-wrapper">
 			<view catchtap="onClickCancelHandle">取消办理</view>
 			<view catchtap="goOnlineServer">客服中心</view>

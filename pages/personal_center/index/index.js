@@ -32,7 +32,7 @@ Page({
 					}, (res) => {
 						util.hideLoading();
 						if (res.code === 0) {
-							// 判断状态
+							util.go('/pages/default/my_etc_detail/my_etc_detail');
 						} else {
 							util.showToastNoIcon(res.message);
 						}

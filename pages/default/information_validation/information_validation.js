@@ -27,38 +27,39 @@ Page({
 	onLoad () {
 		// 行驶证正面
 		let drivingLicenseFace = wx.getStorageSync('driving_license_face');
-		if (drivingLicenseFace) {
-			drivingLicenseFace = JSON.parse(drivingLicenseFace).data[0];
-		}
 		// 行驶证反面
 		let drivingLicenseBack = wx.getStorageSync('driving_license_back');
-		if (drivingLicenseBack) {
-			drivingLicenseBack = JSON.parse(drivingLicenseBack).data[0];
-		}
-		// 车头照
-		let carHead45 = wx.getStorageSync('car_head_45');
-		if (carHead45) {
-			carHead45 = JSON.parse(carHead45).data[0];
-		}
-		this.setData({
-			drivingLicenseFace,
-			drivingLicenseBack,
-			carHead45
-		});
-		// 回显人数
-		let personCount = this.data.drivingLicenseBack.ocrObject.personsCapacity;
-		if (personCount) {
-			try {
-				personCount = parseInt(personCount);
-				let index = this.data.personsArr.indexOf(personCount);
-				this.setData({
-					personIndex: index !== -1 ? index : 3
-				});
-			} catch (e) {
+		if (drivingLicenseFace && drivingLicenseBack) {
+			drivingLicenseFace = JSON.parse(drivingLicenseFace);
+			drivingLicenseBack = JSON.parse(drivingLicenseBack);
+			// 车头照
+			let carHead45 = wx.getStorageSync('car_head_45');
+			if (carHead45) {
+				carHead45 = JSON.parse(carHead45);
 			}
+			this.setData({
+				drivingLicenseFace,
+				drivingLicenseBack,
+				carHead45
+			});
+			// 回显人数
+			let personCount = this.data.drivingLicenseBack.ocrObject.personsCapacity;
+			if (personCount) {
+				try {
+					personCount = parseInt(personCount);
+					let index = this.data.personsArr.indexOf(personCount);
+					this.setData({
+						personIndex: index !== -1 ? index : 3
+					});
+				} catch (e) {
+				}
+			}
+			// 加载订单信息 有缓存,不需要查行驶证
+			this.getOrderInfo(true);
+		} else {
+			// 加载订单信息  没有缓存,需要查行驶证
+			this.getOrderInfo(false);
 		}
-		// 加载订单信息
-		this.getOrderInfo();
 		this.getProductOrderInfo();
 	},
 	// 根据订单id获取套餐信息
@@ -80,11 +81,11 @@ Page({
 		});
 	},
 	// 获取订单信息
-	getOrderInfo () {
+	getOrderInfo (isCache) {
 		util.showLoading();
 		util.getDataFromServer('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
-			dataType: '14'
+			dataType:  isCache ? '14' : '1467'
 		}, () => {
 		}, (res) => {
 			if (res.code === 0) {
@@ -92,6 +93,24 @@ Page({
 					orderInfo: res.data,
 					available: true // 下一步按钮可用
 				});
+				if (!isCache) {
+					if (res.data.vehicle) { // 是否有行驶证
+						let index = this.data.personsArr.findIndex((value) => value === parseInt(res.data.vehicle.personsCapacity));
+						this.setData({
+							[`drivingLicenseBack.ocrObject`]: res.data.vehicle,
+							[`drivingLicenseFace.ocrObject`]: res.data.vehicle,
+							[`drivingLicenseFace.ocrObject.numberPlates`]: res.data.vehicle.vehPlates,
+							[`drivingLicenseBack.ocrObject.numberPlates`]: res.data.vehicle.vehPlates,
+							personIndex: index,
+							[`drivingLicenseFace.ocrObject.address`]: res.data.vehicle.ownerAddress,
+							[`drivingLicenseFace.ocrObject.resgisterDate`]: res.data.vehicle.registerDate,
+							[`drivingLicenseFace.fileUrl`]: res.data.vehicle.licenseMainPage,
+							[`drivingLicenseBack.fileUrl`]: res.data.vehicle.licenseVicePage
+						});
+						wx.setStorageSync('driving_license_face', JSON.stringify(this.data.drivingLicenseFace));
+						wx.setStorageSync('driving_license_back', JSON.stringify(this.data.drivingLicenseBack));
+					}
+				}
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -169,7 +188,7 @@ Page({
 				licenseMainPage: this.data.drivingLicenseFace.fileUrl, // 主页地址 【dataType包含6】
 				licenseVicePage: this.data.drivingLicenseBack.fileUrl, // 副页地址 【dataType包含6】
 				fileNumber: back.fileNumber, // 档案编号 【dataType包含6】
-				personsCapacity: back.personsCapacity, // 核定载人数 【dataType包含6】
+				personsCapacity: this.data.personsArr[this.data.personIndex], // 核定载人数 【dataType包含6】
 				totalMass: back.totalMass, // 总质量 【dataType包含6】
 				loadQuality: back.loadQuality, // 核定载质量 【dataType包含6】
 				curbWeight: back.curbWeight, // 整备质量 【dataType包含6】
@@ -221,7 +240,7 @@ Page({
 			personIndex: parseInt(e.detail.value)
 		});
 		let drivingLicenseBack = this.data.drivingLicenseBack;
-		drivingLicenseBack.ocrObject.personsCapacity = this.data.personsArr[this.data.personIndex] + '人';
+		drivingLicenseBack.ocrObject.personsCapacity = this.data.personsArr[this.data.personIndex];
 		this.setData({
 			drivingLicenseBack
 		});
@@ -272,8 +291,10 @@ Page({
 		let type = e.currentTarget.dataset.type;
 		type = parseInt(type);
 		wx.setStorageSync('photo_recognition_of_driving_license_type', type);
-		wx.navigateBack({
-			delta: 1
-		});
+		// 使用返回上一页,审核失败重新进入后返回问题
+		// wx.navigateBack({
+		// 	delta: 1
+		// });
+		util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
 	}
 });

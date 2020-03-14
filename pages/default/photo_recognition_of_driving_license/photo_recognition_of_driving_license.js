@@ -51,26 +51,30 @@ Page({
 				type: parseInt(type)
 			});
 			// 读取缓存
-			let drivingLicenseFace = JSON.parse(wx.getStorageSync('driving_license_face'));
-			let drivingLicenseBack = JSON.parse(wx.getStorageSync('driving_license_back'));
-			let carHeadCard = {};
-			if (wx.getStorageSync('car_head_45')) {
-				carHeadCard = JSON.parse(wx.getStorageSync('car_head_45'));
+			let drivingLicenseFace = wx.getStorageSync('driving_license_face');
+			let drivingLicenseBack = wx.getStorageSync('driving_license_back');
+			if (drivingLicenseFace && drivingLicenseBack) {
+				drivingLicenseFace = JSON.parse(drivingLicenseFace);
+				drivingLicenseBack = JSON.parse(drivingLicenseBack);
+				let carHeadCard = {};
+				if (wx.getStorageSync('car_head_45')) {
+					carHeadCard = JSON.parse(wx.getStorageSync('car_head_45'));
+					this.setData({
+						pic0: carHeadCard.fileUrl
+					});
+				}
 				this.setData({
-					pic0: carHeadCard.data[0].fileUrl
+					pic3: drivingLicenseFace.fileUrl,
+					pic4: drivingLicenseBack.fileUrl,
+					retry: true,
+					pic0IdentifyResult: 0,
+					pic3IdentifyResult: this.data.type === 3 ? -1 : 0,
+					pic4IdentifyResult: this.data.type === 4 ? -1 : 0,
+					picPath: this.data.type === 3 ? '/pages/default/assets/driving_license_face_border.png' : this.data.type === 4 ? '/pages/default/assets/driving_license_back_border.png' : '/pages/default/assets/car_head_45_border.png',
+					title: this.data.type === 3 ? '车辆行驶证-主页' : this.data.type === 4 ? '车辆行驶证-副页' : '车辆45度照片'
 				});
+				wx.removeStorageSync('photo_recognition_of_driving_license_type');
 			}
-			this.setData({
-				pic3: drivingLicenseFace.data[0].fileUrl,
-				pic4: drivingLicenseBack.data[0].fileUrl,
-				retry: true,
-				pic0IdentifyResult: 0,
-				pic3IdentifyResult: this.data.type === 3 ? -1 : 0,
-				pic4IdentifyResult: this.data.type === 4 ? -1 : 0,
-				picPath: this.data.type === 3 ? '/pages/default/assets/driving_license_face_border.png' : this.data.type === 4 ? '/pages/default/assets/driving_license_back_border.png' : '/pages/default/assets/car_head_45_border.png',
-				title: this.data.type === 3 ? '车辆行驶证-主页' : this.data.type === 4 ? '车辆行驶证-副页' : '车辆45度照片'
-			});
-			wx.removeStorageSync('photo_recognition_of_driving_license_type');
 		}
 	},
 	// 根据套餐id获取套餐信息
@@ -220,6 +224,9 @@ Page({
 		compressPicturesUtils.processingPictures(this, this.data[`pic${type}`], 'pressCanvas', 640, (res) => {
 			let path = res ? res : this.data[`pic${type}`];
 			// 上传并识别图片
+			util.showLoading({
+				title: '正在识别'
+			});
 			util.uploadOcrFile(path, type, () => {
 				let obj = {};
 				obj[`pic${type}IdentifyResult`] = 1;
@@ -240,7 +247,7 @@ Page({
 							let obj = {};
 							obj[`pic${type}IdentifyResult`] = 0;
 							this.setData(obj);
-							wx.setStorageSync(type === 3 ? 'driving_license_face' : 'driving_license_back', JSON.stringify(res));
+							wx.setStorageSync(type === 3 ? 'driving_license_face' : 'driving_license_back', JSON.stringify(res.data[0]));
 						}
 					} else { // 识别失败
 						util.hideLoading();
@@ -279,7 +286,7 @@ Page({
 						this.setData({
 							pic0IdentifyResult: 0
 						});
-						wx.setStorageSync('car_head_45', JSON.stringify(res));
+						wx.setStorageSync('car_head_45', JSON.stringify(res.data[0]));
 						if (this.data.pic3IdentifyResult === 0 && this.data.pic4IdentifyResult === 0) {
 							this.isOver();
 						}
@@ -326,8 +333,5 @@ Page({
 			title: index === 3 ? '车辆行驶证-主页' : index === 4 ? '车辆行驶证-副页' : '车辆45度照片',
 			retry: this.data[key] !== ''
 		});
-	},
-	onUnload () {
-		console.log('销毁');
 	}
 });

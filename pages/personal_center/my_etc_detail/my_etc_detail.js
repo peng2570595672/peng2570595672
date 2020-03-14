@@ -47,6 +47,12 @@ Page({
 			}
 		});
 	},
+	// 修改资料
+	onClickModifiedData () {
+		app.globalData.orderInfo.orderId = this.data.orderId;
+		app.globalData.orderInfo.shopProductId = this.data.orderInfo;
+		util.go('/pages/default/information_validation/information_validation');
+	},
 	// 取消订单
 	cancelOrder () {
 		util.showLoading({

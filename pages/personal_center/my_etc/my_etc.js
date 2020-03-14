@@ -103,7 +103,7 @@ Page({
 				util.hideLoading();
 				let result = res.data.contract;
 				// 签约车主服务 2.0
-				app.globalData.belongToPlatform = this.data.orderInfo.platformId;
+				app.globalData.belongToPlatform = app.globalData.platformId;
 				app.globalData.orderInfo.orderId = obj.id;
 				if (result.version === 'v2') {
 					wx.navigateToMiniProgram({

@@ -7,6 +7,7 @@ const app = getApp();
 Page({
 	data: {
 		dashedHeight: 0,
+		accountVerification: 0, //  0 没有核验id   1：核验成功，2-正在核验
 		info: undefined
 	},
 	onLoad (options) {
@@ -28,6 +29,9 @@ Page({
 				this.setData({
 					info: res.data
 				});
+				if (this.data.info.orderVerificationId) {
+					this.refreshCheck();
+				}
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -43,6 +47,9 @@ Page({
 		}, () => {
 		}, (res) => {
 			if (res.code === 0) {
+				this.setData({
+					accountVerification: res.data.status
+				});
 			} else {
 				util.showToastNoIcon(res.message);
 			}

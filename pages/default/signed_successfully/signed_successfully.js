@@ -24,5 +24,6 @@ Page({
 	onUnload () {
 		// 统计点击事件
 		mta.Event.stat('034',{});
+		util.goHome();
 	}
 });
