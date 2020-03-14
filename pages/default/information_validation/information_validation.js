@@ -25,6 +25,7 @@ Page({
 		orderInfo: undefined // 订单信息
 	},
 	onLoad () {
+		this.getProductOrderInfo();
 		// 行驶证正面
 		let drivingLicenseFace = wx.getStorageSync('driving_license_face');
 		// 行驶证反面
@@ -60,7 +61,6 @@ Page({
 			// 加载订单信息  没有缓存,需要查行驶证
 			this.getOrderInfo(false);
 		}
-		this.getProductOrderInfo();
 	},
 	// 根据订单id获取套餐信息
 	getProductOrderInfo () {
@@ -109,6 +109,12 @@ Page({
 						});
 						wx.setStorageSync('driving_license_face', JSON.stringify(this.data.drivingLicenseFace));
 						wx.setStorageSync('driving_license_back', JSON.stringify(this.data.drivingLicenseBack));
+					}
+					if (res.data.headstock) {
+						this.setData({
+							carHead45: res.data.headstock
+						});
+						wx.setStorageSync('car_head_45', JSON.stringify(res.data.headstock));
 					}
 				}
 			} else {
@@ -204,7 +210,7 @@ Page({
 			params['dataComplete'] = 1;
 		}
 		// 是否需要上传车头照
-		if (this.data.requireCarPic) {
+		if (this.data.productInfo.isHeadImg === 1) {
 			params['headstockInfo'] = {
 				vehPlate: face.numberPlates,// 车牌号 【dataType包含7】
 				fileName: carHead45.fileName, // 文件名称 【dataType包含7】

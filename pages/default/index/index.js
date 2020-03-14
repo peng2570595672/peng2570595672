@@ -219,6 +219,12 @@ Page({
 		}
 		util.go('/pages/personal_center/my_etc/my_etc');
 	},
+	// 修改资料
+	onClickModifiedData () {
+		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+		app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
+		util.go('/pages/default/information_validation/information_validation');
+	},
 	// 继续办理
 	onClickContinueHandle () {
 		// 统计点击事件

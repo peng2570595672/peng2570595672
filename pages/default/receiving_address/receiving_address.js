@@ -454,6 +454,24 @@ Page({
 	onClickGoAgreementHandle () {
 		util.go('/pages/default/agreement/agreement');
 	},
+	// 取消订单
+	cancelOrder () {
+		util.showLoading({
+			title: '取消中...'
+		});
+		util.getDataFromServer('consumer/order/cancel-order', {
+			orderId: app.globalData.orderInfo.orderId
+		}, () => {
+			util.showToastNoIcon('取消订单失败！');
+		}, (res) => {
+			if (res.code === 0) {
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
 	onUnload () {
 		// 统计点击事件
 		mta.Event.stat('025',{});
@@ -461,7 +479,15 @@ Page({
 			content: '您还未领取免费ETC设备 确认取消吗？？',
 			showCancel: true,
 			cancelText: '取消办理',
-			confirmText: '手误了'
+			confirmText: '手误了',
+			confirm: () => {
+				util.go('/pages/default/receiving_address/receiving_address');
+			},
+			cancel: () => {
+				if (app.globalData.orderInfo.orderId) {
+					this.cancelOrder();
+				}
+			}
 		});
 	}
 });
