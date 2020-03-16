@@ -76,7 +76,7 @@ Page({
 					failBillList: this.data.failBillList
 				});
 				if (this.data.failBillList.length === 0) {
-					util.go('/pages/personal_center/my_order/my_order');
+					util.goHome(true);
 				}
 			} else {
 				util.showToastNoIcon(res.message);
