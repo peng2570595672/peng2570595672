@@ -110,7 +110,6 @@ page .index .user_nav .user_item .user_item_icon {
 page .index .user_nav .user_item .user_item_icon > view {
   width: 20rpx;
   height: 20rpx;
-  background: #f00;
   border-radius: 50%;
   margin: -82rpx 0 0 64rpx;
 }

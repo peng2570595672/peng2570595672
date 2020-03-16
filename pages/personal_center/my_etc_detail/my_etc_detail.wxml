@@ -12,12 +12,13 @@
 	</view>
 	<view class="item">
 		<view>订单状态</view>
+		<view class="caution" wx:if="{{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 3}}">办理中</view>
 		<view class="caution" wx:if="{{orderInfo.selfStatus === 2}}">待签约</view>
 		<view class="caution" wx:elif="{{orderInfo.selfStatus === 4 || orderInfo.selfStatus === 7}}">审核中</view>
-		<view class="failed" wx:elif="{{orderInfo.selfStatus === 5}}">申请失败</view>
-		<view class="caution" wx:else>办理中</view>
+		<view class="failed" wx:elif="{{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 8}}">申请失败</view>
+		<view wx:else class="succeed">审核通过</view>
 	</view>
-	<view class="des" wx:if="{{selfStatus === 3}}">该设备有扣费失败账单 ，请检查余额是否充足，扣费异常有可能导致设备被拉黑无法正常通行</view>
+	<view class="des" wx:if="{{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 8}}">{{orderInfo.auditRemark}}</view>
 	<view class="item">
 		<view>扣费方式</view>
 		<view>{{orderInfo.productName}}</view>
@@ -52,8 +53,8 @@
 	<view class="btns">
 		<view class="btn" wx:if="{{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 3}}" catchtap="onClickContinueHandle">继续办理</view>
 		<view class="btn" wx:elif="{{orderInfo.selfStatus === 2}}" catchtap="onClickBackToSign">恢复签约</view>
-		<view class="btn" wx:elif="{{orderInfo.selfStatus === 4 || orderInfo.selfStatus === 7}}" catchtap="onClickViewProcessingProgressHandle">查看进度</view>
-		<view class="btn" wx:elif="{{orderInfo.selfStatus === 5}}"  catchtap="onClickModifiedData">修改资料</view>
+		<view class="btn" wx:elif="{{orderInfo.selfStatus === 4 || orderInfo.selfStatus === 7 || orderInfo.selfStatus === 6}}" catchtap="onClickViewProcessingProgressHandle">查看进度</view>
+		<view class="btn" wx:elif="{{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 8}}"  catchtap="onClickModifiedData">修改资料</view>
 		<view class="btn-wrapper">
 			<view catchtap="onClickCancelHandle">取消办理</view>
 			<view catchtap="goOnlineServer">客服中心</view>

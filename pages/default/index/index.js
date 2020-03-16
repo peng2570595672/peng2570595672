@@ -125,6 +125,7 @@ Page({
 	// 免费办理
 	freeProcessing () {
 		// 统计点击事件
+		app.globalData.orderInfo.orderId = '';
 		mta.Event.stat('001',{});
 		if (app.globalData.userInfo.accessToken) {
 			util.go('/pages/default/receiving_address/receiving_address');

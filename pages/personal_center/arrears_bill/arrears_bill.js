@@ -9,6 +9,10 @@ Page({
 		failBillList: []
 	},
 	onLoad () {
+		console.log(app.globalData.myEtcList.length)
+		if (app.globalData.myEtcList.length === 0) {
+
+		}
 		this.getMyETCList();
 	},
 	// 加载ETC列表
@@ -88,13 +92,10 @@ Page({
 	// 补缴
 	payment (e) {
 		let model = e.currentTarget.dataset.model;
-		console.log(model);
 		let idList = [];
 		model.list.map(item => {
 			idList.push(item.id);
 		});
-		console.log(idList);
-		console.log(vehPlateMsg);
 		util.showLoading();
 		let params = {
 			billIdList: idList,// 账单id集合，采用json数组格式[xx,xx]
@@ -114,7 +115,7 @@ Page({
 					signType: extraData.signType,
 					timeStamp: extraData.timeStamp,
 					success: (res) => {
-						console.log(res)
+						console.log(res);
 						if (res.errMsg === 'requestPayment:ok') {
 							this.data.vehicleList.map((item) => {
 								this.getFailBill(item);

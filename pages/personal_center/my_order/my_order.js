@@ -84,6 +84,7 @@ Page({
 					this.setData({
 						orderList: obuStatusList
 					});
+					app.globalData.myEtcList = this.data.orderList;
 					let date = new Date();
 					const year = date.getFullYear();
 					const month = date.getMonth() + 1;
