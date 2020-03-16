@@ -23,6 +23,7 @@ Page({
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
 		isNewPowerCar: false, // 是否为新能源
+		showToast: false, // 是否验证码错误
 		formData: {
 			currentCarNoColor: 0, // 0 蓝色 1 渐变绿 2黄色
 			region: ['省', '市', '区'], // 省市区
@@ -43,6 +44,10 @@ Page({
 		// 统计点击事件
 		mta.Event.stat('024',{});
 		if (!this.data.available || this.data.isRequest) {
+			return;
+		}
+		if (!this.data.getAgreement) {
+			util.showToastNoIcon('请同意并勾选协议！');
 			return;
 		}
 		this.setData({
@@ -88,7 +93,13 @@ Page({
 			} else if (res.code === 104 && res.message === '该车牌已存在订单') {
 				util.go(`/pages/default/high_speed_verification_failed/high_speed_verification_failed?carNo=${this.data.carNoStr}`);
 			} else {
-				util.showToastNoIcon(res.message);
+				if (res.message === '验证码不正确') {
+					this.setData({
+						showToast: true
+					});
+				} else {
+					util.showToastNoIcon(res.message);
+				}
 			}
 		}, app.globalData.userInfo.accessToken, () => {
 			this.setData({
@@ -167,9 +178,9 @@ Page({
 			isNewPowerCar: formData.currentCarNoColor === 1// 如果选择了新能源 那么最后一个显示可输入
 		});
 		if (parseInt(index) === 0 && this.data.carNoStr.length === 8) {
-			util.showToastNoIcon('当前车牌号为绿牌车！');
+			util.showToastNoIcon('8位车牌号为绿牌车！');
 		} else if (parseInt(index) === 1 && this.data.carNoStr.length === 7) {
-			util.showToastNoIcon('当前车牌号为蓝牌车！');
+			util.showToastNoIcon('7位车牌号为蓝牌车或黄牌车！');
 		}
 		// 不是新能源 车牌为8位 去掉最后一位输入的车牌
 		if (!this.data.isNewPowerCar && this.data.carNoStr.length === 8) {
@@ -408,7 +419,7 @@ Page({
 	// 校验字段是否满足
 	validateAvailable () {
 		// 是否接受协议
-		let isOk = this.data.getAgreement;
+		let isOk = true;
 		let formData = this.data.formData;
 		// 校验姓名
 		isOk = isOk && formData.userName && formData.userName.length >= 2;

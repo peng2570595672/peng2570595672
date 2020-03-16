@@ -9,9 +9,15 @@ Page({
 		orderInfo: undefined // 订单详情
 	},
 	onLoad (options) {
-		this.setData({
-			orderId: options.orderId
-		});
+		if (options.orderId) {
+			this.setData({
+				orderId: options.orderId
+			});
+		} else {
+			this.setData({
+				orderId: app.globalData.orderInfo.orderId
+			});
+		}
 		this.getETCDetail();
 	},
 	// 加载订单详情
@@ -97,6 +103,9 @@ Page({
 				// 签约车主服务 2.0
 				app.globalData.belongToPlatform = this.data.orderInfo.platformId;
 				app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+				app.globalData.contractStatus =  this.data.orderInfo.contractStatus;
+				app.globalData.orderStatus =  this.data.orderInfo.selfStatus;
+				app.globalData.orderInfo.shopProductId =  this.data.orderInfo.shopProductId;
 				if (result.version === 'v2') {
 					wx.navigateToMiniProgram({
 						appId: 'wxbcad394b3d99dac9',
@@ -153,5 +162,17 @@ Page({
 	// 在线客服
 	goOnlineServer () {
 		util.go(`/pages/web/web/web?type=online_customer_service`);
+	},
+	// 去激活
+	onClickCctivate () {
+		//打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
+		wx.navigateToMiniProgram({
+			appId: 'wxaca5642db7afd470',
+			path: 'pages/online_distribution/online_distribution',
+			envVersion: 'trial',  // 目前联调为体验版
+			fail () {
+				util.showToastNoIcon('调起激活小程序失败, 请重试！');
+			}
+		});
 	}
 });

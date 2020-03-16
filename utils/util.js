@@ -580,7 +580,7 @@ function getStatus(orderInfo) {
 		status = 4; // 查看进度 待审核
 	} else if (orderInfo.status === 1 && orderInfo.auditStatus === 1) {
 		status = 5; // 资料被拒绝 修改资料
-	} else if (orderInfo.obuStatus === 0 && orderInfo.auditStatus === 1) {
+	} else if (orderInfo.obuStatus === 0 && orderInfo.auditStatus === 2) {
 		status = 6; // 审核通过  待激活
 	} else if (orderInfo.obuStatus === 0 && orderInfo.auditStatus === 3) {
 		status = 7; // 预审核通过  待审核

@@ -95,6 +95,3 @@
   background: linear-gradient(to right, #15ad69, #84d157);
   border-radius: 49rpx;
 }
-.my-etc .btn.banned-click {
-  background: #99999d;
-}

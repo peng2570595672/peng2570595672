@@ -28,7 +28,7 @@
 	<!--	免费办理结束-->
 
 	<!--	办理中开始-->
-	<view class="processing" wx:if="{{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 3}}">
+	<view class="processing" wx:if="{{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 3 && contractStatus !== 2}}">
 		<view class="processing-title">
 			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
@@ -39,7 +39,7 @@
 	<!--	办理中结束-->
 
 	<!--	查看进度开始-->
-	<view class="viewing-process" wx:if="{{orderInfo.selfStatus === 4 || orderInfo.selfStatus === 7}}">
+	<view class="viewing-process" wx:if="{{orderInfo.selfStatus === 4 || orderInfo.selfStatus === 7 && contractStatus !== 2}}">
 		<view class="processing-title">
 			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
@@ -50,7 +50,7 @@
 	<!--	查看进度结束-->
 
 	<!--	修改资料开始-->
-	<view class="update-info" wx:if="{{orderInfo.selfStatus === 5}}">
+	<view class="update-info" wx:if="{{orderInfo.selfStatus === 5 && contractStatus !== 2}}">
 		<view class="processing-title">
 			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
@@ -83,13 +83,14 @@
 <!--	确认收货并激活结束-->
 
 	<!--	恢复签约开始-->
-	<view class="resume-contract" wx:if="{{orderInfo.selfStatus === 2}}">
+	<view class="resume-contract" wx:if="{{orderInfo.selfStatus === 2 || contractStatus === 2}}">
 		<view class="processing-title">
 			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
 		</view>
-		<view class="btn" catchtap="onClickBackToSign">恢复签约</view>
-		<view class="tips"><text>赶紧恢复！</text>这将严重影响你的高速通行</view>
+		<view class="btn" catchtap="onClickBackToSign">{{contractStatus === 2 ? '恢复签约' : '立即签约'}}</view>
+		<view class="tips" wx:if="{{contractStatus === 2}}"><text>赶紧恢复！</text>这将严重影响你的高速通行</view>
+		<view class="tips" wx:else>签约微信免密支付,高速秒过闸</view>
 	</view>
 	<!--	恢复签约结束-->
 

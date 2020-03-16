@@ -18,6 +18,8 @@ App({
 		userInfo: {},// 用户信息
 		serverInfoId: '',
 		shopProductId: '', // 套餐id
+		contractStatus: '', // 签约状态   签约状态 -1 签约失败 0发起签约 1已签约 2解约
+		orderStatus: '', // 订单状态
 		isHeadImg: true, // 是否上传车头照
 		myEtcList: {}, // 车辆列表
 		orderInfo: {
@@ -111,10 +113,20 @@ App({
 				// 签约成功 userState: "NORMAL"
 				if (res.data.contractStatus === 1 && res.data.userState === 'NORMAL') {
 					if (this.globalData.belongToPlatform === this.globalData.platformId) {
-						// 本本台签约
-						util.go('/pages/default/signed_successfully/signed_successfully');
+						// 本平台签约
+						if (this.globalData.contractStatus === 2) { // 已解约
+							if (this.globalData.orderStatus === 5 || this.globalData.orderStatus === 8) {// 资料审核失败 &&高速验证不通过
+								util.go(`/pages/default/information_validation/information_validation?orderId=${this.globalData.orderInfo.orderId}`);
+							} else if (this.globalData.orderStatus === 3) { // 办理中 未上传行驶证
+								util.go('/pages/default/signed_successfully/signed_successfully');
+							} else { // 不可修改资料
+								util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
+							}
+						} else {
+							util.go('/pages/default/signed_successfully/signed_successfully');
+						}
 					} else {
-					// 	// 其他平台签约 :业务员端/h5
+						// 其他平台签约 :业务员端/h5
 						util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
 					}
 				} else {

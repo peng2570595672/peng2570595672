@@ -19,11 +19,15 @@ Page({
 		util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license?type=3');
 	},
 	onClickHandle () {
-		util.goHome();
+		wx.navigateTo({
+			url: '/pages/default/index/index'
+		});
 	},
 	onUnload () {
 		// 统计点击事件
 		mta.Event.stat('034',{});
-		util.goHome();
+		wx.navigateTo({
+			url: '/pages/default/index/index'
+		});
 	}
 });

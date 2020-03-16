@@ -32,7 +32,8 @@ Page({
 					}, (res) => {
 						util.hideLoading();
 						if (res.code === 0) {
-							util.go('/pages/default/my_etc_detail/my_etc_detail');
+							app.globalData.orderInfo.orderId = val[1];
+							util.go('/pages/personal_center/my_etc_detail/my_etc_detail');
 						} else {
 							util.showToastNoIcon(res.message);
 						}

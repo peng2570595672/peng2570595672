@@ -76,14 +76,8 @@ Page({
 	onClickAddNewHandle () {
 		// 统计点击事件
 		mta.Event.stat('015',{});
-		if (this.data.carList[0].obuStatus === 0) {
-			util.alert({
-				content: '你当前有未完成订单'
-			});
-		} else {
-			app.globalData.orderInfo.orderId = '';
-			util.go('/pages/default/receiving_address/receiving_address');
-		}
+		app.globalData.orderInfo.orderId = '';
+		util.go('/pages/default/receiving_address/receiving_address');
 	},
 	// 恢复签约
 	onClickBackToSign (e) {
@@ -105,6 +99,9 @@ Page({
 				// 签约车主服务 2.0
 				app.globalData.belongToPlatform = app.globalData.platformId;
 				app.globalData.orderInfo.orderId = obj.id;
+				app.globalData.contractStatus = obj.contractStatus;
+				app.globalData.orderStatus = obj.selfStatus;
+				app.globalData.orderInfo.shopProductId = obj.shopProductId;
 				if (result.version === 'v2') {
 					wx.navigateToMiniProgram({
 						appId: 'wxbcad394b3d99dac9',

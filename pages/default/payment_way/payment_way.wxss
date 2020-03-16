@@ -247,6 +247,5 @@
   animation-fill-mode: forwards;
 }
 .payment-way .btn.unavailable {
-  animation: btnFadeOut 0.3s;
-  animation-fill-mode: forwards;
+  opacity: 0.2455;
 }

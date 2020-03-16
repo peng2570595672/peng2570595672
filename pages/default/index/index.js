@@ -9,6 +9,7 @@ const app = getApp();
 Page({
 	data: {
 		loginInfo: {},// 登录信息
+		contractStatus: undefined,//  签约状态 -1 签约失败 0发起签约 1已签约 2解约
 		orderInfo: undefined // 订单信息
 	},
 	onLoad () {
@@ -115,7 +116,8 @@ Page({
 					orderInfo['selfStatus'] = util.getStatus(orderInfo);
 				}
 				this.setData({
-					orderInfo: orderInfo ? orderInfo : ''
+					orderInfo: orderInfo ? orderInfo : '',
+					contractStatus: res.data.contract ? res.data.contract.contractStatus : '',
 				});
 			} else {
 				util.showToastNoIcon(res.message);
@@ -172,6 +174,9 @@ Page({
 				// 签约车主服务 2.0
 				app.globalData.belongToPlatform = this.data.orderInfo.platformId;
 				app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+				app.globalData.contractStatus = this.data.contractStatus;
+				app.globalData.orderStatus = this.data.orderInfo.selfStatus;
+				app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
 				if (result.version === 'v2') {
 					wx.navigateToMiniProgram({
 						appId: 'wxbcad394b3d99dac9',
