@@ -186,12 +186,6 @@
   font-size: 32rpx;
   border-bottom: 1rpx solid #e8e8e8;
 }
-.receiving_address .input-wrapper .input-item .toast {
-  position: absolute;
-  color: #ff563c;
-  font-size: 24rpx;
-  left: 40%;
-}
 .receiving_address .input-wrapper .input-item > view {
   display: flex;
   align-items: center;

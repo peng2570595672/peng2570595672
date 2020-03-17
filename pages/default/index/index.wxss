@@ -37,19 +37,19 @@
   color: #66666d;
 }
 .index .my-swiper {
-  margin: 40rpx 40rpx 0;
   height: 394rpx;
-  border-radius: 32rpx;
   overflow: hidden;
 }
 .index .my-swiper .my-swiper-item {
   height: 364rpx !important;
-  background: linear-gradient(to right, #15ad69, #84d157);
   border-radius: 32rpx;
 }
 .index .my-swiper .my-swiper-item > image {
-  width: 100%;
+  text-align: center;
+  width: 90%;
   height: 100%;
+  margin-left: 5%;
+  border-radius: 32rpx;
 }
 .index .my-swiper .wx-swiper-dots-horizontal {
   margin-bottom: -18rpx;

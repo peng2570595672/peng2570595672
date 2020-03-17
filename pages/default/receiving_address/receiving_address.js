@@ -93,13 +93,7 @@ Page({
 			} else if (res.code === 104 && res.message === '该车牌已存在订单') {
 				util.go(`/pages/default/high_speed_verification_failed/high_speed_verification_failed?carNo=${this.data.carNoStr}`);
 			} else {
-				if (res.message === '验证码不正确') {
-					this.setData({
-						showToast: true
-					});
-				} else {
-					util.showToastNoIcon(res.message);
-				}
+				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken, () => {
 			this.setData({
@@ -422,7 +416,7 @@ Page({
 		let isOk = true;
 		let formData = this.data.formData;
 		// 校验姓名
-		isOk = isOk && formData.userName && formData.userName.length >= 2;
+		isOk = isOk && formData.userName && formData.userName.length >= 1;
 		// 校验省市区
 		isOk = isOk && formData.region && formData.region.length === 3 && formData.region[0] !== '省';
 		// 校验省市区编码
@@ -465,40 +459,8 @@ Page({
 	onClickGoAgreementHandle () {
 		util.go('/pages/default/agreement/agreement');
 	},
-	// 取消订单
-	cancelOrder () {
-		util.showLoading({
-			title: '取消中...'
-		});
-		util.getDataFromServer('consumer/order/cancel-order', {
-			orderId: app.globalData.orderInfo.orderId
-		}, () => {
-			util.showToastNoIcon('取消订单失败！');
-		}, (res) => {
-			if (res.code === 0) {
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-		});
-	},
 	onUnload () {
 		// 统计点击事件
 		mta.Event.stat('025',{});
-		util.alert({
-			content: '您还未领取免费ETC设备 确认取消吗？？',
-			showCancel: true,
-			cancelText: '取消办理',
-			confirmText: '手误了',
-			confirm: () => {
-				util.go('/pages/default/receiving_address/receiving_address');
-			},
-			cancel: () => {
-				if (app.globalData.orderInfo.orderId) {
-					this.cancelOrder();
-				}
-			}
-		});
 	}
 });

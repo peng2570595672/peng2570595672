@@ -267,8 +267,44 @@ Page({
 			available: this.validateAvailable()
 		});
 	},
+	// 取消订单
+	cancelOrder () {
+		util.showLoading({
+			title: '取消中...'
+		});
+		util.getDataFromServer('consumer/order/cancel-order', {
+			orderId: app.globalData.orderInfo.orderId
+		}, () => {
+			util.showToastNoIcon('取消订单失败！');
+		}, (res) => {
+			if (res.code === 0) {
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
 	onUnload () {
 		// 统计点击事件
 		mta.Event.stat('029',{});
+		// 加上存储,控制签约后的返回不提示
+		if (wx.getStorageSync('return_to_prompt')) {
+			util.alert({
+				content: '您还未领取免费ETC设备，确认取消吗？',
+				showCancel: true,
+				cancelText: '取消办理',
+				confirmText: '手误了',
+				confirm: () => {
+					util.go('/pages/default/receiving_address/receiving_address');
+				},
+				cancel: () => {
+					wx.removeStorageSync('return_to_prompt');
+					if (app.globalData.orderInfo.orderId) {
+						this.cancelOrder();
+					}
+				}
+			});
+		}
 	}
 });

@@ -1,7 +1,7 @@
 <view class="service-card-voucher">
 	<!--顶部tab开始-->
 	<view class="swiper-tab">
-		<view wx:for="{{cardVoucherStatus}}" class="tab-list {{currentTab=== index ? 'tab-show' : ''}}" data-current="{{index}}" bindtap="switchCardVoucherStatus">{{item.name}}</view>
+		<view wx:for="{{cardVoucherStatus}}" wx:key="index" class="tab-list {{currentTab=== index ? 'tab-show' : ''}}" data-current="{{index}}" bindtap="switchCardVoucherStatus">{{item.name}}</view>
 	</view>
 	<!--顶部tab结束-->
 	<!--卡券列表开始-->

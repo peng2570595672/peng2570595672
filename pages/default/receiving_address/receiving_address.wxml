@@ -90,7 +90,6 @@
 			<input type="number" placeholder="输入验证码" placeholder-class="placeholder" value="{{formData.verifyCode}}"
 			       bindinput="onInputChangedHandle" data-key="verifyCode"
 			/>
-			<text class="toast" wx:if="{{showToast}}">验证码不正确</text>
 			<text class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} {{mobilePhoneIsOk ? 'ok' : ''}}" bindtap="sendVerifyCode">{{identifyingCode}}</text>
 		</view>
 	</view>

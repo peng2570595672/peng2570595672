@@ -8,6 +8,9 @@ let mta = require('../../../libs/mta_analysis.js');
 Page({
 	data: {
 	},
+	onLoad () {
+		wx.removeStorageSync('return_to_prompt');
+	},
 	// 下一步
 	next () {
 		util.go('/pages/default/payment_way/payment_way');
@@ -19,14 +22,14 @@ Page({
 		util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license?type=3');
 	},
 	onClickHandle () {
-		wx.navigateTo({
+		wx.reLaunch({
 			url: '/pages/default/index/index'
 		});
 	},
 	onUnload () {
 		// 统计点击事件
 		mta.Event.stat('034',{});
-		wx.navigateTo({
+		wx.reLaunch({
 			url: '/pages/default/index/index'
 		});
 	}

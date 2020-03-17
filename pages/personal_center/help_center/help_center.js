@@ -144,5 +144,9 @@ Page({
 				showDetailMask: false
 			});
 		}, 400);
+	},
+	// 在线客服
+	goOnlineServer () {
+		util.go(`/pages/web/web/web?type=online_customer_service`);
 	}
 });

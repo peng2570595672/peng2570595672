@@ -15,6 +15,7 @@ Page({
 	},
 	// 扫码
 	scan () {
+		util.showLoading({title: '正在识别'});
 		// 统计点击事件
 		mta.Event.stat('023',{});
 		// 只允许从相机扫码
@@ -39,6 +40,7 @@ Page({
 						}
 					}, app.globalData.userInfo.accessToken);
 				} else {
+					util.hideLoading();
 					util.showToastNoIcon('不支持的数据格式');
 				}
 			},

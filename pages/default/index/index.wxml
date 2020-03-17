@@ -50,7 +50,7 @@
 	<!--	查看进度结束-->
 
 	<!--	修改资料开始-->
-	<view class="update-info" wx:if="{{orderInfo.selfStatus === 5 && contractStatus !== 2}}">
+	<view class="update-info" wx:if="{{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 8 && contractStatus !== 2}}">
 		<view class="processing-title">
 			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>

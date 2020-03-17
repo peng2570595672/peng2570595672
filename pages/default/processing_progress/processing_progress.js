@@ -71,7 +71,9 @@ Page({
 	},
 	onUnload () {
 		if (this.data.type === 'main_process') {
-			util.goHome(true);
+			wx.reLaunch({
+				url: '/pages/default/index/index'
+			});
 		}
 	}
 });

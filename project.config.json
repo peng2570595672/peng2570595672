@@ -218,6 +218,20 @@
 					"id": -1,
 					"name": "pages/default/update_id_card/update_id_card",
 					"pathName": "pages/default/update_id_card/update_id_card",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/default/high_speed_verification_failed/high_speed_verification_failed",
+					"pathName": "pages/default/high_speed_verification_failed/high_speed_verification_failed",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/personal_center/my_order/my_order",
+					"pathName": "pages/personal_center/my_order/my_order",
 					"scene": null
 				}
 			]
