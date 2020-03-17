@@ -73,6 +73,7 @@ Page({
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
 			if (res.code === 0) {
+				wx.setStorageSync('return_to_prompt','payment_way');
 				app.globalData.orderInfo.orderId = res.data.orderId; // 订单id
 				// 选择套餐页面
 				util.go('/pages/default/payment_way/payment_way');

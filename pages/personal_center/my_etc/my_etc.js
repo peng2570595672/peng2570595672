@@ -74,7 +74,6 @@ Page({
 	},
 	// 新增
 	onClickAddNewHandle () {
-		wx.setStorageSync('return_to_prompt','receiving_address');
 		// 统计点击事件
 		mta.Event.stat('015',{});
 		app.globalData.orderInfo.orderId = '';

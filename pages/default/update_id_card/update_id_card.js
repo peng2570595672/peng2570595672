@@ -104,6 +104,9 @@ Page({
 			ownerIdCardPositiveUrl: this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含8】
 			ownerIdCardNegativeUrl: this.data.idCardBack.fileUrl, // 实名身份证反面地址 【dataType包含8】
 			ownerIdCardValidDate: this.data.idCardBack.ocrObject.validDate,
+			ownerIdCardSex: this.data.idCardFace.ocrObject.sex === '男' ? 1 : 2, // 实名认证性别 【dataType包含8】
+			ownerIdCardAuthority: this.data.idCardBack.ocrObject.authority, // 发证机关 【dataType包含8】
+			ownerIdCardBirth: this.data.idCardFace.ocrObject.birth, // 出生日期 【dataType包含8】
 			ownerIdCardAddress: this.data.idCardFace.ocrObject.address
 		};
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {

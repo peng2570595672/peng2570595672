@@ -6,22 +6,26 @@
 	<!--顶部tab结束-->
 	<!--卡券列表开始-->
 	<view class="list-box" wx:if="{{list.length > 0}}">
-		<view wx:for="{{6}}" wx:key="index" class="list-item" catchtap="go" data-model="{{item}}">
+		<view wx:for="{{list}}" wx:key="index" class="list-item" catchtap="go" data-model="{{item}}" style="background: {{item.background}}">
 			<!--卡券左边部分开始-->
 			<view class="list-item-left">
-				<view></view>
+				<view><image src="{{item.iconUrl}}"></image></view>
 			</view>
 			<!--卡券左边部分结束-->
 			<!--卡券右边部分开始-->
 			<view class="list-item-right">
-				<view class="card-voucher-name">5.5折洗车券</view>
-				<view class="card-voucher-requirements">满20元使用</view>
+				<view class="card-voucher-name">{{item.fullName}}</view>
+				<view class="card-voucher-requirements">满{{item.minUseAmount ? item.minUseAmount/100 : 0}}元使用</view>
 				<view class="line"></view>
-				<view class="period-of-validity">有效期至：2020年01月02日</view>
+				<view class="period-of-validity {{item.status !== 1 ? 'date-right' : ''}}">
+					<text wx:if="{{item.status === 1}}">有效期至：{{item.expireEndDate}}</text>
+					<text wx:if="{{item.status === 2}}">使用日期：{{item.lastUseTime}}</text>
+					<text wx:if="{{item.status === 8}}">失效时间：{{item.lastUseTime}}</text>
+				</view>
 			</view>
 			<!--卡券右边部分结束-->
 			<!--图标开始-->
-			<view class="iconfont list-item-bg used expired"></view>
+			<view class="iconfont list-item-bg {{item.status === 2 ? 'used' : ''}} {{item.status === 8 ? 'expired' : ''}}"></view>
 			<!--图标结束-->
 		</view>
 	</view>
@@ -64,7 +68,7 @@
 			</view>
 			<!--成功提示标题结束-->
 			<!--卡券开始-->
-			<view class="list-item">
+			<view class="list-item" style="background: {{exchangeData.background}}">
 				<!--卡券左边部分开始-->
 				<view class="list-item-left">
 					<view></view>
@@ -72,10 +76,10 @@
 				<!--卡券左边部分结束-->
 				<!--卡券右边部分开始-->
 				<view class="list-item-right">
-					<view class="card-voucher-name">5.5折洗车券</view>
-					<view class="card-voucher-requirements">满20元使用</view>
+					<view class="card-voucher-name">{{exchangeData.fullName}}</view>
+					<view class="card-voucher-requirements">满{{exchangeData.minUseAmount ? exchangeData.minUseAmount/100 : 0}}元使用</view>
 					<view class="line"></view>
-					<view class="period-of-validity">有效期至：2020年01月02日</view>
+					<view class="period-of-validity">有效期至：{{item.expireEndDate}}</view>
 				</view>
 				<!--卡券右边部分结束-->
 			</view>

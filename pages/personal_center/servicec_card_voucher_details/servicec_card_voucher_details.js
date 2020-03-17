@@ -1,14 +1,16 @@
 const util = require('../../../utils/util.js');
 Page({
 	data: {
-		bgColor: '#DF4A26',
 		isShowSwitchElaborate: false,
-		showDetailWtapper: false,
-		showDetailMask: false
+		details: ''
 	},
 	onLoad (options) {
+		this.setData({
+			details: options.details
+		});
 		wx.setNavigationBarColor({
 			frontColor: '#000000',
+			// backgroundColor: options.details.background
 			backgroundColor: '#DF4A26'
 		});
 	},
@@ -17,23 +19,5 @@ Page({
 		this.setData({
 			isShowSwitchElaborate: !this.data.isShowSwitchElaborate
 		});
-	},
-	// 显示详情
-	showDetail (e) {
-		this.setData({
-			showDetailMask: true,
-			showDetailWtapper: true
-		});
-	},
-	// 关闭详情
-	hide () {
-		this.setData({
-			showDetailWtapper: false
-		});
-		setTimeout(() => {
-			this.setData({
-				showDetailMask: false
-			});
-		}, 400);
 	}
 });

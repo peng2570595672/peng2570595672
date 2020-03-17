@@ -55,9 +55,9 @@ Page({
 		util.getDataFromServer('consumer/voucher/get-coupon-page-list', params, () => {
 			util.showToastNoIcon('获取卡券列表失败！');
 		}, (res) => {
-			res.data.list.forEach((item,i) => {
-				item.expireTime = item.expireTime.match(/(\S*) /)[1];
-			});
+			// res.data.list.forEach((item,i) => {
+			// 	item.expireTime = item.expireTime.match(/(\S*) /)[1];
+			// });
 			if (res.code === 0) {
 				this.setData({
 					list: res.data.list
@@ -84,8 +84,8 @@ Page({
 	},
 	// 查看详情
 	go (e) {
-		console.log(e.target.dataset.model)
-		util.go('/pages/personal_center/servicec_card_voucher_details/servicec_card_voucher_details');
+		console.log(e.target.dataset.model);
+		util.go(`/pages/personal_center/servicec_card_voucher_details/servicec_card_voucher_details?details=${e.target.dataset.model}`);
 	},
 	// 照相机扫码识别兑换码
 	getExchangeCodeFromScan () {

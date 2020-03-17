@@ -156,13 +156,19 @@ Page({
 			idCardValidDate: this.data.orderInfo['idCard'].idCardValidDate ? this.data.orderInfo['idCard'].idCardValidDate : this.data.idCardBack.ocrObject.validDate,
 			idCardAddress: this.data.orderInfo['idCard'].idCardAddress ? this.data.orderInfo['idCard'].idCardAddress : this.data.idCardFace.ocrObject.validDate,
 			idCardTrueName: this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含4】
+			idCardSex: this.data.idCardFace.ocrObject.sex === '男' ? 1 : 2, // 实名认证性别 【dataType包含4】
 			idCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含4】
+			idCardAuthority: this.data.idCardBack.ocrObject.authority, // 发证机关 【dataType包含4】
+			idCardBirth: this.data.idCardFace.ocrObject.birth, // 出生日期 【dataType包含4】
 			idCardPositiveUrl: this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含4】
 			idCardNegativeUrl: this.data.idCardBack.fileUrl, // 实名身份证反面地址 【dataType包含4】
 			ownerIdCardTrueName: this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含8】
 			ownerIdCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含8】
 			ownerIdCardPositiveUrl: this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含8】
 			ownerIdCardNegativeUrl: this.data.idCardBack.fileUrl, // 实名身份证反面地址 【dataType包含8】
+			ownerIdCardSex: this.data.idCardFace.ocrObject.sex === '男' ? 1 : 2, // 实名认证性别 【dataType包含8】
+			ownerIdCardAuthority: this.data.idCardBack.ocrObject.authority, // 发证机关 【dataType包含8】
+			ownerIdCardBirth: this.data.idCardFace.ocrObject.birth, // 出生日期 【dataType包含8】
 			ownerIdCardValidDate: this.data.orderInfo['idCard'].idCardValidDate ? this.data.orderInfo['idCard'].idCardValidDate : this.data.idCardBack.ocrObject.validDate,
 			ownerIdCardAddress: this.data.orderInfo['idCard'].idCardAddress ? this.data.orderInfo['idCard'].idCardAddress : this.data.idCardFace.ocrObject.address,
 			needSignContract: true // 是否需要签约 true-是，false-否 允许值: true, false
@@ -296,7 +302,7 @@ Page({
 				cancelText: '取消办理',
 				confirmText: '手误了',
 				confirm: () => {
-					util.go('/pages/default/receiving_address/receiving_address');
+					util.go('/pages/default/payment_way/payment_way');
 				},
 				cancel: () => {
 					wx.removeStorageSync('return_to_prompt');

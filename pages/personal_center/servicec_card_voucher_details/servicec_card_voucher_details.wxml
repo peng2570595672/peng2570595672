@@ -1,12 +1,12 @@
-<view class="servicec_card_voucher_details" style="background-color: {{bgColor}}">
+<view class="servicec_card_voucher_details" style="background-color: {{details.background}}">
 	<!--卡券开始-->
 	<view class="ticket-card">
 		<!--卡券顶部开始-->
 		<view class="ticket-top">
-			<view class="card-voucher-name">20元加油代金券</view>
-			<view class="card-voucher-requirements">满20元使用</view>
-			<view class="period-of-validity">有效期至：2020年01月02日</view>
-			<view class="ticket-status ticket-status-used ticket-status-overdue iconfont" style="color: red"></view>
+			<view class="card-voucher-name">{{details.fullName}}</view>
+			<view class="card-voucher-requirements">满{{details.minUseAmount ? details.minUseAmount/100 : 0}}元使用</view>
+			<view class="period-of-validity">有效期至：{{details.expireEndDate}}</view>
+			<view class="ticket-status {{details.status === 2 ? 'ticket-status-used' : ''}} {{details.status === 8 ? 'ticket-status-overdue' : ''}}  iconfont" style="color: {{details.background}}"></view>
 		</view>
 		<!--卡券顶部结束-->
 		<!--卡券底部开始-->
@@ -14,25 +14,26 @@
 			<view class="ticket-bottom-item">
 				<view class="entry">
 					<view>适用业务范围</view>
-					<view>加油</view>
+					<view>{{details.title}}</view>
 				</view>
 				<view class="entry">
-					<view>折扣</view>
-					<view>9.5折</view>
+					<view>{{details.couponType === 1 ? '面额' : '折扣'}}</view>
+					<view>{{details.couponType === 1 ? details.faceAmount : details.discountValue}}</view>
 				</view>
 			</view>
-			<view class="ticket-bottom-item">
+			<view class="ticket-bottom-item" wx:if="{{details.limitUseDate === 1}}">
 				<view class="entry">
 					<view>使用时段</view>
-					<view>周六周日8:00至18:00</view>
+					<view>{{details.limitUseDate}}</view>
 				</view>
 			</view>
 			<view class="ticket-bottom-item">
-				<view class="entry instructions" catchtap="switchElaborate">
+				<view class="entry instructions {{isShowSwitchElaborate ? 'show-elaborate' : ''}}" catchtap="switchElaborate">
 					<view>使用说明</view>
-					<view class="iconfont elaborate {{isShowSwitchElaborate ? 'show-elaborate' : ''}}"></view>
+					<view><text class="iconfont elaborate"></text></view>
 				</view>
 			</view>
+			<view class="remark" wx:if="{{isShowSwitchElaborate}}">{{details.remark}}</view>
 		</view>
 		<!--卡券底部结束-->
 	</view>
@@ -41,59 +42,13 @@
 	<view class="use-record-box">
 		<!--使用记录列表开始-->
 		<view class="order-list">
-			<view class="order-list-title">2019年11月</view>
-			<view class="order-list-content" wx:for="{{3}}" wx:key="index" catchtap="showDetail">
-				<view class="order-list-top">
-					<view class="license-plate">贵A66983</view>
-					<view class="time">2019-11-10 15: 49 </view>
-				</view>
-				<view class="order-list-bottom">
-					<view class="start">黔东南罗甸</view>
-					<view class="end">贵阳西环城北</view>
-					<view class="money">-84.46</view>
-				</view>
+			<view class="order-list-title">使用记录</view>
+			<view class="order-list-content">
+				<view class="order-list-top">{{details.vehPlates}}【{{details.title}}】</view>
+				<view class="order-list-bottom">使用日期：{{details.lastUseTime}}</view>
 			</view>
 		</view>
 		<!--使用记录列表结束-->
 	</view>
 	<!--卡券使用记录结束-->
-	<!--弹出详情开始-->
-	<view class="mask animated {{showDetailWtapper?'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
-		<view class="top" catchtap="hide"></view>
-		<view class="wrapper animated {{showDetailWtapper?'slideInUp':'slideOutDown'}}">
-			<!--	扣费金额开始-->
-			<view class="deduction-amount">
-				<view class="deduction-amount-box">
-					<view class="deduction-amount-title">扣费金额</view>
-					<view>-320.23</view>
-				</view>
-			</view>
-			<!--扣费金额结束-->
-			<!--扣费详情开始-->
-			<view class="deduction-details">
-				<view>
-					<view>扣费类型</view>
-					<view>高速扣费</view>
-				</view>
-				<view>
-					<view>扣费时间</view>
-					<view>2019-11-21 12:12:23</view>
-				</view>
-				<view>
-					<view>扣费方式</view>
-					<view>微信零钱支付</view>
-				</view>
-				<view>
-					<view>应付金额</view>
-					<view>¥458</view>
-				</view>
-				<view>
-					<view>通行抵扣卡优惠</view>
-					<view>¥120</view>
-				</view>
-			</view>
-			<!--扣费详情结束-->
-		</view>
-	</view>
-	<!--弹出详情结束-->
 </view>
