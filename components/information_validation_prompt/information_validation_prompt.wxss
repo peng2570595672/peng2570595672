@@ -1,0 +1,192 @@
+@font-face {
+  font-family: 'iconfont'; /* project id 1514406 */
+  src: url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot");
+  src: url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot?#iefix") format('embedded-opentype'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff2") format('woff2'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff") format('woff'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.ttf") format('truetype'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.svg#iconfont") format('svg');
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-guanbi:before {
+  content: "\e63d";
+  color: #66666d;
+  font-size: 16rpx;
+}
+.animated {
+  -webkit-animation-duration: 0.4s;
+  animation-duration: 0.4s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+}
+@-webkit-keyframes zoomIn {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.zoomIn {
+  -webkit-animation-name: zoomIn;
+  animation-name: zoomIn;
+}
+@-webkit-keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  to {
+    opacity: 0;
+  }
+}
+.zoomOut {
+  -webkit-animation-name: zoomOut;
+  animation-name: zoomOut;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  to {
+    opacity: 0;
+  }
+}
+.alert-for-not-finished {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 10000;
+}
+.alert-for-not-finished .alert-for-not-finished-content {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 9999;
+  display: block;
+  text-align: center;
+  margin-left: -277rpx;
+  width: 550rpx;
+  height: 600rpx;
+  border-radius: 32rpx;
+  background: #fff;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  box-sizing: border-box;
+}
+.alert-for-not-finished .alert-for-not-finished-content .img {
+  position: relative;
+  text-align: center;
+  margin: 14rpx 0 16rpx;
+}
+.alert-for-not-finished .alert-for-not-finished-content .img .hide {
+  position: absolute;
+  right: 30rpx;
+  top: 16rpx;
+}
+.alert-for-not-finished .alert-for-not-finished-content .img image {
+  width: 276rpx;
+}
+.alert-for-not-finished .alert-for-not-finished-content .notice {
+  color: #33333d;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  padding-bottom: 26rpx;
+}
+.alert-for-not-finished .alert-for-not-finished-content .des {
+  color: #33333d;
+  font-size: 22rpx;
+  line-height: 32rpx;
+  padding: 0 80rpx;
+}
+.alert-for-not-finished .alert-for-not-finished-content .btns {
+  margin: 0 auto;
+  width: 448rpx;
+}
+.alert-for-not-finished .alert-for-not-finished-content .btns > view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.alert-for-not-finished .alert-for-not-finished-content .btns > view:first-of-type {
+  margin-top: 82rpx;
+  color: #fff;
+  width: 448rpx;
+  height: 85rpx;
+  font-size: 32rpx;
+  border-radius: 40rpx;
+  background: linear-gradient(45deg, #14ac69 0%, #84d157 100%);
+  box-shadow: 0 6rpx 14rpx 0 #b9e3df;
+}
+.alert-for-not-finished .alert-for-not-finished-content .btns > view:last-of-type {
+  margin-top: 20rpx;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  color: #15ad69;
+}

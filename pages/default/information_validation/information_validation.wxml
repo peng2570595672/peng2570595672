@@ -44,7 +44,7 @@
 		</view>
 		<view class="item">
 			<view>住址</view>
-			<textarea auto-height="{{true}}" value="{{drivingLicenseFace.ocrObject.address}}" data-key="address" data-type="3" bindinput="onInputChangedHandle"/>
+			<textarea wx:if="{{isShowTextarea}}" auto-height="{{true}}" value="{{drivingLicenseFace.ocrObject.address}}" data-key="address" data-type="3" bindinput="onInputChangedHandle"/>
 		</view>
 		<block wx:if="{{opened}}">
 			<view class="split"></view>
@@ -144,4 +144,5 @@
 	<view class="auto-fill"></view>
 	<!--	自动填充结束-->
 	<view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="onClickComfirmHandle"><view class="animate" wx:if="{{isRequest}}"></view>我已确认</view>
+	<information-validation-prompt id="notFinishedOrder" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></information-validation-prompt>
 </view>

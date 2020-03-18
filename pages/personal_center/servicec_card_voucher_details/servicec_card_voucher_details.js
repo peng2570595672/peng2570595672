@@ -5,12 +5,13 @@ Page({
 		details: ''
 	},
 	onLoad (options) {
+		console.log(options)
 		this.setData({
-			details: options.details
+			details: JSON.parse(options.details)
 		});
 		wx.setNavigationBarColor({
 			frontColor: '#000000',
-			// backgroundColor: options.details.background
+			// backgroundColor: this.data.details.background
 			backgroundColor: '#DF4A26'
 		});
 	},

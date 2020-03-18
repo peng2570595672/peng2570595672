@@ -72,13 +72,13 @@
 <!--	审核失败结束-->
 
 <!--	确认收货并激活开始-->
-	<view class="confirm-receipt" wx:if="{{orderInfo.selfStatus === 6}}">
+	<view class="confirm-receipt" wx:if="{{orderInfo.selfStatus === 6 && contractStatus !== 2}}">
 		<view class="processing-title">
 			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
 		</view>
-		<view class="btn">确认收货并激活</view>
-		<view class="tips">你的ETC即将到达，期待...</view>
+		<view class="btn" catchtap="onClickCctivate">{{orderInfo.logisticsId === 0 ? '查看进度' : '确认收货并激活 '}}</view>
+		<view class="tips">{{orderInfo.logisticsId === 0 ? '审核通过，设备打包中...' : '你的ETC即将到达，期待...  '}}</view>
 	</view>
 <!--	确认收货并激活结束-->
 

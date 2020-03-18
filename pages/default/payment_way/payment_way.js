@@ -284,6 +284,7 @@ Page({
 			util.showToastNoIcon('取消订单失败！');
 		}, (res) => {
 			if (res.code === 0) {
+				util.go('/pages/personal_center/cancel_order_succeed/cancel_order_succeed');
 			} else {
 				util.showToastNoIcon(res.message);
 			}

@@ -21,10 +21,19 @@ Page({
 		personsArr: [2, 3, 4, 5, 6, 7, 8, 9], // 核载人数选择框
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
+		isShowTextarea: true,// 是否显示textarea
 		productInfo: undefined,// 套餐信息
 		orderInfo: undefined // 订单信息
 	},
 	onLoad () {
+		let returnType = wx.getStorageSync('information_validation');
+		if (returnType) {
+			this.setData({
+				isShowTextarea: false
+			});
+			this.selectComponent('#notFinishedOrder').show();
+			wx.removeStorageSync('information_validation');
+		}
 		this.getProductOrderInfo();
 		// 行驶证正面
 		let drivingLicenseFace = wx.getStorageSync('driving_license_face');
@@ -60,6 +69,16 @@ Page({
 		} else {
 			// 加载订单信息  没有缓存,需要查行驶证
 			this.getOrderInfo(false);
+		}
+	},
+	onShow() {
+		let returnType = wx.getStorageSync('information_validation');
+		if (returnType) {
+			this.setData({
+				isShowTextarea: false
+			});
+			this.selectComponent('#notFinishedOrder').show();
+			wx.removeStorageSync('information_validation');
 		}
 	},
 	// 根据订单id获取套餐信息
@@ -225,6 +244,7 @@ Page({
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
 			if (res.code === 0) {
+				wx.removeStorageSync('information_validation');
 				if (this.data.productInfo.isOwner === 1 && this.data.orderInfo.idCard.idCardTrueName !== face.owner) {
 					util.go(`/pages/default/update_id_card/update_id_card?type=normal_process`);
 				} else {
@@ -302,5 +322,39 @@ Page({
 		// 	delta: 1
 		// });
 		util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
+	},
+	// 取消订单
+	cancelOrder () {
+		util.showLoading({
+			title: '取消中...'
+		});
+		util.getDataFromServer('consumer/order/cancel-order', {
+			orderId: app.globalData.orderInfo.orderId
+		}, () => {
+			util.showToastNoIcon('取消订单失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				util.go('/pages/personal_center/cancel_order_succeed/cancel_order_succeed');
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
+	// 隐藏弹窗
+	onHandle() {
+		this.setData({
+			isShowTextarea: true
+		});
+		wx.removeStorageSync('information_validation');
+	},
+	// 关闭弹窗  取消办理
+	cancelHandle() {
+		this.setData({
+			isShowTextarea: true
+		});
+		wx.removeStorageSync('information_validation');
+		this.cancelOrder();
 	}
 });

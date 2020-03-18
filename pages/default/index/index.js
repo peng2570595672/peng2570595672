@@ -215,6 +215,22 @@ Page({
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 		util.go('/pages/default/processing_progress/processing_progress');
 	},
+	// 去激活
+	onClickCctivate () {
+		if (this.data.orderInfo.logisticsId === 0) {
+			this.onClickViewProcessingProgressHandle();
+		} else {
+			//打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
+			wx.navigateToMiniProgram({
+				appId: 'wxaca5642db7afd470',
+				path: 'pages/online_distribution/online_distribution',
+				envVersion: 'trial',  // 目前联调为体验版
+				fail () {
+					util.showToastNoIcon('调起激活小程序失败, 请重试！');
+				}
+			});
+		}
+	},
 	// 我的ETC
 	onClickMyETCHandle () {
 		// 未登录
@@ -245,7 +261,11 @@ Page({
 			// 是否上传行驶证， 0未上传，1已上传
 			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 			app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
-			util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
+			if (wx.getStorageSync('driving_license_face')) {
+				util.go('/pages/default/information_validation/information_validation');
+			} else {
+				util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
+			}
 		} else if (this.data.orderInfo.isVehicle === 1 && this.data.orderInfo.isOwner === 1) {
 			// 已上传行驶证， 未上传车主身份证
 			app.globalData.orderInfo.orderId = this.data.orderInfo.id;

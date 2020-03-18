@@ -14,7 +14,7 @@
 		<!--		预览图开始-->
 		<cover-view class="right">
 			<cover-view class="preview-view-wrapper">
-				<cover-view class="preview-view {{type === 3 ? 'selected' : ''}}" data-index="3" catchtap="onClickRetryHandle">
+				<cover-view class="preview-view {{type === 3 ? 'selected' : 'cartoon'}}" data-index="3" catchtap="onClickRetryHandle">
 					<cover-image class="preview" src="{{pic3 ? pic3 : '/pages/default/assets/driving_license_face.png'}}"></cover-image>
 				</cover-view>
 				<cover-image class="status animated fadeIn" wx:if="{{pic3IdentifyResult !== -1}}" src="{{pic3IdentifyResult === 0 ? '/pages/default/assets/icon_succeed.png' : '/pages/default/assets/icon_failed.png'}}"/>

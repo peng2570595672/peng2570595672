@@ -85,7 +85,7 @@ Page({
 	// 查看详情
 	go (e) {
 		console.log(e.target.dataset.model);
-		util.go(`/pages/personal_center/servicec_card_voucher_details/servicec_card_voucher_details?details=${e.target.dataset.model}`);
+		util.go(`/pages/personal_center/servicec_card_voucher_details/servicec_card_voucher_details?details=${JSON.stringify(e.target.dataset.model)}`);
 	},
 	// 照相机扫码识别兑换码
 	getExchangeCodeFromScan () {
