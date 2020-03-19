@@ -26,7 +26,6 @@
 		<view class="tips">免费办理ETC高速通行95折</view>
 	</view>
 	<!--	免费办理结束-->
-
 	<!--	办理中开始-->
 	<view class="processing" wx:if="{{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 3 && contractStatus !== 2}}">
 		<view class="processing-title">
@@ -77,11 +76,11 @@
 			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
 		</view>
-		<view class="btn" catchtap="onClickCctivate">{{orderInfo.logisticsId === 0 ? '查看进度' : '确认收货并激活 '}}</view>
+		<button class="btn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" wx:if="{{orderInfo.logisticsId !== 0 && !userInfo}}">确认收货并激活</button>
+		<button class="btn" catchtap="onClickCctivate" wx:else>{{orderInfo.logisticsId === 0 ? '查看进度' : '确认收货并激活 '}}</button>
 		<view class="tips">{{orderInfo.logisticsId === 0 ? '审核通过，设备打包中...' : '你的ETC即将到达，期待...  '}}</view>
 	</view>
 <!--	确认收货并激活结束-->
-
 	<!--	恢复签约开始-->
 	<view class="resume-contract" wx:if="{{orderInfo.selfStatus === 2 || contractStatus === 2}}">
 		<view class="processing-title">
@@ -158,4 +157,16 @@
 		</view>
 	</view>
 	<!--	底部导航结束-->
+	<!--小程序客服弹框-->
+	<view class="detail_mask animated {{showDetailWrapper ? 'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
+		<view class="detail_wrapper animated {{showDetailWrapper ? 'zoomIn':'zoomOut'}}" wx:if="{{showDetailMask}}">
+			<view class="top1">
+				<image mode="widthFix" src="/pages/default/assets/focus_on_home_page_bg.png"></image>
+				<view class="activity_button">
+					<button open-type="contact"></button>
+				</view>
+			</view>
+		</view>
+	</view>
+	<!--小程序客服弹框-->
 </view>

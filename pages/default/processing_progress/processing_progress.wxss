@@ -136,6 +136,13 @@
   content: '\e60e';
   transform: rotateZ(-180deg) translateY(2rpx);
 }
+.processing_progress .progress_wrapper .item .content-des .copy {
+  margin-left: 20rpx;
+  display: flex;
+  align-items: center;
+  color: #39a6f8;
+  font-size: 24rpx;
+}
 .processing_progress .progress_wrapper .last::after {
   display: none !important;
 }

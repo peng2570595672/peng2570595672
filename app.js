@@ -15,6 +15,7 @@ App({
 		SDKVersion: '',// 小程序基础库版本
 		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
 		quality: 80,
+		signAContract: 1,// -1能签约
 		userInfo: {},// 用户信息
 		serverInfoId: '',
 		shopProductId: '', // 套餐id
@@ -90,7 +91,8 @@ App({
 			// 解决安卓平台上传行驶证自动返回上一页
 			return;
 		}
-		if (res && res.scene === 1038 && this.globalData.signAContract !== -1) { // 场景值1038：从被打开的小程序返回
+		console.log(this.globalData.signAContract)
+		if (res && res.scene === 1038 && this.globalData.signAContract === -1) { // 场景值1038：从被打开的小程序返回
 			const {appId} = res.referrerInfo;
 			// 车主服务签约
 			if (appId === 'wxbcad394b3d99dac9') {
@@ -110,6 +112,7 @@ App({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
+				this.globalData.signAContract = 1;
 				// 签约成功 userState: "NORMAL"
 				if (res.data.contractStatus === 1 && res.data.userState === 'NORMAL') {
 					if (this.globalData.belongToPlatform === this.globalData.platformId) {

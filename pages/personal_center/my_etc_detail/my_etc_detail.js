@@ -6,7 +6,10 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
-		orderInfo: undefined // 订单详情
+		orderInfo: undefined, // 订单详情
+		userInfo: undefined, // 用户信息
+		showDetailWrapper: false,
+		showDetailMask: false
 	},
 	onLoad (options) {
 		if (options.orderId) {
@@ -18,7 +21,30 @@ Page({
 				orderId: app.globalData.orderInfo.orderId
 			});
 		}
+		let that = this;
+		wx.getSetting({
+			success (res){
+				if (res.authSetting['scope.userInfo']) {
+					// 已经授权，可以直接调用 getUserInfo 获取头像昵称
+					wx.getUserInfo({
+						success: function(res) {
+							console.log(res.userInfo);
+							that.setData({
+								userInfo: res.userInfo
+							});
+						}
+					})
+				}
+			}
+		});
 		this.getETCDetail();
+	},
+	bindGetUserInfo (e) {
+		console.log(e);
+		console.log(e.detail.userInfo);
+		this.setData({
+			userInfo: e.detail.userInfo
+		});
 	},
 	// 加载订单详情
 	getETCDetail () {
@@ -56,7 +82,7 @@ Page({
 	// 修改资料
 	onClickModifiedData () {
 		app.globalData.orderInfo.orderId = this.data.orderId;
-		app.globalData.orderInfo.shopProductId = this.data.orderInfo;
+		app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
 		util.go('/pages/default/information_validation/information_validation');
 	},
 	// 取消订单
@@ -98,6 +124,7 @@ Page({
 			util.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
+				app.globalData.signAContract = -1;
 				util.hideLoading();
 				let result = res.data.contract;
 				// 签约车主服务 2.0
@@ -145,10 +172,7 @@ Page({
 		if (this.data.orderInfo.shopProductId === 0 || this.data.orderInfo.etcContractId === 0) {
 			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 			util.go('/pages/default/payment_way/payment_way');
-		} else if (this.data.orderInfo.shopProductId !== 0 || this.data.orderInfo.etcContractId === 0) {
-			// 未签约
-			this.onClickBackToSign();
-		} else if (this.data.orderInfo.isVehicle === 0) {
+		} else if (this.data.orderInfo.shopProductId !== 0 && this.data.orderInfo.isVehicle === 0) {
 			// 是否上传行驶证， 0未上传，1已上传
 			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 			app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
@@ -168,15 +192,41 @@ Page({
 		if (this.data.orderInfo.logisticsId === 0) {
 			this.onClickViewProcessingProgressHandle();
 		} else {
-			//打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
-			wx.navigateToMiniProgram({
-				appId: 'wxaca5642db7afd470',
-				path: 'pages/online_distribution/online_distribution',
-				envVersion: 'trial',  // 目前联调为体验版
-				fail () {
-					util.showToastNoIcon('调起激活小程序失败, 请重试！');
-				}
-			});
+			this.confirmReceipt();
 		}
+	},
+	// 确认收货
+	confirmReceipt () {
+		util.showLoading();
+		util.getDataFromServer('consumer/order/affirm-take-obu', {
+			logisticsId: this.data.orderInfo.logisticsId
+		}, () => {
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				this.showDetail();
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken);
+	},
+	// 显示详情
+	showDetail (e) {
+		this.setData({
+			showDetailWrapper: true,
+			showDetailMask: true
+		});
+	},
+	// 关闭详情
+	hide () {
+		this.setData({
+			showDetailWrapper: false
+		});
+		setTimeout(() => {
+			this.setData({
+				showDetailMask: false
+			});
+		}, 0);
 	}
 });

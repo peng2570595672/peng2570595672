@@ -26,6 +26,7 @@ Page({
 		orderInfo: undefined // 订单信息
 	},
 	onLoad () {
+		wx.removeStorageSync('return_photo_recognition_of_driving_license_type');
 		let returnType = wx.getStorageSync('information_validation');
 		if (returnType) {
 			this.setData({
@@ -72,6 +73,7 @@ Page({
 		}
 	},
 	onShow() {
+		wx.removeStorageSync('return_photo_recognition_of_driving_license');
 		let returnType = wx.getStorageSync('information_validation');
 		if (returnType) {
 			this.setData({
@@ -209,7 +211,7 @@ Page({
 				vin: face.vin, // 车辆识别代号 【dataType包含6】
 				registerDate: face.resgisterDate, // 车辆识别代号 【dataType包含6】
 				issueDate: face.issueDate, // 发证日期 【dataType包含6】
-				issuingUnit: '', // 发证单位 【dataType包含6】
+				issuingUnit: face.issuingUnit, // 发证单位 【dataType包含6】
 				licenseMainPage: this.data.drivingLicenseFace.fileUrl, // 主页地址 【dataType包含6】
 				licenseVicePage: this.data.drivingLicenseBack.fileUrl, // 副页地址 【dataType包含6】
 				fileNumber: back.fileNumber, // 档案编号 【dataType包含6】
@@ -356,5 +358,8 @@ Page({
 		});
 		wx.removeStorageSync('information_validation');
 		this.cancelOrder();
+	},
+	onUnload () {
+		wx.setStorageSync('return_photo_recognition_of_driving_license', true);
 	}
 });

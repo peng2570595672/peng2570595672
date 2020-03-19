@@ -154,7 +154,7 @@ Page({
 			shopId: this.data.choiceObj.shopId,
 			idCardStatus: this.data.orderInfo['idCard'].idCardStatus,
 			idCardValidDate: this.data.orderInfo['idCard'].idCardValidDate ? this.data.orderInfo['idCard'].idCardValidDate : this.data.idCardBack.ocrObject.validDate,
-			idCardAddress: this.data.orderInfo['idCard'].idCardAddress ? this.data.orderInfo['idCard'].idCardAddress : this.data.idCardFace.ocrObject.validDate,
+			idCardAddress: this.data.orderInfo['idCard'].idCardAddress ? this.data.orderInfo['idCard'].idCardAddress : this.data.idCardFace.ocrObject.address,
 			idCardTrueName: this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含4】
 			idCardSex: this.data.idCardFace.ocrObject.sex === '男' ? 1 : 2, // 实名认证性别 【dataType包含4】
 			idCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含4】
@@ -186,6 +186,7 @@ Page({
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
 			if (res.code === 0) {
+				app.globalData.signAContract = -1;
 				app.globalData.orderInfo.shopProductId = this.data.choiceObj.shopProductId;
 				let result = res.data.contract;
 				// 签约车主服务 2.0

@@ -58,7 +58,8 @@
 			<view class="details-title iconfont icon{{detailsContent.id}}"><text>{{detailsContent.title}}</text></view>
 			<view class="details-content">{{detailsContent.content}}</view>
 			<view class="as-member">
-				<button catchtap="go">{{isMembers === true ? '一键体验':'成为会员'}}</button>
+				<button wx:if="{{isMembers === true}}"  open-type="contact">发送“6”享受权益</button>
+				<button catchtap="go" wx:else>成为会员</button>
 			</view>
 			<view class="prompt" wx:if="{{!isMembers}}">
 				<image src="https://file.cyzl.com/g001/M05/F8/CA/oYYBAF4AIeOAEGYDAAALspApwSg389.svg"></image>

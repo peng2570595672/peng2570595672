@@ -11,7 +11,7 @@
 	<!--欠费通知结束-->
 	<dropdownmenu wx:if="{{vehicleList.length >1}}" isOwe="{{isOwe}}" dropDownMenuTitle='{{dropDownMenuTitle}}' dropDownMenuFilterData='{{vehicleList}}' dropDownMenuDistrictData='{{timeList}}'  bind:selectedItem='selectedItem' />
 	<!--	通行总额开始-->
-	<view class="total-cost" wx:if="{{successBillMessage.totalCount > 0}}">
+	<view class="total-cost" wx:if="{{failBillList.length > 0 && successBillList.length > 0}}">
 		<view>共{{successBillMessage.totalCount}}条，通行总额：{{successBillMessage.totalMoney/100}}元</view>
 		<view>因高速通行存在账单延时，以下查询结果为已出账的通行记录</view>
 		<view>未出账记录请过一段时间再次查询</view>

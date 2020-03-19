@@ -8,9 +8,11 @@ const app = getApp();
 Page({
 	data: {
 		type: 3,// 3 行驶证正面 4行驶证反面 0 车头45度
+		isType: -1,// 3 行驶证正面 4行驶证反面 0 车头45度
 		title: '车辆行驶证-主页', // 当前拍照提示标题
 		picPath: '/pages/default/assets/driving_license_face_border.png', // 拍摄区域边框
-		retry: false, // 是否重新拍摄
+		retry: 0, // 0 正常进入 1 都有照片  2  重新拍摄 是否重新拍摄
+		process: 0,
 		showInfo: true, // 用于判断拒绝授权后重新授权camera重新加载显示
 		pic0: '', // 车头45度
 		pic3: '', // 行驶证正面
@@ -45,36 +47,50 @@ Page({
 		console.log('onShow');
 		this.getProduct();
 		let type = wx.getStorageSync('photo_recognition_of_driving_license_type');
+		console.log(type)
 		if (type) {
 			this.setData({
 				isFromRe: true,
-				type: parseInt(type)
+				type: type,
+				isType: parseInt(type)
 			});
-			// 读取缓存
-			let drivingLicenseFace = wx.getStorageSync('driving_license_face');
-			let drivingLicenseBack = wx.getStorageSync('driving_license_back');
-			if (drivingLicenseFace && drivingLicenseBack) {
-				drivingLicenseFace = JSON.parse(drivingLicenseFace);
-				drivingLicenseBack = JSON.parse(drivingLicenseBack);
-				let carHeadCard = {};
-				if (wx.getStorageSync('car_head_45')) {
-					carHeadCard = JSON.parse(wx.getStorageSync('car_head_45'));
-					this.setData({
-						pic0: carHeadCard.fileUrl
-					});
-				}
+		}
+		// 读取缓存
+		let drivingLicenseFace = wx.getStorageSync('driving_license_face');
+		let drivingLicenseBack = wx.getStorageSync('driving_license_back');
+		if (drivingLicenseFace && drivingLicenseBack) {
+			drivingLicenseFace = JSON.parse(drivingLicenseFace);
+			drivingLicenseBack = JSON.parse(drivingLicenseBack);
+			let carHeadCard = {};
+			if (wx.getStorageSync('car_head_45')) {
+				carHeadCard = JSON.parse(wx.getStorageSync('car_head_45'));
 				this.setData({
-					pic3: drivingLicenseFace.fileUrl,
-					pic4: drivingLicenseBack.fileUrl,
-					retry: true,
-					pic0IdentifyResult: 0,
-					pic3IdentifyResult: this.data.type === 3 ? -1 : 0,
-					pic4IdentifyResult: this.data.type === 4 ? -1 : 0,
-					picPath: this.data.type === 3 ? '/pages/default/assets/driving_license_face_border.png' : this.data.type === 4 ? '/pages/default/assets/driving_license_back_border.png' : '/pages/default/assets/car_head_45_border.png',
-					title: this.data.type === 3 ? '车辆行驶证-主页' : this.data.type === 4 ? '车辆行驶证-副页' : '车辆45度照片'
+					pic0: carHeadCard.fileUrl
 				});
-				wx.removeStorageSync('photo_recognition_of_driving_license_type');
 			}
+			console.log(drivingLicenseFace.fileUrl)
+			this.setData({
+				pic3: drivingLicenseFace.fileUrl,
+				pic4: drivingLicenseBack.fileUrl,
+				retry: 2,
+				pic0IdentifyResult: 0,
+				pic3IdentifyResult: 0,
+				pic4IdentifyResult: 0,
+				// pic3IdentifyResult: this.data.type === 3 ? -1 : 0,
+				// pic4IdentifyResult: this.data.type === 4 ? -1 : 0,
+				picPath: this.data.type === 3 ? '/pages/default/assets/driving_license_face_border.png' : this.data.type === 4 ? '/pages/default/assets/driving_license_back_border.png' : '/pages/default/assets/car_head_45_border.png',
+				title: this.data.type === 3 ? '车辆行驶证-主页' : this.data.type === 4 ? '车辆行驶证-副页' : '车辆45度照片'
+			});
+			if (wx.getStorageSync('return_photo_recognition_of_driving_license')) {
+				this.setData({
+					retry: 1,
+					type: -1,
+					pic0IdentifyResult: 0,
+					pic3IdentifyResult: 0,
+					pic4IdentifyResult: 0
+				});
+			}
+			wx.removeStorageSync('photo_recognition_of_driving_license_type');
 		}
 	},
 	// 根据套餐id获取套餐信息
@@ -147,6 +163,14 @@ Page({
 	},
 	// 拍照
 	takePhotoHandle () {
+		if (this.data.retry === 2) {
+			this.setData({
+				retry: 0,
+				isType: this.data.type,
+				picPath: this.data.type === 3 ? '/pages/default/assets/driving_license_back_border.png' : '/pages/default/assets/car_head_45_border.png',
+			});
+			return;
+		}
 		const ctx = wx.createCameraContext();
 		ctx.takePhoto({
 			quality: 'high',
@@ -330,9 +354,10 @@ Page({
 		let key = `pic${index}`;
 		this.setData({
 			type: index,
+			isType: index,
 			picPath: index === 3 ? '/pages/default/assets/driving_license_face_border.png' : index === 4 ? '/pages/default/assets/driving_license_back_border.png' : '/pages/default/assets/car_head_45_border.png',
 			title: index === 3 ? '车辆行驶证-主页' : index === 4 ? '车辆行驶证-副页' : '车辆45度照片',
-			retry: this.data[key] !== ''
+			retry: this.data[key] === '' ? 0 : 2
 		});
 	}
 });

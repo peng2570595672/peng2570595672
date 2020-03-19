@@ -31,7 +31,13 @@
 		<view class="item  {{info.auditStatus !== 0 ? 'current' : ''}} {{info.logisticsId !== 0 ? 'finished' : ''}}">
 			<view class="content-title">快递配送</view>
 			<view class="content-des" wx:if="{{info.logisticsId === 0}}">发货后可查看实时物流信息</view>
-			<view class="content-des" wx:else>已发货<text class="edit iconfont">查看实时物流</text></view>
+			<view class="content-des" wx:if="{{info.logisticsId !== 0}}">已发货
+				<!--<text class="edit iconfont">查看实时物流</text>-->
+			</view>
+			<view class="content-des" wx:if="{{info.logisticsId !== 0}}">发货公司:{{info.logisticsName}}</view>
+			<view class="content-des" wx:if="{{info.logisticsId !== 0}}">快递单号:{{info.logisticsNo}}
+				<text class="copy" catchtap="copyLogisticsNo" data-no="{{info.logisticsNo}}">复制</text>
+			</view>
 		</view>
 		<view class="item  {{info.obuStatus !== 0 ? 'finished' : ''}} {{info.logisticsId !== 0 ? 'current' : ''}} last">
 			<view class="content-title">安装激活</view>
@@ -40,11 +46,25 @@
 	</view>
 	<!--	进度结束-->
 	<!--	按钮开始-->
-	<view class="btn" wx:if="{{info.logisticsId !== 0}}">确认收货并激活</view>
+	<button class="btn" wx:if="{{info.logisticsId !== 0 && userInfo}}" catchtap="onClickCctivate">确认收货并激活</button>
+	<button class="btn" wx:if="{{info.logisticsId !== 0 && !userInfo}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">确认收货并激活</button>
 <!--	按钮结束-->
 	<view class="auto-fill"></view>
 
 	<!--	在线客服开始-->
 	<view class="online-server" catchtap="goOnlineServer">在线客服</view>
 	<!--	在线客服结束-->
+
+	<!--小程序客服弹框-->
+	<view class="detail_mask animated {{showDetailWrapper ? 'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
+		<view class="detail_wrapper animated {{showDetailWrapper ? 'zoomIn':'zoomOut'}}" wx:if="{{showDetailMask}}">
+			<view class="top1">
+				<image mode="widthFix" src="/pages/default/assets/focus_on_home_page_bg.png"></image>
+				<view class="activity_button">
+					<button open-type="contact"></button>
+				</view>
+			</view>
+		</view>
+	</view>
+	<!--小程序客服弹框-->
 </view>

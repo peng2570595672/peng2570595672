@@ -201,13 +201,15 @@ page .index .detail_mask .detail_wrapper .activity_button {
   z-index: 2;
   width: 360rpx;
   height: 80rpx;
+}
+page .index .detail_mask .detail_wrapper .activity_button > button {
+  width: 360rpx;
+  height: 80rpx;
   background: linear-gradient(to right, #ffad3e, #ff8325);
   box-shadow: 0rpx 8rpx 10rpx 0rpx rgba(255,136,40,0.3);
   border-radius: 45rpx;
   margin-top: -150rpx;
   line-height: 80rpx;
-}
-page .index .detail_mask .detail_wrapper .activity_button > text {
   font-size: 32rpx;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;

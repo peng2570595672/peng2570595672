@@ -24,7 +24,11 @@
 			<view class="ticket-bottom-item" wx:if="{{details.limitUseDate === 1}}">
 				<view class="entry">
 					<view>使用时段</view>
-					<view>{{details.limitUseDate}}</view>
+					<view>
+						<view wx:for="{{details.couponUseCheckList}}" wx:key="index">
+							{{item.weekDay}}{{item.startDate}}至{{item.endDate}}
+						</view>
+					</view>
 				</view>
 			</view>
 			<view class="ticket-bottom-item">

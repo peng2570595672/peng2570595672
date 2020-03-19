@@ -94,6 +94,7 @@ Page({
 			util.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
+				app.globalData.signAContract = -1;
 				util.hideLoading();
 				let result = res.data.contract;
 				// 签约车主服务 2.0
