@@ -33,7 +33,6 @@ Page({
 				}
 			}
 		});
-		wx.removeStorageSync('information_validation');
 		this.login();
 	},
 	onShow () {

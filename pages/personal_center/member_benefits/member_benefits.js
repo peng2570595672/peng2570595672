@@ -3,6 +3,7 @@ const app = getApp();
 Page({
 	data: {
 		isMembers: false,
+		userInfo: undefined, // 用户信息
 		benefitsList: [
 			{
 				id: 0,
@@ -44,8 +45,33 @@ Page({
 		showDetailMask: false,
 		showDetailWtapper: false
 	},
+	onLoad () {
+		let that = this;
+		wx.getSetting({
+			success (res){
+				if (res.authSetting['scope.userInfo']) {
+					// 已经授权，可以直接调用 getUserInfo 获取头像昵称
+					wx.getUserInfo({
+						success: function(res) {
+							console.log(res);
+							that.setData({
+								userInfo: res.userInfo
+							});
+						}
+					})
+				}
+			}
+		});
+	},
 	onShow () {
 		this.getMyETCList();
+	},
+	bindGetUserInfo (e) {
+		console.log(e);
+		console.log(e.detail.userInfo);
+		this.setData({
+			userInfo: e.detail.userInfo
+		});
 	},
 	// 加载ETC列表
 	getMyETCList () {

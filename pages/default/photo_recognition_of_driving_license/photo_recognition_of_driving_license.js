@@ -338,7 +338,9 @@ Page({
 	// 返回
 	onClickBackHandle () {
 		// 重新拍照行驶证点击左上角返回
-		wx.setStorageSync('information_validation', true);
+		if (wx.getStorageSync('return_photo_recognition_of_driving_license')) {
+			wx.setStorageSync('information_validation', true);
+		}
 		if (this.data.isFromRe) {
 			this.isOver();
 			return;
