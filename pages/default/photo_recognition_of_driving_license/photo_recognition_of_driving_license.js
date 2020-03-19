@@ -361,5 +361,10 @@ Page({
 			title: index === 3 ? '车辆行驶证-主页' : index === 4 ? '车辆行驶证-副页' : '车辆45度照片',
 			retry: this.data[key] === '' ? 0 : 2
 		});
+	},
+	onUnload () {
+		if (wx.getStorageSync('return_photo_recognition_of_driving_license')) {
+			wx.setStorageSync('information_validation', true);
+		}
 	}
 });

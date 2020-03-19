@@ -2,7 +2,7 @@
 	<!--	左边相机部分开始-->
 	<camera class="camera" device-position="back" flash="auto" binderror="cameraErrorHandle" wx:if="{{showInfo}}">
 		<!--虚化背景-->
-		<cover-view class="camera_bg"></cover-view>
+		<cover-view class="camera_bg"><cover-image class="back_arrow" src="/pages/default/assets/camera_bg.png"></cover-image></cover-view>
 		<!--虚化背景-->
 		<cover-view class="nav">
 			<cover-view  class="back" catchtap="onClickBackHandle">
@@ -11,7 +11,7 @@
 			<cover-view class="title">{{title}}</cover-view>
 		</cover-view>
 		<cover-view class="left">
-			<cover-image class="border" wx:if="{{retry === 0}}" src="{{picPath}}"></cover-image>
+			<cover-image class="border aa" wx:if="{{retry === 0}}" src="{{type === 3 ? '/pages/default/assets/driving_license_face_border.png' : type === 4 ? '/pages/default/assets/driving_license_back_border.png' : '/pages/default/assets/car_head_45_border.png'}}"></cover-image>
 			<cover-image class="border" wx:else src="{{isType === 3 ? pic3 : isType === 4 ? pic4 : isType === 0 ? pic0 : picPath}}"></cover-image>
 		</cover-view>
 		<cover-view class="tips">请按照拍摄框内指引进行拍摄</cover-view>
