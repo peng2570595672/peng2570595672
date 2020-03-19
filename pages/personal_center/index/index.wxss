@@ -157,17 +157,20 @@ page .index .activity_follow .activity_img > image {
 }
 page .index .activity_follow .activity_msg {
   margin-left: 20rpx;
+  font-size: 32rpx;
+  text-align: left;
+  line-height: 44rpx;
   font-family: PingFangSC-Regular, PingFang SC;
 }
 page .index .activity_follow .activity_msg>view:first-child {
-  font-size: 16px;
   color: #333;
 }
 page .index .activity_follow .activity_msg>view:last-child {
+  font-size: 24rpx;
   width: 300rpx;
   color: #999;
 }
-page .index .activity_follow::after {
+page .index .activity_follow .activity_right::after {
   margin-left: 140rpx;
   color: #999;
   display: inline-block;

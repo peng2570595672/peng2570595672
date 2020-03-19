@@ -74,19 +74,34 @@
 	<!--用户操作选项结束-->
 
 	<!--关注公众号活动开始-->
-	<view class="activity_follow iconfont" catchtap="showDetail">
+	<button class="activity_follow" wx:if="{{userInfo}}" catchtap="showDetail">
 		<!--活动logo展示-->
 		<view class="activity_img">
 			<image src="https://file.cyzl.com/g001/M05/00/22/oYYBAF4BqEaAKGuRAAARqy9QsRU750.svg" ></image>
 		</view>
-
 		<!--活动文字描述开始-->
 		<view class="activity_msg">
 			<view>关注公众号</view>
 			<view>最新资讯秒服务秒GET!</view>
 		</view>
 		<!--活动文字描述结束-->
-	</view>
+		<view class="iconfont activity_right"></view>
+	</button>
+
+	<!--关注公众号活动开始-->
+	<button class="activity_follow" wx:if="{{!userInfo}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">
+		<!--活动logo展示-->
+		<view class="activity_img">
+			<image src="https://file.cyzl.com/g001/M05/00/22/oYYBAF4BqEaAKGuRAAARqy9QsRU750.svg" ></image>
+		</view>
+		<!--活动文字描述开始-->
+		<view class="activity_msg">
+			<view>关注公众号</view>
+			<view>最新资讯秒服务秒GET!</view>
+		</view>
+		<!--活动文字描述结束-->
+		<view class="iconfont activity_right"></view>
+	</button>
 
 	<!--关注公众号活动弹框-->
 	<view class="detail_mask animated {{showDetailWrapper ? 'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">

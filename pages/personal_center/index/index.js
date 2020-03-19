@@ -4,8 +4,34 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
+		userInfo: undefined, // 用户信息
 		showDetailWrapper: false,
 		showDetailMask: false
+	},
+	onLoad () {
+		let that = this;
+		wx.getSetting({
+			success (res){
+				if (res.authSetting['scope.userInfo']) {
+					// 已经授权，可以直接调用 getUserInfo 获取头像昵称
+					wx.getUserInfo({
+						success: function(res) {
+							console.log(res.userInfo);
+							that.setData({
+								userInfo: res.userInfo
+							});
+						}
+					})
+				}
+			}
+		});
+	},
+	bindGetUserInfo (e) {
+		console.log(e);
+		console.log(e.detail.userInfo);
+		this.setData({
+			userInfo: e.detail.userInfo
+		});
 	},
 	// 跳转
 	go (e) {

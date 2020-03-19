@@ -229,9 +229,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/personal_center/my_order/my_order",
-					"pathName": "pages/personal_center/my_order/my_order",
+					"id": 19,
+					"name": "pages/personal_center/index/index",
+					"pathName": "pages/personal_center/index/index",
 					"query": "",
 					"scene": null
 				},
@@ -239,6 +239,7 @@
 					"id": -1,
 					"name": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
 					"pathName": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
+					"query": "",
 					"scene": null
 				}
 			]
