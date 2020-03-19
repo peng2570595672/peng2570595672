@@ -4,6 +4,7 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
+		isAttention: 0, // 关注状态 1-已关注，0-未关注
 		userInfo: undefined, // 用户信息
 		showDetailWrapper: false,
 		showDetailMask: false
@@ -16,14 +17,53 @@ Page({
 					// 已经授权，可以直接调用 getUserInfo 获取头像昵称
 					wx.getUserInfo({
 						success: function(res) {
-							console.log(res.userInfo);
+							console.log(res);
 							that.setData({
 								userInfo: res.userInfo
 							});
+							that.submitUserInfo(res);
 						}
 					})
 				}
 			}
+		});
+		this.getMemberBenefits();
+	},
+	submitUserInfo (user) {
+		util.showLoading();
+		let params = {
+			encryptedData: user.encryptedData,
+			iv: user.iv
+		};
+		util.getDataFromServer('consumer/member/applet/update-user-info', params, () => {
+			util.showToastNoIcon('提交用户信息失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				this.setData({
+					isAttention: res.data.attentionStatus
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
+	// 获取会员信息
+	getMemberBenefits () {
+		util.showLoading();
+		util.getDataFromServer('consumer/member/member-status', {}, () => {
+			util.showToastNoIcon('获取会员信息失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				this.setData({
+					isAttention: res.data.attentionStatus
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
 		});
 	},
 	bindGetUserInfo (e) {
@@ -32,6 +72,7 @@ Page({
 		this.setData({
 			userInfo: e.detail.userInfo
 		});
+		this.submitUserInfo(res);
 	},
 	// 跳转
 	go (e) {

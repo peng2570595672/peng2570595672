@@ -72,7 +72,7 @@ Page({
 			this.getOrderInfo(false);
 		}
 	},
-	onShow() {
+	onShow () {
 		wx.removeStorageSync('return_photo_recognition_of_driving_license');
 		let returnType = wx.getStorageSync('information_validation');
 		if (returnType) {

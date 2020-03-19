@@ -74,7 +74,7 @@
 	<!--用户操作选项结束-->
 
 	<!--关注公众号活动开始-->
-	<button class="activity_follow" wx:if="{{userInfo}}" catchtap="showDetail">
+	<button class="activity_follow" wx:if="{{userInfo && isAttention !== 1}}" catchtap="showDetail">
 		<!--活动logo展示-->
 		<view class="activity_img">
 			<image src="https://file.cyzl.com/g001/M05/00/22/oYYBAF4BqEaAKGuRAAARqy9QsRU750.svg" ></image>
@@ -89,7 +89,7 @@
 	</button>
 
 	<!--关注公众号活动开始-->
-	<button class="activity_follow" wx:if="{{!userInfo}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">
+	<button class="activity_follow" wx:if="{{!userInfo && isAttention !== 1}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">
 		<!--活动logo展示-->
 		<view class="activity_img">
 			<image src="https://file.cyzl.com/g001/M05/00/22/oYYBAF4BqEaAKGuRAAARqy9QsRU750.svg" ></image>

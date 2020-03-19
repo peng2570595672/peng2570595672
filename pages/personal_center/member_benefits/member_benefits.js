@@ -64,7 +64,7 @@ Page({
 		});
 	},
 	onShow () {
-		this.getMyETCList();
+		this.getMemberBenefits();
 	},
 	bindGetUserInfo (e) {
 		console.log(e);
@@ -73,11 +73,11 @@ Page({
 			userInfo: e.detail.userInfo
 		});
 	},
-	// 加载ETC列表
-	getMyETCList () {
+	// 获取会员信息
+	getMemberBenefits () {
 		util.showLoading();
 		util.getDataFromServer('consumer/member/member-status', {}, () => {
-			util.showToastNoIcon('获取车辆列表失败！');
+			util.showToastNoIcon('获取会员信息失败！');
 		}, (res) => {
 			if (res.code === 0) {
 				this.setData({
