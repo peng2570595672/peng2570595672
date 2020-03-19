@@ -241,6 +241,13 @@
 					"pathName": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/default/update_id_card/update_id_card",
+					"pathName": "pages/default/update_id_card/update_id_card",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

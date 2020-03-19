@@ -4,7 +4,7 @@
 		<view class="service-name">Hi！张晓晓</view>
 		<view class="service-btn">
 			<button><text class="iconfont">售后服务</text></button>
-			<button><text class="iconfont online-service" catchtap="goOnlineServer">在线客服</text></button>
+			<button catchtap="goOnlineServer"><text class="iconfont online-service">在线客服</text></button>
 		</view>
 	</view>
 	<!--售后服务/在线客服结束-->

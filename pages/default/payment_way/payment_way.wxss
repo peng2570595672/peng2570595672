@@ -87,6 +87,7 @@
   padding: 1rpx;
   height: 154rpx;
   background: linear-gradient(to right, #15ad69, #84d157);
+  border: 1rpx solid #15ad69;
   border-radius: 32rpx;
   overflow: hidden;
 }

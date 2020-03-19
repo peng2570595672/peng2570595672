@@ -39,9 +39,6 @@ Page({
 			util.showToastNoIcon('提交用户信息失败！');
 		}, (res) => {
 			if (res.code === 0) {
-				this.setData({
-					isAttention: res.data.attentionStatus
-				});
 			} else {
 				util.showToastNoIcon(res.message);
 			}
