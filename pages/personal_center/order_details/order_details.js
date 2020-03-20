@@ -44,8 +44,8 @@ Page({
 			util.showToastNoIcon('获取支付参数失败！');
 		}, (res) => {
 			util.hideLoading();
-			let extraData = res.data.extraData;
 			if (res.code === 0) {
+				let extraData = res.data.extraData;
 				wx.requestPayment({
 					nonceStr: extraData.nonceStr,
 					package: extraData.package,

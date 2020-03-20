@@ -75,7 +75,10 @@ Page({
 		ctx.takePhoto({
 			quality: 'high',
 			success: (res) => {
-				this.getPic(res.tempImagePath);
+				// // ios 解决拍照横屏
+				// if (app.globalData.mobilePhoneSystem) {
+				// }
+				this.getPic(res.tempImagePath,true);
 			},
 			fail: (res) => {
 				util.showToastNoIcon('拍照失败！');

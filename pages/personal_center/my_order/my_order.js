@@ -78,7 +78,7 @@ Page({
 				let obuStatusList;
 				// obuStatusList = res.data.filter(item => item.obuStatus === 1); // 正式数据
 				obuStatusList = res.data.filter(item => item.etcContractId !== 0); // 测试数据处理
-				console.log(obuStatusList)
+				console.log(obuStatusList);
 				if (obuStatusList.length > 0) {
 					// 需要过滤未激活的套餐
 					this.setData({
@@ -93,10 +93,10 @@ Page({
 						this.setData({
 							vehicleList: this.data.vehicleList
 						});
-						this.getFailBill(item.vehPlates);
+						// this.getFailBill(item.vehPlates);
 						this.getSuccessBill(item.vehPlates,year + util.formatNumber(month));
 					});
-					this.getMessage();
+					this.getMessage('全部车辆',year + util.formatNumber(month));
 				} else {
 					// 没有激活车辆
 				}
@@ -108,24 +108,33 @@ Page({
 		});
 	},
 	// 获取失败/成功账单信息
-	getMessage (vehPlates) {
+	getMessage (vehPlates,time) {
 		let channel = [];
-		this.data.orderList.map((item) => {
-			channel.push(item.obuCardType);
-		});
-		// 数组去重
-		let hash = [];
-		channel = channel.reduce((item1, item2) => {
-			hash[item2] ? '' : hash[item2] = true && item1.push(item2);
-			return item1;
-		}, []);
-		this.getFailBillMessage(channel);
-		this.getSuccessMessage(channel);
+		if (vehPlates === '全部车辆') {
+			this.data.orderList.map((item) => {
+				channel.push(item.obuCardType);
+			});
+			// 数组去重
+			let hash = [];
+			channel = channel.reduce((item1, item2) => {
+				hash[item2] ? '' : hash[item2] = true && item1.push(item2);
+				return item1;
+			}, []);
+		} else {
+			let vehPlatesMsg;
+			vehPlatesMsg = this.data.orderList.find((item) => {
+				return item.vehPlates === vehPlates;
+			});
+			channel.push(vehPlatesMsg.obuCardType);
+			console.log(channel)
+		}
+		this.getFailBillMessage(channel,time);
+		this.getSuccessMessage(channel,time);
 	},
-	getSuccessMessage (channel) {
+	getSuccessMessage (channel,time) {
 		let params = {
 			channels: channel,
-			month: this.data.chooseTime
+			month: time
 		};
 		util.getDataFromServer('consumer/etc/get-bill-info', params, () => {
 			util.hideLoading();
@@ -190,42 +199,42 @@ Page({
 	},
 	// 失败账单列表
 	getFailBill (vehPlates) {
-		let channel;
-		channel = this.data.orderList.filter(item => item.vehPlates === vehPlates);
-		let params = {
-			vehPlate: vehPlates,
-			channel: channel[0].obuCardType
-		};
-		util.getDataFromServer('consumer/etc/get-fail-bill', params, () => {
-			util.hideLoading();
-		}, (res) => {
-			util.hideLoading();
-			if (res.code === 0) {
-				this.setData({
-					failBillList: this.data.failBillList.concat(res.data)
-				});
-				// 数组去重
-				let hash = [];
-				this.data.failBillList = this.data.failBillList.reduce((item1, item2) => {
-					hash[item2['id']] ? '' : hash[item2['id']] = true && item1.push(item2);
-					return item1;
-				}, []);
-				this.setData({
-					failBillList: this.data.failBillList
-				});
-				if (this.data.failBillList.length > 0) {
-					this.setData({
-						isOwe: true
-					});
-				} else {
-					this.setData({
-						isOwe: false
-					});
-				}
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken);
+		// let channel;
+		// channel = this.data.orderList.filter(item => item.vehPlates === vehPlates);
+		// let params = {
+		// 	vehPlate: vehPlates,
+		// 	channel: channel[0].obuCardType
+		// };
+		// util.getDataFromServer('consumer/etc/get-fail-bill', params, () => {
+		// 	util.hideLoading();
+		// }, (res) => {
+		// 	util.hideLoading();
+		// 	if (res.code === 0) {
+		// 		this.setData({
+		// 			failBillList: this.data.failBillList.concat(res.data)
+		// 		});
+		// 		// 数组去重
+		// 		let hash = [];
+		// 		this.data.failBillList = this.data.failBillList.reduce((item1, item2) => {
+		// 			hash[item2['id']] ? '' : hash[item2['id']] = true && item1.push(item2);
+		// 			return item1;
+		// 		}, []);
+		// 		this.setData({
+		// 			failBillList: this.data.failBillList
+		// 		});
+		// 		if (this.data.failBillList.length > 0) {
+		// 			this.setData({
+		// 				isOwe: true
+		// 			});
+		// 		} else {
+		// 			this.setData({
+		// 				isOwe: false
+		// 			});
+		// 		}
+		// 	} else {
+		// 		util.showToastNoIcon(res.message);
+		// 	}
+		// }, app.globalData.userInfo.accessToken);
 	},
 	// 查看失败账单列表
 	goArrearsBill () {
@@ -263,6 +272,7 @@ Page({
 						this.getSuccessBill(item,this.data.chooseTime);
 					}
 				});
+				this.getMessage('全部车辆',this.data.chooseTime);
 			} else {
 				this.setData({
 					failBillList: [],
@@ -271,6 +281,7 @@ Page({
 				});
 				this.getFailBill(this.data.vehicleList[index]);
 				this.getSuccessBill(this.data.vehicleList[index],this.data.chooseTime);
+				this.getMessage(this.data.vehicleList[index],this.data.chooseTime);
 			}
 		} else {
 			const month = e.detail.selectedId.match(/-(\S*)/)[1];
@@ -287,7 +298,9 @@ Page({
 						this.getSuccessBill(item,this.data.chooseTime);
 					}
 				});
+				this.getMessage('全部车辆',this.data.chooseTime);
 			} else {
+				this.getMessage(this.data.chooseVehPlates,this.data.chooseTime);
 				this.getSuccessBill(this.data.chooseVehPlates,this.data.chooseTime);
 			}
 		}

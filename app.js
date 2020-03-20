@@ -14,6 +14,7 @@ App({
 		belongToPlatform: '123456789012345678', // 套餐所属平台id,用于判断流程
 		SDKVersion: '',// 小程序基础库版本
 		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
+		mobilePhoneSystem: false, // false非ios     true:ios
 		quality: 80,
 		signAContract: 1,// -1能签约
 		userInfo: {},// 用户信息
@@ -44,6 +45,7 @@ App({
 			success: (res) => {
 				console.log(res);
 				this.globalData.SDKVersion = res.SDKVersion;
+				this.globalData.mobilePhoneSystem = res.system.indexOf('iOS') !== -1 ? true : false;
 				if (res.model.toLowerCase().search('iphone x') !== -1) {
 					this.globalData.mobilePhoneMode = 1;
 				} else if (res.model.toLowerCase().search('iphone') !== -1) {
