@@ -42,7 +42,7 @@
 	<!--	右边按钮部分开始-->
 	<view class="btns">
 		<view>
-			<view class="iconfont take-photo {{retry === 1 || retry === 2 ? 'retry' : ''}}" catchtap="takePhotoHandle">
+			<view class="iconfont take-photo {{retry === 2 ? 'image-style' : ''}} {{retry === 1 || retry === 2 ? 'retry' : ''}}" catchtap="takePhotoHandle">
 				<image src="{{retry === 0 ? '/pages/default/assets/icon_camera_white.png' : (retry === 1 ? '/pages/default/assets/icon_success.png' : '/pages/default/assets/icon_refresh.png')}}"/>
 			</view>
 			<view class="retry-title" wx:if="{{retry === 2}}">重新拍摄</view>

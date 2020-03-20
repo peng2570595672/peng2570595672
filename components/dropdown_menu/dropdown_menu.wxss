@@ -60,7 +60,7 @@
 .icon{
 	color: #99999D;
 	font-size: 24rpx;
-	transform: rotateZ(-90deg);
+	transform: rotateZ(90deg);
 	margin-left: 20rpx;
 }
 
@@ -179,7 +179,7 @@
 
 .nav-child.active .icon {
 	color: #16AD69;
-	transform: rotateZ(90deg);
+	transform: rotateZ(270deg);
 	transition:.4s;
 }
 

@@ -143,6 +143,10 @@
   width: 8.533333333333333vmin;
   height: 7.2vmin;
 }
+.photo_recognition_of_driving_license .btns .image-style > image {
+  width: 8vmin;
+  height: 8vmin;
+}
 .photo_recognition_of_driving_license .btns .retry-title {
   position: absolute;
   left: 0;

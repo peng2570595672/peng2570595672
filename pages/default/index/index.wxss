@@ -25,7 +25,7 @@
   color: #ff563c;
 }
 .index .welcome {
-  margin-top: 26rpx;
+  margin: 26rpx 0;
   padding-left: 60rpx;
   font-size: 60rpx;
   line-height: 60rpx;
