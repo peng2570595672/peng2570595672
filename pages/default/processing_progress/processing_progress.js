@@ -8,10 +8,7 @@ Page({
 	data: {
 		dashedHeight: 0,
 		accountVerification: 0, //  0 没有核验id   1：核验成功，2-正在核验
-		info: undefined,
-		userInfo: undefined, // 用户信息
-		showDetailWrapper: false,
-		showDetailMask: false
+		info: undefined
 	},
 	onLoad (options) {
 		if (options.type) {
@@ -20,27 +17,7 @@ Page({
 			});
 		}
 		let that = this;
-		wx.getSetting({
-			success (res){
-				if (res.authSetting['scope.userInfo']) {
-					// 已经授权，可以直接调用 getUserInfo 获取头像昵称
-					wx.getUserInfo({
-						success: function(res) {
-							console.log(res.userInfo);
-							that.setData({
-								userInfo: res.userInfo
-							});
-						}
-					})
-				}
-			}
-		});
 		this.getProcessingProgress();
-	},
-	bindGetUserInfo (e) {
-		this.setData({
-			userInfo: e.detail.userInfo
-		});
 	},
 	// 去激活
 	onClickCctivate () {
@@ -50,7 +27,6 @@ Page({
 			this.confirmReceipt();
 		}
 	},
-	// 确认收货
 	// 获取办理进度
 	getProcessingProgress () {
 		util.showLoading();
@@ -126,29 +102,19 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
-				this.showDetail();
+				// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
+				wx.navigateToMiniProgram({
+					appId: 'wxaca5642db7afd470',
+					path: 'pages/online_distribution/online_distribution',
+					envVersion: 'trial', // 目前联调为体验版
+					fail () {
+						util.showToastNoIcon('调起激活小程序失败, 请重试！');
+					}
+				});
 			} else {
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken);
-	},
-	// 显示详情
-	showDetail (e) {
-		this.setData({
-			showDetailWrapper: true,
-			showDetailMask: true
-		});
-	},
-	// 关闭详情
-	hide () {
-		this.setData({
-			showDetailWrapper: false
-		});
-		setTimeout(() => {
-			this.setData({
-				showDetailMask: false
-			});
-		}, 0);
 	},
 	onUnload () {
 		if (this.data.type === 'main_process') {

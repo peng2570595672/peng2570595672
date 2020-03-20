@@ -55,16 +55,4 @@
 	<view class="online-server" catchtap="goOnlineServer">在线客服</view>
 	<!--	在线客服结束-->
 
-	<!--小程序客服弹框-->
-	<view class="detail_mask animated {{showDetailWrapper ? 'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
-		<view class="detail_wrapper animated {{showDetailWrapper ? 'zoomIn':'zoomOut'}}" wx:if="{{showDetailMask}}">
-			<view class="top1">
-				<image mode="widthFix" src="/pages/default/assets/focus_on_home_page_bg.png"></image>
-				<view class="activity_button">
-					<button open-type="contact"></button>
-				</view>
-			</view>
-		</view>
-	</view>
-	<!--小程序客服弹框-->
 </view>

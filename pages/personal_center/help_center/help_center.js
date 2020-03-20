@@ -145,6 +145,10 @@ Page({
 			});
 		}, 400);
 	},
+	// 售后
+	goAfterSales () {
+		util.showToastNoIcon('功能升级中，请联系在线客服处理售后！');
+	},
 	// 在线客服
 	goOnlineServer () {
 		util.go(`/pages/web/web/web?type=online_customer_service`);

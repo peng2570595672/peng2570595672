@@ -26,7 +26,7 @@
 					<view>使用时段</view>
 					<view>
 						<view wx:for="{{details.couponUseCheckList}}" wx:key="index">
-							{{item.weekDay}}{{item.startDate}}至{{item.endDate}}
+							{{item.weekDay}}<text decode="true">&nbsp;&nbsp;</text>{{item.startDate}}至{{item.endDate}}
 						</view>
 					</view>
 				</view>

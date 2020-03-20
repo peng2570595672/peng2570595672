@@ -11,28 +11,9 @@ Page({
 		canIUse: wx.canIUse('button.open-type.getUserInfo'),
 		loginInfo: {},// 登录信息
 		contractStatus: undefined,//  签约状态 -1 签约失败 0发起签约 1已签约 2解约
-		orderInfo: undefined, // 订单信息
-		userInfo: undefined, //用户信息
-		showDetailWrapper: false,
-		showDetailMask: false
+		orderInfo: undefined // 订单信息
 	},
 	onLoad () {
-		let that = this;
-		wx.getSetting({
-			success (res){
-				if (res.authSetting['scope.userInfo']) {
-					// 已经授权，可以直接调用 getUserInfo 获取头像昵称
-					wx.getUserInfo({
-						success: function(res) {
-							console.log(res.userInfo)
-							that.setData({
-								userInfo: res.userInfo
-							});
-						}
-					})
-				}
-			}
-		});
 		this.login();
 	},
 	onShow () {
@@ -48,11 +29,6 @@ Page({
 			this.getStatus();
 			wx.removeStorageSync('login_info_final');
 		}
-	},
-	bindGetUserInfo (e) {
-		this.setData({
-			userInfo: e.detail.userInfo
-		});
 	},
 	// 自动登录
 	login () {
@@ -267,7 +243,15 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
-				this.showDetail();
+				// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
+				wx.navigateToMiniProgram({
+					appId: 'wxaca5642db7afd470',
+					path: 'pages/online_distribution/online_distribution',
+					envVersion: 'trial', // 目前联调为体验版
+					fail () {
+						util.showToastNoIcon('调起激活小程序失败, 请重试！');
+					}
+				});
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -315,23 +299,5 @@ Page({
 			util.go('/pages/default/update_id_card/update_id_card?type=normal_process');
 		}
 		// platformId判断是哪个平台进入的  home-info/ETC详情接口/ETC列表接口可查,用于判断流程,是否去签约
-	},
-	// 显示详情
-	showDetail (e) {
-		this.setData({
-			showDetailWrapper: true,
-			showDetailMask: true
-		});
-	},
-	// 关闭详情
-	hide () {
-		this.setData({
-			showDetailWrapper: false
-		});
-		setTimeout(() => {
-			this.setData({
-				showDetailMask: false
-			});
-		}, 0);
 	}
 });
