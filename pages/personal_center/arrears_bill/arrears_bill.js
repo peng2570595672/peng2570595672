@@ -8,12 +8,21 @@ Page({
 		vehicleList: [],
 		failBillList: []
 	},
-	onLoad () {
-		console.log(app.globalData.myEtcList.length)
-		if (app.globalData.myEtcList.length === 0) {
-
+	onShow () {
+		if (app.globalData.myEtcList.length !== 0) {
+			this.setData({
+				orderList: app.globalData.myEtcList
+			});
+			app.globalData.myEtcList.map((item) => {
+				this.data.vehicleList.push(item.vehPlates);
+				this.setData({
+					vehicleList: this.data.vehicleList
+				});
+				this.getFailBill(item.vehPlates);
+			});
+		} else {
+			this.getMyETCList();
 		}
-		this.getMyETCList();
 	},
 	// 加载ETC列表
 	getMyETCList () {

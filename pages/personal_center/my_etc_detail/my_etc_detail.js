@@ -196,5 +196,5 @@ Page({
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken);
-	}
+	},
 });

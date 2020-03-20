@@ -8,6 +8,9 @@ Page({
 		this.setData({details: options});
 		this.getBillDetail();
 	},
+	onShow () {
+		this.getBillDetail();
+	},
 	// 去账单说明
 	goOrderInstructions () {
 		util.go('/pages/personal_center/order_instructions/order_instructions?details=' + JSON.stringify(this.data.details));
