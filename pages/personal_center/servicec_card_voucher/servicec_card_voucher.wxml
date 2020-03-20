@@ -18,9 +18,9 @@
 				<view class="card-voucher-requirements">满{{item.minUseAmount ? item.minUseAmount/100 : 0}}元使用</view>
 				<view class="line"></view>
 				<view class="period-of-validity {{item.status !== 1 ? 'date-right' : ''}}">
-					<text wx:if="{{item.status === 1}}">有效期至：{{item.expireEndDate}}</text>
+					<text wx:if="{{item.status === 1}}">有效期：{{item.expireStartDate}}至{{item.expireEndDate}}</text>
 					<text wx:if="{{item.status === 2}}">使用日期：{{item.lastUseTime}}</text>
-					<text wx:if="{{item.status === 8}}">失效时间：{{item.lastUseTime}}</text>
+					<text wx:if="{{item.status === 8}}">失效时间：{{item.expireEndDate}}</text>
 				</view>
 			</view>
 			<!--卡券右边部分结束-->

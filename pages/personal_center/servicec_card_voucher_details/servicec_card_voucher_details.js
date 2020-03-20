@@ -38,11 +38,20 @@ Page({
 		this.setData({
 			details: this.data.details
 		});
-		console.log(this.data.details.background)
+		let bgHex = this.colorRGB2Hex(this.data.details.background)
 		wx.setNavigationBarColor({
 			frontColor: '#000000',
-			backgroundColor: this.data.details.background
+			backgroundColor: bgHex
 		});
+	},
+	// rgb转16进制
+	colorRGB2Hex(color) {
+		let rgb = color.split(',');
+		let r = parseInt(rgb[0].split('(')[1]);
+		let g = parseInt(rgb[1]);
+		let b = parseInt(rgb[2].split(')')[0]);
+		let hex = "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+		return hex;
 	},
 	// 显示使用说明
 	switchElaborate () {

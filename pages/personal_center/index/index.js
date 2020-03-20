@@ -64,8 +64,6 @@ Page({
 		});
 	},
 	bindGetUserInfo (e) {
-		console.log(e);
-		console.log(e.detail.userInfo);
 		this.setData({
 			userInfo: e.detail.userInfo
 		});
