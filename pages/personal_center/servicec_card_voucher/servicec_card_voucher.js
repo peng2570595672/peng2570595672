@@ -115,6 +115,7 @@ Page({
 	// 立即兑换
 	exchange () {
 		if (!this.data.exchangeCode) {
+			util.showToastNoIcon('请输入兑换码！');
 			return;
 		}
 		util.showLoading();

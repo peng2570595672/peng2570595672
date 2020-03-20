@@ -248,6 +248,12 @@
 					"pathName": "pages/default/update_id_card/update_id_card",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/default/shot_bank_card/shot_bank_card",
+					"pathName": "pages/default/shot_bank_card/shot_bank_card",
+					"scene": null
 				}
 			]
 		}

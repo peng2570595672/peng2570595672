@@ -176,7 +176,11 @@ Page({
 			// 是否上传行驶证， 0未上传，1已上传
 			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 			app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
-			util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
+			if (wx.getStorageSync('driving_license_face')) {
+				util.go('/pages/default/information_validation/information_validation');
+			} else {
+				util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
+			}
 		} else if (this.data.orderInfo.isVehicle === 1 && this.data.orderInfo.isOwner === 1) {
 			// 已上传行驶证， 未上传车主身份证
 			app.globalData.orderInfo.orderId = this.data.orderInfo.id;

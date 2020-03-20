@@ -166,7 +166,10 @@ Page({
 		if (url === 'online_customer_service' || url === 'violation_enquiry') {
 			if (url === 'violation_enquiry') {
 				// 统计点击进入违章查询
-				mta.Event.stat('036',{});
+				mta.Event.stat('007',{});
+			} else if (url === 'online_customer_service') {
+				// 统计点击进入在线客服
+				mta.Event.stat("009",{});
 			}
 			util.go(`/pages/web/web/web?type=${url}`);
 		} else {
@@ -179,12 +182,16 @@ Page({
 			if (url === 'index') {
 				// 统计点击进入个人中心事件
 				mta.Event.stat('010',{});
+			} else if (url === 'member_benefits') {
+				// 统计点击进入会员权益事件
+				mta.Event.stat("008",{});
 			}
 			util.go(`/pages/personal_center/${url}/${url}`);
 		}
 	},
 	// 恢复签约
 	onClickBackToSign () {
+		mta.Event.stat("006",{});
 		util.showLoading('加载中');
 		let params = {
 			orderId: this.data.orderInfo.id,// 订单id
@@ -248,6 +255,7 @@ Page({
 		if (this.data.orderInfo.logisticsId === 0) {
 			this.onClickViewProcessingProgressHandle();
 		} else {
+			mta.Event.stat("005",{});
 			this.confirmReceipt();
 		}
 	},
@@ -279,6 +287,7 @@ Page({
 	},
 	// 修改资料
 	onClickModifiedData () {
+		mta.Event.stat("004",{});
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 		app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
 		util.go('/pages/default/information_validation/information_validation');

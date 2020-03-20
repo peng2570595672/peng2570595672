@@ -18,7 +18,7 @@
 	<!--	底部按钮区域开始-->
 	<view class="btns">
 		<view class="iconfont choice-from-album" catchtap="choiceFromAbumHandle"></view>
-		<view class="iconfont take-photo" catchtap="takePhotoHandle"><image src="/pages/default/assets/icon_camera.png"/></view>
+		<view class="iconfont take-photo" catchtap="takePhotoHandle"><image src="/pages/default/assets/icon_camera_white.png"/></view>
 	</view>
 	<!--	底部按钮区域结束-->
 <!--	压缩图片开始-->

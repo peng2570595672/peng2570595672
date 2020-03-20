@@ -5,8 +5,6 @@ Page({
 		details: ''
 	},
 	onLoad (options) {
-		console.log(options);
-		console.log(JSON.parse(options.details).couponUseCheckList);
 		this.setData({
 			details: JSON.parse(options.details)
 		});
@@ -40,10 +38,10 @@ Page({
 		this.setData({
 			details: this.data.details
 		});
+		console.log(this.data.details.background)
 		wx.setNavigationBarColor({
 			frontColor: '#000000',
-			// backgroundColor: this.data.details.background
-			backgroundColor: '#DF4A26'
+			backgroundColor: this.data.details.background
 		});
 	},
 	// 显示使用说明

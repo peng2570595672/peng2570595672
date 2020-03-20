@@ -7,7 +7,7 @@
 				<view>
 					<image src="{{item.productLogo}}"/>
 					<view class="li-right">
-						<view class="li-title">{{item.productName}}</view>
+						<view class="li-title {{!item.remarks ? 'new-title' : ''}}">{{item.productName}}</view>
 						<view class="li-sub-title">{{item.remarks}}</view>
 					</view>
 				</view>

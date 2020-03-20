@@ -74,10 +74,10 @@ Page({
 				pic4: drivingLicenseBack.fileUrl,
 				retry: 2,
 				pic0IdentifyResult: 0,
-				pic3IdentifyResult: 0,
-				pic4IdentifyResult: 0,
-				// pic3IdentifyResult: this.data.type === 3 ? -1 : 0,
-				// pic4IdentifyResult: this.data.type === 4 ? -1 : 0,
+				// pic3IdentifyResult: 0,
+				// pic4IdentifyResult: 0,
+				pic3IdentifyResult: this.data.type === 3 ? -1 : 0,
+				pic4IdentifyResult: this.data.type === 4 ? -1 : 0,
 				picPath: this.data.type === 3 ? '/pages/default/assets/driving_license_face_border.png' : this.data.type === 4 ? '/pages/default/assets/driving_license_back_border.png' : '/pages/default/assets/car_head_45_border.png',
 				title: this.data.type === 3 ? '车辆行驶证-主页' : this.data.type === 4 ? '车辆行驶证-副页' : '车辆45度照片'
 			});

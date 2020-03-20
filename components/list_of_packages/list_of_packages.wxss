@@ -251,13 +251,13 @@
   width: 320rpx;
   height: 132rpx;
   padding: 1rpx;
-  border-radius: 4rpx;
+  border-radius: 6rpx;
   box-sizing: border-box;
-  background: #dcdcdd;
+  border: 1rpx solid rgba(153,153,157,0.69);
   overflow: hidden;
 }
 .list-of-packages .list-of-packages-wrapper .ul .li.selected {
-  background: linear-gradient(to right, #15ad69, #84d157);
+  border: 1rpx solid #15ad69;
 }
 .list-of-packages .list-of-packages-wrapper .ul .li:nth-child(2n) {
   margin-left: 30rpx;
@@ -290,6 +290,9 @@
   line-height: 44rpx;
   font-size: 28rpx;
   font-weight: 500;
+}
+.list-of-packages .list-of-packages-wrapper .ul .li > view > view .new-title {
+  padding-top: 30rpx;
 }
 .list-of-packages .list-of-packages-wrapper .ul .li > view > view .li-sub-title {
   display: flex;

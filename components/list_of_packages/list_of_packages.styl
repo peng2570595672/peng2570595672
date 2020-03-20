@@ -40,12 +40,12 @@
 				width 320rpx
 				height 132rpx
 				padding 1rpx
-				border-radius 4rpx
+				border-radius 6rpx
 				box-sizing border-box
-				background: #DCDCDD
+				border 1rpx solid rgba(153,153,157,0.69)
 				overflow hidden
 				&.selected
-					background: linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
+					border 1rpx solid $deepThemeColor
 				&:nth-child(2n)
 					margin-left 30rpx
 				&:nth-child(n+3)
@@ -72,6 +72,8 @@
 							line-height 44rpx
 							font-size 28rpx
 							font-weight 500
+						.new-title
+							padding-top 30rpx
 						.li-sub-title
 							display flex
 							height 28rpx
