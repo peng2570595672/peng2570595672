@@ -167,10 +167,22 @@ Page({
 	},
 	// 去激活
 	onClickCctivate () {
-		if (this.data.orderInfo.logisticsId === 0 && this.data.orderInfo.orderType === 11) {
-			this.onClickViewProcessingProgressHandle();
+		if (this.data.orderInfo.orderType === 11) {
+			if (this.data.orderInfo.logisticsId === 0) {
+				this.onClickViewProcessingProgressHandle();
+			} else {
+				this.confirmReceipt();
+			}
 		} else {
-			this.confirmReceipt();
+			// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
+			wx.navigateToMiniProgram({
+				appId: 'wxaca5642db7afd470',
+				path: 'pages/online_distribution/online_distribution',
+				envVersion: 'trial', // 目前联调为体验版
+				fail () {
+					util.showToastNoIcon('调起激活小程序失败, 请重试！');
+				}
+			});
 		}
 	},
 	// 确认收货
