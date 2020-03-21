@@ -19,14 +19,6 @@ Page({
 		let that = this;
 		this.getProcessingProgress();
 	},
-	// 去激活
-	onClickCctivate () {
-		if (this.data.info.logisticsId === 0) {
-			this.onClickViewProcessingProgressHandle();
-		} else {
-			this.confirmReceipt();
-		}
-	},
 	// 获取办理进度
 	getProcessingProgress () {
 		util.showLoading();
@@ -91,6 +83,14 @@ Page({
 				});
 			}
 		});
+	},
+	// 去激活
+	onClickCctivate () {
+		if (this.data.info.logisticsId === 0) {
+			this.onClickViewProcessingProgressHandle();
+		} else {
+			this.confirmReceipt();
+		}
 	},
 	// 确认收货
 	confirmReceipt () {
