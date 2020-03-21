@@ -167,7 +167,7 @@ Page({
 	},
 	// 去激活
 	onClickCctivate () {
-		if (this.data.orderInfo.logisticsId === 0) {
+		if (this.data.orderInfo.logisticsId === 0 && this.data.orderInfo.orderType === 11) {
 			this.onClickViewProcessingProgressHandle();
 		} else {
 			this.confirmReceipt();

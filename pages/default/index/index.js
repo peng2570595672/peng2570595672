@@ -226,7 +226,7 @@ Page({
 	},
 	// 去激活
 	onClickCctivate () {
-		if (this.data.orderInfo.logisticsId === 0) {
+		if (this.data.orderInfo.logisticsId === 0 && this.data.orderInfo.orderType === 11) {
 			this.onClickViewProcessingProgressHandle();
 		} else {
 			mta.Event.stat("005",{});
@@ -298,6 +298,5 @@ Page({
 			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 			util.go('/pages/default/update_id_card/update_id_card?type=normal_process');
 		}
-		// platformId判断是哪个平台进入的  home-info/ETC详情接口/ETC列表接口可查,用于判断流程,是否去签约
 	}
 });
