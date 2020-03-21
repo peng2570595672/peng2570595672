@@ -26,7 +26,7 @@ Page({
 		util.getDataFromServer('consumer/order/order-detail', {
 			orderId: this.data.orderId
 		}, () => {
-			util.showToastNoIcon('获取车辆列表失败！');
+			util.showToastNoIcon('获取设备详情失败！');
 		}, (res) => {
 			if (res.code === 0) {
 				let orderInfo = res.data;

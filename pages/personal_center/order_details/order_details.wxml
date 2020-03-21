@@ -66,7 +66,7 @@
 	</view>
 	<!--车辆详情结束-->
 	<!--底部补缴开始-->
-	<view class="payment " wx:if="{{details.deductStatus !== 1 && details.deductStatus !== 11}}">
+	<view class="payment " wx:if="{{details.deductStatus !== 1 && details.deductStatus !== 11 && details.deductStatus !== 10}}">
 		<view class="payment-prompt">欠费有可能被列为黑名单，影响您的高速通行，请及时补缴！</view>
 		<view>
 			<button catchtap="go">补缴</button>

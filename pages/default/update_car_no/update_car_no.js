@@ -64,13 +64,13 @@ Page({
 				// 选择套餐页面
 				util.go('/pages/default/payment_way/payment_way');
 			} else if (res.code === 301) { // 已存在当前车牌未完成订单
-				// 订单id
-				app.globalData.orderInfo.orderId = res.data.id; // 订单id
 				util.alert({
 					content: '系统检测到当前车牌您已在办理中，是否更新信息？',
 					showCancel: true,
 					confirmText: '更新',
 					confirm: () => {
+						// 订单id
+						app.globalData.orderInfo.orderId = res.data.id; // 订单id
 						this.next();
 					}
 				});

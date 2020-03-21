@@ -72,7 +72,8 @@ Page({
 	// 添加卡券弹窗
 	addCoupon () {
 		this.setData({
-			showAddCoupon: true
+			showAddCoupon: true,
+			exchangeCode: ''
 		});
 	},
 	// 关闭弹窗
