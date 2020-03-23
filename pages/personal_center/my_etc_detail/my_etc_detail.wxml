@@ -62,8 +62,8 @@
 	<view class="btns">
 		<button class="btn" wx:if="{{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 3 && orderInfo.contractStatus !== 2}}" catchtap="onClickContinueHandle">继续办理</button>
 		<button class="btn" wx:elif="{{orderInfo.selfStatus === 2 || orderInfo.contractStatus === 2}}" catchtap="onClickBackToSign">{{orderInfo.contractStatus === 2 ? '恢复签约' : '立即签约'}}</button>
-		<button class="btn" wx:elif="{{(orderInfo.selfStatus === 4 || orderInfo.selfStatus === 7) && orderInfo.contractStatus !== 2 && orderInfo.orderType === 11}}" catchtap="onClickViewProcessingProgressHandle">查看进度</button>
-		<button class="btn" wx:elif="{{(orderInfo.selfStatus === 4 || orderInfo.selfStatus === 7) && orderInfo.contractStatus !== 2 && orderInfo.orderType !== 11}}" catchtap="onClickCctivate">确认收货并激活</button>
+		<button class="btn" wx:elif="{{(orderInfo.selfStatus === 4 || orderInfo.selfStatus === 7) && orderInfo.contractStatus !== 2}}" catchtap="onClickViewProcessingProgressHandle">查看进度</button>
+		<!--<button class="btn" wx:elif="{{(orderInfo.selfStatus === 4 || orderInfo.selfStatus === 7) && orderInfo.contractStatus !== 2 && orderInfo.orderType !== 11}}" catchtap="onClickCctivate">确认收货并激活</button>-->
 		<button class="btn" wx:elif="{{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 8 && orderInfo.contractStatus !== 2}}"  catchtap="onClickModifiedData">修改资料</button>
 		<button class="btn" wx:elif="{{orderInfo.selfStatus === 6 && orderInfo.contractStatus !== 2 && orderInfo.logisticsId === 0}}" catchtap="onClickViewProcessingProgressHandle">查看进度</button>
 		<button class="btn" wx:elif="{{orderInfo.selfStatus === 6 && orderInfo.contractStatus !== 2 && orderInfo.logisticsId !== 0}}" catchtap="onClickCctivate">确认收货并激活</button>

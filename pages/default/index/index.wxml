@@ -44,8 +44,8 @@
 			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
 		</view>
-		<view class="btn" catchtap="onClickViewProcessingProgressHandle" wx:if="{{orderInfo.orderType === 11}}">查看进度</view>
-		<view class="btn" catchtap="onClickCctivate" wx:else>确认收货并激活</view>
+		<view class="btn" catchtap="onClickViewProcessingProgressHandle">查看进度</view>
+		<!--<view class="btn" catchtap="onClickCctivate" wx:else>确认收货并激活</view>-->
 		<view class="tips">客服小姐姐正埋头审核中...</view>
 	</view>
 	<!--	查看进度结束-->

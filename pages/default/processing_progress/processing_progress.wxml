@@ -28,7 +28,7 @@
 			<view class="content-des iconfont {{info.auditStatus === 1 || info.auditStatus === 9 ? 'error' : ''}}" wx:if="{{info.auditStatus === 1 || info.auditStatus === 9}}">审核不通过<text class="edit iconfont" wx:if="{{info.auditStatus === 1}}">修改资料</text></view>
 			<view class="content-des" wx:else>{{info.auditStatus === 0 ? '正在排队审核中，预计1个工作日内完成' : '审核通过'}}</view>
 		</view>
-		<view class="item  {{info.auditStatus !== 0 ? 'current' : ''}} {{info.logisticsId !== 0 ? 'finished' : ''}}">
+		<view class="item  {{info.auditStatus !== 0 ? 'current' : ''}} {{info.logisticsId !== 0 ? 'finished' : ''}}" wx:if="{{info.orderType === 11}}">
 			<view class="content-title">快递配送</view>
 			<view class="content-des" wx:if="{{info.logisticsId === 0}}">发货后可查看实时物流信息</view>
 			<view class="content-des" wx:if="{{info.logisticsId !== 0}}">已发货

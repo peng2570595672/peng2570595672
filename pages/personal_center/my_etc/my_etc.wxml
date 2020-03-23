@@ -10,7 +10,7 @@
 				</view>
 				<view class="right caution" wx:if="{{item.selfStatus === 1 || item.selfStatus === 3 && item.contractStatus !== 2}}">办理中</view>
 				<view class="right caution" wx:elif="{{item.selfStatus === 2 || item.contractStatus === 2}}">待签约</view>
-				<view class="right caution" wx:elif="{{item.selfStatus === 4 || item.selfStatus === 7 && item.contractStatus !== 2}}">{{orderInfo.orderType === 11 ? '审核中': '待激活'}}</view>
+				<view class="right caution" wx:elif="{{item.selfStatus === 4 || item.selfStatus === 7 && item.contractStatus !== 2}}">审核中</view>
 				<view class="right failed" wx:elif="{{item.selfStatus === 5 || item.selfStatus === 8 && item.contractStatus !== 2}}">审核失败</view>
 				<view class="right caution" wx:elif="{{item.selfStatus === 6 && item.contractStatus !== 2}}">待激活</view>
 				<view class="right succeed" wx:elif="{{item.selfStatus === 9 && item.contractStatus !== 2}}">正常使用</view>
@@ -21,7 +21,7 @@
 				<view>扣款方式：{{item.productName ? item.productName : ''}}</view>
 				<view class="iconfont" wx:if="{{item.selfStatus === 1 || item.selfStatus === 3 && item.contractStatus !== 2}}" data-index="{{index}}"  catchtap="onClickContinueHandle">继续办理</view>
 				<view class="iconfont" wx:elif="{{item.selfStatus === 2 || item.contractStatus === 2}}" data-index="{{index}}" catchtap="onClickBackToSign">{{item.contractStatus === 2 ? '恢复签约' : '立即签约'}}</view>
-				<view class="iconfont" wx:elif="{{(item.selfStatus === 4 || item.selfStatus === 7 || item.selfStatus === 6 ) && item.contractStatus !== 2 && orderInfo.orderType === 11}}" data-index="{{index}}"  catchtap="onClickViewProcessingProgressHandle">查看进度</view>
+				<view class="iconfont" wx:elif="{{(item.selfStatus === 4 || item.selfStatus === 7 || item.selfStatus === 6 ) && item.contractStatus !== 2}}" data-index="{{index}}"  catchtap="onClickViewProcessingProgressHandle">查看进度</view>
 				<view class="iconfont" wx:elif="{{item.selfStatus === 5 || item.selfStatus === 8 && item.contractStatus !== 2}}" data-index="{{index}}"  catchtap="onClickModifiedData">修改资料</view>
 			</view>
 			<!--下部分结束-->
