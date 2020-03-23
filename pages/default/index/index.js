@@ -11,7 +11,8 @@ Page({
 		canIUse: wx.canIUse('button.open-type.getUserInfo'),
 		loginInfo: {},// 登录信息
 		contractStatus: undefined,//  签约状态 -1 签约失败 0发起签约 1已签约 2解约
-		orderInfo: undefined // 订单信息
+		orderInfo: undefined, // 订单信息
+		recentlyTheBill: undefined // 最新账单
 	},
 	onLoad () {
 		this.login();
@@ -120,6 +121,29 @@ Page({
 					orderInfo: orderInfo ? orderInfo : '',
 					contractStatus: res.data.contract ? res.data.contract.contractStatus : '',
 				});
+				if (this.data.orderInfo.selfStatus === 9) {
+					// 查询最近一次账单
+					this.getRecentlyTheBill();
+				}
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken);
+	},
+	getRecentlyTheBill () {
+		util.showLoading();
+		util.getDataFromServer('consumer/etc/get-last-bill', {
+			channel: this.data.orderInfo.obuCardType
+		}, () => {
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				if (res.data) {
+					this.setData({
+						recentlyTheBill: res.data
+					});
+				}
 			} else {
 				util.showToastNoIcon(res.message);
 			}

@@ -38,7 +38,7 @@
 				<view class="fail-money" wx:else>{{item.totalMmout/100}}</view>
 			</view>
 			<view class="site">
-				{{item.stationName}}<text class="iconfont"></text>{{item.stationName}}
+				{{item.inStationName}}<text class="iconfont"></text>{{item.stationName}}
 			</view>
 			<view class="order-list-bottom">
 				<view class="accounting-time">出账时间：{{tools.substring(item.addTime,5,16)}}</view>

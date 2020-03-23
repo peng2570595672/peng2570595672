@@ -1,3 +1,4 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="index">
 	<!--	欢迎语句开始-->
 	<view class="welcome">欢迎<text>{{loginInfo.showMobilePhone ? loginInfo.showMobilePhone : '未登录'}}</text>
@@ -94,33 +95,33 @@
 	<!--	恢复签约结束-->
 
 <!--	账单开始-->
-	<view class="bill" wx:if="{{false}}">
+	<view class="bill" wx:if="{{orderInfo.selfStatus === 9}}">
 		<view class="processing-title">
 			<view>最近一次账单</view>
-			<view class="iconfont">查看所有账单</view>
+			<view class="iconfont" catchtap="go" data-url="my_order">查看所有账单</view>
 		</view>
 		<!--		有通行订单-->
-		<block wx:if="{{false}}">
+		<block wx:if="{{recentlyTheBill}}">
 			<view class="bill-info">
 				<view>
-					<view>贵A2ZM91</view>
-					<view class="succeed" wx:if="{{false}}">11-10 15: 49 </view>
-					<view class="failed">扣款失败</view>
+					<view>{{recentlyTheBill.vehPlate}}</view>
+					<view class="succeed" wx:if="{{recentlyTheBill.deductStatus === 1 || recentlyTheBill.deductStatus === 11}}">{{tools.substring(recentlyTheBill.deductTime,5,16)}} </view>
+					<view class="failed" wx:else>扣款失败</view>
 				</view>
 				<view>
-					<view class="up"><text>上</text>黔东南罗甸</view>
-					<view class="down"><text>下</text>贵阳西环城北</view>
-					<view class="price">-84.46</view>
+					<view class="up"><text>上</text>{{recentlyTheBill.inStationName}}</view>
+					<view class="down"><text>下</text>{{recentlyTheBill.stationName}}</view>
+					<view class="price">-{{recentlyTheBill.totalMmout/100}}</view>
 				</view>
 			</view>
 		</block>
 		<!--		无通行订单-->
-		<block>
+		<block wx:else>
 			<view class="bill-empty">
 				<image src="https://p0.ssl.qhimgs4.com/t0147447b6140b14014.png"/>
 				<view>
 					<view>最近您好像没有出行</view>
-					<view>多出去走走哦</view>
+					<view>多出去走走哦~</view>
 				</view>
 			</view>
 		</block>

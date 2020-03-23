@@ -11,6 +11,7 @@ Page({
 	onShow () {
 		if (app.globalData.myEtcList.length !== 0) {
 			this.setData({
+				failBillList: [],
 				orderList: app.globalData.myEtcList
 			});
 			app.globalData.myEtcList.map((item) => {

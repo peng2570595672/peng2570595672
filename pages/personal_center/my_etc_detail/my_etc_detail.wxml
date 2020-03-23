@@ -17,7 +17,7 @@
 		<view class="caution" wx:elif="{{orderInfo.selfStatus === 4 || orderInfo.selfStatus === 7 && orderInfo.contractStatus !== 2}}">审核中</view>
 		<view class="caution" wx:elif="{{orderInfo.selfStatus === 6 && orderInfo.contractStatus !== 2}}">待激活</view>
 		<view class="failed" wx:elif="{{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 8 && orderInfo.contractStatus !== 2}}">审核失败</view>
-		<view wx:elif="{{orderInfo.selfStatus === 9 && orderInfo.contractStatus !== 2}}" class="succeed">审核通过</view>
+		<view wx:elif="{{orderInfo.selfStatus === 9 && orderInfo.contractStatus !== 2}}" class="succeed">正常使用</view>
 	</view>
 	<view class="des" wx:if="{{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 8 && orderInfo.contractStatus !== 2}}">{{orderInfo.auditRemark}}</view>
 	<view class="item">
@@ -67,8 +67,8 @@
 		<button class="btn" wx:elif="{{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 8 && orderInfo.contractStatus !== 2}}"  catchtap="onClickModifiedData">修改资料</button>
 		<button class="btn" wx:elif="{{orderInfo.selfStatus === 6 && orderInfo.contractStatus !== 2 && orderInfo.logisticsId === 0}}" catchtap="onClickViewProcessingProgressHandle">查看进度</button>
 		<button class="btn" wx:elif="{{orderInfo.selfStatus === 6 && orderInfo.contractStatus !== 2 && orderInfo.logisticsId !== 0}}" catchtap="onClickCctivate">确认收货并激活</button>
-		<view class="btn-wrapper">
-			<view catchtap="onClickCancelHandle">取消办理</view>
+		<view class="btn-wrapper" wx:if="{{orderInfo.selfStatus !== 1 && orderInfo.selfStatus !== 2 && orderInfo.selfStatus !== 3  && orderInfo.contractStatus !== 2}}">
+			<view catchtap="onClickCancelHandle" wx:if="{{orderInfo.selfStatus !== 4 && orderInfo.selfStatus !== 6 && orderInfo.selfStatus !== 7 && orderInfo.selfStatus !== 9 && orderInfo.contractStatus !== 2}}">取消办理</view>
 			<view catchtap="goOnlineServer">客服中心</view>
 		</view>
 	</view>
