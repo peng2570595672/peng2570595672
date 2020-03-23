@@ -10,8 +10,8 @@ App({
 		uploadUrl: 'https://file.cyzl.com/file/upload', // 上传图片无需审核地址
 		plamKey: '123456', // 签名用到的key --- 二发
 		mapKey: '4EYBZ-L6QC4-NCLUW-XFDUD-TANS7-DZFNG', // 腾讯地图所使用key
-		platformId: '123456789012345678', // 平台id
-		belongToPlatform: '123456789012345678', // 套餐所属平台id,用于判断流程
+		platformId: '500338116821778434', // 平台id
+		belongToPlatform: '500338116821778434', // 套餐所属平台id,用于判断流程
 		SDKVersion: '',// 小程序基础库版本
 		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
 		mobilePhoneSystem: false, // false非ios     true:ios

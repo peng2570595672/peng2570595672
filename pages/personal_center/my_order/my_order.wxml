@@ -34,8 +34,8 @@
 		<view class="order-list-content" catchtap="goDetails" data-model="{{item}}"  wx:for="{{successBillList}}" wx:key="index">
 			<view class="order-list-top">
 				<view class="license-plate">{{item.vehPlate}}<text>[高速扣费]</text></view>
-				<view class="success-money" wx:if="{{item.deductStatus === 1 || item.deductStatus === 11}}">{{item.totalMmout/100}}</view>
-				<view class="fail-money" wx:else>{{item.totalMmout/100}}</view>
+				<view class="success-money" wx:if="{{item.deductStatus === 1 || item.deductStatus === 11}}">{{item.etcMoney/100}}</view>
+				<view class="fail-money" wx:else>{{item.etcMoney/100}}</view>
 			</view>
 			<view class="site">
 				{{item.inStationName}}<text class="iconfont"></text>{{item.stationName}}
