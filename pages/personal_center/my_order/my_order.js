@@ -65,9 +65,11 @@ Page({
 			year: `${year}`,
 			chooseTime: `${year}${util.formatNumber(month)}`
 		});
-		this.getMyETCList();
 	},
 	onShow () {
+		this.setData({
+			successBillList: []
+		});
 		this.getMyETCList();
 	},
 	// 加载ETC列表
@@ -91,14 +93,21 @@ Page({
 					let date = new Date();
 					const year = date.getFullYear();
 					const month = date.getMonth() + 1;
-					obuStatusList.map((item) => {
-						this.data.vehicleList.push(item.vehPlates);
-						this.setData({
-							vehicleList: this.data.vehicleList
+					if (this.data.chooseVehPlates !== '全部车辆') {
+						this.getSuccessBill(this.data.chooseVehPlates,this.data.chooseTime);
+					} else {
+						obuStatusList.map((item) => {
+							this.data.vehicleList.push(item.vehPlates);
+							this.setData({
+								vehicleList: this.data.vehicleList
+							});
+							this.getSuccessBill(item.vehPlates,this.data.chooseTime);
 						});
-						this.getSuccessBill(item.vehPlates,year + util.formatNumber(month));
+					}
+					this.setData({
+						vehicleList: [...new Set(this.data.vehicleList)]
 					});
-					this.getMessage('全部车辆',year + util.formatNumber(month));
+					this.getMessage('全部车辆',this.data.chooseTime);
 				} else {
 					// 没有激活车辆
 				}

@@ -67,7 +67,9 @@ Page({
 		this.setData({
 			userInfo: e.detail.userInfo
 		});
-		this.submitUserInfo(res);
+		if (e.detail.userInfo) {
+			this.submitUserInfo(e.detail);
+		}
 	},
 	// 跳转
 	go (e) {

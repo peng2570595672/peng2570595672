@@ -195,15 +195,15 @@
 				},
 				{
 					"id": -1,
-					"name": "pages/personal_center/servicec_card_voucher/servicec_card_voucher",
-					"pathName": "pages/personal_center/servicec_card_voucher/servicec_card_voucher",
+					"name": "pages/personal_center/service_card_voucher/service_card_voucher",
+					"pathName": "pages/personal_center/service_card_voucher/service_card_voucher",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "pages/personal_center/servicec_card_voucher_details/servicec_card_voucher_details",
-					"pathName": "pages/personal_center/servicec_card_voucher_details/servicec_card_voucher_details",
+					"name": "pages/personal_center/service_card_voucher_details/service_card_voucher_details",
+					"pathName": "pages/personal_center/service_card_voucher_details/service_card_voucher_details",
 					"query": "",
 					"scene": null
 				},

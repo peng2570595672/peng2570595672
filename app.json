@@ -38,8 +38,8 @@
 				"help_center/help_center",
 				"member_benefits/member_benefits",
 				"search_help/search_help",
-				"servicec_card_voucher/servicec_card_voucher",
-				"servicec_card_voucher_details/servicec_card_voucher_details"
+				"service_card_voucher/service_card_voucher",
+				"service_card_voucher_details/service_card_voucher_details"
 			]
 		},
 		{

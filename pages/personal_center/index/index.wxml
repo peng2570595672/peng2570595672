@@ -52,7 +52,7 @@
 		<!--ETC账单结束-->
 
 		<!--我的卡劵开始-->
-		<view class="user_item" catchtap="go" data-url="servicec_card_voucher">
+		<view class="user_item" catchtap="go" data-url="service_card_voucher">
 			<view class="user_item_icon iconfont user_icon_card">
 				<!--更新提示-->
 				<view></view>

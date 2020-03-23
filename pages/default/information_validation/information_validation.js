@@ -35,7 +35,6 @@ Page({
 			this.selectComponent('#notFinishedOrder').show();
 			wx.removeStorageSync('information_validation');
 		}
-		this.getProductOrderInfo();
 		// 行驶证正面
 		let drivingLicenseFace = wx.getStorageSync('driving_license_face');
 		// 行驶证反面
@@ -67,9 +66,11 @@ Page({
 			}
 			// 加载订单信息 有缓存,不需要查行驶证
 			this.getOrderInfo(true);
+			this.getProductOrderInfo();
 		} else {
 			// 加载订单信息  没有缓存,需要查行驶证
 			this.getOrderInfo(false);
+			this.getProductOrderInfo();
 		}
 	},
 	onShow () {

@@ -86,7 +86,9 @@ Page({
 					failBillList: this.data.failBillList
 				});
 				if (this.data.failBillList.length === 0) {
-					util.goHome(true);
+					wx.navigateBack({
+						delta: 1
+					});
 				}
 			} else {
 				util.showToastNoIcon(res.message);

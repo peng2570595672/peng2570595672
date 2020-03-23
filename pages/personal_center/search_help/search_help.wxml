@@ -30,8 +30,9 @@
 			<view class="details-list">
 				<view class="details-list-box">
 					<view wx:for="{{detailsContent}}" wx:key="index" class="cont1">
-						<view class="label iconfont"></view>
-						<view class="char">{{item.answerContent}} </view>
+						<!--<view class="label iconfont"></view>-->
+						<view class="char" wx:if="{{!item.answerUrl}}">{{item.answerContent}} </view>
+						<image class="char" wx:else src="{{item.answerUrl}}" data-url="{{item.answerUrl}}" mode="widthFix" catchtap="previewImage"> </image>
 					</view>
 				</view>
 			</view>

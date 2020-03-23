@@ -1,4 +1,4 @@
-<view class="servicec_card_voucher_details" style="background-color: {{details.background}}">
+<view class="service_card_voucher_details" style="background-color: {{details.background}}">
 	<!--卡券开始-->
 	<view class="ticket-card">
 		<!--卡券顶部开始-->
