@@ -19,6 +19,8 @@ App({
 		signAContract: 1,// -1能签约
 		userInfo: {},// 用户信息
 		serverInfoId: '',
+		memberId: '',// 用户id,用于京东客服
+		mobilePhone: '',// 用户手机用于京东客服
 		shopProductId: '', // 套餐id
 		contractStatus: '', // 签约状态   签约状态 -1 签约失败 0发起签约 1已签约 2解约
 		orderStatus: '', // 订单状态

@@ -26,6 +26,11 @@ Page({
 					orderInfo['selfStatus'] = util.getStatus(orderInfo);
 					res.data[i] = orderInfo;
 				}
+				let vehicleList = [];
+				res.data.map((item) => {
+					vehicleList.push(item.vehPlates);
+					wx.setStorageSync('cars', vehicleList.join('、'));
+				});
 				this.setData({
 					carList: res.data
 				});

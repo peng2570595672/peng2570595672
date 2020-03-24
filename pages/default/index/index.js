@@ -52,6 +52,8 @@ Page({
 						// 已经绑定了手机号
 						if (res.data.needBindingPhone !== 1) {
 							app.globalData.userInfo = res.data;
+							app.globalData.memberId = res.data.memberId;
+							app.globalData.mobilePhone = res.data.mobilePhone;
 							// 查询最后一笔订单状态
 							this.getStatus();
 						} else {
@@ -67,6 +69,25 @@ Page({
 				util.hideLoading();
 				util.showToastNoIcon('登录失败！');
 			}
+		});
+	},
+	// 加载ETC列表
+	getMyETCList () {
+		util.showLoading();
+		util.getDataFromServer('consumer/order/my-etc-list', {}, () => {
+			util.showToastNoIcon('获取车辆列表失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				let vehicleList = [];
+				res.data.map((item) => {
+					vehicleList.push(item.vehPlates);
+					wx.setStorageSync('cars', vehicleList.join('、'));
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
 		});
 	},
 	// 获取手机号
@@ -90,6 +111,8 @@ Page({
 				if (res.code === 0) {
 					res.data['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
 					app.globalData.userInfo = res.data; // 用户登录信息
+					app.globalData.memberId = res.data.memberId;
+					app.globalData.mobilePhone = res.data.mobilePhone;
 					let loginInfo = this.data.loginInfo;
 					loginInfo['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
 					loginInfo.needBindingPhone = 0;
@@ -166,6 +189,15 @@ Page({
 				// 统计点击进入违章查询
 				mta.Event.stat('007',{});
 			} else if (url === 'online_customer_service') {
+				// 未登录
+				if (!app.globalData.userInfo.accessToken) {
+					wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+					util.go('/pages/login/login/login');
+					return;
+				}
+				if (!wx.getStorageSync('cars')) {
+					this.getMyETCList();
+				}
 				// 统计点击进入在线客服
 				mta.Event.stat("009",{});
 			}

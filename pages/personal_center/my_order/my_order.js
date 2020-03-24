@@ -84,6 +84,11 @@ Page({
 				// obuStatusList = res.data.filter(item => item.obuStatus === 1); // 正式数据
 				obuStatusList = res.data.filter(item => item.etcContractId !== 0); // 测试数据处理
 				console.log(obuStatusList);
+				let vehicleList = [];
+				res.data.map((item) => {
+					vehicleList.push(item.vehPlates);
+					wx.setStorageSync('cars', vehicleList.join('、'));
+				});
 				if (obuStatusList.length > 0) {
 					// 需要过滤未激活的套餐
 					this.setData({

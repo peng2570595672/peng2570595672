@@ -101,7 +101,7 @@
 			<view class="iconfont" catchtap="go" data-url="my_order">查看所有账单</view>
 		</view>
 		<!--		有通行订单-->
-		<block wx:if="{{recentlyTheBill}}">
+		<block wx:if="{{recentlyTheBill}}" catchtap="go" data-url="my_order">
 			<view class="bill-info">
 				<view>
 					<view>{{recentlyTheBill.vehPlate}}</view>

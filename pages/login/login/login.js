@@ -36,6 +36,8 @@ Page({
 				if (res.code === 0) {
 					res.data['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
 					app.globalData.userInfo = res.data; // 用户登录信息
+					app.globalData.memberId = res.data.memberId;
+					app.globalData.mobilePhone = res.data.mobilePhone;
 					let loginInfo = this.data.loginInfo;
 					loginInfo['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
 					loginInfo.needBindingPhone = 0;

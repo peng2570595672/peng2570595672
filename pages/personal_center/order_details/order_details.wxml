@@ -37,7 +37,7 @@
 		</view>
 		<view>
 			<view>出账时间</view>
-			<view>{{details.payTime}}</view>
+			<view>{{details.addTime}}</view>
 		</view>
 	</view>
 	<!--扣费详情结束-->

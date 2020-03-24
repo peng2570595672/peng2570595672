@@ -204,6 +204,8 @@ function reAutoLogin(path, params, fail, success, token = '', complete, method) 
 				util.showToastNoIcon('网络错误，请关闭小程序重新进入！');
 			}, (res) => {
 				app.globalData.userInfo = res.data;
+				app.globalData.memberId = res.data.memberId;
+				app.globalData.mobilePhone = res.data.mobilePhone;
 				// 重新获取所需数据
 				getDataFromServer(path, params, fail, success, res.data.accessToken, complete, method);
 			});
