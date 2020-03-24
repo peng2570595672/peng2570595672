@@ -11,6 +11,7 @@ Page({
 		canIUse: wx.canIUse('button.open-type.getUserInfo'),
 		loginInfo: {},// 登录信息
 		contractStatus: undefined,//  签约状态 -1 签约失败 0发起签约 1已签约 2解约
+		contractMessage: undefined,//  签约信息
 		orderInfo: undefined, // 订单信息
 		recentlyTheBill: undefined // 最新账单
 	},
@@ -143,6 +144,7 @@ Page({
 				this.setData({
 					orderInfo: orderInfo ? orderInfo : '',
 					contractStatus: res.data.contract ? res.data.contract.contractStatus : '',
+					contractMessage: res.data.contract
 				});
 				if (this.data.orderInfo.selfStatus === 9) {
 					// 查询最近一次账单
@@ -223,6 +225,34 @@ Page({
 	onClickBackToSign () {
 		mta.Event.stat("006",{});
 		util.showLoading('加载中');
+		if (this.data.contractStatus === 2) {
+			app.globalData.signAContract = 1;
+			if (this.data.contractMessage && this.data.contractMessage.contractId) {
+				// 3.0重签
+				wx.navigateToMiniProgram({
+					appId: 'wxbcad394b3d99dac9',
+					path: 'pages/etc/index',
+					extraData: {
+						contract_id: this.data.contractMessage.contractId
+					},
+					success () {
+					},
+					fail (e) {
+						// 未成功跳转到签约小程序
+						util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
+					}
+				});
+			} else {
+				// 2.0重签
+				this.weChatSign();
+			}
+		} else {
+			// 立即签约
+			app.globalData.signAContract = -1;
+			this.weChatSign();
+		}
+	},
+	weChatSign () {
 		let params = {
 			orderId: this.data.orderInfo.id,// 订单id
 			dataComplete: 1,// 订单资料是否已完善 1-是，0-否
@@ -233,7 +263,6 @@ Page({
 			util.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
-				app.globalData.signAContract = -1;
 				util.hideLoading();
 				let result = res.data.contract;
 				// 签约车主服务 2.0

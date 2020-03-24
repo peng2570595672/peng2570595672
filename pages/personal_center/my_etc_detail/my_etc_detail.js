@@ -18,6 +18,8 @@ Page({
 				orderId: app.globalData.orderInfo.orderId
 			});
 		}
+	},
+	onShow () {
 		this.getETCDetail();
 	},
 	// 加载订单详情
@@ -87,6 +89,51 @@ Page({
 	},
 	//  恢复签约
 	onClickBackToSign () {
+		if (this.data.orderInfo.contractStatus === 2) {
+			// 解约重签
+			app.globalData.orderInfo.orderId = this.data.orderId;
+			util.getDataFromServer('consumer/order/query-contract', {
+				orderId: app.globalData.orderInfo.orderId
+			}, () => {
+				util.hideLoading();
+			}, (res) => {
+				util.hideLoading();
+				if (res.code === 0) {
+					app.globalData.signAContract = 1;
+					// 签约成功 userState: "NORMAL"
+					if (res.data.contractStatus === 2) {
+						if (res.data.contractId) {
+							// 3.0
+							wx.navigateToMiniProgram({
+								appId: 'wxbcad394b3d99dac9',
+								path: 'pages/etc/index',
+								extraData: {
+									contract_id: res.data.contractId
+								},
+								success () {
+								},
+								fail (e) {
+									// 未成功跳转到签约小程序
+									util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
+								}
+							});
+						} else {
+							// 2.0
+							this.weChatSign();
+						}
+					}
+				} else {
+					util.showToastNoIcon(res.message);
+				}
+			}, app.globalData.userInfo.accessToken);
+		} else {
+			// 立即签约
+			app.globalData.signAContract = -1;
+			this.weChatSign();
+		}
+	},
+	// 微信签约
+	weChatSign () {
 		util.showLoading('加载中');
 		let params = {
 			orderId: this.data.orderId,// 订单id
@@ -98,7 +145,6 @@ Page({
 			util.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
-				app.globalData.signAContract = -1;
 				util.hideLoading();
 				let result = res.data.contract;
 				// 签约车主服务 2.0

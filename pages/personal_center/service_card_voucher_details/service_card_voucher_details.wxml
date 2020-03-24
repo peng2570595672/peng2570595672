@@ -43,7 +43,7 @@
 	</view>
 	<!--卡券结束-->
 	<!--卡券使用记录开始-->
-	<view class="use-record-box" wx:if="{{details.lastUseTime}}">
+	<view class="use-record-box" wx:if="{{details.status === 2}}">
 		<!--使用记录列表开始-->
 		<view class="order-list">
 			<view class="order-list-title">使用记录</view>
