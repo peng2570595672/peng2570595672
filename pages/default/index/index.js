@@ -16,6 +16,7 @@ Page({
 		recentlyTheBill: undefined // 最新账单
 	},
 	onLoad () {
+		wx.removeStorageSync('information_validation');
 		this.login();
 	},
 	onShow () {

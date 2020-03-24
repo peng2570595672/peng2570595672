@@ -19,6 +19,7 @@ Page({
 	onClickUploadDrivingLicenseHandle () {
 		// 统计点击事件
 		mta.Event.stat('033',{});
+		wx.setStorageSync('taking_pictures', true);
 		util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license?type=3');
 	},
 	onClickHandle () {
