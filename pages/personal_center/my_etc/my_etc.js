@@ -70,6 +70,13 @@ Page({
 			// 是否上传行驶证， 0未上传，1已上传
 			app.globalData.orderInfo.orderId = obj.id;
 			app.globalData.orderInfo.shopProductId = obj.shopProductId;
+			if (wx.getStorageSync('corresponding_package_id') !== app.globalData.orderInfo.orderId) {
+				// 行驶证缓存关联订单
+				wx.setStorageSync('corresponding_package_id', app.globalData.orderInfo.orderId);
+				wx.removeStorageSync('driving_license_face');
+				wx.removeStorageSync('driving_license_back');
+				wx.removeStorageSync('car_head_45');
+			}
 			if (wx.getStorageSync('driving_license_face')) {
 				util.go('/pages/default/information_validation/information_validation');
 			} else {

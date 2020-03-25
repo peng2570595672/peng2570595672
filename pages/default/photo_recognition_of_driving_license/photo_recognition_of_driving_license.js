@@ -47,7 +47,7 @@ Page({
 		console.log('onShow');
 		this.getProduct();
 		let type = wx.getStorageSync('photo_recognition_of_driving_license_type');
-		console.log(type)
+		console.log(type);
 		if (type) {
 			this.setData({
 				isFromRe: true,
