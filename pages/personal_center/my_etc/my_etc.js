@@ -155,7 +155,7 @@ Page({
 				util.hideLoading();
 				let result = res.data.contract;
 				// 签约车主服务 2.0
-				app.globalData.belongToPlatform = app.globalData.platformId;
+				app.globalData.belongToPlatform = obj.platformId;
 				app.globalData.orderInfo.orderId = obj.id;
 				app.globalData.contractStatus = obj.contractStatus;
 				app.globalData.orderStatus = obj.selfStatus;

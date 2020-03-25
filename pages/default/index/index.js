@@ -147,10 +147,34 @@ Page({
 					contractStatus: res.data.contract ? res.data.contract.contractStatus : '',
 					contractMessage: res.data.contract
 				});
+				if (this.data.orderInfo.selfStatus !== 0 && this.data.orderInfo.selfStatus !== 1 && this.data.orderInfo.selfStatus !== 2 && this.data.orderInfo.selfStatus !== 3) {
+					// 查询是否已经解约
+					app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+					this.restoreSign();
+				}
 				if (this.data.orderInfo.selfStatus === 9) {
 					// 查询最近一次账单
 					this.getRecentlyTheBill();
 				}
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken);
+	},
+	// 恢复签约
+	restoreSign () {
+		util.getDataFromServer('consumer/order/query-contract', {
+			orderId: app.globalData.orderInfo.orderId
+		}, () => {
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				// if () {
+				// 	this.setData({
+				// 		contractStatus: res.data.contractStatus
+				// 	});
+				// }
 			} else {
 				util.showToastNoIcon(res.message);
 			}

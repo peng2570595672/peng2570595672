@@ -1,6 +1,6 @@
 <view class="list-of-packages animated {{wrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{mask}}" catchtap="onClickTranslucentHandle">
 	<view class="list-of-packages-wrapper  animated {{wrapper ? 'slideInUp' : 'slideOutDown'}}" wx:if="{{mask}}" catchtap="onClickCatchHandle">
-		<view class="choice-bank-title">新开账户</view>
+		<view class="choice-bank-title">请选择扣款方式</view>
 		<view class="ul">
 		<!--具体支付方式开始-->
 			<view class="li {{current === index ? 'selected' : ''}}" catchtap="onClickItemHandle" wx:for="{{listOfPackages}}" wx:key="index" data-index="{{index}}">
