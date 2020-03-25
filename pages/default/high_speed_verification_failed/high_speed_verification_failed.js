@@ -14,7 +14,7 @@ Page({
 	},
 	// 返回首页
 	onClickGoHomeHandle () {
-		wx.navigateTo({
+		wx.reLaunch({
 			url: '/pages/default/index/index'
 		});
 	}

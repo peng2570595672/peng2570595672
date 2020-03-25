@@ -18,7 +18,10 @@
 				</view>
 				<view class="entry">
 					<view>{{details.couponType === 1 ? '面额' : '折扣'}}</view>
-					<view>{{details.couponType === 1 ? details.faceAmount : details.discountValue}}</view>
+					<view>
+						{{details.couponType === 1 ? details.faceAmount/100 : details.discountValue}}
+						{{details.couponType === 1 ? '元' : '折'}}
+					</view>
 				</view>
 			</view>
 			<view class="ticket-bottom-item" wx:if="{{details.limitUseDate === 1}}">
