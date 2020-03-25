@@ -33,6 +33,11 @@ Page({
 			windowHeight: wx.getSystemInfoSync().windowHeight
 		});
 	},
+	onPullDownRefresh () {
+		setTimeout(() =>{
+			wx.stopPullDownRefresh();
+		},3000)
+	},
 	//  tab切换逻辑
 	switchCardVoucherStatus (e) {
 		console.log(e);

@@ -2,7 +2,7 @@
 	<view class="{{showDetailMask ? 'not-scroll' : ''}}">
 		<!--售后服务/在线客服开始-->
 		<view class="service">
-			<view class="service-name">Hi！张晓晓</view>
+			<view class="service-name">Hi！<open-data type="userNickName" lang="zh_CN"></open-data></view>
 			<view class="service-btn">
 				<button catchtap="goAfterSales"><text class="iconfont">售后服务</text></button>
 				<button catchtap="goOnlineServer"><text class="iconfont online-service">在线客服</text></button>
