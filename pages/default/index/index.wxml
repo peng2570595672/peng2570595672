@@ -118,7 +118,7 @@
 		<!--		无通行订单-->
 		<block wx:else>
 			<view class="bill-empty">
-				<image src="https://p0.ssl.qhimgs4.com/t0147447b6140b14014.png"/>
+				<image src="/pages/default/assets/no_travel.png"/>
 				<view>
 					<view>最近您好像没有出行</view>
 					<view>多出去走走哦~</view>

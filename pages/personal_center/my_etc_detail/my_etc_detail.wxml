@@ -26,7 +26,7 @@
 	</view>
 	<view class="split"></view>
 	<view class="item first">
-		<view>所属人</view>
+		<view>车辆所属人</view>
 		<view>{{orderInfo.receiveMan}}</view>
 	</view>
 	<view class="item first" wx:if="{{orderInfo.shopUserTrueName}}">
@@ -49,10 +49,7 @@
 		<view>设备（OBU）编号</view>
 		<view>{{orderInfo.obuNo}}</view>
 	</view>
-	<!--	分割线开始-->
-	<view class="split"></view>
-	<!--	分割线结束-->
-	<view class="item first">
+	<view class="item">
 		<view>办理日期</view>
 		<view>{{orderInfo.addTime}}</view>
 	</view>
