@@ -17,6 +17,8 @@ Page({
 		idCardFace: {
 			ocrObject: {}
 		},// 身份证正面
+		userName: undefined,// 身份证正面 原始数据,用于与新数据比对(秒审)
+		idNumber: undefined,// 身份证正面 原始数据,用于与新数据比对(秒审)
 		idCardBack: {
 			ocrObject: {}
 		},// 身份证反面
@@ -51,10 +53,15 @@ Page({
 					// 身份证正面
 					idCardFace.fileUrl = temp.idCardPositiveUrl;
 					idCardFace.ocrObject.name = temp.idCardTrueName;
+					idCardFace.ocrObject.address = temp.idCardAddress;
+					idCardFace.ocrObject.sex = temp.idCardSex === 1 ? '男' : '女' ;
+					idCardFace.ocrObject.validDate = temp.idCardValidDate;
 					idCardFace.ocrObject.idNumber = temp.idCardNumber;
 					this.setData({
 						idCardFace,
-						idCardBack
+						idCardBack,
+						userName: temp.idCardTrueName,
+						idNumber: temp.idCardNumber
 					});
 				}
 			} else {
@@ -82,7 +89,9 @@ Page({
 		if (idCardFace) {
 			idCardFace = JSON.parse(idCardFace);
 			this.setData({
-				idCardFace: idCardFace.data[0]
+				idCardFace: idCardFace.data[0],
+				userName: idCardFace.data[0].ocrObject.name,
+				idNumber: idCardFace.data[0].ocrObject.idNumber
 			});
 			this.setData({
 				available: this.validateAvailable()
@@ -145,6 +154,10 @@ Page({
 			isRequest: true,
 			available: false
 		});
+		let IdCardHaveChange = true;
+		if (this.data.userName === this.data.idCardFace.ocrObject.name && this.data.idNumber === this.data.idCardFace.ocrObject.idNumber) {
+			IdCardHaveChange = false;
+		}
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: '348', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
@@ -153,8 +166,8 @@ Page({
 			areaCode: this.data.choiceObj.areaCode,
 			shopId: this.data.choiceObj.shopId,
 			idCardStatus: this.data.orderInfo['idCard'].idCardStatus,
-			idCardValidDate: this.data.orderInfo['idCard'].idCardValidDate ? this.data.orderInfo['idCard'].idCardValidDate : this.data.idCardBack.ocrObject.validDate,
-			idCardAddress: this.data.orderInfo['idCard'].idCardAddress ? this.data.orderInfo['idCard'].idCardAddress : this.data.idCardFace.ocrObject.address,
+			idCardValidDate: this.data.idCardBack.ocrObject.validDate,
+			idCardAddress: this.data.idCardFace.ocrObject.address,
 			idCardTrueName: this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含4】
 			idCardSex: this.data.idCardFace.ocrObject.sex === '男' ? 1 : 2, // 实名认证性别 【dataType包含4】
 			idCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含4】
@@ -169,8 +182,9 @@ Page({
 			ownerIdCardSex: this.data.idCardFace.ocrObject.sex === '男' ? 1 : 2, // 实名认证性别 【dataType包含8】
 			ownerIdCardAuthority: this.data.idCardBack.ocrObject.authority, // 发证机关 【dataType包含8】
 			ownerIdCardBirth: this.data.idCardFace.ocrObject.birth, // 出生日期 【dataType包含8】
-			ownerIdCardValidDate: this.data.orderInfo['idCard'].idCardValidDate ? this.data.orderInfo['idCard'].idCardValidDate : this.data.idCardBack.ocrObject.validDate,
-			ownerIdCardAddress: this.data.orderInfo['idCard'].idCardAddress ? this.data.orderInfo['idCard'].idCardAddress : this.data.idCardFace.ocrObject.address,
+			ownerIdCardValidDate: this.data.idCardBack.ocrObject.validDate,
+			ownerIdCardAddress: this.data.idCardFace.ocrObject.address,
+			ownerIdCardHaveChange: IdCardHaveChange, // 车主身份证OCR结果是否被修改过，默认false，修改过传true 【dataType包含8】
 			needSignContract: true // 是否需要签约 true-是，false-否 允许值: true, false
 		};
 		// 银行卡 3.0
