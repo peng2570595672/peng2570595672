@@ -16,7 +16,9 @@ Page({
 	// 加载ETC列表
 	getMyETCList () {
 		util.showLoading();
-		util.getDataFromServer('consumer/order/my-etc-list', {}, () => {
+		util.getDataFromServer('consumer/order/my-etc-list', {
+			openId: app.globalData.openId
+		}, () => {
 			util.showToastNoIcon('获取车辆列表失败！');
 		}, (res) => {
 			if (res.code === 0) {
@@ -102,7 +104,7 @@ Page({
 		if (obj.contractStatus === 2) {
 			app.globalData.orderInfo.orderId = obj.id;
 			//恢复签约
-			this.restoreSign();
+			this.restoreSign(obj);
 		} else {
 			// 2.0 立即签约
 			app.globalData.signAContract = -1;
@@ -110,9 +112,9 @@ Page({
 		}
 	},
 	// 恢复签约
-	restoreSign () {
+	restoreSign (obj) {
 		util.getDataFromServer('consumer/order/query-contract', {
-			orderId: app.globalData.orderInfo.orderId
+			orderId: obj.id
 		}, () => {
 			util.hideLoading();
 		}, (res) => {
@@ -120,7 +122,7 @@ Page({
 			if (res.code === 0) {
 				app.globalData.signAContract = 1;
 				// 签约成功 userState: "NORMAL"
-				if (res.data.contractStatus === 2) {
+				if (res.data.contractStatus !== 1) {
 					if (res.data.contractId) {
 						// 3.0
 						wx.navigateToMiniProgram({
@@ -137,7 +139,7 @@ Page({
 							}
 						});
 					} else {
-						this.weChatSign();
+						this.weChatSign(obj);
 					}
 				}
 			} else {
@@ -150,7 +152,6 @@ Page({
 		util.showLoading('加载中');
 		let params = {
 			orderId: obj.id,// 订单id
-			dataComplete: 1,// 订单资料是否已完善 1-是，0-否
 			needSignContract: true // 是否需要签约 true-是，false-否
 		};
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
@@ -158,7 +159,6 @@ Page({
 			util.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
-				app.globalData.signAContract = -1;
 				util.hideLoading();
 				let result = res.data.contract;
 				// 签约车主服务 2.0

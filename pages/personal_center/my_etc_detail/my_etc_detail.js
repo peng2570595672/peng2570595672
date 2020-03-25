@@ -101,7 +101,7 @@ Page({
 				if (res.code === 0) {
 					app.globalData.signAContract = 1;
 					// 签约成功 userState: "NORMAL"
-					if (res.data.contractStatus === 2) {
+					if (res.data.contractStatus !== 1) {
 						if (res.data.contractId) {
 							// 3.0
 							wx.navigateToMiniProgram({
@@ -137,7 +137,6 @@ Page({
 		util.showLoading('加载中');
 		let params = {
 			orderId: this.data.orderId,// 订单id
-			dataComplete: 1,// 订单资料是否已完善 1-是，0-否
 			needSignContract: true // 是否需要签约 true-是，false-否
 		};
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {

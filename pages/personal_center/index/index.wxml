@@ -107,11 +107,11 @@
 	<view class="detail_mask animated {{showDetailWrapper ? 'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
 		<view class="detail_wrapper animated {{showDetailWrapper ? 'zoomIn':'zoomOut'}}" wx:if="{{showDetailMask}}">
 			<view class="top1">
-				<image src="https://file.cyzl.com/g001/M05/06/D6/oYYBAF4DHV-AX8S8AABiDQ58WJ0402.png">=</image>
+				<image mode="widthFix" src="/pages/personal_center/assets/public_account.png"></image>
 				<view class="activity_button">
-					<button open-type="contact">发送数字“9”关注</button>
+					<button open-type="contact"></button>
 				</view>
-				<view class="close_button iconfont" catchtap="hide"></view>
+				<!--<view class="close_button iconfont" catchtap="hide"></view>-->
 			</view>
 		</view>
 	</view>
