@@ -107,7 +107,7 @@ page .mask {
   top: 0;
   right: 0;
   bottom: 0;
-  z-index: 1;
+  z-index: 2;
   background: rgba(0,0,0,0.6);
 }
 page .mask .top {
@@ -115,6 +115,7 @@ page .mask .top {
   left: 0;
   top: 0;
   bottom: 0;
+  z-index: 2;
   width: 100%;
   height: 25%;
   background: rgba(0,0,0,0);
@@ -125,6 +126,7 @@ page .mask .wrapper {
   top: 25%;
   right: 0;
   bottom: 0;
+  z-index: 3;
   height: 75%;
   background: #fff;
   border-radius: 32rpx 32rpx 0px 0px;
@@ -135,8 +137,9 @@ page .mask .wrapper .details-title {
   color: #33333d;
 }
 page .mask .wrapper .details-list {
-  height: 60%;
+  height: 75%;
   overflow-y: scroll;
+  margin-bottom: 20rpx;
 }
 page .mask .wrapper .details-list .details-list-box .cont1 {
   font-size: 30rpx;
@@ -169,15 +172,23 @@ page .mask .wrapper .is-scroll {
   z-index: 2;
   width: 100%;
   font-size: 28rpx;
-  line-height: 184rpx;
+  line-height: 152rpx;
   text-align: center;
   color: #66666d;
-  background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, #fff 100%);
-  padding-top: 74rpx;
+  background: #f4f4f4;
+  opacity: 0.93;
 }
 page .replace {
   padding-top: 58rpx;
   color: #0091ff;
   text-align: center;
   font-size: 32rpx;
+}
+page .not-scroll {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
 }
