@@ -243,9 +243,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/default/update_id_card/update_id_card",
-					"pathName": "pages/default/update_id_card/update_id_card",
+					"id": 21,
+					"name": "pages/default/payment_way/payment_way",
+					"pathName": "pages/default/payment_way/payment_way",
 					"query": "",
 					"scene": null
 				},
@@ -253,6 +253,7 @@
 					"id": -1,
 					"name": "pages/default/shot_bank_card/shot_bank_card",
 					"pathName": "pages/default/shot_bank_card/shot_bank_card",
+					"query": "",
 					"scene": null
 				}
 			]

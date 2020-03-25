@@ -21,6 +21,7 @@ App({
 		serverInfoId: '',
 		memberId: '',// 用户id,用于京东客服
 		mobilePhone: '',// 用户手机用于京东客服
+		openId: '',// 用于查签约/解约
 		shopProductId: '', // 套餐id
 		contractStatus: '', // 签约状态   签约状态 -1 签约失败 0发起签约 1已签约 2解约
 		orderStatus: '', // 订单状态
@@ -95,12 +96,19 @@ App({
 			// 解决安卓平台上传行驶证自动返回上一页
 			return;
 		}
-		console.log(this.globalData.signAContract)
-		if (res && res.scene === 1038 && this.globalData.signAContract === -1) { // 场景值1038：从被打开的小程序返回
-			const {appId} = res.referrerInfo;
-			// 车主服务签约
-			if (appId === 'wxbcad394b3d99dac9') {
-				this.queryContract();
+		console.log(this.globalData.signAContract);
+		if (res && res.scene === 1038) { // 场景值1038：从被打开的小程序返回
+			if (this.globalData.signAContract === -1) {
+				const {appId} = res.referrerInfo;
+				// 车主服务签约
+				if (appId === 'wxbcad394b3d99dac9') {
+					this.queryContract();
+				}
+			} else if (this.globalData.signAContract === 1) {
+				// 解约状态
+				wx.reLaunch({
+					url: '/pages/default/index/index'
+				});
 			}
 		}
 	},
@@ -121,17 +129,18 @@ App({
 				if (res.data.contractStatus === 1 && res.data.userState === 'NORMAL') {
 					if (this.globalData.belongToPlatform === this.globalData.platformId) {
 						// 本平台签约
-						if (this.globalData.contractStatus === 2) { // 已解约
-							if (this.globalData.orderStatus === 5 || this.globalData.orderStatus === 8) {// 资料审核失败 &&高速验证不通过
-								util.go(`/pages/default/information_validation/information_validation?orderId=${this.globalData.orderInfo.orderId}`);
-							} else if (this.globalData.orderStatus === 3) { // 办理中 未上传行驶证
-								util.go('/pages/default/signed_successfully/signed_successfully');
-							} else { // 不可修改资料
-								util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
-							}
-						} else {
-							util.go('/pages/default/signed_successfully/signed_successfully');
-						}
+						// if (this.globalData.contractStatus === 2) { // 已解约   之前的逻辑
+						// 	if (this.globalData.orderStatus === 5 || this.globalData.orderStatus === 8) {// 资料审核失败 &&高速验证不通过
+						// 		util.go(`/pages/default/information_validation/information_validation?orderId=${this.globalData.orderInfo.orderId}`);
+						// 	} else if (this.globalData.orderStatus === 3) { // 办理中 未上传行驶证
+						// 		util.go('/pages/default/signed_successfully/signed_successfully');
+						// 	} else { // 不可修改资料
+						// 		util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
+						// 	}
+						// } else {
+						// 	util.go('/pages/default/signed_successfully/signed_successfully');
+						// }
+						util.go('/pages/default/signed_successfully/signed_successfully');
 					} else {
 						// 其他平台签约 :业务员端/h5
 						util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
