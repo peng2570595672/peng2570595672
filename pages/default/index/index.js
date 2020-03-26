@@ -119,23 +119,30 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
+				app.globalData.myEtcList = res.data;
 				// 京东客服
 				let vehicleList = [];
+				let orderInfo = undefined;
 				res.data.map((item) => {
-					vehicleList.push(item.vehPlates);
-					wx.setStorageSync('cars', vehicleList.join('、'));
-				});
-				app.globalData.myEtcList = res.data;
-				let orderInfo = res.data;
-				if (orderInfo && orderInfo[0]) {
-					orderInfo[0]['selfStatus'] = util.getStatus(orderInfo[0]);
-					if (orderInfo[0].selfStatus === 9) {
+					item['selfStatus'] = util.getStatus(item);
+					if (item.contractStatus === 2) {
+						// 解约优先展示
+						orderInfo = item;
+						return;
+					}
+					if (item.selfStatus === 2) {
+						orderInfo = item;
+						return;
+					}
+					if (item.selfStatus === 9) {
 						// 查询最近一次账单
 						this.getRecentlyTheBill();
 					}
-				}
+					vehicleList.push(item.vehPlates);
+					wx.setStorageSync('cars', vehicleList.join('、'));
+				});
 				this.setData({
-					orderInfo: orderInfo ? orderInfo[0] : ''
+					orderInfo: orderInfo
 				});
 			} else {
 				util.showToastNoIcon(res.message);
@@ -240,6 +247,7 @@ Page({
 								contract_id: res.data.contractId
 							},
 							success () {
+								console.log('/////')
 							},
 							fail (e) {
 								// 未成功跳转到签约小程序
@@ -267,7 +275,6 @@ Page({
 			util.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
-				app.globalData.signAContract = -1;
 				util.hideLoading();
 				let result = res.data.contract;
 				// 签约车主服务 2.0

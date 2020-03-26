@@ -22,15 +22,11 @@ Page({
 			util.showToastNoIcon('获取车辆列表失败！');
 		}, (res) => {
 			if (res.code === 0) {
-				// 计算订单状态
-				for (let i = 0; i < res.data.length; i++) {
-					let orderInfo = res.data[i];
-					orderInfo['selfStatus'] = util.getStatus(orderInfo);
-					res.data[i] = orderInfo;
-				}
+				app.globalData.myEtcList = res.data;
 				let vehicleList = [];
 				res.data.map((item) => {
 					vehicleList.push(item.vehPlates);
+					item['selfStatus'] = util.getStatus(item);
 					wx.setStorageSync('cars', vehicleList.join('、'));
 				});
 				this.setData({

@@ -186,12 +186,6 @@ Page({
 		if (!this.data.available || this.data.isRequest) {
 			return;
 		}
-		// 比对之前输入车牌和当前行驶证车牌是否一致
-		if (face.numberPlates !== this.data.orderInfo['base'].vehPlates.trim()) {
-			util.showToastNoIcon(`行驶证车牌${face.numberPlates}与下单时车牌${this.data.orderInfo['base'].vehPlates.trim()}不一致，请检查！`);
-			return;
-		}
-		let isOk = true;
 		// 比对车牌颜色和车牌位数是否一致   新老数据做对比,判断是否进行面审
 		// 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
 		let face = this.data.drivingLicenseFace.ocrObject;
@@ -201,15 +195,21 @@ Page({
 		let back = this.data.drivingLicenseBack.ocrObject;
 		let oldBack = this.data.oldDrivingLicenseBack.ocrObject;
 		let backValue,oldBackValue,faceValue,oldFaceValue,carHead45Value,oldCarHead45Value,haveChange = true;
-		for(let key in back){backValue+= back[key];}
-		for(let key in oldBack){oldBackValue+= oldBack[key];}
-		for(let key in face){faceValue+= face[key];}
-		for(let key in oldFace){oldFaceValue+= oldFace[key];}
-		for(let key in carHead45){carHead45Value+= carHead45[key];}
-		for(let key in oldCarHead45){oldCarHead45Value+= oldCarHead45[key];}
+		for (let key in back) {backValue += back[key];}
+		for (let key in oldBack) {oldBackValue += oldBack[key];}
+		for (let key in face) {faceValue += face[key];}
+		for (let key in oldFace) {oldFaceValue += oldFace[key];}
+		for (let key in carHead45) {carHead45Value += carHead45[key];}
+		for (let key in oldCarHead45) {oldCarHead45Value += oldCarHead45[key];}
 		if (backValue === oldBackValue && faceValue === oldFaceValue && carHead45Value === oldCarHead45Value) {
 			haveChange = false;
 		}
+		// 比对之前输入车牌和当前行驶证车牌是否一致
+		if (face.numberPlates !== this.data.orderInfo['base'].vehPlates.trim()) {
+			util.showToastNoIcon(`行驶证车牌${face.numberPlates}与下单时车牌${this.data.orderInfo['base'].vehPlates.trim()}不一致，请检查！`);
+			return;
+		}
+		let isOk = true;
 		if (face.numberPlates.length === 7) {
 			isOk = this.data.orderInfo['base'].vehColor === 0 || this.data.orderInfo['base'].vehColor === 1;
 		} else {
