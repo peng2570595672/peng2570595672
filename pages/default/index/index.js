@@ -123,23 +123,27 @@ Page({
 				// 京东客服
 				let vehicleList = [];
 				let orderInfo = undefined;
-				res.data.map((item) => {
+				res.data.map((item,index) => {
 					item['selfStatus'] = util.getStatus(item);
+					vehicleList.push(item.vehPlates);
+					wx.setStorageSync('cars', vehicleList.join('、'));
 					if (item.contractStatus === 2) {
 						// 解约优先展示
 						orderInfo = item;
 						return;
 					}
 					if (item.selfStatus === 2) {
+						// 待签约优先展示
 						orderInfo = item;
 						return;
+					}
+					if (index === 0) {
+						orderInfo = item;
 					}
 					if (item.selfStatus === 9) {
 						// 查询最近一次账单
 						this.getRecentlyTheBill();
 					}
-					vehicleList.push(item.vehPlates);
-					wx.setStorageSync('cars', vehicleList.join('、'));
 				});
 				this.setData({
 					orderInfo: orderInfo
