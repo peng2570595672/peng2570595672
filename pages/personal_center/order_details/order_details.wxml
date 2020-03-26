@@ -4,7 +4,7 @@
 		<view class="doubt iconfont" catchtap="goOrderInstructions"><text></text></view>
 		<view class="deduction-amount-box">
 			<view class="deduction-amount-title">扣费金额</view>
-			<view>-{{details.totalMmout/100}}</view>
+			<view>-{{details.etcMoney/100}}</view>
 			<view class="failure-prompted" wx:if="{{details.etcMoney > 0}}">{{details.errCodeDes}}</view>
 		</view>
 	</view>
@@ -13,15 +13,19 @@
 	<view class="deduction-details">
 		<view>
 			<view>应付金额</view>
-			<view>¥{{details.etcMoney/100}}</view>
+			<view>-¥{{details.totalMmout/100}}</view>
 		</view>
 		<view>
 			<view>通行折扣券减免</view>
-			<view>{{details.discountMount/100}}</view>
+			<view>{{details.discountMount ? details.discountMount/100 : 0}}</view>
 		</view>
 		<view>
 			<view>微信减免</view>
-			<view>{{details.wxDiscountAmount/100}}</view>
+			<view>{{details.wxDiscountAmount ? details.wxDiscountAmount/100 : 0}}</view>
+		</view>
+		<view>
+			<view>服务费</view>
+			<view>{{details.serviceMoney ? details.serviceMoney/100 : 0}}</view>
 		</view>
 		<view>
 			<view>扣费类型</view>

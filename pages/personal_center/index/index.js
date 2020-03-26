@@ -129,12 +129,12 @@ Page({
 	// 关闭详情
 	hide () {
 		this.setData({
-			showDetailWtapper: false
+			showDetailWrapper: false
 		});
 		setTimeout(() => {
 			this.setData({
 				showDetailMask: false
 			});
-		}, 0);
+		}, 2000);
 	}
 });

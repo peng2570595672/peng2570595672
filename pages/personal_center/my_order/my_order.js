@@ -174,7 +174,7 @@ Page({
 				});
 				let allMoney=0;
 				this.data.successBillList.map((item) => {
-					allMoney += item.totalMmout;
+					allMoney += item.etcMoney;
 				});
 				this.setData({
 					allMoney: allMoney

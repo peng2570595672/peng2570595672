@@ -153,6 +153,10 @@ Page({
 			}
 		}, app.globalData.userInfo.accessToken);
 	},
+	goOrderDetails () {
+		let model = this.data.orderInfo;
+		util.go(`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
+	},
 	getRecentlyTheBill (item) {
 		util.showLoading();
 		util.getDataFromServer('consumer/etc/get-last-bill', {

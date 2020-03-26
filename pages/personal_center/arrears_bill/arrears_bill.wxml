@@ -24,7 +24,7 @@
 		<view class="total-arrears " wx:if="{{item.list.length > 0 && item.list[0].deductStatus !== 10}}">
 			<view class="licence-plate">{{item.vehPlates}}</view>
 			<view class="arrears">累计欠费：{{item.total/100}}元</view>
-			<view class="btn"><button catchtap="payment" data-model="{{item}}">补费</button></view>
+			<view class="btn"><button catchtap="payment" data-model="{{item}}">补缴</button></view>
 		</view>
 		<!--欠费总计结束-->
 	</view>

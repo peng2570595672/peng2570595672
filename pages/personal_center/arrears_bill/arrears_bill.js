@@ -10,11 +10,13 @@ Page({
 	},
 	onShow () {
 		if (app.globalData.myEtcList.length !== 0) {
+			let obuStatusList;
+			obuStatusList = app.globalData.myEtcList.filter(item => item.etcContractId !== 0); // 测试数据处理
 			this.setData({
 				failBillList: [],
-				orderList: app.globalData.myEtcList
+				orderList: obuStatusList
 			});
-			app.globalData.myEtcList.map((item) => {
+			this.data.orderList.map((item) => {
 				this.data.vehicleList.push(item.vehPlates);
 				this.setData({
 					vehicleList: this.data.vehicleList

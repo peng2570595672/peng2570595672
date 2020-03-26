@@ -189,7 +189,8 @@ page .detail_mask {
 page .detail_mask .detail_wrapper .top1 {
   position: absolute;
   width: 100%;
-  z-index: 1;
+  margin: auto;
+  z-index: 2;
 }
 page .detail_mask .detail_wrapper .top1 > image {
   width: 100%;

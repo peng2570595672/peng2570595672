@@ -13,7 +13,7 @@
 		</view>
 		<view class="line">
 			<view>通行抵扣卡优惠</view>
-			<view>-¥{{details.discountMount/100}}</view>
+			<view>{{details.discountMount >0 ? -details.discountMount/100 : 0}}</view>
 		</view>
 		<view>
 			<view class="line">

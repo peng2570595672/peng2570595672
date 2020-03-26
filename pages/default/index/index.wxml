@@ -1,7 +1,7 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="index">
 	<!--	欢迎语句开始-->
-	<view class="welcome">欢迎<text>{{loginInfo.showMobilePhone ? loginInfo.showMobilePhone : '未登录'}}</text>
+	<view class="welcome">欢迎<open-data type="userNickName" lang="zh_CN"></open-data>
 	</view>
 	<!--	欢迎语句结束-->
 	<!--	轮播图开始-->
@@ -101,7 +101,7 @@
 			<view class="iconfont" catchtap="go" data-url="my_order">查看所有账单</view>
 		</view>
 		<!--		有通行订单-->
-		<block wx:if="{{recentlyTheBill}}" catchtap="go" data-url="my_order">
+		<block wx:if="{{recentlyTheBill}}" catchtap="goOrderDetails">
 			<view class="bill-info">
 				<view>
 					<view>{{recentlyTheBill.vehPlate}}</view>
@@ -132,18 +132,24 @@
 	<!--	分割线结束-->
 	<!--	底部导航开始-->
 	<view class="nav">
+		<view class="item" catchtap="onClickMyETCHandle">
+			<view>
+				<image src="/pages/default/assets/icon_for_my_etc.svg"></image>
+			</view>
+			<view>我的ETC</view>
+		</view>
 		<view class="item" catchtap="go" data-url="violation_enquiry">
 			<view>
 				<image src="/pages/default/assets/icon_for_violation_of_regulations.svg"></image>
 			</view>
 			<view>违章查询</view>
 		</view>
-		<view class="item" catchtap="go" data-url="member_benefits">
-			<view>
-				<image src="/pages/default/assets/icon_for_member_benefits.svg"></image>
-			</view>
-			<view>会员权益</view>
-		</view>
+		<!--<view class="item" catchtap="go" data-url="member_benefits">-->
+			<!--<view>-->
+				<!--<image src="/pages/default/assets/icon_for_member_benefits.svg"></image>-->
+			<!--</view>-->
+			<!--<view>会员权益</view>-->
+		<!--</view>-->
 		<view class="item" catchtap="go" catchtap="go" data-url="online_customer_service">
 			<view>
 				<image src="/pages/default/assets/icon_for_online_service.svg"></image>
