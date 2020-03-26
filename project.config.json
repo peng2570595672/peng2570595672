@@ -260,6 +260,34 @@
 					"id": -1,
 					"name": "cities_services/pages/cities_services/cities_services",
 					"pathName": "cities_services/pages/cities_services/cities_services",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/login/login/login",
+					"pathName": "pages/login/login/login",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/default/index/index",
+					"pathName": "pages/default/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/personal_center/index/index",
+					"pathName": "pages/personal_center/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/personal_center/help_center/help_center",
+					"pathName": "pages/personal_center/help_center/help_center",
 					"scene": null
 				}
 			]

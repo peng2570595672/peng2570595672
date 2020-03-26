@@ -3,13 +3,13 @@
 	<view class="small-title">用微信支付的ETC</view>
 	<view class="banner-content">
 		<view class="char">免费办理｜高速95折｜享车主服务</view>
-		<view class="btn">
+		<view class="btn" catchtap="go" data-url="pages/default/receiving_address/receiving_address">
 			<text>一键办理</text>
 			<text class="iconfont ltfont"></text>
 		</view>
 	</view>
 	<view class="btns">
-		<view class="btn myetc">我的ETC</view>
-		<view class="btn help-center">帮助中心</view>
+		<view class="btn myetc" catchtap="go" data-url="pages/personal_center/my_etc/my_etc">我的ETC</view>
+		<view class="btn help-center" catchtap="go" data-url="pages/personal_center/help_center/help_center">帮助中心</view>
 	</view>
 </view>
