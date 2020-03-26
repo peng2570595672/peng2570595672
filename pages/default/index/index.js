@@ -142,7 +142,7 @@ Page({
 					}
 					if (item.selfStatus === 9) {
 						// 查询最近一次账单
-						this.getRecentlyTheBill();
+						this.getRecentlyTheBill(item);
 					}
 				});
 				this.setData({
@@ -153,10 +153,10 @@ Page({
 			}
 		}, app.globalData.userInfo.accessToken);
 	},
-	getRecentlyTheBill () {
+	getRecentlyTheBill (item) {
 		util.showLoading();
 		util.getDataFromServer('consumer/etc/get-last-bill', {
-			channel: this.data.orderInfo.obuCardType
+			channel: item.obuCardType
 		}, () => {
 			util.hideLoading();
 		}, (res) => {
