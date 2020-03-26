@@ -62,7 +62,7 @@
 		"bundle": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.10.3",
+	"libVersion": "2.10.4",
 	"appid": "wxddb3eb32425e4a96",
 	"projectname": "etc_plus_mini_2.0",
 	"debugOptions": {
@@ -288,6 +288,14 @@
 					"id": -1,
 					"name": "pages/personal_center/help_center/help_center",
 					"pathName": "pages/personal_center/help_center/help_center",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
+					"pathName": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
+					"query": "",
 					"scene": null
 				}
 			]

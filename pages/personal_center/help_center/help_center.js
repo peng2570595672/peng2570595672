@@ -13,7 +13,7 @@ Page({
 		tabList: '',// 问题列表
 		showDetailMask: false,// 弹窗
 		showDetailWtapper: false,// 弹窗
-		showPrompt: true,// 弹窗底部提示
+		showPrompt: false,// 弹窗底部提示
 		showScroll: false,// 弹窗内容是否显示底部滚动盒子
 		detailsContent: '',// 问题详情内容
 		detailsTitle: '',// 问题详情标题
@@ -90,6 +90,9 @@ Page({
 	},
 	// 弹出详情
 	showDetail (e) {
+		this.setData({
+			showPrompt: false
+		});
 		let content = e.currentTarget.dataset['content'];
 		util.showLoading();
 		let params = {
@@ -121,6 +124,11 @@ Page({
 						childHeight: res[0].height
 					});
 				});
+				setTimeout(() => {
+					this.setData({
+						showPrompt: this.data.childHeight > this.data.fatherHeight ? true : false
+					});
+				}, 400);
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -161,7 +169,7 @@ Page({
 	// 监听页面滚动事件
 	scroll (e) {
 		this.setData({
-			showPrompt: e.detail.scrollTop > 100 ? false : true
+			showPrompt: e.detail.scrollTop > 10 ? false : true
 		});
 	},
 	// 在线客服
