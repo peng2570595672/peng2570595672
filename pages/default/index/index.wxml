@@ -101,8 +101,8 @@
 			<view class="iconfont" catchtap="go" data-url="my_order">查看所有账单</view>
 		</view>
 		<!--		有通行订单-->
-		<block wx:if="{{recentlyTheBill}}" catchtap="goOrderDetails">
-			<view class="bill-info">
+		<block wx:if="{{recentlyTheBill}}" >
+			<view class="bill-info" catchtap="goOrderDetails">
 				<view>
 					<view>{{recentlyTheBill.vehPlate}}</view>
 					<view class="succeed" wx:if="{{recentlyTheBill.deductStatus === 1 || recentlyTheBill.deductStatus === 11}}">{{tools.substring(recentlyTheBill.deductTime,5,16)}} </view>
