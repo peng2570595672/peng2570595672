@@ -127,6 +127,7 @@ Page({
 		});
 	},
 	// 关闭详情
+	close () {},
 	hide () {
 		this.setData({
 			showDetailWrapper: false
@@ -135,6 +136,6 @@ Page({
 			this.setData({
 				showDetailMask: false
 			});
-		}, 2000);
+		}, 400);
 	}
 });
