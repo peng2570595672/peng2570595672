@@ -50,6 +50,13 @@
 			]
 		},
 		{
+			"root": "cities_services",
+			"name": "cities_services",
+			"pages": [
+				"pages/cities_services/cities_services"
+			]
+		},
+		{
 			"root": "pages/web",
 			"name": "pages/web",
 			"pages": [
