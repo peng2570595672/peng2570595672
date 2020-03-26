@@ -215,7 +215,8 @@ Page({
 				formData.region = [res.provinceName, res.cityName, res.countyName]; // 省市区
 				formData.detailInfo = res.detailInfo; // 详细地址
 				this.setData({
-					formData
+					formData,
+					mobilePhoneIsOk:  /^1[0-9]{10}$/.test(res.telNumber.substring(0, 11))
 				});
 				this.setData({
 					available: this.validateAvailable()

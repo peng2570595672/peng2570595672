@@ -10,11 +10,11 @@ Page({
 	data: {
 		canIUse: wx.canIUse('button.open-type.getUserInfo'),
 		loginInfo: {},// 登录信息
-		contractStatus: undefined,//  签约状态 -1 签约失败 0发起签约 1已签约 2解约
 		orderInfo: undefined, // 订单信息
 		recentlyTheBill: undefined // 最新账单
 	},
 	onLoad () {
+		wx.removeStorageSync('information_validation');
 		this.login();
 	},
 	onShow () {
@@ -52,6 +52,7 @@ Page({
 						// 已经绑定了手机号
 						if (res.data.needBindingPhone !== 1) {
 							app.globalData.userInfo = res.data;
+							app.globalData.openId = res.data.openId;
 							app.globalData.memberId = res.data.memberId;
 							app.globalData.mobilePhone = res.data.mobilePhone;
 							// 查询最后一笔订单状态
@@ -69,25 +70,6 @@ Page({
 				util.hideLoading();
 				util.showToastNoIcon('登录失败！');
 			}
-		});
-	},
-	// 加载ETC列表
-	getMyETCList () {
-		util.showLoading();
-		util.getDataFromServer('consumer/order/my-etc-list', {}, () => {
-			util.showToastNoIcon('获取车辆列表失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				let vehicleList = [];
-				res.data.map((item) => {
-					vehicleList.push(item.vehPlates);
-					wx.setStorageSync('cars', vehicleList.join('、'));
-				});
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
 		});
 	},
 	// 获取手机号
@@ -111,6 +93,7 @@ Page({
 				if (res.code === 0) {
 					res.data['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
 					app.globalData.userInfo = res.data; // 用户登录信息
+					app.globalData.openId = res.data.openId;
 					app.globalData.memberId = res.data.memberId;
 					app.globalData.mobilePhone = res.data.mobilePhone;
 					let loginInfo = this.data.loginInfo;
@@ -129,25 +112,38 @@ Page({
 	},
 	// 获取最后有一笔订单信息
 	getStatus () {
-		util.getDataFromServer('consumer/order/home-info', {
+		util.getDataFromServer('consumer/order/my-etc-list', {
+			openId: app.globalData.openId
 		}, () => {
 			util.hideLoading();
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
-				// 判断状态
-				let orderInfo = res.data.orderInfo;
-				if (orderInfo) {
-					orderInfo['selfStatus'] = util.getStatus(orderInfo);
-				}
-				this.setData({
-					orderInfo: orderInfo ? orderInfo : '',
-					contractStatus: res.data.contract ? res.data.contract.contractStatus : '',
+				app.globalData.myEtcList = res.data;
+				// 京东客服
+				let vehicleList = [];
+				let orderInfo = undefined;
+				res.data.map((item) => {
+					item['selfStatus'] = util.getStatus(item);
+					if (item.contractStatus === 2) {
+						// 解约优先展示
+						orderInfo = item;
+						return;
+					}
+					if (item.selfStatus === 2) {
+						orderInfo = item;
+						return;
+					}
+					if (item.selfStatus === 9) {
+						// 查询最近一次账单
+						this.getRecentlyTheBill();
+					}
+					vehicleList.push(item.vehPlates);
+					wx.setStorageSync('cars', vehicleList.join('、'));
 				});
-				if (this.data.orderInfo.selfStatus === 9) {
-					// 查询最近一次账单
-					this.getRecentlyTheBill();
-				}
+				this.setData({
+					orderInfo: orderInfo
+				});
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -195,9 +191,6 @@ Page({
 					util.go('/pages/login/login/login');
 					return;
 				}
-				if (!wx.getStorageSync('cars')) {
-					this.getMyETCList();
-				}
 				// 统计点击进入在线客服
 				mta.Event.stat("009",{});
 			}
@@ -220,12 +213,61 @@ Page({
 		}
 	},
 	// 恢复签约
-	onClickBackToSign () {
-		mta.Event.stat("006",{});
+	onClickBackToSign (e) {
+		let obj = this.data.orderInfo;
+		app.globalData.contractStatus = obj.contractStatus;
+		if (obj.contractStatus === 2) {
+			app.globalData.orderInfo.orderId = obj.id;
+			//恢复签约
+			this.restoreSign(obj);
+		} else {
+			// 2.0 立即签约
+			app.globalData.signAContract = -1;
+			this.weChatSign(obj);
+		}
+	},
+	// 恢复签约
+	restoreSign (obj) {
+		util.getDataFromServer('consumer/order/query-contract', {
+			orderId: obj.id
+		}, () => {
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				app.globalData.signAContract = 1;
+				// 签约成功 userState: "NORMAL"
+				if (res.data.contractStatus !== 1) {
+					if (res.data.contractId) {
+						// 3.0
+						wx.navigateToMiniProgram({
+							appId: 'wxbcad394b3d99dac9',
+							path: 'pages/etc/index',
+							extraData: {
+								contract_id: res.data.contractId
+							},
+							success () {
+								console.log('/////')
+							},
+							fail (e) {
+								// 未成功跳转到签约小程序
+								util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
+							}
+						});
+					} else {
+						this.weChatSign(obj);
+					}
+				}
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken);
+	},
+	// 微信签约
+	weChatSign (obj) {
 		util.showLoading('加载中');
 		let params = {
-			orderId: this.data.orderInfo.id,// 订单id
-			dataComplete: 1,// 订单资料是否已完善 1-是，0-否
+			orderId: obj.id,// 订单id
 			needSignContract: true // 是否需要签约 true-是，false-否
 		};
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
@@ -233,15 +275,13 @@ Page({
 			util.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
-				app.globalData.signAContract = -1;
 				util.hideLoading();
 				let result = res.data.contract;
 				// 签约车主服务 2.0
-				app.globalData.belongToPlatform = this.data.orderInfo.platformId;
-				app.globalData.orderInfo.orderId = this.data.orderInfo.id;
-				app.globalData.contractStatus = this.data.contractStatus;
-				app.globalData.orderStatus = this.data.orderInfo.selfStatus;
-				app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
+				app.globalData.belongToPlatform = obj.platformId;
+				app.globalData.orderInfo.orderId = obj.id;
+				app.globalData.orderStatus = obj.selfStatus;
+				app.globalData.orderInfo.shopProductId = obj.shopProductId;
 				if (result.version === 'v2') {
 					wx.navigateToMiniProgram({
 						appId: 'wxbcad394b3d99dac9',
@@ -357,6 +397,13 @@ Page({
 			// 是否上传行驶证， 0未上传，1已上传
 			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 			app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
+			if (wx.getStorageSync('corresponding_package_id') !== app.globalData.orderInfo.orderId) {
+				// 行驶证缓存关联订单
+				wx.setStorageSync('corresponding_package_id', app.globalData.orderInfo.orderId);
+				wx.removeStorageSync('driving_license_face');
+				wx.removeStorageSync('driving_license_back');
+				wx.removeStorageSync('car_head_45');
+			}
 			if (wx.getStorageSync('driving_license_face')) {
 				util.go('/pages/default/information_validation/information_validation');
 			} else {

@@ -43,36 +43,36 @@
 				<!--	文本提示结束-->
 			</block>
 			<!--	扣款方式标题开始-->
-			<view class="title {{idCardFace.fileUrl && idCardBack.fileUrl ? 'other-title' : ''}}" wx:if="{{orderInfo.idCard.idCardStatus === 0}}">
+			<view class="title {{idCardFace.fileUrl && idCardBack.fileUrl ? 'other-title' : ''}}">
 				<view class="text">微信本人实名信息</view>
 				<view class="iconfont"  wx:if="{{idCardFace.fileUrl && idCardBack.fileUrl}}" catchtap="onClickShotBankCardHandle" data-type="1"></view>
 			</view>
 			<!--	扣款方式标题结束-->
 
 			<!--	拍摄身份证开始-->
-			<view class="shot-id-card iconfont" wx:if="{{!(idCardFace.fileUrl && idCardBack.fileUrl) &&orderInfo.idCard.idCardStatus === 0 }}" catchtap="onClickShotBankCardHandle" data-type="1">拍摄身份证</view>
+			<view class="shot-id-card iconfont" wx:if="{{!(idCardFace.fileUrl && idCardBack.fileUrl)  }}" catchtap="onClickShotBankCardHandle" data-type="1">拍摄身份证</view>
 			<!--	拍摄身份证结束-->
 
 			<!--	输入身份证号 和身份证姓名开始-->
 			<view class="input-wrapper" wx:else>
-				<view class="photo-wrapper" wx:if="{{orderInfo.idCard.idCardStatus === 0}}">
+				<view class="photo-wrapper" >
 					<!--身份证正面-->
 					<image src="{{idCardFace.fileUrl}}" catchtap="onPreviewPicture" data-url="{{idCardFace.fileUrl}}" data-url1="{{idCardBack.fileUrl}}"/>
 					<!--身份证反面-->
 					<image src="{{idCardBack.fileUrl}}" catchtap="onPreviewPicture" data-url="{{idCardBack.fileUrl}}" data-url1="{{idCardFace.fileUrl}}"/>
 				</view>
-				<view class="input-item" wx:if="{{orderInfo.idCard.idCardStatus === 0}}">
+				<view class="input-item" >
 					<view>姓名</view>
 					<input type="text" placeholder="请输入微信本人姓名" placeholder-class="placeholder" value="{{idCardFace.ocrObject.name}}" bindinput="onInputChangedHandle" data-key="name"/>
 				</view>
-				<view class="input-item" wx:if="{{orderInfo.idCard.idCardStatus === 0}}">
+				<view class="input-item" >
 					<view>身份证号</view>
-					<input type="text" placeholder="请输入微信本人身份证号" placeholder-class="placeholder" value="{{idCardFace.ocrObject.idNumber}}" bindinput="onInputChangedHandle" data-key="idNumber" disabled="{{orderInfo.idCard.idCardStatus === 1 ? true : false}}"/>
+					<input type="text" placeholder="请输入微信本人身份证号" placeholder-class="placeholder" value="{{idCardFace.ocrObject.idNumber}}" bindinput="onInputChangedHandle" data-key="idNumber"/>
 				</view>
 			</view>
 			<!--	输入身份证号 和身份证姓名结束-->
 			<!--	文本提示开始-->
-			<view class="tips" wx:if="{{orderInfo.idCard.idCardStatus === 0}}">* 签约免密支付，需提供微信本人身份信息</view>
+			<view class="tips" >* 签约免密支付，需提供微信本人身份信息</view>
 			<!--	文本提示结束-->
 		</block>
 		<view class="fill"></view>

@@ -26,7 +26,7 @@
 	</view>
 	<view class="split"></view>
 	<view class="item first">
-		<view>所属人</view>
+		<view>车辆所属人</view>
 		<view>{{orderInfo.receiveMan}}</view>
 	</view>
 	<view class="item first" wx:if="{{orderInfo.shopUserTrueName}}">
@@ -49,10 +49,7 @@
 		<view>设备（OBU）编号</view>
 		<view>{{orderInfo.obuNo}}</view>
 	</view>
-	<!--	分割线开始-->
-	<view class="split"></view>
-	<!--	分割线结束-->
-	<view class="item first">
+	<view class="item">
 		<view>办理日期</view>
 		<view>{{orderInfo.addTime}}</view>
 	</view>
@@ -67,8 +64,9 @@
 		<button class="btn" wx:elif="{{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 8 && orderInfo.contractStatus !== 2}}"  catchtap="onClickModifiedData">修改资料</button>
 		<button class="btn" wx:elif="{{orderInfo.selfStatus === 6 && orderInfo.contractStatus !== 2 && orderInfo.logisticsId === 0}}" catchtap="onClickViewProcessingProgressHandle">查看进度</button>
 		<button class="btn" wx:elif="{{orderInfo.selfStatus === 6 && orderInfo.contractStatus !== 2 && orderInfo.logisticsId !== 0}}" catchtap="onClickCctivate">确认收货并激活</button>
-		<view class="btn-wrapper" wx:if="{{orderInfo.selfStatus !== 3 && orderInfo.selfStatus !== 4}}">
+		<view class="btn-wrapper" wx:if="{{orderInfo.selfStatus !== 2 && orderInfo.selfStatus !== 4 && orderInfo.selfStatus !== 6 && orderInfo.selfStatus !== 7}}">
 			<view catchtap="onClickCancelHandle" wx:if="{{orderInfo.selfStatus !== 4 && orderInfo.selfStatus !== 6 && orderInfo.selfStatus !== 7 && orderInfo.selfStatus !== 9 && orderInfo.contractStatus !== 2}}">取消办理</view>
+			<!--<view catchtap="onClickCancelHandle">取消办理</view>-->
 			<view catchtap="goOnlineServer">客服中心</view>
 		</view>
 	</view>

@@ -10,10 +10,10 @@
 		<!--会员头部内容开始-->
 		<view class="members-top-content">
 			<view class="header iconfont {{isMembers === true ? 'crown':''}}">
-				<image src="https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1493390342,3676083771&fm=26&gp=0.jpg"></image>
+				<open-data class="uesr_head" type="userAvatarUrl"></open-data>
 			</view>
 			<view class="user">
-				<view>小男孩</view>
+				<view><open-data type="userNickName" lang="zh_CN"></open-data></view>
 				<view><button class="{{isMembers === true ? 'active':''}}">普通用户</button></view>
 			</view>
 			<view class="member iconfont" wx:if="{{!isMembers}}" catchtap="go"><text >成为会员</text></view>

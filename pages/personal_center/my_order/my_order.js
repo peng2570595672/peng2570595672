@@ -74,54 +74,37 @@ Page({
 	},
 	// 加载ETC列表
 	getMyETCList () {
-		util.showLoading();
-		util.getDataFromServer('consumer/order/my-etc-list', {}, () => {
-			util.showToastNoIcon('获取车辆列表失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				// 过滤未激活订单
-				let obuStatusList;
-				// obuStatusList = res.data.filter(item => item.obuStatus === 1); // 正式数据
-				obuStatusList = res.data.filter(item => item.etcContractId !== 0); // 测试数据处理
-				console.log(obuStatusList);
-				let vehicleList = [];
-				res.data.map((item) => {
-					vehicleList.push(item.vehPlates);
-					wx.setStorageSync('cars', vehicleList.join('、'));
-				});
-				if (obuStatusList.length > 0) {
-					// 需要过滤未激活的套餐
-					this.setData({
-						orderList: obuStatusList
-					});
-					app.globalData.myEtcList = this.data.orderList;
-					let date = new Date();
-					const year = date.getFullYear();
-					const month = date.getMonth() + 1;
-					if (this.data.chooseVehPlates !== '全部车辆') {
-						this.getSuccessBill(this.data.chooseVehPlates,this.data.chooseTime);
-					} else {
-						obuStatusList.map((item) => {
-							this.data.vehicleList.push(item.vehPlates);
-							this.setData({
-								vehicleList: this.data.vehicleList
-							});
-							this.getSuccessBill(item.vehPlates,this.data.chooseTime);
-						});
-					}
-					this.setData({
-						vehicleList: [...new Set(this.data.vehicleList)]
-					});
-					this.getMessage('全部车辆',this.data.chooseTime);
-				} else {
-					// 没有激活车辆
-				}
+		// 过滤未激活订单
+		let obuStatusList;
+		// obuStatusList = res.data.filter(item => item.obuStatus === 1); // 正式数据
+		obuStatusList = app.globalData.myEtcList.filter(item => item.etcContractId !== 0); // 测试数据处理
+		console.log(obuStatusList);
+		if (obuStatusList.length > 0) {
+			// 需要过滤未激活的套餐
+			this.setData({
+				orderList: obuStatusList
+			});
+			let date = new Date();
+			const year = date.getFullYear();
+			const month = date.getMonth() + 1;
+			if (this.data.chooseVehPlates !== '全部车辆') {
+				this.getSuccessBill(this.data.chooseVehPlates,this.data.chooseTime);
 			} else {
-				util.showToastNoIcon(res.message);
+				obuStatusList.map((item) => {
+					this.data.vehicleList.push(item.vehPlates);
+					this.setData({
+						vehicleList: this.data.vehicleList
+					});
+					this.getSuccessBill(item.vehPlates,this.data.chooseTime);
+				});
 			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-		});
+			this.setData({
+				vehicleList: [...new Set(this.data.vehicleList)]
+			});
+			this.getMessage('全部车辆',this.data.chooseTime);
+		} else {
+			// 没有激活车辆
+		}
 	},
 	// 获取失败/成功账单信息
 	getMessage (vehPlates,time) {

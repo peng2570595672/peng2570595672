@@ -39,11 +39,15 @@ page .member_benefits .members-top .members-top-content .header {
   flex: 2;
   text-align: right;
 }
-page .member_benefits .members-top .members-top-content .header image {
+page .member_benefits .members-top .members-top-content .header .uesr_head {
+  position: absolute;
+  right: 0;
+  overflow: hidden;
+  display: block;
   width: 100rpx;
   height: 100rpx;
-  border-radius: 100rpx;
-  border: 4rpx solid #fff;
+  border-radius: 50%;
+  text-align: center;
 }
 page .member_benefits .members-top .members-top-content .crown::before {
   position: absolute;

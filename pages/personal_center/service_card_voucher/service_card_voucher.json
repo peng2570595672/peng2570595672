@@ -1,6 +1,6 @@
 {
 	"navigationBarTitleText": "服务卡券",
-	"enablePullDownRefresh": true,
+	"enablePullDownRefresh": false,
 	"backgroundColor": "#F2F2F2",
 	"navigationBarBackgroundColor": "#F2F2F2"
 }

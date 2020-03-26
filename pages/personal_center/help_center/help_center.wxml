@@ -1,39 +1,41 @@
 <view class="help-center">
-	<!--售后服务/在线客服开始-->
-	<view class="service">
-		<view class="service-name">Hi！张晓晓</view>
-		<view class="service-btn">
-			<button catchtap="goAfterSales"><text class="iconfont">售后服务</text></button>
-			<button catchtap="goOnlineServer"><text class="iconfont online-service">在线客服</text></button>
-		</view>
-	</view>
-	<!--售后服务/在线客服结束-->
-	<!--帮助列表开始-->
-	<view class="help-list">
-		<!--搜索开始-->
-		<view class="help-search">
-			<view catchtap="goSearch">
-				<text class="iconfont">请输入关键词</text>
+	<view class="{{showDetailMask ? 'not-scroll' : ''}}">
+		<!--售后服务/在线客服开始-->
+		<view class="service">
+			<view class="service-name">Hi！<open-data type="userNickName" lang="zh_CN"></open-data></view>
+			<view class="service-btn">
+				<button catchtap="goAfterSales"><text class="iconfont">售后服务</text></button>
+				<button catchtap="goOnlineServer"><text class="iconfont online-service">在线客服</text></button>
 			</view>
 		</view>
-		<!--搜索结束-->
-		<view class="list">
-			<!--tab切换列表开始-->
-			<scroll-view class="list-title" scroll-x>
-				<view class="list-title-child {{tabIndex == index ?'tab_index':''}}" wx:for="{{tabTitle}}" wx:key="index" catchtap="tab" data-index="{{index}}" data-id="{{item.id}}">
-					{{item.classifyName}}
-					<view></view>
+		<!--售后服务/在线客服结束-->
+		<!--帮助列表开始-->
+		<view class="help-list">
+			<!--搜索开始-->
+			<view class="help-search">
+				<view catchtap="goSearch">
+					<text class="iconfont">请输入关键词</text>
 				</view>
-			</scroll-view>
-			<!--tab切换列表结束-->
-			<!--列表开始-->
-			<view wx:for="{{tabList}}" wx:key="index" class="list-content" catchtap="showDetail" data-content="{{item}}">
-				{{item.questionTitle}}
 			</view>
-			<!--列表结束-->
+			<!--搜索结束-->
+			<view class="list">
+				<!--tab切换列表开始-->
+				<scroll-view class="list-title" scroll-x>
+					<view class="list-title-child {{tabIndex == index ?'tab_index':''}}" wx:for="{{tabTitle}}" wx:key="index" catchtap="tab" data-index="{{index}}" data-id="{{item.id}}">
+						{{item.classifyName}}
+						<view></view>
+					</view>
+				</scroll-view>
+				<!--tab切换列表结束-->
+				<!--列表开始-->
+				<view wx:for="{{tabList}}" wx:key="index" class="list-content" catchtap="showDetail" data-content="{{item}}">
+					{{item.questionTitle}}
+				</view>
+				<!--列表结束-->
+			</view>
 		</view>
+		<!--帮助列表结束-->
 	</view>
-	<!--帮助列表结束-->
 	<!--弹出详情开始-->
 	<view class="mask animated {{showDetailWtapper?'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
 		<!--顶部蒙版开始-->
@@ -43,7 +45,7 @@
 			<!--详情列表标题开始-->
 			<view class="details-title">{{detailsTitle}}</view>
 			<!--详情列表内容结束-->
-			<view class="details-list">
+			<scroll-view scroll-y="true" class="details-list" bindscroll="scroll">
 				<view class="details-list-box">
 					<view wx:for="{{detailsContent}}" wx:key="index" class="cont1">
 						<!--<view class="label iconfont"></view>-->
@@ -51,10 +53,10 @@
 						<image class="char" wx:else src="{{item.answerUrl}}" data-url="{{item.answerUrl}}" mode="widthFix" catchtap="previewImage"> </image>
 					</view>
 				</view>
-			</view>
+			</scroll-view >
 			<!--详情列表内容结束-->
 			<!--详情列表超出显示提示开始-->
-			<view class="is-scroll" wx:if="{{fatherHeight <= childHeight ? 'showScroll': ''}}">向下划动查看全部内容</view>
+			<view class="is-scroll animated {{showPrompt ?'slideInUp':'slideOutDown'}}" wx:if="{{fatherHeight <= childHeight ? 'showScroll': ''}}">向下划动查看全部内容</view>
 			<!--详情列表超出显示提示结束-->
 		</view>
 	</view>

@@ -14,6 +14,8 @@ Page({
 		},// 身份证反面
 		type: '', // 判断小程序入口,控制身份证显示隐藏
 		owner: '', // 车主本人
+		userName: undefined,// 身份证正面 原始数据,用于与新数据比对(秒审)
+		idNumber: undefined,// 身份证正面 原始数据,用于与新数据比对(秒审)
 		available: false, // 按钮是否可点击
 		isRequest: false// 是否请求中
 	},
@@ -55,7 +57,9 @@ Page({
 		if (idCardFace) {
 			idCardFace = JSON.parse(idCardFace);
 			this.setData({
-				idCardFace: idCardFace.data[0]
+				idCardFace: idCardFace.data[0],
+				userName: idCardFace.data[0].ocrObject.name,
+				idNumber: idCardFace.data[0].ocrObject.idNumber
 			});
 			this.setData({
 				available: this.validateAvailable()
@@ -95,6 +99,10 @@ Page({
 			isRequest: true,
 			available: false
 		});
+		let IdCardHaveChange = true;
+		if (this.data.userName === this.data.idCardFace.ocrObject.name && this.data.idNumber === this.data.idCardFace.ocrObject.idNumber) {
+			IdCardHaveChange = false;
+		}
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: '8', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
@@ -107,6 +115,7 @@ Page({
 			ownerIdCardSex: this.data.idCardFace.ocrObject.sex === '男' ? 1 : 2, // 实名认证性别 【dataType包含8】
 			ownerIdCardAuthority: this.data.idCardBack.ocrObject.authority, // 发证机关 【dataType包含8】
 			ownerIdCardBirth: this.data.idCardFace.ocrObject.birth, // 出生日期 【dataType包含8】
+			ownerIdCardHaveChange: IdCardHaveChange, // 车主身份证OCR结果是否被修改过，默认false，修改过传true 【dataType包含8}】
 			ownerIdCardAddress: this.data.idCardFace.ocrObject.address
 		};
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {

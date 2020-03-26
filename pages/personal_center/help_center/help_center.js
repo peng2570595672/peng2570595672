@@ -13,6 +13,7 @@ Page({
 		tabList: '',// 问题列表
 		showDetailMask: false,// 弹窗
 		showDetailWtapper: false,// 弹窗
+		showPrompt: true,// 弹窗底部提示
 		showScroll: false,// 弹窗内容是否显示底部滚动盒子
 		detailsContent: '',// 问题详情内容
 		detailsTitle: '',// 问题详情标题
@@ -156,6 +157,12 @@ Page({
 	// 售后
 	goAfterSales () {
 		util.showToastNoIcon('功能升级中，请联系在线客服处理售后！');
+	},
+	// 监听页面滚动事件
+	scroll (e) {
+		this.setData({
+			showPrompt: e.detail.scrollTop > 100 ? false : true
+		});
 	},
 	// 在线客服
 	goOnlineServer () {

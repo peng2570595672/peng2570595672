@@ -47,7 +47,7 @@ Page({
 		console.log('onShow');
 		this.getProduct();
 		let type = wx.getStorageSync('photo_recognition_of_driving_license_type');
-		console.log(type)
+		console.log(type);
 		if (type) {
 			this.setData({
 				isFromRe: true,
@@ -90,7 +90,17 @@ Page({
 					pic4IdentifyResult: 0
 				});
 			}
+			if (wx.getStorageSync('taking_pictures')) {
+				this.setData({
+					retry: 0,
+					type: 3,
+					pic0IdentifyResult: -1,
+					pic3IdentifyResult: -1,
+					pic4IdentifyResult: -1
+				});
+			}
 			wx.removeStorageSync('photo_recognition_of_driving_license_type');
+			wx.removeStorageSync('taking_pictures');
 		}
 	},
 	// 根据套餐id获取套餐信息

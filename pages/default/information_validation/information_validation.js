@@ -13,11 +13,19 @@ Page({
 		drivingLicenseFace: {
 			ocrObject: {}
 		}, // 行驶证正面
+		oldDrivingLicenseFace: {
+			ocrObject: {}
+		}, // 行驶证正面 原始数据,用于与新数据比对(秒审)
+		oldDrivingLicenseBack: {
+			ocrObject: {}
+		}, // 行驶证反面 原始数据,用于与新数据比对(秒审)
 		drivingLicenseBack: {
 			ocrObject: {}
 		}, // 行驶证反面
 		carHead45: {}, // 车头照
+		oldCarHead45: {}, // 车头照 原始数据,用于与新数据比对(秒审)
 		personIndex: 0, // 选择框当前选中索引
+		oldPersonIndex: 0, // 选择框当前选中索引 原始数据,用于与新数据比对(秒审)
 		personsArr: [2, 3, 4, 5, 6, 7, 8, 9], // 核载人数选择框
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
@@ -41,16 +49,22 @@ Page({
 		let drivingLicenseBack = wx.getStorageSync('driving_license_back');
 		if (drivingLicenseFace && drivingLicenseBack) {
 			drivingLicenseFace = JSON.parse(drivingLicenseFace);
+			let oldDrivingLicenseFace = JSON.parse(wx.getStorageSync('driving_license_face'));
+			let oldDrivingLicenseBack = JSON.parse(wx.getStorageSync('driving_license_back'));
 			drivingLicenseBack = JSON.parse(drivingLicenseBack);
 			// 车头照
 			let carHead45 = wx.getStorageSync('car_head_45');
+			let oldCarHead45 = JSON.parse(wx.getStorageSync('car_head_45'));
 			if (carHead45) {
 				carHead45 = JSON.parse(carHead45);
 			}
 			this.setData({
 				drivingLicenseFace,
+				oldDrivingLicenseFace,
+				oldDrivingLicenseBack,
 				drivingLicenseBack,
-				carHead45
+				carHead45,
+				oldCarHead45
 			});
 			// 回显人数
 			let personCount = this.data.drivingLicenseBack.ocrObject.personsCapacity;
@@ -59,7 +73,8 @@ Page({
 					personCount = parseInt(personCount);
 					let index = this.data.personsArr.indexOf(personCount);
 					this.setData({
-						personIndex: index !== -1 ? index : 3
+						personIndex: index !== -1 ? index : 3,
+						oldPersonIndex: index !== -1 ? index : 3
 					});
 				} catch (e) {
 				}
@@ -124,17 +139,23 @@ Page({
 							[`drivingLicenseFace.ocrObject.numberPlates`]: res.data.vehicle.vehPlates,
 							[`drivingLicenseBack.ocrObject.numberPlates`]: res.data.vehicle.vehPlates,
 							personIndex: index,
+							oldPersonIndex: index,
 							[`drivingLicenseFace.ocrObject.address`]: res.data.vehicle.ownerAddress,
 							[`drivingLicenseFace.ocrObject.resgisterDate`]: res.data.vehicle.registerDate,
 							[`drivingLicenseFace.fileUrl`]: res.data.vehicle.licenseMainPage,
 							[`drivingLicenseBack.fileUrl`]: res.data.vehicle.licenseVicePage
+						});
+						this.setData({
+							oldDrivingLicenseFace: this.data.drivingLicenseFace,
+							oldDrivingLicenseBack: this.data.drivingLicenseBack
 						});
 						wx.setStorageSync('driving_license_face', JSON.stringify(this.data.drivingLicenseFace));
 						wx.setStorageSync('driving_license_back', JSON.stringify(this.data.drivingLicenseBack));
 					}
 					if (res.data.headstock) {
 						this.setData({
-							carHead45: res.data.headstock
+							carHead45: res.data.headstock,
+							oldCarHead45: res.data.headstock
 						});
 						wx.setStorageSync('car_head_45', JSON.stringify(res.data.headstock));
 					}
@@ -165,17 +186,30 @@ Page({
 		if (!this.data.available || this.data.isRequest) {
 			return;
 		}
+		// 比对车牌颜色和车牌位数是否一致   新老数据做对比,判断是否进行面审
+		// 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
 		let face = this.data.drivingLicenseFace.ocrObject;
-		let back = this.data.drivingLicenseBack.ocrObject;
+		let oldFace = this.data.oldDrivingLicenseFace.ocrObject;
 		let carHead45 = this.data.carHead45;
+		let oldCarHead45 = this.data.oldCarHead45;
+		let back = this.data.drivingLicenseBack.ocrObject;
+		let oldBack = this.data.oldDrivingLicenseBack.ocrObject;
+		let backValue,oldBackValue,faceValue,oldFaceValue,carHead45Value,oldCarHead45Value,haveChange = true;
+		for (let key in back) {backValue += back[key];}
+		for (let key in oldBack) {oldBackValue += oldBack[key];}
+		for (let key in face) {faceValue += face[key];}
+		for (let key in oldFace) {oldFaceValue += oldFace[key];}
+		for (let key in carHead45) {carHead45Value += carHead45[key];}
+		for (let key in oldCarHead45) {oldCarHead45Value += oldCarHead45[key];}
+		if (backValue === oldBackValue && faceValue === oldFaceValue && carHead45Value === oldCarHead45Value) {
+			haveChange = false;
+		}
 		// 比对之前输入车牌和当前行驶证车牌是否一致
 		if (face.numberPlates !== this.data.orderInfo['base'].vehPlates.trim()) {
 			util.showToastNoIcon(`行驶证车牌${face.numberPlates}与下单时车牌${this.data.orderInfo['base'].vehPlates.trim()}不一致，请检查！`);
 			return;
 		}
 		let isOk = true;
-		// 比对车牌颜色和车牌位数是否一致
-		// 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
 		if (face.numberPlates.length === 7) {
 			isOk = this.data.orderInfo['base'].vehColor === 0 || this.data.orderInfo['base'].vehColor === 1;
 		} else {
@@ -201,6 +235,7 @@ Page({
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			vehicleInfo: {
 				carType: 1,
+				haveChange: haveChange, // 行驶证信息OCR结果有无修改过，默认false，修改过传true 【dataType包含6】
 				vehPlates: face.numberPlates,
 				platesColor: this.data.orderInfo['base'].vehColor,
 				owner: face.owner, // 车辆所有者 【dataType包含6】
