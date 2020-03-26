@@ -1,6 +1,6 @@
 {
 	"navigationBarTitleText": "城市服务",
-	"navigationBarBackgroundColor": "#F5F5F5",
+	"navigationBarBackgroundColor": "#F0F0F0",
 	"navigationBarTextStyle": "black",
 	"disableScroll": true,
 	"usingComponents": {

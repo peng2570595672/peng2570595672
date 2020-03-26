@@ -255,6 +255,12 @@
 					"pathName": "pages/default/shot_bank_card/shot_bank_card",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "cities_services/pages/cities_services/cities_services",
+					"pathName": "cities_services/pages/cities_services/cities_services",
+					"scene": null
 				}
 			]
 		}
