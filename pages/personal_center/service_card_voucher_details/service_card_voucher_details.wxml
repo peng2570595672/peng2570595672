@@ -34,13 +34,13 @@
 					</view>
 				</view>
 			</view>
-			<view class="ticket-bottom-item" wx:if="{{details.remark}}">
+			<view class="ticket-bottom-item" wx:if="{{details.ruleDesc}}">
 				<view class="entry instructions {{isShowSwitchElaborate ? 'show-elaborate' : ''}}" catchtap="switchElaborate">
 					<view>使用说明</view>
 					<view><text class="iconfont elaborate"></text></view>
 				</view>
 			</view>
-			<view class="remark" wx:if="{{isShowSwitchElaborate}}">{{details.remark}}</view>
+			<view class="remark" wx:if="{{isShowSwitchElaborate}}">{{details.ruleDesc}}</view>
 		</view>
 		<!--卡券底部结束-->
 	</view>
