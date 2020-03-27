@@ -95,7 +95,7 @@
 	<!--	恢复签约结束-->
 
 <!--	账单开始-->
-	<view class="bill" wx:if="{{orderInfo.selfStatus === 9}}">
+	<view class="bill" wx:if="{{orderInfo.selfStatus === 9 && orderInfo.contractStatus !== 2}}">
 		<view class="processing-title">
 			<view>最近一次账单</view>
 			<view class="iconfont" catchtap="go" data-url="my_order">查看所有账单</view>

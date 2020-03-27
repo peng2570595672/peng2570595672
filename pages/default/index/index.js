@@ -255,7 +255,6 @@ Page({
 								contract_id: res.data.contractId
 							},
 							success () {
-								console.log('/////')
 							},
 							fail (e) {
 								// 未成功跳转到签约小程序
