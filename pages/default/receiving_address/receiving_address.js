@@ -35,6 +35,7 @@ Page({
 		} // 提交数据
 	},
 	onLoad () {
+		app.globalData.signAContract = 3;
 		this.setData({
 			mobilePhoneMode: app.globalData.mobilePhoneMode
 		});

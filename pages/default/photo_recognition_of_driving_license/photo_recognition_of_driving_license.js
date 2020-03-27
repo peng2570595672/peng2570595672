@@ -68,7 +68,6 @@ Page({
 					pic0: carHeadCard.fileUrl
 				});
 			}
-			console.log(drivingLicenseFace.fileUrl)
 			this.setData({
 				pic3: drivingLicenseFace.fileUrl,
 				pic4: drivingLicenseBack.fileUrl,

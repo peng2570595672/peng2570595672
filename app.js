@@ -16,7 +16,7 @@ App({
 		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
 		mobilePhoneSystem: false, // false非ios     true:ios
 		quality: 80,
-		signAContract: 1,// -1能签约
+		signAContract: 3,// -1正常签约  1  解约重签
 		userInfo: {},// 用户信息
 		serverInfoId: '',
 		memberId: '',// 用户id,用于京东客服
@@ -106,6 +106,7 @@ App({
 				}
 			} else if (this.globalData.signAContract === 1) {
 				// 解约状态
+				this.globalData.signAContract = 3;
 				wx.reLaunch({
 					url: '/pages/default/index/index'
 				});
