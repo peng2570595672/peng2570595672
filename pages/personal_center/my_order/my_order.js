@@ -78,7 +78,6 @@ Page({
 		let obuStatusList;
 		// obuStatusList = res.data.filter(item => item.obuStatus === 1); // 正式数据
 		obuStatusList = app.globalData.myEtcList.filter(item => item.etcContractId !== 0); // 测试数据处理
-		console.log(obuStatusList);
 		if (obuStatusList.length > 0) {
 			// 需要过滤未激活的套餐
 			this.setData({
@@ -125,7 +124,6 @@ Page({
 				return item.vehPlates === vehPlates;
 			});
 			channel.push(vehPlatesMsg.obuCardType);
-			console.log(channel)
 		}
 		this.getFailBillMessage(channel,time);
 	},
@@ -172,14 +170,13 @@ Page({
 				this.setData({
 					successBillList: this.data.successBillList
 				});
-				let allMoney=0;
+				let allMoney = 0;
 				this.data.successBillList.map((item) => {
 					allMoney += item.etcMoney;
 				});
 				this.setData({
 					allMoney: allMoney
 				});
-				console.log(allMoney)
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -196,18 +193,10 @@ Page({
 		mta.Event.stat('018',{});
 		util.go(`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
 	},
-	// 去补缴
-	go () {
-		// 统计点击事件
-		mta.Event.stat('019',{});
-		util.go('/pages/personal_center/payment_confirmation/payment_confirmation');
-	},
 	// 下拉选择
 	selectedItem (e) {
-		console.log(e);
 		if (!e.detail.selectedId) {
 			let index = this.data.vehicleList.findIndex((value) => value === e.detail.selectedTitle);
-			console.log(index);
 			if (index === 0) { // 统计点击全部车辆
 				// 统计点击事件
 				mta.Event.stat('017',{});
@@ -215,7 +204,6 @@ Page({
 					chooseVehPlates: '全部车辆'
 				});
 				this.data.vehicleList.map((item) => {
-					console.log(item);
 					if (item !== '全部车辆') {
 						this.getSuccessBill(item,this.data.chooseTime);
 					}
@@ -239,7 +227,6 @@ Page({
 			});
 			if (this.data.chooseVehPlates === '全部车辆') {
 				this.data.vehicleList.map((item) => {
-					console.log(item);
 					if (item !== '全部车辆') {
 						this.getSuccessBill(item,this.data.chooseTime);
 					}

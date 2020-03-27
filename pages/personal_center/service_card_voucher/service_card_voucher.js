@@ -24,7 +24,6 @@ Page({
 		let listHeight = wx.createSelectorQuery();
 		listHeight.select('.list-box').boundingClientRect();
 		listHeight.exec(res => {
-			console.log(res[0].height);
 			this.setData({
 				listHeight: res[0].height
 			});
@@ -34,13 +33,12 @@ Page({
 		});
 	},
 	onPullDownRefresh () {
-		setTimeout(() =>{
+		setTimeout(() => {
 			wx.stopPullDownRefresh();
-		},3000)
+		},3000);
 	},
 	//  tab切换逻辑
 	switchCardVoucherStatus (e) {
-		console.log(e);
 		let that = this;
 		if (this.data.currentTab === e.target.dataset.current) {
 			return false;
@@ -90,8 +88,6 @@ Page({
 	},
 	// 查看详情
 	go (e) {
-		console.log(e);
-		console.log(e.currentTarget.dataset.model);
 		util.go(`/pages/personal_center/service_card_voucher_details/service_card_voucher_details?details=${JSON.stringify(e.currentTarget.dataset.model)}`);
 	},
 	// 照相机扫码识别兑换码
@@ -100,7 +96,6 @@ Page({
 		wx.scanCode({
 			onlyFromCamera: true,
 			success: (res) => {
-				console.log(res);
 				this.setData({
 					exchangeCode: res.result
 				});

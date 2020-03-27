@@ -176,7 +176,7 @@ Page({
 			this.setData({
 				retry: 0,
 				isType: this.data.type,
-				picPath: this.data.type === 3 ? '/pages/default/assets/driving_license_back_border.png' : '/pages/default/assets/car_head_45_border.png',
+				picPath: this.data.type === 3 ? '/pages/default/assets/driving_license_back_border.png' : '/pages/default/assets/car_head_45_border.png'
 			});
 			return;
 		}
@@ -184,7 +184,7 @@ Page({
 		ctx.takePhoto({
 			quality: 'high',
 			success: (res) => {
-				//需要旋转90度   ios手机拍照问题
+				// 需要旋转90度   ios手机拍照问题
 				// wx.getImageInfo({
 				// 	src: res.tempImagePath,
 				// 	success:(res)=>{
@@ -212,21 +212,21 @@ Page({
 	},
 	drawImage (path) {
 		let that = this;
-		setTimeout(()=>{
+		setTimeout(() => {
 			// 将生成的canvas图片，转为真实图片
 			wx.canvasToTempFilePath({
 				x: 0,
 				y: 0,
 				canvasId: 'rotatingCanvas',
-				success(res) {
+				success (res) {
 					console.log(res);
 					let shareImg = res.tempFilePath;
 					that.getPic(shareImg);
 				},
 				fail: function (res) {
 				}
-			})
-		}, 1000)
+			});
+		}, 1000);
 	},
 	// 获取图片进行处理
 	getPic (path) {
@@ -246,7 +246,7 @@ Page({
 		}
 		if (!app.globalData.isHeadImg) {
 			this.setData({
-				title:  '车辆行驶证-副页'
+				title: '车辆行驶证-副页'
 			});
 		}
 		// 判断是否进行识别

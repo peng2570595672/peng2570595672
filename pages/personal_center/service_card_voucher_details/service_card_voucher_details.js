@@ -9,7 +9,7 @@ Page({
 			details: JSON.parse(options.details)
 		});
 		if (this.data.details.couponUseCheckList && this.data.details.couponUseCheckList.length > 0) {
-			this.data.details.couponUseCheckList.map( item => {
+			this.data.details.couponUseCheckList.map(item => {
 				item.startDate = item.startDate.split(' ')[1];
 				item.endDate = item.endDate.split(' ')[1];
 				switch (item.weekDay) {
@@ -43,11 +43,10 @@ Page({
 		let bgHex;
 		if (this.data.details.background.slice(0,1) === '#') {
 			// 后台设置默认背景 为十六进制   非默认为rgba
-			bgHex = this.data.details.background
+			bgHex = this.data.details.background;
 		} else {
 			bgHex = this.colorRGB2Hex(this.data.details.background);
 		}
-		console.log(bgHex);
 		wx.setNavigationBarColor({
 			frontColor: '#000000',
 			backgroundColor: bgHex

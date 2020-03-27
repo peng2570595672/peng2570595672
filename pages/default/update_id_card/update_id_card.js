@@ -19,14 +19,13 @@ Page({
 		available: false, // 按钮是否可点击
 		isRequest: false// 是否请求中
 	},
-	 onLoad (options) {
-		console.log(options);
-		 this.setData({
-			 type: options.type
-		 });
-		 this.getOrderInfo();
-	 },
-	onShow() {
+	onLoad (options) {
+		this.setData({
+			type: options.type
+		});
+		this.getOrderInfo();
+		},
+	onShow () {
 		if (this.data.type !== 'normal_process') {
 			this.getOwnerIdCard();
 		}

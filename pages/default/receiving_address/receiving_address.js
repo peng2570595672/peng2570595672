@@ -217,7 +217,7 @@ Page({
 				formData.detailInfo = res.detailInfo; // 详细地址
 				this.setData({
 					formData,
-					mobilePhoneIsOk:  /^1[0-9]{10}$/.test(res.telNumber.substring(0, 11))
+					mobilePhoneIsOk: /^1[0-9]{10}$/.test(e.detail.value.substring(0, 11))
 				});
 				this.setData({
 					available: this.validateAvailable()
@@ -399,9 +399,9 @@ Page({
 		if (e.detail.value.length === 4 && key === 'verifyCode') {
 			wx.hideKeyboard({
 				complete: res => {
-					console.log('hideKeyboard res', res)
+					console.log('hideKeyboard res', res);
 				}
-			})
+			});
 		}
 	},
 	// 是否接受协议

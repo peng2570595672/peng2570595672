@@ -4,11 +4,11 @@ Page({
 	data: {
 		url: ''
 	},
-	onLoad(options) {
+	onLoad (options) {
 		let url = '';
-		if (options.type === 'violation_enquiry'){
-			url=`https://api.wesure.cn/app/h5-app-wedrive/index.html?checkIllegal=true&wtagid=116.75.3`;
-		}else if (options.type === 'online_customer_service') {
+		if (options.type === 'violation_enquiry') {
+			url = `https://api.wesure.cn/app/h5-app-wedrive/index.html?checkIllegal=true&wtagid=116.75.3`;
+		} else if (options.type === 'online_customer_service') {
 			let businessType = encodeURIComponent('ETC+在线客服');
 			let cars = wx.getStorageSync('cars');
 			let carStr = '';
@@ -32,12 +32,12 @@ Page({
 			url: options.url ? decodeURIComponent(options.url) : encodeURI(url)
 		});
 	},
-	loadHandle() {
+	loadHandle () {
 		wx.setNavigationBarTitle({
 			title: 'ETC+'
 		});
 	},
-	getMessage(e) {
+	getMessage (e) {
 		console.log(e);
 	}
 });

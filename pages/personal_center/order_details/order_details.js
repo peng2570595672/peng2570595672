@@ -74,7 +74,5 @@ Page({
 		}, app.globalData.userInfo.accessToken, () => {
 			util.hideLoading();
 		});
-		// 此页面目前已经弃用
-		// util.go('/pages/personal_center/payment_confirmation/payment_confirmation');
 	}
 });

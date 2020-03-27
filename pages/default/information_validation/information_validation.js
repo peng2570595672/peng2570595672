@@ -122,7 +122,7 @@ Page({
 		util.showLoading();
 		util.getDataFromServer('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
-			dataType:  isCache ? '14' : '1467'
+			dataType: isCache ? '14' : '1467'
 		}, () => {
 		}, (res) => {
 			if (res.code === 0) {
@@ -194,13 +194,19 @@ Page({
 		let oldCarHead45 = this.data.oldCarHead45;
 		let back = this.data.drivingLicenseBack.ocrObject;
 		let oldBack = this.data.oldDrivingLicenseBack.ocrObject;
-		let backValue,oldBackValue,faceValue,oldFaceValue,carHead45Value,oldCarHead45Value,haveChange = true;
-		for (let key in back) {backValue += back[key];}
-		for (let key in oldBack) {oldBackValue += oldBack[key];}
-		for (let key in face) {faceValue += face[key];}
-		for (let key in oldFace) {oldFaceValue += oldFace[key];}
-		for (let key in carHead45) {carHead45Value += carHead45[key];}
-		for (let key in oldCarHead45) {oldCarHead45Value += oldCarHead45[key];}
+		let backValue;
+		let oldBackValue;
+		let faceValue;
+		let oldFaceValue;
+		let carHead45Value;
+		let oldCarHead45Value;
+		let haveChange = true;
+		for (let key in back) { backValue += back[key]; }
+		for (let key in oldBack) { oldBackValue += oldBack[key]; }
+		for (let key in face) { faceValue += face[key]; }
+		for (let key in oldFace) { oldFaceValue += oldFace[key]; }
+		for (let key in carHead45) { carHead45Value += carHead45[key]; }
+		for (let key in oldCarHead45) { oldCarHead45Value += oldCarHead45[key]; }
 		if (backValue === oldBackValue && faceValue === oldFaceValue && carHead45Value === oldCarHead45Value) {
 			haveChange = false;
 		}
@@ -381,14 +387,14 @@ Page({
 		});
 	},
 	// 隐藏弹窗
-	onHandle() {
+	onHandle () {
 		this.setData({
 			isShowTextarea: true
 		});
 		wx.removeStorageSync('information_validation');
 	},
 	// 关闭弹窗  取消办理
-	cancelHandle() {
+	cancelHandle () {
 		this.setData({
 			isShowTextarea: true
 		});

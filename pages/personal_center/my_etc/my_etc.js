@@ -99,7 +99,7 @@ Page({
 		let obj = this.data.carList[parseInt(index)];
 		if (obj.contractStatus === 2) {
 			app.globalData.orderInfo.orderId = obj.id;
-			//恢复签约
+			// 恢复签约
 			this.restoreSign(obj);
 		} else {
 			// 2.0 立即签约

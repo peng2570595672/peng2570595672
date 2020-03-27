@@ -122,7 +122,7 @@ Page({
 				app.globalData.myEtcList = res.data;
 				// 京东客服
 				let vehicleList = [];
-				let orderInfo = undefined;
+				let orderInfo = '';
 				res.data.map((item,index) => {
 					item['selfStatus'] = util.getStatus(item);
 					vehicleList.push(item.vehPlates);
@@ -200,7 +200,7 @@ Page({
 					return;
 				}
 				// 统计点击进入在线客服
-				mta.Event.stat("009",{});
+				mta.Event.stat('009',{});
 			}
 			util.go(`/pages/web/web/web?type=${url}`);
 		} else {
@@ -215,7 +215,7 @@ Page({
 				mta.Event.stat('010',{});
 			} else if (url === 'member_benefits') {
 				// 统计点击进入会员权益事件
-				mta.Event.stat("008",{});
+				mta.Event.stat('008',{});
 			}
 			util.go(`/pages/personal_center/${url}/${url}`);
 		}
@@ -226,7 +226,7 @@ Page({
 		app.globalData.contractStatus = obj.contractStatus;
 		if (obj.contractStatus === 2) {
 			app.globalData.orderInfo.orderId = obj.id;
-			//恢复签约
+			// 恢复签约
 			this.restoreSign(obj);
 		} else {
 			// 2.0 立即签约
@@ -333,11 +333,11 @@ Page({
 			if (this.data.orderInfo.logisticsId === 0) {
 				this.onClickViewProcessingProgressHandle();
 			} else {
-				mta.Event.stat("005",{});
+				mta.Event.stat('005',{});
 				this.confirmReceipt();
 			}
 		} else {
-			mta.Event.stat("005",{});
+			mta.Event.stat('005',{});
 			// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
 			wx.navigateToMiniProgram({
 				appId: 'wxaca5642db7afd470',
@@ -385,7 +385,7 @@ Page({
 	},
 	// 修改资料
 	onClickModifiedData () {
-		mta.Event.stat("004",{});
+		mta.Event.stat('004',{});
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 		app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
 		util.go('/pages/default/information_validation/information_validation');

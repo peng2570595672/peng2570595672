@@ -89,9 +89,9 @@ App({
 	},
 	onShow (res) {
 		console.log(res);
-		if (res.path === 'pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license'
-			|| res.path === 'pages/default/shot_bank_card/shot_bank_card'
-			|| res.path === 'pages/default/information_validation/information_validation'
+		if (res.path === 'pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license' ||
+			res.path === 'pages/default/shot_bank_card/shot_bank_card' ||
+			res.path === 'pages/default/information_validation/information_validation'
 		) {
 			// 解决安卓平台上传行驶证自动返回上一页
 			return;

@@ -54,7 +54,7 @@ Page({
 					idCardFace.fileUrl = temp.idCardPositiveUrl;
 					idCardFace.ocrObject.name = temp.idCardTrueName;
 					idCardFace.ocrObject.address = temp.idCardAddress;
-					idCardFace.ocrObject.sex = temp.idCardSex === 1 ? '男' : '女' ;
+					idCardFace.ocrObject.sex = temp.idCardSex === 1 ? '男' : '女';
 					idCardFace.ocrObject.validDate = temp.idCardValidDate;
 					idCardFace.ocrObject.idNumber = temp.idCardNumber;
 					this.setData({

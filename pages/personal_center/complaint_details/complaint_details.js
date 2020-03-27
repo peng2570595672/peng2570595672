@@ -5,7 +5,7 @@ Page({
 		complaintDetails: '',
 		details: ''
 	},
-	onLoad (options ) {
+	onLoad (options) {
 		this.setData({
 			details: JSON.parse(options.details)
 		});
@@ -30,5 +30,5 @@ Page({
 		}, app.globalData.userInfo.accessToken, () => {
 			util.hideLoading();
 		});
-	},
+	}
 });

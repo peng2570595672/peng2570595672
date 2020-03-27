@@ -5,16 +5,16 @@ Component({
 		wrapper: false
 	},
 	methods: {
-		ok(e) {
+		ok (e) {
 			this.hide(e,true);
 		},
-		show() {
+		show () {
 			this.setData({
 				mask: true,
 				wrapper: true
 			});
 		},
-		hide(e,flag) {
+		hide (e,flag) {
 			this.setData({
 				wrapper: false
 			});

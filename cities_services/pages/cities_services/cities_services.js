@@ -3,10 +3,10 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 
 Page({
-	data:{
-		loginInfo: {},// 登录信息
+	data: {
+		loginInfo: {}// 登录信息
 	},
-	onLoad(){
+	onLoad () {
 		wx.removeStorageSync('information_validation');
 		this.login();
 	},
@@ -48,7 +48,7 @@ Page({
 			}
 		});
 	},
-	go(e) {
+	go (e) {
 		if (!app.globalData.memberId || app.globalData.memberId.length === 0) {
 			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
 			util.go('/pages/login/login/login');
