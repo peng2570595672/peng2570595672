@@ -52,7 +52,7 @@
 	<view class="auto-fill"></view>
 
 	<!--	在线客服开始-->
-	<view class="online-server" catchtap="goOnlineServer">在线客服</view>
+	<view class="bottom"><text catchtap="goHome">返回首页</text>|<text catchtap="goOnlineServer">在线客服</text></view>
 	<!--	在线客服结束-->
 
 </view>

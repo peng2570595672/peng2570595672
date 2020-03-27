@@ -297,6 +297,13 @@
 					"pathName": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/default/processing_progress/processing_progress",
+					"pathName": "pages/default/processing_progress/processing_progress",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

@@ -161,7 +161,7 @@
 .processing_progress .auto-fill {
   flex: 1;
 }
-.processing_progress .online-server {
+.processing_progress .bottom {
   margin: 0 auto;
   margin-top: 16rpx;
   margin-bottom: 40rpx;
@@ -169,5 +169,9 @@
   height: 40rpx;
   align-items: center;
   font-size: 24rpx;
+  color: #e4e4e6;
+}
+.processing_progress .bottom text {
   color: #39a6f8;
+  margin: 0 16rpx;
 }

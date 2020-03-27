@@ -116,6 +116,11 @@ Page({
 			}
 		}, app.globalData.userInfo.accessToken);
 	},
+	goHome () {
+		wx.reLaunch({
+			url: '/pages/default/index/index'
+		});
+	},
 	onUnload () {
 		if (this.data.type === 'main_process') {
 			wx.reLaunch({
