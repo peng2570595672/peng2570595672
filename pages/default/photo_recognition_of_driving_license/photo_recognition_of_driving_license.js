@@ -184,12 +184,49 @@ Page({
 		ctx.takePhoto({
 			quality: 'high',
 			success: (res) => {
+				// wx.getImageInfo({
+				// 	src: res.tempImagePath,
+				// 	success:(res)=>{
+				// 		console.log(res);
+				// 		let canvasContext = wx.createCanvasContext('rotatingCanvas');
+				// 		let width = res.width;
+				// 		let height = res.height;
+				// 		//需要旋转90度   ios手机拍照问题
+				// 		this.setData({
+				// 			imageWidth: width,
+				// 			imageHeight: height,
+				// 		});
+				// 		canvasContext.translate(width / 2, height / 2);
+				// 		canvasContext.rotate(90 * Math.PI / 180);
+				// 		canvasContext.drawImage(res.path, -width / 2, -height / 2, width, height);
+				// 		canvasContext.draw();
+				// 		this.drawImage()
+				// 	}
+				// });
 				this.getPic(res.tempImagePath);
 			},
 			fail: (res) => {
 				util.showToastNoIcon('拍照失败！');
 			}
 		});
+	},
+	drawImage (path) {
+		let that = this;
+		setTimeout(()=>{
+			// 将生成的canvas图片，转为真实图片
+			wx.canvasToTempFilePath({
+				x: 0,
+				y: 0,
+				canvasId: 'rotatingCanvas',
+				success(res) {
+					console.log(res);
+					let shareImg = res.tempFilePath;
+					that.getPic(shareImg);
+				},
+				fail: function (res) {
+				}
+			})
+		}, 1000)
 	},
 	// 获取图片进行处理
 	getPic (path) {
