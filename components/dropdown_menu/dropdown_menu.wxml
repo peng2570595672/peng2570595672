@@ -1,9 +1,9 @@
 <view class="nav {{isOwe ? 'is_owes' : ''}}">
-	<view class="nav-child {{filter_open ? 'active' : ''}}" bindtap="tapFilterNav" hidden='{{dropDownMenuFilterData.length > 0 ? false : true}}' data-nav="0">
+	<view class="nav-child {{filter_open ? 'active' : 'close'}}" bindtap="tapFilterNav" hidden='{{dropDownMenuFilterData.length > 0 ? false : true}}' data-nav="0">
 		<view class="nav-title">{{selected_filter_name.length > 0 ?selected_filter_name : dropDownMenuTitle[0]}}</view>
 		<view class="iconfont icon-sanjiao icon"></view>
 	</view>
-	<view class="nav-child {{district_open? 'active' : ''}}" bindtap="tapDistrictNav" hidden='{{dropDownMenuDistrictData.length > 0 ? false :true}}' data-nav="1">
+	<view class="nav-child {{district_open? 'active' : 'close'}}" bindtap="tapDistrictNav" hidden='{{dropDownMenuDistrictData.length > 0 ? false :true}}' data-nav="1">
 		<view class="nav-title">{{district_right_select_name.length > 0 ?district_right_select_name : dropDownMenuTitle[1]}}</view>
 		<view class="iconfont icon-sanjiao icon"></view>
 	</view>

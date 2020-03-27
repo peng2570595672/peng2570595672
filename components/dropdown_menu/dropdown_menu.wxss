@@ -182,7 +182,10 @@
 	transform: rotateZ(270deg);
 	transition:.4s;
 }
-
+.nav-child.close .icon {
+	transform: rotateZ(90deg);
+	transition:.4s;
+}
 @keyframes slidown {
 	from {
 		transform: translateY(-100%);
