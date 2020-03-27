@@ -125,7 +125,7 @@ App({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
-				this.globalData.signAContract = 1;
+				this.globalData.signAContract = 3;
 				// 签约成功 userState: "NORMAL"
 				if (res.data.contractStatus === 1 && res.data.userState === 'NORMAL') {
 					if (this.globalData.belongToPlatform === this.globalData.platformId) {
