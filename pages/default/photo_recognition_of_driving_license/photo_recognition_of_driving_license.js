@@ -184,7 +184,6 @@ Page({
 		ctx.takePhoto({
 			quality: 'high',
 			success: (res) => {
-				console.log(app.globalData.mobilePhoneSystem)
 				// ios手机拍照问题 ios手机拍照需要处理自己会旋转
 				if (app.globalData.mobilePhoneSystem) {
 					wx.getImageInfo({
