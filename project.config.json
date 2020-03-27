@@ -292,7 +292,7 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 28,
 					"name": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
 					"pathName": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
 					"query": "",

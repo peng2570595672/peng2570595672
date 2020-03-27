@@ -184,26 +184,33 @@ Page({
 		ctx.takePhoto({
 			quality: 'high',
 			success: (res) => {
-				// 需要旋转90度   ios手机拍照问题
-				// wx.getImageInfo({
-				// 	src: res.tempImagePath,
-				// 	success:(res)=>{
-				// 		console.log(res);
-				// 		let canvasContext = wx.createCanvasContext('rotatingCanvas');
-				// 		let width = res.width;
-				// 		let height = res.height;
-				// 		this.setData({
-				// 			imageWidth: width,
-				// 			imageHeight: height,
-				// 		});
-				// 		canvasContext.translate(width / 2, height / 2);
-				// 		canvasContext.rotate(90 * Math.PI / 180);
-				// 		canvasContext.drawImage(res.path, -width / 2, -height / 2, width, height);
-				// 		canvasContext.draw();
-				// 		this.drawImage()
-				// 	}
-				// });
-				this.getPic(res.tempImagePath);
+				console.log(app.globalData.mobilePhoneSystem)
+				// ios手机拍照问题 ios手机拍照需要处理自己会旋转
+				if (app.globalData.mobilePhoneSystem) {
+					wx.getImageInfo({
+						src: res.tempImagePath,
+						success: (res) => {
+							util.showLoading({
+								title: '处理中'
+							});
+							console.log(res);
+							let canvasContext = wx.createCanvasContext('rotatingCanvas');
+							let width = res.width;
+							let height = res.height;
+							this.setData({
+								imageWidth: width,
+								imageHeight: height
+							});
+							canvasContext.translate(width / 2, height / 2);
+							canvasContext.rotate(0 * Math.PI / 180);
+							canvasContext.drawImage(res.path, -width / 2, -height / 2, width, height);
+							canvasContext.draw();
+							this.drawImage();
+						}
+					});
+				} else {
+					this.getPic(res.tempImagePath);
+				}
 			},
 			fail: (res) => {
 				util.showToastNoIcon('拍照失败！');
@@ -220,13 +227,14 @@ Page({
 				canvasId: 'rotatingCanvas',
 				success (res) {
 					console.log(res);
+					util.hideLoading();
 					let shareImg = res.tempFilePath;
 					that.getPic(shareImg);
 				},
 				fail: function (res) {
 				}
 			});
-		}, 1000);
+		}, 400);
 	},
 	// 获取图片进行处理
 	getPic (path) {
