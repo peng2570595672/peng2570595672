@@ -140,7 +140,7 @@ Page({
 					showAddCoupon: false,
 					showSuccessful: true
 				});
-				this.getCardVoucherList();
+				this.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
 			} else {
 				util.showToastNoIcon(res.message);
 			}

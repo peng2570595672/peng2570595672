@@ -184,6 +184,7 @@ Page({
 		ctx.takePhoto({
 			quality: 'high',
 			success: (res) => {
+				//需要旋转90度   ios手机拍照问题
 				// wx.getImageInfo({
 				// 	src: res.tempImagePath,
 				// 	success:(res)=>{
@@ -191,7 +192,6 @@ Page({
 				// 		let canvasContext = wx.createCanvasContext('rotatingCanvas');
 				// 		let width = res.width;
 				// 		let height = res.height;
-				// 		//需要旋转90度   ios手机拍照问题
 				// 		this.setData({
 				// 			imageWidth: width,
 				// 			imageHeight: height,
