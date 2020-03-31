@@ -283,7 +283,7 @@
 	color: #ccc;
 }
 .sortitem.active {
-	text-indent: 18rpx;
+	/*text-indent: 18rpx;*/
 	color: #fff;
 }
 .sortitem text{

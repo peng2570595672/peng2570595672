@@ -10,6 +10,9 @@ Page({
 		showDetailMask: false
 	},
 	onLoad () {
+		this.setData({
+			mobilePhoneMode: app.globalData.mobilePhoneMode
+		});
 		let that = this;
 		wx.getSetting({
 			success (res) {

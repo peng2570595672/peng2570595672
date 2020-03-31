@@ -22,7 +22,6 @@ page .member_benefits .members-top {
   margin: auto;
   background: #33333d;
   border-radius: 16rpx;
-  opacity: 0.77;
 }
 page .member_benefits .members-top .members-top-bg image {
   width: 100%;

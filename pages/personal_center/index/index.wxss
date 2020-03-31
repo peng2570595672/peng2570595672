@@ -74,10 +74,13 @@ page .index .top .vip_equity > view {
 }
 page .index .top .vip_equity > view > text::after {
   font-size: 24rpx;
-  margin-left: 16rpx;
+  margin-left: 14rpx;
   display: inline-block;
   content: '\e60e';
   transform: scaleX(-1);
+}
+page .index .top .iphone {
+  margin-bottom: 38rpx;
 }
 page .index .user_nav {
   display: flex;

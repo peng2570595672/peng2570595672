@@ -85,6 +85,10 @@
 					<view>{{drivingLicenseFace.ocrObject.issueDate}}</view>
 				</picker>
 			</view>
+			<view class="item">
+				<view>发证单位</view>
+				<input type="text" value="{{drivingLicenseFace.ocrObject.issuingUnit}}" data-key="issuingUnit" data-type="3" bindinput="onInputChangedHandle"/>
+			</view>
 		</block>
 	</view>
 	</block>

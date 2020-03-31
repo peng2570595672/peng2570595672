@@ -23,6 +23,7 @@ page {
 }
 .service-card-voucher .swiper-tab .tab-show {
   color: #2fb565;
+  font-weight: 600;
   text-decoration-line: underline;
 }
 .service-card-voucher .list-box {
@@ -120,6 +121,11 @@ page {
   position: static;
 }
 .service-card-voucher .empty {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 40%;
+  margin: -120rpx auto 0;
   text-align: center;
   color: #66666d;
   font-size: 32rpx;
@@ -127,7 +133,7 @@ page {
 .service-card-voucher .empty image {
   width: 192rpx;
   height: 242rpx;
-  margin: 23.5vh 0 9.5vh;
+  margin-bottom: 9.5vh;
 }
 .service-card-voucher .empty view {
   line-height: 44rpx;

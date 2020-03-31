@@ -21,6 +21,7 @@ page
 			color $fontColor3
 		.tab-show
 			color #2FB565
+			font-weight 600
 			text-decoration-line underline
 	//通用券&抵扣券
 	.list-box
@@ -108,13 +109,18 @@ page
 		position static
 	// 没有卡券
 	.empty
+		position fixed
+		left 0
+		right 0
+		top 40%
+		margin -120rpx auto 0
 		text-align center
 		color $fontColor6
 		font-size 32rpx
 		image
 			width 192rpx
 			height 242rpx
-			margin 23.5vh 0 9.5vh
+			margin-bottom 9.5vh
 		view
 			line-height 44rpx
 	// 弹出详情

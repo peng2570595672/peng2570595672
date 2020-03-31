@@ -61,5 +61,5 @@
 		</view>
 	</view>
 	<!--弹出详情结束-->
-	<view class="replace" catchtap="replace" wx:if="{{tabList.length > 5}}">换一批</view>
+	<view class="replace" catchtap="replace" wx:if="{{tabList.length === 5}}">换一批</view>
 </view>

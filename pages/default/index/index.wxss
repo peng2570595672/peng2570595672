@@ -178,6 +178,8 @@
 .index .bill .bill-info > view:first-of-type > view:first-of-type {
   flex: 1;
   font-size: 40rpx;
+  color: #33333d;
+  font-weight: 500;
 }
 .index .bill .bill-info > view:first-of-type > view:last-of-type {
   font-size: 24rpx;
@@ -225,6 +227,7 @@
   flex: 1;
   text-align: right;
   color: #2fb565;
+  font-weight: bold;
   font-size: 48rpx;
 }
 .index .bill .bill-empty {
