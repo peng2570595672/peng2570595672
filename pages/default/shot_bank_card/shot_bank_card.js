@@ -75,12 +75,56 @@ Page({
 		ctx.takePhoto({
 			quality: 'high',
 			success: (res) => {
-				this.getPic(res.tempImagePath);
+				// ios手机拍照问题 ios手机拍照需要处理自己会旋转
+				if (app.globalData.mobilePhoneSystem) {
+					wx.getImageInfo({
+						src: res.tempImagePath,
+						success: (res) => {
+							util.showLoading({
+								title: '处理中'
+							});
+							console.log(res);
+							let canvasContext = wx.createCanvasContext('rotatingCanvas');
+							let width = res.width;
+							let height = res.height;
+							this.setData({
+								imageWidth: width,
+								imageHeight: height
+							});
+							canvasContext.translate(width / 2, height / 2);
+							canvasContext.rotate(0 * Math.PI / 180);
+							canvasContext.drawImage(res.path, -width / 2, -height / 2, width, height);
+							canvasContext.draw();
+							this.drawImage();
+						}
+					});
+				} else {
+					this.getPic(res.tempImagePath);
+				}
 			},
 			fail: (res) => {
 				util.showToastNoIcon('拍照失败！');
 			}
 		});
+	},
+	drawImage (path) {
+		let that = this;
+		setTimeout(() => {
+			// 将生成的canvas图片，转为真实图片
+			wx.canvasToTempFilePath({
+				x: 0,
+				y: 0,
+				canvasId: 'rotatingCanvas',
+				success (res) {
+					console.log(res);
+					util.hideLoading();
+					let shareImg = res.tempFilePath;
+					that.getPic(shareImg);
+				},
+				fail: function (res) {
+				}
+			});
+		}, 400);
 	},
 	// 获取图片进行处理
 	getPic (path) {

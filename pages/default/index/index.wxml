@@ -161,4 +161,9 @@
 		</view>
 	</view>
 	<!--	底部导航结束-->
+	<!--底部加油活动开始-->
+	<view class="oil">
+		<!--<image src="/pages/default/assets/home_oil_bg.png" mode="widthFix"></image>-->
+	</view>
+	<!--底部加油活动结束-->
 </view>

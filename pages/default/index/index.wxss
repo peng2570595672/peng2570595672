@@ -257,7 +257,7 @@
 .index .nav {
   display: flex;
   justify-content: center;
-  padding-top: 50rpx;
+  padding-top: 26rpx;
 }
 .index .nav .item {
   margin-left: 70rpx;
@@ -284,4 +284,10 @@
   font-size: 24rpx;
   line-height: 40rpx;
   color: #66666d;
+}
+.index .oil {
+  margin: 10rpx 40rpx 0;
+}
+.index .oil image {
+  width: 100%;
 }

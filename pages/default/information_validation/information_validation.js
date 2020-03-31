@@ -232,7 +232,7 @@ Page({
 			util.showToastNoIcon('外廓尺寸单位必须为毫米 如：4500*1780*1560mm，请修改！');
 			return;
 		}
-		// 提价哦数据
+		// 提价数据
 		this.setData({
 			isRequest: true,
 			available: false
@@ -295,6 +295,10 @@ Page({
 					util.go('/pages/default/processing_progress/processing_progress?type=main_process');
 				}
 			} else {
+				this.setData({
+					available: true,
+					isRequest: false
+				});
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken, () => {
