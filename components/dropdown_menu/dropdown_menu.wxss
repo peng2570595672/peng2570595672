@@ -109,6 +109,7 @@
 	line-height: 98rpx;
 	font-size: 28rpx;
 	background: #fff;
+	padding-left: 20rpx;
 }
 
 .half-bottom>view {

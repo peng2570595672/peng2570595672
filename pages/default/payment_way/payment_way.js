@@ -50,9 +50,12 @@ Page({
 					// 身份证反面
 					let idCardBack = this.data.idCardBack;
 					idCardBack.fileUrl = temp.idCardNegativeUrl;
+					idCardBack.ocrObject.authority = temp.idCardAuthority;
+					idCardBack.ocrObject.validDate = temp.idCardValidDate;
 					// 身份证正面
 					idCardFace.fileUrl = temp.idCardPositiveUrl;
 					idCardFace.ocrObject.name = temp.idCardTrueName;
+					idCardFace.ocrObject.birth = temp.idCardBirth;
 					idCardFace.ocrObject.address = temp.idCardAddress;
 					idCardFace.ocrObject.sex = temp.idCardSex === 1 ? '男' : '女';
 					idCardFace.ocrObject.validDate = temp.idCardValidDate;
@@ -148,6 +151,14 @@ Page({
 		// 统计点击事件
 		mta.Event.stat('028',{});
 		if (!this.data.available || this.data.isRequest) {
+			return;
+		}
+		if (!this.data.idCardFace.ocrObject.address ||
+			!this.data.idCardBack.ocrObject.validDate ||
+			!this.data.idCardBack.ocrObject.authority ||
+			!this.data.idCardFace.ocrObject.birth ||
+			!this.data.idCardFace.ocrObject.sex) {
+			util.showToastNoIcon('部分信息识别失败,请重新上传身份证照片！');
 			return;
 		}
 		this.setData({

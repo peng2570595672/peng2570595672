@@ -94,6 +94,14 @@ Page({
 			util.showToastNoIcon('请上传车主本人身份证！');
 			return;
 		}
+		if (!this.data.idCardFace.ocrObject.address ||
+			!this.data.idCardBack.ocrObject.validDate ||
+			!this.data.idCardBack.ocrObject.authority ||
+			!this.data.idCardFace.ocrObject.birth ||
+			!this.data.idCardFace.ocrObject.sex) {
+			util.showToastNoIcon('部分信息识别失败,请重新上传身份证照片！');
+			return;
+		}
 		this.setData({
 			isRequest: true,
 			available: false
