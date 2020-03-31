@@ -320,6 +320,11 @@ Page({
 			});
 		});
 	},
+	// 点击轮播图
+	onClickSwiper (e) {
+		let url = e.currentTarget.dataset['url'];
+		util.go(`/pages/web/web/web?type=${url}`);
+	},
 	// 查看办理进度
 	onClickViewProcessingProgressHandle () {
 		// 统计点击事件

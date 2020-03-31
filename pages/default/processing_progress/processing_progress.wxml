@@ -55,4 +55,16 @@
 	<view class="bottom"><text catchtap="goHome">返回首页</text>|<text catchtap="goOnlineServer">在线客服</text></view>
 	<!--	在线客服结束-->
 
+	<!--微保活动弹框-->
+	<view catchtap="hide" class="detail_mask animated {{showDetailWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{showDetailMask}}">
+		<view catchtap="close" class="detail_wrapper animated {{showDetailWrapper ? 'zoomInOther' : 'zoomOutOther'}}">
+			<image mode="widthFix" src="https://file.cyzl.com/g001/M05/3C/E8/oYYBAF6CtdSAHjdCAAFAI-DVHj8960.png"></image>
+			<view class="activity_button">
+				<!--https://file.cyzl.com/g001/M05/3C/E8/oYYBAF6CtdSAHjdCAAFAI-DVHj8960.png-->
+				<button></button>
+				<!--https://file.cyzl.com/g001/M05/3C/E8/oYYBAF6Ctb2AKwkoAABkKcg2fxU648.png-->
+			</view>
+		</view>
+	</view>
+	<!--微保活动结束-->
 </view>

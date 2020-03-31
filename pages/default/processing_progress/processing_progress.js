@@ -8,16 +8,54 @@ Page({
 	data: {
 		dashedHeight: 0,
 		accountVerification: 0, //  0 没有核验id   1：核验成功，2-正在核验
-		info: undefined
+		info: undefined,
+		showDetailWrapper: false,
+		showDetailMask: false
 	},
 	onLoad (options) {
+		let time = new Date().toLocaleDateString();
+		let that = this;
+		that.showDetail();
+		// 首先获取是否执行过
+		wx.getStorage({
+			key: 'today',
+			success: function (res) {
+				// 成功的话 说明之前执行过，再判断时间是否是当天
+				if (res.data && res.data !== time) {
+					that.showDetail();
+				}
+			},
+			fail: function (res) {
+				// 没有执行过的话 先存一下当前的执行时间
+				that.showDetail();
+				wx.setStorageSync('today', new Date().toLocaleDateString());
+			}
+		});
 		if (options.type) {
 			this.setData({
 				type: options.type
 			});
 		}
-		let that = this;
 		this.getProcessingProgress();
+	},
+	// 显示详情
+	showDetail (e) {
+		// this.setData({
+		// 	showDetailWrapper: true,
+		// 	showDetailMask: true
+		// });
+	},
+	// 关闭详情
+	close () {},
+	hide () {
+		this.setData({
+			showDetailWrapper: false
+		});
+		setTimeout(() => {
+			this.setData({
+				showDetailMask: false
+			});
+		}, 400);
 	},
 	// 获取办理进度
 	getProcessingProgress () {

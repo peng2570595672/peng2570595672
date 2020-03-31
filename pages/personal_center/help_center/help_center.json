@@ -1,6 +1,8 @@
 {
 	"navigationBarBackgroundColor": "#18AD69",
 	"backgroundColor": "#FFFFFF",
+	"enablePullDownRefresh": false,
+	"disableScroll": true,
 	"navigationBarTextStyle": "white",
 	"navigationBarTitleText": "帮助中心"
 }

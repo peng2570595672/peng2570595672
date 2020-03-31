@@ -19,16 +19,6 @@ page {
   line-height: 38rpx;
   background: #fff;
 }
-.order_details .deduction-amount .doubt text {
-  position: absolute;
-  top: 5rpx;
-  right: -10rpx;
-  display: inline-block;
-  width: 20rpx;
-  height: 20rpx;
-  background: #f00;
-  border-radius: 50%;
-}
 .order_details .deduction-amount .doubt::before {
   content: '\e650';
   color: #039eeb;

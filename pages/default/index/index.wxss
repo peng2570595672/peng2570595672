@@ -197,14 +197,19 @@
   font-size: 28rpx;
   color: #99999d;
 }
+.index .bill .bill-info > view:last-of-type .up > view,
+.index .bill .bill-info > view:last-of-type .down > view {
+  flex: 8;
+}
 .index .bill .bill-info > view:last-of-type .up > text,
 .index .bill .bill-info > view:last-of-type .down > text {
   margin-right: 10rpx;
-  display: flex;
+  text-align: center;
   align-items: center;
   justify-content: center;
   width: 28rpx;
   height: 28rpx;
+  line-height: 28rpx;
   color: #fff;
   font-size: 20rpx;
   background: #ffaf9a;

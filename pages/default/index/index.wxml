@@ -11,18 +11,15 @@
 		autoplay="{{true}}"
 		interval="{{5000}}"
 		circular="{{true}}">
-		<swiper-item class="my-swiper-item">
-			<image src="https://file.cyzl.com/g001/M05/03/FE/oYYBAF4CzpGAc3TLAADXel0q3iY858.png"/>
-		</swiper-item>
-		<swiper-item class="my-swiper-item">
-			<image src="https://file.cyzl.com/g001/M05/04/00/oYYBAF4CzrCAKK9zAACuVWoDsXo412.png"/>
+		<swiper-item class="my-swiper-item" catchtap="onClickSwiper" data-url="weiBao">
+			<image src="https://file.cyzl.com/g001/M05/3C/E3/oYYBAF6CpzSASDwPAAHzr82iVuo071.png"/>
 		</swiper-item>
 	</swiper>
 	<!--	轮播图结束-->
 
 	<!--	免费办理开始-->
 	<view class="free-processing" wx:if="{{!orderInfo}}">
-		<view wx:if="{{loginInfo.needBindingPhone !== 1}}" class="btn" catchtap="freeProcessing">免费领取</view>
+		<view wx:if="{{loginInfo.needBindingPhone !== 1}}" class="btn" catchtap="freeProcessing">免费办理</view>
 		<button wx:else class="btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">免费办理</button>
 		<view class="tips">免费办理ETC高速通行95折</view>
 	</view>
@@ -109,8 +106,8 @@
 					<view class="failed" wx:else>扣款失败</view>
 				</view>
 				<view>
-					<view class="up"><text>上</text>{{recentlyTheBill.inStationName}}</view>
-					<view class="down"><text>下</text>{{recentlyTheBill.stationName}}</view>
+					<view class="up"><text>上</text><view>{{recentlyTheBill.inStationName}}</view></view>
+					<view class="down"><text>下</text><view>{{recentlyTheBill.stationName}}</view></view>
 					<view class="price">-{{recentlyTheBill.etcMoney/100}}</view>
 				</view>
 			</view>
