@@ -311,22 +311,22 @@ Page({
 		// 统计点击事件
 		mta.Event.stat('029',{});
 		// 加上存储,控制签约后的返回不提示
-		if (wx.getStorageSync('return_to_prompt')) {
-			util.alert({
-				content: '您还未领取免费ETC设备，确认取消吗？',
-				showCancel: true,
-				cancelText: '取消办理',
-				confirmText: '手误了',
-				confirm: () => {
-					util.go('/pages/default/payment_way/payment_way');
-				},
-				cancel: () => {
-					wx.removeStorageSync('return_to_prompt');
-					if (app.globalData.orderInfo.orderId) {
-						this.cancelOrder();
-					}
-				}
-			});
-		}
+		// if (wx.getStorageSync('return_to_prompt')) {
+		// 	util.alert({
+		// 		content: '您还未领取免费ETC设备，确认取消吗？',
+		// 		showCancel: true,
+		// 		cancelText: '取消办理',
+		// 		confirmText: '手误了',
+		// 		confirm: () => {
+		// 			util.go('/pages/default/payment_way/payment_way');
+		// 		},
+		// 		cancel: () => {
+		// 			wx.removeStorageSync('return_to_prompt');
+		// 			if (app.globalData.orderInfo.orderId) {
+		// 				this.cancelOrder();
+		// 			}
+		// 		}
+		// 	});
+		// }
 	}
 });

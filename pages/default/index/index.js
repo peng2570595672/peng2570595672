@@ -154,7 +154,7 @@ Page({
 		}, app.globalData.userInfo.accessToken);
 	},
 	goOrderDetails () {
-		let model = this.data.orderInfo;
+		let model = this.data.recentlyTheBill;
 		util.go(`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
 	},
 	getRecentlyTheBill (item) {
