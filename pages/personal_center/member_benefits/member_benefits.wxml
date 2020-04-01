@@ -14,7 +14,7 @@
 			</view>
 			<view class="user">
 				<view><open-data type="userNickName" lang="zh_CN"></open-data></view>
-				<view><button class="{{isMembers === true ? 'active':''}}">普通用户</button></view>
+				<view><button class="{{isMembers === true ? 'active':''}}">{{isMembers === true ? '黄金会员':'普通用户'}}</button></view>
 			</view>
 			<view class="member iconfont" wx:if="{{!isMembers}}" catchtap="go"><text >成为会员</text></view>
 		</view>
