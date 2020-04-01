@@ -149,9 +149,9 @@ Page({
 				// 签约车主服务 2.0
 				app.globalData.belongToPlatform = this.data.orderInfo.platformId;
 				app.globalData.orderInfo.orderId = this.data.orderInfo.id;
-				app.globalData.contractStatus =  this.data.orderInfo.contractStatus;
-				app.globalData.orderStatus =  this.data.orderInfo.selfStatus;
-				app.globalData.orderInfo.shopProductId =  this.data.orderInfo.shopProductId;
+				app.globalData.contractStatus = this.data.orderInfo.contractStatus;
+				app.globalData.orderStatus = this.data.orderInfo.selfStatus;
+				app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
 				if (result.version === 'v2') {
 					wx.navigateToMiniProgram({
 						appId: 'wxbcad394b3d99dac9',
@@ -260,5 +260,5 @@ Page({
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken);
-	},
+	}
 });

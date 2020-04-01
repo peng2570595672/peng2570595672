@@ -120,9 +120,11 @@ Page({
 			return;
 		}
 		util.showLoading();
+		let exchangeCode = this.data.exchangeCode;
+		exchangeCode = exchangeCode.toUpperCase();
 		let params = {
 			mobilePhone: app.globalData.userInfo.mobilePhone,
-			activateCode: this.data.exchangeCode
+			activateCode: exchangeCode
 		};
 		util.getDataFromServer('consumer/voucher/activate-coupon', params, () => {
 			util.showToastNoIcon('获取兑换码失败！');

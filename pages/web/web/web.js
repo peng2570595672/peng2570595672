@@ -8,6 +8,8 @@ Page({
 		let url = '';
 		if (options.type === 'violation_enquiry') {
 			url = `https://api.wesure.cn/app/h5-app-wedrive/index.html?checkIllegal=true&wtagid=116.75.3`;
+		} else if (options.type === 'banner') {
+			url = decodeURIComponent(options.url);
 		} else if (options.type === 'weiBao') {
 			url = `https://api.wesure.cn/app/carinsure-new/driving/home/index.html?companyId=SJHT&wtagid=104.210.4`;
 		} else if (options.type === 'online_customer_service') {

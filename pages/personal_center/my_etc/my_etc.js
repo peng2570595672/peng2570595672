@@ -39,6 +39,36 @@ Page({
 			util.hideLoading();
 		});
 	},
+	// 去激活
+	onClickCctivate (e) {
+		let index = e.currentTarget.dataset.index;
+		let obj = this.data.carList[parseInt(index)];
+		this.confirmReceipt(obj);
+	},
+	// 确认收货
+	confirmReceipt (obj) {
+		util.showLoading();
+		util.getDataFromServer('consumer/order/affirm-take-obu', {
+			logisticsId: obj.logisticsId
+		}, () => {
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
+				wx.navigateToMiniProgram({
+					appId: 'wxaca5642db7afd470',
+					path: 'pages/online_distribution/online_distribution',
+					envVersion: 'trial', // 目前联调为体验版
+					fail () {
+						util.showToastNoIcon('调起激活小程序失败, 请重试！');
+					}
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken);
+	},
 	//	查看详情
 	onClickGoETCDetailHandle (e) {
 		// 统计点击事件

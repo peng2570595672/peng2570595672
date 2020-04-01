@@ -11,11 +11,14 @@ Page({
 		canIUse: wx.canIUse('button.open-type.getUserInfo'),
 		loginInfo: {},// 登录信息
 		orderInfo: undefined, // 订单信息
+		rotationChartList: [], // 轮播图
 		recentlyTheBill: undefined // 最新账单
 	},
 	onLoad () {
 		wx.removeStorageSync('information_validation');
 		this.login();
+		// 获取轮播图
+		this.getRotationChartList();
 	},
 	onShow () {
 		if (app.globalData.userInfo.accessToken) {
@@ -69,6 +72,26 @@ Page({
 			fail: () => {
 				util.hideLoading();
 				util.showToastNoIcon('登录失败！');
+			}
+		});
+	},
+	// 获取轮播图
+	getRotationChartList () {
+		util.showLoading();
+		util.getDataFromServer('consumer/system/common/get-activity-banner', {
+			platformId: app.globalData.platformId
+		}, () => {
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				if (res.data) {
+					this.setData({
+						rotationChartList: res.data
+					});
+				}
+			} else {
+				util.showToastNoIcon(res.message);
 			}
 		});
 	},
@@ -322,8 +345,13 @@ Page({
 	},
 	// 点击轮播图
 	onClickSwiper (e) {
-		let url = e.currentTarget.dataset['url'];
-		util.go(`/pages/web/web/web?type=${url}`);
+		let item = e.currentTarget.dataset['item'];
+		if (item.pageType === 1) {
+			// 页面类型：1-H5，2-小程序
+			util.go(`/pages/web/web/web?url=${encodeURIComponent(item.pageUrl)}&type=banner`);
+		} else {
+			util.go(item.pageUrl);
+		}
 	},
 	// 查看办理进度
 	onClickViewProcessingProgressHandle () {

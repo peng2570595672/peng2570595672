@@ -11,8 +11,8 @@
 		autoplay="{{true}}"
 		interval="{{5000}}"
 		circular="{{true}}">
-		<swiper-item class="my-swiper-item" catchtap="onClickSwiper" data-url="weiBao">
-			<image src="https://file.cyzl.com/g001/M05/3C/E3/oYYBAF6CpzSASDwPAAHzr82iVuo071.png"/>
+		<swiper-item class="my-swiper-item" wx:for="{{rotationChartList}}" wx:key="index" catchtap="onClickSwiper" data-item="{{item}}">
+			<image src="{{item.imgUrl}}"/>
 		</swiper-item>
 	</swiper>
 	<!--	轮播图结束-->

@@ -255,6 +255,11 @@ page {
   opacity: 0.18;
   border-radius: 50%;
 }
+.service-card-voucher .mask .successful .list-item .list-item-left>view image {
+  width: 58rpx;
+  height: 58rpx;
+  border-radius: 50%;
+}
 .service-card-voucher .mask .successful .list-item .list-item-right {
   flex: 8;
   font-size: 16.8rpx;

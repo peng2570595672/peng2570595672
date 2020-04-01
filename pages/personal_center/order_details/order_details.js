@@ -26,6 +26,7 @@ Page({
 		util.getDataFromServer('consumer/etc/get-bill-by-id', params, () => {
 			util.showToastNoIcon('获取账单详情失败！');
 		}, (res) => {
+			util.hideLoading();
 			if (res.code === 0) {
 				this.setData({details: res.data});
 			} else {

@@ -4,7 +4,7 @@
 		<view class="doubt iconfont" catchtap="goOrderInstructions"><text></text></view>
 		<view class="deduction-amount-box">
 			<view class="deduction-amount-title">扣费金额</view>
-			<view>-{{details.etcMoney/100}}</view>
+			<view>-{{details.etcMoney ? details.etcMoney/100 : 0}}</view>
 			<view class="failure-prompted" wx:if="{{details.etcMoney > 0}}">{{details.errCodeDes}}</view>
 		</view>
 	</view>
@@ -13,7 +13,7 @@
 	<view class="deduction-details">
 		<view>
 			<view>应付金额</view>
-			<view>-¥{{details.totalMmout/100}}</view>
+			<view>-¥{{details.totalMmout ? details.totalMmout/100 : 0}}</view>
 		</view>
 		<view>
 			<view>通行折扣券减免</view>
