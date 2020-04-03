@@ -26,7 +26,11 @@ Page({
 				let vehicleList = [];
 				res.data.map((item) => {
 					vehicleList.push(item.vehPlates);
-					item['selfStatus'] = util.getStatus(item);
+					if (item.remark && item.remark.indexOf('迁移订单数据') !== -1) {
+						item['selfStatus'] = util.getStatusFirstVersion(item);
+					} else {
+						item['selfStatus'] = util.getStatus(item);
+					}
 					wx.setStorageSync('cars', vehicleList.join('、'));
 				});
 				this.setData({
@@ -88,32 +92,38 @@ Page({
 	onClickContinueHandle (e) {
 		let index = e.currentTarget.dataset.index;
 		let obj = this.data.carList[parseInt(index)];
-		// 服务商套餐id，0表示还未选择套餐，其他表示已经选择套餐
-		// 只提交了车牌 车牌颜色 收货地址 或者未签约 前往套餐选择
-		// "etcContractId": "", //签约id，0表示未签约，其他表示已签约
-		if (obj.shopProductId === 0 || obj.etcContractId === 0) {
-			app.globalData.orderInfo.orderId = obj.id;
+		app.globalData.orderInfo.orderId = obj.id;
+		app.globalData.isModifiedData = false; // 非修改资料
+		if (obj.remark && obj.remark.indexOf('迁移订单数据') !== -1) {
+			// 1.0数据
+			app.globalData.firstVersionData = true;
 			util.go('/pages/default/payment_way/payment_way');
-		} else if (obj.isVehicle === 0) {
-			// 是否上传行驶证， 0未上传，1已上传
-			app.globalData.orderInfo.orderId = obj.id;
-			app.globalData.orderInfo.shopProductId = obj.shopProductId;
-			if (wx.getStorageSync('corresponding_package_id') !== app.globalData.orderInfo.orderId) {
-				// 行驶证缓存关联订单
-				wx.setStorageSync('corresponding_package_id', app.globalData.orderInfo.orderId);
-				wx.removeStorageSync('driving_license_face');
-				wx.removeStorageSync('driving_license_back');
-				wx.removeStorageSync('car_head_45');
+		} else {
+			app.globalData.firstVersionData = false;
+			// 服务商套餐id，0表示还未选择套餐，其他表示已经选择套餐
+			// 只提交了车牌 车牌颜色 收货地址 或者未签约 前往套餐选择
+			// "etcContractId": "", //签约id，0表示未签约，其他表示已签约
+			if (obj.shopProductId === 0 || obj.etcContractId === 0) {
+				util.go('/pages/default/payment_way/payment_way');
+			} else if (obj.isVehicle === 0) {
+				// 是否上传行驶证， 0未上传，1已上传
+				app.globalData.orderInfo.shopProductId = obj.shopProductId;
+				if (wx.getStorageSync('corresponding_package_id') !== app.globalData.orderInfo.orderId) {
+					// 行驶证缓存关联订单
+					wx.setStorageSync('corresponding_package_id', app.globalData.orderInfo.orderId);
+					wx.removeStorageSync('driving_license_face');
+					wx.removeStorageSync('driving_license_back');
+					wx.removeStorageSync('car_head_45');
+				}
+				if (wx.getStorageSync('driving_license_face')) {
+					util.go('/pages/default/information_validation/information_validation');
+				} else {
+					util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
+				}
+			} else if (obj.isVehicle === 1 && obj.isOwner === 1) {
+				// 已上传行驶证， 未上传车主身份证
+				util.go('/pages/default/update_id_card/update_id_card?type=normal_process');
 			}
-			if (wx.getStorageSync('driving_license_face')) {
-				util.go('/pages/default/information_validation/information_validation');
-			} else {
-				util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
-			}
-		} else if (obj.isVehicle === 1 && obj.isOwner === 1) {
-			// 已上传行驶证， 未上传车主身份证
-			app.globalData.orderInfo.orderId = obj.id;
-			util.go('/pages/default/update_id_card/update_id_card?type=normal_process');
 		}
 	},
 	// 新增
@@ -180,6 +190,11 @@ Page({
 			orderId: obj.id,// 订单id
 			needSignContract: true // 是否需要签约 true-是，false-否
 		};
+		if (obj.remark && obj.remark.indexOf('迁移订单数据') !== -1) {
+			// 1.0数据 立即签约 需标记资料已完善
+			params['upgradeToTwo'] = true; // 1.0数据转2.0
+			params['dataComplete'] = 1; // 资料已完善
+		}
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');
 			util.hideLoading();
@@ -230,6 +245,13 @@ Page({
 		let obj = this.data.carList[parseInt(index)];
 		app.globalData.orderInfo.orderId = obj.id;
 		app.globalData.orderInfo.shopProductId = obj.shopProductId;
+		app.globalData.isModifiedData = true; // 修改资料
+		if (obj.remark && obj.remark.indexOf('迁移订单数据') !== -1) {
+			// 1.0数据
+			app.globalData.firstVersionData = true;
+		} else {
+			app.globalData.firstVersionData = false;
+		}
 		util.go('/pages/default/information_validation/information_validation');
 	}
 });

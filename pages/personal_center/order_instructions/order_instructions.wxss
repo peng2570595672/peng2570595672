@@ -14,6 +14,9 @@ page {
   line-height: 48rpx;
   margin-bottom: 20rpx;
 }
+.order_instructions .payment-of-success {
+  color: #99999d;
+}
 .order_instructions .arrears_amount {
   background: #fff;
   padding: 30rpx 0rpx;

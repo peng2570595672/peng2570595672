@@ -1,8 +1,8 @@
 <view class="order_instructions">
 	<!--	欠费信息开始-->
-	<view class="arrears_information">
+	<view class="arrears_information {{details.deductStatus === 11 || details.deductStatus === 12 ? 'payment-of-success' : ''}}" wx:if="{{details.deductStatus !== 1}}">
 		<view>应缴费日期：{{details.payTime}}</view>
-		<view>欠费时长：{{details.dateSpan}}</view>
+		<view>欠费时长：{{details.dateSpan}}{{details.deductStatus === 11 ? '(已补缴)' : details.deductStatus === 12 ? '(已补扣)' : ''}}</view>
 	</view>
 	<!--欠费信息结束-->
 	<!--欠费金额开始-->

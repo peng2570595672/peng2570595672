@@ -11,6 +11,8 @@ Page({
 		showChoiceBank: true, // 选择套餐
 		choiceSetMeal: undefined, // 选择支付方式逐渐
 		choiceObj: undefined, // 选择的套餐
+		firstVersionPic2: '', // 1.0身份证反面
+		isFirstVersionPic2: false,// 1.0身份证反面 控制是否OCR
 		bankCardIdentifyResult: {
 			ocrObject: {}
 		},// 银行卡识别结果
@@ -27,16 +29,84 @@ Page({
 		orderInfo: undefined // 订单信息
 	},
 	onLoad () {
+		app.globalData.isModifiedData = false; // 非修改资料
+		if (app.globalData.firstVersionData) {
+			this.getProductOrderInfo();
+		}
+		this.getOrderInfo();
 		// app.globalData.orderInfo.orderId = '658608879176781824';
 		// app.globalData.userInfo.accessToken = 'NjU3NjE0MDE0NjQ1MjcyNTc2OjEyMzQ1Njc4OTAxMjM0NTY3ODo1N2MzNDExYzFiZDY0NzMzYTNlNzMzNWI0YjE4MDg2OQ==';
-		this.getOrderInfo();
+	},
+	// 根据订单id获取套餐信息 1.0
+	getProductOrderInfo () {
+		util.showLoading();
+		util.getDataFromServer('consumer/order/get-product-by-order-id', {
+			orderId: app.globalData.orderInfo.orderId
+		}, () => {
+		}, (res) => {
+			if (res.code === 0) {
+				this.setData({
+					choiceObj: res.data
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
+	// 1.0身份证OCR识别
+	getOCRIdCard (path,type) {
+		// 上传并识别图片
+		util.uploadOcrFile(path, type, () => {
+		}, (res) => {
+			if (res) {
+				res = JSON.parse(res);
+				if (res.code === 0) { // 识别成功
+					if (type === 1) {
+						this.setData({
+							idCardFace: res.data[0]
+						});
+					} else {
+						this.setData({
+							idCardBack: res.data[0]
+						});
+					}
+				} else { // 识别失败
+					util.showToastNoIcon(res.message);
+				}
+			} else { // 识别失败
+				let obj = {};
+				this.setData(obj);
+				util.showToastNoIcon('身份证识别失败！');
+			}
+		}, () => {
+			let that = this;
+			if (this.data.firstVersionPic2 && this.data.isFirstVersionPic2) {
+				this.setData({
+					isFirstVersionPic2: false
+				});
+				wx.getImageInfo({
+					src: this.data.firstVersionPic2,
+					success: function (ret) {
+						console.log(ret);
+						that.getOCRIdCard(ret.path, 2);
+					}
+				});
+			} else {
+				util.hideLoading();
+				this.setData({
+					available: this.validateAvailable()
+				});
+			}
+		});
 	},
 	// 获取订单信息
 	getOrderInfo () {
 		util.showLoading();
 		util.getDataFromServer('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
-			dataType: '45'
+			dataType: '345'
 		}, () => {
 		}, (res) => {
 			if (res.code === 0) {
@@ -45,7 +115,7 @@ Page({
 				});
 				// 获取实名信息
 				let temp = this.data.orderInfo['idCard'];
-				if (temp.idCardStatus === 1) {
+				if (temp.idCardNegativeUrl) {
 					let idCardFace = this.data.idCardFace;
 					// 身份证反面
 					let idCardBack = this.data.idCardBack;
@@ -65,6 +135,37 @@ Page({
 						idCardBack,
 						userName: temp.idCardTrueName,
 						idNumber: temp.idCardNumber
+					});
+				}
+				// 获取银行卡信息
+				let bank = this.data.orderInfo['bankAccount'];
+				if (bank && bank.bankAccountNo) {
+					let bankCardIdentifyResult = this.data.bankCardIdentifyResult;
+					bankCardIdentifyResult.ocrObject.cardNo = bank.bankAccountNo;
+					bankCardIdentifyResult.ocrObject.cardName = bank.bankName;
+					bankCardIdentifyResult.ocrObject.bankCardType = bank.cardType === 1 ? '借记卡' : '贷记卡';
+					bankCardIdentifyResult.fileUrl = bank.bankCardUrl;
+					this.setData({
+						bankCardIdentifyResult
+					});
+				}
+				let that = this;
+				if (app.globalData.firstVersionData) {
+					that.setData({
+						[`choiceObj.areaCode`]: res.data.product.areaCode
+					});
+				}
+				if (app.globalData.firstVersionData && temp.idCardPositiveUrl) {
+					wx.getImageInfo({
+						src: temp.idCardPositiveUrl,
+						success: function (ret) {
+							that.setData({
+								firstVersionPic2: temp.idCardNegativeUrl,
+								isFirstVersionPic2: true
+							});
+							util.showLoading('身份证识别中');
+							that.getOCRIdCard(ret.path, 1);
+						}
 					});
 				}
 			} else {
@@ -198,9 +299,12 @@ Page({
 			ownerIdCardHaveChange: IdCardHaveChange, // 车主身份证OCR结果是否被修改过，默认false，修改过传true 【dataType包含8】
 			needSignContract: true // 是否需要签约 true-是，false-否 允许值: true, false
 		};
+		if (app.globalData.firstVersionData) {
+			params['upgradeToTwo'] = true; // 1.0数据转2.0
+		}
 		// 银行卡 3.0
 		if (this.data.choiceObj.productProcess === 3) {
-			params.dataType = '345';
+			params.dataType = '3458';
 			params['bankAccountNo'] = this.data.bankCardIdentifyResult.ocrObject.cardNo; // 银行卡号 【dataType包含5】
 			params['bankCardUrl'] = this.data.bankCardIdentifyResult.fileUrl; // 银行卡图片地址 【dataType包含5】
 			params['bankName'] = this.data.bankCardIdentifyResult.ocrObject.cardName; // 银行名称 【dataType包含5】

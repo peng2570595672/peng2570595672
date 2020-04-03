@@ -46,8 +46,8 @@
 	</view>
 	<!--	进度结束-->
 	<!--	按钮开始-->
-	<button class="btn" wx:if="{{info.logisticsId !== 0 && userInfo}}" catchtap="onClickCctivate">确认收货并激活</button>
-	<button class="btn" wx:if="{{info.logisticsId !== 0 && !userInfo}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">确认收货并激活</button>
+	<button class="btn" wx:if="{{info.logisticsId !== 0}}" catchtap="onClickCctivate">确认收货并激活</button>
+	<button class="btn" wx:if="{{info.logisticsId !== 0}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">确认收货并激活</button>
 <!--	按钮结束-->
 	<view class="auto-fill"></view>
 
@@ -60,9 +60,7 @@
 		<view catchtap="close" class="detail_wrapper animated {{showDetailWrapper ? 'zoomInOther' : 'zoomOutOther'}}">
 			<image mode="widthFix" src="https://file.cyzl.com/g001/M05/3C/E8/oYYBAF6CtdSAHjdCAAFAI-DVHj8960.png"></image>
 			<view class="activity_button">
-				<!--https://file.cyzl.com/g001/M05/3C/E8/oYYBAF6CtdSAHjdCAAFAI-DVHj8960.png-->
-				<button></button>
-				<!--https://file.cyzl.com/g001/M05/3C/E8/oYYBAF6Ctb2AKwkoAABkKcg2fxU648.png-->
+				<image mode="widthFix" src="https://file.cyzl.com/g001/M05/3C/E8/oYYBAF6Ctb2AKwkoAABkKcg2fxU648.png" catchtap="goMicroInsurance"></image>
 			</view>
 		</view>
 	</view>

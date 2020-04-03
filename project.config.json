@@ -41,7 +41,7 @@
 		]
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"enhance": true,
 		"postcss": true,
@@ -50,6 +50,7 @@
 		"coverView": true,
 		"autoAudits": false,
 		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
 		"uglifyFileName": false,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
@@ -303,6 +304,12 @@
 					"name": "pages/default/processing_progress/processing_progress",
 					"pathName": "pages/default/processing_progress/processing_progress",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/personal_center/order_instructions/order_instructions",
+					"pathName": "pages/personal_center/order_instructions/order_instructions",
 					"scene": null
 				}
 			]

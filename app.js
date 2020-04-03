@@ -15,6 +15,8 @@ App({
 		SDKVersion: '',// 小程序基础库版本
 		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
 		mobilePhoneSystem: false, // false非ios     true:ios
+		firstVersionData: false, // 是否是1.0数据
+		isModifiedData: false, // 是否是修改资料 是则需要上传车主身份证
 		quality: 80,
 		signAContract: 3,// -1正常签约  1  解约重签
 		userInfo: {},// 用户信息

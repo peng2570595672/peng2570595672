@@ -6,7 +6,7 @@ page {
 }
 page .index .top {
   width: 100%;
-  height: 592rpx;
+  height: 45vh;
   background: linear-gradient(156deg, #17ad69 0%, #7fd058 100%);
 }
 page .index .top .back {
@@ -48,6 +48,7 @@ page .index .top .head_portrait .uesr_head {
 page .index .top .landing_status {
   display: flex;
   justify-content: center;
+  padding-top: 10rpx;
 }
 page .index .top .landing_status > view {
   font-size: 36rpx;
@@ -79,8 +80,11 @@ page .index .top .vip_equity > view > text::after {
   content: '\e60e';
   transform: scaleX(-1);
 }
-page .index .top .iphone {
-  margin-bottom: 38rpx;
+page .index .iphone {
+  height: 46vh;
+}
+page .index .small-screen {
+  height: 47vh;
 }
 page .index .user_nav {
   display: flex;
@@ -225,14 +229,16 @@ page .detail_mask .activity_button > button {
   margin: 0;
 }
 page .detail_mask .close_button {
-  position: absolute;
-  left: 615rpx;
-  right: 0;
-  margin-top: -905rpx;
-  z-index: 2;
+  width: 60rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin: 20rpx auto;
+  text-align: center;
+  border-radius: 50%;
+  border: 4rpx solid #91a29a;
 }
 page .detail_mask .close_button::before {
   content: '\e63d';
-  color: #fff;
-  font-size: 18rpx;
+  color: #91a29a;
+  font-size: 40rpx;
 }

@@ -10,6 +10,8 @@ Page({
 	data: {
 		opened: false, // 是否展开更多信息
 		current: 0, // 当前轮播图索引
+		firstVersionPic4: '',
+		isFirstVersionPic4: false,
 		drivingLicenseFace: {
 			ocrObject: {}
 		}, // 行驶证正面
@@ -131,6 +133,7 @@ Page({
 					available: true // 下一步按钮可用
 				});
 				if (!isCache) {
+					let that = this;
 					if (res.data.vehicle) { // 是否有行驶证
 						let index = this.data.personsArr.findIndex((value) => value === parseInt(res.data.vehicle.personsCapacity));
 						this.setData({
@@ -149,15 +152,30 @@ Page({
 							oldDrivingLicenseFace: this.data.drivingLicenseFace,
 							oldDrivingLicenseBack: this.data.drivingLicenseBack
 						});
+						if (res.data.headstock) {
+							this.setData({
+								carHead45: res.data.headstock,
+								oldCarHead45: res.data.headstock
+							});
+							if (app.globalData.firstVersionData) {
+								this.uploadCarHeadPic(res.data.headstock.fileUrl);
+							}
+							wx.setStorageSync('car_head_45', JSON.stringify(res.data.headstock));
+						}
 						wx.setStorageSync('driving_license_face', JSON.stringify(this.data.drivingLicenseFace));
 						wx.setStorageSync('driving_license_back', JSON.stringify(this.data.drivingLicenseBack));
-					}
-					if (res.data.headstock) {
-						this.setData({
-							carHead45: res.data.headstock,
-							oldCarHead45: res.data.headstock
-						});
-						wx.setStorageSync('car_head_45', JSON.stringify(res.data.headstock));
+						if (app.globalData.firstVersionData) {
+							wx.getImageInfo({
+								src: res.data.vehicle.licenseMainPage,
+								success: function (ret) {
+									that.setData({
+										firstVersionPic4: res.data.vehicle.licenseVicePage,
+										isFirstVersionPic4: true
+									});
+									that.getOCRVehicleLicense(ret.path, 3);
+								}
+							});
+						}
 					}
 				}
 			} else {
@@ -272,6 +290,10 @@ Page({
 		} else {
 			params['dataComplete'] = 1;
 		}
+		if (app.globalData.firstVersionData && !app.globalData.isModifiedData) {
+			// 1.0数据且不是修改资料
+			params['upgradeToTwo'] = true; // 1.0数据转2.0
+		}
 		// 是否需要上传车头照
 		if (this.data.productInfo.isHeadImg === 1) {
 			params['headstockInfo'] = {
@@ -289,10 +311,15 @@ Page({
 		}, (res) => {
 			if (res.code === 0) {
 				wx.removeStorageSync('information_validation');
-				if (this.data.productInfo.isOwner === 1 && this.data.orderInfo.idCard.idCardTrueName !== face.owner) {
+				if (app.globalData.isModifiedData) {
+					// 修改资料
 					util.go(`/pages/default/update_id_card/update_id_card?type=normal_process`);
 				} else {
-					util.go('/pages/default/processing_progress/processing_progress?type=main_process');
+					if (this.data.productInfo.isOwner === 1 && this.data.orderInfo.idCard.idCardTrueName !== face.owner) {
+						util.go(`/pages/default/update_id_card/update_id_card?type=normal_process`);
+					} else {
+						util.go('/pages/default/processing_progress/processing_progress?type=main_process');
+					}
 				}
 			} else {
 				this.setData({
@@ -404,6 +431,89 @@ Page({
 		});
 		wx.removeStorageSync('information_validation');
 		this.cancelOrder();
+	},
+	// 1.0行驶证OCR识别
+	getOCRVehicleLicense (path,type) {
+		// 上传并识别图片
+		util.uploadOcrFile(path, type, () => {
+		}, (res) => {
+			if (res) {
+				res = JSON.parse(res);
+				if (res.code === 0) { // 识别成功
+					if (type === 3) {
+						this.setData({
+							drivingLicenseFace: res.data[0]
+						});
+					} else {
+						this.setData({
+							drivingLicenseBack: res.data[0]
+						});
+						// 回显人数
+						let personCount = this.data.drivingLicenseBack.ocrObject.personsCapacity;
+						if (personCount) {
+							try {
+								personCount = parseInt(personCount);
+								let index = this.data.personsArr.indexOf(personCount);
+								this.setData({
+									personIndex: index !== -1 ? index : 3
+								});
+							} catch (e) {
+							}
+						}
+					}
+				} else { // 识别失败
+					util.showToastNoIcon(res.message);
+				}
+			} else { // 识别失败
+				let obj = {};
+				this.setData(obj);
+				util.showToastNoIcon('行驶证识别失败！');
+			}
+		}, () => {
+			let that = this;
+			if (this.data.firstVersionPic4 && this.data.isFirstVersionPic4) {
+				this.setData({
+					isFirstVersionPic4: false
+				});
+				wx.getImageInfo({
+					src: this.data.firstVersionPic4,
+					success: function (ret) {
+						console.log(ret);
+						that.getOCRVehicleLicense(ret.path, 4);
+					}
+				});
+			} else {
+				util.hideLoading();
+				this.setData({
+					available: this.validateAvailable()
+				});
+			}
+		});
+	},
+	// 1.0车头照识别
+	uploadCarHeadPic (path) {
+		// 上传文件
+		util.uploadFile(path, () => {
+			util.showToastNoIcon('车头照识别失败！');
+		}, (res) => {
+			if (res) {
+				res = JSON.parse(res);
+				if (res.code === 0) { // 文件上传成功
+					this.setData({
+						carHead45: res.data[0]
+					});
+				} else { // 文件上传失败
+					util.showToastNoIcon(res.message);
+				}
+			} else { // 文件上传失败
+				util.showToastNoIcon('车头照识别失败!');
+			}
+		}, () => {
+			this.setData({
+				available: this.validateAvailable()
+			});
+			util.hideLoading();
+		});
 	},
 	onUnload () {
 		wx.setStorageSync('return_photo_recognition_of_driving_license', true);

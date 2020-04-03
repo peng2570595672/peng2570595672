@@ -134,6 +134,7 @@ page {
   width: 192rpx;
   height: 242rpx;
   margin-bottom: 9.5vh;
+  margin-left: -20rpx;
 }
 .service-card-voucher .empty view {
   line-height: 44rpx;

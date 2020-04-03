@@ -174,6 +174,7 @@ Page({
 	},
 	// 在线客服
 	goOnlineServer () {
+		mta.Event.stat('021',{});
 		util.go(`/pages/web/web/web?type=online_customer_service`);
 	}
 });

@@ -23,6 +23,8 @@
 }
 page {
   background: #f7f7f7;
+  height: 100vh;
+  overflow: hidden;
 }
 page .help-center .help-list .help-search {
   background: #fff;
@@ -63,6 +65,20 @@ page .help-center .help-list .list .list-content {
 }
 page .help-center .help-list .list>view:last-child {
   border-bottom: 0;
+}
+page .help-center .help-list .list .no-search {
+  text-align: center;
+  height: 100vh;
+}
+page .help-center .help-list .list .no-search image {
+  width: 320rpx;
+  margin: 192rpx 0 58rpx;
+}
+page .help-center .help-list .list .no-search view {
+  color: #66666d;
+  line-height: 44rpx;
+  font-size: 32rpx;
+  font-weight: 500;
 }
 page .mask {
   position: fixed;

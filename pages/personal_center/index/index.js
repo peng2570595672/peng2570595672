@@ -5,13 +5,17 @@ const app = getApp();
 Page({
 	data: {
 		isAttention: 0, // 关注状态 1-已关注，0-未关注
+		height: undefined, // 屏幕高度
 		userInfo: undefined, // 用户信息
 		showDetailWrapper: false,
+		mobilePhoneSystem: false,
 		showDetailMask: false
 	},
 	onLoad () {
 		this.setData({
-			mobilePhoneMode: app.globalData.mobilePhoneMode
+			mobilePhoneMode: app.globalData.mobilePhoneMode,
+			mobilePhoneSystem: app.globalData.mobilePhoneSystem,
+			screenHeight: wx.getSystemInfoSync().windowHeight
 		});
 		let that = this;
 		wx.getSetting({
@@ -128,6 +132,10 @@ Page({
 		wx.navigateBack({
 			delta: 1
 		});
+	},
+	// 统计点击去关注公众号按钮
+	goPublicAccount () {
+		mta.Event.stat('037',{});
 	},
 	// 关闭详情
 	close () {},

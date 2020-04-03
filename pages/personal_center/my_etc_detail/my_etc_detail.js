@@ -6,7 +6,8 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
-		orderInfo: undefined // 订单详情
+		orderInfo: undefined, // 订单详情
+		orderId: undefined
 	},
 	onLoad (options) {
 		if (options.orderId) {
@@ -32,7 +33,11 @@ Page({
 		}, (res) => {
 			if (res.code === 0) {
 				let orderInfo = res.data;
-				orderInfo['selfStatus'] = util.getStatus(orderInfo);
+				if (orderInfo.remark && orderInfo.remark.indexOf('迁移订单数据') !== -1) {
+					orderInfo['selfStatus'] = util.getStatusFirstVersion(orderInfo);
+				} else {
+					orderInfo['selfStatus'] = util.getStatus(orderInfo);
+				}
 				this.setData({
 					orderInfo
 				});
@@ -59,6 +64,13 @@ Page({
 	onClickModifiedData () {
 		app.globalData.orderInfo.orderId = this.data.orderId;
 		app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
+		app.globalData.isModifiedData = true; // 修改资料
+		if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {
+			// 1.0数据
+			app.globalData.firstVersionData = true;
+		} else {
+			app.globalData.firstVersionData = false;
+		}
 		util.go('/pages/default/information_validation/information_validation');
 	},
 	// 取消订单
@@ -128,17 +140,26 @@ Page({
 			}, app.globalData.userInfo.accessToken);
 		} else {
 			// 立即签约
+			let isFirstVersion = false;
+			if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {
+				// 1.0数据 立即签约 需标记资料已完善
+				isFirstVersion = true;
+			}
 			app.globalData.signAContract = -1;
-			this.weChatSign();
+			this.weChatSign(isFirstVersion);
 		}
 	},
 	// 微信签约
-	weChatSign () {
+	weChatSign (isFirstVersion) {
 		util.showLoading('加载中');
 		let params = {
 			orderId: this.data.orderId,// 订单id
 			needSignContract: true // 是否需要签约 true-是，false-否
 		};
+		if (isFirstVersion) {
+			params['upgradeToTwo'] = true; // 1.0数据转2.0
+			params['dataComplete'] = 1; // 资料已完善
+		}
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');
 			util.hideLoading();
@@ -185,32 +206,38 @@ Page({
 	},
 	// 继续办理
 	onClickContinueHandle () {
-		// 服务商套餐id，0表示还未选择套餐，其他表示已经选择套餐
-		// 只提交了车牌 车牌颜色 收货地址 或者未签约 前往套餐选择
-		// "etcContractId": "", //签约id，0表示未签约，其他表示已签约
-		if (this.data.orderInfo.shopProductId === 0 || this.data.orderInfo.etcContractId === 0) {
-			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+		app.globalData.isModifiedData = false; // 非修改资料
+		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+		if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {
+			// 1.0数据
+			app.globalData.firstVersionData = true;
 			util.go('/pages/default/payment_way/payment_way');
-		} else if (this.data.orderInfo.shopProductId !== 0 && this.data.orderInfo.isVehicle === 0) {
-			// 是否上传行驶证， 0未上传，1已上传
-			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
-			app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
-			if (wx.getStorageSync('corresponding_package_id') !== app.globalData.orderInfo.orderId) {
-				// 行驶证缓存关联订单
-				wx.setStorageSync('corresponding_package_id', app.globalData.orderInfo.orderId);
-				wx.removeStorageSync('driving_license_face');
-				wx.removeStorageSync('driving_license_back');
-				wx.removeStorageSync('car_head_45');
+		} else {
+			app.globalData.firstVersionData = false;
+			// 服务商套餐id，0表示还未选择套餐，其他表示已经选择套餐
+			// 只提交了车牌 车牌颜色 收货地址 或者未签约 前往套餐选择
+			// "etcContractId": "", //签约id，0表示未签约，其他表示已签约
+			if (this.data.orderInfo.shopProductId === 0 || this.data.orderInfo.etcContractId === 0) {
+				util.go('/pages/default/payment_way/payment_way');
+			} else if (this.data.orderInfo.isVehicle === 0) {
+				// 是否上传行驶证， 0未上传，1已上传
+				app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
+				if (wx.getStorageSync('corresponding_package_id') !== app.globalData.orderInfo.orderId) {
+					// 行驶证缓存关联订单
+					wx.setStorageSync('corresponding_package_id', app.globalData.orderInfo.orderId);
+					wx.removeStorageSync('driving_license_face');
+					wx.removeStorageSync('driving_license_back');
+					wx.removeStorageSync('car_head_45');
+				}
+				if (wx.getStorageSync('driving_license_face')) {
+					util.go('/pages/default/information_validation/information_validation');
+				} else {
+					util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
+				}
+			} else if (this.data.orderInfo.isVehicle === 1 && this.data.orderInfo.isOwner === 1) {
+				// 已上传行驶证， 未上传车主身份证
+				util.go('/pages/default/update_id_card/update_id_card?type=normal_process');
 			}
-			if (wx.getStorageSync('driving_license_face')) {
-				util.go('/pages/default/information_validation/information_validation');
-			} else {
-				util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
-			}
-		} else if (this.data.orderInfo.isVehicle === 1 && this.data.orderInfo.isOwner === 1) {
-			// 已上传行驶证， 未上传车主身份证
-			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
-			util.go('/pages/default/update_id_card/update_id_card?type=normal_process');
 		}
 	},
 	// 在线客服

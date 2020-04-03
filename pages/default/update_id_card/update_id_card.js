@@ -14,17 +14,19 @@ Page({
 		},// 身份证反面
 		type: '', // 判断小程序入口,控制身份证显示隐藏
 		owner: '', // 车主本人
+		firstVersionPic2: '', // 1.0身份证反面
+		isFirstVersionPic2: false,// 1.0身份证反面 控制是否OCR
 		userName: undefined,// 身份证正面 原始数据,用于与新数据比对(秒审)
 		idNumber: undefined,// 身份证正面 原始数据,用于与新数据比对(秒审)
 		available: false, // 按钮是否可点击
 		isRequest: false// 是否请求中
 	},
 	onLoad (options) {
+		this.getOrderInfo();
 		this.setData({
 			type: options.type
 		});
-		this.getOrderInfo();
-		},
+	},
 	onShow () {
 		if (this.data.type !== 'normal_process') {
 			this.getOwnerIdCard();
@@ -35,18 +37,106 @@ Page({
 		util.showLoading();
 		util.getDataFromServer('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
-			dataType: '6'
+			dataType: '68'
 		}, () => {
 		}, (res) => {
 			if (res.code === 0) {
 				this.setData({
 					owner: res.data.vehicle.owner
 				});
+				// 获取车主身份证信息
+				if (app.globalData.isModifiedData) {
+					// 修改资料
+					let temp = this.data.orderInfo['ownerIdCard'];
+					if (temp.idCardNegativeUrl) {
+						let idCardFace = this.data.idCardFace;
+						// 身份证反面
+						let idCardBack = this.data.idCardBack;
+						idCardBack.fileUrl = temp.ownerIdCardNegativeUrl;
+						idCardBack.ocrObject.authority = temp.ownerIdCardAuthority;
+						idCardBack.ocrObject.validDate = temp.ownerIdCardValidDate;
+						// 身份证正面
+						idCardFace.fileUrl = temp.ownerIdCardPositiveUrl;
+						idCardFace.ocrObject.name = temp.ownerIdCardTrueName;
+						idCardFace.ocrObject.birth = temp.ownerIdCardBirth;
+						idCardFace.ocrObject.address = temp.ownerIdCardAddress;
+						idCardFace.ocrObject.sex = temp.ownerIdCardSex === 1 ? '男' : '女';
+						idCardFace.ocrObject.validDate = temp.ownerIdCardValidDate;
+						idCardFace.ocrObject.idNumber = temp.ownerIdCardNumber;
+						this.setData({
+							idCardFace,
+							idCardBack
+						});
+						this.setData({
+							available: this.validateAvailable()
+						});
+						let that = this;
+						if (app.globalData.firstVersionData && temp.ownerIdCardPositiveUrl) {
+							wx.getImageInfo({
+								src: temp.ownerIdCardPositiveUrl,
+								success: function (ret) {
+									that.setData({
+										firstVersionPic2: temp.ownerIdCardNegativeUrl,
+										isFirstVersionPic2: true
+									});
+									util.showLoading('身份证识别中');
+									that.getOCRIdCard(ret.path, 1);
+								}
+							});
+						}
+					}
+				}
 			} else {
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken, () => {
 			util.hideLoading();
+		});
+	},
+	// 1.0身份证OCR识别
+	getOCRIdCard (path,type) {
+		// 上传并识别图片
+		util.uploadOcrFile(path, type, () => {
+		}, (res) => {
+			if (res) {
+				res = JSON.parse(res);
+				if (res.code === 0) { // 识别成功
+					if (type === 1) {
+						this.setData({
+							idCardFace: res.data[0]
+						});
+					} else {
+						this.setData({
+							idCardBack: res.data[0]
+						});
+					}
+				} else { // 识别失败
+					util.showToastNoIcon(res.message);
+				}
+			} else { // 识别失败
+				let obj = {};
+				this.setData(obj);
+				util.showToastNoIcon('身份证识别失败！');
+			}
+		}, () => {
+			let that = this;
+			if (this.data.firstVersionPic2 && this.data.isFirstVersionPic2) {
+				this.setData({
+					isFirstVersionPic2: false
+				});
+				wx.getImageInfo({
+					src: this.data.firstVersionPic2,
+					success: function (ret) {
+						console.log(ret);
+						that.getOCRIdCard(ret.path, 2);
+					}
+				});
+			} else {
+				util.hideLoading();
+				this.setData({
+					available: this.validateAvailable()
+				});
+			}
 		});
 	},
 	// 获取缓存身份证
@@ -125,6 +215,10 @@ Page({
 			ownerIdCardHaveChange: IdCardHaveChange, // 车主身份证OCR结果是否被修改过，默认false，修改过传true 【dataType包含8}】
 			ownerIdCardAddress: this.data.idCardFace.ocrObject.address
 		};
+		if (app.globalData.firstVersionData) {
+			// 1.0数据转2.0
+			params['upgradeToTwo'] = true; // 1.0数据转2.0
+		}
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {

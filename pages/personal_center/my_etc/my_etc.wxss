@@ -83,6 +83,21 @@
 .my-etc .auto-fill {
   flex: 1;
 }
+.my-etc .no-car {
+  flex: 1;
+  text-align: center;
+  height: 80vh;
+}
+.my-etc .no-car image {
+  width: 414rpx;
+  margin: 30vh 0 22rpx;
+}
+.my-etc .no-car view {
+  color: #66666d;
+  line-height: 44rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+}
 .my-etc .btn {
   display: flex;
   align-items: center;

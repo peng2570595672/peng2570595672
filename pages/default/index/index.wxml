@@ -87,7 +87,7 @@
 		</view>
 		<view class="btn" catchtap="onClickBackToSign">{{orderInfo.contractStatus === 2 ? '恢复签约' : '立即签约'}}</view>
 		<view class="tips" wx:if="{{orderInfo.contractStatus === 2}}"><text>赶紧恢复！</text>这将严重影响你的高速通行</view>
-		<view class="tips" wx:else>签约微信免密支付,高速秒过闸</view>
+		<view class="tips tips-red" wx:else>一键签约，无感支付</view>
 	</view>
 	<!--	恢复签约结束-->
 

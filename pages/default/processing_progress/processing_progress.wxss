@@ -187,9 +187,9 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 50%;
+  top: 40%;
   transform: translate(0, -50%);
-  width: 80%;
+  width: 60%;
   min-height: 400rpx;
   margin: 0 auto;
   z-index: 2;
@@ -198,25 +198,16 @@
   width: 100%;
 }
 .processing_progress .detail_mask .activity_button {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
   margin: 0 auto;
   text-align: center;
   z-index: 2;
   width: 500rpx;
   height: 90rpx;
 }
-.processing_progress .detail_mask .activity_button > button {
-  width: 500rpx;
-  height: 90rpx;
-  border-radius: 45rpx;
-  margin-top: -150rpx;
-  background: url("https://file.cyzl.com/g001/M05/3C/E8/oYYBAF6Ctb2AKwkoAABkKcg2fxU648.png");
-  background-size: 100%;
-  padding: 0rpx;
-  margin: 0;
+.processing_progress .detail_mask .activity_button > image {
+  width: 120%;
+  margin-left: -10%;
+  margin-top: -80rpx;
 }
 .processing_progress .detail_mask .close_button {
   position: absolute;

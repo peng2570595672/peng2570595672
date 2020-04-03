@@ -147,7 +147,11 @@ Page({
 				let vehicleList = [];
 				let orderInfo = '';
 				res.data.map((item,index) => {
-					item['selfStatus'] = util.getStatus(item);
+					if (item.remark && item.remark.indexOf('迁移订单数据') !== -1) {
+						item['selfStatus'] = util.getStatusFirstVersion(item);
+					} else {
+						item['selfStatus'] = util.getStatus(item);
+					}
 					vehicleList.push(item.vehPlates);
 					wx.setStorageSync('cars', vehicleList.join('、'));
 					if (item.contractStatus === 2) {
@@ -177,6 +181,7 @@ Page({
 		}, app.globalData.userInfo.accessToken);
 	},
 	goOrderDetails () {
+		mta.Event.stat('013',{});
 		let model = this.data.recentlyTheBill;
 		util.go(`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
 	},
@@ -239,6 +244,9 @@ Page({
 			} else if (url === 'member_benefits') {
 				// 统计点击进入会员权益事件
 				mta.Event.stat('008',{});
+			} else if (url === 'my_order') {
+				// 统计点击进入我的ETC账单
+				mta.Event.stat('012',{});
 			}
 			util.go(`/pages/personal_center/${url}/${url}`);
 		}
@@ -300,6 +308,11 @@ Page({
 			orderId: obj.id,// 订单id
 			needSignContract: true // 是否需要签约 true-是，false-否
 		};
+		if (obj.remark && obj.remark.indexOf('迁移订单数据') !== -1) {
+			// 1.0数据 立即签约 需标记资料已完善
+			params['upgradeToTwo'] = true; // 1.0数据转2.0
+			params['dataComplete'] = 1; // 资料已完善
+		}
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');
 			util.hideLoading();
@@ -421,38 +434,135 @@ Page({
 		mta.Event.stat('004',{});
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 		app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
+		app.globalData.isModifiedData = true; // 修改资料
+		if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {
+			// 1.0数据
+			app.globalData.firstVersionData = true;
+		} else {
+			app.globalData.firstVersionData = false;
+		}
 		util.go('/pages/default/information_validation/information_validation');
 	},
 	// 继续办理
 	onClickContinueHandle () {
 		// 统计点击事件
 		mta.Event.stat('002',{});
-		// 服务商套餐id，0表示还未选择套餐，其他表示已经选择套餐
-		// 只提交了车牌 车牌颜色 收货地址 或者未签约 前往套餐选择
-		// "etcContractId": "", //签约id，0表示未签约，其他表示已签约
-		if (this.data.orderInfo.shopProductId === 0 || this.data.orderInfo.etcContractId === 0) {
-			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+		app.globalData.isModifiedData = false; // 非修改资料
+		if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {
+			// 1.0数据
+			app.globalData.firstVersionData = true;
 			util.go('/pages/default/payment_way/payment_way');
-		} else if (this.data.orderInfo.isVehicle === 0) {
-			// 是否上传行驶证， 0未上传，1已上传
-			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
-			app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
-			if (wx.getStorageSync('corresponding_package_id') !== app.globalData.orderInfo.orderId) {
-				// 行驶证缓存关联订单
-				wx.setStorageSync('corresponding_package_id', app.globalData.orderInfo.orderId);
-				wx.removeStorageSync('driving_license_face');
-				wx.removeStorageSync('driving_license_back');
-				wx.removeStorageSync('car_head_45');
+		} else {
+			app.globalData.firstVersionData = false;
+			// 服务商套餐id，0表示还未选择套餐，其他表示已经选择套餐
+			// 只提交了车牌 车牌颜色 收货地址 或者未签约 前往套餐选择
+			// "etcContractId": "", //签约id，0表示未签约，其他表示已签约
+			if (this.data.orderInfo.shopProductId === 0 || this.data.orderInfo.etcContractId === 0) {
+				util.go('/pages/default/payment_way/payment_way');
+			} else if (this.data.orderInfo.isVehicle === 0) {
+				// 是否上传行驶证， 0未上传，1已上传
+				app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
+				if (wx.getStorageSync('corresponding_package_id') !== app.globalData.orderInfo.orderId) {
+					// 行驶证缓存关联订单
+					wx.setStorageSync('corresponding_package_id', app.globalData.orderInfo.orderId);
+					wx.removeStorageSync('driving_license_face');
+					wx.removeStorageSync('driving_license_back');
+					wx.removeStorageSync('car_head_45');
+				}
+				if (wx.getStorageSync('driving_license_face')) {
+					util.go('/pages/default/information_validation/information_validation');
+				} else {
+					util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
+				}
+			} else if (this.data.orderInfo.isVehicle === 1 && this.data.orderInfo.isOwner === 1) {
+				// 已上传行驶证， 未上传车主身份证
+				util.go('/pages/default/update_id_card/update_id_card?type=normal_process');
 			}
-			if (wx.getStorageSync('driving_license_face')) {
-				util.go('/pages/default/information_validation/information_validation');
-			} else {
-				util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
-			}
-		} else if (this.data.orderInfo.isVehicle === 1 && this.data.orderInfo.isOwner === 1) {
-			// 已上传行驶证， 未上传车主身份证
-			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
-			util.go('/pages/default/update_id_card/update_id_card?type=normal_process');
+		}
+	},
+	//  订阅
+	subscribe (e) {
+		// 判断版本，兼容处理
+		let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
+		if (result >= 0) {
+			util.showLoading({
+				title: '加载中...'
+			});
+			wx.requestSubscribeMessage({
+				tmplIds: ['aHsjeWaJ0RRU08Uc-OeLs2OyxLxBd_ta3zweXloC66U'],
+				success: (res) => {
+					wx.hideLoading();
+					if (res.errMsg === 'requestSubscribeMessage:ok') {
+						let keys = Object.keys(res);
+						// 是否存在部分未允许的订阅消息
+						let isReject = false;
+						for (let key of keys) {
+							if (res[key] === 'reject') {
+								isReject = true;
+								break;
+							}
+						}
+						// 有未允许的订阅消息
+						if (isReject) {
+							util.alert({
+								content: '检查到当前订阅消息未授权接收，请授权',
+								showCancel: true,
+								confirmText: '授权',
+								confirm: () => {
+									wx.openSetting({
+										success: (res) => {
+										},
+										fail: () => {
+											util.showToastNoIcon('打开设置界面失败，请重试！');
+										}
+									});
+								},
+								cancel: () => { // 点击取消按钮
+									this.go(e);
+								}
+							});
+						} else {
+							this.go(e);
+						}
+					}
+				},
+				fail: (res) => {
+					util.hideLoading();
+					// 不是点击的取消按钮
+					if (res.errMsg === 'requestSubscribeMessage:fail cancel') {
+						this.go(e);
+					} else {
+						util.alert({
+							content: '调起订阅消息失败，是否前往"设置" -> "订阅消息"进行订阅？',
+							showCancel: true,
+							confirmText: '打开设置',
+							confirm: () => {
+								wx.openSetting({
+									success: (res) => {
+									},
+									fail: () => {
+										util.showToastNoIcon('打开设置界面失败，请重试！');
+									}
+								});
+							},
+							cancel: () => {
+								this.go(e);
+							}
+						});
+					}
+				}
+			});
+		} else {
+			util.alert({
+				title: '微信更新提示',
+				content: '检测到当前微信版本过低，可能导致部分功能无法使用；可前往微信“我>设置>关于微信>版本更新”进行升级',
+				confirmText: '继续使用',
+				showCancel: true,
+				confirm: () => {
+					this.go(e);
+				}
+			});
 		}
 	}
 });

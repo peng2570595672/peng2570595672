@@ -35,6 +35,8 @@ Page({
 		} // 提交数据
 	},
 	onLoad () {
+		app.globalData.firstVersionData = false; // 非1.0数据办理
+		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.signAContract = 3;
 		this.setData({
 			mobilePhoneMode: app.globalData.mobilePhoneMode

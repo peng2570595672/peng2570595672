@@ -15,7 +15,6 @@ Page({
 	onLoad (options) {
 		let time = new Date().toLocaleDateString();
 		let that = this;
-		that.showDetail();
 		// 首先获取是否执行过
 		wx.getStorage({
 			key: 'today',
@@ -38,12 +37,16 @@ Page({
 		}
 		this.getProcessingProgress();
 	},
+	// 去微保
+	goMicroInsurance () {
+		util.go(`/pages/web/web/web?type=weiBao`);
+	},
 	// 显示详情
 	showDetail (e) {
-		// this.setData({
-		// 	showDetailWrapper: true,
-		// 	showDetailMask: true
-		// });
+		this.setData({
+			showDetailWrapper: true,
+			showDetailMask: true
+		});
 	},
 	// 关闭详情
 	close () {},
@@ -122,16 +125,8 @@ Page({
 			}
 		});
 	},
-	// 去激活
+	// 确认收货去激活
 	onClickCctivate () {
-		if (this.data.info.logisticsId === 0) {
-			this.onClickViewProcessingProgressHandle();
-		} else {
-			this.confirmReceipt();
-		}
-	},
-	// 确认收货
-	confirmReceipt () {
 		util.showLoading();
 		util.getDataFromServer('consumer/order/affirm-take-obu', {
 			logisticsId: this.data.info.logisticsId

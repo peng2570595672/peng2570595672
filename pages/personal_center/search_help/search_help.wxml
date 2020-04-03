@@ -10,6 +10,10 @@
 			<view wx:for="{{topSearchList}}" wx:key="index" class="list-content" catchtap="showDetail" data-content="{{item}}">
 				{{item.questionTitle}}
 			</view>
+			<view class="no-search" wx:if="{{topSearchList.length === 0}}">
+				<image src="/pages/personal_center/assets/no_search.jpg" mode="widthFix"></image>
+				<view>搜索不到关键词</view>
+			</view>
 		</view>
 	</view>
 	<!--加载更多动画开始-->

@@ -2,6 +2,8 @@
 @import "../template/list-loading-template/list-loading-template.styl"
 page
 	background #F7F7F7
+	height 100vh
+	overflow hidden
 	.help-center
 		// 帮助列表
 		.help-list
@@ -39,6 +41,17 @@ page
 					margin-left 40rpx
 				&>view:last-child
 					border-bottom 0
+				.no-search
+					text-align center
+					height 100vh
+					image
+						width 320rpx
+						margin 192rpx 0 58rpx
+					view
+						color $fontColor6
+						line-height 44rpx
+						font-size 32rpx
+						font-weight 500
 	// 弹出详情
 	.mask
 		position fixed

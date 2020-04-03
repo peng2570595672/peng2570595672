@@ -569,7 +569,7 @@ function luhmCheck(bankno) {
 };
 
 /**
- *  获取订单办理状态
+ *  获取订单办理状态 2.0
  */
 function getStatus(orderInfo) {
 	let status = 0;
@@ -594,7 +594,31 @@ function getStatus(orderInfo) {
 	}
 	return status;
 }
-
+/**
+ *  获取订单办理状态 1.0
+ */
+function getStatusFirstVersion(orderInfo) {
+	let status = 0;
+	if (orderInfo.status === 0 && orderInfo.logisticsId === 0) {
+		status = 1; // 资料未完善
+	} else if (orderInfo.etcContractId === 0 && orderInfo.logisticsId !== 0) {
+		// 先发货,后签约  h5
+		status = 2; // 待签约
+	} else if (orderInfo.etcContractId !== 0 && orderInfo.auditStatus === 0) {
+		status = 4; // 查看进度 待审核
+	} else if (orderInfo.auditStatus === 1) {
+		status = 5; // 资料被拒绝 修改资料
+	} else if (orderInfo.obuStatus === 0 && orderInfo.auditStatus === 2) {
+		status = 6; // 审核通过  待激活
+	} else if (orderInfo.obuStatus === 0 && orderInfo.auditStatus === 3) {
+		status = 7; // 预审核通过  待审核
+	} else if (orderInfo.obuStatus === 0 && orderInfo.auditStatus === 9) {
+		status = 8; // 高速核验不通过
+	} else if (orderInfo.obuStatus === 1 && orderInfo.auditStatus === 2) {
+		status = 9; // 审核通过  已激活
+	}
+	return status;
+}
 /**
  * 返回首页
  */
@@ -632,5 +656,6 @@ module.exports = {
 	getSignature,
 	luhmCheck,
 	getStatus,
+	getStatusFirstVersion,
 	goHome
 };

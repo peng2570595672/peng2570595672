@@ -24,6 +24,9 @@
 .index .tips > text {
   color: #ff563c;
 }
+.index .tips-red {
+  color: #f00;
+}
 .index .welcome {
   margin: 26rpx 0;
   padding-left: 60rpx;

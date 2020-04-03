@@ -29,6 +29,12 @@
 		</view>
 	</block>
 	<!--	etc列表结束-->
+	<!--	没有车辆开始-->
+	<view class="no-car" wx:if="{{carList.length === 0}}">
+		<image src="/pages/personal_center/assets/no_car.jpg" mode="widthFix"></image>
+		<view>您还没有办理ETC~</view>
+	</view>
+	<!--	没有车辆结束-->
 	<!--	高度填充开始-->
 	<view class="auto-fill"></view>
 	<!--	高度填充结束-->
