@@ -23,7 +23,7 @@
 		<!--会员权益-->
 		<view class="vip_equity" catchtap="go" data-url="member_benefits">
 			<view>
-				<text class="iconfont">会员权益</text>
+				<text class="iconfont">车主服务</text>
 			</view>
 		</view>
 	</view>

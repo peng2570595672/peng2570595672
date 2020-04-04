@@ -9,7 +9,7 @@
 	<view class="arrears_amount">
 		<view class="line">
 			<view>应付金额</view>
-			<view>¥{{details.etcMoney/100}}</view>
+			<view>¥{{details.totalMmout/100}}</view>
 		</view>
 		<view class="line">
 			<view>微信减免</view>

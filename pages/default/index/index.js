@@ -135,6 +135,7 @@ Page({
 	},
 	// 获取最后有一笔订单信息
 	getStatus () {
+		util.showLoading();
 		util.getDataFromServer('consumer/order/my-etc-list', {
 			openId: app.globalData.openId
 		}, () => {
