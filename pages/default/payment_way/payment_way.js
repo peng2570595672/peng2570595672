@@ -8,6 +8,7 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
+		count: 0,// 计数,因网络图片老是404,所以做计数刷新处理
 		showChoiceBank: true, // 选择套餐
 		choiceSetMeal: undefined, // 选择支付方式逐渐
 		choiceObj: undefined, // 选择的套餐
@@ -86,18 +87,42 @@ Page({
 				this.setData({
 					isFirstVersionPic2: false
 				});
-				wx.getImageInfo({
-					src: this.data.firstVersionPic2,
-					success: function (ret) {
-						console.log(ret);
-						that.getOCRIdCard(ret.path, 2);
-					}
-				});
+				this.getNetworkImage(this.data.firstVersionPic2,2);
 			} else {
 				util.hideLoading();
 				this.setData({
 					available: this.validateAvailable()
 				});
+			}
+		});
+	},
+	// 下载网络图片
+	getNetworkImage (path,type) {
+		util.showLoading();
+		let that = this;
+		wx.getImageInfo({
+			src: path,
+			success: function (ret) {
+				that.setData({
+					count: 0
+				});
+				that.getOCRIdCard(ret.path, type);
+			},
+			fail: function (ret) {
+				console.log(ret);
+				console.log(that.data.count);
+				// 多执行几次,使图片加载出来
+				if (that.data.count <= 5) {
+					that.setData({
+						count: ++that.data.count
+					});
+					that.getNetworkImage(path,type);
+				} else {
+					that.setData({
+						count: 0
+					});
+					util.hideLoading();
+				}
 			}
 		});
 	},
@@ -156,17 +181,12 @@ Page({
 					});
 				}
 				if (app.globalData.firstVersionData && temp.idCardPositiveUrl) {
-					wx.getImageInfo({
-						src: temp.idCardPositiveUrl,
-						success: function (ret) {
-							that.setData({
-								firstVersionPic2: temp.idCardNegativeUrl,
-								isFirstVersionPic2: true
-							});
-							util.showLoading('身份证识别中');
-							that.getOCRIdCard(ret.path, 1);
-						}
+					that.setData({
+						firstVersionPic2: temp.idCardNegativeUrl,
+						isFirstVersionPic2: true
 					});
+					util.showLoading();
+					this.getNetworkImage(temp.idCardPositiveUrl,1);
 				}
 			} else {
 				util.showToastNoIcon(res.message);

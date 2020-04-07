@@ -8,6 +8,7 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
+		count: 0,// 计数,因网络图片老是404,所以做计数刷新处理
 		opened: false, // 是否展开更多信息
 		current: 0, // 当前轮播图索引
 		firstVersionPic4: '',
@@ -165,16 +166,11 @@ Page({
 						wx.setStorageSync('driving_license_face', JSON.stringify(this.data.drivingLicenseFace));
 						wx.setStorageSync('driving_license_back', JSON.stringify(this.data.drivingLicenseBack));
 						if (app.globalData.firstVersionData) {
-							wx.getImageInfo({
-								src: res.data.vehicle.licenseMainPage,
-								success: function (ret) {
-									that.setData({
-										firstVersionPic4: res.data.vehicle.licenseVicePage,
-										isFirstVersionPic4: true
-									});
-									that.getOCRVehicleLicense(ret.path, 3);
-								}
+							that.setData({
+								firstVersionPic4: res.data.vehicle.licenseVicePage,
+								isFirstVersionPic4: true
 							});
+							that.getNetworkImage(res.data.vehicle.licenseMainPage, 3);
 						}
 					}
 				}
@@ -183,6 +179,36 @@ Page({
 			}
 		}, app.globalData.userInfo.accessToken, () => {
 			util.hideLoading();
+		});
+	},
+	// 下载网络图片
+	getNetworkImage (path,type) {
+		util.showLoading();
+		let that = this;
+		wx.getImageInfo({
+			src: path,
+			success: function (ret) {
+				that.setData({
+					count: 0
+				});
+				that.getOCRVehicleLicense(ret.path, type);
+			},
+			fail: function (ret) {
+				console.log(ret);
+				console.log(that.data.count);
+				// 多执行几次,使图片加载出来
+				if (that.data.count <= 5) {
+					that.setData({
+						count: ++that.data.count
+					});
+					that.getNetworkImage(path,type);
+				} else {
+					that.setData({
+						count: 0
+					});
+					util.hideLoading();
+				}
+			}
 		});
 	},
 	//  展开和关闭切换
@@ -562,13 +588,7 @@ Page({
 				this.setData({
 					isFirstVersionPic4: false
 				});
-				wx.getImageInfo({
-					src: this.data.firstVersionPic4,
-					success: function (ret) {
-						console.log(ret);
-						that.getOCRVehicleLicense(ret.path, 4);
-					}
-				});
+				that.getNetworkImage(this.data.firstVersionPic4, 4);
 			} else {
 				util.hideLoading();
 				this.setData({

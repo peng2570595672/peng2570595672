@@ -131,7 +131,7 @@ function getDataFromServer(path, params, fail, success, token = '', complete, me
 		url: app.globalData.host + path,
 		method: method,
 		success: (res) => {
-			if (res.data.code === 118) { // 在别处登录了 重新自动登录一次
+			if (res.data.code === 115 || res.data.code === 117 || res.data.code === 118) { // 在别处登录了 重新自动登录一次
 				reAutoLogin(path, params, fail, success, token, complete, method);
 			} else {
 				success && success(res.data);
@@ -573,13 +573,13 @@ function luhmCheck(bankno) {
  */
 function getStatus(orderInfo) {
 	let status = 0;
-	if (orderInfo.shopProductId === 0 && orderInfo.etcContractId === 0) {
+	if (orderInfo.shopProductId === 0 && orderInfo.contractStatus !== 1) {
 		status = 1; // 办理中 选择套餐
-	} else if (orderInfo.shopProductId !== 0 && orderInfo.etcContractId === 0) {
+	} else if (orderInfo.shopProductId !== 0 && orderInfo.contractStatus !== 1) {
 		status = 2; // 待签约
-	} else if ((orderInfo.status === 0 || orderInfo.isVehicle === 0) && orderInfo.etcContractId !== 0) {
+	} else if ((orderInfo.status === 0 || orderInfo.isVehicle === 0) && orderInfo.contractStatus === 1) {
 		status = 3; // 办理中 已签约
-	} else if (orderInfo.status === 1 && orderInfo.etcContractId !== 0 && orderInfo.auditStatus === 0 && orderInfo.isVehicle === 1) {
+	} else if (orderInfo.status === 1 && orderInfo.contractStatus === 1 && orderInfo.auditStatus === 0 && orderInfo.isVehicle === 1) {
 		status = 4; // 查看进度 待审核
 	} else if (orderInfo.status === 1 && orderInfo.auditStatus === 1&& orderInfo.isVehicle === 1) {
 		status = 5; // 资料被拒绝 修改资料
@@ -601,10 +601,10 @@ function getStatusFirstVersion(orderInfo) {
 	let status = 0;
 	if (orderInfo.status === 0 && orderInfo.logisticsId === 0) {
 		status = 1; // 资料未完善
-	} else if (orderInfo.etcContractId === 0 && orderInfo.logisticsId !== 0) {
+	} else if (orderInfo.contractStatus !== 1 && orderInfo.logisticsId !== 0) {
 		// 先发货,后签约  h5
 		status = 2; // 待签约
-	} else if (orderInfo.etcContractId !== 0 && orderInfo.auditStatus === 0) {
+	} else if (orderInfo.contractStatus === 1 && orderInfo.auditStatus === 0) {
 		status = 4; // 查看进度 待审核
 	} else if (orderInfo.auditStatus === 1) {
 		status = 5; // 资料被拒绝 修改资料
