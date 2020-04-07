@@ -159,7 +159,7 @@ Page({
 								oldCarHead45: res.data.headstock
 							});
 							if (app.globalData.firstVersionData) {
-								this.uploadCarHeadPic(res.data.headstock.fileUrl);
+								that.getNetworkImage(res.data.headstock.fileUrl, 0);
 							}
 							wx.setStorageSync('car_head_45', JSON.stringify(res.data.headstock));
 						}
@@ -191,7 +191,11 @@ Page({
 				that.setData({
 					count: 0
 				});
-				that.getOCRVehicleLicense(ret.path, type);
+				if (type === 0) {
+					that.uploadCarHeadPic(ret.path);
+				} else {
+					that.getOCRVehicleLicense(ret.path, type);
+				}
 			},
 			fail: function (ret) {
 				console.log(ret);
