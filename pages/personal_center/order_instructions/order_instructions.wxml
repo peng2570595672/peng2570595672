@@ -13,7 +13,7 @@
 		</view>
 		<view class="line">
 			<view>微信减免</view>
-			<view>{{details.wxDiscountAmount ? details.wxDiscountAmount/100 : 0}}</view>
+			<view>{{details.wxDiscountAmount ? -details.wxDiscountAmount/100 : 0}}</view>
 		</view>
 		<view class="line">
 			<view>通行抵扣卡优惠</view>
@@ -22,7 +22,7 @@
 		<view>
 			<view class="line">
 				<view>服务费</view>
-				<view>{{details.serviceMoney >0 ? -details.serviceMoney/100 : 0}}</view>
+				<view>{{details.serviceMoney >0 ? details.serviceMoney/100 : 0}}</view>
 			</view>
 			<view class="explain">实付通行费 x 万分之五 x欠费天数</view>
 		</view>

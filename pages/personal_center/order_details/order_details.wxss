@@ -39,6 +39,9 @@ page {
   color: #f00;
   line-height: 24rpx;
 }
+.order_details .deduction-amount .deduction-amount-box .deduction-amount-red {
+  color: #f00;
+}
 .order_details .deduction-details {
   background: #fff;
   padding: 20rpx 60rpx;

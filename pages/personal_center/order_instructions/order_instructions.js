@@ -40,7 +40,8 @@ Page({
 	// 去申诉
 	go () {
 		if (this.data.isComplaintDetails) {
-			util.go('/pages/personal_center/complaint_details/complaint_details?details=' + JSON.stringify(this.data.details));
+			let model = this.data.details;
+			util.go(`/pages/personal_center/complaint_details/complaint_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
 		} else {
 			util.go('/pages/personal_center/order_complaint/order_complaint?details=' + JSON.stringify(this.data.details));
 		}

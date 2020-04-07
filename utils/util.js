@@ -577,11 +577,11 @@ function getStatus(orderInfo) {
 		status = 1; // 办理中 选择套餐
 	} else if (orderInfo.shopProductId !== 0 && orderInfo.etcContractId === 0) {
 		status = 2; // 待签约
-	} else if (orderInfo.status === 0 && orderInfo.etcContractId !== 0) {
+	} else if ((orderInfo.status === 0 || orderInfo.isVehicle === 0) && orderInfo.etcContractId !== 0) {
 		status = 3; // 办理中 已签约
-	} else if (orderInfo.status === 1 && orderInfo.etcContractId !== 0 && orderInfo.auditStatus === 0) {
+	} else if (orderInfo.status === 1 && orderInfo.etcContractId !== 0 && orderInfo.auditStatus === 0 && orderInfo.isVehicle === 1) {
 		status = 4; // 查看进度 待审核
-	} else if (orderInfo.status === 1 && orderInfo.auditStatus === 1) {
+	} else if (orderInfo.status === 1 && orderInfo.auditStatus === 1&& orderInfo.isVehicle === 1) {
 		status = 5; // 资料被拒绝 修改资料
 	} else if (orderInfo.obuStatus === 0 && orderInfo.auditStatus === 2) {
 		status = 6; // 审核通过  待激活
@@ -631,7 +631,124 @@ function goHome(unload) {
 		});
 	}
 }
-
+/**
+ *  订阅消息封装
+ */
+function subscribe(tmplIds, url) {
+	// 判断版本，兼容处理
+	let result = compareVersion(app.globalData.SDKVersion, '2.8.2');
+	if (result >= 0) {
+		showLoading({
+			title: '加载中...'
+		});
+		wx.requestSubscribeMessage({
+			tmplIds: tmplIds,
+			success: (res) => {
+				console.log(res);
+				wx.hideLoading();
+				if (res.errMsg === 'requestSubscribeMessage:ok') {
+					let keys = Object.keys(res);
+					// 是否存在部分未允许的订阅消息
+					let isReject = false;
+					for (let key of keys) {
+						if (res[key] === 'reject') {
+							isReject = true;
+							break;
+						}
+					}
+					// 有未允许的订阅消息
+					if (isReject) {
+						alert({
+							content: '检查到当前订阅消息未授权接收，请授权',
+							showCancel: true,
+							confirmText: '授权',
+							confirm: () => {
+								wx.openSetting({
+									success: (res) => {
+									},
+									fail: () => {
+										showToastNoIcon('打开设置界面失败，请重试！');
+									}
+								})
+							},
+							cancel: () => { // 点击取消按钮
+								if (url === '/pages/default/index/index') {
+									wx.reLaunch({
+										url: url
+									});
+								} else {
+									go(url)
+								}
+							}
+						});
+					} else {
+						if (url === '/pages/default/index/index') {
+							wx.reLaunch({
+								url: url
+							});
+						} else {
+							go(url)
+						}
+					}
+				}
+			},
+			fail: (res) => {
+				console.log(res);
+				wx.hideLoading();
+				// 不是点击的取消按钮
+				if (res.errMsg === 'requestSubscribeMessage:fail cancel') {
+					if (url === '/pages/default/index/index') {
+						wx.reLaunch({
+							url: url
+						});
+					} else {
+						go(url)
+					}
+				} else {
+					alert({
+						content: '调起订阅消息失败，是否前往"设置" -> "订阅消息"进行订阅？',
+						showCancel: true,
+						confirmText: '打开设置',
+						confirm: () => {
+							wx.openSetting({
+								success: (res) => {
+								},
+								fail: () => {
+									showToastNoIcon('打开设置界面失败，请重试！');
+								}
+							})
+						},
+						cancel: () => {
+							if (url === '/pages/default/index/index') {
+								wx.reLaunch({
+									url: url
+								});
+							} else {
+								go(url)
+							}
+						}
+					});
+				}
+			}
+		});
+	} else {
+		alert({
+			title: '微信更新提示',
+			content: '检测到当前微信版本过低，可能导致部分功能无法使用；可前往微信“我>设置>关于微信>版本更新”进行升级',
+			confirmText: '继续使用',
+			showCancel: true,
+			confirm: () => {
+				if (url === '/pages/default/index/index') {
+					wx.reLaunch({
+						url: url
+					});
+				} else {
+					go(url)
+				}
+			}
+		});
+	}
+}
 module.exports = {
 	setApp,
 	formatNumber,
@@ -656,6 +773,7 @@ module.exports = {
 	getSignature,
 	luhmCheck,
 	getStatus,
+	subscribe,
 	getStatusFirstVersion,
 	goHome
 };

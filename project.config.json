@@ -310,6 +310,20 @@
 					"id": -1,
 					"name": "pages/personal_center/order_instructions/order_instructions",
 					"pathName": "pages/personal_center/order_instructions/order_instructions",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/personal_center/order_details/order_details",
+					"pathName": "pages/personal_center/order_details/order_details",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/personal_center/order_details/order_details",
+					"pathName": "pages/personal_center/order_details/order_details",
 					"scene": null
 				}
 			]

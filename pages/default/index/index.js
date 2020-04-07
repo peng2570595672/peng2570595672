@@ -242,14 +242,15 @@ Page({
 			if (url === 'index') {
 				// 统计点击进入个人中心事件
 				mta.Event.stat('010',{});
-			} else if (url === 'member_benefits') {
-				// 统计点击进入会员权益事件
-				mta.Event.stat('008',{});
 			} else if (url === 'my_order') {
 				// 统计点击进入我的ETC账单
 				mta.Event.stat('012',{});
 			}
-			util.go(`/pages/personal_center/${url}/${url}`);
+			// 订阅:高速扣费通知、ETC欠费提醒
+			let urls = `/pages/personal_center/${url}/${url}`;
+			let tmplIds = ['oz7msNJRXzk7VmASJsJtb2JG0rKEWjX3Ff1PIaAPa78', 'lY047e1wk-OFdeGuIx2ThV-MOJ4aUOx2HhSxUd1YXi0'];
+			util.subscribe(tmplIds,urls);
+			// util.go(`/pages/personal_center/${url}/${url}`);
 		}
 	},
 	// 恢复签约
@@ -428,7 +429,11 @@ Page({
 			util.go('/pages/login/login/login');
 			return;
 		}
-		util.go('/pages/personal_center/my_etc/my_etc');
+		// 订阅:ETC欠费提醒、黑名单状态提醒
+		let urls = '/pages/personal_center/my_etc/my_etc';
+		let tmplIds = ['lY047e1wk-OFdeGuIx2ThV-MOJ4aUOx2HhSxUd1YXi0', 'my5wGmuottanrIAKrEhe2LERPKx4U05oU4aK9Fyucv0'];
+		util.subscribe(tmplIds,urls);
+		// util.go('/pages/personal_center/my_etc/my_etc');
 	},
 	// 修改资料
 	onClickModifiedData () {
@@ -480,90 +485,6 @@ Page({
 				// 已上传行驶证， 未上传车主身份证
 				util.go('/pages/default/update_id_card/update_id_card?type=normal_process');
 			}
-		}
-	},
-	//  订阅
-	subscribe (e) {
-		// 判断版本，兼容处理
-		let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
-		if (result >= 0) {
-			util.showLoading({
-				title: '加载中...'
-			});
-			wx.requestSubscribeMessage({
-				tmplIds: ['aHsjeWaJ0RRU08Uc-OeLs2OyxLxBd_ta3zweXloC66U'],
-				success: (res) => {
-					wx.hideLoading();
-					if (res.errMsg === 'requestSubscribeMessage:ok') {
-						let keys = Object.keys(res);
-						// 是否存在部分未允许的订阅消息
-						let isReject = false;
-						for (let key of keys) {
-							if (res[key] === 'reject') {
-								isReject = true;
-								break;
-							}
-						}
-						// 有未允许的订阅消息
-						if (isReject) {
-							util.alert({
-								content: '检查到当前订阅消息未授权接收，请授权',
-								showCancel: true,
-								confirmText: '授权',
-								confirm: () => {
-									wx.openSetting({
-										success: (res) => {
-										},
-										fail: () => {
-											util.showToastNoIcon('打开设置界面失败，请重试！');
-										}
-									});
-								},
-								cancel: () => { // 点击取消按钮
-									this.go(e);
-								}
-							});
-						} else {
-							this.go(e);
-						}
-					}
-				},
-				fail: (res) => {
-					util.hideLoading();
-					// 不是点击的取消按钮
-					if (res.errMsg === 'requestSubscribeMessage:fail cancel') {
-						this.go(e);
-					} else {
-						util.alert({
-							content: '调起订阅消息失败，是否前往"设置" -> "订阅消息"进行订阅？',
-							showCancel: true,
-							confirmText: '打开设置',
-							confirm: () => {
-								wx.openSetting({
-									success: (res) => {
-									},
-									fail: () => {
-										util.showToastNoIcon('打开设置界面失败，请重试！');
-									}
-								});
-							},
-							cancel: () => {
-								this.go(e);
-							}
-						});
-					}
-				}
-			});
-		} else {
-			util.alert({
-				title: '微信更新提示',
-				content: '检测到当前微信版本过低，可能导致部分功能无法使用；可前往微信“我>设置>关于微信>版本更新”进行升级',
-				confirmText: '继续使用',
-				showCancel: true,
-				confirm: () => {
-					this.go(e);
-				}
-			});
 		}
 	}
 });
