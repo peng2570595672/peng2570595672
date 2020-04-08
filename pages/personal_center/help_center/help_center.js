@@ -83,6 +83,7 @@ Page({
 		let id = e.currentTarget.dataset['id'];
 		index = parseInt(index);
 		this.setData({
+			page: 1,
 			tabIndex: index,
 			classifyId: id
 		});
