@@ -11,6 +11,10 @@ App({
 		plamKey: '123456', // 签名用到的key --- 二发
 		mapKey: '4EYBZ-L6QC4-NCLUW-XFDUD-TANS7-DZFNG', // 腾讯地图所使用key
 		platformId: '500338116821778434', // 平台id
+		miniProgramServiceProvidersId: '611607716116299776', // 小程序服务商id 用于加载不同套餐
+		otherPlatformsServiceProvidersId: undefined, // 其他平台服务商id 用于加载不同套餐
+		isServiceProvidersPackage: true, // 其他平台服务商过来办理是否有套餐 默认有
+		isContinentInsurance: false, // 是否是大地保险 用来屏蔽微保
 		belongToPlatform: '500338116821778434', // 套餐所属平台id,用于判断流程
 		SDKVersion: '',// 小程序基础库版本
 		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
@@ -34,6 +38,7 @@ App({
 		}
 	},
 	onLaunch (options) {
+		console.log(options);
 		// 统计逻辑开始
 		mta.App.init({
 			'appID': '500710698',
@@ -44,6 +49,8 @@ App({
 			'lauchOpts': options
 		});
 		// 统计逻辑结束
+		// 初始化数据
+		this.initData(options);
 		util.setApp(this);
 		// 获取是否为iphone x系列
 		wx.getSystemInfo({
@@ -64,6 +71,14 @@ App({
 		});
 		// 检测更新
 		this.checkUpdate();
+	},
+	// 初始化数据
+	initData (options) {
+		if (options.query.otherPlatformsServiceProvidersId && options.query.isContinentInsurance) {
+			// 大地保险扫码进入
+			this.globalData.otherPlatformsServiceProvidersId = options.query.otherPlatformsServiceProvidersId;
+			this.globalData.isContinentInsurance = true;
+		}
 	},
 	checkUpdate () {
 		// getUpdateManager 微信版本是否支持

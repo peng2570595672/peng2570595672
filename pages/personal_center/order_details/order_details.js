@@ -2,9 +2,13 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		isContinentInsurance: false, // 是否是大地保险
 		details: ''
 	},
 	onLoad (options) {
+		this.setData({
+			isContinentInsurance: app.globalData.isContinentInsurance
+		});
 		if (options.id) {
 			this.setData({details: options});
 		}
@@ -126,5 +130,9 @@ Page({
 		}, app.globalData.userInfo.accessToken, () => {
 			util.hideLoading();
 		});
+	},
+	// 微保活动
+	goMicroInsurance () {
+		util.go(`/pages/web/web/web?type=weiBao`);
 	}
 });

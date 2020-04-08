@@ -9,33 +9,83 @@ Page({
 		dashedHeight: 0,
 		accountVerification: 0, //  0 没有核验id   1：核验成功，2-正在核验
 		info: undefined,
+		isContinentInsurance: false, // 是否是大地保险
 		showDetailWrapper: false,
 		showDetailMask: false
 	},
 	onLoad (options) {
-		let time = new Date().toLocaleDateString();
-		let that = this;
-		// 首先获取是否执行过
-		wx.getStorage({
-			key: 'today',
-			success: function (res) {
-				// 成功的话 说明之前执行过，再判断时间是否是当天
-				if (res.data && res.data !== time) {
-					that.showDetail();
-				}
-			},
-			fail: function (res) {
-				// 没有执行过的话 先存一下当前的执行时间
-				that.showDetail();
-				wx.setStorageSync('today', new Date().toLocaleDateString());
-			}
+		this.setData({
+			isContinentInsurance: app.globalData.isContinentInsurance
 		});
+		if (!this.data.isContinentInsurance) {
+			let time = new Date().toLocaleDateString();
+			let that = this;
+			// 首先获取是否执行过
+			wx.getStorage({
+				key: 'today',
+				success: function (res) {
+					// 成功的话 说明之前执行过，再判断时间是否是当天
+					if (res.data && res.data !== time) {
+						that.showDetail();
+					}
+				},
+				fail: function (res) {
+					// 没有执行过的话 先存一下当前的执行时间
+					that.showDetail();
+					wx.setStorageSync('today', new Date().toLocaleDateString());
+				}
+			});
+		}
 		if (options.type) {
 			this.setData({
 				type: options.type
 			});
 		}
-		this.getProcessingProgress();
+		if (!app.globalData.userInfo.accessToken) {
+			this.login();
+		} else {
+			this.getProcessingProgress();
+		}
+	},
+	// 自动登录
+	login () {
+		util.showLoading();
+		// 调用微信接口获取code
+		wx.login({
+			success: (res) => {
+				util.getDataFromServer('consumer/member/common/applet/code', {
+					platformId: app.globalData.platformId, // 平台id
+					code: res.code // 从微信获取的code
+				}, () => {
+					util.hideLoading();
+					util.showToastNoIcon('登录失败！');
+				}, (res) => {
+					if (res.code === 0) {
+						res.data['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
+						this.setData({
+							loginInfo: res.data
+						});
+						// 已经绑定了手机号
+						if (res.data.needBindingPhone !== 1) {
+							app.globalData.userInfo = res.data;
+							app.globalData.openId = res.data.openId;
+							app.globalData.memberId = res.data.memberId;
+							app.globalData.mobilePhone = res.data.mobilePhone;
+							this.getProcessingProgress();
+						} else {
+							util.hideLoading();
+						}
+					} else {
+						util.hideLoading();
+						util.showToastNoIcon(res.message);
+					}
+				});
+			},
+			fail: () => {
+				util.hideLoading();
+				util.showToastNoIcon('登录失败！');
+			}
+		});
 	},
 	// 去微保
 	goMicroInsurance () {

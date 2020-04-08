@@ -11,10 +11,14 @@ Page({
 		canIUse: wx.canIUse('button.open-type.getUserInfo'),
 		loginInfo: {},// 登录信息
 		orderInfo: undefined, // 订单信息
+		isContinentInsurance: false, // 是否是大地保险
 		rotationChartList: [], // 轮播图
 		recentlyTheBill: undefined // 最新账单
 	},
 	onLoad () {
+		this.setData({
+			isContinentInsurance: app.globalData.isContinentInsurance
+		});
 		wx.removeStorageSync('information_validation');
 		this.login();
 		// 获取轮播图
@@ -86,8 +90,12 @@ Page({
 			util.hideLoading();
 			if (res.code === 0) {
 				if (res.data) {
+					let list = res.data;
+					if (this.data.isContinentInsurance) {
+						list = list.filter(item => item.remark !== 'micro_insurance'); // 大地保险屏蔽微保
+					}
 					this.setData({
-						rotationChartList: res.data
+						rotationChartList: list
 					});
 				}
 			} else {
@@ -246,9 +254,9 @@ Page({
 				// 统计点击进入我的ETC账单
 				mta.Event.stat('012',{});
 			}
-			// 订阅:高速扣费通知、ETC欠费提醒
+			// 订阅:高速扣费通知、ETC欠费提醒、黑名单状态提醒
 			let urls = `/pages/personal_center/${url}/${url}`;
-			let tmplIds = ['oz7msNJRXzk7VmASJsJtb2JG0rKEWjX3Ff1PIaAPa78', 'lY047e1wk-OFdeGuIx2ThV-MOJ4aUOx2HhSxUd1YXi0'];
+			let tmplIds = ['oz7msNJRXzk7VmASJsJtb2JG0rKEWjX3Ff1PIaAPa78','lY047e1wk-OFdeGuIx2ThV-MOJ4aUOx2HhSxUd1YXi0', 'my5wGmuottanrIAKrEhe2LERPKx4U05oU4aK9Fyucv0'];
 			util.subscribe(tmplIds,urls);
 			// util.go(`/pages/personal_center/${url}/${url}`);
 		}
@@ -429,9 +437,9 @@ Page({
 			util.go('/pages/login/login/login');
 			return;
 		}
-		// 订阅:ETC欠费提醒、黑名单状态提醒
+		// 订阅:高速扣费通知、ETC欠费提醒、黑名单状态提醒
 		let urls = '/pages/personal_center/my_etc/my_etc';
-		let tmplIds = ['lY047e1wk-OFdeGuIx2ThV-MOJ4aUOx2HhSxUd1YXi0', 'my5wGmuottanrIAKrEhe2LERPKx4U05oU4aK9Fyucv0'];
+		let tmplIds = ['oz7msNJRXzk7VmASJsJtb2JG0rKEWjX3Ff1PIaAPa78','lY047e1wk-OFdeGuIx2ThV-MOJ4aUOx2HhSxUd1YXi0', 'my5wGmuottanrIAKrEhe2LERPKx4U05oU4aK9Fyucv0'];
 		util.subscribe(tmplIds,urls);
 		// util.go('/pages/personal_center/my_etc/my_etc');
 	},

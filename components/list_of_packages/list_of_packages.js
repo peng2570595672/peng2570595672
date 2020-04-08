@@ -59,14 +59,25 @@ Component({
 			});
 		},
 		// 获取套餐列表
-		getListOfPackages () {
+		getListOfPackages (notList) {
+			let shopId;
+			if (notList) {
+				shopId = app.globalData.miniProgramServiceProvidersId;
+			} else {
+				shopId = app.globalData.otherPlatformsServiceProvidersId ? app.globalData.otherPlatformsServiceProvidersId : app.globalData.miniProgramServiceProvidersId;
+			}
 			util.showLoading();
 			util.getDataFromServer('consumer/system/get-usable-product', {
 				areaCode: this.data.regionCode[0],
+				shopId: shopId,
 				productType: '2'
 			}, () => {
 			}, (res) => {
 				if (res.code === 0) {
+					if (res.data.length === 0) {
+						app.globalData.isServiceProvidersPackage = false; // 该服务商没有套餐
+						this.getListOfPackages(true);
+					}
 					this.setData({
 						listOfPackages: res.data
 					});

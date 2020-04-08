@@ -385,7 +385,6 @@ Page({
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			shopProductId: this.data.choiceObj.shopProductId,
 			areaCode: this.data.choiceObj.areaCode,
-			shopId: this.data.choiceObj.shopId,
 			idCardStatus: this.data.orderInfo['idCard'].idCardStatus,
 			idCardValidDate: this.data.idCardBack.ocrObject.validDate,
 			idCardAddress: this.data.idCardFace.ocrObject.address,
@@ -408,6 +407,16 @@ Page({
 			ownerIdCardHaveChange: IdCardHaveChange, // 车主身份证OCR结果是否被修改过，默认false，修改过传true 【dataType包含8】
 			needSignContract: true // 是否需要签约 true-是，false-否 允许值: true, false
 		};
+		if (app.globalData.otherPlatformsServiceProvidersId) {
+			params['promoterId'] = app.globalData.otherPlatformsServiceProvidersId; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广 默认为0
+			params['promoterType'] = 2; // 推广者ID标识
+		}
+		if (app.globalData.isServiceProvidersPackage && app.globalData.otherPlatformsServiceProvidersId) {
+			// 存在该服务商且有该服务商套餐 :使用该服务商id,否则,使用小程序服务商id
+			params['shopId'] = app.globalData.otherPlatformsServiceProvidersId;
+		} else {
+			params['shopId'] = app.globalData.miniProgramServiceProvidersId;
+		}
 		if (app.globalData.firstVersionData) {
 			params['upgradeToTwo'] = true; // 1.0数据转2.0
 		}

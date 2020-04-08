@@ -86,6 +86,14 @@ page {
   font-size: 40rpx;
   color: #fff;
 }
+.order_details .micro-insurance {
+  position: fixed;
+  bottom: 22%;
+  right: 56rpx;
+}
+.order_details .micro-insurance image {
+  width: 129rpx;
+}
 .is-arrears {
   padding-bottom: 240rpx;
 }
