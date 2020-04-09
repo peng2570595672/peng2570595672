@@ -135,18 +135,18 @@
 			</view>
 			<view>我的ETC</view>
 		</view>
-		<view class="item" catchtap="go" data-url="violation_enquiry">
+		<view class="item" catchtap="go" data-url="violation_enquiry" wx:if="{{!isContinentInsurance}}">
 			<view>
 				<image src="/pages/default/assets/icon_for_violation_of_regulations.svg"></image>
 			</view>
 			<view>违章查询</view>
 		</view>
-		<!--<view class="item" catchtap="go" data-url="member_benefits">-->
-			<!--<view>-->
-				<!--<image src="/pages/default/assets/icon_for_member_benefits.svg"></image>-->
-			<!--</view>-->
-			<!--<view>会员权益</view>-->
-		<!--</view>-->
+		<view class="item" catchtap="go" data-url="my_order" wx:if="{{isContinentInsurance}}">
+			<view>
+				<image src="/pages/default/assets/icon_for_my_order.svg"></image>
+			</view>
+			<view>ETC账单</view>
+		</view>
 		<view class="item" catchtap="go" catchtap="go" data-url="online_customer_service">
 			<view>
 				<image src="/pages/default/assets/icon_for_online_service.svg"></image>
