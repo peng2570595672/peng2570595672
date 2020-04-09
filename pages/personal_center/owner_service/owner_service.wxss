@@ -1,0 +1,204 @@
+page {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #f5f7fd;
+}
+page .owner-service {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  margin: 0 35rpx;
+}
+page .owner-service .owner-service-title {
+  color: #66666d;
+  font-weight: 600;
+  font-size: 42rpx;
+  line-height: 48rpx;
+  padding: 62rpx 0 30rpx;
+}
+page .owner-service .owner-service-top {
+  position: absolute;
+  top: 140rpx;
+  z-index: 1;
+  width: 90.6%;
+  height: 41.5vh;
+  box-sizing: border-box;
+  margin: auto;
+  border-radius: 16rpx;
+}
+page .owner-service .owner-service-top .owner-service-bg image {
+  width: 100%;
+  height: 317rpx;
+  border-radius: 16rpx;
+}
+page .owner-service .service {
+  position: absolute;
+  top: 200rpx;
+  z-index: 2;
+  width: 90.6%;
+  background: #fff;
+  border-radius: 0px 0px 16rpx 16rpx;
+  box-shadow: 8rpx 12rpx 26rpx 0px rgba(219,224,238,0.54);
+  margin-top: 2vh;
+}
+page .owner-service .service .triangle-left {
+  width: 100%;
+  height: 5vh;
+  background: #fff;
+  transform: skewY(5deg) translate(0rpx, 10rpx);
+  margin-top: -2vh;
+}
+page .owner-service .service .triangle-right {
+  width: 100%;
+  height: 5vh;
+  background: #fff;
+  transform: skewY(-5deg) translate(0rpx, 10rpx);
+  margin-top: -5vh;
+}
+page .owner-service .service .service-list {
+  position: relative;
+  width: 100%;
+  background: #fff;
+  margin-bottom: 96rpx;
+}
+page .owner-service .service .service-list .service-content .list-box {
+  height: 360rpx;
+  padding: 0 60rpx 0 56rpx;
+}
+page .owner-service .service .service-list .service-content .list-box .list-content {
+  display: flex;
+  float: left;
+  width: 50%;
+  height: 78rpx;
+  align-items: center;
+  text-align: center;
+  padding-top: 42rpx;
+}
+page .owner-service .service .service-list .service-content .list-box .list-content .list-title {
+  display: flex;
+  color: #33333d;
+  font-weight: 600;
+  font-size: 32rpx;
+  line-height: 78rpx;
+  align-items: center;
+}
+page .owner-service .service .service-list .service-content .list-box .list-content .list-title::before {
+  color: #219e61;
+  font-weight: 400;
+  font-size: 78rpx;
+  margin-right: 16rpx;
+}
+page .owner-service .service .service-list .service-content .list-box>view:nth-child(2n) {
+  text-align: right;
+}
+page .owner-service .service .service-list .service-content .list-box>view:nth-child(2n) .list-title {
+  margin-left: auto;
+}
+page .owner-service .service .service-bottom {
+  margin: 0 70rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  border-top: 2rpx solid #efefef;
+  font-size: 24rpx;
+  color: #99999d;
+}
+page .owner-service .as-service button {
+  width: 83%;
+  height: 98rpx;
+  line-height: 98rpx;
+  border-radius: 98rpx;
+  font-size: 40rpx;
+  font-weight: 500;
+  color: #fff;
+  background: linear-gradient(to right, #15ad69, #84d157);
+}
+page .owner-service .prompt {
+  display: flex;
+  font-size: 26rpx;
+  width: 100%;
+  color: #99999d;
+  align-items: center;
+  justify-content: center;
+  line-height: 34rpx;
+  padding-top: 40rpx;
+}
+page .owner-service .prompt image {
+  width: 28rpx;
+  height: 26rpx;
+  margin-right: 10rpx;
+}
+page .owner-service .mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  background: rgba(0,0,0,0.6);
+}
+page .owner-service .mask .top {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 37%;
+  background: rgba(0,0,0,0);
+}
+page .owner-service .mask .wrapper {
+  position: fixed;
+  left: 0rpx;
+  top: 37%;
+  right: 0;
+  bottom: 0;
+  height: 63%;
+  background: #fff;
+  border-radius: 32rpx 32rpx 0px 0px;
+  padding: 0 68rpx;
+}
+page .owner-service .mask .wrapper .details-title {
+  display: flex;
+  align-items: center;
+  font-size: 40rpx;
+  font-weight: 600;
+  line-height: 74rpx;
+  color: #33333d;
+  padding-top: 58rpx;
+}
+page .owner-service .mask .wrapper .details-title::before {
+  color: #15ad69;
+  font-weight: 400;
+  font-size: 74rpx;
+  padding-right: 20rpx;
+}
+page .owner-service .mask .wrapper .details-content {
+  color: #66666d;
+  font-size: 32rpx;
+  line-height: 48rpx;
+  padding-top: 30rpx;
+}
+page .owner-service .mask .wrapper .as-service,
+page .owner-service .mask .wrapper .prompt {
+  transform: skewY(0deg) translate(0rpx, 0rpx);
+}
+page .owner-service .mask .wrapper .as-service {
+  padding-top: 100rpx;
+}
+page .icon0::before {
+  content: '\e60c';
+}
+page .icon1::before {
+  content: '\e610';
+}
+page .icon2::before {
+  content: '\e60d';
+}
+page .icon3::before {
+  content: '\e60b';
+}
+page .icon4::before {
+  content: '\e60a';
+}

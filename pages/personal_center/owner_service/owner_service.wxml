@@ -1,0 +1,50 @@
+<view class="owner-service">
+	<view class="owner-service-title">ETC车主服务</view>
+	<!--车主服务头部开始-->
+	<view class="owner-service-top">
+		<!--车主服务头部背景开始-->
+		<view class="owner-service-bg">
+			<image src = 'https://file.cyzl.com/g001/M05/EB/6D/oYYBAF38dA6ADPLUAAAfzvekoo4387.png'></image>
+		</view>
+		<!--车主服务头部背景结束-->
+	</view>
+	<!--车主服务头部结束-->
+	<!--车主服务列表盒子开始-->
+	<view class="service">
+		<view class="triangle-left"></view>
+		<view class="triangle-right"></view>
+		<view class="service-list">
+			<view class="service-content">
+				<!--车主服务列表开始-->
+				<view class="list-box">
+					<view wx:for="{{serviceList}}" wx:key="index" class="list-content" catchtap="showDetail" data-content="{{item}}">
+						<view class="list-title iconfont icon{{item.id}}">{{item.title}}</view>
+					</view>
+				</view>
+				<!--车主服务列表结束-->
+			</view>
+		</view>
+		<view class="service-bottom">
+			<!--车主服务底部点亮开始-->
+			<view class="lighting-service">所有服务已为你点亮，快去体验吧</view>
+			<!--车主服务底部点亮结束-->
+		</view>
+	</view>
+	<!--车主服务列表盒子结束-->
+	<!--弹出详情开始-->
+	<view class="mask animated {{showDetailWtapper?'fadeIn':'fadeOut'}}" wx:if="{{showDetailMask}}">
+		<view class="top" catchtap="hide"></view>
+		<view class="wrapper animated {{showDetailWtapper?'slideInUp':'slideOutDown'}}">
+			<view class="details-title iconfont icon{{detailsContent.id}}"><text>{{detailsContent.title}}</text></view>
+			<view class="details-content">{{detailsContent.content}}</view>
+			<view class="as-service">
+				<button wx:if="{{userInfo}}"  open-type="contact">发送“6”享受权益</button>
+				<button wx:if="{{!userInfo}}"  open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">发送“6”享受权益</button>
+			</view>
+			<view class="prompt">
+				<text>所有服务已为你点亮，快去体验吧</text>
+			</view>
+		</view>
+	</view>
+	<!--弹出详情结束-->
+</view>

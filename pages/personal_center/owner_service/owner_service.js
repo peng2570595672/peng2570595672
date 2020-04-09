@@ -4,7 +4,7 @@ Page({
 	data: {
 		isMembers: false,
 		userInfo: undefined, // 用户信息
-		benefitsList: [
+		serviceList: [
 			{
 				id: 0,
 				img: 'https://file.cyzl.com/g001/M05/E0/4A/oYYBAF36zsmAJT1KAAA1qnJOMf4027.svg',
@@ -64,30 +64,12 @@ Page({
 		});
 	},
 	onShow () {
-		this.getMemberBenefits();
 	},
 	bindGetUserInfo (e) {
 		console.log(e);
 		console.log(e.detail.userInfo);
 		this.setData({
 			userInfo: e.detail.userInfo
-		});
-	},
-	// 获取会员信息
-	getMemberBenefits () {
-		util.showLoading();
-		util.getDataFromServer('consumer/member/member-status', {}, () => {
-			util.showToastNoIcon('获取会员信息失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				this.setData({
-					isMembers: res.data.vipGrade === 1 ? true : false
-				});
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
 		});
 	},
 	// 弹出详情
