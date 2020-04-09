@@ -66,8 +66,6 @@ Page({
 	onShow () {
 	},
 	bindGetUserInfo (e) {
-		console.log(e);
-		console.log(e.detail.userInfo);
 		this.setData({
 			userInfo: e.detail.userInfo
 		});
@@ -91,14 +89,5 @@ Page({
 				showDetailMask: false
 			});
 		}, 400);
-	},
-	// 成为会员&一键体验
-	go () {
-		if (!this.data.isMembers) {
-		app.globalData.orderInfo.orderId = '';
-			util.go('/pages/default/receiving_address/receiving_address');
-		} else {
-			console.log('去微信客服');
-		}
 	}
 });
