@@ -83,3 +83,57 @@
 .page .btns .btn.help-center {
   background: #ffa763;
 }
+.page .bind-mobile-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+}
+.page .bind-mobile-mask .bind-mobile-wrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 66rpx;
+  background: #fff;
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
+}
+.page .bind-mobile-mask .bind-mobile-wrapper .title {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  font-size: 40rpx;
+}
+.page .bind-mobile-mask .bind-mobile-wrapper .title::before,
+.page .bind-mobile-mask .bind-mobile-wrapper .title::after {
+  flex: 1;
+  content: '';
+  height: 2rpx;
+}
+.page .bind-mobile-mask .bind-mobile-wrapper .title::before {
+  margin-right: 30rpx;
+  background: linear-gradient(to right, #fff, #d9d9d9);
+}
+.page .bind-mobile-mask .bind-mobile-wrapper .title::after {
+  margin-left: 30rpx;
+  background: linear-gradient(to right, #d9d9d9, #fff);
+}
+.page .bind-mobile-mask .bind-mobile-wrapper .mobile {
+  display: flex;
+}
+.page .bind-mobile-mask .bind-mobile-wrapper .mobile > button {
+  margin-top: 71rpx;
+  flex: 1;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  color: #fff;
+  background: linear-gradient(to right, #15ad69, #84d157);
+  border-radius: 45rpx;
+  background-color: #31d4b7;
+}

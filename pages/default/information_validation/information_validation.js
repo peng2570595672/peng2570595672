@@ -435,7 +435,7 @@ Page({
 					if (this.data.productInfo.isOwner === 1 && this.data.orderInfo.idCard.idCardTrueName !== face.owner) {
 						util.go(`/pages/default/update_id_card/update_id_card?type=normal_process`);
 					} else {
-						util.go('/pages/default/processing_progress/processing_progress?type=main_process');
+						util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
 					}
 				}
 			} else {

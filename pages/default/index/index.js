@@ -381,7 +381,7 @@ Page({
 		// 统计点击事件
 		mta.Event.stat('003',{});
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
-		util.go('/pages/default/processing_progress/processing_progress');
+		util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.data.orderInfo.id}`);
 	},
 	// 去激活
 	onClickCctivate () {

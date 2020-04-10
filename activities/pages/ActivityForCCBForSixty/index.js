@@ -9,6 +9,10 @@ Page({
 		showMobileWrapper: false // 绑定手机号相关
 	},
 	onLoad () {
+		app.globalData.isFaceToFaceCCB = true;
+		// 面对面服务商
+		app.globalData.otherPlatformsServiceProvidersId = '642089383318519808';
+		app.globalData.faceToFacePromotionId = '602020013';
 		this.login();
 	},
 	// 打开规则弹窗
@@ -97,6 +101,8 @@ Page({
 				title: '绑定中...'
 			});
 			util.getDataFromServer('consumer/member/common/applet/bindingPhone', {
+				sourceType: 5,// 用户来源类型 5-面对面引流 7-微信引流
+				sourceId: app.globalData.otherPlatformsServiceProvidersId,// 来源标识 面对面引流时传服务商id，微信引流时，1-为城市服务
 				certificate: this.data.loginInfo.certificate,
 				encryptedData: encryptedData, // 微信加密数据
 				iv: iv // 微信加密数据
@@ -125,10 +131,6 @@ Page({
 		}
 	},
 	freeProcessing (e) {
-		app.globalData.isFaceToFaceCCB = true;
-		// 面对面服务商
-		app.globalData.otherPlatformsServiceProvidersId = '642089383318519808';
-		app.globalData.faceToFacePromotionId = '602020013';
 		util.go('/pages/default/receiving_address/receiving_address');
 	}
 });

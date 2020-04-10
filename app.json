@@ -49,10 +49,10 @@
 			]
 		},
 		{
-			"root": "cities_services",
-			"name": "cities_services",
+			"root": "CitiesServices",
+			"name": "CitiesServices",
 			"pages": [
-				"pages/cities_services/cities_services"
+				"pages/CitiesServices/CitiesServices"
 			]
 		},
 		{

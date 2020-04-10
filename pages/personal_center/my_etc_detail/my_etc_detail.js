@@ -111,6 +111,9 @@ Page({
 		app.globalData.isModifiedData = true; // 修改资料
 		if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {
 			// 1.0数据
+			wx.removeStorageSync('driving_license_face');
+			wx.removeStorageSync('driving_license_back');
+			wx.removeStorageSync('car_head_45');
 			app.globalData.firstVersionData = true;
 		} else {
 			app.globalData.firstVersionData = false;
@@ -141,7 +144,7 @@ Page({
 	// 查看办理进度
 	onClickViewProcessingProgressHandle () {
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
-		util.go('/pages/default/processing_progress/processing_progress');
+		util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.data.orderInfo.id}`);
 	},
 	//  恢复签约
 	onClickBackToSign () {

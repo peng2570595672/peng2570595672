@@ -6,6 +6,7 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		orderId: undefined,
 		dashedHeight: 0,
 		accountVerification: 0, //  0 没有核验id   1：核验成功，2-正在核验
 		info: undefined,
@@ -17,6 +18,15 @@ Page({
 		this.setData({
 			isContinentInsurance: app.globalData.isContinentInsurance
 		});
+		if (options.orderId) {
+			this.setData({
+				orderId: options.orderId
+			});
+		} else {
+			this.setData({
+				orderId: app.globalData.orderInfo.orderId
+			});
+		}
 		if (!this.data.isContinentInsurance) {
 			let time = new Date().toLocaleDateString();
 			let that = this;
@@ -114,7 +124,7 @@ Page({
 	getProcessingProgress () {
 		util.showLoading();
 		util.getDataFromServer('consumer/order/transact-schedule', {
-			orderId: app.globalData.orderInfo.orderId
+			orderId: this.data.orderId
 		}, () => {
 		}, (res) => {
 			if (res.code === 0) {

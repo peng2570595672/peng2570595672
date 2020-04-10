@@ -12,4 +12,14 @@
 		<view class="btn myetc" catchtap="go" data-url="pages/personal_center/my_etc/my_etc">我的ETC</view>
 		<view class="btn help-center" catchtap="go" data-url="pages/personal_center/help_center/help_center">帮助中心</view>
 	</view>
+	<!--绑定手机号开始-->
+	<view class="bind-mobile-mask animated {{loginInfo.needBindingPhone === 1 ? 'fadeIn' : 'fadeOut'}}" wx:if="{{loginInfo.needBindingPhone === 1}}">
+		<view class="bind-mobile-wrapper  animated {{loginInfo.needBindingPhone === 1 ? 'slideInUp' : 'slideOutDown'}}" wx:if="{{loginInfo.needBindingPhone === 1}}">
+			<view class="title">登录方式</view>
+			<view class="mobile">
+				<button open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">微信绑定手机登录</button>
+			</view>
+		</view>
+	</view>
+	<!--绑定手机号结束-->
 </view>

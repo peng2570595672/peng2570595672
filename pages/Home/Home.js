@@ -381,7 +381,7 @@ Page({
 		// 统计点击事件
 		mta.Event.stat('003',{});
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
-		util.go('/pages/default/processing_progress/processing_progress');
+		util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.data.orderInfo.id}`);
 	},
 	// 去激活
 	onClickCctivate () {
@@ -452,6 +452,9 @@ Page({
 		if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {
 			// 1.0数据
 			app.globalData.firstVersionData = true;
+			wx.removeStorageSync('driving_license_face');
+			wx.removeStorageSync('driving_license_back');
+			wx.removeStorageSync('car_head_45');
 		} else {
 			app.globalData.firstVersionData = false;
 		}

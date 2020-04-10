@@ -242,7 +242,7 @@ Page({
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
 			if (res.code === 0) {
-				util.go('/pages/default/processing_progress/processing_progress?type=main_process');
+				util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
 			} else {
 				util.showToastNoIcon(res.message);
 			}

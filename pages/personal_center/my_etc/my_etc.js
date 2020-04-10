@@ -86,7 +86,7 @@ Page({
 		let index = e.currentTarget.dataset.index;
 		let obj = this.data.carList[parseInt(index)];
 		app.globalData.orderInfo.orderId = obj.id;
-		util.go('/pages/default/processing_progress/processing_progress');
+		util.go(`/pages/default/processing_progress/processing_progress?orderId=${obj.id}`);
 	},
 	// 继续办理
 	onClickContinueHandle (e) {
@@ -248,6 +248,9 @@ Page({
 		app.globalData.isModifiedData = true; // 修改资料
 		if (obj.remark && obj.remark.indexOf('迁移订单数据') !== -1) {
 			// 1.0数据
+			wx.removeStorageSync('driving_license_face');
+			wx.removeStorageSync('driving_license_back');
+			wx.removeStorageSync('car_head_45');
 			app.globalData.firstVersionData = true;
 		} else {
 			app.globalData.firstVersionData = false;
