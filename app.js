@@ -131,9 +131,6 @@ App({
 			if (res.code === 0) {
 				this.globalData.otherPlatformsServiceProvidersId = res.data.shopId;
 				this.globalData.scanCodeToHandle = res.data;
-				// promoterId: "235792950839738368"
-				// promoterType: 4
-				// shopId: "689871571264741376"
 			} else {
 				util.hideLoading();
 			}
