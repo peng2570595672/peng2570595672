@@ -30,7 +30,10 @@ Page({
 	// 加载ETC列表
 	getMyETCList () {
 		util.showLoading();
-		util.getDataFromServer('consumer/order/my-etc-list', {}, () => {
+		let params = {
+			openId: app.globalData.openId
+		};
+		util.getDataFromServer('consumer/order/my-etc-list', params, () => {
 			util.showToastNoIcon('获取车辆列表失败！');
 		}, (res) => {
 			if (res.code === 0) {
