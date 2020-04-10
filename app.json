@@ -1,5 +1,6 @@
 {
 	"pages": [
+		"pages/Home/Home",
 		"pages/default/index/index",
 		"pages/default/receiving_address/receiving_address",
 		"pages/default/high_speed_verification_failed/high_speed_verification_failed",
@@ -55,6 +56,15 @@
 			]
 		},
 		{
+			"root": "activities",
+			"name": "activities",
+			"pages": [
+				"pages/ActivityForCCBForSixty/index",
+				"pages/ActivityForICBCForSixty/index",
+				"pages/ActivityForLTForSixty/index"
+			]
+		},
+		{
 			"root": "pages/web",
 			"name": "pages/web",
 			"pages": [
@@ -64,6 +74,7 @@
 	],
 	"navigateToMiniProgramAppIdList": [
 		"wxbcad394b3d99dac9",
+		"wxc4f4bbf790beb17b",
 		"wxaca5642db7afd470"
 	],
 	"sitemapLocation": "sitemap.json",

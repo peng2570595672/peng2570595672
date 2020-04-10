@@ -15,7 +15,8 @@ Page({
 	// 返回首页
 	onClickGoHomeHandle () {
 		wx.reLaunch({
-			url: '/pages/default/index/index'
+			// url: '/pages/default/index/index'
+			url: '/pages/Home/Home'
 		});
 	}
 });

@@ -39,7 +39,7 @@
 			<view class="details-content">{{detailsContent.content}}</view>
 			<view class="as-service">
 				<button wx:if="{{userInfo}}"  open-type="contact">发送“6”享受权益</button>
-				<button wx:if="{{!userInfo}}"  open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">发送“6”享受权益</button>
+				<button wx:if="{{!userInfo}}"  open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">发送“6”体验服务</button>
 			</view>
 			<view class="prompt">
 				<text>所有服务已为你点亮，快去体验吧</text>

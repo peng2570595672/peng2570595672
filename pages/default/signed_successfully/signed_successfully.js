@@ -31,7 +31,8 @@ Page({
 		util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license?type=3');
 	},
 	onClickHandle () {
-		let urls = '/pages/default/index/index';
+		// let urls = '/pages/default/index/index';
+		let urls = '/pages/Home/Home';
 		let tmplIds = ['rWHTLYmUdcuYw-wKU0QUyM7H0t-adDKeu193RjILL0M'];
 		util.subscribe(tmplIds,urls);
 	},
@@ -39,7 +40,8 @@ Page({
 		// 统计点击事件
 		mta.Event.stat('034',{});
 		wx.reLaunch({
-			url: '/pages/default/index/index'
+			// url: '/pages/default/index/index'
+			url: '/pages/Home/Home'
 		});
 	}
 });

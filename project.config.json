@@ -345,6 +345,35 @@
 					"id": -1,
 					"name": "pages/default/high_speed_verification_failed/high_speed_verification_failed",
 					"pathName": "pages/default/high_speed_verification_failed/high_speed_verification_failed",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/default/receiving_address_ccb/receiving_address_ccb",
+					"pathName": "pages/default/receiving_address_ccb/receiving_address_ccb",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 37,
+					"name": "pages/Home/Home",
+					"pathName": "pages/Home/Home",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 38,
+					"name": "activities/pages/ActivityForCCBForSixty/index",
+					"pathName": "activities/pages/ActivityForCCBForSixty/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "activities/pages/ActivityForICBCForSixty/index",
+					"pathName": "activities/pages/ActivityForICBCForSixty/index",
+					"query": "",
 					"scene": null
 				}
 			]

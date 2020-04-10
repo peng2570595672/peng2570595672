@@ -19,6 +19,14 @@
   flex-direction: column;
   min-height: 100vh;
 }
+.receiving_address .tips {
+  position: absolute;
+  top: 0;
+  color: #f00;
+  line-height: 40rpx;
+  font-size: 24rpx;
+  padding-left: 30rpx;
+}
 .receiving_address .title {
   margin-top: 40rpx;
   display: flex;

@@ -49,6 +49,9 @@ Page({
 				this.setData({
 					choiceObj: res.data
 				});
+				this.setData({
+					available: this.validateAvailable()
+				});
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -68,9 +71,15 @@ Page({
 						this.setData({
 							idCardFace: res.data[0]
 						});
+						this.setData({
+							available: this.validateAvailable()
+						});
 					} else {
 						this.setData({
 							idCardBack: res.data[0]
+						});
+						this.setData({
+							available: this.validateAvailable()
 						});
 					}
 				} else { // 识别失败
@@ -88,6 +97,9 @@ Page({
 					isFirstVersionPic2: false
 				});
 				this.getNetworkImage(this.data.firstVersionPic2,2);
+				this.setData({
+					available: this.validateAvailable()
+				});
 			} else {
 				util.hideLoading();
 				this.setData({
@@ -103,6 +115,7 @@ Page({
 		wx.getImageInfo({
 			src: path,
 			success: function (ret) {
+				console.log(ret);
 				that.setData({
 					count: 0
 				});
@@ -180,7 +193,10 @@ Page({
 						[`choiceObj.areaCode`]: res.data.product.areaCode
 					});
 				}
+				console.log(app.globalData.firstVersionData);
+				console.log(temp.idCardPositiveUrl);
 				if (app.globalData.firstVersionData && temp.idCardPositiveUrl) {
+					console.log('....//////');
 					that.setData({
 						firstVersionPic2: temp.idCardNegativeUrl,
 						isFirstVersionPic2: true
@@ -408,8 +424,16 @@ Page({
 			needSignContract: true // 是否需要签约 true-是，false-否 允许值: true, false
 		};
 		if (app.globalData.otherPlatformsServiceProvidersId) {
-			params['promoterId'] = app.globalData.otherPlatformsServiceProvidersId; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广 默认为0
-			params['promoterType'] = 2; // 推广者ID标识
+			// 扫描小程序码进入办理
+			if (app.globalData.scanCodeToHandle) {
+				params['promoterId'] = app.globalData.scanCodeToHandle.promoterId;// 推广者ID标识
+				params['promoterType'] = app.globalData.scanCodeToHandle.promoterType; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广 默认为0
+			}
+			// 面对面活动进入办理
+			if ((app.globalData.isFaceToFaceCCB || app.globalData.isFaceToFaceICBC || app.globalData.isFaceToFaceWeChat) && app.globalData.faceToFacePromotionId) {
+				params['promoterId'] = app.globalData.faceToFacePromotionId;// 推广者ID标识
+				params['promoterType'] = 3; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广 默认为0
+			}
 		}
 		if (app.globalData.isServiceProvidersPackage && app.globalData.otherPlatformsServiceProvidersId) {
 			// 存在该服务商且有该服务商套餐 :使用该服务商id,否则,使用小程序服务商id

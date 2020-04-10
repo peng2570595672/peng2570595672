@@ -24,6 +24,7 @@ Page({
 		isRequest: false,// 是否请求中
 		isNewPowerCar: false, // 是否为新能源
 		showToast: false, // 是否验证码错误
+		isFaceToFaceCCB: false, // 是否是面对面建行活动
 		formData: {
 			currentCarNoColor: 0, // 0 蓝色 1 渐变绿 2黄色
 			region: ['省', '市', '区'], // 省市区
@@ -39,8 +40,15 @@ Page({
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.signAContract = 3;
 		this.setData({
-			mobilePhoneMode: app.globalData.mobilePhoneMode
+			mobilePhoneMode: app.globalData.mobilePhoneMode,
+			isFaceToFaceCCB: app.globalData.isFaceToFaceCCB
 		});
+		if (app.globalData.isFaceToFaceCCB) {
+			this.setData({
+				[`formData.region`]: ['贵州省'],
+				[`formData.regionCode`]: ['520000']
+			});
+		}
 	},
 	// 下一步
 	next () {
@@ -212,6 +220,12 @@ Page({
 		mta.Event.stat('027',{});
 		wx.chooseAddress({
 			success: (res) => {
+				if (this.data.isFaceToFaceCCB) {
+					if (res.provinceName !== '贵州省') {
+						util.showToastNoIcon('暂不支持非贵州地区办理');
+						return;
+					}
+				}
 				let formData = this.data.formData;
 				formData.userName = res.userName; // 姓名
 				formData.telNumber = res.telNumber; // 电话
@@ -244,6 +258,12 @@ Page({
 	},
 	// 省市区选择
 	onPickerChangedHandle (e) {
+		if (this.data.isFaceToFaceCCB) {
+			if (e.detail.value[0] !== '贵州省') {
+				util.showToastNoIcon('暂不支持非贵州地区办理');
+				return;
+			}
+		}
 		let formData = this.data.formData;
 		formData.region = e.detail.value;
 		if (e.detail.code && e.detail.code.length === 3) {
@@ -262,6 +282,12 @@ Page({
 		mta.Event.stat('026',{});
 		wx.chooseLocation({
 			success: (res) => {
+				if (this.data.isFaceToFaceCCB) {
+					if (res.address.indexOf('贵州省') === -1) {
+						util.showToastNoIcon('暂不支持非贵州地区办理');
+						return;
+					}
+				}
 				let address = res.address;
 				if (address) {
 					// 根据地理位置信息获取经纬度

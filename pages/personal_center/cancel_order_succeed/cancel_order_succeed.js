@@ -16,12 +16,14 @@ Page({
 	},
 	onClickHandle () {
 		wx.reLaunch({
-			url: '/pages/default/index/index'
+			// url: '/pages/default/index/index'
+			url: '/pages/Home/Home'
 		});
 	},
 	onUnload () {
 		wx.reLaunch({
-			url: '/pages/default/index/index'
+			// url: '/pages/default/index/index'
+			url: '/pages/Home/Home'
 		});
 	}
 });

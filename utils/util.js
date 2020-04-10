@@ -672,7 +672,8 @@ function subscribe(tmplIds, url) {
 								})
 							},
 							cancel: () => { // 点击取消按钮
-								if (url === '/pages/default/index/index') {
+								// if (url === '/pages/default/index/index') {
+								if (url === '/pages/Home/Home') {
 									wx.reLaunch({
 										url: url
 									});
@@ -682,7 +683,8 @@ function subscribe(tmplIds, url) {
 							}
 						});
 					} else {
-						if (url === '/pages/default/index/index') {
+						if (url === '/pages/Home/Home') {
+						// if (url === '/pages/default/index/index') {
 							wx.reLaunch({
 								url: url
 							});
@@ -697,7 +699,8 @@ function subscribe(tmplIds, url) {
 				wx.hideLoading();
 				// 不是点击的取消按钮
 				if (res.errMsg === 'requestSubscribeMessage:fail cancel') {
-					if (url === '/pages/default/index/index') {
+					// if (url === '/pages/default/index/index') {
+					if (url === '/pages/Home/Home') {
 						wx.reLaunch({
 							url: url
 						});
@@ -719,7 +722,8 @@ function subscribe(tmplIds, url) {
 							})
 						},
 						cancel: () => {
-							if (url === '/pages/default/index/index') {
+							// if (url === '/pages/default/index/index') {
+							if (url === '/pages/Home/Home') {
 								wx.reLaunch({
 									url: url
 								});
@@ -738,7 +742,8 @@ function subscribe(tmplIds, url) {
 			confirmText: '继续使用',
 			showCancel: true,
 			confirm: () => {
-				if (url === '/pages/default/index/index') {
+				// if (url === '/pages/default/index/index') {
+				if (url === '/pages/Home/Home') {
 					wx.reLaunch({
 						url: url
 					});

@@ -1,0 +1,296 @@
+.index .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 98rpx;
+  font-size: 40rpx;
+  font-weight: 500;
+  color: #fff;
+  border-radius: 49rpx;
+  font-weight: 500;
+  background: linear-gradient(to right, #15ad69, #84d157);
+  box-shadow: 0 8rpx 10rpx 0 rgba(132,209,87,0.2);
+}
+.index .tips {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20rpx;
+  text-align: center;
+  font-size: 24rpx;
+  height: 40rpx;
+  color: #99999d;
+}
+.index .tips > text {
+  color: #ff563c;
+}
+.index .tips-red {
+  color: #f00;
+}
+.index .welcome {
+  margin: 26rpx 0;
+  padding-left: 60rpx;
+  font-size: 60rpx;
+  line-height: 60rpx;
+  font-weight: 500;
+}
+.index .welcome > open-data {
+  margin-left: 26rpx;
+  font-size: 32rpx;
+  color: #66666d;
+}
+.index .my-swiper {
+  height: 394rpx;
+  overflow: hidden;
+}
+.index .my-swiper .my-swiper-item {
+  height: 364rpx !important;
+  border-radius: 32rpx;
+}
+.index .my-swiper .my-swiper-item > image {
+  text-align: center;
+  width: 90%;
+  height: 100%;
+  margin-left: 5%;
+  border-radius: 32rpx;
+}
+.index .my-swiper .wx-swiper-dots-horizontal {
+  margin-bottom: -18rpx;
+}
+.index .my-swiper .wx-swiper-dots-horizontal .wx-swiper-dot {
+  margin-right: 4rpx;
+  width: 10rpx;
+  height: 10rpx;
+  background: #e3e5e6;
+}
+.index .my-swiper .wx-swiper-dots-horizontal .wx-swiper-dot.wx-swiper-dot-active {
+  background: #979999;
+}
+.index .free-processing {
+  margin-top: 98rpx;
+  padding: 0 70rpx;
+  padding-bottom: 40rpx;
+}
+.index .processing,
+.index .viewing-process,
+.index .update-info,
+.index .audit-failure,
+.index .confirm-receipt,
+.index .resume-contract,
+.index .bill {
+  margin-top: 40rpx;
+  padding: 0 60rpx 40rpx;
+}
+.index .processing .processing-title,
+.index .viewing-process .processing-title,
+.index .update-info .processing-title,
+.index .audit-failure .processing-title,
+.index .confirm-receipt .processing-title,
+.index .resume-contract .processing-title,
+.index .bill .processing-title {
+  display: flex;
+  align-items: center;
+  height: 48rpx;
+}
+.index .processing .processing-title > view:first-of-type,
+.index .viewing-process .processing-title > view:first-of-type,
+.index .update-info .processing-title > view:first-of-type,
+.index .audit-failure .processing-title > view:first-of-type,
+.index .confirm-receipt .processing-title > view:first-of-type,
+.index .resume-contract .processing-title > view:first-of-type,
+.index .bill .processing-title > view:first-of-type {
+  display: flex;
+  align-items: center;
+  height: 48rpx;
+  flex: 1;
+  font-size: 32rpx;
+}
+.index .processing .processing-title > view:last-of-type,
+.index .viewing-process .processing-title > view:last-of-type,
+.index .update-info .processing-title > view:last-of-type,
+.index .audit-failure .processing-title > view:last-of-type,
+.index .confirm-receipt .processing-title > view:last-of-type,
+.index .resume-contract .processing-title > view:last-of-type,
+.index .bill .processing-title > view:last-of-type {
+  display: flex;
+  height: 40rpx;
+  align-items: center;
+  font-size: 24rpx;
+  color: #99999d;
+}
+.index .processing .processing-title > view:last-of-type::after,
+.index .viewing-process .processing-title > view:last-of-type::after,
+.index .update-info .processing-title > view:last-of-type::after,
+.index .audit-failure .processing-title > view:last-of-type::after,
+.index .confirm-receipt .processing-title > view:last-of-type::after,
+.index .resume-contract .processing-title > view:last-of-type::after,
+.index .bill .processing-title > view:last-of-type::after {
+  margin-left: 5rpx;
+  display: inline-block;
+  width: 0;
+  content: '';
+  border-color: rgba(0,0,0,0);
+  border-bottom-style: solid;
+  border-right: 15rpx solid #ffec9a;
+  border-width: 15rpx;
+  transform: rotateZ(45deg);
+}
+.index .processing .btn,
+.index .viewing-process .btn,
+.index .update-info .btn,
+.index .audit-failure .btn,
+.index .confirm-receipt .btn,
+.index .resume-contract .btn,
+.index .bill .btn {
+  margin: 20rpx 10rpx 0;
+}
+.index .audit-failure .failed {
+  margin-top: 38rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 74rpx;
+  color: #ff563c;
+  font-size: 40rpx;
+}
+.index .audit-failure .tips {
+  margin-top: 36rpx;
+}
+.index .bill {
+  padding: 0 40rpx;
+}
+.index .bill .processing-title {
+  margin: 0 20rpx;
+}
+.index .bill .bill-info {
+  margin: 20rpx 0;
+  padding: 0 20rpx;
+  height: 178rpx;
+  box-shadow: 4rpx 4rpx 46rpx 0 rgba(126,132,156,0.1);
+  border-radius: 32rpx;
+}
+.index .bill .bill-info > view {
+  display: flex;
+  align-items: center;
+  padding: 0 20rpx;
+}
+.index .bill .bill-info > view:first-of-type {
+  height: 86rpx;
+  border-bottom: 1rpx solid #f1f1f1;
+}
+.index .bill .bill-info > view:first-of-type > view:first-of-type {
+  flex: 1;
+  font-size: 40rpx;
+  color: #33333d;
+  font-weight: 500;
+}
+.index .bill .bill-info > view:first-of-type > view:last-of-type {
+  font-size: 24rpx;
+  color: #99999d;
+}
+.index .bill .bill-info > view:first-of-type > view:last-of-type.failed {
+  color: #ff563c;
+  font-size: 32rpx;
+}
+.index .bill .bill-info > view:last-of-type {
+  height: 90rpx;
+}
+.index .bill .bill-info > view:last-of-type .up,
+.index .bill .bill-info > view:last-of-type .down {
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  color: #99999d;
+}
+.index .bill .bill-info > view:last-of-type .up > view,
+.index .bill .bill-info > view:last-of-type .down > view {
+  flex: 8;
+}
+.index .bill .bill-info > view:last-of-type .up > text,
+.index .bill .bill-info > view:last-of-type .down > text {
+  margin-right: 10rpx;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  width: 28rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  color: #fff;
+  font-size: 20rpx;
+  background: #ffaf9a;
+  border-radius: 50%;
+}
+.index .bill .bill-info > view:last-of-type .down {
+  margin-left: 44rpx;
+}
+.index .bill .bill-info > view:last-of-type .down > text {
+  background: #8cd5b5;
+}
+.index .bill .bill-info > view:last-of-type .price {
+  flex: 1;
+  text-align: right;
+  color: #2fb565;
+  font-weight: bold;
+  font-size: 48rpx;
+}
+.index .bill .bill-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20rpx 0;
+  padding: 0 20rpx;
+  height: 178rpx;
+  box-shadow: 4rpx 4rpx 46rpx 0 rgba(126,132,156,0.1);
+  border-radius: 32rpx;
+}
+.index .bill .bill-empty > image {
+  margin-right: 30rpx;
+  width: 150rpx;
+  height: 106rpx;
+  border-radius: 12rpx;
+}
+.index .bill .bill-empty > view {
+  color: #99999d;
+}
+.index .split {
+  height: 20rpx;
+  background: #fafafa;
+  box-shadow: 0px -2rpx 0 0 #f1f0f5;
+}
+.index .nav {
+  display: flex;
+  justify-content: center;
+  padding-top: 26rpx;
+}
+.index .nav .item {
+  margin-left: 70rpx;
+  text-align: center;
+  flex: 0 0 100rpx;
+}
+.index .nav .item:first-of-type {
+  margin-left: 0;
+}
+.index .nav .item > view > image {
+  width: 100%;
+  height: 100%;
+}
+.index .nav .item > view:first-of-type {
+  width: 100rpx;
+  height: 100rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  border-radius: 20rpx;
+  box-shadow: 0 6rpx 10rpx 0 rgba(126,132,156,0.1);
+}
+.index .nav .item > view:last-of-type {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  line-height: 40rpx;
+  color: #66666d;
+}
+.index .oil {
+  margin: 10rpx 40rpx 0;
+}
+.index .oil image {
+  width: 100%;
+}

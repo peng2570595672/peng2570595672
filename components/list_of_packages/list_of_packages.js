@@ -75,6 +75,10 @@ Component({
 			}, (res) => {
 				if (res.code === 0) {
 					if (res.data.length === 0) {
+						// 如果其他服务商过来办理 没有查询到套餐. 1.面对面活动,不处理  2.其他服务商过来,重新加载小程序自带套餐
+						if ((app.globalData.isFaceToFaceCCB || app.globalData.isFaceToFaceICBC || app.globalData.isFaceToFaceWeChat) && app.globalData.faceToFacePromotionId) {
+							return;
+						}
 						app.globalData.isServiceProvidersPackage = false; // 该服务商没有套餐
 						this.getListOfPackages(true);
 					}
@@ -112,6 +116,7 @@ Component({
 					});
 				},
 				fail: (res) => {
+					util.hideLoading();
 					console.log(res);
 					if (res.errMsg === 'getLocation:fail auth deny') {
 						util.alert({

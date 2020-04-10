@@ -21,6 +21,10 @@ App({
 		mobilePhoneSystem: false, // false非ios     true:ios
 		firstVersionData: false, // 是否是1.0数据
 		isModifiedData: false, // 是否是修改资料 是则需要上传车主身份证
+		isFaceToFaceCCB: false, // 是否是面对面建行活动
+		isFaceToFaceICBC: false, // 是否是面对面工行活动
+		isFaceToFaceWeChat: false, // 是否是面对面微信活动
+		faceToFacePromotionId: undefined, // 面对面推广ID
 		quality: 80,
 		signAContract: 3,// -1正常签约  1  解约重签
 		userInfo: {},// 用户信息
@@ -32,6 +36,7 @@ App({
 		contractStatus: '', // 签约状态   签约状态 -1 签约失败 0发起签约 1已签约 2解约
 		orderStatus: '', // 订单状态
 		isHeadImg: true, // 是否上传车头照
+		scanCodeToHandle: undefined,// 扫描小程序码办理
 		myEtcList: {}, // 车辆列表
 		orderInfo: {
 			orderId: ''
@@ -49,9 +54,9 @@ App({
 			'lauchOpts': options
 		});
 		// 统计逻辑结束
+		util.setApp(this);
 		// 初始化数据
 		this.initData(options);
-		util.setApp(this);
 		// 获取是否为iphone x系列
 		wx.getSystemInfo({
 			success: (res) => {
@@ -72,13 +77,67 @@ App({
 		// 检测更新
 		this.checkUpdate();
 	},
+	// 将url路径转成json a=1&=2 => {a: 1,b: 2}
+	path2json (scene) {
+		let arr = scene.split('&');
+		let obj = {};
+		let temp;
+		for (let i = 0; i < arr.length; i++) {
+			temp = arr[i].split('=');
+			if (temp.length > 1) {
+				obj[temp[0]] = temp[1];
+			}
+		}
+		return obj;
+	},
 	// 初始化数据
 	initData (options) {
-		if (options.query.otherPlatformsServiceProvidersId && options.query.isContinentInsurance) {
-			// 大地保险扫码进入
-			this.globalData.otherPlatformsServiceProvidersId = options.query.otherPlatformsServiceProvidersId;
-			this.globalData.isContinentInsurance = true;
+		// 扫码 长按识别 相册选取进入拿到分享二维码人的id
+		if (options.scene === 1047 || options.scene === 1048 || options.scene === 1049) {
+			let obj = this.path2json(decodeURIComponent(options.query.scene));
+			console.log(obj);
+			if (obj && JSON.stringify(obj) !== '{}') {
+				let sceneKey,sceneValue;
+				for (let i in obj) {
+					sceneKey = i;
+					sceneValue = obj[i];
+				}
+				this.getPromoterInfo(sceneKey,sceneValue);
+				// 公司后台生成码
+			} else {
+				// 小程序后台生成码  大地保险
+				// channelValue: "2020032426"
+				// serverInfoId: "691607362313650176"
+				if (options.query.channelValue && options.query.serverInfoId) {
+					// 大地保险扫码进入
+					this.globalData.isContinentInsurance = true;
+					let sceneValue = JSON.stringify(options.query);
+					this.getPromoterInfo('channelValue',sceneValue);
+				}
+			}
 		}
+	},
+	// 根据扫描获取到的二维码信息获取推广参数
+	getPromoterInfo (sceneKey,sceneValue) {
+		// 场景key，二维码scene的格式为sceneKey=sceneValue
+		// 可选值： shareId，tmpId，shareTmp，SGC，SUC
+		// 特殊情况：在大地的二维码中,格式为：{channelValue:xxx,serverInfoId:xxx},sceneKey为channelValue，sceneValue为：{channelValue:xxx,serverInfoId:xxx}JSON字符串
+		util.getDataFromServer('consumer/system/common/get-promoter-info', {
+			sceneKey: sceneKey,
+			sceneValue: sceneValue // 场景value
+		}, () => {
+			util.hideLoading();
+		}, (res) => {
+			if (res.code === 0) {
+				this.globalData.otherPlatformsServiceProvidersId = res.data.shopId;
+				this.globalData.scanCodeToHandle = res.data;
+				// promoterId: "235792950839738368"
+				// promoterType: 4
+				// shopId: "689871571264741376"
+			} else {
+				util.hideLoading();
+			}
+		});
 	},
 	checkUpdate () {
 		// getUpdateManager 微信版本是否支持
@@ -125,7 +184,8 @@ App({
 				// 解约状态
 				this.globalData.signAContract = 3;
 				wx.reLaunch({
-					url: '/pages/default/index/index'
+					// url: '/pages/default/index/index'
+					url: '/pages/Home/Home'
 				});
 			}
 		}
