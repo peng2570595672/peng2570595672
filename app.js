@@ -13,6 +13,7 @@ App({
 		platformId: '500338116821778434', // 平台id
 		miniProgramServiceProvidersId: '611607716116299776', // 小程序服务商id 用于加载不同套餐
 		otherPlatformsServiceProvidersId: undefined, // 其他平台服务商id 用于加载不同套餐
+		scanCodeToHandle: undefined,// 扫描小程序码办理
 		isServiceProvidersPackage: true, // 其他平台服务商过来办理是否有套餐 默认有
 		isContinentInsurance: false, // 是否是大地保险 用来屏蔽微保
 		belongToPlatform: '500338116821778434', // 套餐所属平台id,用于判断流程
@@ -36,7 +37,6 @@ App({
 		contractStatus: '', // 签约状态   签约状态 -1 签约失败 0发起签约 1已签约 2解约
 		orderStatus: '', // 订单状态
 		isHeadImg: true, // 是否上传车头照
-		scanCodeToHandle: undefined,// 扫描小程序码办理
 		myEtcList: {}, // 车辆列表
 		orderInfo: {
 			orderId: ''
