@@ -111,8 +111,6 @@ App({
 				}
 			} else {
 				// 小程序后台生成码  大地保险
-				// channelValue: "2020032426"
-				// serverInfoId: "691607362313650176"
 				if (options.query.channelValue && options.query.serverInfoId) {
 					// 大地保险扫码进入
 					this.globalData.isContinentInsurance = true;
