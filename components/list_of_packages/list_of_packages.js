@@ -67,11 +67,16 @@ Component({
 				shopId = app.globalData.otherPlatformsServiceProvidersId ? app.globalData.otherPlatformsServiceProvidersId : app.globalData.miniProgramServiceProvidersId;
 			}
 			util.showLoading();
-			util.getDataFromServer('consumer/system/get-usable-product', {
+			let params = {
 				areaCode: this.data.regionCode[0],
-				shopId: shopId,
-				productType: '2'
-			}, () => {
+				shopId: shopId
+			};
+			if (!app.globalData.faceToFacePromotionId) {
+				params['productType'] = 2;
+			} else {
+				params['productType'] = 3;
+			}
+			util.getDataFromServer('consumer/system/get-usable-product', params, () => {
 			}, (res) => {
 				if (res.code === 0) {
 					if (res.data.length === 0) {
@@ -82,8 +87,25 @@ Component({
 						app.globalData.isServiceProvidersPackage = false; // 该服务商没有套餐
 						this.getListOfPackages(true);
 					}
+					let list = res.data;
+					// 面对面活动过滤套餐
+					if (app.globalData.faceToFacePromotionId) {
+						let faceToFaceList = [];
+						list = [];
+						faceToFaceList = res.data.find((item) => {
+							if (app.globalData.isFaceToFaceCCB) {
+								return item.shopProductId === '697891769509081088';
+							} else if (app.globalData.isFaceToFaceICBC) {
+								return item.shopProductId === '697891705264926720';
+							} else {
+								return item.shopProductId === '697891737363935232';
+							}
+						});
+						list.push(faceToFaceList);
+					}
+					console.log(list);
 					this.setData({
-						listOfPackages: res.data
+						listOfPackages: list
 					});
 				} else {
 					util.showToastNoIcon(res.message);

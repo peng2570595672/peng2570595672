@@ -106,6 +106,10 @@ Page({
 	},
 	// 修改资料
 	onClickModifiedData () {
+		if (util.getHandlingType(this.data.orderInfo)) {
+			util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
+			return;
+		}
 		app.globalData.orderInfo.orderId = this.data.orderId;
 		app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
 		app.globalData.isModifiedData = true; // 修改资料
@@ -253,6 +257,10 @@ Page({
 	},
 	// 继续办理
 	onClickContinueHandle () {
+		if (util.getHandlingType(this.data.orderInfo)) {
+			util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
+			return;
+		}
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 		if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {

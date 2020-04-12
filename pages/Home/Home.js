@@ -197,7 +197,7 @@ Page({
 					}
 					vehicleList.push(item.vehPlates);
 					wx.setStorageSync('cars', vehicleList.join('、'));
-					if (item.contractStatus === 2) {
+					if (item.contractStatus === 2 || item.selfStatus === 10) {
 						// 解约优先展示
 						orderInfo = item;
 						return;
@@ -299,7 +299,7 @@ Page({
 	onClickBackToSign (e) {
 		let obj = this.data.orderInfo;
 		app.globalData.contractStatus = obj.contractStatus;
-		if (obj.contractStatus === 2) {
+		if (obj.contractStatus === 2 || obj.selfStatus === 10) {
 			app.globalData.orderInfo.orderId = obj.id;
 			// 恢复签约
 			this.restoreSign(obj);
@@ -480,6 +480,10 @@ Page({
 	// 修改资料
 	onClickModifiedData () {
 		mta.Event.stat('004',{});
+		if (util.getHandlingType(this.data.orderInfo)) {
+			util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
+			return;
+		}
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 		app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
 		app.globalData.isModifiedData = true; // 修改资料
@@ -498,6 +502,10 @@ Page({
 	onClickContinueHandle () {
 		// 统计点击事件
 		mta.Event.stat('002',{});
+		if (util.getHandlingType(this.data.orderInfo)) {
+			util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
+			return;
+		}
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 		app.globalData.isModifiedData = false; // 非修改资料
 		if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {

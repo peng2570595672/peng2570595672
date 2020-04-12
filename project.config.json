@@ -364,15 +364,15 @@
 				},
 				{
 					"id": 38,
-					"name": "activities/pages/ActivityForCCBForSixty/index",
-					"pathName": "activities/pages/ActivityForCCBForSixty/index",
+					"name": "activities/pages/ActivityForLTForSixty/index",
+					"pathName": "activities/pages/ActivityForLTForSixty/index",
 					"query": "",
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "activities/pages/ActivityForICBCForSixty/index",
-					"pathName": "activities/pages/ActivityForICBCForSixty/index",
+					"id": 39,
+					"name": "activities/pages/ActivityForLTForSixty/index",
+					"pathName": "activities/pages/ActivityForLTForSixty/index",
 					"query": "",
 					"scene": null
 				},

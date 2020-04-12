@@ -592,6 +592,11 @@ function getStatus(orderInfo) {
 	} else if (orderInfo.obuStatus === 1 && orderInfo.auditStatus === 2) {
 		status = 9; // 审核通过  已激活
 	}
+	if (orderInfo.remark === '1.0To2.0') {
+		if (orderInfo.status === 1 && orderInfo.contractStatus === 0) {
+			status = 10; // 1.0解约转2.0解约
+		}
+	}
 	return status;
 }
 /**
@@ -617,6 +622,9 @@ function getStatusFirstVersion(orderInfo) {
 	} else if (orderInfo.obuStatus === 1 && orderInfo.auditStatus === 2) {
 		status = 9; // 审核通过  已激活
 	}
+	if (orderInfo.status === 1 && orderInfo.contractStatus === 0) {
+		status = 10; // 解约
+	}
 	return status;
 }
 /**
@@ -629,6 +637,25 @@ function goHome(unload) {
 		wx.navigateBack({
 			delta: delta // 默认值是1
 		});
+	}
+}
+/**
+ *  获取办理车辆类型  货车/企业车辆限制(1.0)
+ */
+function getHandlingType(orderInfo) {
+	if (orderInfo.isCrop === 1) {
+		// 企业车辆
+		return true;
+	} else {
+		if (orderInfo.carType === 11 || orderInfo.carType === 12 || orderInfo.carType === 13 ||
+			orderInfo.carType === 14 || orderInfo.carType === 15 || orderInfo.carType === 16
+		) {
+			// carType：车辆归类：1,一型客车 2,二型客车   3,三型客车   4,四型客车   11,一型货车  12,二型货车  13,三型货车
+			//14,四型货车  15,五型货车  16,六型货车  21,一型专项作业车  22,二型专项作业车  23,三型专项作业车  24,四型专项作业车  25,五型专项作业车  26,六型专业作业车
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
 /**
@@ -779,6 +806,7 @@ module.exports = {
 	luhmCheck,
 	getStatus,
 	subscribe,
+	getHandlingType,
 	getStatusFirstVersion,
 	goHome
 };

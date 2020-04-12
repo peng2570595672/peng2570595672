@@ -92,6 +92,10 @@ Page({
 	onClickContinueHandle (e) {
 		let index = e.currentTarget.dataset.index;
 		let obj = this.data.carList[parseInt(index)];
+		if (util.getHandlingType(obj)) {
+			util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
+			return;
+		}
 		app.globalData.orderInfo.orderId = obj.id;
 		app.globalData.isModifiedData = false; // 非修改资料
 		if (obj.remark && obj.remark.indexOf('迁移订单数据') !== -1) {
@@ -137,7 +141,7 @@ Page({
 	onClickBackToSign (e) {
 		let index = e.currentTarget.dataset.index;
 		let obj = this.data.carList[parseInt(index)];
-		if (obj.contractStatus === 2) {
+		if (obj.contractStatus === 2 || obj.selfStatus === 10) {
 			app.globalData.orderInfo.orderId = obj.id;
 			// 恢复签约
 			this.restoreSign(obj);
@@ -243,6 +247,10 @@ Page({
 	onClickModifiedData (e) {
 		let index = e.currentTarget.dataset.index;
 		let obj = this.data.carList[parseInt(index)];
+		if (util.getHandlingType(obj)) {
+			util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
+			return;
+		}
 		app.globalData.orderInfo.orderId = obj.id;
 		app.globalData.orderInfo.shopProductId = obj.shopProductId;
 		app.globalData.isModifiedData = true; // 修改资料
