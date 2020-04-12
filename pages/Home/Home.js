@@ -26,7 +26,11 @@ Page({
 	},
 	onShow () {
 		if (app.globalData.userInfo.accessToken) {
-			this.getStatus();
+			if (app.globalData.salesmanScanCodeToHandleId) {
+				this.bindOrder();
+			} else {
+				this.getStatus();
+			}
 		}
 		// 登录页返回
 		let loginInfoFinal = wx.getStorageSync('login_info_final');
@@ -34,7 +38,11 @@ Page({
 			this.setData({
 				loginInfo: JSON.parse(loginInfoFinal)
 			});
-			this.getStatus();
+			if (app.globalData.salesmanScanCodeToHandleId) {
+				this.bindOrder();
+			} else {
+				this.getStatus();
+			}
 			wx.removeStorageSync('login_info_final');
 		}
 	},
@@ -63,7 +71,11 @@ Page({
 							app.globalData.memberId = res.data.memberId;
 							app.globalData.mobilePhone = res.data.mobilePhone;
 							// 查询最后一笔订单状态
-							this.getStatus();
+							if (app.globalData.salesmanScanCodeToHandleId) {
+								this.bindOrder();
+							} else {
+								this.getStatus();
+							}
 						} else {
 							util.hideLoading();
 						}
@@ -78,6 +90,20 @@ Page({
 				util.showToastNoIcon('登录失败！');
 			}
 		});
+	},
+	// 业务员端订单码绑定订单
+	bindOrder () {
+		util.getDataFromServer('consumer/member/bind-order', {
+			orderId: app.globalData.salesmanScanCodeToHandleId
+		}, () => {
+			util.hideLoading();
+		}, (res) => {
+			if (res.code === 0) {
+				this.getStatus(true);
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken);
 	},
 	// 获取轮播图
 	getRotationChartList () {
@@ -133,7 +159,11 @@ Page({
 					this.setData({
 						loginInfo
 					});
-					this.getStatus(); // 获取最后一笔订单状态
+					if (app.globalData.salesmanScanCodeToHandleId) {
+						this.bindOrder();
+					} else {
+						this.getStatus();
+					}
 				} else {
 					util.hideLoading();
 					util.showToastNoIcon(res.message);
@@ -142,11 +172,15 @@ Page({
 		}
 	},
 	// 获取最后有一笔订单信息
-	getStatus () {
+	getStatus (isToMasterQuery) {
 		util.showLoading();
-		util.getDataFromServer('consumer/order/my-etc-list', {
+		let params = {
 			openId: app.globalData.openId
-		}, () => {
+		};
+		if (isToMasterQuery) {
+			params['toMasterQuery'] = true;
+		}
+		util.getDataFromServer('consumer/order/my-etc-list', params, () => {
 			util.hideLoading();
 		}, (res) => {
 			util.hideLoading();

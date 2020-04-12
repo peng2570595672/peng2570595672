@@ -36,6 +36,7 @@ Page({
 				success: function (res) {
 					// 成功的话 说明之前执行过，再判断时间是否是当天
 					if (res.data && res.data !== time) {
+						wx.setStorageSync('today', new Date().toLocaleDateString());
 						that.showDetail();
 					}
 				},

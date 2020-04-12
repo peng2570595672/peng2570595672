@@ -17,6 +17,7 @@ App({
 		isServiceProvidersPackage: true, // 其他平台服务商过来办理是否有套餐 默认有
 		isContinentInsurance: false, // 是否是大地保险 用来屏蔽微保
 		belongToPlatform: '500338116821778434', // 套餐所属平台id,用于判断流程
+		salesmanScanCodeToHandleId: undefined,// 业务员扫描小程序码办理订单ID
 		SDKVersion: '',// 小程序基础库版本
 		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
 		mobilePhoneSystem: false, // false非ios     true:ios
@@ -97,13 +98,17 @@ App({
 			let obj = this.path2json(decodeURIComponent(options.query.scene));
 			console.log(obj);
 			if (obj && JSON.stringify(obj) !== '{}') {
-				let sceneKey,sceneValue;
-				for (let i in obj) {
-					sceneKey = i;
-					sceneValue = obj[i];
+				if (obj.orderId && obj.orderId.length === 18) {
+					// 业务员端订单码
+					this.globalData.salesmanScanCodeToHandleId = obj.orderId;
+				} else {
+					let sceneKey,sceneValue;
+					for (let i in obj) {
+						sceneKey = i;
+						sceneValue = obj[i];
+					}
+					this.getPromoterInfo(sceneKey,sceneValue);
 				}
-				this.getPromoterInfo(sceneKey,sceneValue);
-				// 公司后台生成码
 			} else {
 				// 小程序后台生成码  大地保险
 				// channelValue: "2020032426"
