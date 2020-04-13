@@ -80,13 +80,13 @@
 	</view>
 <!--	确认收货并激活结束-->
 	<!--	恢复签约开始-->
-	<view class="resume-contract" wx:if="{{orderInfo.selfStatus === 2 || orderInfo.contractStatus === 2 || orderInfo.selfStatus === 10}}">
+	<view class="resume-contract" wx:if="{{orderInfo.selfStatus === 2 || orderInfo.contractStatus === 2}}">
 		<view class="processing-title">
 			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
 		</view>
-		<view class="btn" catchtap="onClickBackToSign">{{orderInfo.contractStatus === 2 || orderInfo.selfStatus === 10 ? '恢复签约' : '立即签约'}}</view>
-		<view class="tips" wx:if="{{orderInfo.contractStatus === 2 || orderInfo.selfStatus === 10}}"><text>赶紧恢复！</text>这将严重影响你的高速通行</view>
+		<view class="btn" catchtap="onClickBackToSign">{{orderInfo.contractStatus === 2 ? '恢复签约' : '立即签约'}}</view>
+		<view class="tips" wx:if="{{orderInfo.contractStatus === 2}}"><text>赶紧恢复！</text>这将严重影响你的高速通行</view>
 		<view class="tips tips-red" wx:else>一键签约，无感支付</view>
 	</view>
 	<!--	恢复签约结束-->

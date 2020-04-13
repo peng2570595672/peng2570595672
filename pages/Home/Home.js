@@ -197,7 +197,7 @@ Page({
 					}
 					vehicleList.push(item.vehPlates);
 					wx.setStorageSync('cars', vehicleList.join('、'));
-					if (item.contractStatus === 2 || item.selfStatus === 10) {
+					if (item.contractStatus === 2) {
 						// 解约优先展示
 						orderInfo = item;
 						return;
@@ -299,7 +299,7 @@ Page({
 	onClickBackToSign (e) {
 		let obj = this.data.orderInfo;
 		app.globalData.contractStatus = obj.contractStatus;
-		if (obj.contractStatus === 2 || obj.selfStatus === 10) {
+		if (obj.contractStatus === 2) {
 			app.globalData.orderInfo.orderId = obj.id;
 			// 恢复签约
 			this.restoreSign(obj);

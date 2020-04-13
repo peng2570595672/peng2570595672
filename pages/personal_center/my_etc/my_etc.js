@@ -141,7 +141,7 @@ Page({
 	onClickBackToSign (e) {
 		let index = e.currentTarget.dataset.index;
 		let obj = this.data.carList[parseInt(index)];
-		if (obj.contractStatus === 2 || obj.selfStatus === 10) {
+		if (obj.contractStatus === 2) {
 			app.globalData.orderInfo.orderId = obj.id;
 			// 恢复签约
 			this.restoreSign(obj);

@@ -592,11 +592,6 @@ function getStatus(orderInfo) {
 	} else if (orderInfo.obuStatus === 1 && orderInfo.auditStatus === 2) {
 		status = 9; // 审核通过  已激活
 	}
-	if (orderInfo.remark === '1.0To2.0') {
-		if (orderInfo.status === 1 && orderInfo.contractStatus === 0) {
-			status = 10; // 1.0解约转2.0解约
-		}
-	}
 	return status;
 }
 /**
@@ -621,9 +616,6 @@ function getStatusFirstVersion(orderInfo) {
 		status = 8; // 高速核验不通过
 	} else if (orderInfo.obuStatus === 1 && orderInfo.auditStatus === 2) {
 		status = 9; // 审核通过  已激活
-	}
-	if (orderInfo.status === 1 && orderInfo.contractStatus === 0) {
-		status = 10; // 解约
 	}
 	return status;
 }
