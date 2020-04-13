@@ -84,6 +84,9 @@ Component({
 						if ((app.globalData.isFaceToFaceCCB || app.globalData.isFaceToFaceICBC || app.globalData.isFaceToFaceWeChat) && app.globalData.faceToFacePromotionId) {
 							return;
 						}
+						if (shopId === app.globalData.miniProgramServiceProvidersId) {
+							return;
+						}
 						app.globalData.isServiceProvidersPackage = false; // 该服务商没有套餐
 						this.getListOfPackages(true);
 					}

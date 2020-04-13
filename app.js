@@ -94,7 +94,7 @@ App({
 	// 初始化数据
 	initData (options) {
 		// 扫码 长按识别 相册选取进入拿到分享二维码人的id
-		if (options.scene === 1047 || options.scene === 1048 || options.scene === 1049) {
+		if (options.scene === 1047 || options.scene === 1048 || options.scene === 1049 || options.scene === 1011) {
 			let obj = this.path2json(decodeURIComponent(options.query.scene));
 			console.log(obj);
 			if (obj && JSON.stringify(obj) !== '{}') {
