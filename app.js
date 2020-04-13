@@ -56,8 +56,6 @@ App({
 		});
 		// 统计逻辑结束
 		util.setApp(this);
-		// 初始化数据
-		this.initData(options);
 		// 获取是否为iphone x系列
 		wx.getSystemInfo({
 			success: (res) => {
@@ -163,6 +161,8 @@ App({
 		});
 	},
 	onShow (res) {
+		// 初始化数据
+		this.initData(res);
 		console.log(res);
 		if (res.path === 'pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license' ||
 			res.path === 'pages/default/shot_bank_card/shot_bank_card' ||
