@@ -7,7 +7,6 @@
   font-weight: 500;
   color: #fff;
   border-radius: 49rpx;
-  font-weight: 500;
   background: linear-gradient(to right, #15ad69, #84d157);
   box-shadow: 0 8rpx 10rpx 0 rgba(132,209,87,0.2);
 }
