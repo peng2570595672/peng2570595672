@@ -96,7 +96,6 @@ App({
 		// 扫码 长按识别 相册选取进入拿到分享二维码人的id
 		if (options.scene === 1047 || options.scene === 1048 || options.scene === 1049) {
 			let obj = this.path2json(decodeURIComponent(options.query.scene));
-			console.log(obj);
 			if (obj && JSON.stringify(obj) !== '{}') {
 				if (obj.orderId && obj.orderId.length === 18) {
 					// 业务员端订单码
@@ -172,7 +171,6 @@ App({
 			// 解决安卓平台上传行驶证自动返回上一页
 			return;
 		}
-		console.log(this.globalData.signAContract);
 		if (res && res.scene === 1038) { // 场景值1038：从被打开的小程序返回
 			if (this.globalData.signAContract === -1) {
 				const {appId} = res.referrerInfo;

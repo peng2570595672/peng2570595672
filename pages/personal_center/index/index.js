@@ -24,7 +24,6 @@ Page({
 					// 已经授权，可以直接调用 getUserInfo 获取头像昵称
 					wx.getUserInfo({
 						success: function (res) {
-							console.log(res);
 							that.setData({
 								userInfo: res.userInfo
 							});
@@ -93,7 +92,6 @@ Page({
 		wx.scanCode({
 			onlyFromCamera: true,
 			success: (res) => {
-				console.log(res);
 				let key = res.result.match(/(\S*)=/);
 				let val = res.result.match(/=(\S*)/);
 				if (key && val && key[1] && val[1].length === 18 && key[1] === 'orderId') {

@@ -80,13 +80,11 @@ Page({
 				res.data.map(item => {
 					total += item.etcMoney;
 				});
-				console.log(total);
 				let order = {};
 				order.vehPlates = vehPlates;
 				order.total = total;
 				order.list = res.data;
 				this.data.failBillList.push(order);
-				console.log(this.data.failBillList);
 				this.setData({
 					failBillList: this.data.failBillList
 				});
@@ -103,7 +101,6 @@ Page({
 	// 账单详情
 	goDetails (e) {
 		let model = e.currentTarget.dataset.model;
-		console.log(model);
 		util.go(`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
 	},
 	// 补缴
@@ -132,7 +129,6 @@ Page({
 					signType: extraData.signType,
 					timeStamp: extraData.timeStamp,
 					success: (res) => {
-						console.log(res);
 						if (res.errMsg === 'requestPayment:ok') {
 							this.data.vehicleList.map((item) => {
 								this.getFailBill(item);

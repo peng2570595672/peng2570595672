@@ -198,8 +198,6 @@ Page({
 				}
 			},
 			fail: function (ret) {
-				console.log(ret);
-				console.log(that.data.count);
 				// 多执行几次,使图片加载出来
 				if (that.data.count <= 5) {
 					that.setData({

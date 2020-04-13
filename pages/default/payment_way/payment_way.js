@@ -115,15 +115,12 @@ Page({
 		wx.getImageInfo({
 			src: path,
 			success: function (ret) {
-				console.log(ret);
 				that.setData({
 					count: 0
 				});
 				that.getOCRIdCard(ret.path, type);
 			},
 			fail: function (ret) {
-				console.log(ret);
-				console.log(that.data.count);
 				// 多执行几次,使图片加载出来
 				if (that.data.count <= 5) {
 					that.setData({
@@ -193,10 +190,7 @@ Page({
 						[`choiceObj.areaCode`]: res.data.product.areaCode
 					});
 				}
-				console.log(app.globalData.firstVersionData);
-				console.log(temp.idCardPositiveUrl);
 				if (app.globalData.firstVersionData && temp.idCardPositiveUrl) {
-					console.log('....//////');
 					that.setData({
 						firstVersionPic2: temp.idCardNegativeUrl,
 						isFirstVersionPic2: true

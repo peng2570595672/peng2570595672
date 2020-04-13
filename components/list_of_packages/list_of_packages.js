@@ -106,7 +106,6 @@ Component({
 						});
 						list.push(faceToFaceList);
 					}
-					console.log(list);
 					this.setData({
 						listOfPackages: list
 					});
