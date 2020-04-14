@@ -396,6 +396,12 @@
 					"pathName": "pages/default/update_id_card/update_id_card",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/default/information_validation/information_validation",
+					"pathName": "pages/default/information_validation/information_validation",
+					"scene": null
 				}
 			]
 		}

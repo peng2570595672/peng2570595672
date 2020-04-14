@@ -16,7 +16,7 @@
 			<view>¥{{details.totalMmout ? details.totalMmout/100 : 0}}</view>
 		</view>
 		<view>
-			<view>通行折扣券减免</view>
+			<view>通行费减免</view>
 			<view>{{details.discountMount ? -details.discountMount/100 : 0}}</view>
 		</view>
 		<view>

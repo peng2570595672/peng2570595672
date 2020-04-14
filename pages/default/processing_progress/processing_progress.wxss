@@ -162,12 +162,10 @@
   flex: 1;
 }
 .processing_progress .bottom {
-  margin: 0 auto;
   margin-top: 16rpx;
   margin-bottom: 40rpx;
-  display: flex;
   height: 40rpx;
-  align-items: center;
+  text-align: center;
   font-size: 24rpx;
   color: #e4e4e6;
 }

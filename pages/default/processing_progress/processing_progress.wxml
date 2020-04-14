@@ -46,8 +46,7 @@
 	</view>
 	<!--	进度结束-->
 	<!--	按钮开始-->
-	<button class="btn" wx:if="{{info.logisticsId !== 0}}" catchtap="onClickCctivate">确认收货并激活</button>
-	<button class="btn" wx:if="{{info.logisticsId !== 0}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">确认收货并激活</button>
+	<button class="btn" wx:if="{{info.logisticsId !== 0 && info.obuStatus !== 1}}" catchtap="onClickCctivate">确认收货并激活</button>
 <!--	按钮结束-->
 	<view class="auto-fill"></view>
 
