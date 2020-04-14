@@ -124,6 +124,8 @@ Page({
 					let list = res.data;
 					if (this.data.isContinentInsurance) {
 						list = list.filter(item => item.remark !== 'micro_insurance'); // 大地保险屏蔽微保
+					} else {
+						list = list.filter(item => item.remark !== 'continent_insurance'); // 普通流程屏蔽大地保险
 					}
 					this.setData({
 						rotationChartList: list
@@ -409,6 +411,9 @@ Page({
 	// 点击轮播图
 	onClickSwiper (e) {
 		let item = e.currentTarget.dataset['item'];
+		if (item.pageUrl === 'continent_insurance') {
+			return;
+		}
 		if (item.pageType === 1) {
 			// 页面类型：1-H5，2-小程序
 			util.go(`/pages/web/web/web?url=${encodeURIComponent(item.pageUrl)}&type=banner`);
