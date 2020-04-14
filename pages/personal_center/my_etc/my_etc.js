@@ -17,7 +17,8 @@ Page({
 	getMyETCList () {
 		util.showLoading();
 		util.getDataFromServer('consumer/order/my-etc-list', {
-			openId: app.globalData.openId
+			openId: app.globalData.openId,
+			toMasterQuery: true
 		}, () => {
 			util.showToastNoIcon('获取车辆列表失败！');
 		}, (res) => {

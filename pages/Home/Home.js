@@ -74,7 +74,7 @@ Page({
 							if (app.globalData.salesmanScanCodeToHandleId) {
 								this.bindOrder();
 							} else {
-								this.getStatus();
+								this.getStatus(true);
 							}
 						} else {
 							util.hideLoading();
