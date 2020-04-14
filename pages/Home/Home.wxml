@@ -75,7 +75,10 @@
 			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
 		</view>
-		<button class="btn" catchtap="onClickCctivate">{{orderInfo.logisticsId === 0 ? '查看进度' : '确认收货并激活 '}}</button>
+		<button class="btn" catchtap="onClickViewProcessingProgressHandle">
+			查看进度
+			<!--{{orderInfo.logisticsId === 0 ? '查看进度' : '确认收货并激活 '}}-->
+		</button>
 		<view class="tips">{{orderInfo.logisticsId === 0 ? '审核通过，设备打包中...' : '你的ETC即将到达，期待...  '}}</view>
 	</view>
 <!--	确认收货并激活结束-->
