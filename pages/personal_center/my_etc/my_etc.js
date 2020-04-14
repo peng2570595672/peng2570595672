@@ -16,10 +16,14 @@ Page({
 	// 加载ETC列表
 	getMyETCList () {
 		util.showLoading();
-		util.getDataFromServer('consumer/order/my-etc-list', {
-			openId: app.globalData.openId,
-			toMasterQuery: true
-		}, () => {
+		let params = {
+			openId: app.globalData.openId
+		};
+		if (app.globalData.isSignUpImmediately) {
+			app.globalData.isSignUpImmediately = false;
+			params['toMasterQuery'] = true;// 直接查询主库
+		}
+		util.getDataFromServer('consumer/order/my-etc-list', params, () => {
 			util.showToastNoIcon('获取车辆列表失败！');
 		}, (res) => {
 			if (res.code === 0) {
@@ -207,6 +211,7 @@ Page({
 				util.hideLoading();
 				let result = res.data.contract;
 				// 签约车主服务 2.0
+				app.globalData.isSignUpImmediately = true;// 返回时需要查询主库
 				app.globalData.belongToPlatform = obj.platformId;
 				app.globalData.orderInfo.orderId = obj.id;
 				app.globalData.contractStatus = obj.contractStatus;

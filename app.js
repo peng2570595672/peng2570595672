@@ -18,6 +18,7 @@ App({
 		isContinentInsurance: false, // 是否是大地保险 用来屏蔽微保
 		belongToPlatform: '500338116821778434', // 套餐所属平台id,用于判断流程
 		salesmanScanCodeToHandleId: undefined,// 业务员扫描小程序码办理订单ID
+		isSignUpImmediately: false,// 是否是首页或我的ETC列表点击立即签约,是则需要直接查主库
 		SDKVersion: '',// 小程序基础库版本
 		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
 		mobilePhoneSystem: false, // false非ios     true:ios

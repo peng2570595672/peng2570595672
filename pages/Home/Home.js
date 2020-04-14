@@ -74,7 +74,12 @@ Page({
 							if (app.globalData.salesmanScanCodeToHandleId) {
 								this.bindOrder();
 							} else {
-								this.getStatus(true);
+								if (app.globalData.isSignUpImmediately) {
+									app.globalData.isSignUpImmediately = false;
+									this.getStatus(true);
+								} else {
+									this.getStatus();
+								}
 							}
 						} else {
 							util.hideLoading();
@@ -178,7 +183,7 @@ Page({
 			openId: app.globalData.openId
 		};
 		if (isToMasterQuery) {
-			params['toMasterQuery'] = true;
+			params['toMasterQuery'] = true;// 直接查询主库
 		}
 		util.getDataFromServer('consumer/order/my-etc-list', params, () => {
 			util.hideLoading();
@@ -365,6 +370,7 @@ Page({
 				util.hideLoading();
 				let result = res.data.contract;
 				// 签约车主服务 2.0
+				app.globalData.isSignUpImmediately = true;// 返回时需要查询主库
 				app.globalData.belongToPlatform = obj.platformId;
 				app.globalData.orderInfo.orderId = obj.id;
 				app.globalData.orderStatus = obj.selfStatus;
