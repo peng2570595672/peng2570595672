@@ -371,8 +371,8 @@
 				},
 				{
 					"id": 39,
-					"name": "activities/pages/ActivityForLTForSixty/index",
-					"pathName": "activities/pages/ActivityForLTForSixty/index",
+					"name": "activities/pages/ActivityForCCBForSixty/index",
+					"pathName": "activities/pages/ActivityForCCBForSixty/index",
 					"query": "",
 					"scene": null
 				},
@@ -401,6 +401,7 @@
 					"id": -1,
 					"name": "pages/default/information_validation/information_validation",
 					"pathName": "pages/default/information_validation/information_validation",
+					"query": "",
 					"scene": null
 				}
 			]

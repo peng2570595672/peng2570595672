@@ -97,11 +97,11 @@ Component({
 						list = [];
 						faceToFaceList = res.data.find((item) => {
 							if (app.globalData.isFaceToFaceCCB) {
-								return item.shopProductId === '697891769509081088';
+								return item.shopProductId === '699045700725501952';
 							} else if (app.globalData.isFaceToFaceICBC) {
-								return item.shopProductId === '697891705264926720';
+								return item.shopProductId === '699045657108934656';
 							} else {
-								return item.shopProductId === '697891737363935232';
+								return item.shopProductId === '699045676809580544';
 							}
 						});
 						list.push(faceToFaceList);
