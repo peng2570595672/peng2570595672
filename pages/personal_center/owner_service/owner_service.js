@@ -31,7 +31,7 @@ Page({
 				img: 'https://file.cyzl.com/g001/M05/E0/49/oYYBAF36zreALlcTAAAj2PVIIwM800.svg',
 				title: '违章查询',
 				abbreviation: '违章查询',
-				content: '每月免费违章查询、违章订阅；还可获得一年免费驾乘意外险，定期推送额外保额奖励。'
+				content: '每月违章免费自动查、自动提醒；再免费送全年驾乘意外险，最高20万，跟人不跟车。'
 			},
 			{
 				id: 4,

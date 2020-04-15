@@ -35,20 +35,70 @@ Page({
 			verifyCode: '' // 验证码
 		} // 提交数据
 	},
-	onLoad () {
+	onLoad (options) {
+		if (options.shareId) {
+			// 高速通行公众号进入办理
+			app.globalData.isHighSpeedTraffic = options.shareId;
+		}
 		app.globalData.firstVersionData = false; // 非1.0数据办理
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.signAContract = 3;
-		this.setData({
-			mobilePhoneMode: app.globalData.mobilePhoneMode,
-			isFaceToFaceCCB: app.globalData.isFaceToFaceCCB
-		});
-		if (app.globalData.isFaceToFaceCCB) {
+		if (app.globalData.userInfo.accessToken) {
 			this.setData({
-				[`formData.region`]: ['贵州省'],
-				[`formData.regionCode`]: ['520000']
+				mobilePhoneMode: app.globalData.mobilePhoneMode,
+				isFaceToFaceCCB: app.globalData.isFaceToFaceCCB
 			});
+		} else {
+			// 公众号进入需要登录
+			this.login();
 		}
+		// if (app.globalData.isFaceToFaceCCB) {
+		// 	this.setData({
+		// 		[`formData.region`]: ['贵州省'],
+		// 		[`formData.regionCode`]: ['520000']
+		// 	});
+		// }
+	},
+	// 自动登录
+	login () {
+		util.showLoading();
+		// 调用微信接口获取code
+		wx.login({
+			success: (res) => {
+				util.getDataFromServer('consumer/member/common/applet/code', {
+					platformId: app.globalData.platformId, // 平台id
+					code: res.code // 从微信获取的code
+				}, () => {
+					util.hideLoading();
+					util.showToastNoIcon('登录失败！');
+				}, (res) => {
+					util.hideLoading();
+					if (res.code === 0) {
+						res.data['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
+						this.setData({
+							loginInfo: res.data
+						});
+						// 已经绑定了手机号
+						if (res.data.needBindingPhone !== 1) {
+							app.globalData.userInfo = res.data;
+							app.globalData.openId = res.data.openId;
+							app.globalData.memberId = res.data.memberId;
+							app.globalData.mobilePhone = res.data.mobilePhone;
+						} else {
+							util.go('/pages/login/login/login');
+							util.hideLoading();
+						}
+					} else {
+						util.hideLoading();
+						util.showToastNoIcon(res.message);
+					}
+				});
+			},
+			fail: () => {
+				util.hideLoading();
+				util.showToastNoIcon('登录失败！');
+			}
+		});
 	},
 	// 下一步
 	next () {
@@ -220,12 +270,12 @@ Page({
 		mta.Event.stat('027',{});
 		wx.chooseAddress({
 			success: (res) => {
-				if (this.data.isFaceToFaceCCB) {
-					if (res.provinceName !== '贵州省') {
-						util.showToastNoIcon('暂不支持非贵州地区办理');
-						return;
-					}
-				}
+				// if (this.data.isFaceToFaceCCB) {
+				// 	if (res.provinceName !== '贵州省') {
+				// 		util.showToastNoIcon('暂不支持非贵州地区办理');
+				// 		return;
+				// 	}
+				// }
 				let formData = this.data.formData;
 				formData.userName = res.userName; // 姓名
 				formData.telNumber = res.telNumber; // 电话
@@ -258,12 +308,12 @@ Page({
 	},
 	// 省市区选择
 	onPickerChangedHandle (e) {
-		if (this.data.isFaceToFaceCCB) {
-			if (e.detail.value[0] !== '贵州省') {
-				util.showToastNoIcon('暂不支持非贵州地区办理');
-				return;
-			}
-		}
+		// if (this.data.isFaceToFaceCCB) {
+		// 	if (e.detail.value[0] !== '贵州省') {
+		// 		util.showToastNoIcon('暂不支持非贵州地区办理');
+		// 		return;
+		// 	}
+		// }
 		let formData = this.data.formData;
 		formData.region = e.detail.value;
 		if (e.detail.code && e.detail.code.length === 3) {
@@ -282,12 +332,12 @@ Page({
 		mta.Event.stat('026',{});
 		wx.chooseLocation({
 			success: (res) => {
-				if (this.data.isFaceToFaceCCB) {
-					if (res.address.indexOf('贵州省') === -1) {
-						util.showToastNoIcon('暂不支持非贵州地区办理');
-						return;
-					}
-				}
+				// if (this.data.isFaceToFaceCCB) {
+				// 	if (res.address.indexOf('贵州省') === -1) {
+				// 		util.showToastNoIcon('暂不支持非贵州地区办理');
+				// 		return;
+				// 	}
+				// }
 				let address = res.address;
 				if (address) {
 					// 根据地理位置信息获取经纬度
