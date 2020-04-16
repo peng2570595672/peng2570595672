@@ -452,6 +452,13 @@
 					"pathName": "activities/pages/ActivityForCCBForSixty/index",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "activities/pages/activity_icbc_forty_five_theme/index",
+					"pathName": "activities/pages/activity_icbc_forty_five_theme/index",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

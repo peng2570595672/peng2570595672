@@ -60,12 +60,10 @@ Component({
 		},
 		// 获取套餐列表
 		getListOfPackages (notList) {
-			console.log(app.globalData.otherPlatformsServiceProvidersId);
 			let shopId;
 			if (notList) {
 				shopId = app.globalData.miniProgramServiceProvidersId;
 			} else {
-				console.log(app.globalData.otherPlatformsServiceProvidersId);
 				shopId = app.globalData.otherPlatformsServiceProvidersId ? app.globalData.otherPlatformsServiceProvidersId : app.globalData.miniProgramServiceProvidersId;
 			}
 			util.showLoading();

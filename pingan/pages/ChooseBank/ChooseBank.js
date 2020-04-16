@@ -34,14 +34,12 @@ Page({
 		let result = wx.getLaunchOptionsSync();
 		// let extra = result.referrerInfo.extraData;
 		let extra = {};
-		extra.orderId = '700373110066515968';
 		if (extra) {
 			let from = extra.from;
 			let mobilePhone = extra.mobilePhone;
 			from && this.setData({
 				from
 			});
-			console.log(extra);
 			app.globalData.orderInfo.orderId = extra.orderId;
 			app.globalData.signAContract = -1;
 			app.globalData.isJinYiXing = true;
@@ -149,15 +147,11 @@ Page({
 	// 获取订单信息
 	getShopIdByOrderId () {
 		util.showLoading();
-		console.log(app.globalData.orderInfo.orderId);
-		console.log(app.globalData.host);
 		util.getDataFromServer('consumer/order/getShopIdByOrderId', {
 			orderId: app.globalData.orderInfo.orderId
 		}, () => {
 		}, (res) => {
-			console.log(res);
 			if (res.code === 0) {
-				console.log(res.data.shopId);
 				app.globalData.otherPlatformsServiceProvidersId = res.data.shopId;
 				this.setData({
 					shopId: res.data.shopId
