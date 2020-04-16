@@ -178,6 +178,11 @@ Page({
 			});
 		}
 	},
+	onShareAppMessage() {
+		return {
+			path: '/pages/Home/Home'
+		};
+	},
 	// 获取最后有一笔订单信息
 	getStatus (isToMasterQuery) {
 		util.showLoading();

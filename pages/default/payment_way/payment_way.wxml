@@ -50,7 +50,7 @@
 			<!--	扣款方式标题结束-->
 
 			<!--	拍摄身份证开始-->
-			<view class="shot-id-card iconfont" wx:if="{{!(idCardFace.fileUrl && idCardBack.fileUrl)  }}" catchtap="onClickShotBankCardHandle" data-type="1">拍摄身份证</view>
+			<view class="shot-id-card iconfont" wx:if="{{!(idCardFace.fileUrl && idCardBack.fileUrl)  }}" catchtap="onClickShotBankCardHandle" data-type="1">上传身份证</view>
 			<!--	拍摄身份证结束-->
 
 			<!--	输入身份证号 和身份证姓名开始-->

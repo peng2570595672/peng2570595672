@@ -438,6 +438,11 @@ Page({
 		if (app.globalData.firstVersionData) {
 			params['upgradeToTwo'] = true; // 1.0数据转2.0
 		}
+		// 高速通行公众号进入办理
+		if (app.globalData.isHighSpeedTraffic) {
+			params['promoterId'] = app.globalData.isHighSpeedTraffic;// 推广者ID标识
+			params['promoterType'] = 6; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广 默认为0  6:微信推广
+		}
 		// 银行卡 3.0
 		if (this.data.choiceObj.productProcess === 3) {
 			params.dataType = '3458';

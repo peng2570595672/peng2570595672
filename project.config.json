@@ -403,6 +403,20 @@
 					"pathName": "pages/default/information_validation/information_validation",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": 44,
+					"name": "pages/personal_center/my_order/my_order",
+					"pathName": "pages/personal_center/my_order/my_order",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/default/receiving_address/receiving_address",
+					"pathName": "pages/default/receiving_address/receiving_address",
+					"query": "",
+					"scene": null
 				}
 			]
 		}
