@@ -3,6 +3,7 @@ const app = getApp();
 Page({
 	data: {
 		isContinentInsurance: false, // 是否是大地保险
+		showWeiBao: true,
 		details: ''
 	},
 	onLoad (options) {
@@ -24,6 +25,11 @@ Page({
 		} else {
 			this.getBillDetail();
 		}
+	},
+	hide () {
+		this.setData({
+			showWeiBao: false
+		});
 	},
 	// 自动登录
 	login () {
