@@ -1,0 +1,6 @@
+{
+	"navigationBarTitleText": "支付方式",
+	"usingComponents": {
+		"list_of_packages": "/components/list_of_packages/list_of_packages"
+	}
+}

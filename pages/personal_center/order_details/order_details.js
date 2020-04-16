@@ -70,6 +70,13 @@ Page({
 	goOrderInstructions () {
 		util.go('/pages/personal_center/order_instructions/order_instructions?details=' + JSON.stringify(this.data.details));
 	},
+	callHotLine (e) {
+		let model = e.currentTarget.dataset.model;
+		console.log(model);
+		wx.makePhoneCall({
+			phoneNumber: model // 此号码并非真实电话号码，仅用于测试
+		});
+	},
 	// 查询账单详情
 	getBillDetail () {
 		util.showLoading();

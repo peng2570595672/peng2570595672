@@ -60,7 +60,6 @@
 			<view class="user_item_text iconfont">我的卡劵</view>
 		</view>
 		<!--我的卡劵结束-->
-
 		<!--帮助中心开始-->
 		<view class="user_item" catchtap="go" data-url="help_center">
 			<view class="user_item_icon iconfont user_icon_help">

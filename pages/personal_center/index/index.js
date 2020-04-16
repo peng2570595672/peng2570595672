@@ -34,12 +34,7 @@ Page({
 							that.setData({
 								userInfo: res.userInfo
 							});
-							if (app.globalData.userInfo.accessToken) {
-								that.submitUserInfo(res);
-							} else {
-								// 公众号进入需要登录
-								this.login(res);
-							}
+							that.submitUserInfo(res);
 						}
 					});
 				}
@@ -71,10 +66,11 @@ Page({
 							app.globalData.memberId = res.data.memberId;
 							app.globalData.mobilePhone = res.data.mobilePhone;
 							this.getMemberBenefits();
-							if (isDataURI(res)) {
+							if (isData) {
 								this.submitUserInfo(isData);
 							}
 						} else {
+							wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
 							util.go('/pages/login/login/login');
 							util.hideLoading();
 						}

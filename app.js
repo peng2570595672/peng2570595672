@@ -16,6 +16,7 @@ App({
 		scanCodeToHandle: undefined,// 扫描小程序码办理
 		isServiceProvidersPackage: true, // 其他平台服务商过来办理是否有套餐 默认有
 		isContinentInsurance: false, // 是否是大地保险 用来屏蔽微保
+		isJinYiXing: false, // 是否是津易行办理
 		belongToPlatform: '500338116821778434', // 套餐所属平台id,用于判断流程
 		salesmanScanCodeToHandleId: undefined,// 业务员扫描小程序码办理订单ID
 		isSignUpImmediately: false,// 是否是首页或我的ETC列表点击立即签约,是则需要直接查主库
@@ -205,7 +206,14 @@ App({
 				this.globalData.signAContract = 3;
 				// 签约成功 userState: "NORMAL"
 				if (res.data.contractStatus === 1 && res.data.userState === 'NORMAL') {
-					if (this.globalData.belongToPlatform === this.globalData.platformId) {
+					// 是否是津易行办理
+					if (this.globalData.isJinYiXing) {
+						wx.navigateBackMiniProgram({
+							extraData: {
+								state: 'succeed'
+							}
+						});
+					} else if (this.globalData.belongToPlatform === this.globalData.platformId) {
 						// 本平台签约
 						// if (this.globalData.contractStatus === 2) { // 已解约   之前的逻辑
 						// 	if (this.globalData.orderStatus === 5 || this.globalData.orderStatus === 8) {// 资料审核失败 &&高速验证不通过

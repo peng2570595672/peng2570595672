@@ -43,6 +43,14 @@ Page({
 		app.globalData.firstVersionData = false; // 非1.0数据办理
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.signAContract = 3;
+		// if (app.globalData.isFaceToFaceCCB) {
+		// 	this.setData({
+		// 		[`formData.region`]: ['贵州省'],
+		// 		[`formData.regionCode`]: ['520000']
+		// 	});
+		// }
+	},
+	onShow () {
 		if (app.globalData.userInfo.accessToken) {
 			this.setData({
 				mobilePhoneMode: app.globalData.mobilePhoneMode,
@@ -52,12 +60,6 @@ Page({
 			// 公众号进入需要登录
 			this.login();
 		}
-		// if (app.globalData.isFaceToFaceCCB) {
-		// 	this.setData({
-		// 		[`formData.region`]: ['贵州省'],
-		// 		[`formData.regionCode`]: ['520000']
-		// 	});
-		// }
 	},
 	// 自动登录
 	login () {
@@ -85,6 +87,7 @@ Page({
 							app.globalData.memberId = res.data.memberId;
 							app.globalData.mobilePhone = res.data.mobilePhone;
 						} else {
+							wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
 							util.go('/pages/login/login/login');
 							util.hideLoading();
 						}

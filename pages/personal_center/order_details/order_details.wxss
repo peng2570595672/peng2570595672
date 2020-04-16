@@ -42,10 +42,19 @@ page {
 .order_details .deduction-amount .deduction-amount-box .deduction-amount-red {
   color: #f00;
 }
+.order_details .tips {
+  background: #fffaec;
+  padding: 18rpx 40rpx;
+  color: #66666d;
+  font-size: 24rpx;
+  line-height: 36rpx;
+}
+.order_details .tips .blue {
+  color: #039eeb;
+}
 .order_details .deduction-details {
   background: #fff;
   padding: 20rpx 60rpx;
-  margin-bottom: 20rpx;
 }
 .order_details .deduction-details>view {
   display: flex;
