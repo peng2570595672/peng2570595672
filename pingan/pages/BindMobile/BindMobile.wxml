@@ -1,0 +1,14 @@
+<view class="pinan">
+	<view class="small-program-code">
+		<image src="../assets/small_program_code.jpg" mode="widthFix"></image>
+	</view>
+	<!--	按钮开始-->
+	<view class="activation">
+		<view class="btns">
+			<button class="btn" wx:if="{{selfStatus === 1}}" catchtap="goSign">去签约</button>
+			<button class="btn" wx:elif="{{selfStatus === 2}}" catchtap="onClickCctivate">去激活</button>
+			<button class="btn" wx:else catchtap="goHome">去首页</button>
+		</view>
+	</view>
+	<!--	按钮结束-->
+</view>

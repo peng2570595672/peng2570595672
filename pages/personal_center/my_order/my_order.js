@@ -103,6 +103,7 @@ Page({
 							app.globalData.mobilePhone = res.data.mobilePhone;
 							this.getStatus();
 						} else {
+							wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
 							util.go('/pages/login/login/login');
 							util.hideLoading();
 						}

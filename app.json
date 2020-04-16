@@ -60,6 +60,15 @@
 			]
 		},
 		{
+			"root": "pingan",
+			"name": "pingan",
+			"pages": [
+				"pages/ChooseBank/ChooseBank",
+				"pages/Login/Login",
+				"pages/BindMobile/BindMobile"
+			]
+		},
+		{
 			"root": "activities",
 			"name": "activities",
 			"pages": [

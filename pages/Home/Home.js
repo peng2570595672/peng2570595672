@@ -178,7 +178,7 @@ Page({
 			});
 		}
 	},
-	onShareAppMessage() {
+	onShareAppMessage () {
 		return {
 			path: '/pages/Home/Home'
 		};

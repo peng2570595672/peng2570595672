@@ -60,10 +60,12 @@ Component({
 		},
 		// 获取套餐列表
 		getListOfPackages (notList) {
+			console.log(app.globalData.otherPlatformsServiceProvidersId);
 			let shopId;
 			if (notList) {
 				shopId = app.globalData.miniProgramServiceProvidersId;
 			} else {
+				console.log(app.globalData.otherPlatformsServiceProvidersId);
 				shopId = app.globalData.otherPlatformsServiceProvidersId ? app.globalData.otherPlatformsServiceProvidersId : app.globalData.miniProgramServiceProvidersId;
 			}
 			util.showLoading();
@@ -82,6 +84,9 @@ Component({
 					if (res.data.length === 0) {
 						// 如果其他服务商过来办理 没有查询到套餐. 1.面对面活动,不处理  2.其他服务商过来,重新加载小程序自带套餐
 						if ((app.globalData.isFaceToFaceCCB || app.globalData.isFaceToFaceICBC || app.globalData.isFaceToFaceWeChat) && app.globalData.faceToFacePromotionId) {
+							return;
+						}
+						if (app.globalData.isJinYiXing) {
 							return;
 						}
 						if (shopId === app.globalData.miniProgramServiceProvidersId) {

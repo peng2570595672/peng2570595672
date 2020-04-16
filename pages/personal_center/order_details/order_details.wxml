@@ -45,6 +45,15 @@
 		</view>
 	</view>
 	<!--扣费详情结束-->
+	<!--提示开始-->
+	<view class="tips" wx:if="{{details.channelTips.tips1}}">
+		<view>
+			{{details.channelTips.tips1}}
+			<text wx:for="{{details.channelTips.tipsArr}}" wx:key="index" data-model="{{item}}" catchtap="callHotLine"><text class="blue">{{item}}</text>{{index === details.channelTips.tipsArr.length-1 ? '' : '/'}}</text>
+			{{details.channelTips.tips2}}
+		</view>
+	</view>
+	<!--提示结束-->
 	<!--车辆详情开始-->
 	<view class="deduction-details">
 		<view>
