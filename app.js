@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-const IS_TEST = false;
+const IS_TEST = true;
 const util = require('./utils/util.js');
 // 数据统计
 let mta = require('./libs/mta_analysis.js');
