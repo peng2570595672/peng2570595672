@@ -27,13 +27,10 @@ Page({
 		isRequest: false,// 是否请求中
 		orderInfo: undefined // 订单信息
 	},
-	onLoad () {
+	onLoad (options) {
 		app.globalData.isModifiedData = false; // 非修改资料
-	},
-	onShow () {
 		let result = wx.getLaunchOptionsSync();
-		// let extra = result.referrerInfo.extraData;
-		let extra = {};
+		let extra = result.referrerInfo.extraData;
 		if (extra) {
 			let from = extra.from;
 			let mobilePhone = extra.mobilePhone;
