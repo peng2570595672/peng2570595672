@@ -103,6 +103,20 @@ page {
 .order_details .micro-insurance image {
   width: 129rpx;
 }
+.order_details .micro-insurance .close_button {
+  width: 49rpx;
+  height: 49rpx;
+  line-height: 49rpx;
+  margin: 20rpx auto;
+  text-align: center;
+  border-radius: 50%;
+  background: #d4d4d4;
+}
+.order_details .micro-insurance .close_button::before {
+  content: '\e63d';
+  color: #fff;
+  font-size: 30rpx;
+}
 .is-arrears {
   padding-bottom: 240rpx;
 }
