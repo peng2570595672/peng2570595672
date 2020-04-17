@@ -1,8 +1,11 @@
 <view class="page">
 	<view class="content-container">
-		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/35/C7/oYYBAF5FG4yAOCedAAB6tHC8ssc769.png"></image>
-		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/35/C8/oYYBAF5FHI2AMoT8AABh6w-eTd0721.png"></image>
-		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/35/C8/oYYBAF5FHJuAP_qIAABU5RtM2Dw161.png"></image>
+		<!--https://file.cyzl.com/g001/M05/3F/B0/oYYBAF6Yc62AEcnOAABqET6XWIU076.png-->
+		<!--https://file.cyzl.com/g001/M05/3F/B0/oYYBAF6Yc_CAakjhAAAxp2E8hII704.png-->
+		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/3F/B0/oYYBAF6Yc62AEcnOAABqET6XWIU076.png"></image>
+		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/3F/B0/oYYBAF6Yc_CAakjhAAAxp2E8hII704.png"></image>
+		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/3F/B8/oYYBAF6ZDjyARNrbAAAuMF8zIU4429.png"></image>
+		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/3F/B8/oYYBAF6ZDlGAJbmzAABpf-ftTuc222.gif"></image>
 		<view class="prompt-char">
 			<!--<view class="prompt-content"><view>温馨提示：</view><view>如收货地址为东三省则发辽通卡，辽通卡无加油优惠；其他地区发行黔通昆仑ETC卡，川、黔两省享中国石油优惠0.15元/升，即将实现全国范围优惠。</view></view>-->
 			<view class="rules" catchtap="rulesWinShow">活 动 规 则</view>
@@ -19,27 +22,7 @@
 			<view class="head1">活 动 规 则</view>
 			<view class="cont1">
 				<view class="label">1、</view>
-				<view class="char">限通过本活动页面绑定工行卡的新用户，过高速ETC通道缴费使用，使用条件如下：
-					<view class="table">
-						<view class="tr">
-							<view class="th">代金券</view>
-							<view class="th">使用条件</view>
-						</view>
-						<view class="tr">
-							<view class="td">10元</view>
-							<view class="td">10{{'<'}}通行费</view>
-						</view>
-						<view class="tr">
-							<view class="td">20元</view>
-							<view class="td">50≤通行费</view>
-						</view>
-						<view class="tr">
-							<view class="td">30元</view>
-							<view class="td">100≤通行费</view>
-						</view>
-					</view>
-					<view class="table-prompt">注：满足多个使用条件时系统优先使用面额高的代金券</view>
-					 </view>
+				<view class="char">限通过本活动页面办理工行卡的ETC用户，过高速ETC通，道通行费超过45元使用； </view>
 			</view>
 			<view class="cont1">
 				<view class="label">2、</view>
@@ -55,7 +38,7 @@
 			</view>
 			<view class="cont1">
 				<view class="label">5、</view>
-				<view class="char">如用户定位地址为天津发速通卡、其余地区发昆仑卡；其中昆仑卡享中国石油加油优惠，优惠政策以所在加油站为准；</view>
+				<view class="char">本活动发行的昆仑卡，加油享中石油优惠，优惠政策以所在加油站为准；</view>
 			</view>
 			<view class="cont1">
 				<view class="label">6、</view>

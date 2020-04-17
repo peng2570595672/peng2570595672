@@ -104,6 +104,7 @@ Page({
 			util.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
+				app.globalData.salesmanScanCodeToHandleId = undefined;// 处理返回首页再次请求
 				this.getStatus(true);
 			} else {
 				util.showToastNoIcon(res.message);

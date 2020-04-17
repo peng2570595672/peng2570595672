@@ -71,7 +71,11 @@ Page({
 			successBillList: []
 		});
 		if (app.globalData.userInfo.accessToken) {
-			this.getMyETCList();
+			if (JSON.stringify(app.globalData.myEtcList) === '{}') {
+				this.getStatus();
+			} else {
+				this.getMyETCList();
+			}
 		} else {
 			// 公众号进入需要登录
 			this.login();
