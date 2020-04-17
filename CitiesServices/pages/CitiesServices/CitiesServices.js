@@ -7,6 +7,7 @@ Page({
 		loginInfo: {}// 登录信息
 	},
 	onLoad () {
+		app.globalData.isCitiesServices = true;
 		wx.removeStorageSync('information_validation');
 		this.login();
 	},
@@ -59,7 +60,8 @@ Page({
 			});
 			util.getDataFromServer('consumer/member/common/applet/bindingPhone', {
 				sourceType: 7,// 用户来源类型 5-面对面引流 7-微信引流
-				sourceId: 1,// 来源标识 面对面引流时传服务商id，微信引流时，1-为城市服务				certificate: this.data.loginInfo.certificate,
+				sourceId: 1,// 来源标识 面对面引流时传服务商id，微信引流时，1-为城市服务
+				certificate: this.data.loginInfo.certificate,
 				encryptedData: encryptedData, // 微信加密数据
 				iv: iv // 微信加密数据
 			}, () => {

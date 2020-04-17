@@ -13,7 +13,7 @@ Page({
 		app.globalData.isFaceToFaceICBC = true;
 		// 面对面服务商
 		app.globalData.otherPlatformsServiceProvidersId = '642089383318519808';
-		app.globalData.faceToFacePromotionId = '6020191021';
+		app.globalData.faceToFacePromotionId = '6020191023';
 		this.login();
 	},
 	// 打开规则弹窗

@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-const IS_TEST = true;
+const IS_TEST = false;
 const util = require('./utils/util.js');
 // 数据统计
 let mta = require('./libs/mta_analysis.js');
@@ -15,6 +15,7 @@ App({
 		otherPlatformsServiceProvidersId: undefined, // 其他平台服务商id 用于加载不同套餐
 		scanCodeToHandle: undefined,// 扫描小程序码办理
 		isServiceProvidersPackage: true, // 其他平台服务商过来办理是否有套餐 默认有
+		isCitiesServices: false, // 从城市服务进入
 		isContinentInsurance: false, // 是否是大地保险 用来屏蔽微保
 		isJinYiXing: false, // 是否是津易行办理
 		belongToPlatform: '500338116821778434', // 套餐所属平台id,用于判断流程

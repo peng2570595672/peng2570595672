@@ -335,9 +335,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/personal_center/owner_service/owner_service",
-					"pathName": "pages/personal_center/owner_service/owner_service",
+					"id": 34,
+					"name": "pages/personal_center/index/index",
+					"pathName": "pages/personal_center/index/index",
 					"query": "",
 					"scene": null
 				},
@@ -454,9 +454,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "activities/pages/activity_icbc_forty_five_theme/index",
-					"pathName": "activities/pages/activity_icbc_forty_five_theme/index",
+					"id": 51,
+					"name": "activities/pages/activity_wechat_eighteen_theme/index",
+					"pathName": "activities/pages/activity_wechat_eighteen_theme/index",
 					"query": "",
 					"scene": null
 				}
