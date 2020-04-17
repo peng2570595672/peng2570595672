@@ -448,6 +448,11 @@ Page({
 			params['promoterId'] = 1;// 推广者ID标识
 			params['promoterType'] = 6; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
 		}
+		// 微信九宫格进入办理
+		if (app.globalData.isWeChatSudoku) {
+			params['promoterId'] = app.globalData.otherPlatformsServiceProvidersId;// 推广者ID标识
+			params['promoterType'] = 9; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入  9 微信九宫格进入
+		}
 		// 银行卡 3.0
 		if (this.data.choiceObj.productProcess === 3) {
 			params.dataType = '3458';

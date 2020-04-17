@@ -9,6 +9,7 @@ Page({
 		showMobileWrapper: false // 绑定手机号相关
 	},
 	onLoad () {
+		wx.hideHomeButton();
 		app.globalData.orderInfo.orderId = '';
 		app.globalData.isFaceToFaceCCB = true;
 		// 面对面服务商

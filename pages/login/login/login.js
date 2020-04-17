@@ -24,11 +24,16 @@ Page({
 			util.showLoading({
 				title: '登录中...'
 			});
-			util.getDataFromServer('consumer/member/common/applet/bindingPhone', {
+			let params = {
 				certificate: this.data.loginInfo.certificate,
 				encryptedData: encryptedData, // 微信加密数据
 				iv: iv // 微信加密数据
-			}, () => {
+			};
+			if (app.globalData.isWeChatSudoku) {
+				params['sourceType'] = 9;// 九宫格进入
+				params['sourceId'] = app.globalData.otherPlatformsServiceProvidersId;
+			}
+			util.getDataFromServer('consumer/member/common/applet/bindingPhone', params, () => {
 				util.hideLoading();
 				util.showToastNoIcon('登录失败！');
 			}, (res) => {
