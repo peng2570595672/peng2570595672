@@ -28,6 +28,7 @@ Page({
 		orderInfo: undefined // 订单信息
 	},
 	onShow (options) {
+		wx.hideHomeButton();
 		app.globalData.isModifiedData = false; // 非修改资料
 		let result = wx.getLaunchOptionsSync();
 		let extra = result.referrerInfo.extraData;

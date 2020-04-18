@@ -66,6 +66,7 @@
 		<button class="btn" wx:elif="{{orderInfo.selfStatus === 6 && orderInfo.contractStatus !== 2 && orderInfo.logisticsId !== 0}}" catchtap="onClickCctivate">确认收货并激活</button>
 		<view class="btn-wrapper" wx:if="{{orderInfo.selfStatus !== 4 && orderInfo.selfStatus !== 6 && orderInfo.selfStatus !== 7}}">
 			<view catchtap="onClickCancelHandle" wx:if="{{orderInfo.selfStatus !== 4 && orderInfo.selfStatus !== 6 && orderInfo.selfStatus !== 7 && orderInfo.selfStatus !== 9 && orderInfo.contractStatus !== 2}}">取消办理</view>
+			<view catchtap="onClickCancelHandle" wx:if="{{orderInfo.contractStatus === 2 && orderInfo.status === 0}}">取消办理</view>
 			<!--<view catchtap="onClickCancelHandle">取消办理</view>-->
 			<view catchtap="goOnlineServer">客服中心</view>
 		</view>
