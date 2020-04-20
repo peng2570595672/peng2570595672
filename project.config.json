@@ -475,9 +475,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/loading_page_for_wx/index",
-					"pathName": "pages/loading_page_for_wx/index",
+					"id": 54,
+					"name": "activities/pages/activity_icbc_forty_five_hook/index",
+					"pathName": "activities/pages/activity_icbc_forty_five_hook/index",
 					"query": "",
 					"scene": null
 				}
