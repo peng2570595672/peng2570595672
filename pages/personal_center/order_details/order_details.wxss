@@ -42,6 +42,9 @@ page {
 .order_details .deduction-amount .deduction-amount-box .deduction-amount-red {
   color: #f00;
 }
+.order_details .deduction-amount .deduction-amount-box .refund {
+  color: #99999d;
+}
 .order_details .tips {
   background: #fffaec;
   padding: 18rpx 40rpx;

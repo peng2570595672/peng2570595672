@@ -26,7 +26,6 @@ Page({
 		],
 		list: [],
 		orderList: [],
-		failBillList: [],
 		failBillMessage: '',
 		successBillMessage: '',
 		successBillList: [],
@@ -280,7 +279,6 @@ Page({
 				this.getMessage('全部车辆',this.data.chooseTime);
 			} else {
 				this.setData({
-					failBillList: [],
 					successBillList: [],
 					chooseVehPlates: this.data.vehicleList[index]
 				});

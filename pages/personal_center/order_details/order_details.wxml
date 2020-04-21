@@ -1,11 +1,11 @@
-<view class="order_details {{details.deductStatus === 2 ? 'is-arrears': ''}}">
+<view class="order_details {{details.deductStatus === 2 || details.deductStatus === 10 ? 'is-arrears': ''}}">
 	<!--	扣费金额开始-->
 	<view class="deduction-amount">
 		<view class="doubt iconfont" catchtap="goOrderInstructions"><text></text></view>
 		<view class="deduction-amount-box">
 			<view class="deduction-amount-title">扣费金额</view>
-			<view class="{{details.deductStatus !== 1 && details.deductStatus !== 11 && details.deductStatus !== 10 && details.deductStatus !== 12 ? 'deduction-amount-red' : ''}}">{{details.etcMoney ? details.etcMoney/100 : 0}}</view>
-			<view class="failure-prompted" wx:if="{{details.etcMoney > 0}}">{{details.errCodeDes === '0' ? '' : details.errCodeDes}}</view>
+			<view class="{{details.deductStatus !== 1 && details.deductStatus !== 10 && details.deductStatus !== 11 && details.deductStatus !== 12 ? 'deduction-amount-red' : ''}}"><text  class="{{details.deductStatus === 7 ? 'refund' : ''}}">{{details.etcMoney ? details.etcMoney/100 : 0}}</text></view>
+			<view class="failure-prompted {{details.deductStatus === 7 ? 'refund' : ''}}" wx:if="{{details.etcMoney > 0}}">{{details.deductStatus === 7 ? '已退款' : (details.errCodeDes === '0' ? '' : details.errCodeDes)}}</view>
 		</view>
 	</view>
 	<!--扣费金额结束-->
@@ -79,7 +79,7 @@
 	</view>
 	<!--车辆详情结束-->
 	<!--底部补缴开始-->
-	<view class="payment " wx:if="{{details.deductStatus !== 1 && details.deductStatus !== 11 && details.deductStatus !== 10 && details.deductStatus !== 12}}">
+	<view class="payment " wx:if="{{details.deductStatus === 2 || details.deductStatus === 10}}">
 		<view class="payment-prompt">欠费有可能被列为黑名单，影响您的高速通行，请及时补缴！</view>
 		<view>
 			<button catchtap="go">补缴</button>

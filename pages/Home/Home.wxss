@@ -232,6 +232,9 @@
   font-weight: bold;
   font-size: 48rpx;
 }
+.index .bill .bill-info > view:last-of-type .refund {
+  color: #99999d;
+}
 .index .bill .bill-empty {
   display: flex;
   align-items: center;
