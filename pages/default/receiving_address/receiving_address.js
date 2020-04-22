@@ -105,8 +105,6 @@ Page({
 	},
 	// 下一步
 	next () {
-		// 统计点击事件
-		mta.Event.stat('024',{});
 		if (!this.data.available || this.data.isRequest) {
 			return;
 		}
@@ -114,6 +112,8 @@ Page({
 			util.showToastNoIcon('请同意并勾选协议！');
 			return;
 		}
+		// 统计点击事件
+		mta.Event.stat('024',{});
 		this.setData({
 			available: false, // 禁用按钮
 			isRequest: true // 设置状态为请求中
@@ -490,6 +490,9 @@ Page({
 		this.setData({
 			getAgreement: !this.data.getAgreement
 		});
+		if (this.data.getAgreement) {
+			mta.Event.stat('receiving_address_check_agreement',{});
+		}
 		this.setData({
 			available: this.validateAvailable()
 		});

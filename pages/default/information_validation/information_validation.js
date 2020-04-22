@@ -228,10 +228,10 @@ Page({
 	// 提交信息
 	onClickComfirmHandle () {
 		// 统计点击事件
-		mta.Event.stat('035',{});
 		if (!this.data.available || this.data.isRequest) {
 			return;
 		}
+		mta.Event.stat('035',{});
 		this.subscribe();
 	},
 	// ETC申办审核结果通知、ETC发货提示

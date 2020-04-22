@@ -288,6 +288,7 @@ Page({
 			wx.requestSubscribeMessage({
 				tmplIds: ['rWHTLYmUdcuYw-wKU0QUyM7H0t-adDKeu193RjILL0M'],
 				success: (res) => {
+					mta.Event.stat('032',{});
 					wx.hideLoading();
 					if (res.errMsg === 'requestSubscribeMessage:ok') {
 						let keys = Object.keys(res);
@@ -363,8 +364,6 @@ Page({
 	},
 	// 签约
 	next () {
-		// 统计点击事件
-		mta.Event.stat('028',{});
 		if (!this.data.available || this.data.isRequest) {
 			return;
 		}
@@ -376,6 +375,8 @@ Page({
 			util.showToastNoIcon('部分信息识别失败,请重新上传身份证照片！');
 			return;
 		}
+		// 统计点击事件
+		mta.Event.stat('028',{});
 		// 订阅消息
 		this.subscribe();
 	},
