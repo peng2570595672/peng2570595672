@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-const IS_TEST = false;
+const IS_TEST = true;
 const util = require('./utils/util.js');
 // 数据统计
 let mta = require('./libs/mta_analysis.js');
@@ -114,7 +114,7 @@ App({
 			} else {
 				// 小程序后台生成码  大地保险
 				if (options.query.channelValue && options.query.serverInfoId) {
-					// 大地保险扫码进入
+					// 1.0大地保险扫码进入
 					this.globalData.isContinentInsurance = true;
 					let sceneValue = JSON.stringify(options.query);
 					this.getPromoterInfo('channelValue',sceneValue);
@@ -134,6 +134,10 @@ App({
 			util.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
+				if (res.data.codeType === 1) {
+					// 2.0大地保险
+					this.globalData.isContinentInsurance = true;
+				}
 				this.globalData.otherPlatformsServiceProvidersId = res.data.shopId;
 				this.globalData.scanCodeToHandle = res.data;
 			} else {

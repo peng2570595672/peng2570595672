@@ -16,9 +16,6 @@ Page({
 		recentlyTheBill: undefined // 最新账单
 	},
 	onLoad () {
-		this.setData({
-			isContinentInsurance: app.globalData.isContinentInsurance
-		});
 		wx.removeStorageSync('information_validation');
 		this.login();
 		// 获取轮播图
@@ -123,6 +120,9 @@ Page({
 			if (res.code === 0) {
 				if (res.data) {
 					let list = res.data;
+					this.setData({
+						isContinentInsurance: app.globalData.isContinentInsurance
+					});
 					if (this.data.isContinentInsurance) {
 						list = list.filter(item => item.remark !== 'micro_insurance'); // 大地保险屏蔽微保
 					} else {

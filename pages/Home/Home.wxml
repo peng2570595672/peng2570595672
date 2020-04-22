@@ -105,13 +105,14 @@
 			<view class="bill-info" catchtap="goOrderDetails">
 				<view>
 					<view>{{recentlyTheBill.vehPlate}}</view>
-					<view class="succeed" wx:if="{{recentlyTheBill.deductStatus === 1 || recentlyTheBill.deductStatus === 11}}">{{tools.substring(recentlyTheBill.deductTime,5,16)}} </view>
+					<view class="succeed" wx:if="{{recentlyTheBill.deductStatus === 1 || recentlyTheBill.deductStatus === 11 || recentlyTheBill.deductStatus === 12}}">{{tools.substring(recentlyTheBill.deductTime,5,16)}} </view>
+					<view class="succeed" wx:if="{{recentlyTheBill.deductStatus === 7}}">已退款</view>
 					<view class="failed" wx:else>扣款失败</view>
 				</view>
 				<view>
 					<view class="up"><text>上</text><view>{{recentlyTheBill.inStationName}}</view></view>
 					<view class="down"><text>下</text><view>{{recentlyTheBill.stationName}}</view></view>
-					<view class="price">-{{recentlyTheBill.etcMoney/100}}</view>
+					<view class="price {{recentlyTheBill.deductStatus === 7 ? 'refund' : ''}}">{{recentlyTheBill.etcMoney/100}}</view>
 				</view>
 			</view>
 		</block>
@@ -164,9 +165,4 @@
 		</view>
 	</view>
 	<!--	底部导航结束-->
-	<!--底部加油活动开始-->
-	<view class="oil">
-		<!--<image src="/pages/default/assets/home_oil_bg.png" mode="widthFix"></image>-->
-	</view>
-	<!--底部加油活动结束-->
 </view>

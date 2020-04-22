@@ -86,6 +86,9 @@ page {
 .my_order .order-list .order-list-content .order-list-top .success-money {
   color: #2fb565;
 }
+.my_order .order-list .order-list-content .order-list-top .refund {
+  color: #99999d;
+}
 .my_order .order-list .order-list-content .site {
   font-size: 24rpx;
   line-height: 40rpx;
