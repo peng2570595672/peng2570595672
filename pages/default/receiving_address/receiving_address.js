@@ -490,6 +490,9 @@ Page({
 		this.setData({
 			getAgreement: !this.data.getAgreement
 		});
+		if (this.data.getAgreement) {
+			mta.Event.stat('receiving_address_check_agreement',{});
+		}
 		this.setData({
 			available: this.validateAvailable()
 		});
