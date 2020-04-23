@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-const IS_TEST = false;
+const IS_TEST = true;
 const util = require('./utils/util.js');
 // 数据统计
 let mta = require('./libs/mta_analysis.js');
@@ -15,6 +15,7 @@ App({
 		otherPlatformsServiceProvidersId: undefined, // 其他入口/其他平台服务商id 用于加载不同套餐
 		scanCodeToHandle: undefined,// 扫描小程序码办理
 		isServiceProvidersPackage: true, // 其他平台服务商过来办理是否有套餐 默认有
+		isThirdGeneralize: false, // 第三方扫码办理
 		isCitiesServices: false, // 从城市服务进入
 		isWeChatSudoku: false, // 从微信九宫格进入(微信--生活缴费--ETC办理)
 		isContinentInsurance: false, // 是否是大地保险 用来屏蔽微保
@@ -138,7 +139,12 @@ App({
 					// 2.0大地保险
 					this.globalData.isContinentInsurance = true;
 				}
-				this.globalData.otherPlatformsServiceProvidersId = res.data.shopId;
+				if (res.data.shopId) {
+					this.globalData.otherPlatformsServiceProvidersId = res.data.shopId;
+				}
+				if (res.data.thirdGeneralizeNo) {
+					this.globalData.isThirdGeneralize = true;
+				}
 				this.globalData.scanCodeToHandle = res.data;
 			} else {
 				util.hideLoading();

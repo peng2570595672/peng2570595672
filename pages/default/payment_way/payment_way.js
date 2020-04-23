@@ -454,6 +454,13 @@ Page({
 			params['promoterId'] = app.globalData.otherPlatformsServiceProvidersId;// 推广者ID标识
 			params['promoterType'] = 9; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入  9 微信九宫格进入
 		}
+		//  第三方扫码办理
+		if (app.globalData.isThirdGeneralize) {
+			params['thirdGeneralizeNo'] = app.globalData.scanCodeToHandle.thirdGeneralizeNo;
+			params['shopId'] = app.globalData.miniProgramServiceProvidersId;
+			params['promoterId'] = app.globalData.scanCodeToHandle.promoterId;// 推广者ID标识
+			params['promoterType'] = app.globalData.scanCodeToHandle.promoterType; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
+		}
 		// 银行卡 3.0
 		if (this.data.choiceObj.productProcess === 3) {
 			params.dataType = '3458';

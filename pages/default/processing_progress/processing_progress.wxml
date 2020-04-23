@@ -4,13 +4,18 @@
 	<!--	车牌结束-->
 	<!--	用户信息开始-->
 	<view class="user-info">
-		<view>
+		<view wx:if="{{info.orderType !== 31}}">
 			<text>{{info.receiveMan}}</text>
 			<text>{{info.receivePhone}}</text>
 		</view>
-		<view>
+		<view wx:if="{{info.orderType === 31}}">
+			<text>{{info.shopUserTrueName}}</text>
+			<text>{{info.shopUserMobilePhone}}</text>
+		</view>
+		<view wx:if="{{info.orderType !== 31}}">
 			{{info.receiveProvince}}{{info.receiveCity}}{{info.receiveCounty}}{{info.receiveAddress}}
 		</view>
+		<view wx:if="{{info.orderType === 31}}">业务员线下办理</view>
 	</view>
 	<!--	用户信息结束-->
 	<!--	办理进度开始-->
