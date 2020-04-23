@@ -433,9 +433,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pingan/pages/Login/Login",
-					"pathName": "pingan/pages/Login/Login",
+					"id": 48,
+					"name": "pages/login/login/login",
+					"pathName": "pages/login/login/login",
 					"query": "",
 					"scene": null
 				},
@@ -478,6 +478,13 @@
 					"id": 54,
 					"name": "activities/pages/activity_icbc_forty_five_hook/index",
 					"pathName": "activities/pages/activity_icbc_forty_five_hook/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 55,
+					"name": "activities/pages/activity_wechat_eighteen_hook/index",
+					"pathName": "activities/pages/activity_wechat_eighteen_hook/index",
 					"query": "",
 					"scene": null
 				}

@@ -131,7 +131,17 @@ Page({
 	// 跳转
 	go (e) {
 		let url = e.currentTarget.dataset['url'];
-		let type = e.currentTarget.dataset.type;
+		if (url === 'owner_service') {
+			mta.Event.stat('personal_center_owner_service',{});
+		} else if (url === 'my_etc') {
+			mta.Event.stat('personal_center_my_etc',{});
+		} else if (url === 'my_order') {
+			mta.Event.stat('personal_center_my_order',{});
+		} else if (url === 'service_card_voucher') {
+			mta.Event.stat('personal_center_service_card_voucher',{});
+		} else if (url === 'help_center') {
+			mta.Event.stat('personal_center_help_center',{});
+		}
 		util.go(`/pages/personal_center/${url}/${url}`);
 	},
 	// 扫码

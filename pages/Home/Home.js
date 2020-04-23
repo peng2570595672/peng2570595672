@@ -422,8 +422,12 @@ Page({
 		}
 		if (item.pageType === 1) {
 			// 页面类型：1-H5，2-小程序
+			if (item.remark === 'micro_insurance') {
+				mta.Event.stat('banner_activity_weibao',{});
+			}
 			util.go(`/pages/web/web/web?url=${encodeURIComponent(item.pageUrl)}&type=banner`);
 		} else {
+			mta.Event.stat('banner_activity_free_processing',{});
 			util.go(item.pageUrl);
 		}
 	},
