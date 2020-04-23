@@ -11,8 +11,8 @@ App({
 		plamKey: '123456', // 签名用到的key --- 二发
 		mapKey: '4EYBZ-L6QC4-NCLUW-XFDUD-TANS7-DZFNG', // 腾讯地图所使用key
 		platformId: '500338116821778434', // 平台id
-		miniProgramServiceProvidersId: '611607716116299776', // 小程序服务商id 用于加载不同套餐
-		otherPlatformsServiceProvidersId: undefined, // 其他平台服务商id 用于加载不同套餐
+		miniProgramServiceProvidersId: '611607716116299776', // 主流程小程序服务商id 用于加载不同套餐
+		otherPlatformsServiceProvidersId: undefined, // 其他入口/其他平台服务商id 用于加载不同套餐
 		scanCodeToHandle: undefined,// 扫描小程序码办理
 		isServiceProvidersPackage: true, // 其他平台服务商过来办理是否有套餐 默认有
 		isCitiesServices: false, // 从城市服务进入
