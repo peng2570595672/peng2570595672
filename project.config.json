@@ -487,6 +487,13 @@
 					"pathName": "activities/pages/activity_wechat_eighteen_hook/index",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": 56,
+					"name": "pages/Home/Home",
+					"pathName": "pages/Home/Home",
+					"query": "channelValue=2020032421&serverInfoId=691607362313650176",
+					"scene": null
 				}
 			]
 		}

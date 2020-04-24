@@ -113,14 +113,18 @@ App({
 					this.getPromoterInfo(sceneKey,sceneValue);
 				}
 			} else {
-				// 小程序后台生成码  大地保险
-				if (options.query.channelValue && options.query.serverInfoId) {
-					// 1.0大地保险扫码进入
-					this.globalData.isContinentInsurance = true;
-					let sceneValue = JSON.stringify(options.query);
-					this.getPromoterInfo('channelValue',sceneValue);
-				}
 			}
+		}
+		if (options.query.channelValue && options.query.serverInfoId) {
+			// 1.0大地保险扫码/链接进入
+			this.globalData.isContinentInsurance = true;
+			let sceneValue = JSON.stringify(options.query);
+			this.getPromoterInfo('channelValue',sceneValue);
+		}
+		if (options.query.carInsurance) {
+			// 2.0大地保险链接进入
+			this.globalData.isContinentInsurance = true;
+			this.getPromoterInfo('SGC',options.query.carInsurance);
 		}
 	},
 	// 根据扫描获取到的二维码信息获取推广参数
