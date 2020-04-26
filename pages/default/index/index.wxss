@@ -56,13 +56,13 @@
 .index .my-swiper .wx-swiper-dots-horizontal {
   margin-bottom: -18rpx;
 }
-.index .my-swiper .wx-swiper-dots-horizontal .wx-swiper-dot {
+.index .my-swiper .wx-swiper-dot {
   margin-right: 4rpx;
   width: 10rpx;
   height: 10rpx;
   background: #e3e5e6;
 }
-.index .my-swiper .wx-swiper-dots-horizontal .wx-swiper-dot.wx-swiper-dot-active {
+.index .my-swiper .wx-swiper-dot.wx-swiper-dot-active {
   background: #979999;
 }
 .index .free-processing {
@@ -232,6 +232,9 @@
   font-weight: bold;
   font-size: 48rpx;
 }
+.index .bill .bill-info > view:last-of-type .refund {
+  color: #99999d;
+}
 .index .bill .bill-empty {
   display: flex;
   align-items: center;
@@ -286,10 +289,4 @@
   font-size: 24rpx;
   line-height: 40rpx;
   color: #66666d;
-}
-.index .oil {
-  margin: 10rpx 40rpx 0;
-}
-.index .oil image {
-  width: 100%;
 }

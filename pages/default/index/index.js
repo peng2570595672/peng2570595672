@@ -16,9 +16,7 @@ Page({
 		recentlyTheBill: undefined // 最新账单
 	},
 	onLoad () {
-		this.setData({
-			isContinentInsurance: app.globalData.isContinentInsurance
-		});
+		wx.hideHomeButton();
 		wx.removeStorageSync('information_validation');
 		this.login();
 		// 获取轮播图
@@ -26,7 +24,11 @@ Page({
 	},
 	onShow () {
 		if (app.globalData.userInfo.accessToken) {
-			this.getStatus();
+			if (app.globalData.salesmanScanCodeToHandleId) {
+				this.bindOrder();
+			} else {
+				this.getStatus();
+			}
 		}
 		// 登录页返回
 		let loginInfoFinal = wx.getStorageSync('login_info_final');
@@ -34,7 +36,11 @@ Page({
 			this.setData({
 				loginInfo: JSON.parse(loginInfoFinal)
 			});
-			this.getStatus();
+			if (app.globalData.salesmanScanCodeToHandleId) {
+				this.bindOrder();
+			} else {
+				this.getStatus();
+			}
 			wx.removeStorageSync('login_info_final');
 		}
 	},
@@ -63,7 +69,16 @@ Page({
 							app.globalData.memberId = res.data.memberId;
 							app.globalData.mobilePhone = res.data.mobilePhone;
 							// 查询最后一笔订单状态
-							this.getStatus();
+							if (app.globalData.salesmanScanCodeToHandleId) {
+								this.bindOrder();
+							} else {
+								if (app.globalData.isSignUpImmediately) {
+									app.globalData.isSignUpImmediately = false;
+									this.getStatus(true);
+								} else {
+									this.getStatus();
+								}
+							}
 						} else {
 							util.hideLoading();
 						}
@@ -79,6 +94,21 @@ Page({
 			}
 		});
 	},
+	// 业务员端订单码绑定订单
+	bindOrder () {
+		util.getDataFromServer('consumer/member/bind-order', {
+			orderId: app.globalData.salesmanScanCodeToHandleId
+		}, () => {
+			util.hideLoading();
+		}, (res) => {
+			if (res.code === 0) {
+				app.globalData.salesmanScanCodeToHandleId = undefined;// 处理返回首页再次请求
+				this.getStatus(true);
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken);
+	},
 	// 获取轮播图
 	getRotationChartList () {
 		util.showLoading();
@@ -91,8 +121,13 @@ Page({
 			if (res.code === 0) {
 				if (res.data) {
 					let list = res.data;
+					this.setData({
+						isContinentInsurance: app.globalData.isContinentInsurance
+					});
 					if (this.data.isContinentInsurance) {
 						list = list.filter(item => item.remark !== 'micro_insurance'); // 大地保险屏蔽微保
+					} else {
+						list = list.filter(item => item.remark !== 'continent_insurance'); // 普通流程屏蔽大地保险
 					}
 					this.setData({
 						rotationChartList: list
@@ -133,7 +168,11 @@ Page({
 					this.setData({
 						loginInfo
 					});
-					this.getStatus(); // 获取最后一笔订单状态
+					if (app.globalData.salesmanScanCodeToHandleId) {
+						this.bindOrder();
+					} else {
+						this.getStatus();
+					}
 				} else {
 					util.hideLoading();
 					util.showToastNoIcon(res.message);
@@ -141,12 +180,21 @@ Page({
 			});
 		}
 	},
+	onShareAppMessage () {
+		return {
+			path: '/pages/Home/Home'
+		};
+	},
 	// 获取最后有一笔订单信息
-	getStatus () {
+	getStatus (isToMasterQuery) {
 		util.showLoading();
-		util.getDataFromServer('consumer/order/my-etc-list', {
+		let params = {
 			openId: app.globalData.openId
-		}, () => {
+		};
+		if (isToMasterQuery) {
+			params['toMasterQuery'] = true;// 直接查询主库
+		}
+		util.getDataFromServer('consumer/order/my-etc-list', params, () => {
 			util.hideLoading();
 		}, (res) => {
 			util.hideLoading();
@@ -331,6 +379,7 @@ Page({
 				util.hideLoading();
 				let result = res.data.contract;
 				// 签约车主服务 2.0
+				app.globalData.isSignUpImmediately = true;// 返回时需要查询主库
 				app.globalData.belongToPlatform = obj.platformId;
 				app.globalData.orderInfo.orderId = obj.id;
 				app.globalData.orderStatus = obj.selfStatus;
@@ -369,10 +418,17 @@ Page({
 	// 点击轮播图
 	onClickSwiper (e) {
 		let item = e.currentTarget.dataset['item'];
+		if (item.pageUrl === 'continent_insurance') {
+			return;
+		}
 		if (item.pageType === 1) {
 			// 页面类型：1-H5，2-小程序
+			if (item.remark === 'micro_insurance') {
+				mta.Event.stat('banner_activity_weibao',{});
+			}
 			util.go(`/pages/web/web/web?url=${encodeURIComponent(item.pageUrl)}&type=banner`);
 		} else {
+			mta.Event.stat('banner_activity_free_processing',{});
 			util.go(item.pageUrl);
 		}
 	},
@@ -446,12 +502,19 @@ Page({
 	// 修改资料
 	onClickModifiedData () {
 		mta.Event.stat('004',{});
+		if (util.getHandlingType(this.data.orderInfo)) {
+			util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
+			return;
+		}
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 		app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
 		app.globalData.isModifiedData = true; // 修改资料
 		if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {
 			// 1.0数据
 			app.globalData.firstVersionData = true;
+			wx.removeStorageSync('driving_license_face');
+			wx.removeStorageSync('driving_license_back');
+			wx.removeStorageSync('car_head_45');
 		} else {
 			app.globalData.firstVersionData = false;
 		}
@@ -461,6 +524,10 @@ Page({
 	onClickContinueHandle () {
 		// 统计点击事件
 		mta.Event.stat('002',{});
+		if (util.getHandlingType(this.data.orderInfo)) {
+			util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
+			return;
+		}
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 		app.globalData.isModifiedData = false; // 非修改资料
 		if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {

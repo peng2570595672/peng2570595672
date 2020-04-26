@@ -58,7 +58,7 @@
 	</view>
 	<!--	修改资料结束-->
 
-<!--	审核失败开始-->
+	<!--	审核失败开始-->
 	<view class="audit-failure" wx:if="{{false}}">
 		<view class="processing-title">
 			<view>{{orderInfo.vehPlates}}</view>
@@ -67,18 +67,21 @@
 		<view class="failed">审核失败</view>
 		<view class="tips">说明原因</view>
 	</view>
-<!--	审核失败结束-->
+	<!--	审核失败结束-->
 
-<!--	确认收货并激活开始-->
+	<!--	确认收货并激活开始-->
 	<view class="confirm-receipt" wx:if="{{orderInfo.selfStatus === 6 && orderInfo.contractStatus !== 2}}">
 		<view class="processing-title">
 			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
 		</view>
-		<button class="btn" catchtap="onClickCctivate">{{orderInfo.logisticsId === 0 ? '查看进度' : '确认收货并激活 '}}</button>
+		<button class="btn" catchtap="onClickViewProcessingProgressHandle">
+			查看进度
+			<!--{{orderInfo.logisticsId === 0 ? '查看进度' : '确认收货并激活 '}}-->
+		</button>
 		<view class="tips">{{orderInfo.logisticsId === 0 ? '审核通过，设备打包中...' : '你的ETC即将到达，期待...  '}}</view>
 	</view>
-<!--	确认收货并激活结束-->
+	<!--	确认收货并激活结束-->
 	<!--	恢复签约开始-->
 	<view class="resume-contract" wx:if="{{orderInfo.selfStatus === 2 || orderInfo.contractStatus === 2}}">
 		<view class="processing-title">
@@ -91,7 +94,7 @@
 	</view>
 	<!--	恢复签约结束-->
 
-<!--	账单开始-->
+	<!--	账单开始-->
 	<view class="bill" wx:if="{{orderInfo.selfStatus === 9 && orderInfo.contractStatus !== 2}}">
 		<view class="processing-title">
 			<view>最近一次账单</view>
@@ -102,13 +105,14 @@
 			<view class="bill-info" catchtap="goOrderDetails">
 				<view>
 					<view>{{recentlyTheBill.vehPlate}}</view>
-					<view class="succeed" wx:if="{{recentlyTheBill.deductStatus === 1 || recentlyTheBill.deductStatus === 11}}">{{tools.substring(recentlyTheBill.deductTime,5,16)}} </view>
-					<view class="failed" wx:else>扣款失败</view>
+					<view class="failed" wx:if="{{recentlyTheBill.deductStatus === 2 || recentlyTheBill.deductStatus === 10}}">扣款失败</view>
+					<view class="succeed" wx:elif="{{recentlyTheBill.deductStatus === 7}}">已退款</view>
+					<view class="succeed" wx:else >{{tools.substring(recentlyTheBill.deductTime,5,16)}} </view>
 				</view>
 				<view>
 					<view class="up"><text>上</text><view>{{recentlyTheBill.inStationName}}</view></view>
 					<view class="down"><text>下</text><view>{{recentlyTheBill.stationName}}</view></view>
-					<view class="price">-{{recentlyTheBill.etcMoney/100}}</view>
+					<view class="price {{recentlyTheBill.deductStatus === 7 ? 'refund' : ''}}">{{recentlyTheBill.etcMoney/100}}</view>
 				</view>
 			</view>
 		</block>
@@ -123,7 +127,7 @@
 			</view>
 		</block>
 	</view>
-<!--	账单结束-->
+	<!--	账单结束-->
 	<!--	分割线开始-->
 	<view class="split"></view>
 	<!--	分割线结束-->
@@ -161,9 +165,4 @@
 		</view>
 	</view>
 	<!--	底部导航结束-->
-	<!--底部加油活动开始-->
-	<view class="oil">
-		<!--<image src="/pages/default/assets/home_oil_bg.png" mode="widthFix"></image>-->
-	</view>
-	<!--底部加油活动结束-->
 </view>
