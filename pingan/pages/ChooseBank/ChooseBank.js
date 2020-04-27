@@ -10,6 +10,7 @@ Page({
 	data: {
 		count: 0,// 计数,因网络图片老是404,所以做计数刷新处理
 		showChoiceBank: true, // 选择套餐
+		isCache: false, // 记录是否有缓存
 		choiceSetMeal: undefined, // 选择支付方式逐渐
 		choiceObj: undefined, // 选择的套餐
 		bankCardIdentifyResult: {
@@ -65,6 +66,7 @@ Page({
 		if (idCardFace) {
 			idCardFace = JSON.parse(idCardFace);
 			this.setData({
+				isCache: true,// 记录是否有缓存
 				idCardFace: idCardFace.data[0],
 				userName: idCardFace.data[0].ocrObject.name,
 				idNumber: idCardFace.data[0].ocrObject.idNumber
@@ -101,7 +103,7 @@ Page({
 				});
 				// 获取实名信息
 				let temp = this.data.orderInfo['idCard'];
-				if (temp.idCardNegativeUrl) {
+				if (temp.idCardNegativeUrl && !this.data.isCache) {
 					let idCardFace = this.data.idCardFace;
 					// 身份证反面
 					let idCardBack = this.data.idCardBack;
