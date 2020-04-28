@@ -510,9 +510,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/personal_center/my_etc/my_etc",
-					"pathName": "pages/personal_center/my_etc/my_etc",
+					"id": 59,
+					"name": "pages/personal_center/my_etc_detail/my_etc_detail",
+					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+					"query": "orderId=702925696791482368",
 					"scene": null
 				}
 			]

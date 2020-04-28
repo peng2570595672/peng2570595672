@@ -9,6 +9,7 @@ Page({
 		userInfo: undefined, // 用户信息
 		showDetailWrapper: false,
 		mobilePhoneSystem: false,
+		mobilePhone: undefined,
 		showDetailMask: false
 	},
 	onLoad () {
@@ -22,6 +23,7 @@ Page({
 		}
 		this.setData({
 			mobilePhoneSystem: app.globalData.mobilePhoneSystem,
+			mobilePhone: app.globalData.mobilePhone,
 			screenHeight: wx.getSystemInfoSync().windowHeight
 		});
 		let that = this;
@@ -65,6 +67,9 @@ Page({
 							app.globalData.openId = res.data.openId;
 							app.globalData.memberId = res.data.memberId;
 							app.globalData.mobilePhone = res.data.mobilePhone;
+							this.setData({
+								mobilePhone: res.data.mobilePhone
+							});
 							this.getMemberBenefits();
 							if (isData) {
 								this.submitUserInfo(isData);

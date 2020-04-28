@@ -17,7 +17,10 @@
 
 		<!--登陆状态-->
 		<view class="landing_status">
-			<view> <open-data type="userNickName" lang="zh_CN"></open-data></view>
+			<view>
+				{{mobilePhone}}
+				<!--<open-data type="userNickName" lang="zh_CN"></open-data>-->
+			</view>
 		</view>
 
 		<!--会员权益-->
