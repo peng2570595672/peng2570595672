@@ -162,7 +162,7 @@
 				{
 					"id": 9,
 					"name": "pages/default/receiving_address/receiving_address",
-					"pathName": "pages/default/receiving_address/receiving_address",
+					"pathName": "pages/default/receiving_address/receiving_address?a=1",
 					"query": "",
 					"scene": null
 				},
@@ -493,6 +493,26 @@
 					"name": "pages/Home/Home",
 					"pathName": "pages/Home/Home",
 					"query": "channelValue=2020032421&serverInfoId=691607362313650176",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/default/receiving_address/receiving_address",
+					"pathName": "pages/default/receiving_address/receiving_address",
+					"query": "channelValue=2020032421&serverInfoId=691607362313650176",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pingan/pages/ChooseBank/ChooseBank",
+					"pathName": "pingan/pages/ChooseBank/ChooseBank",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/personal_center/my_etc/my_etc",
+					"pathName": "pages/personal_center/my_etc/my_etc",
 					"scene": null
 				}
 			]

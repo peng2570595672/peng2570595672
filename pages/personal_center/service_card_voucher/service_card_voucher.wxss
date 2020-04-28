@@ -11,6 +11,7 @@ page {
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 1;
   text-align: center;
   line-height: 92rpx;
   display: flex;
@@ -75,6 +76,17 @@ page {
 .service-card-voucher .list-item .list-item-right .date-right {
   text-align: right;
   padding-right: 30rpx;
+}
+.service-card-voucher .list-item .list-item-right .activate-now {
+  text-align: right;
+  padding-right: 30rpx;
+}
+.service-card-voucher .list-item .list-item-right .activate-now::after {
+  font-size: 24rpx;
+  margin-left: 14rpx;
+  display: inline-block;
+  content: '\e60e';
+  transform: scaleX(-1);
 }
 .service-card-voucher .list-item .list-item-bg {
   position: absolute;
@@ -177,10 +189,10 @@ page {
   line-height: 40rpx;
   margin-left: 32rpx;
 }
-.service-card-voucher .mask .cash-card-voucher .conversion-code text {
+.service-card-voucher .mask .cash-card-voucher .conversion-code text.iconfont {
   flex: 2;
 }
-.service-card-voucher .mask .cash-card-voucher .conversion-code text::after {
+.service-card-voucher .mask .cash-card-voucher .conversion-code text.iconfont::after {
   content: '\e63c';
   font-size: 40rpx;
   color: #219e61;
@@ -192,6 +204,19 @@ page {
   color: #15ad69;
   font-size: 32rpx;
   border-top: 2rpx solid #f6f6f6;
+}
+.service-card-voucher .mask .activate input {
+  flex: 4 !important;
+}
+.service-card-voucher .mask .activate text {
+  flex: 2;
+  text-align: right;
+  color: #219e61;
+  padding-right: 20rpx;
+}
+.service-card-voucher .mask .activate .phone {
+  position: absolute;
+  top: 40rpx;
 }
 .service-card-voucher .mask .successful {
   position: fixed;

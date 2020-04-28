@@ -6,26 +6,27 @@
 	<!--顶部tab结束-->
 	<!--卡券列表开始-->
 	<view class="list-box" wx:if="{{list.length > 0}}">
-		<view wx:for="{{list}}" wx:key="index" class="list-item" catchtap="go" data-model="{{item}}" style="background: {{item.background}}">
+		<view wx:for="{{list}}" wx:key="index" class="list-item" style="background: {{item.background}}">
 			<!--卡券左边部分开始-->
-			<view class="list-item-left">
+			<view class="list-item-left" catchtap="go" data-model="{{item}}">
 				<view><image src="{{item.iconUrl}}"></image></view>
 			</view>
 			<!--卡券左边部分结束-->
 			<!--卡券右边部分开始-->
 			<view class="list-item-right">
-				<view class="card-voucher-name">{{item.fullName}}</view>
-				<view class="card-voucher-requirements">满{{item.minUseAmount ? item.minUseAmount/100 : 0}}元使用</view>
+				<view class="card-voucher-name" catchtap="go" data-model="{{item}}">{{item.fullName}}</view>
+				<view class="card-voucher-requirements" catchtap="go" data-model="{{item}}">满{{item.minUseAmount ? item.minUseAmount/100 : 0}}元使用</view>
 				<!--<view class="line"></view>-->
-				<view class="period-of-validity {{item.status !== 1 ? 'date-right' : ''}}">
+				<view class="period-of-validity {{item.status !== 1 ? 'date-right' : ''}}" catchtap="go" data-model="{{item}}">
 					<!--<text wx:if="{{item.status === 1}}">有效期：{{item.expireStartDate}}至{{item.expireEndDate}}</text>-->
 					<text wx:if="{{item.status === 2}}">使用日期：{{item.lastUseTime}}</text>
 					<text wx:if="{{item.status === 8}}">失效时间：{{item.expireEndDate}}</text>
 				</view>
+				<view wx:if="{{item.status === 0}}" class="activate-now iconfont" catchtap="activateCoupon" data-id="{{item.id}}">立即激活</view>
 			</view>
 			<!--卡券右边部分结束-->
 			<!--图标开始-->
-			<view class="iconfont list-item-bg {{item.status === 2 ? 'used' : ''}} {{item.status === 8 ? 'expired' : ''}}"></view>
+			<view class="iconfont list-item-bg  {{item.status === 2 ? 'used' : ''}} {{item.status === 8 ? 'expired' : ''}}"></view>
 			<!--图标结束-->
 		</view>
 	</view>
@@ -40,6 +41,19 @@
 		<view>暂无电子券～</view>
 	</view>
 	<!--没有卡券结束-->
+	<!--激活卡券弹窗开始-->
+	<view wx:if="{{showActivateCoupon}}" class="mask">
+		<view class="cash-card-voucher activate">
+			<view class="close iconfont" catchtap="close"></view>
+			<view class="phone">手机号 {{mobilePhone}}</view>
+			<view class="conversion-code">
+				<input type="text" placeholder="请输入验证码"  value="{{verificationCode}}" bindinput="exchangeVerificationCodeChange"/>
+				<text catchtap="clickGetCode">{{identifyingCode}}</text>
+			</view>
+			<view class="exchange" catchtap="activateNow">提交</view>
+		</view>
+	</view>
+	<!--激活卡券弹窗结束-->
 	<!--添加卡券弹窗开始-->
 	<view wx:if="{{showAddCoupon}}" class="mask">
 		<view class="cash-card-voucher">

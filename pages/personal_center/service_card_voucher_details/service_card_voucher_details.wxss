@@ -45,6 +45,14 @@
 .service_card_voucher_details .ticket-card .ticket-top .ticket-status-overdue::after {
   content: '\e654';
 }
+.service_card_voucher_details .ticket-card .ticket-top .activate-now {
+  height: 60rpx;
+  line-height: 60rpx;
+  color: #fff;
+  font-size: 30rpx;
+  border-radius: 40rpx;
+  margin: 20rpx 0;
+}
 .service_card_voucher_details .ticket-card .ticket-bottom .ticket-bottom-item {
   padding: 28rpx 0 30rpx;
   border-top: 2rpx dashed #ebebed;
@@ -173,5 +181,83 @@
   flex: 3;
   font-size: 48rpx;
   color: #2fb565;
+  text-align: right;
+}
+.service_card_voucher_details .mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  background: rgba(0,0,0,0.6);
+}
+.service_card_voucher_details .mask .cash-card-voucher {
+  position: fixed;
+  left: 0;
+  top: 21.7%;
+  right: 0;
+  width: 73%;
+  z-index: 2;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0 32rpx 0 46rpx;
+  background: #fff;
+  border-radius: 32rpx;
+}
+.service_card_voucher_details .mask .cash-card-voucher .conversion-code {
+  display: flex;
+  width: 100%;
+  height: 40rpx;
+  line-height: 40rpx;
+  background: #eee;
+  border-radius: 18rpx;
+  margin-bottom: 30rpx;
+  padding: 20rpx 0;
+}
+.service_card_voucher_details .mask .cash-card-voucher .conversion-code input {
+  flex: 8;
+  height: 40rpx;
+  line-height: 40rpx;
+  margin-left: 32rpx;
+}
+.service_card_voucher_details .mask .cash-card-voucher .conversion-code text.iconfont {
+  flex: 2;
+}
+.service_card_voucher_details .mask .cash-card-voucher .conversion-code text.iconfont::after {
+  content: '\e63c';
+  font-size: 40rpx;
+  color: #219e61;
+}
+.service_card_voucher_details .mask .cash-card-voucher .exchange {
+  height: 82rpx;
+  line-height: 82rpx;
+  text-align: center;
+  color: #15ad69;
+  font-size: 32rpx;
+  border-top: 2rpx solid #f6f6f6;
+}
+.service_card_voucher_details .mask .activate input {
+  flex: 4 !important;
+}
+.service_card_voucher_details .mask .activate text {
+  flex: 2;
+  text-align: right;
+  color: #219e61;
+  padding-right: 20rpx;
+}
+.service_card_voucher_details .mask .activate .phone {
+  position: absolute;
+  top: 40rpx;
+}
+.service_card_voucher_details .mask .close {
+  display: flex;
+  color: #66666d;
+  font-size: 16rpx;
+  padding: 30rpx 0 50rpx;
+}
+.service_card_voucher_details .mask .close::after {
+  flex: 1;
+  content: '\e603';
   text-align: right;
 }

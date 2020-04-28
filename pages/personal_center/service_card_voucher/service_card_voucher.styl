@@ -11,6 +11,7 @@ page
 		top 0
 		left 0
 		width 100%
+		z-index 1
 		text-align center
 		line-height 92rpx
 		display flex
@@ -67,6 +68,15 @@ page
 			.date-right
 				text-align right
 				padding-right 30rpx
+			.activate-now
+				text-align right
+				padding-right 30rpx
+				&::after
+					font-size 24rpx
+					margin-left 14rpx
+					display inline-block
+					content '\e60e'
+					transform scaleX(-1)
 		// 卡券图标
 		.list-item-bg
 			position absolute
@@ -160,7 +170,7 @@ page
 					height 40rpx
 					line-height 40rpx
 					margin-left 32rpx
-				text
+				text.iconfont
 					flex 2
 					&::after
 						content '\e63c'
@@ -173,6 +183,18 @@ page
 				color #15AD69
 				font-size 32rpx
 				border-top 2rpx solid #F6F6F6
+		// 激活弹窗
+		.activate
+			input
+				flex 4!important
+			text
+				flex 2
+				text-align right
+				color #219E61
+				padding-right 20rpx
+			.phone
+				position absolute
+				top 40rpx
 		.successful
 			position fixed
 			left 0

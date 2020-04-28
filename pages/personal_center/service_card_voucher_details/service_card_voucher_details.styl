@@ -41,6 +41,13 @@
 			.ticket-status-overdue
 				&::after
 					content '\e654'
+			.activate-now
+				height 60rpx
+				line-height 60rpx
+				color #fff
+				font-size 30rpx
+				border-radius 40rpx
+				margin 20rpx 0
 		// 卡券底部
 		.ticket-bottom
 			.ticket-bottom-item
@@ -155,3 +162,73 @@
 						font-size 48rpx
 						color #2FB565
 						text-align right
+	// 弹出详情
+	.mask
+		position fixed
+		left 0
+		top 0
+		right 0
+		bottom 0
+		z-index 1
+		background: rgba(0, 0, 0, .6)
+		// 添加卡券弹窗
+		.cash-card-voucher
+			position fixed
+			left 0
+			top 21.7%
+			right 0
+			width 73%
+			z-index 2
+			margin 0 auto
+			box-sizing border-box
+			padding 0 32rpx 0 46rpx
+			background #fff
+			border-radius 32rpx
+			.conversion-code
+				display flex
+				width 100%
+				height 40rpx
+				line-height 40rpx
+				background #EEEEEE
+				border-radius 18rpx
+				margin-bottom 30rpx
+				padding 20rpx 0
+				input
+					flex 8
+					height 40rpx
+					line-height 40rpx
+					margin-left 32rpx
+				text.iconfont
+					flex 2
+					&::after
+						content '\e63c'
+						font-size 40rpx
+						color #219E61
+			.exchange
+				height 82rpx
+				line-height 82rpx
+				text-align center
+				color #15AD69
+				font-size 32rpx
+				border-top 2rpx solid #F6F6F6
+		// 激活弹窗
+		.activate
+			input
+				flex 4!important
+			text
+				flex 2
+				text-align right
+				color #219E61
+				padding-right 20rpx
+			.phone
+				position absolute
+				top 40rpx
+		.close
+			display flex
+			color $fontColor6
+			font-size 16rpx
+			padding 30rpx 0 50rpx
+			&::after
+				flex 1
+				content '\e603'
+				text-align right

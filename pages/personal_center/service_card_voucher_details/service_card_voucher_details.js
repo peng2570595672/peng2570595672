@@ -1,12 +1,20 @@
 const util = require('../../../utils/util.js');
+const app = getApp();
 Page({
 	data: {
+		showActivateCoupon: false,// 控制显示激活卡券弹窗
+		verificationCode: '',// 短信验证码
+		time: 59,// 倒计时
+		identifyingCode: '获取验证码',// 获取验证码文字
+		isCountDowning: false, // 是否处于倒计时中
+		mobilePhone: undefined,
 		isShowSwitchElaborate: false,
 		details: {}
 	},
 	onLoad (options) {
 		this.setData({
-			details: JSON.parse(options.details)
+			details: JSON.parse(options.details),
+			mobilePhone: app.globalData.userInfo.mobilePhone
 		});
 		if (this.data.details.couponUseCheckList && this.data.details.couponUseCheckList.length > 0) {
 			this.data.details.couponUseCheckList.map(item => {
@@ -60,6 +68,111 @@ Page({
 		let b = parseInt(rgb[2].split(')')[0]);
 		let hex = '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 		return hex;
+	},
+	// 激活卡券弹窗
+	activateCoupon () {
+		// 如果处于倒计时中，不重新获取
+		if (!this.data.isCountDowning) {
+			this.clickGetCode();
+		} else {
+			this.setData({
+				showActivateCoupon: true
+			});
+		}
+	},
+	clickGetCode () {
+		// 如果处于倒计时中，不重新获取
+		if (this.data.isCountDowning) {
+			util.showToastNoIcon(`请${this.data.time}秒后再试`);
+			return;
+		}
+		util.showLoading();
+		let params = {
+			mobilePhone: app.globalData.userInfo.mobilePhone,
+			recordsId: this.data.details.id
+		};
+		util.getDataFromServer('consumer/voucher/send-activate-code', params, () => {
+			util.showToastNoIcon('发送验证码失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				this.setData({
+					showActivateCoupon: true
+				});
+				this.countDown();
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
+	// 立即激活
+	activateNow () {
+		if (!this.data.verificationCode) {
+			util.showToastNoIcon('请输入验证码！');
+			return;
+		}
+		util.showLoading();
+		let params = {
+			mobilePhone: app.globalData.userInfo.mobilePhone,
+			code: this.data.verificationCode,
+			recordsId: this.data.details.id
+		};
+		util.getDataFromServer('consumer/voucher/activate-records-by-phone-code', params, () => {
+			util.showToastNoIcon('激活失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				this.setData({
+					details: res.data
+				});
+				this.close();
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
+	// 输入验证码
+	exchangeVerificationCodeChange (e) {
+		this.setData({
+			verificationCode: e.detail.value.trim()
+		});
+	},
+	// 倒计时
+	countDown () {
+		this.setData({
+			isCountDowning: true
+		});
+		let timer = null;
+		if (timer) {
+			clearInterval(timer);
+		}
+		timer = setInterval(() => {
+			this.setData({
+				time: --this.data.time
+			});
+			if (this.data.time === 0) {
+				clearInterval(timer);
+				this.setData({
+					time: 59,
+					identifyingCode: '重新获取',
+					isCountDowning: false
+				});
+			} else {
+				this.setData({
+					identifyingCode: `${this.data.time}S`
+				});
+			}
+		}, 1000);
+	},
+	// 关闭弹窗
+	close () {
+		this.setData({
+			showActivateCoupon: false,
+			showAddCoupon: false,
+			showSuccessful: false
+		});
 	},
 	// 显示使用说明
 	switchElaborate () {
