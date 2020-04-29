@@ -12,7 +12,7 @@ Page({
 		exchangeCode: '',// 兑换码
 		exchangeData: '',// 兑换数据
 		time: 59,// 倒计时
-		identifyingCode: '获取验证码',// 获取验证码文字
+		identifyingCode: undefined,// 获取验证码文字
 		recordsId: '',// 卡券id
 		isCountDowning: false, // 是否处于倒计时中
 		currentTab: 0,

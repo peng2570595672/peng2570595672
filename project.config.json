@@ -515,6 +515,20 @@
 					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
 					"query": "orderId=702925696791482368",
 					"scene": null
+				},
+				{
+					"id": 60,
+					"name": "pages/loading_page_for_wechat/index",
+					"pathName": "pages/loading_page_for_wechat/index",
+					"query": "orderId=702925696791482368",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "activities/pages/activity_icbc_twenty_eight/index",
+					"pathName": "activities/pages/activity_icbc_twenty_eight/index",
+					"query": "orderId=702925696791482368",
+					"scene": null
 				}
 			]
 		}

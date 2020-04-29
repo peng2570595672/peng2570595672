@@ -5,7 +5,7 @@ Page({
 		showActivateCoupon: false,// 控制显示激活卡券弹窗
 		verificationCode: '',// 短信验证码
 		time: 59,// 倒计时
-		identifyingCode: '获取验证码',// 获取验证码文字
+		identifyingCode: undefined,// 获取验证码文字
 		isCountDowning: false, // 是否处于倒计时中
 		mobilePhone: undefined,
 		isShowSwitchElaborate: false,
