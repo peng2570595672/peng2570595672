@@ -248,7 +248,7 @@ App({
 						util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
 					}
 				} else {
-					util.showToastNoIcon('暂未查到签约信息，请稍后再试！');
+					util.showToastNoIcon('未签约成功！');
 				}
 			} else {
 				util.showToastNoIcon(res.message);
