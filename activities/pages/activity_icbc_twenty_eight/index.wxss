@@ -1,0 +1,234 @@
+.page {
+  display: block;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #3bdaff;
+  -webkit-overflow-scrolling: touch;
+}
+.page .content-container {
+  display: block;
+  position: relative;
+}
+.page .content-container .activity-content-img {
+  display: block;
+  width: 100%;
+  z-index: 2;
+}
+.page .content-container .prompt-char {
+  display: block;
+  background-color: #fef8c8;
+  color: #999;
+  margin-top: -40rpx;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  padding: -20rpx 30rpx 30rpx 30rpx;
+}
+.page .content-container .prompt-char .prompt-content {
+  width: 100%;
+  background: #fff;
+  box-sizing: border-box;
+  padding: 30rpx 12rpx 22rpx 30rpx;
+  border: 1rpx solid #32b571;
+  border-radius: 20rpx;
+}
+.page .content-container .prompt-char .prompt-content view {
+  display: inline-block;
+  min-height: 68rpx;
+}
+.page .content-container .prompt-char .prompt-content view:first-child {
+  width: 20%;
+  vertical-align: top;
+}
+.page .content-container .prompt-char .prompt-content view:last-child {
+  width: 80%;
+}
+.page .rules {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  bottom: 586rpx;
+  color: #fff;
+  font-size: 26rpx;
+  letter-spacing: -4rpx;
+  font-weight: bold;
+  background: linear-gradient(49deg, #f3d464, #f4c154);
+  padding: 10rpx 28rpx;
+  border-radius: 26rpx 0 0 26rpx;
+}
+.page .bottom-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 470rpx;
+  width: 100%;
+}
+.page .bottom-container button {
+  width: 74%;
+  height: 103rpx;
+  background: linear-gradient(49deg, #f3d464, #f4c154);
+  box-shadow: 0px 10rpx 16rpx 0px rgba(4,37,131,0.15);
+  border-radius: 52rpx;
+  font-size: 42rpx;
+  font-family: PingFang SC;
+  font-weight: 600;
+  color: #fefeff;
+  text-shadow: 0px 3rpx 4rpx rgba(136,136,136,0.5);
+}
+.page .alert-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 3;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.page .alert-mask .wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 621rpx;
+  margin-top: -480rpx;
+  margin-left: -310rpx;
+  text-align: center;
+  background: #fff;
+  border-radius: 20rpx;
+  padding-bottom: 30rpx;
+}
+.page .alert-mask .wrapper .close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 52rpx 40rpx 30rpx 30rpx;
+}
+.page .alert-mask .wrapper .close:before {
+  display: block;
+  content: '\e63d';
+  font-size: 30rpx;
+  color: #666;
+}
+.page .alert-mask .wrapper .head1 {
+  font-size: 36rpx;
+  text-align: center;
+  padding: 30rpx 0 40rpx 0;
+}
+.page .alert-mask .wrapper .cont1 {
+  font-size: 26rpx;
+  line-height: 46rpx;
+  color: #333;
+  text-align: justify;
+  padding: 0 40rpx;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+.page .alert-mask .wrapper .cont1 .table {
+  margin: 20rpx 0 0 0;
+}
+.page .alert-mask .wrapper .cont1 .table .tr {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  width: 100%;
+  height: 50rpx;
+  align-items: center;
+}
+.page .alert-mask .wrapper .cont1 .table .tr:last-child > .td {
+  border-bottom: solid rgba(0,0,0,0.3) 1rpx;
+}
+.page .alert-mask .wrapper .cont1 .table .tr .td {
+  display: flex;
+  justify-content: center;
+  border-top: solid rgba(0,0,0,0.3) 1rpx;
+  border-left: solid rgba(0,0,0,0.3) 1rpx;
+  padding-left: 10rpx;
+}
+.page .alert-mask .wrapper .cont1 .table .tr .td:first-child {
+  width: 40%;
+}
+.page .alert-mask .wrapper .cont1 .table .tr .td:last-child {
+  width: 60%;
+  border-right: solid rgba(0,0,0,0.3) 1rpx;
+}
+.page .alert-mask .wrapper .cont1 .table .tr .th {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  padding-left: 10rpx;
+  border-top: solid rgba(0,0,0,0.3) 1rpx;
+  border-left: solid rgba(0,0,0,0.3) 1rpx;
+}
+.page .alert-mask .wrapper .cont1 .table .tr .th:first-child {
+  width: 40%;
+}
+.page .alert-mask .wrapper .cont1 .table .tr .th:last-child {
+  width: 60%;
+  border-right: solid rgba(0,0,0,0.3) 1rpx;
+}
+.page .alert-mask .wrapper .cont1 .table-prompt {
+  position: relative;
+  top: 10rpx;
+  display: block;
+}
+.page .bind-mobile-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 11;
+}
+.page .bind-mobile-mask .bind-mobile-wrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 66rpx;
+  background: #fff;
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
+}
+.page .bind-mobile-mask .bind-mobile-wrapper .title {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  font-size: 40rpx;
+}
+.page .bind-mobile-mask .bind-mobile-wrapper .title::before,
+.page .bind-mobile-mask .bind-mobile-wrapper .title::after {
+  flex: 1;
+  content: '';
+  height: 2rpx;
+}
+.page .bind-mobile-mask .bind-mobile-wrapper .title::before {
+  margin-right: 30rpx;
+  background: linear-gradient(to right, #fff, #d9d9d9);
+}
+.page .bind-mobile-mask .bind-mobile-wrapper .title::after {
+  margin-left: 30rpx;
+  background: linear-gradient(to right, #d9d9d9, #fff);
+}
+.page .bind-mobile-mask .bind-mobile-wrapper .mobile {
+  display: flex;
+}
+.page .bind-mobile-mask .bind-mobile-wrapper .mobile > button {
+  margin-top: 71rpx;
+  flex: 1;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  color: #fff;
+  background-color: #fef8c8;
+  border-radius: 45rpx;
+}
