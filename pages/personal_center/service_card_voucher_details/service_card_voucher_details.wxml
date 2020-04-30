@@ -6,6 +6,7 @@
 			<view class="card-voucher-name">{{details.fullName}}</view>
 			<view class="card-voucher-requirements">满{{details.minUseAmount ? details.minUseAmount/100 : 0}}元使用</view>
 			<!--<view class="period-of-validity">有效期：{{details.expireStartDate}}至{{details.expireEndDate}}</view>-->
+			<view class="period-of-validity" wx:if="{{details.status !== 0}}">有效期至：{{details.expireEndDate}}</view>
 			<view class="ticket-status {{details.status === 2 ? 'ticket-status-used' : ''}} {{details.status === 8 ? 'ticket-status-overdue' : ''}}  iconfont" style="color: {{details.background}}"></view>
 			<button catchtap="activateCoupon" wx:if="{{details.status === 0}}" class="activate-now" style="background-color: {{details.background}}">立即激活</button>
 		</view>
