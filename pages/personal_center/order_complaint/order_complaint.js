@@ -182,6 +182,7 @@ Page({
 			appContent: this.data.content,
 			phone: this.data.phone,
 			vehPlate: this.data.details.vehPlate,
+			channel: this.data.details.channel,
 			billId: this.data.details.id
 		};
 		util.getDataFromServer('consumer/etc/bill-complain', params, () => {
@@ -191,6 +192,7 @@ Page({
 				let model = this.data.details;
 				util.go(`/pages/personal_center/complaint_details/complaint_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
 			} else {
+				util.hideLoading();
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken, () => {
