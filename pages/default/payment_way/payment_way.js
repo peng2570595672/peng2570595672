@@ -392,6 +392,7 @@ Page({
 		}
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
+			shopId: app.globalData.otherPlatformsServiceProvidersId, // 商户id
 			dataType: '348', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			shopProductId: this.data.choiceObj.shopProductId,
@@ -433,8 +434,6 @@ Page({
 		if (app.globalData.isServiceProvidersPackage && app.globalData.otherPlatformsServiceProvidersId) {
 			// 存在该服务商且有该服务商套餐 :使用该服务商id,否则,使用小程序服务商id
 			params['shopId'] = app.globalData.otherPlatformsServiceProvidersId;
-		} else {
-			params['shopId'] = app.globalData.miniProgramServiceProvidersId;
 		}
 		if (app.globalData.firstVersionData) {
 			params['upgradeToTwo'] = true; // 1.0数据转2.0
@@ -443,6 +442,11 @@ Page({
 		if (app.globalData.isHighSpeedTraffic) {
 			params['promoterId'] = app.globalData.isHighSpeedTraffic;// 推广者ID标识
 			params['promoterType'] = 6; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
+		}
+		// 公众号带服务商引流进入办理
+		if (app.globalData.officialChannel) {
+			params['promoterId'] = app.globalData.otherPlatformsServiceProvidersId;// 推广者ID标识
+			params['promoterType'] = 2; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
 		}
 		// 城市服务进入办理
 		if (app.globalData.isCitiesServices) {

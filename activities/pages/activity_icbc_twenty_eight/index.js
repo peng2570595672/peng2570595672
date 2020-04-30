@@ -93,6 +93,10 @@ Page({
 			}
 		});
 	},
+	// 获取套餐
+	goDeliveryAddress () {
+		util.go('/pages/default/receiving_address/receiving_address');
+	},
 	// 获取手机号
 	onGetPhoneNumber (e) {
 		// 允许授权
@@ -131,8 +135,5 @@ Page({
 				}
 			});
 		}
-	},
-	freeProcessing (e) {
-		util.go('/pages/default/receiving_address/receiving_address');
 	}
 });

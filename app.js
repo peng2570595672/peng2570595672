@@ -24,6 +24,7 @@ App({
 		salesmanScanCodeToHandleId: undefined,// 业务员扫描小程序码办理订单ID
 		isSignUpImmediately: false,// 是否是首页或我的ETC列表点击立即签约,是则需要直接查主库
 		isHighSpeedTraffic: undefined,// 是否是高速通行公众号进入办理
+		officialChannel: false,// 是否是公众号渠道引流
 		SDKVersion: '',// 小程序基础库版本
 		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
 		mobilePhoneSystem: false, // false非ios     true:ios
@@ -120,6 +121,10 @@ App({
 			this.globalData.isContinentInsurance = true;
 			let sceneValue = JSON.stringify(options.query);
 			this.getPromoterInfo('channelValue',sceneValue);
+		}
+		if (options.query.officialChannelId) {
+			this.globalData.otherPlatformsServiceProvidersId = options.query.officialChannelId;
+			this.globalData.officialChannel = true;
 		}
 		if (options.query.carInsurance) {
 			// 2.0大地保险链接进入

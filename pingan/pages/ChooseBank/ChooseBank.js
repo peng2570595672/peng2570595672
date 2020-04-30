@@ -208,6 +208,10 @@ Page({
 	},
 	// 选择银行
 	choiceSetMeal () {
+		if (!app.globalData.otherPlatformsServiceProvidersId) {
+			util.showToastNoIcon('商户Id为空！');
+			return;
+		}
 		if (!this.data.choiceSetMeal) {
 			this.setData({
 				choiceSetMeal: this.selectComponent('#choiceSetMeal')

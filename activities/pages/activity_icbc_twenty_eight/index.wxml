@@ -1,19 +1,25 @@
 <view class="page">
 	<view class="content-container">
-		<!--https://file.cyzl.com/g001/M05/3F/B0/oYYBAF6Yc62AEcnOAABqET6XWIU076.png-->
-		<!--https://file.cyzl.com/g001/M05/3F/B0/oYYBAF6Yc_CAakjhAAAxp2E8hII704.png-->
-		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/3F/B0/oYYBAF6Yc62AEcnOAABqET6XWIU076.png"></image>
-		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/3F/B0/oYYBAF6Yc_CAakjhAAAxp2E8hII704.png"></image>
-		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/3F/B8/oYYBAF6ZDjyARNrbAAAuMF8zIU4429.png"></image>
-		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/3F/B8/oYYBAF6ZDlGAJbmzAABpf-ftTuc222.gif"></image>
+		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/43/CD/oYYBAF6pUvOAWF62AAPLtqi2mMI737.png"></image>
+		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/44/0D/oYYBAF6qNgaAGMF8AACSCD0Yya4209.jpg"></image>
 		<view class="prompt-char">
-			<!--<view class="prompt-content"><view>温馨提示：</view><view>如收货地址为东三省则发辽通卡，辽通卡无加油优惠；其他地区发行黔通昆仑ETC卡，川、黔两省享中国石油优惠0.15元/升，即将实现全国范围优惠。</view></view>-->
-			<view class="rules" catchtap="rulesWinShow">活 动 规 则</view>
 		</view>
 	</view>
 	<view class="bottom-container">
-		<button wx:if="{{loginInfo.needBindingPhone !== 1}}" class="right item" catchtap="freeProcessing">免费办理ETC</button>
-		<button wx:else class="right item" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">免费办理ETC</button>
+		<button wx:if="{{loginInfo.needBindingPhone !== 1}}" class="right item" catchtap="goDeliveryAddress"></button>
+		<button wx:else class="right item" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber"></button>
+	</view>
+	<view class="rules">
+		<view class="small-image small-image-left"><image src="https://file.cyzl.com/g001/M05/43/D7/oYYBAF6pYUKAEKbGAAACGqb4CBc440.png"></image></view>
+		<view>
+			<image src="https://file.cyzl.com/g001/M05/43/D1/oYYBAF6pWI6ATJhLAAAERT9F42U491.png" catchtap="rulesWinShow"></image>
+		</view>
+		<view class="small-image small-image-right"><image src="https://file.cyzl.com/g001/M05/43/D7/oYYBAF6pYMOABuCaAAACKqbZPFA887.png"></image></view>
+	</view>
+	<view class="preferential">
+		<view>28.8</view>
+		<view>95<text>折起</text></view>
+		<view>95<text>折</text></view>
 	</view>
 	<!--活动细则弹窗-->
 	<view class="alert-mask animated {{alertWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{alertMask}}">
@@ -22,7 +28,7 @@
 			<view class="head1">活 动 规 则</view>
 			<view class="cont1">
 				<view class="label">1、</view>
-				<view class="char">限通过本活动页面办理工行卡的ETC用户，过高速ETC通，道通行费满30元使用； </view>
+				<view class="char">限通过本活动页面办理工行卡的ETC用户，过高速ETC通道，通行费满30元使用； </view>
 			</view>
 			<view class="cont1">
 				<view class="label">2、</view>
