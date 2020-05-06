@@ -77,6 +77,7 @@ Component({
 				params['productType'] = 3;
 			}
 			util.getDataFromServer('consumer/system/get-usable-product', params, () => {
+				util.showToastNoIcon('获取套餐失败!');
 			}, (res) => {
 				if (res.code === 0) {
 					if (res.data.length === 0) {
@@ -145,7 +146,7 @@ Component({
 				fail: (res) => {
 					util.hideLoading();
 					console.log(res);
-					if (res.errMsg === 'getLocation:fail auth deny') {
+					if (res.errMsg === 'getLocation:fail auth deny' || res.errMsg === 'getLocation:fail authorize no response') {
 						util.alert({
 							content: '由于您拒绝了定位授权，导致无法获取扣款方式，请允许定位授权！',
 							showCancel: true,
