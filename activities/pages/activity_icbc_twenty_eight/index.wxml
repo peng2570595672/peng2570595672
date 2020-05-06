@@ -1,7 +1,7 @@
 <view class="page">
 	<view class="content-container">
-		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/43/CD/oYYBAF6pUvOAWF62AAPLtqi2mMI737.png"></image>
-		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/44/0D/oYYBAF6qNgaAGMF8AACSCD0Yya4209.jpg"></image>
+		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/47/8F/oYYBAF6yW8-AVZY5AAOXlzyimmY232.png"></image>
+		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/47/90/oYYBAF6yXAaADP5rAACSHTlyyUI766.jpg"></image>
 		<view class="prompt-char">
 		</view>
 	</view>

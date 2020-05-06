@@ -64,7 +64,7 @@
   position: relative;
   width: 100vw;
   min-height: 100vh;
-  background: #3bdaff;
+  background: #f56;
 }
 .page .content-container {
   display: block;
