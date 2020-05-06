@@ -180,7 +180,9 @@ Page({
 				}
 			},
 			fail: (res) => {
-				util.showToastNoIcon('扫码失败');
+				if (res.errMsg !== 'scanCode:fail cancel') {
+					util.showToastNoIcon('扫码失败');
+				}
 			}
 		});
 	},
