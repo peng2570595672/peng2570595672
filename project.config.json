@@ -529,6 +529,12 @@
 					"pathName": "activities/pages/activity_icbc_twenty_eight/index",
 					"query": "orderId=702925696791482368",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/personal_center/membership_coupon/membership_coupon",
+					"pathName": "pages/personal_center/membership_coupon/membership_coupon",
+					"scene": null
 				}
 			]
 		}

@@ -1,0 +1,120 @@
+.use-member-redemption-code {
+  padding-top: 20rpx;
+}
+.use-member-redemption-code .input-wrapper {
+  display: flex;
+  align-items: center;
+  margin: 0 30rpx 40rpx;
+  height: 90rpx;
+  background: #ececec;
+  border-radius: 20rpx;
+  border-bottom-right-radius: 45rpx;
+  border-top-right-radius: 45rpx;
+}
+.use-member-redemption-code .input-wrapper .scan {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 58rpx;
+  flex: 0 0 90rpx;
+  border-right: 1rpx solid #d0d0d0;
+}
+.use-member-redemption-code .input-wrapper .scan::before {
+  content: '\e63c';
+  font-size: 44rpx;
+}
+.use-member-redemption-code .input-wrapper > input {
+  padding-left: 28rpx;
+  flex: 1;
+  font-size: 28rpx;
+}
+.use-member-redemption-code .input-wrapper .use {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 216rpx;
+  width: 216rpx;
+  height: 90rpx;
+  font-size: 28rpx;
+  color: #e5f5ea;
+  border-radius: 45rpx;
+  background: linear-gradient(to right, #22ac3a, #22ac60);
+  box-shadow: 0 0 15rpx #4eb97c;
+}
+.use-member-redemption-code .input-wrapper .use.not-use {
+  background: #8dd68c !important;
+  box-shadow: none;
+}
+.use-member-redemption-code .input-wrapper .use::after {
+  margin-left: 10rpx;
+  content: '\e651';
+}
+.use-member-redemption-code .split {
+  margin-top: 10rpx;
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  font-size: 28rpx;
+  color: #999;
+}
+.use-member-redemption-code .split::before,
+.use-member-redemption-code .split::after {
+  display: inline-block;
+  flex: 1;
+  content: '';
+  height: 2rpx;
+  background: #dcdcdc;
+}
+.use-member-redemption-code .split::before {
+  margin-right: 30rpx;
+}
+.use-member-redemption-code .split::after {
+  margin-left: 30rpx;
+}
+.use-member-redemption-code .voucher {
+  display: flex;
+  align-items: center;
+  margin: 0 30rpx;
+  height: 130rpx;
+  border-radius: 20rpx;
+  background: linear-gradient(to right, #ff6561, #ff7935);
+  margin-bottom: 30rpx;
+}
+.use-member-redemption-code .voucher > view {
+  height: 82rpx;
+}
+.use-member-redemption-code .voucher > view:first-of-type {
+  display: flex;
+  padding-right: 16rpx;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: right;
+  flex: 0.32;
+  font-size: 36rpx;
+  color: #fff;
+  border-right: 1rpx solid #fff;
+}
+.use-member-redemption-code .voucher > view:last-of-type {
+  display: flex;
+  align-items: center;
+  padding-left: 18rpx;
+  flex: 0.68;
+  font-size: 24rpx;
+  color: #fff1ee;
+}
+.use-member-redemption-code .voucher > view:last-of-type .right-left {
+  flex: 1;
+}
+.use-member-redemption-code .voucher > view:last-of-type .right-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  flex: 0 0 120rpx;
+  width: 60rpx;
+  height: 60rpx;
+  color: #333;
+  font-size: 28rpx;
+  background: #fff;
+  border-radius: 30rpx;
+}

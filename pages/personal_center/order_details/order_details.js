@@ -146,6 +146,6 @@ Page({
 	},
 	// 微保活动
 	goMicroInsurance () {
-		util.go(`/pages/web/web/web?type=weiBao`);
+		util.go(`/pages/web/web/web?type=weiBao&entrance=bill`);
 	}
 });

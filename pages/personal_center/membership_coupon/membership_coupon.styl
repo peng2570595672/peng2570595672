@@ -1,0 +1,104 @@
+@import "../../../style/base.styl";
+.use-member-redemption-code
+	padding-top 20rpx
+	.input-wrapper
+		display flex
+		align-items center
+		margin 0 30rpx 40rpx
+		height 90rpx
+		background: #ECECEC
+		border-radius 20rpx
+		border-bottom-right-radius 45rpx
+		border-top-right-radius 45rpx
+		.scan
+			display flex
+			align-items center
+			justify-content center
+			height 58rpx
+			flex 0 0 90rpx
+			border-right 1rpx solid #D0D0D0
+			&::before
+				content '\e63c'
+				font-size 44rpx
+		& > input
+			padding-left 28rpx
+			flex 1
+			font-size 28rpx
+		.use
+			display flex
+			align-items center
+			justify-content center
+			flex 0 0 216rpx
+			width 216rpx
+			height 90rpx
+			font-size 28rpx
+			color #E5F5EA
+			border-radius 45rpx
+			background: linear-gradient(to right, #22AC3A, #22AC60)
+			box-shadow 0 0 15rpx #4EB97C
+			&.not-use
+				background: #8DD68C !important
+				box-shadow none
+			&::after
+				margin-left 10rpx
+				content '\e651'
+	.split
+		margin-top 10rpx
+		display flex
+		align-items center
+		padding 30rpx
+		font-size 28rpx
+		color #999
+		&::before,
+		&::after
+			display inline-block
+			flex 1
+			content ''
+			height 2rpx
+			background: #DCDCDC
+		&::before
+			margin-right 30rpx
+		&::after
+			margin-left 30rpx
+
+	.voucher
+		display flex
+		align-items center
+		margin 0 30rpx
+		height 130rpx
+		border-radius 20rpx
+		background: linear-gradient(to right, #FF6561, #FF7935)
+		margin-bottom 30rpx
+		& > view
+			height 82rpx
+			&:first-of-type
+				display flex
+				padding-right 16rpx
+				align-items center
+				justify-content flex-end
+				text-align right
+				flex .32
+				font-size 36rpx
+				color #fff
+				border-right 1rpx solid #fff
+			&:last-of-type
+				display flex
+				align-items center
+				padding-left 18rpx
+				flex .68
+				font-size 24rpx
+				color #FFF1EE
+				.right-left
+					flex 1
+				.right-right
+					display flex
+					align-items center
+					justify-content center
+					margin-right 20rpx
+					flex 0 0 120rpx
+					width 60rpx
+					height 60rpx
+					color #333
+					font-size 28rpx
+					background: #fff
+					border-radius 30rpx
