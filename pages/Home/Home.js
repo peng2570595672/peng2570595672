@@ -427,6 +427,7 @@ Page({
 			}
 			util.go(`/pages/web/web/web?url=${encodeURIComponent(item.pageUrl)}&type=banner`);
 		} else {
+			app.globalData.orderInfo.orderId = '';
 			mta.Event.stat('banner_activity_free_processing',{});
 			util.go(item.pageUrl);
 		}
