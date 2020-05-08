@@ -27,6 +27,7 @@ Page({
 		},// 身份证反面
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
+		isMembershipCoupon: false,// 是否是会员券进入办理
 		orderInfo: undefined // 订单信息
 	},
 	onLoad () {
@@ -141,13 +142,22 @@ Page({
 		util.showLoading();
 		util.getDataFromServer('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
-			dataType: '345'
+			dataType: '1345'
 		}, () => {
 		}, (res) => {
 			if (res.code === 0) {
 				this.setData({
 					orderInfo: res.data
 				});
+				if (res.data.base.promoterType === 12) {
+					// 会员券进入办理
+					this.setData({
+						isMembershipCoupon: true
+					});
+					app.globalData.otherPlatformsServiceProvidersId = res.data.product.shopId;
+				} else {
+					app.globalData.otherPlatformsServiceProvidersId = undefined;
+				}
 				// 获取实名信息
 				let temp = this.data.orderInfo['idCard'];
 				if (temp.idCardNegativeUrl) {

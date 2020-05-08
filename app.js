@@ -37,6 +37,7 @@ App({
 		quality: 80,
 		signAContract: 3,// -1正常签约  1  解约重签
 		userInfo: {},// 用户信息
+		membershipCoupon: {},// 会员券带参进入
 		serverInfoId: '',
 		memberId: '',// 用户id,用于京东客服
 		mobilePhone: '',// 用户手机用于京东客服

@@ -10,22 +10,14 @@ Page({
 		listHeight: '',// 卡券列表高度
 		windowHeight: '',// 屏幕高度
 		exchangeCode: '',// 兑换码
-		exchangeData: '',// 兑换数据
+		exchangeData: undefined,// 兑换数据
 		time: 59,// 倒计时
 		identifyingCode: undefined,// 获取验证码文字
 		recordsId: '',// 卡券id
 		isCountDowning: false, // 是否处于倒计时中
 		currentTab: 0,
 		mobilePhone: undefined,
-		cardVoucherStatus: [
-			{name: '可使用'},
-			{name: '可使用'},
-			{name: '已使用'},
-			{name: '已过期'}
-		],
-		list: [
-			{}
-		]
+		list: []
 	},
 	onLoad () {
 	},
@@ -83,10 +75,11 @@ Page({
 		});
 	},
 	// 获取卡券列表
-	getCardVoucherList (key) {
+	getCardVoucherList () {
 		util.showLoading();
 		let params = {
-			status: key
+			status: 'usable',
+			sceneId: '694123576468447232'
 		};
 		util.getDataFromServer('consumer/voucher/get-coupon-page-list', params, () => {
 			util.showToastNoIcon('获取卡券列表失败！');
@@ -139,10 +132,14 @@ Page({
 			activateCode: exchangeCode
 		};
 		util.getDataFromServer('consumer/voucher/activate-coupon', params, () => {
-			util.showToastNoIcon('获取兑换码失败！');
+			util.showToastNoIcon('兑换失败！');
 		}, (res) => {
 			if (res.code === 0) {
-				this.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
+				util.showToastNoIcon('兑换成功！');
+				this.setData({
+					exchangeData: res.data
+				});
+				this.getCardVoucherList();
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -152,8 +149,10 @@ Page({
 	},
 	// 去使用
 	goComboList (e) {
-		let index = e.currentTarget.dataset['index'];
-		index = parseInt(index);
+		let model = e.currentTarget.dataset['model'];
+		console.log(model);
+		app.globalData.membershipCoupon = model;
+		app.globalData.otherPlatformsServiceProvidersId = model.shopId;
 		app.globalData.orderInfo.orderId = '';
 		util.go('/pages/default/receiving_address/receiving_address');
 	}

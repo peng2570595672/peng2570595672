@@ -5,27 +5,27 @@
 		<view class="use iconfont {{exchangeCode ? '' : 'not-use'}}" catchtap="exchange">立即兑换</view>
 	</view>
 	<!--兑换券开始-->
-	<view class="voucher"  wx:for="{{cardVoucherStatus}}" wx:key="index" >
+	<view class="voucher" wx:if="{{exchangeData}}">
 		<view class="left">ETC+会员</view>
 		<view class="right">
 			<view class="right-left">
-				<view>会员年限 永久</view>
-				<view>有效期至 {{item.overTime}}</view>
+				<view>{{exchangeData.fullName}}</view>
+				<view>有效期至 {{exchangeData.expireEndDate}}</view>
 			</view>
-			<view class="right-right" catchtap="goComboList" data-index="{{index}}" data-type="4">去使用</view>
+			<view class="right-right" catchtap="goComboList" data-model="{{exchangeData}}" data-type="4">去使用</view>
 		</view>
 	</view>
 	<!--兑换券结束-->
 	<!--所有卡券开始-->
-	<view class="split" wx:if="{{cardVoucherStatus.length > 0}}">所有卡券</view>
-	<view class="voucher"  wx:for="{{cardVoucherStatus}}" wx:key="index" >
+	<view class="split" wx:if="{{list.length > 0}}">所有会员券</view>
+	<view class="voucher"  wx:for="{{list}}" wx:key="index" >
 		<view class="left">ETC+会员</view>
 		<view class="right">
 			<view class="right-left">
-				<view>{{item.cardFree}}元代金券</view>
-				<view>有效期至 {{item.overTime}}</view>
+				<view>{{item.faceAmount/100}}元代金券</view>
+				<view>有效期至 {{item.expireEndDate}}</view>
 			</view>
-			<view class="right-right" catchtap="goComboList" data-index="{{index}}" data-type="1">去使用</view>
+			<view class="right-right" catchtap="goComboList" data-model="{{item}}" data-type="1">去使用</view>
 		</view>
 	</view>
 	<!--所有卡券结束-->
