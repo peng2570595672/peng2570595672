@@ -19,7 +19,7 @@
 				<view class="iconfont animated {{current === 1 ? 'fadeIn' : 'fadeOut'}}"  wx:if="{{current === 1}}"  catchtap="onClickPhotoHandle" data-type="4">点击重新拍摄</view>
 			</image>
 		</swiper-item>
-		<swiper-item class="my-swiper-item">
+		<swiper-item class="my-swiper-item" wx:if="{{carHead45}}">
 			<image src="{{carHead45.fileUrl}}">
 				<view class="iconfont animated {{current === 2 ? 'fadeIn' : 'fadeOut'}}"  wx:if="{{current === 2}}"  catchtap="onClickPhotoHandle" data-type="0">点击重新拍摄</view>
 			</image>
