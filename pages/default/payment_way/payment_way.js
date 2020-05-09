@@ -594,6 +594,9 @@ Page({
 		});
 	},
 	onUnload () {
+		if (this.data.isMembershipCoupon) {
+			app.globalData.otherPlatformsServiceProvidersId = undefined;
+		}
 		// 统计点击事件
 		mta.Event.stat('029',{});
 		// 加上存储,控制签约后的返回不提示
