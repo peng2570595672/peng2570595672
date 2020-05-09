@@ -155,8 +155,6 @@ Page({
 						isMembershipCoupon: true
 					});
 					app.globalData.otherPlatformsServiceProvidersId = res.data.product.shopId;
-				} else {
-					app.globalData.otherPlatformsServiceProvidersId = undefined;
 				}
 				// 获取实名信息
 				let temp = this.data.orderInfo['idCard'];
