@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-const IS_TEST = true;
+const IS_TEST = false;
 const util = require('./utils/util.js');
 // 数据统计
 let mta = require('./libs/mta_analysis.js');
@@ -22,6 +22,7 @@ App({
 		isJinYiXing: false, // 是否是津易行办理
 		belongToPlatform: '500338116821778434', // 套餐所属平台id,用于判断流程
 		salesmanScanCodeToHandleId: undefined,// 业务员扫描小程序码办理订单ID
+		isSalesmanPromotion: false,// 业务员扫描小程序码推广办理
 		isSignUpImmediately: false,// 是否是首页或我的ETC列表点击立即签约,是则需要直接查主库
 		isHighSpeedTraffic: undefined,// 是否是高速通行公众号进入办理
 		officialChannel: false,// 是否是公众号渠道引流

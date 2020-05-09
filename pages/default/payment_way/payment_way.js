@@ -149,8 +149,13 @@ Page({
 				this.setData({
 					orderInfo: res.data
 				});
-				if (res.data.base.promoterType === 12) {
+				if (res.data.base.promoterType === 12 || res.data.base.promoterType === 4) {
 					// 会员券进入办理
+					if (res.data.base.promoterType === 4) {
+						app.globalData.isSalesmanPromotion = true;
+					} else {
+						app.globalData.isSalesmanPromotion = false;
+					}
 					this.setData({
 						isMembershipCoupon: true
 					});
@@ -427,18 +432,6 @@ Page({
 			ownerIdCardHaveChange: IdCardHaveChange, // 车主身份证OCR结果是否被修改过，默认false，修改过传true 【dataType包含8】
 			needSignContract: true // 是否需要签约 true-是，false-否 允许值: true, false
 		};
-		if (app.globalData.otherPlatformsServiceProvidersId) {
-			// 扫描小程序码进入办理
-			if (app.globalData.scanCodeToHandle) {
-				params['promoterId'] = app.globalData.scanCodeToHandle.promoterId;// 推广者ID标识
-				params['promoterType'] = app.globalData.scanCodeToHandle.promoterType; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
-			}
-			// 面对面活动进入办理
-			if ((app.globalData.isFaceToFaceCCB || app.globalData.isFaceToFaceICBC || app.globalData.isFaceToFaceWeChat) && app.globalData.faceToFacePromotionId) {
-				params['promoterId'] = app.globalData.faceToFacePromotionId;// 推广者ID标识
-				params['promoterType'] = 3; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
-			}
-		}
 		if (app.globalData.isServiceProvidersPackage && app.globalData.otherPlatformsServiceProvidersId) {
 			// 存在该服务商且有该服务商套餐 :使用该服务商id,否则,使用小程序服务商id
 			params['shopId'] = app.globalData.otherPlatformsServiceProvidersId;
@@ -446,15 +439,14 @@ Page({
 		if (app.globalData.firstVersionData) {
 			params['upgradeToTwo'] = true; // 1.0数据转2.0
 		}
-		// 高速通行公众号进入办理
-		if (app.globalData.isHighSpeedTraffic) {
-			params['promoterId'] = app.globalData.isHighSpeedTraffic;// 推广者ID标识
-			params['promoterType'] = 6; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
-		}
-		// 公众号带服务商引流进入办理
-		if (app.globalData.officialChannel) {
-			params['promoterId'] = app.globalData.otherPlatformsServiceProvidersId;// 推广者ID标识
-			params['promoterType'] = 2; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
+		// 银行卡 3.0
+		if (this.data.choiceObj.productProcess === 3) {
+			params.dataType = '3458';
+			params['bankAccountNo'] = this.data.bankCardIdentifyResult.ocrObject.cardNo; // 银行卡号 【dataType包含5】
+			params['bankCardUrl'] = this.data.bankCardIdentifyResult.fileUrl; // 银行卡图片地址 【dataType包含5】
+			params['bankName'] = this.data.bankCardIdentifyResult.ocrObject.cardName; // 银行名称 【dataType包含5】
+			params['bankAccountType'] = 1; // 账户类型 1-一类户 2-二类户 3-三类户 【dataType包含5】允许值: 1, 2, 3
+			params['bankCardType'] = this.data.bankCardIdentifyResult.ocrObject.cardType === '借记卡' ? 1 : 2; // 银行卡种 1-借记卡 2-贷记卡 【dataType包含5】允许值: 1, 2;
 		}
 		// 城市服务进入办理
 		if (app.globalData.isCitiesServices) {
@@ -473,14 +465,22 @@ Page({
 			params['promoterId'] = app.globalData.scanCodeToHandle.promoterId;// 推广者ID标识
 			params['promoterType'] = app.globalData.scanCodeToHandle.promoterType; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
 		}
-		// 银行卡 3.0
-		if (this.data.choiceObj.productProcess === 3) {
-			params.dataType = '3458';
-			params['bankAccountNo'] = this.data.bankCardIdentifyResult.ocrObject.cardNo; // 银行卡号 【dataType包含5】
-			params['bankCardUrl'] = this.data.bankCardIdentifyResult.fileUrl; // 银行卡图片地址 【dataType包含5】
-			params['bankName'] = this.data.bankCardIdentifyResult.ocrObject.cardName; // 银行名称 【dataType包含5】
-			params['bankAccountType'] = 1; // 账户类型 1-一类户 2-二类户 3-三类户 【dataType包含5】允许值: 1, 2, 3
-			params['bankCardType'] = this.data.bankCardIdentifyResult.ocrObject.cardType === '借记卡' ? 1 : 2; // 银行卡种 1-借记卡 2-贷记卡 【dataType包含5】允许值: 1, 2;
+		// 高速通行公众号进入办理
+		if (app.globalData.isHighSpeedTraffic) {
+			params['promoterId'] = app.globalData.isHighSpeedTraffic;// 推广者ID标识
+			params['promoterType'] = 6; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
+		}
+		// 公众号带服务商引流进入办理
+		if (app.globalData.officialChannel) {
+			params['promoterId'] = app.globalData.otherPlatformsServiceProvidersId;// 推广者ID标识
+			params['promoterType'] = 2; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
+		}
+		if (app.globalData.otherPlatformsServiceProvidersId) {
+			// 面对面活动进入办理
+			if ((app.globalData.isFaceToFaceCCB || app.globalData.isFaceToFaceICBC || app.globalData.isFaceToFaceWeChat) && app.globalData.faceToFacePromotionId) {
+				params['promoterId'] = app.globalData.faceToFacePromotionId;// 推广者ID标识
+				params['promoterType'] = 3; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
+			}
 		}
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');

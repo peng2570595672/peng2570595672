@@ -85,6 +85,10 @@ Component({
 						if ((app.globalData.isFaceToFaceCCB || app.globalData.isFaceToFaceICBC || app.globalData.isFaceToFaceWeChat) && app.globalData.faceToFacePromotionId) {
 							return;
 						}
+						if (app.globalData.isSalesmanPromotion) {
+							util.showToastNoIcon('未查询到套餐，请联系工作人员处理！');
+							return;
+						}
 						if (app.globalData.isJinYiXing) {
 							return;
 						}

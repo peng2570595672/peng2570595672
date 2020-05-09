@@ -121,6 +121,7 @@ Page({
 		let formData = this.data.formData; // 输入信息
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
+			orderType: 11,
 			dataType: '12', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			vehPlates: this.data.carNoStr, // 车牌号
@@ -133,6 +134,18 @@ Page({
 			receiveAddress: formData.detailInfo, // 收货人详细地址 【dataType包含2】
 			receivePhoneCode: formData.verifyCode // 收货人手机号验证码, 手机号没有修改时不需要 【dataType包含2】
 		};
+		if (app.globalData.otherPlatformsServiceProvidersId) {
+			params['shopId'] = app.globalData.otherPlatformsServiceProvidersId;
+		} else {
+			params['shopId'] = app.globalData.miniProgramServiceProvidersId;
+		}
+		if (app.globalData.otherPlatformsServiceProvidersId) {
+			// 扫描小程序码进入办理
+			if (app.globalData.scanCodeToHandle) {
+				params['promoterId'] = app.globalData.scanCodeToHandle.promoterId;// 推广者ID标识
+				params['promoterType'] = app.globalData.scanCodeToHandle.promoterType; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
+			}
+		}
 		if (app.globalData.membershipCoupon.id) {
 			params['couponRecordsId'] = app.globalData.membershipCoupon.id;// 优惠券id
 			params['discountsAmount'] = app.globalData.membershipCoupon.faceAmount;// 优惠券金额
