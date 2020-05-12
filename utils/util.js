@@ -164,6 +164,9 @@ function getUuid() {
 			timestamp = res;
 		});
 	}
+	if (!timestamp) {
+		timestamp = parseInt(new Date().getTime() /1000);
+	}
 	// POST请求
 	if (method === 'POST') {
 		// 设置签名
