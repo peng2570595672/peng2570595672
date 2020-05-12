@@ -100,7 +100,31 @@ Page({
 	},
 	// 去微保
 	goMicroInsurance () {
-		util.go(`/pages/web/web/web?type=weiBao`);
+		if (this.data.info.orderType === 31) {
+			let date = new Date();
+			let mouth = date.getMonth() + 1;
+			let time = date.getFullYear() + '-' + util.formatNumber(mouth) + '-' + util.formatNumber(date.getDate());
+			if (time === this.data.info.contractTime.substring(0,10)) {
+				util.getDataFromServer('consumer/member/thirdBack/dataRecord', {
+					memberId: app.globalData.memberId,
+					salesmanId: this.data.info.shopUserId
+				}, () => {
+					util.showToastNoIcon('提交数据失败!');
+				}, (res) => {
+					if (res.code === 0) {
+						util.go(`/pages/web/web/web?type=weiBao`);
+					} else {
+						util.showToastNoIcon(res.message);
+					}
+				}, app.globalData.userInfo.accessToken, () => {
+					util.hideLoading();
+				});
+			} else {
+				util.go(`/pages/web/web/web?type=weiBao`);
+			}
+		} else {
+			util.go(`/pages/web/web/web?type=weiBao`);
+		}
 	},
 	// 显示详情
 	showDetail (e) {

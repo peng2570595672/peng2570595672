@@ -1,14 +1,26 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
-<view class="my_order {{failBillMessage.count > 0 ? 'is_owes' : ''}}" >
-	<!--欠费通知开始-->
-	<view class="notice" wx:if="{{failBillMessage.count > 0}}" catchtap="goArrearsBill">
-		<view class="notice-box">
+<view class="my_order {{failBillMessage.count > 0 ? 'is_owes' : ''}} {{ownerServiceArrearsList.length > 0 ? 'is_owner_ervice' : ''}}" >
+	<!--车主服务欠费通知开始-->
+	<view class="notice" wx:if="{{ownerServiceArrearsList.length > 0 || failBillMessage.count > 0}}">
+		<view class="notice-box" wx:if="{{failBillMessage.count > 0 && ownerServiceArrearsList.length === 0}}" catchtap="goArrearsBill">
 			<view>你有累计欠费账单{{failBillMessage.count}}条，欠费总额:{{failBillMessage.etcMoney/100}}</view>
 			<view><text>去查看</text></view>
 		</view>
+		<view class="notice-box" wx:if="{{ownerServiceArrearsList.length > 0}}" catchtap="openVehicleOwnerService">
+			<view>{{ownerServiceArrearsList[0].vehPlates}}微信车主服务欠费</view>
+			<view><text>去补缴</text></view>
+		</view>
 	</view>
+	<!--车主服务欠费通知结束-->
+	<!--欠费通知开始-->
+	<!--<view class="notice" wx:if="{{failBillMessage.count > 0}}" catchtap="goArrearsBill">-->
+		<!--<view class="notice-box">-->
+			<!--<view>你有累计欠费账单{{failBillMessage.count}}条，欠费总额:{{failBillMessage.etcMoney/100}}</view>-->
+			<!--<view><text>去查看</text></view>-->
+		<!--</view>-->
+	<!--</view>-->
 	<!--欠费通知结束-->
-	<dropdownmenu wx:if="{{vehicleList.length >1}}" isOwe="{{failBillMessage.count}}" dropDownMenuTitle='{{dropDownMenuTitle}}' dropDownMenuFilterData='{{vehicleList}}' dropDownMenuDistrictData='{{timeList}}'  bind:selectedItem='selectedItem' />
+	<dropdownmenu wx:if="{{vehicleList.length >1}}" isOwe="{{failBillMessage.count}}" isOweService="{{ownerServiceArrearsList.length}}" dropDownMenuTitle='{{dropDownMenuTitle}}' dropDownMenuFilterData='{{vehicleList}}' dropDownMenuDistrictData='{{timeList}}'  bind:selectedItem='selectedItem' />
 	<!--	通行总额开始-->
 	<view class="total-cost" wx:if="{{successBillList.length > 0}}">
 		<view>共{{successBillList.length}}条，通行总额：{{allMoney/100}}元</view>

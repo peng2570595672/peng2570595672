@@ -22,9 +22,7 @@ Page({
 			{name: '已使用'},
 			{name: '已过期'}
 		],
-		list: [
-			{}
-		]
+		list: []
 	},
 	onLoad () {
 	},
@@ -64,13 +62,15 @@ Page({
 				this.setData({
 					list: res.data.list
 				});
-				let listHeight = wx.createSelectorQuery();
-				listHeight.select('.list-box').boundingClientRect();
-				listHeight.exec(res => {
-					this.setData({
-						listHeight: res[0].height
+				if (res.data.list.length > 0) {
+					let listHeight = wx.createSelectorQuery();
+					listHeight.select('.list-box').boundingClientRect();
+					listHeight.exec(res => {
+						this.setData({
+							listHeight: res[0].height
+						});
 					});
-				});
+				}
 				this.setData({
 					windowHeight: wx.getSystemInfoSync().windowHeight,
 					mobilePhone: app.globalData.userInfo.mobilePhone

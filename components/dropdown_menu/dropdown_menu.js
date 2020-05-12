@@ -15,6 +15,9 @@ Component({
 		},
 		isOwe: {
 			type: Boolean
+		},
+		isOweService: {
+			type: Boolean
 		}
 	},
 	data: {

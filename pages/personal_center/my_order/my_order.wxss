@@ -122,6 +122,9 @@ page {
 .is_owes {
   padding-top: 208rpx;
 }
+.is_owner_ervice {
+  padding-top: 208rpx;
+}
 .empty {
   text-align: center;
   color: #66666d;

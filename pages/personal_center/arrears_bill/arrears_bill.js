@@ -4,6 +4,7 @@ const app = getApp();
 let mta = require('../../../libs/mta_analysis.js');
 Page({
 	data: {
+		isRequest: false,// 是否请求
 		orderList: [],
 		vehicleList: [],
 		failBillList: []
@@ -105,6 +106,11 @@ Page({
 	},
 	// 补缴
 	payment (e) {
+		if (this.data.isRequest) {
+			return;
+		} else {
+			this.setData({isRequest: true});
+		}
 		let model = e.currentTarget.dataset.model;
 		let idList = [];
 		model.list.map(item => {
@@ -129,6 +135,7 @@ Page({
 					signType: extraData.signType,
 					timeStamp: extraData.timeStamp,
 					success: (res) => {
+						this.setData({isRequest: false});
 						if (res.errMsg === 'requestPayment:ok') {
 							this.data.vehicleList.map((item) => {
 								this.getFailBill(item);
@@ -138,12 +145,14 @@ Page({
 						}
 					},
 					fail: (res) => {
+						this.setData({isRequest: false});
 						if (res.errMsg !== 'requestPayment:fail cancel') {
 							util.showToastNoIcon('支付失败！');
 						}
 					}
 				});
 			} else {
+				this.setData({isRequest: false});
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken, () => {

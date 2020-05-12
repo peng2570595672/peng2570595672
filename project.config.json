@@ -300,10 +300,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 29,
 					"name": "pages/default/processing_progress/processing_progress",
 					"pathName": "pages/default/processing_progress/processing_progress",
-					"query": "",
+					"query": "orderId=708057360660172800",
 					"scene": null
 				},
 				{
@@ -462,8 +462,8 @@
 				},
 				{
 					"id": 52,
-					"name": "activities/pages/activity_icbc_forty_five_hook/index",
-					"pathName": "activities/pages/activity_icbc_forty_five_hook/index",
+					"name": "activities/pages/activity_icbc_forty_five_theme/index",
+					"pathName": "activities/pages/activity_icbc_forty_five_theme/index",
 					"query": "",
 					"scene": null
 				},
@@ -524,16 +524,38 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "activities/pages/activity_icbc_twenty_eight/index",
-					"pathName": "activities/pages/activity_icbc_twenty_eight/index",
-					"query": "orderId=702925696791482368",
+					"id": 61,
+					"name": "pages/loading_page_for_wechat/index",
+					"pathName": "pages/loading_page_for_wechat/index",
+					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
 					"name": "pages/personal_center/membership_coupon/membership_coupon",
 					"pathName": "pages/personal_center/membership_coupon/membership_coupon",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "CitiesServices/pages/CitiesServices/CitiesServices",
+					"pathName": "CitiesServices/pages/CitiesServices/CitiesServices",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 64,
+					"name": "pages/personal_center/my_etc_detail/my_etc_detail",
+					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+					"query": "orderId=708057360660172800",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/personal_center/my_order/my_order",
+					"pathName": "pages/personal_center/my_order/my_order",
+					"query": "",
 					"scene": null
 				}
 			]

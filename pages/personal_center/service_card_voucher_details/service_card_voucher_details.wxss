@@ -27,7 +27,7 @@
 .service_card_voucher_details .ticket-card .ticket-top .period-of-validity {
   font-weight: 400;
   opacity: 0.85;
-  margin: 40rpx 0 90rpx;
+  margin: 40rpx 0;
 }
 .service_card_voucher_details .ticket-card .ticket-top .ticket-status {
   position: absolute;

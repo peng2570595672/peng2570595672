@@ -66,6 +66,10 @@ Component({
 			} else {
 				shopId = app.globalData.otherPlatformsServiceProvidersId ? app.globalData.otherPlatformsServiceProvidersId : app.globalData.miniProgramServiceProvidersId;
 			}
+			if (app.globalData.isSalesmanPromotion) {
+				// 业务员推广&会员券进入
+				shopId = app.globalData.salesmanMerchant;
+			}
 			util.showLoading();
 			let params = {
 				areaCode: this.data.regionCode[0],

@@ -4,6 +4,7 @@ Page({
 	data: {
 		isContinentInsurance: false, // 是否是大地保险
 		showWeiBao: true,
+		isRequest: false,// 是否请求
 		details: ''
 	},
 	onLoad (options) {
@@ -106,6 +107,11 @@ Page({
 	},
 	// 去补缴
 	go () {
+		if (this.data.isRequest) {
+			return;
+		} else {
+			this.setData({isRequest: true});
+		}
 		util.showLoading();
 		let params = {
 			billIdList: [this.data.details.id],// 账单id集合，采用json数组格式[xx,xx]
@@ -115,7 +121,6 @@ Page({
 		util.getDataFromServer('consumer/order/bill-pay', params, () => {
 			util.showToastNoIcon('获取支付参数失败！');
 		}, (res) => {
-			util.hideLoading();
 			if (res.code === 0) {
 				let extraData = res.data.extraData;
 				wx.requestPayment({
@@ -125,6 +130,7 @@ Page({
 					signType: extraData.signType,
 					timeStamp: extraData.timeStamp,
 					success: (res) => {
+						this.setData({isRequest: false});
 						if (res.errMsg === 'requestPayment:ok') {
 							this.getBillDetail();
 						} else {
@@ -132,12 +138,14 @@ Page({
 						}
 					},
 					fail: (res) => {
+						this.setData({isRequest: false});
 						if (res.errMsg !== 'requestPayment:fail cancel') {
 							util.showToastNoIcon('支付失败！');
 						}
 					}
 				});
 			} else {
+				this.setData({isRequest: false});
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken, () => {

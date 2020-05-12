@@ -202,6 +202,7 @@ Page({
 				// 京东客服
 				let vehicleList = [];
 				let orderInfo = '';
+				app.globalData.ownerServiceArrearsList = res.data.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
 				res.data.map((item,index) => {
 					if (item.remark && item.remark.indexOf('迁移订单数据') !== -1) {
 						item['selfStatus'] = util.getStatusFirstVersion(item);
@@ -319,44 +320,34 @@ Page({
 		} else {
 			// 2.0 立即签约
 			app.globalData.signAContract = -1;
+			if (obj.orderType === 31) {
+				app.globalData.isSalesmanOrder = true;
+			} else {
+				app.globalData.isSalesmanOrder = false;
+			}
 			this.weChatSign(obj);
 		}
 	},
 	// 恢复签约
 	restoreSign (obj) {
-		util.getDataFromServer('consumer/order/query-contract', {
-			orderId: obj.id
-		}, () => {
-			util.hideLoading();
-		}, (res) => {
-			util.hideLoading();
-			if (res.code === 0) {
-				app.globalData.signAContract = 1;
-				// 签约成功 userState: "NORMAL"
-				if (res.data.contractStatus !== 1) {
-					if (res.data.contractId) {
-						// 3.0
-						wx.navigateToMiniProgram({
-							appId: 'wxbcad394b3d99dac9',
-							path: 'pages/etc/index',
-							extraData: {
-								contract_id: res.data.contractId
-							},
-							success () {
-							},
-							fail (e) {
-								// 未成功跳转到签约小程序
-								util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
-							}
-						});
-					} else {
-						this.weChatSign(obj);
-					}
+		app.globalData.signAContract = 1;
+		if (obj.contractVersion === 'v3') {
+			wx.navigateToMiniProgram({
+				appId: 'wxbcad394b3d99dac9',
+				path: 'pages/etc/index',
+				extraData: {
+					contract_id: obj.contractId
+				},
+				success () {
+				},
+				fail (e) {
+					// 未成功跳转到签约小程序
+					util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
 				}
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken);
+			});
+		} else {
+			this.weChatSign(obj);
+		}
 	},
 	// 微信签约
 	weChatSign (obj) {
@@ -493,6 +484,7 @@ Page({
 			util.go('/pages/login/login/login');
 			return;
 		}
+		mta.Event.stat('index_my_etc',{});
 		// 订阅:高速扣费通知、ETC欠费提醒、黑名单状态提醒
 		let urls = '/pages/personal_center/my_etc/my_etc';
 		let tmplIds = ['oz7msNJRXzk7VmASJsJtb2JG0rKEWjX3Ff1PIaAPa78','lY047e1wk-OFdeGuIx2ThV-MOJ4aUOx2HhSxUd1YXi0', 'my5wGmuottanrIAKrEhe2LERPKx4U05oU4aK9Fyucv0'];

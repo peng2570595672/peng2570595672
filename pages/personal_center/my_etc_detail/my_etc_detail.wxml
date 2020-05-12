@@ -24,9 +24,9 @@
 		<view wx:elif="{{orderInfo.selfStatus === 9 && orderInfo.contractStatus !== 2}}" class="succeed">正常使用</view>
 	</view>
 	<view class="des" wx:if="{{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 8 && orderInfo.contractStatus !== 2}}">{{orderInfo.auditRemark}}</view>
-	<view class="item">
+	<view class="item {{orderInfo.contractVersion === 'v3' ? 'iconfont' : ''}}">
 		<view>扣费方式</view>
-		<view>{{orderInfo.productName}}</view>
+		<view catchtap="onClickBank">{{orderInfo.productName}}</view>
 	</view>
 	<view class="split"></view>
 	<view class="item first" wx:if="{{orderInfo.shopUserTrueName}}">
@@ -72,4 +72,20 @@
 		</view>
 	</view>
 	<!--	按钮结束-->
+	<!--去车主服务弹窗-->
+	<view catchtap="hide" class="owner-service-mask animated {{showDetailWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{showDetailMask}}">
+		<view catchtap="close" class="owner-service-wrapper animated {{showDetailWrapper ? 'zoomInOther' : 'zoomOutOther'}}">
+			<view class="owner-service-box">
+				<view>您即将前往车主服务。</view>
+				<view>注意:请勿暂停车主服务，</view>
+				<view>扣费失败您的ETC可能被拉入黑名单</view>
+				<view>影响高速通行</view>
+				<view class="owner-service-button">
+					<text catchtap="hide">取消</text>
+					<text catchtap="onClickSwitchBank">继续前往</text>
+				</view>
+			</view>
+		</view>
+	</view>
+	<!--去车主服务弹窗结束-->
 </view>

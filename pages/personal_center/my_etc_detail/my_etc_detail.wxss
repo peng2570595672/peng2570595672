@@ -37,6 +37,14 @@
 .my-etc-detail .item > view.succeed {
   color: #2fb565;
 }
+.my-etc-detail .item.iconfont {
+  display: flex;
+  align-items: center;
+}
+.my-etc-detail .item.iconfont::after {
+  content: '\e60e';
+  transform: rotateZ(-180deg);
+}
 .my-etc-detail .des {
   display: flex;
   padding: 0 11rpx;
@@ -82,4 +90,57 @@
   text-align: center;
   font-size: 32rpx;
   color: #0091ff;
+}
+.my-etc-detail .owner-service-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+}
+.my-etc-detail .owner-service-mask .owner-service-wrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 70%;
+  min-height: 200rpx;
+  margin: 0 auto;
+  z-index: 2;
+}
+.my-etc-detail .owner-service-mask .owner-service-box {
+  position: absolute;
+  height: 290rpx;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 2;
+  color: #33333d;
+  background: #fff;
+  border-radius: 20rpx;
+}
+.my-etc-detail .owner-service-mask .owner-service-box>view {
+  text-indent: 20rpx;
+  line-height: 30rpx;
+}
+.my-etc-detail .owner-service-mask .owner-service-box>view:first-child {
+  padding: 40rpx 0 20rpx;
+}
+.my-etc-detail .owner-service-mask .owner-service-box>view.owner-service-button {
+  text-indent: 0;
+  text-align: center;
+  height: 90rpx;
+  line-height: 90rpx;
+  margin-top: 30rpx;
+  border-top: 1rpx solid #66666d;
+}
+.my-etc-detail .owner-service-mask .owner-service-box>view.owner-service-button text {
+  display: inline-block;
+  width: 50%;
+}
+.my-etc-detail .owner-service-mask .owner-service-box>view.owner-service-button text:last-child {
+  color: #2fb565;
 }

@@ -42,6 +42,9 @@
 .is_owes{
 	top: 120rpx;
 }
+.is_owner_ervice{
+	top: 120rpx;
+}
 .nav>view:first-child {
 	border-right: 1rpx solid #979797;
 }

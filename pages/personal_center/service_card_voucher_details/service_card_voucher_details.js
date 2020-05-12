@@ -166,6 +166,15 @@ Page({
 			}
 		}, 1000);
 	},
+	// 去使用
+	goComboList (e) {
+		let model = this.data.details;
+		console.log(model);
+		app.globalData.membershipCoupon = model;
+		app.globalData.otherPlatformsServiceProvidersId = model.shopId;
+		app.globalData.orderInfo.orderId = '';
+		util.go('/pages/default/receiving_address/receiving_address');
+	},
 	// 关闭弹窗
 	close () {
 		this.setData({

@@ -31,6 +31,7 @@ Page({
 		orderInfo: undefined // 订单信息
 	},
 	onLoad () {
+		app.globalData.isSalesmanOrder = false;// 非业务员订单
 		app.globalData.isModifiedData = false; // 非修改资料
 		if (app.globalData.firstVersionData) {
 			this.getProductOrderInfo();
@@ -150,16 +151,14 @@ Page({
 					orderInfo: res.data
 				});
 				if (res.data.base.promoterType === 12 || res.data.base.promoterType === 4) {
-					// 会员券进入办理
-					if (res.data.base.promoterType === 4) {
-						app.globalData.isSalesmanPromotion = true;
-					} else {
-						app.globalData.isSalesmanPromotion = false;
-					}
+					// 会员券进入办理  业务员推广进入
+					app.globalData.isSalesmanPromotion = true;
 					this.setData({
 						isMembershipCoupon: true
 					});
-					app.globalData.otherPlatformsServiceProvidersId = res.data.product.shopId;
+					app.globalData.salesmanMerchant = res.data.product.shopId;
+				} else {
+					app.globalData.isSalesmanPromotion = false;
 				}
 				// 获取实名信息
 				let temp = this.data.orderInfo['idCard'];
@@ -594,8 +593,9 @@ Page({
 		});
 	},
 	onUnload () {
+		app.globalData.orderInfo.orderId = '';
 		if (this.data.isMembershipCoupon) {
-			app.globalData.otherPlatformsServiceProvidersId = undefined;
+			app.globalData.salesmanMerchant = undefined;
 		}
 		// 统计点击事件
 		mta.Event.stat('029',{});

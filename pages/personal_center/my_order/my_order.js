@@ -29,6 +29,7 @@ Page({
 		failBillMessage: '',
 		successBillMessage: '',
 		successBillList: [],
+		ownerServiceArrearsList: [],// 车主服务欠费
 		allMoney: 0, // 总额
 		vehicleList: ['全部车辆'],
 		chooseTime: '',
@@ -67,7 +68,8 @@ Page({
 	},
 	onShow () {
 		this.setData({
-			successBillList: []
+			successBillList: [],
+			ownerServiceArrearsList: app.globalData.ownerServiceArrearsList
 		});
 		if (app.globalData.userInfo.accessToken) {
 			if (JSON.stringify(app.globalData.myEtcList) === '{}') {
@@ -133,6 +135,10 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
+				app.globalData.ownerServiceArrearsList = res.data.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
+				this.setData({
+					ownerServiceArrearsList: app.globalData.ownerServiceArrearsList
+				});
 				app.globalData.myEtcList = res.data;
 				this.getMyETCList();
 			} else {
@@ -304,5 +310,18 @@ Page({
 				this.getSuccessBill(this.data.chooseVehPlates,this.data.chooseTime);
 			}
 		}
+	},
+	// 去补缴
+	openVehicleOwnerService () {
+		// 跳转到车主服务
+		wx.navigateToMiniProgram({
+			appId: 'wx5e73c65404eee268',
+			path: 'pages/invest_list/invest_list',
+			extraData: this.data.ownerServiceArrearsList.paySkipParams,
+			success () {
+			},
+			fail () {
+			}
+		});
 	}
 });

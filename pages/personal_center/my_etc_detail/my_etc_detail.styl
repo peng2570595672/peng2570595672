@@ -33,6 +33,12 @@
 				color $error
 			&.succeed
 				color $fontColor
+		&.iconfont
+			display flex
+			align-items center
+			&::after
+				content '\e60e'
+				transform rotateZ(-180deg)
 	// 失败说明
 	.des
 		display flex
@@ -75,4 +81,50 @@
 				text-align center
 				font-size 32rpx
 				color #0091FF
+	//去车主服务弹窗
+	.owner-service-mask
+		position fixed
+		left 0
+		top 0
+		right 0
+		bottom 0
+		background rgba(0, 0, 0, .7)
+		.owner-service-wrapper
+			position absolute
+			left 0
+			right 0
+			top 50%
+			transform translate(0, -50%)
+			width 70%
+			min-height 200rpx
+			margin 0 auto
+			z-index 2
+		.owner-service-box
+			position absolute
+			height 290rpx
+			bottom 0
+			left 0
+			right 0
+			margin auto
+			z-index 2
+			color $fontColor3
+			background #fff
+			border-radius 20rpx
+			&>view
+				text-indent 20rpx
+				line-height 30rpx
+			&>view:first-child
+				padding 40rpx 0 20rpx
+			&>view.owner-service-button
+				text-indent 0
+				text-align center
+				height 90rpx
+				line-height 90rpx
+				margin-top 30rpx
+				border-top 1rpx solid $fontColor6
+				text
+					display inline-block
+					width 50%
+					&:last-child
+						color #2fb565
 

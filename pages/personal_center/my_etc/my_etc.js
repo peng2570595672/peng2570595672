@@ -198,45 +198,35 @@ Page({
 			this.restoreSign(obj);
 		} else {
 			// 2.0 立即签约
+			if (obj.orderType === 31) {
+				app.globalData.isSalesmanOrder = true;
+			} else {
+				app.globalData.isSalesmanOrder = false;
+			}
 			app.globalData.signAContract = -1;
 			this.weChatSign(obj);
 		}
 	},
 	// 恢复签约
 	restoreSign (obj) {
-		util.getDataFromServer('consumer/order/query-contract', {
-			orderId: obj.id
-		}, () => {
-			util.hideLoading();
-		}, (res) => {
-			util.hideLoading();
-			if (res.code === 0) {
-				app.globalData.signAContract = 1;
-				// 签约成功 userState: "NORMAL"
-				if (res.data.contractStatus !== 1) {
-					if (res.data.contractId) {
-						// 3.0
-						wx.navigateToMiniProgram({
-							appId: 'wxbcad394b3d99dac9',
-							path: 'pages/etc/index',
-							extraData: {
-								contract_id: res.data.contractId
-							},
-							success () {
-							},
-							fail (e) {
-								// 未成功跳转到签约小程序
-								util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
-							}
-						});
-					} else {
-						this.weChatSign(obj);
-					}
+		app.globalData.signAContract = 1;
+		if (obj.contractVersion === 'v3') {
+			wx.navigateToMiniProgram({
+				appId: 'wxbcad394b3d99dac9',
+				path: 'pages/etc/index',
+				extraData: {
+					contract_id: obj.contractId
+				},
+				success () {
+				},
+				fail (e) {
+					// 未成功跳转到签约小程序
+					util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
 				}
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken);
+			});
+		} else {
+			this.weChatSign(obj);
+		}
 	},
 	// 微信签约
 	weChatSign (obj) {

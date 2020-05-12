@@ -7,6 +7,8 @@ const app = getApp();
 Page({
 	data: {
 		orderInfo: undefined, // 订单详情
+		showDetailWrapper: false,
+		showDetailMask: false,
 		orderId: undefined
 	},
 	onLoad (options) {
@@ -25,6 +27,9 @@ Page({
 			this.login();
 		} else {
 			this.getETCDetail();
+		}
+		if (this.data.showDetailMask) {
+			this.hide();
 		}
 	},
 	// 自动登录
@@ -92,6 +97,39 @@ Page({
 			util.hideLoading();
 		});
 	},
+	// 显示跳转车主服务弹窗
+	onClickBank () {
+		if (this.data.orderInfo.contractVersion === 'v3') {
+			util.alert({
+				title: `您即将前往车主服务。`,
+				content: `注意:请勿暂停车主服务，扣费失败您的ETC可能被拉入黑名单，影响高速通行`,
+				showCancel: true,
+				cancelText: '取消',
+				confirmText: '继续前往',
+				confirm: () => {
+					this.onClickSwitchBank();
+				},
+				cancel: () => {
+				}
+			});
+		}
+		// this.setData({
+		// 	showDetailWrapper: true,
+		// 	showDetailMask: true
+		// });
+	},
+	// 关闭跳转车主服务弹窗
+	close () {},
+	hide () {
+		this.setData({
+			showDetailWrapper: false
+		});
+		setTimeout(() => {
+			this.setData({
+				showDetailMask: false
+			});
+		}, 400);
+	},
 	// 点击取消订单
 	onClickCancelHandle () {
 		util.alert({
@@ -150,51 +188,46 @@ Page({
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 		util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.data.orderInfo.id}`);
 	},
+	// 切换银行卡
+	onClickSwitchBank () {
+		wx.navigateToMiniProgram({
+			appId: 'wxbcad394b3d99dac9',
+			path: 'pages/etc/index',
+			extraData: {
+				contract_id: this.data.orderInfo.contractId
+			},
+			success () {
+			},
+			fail (e) {
+				// 未成功跳转到签约小程序
+				util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
+			}
+		});
+	},
 	//  恢复签约
 	onClickBackToSign () {
 		if (this.data.orderInfo.contractStatus === 2) {
-			// 解约重签
 			app.globalData.orderInfo.orderId = this.data.orderId;
-			util.getDataFromServer('consumer/order/query-contract', {
-				orderId: app.globalData.orderInfo.orderId
-			}, () => {
-				util.hideLoading();
-			}, (res) => {
-				util.hideLoading();
-				if (res.code === 0) {
-					app.globalData.signAContract = 1;
-					// 签约成功 userState: "NORMAL"
-					if (res.data.contractStatus !== 1) {
-						if (res.data.contractId) {
-							// 3.0
-							wx.navigateToMiniProgram({
-								appId: 'wxbcad394b3d99dac9',
-								path: 'pages/etc/index',
-								extraData: {
-									contract_id: res.data.contractId
-								},
-								success () {
-								},
-								fail (e) {
-									// 未成功跳转到签约小程序
-									util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
-								}
-							});
-						} else {
-							// 2.0
-							this.weChatSign();
-						}
-					}
-				} else {
-					util.showToastNoIcon(res.message);
-				}
-			}, app.globalData.userInfo.accessToken);
+			app.globalData.signAContract = 1;
+			// 解约重签
+			if (this.data.orderInfo.contractVersion === 'v3') {
+				// 3.0
+				this.onClickSwitchBank();
+			} else {
+				// 2.0
+				this.weChatSign();
+			}
 		} else {
 			// 立即签约
 			let isFirstVersion = false;
 			if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {
 				// 1.0数据 立即签约 需标记资料已完善
 				isFirstVersion = true;
+			}
+			if (this.data.orderInfo.orderType === 31) {
+				app.globalData.isSalesmanOrder = true;
+			} else {
+				app.globalData.isSalesmanOrder = false;
 			}
 			app.globalData.signAContract = -1;
 			this.weChatSign(isFirstVersion);

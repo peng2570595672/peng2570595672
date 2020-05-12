@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-const IS_TEST = false;
+const IS_TEST = true;
 const util = require('./utils/util.js');
 // 数据统计
 let mta = require('./libs/mta_analysis.js');
@@ -13,6 +13,7 @@ App({
 		platformId: '500338116821778434', // 平台id
 		miniProgramServiceProvidersId: '611607716116299776', // 主流程小程序服务商id 用于加载不同套餐
 		otherPlatformsServiceProvidersId: undefined, // 其他入口/其他平台服务商id 用于加载不同套餐
+		salesmanMerchant: undefined, // 业务员商户
 		scanCodeToHandle: undefined,// 扫描小程序码办理
 		isServiceProvidersPackage: true, // 其他平台服务商过来办理是否有套餐 默认有
 		isThirdGeneralize: false, // 第三方扫码办理
@@ -25,6 +26,9 @@ App({
 		isSalesmanPromotion: false,// 业务员扫描小程序码推广办理
 		isSignUpImmediately: false,// 是否是首页或我的ETC列表点击立即签约,是则需要直接查主库
 		isHighSpeedTraffic: undefined,// 是否是高速通行公众号进入办理
+		systemTime: undefined,// 系统时间
+		isSystemTime: false,// 是否是通过接口获取过系统时间
+		isSalesmanOrder: false,// 是否是业务员审核订单
 		officialChannel: false,// 是否是公众号渠道引流
 		SDKVersion: '',// 小程序基础库版本
 		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
@@ -39,6 +43,7 @@ App({
 		signAContract: 3,// -1正常签约  1  解约重签
 		userInfo: {},// 用户信息
 		membershipCoupon: {},// 会员券带参进入
+		ownerServiceArrearsList: [],// 车主服务欠费列表
 		serverInfoId: '',
 		memberId: '',// 用户id,用于京东客服
 		mobilePhone: '',// 用户手机用于京东客服
@@ -252,7 +257,11 @@ App({
 						util.go('/pages/default/signed_successfully/signed_successfully');
 					} else {
 						// 其他平台签约 :业务员端/h5
-						util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
+						if (this.globalData.isSalesmanOrder) {
+							util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
+						} else {
+							util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
+						}
 					}
 				} else {
 					util.showToastNoIcon('未签约成功！');

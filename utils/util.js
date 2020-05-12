@@ -122,7 +122,7 @@ function getUuid() {
  * @param success 成功后的回调g
  * @param fail 失败后的回调
  */
-function getDataFromServer(path, params, fail, success, token = '', complete, method = 'POST') {
+ async function getDataFromServer(path, params, fail, success, token = '', complete, method = 'POST') {
 	method = method.toUpperCase();
 	// 对请求路径是否开头带/进行处理
 	path = path.indexOf('/') === 0 ? path : `/${path}`;
@@ -132,6 +132,11 @@ function getDataFromServer(path, params, fail, success, token = '', complete, me
 		method: method,
 		success: (res) => {
 			if (res.data.code === 115 || res.data.code === 117 || res.data.code === 118) { // 在别处登录了 重新自动登录一次
+				reAutoLogin(path, params, fail, success, token, complete, method);
+			} else if (res.data.code === 444) {
+				// 请求已失效
+				app.globalData.isSystemTime = false;
+				app.globalData.systemTime = undefined;
 				reAutoLogin(path, params, fail, success, token, complete, method);
 			} else {
 				success && success(res.data);
@@ -148,7 +153,17 @@ function getDataFromServer(path, params, fail, success, token = '', complete, me
 	// timestamp 时间戳  nonceStr随机字符串 uuid
 	let timestamp,nonceStr;
 	nonceStr = getUuid();
-	timestamp = parseInt(new Date().getTime() /1000);
+	if (app.globalData.isSystemTime) {
+		if (app.globalData.systemTime) {
+			timestamp = app.globalData.systemTime
+		} else{
+			timestamp = parseInt(new Date().getTime() /1000);
+		}
+	} else {
+		await getSystemTime().then(res => {
+			timestamp = res;
+		});
+	}
 	// POST请求
 	if (method === 'POST') {
 		// 设置签名
@@ -219,6 +234,31 @@ const formatNumber = (n) => {
 	n = n.toString();
 	return n[1] ? n : `0${n}`;
 };
+// 获取系统时间戳
+function getSystemTime () {
+	return new Promise((resolve, callback ) => {
+		let obj = {
+			url: app.globalData.host + '/consumer/system/public/get-system-second',
+			method: 'GET',
+			success: (res) => {
+				app.globalData.systemTime = res.data.data;
+				setInterval(function () {
+					app.globalData.systemTime = app.globalData.systemTime + 1;
+				}, 1000);
+				resolve(res.data.data)
+			},
+			fail: (res) => {
+			},
+			complete: (res) => {
+				app.globalData.isSystemTime = true;
+			}
+		};
+		// 执行请求
+		wx.request(obj);
+	}).then(res => {
+		return res;
+	})
+}
 
 /**
  *  格式化时间
