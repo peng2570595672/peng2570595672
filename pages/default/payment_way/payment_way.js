@@ -150,8 +150,8 @@ Page({
 				this.setData({
 					orderInfo: res.data
 				});
-				if (res.data.base.promoterType === 12 || res.data.base.promoterType === 4) {
-					// 会员券进入办理  业务员推广进入
+				if (res.data.base.promoterType === 12 || res.data.base.promoterType === 4 || res.data.base.promoterType === 14) {
+					// 会员券进入办理  业务员推广进入  高速通行进入
 					app.globalData.isSalesmanPromotion = true;
 					this.setData({
 						isMembershipCoupon: true
@@ -463,11 +463,6 @@ Page({
 			params['shopId'] = app.globalData.miniProgramServiceProvidersId;
 			params['promoterId'] = app.globalData.scanCodeToHandle.promoterId;// 推广者ID标识
 			params['promoterType'] = app.globalData.scanCodeToHandle.promoterType; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
-		}
-		// 高速通行公众号进入办理
-		if (app.globalData.isHighSpeedTraffic) {
-			params['promoterId'] = app.globalData.isHighSpeedTraffic;// 推广者ID标识
-			params['promoterType'] = 6; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
 		}
 		// 公众号带服务商引流进入办理
 		if (app.globalData.officialChannel) {

@@ -559,9 +559,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "activities/pages/activity_icbc_twenty_eight/index",
-					"pathName": "activities/pages/activity_icbc_twenty_eight/index",
+					"id": 66,
+					"name": "activities/pages/activity_high_speed_traffic/index",
+					"pathName": "activities/pages/activity_high_speed_traffic/index",
 					"query": "",
 					"scene": null
 				}

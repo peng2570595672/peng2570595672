@@ -190,33 +190,64 @@ Page({
 	},
 	// 切换银行卡
 	onClickSwitchBank () {
-		wx.navigateToMiniProgram({
-			appId: 'wxbcad394b3d99dac9',
-			path: 'pages/etc/index',
-			extraData: {
-				contract_id: this.data.orderInfo.contractId
-			},
-			success () {
-			},
-			fail (e) {
-				// 未成功跳转到签约小程序
-				util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
+		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+		util.getDataFromServer('consumer/order/query-contract', {
+			orderId: app.globalData.orderInfo.orderId
+		}, () => {
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				// 签约成功 userState: "NORMAL"
+				if (res.data.contractStatus !== 1) {
+					if (res.data.contractId) {
+						// 3.0
+						wx.navigateToMiniProgram({
+							appId: 'wxbcad394b3d99dac9',
+							path: 'pages/etc/index',
+							extraData: {
+								contract_id: res.data.contractId
+							},
+							success () {
+							},
+							fail (e) {
+								// 未成功跳转到签约小程序
+								util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
+							}
+						});
+					} else {
+						// 2.0
+						this.weChatSign();
+					}
+				} else {
+					if (res.data.version === 'v3') {
+						wx.navigateToMiniProgram({
+							appId: 'wxbcad394b3d99dac9',
+							path: 'pages/etc/index',
+							extraData: {
+								contract_id: res.data.contractId
+							},
+							success () {
+							},
+							fail (e) {
+								// 未成功跳转到签约小程序
+								util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
+							}
+						});
+					}
+				}
+			} else {
+				util.showToastNoIcon(res.message);
 			}
-		});
+		}, app.globalData.userInfo.accessToken);
 	},
 	//  恢复签约
 	onClickBackToSign () {
 		if (this.data.orderInfo.contractStatus === 2) {
+			// 解约重签
 			app.globalData.orderInfo.orderId = this.data.orderId;
 			app.globalData.signAContract = 1;
-			// 解约重签
-			if (this.data.orderInfo.contractVersion === 'v3') {
-				// 3.0
-				this.onClickSwitchBank();
-			} else {
-				// 2.0
-				this.weChatSign();
-			}
+			this.onClickSwitchBank();
 		} else {
 			// 立即签约
 			let isFirstVersion = false;

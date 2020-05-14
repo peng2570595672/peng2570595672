@@ -1,0 +1,324 @@
+@charset "UTF-8";
+.animated {
+  -webkit-animation-duration: 0.4s;
+  animation-duration: 0.4s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@keyframes scaleDraw {
+  0% {
+    transform: scale(1); /*开始为原始大小*/
+  }
+  10% {
+    transform: scale(1.05); /*放大1.1倍*/
+  }
+  20% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(1);
+  }
+  80% {
+    transform: scale(1);
+  }
+  90% {
+    transform: scale(1);
+  }
+}
+@keyframes around {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-8rpx);
+  }
+  50% {
+    transform: translateY(-15rpx);
+  }
+  75% {
+    transform: translateY(-8rpx);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@font-face {
+  font-family: 'iconfont'; /* project id 1514406 */
+  src: url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot");
+  src: url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot?#iefix") format('embedded-opentype'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff2") format('woff2'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff") format('woff'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.ttf") format('truetype'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.svg#iconfont") format('svg');
+}
+.page {
+  display: block;
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  background: #f56;
+}
+.page .content-container {
+  display: block;
+  position: relative;
+}
+.page .content-container .activity-content-img {
+  display: block;
+  width: 100%;
+  z-index: 2;
+}
+.page .content-container .prompt-char {
+  display: block;
+  background-color: #fef8c8;
+  color: #999;
+  margin-top: -40rpx;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  padding: -20rpx 30rpx 30rpx 30rpx;
+}
+.page .content-container .prompt-char .prompt-content {
+  width: 100%;
+  background: #fff;
+  box-sizing: border-box;
+  padding: 30rpx 12rpx 22rpx 30rpx;
+  border: 1rpx solid #32b571;
+  border-radius: 20rpx;
+}
+.page .content-container .prompt-char .prompt-content view {
+  display: inline-block;
+  min-height: 68rpx;
+}
+.page .content-container .prompt-char .prompt-content view:first-child {
+  width: 20%;
+  vertical-align: top;
+}
+.page .content-container .prompt-char .prompt-content view:last-child {
+  width: 80%;
+}
+.page .rules {
+  position: absolute;
+  width: 100%;
+  bottom: 680rpx;
+  text-align: center;
+}
+.page .rules>view image {
+  width: 51rpx;
+  height: 59rpx;
+}
+.page .rules>view:nth-child(2) image {
+  width: 186rpx;
+  height: 42rpx;
+  border-radius: 16rpx;
+}
+.page .rules .small-image {
+  position: absolute;
+  top: -40rpx;
+  animation-name: around;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0.3s;
+  animation-iteration-count: infinite;
+}
+.page .rules .small-image-left {
+  left: 120rpx;
+}
+.page .rules .small-image-right {
+  right: 120rpx;
+}
+.page .bottom-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 799rpx;
+  width: 100%;
+}
+.page .bottom-container button {
+  width: 596rpx;
+  height: 139rpx;
+  -webkit-animation: scaleDraw 2s ease-in-out infinite;
+  -webkit-backface-visibility: hidden;
+  background: url("https://file.cyzl.com/g001/M05/43/D0/oYYBAF6pVtuACT7RAABf_u0Ku-4489.png");
+  background-size: 100% 139rpx;
+  border-radius: 69rpx;
+}
+.page .preferential {
+  display: flex;
+  position: absolute;
+  width: 82%;
+  margin-left: 9%;
+  bottom: 480rpx;
+  text-align: center;
+}
+.page .preferential>view {
+  flex: 3;
+  font-size: 85rpx;
+  font-family: 'Source Han Sans CN';
+  font-weight: 600;
+  color: #fff;
+}
+.page .preferential>view text {
+  font-size: 41rpx;
+}
+.page .alert-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 3;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.page .alert-mask .wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 621rpx;
+  margin-top: -480rpx;
+  margin-left: -310rpx;
+  text-align: center;
+  background: #fff;
+  border-radius: 20rpx;
+  padding-bottom: 30rpx;
+}
+.page .alert-mask .wrapper .close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 52rpx 40rpx 30rpx 30rpx;
+}
+.page .alert-mask .wrapper .close:before {
+  display: block;
+  content: '\e63d';
+  font-size: 30rpx;
+  color: #666;
+}
+.page .alert-mask .wrapper .head1 {
+  font-size: 36rpx;
+  text-align: center;
+  padding: 30rpx 0 40rpx 0;
+}
+.page .alert-mask .wrapper .cont1 {
+  font-size: 26rpx;
+  line-height: 46rpx;
+  color: #333;
+  text-align: justify;
+  padding: 0 40rpx;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+.page .alert-mask .wrapper .cont1 .table {
+  margin: 20rpx 0 0 0;
+}
+.page .alert-mask .wrapper .cont1 .table .tr {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  width: 100%;
+  height: 50rpx;
+  align-items: center;
+}
+.page .alert-mask .wrapper .cont1 .table .tr:last-child > .td {
+  border-bottom: solid rgba(0,0,0,0.3) 1rpx;
+}
+.page .alert-mask .wrapper .cont1 .table .tr .td {
+  display: flex;
+  justify-content: center;
+  border-top: solid rgba(0,0,0,0.3) 1rpx;
+  border-left: solid rgba(0,0,0,0.3) 1rpx;
+  padding-left: 10rpx;
+}
+.page .alert-mask .wrapper .cont1 .table .tr .td:first-child {
+  width: 40%;
+}
+.page .alert-mask .wrapper .cont1 .table .tr .td:last-child {
+  width: 60%;
+  border-right: solid rgba(0,0,0,0.3) 1rpx;
+}
+.page .alert-mask .wrapper .cont1 .table .tr .th {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  padding-left: 10rpx;
+  border-top: solid rgba(0,0,0,0.3) 1rpx;
+  border-left: solid rgba(0,0,0,0.3) 1rpx;
+}
+.page .alert-mask .wrapper .cont1 .table .tr .th:first-child {
+  width: 40%;
+}
+.page .alert-mask .wrapper .cont1 .table .tr .th:last-child {
+  width: 60%;
+  border-right: solid rgba(0,0,0,0.3) 1rpx;
+}
+.page .alert-mask .wrapper .cont1 .table-prompt {
+  position: relative;
+  top: 10rpx;
+  display: block;
+}
+.page .bind-mobile-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 11;
+}
+.page .bind-mobile-mask .bind-mobile-wrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 66rpx;
+  background: #fff;
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
+}
+.page .bind-mobile-mask .bind-mobile-wrapper .title {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  font-size: 40rpx;
+}
+.page .bind-mobile-mask .bind-mobile-wrapper .title::before,
+.page .bind-mobile-mask .bind-mobile-wrapper .title::after {
+  flex: 1;
+  content: '';
+  height: 2rpx;
+}
+.page .bind-mobile-mask .bind-mobile-wrapper .title::before {
+  margin-right: 30rpx;
+  background: linear-gradient(to right, #fff, #d9d9d9);
+}
+.page .bind-mobile-mask .bind-mobile-wrapper .title::after {
+  margin-left: 30rpx;
+  background: linear-gradient(to right, #d9d9d9, #fff);
+}
+.page .bind-mobile-mask .bind-mobile-wrapper .mobile {
+  display: flex;
+}
+.page .bind-mobile-mask .bind-mobile-wrapper .mobile > button {
+  margin-top: 71rpx;
+  flex: 1;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  color: #fff;
+  background-color: #fef8c8;
+  border-radius: 45rpx;
+}

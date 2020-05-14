@@ -145,6 +145,16 @@ Page({
 				params['promoterId'] = app.globalData.scanCodeToHandle.promoterId;// 推广者ID标识
 				params['promoterType'] = app.globalData.scanCodeToHandle.promoterType; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
 			}
+			// 高速通行活动进入办理
+			if (app.globalData.isHighSpeedTrafficActivity) {
+				params['promoterId'] = 0;// 推广者ID标识
+				params['promoterType'] = 14; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
+			}
+		}
+		// 高速通行公众号进入办理
+		if (app.globalData.isHighSpeedTraffic) {
+			params['promoterId'] = app.globalData.isHighSpeedTraffic;// 推广者ID标识
+			params['promoterType'] = 6; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
 		}
 		if (app.globalData.membershipCoupon.id) {
 			params['couponRecordsId'] = app.globalData.membershipCoupon.id;// 优惠券id

@@ -1,0 +1,61 @@
+<view class="page">
+	<view class="content-container">
+		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/05/88/oYYBAF66bR-ANWz2AAOc5Q-WUB8523.png"></image>
+		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/47/90/oYYBAF6yXAaADP5rAACSHTlyyUI766.jpg"></image>
+		<view class="prompt-char">
+		</view>
+	</view>
+	<view class="bottom-container">
+		<button wx:if="{{loginInfo.needBindingPhone !== 1}}" class="right item" catchtap="goDeliveryAddress"></button>
+		<button wx:else class="right item" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber"></button>
+	</view>
+	<view class="rules">
+		<view class="small-image small-image-left"><image src="https://file.cyzl.com/g001/M05/43/D7/oYYBAF6pYUKAEKbGAAACGqb4CBc440.png"></image></view>
+		<view>
+			<image src="https://file.cyzl.com/g001/M05/43/D1/oYYBAF6pWI6ATJhLAAAERT9F42U491.png" catchtap="rulesWinShow"></image>
+		</view>
+		<view class="small-image small-image-right"><image src="https://file.cyzl.com/g001/M05/43/D7/oYYBAF6pYMOABuCaAAACKqbZPFA887.png"></image></view>
+	</view>
+	<view class="preferential">
+		<view>45</view>
+		<view>95<text>折起</text></view>
+		<view>95<text>折</text></view>
+	</view>
+	<!--活动细则弹窗-->
+	<view class="alert-mask animated {{alertWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{alertMask}}">
+		<view class="wrapper animated {{alertWrapper ? 'zoomInOther' : 'zoomOutOther'}}">
+			<view class="close iconfont" catchtap="rulesWinHide"></view>
+			<view class="head1">活 动 规 则</view>
+			<view class="cont1">
+				<view class="label">1、</view>
+				<view class="char">使用途径：领券--办理ETC--通行费抵扣； </view>
+			</view>
+			<view class="cont1">
+				<view class="label">2、</view>
+				<view class="char">限通过活动专属页面办理ETC的新用户过高速ETC通道使用，无使用门槛，一次性使用，不找零、不重复使用； </view>
+			</view>
+			<view class="cont1">
+				<view class="label">3、</view>
+				<view class="char">领券日开始60日内有效；</view>
+			</view>
+			<view class="cont1">
+				<view class="label">4、</view>
+				<view class="char">若通行订单发生退款，实际退款金额将扣除优惠金额；</view>
+			</view>
+			<view class="cont1">
+				<view class="label">5、</view>
+				<view class="char">在法律允许范围内，本次活动最终解释权归ETC+所有；</view>
+			</view>
+		</view>
+	</view>
+	<!--绑定手机号弹窗-->
+	<view class="bind-mobile-mask animated {{showMobileWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{showMobileMask}}">
+		<view class="bind-mobile-wrapper  animated {{showMobileWrapper ? 'slideInUp' : 'slideOutDown'}}"
+		      wx:if="{{showMobileMask}}">
+			<view class="title">登录方式</view>
+			<view class="mobile">
+				<button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">微信绑定手机登录</button>
+			</view>
+		</view>
+	</view>
+</view>

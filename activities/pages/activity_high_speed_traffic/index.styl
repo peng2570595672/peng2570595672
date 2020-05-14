@@ -1,0 +1,230 @@
+@import "/animate.styl";
+@font-face {
+	font-family: 'iconfont';  /* project id 1514406 */
+	src: url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot');  src: url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff2') format('woff2'), url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff') format('woff'), url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.ttf') format('truetype'), url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.svg#iconfont') format('svg');
+}
+.page
+	display block
+	position relative
+	width 100vw
+	min-height 100vh
+	//overflow-x hidden
+	//overflow-y scroll
+	background #FF5566
+	//-webkit-overflow-scrolling touch
+	.content-container
+		display block
+		position relative
+		.activity-content-img
+			display block
+			width 100%
+			z-index 2
+		.prompt-char
+			display block
+			background-color rgb(254,248,200)
+			color #999
+			margin-top  -40rpx
+			font-size 24rpx
+			line-height 34rpx
+			padding -20rpx 30rpx 30rpx 30rpx
+			.prompt-content
+				width  100%
+				background #fff
+				box-sizing border-box
+				padding 30rpx 12rpx 22rpx 30rpx
+				border 1rpx solid #32B571
+				border-radius 20rpx
+				view
+					display inline-block
+					min-height 68rpx
+				view:first-child
+					width 20%
+					vertical-align top
+				view:last-child
+					width 80%
+	.rules
+		position absolute
+		width 100%
+		bottom 680rpx
+		text-align center
+		&>view
+			image
+				width 51rpx
+				height 59rpx
+		&>view:nth-child(2)
+			image
+				width 186rpx
+				height 42rpx
+				border-radius 16rpx
+		.small-image
+			position absolute
+			top -40rpx
+			animation-name around
+			animation-duration 0.3s
+			animation-timing-function: ease-in-out
+			animation-delay 0.3s
+			animation-iteration-count: infinite
+		.small-image-left
+			left 120rpx
+		.small-image-right
+			right 120rpx
+	.bottom-container
+		position absolute
+		left 0
+		right 0
+		bottom 799rpx
+		width 100%
+		button
+			width 596rpx
+			height 139rpx
+			-webkit-animation scaleDraw 2s ease-in-out infinite
+			-webkit-backface-visibility: hidden
+			background url("https://file.cyzl.com/g001/M05/43/D0/oYYBAF6pVtuACT7RAABf_u0Ku-4489.png")
+			background-size 100% 139rpx
+			border-radius 69rpx
+	.preferential
+		display flex
+		position absolute
+		width 82%
+		margin-left 9%
+		bottom 480rpx
+		text-align center
+		&>view
+			flex 3
+			font-size 85rpx
+			font-family 'Source Han Sans CN'
+			font-weight 600
+			color rgba(255,255,255,1)
+			text
+				font-size 41rpx
+	.alert-mask
+		position fixed
+		left 0
+		top 0
+		right 0
+		bottom 0
+		background rgba(0, 0, 0, 0.3)
+		z-index 3
+		overflow-x hidden
+		overflow-y auto
+		-webkit-overflow-scrolling touch
+		.wrapper
+			position absolute
+			left 50%
+			top 50%
+			width 621rpx
+			margin-top -480rpx
+			margin-left -310rpx
+			text-align center
+			background #fff
+			border-radius 20rpx
+			padding-bottom 30rpx
+			.close
+				position absolute
+				right 0
+				top 0
+				padding 52rpx 40rpx 30rpx 30rpx
+				&:before
+					display block
+					content '\e63d'
+					font-size 30rpx
+					color #666
+			.head1
+				font-size 36rpx
+				text-align center
+				padding 30rpx 0 40rpx 0
+			.cont1
+				font-size 26rpx
+				line-height 46rpx
+				color #333
+				text-align justify
+				padding 0 40rpx
+				display flex
+				flex-direction row
+				flex-wrap nowrap
+				justify-content flex-start
+				.table
+					margin 20rpx 0 0 0
+					.tr
+						display flex
+						flex-direction row
+						flex-wrap nowrap
+						justify-content flex-start
+						width 100%
+						height 50rpx
+						align-items center
+						&:last-child > .td
+							border-bottom solid rgba(0,0,0,0.3) 1rpx
+						.td
+							display flex
+							justify-content center
+							border-top solid rgba(0,0,0,0.3) 1rpx
+							border-left solid rgba(0,0,0,0.3) 1rpx
+							padding-left 10rpx
+							&:first-child
+								width 40%
+							&:last-child
+								width 60%
+								border-right solid rgba(0,0,0,0.3) 1rpx
+						.th
+							display flex
+							width 50%
+							justify-content center
+							padding-left 10rpx
+							border-top solid rgba(0,0,0,0.3) 1rpx
+							border-left solid rgba(0,0,0,0.3) 1rpx
+							&:first-child
+								width 40%
+							&:last-child
+								width 60%
+								border-right solid rgba(0,0,0,0.3) 1rpx
+				.table-prompt
+					position relative
+					top 10rpx
+					display block
+	.bind-mobile-mask
+		position fixed
+		left 0
+		right 0
+		top 0
+		bottom 0
+		background: rgba(0, 0, 0, .6)
+		z-index 11
+		.bind-mobile-wrapper
+			position fixed
+			left 0
+			right 0
+			bottom 0
+			padding 66rpx
+			background: #fff
+			border-top-left-radius 20rpx
+			border-top-right-radius 20rpx
+			.title
+				display flex
+				width 100%
+				align-items center
+				font-size 40rpx
+				&::before,
+				&::after
+					flex 1
+					content ''
+					height 2rpx
+				&::before
+					margin-right 30rpx
+					background: linear-gradient(to right, #fff, #D9D9D9)
+				&::after
+					margin-left 30rpx
+					background: linear-gradient(to right, #D9D9D9, #fff)
+			.mobile
+				display flex
+				& > button
+					margin-top 71rpx
+					flex 1
+					height 90rpx
+					display flex
+					align-items center
+					justify-content center
+					font-size 32rpx
+					color #fff
+					background-color rgb(254,248,200)
+					border-radius 45rpx

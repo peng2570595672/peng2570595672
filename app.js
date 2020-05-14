@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-const IS_TEST = false;
+const IS_TEST = true;
 const util = require('./utils/util.js');
 // 数据统计
 let mta = require('./libs/mta_analysis.js');
@@ -26,6 +26,7 @@ App({
 		isSalesmanPromotion: false,// 业务员扫描小程序码推广办理
 		isSignUpImmediately: false,// 是否是首页或我的ETC列表点击立即签约,是则需要直接查主库
 		isHighSpeedTraffic: undefined,// 是否是高速通行公众号进入办理
+		isHighSpeedTrafficActivity: true,// 是否是高速通行活动进入办理
 		systemTime: undefined,// 系统时间
 		isSystemTime: false,// 是否是通过接口获取过系统时间
 		isSalesmanOrder: false,// 是否是业务员审核订单
