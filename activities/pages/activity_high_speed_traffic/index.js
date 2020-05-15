@@ -3,12 +3,18 @@ const app = getApp();
 Page({
 	data: {
 		loginInfo: undefined,
+		encryptCode: undefined,// 券加密数据
 		alertMask: false, // 控制活动细则弹窗
 		alertWrapper: false, // 控制活动细则弹窗
 		showMobileMask: false, // 绑定手机号相关
 		showMobileWrapper: false // 绑定手机号相关
 	},
-	onLoad () {
+	onLoad (options) {
+		if (options.encrypt_code) {
+			this.setData({
+				encryptCode: decodeURIComponent(options.encrypt_code)
+			});
+		}
 		wx.hideHomeButton();
 		app.globalData.orderInfo.orderId = '';
 		app.globalData.isHighSpeedTrafficActivity = true;
@@ -94,7 +100,23 @@ Page({
 	},
 	// 获取套餐
 	goDeliveryAddress () {
-		util.go('/pages/default/receiving_address/receiving_address');
+		util.showLoading();
+		let params = {
+			serviceType: 'mtcCoupon',
+			encryptCode: this.data.encryptCode,
+			mobilePhone: app.globalData.mobilePhone
+		};
+		util.getDataFromServer('consumer/voucher/service-type-analysis', params, () => {
+			util.showToastNoIcon('提交卡券信息失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				util.go('/pages/default/receiving_address/receiving_address');
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
 	},
 	// 获取手机号
 	onGetPhoneNumber (e) {
@@ -128,6 +150,7 @@ Page({
 					this.setData({
 						loginInfo
 					});
+					this.goDeliveryAddress();
 				} else {
 					util.hideLoading();
 					util.showToastNoIcon(res.message);

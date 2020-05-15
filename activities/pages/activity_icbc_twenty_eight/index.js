@@ -129,6 +129,7 @@ Page({
 					this.setData({
 						loginInfo
 					});
+					this.goDeliveryAddress();
 				} else {
 					util.hideLoading();
 					util.showToastNoIcon(res.message);

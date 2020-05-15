@@ -125,6 +125,7 @@ Page({
 					this.setData({
 						loginInfo
 					});
+					this.freeProcessing();
 				} else {
 					util.hideLoading();
 					util.showToastNoIcon(res.message);

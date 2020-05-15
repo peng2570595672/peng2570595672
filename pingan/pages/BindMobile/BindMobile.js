@@ -95,7 +95,7 @@ Page({
 						orderInfo = item;
 						return;
 					}
-					if (item.auditStatus === 2 && item.obuStatus === 0) {
+					if (item.auditStatus === 2 && (item.obuStatus === 0 || item.obuStatus === 5)) {
 						// 待激活
 						selfStatus = 2;
 						orderInfo = item;
