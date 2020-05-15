@@ -476,6 +476,9 @@ Page({
 				params['promoterType'] = 3; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
 			}
 		}
+		if (app.globalData.salesmanMerchant) {
+			params['shopId'] = app.globalData.salesmanMerchant;
+		}
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
