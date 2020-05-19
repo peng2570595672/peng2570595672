@@ -303,7 +303,7 @@
 					"id": 29,
 					"name": "pages/default/processing_progress/processing_progress",
 					"pathName": "pages/default/processing_progress/processing_progress",
-					"query": "orderId=708057360660172800",
+					"query": "orderId=711946808372367360",
 					"scene": null
 				},
 				{
@@ -321,10 +321,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 32,
 					"name": "pages/personal_center/order_details/order_details",
 					"pathName": "pages/personal_center/order_details/order_details",
-					"query": "",
+					"query": "orderId=711946808372367360",
 					"scene": null
 				},
 				{
@@ -513,7 +513,7 @@
 					"id": 59,
 					"name": "pages/personal_center/my_etc_detail/my_etc_detail",
 					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "orderId=702925696791482368",
+					"query": "orderId=711946808372367360",
 					"scene": null
 				},
 				{
@@ -562,7 +562,7 @@
 					"id": 66,
 					"name": "activities/pages/activity_high_speed_traffic/index",
 					"pathName": "activities/pages/activity_high_speed_traffic/index",
-					"query": "encrypt_code=To5MLh%2BnkluG5UCy6A65pzUMLyI9MDxGMKzBPPyrIlk%3D",
+					"query": "encrypt_code=To5MLh%2BnkluG5UCy6A65p7INkpNzLRhahKDdIZh2r9k%3D",
 					"scene": null
 				}
 			]

@@ -1,7 +1,7 @@
 <view class="page">
 	<view class="content-container">
 		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/05/88/oYYBAF66bR-ANWz2AAOc5Q-WUB8523.png"></image>
-		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/47/90/oYYBAF6yXAaADP5rAACSHTlyyUI766.jpg"></image>
+		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/0B/84/oYYBAF7DTASAdHYAAACO8P978O0429.jpg"></image>
 		<view class="prompt-char">
 		</view>
 	</view>
@@ -32,11 +32,11 @@
 			</view>
 			<view class="cont1">
 				<view class="label">2、</view>
-				<view class="char">限通过活动专属页面办理ETC的新用户过高速ETC通道使用，无使用门槛，一次性使用，不找零、不重复使用； </view>
+				<view class="char">限通过活动专属页面办理ETC的新用户首次过高速ETC通道使用，无使用门槛，一次性使用，不找零、不重复使用； </view>
 			</view>
 			<view class="cont1">
 				<view class="label">3、</view>
-				<view class="char">领券日开始60日内有效；</view>
+				<view class="char">代金券有效期内使用有效，过期无效；</view>
 			</view>
 			<view class="cont1">
 				<view class="label">4、</view>
@@ -44,7 +44,7 @@
 			</view>
 			<view class="cont1">
 				<view class="label">5、</view>
-				<view class="char">在法律允许范围内，本次活动最终解释权归ETC+所有；</view>
+				<view class="char">在法律允许范围内，本次活动最终解释权归ETC+所有。</view>
 			</view>
 		</view>
 	</view>
