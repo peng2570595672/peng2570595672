@@ -1,12 +1,17 @@
+@import "/animate.styl";
+@font-face {
+	font-family: 'iconfont';  /* project id 1514406 */
+	src: url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot');  src: url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff2') format('woff2'), url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff') format('woff'), url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.ttf') format('truetype'), url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.svg#iconfont') format('svg');
+}
 .page
 	display block
 	position relative
 	width 100vw
-	height 100vh
-	overflow-x hidden
-	overflow-y auto
-	background rgba(59,218,255,1)
-	-webkit-overflow-scrolling touch
+	min-height 100vh
+	//overflow-x hidden
+	//overflow-y scroll
+	background #FF5566
+	//-webkit-overflow-scrolling touch
 	.content-container
 		display block
 		position relative
@@ -38,34 +43,60 @@
 				view:last-child
 					width 80%
 	.rules
-		display inline-block
 		position absolute
-		right 0
-		bottom 586rpx
-		color #fff
-		font-size 26rpx
-		letter-spacing -4rpx
-		font-weight bold
-		background linear-gradient(49deg,rgba(243,212,100,1),rgba(244,193,84,1))
-		padding 10rpx 28rpx
-		border-radius 26rpx 0 0 26rpx
+		width 100%
+		bottom 680rpx
+		text-align center
+		&>view
+			image
+				width 51rpx
+				height 59rpx
+		&>view:nth-child(2)
+			image
+				width 186rpx
+				height 42rpx
+				border-radius 16rpx
+		.small-image
+			position absolute
+			top -40rpx
+			animation-name around
+			animation-duration 0.3s
+			animation-timing-function: ease-in-out
+			animation-delay 0.3s
+			animation-iteration-count: infinite
+		.small-image-left
+			left 120rpx
+		.small-image-right
+			right 120rpx
 	.bottom-container
 		position absolute
 		left 0
 		right 0
-		top 470rpx
+		bottom 799rpx
 		width 100%
 		button
-			width 74%
-			height 103rpx
-			background linear-gradient(49deg,rgba(243,212,100,1),rgba(244,193,84,1))
-			box-shadow 0px 10rpx 16rpx 0px rgba(4,37,131,0.15)
-			border-radius 52rpx
-			font-size 42rpx
-			font-family PingFang SC
+			width 596rpx
+			height 139rpx
+			-webkit-animation scaleDraw 2s ease-in-out infinite
+			-webkit-backface-visibility: hidden
+			background url("https://file.cyzl.com/g001/M05/43/D0/oYYBAF6pVtuACT7RAABf_u0Ku-4489.png")
+			background-size 100% 139rpx
+			border-radius 69rpx
+	.preferential
+		display flex
+		position absolute
+		width 82%
+		margin-left 9%
+		bottom 480rpx
+		text-align center
+		&>view
+			flex 3
+			font-size 85rpx
+			font-family 'Source Han Sans CN'
 			font-weight 600
-			color rgba(254,254,255,1)
-			text-shadow 0px 3rpx 4rpx rgba(136,136,136,0.5)
+			color rgba(255,255,255,1)
+			text
+				font-size 41rpx
 	.alert-mask
 		position fixed
 		left 0

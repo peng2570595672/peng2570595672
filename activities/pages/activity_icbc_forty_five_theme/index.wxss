@@ -1,12 +1,70 @@
+@charset "UTF-8";
+.animated {
+  -webkit-animation-duration: 0.4s;
+  animation-duration: 0.4s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@keyframes scaleDraw {
+  0% {
+    transform: scale(1); /*开始为原始大小*/
+  }
+  10% {
+    transform: scale(1.05); /*放大1.1倍*/
+  }
+  20% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(1);
+  }
+  80% {
+    transform: scale(1);
+  }
+  90% {
+    transform: scale(1);
+  }
+}
+@keyframes around {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-8rpx);
+  }
+  50% {
+    transform: translateY(-15rpx);
+  }
+  75% {
+    transform: translateY(-8rpx);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@font-face {
+  font-family: 'iconfont'; /* project id 1514406 */
+  src: url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot");
+  src: url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot?#iefix") format('embedded-opentype'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff2") format('woff2'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff") format('woff'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.ttf") format('truetype'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.svg#iconfont") format('svg');
+}
 .page {
   display: block;
   position: relative;
   width: 100vw;
-  height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;
-  background: #3bdaff;
-  -webkit-overflow-scrolling: touch;
+  min-height: 100vh;
+  background: #f56;
 }
 .page .content-container {
   display: block;
@@ -46,36 +104,68 @@
   width: 80%;
 }
 .page .rules {
-  display: inline-block;
   position: absolute;
-  right: 0;
-  bottom: 586rpx;
-  color: #fff;
-  font-size: 26rpx;
-  letter-spacing: -4rpx;
-  font-weight: bold;
-  background: linear-gradient(49deg, #f3d464, #f4c154);
-  padding: 10rpx 28rpx;
-  border-radius: 26rpx 0 0 26rpx;
+  width: 100%;
+  bottom: 680rpx;
+  text-align: center;
+}
+.page .rules>view image {
+  width: 51rpx;
+  height: 59rpx;
+}
+.page .rules>view:nth-child(2) image {
+  width: 186rpx;
+  height: 42rpx;
+  border-radius: 16rpx;
+}
+.page .rules .small-image {
+  position: absolute;
+  top: -40rpx;
+  animation-name: around;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0.3s;
+  animation-iteration-count: infinite;
+}
+.page .rules .small-image-left {
+  left: 120rpx;
+}
+.page .rules .small-image-right {
+  right: 120rpx;
 }
 .page .bottom-container {
   position: absolute;
   left: 0;
   right: 0;
-  top: 470rpx;
+  bottom: 799rpx;
   width: 100%;
 }
 .page .bottom-container button {
-  width: 74%;
-  height: 103rpx;
-  background: linear-gradient(49deg, #f3d464, #f4c154);
-  box-shadow: 0px 10rpx 16rpx 0px rgba(4,37,131,0.15);
-  border-radius: 52rpx;
-  font-size: 42rpx;
-  font-family: PingFang SC;
+  width: 596rpx;
+  height: 139rpx;
+  -webkit-animation: scaleDraw 2s ease-in-out infinite;
+  -webkit-backface-visibility: hidden;
+  background: url("https://file.cyzl.com/g001/M05/43/D0/oYYBAF6pVtuACT7RAABf_u0Ku-4489.png");
+  background-size: 100% 139rpx;
+  border-radius: 69rpx;
+}
+.page .preferential {
+  display: flex;
+  position: absolute;
+  width: 82%;
+  margin-left: 9%;
+  bottom: 480rpx;
+  text-align: center;
+}
+.page .preferential>view {
+  flex: 3;
+  font-size: 85rpx;
+  font-family: 'Source Han Sans CN';
   font-weight: 600;
-  color: #fefeff;
-  text-shadow: 0px 3rpx 4rpx rgba(136,136,136,0.5);
+  color: #fff;
+}
+.page .preferential>view text {
+  font-size: 41rpx;
 }
 .page .alert-mask {
   position: fixed;
