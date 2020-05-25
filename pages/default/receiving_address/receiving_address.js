@@ -393,7 +393,7 @@ Page({
 			},
 			fail: (e) => {
 				// 选择地址未允许授权
-				if (e.errMsg === 'chooseLocation:fail auth deny' || res.errMsg === 'getLocation:fail authorize no response') {
+				if (e.errMsg === 'chooseLocation:fail auth deny' || e.errMsg === 'getLocation:fail authorize no response') {
 					util.alert({
 						title: '提示',
 						content: '由于您拒绝了获取您的地理位置授权，导致无法正常获取地理位置信息，是否重新授权？',
