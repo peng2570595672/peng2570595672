@@ -32,10 +32,6 @@
 			<view>高速扣费</view>
 		</view>
 		<view>
-			<view>扣费方式</view>
-			<view>微信零钱支付</view>
-		</view>
-		<view>
 			<view>扣费时间</view>
 			<view>{{details.deductTime}}</view>
 		</view>
