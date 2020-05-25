@@ -48,8 +48,8 @@ Page({
 				// 获取车主身份证信息
 				if (app.globalData.isModifiedData) {
 					// 修改资料
-					let temp = this.data.orderInfo['ownerIdCard'];
-					if (temp.idCardNegativeUrl) {
+					let temp = res.data.ownerIdCard;
+					if (temp.ownerIdCardNegativeUrl) {
 						let idCardFace = this.data.idCardFace;
 						// 身份证反面
 						let idCardBack = this.data.idCardBack;
