@@ -340,21 +340,36 @@ Page({
 				app.globalData.signAContract = 1;
 				// 签约成功 userState: "NORMAL"
 				if (res.data.contractStatus !== 1) {
-					if (res.data.contractId) {
+					if (res.data.version === 'v3') {
 						// 3.0
-						wx.navigateToMiniProgram({
-							appId: 'wxbcad394b3d99dac9',
-							path: 'pages/etc/index',
-							extraData: {
-								contract_id: res.data.contractId
-							},
-							success () {
-							},
-							fail (e) {
-								// 未成功跳转到签约小程序
-								util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
-							}
-						});
+						if (res.data.contractId) {
+							wx.navigateToMiniProgram({
+								appId: 'wxbcad394b3d99dac9',
+								path: 'pages/etc/index',
+								extraData: {
+									contract_id: res.data.contractId
+								},
+								success () {
+								},
+								fail (e) {
+									// 未成功跳转到签约小程序
+									util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
+								}
+							});
+						} else {
+							util.alert({
+								title: ``,
+								content: `签约信息异常，请联系在线客服处理！`,
+								showCancel: true,
+								cancelText: '取消',
+								confirmText: '联系客服',
+								confirm: () => {
+									util.go(`/pages/web/web/web?type=online_customer_service`);
+								},
+								cancel: () => {
+								}
+							});
+						}
 					} else {
 						this.weChatSign(obj);
 					}
