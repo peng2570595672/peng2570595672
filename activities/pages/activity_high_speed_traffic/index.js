@@ -10,6 +10,7 @@ Page({
 		showMobileWrapper: false // 绑定手机号相关
 	},
 	onLoad (options) {
+		util.resetData();// 重置数据
 		if (options.encrypt_code) {
 			this.setData({
 				encryptCode: decodeURIComponent(options.encrypt_code)

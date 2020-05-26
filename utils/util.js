@@ -675,6 +675,34 @@ function goHome(unload) {
 	}
 }
 /**
+ * 重置数据,避免小程序未关闭状态从多个渠道进入导致数据错乱
+ *  若升级3.0,从其他渠道进入,建议使用object对象,清空对象,2.0已成型,涉及地方太多,暂不修改
+ */
+
+function resetData() {
+	app.globalData.otherPlatformsServiceProvidersId = undefined;
+	app.globalData.salesmanMerchant = undefined;
+	app.globalData.scanCodeToHandle = undefined;
+	app.globalData.isServiceProvidersPackage = true;
+	app.globalData.isThirdGeneralize = false;
+	app.globalData.isCitiesServices = false;
+	app.globalData.isWeChatSudoku = false;
+	app.globalData.isContinentInsurance = false;
+	app.globalData.isJinYiXing = false;
+	app.globalData.belongToPlatform = '500338116821778434';
+	app.globalData.salesmanScanCodeToHandleId = undefined;
+	app.globalData.isSalesmanPromotion = false;
+	app.globalData.isHighSpeedTraffic = undefined;
+	app.globalData.isHighSpeedTrafficActivity = false;
+	app.globalData.officialChannel = false;
+	app.globalData.isSalesmanOrder = false;
+	app.globalData.isFaceToFaceCCB = false;
+	app.globalData.isFaceToFaceICBC = false;
+	app.globalData.isFaceToFaceWeChat = false;
+	app.globalData.faceToFacePromotionId = undefined;
+}
+
+/**
  *  获取办理车辆类型  货车/企业车辆限制(1.0)
  */
 function getHandlingType(orderInfo) {
@@ -839,6 +867,7 @@ module.exports = {
 	getAddressInfo,
 	getSignature,
 	luhmCheck,
+	resetData,
 	getStatus,
 	subscribe,
 	getHandlingType,

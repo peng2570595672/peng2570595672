@@ -111,9 +111,11 @@ App({
 			let obj = this.path2json(decodeURIComponent(options.query.scene));
 			if (obj && JSON.stringify(obj) !== '{}') {
 				if (obj.orderId && obj.orderId.length === 18) {
+					util.resetData();// 重置数据
 					// 业务员端订单码
 					this.globalData.salesmanScanCodeToHandleId = obj.orderId;
 				} else {
+					util.resetData();// 重置数据
 					let sceneKey,sceneValue;
 					for (let i in obj) {
 						sceneKey = i;
@@ -125,16 +127,19 @@ App({
 			}
 		}
 		if (options.query.channelValue && options.query.serverInfoId) {
+			util.resetData();// 重置数据
 			// 1.0大地保险扫码/链接进入
 			this.globalData.isContinentInsurance = true;
 			let sceneValue = JSON.stringify(options.query);
 			this.getPromoterInfo('channelValue',sceneValue);
 		}
 		if (options.query.officialChannelId) {
+			util.resetData();// 重置数据
 			this.globalData.otherPlatformsServiceProvidersId = options.query.officialChannelId;
 			this.globalData.officialChannel = true;
 		}
 		if (options.query.carInsurance) {
+			util.resetData();// 重置数据
 			// 2.0大地保险链接进入
 			this.globalData.isContinentInsurance = true;
 			this.getPromoterInfo('SGC',options.query.carInsurance);
@@ -203,7 +208,8 @@ App({
 			// 解决安卓平台上传行驶证自动返回上一页
 			return;
 		}
-		if (res && res.scene === 1038) { // 场景值1038：从被打开的小程序返回
+		if ((res && res.referrerInfo && res.referrerInfo.appId && res.referrerInfo.appId === 'wxbcad394b3d99dac9') || (res && res.scene === 1038)) { // 场景值1038：从被打开的小程序返回
+			// 因微信场景值问题,故未用场景值判断
 			if (this.globalData.signAContract === -1) {
 				const {appId} = res.referrerInfo;
 				// 车主服务签约

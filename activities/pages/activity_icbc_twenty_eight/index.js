@@ -9,6 +9,7 @@ Page({
 		showMobileWrapper: false // 绑定手机号相关
 	},
 	onLoad () {
+		util.resetData();// 重置数据
 		wx.hideHomeButton();
 		app.globalData.orderInfo.orderId = '';
 		app.globalData.isFaceToFaceICBC = true;

@@ -37,6 +37,7 @@ Page({
 	},
 	onLoad (options) {
 		if (options.shareId) {
+			util.resetData();// 重置数据
 			// 高速通行公众号进入办理
 			app.globalData.isHighSpeedTraffic = options.shareId;
 		}

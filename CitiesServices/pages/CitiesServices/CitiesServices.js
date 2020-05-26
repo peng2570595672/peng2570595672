@@ -7,6 +7,7 @@ Page({
 		loginInfo: {}// 登录信息
 	},
 	onLoad () {
+		util.resetData();// 重置数据
 		wx.hideHomeButton();
 		app.globalData.isCitiesServices = true;
 		wx.removeStorageSync('information_validation');

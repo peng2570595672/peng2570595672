@@ -1,6 +1,8 @@
+const util = require('../../utils/util.js');
 const app = getApp();
 Page({
 	onLoad () {
+		util.resetData();// 重置数据
 		app.globalData.isWeChatSudoku = true;
 		app.globalData.otherPlatformsServiceProvidersId = '700651431658528768';
 		wx.reLaunch({

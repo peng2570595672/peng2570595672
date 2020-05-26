@@ -197,25 +197,32 @@ Page({
 				this.setData(obj);
 				util.showToastNoIcon(type === 1 ? '识别身份证正面失败！' : '识别身份证背面失败！');
 			}, (res) => {
-				if (res) {
-					res = JSON.parse(res);
-					if (res.code === 0) { // 识别成功
-						let obj = {};
-						obj[`pic${type}IdentifyResult`] = 0;
-						this.setData(obj);
-						wx.setStorageSync(type === 1 ? 'id_card_face' : 'id_card_back', JSON.stringify(res));
+				try {
+					if (res) {
+						res = JSON.parse(res);
+						if (res.code === 0) { // 识别成功
+							let obj = {};
+							obj[`pic${type}IdentifyResult`] = 0;
+							this.setData(obj);
+							wx.setStorageSync(type === 1 ? 'id_card_face' : 'id_card_back', JSON.stringify(res));
+						} else { // 识别失败
+							util.hideLoading();
+							util.showToastNoIcon(res.message);
+							let obj = {};
+							obj[`pic${type}IdentifyResult`] = 1;
+							this.setData(obj);
+						}
 					} else { // 识别失败
-						util.hideLoading();
-						util.showToastNoIcon(res.message);
 						let obj = {};
 						obj[`pic${type}IdentifyResult`] = 1;
 						this.setData(obj);
+						util.showToastNoIcon('识别失败！');
 					}
-				} else { // 识别失败
+				} catch (e) {
 					let obj = {};
 					obj[`pic${type}IdentifyResult`] = 1;
 					this.setData(obj);
-					util.showToastNoIcon('识别失败！');
+					util.showToastNoIcon('文件服务器异常！');
 				}
 			}, () => {
 				this.uploadIdCardOrcFile(2);

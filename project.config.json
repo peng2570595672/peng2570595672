@@ -1,57 +1,21 @@
 {
 	"description": "项目配置文件",
 	"packOptions": {
-		"ignore": [
-			{
-				"type": "file",
-				"value": ".gitignore"
-			},
-			{
-				"type": "file",
-				"value": ".eslintrc.js"
-			},
-			{
-				"type": "file",
-				"value": "package.json"
-			},
-			{
-				"type": "folder",
-				"value": "node_modules"
-			},
-			{
-				"type": "folder",
-				"value": ".idea"
-			},
-			{
-				"type": "folder",
-				"value": ".git"
-			},
-			{
-				"type": "suffix",
-				"value": ".styl"
-			},
-			{
-				"type": "suffix",
-				"value": ".md"
-			},
-			{
-				"type": "suffix",
-				"value": ".xml"
-			}
-		]
+		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"enhance": true,
 		"postcss": true,
+		"preloadBackgroundData": false,
 		"minified": true,
 		"newFeature": true,
 		"coverView": true,
 		"autoAudits": false,
 		"showShadowRootInWxmlPanel": true,
 		"scopeDataCheck": false,
-		"uglifyFileName": false,
+		"uglifyFileName": true,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
@@ -60,10 +24,10 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"bundle": true
+		"nodeModules": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.10.4",
+	"libVersion": "2.11.0",
 	"appid": "wxddb3eb32425e4a96",
 	"projectname": "etc_plus_mini_2.0",
 	"debugOptions": {
@@ -98,443 +62,30 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/default/payment_way/payment_way",
-					"pathName": "pages/default/payment_way/payment_way",
-					"query": "pages/test",
+					"name": "pages/default/receiving_address/receiving_address",
+					"pathName": "pages/default/receiving_address/receiving_address",
+					"query": "shareId=1235556",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "activate_obu/neimeng/index/index",
-					"pathName": "activate_obu/neimeng/index/index",
-					"query": "serverInfoId=607886715545190401&setMealId=627888126932549632",
+					"name": "activities/pages/activity_icbc_twenty_eight/index",
+					"pathName": "activities/pages/activity_icbc_twenty_eight/index",
+					"query": "shareId=123455",
 					"scene": null
 				},
 				{
 					"id": 2,
-					"name": "online_distribution/pages/connect_bluetooth_for_qinghaiartc/connect_bluetooth_for_qinghaiartc",
-					"pathName": "online_distribution/pages/connect_bluetooth_for_qinghaiartc/connect_bluetooth_for_qinghaiartc",
-					"query": "serverInfoId=607886715545190401&setMealId=627888126932549632",
-					"scene": null
-				},
-				{
-					"id": 3,
-					"name": "pages/personal_center/index/index",
-					"pathName": "pages/personal_center/index/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 4,
-					"name": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
-					"pathName": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
-					"query": "type=2",
-					"scene": null
-				},
-				{
-					"id": 5,
-					"name": "pages/login/login/login",
-					"pathName": "pages/login/login/login",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "我的ETC",
-					"pathName": "pages/personal_center/my_etc/my_etc",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 7,
-					"name": "设备详情页",
-					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "优惠券详情",
-					"pathName": "pages/personal_center/use_record/use_record",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 9,
-					"name": "pages/default/receiving_address/receiving_address",
-					"pathName": "pages/default/receiving_address/receiving_address?a=1",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 10,
-					"name": "pages/personal_center/my_order/my_order",
-					"pathName": "pages/personal_center/my_order/my_order",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 11,
-					"name": "pages/default/upload_car_no/upload_car_no",
-					"pathName": "pages/default/update_id_card/update_id_card",
-					"query": "carNo=贵A2ZM91",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/personal_center/order_complaint/order_complaint",
-					"pathName": "pages/personal_center/order_complaint/order_complaint",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/personal_center/complaint_details/complaint_details",
-					"pathName": "pages/personal_center/complaint_details/complaint_details",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/personal_center/service_card_voucher/service_card_voucher",
-					"pathName": "pages/personal_center/service_card_voucher/service_card_voucher",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/personal_center/service_card_voucher_details/service_card_voucher_details",
-					"pathName": "pages/personal_center/service_card_voucher_details/service_card_voucher_details",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/default/receiving_address/receiving_address",
-					"pathName": "pages/default/receiving_address/receiving_address",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/default/update_id_card/update_id_card",
-					"pathName": "pages/default/update_id_card/update_id_card",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/default/high_speed_verification_failed/high_speed_verification_failed",
-					"pathName": "pages/default/high_speed_verification_failed/high_speed_verification_failed",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 19,
-					"name": "pages/personal_center/index/index",
-					"pathName": "pages/personal_center/index/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
-					"pathName": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 21,
-					"name": "pages/default/payment_way/payment_way",
-					"pathName": "pages/default/payment_way/payment_way",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/default/shot_bank_card/shot_bank_card",
-					"pathName": "pages/default/shot_bank_card/shot_bank_card",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "cities_services/pages/cities_services/cities_services",
-					"pathName": "cities_services/pages/cities_services/cities_services",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/login/login/login",
-					"pathName": "pages/login/login/login",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/default/index/index",
-					"pathName": "pages/default/index/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/personal_center/index/index",
-					"pathName": "pages/personal_center/index/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/personal_center/help_center/help_center",
-					"pathName": "pages/personal_center/help_center/help_center",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 28,
-					"name": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
-					"pathName": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 29,
-					"name": "pages/default/processing_progress/processing_progress",
-					"pathName": "pages/default/processing_progress/processing_progress",
-					"query": "orderId=711946808372367360",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/personal_center/order_instructions/order_instructions",
-					"pathName": "pages/personal_center/order_instructions/order_instructions",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/personal_center/order_details/order_details",
-					"pathName": "pages/personal_center/order_details/order_details",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 32,
-					"name": "pages/personal_center/order_details/order_details",
-					"pathName": "pages/personal_center/order_details/order_details",
-					"query": "orderId=711946808372367360",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/default/index/index",
-					"pathName": "pages/default/index/index",
-					"query": "otherPlatformsServiceProvidersId= 697399241573670912& isContinentInsurance=true",
-					"scene": null
-				},
-				{
-					"id": 34,
-					"name": "pages/personal_center/index/index",
-					"pathName": "pages/personal_center/index/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/default/high_speed_verification_failed/high_speed_verification_failed",
-					"pathName": "pages/default/high_speed_verification_failed/high_speed_verification_failed",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/default/receiving_address_ccb/receiving_address_ccb",
-					"pathName": "pages/default/receiving_address_ccb/receiving_address_ccb",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 37,
-					"name": "pages/Home/Home",
-					"pathName": "pages/Home/Home",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 38,
-					"name": "activities/pages/ActivityForLTForSixty/index",
-					"pathName": "activities/pages/ActivityForLTForSixty/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 39,
-					"name": "activities/pages/ActivityForCCBForSixty/index",
-					"pathName": "activities/pages/ActivityForCCBForSixty/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "cities_services/pages/cities_services/cities_services",
-					"pathName": "cities_services/pages/cities_services/cities_services",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 41,
-					"name": "CitiesServices/pages/CitiesServices/CitiesServices",
-					"pathName": "CitiesServices/pages/CitiesServices/CitiesServices",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/default/update_id_card/update_id_card",
-					"pathName": "pages/default/update_id_card/update_id_card",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/default/information_validation/information_validation",
-					"pathName": "pages/default/information_validation/information_validation",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 44,
-					"name": "pages/personal_center/my_order/my_order",
-					"pathName": "pages/personal_center/my_order/my_order",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/default/receiving_address/receiving_address",
-					"pathName": "pages/default/receiving_address/receiving_address",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 46,
-					"name": "pages/personal_center/order_details/order_details",
-					"pathName": "pages/personal_center/order_details/order_details",
-					"query": "channel=1&id=6&month=202003",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pingan/pages/ChooseBank/ChooseBank",
-					"pathName": "pingan/pages/ChooseBank/ChooseBank",
-					"query": "channel=1&id=6&month=202003",
-					"scene": null
-				},
-				{
-					"id": 48,
-					"name": "pages/login/login/login",
-					"pathName": "pages/login/login/login",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pingan/pages/BindMobile/BindMobile",
-					"pathName": "pingan/pages/BindMobile/BindMobile",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "activities/pages/ActivityForCCBForSixty/index",
-					"pathName": "activities/pages/ActivityForCCBForSixty/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 51,
-					"name": "activities/pages/activity_wechat_eighteen_theme/index",
-					"pathName": "activities/pages/activity_wechat_eighteen_theme/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 52,
 					"name": "activities/pages/activity_icbc_forty_five_theme/index",
 					"pathName": "activities/pages/activity_icbc_forty_five_theme/index",
 					"query": "",
 					"scene": null
 				},
 				{
-					"id": 53,
-					"name": "pages/loading_page_for_wx/index",
-					"pathName": "pages/loading_page_for_wx/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 54,
-					"name": "activities/pages/activity_icbc_forty_five_hook/index",
-					"pathName": "activities/pages/activity_icbc_forty_five_hook/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 55,
-					"name": "activities/pages/activity_wechat_eighteen_hook/index",
-					"pathName": "activities/pages/activity_wechat_eighteen_hook/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 56,
-					"name": "pages/Home/Home",
-					"pathName": "pages/Home/Home",
-					"query": "officialChannelId=705389257931366400",
-					"scene": null
-				},
-				{
 					"id": -1,
-					"name": "pages/default/receiving_address/receiving_address",
-					"pathName": "pages/default/receiving_address/receiving_address",
-					"query": "channelValue=2020032421&serverInfoId=691607362313650176",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pingan/pages/ChooseBank/ChooseBank",
-					"pathName": "pingan/pages/ChooseBank/ChooseBank",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 59,
-					"name": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "orderId=711946808372367360",
-					"scene": null
-				},
-				{
-					"id": 60,
-					"name": "pages/loading_page_for_wechat/index",
-					"pathName": "pages/loading_page_for_wechat/index",
-					"query": "orderId=702925696791482368",
-					"scene": null
-				},
-				{
-					"id": 61,
-					"name": "pages/loading_page_for_wechat/index",
-					"pathName": "pages/loading_page_for_wechat/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/personal_center/membership_coupon/membership_coupon",
-					"pathName": "pages/personal_center/membership_coupon/membership_coupon",
-					"query": "",
+					"name": "activities/pages/activity_icbc_forty_five_theme/index",
+					"pathName": "activities/pages/activity_icbc_forty_five_theme/index",
+					"query": "shareId=1235556",
 					"scene": null
 				},
 				{
@@ -542,27 +93,6 @@
 					"name": "CitiesServices/pages/CitiesServices/CitiesServices",
 					"pathName": "CitiesServices/pages/CitiesServices/CitiesServices",
 					"query": "",
-					"scene": null
-				},
-				{
-					"id": 64,
-					"name": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "orderId=708057360660172800",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/personal_center/my_order/my_order",
-					"pathName": "pages/personal_center/my_order/my_order",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 66,
-					"name": "activities/pages/activity_high_speed_traffic/index",
-					"pathName": "activities/pages/activity_high_speed_traffic/index",
-					"query": "encrypt_code=To5MLh%2BnkluG5UCy6A65p7INkpNzLRhahKDdIZh2r9k%3D",
 					"scene": null
 				}
 			]

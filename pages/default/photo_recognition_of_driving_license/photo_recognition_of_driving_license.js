@@ -310,34 +310,41 @@ Page({
 				this.setData(obj);
 				util.showToastNoIcon(type === 3 ? '识别行驶证正面失败！' : '识别行驶证背面失败！');
 			}, (res) => {
-				if (res) {
-					res = JSON.parse(res);
-					if (res.code === 0) { // 识别成功
-						// 因OCR行驶证正面识别有问题,因此加判断
-						if (type === 3 && !res.data[0].ocrObject.owner) {
+				try {
+					if (res) {
+						res = JSON.parse(res);
+						if (res.code === 0) { // 识别成功
+							// 因OCR行驶证正面识别有问题,因此加判断
+							if (type === 3 && !res.data[0].ocrObject.owner) {
+								util.hideLoading();
+								util.showToastNoIcon('照片不能正常识别!请重新拍照上传');
+								let obj = {};
+								obj[`pic${type}IdentifyResult`] = 1;
+								this.setData(obj);
+							} else {
+								let obj = {};
+								obj[`pic${type}IdentifyResult`] = 0;
+								this.setData(obj);
+								wx.setStorageSync(type === 3 ? 'driving_license_face' : 'driving_license_back', JSON.stringify(res.data[0]));
+							}
+						} else { // 识别失败
 							util.hideLoading();
-							util.showToastNoIcon('照片不能正常识别!请重新拍照上传');
+							util.showToastNoIcon(res.message);
 							let obj = {};
 							obj[`pic${type}IdentifyResult`] = 1;
 							this.setData(obj);
-						} else {
-							let obj = {};
-							obj[`pic${type}IdentifyResult`] = 0;
-							this.setData(obj);
-							wx.setStorageSync(type === 3 ? 'driving_license_face' : 'driving_license_back', JSON.stringify(res.data[0]));
 						}
 					} else { // 识别失败
-						util.hideLoading();
-						util.showToastNoIcon(res.message);
 						let obj = {};
 						obj[`pic${type}IdentifyResult`] = 1;
 						this.setData(obj);
+						util.showToastNoIcon('识别失败！');
 					}
-				} else { // 识别失败
+				} catch (e) {
 					let obj = {};
 					obj[`pic${type}IdentifyResult`] = 1;
 					this.setData(obj);
-					util.showToastNoIcon('识别失败！');
+					util.showToastNoIcon('文件服务器异常！');
 				}
 			}, () => {
 				// 再次调用 上传行驶证反面

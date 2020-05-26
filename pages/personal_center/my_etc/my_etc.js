@@ -235,18 +235,7 @@ Page({
 								}
 							});
 						} else {
-							util.alert({
-								title: ``,
-								content: `签约信息异常，请联系在线客服处理！`,
-								showCancel: true,
-								cancelText: '取消',
-								confirmText: '联系客服',
-								confirm: () => {
-									util.go(`/pages/web/web/web?type=online_customer_service`);
-								},
-								cancel: () => {
-								}
-							});
+							this.weChatSign(obj);
 						}
 					} else {
 						this.weChatSign(obj);
