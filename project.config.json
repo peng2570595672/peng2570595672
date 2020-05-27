@@ -94,6 +94,26 @@
 					"pathName": "CitiesServices/pages/CitiesServices/CitiesServices",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/personal_center/order_details/order_details",
+					"pathName": "pages/personal_center/order_details/order_details",
+					"query": "",
+					"scene": 1014
+				},
+				{
+					"id": -1,
+					"name": "pages/default/processing_progress/processing_progress",
+					"pathName": "pages/default/processing_progress/processing_progress",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "activities/pages/activity_icbc_fifty_theme/index",
+					"pathName": "activities/pages/activity_icbc_fifty_theme/index",
+					"scene": null
 				}
 			]
 		}
