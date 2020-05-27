@@ -1,9 +1,12 @@
 const util = require('../../../utils/util.js');
+// 数据统计
+let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
 		isContinentInsurance: false, // 是否是大地保险
 		showWeiBao: true,
+		isServiceNotificationEntry: false,// 是否是服务通知进入
 		isRequest: false,// 是否请求
 		details: ''
 	},
@@ -15,6 +18,11 @@ Page({
 			this.setData({details: options});
 		}
 		if (!app.globalData.userInfo.accessToken) {
+			// 公众号模板推送/服务通知进入
+			mta.Event.stat('service_notifications_order_details',{});
+			this.setData({
+				isServiceNotificationEntry: true
+			});
 			this.login();
 		} else {
 			this.getBillDetail();
@@ -154,6 +162,10 @@ Page({
 	},
 	// 微保活动
 	goMicroInsurance () {
+		mta.Event.stat('order_details_weibao',{});
+		if (this.data.isServiceNotificationEntry) {
+			mta.Event.stat('order_details_service_notifications_weibao',{});
+		}
 		util.go(`/pages/web/web/web?type=weiBao&entrance=bill`);
 	}
 });

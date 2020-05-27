@@ -3,6 +3,8 @@
  * @desc 办理进度
  */
 const util = require('../../../utils/util.js');
+// 数据统计
+let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -100,6 +102,7 @@ Page({
 	},
 	// 去微保
 	goMicroInsurance () {
+		mta.Event.stat('processing_progress_weibao',{});
 		if (this.data.info.orderType === 31) {
 			let date = new Date();
 			let mouth = date.getMonth() + 1;
