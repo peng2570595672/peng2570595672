@@ -355,7 +355,7 @@ Page({
 				});
 			},
 			fail: (e) => {
-				if (e.errMsg === 'chooseAddress:fail auth deny' || res.errMsg === 'chooseAddress:fail authorize no response') {
+				if (e.errMsg === 'chooseAddress:fail auth deny' || e.errMsg === 'chooseAddress:fail authorize no response') {
 					util.alert({
 						title: '提示',
 						content: '由于您拒绝了访问您的收货地址授权，导致无法正常获取收货地址信息，是否重新授权？',
