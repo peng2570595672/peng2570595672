@@ -150,7 +150,7 @@ Page({
 				this.setData({
 					orderInfo: res.data
 				});
-				if (res.data.base.promoterType === 12 || res.data.base.promoterType === 4 || res.data.base.promoterType === 14) {
+				if (res.data.base.promoterType === 12 || res.data.base.promoterType === 3 || res.data.base.promoterType === 4 || res.data.base.promoterType === 14) {
 					// 会员券进入办理  业务员推广进入  高速通行进入
 					app.globalData.isSalesmanPromotion = true;
 					this.setData({
@@ -446,35 +446,6 @@ Page({
 			params['bankName'] = this.data.bankCardIdentifyResult.ocrObject.cardName; // 银行名称 【dataType包含5】
 			params['bankAccountType'] = 1; // 账户类型 1-一类户 2-二类户 3-三类户 【dataType包含5】允许值: 1, 2, 3
 			params['bankCardType'] = this.data.bankCardIdentifyResult.ocrObject.cardType === '借记卡' ? 1 : 2; // 银行卡种 1-借记卡 2-贷记卡 【dataType包含5】允许值: 1, 2;
-		}
-		// 城市服务进入办理
-		if (app.globalData.isCitiesServices) {
-			params['promoterId'] = 1;// 推广者ID标识
-			params['promoterType'] = 6; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
-		}
-		// 微信九宫格进入办理
-		if (app.globalData.isWeChatSudoku) {
-			params['promoterId'] = app.globalData.otherPlatformsServiceProvidersId;// 推广者ID标识
-			params['promoterType'] = 9; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入  9 微信九宫格进入
-		}
-		//  第三方扫码办理
-		if (app.globalData.isThirdGeneralize) {
-			params['thirdGeneralizeNo'] = app.globalData.scanCodeToHandle.thirdGeneralizeNo;
-			params['shopId'] = app.globalData.miniProgramServiceProvidersId;
-			params['promoterId'] = app.globalData.scanCodeToHandle.promoterId;// 推广者ID标识
-			params['promoterType'] = app.globalData.scanCodeToHandle.promoterType; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
-		}
-		// 公众号带服务商引流进入办理
-		if (app.globalData.officialChannel) {
-			params['promoterId'] = app.globalData.otherPlatformsServiceProvidersId;// 推广者ID标识
-			params['promoterType'] = 2; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
-		}
-		if (app.globalData.otherPlatformsServiceProvidersId) {
-			// 面对面活动进入办理
-			if ((app.globalData.isFaceToFaceCCB || app.globalData.isFaceToFaceICBC || app.globalData.isFaceToFaceWeChat) && app.globalData.faceToFacePromotionId) {
-				params['promoterId'] = app.globalData.faceToFacePromotionId;// 推广者ID标识
-				params['promoterType'] = 3; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
-			}
 		}
 		if (app.globalData.salesmanMerchant) {
 			params['shopId'] = app.globalData.salesmanMerchant;
