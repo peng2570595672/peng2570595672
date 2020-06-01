@@ -275,15 +275,15 @@ Page({
 		this.setData({
 			currentIndex: index
 		});
-		if (!this.data.showKeyboard) {
-			this.setData({
-				showKeyboard: true
-			});
-			if (app.globalData.SDKVersion < '2.6.1') {
-				let keyboard = this.selectComponent('#keyboard');
-				keyboard.showMethod(this.data.showKeyboard);
-			}
+		// if (!this.data.showKeyboard) {
+		this.setData({
+			showKeyboard: true
+		});
+		if (app.globalData.SDKVersion < '2.6.1') {
+			let keyboard = this.selectComponent('#keyboard');
+			keyboard.showMethod(this.data.showKeyboard);
 		}
+		// }
 	},
 	// 点击车牌颜色选择车牌颜色
 	onClickCarNoColorHandle (e) {
