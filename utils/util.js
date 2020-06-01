@@ -699,6 +699,7 @@ function resetData() {
 	app.globalData.isFaceToFaceCCB = false;
 	app.globalData.isFaceToFaceICBC = false;
 	app.globalData.isFaceToFaceWeChat = false;
+	app.globalData.isToMicroInsurancePromote = false;
 	app.globalData.faceToFacePromotionId = undefined;
 }
 
