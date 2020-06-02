@@ -135,7 +135,7 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
-				app.globalData.ownerServiceArrearsList = res.data.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
+				app.globalData.ownerServiceArrearsList = res.data.filter(item => item.paySkipParams === undefined); // 筛选车主服务欠费
 				this.setData({
 					ownerServiceArrearsList: app.globalData.ownerServiceArrearsList
 				});
@@ -317,7 +317,7 @@ Page({
 		wx.navigateToMiniProgram({
 			appId: 'wx5e73c65404eee268',
 			path: 'pages/invest_list/invest_list',
-			extraData: this.data.ownerServiceArrearsList.paySkipParams,
+			extraData: this.data.ownerServiceArrearsList[0].paySkipParams,
 			success () {
 			},
 			fail () {
