@@ -28,6 +28,7 @@ Page({
 		orderList: [],
 		failBillMessage: '',
 		successBillMessage: '',
+		isGoOwnerService: true,
 		successBillList: [],
 		ownerServiceArrearsList: [],// 车主服务欠费
 		allMoney: 0, // 总额
@@ -75,7 +76,11 @@ Page({
 			if (JSON.stringify(app.globalData.myEtcList) === '{}') {
 				this.getStatus();
 			} else {
-				this.getMyETCList();
+				if (!this.data.isGoOwnerService) {
+					this.getStatus();
+				} else {
+					this.getMyETCList();
+				}
 			}
 		} else {
 			// 公众号进入需要登录
@@ -313,6 +318,9 @@ Page({
 	},
 	// 去补缴
 	openVehicleOwnerService () {
+		this.setData({
+			isGoOwnerService: false
+		});
 		// 跳转到车主服务
 		wx.navigateToMiniProgram({
 			appId: 'wx5e73c65404eee268',

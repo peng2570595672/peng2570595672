@@ -136,6 +136,13 @@
 					"pathName": "pages/default/processing_progress/processing_progress",
 					"query": "orderId=710126117226287104",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/personal_center/my_order/my_order",
+					"pathName": "pages/personal_center/my_order/my_order",
+					"query": "orderId=710126117226287104",
+					"scene": null
 				}
 			]
 		}
