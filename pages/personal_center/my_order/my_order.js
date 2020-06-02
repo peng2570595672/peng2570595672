@@ -135,7 +135,7 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
-				app.globalData.ownerServiceArrearsList = res.data.filter(item => item.paySkipParams === undefined); // 筛选车主服务欠费
+				app.globalData.ownerServiceArrearsList = res.data.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
 				this.setData({
 					ownerServiceArrearsList: app.globalData.ownerServiceArrearsList
 				});
