@@ -219,7 +219,7 @@ function reAutoLogin(path, params, fail, success, token = '', complete, method) 
 				platformId: app.globalData.platformId,
 				code: r.code
 			}, () => {
-				util.showToastNoIcon('网络错误，请关闭小程序重新进入！');
+				showToastNoIcon('网络错误，请关闭小程序重新进入！');
 			}, (res) => {
 				app.globalData.userInfo = res.data;
 				app.globalData.openId = res.data.openId;
