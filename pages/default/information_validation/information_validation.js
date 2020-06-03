@@ -595,7 +595,7 @@ Page({
 			} else {
 				util.hideLoading();
 				this.setData({
-					available: this.validateAvailable()
+					available: true
 				});
 			}
 		});
@@ -620,7 +620,7 @@ Page({
 			}
 		}, () => {
 			this.setData({
-				available: this.validateAvailable()
+				available: true
 			});
 			util.hideLoading();
 		});
