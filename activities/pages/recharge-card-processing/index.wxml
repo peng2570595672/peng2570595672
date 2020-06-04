@@ -1,0 +1,3 @@
+<view class="recharge-container">
+    <view class="top-title"> {{ topTitle }}</view>
+</view>

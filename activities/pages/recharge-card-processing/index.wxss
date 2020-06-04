@@ -1,0 +1,16 @@
+
+page {
+  height: 100%;
+  background: linear-gradient(142deg, #e95331 30%, #f2a449 100%);
+  box-sizing: border-box;
+}
+page .top-title {
+  text-align: center;
+  width: 654rpx;
+  height: 104rpx;
+  font-size: 50rpx;
+  font-family: HYYaKuHeiW;
+  color: #fff;
+  line-height: 104rpx;
+  text-shadow: 0rpx 4rpx 8rpx rgba(176,33,0,0.36);
+}
