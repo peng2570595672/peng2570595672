@@ -57,7 +57,7 @@ Page({
 			drivingLicenseBack = JSON.parse(drivingLicenseBack);
 			// 车头照
 			let carHead45 = wx.getStorageSync('car_head_45');
-			let oldCarHead45 = undefined;
+			let oldCarHead45 = wx.getStorageSync('car_head_45');
 			if (carHead45) {
 				oldCarHead45 = JSON.parse(wx.getStorageSync('car_head_45'));
 				carHead45 = JSON.parse(carHead45);
@@ -595,7 +595,7 @@ Page({
 			} else {
 				util.hideLoading();
 				this.setData({
-					available: this.validateAvailable()
+					available: true
 				});
 			}
 		});
@@ -620,7 +620,7 @@ Page({
 			}
 		}, () => {
 			this.setData({
-				available: this.validateAvailable()
+				available: true
 			});
 			util.hideLoading();
 		});

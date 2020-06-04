@@ -28,12 +28,12 @@
 			<view class="content-des" wx:if="{{accountVerification === 2}}">正在验证中....<text class="refresh iconfont" catchtap="refreshCheck">刷新结果</text></view>
 			<view class="content-des" wx:else>{{accountVerification === 0 ? '审核通过' : '验证成功'}}</view>
 		</view>
-		<view class="item  {{info.accountVerify === -1 || info.accountVerify === 2  ? 'current' : ''}} {{info.auditStatus !== 0 ? 'finished' : ''}}">
+		<view class="item {{info.auditStatus !== 0 ? 'finished' : ''}}">
 			<view class="content-title">资料审核</view>
 			<view class="content-des iconfont {{info.auditStatus === 1 || info.auditStatus === 9 ? 'error' : ''}}" wx:if="{{info.auditStatus === 1 || info.auditStatus === 9}}">审核不通过<text class="edit iconfont" wx:if="{{info.auditStatus === 1}}">修改资料</text></view>
 			<view class="content-des" wx:else>{{info.auditStatus === 0 ? '正在排队审核中，预计1-3个工作日内完成' : '审核通过'}}</view>
 		</view>
-		<view class="item  {{info.auditStatus !== 0 ? 'current' : ''}} {{info.logisticsId !== 0 ? 'finished' : ''}}" wx:if="{{info.orderType === 11}}">
+		<view class="item  {{info.logisticsId !== 0 ? 'finished' : ''}}" wx:if="{{info.orderType === 11}}">
 			<view class="content-title">快递配送</view>
 			<view class="content-des" wx:if="{{info.logisticsId === 0}}">发货后可查看实时物流信息</view>
 			<view class="content-des" wx:if="{{info.logisticsId !== 0}}">已发货
@@ -44,7 +44,7 @@
 				<text class="copy" catchtap="copyLogisticsNo" data-no="{{info.logisticsNo}}">复制</text>
 			</view>
 		</view>
-		<view class="item  {{(info.obuStatus !== 0 && info.obuStatus !== 5) ? 'finished' : ''}} {{info.logisticsId !== 0 ? 'current' : ''}} last">
+		<view class="item {{(info.obuStatus !== 0 && info.obuStatus !== 5) ? 'finished' : ''}} last">
 			<view class="content-title">安装激活</view>
 			<view class="content-des">收货后可根据操作手册自主安装激活使用，请在使用过程中保证扣款渠道余额充足，以免产生扣费失败情况导致账户被拉黑</view>
 		</view>

@@ -18,7 +18,8 @@
 			<!--上部分结束-->
 			<!--下部分开始-->
 			<view class="bottom">
-				<view>扣款方式：{{item.productName ? item.productName : ''}}</view>
+				<!--应产品(李小芳)要求,微信套餐,隐藏套餐名   productProcess === 1  微信支付  针对部分套餐名称错误的做处理-->
+				<view><text>扣款方式：{{item.productName ? (item.productProcess === 1 ? '微信支付' : item.productName) : ''}}</text></view>
 				<view class="iconfont" wx:if="{{item.selfStatus === 1 || item.selfStatus === 3 && item.contractStatus !== 2}}" data-index="{{index}}"  catchtap="onClickContinueHandle">继续办理</view>
 				<view class="iconfont" wx:elif="{{item.selfStatus === 2 || item.contractStatus === 2}}" data-index="{{index}}" catchtap="onClickBackToSign">{{item.contractStatus === 2 ? '恢复签约' : '立即签约'}}</view>
 				<view class="iconfont" wx:elif="{{(item.selfStatus === 4 || item.selfStatus === 7) && item.contractStatus !== 2}}" data-index="{{index}}"  catchtap="onClickViewProcessingProgressHandle">查看进度</view>

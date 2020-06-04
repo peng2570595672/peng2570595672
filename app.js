@@ -39,6 +39,7 @@ App({
 		isFaceToFaceCCB: false, // 是否是面对面建行活动
 		isFaceToFaceICBC: false, // 是否是面对面工行活动
 		isFaceToFaceWeChat: false, // 是否是面对面微信活动
+		isToMicroInsurancePromote: false, // 是否是微保推广
 		faceToFacePromotionId: undefined, // 面对面推广ID
 		quality: 80,
 		signAContract: 3,// -1正常签约  1  解约重签

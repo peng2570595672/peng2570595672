@@ -156,6 +156,11 @@ Page({
 				params['promoterId'] = app.globalData.faceToFacePromotionId;// 推广者ID标识
 				params['promoterType'] = 3; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
 			}
+			// 微保小程序推广进入办理
+			if (app.globalData.isToMicroInsurancePromote) {
+				params['promoterId'] = app.globalData.otherPlatformsServiceProvidersId;// 推广者ID标识
+				params['promoterType'] = 17; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
+			}
 		}
 		// 公众号带服务商引流进入办理
 		if (app.globalData.officialChannel) {

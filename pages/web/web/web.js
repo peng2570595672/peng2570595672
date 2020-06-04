@@ -6,7 +6,7 @@ Page({
 	},
 	onLoad (options) {
 		let url = '';
-		console.log(options)
+		console.log(options);
 		if (options.type === 'violation_enquiry') {
 			// url = `https://api.wesure.cn/app/h5-app-wedrive/index.html?checkIllegal=true&wtagid=116.75.3`;
 			url = `https://api.wesure.cn/app/h5-app-wedrive/index.html?checkIllegal=true&wtagid=116.115.10`;

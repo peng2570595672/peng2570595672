@@ -26,7 +26,8 @@
 	<view class="des" wx:if="{{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 8 && orderInfo.contractStatus !== 2}}">{{orderInfo.auditRemark}}</view>
 	<view class="item {{orderInfo.contractVersion === 'v3' ? 'iconfont' : ''}}">
 		<view>扣费方式</view>
-		<view catchtap="onClickBank">{{orderInfo.productName}}</view>
+		<!--应产品(李小芳)要求,微信套餐,隐藏套餐名   productProcess === 1  微信支付  针对部分套餐名称错误的做处理-->
+		<view catchtap="onClickBank">{{orderInfo.productName ? (orderInfo.productProcess === 1 ? '微信支付' : orderInfo.productName) : ''}}</view>
 	</view>
 	<view class="split"></view>
 	<view class="item first" wx:if="{{orderInfo.shopUserTrueName}}">

@@ -150,7 +150,7 @@ Page({
 				this.setData({
 					orderInfo: res.data
 				});
-				if (res.data.base.promoterType === 12 || res.data.base.promoterType === 3 || res.data.base.promoterType === 4 || res.data.base.promoterType === 14) {
+				if (res.data.base.promoterType === 12 || res.data.base.promoterType === 3 || res.data.base.promoterType === 4 || res.data.base.promoterType === 14 || res.data.base.promoterType === 17) {
 					// 会员券进入办理  业务员推广进入  高速通行进入
 					app.globalData.isSalesmanPromotion = true;
 					this.setData({
