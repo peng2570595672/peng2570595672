@@ -1,3 +1,79 @@
 <view class="recharge-container">
-    <view class="top-title"> {{ topTitle }}</view>
+    <view class="top">
+        <view class="top-title"> {{ topTitle }}</view>
+        <view class="top-tips"> {{ topTips }}</view>
+    </view>
+    <view class="body">
+        <view class="coupon-img">
+            <image src="https://file.cyzl.com/g001/M05/1C/4B/oYYBAF7ZoLeATgXnAAIm9Moaui8111.png"></image></view>
+        <view class="body-coupon">
+            <!--image src="https://file.cyzl.com/g001/M05/1C/58/oYYBAF7ZqP2ACV61AAQygVRvr-8774.png">
+            </image-->
+            <view class="coupon">
+                <view class="icon">￥</view>
+                <view class="amount">{{couponAmount}}</view>
+                <view class="line"></view>
+                <view class="coupon-info">
+                    <view class="item-name">
+                        {{couponName}}
+                    </view>
+                    <view class="item-restrictions">
+                        {{couponRestrictions}}
+                    </view>
+                    <view class="item-expiration-date">
+                        {{couponExpirationDate}}
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="body-directions" catchtap="directionsClick">
+            {{directions}}
+            <image src="https://file.cyzl.com/g001/M05/1C/6F/oYYBAF7ZtieAKWU0AAAB2vhU7fw269.png" mode="widthFix" >
+            </image>
+        </view>
+
+        <!--活动细则弹窗-->
+        <view class="alert-mask animated {{alertWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{alertMask}}">
+            <view class="wrapper animated {{alertWrapper ? 'zoomInOther' : 'zoomOutOther'}}">
+                <view class="close iconfont" catchtap="rulesWinHide"></view>
+                <view class="head1">券使用说明</view>
+                <view class="cont1">
+                    <view class="label">1、</view>
+                    <view class="char">该通行券仅适用于高速通行费抵扣；</view>
+                </view>
+                <view class="cont1">
+                    <view class="label">2、</view>
+                    <view class="char">该券不限制使用次数，可无限次使用 至金额用完为止；</view>
+                </view>
+                <view class="cont1">
+                    <view class="label">3、</view>
+                    <view class="char">该券不能与其他券叠加使用；</view>
+                </view>
+                <view class="cont1">
+                    <view class="label">4、</view>
+                    <view class="char">仅绑定车辆可使用该券； </view>
+                </view>
+                <view class="cont1">
+                    <view class="label">5、</view>
+                    <view class="char">该券有效期至{{couponExpirationDate}}；</view>
+                </view>
+            </view>
+        </view>
+        <!--绑定手机号弹窗-->
+        <view class="button-buy">
+            <view class="button-buy-plates">
+                {{promotePlates}}
+            </view>
+            <view class="button-plates-border"></view>
+            <view class="button-promote-name">
+                推广业务员：{{promoteName}}
+            </view>
+            <view class="button-btn-buy" catchtap="butClick">
+            </view>
+        </view>
+        <view class="footer-title">
+            {{footerTitle}}
+        </view>
+        <view class="footer-bottom"><text catchtap="goHome">返回首页</text></view>
+    </view>
 </view>

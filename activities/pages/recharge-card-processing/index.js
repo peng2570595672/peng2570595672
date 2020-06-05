@@ -2,18 +2,34 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
     data: {
+        alertMask: false, // 控制活动细则弹窗
+        alertWrapper: false, // 控制活动细则弹窗
         loginInfo: undefined,
         topTitle: '', // 充值40元得60元
+        topTips: '', // 高速通行券
+        directions: '',
         promoteName: '', // 业务员姓名
-        promotePlates: '' // 推广车牌
+        promotePlates: '', // 推广车牌
+        couponAmount: 60,
+        couponName: '',
+        couponRestrictions: '',
+        couponExpirationDate: '',
+        footerTitle: ''
     },
     onLoad () {
         util.resetData();// 重置数据
         wx.hideHomeButton();
         this.setData({
             topTitle: '充值40元得60元',
+            topTips: '高速通行券',
             promoteName: '小男孩',
-            promotePlates: '贵Z83HYN'
+            couponAmount: 60,
+            couponName: '通行费抵扣券',
+            couponRestrictions: '满0.01元可用',
+            couponExpirationDate: '有效期至2020年12月31日',
+            directions: '使用说明',
+            promotePlates: '贵Z83HYN',
+            footerTitle: '*仅该车高速通行可使用该券'
         });
         this.login();
     },
@@ -95,6 +111,32 @@ Page({
                 }
             });
         }
+    },
+    butClick (e) {
+        console.log(e);
+    },
+    goHome () {
+        wx.reLaunch({
+            url: '/pages/Home/Home'
+        });
+    },
+    // 关闭验规则弹窗
+    rulesWinHide () {
+        this.setData({
+            alertWrapper: false
+        });
+        setTimeout(() => {
+            this.setData({
+                alertMask: false
+            });
+        }, 400);
+    },
+    directionsClick (e) {
+        console.log(e);
+        this.setData({
+            alertMask: true,
+            alertWrapper: true
+        });
     },
     freeProcessing (e) {
         util.go('/pages/default/receiving_address/receiving_address');
