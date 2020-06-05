@@ -304,6 +304,7 @@ page .recharge-container .alert-mask .wrapper .head1 {
   font-size: 36rpx;
   text-align: center;
   padding: 30rpx 0 40rpx 0;
+  color: #fff;
 }
 page .recharge-container .alert-mask .wrapper .cont1 {
   font-size: 26rpx;
@@ -316,8 +317,8 @@ page .recharge-container .alert-mask .wrapper .cont1 {
   flex-wrap: nowrap;
   justify-content: flex-start;
   background: #fff;
-  border-left: #e95331 solid 10rpx;
-  border-right: #e95331 solid 10rpx;
+  border-left: #e95331 solid 20rpx;
+  border-right: #e95331 solid 20rpx;
 }
 page .recharge-container .alert-mask .wrapper .cont1 .table {
   margin: 20rpx 0 0 0;
