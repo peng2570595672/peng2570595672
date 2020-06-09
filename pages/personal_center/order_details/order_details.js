@@ -124,7 +124,7 @@ Page({
 		let params = {
 			billIdList: [this.data.details.id],// 账单id集合，采用json数组格式[xx,xx]
 			vehPlates: this.data.details.vehPlate,// 车牌号
-			payAmount: this.data.details.etcMoney// 补缴金额
+			payAmount: this.data.details.serviceMoney ? this.data.details.etcMoney + this.data.details.serviceMoney : this.data.details.etcMoney // 补缴金额
 		};
 		util.getDataFromServer('consumer/order/bill-pay', params, () => {
 			util.showToastNoIcon('获取支付参数失败！');

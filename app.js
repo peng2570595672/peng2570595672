@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-const IS_TEST = true;
+const IS_TEST = false;
 const util = require('./utils/util.js');
 // 数据统计
 let mta = require('./libs/mta_analysis.js');
@@ -41,6 +41,7 @@ App({
 		isFaceToFaceWeChat: false, // 是否是面对面微信活动
 		isToMicroInsurancePromote: false, // 是否是微保推广
 		faceToFacePromotionId: undefined, // 面对面推广ID
+		rechargeCode: undefined, // 业务员办理激活扫码进入充值
 		quality: 80,
 		signAContract: 3,// -1正常签约  1  解约重签
 		userInfo: {},// 用户信息
@@ -122,7 +123,11 @@ App({
 						sceneKey = i;
 						sceneValue = obj[i];
 					}
-					this.getPromoterInfo(sceneKey,sceneValue);
+					if (sceneKey === 'BSCS') {
+						this.globalData.rechargeCode = sceneValue;
+					} else {
+						this.getPromoterInfo(sceneKey,sceneValue);
+					}
 				}
 			} else {
 			}

@@ -17,6 +17,22 @@ Page({
 	onShow () {
 		if (app.globalData.userInfo.accessToken) {
 			this.getMemberBenefits();
+			let that = this;
+			wx.getSetting({
+				success (res) {
+					if (res.authSetting['scope.userInfo']) {
+						// 已经授权，可以直接调用 getUserInfo 获取头像昵称
+						wx.getUserInfo({
+							success: function (res) {
+								that.setData({
+									userInfo: res.userInfo
+								});
+								that.submitUserInfo(res);
+							}
+						});
+					}
+				}
+			});
 		} else {
 			// 公众号进入需要登录
 			this.login();
@@ -25,22 +41,6 @@ Page({
 			mobilePhoneSystem: app.globalData.mobilePhoneSystem,
 			mobilePhone: app.globalData.mobilePhone,
 			screenHeight: wx.getSystemInfoSync().windowHeight
-		});
-		let that = this;
-		wx.getSetting({
-			success (res) {
-				if (res.authSetting['scope.userInfo']) {
-					// 已经授权，可以直接调用 getUserInfo 获取头像昵称
-					wx.getUserInfo({
-						success: function (res) {
-							that.setData({
-								userInfo: res.userInfo
-							});
-							that.submitUserInfo(res);
-						}
-					});
-				}
-			}
 		});
 	},
 	// 自动登录

@@ -80,6 +80,9 @@ Page({
 				let total = 0;
 				res.data.map(item => {
 					total += item.etcMoney;
+					if (item.serviceMoney) {
+						total += item.serviceMoney;
+					}
 				});
 				let order = {};
 				order.vehPlates = vehPlates;

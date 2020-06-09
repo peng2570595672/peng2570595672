@@ -132,8 +132,8 @@
 				},
 				{
 					"id": 10,
-					"name": "pages/default/processing_progress/processing_progress",
-					"pathName": "pages/default/processing_progress/processing_progress",
+					"name": "pages/personal_center/index/index",
+					"pathName": "pages/personal_center/index/index",
 					"query": "orderId=710126117226287104",
 					"scene": null
 				},

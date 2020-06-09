@@ -70,6 +70,13 @@
     transform: translateY(0);
   }
 }
+page {
+  display: block;
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  background: linear-gradient(360deg, #e95331 0%, #f2a549 100%);
+}
 page .recharge-container {
   display: block;
   position: relative;
@@ -97,6 +104,30 @@ page .recharge-container .top .top-tips {
   color: #fff;
   line-height: 72rpx;
   letter-spacing: 4rpx;
+}
+page .recharge-container .buy-list {
+  position: absolute;
+  top: 284rpx;
+}
+page .recharge-container .buy-list > view {
+  width: 188rpx;
+  height: 32rpx;
+  background: rgba(0,0,0,0.2);
+  border-radius: 0rpx 28rpx 28rpx 0rpx;
+  font-size: 20rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #fff;
+  line-height: 32rpx;
+  text-indent: 8rpx;
+}
+page .recharge-container .buy-list > view:nth-child(2) {
+  width: 224rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  border-radius: 0rpx 35rpx 35rpx 0rpx;
+  font-size: 24rpx;
+  margin: 14rpx 0;
 }
 page .recharge-container .body .coupon-img {
   display: flex;
@@ -215,8 +246,8 @@ page .recharge-container .body .button-buy .button-buy-plates {
 page .recharge-container .body .button-buy .button-buy-plates::before {
   margin-right: 10rpx;
   content: '';
-  width: 12rpx;
-  height: 12rpx;
+  width: 6rpx;
+  height: 6rpx;
   border: 10rpx solid #ff563c;
   border-radius: 50%;
 }
@@ -257,6 +288,7 @@ page .recharge-container .body .footer-title {
   font-size: 24rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
+  letter-spacing: 4rpx;
   color: #fff;
   line-height: 34rpx;
 }
@@ -308,7 +340,6 @@ page .recharge-container .alert-mask .wrapper .close {
 page .recharge-container .alert-mask .wrapper .close:before {
   display: block;
   content: '\e63d';
-  font-size: 30rpx;
   color: #fff;
   width: 56rpx;
   height: 56rpx;
@@ -319,10 +350,29 @@ page .recharge-container .alert-mask .wrapper .close:before {
   margin: 0 auto;
 }
 page .recharge-container .alert-mask .wrapper .head1 {
+  position: relative;
   font-size: 36rpx;
   text-align: center;
-  padding: 30rpx 0 40rpx 0;
+  padding: 44rpx 0 24rpx 0;
   color: #fff;
+}
+page .recharge-container .alert-mask .wrapper .head1 .square text:first-child {
+  position: absolute;
+  left: 27%;
+  top: 55%;
+  width: 20rpx;
+  height: 20rpx;
+  border: 4rpx solid #ffaf9a;
+  transform: rotateZ(60deg);
+}
+page .recharge-container .alert-mask .wrapper .head1 .square text:last-child {
+  position: absolute;
+  left: 38%;
+  top: 11%;
+  width: 14rpx;
+  height: 14rpx;
+  border: 4rpx solid #ffec9a;
+  transform: rotateZ(10deg);
 }
 page .recharge-container .alert-mask .wrapper .cont1 {
   font-size: 26rpx;
@@ -392,4 +442,62 @@ page .recharge-container .alert-mask .wrapper .first {
 }
 page .recharge-container .alert-mask .wrapper .last {
   padding-bottom: 30rpx;
+}
+page .trading-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 8;
+}
+page .trading-mask .trading-wrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 80%;
+  min-height: 200rpx;
+  margin: 0 auto;
+  z-index: 9;
+}
+page .trading-mask .trading-box {
+  position: absolute;
+  height: 290rpx;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 10;
+  font-size: 32rpx;
+  color: #33333d;
+  background: #fff;
+  border-radius: 20rpx;
+}
+page .trading-mask .trading-box>view {
+  text-align: center;
+  padding: 0 30rpx;
+}
+page .trading-mask .trading-box>view:first-child {
+  font-size: 40rpx;
+  padding: 40rpx 0 20rpx;
+}
+page .trading-mask .trading-box>view.trading-button {
+  text-align: center;
+  margin-top: 40rpx;
+}
+page .trading-mask .trading-box>view.trading-button text {
+  display: inline-block;
+  width: 50%;
+  height: 76rpx;
+  line-height: 76rpx;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(169deg, #f4b63f 0%, #df5d28 100%);
+  border-radius: 38rpx;
+}
+page .trading-mask .trading-box>view.trading-button text.lucency {
+  opacity: 0.3;
 }

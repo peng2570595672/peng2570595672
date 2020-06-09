@@ -7,7 +7,7 @@
 			<view class="order-list-content" catchtap="goDetails" data-model="{{item}}"  wx:for="{{item.list}}" wx:key="index">
 				<view class="order-list-top">
 					<view class="license-plate">{{item.vehPlate}}<text>[高速扣费]</text></view>
-					<view class="fail-money">{{item.etcMoney/100}}</view>
+					<view class="fail-money">{{item.serviceMoney ? (item.etcMoney + item.serviceMoney)/100 : item.etcMoney/100}}</view>
 				</view>
 				<view class="site">
 					{{item.inStationName}}<text class="iconfont"></text>{{item.stationName}}
