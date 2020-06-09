@@ -27,7 +27,6 @@ Page({
             couponName: '通行费抵扣券',
             couponRestrictions: '满0.01元可用',
             couponExpirationDate: '有效期至2020年12月31日',
-            directions: '使用说明',
             promotePlates: '贵Z83HYN',
             footerTitle: '*仅该车高速通行可使用该券'
         });

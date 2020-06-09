@@ -7,8 +7,6 @@
         <view class="coupon-img">
             <image src="https://file.cyzl.com/g001/M05/1C/4B/oYYBAF7ZoLeATgXnAAIm9Moaui8111.png"></image></view>
         <view class="body-coupon">
-            <!--image src="https://file.cyzl.com/g001/M05/1C/58/oYYBAF7ZqP2ACV61AAQygVRvr-8774.png">
-            </image-->
             <view class="coupon">
                 <view class="icon">￥</view>
                 <view class="amount">{{couponAmount}}</view>
@@ -26,24 +24,19 @@
                 </view>
             </view>
         </view>
-        <view class="body-directions" catchtap="directionsClick">
-            {{directions}}
-            <image src="https://file.cyzl.com/g001/M05/1C/6F/oYYBAF7ZtieAKWU0AAAB2vhU7fw269.png" mode="widthFix" >
-            </image>
-        </view>
+        <view class="body-directions iconfont" catchtap="directionsClick">使用说明</view>
 
         <!--活动细则弹窗-->
         <view class="alert-mask animated {{alertWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{alertMask}}">
             <view class="wrapper animated {{alertWrapper ? 'zoomInOther' : 'zoomOutOther'}}">
-                <view class="close iconfont" catchtap="rulesWinHide"></view>
                 <view class="head1">券使用说明</view>
-                <view class="cont1">
+                <view class="cont1 first">
                     <view class="label">1、</view>
                     <view class="char">该通行券仅适用于高速通行费抵扣；</view>
                 </view>
-                <view class="cont1">
+	            <view class="cont1">
                     <view class="label">2、</view>
-                    <view class="char">该券不限制使用次数，可无限次使用 至金额用完为止；</view>
+                    <view class="char">该券不限制使用次数，可无限次使用至金额用完为止；</view>
                 </view>
                 <view class="cont1">
                     <view class="label">3、</view>
@@ -53,10 +46,11 @@
                     <view class="label">4、</view>
                     <view class="char">仅绑定车辆可使用该券； </view>
                 </view>
-                <view class="cont1">
+                <view class="cont1 last">
                     <view class="label">5、</view>
-                    <view class="char">该券有效期至{{couponExpirationDate}}；</view>
+                    <view class="char">该券有效期至2020年12月31日；</view>
                 </view>
+	            <view class="close iconfont" catchtap="rulesWinHide"></view>
             </view>
         </view>
         <!--绑定手机号弹窗-->
@@ -68,8 +62,7 @@
             <view class="button-promote-name">
                 推广业务员：{{promoteName}}
             </view>
-            <view class="button-btn-buy" catchtap="butClick">
-            </view>
+            <view class="button-btn-buy" catchtap="butClick">立即购买</view>
         </view>
         <view class="footer-title">
             {{footerTitle}}

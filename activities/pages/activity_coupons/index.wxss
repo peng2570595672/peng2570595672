@@ -1,0 +1,300 @@
+@font-face {
+  font-family: 'iconfont'; /* project id 1514406 */
+  src: url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot");
+  src: url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot?#iefix") format('embedded-opentype'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff2") format('woff2'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff") format('woff'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.ttf") format('truetype'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.svg#iconfont") format('svg');
+}
+.page {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background-color: #f8393b;
+}
+.page .banner-container {
+  position: relative;
+  width: 100vw;
+  padding-top: 68rpx;
+}
+.page .banner-container .top-div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 68rpx;
+  width: 100vw;
+  background-color: #ffab66;
+}
+.page .banner-container .banner-container {
+  width: 100vw;
+  height: 848rpx;
+  background-image: url("https://file.cyzl.com/g001/M05/1E/CF/oYYBAF7diKGALTmuAB7mdKz91Kk894.png");
+  background-size: 100% 100%;
+  background-color: #ffab66;
+}
+.page .banner-container .title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100vw;
+  top: 302rpx;
+  left: 0;
+}
+.page .banner-container .title-container .char {
+  padding: 0 20rpx;
+  font-size: 36rpx;
+  color: #fff;
+}
+.page .banner-container .title-container .line-dot-left {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.page .banner-container .title-container .line-dot-left .dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.page .banner-container .title-container .line-dot-left .line {
+  margin-right: 10rpx;
+  width: 200rpx;
+  height: 2rpx;
+  background: linear-gradient(-90deg, #fff 0%, rgba(255,255,255,0) 100%);
+}
+.page .banner-container .title-container .line-dot-right {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.page .banner-container .title-container .line-dot-right .line {
+  width: 200rpx;
+  height: 2rpx;
+  background: linear-gradient(90deg, #fff 0%, rgba(255,255,255,0) 100%);
+}
+.page .banner-container .title-container .line-dot-right .dot {
+  margin-right: 10rpx;
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.page .banner-container .btn-container {
+  position: absolute;
+  left: 0;
+  top: 710rpx;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.page .banner-container .btn-container .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 550rpx;
+  font-size: 36rpx;
+  color: #fff;
+  height: 90rpx;
+  background: linear-gradient(180deg, #ffd748 0%, #f86b28 100%);
+  border-radius: 45rpx;
+}
+.page .banner-container .btn-container .btn.gray-btn {
+  color: rgba(255,255,255,0.7);
+  background: none;
+  background-color: rgba(204,204,204,0.8);
+}
+.page .wen-an-container {
+  position: relative;
+  top: -60rpx;
+  width: 90%;
+  background-color: #f8393b;
+  margin: 0 auto;
+}
+.page .wen-an-container .item {
+  clear: both;
+  width: 696rpx;
+  padding: 45rpx 43rpx 30rpx 43rpx;
+  margin-bottom: 20rpx;
+  background-color: rgba(255,255,255,0.15);
+  border-radius: 10rpx;
+  box-sizing: border-box;
+}
+.page .wen-an-container .item .white-title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  left: 0;
+}
+.page .wen-an-container .item .white-title-container .char {
+  position: relative;
+  top: -2rpx;
+  padding: 0 15rpx;
+  font-size: 32rpx;
+  color: #fff;
+}
+.page .wen-an-container .item .white-title-container .dot-left {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.page .wen-an-container .item .white-title-container .dot-left .dot-item {
+  display: flex;
+  flex-direction: column;
+  padding-right: 15rpx;
+}
+.page .wen-an-container .item .white-title-container .dot-left .dot-item .dot {
+  height: 10rpx;
+  width: 10rpx;
+  border-radius: 50%;
+}
+.page .wen-an-container .item .white-title-container .dot-left .dot-item .dot:nth-child(1) {
+  margin-bottom: 5rpx;
+}
+.page .wen-an-container .item .white-title-container .dot-left .dot-item:nth-child(1) .dot {
+  background-color: rgba(255,255,255,0.2);
+}
+.page .wen-an-container .item .white-title-container .dot-left .dot-item:nth-child(2) .dot {
+  background-color: rgba(255,255,255,0.4);
+}
+.page .wen-an-container .item .white-title-container .dot-left .dot-item:nth-child(3) .dot {
+  background-color: rgba(255,255,255,0.8);
+}
+.page .wen-an-container .item .white-title-container .dot-right {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.page .wen-an-container .item .white-title-container .dot-right .dot-item {
+  display: flex;
+  flex-direction: column;
+  padding-right: 15rpx;
+}
+.page .wen-an-container .item .white-title-container .dot-right .dot-item .dot {
+  height: 10rpx;
+  width: 10rpx;
+  border-radius: 50%;
+}
+.page .wen-an-container .item .white-title-container .dot-right .dot-item .dot:nth-child(1) {
+  margin-bottom: 5rpx;
+}
+.page .wen-an-container .item .white-title-container .dot-right .dot-item:nth-child(1) .dot {
+  background-color: rgba(255,255,255,0.8);
+}
+.page .wen-an-container .item .white-title-container .dot-right .dot-item:nth-child(2) .dot {
+  background-color: rgba(255,255,255,0.4);
+}
+.page .wen-an-container .item .white-title-container .dot-right .dot-item:nth-child(3) .dot {
+  background-color: rgba(255,255,255,0.2);
+}
+.page .wen-an-container .item .char {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: rgba(255,255,255,0.6);
+  padding-top: 23rpx;
+  text-align: justify;
+}
+.alert-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 3;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.alert-mask .wrapper {
+  position: absolute;
+  width: 624rpx;
+  height: 668rpx;
+  text-align: center;
+  background-image: url("https://file.cyzl.com/g001/M05/1E/FE/oYYBAF7dqwmAarBJAALIBDUZTDQ944.png");
+  background-size: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.alert-mask .wrapper .success {
+  text-align: center;
+  padding-top: 60rpx;
+}
+.alert-mask .wrapper .success image {
+  width: 78rpx;
+}
+.alert-mask .wrapper .success-prompt {
+  text-align: center;
+  padding-top: 16rpx;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #666;
+  line-height: 40rpx;
+}
+.alert-mask .wrapper .coupon-details {
+  width: 482rpx;
+  height: 100rpx;
+  padding: 30rpx 0;
+  background: #fffbec;
+  border-radius: 10rpx;
+  border: 1rpx solid rgba(253,189,66,0.5);
+  margin: 35rpx auto 0;
+}
+.alert-mask .wrapper .coupon-details > view {
+  display: inline-block;
+  height: 100rpx;
+}
+.alert-mask .wrapper .coupon-details > view:first-child {
+  width: 129rpx;
+  color: #f00;
+  font-size: 70rpx;
+  border-right: 2rpx solid #f7a1a0;
+}
+.alert-mask .wrapper .coupon-details > view:first-child sup {
+  display: inline-block;
+  padding-top: 14rpx;
+  font-size: 34rpx;
+  vertical-align: top;
+}
+.alert-mask .wrapper .coupon-details > view:last-child {
+  padding-left: 20rpx;
+  color: rgba(239,71,86,0.6);
+  font-size: 24rpx;
+  line-height: 33rpx;
+  vertical-align: middle;
+}
+.alert-mask .wrapper .coupon-details > view:last-child > view:first-child {
+  font-size: 36rpx;
+  color: #ef4756;
+  font-weight: 500;
+}
+.alert-mask .wrapper .coupon-details > view:last-child > view:last-child {
+  padding-top: 10rpx;
+}
+.alert-mask .wrapper .close {
+  width: 100%;
+  text-align: center;
+  margin-top: 131rpx;
+}
+.alert-mask .wrapper .close button {
+  width: 400rpx;
+  height: 90rpx;
+  background: linear-gradient(180deg, #ffd748 0%, #f84e28 100%);
+  border-radius: 45rpx;
+  font-size: 36rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #fff;
+  line-height: 90rpx;
+  text-shadow: 0rpx 2rpx 4rpx #aa2400;
+}
+.aaaa {
+  width: 80%;
+  height: 200rpx;
+  word-break: break-all;
+}

@@ -110,9 +110,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "activities/pages/activity_icbc_fifty_theme/index",
-					"pathName": "activities/pages/activity_icbc_fifty_theme/index",
+					"id": 7,
+					"name": "充值",
+					"pathName": "pages/personal_center/recharge-card-processing/recharge-card-processing",
 					"query": "",
 					"scene": null
 				},
@@ -138,10 +138,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/personal_center/my_order/my_order",
-					"pathName": "pages/personal_center/my_order/my_order",
-					"query": "orderId=710126117226287104",
+					"id": 11,
+					"name": "activities/pages/activity_coupons/index",
+					"pathName": "activities/pages/activity_coupons/index",
+					"query": "configId=717789127443357696&appid=717789127443357696&appaaid=717789127443357696&ap222paaid=717789127443357696&ap224442paaid=717789127443357696",
 					"scene": null
 				}
 			]

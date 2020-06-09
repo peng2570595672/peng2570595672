@@ -41,6 +41,7 @@
 				"complaint_details/complaint_details",
 				"help_center/help_center",
 				"owner_service/owner_service",
+				"recharge-card-processing/recharge-card-processing",
 				"search_help/search_help",
 				"service_card_voucher/service_card_voucher",
 				"service_card_voucher_details/service_card_voucher_details"
@@ -79,12 +80,12 @@
 				"pages/activity_icbc_forty_five_theme/index",
 				"pages/activity_micro_insurance/index",
 				"pages/activity_icbc_fifty_theme/index",
+				"pages/activity_coupons/index",
 				"pages/activity_high_speed_traffic/index",
 				"pages/activity_icbc_twenty_eight/index",
 				"pages/ActivityForCCBForSixty/index",
 				"pages/ActivityForICBCForSixty/index",
-				"pages/ActivityForLTForSixty/index",
-				"pages/recharge-card-processing/index"
+				"pages/ActivityForLTForSixty/index"
 			]
 		},
 		{
