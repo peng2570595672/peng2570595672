@@ -25,7 +25,7 @@
 	<view class="progress_wrapper">
 		<view class="item finished"  wx:if="{{accountVerification !== 0}}">
 			<view class="content-title finished">账户验证</view>
-			<view class="content-des" wx:if="{{accountVerification === 2}}">正在验证中....<text class="refresh iconfont" catchtap="refreshCheck">刷新结果</text></view>
+			<view class="content-des" wx:if="{{accountVerification === 2 || accountVerification === '2'}}">正在验证中....<text class="refresh iconfont" catchtap="refreshCheck">刷新结果</text></view>
 			<view class="content-des" wx:else>{{accountVerification === 0 ? '审核通过' : '验证成功'}}</view>
 		</view>
 		<view class="item {{info.auditStatus !== 0 ? 'finished' : ''}}">

@@ -480,7 +480,7 @@ page .trading-mask .trading-box>view {
   text-align: center;
   padding: 0 30rpx;
 }
-page .trading-mask .trading-box>view:first-child {
+page .trading-mask .trading-box>view.success {
   font-size: 40rpx;
   padding: 40rpx 0 20rpx;
 }
@@ -500,4 +500,17 @@ page .trading-mask .trading-box>view.trading-button text {
 }
 page .trading-mask .trading-box>view.trading-button text.lucency {
   opacity: 0.3;
+}
+page .trading-mask .trading-box .close {
+  position: absolute;
+  top: 10rpx;
+  right: 0rpx;
+}
+page .trading-mask .trading-box .close text:before {
+  display: inline-block;
+  width: 30rpx;
+  height: 30rpx;
+  content: '\e63d';
+  font-size: 30rpx;
+  color: #666;
 }

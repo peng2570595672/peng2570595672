@@ -60,14 +60,14 @@
 	<!--	邮寄地址结束-->
 	<!--	输入开始-->
 	<view class="input-wrapper">
-		<view class="input-item">
+		<view class="input-item" wx:if="{{isOnlineDealWith}}">
 			<view>姓名</view>
 			<input type="text" placeholder="请输入收货人姓名" placeholder-class="placeholder" value="{{formData.userName}}"
 			bindinput="onInputChangedHandle" maxlength="6" data-key="userName"
 			/>
 			<text class="auto-fill" bindtap="onClickAutoFillHandle">自动填写</text>
 		</view>
-		<view class="input-item">
+		<view class="input-item" wx:if="{{isOnlineDealWith}}">
 			<view>收货地区</view>
 			<picker mode="region" value="{{formData.region}}" bindchange="onPickerChangedHandle">
 				<view class="picker {{formData.region[0] !== '省' ? 'have-value' : ''}}" wx:if="{{formData.region.length === 1}}">{{formData.region[0]}}</view>
@@ -75,7 +75,7 @@
 			</picker>
 			<text class="iconfont" bindtap="onClickChooseLocationHandle"></text>
 		</view>
-		<view class="input-item">
+		<view class="input-item" wx:if="{{isOnlineDealWith}}">
 			<view>详细地址</view>
 			<input type="text" class="detail-info" placeholder="填写详细地址信息" placeholder-class="placeholder" value="{{formData.detailInfo}}"
 			       bindinput="onInputChangedHandle" data-key="detailInfo"

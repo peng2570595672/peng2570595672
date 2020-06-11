@@ -78,16 +78,11 @@ Page({
 						this.setData({
 							loginInfo: res.data
 						});
-						// 已经绑定了手机号
-						if (res.data.needBindingPhone !== 1) {
-							app.globalData.userInfo = res.data;
-							app.globalData.openId = res.data.openId;
-							app.globalData.memberId = res.data.memberId;
-							app.globalData.mobilePhone = res.data.mobilePhone;
-							this.getProcessingProgress();
-						} else {
-							util.hideLoading();
-						}
+						app.globalData.userInfo = res.data;
+						app.globalData.openId = res.data.openId;
+						app.globalData.memberId = res.data.memberId;
+						app.globalData.mobilePhone = res.data.mobilePhone;
+						this.getProcessingProgress();
 					} else {
 						util.hideLoading();
 						util.showToastNoIcon(res.message);

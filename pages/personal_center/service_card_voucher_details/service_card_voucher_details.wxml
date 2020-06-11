@@ -19,6 +19,10 @@
 					<view>适用业务范围</view>
 					<view>{{details.title}}</view>
 				</view>
+				<view class="entry" wx:if="{{details.vehPlates}}">
+					<view>适用车牌</view>
+					<view>{{details.vehPlates}}</view>
+				</view>
 				<view class="entry">
 					<view>{{details.couponType === 1 ? '面额' : '折扣'}}</view>
 					<view>

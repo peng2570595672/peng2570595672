@@ -12,6 +12,7 @@
 		"minified": true,
 		"newFeature": true,
 		"coverView": true,
+		"nodeModules": true,
 		"autoAudits": false,
 		"showShadowRootInWxmlPanel": true,
 		"scopeDataCheck": false,
@@ -24,7 +25,8 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"nodeModules": true
+		"useCompilerModule": false,
+		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.11.0",
@@ -117,23 +119,23 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/personal_center/my_etc/my_etc",
-					"pathName": "pages/personal_center/my_etc/my_etc",
-					"query": "shareId=1235556",
+					"id": 8,
+					"name": "pages/default/processing_progress/processing_progress",
+					"pathName": "pages/default/processing_progress/processing_progress",
+					"query": "orderId=720397017771151360",
 					"scene": null
 				},
 				{
 					"id": 9,
-					"name": "activities/pages/activity_micro_insurance/index",
-					"pathName": "activities/pages/activity_micro_insurance/index",
+					"name": "pages/default/high_speed_verification_failed/high_speed_verification_failed",
+					"pathName": "pages/default/high_speed_verification_failed/high_speed_verification_failed",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": 10,
-					"name": "pages/personal_center/index/index",
-					"pathName": "pages/personal_center/index/index",
+					"name": "会员券",
+					"pathName": "pages/personal_center/membership_coupon/membership_coupon",
 					"query": "orderId=710126117226287104",
 					"scene": null
 				},

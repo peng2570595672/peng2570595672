@@ -361,7 +361,7 @@ page
 			&>view
 				text-align center
 				padding 0 30rpx
-			&>view:first-child
+			&>view.success
 				font-size 40rpx
 				padding 40rpx 0 20rpx
 			&>view.trading-button
@@ -378,3 +378,15 @@ page
 					border-radius 38rpx
 				text.lucency
 					opacity .3
+			.close
+				position absolute
+				top 10rpx
+				right 0rpx
+				text
+					&:before
+						display inline-block
+						width 30rpx
+						height 30rpx
+						content '\e63d'
+						font-size 30rpx
+						color #666

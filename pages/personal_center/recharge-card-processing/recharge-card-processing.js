@@ -93,6 +93,7 @@ Page({
 		if (this.data.time > 0) {
 			return;
 		}
+		this.rulesWinHide();
 		util.go(`/pages/personal_center/service_card_voucher/service_card_voucher`);
 	},
 	// 获取购买卡券的信息
@@ -210,11 +211,11 @@ Page({
 	// 关闭验规则弹窗
 	rulesWinHide () {
 		this.setData({
-			alertWrapper: false
+			showDetailWrapper: false
 		});
 		setTimeout(() => {
 			this.setData({
-				alertMask: false
+				showDetailMask: false
 			});
 		}, 400);
 	},

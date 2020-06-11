@@ -687,6 +687,7 @@ function resetData() {
 	app.globalData.isThirdGeneralize = false;
 	app.globalData.isCitiesServices = false;
 	app.globalData.isWeChatSudoku = false;
+	app.globalData.membershipCoupon = {};
 	app.globalData.isContinentInsurance = false;
 	app.globalData.isJinYiXing = false;
 	app.globalData.belongToPlatform = '500338116821778434';

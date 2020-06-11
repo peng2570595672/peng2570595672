@@ -25,6 +25,7 @@ Page({
 		isNewPowerCar: false, // 是否为新能源
 		showToast: false, // 是否验证码错误
 		isFaceToFaceCCB: false, // 是否是面对面建行活动
+		isOnlineDealWith: true, // 是否是线上办理
 		formData: {
 			currentCarNoColor: 0, // 0 蓝色 1 渐变绿 2黄色
 			region: ['省', '市', '区'], // 省市区
@@ -44,6 +45,17 @@ Page({
 		app.globalData.firstVersionData = false; // 非1.0数据办理
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.signAContract = 3;
+		// 会员券进入,线下取货
+		if (app.globalData.membershipCoupon.id) {
+			let formData = this.data.formData;
+			formData.userName = '线下取货'; // 姓名
+			formData.detailInfo = '沙文镇科教街188号';
+			formData.region = ['贵州省', '贵阳市', '白云区']; // 省市区
+			this.setData({
+				isOnlineDealWith: false,
+				formData
+			});
+		}
 		// if (app.globalData.isFaceToFaceCCB) {
 		// 	this.setData({
 		// 		[`formData.region`]: ['贵州省'],
@@ -122,7 +134,7 @@ Page({
 		let formData = this.data.formData; // 输入信息
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
-			orderType: 11,
+			orderType: this.data.isOnlineDealWith ? 11 : 12,
 			dataType: '12', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			vehPlates: this.data.carNoStr, // 车牌号
@@ -616,5 +628,7 @@ Page({
 	onUnload () {
 		// 统计点击事件
 		mta.Event.stat('025',{});
+		// 清除会员券信息
+		app.globalData.membershipCoupon = {};
 	}
 });
