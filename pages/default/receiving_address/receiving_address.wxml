@@ -49,7 +49,8 @@
 		<view class="color-wrapper">
 			<view class="blue {{formData.currentCarNoColor === 0 ? 'selected' : ''}}" bindtap="onClickCarNoColorHandle" data-index="0">蓝色车牌</view>
 			<view class="green {{formData.currentCarNoColor === 1 ? 'selected' : ''}}" bindtap="onClickCarNoColorHandle" data-index="1">渐变绿车牌</view>
-			<view class="yellow {{formData.currentCarNoColor === 2 ? 'selected' : ''}}" bindtap="onClickCarNoColorHandle" data-index="2">黄色车牌</view></view>
+<!--			<view class="yellow {{formData.currentCarNoColor === 2 ? 'selected' : ''}}" bindtap="onClickCarNoColorHandle" data-index="2">黄色车牌</view>-->
+		</view>
 	</view>
 	<!--车牌颜色结束	-->
 	<!--	分割线开始-->

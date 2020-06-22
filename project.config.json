@@ -84,7 +84,7 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 3,
 					"name": "activities/pages/activity_icbc_forty_five_theme/index",
 					"pathName": "activities/pages/activity_icbc_forty_five_theme/index",
 					"query": "shareId=1235556",
@@ -141,8 +141,8 @@
 				},
 				{
 					"id": 11,
-					"name": "activities/pages/activity_coupons/index",
-					"pathName": "activities/pages/activity_coupons/index",
+					"name": "pages/personal_center/order_details/order_details",
+					"pathName": "pages/personal_center/order_details/order_details",
 					"query": "configId=717789127443357696&appid=717789127443357696&appaaid=717789127443357696&ap222paaid=717789127443357696&ap224442paaid=717789127443357696",
 					"scene": null
 				}

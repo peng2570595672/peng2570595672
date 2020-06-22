@@ -173,7 +173,8 @@ Page({
 		}, (res) => {
 			if (res.code === 0) {
 				this.setData({
-					accountVerification: res.data.status
+					accountVerification: res.data.status,
+					[`info.orderVerificationId`]: res.data.orderVerificationId
 				});
 			} else {
 				util.showToastNoIcon(res.message);

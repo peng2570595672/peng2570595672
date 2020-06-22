@@ -17,13 +17,17 @@ Page({
 				failBillList: [],
 				orderList: obuStatusList
 			});
-			this.data.orderList.map((item) => {
-				this.data.vehicleList.push(item.vehPlates);
-				this.setData({
-					vehicleList: this.data.vehicleList
+			if (this.data.orderList.length === 1) {
+				this.getFailBill();
+			} else {
+				this.data.orderList.map((item) => {
+					this.data.vehicleList.push(item.vehPlates);
+					this.setData({
+						vehicleList: this.data.vehicleList
+					});
+					this.getFailBill(item.vehPlates);
 				});
-				this.getFailBill(item.vehPlates);
-			});
+			}
 		} else {
 			this.getMyETCList();
 		}
@@ -47,13 +51,17 @@ Page({
 					this.setData({
 						orderList: obuStatusList
 					});
-					obuStatusList.map((item) => {
-						this.data.vehicleList.push(item.vehPlates);
-						this.setData({
-							vehicleList: this.data.vehicleList
+					if (obuStatusList.length === 1) {
+						this.getFailBill();
+					} else {
+						obuStatusList.map((item) => {
+							this.data.vehicleList.push(item.vehPlates);
+							this.setData({
+								vehicleList: this.data.vehicleList
+							});
+							this.getFailBill(item.vehPlates);
 						});
-						this.getFailBill(item.vehPlates);
-					});
+					}
 				} else {
 					// 没有激活车辆
 				}
@@ -66,12 +74,19 @@ Page({
 	},
 	// 失败账单列表
 	getFailBill (vehPlates) {
-		let channel;
-		channel = this.data.orderList.filter(item => item.vehPlates === vehPlates);
-		let params = {
-			vehPlate: vehPlates,
-			channel: channel[0].obuCardType
-		};
+		let params = {};
+		if (vehPlates) {
+			let channel;
+			channel = this.data.orderList.filter(item => item.vehPlates === vehPlates);
+			params = {
+				vehPlate: vehPlates,
+				channel: channel[0].obuCardType
+			};
+		} else {
+			params = {
+				channel: this.data.orderList[0].obuCardType
+			};
+		}
 		util.getDataFromServer('consumer/etc/get-fail-bill', params, () => {
 			util.hideLoading();
 		}, (res) => {

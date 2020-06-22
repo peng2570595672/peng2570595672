@@ -157,6 +157,26 @@ Page({
 						isMembershipCoupon: true
 					});
 					app.globalData.salesmanMerchant = res.data.product.shopId;
+					if (res.data.base.thirdGeneralizeNo) {
+						// if (res.data.base.thirdGeneralizeNo.indexOf('ftf') !== -1) {
+						// 	let ftf = res.data.base.thirdGeneralizeNo.split('-');
+						// 	app.globalData.isSalesmanPromotion = false;
+						// 	app.globalData.otherPlatformsServiceProvidersId = res.data.product.shopId;
+						// 	[`app.globalData.${ftf[1]}`] = true;
+						// }
+						if (res.data.base.thirdGeneralizeNo.indexOf('isFaceToFace') !== -1) {
+							app.globalData.isSalesmanPromotion = false;
+							app.globalData.faceToFacePromotionId = res.data.base.promoterId;
+							app.globalData.otherPlatformsServiceProvidersId = res.data.product.shopId;
+						}
+						if (res.data.base.thirdGeneralizeNo === 'isFaceToFaceCCB') {
+							app.globalData.isFaceToFaceCCB = true;
+						} else if (res.data.base.thirdGeneralizeNo === 'isFaceToFaceICBC') {
+							app.globalData.isFaceToFaceICBC = true;
+						} else if (res.data.base.thirdGeneralizeNo === 'isFaceToFaceWeChat') {
+							app.globalData.isFaceToFaceWeChat = true;
+						}
+					}
 				} else {
 					app.globalData.isSalesmanPromotion = false;
 				}
@@ -566,6 +586,14 @@ Page({
 		if (this.data.isMembershipCoupon) {
 			app.globalData.salesmanMerchant = undefined;
 		}
+		if (app.globalData.faceToFacePromotionId) {
+			app.globalData.otherPlatformsServiceProvidersId = undefined;
+		}
+		app.globalData.isFaceToFaceWeChat = false;
+		app.globalData.isFaceToFaceCCB = false;
+		app.globalData.isFaceToFaceICBC = false;
+		app.globalData.isSalesmanPromotion = false;
+		app.globalData.faceToFacePromotionId = undefined;
 		// 统计点击事件
 		mta.Event.stat('029',{});
 		// 加上存储,控制签约后的返回不提示

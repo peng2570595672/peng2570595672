@@ -73,13 +73,10 @@ Component({
 			util.showLoading();
 			let params = {
 				areaCode: this.data.regionCode[0],
+				productType: 2,
+				platformId: app.globalData.platformId,
 				shopId: shopId
 			};
-			if (!app.globalData.faceToFacePromotionId) {
-				params['productType'] = 2;
-			} else {
-				params['productType'] = 3;
-			}
 			util.getDataFromServer('consumer/system/get-usable-product', params, () => {
 				util.showToastNoIcon('获取套餐失败!');
 			}, (res) => {
@@ -163,6 +160,8 @@ Component({
 								wx.openSetting();
 							}
 						});
+					} else if (res.errMsg === 'getLocation:fail:ERROR_NOCELL&WIFI_LOCATIONSWITCHOFF' || res.errMsg === 'getLocation:fail system permission denied') {
+						util.showToastNoIcon('请开启手机或微信定位功能！');
 					}
 				}
 			});

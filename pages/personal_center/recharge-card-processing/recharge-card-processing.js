@@ -211,11 +211,13 @@ Page({
 	// 关闭验规则弹窗
 	rulesWinHide () {
 		this.setData({
-			showDetailWrapper: false
+			showDetailWrapper: false,
+			alertWrapper: false
 		});
 		setTimeout(() => {
 			this.setData({
-				showDetailMask: false
+				showDetailMask: false,
+				alertMask: false
 			});
 		}, 400);
 	},

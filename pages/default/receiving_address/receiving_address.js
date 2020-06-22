@@ -138,7 +138,8 @@ Page({
 			dataType: '12', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			vehPlates: this.data.carNoStr, // 车牌号
-			vehColor: formData.currentCarNoColor === 1 ? 4 : formData.currentCarNoColor === 2 ? 1 : 0, // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
+			// vehColor: formData.currentCarNoColor === 1 ? 4 : formData.currentCarNoColor === 2 ? 1 : 0, // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
+			vehColor: formData.currentCarNoColor === 1 ? 4 : 0, // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
 			receiveMan: formData.userName, // 收货人姓名 【dataType包含2】
 			receivePhone: formData.telNumber, // 收货人手机号 【dataType包含2】
 			receiveProvince: formData.region[0], // 收货人省份 【dataType包含2】
@@ -167,6 +168,13 @@ Page({
 			if ((app.globalData.isFaceToFaceCCB || app.globalData.isFaceToFaceICBC || app.globalData.isFaceToFaceWeChat) && app.globalData.faceToFacePromotionId) {
 				params['promoterId'] = app.globalData.faceToFacePromotionId;// 推广者ID标识
 				params['promoterType'] = 3; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
+				if (app.globalData.isFaceToFaceCCB) {
+					params['thirdGeneralizeNo'] = 'isFaceToFaceCCB';
+				} else if (app.globalData.isFaceToFaceICBC) {
+					params['thirdGeneralizeNo'] = 'isFaceToFaceICBC';
+				} else {
+					params['thirdGeneralizeNo'] = 'isFaceToFaceWeChat';
+				}
 			}
 			// 微保小程序推广进入办理
 			if (app.globalData.isToMicroInsurancePromote) {
@@ -318,7 +326,8 @@ Page({
 		if (parseInt(index) === 0 && this.data.carNoStr.length === 8) {
 			util.showToastNoIcon('8位车牌号为绿牌车！');
 		} else if (parseInt(index) === 1 && this.data.carNoStr.length === 7) {
-			util.showToastNoIcon('7位车牌号为蓝牌车或黄牌车！');
+			util.showToastNoIcon('7位车牌号为蓝牌车！');
+			// util.showToastNoIcon('7位车牌号为蓝牌车或黄牌车！');
 		}
 		// 不是新能源 车牌为8位 去掉最后一位输入的车牌
 		if (!this.data.isNewPowerCar && this.data.carNoStr.length === 8) {
