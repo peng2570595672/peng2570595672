@@ -44,6 +44,7 @@ Page({
 			if (res.code === 0) {
 				// 过滤未激活订单
 				let obuStatusList;
+				app.globalData.ownerServiceArrearsList = res.data.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
 				// obuStatusList = res.data.filter(item => item.obuStatus === 1); // 正式数据
 				obuStatusList = res.data.filter(item => item.etcContractId !== 0); // 测试数据处理
 				if (obuStatusList.length > 0) {

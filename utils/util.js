@@ -624,7 +624,7 @@ function getStatus(orderInfo) {
 		status = 3; // 办理中 已签约
 	} else if (orderInfo.status === 1 && orderInfo.contractStatus === 1 && orderInfo.auditStatus === 0 && orderInfo.isVehicle === 1) {
 		status = 4; // 查看进度 待审核
-	} else if (orderInfo.status === 1 && orderInfo.auditStatus === 1&& orderInfo.isVehicle === 1) {
+	} else if (orderInfo.status === 1 && orderInfo.auditStatus === 1 && orderInfo.isVehicle === 1) {
 		status = 5; // 资料被拒绝 修改资料
 	} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5) && orderInfo.auditStatus === 2) {
 		status = 6; // 审核通过  待激活
@@ -635,6 +635,14 @@ function getStatus(orderInfo) {
 	} else if (orderInfo.obuStatus === 1 && orderInfo.auditStatus === 2) {
 		status = 9; // 审核通过  已激活
 	}
+	// if (orderInfo.auditStatus === -1) {
+		//  不需要审核,为了不改动之前的,所以单独判断
+		// if (orderInfo.status === 1 && !orderInfo.contractStatus) {
+		// 	status = 2; // 待签约
+		// } else if (orderInfo.status === 1 && !orderInfo.contractStatus) {
+		// 	status = 2; // 待签约
+		// }
+	// }
 	return status;
 }
 /**

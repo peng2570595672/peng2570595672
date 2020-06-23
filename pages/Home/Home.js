@@ -261,6 +261,10 @@ Page({
 			}
 		}, app.globalData.userInfo.accessToken);
 	},
+	// 去设备详情 审核失败:不可办理
+	goEtcDetails () {
+		util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.data.orderInfo.id}`);
+	},
 	// 免费办理
 	freeProcessing () {
 		// 统计点击事件

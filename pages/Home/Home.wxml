@@ -53,8 +53,10 @@
 			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
 		</view>
-		<view class="btn" catchtap="onClickModifiedData">修改资料</view>
-		<view class="tips"><text>你的资料审核有误，</text>请仔细检查</view>
+		<!--orderInfo.auditStatus === 9  审核失败:不可办理 -->
+		<view class="btn" catchtap="goEtcDetails" wx:if="{{orderInfo.auditStatus === 9}}">查看详情</view>
+		<view class="btn" catchtap="onClickModifiedData" wx:else>修改资料</view>
+		<view class="tips"><text>{{orderInfo.auditStatus === 9 ? '资料审核未通过!' : '你的资料审核有误，'}}</text>{{orderInfo.auditStatus === 9 ? '' : '请仔细检查，'}}</view>
 	</view>
 	<!--	修改资料结束-->
 

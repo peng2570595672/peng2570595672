@@ -9,7 +9,7 @@ App({
 		uploadOcrUrl: 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址
 		uploadUrl: 'https://file.cyzl.com/file/upload', // 上传图片无需审核地址
 		plamKey: '123456', // 签名用到的key --- 二发
-		mapKey: '4EYBZ-L6QC4-NCLUW-XFDUD-TANS7-DZFNG', // 腾讯地图所使用key
+		mapKey: '2PEBZ-EJKKX-V624T-Z4MH6-LVHUS-D6BNM', // 腾讯地图所使用key
 		platformId: '500338116821778434', // 平台id
 		miniProgramServiceProvidersId: '611607716116299776', // 主流程小程序服务商id 用于加载不同套餐
 		otherPlatformsServiceProvidersId: undefined, // 其他入口/其他平台服务商id 用于加载不同套餐

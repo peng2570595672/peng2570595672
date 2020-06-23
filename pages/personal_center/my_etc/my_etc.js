@@ -307,22 +307,27 @@ Page({
 	onClickModifiedData (e) {
 		let index = e.currentTarget.dataset.index;
 		let obj = this.data.carList[parseInt(index)];
-		if (util.getHandlingType(obj)) {
-			util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
-			return;
-		}
-		app.globalData.orderInfo.orderId = obj.id;
-		app.globalData.orderInfo.shopProductId = obj.shopProductId;
-		app.globalData.isModifiedData = true; // 修改资料
-		if (obj.remark && obj.remark.indexOf('迁移订单数据') !== -1) {
-			// 1.0数据
-			wx.removeStorageSync('driving_license_face');
-			wx.removeStorageSync('driving_license_back');
-			wx.removeStorageSync('car_head_45');
-			app.globalData.firstVersionData = true;
+		if (obj.auditStatus === 9) {
+			// 审核失败--不可办理
+			util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${obj.id}`);
 		} else {
-			app.globalData.firstVersionData = false;
+			if (util.getHandlingType(obj)) {
+				util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
+				return;
+			}
+			app.globalData.orderInfo.orderId = obj.id;
+			app.globalData.orderInfo.shopProductId = obj.shopProductId;
+			app.globalData.isModifiedData = true; // 修改资料
+			if (obj.remark && obj.remark.indexOf('迁移订单数据') !== -1) {
+				// 1.0数据
+				wx.removeStorageSync('driving_license_face');
+				wx.removeStorageSync('driving_license_back');
+				wx.removeStorageSync('car_head_45');
+				app.globalData.firstVersionData = true;
+			} else {
+				app.globalData.firstVersionData = false;
+			}
+			util.go('/pages/default/information_validation/information_validation');
 		}
-		util.go('/pages/default/information_validation/information_validation');
 	}
 });

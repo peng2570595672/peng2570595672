@@ -183,6 +183,10 @@ Page({
 			util.hideLoading();
 		});
 	},
+	// 去设备详情 审核失败:不可办理
+	goEtcDetails () {
+		util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.data.orderId}`);
+	},
 	// 下一步
 	next () {
 		util.go('/pages/default/payment_way/payment_way');

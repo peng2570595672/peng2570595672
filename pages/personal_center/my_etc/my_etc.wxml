@@ -24,7 +24,7 @@
 				<view class="iconfont" wx:elif="{{item.selfStatus === 2 || item.contractStatus === 2}}" data-index="{{index}}" catchtap="onClickBackToSign">{{item.contractStatus === 2 ? '恢复签约' : '立即签约'}}</view>
 				<view class="iconfont" wx:elif="{{(item.selfStatus === 4 || item.selfStatus === 7) && item.contractStatus !== 2}}" data-index="{{index}}"  catchtap="onClickViewProcessingProgressHandle">查看进度</view>
 				<view class="iconfont" wx:elif="{{item.selfStatus === 6 && item.contractStatus !== 2}}" data-index="{{index}}"  catchtap="onClickCctivate">去激活</view>
-				<view class="iconfont" wx:elif="{{item.selfStatus === 5 || item.selfStatus === 8 && item.contractStatus !== 2}}" data-index="{{index}}"  catchtap="onClickModifiedData">修改资料</view>
+				<view class="iconfont" wx:elif="{{item.selfStatus === 5 || item.selfStatus === 8 && item.contractStatus !== 2}}" data-index="{{index}}"  catchtap="onClickModifiedData">{{item.auditStatus === 9 ? '查看详情' : '修改资料'}}</view>
 			</view>
 			<!--下部分结束-->
 		</view>
