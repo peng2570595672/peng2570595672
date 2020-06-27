@@ -94,14 +94,14 @@ Page({
 			util.hideLoading();
 			if (res.code === 0) {
 				let total = 0;
+				let order = {};
 				res.data.map(item => {
 					total += item.etcMoney;
+					order.vehPlates = item.vehPlate;
 					if (item.serviceMoney) {
 						total += item.serviceMoney;
 					}
 				});
-				let order = {};
-				order.vehPlates = vehPlates;
 				order.total = total;
 				order.list = res.data;
 				this.data.failBillList.push(order);
