@@ -635,14 +635,14 @@ function getStatus(orderInfo) {
 	} else if (orderInfo.obuStatus === 1 && orderInfo.auditStatus === 2) {
 		status = 9; // 审核通过  已激活
 	}
-	// if (orderInfo.auditStatus === -1) {
-		//  不需要审核,为了不改动之前的,所以单独判断
-		// if (orderInfo.status === 1 && !orderInfo.contractStatus) {
-		// 	status = 2; // 待签约
-		// } else if (orderInfo.status === 1 && !orderInfo.contractStatus) {
-		// 	status = 2; // 待签约
-		// }
-	// }
+	if (orderInfo.auditStatus === -1) {
+		 // 不需要审核,为了不改动之前的,所以单独判断
+		if (orderInfo.status === 1 && orderInfo.obuStatus !== 1) {
+			status = 6; // 待激活
+		} else if (orderInfo.status === 1 && orderInfo.obuStatus === 1) {
+			status = 9; // 已激活
+		}
+	}
 	return status;
 }
 /**
@@ -667,6 +667,14 @@ function getStatusFirstVersion(orderInfo) {
 		status = 8; // 高速核验不通过
 	} else if (orderInfo.obuStatus === 1 && orderInfo.auditStatus === 2) {
 		status = 9; // 审核通过  已激活
+	}
+	if (orderInfo.auditStatus === -1) {
+		// 不需要审核,为了不改动之前的,所以单独判断
+		if (orderInfo.status === 1 && orderInfo.obuStatus !== 1) {
+			status = 6; // 待激活
+		} else if (orderInfo.status === 1 && orderInfo.obuStatus === 1) {
+			status = 9; // 已激活
+		}
 	}
 	return status;
 }

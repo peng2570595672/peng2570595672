@@ -99,7 +99,12 @@ Page({
 	onClickCctivate (e) {
 		let index = e.currentTarget.dataset.index;
 		let obj = this.data.carList[parseInt(index)];
-		this.confirmReceipt(obj);
+		if (obj.shopId && obj.shopId === '624263265781809152') {
+			// 津易行
+			this.selectComponent('#notJinYiXingPrompt').show();
+		} else {
+			this.confirmReceipt(obj);
+		}
 	},
 	// 确认收货
 	confirmReceipt (obj) {

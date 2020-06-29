@@ -373,22 +373,27 @@ Page({
 	},
 	// 去激活
 	onClickCctivate () {
-		if (this.data.orderInfo.orderType === 11) {
-			if (this.data.orderInfo.logisticsId === 0) {
-				this.onClickViewProcessingProgressHandle();
-			} else {
-				this.confirmReceipt();
-			}
+		if (this.data.orderInfo.shopId && this.data.orderInfo.shopId === '624263265781809152') {
+			// 津易行
+			this.selectComponent('#notJinYiXingPrompt').show();
 		} else {
-			// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
-			wx.navigateToMiniProgram({
-				appId: 'wxdda17150b8e50bc4',
-				path: 'pages/index/index',
-				envVersion: 'release', // 目前联调为体验版
-				fail () {
-					util.showToastNoIcon('调起激活小程序失败, 请重试！');
+			if (this.data.orderInfo.orderType === 11) {
+				if (this.data.orderInfo.logisticsId === 0) {
+					this.onClickViewProcessingProgressHandle();
+				} else {
+					this.confirmReceipt();
 				}
-			});
+			} else {
+				// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
+				wx.navigateToMiniProgram({
+					appId: 'wxdda17150b8e50bc4',
+					path: 'pages/index/index',
+					envVersion: 'release', // 目前联调为体验版
+					fail () {
+						util.showToastNoIcon('调起激活小程序失败, 请重试！');
+					}
+				});
+			}
 		}
 	},
 	// 确认收货

@@ -1,3 +1,6 @@
 {
-	"navigationBarTitleText": "办理进度"
+	"navigationBarTitleText": "办理进度",
+	"usingComponents": {
+		"jinyixing-prompt": "/components/jinyixing_prompt/jinyixing_prompt"
+	}
 }

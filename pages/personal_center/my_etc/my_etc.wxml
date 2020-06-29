@@ -42,4 +42,5 @@
 	<!--	新增办理开始-->
 	<view class="btn" catchtap="onClickAddNewHandle">新增办理</view>
 	<!--	新增办理结束-->
+	<jinyixing-prompt id="notJinYiXingPrompt" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></jinyixing-prompt>
 </view>

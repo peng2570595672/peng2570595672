@@ -2,5 +2,8 @@
 	"navigationBarBackgroundColor": "#FFFFFF",
 	"backgroundColor": "#FFFFFF",
 	"navigationBarTextStyle": "black",
-	"navigationBarTitleText": "我的ETC"
+	"navigationBarTitleText": "我的ETC",
+	"usingComponents": {
+		"jinyixing-prompt": "/components/jinyixing_prompt/jinyixing_prompt"
+	}
 }

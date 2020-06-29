@@ -25,7 +25,7 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"useCompilerModule": true,
+		"useCompilerModule": false,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
@@ -122,7 +122,7 @@
 					"id": 8,
 					"name": "pages/default/processing_progress/processing_progress",
 					"pathName": "pages/default/processing_progress/processing_progress",
-					"query": "orderId=722773350501322752",
+					"query": "orderId=719857736895959040",
 					"scene": null
 				},
 				{
@@ -141,8 +141,8 @@
 				},
 				{
 					"id": 11,
-					"name": "pages/personal_center/my_order/my_order",
-					"pathName": "pages/personal_center/my_order/my_order",
+					"name": "pages/personal_center/my_etc/my_etc",
+					"pathName": "pages/personal_center/my_etc/my_etc",
 					"query": "configId=717789127443357696&appid=717789127443357696&appaaid=717789127443357696&ap222paaid=717789127443357696&ap224442paaid=717789127443357696",
 					"scene": null
 				}

@@ -1,0 +1,70 @@
+@font-face {
+	font-family: 'iconfont';  /* project id 1514406 */
+	src: url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot');
+	src: url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot?#iefix') format('embedded-opentype'),
+		url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff2') format('woff2'),
+		url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff') format('woff'),
+		url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.ttf') format('truetype'),
+		url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.svg#iconfont') format('svg');
+}
+.iconfont {
+	font-family:"iconfont" !important;
+	font-size:16px;
+	font-style:normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.icon-guanbi:before {
+	content: "\e63d";
+	color #66666D
+	font-size 16rpx
+}
+@import "animate.styl";
+.alert-for-not-finished
+	position: fixed
+	left: 0
+	right: 0
+	top: 0
+	bottom: 0
+	background: rgba(0, 0, 0, 0.6)
+	z-index: 10000
+	.alert-for-not-finished-content
+		position absolute
+		left 0
+		right 0
+		top 50%
+		transform translate(0, -50%)
+		width 80%
+		min-height 200rpx
+		margin 0 auto
+		z-index 2
+		.alert-for-box
+			position absolute
+			height 350rpx
+			bottom 0
+			left 0
+			right 0
+			margin auto
+			z-index 2
+			color #33333d
+			background #fff
+			border-radius 20rpx
+			&>view
+				line-height 40rpx
+				padding 0rpx 40rpx
+				color #66666d
+			&>view:first-child
+				padding 40rpx 40rpx 20rpx
+				color #33333d
+			&>view.alert-for-button
+				text-indent 0
+				text-align center
+				height 90rpx
+				line-height 90rpx
+				margin-top 40rpx
+				border-top 1rpx solid #f2f2f2
+				text
+					display inline-block
+					width 50%
+					&:last-child
+						color #2fb565

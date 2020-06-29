@@ -1,0 +1,12 @@
+<view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}">
+	<view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}"  wx:if="{{mask}}">
+		<view class="alert-for-box">
+			<view>您的ETC申请由“津易行”小程序提供服务，请前往该小程序查看。</view>
+			<view>ETC+后续将为您提供高速通行流水相关服务，请持续关注……</view>
+			<view class="alert-for-button">
+				<text catchtap="hide">我知道了</text>
+<!--				<text catchtap="onClickSwitchBank">继续前往</text>-->
+			</view>
+		</view>
+	</view>
+</view>

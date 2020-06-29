@@ -12,7 +12,7 @@
 	</view>
 	<view class="item" wx:if="{{orderInfo.receiveMan}}">
 		<view>车辆所属人</view>
-		<view>{{orderInfo.receiveMan}}</view>
+		<view>{{orderInfo.receiveMan && orderInfo.receiveMan !== '0' ? orderInfo.receiveMan : orderInfo.trueName}}</view>
 	</view>
 	<view class="item">
 		<view>订单状态</view>
@@ -89,4 +89,5 @@
 		</view>
 	</view>
 	<!--去车主服务弹窗结束-->
+	<jinyixing-prompt id="notJinYiXingPrompt" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></jinyixing-prompt>
 </view>
