@@ -25,7 +25,7 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"useCompilerModule": false,
+		"useCompilerModule": true,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
@@ -144,6 +144,13 @@
 					"name": "pages/personal_center/my_etc/my_etc",
 					"pathName": "pages/personal_center/my_etc/my_etc",
 					"query": "configId=717789127443357696&appid=717789127443357696&appaaid=717789127443357696&ap222paaid=717789127443357696&ap224442paaid=717789127443357696",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "activities/pages/activity_micro_insurance/index",
+					"pathName": "activities/pages/activity_micro_insurance/index",
+					"query": "orderId=719857736895959040",
 					"scene": null
 				}
 			]
