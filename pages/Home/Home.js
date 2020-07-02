@@ -281,6 +281,15 @@ Page({
 			if (url === 'violation_enquiry') {
 				// 统计点击进入违章查询
 				mta.Event.stat('007',{});
+				// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
+				wx.navigateToMiniProgram({
+					appId: 'wx06a561655ab8f5b2',
+					path: 'pages/base/redirect/index?routeKey=PC01_REDIRECT&autoRoute=CHECKILLEGAL&outsource=souyisou&wtagid=116.115.10',
+					envVersion: 'release', // 目前联调为体验版
+					fail () {
+						util.showToastNoIcon('调起小程序失败, 请重试！');
+					}
+				});
 			} else if (url === 'online_customer_service') {
 				// 未登录
 				if (!app.globalData.userInfo.accessToken) {
@@ -290,8 +299,8 @@ Page({
 				}
 				// 统计点击进入在线客服
 				mta.Event.stat('009',{});
+				util.go(`/pages/web/web/web?type=${url}`);
 			}
-			util.go(`/pages/web/web/web?type=${url}`);
 		} else {
 			// 未登录
 			if (!app.globalData.userInfo.accessToken) {
