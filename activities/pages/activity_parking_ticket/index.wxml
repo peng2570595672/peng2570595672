@@ -1,0 +1,108 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<view class="page">
+<view class="banner-container">
+	<view class="top-div"></view>
+	<view class="banner-container"></view>
+	<view class="btn-container">
+		<button class="btn" wx:if="{{loginInfo.needBindingPhone !== 1}}" catchtap="receive">立即领取</button>
+		<button class="btn" wx:else open-type="getPhoneNumber"  bindgetphonenumber="onGetPhoneNumber">立即领取</button>
+	</view>
+</view>
+<view class="wen-an-container">
+	<view class="item">
+		<view class="white-title-container">
+			<view class="dot-left">
+				<view class="dot-item">
+					<view class="dot"></view>
+					<view class="dot"></view>
+				</view>
+				<div class="dot-item">
+					<div class="dot"></div>
+					<div class="dot"></div>
+				</div>
+				<view class="dot-item">
+					<view class="dot"></view>
+					<view class="dot"></view>
+				</view>
+			</view>
+			<view class="char">领取停车通用券</view>
+			<view class="dot-right">
+				<view class="dot-item">
+					<view class="dot"></view>
+					<view class="dot"></view>
+				</view>
+				<view class="dot-item">
+					<view class="dot"></view>
+					<view class="dot"></view>
+				</view>
+				<view class="dot-item">
+					<view class="dot"></view>
+					<view class="dot"></view>
+				</view>
+			</view>
+		</view>
+		<view class="char">领取微信支付停车立减金，用户在进入可微信支付的停车场时，可使用该立减金。</view>
+	</view>
+	<view class="item">
+		<view class="white-title-container">
+			<view class="dot-left">
+				<view class="dot-item">
+					<view class="dot"></view>
+					<view class="dot"></view>
+				</view>
+				<view class="dot-item">
+					<view class="dot"></view>
+					<view class="dot"></view>
+				</view>
+				<view class="dot-item">
+					<view class="dot"></view>
+					<view class="dot"></view>
+				</view>
+			</view>
+			<view class="char">使用规则</view>
+			<view class="dot-right">
+				<view class="dot-item">
+					<view class="dot"></view>
+					<view class="dot"></view>
+				</view>
+				<view class="dot-item">
+					<view class="dot"></view>
+					<view class="dot"></view>
+				</view>
+				<view class="dot-item">
+					<view class="dot"></view>
+					<view class="dot"></view>
+				</view>
+			</view>
+		</view>
+		<view class="char">
+			<view>1、使用说明：卡券激活成功后自动存入微信卡包，微信支付停车满5.01元自动抵扣5元；</view>
+			<view>2、券码有效期：即日起至2020-07-23；</view>
+			<view>3、活动限定：活动期间内，一个账号仅限领取1张优惠券。</view>
+		</view>
+	</view>
+</view>
+<!--领取成功弹窗-->
+<view class="alert-mask animated {{alertWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{alertMask}}">
+	<view class="wrapper animated {{alertWrapper ? 'zoomInOther' : 'zoomOutOther'}}">
+		<view class="success">
+			<image src="https://file.cyzl.com/g001/M05/1E/ED/oYYBAF7dn--AYoKvAAAPBi1_4ns403.png" mode="widthFix"></image>
+		</view>
+		<view class="success-prompt">恭喜您领取成功</view>
+		<view class="coupon-details">
+			<view><sup>¥</sup><text>{{couponsInfo.faceAmount/100}}</text></view>
+			<view>
+				<view>{{couponsInfo.fullName ? couponsInfo.fullName : couponsInfo.name}}</view>
+				<view>有效时间：{{tools.substring(couponsInfo.expireEndDate,0,11)}}</view>
+			</view>
+		</view>
+		<view class="close">
+<!--			<button open-type="launchApp" app-parameter="{{returnInfo}}" binderror="launchAppError">我知道了</button>-->
+			<button catchtap="rulesWinHide">我知道了</button>
+		</view>
+	</view>
+</view>
+<!--领取成功弹窗-->
+<!--	<button open-type="launchApp" app-parameter="{{item}}" binderror="launchAppError">返回APP</button>-->
+<!--<view class="aaaa">获取APP传的值:{{parameter}}</view>-->
+</view>

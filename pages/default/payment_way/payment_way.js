@@ -156,7 +156,7 @@ Page({
 					this.setData({
 						isMembershipCoupon: true
 					});
-					app.globalData.salesmanMerchant = res.data.product.shopId;
+					app.globalData.salesmanMerchant = res.data.product.shopId && res.data.product.shopId !== 0 ? res.data.product.shopId : undefined;
 					if (res.data.base.thirdGeneralizeNo) {
 						// if (res.data.base.thirdGeneralizeNo.indexOf('ftf') !== -1) {
 						// 	let ftf = res.data.base.thirdGeneralizeNo.split('-');
@@ -167,7 +167,7 @@ Page({
 						if (res.data.base.thirdGeneralizeNo.indexOf('isFaceToFace') !== -1) {
 							app.globalData.isSalesmanPromotion = false;
 							app.globalData.faceToFacePromotionId = res.data.base.promoterId;
-							app.globalData.otherPlatformsServiceProvidersId = res.data.product.shopId;
+							app.globalData.otherPlatformsServiceProvidersId = res.data.product.shopId && res.data.product.shopId !== 0 ? res.data.product.shopId : undefined;
 						}
 						if (res.data.base.thirdGeneralizeNo === 'isFaceToFaceCCB') {
 							app.globalData.isFaceToFaceCCB = true;

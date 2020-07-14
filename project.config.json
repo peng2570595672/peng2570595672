@@ -25,7 +25,7 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"useCompilerModule": true,
+		"useCompilerModule": false,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
@@ -151,6 +151,20 @@
 					"name": "activities/pages/activity_micro_insurance/index",
 					"pathName": "activities/pages/activity_micro_insurance/index",
 					"query": "orderId=719857736895959040",
+					"scene": null
+				},
+				{
+					"id": 13,
+					"name": "activities/pages/activity_coupons/index",
+					"pathName": "activities/pages/activity_coupons/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 14,
+					"name": "activities/pages/activity_parking_ticket/index",
+					"pathName": "activities/pages/activity_parking_ticket/index",
+					"query": "configId=703923388790987622",
 					"scene": null
 				}
 			]
