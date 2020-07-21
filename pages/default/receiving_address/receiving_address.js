@@ -118,6 +118,9 @@ Page({
 	},
 	// 下一步
 	next () {
+		this.setData({
+			available: this.validateAvailable(true)
+		});
 		if (!this.data.available || this.data.isRequest) {
 			return;
 		}
@@ -281,11 +284,15 @@ Page({
 		}
 		// 键盘关闭
 		if (!this.data.showKeyboard) {
+			let checkLicensePlate = false;
+			if (e.detail.carNo.join('').length >= 7) {
+				checkLicensePlate = true;
+			}
 			this.setData({
 				currentIndex: -1
 			});
 			this.setData({
-				available: this.validateAvailable()
+				available: this.validateAvailable(checkLicensePlate)
 			});
 		}
 	},
@@ -586,10 +593,34 @@ Page({
 		});
 	},
 	// 校验字段是否满足
-	validateAvailable () {
+	validateAvailable (checkLicensePlate) {
 		// 是否接受协议
 		let isOk = true;
 		let formData = this.data.formData;
+		// 验证车牌和车牌颜色
+		if (this.data.carNoStr.length === 7) { // 蓝牌或者黄牌
+			isOk = isOk && (formData.currentCarNoColor === 0 || formData.currentCarNoColor === 2);
+			// 进行正则匹配
+			if (isOk) {
+				let creg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}$/;
+				isOk = creg.test(this.data.carNoStr);
+				if (checkLicensePlate && !isOk) {
+					util.showToastNoIcon('车牌输入不合法，请检查重填');
+				}
+			}
+		} else if (this.data.carNoStr.length === 8) {
+			isOk = isOk && formData.currentCarNoColor === 1;
+			// 进行正则匹配
+			if (isOk) {
+				let xreg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF]$)|([ADF][A-HJ-NP-Z0-9][0-9]{4}$))/;
+				isOk = xreg.test(this.data.carNoStr);
+				if (checkLicensePlate && !isOk) {
+					util.showToastNoIcon('车牌输入不合法，请检查重填');
+				}
+			}
+		} else {
+			isOk = false;
+		}
 		// 校验姓名
 		isOk = isOk && formData.userName && formData.userName.length >= 1;
 		// 校验省市区
@@ -602,24 +633,6 @@ Page({
 		isOk = isOk && formData.telNumber && /^1[0-9]{10}$/.test(formData.telNumber);
 		// 校验验证码
 		isOk = isOk && formData.verifyCode && /^[0-9]{4}$/.test(formData.verifyCode);
-		// 验证车牌和车牌颜色
-		if (this.data.carNoStr.length === 7) { // 蓝牌或者黄牌
-			isOk = isOk && (formData.currentCarNoColor === 0 || formData.currentCarNoColor === 2);
-			// 进行正则匹配
-			if (isOk) {
-				let creg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}$/;
-				isOk = creg.test(this.data.carNoStr);
-			}
-		} else if (this.data.carNoStr.length === 8) {
-			isOk = isOk && formData.currentCarNoColor === 1;
-			// 进行正则匹配
-			if (isOk) {
-				let xreg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF]$)|([ADF][A-HJ-NP-Z0-9][0-9]{4}$))/;
-				isOk = xreg.test(this.data.carNoStr);
-			}
-		} else {
-			isOk = false;
-		}
 		return isOk;
 	},
 	// 点击添加新能源
