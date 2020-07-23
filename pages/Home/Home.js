@@ -211,6 +211,17 @@ Page({
 					}
 					vehicleList.push(item.vehPlates);
 					wx.setStorageSync('cars', vehicleList.join('、'));
+					if (item.selfStatus === 6) {
+						util.alert({
+							content: '因近期部分省份及城市发生特大洪涝灾害，到货时间可能延后数日。',
+							showCancel: false,
+							confirmText: '我知道了',
+							confirm: () => {
+							},
+							cancel: () => {
+							}
+						});
+					}
 					if (item.contractStatus === 2) {
 						// 解约优先展示
 						orderInfo = item;
@@ -450,9 +461,20 @@ Page({
 			}
 			util.go(`/pages/web/web/web?url=${encodeURIComponent(item.pageUrl)}&type=banner`);
 		} else {
-			app.globalData.orderInfo.orderId = '';
-			mta.Event.stat('banner_activity_free_processing',{});
-			util.go(item.pageUrl);
+			if (item.remark === 'micro_insurance') {
+				wx.navigateToMiniProgram({
+					appId: 'wx06a561655ab8f5b2',
+					path: item.pageUrl,
+					envVersion: 'release', // 目前联调为体验版
+					fail () {
+						util.showToastNoIcon('调起微保小程序失败, 请重试！');
+					}
+				});
+			} else {
+				app.globalData.orderInfo.orderId = '';
+				mta.Event.stat('banner_activity_free_processing',{});
+				util.go(item.pageUrl);
+			}
 		}
 	},
 	// 查看办理进度
