@@ -17,7 +17,7 @@
 	<view class="item">
 		<view>订单状态</view>
 		<view class="caution" wx:if="{{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 3 && orderInfo.contractStatus !== 2}}">办理中</view>
-		<view class="caution" wx:if="{{orderInfo.selfStatus === 2 || orderInfo.contractStatus === 2}}">待签约</view>
+		<view class="caution" wx:if="{{orderInfo.selfStatus === 2 || orderInfo.contractStatus === 2 || orderInfo.selfStatus === 10}}">{{item.selfStatus === 10 ? '高速待签约' : '待签约'}}</view>
 		<view class="caution" wx:elif="{{orderInfo.selfStatus === 4 || orderInfo.selfStatus === 7 && orderInfo.contractStatus !== 2}}">审核中</view>
 		<view class="caution" wx:elif="{{orderInfo.selfStatus === 6 && orderInfo.contractStatus !== 2}}">待激活</view>
 		<view class="failed" wx:elif="{{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 8 && orderInfo.contractStatus !== 2}}">审核失败</view>
@@ -59,7 +59,7 @@
 	<!--	按钮开始-->
 	<view class="btns">
 		<button class="btn" wx:if="{{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 3 && orderInfo.contractStatus !== 2}}" catchtap="onClickContinueHandle">继续办理</button>
-		<button class="btn" wx:elif="{{orderInfo.selfStatus === 2 || orderInfo.contractStatus === 2}}" catchtap="onClickBackToSign">{{orderInfo.contractStatus === 2? '恢复签约' : '立即签约'}}</button>
+		<button class="btn" wx:elif="{{orderInfo.selfStatus === 2 || orderInfo.contractStatus === 2 || orderInfo.selfStatus === 10}}" catchtap="onClickBackToSign">{{orderInfo.selfStatus === 10 ? '签约高速免密支付' : orderInfo.contractStatus === 2? '恢复签约' : '立即签约'}}</button>
 		<button class="btn" wx:elif="{{(orderInfo.selfStatus === 4 || orderInfo.selfStatus === 7) && orderInfo.contractStatus !== 2}}" catchtap="onClickViewProcessingProgressHandle">查看进度</button>
 		<!--<button class="btn" wx:elif="{{(orderInfo.selfStatus === 4 || orderInfo.selfStatus === 7) && orderInfo.contractStatus !== 2 && orderInfo.orderType !== 11}}" catchtap="onClickCctivate">确认收货并激活</button>-->
 		<button class="btn" wx:elif="{{(orderInfo.selfStatus === 5 || orderInfo.selfStatus === 8 && orderInfo.contractStatus !== 2) && orderInfo.auditStatus !== 9}}"  catchtap="onClickModifiedData">修改资料</button>
@@ -90,4 +90,5 @@
 	</view>
 	<!--去车主服务弹窗结束-->
 	<jinyixing-prompt id="notJinYiXingPrompt" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></jinyixing-prompt>
+	<signing-prompt id="notSigningPrompt" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></signing-prompt>
 </view>

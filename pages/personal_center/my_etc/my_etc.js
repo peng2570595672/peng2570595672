@@ -175,6 +175,17 @@ Page({
 					wx.removeStorageSync('driving_license_back');
 					wx.removeStorageSync('car_head_45');
 				}
+				// if (obj.pledgeStatus === 0) {
+				// 	// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
+				// 	// 待支付保证金
+				// 	util.go(`/pages/default/margin_payment/margin_payment?marginPaymentMoney=${obj.pledgeMoney}`);
+				// } else {
+				// 	if (wx.getStorageSync('driving_license_face')) {
+				// 		util.go('/pages/default/information_validation/information_validation');
+				// 	} else {
+				// 		util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
+				// 	}
+				// }
 				if (wx.getStorageSync('driving_license_face')) {
 					util.go('/pages/default/information_validation/information_validation');
 				} else {
@@ -197,19 +208,24 @@ Page({
 	onClickBackToSign (e) {
 		let index = e.currentTarget.dataset.index;
 		let obj = this.data.carList[parseInt(index)];
-		if (obj.contractStatus === 2) {
-			app.globalData.orderInfo.orderId = obj.id;
-			// 恢复签约
-			this.restoreSign(obj);
+		// 新流程
+		if (obj.selfStatus === 10) {
+			this.selectComponent('#notSigningPrompt').show();
 		} else {
-			// 2.0 立即签约
-			if (obj.orderType === 31) {
-				app.globalData.isSalesmanOrder = true;
+			if (obj.contractStatus === 2) {
+				app.globalData.orderInfo.orderId = obj.id;
+				// 恢复签约
+				this.restoreSign(obj);
 			} else {
-				app.globalData.isSalesmanOrder = false;
+				// 2.0 立即签约
+				if (obj.orderType === 31) {
+					app.globalData.isSalesmanOrder = true;
+				} else {
+					app.globalData.isSalesmanOrder = false;
+				}
+				app.globalData.signAContract = -1;
+				this.weChatSign(obj);
 			}
-			app.globalData.signAContract = -1;
-			this.weChatSign(obj);
 		}
 	},
 	// 恢复签约

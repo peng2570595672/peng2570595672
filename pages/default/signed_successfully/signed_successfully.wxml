@@ -1,7 +1,7 @@
 <view class="signed_successfully">
 	<!--	成功提示开始-->
 	<image src="/pages/default/assets/signed_successfully.png"/>
-	<view class="signed_title">签约成功</view>
+	<view class="signed_title">{{isPaymentProcess ? '' : '签约成功'}}</view>
 	<view class="signed_subtitle">办理还剩下最后一步</view>
 	<!--	成功提示结束-->
 	<!--	操作部分开始-->

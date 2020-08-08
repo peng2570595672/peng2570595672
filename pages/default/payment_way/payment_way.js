@@ -478,6 +478,14 @@ Page({
 				app.globalData.orderInfo.shopProductId = this.data.choiceObj.shopProductId;
 				let result = res.data.contract;
 				// 签约车主服务 2.0
+				if (this.data.choiceObj.pledgePrice && parseInt(this.data.choiceObj.pledgePrice) > 0) {
+					// 需要支付保证金
+					app.globalData.isMarginPayment = true;
+					app.globalData.marginPaymentMoney = parseInt(this.data.choiceObj.pledgePrice);
+				} else {
+					app.globalData.isMarginPayment = false;
+					app.globalData.marginPaymentMoney = 0;
+				}
 				app.globalData.belongToPlatform = app.globalData.platformId;
 				if (result.version === 'v2') {
 					wx.navigateToMiniProgram({

@@ -96,6 +96,17 @@
 	</view>
 	<!--	恢复签约结束-->
 
+	<!--	恢复高速开始-->
+	<view class="resume-contract" wx:if="{{orderInfo.selfStatus === 10}}">
+		<view class="processing-title">
+			<view>{{orderInfo.vehPlates}}</view>
+			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
+		</view>
+		<view class="btn" catchtap="signingExpress">签约高速免密支付</view>
+		<view class="tips tips-red">一键签约，无感支付</view>
+	</view>
+	<!--	恢复高速签约结束-->
+
 <!--	账单开始-->
 	<view class="bill" wx:if="{{orderInfo.selfStatus === 9 && orderInfo.contractStatus !== 2}}">
 		<view class="processing-title">
@@ -167,4 +178,5 @@
 		</view>
 	</view>
 	<!--	底部导航结束-->
+	<signing-prompt id="notSigningPrompt" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></signing-prompt>
 </view>

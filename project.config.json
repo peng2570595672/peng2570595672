@@ -25,13 +25,13 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"useCompilerModule": false,
+		"useCompilerModule": true,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.11.2",
 	"appid": "wxddb3eb32425e4a96",
-	"projectname": "etc_plus_mini_2.0",
+	"projectname": "%E6%96%B0%E6%B5%81%E7%A8%8B_ETC%2B2.0",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
@@ -70,9 +70,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "activities/pages/activity_icbc_twenty_eight/index",
-					"pathName": "activities/pages/activity_icbc_twenty_eight/index",
+					"id": 1,
+					"name": "我的ETC",
+					"pathName": "pages/personal_center/my_etc/my_etc",
 					"query": "shareId=123455",
 					"scene": null
 				},
@@ -120,8 +120,8 @@
 				},
 				{
 					"id": 8,
-					"name": "pages/default/processing_progress/processing_progress",
-					"pathName": "pages/default/processing_progress/processing_progress",
+					"name": "支付保证金",
+					"pathName": "pages/default/margin_payment/margin_payment",
 					"query": "orderId=719857736895959040",
 					"scene": null
 				},
@@ -141,22 +141,22 @@
 				},
 				{
 					"id": 11,
-					"name": "pages/personal_center/my_etc/my_etc",
-					"pathName": "pages/personal_center/my_etc/my_etc",
-					"query": "configId=717789127443357696&appid=717789127443357696&appaaid=717789127443357696&ap222paaid=717789127443357696&ap224442paaid=717789127443357696",
+					"name": "ETC详情",
+					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+					"query": "orderId=714793153080594432",
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "activities/pages/activity_micro_insurance/index",
-					"pathName": "activities/pages/activity_micro_insurance/index",
-					"query": "orderId=719857736895959040",
+					"id": 12,
+					"name": "pages/default/processing_progress/processing_progress",
+					"pathName": "pages/default/processing_progress/processing_progress",
+					"query": "orderId=714793153080594432",
 					"scene": null
 				},
 				{
 					"id": 13,
-					"name": "activities/pages/activity_coupons/index",
-					"pathName": "activities/pages/activity_coupons/index",
+					"name": "pages/default/receiving_address/receiving_address",
+					"pathName": "pages/default/receiving_address/receiving_address",
 					"query": "",
 					"scene": null
 				},

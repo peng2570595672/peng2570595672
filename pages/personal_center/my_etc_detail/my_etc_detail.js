@@ -251,25 +251,29 @@ Page({
 	},
 	//  恢复签约
 	onClickBackToSign () {
-		if (this.data.orderInfo.contractStatus === 2) {
-			// 解约重签
-			app.globalData.orderInfo.orderId = this.data.orderId;
-			app.globalData.signAContract = 1;
-			this.onClickSwitchBank();
+		if (this.data.orderInfo.selfStatus === 10) {
+			this.selectComponent('#notSigningPrompt').show();
 		} else {
-			// 立即签约
-			let isFirstVersion = false;
-			if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {
-				// 1.0数据 立即签约 需标记资料已完善
-				isFirstVersion = true;
-			}
-			if (this.data.orderInfo.orderType === 31) {
-				app.globalData.isSalesmanOrder = true;
+			if (this.data.orderInfo.contractStatus === 2) {
+				// 解约重签
+				app.globalData.orderInfo.orderId = this.data.orderId;
+				app.globalData.signAContract = 1;
+				this.onClickSwitchBank();
 			} else {
-				app.globalData.isSalesmanOrder = false;
+				// 立即签约
+				let isFirstVersion = false;
+				if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {
+					// 1.0数据 立即签约 需标记资料已完善
+					isFirstVersion = true;
+				}
+				if (this.data.orderInfo.orderType === 31) {
+					app.globalData.isSalesmanOrder = true;
+				} else {
+					app.globalData.isSalesmanOrder = false;
+				}
+				app.globalData.signAContract = -1;
+				this.weChatSign(isFirstVersion);
 			}
-			app.globalData.signAContract = -1;
-			this.weChatSign(isFirstVersion);
 		}
 	},
 	// 微信签约
@@ -356,6 +360,17 @@ Page({
 					wx.removeStorageSync('driving_license_back');
 					wx.removeStorageSync('car_head_45');
 				}
+				// if (this.data.orderInfo.pledgeStatus === 0) {
+				// 	// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
+				// 	// 待支付保证金
+				// 	util.go(`/pages/default/margin_payment/margin_payment?marginPaymentMoney=${this.data.orderInfo.pledgeMoney}`);
+				// } else {
+				// 	if (wx.getStorageSync('driving_license_face')) {
+				// 		util.go('/pages/default/information_validation/information_validation');
+				// 	} else {
+				// 		util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
+				// 	}
+				// }
 				if (wx.getStorageSync('driving_license_face')) {
 					util.go('/pages/default/information_validation/information_validation');
 				} else {

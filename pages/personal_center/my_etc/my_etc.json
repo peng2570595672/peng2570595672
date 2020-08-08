@@ -4,6 +4,7 @@
 	"navigationBarTextStyle": "black",
 	"navigationBarTitleText": "我的ETC",
 	"usingComponents": {
-		"jinyixing-prompt": "/components/jinyixing_prompt/jinyixing_prompt"
+		"jinyixing-prompt": "/components/jinyixing_prompt/jinyixing_prompt",
+		"signing-prompt": "/components/signing_prompt/signing_prompt"
 	}
 }

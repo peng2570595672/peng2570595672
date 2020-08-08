@@ -8,8 +8,14 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
+		isPaymentProcess: undefined
 	},
-	onLoad () {
+	onLoad (options) {
+		if (options.isPaymentProcess) {
+			this.setData({
+				isPaymentProcess: options.isPaymentProcess
+			});
+		}
 		wx.removeStorageSync('return_to_prompt');
 	},
 	// 下一步

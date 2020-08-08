@@ -1,0 +1,14 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<view class="margin-payment">
+	<!--	设备图开始-->
+	<image src="/pages/default/assets/etc_device.png"/>
+	<!--	设备图结束-->
+	<!--	提示开始-->
+	<view class="prompt">设备为免费发行，为了保证办理ETC顺利理，您需支付{{tools.parseNum(marginPaymentMoney/100)}}元保证金，设备成功激活后将退回原账户</view>
+	<!--	提示结束-->
+	<view class="fill"></view>
+	<!--	在线客服开始-->
+	<view class="bottom"><text catchtap="goOnlineServer">在线客服</text></view>
+	<!--	在线客服结束-->
+	<view  class="btn" catchtap="subscribe"><view class="animate" wx:if="{{isRequest}}"></view>支付{{tools.parseNum(marginPaymentMoney/100)}}元保证金</view>
+</view>

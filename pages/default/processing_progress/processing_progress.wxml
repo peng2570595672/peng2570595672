@@ -23,10 +23,14 @@
 	<!--	办理进度失败-->
 	<!--	进度开始-->
 	<view class="progress_wrapper">
-		<view class="item finished"  wx:if="{{accountVerification !== 0}}">
+		<view class="item finished"  wx:if="{{accountVerification !== 0 && info.flowVersion === 1}}">
 			<view class="content-title finished">账户验证</view>
 			<view class="content-des" wx:if="{{accountVerification === 2 || accountVerification === '2'}}">正在验证中....<text class="refresh iconfont" catchtap="refreshCheck">刷新结果</text></view>
 			<view class="content-des" wx:else>{{accountVerification === 0 ? '审核通过' : '验证成功'}}</view>
+		</view>
+		<view class="item {{info.hwContractStatus !== 0 ? 'finished' : ''}}"  wx:if="{{info.flowVersion === 2}}">
+			<view class="content-title finished">高速签约</view>
+			<view class="content-des">{{info.hwContractStatus === 0 ? '等待完成高速支付签约' : info.hwContractStatus === 1 ? '已完成高速签约' : '已解约，请恢复签约'}}</view>
 		</view>
 		<view class="item {{info.auditStatus !== 0 ? 'finished' : ''}}" wx:if="{{info.auditStatus !== -1}}">
 			<view class="content-title">资料审核</view>
@@ -51,8 +55,9 @@
 	</view>
 	<!--	进度结束-->
 	<!--	按钮开始-->
-	<button class="btn" wx:if="{{info.logisticsId !== 0 && info.obuStatus !== 1}}" catchtap="onClickCctivate">确认收货并激活</button>
-<!--	按钮结束-->
+	<button class="btn" wx:if="{{info.logisticsId !== 0 && info.obuStatus !== 1 && ((info.flowVersion === 2 && info.hwContractStatus === 1) || info.flowVersion === 1)}}" catchtap="onClickCctivate">确认收货并激活</button>
+	<button class="btn" wx:if="{{info.flowVersion === 2 && info.hwContractStatus !== 1}}" catchtap="signingExpress">签约高速支付渠道</button>
+	<!--	按钮结束-->
 	<view class="auto-fill"></view>
 
 	<!--	在线客服开始-->
@@ -70,4 +75,5 @@
 	</view>
 	<!--微保活动结束-->
 	<jinyixing-prompt id="notJinYiXingPrompt" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></jinyixing-prompt>
+	<signing-prompt id="notSigningPrompt" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></signing-prompt>
 </view>

@@ -143,6 +143,10 @@ Page({
 			});
 		}, 400);
 	},
+	// 签约高速弹窗
+	signingExpress () {
+		this.selectComponent('#notSigningPrompt').show();
+	},
 	// 获取办理进度
 	getProcessingProgress () {
 		util.showLoading();

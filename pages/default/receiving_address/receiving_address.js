@@ -238,13 +238,13 @@ Page({
 				});
 			} else if (res.code === 301) { // 已存在当前车牌未完成订单
 				util.alert({
-					content: '系统检测到当前车牌您已在办理中，是否更新信息？',
+					content: '该车牌订单已存在，请前往“首页>我的ETC”页面查看。',
 					showCancel: true,
-					confirmText: '更新',
+					confirmText: '去查看',
 					confirm: () => {
 						// 订单id
-						app.globalData.orderInfo.orderId = res.data.id; // 订单id
-						this.next();
+						app.globalData.orderInfo.orderId = ''; // 订单id
+						util.go(`/pages/personal_center/my_etc/my_etc`);
 					},
 					cancel: () => {
 						app.globalData.orderInfo.orderId = '';

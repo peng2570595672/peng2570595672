@@ -1,7 +1,37 @@
-var substring = function (val,start,end) {
+// 字符串截取
+function substring(val,start,end) {
   if (val.length == 0 || val == undefined) {
     return;
   }
     return val.substring(start,end);
 }
-module.exports.substring = substring;
+// 保留两位小数
+function parseNum(val) {
+  val.toFixed(2);
+  return val;
+}
+// 倒计时函数
+function formatterTimer(systimestamp, compareTime, countdownTime) {
+  var reg = getRegExp("-", "g"); // 获取正则表达式，全局替换
+  compareTime = compareTime.replace(reg, '/'); // 时间格式转换
+  // 将字符串转换成时间格式
+  compareTime = getDate(compareTime).valueOf();
+  var result = {};
+  var nowTime = systimestamp / 1000;// 当前系统的时间戳
+  var futureTime = getDate(compareTime).getTime() / 1000 + countdownTime * 24 * 60 * 60; // 操作时间 + 倒计时时间
+  // 未来的时间减去现在的时间;
+  var resTime = futureTime - nowTime;
+  var date = Math.ceil(resTime / (24 * 60 * 60));
+  if (date === 0) {
+    date = 0;
+  }
+  if (date >= countdownTime) {
+    date = countdownTime;
+  }
+  return date;
+};
+module.exports = {
+  substring: substring,
+  parseNum: parseNum,
+  formatterTimer: formatterTimer,
+};

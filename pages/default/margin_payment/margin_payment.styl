@@ -1,0 +1,41 @@
+@import "../../../style/base.styl";
+@import "../../../style/my_animate.styl";
+.margin-payment
+	display flex
+	min-height 100vh
+	flex-direction column
+	overflow hidden
+	// 设备图开始
+	& > image
+		margin 136rpx auto 128rpx
+		width 322rpx
+		height 224rpx
+	.prompt
+		padding 0 66rpx 0 60rpx
+		font-size 28rpx
+		line-height 40rpx
+	// 高度填充
+	.fill
+		flex 1
+	// 下一步
+	.btn
+		bottom 96rpx
+		display flex
+		align-items center
+		justify-content center
+		margin 20rpx 60rpx 96rpx
+		height 98rpx
+		font-size 40rpx
+		font-weight 500
+		color #fff
+		border-radius 49rpx
+		background: linear-gradient(to right , $deepThemeColor, $shallowThemeColor)
+	.bottom
+		position absolute
+		bottom 0
+		width 100%
+		text-align center
+		font-size 24rpx
+		color #039EEB
+		line-height 40rpx
+		margin 30rpx 0

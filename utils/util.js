@@ -640,6 +640,12 @@ function getStatus(orderInfo) {
 	} else if (orderInfo.obuStatus === 1 && orderInfo.auditStatus === 2) {
 		status = 9; // 审核通过  已激活
 	}
+	// 新流程
+	if (status !== 2 && status !== 5 && orderInfo.status === 1 && orderInfo.flowVersion === 2 && orderInfo.hwContractStatus !== 1) {
+		// 待微信签约的优先微信签约
+		// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
+		status = 10; // 待签约高速
+	}
 	if (orderInfo.auditStatus === -1 && orderInfo.status === 1) {
 		// 不需要审核,为了不改动之前的,所以单独判断
 		if (orderInfo.contractStatus !== 1) {
@@ -727,6 +733,7 @@ function resetData() {
 	app.globalData.isFaceToFaceWeChat = false;
 	app.globalData.isToMicroInsurancePromote = false;
 	app.globalData.faceToFacePromotionId = undefined;
+	app.globalData.isMarginPayment = false;
 }
 
 /**

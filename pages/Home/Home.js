@@ -248,6 +248,10 @@ Page({
 			}
 		}, app.globalData.userInfo.accessToken);
 	},
+	// 签约高速弹窗
+	signingExpress () {
+		this.selectComponent('#notSigningPrompt').show();
+	},
 	goOrderDetails () {
 		mta.Event.stat('013',{});
 		let model = this.data.recentlyTheBill;
@@ -597,6 +601,17 @@ Page({
 					wx.removeStorageSync('driving_license_back');
 					wx.removeStorageSync('car_head_45');
 				}
+				// if (this.data.orderInfo.pledgeStatus === 0) {
+				// 	// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
+				// 	// 待支付保证金
+				// 	util.go(`/pages/default/margin_payment/margin_payment?marginPaymentMoney=${this.data.orderInfo.pledgeMoney}`);
+				// } else {
+				// 	if (wx.getStorageSync('driving_license_face')) {
+				// 		util.go('/pages/default/information_validation/information_validation');
+				// 	} else {
+				// 		util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
+				// 	}
+				// }
 				if (wx.getStorageSync('driving_license_face')) {
 					util.go('/pages/default/information_validation/information_validation');
 				} else {

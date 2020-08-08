@@ -2,5 +2,8 @@
 	"navigationBarBackgroundColor": "#FFFFFF",
 	"backgroundColor": "#FFFFFF",
 	"navigationBarTextStyle": "black",
-	"navigationBarTitleText": "ETC+"
+	"navigationBarTitleText": "ETC+",
+	"usingComponents": {
+		"signing-prompt": "/components/signing_prompt/signing_prompt"
+	}
 }
