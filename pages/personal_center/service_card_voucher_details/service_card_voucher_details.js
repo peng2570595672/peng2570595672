@@ -13,7 +13,7 @@ Page({
 	},
 	onLoad (options) {
 		this.setData({
-			details: JSON.parse(options.details),
+			details: app.globalData.serviceCardVoucherDetails,
 			mobilePhone: app.globalData.userInfo.mobilePhone
 		});
 		if (this.data.details.couponUseCheckList && this.data.details.couponUseCheckList.length > 0) {

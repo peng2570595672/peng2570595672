@@ -147,7 +147,8 @@ Page({
 		}, (res) => {
 			if (res.code === 0) {
 				this.close();
-				util.go(`/pages/personal_center/service_card_voucher_details/service_card_voucher_details?details=${JSON.stringify(res.data)}`);
+				app.globalData.serviceCardVoucherDetails = res.data;
+				util.go(`/pages/personal_center/service_card_voucher_details/service_card_voucher_details`);
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -192,7 +193,8 @@ Page({
 	},
 	// 查看详情
 	go (e) {
-		util.go(`/pages/personal_center/service_card_voucher_details/service_card_voucher_details?details=${JSON.stringify(e.currentTarget.dataset.model)}`);
+		app.globalData.serviceCardVoucherDetails = e.currentTarget.dataset.model;
+		util.go(`/pages/personal_center/service_card_voucher_details/service_card_voucher_details`);
 	},
 	// 照相机扫码识别兑换码
 	getExchangeCodeFromScan () {

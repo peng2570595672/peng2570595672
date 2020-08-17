@@ -57,6 +57,7 @@ App({
 		contractStatus: '', // 签约状态   签约状态 -1 签约失败 0发起签约 1已签约 2解约
 		orderStatus: '', // 订单状态
 		isHeadImg: true, // 是否上传车头照
+		serviceCardVoucherDetails: undefined, // 卡券详情
 		myEtcList: {}, // 车辆列表
 		orderInfo: {
 			orderId: ''
