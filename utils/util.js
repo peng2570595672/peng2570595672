@@ -734,6 +734,7 @@ function resetData() {
 	app.globalData.isToMicroInsurancePromote = false;
 	app.globalData.faceToFacePromotionId = undefined;
 	app.globalData.isMarginPayment = false;
+	app.globalData.activitiesOfDrainage = false;
 }
 
 /**

@@ -43,6 +43,8 @@ App({
 		isFaceToFaceWeChat: false, // 是否是面对面微信活动
 		isToMicroInsurancePromote: false, // 是否是微保推广
 		faceToFacePromotionId: undefined, // 面对面推广ID
+		activitiesOfDrainage: false, // 活动引流
+		activityUrl: undefined, // 活动地址
 		rechargeCode: undefined, // 业务员办理激活扫码进入充值
 		quality: 80,
 		signAContract: 3,// -1正常签约  1  解约重签

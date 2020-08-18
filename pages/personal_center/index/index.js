@@ -9,10 +9,16 @@ Page({
 		userInfo: undefined, // 用户信息
 		showDetailWrapper: false,
 		mobilePhoneSystem: false,
+		isMain: false,// 是否从主流程进入
 		mobilePhone: undefined,
 		showDetailMask: false
 	},
-	onLoad () {
+	onLoad (options) {
+		if (options.isMain) {
+			this.setData({
+				isMain: options.isMain
+			});
+		}
 	},
 	onShow () {
 		if (app.globalData.userInfo.accessToken) {

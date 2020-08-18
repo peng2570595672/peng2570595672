@@ -12,6 +12,7 @@ Page({
 		loginInfo: {},// 登录信息
 		orderInfo: undefined, // 订单信息
 		isContinentInsurance: false, // 是否是大地保险
+		heaicheProvinceList: ['辽宁', '湖南', '江苏', '甘肃', '广西', '内蒙古', '陕西', '山西', '四川', '云南', '安徽', '宁夏', '青海', '河南', '上海', '浙江', '黑龙江', '山东', '福建', '河北'], // 和爱车活动加载省份
 		rotationChartList: [], // 轮播图
 		recentlyTheBill: undefined // 最新账单
 	},
@@ -124,18 +125,84 @@ Page({
 						isContinentInsurance: app.globalData.isContinentInsurance
 					});
 					if (this.data.isContinentInsurance) {
-						list = list.filter(item => item.remark !== 'micro_insurance'); // 大地保险屏蔽微保
+						list = list.filter(item => item.remark !== 'micro_insurance' && item.remark !== 'heaiche');// 大地保险屏蔽微保&和爱车
 					} else {
 						list = list.filter(item => item.remark !== 'continent_insurance'); // 普通流程屏蔽大地保险
 					}
 					this.setData({
 						rotationChartList: list
 					});
+					if (!this.data.isContinentInsurance) {
+						this.init(list);
+					}
 				}
 			} else {
 				util.showToastNoIcon(res.message);
 			}
 		});
+	},
+	// 定位
+	getLocationInfo (bannerList) {
+		util.showLoading();
+		let that = this;
+		wx.getLocation({
+			type: 'wgs84',
+			success: (res) => {
+				util.getAddressInfo(res.latitude, res.longitude, (res) => {
+					let info = res.result.ad_info;
+					console.log(res);
+					that.isShowHACBanner(bannerList, res.result.address);
+					wx.setStorageSync('location-info',JSON.stringify(res));
+					// 根据地区显示和爱车banner
+				}, () => {
+					// 不显示和爱车banner
+				});
+			},
+			fail: (res) => {
+				util.hideLoading();
+				console.log(res);
+				if (res.errMsg === 'getLocation:fail auth deny' || res.errMsg === 'getLocation:fail authorize no response') {
+					util.alert({
+						content: '由于您拒绝了定位授权，导致无法获取扣款方式，请允许定位授权！',
+						showCancel: true,
+						confirmText: '允许授权',
+						confirm: () => {
+							wx.openSetting();
+						}
+					});
+				} else if (res.errMsg === 'getLocation:fail:ERROR_NOCELL&WIFI_LOCATIONSWITCHOFF' || res.errMsg === 'getLocation:fail system permission denied') {
+					util.showToastNoIcon('请开启手机或微信定位功能！');
+				}
+			}
+		});
+	},
+	// 获取定位数据
+	init (bannerList) {
+		// 是否缓存了定位信息
+		let locationInfo = wx.getStorageSync('location-info');
+		if (locationInfo) {
+			let res = JSON.parse(locationInfo);
+			this.isShowHACBanner(bannerList, res.result.address);
+			// 根据地区显示和爱车banner
+			return;
+		}
+		// 定位
+		this.getLocationInfo(bannerList);
+	},
+	// 是否显示和爱车banner
+	isShowHACBanner (bannerList, address) {
+		let isShowProvince = false;
+		this.data.heaicheProvinceList.forEach(item => {
+			if (address.includes(item)) {
+				isShowProvince = true;
+			}
+		});
+		if (!isShowProvince) {
+			bannerList = bannerList.filter(item => item.remark !== 'heaiche');// 大地保险屏蔽微保&和爱车
+			this.setData({
+				rotationChartList: bannerList
+			});
+		}
 	},
 	// 获取手机号
 	onGetPhoneNumber (e) {
@@ -183,6 +250,29 @@ Page({
 		return {
 			path: '/pages/Home/Home'
 		};
+	},
+	// 获取和爱车活动加密手机号
+	encryptionMobilePhone (pageUrl) {
+		if (!app.globalData.mobilePhone) {
+			util.go('/pages/login/login/login');
+			return;
+		}
+		util.showLoading();
+		util.getDataFromServer('consumer/system/common/HACAESEncode', {
+			mobilePhone: app.globalData.mobilePhone,
+			aesKey: 'hHMogstx1gcJQLcu'
+		}, () => {
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				// let url = `${pageUrl}&mobile=${encodeURIComponent(res.data.data)}`;
+				app.globalData.activityUrl = encodeURIComponent(res.data.data);
+				util.go(`/pages/web/web/web?type=heaiche`);
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken);
 	},
 	// 获取最后有一笔订单信息
 	getStatus (isToMasterQuery) {
@@ -331,7 +421,7 @@ Page({
 				mta.Event.stat('012',{});
 			}
 			// 订阅:高速扣费通知、ETC欠费提醒、黑名单状态提醒
-			let urls = `/pages/personal_center/${url}/${url}`;
+			let urls = `/pages/personal_center/${url}/${url}?isMain=true`;
 			let tmplIds = ['oz7msNJRXzk7VmASJsJtb2JG0rKEWjX3Ff1PIaAPa78','lY047e1wk-OFdeGuIx2ThV-MOJ4aUOx2HhSxUd1YXi0', 'my5wGmuottanrIAKrEhe2LERPKx4U05oU4aK9Fyucv0'];
 			util.subscribe(tmplIds,urls);
 			// util.go(`/pages/personal_center/${url}/${url}`);
@@ -462,6 +552,10 @@ Page({
 			// 页面类型：1-H5，2-小程序
 			if (item.remark === 'micro_insurance') {
 				mta.Event.stat('banner_activity_weibao',{});
+			}
+			if (item.remark === 'heaiche') {
+				this.encryptionMobilePhone(item.pageUrl);
+				return;
 			}
 			util.go(`/pages/web/web/web?url=${encodeURIComponent(item.pageUrl)}&type=banner`);
 		} else {

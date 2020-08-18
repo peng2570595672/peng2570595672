@@ -136,6 +136,7 @@ Component({
 				type: 'wgs84',
 				success: (res) => {
 					util.getAddressInfo(res.latitude, res.longitude, (res) => {
+						wx.setStorageSync('location-info',JSON.stringify(res));
 						let info = res.result.ad_info;
 						let regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
 						this.setData({

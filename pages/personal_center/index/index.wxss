@@ -30,6 +30,9 @@ page .index .top .scan::before {
   color: #fff;
   font-size: 50rpx;
 }
+page .index .top .v-top {
+  padding-top: 170rpx;
+}
 page .index .top .head_portrait {
   position: relative;
   display: flex;

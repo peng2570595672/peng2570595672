@@ -1,0 +1,17 @@
+<view class="page">
+	<view class="banner-container">
+		<view class="top-div">
+			<image src="https://file.cyzl.com/g001/M06/62/75/oYYBAF804qeAYv97AAFw_yc2ADQ465.png" mode="widthFix"></image>
+		</view>
+		<view class="btn-container">
+			<button class="btn" wx:if="{{loginInfo.needBindingPhone !== 1}}" catchtap="receive">立即办理</button>
+			<button class="btn" wx:else open-type="getPhoneNumber"  bindgetphonenumber="onGetPhoneNumber">立即办理</button>
+		</view>
+		<view class="rules">
+			<view>活动规则</view>
+			<view>1、本活动仅限9座及以下汽车办理；</view>
+			<view>2、加油优惠规则：仅限中国石油指定油站，到站加油出示ETC卡立享9.5折；</view>
+			<view>3、在法律允许范围内，本次活动最终解释权归ETC+所有。</view>
+		</view>
+	</view>
+</view>

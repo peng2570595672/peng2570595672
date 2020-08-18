@@ -25,7 +25,7 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"useCompilerModule": true,
+		"useCompilerModule": false,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
@@ -78,8 +78,8 @@
 				},
 				{
 					"id": 2,
-					"name": "activities/pages/activity_icbc_forty_five_theme/index",
-					"pathName": "activities/pages/activity_icbc_forty_five_theme/index",
+					"name": "pages/personal_center/index/index",
+					"pathName": "pages/personal_center/index/index",
 					"query": "",
 					"scene": null
 				},
@@ -148,22 +148,22 @@
 				},
 				{
 					"id": 12,
-					"name": "pages/default/processing_progress/processing_progress",
-					"pathName": "pages/default/processing_progress/processing_progress",
-					"query": "orderId=714793153080594432",
+					"name": "大地入口",
+					"pathName": "pages/Home/Home",
+					"query": "carInsurance=1111",
 					"scene": null
 				},
 				{
 					"id": 13,
-					"name": "pages/default/receiving_address/receiving_address",
-					"pathName": "pages/default/receiving_address/receiving_address",
+					"name": "activities/pages/activity_for_heaiche/index",
+					"pathName": "activities/pages/activity_for_heaiche/index",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": 14,
-					"name": "activities/pages/activity_parking_ticket/index",
-					"pathName": "activities/pages/activity_parking_ticket/index",
+					"name": "pages/personal_center/index/index",
+					"pathName": "pages/personal_center/index/index",
 					"query": "configId=703923388790987622",
 					"scene": null
 				}
