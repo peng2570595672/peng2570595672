@@ -201,9 +201,15 @@ Page({
 	},
 	// 监听返回按钮
 	onClickBackHandle () {
-		wx.navigateBack({
-			delta: 1
-		});
+		if (this.data.isMain) {
+			wx.navigateBack({
+				delta: 1
+			});
+		} else {
+			wx.reLaunch({
+				url: '/pages/Home/Home'
+			});
+		}
 	},
 	// 统计点击去关注公众号按钮
 	goPublicAccount () {

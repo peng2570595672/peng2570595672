@@ -3,10 +3,10 @@
 	<view class="top {{mobilePhoneSystem ? 'iphone' : ''}} {{screenHeight < 550 ? 'small-screen' : ''}}">
 
 		<!--返回按钮-->
-		<view  class="back iconfont" catchtap="onClickBackHandle" wx:if="{{isMain}}"></view>
+		<view  class="back iconfont {{isMain ? '' : 'home'}}" catchtap="onClickBackHandle"></view>
 
 		<!--扫一扫-->
-		<view class="scan iconfont {{isMain ? '' : 'v-top'}}" catchtap="scan"></view>
+		<view class="scan iconfont" catchtap="scan"></view>
 
 		<!--头像-->
 		<view class="head_portrait">
