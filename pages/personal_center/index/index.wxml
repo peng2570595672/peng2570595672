@@ -99,7 +99,7 @@
 		<!--活动文字描述开始-->
 		<view class="activity_msg">
 			<view>关注公众号</view>
-			<view>最新资讯秒服务秒GET!</view>
+			<view>享受更多服务、资讯！</view>
 		</view>
 		<!--活动文字描述结束-->
 		<view class="iconfont activity_right"></view>
