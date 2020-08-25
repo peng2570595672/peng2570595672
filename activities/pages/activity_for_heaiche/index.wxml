@@ -1,7 +1,7 @@
 <view class="page">
 	<view class="banner-container">
 		<view class="top-div">
-			<image src="https://file.cyzl.com/g001/M06/62/75/oYYBAF804qeAYv97AAFw_yc2ADQ465.png" mode="widthFix"></image>
+			<image src="https://file.cyzl.com/g001/M06/6F/D9/oYYBAF9EftGAJMfqAALKNN-ep3I467.png" mode="widthFix"></image>
 		</view>
 		<view class="btn-container">
 			<button class="btn" wx:if="{{loginInfo.needBindingPhone !== 1}}" catchtap="receive">立即办理</button>
