@@ -155,9 +155,9 @@
 				},
 				{
 					"id": 13,
-					"name": "pages/Home/Home",
-					"pathName": "pages/Home/Home",
-					"query": "officialChannelId=645937022279614464",
+					"name": "activities/pages/activity_icbc_fifty_theme/index",
+					"pathName": "activities/pages/activity_icbc_fifty_theme/index",
+					"query": "",
 					"scene": null
 				},
 				{

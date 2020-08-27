@@ -33,7 +33,7 @@
     			<view class="head1">活 动 规 则</view>
     			<view class="cont1">
     				<view class="label">1、</view>
-    				<view class="char">限通过本活动页面办理的用户，过高速ETC通道，通行费大于50元使用； </view>
+    				<view class="char">限通过本活动页面办理的ETC用户，过高速ETC通，道通行费超过50元使用； </view>
     			</view>
     			<view class="cont1">
     				<view class="label">2、</view>
@@ -51,10 +51,14 @@
     				<view class="label">5、</view>
     				<view class="char">本活动发行的昆仑卡，加油享中石油优惠，优惠政策以所在加油站为准；</view>
     			</view>
-    			<view class="cont1">
-    				<view class="label">6、</view>
-    				<view class="char">在法律允许范围内，本次活动最终解释权归ETC+所有。</view>
-    			</view>
+			    <view class="cont1">
+				    <view class="label">6、</view>
+				    <view class="char">如在有效期内，符合使用条件但不能使用代金券抵扣路费的，请在10月20日前通过ETC+小程序或公众号联系在线客服，我司核实后，给予50元的补偿；</view>
+			    </view>
+			    <view class="cont1">
+				    <view class="label">7、</view>
+				    <view class="char">在法律允许范围内，本次活动最终解释权归ETC+所有。</view>
+			    </view>
     		</view>
     	</view>
 	<!--绑定手机号弹窗-->

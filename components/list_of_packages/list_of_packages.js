@@ -106,11 +106,11 @@ Component({
 						list = [];
 						faceToFaceList = res.data.find((item) => {
 							if (app.globalData.isFaceToFaceCCB) {
-								return item.shopProductId === '699045700725501952';
+								return item.shopProductId === '746500057456570395';
 							} else if (app.globalData.isFaceToFaceICBC) {
-								return item.shopProductId === '699045657108934656';
+								return item.shopProductId === '746500057456570393';
 							} else {
-								return item.shopProductId === '699045676809580544';
+								return item.shopProductId === '746500057456570394';
 							}
 						});
 						list.push(faceToFaceList);
