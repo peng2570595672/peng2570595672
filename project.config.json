@@ -25,6 +25,7 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
+		"useIsolateContext": true,
 		"useCompilerModule": false,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
@@ -108,7 +109,7 @@
 					"id": 6,
 					"name": "办理进度",
 					"pathName": "pages/default/processing_progress/processing_progress",
-					"query": "",
+					"query": "orderId=750442877963735040",
 					"scene": null
 				},
 				{
@@ -143,7 +144,7 @@
 					"id": 11,
 					"name": "ETC详情",
 					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "orderId=714793153080594432",
+					"query": "orderId=750442877963735040",
 					"scene": null
 				},
 				{

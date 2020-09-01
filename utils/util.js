@@ -640,9 +640,14 @@ function getStatus(orderInfo) {
 	} else if (orderInfo.obuStatus === 1 && orderInfo.auditStatus === 2) {
 		status = 9; // 审核通过  已激活
 	}
-	// 新流程
-	if (status !== 2 && status !== 5 && orderInfo.status === 1 && orderInfo.flowVersion === 2 && orderInfo.hwContractStatus !== 1) {
-		// 待微信签约的优先微信签约
+	// // 新流程
+	// if (status !== 2 && status !== 5 && orderInfo.status === 1 && orderInfo.flowVersion === 2 && orderInfo.hwContractStatus !== 1) {
+	// 	// 待微信签约的优先微信签约
+	// 	// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
+	// 	status = 10; // 待签约高速
+	// }
+	if (orderInfo.auditStatus === 2 && orderInfo.flowVersion === 2 && orderInfo.hwContractStatus !== 1) {
+		// 审核通过  未高速签约
 		// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
 		status = 10; // 待签约高速
 	}

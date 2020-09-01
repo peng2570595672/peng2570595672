@@ -13,6 +13,7 @@ Page({
 		accountVerification: 0, //  0 没有核验id   1：核验成功，2-正在核验
 		info: undefined,
 		isContinentInsurance: false, // 是否是大地保险
+		number: 0,
 		showDetailWrapper: false,
 		showDetailMask: false
 	},
@@ -150,9 +151,11 @@ Page({
 	// 获取办理进度
 	getProcessingProgress () {
 		util.showLoading();
+		let that = this;
 		util.getDataFromServer('consumer/order/transact-schedule', {
 			orderId: this.data.orderId
 		}, () => {
+			util.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
 				this.setData({
@@ -161,11 +164,26 @@ Page({
 				if (this.data.info.orderVerificationId) {
 					this.refreshCheck();
 				}
+				if (res.data.autoAuditStatus === 0 && res.data.auditStatus === 0) {
+					if (that.data.number >= 5) {
+						util.hideLoading();
+						return;
+					}
+					let number = that.data.number + 1;
+					that.setData({
+						number: number
+					});
+					setTimeout(() => {
+						that.getProcessingProgress();
+					}, 2000);
+				} else {
+					util.hideLoading();
+				}
 			} else {
+				util.hideLoading();
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
 		});
 	},
 	// 刷新1分钱核验
