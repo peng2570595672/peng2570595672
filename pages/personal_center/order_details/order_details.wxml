@@ -1,43 +1,45 @@
 <view class="order_details {{details.deductStatus === 2 || details.deductStatus === 10 ? 'is-arrears': ''}}">
 	<!--	扣费金额开始-->
 	<view class="deduction-amount">
-		<view class="doubt iconfont" catchtap="goOrderInstructions"><text></text></view>
+		<view class="doubt iconfont" catchtap="goOrderInstructions" wx:if="{{details.flowVersion === 1}}"><text></text></view>
 		<view class="deduction-amount-box">
 			<view class="deduction-amount-title">扣费金额</view>
-			<view class="{{details.deductStatus !== 1 && details.deductStatus !== 10 && details.deductStatus !== 11 && details.deductStatus !== 12 ? 'deduction-amount-red' : ''}}">
+			<view class="{{details.deductStatus !== 1 && details.deductStatus !== 10 && details.deductStatus !== 11 && details.deductStatus !== 12 && details.flowVersion !== 2 ? 'deduction-amount-red' : ''}}">
 				<text  class="{{details.deductStatus === 7 ? 'refund' : ''}}">{{(details.serviceMoney && details.etcMoney) ? (details.etcMoney + details.serviceMoney)/100 : details.etcMoney/100}}</text>
 			</view>
-<!--			<view class="failure-prompted {{details.deductStatus === 7 ? 'refund' : ''}}" wx:if="{{details.etcMoney > 0}}">{{details.deductStatus === 7 ? '已退款' : (details.errCodeDes === '0' ? '' : details.errCodeDes)}}</view>-->
+			<view wx:if="{{details.flowVersion === 2}}" class="flow-version-second">由于系统升级，目前尚不能查询订单是否已支付，请确保高速签约银行卡余额充足，银行会自动完成扣费。给您带来不便，敬请谅解。</view>
+			<view class="failure-prompted {{details.deductStatus === 7 ? 'refund' : ''}}" wx:if="{{details.etcMoney > 0  && details.flowVersion === 1 && (details.deductStatus === 7 || details.deductStatus === 2)}}">{{details.deductStatus === 7 ? '已退款' : (details.errCodeDes === '0' ? '' : details.errCodeDes)}}</view>
 		</view>
 	</view>
 	<!--扣费金额结束-->
 	<!--扣费详情开始-->
 	<view class="deduction-details">
 		<view>
-			<view>应付金额</view>
-			<view>¥{{details.totalMmout ? details.totalMmout/100 : 0}}</view>
+			<view>折后通行费</view>
+			<view wx:if="{{details.flowVersion === 2}}">¥{{(details.serviceMoney && details.etcMoney) ? (details.etcMoney + details.serviceMoney)/100 : details.etcMoney/100}}</view>
+			<view wx:else>¥{{details.totalMmout ? details.totalMmout/100 : 0}}</view>
 		</view>
-		<view>
+		<view wx:if="{{details.flowVersion === 1}}">
 			<view>通行费减免</view>
 			<view>{{details.discountMount ? -details.discountMount/100 : 0}}</view>
 		</view>
-		<view>
+		<view wx:if="{{details.flowVersion === 1}}">
 			<view>微信减免</view>
 			<view>{{details.wxDiscountAmount ? -details.wxDiscountAmount/100 : 0}}</view>
 		</view>
-		<view>
+		<view wx:if="{{details.flowVersion === 1}}">
 			<view>服务费</view>
 			<view>{{details.serviceMoney ? details.serviceMoney/100 : 0}}</view>
 		</view>
 		<view>
-			<view>扣费类型</view>
-			<view>高速扣费</view>
+			<view>扣费方式</view>
+			<view>{{details.flowVersion === 2 ? '高速签约银行卡' : details.productName}}</view>
 		</view>
-		<view>
+		<view wx:if="{{details.deductTime}}">
 			<view>扣费时间</view>
 			<view>{{details.deductTime}}</view>
 		</view>
-		<view>
+		<view wx:if="{{details.addTime}}">
 			<view>出账时间</view>
 			<view>{{details.addTime}}</view>
 		</view>
@@ -68,17 +70,17 @@
 		</view>
 		<view>
 			<view>出站时间</view>
-			<view>{{details.opTime}}</view>
+			<view>{{details.opTime ? details.opTime : details.outOpTime}}</view>
 		</view>
 		<view>
 			<view>出站口</view>
-			<view>{{details.stationName}}</view>
+			<view>{{details.stationName ? details.stationName : details.outStationName}}</view>
 		</view>
 	</view>
 	<!--车辆详情结束-->
 	<!--底部补缴开始-->
 	<view class="payment " wx:if="{{details.deductStatus === 2 || details.deductStatus === 10}}">
-		<view class="payment-prompt">欠费有可能被列为黑名单，影响您的高速通行，请及时补缴！</view>
+		<view class="payment-prompt">请确保您的{{details.productType === 1 ? '微信零钱' : '银行卡'}}余额充足，欠费有可能被列为黑名单，影响您的高速通行，请及时补缴！</view>
 		<view>
 			<button catchtap="go">补缴</button>
 		</view>

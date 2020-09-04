@@ -151,13 +151,20 @@ Page({
 		app.globalData.orderInfo.orderId = this.data.orderId;
 		app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
 		app.globalData.isModifiedData = true; // 修改资料
-		if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {
+		if (this.data.orderInfo.remark && this.data.orderInfo.remark.includes('迁移订单数据')) {
 			// 1.0数据
 			wx.removeStorageSync('driving_license_face');
 			wx.removeStorageSync('driving_license_back');
 			wx.removeStorageSync('car_head_45');
 			app.globalData.firstVersionData = true;
 		} else {
+			if (wx.getStorageSync('corresponding_package_id') !== app.globalData.orderInfo.orderId) {
+				// 行驶证缓存关联订单
+				wx.setStorageSync('corresponding_package_id', app.globalData.orderInfo.orderId);
+				wx.removeStorageSync('driving_license_face');
+				wx.removeStorageSync('driving_license_back');
+				wx.removeStorageSync('car_head_45');
+			}
 			app.globalData.firstVersionData = false;
 		}
 		util.go('/pages/default/information_validation/information_validation');

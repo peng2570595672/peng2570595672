@@ -42,7 +42,6 @@ Page({
 			url = `https://jimi3-chat.jd.com/bot?venderId=1563354131534&BusinessType=${businessType}&RegStatus=1&UserId=${app.globalData.memberId}&PlateNo=${carStr}&userPin=${app.globalData.memberId}&UserTel=${app.globalData.mobilePhone}`;
 		} else if (options.type === 'heaiche') {
 			url = `https://dhwap.mlocso.com/haccarwash/html/carwash.html?app=07200053&p=cwash_game&mobile=${app.globalData.activityUrl}`;
-			console.log(url)
 			this.setData({
 				url: url
 			});

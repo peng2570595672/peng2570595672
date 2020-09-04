@@ -25,7 +25,7 @@ page {
   font-size: 38rpx;
 }
 .order_details .deduction-amount .deduction-amount-box {
-  padding: 80rpx 16rpx 68rpx 28rpx;
+  padding: 80rpx 28rpx 68rpx;
   background: #fff;
 }
 .order_details .deduction-amount .deduction-amount-box .deduction-amount-title {
@@ -34,10 +34,14 @@ page {
   font-weight: 400;
   line-height: 44rpx;
 }
+.order_details .deduction-amount .deduction-amount-box .flow-version-second,
 .order_details .deduction-amount .deduction-amount-box .failure-prompted {
   font-size: 24rpx;
   color: #f00;
-  line-height: 24rpx;
+  line-height: 34rpx;
+}
+.order_details .deduction-amount .deduction-amount-box .flow-version-second {
+  color: #f7b500;
 }
 .order_details .deduction-amount .deduction-amount-box .deduction-amount-red {
   color: #f00;
@@ -86,7 +90,7 @@ page {
   background: #fff;
 }
 .order_details .payment .payment-prompt {
-  padding: 34rpx 0 20rpx;
+  padding: 34rpx 28rpx 20rpx;
 }
 .order_details .payment button {
   width: 84%;

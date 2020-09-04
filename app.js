@@ -46,6 +46,7 @@ App({
 		activitiesOfDrainage: false, // 活动引流
 		activityUrl: undefined, // 活动地址
 		rechargeCode: undefined, // 业务员办理激活扫码进入充值
+		billingDetails: undefined, // 账单详情(总对总)
 		quality: 80,
 		signAContract: 3,// -1正常签约  1  解约重签
 		userInfo: {},// 用户信息

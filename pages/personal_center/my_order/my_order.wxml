@@ -33,13 +33,13 @@
 		<view class="order-list-content" catchtap="goDetails" data-model="{{item}}"  wx:for="{{successBillList}}" wx:key="index">
 			<view class="order-list-top">
 				<view class="license-plate">{{item.vehPlate}}<text>[高速扣费]</text></view>
-				<view class="success-money" wx:if="{{item.deductStatus === 1 || item.deductStatus === 11 || item.deductStatus === 12}}">{{item.etcMoney/100}}</view>
+				<view class="success-money" wx:if="{{item.deductStatus === 1 || item.deductStatus === 11 || item.deductStatus === 12 || item.flowVersion === 2}}">{{item.etcMoney/100}}</view>
 				<view class="fail-money {{item.deductStatus === 7 ? 'refund' : ''}}" wx:else>{{item.etcMoney/100}}</view>
 			</view>
 			<view class="site">
-				{{item.inStationName}}<text class="iconfont"></text>{{item.stationName}}
+				{{item.inStationName}}<text class="iconfont"></text>{{item.stationName ? item.stationName : item.outStationName}}
 			</view>
-			<view class="order-list-bottom">
+			<view class="order-list-bottom" wx:if="{{item.flowVersion === 1}}">
 				<view class="accounting-time">出账时间：{{tools.substring(item.addTime,5,16)}}</view>
 				<view class="processing-time" wx:if="{{item.deductStatus === 1 || item.deductStatus === 11 || item.deductStatus === 12}}">扣款时间：{{tools.substring(item.deductTime,5,16)}}</view>
 				<view class="processing-time" wx:if="{{item.deductStatus === 10}}">补缴中</view>

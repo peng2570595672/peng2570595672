@@ -22,22 +22,22 @@
 	<view class="title other-title">办理进度</view>
 	<!--	办理进度失败-->
 	<!--	进度开始-->
-	<view class="progress_wrapper">
+	<view class="progress_wrapper" >
 		<view class="item finished"  wx:if="{{accountVerification !== 0 && info.flowVersion === 1}}">
 			<view class="content-title finished">账户验证</view>
 			<view class="content-des" wx:if="{{accountVerification === 2 || accountVerification === '2'}}">正在验证中....<text class="refresh iconfont" catchtap="refreshCheck">刷新结果</text></view>
 			<view class="content-des" wx:else>{{accountVerification === 0 ? '审核通过' : '验证成功'}}</view>
 		</view>
-		<view class="item {{info.auditStatus !== 0 ? 'finished' : ''}}" wx:if="{{info.auditStatus !== -1}}">
+		<view class="item {{info && info.auditStatus !== 0 ? 'finished' : ''}}" wx:if="{{info.auditStatus !== -1}}">
 			<view class="content-title">资料审核</view>
-			<view class="content-des iconfont {{info.auditStatus === 1 || info.auditStatus === 9 ? 'error' : ''}}" wx:if="{{info.auditStatus === 1 || info.auditStatus === 9}}">审核不通过<text class="edit iconfont" wx:if="{{info.auditStatus === 9}}" catchtap="goEtcDetails">查看详情</text></view>
-			<view class="content-des" wx:else>{{info.auditStatus === 0 ? '正在排队审核中，预计1-3个工作日内完成' : '审核通过'}}</view>
+			<view class="content-des iconfont {{info && (info.auditStatus === 1 || info.auditStatus === 9) ? 'error' : ''}}" wx:if="{{info && (info.auditStatus === 1 || info.auditStatus === 9)}}">审核不通过<text class="edit iconfont" wx:if="{{info.auditStatus === 9}}" catchtap="goEtcDetails">查看详情</text></view>
+			<view class="content-des" wx:else>{{info && info.auditStatus === 2 ? '审核通过' : '正在排队审核中，预计1-3个工作日内完成'}}</view>
 		</view>
-		<view class="item {{info.hwContractStatus !== 0 ? 'finished' : ''}}"  wx:if="{{info.flowVersion === 2}}">
+		<view class="item {{info && info.hwContractStatus !== 0 ? 'finished' : ''}}"  wx:if="{{info.flowVersion === 2}}">
 			<view class="content-title finished">高速签约</view>
 			<view class="content-des">{{info.hwContractStatus === 0 ? '等待完成高速支付签约' : info.hwContractStatus === 1 ? '已完成高速签约' : '已解约，请恢复签约'}}</view>
 		</view>
-		<view class="item  {{info.logisticsId !== 0 ? 'finished' : ''}}" wx:if="{{info.orderType === 11 && info.logisticsId !== -1}}">
+		<view class="item  {{info && info.logisticsId !== 0 ? 'finished' : ''}}" wx:if="{{info.orderType === 11 && info.logisticsId !== -1}}">
 			<view class="content-title">快递配送</view>
 			<view class="content-des" wx:if="{{info.logisticsId === 0}}">发货后可查看实时物流信息</view>
 			<view class="content-des" wx:if="{{info.logisticsId !== 0}}">已发货
@@ -48,15 +48,15 @@
 				<text class="copy" catchtap="copyLogisticsNo" data-no="{{info.logisticsNo}}">复制</text>
 			</view>
 		</view>
-		<view class="item {{(info.obuStatus !== 0 && info.obuStatus !== 5) ? 'finished' : ''}} last">
+		<view class="item {{info && (info.obuStatus !== 0 && info.obuStatus !== 5) ? 'finished' : ''}} last">
 			<view class="content-title">安装激活</view>
 			<view class="content-des">收货后可根据操作手册自主安装激活使用，请在使用过程中保证扣款渠道余额充足，以免产生扣费失败情况导致账户被拉黑</view>
 		</view>
 	</view>
 	<!--	进度结束-->
 	<!--	按钮开始-->
-	<button class="btn" wx:if="{{info.logisticsId !== 0 && info.obuStatus !== 1 && ((info.flowVersion === 2 && info.hwContractStatus === 1) || info.flowVersion === 1)}}" catchtap="onClickCctivate">确认收货并激活</button>
-	<button class="btn" wx:if="{{info.auditStatus === 2 && info.flowVersion === 2 && info.hwContractStatus !== 1}}" catchtap="signingExpress">签约高速支付渠道</button>
+	<button class="btn" wx:if="{{info && info.logisticsId !== 0 && info.obuStatus !== 1 && ((info.flowVersion === 2 && info.hwContractStatus === 1) || info.flowVersion === 1)}}" catchtap="onClickCctivate">确认收货并激活</button>
+	<button class="btn" wx:if="{{info && info.auditStatus === 2 && info.flowVersion === 2 && info.hwContractStatus !== 1}}" catchtap="signingExpress">签约高速支付渠道</button>
 	<!--	按钮结束-->
 	<view class="auto-fill"></view>
 

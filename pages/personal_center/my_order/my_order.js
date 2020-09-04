@@ -156,7 +156,7 @@ Page({
 		// 过滤未激活订单
 		let obuStatusList;
 		// obuStatusList = res.data.filter(item => item.obuStatus === 1); // 正式数据
-		obuStatusList = app.globalData.myEtcList.filter(item => item.obuCardType !== 0); // 测试数据处理
+		obuStatusList = app.globalData.myEtcList.filter(item => item.obuStatus === 1); // 测试数据处理
 		if (obuStatusList.length > 0) {
 			// 需要过滤未激活的套餐
 			this.setData({
@@ -225,20 +225,31 @@ Page({
 	},
 	// 成功账单列表
 	getSuccessBill (vehPlates,month) {
+		util.showLoading();
 		let channel;
 		channel = this.data.orderList.filter(item => item.vehPlates === vehPlates);
+		let url;
+		if (channel[0].flowVersion === 2) {
+			url = 'consumer/etc/hw-details';
+		} else {
+			url = 'consumer/etc/get-bill';
+		}
 		let params = {
 			vehPlate: vehPlates,
 			month: month,
 			channel: channel[0].obuCardType
 		};
-		util.getDataFromServer('consumer/etc/get-bill', params, () => {
+		util.getDataFromServer(url, params, () => {
 			util.hideLoading();
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
+				let data = channel[0].flowVersion === 2 ? res.data.passRecords : res.data;
+				data.map((item) => {
+					channel[0].flowVersion === 2 ? item.flowVersion = 2 : item.flowVersion = 1; item.productName = channel[0].productName;
+				});
 				this.setData({
-					successBillList: this.data.successBillList.concat(res.data)
+					successBillList: this.data.successBillList.concat(data)
 				});
 				// 数组去重
 				let hash = [];
@@ -267,7 +278,9 @@ Page({
 	},
 	// 账单详情
 	goDetails (e) {
+		app.globalData.billingDetails = undefined;
 		let model = e.currentTarget.dataset.model;
+		app.globalData.billingDetails = model;
 		// 统计点击事件
 		mta.Event.stat('018',{});
 		util.go(`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);

@@ -11,28 +11,52 @@ Page({
 		details: ''
 	},
 	onLoad (options) {
-		this.setData({
-			isContinentInsurance: app.globalData.isContinentInsurance
-		});
-		if (options.id) {
-			this.setData({details: options});
-		}
-		if (!app.globalData.userInfo.accessToken) {
-			// 公众号模板推送/服务通知进入
-			mta.Event.stat('service_notifications_order_details',{});
-			this.setData({
-				isServiceNotificationEntry: true
-			});
-			this.login();
+		if (app.globalData.billingDetails) {
+			// 总对总账单
+			if (app.globalData.billingDetails.productName.includes('微信')) {
+				app.globalData.billingDetails.productType = 1;
+			} else {
+				app.globalData.billingDetails.productType = 2;
+			}
+			this.setData({details: app.globalData.billingDetails});
 		} else {
-			this.getBillDetail();
+			this.setData({
+				isContinentInsurance: app.globalData.isContinentInsurance
+			});
+			if (options.id) {
+				this.setData({details: options});
+			}
+			// if (res.data.productName.includes('微信')) {
+			// 	res.data.productType = 1;
+			// } else {
+			// 	res.data.productType = 2;
+			// }
+			if (!app.globalData.userInfo.accessToken) {
+				// 公众号模板推送/服务通知进入
+				mta.Event.stat('service_notifications_order_details',{});
+				this.setData({
+					isServiceNotificationEntry: true
+				});
+				this.login();
+			} else {
+				this.getBillDetail();
+			}
 		}
 	},
 	onShow () {
-		if (!app.globalData.userInfo.accessToken) {
-			this.login();
+		if (app.globalData.billingDetails) {
+			if (app.globalData.billingDetails.productName.includes('微信')) {
+				app.globalData.billingDetails.productType = 1;
+			} else {
+				app.globalData.billingDetails.productType = 2;
+			}
+			this.setData({details: app.globalData.billingDetails});
 		} else {
-			this.getBillDetail();
+			if (!app.globalData.userInfo.accessToken) {
+				this.login();
+			} else {
+				this.getBillDetail();
+			}
 		}
 	},
 	hide () {
@@ -105,6 +129,12 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
+				res.data.flowVersion = 1;
+				if (res.data.productName.includes('微信')) {
+					res.data.productType = 1;
+				} else {
+					res.data.productType = 2;
+				}
 				this.setData({details: res.data});
 			} else {
 				util.showToastNoIcon(res.message);
@@ -167,5 +197,8 @@ Page({
 			mta.Event.stat('order_details_service_notifications_weibao',{});
 		}
 		util.go(`/pages/web/web/web?type=weiBao&entrance=bill`);
+	},
+	onUnload () {
+		app.globalData.billingDetails = undefined;
 	}
 });
