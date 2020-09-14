@@ -85,7 +85,7 @@
 	</view>
 <!--	确认收货并激活结束-->
 	<!--	恢复签约开始-->
-	<view class="resume-contract" wx:if="{{orderInfo.selfStatus === 2 || orderInfo.contractStatus === 2}}">
+	<view class="resume-contract" wx:if="{{(orderInfo.selfStatus === 2 || orderInfo.contractStatus === 2) && orderInfo.selfStatus !== 10}}">
 		<view class="processing-title">
 			<view>{{orderInfo.vehPlates}}</view>
 			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>

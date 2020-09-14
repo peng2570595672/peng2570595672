@@ -150,8 +150,9 @@ Page({
 				this.setData({
 					orderInfo: res.data
 				});
-				if (res.data.base.promoterType === 12 || res.data.base.promoterType === 3 || res.data.base.promoterType === 4 || res.data.base.promoterType === 14 || res.data.base.promoterType === 17) {
-					// 会员券进入办理  业务员推广进入  高速通行进入
+				let arr = [1, 3, 4 , 9, 12, 14, 17];
+				if (arr.includes(res.data.base.promoterType)) {
+					// 会员券进入办理  业务员推广进入  高速通行进入  众包 面对面  微信九宫格
 					app.globalData.isSalesmanPromotion = true;
 					this.setData({
 						isMembershipCoupon: true

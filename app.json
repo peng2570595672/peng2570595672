@@ -17,6 +17,7 @@
 		"pages/loading_page_for_wx/index",
 		"pages/loading_page_for_wechat/index",
 		"pages/loading_page_for_bank/index",
+		"pages/default/wechat_sudoku/wechat_sudoku",
 		"pages/landing_page_for_ccb/index"
 	],
 	"window": {
