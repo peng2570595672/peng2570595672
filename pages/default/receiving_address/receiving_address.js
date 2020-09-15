@@ -217,12 +217,18 @@ Page({
 			params['promoterId'] = app.globalData.isHighSpeedTraffic;// 推广者ID标识
 			params['promoterType'] = 6; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
 		}
-		if (app.globalData.membershipCoupon.id) {
+		if (app.globalData.membershipCoupon && app.globalData.membershipCoupon.id) {
 			params['couponRecordsId'] = app.globalData.membershipCoupon.id;// 优惠券id
 			params['discountsAmount'] = app.globalData.membershipCoupon.faceAmount;// 优惠券金额
 			params['shopId'] = app.globalData.membershipCoupon.shopId;// 优惠券商户id
 			params['promoterId'] = app.globalData.membershipCoupon.shopId;// 优惠券商户id
 			params['promoterType'] = 12; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5-扫小程序码进入 12-会员券创建
+		}
+		// 众包推广
+		if (app.globalData.isCrowdsourcingPromote) {
+			params['shopId'] = app.globalData.crowdsourcingServiceProvidersId;
+			params['promoterId'] = app.globalData.crowdsourcingPromotionId;// 推广者ID标识
+			params['promoterType'] = 1; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
 		}
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');
