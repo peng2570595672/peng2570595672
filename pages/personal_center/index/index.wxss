@@ -103,7 +103,7 @@ page .index .user_nav {
   width: 682rpx;
   height: 200rpx;
   border-radius: 20rpx;
-  margin: -100rpx 30rpx;
+  margin: -100rpx 30rpx 0rpx;
   background: #fff;
 }
 page .index .user_nav .user_item {
@@ -160,7 +160,7 @@ page .index .user_nav .user_item .user_item_text {
 page .index .activity_follow {
   display: flex;
   flex-direction: row;
-  margin: 130rpx 30rpx;
+  margin: 30rpx 30rpx 0;
   width: 682rpx;
   height: 140rpx;
   border-radius: 20rpx;
@@ -253,4 +253,88 @@ page .detail_mask .close_button::before {
   content: '\e63d';
   color: #91a29a;
   font-size: 40rpx;
+}
+page .title {
+  margin-top: 25rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 30rpx 8rpx;
+  height: 56rpx;
+  font-size: 40rpx;
+  font-weight: 500;
+}
+page .title::before {
+  margin-right: 10rpx;
+  content: '';
+  width: 10rpx;
+  height: 10rpx;
+  border: 6rpx solid #2fb565;
+  border-radius: 50%;
+}
+page .title > text {
+  margin-left: 12rpx;
+  font-size: 24rpx;
+  color: #7a7f83;
+  transform: translateY(8rpx);
+}
+page .crowdsourcing_msg {
+  width: 682rpx;
+  height: 318rpx;
+  background: #fff;
+  padding: 0 30rpx;
+  border-radius: 20rpx;
+  box-sizing: border-box;
+  margin: 0 auto 20rpx;
+}
+page .crowdsourcing_msg > view {
+  display: flex;
+}
+page .crowdsourcing_msg > view > view {
+  flex: 1;
+  font-size: 29rpx;
+  color: #99999d;
+  padding: 40rpx 0 20rpx;
+}
+page .crowdsourcing_msg > view > view:last-child {
+  font-size: 40rpx;
+  text-align: right;
+  color: #33333d;
+}
+page .crowdsourcing_msg > view:nth-child(2) {
+  border-top: 1rpx solid #e8e8e8;
+  border-bottom: 1rpx solid #e8e8e8;
+}
+page .crowdsourcing_msg > view:last-child {
+  padding: 36rpx 0 44rpx;
+}
+page .crowdsourcing_msg button {
+  display: flex;
+  background: none;
+  font-size: 32rpx;
+  color: #2fb565;
+  font-weight: 500;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  justify-content: center;
+  vertical-align: top;
+}
+page .crowdsourcing_msg button image {
+  width: 40rpx;
+  margin-right: 10rpx;
+}
+page .invite_friends {
+  text-align: center;
+  margin-top: 20rpx;
+}
+page .invite_friends image {
+  width: 682rpx;
+}
+.pictorial {
+  position: fixed;
+  top: 0;
+  left: -9999rpx;
+  width: 593rpx;
+  height: 790rpx;
+  z-index: 12;
 }

@@ -1,0 +1,35 @@
+<!--&lt;!&ndash;product.wxml&ndash;&gt;-->
+<!--<image class="shareImg" src="https://file.cyzl.com/g001/M01/3D/CD/oYYBAF1mKcaAH5_TAAAORNEbz5k352.png" mode="widthFix" bindtap="showshare"></image>-->
+<!--<view class="sharebox" hidden="{{hideshare}}">-->
+<!--<view class='canvas_box'>-->
+<!--	<canvas style="margin:0 auto;width:280px; height:380px;position:relative;z-index:10;top:30px;" canvas-id="myCanvas" hidden="{{canvasHidden}}"></canvas>-->
+<!--	<canvas style="margin:0 auto;width:560px; height:760px;position:fixed;top:-999999px;left:0;" canvas-id="myCanvasBig"></canvas>-->
+<!--	<view class='canvas_btn' bindtap='savetup'>-->
+<!--		<image src='https://file.cyzl.com/g001/M01/3D/CD/oYYBAF1mKcaAH5_TAAAORNEbz5k352.png'></image>-->
+<!--		保存图片-->
+<!--	</view>-->
+<!--</view>-->
+<!--<view class="bound"></view>-->
+<!--</view>-->
+<view>
+	<view>
+		<view>11111111</view>
+		<view>11111111</view>
+		<view>11111111</view>
+		<view>11111111</view>
+		<view>11111111</view>
+		<view>11111111</view>
+		<view>11111111</view>
+		<view>11111111</view>
+		<view>11111111</view>
+		<view>11111111</view>
+	</view>
+	<view class='canvas_box'>
+		<canvas style="margin:0 auto;width:375px; height:596px;position:fixed;top: 0,z-index:99" canvas-id="myCanvas" hidden="{{canvasHidden}}"></canvas>
+		<view class='canvas_btn' bindtap='savetup'>
+			<image src='https://file.cyzl.com/g001/M05/3E/5C/oYYBAF6NmpSAUEh8AAAawRpDVKQ238.png'></image>
+			保存图片
+		</view>
+	</view>
+	<view class='canvas_sign'>保存图片到手机后，您可以到朋友圈分享该折扣</view>
+</view>

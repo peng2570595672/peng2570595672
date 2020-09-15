@@ -122,12 +122,12 @@ function getUuid() {
  * @param success 成功后的回调g
  * @param fail 失败后的回调
  */
- async function getDataFromServer(path, params, fail, success, token = '', complete, method = 'POST') {
- 	// common || public 模块下的不需要 token
- 	if (!token && !path.includes('common') && !path.includes('public')) {
- 		showToastNoIcon('获取用户信息失败,请重新进入小程序!');
- 		return;
-    }
+async function getDataFromServer(path, params, fail, success, token = '', complete, method = 'POST') {
+	// common || public 模块下的不需要 token
+	if (!token && !path.includes('common') && !path.includes('public')) {
+		showToastNoIcon('获取用户信息失败,请重新进入小程序!');
+		return;
+	}
 	method = method.toUpperCase();
 	// 对请求路径是否开头带/进行处理
 	path = path.indexOf('/') === 0 ? path : `/${path}`;
@@ -740,6 +740,7 @@ function resetData() {
 	app.globalData.faceToFacePromotionId = undefined;
 	app.globalData.isMarginPayment = false;
 	app.globalData.activitiesOfDrainage = false;
+	app.globalData.isCrowdsourcingPromote = false;
 }
 
 /**
@@ -814,7 +815,7 @@ function subscribe(tmplIds, url) {
 						});
 					} else {
 						if (url === '/pages/Home/Home') {
-						// if (url === '/pages/default/index/index') {
+							// if (url === '/pages/default/index/index') {
 							wx.reLaunch({
 								url: url
 							});

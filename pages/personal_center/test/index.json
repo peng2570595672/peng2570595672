@@ -3,8 +3,5 @@
 	"navigationBarBackgroundColor": "#000000",
 	"backgroundColor": "#000000",
 	"navigationBarTextStyle": "white",
-	"navigationStyle": "custom",
-	"usingComponents": {
-		"crowdsourcing-prompt": "/components/crowdsourcing_prompt/crowdsourcing_prompt"
-	}
+	"navigationStyle": "custom"
 }

@@ -1,0 +1,6 @@
+{
+	"navigationBarTitleText": "邀友开通领现金",
+	"usingComponents": {
+		"crowdsourcing-prompt": "/components/crowdsourcing_prompt/crowdsourcing_prompt"
+	}
+}

@@ -104,7 +104,35 @@
 		<!--活动文字描述结束-->
 		<view class="iconfont activity_right"></view>
 	</button>
-
+	<!--	成为众包推广者开始-->
+	<view wx:if="{{crowdSourcingMsg.status === 1}}" class="{{isAttention === 1 ? '' : ''}}">
+		<!--	我的推广标题开始-->
+		<view class="title">我的推广</view>
+		<!--	我的推广标题结束-->
+		<!--	众包推广信息开始-->
+		<view class="crowdsourcing_msg">
+			<view catchtap="go" data-url="my_crowdsourcing_gains">
+				<view>我的收益</view>
+				<view>{{crowdSourcingMsg.redParkCount ? crowdSourcingMsg.redParkCount : 0}}元</view>
+			</view>
+			<view catchtap="go" data-url="crowdsourcing_user">
+				<view>我的推广</view>
+				<view>{{crowdSourcingMsg.orderCount ? crowdSourcingMsg.orderCount : 0}}单</view>
+			</view>
+			<view><button open-type="getUserInfo" bindgetuserinfo="getUserInfo"><image mode="widthFix" src="/pages/personal_center/assets/code.png"></image>邀请办理</button></view>
+		</view>
+		<!--	众包推广信息结束-->
+	</view>
+	<!--	成为众包推广者结束开始-->
+	<!--	&lt;!&ndash;	未成为众包推广者开始&ndash;&gt;-->
+	<!--	<view wx:if="{{crowdSourcingMsg.status === 0}}">-->
+	<!--		&lt;!&ndash;	众包推广信息开始&ndash;&gt;-->
+	<!--		<view class="invite_friends" catchtap="inviteFriends">-->
+	<!--			<image src="/pages/personal_center/assets/invite_friends.png" mode="widthFix"></image>-->
+	<!--		</view>-->
+	<!--		&lt;!&ndash;	众包推广信息结束&ndash;&gt;-->
+	<!--	</view>-->
+	<!--	&lt;!&ndash;	未成为众包推广者结束开始&ndash;&gt;-->
 	<!--关注公众号活动弹框-->
 	<view catchtap="hide" class="detail_mask animated {{showDetailWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{showDetailMask}}">
 		<view catchtap="close" class="detail_wrapper animated {{showDetailWrapper ? 'zoomInOther' : 'zoomOutOther'}}">
@@ -116,4 +144,6 @@
 		</view>
 	</view>
 	<!--关注公众号活动结束-->
+	<crowdsourcing-prompt id="crowdsourcingPrompt" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></crowdsourcing-prompt>
 </view>
+<canvas canvas-id="pictorial" class="pictorial"  disable-scroll="true"></canvas>

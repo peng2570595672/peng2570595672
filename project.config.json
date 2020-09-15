@@ -156,15 +156,15 @@
 				},
 				{
 					"id": 13,
-					"name": "activities/pages/activity_icbc_fifty_theme/index",
-					"pathName": "activities/pages/activity_icbc_fifty_theme/index",
-					"query": "",
+					"name": "pages/crowdsourcing/index/index",
+					"pathName": "pages/crowdsourcing/index/index",
+					"query": "shopId=755513313657757696",
 					"scene": null
 				},
 				{
 					"id": 14,
-					"name": "pages/personal_center/index/index",
-					"pathName": "pages/personal_center/index/index",
+					"name": "pages/crowdsourcing/new_user/new_user",
+					"pathName": "pages/crowdsourcing/new_user/new_user",
 					"query": "configId=703923388790987622",
 					"scene": null
 				}

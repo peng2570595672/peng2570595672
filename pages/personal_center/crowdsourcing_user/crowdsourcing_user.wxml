@@ -1,0 +1,21 @@
+<view class="my_crowdsourcing_gains">
+	<view class="list" wx:for="{{list}}" wx:key="index">
+		<view class="vehicle">
+			<view>{{item.vehPlates}}</view>
+			<view class="{{item.logisticsId !== 0 && (item.obuStatus === 0 || item.obuStatus === 5)? 'activate' : ''}} {{item.logisticsId === 0 && item.auditStatus !== 9 ? 'transact' : ''}} {{item.auditStatus === 9 ? 'close' : ''}}">
+				{{item.logisticsId === 0 && item.auditStatus !== 9 ? '办理中' : ''}}
+				{{item.logisticsId !== 0 && (item.obuStatus === 0 || item.obuStatus === 5) ? '待激活' : ''}}
+				{{item.obuStatus === 1 ? '已完成' : ''}}
+				{{item.auditStatus === 9 ? '已关闭' : ''}}
+			</view>
+		</view>
+		<view class="name">{{item.owner}}</view>
+		<view class="add_time">创建时间：{{item.addTime}}</view>
+	</view>
+	<!--没有账单开始-->
+	<view class="empty" wx:if="{{list.length === 0}}">
+		<image src="/pages/personal_center/assets/no_record.png" mode="widthFix"></image>
+		<view>无推广记录~</view>
+	</view>
+	<!--没有账单结束-->
+</view>

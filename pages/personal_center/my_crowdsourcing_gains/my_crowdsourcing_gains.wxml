@@ -1,0 +1,16 @@
+<view class="my_crowdsourcing_gains">
+	<view class="list {{item.status <= 4 && item.status !== 3 ? '': 'failure'}}" wx:for="{{list}}" wx:key="index">
+		<view class="vehicle">
+			<view>{{item.totalAmount / 100}}元</view>
+			<!--			<view class="status">已发放 | 发放失败</view>-->
+		</view>
+		<view class="name">{{item.vehPlate}}</view>
+		<view class="add_time">创建时间：{{item.addTime}}</view>
+	</view>
+	<!--没有账单开始-->
+	<view class="empty" wx:if="{{list.length === 0}}">
+		<image src="/pages/personal_center/assets/no_record.png" mode="widthFix"></image>
+		<view>无收益记录~</view>
+	</view>
+	<!--没有账单结束-->
+</view>

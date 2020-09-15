@@ -10,6 +10,7 @@ Page({
 		showDetailWrapper: false,
 		mobilePhoneSystem: false,
 		isMain: false,// 是否从主流程进入
+		crowdSourcingMsg: undefined,// 众包信息
 		mobilePhone: undefined,
 		showDetailMask: false
 	},
@@ -23,6 +24,7 @@ Page({
 	onShow () {
 		if (app.globalData.userInfo.accessToken) {
 			this.getMemberBenefits();
+			this.getMemberCrowdSourcingAndOrder();
 			let that = this;
 			wx.getSetting({
 				success (res) {
@@ -77,6 +79,7 @@ Page({
 								mobilePhone: res.data.mobilePhone
 							});
 							this.getMemberBenefits();
+							this.getMemberCrowdSourcingAndOrder();
 							if (isData) {
 								this.submitUserInfo(isData);
 							}
@@ -96,6 +99,68 @@ Page({
 				util.showToastNoIcon('登录失败！');
 			}
 		});
+	},
+	// 众包-获取用户推广码和订单红包数量
+	getMemberCrowdSourcingAndOrder () {
+		util.showLoading();
+		util.getDataFromServer('consumer/member/getMemberCrowdSourcingAndOrder', {}, () => {
+			util.showToastNoIcon('获取用户推广信息失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				// status - 0 未成为推广者，1-已经是推广者，8-活动已经结束
+				app.globalData.crowdsourcingServiceProvidersId = res.data.shopId;
+				this.setData({
+					crowdSourcingMsg: res.data
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
+	// 邀请好友
+	inviteFriends () {
+		app.globalData.crowdsourcingServiceProvidersId = '753646562833342464';// 测试
+		util.go('/pages/crowdsourcing/index/index');
+	},
+	// 邀请办理-获取用户信息
+	getUserInfo () {
+		mta.Event.stat('personal_center_invitation_deal_with',{});
+		util.showLoading({title: '加载中'});
+		let that2 = this; // 解决作用域问题
+		wx.getSetting({
+			success (res) {
+				if (!res.authSetting['scope.userInfo']) {
+					wx.authorize({
+						scope: 'scope.userInfo',
+						success () {
+						}
+					});
+				} else {
+					wx.getUserInfo({
+						success: res => {
+							util.hideLoading();
+							console.log(res);
+							app.globalData.crowdsourcingUserInfo = res.userInfo;
+							// 父组件必须有 canvas
+							that2.selectComponent('#crowdsourcingPrompt').show();
+						}
+					});
+				}
+				util.hideLoading();
+			}
+		});
+	},
+	// 分享好友
+	onShareAppMessage () {
+		mta.Event.stat('personal_center_applet_sharing',{});
+		if (this.data.crowdSourcingMsg.status !== 1) return;
+		return {
+			title: '好友邀你领取ETC',
+			imageUrl: '/pages/personal_center/assets/share.png',
+			path: `/pages/crowdsourcing/new_user/new_user?shopId=${app.globalData.crowdsourcingServiceProvidersId}&memberId=${app.globalData.memberId}`
+		};
 	},
 	submitUserInfo (user) {
 		util.showLoading();

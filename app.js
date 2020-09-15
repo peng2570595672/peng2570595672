@@ -61,6 +61,12 @@ App({
 		orderStatus: '', // 订单状态
 		isHeadImg: true, // 是否上传车头照
 		serviceCardVoucherDetails: undefined, // 卡券详情
+		crowdsourcingUserInfo: undefined, // 众包用户信息
+		screenWindowAttribute: undefined, // 屏幕属性
+		crowdsourcingShopMsg: undefined, // 众包信息
+		crowdsourcingPromotionId: undefined, // 众包推广ID
+		isCrowdsourcingPromote: false, // 是不是众包推广
+		crowdsourcingServiceProvidersId: undefined, // 众包服务商id 用于加载不同套餐
 		myEtcList: {}, // 车辆列表
 		orderInfo: {
 			orderId: ''
@@ -83,6 +89,7 @@ App({
 		wx.getSystemInfo({
 			success: (res) => {
 				console.log(res);
+				this.globalData.screenWindowAttribute = res;
 				this.globalData.SDKVersion = res.SDKVersion;
 				this.globalData.mobilePhoneSystem = res.system.indexOf('iOS') !== -1 ? true : false;
 				if (res.model.toLowerCase().search('iphone x') !== -1) {
@@ -129,7 +136,9 @@ App({
 						sceneKey = i;
 						sceneValue = obj[i];
 					}
-					if (sceneKey === 'BSCS') {
+					if (sceneKey === 'MCS') {
+						this.globalData.crowdsourcingShopMsg = sceneValue;
+					} else if (sceneKey === 'BSCS') {
 						this.globalData.rechargeCode = sceneValue;
 					} else {
 						this.getPromoterInfo(sceneKey,sceneValue);

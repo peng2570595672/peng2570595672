@@ -17,6 +17,7 @@
 		"pages/loading_page_for_wx/index",
 		"pages/loading_page_for_wechat/index",
 		"pages/loading_page_for_bank/index",
+		"pages/default/wechat_sudoku/wechat_sudoku",
 		"pages/landing_page_for_ccb/index"
 	],
 	"window": {
@@ -45,7 +46,9 @@
 				"recharge-card-processing/recharge-card-processing",
 				"search_help/search_help",
 				"service_card_voucher/service_card_voucher",
-				"service_card_voucher_details/service_card_voucher_details"
+				"service_card_voucher_details/service_card_voucher_details",
+				"crowdsourcing_user/crowdsourcing_user",
+				"my_crowdsourcing_gains/my_crowdsourcing_gains"
 			]
 		},
 		{
@@ -60,6 +63,14 @@
 			"name": "CitiesServices",
 			"pages": [
 				"pages/CitiesServices/CitiesServices"
+			]
+		},
+		{
+			"root": "pages/crowdsourcing",
+			"name": "pages/crowdsourcing",
+			"pages": [
+				"index/index",
+				"new_user/new_user"
 			]
 		},
 		{

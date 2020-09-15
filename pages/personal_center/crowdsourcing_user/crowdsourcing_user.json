@@ -1,0 +1,7 @@
+{
+	"navigationBarBackgroundColor": "#FFFFFF",
+	"backgroundColor": "#FFFFFF",
+	"navigationBarTextStyle": "black",
+	"enablePullDownRefresh": false,
+	"navigationBarTitleText": "众包"
+}

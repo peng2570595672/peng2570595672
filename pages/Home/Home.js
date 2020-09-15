@@ -11,6 +11,7 @@ Page({
 		canIUse: wx.canIUse('button.open-type.getUserInfo'),
 		loginInfo: {},// 登录信息
 		orderInfo: undefined, // 订单信息
+		num: 0, // 次数
 		isContinentInsurance: false, // 是否是大地保险
 		heaicheProvinceList: ['辽宁', '湖南', '江苏', '甘肃', '广西', '内蒙古', '陕西', '山西', '四川', '云南', '安徽', '宁夏', '青海', '河南', '上海', '浙江', '黑龙江', '山东', '福建', '河北'], // 和爱车活动加载省份
 		rotationChartList: [], // 轮播图
@@ -301,7 +302,10 @@ Page({
 					}
 					vehicleList.push(item.vehPlates);
 					wx.setStorageSync('cars', vehicleList.join('、'));
-					if (item.selfStatus === 6) {
+					if (item.selfStatus === 6 && this.data.num === 0) {
+						this.setData({
+							num: 1
+						});
 						util.alert({
 							content: '因近期部分省份及城市发生特大洪涝灾害，到货时间可能延后数日。',
 							showCancel: false,
