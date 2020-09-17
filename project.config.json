@@ -20,13 +20,14 @@
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
+		"compileHotReLoad": false,
 		"babelSetting": {
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
 		},
 		"useIsolateContext": true,
-		"useCompilerModule": true,
+		"useCompilerModule": false,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
@@ -128,8 +129,8 @@
 				},
 				{
 					"id": 9,
-					"name": "activities/pages/activity_for_heaiche/index",
-					"pathName": "activities/pages/activity_for_heaiche/index",
+					"name": "activities/pages/activity_medical_insurance/index",
+					"pathName": "activities/pages/activity_medical_insurance/index",
 					"query": "",
 					"scene": null
 				},

@@ -5,12 +5,38 @@ const app = getApp();
 Page({
 	data: {
 		loginInfo: undefined,
+		phoneHeight: undefined,// 手机屏幕高度
+		contentHeight: undefined,// 内容高度
+		bottomImgHeight: undefined,// 图片高度
+		newHeight: undefined,// 新图片高度
 		alertMask: false, // 控制活动细则弹窗
 		alertWrapper: false, // 控制活动细则弹窗
 		showMobileMask: false, // 绑定手机号相关
 		showMobileWrapper: false // 绑定手机号相关
 	},
 	onLoad () {
+		let contentHeight = wx.createSelectorQuery();
+		contentHeight.select('.content-container').boundingClientRect();
+		contentHeight.exec(res => {
+			console.log(res);
+			this.setData({
+				contentHeight: res[0].height,
+				phoneHeight: app.globalData.screenWindowAttribute.screenHeight
+			});
+		});
+		let bottomImgHeight = wx.createSelectorQuery();
+		bottomImgHeight.select('.bottom-img').boundingClientRect();
+		bottomImgHeight.exec(res => {
+			console.log(res);
+			this.setData({
+				bottomImgHeight: res[0].height
+			});
+			if (this.data.phoneHeight > this.data.contentHeight) {
+				this.setData({
+					newHeight: this.data.phoneHeight - this.data.contentHeight + this.data.bottomImgHeight
+				});
+			}
+		});
 		util.resetData();// 重置数据
 		wx.hideHomeButton();
 		app.globalData.orderInfo.orderId = '';
@@ -24,6 +50,9 @@ Page({
 			app.globalData.otherPlatformsServiceProvidersId = '747750718469185536';
 		}
 		this.login();
+	},
+	onImageLoad () {
+		console.log(this.data.newHeight);
 	},
 	// 打开规则弹窗
 	rulesWinShow () {

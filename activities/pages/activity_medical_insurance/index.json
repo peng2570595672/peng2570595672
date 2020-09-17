@@ -1,7 +1,7 @@
 {
-	"navigationBarTitleText": " ",
-	"navigationBarBackgroundColor": "#86c5f8",
-	"navigationBarTextStyle": "white",
+	"navigationBarTitleText": "免费办理ETC",
+	"navigationBarBackgroundColor": "#E2C57C",
+	"navigationBarTextStyle": "black",
 	"usingComponents": {
 	}
 }

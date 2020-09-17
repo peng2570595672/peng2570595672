@@ -1,59 +1,3 @@
-@charset "UTF-8";
-.animated {
-  -webkit-animation-duration: 0.4s;
-  animation-duration: 0.4s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-}
-@keyframes scaleDraw {
-  0% {
-    transform: scale(1); /*开始为原始大小*/
-  }
-  10% {
-    transform: scale(1.05); /*放大1.1倍*/
-  }
-  20% {
-    transform: scale(1);
-  }
-  30% {
-    transform: scale(1);
-  }
-  40% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1);
-  }
-  60% {
-    transform: scale(1);
-  }
-  70% {
-    transform: scale(1);
-  }
-  80% {
-    transform: scale(1);
-  }
-  90% {
-    transform: scale(1);
-  }
-}
-@keyframes around {
-  0% {
-    transform: translateY(0);
-  }
-  25% {
-    transform: translateY(-8rpx);
-  }
-  50% {
-    transform: translateY(-15rpx);
-  }
-  75% {
-    transform: translateY(-8rpx);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
 @font-face {
   font-family: 'iconfont'; /* project id 1514406 */
   src: url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot");
@@ -64,7 +8,7 @@
   position: relative;
   width: 100vw;
   min-height: 100vh;
-  background: #f56;
+  background: #c0914b;
 }
 .page .content-container {
   display: block;
@@ -75,87 +19,53 @@
   width: 100%;
   z-index: 2;
 }
-.page .content-container .prompt-char {
-  display: block;
-  background-color: #fef8c8;
-  color: #999;
-  margin-top: -40rpx;
-  font-size: 24rpx;
-  line-height: 34rpx;
-  padding: -20rpx 30rpx 30rpx 30rpx;
-}
-.page .content-container .prompt-char .prompt-content {
-  width: 100%;
-  background: #fff;
-  box-sizing: border-box;
-  padding: 30rpx 12rpx 22rpx 30rpx;
-  border: 1rpx solid #32b571;
-  border-radius: 20rpx;
-}
-.page .content-container .prompt-char .prompt-content view {
-  display: inline-block;
-  min-height: 68rpx;
-}
-.page .content-container .prompt-char .prompt-content view:first-child {
-  width: 20%;
-  vertical-align: top;
-}
-.page .content-container .prompt-char .prompt-content view:last-child {
-  width: 80%;
-}
-.page .process {
+.page .content {
   position: absolute;
-  width: 100%;
-  bottom: 90rpx;
-  text-align: center;
-}
-.page .process image {
-  width: 70%;
-}
-.page .rules {
-  position: absolute;
-  width: 100%;
-  bottom: 372rpx;
-  text-align: center;
-}
-.page .rules>view image {
-  width: 51rpx;
-  height: 59rpx;
-}
-.page .rules>view:nth-child(2) {
-  font-size: 23rpx;
-  color: #69040e;
-}
-.page .rules .small-image {
-  position: absolute;
-  top: -40rpx;
-  animation-name: around;
-  animation-duration: 0.3s;
-  animation-timing-function: ease-in-out;
-  animation-delay: 0.3s;
-  animation-iteration-count: infinite;
-}
-.page .rules .small-image-left {
-  left: 120rpx;
-}
-.page .rules .small-image-right {
-  right: 120rpx;
-}
-.page .bottom-container {
-  position: absolute;
+  bottom: 0;
   left: 0;
-  right: 0;
-  bottom: 470rpx;
   width: 100%;
+  text-align: center;
 }
-.page .bottom-container button {
-  width: 596rpx;
-  height: 139rpx;
-  -webkit-animation: scaleDraw 2s ease-in-out infinite;
-  -webkit-backface-visibility: hidden;
-  background: url("https://file.cyzl.com/g001/M05/18/9A/oYYBAF7UnM-AWMaYAACENO04hN4644.png");
-  background-size: 100% 139rpx;
-  border-radius: 69rpx;
+.page .content .transact {
+  padding-bottom: 30rpx;
+}
+.page .content .transact .btn {
+  width: 532rpx;
+  height: 102rpx;
+  background: linear-gradient(360deg, #dc9241 0%, #ffd3af 100%);
+  box-shadow: 0rpx 20rpx 16rpx 0rpx rgba(91,8,8,0.19);
+  border-radius: 63rpx;
+  font-size: 42rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #fff;
+  line-height: 102rpx;
+  text-shadow: 0rpx 4rpx 6rpx rgba(0,0,0,0.11);
+}
+.page .content .prompt {
+  color: #fff;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-size: 32rpx;
+}
+.page .content .prompt > view:last-child {
+  font-size: 28rpx;
+  padding: 26rpx 0 94rpx;
+}
+.page .content .rules {
+  padding-bottom: 22rpx;
+}
+.page .content .rules text {
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-size: 28rpx;
+  display: inline-block;
+  width: 206rpx;
+  height: 58rpx;
+  color: #fff;
+  line-height: 58rpx;
+  text-align: center;
+  border-radius: 29rpx;
+  border: 2rpx solid #fff;
+  opacity: 0.44;
 }
 .page .alert-mask {
   position: fixed;
@@ -174,7 +84,7 @@
   left: 50%;
   top: 50%;
   width: 621rpx;
-  margin-top: -350rpx;
+  margin-top: -540rpx;
   margin-left: -310rpx;
   text-align: center;
   background: #fff;
@@ -311,4 +221,8 @@
   color: #fff;
   background-color: #fef8c8;
   border-radius: 45rpx;
+}
+.big-screen {
+  height: 100vh;
+  overflow: hidden;
 }

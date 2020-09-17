@@ -1,4 +1,3 @@
-@import "/animate.styl";
 @font-face {
 	font-family: 'iconfont';  /* project id 1514406 */
 	src: url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot');  src: url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff2') format('woff2'), url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff') format('woff'), url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.ttf') format('truetype'), url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.svg#iconfont') format('svg');
@@ -10,7 +9,7 @@
 	min-height 100vh
 	//overflow-x hidden
 	//overflow-y scroll
-	background #FF5566
+	background #C0914B
 	//-webkit-overflow-scrolling touch
 	.content-container
 		display block
@@ -19,74 +18,47 @@
 			display block
 			width 100%
 			z-index 2
-		.prompt-char
-			display block
-			background-color rgb(254,248,200)
-			color #999
-			margin-top  -40rpx
-			font-size 24rpx
-			line-height 34rpx
-			padding -20rpx 30rpx 30rpx 30rpx
-			.prompt-content
-				width  100%
-				background #fff
-				box-sizing border-box
-				padding 30rpx 12rpx 22rpx 30rpx
-				border 1rpx solid #32B571
-				border-radius 20rpx
-				view
-					display inline-block
-					min-height 68rpx
-				view:first-child
-					width 20%
-					vertical-align top
-				view:last-child
-					width 80%
-	.process
+	.content
 		position absolute
-		width 100%
-		bottom 90rpx
-		text-align center
-		image
-			width 70%
-	.rules
-		position absolute
-		width 100%
-		bottom 372rpx
-		text-align center
-		&>view
-			image
-				width 51rpx
-				height 59rpx
-		&>view:nth-child(2)
-			font-size 23rpx
-			color #69040E
-		.small-image
-			position absolute
-			top -40rpx
-			animation-name around
-			animation-duration 0.3s
-			animation-timing-function: ease-in-out
-			animation-delay 0.3s
-			animation-iteration-count: infinite
-		.small-image-left
-			left 120rpx
-		.small-image-right
-			right 120rpx
-	.bottom-container
-		position absolute
+		bottom 0
 		left 0
-		right 0
-		bottom 470rpx
 		width 100%
-		button
-			width 596rpx
-			height 139rpx
-			-webkit-animation scaleDraw 2s ease-in-out infinite
-			-webkit-backface-visibility: hidden
-			background url("https://file.cyzl.com/g001/M05/18/9A/oYYBAF7UnM-AWMaYAACENO04hN4644.png")
-			background-size 100% 139rpx
-			border-radius 69rpx
+		text-align center
+		.transact
+			padding-bottom 30rpx
+			.btn
+				width 532rpx
+				height 102rpx
+				background linear-gradient(360deg, #DC9241 0%, #FFD3AF 100%)
+				box-shadow 0rpx 20rpx 16rpx 0rpx rgba(91,8,8,0.19)
+				border-radius 63rpx
+				font-size 42rpx
+				font-family PingFangSC-Semibold, PingFang SC
+				font-weight 600
+				color #FFFFFF
+				line-height 102rpx
+				text-shadow 0rpx 4rpx 6rpx rgba(0, 0, 0, 0.11)
+		.prompt
+			color #fff
+			font-family PingFangSC-Semibold, PingFang SC
+			font-size 32rpx
+			& > view:last-child
+				font-size 28rpx
+				padding 26rpx 0 94rpx
+		.rules
+			padding-bottom 22rpx
+			text
+				font-family PingFangSC-Semibold, PingFang SC
+				font-size 28rpx
+				display inline-block
+				width 206rpx
+				height 58rpx
+				color #FFFFFF
+				line-height 58rpx
+				text-align center
+				border-radius 29rpx
+				border 2rpx solid #FFFFFF
+				opacity .44
 	.alert-mask
 		position fixed
 		left 0
@@ -103,7 +75,7 @@
 			left 50%
 			top 50%
 			width 621rpx
-			margin-top -350rpx
+			margin-top -540rpx
 			margin-left -310rpx
 			text-align center
 			background #fff
@@ -218,3 +190,6 @@
 					color #fff
 					background-color rgb(254,248,200)
 					border-radius 45rpx
+.big-screen
+	height 100vh
+	overflow hidden
