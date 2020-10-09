@@ -88,7 +88,7 @@
 	<!--底部补缴结束-->
 	<!--微保活动开始-->
 	<view class="micro-insurance" wx:if="{{!isContinentInsurance}}">
-		<image wx:if="{{showWeiBao}}" src="https://file.cyzl.com/g001/M05/3E/5C/oYYBAF6NmpSAUEh8AAAawRpDVKQ238.png"  mode="widthFix" catchtap="goMicroInsurance"></image>
+		<image wx:if="{{showWeiBao}}" src="https://file.cyzl.com/g001/M06/9A/89/oYYBAF90OzKAHFSLAADkYB2U5PI064.png"  mode="widthFix" catchtap="goMicroInsurance"></image>
 		<view wx:if="{{showWeiBao}}" class="close_button iconfont" catchtap="hide"></view>
 	</view>
 	<!--微保活动结束-->

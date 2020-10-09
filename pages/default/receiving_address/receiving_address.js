@@ -237,16 +237,17 @@ Page({
 				wx.setStorageSync('return_to_prompt','payment_way');
 				app.globalData.orderInfo.orderId = res.data.orderId; // 订单id
 				// 选择套餐页面
-				util.alert({
-					content: '因近期部分省份及城市发生特大洪涝灾害，到货时间可能延后数日。',
-					showCancel: false,
-					confirmText: '我知道了',
-					confirm: () => {
-						util.go('/pages/default/payment_way/payment_way');
-					},
-					cancel: () => {
-					}
-				});
+				util.go('/pages/default/payment_way/payment_way');
+				// util.alert({
+				// 	content: '因近期部分省份及城市发生特大洪涝灾害，到货时间可能延后数日。',
+				// 	showCancel: false,
+				// 	confirmText: '我知道了',
+				// 	confirm: () => {
+				// 		util.go('/pages/default/payment_way/payment_way');
+				// 	},
+				// 	cancel: () => {
+				// 	}
+				// });
 			} else if (res.code === 301) { // 已存在当前车牌未完成订单
 				util.alert({
 					content: '该车牌订单已存在，请前往“首页>我的ETC”页面查看。',

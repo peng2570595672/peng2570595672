@@ -166,32 +166,46 @@
 			position absolute
 			left 0
 			right 0
-			top 40%
+			top 50%
 			transform translate(0, -50%)
-			width 60%
+			width 100%
 			min-height 400rpx
 			margin 0 auto
 			z-index 2
 			& > image
 				width 100%
 		.activity_button
-			margin 0 auto
+			margin -80rpx auto 0
 			text-align center
 			z-index 2
-			width 500rpx
-			height 90rpx
-			& > image
-				width 120%
-				margin-left -10%
-				margin-top -80rpx
+			width 100%
+			min-height 30rpx
+			button
+				width 524rpx
+				height 98rpx
+				line-height 98rpx
+				background linear-gradient(289deg, #5913C8 0%, #D531BE 100%)
+				box-shadow 0rpx 4rpx 12rpx 0rpx rgba(0,0,0,0.5)
+				border-radius 49rpx
+				font-size 50rpx
+				font-family PingFangSC-Semibold, PingFang SC
+				font-weight 500
+				color #F7DC00
+				letter-spacing 4rpx
 		.close_button
 			position absolute
-			left 615rpx
-			right 0
-			margin-top -905rpx
-			z-index 2
+			right 50rpx
+			z-index 3
 			&::before
+				display inline-block
 				content '\e63d'
 				color #ffffff
-				font-size 18rpx
+				width 54rpx
+				height 54rpx
+				line-height 54rpx
+				text-align center
+				border 1rpx solid #ffffff
+				border-radius 50%
+				opacity .57
+				font-size 23rpx
 

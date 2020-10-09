@@ -475,6 +475,7 @@ Page({
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
 			if (res.code === 0) {
+				app.globalData.isSecondSigning = false;
 				app.globalData.signAContract = -1;
 				app.globalData.orderInfo.shopProductId = this.data.choiceObj.shopProductId;
 				let result = res.data.contract;

@@ -1,175 +1,179 @@
 {
-	"description": "项目配置文件",
-	"packOptions": {
-		"ignore": []
-	},
-	"setting": {
-		"urlCheck": true,
-		"es6": true,
-		"enhance": true,
-		"postcss": true,
-		"preloadBackgroundData": false,
-		"minified": true,
-		"newFeature": true,
-		"coverView": true,
-		"nodeModules": true,
-		"autoAudits": false,
-		"showShadowRootInWxmlPanel": true,
-		"scopeDataCheck": false,
-		"uglifyFileName": true,
-		"checkInvalidKey": true,
-		"checkSiteMap": true,
-		"uploadWithSourceMap": true,
-		"compileHotReLoad": false,
-		"babelSetting": {
-			"ignore": [],
-			"disablePlugins": [],
-			"outputPath": ""
-		},
-		"useIsolateContext": true,
-		"useCompilerModule": false,
-		"userConfirmedUseCompilerModuleSwitch": false
-	},
-	"compileType": "miniprogram",
-	"libVersion": "2.11.2",
-	"appid": "wxddb3eb32425e4a96",
-	"projectname": "%E6%96%B0%E6%B5%81%E7%A8%8B_ETC%2B2.0",
-	"debugOptions": {
-		"hidedInDevtools": []
-	},
-	"isGameTourist": false,
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
-	"condition": {
-		"search": {
-			"current": -1,
-			"list": []
-		},
-		"conversation": {
-			"current": -1,
-			"list": []
-		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
-		"game": {
-			"currentL": -1,
-			"list": []
-		},
-		"gamePlugin": {
-			"current": -1,
-			"list": []
-		},
-		"miniprogram": {
-			"current": -1,
-			"list": [
-				{
-					"id": 0,
-					"name": "邮寄地址",
-					"pathName": "pages/default/receiving_address/receiving_address",
-					"query": "shareId=1235556",
-					"scene": null
-				},
-				{
-					"id": 1,
-					"name": "我的ETC",
-					"pathName": "pages/personal_center/my_etc/my_etc",
-					"query": "shareId=123455",
-					"scene": null
-				},
-				{
-					"id": 2,
-					"name": "个人中心",
-					"pathName": "pages/personal_center/index/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 3,
-					"name": "activities/pages/activity_icbc_forty_five_theme/index",
-					"pathName": "activities/pages/activity_icbc_forty_five_theme/index",
-					"query": "shareId=1235556",
-					"scene": null
-				},
-				{
-					"id": 4,
-					"name": "城市服务",
-					"pathName": "CitiesServices/pages/CitiesServices/CitiesServices",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 5,
-					"name": "账单详情",
-					"pathName": "pages/personal_center/order_details/order_details",
-					"query": "id=709701386738077696&channel=1&month=202005",
-					"scene": 1014
-				},
-				{
-					"id": 6,
-					"name": "办理进度",
-					"pathName": "pages/default/processing_progress/processing_progress",
-					"query": "orderId=750464899913617408",
-					"scene": null
-				},
-				{
-					"id": 7,
-					"name": "充值",
-					"pathName": "pages/personal_center/recharge-card-processing/recharge-card-processing",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 8,
-					"name": "支付保证金",
-					"pathName": "pages/default/margin_payment/margin_payment",
-					"query": "orderId=719857736895959040",
-					"scene": null
-				},
-				{
-					"id": 9,
-					"name": "activities/pages/activity_medical_insurance/index",
-					"pathName": "activities/pages/activity_medical_insurance/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 10,
-					"name": "会员券",
-					"pathName": "pages/personal_center/membership_coupon/membership_coupon",
-					"query": "orderId=710126117226287104",
-					"scene": null
-				},
-				{
-					"id": 11,
-					"name": "ETC详情",
-					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "orderId=750442877963735040",
-					"scene": null
-				},
-				{
-					"id": 12,
-					"name": "大地入口",
-					"pathName": "pages/Home/Home",
-					"query": "carInsurance=1111",
-					"scene": null
-				},
-				{
-					"id": 13,
-					"name": "pages/crowdsourcing/index/index",
-					"pathName": "pages/crowdsourcing/index/index",
-					"query": "shopId=755513313657757696",
-					"scene": null
-				},
-				{
-					"id": 14,
-					"name": "pages/crowdsourcing/new_user/new_user",
-					"pathName": "pages/crowdsourcing/new_user/new_user",
-					"query": "configId=703923388790987622",
-					"scene": null
-				}
-			]
-		}
-	}
+  "description": "项目配置文件",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "preloadBackgroundData": false,
+    "minified": true,
+    "newFeature": true,
+    "coverView": true,
+    "nodeModules": true,
+    "autoAudits": false,
+    "showShadowRootInWxmlPanel": true,
+    "scopeDataCheck": false,
+    "uglifyFileName": true,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "compileHotReLoad": false,
+    "useMultiFrameRuntime": false,
+    "useApiHook": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "useIsolateContext": true,
+    "useCompilerModule": true,
+    "userConfirmedUseCompilerModuleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": []
+  },
+  "compileType": "miniprogram",
+  "libVersion": "2.11.2",
+  "appid": "wxddb3eb32425e4a96",
+  "projectname": "%E6%96%B0%E6%B5%81%E7%A8%8B_ETC%2B2.0",
+  "debugOptions": {
+    "hidedInDevtools": []
+  },
+  "isGameTourist": false,
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
+    "plugin": {
+      "current": -1,
+      "list": []
+    },
+    "game": {
+      "currentL": -1,
+      "list": []
+    },
+    "gamePlugin": {
+      "current": -1,
+      "list": []
+    },
+    "miniprogram": {
+      "current": -1,
+      "list": [
+        {
+          "id": 0,
+          "name": "邮寄地址",
+          "pathName": "pages/default/receiving_address/receiving_address",
+          "query": "shareId=1235556",
+          "scene": null
+        },
+        {
+          "id": 1,
+          "name": "我的ETC",
+          "pathName": "pages/personal_center/my_etc/my_etc",
+          "query": "shareId=123455",
+          "scene": null
+        },
+        {
+          "id": 2,
+          "name": "个人中心",
+          "pathName": "pages/personal_center/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 3,
+          "name": "activities/pages/activity_icbc_forty_five_theme/index",
+          "pathName": "activities/pages/activity_icbc_forty_five_theme/index",
+          "query": "shareId=1235556",
+          "scene": null
+        },
+        {
+          "id": 4,
+          "name": "城市服务",
+          "pathName": "CitiesServices/pages/CitiesServices/CitiesServices",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 5,
+          "name": "账单详情",
+          "pathName": "pages/personal_center/order_details/order_details",
+          "query": "id=709701386738077696&channel=1&month=202005",
+          "scene": 1014
+        },
+        {
+          "id": 6,
+          "name": "办理进度",
+          "pathName": "pages/default/processing_progress/processing_progress",
+          "query": "orderId=754022503973654528",
+          "scene": null
+        },
+        {
+          "id": 7,
+          "name": "充值",
+          "pathName": "pages/personal_center/recharge-card-processing/recharge-card-processing",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 8,
+          "name": "支付保证金",
+          "pathName": "pages/default/margin_payment/margin_payment",
+          "query": "orderId=719857736895959040",
+          "scene": null
+        },
+        {
+          "id": 9,
+          "name": "pages/personal_center/recharge-card-processing/recharge-card-processing",
+          "pathName": "pages/personal_center/recharge-card-processing/recharge-card-processing",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 10,
+          "name": "会员券",
+          "pathName": "pages/personal_center/membership_coupon/membership_coupon",
+          "query": "orderId=710126117226287104",
+          "scene": null
+        },
+        {
+          "id": 11,
+          "name": "ETC详情",
+          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "query": "orderId=750442877963735040",
+          "scene": null
+        },
+        {
+          "id": 12,
+          "name": "大地入口",
+          "pathName": "pages/Home/Home",
+          "query": "carInsurance=1111",
+          "scene": null
+        },
+        {
+          "id": 13,
+          "name": "pages/crowdsourcing/index/index",
+          "pathName": "pages/crowdsourcing/index/index",
+          "query": "shopId=755513313657757696",
+          "scene": null
+        },
+        {
+          "id": 14,
+          "name": "pages/default/wechat_sudoku/wechat_sudoku",
+          "pathName": "pages/default/wechat_sudoku/wechat_sudoku",
+          "query": "configId=703923388790987622",
+          "scene": null
+        }
+      ]
+    }
+  }
 }

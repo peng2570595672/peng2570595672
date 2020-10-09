@@ -6,7 +6,7 @@
 			<view class="top">
 				<view class="left">
 					<view class="car-no">{{item.vehPlates}}</view>
-					<view class="channel">{{item.cardName ? item.cardName : ''}}</view>
+					<view class="channel">{{item.cardName ? item.cardName === '贵州黔通卡' ? '九州昆仑卡' : item.cardName : ''}}</view>
 				</view>
 				<view class="right caution" wx:if="{{item.selfStatus === 1 || item.selfStatus === 3 && item.contractStatus !== 2}}">办理中</view>
 				<view class="right caution" wx:elif="{{item.selfStatus === 2 || item.contractStatus === 2 || item.selfStatus === 10}}">{{item.selfStatus === 10 ? '高速待签约' : '待签约'}}</view>

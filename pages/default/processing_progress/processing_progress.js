@@ -18,6 +18,7 @@ Page({
 		showDetailMask: false
 	},
 	onLoad (options) {
+		// this.showDetail();
 		this.setData({
 			isContinentInsurance: app.globalData.isContinentInsurance
 		});

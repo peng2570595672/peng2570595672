@@ -40,7 +40,7 @@
 	</view>
 	<view class="item" wx:if="{{orderInfo.cardName}}">
 		<view>发行卡种</view>
-		<view>{{orderInfo.cardName}}</view>
+		<view>{{orderInfo.cardName === '贵州黔通卡' ? '九州昆仑卡' : orderInfo.cardName }}</view>
 	</view>
 	<view class="item" wx:if="{{orderInfo.etcNo}}">
 		<view>发行卡号</view>

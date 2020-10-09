@@ -28,6 +28,7 @@ App({
 		isHighSpeedTraffic: undefined,// 是否是高速通行公众号进入办理
 		isHighSpeedTrafficActivity: false,// 是否是高速通行活动进入办理
 		systemTime: undefined,// 系统时间
+		isSecondSigning: false,// 是否二次签约
 		isMarginPayment: false,// 是否需要支付保证金
 		marginPaymentMoney: 0,// 支付保证金金额
 		isSystemTime: false,// 是否是通过接口获取过系统时间
@@ -262,6 +263,11 @@ App({
 				this.globalData.signAContract = 3;
 				// 签约成功 userState: "NORMAL"
 				if (res.data.contractStatus === 1 && res.data.userState === 'NORMAL') {
+					if (this.globalData.isSecondSigning) {
+						this.globalData.isSecondSigning = false;
+						util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
+						return;
+					}
 					// 是否是津易行办理
 					if (this.globalData.isJinYiXing) {
 						wx.navigateBackMiniProgram({
@@ -282,7 +288,6 @@ App({
 						// } else {
 						// 	util.go('/pages/default/signed_successfully/signed_successfully');
 						// }
-
 						// if (this.globalData.isMarginPayment) {
 						// 	// 需要支付保证金
 						// 	util.go(`/pages/default/margin_payment/margin_payment?marginPaymentMoney=${this.globalData.marginPaymentMoney}&type=main_process`);

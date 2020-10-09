@@ -258,6 +258,7 @@ Page({
 	},
 	//  恢复签约
 	onClickBackToSign () {
+		app.globalData.isSecondSigning = false;
 		if (this.data.orderInfo.selfStatus === 10) {
 			this.selectComponent('#notSigningPrompt').show();
 		} else {
@@ -268,6 +269,9 @@ Page({
 				this.onClickSwitchBank();
 			} else {
 				// 立即签约
+				if (this.data.orderInfo.status === 1) {
+					app.globalData.isSecondSigning = true;
+				}
 				let isFirstVersion = false;
 				if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {
 					// 1.0数据 立即签约 需标记资料已完善

@@ -302,20 +302,20 @@ Page({
 					}
 					vehicleList.push(item.vehPlates);
 					wx.setStorageSync('cars', vehicleList.join('、'));
-					if (item.selfStatus === 6 && this.data.num === 0) {
-						this.setData({
-							num: 1
-						});
-						util.alert({
-							content: '因近期部分省份及城市发生特大洪涝灾害，到货时间可能延后数日。',
-							showCancel: false,
-							confirmText: '我知道了',
-							confirm: () => {
-							},
-							cancel: () => {
-							}
-						});
-					}
+					// if (item.selfStatus === 6 && this.data.num === 0) {
+					// 	this.setData({
+					// 		num: 1
+					// 	});
+					// 	util.alert({
+					// 		content: '因近期部分省份及城市发生特大洪涝灾害，到货时间可能延后数日。',
+					// 		showCancel: false,
+					// 		confirmText: '我知道了',
+					// 		confirm: () => {
+					// 		},
+					// 		cancel: () => {
+					// 		}
+					// 	});
+					// }
 					if (item.contractStatus === 2) {
 						// 解约优先展示
 						orderInfo = item;
@@ -433,6 +433,7 @@ Page({
 	},
 	// 恢复签约
 	onClickBackToSign (e) {
+		app.globalData.isSecondSigning = false;
 		let obj = this.data.orderInfo;
 		app.globalData.contractStatus = obj.contractStatus;
 		if (obj.contractStatus === 2) {
@@ -440,6 +441,9 @@ Page({
 			// 恢复签约
 			this.restoreSign(obj);
 		} else {
+			if (obj.status === 1) {
+				app.globalData.isSecondSigning = true;
+			}
 			// 2.0 立即签约
 			app.globalData.signAContract = -1;
 			if (obj.orderType === 31) {
@@ -555,6 +559,8 @@ Page({
 		if (item.pageType === 1) {
 			// 页面类型：1-H5，2-小程序
 			if (item.remark === 'micro_insurance') {
+				let memberId = app.globalData.memberId || '';
+				item.pageUrl = `${item.pageUrl}&outerUserId=${memberId}`;
 				mta.Event.stat('banner_activity_weibao',{});
 			}
 			if (item.remark === 'heaiche') {

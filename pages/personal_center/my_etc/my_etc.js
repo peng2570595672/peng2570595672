@@ -206,6 +206,7 @@ Page({
 	},
 	// 恢复签约
 	onClickBackToSign (e) {
+		app.globalData.isSecondSigning = false;
 		let index = e.currentTarget.dataset.index;
 		let obj = this.data.carList[parseInt(index)];
 		// 新流程
@@ -218,6 +219,9 @@ Page({
 				this.restoreSign(obj);
 			} else {
 				// 2.0 立即签约
+				if (obj.status === 1) {
+					app.globalData.isSecondSigning = true;
+				}
 				if (obj.orderType === 31) {
 					app.globalData.isSalesmanOrder = true;
 				} else {

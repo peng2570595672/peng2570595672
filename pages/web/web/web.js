@@ -15,13 +15,20 @@ Page({
 		} else if (options.type === 'weiBao') {
 			let wtagid;
 			if (options.entrance && options.entrance === 'bill') {
-				wtagid = '116.115.43';// 账单详情页进入微保
+				wtagid = '116.115.44';// 账单详情页进入微保
 			} else {
 				wtagid = '104.210.3';
 			}
+			if (app.globalData.host.includes('etctest')) {
+				// 测试
+				url = `https://static-dsu.wesure.cn/sitapp/app2/h5-mobile/home?wtagid=${wtagid}&companyId=SJHT&outerUserId=${app.globalData.memberId}`;
+			} else {
+				// 正式
+				url = `https://static.wesure.cn/app2/h5-mobile/home?wtagid=${wtagid}&companyId=SJHT&outerUserId=${app.globalData.memberId}`;
+			}
 			// url = `https://api.wesure.cn/app/carinsure-new/driving/home/index.html?companyId=SJHT&wtagid=104.210.4`;
 			// url = `https://api.wesure.cn/app/carinsure-new/driving/home/index.html?companyId=SJHT&outerUserId=${app.globalData.memberId}&wtagid=104.210.3`;
-			url = `https://api.wesure.cn/app/carinsure-new/driving/home/index.html?companyId=SJHT&outerUserId=${app.globalData.memberId}&wtagid=${wtagid}`;
+			// url = `https://static.wesure.cn/app2/h5-mobile/home?companyId=ETC&outerUserId=${app.globalData.memberId}&wtagid=${wtagid}`;
 		} else if (options.type === 'online_customer_service') {
 			let businessType = encodeURIComponent('ETC+在线客服');
 			let cars = wx.getStorageSync('cars');

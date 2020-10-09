@@ -67,9 +67,11 @@
 	<!--微保活动弹框-->
 	<view catchtap="hide" class="detail_mask animated {{showDetailWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{showDetailMask}}">
 		<view catchtap="close" class="detail_wrapper animated {{showDetailWrapper ? 'zoomInOther' : 'zoomOutOther'}}">
-			<image mode="widthFix" src="https://file.cyzl.com/g001/M05/3C/E8/oYYBAF6CtdSAHjdCAAFAI-DVHj8960.png" catchtap="goMicroInsurance"></image>
+			<view class="close_button iconfont" catchtap="hide"></view>
+			<image mode="widthFix" src="https://file.cyzl.com/g001/M06/94/6A/oYYBAF9sakiAbF3rADnKJ0IrJ7o206.png" catchtap="goMicroInsurance"></image>
 			<view class="activity_button" catchtap="goMicroInsurance">
-				<image mode="widthFix" src="https://file.cyzl.com/g001/M05/3C/E8/oYYBAF6Ctb2AKwkoAABkKcg2fxU648.png"></image>
+				<button>立即领取</button>
+<!--				<image mode="widthFix" src="https://file.cyzl.com/g001/M06/94/6A/oYYBAF9sakiAbF3rADnKJ0IrJ7o206.png"></image>-->
 			</view>
 		</view>
 	</view>
