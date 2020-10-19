@@ -1,6 +1,15 @@
-
+const util = require('../../utils/util.js');
+const app = getApp();
 Component({
 	properties: {
+		initializationDate: {
+			type: String,
+			value: undefined
+		},
+		initializationVehPlates: {
+			type: String,
+			value: undefined
+		},
 		dropDownMenuTitle: {
 			type: Array,
 			value: []
@@ -39,6 +48,98 @@ Component({
 		selected_filter_name: ''
 	},
 	methods: {
+		// ETC月结单提醒
+		subscribe (e) {
+			let index = e.currentTarget.dataset.nav;
+			// 判断版本，兼容处理
+			let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
+			if (result >= 0) {
+				util.showLoading({
+					title: '加载中...'
+				});
+				wx.requestSubscribeMessage({
+					tmplIds: ['nvT4xzj5ireqDxMBS_bjHtrpENs5JrWjiIAlMtcSFuI'],
+					success: (res) => {
+						wx.hideLoading();
+						if (res.errMsg === 'requestSubscribeMessage:ok') {
+							let keys = Object.keys(res);
+							// 是否存在部分未允许的订阅消息
+							let isReject = false;
+							for (let key of keys) {
+								if (res[key] === 'reject') {
+									isReject = true;
+									break;
+								}
+							}
+							// 有未允许的订阅消息
+							if (isReject) {
+								util.alert({
+									content: '检查到当前订阅消息未授权接收，请授权',
+									showCancel: true,
+									confirmText: '授权',
+									confirm: () => {
+										wx.openSetting({
+											success: (res) => {
+											},
+											fail: () => {
+												util.showToastNoIcon('打开设置界面失败，请重试！');
+											}
+										});
+									},
+									cancel: () => { // 点击取消按钮
+										this.selectTap(e,index);
+									}
+								});
+							} else {
+								this.selectTap(e,index);
+							}
+						}
+					},
+					fail: (res) => {
+						wx.hideLoading();
+						// 不是点击的取消按钮
+						if (res.errMsg === 'requestSubscribeMessage:fail cancel') {
+							this.selectTap(e,index);
+						} else {
+							util.alert({
+								content: '调起订阅消息失败，是否前往"设置" -> "订阅消息"进行订阅？',
+								showCancel: true,
+								confirmText: '打开设置',
+								confirm: () => {
+									wx.openSetting({
+										success: (res) => {
+										},
+										fail: () => {
+											util.showToastNoIcon('打开设置界面失败，请重试！');
+										}
+									});
+								},
+								cancel: () => {
+									this.selectTap(e,index);
+								}
+							});
+						}
+					}
+				});
+			} else {
+				util.alert({
+					title: '微信更新提示',
+					content: '检测到当前微信版本过低，可能导致部分功能无法使用；可前往微信“我>设置>关于微信>版本更新”进行升级',
+					confirmText: '继续使用',
+					showCancel: true,
+					confirm: () => {
+						this.selectTap(e,index);
+					}
+				});
+			}
+		},
+		selectTap (e, index) {
+			if (parseInt(index) === 0) {
+				this.tapFilterNav(e);
+			} else {
+				this.tapDistrictNav(e);
+			}
+		},
 		tapDistrictNav: function (e) {
 			let date = new Date();
 			const year = date.getFullYear();
@@ -48,13 +149,29 @@ Component({
 				month: month + 1
 			});
 			if (!this.data.district_right_select_name) {
-				this.setData({
-					dropDownMenuDistrictDataRight: this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length - 1].childModel,
-					district_left_select: this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length - 1].id,
-					district_right_select: this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length - 1].childModel[month].id,
-					selected_year_name: this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length - 1].title,
-					chooseYear: parseInt(this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length - 1].title)
-				});
+				if (this.data.initializationDate) {
+					// 月账单推送进入
+					let setData = this.data.dropDownMenuDistrictData.filter(item => {
+						if (item.title.includes(this.data.initializationDate.slice(0, 4))) {
+							return item;
+						}
+					});
+					this.setData({
+						district_left_select: setData[0].id,
+						district_right_select: setData[0].childModel[parseInt(this.data.initializationDate.slice(4, 6)) - 1].id,
+						dropDownMenuDistrictDataRight: setData[0].childModel,
+						selected_year_name: setData[0].title,
+						chooseYear: parseInt(setData[0].title)
+					});
+				} else {
+					this.setData({
+						dropDownMenuDistrictDataRight: this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length - 1].childModel,
+						district_left_select: this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length - 1].id,
+						district_right_select: this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length - 1].childModel[month].id,
+						selected_year_name: this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length - 1].title,
+						chooseYear: parseInt(this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length - 1].title)
+					});
+				}
 			}
 			if (this.data.district_open) {
 				this.setData({

@@ -34,9 +34,11 @@ Page({
 		allMoney: 0, // 总额
 		vehicleList: ['全部车辆'],
 		chooseTime: '',
+		initializationDate: undefined,// 初始化日期,月账单推送进入
+		initializationVehPlates: undefined,// 初始化车牌,月账单推送进入
 		chooseVehPlates: '全部车辆'
 	},
-	onLoad () {
+	onLoad (options) {
 		let date = new Date();
 		const year = date.getFullYear();
 		const month = date.getMonth() + 1;
@@ -60,12 +62,26 @@ Page({
 				[`timeList[${time - i}].id`]: `${i}`
 			});
 		}
-		this.setData({
-			[`dropDownMenuTitle[0]`]: this.data.vehicleList[0],
-			[`dropDownMenuTitle[1]`]: `${year}年${month}月`,
-			year: `${year}`,
-			chooseTime: `${year}${util.formatNumber(month)}`
-		});
+		if (options.isMsg && (options.isMsg === 1 || options.isMsg === '1')) {
+			// 月账单推送进入
+			let dateArr = options.month.split('-');
+			this.setData({
+				[`dropDownMenuTitle[0]`]: options.vehPlate,
+				[`dropDownMenuTitle[1]`]: `${dateArr[0]}年${util.formatNumber(dateArr[1])}月`,
+				year: `${year}`,
+				chooseTime: `${dateArr[0]}${util.formatNumber(dateArr[1])}`,
+				initializationVehPlates: options.vehPlate,
+				chooseVehPlates: options.vehPlate,
+				initializationDate: `${dateArr[0]}${util.formatNumber(dateArr[1])}`
+			});
+		} else {
+			this.setData({
+				[`dropDownMenuTitle[0]`]: this.data.vehicleList[0],
+				[`dropDownMenuTitle[1]`]: `${year}年${month}月`,
+				year: `${year}`,
+				chooseTime: `${year}${util.formatNumber(month)}`
+			});
+		}
 	},
 	onShow () {
 		this.setData({
@@ -166,7 +182,16 @@ Page({
 			const year = date.getFullYear();
 			const month = date.getMonth() + 1;
 			if (this.data.chooseVehPlates !== '全部车辆') {
-				this.getSuccessBill(this.data.chooseVehPlates,this.data.chooseTime);
+				if (this.data.initializationVehPlates && this.data.initializationDate) {
+					// 月账单 推送进入
+					obuStatusList.map((item) => {
+						this.data.vehicleList.push(item.vehPlates);
+						this.setData({
+							vehicleList: this.data.vehicleList
+						});
+					});
+				}
+				this.getSuccessBill(this.data.chooseVehPlates, this.data.chooseTime);
 			} else {
 				obuStatusList.map((item) => {
 					this.data.vehicleList.push(item.vehPlates);
@@ -188,7 +213,8 @@ Page({
 	getMessage (vehPlates,time) {
 		let channel = [];
 		if (vehPlates === '全部车辆') {
-			this.data.orderList.map((item) => {
+			let flowVersion = this.data.orderList.filter(item => item.flowVersion === 1); // 过滤总对总账单
+			flowVersion.map((item) => {
 				channel.push(item.obuCardType);
 			});
 			// 数组去重
@@ -206,6 +232,7 @@ Page({
 		}
 		this.getFailBillMessage(channel,time);
 	},
+	// 查询欠费信息
 	getFailBillMessage (channel) {
 		let params = {
 			channels: channel
@@ -223,7 +250,7 @@ Page({
 			}
 		}, app.globalData.userInfo.accessToken);
 	},
-	// 成功账单列表
+	// 成功账单列表---new 查询所有的账单
 	getSuccessBill (vehPlates,month) {
 		util.showLoading();
 		let channel;
@@ -288,6 +315,9 @@ Page({
 	// 下拉选择
 	selectedItem (e) {
 		if (!e.detail.selectedId) {
+			this.setData({
+				initializationVehPlates: undefined
+			});
 			let index = this.data.vehicleList.findIndex((value) => value === e.detail.selectedTitle);
 			if (index === 0) { // 统计点击全部车辆
 				// 统计点击事件
@@ -300,16 +330,19 @@ Page({
 						this.getSuccessBill(item,this.data.chooseTime);
 					}
 				});
-				this.getMessage('全部车辆',this.data.chooseTime);
+				// this.getMessage('全部车辆',this.data.chooseTime);
 			} else {
 				this.setData({
 					successBillList: [],
 					chooseVehPlates: this.data.vehicleList[index]
 				});
 				this.getSuccessBill(this.data.vehicleList[index],this.data.chooseTime);
-				this.getMessage(this.data.vehicleList[index],this.data.chooseTime);
+				// this.getMessage(this.data.vehicleList[index],this.data.chooseTime);
 			}
 		} else {
+			this.setData({
+				initializationDate: undefined
+			});
 			const month = e.detail.selectedId.match(/-(\S*)/)[1];
 			const id = e.detail.selectedId.match(/(\S*)-/)[1];
 			this.setData({
@@ -322,9 +355,9 @@ Page({
 						this.getSuccessBill(item,this.data.chooseTime);
 					}
 				});
-				this.getMessage('全部车辆',this.data.chooseTime);
+				// this.getMessage('全部车辆',this.data.chooseTime);
 			} else {
-				this.getMessage(this.data.chooseVehPlates,this.data.chooseTime);
+				// this.getMessage(this.data.chooseVehPlates,this.data.chooseTime);
 				this.getSuccessBill(this.data.chooseVehPlates,this.data.chooseTime);
 			}
 		}

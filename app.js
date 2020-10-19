@@ -29,6 +29,8 @@ App({
 		isHighSpeedTrafficActivity: false,// 是否是高速通行活动进入办理
 		systemTime: undefined,// 系统时间
 		isSecondSigning: false,// 是否二次签约
+		isSecondSigningInformationPerfect: false,// 是否二次签约-资料完善
+		isPayH5Signing: false,// 是否是付费h5签约
 		isMarginPayment: false,// 是否需要支付保证金
 		marginPaymentMoney: 0,// 支付保证金金额
 		isSystemTime: false,// 是否是通过接口获取过系统时间
@@ -263,9 +265,22 @@ App({
 				this.globalData.signAContract = 3;
 				// 签约成功 userState: "NORMAL"
 				if (res.data.contractStatus === 1 && res.data.userState === 'NORMAL') {
+					// 办理付费h5
+					if (this.globalData.isPayH5Signing) {
+						this.globalData.isPayH5Signing = false;
+						wx.reLaunch({
+							url: '/pages/pay_h5/signed_successfully/signed_successfully'
+						});
+						return;
+					}
 					if (this.globalData.isSecondSigning) {
 						this.globalData.isSecondSigning = false;
 						util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
+						return;
+					}
+					if (this.globalData.isSecondSigningInformationPerfect) {
+						this.globalData.isSecondSigningInformationPerfect = false;
+						util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
 						return;
 					}
 					// 是否是津易行办理

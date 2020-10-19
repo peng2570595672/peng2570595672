@@ -741,8 +741,10 @@ function resetData() {
 	app.globalData.isMarginPayment = false;
 	app.globalData.activitiesOfDrainage = false;
 	app.globalData.isCrowdsourcingPromote = false;
+	app.globalData.isSecondSigning = false;
+	app.globalData.isSecondSigningInformationPerfect = false;
+	app.globalData.isPayH5Signing = false;
 }
-
 /**
  *  获取办理车辆类型  货车/企业车辆限制(1.0)
  */

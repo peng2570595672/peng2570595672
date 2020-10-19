@@ -207,8 +207,15 @@ Page({
 	// 恢复签约
 	onClickBackToSign (e) {
 		app.globalData.isSecondSigning = false;
+		app.globalData.isSecondSigningInformationPerfect = false;
 		let index = e.currentTarget.dataset.index;
 		let obj = this.data.carList[parseInt(index)];
+		if (obj.status === 1) {
+			app.globalData.isSecondSigningInformationPerfect = true;
+		}
+		if (obj.logisticsId !== 0 || obj.obuStatus === 5 || obj.obuStatus === 1) {
+			app.globalData.isSecondSigning = true;
+		}
 		// 新流程
 		if (obj.selfStatus === 10) {
 			this.selectComponent('#notSigningPrompt').show();
@@ -219,9 +226,6 @@ Page({
 				this.restoreSign(obj);
 			} else {
 				// 2.0 立即签约
-				if (obj.status === 1) {
-					app.globalData.isSecondSigning = true;
-				}
 				if (obj.orderType === 31) {
 					app.globalData.isSalesmanOrder = true;
 				} else {

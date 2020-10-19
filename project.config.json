@@ -13,7 +13,7 @@
     "newFeature": true,
     "coverView": true,
     "nodeModules": true,
-    "autoAudits": false,
+    "autoAudits": true,
     "showShadowRootInWxmlPanel": true,
     "scopeDataCheck": false,
     "uglifyFileName": true,
@@ -32,7 +32,8 @@
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
     "packNpmManually": false,
-    "packNpmRelationList": []
+    "packNpmRelationList": [],
+    "bundle": true
   },
   "compileType": "miniprogram",
   "libVersion": "2.11.2",
@@ -161,16 +162,16 @@
         },
         {
           "id": 13,
-          "name": "pages/crowdsourcing/index/index",
-          "pathName": "pages/crowdsourcing/index/index",
-          "query": "shopId=755513313657757696",
+          "name": "我的账单页",
+          "pathName": "pages/personal_center/my_order/my_order",
+          "query": "isMsg=1&vehPlate=贵Z43260&month=2020-03",
           "scene": null
         },
         {
           "id": 14,
-          "name": "pages/default/wechat_sudoku/wechat_sudoku",
-          "pathName": "pages/default/wechat_sudoku/wechat_sudoku",
-          "query": "configId=703923388790987622",
+          "name": "pages/pay_h5/sign_up/sign_up",
+          "pathName": "pages/pay_h5/sign_up/sign_up",
+          "query": "orderId=767772116744409088",
           "scene": null
         }
       ]

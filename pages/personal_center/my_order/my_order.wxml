@@ -20,7 +20,8 @@
 		<!--</view>-->
 	<!--</view>-->
 	<!--欠费通知结束-->
-	<dropdownmenu wx:if="{{vehicleList.length >1}}" isOwe="{{failBillMessage.count}}" isOweService="{{ownerServiceArrearsList.length}}" dropDownMenuTitle='{{dropDownMenuTitle}}' dropDownMenuFilterData='{{vehicleList}}' dropDownMenuDistrictData='{{timeList}}'  bind:selectedItem='selectedItem' />
+	<dropdownmenu wx:if="{{vehicleList.length >1}}" isOwe="{{failBillMessage.count}}" initializationDate="{{initializationDate}}" initializationVehPlates="{{initializationVehPlates}}" isOweService="{{ownerServiceArrearsList.length}}" dropDownMenuTitle='{{dropDownMenuTitle}}' dropDownMenuFilterData='{{vehicleList}}' dropDownMenuDistrictData='{{timeList}}'  bind:selectedItem='selectedItem' />
+<!--	<dropdownmenu wx:if="{{vehicleList.length >1}}" isOwe="{{failBillMessage.count}}" isOweService="{{ownerServiceArrearsList.length}}" dropDownMenuTitle='{{dropDownMenuTitle}}' dropDownMenuFilterData='{{vehicleList}}' dropDownMenuDistrictData='{{timeList}}'  bind:selectedItem='selectedItem' />-->
 	<!--	通行总额开始-->
 	<view class="total-cost" wx:if="{{successBillList.length > 0}}">
 		<view>共{{successBillList.length}}条，通行总额：{{allMoney/100}}元</view>

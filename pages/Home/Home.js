@@ -434,16 +434,20 @@ Page({
 	// 恢复签约
 	onClickBackToSign (e) {
 		app.globalData.isSecondSigning = false;
+		app.globalData.isSecondSigningInformationPerfect = false;
 		let obj = this.data.orderInfo;
 		app.globalData.contractStatus = obj.contractStatus;
+		if (obj.status === 1) {
+			app.globalData.isSecondSigningInformationPerfect = true;
+		}
+		if (obj.logisticsId !== 0 || obj.obuStatus === 5 || obj.obuStatus === 1) {
+			app.globalData.isSecondSigning = true;
+		}
 		if (obj.contractStatus === 2) {
 			app.globalData.orderInfo.orderId = obj.id;
 			// 恢复签约
 			this.restoreSign(obj);
 		} else {
-			if (obj.status === 1) {
-				app.globalData.isSecondSigning = true;
-			}
 			// 2.0 立即签约
 			app.globalData.signAContract = -1;
 			if (obj.orderType === 31) {
@@ -570,6 +574,7 @@ Page({
 			util.go(`/pages/web/web/web?url=${encodeURIComponent(item.pageUrl)}&type=banner`);
 		} else {
 			if (item.remark === 'micro_insurance') {
+				mta.Event.stat('banner_activity_weibao_insurance',{});
 				wx.navigateToMiniProgram({
 					appId: 'wx06a561655ab8f5b2',
 					path: item.pageUrl,
