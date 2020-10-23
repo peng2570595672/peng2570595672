@@ -1,0 +1,33 @@
+<div class="signing-owner">
+	<view class="content">
+		<view class="signing-owner-top">
+			<view>
+				<view class="first">
+					<view>签约</view>
+					<view>微信车主服务</view>
+				</view>
+				<view class="last">
+					<image src="/pages/pay_h5/assets/signing-owner-bg.png" mode="widthFix"/>
+				</view>
+			</view>
+		</view>
+		<view class="signing-owner-bottom">
+			<view class="tolls">
+				<view>
+					<image src="/pages/pay_h5/assets/tolls.png" mode="widthFix"/>
+				</view>
+				<div>通行费代扣</div>
+			</view>
+			<view class="query-bill">
+				<view>
+					<image src="/pages/pay_h5/assets/query-bill.png" mode="widthFix"/>
+				</view>
+				<view>账单随时查</view>
+			</view>
+		</view>
+	</view>
+	<view class="btn">
+		<button wx:if="{{loginInfo.needBindingPhone !== 1}}" catchtap="weChatSign">一键签约</button>
+		<button wx:else open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">一键签约</button>
+	</view>
+</div>

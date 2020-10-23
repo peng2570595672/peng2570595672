@@ -554,6 +554,16 @@ Page({
 			});
 		});
 	},
+	goMakeInvoice () {
+		wx.navigateToMiniProgram({
+			appId: 'wx9040bb0d3f910004',
+			path: 'pages/index/index',
+			envVersion: 'release', // 目前联调为体验版
+			fail () {
+				util.showToastNoIcon('调起票根小程序失败, 请重试！');
+			}
+		});
+	},
 	// 点击轮播图
 	onClickSwiper (e) {
 		let item = e.currentTarget.dataset['item'];

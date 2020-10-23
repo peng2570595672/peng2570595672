@@ -1,0 +1,90 @@
+@import "../../../style/base.styl";
+page
+	background #F2F2F2
+.signing-owner
+	padding 30rpx 20rpx
+	height 100vh
+	box-sizing border-box
+	overflow hidden
+	background #F2F2F2
+	font-size 28rpx
+	.content
+		position relative
+		width 710rpx
+		background #fff
+		border-radius 20rpx
+		min-height 400rpx
+		margin 0 auto 70rpx
+		overflow-x hidden
+		.signing-owner-top
+			width 710rpx
+			height 280rpx
+			overflow hidden
+			font-size 48rpx
+			font-family ZhenyanGB-Regular, ZhenyanGB
+			font-weight 400
+			color #FFFFFF
+			line-height 64rpx
+			margin 0 auto
+			z-index 0
+			&:after
+				content ''
+				width 120%
+				height 280rpx
+				position absolute
+				left -10%
+				top 0
+				border-radius 0 0 50% 50%
+				background linear-gradient(115deg, #16AD69 0%, #60C55C 100%)
+			& > view
+				position absolute
+				left 0
+				top 0
+				width 710rpx
+				height 280rpx
+				display flex
+				z-index 1
+				& > view
+					flex 1
+				.first
+					padding-top 30rpx
+					padding-left 18rpx
+				.last
+					text-align right
+					padding-right 10rpx
+					padding-top 40rpx
+					image
+						width 368rpx
+		.signing-owner-bottom
+			display flex
+			color #33333D
+			font-size 28rpx
+			& > view
+				flex 1
+				display flex
+				align-items center
+				padding-left 70rpx
+				image
+					width 64rpx
+					margin-right 20rpx
+				& > view:last-child
+					line-height 120rpx
+					color #33333D
+					font-size 30rpx
+.btn
+	position absolute
+	left 0
+	right 0
+	bottom 40rpx
+	margin 0 auto
+	button
+		width 650rpx
+		height 96rpx
+		line-height 96rpx
+		font-size 36rpx
+		font-family PingFangSC-Medium, PingFang SC
+		font-weight 500
+		color #FFFFFF
+		text-align center
+		background linear-gradient(132deg, #16AD69 0%, #82D057 100%)
+		border-radius 48rpx

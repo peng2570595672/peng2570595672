@@ -1,0 +1,5 @@
+<view class="signed_successfully">
+	<view class="iconfont"></view>
+	<view class="success">签约成功</view>
+	<view class="close">关闭小程序查看办理进度</view>
+</view>

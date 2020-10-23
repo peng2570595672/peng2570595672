@@ -28,12 +28,12 @@
       "disablePlugins": [],
       "outputPath": ""
     },
+    "bundle": true,
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
     "packNpmManually": false,
-    "packNpmRelationList": [],
-    "bundle": true
+    "packNpmRelationList": []
   },
   "compileType": "miniprogram",
   "libVersion": "2.11.2",
@@ -171,7 +171,7 @@
           "id": 14,
           "name": "pages/pay_h5/sign_up/sign_up",
           "pathName": "pages/pay_h5/sign_up/sign_up",
-          "query": "orderId=767772116744409088",
+          "query": "scene=orderId%3D123057146007883123",
           "scene": null
         }
       ]

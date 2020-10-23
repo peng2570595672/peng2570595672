@@ -161,6 +161,7 @@ Page({
 		}, (res) => {
 			if (res.code === 0) {
 				let extraData = res.data.extraData;
+				let id = res.data.id;
 				wx.requestPayment({
 					nonceStr: extraData.nonceStr,
 					package: extraData.package,
@@ -170,7 +171,7 @@ Page({
 					success: (res) => {
 						this.setData({isRequest: false});
 						if (res.errMsg === 'requestPayment:ok') {
-							this.getBillDetail();
+							this.getBillQuery(id);
 						} else {
 							util.showToastNoIcon('支付失败！');
 						}
@@ -189,6 +190,15 @@ Page({
 		}, app.globalData.userInfo.accessToken, () => {
 			util.hideLoading();
 		});
+	},
+	// 同步支付信息
+	getBillQuery (id) {
+		util.getDataFromServer('consumer/order/billQuery', {id: id}, () => {
+			this.getBillDetail();
+		}, (res) => {
+			console.log(res);
+			this.getBillDetail();
+		}, app.globalData.userInfo.accessToken);
 	},
 	// 微保活动
 	goMicroInsurance () {

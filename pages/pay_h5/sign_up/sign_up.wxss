@@ -1,0 +1,105 @@
+page {
+  background: #f2f2f2;
+}
+.signing-owner {
+  padding: 30rpx 20rpx;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: #f2f2f2;
+  font-size: 28rpx;
+}
+.signing-owner .content {
+  position: relative;
+  width: 710rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  min-height: 400rpx;
+  margin: 0 auto 70rpx;
+  overflow-x: hidden;
+}
+.signing-owner .content .signing-owner-top {
+  width: 710rpx;
+  height: 280rpx;
+  overflow: hidden;
+  font-size: 48rpx;
+  font-family: ZhenyanGB-Regular, ZhenyanGB;
+  font-weight: 400;
+  color: #fff;
+  line-height: 64rpx;
+  margin: 0 auto;
+  z-index: 0;
+}
+.signing-owner .content .signing-owner-top:after {
+  content: '';
+  width: 120%;
+  height: 280rpx;
+  position: absolute;
+  left: -10%;
+  top: 0;
+  border-radius: 0 0 50% 50%;
+  background: linear-gradient(115deg, #16ad69 0%, #60c55c 100%);
+}
+.signing-owner .content .signing-owner-top > view {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 710rpx;
+  height: 280rpx;
+  display: flex;
+  z-index: 1;
+}
+.signing-owner .content .signing-owner-top > view > view {
+  flex: 1;
+}
+.signing-owner .content .signing-owner-top > view .first {
+  padding-top: 30rpx;
+  padding-left: 18rpx;
+}
+.signing-owner .content .signing-owner-top > view .last {
+  text-align: right;
+  padding-right: 10rpx;
+  padding-top: 40rpx;
+}
+.signing-owner .content .signing-owner-top > view .last image {
+  width: 368rpx;
+}
+.signing-owner .content .signing-owner-bottom {
+  display: flex;
+  color: #33333d;
+  font-size: 28rpx;
+}
+.signing-owner .content .signing-owner-bottom > view {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding-left: 70rpx;
+}
+.signing-owner .content .signing-owner-bottom > view image {
+  width: 64rpx;
+  margin-right: 20rpx;
+}
+.signing-owner .content .signing-owner-bottom > view > view:last-child {
+  line-height: 120rpx;
+  color: #33333d;
+  font-size: 30rpx;
+}
+.btn {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 40rpx;
+  margin: 0 auto;
+}
+.btn button {
+  width: 650rpx;
+  height: 96rpx;
+  line-height: 96rpx;
+  font-size: 36rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+  background: linear-gradient(132deg, #16ad69 0%, #82d057 100%);
+  border-radius: 48rpx;
+}

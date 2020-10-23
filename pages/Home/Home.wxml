@@ -146,12 +146,18 @@
 	<!--	分割线结束-->
 	<!--	底部导航开始-->
 	<view class="nav">
-		<view class="item" catchtap="onClickMyETCHandle">
-			<view>
-				<image src="/pages/default/assets/icon_for_my_etc.svg"></image>
+			<view class="item" catchtap="goMakeInvoice">
+				<view>
+					<image src="/pages/default/assets/make_invoice.svg"></image>
+				</view>
+				<view>通行发票</view>
 			</view>
-			<view>我的ETC</view>
-		</view>
+<!--		<view class="item" catchtap="onClickMyETCHandle">-->
+<!--			<view>-->
+<!--				<image src="/pages/default/assets/icon_for_my_etc.svg"></image>-->
+<!--			</view>-->
+<!--			<view>我的ETC</view>-->
+<!--		</view>-->
 		<view class="item" catchtap="go" data-url="violation_enquiry" wx:if="{{!isContinentInsurance}}">
 			<view>
 				<image src="/pages/default/assets/icon_for_violation_of_regulations.svg"></image>
