@@ -133,9 +133,10 @@ Page({
 					this.setData({
 						rotationChartList: list
 					});
-					if (!this.data.isContinentInsurance) {
-						this.init(list);
-					}
+					// 屏蔽和爱车,不需要再次定位
+					// if (!this.data.isContinentInsurance) {
+					// 	this.init(list);
+					// }
 				}
 			} else {
 				util.showToastNoIcon(res.message);
@@ -555,6 +556,7 @@ Page({
 		});
 	},
 	goMakeInvoice () {
+		mta.Event.stat('index_counterfoi',{});
 		wx.navigateToMiniProgram({
 			appId: 'wx9040bb0d3f910004',
 			path: 'pages/index/index',
