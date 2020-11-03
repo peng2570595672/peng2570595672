@@ -30,6 +30,7 @@ Page({
 	},
 	onShow (options) {
 		wx.hideHomeButton();
+		// app.globalData.orderInfo.orderId = '754022503973654528';
 		app.globalData.isModifiedData = false; // 非修改资料
 		let result = wx.getLaunchOptionsSync();
 		let extra = result.referrerInfo.extraData;

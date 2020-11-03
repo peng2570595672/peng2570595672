@@ -8,6 +8,7 @@ Page({
 		showWeiBao: true,
 		isServiceNotificationEntry: false,// 是否是服务通知进入
 		isRequest: false,// 是否请求
+		refundDetails: undefined,
 		details: ''
 	},
 	onLoad (options) {
@@ -26,11 +27,6 @@ Page({
 			if (options.id) {
 				this.setData({details: options});
 			}
-			// if (res.data.productName.includes('微信')) {
-			// 	res.data.productType = 1;
-			// } else {
-			// 	res.data.productType = 2;
-			// }
 			if (!app.globalData.userInfo.accessToken) {
 				// 公众号模板推送/服务通知进入
 				mta.Event.stat('service_notifications_order_details',{});
@@ -51,6 +47,10 @@ Page({
 				app.globalData.billingDetails.productType = 2;
 			}
 			this.setData({details: app.globalData.billingDetails});
+			if (this.data.details.channel === 5) {
+				// 天津退费
+				this.getBillRefundDetail();
+			}
 		} else {
 			if (!app.globalData.userInfo.accessToken) {
 				this.login();
@@ -105,6 +105,28 @@ Page({
 			}
 		});
 	},
+	// 查询账单退费详情
+	getBillRefundDetail () {
+		util.showLoading();
+		let params = {
+			channel: this.data.details.channel,
+			detailId: this.data.details.id
+		};
+		util.getDataFromServer('consumer/etc/get-refund-info', params, () => {
+			util.showToastNoIcon('获取退费详情失败！');
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				if (res.data) {
+					this.setData({refundDetails: res.data});
+				}
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
 	// 去账单说明
 	goOrderInstructions () {
 		util.go('/pages/personal_center/order_instructions/order_instructions?details=' + JSON.stringify(this.data.details));
@@ -136,6 +158,10 @@ Page({
 					res.data.productType = 2;
 				}
 				this.setData({details: res.data});
+				if (this.data.details.channel === 5) {
+					// 天津退费
+					this.getBillRefundDetail();
+				}
 			} else {
 				util.showToastNoIcon(res.message);
 			}

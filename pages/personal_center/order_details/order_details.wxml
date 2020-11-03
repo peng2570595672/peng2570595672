@@ -44,6 +44,20 @@
 			<view>{{details.addTime}}</view>
 		</view>
 	</view>
+	<view class="deduction-details refund-details" wx:if="{{refundDetails}}">
+		<view>
+			<view>退款金额</view>
+			<view>{{refundDetails.refundMoney ? refundDetails.refundMoney/100 : 0}}</view>
+		</view>
+		<view>
+			<view>退款时间</view>
+			<view>{{refundDetails.refundDt}}</view>
+		</view>
+		<view>
+			<view>退款状态</view>
+			<view>退款成功</view>
+		</view>
+	</view>
 	<!--扣费详情结束-->
 	<!--提示开始-->
 	<view class="tips" wx:if="{{details.channelTips.tips1}}">

@@ -38,7 +38,8 @@
 				<view class="fail-money {{item.deductStatus === 7 ? 'refund' : ''}}" wx:else>{{item.etcMoney/100}}</view>
 			</view>
 			<view class="site">
-				{{item.inStationName}}<text class="iconfont"></text>{{item.stationName ? item.stationName : item.outStationName}}
+				<view>{{item.inStationName}}<text class="iconfont"></text>{{item.stationName ? item.stationName : item.outStationName}}</view>
+				<view class="refund" wx:if="{{item.channel === 5 && item.refundMoney && item.refundMoney > 0}}">产生退费</view>
 			</view>
 			<view class="order-list-bottom" wx:if="{{item.flowVersion === 1}}">
 				<view class="accounting-time">出账时间：{{tools.substring(item.addTime,5,16)}}</view>

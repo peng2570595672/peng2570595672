@@ -1,5 +1,5 @@
 page {
-  background: #f7f7f7;
+  background: #fff;
 }
 .order_details .deduction-amount {
   position: relative;
@@ -77,6 +77,10 @@ page {
   flex: 6;
   text-align: right;
   color: #33333d;
+}
+.order_details .refund-details {
+  background: rgba(247,181,0,0.08);
+  margin: 40rpx 0 60rpx;
 }
 .order_details .payment {
   position: fixed;

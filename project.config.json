@@ -173,6 +173,27 @@
           "pathName": "pages/pay_h5/sign_up/sign_up",
           "query": "scene=orderId%3D123057146007883123",
           "scene": null
+        },
+        {
+          "id": 15,
+          "name": "activities/pages/activity_micro_insurance/index",
+          "pathName": "activities/pages/activity_micro_insurance/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 16,
+          "name": "pages/Home/Home",
+          "pathName": "pages/Home/Home",
+          "query": "officialChannelId=645937022279614464",
+          "scene": null
+        },
+        {
+          "id": 17,
+          "name": "activities/pages/activity_micro_insurance/index",
+          "pathName": "activities/pages/activity_micro_insurance/index",
+          "query": "serviceProvidersId=570178295975378944",
+          "scene": null
         }
       ]
     }

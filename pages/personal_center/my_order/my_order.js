@@ -2,6 +2,7 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 // 数据统计
 let mta = require('../../../libs/mta_analysis.js');
+// 月账单推送格式: pages/personal_center/my_order/my_order?isMsg=1&vehPlate=贵Z43260&month=2020-03
 Page({
 	data: {
 		year: '',
