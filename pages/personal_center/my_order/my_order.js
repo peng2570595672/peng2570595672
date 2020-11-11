@@ -173,7 +173,7 @@ Page({
 		// 过滤未激活订单
 		let obuStatusList;
 		// obuStatusList = res.data.filter(item => item.obuStatus === 1); // 正式数据
-		obuStatusList = app.globalData.myEtcList.filter(item => item.obuStatus === 1 || item.obuStatus === 5); // 测试数据处理
+		obuStatusList = app.globalData.myEtcList.filter(item => item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5); // 1 已激活  2 恢复订单  5 预激活
 		if (obuStatusList.length > 0) {
 			// 需要过滤未激活的套餐
 			this.setData({
