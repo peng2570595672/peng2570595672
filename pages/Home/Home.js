@@ -11,6 +11,7 @@ Page({
 		canIUse: wx.canIUse('button.open-type.getUserInfo'),
 		loginInfo: {},// 登录信息
 		orderInfo: undefined, // 订单信息
+		exceptionMessage: undefined, // 异常信息
 		num: 0, // 次数
 		isContinentInsurance: false, // 是否是大地保险
 		heaicheProvinceList: ['辽宁', '湖南', '江苏', '甘肃', '广西', '内蒙古', '陕西', '山西', '四川', '云南', '安徽', '宁夏', '青海', '河南', '上海', '浙江', '黑龙江', '山东', '福建', '河北'], // 和爱车活动加载省份
@@ -84,6 +85,9 @@ Page({
 							util.hideLoading();
 						}
 					} else {
+						this.setData({
+							exceptionMessage: res.message
+						});
 						util.hideLoading();
 						util.showToastNoIcon(res.message);
 					}
@@ -255,6 +259,10 @@ Page({
 	},
 	// 获取和爱车活动加密手机号
 	encryptionMobilePhone (pageUrl) {
+		if (this.data.exceptionMessage) {
+			util.showToastNoIcon(this.data.exceptionMessage);
+			return;
+		}
 		if (!app.globalData.mobilePhone) {
 			util.go('/pages/login/login/login');
 			return;
@@ -401,6 +409,10 @@ Page({
 					}
 				});
 			} else if (url === 'online_customer_service') {
+				if (this.data.exceptionMessage) {
+					util.showToastNoIcon(this.data.exceptionMessage);
+					return;
+				}
 				// 未登录
 				if (!app.globalData.userInfo.accessToken) {
 					wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
@@ -412,6 +424,10 @@ Page({
 				util.go(`/pages/web/web/web?type=${url}`);
 			}
 		} else {
+			if (this.data.exceptionMessage) {
+				util.showToastNoIcon(this.data.exceptionMessage);
+				return;
+			}
 			// 未登录
 			if (!app.globalData.userInfo.accessToken) {
 				wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
@@ -657,6 +673,10 @@ Page({
 	},
 	// 我的ETC
 	onClickMyETCHandle () {
+		if (this.data.exceptionMessage) {
+			util.showToastNoIcon(this.data.exceptionMessage);
+			return;
+		}
 		// 未登录
 		if (!app.globalData.userInfo.accessToken) {
 			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));

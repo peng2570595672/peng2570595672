@@ -125,7 +125,7 @@
 				<view>
 					<view class="up"><text>上</text><view>{{recentlyTheBill.inStationName}}</view></view>
 					<view class="down"><text>下</text><view>{{recentlyTheBill.stationName}}</view></view>
-					<view class="price {{recentlyTheBill.deductStatus === 7 ? 'refund' : ''}}">{{recentlyTheBill.etcMoney/100}}</view>
+					<view class="price {{recentlyTheBill.deductStatus === 7 ? 'refund' : ''}}">{{tools.parseNum((recentlyTheBill.etcMoney - recentlyTheBill.splitDeductedMoney)/100)}}</view>
 				</view>
 			</view>
 		</block>

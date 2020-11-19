@@ -2,8 +2,5 @@
 	"navigationBarBackgroundColor": "#FFFFFF",
 	"backgroundColor": "#FFFFFF",
 	"navigationBarTextStyle": "black",
-	"navigationBarTitleText": "我的账单",
-	"usingComponents": {
-		"popup": "/components/popup/popup"
-	}
+	"navigationBarTitleText": "欠费账单"
 }

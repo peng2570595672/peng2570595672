@@ -1,0 +1,81 @@
+@import "animate.styl";
+//字体图标
+@import "../../fonts/iconfont.styl";
+.iconfont {
+	font-family:"iconfont" !important;
+	font-size:16px;
+	font-style:normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.alert-for-not-finished
+	position: fixed
+	left: 0
+	right: 0
+	top: 0
+	bottom: 0
+	background: rgba(0, 0, 0, 0.6)
+	z-index: 10000
+.alert-for-not-finished-content
+	position absolute
+	left 0
+	right 0
+	top 50%
+	transform translate(0, -50%)
+	width 550rpx
+	background rgba(255,255,255,1)
+	background red
+	box-shadow 4rpx 12rpx 56rpx 0px rgba(102,102,109,0.19)
+	border-radius 32rpx
+	margin 0 auto
+	z-index 100002
+	.popup-container
+		position absolute
+		left 50%
+		top 50%
+		width 100%
+		border 2rpx solid #ccc
+		border-radius 32rpx
+		box-sizing bordre-box
+		transform translate(-50%, -50%)
+		overflow hidden
+		background #fff
+		.wx-popup-title
+			text-align center
+			color #33333D
+			font-size 40rpx
+			padding-bottom 20rpx
+			font-weight 500
+		.wx-popup-ico
+			text-align right
+			padding 20rpx
+			.close
+				display inline-block
+				&:before
+					display block
+					content '\e63d'
+					font-size 30rpx
+					color #666
+		.wx-popup-con
+			padding 0 56rpx
+			font-family PingFangSC-Regular, PingFang SC
+			font-weight 400
+			color #33333D
+			font-size 28rpx
+			line-height 40rpx
+		.wx-popup-btn
+			padding-bottom 40rpx
+			& > view
+				width 448rpx
+				height 84rpx
+				line-height 84rpx
+				background linear-gradient(45deg, #14AC69 0%, #84D157 100%)
+				border-radius 49rpx
+				text-align center
+				font-size 32rpx
+				font-family PingFangSC-Regular, PingFang SC
+				font-weight 400
+				color: #FFFFFF
+				margin 40rpx auto 0
+				&.cancel
+					background #CCCCCC

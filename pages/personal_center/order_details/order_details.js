@@ -4,11 +4,14 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
+		mask: false,
+		wrapper: false,
 		isContinentInsurance: false, // 是否是大地保险
 		showWeiBao: true,
 		isServiceNotificationEntry: false,// 是否是服务通知进入
 		isRequest: false,// 是否请求
 		refundDetails: undefined,
+		popupContent: {},
 		details: ''
 	},
 	onLoad (options) {
@@ -127,9 +130,22 @@ Page({
 			util.hideLoading();
 		});
 	},
+	// 隐藏弹窗
+	onHandle () {
+		app.globalData.splitDetails = this.data.details;
+		util.go('/pages/personal_center/split_bill/split_bill');
+	},
 	// 去账单说明
 	goOrderInstructions () {
-		util.go('/pages/personal_center/order_instructions/order_instructions?details=' + JSON.stringify(this.data.details));
+		let popupContent = {
+			content: '由于该通行账单金额过大导致扣费失败，为保证你的正常通行，系统将自动拆分账单金额发起扣款。',
+			confirm: '查看扣款记录'
+		};
+		this.setData({
+			popupContent
+		});
+		this.selectComponent('#popup').show();
+		// util.go('/pages/personal_center/order_instructions/order_instructions?details=' + JSON.stringify(this.data.details));
 	},
 	callHotLine (e) {
 		let model = e.currentTarget.dataset.model;
@@ -158,10 +174,7 @@ Page({
 					res.data.productType = 2;
 				}
 				this.setData({details: res.data});
-				if (this.data.details.channel === 5) {
-					// 天津退费
-					this.getBillRefundDetail();
-				}
+				this.getBillRefundDetail();
 			} else {
 				util.showToastNoIcon(res.message);
 			}

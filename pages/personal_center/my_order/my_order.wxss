@@ -119,6 +119,9 @@ page {
   border: 1rpx solid rgba(247,181,0,0.13);
   margin-left: 10rpx;
 }
+.my_order .order-list .order-list-content .site > view.spilt-deductions {
+  background: rgba(247,110,0,0.41);
+}
 .my_order .order-list .order-list-content .order-list-bottom {
   display: flex;
   font-size: 24rpx;

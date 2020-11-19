@@ -101,6 +101,12 @@ Page({
 					if (item.serviceMoney) {
 						total += item.serviceMoney;
 					}
+					if (item.splitDeductedMoney) { // 拆分账单,已扣金额
+						total -= item.splitDeductedMoney;
+					}
+					if (item.deductServiceMoney) { // 拆分账单,已扣服务费
+						total -= item.deductServiceMoney;
+					}
 				});
 				order.total = total;
 				order.list = res.data;

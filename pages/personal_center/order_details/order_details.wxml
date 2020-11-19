@@ -1,7 +1,8 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="order_details {{details.deductStatus === 2 || details.deductStatus === 10 ? 'is-arrears': ''}}">
 	<!--	扣费金额开始-->
 	<view class="deduction-amount">
-		<view class="doubt iconfont" catchtap="goOrderInstructions" wx:if="{{details.flowVersion === 1}}"><text></text></view>
+		<view class="doubt iconfont" catchtap="goOrderInstructions" wx:if="{{details.splitState && details.splitState === 1}}"><text></text></view>
 		<view class="deduction-amount-box">
 			<view class="deduction-amount-title">扣费金额</view>
 			<view class="{{details.deductStatus !== 1 && details.deductStatus !== 10 && details.deductStatus !== 11 && details.deductStatus !== 12 && details.flowVersion !== 2 ? 'deduction-amount-red' : ''}}">
@@ -9,6 +10,10 @@
 			</view>
 			<view wx:if="{{details.flowVersion === 2}}" class="flow-version-second">由于系统升级，目前尚不能查询订单是否已支付，请确保高速签约银行卡余额充足，银行会自动完成扣费。给您带来不便，敬请谅解。</view>
 			<view class="failure-prompted {{details.deductStatus === 7 ? 'refund' : ''}}" wx:if="{{details.etcMoney > 0  && details.flowVersion === 1 && (details.deductStatus === 7 || details.deductStatus === 2)}}">{{details.deductStatus === 7 ? '已退款' : (details.errCodeDes === '0' ? '' : details.errCodeDes)}}</view>
+			<view class="split-amount" wx:if="{{details.splitState && details.splitState === 1}}">
+				<view>已扣金额：<text>{{tools.parseNum((details.splitDeductedMoney + details.deductServiceMoney)/100)}}</text></view>
+				<view><text class="buckling-failure">扣款失败</text>：<text>{{tools.parseNum((details.etcMoney + details.serviceMoney - details.splitDeductedMoney - details.deductServiceMoney)/100)}}</text></view>
+			</view>
 		</view>
 	</view>
 	<!--扣费金额结束-->
@@ -16,7 +21,7 @@
 	<view class="deduction-details">
 		<view>
 			<view>折后通行费</view>
-			<view wx:if="{{details.flowVersion === 2}}">¥{{(details.serviceMoney && details.etcMoney) ? (details.etcMoney + details.serviceMoney)/100 : details.etcMoney/100}}</view>
+			<view wx:if="{{details.flowVersion === 2}}">¥{{details.etcMoney/100}}</view>
 			<view wx:else>¥{{details.totalMmout ? details.totalMmout/100 : 0}}</view>
 		</view>
 		<view wx:if="{{details.flowVersion === 1}}">
@@ -106,4 +111,5 @@
 		<view wx:if="{{showWeiBao}}" class="close_button iconfont" catchtap="hide"></view>
 	</view>
 	<!--微保活动结束-->
+	<popup id='popup' popupContent="{{popupContent}}" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></popup>
 </view>

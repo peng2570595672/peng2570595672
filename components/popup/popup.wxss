@@ -1,0 +1,194 @@
+.animated {
+  -webkit-animation-duration: 0.4s;
+  animation-duration: 0.4s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+}
+@-webkit-keyframes zoomIn {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.zoomIn {
+  -webkit-animation-name: zoomIn;
+  animation-name: zoomIn;
+}
+@-webkit-keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  to {
+    opacity: 0;
+  }
+}
+.zoomOut {
+  -webkit-animation-name: zoomOut;
+  animation-name: zoomOut;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  to {
+    opacity: 0;
+  }
+}
+@font-face {
+  font-family: 'iconfont'; /* project id 1514406 */
+  src: url("//at.alicdn.com/t/font_1514406_1v46yz27i6.eot");
+  src: url("//at.alicdn.com/t/font_1514406_1v46yz27i6.eot?#iefix") format('embedded-opentype'), url("//at.alicdn.com/t/font_1514406_1v46yz27i6.woff2") format('woff2'), url("//at.alicdn.com/t/font_1514406_1v46yz27i6.woff") format('woff'), url("//at.alicdn.com/t/font_1514406_1v46yz27i6.ttf") format('truetype'), url("//at.alicdn.com/t/font_1514406_1v46yz27i6.svg#iconfont") format('svg');
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.alert-for-not-finished {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 10000;
+}
+.alert-for-not-finished-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 550rpx;
+  background: #fff;
+  background: #f00;
+  box-shadow: 4rpx 12rpx 56rpx 0px rgba(102,102,109,0.19);
+  border-radius: 32rpx;
+  margin: 0 auto;
+  z-index: 100002;
+}
+.alert-for-not-finished-content .popup-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  border: 2rpx solid #ccc;
+  border-radius: 32rpx;
+  box-sizing: bordre-box;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  background: #fff;
+}
+.alert-for-not-finished-content .popup-container .wx-popup-title {
+  text-align: center;
+  color: #33333d;
+  font-size: 40rpx;
+  padding-bottom: 20rpx;
+  font-weight: 500;
+}
+.alert-for-not-finished-content .popup-container .wx-popup-ico {
+  text-align: right;
+  padding: 20rpx;
+}
+.alert-for-not-finished-content .popup-container .wx-popup-ico .close {
+  display: inline-block;
+}
+.alert-for-not-finished-content .popup-container .wx-popup-ico .close:before {
+  display: block;
+  content: '\e63d';
+  font-size: 30rpx;
+  color: #666;
+}
+.alert-for-not-finished-content .popup-container .wx-popup-con {
+  padding: 0 56rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #33333d;
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+.alert-for-not-finished-content .popup-container .wx-popup-btn {
+  padding-bottom: 40rpx;
+}
+.alert-for-not-finished-content .popup-container .wx-popup-btn > view {
+  width: 448rpx;
+  height: 84rpx;
+  line-height: 84rpx;
+  background: linear-gradient(45deg, #14ac69 0%, #84d157 100%);
+  border-radius: 49rpx;
+  text-align: center;
+  font-size: 32rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #fff;
+  margin: 40rpx auto 0;
+}
+.alert-for-not-finished-content .popup-container .wx-popup-btn > view.cancel {
+  background: #ccc;
+}

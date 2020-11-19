@@ -34,6 +34,7 @@
 				"my_etc/my_etc",
 				"my_etc_detail/my_etc_detail",
 				"my_order/my_order",
+				"split_bill/split_bill",
 				"arrears_bill/arrears_bill",
 				"membership_coupon/membership_coupon",
 				"cancel_order_succeed/cancel_order_succeed",

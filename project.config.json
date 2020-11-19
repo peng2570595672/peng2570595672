@@ -28,12 +28,14 @@
       "disablePlugins": [],
       "outputPath": ""
     },
-    "bundle": true,
+    "bundle": false,
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
+    "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
-    "packNpmRelationList": []
+    "packNpmRelationList": [],
+    "minifyWXSS": true
   },
   "compileType": "miniprogram",
   "libVersion": "2.11.2",
@@ -47,15 +49,12 @@
   "simulatorPluginLibVersion": {},
   "condition": {
     "search": {
-      "current": -1,
       "list": []
     },
     "conversation": {
-      "current": -1,
       "list": []
     },
     "plugin": {
-      "current": -1,
       "list": []
     },
     "game": {
@@ -63,11 +62,9 @@
       "list": []
     },
     "gamePlugin": {
-      "current": -1,
       "list": []
     },
     "miniprogram": {
-      "current": -1,
       "list": [
         {
           "id": 0,
@@ -164,13 +161,13 @@
           "id": 13,
           "name": "我的账单页",
           "pathName": "pages/personal_center/my_order/my_order",
-          "query": "isMsg=1&vehPlate=贵Z43260&month=2020-03",
+          "query": "isMsg=1&vehPlate=贵Z00066&month=2020-11",
           "scene": null
         },
         {
           "id": 14,
-          "name": "pages/pay_h5/sign_up/sign_up",
-          "pathName": "pages/pay_h5/sign_up/sign_up",
+          "name": "pages/personal_center/spilt_bill/spilt_bill",
+          "pathName": "pages/personal_center/spilt_bill/spilt_bill",
           "query": "scene=orderId%3D123057146007883123",
           "scene": null
         },
@@ -190,8 +187,8 @@
         },
         {
           "id": 17,
-          "name": "activities/pages/activity_micro_insurance/index",
-          "pathName": "activities/pages/activity_micro_insurance/index",
+          "name": "pages/personal_center/recharge-card-processing/recharge-card-processing",
+          "pathName": "pages/personal_center/recharge-card-processing/recharge-card-processing",
           "query": "serviceProvidersId=570178295975378944",
           "scene": null
         }

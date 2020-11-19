@@ -6,9 +6,12 @@ function substring(val,start,end) {
     return val.substring(start,end);
 }
 // 保留两位小数
-function parseNum(val) {
-  val.toFixed(2);
-  return val;
+function parseNum(val=0) {
+  return parseFloat(val).toFixed(2);
+}
+// 取整
+function parseIn(val=0) {
+  return parseIn(val);
 }
 // 倒计时函数
 function formatterTimer(systimestamp, compareTime, countdownTime) {
@@ -32,6 +35,7 @@ function formatterTimer(systimestamp, compareTime, countdownTime) {
 };
 module.exports = {
   substring: substring,
+  parseIn: parseIn,
   parseNum: parseNum,
   formatterTimer: formatterTimer,
 };

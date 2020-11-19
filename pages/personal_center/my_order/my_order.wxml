@@ -34,12 +34,13 @@
 		<view class="order-list-content" catchtap="goDetails" data-model="{{item}}"  wx:for="{{successBillList}}" wx:key="index">
 			<view class="order-list-top">
 				<view class="license-plate">{{item.vehPlate}}<text>[高速扣费]</text></view>
-				<view class="success-money" wx:if="{{item.deductStatus === 1 || item.deductStatus === 11 || item.deductStatus === 12 || item.flowVersion === 2}}">{{item.etcMoney/100}}</view>
-				<view class="fail-money {{item.deductStatus === 7 ? 'refund' : ''}}" wx:else>{{item.etcMoney/100}}</view>
+				<view class="success-money" wx:if="{{item.deductStatus === 1 || item.deductStatus === 11 || item.deductStatus === 12 || item.flowVersion === 2}}">{{tools.parseNum((item.etcMoney - item.splitDeductedMoney)/100)}}</view>
+				<view class="fail-money {{item.deductStatus === 7 ? 'refund' : ''}}" wx:else>{{tools.parseNum((item.etcMoney - item.splitDeductedMoney)/100)}}</view>
 			</view>
 			<view class="site">
 				<view>{{item.inStationName}}<text class="iconfont"></text>{{item.stationName ? item.stationName : item.outStationName}}</view>
-				<view class="refund" wx:if="{{item.channel === 5 && item.refundMoney && item.refundMoney > 0}}">产生退费</view>
+				<view class="refund" wx:if="{{item.refundMoney && item.refundMoney > 0}}">产生退费</view>
+				<view class="refund spilt-deductions" wx:if="{{item.splitState && item.splitState === 1}}">拆分扣款</view>
 			</view>
 			<view class="order-list-bottom" wx:if="{{item.flowVersion === 1}}">
 				<view class="accounting-time">出账时间：{{tools.substring(item.addTime,5,16)}}</view>

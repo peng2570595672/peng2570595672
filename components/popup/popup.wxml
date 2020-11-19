@@ -1,0 +1,14 @@
+<view>
+	<view bindtap='hide' class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}"></view>
+	<view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}" wx:if="{{mask}}">
+		<view class='popup-container'>
+			<view class="wx-popup-ico"><view class="close iconfont" bindtap='hide'></view></view>
+			<view class="wx-popup-title">{{popupContent.title}}</view>
+			<view class="wx-popup-con">{{popupContent.content}}</view>
+			<view class="wx-popup-btn">
+				<view class="cancel" bindtap='hide' wx:if="{{popupContent.cancel}}">{{popupContent.cancel}}</view>
+				<view class="confirm" bindtap='ok' wx:if="{{popupContent.confirm}}">{{popupContent.confirm}}</view>
+			</view>
+		</view>
+	</view>
+</view>
