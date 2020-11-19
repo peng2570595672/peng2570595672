@@ -39,15 +39,15 @@
 						</view>
 						<view class="tr">
 							<view class="td">5元</view>
-							<view class="td">单笔满{{isHighSpeedTrafficActivity ? '10' : '15'}}元</view>
+							<view class="td">单笔满10元</view>
 						</view>
 						<view class="tr">
 							<view class="td">10元</view>
-							<view class="td">单笔满{{isHighSpeedTrafficActivity ? '20' : '30'}}元</view>
+							<view class="td">单笔满20元</view>
 						</view>
 						<view class="tr">
 							<view class="td">15元</view>
-							<view class="td">单笔满{{isHighSpeedTrafficActivity ? '30' : '45'}}元</view>
+							<view class="td">单笔满30元</view>
 						</view>
 					</view>
 				</view>
