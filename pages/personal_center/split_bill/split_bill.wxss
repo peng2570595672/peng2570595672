@@ -5,20 +5,6 @@ page {
   display: flex;
   flex-direction: column;
 }
-.my_order .prompt {
-  height: 80rpx;
-  background: #f4f4f4;
-}
-.my_order .prompt view {
-  width: 100%;
-  height: 80rpx;
-  background: #ff563c;
-  opacity: 0.52;
-  text-align: center;
-  font-size: 24rpx;
-  line-height: 80rpx;
-  color: #f4f4f4;
-}
 .my_order .split-total {
   padding: 20rpx 40rpx 40rpx;
   border-bottom: 1rpx solid #e7e7e7;

@@ -1,4 +1,7 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
+	<!--提示开始-->
+<tips content="欠费有可能被列为黑名单，影响您的高速通行，请及时补缴！" wx:if="{{details.deductStatus === 2 || details.deductStatus === 10}}"></tips>
+	<!--提示结束-->
 <view class="order_details {{details.deductStatus === 2 || details.deductStatus === 10 ? 'is-arrears': ''}}">
 	<!--	扣费金额开始-->
 	<view class="deduction-amount">
@@ -12,7 +15,7 @@
 			<view class="failure-prompted {{details.deductStatus === 7 ? 'refund' : ''}}" wx:if="{{details.etcMoney > 0  && details.flowVersion === 1 && (details.deductStatus === 7 || details.deductStatus === 2)}}">{{details.deductStatus === 7 ? '已退款' : (details.errCodeDes === '0' ? '' : details.errCodeDes)}}</view>
 			<view class="split-amount" wx:if="{{details.splitState && details.splitState === 1}}">
 				<view>已扣金额：<text>{{tools.parseNum((details.splitDeductedMoney + details.deductServiceMoney)/100)}}</text></view>
-				<view><text class="buckling-failure">扣款失败</text>：<text>{{tools.parseNum((details.etcMoney + details.serviceMoney - details.splitDeductedMoney - details.deductServiceMoney)/100)}}</text></view>
+				<view><text class="buckling-failure">扣款失败：{{tools.parseNum((details.etcMoney + details.serviceMoney - details.splitDeductedMoney - details.deductServiceMoney)/100)}}</text></view>
 			</view>
 		</view>
 	</view>
@@ -99,7 +102,7 @@
 	<!--车辆详情结束-->
 	<!--底部补缴开始-->
 	<view class="payment " wx:if="{{details.deductStatus === 2 || details.deductStatus === 10}}">
-		<view class="payment-prompt">请确保您的{{details.productType === 1 ? '微信零钱' : '银行卡'}}余额充足，欠费有可能被列为黑名单，影响您的高速通行，请及时补缴！</view>
+<!--		<view class="payment-prompt">请确保您的{{details.productType === 1 ? '微信零钱' : '银行卡'}}余额充足，欠费有可能被列为黑名单，影响您的高速通行，请及时补缴！</view>-->
 		<view>
 			<button catchtap="go">补缴</button>
 		</view>

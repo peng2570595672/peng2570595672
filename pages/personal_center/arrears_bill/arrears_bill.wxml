@@ -1,4 +1,7 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
+	<!--提示开始-->
+<tips content="欠费有可能被列为黑名单，影响您的高速通行，请及时补缴！"></tips>
+	<!--提示结束-->
 <view class="my_order">
 	<!--订单列表开始-->
 	<view class="order-list" wx:for="{{failBillList}}" wx:key="index">
@@ -29,9 +32,4 @@
 		<!--欠费总计结束-->
 	</view>
 	<!--订单列表结束-->
-	<!--提示开始-->
-	<view class="prompt">
-		<view>欠费有可能被列为黑名单，影响您的高速通行，请及时补缴！</view>
-	</view>
-	<!--提示结束-->
 </view>

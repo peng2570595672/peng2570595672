@@ -2,5 +2,8 @@
 	"navigationBarBackgroundColor": "#FFFFFF",
 	"backgroundColor": "#FFFFFF",
 	"navigationBarTextStyle": "black",
-	"navigationBarTitleText": "欠费账单"
+	"navigationBarTitleText": "欠费账单",
+	"usingComponents": {
+		"tips": "/components/tips/tips"
+	}
 }

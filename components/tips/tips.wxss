@@ -1,0 +1,15 @@
+.prompt {
+  width: 100%;
+  height: 80rpx;
+  background: #f4f4f4;
+}
+.prompt view {
+  width: 100%;
+  height: 80rpx;
+  background: #ff563c;
+  opacity: 0.52;
+  text-align: center;
+  font-size: 24rpx;
+  line-height: 80rpx;
+  color: #f4f4f4;
+}

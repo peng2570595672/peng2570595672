@@ -4,6 +4,7 @@
 	"navigationBarTextStyle": "black",
 	"navigationBarTitleText": "我的账单",
 	"usingComponents": {
-		"popup": "/components/popup/popup"
+		"popup": "/components/popup/popup",
+		"tips": "/components/tips/tips"
 	}
 }
