@@ -225,14 +225,18 @@
 .index .bill .bill-info > view:last-of-type .down > text {
   background: #8cd5b5;
 }
-.index .bill .bill-info > view:last-of-type .price {
-  flex: 1;
+.index .bill .bill-info > view .fail-money,
+.index .bill .bill-info > view .success-money {
+  flex: 4;
+  font-size: 40rpx;
+  color: #ff563c;
+  line-height: 64rpx;
   text-align: right;
-  color: #2fb565;
-  font-weight: bold;
-  font-size: 48rpx;
 }
-.index .bill .bill-info > view:last-of-type .refund {
+.index .bill .bill-info > view .success-money {
+  color: #2fb565;
+}
+.index .bill .bill-info > view .refund {
   color: #99999d;
 }
 .index .bill .bill-empty {

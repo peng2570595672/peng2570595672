@@ -125,7 +125,8 @@
 				<view>
 					<view class="up"><text>上</text><view>{{recentlyTheBill.inStationName}}</view></view>
 					<view class="down"><text>下</text><view>{{recentlyTheBill.stationName}}</view></view>
-					<view class="price {{recentlyTheBill.deductStatus === 7 ? 'refund' : ''}}">{{tools.parseNum((recentlyTheBill.etcMoney - recentlyTheBill.splitDeductedMoney)/100)}}</view>
+					<view class="success-money" wx:if="{{recentlyTheBill.deductStatus === 1 || recentlyTheBill.deductStatus === 11 || recentlyTheBill.deductStatus === 12 || recentlyTheBill.flowVersion === 2}}">{{tools.parseNum((recentlyTheBill.etcMoney - recentlyTheBill.splitDeductedMoney)/100)}}</view>
+					<view class="fail-money {{recentlyTheBill.deductStatus === 7 ? 'refund' : ''}}" wx:else>{{tools.parseNum((recentlyTheBill.etcMoney - recentlyTheBill.splitDeductedMoney)/100)}}</view>
 				</view>
 			</view>
 		</block>
