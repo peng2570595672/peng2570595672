@@ -83,13 +83,37 @@ Page({
 			util.hideLoading();
 		});
 	},
+	// 查询账单详情
+	getBillDetail () {
+		util.showLoading();
+		let params = {
+			channel: this.data.details.channel,
+			id: this.data.details.id,
+			month: this.data.details.month
+		};
+		util.getDataFromServer('consumer/etc/get-bill-by-id', params, () => {
+			util.showToastNoIcon('获取账单详情失败！');
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				app.globalData.splitDetails = res.data;
+				this.setData({details: res.data});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
 	// 同步支付信息
 	getBillQuery (id) {
 		util.getDataFromServer('consumer/order/billQuery', {id: id}, () => {
 			this.getSplitBill();
+			this.getBillDetail();
 		}, (res) => {
 			console.log(res);
 			this.getSplitBill();
+			this.getBillDetail();
 		}, app.globalData.userInfo.accessToken);
 	}
 });

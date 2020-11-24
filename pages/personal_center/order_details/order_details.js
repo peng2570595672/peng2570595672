@@ -15,6 +15,7 @@ Page({
 		details: ''
 	},
 	onLoad (options) {
+		app.globalData.splitDetails = undefined;
 		if (app.globalData.billingDetails) {
 			// 总对总账单
 			if (app.globalData.billingDetails.productName.includes('微信')) {
@@ -60,6 +61,11 @@ Page({
 			} else {
 				this.getBillDetail();
 			}
+		}
+		if (app.globalData.splitDetails) {
+			this.setData({
+				details: app.globalData.splitDetails
+			});
 		}
 	},
 	hide () {

@@ -2,6 +2,7 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 // 数据统计
 let mta = require('../../../libs/mta_analysis.js');
+// deductStatus 扣款状态 0-待扣款  1-正常扣费 2-扣款失败 3-争议流水 4-重复流水 5-黑名单入库状态错误 // 6-退款中 7-已退款 9-补扣中 10-补缴中 11-补缴成功 12-补扣成功 13-纯优惠券扣款
 // 月账单推送格式: pages/personal_center/my_order/my_order?isMsg=1&vehPlate=贵Z43260&month=2020-03
 Page({
 	data: {

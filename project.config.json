@@ -48,17 +48,10 @@
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "condition": {
-    "search": {
-      "list": []
-    },
-    "conversation": {
-      "list": []
-    },
     "plugin": {
       "list": []
     },
     "game": {
-      "currentL": -1,
       "list": []
     },
     "gamePlugin": {
@@ -102,10 +95,9 @@
           "scene": null
         },
         {
-          "id": 5,
           "name": "账单详情",
           "pathName": "pages/personal_center/order_details/order_details",
-          "query": "id=709701386738077696&channel=1&month=202005",
+          "query": "id=709701386738077696&channel=1&month=2020011",
           "scene": 1014
         },
         {
@@ -172,9 +164,8 @@
           "scene": null
         },
         {
-          "id": 15,
-          "name": "activities/pages/activity_micro_insurance/index",
-          "pathName": "activities/pages/activity_micro_insurance/index",
+          "name": "activities/pages/activity_medical_insurance/index",
+          "pathName": "activities/pages/activity_medical_insurance/index",
           "query": "",
           "scene": null
         },
