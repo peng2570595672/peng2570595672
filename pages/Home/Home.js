@@ -13,10 +13,11 @@ Page({
 		orderInfo: undefined, // 订单信息
 		exceptionMessage: undefined, // 异常信息
 		num: 0, // 次数
-		isContinentInsurance: false, // 是否是大地保险
+		isContinentInsurance: false, // 是否是大地保
 		heaicheProvinceList: ['辽宁', '湖南', '江苏', '甘肃', '广西', '内蒙古', '陕西', '山西', '四川', '云南', '安徽', '宁夏', '青海', '河南', '上海', '浙江', '黑龙江', '山东', '福建', '河北'], // 和爱车活动加载省份
 		rotationChartList: [], // 轮播图
-		recentlyTheBill: undefined // 最新账单
+		recentlyTheBill: undefined, // 最新账单
+		driverDistrictList: ['六盘水', '黔西南'] // 小兔子代驾推广只在贵州省-黔西南和六盘水地区可见
 	},
 	onLoad () {
 		wx.removeStorageSync('information_validation');
@@ -137,6 +138,7 @@ Page({
 					this.setData({
 						rotationChartList: list
 					});
+					this.init(list);
 					// 屏蔽和爱车,不需要再次定位
 					// if (!this.data.isContinentInsurance) {
 					// 	this.init(list);
@@ -151,17 +153,24 @@ Page({
 	getLocationInfo (bannerList) {
 		util.showLoading();
 		let that = this;
+		let failBannerList = bannerList.filter(item => item.remark !== 'small_driver');
 		wx.getLocation({
 			type: 'wgs84',
 			success: (res) => {
+				util.hideLoading();
 				util.getAddressInfo(res.latitude, res.longitude, (res) => {
 					let info = res.result.ad_info;
 					console.log(res);
-					that.isShowHACBanner(bannerList, res.result.address);
-					wx.setStorageSync('location-info',JSON.stringify(res));
+					// 根据地区显示小兔子代驾banner
+					that.isDriverBanner(bannerList, info.city);
 					// 根据地区显示和爱车banner
+					// that.isShowHACBanner(bannerList, res.result.address);
+					wx.setStorageSync('location-info',JSON.stringify(res));
 				}, () => {
-					// 不显示和爱车banner
+					// 不显示小兔子代驾banner
+					this.setData({
+						rotationChartList: failBannerList
+					});
 				});
 			},
 			fail: (res) => {
@@ -169,15 +178,37 @@ Page({
 				console.log(res);
 				if (res.errMsg === 'getLocation:fail auth deny' || res.errMsg === 'getLocation:fail authorize no response') {
 					util.alert({
-						content: '由于您拒绝了定位授权，导致无法获取扣款方式，请允许定位授权！',
+						content: 'ETC服务需要获取您的即时定位，拒绝授权将无法正常服务，请重新打开定位授权!',
 						showCancel: true,
 						confirmText: '允许授权',
 						confirm: () => {
-							wx.openSetting();
+							wx.openSetting({
+								success: (res) => {
+									// 根据地区显示小兔子代驾banner
+									that.getLocationInfo(bannerList);
+								},
+								fail: () => {
+									// 不显示小兔子代驾banner
+									that.setData({
+										rotationChartList: failBannerList
+									});
+									util.showToastNoIcon('打开设置界面失败，请重试！');
+								}
+							});
+						},
+						cancel: () => {
+							// 不显示小兔子代驾banner
+							that.setData({
+								rotationChartList: failBannerList
+							});
 						}
 					});
 				} else if (res.errMsg === 'getLocation:fail:ERROR_NOCELL&WIFI_LOCATIONSWITCHOFF' || res.errMsg === 'getLocation:fail system permission denied') {
 					util.showToastNoIcon('请开启手机或微信定位功能！');
+					// 不显示小兔子代驾banner
+					that.setData({
+						rotationChartList: failBannerList
+					});
 				}
 			}
 		});
@@ -188,7 +219,9 @@ Page({
 		let locationInfo = wx.getStorageSync('location-info');
 		if (locationInfo) {
 			let res = JSON.parse(locationInfo);
-			this.isShowHACBanner(bannerList, res.result.address);
+			// 根据地区显示小兔子代驾banner
+			this.isDriverBanner(bannerList, res.result.ad_info.city);
+			// this.isShowHACBanner(bannerList, res.result.address);
 			// 根据地区显示和爱车banner
 			return;
 		}
@@ -205,6 +238,21 @@ Page({
 		});
 		if (!isShowProvince) {
 			bannerList = bannerList.filter(item => item.remark !== 'heaiche');// 大地保险屏蔽微保&和爱车
+			this.setData({
+				rotationChartList: bannerList
+			});
+		}
+	},
+	// 是否小兔代驾banner
+	isDriverBanner (bannerList, address) {
+		let isDistrict = false;
+		this.data.driverDistrictList.forEach(item => {
+			if (address.includes(item)) {
+				isDistrict = true;
+			}
+		});
+		if (!isDistrict) {
+			bannerList = bannerList.filter(item => item.remark !== 'small_driver');// 根据地区屏蔽小兔子代驾banner
 			this.setData({
 				rotationChartList: bannerList
 			});
@@ -609,6 +657,14 @@ Page({
 					envVersion: 'release', // 目前联调为体验版
 					fail () {
 						util.showToastNoIcon('调起微保小程序失败, 请重试！');
+					}
+				});
+			} else if (item.remark === 'small_driver') {
+				wx.navigateToMiniProgram({
+					appId: 'wxe16bbb3ff18176bd',
+					path: 'pages/index/index',
+					fail () {
+						util.showToastNoIcon('调起小兔代驾小程序失败, 请重试！');
 					}
 				});
 			} else {
