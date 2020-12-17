@@ -765,6 +765,18 @@ function getHandlingType(orderInfo) {
 	}
 }
 /**
+ *  获取当前日期是否属于某时间段
+ */
+function isDuringDate(beginDateStr, endDateStr) {
+	const curDate = new Date();
+	const beginDate = new Date(beginDateStr);
+	const endDate = new Date(endDateStr);
+	if (curDate >= beginDate && curDate < endDate) {
+		return true;
+	}
+	return false;
+}
+/**
  *  订阅消息封装
  */
 function subscribe(tmplIds, url) {
@@ -895,6 +907,7 @@ module.exports = {
 	formatTime, // 格式化时间
 	go, // 常规跳转
 	showToastNoIcon,
+	isDuringDate,
 	uploadOcrFile,
 	uploadFile,
 	isJsonString,

@@ -350,6 +350,8 @@ Page({
 				// 京东客服
 				let vehicleList = [];
 				let orderInfo = '';
+				let isDeliveryAlert = wx.getStorageSync('delivery-alert');
+				let isDuringDate = util.isDuringDate('2020/12/17', '2021/01/01');
 				app.globalData.ownerServiceArrearsList = res.data.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
 				res.data.map((item,index) => {
 					if (item.remark && item.remark.indexOf('迁移订单数据') !== -1) {
@@ -359,20 +361,18 @@ Page({
 					}
 					vehicleList.push(item.vehPlates);
 					wx.setStorageSync('cars', vehicleList.join('、'));
-					// if (item.selfStatus === 6 && this.data.num === 0) {
-					// 	this.setData({
-					// 		num: 1
-					// 	});
-					// 	util.alert({
-					// 		content: '因近期部分省份及城市发生特大洪涝灾害，到货时间可能延后数日。',
-					// 		showCancel: false,
-					// 		confirmText: '我知道了',
-					// 		confirm: () => {
-					// 		},
-					// 		cancel: () => {
-					// 		}
-					// 	});
-					// }
+					if (((item.flowVersion === 2 && item.hwContractStatus === 1) || (item.flowVersion === 1 && item.auditStatus === 2)) && item.logisticsId === 0 && !isDeliveryAlert && isDuringDate) {
+						wx.setStorageSync('delivery-alert', true);
+						util.alert({
+							content: '受凝冻天气影响，快递送达时间预计将延期2-3天。给您带来的不便，敬请谅解。',
+							showCancel: false,
+							confirmText: '我知道了',
+							confirm: () => {
+							},
+							cancel: () => {
+							}
+						});
+					}
 					if (item.contractStatus === 2) {
 						// 解约优先展示
 						orderInfo = item;

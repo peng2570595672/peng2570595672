@@ -177,9 +177,8 @@
           "scene": null
         },
         {
-          "id": 17,
-          "name": "pages/personal_center/recharge-card-processing/recharge-card-processing",
-          "pathName": "pages/personal_center/recharge-card-processing/recharge-card-processing",
+          "name": "pages/login/login/login",
+          "pathName": "pages/login/login/login",
           "query": "serviceProvidersId=570178295975378944",
           "scene": null
         }
