@@ -361,7 +361,7 @@ Page({
 					}
 					vehicleList.push(item.vehPlates);
 					wx.setStorageSync('cars', vehicleList.join('、'));
-					if (((item.flowVersion === 2 && item.hwContractStatus === 1) || (item.flowVersion === 1 && item.auditStatus === 2)) && item.logisticsId === 0 && !isDeliveryAlert && isDuringDate) {
+					if (((item.flowVersion === 2 && item.hwContractStatus === 1) || (item.flowVersion === 1 && item.auditStatus === 2 && item.obuStatus !== 1)) && item.logisticsId === 0 && !isDeliveryAlert && isDuringDate) {
 						wx.setStorageSync('delivery-alert', true);
 						util.alert({
 							content: '受凝冻天气影响，快递送达时间预计将延期2-3天。给您带来的不便，敬请谅解。',
