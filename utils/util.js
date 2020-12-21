@@ -249,16 +249,21 @@ function getSystemTime () {
 			url: app.globalData.host + '/consumer/system/public/get-system-second',
 			method: 'GET',
 			success: (res) => {
-				app.globalData.systemTime = res.data.data;
-				setInterval(function () {
-					app.globalData.systemTime = app.globalData.systemTime + 1;
-				}, 1000);
-				resolve(res.data.data)
+				if (res.data.code === 0) {
+					app.globalData.isSystemTime = true;
+					app.globalData.systemTime = res.data.data;
+					setInterval(function () {
+						app.globalData.systemTime = app.globalData.systemTime + 1;
+					}, 1000);
+					resolve(res.data.data);
+				} else {
+					// 处理接口返回异常提示
+					showToastNoIcon('请求异常,请重新进入');
+				}
 			},
 			fail: (res) => {
 			},
 			complete: (res) => {
-				app.globalData.isSystemTime = true;
 			}
 		};
 		// 执行请求
