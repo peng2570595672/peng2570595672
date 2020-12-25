@@ -233,3 +233,21 @@
   opacity: 0.57;
   font-size: 23rpx;
 }
+.processing_progress .detail_mask .bottom_close_button {
+  margin: 80rpx auto 0;
+  text-align: center;
+  z-index: 2;
+}
+.processing_progress .detail_mask .bottom_close_button::before {
+  display: inline-block;
+  content: '\e63d';
+  color: #fff;
+  width: 66rpx;
+  height: 66rpx;
+  line-height: 66rpx;
+  text-align: center;
+  border: 1rpx solid #fff;
+  border-radius: 50%;
+  opacity: 0.57;
+  font-size: 28rpx;
+}

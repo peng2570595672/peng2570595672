@@ -651,14 +651,8 @@ Page({
 		} else {
 			if (item.remark === 'micro_insurance') {
 				mta.Event.stat('banner_activity_weibao_insurance',{});
-				wx.navigateToMiniProgram({
-					appId: 'wx06a561655ab8f5b2',
-					path: item.pageUrl,
-					envVersion: 'release', // 目前联调为体验版
-					fail () {
-						util.showToastNoIcon('调起微保小程序失败, 请重试！');
-					}
-				});
+				// 订阅:车险服务状态提醒
+				this.subscribe(item.pageUrl);
 			} else if (item.remark === 'small_driver') {
 				wx.navigateToMiniProgram({
 					appId: 'wxe16bbb3ff18176bd',
@@ -673,6 +667,107 @@ Page({
 				util.go(item.pageUrl);
 			}
 		}
+	},
+	/**
+	 *  订阅消息封装
+	 */
+	subscribe () {
+		// 判断版本，兼容处理
+		let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
+		let orderId = '';
+		if (result >= 0) {
+			util.showLoading();
+			wx.requestSubscribeMessage({
+				tmplIds: ['rWHTLYmUdcuYw-wKU0QUyGv8dhgIl8z-Pa3HDdzuwbw'],
+				success: (res) => {
+					console.log(res);
+					util.hideLoading();
+					if (res.errMsg === 'requestSubscribeMessage:ok') {
+						let keys = Object.keys(res);
+						// 是否存在部分未允许的订阅消息
+						let isReject = false;
+						for (let key of keys) {
+							if (res[key] === 'reject') {
+								isReject = true;
+								break;
+							}
+						}
+						// 有未允许的订阅消息
+						if (isReject) {
+							util.alert({
+								content: '检查到当前订阅消息未授权接收，请授权',
+								showCancel: true,
+								confirmText: '授权',
+								confirm: () => {
+									wx.openSetting({
+										success: (res) => {
+											util.getInsuranceOffer(orderId);
+										},
+										fail: () => {
+											showToastNoIcon('打开设置界面失败，请重试！');
+											util.getInsuranceOffer(orderId);
+										}
+									});
+								},
+								cancel: () => { // 点击取消按钮
+									util.getInsuranceOffer(orderId);
+								}
+							});
+						} else {
+							util.getInsuranceOffer(orderId);
+						}
+					}
+				},
+				fail: (res) => {
+					console.log(res);
+					util.hideLoading();
+					// 不是点击的取消按钮
+					if (res.errMsg === 'requestSubscribeMessage:fail cancel') {
+						this.openWeiBao(pageUrl);
+					} else {
+						util.alert({
+							content: '调起订阅消息失败，是否前往"设置" -> "订阅消息"进行订阅？',
+							showCancel: true,
+							confirmText: '打开设置',
+							confirm: () => {
+								wx.openSetting({
+									success: (res) => {
+										util.getInsuranceOffer(orderId);
+									},
+									fail: () => {
+										showToastNoIcon('打开设置界面失败，请重试！');
+										util.getInsuranceOffer(orderId);
+									}
+								});
+							},
+							cancel: () => {
+								util.getInsuranceOffer(orderId);
+							}
+						});
+					}
+				}
+			});
+		} else {
+			util.alert({
+				title: '微信更新提示',
+				content: '检测到当前微信版本过低，可能导致部分功能无法使用；可前往微信“我>设置>关于微信>版本更新”进行升级',
+				confirmText: '继续使用',
+				showCancel: true,
+				confirm: () => {
+					util.getInsuranceOffer(orderId);
+				}
+			});
+		}
+	},
+	openWeiBao (pageUrl) {
+		wx.navigateToMiniProgram({
+			appId: 'wx06a561655ab8f5b2',
+			path: pageUrl,
+			envVersion: 'release', // 目前联调为体验版
+			fail () {
+				util.showToastNoIcon('调起微保小程序失败, 请重试！');
+			}
+		});
 	},
 	// 查看办理进度
 	onClickViewProcessingProgressHandle () {
