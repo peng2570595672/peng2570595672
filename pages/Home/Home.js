@@ -351,7 +351,21 @@ Page({
 				let vehicleList = [];
 				let orderInfo = '';
 				let isDeliveryAlert = wx.getStorageSync('delivery-alert');
+				let isUpgradeAlert = wx.getStorageSync('upgrade-alert');
 				let isDuringDate = util.isDuringDate('2020/12/17', '2021/01/01');
+				let isUpgradeDate = util.isDuringDate('2020/12/26', '2021/01/01');
+				if (res.data && res.data.length === 0 && !isUpgradeAlert && isUpgradeDate) {
+					wx.setStorageSync('upgrade-alert', true);
+					util.alert({
+						content: '因ETC系统升级，即日起至1月1日00:00期间办理的设备将延后发出。',
+						showCancel: false,
+						confirmText: '我知道了',
+						confirm: () => {
+						},
+						cancel: () => {
+						}
+					});
+				}
 				app.globalData.ownerServiceArrearsList = res.data.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
 				res.data.map((item,index) => {
 					if (item.remark && item.remark.indexOf('迁移订单数据') !== -1) {
@@ -361,10 +375,23 @@ Page({
 					}
 					vehicleList.push(item.vehPlates);
 					wx.setStorageSync('cars', vehicleList.join('、'));
-					if (((item.flowVersion === 2 && item.hwContractStatus === 1) || (item.flowVersion === 1 && item.auditStatus === 2 && item.obuStatus !== 1)) && item.logisticsId === 0 && !isDeliveryAlert && isDuringDate) {
-						wx.setStorageSync('delivery-alert', true);
+					// if (((item.flowVersion === 2 && item.hwContractStatus === 1) || (item.flowVersion === 1 && item.auditStatus === 2 && item.obuStatus !== 1)) && item.logisticsId === 0 && !isDeliveryAlert && isDuringDate) {
+					// 	wx.setStorageSync('delivery-alert', true);
+					// 	util.alert({
+					// 		content: '受凝冻天气影响，快递送达时间预计将延期2-3天。给您带来的不便，敬请谅解。',
+					// 		showCancel: false,
+					// 		confirmText: '我知道了',
+					// 		confirm: () => {
+					// 		},
+					// 		cancel: () => {
+					// 		}
+					// 	});
+					// }
+					if (((item.flowVersion === 2 && item.hwContractStatus === 1) || (item.flowVersion === 1 && item.auditStatus === 2 && item.obuStatus !== 1)) &&
+						item.logisticsId === 0 && item.obuCardType === 1 && !isUpgradeAlert && isUpgradeDate) {
+						wx.setStorageSync('upgrade-alert', true);
 						util.alert({
-							content: '受凝冻天气影响，快递送达时间预计将延期2-3天。给您带来的不便，敬请谅解。',
+							content: '因ETC系统升级，即日起至1月1日00:00期间办理的设备将延后发出。',
 							showCancel: false,
 							confirmText: '我知道了',
 							confirm: () => {

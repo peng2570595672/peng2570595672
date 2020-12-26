@@ -101,10 +101,9 @@
           "scene": 1014
         },
         {
-          "id": 6,
           "name": "办理进度",
           "pathName": "pages/default/processing_progress/processing_progress",
-          "query": "orderId=754022503973654528",
+          "query": "orderId=719857736895959040",
           "scene": null
         },
         {
@@ -180,6 +179,18 @@
           "name": "pages/login/login/login",
           "pathName": "pages/login/login/login",
           "query": "serviceProvidersId=570178295975378944",
+          "scene": null
+        },
+        {
+          "name": "九宫格",
+          "pathName": "pages/default/wechat_sudoku/wechat_sudoku",
+          "query": "bank=ABC",
+          "scene": null
+        },
+        {
+          "name": "CitiesServices/pages/CitiesServices/CitiesServices",
+          "pathName": "CitiesServices/pages/CitiesServices/CitiesServices",
+          "query": "bank=ABC",
           "scene": null
         }
       ]
