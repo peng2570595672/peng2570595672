@@ -63,10 +63,16 @@
 	<!--	在线客服开始-->
 	<view class="bottom"><text catchtap="goHome">返回首页</text>|<text catchtap="goOnlineServer">在线客服</text></view>
 	<!--	在线客服结束-->
-
-	<!--微保活动弹框-->
-	<view catchtap="hide" class="detail_mask animated {{showDetailWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{showDetailMask}}">
+	<!--展示车险报价微-->
+	<view catchtap="hide" class="detail_mask animated {{showDetailWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{showDetailMask && showDetailInsurance}}">
 		<view catchtap="close" class="detail_wrapper animated {{showDetailWrapper ? 'zoomInOther' : 'zoomOutOther'}}">
+			<image mode="widthFix" src="https://file.cyzl.com/g001/M06/C7/86/oYYBAF-7I5uAN_c7AAIvhT-o66U411.png" catchtap="goDriverInsurance"></image>
+			<view class="bottom_close_button iconfont" catchtap="hide"></view>
+		</view>
+	</view>
+	<!--微保活动弹框-->
+	<view catchtap="hide" class="detail_mask animated {{showDetailWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{showDetailMask && !showDetailInsurance}}">
+		<view catchtap="close" class="detail_wrapper animated {{showDetailWrapper ? 'zoomInOther' : 'zoomOutOther'}}" >
 			<view class="close_button iconfont" catchtap="hide"></view>
 			<image mode="widthFix" src="https://file.cyzl.com/g001/M06/A6/A9/oYYBAF-NAkWANER7AAEYvxMmkz0996.png" catchtap="goMicroInsurance"></image>
 			<view class="activity_button" catchtap="goMicroInsurance">

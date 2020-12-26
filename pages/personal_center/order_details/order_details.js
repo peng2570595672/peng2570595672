@@ -251,7 +251,15 @@ Page({
 		if (this.data.isServiceNotificationEntry) {
 			mta.Event.stat('order_details_service_notifications_weibao',{});
 		}
-		util.go(`/pages/web/web/web?type=weiBao&entrance=bill`);
+		let list = app.globalData.myEtcList;
+		let orderId = '';
+		for (let item of list) {
+			if (item.vehPlates === this.data.details.vehPlates) {
+				orderId = item.id;
+				return;
+			}
+		}
+		util.getInsuranceOffer(orderId);
 	},
 	onUnload () {
 		app.globalData.billingDetails = undefined;

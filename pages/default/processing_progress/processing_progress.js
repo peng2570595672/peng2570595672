@@ -15,7 +15,10 @@ Page({
 		isContinentInsurance: false, // 是否是大地保险
 		number: 0,
 		showDetailWrapper: false,
-		showDetailMask: false
+		showDetailMask: false,
+		showDetailInsurance: false,// 是否展示车险报价插屏
+		memberId: '',
+		weiBaoOrderId: ''
 	},
 	onLoad (options) {
 		// this.showDetail();
@@ -31,26 +34,6 @@ Page({
 				orderId: app.globalData.orderInfo.orderId
 			});
 		}
-		if (!this.data.isContinentInsurance) {
-			let time = new Date().toLocaleDateString();
-			let that = this;
-			// 首先获取是否执行过
-			wx.getStorage({
-				key: 'today',
-				success: function (res) {
-					// 成功的话 说明之前执行过，再判断时间是否是当天
-					if (res.data && res.data !== time) {
-						wx.setStorageSync('today', new Date().toLocaleDateString());
-						that.showDetail();
-					}
-				},
-				fail: function (res) {
-					// 没有执行过的话 先存一下当前的执行时间
-					that.showDetail();
-					wx.setStorageSync('today', new Date().toLocaleDateString());
-				}
-			});
-		}
 		if (options.type) {
 			this.setData({
 				type: options.type
@@ -60,6 +43,9 @@ Page({
 			this.login();
 		} else {
 			this.getProcessingProgress();
+			if (!this.data.isContinentInsurance) {
+				this.getInsuranceOffer();
+			}
 		}
 	},
 	// 自动登录
@@ -85,6 +71,9 @@ Page({
 						app.globalData.memberId = res.data.memberId;
 						app.globalData.mobilePhone = res.data.mobilePhone;
 						this.getProcessingProgress();
+						if (!this.data.isContinentInsurance) {
+							this.getInsuranceOffer();
+						}
 					} else {
 						util.hideLoading();
 						util.showToastNoIcon(res.message);
@@ -126,9 +115,30 @@ Page({
 			util.go(`/pages/web/web/web?type=weiBao`);
 		}
 	},
+	// 展示车险报价插屏
+	goDriverInsurance () {
+		if (this.data.isServiceNotificationEntry) {
+			mta.Event.stat('processing_progress_service_notifications_weibao',{});
+		}
+		let memberId = this.data.memberId;
+		let orderId = this.data.weiBaoOrderId;
+		mta.Event.stat('processing_progress_car_insurance',{});
+		let url = 'outerUserId=' + memberId + '&outerCarId=' + orderId + '&companyId=SJHT&configId=sjht&wtagid=102.1.42';
+		let weiBoUrl = app.globalData.weiBoUrl + encodeURIComponent(url);
+		let appId = app.globalData.test ? 'wx7f3f0032b6e6f0cc' : 'wx06a561655ab8f5b2';
+		wx.navigateToMiniProgram({
+			appId: appId,
+			path: weiBoUrl,
+			envVersion: 'release',
+			fail () {
+				showToastNoIcon('调起微保小程序失败, 请重试！');
+			}
+		});
+	},
 	// 显示详情
 	showDetail (e) {
 		this.setData({
+			showDetailInsurance: this.data.showDetailInsurance,
 			showDetailWrapper: true,
 			showDetailMask: true
 		});
@@ -141,6 +151,7 @@ Page({
 		});
 		setTimeout(() => {
 			this.setData({
+				showDetailInsurance: false,
 				showDetailMask: false
 			});
 		}, 400);
@@ -204,6 +215,65 @@ Page({
 			}
 		}, app.globalData.userInfo.accessToken, () => {
 			util.hideLoading();
+		});
+	},
+	// 获取是否在车险报价窗口期内
+	getInsuranceOffer () {
+		util.showLoading();
+		util.getDataFromServer('consumer/order/insuranceOffer', {
+			orderId: this.data.orderId
+		}, () => {
+			util.hideLoading();
+		}, (res) => {
+			if (res.code === 0) {
+				if (res.data && JSON.stringify(res.data) !== '{}') {
+					let time = new Date().toLocaleDateString();
+					this.data.weiBaoOrderId = res.data.orderId;
+					this.data.memberId = res.data.memberId;
+					let that = this;
+					// 首先获取是否执行过
+					wx.getStorage({
+						key: 'today',
+						success: function (res) {
+							// 成功的话 说明之前执行过，再判断时间是否是当天
+							if (res.data && res.data !== time) {
+								wx.setStorageSync('today', new Date().toLocaleDateString());
+								that.data.showDetailInsurance = true;
+								that.showDetail();
+							}
+						},
+						fail: function (res) {
+							// 没有执行过的话 先存一下当前的执行时间
+							that.data.showDetailInsurance = true;
+							that.showDetail();
+							wx.setStorageSync('today', new Date().toLocaleDateString());
+						}
+					});
+				} else {
+					let time = new Date().toLocaleDateString();
+					let that = this;
+					// 首先获取是否执行过
+					wx.getStorage({
+						key: 'today',
+						success: function (res) {
+							// 成功的话 说明之前执行过，再判断时间是否是当天
+							if (res.data && res.data !== time) {
+								wx.setStorageSync('today', new Date().toLocaleDateString());
+								that.showDetail();
+							}
+						},
+						fail: function (res) {
+							// 没有执行过的话 先存一下当前的执行时间
+							that.showDetail();
+							wx.setStorageSync('today', new Date().toLocaleDateString());
+						}
+					});
+				}
+			} else {
+				util.hideLoading();
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
 		});
 	},
 	// 去设备详情 审核失败:不可办理

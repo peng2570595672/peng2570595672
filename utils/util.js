@@ -904,6 +904,41 @@ function subscribe(tmplIds, url) {
 		});
 	}
 }
+/**
+ *  车险报价
+ */
+function getInsuranceOffer(orderId) {
+	getDataFromServer('consumer/order/insuranceOffer', {
+		orderId: orderId
+	}, () => {
+		hideLoading();
+	}, (res) => {
+		if (res.code === 0) {
+			if (res.data && JSON.stringify(res.data) !== '{}') {
+				let memberId = res.data.memberId;
+				let orderId = res.data.orderId;
+				let url = 'outerUserId='+memberId+'&outerCarId='+orderId+'&companyId=SJHT&configId=sjht&wtagid=102.1.42'
+				let weiBoUrl = app.globalData.weiBoUrl + encodeURIComponent(url)
+				let appId = app.globalData.test ? 'wx7f3f0032b6e6f0cc':'wx06a561655ab8f5b2'
+				console.log(weiBoUrl)
+				wx.navigateToMiniProgram({
+					appId: appId,
+					path: weiBoUrl,
+					envVersion: 'release',
+					fail () {
+						showToastNoIcon('调起微保小程序失败, 请重试！');
+					}
+				});
+			} else {
+				showToastNoIcon('暂无报价！');
+			}
+		} else {
+			hideLoading();
+			showToastNoIcon(res.message);
+		}
+	}, app.globalData.userInfo.accessToken, () => {
+	});
+}
 module.exports = {
 	setApp,
 	formatNumber,
@@ -933,5 +968,6 @@ module.exports = {
 	subscribe,
 	getHandlingType,
 	getStatusFirstVersion,
-	goHome
+	goHome,
+	getInsuranceOffer
 };
