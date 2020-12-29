@@ -243,6 +243,13 @@ Page({
 			util.hideLoading();
 		});
 	},
+	onClickNewPowerCarHandle (e) {
+		this.setData({
+			isNewPowerCar: true,
+			currentCarNoColor: 1
+		});
+		this.setCurrentCarNo(e);
+	},
 	// 加载订单详情
 	getETCDetail (id) {
 		util.showLoading();
