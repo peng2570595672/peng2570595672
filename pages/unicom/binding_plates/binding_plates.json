@@ -1,0 +1,7 @@
+{
+	"navigationBarTitleText": "转签验证",
+	"navigationBarBackgroundColor": "#FFFFFF",
+	"usingComponents": {
+		"keyboard": "/components/keyboard/keyboard"
+	}
+}

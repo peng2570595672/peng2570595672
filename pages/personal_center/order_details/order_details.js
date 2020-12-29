@@ -259,7 +259,7 @@ Page({
 				return;
 			}
 		}
-		util.getInsuranceOffer(orderId);
+		util.getInsuranceOffer(orderId,'116.115.13');
 	},
 	onUnload () {
 		app.globalData.billingDetails = undefined;

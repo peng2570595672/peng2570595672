@@ -117,13 +117,10 @@ Page({
 	},
 	// 展示车险报价插屏
 	goDriverInsurance () {
-		if (this.data.isServiceNotificationEntry) {
-			mta.Event.stat('processing_progress_service_notifications_weibao',{});
-		}
 		let memberId = this.data.memberId;
 		let orderId = this.data.weiBaoOrderId;
 		mta.Event.stat('processing_progress_car_insurance',{});
-		let url = 'outerUserId=' + memberId + '&outerCarId=' + orderId + '&companyId=SJHT&configId=sjht&wtagid=102.1.42';
+		let url = `outerUserId=${memberId}&outerCarId=${orderId}&companyId=SJHT&configId=sjht&wtagid=116.115.12`;
 		let weiBoUrl = app.globalData.weiBoUrl + encodeURIComponent(url);
 		let appId = app.globalData.test ? 'wx7f3f0032b6e6f0cc' : 'wx06a561655ab8f5b2';
 		wx.navigateToMiniProgram({

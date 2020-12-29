@@ -1,0 +1,56 @@
+<div class="signing-owner" bindtap="touchHandle">
+	<!--	车牌号标题开始-->
+	<view class="title">车牌号</view>
+	<!--	车牌号标题结束-->
+	<!--	车牌号开始-->
+	<view class="car-no-wrapper">
+		<view class="{{currentIndex === 0 ? 'selected' : ''}}" data-index="0" catchtap="setCurrentCarNo">
+			<view>{{carNo[0]}}</view>
+			<view></view>
+		</view>
+		<view class="{{currentIndex === 1 ? 'selected' : ''}}" data-index="1" catchtap="setCurrentCarNo">
+			<view>{{carNo[1]}}</view>
+			<view></view>
+		</view>
+		<view class="{{currentIndex === 2 ? 'selected' : ''}}" data-index="2" catchtap="setCurrentCarNo">
+			<view>{{carNo[2]}}</view>
+			<view></view>
+		</view>
+		<view class="{{currentIndex === 3 ? 'selected' : ''}}" data-index="3" catchtap="setCurrentCarNo">
+			<view>{{carNo[3]}}</view>
+			<view></view>
+		</view>
+		<view class="{{currentIndex === 4 ? 'selected' : ''}}" data-index="4" catchtap="setCurrentCarNo">
+			<view>{{carNo[4]}}</view>
+			<view></view>
+		</view>
+		<view class="{{currentIndex === 5 ? 'selected' : ''}}" data-index="5" catchtap="setCurrentCarNo">
+			<view>{{carNo[5]}}</view>
+			<view></view>
+		</view>
+		<view class="{{currentIndex === 6 ? 'selected' : ''}}" data-index="6" catchtap="setCurrentCarNo">
+			<view>{{carNo[6]}}</view>
+			<view></view>
+		</view>
+		<view wx:if="{{isNewPowerCar}}" class="animated {{currentIndex === 7 ? 'selected' : ''}} {{isNewPowerCar? 'fadeIn' : 'fadeOut'}}" data-index="7" catchtap="setCurrentCarNo">
+			<view>{{carNo[7]}}</view>
+			<view></view>
+		</view>
+		<view wx:else class="unselected animated {{isNewPowerCar ? 'fadeOut' : 'fadeIn'}}" data-index="7" catchtap="onClickNewPowerCarHandle">
+			<view class="iconfont"></view>
+			<view>新能源</view>
+		</view>
+	</view>
+	<!--	车牌号结束-->
+	<view class="prompt">*为保证转签成功,请输入正确的车辆</view>
+	<view class="btn">
+		<button class="{{available ? '' : 'no-available'}}" wx:if="{{loginInfo.needBindingPhone !== 1}}" catchtap="bindingPlates" data-type="submit">提交</button>
+		<button class="{{available ? '' : 'no-available'}}" wx:else open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">提交</button>
+		<view class="server">
+			<button wx:if="{{loginInfo.needBindingPhone !== 1}}" catchtap="goOnlineServer">在线客服</button>
+			<button wx:else open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber" data-type="serve">在线客服</button>
+		</view>
+	</view>
+	<!--	键盘-->
+	<keyboard id="keyboard" index="{{currentIndex}}" show="{{showKeyboard}}" bind:valueChange="valueChange" myCar="{{carNo}}"></keyboard>
+</div>

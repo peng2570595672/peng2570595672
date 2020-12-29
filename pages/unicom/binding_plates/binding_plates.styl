@@ -1,0 +1,135 @@
+@import "../../../style/base.styl";
+page
+	background #FFF
+.signing-owner
+	padding 30rpx 20rpx
+	height 100vh
+	box-sizing border-box
+	overflow hidden
+	background #F2F2F2
+	font-size 28rpx
+	// 标题
+	.title
+		margin-top 40rpx
+		display flex
+		align-items center
+		padding 0 30rpx
+		height 56rpx
+		font-size 40rpx
+		font-weight 500
+		&::before
+			margin-right 10rpx
+			content ''
+			width 10rpx
+			height 10rpx
+			border 6rpx solid $fontColor
+			border-radius 50%
+		& > text
+			margin-left 12rpx
+			font-size 24rpx
+			color #7A7F83
+			transform translateY(8rpx)
+	// 车牌号
+	.car-no-wrapper
+		margin-top 21rpx
+		display flex
+		align-items center
+		justify-content center
+		& > view
+			margin-right 18rpx
+			flex 0 0 60rpx
+			width 60rpx
+			&:last-of-type
+				margin-right 0
+			&.selected
+				& > view:last-of-type
+					&::before
+						left 0
+						right 0
+						width 100%
+						background: linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
+						transition all .5s ease-in-out
+						border-radius 4rpx
+			&:nth-child(2)
+				margin-right  30rpx
+			& > view
+				&:first-of-type
+					display flex
+					align-items center
+					justify-content center
+					height 84rpx
+					font-size 60rpx
+				&:last-of-type
+					position relative
+					height 8rpx
+					background: $fontColor9
+					border-radius 4rpx
+					&::before
+						content ''
+						display block
+						position absolute
+						width 0
+						top 0
+						bottom 0
+						left 50%
+						right 50%
+			&.unselected
+				margin-right 0
+				flex 0 0 60rpx
+				width 60rpx
+				transform translateY(18rpx)
+				& > view
+					&:first-of-type
+						height 66rpx
+						color #F5C065
+						border 2rpx dotted #F5C065
+						border-radius 8rpx
+						&.iconfont
+							&::before
+								display block
+								font-size 24rpx
+								content '\e63d'
+								font-weight bold
+								transform rotateZ(45deg)
+					&:last-of-type
+						position relative
+						text-align center
+						height auto
+						font-size 16rpx
+						color $fontColor
+						background: rgba(0,0,0,0)
+						transform translateY(18rpx)
+	.prompt
+		padding-left 60rpx
+		padding-top 40rpx
+		color $fontColor6
+		font-size 32rpx
+	.btn
+		position absolute
+		left 0
+		right 0
+		bottom 60rpx
+		margin 0 auto
+		& > button
+			width 650rpx
+			height 96rpx
+			line-height 96rpx
+			font-size 36rpx
+			font-family PingFangSC-Medium, PingFang SC
+			font-weight 500
+			color #FFFFFF
+			text-align center
+			background linear-gradient(132deg, #16AD69 0%, #82D057 100%)
+			border-radius 48rpx
+			&.no-available
+				opacity .6
+		.server
+			& > button
+				width 300rpx
+				font-size 36rpx
+				font-family PingFangSC-Medium, PingFang SC
+				font-weight 500
+				color $fontColor6
+				text-align center
+				background transparent
+				margin-top 20rpx

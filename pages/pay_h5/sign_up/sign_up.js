@@ -10,9 +10,10 @@ Page({
 		orderId: undefined
 	},
 	onLoad (options) {
+		util.resetData();// 重置数据
 		wx.hideHomeButton();
 		console.log(options);
-		app.globalData.isPayH5Signing = true;
+		app.globalData.otherEntrance.isPayH5Signing = true;
 		if (options.orderId) {
 			this.setData({
 				orderId: options.orderId

@@ -728,20 +728,20 @@ Page({
 								confirm: () => {
 									wx.openSetting({
 										success: (res) => {
-											util.getInsuranceOffer(orderId);
+											util.getInsuranceOffer(orderId, '116.115.40');
 										},
 										fail: () => {
 											showToastNoIcon('打开设置界面失败，请重试！');
-											util.getInsuranceOffer(orderId);
+											util.getInsuranceOffer(orderId,'116.115.40');
 										}
 									});
 								},
 								cancel: () => { // 点击取消按钮
-									util.getInsuranceOffer(orderId);
+									util.getInsuranceOffer(orderId,'116.115.40');
 								}
 							});
 						} else {
-							util.getInsuranceOffer(orderId);
+							util.getInsuranceOffer(orderId,'116.115.40');
 						}
 					}
 				},
@@ -759,16 +759,16 @@ Page({
 							confirm: () => {
 								wx.openSetting({
 									success: (res) => {
-										util.getInsuranceOffer(orderId);
+										util.getInsuranceOffer(orderId,'116.115.40');
 									},
 									fail: () => {
 										showToastNoIcon('打开设置界面失败，请重试！');
-										util.getInsuranceOffer(orderId);
+										util.getInsuranceOffer(orderId,'116.115.40');
 									}
 								});
 							},
 							cancel: () => {
-								util.getInsuranceOffer(orderId);
+								util.getInsuranceOffer(orderId,'116.115.40');
 							}
 						});
 					}
@@ -781,7 +781,7 @@ Page({
 				confirmText: '继续使用',
 				showCancel: true,
 				confirm: () => {
-					util.getInsuranceOffer(orderId);
+					util.getInsuranceOffer(orderId,'116.115.40');
 				}
 			});
 		}

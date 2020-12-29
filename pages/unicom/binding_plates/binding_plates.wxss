@@ -1,0 +1,148 @@
+page {
+  background: #fff;
+}
+.signing-owner {
+  padding: 30rpx 20rpx;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: #f2f2f2;
+  font-size: 28rpx;
+}
+.signing-owner .title {
+  margin-top: 40rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 30rpx;
+  height: 56rpx;
+  font-size: 40rpx;
+  font-weight: 500;
+}
+.signing-owner .title::before {
+  margin-right: 10rpx;
+  content: '';
+  width: 10rpx;
+  height: 10rpx;
+  border: 6rpx solid #2fb565;
+  border-radius: 50%;
+}
+.signing-owner .title > text {
+  margin-left: 12rpx;
+  font-size: 24rpx;
+  color: #7a7f83;
+  transform: translateY(8rpx);
+}
+.signing-owner .car-no-wrapper {
+  margin-top: 21rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.signing-owner .car-no-wrapper > view {
+  margin-right: 18rpx;
+  flex: 0 0 60rpx;
+  width: 60rpx;
+}
+.signing-owner .car-no-wrapper > view:last-of-type {
+  margin-right: 0;
+}
+.signing-owner .car-no-wrapper > view.selected > view:last-of-type::before {
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: linear-gradient(to right, #15ad69, #84d157);
+  transition: all 0.5s ease-in-out;
+  border-radius: 4rpx;
+}
+.signing-owner .car-no-wrapper > view:nth-child(2) {
+  margin-right: 30rpx;
+}
+.signing-owner .car-no-wrapper > view > view:first-of-type {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 84rpx;
+  font-size: 60rpx;
+}
+.signing-owner .car-no-wrapper > view > view:last-of-type {
+  position: relative;
+  height: 8rpx;
+  background: #99999d;
+  border-radius: 4rpx;
+}
+.signing-owner .car-no-wrapper > view > view:last-of-type::before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 0;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  right: 50%;
+}
+.signing-owner .car-no-wrapper > view.unselected {
+  margin-right: 0;
+  flex: 0 0 60rpx;
+  width: 60rpx;
+  transform: translateY(18rpx);
+}
+.signing-owner .car-no-wrapper > view.unselected > view:first-of-type {
+  height: 66rpx;
+  color: #f5c065;
+  border: 2rpx dotted #f5c065;
+  border-radius: 8rpx;
+}
+.signing-owner .car-no-wrapper > view.unselected > view:first-of-type.iconfont::before {
+  display: block;
+  font-size: 24rpx;
+  content: '\e63d';
+  font-weight: bold;
+  transform: rotateZ(45deg);
+}
+.signing-owner .car-no-wrapper > view.unselected > view:last-of-type {
+  position: relative;
+  text-align: center;
+  height: auto;
+  font-size: 16rpx;
+  color: #2fb565;
+  background: rgba(0,0,0,0);
+  transform: translateY(18rpx);
+}
+.signing-owner .prompt {
+  padding-left: 60rpx;
+  padding-top: 40rpx;
+  color: #66666d;
+  font-size: 32rpx;
+}
+.signing-owner .btn {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 60rpx;
+  margin: 0 auto;
+}
+.signing-owner .btn > button {
+  width: 650rpx;
+  height: 96rpx;
+  line-height: 96rpx;
+  font-size: 36rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+  background: linear-gradient(132deg, #16ad69 0%, #82d057 100%);
+  border-radius: 48rpx;
+}
+.signing-owner .btn > button.no-available {
+  opacity: 0.6;
+}
+.signing-owner .btn .server > button {
+  width: 300rpx;
+  font-size: 36rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #66666d;
+  text-align: center;
+  background: transparent;
+  margin-top: 20rpx;
+}

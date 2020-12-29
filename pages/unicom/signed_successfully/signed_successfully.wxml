@@ -1,0 +1,7 @@
+<view class="signed_successfully">
+	<view class="iconfont"></view>
+	<view class="success">转签成功</view>
+	<view class="btn">
+		<button catchtap="onClickGoHomeHandle">回到首页</button>
+	</view>
+</view>

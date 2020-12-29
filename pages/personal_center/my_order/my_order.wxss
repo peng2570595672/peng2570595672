@@ -17,14 +17,15 @@ page {
 .my_order .notice .notice-box {
   background: #fff;
   height: 60rpx;
-  line-height: 60rpx;
   display: flex;
+  align-items: center;
   padding: 0 30rpx;
   margin: 30rpx;
 }
 .my_order .notice .notice-box>view:first-child {
   flex: 8;
   font-size: 28rpx;
+  word-break: break-all;
   color: #ff563c;
 }
 .my_order .notice .notice-box>view:last-child {

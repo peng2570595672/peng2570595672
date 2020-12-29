@@ -403,6 +403,9 @@ function alert({
 			} else if (res.cancel) {
 				cancel();
 			}
+		},
+		fail(res) {
+			console.log(res);
 		}
 	});
 }
@@ -748,7 +751,7 @@ function resetData() {
 	app.globalData.isCrowdsourcingPromote = false;
 	app.globalData.isSecondSigning = false;
 	app.globalData.isSecondSigningInformationPerfect = false;
-	app.globalData.isPayH5Signing = false;
+	app.globalData.otherEntrance = {};// 初始化其它入口
 }
 /**
  *  获取办理车辆类型  货车/企业车辆限制(1.0)
@@ -907,7 +910,7 @@ function subscribe(tmplIds, url) {
 /**
  *  车险报价
  */
-function getInsuranceOffer(orderId) {
+function getInsuranceOffer(orderId, wtagid) {
 	getDataFromServer('consumer/order/insuranceOffer', {
 		orderId: orderId
 	}, () => {
@@ -917,7 +920,7 @@ function getInsuranceOffer(orderId) {
 			if (res.data && JSON.stringify(res.data) !== '{}') {
 				let memberId = res.data.memberId;
 				let orderId = res.data.orderId;
-				let url = 'outerUserId='+memberId+'&outerCarId='+orderId+'&companyId=SJHT&configId=sjht&wtagid=102.1.42'
+				let url = `outerUserId=${memberId}&outerCarId=${orderId}&companyId=SJHT&configId=sjht&wtagid=${wtagid}`;
 				let weiBoUrl = app.globalData.weiBoUrl + encodeURIComponent(url)
 				let appId = app.globalData.test ? 'wx7f3f0032b6e6f0cc':'wx06a561655ab8f5b2'
 				console.log(weiBoUrl)

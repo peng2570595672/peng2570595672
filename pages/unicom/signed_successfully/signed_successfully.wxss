@@ -1,0 +1,32 @@
+.signed_successfully {
+  text-align: center;
+}
+.signed_successfully .iconfont {
+  padding: 90rpx 0 64rpx;
+}
+.signed_successfully .iconfont::before {
+  display: block;
+  font-size: 180rpx;
+  content: '\e630';
+  color: #16ad69;
+}
+.signed_successfully .success {
+  font-size: 40rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #000;
+  line-height: 57rpx;
+  padding-bottom: 14rpx;
+}
+.signed_successfully button {
+  width: 650rpx;
+  height: 96rpx;
+  line-height: 96rpx;
+  font-size: 36rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+  background: linear-gradient(132deg, #16ad69 0%, #82d057 100%);
+  border-radius: 48rpx;
+}

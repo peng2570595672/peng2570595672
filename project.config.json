@@ -103,7 +103,7 @@
         {
           "name": "办理进度",
           "pathName": "pages/default/processing_progress/processing_progress",
-          "query": "orderId=719857736895959040",
+          "query": "orderId=793067667408818176",
           "scene": null
         },
         {
@@ -156,15 +156,14 @@
           "scene": null
         },
         {
-          "id": 14,
-          "name": "pages/personal_center/spilt_bill/spilt_bill",
-          "pathName": "pages/personal_center/spilt_bill/spilt_bill",
+          "name": "联通绑定订单",
+          "pathName": "pages/unicom/binding_plates/binding_plates",
           "query": "scene=orderId%3D123057146007883123",
           "scene": null
         },
         {
-          "name": "activities/pages/activity_medical_insurance/index",
-          "pathName": "activities/pages/activity_medical_insurance/index",
+          "name": "联通签约成功",
+          "pathName": "pages/unicom/signed_successfully/signed_successfully",
           "query": "",
           "scene": null
         },
