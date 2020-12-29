@@ -31,7 +31,10 @@ App({
 		systemTime: undefined,// 系统时间
 		isSecondSigning: false,// 是否二次签约
 		isSecondSigningInformationPerfect: false,// 是否二次签约-资料完善
-		isPayH5Signing: false,// 是否是付费h5签约
+		otherEntrance: {
+			isPayH5Signing: false,// 是否是付费h5签约
+			isUnicom: false// 是否是联通归属转化
+		},
 		isMarginPayment: false,// 是否需要支付保证金
 		marginPaymentMoney: 0,// 支付保证金金额
 		isSystemTime: false,// 是否是通过接口获取过系统时间
@@ -269,10 +272,18 @@ App({
 				// 签约成功 userState: "NORMAL"
 				if (res.data.contractStatus === 1 && res.data.userState === 'NORMAL') {
 					// 办理付费h5
-					if (this.globalData.isPayH5Signing) {
-						this.globalData.isPayH5Signing = false;
+					if (this.globalData.otherEntrance.isPayH5Signing) {
+						this.globalData.otherEntrance.isPayH5Signing = false;
 						wx.reLaunch({
 							url: '/pages/pay_h5/signed_successfully/signed_successfully'
+						});
+						return;
+					}
+					// 办理联通转化
+					if (this.globalData.otherEntrance.isUnicom) {
+						this.globalData.otherEntrance.isUnicom = false;
+						wx.reLaunch({
+							url: '/pages/unicom/signed_successfully/signed_successfully'
 						});
 						return;
 					}
