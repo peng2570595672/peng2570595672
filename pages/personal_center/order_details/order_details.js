@@ -99,6 +99,7 @@ Page({
 							app.globalData.mobilePhone = res.data.mobilePhone;
 							// 查询最后一笔订单状态
 							this.getBillDetail();
+							this.getStatus();
 						} else {
 							util.hideLoading();
 						}
@@ -113,6 +114,23 @@ Page({
 				util.showToastNoIcon('登录失败！');
 			}
 		});
+	},
+	// 获取订单信息 进入微保查询 myEtcList --从推送进入
+	getStatus () {
+		util.showLoading();
+		let params = {
+			openId: app.globalData.openId
+		};
+		util.getDataFromServer('consumer/order/my-etc-list', params, () => {
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				app.globalData.myEtcList = res.data;
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken);
 	},
 	// 查询账单退费详情
 	getBillRefundDetail () {
