@@ -698,7 +698,7 @@ Page({
 	/**
 	 *  订阅消息封装
 	 */
-	subscribe () {
+	subscribe (pageUrl) {
 		// 判断版本，兼容处理
 		let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
 		let orderId = '';

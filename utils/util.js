@@ -921,7 +921,7 @@ function getInsuranceOffer(orderId, wtagid) {
 				let memberId = res.data.memberId;
 				let orderId = res.data.orderId;
 				let url = `outerUserId=${memberId}&outerCarId=${orderId}&companyId=SJHT&configId=sjht&wtagid=${wtagid}`;
-				let weiBoUrl = app.globalData.weiBoUrl + encodeURIComponent(url)
+				let weiBoUrl = app.globalData.weiBoUrl + encodeURIComponent(url);
 				let appId = app.globalData.test ? 'wx7f3f0032b6e6f0cc':'wx06a561655ab8f5b2'
 				console.log(weiBoUrl)
 				wx.navigateToMiniProgram({

@@ -128,7 +128,7 @@ Page({
 			path: weiBoUrl,
 			envVersion: 'release',
 			fail () {
-				showToastNoIcon('调起微保小程序失败, 请重试！');
+				util.showToastNoIcon('调起微保小程序失败, 请重试！');
 			}
 		});
 	},
