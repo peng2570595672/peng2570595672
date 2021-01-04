@@ -750,7 +750,7 @@ Page({
 					util.hideLoading();
 					// 不是点击的取消按钮
 					if (res.errMsg === 'requestSubscribeMessage:fail cancel') {
-						this.openWeiBao(pageUrl);
+						util.getInsuranceOffer(orderId,'116.115.40');
 					} else {
 						util.alert({
 							content: '调起订阅消息失败，是否前往"设置" -> "订阅消息"进行订阅？',
