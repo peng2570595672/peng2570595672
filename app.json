@@ -137,6 +137,9 @@
 		"wx9040bb0d3f910004",
 		"wxaca5642db7afd470"
 	],
+	"functionalPages": {
+		"independent": true
+	},
 	"sitemapLocation": "sitemap.json",
 	"permission": {
 		"scope.userLocation": {
