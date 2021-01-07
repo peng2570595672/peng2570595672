@@ -1,0 +1,10 @@
+{
+	"dependencies": {
+		"wx-server-sdk": "^2.3.2"
+	},
+	"permissions": {
+		"openapi": [
+			"templateMessage.send"
+		]
+	}
+}
