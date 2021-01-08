@@ -282,10 +282,17 @@ Page({
 				});
 				// 数组去重
 				let hash = [];
-				this.data.successBillList = this.data.successBillList.reduce((item1, item2) => {
-					hash[item2['id']] ? '' : hash[item2['id']] = true && item1.push(item2);
-					return item1;
-				}, []);
+				if (channel[0].flowVersion === 2) {
+					this.data.successBillList = this.data.successBillList.reduce((item1, item2) => {
+						hash[item2['passId']] ? '' : hash[item2['passId']] = true && item1.push(item2);
+						return item1;
+					}, []);
+				} else {
+					this.data.successBillList = this.data.successBillList.reduce((item1, item2) => {
+						hash[item2['id']] ? '' : hash[item2['id']] = true && item1.push(item2);
+						return item1;
+					}, []);
+				}
 				this.setData({
 					successBillList: this.data.successBillList
 				});
