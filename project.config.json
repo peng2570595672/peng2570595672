@@ -105,7 +105,7 @@
         {
           "name": "办理进度",
           "pathName": "pages/default/processing_progress/processing_progress",
-          "query": "orderId=793067667408818176",
+          "query": "orderId=719857736895959040",
           "scene": null
         },
         {
@@ -151,10 +151,9 @@
           "scene": null
         },
         {
-          "id": 13,
           "name": "我的账单页",
           "pathName": "pages/personal_center/my_order/my_order",
-          "query": "isMsg=1&vehPlate=贵Z00066&month=2020-11",
+          "query": "",
           "scene": null
         },
         {
@@ -189,9 +188,9 @@
           "scene": null
         },
         {
-          "name": "CitiesServices/pages/CitiesServices/CitiesServices",
-          "pathName": "CitiesServices/pages/CitiesServices/CitiesServices",
-          "query": "bank=ABC",
+          "name": "大地",
+          "pathName": "pages/Home/Home",
+          "query": "carInsurance=694498029775880192",
           "scene": null
         }
       ]

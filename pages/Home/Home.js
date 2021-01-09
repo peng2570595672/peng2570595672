@@ -351,20 +351,13 @@ Page({
 				let vehicleList = [];
 				let orderInfo = '';
 				let isDeliveryAlert = wx.getStorageSync('delivery-alert');
-				let isUpgradeAlert = wx.getStorageSync('upgrade-alert');
+				let isUpgradeAlert = wx.getStorageSync('upgrade-alerts');
 				let isDuringDate = util.isDuringDate('2020/12/17', '2021/01/01');
-				let isUpgradeDate = util.isDuringDate('2020/12/26', '2021/01/01');
+				let isUpgradeDate = util.isDuringDate('2020/12/26', '2022/01/01');
 				if (res.data && res.data.length === 0 && !isUpgradeAlert && isUpgradeDate) {
-					wx.setStorageSync('upgrade-alert', true);
-					util.alert({
-						content: '因ETC系统升级，即日起至1月1日00:00期间办理的设备将延后发出。',
-						showCancel: false,
-						confirmText: '我知道了',
-						confirm: () => {
-						},
-						cancel: () => {
-						}
-					});
+					let isUpgradeAlert = wx.getStorageSync('upgrade-alerts');
+					if (isUpgradeAlert || this.data.num === 1) return;
+					this.deliveryAlert();
 				}
 				app.globalData.ownerServiceArrearsList = res.data.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
 				res.data.map((item,index) => {
@@ -387,18 +380,10 @@ Page({
 					// 		}
 					// 	});
 					// }
-					if (((item.flowVersion === 2 && item.hwContractStatus === 1) || (item.flowVersion === 1 && item.auditStatus === 2 && item.obuStatus !== 1)) &&
-						item.logisticsId === 0 && item.obuCardType === 1 && !isUpgradeAlert && isUpgradeDate) {
-						wx.setStorageSync('upgrade-alert', true);
-						util.alert({
-							content: '因ETC系统升级，即日起至1月1日00:00期间办理的设备将延后发出。',
-							showCancel: false,
-							confirmText: '我知道了',
-							confirm: () => {
-							},
-							cancel: () => {
-							}
-						});
+					if ((item.orderType === 11 || item.orderType === 51) 
+						&& ((item.flowVersion === 2 && item.hwContractStatus === 1) || (item.flowVersion === 1 && item.auditStatus === 2))
+						&& item.obuStatus !== 1 && item.status === 1 && !isUpgradeAlert && isUpgradeDate) {
+							this.getOrderInfo(item.id);
 					}
 					if (item.contractStatus === 2) {
 						// 解约优先展示
@@ -425,6 +410,45 @@ Page({
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken);
+	},
+	// 获取订单信息
+	getOrderInfo (orderId) {
+		let isUpgradeAlert = wx.getStorageSync('upgrade-alerts');
+		if (isUpgradeAlert || this.data.num === 1) return;
+		util.showLoading();
+		util.getDataFromServer('consumer/order/get-order-info', {
+			orderId: orderId,
+			dataType: '2'
+		}, () => {
+		}, (res) => {
+			if (res.code === 0) {
+				let arr = ['河北', '西藏'];
+				arr.forEach(item => {
+					if (res.data.receive.receiveProvince.includes(item)) {
+						let isUpgradeAlert = wx.getStorageSync('upgrade-alerts');
+						if (isUpgradeAlert || this.data.num === 1) return;
+						this.deliveryAlert();
+					}
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
+	deliveryAlert () {
+		this.data.num = 1;
+		wx.setStorageSync('upgrade-alerts', true);
+		util.alert({
+			content: '受疫情原因影响，河北、西藏地区订单暂无法发货。给您带来的不便，敬请谅解。',
+			showCancel: false,
+			confirmText: '我知道了',
+			confirm: () => {
+			},
+			cancel: () => {
+			}
+		});
 	},
 	// 签约高速弹窗
 	signingExpress () {
