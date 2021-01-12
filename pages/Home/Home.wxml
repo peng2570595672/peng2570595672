@@ -142,6 +142,15 @@
 		</block>
 	</view>
 <!--	账单结束-->
+    <!--	付费开始-->
+    <view class="resume-contract" wx:if="{{orderInfo.selfStatus === 11}}">
+        <view class="processing-title">
+            <view>{{orderInfo.vehPlates}}</view>
+            <view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
+        </view>
+        <view class="btn" catchtap="goPaymentAmount">去支付</view>
+    </view>
+    <!--	付费结束-->
 	<!--	分割线开始-->
 	<view class="split"></view>
 	<!--	分割线结束-->

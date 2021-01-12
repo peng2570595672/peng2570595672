@@ -629,7 +629,7 @@ function luhmCheck(bankno) {
  */
 function getStatus(orderInfo) {
 	let status = 0;
-	if (orderInfo.shopProductId === 0 && orderInfo.contractStatus !== 1) {
+	if ((orderInfo.shopProductId === 0 || orderInfo.isOwner === 0) && orderInfo.contractStatus !== 1) {
 		status = 1; // 办理中 选择套餐
 	} else if (orderInfo.shopProductId !== 0 && orderInfo.contractStatus !== 1) {
 		status = 2; // 待签约
@@ -670,6 +670,10 @@ function getStatus(orderInfo) {
 				status = 9; // 已激活
 			}
 		}
+	}
+	if (orderInfo.pledgeStatus === 0) {
+		// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
+		status = 11; // 审核通过  已激活
 	}
 	return status;
 }

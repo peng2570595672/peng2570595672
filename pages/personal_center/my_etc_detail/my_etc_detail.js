@@ -142,6 +142,10 @@ Page({
 			}
 		});
 	},
+	// 支付付费金额
+	goPaymentAmount () {
+		util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${this.data.orderInfo.pledgeMoney}`);
+	},
 	// 修改资料
 	onClickModifiedData () {
 		if (util.getHandlingType(this.data.orderInfo)) {
@@ -363,8 +367,10 @@ Page({
 			// 服务商套餐id，0表示还未选择套餐，其他表示已经选择套餐
 			// 只提交了车牌 车牌颜色 收货地址 或者未签约 前往套餐选择
 			// "etcContractId": "", //签约id，0表示未签约，其他表示已签约
-			if (this.data.orderInfo.shopProductId === 0 || this.data.orderInfo.etcContractId === 0) {
-				util.go('/pages/default/payment_way/payment_way');
+			if (this.data.orderInfo.shopProductId === 0 || this.data.orderInfo.isOwner === 0 || this.data.orderInfo.etcContractId === 0) {
+				let type = '';
+				if (this.data.orderInfo.orderCrowdsourcing) type = 'payment_mode';
+				util.go(`/pages/default/payment_way/payment_way?type=${type}`);
 			} else if (this.data.orderInfo.isVehicle === 0) {
 				// 是否上传行驶证， 0未上传，1已上传
 				app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
@@ -377,8 +383,8 @@ Page({
 				}
 				// if (this.data.orderInfo.pledgeStatus === 0) {
 				// 	// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
-				// 	// 待支付保证金
-				// 	util.go(`/pages/default/margin_payment/margin_payment?marginPaymentMoney=${this.data.orderInfo.pledgeMoney}`);
+				// 	// 待支付付费金额
+				// 	util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${this.data.orderInfo.pledgeMoney}`);
 				// } else {
 				// 	if (wx.getStorageSync('driving_license_face')) {
 				// 		util.go('/pages/default/information_validation/information_validation');

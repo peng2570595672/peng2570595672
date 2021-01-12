@@ -117,7 +117,7 @@
         },
         {
           "id": 8,
-          "name": "支付保证金",
+          "name": "支付付费金额",
           "pathName": "pages/default/margin_payment/margin_payment",
           "query": "orderId=719857736895959040",
           "scene": null
@@ -191,6 +191,23 @@
           "name": "大地",
           "pathName": "pages/Home/Home",
           "query": "carInsurance=694498029775880192",
+          "scene": null
+        },
+        {
+          "name": "支付",
+          "pathName": "pages/default/payment_amount/payment_amount",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/Home/Home",
+          "pathName": "pages/Home/Home",
+          "query": "scene=SPI%3D798231224909824000",
+          "scene": null
+        },
+        {
+          "name": "支付成功",
+          "pathName": "pages/default/payment_successful/payment_successful",
           "scene": null
         }
       ]

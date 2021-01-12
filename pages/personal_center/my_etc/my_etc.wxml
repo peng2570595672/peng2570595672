@@ -14,6 +14,8 @@
 				<view class="right failed" wx:elif="{{item.selfStatus === 5 || item.selfStatus === 8 && item.contractStatus !== 2}}">审核失败</view>
 				<view class="right caution" wx:elif="{{item.selfStatus === 6 && item.contractStatus !== 2}}">待激活</view>
 				<view class="right succeed" wx:elif="{{item.selfStatus === 9 && item.contractStatus !== 2}}">正常使用</view>
+                <view class="right succeed" wx:elif="{{item.selfStatus === 9 && item.contractStatus !== 2}}">正常使用</view>
+                <view class="right caution" wx:elif="{{item.selfStatus === 11}}">去支付</view>
 			</view>
 			<!--上部分结束-->
 			<!--下部分开始-->
@@ -25,6 +27,7 @@
 				<view class="iconfont" wx:elif="{{(item.selfStatus === 4 || item.selfStatus === 7) && item.contractStatus !== 2}}" data-index="{{index}}"  catchtap="onClickViewProcessingProgressHandle">查看进度</view>
 				<view class="iconfont" wx:elif="{{item.selfStatus === 6 && item.contractStatus !== 2}}" data-index="{{index}}"  catchtap="onClickCctivate">去激活</view>
 				<view class="iconfont" wx:elif="{{item.selfStatus === 5 || item.selfStatus === 8 && item.contractStatus !== 2}}" data-index="{{index}}"  catchtap="onClickModifiedData">{{item.auditStatus === 9 ? '查看详情' : '修改资料'}}</view>
+                <view class="iconfont" wx:elif="{{item.selfStatus === 11}}" data-index="{{index}}" catchtap="goPaymentAmount">去支付</view>
 			</view>
 			<!--下部分结束-->
 		</view>

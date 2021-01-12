@@ -161,6 +161,10 @@ Page({
 			if (app.globalData.scanCodeToHandle) {
 				params['promoterId'] = app.globalData.scanCodeToHandle.promoterId;// 推广者ID标识
 				params['promoterType'] = app.globalData.scanCodeToHandle.promoterType; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
+				if (app.globalData.scanCodeToHandle.isCrowdsourcing) {
+					// 业务员端众包用户推广
+					params['isCrowdsourcing'] = app.globalData.scanCodeToHandle.isCrowdsourcing;
+				}
 			}
 			// 高速通行活动进入办理
 			if (app.globalData.isHighSpeedTrafficActivity) {
@@ -234,10 +238,14 @@ Page({
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
 			if (res.code === 0) {
-				wx.setStorageSync('return_to_prompt','payment_way');
+				// wx.setStorageSync('return_to_prompt','payment_way');
 				app.globalData.orderInfo.orderId = res.data.orderId; // 订单id
-				// 选择套餐页面
-				util.go('/pages/default/payment_way/payment_way');
+				if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.isCrowdsourcing) {
+					this.getProduct();
+				} else {
+					// 选择套餐页面
+					util.go('/pages/default/payment_way/payment_way');
+				}
 				// util.alert({
 				// 	content: '因近期部分省份及城市发生特大洪涝灾害，到货时间可能延后数日。',
 				// 	showCancel: false,
@@ -272,6 +280,47 @@ Page({
 				available: true,
 				isRequest: false
 			});
+		});
+	},
+	// 根据套餐id获取套餐信息
+	getProduct () {
+		util.showLoading();
+		util.getDataFromServer('consumer/system/get-product-by-id', {
+			shopProductId: app.globalData.scanCodeToHandle.productId
+		}, () => {
+		}, (res) => {
+			if (res.code === 0) {
+				this.submitProduct(res.data.pledgePrice);
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
+	// 付费提交套餐信息
+	submitProduct (pledgePrice) {
+		util.showLoading();
+		util.getDataFromServer('consumer/order/save-order-info', {
+			dataType: '3',
+			orderId: app.globalData.orderInfo.orderId,
+			shopProductId: app.globalData.scanCodeToHandle.productId,
+			areaCode: 0,
+			shopId: app.globalData.scanCodeToHandle.shopId
+		}, () => {
+		}, (res) => {
+			if (res.code === 0) {
+				if (pledgePrice && parseInt(pledgePrice) > 0) {
+					util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${pledgePrice}&type=main_process`);
+				} else {
+					// 选择套餐页面
+					util.go('/pages/default/payment_way/payment_way?type=payment_mode');
+				}
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
 		});
 	},
 	// 车牌输入回调

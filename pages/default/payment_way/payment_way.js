@@ -28,12 +28,18 @@ Page({
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
 		isMembershipCoupon: false,// 是否是会员券进入办理
+		isSalesmanCrowdsourcing: false,// 是否是业务员众包用户
 		orderInfo: undefined // 订单信息
 	},
-	onLoad () {
+	onLoad (options) {
 		app.globalData.isSalesmanOrder = false;// 非业务员订单
 		app.globalData.isModifiedData = false; // 非修改资料
-		if (app.globalData.firstVersionData) {
+		if (options.type && options.type === 'payment_mode') {
+			this.setData({
+				isSalesmanCrowdsourcing: true
+			});
+		}
+		if (app.globalData.firstVersionData || this.data.isSalesmanCrowdsourcing) {
 			this.getProductOrderInfo();
 		}
 		this.getOrderInfo();
@@ -230,6 +236,11 @@ Page({
 					});
 					util.showLoading();
 					this.getNetworkImage(temp.idCardPositiveUrl,1);
+				}
+				if (this.data.isSalesmanCrowdsourcing) {
+					this.setData({
+						available: this.validateAvailable()
+					});
 				}
 			} else {
 				util.showToastNoIcon(res.message);
@@ -481,14 +492,6 @@ Page({
 				app.globalData.orderInfo.shopProductId = this.data.choiceObj.shopProductId;
 				let result = res.data.contract;
 				// 签约车主服务 2.0
-				if (this.data.choiceObj.pledgePrice && parseInt(this.data.choiceObj.pledgePrice) > 0) {
-					// 需要支付保证金
-					app.globalData.isMarginPayment = true;
-					app.globalData.marginPaymentMoney = parseInt(this.data.choiceObj.pledgePrice);
-				} else {
-					app.globalData.isMarginPayment = false;
-					app.globalData.marginPaymentMoney = 0;
-				}
 				app.globalData.belongToPlatform = app.globalData.platformId;
 				if (result.version === 'v2') {
 					wx.navigateToMiniProgram({

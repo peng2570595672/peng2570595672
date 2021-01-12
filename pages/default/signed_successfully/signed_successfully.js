@@ -16,7 +16,7 @@ Page({
 				isPaymentProcess: options.isPaymentProcess
 			});
 		}
-		wx.removeStorageSync('return_to_prompt');
+		// wx.removeStorageSync('return_to_prompt');
 	},
 	// 下一步
 	next () {

@@ -21,7 +21,7 @@
 							<view class="left-sub-title">{{choiceObj.remarks}}</view>
 						</view>
 					</view>
-					<view class="right" catchtap="choiceSetMeal">点击更改</view>
+					<view class="right" catchtap="choiceSetMeal" wx:if="{{!isSalesmanCrowdsourcing}}">点击更改</view>
 				</view>
 			</view>
 			<!--	回显支付方式结束-->

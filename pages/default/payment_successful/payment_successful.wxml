@@ -1,0 +1,10 @@
+<view class="signed_successfully">
+    <!--	成功提示开始-->
+    <image src="/pages/default/assets/signed_successfully.png"/>
+    <view class="signed_title">支付成功</view>
+    <!--	成功提示结束-->
+    <view class="fill"></view>
+    <!--	操作部分开始-->
+    <view class="btn" catchtap="next">下一步</view>
+    <!--	操作部分结束-->
+</view>

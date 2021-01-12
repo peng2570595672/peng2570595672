@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-const IS_TEST = false;
+const IS_TEST = true;
 const util = require('./utils/util.js');
 // 数据统计
 let mta = require('./libs/mta_analysis.js');
@@ -35,8 +35,8 @@ App({
 			isPayH5Signing: false,// 是否是付费h5签约
 			isUnicom: false// 是否是联通归属转化
 		},
-		isMarginPayment: false,// 是否需要支付保证金
-		marginPaymentMoney: 0,// 支付保证金金额
+		isMarginPayment: false,// 是否需要支付付费金额
+		marginPaymentMoney: 0,// 支付付费金额
 		isSystemTime: false,// 是否是通过接口获取过系统时间
 		isSalesmanOrder: false,// 是否是业务员审核订单
 		officialChannel: false,// 是否是公众号渠道引流
@@ -314,12 +314,6 @@ App({
 						// 	} else { // 不可修改资料
 						// 		util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
 						// 	}
-						// } else {
-						// 	util.go('/pages/default/signed_successfully/signed_successfully');
-						// }
-						// if (this.globalData.isMarginPayment) {
-						// 	// 需要支付保证金
-						// 	util.go(`/pages/default/margin_payment/margin_payment?marginPaymentMoney=${this.globalData.marginPaymentMoney}&type=main_process`);
 						// } else {
 						// 	util.go('/pages/default/signed_successfully/signed_successfully');
 						// }
