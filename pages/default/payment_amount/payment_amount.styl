@@ -6,9 +6,24 @@
 	flex-direction column
 	overflow hidden
 	// 设备图开始
-	& > image
-		margin 68rpx auto 90rpx
-		width 402rpx
+	.img-box
+		position relative
+		width 100%
+		text-align center
+		image
+			margin 68rpx auto 90rpx
+			width 402rpx
+		.money
+			position absolute
+			top 140rpx
+			width 100%
+			text-align center
+			font-size 52rpx
+			font-family PingFangSC-Regular, PingFang SC
+			font-weight 400
+			color #1FD1B1
+			line-height 74rpx
+			text-indent -20rpx
 	.prompt
 		padding 0 66rpx 0 60rpx
 		font-size 36rpx

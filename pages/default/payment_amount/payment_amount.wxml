@@ -1,7 +1,10 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="margin-payment">
 	<!--	设备图开始-->
-	<image src="/pages/default/assets/payment_ico.png" mode="widthFix"/>
+	<view class="img-box">
+        <image src="/pages/default/assets/payment_ico.png" mode="widthFix"/>
+        <view class="money">¥{{tools.parseNum(marginPaymentMoney/100)}}</view>
+    </view>
 	<!--	设备图结束-->
 	<!--	提示开始-->
 	<view class="prompt">本次办理</view>
