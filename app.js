@@ -35,8 +35,6 @@ App({
 			isPayH5Signing: false,// 是否是付费h5签约
 			isUnicom: false// 是否是联通归属转化
 		},
-		isMarginPayment: false,// 是否需要支付付费金额
-		marginPaymentMoney: 0,// 支付付费金额
 		isSystemTime: false,// 是否是通过接口获取过系统时间
 		isSalesmanOrder: false,// 是否是业务员审核订单
 		officialChannel: false,// 是否是公众号渠道引流

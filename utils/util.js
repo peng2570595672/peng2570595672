@@ -750,7 +750,6 @@ function resetData() {
 	app.globalData.isFaceToFaceWeChat = false;
 	app.globalData.isToMicroInsurancePromote = false;
 	app.globalData.faceToFacePromotionId = undefined;
-	app.globalData.isMarginPayment = false;
 	app.globalData.activitiesOfDrainage = false;
 	app.globalData.isCrowdsourcingPromote = false;
 	app.globalData.isSecondSigning = false;
