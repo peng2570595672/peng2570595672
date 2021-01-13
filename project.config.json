@@ -202,12 +202,13 @@
         {
           "name": "pages/Home/Home",
           "pathName": "pages/Home/Home",
-          "query": "scene=SPI%3D798231224909824000",
+          "query": "scene=SPI%3D798934694633668608",
           "scene": null
         },
         {
           "name": "支付成功",
           "pathName": "pages/default/payment_successful/payment_successful",
+          "query": "",
           "scene": null
         }
       ]

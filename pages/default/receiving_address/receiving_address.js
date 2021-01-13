@@ -37,6 +37,9 @@ Page({
 		} // 提交数据
 	},
 	onLoad (options) {
+		if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.isCrowdsourcing) {
+			wx.hideHomeButton();
+		}
 		if (options.shareId) {
 			util.resetData();// 重置数据
 			// 高速通行公众号进入办理
