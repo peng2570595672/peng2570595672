@@ -8,10 +8,14 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
-		orderInfo: undefined
+		orderInfo: undefined,
+		isRequest: false
 	},
 	onLoad () {
 		this.getETCDetail();
+	},
+	onShow () {
+		this.setData({isRequest: false});
 	},
 	// 下一步
 	next () {
@@ -42,6 +46,11 @@ Page({
 	},
 	// 微信签约
 	weChatSign () {
+		if (this.data.isRequest) {
+			return;
+		} else {
+			this.setData({isRequest: true});
+		}
 		app.globalData.signAContract = -1;
 		const obj = this.data.orderInfo;
 		util.showLoading('加载中');
@@ -52,6 +61,7 @@ Page({
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');
 			util.hideLoading();
+			this.setData({isRequest: false});
 		}, (res) => {
 			if (res.code === 0) {
 				util.hideLoading();
@@ -89,6 +99,8 @@ Page({
 					});
 				}
 			} else {
+				util.hideLoading();
+				this.setData({isRequest: false});
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken, () => {
