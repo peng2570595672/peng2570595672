@@ -671,7 +671,7 @@ function getStatus(orderInfo) {
 			}
 		}
 	}
-	if (orderInfo.pledgeStatus === 0 && orderInfo.orderCrowdsourcing) {
+	if (orderInfo.pledgeStatus === 0) {
 		// 众包
 		// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
 		status = 11; // 待支付

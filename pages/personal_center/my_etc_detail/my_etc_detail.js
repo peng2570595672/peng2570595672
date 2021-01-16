@@ -144,6 +144,7 @@ Page({
 	},
 	// 支付付费金额
 	goPaymentAmount () {
+		app.globalData.orderInfo.orderId = this.data.orderId;
 		util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${this.data.orderInfo.pledgeMoney}`);
 	},
 	// 修改资料

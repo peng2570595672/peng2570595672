@@ -28,7 +28,7 @@ Page({
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
 		isMembershipCoupon: false,// 是否是会员券进入办理
-		isSalesmanCrowdsourcing: false,// 是否是业务员众包用户
+		isSalesmanCrowdsourcing: false,// 是否是业务员扫码办理用户
 		orderInfo: undefined // 订单信息
 	},
 	onLoad (options) {
