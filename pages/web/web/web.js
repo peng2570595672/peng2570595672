@@ -12,6 +12,8 @@ Page({
 			url = `https://api.wesure.cn/app/h5-app-wedrive/index.html?checkIllegal=true&wtagid=116.115.10`;
 		} else if (options.type === 'banner') {
 			url = decodeURIComponent(options.url);
+		} else if (options.type === 'CPC_hospitality') {
+			url = decodeURIComponent(options.url);
 		} else if (options.type === 'weiBao') {
 			let wtagid;
 			if (options.entrance && options.entrance === 'bill') {
