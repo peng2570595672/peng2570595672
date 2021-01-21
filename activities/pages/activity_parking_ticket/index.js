@@ -168,9 +168,9 @@ Page({
 	},
 	receive (e) {
 		util.getDataFromServer('consumer/voucher/common/get-records-by-config-or-product', {
-			couponSole: true,
-			newGetCoupon: true,
-			needActivate: true,
+			couponSole: true,// false 不限张数  true  限一张
+			newGetCoupon: true,// false 领取后单独激活  true  领取并激活
+			needActivate: true,// false 获取当前批次已领取的所有卡券  true  获取新的卡券
 			configId: this.data.configId,
 			platformId: app.globalData.platformId,
 			openId: app.globalData.openId
