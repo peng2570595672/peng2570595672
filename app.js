@@ -196,7 +196,7 @@ App({
 					this.globalData.isThirdGeneralize = true;
 				}
 				this.globalData.scanCodeToHandle = res.data;
-				if (this.globalData.scanCodeToHandle.isCrowdsourcing) {
+				if (res.data.hasOwnProperty('isCrowdsourcing')) {
 					wx.reLaunch({
 						url: '/pages/default/receiving_address/receiving_address'
 					});

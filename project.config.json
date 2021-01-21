@@ -99,7 +99,7 @@
         {
           "name": "账单详情",
           "pathName": "pages/personal_center/order_details/order_details",
-          "query": "id=709701386738077696&channel=1&month=2020011",
+          "query": "id=801483679739154432&channel=10&month=20210121",
           "scene": 1014
         },
         {
@@ -200,8 +200,8 @@
           "scene": null
         },
         {
-          "name": "pages/Home/Home",
-          "pathName": "pages/Home/Home",
+          "name": "测试领券",
+          "pathName": "pages/personal_center/test/index",
           "query": "scene=SPI%3D798934694633668608",
           "scene": null
         },
