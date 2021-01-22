@@ -131,7 +131,7 @@ Page({
 		// 拒绝定位导致失败
 		let that = this;
 		let _options = {type: this.data.type};
-		if (e.detail.errMsg === 'insertCamera:fail authorize no response' || e.detail.errMsg === 'insertCamera:fail auth deny' || e.detail.errMsg === 'insertCamera:fail:auth denied') {
+		if (e.detail.errMsg.includes('fail authorize no response') || e.detail.errMsg.includes('fail auth deny') || e.detail.errMsg.includes('fail:auth denied')) {
 			that.setData({
 				showInfo: false
 			});
