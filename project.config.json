@@ -22,18 +22,19 @@
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
     "compileHotReLoad": false,
-    "useMultiFrameRuntime": false,
+    "useMultiFrameRuntime": true,
     "useApiHook": true,
+    "useApiHostProcess": false,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
     },
-    "bundle": false,
+    "bundle": true,
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
-    "userConfirmedBundleSwitch": false,
+    "userConfirmedBundleSwitch": true,
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true
@@ -99,7 +100,7 @@
         {
           "name": "账单详情",
           "pathName": "pages/personal_center/order_details/order_details",
-          "query": "id=801483679739154432&channel=10&month=20210121",
+          "query": "id=712720659404427261&channel=10&month=20200520",
           "scene": 1014
         },
         {
@@ -209,6 +210,12 @@
           "name": "支付成功",
           "pathName": "pages/default/payment_successful/payment_successful",
           "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/personal_center/collect_paid_up_interest/collect_paid_up_interest",
+          "pathName": "pages/personal_center/collect_paid_up_interest/collect_paid_up_interest",
+          "query": "id=709701386738077696&channel=1&month=202005",
           "scene": null
         }
       ]

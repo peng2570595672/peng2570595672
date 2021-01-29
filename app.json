@@ -50,7 +50,9 @@
 				"service_card_voucher/service_card_voucher",
 				"service_card_voucher_details/service_card_voucher_details",
 				"crowdsourcing_user/crowdsourcing_user",
-				"my_crowdsourcing_gains/my_crowdsourcing_gains"
+				"my_crowdsourcing_gains/my_crowdsourcing_gains",
+				"basic_rights_and_interests/basic_rights_and_interests",
+				"collect_paid_up_interest/collect_paid_up_interest"
 			]
 		},
 		{

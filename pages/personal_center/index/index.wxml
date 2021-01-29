@@ -104,6 +104,25 @@
 		<!--活动文字描述结束-->
 		<view class="iconfont activity_right"></view>
 	</button>
+
+    <!--付费权益开始-->
+    <view class="pay-interest" wx:if="{{rightsAndInterestsVehicleList}}">
+        <view class="interests-list">
+            <view class="item" wx:for="{{payInterest.interestsList}}" wx:key="index">
+                <image src="/pages/personal_center/assets/{{item.img}}.png" mode="widthFix" catchtap="go" data-url="{{item.url}}"></image>
+            </view>
+        </view>
+        <view class="describe-list">
+            <view class="item iconfont" wx:for="{{payInterest.describeList}}" wx:key="index">
+                <view class="item-content">
+                    <view>{{item.title}}</view>
+                    <view>{{item.subTitle}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!--付费权益结束-->
+
 	<!--	成为众包推广者开始-->
 	<view wx:if="{{crowdSourcingMsg.status === 1}}" class="{{isAttention === 1 ? '' : ''}}">
 		<!--	我的推广标题开始-->

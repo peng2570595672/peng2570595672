@@ -789,6 +789,21 @@ function isDuringDate(beginDateStr, endDateStr) {
 	return false;
 }
 /**
+ *  获取当前日期是在某时间段
+ */
+function isTimeQuantum(beginDateStr, endDateStr) {
+	const curDate = new Date();
+	const beginDate = new Date(beginDateStr);
+	const endDate = new Date(endDateStr);
+	if (curDate >= beginDate && curDate < endDate) {
+		return 1; // 当前时间属于该时间间段
+	}
+	if (curDate >= beginDate && curDate > endDate) {
+		return 0; // 当前时间大于该时间间段
+	}
+	return 2;
+}
+/**
  *  订阅消息封装
  */
 function subscribe(tmplIds, url) {
@@ -954,6 +969,7 @@ module.exports = {
 	go, // 常规跳转
 	showToastNoIcon,
 	isDuringDate,
+	isTimeQuantum,
 	uploadOcrFile,
 	uploadFile,
 	isJsonString,

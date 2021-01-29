@@ -5,7 +5,6 @@ $themeColor2 = #7FD058;
 page
 	width 100%
 	height 100vh
-	overflow hidden
 	background rgba(246,246,246,1);
 	.index
 		//顶部
@@ -186,6 +185,53 @@ page
 					content '\e60e'
 					transform scaleX(-1)
 					font-size 40rpx
+		// 付费权益
+		.pay-interest
+			padding 30rpx 36rpx 0
+			.interests-list
+				display flex
+				flex-wrap wrap
+				.item
+					width 330rpx
+					padding-bottom 20rpx
+					image
+						width 100%
+						border-radius 20rpx
+				.item:nth-child(odd)
+					margin-right 20rpx
+			.describe-list
+				padding-top 18rpx
+				.item
+					padding-bottom 30rpx
+					display flex
+					&::before
+						margin-right 28rpx
+						display flex
+						align-items center
+						justify-content center
+						width 48rpx
+						height 55rpx
+						content '\e662'
+						font-size 48rpx
+						color #FF422A
+					.item-content
+						font-size 20rpx
+						color $fontColor6
+						line-height 28rpx
+						& > view:first-child
+							font-size 24rpx
+							font-family PingFangSC-Semibold, PingFang SC
+							font-weight 600
+							color $fontColor3
+							line-height 34rpx
+				.item:nth-child(2)
+					&::before
+						content '\e660'
+						color #FFB200
+				.item:last-child
+					&::before
+						content '\e65f'
+						color #78BCEF
 	//关注活动弹框
 	.detail_mask
 		position fixed

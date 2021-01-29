@@ -172,6 +172,8 @@
   color: #33333d;
   font-size: 28rpx;
   line-height: 40rpx;
+  max-height: 500rpx;
+  overflow: scroll;
 }
 .alert-for-not-finished-content .popup-container .wx-popup-btn {
   padding-bottom: 40rpx;

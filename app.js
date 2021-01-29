@@ -73,6 +73,7 @@ App({
 		crowdsourcingPromotionId: undefined, // 众包推广ID
 		isCrowdsourcingPromote: false, // 是不是众包推广
 		crowdsourcingServiceProvidersId: undefined, // 众包服务商id 用于加载不同套餐
+		rightsAndInterestsVehicleList: undefined, // 权益车辆列表
 		myEtcList: {}, // 车辆列表
 		orderInfo: {
 			orderId: ''

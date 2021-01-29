@@ -1,0 +1,52 @@
+@font-face {
+  font-family: 'iconfont'; /* project id 1514406 */
+  src: url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot");
+  src: url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot?#iefix") format('embedded-opentype'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff2") format('woff2'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff") format('woff'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.ttf") format('truetype'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.svg#iconfont") format('svg');
+}
+page {
+  min-height: 100vh;
+  background: #f7f7f7;
+  overflow: scroll;
+}
+.collect-paid-up-interest {
+  color: #33333d;
+  font-family: PingFangSC-Regular, PingFang SC;
+}
+.collect-paid-up-interest .top-img {
+  padding: 58rpx 34rpx 0;
+}
+.collect-paid-up-interest .top-img image {
+  width: 100%;
+}
+.collect-paid-up-interest .list-box {
+  padding: 0 36rpx;
+}
+.collect-paid-up-interest .list-box .item {
+  display: flex;
+  align-items: center;
+  padding: 0 40rpx;
+  height: 120rpx;
+  background: #fff;
+  box-shadow: 0rpx 4rpx 10rpx 0rpx rgba(228,235,230,0.25);
+  border-radius: 20rpx;
+  margin-top: 40rpx;
+  font-size: 32rpx;
+  color: #66666d;
+}
+.collect-paid-up-interest .list-box .item image {
+  width: 40rpx;
+  margin-right: 20rpx;
+}
+.collect-paid-up-interest .list-box .item::after {
+  display: flex;
+  flex: 1;
+  text-align: right;
+  content: '\e60e';
+  transform: scaleX(-1);
+  color: #999;
+  opacity: 0.21;
+}
+.collect-paid-up-interest .weight {
+  font-weight: 500;
+  font-family: PingFangSC-Medium, PingFang SC;
+}

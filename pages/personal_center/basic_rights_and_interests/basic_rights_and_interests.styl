@@ -1,0 +1,48 @@
+@import "../../../style/base.styl";
+@font-face {
+	font-family: 'iconfont';  /* project id 1514406 */
+	src: url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot');  src: url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff2') format('woff2'), url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff') format('woff'), url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.ttf') format('truetype'), url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.svg#iconfont') format('svg');
+}
+$fontColorB = #B2B2B2
+page
+	min-height 100vh
+	background #F7F7F7
+	overflow scroll
+.collect-paid-up-interest
+	color $fontColor3
+	font-family PingFangSC-Regular,PingFang SC
+	.top-img
+		padding 58rpx 34rpx 0
+		image
+			width 100%
+	// 基础权益列表
+	.list-box
+		padding 0 36rpx
+		.item
+			display flex
+			align-items center
+			padding 0 40rpx
+			height 120rpx
+			background #FFFFFF
+			box-shadow 0rpx 4rpx 10rpx 0rpx rgba(228,235,230,0.25)
+			border-radius 20rpx
+			margin-top 40rpx
+			font-size 32rpx
+			color $fontColor6
+			image
+				width 40rpx
+				margin-right 20rpx
+			&::after
+				display flex
+				flex 1
+				text-align right
+				content '\e60e'
+				transform scaleX(-1)
+				color #999999
+				opacity .21
+	// 字重字体
+	.weight
+		font-weight 500
+		font-family PingFangSC-Medium,PingFang SC
+
+

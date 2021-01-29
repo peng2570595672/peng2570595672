@@ -1,0 +1,10 @@
+{
+	"navigationBarBackgroundColor": "#F6F6F6",
+	"backgroundColor": "#FFFFFF",
+	"enablePullDownRefresh": false,
+	"navigationBarTextStyle": "black",
+	"navigationBarTitleText": "优惠月月领",
+	"usingComponents": {
+	  "instructions": "/components/instructions/instructions"
+    }
+}

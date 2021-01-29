@@ -12,7 +12,21 @@ Page({
 		isMain: false,// 是否从主流程进入
 		crowdSourcingMsg: undefined,// 众包信息
 		mobilePhone: undefined,
-		showDetailMask: false
+		showDetailMask: false,
+		rightsAndInterestsVehicleList: undefined, // 权益车辆列表
+		payInterest: {
+			interestsList: [
+				{img: 'basic_rights_and_interests', url: 'basic_rights_and_interests'},
+				{img: 'coupon_redemption', url: 'collect_paid_up_interest'}
+				// {img: 'led_driving_risks', url: ''},
+				// {img: 'get_video_membership', url: ''}
+			],
+			describeList: [
+				{title: '高速通行95折', subTitle: '高速通行费用享受95折起的折扣优惠'},
+				{title: 'vip专属客服', subTitle: '售后专人专业解答'},
+				{title: '设备延保一年', subTitle: '设备享有2年的保修服务'}
+			]
+		}
 	},
 	onLoad (options) {
 		if (options.isMain) {
@@ -25,6 +39,7 @@ Page({
 		if (app.globalData.userInfo.accessToken) {
 			this.getMemberBenefits();
 			this.getMemberCrowdSourcingAndOrder();
+			this.getOrderRelation();
 			let that = this;
 			wx.getSetting({
 				success (res) {
@@ -49,6 +64,23 @@ Page({
 			mobilePhoneSystem: app.globalData.mobilePhoneSystem,
 			mobilePhone: app.globalData.mobilePhone,
 			screenHeight: wx.getSystemInfoSync().windowHeight
+		});
+	},
+	getOrderRelation () {
+		util.showLoading();
+		util.getDataFromServer('consumer/voucher/rights/get-order-relation', {}, () => {
+			util.showToastNoIcon('获取车辆列表失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				app.globalData.rightsAndInterestsVehicleList = res.data;
+				this.setData({
+					rightsAndInterestsVehicleList: res.data
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
 		});
 	},
 	// 自动登录
@@ -80,6 +112,7 @@ Page({
 							});
 							this.getMemberBenefits();
 							this.getMemberCrowdSourcingAndOrder();
+							this.getOrderRelation();
 							if (isData) {
 								this.submitUserInfo(isData);
 							}

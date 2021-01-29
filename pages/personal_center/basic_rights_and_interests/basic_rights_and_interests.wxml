@@ -1,0 +1,15 @@
+<view class="collect-paid-up-interest">
+    <view class="top-img">
+        <image src="/pages/personal_center/assets/basic_rights_and_interests.png" mode="widthFix"></image>
+    </view>
+    <!--基础权益列表开始-->
+    <view class="list-box">
+        <view class="item iconfont" wx:for="{{interestsList}}" wx:key="index" catchtap="go" data-url="{{item.url}}">
+            <view>
+                <image src="/pages/personal_center/assets/{{item.img}}.png" mode="widthFix"></image>
+            </view>
+            <view>{{item.title}}</view>
+        </view>
+    </view>
+    <!--基础权益列表结束-->
+</view>
