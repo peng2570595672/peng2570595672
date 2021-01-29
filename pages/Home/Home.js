@@ -365,11 +365,11 @@ Page({
 				let vehicleList = [];
 				let orderInfo = '';
 				let isDeliveryAlert = wx.getStorageSync('delivery-alert');
-				let isUpgradeAlert = wx.getStorageSync('upgrade-alerts');
+				let isUpgradeAlert = wx.getStorageSync('upgrade-alerts1');
 				let isDuringDate = util.isDuringDate('2020/12/17', '2021/01/01');
-				let isUpgradeDate = util.isDuringDate('2020/12/26', '2022/01/01');
+				let isUpgradeDate = util.isDuringDate('2021/02/01', '2021/02/20');
 				if (res.data && res.data.length === 0 && !isUpgradeAlert && isUpgradeDate) {
-					let isUpgradeAlert = wx.getStorageSync('upgrade-alerts');
+					let isUpgradeAlert = wx.getStorageSync('upgrade-alerts1');
 					if (isUpgradeAlert || this.data.num === 1) return;
 					this.deliveryAlert();
 				}
@@ -397,7 +397,7 @@ Page({
 					if ((item.orderType === 11 || item.orderType === 51) &&
 						((item.flowVersion === 2 && item.hwContractStatus === 1) || (item.flowVersion === 1 && item.auditStatus === 2)) &&
 						item.obuStatus !== 1 && item.status === 1 && !isUpgradeAlert && isUpgradeDate) {
-							this.getOrderInfo(item.id);
+							this.deliveryAlert();
 					}
 					if (item.contractStatus === 2) {
 						// 解约优先展示
@@ -427,7 +427,7 @@ Page({
 	},
 	// 获取订单信息
 	getOrderInfo (orderId) {
-		let isUpgradeAlert = wx.getStorageSync('upgrade-alerts');
+		let isUpgradeAlert = wx.getStorageSync('upgrade-alerts1');
 		if (isUpgradeAlert || this.data.num === 1) return;
 		util.showLoading();
 		util.getDataFromServer('consumer/order/get-order-info', {
@@ -439,7 +439,7 @@ Page({
 				let arr = ['河北', '西藏'];
 				arr.forEach(item => {
 					if (res.data.receive.receiveProvince.includes(item)) {
-						let isUpgradeAlert = wx.getStorageSync('upgrade-alerts');
+						let isUpgradeAlert = wx.getStorageSync('upgrade-alerts1');
 						if (isUpgradeAlert || this.data.num === 1) return;
 						this.deliveryAlert();
 					}
@@ -452,10 +452,11 @@ Page({
 		});
 	},
 	deliveryAlert () {
+		if (this.data.num === 1) return;
 		this.data.num = 1;
-		wx.setStorageSync('upgrade-alerts', true);
+		wx.setStorageSync('upgrade-alerts1', true);
 		util.alert({
-			content: '受疫情原因影响，河北、西藏地区订单暂无法发货。给您带来的不便，敬请谅解。',
+			content: '受疫情影响，快递公司2021年2月3日-2月19日期间暂停揽货。恢复后尽快为您发货。给您带来的不便，敬请谅解。',
 			showCancel: false,
 			confirmText: '我知道了',
 			confirm: () => {
