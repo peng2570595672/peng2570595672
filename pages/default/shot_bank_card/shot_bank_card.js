@@ -38,7 +38,7 @@ Page({
 	// 相机初始化失败
 	onCameraErrorHandle (e) {
 		// 拒绝定位导致失败
-		if (e.detail.errMsg === 'insertCamera:fail authorize no response') {
+		if (e.detail.errMsg.includes('fail authorize no response') || e.detail.errMsg.includes('fail auth deny') || e.detail.errMsg.includes('fail:auth denied')) {
 			util.alert({
 				title: '提示',
 				content: '由于您拒绝了摄像头拍摄授权，导致无法正常初始化相机，是否重新授权？',
