@@ -68,7 +68,9 @@ Page({
 	},
 	getOrderRelation () {
 		util.showLoading();
-		util.getDataFromServer('consumer/voucher/rights/get-order-relation', {}, () => {
+		util.getDataFromServer('consumer/voucher/rights/get-order-relation', {
+			platformId: app.globalData.platformId
+		}, () => {
 			util.showToastNoIcon('获取车辆列表失败！');
 		}, (res) => {
 			if (res.code === 0) {
