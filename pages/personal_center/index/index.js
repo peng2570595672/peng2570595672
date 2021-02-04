@@ -17,9 +17,9 @@ Page({
 		payInterest: {
 			interestsList: [
 				{img: 'basic_rights_and_interests', url: 'basic_rights_and_interests'},
-				{img: 'coupon_redemption', url: 'collect_paid_up_interest'}
+				{img: 'coupon_redemption', url: 'collect_paid_up_interest'},
 				// {img: 'led_driving_risks', url: ''},
-				// {img: 'get_video_membership', url: ''}
+				{img: 'life_service', url: 'life_service'}
 			],
 			describeList: [
 				{title: '高速通行95折', subTitle: '高速通行费用享受95折起的折扣优惠'},
@@ -242,6 +242,10 @@ Page({
 	// 跳转
 	go (e) {
 		let url = e.currentTarget.dataset['url'];
+		if (url === 'life_service') {
+			this.showDetail();
+			return;
+		}
 		if (url === 'owner_service') {
 			mta.Event.stat('personal_center_owner_service',{});
 		} else if (url === 'my_etc') {
