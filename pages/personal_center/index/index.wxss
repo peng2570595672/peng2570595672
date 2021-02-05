@@ -197,7 +197,7 @@ page .index .activity_follow .activity_right::after {
   font-size: 40rpx;
 }
 page .index .pay-interest {
-  padding: 30rpx 36rpx 0;
+  padding: 30rpx 35rpx 0;
 }
 page .index .pay-interest .interests-list {
   display: flex;
