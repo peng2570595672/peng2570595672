@@ -257,7 +257,7 @@ Page({
 				rotationChartList: bannerList
 			});
 		}
-		this.isCPCHospitalityBanner(this.data.rotationChartList, province);
+		// this.isCPCHospitalityBanner(this.data.rotationChartList, province);
 	},
 	// 是否显示中油好客e站banner
 	isCPCHospitalityBanner (bannerList, province) {
