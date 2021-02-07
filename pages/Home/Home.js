@@ -257,20 +257,6 @@ Page({
 				rotationChartList: bannerList
 			});
 		}
-		// this.isCPCHospitalityBanner(this.data.rotationChartList, province);
-	},
-	// 是否显示中油好客e站banner
-	isCPCHospitalityBanner (bannerList, province) {
-		let isDistrict = false;
-		if (province.includes('河南')) {
-			isDistrict = true;
-		}
-		if (!isDistrict) {
-			bannerList = bannerList.filter(item => item.remark !== 'CPC_hospitality');// 是否显示中油好客e站banner
-			this.setData({
-				rotationChartList: bannerList
-			});
-		}
 	},
 	// 获取手机号
 	onGetPhoneNumber (e) {
@@ -712,9 +698,6 @@ Page({
 			if (item.remark === 'heaiche') {
 				this.encryptionMobilePhone(item.pageUrl);
 				return;
-			}
-			if (item.remark === 'CPC_hospitality') {
-				mta.Event.stat('banner_activity_cpc_hospitality',{});
 			}
 			util.go(`/pages/web/web/web?url=${encodeURIComponent(item.pageUrl)}&type=banner`);
 		} else {
