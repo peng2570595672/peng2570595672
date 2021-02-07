@@ -14,7 +14,6 @@ Page({
 		exceptionMessage: undefined, // 异常信息
 		num: 0, // 次数
 		isContinentInsurance: false, // 是否是大地保
-		heaicheProvinceList: ['辽宁', '湖南', '江苏', '甘肃', '广西', '内蒙古', '陕西', '山西', '四川', '云南', '安徽', '宁夏', '青海', '河南', '上海', '浙江', '黑龙江', '山东', '福建', '河北'], // 和爱车活动加载省份
 		rotationChartList: [], // 轮播图
 		recentlyTheBill: undefined, // 最新账单
 		driverDistrictList: ['六盘水', '黔西南'] // 小兔子代驾推广只在贵州省-黔西南和六盘水地区可见
@@ -221,27 +220,10 @@ Page({
 			let res = JSON.parse(locationInfo);
 			// 根据地区显示小兔子代驾banner
 			this.isDriverBanner(bannerList, res.result.ad_info.city, res.result.ad_info.province);
-			// this.isShowHACBanner(bannerList, res.result.address);
-			// 根据地区显示和爱车banner
 			return;
 		}
 		// 定位
 		this.getLocationInfo(bannerList);
-	},
-	// 是否显示和爱车banner
-	isShowHACBanner (bannerList, address) {
-		let isShowProvince = false;
-		this.data.heaicheProvinceList.forEach(item => {
-			if (address.includes(item)) {
-				isShowProvince = true;
-			}
-		});
-		if (!isShowProvince) {
-			bannerList = bannerList.filter(item => item.remark !== 'heaiche');// 大地保险屏蔽微保&和爱车
-			this.setData({
-				rotationChartList: bannerList
-			});
-		}
 	},
 	// 是否小兔代驾banner
 	isDriverBanner (bannerList, address, province) {
