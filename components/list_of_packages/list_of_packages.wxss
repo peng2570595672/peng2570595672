@@ -267,36 +267,36 @@
 .list-of-packages .list-of-packages-wrapper .ul .li:nth-child(n+3) {
   margin-top: 20rpx;
 }
-.list-of-packages .list-of-packages-wrapper .ul .li > view {
+.list-of-packages .list-of-packages-wrapper .ul .li .item-box {
   display: flex;
   align-items: center;
   height: 100%;
   background: #fff;
   border-radius: 4rpx;
 }
-.list-of-packages .list-of-packages-wrapper .ul .li > view > image {
+.list-of-packages .list-of-packages-wrapper .ul .li .item-box .img {
   margin-left: 20rpx;
   flex: 0 0 70rpx;
   width: 70rpx;
   height: 70rpx;
 }
-.list-of-packages .list-of-packages-wrapper .ul .li > view > view {
+.list-of-packages .list-of-packages-wrapper .ul .li .item-box .li-right {
   margin-left: 20rpx;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.list-of-packages .list-of-packages-wrapper .ul .li > view > view .li-title {
+.list-of-packages .list-of-packages-wrapper .ul .li .item-box .li-right .li-title {
   display: flex;
   height: 44rpx;
   line-height: 44rpx;
   font-size: 28rpx;
   font-weight: 500;
 }
-.list-of-packages .list-of-packages-wrapper .ul .li > view > view .new-title {
+.list-of-packages .list-of-packages-wrapper .ul .li .item-box .li-right .new-title {
   padding-top: 30rpx;
 }
-.list-of-packages .list-of-packages-wrapper .ul .li > view > view .li-sub-title {
+.list-of-packages .list-of-packages-wrapper .ul .li .item-box .li-right .li-sub-title {
   display: flex;
   height: 28rpx;
   line-height: 28rpx;

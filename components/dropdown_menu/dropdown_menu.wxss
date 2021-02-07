@@ -45,7 +45,7 @@
 .is_owner_ervice{
 	top: 120rpx;
 }
-.nav>view:first-child {
+.nav .nav-first-child {
 	border-right: 1rpx solid #979797;
 }
 .nav-child {

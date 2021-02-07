@@ -178,7 +178,8 @@
 .alert-for-not-finished-content .popup-container .wx-popup-btn {
   padding-bottom: 40rpx;
 }
-.alert-for-not-finished-content .popup-container .wx-popup-btn > view {
+.alert-for-not-finished-content .popup-container .wx-popup-btn .cancel,
+.alert-for-not-finished-content .popup-container .wx-popup-btn .confirm {
   width: 448rpx;
   height: 84rpx;
   line-height: 84rpx;
@@ -191,6 +192,7 @@
   color: #fff;
   margin: 40rpx auto 0;
 }
-.alert-for-not-finished-content .popup-container .wx-popup-btn > view.cancel {
+.alert-for-not-finished-content .popup-container .wx-popup-btn .cancel.cancel,
+.alert-for-not-finished-content .popup-container .wx-popup-btn .confirm.cancel {
   background: #ccc;
 }

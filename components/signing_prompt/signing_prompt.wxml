@@ -3,15 +3,15 @@
 		<view class="alert-for-box">
 			<view class="code">
 				<!--测试-->
-				<image mode="widthFix" src='../assets/test_code.png' wx:if="{{isTest}}"></image>
+				<image mode="widthFix" src='../assets/test_code.png' wx:if="{{isTest}}" class="img"></image>
 				<!--正式-->
-				<image mode="widthFix" src='../assets/official_code.png' wx:else></image>
+				<image mode="widthFix" src='../assets/official_code.png' wx:else class="img"></image>
 			</view>
 			<view>截图保存</view>
 			<view>并用微信识别以上二维码</view>
 			<view class="alert-prompt">说明：应交通部要求，新办ETC需完成交通部支付渠道签约方可完成申办。</view>
 			<view class="alert-for-button">
-				<text catchtap="hide">我知道了</text>
+				<text catchtap="hide" class="btn">我知道了</text>
 			<!--<text catchtap="onClickSwitchBank">继续前往</text>-->
 			</view>
 		</view>

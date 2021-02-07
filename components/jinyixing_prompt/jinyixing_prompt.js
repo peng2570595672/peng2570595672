@@ -22,11 +22,6 @@ Component({
 				this.setData({
 					mask: false
 				});
-				if (flag) {
-					this.triggerEvent('onHandle');
-				} else {
-					this.triggerEvent('cancelHandle');
-				}
 			}, 400);
 		}
 	}

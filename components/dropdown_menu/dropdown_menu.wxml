@@ -1,5 +1,5 @@
 <view class="nav {{isOwe ? 'is_owes' : ''}}  {{isOweService ? 'is_owner_ervice' : ''}}">
-	<view class="nav-child {{filter_open ? 'active' : 'close'}}" bindtap="subscribe" hidden='{{dropDownMenuFilterData.length > 0 ? false : true}}' data-nav="0">
+	<view class="nav-child nav-first-child {{filter_open ? 'active' : 'close'}}" bindtap="subscribe" hidden='{{dropDownMenuFilterData.length > 0 ? false : true}}' data-nav="0">
 		<view class="nav-title">{{selected_filter_name.length > 0 ?selected_filter_name : dropDownMenuTitle[0]}}</view>
 		<view class="iconfont icon-sanjiao icon"></view>
 	</view>

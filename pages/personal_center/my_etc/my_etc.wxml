@@ -46,7 +46,7 @@
 	<view class="btn" catchtap="onClickAddNewHandle">新增办理</view>
 	<!--	新增办理结束-->
 	<!--	津易行弹窗提示-->
-	<jinyixing-prompt id="notJinYiXingPrompt" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></jinyixing-prompt>
+	<jinyixing-prompt id="notJinYiXingPrompt"></jinyixing-prompt>
 	<!--	激活弹窗提示-->
-	<signing-prompt id="notSigningPrompt" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></signing-prompt>
+	<signing-prompt id="notSigningPrompt"></signing-prompt>
 </view>

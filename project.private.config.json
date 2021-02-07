@@ -1,55 +1,5 @@
 {
-  "description": "项目配置文件",
-  "cloudfunctionRoot": "cloud_function/",
-  "packOptions": {
-    "ignore": []
-  },
-  "setting": {
-    "urlCheck": true,
-    "es6": true,
-    "enhance": true,
-    "postcss": true,
-    "preloadBackgroundData": false,
-    "minified": true,
-    "newFeature": true,
-    "coverView": true,
-    "nodeModules": true,
-    "autoAudits": true,
-    "showShadowRootInWxmlPanel": true,
-    "scopeDataCheck": false,
-    "uglifyFileName": true,
-    "checkInvalidKey": true,
-    "checkSiteMap": false,
-    "uploadWithSourceMap": true,
-    "compileHotReLoad": false,
-    "useMultiFrameRuntime": true,
-    "useApiHook": true,
-    "useApiHostProcess": false,
-    "babelSetting": {
-      "ignore": [],
-      "disablePlugins": [],
-      "outputPath": ""
-    },
-    "bundle": true,
-    "useIsolateContext": true,
-    "useCompilerModule": true,
-    "userConfirmedUseCompilerModuleSwitch": false,
-    "userConfirmedBundleSwitch": true,
-    "packNpmManually": false,
-    "packNpmRelationList": [],
-    "minifyWXSS": true
-  },
-  "compileType": "miniprogram",
-  "libVersion": "2.15.0",
-  "appid": "wxddb3eb32425e4a96",
-  "projectname": "%E4%B8%B4%E6%97%B6ETC%2B",
-  "debugOptions": {
-    "hidedInDevtools": []
-  },
-  "isGameTourist": false,
-  "simulatorType": "wechat",
-  "simulatorPluginLibVersion": {},
-  "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
+  "setting": {},
   "condition": {
     "plugin": {
       "list": []
@@ -106,7 +56,7 @@
         {
           "name": "办理进度",
           "pathName": "pages/default/processing_progress/processing_progress",
-          "query": "orderId=719857736895959040",
+          "query": "orderId=807027129899814912",
           "scene": null
         },
         {
@@ -213,8 +163,8 @@
           "scene": null
         },
         {
-          "name": "pages/personal_center/collect_paid_up_interest/collect_paid_up_interest",
-          "pathName": "pages/personal_center/collect_paid_up_interest/collect_paid_up_interest",
+          "name": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
+          "pathName": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
           "query": "id=709701386738077696&channel=1&month=202005",
           "scene": null
         }

@@ -143,20 +143,17 @@
   right: 0;
   margin: auto;
   z-index: 2;
-  color: #33333d;
   background: #fff;
   border-radius: 20rpx;
-}
-.alert-for-not-finished .alert-for-not-finished-content .alert-for-box>view {
   line-height: 40rpx;
   padding: 0rpx 40rpx;
   color: #66666d;
 }
-.alert-for-not-finished .alert-for-not-finished-content .alert-for-box>view:first-child {
-  padding: 40rpx 40rpx 20rpx;
+.alert-for-not-finished .alert-for-not-finished-content .alert-for-box .title {
+  padding: 40rpx 0 20rpx;
   color: #33333d;
 }
-.alert-for-not-finished .alert-for-not-finished-content .alert-for-box>view.alert-for-button {
+.alert-for-not-finished .alert-for-not-finished-content .alert-for-box .alert-for-button {
   text-indent: 0;
   text-align: center;
   height: 90rpx;
@@ -164,10 +161,10 @@
   margin-top: 40rpx;
   border-top: 1rpx solid #f2f2f2;
 }
-.alert-for-not-finished .alert-for-not-finished-content .alert-for-box>view.alert-for-button text {
+.alert-for-not-finished .alert-for-not-finished-content .alert-for-box .alert-for-button .btn {
   display: inline-block;
   width: 50%;
 }
-.alert-for-not-finished .alert-for-not-finished-content .alert-for-box>view.alert-for-button text:last-child {
+.alert-for-not-finished .alert-for-not-finished-content .alert-for-box .alert-for-button .btn:last-child {
   color: #2fb565;
 }

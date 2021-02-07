@@ -150,7 +150,7 @@
   right: 30rpx;
   top: 16rpx;
 }
-.alert-for-not-finished .alert-for-not-finished-content .img image {
+.alert-for-not-finished .alert-for-not-finished-content .img .prompt-img {
   width: 276rpx;
 }
 .alert-for-not-finished .alert-for-not-finished-content .notice {
@@ -169,12 +169,12 @@
   margin: 0 auto;
   width: 448rpx;
 }
-.alert-for-not-finished .alert-for-not-finished-content .btns > view {
+.alert-for-not-finished .alert-for-not-finished-content .btns .btn {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.alert-for-not-finished .alert-for-not-finished-content .btns > view:first-of-type {
+.alert-for-not-finished .alert-for-not-finished-content .btns .btn:first-of-type {
   margin-top: 82rpx;
   color: #fff;
   width: 448rpx;
@@ -184,7 +184,7 @@
   background: linear-gradient(45deg, #14ac69 0%, #84d157 100%);
   box-shadow: 0 6rpx 14rpx 0 #b9e3df;
 }
-.alert-for-not-finished .alert-for-not-finished-content .btns > view:last-of-type {
+.alert-for-not-finished .alert-for-not-finished-content .btns .btn:last-of-type {
   margin-top: 20rpx;
   font-size: 24rpx;
   line-height: 34rpx;

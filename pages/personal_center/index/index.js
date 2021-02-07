@@ -74,10 +74,12 @@ Page({
 			util.showToastNoIcon('获取车辆列表失败！');
 		}, (res) => {
 			if (res.code === 0) {
-				app.globalData.rightsAndInterestsVehicleList = res.data;
-				this.setData({
-					rightsAndInterestsVehicleList: res.data
-				});
+				if (res.data) {
+					app.globalData.rightsAndInterestsVehicleList = res.data;
+					this.setData({
+						rightsAndInterestsVehicleList: res.data
+					});
+				}
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -186,6 +188,9 @@ Page({
 				util.hideLoading();
 			}
 		});
+	},
+	cancelHandle () {
+		this.selectComponent('#crowdsourcingPrompt').hide();
 	},
 	// 分享好友
 	onShareAppMessage () {

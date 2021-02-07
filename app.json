@@ -131,15 +131,6 @@
 			]
 		}
 	],
-	"navigateToMiniProgramAppIdList": [
-		"wxbcad394b3d99dac9",
-		"wxdda17150b8e50bc4",
-		"wx5e73c65404eee268",
-		"wxc4f4bbf790beb17b",
-		"wx06a561655ab8f5b2",
-		"wx9040bb0d3f910004",
-		"wxaca5642db7afd470"
-	],
 	"functionalPages": {
 		"independent": true
 	},

@@ -4,8 +4,8 @@
 		<view class="ul">
 		<!--具体支付方式开始-->
 			<view class="li {{current === index ? 'selected' : ''}}" catchtap="onClickItemHandle" wx:for="{{listOfPackages}}" wx:key="index" data-index="{{index}}">
-				<view>
-					<image src="{{item.productLogo}}"/>
+				<view class="item-box">
+					<image src="{{item.productLogo}}" class="img"/>
 					<view class="li-right">
 						<view class="li-title {{!item.remarks ? 'new-title' : ''}}">{{item.productName}}</view>
 						<view class="li-sub-title">{{item.remarks}}</view>

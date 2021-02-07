@@ -82,6 +82,6 @@
 		</view>
 	</view>
 	<!--微保活动结束-->
-	<jinyixing-prompt id="notJinYiXingPrompt" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></jinyixing-prompt>
-	<signing-prompt id="notSigningPrompt" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></signing-prompt>
+	<jinyixing-prompt id="notJinYiXingPrompt"></jinyixing-prompt>
+	<signing-prompt id="notSigningPrompt"></signing-prompt>
 </view>

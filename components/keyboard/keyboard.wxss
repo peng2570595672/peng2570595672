@@ -16,7 +16,7 @@
 	box-sizing: border-box;
 }
 
-.keyboard > text {
+.keyboard .text {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -34,32 +34,32 @@
 	user-select: none;
 }
 
-.keyboard > text:nth-child(10n+1) {
+.keyboard .text:nth-child(10n+1) {
 	margin-left: 0;
 }
 
-.keyboard > text:active {
+.keyboard .text:active {
 	box-shadow: none;
 	background: #dadada;
 }
 
-.keyboard > text.empty,
-.keyboard > text.half {
+.keyboard  .text.empty,
+.keyboard .text.half {
 	background: rgba(0, 0, 0, 0);
 	box-shadow: none;
 }
 
-.keyboard > text.half {
+.keyboard .text.half {
 	flex: 0 0 37rpx;
 	width: 37rpx;
 }
 
-.keyboard > text.del {
+.keyboard .text.del {
 	width: 93rpx;
 	flex: 0 0 93rpx;
 }
 
-.keyboard > text.del::before {
+.keyboard .text.del::before {
 	content: '';
 	display: inline-block;
 	width: 53rpx;
@@ -69,17 +69,17 @@
 	background-size: contain;
 }
 
-.keyboard > text.disabled {
+.keyboard .text.disabled {
 	color: #666;
 	box-shadow: none;
 	background: #EEEEEE;
 }
 
-.keyboard > text.disabled:active {
+.keyboard .text.disabled:active {
 	background: #EEEEEE;
 }
 
-.keyboard > text.ok {
+.keyboard .text.ok {
 	flex: 0 0 139rpx !important;
 	width: 139rpx !important;
 }

@@ -165,4 +165,4 @@
 	<!--关注公众号活动结束-->
 	<crowdsourcing-prompt id="crowdsourcingPrompt" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></crowdsourcing-prompt>
 </view>
-<canvas canvas-id="pictorial" class="pictorial"  disable-scroll="true"></canvas>
+<canvas id="pictorial" type="2d" class="pictorial"  disable-scroll="true"></canvas>
