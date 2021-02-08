@@ -16,7 +16,8 @@ Page({
 		isContinentInsurance: false, // 是否是大地保
 		rotationChartList: [], // 轮播图
 		recentlyTheBill: undefined, // 最新账单
-		driverDistrictList: ['六盘水', '黔西南'] // 小兔子代驾推广只在贵州省-黔西南和六盘水地区可见
+		driverDistrictList: ['六盘水', '黔西南'], // 小兔子代驾推广只在贵州省-黔西南和六盘水地区可见
+		rongChuangDistrictList: ['南昌', '广州', '无锡', '合肥', '成都', '重庆'] // 融创显示地区
 	},
 	onLoad () {
 		wx.removeStorageSync('information_validation');
@@ -138,10 +139,6 @@ Page({
 						rotationChartList: list
 					});
 					this.init(list);
-					// 屏蔽和爱车,不需要再次定位
-					// if (!this.data.isContinentInsurance) {
-					// 	this.init(list);
-					// }
 				}
 			} else {
 				util.showToastNoIcon(res.message);
@@ -153,6 +150,7 @@ Page({
 		util.showLoading();
 		let that = this;
 		let failBannerList = bannerList.filter(item => item.remark !== 'small_driver');
+		failBannerList = failBannerList.filter(item => item.remark !== 'rongchaung');
 		wx.getLocation({
 			type: 'wgs84',
 			success: (res) => {
@@ -239,6 +237,22 @@ Page({
 				rotationChartList: bannerList
 			});
 		}
+		this.isRongChuangBanner(this.data.rotationChartList, address);
+	},
+	// 是否显示中油好客e站banner
+	isRongChuangBanner (bannerList, address) {
+		let isDistrict = false;
+		this.data.rongChuangDistrictList.forEach(item => {
+			if (address.includes(item)) {
+				isDistrict = true;
+			}
+		});
+		if (!isDistrict) {
+			bannerList = bannerList.filter(item => item.remark !== 'rongchaung');// 是否显示融创banner
+			this.setData({
+				rotationChartList: bannerList
+			});
+		}
 	},
 	// 获取手机号
 	onGetPhoneNumber (e) {
@@ -286,33 +300,6 @@ Page({
 		return {
 			path: '/pages/Home/Home'
 		};
-	},
-	// 获取和爱车活动加密手机号
-	encryptionMobilePhone (pageUrl) {
-		if (this.data.exceptionMessage) {
-			util.showToastNoIcon(this.data.exceptionMessage);
-			return;
-		}
-		if (!app.globalData.mobilePhone) {
-			util.go('/pages/login/login/login');
-			return;
-		}
-		util.showLoading();
-		util.getDataFromServer('consumer/system/common/HACAESEncode', {
-			mobilePhone: app.globalData.mobilePhone,
-			aesKey: 'hHMogstx1gcJQLcu'
-		}, () => {
-			util.hideLoading();
-		}, (res) => {
-			util.hideLoading();
-			if (res.code === 0) {
-				// let url = `${pageUrl}&mobile=${encodeURIComponent(res.data.data)}`;
-				app.globalData.activityUrl = encodeURIComponent(res.data.data);
-				util.go(`/pages/web/web/web?type=heaiche`);
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken);
 	},
 	// 获取最后有一笔订单信息
 	getStatus (isToMasterQuery) {
@@ -677,9 +664,8 @@ Page({
 				item.pageUrl = `${item.pageUrl}&outerUserId=${memberId}`;
 				mta.Event.stat('banner_activity_weibao',{});
 			}
-			if (item.remark === 'heaiche') {
-				this.encryptionMobilePhone(item.pageUrl);
-				return;
+			if (item.remark === 'rongchaung') {
+				mta.Event.stat('banner_activity_rongchuang',{});
 			}
 			util.go(`/pages/web/web/web?url=${encodeURIComponent(item.pageUrl)}&type=banner`);
 		} else {

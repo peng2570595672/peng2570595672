@@ -194,5 +194,5 @@
 		</view>
 	</view>
 	<!--	底部导航结束-->
-	<signing-prompt id="notSigningPrompt" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></signing-prompt>
+	<signing-prompt id="notSigningPrompt"></signing-prompt>
 </view>
