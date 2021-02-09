@@ -792,7 +792,12 @@ function isDuringDate(beginDateStr, endDateStr) {
  *  获取当前日期是在某时间段
  */
 function isTimeQuantum(beginDateStr, endDateStr) {
-	const curDate = new Date();
+	let curDate;
+	if (app.globalData.systemTime) {
+		curDate = new Date(app.globalData.systemTime * 1000);
+	} else {
+		curDate = new Date();
+	}
 	const beginDate = new Date(beginDateStr);
 	const endDate = new Date(endDateStr);
 	if (curDate >= beginDate && curDate < endDate) {

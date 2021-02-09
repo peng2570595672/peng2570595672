@@ -10,7 +10,6 @@ Page({
 		vehicleList: [],
 		couponList: [], // 权益列表
 		tabIndex: 0,// tab下标
-		orderId: undefined,// 订单
 		currentTime: undefined,// 系统当前时间
 		openIndex: 0// 已开放对应下标
 	},
@@ -32,7 +31,7 @@ Page({
 	},
 	onShow () {
 	},
-	openConfirm(e) {
+	openConfirm (e) {
 		let instructions = e.currentTarget.dataset.instructions;
 		let popupContent = {
 			title: '使用说明',
@@ -44,7 +43,7 @@ Page({
 		});
 		this.selectComponent('#instructions').show();
 	},
-	tapDialogButton() {
+	tapDialogButton () {
 		this.setData({
 			dialogShow: false
 		});
@@ -129,5 +128,5 @@ Page({
 		this.setData({
 			tabIndex: index
 		});
-	},
+	}
 });
