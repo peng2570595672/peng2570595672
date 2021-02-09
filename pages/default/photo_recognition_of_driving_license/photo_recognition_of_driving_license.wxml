@@ -50,14 +50,13 @@
 		<view class="iconfont choice-from-album" catchtap="choiceFromAbumHandle"></view>
 	</view>
 	<!--	右边按钮部分结束-->
-	<!--	压缩图片开始-->
-	<canvas
-		id='pressCanvas'
-        type="2d"
-		class='press-canvas'
-		style='width: {{pictureWidth}}px; height: {{ pictureHeight}}px;' ></canvas>
-	<!--	压缩图片j结束-->
-	<!--旋转图片 ios拍照问题开始-->
-	<canvas id="rotatingCanvas" type="2d" style="width:{{imageWidth}}px;height:{{imageHeight}}px;position:absolute;top:200%" ></canvas>
-	<!--旋转图片 ios拍照问题结束-->
+    <!--	压缩图片开始-->
+    <canvas
+            canvas-id='pressCanvas'
+            class='press-canvas'
+            style='width: {{pictureWidth}}px; height: {{ pictureHeight}}px;' ></canvas>
+    <!--	压缩图片j结束-->
+    <!--旋转图片 ios拍照问题开始-->
+    <canvas canvas-id="rotatingCanvas" style="width:{{imageWidth}}px;height:{{imageHeight}}px;position:absolute;top:200%" ></canvas>
+    <!--旋转图片 ios拍照问题结束-->
 </view>

@@ -20,4 +20,4 @@
 		</view>
 	</view>
 </view>
-<canvas id="pictorial" class="pictorial"  type="2d" disable-scroll="true"></canvas>
+<canvas canvas-id="pictorial" class="pictorial"  disable-scroll="true"></canvas>
