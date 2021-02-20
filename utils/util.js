@@ -792,6 +792,8 @@ function isDuringDate(beginDateStr, endDateStr) {
  *  获取当前日期是在某时间段
  */
 function isTimeQuantum(beginDateStr, endDateStr) {
+	beginDateStr = beginDateStr.slice(0, 16).replace(new RegExp('-','g'), '/');
+	endDateStr = endDateStr.slice(0, 16).replace(new RegExp('-','g'), '/');
 	let curDate;
 	if (app.globalData.systemTime) {
 		curDate = new Date(app.globalData.systemTime * 1000);
