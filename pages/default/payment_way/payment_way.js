@@ -482,10 +482,18 @@ Page({
 		if (app.globalData.salesmanMerchant) {
 			params['shopId'] = app.globalData.salesmanMerchant;
 		}
+		if (this.data.choiceObj.pledgePrice && !this.data.isSalesmanCrowdsourcing) {
+			params['needSignContract'] = false;
+		}
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
 			if (res.code === 0) {
+				if (this.data.choiceObj.pledgePrice && !this.data.isSalesmanCrowdsourcing) {
+					console.log('1111')
+					this.marginPayment();
+					return;
+				}
 				app.globalData.isSecondSigning = false;
 				app.globalData.isSecondSigningInformationPerfect = false;
 				app.globalData.signAContract = -1;
@@ -523,6 +531,49 @@ Page({
 				available: true,
 				isRequest: false
 			});
+		});
+	},
+	// 支付
+	marginPayment () {
+		this.setData({isRequest: true});
+		console.log('22222')
+		util.showLoading();
+		let params = {
+			orderId: app.globalData.orderInfo.orderId
+		};
+		util.getDataFromServer('consumer/order/pledge-pay', params, () => {
+			this.setData({isRequest: false});
+			util.showToastNoIcon('获取支付参数失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				let extraData = res.data.extraData;
+				wx.requestPayment({
+					nonceStr: extraData.nonceStr,
+					package: extraData.package,
+					paySign: extraData.paySign,
+					signType: extraData.signType,
+					timeStamp: extraData.timeStamp,
+					success: (res) => {
+						this.setData({isRequest: false});
+						if (res.errMsg === 'requestPayment:ok') {
+							util.go('/pages/default/payment_successful/payment_successful?isPayProcess=true');
+						} else {
+							util.showToastNoIcon('支付失败！');
+						}
+					},
+					fail: (res) => {
+						this.setData({isRequest: false});
+						if (res.errMsg !== 'requestPayment:fail cancel') {
+							util.showToastNoIcon('支付失败！');
+						}
+					}
+				});
+			} else {
+				this.setData({isRequest: false});
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
 		});
 	},
 	validateAvailable () {

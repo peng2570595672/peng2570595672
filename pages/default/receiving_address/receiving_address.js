@@ -617,7 +617,6 @@ Page({
 			} else {
 				util.showToastNoIcon(res.message);
 			}
-			console.log(res);
 		}, app.globalData.userInfo.accessToken, () => {
 			util.hideLoading();
 		}, 'GET');

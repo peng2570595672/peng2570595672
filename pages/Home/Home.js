@@ -885,6 +885,7 @@ Page({
 	// 支付付费金额
 	goPaymentAmount () {
 		// 2.0 立即签约 -- 定义/重置签约状态
+		app.globalData.orderInfo = this.data.orderInfo;
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 		// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
 		// 待支付付费金额

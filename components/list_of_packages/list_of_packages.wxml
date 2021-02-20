@@ -10,6 +10,7 @@
 						<view class="li-title {{!item.remarks ? 'new-title' : ''}}">{{item.productName}}</view>
 						<view class="li-sub-title">{{item.remarks}}</view>
 					</view>
+                    <view class="money" wx:if="{{item.pledgePrice}}">{{item.pledgePrice/100}}元</view>
 				</view>
 			</view>
 			<!--具体支付方式结束-->

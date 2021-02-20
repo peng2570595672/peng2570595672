@@ -134,6 +134,7 @@ Page({
 	goPaymentAmount (e) {
 		let index = e.currentTarget.dataset.index;
 		let obj = this.data.carList[parseInt(index)];
+		app.globalData.orderInfo = obj;
 		app.globalData.orderInfo.orderId = obj.id;
 		util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${obj.pledgeMoney}`);
 	},

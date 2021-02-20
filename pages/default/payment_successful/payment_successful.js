@@ -9,9 +9,13 @@ const app = getApp();
 Page({
 	data: {
 		orderInfo: undefined,
+		isPayProcess: false,
 		isRequest: false
 	},
-	onLoad () {
+	onLoad (options) {
+		if (options.isMiniPaymentProcess) {
+			this.setData({isPayProcess: options.isPayProcess});
+		}
 		this.getETCDetail();
 	},
 	onShow () {
@@ -19,11 +23,19 @@ Page({
 	},
 	// 下一步
 	next () {
-		if (this.data.orderInfo.orderType === 31) {
-			this.weChatSign();
-		} else {
+		if (this.data.orderInfo?.orderCrowdsourcing ||
+			(app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing'))) {
+			// 业务员众包线下付费办理
 			util.go('/pages/default/payment_way/payment_way?type=payment_mode');
+		} else {
+			this.weChatSign();
 		}
+		// if (this.data.orderInfo?.orderType === 31 || this.data.isPayProcess ||
+		// 	this.data.orderInfo?.isOwner === 1 || !this.data.orderInfo?.orderCrowdsourcing) {
+		// 	this.weChatSign();
+		// } else {
+		// 	util.go('/pages/default/payment_way/payment_way?type=payment_mode');
+		// }
 	},
 	// 加载订单详情
 	getETCDetail () {

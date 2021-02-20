@@ -45,7 +45,7 @@ Page({
 					success: (res) => {
 						this.setData({isRequest: false});
 						if (res.errMsg === 'requestPayment:ok') {
-							util.go('/pages/default/payment_successful/payment_successful?isPaymentProcess=true');
+							util.go('/pages/default/payment_successful/payment_successful');
 						} else {
 							util.showToastNoIcon('支付失败！');
 						}

@@ -17,8 +17,8 @@
 					<view class="left">
 						<image src="{{choiceObj.productLogo}}"/>
 						<view>
-							<view class="left-title">{{choiceObj.productName}}</view>
-							<view class="left-sub-title">{{choiceObj.remarks}}</view>
+							<view class="left-title">{{choiceObj.productName}}{{choiceObj.pledgePrice ? '-' + choiceObj.pledgePrice/100 + '元' : ''}}</view>
+							<view class="left-sub-title" wx:if="{{choiceObj.remarks}}">{{choiceObj.remarks}}</view>
 						</view>
 					</view>
 					<view class="right" catchtap="choiceSetMeal" wx:if="{{!isSalesmanCrowdsourcing}}">点击更改</view>
@@ -77,7 +77,9 @@
 		</block>
 		<view class="fill"></view>
 		<!--	按钮开始-->
-		<view  class="btn {{available && choiceObj ? 'available' : 'unavailable'}}" catchtap="next"><view class="animate" wx:if="{{isRequest}}"></view>签约免密支付</view>
+		<view wx:if="{{choiceObj}}" class="btn {{available && choiceObj ? 'available' : 'unavailable'}}" catchtap="next">
+            <view class="animate" wx:if="{{isRequest}}"></view>{{choiceObj.pledgePrice && !isSalesmanCrowdsourcing ? '支付' + choiceObj.pledgePrice/100 +'元' : '签约免密支付'}}
+        </view>
 		<!--	按钮结束-->
 
 		<!--	选择支付方式开始-->
