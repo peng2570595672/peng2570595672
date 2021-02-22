@@ -5,6 +5,9 @@ module.exports = {
 			"babel-module": {}
 		}
 	},
+	parserOptions: {
+		ecmaVersion: 2020
+	},
 	rules: {
 		'no-console': 'off', // 允许在代码中保留 console 命令
 		"prefer-const": 0,//首选const
