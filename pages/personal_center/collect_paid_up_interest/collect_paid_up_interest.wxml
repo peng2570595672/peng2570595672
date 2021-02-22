@@ -35,7 +35,7 @@
                 <view class="vouchers-price weight">满{{item.consumptionThreshold / 100}}减{{item.denomination / 100}}</view>
                 <view class="vouchers-bottom">
                     <view>
-                        <view wx:if="{{item.isReceive === 1}}">有效期至:{{tools.substring(item.validityEndTime,0,10)}}</view>
+                        <view wx:if="{{item.isReceive === 1}}">有效期至:{{tools.substring(item.useValidityEndTime,0,10)}}</view>
                     </view>
                     <view>
                         <!-- couponType; // 劵类型  1-通行劵 2-停车卷-->
