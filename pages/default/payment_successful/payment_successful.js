@@ -23,6 +23,10 @@ Page({
 	},
 	// 下一步
 	next () {
+		if (this.data.orderInfo?.deliveryRule === 1) {
+			util.go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
+			return;
+		}
 		if (this.data.orderInfo?.orderCrowdsourcing ||
 			(app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing'))) {
 			// 业务员众包线下付费办理

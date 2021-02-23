@@ -629,24 +629,43 @@ function luhmCheck(bankno) {
  */
 function getStatus(orderInfo) {
 	let status = 0;
-	if ((orderInfo.shopProductId === 0 || orderInfo.isOwner === 0) && orderInfo.contractStatus !== 1) {
-		status = 1; // 办理中 选择套餐
-	} else if (orderInfo.shopProductId !== 0 && orderInfo.contractStatus !== 1) {
-		status = 2; // 待签约
-	} else if ((orderInfo.status === 0 || orderInfo.isVehicle === 0) && orderInfo.contractStatus === 1) {
-		status = 3; // 办理中 已签约
-	} else if (orderInfo.status === 1 && orderInfo.contractStatus === 1 && orderInfo.auditStatus === 0 && orderInfo.isVehicle === 1) {
-		status = 4; // 查看进度 待审核
-	} else if (orderInfo.status === 1 && orderInfo.auditStatus === 1 && orderInfo.isVehicle === 1) {
-		status = 5; // 资料被拒绝 修改资料
-	} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5) && orderInfo.auditStatus === 2) {
-		status = 6; // 审核通过  待激活
-	} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)  && orderInfo.auditStatus === 3) {
-		status = 7; // 预审核通过  待审核
-	} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)  && orderInfo.auditStatus === 9) {
-		status = 8; // 高速核验不通过
-	} else if (orderInfo.obuStatus === 1 && orderInfo.auditStatus === 2) {
-		status = 9; // 审核通过  已激活
+	// deliveryRule 先签约后发货-0、先发货后签约-1
+	if (orderInfo.deliveryRule === 1 && orderInfo.status === 1) {
+		if (orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) {
+			status = 4;
+		} else if (orderInfo.auditStatus === 2) {
+			if (orderInfo.contractStatus !== 1) {
+				status = 2;
+			} else if (orderInfo.contractStatus === 1 && (orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)) {
+				status = 6; // 审核通过  待激活
+			} else if (orderInfo.contractStatus === 1 && orderInfo.obuStatus === 1) {
+				status = 9; // 审核通过  已激活
+			}
+		} else if (orderInfo.auditStatus === 1) {
+			status = 5;
+		} else {
+			status = 8;
+		}
+	} else {
+		if ((orderInfo.shopProductId === 0 || orderInfo.isOwner === 0) && orderInfo.contractStatus !== 1) {
+			status = 1; // 办理中 选择套餐
+		} else if (orderInfo.shopProductId !== 0 && orderInfo.contractStatus !== 1) {
+			status = 2; // 待签约
+		} else if ((orderInfo.status === 0 || orderInfo.isVehicle === 0) && orderInfo.contractStatus === 1) {
+			status = 3; // 办理中 已签约
+		} else if (orderInfo.status === 1 && orderInfo.contractStatus === 1 && orderInfo.auditStatus === 0 && orderInfo.isVehicle === 1) {
+			status = 4; // 查看进度 待审核
+		} else if (orderInfo.status === 1 && orderInfo.auditStatus === 1 && orderInfo.isVehicle === 1) {
+			status = 5; // 资料被拒绝 修改资料
+		} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5) && orderInfo.auditStatus === 2) {
+			status = 6; // 审核通过  待激活
+		} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)  && orderInfo.auditStatus === 3) {
+			status = 7; // 预审核通过  待审核
+		} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)  && orderInfo.auditStatus === 9) {
+			status = 8; // 高速核验不通过
+		} else if (orderInfo.obuStatus === 1 && orderInfo.auditStatus === 2) {
+			status = 9; // 审核通过  已激活
+		}
 	}
 	// // 新流程
 	// if (status !== 2 && status !== 5 && orderInfo.status === 1 && orderInfo.flowVersion === 2 && orderInfo.hwContractStatus !== 1) {
