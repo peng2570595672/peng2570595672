@@ -85,7 +85,7 @@ Page({
 			util.showToastNoIcon('发票抬头格式不正确！');
 			return false;
 		}
-		if (invoiceInfo.invoiceType === 2 && !/^[A-Z]{15}$|^[A-Z]{18}$|^[A-Z]{20}$/.test(invoiceInfo.taxNo)) {
+		if (invoiceInfo.invoiceType === 2 && !/^[A-Z0-9]{15}$|^[A-Z0-9]{18}$|^[A-Z0-9]{20}$/.test(invoiceInfo.taxNo)) {
 			util.showToastNoIcon('税号格式不正确！');
 			return false;
 		}

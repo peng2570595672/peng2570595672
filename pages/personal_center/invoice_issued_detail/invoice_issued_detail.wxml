@@ -7,7 +7,7 @@
 	<view class="input-wrapper">
 		<view class="input-item first">
 			<view>手机号</view>
-			<input type="text" disabled="{{disabled}}" placeholder="接收发票短信的手机号码" placeholder-class="placeholder" value="{{invoiceInfo.userPhone}}"
+			<input type="number" disabled="{{disabled}}" placeholder="接收发票短信的手机号码" placeholder-class="placeholder" value="{{invoiceInfo.userPhone}}"
 			       bindinput="onInputChangedHandle" data-key="userPhone"/>
 		</view>
 		<view class="input-item">
@@ -32,12 +32,12 @@
 		</view>
 		<view class="input-item">
 			<view>地址</view>
-			<input type="number" placeholder="请输入开票方地址" placeholder-class="placeholder" value="{{invoiceInfo.addrees}}"
+			<input placeholder="请输入开票方地址" placeholder-class="placeholder" value="{{invoiceInfo.addrees}}"
 			       bindinput="onInputChangedHandle" data-key="addrees"/>
 		</view>
 		<view class="input-item">
 			<view>电话</view>
-			<input type="number" placeholder="请输入开票方电话" placeholder-class="placeholder" value="{{invoiceInfo.addreesTel}}"
+			<input placeholder="请输入开票方电话" placeholder-class="placeholder" value="{{invoiceInfo.addreesTel}}"
 			       bindinput="onInputChangedHandle" data-key="addreesTel"/>
 		</view>
 		<view class="input-item">
