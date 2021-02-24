@@ -4,7 +4,7 @@
     </view>
     <!--基础权益列表开始-->
     <view class="list-box">
-        <view class="item iconfont" wx:for="{{interestsList}}" wx:key="index" catchtap="go" data-url="{{item.url}}">
+        <view class="item iconfont" wx:for="{{interestsList}}" wx:key="index" catchtap="go" data-index="{{index}}">
             <view>
                 <image src="/pages/personal_center/assets/{{item.img}}.png" mode="widthFix"></image>
             </view>

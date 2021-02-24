@@ -163,8 +163,8 @@
           "scene": null
         },
         {
-          "name": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
-          "pathName": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
+          "name": "pages/personal_center/basic_rights_and_interests/basic_rights_and_interests",
+          "pathName": "pages/personal_center/basic_rights_and_interests/basic_rights_and_interests",
           "query": "id=709701386738077696&channel=1&month=202005",
           "scene": null
         }
