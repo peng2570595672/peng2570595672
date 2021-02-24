@@ -1,0 +1,80 @@
+.content {
+  min-height: 100vh;
+  background: #f6f6f6;
+}
+.content .list-content {
+  display: flex;
+  flex-direction: column;
+  padding: 40rpx 34rpx;
+}
+.content .list-content .item {
+  height: 220rpx;
+  background: #fff;
+  margin-top: 20rpx;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+  box-shadow: 2rpx 2rpx 23rpx 0rpx rgba(126,132,156,0.1);
+  border-radius: 32rpx;
+}
+.content .list-content .item .top {
+  display: flex;
+  padding-top: 24rpx;
+  font-size: 40rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+}
+.content .list-content .item .top .plate {
+  color: #33333d;
+  flex: 1;
+}
+.content .list-content .item .top .amount {
+  color: #1ba566;
+  justify-content: flex-end;
+}
+.content .list-content .item .middle {
+  color: #66666d;
+  font-size: 24rpx;
+  padding-bottom: 8rpx;
+  border-bottom: 1rpx solid #f1f1f1;
+}
+.content .list-content .item .bottom {
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.content .list-content .item .bottom .left {
+  flex: 1;
+  color: #99999d;
+  font-size: 24rpx;
+}
+.content .list-content .item .bottom .right {
+  display: flex;
+  font-size: 28rpx;
+  color: #66666d;
+}
+.content .list-content .item .bottom .right.green {
+  color: #1ba566;
+}
+.content .list-content .item .bottom .arrow-icon::after {
+  font-size: 36rpx;
+  display: inline-block;
+  text-align: center;
+  content: '\e60e';
+  transform: scaleX(-1);
+  color: rgba(153,153,153,0.22);
+}
+.content .no-search {
+  text-align: center;
+  height: 100vh;
+}
+.content .no-search image {
+  width: 320rpx;
+  margin: 242rpx 0 0rpx;
+}
+.content .no-search view {
+  color: #66666d;
+  line-height: 44rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+}

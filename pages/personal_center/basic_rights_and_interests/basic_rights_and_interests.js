@@ -5,8 +5,8 @@ Page({
 		interestsList: [
 			{img: 'icon_make_invoice', title: '开具通行费发票', url: 'make_invoice'},
 			{img: 'icon_query', title: '违章不限次数查询', url: 'violation_enquiry'},
-			{img: 'icon_customer_service', title: '在线客服', url: 'online_customer_service'}
-			// {img: 'icon_make_invoice', title: '开具付费办理发票', url: 'collect_paid_up_interest'}
+			{img: 'icon_customer_service', title: '在线客服', url: 'online_customer_service'},
+			{img: 'icon_make_invoice', title: '开具付费办理发票', url: 'collect_paid_up_interest'}
 		]
 	},
 	onLoad () {
@@ -31,7 +31,11 @@ Page({
 			util.go(`/pages/web/web/web?type=${url}`);
 			return;
 		}
-		if (url === 'make_invoice') {
+		if (url === 'collect_paid_up_interest') {
+			util.go(`/pages/personal_center/invoice_issued_list/invoice_issued_list`);
+			return;
+		}
+		if (url === 'collect_paid_up_interest') {
 			this.goMakeInvoice();
 		}
 	},

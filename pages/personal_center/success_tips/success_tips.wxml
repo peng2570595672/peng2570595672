@@ -1,0 +1,7 @@
+<!--pages/withdrawal_audit/withdrawal_audit.wxml-->
+<view class="content">
+	<image class="img" src="https://file.cyzl.com/g001/M07/07/66/oYYBAGAc55iARIz7AABYiHNmY0s105.png"></image>
+	<view class="status-text">申请成功，开票中</view>
+	<view class="tip">开票成功后会将电子发票自动发放至手机号或电子邮箱，请注意查收。</view>
+	<view class="btn" catchtap="btnCatchTap">返回首页</view>
+</view>

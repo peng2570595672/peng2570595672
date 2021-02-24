@@ -52,7 +52,10 @@
 				"crowdsourcing_user/crowdsourcing_user",
 				"my_crowdsourcing_gains/my_crowdsourcing_gains",
 				"basic_rights_and_interests/basic_rights_and_interests",
-				"collect_paid_up_interest/collect_paid_up_interest"
+				"collect_paid_up_interest/collect_paid_up_interest",
+				"invoice_issued_list/invoice_issued_list",
+				"invoice_issued_detail/invoice_issued_detail",
+				"success_tips/success_tips"
 			]
 		},
 		{

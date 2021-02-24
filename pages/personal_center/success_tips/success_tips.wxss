@@ -1,0 +1,37 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  background-color: #f6f7f8;
+}
+.content .img {
+  margin-top: 92rpx;
+  width: 310rpx;
+  height: 214rpx;
+}
+.content .status-text {
+  margin-top: 60rpx;
+  font-size: 60rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #33333d;
+}
+.content .tip {
+  text-align: center;
+  font-size: 28rpx;
+  color: #66666d;
+  margin-top: 30rpx;
+  margin-left: 120rpx;
+  margin-right: 120rpx;
+}
+.content .btn {
+  display: flex;
+  margin-top: 40rpx;
+  justify-content: center;
+  align-items: center;
+  font-size: 24rpx;
+  height: 90rpx;
+  color: #1797f7;
+  border-radius: 46rpx;
+}
