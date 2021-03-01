@@ -2,6 +2,7 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		isContinentInsurance: false, // 是否是大地保险
 		interestsList: [
 			{img: 'icon_make_invoice', title: '开具ETC办理发票', url: 'invoice_issued_list'},
 			{img: 'icon_query', title: '违章不限次数查询', appId: 'wx06a561655ab8f5b2', url: 'pages/base/redirect/index?routeKey=PC01_REDIRECT&autoRoute=CHECKILLEGAL&outsource=souyisou&wtagid=116.115.10'},
@@ -9,6 +10,15 @@ Page({
 			{img: 'driving_risk', title: '每月领取驾乘险', appId: 'wx06a561655ab8f5b2', url: 'pages/base/redirect/index?routeKey=WD_PAZZ&wtagid=116.115.27'},
 			{img: 'icon_customer_service', title: '在线客服', url: 'online_customer_service'}
 		]
+	},
+	onLoad () {
+		this.setData({
+			isContinentInsurance: app.globalData.isContinentInsurance
+		});
+		if (this.data.isContinentInsurance) {
+			const interestsList = this.data.interestsList.filter(item => item.appId !== 'wx06a561655ab8f5b2');// 大地保险屏蔽微保&和爱车
+			this.setData({interestsList});
+		}
 	},
 	go (e) {
 		let index = e.currentTarget.dataset.index;
