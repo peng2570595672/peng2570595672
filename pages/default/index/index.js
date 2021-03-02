@@ -261,7 +261,7 @@ Page({
 			}
 		}, app.globalData.userInfo.accessToken);
 	},
-	// 免费办理
+	// 立即办理
 	freeProcessing () {
 		// 统计点击事件
 		app.globalData.orderInfo.orderId = '';

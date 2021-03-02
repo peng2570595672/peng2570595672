@@ -2,7 +2,7 @@
 	<view class="big-title">ETC+</view>
 	<view class="small-title">用微信支付的ETC</view>
 	<view class="banner-content">
-		<view class="char">免费办理｜高速95折｜享车主服务</view>
+		<view class="char">立即办理｜高速95折｜享车主服务</view>
 		<view class="btn" catchtap="go" data-url="pages/default/receiving_address/receiving_address">
 			<text>一键办理</text>
 			<text class="iconfont ltfont"></text>

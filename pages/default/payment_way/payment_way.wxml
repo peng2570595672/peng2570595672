@@ -17,7 +17,7 @@
 					<view class="left">
 						<image src="{{choiceObj.productLogo}}"/>
 						<view>
-							<view class="left-title">{{choiceObj.productName}}{{choiceObj.pledgePrice ? '-' + choiceObj.pledgePrice/100 + '元' : ''}}</view>
+							<view class="left-title">{{choiceObj.productName}}</view>
 							<view class="left-sub-title" wx:if="{{choiceObj.remarks}}">{{choiceObj.remarks}}</view>
 						</view>
 					</view>

@@ -17,13 +17,13 @@
 	</swiper>
 	<!--	轮播图结束-->
 
-	<!--	免费办理开始-->
+	<!--	立即办理开始-->
 	<view class="free-processing" wx:if="{{!orderInfo}}">
-		<view wx:if="{{loginInfo.needBindingPhone !== 1}}" class="btn" catchtap="freeProcessing">免费办理</view>
-		<button wx:else class="btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">免费办理</button>
-		<view class="tips">免费办理ETC高速通行95折</view>
+		<view wx:if="{{loginInfo.needBindingPhone !== 1}}" class="btn" catchtap="freeProcessing">立即办理</view>
+		<button wx:else class="btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">立即办理</button>
+		<view class="tips">立即办理ETC高速通行95折</view>
 	</view>
-	<!--	免费办理结束-->
+	<!--	立即办理结束-->
 	<!--	办理中开始-->
 	<view class="processing" wx:if="{{(orderInfo.selfStatus === 1 || orderInfo.selfStatus === 3) && orderInfo.contractStatus !== 2}}">
 		<view class="processing-title">

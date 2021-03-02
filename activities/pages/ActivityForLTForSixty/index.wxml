@@ -9,8 +9,8 @@
 		</view>
 	</view>
 	<view class="bottom-container">
-		<button wx:if="{{loginInfo.needBindingPhone !== 1}}" class="right item" catchtap="freeProcessing">免费办理ETC</button>
-		<button wx:else class="right item" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">免费办理ETC</button>
+		<button wx:if="{{loginInfo.needBindingPhone !== 1}}" class="right item" catchtap="freeProcessing">立即办理ETC</button>
+		<button wx:else class="right item" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">立即办理ETC</button>
 	</view>
 	<!--活动细则弹窗-->
 	<view class="alert-mask animated {{alertWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{alertMask}}">

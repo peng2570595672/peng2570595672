@@ -7,8 +7,8 @@
 	</view>
 	<view class="content">
 		<view class="transact">
-			<button wx:if="{{loginInfo.needBindingPhone !== 1}}" class="btn" catchtap="freeProcessing">立即免费办理</button>
-			<button wx:else class="btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">立即免费办理</button>
+			<button wx:if="{{loginInfo.needBindingPhone !== 1}}" class="btn" catchtap="freeProcessing">立即立即办理</button>
+			<button wx:else class="btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">立即立即办理</button>
 		</view>
 		<view class="prompt">
 			<view>*本活动仅限9座及以下汽车办理</view>

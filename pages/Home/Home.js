@@ -452,7 +452,7 @@ Page({
 	goEtcDetails () {
 		util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.data.orderInfo.id}`);
 	},
-	// 免费办理
+	// 立即办理
 	freeProcessing () {
 		// 统计点击事件
 		app.globalData.orderInfo.orderId = '';
