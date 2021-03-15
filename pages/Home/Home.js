@@ -681,6 +681,8 @@ Page({
 						util.showToastNoIcon('调起小兔代驾小程序失败, 请重试！');
 					}
 				});
+			} else if (item.remark === 'micro_insurance_driving') {
+				this.openWeiBao(item.pageUrl);
 			} else {
 				app.globalData.orderInfo.orderId = '';
 				mta.Event.stat('banner_activity_free_processing',{});
@@ -781,7 +783,8 @@ Page({
 	},
 	openWeiBao (pageUrl) {
 		wx.navigateToMiniProgram({
-			appId: 'wx06a561655ab8f5b2',
+			// appId: 'wx06a561655ab8f5b2',// 正式
+			appId: app.globalData.test ? 'wx7f3f0032b6e6f0cc' : 'wx06a561655ab8f5b2',
 			path: pageUrl,
 			envVersion: 'release', // 目前联调为体验版
 			fail () {
@@ -904,6 +907,7 @@ Page({
 		if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {
 			// 1.0数据
 			app.globalData.firstVersionData = true;
+			app.globalData.packagePageData = undefined;
 			util.go('/pages/default/payment_way/payment_way');
 		} else {
 			app.globalData.firstVersionData = false;
@@ -913,6 +917,7 @@ Page({
 			if (this.data.orderInfo.shopProductId === 0 || this.data.orderInfo.isOwner === 0 || this.data.orderInfo.etcContractId === 0) {
 				let type = '';
 				if (this.data.orderInfo.orderCrowdsourcing) type = 'payment_mode';
+				app.globalData.packagePageData = undefined;
 				util.go(`/pages/default/payment_way/payment_way?type=${type}`);
 			} else if (this.data.orderInfo.isVehicle === 0) {
 				// 是否上传行驶证， 0未上传，1已上传
