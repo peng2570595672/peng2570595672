@@ -101,7 +101,7 @@ Page({
 					util.showToastNoIcon('提交数据失败!');
 				}, (res) => {
 					if (res.code === 0) {
-						util.go(`/pages/web/web/web?type=weiBao`);
+						this.openWeiBao();
 					} else {
 						util.showToastNoIcon(res.message);
 					}
@@ -109,11 +109,23 @@ Page({
 					util.hideLoading();
 				});
 			} else {
-				util.go(`/pages/web/web/web?type=weiBao`);
+				this.openWeiBao();
 			}
 		} else {
-			util.go(`/pages/web/web/web?type=weiBao`);
+			this.openWeiBao();
 		}
+	},
+	openWeiBao () {
+		let pageUrl = 'pages/base/redirect/index?routeKey=WEDRIVE_HIGH_JOIN&wtagid=104.210.3';
+		wx.navigateToMiniProgram({
+			// appId: 'wx06a561655ab8f5b2',// 正式
+			appId: app.globalData.test ? 'wx7f3f0032b6e6f0cc' : 'wx06a561655ab8f5b2',
+			path: pageUrl,
+			envVersion: 'release', // 目前联调为体验版
+			fail () {
+				util.showToastNoIcon('调起微保小程序失败, 请重试！');
+			}
+		});
 	},
 	// 展示车险报价插屏
 	goDriverInsurance () {
