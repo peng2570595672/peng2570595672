@@ -123,6 +123,7 @@ Page({
 	},
 	// 下一步
 	next () {
+		app.globalData.packagePageData = undefined;
 		util.go('/pages/default/payment_way/payment_way');
 	},
 	// 相机初始化失败

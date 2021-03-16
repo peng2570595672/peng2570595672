@@ -8,6 +8,7 @@ Page({
 	data: {
 		type: undefined,// 进入类型,是否是主流程进入
 		marginPaymentMoney: 0,// 付费金额金额
+		rightsPackagePayMoney: 0,// 权益金额
 		orderId: undefined,
 		isRequest: false
 	},
@@ -17,7 +18,12 @@ Page({
 				type: options.type
 			});
 		}
-		this.setData({marginPaymentMoney: options.marginPaymentMoney});
+		if (options.rightsPackagePayMoney) {
+			this.setData({
+				rightsPackagePayMoney: parseInt(options.rightsPackagePayMoney)
+			});
+		}
+		this.setData({marginPaymentMoney: parseInt(options.marginPaymentMoney)});
 	},
 	// 支付
 	marginPayment () {

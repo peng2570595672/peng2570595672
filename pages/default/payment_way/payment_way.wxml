@@ -1,3 +1,4 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="payment-way">
 	<block wx:if="{{orderInfo}}">
 		<!--	扣款方式标题开始-->
@@ -78,13 +79,15 @@
 		<view class="fill"></view>
 		<!--	按钮开始-->
 		<view wx:if="{{choiceObj}}" class="btn {{available && choiceObj ? 'available' : 'unavailable'}}" catchtap="next">
-            <view class="animate" wx:if="{{isRequest}}"></view>{{choiceObj.pledgePrice && !isSalesmanCrowdsourcing ? '支付' + choiceObj.pledgePrice/100 +'元' : '签约免密支付'}}
+            <view class="animate" wx:if="{{isRequest}}"></view>
+            <text wx:if="{{(choiceObj.pledgePrice || (choiceRightsAndInterestsObj && choiceRightsAndInterestsObj.payMoney)) && !isSalesmanCrowdsourcing}}">支付{{choiceRightsAndInterestsObj ? tools.parseNum((choiceObj.pledgePrice + choiceRightsAndInterestsObj.payMoney)/100) : tools.parseNum(choiceObj.pledgePrice/100)}}元</text>
+            <text wx:else>签约免密支付</text>
         </view>
 		<!--	按钮结束-->
 
 		<!--	选择支付方式开始-->
-		<list_of_packages id="choiceSetMeal" bindonClickTranslucentHandle="onClickTranslucentHandle"
-		             bindonClickItemHandle="onClickItemHandle"></list_of_packages>
+<!--		<list_of_packages id="choiceSetMeal" bindonClickTranslucentHandle="onClickTranslucentHandle"-->
+<!--		             bindonClickItemHandle="onClickItemHandle"></list_of_packages>-->
 		<!--	选择支付方式结束-->
 	</block>
 </view>

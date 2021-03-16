@@ -136,7 +136,7 @@ Page({
 		let obj = this.data.carList[parseInt(index)];
 		app.globalData.orderInfo = obj;
 		app.globalData.orderInfo.orderId = obj.id;
-		util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${obj.pledgeMoney}`);
+		util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${obj.pledgeMoney}&rightsPackagePayMoney=${obj.rightsPackagePayMoney}`);
 	},
 	//	查看详情
 	onClickGoETCDetailHandle (e) {
@@ -165,6 +165,7 @@ Page({
 		if (obj.remark && obj.remark.indexOf('迁移订单数据') !== -1) {
 			// 1.0数据
 			app.globalData.firstVersionData = true;
+			app.globalData.packagePageData = undefined;
 			util.go('/pages/default/payment_way/payment_way');
 		} else {
 			app.globalData.firstVersionData = false;
@@ -174,6 +175,7 @@ Page({
 			if (obj.shopProductId === 0 || obj.isOwner === 0 || obj.etcContractId === 0) {
 				let type = '';
 				if (obj.orderCrowdsourcing) type = 'payment_mode';
+				app.globalData.packagePageData = undefined;
 				util.go(`/pages/default/payment_way/payment_way?type=${type}`);
 			} else if (obj.isVehicle === 0) {
 				// 是否上传行驶证， 0未上传，1已上传

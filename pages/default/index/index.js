@@ -533,6 +533,7 @@ Page({
 		if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {
 			// 1.0数据
 			app.globalData.firstVersionData = true;
+			app.globalData.packagePageData = undefined;
 			util.go('/pages/default/payment_way/payment_way');
 		} else {
 			app.globalData.firstVersionData = false;
@@ -540,6 +541,7 @@ Page({
 			// 只提交了车牌 车牌颜色 收货地址 或者未签约 前往套餐选择
 			// "etcContractId": "", //签约id，0表示未签约，其他表示已签约
 			if (this.data.orderInfo.shopProductId === 0 || this.data.orderInfo.etcContractId === 0) {
+				app.globalData.packagePageData = undefined;
 				util.go('/pages/default/payment_way/payment_way');
 			} else if (this.data.orderInfo.isVehicle === 0) {
 				// 是否上传行驶证， 0未上传，1已上传

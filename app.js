@@ -75,6 +75,7 @@ App({
 		crowdsourcingServiceProvidersId: undefined, // 众包服务商id 用于加载不同套餐
 		rightsAndInterestsVehicleList: undefined, // 权益车辆列表
 		myEtcList: {}, // 车辆列表
+		packagePageData: undefined, // 套餐页面数据
 		orderInfo: {
 			orderId: ''
 		},

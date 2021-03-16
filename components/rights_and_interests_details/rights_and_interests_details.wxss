@@ -1,5 +1,4 @@
 @charset "UTF-8";
-/*动画*/
 .animated {
   -webkit-animation-duration: 0.4s;
   animation-duration: 0.4s;
@@ -236,4 +235,124 @@
     transform: scale(1);
     -webkit-transform: scale(1);
   }
+}
+@font-face {
+  font-family: 'iconfont'; /* project id 1514406 */
+  src: url("//at.alicdn.com/t/font_1514406_p9tq9jrs2vp.eot");
+  src: url("//at.alicdn.com/t/font_1514406_p9tq9jrs2vp.eot?#iefix") format('embedded-opentype'), url("//at.alicdn.com/t/font_1514406_p9tq9jrs2vp.woff2") format('woff2'), url("//at.alicdn.com/t/font_1514406_p9tq9jrs2vp.woff") format('woff'), url("//at.alicdn.com/t/font_1514406_p9tq9jrs2vp.ttf") format('truetype'), url("//at.alicdn.com/t/font_1514406_p9tq9jrs2vp.svg#iconfont") format('svg');
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.rights-and-interests {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 9999999999999;
+}
+.rights-and-interests .rights-and-interests-wrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  height: 1040rpx;
+  padding-bottom: 20rpx;
+  background: #fff;
+  border-top-left-radius: 32rpx;
+  border-top-right-radius: 32rpx;
+}
+.rights-and-interests .rights-and-interests-wrapper .rights-and-interests-title {
+  margin-top: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 96rpx;
+  font-size: 40rpx;
+  font-weight: 500;
+  position: relative;
+}
+.rights-and-interests .rights-and-interests-wrapper .rights-and-interests-title .close {
+  position: absolute;
+  right: 40rpx;
+  top: 0;
+  padding: 30rpx 40rpx 30rpx 30rpx;
+}
+.rights-and-interests .rights-and-interests-wrapper .rights-and-interests-title .close::after {
+  display: block;
+  text-align: right;
+  content: '\e63d';
+  font-size: 20rpx;
+}
+.rights-and-interests .rights-and-interests-wrapper .rights-and-interests-content {
+  padding-top: 30rpx;
+}
+.rights-and-interests .rights-and-interests-wrapper .rights-and-interests-content .list-title {
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.rights-and-interests .rights-and-interests-wrapper .rights-and-interests-content .list-title .list-title-child {
+  display: inline-block;
+  width: 116rpx;
+  font-size: 24rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  text-align: center;
+  color: #666;
+  line-height: 60rpx;
+  margin: 0 70rpx;
+}
+.rights-and-interests .rights-and-interests-wrapper .rights-and-interests-content .list-title .list-title-child .logo {
+  height: 88rpx;
+}
+.rights-and-interests .rights-and-interests-wrapper .rights-and-interests-content .list-title .list-title-child .logo image {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+}
+.rights-and-interests .rights-and-interests-wrapper .rights-and-interests-content .list-title .list-title-child .line {
+  width: 116rpx;
+  height: 8rpx;
+}
+.rights-and-interests .rights-and-interests-wrapper .rights-and-interests-content .list-title .tab_index .line {
+  border-radius: 6rpx;
+  background: #17ad69;
+}
+.rights-and-interests .rights-and-interests-wrapper .rights-and-interests-content .list-content {
+  width: 664rpx;
+  height: 552rpx;
+  padding: 20rpx;
+  background: #f5f5f7;
+  border-radius: 20rpx;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  margin: 38rpx auto 0;
+}
+.rights-and-interests .rights-and-interests-wrapper .rights-and-interests-content .list-content .content .wscnph,
+.rights-and-interests .rights-and-interests-wrapper .rights-and-interests-content .list-content .content .img {
+  max-width: 100%;
+}
+.rights-and-interests .rights-and-interests-wrapper .fill {
+  flex: 1;
+}
+.rights-and-interests .rights-and-interests-wrapper .btns {
+  width: 650rpx;
+  height: 96rpx;
+  line-height: 96rpx;
+  font-size: 36rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+  background: linear-gradient(132deg, #16ad69 0%, #82d057 100%);
+  border-radius: 48rpx;
 }

@@ -30,6 +30,7 @@ Page({
 		if (this.data.orderInfo?.orderCrowdsourcing ||
 			(app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing'))) {
 			// 业务员众包线下付费办理
+			app.globalData.packagePageData = undefined;
 			util.go('/pages/default/payment_way/payment_way?type=payment_mode');
 		} else {
 			this.weChatSign();

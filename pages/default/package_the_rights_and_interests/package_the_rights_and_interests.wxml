@@ -1,0 +1,77 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<view class="package-the-rights-and-interests">
+    <!--套餐选择开始-->
+    <view class="package-sub-title" wx:if="{{dataMessage.listOfPackages.length > 1}}">
+        左右滑动查看其余套餐
+    </view>
+    <view class="perch"></view>
+    <view class="swiper-box {{dataMessage.listOfPackages.length > 1 ? 'swiper-box-perch' : ''}}">
+        <swiper
+                class="my-swiper"
+                indicator-dots="{{false}}"
+                autoplay="{{false}}"
+                previous-margin="25rpx"
+                next-margin="36rpx"
+                bindchange="currentChange"
+                circular="{{true}}">
+            <swiper-item class="my-swiper-item" wx:for="{{dataMessage.listOfPackages}}" wx:key="index"
+                         catchtap="onClickSwiper" data-index="{{index}}">
+                <view class="my-swiper-item-box {{dataMessage.isOpen ?'my-swiper-item-shadow':''}}">
+                    <view class="title">
+                        <view>
+                            <image src="{{item.productLogo}}"></image>
+                        </view>
+                        <view>{{item.productName}}</view>
+                    </view>
+                    <view class="sub-title">
+                        使用微信零钱或微信钱包绑定的任一银行卡扣除通行费用
+                    </view>
+                    <view class="details {{dataMessage.activePackageIndex === index ? 'active' : ''}} iconfont">
+                        <view>¥</view>
+                        <view>{{tools.parseNum(item.pledgePrice/100)}}</view>
+                        <view class="iconfont details-box {{dataMessage.isOpen ?'close-details':'show-details'}}"
+                              catchtap="viewDetails" wx:if="{{item.description && item.description !== '0'}}" data-index="{{index}}">
+                            {{dataMessage.isOpen ? '收起' : '查看'}}详情
+                        </view>
+                    </view>
+                </view>
+            </swiper-item>
+        </swiper>
+    </view>
+    <view class="my-swiper-item-details animated {{dataMessage.isOpen ?'slideInDown':'slideOutUp'}}">
+        <rich-text nodes="{{dataMessage.htmlStr}}"></rich-text>
+    </view>
+    <!--套餐选择结束-->
+    <!--权益选择开始-->
+    <view class="rights-and-interests {{dataMessage.isOpen ?'rights-and-interests-margin':''}} {{!dataMessage.isViewDetails ?'rights-and-interests-margin1':''}}"
+          wx:if="{{dataMessage.rightsAndInterestsList.length}}">
+        <view class="rights-and-interests-header">
+            <view class="line"></view>
+            <view class="header">组合会员权益</view>
+            <view>（选一个）</view>
+        </view>
+        <view class="rights-and-interests-list">
+            <view wx:for="{{dataMessage.rightsAndInterestsList}}" wx:key="index"
+                  class="rights-and-interests-item {{dataMessage.activeIndex === index ? 'item-active' : ''}}"
+                   catchtap="choiceRightsAndInterests" data-index="{{index}}">
+                <view class="title">{{item.packageName}}</view>
+                <view class="sub-title">{{item.remark}}</view>
+                <view class="details {{dataMessage.activeIndex === index ? 'active' : ''}} iconfont">
+                    <view>¥</view>
+                    <view>{{tools.parseNum(item.payMoney/100)}}</view>
+                    <view class="iconfont details-box" catchtap="viewRightsAndInterests" wx:if="{{item.hasShow}}" data-index="{{index}}">查看详情</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!--权益选择结束-->
+    <!--下一步开始-->
+    <view class="next">
+        <button class="btn {{!dataMessage.available ? 'unavailable' : ''}}" catchtap="next">下一步</button>
+    </view>
+    <!--下一步结束-->
+    <!--查看权益详情开始-->
+    <rights_and_interests_details id="viewRightsAndInterests" bindonClickTranslucentHandle="onClickTranslucentHandle"
+                      bindonClickDetailsHandle="onClickDetailsHandle" viewObj="{{dataMessage.viewObj}}"></rights_and_interests_details>
+    <!--查看权益详情结束-->
+</view>

@@ -3,13 +3,13 @@
 	<!--	设备图开始-->
 	<view class="img-box">
         <image src="/pages/default/assets/payment_ico.png" mode="widthFix"/>
-        <view class="money">¥{{tools.parseNum(marginPaymentMoney/100)}}</view>
+        <view class="money">¥{{tools.parseNum((marginPaymentMoney + rightsPackagePayMoney)/100)}}</view>
     </view>
 	<!--	设备图结束-->
 	<!--	提示开始-->
 	<view class="prompt">本次办理</view>
-	<view class="prompt">需要您支付{{tools.parseNum(marginPaymentMoney/100)}}元的设备费用</view>
+	<view class="prompt">需要您支付{{tools.parseNum((marginPaymentMoney + rightsPackagePayMoney)/100)}}元</view>
 	<!--	提示结束-->
 	<view class="fill"></view>
-	<view  class="btn" catchtap="marginPayment"><view class="animate" wx:if="{{isRequest}}"></view>支付{{tools.parseNum(marginPaymentMoney/100)}}元</view>
+	<view  class="btn" catchtap="marginPayment"><view class="animate" wx:if="{{isRequest}}"></view>支付{{tools.parseNum((marginPaymentMoney + rightsPackagePayMoney)/100)}}元</view>
 </view>

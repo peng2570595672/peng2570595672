@@ -146,7 +146,9 @@ Page({
 	goPaymentAmount () {
 		app.globalData.orderInfo = this.data.orderInfo;
 		app.globalData.orderInfo.orderId = this.data.orderId;
-		util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${this.data.orderInfo.pledgeMoney}`);
+		const pledgeMoney = this.data.orderInfo.pledgeMoney;
+		const rightsPackagePayMoney = this.data.orderInfo.rightsPackagePayMoney;
+		util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${pledgeMoney}&rightsPackagePayMoney=${rightsPackagePayMoney}`);
 	},
 	// 修改资料
 	onClickModifiedData () {
@@ -363,6 +365,7 @@ Page({
 		if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {
 			// 1.0数据
 			app.globalData.firstVersionData = true;
+			app.globalData.packagePageData = undefined;
 			util.go('/pages/default/payment_way/payment_way');
 		} else {
 			app.globalData.firstVersionData = false;
@@ -372,6 +375,7 @@ Page({
 			if (this.data.orderInfo.shopProductId === 0 || this.data.orderInfo.isOwner === 0 || this.data.orderInfo.etcContractId === 0) {
 				let type = '';
 				if (this.data.orderInfo.orderCrowdsourcing) type = 'payment_mode';
+				app.globalData.packagePageData = undefined;
 				util.go(`/pages/default/payment_way/payment_way?type=${type}`);
 			} else if (this.data.orderInfo.isVehicle === 0) {
 				// 是否上传行驶证， 0未上传，1已上传

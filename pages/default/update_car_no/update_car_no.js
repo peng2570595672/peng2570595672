@@ -62,6 +62,7 @@ Page({
 			if (res.code === 0) {
 				app.globalData.orderInfo.orderId = res.data.orderId; // 订单id
 				// 选择套餐页面
+				app.globalData.packagePageData = undefined;
 				util.go('/pages/default/payment_way/payment_way');
 			} else if (res.code === 301) { // 已存在当前车牌未完成订单
 				util.alert({

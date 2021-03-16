@@ -88,10 +88,9 @@
           "scene": null
         },
         {
-          "id": 11,
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=750442877963735040",
+          "query": "orderId=820963095416410112",
           "scene": null
         },
         {
@@ -169,9 +168,21 @@
           "scene": null
         },
         {
-          "name": "activities/pages/activity_icbc_forty_five_hook/index",
-          "pathName": "activities/pages/activity_icbc_forty_five_hook/index",
+          "name": "activities/pages/activity_micro_insurance/index",
+          "pathName": "activities/pages/activity_micro_insurance/index",
           "query": "orderId=807027129899814912",
+          "scene": null
+        },
+        {
+          "name": "pages/Home/Home",
+          "pathName": "pages/Home/Home",
+          "query": "officialChannelId=645937022279614464",
+          "scene": null
+        },
+        {
+          "name": "pages/default/package_the_rights_and_interests/package_the_rights_and_interests",
+          "pathName": "pages/default/package_the_rights_and_interests/package_the_rights_and_interests",
+          "query": "",
           "scene": null
         }
       ]

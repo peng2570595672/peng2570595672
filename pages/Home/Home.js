@@ -892,7 +892,9 @@ Page({
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 		// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
 		// 待支付付费金额
-		util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${this.data.orderInfo.pledgeMoney}`);
+		const pledgeMoney = this.data.orderInfo.pledgeMoney;
+		const rightsPackagePayMoney = this.data.orderInfo.rightsPackagePayMoney;
+		util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${pledgeMoney}&rightsPackagePayMoney=${rightsPackagePayMoney}`);
 	},
 	// 继续办理
 	onClickContinueHandle () {

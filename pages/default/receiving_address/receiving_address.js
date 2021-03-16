@@ -247,6 +247,7 @@ Page({
 					this.getProduct();
 				} else {
 					// 选择套餐页面
+					app.globalData.packagePageData = undefined;
 					util.go('/pages/default/payment_way/payment_way');
 				}
 				// util.alert({
@@ -317,6 +318,7 @@ Page({
 					util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${pledgePrice}&type=main_process`);
 				} else {
 					// 选择套餐页面
+					app.globalData.packagePageData = undefined;
 					util.go('/pages/default/payment_way/payment_way?type=payment_mode');
 				}
 			} else {

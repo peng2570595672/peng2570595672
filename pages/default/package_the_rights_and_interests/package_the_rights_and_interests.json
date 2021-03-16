@@ -1,0 +1,10 @@
+{
+  "navigationBarBackgroundColor": "#F5F5F7",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "ETC",
+  "backgroundColor": "#F5F5F7",
+  "backgroundTextStyle": "light",
+  "usingComponents": {
+    "rights_and_interests_details": "/components/rights_and_interests_details/rights_and_interests_details"
+  }
+}

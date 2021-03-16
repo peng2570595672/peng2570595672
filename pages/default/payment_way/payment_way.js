@@ -12,6 +12,7 @@ Page({
 		showChoiceBank: true, // 选择套餐
 		choiceSetMeal: undefined, // 选择支付方式逐渐
 		choiceObj: undefined, // 选择的套餐
+		choiceRightsAndInterestsObj: undefined, // 选择的权益
 		firstVersionPic2: '', // 1.0身份证反面
 		isFirstVersionPic2: false,// 1.0身份证反面 控制是否OCR
 		bankCardIdentifyResult: {
@@ -45,6 +46,64 @@ Page({
 		this.getOrderInfo();
 		// app.globalData.orderInfo.orderId = '658608879176781824';
 		// app.globalData.userInfo.accessToken = 'NjU3NjE0MDE0NjQ1MjcyNTc2OjEyMzQ1Njc4OTAxMjM0NTY3ODo1N2MzNDExYzFiZDY0NzMzYTNlNzMzNWI0YjE4MDg2OQ==';
+	},
+	onShow () {
+		const packagePageData = app.globalData.packagePageData;
+		if (packagePageData?.choicePackagesObj) {
+			if ((packagePageData?.choicePackagesObj?.mustChoiceRightsPackage === 1 && packagePageData?.choiceRightsAndInterestsObj) ||
+				packagePageData?.choicePackagesObj?.mustChoiceRightsPackage === 0
+			) {
+				this.setData({
+					choiceObj: packagePageData?.choicePackagesObj
+				});
+				this.setData({
+					available: this.validateAvailable()
+				});
+			}
+		}
+		if (packagePageData?.choiceRightsAndInterestsObj) {
+			this.setData({
+				choiceRightsAndInterestsObj: packagePageData?.choiceRightsAndInterestsObj
+			});
+		}
+		// 银行卡
+		let bankCardIdentifyResult = wx.getStorageSync('bank_card_identify_result');
+		if (bankCardIdentifyResult) {
+			bankCardIdentifyResult = JSON.parse(bankCardIdentifyResult);
+			this.setData({
+				bankCardIdentifyResult: bankCardIdentifyResult.data[0]
+			});
+			this.setData({
+				available: this.validateAvailable()
+			});
+			wx.removeStorageSync('bank_card_identify_result');
+		}
+		// 身份证正面
+		let idCardFace = wx.getStorageSync('id_card_face');
+		if (idCardFace) {
+			idCardFace = JSON.parse(idCardFace);
+			this.setData({
+				idCardFace: idCardFace.data[0],
+				userName: idCardFace.data[0].ocrObject.name,
+				idNumber: idCardFace.data[0].ocrObject.idNumber
+			});
+			this.setData({
+				available: this.validateAvailable()
+			});
+			wx.removeStorageSync('id_card_face');
+		}
+		// 身份证反面
+		let idCardBack = wx.getStorageSync('id_card_back');
+		if (idCardBack) {
+			idCardBack = JSON.parse(idCardBack);
+			this.setData({
+				idCardBack: idCardBack.data[0]
+			});
+			this.setData({
+				available: this.validateAvailable()
+			});
+			wx.removeStorageSync('id_card_back');
+		}
 	},
 	// 根据订单id获取套餐信息 1.0
 	getProductOrderInfo () {
@@ -249,54 +308,66 @@ Page({
 			util.hideLoading();
 		});
 	},
-	onShow () {
-		// 银行卡
-		let bankCardIdentifyResult = wx.getStorageSync('bank_card_identify_result');
-		if (bankCardIdentifyResult) {
-			bankCardIdentifyResult = JSON.parse(bankCardIdentifyResult);
-			this.setData({
-				bankCardIdentifyResult: bankCardIdentifyResult.data[0]
-			});
-			this.setData({
-				available: this.validateAvailable()
-			});
-			wx.removeStorageSync('bank_card_identify_result');
-		}
-		// 身份证正面
-		let idCardFace = wx.getStorageSync('id_card_face');
-		if (idCardFace) {
-			idCardFace = JSON.parse(idCardFace);
-			this.setData({
-				idCardFace: idCardFace.data[0],
-				userName: idCardFace.data[0].ocrObject.name,
-				idNumber: idCardFace.data[0].ocrObject.idNumber
-			});
-			this.setData({
-				available: this.validateAvailable()
-			});
-			wx.removeStorageSync('id_card_face');
-		}
-		// 身份证反面
-		let idCardBack = wx.getStorageSync('id_card_back');
-		if (idCardBack) {
-			idCardBack = JSON.parse(idCardBack);
-			this.setData({
-				idCardBack: idCardBack.data[0]
-			});
-			this.setData({
-				available: this.validateAvailable()
-			});
-			wx.removeStorageSync('id_card_back');
-		}
-	},
 	// 选择银行
 	choiceSetMeal () {
-		if (!this.data.choiceSetMeal) {
-			this.setData({
-				choiceSetMeal: this.selectComponent('#choiceSetMeal')
-			});
+		// if (!this.data.choiceSetMeal) {
+		// 	this.setData({
+		// 		choiceSetMeal: this.selectComponent('#choiceSetMeal')
+		// 	});
+		// }
+		// this.data.choiceSetMeal.switchDisplay(true);
+		this.init();
+	},
+	// 获取数据
+	init () {
+		// 是否缓存了定位信息
+		let locationInfo = wx.getStorageSync('location-info');
+		if (locationInfo) {
+			let res = JSON.parse(locationInfo);
+			let info = res.result.ad_info;
+			// 获取区域编码
+			let regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
+			// 加载套餐页
+			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?regionCode=${JSON.stringify(regionCode)}`);
+			return;
 		}
-		this.data.choiceSetMeal.switchDisplay(true);
+		// 定位
+		this.getLocationInfo();
+	},
+	// 定位
+	getLocationInfo () {
+		util.showLoading();
+		wx.getLocation({
+			type: 'wgs84',
+			success: (res) => {
+				util.getAddressInfo(res.latitude, res.longitude, (res) => {
+					wx.setStorageSync('location-info',JSON.stringify(res));
+					let info = res.result.ad_info;
+					let regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
+					// 加载套餐页
+					util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?regionCode=${JSON.stringify(regionCode)}`);
+				}, () => {
+					// 加载套餐页
+					util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?regionCode=${JSON.stringify([0])}`);
+				});
+			},
+			fail: (res) => {
+				util.hideLoading();
+				console.log(res);
+				if (res.errMsg === 'getLocation:fail auth deny' || res.errMsg === 'getLocation:fail authorize no response') {
+					util.alert({
+						content: '由于您拒绝了定位授权，导致无法获取扣款方式，请允许定位授权！',
+						showCancel: true,
+						confirmText: '允许授权',
+						confirm: () => {
+							wx.openSetting();
+						}
+					});
+				} else if (res.errMsg === 'getLocation:fail:ERROR_NOCELL&WIFI_LOCATIONSWITCHOFF' || res.errMsg === 'getLocation:fail system permission denied') {
+					util.showToastNoIcon('请开启手机或微信定位功能！');
+				}
+			}
+		});
 	},
 	// 拦截点击非透明层空白处事件
 	onClickTranslucentHandle () {
@@ -440,6 +511,7 @@ Page({
 			dataType: '348', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			shopProductId: this.data.choiceObj.shopProductId,
+			rightsPackageId: this.data.choiceRightsAndInterestsObj?.id || '',
 			areaCode: this.data.choiceObj.areaCode || 0,
 			idCardStatus: this.data.orderInfo['idCard'].idCardStatus,
 			idCardValidDate: this.data.idCardBack.ocrObject.validDate,
@@ -489,8 +561,7 @@ Page({
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
 			if (res.code === 0) {
-				if (this.data.choiceObj.pledgePrice && !this.data.isSalesmanCrowdsourcing) {
-					console.log('1111')
+				if ((this.data.choiceObj.pledgePrice || this.data.choiceRightsAndInterestsObj?.payMoney) && !this.data.isSalesmanCrowdsourcing) {
 					this.marginPayment();
 					return;
 				}
@@ -536,7 +607,6 @@ Page({
 	// 支付
 	marginPayment () {
 		this.setData({isRequest: true});
-		console.log('22222')
 		util.showLoading();
 		let params = {
 			orderId: app.globalData.orderInfo.orderId
