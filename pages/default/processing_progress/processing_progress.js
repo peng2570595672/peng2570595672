@@ -118,10 +118,9 @@ Page({
 	openWeiBao () {
 		let pageUrl = 'pages/base/redirect/index?routeKey=WEDRIVE_HIGH_JOIN&wtagid=104.210.3';
 		wx.navigateToMiniProgram({
-			// appId: 'wx06a561655ab8f5b2',// 正式
-			appId: app.globalData.test ? 'wx7f3f0032b6e6f0cc' : 'wx06a561655ab8f5b2',
+			appId: 'wx06a561655ab8f5b2',// 正式
 			path: pageUrl,
-			envVersion: 'release', // 目前联调为体验版
+			envVersion: 'release',
 			fail () {
 				util.showToastNoIcon('调起微保小程序失败, 请重试！');
 			}
