@@ -24,7 +24,7 @@
                         <view>{{item.productName}}</view>
                     </view>
                     <view class="sub-title">
-                        使用微信零钱或微信钱包绑定的任一银行卡扣除通行费用
+                        {{item.fullName}}
                     </view>
                     <view class="details {{dataMessage.activePackageIndex === index ? 'active' : ''}} iconfont">
                         <view>¥</view>

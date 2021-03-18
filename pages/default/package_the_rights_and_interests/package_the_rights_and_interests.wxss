@@ -54,7 +54,7 @@
 .package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .title image {
   width: 48rpx;
   height: 44rpx;
-  margin-right: 6rpx;
+  margin-right: 12rpx;
 }
 .package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .sub-title {
   font-size: 24rpx;
