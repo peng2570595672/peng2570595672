@@ -25,10 +25,8 @@
 			.my-swiper-item
 				width 670rpx
 				border-radius 20rpx
-				height 323rpx!important
 				.my-swiper-item-box
 					width 670rpx
-					height 300rpx
 					background: #fff
 					border-radius 20rpx
 					margin 0 20rpx
@@ -91,13 +89,15 @@
 								color #1AAE68
 					&.my-swiper-item-shadow
 						box-shadow 0 10rpx 30rpx 0 rgba(183,183,183,0.50)
+						-moz-box-shadow 0 10rpx 30rpx 0 rgba(183,183,183,0.50)
+						-webkit-box-shadow 0 10rpx 30rpx 0 rgba(183,183,183,0.50)
 		&.swiper-box-perch
 			top 54rpx
 	.my-swiper-item-details
 		width 670rpx
 		background #fff
-		margin 0rpx auto
-		padding 80rpx 40rpx 24rpx 30rpx
+		margin -20rpx auto 0
+		padding 40rpx 40rpx 24rpx 30rpx
 		box-sizing border-box
 		font-size 24rpx
 		color #666666
@@ -108,7 +108,7 @@
 		width 670rpx
 		background #fff
 		margin -100rpx auto 0
-		padding 30rpx 25rpx
+		padding 30rpx
 		box-sizing border-box
 		border-radius 20rpx
 		.rights-and-interests-header
@@ -130,7 +130,7 @@
 			margin auto
 			.rights-and-interests-item
 				width 620rpx
-				height 160rpx
+				min-height 160rpx
 				padding 15rpx 20rpx
 				background linear-gradient(95deg, #FFEDCD 0%, #F1D3AF 100%)
 				border-radius 20rpx
@@ -176,7 +176,7 @@
 		&.rights-and-interests-margin
 			margin-top 30rpx
 		&.rights-and-interests-margin1
-			margin-top -68rpx
+			margin-top 0rpx
 	// 下一步
 	.next
 		position fixed

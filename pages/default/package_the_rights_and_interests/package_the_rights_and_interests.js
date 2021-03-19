@@ -12,7 +12,7 @@ Page({
 			htmlStr: '',
 			available: false,
 			isOpen: false,
-			isViewDetails: false,
+			isViewDetails: true,
 			activeIndex: -1,
 			viewObj: {},
 			listOfPackages: [],
@@ -22,7 +22,8 @@ Page({
 			regionCode: [],// 区域编码
 			activePackageIndex: -1,
 			viewRightsAndInterests: undefined // 选择查看权益详情
-		}
+		},
+		chooseTheDetails: false
 	},
 	onLoad (options) {
 		this.mySetData({
@@ -150,10 +151,11 @@ Page({
 	viewDetails (e) {
 		let index = e.currentTarget.dataset['index'];
 		this.mySetData({
-			isViewDetails: true,
+			isViewDetails: false,
 			isOpen: !this.data.dataMessage.isOpen,
 			htmlStr: this.data.dataMessage.listOfPackages[index].description
 		});
+		this.data.chooseTheDetails = true;
 	},
 	// 查看权益详情
 	viewRightsAndInterests (e) {
@@ -212,7 +214,7 @@ Page({
 	currentChange (e) {
 		this.mySetData({
 			isOpen: false,
-			isViewDetails: false,
+			isViewDetails: !this.data.chooseTheDetails,
 			activeIndex: -1,
 			viewObj: {},
 			choicePackagesObj: undefined,

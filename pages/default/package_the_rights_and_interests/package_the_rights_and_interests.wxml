@@ -43,8 +43,8 @@
     </view>
     <!--套餐选择结束-->
     <!--权益选择开始-->
-    <view class="rights-and-interests {{dataMessage.isOpen ?'rights-and-interests-margin':''}} {{!dataMessage.isViewDetails ?'rights-and-interests-margin1':''}}"
-          wx:if="{{dataMessage.rightsAndInterestsList.length}}">
+    <view wx:if="{{dataMessage.rightsAndInterestsList.length}}"
+            class="rights-and-interests {{dataMessage.isOpen ?'rights-and-interests-margin':''}} {{dataMessage.isViewDetails ? 'rights-and-interests-margin1':''}}">
         <view class="rights-and-interests-header">
             <view class="line"></view>
             <view class="header">组合会员权益</view>
