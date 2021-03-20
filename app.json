@@ -66,6 +66,13 @@
 				"login/login"
 			]
 		},
+        {
+			"root": "pages/truck_handling",
+			"name": "pages/truck_handling",
+			"pages": [
+				"index/index"
+			]
+		},
 		{
 			"root": "CitiesServices",
 			"name": "CitiesServices",
