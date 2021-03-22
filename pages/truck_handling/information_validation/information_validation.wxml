@@ -43,13 +43,13 @@
 	<!--	提示结束-->
 	<!--	内容开始-->
 	<view class="content-wrapper">
-        <view class="item">
-            <view>车辆归属</view>
-            <view class="ownership-type">
-                <view data-type="1" class="{{ownershipTypeIndex === 1 ? 'active' : ''}}" catchtap="onClickOwnershipType">个人</view>
-                <view data-type="2" class="{{ownershipTypeIndex === 2 ? 'active' : ''}}" catchtap="onClickOwnershipType">企业挂靠</view>
-            </view>
-        </view>
+<!--        <view class="item">-->
+<!--            <view>车辆归属</view>-->
+<!--            <view class="ownership-type">-->
+<!--                <view data-type="1" class="{{ownershipTypeIndex === 1 ? 'active' : ''}}" catchtap="onClickOwnershipType">个人</view>-->
+<!--                <view data-type="2" class="{{ownershipTypeIndex === 2 ? 'active' : ''}}" catchtap="onClickOwnershipType">企业挂靠</view>-->
+<!--            </view>-->
+<!--        </view>-->
 		<view class="item">
 			<view>车牌号</view>
 			<input type="text" value="{{drivingLicenseFace.ocrObject.numberPlates}}" data-key="numberPlates" data-type="3" bindinput="onInputChangedHandle"/>

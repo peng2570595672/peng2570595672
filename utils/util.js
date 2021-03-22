@@ -1026,6 +1026,7 @@ module.exports = {
 	formatTime, // 格式化时间
 	go, // 常规跳转
 	showToastNoIcon,
+	isGreaterThanData,
 	isDuringDate,
 	isTimeQuantum,
 	uploadOcrFile,

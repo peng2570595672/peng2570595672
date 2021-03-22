@@ -83,10 +83,7 @@
 				border 0
 	// 身份证号码&名字输入
 	.input-wrapper
-		margin 0 40rpx
-		background #fff
-		box-shadow 4rpx 12rpx 56rpx 0px rgba(102,102,109,0.19)
-		border-radius 12rpx
+		margin-left 40rpx
 		.input-item
 			position relative
 			display flex
@@ -94,9 +91,9 @@
 			height 88rpx
 			color $fontColor9
 			font-size 32rpx
-			padding 30rpx 40rpx 10rpx
+			padding 30rpx 80rpx 10rpx 40rpx
 			box-sizing border-box
-			border-top solid 2rpx rgba(230,230,230,.3)
+			border-bottom solid 2rpx rgba(230,230,230,.3)
 			& > view
 				display flex
 				flex: 0 0 148rpx
@@ -106,25 +103,6 @@
 				text-align right
 				font-size 32rpx
 				color #333
-			// 获取验证码
-			.validate-code
-				flex 0 0 216rpx
-				width 216rpx
-				display flex
-				align-items center
-				justify-content center
-				padding-left 50rpx
-				height 44rpx
-				font-size 32rpx
-				color $fontColor9
-				border-left 1rpx solid #D8D8D8
-				box-sizing border-box
-				&.ok
-					font-weight 500
-					color $fontColor
-				&.acquisition
-					color $fontColor
-					font-weight 400!important
 		.input-bottom
 			padding-bottom 30rpx
 			input

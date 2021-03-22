@@ -4,21 +4,13 @@
  */
 const util = require('../../../utils/util.js');
 const app = getApp();
-// 倒计时计时器
-let timer;
 Page({
 	data: {
 		faceStatus: 1, // 1 未上传  2 识别中  3 识别失败  4识别成功
 		backStatus: 1, // 1 未上传  2 识别中  3 识别失败  4识别成功
-		identifyingCode: '获取验证码',
-		verifyCode: '',
-		time: 59,// 倒计时
-		isGetIdentifyingCoding: false, // 获取验证码中
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
-		mobilePhone: app.globalData.userInfo.mobilePhone, // 用户登录手机号
 		idCardStatus: 0,// 实名认证标识  默认0
-		mobilePhoneIsOk: false,
 		idCardFace: {
 			ocrObject: {}
 		},// 身份证正面
@@ -26,12 +18,10 @@ Page({
 			ocrObject: {}
 		}// 身份证反面
 	},
-	onLoad (options) {
-		app.globalData.orderInfo.orderId = '819230332799684608';
+	onLoad () {
 		this.getOrderInfo();
 	},
 	onShow () {
-		// app.globalData.truckHandlingOCRType
 		// 身份证正面
 		let truck = wx.getStorageSync('truck-1');
 		if (truck) {
@@ -53,7 +43,9 @@ Page({
 					faceStatus: 4,
 					idCardFace: truckIdCardFace
 				});
-				this.validateData(false);
+				this.setData({
+					available: this.validateData(false)
+				});
 			}
 			let truckIdCardBack = wx.getStorageSync('truck-id-card-back');
 			if (truckIdCardBack) {
@@ -62,7 +54,9 @@ Page({
 					backStatus: 4,
 					idCardBack: truckIdCardBack
 				});
-				this.validateData(false);
+				this.setData({
+					available: this.validateData(false)
+				});
 			}
 		}
 	},
@@ -99,6 +93,11 @@ Page({
 						faceStatus: 4,
 						idCardStatus: temp.idCardStatus
 					});
+					this.setData({
+						available: this.validateData(false)
+					});
+					wx.setStorageSync('truck-id-card-back', JSON.stringify(idCardBack));
+					wx.setStorageSync('truck-id-card-face', JSON.stringify(idCardFace));
 				}
 			} else {
 				util.showToastNoIcon(res.message);
@@ -131,10 +130,6 @@ Page({
 			if (isToast) util.showToastNoIcon('部分信息识别失败,请重新上传身份证照片！');
 			return false;
 		}
-		// if (!this.data.mobilePhone) {
-		// 	if (isToast) util.showToastNoIcon('请输入联系方式！');
-		// 	return false;
-		// }
 		return true;
 	},
 	// 下一步
@@ -180,7 +175,9 @@ Page({
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
 			if (res.code === 0) {
-				util.go(`/pages/default/upload_vehicle_information/upload_vehicle_information`);
+				wx.navigateBack({
+					delta: 1
+				});
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -232,6 +229,9 @@ Page({
 							});
 							wx.setStorageSync('truck-id-card-back', JSON.stringify(res.data[0]));
 						}
+						this.setData({
+							available: this.validateData(false)
+						});
 					} else { // 识别失败
 						if (type === 1) {
 							this.setData({faceStatus: 3});
@@ -265,83 +265,14 @@ Page({
 		if ((type === 1 && this.data.faceStatus === 2) || (type === 2 && this.data.backStatus === 2)) return;
 		util.go(`/pages/truck_handling/shot_card/shot_card?type=${type}&pathUrl=${type === 1 ? this.data.idCardFace.fileUrl : this.data.idCardBack.fileUrl}`);
 	},
-	// 倒计时
-	startTimer () {
-		// 设置状态
-		this.setData({
-			identifyingCode: `${this.data.time}s`
-		});
-		// 清倒计时
-		clearInterval(timer);
-		timer = setInterval(() => {
-			this.setData({time: --this.data.time});
-			if (this.data.time === 0) {
-				clearInterval(timer);
-				this.setData({
-					time: 59,
-					isGetIdentifyingCoding: false,
-					identifyingCode: '重新获取'
-				});
-			} else {
-				this.setData({
-					identifyingCode: `${this.data.time}s`
-				});
-			}
-		}, 1000);
-	},
-	// 发送短信验证码
-	sendVerifyCode () {
-		if (this.data.isGetIdentifyingCoding) return;
-		// 如果在倒计时，直接不处理
-		if (!this.data.mobilePhone) {
-			util.showToastNoIcon('请输入手机号');
-			return;
-		} else if (!/^1[0-9]{10}$/.test(this.data.mobilePhone)) {
-			util.showToastNoIcon('手机号输入不合法');
-			return;
-		}
-		this.setData({
-			isGetIdentifyingCoding: true
-		});
-		util.showLoading({
-			title: '请求中...'
-		});
-		util.getDataFromServer('consumer/order/send-receive-phone-verification-code', {
-			receivePhone: this.data.mobilePhone // 手机号
-		}, () => {
-			util.hideLoading();
-		}, (res) => {
-			if (res.code === 0) {
-				this.startTimer();
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-		}, 'GET');
-	},
 	// 输入框输入值做处理
 	onInputChangedHandle (e) {
 		let key = e.currentTarget.dataset.key;
-		let value = '';
-		// 手机号
-		if (key === 'mobilePhone') {
-			this.setData({
-				mobilePhoneIsOk: /^1[0-9]{10}$/.test(e.detail.value.substring(0, 11))
-			});
-		}
-		if (key === 'mobilePhone' && e.detail.value.length > 11) {
-			value = e.detail.value.substring(0, 11);
-		} else if (key === 'verifyCode' && e.detail.value.length > 4) { // 验证码
-			value = e.detail.value.substring(0, 4);
-		} else {
-			value = e.detail.value;
-		}
 		this.setData({
-			[`${key}`]: value
+			[`${key}`]: e.detail.value
 		});
 		this.setData({
-			available: this.validateData()
+			available: this.validateData(false)
 		});
-	},
+	}
 });

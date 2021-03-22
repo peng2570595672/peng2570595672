@@ -109,10 +109,7 @@
   border: 0;
 }
 .page .input-wrapper {
-  margin: 0 40rpx;
-  background: #fff;
-  box-shadow: 4rpx 12rpx 56rpx 0px rgba(102,102,109,0.19);
-  border-radius: 12rpx;
+  margin-left: 40rpx;
 }
 .page .input-wrapper .input-item {
   position: relative;
@@ -121,9 +118,9 @@
   height: 88rpx;
   color: #99999d;
   font-size: 32rpx;
-  padding: 30rpx 40rpx 10rpx;
+  padding: 30rpx 80rpx 10rpx 40rpx;
   box-sizing: border-box;
-  border-top: solid 2rpx rgba(230,230,230,0.3);
+  border-bottom: solid 2rpx rgba(230,230,230,0.3);
 }
 .page .input-wrapper .input-item > view {
   display: flex;
@@ -135,27 +132,6 @@
   text-align: right;
   font-size: 32rpx;
   color: #333;
-}
-.page .input-wrapper .input-item .validate-code {
-  flex: 0 0 216rpx;
-  width: 216rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-left: 50rpx;
-  height: 44rpx;
-  font-size: 32rpx;
-  color: #99999d;
-  border-left: 1rpx solid #d8d8d8;
-  box-sizing: border-box;
-}
-.page .input-wrapper .input-item .validate-code.ok {
-  font-weight: 500;
-  color: #2fb565;
-}
-.page .input-wrapper .input-item .validate-code.acquisition {
-  color: #2fb565;
-  font-weight: 400 !important;
 }
 .page .input-wrapper .input-bottom {
   padding-bottom: 30rpx;

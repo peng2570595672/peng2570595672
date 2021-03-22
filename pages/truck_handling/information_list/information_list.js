@@ -11,7 +11,7 @@ Page({
 		util.showLoading();
 		util.getDataFromServer('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
-			dataType: 6,
+			dataType: '16',
 			needAllInfo: true
 		}, () => {
 			util.showToastNoIcon('获取设备详情失败！');

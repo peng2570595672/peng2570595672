@@ -196,6 +196,12 @@
           "pathName": "pages/truck_handling/shot_card/shot_card",
           "query": "type=1",
           "scene": null
+        },
+        {
+          "name": "pages/truck_handling/upload_id_card/upload_id_card",
+          "pathName": "pages/truck_handling/upload_id_card/upload_id_card",
+          "query": "type=101",
+          "scene": null
         }
       ]
     }
