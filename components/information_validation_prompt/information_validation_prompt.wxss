@@ -133,7 +133,7 @@
   text-align: center;
   margin-left: -277rpx;
   width: 550rpx;
-  height: 600rpx;
+  max-height: 600rpx;
   border-radius: 32rpx;
   background: #fff;
   transform: translateY(-50%);
@@ -165,6 +165,13 @@
   line-height: 32rpx;
   padding: 0 80rpx;
 }
+.alert-for-not-finished .alert-for-not-finished-content .des.content {
+  font-size: 28rpx;
+  padding-top: 14rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  line-height: 40rpx;
+}
 .alert-for-not-finished .alert-for-not-finished-content .btns {
   margin: 0 auto;
   width: 448rpx;
@@ -174,7 +181,7 @@
   align-items: center;
   justify-content: center;
 }
-.alert-for-not-finished .alert-for-not-finished-content .btns .btn:first-of-type {
+.alert-for-not-finished .alert-for-not-finished-content .btns .btn.ok {
   margin-top: 82rpx;
   color: #fff;
   width: 448rpx;
@@ -184,9 +191,13 @@
   background: linear-gradient(45deg, #14ac69 0%, #84d157 100%);
   box-shadow: 0 6rpx 14rpx 0 #b9e3df;
 }
-.alert-for-not-finished .alert-for-not-finished-content .btns .btn:last-of-type {
+.alert-for-not-finished .alert-for-not-finished-content .btns .btn.ok.ok-bottom {
+  margin-bottom: 46rpx;
+}
+.alert-for-not-finished .alert-for-not-finished-content .btns .btn.hide {
   margin-top: 20rpx;
   font-size: 24rpx;
   line-height: 34rpx;
   color: #15ad69;
+  padding-bottom: 90rpx;
 }

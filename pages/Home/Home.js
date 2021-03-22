@@ -47,6 +47,9 @@ Page({
 			wx.removeStorageSync('login_info_final');
 		}
 	},
+	onClickTruckHandling () {
+		util.go(`/pages/truck_handling/index/index`);
+	},
 	// 自动登录
 	login () {
 		util.showLoading();

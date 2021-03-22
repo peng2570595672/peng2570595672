@@ -1,14 +1,19 @@
 <view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}">
-	<view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}"  wx:if="{{mask}}">
-		<view class="img">
-			<view class="icon-guanbi iconfont hide" catchtap="ok"></view>
-			<image class="prompt-img" src="../../pages/default/assets/information_validation_prompt.png" mode="widthFix"></image>
-		</view>
-		<view class="notice">注意!已签约信息不可修改</view>
-		<view class="des">本页信息通过点击图片可进行重拍，点击文字可以手动修改识别错误的信息</view>
-		<view class="btns">
-			<view catchtap="ok" class="btn">我知道了</view>
-			<view catchtap="hide" class="btn">签约信息填错了，取消重办</view>
-		</view>
-	</view>
+    <view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}"  wx:if="{{mask}}">
+        <view class="img">
+            <view class="icon-guanbi iconfont hide" catchtap="ok"></view>
+            <image class="prompt-img" src="../../pages/default/assets/information_validation_prompt.png" mode="widthFix"></image>
+        </view>
+        <view wx:if="{{promptObject.isOk}}">
+            <view class="des content">{{promptObject.content}}</view>
+        </view>
+        <view wx:else>
+            <view class="notice">注意!已签约信息不可修改</view>
+            <view class="des">本页信息通过点击图片可进行重拍，点击文字可以手动修改识别错误的信息</view>
+        </view>
+        <view class="btns">
+            <view catchtap="ok" class="btn ok {{promptObject.isOk ? 'ok-bottom' : ''}}">我知道了</view>
+            <view catchtap="hide" class="btn hide" wx:if="{{!promptObject.isOk}}">签约信息填错了，取消重办</view>
+        </view>
+    </view>
 </view>

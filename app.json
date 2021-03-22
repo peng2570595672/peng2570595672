@@ -73,6 +73,12 @@
       "pages": [
         "index/index",
         "truck_receiving_address/truck_receiving_address",
+        "information_validation/information_validation",
+        "payment_way/payment_way",
+        "shot_card/shot_card",
+        "upload_id_card/upload_id_card",
+        "upload_other_photo/upload_other_photo",
+        "upload_road_transport_certificate/upload_road_transport_certificate",
         "information_list/information_list"
       ]
     },

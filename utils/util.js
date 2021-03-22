@@ -795,6 +795,15 @@ function getHandlingType(orderInfo) {
 		}
 	}
 }
+
+/**
+ *  获取当前日期是否大于某个日期
+ */
+function isGreaterThanData(dateStr) {
+	const curDate = new Date();
+	const dateTimestamp = new Date(dateStr);
+	return curDate >= dateTimestamp;
+}
 /**
  *  获取当前日期是否属于某时间段
  */

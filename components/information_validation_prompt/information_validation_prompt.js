@@ -1,11 +1,17 @@
 Component({
-	properties: {},
+	properties: {
+		promptObject: {
+			type: Object,
+			value: {}
+		}
+	},
 	data: {
 		mask: false,
 		wrapper: false
 	},
 	methods: {
 		ok (e) {
+			console.log(this.data.promptObject)
 			this.hide(e,true);
 		},
 		show () {

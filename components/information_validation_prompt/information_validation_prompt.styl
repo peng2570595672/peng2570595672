@@ -37,7 +37,7 @@
 		text-align center
 		margin-left: -277rpx
 		width: 550rpx
-		height: 600rpx
+		max-height: 600rpx
 		border-radius: 32rpx
 		background: #fff
 		transform: translateY(-50%)
@@ -63,6 +63,12 @@
 			font-size 22rpx
 			line-height 32rpx
 			padding 0 80rpx
+			&.content
+				font-size 28rpx
+				padding-top 14rpx
+				font-family PingFangSC-Medium, PingFang SC
+				font-weight 500
+				line-height 40rpx
 		.btns
 			margin 0 auto
 			width 448rpx
@@ -70,7 +76,7 @@
 				display flex
 				align-items center
 				justify-content center
-				&:first-of-type
+				&.ok
 					margin-top 82rpx
 					color #fff
 					width 448rpx
@@ -79,8 +85,11 @@
 					border-radius 40rpx
 					background: linear-gradient(45deg,rgba(20,172,105,1) 0%,rgba(132,209,87,1) 100%)
 					box-shadow 0 6rpx 14rpx 0  #B9E3DF
-				&:last-of-type
+					&.ok-bottom
+						margin-bottom 46rpx
+				&.hide
 					margin-top 20rpx
 					font-size 24rpx
 					line-height 34rpx
 					color #15AD69
+					padding-bottom 90rpx
