@@ -33,12 +33,9 @@ Page({
 			util.hideLoading();
 		});
 	},
-	uploadIdCard () {
-	},
-	uploadLicense () {
-	},
-	uploadCar () {
-	},
-	uploadTransport () {
+	// 跳转
+	go (e) {
+		let url = e.currentTarget.dataset['url'];
+		util.go(`/pages/truck_handling/${url}/${url}`);
 	}
 });

@@ -6,19 +6,19 @@
 		</view>
 		<view class="list-item">
 			<view class="upload-name iconfont">车主身份证</view>
-			<view class="btn {{upload ? 'edit' : ''}}" catchtap="uploadIdCard">{{upload ? '修改' : '上传'}}</view>
+			<view class="btn {{upload ? 'edit' : ''}}" catchtap="go" data-url="upload_id_card">{{upload ? '修改' : '上传'}}</view>
 		</view>
 		<view class="list-item">
 			<view class="upload-name">行驶证</view>
-			<view class="btn {{upload ? 'edit' : ''}}" catchtap="uploadLicense">{{upload ? '修改' : '上传'}}</view>
+			<view class="btn {{upload ? 'edit' : ''}}" catchtap="go" data-url="information_validation">{{upload ? '修改' : '上传'}}</view>
 		</view>
 		<view class="list-item">
 			<view class="upload-name">车辆照片</view>
-			<view class="btn {{upload ? 'edit' : ''}}" catchtap="uploadCar">{{upload ? '修改' : '上传'}}</view>
+			<view class="btn {{upload ? 'edit' : ''}}" catchtap="go" data-url="upload_other_photo">{{upload ? '修改' : '上传'}}</view>
 		</view>
 		<view class="list-item">
 			<view class="upload-name">道路运输证</view>
-			<view class="btn {{upload ? 'edit' : ''}}" catchtap="uploadTransport">{{upload ? '修改' : '上传'}}</view>
+			<view class="btn {{upload ? 'edit' : ''}}" catchtap="go" data-url="upload_road_transport_certificate">{{upload ? '修改' : '上传'}}</view>
 		</view>
 		<view class="btn-sign {{available && getAgreement ? 'available' : 'unavailable'}}" catchtap="onclickSign"><view class="animate" wx:if="{{isRequest}}"></view>签约微信免密支付</view>
 		<view class="bottom">
