@@ -1,154 +1,157 @@
 {
-	"pages": [
-		"pages/Home/Home",
-		"pages/default/index/index",
-		"pages/default/receiving_address/receiving_address",
-		"pages/default/high_speed_verification_failed/high_speed_verification_failed",
-		"pages/default/agreement/agreement",
-		"pages/default/payment_way/payment_way",
-		"pages/default/payment_amount/payment_amount",
-		"pages/default/shot_bank_card/shot_bank_card",
-		"pages/default/signed_successfully/signed_successfully",
-		"pages/default/payment_successful/payment_successful",
-		"pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
-		"pages/default/information_validation/information_validation",
-		"pages/default/processing_progress/processing_progress",
-		"pages/default/update_car_no/update_car_no",
-		"pages/default/update_id_card/update_id_card",
-		"pages/loading_page_for_wx/index",
-		"pages/loading_page_for_wechat/index",
-		"pages/loading_page_for_bank/index",
-		"pages/default/wechat_sudoku/wechat_sudoku",
-		"pages/default/package_the_rights_and_interests/package_the_rights_and_interests",
-		"pages/landing_page_for_ccb/index"
-	],
-	"window": {
-		"navigationBarBackgroundColor": "#FFFFFF",
-		"backgroundColor": "#FFFFFF",
-		"navigationBarTextStyle": "black"
-	},
-	"subpackages": [
-		{
-			"root": "pages/personal_center",
-			"name": "pages/personal_center",
-			"pages": [
-				"index/index",
-				"my_etc/my_etc",
-				"my_etc_detail/my_etc_detail",
-				"my_order/my_order",
-				"split_bill/split_bill",
-				"arrears_bill/arrears_bill",
-				"membership_coupon/membership_coupon",
-				"cancel_order_succeed/cancel_order_succeed",
-				"order_details/order_details",
-				"order_instructions/order_instructions",
-				"order_complaint/order_complaint",
-				"complaint_details/complaint_details",
-				"help_center/help_center",
-				"owner_service/owner_service",
-				"recharge-card-processing/recharge-card-processing",
-				"search_help/search_help",
-				"service_card_voucher/service_card_voucher",
-				"service_card_voucher_details/service_card_voucher_details",
-				"crowdsourcing_user/crowdsourcing_user",
-				"my_crowdsourcing_gains/my_crowdsourcing_gains",
-				"basic_rights_and_interests/basic_rights_and_interests",
-				"collect_paid_up_interest/collect_paid_up_interest",
-				"invoice_issued_list/invoice_issued_list",
-				"invoice_issued_detail/invoice_issued_detail",
-				"success_tips/success_tips"
-			]
-		},
-		{
-			"root": "pages/login",
-			"name": "pages/login",
-			"pages": [
-				"login/login"
-			]
-		},
-        {
-			"root": "pages/truck_handling",
-			"name": "pages/truck_handling",
-			"pages": [
-				"index/index"
-			]
-		},
-		{
-			"root": "CitiesServices",
-			"name": "CitiesServices",
-			"pages": [
-				"pages/CitiesServices/CitiesServices"
-			]
-		},
-		{
-			"root": "pages/crowdsourcing",
-			"name": "pages/crowdsourcing",
-			"pages": [
-				"index/index",
-				"new_user/new_user"
-			]
-		},
-		{
-			"root": "pingan",
-			"name": "pingan",
-			"pages": [
-				"pages/ChooseBank/ChooseBank",
-				"pages/Login/Login",
-				"pages/BindMobile/BindMobile"
-			]
-		},
-		{
-			"root": "activities",
-			"name": "activities",
-			"pages": [
-				"pages/activity_wechat_eighteen_hook/index",
-				"pages/activity_wechat_eighteen_theme/index",
-				"pages/activity_icbc_forty_five_hook/index",
-				"pages/activity_icbc_forty_five_theme/index",
-				"pages/activity_micro_insurance/index",
-				"pages/activity_medical_insurance/index",
-				"pages/activity_icbc_fifty_theme/index",
-				"pages/activity_parking_ticket/index",
-				"pages/activity_coupons/index",
-				"pages/activity_for_heaiche/index",
-				"pages/activity_high_speed_traffic/index",
-				"pages/activity_icbc_twenty_eight/index",
-				"pages/ActivityForCCBForSixty/index",
-				"pages/ActivityForICBCForSixty/index",
-				"pages/ActivityForLTForSixty/index"
-			]
-		},
-		{
-			"root": "pages/pay_h5",
-			"name": "pages/pay_h5",
-			"pages": [
-				"sign_up/sign_up",
-				"signed_successfully/signed_successfully"
-			]
-		},
-		{
-			"root": "pages/unicom",
-			"name": "pages/unicom",
-			"pages": [
-				"binding_plates/binding_plates",
-				"signed_successfully/signed_successfully"
-			]
-		},
-		{
-			"root": "pages/web",
-			"name": "pages/web",
-			"pages": [
-				"web/web"
-			]
-		}
-	],
-	"functionalPages": {
-		"independent": true
-	},
-	"sitemapLocation": "sitemap.json",
-	"permission": {
-		"scope.userLocation": {
-			"desc": "你的位置信息将用于获取当前位置可办理套餐信息"
-		}
-	}
+  "pages": [
+    "pages/Home/Home",
+    "pages/default/index/index",
+    "pages/default/receiving_address/receiving_address",
+    "pages/default/high_speed_verification_failed/high_speed_verification_failed",
+    "pages/default/agreement/agreement",
+    "pages/default/payment_way/payment_way",
+    "pages/default/payment_amount/payment_amount",
+    "pages/default/shot_bank_card/shot_bank_card",
+    "pages/default/signed_successfully/signed_successfully",
+    "pages/default/payment_successful/payment_successful",
+    "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
+    "pages/default/information_validation/information_validation",
+    "pages/default/processing_progress/processing_progress",
+    "pages/default/update_car_no/update_car_no",
+    "pages/default/update_id_card/update_id_card",
+    "pages/loading_page_for_wx/index",
+    "pages/loading_page_for_wechat/index",
+    "pages/loading_page_for_bank/index",
+    "pages/default/wechat_sudoku/wechat_sudoku",
+    "pages/default/package_the_rights_and_interests/package_the_rights_and_interests",
+    "pages/landing_page_for_ccb/index",
+    "components/pass_the_discount/pass_the_discount"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#FFFFFF",
+    "navigationBarTextStyle": "black"
+  },
+  "subpackages": [
+    {
+      "root": "pages/personal_center",
+      "name": "pages/personal_center",
+      "pages": [
+        "index/index",
+        "my_etc/my_etc",
+        "my_etc_detail/my_etc_detail",
+        "my_order/my_order",
+        "split_bill/split_bill",
+        "arrears_bill/arrears_bill",
+        "membership_coupon/membership_coupon",
+        "cancel_order_succeed/cancel_order_succeed",
+        "order_details/order_details",
+        "order_instructions/order_instructions",
+        "order_complaint/order_complaint",
+        "complaint_details/complaint_details",
+        "help_center/help_center",
+        "owner_service/owner_service",
+        "recharge-card-processing/recharge-card-processing",
+        "search_help/search_help",
+        "service_card_voucher/service_card_voucher",
+        "service_card_voucher_details/service_card_voucher_details",
+        "crowdsourcing_user/crowdsourcing_user",
+        "my_crowdsourcing_gains/my_crowdsourcing_gains",
+        "basic_rights_and_interests/basic_rights_and_interests",
+        "collect_paid_up_interest/collect_paid_up_interest",
+        "invoice_issued_list/invoice_issued_list",
+        "invoice_issued_detail/invoice_issued_detail",
+        "success_tips/success_tips"
+      ]
+    },
+    {
+      "root": "pages/login",
+      "name": "pages/login",
+      "pages": [
+        "login/login"
+      ]
+    },
+    {
+      "root": "pages/truck_handling",
+      "name": "pages/truck_handling",
+      "pages": [
+        "index/index",
+        "truck_receiving_address/truck_receiving_address",
+        "information_list/information_list"
+      ]
+    },
+    {
+      "root": "CitiesServices",
+      "name": "CitiesServices",
+      "pages": [
+        "pages/CitiesServices/CitiesServices"
+      ]
+    },
+    {
+      "root": "pages/crowdsourcing",
+      "name": "pages/crowdsourcing",
+      "pages": [
+        "index/index",
+        "new_user/new_user"
+      ]
+    },
+    {
+      "root": "pingan",
+      "name": "pingan",
+      "pages": [
+        "pages/ChooseBank/ChooseBank",
+        "pages/Login/Login",
+        "pages/BindMobile/BindMobile"
+      ]
+    },
+    {
+      "root": "activities",
+      "name": "activities",
+      "pages": [
+        "pages/activity_wechat_eighteen_hook/index",
+        "pages/activity_wechat_eighteen_theme/index",
+        "pages/activity_icbc_forty_five_hook/index",
+        "pages/activity_icbc_forty_five_theme/index",
+        "pages/activity_micro_insurance/index",
+        "pages/activity_medical_insurance/index",
+        "pages/activity_icbc_fifty_theme/index",
+        "pages/activity_parking_ticket/index",
+        "pages/activity_coupons/index",
+        "pages/activity_for_heaiche/index",
+        "pages/activity_high_speed_traffic/index",
+        "pages/activity_icbc_twenty_eight/index",
+        "pages/ActivityForCCBForSixty/index",
+        "pages/ActivityForICBCForSixty/index",
+        "pages/ActivityForLTForSixty/index"
+      ]
+    },
+    {
+      "root": "pages/pay_h5",
+      "name": "pages/pay_h5",
+      "pages": [
+        "sign_up/sign_up",
+        "signed_successfully/signed_successfully"
+      ]
+    },
+    {
+      "root": "pages/unicom",
+      "name": "pages/unicom",
+      "pages": [
+        "binding_plates/binding_plates",
+        "signed_successfully/signed_successfully"
+      ]
+    },
+    {
+      "root": "pages/web",
+      "name": "pages/web",
+      "pages": [
+        "web/web"
+      ]
+    }
+  ],
+  "functionalPages": {
+    "independent": true
+  },
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于获取当前位置可办理套餐信息"
+    }
+  }
 }

@@ -1,0 +1,89 @@
+.content
+	height 100vh
+	background: #F6F6F6;
+	.label
+		padding 60rpx 40rpx
+		font-size: 40rpx;
+		font-family: PingFangSC-Medium, PingFang SC;
+		font-weight: 500;
+		color: #33333D;
+	.content-list
+		align-items center
+		padding 40rpx 40rpx 16rpx 40rpx
+		background: #FFFFFF;
+		box-shadow: 2rpx 2rpx 23rpx 0rpx rgba(126, 132, 156, 0.1);
+		border-radius: 32rpx;
+		.list-title
+			display flex
+			align-items center
+			margin-bottom 40rpx
+			font-size 40rpx;
+			font-family: PingFangSC-Medium, PingFang SC;
+			font-weight: 500;
+			color: #33333D;
+			&::before
+				margin-right 10rpx
+				content ''
+				width 10rpx
+				height 10rpx
+				border 6rpx solid #14AC69
+				border-radius 50%
+			& > text
+				margin-left 12rpx
+				font-size 24rpx
+				color #7A7F83
+				transform translateY(8rpx)
+		.list-item
+			display flex
+			align-items center
+			padding 0rpx 30rpx
+			margin-bottom 30rpx
+			height 160rpx
+			background: #FFFFFF;
+			box-shadow: 2rpx 2rpx 23rpx 0rpx rgba(126, 132, 156, 0.1);
+			border-radius: 32rpx;
+			.upload-name
+				flex 1
+			.btn
+				display flex
+				justify-content center
+				align-items center
+				width 126rpx
+				height 44rpx;
+				border-radius 22rpx;
+				border: 1rpx solid rgba(36,177,102,0.32);
+				color: #29B365;
+				font-size 24rpx
+				&.edit
+					background: rgba(39,178,101,0.38);
+					color #FFFFFF
+		.btn-sign
+			display flex
+			align-items center
+			justify-content center
+			margin-top 260rpx
+			height 100rpx;
+			opacity: 0.24;
+			background: linear-gradient(45deg, #14AC69 0%, #84D157 100%);
+			border-radius: 50rpx;
+			font-size 40rpx;
+			font-family: PingFangSC-Medium, PingFang SC;
+			font-weight: 500;
+			color: #FFFFFF
+			&.available
+				animation btnFadeIn .3s
+				animation-fill-mode forwards
+			&.unavailable
+				animation btnFadeOut .3s
+				animation-fill-mode forwards
+		.bottom
+			display flex
+			justify-content center
+			.empty-line
+				width: 268rpx;
+				height: 10rpx;
+				margin-top 60rpx
+				background: #606060
+				border-radius: 200rpx;
+
+

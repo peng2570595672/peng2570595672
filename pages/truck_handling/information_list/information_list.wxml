@@ -1,0 +1,28 @@
+<view class="content">
+	<view class="label">正在申请 {车牌号} 货车ETC</view>
+	<view class="content-list">
+		<view class="list-title">
+			请按要求上传相关资料
+		</view>
+		<view class="list-item">
+			<view class="upload-name iconfont">车主身份证</view>
+			<view class="btn {{upload ? 'edit' : ''}}" catchtap="uploadIdCard">{{upload ? '修改' : '上传'}}</view>
+		</view>
+		<view class="list-item">
+			<view class="upload-name">行驶证</view>
+			<view class="btn {{upload ? 'edit' : ''}}" catchtap="uploadLicense">{{upload ? '修改' : '上传'}}</view>
+		</view>
+		<view class="list-item">
+			<view class="upload-name">车辆照片</view>
+			<view class="btn {{upload ? 'edit' : ''}}" catchtap="uploadCar">{{upload ? '修改' : '上传'}}</view>
+		</view>
+		<view class="list-item">
+			<view class="upload-name">道路运输证</view>
+			<view class="btn {{upload ? 'edit' : ''}}" catchtap="uploadTransport">{{upload ? '修改' : '上传'}}</view>
+		</view>
+		<view class="btn-sign {{available && getAgreement ? 'available' : 'unavailable'}}" catchtap="onclickSign"><view class="animate" wx:if="{{isRequest}}"></view>签约微信免密支付</view>
+		<view class="bottom">
+			<view class="empty-line"></view>
+		</view>
+	</view>
+</view>

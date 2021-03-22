@@ -1,0 +1,52 @@
+<view class="pass-the-discount animated {{wrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{mask}}" catchtap="onClickTranslucentHandle">
+	<view class="pass-the-discount-wrapper  animated {{wrapper ? 'slideInUp' : 'slideOutDown'}}" wx:if="{{mask}}">
+		<view class="title">全国各省通行折扣</view>
+		<view class="list-content">
+			<view class="list-title">
+				<view class="left">省份</view>
+				<view class="middle">优惠力度</view>
+				<view class="right">车辆范围</view>
+			</view>
+			<view class="list-item gray">
+				<view class="left">江苏</view>
+				<view class="middle">
+					<view>省内高速</view>
+					<view>85折</view>
+				</view>
+				<view class="right">江苏运政车</view>
+			</view>
+			<view class="list-item">
+				<view class="left">山东</view>
+				<view class="middle">
+					<view>省内高速</view>
+					<view>85折</view>
+				</view>
+				<view class="right">全类型货车</view>
+			</view>
+			<view class="list-item gray">
+				<view class="left">贵州</view>
+				<view class="middle">
+					<view>省内高速</view>
+					<view>85折</view>
+				</view>
+				<view class="right">4轴货车</view>
+			</view>
+			<view class="list-item">
+				<view class="left">广西</view>
+				<view class="middle">
+					<view>省内高速</view>
+					<view>85折</view>
+				</view>
+				<view class="right">2-5轴货车</view>
+			</view>
+			<view class="list-item gray">
+				<view class="left">其它</view>
+				<view class="middle">
+					<view>省内高速</view>
+					<view>85折</view>
+				</view>
+				<view class="right">全类型货车</view>
+			</view>
+		</view>
+	</view>
+</view>
