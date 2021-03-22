@@ -3,8 +3,6 @@
  * @desc 填写车牌和收货信息
  */
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 // 倒计时计时器
 let timer;
@@ -24,7 +22,6 @@ Page({
 		isRequest: false,// 是否请求中
 		isNewPowerCar: false, // 是否为新能源
 		showToast: false, // 是否验证码错误
-		isFaceToFaceCCB: false, // 是否是面对面建行活动
 		isOnlineDealWith: true, // 是否是线上办理
 		formData: {
 			currentCarNoColor: 0, // 0 蓝色 1 渐变绿 2黄色
@@ -36,41 +33,10 @@ Page({
 			verifyCode: '' // 验证码
 		} // 提交数据
 	},
-	onLoad (options) {
-		if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
-			wx.hideHomeButton();
-		}
-		if (options.shareId) {
-			util.resetData();// 重置数据
-			// 高速通行公众号进入办理
-			app.globalData.isHighSpeedTraffic = options.shareId;
-		}
-		app.globalData.firstVersionData = false; // 非1.0数据办理
-		app.globalData.isModifiedData = false; // 非修改资料
-		app.globalData.signAContract = 3;
-		// 会员券进入,线下取货
-		if (app.globalData.membershipCoupon.id) {
-			let formData = this.data.formData;
-			formData.userName = '线下取货'; // 姓名
-			formData.detailInfo = '沙文镇科教街188号';
-			formData.region = ['贵州省', '贵阳市', '白云区']; // 省市区
-			this.setData({
-				isOnlineDealWith: false,
-				formData
-			});
-		}
-		// if (app.globalData.isFaceToFaceCCB) {
-		// 	this.setData({
-		// 		[`formData.region`]: ['贵州省'],
-		// 		[`formData.regionCode`]: ['520000']
-		// 	});
-		// }
-	},
 	onShow () {
 		if (app.globalData.userInfo.accessToken) {
 			this.setData({
-				mobilePhoneMode: app.globalData.mobilePhoneMode,
-				isFaceToFaceCCB: app.globalData.isFaceToFaceCCB
+				mobilePhoneMode: app.globalData.mobilePhoneMode
 			});
 		} else {
 			// 公众号进入需要登录
@@ -131,8 +97,6 @@ Page({
 			util.showToastNoIcon('请同意并勾选协议！');
 			return;
 		}
-		// 统计点击事件
-		mta.Event.stat('024',{});
 		this.setData({
 			available: false, // 禁用按钮
 			isRequest: true // 设置状态为请求中
@@ -160,18 +124,8 @@ Page({
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
 			if (res.code === 0) {
-				let orderId = res.data.orderId;
-				util.go(`/pages/truck_handling/information_list/information_list?orderId=${orderId}`);
-				return;
-				// wx.setStorageSync('return_to_prompt','payment_way');
 				app.globalData.orderInfo.orderId = res.data.orderId; // 订单id
-				if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
-					this.getProduct();
-				} else {
-					// 选择套餐页面
-					app.globalData.packagePageData = undefined;
-					util.go('/pages/default/payment_way/payment_way');
-				}
+				util.go('/pages/truck_handling/payment_way/payment_way');
 			} else if (res.code === 301) { // 已存在当前车牌未完成订单
 				util.alert({
 					content: '该车牌订单已存在，请前往“首页>我的ETC”页面查看。',
@@ -196,48 +150,6 @@ Page({
 				available: true,
 				isRequest: false
 			});
-		});
-	},
-	// 根据套餐id获取套餐信息
-	getProduct () {
-		util.showLoading();
-		util.getDataFromServer('consumer/system/get-product-by-id', {
-			shopProductId: app.globalData.scanCodeToHandle.productId
-		}, () => {
-		}, (res) => {
-			if (res.code === 0) {
-				this.submitProduct(res.data.pledgePrice);
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-		});
-	},
-	// 付费提交套餐信息
-	submitProduct (pledgePrice) {
-		util.showLoading();
-		util.getDataFromServer('consumer/order/save-order-info', {
-			dataType: '3',
-			orderId: app.globalData.orderInfo.orderId,
-			shopProductId: app.globalData.scanCodeToHandle.productId,
-			areaCode: 0,
-			shopId: app.globalData.scanCodeToHandle.shopId
-		}, () => {
-		}, (res) => {
-			if (res.code === 0) {
-				if (pledgePrice && parseInt(pledgePrice) > 0) {
-					util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${pledgePrice}&type=main_process`);
-				} else {
-					// 选择套餐页面
-					app.globalData.packagePageData = undefined;
-					util.go('/pages/default/payment_way/payment_way?type=payment_mode');
-				}
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
 		});
 	},
 	// 车牌输入回调
@@ -351,16 +263,8 @@ Page({
 	},
 	// 从微信选择地址
 	onClickAutoFillHandle () {
-		// 统计点击事件
-		mta.Event.stat('027',{});
 		wx.chooseAddress({
 			success: (res) => {
-				// if (this.data.isFaceToFaceCCB) {
-				// 	if (res.provinceName !== '贵州省') {
-				// 		util.showToastNoIcon('暂不支持非贵州地区办理');
-				// 		return;
-				// 	}
-				// }
 				let formData = this.data.formData;
 				formData.userName = res.userName; // 姓名
 				formData.telNumber = res.telNumber; // 电话
@@ -393,12 +297,6 @@ Page({
 	},
 	// 省市区选择
 	onPickerChangedHandle (e) {
-		// if (this.data.isFaceToFaceCCB) {
-		// 	if (e.detail.value[0] !== '贵州省') {
-		// 		util.showToastNoIcon('暂不支持非贵州地区办理');
-		// 		return;
-		// 	}
-		// }
 		let formData = this.data.formData;
 		formData.region = e.detail.value;
 		if (e.detail.code && e.detail.code.length === 3) {
@@ -413,16 +311,8 @@ Page({
 	},
 	// 选择当前地址
 	onClickChooseLocationHandle () {
-		// 统计点击事件
-		mta.Event.stat('026',{});
 		wx.chooseLocation({
 			success: (res) => {
-				// if (this.data.isFaceToFaceCCB) {
-				// 	if (res.address.indexOf('贵州省') === -1) {
-				// 		util.showToastNoIcon('暂不支持非贵州地区办理');
-				// 		return;
-				// 	}
-				// }
 				let address = res.address;
 				if (address) {
 					// 根据地理位置信息获取经纬度
@@ -571,9 +461,6 @@ Page({
 		this.setData({
 			getAgreement: !this.data.getAgreement
 		});
-		if (this.data.getAgreement) {
-			mta.Event.stat('receiving_address_check_agreement',{});
-		}
 		this.setData({
 			available: this.validateAvailable()
 		});
@@ -632,11 +519,5 @@ Page({
 	// 查看办理协议
 	onClickGoAgreementHandle () {
 		util.go('/pages/default/agreement/agreement');
-	},
-	onUnload () {
-		// 统计点击事件
-		mta.Event.stat('025',{});
-		// 清除会员券信息
-		app.globalData.membershipCoupon = {};
 	}
 });

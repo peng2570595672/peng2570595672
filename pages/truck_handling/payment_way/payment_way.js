@@ -256,6 +256,7 @@ Page({
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
 			if (res.code === 0) {
+				util.go('/pages/truck_handling/information_list/information_list');
 			} else {
 				util.showToastNoIcon(res.message);
 			}

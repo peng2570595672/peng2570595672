@@ -1,5 +1,4 @@
 <view class="receiving_address" bindtap="touchHandle">
-	<!--<view class="tips" wx:if="{{isFaceToFaceCCB}}">仅支持贵州区域的用户办理</view>-->
 	<!--	车牌号标题开始-->
 	<view class="title">车牌号</view>
 	<!--	车牌号标题结束-->
