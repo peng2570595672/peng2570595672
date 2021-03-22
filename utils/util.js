@@ -623,7 +623,30 @@ function luhmCheck(bankno) {
 		return false;
 	}
 };
-
+/**
+ *  获取货车新流程订单办理状态 2.0
+ */
+function getTruckHandlingStatus(orderInfo) {
+	let status = 0;
+	if (orderInfo.shopProductId === 0) {
+		status = 1;// 办理中 未选套餐
+	} else if (orderInfo.shopProductId !== 0 && orderInfo.status === 0) {
+		status = 3; // 办理中 已选套餐
+	} else if (orderInfo.status === 1 && orderInfo.contractStatus !== 1) {
+		status = 2; // 待签约
+	} else if (orderInfo.status === 1 && orderInfo.auditStatus === 1) {
+		status = 5; // 资料被拒绝 修改资料
+	} else if (orderInfo.auditStatus === 2 && (orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)) {
+		status = 6; // 审核通过  待激活
+	} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)  && orderInfo.auditStatus === 3) {
+		status = 7; // 预审核通过  待审核
+	} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)  && orderInfo.auditStatus === 9) {
+		status = 8; // 高速核验不通过
+	} else if (orderInfo.obuStatus === 1 && orderInfo.auditStatus === 2) {
+		status = 9; // 审核通过  已激活
+	}
+	return status;
+}
 /**
  *  获取订单办理状态 2.0
  */
@@ -1021,6 +1044,7 @@ module.exports = {
 	getSignature,
 	luhmCheck,
 	resetData,
+	getTruckHandlingStatus,
 	getStatus,
 	subscribe,
 	getHandlingType,

@@ -85,7 +85,7 @@ Page({
 				if (orderInfo.remark && orderInfo.remark.indexOf('迁移订单数据') !== -1) {
 					orderInfo['selfStatus'] = util.getStatusFirstVersion(orderInfo);
 				} else {
-					orderInfo['selfStatus'] = util.getStatus(orderInfo);
+					orderInfo['selfStatus'] = orderInfo.isNewTrucks === 1 ? util.getTruckHandlingStatus(orderInfo) : util.getStatus(orderInfo);
 				}
 				this.setData({
 					orderInfo
@@ -152,6 +152,12 @@ Page({
 	},
 	// 修改资料
 	onClickModifiedData () {
+		if (this.data.orderInfo.isNewTrucks === 1) {
+			// 货车办理
+			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+			util.go('/pages/truck_handling/information_list/information_list');
+			return;
+		}
 		if (util.getHandlingType(this.data.orderInfo)) {
 			util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
 			return;
@@ -356,6 +362,16 @@ Page({
 	},
 	// 继续办理
 	onClickContinueHandle () {
+		if (this.data.orderInfo.isNewTrucks === 1) {
+			// 货车办理
+			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
+			if (this.data.orderInfo.selfStatus === 1) {
+				util.go('/pages/truck_handling/payment_way/payment_way');
+			} else {
+				util.go('/pages/truck_handling/information_list/information_list');
+			}
+			return;
+		}
 		if (util.getHandlingType(this.data.orderInfo)) {
 			util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
 			return;

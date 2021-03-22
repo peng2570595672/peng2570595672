@@ -81,7 +81,7 @@ Page({
 					if (item.remark && item.remark.indexOf('迁移订单数据') !== -1) {
 						item['selfStatus'] = util.getStatusFirstVersion(item);
 					} else {
-						item['selfStatus'] = util.getStatus(item);
+						item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
 					}
 					wx.setStorageSync('cars', vehicleList.join('、'));
 				});
@@ -156,6 +156,16 @@ Page({
 	onClickContinueHandle (e) {
 		let index = e.currentTarget.dataset.index;
 		let obj = this.data.carList[parseInt(index)];
+		if (obj.isNewTrucks === 1) {
+			// 货车办理
+			app.globalData.orderInfo.orderId = obj.id;
+			if (obj.selfStatus === 1) {
+				util.go('/pages/truck_handling/payment_way/payment_way');
+			} else {
+				util.go('/pages/truck_handling/information_list/information_list');
+			}
+			return;
+		}
 		if (util.getHandlingType(obj)) {
 			util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
 			return;
@@ -348,6 +358,12 @@ Page({
 	onClickModifiedData (e) {
 		let index = e.currentTarget.dataset.index;
 		let obj = this.data.carList[parseInt(index)];
+		if (this.data.orderInfo.isNewTrucks === 1) {
+			// 货车办理
+			app.globalData.orderInfo.orderId = obj.id;
+			util.go('/pages/truck_handling/information_list/information_list');
+			return;
+		}
 		if (obj.auditStatus === 9) {
 			// 审核失败--不可办理
 			util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${obj.id}`);
