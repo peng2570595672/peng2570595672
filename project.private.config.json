@@ -202,6 +202,23 @@
           "pathName": "pages/truck_handling/upload_id_card/upload_id_card",
           "query": "type=101",
           "scene": null
+        },
+        {
+          "name": "pages/default/information_validation/information_validation",
+          "pathName": "pages/default/information_validation/information_validation",
+          "query": "type=101",
+          "scene": null
+        },
+        {
+          "name": "pages/truck_handling/upload_other_photo/upload_other_photo",
+          "pathName": "pages/truck_handling/upload_other_photo/upload_other_photo",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/truck_handling/index/index",
+          "pathName": "pages/truck_handling/index/index",
+          "scene": null
         }
       ]
     }

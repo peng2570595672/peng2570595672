@@ -1,4 +1,4 @@
-// 是否为测试 TODO
+﻿// 是否为测试 TODO
 const IS_TEST = true;
 const util = require('./utils/util.js');
 // 数据统计
