@@ -358,7 +358,7 @@ Page({
 	onClickModifiedData (e) {
 		let index = e.currentTarget.dataset.index;
 		let obj = this.data.carList[parseInt(index)];
-		if (this.data.orderInfo.isNewTrucks === 1) {
+		if (obj.isNewTrucks === 1) {
 			// 货车办理
 			app.globalData.orderInfo.orderId = obj.id;
 			util.go('/pages/truck_handling/information_list/information_list?isModifiedData=true');
