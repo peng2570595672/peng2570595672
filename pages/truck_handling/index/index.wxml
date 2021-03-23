@@ -71,7 +71,10 @@
 				<text>行驶证</text>
 			</view>
 			<view class="photo-item">
-				<image class="image" src="/pages/truck_handling/assets/driving_license_face_bg.png"></image>
+				<view class="img-box">
+					<image class="img" src="/pages/truck_handling/assets/road_transport_certificate.png"></image>
+					<image class="ico" src="/pages/truck_handling/assets/icon_camera_white.png"></image>
+				</view>
 				<text>道路运输证</text>
 				<text class="memo">牵引车上传</text>
 			</view>
