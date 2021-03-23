@@ -7,7 +7,7 @@
         <view class="photo {{faceStatus !== 1 ? 'not-border' : ''}}" data-type="3" catchtap="selectionPic">
             <view class="not-upload" wx:if="{{faceStatus !== 4}}">
                 <view class="img-box">
-                    <image class="img" src="/pages/truck_handling/assets/driving_license_face.png"></image>
+                    <image class="img" src="/pages/truck_handling/assets/driving_license_face_bg.png"></image>
                     <image class="ico" wx:if="{{faceStatus === 1}}" src="/pages/truck_handling/assets/icon_camera_white.png"></image>
                 </view>
                 <view>行驶证（正页）</view>
@@ -23,7 +23,7 @@
         <view class="photo {{backStatus !== 1 ? 'not-border' : ''}}" data-type="4" catchtap="selectionPic">
             <view class="not-upload" wx:if="{{backStatus !== 4}}">
                 <view class="img-box">
-                    <image class="img" src="/pages/truck_handling/assets/driving_license_back.png"></image>
+                    <image class="img" src="/pages/truck_handling/assets/driving_license_back_bg.png"></image>
                     <image class="ico" wx:if="{{backStatus === 1}}" src="/pages/truck_handling/assets/icon_camera_white.png"></image>
                 </view>
                 <view>行驶证（副页）</view>
