@@ -42,15 +42,15 @@
 			<view class="charge_item">
 				<view class="label three iconfont"></view>
 				<view class="charge-text">
-					<view>微信扣费</view>
-					<view>免充值</view>
+					<view>专属客服</view>
+					<view>在线解疑</view>
 				</view>
 			</view>
 			<view class="charge_item">
 				<view class="label four iconfont"></view>
 				<view class="charge-text">
-					<view>微信扣费</view>
-					<view>免充值</view>
+					<view>办理免收</view>
+					<view>保证金</view>
 				</view>
 			</view>
 		</view>
