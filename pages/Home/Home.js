@@ -873,7 +873,7 @@ Page({
 		if (this.data.orderInfo.isNewTrucks === 1) {
 			// 货车办理
 			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
-			util.go('/pages/truck_handling/information_list/information_list');
+			util.go('/pages/truck_handling/information_list/information_list?isModifiedData=true');
 			return;
 		}
 		if (util.getHandlingType(this.data.orderInfo)) {

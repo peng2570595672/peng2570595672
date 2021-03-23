@@ -7,28 +7,26 @@ const app = getApp();
 Page({
 	data: {
 	},
-	onLoad() {
+	onLoad () {
 		this.setData({
 			mobilePhoneSystem: app.globalData.mobilePhoneSystem,
 			mobilePhone: app.globalData.mobilePhone,
 			screenHeight: wx.getSystemInfoSync().windowHeight
 		});
 	},
-	onClickHandle() {
-		util.go('/pages/truck_handling/truck_receiving_address/truck_receiving_address')
+	onClickHandle () {
+		util.go('/pages/truck_handling/truck_receiving_address/truck_receiving_address');
 	},
-	onclickDetail() {
+	onclickDetail () {
 		this.selectComponent('#passTheDiscount').show();
 	},
-	goOnlineServer() {
+	goOnlineServer () {
 		// 未登录
 		if (!app.globalData.userInfo.accessToken) {
 			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
 			util.go('/pages/login/login/login');
 			return;
 		}
-		// 统计点击进入在线客服
-		mta.Event.stat('009',{});
 		util.go(`/pages/web/web/web?type=online_customer_service`);
 	}
 });

@@ -634,6 +634,8 @@ function getTruckHandlingStatus(orderInfo) {
 		status = 3; // 办理中 已选套餐
 	} else if (orderInfo.status === 1 && orderInfo.contractStatus !== 1) {
 		status = 2; // 待签约
+	} else if (orderInfo.contractStatus === 1 && orderInfo.auditStatus === 0) {
+		status = 4; // 查看进度 待审核
 	} else if (orderInfo.status === 1 && orderInfo.auditStatus === 1) {
 		status = 5; // 资料被拒绝 修改资料
 	} else if (orderInfo.auditStatus === 2 && (orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)) {
@@ -797,6 +799,7 @@ function resetData() {
 	app.globalData.isCrowdsourcingPromote = false;
 	app.globalData.isSecondSigning = false;
 	app.globalData.isSecondSigningInformationPerfect = false;
+	app.globalData.isTruckHandling = false;
 	app.globalData.otherEntrance = {};// 初始化其它入口
 }
 /**

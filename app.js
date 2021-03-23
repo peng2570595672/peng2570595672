@@ -80,6 +80,7 @@ App({
 			orderId: ''
 		},
 		truckHandlingOCRType: 0,// 货车办理选择ocr上传类型
+		isTruckHandling: false,// 是否新流程-货车办理
 		weiBoUrl: IS_TEST ? '/pages/base/redirect/index?routeKey=CAR_WEBVIEW&url=https://static-dsu.wesure.cn/uatapp/app2/h5-reserve-ad/vendors&query=' : '/pages/base/redirect/index?routeKey=CAR_WEBVIEW&url=https://static.wesure.cn/app2/h5-reserve-ad/vendors&query='
 	},
 	onLaunch (options) {
@@ -298,8 +299,9 @@ App({
 						util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
 						return;
 					}
-					if (this.globalData.isSecondSigningInformationPerfect) {
-						this.globalData.isSecondSigningInformationPerfect = false;
+					if (this.globalData.isSecondSigningInformationPerfect || this.globalData.isTruckHandling) {
+						this.globalData.isSecondSigningInformationPerfect = false;// 是否二次签约-资料完善
+						this.globalData.isTruckHandling = false;// 是否新流程-货车办理
 						util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
 						return;
 					}
@@ -312,17 +314,6 @@ App({
 						});
 					} else if (this.globalData.belongToPlatform === this.globalData.platformId) {
 						// 本平台签约
-						// if (this.globalData.contractStatus === 2) { // 已解约   之前的逻辑
-						// 	if (this.globalData.orderStatus === 5 || this.globalData.orderStatus === 8) {// 资料审核失败 &&高速验证不通过
-						// 		util.go(`/pages/default/information_validation/information_validation?orderId=${this.globalData.orderInfo.orderId}`);
-						// 	} else if (this.globalData.orderStatus === 3) { // 办理中 未上传行驶证
-						// 		util.go('/pages/default/signed_successfully/signed_successfully');
-						// 	} else { // 不可修改资料
-						// 		util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
-						// 	}
-						// } else {
-						// 	util.go('/pages/default/signed_successfully/signed_successfully');
-						// }
 						util.go('/pages/default/signed_successfully/signed_successfully');
 					} else {
 						// 其他平台签约 :业务员端/h5

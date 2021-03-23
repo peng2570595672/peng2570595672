@@ -1,31 +1,22 @@
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
-  /**
-   * 页面的初始数据
-   */
-  data: {
-	orderInfo: undefined,
-	isRequest: false,
-	available: false,
-	contractStatus: false //签约状态   签约状态 -1 签约失败 0发起签约 1已签约 2解约
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-	  this.setData({
-		  contractStatus: app.globalData.contractStatus
-	  });
-	this.getETCDetail();
-  },
+	data: {
+		orderInfo: undefined,
+		isRequest: false,
+		available: false,
+		isModifiedData: false // 是否是修改资料
+	},
+	onLoad (options) {
+		if (options.isModifiedData) {
+			this.setData({
+				isModifiedData: true
+			});
+		}
+	},
+	onShow () {
+		this.getETCDetail();
+	},
 	// 加载订单详情
 	getETCDetail () {
 		util.showLoading();
@@ -38,7 +29,7 @@ Page({
 		}, (res) => {
 			if (res.code === 0) {
 				let result = res.data.base;
-				let orderInfo = result.orderInfo
+				let orderInfo = result.orderInfo;
 				let vehPlates = result.vehPlates;
 				this.setData({
 					orderInfo: orderInfo,
@@ -52,32 +43,19 @@ Page({
 			util.hideLoading();
 		});
 	},
-	availableCheck(orderInfo,vehicleInfo) {
-		if(vehicleInfo.isTraction === 0 && orderInfo.isOwner === 1 && orderInfo.isVehicle === 1 && orderInfo.isHeadstock === 1){
-			this.setData({
-				available: true
-			})
-		} else if (vehicleInfo.isTraction === 1 && orderInfo.isTransportLicense === 1 && vehicleInfo.isTraction === 0 && orderInfo.isOwner === 1 && orderInfo.isVehicle === 1 && orderInfo.isHeadstock === 1) {
-			this.setData({
-				available: true
-			})
-		}
-		if(orderInfo.isOwner === 1 && orderInfo.isVehicle === 1 && orderInfo.isHeadstock === 1){
-			if(vehicleInfo.isTraction === 0 || (vehicleInfo.isTraction === 1 && orderInfo.isTransportLicense === 1) ){
+	availableCheck (orderInfo,vehicleInfo) {
+		if (orderInfo.isOwner === 1 && orderInfo.isVehicle === 1 && orderInfo.isHeadstock === 1) {
+			if (vehicleInfo.isTraction === 0 || (vehicleInfo.isTraction === 1 && orderInfo.isTransportLicense === 1)) {
 				this.setData({
 					available: true
-				})
+				});
 			}
 		}
 	},
 	// 跳转
 	go (e) {
-		if(this.data.contractStatus === 1) {
-			util.showToastNoIcon('签约成功，不可修改！');
-		} else {
-			let url = e.currentTarget.dataset['url'];
-			util.go(`/pages/truck_handling/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}`);
-		}
+		let url = e.currentTarget.dataset['url'];
+		util.go(`/pages/truck_handling/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}`);
 	},
 	// 微信签约
 	onclickSign () {
@@ -86,9 +64,9 @@ Page({
 		} else {
 			this.setData({isRequest: true});
 		}
-		app.globalData.signAContract = -1;
 		util.showLoading('加载中');
 		let params = {
+			dataComplete: 1,// 资料已完善
 			orderId: app.globalData.orderInfo.orderId,// 订单id
 			needSignContract: true // 是否需要签约 true-是，false-否
 		};
@@ -97,7 +75,11 @@ Page({
 			util.hideLoading();
 			this.setData({isRequest: false});
 		}, (res) => {
+			this.setData({isRequest: false});
 			if (res.code === 0) {
+				app.globalData.signAContract = -1;
+				app.globalData.isTruckHandling = true;
+				app.globalData.belongToPlatform = app.globalData.platformId;
 				util.hideLoading();
 				let result = res.data.contract;
 				// 签约车主服务 2.0
@@ -129,5 +111,5 @@ Page({
 			}
 		}, app.globalData.userInfo.accessToken, () => {
 		});
-	},
+	}
 });
