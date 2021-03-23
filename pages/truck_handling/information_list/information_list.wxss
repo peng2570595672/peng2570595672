@@ -3,18 +3,22 @@
   background: #f6f6f6;
 }
 .content .label {
-  padding: 60rpx 40rpx;
+  padding: 80rpx 40rpx 40rpx;
   font-size: 40rpx;
+  line-height: 56rpx;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
   color: #33333d;
 }
 .content .content-list {
-  align-items: center;
   padding: 40rpx 40rpx 16rpx 40rpx;
   background: #fff;
   box-shadow: 2rpx 2rpx 23rpx 0rpx rgba(126,132,156,0.1);
   border-radius: 32rpx;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 176rpx);
+  box-sizing: border-box;
 }
 .content .content-list .list-title {
   display: flex;
@@ -85,12 +89,15 @@
   color: #fff;
   border: none !important;
 }
+.content .content-list .fill {
+  flex: 1;
+}
 .content .content-list .btn-sign {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 260rpx;
   height: 100rpx;
+  margin: 60rpx 0;
   background: linear-gradient(49deg, rgba(20,172,105,0.24) 0%, rgba(132,209,87,0.24) 100%);
   border-radius: 50rpx;
   font-size: 40rpx;
@@ -106,15 +113,4 @@
 .content .content-list .btn-sign.unavailable {
   animation: btnFadeOut 0.3s;
   animation-fill-mode: forwards;
-}
-.content .content-list .bottom {
-  display: flex;
-  justify-content: center;
-}
-.content .content-list .bottom .empty-line {
-  width: 268rpx;
-  height: 10rpx;
-  margin-top: 60rpx;
-  background: #606060;
-  border-radius: 200rpx;
 }
