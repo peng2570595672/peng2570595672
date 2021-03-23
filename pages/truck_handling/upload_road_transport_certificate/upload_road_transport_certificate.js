@@ -60,13 +60,19 @@ Page({
 		}, () => {
 		}, (res) => {
 			if (res.code === 0) {
-				// let temp = this.data.orderInfo.idCard;
-				// if (temp) {
-				// 	this.setData({
-				// 		backStatus: 4,
-				// 		faceStatus: 4
-				// 	});
-				// }
+				if (res.data.transportLicense) {
+					let transportationLicenseObj = res.data.transportLicense;
+					transportationLicenseObj.ocrObject = {};
+					transportationLicenseObj.ocrObject = JSON.parse(transportationLicenseObj.ocrInfo);
+					const choiceActiveIndex = this.data.list.findIndex(item => item.vehicleCustomerType === parseInt(transportationLicenseObj.vehicleCustomerType));
+					this.setData({
+						choiceActiveIndex,
+						transportationLicenseObj
+					});
+					this.setData({
+						available: this.validateData(false)
+					});
+				}
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -116,8 +122,8 @@ Page({
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			transportLicense: {
 				ownerName: obj.ocrObject.owner_name, // 业户名称
-				licenseNumber: obj.ocrObject.vehicle_number, // 道路运输证号
-				vehicleNumber: obj.ocrObject.owner_name, // 车辆号牌
+				licenseNumber: obj.ocrObject.license_number, // 道路运输证号
+				vehicleNumber: obj.ocrObject.vehicle_number, // 车辆号牌
 				vehicleType: obj.ocrObject.vehicle_type, // 车辆类型
 				vehicleWeight: obj.ocrObject.maximum_capacity, // 吨(座)位
 				vehicleSize: obj.ocrObject.vehicle_size, // 车辆尺寸
