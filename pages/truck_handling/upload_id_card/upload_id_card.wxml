@@ -31,7 +31,7 @@
                 <image class="refresh" src="/pages/truck_handling/assets/refresh.png"></image>
                 <view>{{backStatus === 2 ? '识别中…' : '重新拍摄'}}</view>
             </view>
-            <image class="success" wx:if="{{faceStatus === 4}}" src="{{idCardBack.fileUrl}}"></image>
+            <image class="success" wx:if="{{backStatus === 4}}" src="{{idCardBack.fileUrl}}"></image>
         </view>
         <!--上传身份证背面结束-->
     </view>

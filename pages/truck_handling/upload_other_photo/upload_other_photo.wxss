@@ -100,6 +100,14 @@
 .page .photo-wrapper .photo.not-border {
   border: 0;
 }
+.page .prompt {
+  color: #66666d;
+  width: 274rpx;
+  padding-left: 398rpx;
+  padding-top: 40rpx;
+  font-size: 24rpx;
+  line-height: 40rpx;
+}
 .page .fill {
   flex: 1;
 }

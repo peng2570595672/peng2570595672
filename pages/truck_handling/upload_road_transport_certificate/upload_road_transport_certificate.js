@@ -20,10 +20,13 @@ Page({
 			{vehicleCustomerType: 24, name: '仅有“货物专用运输(集装箱)”'},
 			{vehicleCustomerType: 28, name: '含“货物专用运输(集装箱)”+其他'},
 			{vehicleCustomerType: 27, name: '不含“货物专用运输(集装箱)”'}
-		]
+		],
+		vehPlates: undefined
 	},
 	onLoad (options) {
-		app.globalData.orderInfo.orderId = '819230332799684608';
+		this.setData({
+			vehPlates: options.vehPlates
+		});
 		this.getOrderInfo();
 	},
 	onShow () {
@@ -53,21 +56,17 @@ Page({
 		util.showLoading();
 		util.getDataFromServer('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
-			dataType: '4'
+			dataType: 'a'
 		}, () => {
 		}, (res) => {
 			if (res.code === 0) {
-				this.setData({
-					orderInfo: res.data
-				});
-				// 获取实名信息
-				let temp = this.data.orderInfo.idCard;
-				if (temp) {
-					this.setData({
-						backStatus: 4,
-						faceStatus: 4
-					});
-				}
+				// let temp = this.data.orderInfo.idCard;
+				// if (temp) {
+				// 	this.setData({
+				// 		backStatus: 4,
+				// 		faceStatus: 4
+				// 	});
+				// }
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -77,7 +76,6 @@ Page({
 	},
 	// 校验数据
 	validateData (isToast) {
-		console.log(this.data.transportationLicenseObj)
 		if (!this.data.transportationLicenseObj.fileUrl) {
 			if (isToast) util.showToastNoIcon('请上传道路运输证！');
 			return false;
@@ -167,6 +165,14 @@ Page({
 					console.log(res);
 					if (res.code === 0) { // 识别成功
 						app.globalData.truckHandlingOCRTyp = 0;
+						if (res.data[0].ocrObject.vehicle_number !== this.data.vehPlates) {
+							this.setData({
+								certificateStatus: 3,
+								[`promptObject.content`]: `运输证车牌与${this.data.vehPlates}不一致，请重新上传`
+							});
+							this.selectComponent('#notFinishedOrder').show();
+							return;
+						}
 						this.setData({
 							certificateStatus: 4,
 							transportationLicenseObj: res.data[0]

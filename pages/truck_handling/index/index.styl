@@ -2,270 +2,268 @@
 //渐变主题色
 $themeColor1 = #17AD69;
 $themeColor2 = #7FD058;
-page
+.index
 	width 100%
 	height 100vh
 	background rgba(246,246,246,1);
-	.index
-		//顶部
-		.top
-			width 100%
-			//background-image url("https://file.cyzl.com/g001/M07/20/C1/oYYBAGBXGReAAL9iAAFY0ECq4wI874.png")
-			background: linear-gradient(180deg, #73CB5A 0%, rgba(132, 209, 87, 0) 100%);
-			.bg-image
-				margin 40rpx
-				height 45vh
-				background-image url("https://file.cyzl.com/g001/M07/20/C1/oYYBAGBXGReAAL9iAAFY0ECq4wI874.png")
-				background-size cover
-		//用户导航栏
-		.btn-content
+	margin 0
+	//顶部
+	.top
+		width 100%
+		background: linear-gradient(180deg, #73CB5A 0%, rgba(132, 209, 87, 0) 100%);
+		.bg-image
+			height 45vh
+			background-image url("https://file.cyzl.com/g001/M07/20/C1/oYYBAGBXGReAAL9iAAFY0ECq4wI874.png")
+			background-size cover
+	//用户导航栏
+	.btn-content
+		display flex
+		flex-direction column
+		justify-content center
+		text-align center
+		z-index 111
+		width 682rpx
+		border-radius 20rpx
+		margin -100rpx 30rpx 0rpx
+		background rgba(255,255,255,1)
+		.online-tips
+			color #33333D
+			font-size 48rpx
+			margin-top 40rpx
+		.memo-content
+			margin-top 10rpx
+			margin-bottom 40rpx
+			color #66666D
+			font-size 28rpx
+			&>text:nth-child(2)
+				color #F7B500
+		.btn
 			display flex
-			flex-direction column
+			margin 0rpx 30rpx
+			height 100rpx
+			align-items center
 			justify-content center
-			text-align center
-			z-index 111
-			width 682rpx
-			border-radius 20rpx
-			margin -100rpx 30rpx 0rpx
-			background rgba(255,255,255,1)
-			.online-tips
-				color #33333D
-				font-size 48rpx
-				margin-top 40rpx
-			.memo-content
-				margin-top 10rpx
-				margin-bottom 40rpx
-				color #66666D
-				font-size 28rpx
-				&>text:nth-child(2)
-					color #F7B500
-			.btn
+			background: linear-gradient(45deg, #14AC69 0%, #84D157 100%);
+			box-shadow: 0rpx 4rpx 5rpx 0rpx rgba(132, 209, 87, 0.2);
+			border-radius: 50rpx;
+			font-size: 40rpx;
+			font-family: PingFangSC-Medium, PingFang SC;
+			font-weight: 500;
+			color: #FFFFFF;
+		.discount-tips
+			margin-top 10rpx
+			margin-bottom 30rpx
+			color #404040
+			font-size 28rpx
+	.right-interest
+		background: #FFFFFF;
+		box-shadow: 2rpx 2rpx 23rpx 0rpx rgba(126, 132, 156, 0.1);
+		border-radius: 32rpx;
+		margin 30rpx 30rpx 0rpx 30rpx
+		padding 36rpx 30rpx
+		.interest-title
+			display flex
+			align-items center
+			font-size 40rpx
+			height 50rpx
+			font-family: PingFangSC-Medium, PingFang SC;
+			font-weight: 500;
+			color: #33333D;
+			&::before
+				margin-right 10rpx
+				content ''
+				width 10rpx
+				height 10rpx
+				border 6rpx solid #14AC69
+				border-radius 50%
+			& > text
+				margin-left 12rpx
+				font-size 24rpx
+				color #7A7F83
+				transform translateY(8rpx)
+		.interests-list
+			display flex
+			flex-wrap wrap
+			margin-top 40rpx
+			.charge_item
 				display flex
-				margin 0rpx 30rpx
-				height 100rpx
+				justify-content center
+				align-items center
+				width 290rpx
+				height 140rpx
+				border-radius: 10rpx;
+				margin-bottom 24rpx
+				border: 1rpx solid rgba(217,236,209,0.35);
+				.btn-charge-detail
+					display flex
+					justify-content center
+					align-items center
+					margin-left 80rpx
+					width 50rpx
+					height: 22rpx;
+					background: #1CAE67;
+					border-radius: 12rpx;
+					opacity: 0.25;
+					color #ffffff
+					font-size 14rpx
+				.charge-text
+					color #404040
+					font-size 24rpx
+					&.two
+						padding-bottom 24rpx
+				.label
+					margin-right 18rpx
+					font-size 46rpx
+					color #14AC69
+					&.one
+						&::before
+							display block
+							content '\e663'
+					&.two
+						&::before
+							display block
+							content '\e664'
+					&.three
+						&::before
+							display block
+							content '\e666'
+					&.four
+						&::before
+							display block
+							content '\e667'
+			.charge_item:nth-child(odd)
+				margin-right 20rpx
+	.handle-and-process
+		margin 30rpx 30rpx 0
+		background: #FFFFFF;
+		box-shadow: 2rpx 2rpx 23rpx 0rpx rgba(126, 132, 156, 0.1);
+		border-radius: 32rpx;
+		padding 30rpx
+		.process-title
+			display flex
+			align-items center
+			font-size 40rpx
+			height 50rpx
+			font-family: PingFangSC-Medium, PingFang SC;
+			font-weight: 500;
+			color: #33333D;
+			.sign
+				display flex
 				align-items center
 				justify-content center
-				background: linear-gradient(45deg, #14AC69 0%, #84D157 100%);
-				box-shadow: 0rpx 4rpx 5rpx 0rpx rgba(132, 209, 87, 0.2);
-				border-radius: 50rpx;
-				font-size: 40rpx;
-				font-family: PingFangSC-Medium, PingFang SC;
-				font-weight: 500;
-				color: #FFFFFF;
-			.discount-tips
-				margin-top 10rpx
-				margin-bottom 30rpx
-				color #404040
-				font-size 28rpx
-		.right-interest
-			background: #FFFFFF;
-			box-shadow: 2rpx 2rpx 23rpx 0rpx rgba(126, 132, 156, 0.1);
-			border-radius: 32rpx;
-			margin 30rpx 30rpx 0rpx 30rpx
-			padding 36rpx 30rpx
-			.interest-title
-				display flex
-				align-items center
-				font-size 40rpx
-				height 50rpx
-				font-family: PingFangSC-Medium, PingFang SC;
-				font-weight: 500;
-				color: #33333D;
-				&::before
-					margin-right 10rpx
-					content ''
+				width 20rpx
+				height 20rpx
+				border-radius 50%
+				background-image: linear-gradient(48deg, #14AC69 0%, #84D157 100%);
+				margin-right 10rpx
+				& > text
+					display block
 					width 10rpx
 					height 10rpx
-					border 6rpx solid #14AC69
+					background-color #fff
 					border-radius 50%
-				& > text
-					margin-left 12rpx
-					font-size 24rpx
-					color #7A7F83
-					transform translateY(8rpx)
-			.interests-list
+		.material
+			margin-top 40rpx
+			margin-left 28rpx
+			font-size: 32rpx;
+			font-family: PingFangSC-Medium, PingFang SC;
+			font-weight: 500;
+			color: #15AD69;
+		.photo
+			display flex
+			margin-top 20rpx
+			background: #F3FFF9;
+			border-radius: 20rpx;
+			padding 40rpx 30rpx
+			.photo-item
 				display flex
-				flex-wrap wrap
-				margin-top 40rpx
-				.charge_item
-					display flex
-					justify-content center
-					align-items center
-					width 290rpx
-					height 140rpx
-					border-radius: 10rpx;
-					margin-bottom 24rpx
-					border: 1rpx solid rgba(217,236,209,0.35);
-					.btn-charge-detail
-						display flex
-						justify-content center
-						align-items center
-						margin-left 80rpx
-						width 50rpx
-						height: 22rpx;
-						background: #1CAE67;
-						border-radius: 12rpx;
-						opacity: 0.25;
-						color #ffffff
-						font-size 14rpx
-					.charge-text
-						color #404040
-						font-size 24rpx
-						&.two
-							padding-bottom 24rpx
-					.label
-						margin-right 18rpx
-						font-size 46rpx
-						color #14AC69
-						&.one
-							&::before
-								display block
-								content '\e663'
-						&.two
-							&::before
-								display block
-								content '\e664'
-						&.three
-							&::before
-								display block
-								content '\e666'
-						&.four
-							&::before
-								display block
-								content '\e667'
-				.charge_item:nth-child(odd)
-					margin-right 20rpx
-		.handle-and-process
-			margin 30rpx 30rpx 0
-			background: #FFFFFF;
-			box-shadow: 2rpx 2rpx 23rpx 0rpx rgba(126, 132, 156, 0.1);
-			border-radius: 32rpx;
-			padding 30rpx
-			.process-title
-				display flex
+				flex-direction column
+				justify-content center
 				align-items center
-				font-size 40rpx
-				height 50rpx
-				font-family: PingFangSC-Medium, PingFang SC;
-				font-weight: 500;
-				color: #33333D;
-				.sign
-					display flex
-					align-items center
-					justify-content center
-					width 20rpx
-					height 20rpx
-					border-radius 50%
-					background-image: linear-gradient(48deg, #14AC69 0%, #84D157 100%);
-					margin-right 10rpx
-					& > text
-						display block
-						width 10rpx
-						height 10rpx
-						background-color #fff
-						border-radius 50%
-			.material
-				margin-top 40rpx
-				margin-left 28rpx
-				font-size: 32rpx;
-				font-family: PingFangSC-Medium, PingFang SC;
-				font-weight: 500;
-				color: #15AD69;
-			.photo
-				display flex
-				margin-top 20rpx
-				background: #F3FFF9;
-				border-radius: 20rpx;
-				padding 40rpx 30rpx
-				.photo-item
-					display flex
-					flex-direction column
-					justify-content center
-					align-items center
-					flex 1
-					.image
-						width 150rpx
-						height 90rpx
-					& > text
-						text-align center
-						margin-top 10rpx
-						font-size: 24rpx;
-						font-family: PingFangSC-Medium, PingFang SC;
-						font-weight: 500;
-						color: #66666D;
-					.memo
-						font-size: 12rpx;
-			.progress_wrapper
-				margin-top 60rpx
-				.item
-					position relative
-					margin-left 36rpx
-					padding-bottom 40rpx
-					border-left 1rpx dashed #A7A7A7
-					&::before
-						position absolute
-						top -8rpx
-						left -9rpx
-						content ''
-						display inline-block
-						width 16rpx
-						height 16rpx
-						border-radius 50%
-						background: #20B068
-					&:last-of-type
-						border-left 0
-						&::before
-							left -8rpx
-					.content-title
-						position relative
-						padding-left 26rpx
-						display flex
-						align-items center
-						font-size 32rpx;
-						font-family: PingFangSC-Medium, PingFang SC;
-						font-weight: 500;
-						color: #15AD69;
-						transform translateY(-24rpx)
-					.content-des
-						display flex
-						margin-top 10rpx
-						padding-left 26rpx
-						padding-right 80rpx
-						line-height 40rpx
-						color rgba(126,132,156,0.85)
-						font-size 24rpx
-						transform translateY(-24rpx)
-					.tab
-						display flex
-						width: 360rpx;
-						height: 120rpx;
-						margin-left 26rpx
-						border: 1rpx solid rgba(151,151,151,0.34)
-						.tab-item
-							display flex
-							flex-direction column
-							flex 1
-							font-size 20rpx;
-							color: #66666D;
-							border-right: 1rpx solid #F3F3F3
-							&:nth-child(3)
-								border-right none!important
-							& > view
-								text-align center
-								margin-top 10rpx
-							.first
-								height 50rpx
-								font-family: PingFangSC-Semibold, PingFang SC;
-								font-weight: 600;
-								color: #66666D;
-								border-bottom: 1rpx solid #F3F3F3;
-				.last
-					&::after
-						display none!important
-		.bottom
+				flex 1
+				.image
+					width 150rpx
+					height 90rpx
+				& > text
+					text-align center
+					margin-top 10rpx
+					font-size: 24rpx;
+					font-family: PingFangSC-Medium, PingFang SC;
+					font-weight: 500;
+					color: #66666D;
+				.memo
+					font-size: 12rpx;
+		.progress_wrapper
 			margin-top 60rpx
-			margin-bottom 160rpx
-			height 40rpx
-			text-align center
-			font-size 24rpx
-			color rgba(3,158,235,0.85)
+			.item
+				position relative
+				margin-left 36rpx
+				padding-bottom 40rpx
+				border-left 1rpx dashed #A7A7A7
+				&::before
+					position absolute
+					top -8rpx
+					left -9rpx
+					content ''
+					display inline-block
+					width 16rpx
+					height 16rpx
+					border-radius 50%
+					background: #20B068
+				&:last-of-type
+					border-left 0
+					&::before
+						left -8rpx
+				.content-title
+					position relative
+					padding-left 26rpx
+					display flex
+					align-items center
+					font-size 32rpx;
+					font-family: PingFangSC-Medium, PingFang SC;
+					font-weight: 500;
+					color: #15AD69;
+					transform translateY(-24rpx)
+				.content-des
+					display flex
+					margin-top 10rpx
+					padding-left 26rpx
+					padding-right 80rpx
+					line-height 40rpx
+					color rgba(126,132,156,0.85)
+					font-size 24rpx
+					transform translateY(-24rpx)
+				.tab
+					display flex
+					width: 360rpx;
+					height: 120rpx;
+					margin-left 26rpx
+					border: 1rpx solid rgba(151,151,151,0.34)
+					.tab-item
+						display flex
+						flex-direction column
+						flex 1
+						font-size 20rpx;
+						color: #66666D;
+						border-right: 1rpx solid #F3F3F3
+						&:nth-child(3)
+							border-right none!important
+						& > view
+							text-align center
+							margin-top 10rpx
+						.first
+							height 50rpx
+							font-family: PingFangSC-Semibold, PingFang SC;
+							font-weight: 600;
+							color: #66666D;
+							border-bottom: 1rpx solid #F3F3F3;
+			.last
+				&::after
+					display none!important
+	.bottom
+		margin-top 60rpx
+		margin-bottom 160rpx
+		height 40rpx
+		text-align center
+		font-size 24rpx
+		color rgba(3,158,235,0.85)

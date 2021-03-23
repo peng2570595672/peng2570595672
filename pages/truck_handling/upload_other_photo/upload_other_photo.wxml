@@ -1,10 +1,10 @@
 <view class="page">
     <view class="title">请按要求上传证件</view>
     <view class="sub-title">*车头照必传，补充角度照选传有利提高审核通过率</view>
-    <!--上传身份证部分开始-->
+    <!--上传证件部分开始-->
     <view class="photo-wrapper">
-        <!--上传身份证正面开始-->
-        <view class="photo {{faceStatus !== 1 ? 'not-border' : ''}}" data-type="1" catchtap="selectionPic">
+        <!--车头照开始-->
+        <view class="photo {{faceStatus !== 1 ? 'not-border' : ''}}" data-type="101" catchtap="selectionPic">
             <view class="not-upload" wx:if="{{faceStatus !== 4}}">
                 <view class="img-box">
                     <image class="ico" wx:if="{{faceStatus === 1}}" src="/pages/truck_handling/assets/icon_camera_white.png"></image>
@@ -15,14 +15,14 @@
                 <image class="refresh" src="/pages/truck_handling/assets/refresh.png"></image>
                 <view>{{faceStatus === 2 ? '识别中…' : '重新拍摄'}}</view>
             </view>
-            <image class="success" wx:if="{{faceStatus === 4}}" src="{{idCardFace.fileUrl}}"></image>
+            <image class="success" wx:if="{{faceStatus === 4}}" src="{{truckHeadstock.fileUrl}}"></image>
         </view>
-        <!--上传身份证正面结束-->
-        <!--上传身份证背面开始-->
-        <view class="photo {{backStatus !== 1 ? 'not-border' : ''}}" data-type="2" catchtap="selectionPic">
+        <!--车头照结束-->
+        <!--补充角度照开始-->
+        <view class="photo {{backStatus !== 1 ? 'not-border' : ''}}" data-type="102" catchtap="selectionPic">
             <view class="not-upload" wx:if="{{backStatus !== 4}}">
                 <view class="img-box">
-                    <image class="ico" wx:if="{{faceStatus === 1}}" src="/pages/truck_handling/assets/icon_camera_white.png"></image>
+                    <image class="ico" wx:if="{{backStatus === 1}}" src="/pages/truck_handling/assets/icon_camera_white.png"></image>
                 </view>
                 <view>补充角度照（选传）</view>
             </view>
@@ -30,10 +30,12 @@
                 <image class="refresh" src="/pages/truck_handling/assets/refresh.png"></image>
                 <view>{{backStatus === 2 ? '识别中…' : '重新拍摄'}}</view>
             </view>
-            <image class="success" wx:if="{{faceStatus === 4}}" src="{{idCardBack.fileUrl}}"></image>
+            <image class="success" wx:if="{{backStatus === 4}}" src="{{truckSidePhoto.fileUrl}}"></image>
         </view>
-        <!--上传身份证背面结束-->
+        <!--补充角度照结束-->
     </view>
+    <view class="prompt">补充正面车头照或侧面车身照有利于通过审核</view>
     <view class="fill"></view>
     <view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next">确认资料并保存</view>
+    <information-validation-prompt promptObject="{{promptObject}}" id="notFinishedOrder"></information-validation-prompt>
 </view>

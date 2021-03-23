@@ -45,13 +45,13 @@ Page({
 	onLoad () {
 	},
 	onShow () {
-		// 身份证正面
+		// 行驶证正面
 		let truck = wx.getStorageSync('truck-3');
 		if (truck) {
 			wx.removeStorageSync('truck-3');
 			if (app.globalData.truckHandlingOCRType) this.uploadOcrFile(truck);
 		}
-		// 身份证反面
+		// 行驶证反面
 		truck = wx.getStorageSync('truck-4');
 		if (truck) {
 			wx.removeStorageSync('truck-4');
@@ -59,23 +59,122 @@ Page({
 		}
 		if (!app.globalData.truckHandlingOCRType) {
 			// 没通过上传
-			let truckIdCardFace = wx.getStorageSync('truck-driving-license-face');
-			if (truckIdCardFace) {
-				truckIdCardFace = JSON.parse(truckIdCardFace);
+			let drivingLicenseFace = wx.getStorageSync('truck-driving-license-face');
+			if (drivingLicenseFace) {
+				drivingLicenseFace = JSON.parse(drivingLicenseFace);
 				this.setData({
 					faceStatus: 4,
-					idCardFace: truckIdCardFace
+					drivingLicenseFace
 				});
 			}
-			let truckIdCardBack = wx.getStorageSync('truck-driving-license-back');
-			if (truckIdCardBack) {
-				truckIdCardBack = JSON.parse(truckIdCardBack);
+			let drivingLicenseBack = wx.getStorageSync('truck-driving-license-back');
+			if (drivingLicenseBack) {
+				drivingLicenseBack = JSON.parse(drivingLicenseBack);
 				this.setData({
 					backStatus: 4,
-					idCardBack: truckIdCardBack
+					drivingLicenseBack
 				});
 			}
 		}
+	},
+	// 上传图片
+	uploadOcrFile (path) {
+		const type = app.globalData.truckHandlingOCRType;
+		if (type === 3) {
+			this.setData({faceStatus: 2});
+		} else {
+			this.setData({backStatus: 2});
+		}
+		// 上传并识别图片
+		util.uploadOcrFile(path, type, () => {
+			if (type === 3) {
+				this.setData({faceStatus: 3});
+			} else {
+				this.setData({backStatus: 3});
+			}
+			util.showToastNoIcon('文件服务器异常！');
+		}, (res) => {
+			try {
+				if (res) {
+					res = JSON.parse(res);
+					if (res.code === 0) { // 识别成功
+						app.globalData.truckHandlingOCRTyp = 0;
+						if (type === 3) {
+							this.setData({
+								faceStatus: 4,
+								drivingLicenseFace: res.data[0]
+							});
+							wx.setStorageSync('truck-driving-license-face', JSON.stringify(res.data[0]));
+						} else {
+							let personsCapacity = res.data[0].ocrObject.personsCapacity;
+							const personsCapacityStr = aaa.slice(0, aaa.length - 1);
+							let personsCapacityNum = 0;
+							if (personsCapacityStr.includes('+')) {
+								personsCapacityNum = parseInt(personsCapacityStr.split('+')[0]) + parseInt(personsCapacityStr.split('+')[1]);
+							} else {
+								personsCapacityNum = personsCapacityStr;
+							}
+							res.data[0].ocrObject.personsCapacity = personsCapacityNum;
+							this.setData({
+								backStatus: 4,
+								drivingLicenseBack: res.data[0]
+							});
+							wx.setStorageSync('truck-driving-license-back', JSON.stringify(res.data[0]));
+						}
+						this.setData({
+							available: this.validateData(false)
+						});
+					} else { // 识别失败
+						if (type === 3) {
+							this.setData({faceStatus: 3});
+						} else {
+							this.setData({backStatus: 3});
+						}
+					}
+				} else { // 识别失败
+					if (type === 3) {
+						this.setData({faceStatus: 3});
+					} else {
+						this.setData({backStatus: 3});
+					}
+					util.showToastNoIcon('识别失败');
+				}
+			} catch (e) {
+				if (type === 3) {
+					this.setData({faceStatus: 3});
+				} else {
+					this.setData({backStatus: 3});
+				}
+				util.showToastNoIcon('文件服务器异常！');
+			}
+		}, () => {
+		});
+	},
+	// 校验数据
+	validateData (isToast) {
+		// if (!this.data.idCardBack.fileUrl || !this.data.idCardFace.fileUrl) {
+		// 	if (isToast) util.showToastNoIcon('请上传身份证！');
+		// 	return false;
+		// }
+		// if (!this.data.idCardFace.ocrObject.name) {
+		// 	if (isToast) util.showToastNoIcon('姓名不能为空！');
+		// 	return false;
+		// }
+		// if (!this.data.idCardFace.ocrObject.idNumber) {
+		// 	if (isToast) util.showToastNoIcon('身份证号不能为空！');
+		// 	return false;
+		// }
+		// if (!/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/.test(this.data.idCardFace.ocrObject.idNumber)) {
+		// 	if (isToast) util.showToastNoIcon('身份证号格式不正确！');
+		// 	return false;
+		// }
+		// if (!this.data.idCardBack.ocrObject.validDate || !this.data.idCardFace.ocrObject.address ||
+		// 	!this.data.idCardBack.ocrObject.authority || !this.data.idCardFace.ocrObject.birth ||
+		// 	!this.data.idCardFace.ocrObject.sex) {
+		// 	if (isToast) util.showToastNoIcon('部分信息识别失败,请重新上传身份证照片！');
+		// 	return false;
+		// }
+		return true;
 	},
 	onClickOwnershipType (e) {
 		let ownershipTypeIndex = +e.currentTarget.dataset.type;
@@ -146,25 +245,8 @@ Page({
 							oldDrivingLicenseFace: this.data.drivingLicenseFace,
 							oldDrivingLicenseBack: this.data.drivingLicenseBack
 						});
-						if (res.data.headstock) {
-							this.setData({
-								carHead45: res.data.headstock,
-								oldCarHead45: res.data.headstock
-							});
-							if (app.globalData.firstVersionData) {
-								that.getNetworkImage(res.data.headstock.fileUrl, 0);
-							}
-							wx.setStorageSync('car_head_45', JSON.stringify(res.data.headstock));
-						}
 						wx.setStorageSync('driving_license_face', JSON.stringify(this.data.drivingLicenseFace));
 						wx.setStorageSync('driving_license_back', JSON.stringify(this.data.drivingLicenseBack));
-						if (app.globalData.firstVersionData) {
-							that.setData({
-								firstVersionPic4: res.data.vehicle.licenseVicePage,
-								isFirstVersionPic4: true
-							});
-							that.getNetworkImage(res.data.vehicle.licenseMainPage, 3);
-						}
 					}
 				}
 			} else {
@@ -176,57 +258,103 @@ Page({
 	},
 	// 提交信息
 	onClickComfirmHandle () {
-		// 统计点击事件
 		if (!this.data.available || this.data.isRequest) {
 			return;
 		}
-		this.comfirmHandle();
+		this.subscribe();
+	},
+	// ETC申办审核结果通知、ETC发货提示
+	subscribe () {
+		// 判断版本，兼容处理
+		let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
+		if (result >= 0) {
+			util.showLoading({
+				title: '加载中...'
+			});
+			wx.requestSubscribeMessage({
+				tmplIds: ['aHsjeWaJ0RRU08Uc-OeLs2OyxLxBd_ta3zweXloC66U','K6gUmq_RSjfR1Hm_F8ORAzlpZZDVaDhuRDE6JoVvsuo'],
+				success: (res) => {
+					wx.hideLoading();
+					if (res.errMsg === 'requestSubscribeMessage:ok') {
+						let keys = Object.keys(res);
+						// 是否存在部分未允许的订阅消息
+						let isReject = false;
+						for (let key of keys) {
+							if (res[key] === 'reject') {
+								isReject = true;
+								break;
+							}
+						}
+						// 有未允许的订阅消息
+						if (isReject) {
+							util.alert({
+								content: '检查到当前订阅消息未授权接收，请授权',
+								showCancel: true,
+								confirmText: '授权',
+								confirm: () => {
+									wx.openSetting({
+										success: (res) => {
+										},
+										fail: () => {
+											util.showToastNoIcon('打开设置界面失败，请重试！');
+										}
+									});
+								},
+								cancel: () => { // 点击取消按钮
+									this.comfirmHandle();
+								}
+							});
+						} else {
+							this.comfirmHandle();
+						}
+					}
+				},
+				fail: (res) => {
+					wx.hideLoading();
+					// 不是点击的取消按钮
+					if (res.errMsg === 'requestSubscribeMessage:fail cancel') {
+						this.comfirmHandle();
+					} else {
+						util.alert({
+							content: '调起订阅消息失败，是否前往"设置" -> "订阅消息"进行订阅？',
+							showCancel: true,
+							confirmText: '打开设置',
+							confirm: () => {
+								wx.openSetting({
+									success: (res) => {
+									},
+									fail: () => {
+										util.showToastNoIcon('打开设置界面失败，请重试！');
+									}
+								});
+							},
+							cancel: () => {
+								this.comfirmHandle();
+							}
+						});
+					}
+				}
+			});
+		} else {
+			util.alert({
+				title: '微信更新提示',
+				content: '检测到当前微信版本过低，可能导致部分功能无法使用；可前往微信“我>设置>关于微信>版本更新”进行升级',
+				confirmText: '继续使用',
+				showCancel: true,
+				confirm: () => {
+					this.comfirmHandle();
+				}
+			});
+		}
 	},
 	comfirmHandle () {
 		// 比对车牌颜色和车牌位数是否一致   新老数据做对比,判断是否进行面审
 		// 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
 		let face = this.data.drivingLicenseFace.ocrObject;
-		let oldFace = this.data.oldDrivingLicenseFace.ocrObject;
-		let carHead45 = this.data.carHead45;
-		let oldCarHead45 = this.data.oldCarHead45;
 		let back = this.data.drivingLicenseBack.ocrObject;
-		let oldBack = this.data.oldDrivingLicenseBack.ocrObject;
-		let backValue;
-		let oldBackValue;
-		let faceValue;
-		let oldFaceValue;
-		let carHead45Value;
-		let oldCarHead45Value;
-		let haveChange = true;
-		for (let key in back) { backValue += back[key]; }
-		for (let key in oldBack) { oldBackValue += oldBack[key]; }
-		for (let key in face) { faceValue += face[key]; }
-		for (let key in oldFace) { oldFaceValue += oldFace[key]; }
-		for (let key in carHead45) { carHead45Value += carHead45[key]; }
-		for (let key in oldCarHead45) { oldCarHead45Value += oldCarHead45[key]; }
-		if (backValue === oldBackValue && faceValue === oldFaceValue && carHead45Value === oldCarHead45Value) {
-			haveChange = false;
-		}
 		// 比对之前输入车牌和当前行驶证车牌是否一致
 		if (face.numberPlates !== this.data.orderInfo['base'].vehPlates.trim()) {
 			util.showToastNoIcon(`行驶证车牌${face.numberPlates}与下单时车牌${this.data.orderInfo['base'].vehPlates.trim()}不一致，请检查！`);
-			return;
-		}
-		let isOk = true;
-		if (face.numberPlates.length === 7) {
-			isOk = this.data.orderInfo['base'].vehColor === 0 || this.data.orderInfo['base'].vehColor === 1;
-		} else {
-			isOk = this.data.orderInfo['base'].vehColor === 4;
-		}
-		if (!isOk) {
-			let color = this.data.orderInfo['base'].vehColor === 1 ? '黄色' : this.data.orderInfo['base'].vehColor === 4 ? '渐变绿色' : '蓝色';
-			util.showToastNoIcon(`车牌格式与下单时车牌颜色（${color}）不符，请检查！`);
-			return;
-		}
-		// 校验外廓尺寸
-		isOk = /^[1-9][0-9]{3,4}(([×*x][1-9][0-9]{3}){2})[m]{2}$/.test(back.size);
-		if (!isOk) {
-			util.showToastNoIcon('外廓尺寸单位必须为毫米 如：4500*1780*1560mm，请修改！');
 			return;
 		}
 		// 提价数据
@@ -237,6 +365,7 @@ Page({
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			vehicleInfo: {
+				dataType: '6',
 				carType: 1,
 				haveChange: haveChange, // 行驶证信息OCR结果有无修改过，默认false，修改过传true 【dataType包含6】
 				vehPlates: face.numberPlates,
@@ -263,43 +392,13 @@ Page({
 				recode: back.recode // 检验记录 【dataType包含6】
 			}
 		};
-		// 判断套餐是否需要上传车主身份证 && 行驶证姓名同车主身份证是否一致
-		if (parseInt(this.data.productInfo.isOwner) === 1 && this.data.orderInfo.idCard.idCardTrueName !== face.owner) {
-			params['dataComplete'] = 0;// 订单资料是否已完善 1-是，0-否
-		} else {
-			params['dataComplete'] = 1;
-		}
-		if (app.globalData.firstVersionData && !app.globalData.isModifiedData) {
-			// 1.0数据且不是修改资料
-			params['upgradeToTwo'] = true; // 1.0数据转2.0
-		}
-		// 是否需要上传车头照
-		if (this.data.productInfo.isHeadImg === 1) {
-			params['headstockInfo'] = {
-				vehPlate: face.numberPlates,// 车牌号 【dataType包含7】
-				fileName: carHead45.fileName, // 文件名称 【dataType包含7】
-				fileGroup: carHead45.fileGroup, // 所在组 【dataType包含7】
-				fileUrl: carHead45.fileUrl // 访问地址 【dataType包含7】
-			};
-			params['dataType'] = '67';// 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）,4:获取实名信息，5:获取银行卡信息
-		} else {
-			params['dataType'] = '6';
-		}
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
 			if (res.code === 0) {
-				wx.removeStorageSync('information_validation');
-				if (app.globalData.isModifiedData) {
-					// 修改资料
-					util.go(`/pages/default/update_id_card/update_id_card?type=normal_process`);
-				} else {
-					if (this.data.productInfo.isOwner === 1 && this.data.orderInfo.idCard.idCardTrueName !== face.owner) {
-						util.go(`/pages/default/update_id_card/update_id_card?type=normal_process`);
-					} else {
-						util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
-					}
-				}
+				wx.navigateBack({
+					delta: 1
+				});
 			} else {
 				this.setData({
 					available: true,
@@ -348,38 +447,10 @@ Page({
 			drivingLicenseBack
 		});
 	},
-	// 取消订单
-	cancelOrder () {
-		util.showLoading({
-			title: '取消中...'
-		});
-		util.getDataFromServer('consumer/order/cancel-order', {
-			orderId: app.globalData.orderInfo.orderId
-		}, () => {
-			util.showToastNoIcon('取消订单失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				util.go('/pages/personal_center/cancel_order_succeed/cancel_order_succeed');
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-		});
-	},
 	// 隐藏弹窗
 	onHandle () {
 		this.setData({
 			isShowTextarea: true
 		});
-		wx.removeStorageSync('information_validation');
-	},
-	// 关闭弹窗  取消办理
-	cancelHandle () {
-		this.setData({
-			isShowTextarea: true
-		});
-		wx.removeStorageSync('information_validation');
-		this.cancelOrder();
 	}
 });

@@ -1,5 +1,5 @@
 <view class="pass-the-discount animated {{wrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{mask}}" catchtap="onClickTranslucentHandle">
-	<view class="pass-the-discount-wrapper  animated {{wrapper ? 'slideInUp' : 'slideOutDown'}}" wx:if="{{mask}}">
+	<view class="pass-the-discount-wrapper  animated {{wrapper ? 'zoomIn' : 'zoomOut'}}" wx:if="{{mask}}">
 		<view class="title">全国各省通行折扣</view>
 		<view class="list-content">
 			<view class="list-title">

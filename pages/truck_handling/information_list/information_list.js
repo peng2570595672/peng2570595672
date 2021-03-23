@@ -1,11 +1,13 @@
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
-  data: {
-  },
-  onShow () {
-	this.getETCDetail();
-  },
+	data: {
+		orderInfo: undefined
+	},
+	onShow () {
+		app.globalData.truckHandlingOCRType = 0;
+		this.getETCDetail();
+	},
 	// 加载订单详情
 	getETCDetail () {
 		util.showLoading();
@@ -14,17 +16,11 @@ Page({
 			dataType: '16',
 			needAllInfo: true
 		}, () => {
-			util.showToastNoIcon('获取设备详情失败！');
+			util.showToastNoIcon('获取订单详情失败！');
 		}, (res) => {
 			if (res.code === 0) {
-				let orderInfo = res.data;
-				if (orderInfo.remark && orderInfo.remark.indexOf('迁移订单数据') !== -1) {
-					orderInfo['selfStatus'] = util.getStatusFirstVersion(orderInfo);
-				} else {
-					orderInfo['selfStatus'] = util.getStatus(orderInfo);
-				}
 				this.setData({
-					orderInfo
+					orderInfo: res.data
 				});
 			} else {
 				util.showToastNoIcon(res.message);
@@ -36,6 +32,6 @@ Page({
 	// 跳转
 	go (e) {
 		let url = e.currentTarget.dataset['url'];
-		util.go(`/pages/truck_handling/${url}/${url}`);
+		util.go(`/pages/truck_handling/${url}/${url}?vehPlates=${this.data.orderInfo.base.vehPlates}`);
 	}
 });

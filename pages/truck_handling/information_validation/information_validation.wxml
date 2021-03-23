@@ -31,7 +31,7 @@
                 <image class="refresh" src="/pages/truck_handling/assets/refresh.png"></image>
                 <view>{{backStatus === 2 ? '识别中…' : '重新拍摄'}}</view>
             </view>
-            <image class="success" wx:if="{{faceStatus === 4}}" src="{{drivingLicenseBack.fileUrl}}"></image>
+            <image class="success" wx:if="{{backStatus === 4}}" src="{{drivingLicenseBack.fileUrl}}"></image>
         </view>
         <!--上传行驶证背面结束-->
     </view>
@@ -68,13 +68,7 @@
         </view>
         <view class="item">
             <view>核载人数</view>
-            <picker
-                    bindchange="onPersonsCapacityPickerChange"
-                    value="{{personIndex}}"
-                    range="{{personsArr}}"
-            >
-                <view>{{personsArr[personIndex]}}</view>
-            </picker>
+            <input type="text" value="{{drivingLicenseBack.ocrObject.personsCapacity}}" data-key="personsCapacity" data-type="4" bindinput="onInputChangedHandle"/>
         </view>
         <view class="item axle">
             <view>车轴数</view>
