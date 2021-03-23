@@ -186,10 +186,12 @@
   justify-content: center;
   text-align: center;
   background: #f3f3f3;
+  position: relative;
 }
 .information_validation .content-wrapper .item.axle .choice-axle::after {
+  position: absolute;
+  right: 20rpx;
   content: '\e60e';
-  margin-left: 56rpx;
   transform: rotateZ(-90deg);
 }
 .information_validation .content-wrapper .parameter {

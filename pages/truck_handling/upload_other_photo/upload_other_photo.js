@@ -69,7 +69,7 @@ Page({
 	},
 	// 校验数据
 	validateData (isToast) {
-		if (!this.data.truckHeadstock.fileUrl) {
+		if (this.data.faceStatus !== 4) {
 			if (isToast) util.showToastNoIcon('请上传车头照！');
 			return false;
 		}

@@ -32,6 +32,6 @@ Page({
 	// 跳转
 	go (e) {
 		let url = e.currentTarget.dataset['url'];
-		util.go(`/pages/truck_handling/${url}/${url}?vehPlates=${this.data.orderInfo.base.vehPlates}`);
+		util.go(`/pages/truck_handling/${url}/${url}?vehPlates=${this.data.orderInfo.base.vehPlates}&vehColor=${this.data.orderInfo.base.vehColor}`);
 	}
 });

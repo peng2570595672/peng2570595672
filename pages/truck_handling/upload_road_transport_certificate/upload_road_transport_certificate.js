@@ -76,7 +76,7 @@ Page({
 	},
 	// 校验数据
 	validateData (isToast) {
-		if (!this.data.transportationLicenseObj.fileUrl) {
+		if (this.data.certificateStatus !== 4) {
 			if (isToast) util.showToastNoIcon('请上传道路运输证！');
 			return false;
 		}

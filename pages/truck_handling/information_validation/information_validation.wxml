@@ -1,3 +1,4 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="information_validation">
     <view class="title">请按要求上传证件</view>
     <!--上传行驶证部分开始-->
@@ -68,7 +69,7 @@
         </view>
         <view class="item">
             <view>核载人数</view>
-            <input type="text" value="{{drivingLicenseBack.ocrObject.personsCapacity}}" data-key="personsCapacity" data-type="4" bindinput="onInputChangedHandle"/>
+            <input type="number" value="{{drivingLicenseBack.ocrObject.personsCapacity}}" data-key="personsCapacity" data-type="4" bindinput="onInputChangedHandle"/>
         </view>
         <view class="item axle">
             <view>车轴数</view>
@@ -86,7 +87,9 @@
                 <view class="parameter-title">尺寸mm</view>
                 <view class="parameter-detailed">
                     <view>
-                        <view>4615</view>
+                        <view>
+                            <input type="text" value="{{drivingLicenseBack.ocrObject.vehicleLength}}" data-key="vehicleLength" data-type="4" bindinput="onInputChangedHandle"/>
+                        </view>
                         <view>长</view>
                     </view>
                     <view>
@@ -94,7 +97,9 @@
                         <view></view>
                     </view>
                     <view>
-                        <view>4615</view>
+                        <view>
+                            <input type="text" value="{{drivingLicenseBack.ocrObject.vehicleWidth}}" data-key="vehicleWidth" data-type="4" bindinput="onInputChangedHandle"/>
+                        </view>
                         <view>宽</view>
                     </view>
                     <view>
@@ -102,16 +107,20 @@
                         <view></view>
                     </view>
                     <view>
-                        <view>4615</view>
+                        <view>
+                            <input type="text" value="{{drivingLicenseBack.ocrObject.vehicleHeight}}" data-key="vehicleHeight" data-type="4" bindinput="onInputChangedHandle"/>
+                        </view>
                         <view>高</view>
                     </view>
                 </view>
             </view>
             <view class="parameter-item">
-                <view class="parameter-title">尺寸mm</view>
+                <view class="parameter-title">质量kg</view>
                 <view class="parameter-detailed">
                     <view>
-                        <view>4615</view>
+                        <view>
+                            <input type="text" value="{{drivingLicenseBack.ocrObject.totalMass}}" data-key="totalMass" data-type="4" bindinput="onInputChangedHandle"/>
+                        </view>
                         <view>总质量</view>
                     </view>
                     <view>
@@ -119,7 +128,9 @@
                         <view></view>
                     </view>
                     <view>
-                        <view>4615</view>
+                        <view>
+                            <input type="text" value="{{drivingLicenseBack.ocrObject.curbWeight}}" data-key="curbWeight" data-type="4" bindinput="onInputChangedHandle"/>
+                        </view>
                         <view>装备质量</view>
                     </view>
                     <view>
@@ -127,7 +138,9 @@
                         <view></view>
                     </view>
                     <view>
-                        <view>4615</view>
+                        <view>
+                            <input type="text" value="{{drivingLicenseBack.ocrObject.loadQuality}}" data-key="loadQuality" data-type="4" bindinput="onInputChangedHandle"/>
+                        </view>
                         <view>核载质量</view>
                     </view>
                 </view>
@@ -140,5 +153,5 @@
 	<view class="auto-fill"></view>
 	<!--	自动填充结束-->
 	<view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="onClickComfirmHandle"><view class="animate" wx:if="{{isRequest}}"></view>确认资料并保存</view>
-	<information-validation-prompt id="notFinishedOrder" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></information-validation-prompt>
+	<information-validation-prompt id="notFinishedOrder" promptObject="{{promptObject}}"></information-validation-prompt>
 </view>

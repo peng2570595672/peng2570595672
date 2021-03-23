@@ -5,6 +5,10 @@ function substring(val,start,end) {
   }
     return val.substring(start,end);
 }
+// 字符串转数组
+function stringToArray(string,splitKeyword) {
+    return string.split(splitKeyword);
+}
 // 保留两位小数
 function parseNum(val=0) {
   return parseFloat(val).toFixed(2);
@@ -38,6 +42,7 @@ function formatterTimer(systimestamp, compareTime, countdownTime = 0) {
 };
 module.exports = {
   substring: substring,
+  stringToArray: stringToArray,
   parseIn: parseIn,
   parseNum: parseNum,
   formatterTimer: formatterTimer,

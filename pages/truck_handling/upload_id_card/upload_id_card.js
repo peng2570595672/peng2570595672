@@ -108,7 +108,7 @@ Page({
 	},
 	// 校验数据
 	validateData (isToast) {
-		if (!this.data.idCardBack.fileUrl || !this.data.idCardFace.fileUrl) {
+		if (this.data.faceStatus !== 4 || this.data.backStatus !== 4) {
 			if (isToast) util.showToastNoIcon('请上传身份证！');
 			return false;
 		}
