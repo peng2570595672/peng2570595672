@@ -17,11 +17,11 @@ Page({
 			ocrObject: {}
 		}, // 行驶证反面
 		carTypeArr: [
-			{'id': '2', 'name': '两轴'},
-			{'id': '3', 'name': '三轴'},
-			{'id': '4', 'name': '四轴'},
-			{'id': '5', 'name': '五轴'},
-			{'id': '6', 'name': '六轴'}
+			{'id': 2, 'name': '两轴'},
+			{'id': 3, 'name': '三轴'},
+			{'id': 4, 'name': '四轴'},
+			{'id': 5, 'name': '五轴'},
+			{'id': 6, 'name': '六轴'}
 		], // 车型数组
 		carType: -1, // 车型
 		ownershipTypeIndex: 1, // 车辆归属
@@ -33,22 +33,9 @@ Page({
 			isOk: true,
 			isHide: false
 		},
-
-		count: 0,// 计数,因网络图片老是404,所以做计数刷新处理
-		opened: false, // 是否展开更多信息
-		current: 0, // 当前轮播图索引
-		firstVersionPic4: '',
-		isFirstVersionPic4: false,
-		carHead45: {}, // 车头照
-		oldCarHead45: {}, // 车头照 原始数据,用于与新数据比对(秒审)
-		personIndex: 0, // 选择框当前选中索引
-		oldPersonIndex: 0, // 选择框当前选中索引 原始数据,用于与新数据比对(秒审)
-		personsArr: [2, 3, 4, 5, 6, 7, 8, 9], // 核载人数选择框
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
-		isShowTextarea: true,// 是否显示textarea
-		productInfo: undefined,// 套餐信息
-		orderInfo: undefined // 订单信息
+		isShowTextarea: true// 是否显示textarea
 	},
 	onLoad (options) {
 		this.setData({
@@ -79,6 +66,9 @@ Page({
 					faceStatus: 4,
 					drivingLicenseFace
 				});
+				this.setData({
+					available: this.validateData(false)
+				});
 			}
 			let drivingLicenseBack = wx.getStorageSync('truck-driving-license-back');
 			if (drivingLicenseBack) {
@@ -86,6 +76,9 @@ Page({
 				this.setData({
 					backStatus: 4,
 					drivingLicenseBack
+				});
+				this.setData({
+					available: this.validateData(false)
 				});
 			}
 		}
@@ -213,6 +206,10 @@ Page({
 			if (isToast) util.showToastNoIcon('车牌号不能为空！');
 			return false;
 		}
+		if (this.data.drivingLicenseFace.ocrObject.numberPlates !== this.data.vehPlates) {
+			if (isToast) util.showToastNoIcon(`行驶证车牌与${this.data.vehPlates}不一致，请重新上传`);
+			return false;
+		}
 		if (!this.data.drivingLicenseFace.ocrObject.owner) {
 			if (isToast) util.showToastNoIcon('车辆所有人不能为空！');
 			return false;
@@ -279,33 +276,34 @@ Page({
 		}, () => {
 		}, (res) => {
 			if (res.code === 0) {
-				// this.setData({
-				// 	orderInfo: res.data,
-				// 	available: true // 下一步按钮可用
-				// });
-				if (!isCache) {
-					let that = this;
-					if (res.data.vehicle) { // 是否有行驶证
-						let index = this.data.personsArr.findIndex((value) => value === parseInt(res.data.vehicle.personsCapacity));
-						this.setData({
-							[`drivingLicenseBack.ocrObject`]: res.data.vehicle,
-							[`drivingLicenseFace.ocrObject`]: res.data.vehicle,
-							[`drivingLicenseFace.ocrObject.numberPlates`]: res.data.vehicle.vehPlates,
-							[`drivingLicenseBack.ocrObject.numberPlates`]: res.data.vehicle.vehPlates,
-							personIndex: index,
-							oldPersonIndex: index,
-							[`drivingLicenseFace.ocrObject.address`]: res.data.vehicle.ownerAddress,
-							[`drivingLicenseFace.ocrObject.resgisterDate`]: res.data.vehicle.registerDate,
-							[`drivingLicenseFace.fileUrl`]: res.data.vehicle.licenseMainPage,
-							[`drivingLicenseBack.fileUrl`]: res.data.vehicle.licenseVicePage
-						});
-						this.setData({
-							oldDrivingLicenseFace: this.data.drivingLicenseFace,
-							oldDrivingLicenseBack: this.data.drivingLicenseBack
-						});
-						wx.setStorageSync('driving_license_face', JSON.stringify(this.data.drivingLicenseFace));
-						wx.setStorageSync('driving_license_back', JSON.stringify(this.data.drivingLicenseBack));
-					}
+				if (res.data.vehicle) { // 是否有行驶证
+					const carType = this.data.carTypeArr.findIndex(item => item.id === res.data.vehicle.axleNum);
+					const size = res.data.vehicle.size.slice(0, res.data.vehicle.size.length - 2).split('×');
+					this.setData({
+						[`drivingLicenseBack.ocrObject`]: res.data.vehicle,
+						[`drivingLicenseFace.ocrObject`]: res.data.vehicle,
+						[`drivingLicenseBack.ocrObject.vehicleLength`]: size[0],
+						[`drivingLicenseBack.ocrObject.vehicleWidth`]: size[1],
+						[`drivingLicenseBack.ocrObject.vehicleHeight`]: size[2],
+						[`drivingLicenseBack.ocrObject.totalMass`]: res.data.vehicle.totalMass.slice(0, res.data.vehicle.totalMass.length - 2),
+						[`drivingLicenseBack.ocrObject.curbWeight`]: res.data.vehicle.curbWeight.slice(0, res.data.vehicle.curbWeight.length - 2),
+						[`drivingLicenseBack.ocrObject.loadQuality`]: res.data.vehicle.loadQuality.slice(0, res.data.vehicle.loadQuality.length - 2),
+						[`drivingLicenseFace.ocrObject.numberPlates`]: res.data.vehicle.vehPlates,
+						[`drivingLicenseBack.ocrObject.numberPlates`]: res.data.vehicle.vehPlates,
+						[`drivingLicenseFace.ocrObject.address`]: res.data.vehicle.ownerAddress,
+						[`drivingLicenseFace.ocrObject.resgisterDate`]: res.data.vehicle.registerDate,
+						[`drivingLicenseFace.fileUrl`]: res.data.vehicle.licenseMainPage,
+						[`drivingLicenseBack.fileUrl`]: res.data.vehicle.licenseVicePage,
+						isTraction: res.data.vehicle.isTraction,
+						carType,
+						backStatus: 4,
+						faceStatus: 4
+					});
+					this.setData({
+						available: this.validateData(false)
+					});
+					wx.setStorageSync('truck-driving-license-face', JSON.stringify(this.data.drivingLicenseFace));
+					wx.setStorageSync('truck-driving-license-back', JSON.stringify(this.data.drivingLicenseBack));
 				}
 			} else {
 				util.showToastNoIcon(res.message);
@@ -435,11 +433,11 @@ Page({
 				licenseMainPage: this.data.drivingLicenseFace.fileUrl, // 主页地址 【dataType包含6】
 				licenseVicePage: this.data.drivingLicenseBack.fileUrl, // 副页地址 【dataType包含6】
 				fileNumber: back.fileNumber, // 档案编号 【dataType包含6】
-				personsCapacity: this.data.personsArr[this.data.personIndex], // 核定载人数 【dataType包含6】
+				personsCapacity: back.personsCapacity, // 核定载人数 【dataType包含6】
 				totalMass: back.totalMass + 'kg', // 总质量 【dataType包含6】
 				loadQuality: back.loadQuality ? back.loadQuality + 'kg' : '--', // 核定载质量 【dataType包含6】
 				curbWeight: back.curbWeight + 'kg', // 整备质量 【dataType包含6】
-				size: `${back.vehicleLength}×${back.vehicleWidth}×${back.vehicleHeight}`, // 外廓尺寸 【dataType包含6】
+				size: `${back.vehicleLength}×${back.vehicleWidth}×${back.vehicleHeight}mm`, // 外廓尺寸 【dataType包含6】
 				tractionMass: back.tractionMass, // 准牵引总质量 【dataType包含6】
 				recode: back.recode, // 检验记录 【dataType包含6】
 				vehicleCategory: 0, // 收费车型(后台选) 一型客车 1,二型客车 2,三型客车 3,四型客车 4,一型货车 11,二型货车 12,三型货车 13,四型货车 14,五型货车 15,六型货车 16
