@@ -3,13 +3,32 @@
  * @desc 签约成功
  */
 const util = require('../../../utils/util.js');
+const app = getApp();
 Page({
 	data: {
 	},
-	onClickHandle () {
-		util.go('/pages/truck_handling/truck_receiving_address/truck_receiving_address');
+	onLoad() {
+		this.setData({
+			mobilePhoneSystem: app.globalData.mobilePhoneSystem,
+			mobilePhone: app.globalData.mobilePhone,
+			screenHeight: wx.getSystemInfoSync().windowHeight
+		});
 	},
-	onclickDetail () {
+	onClickHandle() {
+		util.go('/pages/truck_handling/truck_receiving_address/truck_receiving_address')
+	},
+	onclickDetail() {
 		this.selectComponent('#passTheDiscount').show();
+	},
+	goOnlineServer() {
+		// 未登录
+		if (!app.globalData.userInfo.accessToken) {
+			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+			util.go('/pages/login/login/login');
+			return;
+		}
+		// 统计点击进入在线客服
+		mta.Event.stat('009',{});
+		util.go(`/pages/web/web/web?type=online_customer_service`);
 	}
 });

@@ -6,6 +6,7 @@
 }
 .index .top {
   width: 100%;
+  padding: 40rpx;
   background: linear-gradient(180deg, #73cb5a 0%, rgba(132,209,87,0) 100%);
 }
 .index .top .bg-image {
@@ -21,13 +22,22 @@
   z-index: 111;
   width: 682rpx;
   border-radius: 20rpx;
-  margin: -100rpx 30rpx 0rpx;
+  margin: -130rpx 30rpx 0rpx;
   background: #fff;
+}
+.index .btn-content .interior {
+  margin-top: 30rpx;
+}
+.index .btn-content .interior image {
+  margin-top: 20epx;
+  width: 85rpx;
+  height: 48rpx;
+  padding-left: 300rpx;
 }
 .index .btn-content .online-tips {
   color: #33333d;
   font-size: 48rpx;
-  margin-top: 40rpx;
+  margin-top: -16rpx;
 }
 .index .btn-content .memo-content {
   margin-top: 10rpx;
@@ -126,13 +136,15 @@
 .index .right-interest .interests-list .charge_item .label {
   margin-right: 18rpx;
   font-size: 46rpx;
-  color: #14ac69;
+  color: #404040;
 }
 .index .right-interest .interests-list .charge_item .label.one::before {
+  color: #000;
   display: block;
   content: '\e663';
 }
 .index .right-interest .interests-list .charge_item .label.two::before {
+  color: #000;
   display: block;
   content: '\e664';
 }

@@ -1,7 +1,4 @@
 @import "../../../style/base.styl";
-//渐变主题色
-$themeColor1 = #17AD69;
-$themeColor2 = #7FD058;
 .index
 	width 100%
 	height 100vh
@@ -10,6 +7,7 @@ $themeColor2 = #7FD058;
 	//顶部
 	.top
 		width 100%
+		padding 40rpx
 		background: linear-gradient(180deg, #73CB5A 0%, rgba(132, 209, 87, 0) 100%);
 		.bg-image
 			height 45vh
@@ -24,12 +22,19 @@ $themeColor2 = #7FD058;
 		z-index 111
 		width 682rpx
 		border-radius 20rpx
-		margin -100rpx 30rpx 0rpx
+		margin -130rpx 30rpx 0rpx
 		background rgba(255,255,255,1)
+		.interior
+			margin-top 30rpx
+			image
+				margin-top 20epx
+				width 85rpx
+				height 48rpx
+				padding-left 300rpx
 		.online-tips
 			color #33333D
 			font-size 48rpx
-			margin-top 40rpx
+			margin-top -16rpx
 		.memo-content
 			margin-top 10rpx
 			margin-bottom 40rpx
@@ -114,13 +119,15 @@ $themeColor2 = #7FD058;
 				.label
 					margin-right 18rpx
 					font-size 46rpx
-					color #14AC69
+					color #404040
 					&.one
 						&::before
+							color #000000
 							display block
 							content '\e663'
 					&.two
 						&::before
+							color #000000
 							display block
 							content '\e664'
 					&.three
