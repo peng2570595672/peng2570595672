@@ -107,7 +107,7 @@ Page({
 							wx.setStorageSync('truck-driving-license-face', JSON.stringify(res.data[0]));
 						} else {
 							let personsCapacity = res.data[0].ocrObject.personsCapacity;
-							const personsCapacityStr = personsCapacity.slice(0, aaa.length - 1);
+							const personsCapacityStr = personsCapacity.slice(0, personsCapacity.length - 1);
 							let personsCapacityNum = 0;
 							if (personsCapacityStr.includes('+')) {
 								personsCapacityNum = parseInt(personsCapacityStr.split('+')[0]) + parseInt(personsCapacityStr.split('+')[1]);
