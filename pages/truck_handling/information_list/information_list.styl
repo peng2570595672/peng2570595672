@@ -50,14 +50,20 @@
 				display flex
 				align-items center
 				flex 1
-				.upload-name
-					font-size 32rpx
-					color #66666D
-					margin-right 16rpx
-				.preview
-					width 38rpx
-					height 38rpx
-					box-sizing content-box
+				font-size 32rpx
+				color #66666D
+				&.success
+					&::after
+						content '\e655'
+						font-size 34rpx
+						color #15AD69
+						margin-left 16rpx
+				&.error
+					&::after
+						content '\e63f'
+						font-size 34rpx
+						color #F7B500
+						margin-left 16rpx
 			.btn
 				display flex
 				justify-content center

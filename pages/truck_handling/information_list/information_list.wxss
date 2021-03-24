@@ -57,16 +57,20 @@
   display: flex;
   align-items: center;
   flex: 1;
-}
-.content .content-list .list-item .left .upload-name {
   font-size: 32rpx;
   color: #66666d;
-  margin-right: 16rpx;
 }
-.content .content-list .list-item .left .preview {
-  width: 38rpx;
-  height: 38rpx;
-  box-sizing: content-box;
+.content .content-list .list-item .left.success::after {
+  content: '\e655';
+  font-size: 34rpx;
+  color: #15ad69;
+  margin-left: 16rpx;
+}
+.content .content-list .list-item .left.error::after {
+  content: '\e63f';
+  font-size: 34rpx;
+  color: #f7b500;
+  margin-left: 16rpx;
 }
 .content .content-list .list-item .btn {
   display: flex;
