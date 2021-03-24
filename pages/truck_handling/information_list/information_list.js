@@ -55,7 +55,8 @@ Page({
 	},
 	// 获取错误状态
 	getErrorStatus (info) {
-		// 101 身份证  102 行驶证  103 营业执照  104 车头照  105 银行卡  106 无资料  201 邮寄地址  301 已办理过其他ETC  302 暂不支持企业用户  303 不支持车型  304 特殊情况  401 通用回复
+		// 101 身份证  102 行驶证  103 营业执照  104 车头照  105 银行卡  106 无资料  201 邮寄地址  301 已办理过其他ETC
+		// 106 道路运输证  107 车辆侧身照  302 暂不支持企业用户  303 不支持车型  304 特殊情况  401 通用回复
 		let errNums = [];
 		let newArr = [];
 		if (info.errNums.length > 5) {
@@ -78,9 +79,14 @@ Page({
 				isDrivingLicenseError: true
 			});
 		}
-		if (newArr.includes(104)) {
+		if (newArr.includes(104) || newArr.includes(107)) {
 			this.setData({
 				isHeadstockError: true
+			});
+		}
+		if (newArr.includes(106)) {
+			this.setData({
+				isRoadTransportCertificateError: true
 			});
 		}
 	},
