@@ -214,6 +214,25 @@
   align-items: center;
   flex: 1;
 }
+.index .handle-and-process .photo .photo-item .img-box {
+  margin-top: 40rpx;
+  position: relative;
+  padding-bottom: 10rpx;
+}
+.index .handle-and-process .photo .photo-item .img-box .img {
+  width: 164rpx;
+  height: 68rpx;
+}
+.index .handle-and-process .photo .photo-item .img-box .ico {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 36rpx;
+  height: 30rpx;
+}
 .index .handle-and-process .photo .photo-item .image {
   width: 150rpx;
   height: 90rpx;
@@ -227,6 +246,7 @@
   color: #66666d;
 }
 .index .handle-and-process .photo .photo-item .memo {
+  color: rgba(102,102,109,0.85);
   font-size: 12rpx;
 }
 .index .handle-and-process .progress_wrapper {
@@ -287,8 +307,8 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+  color: rgba(102,102,109,0.85);
   font-size: 20rpx;
-  color: #66666d;
   border-right: 1rpx solid #f3f3f3;
 }
 .index .handle-and-process .progress_wrapper .item .tab .tab-item:nth-child(3) {
@@ -296,13 +316,12 @@
 }
 .index .handle-and-process .progress_wrapper .item .tab .tab-item > view {
   text-align: center;
-  margin-top: 10rpx;
+  margin-top: 14rpx;
 }
 .index .handle-and-process .progress_wrapper .item .tab .tab-item .first {
   height: 50rpx;
   font-family: PingFangSC-Semibold, PingFang SC;
   font-weight: 600;
-  color: #66666d;
   border-bottom: 1rpx solid #f3f3f3;
 }
 .index .handle-and-process .progress_wrapper .last::after {

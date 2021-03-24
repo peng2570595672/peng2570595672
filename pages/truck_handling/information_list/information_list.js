@@ -95,8 +95,12 @@ Page({
 	},
 	// 跳转
 	go (e) {
-		let url = e.currentTarget.dataset['url'];
-		util.go(`/pages/truck_handling/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}`);
+		if (this.data.isModifiedData === 1) {
+			util.showToastNoIcon('签约成功，不可修改！');
+		} else {
+			let url = e.currentTarget.dataset['url'];
+			util.go(`/pages/truck_handling/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}`);
+		}
 	},
 	// 微信签约
 	onclickSign () {
