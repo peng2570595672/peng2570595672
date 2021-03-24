@@ -152,9 +152,9 @@
   display: block;
   content: '\e666';
 }
-.index .right-interest .interests-list .charge_item .label.four::before {
-  display: block;
-  content: '\e667';
+.index .right-interest .interests-list .charge_item .label.four {
+  height: 52rpx;
+  width: 52rpx;
 }
 .index .right-interest .interests-list .charge_item:nth-child(odd) {
   margin-right: 20rpx;

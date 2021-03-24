@@ -47,7 +47,8 @@
 				</view>
 			</view>
 			<view class="charge_item">
-				<view class="label four iconfont"></view>
+				<image class="label four" src="https://file.cyzl.com/g001/M07/22/AA/oYYBAGBa6neAQbWMAAAS877wV-8232.svg"></image>
+<!--				<view class="label four iconfont"></view>-->
 				<view class="charge-text">
 					<view>办理免收</view>
 					<view>保证金</view>
@@ -86,11 +87,11 @@
 				<view class="content-des">填写车牌及ETC设备收件地址</view>
 			</view>
 			<view class="item ">
-				<view class="content-title">资料审核</view>
+				<view class="content-title">选择办理方式</view>
 				<view class="content-des">上传身份证，行驶证及车身照片</view>
 			</view>
 			<view class="item">
-				<view class="content-title finished">高速签约</view>
+				<view class="content-title finished">签约通行费扣款方式</view>
 				<view class="content-des">用于高速通行后自动扣费</view>
 				<view class="tab">
 					<view class="tab-item">
@@ -99,7 +100,7 @@
 					</view>
 					<view class="tab-item">
 						<view class="first">还款日</view>
-						<view>日次</view>
+						<view>次日</view>
 					</view>
 					<view class="tab-item">
 						<view class="first">通行手续费</view>
