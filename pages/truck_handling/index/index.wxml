@@ -47,11 +47,11 @@
 				</view>
 			</view>
 			<view class="charge_item">
-				<image class="label four" src="https://file.cyzl.com/g001/M07/22/AA/oYYBAGBa6neAQbWMAAAS877wV-8232.svg"></image>
+				<image class="label four" src="/pages/truck_handling/assets/not_charge.svg"></image>
 <!--				<view class="label four iconfont"></view>-->
 				<view class="charge-text">
-					<view>办理免收</view>
-					<view>保证金</view>
+					<view>扣费失败</view>
+					<view>垫支24小时</view>
 				</view>
 			</view>
 		</view>
