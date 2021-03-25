@@ -47,7 +47,8 @@
 				</view>
 			</view>
 			<view class="charge_item">
-				<view class="label four iconfont"></view>
+				<image class="label four" src="https://file.cyzl.com/g001/M07/22/AA/oYYBAGBa6neAQbWMAAAS877wV-8232.svg"></image>
+<!--				<view class="label four iconfont"></view>-->
 				<view class="charge-text">
 					<view>办理免收</view>
 					<view>保证金</view>
@@ -99,7 +100,7 @@
 					</view>
 					<view class="tab-item">
 						<view class="first">还款日</view>
-						<view>日次</view>
+						<view>次日</view>
 					</view>
 					<view class="tab-item">
 						<view class="first">通行手续费</view>
