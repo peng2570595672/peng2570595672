@@ -247,7 +247,7 @@ Page({
 			return false;
 		}
 		if (!this.data.drivingLicenseBack.ocrObject.curbWeight) {
-			if (isToast) util.showToastNoIcon('车辆装备质量不能为空！');
+			if (isToast) util.showToastNoIcon('车辆整备质量不能为空！');
 			return false;
 		}
 		return true;

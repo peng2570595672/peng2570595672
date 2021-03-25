@@ -331,7 +331,16 @@ Page({
 				app.globalData.contractStatus = this.data.orderInfo.contractStatus;
 				app.globalData.orderStatus = this.data.orderInfo.selfStatus;
 				app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
-				if (result.version === 'v2') {
+				if (result.version === 'v1') { // 签约车主服务 1.0
+					wx.navigateToMiniProgram({
+						appId: 'wxbd687630cd02ce1d',
+						path: 'pages/index/index',
+						extraData: result.extraData,
+						fail () {
+							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
+						}
+					});
+				} else if (result.version === 'v2') {
 					wx.navigateToMiniProgram({
 						appId: 'wxbcad394b3d99dac9',
 						path: 'pages/route/index',

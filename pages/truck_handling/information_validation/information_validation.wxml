@@ -88,7 +88,7 @@
                 <view class="parameter-detailed">
                     <view>
                         <view>
-                            <input type="text" value="{{drivingLicenseBack.ocrObject.vehicleLength}}" data-key="vehicleLength" data-type="4" bindinput="onInputChangedHandle"/>
+                            <input type="number" value="{{drivingLicenseBack.ocrObject.vehicleLength}}" data-key="vehicleLength" data-type="4" bindinput="onInputChangedHandle"/>
                         </view>
                         <view>长</view>
                     </view>
@@ -98,7 +98,7 @@
                     </view>
                     <view>
                         <view>
-                            <input type="text" value="{{drivingLicenseBack.ocrObject.vehicleWidth}}" data-key="vehicleWidth" data-type="4" bindinput="onInputChangedHandle"/>
+                            <input type="number" value="{{drivingLicenseBack.ocrObject.vehicleWidth}}" data-key="vehicleWidth" data-type="4" bindinput="onInputChangedHandle"/>
                         </view>
                         <view>宽</view>
                     </view>
@@ -108,7 +108,7 @@
                     </view>
                     <view>
                         <view>
-                            <input type="text" value="{{drivingLicenseBack.ocrObject.vehicleHeight}}" data-key="vehicleHeight" data-type="4" bindinput="onInputChangedHandle"/>
+                            <input type="number" value="{{drivingLicenseBack.ocrObject.vehicleHeight}}" data-key="vehicleHeight" data-type="4" bindinput="onInputChangedHandle"/>
                         </view>
                         <view>高</view>
                     </view>
@@ -119,7 +119,7 @@
                 <view class="parameter-detailed">
                     <view>
                         <view>
-                            <input type="text" value="{{drivingLicenseBack.ocrObject.totalMass}}" data-key="totalMass" data-type="4" bindinput="onInputChangedHandle"/>
+                            <input type="number" value="{{drivingLicenseBack.ocrObject.totalMass}}" data-key="totalMass" data-type="4" bindinput="onInputChangedHandle"/>
                         </view>
                         <view>总质量</view>
                     </view>
@@ -129,9 +129,9 @@
                     </view>
                     <view>
                         <view>
-                            <input type="text" value="{{drivingLicenseBack.ocrObject.curbWeight}}" data-key="curbWeight" data-type="4" bindinput="onInputChangedHandle"/>
+                            <input type="number" value="{{drivingLicenseBack.ocrObject.curbWeight}}" data-key="curbWeight" data-type="4" bindinput="onInputChangedHandle"/>
                         </view>
-                        <view>装备质量</view>
+                        <view>整备质量</view>
                     </view>
                     <view>
                         <view>X</view>
@@ -139,7 +139,7 @@
                     </view>
                     <view>
                         <view>
-                            <input type="text" value="{{drivingLicenseBack.ocrObject.loadQuality}}" data-key="loadQuality" data-type="4" bindinput="onInputChangedHandle"/>
+                            <input type="number" value="{{drivingLicenseBack.ocrObject.loadQuality}}" data-key="loadQuality" data-type="4" bindinput="onInputChangedHandle"/>
                         </view>
                         <view>核载质量</view>
                     </view>
