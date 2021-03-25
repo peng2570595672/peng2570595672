@@ -4,6 +4,8 @@
  */
 const util = require('../../../utils/util.js');
 const app = getApp();
+// 数据统计
+let mta = require('../../../libs/mta_analysis.js');
 Page({
 	data: {
 		showChoiceBank: true, // 选择套餐
@@ -252,6 +254,7 @@ Page({
 			shopProductId: this.data.choiceObj.shopProductId,
 			areaCode: this.data.choiceObj.areaCode || 0
 		};
+		mta.Event.stat('truck_for_payment_way_next',{});
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {

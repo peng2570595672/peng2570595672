@@ -1,7 +1,15 @@
 <view class="my-etc">
+    <view class="tab-choice" wx:if="{{truckList.length && passengerCarList.length}}">
+        <view data-index="1" class="{{activeIndex === 1 ? 'active' : ''}}" catchtap="onClickChoiceType">
+            客车<view class="line"></view>
+        </view>
+        <view data-index="2" class="{{activeIndex === 2 ? 'active' : ''}}" catchtap="onClickChoiceType">
+            货车<view class="line"></view>
+        </view>
+    </view>
 	<!--	etc列表开始-->
 	<block wx:for="{{carList}}" wx:key="index">
-		<view class="item  animated fadeIn" catchtap="onClickGoETCDetailHandle" data-index="{{index}}">
+		<view class="item animated fadeIn" catchtap="onClickGoETCDetailHandle" data-index="{{index}}">
 			<!--上部分开始-->
 			<view class="top">
 				<view class="left">

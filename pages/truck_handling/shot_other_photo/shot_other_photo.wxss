@@ -10,10 +10,12 @@
   display: flex;
 }
 .shot_other_photo .camera-top .tips {
-  width: 26rpx;
+  position: absolute;
+  left: -37vw;
+  top: 33vh;
   font-size: 26rpx;
   color: #f7b500;
-  margin: 24rpx;
+  transform: rotate(90deg);
 }
 .shot_other_photo .camera-top .camera {
   position: relative;
@@ -22,6 +24,7 @@
   box-sizing: border-box;
   border-radius: 16rpx;
   border: 4rpx solid #14ac69;
+  margin-left: 10vw;
 }
 .shot_other_photo .camera-top .camera .border {
   margin: 0 auto;

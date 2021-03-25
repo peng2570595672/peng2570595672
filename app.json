@@ -76,6 +76,7 @@
         "information_validation/information_validation",
         "payment_way/payment_way",
         "shot_card/shot_card",
+        "shot_other_photo/shot_other_photo",
         "upload_id_card/upload_id_card",
         "upload_other_photo/upload_other_photo",
         "upload_road_transport_certificate/upload_road_transport_certificate",

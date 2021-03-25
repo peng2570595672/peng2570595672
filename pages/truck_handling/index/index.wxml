@@ -86,11 +86,11 @@
 				<view class="content-des">填写车牌及ETC设备收件地址</view>
 			</view>
 			<view class="item ">
-				<view class="content-title">资料审核</view>
+				<view class="content-title">选择办理方式</view>
 				<view class="content-des">上传身份证，行驶证及车身照片</view>
 			</view>
 			<view class="item">
-				<view class="content-title finished">高速签约</view>
+				<view class="content-title finished">签约通行费扣款方式</view>
 				<view class="content-des">用于高速通行后自动扣费</view>
 				<view class="tab">
 					<view class="tab-item">
@@ -119,5 +119,6 @@
 	</view>
 	<!--	在线客服-->
 	<view class="bottom" catchtap="goOnlineServer">在线客服</view>
-	<pass-the-discount id="passTheDiscount"></pass-the-discount>
+    <information-validation-prompt id="notFinishedOrder" promptObject="{{promptObject}}"></information-validation-prompt>
+<!--	<pass-the-discount id="passTheDiscount"></pass-the-discount>-->
 </view>

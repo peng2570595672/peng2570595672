@@ -12,7 +12,7 @@ Page({
 	onShow () {
 		if (app.globalData.myEtcList.length !== 0) {
 			let obuStatusList;
-			obuStatusList = app.globalData.myEtcList.filter(item => item.etcContractId !== 0); // 测试数据处理
+			obuStatusList = app.globalData.myEtcList.filter(item => item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5); // 测试数据处理
 			this.setData({
 				failBillList: [],
 				orderList: obuStatusList
@@ -100,6 +100,9 @@ Page({
 					order.vehPlates = item.vehPlate;
 					if (item.serviceMoney) {
 						total += item.serviceMoney;
+					}
+					if (item.passServiceMoney) {
+						total += item.passServiceMoney;
 					}
 					if (item.splitDeductedMoney) { // 拆分账单,已扣金额
 						total -= item.splitDeductedMoney;

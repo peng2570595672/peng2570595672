@@ -3,6 +3,8 @@
  * @desc 信息确认
  */
 const util = require('../../../utils/util.js');
+// 数据统计
+let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -143,6 +145,7 @@ Page({
 		this.setData({
 			isRequest: true
 		});
+		mta.Event.stat('truck_for_id_card_next',{});
 		// ocr返回的是 男女  接口是 1 2
 		if (this.data.idCardFace.ocrObject.sex === '男') this.data.idCardFace.ocrObject.sex = 1;
 		if (this.data.idCardFace.ocrObject.sex === '女') this.data.idCardFace.ocrObject.sex = 2;
@@ -150,6 +153,7 @@ Page({
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: '48', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
+			changeAuditStatus: false,// 修改不计入待审核
 			idCardStatus: this.data.idCardStatus,
 			idCardValidDate: this.data.idCardBack.ocrObject.validDate, // 有效期 格式为：2007.10.09-2027.10.09 【dataType包含4】
 			idCardAddress: this.data.idCardFace.ocrObject.address,// 地址 【dataType包含4】
@@ -175,6 +179,11 @@ Page({
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
 			if (res.code === 0) {
+				const pages = getCurrentPages();
+				const prevPage = pages[pages.length - 2];// 上一个页面
+				prevPage.setData({
+					isChangeIdCard: true // 重置状态
+				});
 				wx.navigateBack({
 					delta: 1
 				});

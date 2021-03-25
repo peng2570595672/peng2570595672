@@ -3,6 +3,8 @@
  * @desc 信息确认
  */
 const util = require('../../../utils/util.js');
+// 数据统计
+let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -77,10 +79,10 @@ Page({
 			if (isToast) util.showToastNoIcon(`当前车头照识别的车牌号与${this.data.vehPlates}不一致，请重新上传`);
 			return;
 		}
-		// if (!this.data.truckSidePhoto.fileUrl) {
-		// 	if (isToast) util.showToastNoIcon('请上传补充角度照！');
-		// 	return false;
-		// }
+		if (!this.data.truckSidePhoto.fileUrl) {
+			if (isToast) util.showToastNoIcon('请上传补充角度照！');
+			return false;
+		}
 		return true;
 	},
 	// 获取订单信息
@@ -128,10 +130,12 @@ Page({
 		this.setData({
 			isRequest: true
 		});
+		mta.Event.stat('truck_for_other_photo_next',{});
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: '7', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
+			changeAuditStatus: false,// 修改不计入待审核
 			headstockInfo: {
 				vehPlate: this.data.truckHeadstock.ocrObject.plateNumber,// 车牌号 【dataType包含7】
 				fileName: this.data.truckHeadstock.fileName, // 文件名称 【dataType包含7】
@@ -144,6 +148,11 @@ Page({
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
 			if (res.code === 0) {
+				const pages = getCurrentPages();
+				const prevPage = pages[pages.length - 2];// 上一个页面
+				prevPage.setData({
+					isChangeHeadstock: true // 重置状态
+				});
 				wx.navigateBack({
 					delta: 1
 				});

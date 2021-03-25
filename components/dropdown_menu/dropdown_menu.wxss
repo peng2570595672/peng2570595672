@@ -15,6 +15,14 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 .icon-sanjiao:before { content: "\e63e"; }
+.icon-choice:after {
+    content: "\e655";
+    flex: 1;
+    text-align: right;
+    font-size: 34rpx;
+    color: #15AD69;
+    margin-right: 50rpx;
+}
 .page {
 	width: 100%;
 	height: 100%;
@@ -269,11 +277,31 @@
 
 .sortitem {
 	position: relative;
+    display: flex;
 	font-size: 28rpx;
 	height: 98rpx;
 	line-height: 98rpx;
 	padding-left: 36rpx;
 	justify-content: space-between;
+}
+.car-title-tab .tab-item {
+    display: flex;
+    height: 98rpx;
+    align-items: center;
+}
+.car-title-tab .tab-item > view {
+    padding: 0 20rpx;
+    height: 60rpx;
+    line-height: 60rpx;
+    text-align: center;
+    border-radius: 30rpx;
+    margin-right: 30rpx;
+}
+.car-title-tab .tab-item .active {
+    font-size: 32rpx;
+    background:linear-gradient(90deg,rgba(22,173,105,1) 0%,rgba(144,213,107,1) 100%);
+    border-radius:30rpx;
+    color: #fff;
 }
 .sortitem .line{
 	position: absolute;
@@ -286,10 +314,10 @@
 .forbidden-choose{
 	color: #ccc;
 }
-.sortitem.active {
-	/*text-indent: 18rpx;*/
-	color: #fff;
-}
+/*.sortitem.active {*/
+/*	!*text-indent: 18rpx;*!*/
+/*	color: #fff;*/
+/*}*/
 .sortitem text{
 	display: inline-block;
 	padding: 0 16rpx;
@@ -298,11 +326,14 @@
 	text-align: center;
 	margin-top: 15rpx;
 }
-.sortitem.active text{
-	font-size: 32rpx;
-	background:linear-gradient(90deg,rgba(22,173,105,1) 0%,rgba(144,213,107,1) 100%);
-	border-radius:30rpx;
+.list .sortitem{
+    display: flex;
 }
+/*.sortitem.active text{*/
+/*	font-size: 32rpx;*/
+/*	background:linear-gradient(90deg,rgba(22,173,105,1) 0%,rgba(144,213,107,1) 100%);*/
+/*	border-radius:30rpx;*/
+/*}*/
 .container_hd,.top,.mask-box {
 	width: 100%;
 	height: 100%;

@@ -310,6 +310,8 @@ Page({
 		util.showLoading('加载中');
 		let params = {
 			orderId: this.data.orderId,// 订单id
+			clientOpenid: app.globalData.userInfo.openId,
+			clientMobilePhone: app.globalData.userInfo.mobilePhone,
 			needSignContract: true // 是否需要签约 true-是，false-否
 		};
 		if (isFirstVersion) {

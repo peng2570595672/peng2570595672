@@ -23,7 +23,7 @@
 .page .title {
   display: flex;
   align-items: center;
-  padding: 40rpx 30rpx 0;
+  padding: 40rpx 30rpx 20rpx;
   height: 56rpx;
   font-size: 40rpx;
   font-weight: 500;

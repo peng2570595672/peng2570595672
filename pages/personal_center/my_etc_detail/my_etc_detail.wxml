@@ -10,6 +10,10 @@
 		<view>车牌号码</view>
 		<view>{{orderInfo.vehPlates}}</view>
 	</view>
+    <view class="item">
+        <view>ETC类型</view>
+        <view>{{orderInfo.isNewTrucks === 1 ? '货车' : '客车'}}ETC</view>
+    </view>
 	<view class="item" wx:if="{{orderInfo.receiveMan}}">
 		<view>车辆所属人</view>
 		<view>{{orderInfo.receiveMan && orderInfo.receiveMan !== '0' ? orderInfo.receiveMan : orderInfo.trueName}}</view>

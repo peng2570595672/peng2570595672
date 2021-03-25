@@ -178,6 +178,8 @@ Page({
 			util.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
+				// 新流程-货车订单
+				if (res.data.isNewTrucks === 1) mta.Event.stat('truck_for_processing_progress',{});
 				this.setData({
 					info: res.data
 				});

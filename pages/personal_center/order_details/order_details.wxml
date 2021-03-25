@@ -9,7 +9,7 @@
 		<view class="deduction-amount-box">
 			<view class="deduction-amount-title">扣费金额</view>
 			<view class="{{details.deductStatus !== 1 && details.deductStatus !== 10 && details.deductStatus !== 11 && details.deductStatus !== 12 && details.flowVersion !== 2 ? 'deduction-amount-red' : ''}}">
-				<text  class="{{details.deductStatus === 7 ? 'refund' : ''}}">{{(details.serviceMoney && details.etcMoney) ? (details.etcMoney + details.serviceMoney)/100 : details.etcMoney/100}}</text>
+				<text  class="{{details.deductStatus === 7 ? 'refund' : ''}}">{{(details.etcMoney + details.serviceMoney + (details.passServiceMoney || 0))/100}}</text>
 			</view>
 			<view wx:if="{{details.flowVersion === 2}}" class="flow-version-second">由于系统升级，目前尚不能查询订单是否已支付，请确保高速签约银行卡余额充足，银行会自动完成扣费。给您带来不便，敬请谅解。</view>
 			<view class="failure-prompted {{details.deductStatus === 7 ? 'refund' : ''}}" wx:if="{{details.etcMoney > 0  && details.flowVersion === 1 && (details.deductStatus === 7 || details.deductStatus === 2)}}">{{details.deductStatus === 7 ? '已退款' : (details.errCodeDes === '0' ? '' : details.errCodeDes)}}</view>
@@ -27,6 +27,10 @@
 			<view wx:if="{{details.flowVersion === 2}}">¥{{details.etcMoney/100}}</view>
 			<view wx:else>¥{{details.totalMmout ? details.totalMmout/100 : 0}}</view>
 		</view>
+        <view wx:if="{{details.flowVersion === 1}}">
+            <view>通行手续费</view>
+            <view>{{details.passServiceMoney ? details.passServiceMoney/100 : 0}}</view>
+        </view>
 		<view wx:if="{{details.flowVersion === 1}}">
 			<view>通行费减免</view>
 			<view>{{details.discountMount ? -details.discountMount/100 : 0}}</view>

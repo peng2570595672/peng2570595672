@@ -2,7 +2,8 @@
     <view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}"  wx:if="{{mask}}">
         <view class="img">
             <view class="icon-guanbi iconfont hide" catchtap="ok"></view>
-            <image class="prompt-img" src="../../pages/default/assets/information_validation_prompt.png" mode="widthFix"></image>
+            <image wx:if="{{promptObject.imgUrl}}" class="prompt-img" src="{{promptObject.imgUrl}}" mode="widthFix"></image>
+            <image wx:else class="prompt-img" src="../../pages/default/assets/information_validation_prompt.png" mode="widthFix"></image>
         </view>
         <view wx:if="{{promptObject.isOk}}">
             <view class="des content">{{promptObject.content}}</view>

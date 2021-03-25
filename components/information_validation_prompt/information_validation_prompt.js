@@ -11,7 +11,6 @@ Component({
 	},
 	methods: {
 		ok (e) {
-			console.log(this.data.promptObject)
 			this.hide(e,true);
 		},
 		show () {

@@ -3,6 +3,8 @@
  * @desc 信息确认
  */
 const util = require('../../../utils/util.js');
+// 数据统计
+let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -66,6 +68,7 @@ Page({
 					transportationLicenseObj.ocrObject = JSON.parse(transportationLicenseObj.ocrInfo);
 					const choiceActiveIndex = this.data.list.findIndex(item => item.vehicleCustomerType === parseInt(transportationLicenseObj.vehicleCustomerType));
 					this.setData({
+						certificateStatus: 4,
 						choiceActiveIndex,
 						transportationLicenseObj
 					});
@@ -115,11 +118,13 @@ Page({
 		this.setData({
 			isRequest: true
 		});
+		mta.Event.stat('truck_for_transportation_license_next',{});
 		const obj = this.data.transportationLicenseObj;
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: 'a', // 需要提交的数据类型(可多选) a: 道路运输经营许可证
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
+			changeAuditStatus: false,// 修改不计入待审核
 			transportLicense: {
 				ownerName: obj.ocrObject.owner_name, // 业户名称
 				licenseNumber: obj.ocrObject.license_number, // 道路运输证号
@@ -144,6 +149,11 @@ Page({
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
 			if (res.code === 0) {
+				const pages = getCurrentPages();
+				const prevPage = pages[pages.length - 2];// 上一个页面
+				prevPage.setData({
+					isChangeRoadTransportCertificate: true // 重置状态
+				});
 				wx.navigateBack({
 					delta: 1
 				});
@@ -166,9 +176,7 @@ Page({
 		}, (res) => {
 			try {
 				if (res) {
-					console.log(res);
 					res = JSON.parse(res);
-					console.log(res);
 					if (res.code === 0) { // 识别成功
 						app.globalData.truckHandlingOCRTyp = 0;
 						if (res.data[0].ocrObject.vehicle_number !== this.data.vehPlates) {
@@ -205,7 +213,7 @@ Page({
 		let type = +e.currentTarget.dataset['type'];
 		// 识别中禁止修改
 		if (this.data.certificateStatus === 2) return;
-		util.go(`/pages/truck_handling/shot_card/shot_card?type=${type}&pathUrl=`);
+		util.go(`/pages/truck_handling/shot_card/shot_card?type=${type}&pathUrl=${this.data.transportationLicenseObj.fileUrl}`);
 	},
 	choiceTheType (e) {
 		let index = e.currentTarget.dataset.index;

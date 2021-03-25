@@ -32,10 +32,23 @@
 		font-size 60rpx
 		line-height 60rpx
 		font-weight:500
-		& > open-data
-			margin-left 26rpx
-			font-size 32rpx
-			color $fontColor6
+		display flex
+		.name
+			flex 1
+			& > open-data
+				margin-left 26rpx
+				font-size 32rpx
+				color $fontColor6
+		.online-service
+			margin-right 66rpx
+			width 60rpx
+			font-size 18rpx
+			color $fontColor9
+			text-align center
+			line-height 18rpx
+			image
+				width 40rpx
+				height 38rpx
 	// 轮播图
 	.my-swiper
 		//margin 40rpx 40rpx 0
@@ -227,3 +240,10 @@
 					font-size 24rpx
 					line-height 40rpx
 					color $fontColor6
+			&.trucks
+				position relative
+				.icon-trucks-discount
+					position absolute
+					width 64rpx
+					right -32rpx
+					top -10rpx

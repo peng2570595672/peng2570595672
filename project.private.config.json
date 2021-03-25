@@ -90,7 +90,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=823587582322413568",
+          "query": "orderId=824659404988092416",
           "scene": null
         },
         {
@@ -219,6 +219,12 @@
           "name": "pages/truck_handling/index/index",
           "pathName": "pages/truck_handling/index/index",
           "query": "",
+          "scene": null
+        },
+        {
+          "name": "拍照",
+          "pathName": "pages/truck_handling/shot_other_photo/shot_other_photo",
+          "query": "orderId=824659404988092416",
           "scene": null
         }
       ]

@@ -3,6 +3,8 @@
  * @desc 填写车牌和收货信息
  */
 const util = require('../../../utils/util.js');
+// 数据统计
+let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 // 倒计时计时器
 let timer;
@@ -101,6 +103,7 @@ Page({
 			available: false, // 禁用按钮
 			isRequest: true // 设置状态为请求中
 		});
+		mta.Event.stat('truck_for_receiving_address_next',{});
 		let formData = this.data.formData; // 输入信息
 		let params = {
 			isNewTrucks: 1, // 货车

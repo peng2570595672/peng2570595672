@@ -3,6 +3,30 @@
   display: flex;
   flex-direction: column;
 }
+.my-etc .tab-choice {
+  display: flex;
+  margin: 40rpx 66rpx 30rpx;
+}
+.my-etc .tab-choice > view {
+  color: #66666d;
+  font-size: 48rpx;
+  line-height: 80rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  text-align: center;
+  margin-right: 38rpx;
+}
+.my-etc .tab-choice > view .line {
+  width: 120rpx;
+  height: 12rpx;
+}
+.my-etc .tab-choice > view.active {
+  color: #33333d;
+  font-size: 56rpx;
+}
+.my-etc .tab-choice > view.active .line {
+  background: #2fb565;
+}
 .my-etc .item {
   margin: 0 34rpx;
   margin-top: 20rpx;
@@ -10,6 +34,7 @@
   height: 220rpx;
   box-shadow: 4rpx 4rpx 46rpx 0 rgba(126,132,156,0.1);
   border-radius: 32rpx;
+  background: #fff;
 }
 .my-etc .item:first-of-type {
   margin-top: 48rpx;

@@ -8,7 +8,10 @@ const app = getApp();
 let mta = require('../../../libs/mta_analysis.js');
 Page({
 	data: {
-		carList: undefined
+		carList: undefined,
+		activeIndex: 1,
+		passengerCarList: [],// 客车
+		truckList: []// 货车
 	},
 	onShow () {
 		if (app.globalData.userInfo.accessToken) {
@@ -85,14 +88,26 @@ Page({
 					}
 					wx.setStorageSync('cars', vehicleList.join('、'));
 				});
+				const truckList = res.data.filter(item => item.isNewTrucks === 1);
+				const passengerCarList = res.data.filter(item => item.isNewTrucks === 0);
 				this.setData({
-					carList: res.data
+					activeIndex: 1, // 初始化变量
+					carList: passengerCarList, // 初始化变量
+					truckList: truckList,
+					passengerCarList: passengerCarList
 				});
 			} else {
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken, () => {
 			util.hideLoading();
+		});
+	},
+	onClickChoiceType (e) {
+		let activeIndex = parseInt(e.currentTarget.dataset.index);
+		this.setData({
+			activeIndex,
+			carList: activeIndex === 1 ? this.data.passengerCarList : this.data.truckList
 		});
 	},
 	// 去激活
@@ -302,6 +317,8 @@ Page({
 		util.showLoading('加载中');
 		let params = {
 			orderId: obj.id,// 订单id
+			clientOpenid: app.globalData.userInfo.openId,
+			clientMobilePhone: app.globalData.userInfo.mobilePhone,
 			needSignContract: true // 是否需要签约 true-是，false-否
 		};
 		if (obj.remark && obj.remark.indexOf('迁移订单数据') !== -1) {
@@ -323,7 +340,16 @@ Page({
 				app.globalData.contractStatus = obj.contractStatus;
 				app.globalData.orderStatus = obj.selfStatus;
 				app.globalData.orderInfo.shopProductId = obj.shopProductId;
-				if (result.version === 'v2') {
+				if (result.version === 'v1') { // 签约车主服务 1.0
+					wx.navigateToMiniProgram({
+						appId: 'wxbd687630cd02ce1d',
+						path: 'pages/index/index',
+						extraData: result.extraData,
+						fail () {
+							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
+						}
+					});
+				} else if (result.version === 'v2') {
 					wx.navigateToMiniProgram({
 						appId: 'wxbcad394b3d99dac9',
 						path: 'pages/route/index',

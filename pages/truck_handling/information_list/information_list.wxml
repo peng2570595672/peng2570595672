@@ -23,7 +23,7 @@
 		</view>
         <view class="fill"></view>
 		<view class="btn-sign {{available ? 'available' : 'unavailable'}}" catchtap="onclickSign">
-            <view class="animate" wx:if="{{isRequest}}"></view>{{isModifiedData ? '提交审核': '签约微信免密支付'}}
+            <view class="animate" wx:if="{{isRequest}}"></view>{{isModifiedData ? '提交审核': contractStatus === 1 ? '你已签约免密支付,确认提交' : '签约微信免密支付'}}
         </view>
 	</view>
 </view>

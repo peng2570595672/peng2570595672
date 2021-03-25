@@ -1,7 +1,10 @@
 const util = require('../../../utils/util.js');
+// 数据统计
+let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
+		contractStatus: 0,// 1已签约
 		orderInfo: undefined,
 		vehicleInfo: undefined,
 		isRequest: false,
@@ -18,9 +21,67 @@ Page({
 				isModifiedData: true
 			});
 		}
+		if (this.data.isModifiedData) {
+			this.getETCDetail();
+		}
 	},
 	onShow () {
-		this.getETCDetail();
+		const pages = getCurrentPages();
+		const currPage = pages[pages.length - 1];
+		// 修改资料不需要查询订单详情
+		console.log(currPage.__data__);
+		if (currPage.__data__.isChangeHeadstock) {
+			this.setData({
+				isHeadstockError: false
+			});
+			this.init();
+		}
+		if (currPage.__data__.isChangeRoadTransportCertificate) {
+			this.setData({
+				isRoadTransportCertificateError: false
+			});
+			this.init();
+		}
+		if (currPage.__data__.isChangeIdCard) {
+			this.setData({
+				isIdCardError: false
+			});
+			this.init();
+		}
+		if (currPage.__data__.isChangeDrivingLicenseError) {
+			this.setData({
+				isDrivingLicenseError: false
+			});
+			this.init();
+		}
+		if (!this.data.isModifiedData) {
+			this.getETCDetail();
+			this.queryContract();
+		}
+	},
+	// 查询车主服务签约
+	queryContract () {
+		util.getDataFromServer('consumer/order/query-contract', {
+			orderId: app.globalData.orderInfo.orderId
+		}, () => {
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				this.setData({
+					contractStatus: res.data.contractStatus
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken);
+	},
+	init () {
+		if (this.data.isModifiedData && !this.data.isIdCardError && !this.data.isDrivingLicenseError && !this.data.isRoadTransportCertificateError && !this.data.isHeadstockError) {
+			this.setData({
+				available: true
+			});
+		}
 	},
 	// 加载订单详情
 	getETCDetail () {
@@ -68,7 +129,6 @@ Page({
 		errNums.map(item => {
 			newArr.push(parseInt(item.slice(0, 3)));
 		});
-		console.log(newArr);
 		if (newArr.includes(101)) {
 			this.setData({
 				isIdCardError: true
@@ -98,18 +158,18 @@ Page({
 				});
 			}
 		}
+		if (this.data.isModifiedData) {
+			this.setData({
+				available: false
+			});
+		}
 	},
 	// 跳转
 	go (e) {
-		if (this.data.isModifiedData === 1) {
-			util.showToastNoIcon('签约成功，不可修改！');
-		} else {
-			let url = e.currentTarget.dataset['url'];
-			util.go(`/pages/truck_handling/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}`);
-		}
+		let url = e.currentTarget.dataset['url'];
+		util.go(`/pages/truck_handling/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}`);
 	},
-	// 微信签约
-	onclickSign () {
+	onclickSubmitAudit () {
 		if (this.data.isRequest) {
 			return;
 		} else {
@@ -119,8 +179,51 @@ Page({
 		let params = {
 			dataComplete: 1,// 资料已完善
 			orderId: app.globalData.orderInfo.orderId,// 订单id
+			changeAuditStatus: true // 需要提交审核
+		};
+		util.getDataFromServer('consumer/order/save-order-info', params, () => {
+			util.showToastNoIcon('提交数据失败！');
+			util.hideLoading();
+			this.setData({isRequest: false});
+		}, (res) => {
+			if (res.code === 0) {
+				util.go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+			this.setData({isRequest: false});
+		});
+	},
+	// 微信签约
+	onclickSign () {
+		if (!this.data.available) return;
+		if (this.data.isRequest) {
+			return;
+		} else {
+			this.setData({isRequest: true});
+		}
+		mta.Event.stat('truck_for_certificate_list_next',{});
+		if (this.data.isModifiedData) {
+			// 修改资料
+			this.onclickSubmitAudit();
+			return;
+		}
+		util.showLoading('加载中');
+		let params = {
+			dataComplete: 1,// 资料已完善
+			clientOpenid: app.globalData.userInfo.openId,
+			clientMobilePhone: app.globalData.userInfo.mobilePhone,
+			orderId: app.globalData.orderInfo.orderId,// 订单id
 			needSignContract: true // 是否需要签约 true-是，false-否
 		};
+		if (this.data.contractStatus === 1) {
+			delete params.needSignContract;
+			delete params.clientMobilePhone;
+			delete params.clientOpenid;
+			delete params.orderId;
+		}
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');
 			util.hideLoading();
@@ -128,13 +231,25 @@ Page({
 		}, (res) => {
 			this.setData({isRequest: false});
 			if (res.code === 0) {
+				if (this.data.contractStatus === 1) {
+					util.go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
+					return;
+				}
 				app.globalData.signAContract = -1;
 				app.globalData.isTruckHandling = true;
 				app.globalData.belongToPlatform = app.globalData.platformId;
 				util.hideLoading();
 				let result = res.data.contract;
-				// 签约车主服务 2.0
-				if (result.version === 'v2') {
+				if (result.version === 'v1') { // 签约车主服务 1.0
+					wx.navigateToMiniProgram({
+						appId: 'wxbd687630cd02ce1d',
+						path: 'pages/index/index',
+						extraData: result.extraData,
+						fail () {
+							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
+						}
+					});
+				} else if (result.version === 'v2') { // 签约车主服务 2.0
 					wx.navigateToMiniProgram({
 						appId: 'wxbcad394b3d99dac9',
 						path: 'pages/route/index',

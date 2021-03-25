@@ -97,6 +97,7 @@ Page({
 			needRightsPackageIds: true,
 			areaCode: this.data.dataMessage.regionCode[0],
 			productType: 2,
+			vehType: 1,
 			platformId: app.globalData.platformId,
 			shopId: shopId
 		};

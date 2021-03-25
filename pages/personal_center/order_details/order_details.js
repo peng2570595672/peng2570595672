@@ -12,6 +12,8 @@ Page({
 		isRequest: false,// 是否请求
 		refundDetails: undefined,
 		popupContent: {},
+		requestRefundInfoNum: 0,
+		requestBillNum: 0,
 		details: ''
 	},
 	onLoad (options) {
@@ -134,6 +136,8 @@ Page({
 	},
 	// 查询账单退费详情
 	getBillRefundDetail () {
+		if (this.data.requestRefundInfoNum > 0) return;
+		this.setData({requestRefundInfoNum: 1});
 		util.showLoading();
 		let params = {
 			channel: this.data.details.channel,
@@ -157,6 +161,10 @@ Page({
 	// 隐藏弹窗
 	onHandle () {
 		app.globalData.splitDetails = this.data.details;
+		this.setData({
+			requestRefundInfoNum: 0,
+			requestBillNum: 0
+		});
 		util.go('/pages/personal_center/split_bill/split_bill');
 	},
 	// 去账单说明
@@ -180,6 +188,8 @@ Page({
 	},
 	// 查询账单详情
 	getBillDetail () {
+		if (this.data.requestBillNum > 0) return;
+		this.setData({requestBillNum: 1});
 		util.showLoading();
 		let params = {
 			channel: this.data.details.channel,
@@ -217,7 +227,7 @@ Page({
 		let params = {
 			billIdList: [this.data.details.id],// 账单id集合，采用json数组格式[xx,xx]
 			vehPlates: this.data.details.vehPlate,// 车牌号
-			payAmount: this.data.details.etcMoney + this.data.details.serviceMoney - this.data.details.splitDeductedMoney - this.data.details.deductServiceMoney// 补缴金额
+			payAmount: this.data.details.etcMoney + this.data.details.serviceMoney + (this.data.details.passServiceMoney || 0) - this.data.details.splitDeductedMoney - this.data.details.deductServiceMoney// 补缴金额
 		};
 		util.getDataFromServer('consumer/order/bill-pay', params, () => {
 			util.showToastNoIcon('获取支付参数失败！');

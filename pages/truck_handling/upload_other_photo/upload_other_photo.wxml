@@ -1,6 +1,5 @@
 <view class="page">
     <view class="title">请按要求上传证件</view>
-    <view class="sub-title">*车头照必传，补充角度照选传有利提高审核通过率</view>
     <!--上传证件部分开始-->
     <view class="photo-wrapper">
         <!--车头照开始-->
@@ -24,7 +23,7 @@
                 <view class="img-box">
                     <image class="ico" wx:if="{{backStatus === 1}}" src="/pages/truck_handling/assets/icon_camera_white.png"></image>
                 </view>
-                <view>补充角度照（选传）</view>
+                <view>补充角度照</view>
             </view>
             <view class="identify" wx:if="{{backStatus === 2 || backStatus === 3}}">
                 <image class="refresh" src="/pages/truck_handling/assets/refresh.png"></image>
@@ -34,7 +33,7 @@
         </view>
         <!--补充角度照结束-->
     </view>
-    <view class="prompt">补充正面车头照或侧面车身照有利于通过审核</view>
+<!--    <view class="prompt">补充正面车头照或侧面车身照有利于通过审核</view>-->
     <view class="fill"></view>
     <view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next">确认资料并保存</view>
     <information-validation-prompt promptObject="{{promptObject}}" id="notFinishedOrder"></information-validation-prompt>

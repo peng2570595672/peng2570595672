@@ -245,13 +245,14 @@ App({
 			// 解决安卓平台上传行驶证自动返回上一页
 			return;
 		}
-		if ((res && res.referrerInfo && res.referrerInfo.appId && res.referrerInfo.appId === 'wxbcad394b3d99dac9') || (res && res.scene === 1038)) { // 场景值1038：从被打开的小程序返回
+		if ((res && res.referrerInfo && res.referrerInfo.appId && (res.referrerInfo.appId === 'wxbcad394b3d99dac9' || res.referrerInfo.appId === 'wxbd687630cd02ce1d')) ||
+			(res && res.scene === 1038)) { // 场景值1038：从被打开的小程序返回
 			// 因微信场景值问题,故未用场景值判断
 			if (this.globalData.signAContract === -1) {
 				const {appId} = res.referrerInfo;
 				// 车主服务签约
-				if (appId === 'wxbcad394b3d99dac9') {
-					this.queryContract();
+				if (appId === 'wxbcad394b3d99dac9' || appId === 'wxbd687630cd02ce1d') {
+					this.queryContract(appId);
 				}
 			} else if (this.globalData.signAContract === 1) {
 				// 解约状态
@@ -264,7 +265,7 @@ App({
 		}
 	},
 	// 查询车主服务签约
-	queryContract () {
+	queryContract (appId) {
 		util.showLoading({
 			title: '签约查询中...'
 		});
@@ -276,6 +277,25 @@ App({
 			util.hideLoading();
 			if (res.code === 0) {
 				this.globalData.signAContract = 3;
+				//  1.0签约
+				if (this.globalData.isTruckHandling) {
+					this.globalData.isTruckHandling = false;// 是否新流程-货车办理
+					if (res.data.contractStatus === 1) {
+						util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
+					} else {
+						util.showToastNoIcon('未签约成功！');
+					}
+					return;
+				}
+				// 1.0签约
+				if (appId === 'wxbd687630cd02ce1d') {
+					if (res.data.contractStatus === 1) {
+						util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
+					} else {
+						util.showToastNoIcon('未签约成功！');
+					}
+					return;
+				}
 				// 签约成功 userState: "NORMAL"
 				if (res.data.contractStatus === 1 && res.data.userState === 'NORMAL') {
 					// 办理付费h5
@@ -299,7 +319,7 @@ App({
 						util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
 						return;
 					}
-					if (this.globalData.isSecondSigningInformationPerfect || this.globalData.isTruckHandling) {
+					if (this.globalData.isSecondSigningInformationPerfect) {
 						this.globalData.isSecondSigningInformationPerfect = false;// 是否二次签约-资料完善
 						this.globalData.isTruckHandling = false;// 是否新流程-货车办理
 						util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);

@@ -14,6 +14,7 @@ Page({
 		exceptionMessage: undefined, // 异常信息
 		num: 0, // 次数
 		isContinentInsurance: false, // 是否是大地保
+		isNormalProcess: !app.globalData.otherPlatformsServiceProvidersId, // 是否是正常流程进入
 		rotationChartList: [], // 轮播图
 		recentlyTheBill: undefined, // 最新账单
 		driverDistrictList: ['六盘水', '黔西南'], // 小兔子代驾推广只在贵州省-黔西南和六盘水地区可见
@@ -48,6 +49,7 @@ Page({
 		}
 	},
 	onClickTruckHandling () {
+		mta.Event.stat('index_for_truck_entrance',{});
 		util.go(`/pages/truck_handling/index/index`);
 	},
 	// 自动登录
@@ -592,6 +594,8 @@ Page({
 		util.showLoading('加载中');
 		let params = {
 			orderId: obj.id,// 订单id
+			clientOpenid: app.globalData.userInfo.openId,
+			clientMobilePhone: app.globalData.userInfo.mobilePhone,
 			needSignContract: true // 是否需要签约 true-是，false-否
 		};
 		if (obj.remark && obj.remark.indexOf('迁移订单数据') !== -1) {
@@ -612,7 +616,16 @@ Page({
 				app.globalData.orderInfo.orderId = obj.id;
 				app.globalData.orderStatus = obj.selfStatus;
 				app.globalData.orderInfo.shopProductId = obj.shopProductId;
-				if (result.version === 'v2') {
+				if (result.version === 'v1') { // 签约车主服务 1.0
+					wx.navigateToMiniProgram({
+						appId: 'wxbd687630cd02ce1d',
+						path: 'pages/index/index',
+						extraData: result.extraData,
+						fail () {
+							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
+						}
+					});
+				} else if (result.version === 'v2') {
 					wx.navigateToMiniProgram({
 						appId: 'wxbcad394b3d99dac9',
 						path: 'pages/route/index',
@@ -685,6 +698,7 @@ Page({
 					}
 				});
 			} else if (item.remark === 'micro_insurance_driving') {
+				mta.Event.stat('banner_activity_weibao',{});
 				this.openWeiBao(item.pageUrl);
 			} else {
 				app.globalData.orderInfo.orderId = '';

@@ -34,11 +34,13 @@ Page({
 		successBillList: [],
 		ownerServiceArrearsList: [],// 车主服务欠费
 		allMoney: 0, // 总额
-		vehicleList: ['全部车辆'],
+		vehicleList: [],// 全部车辆
 		chooseTime: '',
 		initializationDate: undefined,// 初始化日期,月账单推送进入
 		initializationVehPlates: undefined,// 初始化车牌,月账单推送进入
-		chooseVehPlates: '全部车辆'
+		chooseVehPlates: '全部车辆',
+		passengerCarList: [], // 客车
+		truckList: []// 货车
 	},
 	onLoad (options) {
 		let date = new Date();
@@ -180,9 +182,20 @@ Page({
 			this.setData({
 				orderList: obuStatusList
 			});
-			let date = new Date();
-			const year = date.getFullYear();
-			const month = date.getMonth() + 1;
+			const truckList = obuStatusList.filter(item => item.isNewTrucks === 1);
+			const passengerCarList = obuStatusList.filter(item => item.isNewTrucks === 0);
+			truckList.map((item) => {
+				this.data.truckList.push(item.vehPlates);
+				this.setData({
+					truckList: this.data.truckList
+				});
+			});
+			passengerCarList.map((item) => {
+				this.data.passengerCarList.push(item.vehPlates);
+				this.setData({
+					passengerCarList: this.data.passengerCarList
+				});
+			});
 			if (this.data.chooseVehPlates !== '全部车辆') {
 				if (this.data.initializationVehPlates && this.data.initializationDate) {
 					// 月账单 推送进入
@@ -323,30 +336,37 @@ Page({
 	},
 	// 下拉选择
 	selectedItem (e) {
+		let vehicleList = [];
+		const vehicle = e.detail.selectedId ? this.data.chooseVehPlates : e.detail.selectedTitle;
+		if (vehicle === '全部车辆') {
+			vehicleList = this.data.vehicleList;
+		} else if (vehicle === '客车') {
+			vehicleList = this.data.passengerCarList;
+		} else {
+			vehicleList = this.data.truckList;
+		}
 		if (!e.detail.selectedId) {
 			this.setData({
 				initializationVehPlates: undefined
 			});
-			let index = this.data.vehicleList.findIndex((value) => value === e.detail.selectedTitle);
-			if (index === 0) { // 统计点击全部车辆
+			const vehicleType = ['全部车辆', '客车', '货车'];
+			if (vehicleType.includes(e.detail.selectedTitle)) { // 统计点击全部车辆
 				// 统计点击事件
 				mta.Event.stat('017',{});
 				this.setData({
-					chooseVehPlates: '全部车辆'
+					chooseVehPlates: e.detail.selectedTitle
 				});
-				this.data.vehicleList.map((item) => {
+				vehicleList.map((item) => {
 					if (item !== '全部车辆') {
 						this.getSuccessBill(item,this.data.chooseTime);
 					}
 				});
-				// this.getMessage('全部车辆',this.data.chooseTime);
 			} else {
 				this.setData({
 					successBillList: [],
-					chooseVehPlates: this.data.vehicleList[index]
+					chooseVehPlates: e.detail.selectedTitle
 				});
-				this.getSuccessBill(this.data.vehicleList[index],this.data.chooseTime);
-				// this.getMessage(this.data.vehicleList[index],this.data.chooseTime);
+				this.getSuccessBill(e.detail.selectedTitle,this.data.chooseTime);
 			}
 		} else {
 			this.setData({
@@ -358,15 +378,14 @@ Page({
 				chooseTime: `${this.data.year - id}${util.formatNumber(month)}`,
 				successBillList: []
 			});
-			if (this.data.chooseVehPlates === '全部车辆') {
-				this.data.vehicleList.map((item) => {
+			const vehicleType = ['全部车辆', '客车', '货车'];
+			if (vehicleType.includes(this.data.chooseVehPlates)) {
+				vehicleList.map((item) => {
 					if (item !== '全部车辆') {
 						this.getSuccessBill(item,this.data.chooseTime);
 					}
 				});
-				// this.getMessage('全部车辆',this.data.chooseTime);
 			} else {
-				// this.getMessage(this.data.chooseVehPlates,this.data.chooseTime);
 				this.getSuccessBill(this.data.chooseVehPlates,this.data.chooseTime);
 			}
 		}

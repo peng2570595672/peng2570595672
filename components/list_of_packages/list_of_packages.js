@@ -4,7 +4,7 @@ Component({
 	properties: {
 		current: {
 			type: Number,
-			value: -1
+			value: 0
 		},
 		listOfPackages: {
 			type: Array,

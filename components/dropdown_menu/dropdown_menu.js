@@ -14,11 +14,19 @@ Component({
 			type: Array,
 			value: []
 		},
-		dropDownMenuFilterData: {
+		vehicleList: {
 			type: Array,
 			value: []
 		},
-		dropDownMenuDistrictData: {
+		passengerCarList: {
+			type: Array,
+			value: []
+		},
+		truckList: {
+			type: Array,
+			value: []
+		},
+		timeList: {
 			type: Array,
 			value: []
 		},
@@ -34,9 +42,9 @@ Component({
 		district_open: false,
 		district_open_wtapper: false,
 		filter_open: false,
-		filter_open_wtapper: false,
+		filter_open_wtapper: false,// 车辆选择是否开启
 		shownavindex: '',
-		dropDownMenuDistrictDataRight: {},
+		timeListRight: {},
 		district_left_select: '',
 		district_right_select: '',
 		district_right_select_name: '',
@@ -45,7 +53,8 @@ Component({
 		year: '',
 		chooseYear: '',
 		month: '',
-		selected_filter_name: ''
+		selected_filter_name: '',// 选择车辆选项
+		vehicleType: '全部车辆'
 	},
 	methods: {
 		// ETC月结单提醒
@@ -140,7 +149,7 @@ Component({
 				this.tapDistrictNav(e);
 			}
 		},
-		tapDistrictNav: function (e) {
+		tapDistrictNav (e) {
 			let date = new Date();
 			const year = date.getFullYear();
 			const month = date.getMonth();
@@ -151,7 +160,7 @@ Component({
 			if (!this.data.district_right_select_name) {
 				if (this.data.initializationDate) {
 					// 月账单推送进入
-					let setData = this.data.dropDownMenuDistrictData.filter(item => {
+					let setData = this.data.timeList.filter(item => {
 						if (item.title.includes(this.data.initializationDate.slice(0, 4))) {
 							return item;
 						}
@@ -159,17 +168,17 @@ Component({
 					this.setData({
 						district_left_select: setData[0].id,
 						district_right_select: setData[0].childModel[parseInt(this.data.initializationDate.slice(4, 6)) - 1].id,
-						dropDownMenuDistrictDataRight: setData[0].childModel,
+						timeListRight: setData[0].childModel,
 						selected_year_name: setData[0].title,
 						chooseYear: parseInt(setData[0].title)
 					});
 				} else {
 					this.setData({
-						dropDownMenuDistrictDataRight: this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length - 1].childModel,
-						district_left_select: this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length - 1].id,
-						district_right_select: this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length - 1].childModel[month].id,
-						selected_year_name: this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length - 1].title,
-						chooseYear: parseInt(this.data.dropDownMenuDistrictData[this.data.dropDownMenuDistrictData.length - 1].title)
+						timeListRight: this.data.timeList[this.data.timeList.length - 1].childModel,
+						district_left_select: this.data.timeList[this.data.timeList.length - 1].id,
+						district_right_select: this.data.timeList[this.data.timeList.length - 1].childModel[month].id,
+						selected_year_name: this.data.timeList[this.data.timeList.length - 1].title,
+						chooseYear: parseInt(this.data.timeList[this.data.timeList.length - 1].title)
 					});
 				}
 			}
@@ -194,7 +203,7 @@ Component({
 				toview: 'year0'
 			});
 		},
-		tapFilterNav: function (e) {
+		tapFilterNav (e) {
 			if (!this.data.selected_filter_name) {
 				this.setData({
 					selected_filter_name: this.data.dropDownMenuTitle[0]
@@ -218,12 +227,12 @@ Component({
 				});
 			}
 		},
-		selectDistrictTop: function (e) {
+		selectDistrictTop (e) {
 			let model = e.target.dataset.model.childModel;
 			let selectedId = e.target.dataset.model.id;
 			let selectedTitle = e.target.dataset.model.title;
 			this.setData({
-				dropDownMenuDistrictDataRight: model == null ? '' : model,
+				timeListRight: model == null ? '' : model,
 				district_left_select: selectedId,
 				district_right_select: '',
 				selected_year_name: selectedTitle,
@@ -235,6 +244,7 @@ Component({
 			}
 		},
 		hide () {
+			const isChoice = this.data.district_open_wtapper;
 			this.setData({
 				district_open_wtapper: false,
 				filter_open_wtapper: false
@@ -245,8 +255,14 @@ Component({
 					filter_open: false
 				});
 			}, 400);
+			if (!isChoice) {
+				this.triggerEvent('selectedItem', {
+					index: this.data.shownavindex,
+					selectedTitle: this.data.selected_filter_name || this.data.vehicleType
+				});
+			}
 		},
-		selectDistrictBottom: function (e) {
+		selectDistrictBottom (e) {
 			let date = new Date();
 			let selectedId = e.target.dataset.model.id;
 			let selectedTitle = e.target.dataset.model.title;
@@ -260,7 +276,7 @@ Component({
 			});
 			this.triggerEvent('selectedItem', { index: this.data.shownavindex, selectedId: selectedId, selectedTitle: selectedTitle });
 		},
-		selectFilterItem: function (e) {
+		selectFilterItem (e) {
 			let selectedTitle = e.target.dataset.model;
 			this.closeHyFilter();
 			this.setData({
@@ -268,8 +284,14 @@ Component({
 			});
 			this.triggerEvent('selectedItem', { index: this.data.shownavindex, selectedTitle: selectedTitle });
 		},
+		choiceVehicleType (e) {
+			let vehicleType = e.target.dataset.model;
+			this.setData({
+				vehicleType
+			});
+		},
 		/** 关闭筛选 */
-		closeHyFilter: function () {
+		closeHyFilter () {
 			if (this.data.district_open) {
 				this.setData({
 					district_open_wtapper: false,
@@ -296,6 +318,6 @@ Component({
 		}
 	},
 	// 组件生命周期函数，在组件实例进入页面节点树时执行
-	attached: function () {
+	attached () {
 	}
 });

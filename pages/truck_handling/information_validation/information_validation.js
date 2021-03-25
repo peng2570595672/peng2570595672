@@ -416,6 +416,7 @@ Page({
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: '6',
+			changeAuditStatus: false,// 修改不计入待审核
 			vehicleInfo: {
 				carType: 1,
 				vehPlates: face.numberPlates,
@@ -449,6 +450,11 @@ Page({
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
 			if (res.code === 0) {
+				const pages = getCurrentPages();
+				const prevPage = pages[pages.length - 2];// 上一个页面
+				prevPage.setData({
+					isChangeDrivingLicenseError: true // 重置状态
+				});
 				wx.navigateBack({
 					delta: 1
 				});
