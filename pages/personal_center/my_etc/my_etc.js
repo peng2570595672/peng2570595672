@@ -341,6 +341,7 @@ Page({
 				app.globalData.orderStatus = obj.selfStatus;
 				app.globalData.orderInfo.shopProductId = obj.shopProductId;
 				if (result.version === 'v1') { // 签约车主服务 1.0
+					app.globalData.signAContract === -1;
 					wx.navigateToMiniProgram({
 						appId: 'wxbd687630cd02ce1d',
 						path: 'pages/index/index',

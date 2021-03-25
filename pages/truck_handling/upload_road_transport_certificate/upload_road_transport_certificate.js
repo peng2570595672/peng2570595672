@@ -185,6 +185,9 @@ Page({
 								[`promptObject.content`]: `运输证车牌与${this.data.vehPlates}不一致，请重新上传`
 							});
 							this.selectComponent('#notFinishedOrder').show();
+							this.setData({
+								available: false
+							});
 							return;
 						}
 						this.setData({

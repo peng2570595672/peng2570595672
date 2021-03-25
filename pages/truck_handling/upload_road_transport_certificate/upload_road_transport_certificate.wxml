@@ -22,7 +22,7 @@
     <view class="line"></view>
     <view class="choice">
         <view class="title">请勾选出道路运输证经莒范围</view>
-        <view class="sub-title">如上传为C卡运输证,请联系办理机构核实经营范围</view>
+        <view class="sub-title">如上传为IC卡运输证,请联系办理机构核实经营范围</view>
         <view class="choice-list">
             <view wx:for="{{list}}" wx:key="index" class="list-item iconfont {{choiceActiveIndex === index ? 'active' : ''}}" data-index="{{index}}" catchtap="choiceTheType">
                 {{item.name}}

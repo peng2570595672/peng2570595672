@@ -228,7 +228,10 @@ Page({
 							const endDate = res.data[0].ocrObject.validDate.split('-')[1].split('.').join('/');
 							const isGreaterThanData = util.isGreaterThanData(endDate);// 身份证结束时间
 							if (isGreaterThanData) {
-								this.setData({faceStatus: 3});
+								this.setData({
+									faceStatus: 3,
+									available: false
+								});
 								util.showToastNoIcon('证件已过期');
 								return;
 							}

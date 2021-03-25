@@ -270,7 +270,8 @@ App({
 			title: '签约查询中...'
 		});
 		util.getDataFromServer('consumer/order/query-contract', {
-			orderId: this.globalData.orderInfo.orderId
+			orderId: this.globalData.orderInfo.orderId,
+			immediately: true
 		}, () => {
 			util.hideLoading();
 		}, (res) => {

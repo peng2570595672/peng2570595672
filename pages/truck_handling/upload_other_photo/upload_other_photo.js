@@ -180,6 +180,9 @@ Page({
 						truckSidePhoto: res.data[0]
 					});
 					wx.setStorageSync('truck-side-photo', JSON.stringify(res.data[0]));
+					this.setData({
+						available: this.validateData(false)
+					});
 				} else { // 文件上传失败
 					this.setData({backStatus: 3});
 					util.showToastNoIcon(res.message);

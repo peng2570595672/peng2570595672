@@ -29,6 +29,7 @@ Page({
 		}
 	},
 	onLoad (options) {
+		app.globalData.orderInfo.orderId = '';
 		if (options.isMain) {
 			this.setData({
 				isMain: options.isMain

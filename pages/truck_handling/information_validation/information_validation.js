@@ -110,6 +110,7 @@ Page({
 							if (!faceObj.ocrObject.numberPlates || !faceObj.ocrObject.owner || !faceObj.ocrObject.vehicleType) {
 								util.showToastNoIcon('识别失败！');
 								this.setData({
+									available: false,
 									faceStatus: 3
 								});
 								return;
@@ -117,6 +118,7 @@ Page({
 							if (faceObj.ocrObject.numberPlates !== this.data.vehPlates) {
 								this.setData({
 									faceStatus: 3,
+									available: false,
 									[`promptObject.content`]: `行驶证车牌与${this.data.vehPlates}不一致，请重新上传`
 								});
 								this.selectComponent('#notFinishedOrder').show();
@@ -126,6 +128,7 @@ Page({
 							if (vehicleList.includes(faceObj.ocrObject.vehicleType)) {
 								util.showToastNoIcon('非货车类型无法办理！');
 								this.setData({
+									available: false,
 									faceStatus: 3
 								});
 								return;
@@ -257,7 +260,7 @@ Page({
 		let type = +e.currentTarget.dataset['type'];
 		// 识别中禁止修改
 		if ((type === 3 && this.data.faceStatus === 2) || (type === 4 && this.data.backStatus === 2)) return;
-		util.go(`/pages/truck_handling/shot_card/shot_card?type=${type}&pathUrl=${type === 1 ? this.data.drivingLicenseFace.fileUrl : this.data.drivingLicenseBack.fileUrl}`);
+		util.go(`/pages/truck_handling/shot_card/shot_card?type=${type}&pathUrl=${type === 3 ? this.data.drivingLicenseFace.fileUrl : this.data.drivingLicenseBack.fileUrl}`);
 	},
 	bindPersonsCarTypeChange (e) {
 		this.setData({
