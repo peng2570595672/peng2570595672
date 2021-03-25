@@ -79,7 +79,7 @@
                     range="{{carTypeArr}}"
                     range-key="name"
             >
-                <view class="choice-axle iconfont">{{carType > 0 ? carTypeArr[carType].name : '请真实选择车轴数'}}</view>
+                <view class="choice-axle iconfont">{{carType !== -1 ? carTypeArr[carType].name : '请真实选择车轴数'}}</view>
             </picker>
         </view>
         <view class="parameter">
