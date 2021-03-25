@@ -321,6 +321,7 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
+				// res.data = res.data.filter(item => item.id === '824659404988092416');
 				app.globalData.myEtcList = res.data;
 				// 京东客服
 				let vehicleList = [];

@@ -183,7 +183,7 @@ Page({
 				this.setData({
 					info: res.data
 				});
-				if (this.data.info.orderVerificationId) {
+				if (this.data.info.orderVerificationId && this.data.info.isNewTrucks !== 1) {
 					this.refreshCheck();
 				}
 				if (res.data.autoAuditStatus === 0 && res.data.auditStatus === 0) {

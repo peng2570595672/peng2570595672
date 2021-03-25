@@ -93,8 +93,8 @@ Page({
 			if (isToast) util.showToastNoIcon('车牌号识别失败,请重新上传！');
 			return false;
 		}
-		if (!this.data.transportationLicenseObj.ocrObject.business_certificate) {
-			if (isToast) util.showToastNoIcon('经营许可证号识别失败,请重新上传！');
+		if (!this.data.transportationLicenseObj.ocrObject.license_number) {
+			if (isToast) util.showToastNoIcon('道路运输证号识别失败,请重新上传！');
 			return false;
 		}
 		if (!this.data.transportationLicenseObj.ocrObject.vehicle_type) {
@@ -195,7 +195,7 @@ Page({
 							transportationLicenseObj: res.data[0]
 						});
 						this.setData({
-							available: this.validateData(false)
+							available: this.validateData(true)
 						});
 						wx.setStorageSync('truck-transportation-license', JSON.stringify(res.data[0]));
 					} else { // 识别失败

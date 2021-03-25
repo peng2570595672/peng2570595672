@@ -29,7 +29,6 @@ Page({
 		const pages = getCurrentPages();
 		const currPage = pages[pages.length - 1];
 		// 修改资料不需要查询订单详情
-		console.log(currPage.__data__);
 		if (currPage.__data__.isChangeHeadstock) {
 			this.setData({
 				isHeadstockError: false

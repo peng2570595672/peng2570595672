@@ -1,5 +1,5 @@
 <view class="page">
-    <view class="title">请按要求上传证件</view>
+    <view class="title">请上传{{vehPlates}}的车辆照片</view>
     <!--上传证件部分开始-->
     <view class="photo-wrapper">
         <!--车头照开始-->
