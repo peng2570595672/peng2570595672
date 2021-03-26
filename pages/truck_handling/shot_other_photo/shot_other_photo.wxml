@@ -5,6 +5,7 @@
         <camera class="camera" device-position="back" flash="auto" binderror="cameraErrorHandle" wx:if="{{showInfo}}">
             <cover-view wx:if="{{!picUrl}}">
                 <cover-image wx:if="{{type === 101}}" class="border sample" src="/pages/truck_handling/assets/side_view_of_vehicle.png"></cover-image>
+                <cover-image wx:if="{{type === 102}}" class="border sample" src="/pages/truck_handling/assets/side_photo.png"></cover-image>
             </cover-view>
             <cover-image class="border" wx:else src="{{picUrl}}"></cover-image>
         </camera>

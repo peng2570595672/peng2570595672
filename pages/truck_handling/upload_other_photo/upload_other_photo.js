@@ -75,10 +75,10 @@ Page({
 			if (isToast) util.showToastNoIcon('请上传车头照！');
 			return false;
 		}
-		if (this.data.truckHeadstock.ocrObject.plateNumber !== this.data.vehPlates) {
-			if (isToast) util.showToastNoIcon(`当前车头照识别的车牌号与${this.data.vehPlates}不一致，请重新上传`);
-			return;
-		}
+		// if (this.data.truckHeadstock.ocrObject.plateNumber !== this.data.vehPlates) {
+		// 	if (isToast) util.showToastNoIcon(`当前车头照识别的车牌号与${this.data.vehPlates}不一致，请重新上传`);
+		// 	return;
+		// }
 		if (!this.data.truckSidePhoto.fileUrl) {
 			if (isToast) util.showToastNoIcon('请上传补充角度照！');
 			return false;
@@ -137,7 +137,7 @@ Page({
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			changeAuditStatus: false,// 修改不计入待审核
 			headstockInfo: {
-				vehPlate: this.data.truckHeadstock.ocrObject.plateNumber,// 车牌号 【dataType包含7】
+				vehPlate: this.data.vehPlates,// 车牌号 【dataType包含7】
 				fileName: this.data.truckHeadstock.fileName, // 文件名称 【dataType包含7】
 				fileGroup: this.data.truckHeadstock.fileGroup, // 所在组 【dataType包含7】
 				fileUrl: this.data.truckHeadstock.fileUrl, // 访问地址 【dataType包含7】
@@ -207,14 +207,14 @@ Page({
 					res = JSON.parse(res);
 					if (res.code === 0) { // 识别成功
 						app.globalData.truckHandlingOCRTyp = 0;
-						if (res.data[0].ocrObject.plateNumber !== this.data.vehPlates) {
-							this.setData({
-								faceStatus: 3,
-								[`promptObject.content`]: `当前车头照识别的车牌号与${this.data.vehPlates}不一致，请重新上传`
-							});
-							this.selectComponent('#notFinishedOrder').show();
-							return;
-						}
+						// if (res.data[0].ocrObject.plateNumber !== this.data.vehPlates) {
+						// 	this.setData({
+						// 		faceStatus: 3,
+						// 		[`promptObject.content`]: `当前车头照识别的车牌号与${this.data.vehPlates}不一致，请重新上传`
+						// 	});
+						// 	this.selectComponent('#notFinishedOrder').show();
+						// 	return;
+						// }
 						this.setData({
 							faceStatus: 4,
 							truckHeadstock: res.data[0]

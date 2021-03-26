@@ -282,7 +282,7 @@ App({
 				if (this.globalData.isTruckHandling) {
 					this.globalData.isTruckHandling = false;// 是否新流程-货车办理
 					if (res.data.contractStatus === 1) {
-						util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
+						util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${this.globalData.orderInfo.orderId}`);
 					} else {
 						util.showToastNoIcon('未签约成功！');
 					}

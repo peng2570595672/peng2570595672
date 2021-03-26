@@ -133,13 +133,6 @@ Page({
 								});
 								return;
 							}
-							if (faceObj.ocrObject.vehicleType.includes('牵引') ||
-								faceObj.ocrObject.vehicleType.includes('挂') ||
-								faceObj.ocrObject.vehicleType.includes('集装箱')
-							) {
-								// 牵引车
-								this.setData({isTraction: 1});
-							}
 							this.setData({
 								faceStatus: 4,
 								drivingLicenseFace: faceObj
@@ -416,6 +409,10 @@ Page({
 			isRequest: true,
 			available: false
 		});
+		if (face.vehicleType.includes('牵引') || face.vehicleType.includes('挂') || face.vehicleType.includes('集装箱')) {
+			// 牵引车
+			this.setData({isTraction: 1});
+		}
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: '6',

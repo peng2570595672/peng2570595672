@@ -13,16 +13,14 @@ Page({
 		isDrivingLicenseError: false, // 是否行驶证错误
 		isHeadstockError: false, // 是否车头照错误
 		isRoadTransportCertificateError: false, // 是否道路运输证错误
-		isModifiedData: false // 是否是修改资料
+		isModifiedData: false, // 是否是修改资料
+		requestNum: 0
 	},
 	onLoad (options) {
 		if (options.isModifiedData) {
 			this.setData({
 				isModifiedData: true
 			});
-		}
-		if (this.data.isModifiedData) {
-			this.getETCDetail();
 		}
 	},
 	onShow () {
@@ -53,8 +51,8 @@ Page({
 			});
 			this.init();
 		}
+		this.getETCDetail();
 		if (!this.data.isModifiedData) {
-			this.getETCDetail();
 			this.queryContract();
 		}
 	},
@@ -96,11 +94,12 @@ Page({
 				let result = res.data.base;
 				let orderInfo = result.orderInfo;
 				let vehPlates = result.vehPlates;
-				if (this.data.isModifiedData && result.orderAudit) {
+				if (this.data.isModifiedData && result.orderAudit && this.data.requestNum === 0) {
 					// errNums
 					this.getErrorStatus(result.orderAudit);
 				}
 				this.setData({
+					requestNum: 1,
 					orderInfo: orderInfo,
 					vehicleInfo: res.data.vehicle,
 					vehPlates: vehPlates
@@ -115,6 +114,7 @@ Page({
 	},
 	// 获取错误状态
 	getErrorStatus (info) {
+		console.log(info);
 		// 101 身份证  102 行驶证  103 营业执照  104 车头照  105 银行卡  106 无资料  201 邮寄地址  301 已办理过其他ETC
 		// 106 道路运输证  107 车辆侧身照  302 暂不支持企业用户  303 不支持车型  304 特殊情况  401 通用回复
 		let errNums = [];
@@ -157,7 +157,7 @@ Page({
 				});
 			}
 		}
-		if (this.data.isModifiedData) {
+		if (this.data.isModifiedData && this.data.requestNum === 0) {
 			this.setData({
 				available: false
 			});
@@ -168,33 +168,6 @@ Page({
 		let url = e.currentTarget.dataset['url'];
 		util.go(`/pages/truck_handling/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}`);
 	},
-	onclickSubmitAudit () {
-		if (this.data.isRequest) {
-			return;
-		} else {
-			this.setData({isRequest: true});
-		}
-		util.showLoading('加载中');
-		let params = {
-			dataComplete: 1,// 资料已完善
-			orderId: app.globalData.orderInfo.orderId,// 订单id
-			changeAuditStatus: true // 需要提交审核
-		};
-		util.getDataFromServer('consumer/order/save-order-info', params, () => {
-			util.showToastNoIcon('提交数据失败！');
-			util.hideLoading();
-			this.setData({isRequest: false});
-		}, (res) => {
-			if (res.code === 0) {
-				util.go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-			this.setData({isRequest: false});
-		});
-	},
 	// 微信签约
 	onclickSign () {
 		if (!this.data.available) return;
@@ -204,24 +177,19 @@ Page({
 			this.setData({isRequest: true});
 		}
 		mta.Event.stat('truck_for_certificate_list_next',{});
-		if (this.data.isModifiedData) {
-			// 修改资料
-			this.onclickSubmitAudit();
-			return;
-		}
 		util.showLoading('加载中');
 		let params = {
 			dataComplete: 1,// 资料已完善
 			clientOpenid: app.globalData.userInfo.openId,
 			clientMobilePhone: app.globalData.userInfo.mobilePhone,
 			orderId: app.globalData.orderInfo.orderId,// 订单id
+			changeAuditStatus: true,
 			needSignContract: true // 是否需要签约 true-是，false-否
 		};
-		if (this.data.contractStatus === 1) {
+		if (this.data.contractStatus === 1 || this.data.isModifiedData) {
 			delete params.needSignContract;
 			delete params.clientMobilePhone;
 			delete params.clientOpenid;
-			delete params.orderId;
 		}
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');
@@ -230,8 +198,9 @@ Page({
 		}, (res) => {
 			this.setData({isRequest: false});
 			if (res.code === 0) {
-				if (this.data.contractStatus === 1) {
-					util.go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
+				if (this.data.contractStatus === 1 || this.data.isModifiedData) {
+					// 1.0 已签约  或者 修改资料
+					util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
 					return;
 				}
 				app.globalData.signAContract = -1;
