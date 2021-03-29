@@ -113,7 +113,7 @@ Page({
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			vehPlates: this.data.carNoStr, // 车牌号
 			// vehColor: formData.currentCarNoColor === 1 ? 4 : formData.currentCarNoColor === 2 ? 1 : 0, // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
-			vehColor: formData.currentCarNoColor === 1 ? 4 : 0, // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
+			vehColor: formData.currentCarNoColor, // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
 			receiveMan: formData.userName, // 收货人姓名 【dataType包含2】
 			receivePhone: formData.telNumber, // 收货人手机号 【dataType包含2】
 			receiveProvince: formData.region[0], // 收货人省份 【dataType包含2】
@@ -164,7 +164,7 @@ Page({
 		}
 		// 设置数据
 		let formData = this.data.formData;
-		formData.currentCarNoColor = e.detail.carNo.join('').length === 8 ? 1 : 0;
+		formData.currentCarNoColor = e.detail.carNo.join('').length === 8 ? 4 : 0;
 		this.setData({
 			carNo: e.detail.carNo, // 车牌号数组
 			carNoStr: e.detail.carNo.join(''), // 车牌号字符串
@@ -230,13 +230,10 @@ Page({
 		formData.currentCarNoColor = parseInt(index);
 		this.setData({
 			formData,
-			isNewPowerCar: formData.currentCarNoColor === 1// 如果选择了新能源 那么最后一个显示可输入
+			isNewPowerCar: formData.currentCarNoColor === 4// 如果选择了新能源 那么最后一个显示可输入
 		});
-		if (parseInt(index) === 0 && this.data.carNoStr.length === 8) {
+		if (parseInt(index) !== 4 && this.data.carNoStr.length === 8) {
 			util.showToastNoIcon('8位车牌号为绿牌车！');
-		} else if (parseInt(index) === 1 && this.data.carNoStr.length === 7) {
-			util.showToastNoIcon('7位车牌号为蓝牌车！');
-			// util.showToastNoIcon('7位车牌号为蓝牌车或黄牌车！');
 		}
 		// 不是新能源 车牌为8位 去掉最后一位输入的车牌
 		if (!this.data.isNewPowerCar && this.data.carNoStr.length === 8) {
@@ -475,7 +472,7 @@ Page({
 		let formData = this.data.formData;
 		// 验证车牌和车牌颜色
 		if (this.data.carNoStr.length === 7) { // 蓝牌或者黄牌
-			isOk = isOk && (formData.currentCarNoColor === 0 || formData.currentCarNoColor === 2);
+			isOk = isOk && (formData.currentCarNoColor === 0 || formData.currentCarNoColor === 1);
 			// 进行正则匹配
 			if (isOk) {
 				let creg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}$/;
@@ -485,7 +482,7 @@ Page({
 				}
 			}
 		} else if (this.data.carNoStr.length === 8) {
-			isOk = isOk && formData.currentCarNoColor === 1;
+			isOk = isOk && formData.currentCarNoColor === 4;
 			// 进行正则匹配
 			if (isOk) {
 				let xreg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[ADGF]$)|([ADGF][A-HJ-NP-Z0-9][0-9]{4}$))/;
@@ -515,7 +512,7 @@ Page({
 	onClickNewPowerCarHandle (e) {
 		this.setData({
 			isNewPowerCar: true,
-			currentCarNoColor: 1
+			currentCarNoColor: 4
 		});
 		this.setCurrentCarNo(e);
 	},

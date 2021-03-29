@@ -103,6 +103,7 @@ Page({
 			try {
 				if (res) {
 					res = JSON.parse(res);
+					console.log(res);
 					if (res.code === 0) { // 识别成功
 						app.globalData.truckHandlingOCRTyp = 0;
 						if (type === 3) {

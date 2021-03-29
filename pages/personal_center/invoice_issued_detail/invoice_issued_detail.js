@@ -81,10 +81,6 @@ Page({
 			util.showToastNoIcon('邮箱格式不正确！');
 			return false;
 		}
-		if (!/^[A-Za-z0-9\u4e00-\u9fa5]+$/.test(invoiceInfo.customerName)) {
-			util.showToastNoIcon('发票抬头格式不正确！');
-			return false;
-		}
 		if (invoiceInfo.invoiceType === 2 && !/^[A-Z0-9]{15}$|^[A-Z0-9]{18}$|^[A-Z0-9]{20}$/.test(invoiceInfo.taxNo)) {
 			util.showToastNoIcon('税号格式不正确！');
 			return false;

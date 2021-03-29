@@ -139,6 +139,31 @@ Page({
 					});
 					list.push(faceToFaceList);
 				}
+				if (shopId === app.globalData.miniProgramServiceProvidersId) {
+					// 小程序普通入口 - 排序
+					const sortBy = ['816378665509593088', '746500057456570391', '752966728193286144', '750381409908301824'];
+					const customSort = ({ data, sortBy, sortField }) => {
+						const sortByObject = sortBy.reduce(
+							(obj, item, index) => ({
+								...obj,
+								[item]: index
+							}),
+							{}
+						);
+						return data.sort(
+							(a, b) => sortByObject[a[sortField]] - sortByObject[b[sortField]]
+						);
+					};
+					const listWithDefault = list.map(item => ({
+						...item,
+						sortStatus: sortBy.includes(item.shopProductId) ? item.shopProductId : 'other'
+					}));
+					list = customSort({
+						data: listWithDefault,
+						sortBy: [...sortBy, 'other'],
+						sortField: 'sortStatus'
+					});
+				}
 				this.mySetData({
 					listOfPackages: list
 				});
