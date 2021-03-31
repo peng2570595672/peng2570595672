@@ -80,6 +80,8 @@
         "upload_id_card/upload_id_card",
         "upload_other_photo/upload_other_photo",
         "upload_road_transport_certificate/upload_road_transport_certificate",
+        "equipment_cost/equipment_cost",
+        "payment_successful/payment_successful",
         "information_list/information_list"
       ]
     },

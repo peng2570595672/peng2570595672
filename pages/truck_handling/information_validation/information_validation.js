@@ -107,62 +107,76 @@ Page({
 					if (res.code === 0) { // 识别成功
 						app.globalData.truckHandlingOCRTyp = 0;
 						if (type === 3) {
-							const faceObj = res.data[0];
-							if (!faceObj.ocrObject.numberPlates || !faceObj.ocrObject.owner || !faceObj.ocrObject.vehicleType) {
-								util.showToastNoIcon('识别失败！');
+							try {
+								const faceObj = res.data[0];
+								if (!faceObj.ocrObject.numberPlates || !faceObj.ocrObject.owner || !faceObj.ocrObject.vehicleType) {
+									util.showToastNoIcon('识别失败！');
+									this.setData({
+										available: false,
+										faceStatus: 3
+									});
+									return;
+								}
+								if (faceObj.ocrObject.numberPlates !== this.data.vehPlates) {
+									this.setData({
+										faceStatus: 3,
+										available: false,
+										[`promptObject.content`]: `行驶证车牌与${this.data.vehPlates}不一致，请重新上传`
+									});
+									this.selectComponent('#notFinishedOrder').show();
+									return;
+								}
+								const vehicleList = ['小型轿车', '小型普通客车', '小型越野客车', '小型面包车', '普通客车', '轿车', '中型普通客车'];
+								if (vehicleList.includes(faceObj.ocrObject.vehicleType)) {
+									util.showToastNoIcon('非货车类型无法办理！');
+									this.setData({
+										available: false,
+										faceStatus: 3
+									});
+									return;
+								}
+								this.setData({
+									faceStatus: 4,
+									drivingLicenseFace: faceObj
+								});
+								wx.setStorageSync('truck-driving-license-face', JSON.stringify(faceObj));
+							} catch (err) {
 								this.setData({
 									available: false,
 									faceStatus: 3
 								});
-								return;
 							}
-							if (faceObj.ocrObject.numberPlates !== this.data.vehPlates) {
-								this.setData({
-									faceStatus: 3,
-									available: false,
-									[`promptObject.content`]: `行驶证车牌与${this.data.vehPlates}不一致，请重新上传`
-								});
-								this.selectComponent('#notFinishedOrder').show();
-								return;
-							}
-							const vehicleList = ['小型轿车', '小型普通客车', '小型越野客车', '小型面包车', '普通客车', '轿车', '中型普通客车'];
-							if (vehicleList.includes(faceObj.ocrObject.vehicleType)) {
-								util.showToastNoIcon('非货车类型无法办理！');
-								this.setData({
-									available: false,
-									faceStatus: 3
-								});
-								return;
-							}
-							this.setData({
-								faceStatus: 4,
-								drivingLicenseFace: faceObj
-							});
-							wx.setStorageSync('truck-driving-license-face', JSON.stringify(faceObj));
 						} else {
-							const backObj = res.data[0];
-							backObj.ocrObject.size = backObj.ocrObject.size.slice(0, backObj.ocrObject.size.length - 2).split('×');
-							backObj.ocrObject.vehicleLength = backObj.ocrObject.size[0];
-							backObj.ocrObject.vehicleWidth = backObj.ocrObject.size[1];
-							backObj.ocrObject.vehicleHeight = backObj.ocrObject.size[2];
-							backObj.ocrObject.totalMass = backObj.ocrObject.totalMass.slice(0, backObj.ocrObject.totalMass.length - 2);
-							backObj.ocrObject.curbWeight = backObj.ocrObject.curbWeight.slice(0, backObj.ocrObject.curbWeight.length - 2);
-							backObj.ocrObject.loadQuality = backObj.ocrObject.loadQuality.slice(0, backObj.ocrObject.loadQuality.length - 2);
-							// 计算人数
-							let personsCapacity = backObj.ocrObject.personsCapacity;
-							const personsCapacityStr = personsCapacity.slice(0, personsCapacity.length - 1);
-							let personsCapacityNum = 0;
-							if (personsCapacityStr.includes('+')) {
-								personsCapacityNum = parseInt(personsCapacityStr.split('+')[0]) + parseInt(personsCapacityStr.split('+')[1]);
-							} else {
-								personsCapacityNum = personsCapacityStr;
+							try {
+								const backObj = res.data[0];
+								backObj.ocrObject.size = backObj.ocrObject.size.slice(0, backObj.ocrObject.size.length - 2).split('×');
+								backObj.ocrObject.vehicleLength = backObj.ocrObject.size[0];
+								backObj.ocrObject.vehicleWidth = backObj.ocrObject.size[1];
+								backObj.ocrObject.vehicleHeight = backObj.ocrObject.size[2];
+								backObj.ocrObject.totalMass = backObj.ocrObject.totalMass.slice(0, backObj.ocrObject.totalMass.length - 2);
+								backObj.ocrObject.curbWeight = backObj.ocrObject.curbWeight.slice(0, backObj.ocrObject.curbWeight.length - 2);
+								backObj.ocrObject.loadQuality = backObj.ocrObject.loadQuality.slice(0, backObj.ocrObject.loadQuality.length - 2);
+								// 计算人数
+								let personsCapacity = backObj.ocrObject.personsCapacity;
+								const personsCapacityStr = personsCapacity.slice(0, personsCapacity.length - 1);
+								let personsCapacityNum = 0;
+								if (personsCapacityStr.includes('+')) {
+									personsCapacityNum = parseInt(personsCapacityStr.split('+')[0]) + parseInt(personsCapacityStr.split('+')[1]);
+								} else {
+									personsCapacityNum = personsCapacityStr;
+								}
+								backObj.ocrObject.personsCapacity = personsCapacityNum;
+								this.setData({
+									backStatus: 4,
+									drivingLicenseBack: backObj
+								});
+								wx.setStorageSync('truck-driving-license-back', JSON.stringify(backObj));
+							} catch (err) {
+								this.setData({
+									available: false,
+									faceStatus: 4
+								});
 							}
-							backObj.ocrObject.personsCapacity = personsCapacityNum;
-							this.setData({
-								backStatus: 4,
-								drivingLicenseBack: backObj
-							});
-							wx.setStorageSync('truck-driving-license-back', JSON.stringify(backObj));
 						}
 						this.setData({
 							available: this.validateData(false)

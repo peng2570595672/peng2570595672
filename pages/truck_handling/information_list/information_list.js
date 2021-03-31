@@ -6,6 +6,7 @@ Page({
 	data: {
 		contractStatus: 0,// 1已签约
 		orderInfo: undefined,
+		orderDetails: undefined,
 		vehicleInfo: undefined,
 		isRequest: false,
 		available: false,
@@ -101,6 +102,7 @@ Page({
 				this.setData({
 					requestNum: 1,
 					orderInfo: orderInfo,
+					orderDetails: result,
 					vehicleInfo: res.data.vehicle,
 					vehPlates: vehPlates
 				});
@@ -177,6 +179,11 @@ Page({
 			this.setData({isRequest: true});
 		}
 		mta.Event.stat('truck_for_certificate_list_next',{});
+		if (this.data.orderDetails.pledgeStatus === 0) {
+			// 需要支付保证金
+			util.go(`/pages/truck_handling/equipment_cost/equipment_cost?equipmentCost=${this.data.orderDetails.pledgeMoney}`);
+			return;
+		}
 		util.showLoading('加载中');
 		let params = {
 			dataComplete: 1,// 资料已完善
@@ -208,36 +215,7 @@ Page({
 				app.globalData.belongToPlatform = app.globalData.platformId;
 				util.hideLoading();
 				let result = res.data.contract;
-				if (result.version === 'v1') { // 签约车主服务 1.0
-					wx.navigateToMiniProgram({
-						appId: 'wxbd687630cd02ce1d',
-						path: 'pages/index/index',
-						extraData: result.extraData,
-						fail () {
-							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
-						}
-					});
-				} else if (result.version === 'v2') { // 签约车主服务 2.0
-					wx.navigateToMiniProgram({
-						appId: 'wxbcad394b3d99dac9',
-						path: 'pages/route/index',
-						extraData: result.extraData,
-						fail () {
-							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
-						}
-					});
-				} else { // 签约车主服务 3.0
-					wx.navigateToMiniProgram({
-						appId: 'wxbcad394b3d99dac9',
-						path: 'pages/etc/index',
-						extraData: {
-							preopen_id: result.extraData.peropen_id
-						},
-						fail () {
-							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
-						}
-					});
-				}
+				util.weChatSigning(result);
 			} else {
 				util.hideLoading();
 				this.setData({isRequest: false});

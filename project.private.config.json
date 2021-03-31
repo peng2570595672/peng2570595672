@@ -226,6 +226,12 @@
           "pathName": "pages/truck_handling/shot_other_photo/shot_other_photo",
           "query": "orderId=824659404988092416",
           "scene": null
+        },
+        {
+          "name": "pages/truck_handling/payment_successful/payment_successful",
+          "pathName": "pages/truck_handling/payment_successful/payment_successful",
+          "query": "officialChannelId=645937022279614464",
+          "scene": null
         }
       ]
     }

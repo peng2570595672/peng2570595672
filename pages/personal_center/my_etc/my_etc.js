@@ -151,6 +151,11 @@ Page({
 		let obj = this.data.carList[parseInt(index)];
 		app.globalData.orderInfo = obj;
 		app.globalData.orderInfo.orderId = obj.id;
+		if (obj.isNewTrucks === 1) {
+			// 需要支付保证金
+			util.go(`/pages/truck_handling/equipment_cost/equipment_cost?equipmentCost=${obj.pledgeMoney}`);
+			return;
+		}
 		util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${obj.pledgeMoney}&rightsPackagePayMoney=${obj.rightsPackagePayMoney}`);
 	},
 	//	查看详情
@@ -326,6 +331,9 @@ Page({
 			params['upgradeToTwo'] = true; // 1.0数据转2.0
 			params['dataComplete'] = 1; // 资料已完善
 		}
+		if (obj.isNewTrucks === 1 && obj.status === 0) {
+			params['dataComplete'] = 1; // 资料已完善
+		}
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');
 			util.hideLoading();
@@ -340,37 +348,8 @@ Page({
 				app.globalData.contractStatus = obj.contractStatus;
 				app.globalData.orderStatus = obj.selfStatus;
 				app.globalData.orderInfo.shopProductId = obj.shopProductId;
-				if (result.version === 'v1') { // 签约车主服务 1.0
-					app.globalData.signAContract === -1;
-					wx.navigateToMiniProgram({
-						appId: 'wxbd687630cd02ce1d',
-						path: 'pages/index/index',
-						extraData: result.extraData,
-						fail () {
-							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
-						}
-					});
-				} else if (result.version === 'v2') {
-					wx.navigateToMiniProgram({
-						appId: 'wxbcad394b3d99dac9',
-						path: 'pages/route/index',
-						extraData: result.extraData,
-						fail () {
-							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
-						}
-					});
-				} else { // 签约车主服务 3.0
-					wx.navigateToMiniProgram({
-						appId: 'wxbcad394b3d99dac9',
-						path: 'pages/etc/index',
-						extraData: {
-							preopen_id: result.extraData.peropen_id
-						},
-						fail () {
-							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
-						}
-					});
-				}
+				app.globalData.signAContract === -1;
+				util.weChatSigning(result);
 			} else {
 				util.showToastNoIcon(res.message);
 			}

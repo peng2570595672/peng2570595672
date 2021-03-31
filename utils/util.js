@@ -325,6 +325,7 @@ function uploadOcrFile(filePath, type, fail, success, complete, onProgressUpdate
 			'Content-Type': 'multipart/form-data'
 		},
 		success: (res) => {
+			console.log(res);
 			success && success(res.data);
 		},
 		fail: (res) => {
@@ -646,6 +647,16 @@ function getTruckHandlingStatus(orderInfo) {
 		status = 8; // 高速核验不通过
 	} else if (orderInfo.obuStatus === 1 && orderInfo.auditStatus === 2) {
 		status = 9; // 审核通过  已激活
+	}
+	if (orderInfo.status === 0 && orderInfo.isOwner === 1 && orderInfo.isVehicle === 1 && orderInfo.isHeadstock === 1) {
+		if (orderInfo.isTraction === 0 || (orderInfo.isTraction === 1 && orderInfo.isTransportLicense === 1)) {
+			if (orderInfo.pledgeStatus === 0) {
+				// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
+				status = 11; // 待支付
+			} else {
+				status = 2;
+			}
+		}
 	}
 	return status;
 }
@@ -1021,6 +1032,40 @@ function getInsuranceOffer(orderId, wtagid) {
 	}, app.globalData.userInfo.accessToken, () => {
 	});
 }
+
+// 微信车主服务签约
+function weChatSigning(data) {
+	if (data.version === 'v1') { // 签约车主服务 1.0
+		wx.navigateToMiniProgram({
+			appId: 'wxbd687630cd02ce1d',
+			path: 'pages/index/index',
+			extraData: data.extraData,
+			fail () {
+				util.showToastNoIcon('调起车主服务签约失败, 请重试！');
+			}
+		});
+	} else if (data.version === 'v2') { // 签约车主服务 2.0
+		wx.navigateToMiniProgram({
+			appId: 'wxbcad394b3d99dac9',
+			path: 'pages/route/index',
+			extraData: data.extraData,
+			fail () {
+				util.showToastNoIcon('调起车主服务签约失败, 请重试！');
+			}
+		});
+	} else { // 签约车主服务 3.0
+		wx.navigateToMiniProgram({
+			appId: 'wxbcad394b3d99dac9',
+			path: 'pages/etc/index',
+			extraData: {
+				preopen_id: data.extraData.peropen_id
+			},
+			fail () {
+				util.showToastNoIcon('调起车主服务签约失败, 请重试！');
+			}
+		});
+	}
+}
 module.exports = {
 	setApp,
 	formatNumber,
@@ -1054,5 +1099,6 @@ module.exports = {
 	getHandlingType,
 	getStatusFirstVersion,
 	goHome,
-	getInsuranceOffer
+	getInsuranceOffer,
+	weChatSigning
 };

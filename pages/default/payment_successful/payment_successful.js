@@ -94,27 +94,7 @@ Page({
 				} else {
 					app.globalData.isSalesmanOrder = false;
 				}
-				if (result.version === 'v2') {
-					wx.navigateToMiniProgram({
-						appId: 'wxbcad394b3d99dac9',
-						path: 'pages/route/index',
-						extraData: result.extraData,
-						fail () {
-							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
-						}
-					});
-				} else { // 签约车主服务 3.0
-					wx.navigateToMiniProgram({
-						appId: 'wxbcad394b3d99dac9',
-						path: 'pages/etc/index',
-						extraData: {
-							preopen_id: result.extraData.peropen_id
-						},
-						fail () {
-							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
-						}
-					});
-				}
+				util.weChatSigning(result);
 			} else {
 				util.hideLoading();
 				this.setData({isRequest: false});

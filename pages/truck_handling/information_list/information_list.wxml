@@ -22,7 +22,10 @@
 			<view class="btn {{orderInfo.isTransportLicense === 1 ? 'edit' : ''}}" catchtap="go" data-url="upload_road_transport_certificate">{{orderInfo.isTransportLicense === 1 ? '修改' : '上传'}}</view>
 		</view>
         <view class="fill"></view>
-		<view class="btn-sign {{available ? 'available' : 'unavailable'}}" catchtap="onclickSign">
+		<view class="btn-sign {{available ? 'available' : 'unavailable'}}" catchtap="onclickSign" wx:if="{{orderDetails.pledgeStatus === 0}}">
+            <view class="animate" wx:if="{{isRequest}}"></view>下一步
+        </view>
+        <view class="btn-sign {{available ? 'available' : 'unavailable'}}" catchtap="onclickSign" wx:else>
             <view class="animate" wx:if="{{isRequest}}"></view>{{isModifiedData ? '提交审核': contractStatus === 1 ? '你已签约免密支付,确认提交' : '签约微信免密支付'}}
         </view>
 	</view>

@@ -148,6 +148,11 @@ Page({
 		app.globalData.orderInfo.orderId = this.data.orderId;
 		const pledgeMoney = this.data.orderInfo.pledgeMoney;
 		const rightsPackagePayMoney = this.data.orderInfo.rightsPackagePayMoney;
+		if (this.data.orderInfo.isNewTrucks === 1) {
+			// 需要支付保证金
+			util.go(`/pages/truck_handling/equipment_cost/equipment_cost?equipmentCost=${this.data.orderInfo.pledgeMoney}`);
+			return;
+		}
 		util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${pledgeMoney}&rightsPackagePayMoney=${rightsPackagePayMoney}`);
 	},
 	// 修改资料
@@ -318,6 +323,9 @@ Page({
 			params['upgradeToTwo'] = true; // 1.0数据转2.0
 			params['dataComplete'] = 1; // 资料已完善
 		}
+		if (this.data.orderInfo.isNewTrucks === 1 && this.data.orderInfo.status === 0) {
+			params['dataComplete'] = 1; // 资料已完善
+		}
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');
 			util.hideLoading();
@@ -331,37 +339,8 @@ Page({
 				app.globalData.contractStatus = this.data.orderInfo.contractStatus;
 				app.globalData.orderStatus = this.data.orderInfo.selfStatus;
 				app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
-				if (result.version === 'v1') { // 签约车主服务 1.0
-					app.globalData.signAContract === -1;
-					wx.navigateToMiniProgram({
-						appId: 'wxbd687630cd02ce1d',
-						path: 'pages/index/index',
-						extraData: result.extraData,
-						fail () {
-							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
-						}
-					});
-				} else if (result.version === 'v2') {
-					wx.navigateToMiniProgram({
-						appId: 'wxbcad394b3d99dac9',
-						path: 'pages/route/index',
-						extraData: result.extraData,
-						fail () {
-							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
-						}
-					});
-				} else { // 签约车主服务 3.0
-					wx.navigateToMiniProgram({
-						appId: 'wxbcad394b3d99dac9',
-						path: 'pages/etc/index',
-						extraData: {
-							preopen_id: result.extraData.peropen_id
-						},
-						fail () {
-							util.showToastNoIcon('调起车主服务签约失败, 请重试！');
-						}
-					});
-				}
+				app.globalData.signAContract === -1;
+				util.weChatSigning(result);
 			} else {
 				util.showToastNoIcon(res.message);
 			}

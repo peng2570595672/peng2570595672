@@ -207,19 +207,23 @@ Page({
 					res = JSON.parse(res);
 					if (res.code === 0) { // 识别成功
 						app.globalData.truckHandlingOCRTyp = 0;
-						// if (res.data[0].ocrObject.plateNumber !== this.data.vehPlates) {
-						// 	this.setData({
-						// 		faceStatus: 3,
-						// 		[`promptObject.content`]: `当前车头照识别的车牌号与${this.data.vehPlates}不一致，请重新上传`
-						// 	});
-						// 	this.selectComponent('#notFinishedOrder').show();
-						// 	return;
-						// }
-						this.setData({
-							faceStatus: 4,
-							truckHeadstock: res.data[0]
-						});
-						wx.setStorageSync('truck-headstock', JSON.stringify(res.data[0]));
+						try {
+							// if (res.data[0].ocrObject.plateNumber !== this.data.vehPlates) {
+							// 	this.setData({
+							// 		faceStatus: 3,
+							// 		[`promptObject.content`]: `当前车头照识别的车牌号与${this.data.vehPlates}不一致，请重新上传`
+							// 	});
+							// 	this.selectComponent('#notFinishedOrder').show();
+							// 	return;
+							// }
+							this.setData({
+								faceStatus: 4,
+								truckHeadstock: res.data[0]
+							});
+							wx.setStorageSync('truck-headstock', JSON.stringify(res.data[0]));
+						} catch (e) {
+							this.setData({faceStatus: 3});
+						}
 					} else { // 识别失败
 						this.setData({faceStatus: 3});
 					}

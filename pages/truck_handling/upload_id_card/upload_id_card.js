@@ -218,32 +218,40 @@ Page({
 					res = JSON.parse(res);
 					if (res.code === 0) { // 识别成功
 						app.globalData.truckHandlingOCRTyp = 0;
-						if (type === 1) {
-							this.setData({
-								faceStatus: 4,
-								idCardFace: res.data[0]
-							});
-							wx.setStorageSync('truck-id-card-face', JSON.stringify(res.data[0]));
-						} else {
-							const endDate = res.data[0].ocrObject.validDate.split('-')[1].split('.').join('/');
-							const isGreaterThanData = util.isGreaterThanData(endDate);// 身份证结束时间
-							if (isGreaterThanData) {
+						try {
+							if (type === 1) {
 								this.setData({
-									faceStatus: 3,
-									available: false
+									faceStatus: 4,
+									idCardFace: res.data[0]
 								});
-								util.showToastNoIcon('证件已过期');
-								return;
+								wx.setStorageSync('truck-id-card-face', JSON.stringify(res.data[0]));
+							} else {
+								const endDate = res.data[0].ocrObject.validDate.split('-')[1].split('.').join('/');
+								const isGreaterThanData = util.isGreaterThanData(endDate);// 身份证结束时间
+								if (isGreaterThanData) {
+									this.setData({
+										faceStatus: 3,
+										available: false
+									});
+									util.showToastNoIcon('证件已过期');
+									return;
+								}
+								this.setData({
+									backStatus: 4,
+									idCardBack: res.data[0]
+								});
+								wx.setStorageSync('truck-id-card-back', JSON.stringify(res.data[0]));
 							}
 							this.setData({
-								backStatus: 4,
-								idCardBack: res.data[0]
+								available: this.validateData(false)
 							});
-							wx.setStorageSync('truck-id-card-back', JSON.stringify(res.data[0]));
+						} catch (e) {
+							if (type === 1) {
+								this.setData({faceStatus: 3});
+							} else {
+								this.setData({backStatus: 3});
+							}
 						}
-						this.setData({
-							available: this.validateData(false)
-						});
 					} else { // 识别失败
 						if (type === 1) {
 							this.setData({faceStatus: 3});

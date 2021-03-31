@@ -179,25 +179,29 @@ Page({
 					res = JSON.parse(res);
 					if (res.code === 0) { // 识别成功
 						app.globalData.truckHandlingOCRTyp = 0;
-						if (res.data[0].ocrObject.vehicle_number !== this.data.vehPlates) {
+						try {
+							if (res.data[0].ocrObject.vehicle_number !== this.data.vehPlates) {
+								this.setData({
+									certificateStatus: 3,
+									[`promptObject.content`]: `运输证车牌与${this.data.vehPlates}不一致，请重新上传`
+								});
+								this.selectComponent('#notFinishedOrder').show();
+								this.setData({
+									available: false
+								});
+								return;
+							}
 							this.setData({
-								certificateStatus: 3,
-								[`promptObject.content`]: `运输证车牌与${this.data.vehPlates}不一致，请重新上传`
+								certificateStatus: 4,
+								transportationLicenseObj: res.data[0]
 							});
-							this.selectComponent('#notFinishedOrder').show();
 							this.setData({
-								available: false
+								available: this.validateData(true)
 							});
-							return;
+							wx.setStorageSync('truck-transportation-license', JSON.stringify(res.data[0]));
+						} catch (e) {
+							this.setData({certificateStatus: 3});
 						}
-						this.setData({
-							certificateStatus: 4,
-							transportationLicenseObj: res.data[0]
-						});
-						this.setData({
-							available: this.validateData(true)
-						});
-						wx.setStorageSync('truck-transportation-license', JSON.stringify(res.data[0]));
 					} else { // 识别失败
 						this.setData({certificateStatus: 3});
 					}

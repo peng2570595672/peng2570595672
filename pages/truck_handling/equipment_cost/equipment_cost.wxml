@@ -1,0 +1,10 @@
+<view class="equipment-cost">
+    <view class="equipment-img">
+        <image src="/pages/truck_handling/assets/equipment.png" mode="widthFix"/>
+    </view>
+    <view class="instructions">在您的办理申请审核成功后，我们将会免费给您寄出一台ETC设备，为保证设备正常激活不造成浪费，需提前向您收取<text>{{equipmentCost/100}}元</text>的设备保证金。</view>
+    <view class="prompt">设备保证金将在设备成功激活后原路返还至您的支付账户中。</view>
+    <view class="line"></view>
+    <view class="fill"></view>
+    <view class="btn" catchtap="marginPayment">支付{{equipmentCost/100}}元设备保证金</view>
+</view>
