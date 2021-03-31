@@ -147,8 +147,9 @@
 }
 .alert-for-not-finished .alert-for-not-finished-content .img .hide {
   position: absolute;
-  right: 30rpx;
-  top: 16rpx;
+  right: 10rpx;
+  top: 0rpx;
+  padding: 20rpx;
 }
 .alert-for-not-finished .alert-for-not-finished-content .img .prompt-img {
   width: 276rpx;

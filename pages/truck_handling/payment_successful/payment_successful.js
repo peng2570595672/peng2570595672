@@ -30,11 +30,6 @@ Page({
 	},
 	// 微信签约
 	next () {
-		if (this.data.contractStatus === 1) {
-			// 1.0 已签约
-			util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
-			return;
-		}
 		if (this.data.isRequest) {
 			return;
 		} else {
@@ -46,6 +41,9 @@ Page({
 			orderId: app.globalData.orderInfo.orderId,// 订单id
 			needSignContract: true // 是否需要签约 true-是，false-否
 		};
+		if (this.data.contractStatus === 1) {
+			delete params.needSignContract;
+		}
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');
 			util.hideLoading();
@@ -53,6 +51,11 @@ Page({
 		}, (res) => {
 			if (res.code === 0) {
 				util.hideLoading();
+				if (this.data.contractStatus === 1) {
+					// 1.0 已签约
+					util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
+					return;
+				}
 				let result = res.data.contract;
 				// 签约车主服务 2.0
 				app.globalData.signAContract = -1;

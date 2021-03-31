@@ -64,7 +64,7 @@
 		<view class="material">需准备资料</view>
 		<view class="photo">
 			<view class="photo-item">
-				<image class="image" src="/pages/truck_handling/assets/driving_license_back_bg.png"></image>
+				<image class="image" src="/pages/truck_handling/assets/id_card_face_bg.png"></image>
 				<text>车主身份证</text>
 			</view>
 			<view class="photo-item">
@@ -74,7 +74,6 @@
 			<view class="photo-item">
 				<view class="img-box">
 					<image class="img" src="/pages/truck_handling/assets/road_transport_certificate.png"></image>
-					<image class="ico" src="/pages/truck_handling/assets/icon_camera_white.png"></image>
 				</view>
 				<text>道路运输证</text>
 				<text class="memo">牵引车上传</text>
