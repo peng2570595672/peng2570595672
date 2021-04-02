@@ -289,7 +289,7 @@ Page({
 	onInputChangedHandle (e) {
 		let key = e.currentTarget.dataset.key;
 		this.setData({
-			[`${key}`]: e.detail.value
+			[`idCardFace.ocrObject.${key}`]: e.detail.value
 		});
 		this.setData({
 			available: this.validateData(false)
