@@ -149,7 +149,7 @@ Page({
 						} else {
 							try {
 								const backObj = res.data[0];
-								backObj.ocrObject.size = backObj.ocrObject.size.slice(0, backObj.ocrObject.size.length - 2).split('×');
+								backObj.ocrObject.size = backObj.ocrObject.size.match(/[\d]+/g);
 								backObj.ocrObject.vehicleLength = backObj.ocrObject.size[0];
 								backObj.ocrObject.vehicleWidth = backObj.ocrObject.size[1];
 								backObj.ocrObject.vehicleHeight = backObj.ocrObject.size[2];
