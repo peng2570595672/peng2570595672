@@ -42,7 +42,7 @@ Page({
 	getListOfPackages () {
 		util.showLoading();
 		let params = {
-			areaCode: this.data.regionCode[0] || 0,
+			areaCode: this.data.regionCode[0] || '0',
 			productType: 2,
 			vehType: 2,
 			platformId: app.globalData.platformId,

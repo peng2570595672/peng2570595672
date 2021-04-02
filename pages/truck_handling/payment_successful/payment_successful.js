@@ -39,6 +39,8 @@ Page({
 		let params = {
 			dataComplete: 1,// 已完善资料,进入待审核
 			orderId: app.globalData.orderInfo.orderId,// 订单id
+			clientOpenid: app.globalData.userInfo.openId,
+			clientMobilePhone: app.globalData.userInfo.mobilePhone,
 			needSignContract: true // 是否需要签约 true-是，false-否
 		};
 		if (this.data.contractStatus === 1) {

@@ -24,6 +24,7 @@ Page({
 		idCardBack: {
 			ocrObject: {}
 		},// 身份证反面
+		regionCode: [],// 区域编码
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
 		orderInfo: undefined // 订单信息
@@ -89,6 +90,25 @@ Page({
 			});
 			wx.removeStorageSync('id_card_back');
 		}
+	},
+	// 获取数据
+	init () {
+		// 是否缓存了定位信息
+		let locationInfo = wx.getStorageSync('location-info');
+		if (locationInfo) {
+			let res = JSON.parse(locationInfo);
+			let info = res.result.ad_info;
+			// 获取区域编码
+			let regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
+			this.setData({
+				regionCode
+			});
+			// 加载套餐
+			this.getListOfPackages();
+			return;
+		}
+		// 定位
+		this.getLocationInfo();
 	},
 	// 获取订单信息
 	getOrderInfo () {
@@ -207,8 +227,81 @@ Page({
 			}
 		});
 	},
+	// 获取套餐列表
+	getListOfPackages () {
+		util.showLoading();
+		let params = {
+			areaCode: this.data.regionCode[0] || '0',
+			productType: 2,
+			platformId: app.globalData.platformId,
+			shopId: app.globalData.otherPlatformsServiceProvidersId
+		};
+		util.getDataFromServer('consumer/system/get-usable-product', params, () => {
+			util.showToastNoIcon('获取套餐失败!');
+		}, (res) => {
+			if (res.code === 0) {
+				if (res.data.length === 0) {
+					if (app.globalData.isSalesmanPromotion) {
+						util.showToastNoIcon('未查询到套餐，请联系工作人员处理！');
+						return;
+					}
+				}
+				let list = res.data;
+				this.setData({
+					listOfPackages: list
+				});
+				this.choiceSetMeal();
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
+	// 定位
+	getLocationInfo () {
+		util.showLoading();
+		wx.getLocation({
+			type: 'wgs84',
+			success: (res) => {
+				util.getAddressInfo(res.latitude, res.longitude, (res) => {
+					wx.setStorageSync('location-info',JSON.stringify(res));
+					let info = res.result.ad_info;
+					let regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
+					this.setData({
+						regionCode
+					});
+					// 加载套餐
+					this.getListOfPackages();
+				}, () => {
+					// 加载套餐
+					this.getListOfPackages();
+				});
+			},
+			fail: (res) => {
+				util.hideLoading();
+				console.log(res);
+				if (res.errMsg === 'getLocation:fail auth deny' || res.errMsg === 'getLocation:fail authorize no response') {
+					util.alert({
+						content: '由于您拒绝了定位授权，导致无法获取扣款方式，请允许定位授权！',
+						showCancel: true,
+						confirmText: '允许授权',
+						confirm: () => {
+							wx.openSetting();
+						}
+					});
+				} else if (res.errMsg === 'getLocation:fail:ERROR_NOCELL&WIFI_LOCATIONSWITCHOFF' || res.errMsg === 'getLocation:fail system permission denied') {
+					util.showToastNoIcon('请开启手机或微信定位功能！');
+				}
+			}
+		});
+	},
 	// 选择银行
 	choiceSetMeal () {
+		if (this.data.regionCode.length === 0) {
+			this.init();
+			return;
+		}
 		if (!app.globalData.otherPlatformsServiceProvidersId) {
 			util.showToastNoIcon('商户Id为空！');
 			return;
@@ -393,6 +486,7 @@ Page({
 			params['bankAccountType'] = 1; // 账户类型 1-一类户 2-二类户 3-三类户 【dataType包含5】允许值: 1, 2, 3
 			params['bankCardType'] = this.data.bankCardIdentifyResult.ocrObject.cardType === '借记卡' ? 1 : 2; // 银行卡种 1-借记卡 2-贷记卡 【dataType包含5】允许值: 1, 2;
 		}
+		console.log(params);
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {

@@ -80,9 +80,9 @@
 		<view  class="btn {{available && choiceObj ? 'available' : 'unavailable'}}" catchtap="next"><view class="animate" wx:if="{{isRequest}}"></view>签约免密支付</view>
 		<!--	按钮结束-->
 
-		<!--	选择支付方式开始-->
-		<list_of_packages id="choiceSetMeal" bindonClickTranslucentHandle="onClickTranslucentHandle"
-		                  bindonClickItemHandle="onClickItemHandle"></list_of_packages>
-		<!--	选择支付方式结束-->
+        <!--	选择支付方式开始-->
+        <list_of_packages id="choiceSetMeal" regionCode="{{regionCode}}" listOfPackages="{{listOfPackages}}" bindonClickTranslucentHandle="onClickTranslucentHandle"
+                          bindonClickItemHandle="onClickItemHandle"></list_of_packages>
+        <!--	选择支付方式结束-->
 	</block>
 </view>

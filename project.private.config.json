@@ -232,6 +232,12 @@
           "pathName": "pages/truck_handling/payment_successful/payment_successful",
           "query": "officialChannelId=645937022279614464",
           "scene": null
+        },
+        {
+          "name": "pingan/pages/ChooseBank/ChooseBank",
+          "pathName": "pingan/pages/ChooseBank/ChooseBank",
+          "query": "orderId=823587582322413568",
+          "scene": null
         }
       ]
     }
