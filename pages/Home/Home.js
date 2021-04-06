@@ -137,7 +137,7 @@ Page({
 						isContinentInsurance: app.globalData.isContinentInsurance
 					});
 					if (this.data.isContinentInsurance) {
-						list = list.filter(item => item.remark !== 'micro_insurance' && item.remark !== 'heaiche');// 大地保险屏蔽微保&和爱车
+						list = list.filter(item => !item.remark.includes('micro_insurance') && item.remark !== 'heaiche');// 大地保险屏蔽微保&和爱车
 					} else {
 						list = list.filter(item => item.remark !== 'continent_insurance'); // 普通流程屏蔽大地保险
 					}
