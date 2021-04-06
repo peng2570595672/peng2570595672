@@ -8,6 +8,7 @@ const app = getApp();
 let mta = require('../../../libs/mta_analysis.js');
 Page({
 	data: {
+		notAllCar: false,
 		carList: undefined,
 		activeIndex: 1,
 		passengerCarList: [],// 客车
@@ -89,7 +90,13 @@ Page({
 					wx.setStorageSync('cars', vehicleList.join('、'));
 				});
 				const truckList = res.data.filter(item => item.isNewTrucks === 1);
-				const passengerCarList = res.data.filter(item => item.isNewTrucks === 0);
+				let passengerCarList = res.data.filter(item => item.isNewTrucks === 0);
+				if ((!truckList.length && passengerCarList.length) || (truckList.length && !passengerCarList.length)) {
+					passengerCarList = res.data;
+					this.setData({
+						notAllCar: true
+					});
+				}
 				this.setData({
 					activeIndex: 1, // 初始化变量
 					carList: passengerCarList, // 初始化变量

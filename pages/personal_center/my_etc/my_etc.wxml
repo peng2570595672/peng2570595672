@@ -1,5 +1,5 @@
 <view class="my-etc">
-    <view class="tab-choice" wx:if="{{truckList.length && passengerCarList.length}}">
+    <view class="tab-choice" wx:if="{{!notAllCar && carList.lengthd}}">
         <view data-index="1" class="{{activeIndex === 1 ? 'active' : ''}}" catchtap="onClickChoiceType">
             客车<view class="line"></view>
         </view>
