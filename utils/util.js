@@ -1006,30 +1006,34 @@ function getInsuranceOffer(orderId, wtagid) {
 		orderId: orderId
 	}, () => {
 		hideLoading();
+		openWeiBao(orderId, wtagid);
 	}, (res) => {
 		if (res.code === 0) {
+			hideLoading();
 			if (res.data && JSON.stringify(res.data) !== '{}') {
-				let memberId = res.data.memberId;
-				let orderId = res.data.orderId;
-				let url = `outerUserId=${memberId}&outerCarId=${orderId}&companyId=SJHT&configId=sjht&wtagid=${wtagid}`;
-				let weiBoUrl = app.globalData.weiBoUrl + encodeURIComponent(url);
-				let appId = app.globalData.test ? 'wx7f3f0032b6e6f0cc':'wx06a561655ab8f5b2';
-				wx.navigateToMiniProgram({
-					appId: appId,
-					path: weiBoUrl,
-					envVersion: 'release',
-					fail () {
-						showToastNoIcon('调起微保小程序失败, 请重试！');
-					}
-				});
+				orderId = res.data.orderId;
 			} else {
-				showToastNoIcon('暂无报价！');
+				// showToastNoIcon('暂无报价！');
 			}
 		} else {
-			hideLoading();
-			showToastNoIcon(res.message);
+			// showToastNoIcon(res.message);
 		}
+		openWeiBao(orderId, wtagid);
 	}, app.globalData.userInfo.accessToken, () => {
+	});
+}
+function openWeiBao (orderId, wtagid) {
+	const memberId = app.globalData.userInfo.memberId;
+	let url = `outerUserId=${memberId}&outerCarId=${orderId}&companyId=SJHT&configId=sjht&wtagid=${wtagid}`;
+	let weiBoUrl = app.globalData.weiBoUrl + encodeURIComponent(url);
+	let appId = app.globalData.test ? 'wx7f3f0032b6e6f0cc':'wx06a561655ab8f5b2';
+	wx.navigateToMiniProgram({
+		appId: appId,
+		path: weiBoUrl,
+		envVersion: 'release',
+		fail () {
+			showToastNoIcon('调起微保小程序失败, 请重试！');
+		}
 	});
 }
 
