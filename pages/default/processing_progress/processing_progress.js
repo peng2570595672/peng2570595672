@@ -96,10 +96,13 @@ Page({
 			if (time === this.data.info.contractTime.substring(0,10)) {
 				util.getDataFromServer('consumer/member/thirdBack/dataRecord', {
 					memberId: app.globalData.memberId,
-					salesmanId: this.data.info.shopUserId
+					salesmanId: this.data.info.shopUserId,
+					carNo: this.data.info.vehPlates,
+					orderId: this.data.orderId
 				}, () => {
 					util.showToastNoIcon('提交数据失败!');
 				}, (res) => {
+					console.log('调用了该方法');
 					if (res.code === 0) {
 						this.openWeiBao();
 					} else {
@@ -117,8 +120,9 @@ Page({
 	},
 	openWeiBao () {
 		let pageUrl = 'pages/base/redirect/index?routeKey=WEDRIVE_HIGH_JOIN&wtagid=104.210.3';
+		let appId = app.globalData.test ? 'wx7f3f0032b6e6f0cc' : 'wx06a561655ab8f5b2';
 		wx.navigateToMiniProgram({
-			appId: 'wx06a561655ab8f5b2',// 正式
+			appId: appId,
 			path: pageUrl,
 			envVersion: 'release',
 			fail () {
