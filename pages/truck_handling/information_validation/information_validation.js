@@ -431,7 +431,7 @@ Page({
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: '6',
-			changeAuditStatus: false,// 修改不计入待审核
+			changeAuditStatus: 0,// 修改不计入待审核
 			vehicleInfo: {
 				carType: 1,
 				vehPlates: face.numberPlates,

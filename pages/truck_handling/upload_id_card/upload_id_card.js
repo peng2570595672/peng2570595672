@@ -153,7 +153,7 @@ Page({
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: '48', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
-			changeAuditStatus: false,// 修改不计入待审核
+			changeAuditStatus: 0,// 修改不计入待审核
 			idCardStatus: this.data.idCardStatus,
 			idCardValidDate: this.data.idCardBack.ocrObject.validDate, // 有效期 格式为：2007.10.09-2027.10.09 【dataType包含4】
 			idCardAddress: this.data.idCardFace.ocrObject.address,// 地址 【dataType包含4】

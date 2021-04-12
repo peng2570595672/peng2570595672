@@ -124,7 +124,7 @@ Page({
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: 'a', // 需要提交的数据类型(可多选) a: 道路运输经营许可证
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
-			changeAuditStatus: false,// 修改不计入待审核
+			changeAuditStatus: 0,// 修改不计入待审核
 			transportLicense: {
 				ownerName: obj.ocrObject.owner_name, // 业户名称
 				licenseNumber: obj.ocrObject.license_number, // 道路运输证号

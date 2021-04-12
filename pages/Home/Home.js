@@ -14,7 +14,7 @@ Page({
 		exceptionMessage: undefined, // 异常信息
 		num: 0, // 次数
 		isContinentInsurance: false, // 是否是大地保
-		isNormalProcess: !app.globalData.otherPlatformsServiceProvidersId, // 是否是正常流程进入
+		isNormalProcess: true, // 是否是正常流程进入
 		rotationChartList: [], // 轮播图
 		recentlyTheBill: undefined, // 最新账单
 		driverDistrictList: ['六盘水', '黔西南'], // 小兔子代驾推广只在贵州省-黔西南和六盘水地区可见
@@ -321,7 +321,6 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
-				// res.data = res.data.filter(item => item.id === '824659404988092416');
 				app.globalData.myEtcList = res.data;
 				// 京东客服
 				let vehicleList = [];
@@ -380,6 +379,7 @@ Page({
 					}
 				});
 				this.setData({
+					isNormalProcess: !app.globalData.otherPlatformsServiceProvidersId,
 					orderInfo: orderInfo
 				});
 			} else {
