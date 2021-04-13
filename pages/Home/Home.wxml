@@ -3,7 +3,7 @@
 	<!--	欢迎语句开始-->
 	<view class="welcome">
         <view class="name">欢迎<open-data type="userNickName" lang="zh_CN"></open-data></view>
-        <view class="online-service" catchtap="go" data-url="online_customer_service">
+        <view class="online-service" catchtap="go" data-url="online_customer_service" wx:if="{{isNormalProcess}}">
             <image src="/pages/default/assets/online_customer_service.png"></image>
             <view>客 服</view>
         </view>

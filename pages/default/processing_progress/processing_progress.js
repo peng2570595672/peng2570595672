@@ -89,46 +89,22 @@ Page({
 	// 去微保
 	goMicroInsurance () {
 		mta.Event.stat('processing_progress_weibao',{});
+		const wtagid = '104.210.3';
+		let params = {
+			memberId: app.globalData.userInfo.memberId,
+			salesmanId: 0,
+			carNo: this.data.info.vehPlates,
+			orderId: this.data.orderId
+		};
 		if (this.data.info.orderType === 31) {
 			let date = new Date();
 			let mouth = date.getMonth() + 1;
 			let time = date.getFullYear() + '-' + util.formatNumber(mouth) + '-' + util.formatNumber(date.getDate());
 			if (time === this.data.info.contractTime.substring(0,10)) {
-				util.getDataFromServer('consumer/member/thirdBack/dataRecord', {
-					memberId: app.globalData.memberId,
-					salesmanId: this.data.info.shopUserId,
-					carNo: this.data.info.vehPlates,
-					orderId: this.data.orderId
-				}, () => {
-					util.showToastNoIcon('提交数据失败!');
-				}, (res) => {
-					console.log('调用了该方法');
-					if (res.code === 0) {
-						this.openWeiBao();
-					} else {
-						util.showToastNoIcon(res.message);
-					}
-				}, app.globalData.userInfo.accessToken, () => {
-					util.hideLoading();
-				});
-			} else {
-				this.openWeiBao();
+				params['salesmanId'] = this.data.info.shopUserId;
 			}
-		} else {
-			this.openWeiBao();
 		}
-	},
-	openWeiBao () {
-		let pageUrl = 'pages/base/redirect/index?routeKey=WEDRIVE_HIGH_JOIN&wtagid=104.210.3';
-		let appId = app.globalData.test ? 'wx7f3f0032b6e6f0cc' : 'wx06a561655ab8f5b2';
-		wx.navigateToMiniProgram({
-			appId: appId,
-			path: pageUrl,
-			envVersion: 'release',
-			fail () {
-				util.showToastNoIcon('调起微保小程序失败, 请重试！');
-			}
-		});
+		util.goMicroInsuranceVehicleOwner(params, wtagid);
 	},
 	// 展示车险报价插屏
 	goDriverInsurance () {

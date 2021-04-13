@@ -1002,11 +1002,14 @@ function subscribe(tmplIds, url) {
  *  车险报价
  */
 function getInsuranceOffer(orderId, wtagid) {
+	const memberId = app.globalData.userInfo.memberId;
 	getDataFromServer('consumer/order/insuranceOffer', {
 		orderId: orderId
 	}, () => {
 		hideLoading();
-		openWeiBao(orderId, wtagid);
+		let url = `outerUserId=${memberId}&outerCarId=${orderId}&companyId=SJHT&configId=sjht&wtagid=${wtagid}`;
+		let pageUrl = app.globalData.weiBoUrl + encodeURIComponent(url);
+		openWeiBao(pageUrl);
 	}, (res) => {
 		if (res.code === 0) {
 			hideLoading();
@@ -1018,25 +1021,38 @@ function getInsuranceOffer(orderId, wtagid) {
 		} else {
 			// showToastNoIcon(res.message);
 		}
-		openWeiBao(orderId, wtagid);
+		let url = `outerUserId=${memberId}&outerCarId=${orderId}&companyId=SJHT&configId=sjht&wtagid=${wtagid}`;
+		let pageUrl = app.globalData.weiBoUrl + encodeURIComponent(url);
+		openWeiBao(pageUrl);
 	}, app.globalData.userInfo.accessToken, () => {
 	});
 }
-function openWeiBao (orderId, wtagid) {
-	const memberId = app.globalData.userInfo.memberId;
-	let url = `outerUserId=${memberId}&outerCarId=${orderId}&companyId=SJHT&configId=sjht&wtagid=${wtagid}`;
-	let weiBoUrl = app.globalData.weiBoUrl + encodeURIComponent(url);
+/**
+ *  去微保好车主
+ */
+function goMicroInsuranceVehicleOwner(params, wtagid) {
+	wtagid = app.globalData.test ? '104.113.1' : wtagid;
+	let pageUrl = `pages/base/redirect/index?routeKey=WEDRIVE_HIGH_JOIN&wtagid=${wtagid}&companyId=SJHT&outerUserId=${app.globalData.userInfo.memberId}&outerData=123`;
+	getDataFromServer('consumer/member/thirdBack/dataRecordNew', params, () => {
+		hideLoading();
+		openWeiBao(pageUrl);
+	}, (res) => {
+		openWeiBao(pageUrl);
+	}, app.globalData.userInfo.accessToken, () => {
+	});
+}
+function openWeiBao (pageUrl) {
+	console.log(pageUrl);
 	let appId = app.globalData.test ? 'wx7f3f0032b6e6f0cc':'wx06a561655ab8f5b2';
 	wx.navigateToMiniProgram({
 		appId: appId,
-		path: weiBoUrl,
+		path: pageUrl,
 		envVersion: 'release',
 		fail () {
 			showToastNoIcon('调起微保小程序失败, 请重试！');
 		}
 	});
 }
-
 // 微信车主服务签约
 function weChatSigning(data) {
 	if (data.version === 'v1') { // 签约车主服务 1.0
@@ -1073,6 +1089,7 @@ function weChatSigning(data) {
 module.exports = {
 	setApp,
 	formatNumber,
+	goMicroInsuranceVehicleOwner,
 	getDataFromServer, // 从服务器上获取数据
 	parseBase64,
 	formatTime, // 格式化时间
