@@ -1,0 +1,28 @@
+<view class="related-service animated {{wrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{mask}}" catchtap="onClickHandle">
+	<view class="related-service-wrapper animated {{wrapper ? 'slideInUp' : 'slideOutDown'}}" wx:if="{{mask}}" catchtap="onClickCatchHandle">
+		<view class="related-service-box">
+            <view class="related-service-title">
+                <view class="name">{{details.packageName}}</view>
+                <view>¥{{details.payMoney/100}}</view>
+            </view>
+            <view class="related-service-list">
+                <view wx:for="{{packageRelationList}}">
+                    <view class="title">{{item.couponType === 1 ? '高速通行券' : '微信停车券'}}</view>
+                    <view wx:for="{{item.appletsCouponInfoList}}" wx:key="index" class="related-service-item iconfont">
+                        <view class="list-name iconfont">
+                            <view>
+                                <view>{{item.couponName}}</view>
+                                <view>满{{item.consumptionThreshold/100}}元可用</view>
+                            </view>
+                        </view>
+                        <view class="amount iconfont">{{item.distributionMonths}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="bottom">
+                <view class="close" catchtap="onClickHandle">再看看</view>
+                <view class="pay" catchtap="onClickChoice">确认加购买</view>
+            </view>
+        </view>
+	</view>
+</view>

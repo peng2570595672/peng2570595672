@@ -1,11 +1,10 @@
 <view class="related-service animated {{wrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{mask}}" catchtap="onClickHandle">
-	<view class="related-service-wrapper  animated {{wrapper ? 'slideInUp' : 'slideOutDown'}}" wx:if="{{mask}}" catchtap="onClickCatchHandle">
-		<view class="related-service-title iconfont">
+    <view class="related-service-wrapper  animated {{wrapper ? 'slideInUp' : 'slideOutDown'}}" wx:if="{{mask}}" catchtap="onClickCatchHandle">
+        <view class="related-service-title iconfont">
             <view class="title">{{details.detailsTitle}}</view>
             <view class="close iconfont" catchtap="onClickHandle"></view>
         </view>
-		<view class="related-service-list">
-            <!--tab切换列表开始-->
+        <view class="related-service-list">
             <view wx:for="{{details.list}}" wx:key="index" class="related-service-item">
                 <view class="title">
                     <view class="logo"><image src="{{item.logo}}" mode="heightFix"></image></view>
@@ -13,10 +12,8 @@
                 </view>
                 <view class="content"><text>{{item.describe}}</text></view>
             </view>
-            <!--tab切换列表结束-->
-<!--            <view class="list-content"><text>{{details.list[tabIndex].describe}}</text></view>-->
-		</view>
+        </view>
         <view class="fill"></view>
         <view class="btns" catchtap="onClickHandle">我知道了</view>
-	</view>
+    </view>
 </view>

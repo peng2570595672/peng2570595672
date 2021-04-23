@@ -1,7 +1,7 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="payment-way">
     <!--扣款方式标题开始-->
-    <view class="title" catchtap="viewRightsAndInterests">请选择以下一种方式办理</view>
+    <view class="title">请选择以下一种方式办理</view>
     <!--扣款方式标题结束-->
     <view class="handle-the-way" catchtap="onClickPaymentWay" data-type="1" wx:if="{{listOfPackages.divideAndDivideList.length}}">
         <image src="/pages/default/assets/icon_camera.png"/>

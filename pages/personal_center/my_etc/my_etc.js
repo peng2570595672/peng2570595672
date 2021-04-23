@@ -163,7 +163,8 @@ Page({
 			util.go(`/pages/truck_handling/equipment_cost/equipment_cost?equipmentCost=${obj.pledgeMoney}`);
 			return;
 		}
-		util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${obj.pledgeMoney}&rightsPackagePayMoney=${obj.rightsPackagePayMoney}`);
+		util.go(`/pages/passenger_car_handling/package_the_rights_and_interests/package_the_rights_and_interests`);
+		// util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${obj.pledgeMoney}&rightsPackagePayMoney=${obj.rightsPackagePayMoney}`);
 	},
 	//	查看详情
 	onClickGoETCDetailHandle (e) {
@@ -222,7 +223,7 @@ Page({
 				}
 			} else if (obj.pledgeStatus === 0) {
 				// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
-				util.go(`/pages/passenger_car_handling/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`);
+				util.go(`/pages/passenger_car_handling/package_the_rights_and_interests/package_the_rights_and_interests`);
 			} else {
 				util.go(`/pages/passenger_car_handling/information_list/information_list`);
 			}

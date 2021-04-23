@@ -6,14 +6,15 @@
                 class="my-swiper"
                 indicator-dots="{{false}}"
                 autoplay="{{false}}"
-                previous-margin="32rpx"
-                next-margin="40rpx"
+                next-margin="62rpx"
+                previous-margin="12rpx"
                 bindchange="currentChange"
+                style="height: {{boxHeight[activeIndex]}}px;"
                 circular="{{true}}">
-            <swiper-item class="my-swiper-item" wx:for="{{listOfPackages}}" wx:key="index"
+            <swiper-item wx:for="{{listOfPackages}}" wx:key="index" class="my-swiper-item"
                          catchtap="onClickSwiper" data-index="{{index}}">
-                <view class="my-swiper-item-box">
-                    <view class="package iconfont {{activeIndex === index ? 'active' : ''}}">
+                <view class="my-swiper-item-box item-{{index}}">
+                    <view class="package iconfont {{choiceIndex === index ? 'active' : ''}}">
                         <view>
                             <image src="{{item.productLogo}}" mode="widthFix"></image>
                         </view>
@@ -32,19 +33,19 @@
                             <view>{{item.title}}</view>
                             <view class="tips">{{item.tips}}</view>
                         </view>
-                        <view wx:for="{{otherServiceList}}" wx:key="index" wx:if="{{type === 1}}" class="other-service-item {{index === 0 ? 'other-service-first' : ''}}">
-                            <view>{{item.title}}</view>
-                            <view>{{item.subTitle}}</view>
+                        <view wx:if="{{item.flowVersion === 1}}" wx:for="{{otherServiceList}}" wx:for-item="it" wx:key="index"
+                              class="other-service-item {{index === 0 ? 'other-service-first' : ''}}" catchtap="onClickCheckTheService" data-index="{{index}}">
+                            <view>{{it.title}}</view>
+                            <view>{{it.subTitle}}</view>
                         </view>
                     </view>
-                    <view class="related-service-title">特色服务</view>
-                    <view class="basic-service-list">
+                    <view class="related-service-title" wx:if="{{item.flowVersion === 1}}">特色服务</view>
+                    <view class="basic-service-list" wx:if="{{item.flowVersion === 1}}" catchtap="onClickCheckTheService" data-index="2">
                         <view class="basic-service-item" wx:for="{{characteristicServiceList}}" wx:key="index">
                             {{item.title}}
                         </view>
                     </view>
-                    <!--            <view wx:if="{{item.pledgePrice}}">付费产品支付成功且审核通过后，默认已同意服务即时生效，不作申请退款。</view>-->
-                    <view class="pay-tips">付费产品支付成功且审核通过后，默认已同意服务即时生效，不作申请退款。</view>
+                    <view class="pay-tips" wx:if="{{item.pledgePrice}}">付费产品支付成功且审核通过后，默认已同意服务即时生效，不作申请退款。</view>
                 </view>
             </swiper-item>
         </swiper>
@@ -52,23 +53,14 @@
     <!--套餐选择结束-->
     <!--权益选择开始-->
     <view wx:if="{{rightsAndInterestsList.length}}"
-          class="rights-and-interests {{dataMessage.isOpen ?'rights-and-interests-margin':''}} {{dataMessage.isViewDetails ? 'rights-and-interests-margin1':''}}">
-        <view class="rights-and-interests-header">
-            <view class="line"></view>
-            <view class="header">推荐加购以下权益包</view>
-            <view>（选一个）</view>
-        </view>
+          class="rights-and-interests">
+        <view class="rights-and-interests-header">推荐加购以下权益包</view>
         <view class="rights-and-interests-list">
             <view wx:for="{{rightsAndInterestsList}}" wx:key="index"
-                  class="rights-and-interests-item {{dataMessage.activeIndex === index ? 'item-active' : ''}}"
-                  catchtap="choiceRightsAndInterests" data-index="{{index}}">
+                  class="rights-and-interests-item iconfont {{activeEquitiesIndex === index ? 'item-active' : ''}}"
+                  catchtap="showRightsAndInterests" data-index="{{index}}">
                 <view class="title">{{item.packageName}}</view>
-                <view class="sub-title">{{item.remark}}</view>
-                <view class="details {{dataMessage.activeIndex === index ? 'active' : ''}} iconfont">
-                    <view>¥</view>
-                    <view>{{tools.parseNum(item.payMoney/100)}}</view>
-                    <view class="iconfont details-box" catchtap="viewRightsAndInterests" wx:if="{{item.hasShow}}" data-index="{{index}}">查看详情</view>
-                </view>
+                <view class="price">¥{{tools.parseNum(item.payMoney/100)}}</view>
             </view>
         </view>
     </view>
@@ -79,7 +71,7 @@
     </view>
     <!--下一步结束-->
     <!--查看权益详情开始-->
-    <rights_and_interests_details id="viewRightsAndInterests" bindonClickTranslucentHandle="onClickTranslucentHandle"
-                                  bindonClickDetailsHandle="onClickDetailsHandle" viewObj="{{dataMessage.viewObj}}"></rights_and_interests_details>
+    <rights_package id="showRightsPackage" bindonClickHandle="onClickHandle" bindonClickDetailsHandle="onClickDetailsHandle" details="{{rightsPackageDetails}}"></rights_package>
     <!--查看权益详情结束-->
+    <related_service id="viewRightsService" bindonClickHandle="onClickClose" details="{{serviceList[showServiceIndex]}}"></related_service>
 </view>
