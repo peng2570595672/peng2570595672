@@ -1,0 +1,36 @@
+<view class="shot_card">
+	<!--	相加开始-->
+	<camera class="camera" device-position="back" flash="auto" binderror="cameraErrorHandle" wx:if="{{showInfo}}">
+		<cover-image class="border" wx:if="{{!picUrl}}" src="/pages/truck_handling/assets/{{picPath}}_border.png"></cover-image>
+		<cover-image class="border" wx:else src="{{picUrl}}"></cover-image>
+	</camera>
+	<!--	相加结束-->
+    <view class="sample">
+        <image class="img" src="/pages/truck_handling/assets/{{picPath}}.png"/>
+        <view>{{title}}</view>
+        <view class="prompt" wx:if="{{picUrl}}">请确保红框内的信息清晰可见</view>
+        <view wx:else>请确保照片四角完整,照片清晰,避免反光</view>
+    </view>
+<!--    <view class="fill"></view>-->
+	<!--	底部按钮区域开始-->
+    <view class="btns {{picUrl ? '' : 'btns-bottom'}}">
+        <view wx:if="{{picUrl}}" class="btn">
+            <view class="shoot" catchtap="onClickShoot">重拍</view>
+            <view class="complete" catchtap="onClickComplete">完成</view>
+        </view>
+        <view wx:else>
+            <view class="iconfont choice-from-album" catchtap="choiceFromAbumHandle"></view>
+            <view class="iconfont take-photo" catchtap="takePhotoHandle"><image src="/pages/default/assets/icon_camera_white.png"/></view>
+        </view>
+    </view>
+	<!--	底部按钮区域结束-->
+<!--	压缩图片开始-->
+	<canvas
+		canvas-id='pressCanvas'
+		class='press-canvas'
+		style='width: {{pictureWidth}}px; height: {{ pictureHeight}}px;' ></canvas>
+	<!--	压缩图片j结束-->
+	<!--旋转图片 ios拍照问题开始-->
+	<canvas canvas-id="rotatingCanvas" style="width:{{imageWidth}}px;height:{{imageHeight}}px;position:absolute;top:200%" ></canvas>
+	<!--旋转图片 ios拍照问题结束-->
+</view>

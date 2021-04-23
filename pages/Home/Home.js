@@ -244,8 +244,8 @@ Page({
 			});
 		}
 		this.isRongChuangBanner(this.data.rotationChartList, address);
+		this.isHCZBanner(this.data.rotationChartList, province);
 	},
-	// 是否显示中油好客e站banner
 	isRongChuangBanner (bannerList, address) {
 		let isDistrict = false;
 		this.data.rongChuangDistrictList.forEach(item => {
@@ -255,6 +255,19 @@ Page({
 		});
 		if (!isDistrict) {
 			bannerList = bannerList.filter(item => item.remark !== 'rongchaung');// 是否显示融创banner
+			this.setData({
+				rotationChartList: bannerList
+			});
+		}
+	},
+	// 是否显示中油好客e站banner
+	isHCZBanner (bannerList, province) {
+		let isDistrict = false;
+		if (province.includes('河南')) { // 河南
+			isDistrict = true;
+		}
+		if (!isDistrict) {
+			bannerList = bannerList.filter(item => item.remark !== 'hcz');// 是否显示中油好客e站banner
 			this.setData({
 				rotationChartList: bannerList
 			});
@@ -665,6 +678,9 @@ Page({
 			}
 			if (item.remark === 'rongchaung') {
 				mta.Event.stat('banner_activity_rongchuang',{});
+			}
+			if (item.remark === 'hcz') {
+				mta.Event.stat('banner_activity_hcz',{});
 			}
 			util.go(`/pages/web/web/web?url=${encodeURIComponent(item.pageUrl)}&type=banner`);
 		} else {

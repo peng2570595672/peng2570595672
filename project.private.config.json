@@ -56,7 +56,7 @@
         {
           "name": "办理进度",
           "pathName": "pages/default/processing_progress/processing_progress",
-          "query": "orderId=823587582322413568",
+          "query": "orderId=655135581772185601",
           "scene": null
         },
         {
@@ -90,7 +90,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=823587582322413568",
+          "query": "orderId=830021039596507136",
           "scene": null
         },
         {
@@ -101,7 +101,7 @@
           "scene": null
         },
         {
-          "name": "我的账单页",
+          "name": "我的账单",
           "pathName": "pages/personal_center/my_order/my_order",
           "query": "",
           "scene": null
@@ -162,8 +162,8 @@
           "scene": null
         },
         {
-          "name": "pages/personal_center/basic_rights_and_interests/basic_rights_and_interests",
-          "pathName": "pages/personal_center/basic_rights_and_interests/basic_rights_and_interests",
+          "name": "pages/passenger_car_handling/choose_the_way_to_handle/choose_the_way_to_handle",
+          "pathName": "pages/passenger_car_handling/choose_the_way_to_handle/choose_the_way_to_handle",
           "query": "id=709701386738077696&channel=1&month=202005",
           "scene": null
         },
@@ -180,8 +180,8 @@
           "scene": null
         },
         {
-          "name": "pages/default/package_the_rights_and_interests/package_the_rights_and_interests",
-          "pathName": "pages/default/package_the_rights_and_interests/package_the_rights_and_interests",
+          "name": "pages/passenger_car_handling/receiving_address/receiving_address",
+          "pathName": "pages/passenger_car_handling/receiving_address/receiving_address",
           "query": "",
           "scene": null
         },
@@ -234,8 +234,8 @@
           "scene": null
         },
         {
-          "name": "pingan/pages/ChooseBank/ChooseBank",
-          "pathName": "pingan/pages/ChooseBank/ChooseBank",
+          "name": "pages/personal_center/arrears_bill/arrears_bill",
+          "pathName": "pages/personal_center/arrears_bill/arrears_bill",
           "query": "orderId=823587582322413568",
           "scene": null
         }

@@ -86,6 +86,24 @@
       ]
     },
     {
+      "root": "pages/passenger_car_handling",
+      "name": "pages/passenger_car_handling",
+      "pages": [
+        "receiving_address/receiving_address",
+        "agreement/agreement",
+        "choose_the_way_to_handle/choose_the_way_to_handle",
+        "information_validation/information_validation",
+        "payment_way/payment_way",
+        "package_the_rights_and_interests/package_the_rights_and_interests",
+        "shot_card/shot_card",
+        "shot_other_photo/shot_other_photo",
+        "upload_id_card/upload_id_card",
+        "upload_other_photo/upload_other_photo",
+        "payment_successful/payment_successful",
+        "information_list/information_list"
+      ]
+    },
+    {
       "root": "CitiesServices",
       "name": "CitiesServices",
       "pages": [

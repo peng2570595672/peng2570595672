@@ -82,6 +82,7 @@ App({
 		},
 		truckHandlingOCRType: 0,// 货车办理选择ocr上传类型
 		isTruckHandling: false,// 是否新流程-货车办理
+		newPackagePageData: {}, // 新套餐页面数据
 		weiBoUrl: IS_TEST ? '/pages/base/redirect/index?routeKey=CAR_WEBVIEW&url=https://static-dsu.wesure.cn/uatapp/app2/h5-reserve-ad/vendors&query=' : '/pages/base/redirect/index?routeKey=CAR_WEBVIEW&url=https://static.wesure.cn/app2/h5-reserve-ad/vendors&query='
 	},
 	onLaunch (options) {

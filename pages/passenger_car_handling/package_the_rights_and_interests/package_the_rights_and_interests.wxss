@@ -1,0 +1,243 @@
+.package-the-rights-and-interests {
+  min-height: 100vh;
+  padding-bottom: 170rpx;
+  box-sizing: border-box;
+  background: #f6f6f6;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper {
+  padding-top: 30rpx;
+  height: 800rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item {
+  width: 646rpx;
+  border-radius: 20rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box {
+  width: 646rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  min-height: 800rpx;
+  margin: 0 20rpx;
+  padding: 48rpx 32rpx 32px;
+  box-sizing: border-box;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  z-index: 99999;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .package {
+  display: flex;
+  align-items: center;
+  height: 84rpx;
+  font-size: 44rpx;
+  padding-bottom: 30rpx;
+  color: rgba(0,0,0,0.9);
+  font-weight: 600;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .package image {
+  width: 70rpx;
+  height: 44rpx;
+  margin-right: 12rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .package .title-name {
+  flex: 1;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .package .title-name .title {
+  font-size: 34rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .package .title-name .sub-title {
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.3);
+  line-height: 34rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .package::after {
+  content: '\e64f';
+  font-size: 48rpx;
+  color: rgba(0,0,0,0.1);
+  margin-left: 22rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .package.active::after {
+  color: #07c160;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .related-service-title {
+  display: flex;
+  height: 44rpx;
+  align-items: center;
+  color: rgba(0,0,0,0.6);
+  font-size: 28rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .related-service-title .tips {
+  color: #ffc300;
+  font-size: 18rpx;
+  margin-top: -20rpx;
+  margin-left: 8rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .related-service-title::before {
+  margin-right: 8rpx;
+  content: '';
+  width: 8rpx;
+  height: 44rpx;
+  background: #2fb565;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 6rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list > view {
+  margin-top: 32rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item {
+  width: 50%;
+  display: flex;
+  height: 40rpx;
+  align-items: center;
+  color: rgba(0,0,0,0.5);
+  font-size: 24rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item .tips {
+  color: #ffc300;
+  font-size: 18rpx;
+  margin-top: -20rpx;
+  margin-left: 8rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .other-service-item {
+  width: 274rpx;
+  height: 134rpx;
+  border-radius: 12rpx;
+  padding: 32rpx;
+  box-sizing: border-box;
+  background: #ffec9a;
+  color: rgba(0,0,0,0.8);
+  line-height: 48rpx;
+  font-size: 24rpx;
+  margin-bottom: 32rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .other-service-item > view:last-child {
+  color: #ffc300;
+  font-size: 18rpx;
+  line-height: 26rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .other-service-item.other-service-first {
+  margin-right: auto;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .pay-tips {
+  color: #ffc300;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  margin-top: 32rpx;
+}
+.package-the-rights-and-interests .rights-and-interests {
+  width: 670rpx;
+  background: #fff;
+  margin: -100rpx auto 0;
+  padding: 30rpx;
+  box-sizing: border-box;
+  border-radius: 20rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-header {
+  display: flex;
+  height: 40rpx;
+  align-items: center;
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 38rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-header .line {
+  width: 6rpx;
+  height: 28rpx;
+  background: #16ad69;
+  border-radius: 3rpx;
+  margin-right: 16rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-header .header {
+  color: #333;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list {
+  margin: auto;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item {
+  width: 620rpx;
+  min-height: 160rpx;
+  padding: 15rpx 20rpx;
+  background: linear-gradient(95deg, #ffedcd 0%, #f1d3af 100%);
+  border-radius: 20rpx;
+  box-sizing: border-box;
+  margin-bottom: 20rpx;
+  opacity: 0.6;
+  color: #894040;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .title {
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .sub-title {
+  font-size: 20rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  line-height: 28rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .details {
+  display: flex;
+  width: 100%;
+  height: 50rpx;
+  align-items: center;
+  margin-top: 18rpx;
+  font-size: 36rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .details > view:first-child {
+  font-size: 28rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .details .details-box {
+  font-size: 20rpx;
+  font-weight: 400;
+  margin-left: 20rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .details .details-box::after {
+  display: inline-block;
+  content: '\e60e';
+  transform: scaleX(-1);
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .details.active::after {
+  flex: 1;
+  text-align: right;
+  content: '\e64f';
+  font-size: 40rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item.item-active {
+  opacity: 1;
+}
+.package-the-rights-and-interests .rights-and-interests.rights-and-interests-margin {
+  margin-top: 30rpx;
+}
+.package-the-rights-and-interests .rights-and-interests.rights-and-interests-margin1 {
+  margin-top: 0rpx;
+}
+.package-the-rights-and-interests .next {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 160rpx;
+  background: #f6f6f6;
+}
+.package-the-rights-and-interests .next .btn {
+  width: 650rpx;
+  height: 96rpx;
+  line-height: 96rpx;
+  font-size: 36rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+  background: linear-gradient(132deg, #16ad69 0%, #82d057 100%);
+  border-radius: 48rpx;
+  margin-top: 20rpx;
+}
+.package-the-rights-and-interests .next .btn.unavailable {
+  opacity: 0.6;
+}

@@ -1,0 +1,112 @@
+@import "../../../style/base.styl";
+.shot_card
+	height 100vh
+	padding-top 48rpx
+	display flex
+	flex-direction column
+	box-sizing border-box
+	background: #33333C
+	.title
+		display flex
+		align-items center
+		height 56rpx
+		padding-left 60rpx
+		font-size 40rpx
+		color #fff
+	// 相机
+	.camera
+		position relative
+		width 690rpx
+		height 436rpx
+		margin-left 30rpx
+		box-sizing border-box
+		//border-radius 16rpx
+		//border 4rpx solid #14AC69
+		.border
+			margin 0 auto
+			width 100%
+			height 100%
+	// 示例
+	.sample
+		text-align center
+		color #fff
+		font-size 32rpx
+		font-weight 600
+		font-family PingFangSC-Semibold, PingFang SC
+		margin-bottom 10rpx
+		.prompt
+			padding 0 114rpx
+		.img
+			width 416rpx
+			height 246rpx
+			margin 36rpx 0 34rpx
+	.fill
+		flex 1
+	// 按钮区域
+	.btns
+		position fixed
+		bottom 60rpx
+		left 0
+		width 100%
+		&.btns-bottom
+			bottom 200rpx
+		.choice-from-album
+			position absolute
+			display flex
+			align-items center
+			justify-content center
+			top 46rpx
+			right 78rpx
+			width 62.6rpx
+			height 50rpx
+			&::before
+				content '\e646'
+				color #fff
+				font-size 70rpx
+		.take-photo
+			position absolute
+			display flex
+			align-items center
+			justify-content center
+			width 140rpx
+			height 140rpx
+			border-radius 50%
+			background: #fff
+			left 50%
+			margin-left -70rpx
+			& > image
+				width 64rpx
+				height 54rpx
+		.btn
+			position fixed
+			bottom 60rpx
+			left 0
+			width 100%
+			height 140rpx
+			display flex
+			align-items center
+			justify-content center
+			.shoot,
+			.complete
+				width 188rpx
+				height 80rpx
+				display flex
+				align-items center
+				justify-content center
+				border-radius 49rpx
+				border 2rpx solid
+				font-size 32rpx
+				font-family PingFangSC-Regular, PingFang SC
+				color #27B266
+			.complete
+				background linear-gradient(45deg, #14AC69 0%, #84D157 100%)
+				font-family PingFangSC-Semibold, PingFang SC
+				font-weight 600
+				color #fff
+				border-radius 49rpx
+				border 0
+				margin-left 80rpx
+	// 压缩图片
+	.press-canvas
+		position fixed
+		left -3000rpx

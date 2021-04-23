@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "选择办理方式",
+  "usingComponents": {
+    "rights_and_interests_details": "/components/related_service/related_service"
+  }
+}

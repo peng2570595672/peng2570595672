@@ -180,7 +180,7 @@ Page({
 		util.go(`/pages/default/processing_progress/processing_progress?orderId=${obj.id}`);
 	},
 	// 继续办理
-	onClickContinueHandle (e) {
+	onClickContinueHandle: async function (e) {
 		let index = e.currentTarget.dataset.index;
 		let obj = this.data.carList[parseInt(index)];
 		if (obj.isNewTrucks === 1) {
@@ -206,43 +206,25 @@ Page({
 			util.go('/pages/default/payment_way/payment_way');
 		} else {
 			app.globalData.firstVersionData = false;
-			// 服务商套餐id，0表示还未选择套餐，其他表示已经选择套餐
-			// 只提交了车牌 车牌颜色 收货地址 或者未签约 前往套餐选择
-			// "etcContractId": "", //签约id，0表示未签约，其他表示已签约
-			if (obj.shopProductId === 0 || obj.isOwner === 0 || obj.etcContractId === 0) {
-				let type = '';
-				if (obj.orderCrowdsourcing) type = 'payment_mode';
-				app.globalData.packagePageData = undefined;
-				util.go(`/pages/default/payment_way/payment_way?type=${type}`);
-			} else if (obj.isVehicle === 0) {
-				// 是否上传行驶证， 0未上传，1已上传
-				app.globalData.orderInfo.shopProductId = obj.shopProductId;
-				if (wx.getStorageSync('corresponding_package_id') !== app.globalData.orderInfo.orderId) {
-					// 行驶证缓存关联订单
-					wx.setStorageSync('corresponding_package_id', app.globalData.orderInfo.orderId);
-					wx.removeStorageSync('driving_license_face');
-					wx.removeStorageSync('driving_license_back');
-					wx.removeStorageSync('car_head_45');
+			if (obj.shopProductId === 0) {
+				const result = await util.initLocationInfo(obj);
+				if (!result) return;
+				if (result.code) {
+					util.showToastNoIcon(result.message);
+					return;
 				}
-				// if (obj.pledgeStatus === 0) {
-				// 	// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
-				// 	// 待支付付费金额
-				// 	util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${obj.pledgeMoney}`);
-				// } else {
-				// 	if (wx.getStorageSync('driving_license_face')) {
-				// 		util.go('/pages/default/information_validation/information_validation');
-				// 	} else {
-				// 		util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
-				// 	}
-				// }
-				if (wx.getStorageSync('driving_license_face')) {
-					util.go('/pages/default/information_validation/information_validation');
+				if (!app.globalData.newPackagePageData.listOfPackages?.length) return;// 没有套餐
+				if (app.globalData.newPackagePageData.type) {
+					// 只有分对分套餐 || 只有总对总套餐
+					util.go(`/pages/passenger_car_handling/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`);
 				} else {
-					util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
+					util.go(`/pages/passenger_car_handling/choose_the_way_to_handle/choose_the_way_to_handle?type=${app.globalData.newPackagePageData.type}`);
 				}
-			} else if (obj.isVehicle === 1 && obj.isOwner === 1) {
-				// 已上传行驶证， 未上传车主身份证
-				util.go('/pages/default/update_id_card/update_id_card?type=normal_process');
+			} else if (obj.pledgeStatus === 0) {
+				// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
+				util.go(`/pages/passenger_car_handling/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`);
+			} else {
+				util.go(`/pages/passenger_car_handling/information_list/information_list`);
 			}
 		}
 	},
@@ -251,7 +233,7 @@ Page({
 		// 统计点击事件
 		mta.Event.stat('015',{});
 		app.globalData.orderInfo.orderId = '';
-		util.go('/pages/default/receiving_address/receiving_address');
+		util.go('/pages/passenger_car_handling/receiving_address/receiving_address');
 	},
 	// 恢复签约
 	onClickBackToSign (e) {

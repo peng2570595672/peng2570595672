@@ -1,0 +1,57 @@
+<view class="page">
+    <view class="title">请按要求上传证件</view>
+    <!--上传身份证部分开始-->
+    <view class="photo-wrapper">
+        <!--上传身份证正面开始-->
+        <view class="photo {{faceStatus !== 1 ? 'not-border' : ''}}" data-type="1" catchtap="selectionPic">
+            <view class="not-upload" wx:if="{{faceStatus !== 4}}">
+                <view class="img-box">
+                    <image class="img" src="/pages/truck_handling/assets/id_card_face_bg.png"></image>
+                    <image class="ico" wx:if="{{faceStatus === 1}}" src="/pages/truck_handling/assets/icon_camera_white.png"></image>
+                </view>
+                <view>身份证（人像面）</view>
+            </view>
+            <view class="identify" wx:if="{{faceStatus === 2 || faceStatus === 3}}">
+                <image class="refresh" src="/pages/truck_handling/assets/refresh.png"></image>
+                <view>{{faceStatus === 2 ? '识别中…' : '重新拍摄'}}</view>
+            </view>
+            <image class="success" wx:if="{{faceStatus === 4}}" src="{{idCardFace.fileUrl}}"></image>
+        </view>
+        <!--上传身份证正面结束-->
+        <!--上传身份证背面开始-->
+        <view class="photo {{backStatus !== 1 ? 'not-border' : ''}}" data-type="2" catchtap="selectionPic">
+            <view class="not-upload" wx:if="{{backStatus !== 4}}">
+                <view class="img-box">
+                    <image class="img" src="/pages/truck_handling/assets/id_card_back_bg.png"></image>
+                    <image class="ico" wx:if="{{backStatus === 1}}" src="/pages/truck_handling/assets/icon_camera_white.png"></image>
+                </view>
+                <view>身份证（人像面）</view>
+            </view>
+            <view class="identify" wx:if="{{backStatus === 2 || backStatus === 3}}">
+                <image class="refresh" src="/pages/truck_handling/assets/refresh.png"></image>
+                <view>{{backStatus === 2 ? '识别中…' : '重新拍摄'}}</view>
+            </view>
+            <image class="success" wx:if="{{backStatus === 4}}" src="{{idCardBack.fileUrl}}"></image>
+        </view>
+        <!--上传身份证背面结束-->
+    </view>
+    <view wx:if="{{faceStatus === 4 && backStatus === 4}}">
+        <!--上传身份证部分结束-->
+        <view class="title">核对信息</view>
+        <view class="sub-title">*请仔细核对以下信息，有误项可点击修改</view>
+        <!--身份证号码&名字开始-->
+        <view class="input-wrapper">
+            <view class="input-item">
+                <text>车主姓名</text>
+                <input value="{{idCardFace.ocrObject.name}}" bindinput="onInputChangedHandle" data-key="name" placeholder-class="placeholder-class" placeholder="请输入车主姓名"/>
+            </view>
+            <view class="input-item">
+                <text>身份证号</text>
+                <input value="{{idCardFace.ocrObject.idNumber}}" bindinput="onInputChangedHandle" data-key="idNumber" placeholder-class="placeholder-class" placeholder="请输入身份证号"/>
+            </view>
+        </view>
+        <!--身份证号码&名字结束-->
+    </view>
+    <view class="fill"></view>
+    <view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next">确认资料并保存</view>
+</view>
