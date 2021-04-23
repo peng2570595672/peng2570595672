@@ -8,15 +8,13 @@ $yellowColor = #FFC300;
 	.swiper-box
 		.my-swiper
 			padding-top 30rpx
-			height 800rpx
 			.my-swiper-item
 				width 646rpx
-				border-radius 20rpx
+				border-radius 16rpx
 				.my-swiper-item-box
 					width 646rpx
 					background #fff
-					border-radius 20rpx
-					min-height 800rpx
+					border-radius 16rpx
 					margin 0 20rpx
 					padding 48rpx 32rpx 32px
 					box-sizing border-box
@@ -114,78 +112,47 @@ $yellowColor = #FFC300;
 						margin-top 32rpx
 	// 权益选择
 	.rights-and-interests
-		width 670rpx
-		background #fff
-		margin -100rpx auto 0
-		padding 30rpx
+		width 646rpx
+		margin 48rpx 72rpx 0 32rpx
 		box-sizing border-box
-		border-radius 20rpx
 		.rights-and-interests-header
 			display flex
-			height 40rpx
+			height 48rpx
 			align-items center
-			font-size 28rpx
-			color #999999
-			margin-bottom 38rpx
-			.line
-				width 6rpx
-				height 28rpx
-				background #16AD69
-				border-radius 3rpx
-				margin-right 16rpx
-			.header
-				color #333333
+			font-size 34rpx
+			color rgba(0, 0, 0, 0.9)
+			margin-bottom 28rpx
 		.rights-and-interests-list
 			margin auto
 			.rights-and-interests-item
-				width 620rpx
-				min-height 160rpx
-				padding 15rpx 20rpx
-				background linear-gradient(95deg, #FFEDCD 0%, #F1D3AF 100%)
-				border-radius 20rpx
+				display flex
+				height 112rpx
+				align-items center
+				background #FFFFFF
+				border-radius 16rpx
 				box-sizing border-box
-				margin-bottom 20rpx
-				opacity .6
-				color #894040
-				font-family PingFangSC-Medium, PingFang SC
-				font-weight 500
+				font-size 28rpx
+				margin-bottom 12rpx
+				color rgba(0, 0, 0, 0.5)
+				padding-left 32rpx
+				padding-right 36rpx
 				.title
-					font-size 28rpx
-					line-height 40rpx
-				.sub-title
-					font-size 20rpx
-					font-family PingFangSC-Regular, PingFang SC
-					font-weight 400
-					line-height 28rpx
-				.details
-					display flex
-					width 100%
-					height 50rpx
-					align-items center
-					margin-top 18rpx
-					font-size 36rpx
-					& > view:first-child
-						font-size 28rpx
-					.details-box
-						font-size 20rpx
-						font-weight 400
-						margin-left 20rpx
-						&::after
-							display inline-block
-							content '\e60e'
-							transform scaleX(-1)
-					&.active
-						&::after
-							flex 1
-							text-align right
-							content '\e64f'
-							font-size 40rpx
+					flex 1
+				.price
+					color #576B95
+					margin-right 52rpx
+				&::after
+					display inline-block
+					width 48rpx
+					text-align center
+					content '查看'
+					font-size 24rpx
+					color #576B95
 				&.item-active
-					opacity 1
-		&.rights-and-interests-margin
-			margin-top 30rpx
-		&.rights-and-interests-margin1
-			margin-top 0rpx
+					&::after
+						content '\e669'
+						font-size 26rpx
+						color #07C160
 	// 下一步
 	.next
 		position fixed

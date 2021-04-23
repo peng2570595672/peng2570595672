@@ -21,7 +21,4 @@
     </view>
     <view class="fill"></view>
     <view class="online-service"><text catchtap="onClickOnlineService">在线客服</text></view>
-    <!--查看权益详情开始-->
-    <rights_and_interests_details id="viewRightsAndInterests" bindonClickHandle="onClickHandle" details="{{details}}"></rights_and_interests_details>
-    <!--查看权益详情结束-->
 </view>

@@ -238,8 +238,8 @@
 }
 @font-face {
   font-family: 'iconfont'; /* project id 1514406 */
-  src: url("//at.alicdn.com/t/font_1514406_uuid1qkanyb.eot");
-  src: url("//at.alicdn.com/t/font_1514406_uuid1qkanyb.eot?#iefix") format('embedded-opentype'), url("//at.alicdn.com/t/font_1514406_uuid1qkanyb.woff2") format('woff2'), url("//at.alicdn.com/t/font_1514406_uuid1qkanyb.woff") format('woff'), url("//at.alicdn.com/t/font_1514406_uuid1qkanyb.ttf") format('truetype'), url("//at.alicdn.com/t/font_1514406_uuid1qkanyb.svg#iconfont") format('svg');
+  src: url("//at.alicdn.com/t/font_1514406_trrgoaoyofc.eot");
+  src: url("//at.alicdn.com/t/font_1514406_trrgoaoyofc.eot?#iefix") format('embedded-opentype'), url("//at.alicdn.com/t/font_1514406_trrgoaoyofc.woff2") format('woff2'), url("//at.alicdn.com/t/font_1514406_trrgoaoyofc.woff") format('woff'), url("//at.alicdn.com/t/font_1514406_trrgoaoyofc.ttf") format('truetype'), url("//at.alicdn.com/t/font_1514406_trrgoaoyofc.svg#iconfont") format('svg');
 }
 .iconfont {
   font-family: "iconfont" !important;
@@ -270,69 +270,130 @@
   border-top-left-radius: 32rpx;
   border-top-right-radius: 32rpx;
 }
-.related-service .related-service-wrapper .related-service-title {
-  margin-top: 44rpx;
+.related-service .related-service-wrapper .related-service-box {
+  overflow: scroll;
+  padding: 52rpx 0 220rpx;
+}
+.related-service .related-service-wrapper .related-service-box .related-service-title {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 96rpx;
-  font-size: 30rpx;
+  height: 48rpx;
+  font-size: 44rpx;
   font-weight: 500;
   position: relative;
+  padding: 0 48rpx;
   color: rgba(0,0,0,0.9);
-  font-family: PingFangSC-Medium, PingFang SC;
 }
-.related-service .related-service-wrapper .related-service-title .close {
-  position: absolute;
-  left: 0rpx;
-  top: 0;
-  padding: 30rpx 40rpx 30rpx 30rpx;
-}
-.related-service .related-service-wrapper .related-service-title .close::after {
-  display: block;
-  text-align: left;
-  content: '\e60e';
-  font-size: 40rpx;
-}
-.related-service .related-service-wrapper .related-service-list {
-  padding-top: 44rpx;
-  padding-left: 32rpx;
-}
-.related-service .related-service-wrapper .related-service-list .related-service-item {
-  padding-top: 50rpx;
-  padding-bottom: 50rpx;
-  padding-right: 90rpx;
-  border-bottom: 1rpx solid rgba(0,0,0,0.1);
-}
-.related-service .related-service-wrapper .related-service-list .related-service-item .title {
-  display: flex;
-  height: 48rpx;
-  align-items: top;
-}
-.related-service .related-service-wrapper .related-service-list .related-service-item .title .logo {
-  width: 62rpx;
-  text-align: center;
-  margin-right: 10rpx;
-}
-.related-service .related-service-wrapper .related-service-list .related-service-item .title .logo image {
-  height: 48rpx;
-}
-.related-service .related-service-wrapper .related-service-list .related-service-item .content {
-  padding-left: 72rpx;
-}
-.related-service .related-service-wrapper .fill {
+.related-service .related-service-wrapper .related-service-box .related-service-title .name {
   flex: 1;
 }
-.related-service .related-service-wrapper .btns {
-  width: 368rpx;
+.related-service .related-service-wrapper .related-service-box .related-service-list {
+  padding: 0 32rpx;
+}
+.related-service .related-service-wrapper .related-service-box .related-service-list .title {
+  margin-top: 50rpx;
+  display: flex;
+  align-items: center;
+  height: 56rpx;
+  font-size: 34rpx;
+  font-weight: 500;
+  font-family: PingFangSC-Medium, PingFang SC;
+  color: #000;
+}
+.related-service .related-service-wrapper .related-service-box .related-service-list .title::before {
+  margin-right: 12rpx;
+  content: '';
+  width: 8rpx;
+  height: 44rpx;
+  background: #2fb565;
+}
+.related-service .related-service-wrapper .related-service-box .related-service-list .related-service-item {
+  display: flex;
+  height: 176rpx;
+  align-items: center;
+  background: #f7f7f7;
+  margin-top: 32rpx;
+}
+.related-service .related-service-wrapper .related-service-box .related-service-list .related-service-item::after,
+.related-service .related-service-wrapper .related-service-box .related-service-list .related-service-item::before {
+  display: inline-block;
+  content: '';
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  background: #fff;
+  margin-right: -16rpx;
+}
+.related-service .related-service-wrapper .related-service-box .related-service-list .related-service-item::before {
+  margin-left: -16rpx;
+}
+.related-service .related-service-wrapper .related-service-box .related-service-list .related-service-item .list-name {
+  flex: 1;
+  display: flex;
   height: 80rpx;
+  align-items: center;
+  color: rgba(0,0,0,0.3);
+  font-size: 24rpx;
+  line-height: 34rpx;
+}
+.related-service .related-service-wrapper .related-service-box .related-service-list .related-service-item .list-name > view > view:first-child {
+  color: rgba(0,0,0,0.5);
+  font-size: 28rpx;
+  line-height: 40rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+}
+.related-service .related-service-wrapper .related-service-box .related-service-list .related-service-item .list-name::before {
+  content: '\e666';
+  color: #2fb565;
+  font-size: 80rpx;
+  margin-left: 48rpx;
+  margin-right: 18rpx;
+}
+.related-service .related-service-wrapper .related-service-box .related-service-list .related-service-item .amount {
+  display: flex;
+  height: 40rpx;
+  align-items: center;
+  color: #66666d;
+  font-size: 40rpx;
+  margin-right: 40rpx;
+}
+.related-service .related-service-wrapper .related-service-box .related-service-list .related-service-item .amount::before {
+  content: '\e63d';
+  font-size: 20rpx;
+  margin-right: 8rpx;
+}
+.related-service .related-service-wrapper .bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  background: #fff;
+  width: 100%;
+  height: 180rpx;
+  padding: 10rpx 32rpx;
+  box-sizing: border-box;
+}
+.related-service .related-service-wrapper .bottom > view {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f2f2f2;
-  color: #07c160;
-  font-weight: 500;
+  height: 98rpx;
+  border-radius: 49rpx;
+}
+.related-service .related-service-wrapper .bottom > view.close {
+  width: 214rpx;
+  font-size: 28rpx;
+  color: #2fb565;
+  border: 2rpx solid #2fb565;
+  margin-right: 32rpx;
+}
+.related-service .related-service-wrapper .bottom > view.pay {
+  flex: 1;
   font-size: 34rpx;
-  border-radius: 8rpx;
-  margin: 0 auto 100rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #fff;
+  background: linear-gradient(45deg, #14ac69 0%, #84d157 100%);
 }
