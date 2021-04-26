@@ -81,27 +81,43 @@ $yellowColor = #FFC300;
 							align-items center
 							color rgba(0, 0, 0, 0.5)
 							font-size 24rpx
+							image
+								width 32rpx
+								margin-right 8rpx
 							.tips
 								color $yellowColor
 								font-size 18rpx
 								margin-top -20rpx
 								margin-left 8rpx
+							&.bank
+								image
+									width 268rpx
+									height 78rpx
 						.other-service-item
+							position relative
 							width 274rpx
 							height 134rpx
 							border-radius 12rpx
 							padding 32rpx
 							box-sizing border-box
-							background #FFEC9A
+							//background #FFEC9A
+							background-image url("https://file.cyzl.com/g001/M07/34/B5/oYYBAGCGFPGAMsNIAAAKIgmvm54348.svg")
+							background-size 274rpx 134rpx
 							color rgba(0, 0, 0, 0.8)
 							line-height 48rpx
 							font-size 24rpx
 							margin-bottom 32rpx
+							image
+								position absolute
+								left 0
+								top 0
+								width 274rpx
 							& > view:last-child
 								color $yellowColor
 								font-size 18rpx
 								line-height 26rpx
 							&.other-service-first
+								background-image url("https://file.cyzl.com/g001/M07/34/B4/oYYBAGCGFHGANGvFAAASff6NJMs668.svg")
 								margin-right auto
 					.pay-tips
 						color $yellowColor
@@ -110,6 +126,11 @@ $yellowColor = #FFC300;
 						font-family PingFangSC-Semibold, PingFang SC
 						font-weight 600
 						margin-top 32rpx
+			&.my-only-swiper
+				.my-swiper-item
+					width 686rpx
+					.my-swiper-item-box
+						width 686rpx
 	// 权益选择
 	.rights-and-interests
 		width 646rpx
@@ -153,6 +174,9 @@ $yellowColor = #FFC300;
 						content '\e669'
 						font-size 26rpx
 						color #07C160
+		&.my-only-equities
+			width 686rpx
+			margin 48rpx 32rpx 0
 	// 下一步
 	.next
 		position fixed

@@ -1,80 +1,51 @@
 /**
- * @author 狂奔的蜗牛
- * @desc 签约成功
+ * @author 老刘
+ * @desc 信息确认
  */
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
-		orderInfo: undefined,
-		isPayProcess: false,
-		isRequest: false
+		contractStatus: 0// 1已签约
 	},
-	onLoad (options) {
-		if (options.isMiniPaymentProcess) {
-			this.setData({isPayProcess: options.isPayProcess});
-		}
-		this.getETCDetail();
+	onLoad () {
+		this.queryContract();
 	},
-	onShow () {
-		this.setData({isRequest: false});
-	},
-	// 下一步
-	next () {
-		if (this.data.orderInfo?.deliveryRule === 1) {
-			util.go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
-			return;
-		}
-		if (this.data.orderInfo?.orderCrowdsourcing ||
-			(app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing'))) {
-			// 业务员众包线下付费办理
-			app.globalData.packagePageData = undefined;
-			util.go('/pages/default/payment_way/payment_way?type=payment_mode');
-		} else {
-			this.weChatSign();
-		}
-		// if (this.data.orderInfo?.orderType === 31 || this.data.isPayProcess ||
-		// 	this.data.orderInfo?.isOwner === 1 || !this.data.orderInfo?.orderCrowdsourcing) {
-		// 	this.weChatSign();
-		// } else {
-		// 	util.go('/pages/default/payment_way/payment_way?type=payment_mode');
-		// }
-	},
-	// 加载订单详情
-	getETCDetail () {
-		util.showLoading();
-		util.getDataFromServer('consumer/order/order-detail', {
+	// 查询车主服务签约
+	queryContract () {
+		util.getDataFromServer('consumer/order/query-contract', {
 			orderId: app.globalData.orderInfo.orderId
 		}, () => {
-			util.showToastNoIcon('获取订单详情失败！');
+			util.hideLoading();
 		}, (res) => {
+			util.hideLoading();
 			if (res.code === 0) {
 				this.setData({
-					orderInfo: res.data
+					contractStatus: res.data.contractStatus
 				});
 			} else {
 				util.showToastNoIcon(res.message);
 			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-		});
+		}, app.globalData.userInfo.accessToken);
 	},
 	// 微信签约
-	weChatSign () {
+	next () {
 		if (this.data.isRequest) {
 			return;
 		} else {
 			this.setData({isRequest: true});
 		}
-		app.globalData.signAContract = -1;
-		const obj = this.data.orderInfo;
 		util.showLoading('加载中');
 		let params = {
-			orderId: obj.id,// 订单id
+			dataComplete: 1,// 已完善资料,进入待审核
+			orderId: app.globalData.orderInfo.orderId,// 订单id
+			clientOpenid: app.globalData.userInfo.openId,
+			clientMobilePhone: app.globalData.userInfo.mobilePhone,
 			needSignContract: true // 是否需要签约 true-是，false-否
 		};
+		if (this.data.contractStatus === 1) {
+			delete params.needSignContract;
+		}
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');
 			util.hideLoading();
@@ -82,18 +53,16 @@ Page({
 		}, (res) => {
 			if (res.code === 0) {
 				util.hideLoading();
+				if (this.data.contractStatus === 1) {
+					// 1.0 已签约
+					util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
+					return;
+				}
 				let result = res.data.contract;
 				// 签约车主服务 2.0
-				app.globalData.isSignUpImmediately = true;// 返回时需要查询主库
-				app.globalData.belongToPlatform = obj.platformId;
-				app.globalData.orderInfo.orderId = obj.id;
-				app.globalData.orderStatus = obj.selfStatus;
-				app.globalData.orderInfo.shopProductId = obj.shopProductId;
-				if (obj.orderType === 31) {
-					app.globalData.isSalesmanOrder = true;
-				} else {
-					app.globalData.isSalesmanOrder = false;
-				}
+				app.globalData.signAContract = -1;
+				app.globalData.isTruckHandling = true;
+				app.globalData.belongToPlatform = app.globalData.platformId;
 				util.weChatSigning(result);
 			} else {
 				util.hideLoading();

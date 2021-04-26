@@ -90,7 +90,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=830021039596507136",
+          "query": "orderId=821015281374597120",
           "scene": null
         },
         {
@@ -162,8 +162,8 @@
           "scene": null
         },
         {
-          "name": "pages/passenger_car_handling/choose_the_way_to_handle/choose_the_way_to_handle",
-          "pathName": "pages/passenger_car_handling/choose_the_way_to_handle/choose_the_way_to_handle",
+          "name": "pages/default/upload_other_photo/upload_other_photo",
+          "pathName": "pages/default/upload_other_photo/upload_other_photo",
           "query": "id=709701386738077696&channel=1&month=202005",
           "scene": null
         },

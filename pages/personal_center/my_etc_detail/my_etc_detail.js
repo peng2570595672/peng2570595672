@@ -82,11 +82,7 @@ Page({
 		}, (res) => {
 			if (res.code === 0) {
 				let orderInfo = res.data;
-				if (orderInfo.remark && orderInfo.remark.indexOf('迁移订单数据') !== -1) {
-					orderInfo['selfStatus'] = util.getStatusFirstVersion(orderInfo);
-				} else {
-					orderInfo['selfStatus'] = orderInfo.isNewTrucks === 1 ? util.getTruckHandlingStatus(orderInfo) : util.getStatus(orderInfo);
-				}
+				orderInfo['selfStatus'] = orderInfo.isNewTrucks === 1 ? util.getTruckHandlingStatus(orderInfo) : util.getStatus(orderInfo);
 				this.setData({
 					orderInfo
 				});
@@ -113,10 +109,6 @@ Page({
 				}
 			});
 		}
-		// this.setData({
-		// 	showDetailWrapper: true,
-		// 	showDetailMask: true
-		// });
 	},
 	// 关闭跳转车主服务弹窗
 	close () {},
@@ -153,7 +145,8 @@ Page({
 			util.go(`/pages/truck_handling/equipment_cost/equipment_cost?equipmentCost=${this.data.orderInfo.pledgeMoney}`);
 			return;
 		}
-		util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${pledgeMoney}&rightsPackagePayMoney=${rightsPackagePayMoney}`);
+		util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests`);
+		// util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${pledgeMoney}&rightsPackagePayMoney=${rightsPackagePayMoney}`);
 	},
 	// 修改资料
 	onClickModifiedData () {
@@ -170,23 +163,7 @@ Page({
 		app.globalData.orderInfo.orderId = this.data.orderId;
 		app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
 		app.globalData.isModifiedData = true; // 修改资料
-		if (this.data.orderInfo.remark && this.data.orderInfo.remark.includes('迁移订单数据')) {
-			// 1.0数据
-			wx.removeStorageSync('driving_license_face');
-			wx.removeStorageSync('driving_license_back');
-			wx.removeStorageSync('car_head_45');
-			app.globalData.firstVersionData = true;
-		} else {
-			if (wx.getStorageSync('corresponding_package_id') !== app.globalData.orderInfo.orderId) {
-				// 行驶证缓存关联订单
-				wx.setStorageSync('corresponding_package_id', app.globalData.orderInfo.orderId);
-				wx.removeStorageSync('driving_license_face');
-				wx.removeStorageSync('driving_license_back');
-				wx.removeStorageSync('car_head_45');
-			}
-			app.globalData.firstVersionData = false;
-		}
-		util.go('/pages/default/information_validation/information_validation');
+		util.go(`/pages/default/information_list/information_list`);
 	},
 	// 取消订单
 	cancelOrder () {
@@ -352,7 +329,7 @@ Page({
 		});
 	},
 	// 继续办理
-	onClickContinueHandle () {
+	onClickContinueHandle: async function () {
 		if (this.data.orderInfo.isNewTrucks === 1) {
 			// 货车办理
 			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
@@ -369,51 +346,25 @@ Page({
 		}
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
-		if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {
-			// 1.0数据
-			app.globalData.firstVersionData = true;
-			app.globalData.packagePageData = undefined;
-			util.go('/pages/default/payment_way/payment_way');
-		} else {
-			app.globalData.firstVersionData = false;
-			// 服务商套餐id，0表示还未选择套餐，其他表示已经选择套餐
-			// 只提交了车牌 车牌颜色 收货地址 或者未签约 前往套餐选择
-			// "etcContractId": "", //签约id，0表示未签约，其他表示已签约
-			if (this.data.orderInfo.shopProductId === 0 || this.data.orderInfo.isOwner === 0 || this.data.orderInfo.etcContractId === 0) {
-				let type = '';
-				if (this.data.orderInfo.orderCrowdsourcing) type = 'payment_mode';
-				app.globalData.packagePageData = undefined;
-				util.go(`/pages/default/payment_way/payment_way?type=${type}`);
-			} else if (this.data.orderInfo.isVehicle === 0) {
-				// 是否上传行驶证， 0未上传，1已上传
-				app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
-				if (wx.getStorageSync('corresponding_package_id') !== app.globalData.orderInfo.orderId) {
-					// 行驶证缓存关联订单
-					wx.setStorageSync('corresponding_package_id', app.globalData.orderInfo.orderId);
-					wx.removeStorageSync('driving_license_face');
-					wx.removeStorageSync('driving_license_back');
-					wx.removeStorageSync('car_head_45');
-				}
-				// if (this.data.orderInfo.pledgeStatus === 0) {
-				// 	// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
-				// 	// 待支付付费金额
-				// 	util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${this.data.orderInfo.pledgeMoney}`);
-				// } else {
-				// 	if (wx.getStorageSync('driving_license_face')) {
-				// 		util.go('/pages/default/information_validation/information_validation');
-				// 	} else {
-				// 		util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
-				// 	}
-				// }
-				if (wx.getStorageSync('driving_license_face')) {
-					util.go('/pages/default/information_validation/information_validation');
-				} else {
-					util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
-				}
-			} else if (this.data.orderInfo.isVehicle === 1 && this.data.orderInfo.isOwner === 1) {
-				// 已上传行驶证， 未上传车主身份证
-				util.go('/pages/default/update_id_card/update_id_card?type=normal_process');
+		if (this.data.orderInfo.shopProductId === 0) {
+			const result = await util.initLocationInfo(this.data.orderInfo);
+			if (!result) return;
+			if (result.code) {
+				util.showToastNoIcon(result.message);
+				return;
 			}
+			if (!app.globalData.newPackagePageData.listOfPackages?.length) return;// 没有套餐
+			if (app.globalData.newPackagePageData.type) {
+				// 只有分对分套餐 || 只有总对总套餐
+				util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`);
+			} else {
+				util.go(`/pages/default/choose_the_way_to_handle/choose_the_way_to_handle`);
+			}
+		} else if (this.data.orderInfo.pledgeStatus === 0) {
+			// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
+			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests`);
+		} else {
+			util.go(`/pages/default/information_list/information_list`);
 		}
 	},
 	// 在线客服

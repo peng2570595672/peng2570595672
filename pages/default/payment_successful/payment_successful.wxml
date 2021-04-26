@@ -3,8 +3,8 @@
     <image src="/pages/default/assets/signed_successfully.png"/>
     <view class="signed_title">支付成功</view>
     <!--	成功提示结束-->
-    <view class="fill"></view>
     <!--	操作部分开始-->
-    <view class="btn" catchtap="next">下一步</view>
+    <view class="btn" catchtap="next">{{contractStatus === 1 ? '你已签约免密代扣，提交审核' : '签约免密支付'}}</view>
+    <view class="prompt">签约微信免费支付，无感代扣通行费</view>
     <!--	操作部分结束-->
 </view>

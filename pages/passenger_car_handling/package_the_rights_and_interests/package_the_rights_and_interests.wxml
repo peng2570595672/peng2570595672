@@ -3,10 +3,10 @@
     <!--套餐选择开始-->
     <view class="swiper-box">
         <swiper
-                class="my-swiper"
+                class="my-swiper {{listOfPackages.length === 1 ? 'my-only-swiper' : ''}}"
                 indicator-dots="{{false}}"
                 autoplay="{{false}}"
-                next-margin="62rpx"
+                next-margin="{{listOfPackages.length !== 1 ? '62rpx' : '12rpx'}}"
                 previous-margin="12rpx"
                 bindchange="currentChange"
                 style="height: {{boxHeight[activeIndex]}}px;"
@@ -30,10 +30,11 @@
                     </view>
                     <view class="basic-service-list">
                         <view class="basic-service-item" wx:for="{{basicServiceList}}" wx:key="index">
+                            <image src="{{item.logo}}" mode="widthFix"></image>
                             <view>{{item.title}}</view>
                             <view class="tips">{{item.tips}}</view>
                         </view>
-                        <view wx:if="{{item.flowVersion === 1}}" wx:for="{{otherServiceList}}" wx:for-item="it" wx:key="index"
+                        <view wx:for="{{otherServiceList}}" wx:for-item="it" wx:key="index"
                               class="other-service-item {{index === 0 ? 'other-service-first' : ''}}" catchtap="onClickCheckTheService" data-index="{{index}}">
                             <view>{{it.title}}</view>
                             <view>{{it.subTitle}}</view>
@@ -42,7 +43,14 @@
                     <view class="related-service-title" wx:if="{{item.flowVersion === 1}}">特色服务</view>
                     <view class="basic-service-list" wx:if="{{item.flowVersion === 1}}" catchtap="onClickCheckTheService" data-index="2">
                         <view class="basic-service-item" wx:for="{{characteristicServiceList}}" wx:key="index">
-                            {{item.title}}
+                            <image src="{{item.logo}}" mode="widthFix"></image>
+                            <view>{{item.title}}</view>
+                        </view>
+                    </view>
+                    <view class="related-service-title" wx:if="{{item.flowVersion === 2}}">支持绑定以下银行卡</view>
+                    <view class="basic-service-list" wx:if="{{item.flowVersion === 2}}">
+                        <view class="basic-service-item bank">
+                            <image src="/pages/passenger_car_handling/assets/ccb.svg" mode="widthFix"></image>
                         </view>
                     </view>
                     <view class="pay-tips" wx:if="{{item.pledgePrice}}">付费产品支付成功且审核通过后，默认已同意服务即时生效，不作申请退款。</view>
@@ -53,7 +61,7 @@
     <!--套餐选择结束-->
     <!--权益选择开始-->
     <view wx:if="{{rightsAndInterestsList.length}}"
-          class="rights-and-interests">
+          class="rights-and-interests {{listOfPackages.length === 1 ? 'my-only-equities' : ''}}">
         <view class="rights-and-interests-header">推荐加购以下权益包</view>
         <view class="rights-and-interests-list">
             <view wx:for="{{rightsAndInterestsList}}" wx:key="index"
@@ -67,7 +75,11 @@
     <!--权益选择结束-->
     <!--下一步开始-->
     <view class="next">
-        <button class="btn {{!dataMessage.available ? 'unavailable' : ''}}" catchtap="next">下一步</button>
+        <button class="btn" catchtap="next"
+                wx:if="{{listOfPackages[choiceIndex].pledgePrice || (activeEquitiesIndex !== -1 && rightsAndInterestsList[activeEquitiesIndex].payMoney)}}">
+            确认支付{{activeEquitiesIndex !== -1 ? tools.parseNum((listOfPackages[choiceIndex].pledgePrice + rightsAndInterestsList[activeEquitiesIndex].payMoney)/100) : tools.parseNum(listOfPackages[choiceIndex].pledgePrice/100)}}元
+        </button>
+        <button class="btn" catchtap="next" wx:else>下一步</button>
     </view>
     <!--下一步结束-->
     <!--查看权益详情开始-->
