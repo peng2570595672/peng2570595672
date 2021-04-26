@@ -94,23 +94,39 @@
   color: rgba(0,0,0,0.5);
   font-size: 24rpx;
 }
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item image {
+  width: 32rpx;
+  margin-right: 8rpx;
+}
 .package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item .tips {
   color: #ffc300;
   font-size: 18rpx;
   margin-top: -20rpx;
   margin-left: 8rpx;
 }
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item.bank image {
+  width: 268rpx;
+  height: 78rpx;
+}
 .package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .other-service-item {
+  position: relative;
   width: 274rpx;
   height: 134rpx;
   border-radius: 12rpx;
   padding: 32rpx;
   box-sizing: border-box;
-  background: #ffec9a;
+  background-image: url("https://file.cyzl.com/g001/M07/34/B5/oYYBAGCGFPGAMsNIAAAKIgmvm54348.svg");
+  background-size: 274rpx 134rpx;
   color: rgba(0,0,0,0.8);
   line-height: 48rpx;
   font-size: 24rpx;
   margin-bottom: 32rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .other-service-item image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 274rpx;
 }
 .package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .other-service-item > view:last-child {
   color: #ffc300;
@@ -118,6 +134,7 @@
   line-height: 26rpx;
 }
 .package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .other-service-item.other-service-first {
+  background-image: url("https://file.cyzl.com/g001/M07/34/B4/oYYBAGCGFHGANGvFAAASff6NJMs668.svg");
   margin-right: auto;
 }
 .package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .pay-tips {
@@ -127,6 +144,12 @@
   font-family: PingFangSC-Semibold, PingFang SC;
   font-weight: 600;
   margin-top: 32rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper.my-only-swiper .my-swiper-item {
+  width: 686rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper.my-only-swiper .my-swiper-item .my-swiper-item-box {
+  width: 686rpx;
 }
 .package-the-rights-and-interests .rights-and-interests {
   width: 646rpx;
@@ -176,6 +199,10 @@
   content: '\e669';
   font-size: 26rpx;
   color: #07c160;
+}
+.package-the-rights-and-interests .rights-and-interests.my-only-equities {
+  width: 686rpx;
+  margin: 48rpx 32rpx 0;
 }
 .package-the-rights-and-interests .next {
   position: fixed;

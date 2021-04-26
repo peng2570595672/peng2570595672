@@ -242,11 +242,11 @@ Page({
 				};
 				await util.initLocationInfo(orderInfo);
 				if (!app.globalData.newPackagePageData.listOfPackages?.length) return;// 没有套餐
-				if (!app.globalData.newPackagePageData.type) {
+				if (app.globalData.newPackagePageData.type) {
 					// 只有分对分套餐 || 只有总对总套餐
 					util.go(`/pages/passenger_car_handling/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`);
 				} else {
-					util.go(`/pages/passenger_car_handling/choose_the_way_to_handle/choose_the_way_to_handle?type=${app.globalData.newPackagePageData.type}`);
+					util.go(`/pages/passenger_car_handling/choose_the_way_to_handle/choose_the_way_to_handle`);
 				}
 			}
 		} else if (result.code === 301) { // 已存在当前车牌未完成订单

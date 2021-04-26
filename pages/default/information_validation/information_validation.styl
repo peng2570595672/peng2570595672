@@ -1,84 +1,103 @@
 @import "../../../style/base.styl";
 @import "../../../style/my_animate.styl";
 .information_validation
+	min-height 100vh
+	box-sizing border-box
+	background #fff
 	display flex
 	flex-direction column
-	min-height 100vh
-	// 轮播图
-	.my-swiper
-		margin-top 20rpx
-		width 100%
-		height 400rpx
-		.my-swiper-item
-			height 400rpx
-			& > image
-				position relative
-				width 630rpx
-				height 100%
-				border-radius 16rpx
-				.iconfont
-					position absolute
-					left 0
-					right 0
-					bottom 0
-					display flex
-					align-items center
-					padding-left 40rpx
-					height 80rpx
-					font-size 32rpx
-					color #fff
-					background: rgba(0,0,0,.3)
-					z-index 2
-					&::before
-						display flex
-						align-items center
-						justify-content center
-						margin-right 12rpx
-						width 57rpx
-						height 46rpx
-						content '\e65c'
-						font-size 56rpx
-	// 标题
+	.label
+		font-size 28rpx
+		line-height 40rpx
+		color rgba(0, 0, 0, .5)
+		padding 52rpx 32rpx 0
 	.title
-		margin-top 40rpx
 		display flex
 		align-items center
-		padding 0 40rpx
-		height 56rpx
-		font-size 40rpx
+		font-size 34rpx
+		font-family PingFangSC-Medium, PingFang SC;
 		font-weight 500
+		color #000
+		padding 32rpx 32rpx 26rpx
 		&::before
-			margin-right 24rpx
+			margin-right 8rpx
 			content ''
-			width 10rpx
-			height 10rpx
-			border 6rpx solid $fontColor
-			border-radius 50%
+			width 8rpx
+			height 44rpx
+			background #2FB565
+	// 上传身份证
+	.photo-wrapper
+		display flex
+		justify-content space-between
+		padding 0 32rpx
+		& > view:first-child
+			margin-right auto
+		.photo
+			position relative
+			overflow hidden
+			width 326rpx
+			height 332rpx
+			background #F6F6F6
+			border-radius 16rpx
+			text-align center
+			.upload
+				.img-box
+					position relative
+					width 296rpx
+					height 192rpx
+					background #FAFAFA
+					border-radius 8rpx
+					margin 22rpx auto 36rpx
+					.ico
+						position absolute
+						left 0
+						right 0
+						top 0
+						bottom 0
+						margin auto
+						width 56rpx
+						height 49rpx
+					.identify
+						position absolute
+						z-index 1
+						top 0
+						left 0
+						width 100%
+						height 100%
+						background rgba(47, 181, 101, .64)
+						font-size 24rpx
+						color #fff
+						image
+							width 50rpx
+							height 50rpx
+							margin 45rpx 0 8rpx
+				.success
+					width 296rpx
+					height 192rpx
+					margin 22rpx auto 36rpx
 	// 提示
 	.tips
 		margin-top 10rpx
 		display flex
 		align-items center
-		padding-left 80rpx
+		padding-left 52rpx
 		height 40rpx
 		font-size 24rpx
 		color $fontColor6
+		opacity .85
 	// 内容
 	.content-wrapper
-		margin 20rpx 40rpx 10rpx
+		padding-left 32rpx
 		min-height 352rpx
-		box-shadow:4rpx 12rpx 56rpx 0 rgba(102,102,109,0.19)
-		border-radius: 12px
+		background #fff
 		overflow hidden
-		&.opened
-			overflow auto
 		.item
 			display flex
 			align-items center
-			padding 0 40rpx
+			padding-right 32rpx
 			font-size 32rpx
-			color $fontColor9
-			border-bottom 1rpx solid #F8F8F8
+			color rgba(0, 0, 0, 0.5)
+			border-bottom 1rpx solid rgba(0, 0, 0, 0.1)
 			box-sizing border-box
 			& > view
 				padding-top 30rpx
@@ -93,35 +112,54 @@
 				font-weight 400
 				line-height 48rpx
 				text-align right
-				color $fontColor6
+				color rgba(0, 0, 0, 0.9)
 			& > textarea
 				line-height 0
+			.ownership-type
+				display flex
+				color rgba(0, 0, 0, 0.9)
+				flex .65
+				justify-content right
+				& > view
+					flex 1
+					justify-content right
+					text-align right
+					margin-left 50rpx
+					&::before
+						content ''
+						display inline-block
+						width 20rpx
+						height 20rpx
+						border-radius 50%
+						background #C8C8C8
+						margin-right 10rpx
+					&.active
+						&::before
+							background linear-gradient(50deg, #14AC69 0%, #84D157 100%)
+				& > view:first-child
+					margin-left 20rpx
+			&.first
+				border-bottom 0
+			&.axle
+				display flex
+				border 0
+				.choice-axle
+					flex 1
+					display flex
+					align-items center
+					justify-content center
+					text-align center
+					background #F3F3F3
+					position relative
+					&::after
+						position absolute
+						right 20rpx
+						content '\e60e'
+						transform rotateZ(-90deg)
 		.split
-			margin 0 32rpx
+			margin-right 32rpx
 			border-bottom 1rpx dashed #979797
-	// 展开
-	.open
-		display flex
-		align-items center
-		padding-right 88rpx
-		height 48rpx
-		font-size 24rpx
-		color $blueColor
-		& > view
-			flex 1
-		& > text
-			display block
-			&.opened
-				&::after
-					transform rotateZ(-270deg)
-			&::after
-				margin-left 6rpx
-				display inline-block
-				content '\e60e'
-				transition all .3s
-				transform rotateZ(-90deg)
-
-	// 自动天聪
+	// 自动填充
 	.auto-fill
 		flex 1
 	// 确认按钮

@@ -82,11 +82,7 @@ Page({
 				let vehicleList = [];
 				res.data.map((item) => {
 					vehicleList.push(item.vehPlates);
-					if (item.remark && item.remark.indexOf('迁移订单数据') !== -1) {
-						item['selfStatus'] = util.getStatusFirstVersion(item);
-					} else {
-						item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
-					}
+					item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
 					wx.setStorageSync('cars', vehicleList.join('、'));
 				});
 				const truckList = res.data.filter(item => item.isNewTrucks === 1);
@@ -163,7 +159,7 @@ Page({
 			util.go(`/pages/truck_handling/equipment_cost/equipment_cost?equipmentCost=${obj.pledgeMoney}`);
 			return;
 		}
-		util.go(`/pages/passenger_car_handling/package_the_rights_and_interests/package_the_rights_and_interests`);
+		util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests`);
 		// util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${obj.pledgeMoney}&rightsPackagePayMoney=${obj.rightsPackagePayMoney}`);
 	},
 	//	查看详情
@@ -200,33 +196,26 @@ Page({
 		}
 		app.globalData.orderInfo.orderId = obj.id;
 		app.globalData.isModifiedData = false; // 非修改资料
-		if (obj.remark && obj.remark.indexOf('迁移订单数据') !== -1) {
-			// 1.0数据
-			app.globalData.firstVersionData = true;
-			app.globalData.packagePageData = undefined;
-			util.go('/pages/default/payment_way/payment_way');
-		} else {
-			app.globalData.firstVersionData = false;
-			if (obj.shopProductId === 0) {
-				const result = await util.initLocationInfo(obj);
-				if (!result) return;
-				if (result.code) {
-					util.showToastNoIcon(result.message);
-					return;
-				}
-				if (!app.globalData.newPackagePageData.listOfPackages?.length) return;// 没有套餐
-				if (app.globalData.newPackagePageData.type) {
-					// 只有分对分套餐 || 只有总对总套餐
-					util.go(`/pages/passenger_car_handling/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`);
-				} else {
-					util.go(`/pages/passenger_car_handling/choose_the_way_to_handle/choose_the_way_to_handle?type=${app.globalData.newPackagePageData.type}`);
-				}
-			} else if (obj.pledgeStatus === 0) {
-				// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
-				util.go(`/pages/passenger_car_handling/package_the_rights_and_interests/package_the_rights_and_interests`);
-			} else {
-				util.go(`/pages/passenger_car_handling/information_list/information_list`);
+		app.globalData.firstVersionData = false;
+		if (obj.shopProductId === 0) {
+			const result = await util.initLocationInfo(obj);
+			if (!result) return;
+			if (result.code) {
+				util.showToastNoIcon(result.message);
+				return;
 			}
+			if (!app.globalData.newPackagePageData.listOfPackages?.length) return;// 没有套餐
+			if (app.globalData.newPackagePageData.type) {
+				// 只有分对分套餐 || 只有总对总套餐
+				util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`);
+			} else {
+				util.go(`/pages/default/choose_the_way_to_handle/choose_the_way_to_handle`);
+			}
+		} else if (obj.pledgeStatus === 0) {
+			// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
+			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests`);
+		} else {
+			util.go(`/pages/default/information_list/information_list`);
 		}
 	},
 	// 新增
@@ -234,7 +223,7 @@ Page({
 		// 统计点击事件
 		mta.Event.stat('015',{});
 		app.globalData.orderInfo.orderId = '';
-		util.go('/pages/passenger_car_handling/receiving_address/receiving_address');
+		util.go('/pages/default/receiving_address/receiving_address');
 	},
 	// 恢复签约
 	onClickBackToSign (e) {
@@ -258,11 +247,7 @@ Page({
 				this.restoreSign(obj);
 			} else {
 				// 2.0 立即签约
-				if (obj.orderType === 31) {
-					app.globalData.isSalesmanOrder = true;
-				} else {
-					app.globalData.isSalesmanOrder = false;
-				}
+				app.globalData.isSalesmanOrder = obj.orderType === 31;
 				app.globalData.signAContract = -1;
 				this.weChatSign(obj);
 			}
@@ -371,16 +356,7 @@ Page({
 			app.globalData.orderInfo.orderId = obj.id;
 			app.globalData.orderInfo.shopProductId = obj.shopProductId;
 			app.globalData.isModifiedData = true; // 修改资料
-			if (obj.remark && obj.remark.indexOf('迁移订单数据') !== -1) {
-				// 1.0数据
-				wx.removeStorageSync('driving_license_face');
-				wx.removeStorageSync('driving_license_back');
-				wx.removeStorageSync('car_head_45');
-				app.globalData.firstVersionData = true;
-			} else {
-				app.globalData.firstVersionData = false;
-			}
-			util.go('/pages/default/information_validation/information_validation');
+			util.go(`/pages/default/information_list/information_list?isModifiedData=true`);
 		}
 	}
 });

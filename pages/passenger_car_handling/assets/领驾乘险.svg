@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="30px" viewBox="0 0 26 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>领驾乘险</title>
+    <defs>
+        <path d="M25.3878412,4.22314294 C25.0071454,3.88280556 24.5107181,3.71115715 24.0173363,3.71115715 L23.8711491,3.71115715 C23.8406935,3.71115715 23.520909,3.7407517 23.0244817,3.7407517 C22.1778142,3.7407517 20.5728007,3.68452205 19.025653,3.31459012 C17.0399438,2.86179343 14.73445,0.73690441 14.0613799,0.310742823 C13.7415954,0.112459307 13.3304439,0 12.9527937,0 C12.5751435,0 12.1944477,0.112459307 11.8442076,0.310742823 C11.7589317,0.366972477 9.36511655,2.77596922 7.02916715,3.31459012 C5.48201944,3.68156259 3.81914021,3.7407517 3.00292843,3.7407517 C2.47604545,3.7407517 2.15626098,3.71115715 2.12885088,3.71115715 L2.01311936,3.71115715 C1.48623638,3.71115715 1.02026473,3.88280556 0.642614502,4.22314294 C0.23450861,4.56348032 0,5.07250666 0,5.58449245 L0,10.2900266 C0,27.6442735 12.1091718,29.8845812 12.6055992,29.9704054 C12.7213307,30 12.8401078,30 12.9558393,30 C13.0715708,30 13.1903479,30 13.3060794,29.9704054 C13.8299168,29.8845812 26,27.6442735 26,10.2900266 L26,5.58449245 C26,5.07250666 25.7654914,4.56348032 25.3878412,4.22314294 Z" id="path-1"></path>
+        <filter x="-9.6%" y="-8.3%" width="119.2%" height="116.7%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="2" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 0.5 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <path d="M20.5997423,7.81542863 C20.3508258,7.58853704 20.0262387,7.47410476 19.703643,7.47410476 L19.608059,7.47410476 C19.5881457,7.47410476 19.3790559,7.49383447 19.0544688,7.49383447 C18.5008785,7.49383447 17.4514466,7.45634803 16.4398501,7.20972674 C15.1415017,6.90786229 13.6340635,5.49126961 13.1939791,5.20716188 C12.9848893,5.07497287 12.7160595,5 12.4691344,5 C12.2222092,5 11.9732927,5.07497287 11.7442896,5.20716188 C11.6885323,5.24464832 10.1233454,6.85064615 8.59599391,7.20972674 C7.58439733,7.45437506 6.49713014,7.49383447 5.9634532,7.49383447 C5.61895279,7.49383447 5.40986295,7.47410476 5.39194096,7.47410476 L5.31627035,7.47410476 C4.97176994,7.47410476 4.66709617,7.58853704 4.42017102,7.81542863 C4.15333255,8.04232021 4,8.38167111 4,8.72299497 L4,11.8600178 C4,23.4295156 11.9175354,24.9230542 12.2421225,24.9802703 C12.3177931,25 12.3954551,25 12.4711257,25 C12.5467963,25 12.6244582,25 12.7001289,24.9802703 C13.0426379,24.9230542 21,23.4295156 21,11.8600178 L21,8.72299497 C21,8.38167111 20.8466674,8.04232021 20.5997423,7.81542863 Z" id="path-3"></path>
+        <filter x="-14.7%" y="-12.5%" width="129.4%" height="125.0%" filterUnits="objectBoundingBox" id="filter-4">
+            <feGaussianBlur stdDeviation="2" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 0.5 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="注册流程" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2.2.2" transform="translate(-40.000000, -146.000000)" fill-rule="nonzero">
+            <g id="领驾乘险" transform="translate(40.000000, 146.000000)">
+                <g id="形状">
+                    <use fill="#6477F0" xlink:href="#path-1"></use>
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                </g>
+                <g id="形状备份">
+                    <use fill="#6489F0" xlink:href="#path-3"></use>
+                    <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

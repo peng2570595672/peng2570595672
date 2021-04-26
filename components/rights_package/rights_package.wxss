@@ -315,6 +315,12 @@
   background: #f7f7f7;
   margin-top: 32rpx;
 }
+.related-service .related-service-wrapper .related-service-box .related-service-list .related-service-item image {
+  width: 80rpx;
+  height: 80rpx;
+  margin-left: 48rpx;
+  margin-right: 18rpx;
+}
 .related-service .related-service-wrapper .related-service-box .related-service-list .related-service-item::after,
 .related-service .related-service-wrapper .related-service-box .related-service-list .related-service-item::before {
   display: inline-block;
@@ -343,13 +349,6 @@
   line-height: 40rpx;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
-}
-.related-service .related-service-wrapper .related-service-box .related-service-list .related-service-item .list-name::before {
-  content: '\e666';
-  color: #2fb565;
-  font-size: 80rpx;
-  margin-left: 48rpx;
-  margin-right: 18rpx;
 }
 .related-service .related-service-wrapper .related-service-box .related-service-list .related-service-item .amount {
   display: flex;

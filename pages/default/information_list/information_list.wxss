@@ -1,0 +1,102 @@
+.information-list {
+  height: 100vh;
+  padding: 52rpx 32rpx;
+  box-sizing: border-box;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.information-list .label {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: rgba(0,0,0,0.5);
+}
+.information-list .list-title {
+  display: flex;
+  align-items: center;
+  font-size: 34rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #000;
+  padding: 32rpx 0 26rpx;
+}
+.information-list .list-title::before {
+  margin-right: 8rpx;
+  content: '';
+  width: 8rpx;
+  height: 44rpx;
+  background: #2fb565;
+}
+.information-list .list-item {
+  display: flex;
+  align-items: center;
+  padding: 0rpx 30rpx;
+  margin-bottom: 30rpx;
+  height: 160rpx;
+  background: #f6f6f6;
+  border-radius: 16rpx;
+}
+.information-list .list-item .left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  font-size: 34rpx;
+  color: rgba(0,0,0,0.9);
+}
+.information-list .list-item .left.success::after {
+  content: '\e669';
+  font-size: 37rpx;
+  color: #07c160;
+  margin-left: 16rpx;
+}
+.information-list .list-item .left.error::after {
+  content: '\e63f';
+  font-size: 34rpx;
+  color: #f7b500;
+  margin-left: 16rpx;
+}
+.information-list .list-item .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 108rpx;
+  height: 50rpx;
+  border-radius: 4rpx;
+  background: #2fb565;
+  font-size: 24rpx;
+  color: #fff;
+}
+.information-list .list-item .btn.edit {
+  background: #efefef;
+  color: #2fb565;
+}
+.information-list .fill {
+  flex: 1;
+}
+.information-list .tips {
+  text-align: center;
+  font-size: 24rpx;
+  color: rgba(0,0,0,0.3);
+}
+.information-list .btn-sign {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 98rpx;
+  margin: 20rpx 0;
+  background: linear-gradient(49deg, rgba(20,172,105,0.24) 0%, rgba(132,209,87,0.24) 100%);
+  border-radius: 49rpx;
+  font-size: 34rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #fff;
+}
+.information-list .btn-sign.available {
+  background: linear-gradient(45deg, #14ac69 0%, #84d157 100%);
+  animation: btnFadeIn 0.3s;
+  animation-fill-mode: forwards;
+}
+.information-list .btn-sign.unavailable {
+  animation: btnFadeOut 0.3s;
+  animation-fill-mode: forwards;
+}

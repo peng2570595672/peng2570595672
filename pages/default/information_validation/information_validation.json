@@ -1,6 +1,5 @@
 {
-	"navigationBarTitleText": "信息核对",
-	"usingComponents": {
-		"information-validation-prompt": "/components/information_validation_prompt/information_validation_prompt"
-	}
+    "navigationBarTitleText": "上传证件页",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTextStyle": "black"
 }

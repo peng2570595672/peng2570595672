@@ -1,0 +1,35 @@
+<view class="shot_other_photo">
+	<!--	左边相机部分开始-->
+	<view class="camera-top">
+        <camera class="camera" device-position="back" flash="auto" binderror="cameraErrorHandle" wx:if="{{showInfo}}">
+            <cover-view wx:if="{{!picUrl}}">
+                <cover-image wx:if="{{type === 101}}" class="border sample" src="/pages/default/assets/car_head_45.png"></cover-image>
+                <cover-image wx:if="{{type === 102}}" class="border sample" src="/pages/default/assets/side_photo.png"></cover-image>
+            </cover-view>
+            <cover-image class="border" wx:else src="{{picUrl}}"></cover-image>
+            <view class="tips">*请确保照片清晰露出车牌、车轴数，清晰无遮挡无反光</view>
+        </camera>
+    </view>
+	<!--	左边相机部分结束-->
+	<!--	右边按钮部分开始-->
+    <view class="btns {{picUrl ? '' : 'btns-bottom'}}">
+        <view wx:if="{{picUrl}}" class="btn">
+            <view class="shoot" catchtap="onClickShoot">重拍</view>
+            <view class="complete" catchtap="onClickComplete">完成</view>
+        </view>
+        <view wx:else>
+            <view class="iconfont choice-from-album" catchtap="choiceFromAbumHandle"></view>
+            <view class="iconfont take-photo" catchtap="takePhotoHandle"><image src="/pages/default/assets/icon_camera_white.png"/></view>
+        </view>
+    </view>
+	<!--	右边按钮部分结束-->
+    <!--	压缩图片开始-->
+    <canvas
+            canvas-id='pressCanvas'
+            class='press-canvas'
+            style='width: {{pictureWidth}}px; height: {{ pictureHeight}}px;' ></canvas>
+    <!--	压缩图片j结束-->
+    <!--旋转图片 ios拍照问题开始-->
+    <canvas canvas-id="rotatingCanvas" style="width:{{imageWidth}}px;height:{{imageHeight}}px;position:absolute;top:200%" ></canvas>
+    <!--旋转图片 ios拍照问题结束-->
+</view>

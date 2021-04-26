@@ -8,41 +8,43 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
+		isRequest: false,// 是否请求中
+		orderInfo: undefined,// 订单信息
 		listOfPackages: undefined,
 		activeIndex: 0,// 当前轮播下标 -- 用于计算轮播高度
 		choiceIndex: 0,// 当前选中套餐下标
 		activeEquitiesIndex: -1,// 当前选中权益包
 		rightsAndInterestsList: [],// 加购权益列表
 		basicServiceList: [
-			{title: 'ETC设备与卡片', tips: '包邮'},
-			{title: '设备质保两年'},
-			{title: 'ETC设备与卡片'},
-			{title: 'ETC设备与卡片'}
+			{title: 'ETC设备与卡片', tips: '包邮', logo: '/pages/passenger_car_handling/assets/service_of_etc.svg'},
+			{title: '设备质保两年', logo: '/pages/passenger_car_handling/assets/service_of_equipment.svg'},
+			{title: '开具通行费发票', logo: '/pages/passenger_car_handling/assets/service_of_invoice.svg'},
+			{title: '高速通行9.5折', logo: '/pages/passenger_car_handling/assets/service_of_discount.svg'}
 		],
 		otherServiceList: [
 			{title: '车主服务享便捷', subTitle: '价值168元'},
 			{title: '生活服务享精彩', subTitle: '价值100元+'}
 		],
 		characteristicServiceList: [
-			{title: '中国石油特惠加油'},
-			{title: '高速通行享2倍积分'}
+			{title: '中国石油特惠加油', logo: '/pages/passenger_car_handling/assets/service_of_oil.svg'}
+			// {title: '高速通行享2倍积分', logo: '/pages/passenger_car_handling/assets/service_of_integral.svg'}
 		],
 		serviceList: [
 			{
 				detailsTitle: '车主服务',
 				list: [
 					{
-						logo: '/pages/passenger_car_handling/assets/not_charge.svg',
+						logo: '/pages/passenger_car_handling/assets/service_of_driving_risk.svg',
 						title: '每月领驾乘险',
 						describe: '10000元初始驾驶意外险，如每月无违章，额外获得5000元，最高可提升至50000元。'
 					},
 					{
-						logo: '/pages/passenger_car_handling/assets/wechat_pay.png',
+						logo: '/pages/passenger_car_handling/assets/service_of_security.svg',
 						title: '设备延保1年',
 						describe: 'ETC设备非人为损坏质保延长一年，与设备质保叠加最高可达到三年质保。'
 					},
 					{
-						logo: '/pages/passenger_car_handling/assets/not_charge.svg',
+						logo: '/pages/passenger_car_handling/assets/service_of_illegal.svg',
 						title: '违章随时查',
 						describe: '每月可免费查询车辆违章情况'
 					}
@@ -53,7 +55,7 @@ Page({
 				detailsTitle: '特色服务',
 				list: [
 					{
-						logo: '/pages/passenger_car_handling/assets/not_charge.svg',
+						logo: '/pages/passenger_car_handling/assets/service_of_oil.svg',
 						title: '中国石油特惠加油',
 						describe: `
 							ETC一卡双用：通行+加油
@@ -70,7 +72,7 @@ Page({
 	onLoad: async function (options) {
 		if (!options.type) {
 			// 已选择套餐 && 未支付
-			await this.getProductOrderInfo();
+			await this.getOrderInfo();
 			return;
 		}
 		const packages = app.globalData.newPackagePageData;
@@ -103,13 +105,30 @@ Page({
 	},
 	getProductOrderInfo: async function () {
 		const result = await util.getDataFromServersV2('consumer/order/get-product-by-order-id', {
-			orderId: app.globalData.orderInfo.orderId
+			orderId: app.globalData.orderInfo.orderId,
+			needRightsPackageIds: true
 		});
+		if (!result) return;
 		if (result.code === 0) {
 			this.setData({
 				listOfPackages: [result.data]
 			});
 			await this.getSwiperHeight();
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	getOrderInfo: async function () {
+		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
+			orderId: app.globalData.orderInfo.orderId,
+			dataType: '13'
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			this.setData({
+				orderInfo: result.data
+			});
+			await this.getProductOrderInfo();
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -158,6 +177,14 @@ Page({
 			this.setData({
 				rightsAndInterestsList: result.data
 			});
+			const rightsPackageId = this.data.orderInfo?.base?.rightsPackageId;
+			if (rightsPackageId) {
+				// 已经加购权益包
+				const activeEquitiesIndex = result.data.findIndex(item => item.id === rightsPackageId);
+				this.setData({
+					activeEquitiesIndex
+				});
+			}
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -182,6 +209,67 @@ Page({
 			await this.getList(this.data.listOfPackages[index]);
 		}
 	},
-	next () {
+	next: async function () {
+		let params = {
+			orderId: app.globalData.orderInfo.orderId, // 订单id
+			shopId: this.data.orderInfo ? this.data.orderInfo.base.shopId : app.globalData.newPackagePageData.shopId, // 商户id
+			dataType: '3', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
+			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
+			shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
+			rightsPackageId: this.data.rightsAndInterestsList[this.data.activeEquitiesIndex]?.id || '',
+			areaCode: this.data.orderInfo ? this.data.orderInfo.product.areaCode : app.globalData.newPackagePageData.areaCode
+		};
+		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+		if (!result) return;
+		if (result.code === 0) {
+			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
+				this.data.rightsAndInterestsList[this.data.activeEquitiesIndex]?.payMoney) {
+				await this.marginPayment();
+				return;
+			}
+			util.go('/pages/passenger_car_handling/information_list/information_list');
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 支付
+	marginPayment: async function () {
+		this.setData({isRequest: true});
+		util.showLoading();
+		let params = {
+			orderId: app.globalData.orderInfo.orderId
+		};
+		const result = await util.getDataFromServersV2('consumer/order/pledge-pay', params);
+		if (!result) {
+			this.setData({isRequest: false});
+			return;
+		}
+		if (result.code === 0) {
+			let extraData = result.data.extraData;
+			wx.requestPayment({
+				nonceStr: extraData.nonceStr,
+				package: extraData.package,
+				paySign: extraData.paySign,
+				signType: extraData.signType,
+				timeStamp: extraData.timeStamp,
+				success: (res) => {
+					this.setData({isRequest: false});
+					if (res.errMsg === 'requestPayment:ok') {
+						util.go('/pages/passenger_car_handling/information_list/information_list');
+					} else {
+						util.showToastNoIcon('支付失败！');
+					}
+				},
+				fail: (res) => {
+					this.setData({isRequest: false});
+					if (res.errMsg !== 'requestPayment:fail cancel') {
+						util.showToastNoIcon('支付失败！');
+					}
+				}
+			});
+		} else {
+			this.setData({isRequest: false});
+			util.showToastNoIcon(result.message);
+		}
 	}
 });

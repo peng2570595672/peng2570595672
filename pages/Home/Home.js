@@ -338,41 +338,11 @@ Page({
 				// 京东客服
 				let vehicleList = [];
 				let orderInfo = '';
-				let isDeliveryAlert = wx.getStorageSync('delivery-alert');
-				let isUpgradeAlert = wx.getStorageSync('upgrade-alerts1');
-				let isDuringDate = util.isDuringDate('2020/12/17', '2021/01/01');
-				let isUpgradeDate = util.isDuringDate('2021/02/01', '2021/02/20');
-				if (res.data && res.data.length === 0 && !isUpgradeAlert && isUpgradeDate) {
-					let isUpgradeAlert = wx.getStorageSync('upgrade-alerts1');
-					if (isUpgradeAlert || this.data.num === 1) return;
-					this.deliveryAlert();
-				}
 				app.globalData.ownerServiceArrearsList = res.data.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
 				res.data.map((item,index) => {
-					if (item.remark && item.remark.indexOf('迁移订单数据') !== -1) {
-						item['selfStatus'] = util.getStatusFirstVersion(item);
-					} else {
-						item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
-					}
+					item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
 					vehicleList.push(item.vehPlates);
 					wx.setStorageSync('cars', vehicleList.join('、'));
-					// if (((item.flowVersion === 2 && item.hwContractStatus === 1) || (item.flowVersion === 1 && item.auditStatus === 2 && item.obuStatus !== 1)) && item.logisticsId === 0 && !isDeliveryAlert && isDuringDate) {
-					// 	wx.setStorageSync('delivery-alert', true);
-					// 	util.alert({
-					// 		content: '受凝冻天气影响，快递送达时间预计将延期2-3天。给您带来的不便，敬请谅解。',
-					// 		showCancel: false,
-					// 		confirmText: '我知道了',
-					// 		confirm: () => {
-					// 		},
-					// 		cancel: () => {
-					// 		}
-					// 	});
-					// }
-					if ((item.orderType === 11 || item.orderType === 51) &&
-						((item.flowVersion === 2 && item.hwContractStatus === 1) || (item.flowVersion === 1 && item.auditStatus === 2)) &&
-						item.obuStatus !== 1 && item.status === 1 && !isUpgradeAlert && isUpgradeDate) {
-							this.deliveryAlert();
-					}
 					if (item.contractStatus === 2) {
 						// 解约优先展示
 						orderInfo = item;
@@ -399,46 +369,6 @@ Page({
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken);
-	},
-	// 获取订单信息
-	getOrderInfo (orderId) {
-		let isUpgradeAlert = wx.getStorageSync('upgrade-alerts1');
-		if (isUpgradeAlert || this.data.num === 1) return;
-		util.showLoading();
-		util.getDataFromServer('consumer/order/get-order-info', {
-			orderId: orderId,
-			dataType: '2'
-		}, () => {
-		}, (res) => {
-			if (res.code === 0) {
-				let arr = ['河北', '西藏'];
-				arr.forEach(item => {
-					if (res.data.receive.receiveProvince.includes(item)) {
-						let isUpgradeAlert = wx.getStorageSync('upgrade-alerts1');
-						if (isUpgradeAlert || this.data.num === 1) return;
-						this.deliveryAlert();
-					}
-				});
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-		});
-	},
-	deliveryAlert () {
-		if (this.data.num === 1) return;
-		this.data.num = 1;
-		wx.setStorageSync('upgrade-alerts1', true);
-		util.alert({
-			content: '受疫情影响，快递公司2021年2月3日-2月19日期间暂停揽货。恢复后尽快为您发货。给您带来的不便，敬请谅解。',
-			showCancel: false,
-			confirmText: '我知道了',
-			confirm: () => {
-			},
-			cancel: () => {
-			}
-		});
 	},
 	// 签约高速弹窗
 	signingExpress () {
@@ -928,10 +858,11 @@ Page({
 			util.go(`/pages/truck_handling/equipment_cost/equipment_cost?equipmentCost=${this.data.orderInfo.pledgeMoney}`);
 			return;
 		}
-		util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${pledgeMoney}&rightsPackagePayMoney=${rightsPackagePayMoney}`);
+		util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests`);
+		// util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${pledgeMoney}&rightsPackagePayMoney=${rightsPackagePayMoney}`);
 	},
 	// 继续办理
-	onClickContinueHandle () {
+	onClickContinueHandle: async function () {
 		// 统计点击事件
 		mta.Event.stat('002',{});
 		if (this.data.orderInfo.isNewTrucks === 1) {
@@ -950,40 +881,26 @@ Page({
 		}
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 		app.globalData.isModifiedData = false; // 非修改资料
-		if (this.data.orderInfo.remark && this.data.orderInfo.remark.indexOf('迁移订单数据') !== -1) {
-			// 1.0数据
-			app.globalData.firstVersionData = true;
-			app.globalData.packagePageData = undefined;
-			util.go('/pages/default/payment_way/payment_way');
-		} else {
-			app.globalData.firstVersionData = false;
-			// 服务商套餐id，0表示还未选择套餐，其他表示已经选择套餐
-			// 只提交了车牌 车牌颜色 收货地址 或者未签约 前往套餐选择
-			// "etcContractId": "", //签约id，0表示未签约，其他表示已签约
-			if (this.data.orderInfo.shopProductId === 0 || this.data.orderInfo.isOwner === 0 || this.data.orderInfo.etcContractId === 0) {
-				let type = '';
-				if (this.data.orderInfo.orderCrowdsourcing) type = 'payment_mode';
-				app.globalData.packagePageData = undefined;
-				util.go(`/pages/default/payment_way/payment_way?type=${type}`);
-			} else if (this.data.orderInfo.isVehicle === 0) {
-				// 是否上传行驶证， 0未上传，1已上传
-				app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
-				if (wx.getStorageSync('corresponding_package_id') !== app.globalData.orderInfo.orderId) {
-					// 行驶证缓存关联订单
-					wx.setStorageSync('corresponding_package_id', app.globalData.orderInfo.orderId);
-					wx.removeStorageSync('driving_license_face');
-					wx.removeStorageSync('driving_license_back');
-					wx.removeStorageSync('car_head_45');
-				}
-				if (wx.getStorageSync('driving_license_face')) {
-					util.go('/pages/default/information_validation/information_validation');
-				} else {
-					util.go('/pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license');
-				}
-			} else if (this.data.orderInfo.isVehicle === 1 && this.data.orderInfo.isOwner === 1) {
-				// 已上传行驶证， 未上传车主身份证
-				util.go('/pages/default/update_id_card/update_id_card?type=normal_process');
+		app.globalData.firstVersionData = false;
+		if (this.data.orderInfo.shopProductId === 0) {
+			const result = await util.initLocationInfo(this.data.orderInfo);
+			if (!result) return;
+			if (result.code) {
+				util.showToastNoIcon(result.message);
+				return;
 			}
+			if (!app.globalData.newPackagePageData.listOfPackages?.length) return;// 没有套餐
+			if (app.globalData.newPackagePageData.type) {
+				// 只有分对分套餐 || 只有总对总套餐
+				util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`);
+			} else {
+				util.go(`/pages/default/choose_the_way_to_handle/choose_the_way_to_handle`);
+			}
+		} else if (this.data.orderInfo.pledgeStatus === 0) {
+			// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
+			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests`);
+		} else {
+			util.go(`/pages/default/information_list/information_list`);
 		}
 	}
 });

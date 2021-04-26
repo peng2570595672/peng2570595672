@@ -328,7 +328,7 @@ Page({
 			// 获取区域编码
 			let regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
 			// 加载套餐页
-			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?regionCode=${JSON.stringify(regionCode)}`);
+			util.go(`/pages/passenger_car_handling/package_the_rights_and_interests/package_the_rights_and_interests?regionCode=${JSON.stringify(regionCode)}`);
 			return;
 		}
 		// 定位
@@ -345,10 +345,10 @@ Page({
 					let info = res.result.ad_info;
 					let regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
 					// 加载套餐页
-					util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?regionCode=${JSON.stringify(regionCode)}`);
+					util.go(`/pages/passenger_car_handling/package_the_rights_and_interests/package_the_rights_and_interests?regionCode=${JSON.stringify(regionCode)}`);
 				}, () => {
 					// 加载套餐页
-					util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?regionCode=${JSON.stringify([0])}`);
+					util.go(`/pages/passenger_car_handling/package_the_rights_and_interests/package_the_rights_and_interests?regionCode=${JSON.stringify([0])}`);
 				});
 			},
 			fail: (res) => {
