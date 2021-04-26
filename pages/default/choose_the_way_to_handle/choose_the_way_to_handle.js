@@ -20,6 +20,6 @@ Page({
 	},
 	onClickPaymentWay (e) {
 		const type = e.currentTarget.dataset.type;
-		util.go(`/pages/passenger_car_handling/package_the_rights_and_interests/package_the_rights_and_interests?type=${type}`);
+		util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?type=${type}`);
 	}
 });

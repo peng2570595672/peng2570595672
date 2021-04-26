@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "",
-  "navigationBarBackgroundColor": "#F6F6F6",
-  "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "information-validation-prompt": "/components/information_validation_prompt/information_validation_prompt"
-  }
-}
