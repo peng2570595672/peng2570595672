@@ -1,0 +1,14 @@
+<view class="characteristic_service">
+	<view class="item">
+		<image src="/pages/personal_center/assets/service_of_oil.svg" mode="widthFix"></image>
+		<view class="item-content">
+			<view>中国石油·加油优惠</view>
+			<view class="content-gray">ETC一卡双用：通行+加油</view>
+			<view class="content-gray">ETC办理成功后，可在指定省份享受中国石油加油优惠0.15-0.2元/升。</view>
+			<div class="content-gray">持ETC卡在中石油加油站进行油费充值，使用ETC卡进行加油时即可享受加油折扣优惠。具体使用帮助可咨询<span class="btn-online" catchtap="online">在线客服</span></div>
+		</view>
+	</view>
+	<view class="empty"></view>
+	<text class="more-text">更多服务即将上线</text>
+	<view class="fill"></view>
+</view>

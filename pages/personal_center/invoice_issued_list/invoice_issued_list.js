@@ -31,8 +31,22 @@ Page({
 		let origin = 1; // 0 去开票， 1已开票
 		let info = this.data.currentList[index];
 		let orderId = info.orderId;
+		// util.alert({
+		// 	title: '发票客服',
+		// 	content: '当前订单暂不支持在线开具电子发票，请拨打客服热线4008008787',
+		// 	showCancel: true,
+		// 	cancelText: '取消',
+		// 	confirmText: '拨打热线',
+		// 	cancelColor: '#000000',
+		// 	confirmColor: '#576B95',
+		// 	confirm: () => {
+		// 		wx.makePhoneCall({
+		// 			phoneNumber: '4008008787'
+		// 		});
+		// 	}
+		// });
 		// 开票状态0-待申请 1申请成功、2-申请失败
-		if(info.invoiceStatus !== 1){
+		if (info.invoiceStatus !== 1) {
 			origin = 0;
 			info = {};
 			info.orderId = orderId;

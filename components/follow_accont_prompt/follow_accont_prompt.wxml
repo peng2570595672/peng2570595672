@@ -1,0 +1,8 @@
+<view class="follow-alert-mask animated {{wrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{mask}}" catchtap="hide">
+	<view class="wrapper animated {{wrapper ? 'zoomInOther' : 'zoomOutOther'}}" wx:if="{{mask}}" catchtap="noHide">
+		<view class="title">关注ETC+公众号</view>
+		<image class="follow-image" src="{{qrCodeUrl}}"/>
+		<view class="tips">享视频/音频/美食充值优惠</view>
+		<view class="follow-btn" catchtap="goPublicAccount">发送“9”关注公众号</view>
+	</view>
+</view>

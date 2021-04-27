@@ -21,7 +21,8 @@
     "pages/default/shot_card/shot_card",
     "pages/default/order_audit/order_audit",
     "pages/landing_page_for_ccb/index",
-    "components/pass_the_discount/pass_the_discount"
+    "components/pass_the_discount/pass_the_discount",
+    "components/follow_accont_prompt/follow_accont_prompt"
   ],
   "window": {
     "navigationBarBackgroundColor": "#FFFFFF",
@@ -57,7 +58,14 @@
         "collect_paid_up_interest/collect_paid_up_interest",
         "invoice_issued_list/invoice_issued_list",
         "invoice_issued_detail/invoice_issued_detail",
-        "success_tips/success_tips"
+        "success_tips/success_tips",
+        "basic_services/basic_services",
+        "card_voucher_details/card_voucher_details",
+        "new_index/new_index",
+        "the_owner_service/the_owner_service",
+        "characteristic_service/characteristic_service",
+        "coupon_redemption_centre/coupon_redemption_centre",
+        "service_purchase_record/service_purchase_record"
       ]
     },
     {

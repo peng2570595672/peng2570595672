@@ -142,16 +142,6 @@
 		</view>
 		<!--	众包推广信息结束-->
 	</view>
-	<!--	成为众包推广者结束开始-->
-	<!--	&lt;!&ndash;	未成为众包推广者开始&ndash;&gt;-->
-	<!--	<view wx:if="{{crowdSourcingMsg.status === 0}}">-->
-	<!--		&lt;!&ndash;	众包推广信息开始&ndash;&gt;-->
-	<!--		<view class="invite_friends" catchtap="inviteFriends">-->
-	<!--			<image src="/pages/personal_center/assets/invite_friends.png" mode="widthFix"></image>-->
-	<!--		</view>-->
-	<!--		&lt;!&ndash;	众包推广信息结束&ndash;&gt;-->
-	<!--	</view>-->
-	<!--	&lt;!&ndash;	未成为众包推广者结束开始&ndash;&gt;-->
 	<!--关注公众号活动弹框-->
 	<view catchtap="hide" class="detail_mask animated {{showDetailWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{showDetailMask}}">
 		<view catchtap="close" class="detail_wrapper animated {{showDetailWrapper ? 'zoomInOther' : 'zoomOutOther'}}">

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="35px" height="23px" viewBox="0 0 35 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>我的etc</title>
+    <defs>
+        <linearGradient x1="-14.8592845%" y1="81.3037103%" x2="69.6710606%" y2="33.7852905%" id="linearGradient-1">
+            <stop stop-color="#14AC69" offset="0%"></stop>
+            <stop stop-color="#84D157" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0" y="0" width="31.5853659" height="23" rx="2.7"></rect>
+        <rect id="path-4" x="4.51219512" y="7.96153846" width="17.1463415" height="7.07692308" rx="1.8"></rect>
+        <filter x="-40.8%" y="-70.7%" width="181.7%" height="297.8%" filterUnits="objectBoundingBox" id="filter-5">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.282861439   0 0 0 0 0.37780231   0 0 0 0 0.262057159  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="2.84217094e-12%" y1="0%" x2="100%" y2="-1.42108547e-12%" id="linearGradient-6">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="注册流程" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2.2" transform="translate(-43.000000, -205.000000)">
+            <g id="编组-6" transform="translate(18.000000, 185.000000)">
+                <g id="我的etc" transform="translate(25.000000, 20.000000)">
+                    <rect id="矩形备份" fill="#FFC300" opacity="0.2" x="4.31707317" y="0.884615385" width="30.6829268" height="21.2307692" rx="2.7"></rect>
+                    <g id="椭圆形">
+                        <mask id="mask-3" fill="white">
+                            <use xlink:href="#path-2"></use>
+                        </mask>
+                        <use id="蒙版" fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+                        <ellipse fill="#FFFFFF" opacity="0.1" mask="url(#mask-3)" cx="26.6219512" cy="20.7884615" rx="5.86585366" ry="5.75"></ellipse>
+                    </g>
+                    <text id="ETC" font-family="ArialRoundedMTBold, Arial Rounded MT Bold" font-size="4.5" font-weight="normal" fill="#FFFFFF">
+                        <tspan x="4.51219512" y="5.72649573">ETC</tspan>
+                    </text>
+                    <g id="矩形" opacity="0.248604911">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-5)" xlink:href="#path-4"></use>
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-4"></use>
+                    </g>
+                    <path d="M21.7298311,10.597561 L27.0018762,10.597561 C27.5002795,10.597561 27.9043152,11.0015967 27.9043152,11.5 C27.9043152,11.9984033 27.5002795,12.402439 27.0018762,12.402439 L21.7298311,12.402439 C21.2314278,12.402439 20.8273921,11.9984033 20.8273921,11.5 C20.8273921,11.0015967 21.2314278,10.597561 21.7298311,10.597561 Z" id="矩形备份-12" fill="url(#linearGradient-6)" transform="translate(24.365854, 11.500000) rotate(-270.000000) translate(-24.365854, -11.500000) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

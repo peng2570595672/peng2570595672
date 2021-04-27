@@ -1,0 +1,36 @@
+<view class="page">
+	<view class="content">
+		<view class="content-item">
+			<view class="title">{{details.fullName}}</view>
+			<view class="instructions">满{{details.minUseAmount ? details.minUseAmount/100 : 0}}元使用</view>
+			<view>还剩4天到期</view>
+			<view>有效期至：{{details.expireEndDate}}</view>
+		</view>
+		<view class="line"></view>
+		<view class="item first">
+			<view class="left">适用业务范围</view>
+			<view class="right">{{details.title}}</view>
+		</view>
+		<view class="item two">
+			<view class="left">{{details.couponType === 1 ? '面额' : '折扣'}}</view>
+			<view class="right">
+				{{details.couponType === 1 ? details.faceAmount/100 : details.discountValue}}
+				{{details.couponType === 1 ? '元' : '折'}}</view>
+		</view>
+		<view class="line"></view>
+		<view class="item three">
+			<view class="left">使用时段</view>
+			<view class="right">
+				<view wx:for="{{details.couponUseCheckList}}" wx:key="index">
+					{{item.weekDay}}<text decode="true">&nbsp;&nbsp;</text>{{item.startDate}}至{{item.endDate}}
+				</view>
+			</view>
+		</view>
+		<view class="line"></view>
+		<view class="item four">
+			<view class="left">使用说明</view>
+			<view class="right iconfont"></view>
+		</view>
+		<view class="instructions">{{details.ruleDesc}}</view>
+	</view>
+</view>

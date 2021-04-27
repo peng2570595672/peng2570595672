@@ -1,0 +1,36 @@
+<view class="content">
+	<view class="list-vehicle">
+		<view class="label">当前车牌：</view>
+		<!--tab切换车牌列表开始-->
+		<scroll-view class="list-title" scroll-x='true' scroll-into-view="{{toview}}" scroll-with-animation="true">
+			<view class="list-title-child weight {{tabIndex == index ?'tab-index':''}}" id="index{{index}}" wx:for="{{vehicleList}}" wx:key="index" catchtap="onClickTab" data-index="{{index}}">
+				<view class="vehPlates-name">{{item}}</view>
+			</view>
+		</scroll-view>
+	</view>
+	<view class="service">
+		<view class="service-detail">
+			<view class="left">
+				<view>权益包名称长又长</view>
+				<view>2021-04-19 08:45</view>
+			</view>
+			<view class="right">
+				<view>¥80.0</view>
+				<view class="status">已生效</view>
+			</view>
+		</view>
+		<view class="list-service">
+			<view class="item" wx:for="{{list}}" wx:key="index">
+				<view class="item-content">
+					<view class="img">
+						<image src="/pages/personal_center/assets/green_traffic.svg"></image>
+					</view>
+					<view class="item-name">20元通行券</view>
+					<view class="item-symbol">x</view>
+					<view class="num">2</view>
+				</view>
+			</view>
+		</view>
+		<view class="service-tips">权益生效后可在领券中心领取权益券</view>
+	</view>
+</view>
