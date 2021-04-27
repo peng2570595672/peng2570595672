@@ -674,7 +674,7 @@ function getStatus(orderInfo) {
 			2: orderInfo.contractStatus !== 1 ? 2 : orderInfo.obuStatus === 1 ? 9 : 6,
 			3: 4,// 查看进度 预审核
 		};
-		status = statusObj[orderInfo.auditStatus] ? orderInfo.auditStatus : 8;
+		status = statusObj[orderInfo.auditStatus] ? statusObj[orderInfo.auditStatus] : 8;
 	} else {
 		if (orderInfo.shopProductId === 0) {
 			status = 1;// 办理中 未选套餐 || 待支付
