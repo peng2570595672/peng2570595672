@@ -19,7 +19,7 @@
         </view>
         <!--上传身份证正面结束-->
         <!--上传身份证背面开始-->
-        <view class="photo" data-type="1" catchtap="selectionPic">
+        <view class="photo" data-type="2" catchtap="selectionPic">
             <view class="upload">
                 <view class="img-box" wx:if="{{backStatus !== 4}}">
                     <image class="ico" wx:if="{{backStatus === 1}}" src="/pages/default/assets/camera.svg"></image>

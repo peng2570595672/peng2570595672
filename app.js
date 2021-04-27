@@ -1,5 +1,5 @@
 ﻿// 是否为测试 TODO
-const IS_TEST = false;
+const IS_TEST = true;
 const util = require('./utils/util.js');
 // 数据统计
 let mta = require('./libs/mta_analysis.js');
@@ -7,8 +7,8 @@ App({
 	globalData: {
 		host: IS_TEST ? 'https://etctest.cyzl.com/etc2-client' : 'https://etc.cyzl.com', // 接口主机地址 正式 etc.cyzl.com/ 测试 etctest.cyzl.com/
 		test: IS_TEST, // 是否为测试
-		uploadOcrUrl: IS_TEST ? 'https://etctest.cyzl.com/file-service/file/upload-ocr' : 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址
-		// uploadOcrUrl: 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址
+		// uploadOcrUrl: IS_TEST ? 'https://etctest.cyzl.com/file-service/file/upload-ocr' : 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址
+		uploadOcrUrl: 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址
 		uploadUrl: 'https://file.cyzl.com/file/upload', // 上传图片无需审核地址
 		plamKey: '123456', // 签名用到的key --- 二发
 		mapKey: '2PEBZ-EJKKX-V624T-Z4MH6-LVHUS-D6BNM', // 腾讯地图所使用key

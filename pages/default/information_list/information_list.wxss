@@ -50,8 +50,8 @@
   margin-left: 16rpx;
 }
 .information-list .list-item .left.error::after {
-  content: '\e63f';
-  font-size: 34rpx;
+  content: '\e66a';
+  font-size: 37rpx;
   color: #f7b500;
   margin-left: 16rpx;
 }

@@ -53,7 +53,7 @@
                             <image src="/pages/default/assets/ccb.svg" mode="widthFix"></image>
                         </view>
                     </view>
-                    <view class="pay-tips" wx:if="{{item.pledgePrice}}">付费产品支付成功且审核通过后，默认已同意服务即时生效，不作申请退款。</view>
+                    <view class="pay-tips" wx:if="{{item.pledgePrice}}">付费产品支付成功且审核通过后，默认你已同意接受服务，不作申请退款。</view>
                 </view>
             </swiper-item>
         </swiper>
