@@ -128,9 +128,20 @@ page
 					left  auto
 					right -20rpx
 				.left
+					display flex
+					justify-content center
+					align-items center
 					height 80rpx
 					width 80rpx
+					background #2FB565
+					border-radius 50%
 					margin-left 48rpx
+					&.overdue
+						background #8E8E8E
+					&::before
+						content '\e66c'
+						color #fff
+						font-size 77rpx
 				.middle
 					display flex
 					flex 1
