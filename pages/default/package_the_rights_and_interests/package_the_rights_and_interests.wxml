@@ -77,8 +77,8 @@
     <!--下一步开始-->
     <view class="next">
         <button class="btn" catchtap="next"
-                wx:if="{{listOfPackages[choiceIndex].pledgePrice || (activeEquitiesIndex !== -1 && rightsAndInterestsList[activeEquitiesIndex].payMoney)}}">
-            确认支付{{activeEquitiesIndex !== -1 ? tools.parseNum((listOfPackages[choiceIndex].pledgePrice + rightsAndInterestsList[activeEquitiesIndex].payMoney)/100) : tools.parseNum(listOfPackages[choiceIndex].pledgePrice/100)}}元
+                wx:if="{{choiceIndex !== -1 && listOfPackages[activeIndex].pledgePrice || (activeEquitiesIndex !== -1 && rightsAndInterestsList[activeEquitiesIndex].payMoney)}}">
+            确认支付{{activeEquitiesIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + rightsAndInterestsList[activeEquitiesIndex].payMoney)/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}元
         </button>
         <button class="btn {{choiceIndex === -1 ? 'unavailable' : ''}}" catchtap="next" wx:else>下一步</button>
     </view>

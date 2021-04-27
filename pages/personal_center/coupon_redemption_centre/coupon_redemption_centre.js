@@ -26,7 +26,7 @@ Page({
 		}
 		this.setData({
 			vehicleList: app.globalData.rightsAndInterestsVehicleList,
-			vehicle: app.globalData.rightsAndInterestsVehicleList[0]
+			vehicle: app.globalData.rightsAndInterestsVehicleList[1]
 		});
 		this.getCouponList();
 	},
@@ -69,7 +69,6 @@ Page({
 					item.status = util.isTimeQuantum(item.coupons[0].validityStartTime.substring(0, 16), item.coupons[0].validityEndTime.substring(0, 16));
 					if (item.status === 1) {
 						this.setData({
-							tabIndex: index,
 							openIndex: index
 						});
 					}
@@ -81,8 +80,7 @@ Page({
 				res.data.splice(0, this.data.openIndex);
 				res.data.push(...arr);
 				this.setData({
-					couponList: res.data,
-					toview: `index${this.data.tabIndex}`
+					couponList: res.data
 				});
 			} else {
 				util.showToastNoIcon(res.message);
@@ -91,20 +89,36 @@ Page({
 			util.hideLoading();
 		});
 	},
-	async currentChange (e) {
-		console.log(e);
+	currentChange (e) {
+		this.setData({
+			tabIndex: e.detail.current
+		});
+	},
+	onClickTheCoupons (e) {
+		let item = e.currentTarget.dataset.item;
+		if (item.isReceive === 1) {
+			// 已领取
+			util.go(`/pages/personal_center/service_card_voucher/service_card_voucher`);
+			return;
+		}
+		if ((item.isReceive === 0 && item.couponsStatus === 0) || item.isReceive === 1) return;
 	},
 	onClickReceive (e) {
-		let id = e.currentTarget.dataset.id;
+		let item = e.currentTarget.dataset.item;
+		let index = e.currentTarget.dataset.index;
+		if ((item.isReceive === 0 && item.couponsStatus === 0) || item.isReceive === 1) return;
 		util.showLoading('领取中');
 		util.getDataFromServer('consumer/voucher/rights/active-by-couponId', {
-			couponId: id
+			couponId: item.recordId
 		}, () => {
 			util.showToastNoIcon('领取失败！');
 		}, (res) => {
 			if (res.code === 0) {
-				util.showToastNoIcon('领取成功！');
-				this.getCouponList();
+				util.showToastNoIcon(`${item.couponType === 1 ? '已领取至个人中心-优惠券' : '已领取至个人微信-卡包'}`);
+				this.data.couponList[this.data.tabIndex].coupons[index].isReceive = 1;
+				this.setData({
+					couponList: this.data.couponList
+				});
 			} else {
 				util.showToastNoIcon(res.message);
 			}

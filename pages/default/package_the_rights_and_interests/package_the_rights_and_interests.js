@@ -199,9 +199,9 @@ Page({
 			rightsAndInterestsList: [],
 			activeIndex: e.detail.current
 		});
-		if (this.data.activeIndex === this.data.choiceIndex && this.data.listOfPackages[this.data.choiceIndex]?.rightsPackageIds?.length) {
+		if (this.data.listOfPackages[this.data.activeIndex]?.rightsPackageIds?.length) {
 			// 获取权益
-			await this.getList(this.data.listOfPackages[this.data.choiceIndex]);
+			await this.getList(this.data.listOfPackages[this.data.activeIndex]);
 		}
 	},
 	// 点击轮播图

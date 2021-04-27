@@ -47,6 +47,13 @@ page {
   color: #000;
   border-bottom: 6rpx solid #1ba566;
 }
+.collect-paid-up-interest .line {
+  height: 20rpx;
+  background: #fafafa;
+}
+.collect-paid-up-interest .list {
+  padding-top: 24rpx;
+}
 .collect-paid-up-interest .list .list-title {
   width: 100%;
   height: 140rpx;
@@ -97,6 +104,9 @@ page {
   background: #fff;
   border: 1rpx solid #2fb565;
   border-radius: 50%;
+}
+.collect-paid-up-interest .list .list-title .list-title-child > view:nth-child(2) > text.active {
+  background: #2fb565;
 }
 .collect-paid-up-interest .list .list-title .list-title-child > view:nth-child(2)::before,
 .collect-paid-up-interest .list .list-title .list-title-child > view:nth-child(2)::after {

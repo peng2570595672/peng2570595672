@@ -12,6 +12,7 @@
 		</scroll-view>
 	</view>
 	<!--车牌选择结束-->
+    <view class="line"></view>
 	<!--各期权益选择开始-->
 	<view class="list">
 		<!--tab切换列表开始-->
@@ -35,8 +36,8 @@
             <swiper-item wx:for="{{couponList}}" wx:key="index" class="list-title-child"
                          catchtap="onClickSwiper" data-index="{{index}}">
                 <view class="period {{item.status !== 1 ? 'not-receive' : ''}}">{{item.stage}}期</view>
-                <view >
-                    <text></text>
+                <view>
+                    <text class="{{tabIndex === index ? 'active' : ''}}"></text>
                 </view>
                 <view class="status {{item.status === 0 ? 'overdue' : item.status === 1 ? 'can-receive' : ''}}">{{item.status === 0 ? '已过期' : item.status === 1 ? '可领取' : '未开放'}}</view>
             </swiper-item>
@@ -44,19 +45,21 @@
 		<!--tab切换列表结束-->
 		<!--列表开始-->
 		<view class="vouchers-list">
-			<view wx:for="{{couponList[tabIndex].coupons}}" wx:key="index" class="item {{item.couponsStatus === 2 ? 'parking-ticket' : ''}} {{item.couponsStatus === 1 ? 'traffic-ticket' : ''}}">
+			<view wx:for="{{couponList[tabIndex].coupons}}" wx:key="index"
+                  class="item {{item.couponsStatus === 2 ? 'parking-ticket' : ''}} {{item.couponsStatus === 1 ? 'traffic-ticket' : ''}}" catchtap="onClickTheCoupons" data-item="{{item}}">
 				<view class="left {{item.isReceive === 0 && item.couponsStatus === 0 ? 'overdue' : ''}} iconfont"></view>
 				<view class="middle">
 					<view class="coupon-name">{{item.couponName}}</view>
 					<view class="vouchers-price">满{{item.consumptionThreshold / 100}}减{{item.denomination / 100}}</view>
 				</view>
 				<!-- couponType; // 劵类型  1-通行劵 2-停车卷-->
-				<view class="btn {{item.isReceive !== 1 ? 'receive' : ''}} {{item.couponsStatus !== 1 || item.isReceive === 1 ? 'not-click' : ''}}"
-				      catchtap="onClickReceive" data-id="{{item.recordId}}">
+				<view class="btn {{item.isReceive === 0 && item.couponsStatus ? 'not-click' : ''}}"
+				      catchtap="onClickReceive" data-item="{{item}}" data-index="{{index}}" wx:if="{{item.couponsStatus !== 2}}">
 					{{item.isReceive === 0 && item.couponsStatus === 0 ? '已过期' : ''}}
 					{{item.isReceive === 0 && item.couponsStatus === 1 ? '领取' : ''}}
-					{{item.isReceive === 1 ? item.couponType === 1 ? '已领取' : '已存入微信卡包' : ''}}
-					{{item.couponsStatus === 2 ? '待领取' : ''}}
+					{{item.isReceive === 1 ? '已领取' : ''}}
+<!--					{{item.isReceive === 1 ? item.couponType === 1 ? '已领取' : '已存入微信卡包' : ''}}-->
+<!--					{{item.couponsStatus === 2 ? '待领取' : ''}}-->
 				</view>
 			</view>
 		</view>

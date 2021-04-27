@@ -19,9 +19,9 @@ page
 		align-items center
 		.label
 			width 190rpx
-			font-size 28rpx;
-			font-family: PingFangSC-Regular, PingFang SC;
-			font-weight: 400;
+			font-size 28rpx
+			font-family PingFangSC-Regular, PingFang SC
+			font-weight 400
 			color rgba(0,0,0,0.5)
 		//tab切换
 		.vehicle-list
@@ -39,12 +39,16 @@ page
 				margin-right 26rpx
 			.tab-vehicle-index
 				font-size 34rpx
-				font-family: PingFangSC-Medium, PingFang SC;
-				font-weight: 500;
-				color: #000000;
-				border-bottom 6rpx solid #1BA566;
+				font-family PingFangSC-Medium, PingFang SC
+				font-weight 500
+				color #000000
+				border-bottom 6rpx solid #1BA566
+	.line
+		height 20rpx
+		background #FAFAFA
 	// 月份选择
 	.list
+		padding-top 24rpx
 		//tab切换
 		.list-title
 			width 100%
@@ -55,7 +59,7 @@ page
 				display inline-block
 				font-size 36rpx
 				text-align center
-				color rgba(47,181,101,0.3);
+				color rgba(47,181,101,0.3)
 				line-height 50rpx
 				width 160rpx
 				.period
@@ -88,6 +92,8 @@ page
 						background #FFFFFF
 						border 1rpx solid #2FB565
 						border-radius 50%
+						&.active
+							background #2FB565
 					&::before,
 					&::after
 						content ''

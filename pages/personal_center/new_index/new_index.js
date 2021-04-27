@@ -90,7 +90,7 @@ Page({
 	},
 	getightsPackageBuyRecords () {
 		util.showLoading();
-		util.getDataFromServer('consumer/order/rightsPackageBuyRecords ', {
+		util.getDataFromServer('consumer/order/rightsPackageBuyRecords', {
 			platformId: app.globalData.platformId
 		}, () => {
 			util.showToastNoIcon('获取权益列表失败！');
