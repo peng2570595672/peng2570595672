@@ -14,7 +14,7 @@ Page({
 		currentTime: undefined,// 系统当前时间
 		openIndex: 0// 已开放对应下标
 	},
-	onLoad () {
+	async onLoad () {
 		if (app.globalData.systemTime) {
 			this.setData({
 				currentTime: app.globalData.systemTime * 1000
@@ -26,9 +26,9 @@ Page({
 		}
 		this.setData({
 			vehicleList: app.globalData.rightsAndInterestsVehicleList,
-			vehicle: app.globalData.rightsAndInterestsVehicleList[1]
+			vehicle: app.globalData.rightsAndInterestsVehicleList[0]
 		});
-		this.getCouponList();
+		await this.getCouponList();
 	},
 	onShow () {
 	},
@@ -49,45 +49,41 @@ Page({
 			dialogShow: false
 		});
 	},
-	getCouponList () {
+	async getCouponList () {
 		util.showLoading();
-		util.getDataFromServer('consumer/voucher/rights/get-coupon-list', {
+		const result = await util.getDataFromServersV2('consumer/voucher/rights/get-coupon-list', {
 			orderId: this.data.vehicle.orderId
-		}, () => {
-			util.showToastNoIcon('获取权益列表失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				const compare = (key) => {
-					return (obj1, obj2) => {
-						let value1 = obj1[key];
-						let value2 = obj2[key];
-						return value1 - value2;
-					};
-				};
-				res.data.sort(compare('stage'));
-				res.data.map((item, index) => {
-					item.status = util.isTimeQuantum(item.coupons[0].validityStartTime.substring(0, 16), item.coupons[0].validityEndTime.substring(0, 16));
-					if (item.status === 1) {
-						this.setData({
-							openIndex: index
-						});
-					}
-					item.coupons.map(it => {
-						it.couponsStatus = item.status;
-					});
-				});
-				const arr = res.data.slice(0, this.data.openIndex);
-				res.data.splice(0, this.data.openIndex);
-				res.data.push(...arr);
-				this.setData({
-					couponList: res.data
-				});
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
 		});
+		if (!result) return;
+		if (result.code === 0) {
+			const compare = (key) => {
+				return (obj1, obj2) => {
+					let value1 = obj1[key];
+					let value2 = obj2[key];
+					return value1 - value2;
+				};
+			};
+			result.data.sort(compare('stage'));
+			result.data.map((item, index) => {
+				item.status = util.isTimeQuantum(item.coupons[0].validityStartTime.substring(0, 16), item.coupons[0].validityEndTime.substring(0, 16));
+				if (item.status === 1) {
+					this.setData({
+						openIndex: index
+					});
+				}
+				item.coupons.map(it => {
+					it.couponsStatus = item.status;
+				});
+			});
+			const arr = result.data.slice(0, this.data.openIndex);
+			result.data.splice(0, this.data.openIndex);
+			result.data.push(...arr);
+			this.setData({
+				couponList: result.data
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	currentChange (e) {
 		this.setData({
@@ -101,30 +97,27 @@ Page({
 			util.go(`/pages/personal_center/service_card_voucher/service_card_voucher`);
 			return;
 		}
-		if ((item.isReceive === 0 && item.couponsStatus === 0) || item.isReceive === 1) return;
+		if (item.couponsStatus === 2 || (item.isReceive === 0 && item.couponsStatus === 1)) {
+			// 待领取 可领取 -- 去券详情
+		}
 	},
-	onClickReceive (e) {
+	async onClickReceive (e) {
 		let item = e.currentTarget.dataset.item;
 		let index = e.currentTarget.dataset.index;
 		if ((item.isReceive === 0 && item.couponsStatus === 0) || item.isReceive === 1) return;
-		util.showLoading('领取中');
-		util.getDataFromServer('consumer/voucher/rights/active-by-couponId', {
+		const result = await util.getDataFromServersV2('consumer/voucher/rights/active-by-couponId', {
 			couponId: item.recordId
-		}, () => {
-			util.showToastNoIcon('领取失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				util.showToastNoIcon(`${item.couponType === 1 ? '已领取至个人中心-优惠券' : '已领取至个人微信-卡包'}`);
-				this.data.couponList[this.data.tabIndex].coupons[index].isReceive = 1;
-				this.setData({
-					couponList: this.data.couponList
-				});
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
 		});
+		if (!result) return;
+		if (result.code === 0) {
+			util.showToastNoIcon(`${item.couponType === 1 ? '已领取至个人中心-优惠券' : '已领取至个人微信-卡包'}`);
+			this.data.couponList[this.data.tabIndex].coupons[index].isReceive = 1;
+			this.setData({
+				couponList: this.data.couponList
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	onClickVehicle () {
 		if (this.data.vehicleList.length > 1) {
