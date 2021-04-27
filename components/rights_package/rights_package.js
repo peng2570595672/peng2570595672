@@ -17,7 +17,6 @@ Component({
 		// 显示或者隐藏
 		switchDisplay: async function (isShow) {
 			if (isShow) {
-				// console.log(this.data.details);
 				if (this.data.viewObjId !== this.data.details.id) {
 					this.setData({
 						viewObjId: this.data.details.id,

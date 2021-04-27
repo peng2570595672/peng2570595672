@@ -1,5 +1,5 @@
 ﻿// 是否为测试 TODO
-const IS_TEST = true;
+const IS_TEST = false;
 const util = require('./utils/util.js');
 // 数据统计
 let mta = require('./libs/mta_analysis.js');
@@ -336,16 +336,8 @@ App({
 								state: 'succeed'
 							}
 						});
-					} else if (this.globalData.belongToPlatform === this.globalData.platformId) {
-						// 本平台签约
-						util.go('/pages/default/signed_successfully/signed_successfully');
 					} else {
-						// 其他平台签约 :业务员端/h5
-						if (this.globalData.isSalesmanOrder) {
-							util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
-						} else {
-							util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
-						}
+						util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
 					}
 				} else {
 					util.showToastNoIcon('未签约成功！');

@@ -256,7 +256,7 @@ Page({
 		});
 	},
 	// 获取订单信息
-	getOrderInfo: async function () {
+	async getOrderInfo () {
 		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
 			dataType: '6'
@@ -382,7 +382,7 @@ Page({
 			});
 		}
 	},
-	confirmHandle: async function () {
+	async confirmHandle () {
 		// 比对车牌颜色和车牌位数是否一致   新老数据做对比,判断是否进行秒审
 		// 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
 		let face = this.data.drivingLicenseFace.ocrObject;

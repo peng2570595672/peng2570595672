@@ -1,0 +1,14 @@
+<view class="signed_successfully">
+    <!--	成功提示开始-->
+    <image src="/pages/default/assets/audit_{{auditStatus === 2 ? 'success' : auditStatus === 9 ? 'failure' : 'waiting' }}.png"/>
+    <view class="signed_title">{{auditStatus === 2 ? '审核通过' : auditStatus === 9 ? '不可办理' : '客服审核中' }}</view>
+    <view wx:if="{{auditStatus === 0}}" class="tips">客服审核完成后会以短信形式发送审核结果, 您也可回到首页一我的车辆随时查看审核进度</view>
+    <view wx:if="{{auditStatus === 9}}" class="tips">您的车辆<text>{{orderInfo.vehPlates}}</text>已在其他机构办理ETC, <text>\n</text>需回原办理渠道注销后方可重新申请</view>
+    <!--	成功提示结束-->
+    <view class="fill"></view>
+    <!--	操作部分开始-->
+    <view class="btn" catchtap="next">{{auditStatus === 2 ? '立即签约' : auditStatus === 9 ? '取消办理' : '返回首页' }}</view>
+    <view class="service"><text catchtap="onClickOnlineService">在线客服</text></view>
+    <!--	操作部分结束-->
+    <signing-prompt id="notSigningPrompt"></signing-prompt>
+</view>

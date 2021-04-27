@@ -70,7 +70,7 @@ Page({
 		showServiceIndex: -1,
 		rightsPackageDetails: undefined
 	},
-	onLoad: async function (options) {
+	async onLoad (options) {
 		if (!options.type) {
 			// 已选择套餐 && 未支付
 			await this.getOrderInfo();
@@ -84,7 +84,7 @@ Page({
 	},
 	onShow () {
 	},
-	getSwiperHeight: async function () {
+	async getSwiperHeight () {
 		let boxHeight = [];
 		const that = this;
 		that.data.listOfPackages.map((item, index) => {
@@ -104,7 +104,7 @@ Page({
 			await that.getList(that.data.listOfPackages[0]);
 		}
 	},
-	getProductOrderInfo: async function () {
+	async getProductOrderInfo () {
 		const result = await util.getDataFromServersV2('consumer/order/get-product-by-order-id', {
 			orderId: app.globalData.orderInfo.orderId,
 			needRightsPackageIds: true
@@ -119,7 +119,7 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
-	getOrderInfo: async function () {
+	async getOrderInfo () {
 		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
 			dataType: '13'
@@ -170,7 +170,7 @@ Page({
 		this.data.viewRightsService.switchDisplay(true);
 	},
 	// 获取权益列表
-	getList: async function (obj) {
+	async getList (obj) {
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
 			packageIds: obj.rightsPackageIds
 		});
@@ -200,7 +200,7 @@ Page({
 		});
 	},
 	// 点击轮播图
-	onClickSwiper: async function (e) {
+	async onClickSwiper (e) {
 		let index = e.currentTarget.dataset['index'];
 		this.setData({
 			rightsAndInterestsList: [],
@@ -211,7 +211,7 @@ Page({
 			await this.getList(this.data.listOfPackages[index]);
 		}
 	},
-	next: async function () {
+	async next () {
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			shopId: this.data.orderInfo ? this.data.orderInfo.base.shopId : app.globalData.newPackagePageData.shopId, // 商户id
@@ -235,7 +235,7 @@ Page({
 		}
 	},
 	// 支付
-	marginPayment: async function () {
+	async marginPayment () {
 		this.setData({isRequest: true});
 		util.showLoading();
 		let params = {

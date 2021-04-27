@@ -486,11 +486,7 @@ Page({
 		} else {
 			// 2.0 立即签约
 			app.globalData.signAContract = -1;
-			if (obj.orderType === 31) {
-				app.globalData.isSalesmanOrder = true;
-			} else {
-				app.globalData.isSalesmanOrder = false;
-			}
+			app.globalData.isSalesmanOrder = obj.orderType === 31;
 			this.weChatSign(obj);
 		}
 	},
@@ -862,7 +858,7 @@ Page({
 		// util.go(`/pages/default/payment_amount/payment_amount?marginPaymentMoney=${pledgeMoney}&rightsPackagePayMoney=${rightsPackagePayMoney}`);
 	},
 	// 继续办理
-	onClickContinueHandle: async function () {
+	async onClickContinueHandle () {
 		// 统计点击事件
 		mta.Event.stat('002',{});
 		if (this.data.orderInfo.isNewTrucks === 1) {

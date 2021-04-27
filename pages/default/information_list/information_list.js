@@ -28,7 +28,7 @@ Page({
 			});
 		}
 	},
-	onShow: async function () {
+	async onShow () {
 		const pages = getCurrentPages();
 		const currPage = pages[pages.length - 1];
 		// 修改资料不需要查询订单详情
@@ -56,7 +56,7 @@ Page({
 			await this.getProductOrderInfo();
 		}
 	},
-	getProductOrderInfo: async function () {
+	async getProductOrderInfo () {
 		const result = await util.getDataFromServersV2('consumer/order/get-product-by-order-id', {
 			orderId: app.globalData.orderInfo.orderId
 		});
@@ -70,7 +70,7 @@ Page({
 		}
 	},
 	// 查询车主服务签约
-	queryContract: async function () {
+	async queryContract () {
 		const result = await util.getDataFromServersV2('consumer/order/query-contract', {
 			orderId: app.globalData.orderInfo.orderId
 		});
@@ -91,7 +91,7 @@ Page({
 		}
 	},
 	// 加载订单详情
-	getETCDetail: async function () {
+	async getETCDetail () {
 		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
 			dataType: '16',
@@ -168,7 +168,7 @@ Page({
 		util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}`);
 	},
 	// 微信签约
-	onclickSign: async function () {
+	async onclickSign () {
 		if (!this.data.available) return;
 		if (this.data.isRequest) {
 			return;

@@ -21,11 +21,11 @@ Page({
 			ocrObject: {}
 		}// 身份证反面
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		this.setData({
 			vehPlates: options.vehPlates
 		});
-		this.getOrderInfo();
+		await this.getOrderInfo();
 	},
 	onShow () {
 		// 身份证正面
@@ -67,7 +67,7 @@ Page({
 		}
 	},
 	// 获取订单信息
-	getOrderInfo: async function () {
+	async getOrderInfo () {
 		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
 			dataType: '4'
@@ -135,7 +135,7 @@ Page({
 		return true;
 	},
 	// 下一步
-	next: async function () {
+	async next () {
 		if (!this.validateData(true)) {
 			return;
 		}

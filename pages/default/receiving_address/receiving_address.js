@@ -106,7 +106,7 @@ Page({
 		});
 	},
 	// 下一步
-	next: async function () {
+	async next () {
 		this.setData({
 			available: this.validateAvailable(true)
 		});
@@ -270,7 +270,7 @@ Page({
 		}
 	},
 	// 根据套餐id获取套餐信息
-	getProduct: async function () {
+	async getProduct () {
 		const result = await util.getDataFromServersV2('consumer/system/get-product-by-id', {
 			shopProductId: app.globalData.scanCodeToHandle.productId
 		});
@@ -282,7 +282,7 @@ Page({
 		}
 	},
 	// 付费提交套餐信息
-	submitProduct: async function () {
+	async submitProduct () {
 		let locationInfo = wx.getStorageSync('location-info');
 		let regionCode = [0];
 		if (locationInfo) {
@@ -552,7 +552,7 @@ Page({
 		}, 1000);
 	},
 	// 发送短信验证码
-	sendVerifyCode: async function () {
+	async sendVerifyCode () {
 		if (this.data.isGetIdentifyingCoding) return;
 		// 如果在倒计时，直接不处理
 		if (!this.data.formData.telNumber) {
