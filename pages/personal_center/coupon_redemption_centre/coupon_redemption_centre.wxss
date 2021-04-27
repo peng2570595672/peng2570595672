@@ -144,9 +144,22 @@ page {
   right: -20rpx;
 }
 .collect-paid-up-interest .list .vouchers-list .item .left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 80rpx;
   width: 80rpx;
+  background: #2fb565;
+  border-radius: 50%;
   margin-left: 48rpx;
+}
+.collect-paid-up-interest .list .vouchers-list .item .left.overdue {
+  background: #8e8e8e;
+}
+.collect-paid-up-interest .list .vouchers-list .item .left::before {
+  content: '\e66c';
+  color: #fff;
+  font-size: 77rpx;
 }
 .collect-paid-up-interest .list .vouchers-list .item .middle {
   display: flex;

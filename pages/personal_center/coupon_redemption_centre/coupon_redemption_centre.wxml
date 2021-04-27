@@ -28,7 +28,7 @@
 		<!--列表开始-->
 		<view class="vouchers-list">
 			<view wx:for="{{couponList[tabIndex].coupons}}" wx:key="index" class="item {{item.couponsStatus === 2 ? 'parking-ticket' : ''}} {{item.couponsStatus === 1 ? 'traffic-ticket' : ''}}">
-				<image class="left {{ item.couponsStatus === 0 ? 'overdue' : ''}}"></image>
+				<view class="left {{item.isReceive === 0 && item.couponsStatus === 0 ? 'overdue' : ''}} iconfont"></view>
 				<view class="middle">
 					<view class="coupon-name">{{item.couponName}}</view>
 					<view class="vouchers-price">满{{item.consumptionThreshold / 100}}减{{item.denomination / 100}}</view>
