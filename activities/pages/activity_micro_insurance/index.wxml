@@ -12,7 +12,7 @@
 		</view>
 		<view class="prompt">
 			<view>*本活动仅限9座及以下汽车办理</view>
-			<view>活动日期：即日起—2021年1月31日</view>
+<!--			<view>活动日期：即日起—2021年1月31日</view>-->
 		</view>
 		<view class="rules"><text catchtap="rulesWinShow">活动规则</text></view>
 	</view>

@@ -31,7 +31,6 @@ Page({
 		let contentHeight = wx.createSelectorQuery();
 		contentHeight.select('.content-container').boundingClientRect();
 		contentHeight.exec(res => {
-			console.log(res);
 			this.setData({
 				contentHeight: res[0].height,
 				phoneHeight: app.globalData.screenWindowAttribute.screenHeight
@@ -40,7 +39,6 @@ Page({
 		let bottomImgHeight = wx.createSelectorQuery();
 		bottomImgHeight.select('.bottom-img').boundingClientRect();
 		bottomImgHeight.exec(res => {
-			console.log(res);
 			this.setData({
 				bottomImgHeight: res[0].height
 			});
