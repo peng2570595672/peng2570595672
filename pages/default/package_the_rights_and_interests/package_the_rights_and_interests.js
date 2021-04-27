@@ -192,12 +192,17 @@ Page({
 		}
 	},
 	// 轮播图滚动后回调
-	currentChange (e) {
-		console.log(e.detail.current);
+	async currentChange (e) {
 		this.setData({
+			choiceIndex: -1,
+			activeEquitiesIndex: -1,
 			rightsAndInterestsList: [],
 			activeIndex: e.detail.current
 		});
+		if (this.data.activeIndex === this.data.choiceIndex && this.data.listOfPackages[this.data.choiceIndex]?.rightsPackageIds?.length) {
+			// 获取权益
+			await this.getList(this.data.listOfPackages[this.data.choiceIndex]);
+		}
 	},
 	// 点击轮播图
 	async onClickSwiper (e) {
@@ -212,6 +217,7 @@ Page({
 		}
 	},
 	async next () {
+		if (this.data.choiceIndex === -1) return;
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			shopId: this.data.orderInfo ? this.data.orderInfo.base.shopId : app.globalData.newPackagePageData.shopId, // 商户id

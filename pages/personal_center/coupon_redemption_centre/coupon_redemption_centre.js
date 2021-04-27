@@ -77,6 +77,9 @@ Page({
 						it.couponsStatus = item.status;
 					});
 				});
+				const arr = res.data.slice(0, this.data.openIndex);
+				res.data.splice(0, this.data.openIndex);
+				res.data.push(...arr);
 				this.setData({
 					couponList: res.data,
 					toview: `index${this.data.tabIndex}`
@@ -87,6 +90,9 @@ Page({
 		}, app.globalData.userInfo.accessToken, () => {
 			util.hideLoading();
 		});
+	},
+	async currentChange (e) {
+		console.log(e);
 	},
 	onClickReceive (e) {
 		let id = e.currentTarget.dataset.id;
@@ -127,7 +133,10 @@ Page({
 		let index = e.currentTarget.dataset['index'];
 		index = parseInt(index);
 		this.setData({
-			tabIndex: index
+			vehicle: this.data.vehicleList[index],
+			orderId: this.data.vehicleList[index].id,
+			tabVehicleIndex: index
 		});
+		this.getCouponList();
 	}
 });

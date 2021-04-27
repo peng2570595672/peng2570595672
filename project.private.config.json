@@ -89,7 +89,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=790256267037380608",
+          "query": "orderId=826750118039392256",
           "scene": null
         },
         {
@@ -257,14 +257,14 @@
           "scene": null
         },
         {
-          "name": "characteristic_service",
-          "pathName": "pages/personal_center/characteristic_service/characteristic_service",
+          "name": "pages/personal_center/new_index/new_index",
+          "pathName": "pages/personal_center/new_index/new_index",
           "query": "orderId=823587582322413568",
           "scene": null
         },
         {
-          "name": "card_voucher_details",
-          "pathName": "pages/personal_center/card_voucher_details/card_voucher_details",
+          "name": "activities/pages/activity_micro_insurance/index",
+          "pathName": "activities/pages/activity_micro_insurance/index",
           "query": "orderId=823587582322413568",
           "scene": null
         },

@@ -53,7 +53,7 @@
                             <image src="/pages/default/assets/ccb.svg" mode="widthFix"></image>
                         </view>
                     </view>
-                    <view class="pay-tips" wx:if="{{item.pledgePrice}}">付费产品支付成功且审核通过后，默认你已同意接受服务，不作申请退款。</view>
+                    <view class="pay-tips" wx:if="{{item.pledgePrice}}">注：付费产品支付成功且审核通过后，默认你已同意接受服务，不作申请退款。</view>
                 </view>
             </swiper-item>
         </swiper>
@@ -80,7 +80,7 @@
                 wx:if="{{listOfPackages[choiceIndex].pledgePrice || (activeEquitiesIndex !== -1 && rightsAndInterestsList[activeEquitiesIndex].payMoney)}}">
             确认支付{{activeEquitiesIndex !== -1 ? tools.parseNum((listOfPackages[choiceIndex].pledgePrice + rightsAndInterestsList[activeEquitiesIndex].payMoney)/100) : tools.parseNum(listOfPackages[choiceIndex].pledgePrice/100)}}元
         </button>
-        <button class="btn" catchtap="next" wx:else>下一步</button>
+        <button class="btn {{choiceIndex === -1 ? 'unavailable' : ''}}" catchtap="next" wx:else>下一步</button>
     </view>
     <!--下一步结束-->
     <!--查看权益详情开始-->
