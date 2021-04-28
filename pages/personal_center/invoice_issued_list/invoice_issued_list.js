@@ -26,15 +26,39 @@ Page({
 			util.hideLoading();
 		});
 	},
-	checkIsCanApply () {
+	checkIsCanApply (info) {
 		util.showLoading();
 		util.getDataFromServer('consumer/order/after-sale-record/isCanApply', {
+			shopProductId: info.shopProductId
 		}, () => {
 			util.showToastNoIcon('获取权益列表失败！');
 		}, (res) => {
 			if (res.code === 0) {
-				if (res.data) {
+				let origin = 1; // 0 去开票， 1已开票
+				// 开票状态0-待申请 1申请成功、2-申请失败
+				let orderId = info.orderId;
+				if (info.invoiceStatus !== 1) {
+					origin = 0;
+					info = {};
+					info.orderId = orderId;
 				}
+				let infoStr = JSON.stringify(info);
+				util.go(`/pages/personal_center/invoice_issued_detail/invoice_issued_detail?origin=${origin}&infoStr=${infoStr}`);
+			} else if (res.code === 1) {
+				util.alert({
+					title: '发票客服',
+					content: '当前订单暂不支持在线开具电子发票，请拨打客服热线4008008787',
+					showCancel: true,
+					cancelText: '取消',
+					confirmText: '拨打热线',
+					cancelColor: '#000000',
+					confirmColor: '#576B95',
+					confirm: () => {
+						wx.makePhoneCall({
+							phoneNumber: '4008008787'
+						});
+					}
+				});
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -44,30 +68,7 @@ Page({
 	},
 	onClickHandle (e) {
 		let index = e.currentTarget.dataset.index;
-		let origin = 1; // 0 去开票， 1已开票
 		let info = this.data.currentList[index];
-		let orderId = info.orderId;
-		// util.alert({
-		// 	title: '发票客服',
-		// 	content: '当前订单暂不支持在线开具电子发票，请拨打客服热线4008008787',
-		// 	showCancel: true,
-		// 	cancelText: '取消',
-		// 	confirmText: '拨打热线',
-		// 	cancelColor: '#000000',
-		// 	confirmColor: '#576B95',
-		// 	confirm: () => {
-		// 		wx.makePhoneCall({
-		// 			phoneNumber: '4008008787'
-		// 		});
-		// 	}
-		// });
-		// 开票状态0-待申请 1申请成功、2-申请失败
-		if (info.invoiceStatus !== 1) {
-			origin = 0;
-			info = {};
-			info.orderId = orderId;
-		}
-		let infoStr = JSON.stringify(info);
-		util.go(`/pages/personal_center/invoice_issued_detail/invoice_issued_detail?origin=${origin}&infoStr=${infoStr}`);
+		this.checkIsCanApply(info);
 	}
 });
