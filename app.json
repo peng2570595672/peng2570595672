@@ -154,6 +154,9 @@
       ]
     }
   ],
+  "functionalPages":{
+    "independent": true
+  },
   "sitemapLocation": "sitemap.json",
   "permission": {
     "scope.userLocation": {
