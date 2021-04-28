@@ -1,0 +1,33 @@
+<view class="service_card_voucher_details">
+	<!--卡券开始-->
+	<view class="ticket-card">
+		<!--卡券顶部开始-->
+		<view class="ticket-top">
+			<view class="card-voucher-name">{{details.couponName}}</view>
+			<view class="card-voucher-requirements">满{{details.consumptionThreshold ? details.consumptionThreshold/100 : 0}}元使用</view>
+			<view class="period-of-validity" wx:if="{{details.status !== 0}}">有效期至：{{details.validityEndTime}}</view>
+		</view>
+		<!--卡券顶部结束-->
+		<!--卡券底部开始-->
+		<view class="ticket-bottom">
+			<view class="ticket-bottom-item">
+				<view class="entry">
+					<view>适用业务范围</view>
+					<view>{{details.couponType === 1 ? '通行劵' : '停车卷'}}</view>
+				</view>
+				<view class="entry" wx:if="{{details.vehPlates}}">
+					<view>适用车牌</view>
+					<view>{{details.vehPlates}}</view>
+				</view>
+				<view class="entry">
+					<view>面额</view>
+					<view>
+						{{details.denomination/100}}元
+					</view>
+				</view>
+			</view>
+		<!--卡券底部结束-->
+	    </view>
+	</view>
+	<!--卡券结束-->
+</view>

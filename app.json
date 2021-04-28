@@ -52,6 +52,7 @@
         "search_help/search_help",
         "service_card_voucher/service_card_voucher",
         "service_card_voucher_details/service_card_voucher_details",
+        "coupon_details/coupon_details",
         "crowdsourcing_user/crowdsourcing_user",
         "my_crowdsourcing_gains/my_crowdsourcing_gains",
         "basic_rights_and_interests/basic_rights_and_interests",

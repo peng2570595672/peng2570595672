@@ -1,0 +1,102 @@
+.service_card_voucher_details {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 42rpx 30rpx 20rpx;
+  background: #50dc92;
+}
+.service_card_voucher_details .ticket-card {
+  background: #fff;
+  padding: 42rpx 28rpx 0rpx;
+  margin-bottom: 20rpx;
+  border-radius: 20rpx;
+}
+.service_card_voucher_details .ticket-card .ticket-top {
+  position: relative;
+  text-align: center;
+  color: #66666d;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  font-weight: 500;
+}
+.service_card_voucher_details .ticket-card .ticket-top .card-voucher-name {
+  font-size: 48rpx;
+  line-height: 64rpx;
+  color: #33333d;
+  margin: 50rpx 0 10rpx;
+}
+.service_card_voucher_details .ticket-card .ticket-top .period-of-validity {
+  font-weight: 400;
+  opacity: 0.85;
+  margin: 40rpx 0;
+}
+.service_card_voucher_details .ticket-card .ticket-top .ticket-status {
+  position: absolute;
+  right: 0rpx;
+  top: 20rpx;
+  color: #99999d;
+}
+.service_card_voucher_details .ticket-card .ticket-top .ticket-status::after {
+  text-align: right;
+  font-size: 140rpx;
+}
+.service_card_voucher_details .ticket-card .ticket-top .ticket-status-used::after {
+  content: '\e653';
+}
+.service_card_voucher_details .ticket-card .ticket-top .ticket-status-overdue::after {
+  content: '\e654';
+}
+.service_card_voucher_details .ticket-card .ticket-top .activate-now {
+  height: 60rpx;
+  line-height: 60rpx;
+  color: #fff;
+  font-size: 30rpx;
+  border-radius: 40rpx;
+  margin: 20rpx 0;
+}
+.service_card_voucher_details .ticket-card .ticket-bottom .ticket-bottom-item {
+  padding: 28rpx 0 30rpx;
+  border-top: 2rpx dashed #ebebed;
+}
+.service_card_voucher_details .ticket-card .ticket-bottom .ticket-bottom-item .entry {
+  display: flex;
+  font-size: 28rpx;
+  color: #66666d;
+  line-height: 40rpx;
+}
+.service_card_voucher_details .ticket-card .ticket-bottom .ticket-bottom-item .entry>view:first-child {
+  flex: 4;
+  text-indent: 12rpx;
+}
+.service_card_voucher_details .ticket-card .ticket-bottom .ticket-bottom-item .entry>view:last-child {
+  flex: 6;
+  text-align: right;
+}
+.service_card_voucher_details .ticket-card .ticket-bottom .ticket-bottom-item .entry>view:nth-child(2) {
+  margin-bottom: 20rpx;
+}
+.service_card_voucher_details .ticket-card .ticket-bottom .ticket-bottom-item .instructions {
+  font-size: 32rpx;
+  color: #33333d;
+}
+.service_card_voucher_details .ticket-card .ticket-bottom .ticket-bottom-item .instructions .elaborate {
+  flex: 0;
+}
+.service_card_voucher_details .ticket-card .ticket-bottom .ticket-bottom-item .instructions .elaborate::after {
+  flex: 0;
+  display: inline-block;
+  text-align: right;
+  content: '\e652';
+  font-size: 24rpx;
+  color: #99999d;
+  transition: all 0.3s;
+  transform: rotate(0deg);
+}
+.service_card_voucher_details .ticket-card .ticket-bottom .ticket-bottom-item .show-elaborate .elaborate::after {
+  transition: all 0.3s;
+  transform: rotate(180deg);
+}
+.service_card_voucher_details .ticket-card .ticket-bottom .remark {
+  padding: 28rpx 0 30rpx;
+  border-top: 2rpx dashed #ebebed;
+  color: #99999d;
+}
