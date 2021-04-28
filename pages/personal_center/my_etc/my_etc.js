@@ -15,6 +15,7 @@ Page({
 		truckList: []// 货车
 	},
 	async onShow () {
+		app.globalData.isNeedReturnHome = false;
 		if (app.globalData.userInfo.accessToken) {
 			await this.getMyETCList();
 		} else {

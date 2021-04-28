@@ -21,6 +21,7 @@ Page({
 		rongChuangDistrictList: ['南昌', '广州', '无锡', '合肥', '成都', '重庆'] // 融创显示地区
 	},
 	async onLoad () {
+		app.globalData.isNeedReturnHome = false;
 		wx.removeStorageSync('information_validation');
 		this.login();
 		// 获取轮播图

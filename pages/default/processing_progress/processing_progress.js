@@ -341,7 +341,7 @@ Page({
 		});
 	},
 	onUnload () {
-		if (this.data.type === 'main_process') {
+		if (this.data.type === 'main_process' || app.globalData.isNeedReturnHome) {
 			wx.reLaunch({
 				// url: '/pages/default/index/index'
 				url: '/pages/Home/Home'

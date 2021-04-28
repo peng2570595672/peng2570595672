@@ -12,6 +12,7 @@ Page({
 		orderId: undefined
 	},
 	onLoad (options) {
+		app.globalData.isNeedReturnHome = false;
 		if (options.orderId) {
 			this.setData({
 				orderId: options.orderId
@@ -71,7 +72,7 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/order-detail', {
 			orderId: this.data.orderId
 		});
-		if (result) return;
+		if (!result) return;
 		if (result.code === 0) {
 			let orderInfo = result.data;
 			orderInfo['selfStatus'] = orderInfo.isNewTrucks === 1 ? util.getTruckHandlingStatus(orderInfo) : util.getStatus(orderInfo);
@@ -163,6 +164,8 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
+			let removeList = ['passenger-car-id-card-back', 'passenger-car-id-card-face', 'passenger-car-driving-license-face', 'passenger-car-driving-license-back', 'passenger-car-headstock'];
+			removeList.map(item => wx.removeStorageSync(item));
 			wx.redirectTo({
 				url: '/pages/personal_center/cancel_order_succeed/cancel_order_succeed'
 			});

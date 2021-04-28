@@ -36,19 +36,19 @@ Page({
 			this.setData({
 				isHeadstockError: false
 			});
-			this.init();
+			this.availableCheck();
 		}
 		if (currPage.__data__.isChangeIdCard) {
 			this.setData({
 				isIdCardError: false
 			});
-			this.init();
+			this.availableCheck();
 		}
 		if (currPage.__data__.isChangeDrivingLicenseError) {
 			this.setData({
 				isDrivingLicenseError: false
 			});
-			this.init();
+			this.availableCheck();
 		}
 		await this.getETCDetail();
 		if (!this.data.isModifiedData) {
@@ -81,13 +81,6 @@ Page({
 			});
 		} else {
 			util.showToastNoIcon(result.message);
-		}
-	},
-	init () {
-		if (this.data.isModifiedData && !this.data.isIdCardError && !this.data.isDrivingLicenseError && !this.data.isHeadstockError) {
-			this.setData({
-				available: true
-			});
 		}
 	},
 	// 加载订单详情
@@ -150,13 +143,22 @@ Page({
 			});
 		}
 	},
-	availableCheck (orderInfo,vehicleInfo) {
-		if (orderInfo.isOwner === 1 && orderInfo.isVehicle === 1 && orderInfo.isHeadstock === 1) {
+	availableCheck (orderInfo) {
+		if (orderInfo && orderInfo.isOwner === 1 && orderInfo.isVehicle === 1 && orderInfo.isHeadstock === 1) {
 			this.setData({
 				available: true
 			});
 		}
 		if (this.data.isModifiedData && this.data.requestNum === 0) {
+			this.setData({
+				available: false
+			});
+		}
+		if (this.data.isModifiedData && !this.data.isIdCardError && !this.data.isDrivingLicenseError && !this.data.isHeadstockError) {
+			this.setData({
+				available: true
+			});
+		} else {
 			this.setData({
 				available: false
 			});
@@ -167,9 +169,93 @@ Page({
 		let url = e.currentTarget.dataset['url'];
 		util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}`);
 	},
+	// ETC申办审核结果通知、ETC发货提示
+	subscribe () {
+		if (!this.data.available) return;
+		// 判断版本，兼容处理
+		let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
+		if (result >= 0) {
+			util.showLoading({
+				title: '加载中...'
+			});
+			wx.requestSubscribeMessage({
+				tmplIds: ['aHsjeWaJ0RRU08Uc-OeLs2OyxLxBd_ta3zweXloC66U','K6gUmq_RSjfR1Hm_F8ORAzlpZZDVaDhuRDE6JoVvsuo'],
+				success: (res) => {
+					wx.hideLoading();
+					if (res.errMsg === 'requestSubscribeMessage:ok') {
+						let keys = Object.keys(res);
+						// 是否存在部分未允许的订阅消息
+						let isReject = false;
+						for (let key of keys) {
+							if (res[key] === 'reject') {
+								isReject = true;
+								break;
+							}
+						}
+						// 有未允许的订阅消息
+						if (isReject) {
+							util.alert({
+								content: '检查到当前订阅消息未授权接收，请授权',
+								showCancel: true,
+								confirmText: '授权',
+								confirm: () => {
+									wx.openSetting({
+										success: (res) => {
+										},
+										fail: () => {
+											util.showToastNoIcon('打开设置界面失败，请重试！');
+										}
+									});
+								},
+								cancel: () => { // 点击取消按钮
+									this.onclickSign();
+								}
+							});
+						} else {
+							this.onclickSign();
+						}
+					}
+				},
+				fail: (res) => {
+					wx.hideLoading();
+					// 不是点击的取消按钮
+					if (res.errMsg === 'requestSubscribeMessage:fail cancel') {
+						this.onclickSign();
+					} else {
+						util.alert({
+							content: '调起订阅消息失败，是否前往"设置" -> "订阅消息"进行订阅？',
+							showCancel: true,
+							confirmText: '打开设置',
+							confirm: () => {
+								wx.openSetting({
+									success: (res) => {
+									},
+									fail: () => {
+										util.showToastNoIcon('打开设置界面失败，请重试！');
+									}
+								});
+							},
+							cancel: () => {
+								this.onclickSign();
+							}
+						});
+					}
+				}
+			});
+		} else {
+			util.alert({
+				title: '微信更新提示',
+				content: '检测到当前微信版本过低，可能导致部分功能无法使用；可前往微信“我>设置>关于微信>版本更新”进行升级',
+				confirmText: '继续使用',
+				showCancel: true,
+				confirm: () => {
+					this.onclickSign();
+				}
+			});
+		}
+	},
 	// 微信签约
 	async onclickSign () {
-		if (!this.data.available) return;
 		if (this.data.isRequest) {
 			return;
 		} else {
@@ -194,8 +280,10 @@ Page({
 		this.setData({isRequest: false});
 		if (!result) return;
 		if (result.code === 0) {
+			app.globalData.isNeedReturnHome = false;
 			if (this.data.orderInfo.flowVersion === 2) {
 				// 总对总
+				util.go(`/pages/default/order_audit/order_audit`);
 				return;
 			}
 			if (this.data.contractStatus === 1 || this.data.isModifiedData) {

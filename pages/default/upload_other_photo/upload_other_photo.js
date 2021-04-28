@@ -57,7 +57,7 @@ Page({
 		return true;
 	},
 	// 获取订单信息
-	getOrderInfo: async function () {
+	async getOrderInfo () {
 		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
 			dataType: '7'
@@ -81,7 +81,7 @@ Page({
 		}
 	},
 	// 下一步
-	next: async function () {
+	async next () {
 		if (!this.validateData(true)) {
 			return;
 		}
@@ -145,6 +145,9 @@ Page({
 							this.setData({
 								faceStatus: 4,
 								headstock: res.data[0]
+							});
+							this.setData({
+								available: this.validateData(false)
 							});
 							wx.setStorageSync('passenger-car-headstock', JSON.stringify(res.data[0]));
 						} catch (e) {

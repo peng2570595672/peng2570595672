@@ -99,6 +99,8 @@ Page({
 		}
 		if (item.couponsStatus === 2 || (item.isReceive === 0 && item.couponsStatus === 1)) {
 			// 待领取 可领取 -- 去券详情
+			app.globalData.serviceCardVoucherDetails = item;
+			util.go(`/pages/personal_center/service_card_voucher_details/service_card_voucher_details`);
 		}
 	},
 	async onClickReceive (e) {
