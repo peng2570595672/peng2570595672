@@ -145,7 +145,7 @@ Page({
 		this.setData({
 			isRequest: true
 		});
-		mta.Event.stat('truck_for_id_card_next',{});
+		mta.Event.stat('id_card_next',{});
 		// ocr返回的是 男女  接口是 1 2
 		if (this.data.idCardFace.ocrObject.sex === '男') this.data.idCardFace.ocrObject.sex = 1;
 		if (this.data.idCardFace.ocrObject.sex === '女') this.data.idCardFace.ocrObject.sex = 2;

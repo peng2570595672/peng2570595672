@@ -149,19 +149,16 @@ Page({
 				available: true
 			});
 		}
-		if (this.data.isModifiedData && this.data.requestNum === 0) {
-			this.setData({
-				available: false
-			});
-		}
-		if (this.data.isModifiedData && !this.data.isIdCardError && !this.data.isDrivingLicenseError && !this.data.isHeadstockError) {
-			this.setData({
-				available: true
-			});
-		} else {
-			this.setData({
-				available: false
-			});
+		if (this.data.isModifiedData) {
+			if (this.data.isIdCardError || this.data.isDrivingLicenseError || this.data.isHeadstockError || this.data.requestNum === 0) {
+				this.setData({
+					available: false
+				});
+			} else {
+				this.setData({
+					available: true
+				});
+			}
 		}
 	},
 	// 跳转
@@ -261,7 +258,7 @@ Page({
 		} else {
 			this.setData({isRequest: true});
 		}
-		mta.Event.stat('truck_for_certificate_list_next',{});
+		mta.Event.stat('information_list_next',{});
 		util.showLoading('加载中');
 		let params = {
 			dataComplete: 1,// 资料已完善
@@ -280,7 +277,7 @@ Page({
 		this.setData({isRequest: false});
 		if (!result) return;
 		if (result.code === 0) {
-			app.globalData.isNeedReturnHome = false;
+			app.globalData.isNeedReturnHome = true;
 			if (this.data.orderInfo.flowVersion === 2) {
 				// 总对总
 				util.go(`/pages/default/order_audit/order_audit`);

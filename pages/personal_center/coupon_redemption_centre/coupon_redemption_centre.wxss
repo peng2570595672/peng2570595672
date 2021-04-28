@@ -171,6 +171,9 @@ page {
   color: #fff;
   font-size: 77rpx;
 }
+.collect-paid-up-interest .list .vouchers-list .item .left.parking::before {
+  content: '\e66d';
+}
 .collect-paid-up-interest .list .vouchers-list .item .middle {
   display: flex;
   flex: 1;

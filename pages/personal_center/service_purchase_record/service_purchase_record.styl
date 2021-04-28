@@ -71,61 +71,63 @@
 					color: #2FB565;
 					line-height: 34rpx;
 		.list-service
-			margin-top 26rpx
-			margin-left 32rpx
+			margin 26rpx 32rpx 0
 			display flex
 			flex-wrap wrap
 			.item
-				.item-content
-					margin-bottom 12rpx
-					position: relative;
+				flex 1
+				display flex
+				height 100rpx
+				align-items center
+				background #2FB565
+				margin-bottom 12rpx
+				color #fff
+				&::after,
+				&::before
+					display inline-block
+					content ''
+					width 22rpx
+					height 22rpx
+					border-radius 50%
+					background #fff
+					margin-right -16rpx
+				&::before
+					margin-left -16rpx
+				.list-name
+					flex 1
 					display flex
+					height 80rpx
 					align-items center
-					justify-content center
-					width: 296rpx;
-					height: 100rpx;
-					background: #2FB565;
-					color #ffffff
 					font-size 28rpx
-					.img
-						display flex
-						justify-content center
-						align-items center
-						margin-left 10rpx
-						height 44rpx
-						width 44rpx
-						background #fff
-						border-radius 50%
-						& > image
-							height 40rpx
-							width 40rpx
-					.item-name
-						margin 0rpx 8rpx
-					.item-symbol
-						font-size 26rpx
-						line-height 34rpx
-					.num
-						font-size 24rpx
-						line-height 34rpx
-						margin 0rpx 8rpx
-				.item-content:nth-child(odd)
-					margin-right 24rpx
-					&::before,
-					&::after
-						position: absolute;
-						top: 50%;
-						display: inline-block;
-						width: 28rpx;
-						height: 22rpx;
-						content: '';
-						border-radius: 50%;
-						background-color: #fff;
-						transform: translateY(-50%);
+					line-height 34rpx
 					&::before
-						left -20rpx
-					&::after
-						left  auto
-						right -20rpx
+						display flex
+						width 44rpx
+						height 44rpx
+						align-items center
+						justify-content center
+						background #fff
+						content '\e66c'
+						color #2FB565
+						font-size 44rpx
+						border-radius 50%
+						margin-left 24rpx
+						margin-right 8rpx
+					&.parking
+						&::before
+							content '\e66d'
+				.amount
+					display flex
+					height 40rpx
+					align-items center
+					font-size 24rpx
+					margin-right 8rpx
+					&::before
+						content '\e63d'
+						font-size 16rpx
+						margin-right 8rpx
+				&:last-child
+					margin-left 32rpx
 		.service-tips
 			padding-top 22rpx
 			padding-bottom 32rpx

@@ -298,6 +298,7 @@ Page({
 		if (!this.validateData(true) || this.data.isRequest) {
 			return;
 		}
+		mta.Event.stat('information_validation_next',{});
 		this.confirmHandle();
 	},
 	async confirmHandle () {

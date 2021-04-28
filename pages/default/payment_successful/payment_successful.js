@@ -56,7 +56,7 @@ Page({
 			// 签约车主服务 2.0
 			app.globalData.signAContract = -1;
 			app.globalData.belongToPlatform = app.globalData.platformId;
-			app.globalData.isNeedReturnHome = false;
+			app.globalData.isNeedReturnHome = true;
 			util.weChatSigning(res);
 		} else {
 			util.showToastNoIcon(result.message);

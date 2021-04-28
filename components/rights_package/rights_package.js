@@ -11,7 +11,8 @@ Component({
 		mask: false,
 		wrapper: false,
 		viewObjId: undefined,
-		packageRelationList: []
+		parkingTicket: [],
+		trafficTicket: []
 	},
 	methods: {
 		// 显示或者隐藏
@@ -42,13 +43,16 @@ Component({
 			}
 		},
 		getPackageRelation: async function () {
-			const result = await util.getDataFromServersV2('consumer/voucher/rights/get-package-coupon-list', {
+			const result = await util.getDataFromServersV2('consumer/voucher/rights/get-package-coupon-list-buy', {
 				packageId: this.data.details.id
 			});
 			if (!result) return;
 			if (result.code === 0) {
+				const trafficTicket = result.data.filter(item => item.couponType === 1);
+				const parkingTicket = result.data.filter(item => item.couponType === 2);
 				this.setData({
-					packageRelationList: result.data,
+					trafficTicket,
+					parkingTicket,
 					mask: true,
 					wrapper: true
 				});

@@ -47,7 +47,7 @@
 		<view class="vouchers-list">
 			<view wx:for="{{couponList[tabIndex].coupons}}" wx:key="index"
                   class="item {{item.couponsStatus === 2 ? 'parking-ticket' : ''}} {{item.couponsStatus === 1 ? 'traffic-ticket' : ''}}" catchtap="onClickTheCoupons" data-item="{{item}}">
-				<view class="left {{item.isReceive === 0 && item.couponsStatus === 0 ? 'overdue' : ''}} iconfont"></view>
+				<view class="left {{item.couponType === 2 ? 'parking' : ''}} {{item.isReceive === 0 && item.couponsStatus === 0 ? 'overdue' : ''}} iconfont"></view>
 				<view class="middle">
 					<view class="coupon-name">{{item.couponName}}</view>
 					<view class="vouchers-price">满{{item.consumptionThreshold / 100}}减{{item.denomination / 100}}</view>

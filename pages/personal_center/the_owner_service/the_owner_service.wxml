@@ -27,7 +27,7 @@
 				<view class="service-item-icon">
 					<image class="img" src="/pages/personal_center/assets/quality_assurance.svg"></image>
 				</view>
-				<view class="service-item-text">质保两年</view>
+				<view class="service-item-text">延保1年</view>
 			</view>
 			<!--质保两年结束-->
 
@@ -48,10 +48,8 @@
 			<view class="close_button iconfont" catchtap="hide"></view>
 			<view class="item iconfont">
 				<view class="item-content">
-					<view>设备质保两年</view>
-					<div class="top">ETC设备两年内非人为损坏可提供保修服务。如有需要请联系
-						<span class="btn-online" catchtap="online">在线客服</span>
-					</div>
+					<view>ETC设备延保1年</view>
+					<div class="top">ETC设备非人为损坏质保延长一年，与设备质保叠加最高可达到三年质保。</div>
 				</view>
 			</view>
 		</view>

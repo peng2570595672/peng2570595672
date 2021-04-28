@@ -218,6 +218,7 @@ Page({
 	},
 	async next () {
 		if (this.data.choiceIndex === -1) return;
+		mta.Event.stat('package_the_rights_and_interests_next',{});
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			shopId: this.data.orderInfo ? this.data.orderInfo.base.shopId : app.globalData.newPackagePageData.shopId, // 商户id
