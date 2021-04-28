@@ -26,6 +26,22 @@ Page({
 			util.hideLoading();
 		});
 	},
+	checkIsCanApply () {
+		util.showLoading();
+		util.getDataFromServer('consumer/order/after-sale-record/isCanApply', {
+		}, () => {
+			util.showToastNoIcon('获取权益列表失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				if (res.data) {
+				}
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
 	onClickHandle (e) {
 		let index = e.currentTarget.dataset.index;
 		let origin = 1; // 0 去开票， 1已开票

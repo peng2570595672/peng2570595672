@@ -13,10 +13,9 @@ Page({
 		switch (type) {
 			case 1:
 				// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
-				let url = 'pages/base/redirect/index?routeKey=WD_PAZZ&wtagid=116.115.27';
 				wx.navigateToMiniProgram({
 					appId: 'wx06a561655ab8f5b2',
-					path: url,
+					path: 'pages/base/redirect/index?routeKey=WD_PAZZ&wtagid=116.115.27',
 					envVersion: 'release', // 正式版
 					fail () {
 						util.showToastNoIcon('调起小程序失败, 请重试！');

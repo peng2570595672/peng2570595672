@@ -291,6 +291,12 @@
           "pathName": "pages/personal_center/service_card_voucher_details/service_card_voucher_details",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "shot_other_photo",
+          "pathName": "pages/default/shot_other_photo/shot_other_photo",
+          "query": "",
+          "scene": null
         }
       ]
     }

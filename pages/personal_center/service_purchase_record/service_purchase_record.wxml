@@ -11,23 +11,24 @@
 	<view class="service">
 		<view class="service-detail">
 			<view class="left">
-				<view>权益包名称长又长</view>
-				<view>2021-04-19 08:45</view>
+				<view>{{packageName}}</view>
+				<view>{{payTime}}</view>
 			</view>
 			<view class="right">
-				<view>¥80.0</view>
-				<view class="status">已生效</view>
+				<view>¥{{rightsPackagePayMoney / 100}}</view>
+				<!--待生效、已生效、已失效-->
+				<view class="status">{{rightsPackageRefundStatus === 0 ? '待生效' : ''}}</view>
 			</view>
 		</view>
 		<view class="list-service">
-			<view class="item" wx:for="{{list}}" wx:key="index">
+			<view class="item" wx:for="{{rightsBasicCoupons}}" wx:key="index">
 				<view class="item-content">
 					<view class="img">
 						<image src="/pages/personal_center/assets/green_traffic.svg"></image>
 					</view>
-					<view class="item-name">20元通行券</view>
+					<view class="item-name">{{item.couponName}}</view>
 					<view class="item-symbol">x</view>
-					<view class="num">2</view>
+					<view class="num">{{item.distributionQuantity}}</view>
 				</view>
 			</view>
 		</view>

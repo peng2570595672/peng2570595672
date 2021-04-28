@@ -40,7 +40,7 @@ Page({
 		if (app.globalData.userInfo.accessToken) {
 			this.getMemberBenefits();
 			this.getMemberCrowdSourcingAndOrder();
-			this.getOrderRelation();
+			this.getRightsPackageBuyRecords();
 			let that = this;
 			wx.getSetting({
 				success (res) {
@@ -67,48 +67,20 @@ Page({
 			screenHeight: wx.getSystemInfoSync().windowHeight
 		});
 	},
-	getOrderRelation () {
-		util.showLoading();
-		util.getDataFromServer('consumer/voucher/rights/get-order-relation', {
-			platformId: app.globalData.platformId
-		}, () => {
-			util.showToastNoIcon('获取车辆列表失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				if (res.data) {
-					app.globalData.rightsAndInterestsVehicleList = res.data;
-					this.setData({
-						rightsAndInterestsVehicleList: res.data
-					});
-				}
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-		});
-	},
-	getightsPackageBuyRecords () {
+	getRightsPackageBuyRecords () {
 		util.showLoading();
 		util.getDataFromServer('consumer/order/rightsPackageBuyRecords', {
 			platformId: app.globalData.platformId
 		}, () => {
 			util.showToastNoIcon('获取权益列表失败！');
 		}, (res) => {
-			if (res.code === 0) {
-				// id：订单id
-				// payTime： 支付时间
-				// rightsPackagePayMoney： 权益包支付金额
-				// rightsPackageRefundStatus：权益包退款状态 0-未退款，2-退款中，3-退款成功，4-退款失败
-				// rightsPackageId：权益包id
-				// rightsPackageCode：权益包发放状态 0-未发放，1-发送成功，2-发放失败
-				// rightsPackageMsg：权益包发放备注
-				if (res.data) {
-					app.globalData.rightsAndInterestsVehicleList = res.data;
-					this.setData({
-						rightsAndInterestsVehicleList: res.data
-					});
+			if (res.code === 0 && res.data) {
+				let result = res.data;
+				let rightsAndInterestsVehicleList = [];
+				for (let item of result) {
+					rightsAndInterestsVehicleList.push(item.vehPlates);
 				}
+				app.globalData.rightsAndInterestsVehicleList = rightsAndInterestsVehicleList;
 			} else {
 				util.showToastNoIcon(res.message);
 			}
