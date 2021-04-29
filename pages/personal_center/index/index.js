@@ -7,13 +7,15 @@ Page({
 		isAttention: 0, // 关注状态 1-已关注，0-未关注
 		height: undefined, // 屏幕高度
 		userInfo: undefined, // 用户信息
-		showDetailWrapper: false,
 		mobilePhoneSystem: false,
 		isMain: false,// 是否从主流程进入
 		crowdSourcingMsg: undefined,// 众包信息
 		mobilePhone: undefined,
+		showDetailWrapper: false,
 		showDetailMask: false,
+		showPublicAccountType: 0,// 0 关注公众号  1 影音
 		rightsAndInterestsVehicleList: undefined, // 权益车辆列表
+		isActivation: false, // 是否有激活车辆
 		payInterest: {
 			interestsList: [
 				{img: 'basic_rights_and_interests', url: 'basic_rights_and_interests'},
@@ -40,6 +42,7 @@ Page({
 		if (app.globalData.userInfo.accessToken) {
 			this.getMemberBenefits();
 			this.getMemberCrowdSourcingAndOrder();
+			this.getRightsPackageBuyRecords();
 			this.getOrderRelation();
 			let that = this;
 			wx.getSetting({
@@ -57,6 +60,12 @@ Page({
 					}
 				}
 			});
+			if (JSON.stringify(app.globalData.myEtcList) !== '{}') {
+				let isActivation = app.globalData.myEtcList.filter(item => item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5); // 1 已激活  2 恢复订单  5 预激活
+				this.setData({
+					isActivation: !!isActivation.length
+				});
+			}
 		} else {
 			// 公众号进入需要登录
 			this.login();
@@ -73,6 +82,7 @@ Page({
 			platformId: app.globalData.platformId
 		}, () => {
 			util.showToastNoIcon('获取车辆列表失败！');
+			util.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
 				if (res.data) {
@@ -84,9 +94,30 @@ Page({
 			} else {
 				util.showToastNoIcon(res.message);
 			}
-		}, app.globalData.userInfo.accessToken, () => {
 			util.hideLoading();
-		});
+		}, app.globalData.userInfo.accessToken);
+	},
+	getRightsPackageBuyRecords () {
+		util.showLoading();
+		util.getDataFromServer('consumer/order/rightsPackageBuyRecords', {
+			platformId: app.globalData.platformId
+		}, () => {
+			util.showToastNoIcon('获取权益列表失败！');
+			util.hideLoading();
+		}, (res) => {
+			if (res.code === 0) {
+				if (res?.data) {
+					let result = res?.data;
+					this.setData({
+						rightsPackageBuyRecords: result
+					});
+					app.globalData.rightsPackageBuyRecords = result;
+				}
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+			util.hideLoading();
+		}, app.globalData.userInfo.accessToken);
 	},
 	// 自动登录
 	login (isData) {
@@ -115,8 +146,12 @@ Page({
 							this.setData({
 								mobilePhone: res.data.mobilePhone
 							});
+							if (JSON.stringify(app.globalData.myEtcList) === '{}') {
+								this.getStatus();
+							}
 							this.getMemberBenefits();
 							this.getMemberCrowdSourcingAndOrder();
+							this.getRightsPackageBuyRecords();
 							this.getOrderRelation();
 							if (isData) {
 								this.submitUserInfo(isData);
@@ -138,11 +173,31 @@ Page({
 			}
 		});
 	},
+	// 获取订单信息
+	getStatus () {
+		util.showLoading();
+		let params = {
+			openId: app.globalData.openId
+		};
+		util.getDataFromServer('consumer/order/my-etc-list', params, () => {
+			util.hideLoading();
+		}, (res) => {
+			if (res.code === 0) {
+				let isActivation = res.data.filter(item => item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5); // 1 已激活  2 恢复订单  5 预激活
+				this.setData({
+					isActivation: !!isActivation.length
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken);
+	},
 	// 众包-获取用户推广码和订单红包数量
 	getMemberCrowdSourcingAndOrder () {
 		util.showLoading();
 		util.getDataFromServer('consumer/member/getMemberCrowdSourcingAndOrder', {}, () => {
 			util.showToastNoIcon('获取用户推广信息失败！');
+			util.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
 				// status - 0 未成为推广者，1-已经是推广者，8-活动已经结束
@@ -153,9 +208,7 @@ Page({
 			} else {
 				util.showToastNoIcon(res.message);
 			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-		});
+		}, app.globalData.userInfo.accessToken);
 	},
 	// 邀请好友
 	inviteFriends () {
@@ -225,6 +278,7 @@ Page({
 		util.showLoading();
 		util.getDataFromServer('consumer/member/member-status', {}, () => {
 			util.showToastNoIcon('获取会员信息失败！');
+			util.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
 				this.setData({
@@ -233,9 +287,7 @@ Page({
 			} else {
 				util.showToastNoIcon(res.message);
 			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-		});
+		}, app.globalData.userInfo.accessToken);
 	},
 	bindGetUserInfo (e) {
 		this.setData({
@@ -249,10 +301,10 @@ Page({
 	go (e) {
 		let url = e.currentTarget.dataset['url'];
 		if (url === 'life_service') {
-			this.showDetail();
+			this.showDetail(1);
 			return;
 		}
-		if (url === 'owner_service') {
+		if (url === 'the_owner_service') {
 			mta.Event.stat('personal_center_owner_service',{});
 		} else if (url === 'my_etc') {
 			mta.Event.stat('personal_center_my_etc',{});
@@ -303,8 +355,9 @@ Page({
 		});
 	},
 	// 显示详情
-	showDetail (e) {
+	showDetail (type) {
 		this.setData({
+			showPublicAccountType: type,
 			showDetailWrapper: true,
 			showDetailMask: true
 		});
