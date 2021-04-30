@@ -160,7 +160,6 @@ App({
 						this.getPromoterInfo(sceneKey,sceneValue);
 					}
 				}
-			} else {
 			}
 		}
 		if (options.query.channelValue && options.query.serverInfoId) {

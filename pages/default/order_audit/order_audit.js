@@ -29,8 +29,10 @@ Page({
 				if (that.data.number >= 4) {
 					return;
 				}
+				util.showLoading({title: '加载中...'});
+				that.data.number += 1;
 				this.setData({
-					number: that.data.number++
+					number: that.data.number
 				});
 				setTimeout(async () => {
 					await that.getSchedule();

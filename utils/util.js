@@ -1286,6 +1286,7 @@ async function getDataFromServersV2(path, params, method = 'POST') {
 						reAutoLoginV2(path, params, method);
 						return;
 					}
+					console.log(res.data);
 					resolve(res.data)
 				} else {
 					reject(res)

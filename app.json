@@ -71,6 +71,7 @@
       "root": "pages/login",
       "name": "pages/login",
       "pages": [
+        "package_the_rights_and_interests/package_the_rights_and_interests",
         "login/login"
       ]
     },

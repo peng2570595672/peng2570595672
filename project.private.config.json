@@ -89,7 +89,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=836982991103201280",
+          "query": "orderId=837645441058213888",
           "scene": null
         },
         {
@@ -161,8 +161,8 @@
           "scene": null
         },
         {
-          "name": "pages/default/shot_other_photo/shot_other_photo",
-          "pathName": "pages/default/shot_other_photo/shot_other_photo",
+          "name": "pages/login/package_the_rights_and_interests/package_the_rights_and_interests",
+          "pathName": "pages/login/package_the_rights_and_interests/package_the_rights_and_interests",
           "query": "type=101",
           "scene": null
         },
