@@ -1,0 +1,127 @@
+@import "../../../style/base.styl";
+@import "../../../style/my_animate.styl";
+.page
+	height 100vh
+	padding 52rpx 32rpx
+	box-sizing border-box
+	background #fff
+	display flex
+	flex-direction column
+	.label
+		font-size 28rpx
+		line-height 40rpx
+		color rgba(0, 0, 0, .5)
+	.title
+		display flex
+		align-items center
+		font-size 34rpx
+		font-family PingFangSC-Medium, PingFang SC;
+		font-weight 500
+		color #000
+		padding 32rpx 0 26rpx
+		&::before
+			margin-right 8rpx
+			content ''
+			width 8rpx
+			height 44rpx
+			background #2FB565
+	// 上传身份证
+	.photo-wrapper
+		display flex
+		justify-content space-between
+		padding 14rpx 0 116rpx
+		font-size 28rpx
+		line-height 40rpx
+		color rgba(0, 0, 0, .5)
+		& > view:first-child
+			margin-right auto
+		.photo
+			position relative
+			overflow hidden
+			width 326rpx
+			height 332rpx
+			background #F6F6F6
+			border-radius 16rpx
+			text-align center
+			.upload
+				.img-box
+					position relative
+					width 296rpx
+					height 192rpx
+					background #FAFAFA
+					border-radius 8rpx
+					margin 22rpx auto 36rpx
+					.ico
+						position absolute
+						left 0
+						right 0
+						top 0
+						bottom 0
+						margin auto
+						width 56rpx
+						height 49rpx
+					.identify
+						position absolute
+						z-index 1
+						top 0
+						left 0
+						width 100%
+						height 100%
+						background rgba(47, 181, 101, .64)
+						font-size 24rpx
+						color #fff
+						image
+							width 50rpx
+							height 50rpx
+							margin 45rpx 0 8rpx
+				.success
+					width 296rpx
+					height 192rpx
+					margin 22rpx auto 36rpx
+	// 身份证号码&名字输入
+	.input-wrapper
+		margin-left 40rpx
+		.input-item
+			position relative
+			display flex
+			align-items center
+			height 88rpx
+			color $fontColor9
+			font-size 32rpx
+			padding 30rpx 80rpx 10rpx 40rpx
+			box-sizing border-box
+			border-bottom solid 2rpx rgba(230,230,230,.3)
+			& > view
+				display flex
+				flex: 0 0 148rpx
+			& > input
+				flex 1
+				z-index 0 !important
+				text-align right
+				font-size 32rpx
+				color #333
+		.input-bottom
+			padding-bottom 30rpx
+			input
+				text-align left
+	// 高度填充
+	.fill
+		flex 1
+	// 下一步
+	.btn
+		display flex
+		align-items center
+		justify-content center
+		margin 20rpx 0rpx 40rpx
+		height 98rpx
+		font-size 40rpx
+		font-weight 500
+		color #fff
+		border-radius 49rpx
+		background: linear-gradient(to right , $deepThemeColor, $shallowThemeColor)
+		&.available
+			animation btnFadeIn .3s
+			animation-fill-mode forwards
+		&.unavailable
+			animation btnFadeOut .3s
+			animation-fill-mode forwards

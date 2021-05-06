@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="34px" viewBox="0 0 30 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>帮助中心</title>
+    <defs>
+        <filter id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 0.764706 0 0 0 0 0.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <linearGradient x1="-2.55442769%" y1="117.976571%" x2="93.7675097%" y2="11.0348304%" id="linearGradient-2">
+            <stop stop-color="#14AC69" offset="0%"></stop>
+            <stop stop-color="#84D157" offset="100%"></stop>
+        </linearGradient>
+        <path d="M2.7,0 L22.5517578,0 C23.6563273,-2.16501571e-15 24.5517578,0.8954305 24.5517578,2 L24.5517578,26.09375 C24.5517578,27.1983195 23.6563273,28.09375 22.5517578,28.09375 L2.7,28.09375 C1.20883118,28.09375 6.26704723e-16,26.8849188 0,25.39375 L0,2.7 C-1.82615513e-16,1.20883118 1.20883118,-6.14255151e-16 2.7,0 Z" id="path-3"></path>
+        <path d="M0.7,-2 L20.5517578,-2 C21.6563273,-2 22.5517578,-1.1045695 22.5517578,0 L22.5517578,24.09375 C22.5517578,25.1983195 21.6563273,26.09375 20.5517578,26.09375 L0.7,26.09375 C-0.791168825,26.09375 -2,24.8849188 -2,23.39375 L-2,0.7 C-2,-0.791168825 -0.791168825,-2 0.7,-2 Z" id="path-5"></path>
+        <path d="M3.171875,18.9375 L20.25,18.9375 C20.7470563,18.9375 21.15,19.3404437 21.15,19.8375 L21.15,24.38125 C21.15,24.8783063 20.7470563,25.28125 20.25,25.28125 L3.171875,25.28125 C1.42009681,25.28125 4.28470951e-14,23.8611532 4.26325641e-14,22.109375 C4.24180332e-14,20.3575968 1.42009681,18.9375 3.171875,18.9375 Z" id="path-7"></path>
+        <filter x="-33.1%" y="-78.8%" width="166.2%" height="320.7%" filterUnits="objectBoundingBox" id="filter-8">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.282861439   0 0 0 0 0.37780231   0 0 0 0 0.262057159  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-9">
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="注册流程" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2.2" transform="translate(-301.000000, -200.000000)">
+            <g id="编组-6" transform="translate(18.000000, 185.000000)">
+                <g id="帮助中心" transform="translate(287.800000, 16.906250)">
+                    <g id="椭圆形" transform="translate(0.200000, 1.000000)">
+                        <g id="蒙版">
+                            <g filter="url(#filter-1)" id="蒙版备份" opacity="0.2">
+                                <g>
+                                    <mask id="mask-4" fill="white">
+                                        <use xlink:href="#path-3"></use>
+                                    </mask>
+                                    <use id="蒙版" fill="url(#linearGradient-2)" xlink:href="#path-3"></use>
+                                </g>
+                            </g>
+                            <mask id="mask-6" fill="white">
+                                <use xlink:href="#path-5"></use>
+                            </mask>
+                            <use fill="url(#linearGradient-2)" xlink:href="#path-5"></use>
+                        </g>
+                        <ellipse fill="#FFFFFF" opacity="0.1" cx="20.95" cy="20.203125" rx="5.85" ry="5.890625"></ellipse>
+                    </g>
+                    <g id="矩形" opacity="0.248604911">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-8)" xlink:href="#path-7"></use>
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-7"></use>
+                    </g>
+                    <polyline id="路径-2" fill="url(#linearGradient-9)" points="3.78415527 0 3.78415527 9.0625 6.27073157 8.11053973 8.78415527 9.0625 8.78415527 0"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

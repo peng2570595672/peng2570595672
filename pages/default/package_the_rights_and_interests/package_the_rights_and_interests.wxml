@@ -1,77 +1,98 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="package-the-rights-and-interests">
     <!--套餐选择开始-->
-    <view class="package-sub-title" wx:if="{{dataMessage.listOfPackages.length > 1}}">
-        左右滑动查看其余套餐
-    </view>
-    <view class="perch"></view>
-    <view class="swiper-box {{dataMessage.listOfPackages.length > 1 ? 'swiper-box-perch' : ''}}">
+    <view class="swiper-box">
         <swiper
-                class="my-swiper"
+                class="my-swiper {{listOfPackages.length === 1 ? 'my-only-swiper' : ''}}"
                 indicator-dots="{{false}}"
                 autoplay="{{false}}"
-                previous-margin="25rpx"
-                next-margin="36rpx"
+                next-margin="{{listOfPackages.length !== 1 ? '62rpx' : '12rpx'}}"
+                previous-margin="12rpx"
                 bindchange="currentChange"
+                style="height: {{boxHeight[activeIndex]}}px;"
                 circular="{{true}}">
-            <swiper-item class="my-swiper-item" wx:for="{{dataMessage.listOfPackages}}" wx:key="index"
+            <swiper-item wx:for="{{listOfPackages}}" wx:key="index" class="my-swiper-item"
                          catchtap="onClickSwiper" data-index="{{index}}">
-                <view class="my-swiper-item-box {{dataMessage.isOpen ?'my-swiper-item-shadow':''}}">
-                    <view class="title">
+                <view class="my-swiper-item-box item-{{index}}">
+                    <view class="package iconfont {{choiceIndex === index ? 'active' : ''}}">
                         <view>
-                            <image src="{{item.productLogo}}"></image>
+                            <image src="{{item.productLogo}}" mode="widthFix"></image>
                         </view>
-                        <view>{{item.productName}}</view>
+                        <view class="title-name">
+                            <view class="title">{{item.productName}}</view>
+                            <view class="sub-title">{{item.fullName}}</view>
+                        </view>
+                        <view>¥{{tools.parseNum(item.pledgePrice/100)}}</view>
                     </view>
-                    <view class="sub-title">
-                        {{item.fullName}}
+                    <view class="related-service-title">
+                        <view>基础服务</view>
+                        <view class="tips">价值158元</view>
                     </view>
-                    <view class="details {{dataMessage.activePackageIndex === index ? 'active' : ''}} iconfont">
-                        <view>¥</view>
-                        <view>{{tools.parseNum(item.pledgePrice/100)}}</view>
-                        <view class="iconfont details-box {{dataMessage.isOpen ?'close-details':'show-details'}}"
-                              catchtap="viewDetails" wx:if="{{item.description && item.description !== '0'}}" data-index="{{index}}">
-                            {{dataMessage.isOpen ? '收起' : '查看'}}详情
+                    <view class="basic-service-list">
+                        <view class="basic-service-item" wx:for="{{basicServiceList}}" wx:key="index">
+                            <image src="{{item.logo}}" mode="widthFix"></image>
+                            <view>{{item.title}}</view>
+                            <view class="tips">{{item.tips}}</view>
+                        </view>
+<!--                        <view wx:for="{{otherServiceList}}" wx:for-item="it" wx:key="index"-->
+<!--                              class="other-service-item {{index === 0 ? 'other-service-first' : ''}}" catchtap="onClickCheckTheService" data-index="{{index}}">-->
+<!--                            <view>{{it.title}}</view>-->
+<!--                            <view>{{it.subTitle}}</view>-->
+<!--                        </view>-->
+                        <view class="other-service-item other-service-first" catchtap="onClickCheckTheService" data-index="0">
+                            <view>车主服务享便捷</view>
+                            <view>价值168元</view>
+                        </view>
+                        <view class="other-service-item" wx:if="{{item.pledgePrice}}" catchtap="onClickCheckTheService" data-index="1">
+                            <view>生活服务享精彩</view>
+                            <view>价值100元+</view>
                         </view>
                     </view>
+                    <view class="related-service-title" wx:if="{{item.flowVersion === 1}}">特色服务</view>
+                    <view class="basic-service-list" wx:if="{{item.flowVersion === 1}}" catchtap="onClickCheckTheService" data-index="2">
+                        <view class="basic-service-item" wx:for="{{characteristicServiceList}}" wx:key="index">
+                            <image src="{{item.logo}}" mode="widthFix"></image>
+                            <view>{{item.title}}</view>
+                        </view>
+                    </view>
+                    <view class="related-service-title" wx:if="{{item.flowVersion === 2}}">支持绑定以下银行卡</view>
+                    <view class="basic-service-list" wx:if="{{item.flowVersion === 2}}">
+                        <view class="basic-service-item bank">
+                            <image src="/pages/default/assets/ccb.svg" mode="widthFix"></image>
+                        </view>
+                    </view>
+                    <view class="pay-tips" wx:if="{{item.pledgePrice}}">注：付费产品支付成功且审核通过后，默认你已同意接受服务，不作申请退款。</view>
                 </view>
             </swiper-item>
         </swiper>
     </view>
-    <view class="my-swiper-item-details animated {{dataMessage.isOpen ?'slideInDown':'slideOutUp'}}">
-        <rich-text nodes="{{dataMessage.htmlStr}}"></rich-text>
-    </view>
     <!--套餐选择结束-->
     <!--权益选择开始-->
-    <view wx:if="{{dataMessage.rightsAndInterestsList.length}}"
-            class="rights-and-interests {{dataMessage.isOpen ?'rights-and-interests-margin':''}} {{dataMessage.isViewDetails ? 'rights-and-interests-margin1':''}}">
-        <view class="rights-and-interests-header">
-            <view class="line"></view>
-            <view class="header">组合会员权益</view>
-            <view>（选一个）</view>
-        </view>
+    <view wx:if="{{rightsAndInterestsList.length}}"
+          class="rights-and-interests {{listOfPackages.length === 1 ? 'my-only-equities' : ''}}">
+        <view class="rights-and-interests-header">推荐加购以下权益包</view>
         <view class="rights-and-interests-list">
-            <view wx:for="{{dataMessage.rightsAndInterestsList}}" wx:key="index"
-                  class="rights-and-interests-item {{dataMessage.activeIndex === index ? 'item-active' : ''}}"
-                   catchtap="choiceRightsAndInterests" data-index="{{index}}">
+            <view wx:for="{{rightsAndInterestsList}}" wx:key="index"
+                  class="rights-and-interests-item iconfont {{activeEquitiesIndex === index ? 'item-active' : ''}}"
+                  catchtap="showRightsAndInterests" data-index="{{index}}">
+                <image src="/pages/default/assets/equities_of_coupons.svg" mode="widthFix"></image>
                 <view class="title">{{item.packageName}}</view>
-                <view class="sub-title">{{item.remark}}</view>
-                <view class="details {{dataMessage.activeIndex === index ? 'active' : ''}} iconfont">
-                    <view>¥</view>
-                    <view>{{tools.parseNum(item.payMoney/100)}}</view>
-                    <view class="iconfont details-box" catchtap="viewRightsAndInterests" wx:if="{{item.hasShow}}" data-index="{{index}}">查看详情</view>
-                </view>
+                <view class="price">¥{{tools.parseNum(item.payMoney/100)}}</view>
             </view>
         </view>
     </view>
     <!--权益选择结束-->
     <!--下一步开始-->
     <view class="next">
-        <button class="btn {{!dataMessage.available ? 'unavailable' : ''}}" catchtap="next">下一步</button>
+        <button class="btn" catchtap="next"
+                wx:if="{{choiceIndex !== -1 && listOfPackages[activeIndex].pledgePrice || (activeEquitiesIndex !== -1 && rightsAndInterestsList[activeEquitiesIndex].payMoney)}}">
+            确认支付{{activeEquitiesIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + rightsAndInterestsList[activeEquitiesIndex].payMoney)/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}元
+        </button>
+        <button class="btn {{choiceIndex === -1 ? 'unavailable' : ''}}" catchtap="next" wx:else>下一步</button>
     </view>
     <!--下一步结束-->
     <!--查看权益详情开始-->
-    <rights_and_interests_details id="viewRightsAndInterests" bindonClickTranslucentHandle="onClickTranslucentHandle"
-                      bindonClickDetailsHandle="onClickDetailsHandle" viewObj="{{dataMessage.viewObj}}"></rights_and_interests_details>
+    <rights_package id="showRightsPackage" bindonClickHandle="onClickHandle" bindonClickDetailsHandle="onClickDetailsHandle" details="{{rightsPackageDetails}}"></rights_package>
     <!--查看权益详情结束-->
+    <related_service id="viewRightsService" bindonClickHandle="onClickClose" details="{{serviceList[showServiceIndex]}}"></related_service>
 </view>

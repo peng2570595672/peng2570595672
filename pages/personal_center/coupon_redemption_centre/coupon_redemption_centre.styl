@@ -1,0 +1,182 @@
+@import "../../../style/base.styl";
+@font-face {
+	font-family: 'iconfont';  /* project id 1514406 */
+	src: url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot');  src: url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff2') format('woff2'), url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff') format('woff'), url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.ttf') format('truetype'), url('//at.alicdn.com/t/font_1514406_rx3tpwk54p.svg#iconfont') format('svg');
+}
+$fontColorB = #B2B2B2
+page
+	min-height 100vh
+	background #FFFFFF
+	overflow scroll
+.collect-paid-up-interest
+	color $fontColor3
+	font-family PingFangSC-Regular,PingFang SC
+	//车牌选择
+	.select-vehicle
+		padding 64rpx 76rpx 32rpx 32rpx
+		display flex
+		justify-content center
+		align-items center
+		.label
+			width 190rpx
+			font-size 28rpx
+			font-family PingFangSC-Regular, PingFang SC
+			font-weight 400
+			color rgba(0,0,0,0.5)
+		//tab切换
+		.vehicle-list
+			display flex
+			align-items center
+			justify-content center
+			overflow-x auto
+			white-space nowrap
+			.list-title-child
+				display inline-block
+				font-size 28rpx
+				text-align center
+				color rgba(0,0,0,0.8)
+				line-height 50rpx
+				margin-right 26rpx
+			.tab-vehicle-index
+				font-size 34rpx
+				font-family PingFangSC-Medium, PingFang SC
+				font-weight 500
+				color #000000
+				border-bottom 6rpx solid #1BA566
+	.line
+		height 20rpx
+		background #FAFAFA
+	// 月份选择
+	.list
+		padding-top 24rpx
+		//tab切换
+		.list-title
+			width 100%
+			height 140rpx
+			overflow-x auto
+			white-space nowrap
+			.list-title-child
+				display inline-block
+				font-size 36rpx
+				text-align center
+				color rgba(47,181,101,0.3)
+				line-height 50rpx
+				width 160rpx
+				.period
+					font-size 34rpx
+					font-family PingFangSC-Regular, PingFang SC
+					font-weight 400
+					color #000000
+					line-height 48rpx
+					&.not-receive
+						color rgba(0,0,0,0.6)
+				.status
+					font-size 24rpx
+					line-height 32rpx
+					&.overdue
+						color rgba(0,0,0,0.3)
+					&.can-receive
+						color #2FB565
+				& > view:nth-child(2)
+					position relative
+					display flex
+					align-items center
+					margin-top 16rpx
+					margin-bottom 16rpx
+					width 100%
+					& > text
+						position relative
+						display flex
+						width 20rpx
+						height 20rpx
+						background #FFFFFF
+						border 1rpx solid #2FB565
+						border-radius 50%
+						&.active
+							background #2FB565
+					&::before,
+					&::after
+						content ''
+						flex 1
+						height 4rpx
+						background #EBECEC
+			.tab-index
+				.status
+					color #2FB565
+				& > view:nth-child(2)
+					& > text
+						background #2FB565
+		.vouchers-list
+			padding 32rpx
+			.item
+				position relative
+				display flex
+				align-items center
+				width 686rpx
+				height 176rpx
+				background #F7F7F7
+				color #fff
+				margin-bottom 20rpx
+				&::before,
+				&::after
+					position absolute
+					top 50%
+					display inline-block
+					width 32rpx
+					height 32rpx
+					content ''
+					border-radius 50%
+					background-color #fff
+					transform translateY(-50%)
+				&::before
+					left -20rpx
+				&::after
+					left  auto
+					right -20rpx
+				.left
+					display flex
+					justify-content center
+					align-items center
+					height 80rpx
+					width 80rpx
+					background #2FB565
+					border-radius 50%
+					margin-left 48rpx
+					&.overdue
+						background #8E8E8E
+					&::before
+						content '\e66c'
+						color #fff
+						font-size 77rpx
+					&.parking
+						&::before
+							content '\e66d'
+				.middle
+					display flex
+					flex 1
+					flex-direction column
+					font-size 24rpx
+					color rgba(0,0,0,0.3)
+					margin 0rpx 16rpx
+					line-height 34rpx
+					.coupon-name
+						font-size: 28rpx
+						font-family: PingFangSC-Medium, PingFang SC;
+						font-weight: 500;
+						color rgba(0,0,0,0.5)
+						line-height: 40rpx;
+				.btn
+					display flex
+					min-width 136rpx
+					height 50rpx
+					margin-right 76rpx
+					align-items center
+					justify-content center
+					background: #EFEFEF;
+					border-radius: 4rpx;
+					font-size 24rpx
+					color #B6B6B6
+					&.not-click
+						color #2FB565
+
+

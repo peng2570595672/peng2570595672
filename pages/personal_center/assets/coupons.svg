@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="35px" height="27px" viewBox="0 0 35 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>优惠券</title>
+    <defs>
+        <linearGradient x1="-44.1373698%" y1="75.6340415%" x2="104.763532%" y2="28.4081633%" id="linearGradient-1">
+            <stop stop-color="#14AC69" offset="0%"></stop>
+            <stop stop-color="#84D157" offset="100%"></stop>
+        </linearGradient>
+        <path d="M29.6076923,0 C31.0988611,-2.92277121e-15 32.3076923,1.20883118 32.3076923,2.7 L32.3076923,7.96153846 L32.3076923,7.96153846 C30.8207718,7.96153846 29.6153846,9.14970586 29.6153846,10.6153846 C29.6153846,12.0810634 30.8207718,13.2692308 32.3076923,13.2692308 L32.3076923,18.5307692 C32.3076923,20.0219381 31.0988611,21.2307692 29.6076923,21.2307692 L2.7,21.2307692 C1.20883118,21.2307692 6.26704723e-16,20.0219381 0,18.5307692 L0,13.2692308 L0,13.2692308 C1.48692048,13.2692308 2.69230769,12.0810634 2.69230769,10.6153846 C2.69230769,9.14970586 1.48692048,7.96153846 0,7.96153846 L0,2.7 C2.61473697e-16,1.20883118 1.20883118,-1.70165941e-16 2.7,0 L29.6076923,0 Z" id="path-2"></path>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-4">
+            <stop stop-color="#FFFFFF" stop-opacity="0.480113636" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-5" x="11" y="4" width="3" height="17" rx="1.5"></rect>
+        <filter x="-233.3%" y="-29.4%" width="566.7%" height="182.4%" filterUnits="objectBoundingBox" id="filter-6">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.282861439   0 0 0 0 0.37780231   0 0 0 0 0.262057159  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="注册流程" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2.2" transform="translate(-214.000000, -205.000000)">
+            <g id="编组-6" transform="translate(18.000000, 185.000000)">
+                <g id="优惠券" transform="translate(196.000000, 20.000000)">
+                    <g id="编组-4" transform="translate(-0.000000, 0.000000)">
+                        <path d="M32.3,0 C33.7911688,-2.92277121e-15 35,1.20883118 35,2.7 L35,7.96153846 L35,7.96153846 C33.5130795,7.96153846 32.3076923,9.14970586 32.3076923,10.6153846 C32.3076923,12.0810634 33.5130795,13.2692308 35,13.2692308 L35,18.5307692 C35,20.0219381 33.7911688,21.2307692 32.3,21.2307692 L5.39230769,21.2307692 C3.90113887,21.2307692 2.69230769,20.0219381 2.69230769,18.5307692 L2.69230769,13.2692308 L2.69230769,13.2692308 C4.17922817,13.2692308 5.38461538,12.0810634 5.38461538,10.6153846 C5.38461538,9.14970586 4.17922817,7.96153846 2.69230769,7.96153846 L2.69230769,2.7 C2.69230769,1.20883118 3.90113887,-1.70165941e-16 5.39230769,0 L32.3,0 Z" id="形状结合备份" fill="#FFC300" opacity="0.2"></path>
+                        <g id="椭圆形" transform="translate(0.000000, 1.769231)">
+                            <mask id="mask-3" fill="white">
+                                <use xlink:href="#path-2"></use>
+                            </mask>
+                            <use id="蒙版" fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+                            <ellipse fill="#FFFFFF" opacity="0.0975167411" mask="url(#mask-3)" cx="29.1666667" cy="18.1346154" rx="5.83333333" ry="5.75"></ellipse>
+                        </g>
+                        <rect id="矩形备份-11" fill="url(#linearGradient-4)" x="7.17948718" y="4.30769231" width="1.79487179" height="1.76923077" rx="0.884615385"></rect>
+                        <rect id="矩形备份-14" fill="url(#linearGradient-4)" x="7.17948718" y="8.05769231" width="1.79487179" height="1.76923077" rx="0.884615385"></rect>
+                        <rect id="矩形备份-15" fill="url(#linearGradient-4)" x="7.17948718" y="11.8076923" width="1.79487179" height="1.76923077" rx="0.884615385"></rect>
+                        <rect id="矩形备份-16" fill="url(#linearGradient-4)" x="7.17948718" y="15.5576923" width="1.79487179" height="1.76923077" rx="0.884615385"></rect>
+                        <rect id="矩形备份-17" fill="url(#linearGradient-4)" x="7.17948718" y="19.3076923" width="1.79487179" height="1.76923077" rx="0.884615385"></rect>
+                    </g>
+                    <g id="矩形" opacity="0.248604911">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-5"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

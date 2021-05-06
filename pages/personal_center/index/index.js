@@ -7,13 +7,15 @@ Page({
 		isAttention: 0, // 关注状态 1-已关注，0-未关注
 		height: undefined, // 屏幕高度
 		userInfo: undefined, // 用户信息
-		showDetailWrapper: false,
 		mobilePhoneSystem: false,
 		isMain: false,// 是否从主流程进入
 		crowdSourcingMsg: undefined,// 众包信息
 		mobilePhone: undefined,
+		showDetailWrapper: false,
 		showDetailMask: false,
+		showPublicAccountType: 0,// 0 关注公众号  1 影音
 		rightsAndInterestsVehicleList: undefined, // 权益车辆列表
+		isActivation: false, // 是否有激活车辆
 		payInterest: {
 			interestsList: [
 				{img: 'basic_rights_and_interests', url: 'basic_rights_and_interests'},
@@ -38,9 +40,8 @@ Page({
 	},
 	onShow () {
 		if (app.globalData.userInfo.accessToken) {
-			this.getMemberBenefits();
-			this.getMemberCrowdSourcingAndOrder();
-			this.getOrderRelation();
+			let requestList = [this.getMemberBenefits(), this.getMemberCrowdSourcingAndOrder(), this.getRightsPackageBuyRecords(), this.getOrderRelation()];
+			Promise.all(requestList);
 			let that = this;
 			wx.getSetting({
 				success (res) {
@@ -57,6 +58,12 @@ Page({
 					}
 				}
 			});
+			if (JSON.stringify(app.globalData.myEtcList) !== '{}') {
+				let isActivation = app.globalData.myEtcList.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.obuCardType === 1); // 1 已激活  2 恢复订单  5 预激活
+				this.setData({
+					isActivation: !!isActivation.length
+				});
+			}
 		} else {
 			// 公众号进入需要登录
 			this.login();
@@ -67,70 +74,78 @@ Page({
 			screenHeight: wx.getSystemInfoSync().windowHeight
 		});
 	},
-	getOrderRelation () {
-		util.showLoading();
-		util.getDataFromServer('consumer/voucher/rights/get-order-relation', {
+	async getOrderRelation () {
+		const result = await util.getDataFromServersV2('consumer/voucher/rights/get-order-relation', {
 			platformId: app.globalData.platformId
-		}, () => {
-			util.showToastNoIcon('获取车辆列表失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				if (res.data) {
-					app.globalData.rightsAndInterestsVehicleList = res.data;
-					this.setData({
-						rightsAndInterestsVehicleList: res.data
-					});
-				}
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
 		});
+		if (result.code === 0) {
+			if (result.data) {
+				app.globalData.rightsAndInterestsVehicleList = result.data;
+				this.setData({
+					rightsAndInterestsVehicleList: result.data
+				});
+			}
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	async getRightsPackageBuyRecords () {
+		const result = await util.getDataFromServersV2('consumer/order/rightsPackageBuyRecords', {
+			platformId: app.globalData.platformId
+		});
+		if (result.code === 0) {
+			if (result?.data) {
+				let res = result?.data;
+				this.setData({
+					rightsPackageBuyRecords: res
+				});
+				app.globalData.rightsPackageBuyRecords = res;
+			}
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 自动登录
 	login (isData) {
 		util.showLoading();
 		// 调用微信接口获取code
 		wx.login({
-			success: (res) => {
-				util.getDataFromServer('consumer/member/common/applet/code', {
+			success: async (res) => {
+				const result = await util.getDataFromServersV2('consumer/member/common/applet/code', {
 					platformId: app.globalData.platformId, // 平台id
 					code: res.code // 从微信获取的code
-				}, () => {
-					util.hideLoading();
-					util.showToastNoIcon('登录失败！');
-				}, (res) => {
-					if (res.code === 0) {
-						res.data['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
-						this.setData({
-							loginInfo: res.data
-						});
-						// 已经绑定了手机号
-						if (res.data.needBindingPhone !== 1) {
-							app.globalData.userInfo = res.data;
-							app.globalData.openId = res.data.openId;
-							app.globalData.memberId = res.data.memberId;
-							app.globalData.mobilePhone = res.data.mobilePhone;
-							this.setData({
-								mobilePhone: res.data.mobilePhone
-							});
-							this.getMemberBenefits();
-							this.getMemberCrowdSourcingAndOrder();
-							this.getOrderRelation();
-							if (isData) {
-								this.submitUserInfo(isData);
-							}
-						} else {
-							wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-							util.go('/pages/login/login/login');
-							util.hideLoading();
-						}
-					} else {
-						util.hideLoading();
-						util.showToastNoIcon(res.message);
-					}
 				});
+				if (result.code === 0) {
+					result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data.mobilePhone);
+					this.setData({
+						loginInfo: result.data
+					});
+					// 已经绑定了手机号
+					if (result.data.needBindingPhone !== 1) {
+						app.globalData.userInfo = result.data;
+						app.globalData.openId = result.data.openId;
+						app.globalData.memberId = result.data.memberId;
+						app.globalData.mobilePhone = result.data.mobilePhone;
+						this.setData({
+							mobilePhone: result.data.mobilePhone
+						});
+						let requestList = [];
+						if (JSON.stringify(app.globalData.myEtcList) === '{}') {
+							requestList = [this.getStatus()];
+						}
+						requestList = [requestList, this.getMemberBenefits(), this.getMemberCrowdSourcingAndOrder(), this.getRightsPackageBuyRecords(), this.getOrderRelation()];
+						if (isData) {
+							requestList.push(this.submitUserInfo(isData));
+						}
+						Promise.all(requestList);
+					} else {
+						wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+						util.go('/pages/login/login/login');
+						util.hideLoading();
+					}
+				} else {
+					util.showToastNoIcon(result.message);
+				}
 			},
 			fail: () => {
 				util.hideLoading();
@@ -138,24 +153,34 @@ Page({
 			}
 		});
 	},
+	// 获取订单信息
+	async getStatus () {
+		let params = {
+			openId: app.globalData.openId
+		};
+		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
+		if (result.code === 0) {
+			app.globalData.myEtcList = result.data;
+			let isActivation = result.data.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.obuCardType === 1); // 1 已激活  2 恢复订单  5 预激活
+			this.setData({
+				isActivation: !!isActivation.length
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
 	// 众包-获取用户推广码和订单红包数量
-	getMemberCrowdSourcingAndOrder () {
-		util.showLoading();
-		util.getDataFromServer('consumer/member/getMemberCrowdSourcingAndOrder', {}, () => {
-			util.showToastNoIcon('获取用户推广信息失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				// status - 0 未成为推广者，1-已经是推广者，8-活动已经结束
-				app.globalData.crowdsourcingServiceProvidersId = res.data.shopId;
-				this.setData({
-					crowdSourcingMsg: res.data
-				});
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-		});
+	async getMemberCrowdSourcingAndOrder () {
+		const result = await util.getDataFromServersV2('consumer/member/getMemberCrowdSourcingAndOrder', {});
+		if (result.code === 0) {
+			// status - 0 未成为推广者，1-已经是推广者，8-活动已经结束
+			app.globalData.crowdsourcingServiceProvidersId = result.data.shopId;
+			this.setData({
+				crowdSourcingMsg: result.data
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 邀请好友
 	inviteFriends () {
@@ -203,39 +228,24 @@ Page({
 			path: `/pages/crowdsourcing/new_user/new_user?shopId=${app.globalData.crowdsourcingServiceProvidersId}&memberId=${app.globalData.memberId}`
 		};
 	},
-	submitUserInfo (user) {
-		util.showLoading();
+	async submitUserInfo (user) {
 		let params = {
 			encryptedData: user.encryptedData,
 			iv: user.iv
 		};
-		util.getDataFromServer('consumer/member/applet/update-user-info', params, () => {
-			util.showToastNoIcon('提交用户信息失败！');
-		}, (res) => {
-			if (res.code === 0) {
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-		});
+		const result = await util.getDataFromServersV2('consumer/member/applet/update-user-info', params);
+		if (result.code) util.showToastNoIcon(result.message);
 	},
 	// 获取会员信息
-	getMemberBenefits () {
-		util.showLoading();
-		util.getDataFromServer('consumer/member/member-status', {}, () => {
-			util.showToastNoIcon('获取会员信息失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				this.setData({
-					isAttention: res.data.attentionStatus
-				});
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-		});
+	async getMemberBenefits () {
+		const result = await util.getDataFromServersV2('consumer/member/member-status', {});
+		if (result.code === 0) {
+			this.setData({
+				isAttention: result.data.attentionStatus
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	bindGetUserInfo (e) {
 		this.setData({
@@ -249,10 +259,10 @@ Page({
 	go (e) {
 		let url = e.currentTarget.dataset['url'];
 		if (url === 'life_service') {
-			this.showDetail();
+			this.showDetail(1);
 			return;
 		}
-		if (url === 'owner_service') {
+		if (url === 'the_owner_service') {
 			mta.Event.stat('personal_center_owner_service',{});
 		} else if (url === 'my_etc') {
 			mta.Event.stat('personal_center_my_etc',{});
@@ -273,23 +283,19 @@ Page({
 		// 只允许从相机扫码
 		wx.scanCode({
 			onlyFromCamera: true,
-			success: (res) => {
+			success: async (res) => {
 				let key = res.result.match(/(\S*)=/);
 				let val = res.result.match(/=(\S*)/);
 				if (key && val && key[1] && val[1].length === 18 && key[1] === 'orderId') {
-					util.getDataFromServer('consumer/member/bind-order', {
+					const result = await util.getDataFromServersV2('consumer/member/bind-order', {
 						orderId: val[1]
-					}, () => {
-						util.hideLoading();
-					}, (res) => {
-						util.hideLoading();
-						if (res.code === 0) {
-							app.globalData.orderInfo.orderId = val[1];
-							util.go('/pages/personal_center/my_etc_detail/my_etc_detail');
-						} else {
-							util.showToastNoIcon(res.message);
-						}
-					}, app.globalData.userInfo.accessToken);
+					});
+					if (result.code === 0) {
+						app.globalData.orderInfo.orderId = val[1];
+						util.go('/pages/personal_center/my_etc_detail/my_etc_detail');
+					} else {
+						util.showToastNoIcon(result.message);
+					}
 				} else {
 					util.hideLoading();
 					util.showToastNoIcon('不支持的数据格式');
@@ -303,8 +309,9 @@ Page({
 		});
 	},
 	// 显示详情
-	showDetail (e) {
+	showDetail (type) {
 		this.setData({
+			showPublicAccountType: type,
 			showDetailWrapper: true,
 			showDetailMask: true
 		});

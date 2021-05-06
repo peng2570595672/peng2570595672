@@ -21,8 +21,8 @@ App({
 		uma,
 		host: IS_TEST ? 'https://etctest.cyzl.com/etc2-client' : 'https://etc.cyzl.com', // 接口主机地址 正式 etc.cyzl.com/ 测试 etctest.cyzl.com/
 		test: IS_TEST, // 是否为测试
-		uploadOcrUrl: IS_TEST ? 'https://etctest.cyzl.com/file-service/file/upload-ocr' : 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址
-		// uploadOcrUrl: 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址
+		// uploadOcrUrl: IS_TEST ? 'https://etctest.cyzl.com/file-service/file/upload-ocr' : 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址
+		uploadOcrUrl: 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址
 		uploadUrl: 'https://file.cyzl.com/file/upload', // 上传图片无需审核地址
 		plamKey: '123456', // 签名用到的key --- 二发
 		mapKey: '2PEBZ-EJKKX-V624T-Z4MH6-LVHUS-D6BNM', // 腾讯地图所使用key
@@ -89,13 +89,17 @@ App({
 		isCrowdsourcingPromote: false, // 是不是众包推广
 		crowdsourcingServiceProvidersId: undefined, // 众包服务商id 用于加载不同套餐
 		rightsAndInterestsVehicleList: undefined, // 权益车辆列表
+		rightsPackageBuyRecords: undefined, // 权益购买记录
 		myEtcList: {}, // 车辆列表
 		packagePageData: undefined, // 套餐页面数据
 		orderInfo: {
 			orderId: ''
 		},
 		truckHandlingOCRType: 0,// 货车办理选择ocr上传类型
+		handlingOCRType: 0,// 客车办理选择ocr上传类型
 		isTruckHandling: false,// 是否新流程-货车办理
+		isNeedReturnHome: false,// 是否需要返回首页
+		newPackagePageData: {}, // 新套餐页面数据
 		weiBoUrl: IS_TEST ? '/pages/base/redirect/index?routeKey=CAR_WEBVIEW&url=https://static-dsu.wesure.cn/uatapp/app2/h5-reserve-ad/vendors&query=' : '/pages/base/redirect/index?routeKey=CAR_WEBVIEW&url=https://static.wesure.cn/app2/h5-reserve-ad/vendors&query='
 	},
 	onLaunch (options) {
@@ -170,7 +174,6 @@ App({
 						this.getPromoterInfo(sceneKey,sceneValue);
 					}
 				}
-			} else {
 			}
 		}
 		if (options.query.channelValue && options.query.serverInfoId) {
@@ -348,16 +351,8 @@ App({
 								state: 'succeed'
 							}
 						});
-					} else if (this.globalData.belongToPlatform === this.globalData.platformId) {
-						// 本平台签约
-						util.go('/pages/default/signed_successfully/signed_successfully');
 					} else {
-						// 其他平台签约 :业务员端/h5
-						if (this.globalData.isSalesmanOrder) {
-							util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
-						} else {
-							util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
-						}
+						util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
 					}
 				} else {
 					util.showToastNoIcon('未签约成功！');

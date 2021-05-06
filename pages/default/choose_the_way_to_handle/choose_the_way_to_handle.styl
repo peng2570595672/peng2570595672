@@ -1,0 +1,61 @@
+@import "../../../style/base.styl";
+@import "../../../style/my_animate.styl";
+.payment-way
+	display flex
+	flex-direction column
+	padding 0 30rpx
+	min-height 100vh
+	// 标题
+	.title
+		margin-top 40rpx
+		display flex
+		align-items center
+		height 56rpx
+		font-size 34rpx
+		font-weight 500
+		font-family PingFangSC-Medium, PingFang SC
+		color #000
+		&::before
+			margin-right 12rpx
+			content ''
+			width 8rpx
+			height 44rpx
+			background #2FB565
+	// 办理方式
+	.handle-the-way
+		display flex
+		height 152rpx
+		align-items center
+		border-radius 16rpx
+		margin-top 40rpx
+		background #F6F6F6
+		.name
+			flex 1
+			.top
+				font-size 34rpx
+				line-height 48rpx
+				color rgba(0, 0, 0, .9)
+			.bottom
+				font-size 24rpx
+				line-height 40rpx
+				color rgba(0, 0, 0, .25)
+		.choice
+			font-size 24rpx
+			color rgba(0, 0, 0, .1)
+			margin-right 32rpx
+		image
+			flex 0 0 78rpx
+			width 78rpx
+			height 78rpx
+			margin-left 24rpx
+			margin-right 12rpx
+	// 高度填充
+	.fill
+		flex 1
+	.online-service
+		color #1797F7
+		font-size 28rpx
+		line-height 48rpx
+		text-align center
+		margin-bottom 90rpx
+

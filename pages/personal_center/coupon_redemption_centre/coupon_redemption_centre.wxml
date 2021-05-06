@@ -1,0 +1,70 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<view class="collect-paid-up-interest">
+	<!--车牌选择开始-->
+	<view class="select-vehicle">
+		<view class="label">当前车牌：</view>
+		<!--tab切换车牌列表开始-->
+		<scroll-view class="vehicle-list" scroll-x='true' scroll-with-animation="true">
+			<view id="index{{index}}" wx:for="{{vehicleList}}" wx:key="index" catchtap="onClickTab" data-index="{{index}}"
+                  class="list-title-child weight {{tabVehicleIndex == index ?'tab-vehicle-index':''}}">
+				<view class="vehPlates-name">{{item.vehPlates}}</view>
+			</view>
+		</scroll-view>
+	</view>
+	<!--车牌选择结束-->
+    <view class="line"></view>
+	<!--各期权益选择开始-->
+	<view class="list">
+		<!--tab切换列表开始-->
+<!--		<scroll-view class="list-title" scroll-x='true' scroll-into-view="{{toview}}" scroll-with-animation="true">-->
+<!--			<view class="list-title-child {{tabIndex == index ?'tab-index':''}}" id="index{{index}}" wx:for="{{couponList}}" wx:key="index" catchtap="onClickTab" data-index="{{index}}">-->
+<!--				<view class="period {{item.status !== 1 ? 'not-receive' : ''}}">{{index + 1}}期</view>-->
+<!--				<view >-->
+<!--					<text></text>-->
+<!--				</view>-->
+<!--				<view class="status {{item.status === 0 ? 'overdue' : item.status === 1 ? 'can-receive' : ''}}">{{item.status === 0 ? '已过期' : item.status === 1 ? '可领取' : '未开放'}}</view>-->
+<!--				<view>已过期</view>-->
+<!--			</view>-->
+<!--		</scroll-view>-->
+        <swiper
+                class="list-title"
+                indicator-dots="{{false}}"
+                autoplay="{{false}}"
+                display-multiple-items="5"
+                bindchange="currentChange"
+                circular="{{true}}">
+            <swiper-item wx:for="{{couponList}}" wx:key="index" class="list-title-child"
+                         catchtap="onClickSwiper" data-index="{{index}}">
+                <view class="period {{item.status !== 1 ? 'not-receive' : ''}}">{{item.stage}}期</view>
+                <view>
+                    <text class="{{tabIndex === index ? 'active' : ''}}"></text>
+                </view>
+                <view class="status {{item.status === 0 ? 'overdue' : item.status === 1 ? 'can-receive' : ''}}">{{item.status === 0 ? '已过期' : item.status === 1 ? '可领取' : '未开放'}}</view>
+            </swiper-item>
+        </swiper>
+		<!--tab切换列表结束-->
+		<!--列表开始-->
+		<view class="vouchers-list">
+			<view wx:for="{{couponList[tabIndex].coupons}}" wx:key="index"
+                  class="item {{item.couponsStatus === 2 ? 'parking-ticket' : ''}} {{item.couponsStatus === 1 ? 'traffic-ticket' : ''}}" catchtap="onClickTheCoupons" data-item="{{item}}">
+				<view class="left {{item.couponType === 2 ? 'parking' : ''}} {{item.isReceive === 0 && item.couponsStatus === 0 ? 'overdue' : ''}} iconfont"></view>
+				<view class="middle">
+					<view class="coupon-name">{{item.couponName}}</view>
+					<view class="vouchers-price">满{{item.consumptionThreshold / 100}}减{{item.denomination / 100}}</view>
+				</view>
+				<!-- couponType; // 劵类型  1-通行劵 2-停车卷-->
+				<view class="btn {{item.isReceive === 0 && item.couponsStatus ? 'not-click' : ''}}"
+				      catchtap="onClickReceive" data-item="{{item}}" data-index="{{index}}" wx:if="{{item.couponsStatus !== 2}}">
+					{{item.isReceive === 0 && item.couponsStatus === 0 ? '已过期' : ''}}
+					{{item.isReceive === 0 && item.couponsStatus === 1 ? '领取' : ''}}
+					{{item.isReceive === 1 ? '已领取' : ''}}
+<!--					{{item.isReceive === 1 ? item.couponType === 1 ? '已领取' : '已存入微信卡包' : ''}}-->
+<!--					{{item.couponsStatus === 2 ? '待领取' : ''}}-->
+				</view>
+			</view>
+		</view>
+		<!--列表结束-->
+	</view>
+	<!--各期权益选择开始-->
+	<instructions id='instructions' popupContent="{{popupContent}}" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></instructions>
+</view>

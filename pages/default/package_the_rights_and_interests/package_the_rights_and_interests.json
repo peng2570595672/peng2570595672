@@ -1,10 +1,11 @@
 {
-  "navigationBarBackgroundColor": "#F5F5F7",
+  "navigationBarBackgroundColor": "#F6F6F6",
   "navigationBarTextStyle": "black",
-  "navigationBarTitleText": "套餐权益",
-  "backgroundColor": "#F5F5F7",
+  "navigationBarTitleText": "选择套餐",
+  "backgroundColor": "#F6F6F6",
   "backgroundTextStyle": "light",
   "usingComponents": {
-    "rights_and_interests_details": "/components/rights_and_interests_details/rights_and_interests_details"
+    "related_service": "/components/related_service/related_service",
+    "rights_package": "/components/rights_package/rights_package"
   }
 }

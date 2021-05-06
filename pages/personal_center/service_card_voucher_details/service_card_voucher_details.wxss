@@ -2,7 +2,7 @@
   min-height: 100vh;
   box-sizing: border-box;
   padding: 42rpx 30rpx 20rpx;
-  background: #fff;
+  background: #2fb565;
 }
 .service_card_voucher_details .ticket-card {
   background: #fff;

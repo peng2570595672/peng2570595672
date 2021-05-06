@@ -56,7 +56,7 @@
         {
           "name": "办理进度",
           "pathName": "pages/default/processing_progress/processing_progress",
-          "query": "orderId=823587582322413568",
+          "query": "orderId=839879470146916352",
           "scene": null
         },
         {
@@ -74,9 +74,8 @@
           "scene": null
         },
         {
-          "id": 9,
-          "name": "pages/personal_center/recharge-card-processing/recharge-card-processing",
-          "pathName": "pages/personal_center/recharge-card-processing/recharge-card-processing",
+          "name": "pages/default/order_audit/order_audit",
+          "pathName": "pages/default/order_audit/order_audit",
           "query": "",
           "scene": null
         },
@@ -90,7 +89,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=823587582322413568",
+          "query": "orderId=837645441058213888",
           "scene": null
         },
         {
@@ -101,7 +100,7 @@
           "scene": null
         },
         {
-          "name": "我的账单页",
+          "name": "我的账单",
           "pathName": "pages/personal_center/my_order/my_order",
           "query": "",
           "scene": null
@@ -162,14 +161,14 @@
           "scene": null
         },
         {
-          "name": "pages/personal_center/basic_rights_and_interests/basic_rights_and_interests",
-          "pathName": "pages/personal_center/basic_rights_and_interests/basic_rights_and_interests",
-          "query": "id=709701386738077696&channel=1&month=202005",
+          "name": "pages/login/package_the_rights_and_interests/package_the_rights_and_interests",
+          "pathName": "pages/login/package_the_rights_and_interests/package_the_rights_and_interests",
+          "query": "type=101",
           "scene": null
         },
         {
-          "name": "activities/pages/activity_micro_insurance/index",
-          "pathName": "activities/pages/activity_micro_insurance/index",
+          "name": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
+          "pathName": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
           "query": "orderId=807027129899814912",
           "scene": null
         },
@@ -180,8 +179,8 @@
           "scene": null
         },
         {
-          "name": "pages/default/package_the_rights_and_interests/package_the_rights_and_interests",
-          "pathName": "pages/default/package_the_rights_and_interests/package_the_rights_and_interests",
+          "name": "pages/default/payment_successful/payment_successful",
+          "pathName": "pages/default/payment_successful/payment_successful",
           "query": "",
           "scene": null
         },
@@ -234,9 +233,69 @@
           "scene": null
         },
         {
-          "name": "pingan/pages/ChooseBank/ChooseBank",
+          "name": "pages/personal_center/coupon_details/coupon_details",
+          "pathName": "pages/personal_center/coupon_details/coupon_details",
+          "query": "orderId=823587582322413568",
+          "scene": null
+        },
+        {
+          "name": "pages/personal_center/new_index/new_index",
+          "pathName": "pages/personal_center/new_index/new_index",
+          "query": "orderId=823587582322413568",
+          "scene": null
+        },
+        {
+          "name": "基础服务",
+          "pathName": "pages/personal_center/basic_services/basic_services",
+          "query": "orderId=823587582322413568",
+          "scene": null
+        },
+        {
+          "name": "the_owner_service",
+          "pathName": "pages/personal_center/the_owner_service/the_owner_service",
+          "query": "orderId=823587582322413568",
+          "scene": null
+        },
+        {
+          "name": "pages/personal_center/new_index/new_index",
+          "pathName": "pages/personal_center/new_index/new_index",
+          "query": "orderId=823587582322413568",
+          "scene": null
+        },
+        {
+          "name": "特微入口",
           "pathName": "pingan/pages/ChooseBank/ChooseBank",
           "query": "orderId=823587582322413568",
+          "scene": null
+        },
+        {
+          "name": "service_card_voucher",
+          "pathName": "pages/personal_center/service_card_voucher/service_card_voucher",
+          "query": "orderId=823587582322413568",
+          "scene": null
+        },
+        {
+          "name": "service_purchase_record",
+          "pathName": "pages/personal_center/service_purchase_record/service_purchase_record",
+          "query": "orderId=823587582322413568",
+          "scene": null
+        },
+        {
+          "name": "coupon_redemption_centre",
+          "pathName": "pages/personal_center/coupon_redemption_centre/coupon_redemption_centre",
+          "query": "orderId=823587582322413568",
+          "scene": null
+        },
+        {
+          "name": "service_card_voucher_details",
+          "pathName": "pages/personal_center/service_card_voucher_details/service_card_voucher_details",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "shot_other_photo",
+          "pathName": "pages/default/shot_other_photo/shot_other_photo",
+          "query": "",
           "scene": null
         }
       ]

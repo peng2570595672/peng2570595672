@@ -1,0 +1,92 @@
+.information-list
+	height 100vh
+	padding 52rpx 32rpx
+	box-sizing border-box
+	background #fff
+	display flex
+	flex-direction column
+	.label
+		font-size 28rpx
+		line-height 40rpx
+		color rgba(0, 0, 0, .5)
+	.list-title
+		display flex
+		align-items center
+		font-size 34rpx
+		font-family PingFangSC-Medium, PingFang SC;
+		font-weight 500
+		color #000
+		padding 32rpx 0 26rpx
+		&::before
+			margin-right 8rpx
+			content ''
+			width 8rpx
+			height 44rpx
+			background #2FB565
+	.list-item
+		display flex
+		align-items center
+		padding 0rpx 30rpx
+		margin-bottom 30rpx
+		height 160rpx
+		background #F6F6F6
+		border-radius 16rpx
+		.left
+			display flex
+			align-items center
+			flex 1
+			font-size 34rpx
+			color rgba(0, 0, 0, .9)
+			&.success
+				&::after
+					content '\e669'
+					font-size 37rpx
+					color #07C160
+					margin-left 16rpx
+			&.error
+				&::after
+					content '\e66a'
+					font-size 37rpx
+					color #F7B500
+					margin-left 16rpx
+		.btn
+			display flex
+			justify-content center
+			align-items center
+			width 108rpx
+			height 50rpx
+			border-radius 4rpx
+			background #2FB565
+			font-size 24rpx
+			color #fff
+			&.edit
+				background #EFEFEF
+				color #2FB565
+	// 高度填充
+	.fill
+		flex 1
+	.tips
+		text-align center
+		font-size 24rpx
+		color rgba(0, 0, 0, .3)
+	.btn-sign
+		display flex
+		align-items center
+		justify-content center
+		height 98rpx
+		margin 20rpx 0
+		background linear-gradient(49deg,rgba(20,172,105,0.24) 0%,rgba(132,209,87,0.24) 100%)
+		border-radius 49rpx
+		font-size 34rpx
+		font-family PingFangSC-Medium, PingFang SC
+		font-weight 500
+		color #FFFFFF
+		&.available
+			background linear-gradient(45deg, #14AC69 0%, #84D157 100%);
+			animation btnFadeIn .3s
+			animation-fill-mode forwards
+		&.unavailable
+			animation btnFadeOut .3s
+			animation-fill-mode forwards
+
+

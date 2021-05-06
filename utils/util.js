@@ -667,33 +667,26 @@ function getStatus(orderInfo) {
 	let status = 0;
 	// deliveryRule 先签约后发货-0、先发货后签约-1
 	if (orderInfo.deliveryRule === 1 && orderInfo.status === 1) {
-		if (orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) {
-			status = 4;
-		} else if (orderInfo.auditStatus === 2) {
-			if (orderInfo.contractStatus !== 1) {
-				status = 2;
-			} else if (orderInfo.contractStatus === 1 && (orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)) {
-				status = 6; // 审核通过  待激活
-			} else if (orderInfo.contractStatus === 1 && orderInfo.obuStatus === 1) {
-				status = 9; // 审核通过  已激活
-			}
-		} else if (orderInfo.auditStatus === 1) {
-			status = 5;
-		} else {
-			status = 8;
-		}
+		const statusObj = {
+			0: 4,// 查看进度 待审核
+			1: 5,// 资料被拒绝 修改资料
+			// 审核通过   签约状态不为1,去签约 : obu状态为1 已激活 :  待激活
+			2: orderInfo.contractStatus !== 1 ? 2 : orderInfo.obuStatus === 1 ? 9 : 6,
+			3: 4,// 查看进度 预审核
+		};
+		status = statusObj[orderInfo.auditStatus] ? statusObj[orderInfo.auditStatus] : 8;
 	} else {
-		if ((orderInfo.shopProductId === 0 || orderInfo.isOwner === 0) && orderInfo.contractStatus !== 1) {
-			status = 1; // 办理中 选择套餐
-		} else if (orderInfo.shopProductId !== 0 && orderInfo.contractStatus !== 1) {
+		if (orderInfo.shopProductId === 0) {
+			status = 1;// 办理中 未选套餐 || 待支付
+		} else if (orderInfo.status === 0 && orderInfo.shopProductId !== 0 && (orderInfo.pledgeStatus === -1 || orderInfo.pledgeStatus === 1)) {
+			status = 3; // 办理中 已选套餐 && (无需支付  ||  已经支付)
+		} else if (orderInfo.status === 1 && orderInfo.contractStatus !== 1) {
 			status = 2; // 待签约
-		} else if ((orderInfo.status === 0 || orderInfo.isVehicle === 0) && orderInfo.contractStatus === 1) {
-			status = 3; // 办理中 已签约
-		} else if (orderInfo.status === 1 && orderInfo.contractStatus === 1 && orderInfo.auditStatus === 0 && orderInfo.isVehicle === 1) {
+		} else if (orderInfo.contractStatus === 1 && orderInfo.auditStatus === 0) {
 			status = 4; // 查看进度 待审核
-		} else if (orderInfo.status === 1 && orderInfo.auditStatus === 1 && orderInfo.isVehicle === 1) {
+		} else if (orderInfo.status === 1 && orderInfo.auditStatus === 1) {
 			status = 5; // 资料被拒绝 修改资料
-		} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5) && orderInfo.auditStatus === 2) {
+		} else if (orderInfo.auditStatus === 2 && (orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)) {
 			status = 6; // 审核通过  待激活
 		} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)  && orderInfo.auditStatus === 3) {
 			status = 7; // 预审核通过  待审核
@@ -703,34 +696,13 @@ function getStatus(orderInfo) {
 			status = 9; // 审核通过  已激活
 		}
 	}
-	// // 新流程
-	// if (status !== 2 && status !== 5 && orderInfo.status === 1 && orderInfo.flowVersion === 2 && orderInfo.hwContractStatus !== 1) {
-	// 	// 待微信签约的优先微信签约
-	// 	// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
-	// 	status = 10; // 待签约高速
-	// }
-	if (orderInfo.auditStatus === 2 && orderInfo.flowVersion === 2 && orderInfo.hwContractStatus !== 1) {
-		// 审核通过  未高速签约
-		// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
-		status = 10; // 待签约高速
-	}
-	if (orderInfo.auditStatus === -1 && orderInfo.status === 1) {
-		// 不需要审核,为了不改动之前的,所以单独判断
-		if (orderInfo.contractStatus !== 1) {
-			status = 2; // 待签约
-		} else {
-			if (orderInfo.obuStatus !== 1) {
-				status = 6; // 待激活
-			} else if (orderInfo.obuStatus === 1) {
-				status = 9; // 已激活
-			}
-		}
-	}
-	if (orderInfo.pledgeStatus === 0) {
-		// 众包
-		// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
-		status = 11; // 待支付
-	}
+	// 审核通过  未高速签约
+	// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
+	if (orderInfo.auditStatus === 2 && orderInfo.flowVersion === 2 && orderInfo.hwContractStatus !== 1) status = 10; // 待签约高速
+	// 不需要审核,为了不改动之前的,所以单独判断
+	if (orderInfo.auditStatus === -1 && orderInfo.status === 1) status = orderInfo.contractStatus !== 1 ? 2 : orderInfo.obuStatus !== 1 ? 6 : 9;
+	// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
+	status = orderInfo.pledgeStatus === 0 ? 11 : status
 	return status;
 }
 /**
@@ -1061,7 +1033,7 @@ function weChatSigning(data) {
 			path: 'pages/index/index',
 			extraData: data.extraData,
 			fail () {
-				util.showToastNoIcon('调起车主服务签约失败, 请重试！');
+				showToastNoIcon('调起车主服务签约失败, 请重试！');
 			}
 		});
 	} else if (data.version === 'v2') { // 签约车主服务 2.0
@@ -1070,7 +1042,7 @@ function weChatSigning(data) {
 			path: 'pages/route/index',
 			extraData: data.extraData,
 			fail () {
-				util.showToastNoIcon('调起车主服务签约失败, 请重试！');
+				showToastNoIcon('调起车主服务签约失败, 请重试！');
 			}
 		});
 	} else { // 签约车主服务 3.0
@@ -1081,10 +1053,283 @@ function weChatSigning(data) {
 				preopen_id: data.extraData.peropen_id
 			},
 			fail () {
-				util.showToastNoIcon('调起车主服务签约失败, 请重试！');
+				showToastNoIcon('调起车主服务签约失败, 请重试！');
 			}
 		});
 	}
+}
+
+// 创建动画
+function wxAnimation(delay, site, translate) {
+	let animation = wx.createAnimation({
+		delay,
+		duration: 500,
+		timingFunction: 'ease'
+	});
+	if (translate === 'translateY') {
+		animation.translateY(site).step();
+	} else {
+		animation.translateX(site).step();
+	}
+	return animation.export();
+}
+// 获取定位数据
+function initLocationInfo (orderInfo) {
+	// 是否缓存了定位信息
+	let locationInfo = wx.getStorageSync('location-info');
+	if (locationInfo) {
+		let res = JSON.parse(locationInfo);
+		let info = res.result.ad_info;
+		// 获取区域编码
+		let regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
+		const result = getListOfPackages(orderInfo, regionCode)
+		if (result) {
+			return result
+		}
+		return '';
+	}
+	// 定位
+	return getLocationInfo(orderInfo);
+}
+// 授权定位
+async function getLocationInfo (orderInfo) {
+	showLoading();
+	let res = await new Promise((resolve, reject) => {
+		wx.getLocation({
+			type: 'wgs84',
+			success: async (res) => {
+				getAddressInfo(res.latitude, res.longitude,  (res) => {
+					wx.setStorageSync('location-info',JSON.stringify(res));
+					let info = res.result.ad_info;
+					let regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
+					resolve(regionCode)
+				},  () => {
+					resolve([])
+				});
+			},
+			fail: (res) => {
+				hideLoading();
+				if (res.errMsg === 'getLocation:fail auth deny' || res.errMsg === 'getLocation:fail authorize no response') {
+					alert({
+						content: '由于您拒绝了定位授权，导致无法获取扣款方式，请允许定位授权！',
+						showCancel: true,
+						confirmText: '允许授权',
+						confirm: () => {
+							wx.openSetting();
+						},
+						cancel: () => {
+							resolve([])
+						}
+					});
+				} else if (res.errMsg === 'getLocation:fail:ERROR_NOCELL&WIFI_LOCATIONSWITCHOFF' || res.errMsg === 'getLocation:fail system permission denied') {
+					showToastNoIcon('请开启手机或微信定位功能！');
+				}
+			}
+		});
+	})
+	return getListOfPackages(orderInfo, res);
+}
+// 获取套餐列表
+async function getListOfPackages (orderInfo, regionCode, notList) {
+	showLoading();
+	let params = {
+		needRightsPackageIds: true,
+		areaCode: regionCode[0] || 0,
+		productType: 2,
+		vehType: 1,
+		platformId: app.globalData.platformId,
+		shopId: orderInfo.shopId || app.globalData.miniProgramServiceProvidersId
+	};
+	let result = await getDataFromServersV2('consumer/system/get-usable-product', params);
+	if (!result) return '';
+	let [isFaceToFace, isFaceToFaceCCB, isFaceToFaceICBC, isFaceToFaceWeChat] = [false, false, false, false];
+	if (orderInfo.thirdGeneralizeNo && orderInfo.thirdGeneralizeNo.indexOf('isFaceToFace') !== -1) {
+		isFaceToFace = true;
+		if (orderInfo.thirdGeneralizeNo === 'isFaceToFaceCCB') {
+			isFaceToFaceCCB = true;
+		} else if (orderInfo.thirdGeneralizeNo === 'isFaceToFaceICBC') {
+			isFaceToFaceICBC = true;
+		} else if (orderInfo.thirdGeneralizeNo === 'isFaceToFaceWeChat') {
+			isFaceToFaceWeChat = true;
+		}
+	}
+	if (result.data.length === 0) {
+		let arr = [1, 3, 4, 5, 6, 9, 12, 14, 17];// 推广类型
+		if (arr.includes(orderInfo?.promoterType) || orderInfo.shopId === app.globalData.miniProgramServiceProvidersId) {
+			showToastNoIcon('未查询到套餐，请联系工作人员处理！');
+			return;
+		}
+		app.globalData.isServiceProvidersPackage = false; // 该服务商没有套餐
+		getListOfPackages(orderInfo, regionCode, true);
+	}
+	let list = result.data;
+	// 面对面活动过滤套餐
+	if (isFaceToFace) {
+		let faceToFaceList = [];
+		list = [];
+		faceToFaceList = result.data.find((item) => {
+			if (isFaceToFaceCCB) {
+				return item.shopProductId === '746500057456570395';
+			} else if (isFaceToFaceICBC) {
+				return item.shopProductId === '746500057456570393';
+			} else {
+				return item.shopProductId === '746500057456570394';
+			}
+		});
+		list.push(faceToFaceList);
+	}
+	if (!list.length) {
+		app.globalData.newPackagePageData = {};
+		showToastNoIcon('未查询到套餐，请联系工作人员处理！');
+		return;
+	}
+	const divideAndDivideList = list.filter(item => item.flowVersion === 1);// 分对分套餐
+	const alwaysToAlwaysList = list.filter(item => item.flowVersion === 2);// 总对总套餐
+	let type = !divideAndDivideList.length ? 2 : !alwaysToAlwaysList.length ? 1 : 0;
+	app.globalData.newPackagePageData = {
+		shopId: orderInfo.shopId || app.globalData.miniProgramServiceProvidersId,// 避免老流程没上传shopId
+		listOfPackages: list,
+		areaCode: regionCode[0] || 0,
+		type,
+		divideAndDivideList,
+		alwaysToAlwaysList
+	};
+	return result;
+}
+/**
+ *  从网络获取数据
+ * @param json 请求参数
+ * @param success 成功后的回调g
+ * @param fail 失败后的回调
+ */
+async function getDataFromServersV2(path, params, method = 'POST') {
+	showLoading();
+	// common || public 模块下的不需要 token
+	const token = app.globalData.userInfo.accessToken;
+	if (!token && !path.includes('common') && !path.includes('public')) {
+		showToastNoIcon('获取用户信息失败,请重新进入小程序!');
+		return;
+	}
+	method = method.toUpperCase();
+	// 对请求路径是否开头带/进行处理
+	path = path.indexOf('/') === 0 ? path : `/${path}`;
+	// 封装请求对象
+	let obj = {
+		url: app.globalData.host + path,
+		method: method
+	};
+	let header = {};
+	// timestamp 时间戳  nonceStr随机字符串 uuid
+	let timestamp,nonceStr;
+	nonceStr = getUuid();
+	if (app.globalData.isSystemTime) {
+		if (app.globalData.systemTime) {
+			timestamp = app.globalData.systemTime
+		} else{
+			timestamp = parseInt(new Date().getTime() /1000);
+		}
+	} else {
+		await getSystemTime().then(res => {
+			timestamp = res;
+		});
+	}
+	if (!timestamp) {
+		timestamp = parseInt(new Date().getTime() /1000);
+	}
+	// POST请求
+	if (method === 'POST') {
+		// 设置签名
+		header = {
+			sign: getSignature(params, path, token, timestamp, nonceStr),
+			timestamp: timestamp,
+			nonceStr: nonceStr
+		};
+		// 设置请求体
+		obj['data'] = params;
+	} else { // GET请求
+		// 拼接请求路径
+		let url = obj.url + '?';
+		for (let key of Object.keys(params)) {
+			url += `${key}=${params[key]}&`
+		}
+		url = url.substring(0, url.length - 1);
+		obj.url = url;
+		// 设置签名
+		header = {
+			sign: getSignature({}, obj.url.replace(app.globalData.host, ''), token, timestamp, nonceStr),
+			timestamp:timestamp,
+			nonceStr:nonceStr
+		};
+	}
+	// 设置token
+	if (token) {
+		header.accessToken = token;
+	}
+	// 设置请求头
+	obj.header = header;
+	// 执行请求
+	return await new Promise((resolve, reject) => {
+		wx.request({
+			url: obj.url,
+			method: method,
+			data: obj.data,
+			header: obj.header,
+			success: (res) => {
+				if (res && res.statusCode == 200) {
+					if (res.data.code === 115 || res.data.code === 117 || res.data.code === 118) { // 在别处登录了 重新自动登录一次
+						reAutoLoginV2(path, params, method);
+						return;
+					} else if (res.data.code === 444) {
+						// 请求已失效
+						app.globalData.isSystemTime = false;
+						app.globalData.systemTime = undefined;
+						reAutoLoginV2(path, params, method);
+						return;
+					}
+					console.log(res.data);
+					resolve(res.data)
+				} else {
+					reject(res)
+				}
+			},
+			fail: (err) => {
+				reject(err)
+			},
+			complete: () => {
+				hideLoading();
+			}
+		})
+	});
+}
+/**
+ * 签名错误 重新登录
+ * @param path
+ * @param params
+ * @param fail
+ * @param success
+ * @param token
+ * @param complete
+ */
+function reAutoLoginV2(path, params, method) {
+	wx.login({
+		success: async (r) => {
+			// 自动登录
+			let result = await getDataFromServersV2('consumer/member/common/applet/code', {
+				platformId: app.globalData.platformId,
+				code: r.code
+			});
+			if (result.code) {
+				showToastNoIcon(result.message);
+				return '';
+			}
+			app.globalData.userInfo = result.data;
+			app.globalData.openId = result.data.openId;
+			app.globalData.memberId = result.data.memberId;
+			app.globalData.mobilePhone = result.data.mobilePhone;
+			// 重新获取所需数据
+			getDataFromServersV2(path, params, method);
+		}
+	});
 }
 module.exports = {
 	setApp,
@@ -1121,5 +1366,9 @@ module.exports = {
 	getStatusFirstVersion,
 	goHome,
 	getInsuranceOffer,
+	initLocationInfo,
+	getListOfPackages,
+	wxAnimation,
+	getDataFromServersV2,
 	weChatSigning
 };

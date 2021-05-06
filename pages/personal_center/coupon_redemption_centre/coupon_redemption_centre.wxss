@@ -1,0 +1,207 @@
+@font-face {
+  font-family: 'iconfont'; /* project id 1514406 */
+  src: url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot");
+  src: url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot?#iefix") format('embedded-opentype'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff2") format('woff2'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff") format('woff'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.ttf") format('truetype'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.svg#iconfont") format('svg');
+}
+page {
+  min-height: 100vh;
+  background: #fff;
+  overflow: scroll;
+}
+.collect-paid-up-interest {
+  color: #33333d;
+  font-family: PingFangSC-Regular, PingFang SC;
+}
+.collect-paid-up-interest .select-vehicle {
+  padding: 64rpx 76rpx 32rpx 32rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.collect-paid-up-interest .select-vehicle .label {
+  width: 190rpx;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.5);
+}
+.collect-paid-up-interest .select-vehicle .vehicle-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.collect-paid-up-interest .select-vehicle .vehicle-list .list-title-child {
+  display: inline-block;
+  font-size: 28rpx;
+  text-align: center;
+  color: rgba(0,0,0,0.8);
+  line-height: 50rpx;
+  margin-right: 26rpx;
+}
+.collect-paid-up-interest .select-vehicle .vehicle-list .tab-vehicle-index {
+  font-size: 34rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #000;
+  border-bottom: 6rpx solid #1ba566;
+}
+.collect-paid-up-interest .line {
+  height: 20rpx;
+  background: #fafafa;
+}
+.collect-paid-up-interest .list {
+  padding-top: 24rpx;
+}
+.collect-paid-up-interest .list .list-title {
+  width: 100%;
+  height: 140rpx;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.collect-paid-up-interest .list .list-title .list-title-child {
+  display: inline-block;
+  font-size: 36rpx;
+  text-align: center;
+  color: rgba(47,181,101,0.3);
+  line-height: 50rpx;
+  width: 160rpx;
+}
+.collect-paid-up-interest .list .list-title .list-title-child .period {
+  font-size: 34rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #000;
+  line-height: 48rpx;
+}
+.collect-paid-up-interest .list .list-title .list-title-child .period.not-receive {
+  color: rgba(0,0,0,0.6);
+}
+.collect-paid-up-interest .list .list-title .list-title-child .status {
+  font-size: 24rpx;
+  line-height: 32rpx;
+}
+.collect-paid-up-interest .list .list-title .list-title-child .status.overdue {
+  color: rgba(0,0,0,0.3);
+}
+.collect-paid-up-interest .list .list-title .list-title-child .status.can-receive {
+  color: #2fb565;
+}
+.collect-paid-up-interest .list .list-title .list-title-child > view:nth-child(2) {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 16rpx;
+  margin-bottom: 16rpx;
+  width: 100%;
+}
+.collect-paid-up-interest .list .list-title .list-title-child > view:nth-child(2) > text {
+  position: relative;
+  display: flex;
+  width: 20rpx;
+  height: 20rpx;
+  background: #fff;
+  border: 1rpx solid #2fb565;
+  border-radius: 50%;
+}
+.collect-paid-up-interest .list .list-title .list-title-child > view:nth-child(2) > text.active {
+  background: #2fb565;
+}
+.collect-paid-up-interest .list .list-title .list-title-child > view:nth-child(2)::before,
+.collect-paid-up-interest .list .list-title .list-title-child > view:nth-child(2)::after {
+  content: '';
+  flex: 1;
+  height: 4rpx;
+  background: #ebecec;
+}
+.collect-paid-up-interest .list .list-title .tab-index .status {
+  color: #2fb565;
+}
+.collect-paid-up-interest .list .list-title .tab-index > view:nth-child(2) > text {
+  background: #2fb565;
+}
+.collect-paid-up-interest .list .vouchers-list {
+  padding: 32rpx;
+}
+.collect-paid-up-interest .list .vouchers-list .item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 686rpx;
+  height: 176rpx;
+  background: #f7f7f7;
+  color: #fff;
+  margin-bottom: 20rpx;
+}
+.collect-paid-up-interest .list .vouchers-list .item::before,
+.collect-paid-up-interest .list .vouchers-list .item::after {
+  position: absolute;
+  top: 50%;
+  display: inline-block;
+  width: 32rpx;
+  height: 32rpx;
+  content: '';
+  border-radius: 50%;
+  background-color: #fff;
+  transform: translateY(-50%);
+}
+.collect-paid-up-interest .list .vouchers-list .item::before {
+  left: -20rpx;
+}
+.collect-paid-up-interest .list .vouchers-list .item::after {
+  left: auto;
+  right: -20rpx;
+}
+.collect-paid-up-interest .list .vouchers-list .item .left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80rpx;
+  width: 80rpx;
+  background: #2fb565;
+  border-radius: 50%;
+  margin-left: 48rpx;
+}
+.collect-paid-up-interest .list .vouchers-list .item .left.overdue {
+  background: #8e8e8e;
+}
+.collect-paid-up-interest .list .vouchers-list .item .left::before {
+  content: '\e66c';
+  color: #fff;
+  font-size: 77rpx;
+}
+.collect-paid-up-interest .list .vouchers-list .item .left.parking::before {
+  content: '\e66d';
+}
+.collect-paid-up-interest .list .vouchers-list .item .middle {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  font-size: 24rpx;
+  color: rgba(0,0,0,0.3);
+  margin: 0rpx 16rpx;
+  line-height: 34rpx;
+}
+.collect-paid-up-interest .list .vouchers-list .item .middle .coupon-name {
+  font-size: 28rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: rgba(0,0,0,0.5);
+  line-height: 40rpx;
+}
+.collect-paid-up-interest .list .vouchers-list .item .btn {
+  display: flex;
+  min-width: 136rpx;
+  height: 50rpx;
+  margin-right: 76rpx;
+  align-items: center;
+  justify-content: center;
+  background: #efefef;
+  border-radius: 4rpx;
+  font-size: 24rpx;
+  color: #b6b6b6;
+}
+.collect-paid-up-interest .list .vouchers-list .item .btn.not-click {
+  color: #2fb565;
+}

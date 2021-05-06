@@ -1,0 +1,42 @@
+<view class="related-service animated {{wrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{mask}}" catchtap="onClickHandle">
+	<view class="related-service-wrapper animated {{wrapper ? 'slideInUp' : 'slideOutDown'}}" wx:if="{{mask}}" catchtap="onClickCatchHandle">
+		<view class="related-service-box">
+            <view class="related-service-title">
+                <view class="name">{{details.packageName}}</view>
+                <view>¥{{details.payMoney/100}}</view>
+            </view>
+            <view class="related-service-list">
+                <view>
+                    <view class="title" wx:if="{{trafficTicket.length}}">高速通行券</view>
+                    <view wx:for="{{trafficTicket}}" wx:key="index" class="related-service-item iconfont">
+                        <image src="/pages/default/assets/equities_of_passage.svg"></image>
+                        <view class="list-name iconfont">
+                            <view>
+                                <view>{{item.denomination/100}}元通行券</view>
+                                <view>满{{item.consumptionThreshold/100}}元可用</view>
+                            </view>
+                        </view>
+                        <view class="amount iconfont">{{item.couponCount}}</view>
+                    </view>
+                </view>
+                <view>
+                    <view class="title" wx:if="{{parkingTicket.length}}">微信停车券</view>
+                    <view wx:for="{{parkingTicket}}" wx:key="index" class="related-service-item iconfont">
+                        <image src="/pages/default/assets/equities_of_parking.svg"></image>
+                        <view class="list-name iconfont">
+                            <view>
+                                <view>{{item.denomination/100}}元{{item.couponType === 1 ? '通行券' : '停车券'}}</view>
+                                <view>满{{item.consumptionThreshold/100}}元可用</view>
+                            </view>
+                        </view>
+                        <view class="amount iconfont">{{item.couponCount}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="bottom">
+                <view class="close" catchtap="onClickHandle">再看看</view>
+                <view class="pay" catchtap="onClickChoice">确认加购买</view>
+            </view>
+        </view>
+	</view>
+</view>

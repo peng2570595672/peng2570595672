@@ -8,6 +8,7 @@
     "eslint-plugin-import": "^2.20.1"
   },
   "dependencies": {
+    "umtrack-wx": "^2.6.2",
     "weui-miniprogram": "^1.0.7"
   }
 }

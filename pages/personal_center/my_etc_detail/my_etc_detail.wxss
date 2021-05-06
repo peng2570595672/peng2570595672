@@ -40,6 +40,9 @@
 .my-etc-detail .item > view .equipment-cost {
   color: #f7b500;
 }
+.my-etc-detail .item > view .non-payment {
+  color: #fa5151;
+}
 .my-etc-detail .item.iconfont {
   display: flex;
   align-items: center;

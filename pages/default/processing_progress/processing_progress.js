@@ -112,6 +112,14 @@ Page({
 		let orderId = this.data.weiBaoOrderId;
 		mta.Event.stat('processing_progress_car_insurance',{});
 		let url = `outerUserId=${memberId}&outerCarId=${orderId}&companyId=SJHT&configId=sjht&wtagid=116.115.12`;
+		if (this.data.info.orderType === 31) {
+			let date = new Date();
+			let mouth = date.getMonth() + 1;
+			let time = date.getFullYear() + '-' + util.formatNumber(mouth) + '-' + util.formatNumber(date.getDate());
+			if (time === this.data.info.contractTime.substring(0,10)) {
+				url = `${url}&outerData=s${this.data.info.shopUserId}`;
+			}
+		}
 		let weiBoUrl = app.globalData.weiBoUrl + encodeURIComponent(url);
 		let appId = app.globalData.test ? 'wx7f3f0032b6e6f0cc' : 'wx06a561655ab8f5b2';
 		wx.navigateToMiniProgram({
@@ -333,7 +341,7 @@ Page({
 		});
 	},
 	onUnload () {
-		if (this.data.type === 'main_process') {
+		if (this.data.type === 'main_process' || app.globalData.isNeedReturnHome) {
 			wx.reLaunch({
 				// url: '/pages/default/index/index'
 				url: '/pages/Home/Home'

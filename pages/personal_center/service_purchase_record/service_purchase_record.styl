@@ -1,0 +1,139 @@
+.content
+	background #FAFAFA
+	height 100vh
+	.list-vehicle
+		padding 64rpx 76rpx 32rpx 32rpx
+		display flex
+		justify-content center
+		align-items center
+		.label
+			width 190rpx
+			font-size 28rpx;
+			font-family: PingFangSC-Regular, PingFang SC;
+			font-weight: 400;
+			color rgba(0,0,0,0.5)
+		//tab切换
+		.list-title
+			display flex
+			align-items center
+			justify-content center
+			overflow-x auto
+			white-space nowrap
+			.list-title-child
+				display inline-block
+				font-size 28rpx
+				text-align center
+				color rgba(0,0,0,0.8)
+				line-height 50rpx
+				margin-right 26rpx
+			.tab-index
+				font-size 34rpx
+				font-family: PingFangSC-Medium, PingFang SC;
+				font-weight: 500;
+				color: #000000;
+				border-bottom 6rpx solid #1BA566;
+	.service
+		margin 0rpx 32rpx
+		background: #FFFFFF;
+		box-shadow: 0rpx 0rpx 18rpx 0rpx rgba(0, 0, 0, 0.04)
+		border-radius: 16rpx;
+		.service-detail
+			display flex
+			align-items center
+			height 150rpx
+			margin 0rpx 32rpx
+			border-bottom 1rpx dashed rgba(0, 0, 0, 0.1)
+			.left
+				flex 1
+				display flex
+				flex-direction column
+				color rgba(0, 0, 0, 0.3)
+				line-height 34rpx
+				& > view:first-child
+					font-size 34rpx;
+					font-family: PingFangSC-Regular, PingFang SC;
+					font-weight: 400;
+					color: #000000;
+					line-height 48rpx;
+			.right
+				display flex
+				flex-direction column
+				& > view:first-child
+					font-size 34rpx;
+					font-family: PingFangSC-Regular, PingFang SC;
+					font-weight: 500;
+					color: #000000;
+					line-height 48rpx;
+				.status
+					font-size: 24rpx;
+					font-family: PingFangSC-Regular, PingFang SC;
+					font-weight: 400;
+					color: #2FB565;
+					line-height: 34rpx;
+		.list-service
+			margin 26rpx 32rpx 0
+			display flex
+			flex-wrap wrap
+			.item
+				flex 1
+				display flex
+				height 100rpx
+				align-items center
+				background #2FB565
+				margin-bottom 12rpx
+				color #fff
+				&::after,
+				&::before
+					display inline-block
+					content ''
+					width 22rpx
+					height 22rpx
+					border-radius 50%
+					background #fff
+					margin-right -16rpx
+				&::before
+					margin-left -16rpx
+				.list-name
+					flex 1
+					display flex
+					height 80rpx
+					align-items center
+					font-size 28rpx
+					line-height 34rpx
+					&::before
+						display flex
+						width 44rpx
+						height 44rpx
+						align-items center
+						justify-content center
+						background #fff
+						content '\e66c'
+						color #2FB565
+						font-size 44rpx
+						border-radius 50%
+						margin-left 24rpx
+						margin-right 8rpx
+					&.parking
+						&::before
+							content '\e66d'
+				.amount
+					display flex
+					height 40rpx
+					align-items center
+					font-size 24rpx
+					margin-right 8rpx
+					&::before
+						content '\e63d'
+						font-size 16rpx
+						margin-right 8rpx
+				&:last-child
+					margin-left 32rpx
+		.service-tips
+			padding-top 22rpx
+			padding-bottom 32rpx
+			text-align center
+			font-size 24rpx;
+			font-family: PingFangSC-Regular, PingFang SC;
+			font-weight: 400;
+			color rgba(0,0,0,0.3)
+			line-height 34rpx;

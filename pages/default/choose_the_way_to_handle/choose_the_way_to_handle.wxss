@@ -1,0 +1,82 @@
+@keyframes btnFadeIn {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes btnFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.2;
+  }
+}
+.payment-way {
+  display: flex;
+  flex-direction: column;
+  padding: 0 30rpx;
+  min-height: 100vh;
+}
+.payment-way .title {
+  margin-top: 40rpx;
+  display: flex;
+  align-items: center;
+  height: 56rpx;
+  font-size: 34rpx;
+  font-weight: 500;
+  font-family: PingFangSC-Medium, PingFang SC;
+  color: #000;
+}
+.payment-way .title::before {
+  margin-right: 12rpx;
+  content: '';
+  width: 8rpx;
+  height: 44rpx;
+  background: #2fb565;
+}
+.payment-way .handle-the-way {
+  display: flex;
+  height: 152rpx;
+  align-items: center;
+  border-radius: 16rpx;
+  margin-top: 40rpx;
+  background: #f6f6f6;
+}
+.payment-way .handle-the-way .name {
+  flex: 1;
+}
+.payment-way .handle-the-way .name .top {
+  font-size: 34rpx;
+  line-height: 48rpx;
+  color: rgba(0,0,0,0.9);
+}
+.payment-way .handle-the-way .name .bottom {
+  font-size: 24rpx;
+  line-height: 40rpx;
+  color: rgba(0,0,0,0.25);
+}
+.payment-way .handle-the-way .choice {
+  font-size: 24rpx;
+  color: rgba(0,0,0,0.1);
+  margin-right: 32rpx;
+}
+.payment-way .handle-the-way image {
+  flex: 0 0 78rpx;
+  width: 78rpx;
+  height: 78rpx;
+  margin-left: 24rpx;
+  margin-right: 12rpx;
+}
+.payment-way .fill {
+  flex: 1;
+}
+.payment-way .online-service {
+  color: #1797f7;
+  font-size: 28rpx;
+  line-height: 48rpx;
+  text-align: center;
+  margin-bottom: 90rpx;
+}

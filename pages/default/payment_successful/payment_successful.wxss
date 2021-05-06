@@ -1,6 +1,7 @@
 .signed_successfully {
   display: flex;
   flex-direction: column;
+  background: #fff;
   min-height: 100vh;
 }
 .signed_successfully > image {
@@ -17,14 +18,11 @@
   font-size: 60rpx;
   font-weight: 500;
 }
-.signed_successfully .fill {
-  flex: 1;
-}
 .signed_successfully .btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20rpx 30rpx 64rpx;
+  margin: 86rpx 60rpx 30rpx;
   height: 98rpx;
   font-size: 40rpx;
   font-weight: 500;

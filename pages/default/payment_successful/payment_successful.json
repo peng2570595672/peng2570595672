@@ -1,3 +1,5 @@
 {
-	"navigationBarTitleText": "ETC办理"
+  "navigationBarTitleText": "支付成功",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black"
 }
