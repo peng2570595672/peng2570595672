@@ -3,8 +3,22 @@ const IS_TEST = true;
 const util = require('./utils/util.js');
 // 数据统计
 let mta = require('./libs/mta_analysis.js');
+const uma = require('./utils/umtrack-wx.js');
 App({
+	umengConfig: {
+		appKey: '603c8fc86ee47d382b6a91da', // 由友盟分配的APP_KEY
+		// 使用Openid进行统计，此项为false时将使用友盟+uuid进行用户统计。
+		// 使用Openid来统计微信小程序的用户，会使统计的指标更为准确，对系统准确性要求高的应用推荐使用Openid。
+		useOpenid: true,
+		// 使用openid进行统计时，是否授权友盟自动获取Openid，
+		// 如若需要，请到友盟后台"设置管理-应用信息"(https://mp.umeng.com/setting/appset)中设置appId及secret
+		autoGetOpenid: true,
+		debug: false, // 是否打开调试模式
+		uploadUserInfo: true, // 自动上传用户信息，设为false取消上传，默认为false
+		enableVerify: true
+	},
 	globalData: {
+		uma,
 		host: IS_TEST ? 'https://etctest.cyzl.com/etc2-client' : 'https://etc.cyzl.com', // 接口主机地址 正式 etc.cyzl.com/ 测试 etctest.cyzl.com/
 		test: IS_TEST, // 是否为测试
 		uploadOcrUrl: IS_TEST ? 'https://etctest.cyzl.com/file-service/file/upload-ocr' : 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址

@@ -470,6 +470,7 @@ Page({
 	},
 	// 底部跳转跳转
 	go (e) {
+		wx.uma.trackEvent('index_test');
 		let url = e.currentTarget.dataset.url;
 		if (url === 'online_customer_service' || url === 'violation_enquiry') {
 			if (url === 'violation_enquiry') {
