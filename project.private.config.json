@@ -56,7 +56,7 @@
         {
           "name": "办理进度",
           "pathName": "pages/default/processing_progress/processing_progress",
-          "query": "orderId=835917207664857088",
+          "query": "orderId=839879470146916352",
           "scene": null
         },
         {
@@ -263,8 +263,8 @@
           "scene": null
         },
         {
-          "name": "activities/pages/activity_micro_insurance/index",
-          "pathName": "activities/pages/activity_micro_insurance/index",
+          "name": "特微入口",
+          "pathName": "pingan/pages/ChooseBank/ChooseBank",
           "query": "orderId=823587582322413568",
           "scene": null
         },

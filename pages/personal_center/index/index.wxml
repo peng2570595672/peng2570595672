@@ -89,7 +89,7 @@
                 </view>
                 <view class="pay-interest_item_text">车主服务</view>
             </view>
-            <view class="pay-interest_item" catchtap="go" data-url="life_service" wx:if="{{isActivation}}">
+            <view class="pay-interest_item" catchtap="go" data-url="life_service" wx:if="{{rightsPackageBuyRecords.length}}">
                 <view class="pay-interest-item-icon">
                     <image class="life_service_icon" src="/pages/personal_center/assets/life_service.svg"></image>
                 </view>

@@ -14,6 +14,8 @@ Page({
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
 		idCardStatus: 0,// 实名认证标识  默认0
+		oldName: undefined,// 原始姓名
+		oldIdNumber: undefined,// 原始身份证
 		idCardFace: {
 			ocrObject: {}
 		},// 身份证正面
@@ -45,7 +47,10 @@ Page({
 			let idCardFace = wx.getStorageSync('passenger-car-id-card-face');
 			if (idCardFace) {
 				idCardFace = JSON.parse(idCardFace);
+				console.log(idCardFace)
 				this.setData({
+					oldName: idCardFace.ocrObject.name,
+					oldIdNumber: idCardFace.ocrObject.idNumber,
 					faceStatus: 4,
 					idCardFace
 				});
@@ -92,6 +97,8 @@ Page({
 				idCardBack.ocrObject.validDate = temp.idCardValidDate;
 				idCardBack.fileUrl = temp.idCardNegativeUrl;
 				this.setData({
+					oldName: idCardFace.ocrObject.name,
+					oldIdNumber: idCardFace.ocrObject.idNumber,
 					idCardFace,
 					idCardBack,
 					backStatus: 4,
@@ -145,6 +152,8 @@ Page({
 		this.setData({
 			isRequest: true
 		});
+		let haveChange = true;
+		if (this.data.oldName === this.data.idCardFace.ocrObject.name && this.data.oldIdNumber === this.data.idCardFace.ocrObject.idNumber) haveChange = false;
 		mta.Event.stat('id_card_next',{});
 		// ocr返回的是 男女  接口是 1 2
 		if (this.data.idCardFace.ocrObject.sex === '男') this.data.idCardFace.ocrObject.sex = 1;
@@ -154,6 +163,7 @@ Page({
 			dataType: '48', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			changeAuditStatus: 0,// 修改不计入待审核
+			haveChange: haveChange, // 行驶证信息OCR结果有无修改过，默认false，修改过传true 【dataType包含4】
 			idCardStatus: this.data.idCardStatus,
 			idCardValidDate: this.data.idCardBack.ocrObject.validDate, // 有效期 格式为：2007.10.09-2027.10.09 【dataType包含4】
 			idCardAddress: this.data.idCardFace.ocrObject.address,// 地址 【dataType包含4】
@@ -218,6 +228,8 @@ Page({
 						try {
 							if (type === 1) {
 								this.setData({
+									oldName: res.data[0].ocrObject.name,
+									oldIdNumber: res.data[0].ocrObject.idNumber,
 									faceStatus: 4,
 									idCardFace: res.data[0]
 								});

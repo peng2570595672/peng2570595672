@@ -161,7 +161,7 @@ Page({
 	},
 	onClickCheckTheService (e) {
 		this.setData({
-			showServiceIndex: e.currentTarget.dataset.index
+			showServiceIndex: parseInt(e.currentTarget.dataset.index)
 		});
 		if (this.data.showServiceIndex === 1) return;
 		this.setData({
