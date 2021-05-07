@@ -1,0 +1,19 @@
+<view class="related-service animated {{wrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{mask}}" catchtap="onClickHandle">
+	<view class="related-service-wrapper  animated {{wrapper ? 'slideInUp' : 'slideOutDown'}}" wx:if="{{mask}}" catchtap="onClickCatchHandle">
+		<view class="related-service-title iconfont">
+            <view class="title">{{details.detailsTitle}}</view>
+            <view class="close iconfont" catchtap="onClickHandle"></view>
+        </view>
+        <view class="sub-title">{{details.detailsSubTitle}}</view>
+		<view class="related-service-list">
+            <view wx:for="{{details.list}}" wx:key="index" class="related-service-item">
+                <view class="title">{{item.title}}</view>
+                <view class="logo-list">
+                    <image wx:for="{{item.logoList}}" wx:key="index" src="{{item}}" mode="heightFix"></image>
+                </view>
+            </view>
+		</view>
+        <view class="fill"></view>
+        <view class="btns" catchtap="onClickHandle">我知道了</view>
+	</view>
+</view>

@@ -51,7 +51,34 @@ Page({
 					}
 				]
 			},
-			{},
+			{
+				detailsTitle: '生活服务',
+				detailsSubTitle: '享受以下虚拟商品特惠在线充值',
+				list: [
+					{
+						title: '各大视频会员充值4.5折起',
+						logoList: [
+							'/pages/default/assets/life_of_tencent_video.svg',
+							'/pages/default/assets/life_of_aiqiyi.svg',
+							'/pages/default/assets/life_of_tudou.svg',
+							'/pages/default/assets/life_of_mangguo.svg'
+						]
+					},
+					{
+						title: '各大音频会员充值5折起',
+						logoList: [
+							'/pages/default/assets/life_of_qq_music.svg',
+							'/pages/default/assets/life_of_xmly.svg'
+						]
+					},
+					{
+						title: '大牌美食优惠持续上新',
+						logoList: [
+							'/pages/default/assets/life_of_elm.svg'
+						]
+					}
+				]
+			},
 			{
 				detailsTitle: '特色服务',
 				list: [
@@ -154,7 +181,8 @@ Page({
 		this.data.viewRightsAndInterests.switchDisplay(true);
 	},
 	onClickClose () {
-		this.data.viewRightsService.switchDisplay(false);
+		this.data.viewRightsService?.switchDisplay(false);
+		this.data.viewLifeService?.switchDisplay(false);
 	},
 	onClickHandle () {
 		this.data.viewRightsAndInterests.switchDisplay(false);
@@ -163,7 +191,13 @@ Page({
 		this.setData({
 			showServiceIndex: parseInt(e.currentTarget.dataset.index)
 		});
-		if (this.data.showServiceIndex === 1) return;
+		if (this.data.showServiceIndex === 1) {
+			this.setData({
+				viewLifeService: this.selectComponent('#viewLifeService')
+			});
+			this.data.viewLifeService.switchDisplay(true);
+			return;
+		}
 		this.setData({
 			viewRightsService: this.selectComponent('#viewRightsService')
 		});

@@ -101,12 +101,12 @@
                 </view>
                 <view class="pay-interest_item_text">领券中心</view>
             </view>
-            <view class="pay-interest_item" catchtap="go" data-url="characteristic_service" wx:if="{{isActivation}}">
-                <view class="pay-interest-item-icon">
-                    <image class="img" src="/pages/personal_center/assets/characteristic_service.svg"></image>
-                </view>
-                <view class="pay-interest_item_text">特色服务</view>
-            </view>
+<!--            <view class="pay-interest_item" catchtap="go" data-url="characteristic_service" wx:if="{{isActivation}}">-->
+<!--                <view class="pay-interest-item-icon">-->
+<!--                    <image class="img" src="/pages/personal_center/assets/characteristic_service.svg"></image>-->
+<!--                </view>-->
+<!--                <view class="pay-interest_item_text">特色服务</view>-->
+<!--            </view>-->
             <view class="pay-interest_item" catchtap="go" data-url="service_purchase_record" wx:if="{{rightsPackageBuyRecords.length}}">
                 <view class="pay-interest-item-icon">
                     <image class="img" src="/pages/personal_center/assets/purchase_records.svg"></image>

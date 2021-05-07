@@ -1,0 +1,90 @@
+@import "../../../style/base.styl";
+.shot_bank_card
+	height 100vh
+	background: #33333C
+	.title
+		display flex
+		align-items center
+		height 56rpx
+		padding-left 60rpx
+		font-size 40rpx
+		color #fff
+	// 相机
+	.camera
+		position relative
+		margin-top 24rpx
+		width 100%
+		height  748rpx
+		box-sizing border-box
+		.border
+			margin 0 auto
+			width 690rpx
+			margin-top 130rpx
+			height  435.6rpx
+		.photo-wrapper
+			position absolute
+			left 0
+			right 0
+			bottom 0
+			height 182rpx
+			display flex
+			align-items center
+			.photo
+				position relative
+				display flex
+				align-items center
+				justify-content center
+				width 198rpx
+				height 132rpx
+				margin-left 15rpx
+				&:last-of-type
+					margin-left 0
+				.preview
+					width 164rpx
+					height 98rpx
+					border-radius 8rpx
+					border 2rpx solid rgba(0,0,0,0)
+					box-sizing content-box
+					&.selected
+						border 4rpx solid $shallowThemeColor
+				.status
+					position absolute
+					top 2rpx
+					right 2rpx
+					width 34rpx
+					height 34rpx
+	// 按钮区域
+	.btns
+		position relative
+		margin-top 66rpx
+		.choice-from-album
+			position absolute
+			display flex
+			align-items center
+			justify-content center
+			top 46rpx
+			left 78rpx
+			width 62.6rpx
+			height 50rpx
+			&::before
+				content '\e646'
+				color #fff
+				font-size 70rpx
+		.take-photo
+			position absolute
+			display flex
+			align-items center
+			justify-content center
+			width 140rpx
+			height 140rpx
+			border-radius 50%
+			background: #fff
+			left 50%
+			margin-left -70rpx
+			& > image
+				width 64rpx
+				height 54rpx
+	// 压缩图片
+	.press-canvas
+		position fixed
+		left -3000rpx

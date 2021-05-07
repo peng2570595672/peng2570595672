@@ -19,6 +19,7 @@
     "pages/default/upload_other_photo/upload_other_photo",
     "pages/default/shot_other_photo/shot_other_photo",
     "pages/default/shot_card/shot_card",
+    "pages/default/shot_bank_card/shot_bank_card",
     "pages/default/order_audit/order_audit",
     "pages/landing_page_for_ccb/index",
     "components/pass_the_discount/pass_the_discount",

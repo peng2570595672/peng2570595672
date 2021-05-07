@@ -6,6 +6,7 @@
   "backgroundTextStyle": "light",
   "usingComponents": {
     "related_service": "/components/related_service/related_service",
+    "life_service": "/components/life_service/life_service",
     "rights_package": "/components/rights_package/rights_package"
   }
 }

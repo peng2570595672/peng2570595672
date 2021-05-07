@@ -1,0 +1,102 @@
+.shot_bank_card {
+  height: 100vh;
+  background: #33333c;
+}
+.shot_bank_card .title {
+  display: flex;
+  align-items: center;
+  height: 56rpx;
+  padding-left: 60rpx;
+  font-size: 40rpx;
+  color: #fff;
+}
+.shot_bank_card .camera {
+  position: relative;
+  margin-top: 24rpx;
+  width: 100%;
+  height: 748rpx;
+  box-sizing: border-box;
+}
+.shot_bank_card .camera .border {
+  margin: 0 auto;
+  width: 690rpx;
+  margin-top: 130rpx;
+  height: 435.6rpx;
+}
+.shot_bank_card .camera .photo-wrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 182rpx;
+  display: flex;
+  align-items: center;
+}
+.shot_bank_card .camera .photo-wrapper .photo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 198rpx;
+  height: 132rpx;
+  margin-left: 15rpx;
+}
+.shot_bank_card .camera .photo-wrapper .photo:last-of-type {
+  margin-left: 0;
+}
+.shot_bank_card .camera .photo-wrapper .photo .preview {
+  width: 164rpx;
+  height: 98rpx;
+  border-radius: 8rpx;
+  border: 2rpx solid rgba(0,0,0,0);
+  box-sizing: content-box;
+}
+.shot_bank_card .camera .photo-wrapper .photo .preview.selected {
+  border: 4rpx solid #84d157;
+}
+.shot_bank_card .camera .photo-wrapper .photo .status {
+  position: absolute;
+  top: 2rpx;
+  right: 2rpx;
+  width: 34rpx;
+  height: 34rpx;
+}
+.shot_bank_card .btns {
+  position: relative;
+  margin-top: 66rpx;
+}
+.shot_bank_card .btns .choice-from-album {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 46rpx;
+  left: 78rpx;
+  width: 62.6rpx;
+  height: 50rpx;
+}
+.shot_bank_card .btns .choice-from-album::before {
+  content: '\e646';
+  color: #fff;
+  font-size: 70rpx;
+}
+.shot_bank_card .btns .take-photo {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  background: #fff;
+  left: 50%;
+  margin-left: -70rpx;
+}
+.shot_bank_card .btns .take-photo > image {
+  width: 64rpx;
+  height: 54rpx;
+}
+.shot_bank_card .press-canvas {
+  position: fixed;
+  left: -3000rpx;
+}
