@@ -4,7 +4,7 @@
 		<!--用户导航栏开始-->
 		<view class="service-nav">
 			<!--领驾乘险-->
-			<view class="service-item" catchtap="go" data-type="1">
+			<view class="service-item" catchtap="go" data-type="1" wx:if="{{!isContinentInsurance}}">
 				<view class="service-item-icon">
 					<!--更新提示-->
 					<image class="img" src="/pages/personal_center/assets/led_driving_icon.svg"></image>
@@ -13,7 +13,7 @@
 			</view>
 			<!--领驾乘险结束-->
 			<!--查违章-->
-			<view class="service-item" catchtap="go" data-type="2">
+			<view class="service-item" catchtap="go" data-type="2" wx:if="{{!isContinentInsurance}}">
 				<view class="service-item-icon">
 					<!--更新提示-->
 					<image class="img" src="/pages/personal_center/assets/check_illegal.svg"></image>

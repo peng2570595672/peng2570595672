@@ -4,8 +4,12 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
+		isContinentInsurance: false // 是否是大地保险
 	},
-	onLoad (options) {
+	onLoad () {
+		this.setData({
+			isContinentInsurance: app.globalData.isContinentInsurance
+		});
 	},
 	// 跳转
 	go (e) {
