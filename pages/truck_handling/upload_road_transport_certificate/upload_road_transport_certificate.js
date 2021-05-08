@@ -178,7 +178,7 @@ Page({
 				if (res) {
 					res = JSON.parse(res);
 					if (res.code === 0) { // 识别成功
-						app.globalData.truckHandlingOCRTyp = 0;
+						app.globalData.truckHandlingOCRType = 0;
 						try {
 							if (res.data[0].ocrObject.vehicle_number !== this.data.vehPlates) {
 								this.setData({

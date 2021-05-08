@@ -16,12 +16,12 @@ Page({
 		number: 0,
 		showDetailWrapper: false,
 		showDetailMask: false,
-		showDetailInsurance: false,// 是否展示车险报价插屏
+		showDetailInsurance: true,// 是否展示车险报价插屏
 		memberId: '',
 		weiBaoOrderId: ''
 	},
 	onLoad (options) {
-		// this.showDetail();
+		this.showDetail();
 		this.setData({
 			isContinentInsurance: app.globalData.isContinentInsurance
 		});
@@ -117,11 +117,12 @@ Page({
 			let mouth = date.getMonth() + 1;
 			let time = date.getFullYear() + '-' + util.formatNumber(mouth) + '-' + util.formatNumber(date.getDate());
 			if (time === this.data.info.contractTime.substring(0,10)) {
-				url = `${url}&outerData=s${this.data.info.shopUserId}`;
+				url = `${url}&sId=s${this.data.info.shopUserId}`;
 			}
 		}
 		let weiBoUrl = app.globalData.weiBoUrl + encodeURIComponent(url);
 		let appId = app.globalData.test ? 'wx7f3f0032b6e6f0cc' : 'wx06a561655ab8f5b2';
+		console.log(weiBoUrl);
 		wx.navigateToMiniProgram({
 			appId: appId,
 			path: weiBoUrl,

@@ -89,7 +89,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=837645441058213888",
+          "query": "orderId=840514359707963392",
           "scene": null
         },
         {
@@ -257,8 +257,8 @@
           "scene": null
         },
         {
-          "name": "pages/personal_center/new_index/new_index",
-          "pathName": "pages/personal_center/new_index/new_index",
+          "name": "pingan/pages/Login/Login",
+          "pathName": "pingan/pages/Login/Login",
           "query": "orderId=823587582322413568",
           "scene": null
         },

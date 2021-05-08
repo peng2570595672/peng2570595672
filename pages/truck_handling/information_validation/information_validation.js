@@ -105,7 +105,7 @@ Page({
 					res = JSON.parse(res);
 					console.log(res);
 					if (res.code === 0) { // 识别成功
-						app.globalData.truckHandlingOCRTyp = 0;
+						app.globalData.truckHandlingOCRType = 0;
 						if (type === 3) {
 							try {
 								const faceObj = res.data[0];

@@ -247,7 +247,7 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/query-contract', {
 			orderId: obj.id
 		});
-		if (result) return;
+		if (!result) return;
 		if (result.code === 0) {
 			app.globalData.signAContract = 1;
 			// 签约成功 userState: "NORMAL"
@@ -280,6 +280,7 @@ Page({
 	},
 	// 微信签约
 	async weChatSign (obj) {
+		console.log('----')
 		util.showLoading('加载中');
 		let params = {
 			orderId: obj.id,// 订单id
