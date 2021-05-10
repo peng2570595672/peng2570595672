@@ -16,7 +16,7 @@ Page({
 	onShow () {
 	},
 	// 支付
-	marginPayment () {
+	async marginPayment () {
 		if (this.data.isRequest) {
 			return;
 		} else {
@@ -26,39 +26,34 @@ Page({
 		let params = {
 			orderId: app.globalData.orderInfo.orderId
 		};
-		util.getDataFromServer('consumer/order/pledge-pay', params, () => {
-			this.setData({isRequest: false});
-			util.showToastNoIcon('获取支付参数失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				let extraData = res.data.extraData;
-				wx.requestPayment({
-					nonceStr: extraData.nonceStr,
-					package: extraData.package,
-					paySign: extraData.paySign,
-					signType: extraData.signType,
-					timeStamp: extraData.timeStamp,
-					success: (res) => {
-						this.setData({isRequest: false});
-						if (res.errMsg === 'requestPayment:ok') {
-							util.go('/pages/truck_handling/payment_successful/payment_successful');
-						} else {
-							util.showToastNoIcon('支付失败！');
-						}
-					},
-					fail: (res) => {
-						this.setData({isRequest: false});
-						if (res.errMsg !== 'requestPayment:fail cancel') {
-							util.showToastNoIcon('支付失败！');
-						}
+		const result = await util.getDataFromServersV2('consumer/order/pledge-pay', params);
+		if (!result) return;
+		if (result.code === 0) {
+			let extraData = result.data.extraData;
+			wx.requestPayment({
+				nonceStr: extraData.nonceStr,
+				package: extraData.package,
+				paySign: extraData.paySign,
+				signType: extraData.signType,
+				timeStamp: extraData.timeStamp,
+				success: (res) => {
+					this.setData({isRequest: false});
+					if (res.errMsg === 'requestPayment:ok') {
+						util.go('/pages/truck_handling/payment_successful/payment_successful');
+					} else {
+						util.showToastNoIcon('支付失败！');
 					}
-				});
-			} else {
-				this.setData({isRequest: false});
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-		});
+				},
+				fail: (res) => {
+					this.setData({isRequest: false});
+					if (res.errMsg !== 'requestPayment:fail cancel') {
+						util.showToastNoIcon('支付失败！');
+					}
+				}
+			});
+		} else {
+			this.setData({isRequest: false});
+			util.showToastNoIcon(result.message);
+		}
 	}
 });

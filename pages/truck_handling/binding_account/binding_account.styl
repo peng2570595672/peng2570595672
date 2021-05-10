@@ -35,6 +35,11 @@
 			padding-bottom 12rpx
 			font-size 32rpx
 			border-bottom 1rpx solid #E8E8E8
+			&.choose-bank
+				&::after
+					position absolute
+					content '\e661'
+					right 0
 			& > view
 				display flex
 				align-items center
@@ -43,13 +48,65 @@
 				color $fontColor9
 			& > input,
 			& > picker
+				//width 600rpx
 				display flex
 				align-items center
 				flex 1
 				height 48rpx
 				font-size 32rpx
+				.persons
+					width 600rpx
+				.logo::before
+					content ''
+				.icbc::before
+					color #C71A0B
+					font-size 34rpx
+					content '\e66f'
+					margin-right 12rpx
+				.abchina::before
+					color #3BBDA9
+					font-size 40rpx
+					content '\e672'
+					margin-right 12rpx
+				.boc::before
+					color #A71E32
+					font-size 40rpx
+					content '\e674'
+					margin-right 12rpx
+				.ccb::before
+					color #0366B3
+					font-size 40rpx
+					content '\e671'
+					margin-right 12rpx
+				.bankcomm::before
+					color #02367A
+					font-size 40rpx
+					content '\e670'
+					margin-right 12rpx
+				.psbc::before
+					color #007E3E
+					font-size 34rpx
+					content '\e66e'
+					margin-right 12rpx
+				.other::before
+					color #63E0DF
+					font-size 40rpx
+					content '\e654'
+					margin-right 12rpx
+				& > i
+					&:after
+						display flex
+						align-items center
+						content '\e622'
+						font-size 44rpx
+						height 32rpx
+						color #5D5D5D
+						margin-left 20rpx
+						padding-left 20rpx
+						border-left 1rpx solid #979797
+						transform translateY(2rpx)
 			.detail-info
-				width 580rpx!important
+				width 640rpx!important
 			.picker
 				color #ccc
 				&.have-value
@@ -62,8 +119,8 @@
 				font-size 26rpx
 				font-weight 500
 				box-sizing content-box
-			// 自动定位
-			.iconfont
+			// 拍照
+			.photograph
 				&::before
 					display inline-block
 					content ''

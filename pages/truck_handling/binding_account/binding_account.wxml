@@ -1,42 +1,41 @@
-<view class="binding_account" bindtap="touchHandle">
+<view class="binding_account">
     <view class="title">银行卡信息</view>
     <view class="sub-title">开通II类账户需绑定一张您本人的银行卡</view>
-	<!--	输入开始-->
-	<view class="input-wrapper">
-		<view class="input-item" wx:if="{{isOnlineDealWith}}">
-			<view>银行卡号</view>
-            <input type="text" class="detail-info" placeholder="请输入或拍照识别卡号" placeholder-class="placeholder" value="{{formData.detailInfo}}"
-                   bindinput="onInputChangedHandle" data-key="detailInfo"
+    <!--	输入开始-->
+    <view class="input-wrapper">
+        <view class="input-item">
+            <view>银行卡号</view>
+            <input type="text" class="detail-info" placeholder="请输入或拍照识别卡号" placeholder-class="placeholder" value="{{formData.bankCardNo}}"
+                   bindinput="onInputChangedHandle" data-key="bankCardNo"
             />
-			<text class="iconfont" bindtap="onClickChooseLocationHandle"></text>
-		</view>
-		<view class="input-item" wx:if="{{isOnlineDealWith}}">
-			<view>关联银行</view>
-            <picker mode="region" value="{{formData.region}}" bindchange="onPickerChangedHandle">
-                <view class="picker {{formData.region[0] !== '省' ? 'have-value' : ''}}" wx:if="{{formData.region.length === 1}}">{{formData.region[0]}}</view>
-                <view class="picker {{formData.region[0] !== '省' ? 'have-value' : ''}}" wx:else>{{formData.region[0]}} - {{formData.region[1]}} - {{formData.region[2]}}</view>
+            <text class="iconfont photograph" bindtap="onClickChooseBankCard"></text>
+        </view>
+        <view class="input-item iconfont choose-bank">
+            <view>关联银行</view>
+            <picker bindchange="bindBankNameChange" value="{{bankNameIndex}}" range="{{bankNameArr}}">
+                <view class="persons bankName"><i class="iconfont logo {{banks[bankNameIndex]}}" ></i>{{bankNameArr[bankNameIndex]}}<text wx:if="{{bankNameIndex === null}}" class="prompt">点击选择开户行</text></view>
             </picker>
-		</view>
-		<view class="input-item">
-			<view>手机号</view>
-			<input type="number" placeholder="请输入手机号" placeholder-class="placeholder" value="{{formData.telNumber}}"
-			       bindinput="onInputChangedHandle" data-key="telNumber"
-			/>
-		</view>
-		<view class="input-item">
-			<view>验证码</view>
-			<input type="number" placeholder="输入验证码" placeholder-class="placeholder" value="{{formData.verifyCode}}"
-			       bindinput="onInputChangedHandle" data-key="verifyCode"
-			/>
-			<text class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} {{mobilePhoneIsOk ? 'ok' : ''}}" bindtap="sendVerifyCode">{{identifyingCode}}</text>
-		</view>
-	</view>
-	<!--	输入结束-->
-	<view class="fill"></view>
-	<!--	协议开始-->
-	<view class="agreement iconfont {{getAgreement ? 'selected' : ''}} " bindtap="onClickAgreementHandle">我已阅读并同意<text catchtap="onClickGoAgreementHandle">《工商银行II类账户开户协议》</text></view>
-	<!--	协议结束-->
-	<!--	按钮开始-->
-	<view class="btn {{available && getAgreement ? 'available' : 'unavailable'}}" catchtap="next"><view class="animate" wx:if="{{isRequest}}"></view>立刻开通II类账户</view>
-	<!--	按钮结束-->
+        </view>
+        <view class="input-item">
+            <view>手机号</view>
+            <input type="number" placeholder="请输入手机号" placeholder-class="placeholder" value="{{formData.telNumber}}"
+                   bindinput="onInputChangedHandle" data-key="telNumber"
+            />
+        </view>
+        <view class="input-item">
+            <view>验证码</view>
+            <input type="number" placeholder="输入验证码" placeholder-class="placeholder" value="{{formData.verifyCode}}"
+                   bindinput="onInputChangedHandle" data-key="verifyCode"
+            />
+            <text class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} {{mobilePhoneIsOk ? 'ok' : ''}}" bindtap="sendVerifyCode">{{identifyingCode}}</text>
+        </view>
+    </view>
+    <!--	输入结束-->
+    <view class="fill"></view>
+    <!--	协议开始-->
+    <view class="agreement iconfont {{getAgreement ? 'selected' : ''}} " bindtap="onClickAgreementHandle">我已阅读并同意<text catchtap="onClickGoAgreementHandle">《工商银行II类账户开户协议》</text></view>
+    <!--	协议结束-->
+    <!--	按钮开始-->
+    <view class="btn {{available && getAgreement ? 'available' : 'unavailable'}}" catchtap="next"><view class="animate" wx:if="{{isRequest}}"></view>立刻开通II类账户</view>
+    <!--	按钮结束-->
 </view>

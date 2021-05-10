@@ -50,36 +50,30 @@ Page({
 		util.showLoading();
 		// 调用微信接口获取code
 		wx.login({
-			success: (res) => {
-				util.getDataFromServer('consumer/member/common/applet/code', {
+			success: async (res) => {
+				const result = await util.getDataFromServersV2('consumer/member/common/applet/code', {
 					platformId: app.globalData.platformId, // 平台id
 					code: res.code // 从微信获取的code
-				}, () => {
-					util.hideLoading();
-					util.showToastNoIcon('登录失败！');
-				}, (res) => {
-					util.hideLoading();
-					if (res.code === 0) {
-						res.data['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
-						this.setData({
-							loginInfo: res.data
-						});
-						// 已经绑定了手机号
-						if (res.data.needBindingPhone !== 1) {
-							app.globalData.userInfo = res.data;
-							app.globalData.openId = res.data.openId;
-							app.globalData.memberId = res.data.memberId;
-							app.globalData.mobilePhone = res.data.mobilePhone;
-						} else {
-							wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-							util.go('/pages/login/login/login');
-							util.hideLoading();
-						}
-					} else {
-						util.hideLoading();
-						util.showToastNoIcon(res.message);
-					}
 				});
+				if (!result) return;
+				if (result.code === 0) {
+					result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data.mobilePhone);
+					this.setData({
+						loginInfo: result.data
+					});
+					// 已经绑定了手机号
+					if (result.data.needBindingPhone !== 1) {
+						app.globalData.userInfo = result.data;
+						app.globalData.openId = result.data.openId;
+						app.globalData.memberId = result.data.memberId;
+						app.globalData.mobilePhone = result.data.mobilePhone;
+					} else {
+						wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+						util.go('/pages/login/login/login');
+					}
+				} else {
+					util.showToastNoIcon(result.message);
+				}
 			},
 			fail: () => {
 				util.hideLoading();
@@ -88,7 +82,7 @@ Page({
 		});
 	},
 	// 下一步
-	next () {
+	async next () {
 		this.setData({
 			available: this.validateAvailable(true)
 		});
@@ -123,37 +117,34 @@ Page({
 			receivePhoneCode: formData.verifyCode, // 收货人手机号验证码, 手机号没有修改时不需要 【dataType包含2】
 			shopId: app.globalData.miniProgramServiceProvidersId
 		};
-		util.getDataFromServer('consumer/order/save-order-info', params, () => {
-			util.showToastNoIcon('提交数据失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				app.globalData.orderInfo.orderId = res.data.orderId; // 订单id
-				util.go('/pages/truck_handling/package_the_rights_and_interests/package_the_rights_and_interests');
-			} else if (res.code === 301) { // 已存在当前车牌未完成订单
-				util.alert({
-					content: '该车牌订单已存在，请前往“首页>我的ETC”页面查看。',
-					showCancel: true,
-					confirmText: '去查看',
-					confirm: () => {
-						// 订单id
-						app.globalData.orderInfo.orderId = ''; // 订单id
-						util.go(`/pages/personal_center/my_etc/my_etc`);
-					},
-					cancel: () => {
-						app.globalData.orderInfo.orderId = '';
-					}
-				});
-			} else if (res.code === 104 && res.message === '该车牌已存在订单') {
-				util.go(`/pages/default/high_speed_verification_failed/high_speed_verification_failed?carNo=${this.data.carNoStr}`);
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			this.setData({
-				available: true,
-				isRequest: false
-			});
+		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+		this.setData({
+			available: true,
+			isRequest: false
 		});
+		if (!result) return;
+		if (result.code === 0) {
+			app.globalData.orderInfo.orderId = result.data.orderId; // 订单id
+			util.go('/pages/truck_handling/package_the_rights_and_interests/package_the_rights_and_interests');
+		} else if (result.code === 301) { // 已存在当前车牌未完成订单
+			util.alert({
+				content: '该车牌订单已存在，请前往“首页>我的ETC”页面查看。',
+				showCancel: true,
+				confirmText: '去查看',
+				confirm: () => {
+					// 订单id
+					app.globalData.orderInfo.orderId = ''; // 订单id
+					util.go(`/pages/personal_center/my_etc/my_etc`);
+				},
+				cancel: () => {
+					app.globalData.orderInfo.orderId = '';
+				}
+			});
+		} else if (result.code === 104 && result.message === '该车牌已存在订单') {
+			util.go(`/pages/default/high_speed_verification_failed/high_speed_verification_failed?carNo=${this.data.carNoStr}`);
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 车牌输入回调
 	valueChange (e) {
@@ -395,7 +386,7 @@ Page({
 		}, 1000);
 	},
 	// 发送短信验证码
-	sendVerifyCode () {
+	async sendVerifyCode () {
 		if (this.data.isGetIdentifyingCoding) return;
 		// 如果在倒计时，直接不处理
 		if (!this.data.formData.telNumber) {
@@ -411,19 +402,15 @@ Page({
 		util.showLoading({
 			title: '请求中...'
 		});
-		util.getDataFromServer('consumer/order/send-receive-phone-verification-code', {
+		const result = await util.getDataFromServersV2('consumer/order/send-receive-phone-verification-code', {
 			receivePhone: this.data.formData.telNumber // 手机号
-		}, () => {
-			util.hideLoading();
-		}, (res) => {
-			if (res.code === 0) {
-				this.startTimer();
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
 		}, 'GET');
+		if (!result) return;
+		if (result.code === 0) {
+			this.startTimer();
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 输入框输入值
 	onInputChangedHandle (e) {
@@ -518,6 +505,6 @@ Page({
 	},
 	// 查看办理协议
 	onClickGoAgreementHandle () {
-		util.go('/pages/default/agreement/agreement');
+		util.go('/pages/truck_handling/agreement/agreement');
 	}
 });

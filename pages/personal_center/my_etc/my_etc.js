@@ -286,7 +286,6 @@ Page({
 	},
 	// 微信签约
 	async weChatSign (obj) {
-		console.log('----')
 		util.showLoading('加载中');
 		let params = {
 			orderId: obj.id,// 订单id

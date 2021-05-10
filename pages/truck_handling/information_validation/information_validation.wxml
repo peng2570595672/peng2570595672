@@ -152,6 +152,6 @@
 	<!--	自动填充开始-->
 	<view class="auto-fill"></view>
 	<!--	自动填充结束-->
-	<view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="onClickComfirmHandle"><view class="animate" wx:if="{{isRequest}}"></view>确认资料并保存</view>
+	<view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="onClickConfirmHandle"><view class="animate" wx:if="{{isRequest}}"></view>确认资料并保存</view>
 	<information-validation-prompt id="notFinishedOrder" promptObject="{{promptObject}}"></information-validation-prompt>
 </view>

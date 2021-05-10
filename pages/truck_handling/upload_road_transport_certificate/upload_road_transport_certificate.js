@@ -25,11 +25,11 @@ Page({
 		],
 		vehPlates: undefined
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		this.setData({
 			vehPlates: options.vehPlates
 		});
-		this.getOrderInfo();
+		await this.getOrderInfo();
 	},
 	onShow () {
 		// // 身份证正面
@@ -54,34 +54,30 @@ Page({
 		}
 	},
 	// 获取订单信息
-	getOrderInfo () {
-		util.showLoading();
-		util.getDataFromServer('consumer/order/get-order-info', {
+	async getOrderInfo () {
+		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
 			dataType: 'a'
-		}, () => {
-		}, (res) => {
-			if (res.code === 0) {
-				if (res.data.transportLicense) {
-					let transportationLicenseObj = res.data.transportLicense;
-					transportationLicenseObj.ocrObject = {};
-					transportationLicenseObj.ocrObject = JSON.parse(transportationLicenseObj.ocrInfo);
-					const choiceActiveIndex = this.data.list.findIndex(item => item.vehicleCustomerType === parseInt(transportationLicenseObj.vehicleCustomerType));
-					this.setData({
-						certificateStatus: 4,
-						choiceActiveIndex,
-						transportationLicenseObj
-					});
-					this.setData({
-						available: this.validateData(false)
-					});
-				}
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
 		});
+		if (!result) return;
+		if (result.code === 0) {
+			if (result.data.transportLicense) {
+				let transportationLicenseObj = result.data.transportLicense;
+				transportationLicenseObj.ocrObject = {};
+				transportationLicenseObj.ocrObject = JSON.parse(transportationLicenseObj.ocrInfo);
+				const choiceActiveIndex = this.data.list.findIndex(item => item.vehicleCustomerType === parseInt(transportationLicenseObj.vehicleCustomerType));
+				this.setData({
+					certificateStatus: 4,
+					choiceActiveIndex,
+					transportationLicenseObj
+				});
+				this.setData({
+					available: this.validateData(false)
+				});
+			}
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 校验数据
 	validateData (isToast) {
@@ -108,7 +104,7 @@ Page({
 		return true;
 	},
 	// 下一步
-	next () {
+	async next () {
 		if (!this.validateData(true)) {
 			return;
 		}
@@ -145,26 +141,23 @@ Page({
 				fileUrl: obj.fileUrl // 图片地址
 			}
 		};
-		util.getDataFromServer('consumer/order/save-order-info', params, () => {
-			util.showToastNoIcon('提交数据失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				const pages = getCurrentPages();
-				const prevPage = pages[pages.length - 2];// 上一个页面
-				prevPage.setData({
-					isChangeRoadTransportCertificate: true // 重置状态
-				});
-				wx.navigateBack({
-					delta: 1
-				});
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			this.setData({
-				isRequest: false
-			});
+		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+		this.setData({
+			isRequest: false
 		});
+		if (!result) return;
+		if (result.code === 0) {
+			const pages = getCurrentPages();
+			const prevPage = pages[pages.length - 2];// 上一个页面
+			prevPage.setData({
+				isChangeRoadTransportCertificate: true // 重置状态
+			});
+			wx.navigateBack({
+				delta: 1
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 上传图片
 	uploadOcrFile (path) {

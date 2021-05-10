@@ -51,6 +51,11 @@
   font-size: 32rpx;
   border-bottom: 1rpx solid #e8e8e8;
 }
+.binding_account .input-wrapper .input-item.choose-bank::after {
+  position: absolute;
+  content: '\e661';
+  right: 0;
+}
 .binding_account .input-wrapper .input-item > view {
   display: flex;
   align-items: center;
@@ -66,8 +71,78 @@
   height: 48rpx;
   font-size: 32rpx;
 }
+.binding_account .input-wrapper .input-item > input .persons,
+.binding_account .input-wrapper .input-item > picker .persons {
+  width: 600rpx;
+}
+.binding_account .input-wrapper .input-item > input .logo::before,
+.binding_account .input-wrapper .input-item > picker .logo::before {
+  content: '';
+}
+.binding_account .input-wrapper .input-item > input .icbc::before,
+.binding_account .input-wrapper .input-item > picker .icbc::before {
+  color: #c71a0b;
+  font-size: 34rpx;
+  content: '\e66f';
+  margin-right: 12rpx;
+}
+.binding_account .input-wrapper .input-item > input .abchina::before,
+.binding_account .input-wrapper .input-item > picker .abchina::before {
+  color: #3bbda9;
+  font-size: 40rpx;
+  content: '\e672';
+  margin-right: 12rpx;
+}
+.binding_account .input-wrapper .input-item > input .boc::before,
+.binding_account .input-wrapper .input-item > picker .boc::before {
+  color: #a71e32;
+  font-size: 40rpx;
+  content: '\e674';
+  margin-right: 12rpx;
+}
+.binding_account .input-wrapper .input-item > input .ccb::before,
+.binding_account .input-wrapper .input-item > picker .ccb::before {
+  color: #0366b3;
+  font-size: 40rpx;
+  content: '\e671';
+  margin-right: 12rpx;
+}
+.binding_account .input-wrapper .input-item > input .bankcomm::before,
+.binding_account .input-wrapper .input-item > picker .bankcomm::before {
+  color: #02367a;
+  font-size: 40rpx;
+  content: '\e670';
+  margin-right: 12rpx;
+}
+.binding_account .input-wrapper .input-item > input .psbc::before,
+.binding_account .input-wrapper .input-item > picker .psbc::before {
+  color: #007e3e;
+  font-size: 34rpx;
+  content: '\e66e';
+  margin-right: 12rpx;
+}
+.binding_account .input-wrapper .input-item > input .other::before,
+.binding_account .input-wrapper .input-item > picker .other::before {
+  color: #63e0df;
+  font-size: 40rpx;
+  content: '\e654';
+  margin-right: 12rpx;
+}
+.binding_account .input-wrapper .input-item > input > i:after,
+.binding_account .input-wrapper .input-item > picker > i:after {
+  display: flex;
+  align-items: center;
+  content: '\e622';
+  font-size: 44rpx;
+  height: 32rpx;
+  color: #5d5d5d;
+  margin-left: 20rpx;
+  padding-left: 20rpx;
+  border-left: 1rpx solid #979797;
+  transform: translateY(2rpx);
+}
 .binding_account .input-wrapper .input-item .detail-info {
-  width: 580rpx !important;
+  width: 640rpx !important;
 }
 .binding_account .input-wrapper .input-item .picker {
   color: #ccc;
@@ -85,7 +160,7 @@
   font-weight: 500;
   box-sizing: content-box;
 }
-.binding_account .input-wrapper .input-item .iconfont::before {
+.binding_account .input-wrapper .input-item .photograph::before {
   display: inline-block;
   content: '';
   flex: 0 0 28rpx;

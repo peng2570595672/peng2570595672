@@ -16,6 +16,12 @@ Page({
 		drivingLicenseBack: {
 			ocrObject: {}
 		}, // 行驶证反面
+		oldDrivingLicenseFace: {
+			ocrObject: {}
+		}, // 行驶证正面 原始数据,用于与新数据比对(秒审)
+		oldDrivingLicenseBack: {
+			ocrObject: {}
+		}, // 行驶证反面 原始数据,用于与新数据比对(秒审)
 		carTypeArr: [
 			{'id': 2, 'name': '两轴'},
 			{'id': 3, 'name': '三轴'},
@@ -37,12 +43,12 @@ Page({
 		isRequest: false,// 是否请求中
 		isShowTextarea: true// 是否显示textarea
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		this.setData({
 			vehColor: options.vehColor,
 			vehPlates: options.vehPlates
 		});
-		this.getOrderInfo();
+		await this.getOrderInfo();
 	},
 	onShow () {
 		// 行驶证正面
@@ -64,7 +70,8 @@ Page({
 				drivingLicenseFace = JSON.parse(drivingLicenseFace);
 				this.setData({
 					faceStatus: 4,
-					drivingLicenseFace
+					drivingLicenseFace,
+					oldDrivingLicenseFace: drivingLicenseFace
 				});
 				this.setData({
 					available: this.validateData(false)
@@ -75,7 +82,8 @@ Page({
 				drivingLicenseBack = JSON.parse(drivingLicenseBack);
 				this.setData({
 					backStatus: 4,
-					drivingLicenseBack
+					drivingLicenseBack,
+					oldDrivingLicenseBack: drivingLicenseBack
 				});
 				this.setData({
 					available: this.validateData(false)
@@ -137,7 +145,8 @@ Page({
 								}
 								this.setData({
 									faceStatus: 4,
-									drivingLicenseFace: faceObj
+									drivingLicenseFace: faceObj,
+									oldDrivingLicenseFace: faceObj
 								});
 								wx.setStorageSync('truck-driving-license-face', JSON.stringify(faceObj));
 							} catch (err) {
@@ -168,6 +177,7 @@ Page({
 								backObj.ocrObject.personsCapacity = personsCapacityNum;
 								this.setData({
 									backStatus: 4,
+									oldDrivingLicenseBack: backObj,
 									drivingLicenseBack: backObj
 								});
 								wx.setStorageSync('truck-driving-license-back', JSON.stringify(backObj));
@@ -279,62 +289,74 @@ Page({
 		});
 	},
 	// 获取订单信息
-	getOrderInfo () {
-		util.showLoading();
-		util.getDataFromServer('consumer/order/get-order-info', {
+	async getOrderInfo () {
+		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
 			dataType: '6'
-		}, () => {
-		}, (res) => {
-			if (res.code === 0) {
-				if (res.data.vehicle) { // 是否有行驶证
-					const carType = this.data.carTypeArr.findIndex(item => item.id === res.data.vehicle.axleNum);
-					const size = res.data.vehicle.size.slice(0, res.data.vehicle.size.length - 2).split('×');
-					this.setData({
-						[`drivingLicenseBack.ocrObject`]: res.data.vehicle,
-						[`drivingLicenseFace.ocrObject`]: res.data.vehicle,
-						[`drivingLicenseBack.ocrObject.vehicleLength`]: size[0],
-						[`drivingLicenseBack.ocrObject.vehicleWidth`]: size[1],
-						[`drivingLicenseBack.ocrObject.vehicleHeight`]: size[2],
-						[`drivingLicenseBack.ocrObject.totalMass`]: res.data.vehicle.totalMass.slice(0, res.data.vehicle.totalMass.length - 2),
-						[`drivingLicenseBack.ocrObject.curbWeight`]: res.data.vehicle.curbWeight.slice(0, res.data.vehicle.curbWeight.length - 2),
-						[`drivingLicenseBack.ocrObject.loadQuality`]: res.data.vehicle.loadQuality.slice(0, res.data.vehicle.loadQuality.length - 2),
-						[`drivingLicenseFace.ocrObject.numberPlates`]: res.data.vehicle.vehPlates,
-						[`drivingLicenseBack.ocrObject.numberPlates`]: res.data.vehicle.vehPlates,
-						[`drivingLicenseFace.ocrObject.address`]: res.data.vehicle.ownerAddress,
-						[`drivingLicenseFace.ocrObject.resgisterDate`]: res.data.vehicle.registerDate,
-						[`drivingLicenseFace.fileUrl`]: res.data.vehicle.licenseMainPage,
-						[`drivingLicenseBack.fileUrl`]: res.data.vehicle.licenseVicePage,
-						isTraction: res.data.vehicle.isTraction,
-						carType,
-						backStatus: 4,
-						faceStatus: 4
-					});
-					this.setData({
-						available: this.validateData(false)
-					});
-					wx.setStorageSync('truck-driving-license-face', JSON.stringify(this.data.drivingLicenseFace));
-					wx.setStorageSync('truck-driving-license-back', JSON.stringify(this.data.drivingLicenseBack));
-				}
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
 		});
+		if (!result) return;
+		if (result.code === 0) {
+			if (result.data.vehicle) { // 是否有行驶证
+				const carType = this.data.carTypeArr.findIndex(item => item.id === result.data.vehicle.axleNum);
+				const size = result.data.vehicle.size.slice(0, result.data.vehicle.size.length - 2).split('×');
+				this.setData({
+					[`drivingLicenseBack.ocrObject`]: result.data.vehicle,
+					[`drivingLicenseFace.ocrObject`]: result.data.vehicle,
+					[`drivingLicenseBack.ocrObject.vehicleLength`]: size[0],
+					[`drivingLicenseBack.ocrObject.vehicleWidth`]: size[1],
+					[`drivingLicenseBack.ocrObject.vehicleHeight`]: size[2],
+					[`drivingLicenseBack.ocrObject.totalMass`]: result.data.vehicle.totalMass.slice(0, result.data.vehicle.totalMass.length - 2),
+					[`drivingLicenseBack.ocrObject.curbWeight`]: result.data.vehicle.curbWeight.slice(0, result.data.vehicle.curbWeight.length - 2),
+					[`drivingLicenseBack.ocrObject.loadQuality`]: result.data.vehicle.loadQuality.slice(0, result.data.vehicle.loadQuality.length - 2),
+					[`drivingLicenseFace.ocrObject.numberPlates`]: result.data.vehicle.vehPlates,
+					[`drivingLicenseBack.ocrObject.numberPlates`]: result.data.vehicle.vehPlates,
+					[`drivingLicenseFace.ocrObject.address`]: result.data.vehicle.ownerAddress,
+					[`drivingLicenseFace.ocrObject.resgisterDate`]: result.data.vehicle.registerDate,
+					[`drivingLicenseFace.fileUrl`]: result.data.vehicle.licenseMainPage,
+					[`drivingLicenseBack.fileUrl`]: result.data.vehicle.licenseVicePage,
+					isTraction: result.data.vehicle.isTraction,
+					carType,
+					oldDrivingLicenseFace: this.data.drivingLicenseFace,
+					oldDrivingLicenseBack: this.data.drivingLicenseBack,
+					backStatus: 4,
+					faceStatus: 4
+				});
+				this.setData({
+					available: this.validateData(false)
+				});
+				wx.setStorageSync('truck-driving-license-face', JSON.stringify(this.data.drivingLicenseFace));
+				wx.setStorageSync('truck-driving-license-back', JSON.stringify(this.data.drivingLicenseBack));
+			}
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 提交信息
-	onClickComfirmHandle () {
+	async onClickConfirmHandle () {
 		if (!this.validateData(true) || this.data.isRequest) {
 			return;
 		}
-		this.comfirmHandle();
+		await this.confirmHandle();
 	},
-	comfirmHandle () {
-		// 比对车牌颜色和车牌位数是否一致   新老数据做对比,判断是否进行面审
+	async confirmHandle () {
+		// 比对车牌颜色和车牌位数是否一致   新老数据做对比,判断是否进行秒审
 		// 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
 		let face = this.data.drivingLicenseFace.ocrObject;
+		let oldFace = this.data.oldDrivingLicenseFace.ocrObject;
 		let back = this.data.drivingLicenseBack.ocrObject;
+		let oldBack = this.data.oldDrivingLicenseBack.ocrObject;
+		let backValue;
+		let oldBackValue;
+		let faceValue;
+		let oldFaceValue;
+		let haveChange = true;
+		for (let key in back) { backValue += back[key]; }
+		for (let key in oldBack) { oldBackValue += oldBack[key]; }
+		for (let key in face) { faceValue += face[key]; }
+		for (let key in oldFace) { oldFaceValue += oldFace[key]; }
+		if (backValue === oldBackValue && faceValue === oldFaceValue) {
+			haveChange = false;
+		}
 		// 提价数据
 		this.setData({
 			isRequest: true,
@@ -350,6 +372,7 @@ Page({
 			changeAuditStatus: 0,// 修改不计入待审核
 			vehicleInfo: {
 				carType: 1,
+				haveChange: haveChange, // 行驶证信息OCR结果有无修改过，默认false，修改过传true 【dataType包含6】
 				vehPlates: face.numberPlates,
 				platesColor: this.data.vehColor,
 				owner: face.owner, // 车辆所有者 【dataType包含6】
@@ -377,30 +400,23 @@ Page({
 				isTraction: this.data.isTraction // 是否牵引车
 			}
 		};
-		util.getDataFromServer('consumer/order/save-order-info', params, () => {
-			util.showToastNoIcon('提交数据失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				const pages = getCurrentPages();
-				const prevPage = pages[pages.length - 2];// 上一个页面
-				prevPage.setData({
-					isChangeDrivingLicenseError: true // 重置状态
-				});
-				wx.navigateBack({
-					delta: 1
-				});
-			} else {
-				this.setData({
-					available: true,
-					isRequest: false
-				});
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			this.setData({
-				available: true,
-				isRequest: false
+		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+		if (!result) return;
+		if (result.code === 0) {
+			const pages = getCurrentPages();
+			const prevPage = pages[pages.length - 2];// 上一个页面
+			prevPage.setData({
+				isChangeDrivingLicenseError: true // 重置状态
 			});
+			wx.navigateBack({
+				delta: 1
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+		this.setData({
+			available: true,
+			isRequest: false
 		});
 	},
 	// 输入项值变化

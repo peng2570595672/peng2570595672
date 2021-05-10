@@ -13,6 +13,8 @@ Page({
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
 		idCardStatus: 0,// 实名认证标识  默认0
+		oldName: undefined,// 原始姓名
+		oldIdNumber: undefined,// 原始身份证
 		idCardFace: {
 			ocrObject: {}
 		},// 身份证正面
@@ -20,8 +22,8 @@ Page({
 			ocrObject: {}
 		}// 身份证反面
 	},
-	onLoad () {
-		this.getOrderInfo();
+	async onLoad () {
+		await this.getOrderInfo();
 	},
 	onShow () {
 		// 身份证正面
@@ -42,6 +44,8 @@ Page({
 			if (truckIdCardFace) {
 				truckIdCardFace = JSON.parse(truckIdCardFace);
 				this.setData({
+					oldName: truckIdCardFace.ocrObject.name,
+					oldIdNumber: truckIdCardFace.ocrObject.idNumber,
 					faceStatus: 4,
 					idCardFace: truckIdCardFace
 				});
@@ -63,50 +67,49 @@ Page({
 		}
 	},
 	// 获取订单信息
-	getOrderInfo () {
+	async getOrderInfo () {
 		util.showLoading();
-		util.getDataFromServer('consumer/order/get-order-info', {
+		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
 			dataType: '4'
-		}, () => {
-		}, (res) => {
-			if (res.code === 0) {
-				this.setData({
-					orderInfo: res.data
-				});
-				// 获取实名信息
-				let temp = this.data.orderInfo.idCard;
-				if (temp) {
-					let idCardBack = {ocrObject: {}};
-					let idCardFace = {ocrObject: {}};
-					idCardFace.fileUrl = temp.idCardPositiveUrl;
-					idCardFace.ocrObject.name = temp.idCardTrueName;
-					idCardFace.ocrObject.idNumber = temp.idCardNumber;
-					idCardFace.ocrObject.address = temp.idCardAddress;
-					idCardFace.ocrObject.sex = temp.idCardSex;
-					idCardFace.ocrObject.birth = temp.idCardBirth;
-					idCardBack.ocrObject.authority = temp.idCardAuthority;
-					idCardBack.ocrObject.validDate = temp.idCardValidDate;
-					idCardBack.fileUrl = temp.idCardNegativeUrl;
-					this.setData({
-						idCardFace,
-						idCardBack,
-						backStatus: 4,
-						faceStatus: 4,
-						idCardStatus: temp.idCardStatus
-					});
-					this.setData({
-						available: this.validateData(false)
-					});
-					wx.setStorageSync('truck-id-card-back', JSON.stringify(idCardBack));
-					wx.setStorageSync('truck-id-card-face', JSON.stringify(idCardFace));
-				}
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
 		});
+		if (!result) return;
+		if (result.code === 0) {
+			this.setData({
+				orderInfo: result.data
+			});
+			// 获取实名信息
+			let temp = this.data.orderInfo.idCard;
+			if (temp) {
+				let idCardBack = {ocrObject: {}};
+				let idCardFace = {ocrObject: {}};
+				idCardFace.fileUrl = temp.idCardPositiveUrl;
+				idCardFace.ocrObject.name = temp.idCardTrueName;
+				idCardFace.ocrObject.idNumber = temp.idCardNumber;
+				idCardFace.ocrObject.address = temp.idCardAddress;
+				idCardFace.ocrObject.sex = temp.idCardSex;
+				idCardFace.ocrObject.birth = temp.idCardBirth;
+				idCardBack.ocrObject.authority = temp.idCardAuthority;
+				idCardBack.ocrObject.validDate = temp.idCardValidDate;
+				idCardBack.fileUrl = temp.idCardNegativeUrl;
+				this.setData({
+					oldName: idCardFace.ocrObject.name,
+					oldIdNumber: idCardFace.ocrObject.idNumber,
+					idCardFace,
+					idCardBack,
+					backStatus: 4,
+					faceStatus: 4,
+					idCardStatus: temp.idCardStatus
+				});
+				this.setData({
+					available: this.validateData(false)
+				});
+				wx.setStorageSync('truck-id-card-back', JSON.stringify(idCardBack));
+				wx.setStorageSync('truck-id-card-face', JSON.stringify(idCardFace));
+			}
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 校验数据
 	validateData (isToast) {
@@ -135,7 +138,7 @@ Page({
 		return true;
 	},
 	// 下一步
-	next () {
+	async next () {
 		if (!this.validateData(true)) {
 			return;
 		}
@@ -149,10 +152,13 @@ Page({
 		// ocr返回的是 男女  接口是 1 2
 		if (this.data.idCardFace.ocrObject.sex === '男') this.data.idCardFace.ocrObject.sex = 1;
 		if (this.data.idCardFace.ocrObject.sex === '女') this.data.idCardFace.ocrObject.sex = 2;
+		let haveChange = true;
+		if (this.data.oldName === this.data.idCardFace.ocrObject.name && this.data.oldIdNumber === this.data.idCardFace.ocrObject.idNumber) haveChange = false;
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: '48', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
+			haveChange: haveChange, // 行驶证信息OCR结果有无修改过，默认false，修改过传true 【dataType包含4】
 			changeAuditStatus: 0,// 修改不计入待审核
 			idCardStatus: this.data.idCardStatus,
 			idCardValidDate: this.data.idCardBack.ocrObject.validDate, // 有效期 格式为：2007.10.09-2027.10.09 【dataType包含4】
@@ -175,26 +181,23 @@ Page({
 			ownerIdCardValidDate: this.data.idCardBack.ocrObject.validDate,
 			ownerIdCardAddress: this.data.idCardFace.ocrObject.address
 		};
-		util.getDataFromServer('consumer/order/save-order-info', params, () => {
-			util.showToastNoIcon('提交数据失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				const pages = getCurrentPages();
-				const prevPage = pages[pages.length - 2];// 上一个页面
-				prevPage.setData({
-					isChangeIdCard: true // 重置状态
-				});
-				wx.navigateBack({
-					delta: 1
-				});
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			this.setData({
-				isRequest: false
-			});
+		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+		this.setData({
+			isRequest: false
 		});
+		if (!result) return;
+		if (result.code === 0) {
+			const pages = getCurrentPages();
+			const prevPage = pages[pages.length - 2];// 上一个页面
+			prevPage.setData({
+				isChangeIdCard: true // 重置状态
+			});
+			wx.navigateBack({
+				delta: 1
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 上传图片
 	uploadOcrFile (path) {
@@ -221,6 +224,8 @@ Page({
 						try {
 							if (type === 1) {
 								this.setData({
+									oldName: res.data[0].ocrObject.name,
+									oldIdNumber: res.data[0].ocrObject.idNumber,
 									faceStatus: 4,
 									idCardFace: res.data[0]
 								});

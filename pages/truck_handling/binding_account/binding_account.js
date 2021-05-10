@@ -10,6 +10,10 @@ const app = getApp();
 let timer;
 Page({
 	data: {
+		banks: ['icbc','abchina','boc','ccb','bankcomm','psbc'],
+		bankNameIndex: null, // 开户行：1-工行，2-农行，3-中行，4建行，5-交行，6-邮储 (接口上传：bankNameIndex+1)
+		bankNameArr: ['工商银行', '农业银行', '中国银行', '建设银行', '交通银行', '邮政储蓄'],
+		mobilePhoneIsOk: false,
 		identifyingCode: '获取验证码',
 		time: 59,// 倒计时
 		isGetIdentifyingCoding: false, // 获取验证码中
@@ -17,86 +21,57 @@ Page({
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
 		showToast: false, // 是否验证码错误
-		isOnlineDealWith: true, // 是否是线上办理
 		formData: {
-			currentCarNoColor: 0, // 0 蓝色 1 渐变绿 2黄色
-			region: ['省', '市', '区'], // 省市区
-			regionCode: [], // 省份编码
-			userName: '', // 收货人姓名
+			bankCardNo: undefined,
 			telNumber: '', // 电话号码
-			detailInfo: '', // 收货地址详细信息
 			verifyCode: '' // 验证码
 		} // 提交数据
 	},
 	onShow () {
+		// 银行卡
+		let bankCardIdentifyResult = wx.getStorageSync('bank_card_identify_result');
+		if (bankCardIdentifyResult) {
+			bankCardIdentifyResult = JSON.parse(bankCardIdentifyResult);
+			this.setData({
+				[`formData.bankCardNo`]: bankCardIdentifyResult.data[0].ocrObject.cardNo
+			});
+			this.setData({
+				available: this.validateAvailable()
+			});
+			wx.removeStorageSync('bank_card_identify_result');
+		}
+	},
+	onClickChooseBankCard () {
+		util.go(`/pages/default/shot_bank_card/shot_bank_card?type=0`);
+	},
+	bindBankNameChange (e) {
+		this.setData({
+			bankNameIndex: parseInt(e.detail.value)
+		});
 	},
 	// 下一步
-	next () {
+	async next () {
 		this.setData({
 			available: this.validateAvailable(true)
 		});
 		if (!this.data.available || this.data.isRequest) {
 			return;
 		}
-		if (!this.data.getAgreement) {
-			util.showToastNoIcon('请同意并勾选协议！');
-			return;
-		}
 		this.setData({
 			available: false, // 禁用按钮
 			isRequest: true // 设置状态为请求中
 		});
-		mta.Event.stat('truck_for_receiving_address_next',{});
-		let formData = this.data.formData; // 输入信息
-		let params = {
-			isNewTrucks: 1, // 货车
-			orderId: app.globalData.orderInfo.orderId, // 订单id
-			orderType: this.data.isOnlineDealWith ? 11 : 12,
-			dataType: '12', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
-			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
-			vehPlates: this.data.carNoStr, // 车牌号
-			// vehColor: formData.currentCarNoColor === 1 ? 4 : formData.currentCarNoColor === 2 ? 1 : 0, // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
-			vehColor: formData.currentCarNoColor, // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
-			receiveMan: formData.userName, // 收货人姓名 【dataType包含2】
-			receivePhone: formData.telNumber, // 收货人手机号 【dataType包含2】
-			receiveProvince: formData.region[0], // 收货人省份 【dataType包含2】
-			receiveCity: formData.region[1], // 收货人城市 【dataType包含2】
-			receiveCounty: formData.region[2], // 收货人区县 【dataType包含2】
-			receiveAddress: formData.detailInfo, // 收货人详细地址 【dataType包含2】
-			receivePhoneCode: formData.verifyCode, // 收货人手机号验证码, 手机号没有修改时不需要 【dataType包含2】
-			shopId: app.globalData.miniProgramServiceProvidersId
-		};
-		util.getDataFromServer('consumer/order/save-order-info', params, () => {
-			util.showToastNoIcon('提交数据失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				app.globalData.orderInfo.orderId = res.data.orderId; // 订单id
-				util.go('/pages/truck_handling/package_the_rights_and_interests/package_the_rights_and_interests');
-			} else if (res.code === 301) { // 已存在当前车牌未完成订单
-				util.alert({
-					content: '该车牌订单已存在，请前往“首页>我的ETC”页面查看。',
-					showCancel: true,
-					confirmText: '去查看',
-					confirm: () => {
-						// 订单id
-						app.globalData.orderInfo.orderId = ''; // 订单id
-						util.go(`/pages/personal_center/my_etc/my_etc`);
-					},
-					cancel: () => {
-						app.globalData.orderInfo.orderId = '';
-					}
-				});
-			} else if (res.code === 104 && res.message === '该车牌已存在订单') {
-				util.go(`/pages/default/high_speed_verification_failed/high_speed_verification_failed?carNo=${this.data.carNoStr}`);
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			this.setData({
-				available: true,
-				isRequest: false
-			});
+		const result = await util.getDataFromServersV2('consumer/member/common/applet/code', {
+			platformId: app.globalData.platformId, // 平台id
+			code: res.code // 从微信获取的code
 		});
+		this.setData({
+			available: true,
+			isRequest: false
+		});
+		if (!result) return;
+		console.log(result);
+		util.go(`/pages/truck_handling/binding_account_successful/binding_account_successful`);
 	},
 	// 省市区选择
 	onPickerChangedHandle (e) {
@@ -137,7 +112,7 @@ Page({
 		}, 1000);
 	},
 	// 发送短信验证码
-	sendVerifyCode () {
+	async sendVerifyCode () {
 		if (this.data.isGetIdentifyingCoding) return;
 		// 如果在倒计时，直接不处理
 		if (!this.data.formData.telNumber) {
@@ -153,19 +128,15 @@ Page({
 		util.showLoading({
 			title: '请求中...'
 		});
-		util.getDataFromServer('consumer/order/send-receive-phone-verification-code', {
+		const result = await util.getDataFromServersV2('consumer/order/send-receive-phone-verification-code', {
 			receivePhone: this.data.formData.telNumber // 手机号
-		}, () => {
-			util.hideLoading();
-		}, (res) => {
-			if (res.code === 0) {
-				this.startTimer();
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
 		}, 'GET');
+		if (!result) return;
+		if (result.code === 0) {
+			this.startTimer();
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 输入框输入值
 	onInputChangedHandle (e) {
@@ -208,34 +179,35 @@ Page({
 		});
 	},
 	// 校验字段是否满足
-	validateAvailable (checkLicensePlate) {
-		// 是否接受协议
-		let isOk = true;
-		let formData = this.data.formData;
-		// 校验姓名
-		isOk = isOk && formData.userName && formData.userName.length >= 1;
-		// 校验省市区
-		isOk = isOk && formData.region && formData.region.length === 3 && formData.region[0] !== '省';
-		// 校验省市区编码
-		isOk = isOk && formData.regionCode && formData.region.length === 3;
-		// 校验详细地址
-		isOk = isOk && formData.detailInfo && formData.detailInfo.length >= 2;
-		// 检验手机号码
-		isOk = isOk && formData.telNumber && /^1[0-9]{10}$/.test(formData.telNumber);
-		// 校验验证码
-		isOk = isOk && formData.verifyCode && /^[0-9]{4}$/.test(formData.verifyCode);
-		return isOk;
-	},
-	// 点击添加新能源
-	onClickNewPowerCarHandle (e) {
-		this.setData({
-			isNewPowerCar: true,
-			currentCarNoColor: 4
-		});
-		this.setCurrentCarNo(e);
+	validateAvailable (isToast) {
+		if (!this.data.formData.bankCardNo || this.data.bankNameIndex === null) {
+			if (isToast) util.showToastNoIcon('请完善绑定银行信息！');
+			return false;
+		}
+		if (!this.data.formData.telNumber) {
+			if (isToast) util.showToastNoIcon('请输入银行预留手机号！');
+			return false;
+		}
+		if (!/^1[0-9]{10}$/.test(this.data.formData.telNumber)) {
+			if (isToast) util.showToastNoIcon('手机号输入不合法！');
+			return false;
+		}
+		if (!this.data.formData.verifyCode) {
+			if (isToast) util.showToastNoIcon('请获取并输入短信验证码！');
+			return false;
+		}
+		if (this.data.formData.verifyCode.length < 4) {
+			if (isToast) util.showToastNoIcon('请输入正确的验证码！');
+			return false;
+		}
+		if (!this.data.getAgreement) {
+			if (isToast) util.showToastNoIcon('请输入正确的验证码！');
+			return false;
+		}
+		return true;
 	},
 	// 查看办理协议
 	onClickGoAgreementHandle () {
-		util.go('/pages/default/agreement/agreement');
+		util.go('/pages/truck_handling/icbc_agreement/icbc_agreement');
 	}
 });

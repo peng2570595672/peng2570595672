@@ -24,11 +24,11 @@ Page({
 		},
 		vehPlates: undefined
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		this.setData({
 			vehPlates: options.vehPlates
 		});
-		this.getOrderInfo();
+		await this.getOrderInfo();
 	},
 	onShow () {
 		// 身份证正面
@@ -86,41 +86,37 @@ Page({
 		return true;
 	},
 	// 获取订单信息
-	getOrderInfo () {
-		util.showLoading();
-		util.getDataFromServer('consumer/order/get-order-info', {
+	async getOrderInfo () {
+		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
 			dataType: '7'
-		}, () => {
-		}, (res) => {
-			if (res.code === 0) {
-				let truckHeadstock = res.data.headstock;
-				if (truckHeadstock) {
-					truckHeadstock.ocrObject = {};
-					truckHeadstock.ocrObject.plateNumber = truckHeadstock.vehPlate;
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			let truckHeadstock = result.data.headstock;
+			if (truckHeadstock) {
+				truckHeadstock.ocrObject = {};
+				truckHeadstock.ocrObject.plateNumber = truckHeadstock.vehPlate;
+				this.setData({
+					faceStatus: 4,
+					truckHeadstock
+				});
+				if (truckHeadstock.sidewaysFileUrl) {
 					this.setData({
-						faceStatus: 4,
-						truckHeadstock
-					});
-					if (truckHeadstock.sidewaysFileUrl) {
-						this.setData({
-							backStatus: 4,
-							[`truckSidePhoto.fileUrl`]: truckHeadstock.sidewaysFileUrl
-						});
-					}
-					this.setData({
-						available: this.validateData(false)
+						backStatus: 4,
+						[`truckSidePhoto.fileUrl`]: truckHeadstock.sidewaysFileUrl
 					});
 				}
-			} else {
-				util.showToastNoIcon(res.message);
+				this.setData({
+					available: this.validateData(false)
+				});
 			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-		});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 下一步
-	next () {
+	async next () {
 		if (!this.validateData(true)) {
 			return;
 		}
@@ -144,26 +140,23 @@ Page({
 				sidewaysFileUrl: this.data.truckSidePhoto.fileUrl // 侧身照
 			}
 		};
-		util.getDataFromServer('consumer/order/save-order-info', params, () => {
-			util.showToastNoIcon('提交数据失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				const pages = getCurrentPages();
-				const prevPage = pages[pages.length - 2];// 上一个页面
-				prevPage.setData({
-					isChangeHeadstock: true // 重置状态
-				});
-				wx.navigateBack({
-					delta: 1
-				});
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			this.setData({
-				isRequest: false
-			});
+		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+		this.setData({
+			isRequest: false
 		});
+		if (!result) return;
+		if (result.code === 0) {
+			const pages = getCurrentPages();
+			const prevPage = pages[pages.length - 2];// 上一个页面
+			prevPage.setData({
+				isChangeHeadstock: true // 重置状态
+			});
+			wx.navigateBack({
+				delta: 1
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	uploadFile (path) {
 		this.setData({backStatus: 2});

@@ -253,7 +253,7 @@ Page({
 							});
 						}, 2000);
 					} else { // 识别失败
-						util.showToastNoIcon(res.message);
+						util.showToastNoIcon('银行卡识别失败');
 					}
 				} else { // 识别失败
 					util.hideLoading();

@@ -89,7 +89,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=676890461276733440",
+          "query": "orderId=825055287701409792",
           "scene": null
         },
         {
@@ -179,8 +179,8 @@
           "scene": null
         },
         {
-          "name": "pages/default/payment_successful/payment_successful",
-          "pathName": "pages/default/payment_successful/payment_successful",
+          "name": "pages/truck_handling/truck_receiving_address/truck_receiving_address",
+          "pathName": "pages/truck_handling/truck_receiving_address/truck_receiving_address",
           "query": "",
           "scene": null
         },
@@ -257,8 +257,8 @@
           "scene": null
         },
         {
-          "name": "pages/default/shot_bank_card/shot_bank_card",
-          "pathName": "pages/default/shot_bank_card/shot_bank_card",
+          "name": "pages/truck_handling/index/index",
+          "pathName": "pages/truck_handling/index/index",
           "query": "orderId=823587582322413568",
           "scene": null
         },

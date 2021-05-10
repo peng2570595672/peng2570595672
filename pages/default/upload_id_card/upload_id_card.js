@@ -47,7 +47,6 @@ Page({
 			let idCardFace = wx.getStorageSync('passenger-car-id-card-face');
 			if (idCardFace) {
 				idCardFace = JSON.parse(idCardFace);
-				console.log(idCardFace)
 				this.setData({
 					oldName: idCardFace.ocrObject.name,
 					oldIdNumber: idCardFace.ocrObject.idNumber,
