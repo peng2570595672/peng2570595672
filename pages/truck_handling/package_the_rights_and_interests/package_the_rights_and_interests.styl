@@ -1,0 +1,203 @@
+@import "../../../style/base.styl";
+$yellowColor = #FFC300;
+.package-the-rights-and-interests
+	min-height 100vh
+	padding-bottom 170rpx
+	box-sizing border-box
+	background #F6F6F6
+	.swiper-box
+		.my-swiper
+			padding-top 30rpx
+			.my-swiper-item
+				width 646rpx
+				border-radius 16rpx
+				.my-swiper-item-box
+					width 646rpx
+					background #fff
+					border-radius 16rpx
+					margin 0 20rpx
+					padding 48rpx 32rpx 32px
+					box-sizing border-box
+					font-family PingFangSC-Semibold, PingFang SC
+					font-weight 600
+					z-index 99999
+					.package
+						display flex
+						align-items center
+						height 84rpx
+						font-size 44rpx
+						padding-bottom 30rpx
+						color rgba(0, 0, 0, 0.9)
+						font-weight 600
+						image
+							width 70rpx
+							height 44rpx
+							margin-right 12rpx
+						.title-name
+							flex 1
+							.title
+								font-size 34rpx
+							.sub-title
+								font-size 24rpx
+								font-family PingFangSC-Regular, PingFang SC
+								font-weight 400
+								color rgba(0, 0, 0, 0.3)
+								line-height 34rpx
+						&::after
+							content '\e64f'
+							font-size 48rpx
+							color rgba(0, 0, 0, 0.1)
+							margin-left 22rpx
+						&.active
+							&::after
+								color #07C160
+					.related-service-title
+						display flex
+						height 44rpx
+						align-items center
+						color rgba(0, 0, 0, 0.6)
+						font-size 28rpx
+						.tips
+							color $yellowColor
+							font-size 18rpx
+							margin-top -20rpx
+							margin-left 8rpx
+						&::before
+							margin-right 8rpx
+							content ''
+							width 8rpx
+							height 44rpx
+							background #2FB565
+					.basic-service-list
+						display flex
+						flex-wrap wrap
+						margin-top 6rpx
+						& > view
+							margin-top 32rpx
+						.basic-service-item
+							width 50%
+							display flex
+							height 40rpx
+							align-items center
+							color rgba(0, 0, 0, 0.5)
+							font-size 24rpx
+							image
+								width 32rpx
+								margin-right 8rpx
+							.tips
+								color $yellowColor
+								font-size 18rpx
+								margin-top -20rpx
+								margin-left 8rpx
+							&.bank
+								image
+									width 268rpx
+									height 78rpx
+						.other-service-item
+							position relative
+							width 274rpx
+							height 134rpx
+							border-radius 12rpx
+							padding 32rpx
+							box-sizing border-box
+							//background #FFEC9A
+							background-image url("https://file.cyzl.com/g001/M07/34/B5/oYYBAGCGFPGAMsNIAAAKIgmvm54348.svg")
+							background-size 274rpx 134rpx
+							color rgba(0, 0, 0, 0.8)
+							line-height 48rpx
+							font-size 24rpx
+							margin-bottom 32rpx
+							image
+								position absolute
+								left 0
+								top 0
+								width 274rpx
+							& > view:last-child
+								color $yellowColor
+								font-size 18rpx
+								line-height 26rpx
+							&.other-service-first
+								background-image url("https://file.cyzl.com/g001/M07/34/B4/oYYBAGCGFHGANGvFAAASff6NJMs668.svg")
+								margin-right auto
+					.pay-tips
+						color $yellowColor
+						font-size 24rpx
+						line-height 34rpx
+						font-family PingFangSC-Semibold, PingFang SC
+						font-weight 600
+						//margin-top 32rpx
+			&.my-only-swiper
+				.my-swiper-item
+					width 686rpx
+					.my-swiper-item-box
+						width 686rpx
+	// 权益选择
+	.rights-and-interests
+		width 646rpx
+		margin 48rpx 72rpx 0 32rpx
+		box-sizing border-box
+		.rights-and-interests-header
+			display flex
+			height 48rpx
+			align-items center
+			font-size 34rpx
+			color rgba(0, 0, 0, 0.9)
+			margin-bottom 28rpx
+		.rights-and-interests-list
+			margin auto
+			.rights-and-interests-item
+				display flex
+				height 112rpx
+				align-items center
+				background #FFFFFF
+				border-radius 16rpx
+				box-sizing border-box
+				font-size 28rpx
+				margin-bottom 12rpx
+				color rgba(0, 0, 0, 0.5)
+				padding-left 32rpx
+				padding-right 36rpx
+				image
+					width 44rpx
+					margin-right 8rpx
+				.title
+					flex 1
+				.price
+					color #576B95
+					margin-right 52rpx
+				&::after
+					display inline-block
+					width 48rpx
+					text-align center
+					content '查看'
+					font-size 24rpx
+					color #576B95
+				&.item-active
+					&::after
+						content '\e669'
+						font-size 26rpx
+						color #07C160
+		&.my-only-equities
+			width 686rpx
+			margin 48rpx 32rpx 0
+	// 下一步
+	.next
+		position fixed
+		bottom 0
+		width 100%
+		height 160rpx
+		background #F6F6F6
+		.btn
+			width 650rpx
+			height 96rpx
+			line-height 96rpx
+			font-size 36rpx
+			font-family PingFangSC-Medium, PingFang SC
+			font-weight 500
+			color #FFFFFF
+			text-align center
+			background linear-gradient(132deg, #16AD69 0%, #82D057 100%)
+			border-radius 48rpx
+			margin-top 20rpx
+			&.unavailable
+				opacity .6

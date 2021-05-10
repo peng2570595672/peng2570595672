@@ -1074,7 +1074,9 @@ function wxAnimation(delay, site, translate) {
 	return animation.export();
 }
 // 获取定位数据
-function initLocationInfo (orderInfo) {
+let isTruckHandle = false;// 是否是货车办理
+function initLocationInfo (orderInfo, isTruck = false) {
+	isTruckHandle = isTruck;
 	// 是否缓存了定位信息
 	let locationInfo = wx.getStorageSync('location-info');
 	if (locationInfo) {
@@ -1132,6 +1134,8 @@ async function getLocationInfo (orderInfo) {
 // 获取套餐列表
 async function getListOfPackages (orderInfo, regionCode, notList) {
 	showLoading();
+	console.log(orderInfo)
+	console.log(isTruckHandle)
 	let params = {
 		needRightsPackageIds: true,
 		areaCode: regionCode[0] || 0,
@@ -1140,6 +1144,10 @@ async function getListOfPackages (orderInfo, regionCode, notList) {
 		platformId: app.globalData.platformId,
 		shopId: orderInfo.shopId || app.globalData.miniProgramServiceProvidersId
 	};
+	if (isTruckHandle) {
+		params.vehType = 2;
+		params.shopId = app.globalData.miniProgramServiceProvidersId;
+	}
 	let result = await getDataFromServersV2('consumer/system/get-usable-product', params);
 	if (!result) return '';
 	let [isFaceToFace, isFaceToFaceCCB, isFaceToFaceICBC, isFaceToFaceWeChat] = [false, false, false, false];

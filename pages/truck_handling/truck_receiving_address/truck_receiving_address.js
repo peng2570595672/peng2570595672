@@ -128,7 +128,7 @@ Page({
 		}, (res) => {
 			if (res.code === 0) {
 				app.globalData.orderInfo.orderId = res.data.orderId; // 订单id
-				util.go('/pages/truck_handling/payment_way/payment_way');
+				util.go('/pages/truck_handling/package_the_rights_and_interests/package_the_rights_and_interests');
 			} else if (res.code === 301) { // 已存在当前车牌未完成订单
 				util.alert({
 					content: '该车牌订单已存在，请前往“首页>我的ETC”页面查看。',

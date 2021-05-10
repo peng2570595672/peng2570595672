@@ -1,0 +1,50 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<view class="package-the-rights-and-interests">
+    <touch-event bindonClickSlidingState="onClickSlidingState" wx:if="{{false}}">
+        <view class="package-list">
+            <view class="package-item" wx:for="{{showListOfPackages}}" wx:key="index" animation="{{item.animationLsi}}">
+                <view wx:if="{{index !== 0}}" class="outline"></view>
+                <view class="package-details">
+                    <view>图片 <text style="color: red">{{index}}</text></view>
+                    <view>
+                        <view>总对总套餐</view>
+                        <view>绑定银行卡划扣通行费</view>
+                    </view>
+                    <view>¥{{item.pledgePrice/100}}</view>
+                </view>
+                <view class="title">
+                    <view>基础服务</view>
+                    <view>价值158元</view>
+                </view>
+                <view class="basic-service-list">
+                    <view class="basic-service-item" wx:for="{{basicServiceList}}" wx:key="index">
+                        {{item.title}}
+                    </view>
+                    <view class="other-service-item" wx:for="{{otherServiceList}}" wx:key="index" wx:if="{{type === 1}}">
+                        <view>{{item.title}}</view>
+                        <view>{{item.subTitle}}</view>
+                    </view>
+                </view>
+                <view class="title">特色服务</view>
+                <view class="basic-service-list">
+                    <view class="basic-service-item" wx:for="{{basicServiceList}}" wx:key="index">
+                        {{item.title}}
+                    </view>
+                </view>
+    <!--            <view wx:if="{{item.pledgePrice}}">付费产品支付成功且审核通过后，默认已同意服务即时生效，不作申请退款。</view>-->
+                <view>付费产品支付成功且审核通过后，默认已同意服务即时生效，不作申请退款。</view>
+            </view>
+        </view>
+    </touch-event>
+    <view class="equities" wx:if="{{equitiesList.length}}">
+        <view class="title" animation="{{animationTitle}}">推荐加购以下权益包</view>
+        <view class="equities-item" wx:for="{{equitiesList}}" wx:key="index" animation="{{item.animationLsi}}">
+            <view>{{item.title}}</view>
+            <view>¥{{item.price/100}}</view>
+        </view>
+    </view>
+    <view class="bottom" animation="{{animationBtn}}">
+        <view class="more-package" bindtap='onclickMorePackage'>更多套餐</view>
+        <view class="pay">确认支付130.0元</view>
+    </view>
+</view>

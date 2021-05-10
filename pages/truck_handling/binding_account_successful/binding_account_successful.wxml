@@ -1,0 +1,11 @@
+<view class="binding_account" bindtap="touchHandle">
+    <view class="title iconfont">你已成功开通II账户</view>
+    <view class="card">
+        <view class="name iconfont">中国工商银行信用卡</view>
+        <view class="card-no">6217 1123 1123 1234</view>
+    </view>
+	<!--	按钮开始-->
+	<view class="btn" catchtap="next"><view class="animate" wx:if="{{isRequest}}"></view>添加该卡进微信钱包</view>
+	<!--	按钮结束-->
+    <view class="tips">需添加II类户至微信钱包方可预充保证金及继续办理</view>
+</view>

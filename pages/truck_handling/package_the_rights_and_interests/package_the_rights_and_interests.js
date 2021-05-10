@@ -275,7 +275,7 @@ Page({
 				await this.marginPayment();
 				return;
 			}
-			util.go('/pages/default/information_list/information_list');
+			util.go('/pages/truck_handling/information_list/information_list');
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -305,10 +305,10 @@ Page({
 					if (res.errMsg === 'requestPayment:ok') {
 						if (this.data.isSalesmanOrder) {
 							// 去支付成功页
-							util.go('/pages/default/payment_successful/payment_successful');
+							util.go('/pages/truck_handling/payment_successful/payment_successful');
 							return;
 						}
-						util.go('/pages/default/information_list/information_list');
+						util.go('/pages/truck_handling/information_list/information_list');
 					} else {
 						util.showToastNoIcon('支付失败！');
 					}

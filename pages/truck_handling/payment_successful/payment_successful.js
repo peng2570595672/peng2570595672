@@ -8,28 +8,25 @@ Page({
 	data: {
 		contractStatus: 0// 1已签约
 	},
-	onLoad () {
-		this.queryContract();
+	async onLoad () {
+		await this.queryContract();
 	},
 	// 查询车主服务签约
-	queryContract () {
-		util.getDataFromServer('consumer/order/query-contract', {
+	async queryContract () {
+		const result = await util.getDataFromServersV2('consumer/order/query-contract', {
 			orderId: app.globalData.orderInfo.orderId
-		}, () => {
-			util.hideLoading();
-		}, (res) => {
-			util.hideLoading();
-			if (res.code === 0) {
-				this.setData({
-					contractStatus: res.data.contractStatus
-				});
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken);
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			this.setData({
+				contractStatus: result.data.contractStatus
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 微信签约
-	next () {
+	async next () {
 		if (this.data.isRequest) {
 			return;
 		} else {
@@ -46,31 +43,24 @@ Page({
 		if (this.data.contractStatus === 1) {
 			delete params.needSignContract;
 		}
-		util.getDataFromServer('consumer/order/save-order-info', params, () => {
-			util.showToastNoIcon('提交数据失败！');
-			util.hideLoading();
-			this.setData({isRequest: false});
-		}, (res) => {
-			if (res.code === 0) {
-				util.hideLoading();
-				if (this.data.contractStatus === 1) {
-					// 1.0 已签约
-					util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
-					return;
-				}
-				let result = res.data.contract;
-				// 签约车主服务 2.0
-				app.globalData.signAContract = -1;
-				app.globalData.isTruckHandling = true;
-				app.globalData.belongToPlatform = app.globalData.platformId;
-				util.weChatSigning(result);
-			} else {
-				util.hideLoading();
-				this.setData({isRequest: false});
-				util.showToastNoIcon(res.message);
+		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+		this.setData({isRequest: false});
+		if (!result) return;
+		if (result.code === 0) {
+			if (this.data.contractStatus === 1) {
+				// 1.0 已签约
+				util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
+				return;
 			}
-		}, app.globalData.userInfo.accessToken, () => {
-		});
+			let res = result.data.contract;
+			// 签约车主服务 2.0
+			app.globalData.signAContract = -1;
+			app.globalData.belongToPlatform = app.globalData.platformId;
+			app.globalData.isNeedReturnHome = true;
+			util.weChatSigning(res);
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	onUnload () {
 		wx.reLaunch({

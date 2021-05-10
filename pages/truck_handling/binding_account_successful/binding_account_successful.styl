@@ -1,0 +1,68 @@
+@import "../../../style/base.styl";
+.binding_account
+	display flex
+	flex-direction column
+	padding 84rpx 32rpx 0rpx
+	box-sizing border-box
+	min-height 100vh
+	// 标题
+	.title
+		display flex
+		align-items center
+		font-size 34rpx
+		font-weight 600
+		color #000
+		justify-content center
+		padding-bottom 32rpx
+		&::before
+			content '\e638'
+			font-size 48rpx
+			color #15AD69
+			margin-right 4rpx
+			font-weight 400
+	.card
+		height 240rpx
+		background-image url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWIAAAE8AgMAAACHtlNuAAAADFBMVEUAAAD///////////84wDuoAAAABHRSTlMADgkFGKUEVgAABP5JREFUeNrtnL1x20AQhUFiGFwAO2IJKAGBnJglIMDfWAiQ2zNmCWwCJTgw7cAdGE2gBCWOFDuQHMjyEwby7WK1yxlo7mU2l5+Oe28XIO6OUVBQUFBQUFBQUFBQUFBQ0IWUlBNV/ug3j2G3NDmbko9E+A1GQKmfgK+p8O1jZMeKhH5ElNK/kTUV6GZD5g7lxBsCsswedMdKMz4hf9CNP2wDLIZB2YPljp3Hy1QFDN6o/VNyy+EigwdvELAYBKkr5I6X5iZiKn6Iz3lphuXYxmu4aa6WdrGC5Wb+/OF9NbdpnBaQM4rsliUDSqh3pJJkIB2e10dJMpAOwpdIxuJ0EC8jGYvTwasTlAm/WHgTKLnks+qkWUqOfeTY0/NpjR5yIvMcfMeZwDparI2HnEo8B3nIo8xzGBjnSjUIyO6/5K0wzXg/o4W2yMxEmA8IbuoZt7dHEXnPuAYOIvKOru0qEpE3dG03MnJMW6MTkTld46RL3k0AmmTE18pksFplMmI6XXI8idEkbxAT6ZIdJlCZnKEClckI75TJQB2UyT1aqC4ZpqsiXTI6XaFMTlDbymQHayiTYefjU/LP+4keYt9P/3P0k1P8bZB5dzR7P3nEJ9Ylw861NhmmUybHMJ0yeQPTKZMTmE6Z7GA6ZfIOnU6ZnKHTKZP3sLMuGSXYaJN72FmXjBLMlckx7KxM3uLCrUzeoFCUyQkKRZnsUCi6ZBR3rUxGcRfa5BQlaEVutcn7SQkq3smA02mTexS3MhnFbUY+KZNjFLcyeXsBcqRLRhOtzMi1MhntudAmO3tyo0xG42/XQ87+NdEVkjttcmpPPmqT9/bkw3rI45x8P9Vz5M/TkMFD9jy/mpPnqzmvhdzbk4dADuRLkUt7crSeMa9xBgP51ZBXdB0E2e5OZj1k3Net8C5Xn7zm7ylr/D64ou/dO7unECt8JpPYP6GqVvi8roxW81w0tntKbP5ke/40/jzRt4fX3p0n6lnP+TvlVQ989lydbLdSY7+6VGiTM7tVPPuVx1Kb7MzWYRPDVWn7lfTObPU/V9+xYL/LojDbc1Jpk3GZ0CZnF9g1dFAmuwvszsrNdpQ16rvg7HfuVXpkkADTJO9hu9k9EsS/R4JSu52odrtn7Xb8Gu5StttZjRCz3eCdMnkPc5jtui+UyTuYQ5mcIGYwO5FxNDtFkgvJtO0Ks9M6lRp5Fj+YnYo6mp3kaqVk+mCijLxlHKaUkR3jAOhBRM4Y5sijX2fId+2GTtHIMEcRCRSXnMPBEnJCnFqFhZYqY520zQXkkTgdLE701pPD7EXHg52H7GTH6GFa1k9ktIvJPfO0e617Qn98ge8y9q8KdEs95yU7UTpQZr5D9mLfOaInlOJ0jAR5lKZjS/WxTJoOR5ETaTpGirwtBenA+4gSlRRLRpPTUtQ7eprsBD9ihOkhEiZopSnIzERf8+ePJqeeezWyCkjLQw0HjLZOfbKldXgFMpHohcaLeyY59Qyayh/Dm1C7YMgVNR/LBn3FbzTjlNyQQwaZ5U7oBzu6YFUUcyRv2B8PvoM+cVOX0/2FkQ9MH9QxeyJUDb5cQAfuhknomvAFDMpPB1JNgyvOJWKm78+Ab0rC+UQZAk2AMYGsdECfpyFvvxBf6cl0QB9uI+j3/PWafZWf6+Mj+w4DJpJB9A6oOp/vzl/xb74zUAJLVd1GQUFBQUFBQUFBQUEv0h+RqQ1DcW3wIgAAAABJRU5ErkJggg==")
+		background-size 354rpx 316rpx
+		background-repeat no-repeat
+		background-position 400rpx
+		background-color #C25255
+		color #fff
+		padding 32rpx 24rpx
+		box-sizing border-box
+		box-shadow 0rpx 6rpx 16rpx 0rpx rgba(0, 0, 0, 0.1)
+		font-family PingFangSC-Medium, PingFang SC
+		border-radius 20rpx
+		.name
+			display flex
+			padding-bottom 46rpx
+			height 66rpx
+			align-items center
+			opacity .5
+			font-size 24rpx
+			font-weight 600
+			&::before
+				content '\e638'
+				font-size 66rpx
+				color #fff
+				margin-right 28rpx
+		.card-no
+			font-size 46rpx
+			line-height 64rpx
+			margin-left 110rpx
+	// 下一步
+	.btn
+		display flex
+		align-items center
+		justify-content center
+		margin 186rpx 0 32rpx
+		height 98rpx
+		font-size 40rpx
+		font-weight 500
+		color #fff
+		border-radius 49rpx
+		background: linear-gradient(to right , $deepThemeColor, $shallowThemeColor)
+	.tips
+		text-align center
+		font-size 24rpx
+		color rgba(0, 0, 0, .3)

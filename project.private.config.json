@@ -89,7 +89,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=840514359707963392",
+          "query": "orderId=676890461276733440",
           "scene": null
         },
         {
@@ -161,8 +161,8 @@
           "scene": null
         },
         {
-          "name": "pages/login/package_the_rights_and_interests/package_the_rights_and_interests",
-          "pathName": "pages/login/package_the_rights_and_interests/package_the_rights_and_interests",
+          "name": "pages/truck_handling/recharge_instructions/recharge_instructions",
+          "pathName": "pages/truck_handling/recharge_instructions/recharge_instructions",
           "query": "type=101",
           "scene": null
         },
@@ -227,8 +227,8 @@
           "scene": null
         },
         {
-          "name": "pages/truck_handling/payment_successful/payment_successful",
-          "pathName": "pages/truck_handling/payment_successful/payment_successful",
+          "name": "pages/truck_handling/binding_account/binding_account",
+          "pathName": "pages/truck_handling/binding_account/binding_account",
           "query": "officialChannelId=645937022279614464",
           "scene": null
         },
@@ -239,8 +239,8 @@
           "scene": null
         },
         {
-          "name": "pages/personal_center/new_index/new_index",
-          "pathName": "pages/personal_center/new_index/new_index",
+          "name": "签约管理",
+          "pathName": "pages/truck_handling/contract_management/contract_management",
           "query": "orderId=823587582322413568",
           "scene": null
         },
@@ -257,8 +257,8 @@
           "scene": null
         },
         {
-          "name": "pingan/pages/Login/Login",
-          "pathName": "pingan/pages/Login/Login",
+          "name": "pages/default/shot_bank_card/shot_bank_card",
+          "pathName": "pages/default/shot_bank_card/shot_bank_card",
           "query": "orderId=823587582322413568",
           "scene": null
         },

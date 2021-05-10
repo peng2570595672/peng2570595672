@@ -173,7 +173,13 @@ Page({
 			// 货车办理
 			app.globalData.orderInfo.orderId = obj.id;
 			if (obj.selfStatus === 1) {
-				util.go('/pages/truck_handling/payment_way/payment_way');
+				const result = await util.initLocationInfo(obj, true);
+				if (!result) return;
+				if (result.code) {
+					util.showToastNoIcon(result.message);
+					return;
+				}
+				util.go(`/pages/truck_handling/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`);
 			} else {
 				util.go('/pages/truck_handling/information_list/information_list');
 			}
