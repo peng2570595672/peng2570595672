@@ -1,0 +1,86 @@
+@import "../../../style/base.styl";
+.recharge-instructions
+	width 100%
+	box-sizing border-box
+	display flex
+	flex-direction column
+	height 100vh
+	.input-wapper
+		padding 84rpx 32rpx 12rpx
+		// 充值输入框标题
+		.small-prompt
+			font-size 28rpx
+			color rgba(0, 0, 0, .9)
+			padding-bottom 32rpx
+		// 充值输入框
+		.money-input-container
+			display flex
+			flex-direction row
+			flex-wrap nowrap
+			justify-content flex-start
+			padding 30rpx 0
+			font-size 80rpx
+			color #333
+			.item
+				height 80rpx
+				display flex
+			.label
+				position relative
+				margin-right 10rpx
+				top -10rpx
+				color #2FB565
+	.split
+		background #FAFAFA
+		height 20rpx
+	.card
+		background #F6F6F6
+		border-radius 16rpx
+		padding 38rpx 24rpx 32rpx 26rpx
+		box-sizing border-box
+		margin 32rpx
+		.transfer
+			display flex
+			align-items center
+			justify-content space-between
+			font-size 24rpx
+			line-height 34rpx
+			& > view
+				& > view
+					padding-bottom 6rpx
+					&.tips
+						color #FFC300
+						font-size 18rpx
+						line-height 26rpx
+					&.switch
+						font-size 24rpx
+						color #576B95
+					&:first-child
+						color rgba(0, 0, 0, .3)
+				&:last-child
+					text-align right
+				&.arrow
+					&::before
+						color #2FB565
+						content '\e68d'
+						font-size 32rpx
+	.fill
+		flex 1
+	// 下一步
+	.btn
+		display flex
+		align-items center
+		justify-content center
+		margin 34rpx 32rpx 70rpx
+		height 98rpx
+		font-size 40rpx
+		font-weight 500
+		color #fff
+		border-radius 49rpx
+		background: linear-gradient(to right , $deepThemeColor, $shallowThemeColor)
+		&.available
+			animation btnFadeIn .3s
+			animation-fill-mode forwards
+		&.unavailable
+			animation btnFadeOut .3s
+			animation-fill-mode forwards
+			opacity .6

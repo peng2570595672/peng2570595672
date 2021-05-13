@@ -16,7 +16,7 @@ Page({
 		number: 0,
 		showDetailWrapper: false,
 		showDetailMask: false,
-		showDetailInsurance: true,// 是否展示车险报价插屏
+		showDetailInsurance: false,// 是否展示车险报价插屏
 		memberId: '',
 		weiBaoOrderId: ''
 	},

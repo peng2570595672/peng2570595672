@@ -7,7 +7,7 @@
                 <view>建设银行（0295)</view>
                 <view class="tips">　</view>
             </view>
-            <view class="iconfont">1</view>
+            <view class="iconfont arrow"></view>
             <view>
                 <view>转入银行</view>
                 <view>工商银行（9020)</view>

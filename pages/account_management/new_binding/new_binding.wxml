@@ -1,0 +1,37 @@
+<view class="binding_account">
+    <view class="title">请保证新绑定的银行卡账户余额充足，以免影响正常使用</view>
+    <!--	输入开始-->
+    <view class="input-wrapper">
+        <view class="input-item">
+            <view>银行卡号</view>
+            <input type="text" class="detail-info" placeholder="请输入或拍照识别卡号" placeholder-class="placeholder" value="{{formData.bankCardNo}}"
+                   bindinput="onInputChangedHandle" data-key="bankCardNo"
+            />
+            <text class="iconfont photograph" bindtap="onClickChooseBankCard"></text>
+        </view>
+        <view class="input-item iconfont choose-bank">
+            <view>关联银行</view>
+            <picker bindchange="bindBankNameChange" value="{{bankNameIndex}}" range="{{bankNameArr}}">
+                <view class="persons bankName"><i class="iconfont logo {{banks[bankNameIndex]}}" ></i>{{bankNameArr[bankNameIndex]}}<text wx:if="{{bankNameIndex === null}}" class="prompt">点击选择开户行</text></view>
+            </picker>
+        </view>
+        <view class="input-item">
+            <view>手机号</view>
+            <input type="number" placeholder="请输入手机号" placeholder-class="placeholder" value="{{formData.telNumber}}"
+                   bindinput="onInputChangedHandle" data-key="telNumber"
+            />
+        </view>
+        <view class="input-item">
+            <view>验证码</view>
+            <input type="number" placeholder="输入验证码" placeholder-class="placeholder" value="{{formData.verifyCode}}"
+                   bindinput="onInputChangedHandle" data-key="verifyCode"
+            />
+            <text class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} {{mobilePhoneIsOk ? 'ok' : ''}}" bindtap="sendVerifyCode">{{identifyingCode}}</text>
+        </view>
+    </view>
+    <!--	输入结束-->
+    <view class="fill"></view>
+    <!--	按钮开始-->
+    <view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next"><view class="animate" wx:if="{{isRequest}}"></view>绑定</view>
+    <!--	按钮结束-->
+</view>

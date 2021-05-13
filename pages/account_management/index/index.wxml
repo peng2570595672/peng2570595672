@@ -1,0 +1,21 @@
+<view class="index">
+    <view class="card">
+        <view class="card-info">
+            <view class="left">
+                <view>当前账户余额（元）</view>
+                <view>2000.00</view>
+                <view bindtap="onClickAccountDetails">账户明细 ></view>
+            </view>
+            <view class="right iconfont">
+                <view>
+                    <view>工商银行</view>
+                    <view>II类电子账户</view>
+                </view>
+            </view>
+        </view>
+        <view class="card-no">
+            <view bindtap="onClickBindBankCard">绑定卡</view>
+            <view>6217 *** *** 1234</view>
+        </view>
+    </view>
+</view>

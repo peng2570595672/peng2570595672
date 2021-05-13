@@ -69,6 +69,22 @@
 						width 62rpx
 						text-align center
 						margin-right 10rpx
+						&::after
+							display block
+							text-align left
+							font-size 48rpx
+						&.service_of_driving_risk
+							&::after
+								content '\e693'
+								color #F7B500
+						&.service_of_security
+							&::after
+								content '\e692'
+								color #87BAEA
+						&.service_of_illegal
+							&::after
+								content '\e691'
+								color #6467F0
 						image
 							height 48rpx
 				.content

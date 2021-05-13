@@ -7,7 +7,9 @@
 		<view class="related-service-list">
             <view wx:for="{{details.list}}" wx:key="index" class="related-service-item">
                 <view class="title">
-                    <view class="logo"><image src="{{item.logo}}" mode="heightFix"></image></view>
+                    <view class="logo iconfont {{item.ico}}">
+<!--                        <image src="{{item.logo}}" mode="heightFix"></image>-->
+                    </view>
                     <view>{{item.title}}</view>
                 </view>
                 <view class="content"><text>{{item.describe}}</text></view>

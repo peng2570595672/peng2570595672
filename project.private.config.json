@@ -34,9 +34,8 @@
           "scene": null
         },
         {
-          "id": 3,
-          "name": "activities/pages/activity_icbc_forty_five_theme/index",
-          "pathName": "activities/pages/activity_icbc_forty_five_theme/index",
+          "name": "pages/account_management/index/index",
+          "pathName": "pages/account_management/index/index",
           "query": "shareId=1235556",
           "scene": null
         },
@@ -74,9 +73,9 @@
           "scene": null
         },
         {
-          "name": "pages/default/order_audit/order_audit",
-          "pathName": "pages/default/order_audit/order_audit",
-          "query": "",
+          "name": "pages/account_management/recharge_state/recharge_state",
+          "pathName": "pages/account_management/recharge_state/recharge_state",
+          "query": "info={}",
           "scene": null
         },
         {
@@ -89,7 +88,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=825055287701409792",
+          "query": "orderId=719857736895959040",
           "scene": null
         },
         {
@@ -125,8 +124,8 @@
           "scene": null
         },
         {
-          "name": "pages/login/login/login",
-          "pathName": "pages/login/login/login",
+          "name": "pages/truck_handling/truck_receiving_address/truck_receiving_address",
+          "pathName": "pages/truck_handling/truck_receiving_address/truck_receiving_address",
           "query": "serviceProvidersId=570178295975378944",
           "scene": null
         },
@@ -161,8 +160,8 @@
           "scene": null
         },
         {
-          "name": "pages/truck_handling/recharge_instructions/recharge_instructions",
-          "pathName": "pages/truck_handling/recharge_instructions/recharge_instructions",
+          "name": "pages/truck_handling/binding_account_failure/binding_account_failure",
+          "pathName": "pages/truck_handling/binding_account_failure/binding_account_failure",
           "query": "type=101",
           "scene": null
         },

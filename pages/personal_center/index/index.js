@@ -28,9 +28,15 @@ Page({
 				{title: 'vip专属客服', subTitle: '售后专人专业解答'},
 				{title: '设备延保一年', subTitle: '设备享有2年的保修服务'}
 			]
-		}
+		},
+		canIUseGetUserProfile: false
 	},
 	onLoad (options) {
+		if (wx.getUserProfile) {
+			this.setData({
+				canIUseGetUserProfile: true
+			});
+		}
 		app.globalData.orderInfo.orderId = '';
 		if (options.isMain) {
 			this.setData({
@@ -161,7 +167,7 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
 		if (result.code === 0) {
 			app.globalData.myEtcList = result.data;
-			let isActivation = result.data.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.obuCardType === 1); // 1 已激活  2 恢复订单  5 预激活
+			let isActivation = result.data.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && (item.obuCardType === 1 || item.obuCardType === 21)); // 1 已激活  2 恢复订单  5 预激活
 			this.setData({
 				isActivation: !!isActivation.length
 			});
@@ -246,6 +252,19 @@ Page({
 		} else {
 			util.showToastNoIcon(result.message);
 		}
+	},
+	getUserProfile (e) {
+		wx.getUserProfile({
+			desc: '用于完善用户资料',
+			success: (res) => {
+				this.setData({
+					userInfo: res.userInfo
+				});
+				if (res.userInfo) {
+					this.submitUserInfo(res);
+				}
+			}
+		});
 	},
 	bindGetUserInfo (e) {
 		this.setData({

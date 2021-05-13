@@ -1,0 +1,99 @@
+.recharge-instructions {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.recharge-instructions .input-wapper {
+  padding: 84rpx 32rpx 12rpx;
+}
+.recharge-instructions .input-wapper .small-prompt {
+  font-size: 28rpx;
+  color: rgba(0,0,0,0.9);
+  padding-bottom: 32rpx;
+}
+.recharge-instructions .input-wapper .money-input-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  padding: 30rpx 0;
+  font-size: 80rpx;
+  color: #333;
+}
+.recharge-instructions .input-wapper .money-input-container .item {
+  height: 80rpx;
+  display: flex;
+}
+.recharge-instructions .input-wapper .money-input-container .label {
+  position: relative;
+  margin-right: 10rpx;
+  top: -10rpx;
+  color: #2fb565;
+}
+.recharge-instructions .split {
+  background: #fafafa;
+  height: 20rpx;
+}
+.recharge-instructions .card {
+  background: #f6f6f6;
+  border-radius: 16rpx;
+  padding: 38rpx 24rpx 32rpx 26rpx;
+  box-sizing: border-box;
+  margin: 32rpx;
+}
+.recharge-instructions .card .transfer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 24rpx;
+  line-height: 34rpx;
+}
+.recharge-instructions .card .transfer > view > view {
+  padding-bottom: 6rpx;
+}
+.recharge-instructions .card .transfer > view > view.tips {
+  color: #ffc300;
+  font-size: 18rpx;
+  line-height: 26rpx;
+}
+.recharge-instructions .card .transfer > view > view.switch {
+  font-size: 24rpx;
+  color: #576b95;
+}
+.recharge-instructions .card .transfer > view > view:first-child {
+  color: rgba(0,0,0,0.3);
+}
+.recharge-instructions .card .transfer > view:last-child {
+  text-align: right;
+}
+.recharge-instructions .card .transfer > view.arrow::before {
+  color: #2fb565;
+  content: '\e68d';
+  font-size: 32rpx;
+}
+.recharge-instructions .fill {
+  flex: 1;
+}
+.recharge-instructions .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 34rpx 32rpx 70rpx;
+  height: 98rpx;
+  font-size: 40rpx;
+  font-weight: 500;
+  color: #fff;
+  border-radius: 49rpx;
+  background: linear-gradient(to right, #15ad69, #84d157);
+}
+.recharge-instructions .btn.available {
+  animation: btnFadeIn 0.3s;
+  animation-fill-mode: forwards;
+}
+.recharge-instructions .btn.unavailable {
+  animation: btnFadeOut 0.3s;
+  animation-fill-mode: forwards;
+  opacity: 0.6;
+}

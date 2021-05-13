@@ -71,7 +71,31 @@ Page({
 		});
 		if (!result) return;
 		console.log(result);
-		util.go(`/pages/truck_handling/binding_account_successful/binding_account_successful`);
+		if (result.code) {
+			if (result.code === 3403) {
+				util.showToastNoIcon('银行预留手机号不符！');
+				return;
+			}
+			if (result.code === 98000945) {
+				util.showToastNoIcon('验证码错误，请重新输入！');
+				return;
+			}
+			if (result.code === 98000944) {
+				util.showToastNoIcon('短信验证码已失效，请重新发送验证码！');
+				return;
+			}
+			if (result.code === 2210) {
+				util.showToastNoIcon('银行卡号无效，请确认后输入！');
+				return;
+			}
+			if (result.code === 104) {
+				util.showToastNoIcon(result.message);
+				return;
+			}
+			util.go(`/pages/truck_handling/binding_account_failure/binding_account_failure?code=${result.code}`);
+		} else {
+			util.go(`/pages/truck_handling/binding_account_successful/binding_account_successful`);
+		}
 	},
 	// 省市区选择
 	onPickerChangedHandle (e) {

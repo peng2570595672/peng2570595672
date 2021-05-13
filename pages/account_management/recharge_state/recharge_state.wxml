@@ -1,0 +1,16 @@
+<view class="signed_successfully">
+    <view wx:if="{{false}}">
+        <!--	成功提示开始-->
+        <image src="/pages/account_management/assets/success.png" mode="widthFix"/>
+        <view class="signed_title">充值成功</view>
+        <!--	成功提示结束-->
+        <!--	操作部分开始-->
+        <view class="btn" catchtap="next">返回账号管理</view>
+        <!--	操作部分结束-->
+    </view>
+    <view wx:else>
+        <image src="/pages/account_management/assets/failure.png" mode="widthFix"/>
+        <view class="signed_title">充值失败</view>
+        <view class="content">充值失败充值失败充值失败充值失败充值失败充值失败充值失败充值失败充值失败充值失败</view>
+    </view>
+</view>

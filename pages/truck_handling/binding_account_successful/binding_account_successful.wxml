@@ -1,7 +1,9 @@
-<view class="binding_account" bindtap="touchHandle">
+<view class="binding_account">
     <view class="title iconfont">你已成功开通II账户</view>
     <view class="card">
-        <view class="name iconfont">中国工商银行信用卡</view>
+        <view class="name iconfont">
+            <text>中国工商银行信用卡</text>
+        </view>
         <view class="card-no">6217 1123 1123 1234</view>
     </view>
 	<!--	按钮开始-->

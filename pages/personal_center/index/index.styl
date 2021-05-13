@@ -175,9 +175,35 @@ page
 						text-align center
 						padding 0
 						margin 0
+						&::before
+							font-size 44rpx
+						&.purchase_records
+							&::before
+								content '\e688'
+								color #FBA820
+						&.characteristic_service
+							&::before
+								content '\e68a'
+								color #3FB064
+						&.coupon_redemption_centre
+							&::before
+								content '\e689'
+								color #C87D2F
+						&.life_service
+							&::before
+								content '\e68c'
+								color #39A6F8
+						&.car_service
+							&::before
+								content '\e687'
+								color #6467F0
+						&.basic_services
+							&::before
+								content '\e68b'
+								color #FFC300
 						.img
 							height 46rpx
-							width 46rpx
+							width 46rp
 						.life_service_icon
 							height 42rpx
 							width 42rpx
@@ -201,9 +227,10 @@ page
 			align-items center
 			.activity_img
 				margin-left 30rpx
-				& > image
-					width 32rpx
-					height 28rpx
+				&::before
+					content '\e686'
+					color #FA5151
+					font-size 32rpx
 			.activity_msg
 				flex 1
 				margin-left 20rpx

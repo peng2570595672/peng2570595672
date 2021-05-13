@@ -238,7 +238,7 @@
 }
 @font-face {
   font-family: 'iconfont'; /* Project id 1514406 */
-  src: url("//at.alicdn.com/t/font_1514406_uiwn9zb9zy.woff2?t=1620626468119") format('woff2'), url("//at.alicdn.com/t/font_1514406_uiwn9zb9zy.woff?t=1620626468119") format('woff'), url("//at.alicdn.com/t/font_1514406_uiwn9zb9zy.ttf?t=1620626468119") format('truetype');
+  src: url("//at.alicdn.com/t/font_1514406_ezrxltu9p89.woff2?t=1620871137812") format('woff2'), url("//at.alicdn.com/t/font_1514406_ezrxltu9p89.woff?t=1620871137812") format('woff'), url("//at.alicdn.com/t/font_1514406_ezrxltu9p89.ttf?t=1620871137812") format('truetype');
 }
 .iconfont {
   font-family: "iconfont" !important;
@@ -312,6 +312,23 @@
   width: 62rpx;
   text-align: center;
   margin-right: 10rpx;
+}
+.related-service .related-service-wrapper .related-service-list .related-service-item .title .logo::after {
+  display: block;
+  text-align: left;
+  font-size: 48rpx;
+}
+.related-service .related-service-wrapper .related-service-list .related-service-item .title .logo.service_of_driving_risk::after {
+  content: '\e693';
+  color: #f7b500;
+}
+.related-service .related-service-wrapper .related-service-list .related-service-item .title .logo.service_of_security::after {
+  content: '\e692';
+  color: #87baea;
+}
+.related-service .related-service-wrapper .related-service-list .related-service-item .title .logo.service_of_illegal::after {
+  content: '\e691';
+  color: #6467f0;
 }
 .related-service .related-service-wrapper .related-service-list .related-service-item .title .logo image {
   height: 48rpx;

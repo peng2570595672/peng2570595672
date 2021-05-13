@@ -1,0 +1,31 @@
+<view class="recharge-instructions">
+    <!--充值输入框开始-->
+    <view class="input-wapper">
+        <view class="small-prompt">请输入充值金额（元）</view>
+        <view class="money-input-container">
+            <view class="label item">￥</view>
+            <input class="item" value="{{ rechargeAmount }}" bindinput="inputValueChange" data-key="rechargeAmount" />
+        </view>
+    </view>
+    <!--充值输入框结束-->
+    <view class="split"></view>
+    <view class="card">
+        <view class="transfer">
+            <view>
+                <view>转出银行</view>
+                <view>建设银行（0295)</view>
+                <view class="switch" bindtap="onClickSwitchBankCard">切换</view>
+            </view>
+            <view class="iconfont arrow"></view>
+            <view>
+                <view>转入银行</view>
+                <view>工商银行（9020)</view>
+                <view class="tips">ETC专用II类户</view>
+            </view>
+        </view>
+    </view>
+    <view class="fill"></view>
+    <!--	操作部分开始-->
+    <view class="btn {{rechargeAmount ? 'available' : 'unavailable'}}" catchtap="next">充值</view>
+    <!--	操作部分结束-->
+</view>

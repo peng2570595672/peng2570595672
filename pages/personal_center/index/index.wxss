@@ -188,9 +188,36 @@ page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest
   padding: 0;
   margin: 0;
 }
+page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon::before {
+  font-size: 44rpx;
+}
+page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon.purchase_records::before {
+  content: '\e688';
+  color: #fba820;
+}
+page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon.characteristic_service::before {
+  content: '\e68a';
+  color: #3fb064;
+}
+page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon.coupon_redemption_centre::before {
+  content: '\e689';
+  color: #c87d2f;
+}
+page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon.life_service::before {
+  content: '\e68c';
+  color: #39a6f8;
+}
+page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon.car_service::before {
+  content: '\e687';
+  color: #6467f0;
+}
+page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon.basic_services::before {
+  content: '\e68b';
+  color: #ffc300;
+}
 page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon .img {
   height: 46rpx;
-  width: 46rpx;
+  width: 46rp;
 }
 page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon .life_service_icon {
   height: 42rpx;
@@ -219,9 +246,10 @@ page .index .activity_follow {
 page .index .activity_follow .activity_img {
   margin-left: 30rpx;
 }
-page .index .activity_follow .activity_img > image {
-  width: 32rpx;
-  height: 28rpx;
+page .index .activity_follow .activity_img::before {
+  content: '\e686';
+  color: #fa5151;
+  font-size: 32rpx;
 }
 page .index .activity_follow .activity_msg {
   flex: 1;

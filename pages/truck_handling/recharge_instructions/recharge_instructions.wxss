@@ -37,6 +37,11 @@
 .recharge-instructions .card .transfer > view:last-child {
   text-align: right;
 }
+.recharge-instructions .card .transfer > view.arrow::before {
+  color: #2fb565;
+  content: '\e68d';
+  font-size: 32rpx;
+}
 .recharge-instructions .instructions {
   background: #f6f6f6;
   margin-top: 30rpx;

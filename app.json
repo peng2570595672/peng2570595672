@@ -76,6 +76,18 @@
       ]
     },
     {
+      "root": "pages/account_management",
+      "name": "pages/account_management",
+      "pages": [
+        "index/index",
+        "recharge_state/recharge_state",
+        "account_recharge/account_recharge",
+        "account_details/account_details",
+        "new_binding/new_binding",
+        "bind_bank_card/bind_bank_card"
+      ]
+    },
+    {
       "root": "pages/truck_handling",
       "name": "pages/truck_handling",
       "pages": [
@@ -88,6 +100,7 @@
         "contract_management/contract_management",
         "binding_account/binding_account",
         "binding_account_successful/binding_account_successful",
+        "binding_account_failure/binding_account_failure",
         "recharge_instructions/recharge_instructions",
         "shot_card/shot_card",
         "shot_other_photo/shot_other_photo",

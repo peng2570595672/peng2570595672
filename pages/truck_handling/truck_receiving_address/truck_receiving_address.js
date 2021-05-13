@@ -124,8 +124,16 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
+			// 选择套餐页面
+			let orderInfo = {
+				shopId: params.shopId,
+				thirdGeneralizeNo: params.thirdGeneralizeNo || '',
+				promoterType: params.promoterType || ''
+			};
 			app.globalData.orderInfo.orderId = result.data.orderId; // 订单id
-			util.go('/pages/truck_handling/package_the_rights_and_interests/package_the_rights_and_interests');
+			await util.initLocationInfo(orderInfo, true);
+			if (!app.globalData.newPackagePageData.listOfPackages?.length) return;// 没有套餐
+			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`);
 		} else if (result.code === 301) { // 已存在当前车牌未完成订单
 			util.alert({
 				content: '该车牌订单已存在，请前往“首页>我的ETC”页面查看。',
@@ -409,6 +417,9 @@ Page({
 		if (result.code === 0) {
 			this.startTimer();
 		} else {
+			this.setData({
+				isGetIdentifyingCoding: false
+			});
 			util.showToastNoIcon(result.message);
 		}
 	},

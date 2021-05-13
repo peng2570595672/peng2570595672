@@ -10,6 +10,6 @@ Page({
 	data: {
 	},
 	next () {
-		util.go(`/pages/web/web/web?type=online_customer_service`);
+		util.go(`/pages/account_management/account_recharge/account_recharge`);
 	}
 });
