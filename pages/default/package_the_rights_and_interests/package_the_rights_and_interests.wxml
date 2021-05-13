@@ -30,8 +30,8 @@
                     </view>
                     <view class="basic-service-list">
                         <view class="basic-service-item" wx:for="{{basicServiceList}}" wx:key="index">
-                            <image src="{{item.logo}}" mode="widthFix"></image>
-                            <view>{{item.title}}</view>
+<!--                            <image src="{{item.logo}}" mode="widthFix"></image>-->
+                            <view class="iconfont logo {{item.ico}}">{{item.title}}</view>
                             <view class="tips">{{item.tips}}</view>
                         </view>
 <!--                        <view wx:for="{{otherServiceList}}" wx:for-item="it" wx:key="index"-->
@@ -75,8 +75,8 @@
             <view wx:for="{{rightsAndInterestsList}}" wx:key="index"
                   class="rights-and-interests-item iconfont {{activeEquitiesIndex === index ? 'item-active' : ''}}"
                   catchtap="showRightsAndInterests" data-index="{{index}}">
-                <image src="/pages/default/assets/equities_of_coupons.svg" mode="widthFix"></image>
-                <view class="title">{{item.packageName}}</view>
+<!--                <image src="/pages/default/assets/equities_of_coupons.svg" mode="widthFix"></image>-->
+                <view class="title iconfont">{{item.packageName}}</view>
                 <view class="price">¥{{tools.parseNum(item.payMoney/100)}}</view>
             </view>
         </view>
@@ -94,6 +94,6 @@
     <!--查看权益详情开始-->
     <rights_package id="showRightsPackage" bindonClickHandle="onClickHandle" bindonClickDetailsHandle="onClickDetailsHandle" details="{{rightsPackageDetails}}"></rights_package>
     <!--查看权益详情结束-->
-    <related_service id="viewRightsService" bindonClickHandle="onClickClose" details="{{serviceList[0]}}" wx:if="{{showServiceIndex === 0}}"></related_service>
+    <related_service id="viewRightsService" bindonClickHandle="onClickClose" details="{{serviceList[showServiceIndex]}}" wx:if="{{showServiceIndex === 0}}"></related_service>
     <life_service id="viewLifeService" bindonClickHandle="onClickClose" details="{{serviceList[1]}}" wx:if="{{showServiceIndex === 1}}"></life_service>
 </view>

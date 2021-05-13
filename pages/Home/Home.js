@@ -51,6 +51,7 @@ Page({
 	},
 	onClickTruckHandling () {
 		app.globalData.orderInfo.orderId = '';
+		wx.uma.trackEvent('index_for_truck_entrance');
 		mta.Event.stat('index_for_truck_entrance',{});
 		util.go(`/pages/truck_handling/index/index`);
 	},
@@ -357,6 +358,7 @@ Page({
 		this.selectComponent('#notSigningPrompt').show();
 	},
 	goOrderDetails () {
+		wx.uma.trackEvent('index_for_order_details');
 		mta.Event.stat('013',{});
 		let model = this.data.recentlyTheBill;
 		util.go(`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
@@ -822,6 +824,7 @@ Page({
 	// 继续办理
 	async onClickContinueHandle () {
 		// 统计点击事件
+		wx.uma.trackEvent('index_continue_to_deal_with');
 		mta.Event.stat('002',{});
 		if (this.data.orderInfo.isNewTrucks === 1) {
 			// 货车办理

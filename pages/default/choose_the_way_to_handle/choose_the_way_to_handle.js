@@ -19,6 +19,7 @@ Page({
 		util.go(`/pages/web/web/web?type=online_customer_service`);
 	},
 	onClickPaymentWay (e) {
+		wx.uma.trackEvent('choose_the_way_to_handle');
 		const type = e.currentTarget.dataset.type;
 		util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?type=${type}`);
 	}

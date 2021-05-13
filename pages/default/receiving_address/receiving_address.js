@@ -118,6 +118,7 @@ Page({
 			return;
 		}
 		// 统计点击事件
+		wx.uma.trackEvent('receiving_address_next');
 		mta.Event.stat('024',{});
 		this.setData({
 			available: false, // 禁用按钮
@@ -417,6 +418,7 @@ Page({
 	// 从微信选择地址
 	onClickAutoFillHandle () {
 		// 统计点击事件
+		wx.uma.trackEvent('receiving_select_the_wechat_address');
 		mta.Event.stat('027',{});
 		wx.chooseAddress({
 			success: (res) => {
@@ -467,6 +469,7 @@ Page({
 	// 选择当前地址
 	onClickChooseLocationHandle () {
 		// 统计点击事件
+		wx.uma.trackEvent('receiving_select_the_address');
 		mta.Event.stat('026',{});
 		wx.chooseLocation({
 			success: (res) => {
@@ -575,6 +578,9 @@ Page({
 		if (result.code === 0) {
 			this.startTimer();
 		} else {
+			this.setData({
+				isGetIdentifyingCoding: false
+			});
 			util.showToastNoIcon(result.message);
 		}
 	},
@@ -615,6 +621,7 @@ Page({
 			getAgreement: !this.data.getAgreement
 		});
 		if (this.data.getAgreement) {
+			wx.uma.trackEvent('receiving_address_check_agreement');
 			mta.Event.stat('receiving_address_check_agreement',{});
 		}
 		this.setData({
@@ -679,6 +686,7 @@ Page({
 	onUnload () {
 		// 统计点击事件
 		mta.Event.stat('025',{});
+		wx.uma.trackEvent('receiving_address_return');
 		// 清除会员券信息
 		app.globalData.membershipCoupon = {};
 	}

@@ -17,34 +17,37 @@ Page({
 		activeEquitiesIndex: -1,// 当前选中权益包
 		rightsAndInterestsList: [],// 加购权益列表
 		basicServiceList: [
-			{title: 'ETC设备与卡片', tips: '包邮', logo: '/pages/default/assets/service_of_etc.svg'},
-			{title: '设备质保两年', logo: '/pages/default/assets/service_of_equipment.svg'},
-			{title: '开具通行费发票', logo: '/pages/default/assets/service_of_invoice.svg'},
-			{title: '高速通行9.5折', logo: '/pages/default/assets/service_of_discount.svg'}
+			{title: 'ETC设备与卡片', tips: '包邮', ico: 'service_of_etc', logo: '/pages/default/assets/service_of_etc.svg'},
+			{title: '设备质保两年', ico: 'service_of_equipment', logo: '/pages/default/assets/service_of_equipment.svg'},
+			{title: '开具通行费发票', ico: 'service_of_invoice', logo: '/pages/default/assets/service_of_invoice.svg'},
+			{title: '高速通行9.5折', ico: 'service_of_discount', logo: '/pages/default/assets/service_of_discount.svg'}
 		],
 		otherServiceList: [
 			{title: '车主服务享便捷', subTitle: '价值168元'},
 			{title: '生活服务享精彩', subTitle: '价值100元+'}
 		],
 		characteristicServiceList: [
-			{title: '中国石油特惠加油', logo: '/pages/default/assets/service_of_oil.svg'}
-			// {title: '高速通行享2倍积分', logo: '/pages/default/assets/service_of_integral.svg'}
+			{title: '中国石油特惠加油', ico: 'service_of_oil', logo: '/pages/default/assets/service_of_oil.svg'},
+			{title: '高速通行享2倍积分', ico: 'service_of_integral', logo: '/pages/default/assets/service_of_integral.svg'}
 		],
 		serviceList: [
 			{
 				detailsTitle: '车主服务',
 				list: [
 					{
+						ico: 'service_of_driving_risk',
 						logo: '/pages/default/assets/service_of_driving_risk.svg',
 						title: '每月领驾乘险',
 						describe: '10000元初始驾驶意外险，如每月无违章，额外获得5000元，最高可提升至50000元。'
 					},
 					{
+						ico: 'service_of_security',
 						logo: '/pages/default/assets/service_of_security.svg',
 						title: '设备延保1年',
 						describe: 'ETC设备非人为损坏质保延长一年，与设备质保叠加最高可达到三年质保。'
 					},
 					{
+						ico: 'service_of_illegal',
 						logo: '/pages/default/assets/service_of_illegal.svg',
 						title: '违章随时查',
 						describe: '每月可免费查询车辆违章情况'
@@ -83,12 +86,20 @@ Page({
 				detailsTitle: '特色服务',
 				list: [
 					{
+						ico: 'service_of_oil',
 						logo: '/pages/default/assets/service_of_oil.svg',
 						title: '中国石油特惠加油',
 						describe: `
 							ETC一卡双用：通行+加油
 							ETC办理成功后，可在指定省份享受中国石油加油优惠0.15-0.2元/升。
 							持ETC卡在中石油加油站进行油费充值，使用ETC卡进行加油时即可享受加油折扣优惠。
+						`
+					},
+					{
+						ico: 'service_of_integral',
+						logo: '/pages/default/assets/service_of_integral.svg',
+						title: '高速通行享2倍积分',
+						describe: `
 						`
 					}
 				]
@@ -191,6 +202,7 @@ Page({
 		this.setData({
 			showServiceIndex: parseInt(e.currentTarget.dataset.index)
 		});
+		if (this.data.showServiceIndex === 2) return;
 		if (this.data.showServiceIndex === 1) {
 			this.setData({
 				viewLifeService: this.selectComponent('#viewLifeService')
@@ -257,6 +269,7 @@ Page({
 			// 必须选择权益
 			return;
 		}
+		wx.uma.trackEvent('package_the_rights_and_interests_next');
 		mta.Event.stat('package_the_rights_and_interests_next',{});
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
