@@ -63,6 +63,7 @@ Page({
 	},
 	getUserInfo () {
 		mta.Event.stat('origin_user_invitation_for_cash',{});
+		wx.uma.trackEvent('origin_user_invitation_for_cash');
 		util.showLoading({title: '加载中'});
 		let that2 = this; // 解决作用域问题
 		wx.getSetting({
@@ -307,6 +308,7 @@ Page({
 	// 分享好友
 	onShareAppMessage () {
 		mta.Event.stat('origin_user_applet_sharing',{});
+		wx.uma.trackEvent('origin_user_applet_sharing');
 		return {
 			title: '好友邀你领取ETC',
 			imageUrl: '/pages/crowdsourcing/assets/share.png',

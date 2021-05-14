@@ -298,6 +298,7 @@ Page({
 		if (!this.validateData(true) || this.data.isRequest) {
 			return;
 		}
+		wx.uma.trackEvent('information_validation_next');
 		mta.Event.stat('information_validation_next',{});
 		this.confirmHandle();
 	},

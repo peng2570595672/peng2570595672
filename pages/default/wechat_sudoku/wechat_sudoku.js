@@ -32,6 +32,7 @@ Page({
 			console.log(bank);
 			app.globalData.otherPlatformsServiceProvidersId = bank.shopId;
 			mta.Event.stat(bank.buriedPoint,{});
+			wx.uma.trackEvent(bank.buriedPoint);
 		}
 		wx.reLaunch({
 			url: '/pages/default/receiving_address/receiving_address'

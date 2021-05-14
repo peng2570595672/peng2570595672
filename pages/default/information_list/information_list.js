@@ -258,6 +258,7 @@ Page({
 		} else {
 			this.setData({isRequest: true});
 		}
+		wx.uma.trackEvent('information_list_next');
 		mta.Event.stat('information_list_next',{});
 		util.showLoading('加载中');
 		let params = {

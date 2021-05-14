@@ -43,6 +43,7 @@ Page({
 		if (this.data.contractStatus === 1) {
 			delete params.needSignContract;
 		}
+		wx.uma.trackEvent('payment_successful_next');
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		this.setData({isRequest: false});
 		if (!result) return;

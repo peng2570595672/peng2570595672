@@ -37,8 +37,10 @@ Page({
 		let type = e.currentTarget.dataset.type;
 		if (type === 'image') {
 			mta.Event.stat('fission_user_tap_photo',{});
+			wx.uma.trackEvent('fission_user_tap_photo');
 		} else {
 			mta.Event.stat('fission_user_immediately_receive',{});
+			wx.uma.trackEvent('fission_user_immediately_receive');
 		}
 		util.showLoading();
 		let that2 = this; // 解决作用域问题
@@ -239,6 +241,7 @@ Page({
 	doNot () {
 	},
 	getMoreMoney () {
+		wx.uma.trackEvent('fission_user_make_profit');
 		mta.Event.stat('fission_user_make_profit',{});
 		util.go('/pages/crowdsourcing/index/index');
 	},

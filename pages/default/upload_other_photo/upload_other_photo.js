@@ -91,6 +91,7 @@ Page({
 		this.setData({
 			isRequest: true
 		});
+		wx.uma.trackEvent('other_photo_next');
 		mta.Event.stat('other_photo_next',{});
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
