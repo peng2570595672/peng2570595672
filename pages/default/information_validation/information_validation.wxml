@@ -81,7 +81,7 @@
                 <picker mode="date" value="{{drivingLicenseFace.ocrObject.resgisterDate}}"
                         bindchange="resgisterDatePickerChange"
                 >
-                    <view>{{drivingLicenseFace.ocrObject.resgisterDate}}</view>
+                    <view>{{drivingLicenseFace.ocrObject.resgisterDate || '选择注册日期'}}</view>
                 </picker>
             </view>
             <view class="item">
@@ -89,7 +89,7 @@
                 <picker mode="date" value="{{drivingLicenseFace.ocrObject.issueDate}}"
                         bindchange="issueDatePickerChange"
                 >
-                    <view>{{drivingLicenseFace.ocrObject.issueDate}}</view>
+                    <view>{{drivingLicenseFace.ocrObject.issueDate || '选择发证日期'}}</view>
                 </picker>
             </view>
             <view class="item">

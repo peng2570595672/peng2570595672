@@ -122,28 +122,36 @@
 			position fixed
 			bottom 0
 			left 0
-			display flex
 			background #fff
 			width 100%
-			height 180rpx
+			height 264rpx
 			padding 10rpx 32rpx
 			box-sizing border-box
-			& > view
+			.tips
+				padding-bottom 48rpx
+				font-size 24rpx
+				line-height 34rpx
+				color #FFC300
+			.btn
 				display flex
-				align-items center
-				justify-content center
-				height 98rpx
-				border-radius 49rpx
-				&.close
-					width 214rpx
-					font-size 28rpx
-					color #2FB565
-					border 2rpx solid #2FB565
-					margin-right 32rpx
-				&.pay
-					flex 1
-					font-size 34rpx
-					font-family PingFangSC-Medium, PingFang SC
-					font-weight 500
-					color #FFF
-					background linear-gradient(45deg, #14AC69 0%, #84D157 100%)
+				& > view
+					display flex
+					align-items center
+					justify-content center
+					height 98rpx
+					border-radius 49rpx
+					&:first-child
+						width 214rpx
+						margin-right 32rpx
+					&:last-child
+						flex 1
+					&.close
+						font-size 28rpx
+						color #2FB565
+						border 2rpx solid #2FB565
+					&.pay
+						font-size 34rpx
+						font-family PingFangSC-Medium, PingFang SC
+						font-weight 500
+						color #FFF
+						background linear-gradient(45deg, #14AC69 0%, #84D157 100%)

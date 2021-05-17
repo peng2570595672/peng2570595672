@@ -5,6 +5,10 @@ Component({
 		details: {
 			type: Object,
 			value: {}
+		},
+		isSelected: {
+			type: Boolean,
+			value: {}
 		}
 	},
 	data: {
@@ -69,7 +73,9 @@ Component({
 		},
 		// 立即选择
 		onClickChoice () {
-			this.triggerEvent('onClickDetailsHandle');
+			this.triggerEvent('onClickDetailsHandle', {
+				isSelected: this.data.isSelected
+			});
 		}
 	}
 });

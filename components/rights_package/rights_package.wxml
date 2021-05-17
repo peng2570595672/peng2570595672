@@ -34,8 +34,11 @@
                 </view>
             </view>
             <view class="bottom">
-                <view class="close" catchtap="onClickHandle">再看看</view>
-                <view class="pay" catchtap="onClickChoice">确认加购买</view>
+                <view class="tips">Tips：支付成功且订单审核通过后，在个人中心可按月领取券</view>
+                <view class="btn">
+                    <view class="{{isSelected ? 'pay' : 'close'}}" catchtap="onClickHandle">再看看</view>
+                    <view class="{{isSelected ? 'close' : 'pay'}}" catchtap="onClickChoice">{{isSelected ? '取消加购' : '确认加购买'}}</view>
+                </view>
             </view>
         </view>
 	</view>

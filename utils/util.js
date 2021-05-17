@@ -1150,6 +1150,10 @@ async function getListOfPackages (orderInfo, regionCode, notList) {
 	}
 	let result = await getDataFromServersV2('consumer/system/get-usable-product', params);
 	if (!result) return '';
+	if (result.code) {
+		showToastNoIcon(result.message);
+		return;
+	}
 	let [isFaceToFace, isFaceToFaceCCB, isFaceToFaceICBC, isFaceToFaceWeChat] = [false, false, false, false];
 	if (orderInfo.thirdGeneralizeNo && orderInfo.thirdGeneralizeNo.indexOf('isFaceToFace') !== -1) {
 		isFaceToFace = true;

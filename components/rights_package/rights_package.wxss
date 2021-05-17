@@ -366,29 +366,41 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  display: flex;
   background: #fff;
   width: 100%;
-  height: 180rpx;
+  height: 264rpx;
   padding: 10rpx 32rpx;
   box-sizing: border-box;
 }
-.related-service .related-service-wrapper .bottom > view {
+.related-service .related-service-wrapper .bottom .tips {
+  padding-bottom: 48rpx;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  color: #ffc300;
+}
+.related-service .related-service-wrapper .bottom .btn {
+  display: flex;
+}
+.related-service .related-service-wrapper .bottom .btn > view {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 98rpx;
   border-radius: 49rpx;
 }
-.related-service .related-service-wrapper .bottom > view.close {
+.related-service .related-service-wrapper .bottom .btn > view:first-child {
   width: 214rpx;
+  margin-right: 32rpx;
+}
+.related-service .related-service-wrapper .bottom .btn > view:last-child {
+  flex: 1;
+}
+.related-service .related-service-wrapper .bottom .btn > view.close {
   font-size: 28rpx;
   color: #2fb565;
   border: 2rpx solid #2fb565;
-  margin-right: 32rpx;
 }
-.related-service .related-service-wrapper .bottom > view.pay {
-  flex: 1;
+.related-service .related-service-wrapper .bottom .btn > view.pay {
   font-size: 34rpx;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;

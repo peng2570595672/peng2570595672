@@ -8,6 +8,7 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
+		isSelected: false,// 是否选中当前权益包
 		isSalesmanOrder: false,// 是否是业务员端办理
 		isRequest: false,// 是否请求中
 		orderInfo: undefined,// 订单信息
@@ -176,7 +177,8 @@ Page({
 	// 选择权益
 	onClickDetailsHandle (e) {
 		this.setData({
-			activeEquitiesIndex: this.data.rightsPackageDetails.index
+			isSelected: false,
+			activeEquitiesIndex: e.detail.isSelected ? -1 : this.data.rightsPackageDetails.index
 		});
 		this.data.viewRightsAndInterests.switchDisplay(false);
 	},
@@ -185,7 +187,9 @@ Page({
 		let index = e.currentTarget.dataset['index'];
 		let rightsPackageDetails = this.data.rightsAndInterestsList[index];
 		rightsPackageDetails.index = index;
+		const isSelected = this.data.activeEquitiesIndex === index;
 		this.setData({
+			isSelected,
 			viewRightsAndInterests: this.selectComponent('#showRightsPackage'),
 			rightsPackageDetails
 		});
