@@ -702,7 +702,7 @@ function getStatus(orderInfo) {
 	// 不需要审核,为了不改动之前的,所以单独判断
 	if (orderInfo.auditStatus === -1 && orderInfo.status === 1) status = orderInfo.contractStatus !== 1 ? 2 : orderInfo.obuStatus !== 1 ? 6 : 9;
 	// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
-	status = orderInfo.pledgeStatus === 0 ? 11 : status
+	status = orderInfo.pledgeStatus === 0 ? 11 : status;
 	return status;
 }
 /**

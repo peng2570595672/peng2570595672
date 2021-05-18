@@ -55,7 +55,7 @@
         {
           "name": "办理进度",
           "pathName": "pages/default/processing_progress/processing_progress",
-          "query": "orderId=719857736895959040",
+          "query": "orderId=844216137615937536",
           "scene": null
         },
         {
@@ -88,7 +88,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=836990467953397760",
+          "query": "orderId=844265682538336256",
           "scene": null
         },
         {
@@ -160,8 +160,8 @@
           "scene": null
         },
         {
-          "name": "pages/truck_handling/binding_account_failure/binding_account_failure",
-          "pathName": "pages/truck_handling/binding_account_failure/binding_account_failure",
+          "name": "pages/truck_handling/binding_account/binding_account",
+          "pathName": "pages/truck_handling/binding_account/binding_account",
           "query": "type=101",
           "scene": null
         },

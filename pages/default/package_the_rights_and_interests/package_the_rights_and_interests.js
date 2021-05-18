@@ -184,6 +184,7 @@ Page({
 	},
 	// 查看权益详情
 	showRightsAndInterests (e) {
+		if (this.data.orderInfo?.base.orderType === 31) return;
 		let index = e.currentTarget.dataset['index'];
 		let rightsPackageDetails = this.data.rightsAndInterestsList[index];
 		rightsPackageDetails.index = index;
@@ -233,9 +234,17 @@ Page({
 			if (rightsPackageId) {
 				// 已经加购权益包
 				const activeEquitiesIndex = result.data.findIndex(item => item.id === rightsPackageId);
-				this.setData({
-					activeEquitiesIndex
-				});
+				if (this.data.orderInfo?.base.orderType === 31) {
+					// 只显示选购权益包
+					this.setData({
+						activeEquitiesIndex: 0,
+						rightsAndInterestsList: [result.data[activeEquitiesIndex]]
+					});
+				} else {
+					this.setData({
+						activeEquitiesIndex
+					});
+				}
 			}
 		} else {
 			util.showToastNoIcon(result.message);
@@ -244,6 +253,7 @@ Page({
 	// 轮播图滚动后回调
 	async currentChange (e) {
 		this.setData({
+			isSelected: false,
 			choiceIndex: -1,
 			activeEquitiesIndex: -1,
 			rightsAndInterestsList: [],

@@ -84,7 +84,7 @@
     <!--权益选择结束-->
     <!--下一步开始-->
     <view class="next">
-        <button class="btn {{listOfPackages[activeIndex].mustChoiceRightsPackage === 1 && activeEquitiesIndex === -1 ? 'unavailable' : ''}}" catchtap="next"
+        <button class="btn {{choiceIndex === -1 || (listOfPackages[activeIndex].mustChoiceRightsPackage === 1 && activeEquitiesIndex === -1) ? 'unavailable' : ''}}" catchtap="next"
                 wx:if="{{choiceIndex !== -1 && listOfPackages[activeIndex].pledgePrice || (activeEquitiesIndex !== -1 && rightsAndInterestsList[activeEquitiesIndex].payMoney)}}">
             确认支付{{activeEquitiesIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + rightsAndInterestsList[activeEquitiesIndex].payMoney)/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}元
         </button>
