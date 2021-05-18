@@ -94,6 +94,7 @@
         "index/index",
         "truck_receiving_address/truck_receiving_address",
         "agreement/agreement",
+        "icbc_agreement/icbc_agreement",
         "information_validation/information_validation",
         "payment_way/payment_way",
         "package_the_rights_and_interests/package_the_rights_and_interests",

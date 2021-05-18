@@ -10,6 +10,8 @@ const app = getApp();
 let timer;
 Page({
 	data: {
+		mask: false,
+		wrapper: false,
 		banks: ['icbc','abchina','boc','ccb','bankcomm','psbc'],
 		bankNameIndex: null, // 开户行：1-工行，2-农行，3-中行，4建行，5-交行，6-邮储 (接口上传：bankNameIndex+1)
 		bankNameArr: ['工商银行', '农业银行', '中国银行', '建设银行', '交通银行', '邮政储蓄'],
@@ -21,6 +23,8 @@ Page({
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
 		showToast: false, // 是否验证码错误
+		professionArr: ['公务员', '事业单位员工', '公司员工', '军人警察', '工人', '农民', '管理人员', '技术人员', '私营业主', '文体明星', '自由职业者', '学生', '无职业'],
+		professionIndex: null, // 职业
 		formData: {
 			bankCardNo: undefined,
 			telNumber: '', // 电话号码
@@ -28,6 +32,8 @@ Page({
 		} // 提交数据
 	},
 	onShow () {
+		this.show();
+		this.startTimer();
 		// 银行卡
 		let bankCardIdentifyResult = wx.getStorageSync('bank_card_identify_result');
 		if (bankCardIdentifyResult) {
@@ -41,6 +47,22 @@ Page({
 			wx.removeStorageSync('bank_card_identify_result');
 		}
 	},
+	show () {
+		this.setData({
+			mask: true,
+			wrapper: true
+		});
+	},
+	hide (e,flag) {
+		this.setData({
+			wrapper: false
+		});
+		setTimeout(() => {
+			this.setData({
+				mask: false
+			});
+		}, 400);
+	},
 	onClickChooseBankCard () {
 		util.go(`/pages/default/shot_bank_card/shot_bank_card?type=0`);
 	},
@@ -48,9 +70,22 @@ Page({
 		this.setData({
 			bankNameIndex: parseInt(e.detail.value)
 		});
+		this.setData({
+			available: this.validateAvailable()
+		});
+	},
+	bindProfessionChange (e) {
+		this.setData({
+			professionIndex: parseInt(e.detail.value)
+		});
+		this.setData({
+			available: this.validateAvailable()
+		});
 	},
 	// 下一步
 	async next () {
+		this.show();
+		this.startTimer();
 		this.setData({
 			available: this.validateAvailable(true)
 		});
@@ -96,20 +131,6 @@ Page({
 		} else {
 			util.go(`/pages/truck_handling/binding_account_successful/binding_account_successful`);
 		}
-	},
-	// 省市区选择
-	onPickerChangedHandle (e) {
-		let formData = this.data.formData;
-		formData.region = e.detail.value;
-		if (e.detail.code && e.detail.code.length === 3) {
-			formData.regionCode = e.detail.code;
-		}
-		this.setData({
-			formData
-		});
-		this.setData({
-			available: this.validateAvailable()
-		});
 	},
 	// 倒计时
 	startTimer () {
@@ -208,6 +229,10 @@ Page({
 			if (isToast) util.showToastNoIcon('请完善绑定银行信息！');
 			return false;
 		}
+		if (this.data.professionIndex === null) {
+			if (isToast) util.showToastNoIcon('请选择个人职业！');
+			return false;
+		}
 		if (!this.data.formData.telNumber) {
 			if (isToast) util.showToastNoIcon('请输入银行预留手机号！');
 			return false;
@@ -216,16 +241,8 @@ Page({
 			if (isToast) util.showToastNoIcon('手机号输入不合法！');
 			return false;
 		}
-		if (!this.data.formData.verifyCode) {
-			if (isToast) util.showToastNoIcon('请获取并输入短信验证码！');
-			return false;
-		}
-		if (this.data.formData.verifyCode.length < 4) {
-			if (isToast) util.showToastNoIcon('请输入正确的验证码！');
-			return false;
-		}
 		if (!this.data.getAgreement) {
-			if (isToast) util.showToastNoIcon('请输入正确的验证码！');
+			if (isToast) util.showToastNoIcon('请阅读工商银行II类账户开户协议！');
 			return false;
 		}
 		return true;

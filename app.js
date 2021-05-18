@@ -69,7 +69,7 @@ App({
 		billingDetails: undefined, // 账单详情(总对总)
 		splitDetails: undefined, // 账单详情(拆分账单)
 		quality: 80,
-		signAContract: 3,// -1正常签约  1  解约重签
+		signAContract: 3,// -1正常签约  1  解约重签  4 货车签约管理页签约
 		userInfo: {},// 用户信息
 		membershipCoupon: {},// 会员券带参进入
 		ownerServiceArrearsList: [],// 车主服务欠费列表
@@ -270,7 +270,7 @@ App({
 				const {appId} = res.referrerInfo;
 				// 车主服务签约
 				if (appId === 'wxbcad394b3d99dac9' || appId === 'wxbd687630cd02ce1d') {
-					this.queryContract(appId);
+					this.globalData.isTruckHandling ? this.queryContractForTruckHandling(appId) : this.queryContract(appId);;
 				}
 			} else if (this.globalData.signAContract === 1) {
 				// 解约状态
@@ -280,6 +280,27 @@ App({
 					url: '/pages/Home/Home'
 				});
 			}
+		}
+	},
+	// 货车-查询车主服务签约
+	async queryContractForTruckHandling (appId) {
+		util.showLoading({
+			title: '签约查询中...'
+		});
+		const result = await util.getDataFromServersV2('consumer/order/newTrucksContractQuery', {
+			orderId: this.globalData.orderInfo.orderId,
+			immediately: true
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			this.globalData.signAContract = 3;
+			// 签约成功 userState: "NORMAL"
+			if (result.data.contractStatus === 1 && result.data.userState === 'NORMAL') {
+			} else {
+				util.showToastNoIcon('未签约成功！');
+			}
+		} else {
+			util.showToastNoIcon(result.message);
 		}
 	},
 	// 查询车主服务签约
@@ -296,16 +317,6 @@ App({
 			util.hideLoading();
 			if (res.code === 0) {
 				this.globalData.signAContract = 3;
-				//  1.0签约
-				if (this.globalData.isTruckHandling) {
-					this.globalData.isTruckHandling = false;// 是否新流程-货车办理
-					if (res.data.contractStatus === 1) {
-						util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${this.globalData.orderInfo.orderId}`);
-					} else {
-						util.showToastNoIcon('未签约成功！');
-					}
-					return;
-				}
 				// 1.0签约
 				if (appId === 'wxbd687630cd02ce1d') {
 					if (res.data.contractStatus === 1) {
@@ -317,6 +328,11 @@ App({
 				}
 				// 签约成功 userState: "NORMAL"
 				if (res.data.contractStatus === 1 && res.data.userState === 'NORMAL') {
+					//  货车签约
+					if (this.globalData.isTruckHandling) {
+						this.globalData.isTruckHandling = false;// 是否新流程-货车办理
+						return;
+					}
 					// 办理付费h5
 					if (this.globalData.otherEntrance.isPayH5Signing) {
 						this.globalData.otherEntrance.isPayH5Signing = false;

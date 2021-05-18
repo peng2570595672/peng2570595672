@@ -1,4 +1,5 @@
 <view class="binding_account">
+    <view class="tips">新开的II类账户将作为货车ETC通行保证金缴纳账户</view>
     <view class="title">银行卡信息</view>
     <view class="sub-title">开通II类账户需绑定一张您本人的银行卡</view>
     <!--	输入开始-->
@@ -16,18 +17,17 @@
                 <view class="persons bankName"><i class="iconfont logo {{banks[bankNameIndex]}}" ></i>{{bankNameArr[bankNameIndex]}}<text wx:if="{{bankNameIndex === null}}" class="prompt">点击选择开户行</text></view>
             </picker>
         </view>
-        <view class="input-item">
-            <view>手机号</view>
-            <input type="number" placeholder="请输入手机号" placeholder-class="placeholder" value="{{formData.telNumber}}"
-                   bindinput="onInputChangedHandle" data-key="telNumber"
-            />
+        <view class="input-item iconfont choose-bank">
+            <view>个人职业</view>
+            <picker bindchange="bindProfessionChange" value="{{professionIndex}}" range="{{professionArr}}">
+                <view class="persons bankName">{{professionArr[professionIndex]}}<text wx:if="{{professionIndex === null}}" class="prompt">请选择个人职业</text></view>
+            </picker>
         </view>
         <view class="input-item">
-            <view>验证码</view>
-            <input type="number" placeholder="输入验证码" placeholder-class="placeholder" value="{{formData.verifyCode}}"
-                   bindinput="onInputChangedHandle" data-key="verifyCode"
+            <view>手机号</view>
+            <input type="number" placeholder="请输入银行预留的手机号码" placeholder-class="placeholder" value="{{formData.telNumber}}"
+                   bindinput="onInputChangedHandle" data-key="telNumber"
             />
-            <text class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} {{mobilePhoneIsOk ? 'ok' : ''}}" bindtap="sendVerifyCode">{{identifyingCode}}</text>
         </view>
     </view>
     <!--	输入结束-->
@@ -38,4 +38,17 @@
     <!--	按钮开始-->
     <view class="btn {{available && getAgreement ? 'available' : 'unavailable'}}" catchtap="next"><view class="animate" wx:if="{{isRequest}}"></view>立刻开通II类账户</view>
     <!--	按钮结束-->
+    <view class="verification-code-wrapper animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}">
+        <view class="verification-code-wrapper-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}"  wx:if="{{mask}}">
+            <view class="phone">短信验证码已下发至<text>{{formData.telNumber}}</text></view>
+            <view class="input-item">
+                <view>验证码</view>
+                <input type="number" placeholder="" placeholder-class="placeholder" value="{{formData.verifyCode}}"
+                       bindinput="onInputChangedHandle" data-key="verifyCode"
+                />
+                <view class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} {{mobilePhoneIsOk ? 'ok' : ''}}" bindtap="sendVerifyCode">{{identifyingCode}}</view>
+            </view>
+            <view class="confirm">确认</view>
+        </view>
+    </view>
 </view>

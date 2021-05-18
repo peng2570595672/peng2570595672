@@ -60,6 +60,7 @@
   color: #fff;
 }
 .information-list .list-item .btn.success {
+  content: '';
   background: transparent;
 }
 .information-list .list-item .btn.success::before {

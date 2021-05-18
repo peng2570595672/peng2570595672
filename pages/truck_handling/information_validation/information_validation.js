@@ -134,7 +134,9 @@ Page({
 									this.selectComponent('#notFinishedOrder').show();
 									return;
 								}
-								const vehicleList = ['小型轿车', '小型普通客车', '小型越野客车', '小型面包车', '普通客车', '轿车', '中型普通客车'];
+								const vehicleList = ['普通货车', '厢式货车', '仓栅式货车', '封闭货车', '罐式货车', '平板货车',
+									'集装箱车', '车辆运输车', '特殊结构货车', '自卸货车', '半挂牵引车', '全挂牵引车', '栏板货车',
+									'轻型货车', '多用途货车', '专门用途货车', '低速货车'];
 								if (vehicleList.includes(faceObj.ocrObject.vehicleType)) {
 									util.showToastNoIcon('非货车类型无法办理！');
 									this.setData({

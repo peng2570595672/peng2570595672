@@ -6,24 +6,22 @@
             <view>请选择II类账户(0090)签约</view>
             <view>授权通行保证金的预充/冻结/划扣</view>
         </view>
-        <view class="btn" catchtap="go">去签约</view>
+        <view class="btn iconfont {{contractBondInfo.contractStatus === 1 ? 'success' : ''}}" catchtap="go" data-item="{{contractBondInfo}}">{{contractBondInfo.contractStatus === 1 ? '' : '去签约'}}</view>
     </view>
     <view class="list-item">
         <view class="left">
             <view class="title">通行费</view>
             <view>授权微信免密代扣通行费</view>
         </view>
-        <view class="btn" catchtap="go">去签约</view>
+        <view class="btn iconfont {{contractTollInfo.contractStatus === 1 ? 'success' : ''}}" catchtap="go" data-item="{{contractTollInfo}}">{{contractTollInfo.contractStatus === 1 ? '' : '去签约'}}</view>
     </view>
     <view class="list-item">
         <view class="left">
             <view class="title">通行手续费</view>
             <view>授权微信免密代扣通行手续费</view>
         </view>
-        <view class="btn iconfont success" catchtap="go"></view>
+        <view class="btn iconfont {{contractPoundageInfo.contractStatus === 1 ? 'success' : ''}}" catchtap="go" data-item="{{contractPoundageInfo}}">{{contractPoundageInfo.contractStatus === 1 ? '' : '去签约'}}</view>
     </view>
     <view class="fill"></view>
-    <view class="btn-sign {{available ? 'available' : 'unavailable'}}" catchtap="subscribe">
-        <view class="animate" wx:if="{{isRequest}}"></view>下一步
-    </view>
+    <view class="btn-sign" catchtap="next">下一步</view>
 </view>

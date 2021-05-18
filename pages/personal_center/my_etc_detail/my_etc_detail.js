@@ -12,6 +12,7 @@ Page({
 		orderId: undefined
 	},
 	onLoad (options) {
+		app.globalData.isTruckHandling = false;
 		app.globalData.isNeedReturnHome = false;
 		if (options.orderId) {
 			this.setData({
