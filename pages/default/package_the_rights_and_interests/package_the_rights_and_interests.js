@@ -184,7 +184,7 @@ Page({
 	},
 	// 查看权益详情
 	showRightsAndInterests (e) {
-		if (this.data.orderInfo?.base.orderType === 31) return;
+		if (this.data.isSalesmanOrder) return;
 		let index = e.currentTarget.dataset['index'];
 		let rightsPackageDetails = this.data.rightsAndInterestsList[index];
 		rightsPackageDetails.index = index;
@@ -234,7 +234,7 @@ Page({
 			if (rightsPackageId) {
 				// 已经加购权益包
 				const activeEquitiesIndex = result.data.findIndex(item => item.id === rightsPackageId);
-				if (this.data.orderInfo?.base.orderType === 31) {
+				if (this.data.isSalesmanOrder) {
 					// 只显示选购权益包 没加购权益包则影藏权益
 					const index = activeEquitiesIndex === -1 ? -1 : 0;
 					const list = activeEquitiesIndex === -1 ? [] : [result.data[activeEquitiesIndex]];
