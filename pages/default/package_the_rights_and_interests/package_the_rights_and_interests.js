@@ -234,11 +234,13 @@ Page({
 			if (rightsPackageId) {
 				// 已经加购权益包
 				const activeEquitiesIndex = result.data.findIndex(item => item.id === rightsPackageId);
-				if (this.data.orderInfo?.base.orderType === 31 && activeEquitiesIndex !== -1) {
-					// 只显示选购权益包
+				if (this.data.orderInfo?.base.orderType === 31) {
+					// 只显示选购权益包 没加购权益包则影藏权益
+					const index = activeEquitiesIndex === -1 ? -1 : 0;
+					const list = activeEquitiesIndex === -1 ? [] : [result.data[activeEquitiesIndex]];
 					this.setData({
-						activeEquitiesIndex: 0,
-						rightsAndInterestsList: [result.data[activeEquitiesIndex]]
+						activeEquitiesIndex: index,
+						rightsAndInterestsList: list
 					});
 				} else {
 					this.setData({
