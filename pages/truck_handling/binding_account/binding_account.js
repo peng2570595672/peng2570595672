@@ -1,6 +1,6 @@
 /**
- * @author 狂奔的蜗牛
- * @desc 填写车牌和收货信息
+ * @author 老刘
+ * @desc 开通II类户
  */
 const util = require('../../../utils/util.js');
 // 数据统计
@@ -25,20 +25,21 @@ Page({
 		showToast: false, // 是否验证码错误
 		professionArr: ['公务员', '事业单位员工', '公司员工', '军人警察', '工人', '农民', '管理人员', '技术人员', '私营业主', '文体明星', '自由职业者', '学生', '无职业'],
 		professionIndex: null, // 职业
+		bankCardObj: null,
+		bankAccountId: null,
 		formData: {
-			bankCardNo: undefined,
-			telNumber: '', // 电话号码
-			verifyCode: '' // 验证码
+			bankCardNo: '6222084000000000656',
+			telNumber: '13902494674', // 电话号码
+			verifyCode: '955888' // 验证码
 		} // 提交数据
 	},
 	onShow () {
-		this.show();
-		this.startTimer();
 		// 银行卡
 		let bankCardIdentifyResult = wx.getStorageSync('bank_card_identify_result');
 		if (bankCardIdentifyResult) {
 			bankCardIdentifyResult = JSON.parse(bankCardIdentifyResult);
 			this.setData({
+				bankCardObj: bankCardIdentifyResult.data[0],
 				[`formData.bankCardNo`]: bankCardIdentifyResult.data[0].ocrObject.cardNo
 			});
 			this.setData({
@@ -84,8 +85,6 @@ Page({
 	},
 	// 下一步
 	async next () {
-		this.show();
-		this.startTimer();
 		this.setData({
 			available: this.validateAvailable(true)
 		});
@@ -96,10 +95,50 @@ Page({
 			available: false, // 禁用按钮
 			isRequest: true // 设置状态为请求中
 		});
-		const result = await util.getDataFromServersV2('consumer/member/common/applet/code', {
-			platformId: app.globalData.platformId, // 平台id
-			code: res.code // 从微信获取的code
+		const params = {
+			occupation: this.data.professionIndex + 1,
+			bankAccountNo: this.data.formData.bankCardNo,
+			bankName: this.data.bankNameArr[this.data.bankNameIndex],
+			mobilePhone: this.data.formData.telNumber,
+			cardType: this.data.bankCardObj?.cardType === '贷记卡' ? 2 : 1,
+			bankCardUrl: this.data.bankCardObj?.fileUrl || '',
+			sortName: this.data.banks[this.data.bankNameIndex]
+		};
+		const result = await util.getDataFromServersV2('consumer/member/icbcv2/open', params);
+		this.setData({
+			available: true,
+			isRequest: false
 		});
+		if (!result) return;
+		console.log(result);
+		if (result.code === 0) {
+			this.setData({
+				bankAccountId: result.data.bankAccountId
+			});
+			this.show();
+			this.startTimer();
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	async onClickOpenTheCard () {
+		if (!this.data.formData.verifyCode) {
+			util.showToastNoIcon('请获取并输入短信验证码！');
+			return false;
+		}
+		if (this.data.formData.verifyCode.length < 4) {
+			util.showToastNoIcon('请输入正确的验证码！');
+			return false;
+		}
+		this.setData({
+			available: false, // 禁用按钮
+			isRequest: true // 设置状态为请求中
+		});
+		const params = {
+			bankAccountId: this.data.bankAccountId,
+			smsCode: this.data.formData.verifyCode
+		};
+		const result = await util.getDataFromServersV2('consumer/member/icbcv2/verifyCode', params);
 		this.setData({
 			available: true,
 			isRequest: false
@@ -107,24 +146,16 @@ Page({
 		if (!result) return;
 		console.log(result);
 		if (result.code) {
-			if (result.code === 3403) {
-				util.showToastNoIcon('银行预留手机号不符！');
-				return;
-			}
-			if (result.code === 98000945) {
-				util.showToastNoIcon('验证码错误，请重新输入！');
-				return;
-			}
-			if (result.code === 98000944) {
-				util.showToastNoIcon('短信验证码已失效，请重新发送验证码！');
-				return;
-			}
-			if (result.code === 2210) {
-				util.showToastNoIcon('银行卡号无效，请确认后输入！');
-				return;
-			}
-			if (result.code === 104) {
-				util.showToastNoIcon(result.message);
+			const resultStatusArr = [
+				{code: 3403, message: '银行预留手机号不符！'},
+				{code: 98000945, message: '验证码错误，请重新输入！'},
+				{code: 98000944, message: '短信验证码已失效，请重新发送验证码！'},
+				{code: 2210, message: '银行卡号无效，请确认后输入！'},
+				{code: 104, message: result.message}
+			];
+			const findStatus = resultStatusArr.find(item => item.code === result.code);
+			if (findStatus) {
+				util.showToastNoIcon(findStatus.message);
 				return;
 			}
 			util.go(`/pages/truck_handling/binding_account_failure/binding_account_failure?code=${result.code}`);
@@ -173,13 +204,16 @@ Page({
 		util.showLoading({
 			title: '请求中...'
 		});
-		const result = await util.getDataFromServersV2('consumer/order/send-receive-phone-verification-code', {
-			receivePhone: this.data.formData.telNumber // 手机号
-		}, 'GET');
+		const result = await util.getDataFromServersV2('consumer/member/icbcv2/sendCode', {
+			bankAccountId: this.data.bankAccountId
+		});
 		if (!result) return;
 		if (result.code === 0) {
 			this.startTimer();
 		} else {
+			this.setData({
+				isGetIdentifyingCoding: false
+			});
 			util.showToastNoIcon(result.message);
 		}
 	},
@@ -195,8 +229,8 @@ Page({
 		}
 		if (key === 'telNumber' && e.detail.value.length > 11) {
 			formData[key] = e.detail.value.substring(0, 11);
-		} else if (key === 'verifyCode' && e.detail.value.length > 4) { // 验证码
-			formData[key] = e.detail.value.substring(0, 4);
+		} else if (key === 'verifyCode' && e.detail.value.length > 6) { // 验证码
+			formData[key] = e.detail.value.substring(0, 6);
 		} else {
 			formData[key] = e.detail.value;
 		}
@@ -206,7 +240,7 @@ Page({
 		this.setData({
 			available: this.validateAvailable()
 		});
-		if (e.detail.value.length === 4 && key === 'verifyCode') {
+		if (e.detail.value.length === 6 && key === 'verifyCode') {
 			wx.hideKeyboard({
 				complete: res => {
 					console.log('hideKeyboard res', res);

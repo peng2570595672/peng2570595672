@@ -88,7 +88,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=844265682538336256",
+          "query": "orderId=842351271280119808",
           "scene": null
         },
         {
@@ -166,8 +166,8 @@
           "scene": null
         },
         {
-          "name": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
-          "pathName": "pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license",
+          "name": "pages/account_management/index/index",
+          "pathName": "pages/account_management/index/index",
           "query": "orderId=807027129899814912",
           "scene": null
         },

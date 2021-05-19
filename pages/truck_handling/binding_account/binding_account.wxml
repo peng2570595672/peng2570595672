@@ -48,7 +48,7 @@
                 />
                 <view class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} {{mobilePhoneIsOk ? 'ok' : ''}}" bindtap="sendVerifyCode">{{identifyingCode}}</view>
             </view>
-            <view class="confirm">确认</view>
+            <view class="confirm" bindtap="onClickOpenTheCard">确认</view>
         </view>
     </view>
 </view>

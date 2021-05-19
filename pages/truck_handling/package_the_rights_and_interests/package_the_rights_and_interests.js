@@ -8,6 +8,7 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
+		isSelected: false,// 是否选中当前权益包
 		isSalesmanOrder: false,// 是否是业务员端办理
 		isRequest: false,// 是否请求中
 		orderInfo: undefined,// 订单信息
@@ -176,16 +177,20 @@ Page({
 	// 选择权益
 	onClickDetailsHandle (e) {
 		this.setData({
-			activeEquitiesIndex: this.data.rightsPackageDetails.index
+			isSelected: false,
+			activeEquitiesIndex: e.detail.isSelected ? -1 : this.data.rightsPackageDetails.index
 		});
 		this.data.viewRightsAndInterests.switchDisplay(false);
 	},
 	// 查看权益详情
 	showRightsAndInterests (e) {
+		if (this.data.isSalesmanOrder) return;
 		let index = e.currentTarget.dataset['index'];
 		let rightsPackageDetails = this.data.rightsAndInterestsList[index];
 		rightsPackageDetails.index = index;
+		const isSelected = this.data.activeEquitiesIndex === index;
 		this.setData({
+			isSelected,
 			viewRightsAndInterests: this.selectComponent('#showRightsPackage'),
 			rightsPackageDetails
 		});
@@ -228,9 +233,19 @@ Page({
 			if (rightsPackageId) {
 				// 已经加购权益包
 				const activeEquitiesIndex = result.data.findIndex(item => item.id === rightsPackageId);
-				this.setData({
-					activeEquitiesIndex
-				});
+				if (this.data.isSalesmanOrder) {
+					// 只显示选购权益包 没加购权益包则影藏权益
+					const index = activeEquitiesIndex === -1 ? -1 : 0;
+					const list = activeEquitiesIndex === -1 ? [] : [result.data[activeEquitiesIndex]];
+					this.setData({
+						activeEquitiesIndex: index,
+						rightsAndInterestsList: list
+					});
+				} else {
+					this.setData({
+						activeEquitiesIndex
+					});
+				}
 			}
 		} else {
 			util.showToastNoIcon(result.message);
@@ -239,6 +254,7 @@ Page({
 	// 轮播图滚动后回调
 	async currentChange (e) {
 		this.setData({
+			isSelected: false,
 			choiceIndex: -1,
 			activeEquitiesIndex: -1,
 			rightsAndInterestsList: [],

@@ -176,7 +176,7 @@ Page({
 							if (res.data[0].ocrObject.vehicle_number !== this.data.vehPlates) {
 								this.setData({
 									certificateStatus: 3,
-									[`promptObject.content`]: `运输证车牌与${this.data.vehPlates}不一致，请重新上传`
+									[`promptObject.content`]: `证件与${this.data.vehPlates}不一致`
 								});
 								this.selectComponent('#notFinishedOrder').show();
 								this.setData({

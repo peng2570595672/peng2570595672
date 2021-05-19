@@ -76,7 +76,7 @@ Page({
 			return false;
 		}
 		if (this.data.truckHeadstock.ocrObject.plateNumber !== this.data.vehPlates) {
-			if (isToast) util.showToastNoIcon(`当前车头照识别的车牌号与${this.data.vehPlates}不一致，请重新上传`);
+			if (isToast) util.showToastNoIcon(`车辆照片与${this.data.vehPlates}不一致`);
 			return;
 		}
 		if (!this.data.truckSidePhoto.fileUrl) {
@@ -204,7 +204,7 @@ Page({
 							if (res.data[0].ocrObject.plateNumber !== this.data.vehPlates) {
 								this.setData({
 									faceStatus: 3,
-									[`promptObject.content`]: `当前车头照识别的车牌号与${this.data.vehPlates}不一致，请重新上传`
+									[`promptObject.content`]: `车辆照片与${this.data.vehPlates}不一致`
 								});
 								this.selectComponent('#notFinishedOrder').show();
 								return;

@@ -8,6 +8,7 @@ Page({
 		orderInfo: undefined,
 		orderDetails: undefined,
 		vehicleInfo: undefined,
+		ownerIdCard: undefined,
 		isRequest: false,
 		available: false,
 		isIdCardError: false, // 是否身份证错误
@@ -82,7 +83,7 @@ Page({
 	async getETCDetail () {
 		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
-			dataType: '16',
+			dataType: '168',
 			needAllInfo: true
 		});
 		if (!result) return;
@@ -99,6 +100,7 @@ Page({
 				orderInfo: orderInfo,
 				orderDetails: res,
 				vehicleInfo: result.data.vehicle,
+				ownerIdCard: result.data.ownerIdCard,
 				vehPlates: vehPlates
 			});
 			this.availableCheck(orderInfo,result.data.vehicle);
@@ -152,6 +154,12 @@ Page({
 			}
 		}
 		if (this.data.isModifiedData && this.data.requestNum === 0) {
+			this.setData({
+				available: false
+			});
+		}
+		if (this.data.vehicleInfo && this.data.ownerIdCard && this.data.vehicleInfo.owner !== this.data.ownerIdCard.ownerIdCardTrueName) {
+			util.showToastNoIcon('行驶证及身份证必须为同一持有人');
 			this.setData({
 				available: false
 			});

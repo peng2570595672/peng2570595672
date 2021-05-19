@@ -129,7 +129,7 @@ Page({
 									this.setData({
 										faceStatus: 3,
 										available: false,
-										[`promptObject.content`]: `行驶证车牌与${this.data.vehPlates}不一致，请重新上传`
+										[`promptObject.content`]: `行驶证与${this.data.vehPlates}不一致`
 									});
 									this.selectComponent('#notFinishedOrder').show();
 									return;
@@ -230,7 +230,7 @@ Page({
 			return false;
 		}
 		if (this.data.drivingLicenseFace.ocrObject.numberPlates !== this.data.vehPlates) {
-			if (isToast) util.showToastNoIcon(`行驶证车牌与${this.data.vehPlates}不一致，请重新上传`);
+			if (isToast) util.showToastNoIcon(`行驶证与${this.data.vehPlates}不一致`);
 			return false;
 		}
 		if (!this.data.drivingLicenseFace.ocrObject.owner) {

@@ -173,8 +173,6 @@ Page({
 		if (obj.isNewTrucks === 1) {
 			// 货车办理
 			app.globalData.orderInfo.orderId = obj.id;
-			// util.go(`/pages/truck_handling/contract_management/contract_management`);
-			// return
 			if (obj.selfStatus === 1) {
 				const result = await util.initLocationInfo(obj, true);
 				if (!result) return;
