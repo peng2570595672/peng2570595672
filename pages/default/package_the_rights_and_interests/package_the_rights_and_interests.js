@@ -234,7 +234,7 @@ Page({
 			if (rightsPackageId) {
 				// 已经加购权益包
 				const activeEquitiesIndex = result.data.findIndex(item => item.id === rightsPackageId);
-				if (this.data.orderInfo?.base.orderType === 31) {
+				if (this.data.orderInfo?.base.orderType === 31 && activeEquitiesIndex !== -1) {
 					// 只显示选购权益包
 					this.setData({
 						activeEquitiesIndex: 0,
