@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="34px" height="30px" viewBox="0 0 34 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>帮助中心</title>
+    <defs>
+        <filter id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 0.752675 0 0 0 0 0.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <linearGradient x1="-18.8119009%" y1="92.8594676%" x2="107.30679%" y2="25.4323233%" id="linearGradient-2">
+            <stop stop-color="#00AF62" offset="0%"></stop>
+            <stop stop-color="#68D33F" offset="100%"></stop>
+        </linearGradient>
+        <path d="M2.7,0 L28.7763672,0 C29.8809367,-2.02906125e-16 30.7763672,0.8954305 30.7763672,2 L30.7763672,22.4377441 C30.7763672,23.5423136 29.8809367,24.4377441 28.7763672,24.4377441 L2.7,24.4377441 C1.20883118,24.4377441 1.51488314e-15,23.228913 0,21.7377441 L0,2.7 C2.61473697e-16,1.20883118 1.20883118,2.73923269e-16 2.7,0 Z" id="path-3"></path>
+        <linearGradient x1="-18.8119009%" y1="92.4961217%" x2="107.30679%" y2="25.6405985%" id="linearGradient-5">
+            <stop stop-color="#00AF62" offset="0%"></stop>
+            <stop stop-color="#68D33F" offset="100%"></stop>
+        </linearGradient>
+        <path d="M0.7,-1.99560547 L26.9020996,-1.99560547 C28.0066691,-1.99560547 28.9020996,-1.10017497 28.9020996,0.00439453125 L28.9020996,20.4377441 C28.9020996,21.5423136 28.0066691,22.4377441 26.9020996,22.4377441 L0.7,22.4377441 C-0.791168825,22.4377441 -2,21.228913 -2,19.7377441 L-2,0.704394531 C-2,-0.786774293 -0.791168825,-1.99560547 0.7,-1.99560547 Z" id="path-6"></path>
+        <filter id="filter-8">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.999902 0 0 0 0 1.000000 0 0 0 0 0.999880 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter x="-75.0%" y="-100.0%" width="250.0%" height="300.0%" filterUnits="objectBoundingBox" id="filter-9">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.255578578   0 0 0 0 0.381204784   0 0 0 0 0.249725074  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="货车二类户" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="5.5" transform="translate(-299.000000, -201.000000)">
+            <g id="编组-6" transform="translate(18.000000, 185.000000)">
+                <g id="帮助中心" transform="translate(284.000000, 21.562256)">
+                    <g id="椭圆形">
+                        <g id="蒙版">
+                            <g filter="url(#filter-1)" id="蒙版备份" opacity="0.2">
+                                <g>
+                                    <mask id="mask-4" fill="white">
+                                        <use xlink:href="#path-3"></use>
+                                    </mask>
+                                    <use id="蒙版" fill="url(#linearGradient-2)" xlink:href="#path-3"></use>
+                                </g>
+                            </g>
+                            <mask id="mask-7" fill="white">
+                                <use xlink:href="#path-6"></use>
+                            </mask>
+                            <use fill="url(#linearGradient-5)" xlink:href="#path-6"></use>
+                        </g>
+                        <ellipse fill="#FFFFFF" opacity="0.1" cx="24.95" cy="17.5471191" rx="5.85" ry="5.890625"></ellipse>
+                    </g>
+                    <g filter="url(#filter-8)" id="编组" opacity="0.409272693">
+                        <g filter="url(#filter-9)" transform="translate(6.000000, 3.437744)">
+                            <path d="M1.2631579,7.03448276 L14.3157895,7.03779311 L16,8.68965518 L5.4736842,8.68965518 L8.42105263,12 L5.89473685,12 L1.2631579,7.03448276 Z M14.7368421,4.96551724 L1.68421053,4.96220691 L0,3.31034482 L10.5263158,3.31034482 L7.57894737,0 L10.1052632,0 L14.7368421,4.96551724 L14.7368421,4.96551724 Z" id="形状" fill="#30303E" fill-rule="nonzero"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -307,8 +307,8 @@ Page({
 		if (this.data.orderInfo.isNewTrucks === 1) {
 			// 货车办理
 			app.globalData.orderInfo.orderId = this.data.orderInfo.id;
-			// util.go(`/pages/truck_handling/binding_account/binding_account`);
-			// return
+			util.go(`/pages/truck_handling/binding_account_successful/binding_account_successful`);
+			return
 			if (this.data.orderInfo.selfStatus === 1) {
 				util.go('/pages/truck_handling/payment_way/payment_way');
 			} else {

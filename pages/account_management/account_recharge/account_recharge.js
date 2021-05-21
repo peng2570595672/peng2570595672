@@ -8,20 +8,56 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
+		bankList: [],
+		choiceBankObj: undefined,
+		cardInfo: undefined,
 		rechargeAmount: undefined
+	},
+	async onLoad () {
+		app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(-4);
+		this.setData({
+			cardInfo: app.globalData.bankCardInfo
+		});
+		await this.getBankAccounts();
 	},
 	onShow () {
 		const pages = getCurrentPages();
 		const currPage = pages[pages.length - 1];
 		// 从选择银行卡返回
-		if (currPage.__data__.info) {
-			console.log(currPage.__data__.info);
+		if (currPage.__data__.index) {
+			this.setData({
+				choiceBankObj: this.data.bankList[currPage.__data__.index]
+			});
 		}
 	},
-	next () {
+	// 获取二类户号信息
+	async getBankAccounts () {
+		const result = await util.getDataFromServersV2('consumer/member/icbcv2/getBankAccounts');
+		if (!result) return;
+		if (result.code === 0) {
+			result.data.map(item => {
+				item.accountNo = item.accountNo.substr(-4);
+			});
+			this.setData({
+				bankList: result.data,
+				choiceBankObj: result.data[0]
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	async next () {
 		if (!this.data.rechargeAmount) return;
-		let result = {};
-		util.go(`/pages/account_management/recharge_state/recharge_state?info=${JSON.stringify(result)}`);
+		const result = await util.getDataFromServersV2('consumer/member/icbcv2/recharge', {
+			bankAccountId: this.data.choiceBankObj.bankAccountId,
+			amount: this.data.rechargeAmount
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			util.go(`/pages/account_management/recharge_state/recharge_state?info=${JSON.stringify(result)}`);
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 绑定卡
 	onClickSwitchBankCard () {

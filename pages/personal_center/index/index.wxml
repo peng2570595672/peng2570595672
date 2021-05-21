@@ -62,7 +62,17 @@
         </view>
         <!--我的卡劵结束-->
         <!--帮助中心开始-->
-        <view class="user_item" catchtap="go" data-url="help_center">
+        <view class="user_item" catchtap="onClickAccountManagement" wx:if="{{isOpenTheCard}}">
+            <view class="user_item_icon">
+                <image class="user_icon_card" src="/pages/personal_center/assets/account_management.svg"></image>
+                <!--更新提示-->
+                <view></view>
+            </view>
+            <view class="user_item_text">账户管理</view>
+        </view>
+        <!--帮助中心结束-->
+        <!--帮助中心开始-->
+        <view class="user_item" catchtap="go" data-url="help_center" wx:else>
             <view class="user_item_icon">
                 <image class="img" src="/pages/personal_center/assets/help.svg"></image>
                 <!--更新提示-->
@@ -93,10 +103,10 @@
                 <view class="pay-interest-item-icon coupon_redemption_centre iconfont"></view>
                 <view class="pay-interest_item_text">领券中心</view>
             </view>
-<!--            <view class="pay-interest_item" catchtap="go" data-url="characteristic_service" wx:if="{{isActivation}}">-->
-<!--                <view class="pay-interest-item-icon characteristic_service iconfont"></view>-->
-<!--                <view class="pay-interest_item_text">特色服务</view>-->
-<!--            </view>-->
+            <view class="pay-interest_item" catchtap="go" data-url="characteristic_service" wx:if="{{isShowFeatureService}}">
+                <view class="pay-interest-item-icon characteristic_service iconfont"></view>
+                <view class="pay-interest_item_text">特色服务</view>
+            </view>
             <view class="pay-interest_item" catchtap="go" data-url="service_purchase_record" wx:if="{{rightsPackageBuyRecords.length}}">
                 <view class="pay-interest-item-icon purchase_records iconfont"></view>
                 <view class="pay-interest_item_text">加购记录</view>
@@ -130,6 +140,11 @@
         <view class="activity_msg">关注公众号</view>
         <!--活动文字描述结束-->
         <view class="activity_right">去关注</view>
+    </button>
+
+    <button class="activity_follow" wx:if="{{isOpenTheCard}}" catchtap="go" data-url="help_center">
+        <view class="activity_img help-center iconfont"></view>
+        <view class="activity_msg">帮助中心</view>
     </button>
     <!--	成为众包推广者开始-->
     <view class="{{isAttention === 1 ? '' : ''}}" wx:if="{{crowdSourcingMsg.status === 1}}">

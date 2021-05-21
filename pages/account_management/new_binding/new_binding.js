@@ -10,6 +10,8 @@ const app = getApp();
 let timer;
 Page({
 	data: {
+		mask: false,
+		wrapper: false,
 		banks: ['icbc','abchina','boc','ccb','bankcomm','psbc'],
 		bankNameIndex: null, // 开户行：1-工行，2-农行，3-中行，4建行，5-交行，6-邮储 (接口上传：bankNameIndex+1)
 		bankNameArr: ['工商银行', '农业银行', '中国银行', '建设银行', '交通银行', '邮政储蓄'],
@@ -20,6 +22,8 @@ Page({
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
 		showToast: false, // 是否验证码错误
+		bankCardObj: null,
+		bankAccountId: null,
 		formData: {
 			bankCardNo: undefined,
 			telNumber: '', // 电话号码
@@ -32,6 +36,7 @@ Page({
 		if (bankCardIdentifyResult) {
 			bankCardIdentifyResult = JSON.parse(bankCardIdentifyResult);
 			this.setData({
+				bankCardObj: bankCardIdentifyResult.data[0],
 				[`formData.bankCardNo`]: bankCardIdentifyResult.data[0].ocrObject.cardNo
 			});
 			this.setData({
@@ -39,6 +44,22 @@ Page({
 			});
 			wx.removeStorageSync('bank_card_identify_result');
 		}
+	},
+	show () {
+		this.setData({
+			mask: true,
+			wrapper: true
+		});
+	},
+	hide (e,flag) {
+		this.setData({
+			wrapper: false
+		});
+		setTimeout(() => {
+			this.setData({
+				mask: false
+			});
+		}, 400);
 	},
 	onClickChooseBankCard () {
 		util.go(`/pages/default/shot_bank_card/shot_bank_card?type=0`);
@@ -60,40 +81,29 @@ Page({
 			available: false, // 禁用按钮
 			isRequest: true // 设置状态为请求中
 		});
-		const result = await util.getDataFromServersV2('consumer/member/common/applet/code', {
-			platformId: app.globalData.platformId, // 平台id
-			code: res.code // 从微信获取的code
-		});
+		const params = {
+			bankAccountNo: this.data.formData.bankCardNo,
+			bankName: this.data.bankNameArr[this.data.bankNameIndex],
+			mobilePhone: this.data.formData.telNumber,
+			cardType: this.data.bankCardObj?.cardType === '贷记卡' ? 2 : 1,
+			bankCardUrl: this.data.bankCardObj?.fileUrl || '',
+			sortName: this.data.banks[this.data.bankNameIndex]
+		};
+		const result = await util.getDataFromServersV2('consumer/member/icbcv2/bindingAccount', params);
 		this.setData({
 			available: true,
 			isRequest: false
 		});
 		if (!result) return;
 		console.log(result);
-		if (result.code) {
-			if (result.code === 3403) {
-				util.showToastNoIcon('银行预留手机号不符！');
-				return;
-			}
-			if (result.code === 98000945) {
-				util.showToastNoIcon('验证码错误，请重新输入！');
-				return;
-			}
-			if (result.code === 98000944) {
-				util.showToastNoIcon('短信验证码已失效，请重新发送验证码！');
-				return;
-			}
-			if (result.code === 2210) {
-				util.showToastNoIcon('银行卡号无效，请确认后输入！');
-				return;
-			}
-			if (result.code === 104) {
-				util.showToastNoIcon(result.message);
-				return;
-			}
-			util.go(`/pages/truck_handling/binding_account_failure/binding_account_failure?code=${result.code}`);
+		if (result.code === 0) {
+			this.setData({
+				bankAccountId: result.data.bankAccountId
+			});
+			this.show();
+			this.startTimer();
 		} else {
-			util.go(`/pages/truck_handling/binding_account_successful/binding_account_successful`);
+			util.showToastNoIcon(result.message);
 		}
 	},
 	// 省市区选择
@@ -151,13 +161,16 @@ Page({
 		util.showLoading({
 			title: '请求中...'
 		});
-		const result = await util.getDataFromServersV2('consumer/order/send-receive-phone-verification-code', {
-			receivePhone: this.data.formData.telNumber // 手机号
-		}, 'GET');
+		const result = await util.getDataFromServersV2('consumer/member/icbcv2/sendCode', {
+			bankAccountId: this.data.bankAccountId
+		});
 		if (!result) return;
 		if (result.code === 0) {
 			this.startTimer();
 		} else {
+			this.setData({
+				isGetIdentifyingCoding: false
+			});
 			util.showToastNoIcon(result.message);
 		}
 	},
@@ -173,8 +186,8 @@ Page({
 		}
 		if (key === 'telNumber' && e.detail.value.length > 11) {
 			formData[key] = e.detail.value.substring(0, 11);
-		} else if (key === 'verifyCode' && e.detail.value.length > 4) { // 验证码
-			formData[key] = e.detail.value.substring(0, 4);
+		} else if (key === 'verifyCode' && e.detail.value.length > 6) { // 验证码
+			formData[key] = e.detail.value.substring(0, 6);
 		} else {
 			formData[key] = e.detail.value;
 		}
@@ -184,7 +197,7 @@ Page({
 		this.setData({
 			available: this.validateAvailable()
 		});
-		if (e.detail.value.length === 4 && key === 'verifyCode') {
+		if (e.detail.value.length === 6 && key === 'verifyCode') {
 			wx.hideKeyboard({
 				complete: res => {
 					console.log('hideKeyboard res', res);
@@ -206,14 +219,49 @@ Page({
 			if (isToast) util.showToastNoIcon('手机号输入不合法！');
 			return false;
 		}
+		return true;
+	},
+	async onClickOpenTheCard () {
 		if (!this.data.formData.verifyCode) {
-			if (isToast) util.showToastNoIcon('请获取并输入短信验证码！');
+			util.showToastNoIcon('请获取并输入短信验证码！');
 			return false;
 		}
 		if (this.data.formData.verifyCode.length < 4) {
-			if (isToast) util.showToastNoIcon('请输入正确的验证码！');
+			util.showToastNoIcon('请输入正确的验证码！');
 			return false;
 		}
-		return true;
-	},
+		this.setData({
+			available: false, // 禁用按钮
+			isRequest: true // 设置状态为请求中
+		});
+		const params = {
+			bankType: 2,// 1开户 2绑卡
+			bankAccountId: this.data.bankAccountId,
+			smsCode: this.data.formData.verifyCode
+		};
+		const result = await util.getDataFromServersV2('consumer/member/icbcv2/verifyCode', params);
+		this.setData({
+			available: true,
+			isRequest: false
+		});
+		if (!result) return;
+		console.log(result);
+		if (result.code) {
+			const resultStatusArr = [
+				{code: 3403, message: '银行预留手机号不符！'},
+				{code: 98000945, message: '验证码错误，请重新输入！'},
+				{code: 98000944, message: '短信验证码已失效，请重新发送验证码！'},
+				{code: 2210, message: '银行卡号无效，请确认后输入！'},
+				{code: 104, message: result.message}
+			];
+			const findStatus = resultStatusArr.find(item => item.code === result.code);
+			if (findStatus) {
+				util.showToastNoIcon(findStatus.message);
+				return;
+			}
+			util.go(`/pages/truck_handling/binding_account_failure/binding_account_failure?code=${result.code}`);
+		} else {
+			util.go(`/pages/truck_handling/binding_account_successful/binding_account_successful`);
+		}
+	}
 });

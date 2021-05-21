@@ -251,6 +251,10 @@ page .index .activity_follow .activity_img::before {
   color: #fa5151;
   font-size: 32rpx;
 }
+page .index .activity_follow .activity_img.help-center::before {
+  content: '\e68f';
+  color: #fac451;
+}
 page .index .activity_follow .activity_msg {
   flex: 1;
   margin-left: 20rpx;

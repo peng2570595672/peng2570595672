@@ -1,5 +1,5 @@
 <view class="binding_account">
-    <view class="card" bindtap="onClickSwitchBankCard" data-index="{{index}}">
+    <view class="card" bindtap="onClickSwitchBankCard" wx:for="{{bankList}}" wx:key="index" data-index="{{index}}">
         <view class="name iconfont">
             <view>
                 <view>工商银行</view>
@@ -7,20 +7,8 @@
             </view>
         </view>
         <view class="card-no">
-            <view>6217 *** *** 1234</view>
-            <view bindtap="onClickUnbind" wx:if="{{!isSwitch}}">解绑</view>
-        </view>
-    </view>
-    <view class="card">
-        <view class="name iconfont">
-            <view>
-                <view>工商银行</view>
-                <view>II类电子账户</view>
-            </view>
-        </view>
-        <view class="card-no">
-            <view>6217 *** *** 1234</view>
-            <view bindtap="onClickUnbind" wx:if="{{!isSwitch}}">解绑</view>
+            <view>{{item.accountNo}}</view>
+            <view bindtap="onClickUnbind" wx:if="{{!isSwitch}}" data-index="{{index}}">解绑</view>
         </view>
     </view>
     <view class="fill"></view>

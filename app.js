@@ -100,6 +100,7 @@ App({
 		isTruckHandling: false,// 是否新流程-货车办理
 		isNeedReturnHome: false,// 是否需要返回首页
 		newPackagePageData: {}, // 新套餐页面数据
+		bankCardInfo: {}, // 二类户信息
 		weiBoUrl: IS_TEST ? '/pages/base/redirect/index?routeKey=CAR_WEBVIEW&url=https://static-dsu.wesure.cn/uatapp/app2/h5-reserve-ad/vendors&query=' : '/pages/base/redirect/index?routeKey=CAR_WEBVIEW&url=https://static.wesure.cn/app2/h5-reserve-ad/vendors&query='
 	},
 	onLaunch (options) {
@@ -270,7 +271,7 @@ App({
 				const {appId} = res.referrerInfo;
 				// 车主服务签约
 				if (appId === 'wxbcad394b3d99dac9' || appId === 'wxbd687630cd02ce1d') {
-					this.globalData.isTruckHandling ? this.queryContractForTruckHandling(appId) : this.queryContract(appId);;
+					this.globalData.isTruckHandling ? util.queryContractForTruckHandling() : this.queryContract(appId);;
 				}
 			} else if (this.globalData.signAContract === 1) {
 				// 解约状态
@@ -280,27 +281,6 @@ App({
 					url: '/pages/Home/Home'
 				});
 			}
-		}
-	},
-	// 货车-查询车主服务签约
-	async queryContractForTruckHandling (appId) {
-		util.showLoading({
-			title: '签约查询中...'
-		});
-		const result = await util.getDataFromServersV2('consumer/order/newTrucksContractQuery', {
-			orderId: this.globalData.orderInfo.orderId,
-			immediately: true
-		});
-		if (!result) return;
-		if (result.code === 0) {
-			this.globalData.signAContract = 3;
-			// 签约成功 userState: "NORMAL"
-			if (result.data.contractStatus === 1 && result.data.userState === 'NORMAL') {
-			} else {
-				util.showToastNoIcon('未签约成功！');
-			}
-		} else {
-			util.showToastNoIcon(result.message);
 		}
 	},
 	// 查询车主服务签约

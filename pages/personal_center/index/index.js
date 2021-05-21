@@ -16,6 +16,8 @@ Page({
 		showPublicAccountType: 0,// 0 关注公众号  1 影音
 		rightsAndInterestsVehicleList: undefined, // 权益车辆列表
 		isActivation: false, // 是否有激活车辆
+		isOpenTheCard: false, // 是否开通三类户
+		isShowFeatureService: false, // 是否显示特色服务
 		payInterest: {
 			interestsList: [
 				{img: 'basic_rights_and_interests', url: 'basic_rights_and_interests'},
@@ -46,7 +48,7 @@ Page({
 	},
 	onShow () {
 		if (app.globalData.userInfo.accessToken) {
-			let requestList = [this.getMemberBenefits(), this.getMemberCrowdSourcingAndOrder(), this.getRightsPackageBuyRecords(), this.getOrderRelation()];
+			let requestList = [this.getV2BankId(), this.getMemberBenefits(), this.getMemberCrowdSourcingAndOrder(), this.getRightsPackageBuyRecords(), this.getOrderRelation()];
 			Promise.all(requestList);
 			let that = this;
 			wx.getSetting({
@@ -139,7 +141,7 @@ Page({
 						if (JSON.stringify(app.globalData.myEtcList) === '{}') {
 							requestList = [this.getStatus()];
 						}
-						requestList = [requestList, this.getMemberBenefits(), this.getMemberCrowdSourcingAndOrder(), this.getRightsPackageBuyRecords(), this.getOrderRelation()];
+						requestList = [requestList, this.getV2BankId(), this.getMemberBenefits(), this.getMemberCrowdSourcingAndOrder(), this.getRightsPackageBuyRecords(), this.getOrderRelation()];
 						if (isData) {
 							requestList.push(this.submitUserInfo(isData));
 						}
@@ -159,6 +161,19 @@ Page({
 			}
 		});
 	},
+	// 获取二类户号信息
+	async getV2BankId () {
+		const result = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
+		if (!result) return;
+		if (result.code === 0) {
+			app.globalData.bankCardInfo = result.data;
+			this.setData({
+				isOpenTheCard: !!result.data.accountNo
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
 	// 获取订单信息
 	async getStatus () {
 		let params = {
@@ -168,7 +183,10 @@ Page({
 		if (result.code === 0) {
 			app.globalData.myEtcList = result.data;
 			let isActivation = result.data.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && (item.obuCardType === 1 || item.obuCardType === 21)); // 1 已激活  2 恢复订单  5 预激活
+			let isShowFeatureService = result.data.findIndex(item => item.isShowFeatureService === 1 && (item.obuStatus === 1 || item.obuStatus === 5)); // 是否有特色服务
+			console.log(isShowFeatureService);
 			this.setData({
+				isShowFeatureService: isShowFeatureService !== -1,
 				isActivation: !!isActivation.length
 			});
 		} else {
@@ -293,6 +311,9 @@ Page({
 			mta.Event.stat('personal_center_help_center',{});
 		}
 		util.go(`/pages/personal_center/${url}/${url}`);
+	},
+	onClickAccountManagement () {
+		util.go('/pages/account_management/index/index');
 	},
 	// 扫码
 	scan () {

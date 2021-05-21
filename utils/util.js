@@ -1214,7 +1214,7 @@ async function getListOfPackages (orderInfo, regionCode, notList) {
  * @param success 成功后的回调g
  * @param fail 失败后的回调
  */
-async function getDataFromServersV2(path, params, method = 'POST') {
+async function getDataFromServersV2(path, params = {}, method = 'POST') {
 	showLoading();
 	// common || public 模块下的不需要 token
 	const token = app.globalData.userInfo.accessToken;
@@ -1343,6 +1343,70 @@ function reAutoLoginV2(path, params, method) {
 		}
 	});
 }
+
+// 加载订单详情
+async function getETCDetail () {
+	const result = await getDataFromServersV2('consumer/order/order-detail', {
+		orderId: app.globalData.orderInfo.orderId
+	});
+	if (!result) return;
+	let [contractTollInfo, contractPoundageInfo, contractBondInfo] = [undefined, undefined, undefined];
+	if (result.code === 0) {
+		result.data.multiContractList.map(item => {
+			if (item.contractType === 1) {
+				contractTollInfo = item;
+			}
+			if (item.contractType === 2) {
+				contractPoundageInfo = item;
+			}
+			if (item.contractType === 3) {
+				contractBondInfo = item;
+			}
+		});
+	} else {
+		showToastNoIcon(result.message);
+	}
+	return [contractTollInfo, contractPoundageInfo, contractBondInfo];
+}
+// 二类户绑卡到订单
+async function updateOrderContractMappingBankAccountId (info, bankCardInfo) {
+	const result = await getDataFromServersV2('consumer/order/updateOrderContractMappingBankAccountId', {
+		id: info.id,
+		bankAccountId: bankCardInfo.bankAccountId,
+	});
+	if (!result) return;
+	let isOk = false;
+	if (result.code === 0) {
+		isOk = true;
+	} else {
+		showToastNoIcon(result.message);
+	}
+	return isOk;
+}
+// 货车-查询车主服务签约
+async function queryContractForTruckHandling () {
+	showLoading({
+		title: '签约查询中...'
+	});
+	const result = await getDataFromServersV2('consumer/order/newTrucksContractQuery', {
+		orderId: this.globalData.orderInfo.orderId,
+		immediately: true
+	});
+	if (!result) return;
+	let isOk = false;
+	if (result.code === 0) {
+		this.globalData.signAContract = 3;
+		// 签约成功 userState: "NORMAL"
+		if (result.data.contractStatus === 1) {
+			isOk = true;
+		} else {
+			showToastNoIcon('未签约成功！');
+		}
+	} else {
+		showToastNoIcon(result.message);
+	}
+	return isOk;
+}
 module.exports = {
 	setApp,
 	formatNumber,
@@ -1382,5 +1446,8 @@ module.exports = {
 	getListOfPackages,
 	wxAnimation,
 	getDataFromServersV2,
+	getETCDetail,
+	updateOrderContractMappingBankAccountId,
+	queryContractForTruckHandling,
 	weChatSigning
 };

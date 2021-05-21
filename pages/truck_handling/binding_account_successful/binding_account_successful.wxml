@@ -4,10 +4,10 @@
         <view class="name iconfont">
             <text>中国工商银行信用卡</text>
         </view>
-        <view class="card-no">6217 1123 1123 1234</view>
+        <view class="card-no">{{bankCardInfo.accountNo}}</view>
     </view>
 	<!--	按钮开始-->
-	<view class="btn" catchtap="next"><view class="animate" wx:if="{{isRequest}}"></view>添加该卡进微信钱包</view>
+	<view class="btn" catchtap="onclickSign"><view class="animate" wx:if="{{isRequest}}"></view>添加微信卡包并签约</view>
 	<!--	按钮结束-->
     <view class="tips">需添加II类户至微信钱包方可预充保证金及继续办理</view>
 </view>

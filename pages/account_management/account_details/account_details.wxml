@@ -2,11 +2,11 @@
     <view class="account-info">
         <view>当前账户余额（元）</view>
         <view class="balance">
-            <view class="price">2000.00</view>
+            <view class="price">{{(cardInfo.holdBalance + cardInfo.balanceAmount) / 100 || 0}}</view>
             <view class="unit">元</view>
             <view class="recharge" bindtap="onClickRecharge">充值</view>
         </view>
-        <view>冻结金额1000.00元，可用金额1000元</view>
+        <view>冻结金额{{cardInfo.holdBalance/100 || 0}}元，可用金额{{cardInfo.balanceAmount/100 || 0}}元</view>
     </view>
     <view class="split"></view>
     <view class="account-list">

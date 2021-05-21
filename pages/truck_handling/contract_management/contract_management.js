@@ -107,6 +107,7 @@ Page({
 	go (e) {
 		let item = e.currentTarget.dataset.item;
 		if (item.contractStatus === 1) return;
+		console.log(item)
 		this.onclickSign(item);
 	},
 	// 微信签约

@@ -8,8 +8,13 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
+		cardInfo: undefined
 	},
 	onShow () {
+		app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(0, 4) + ' *** *** ' + app.globalData.bankCardInfo.accountNo.substr(-4);
+		this.setData({
+			cardInfo: app.globalData.bankCardInfo
+		});
 	},
 	onClickAccountDetails () {
 		util.go(`/pages/account_management/account_details/account_details`);

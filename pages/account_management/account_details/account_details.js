@@ -8,6 +8,7 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
+		cardInfo: undefined,
 		list: [],
 		totalPage: 2,
 		page: 0,
@@ -15,36 +16,40 @@ Page({
 		available: false, // 按钮是否可点击
 		isRequest: false// 是否请求中
 	},
-	onShow () {
-		this.fetchList();
+	async onShow () {
+		app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(0, 4) + ' *** *** ' + app.globalData.bankCardInfo.accountNo.substr(-4);
+		this.setData({
+			cardInfo: app.globalData.bankCardInfo
+		});
+		await this.fetchList();
 	},
 	// 页面上拉触底事件的处理函数
-	onReachBottom () {
-		console.log(';;;;;');
+	async onReachBottom () {
 		if (this.data.page > this.data.totalPage) return;
-		this.fetchList();
+		await this.fetchList();
 	},
-	onPullDownRefresh () {
-		console.log('----');
+	async onPullDownRefresh () {
 		this.setData({
 			list: [],
 			loaded: false,
 			page: 0
 		});
-		this.fetchList(() => { wx.stopPullDownRefresh(); });
+		await this.fetchList(() => { wx.stopPullDownRefresh(); });
 	},
 	// 加载列表
 	async fetchList (callback) {
-		return;
 		this.setData({
 			page: this.data.page + 1
 		});
 		util.showLoading({title: '加载中'});
 		let params = {
+			beginDate: '2021-05-10',
+			endDate: '2021-05-13',
+			queryMode: this.data.page === 1 ? 1 : 3,// 查询方式1-首次查询2-上一页3-下一页 必填
 			page: this.data.page,
 			pageSize: 10
 		};
-		const result = await util.getDataFromServersV2('consumer/member/icbc/rechargePage', params);
+		const result = await util.getDataFromServersV2('consumer/member/icbcv2/detailAccount', params);
 		if (!result) return;
 		if (result.code === 0) {
 			let data = result.data;

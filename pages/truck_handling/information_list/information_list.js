@@ -54,23 +54,6 @@ Page({
 			this.init();
 		}
 		await this.getETCDetail();
-		if (!this.data.isModifiedData) {
-			await this.queryContract();
-		}
-	},
-	// 查询车主服务签约
-	async queryContract () {
-		const result = await util.getDataFromServersV2('consumer/order/query-contract', {
-			orderId: app.globalData.orderInfo.orderId
-		});
-		if (!result) return;
-		if (result.code === 0) {
-			this.setData({
-				contractStatus: result.data.contractStatus
-			});
-		} else {
-			util.showToastNoIcon(result.message);
-		}
 	},
 	init () {
 		if (this.data.isModifiedData && !this.data.isIdCardError && !this.data.isDrivingLicenseError && !this.data.isRoadTransportCertificateError && !this.data.isHeadstockError) {
@@ -170,14 +153,24 @@ Page({
 		let url = e.currentTarget.dataset['url'];
 		util.go(`/pages/truck_handling/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}`);
 	},
-	// 微信签约
+	// 获取二类户号信息
 	async next () {
-		if (!this.data.available) return;
-		if (true) {
-			// 已经开二类户
-			util.go('/pages/truck_handling/binding_account/binding_account');
+		// if (!this.data.available) return;
+		if (this.data.isModifiedData) {
+			util.go('/pages/default/processing_progress/processing_progress');
+			return;
+		}
+		const result = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
+		if (!result) return;
+		if (result.code === 0) {
+			if (result.data) {
+				// 已经开二类户
+				util.go('/pages/truck_handling/binding_account/binding_account');
+			} else {
+				util.go('/pages/truck_handling/contract_management/contract_management');
+			}
 		} else {
-			util.go('/pages/truck_handling/contract_management/contract_management');
+			util.showToastNoIcon(result.message);
 		}
 	}
 });

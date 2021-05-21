@@ -28,9 +28,9 @@ Page({
 		bankCardObj: null,
 		bankAccountId: null,
 		formData: {
-			bankCardNo: '6222084000000000656',
-			telNumber: '13902494674', // 电话号码
-			verifyCode: '955888' // 验证码
+			bankCardNo: '',
+			telNumber: '', // 电话号码
+			verifyCode: '' // 验证码
 		} // 提交数据
 	},
 	onShow () {
@@ -135,6 +135,7 @@ Page({
 			isRequest: true // 设置状态为请求中
 		});
 		const params = {
+			bankType: 1,// 1开户 2绑卡
 			bankAccountId: this.data.bankAccountId,
 			smsCode: this.data.formData.verifyCode
 		};
