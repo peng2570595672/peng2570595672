@@ -155,7 +155,7 @@ Page({
 	},
 	// 获取二类户号信息
 	async next () {
-		// if (!this.data.available) return;
+		if (!this.data.available) return;
 		if (this.data.isModifiedData) {
 			util.go('/pages/default/processing_progress/processing_progress');
 			return;

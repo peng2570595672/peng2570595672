@@ -343,7 +343,7 @@ Page({
 				}
 			});
 			this.setData({
-				// isNormalProcess: !app.globalData.otherPlatformsServiceProvidersId,
+				isNormalProcess: !app.globalData.otherPlatformsServiceProvidersId,
 				orderInfo: orderInfo
 			});
 			if (this.data.orderInfo.selfStatus === 9) {
