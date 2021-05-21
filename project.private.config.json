@@ -160,8 +160,8 @@
           "scene": null
         },
         {
-          "name": "pages/truck_handling/binding_account/binding_account",
-          "pathName": "pages/truck_handling/binding_account/binding_account",
+          "name": "pages/truck_handling/index/index",
+          "pathName": "pages/truck_handling/index/index",
           "query": "type=101",
           "scene": null
         },

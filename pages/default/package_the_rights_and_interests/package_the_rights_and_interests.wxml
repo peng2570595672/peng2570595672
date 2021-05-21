@@ -48,13 +48,13 @@
                             <view>价值100元+</view>
                         </view>
                     </view>
-<!--                    <view class="related-service-title" wx:if="{{item.flowVersion === 1}}">特色服务</view>-->
-<!--                    <view class="basic-service-list" wx:if="{{item.flowVersion === 1}}" catchtap="onClickCheckTheService" data-index="2">-->
-<!--                        <view class="basic-service-item" wx:for="{{characteristicServiceList}}" wx:key="index">-->
-<!--                            <image src="{{item.logo}}" mode="widthFix"></image>-->
-<!--                            <view>{{item.title}}</view>-->
-<!--                        </view>-->
-<!--                    </view>-->
+                    <view class="related-service-title" wx:if="{{item.isShowFeatureService === 1}}">特色服务</view>
+                    <view class="basic-service-list" wx:if="{{item.isShowFeatureService === 1}}" catchtap="onClickCheckTheService" data-index="2">
+                        <view class="basic-service-item" wx:for="{{characteristicServiceList}}" wx:key="index">
+                            <image src="{{item.logo}}" mode="widthFix"></image>
+                            <view>{{item.title}}</view>
+                        </view>
+                    </view>
                     <view class="related-service-title" wx:if="{{item.flowVersion === 2}}">支持绑定以下银行卡</view>
                     <view class="basic-service-list" wx:if="{{item.flowVersion === 2}}">
                         <view class="basic-service-item bank">
@@ -94,6 +94,6 @@
     <!--查看权益详情开始-->
     <rights_package id="showRightsPackage" bindonClickHandle="onClickHandle" bindonClickDetailsHandle="onClickDetailsHandle" isSelected="{{isSelected}}" details="{{rightsPackageDetails}}"></rights_package>
     <!--查看权益详情结束-->
-    <related_service id="viewRightsService" bindonClickHandle="onClickClose" details="{{serviceList[showServiceIndex]}}" wx:if="{{showServiceIndex === 0}}"></related_service>
+    <related_service id="viewRightsService" bindonClickHandle="onClickClose" details="{{serviceList[showServiceIndex]}}" wx:if="{{showServiceIndex === 0 || showServiceIndex === 2}}"></related_service>
     <life_service id="viewLifeService" bindonClickHandle="onClickClose" details="{{serviceList[1]}}" wx:if="{{showServiceIndex === 1}}"></life_service>
 </view>
