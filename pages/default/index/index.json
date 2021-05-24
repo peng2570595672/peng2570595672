@@ -3,9 +3,5 @@
   "navigationBarBackgroundColor": "#000000",
   "backgroundColor": "#000000",
   "navigationBarTextStyle": "white",
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "pass-the-discount": "/components/pass_the_discount/pass_the_discount",
-    "information-validation-prompt": "/components/information_validation_prompt/information_validation_prompt"
-  }
+  "navigationStyle": "custom"
 }

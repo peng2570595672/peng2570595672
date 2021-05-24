@@ -8,12 +8,6 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
-		promptObject: {
-			imgUrl: '/pages/truck_handling/assets/bill_img.png',
-			content: '贵州省内公路享通行路费85折起其余省份95折起',
-			isOk: true,
-			isHide: false
-		},
 		problems: [
 			{
 				title: '办理时需要收费吗？',
@@ -37,10 +31,6 @@ Page({
 		wx.uma.trackEvent('truck_index_next');
 		mta.Event.stat('truck_index',{});
 		util.go('/pages/truck_handling/truck_receiving_address/truck_receiving_address');
-	},
-	onclickDetail () {
-		this.selectComponent('#notFinishedOrder').show();
-		// this.selectComponent('#passTheDiscount').show();
 	},
 	goOnlineServer () {
 		// 未登录

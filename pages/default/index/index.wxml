@@ -17,71 +17,73 @@
 					<text>快捷支付 享多项车主服务</text>
 				</view>
 			</view>
+            <image src="https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrTdyAT1_9AABR9q2KQdc170.png" mode="widthFix"></image>
 		</view>
 	</view>
 	<!--顶部结束-->
-	<view class="btn-content">
-		<view class="interior">
-			<image src="/pages/default/assets/wechat_pay_01.png" mode="widthFix"></image>
-		</view>
-		<view class="btn" catchtap="onClickHandle">立即办理</view>
-		<view class="trans-tips" catchtap="goTruck">前往办理货车ETC</view>
-	</view>
-	<view class="service-desc">
-		<view class="title">
-			<view class="truck-problem">ETC+尊享服务</view>
-		</view>
-		<view class="photo">
-			<view class="photo-row">
-				<view class="photo-item one">
-					<image class="image one" src="/pages/default/assets/service_01.png"></image>
-					<text>设备质保2年</text>
-				</view>
-				<view class="photo-item">
-					<image class="image three" src="/pages/default/assets/service_03.png"></image>
-					<text>开通行发票</text>
-				</view>
-			</view>
-			<view class="photo-row">
-				<view class="photo-item">
-					<image class="image second" src="/pages/default/assets/service_02.png"></image>
-					<text>线上专属客服</text>
-				</view>
-				<view class="photo-item">
-					<image class="image four" src="/pages/default/assets/service_04.png"></image>
-					<text>高速通行9.5折</text>
-				</view>
-			</view>
-		</view>
-	</view>
-	<view class="handle-desc">
-		<view class="process-title">
-			<view class="truck-problem">办理流程</view>
-		</view>
-		<view class="material">需准备资料</view>
-		<view class="photo">
-			<view class="photo-item">
-				<image class="image" src="/pages/default/assets/id_card_face_bg.png"></image>
-				<text>车主身份证</text>
-			</view>
-			<view class="photo-item">
-				<image class="image" src="/pages/default/assets/driving_license_face_bg.png"></image>
-				<text>行驶证</text>
-			</view>
-			<view class="photo-item">
-				<image class="image" src="/pages/default/assets/driving_license_face_bg.png"></image>
-				<text>车头照</text>
-			</view>
-		</view>
-		<!--流程开始-->
-		<view class="progress_wrapper" >
-			<view class="item" wx:for="{{ processList }}">
-				<view class="content-title">{{ item.title }}</view>
-				<view class="content-des">{{ item.content }}</view>
-			</view>
-		</view>
-	</view>
-	<!--	在线客服-->
-	<view class="bottom" catchtap="goOnlineServer">在线客服</view>
-    <information-validation-prompt id="notFinishedOrder" promptObject="{{promptObject}}"></information-validation-prompt>
+	<view class="content">
+        <view class="btn-content">
+            <view class="interior">
+                <image src="/pages/default/assets/wechat_pay_01.png" mode="widthFix"></image>
+            </view>
+            <view class="btn" catchtap="onClickHandle">立即办理</view>
+            <view class="trans-tips" catchtap="goTruck">前往办理货车ETC</view>
+        </view>
+        <view class="service-desc">
+            <view class="title">
+                <view class="truck-problem">ETC+尊享服务</view>
+            </view>
+            <view class="photo">
+                <view class="photo-row">
+                    <view class="photo-item one">
+                        <image class="image one" src="/pages/default/assets/service_01.png"></image>
+                        <text>设备质保2年</text>
+                    </view>
+                    <view class="photo-item">
+                        <image class="image three" src="/pages/default/assets/service_03.png"></image>
+                        <text>开通行发票</text>
+                    </view>
+                </view>
+                <view class="photo-row">
+                    <view class="photo-item">
+                        <image class="image second" src="/pages/default/assets/service_02.png"></image>
+                        <text>线上专属客服</text>
+                    </view>
+                    <view class="photo-item">
+                        <image class="image four" src="/pages/default/assets/service_04.png"></image>
+                        <text>高速通行9.5折</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="handle-desc">
+            <view class="process-title">
+                <view class="truck-problem">办理流程</view>
+            </view>
+            <view class="material">需准备资料</view>
+            <view class="photo">
+                <view class="photo-item">
+                    <image class="image" src="/pages/default/assets/id_card_face_bg.png"></image>
+                    <text>车主身份证</text>
+                </view>
+                <view class="photo-item">
+                    <image class="image" src="/pages/default/assets/driving_license_face_bg.png"></image>
+                    <text>行驶证</text>
+                </view>
+                <view class="photo-item">
+                    <image class="image" src="/pages/default/assets/driving_license_face_bg.png"></image>
+                    <text>车头照</text>
+                </view>
+            </view>
+            <!--流程开始-->
+            <view class="progress_wrapper" >
+                <view class="item" wx:for="{{ processList }}">
+                    <view class="content-title">{{ item.title }}</view>
+                    <view class="content-des">{{ item.content }}</view>
+                </view>
+            </view>
+        </view>
+        <!--	在线客服-->
+        <view class="bottom" catchtap="goOnlineServer">在线客服</view>
+    </view>
 </view>

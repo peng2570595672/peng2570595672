@@ -160,14 +160,14 @@
           "scene": null
         },
         {
-          "name": "pages/truck_handling/index/index",
-          "pathName": "pages/truck_handling/index/index",
+          "name": "pages/default/index/index",
+          "pathName": "pages/default/index/index",
           "query": "type=101",
           "scene": null
         },
         {
-          "name": "pages/account_management/index/index",
-          "pathName": "pages/account_management/index/index",
+          "name": "pages/truck_handling/index/index",
+          "pathName": "pages/truck_handling/index/index",
           "query": "orderId=807027129899814912",
           "scene": null
         },

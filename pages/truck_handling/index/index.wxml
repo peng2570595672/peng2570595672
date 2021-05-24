@@ -123,6 +123,4 @@
 	</view>
 	<!--	在线客服-->
 	<view class="bottom" catchtap="goOnlineServer">在线客服</view>
-    <information-validation-prompt id="notFinishedOrder" promptObject="{{promptObject}}"></information-validation-prompt>
-<!--	<pass-the-discount id="passTheDiscount"></pass-the-discount>-->
 </view>
