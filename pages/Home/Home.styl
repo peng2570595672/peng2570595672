@@ -1,254 +1,196 @@
 @import "../../style/base.styl";
+@import "animate.styl";
 .index
-	// 公共部分
-	.btn
-		display flex
-		align-items center
-		justify-content center
-		height 98rpx
-		font-size 40rpx
-		font-weight 500
-		color #fff
-		border-radius 49rpx
-		background: linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
-		box-shadow: 0 8rpx 10rpx 0 rgba(132,209,87,0.2);
-	.tips
-		display flex
-		align-items center
-		justify-content center
-		margin-top 20rpx
-		text-align center
-		font-size 24rpx
-		height 40rpx
-		color $fontColor9
-		& > text
-			color $error
-	.tips-red
-		color red
-	// 欢迎语
-	.welcome
-		margin 26rpx 0
-		padding-left 60rpx
-		font-size 60rpx
-		line-height 60rpx
-		font-weight:500
-		display flex
-		.name
-			flex 1
-			//display flex
-			& > open-data
-				//display flex
-				margin-left 26rpx
-				font-size 32rpx
-				//width 32rpx
-				//height 50rpx
-				//overflow hidden
-				color $fontColor6
-		.online-service
-			margin-right 66rpx
-			width 60rpx
-			font-size 18rpx
-			color $fontColor9
-			text-align center
-			line-height 18rpx
-			image
-				width 40rpx
-				height 38rpx
-	// 轮播图
-	.my-swiper
-		//margin 40rpx 40rpx 0
-		height 394rpx
-		//border-radius 32rpx
-		overflow hidden
-		.my-swiper-item
-			height 364rpx!important
-			//background: linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
-			border-radius 32rpx
-			& > image
-				text-align center
-				width 90%
-				height 100%
-				margin-left 5%
-				border-radius 32rpx
-		.wx-swiper-dots-horizontal
-			 margin-bottom -18rpx
-			.wx-swiper-dot
-				margin-right 4rpx
-				width 10rpx
-				height 10rpx
-				background: #E3E5E6
-				&.wx-swiper-dot-active
-					background: #979999
+	width 100%
+	overflow-x hidden
+	// 车辆类型切换
+	.tab
+		height 176rpx
+		background #EBFFDC
+		.tab-box
+			padding 96rpx 32rpx 0
+			font-size 48rpx
+			font-family PingFangSC-Semibold, PingFang SC
+			font-weight 600
+			color rgba(0, 0, 0, 1)
+			.check-vehicle
+				display flex
+				.item
+					padding-right 30rpx
+					display flex
+					height 64rpx
+					align-items center
+			.line
+				display flex
+				width 38rpx
+				height 12rpx
+				background #FFC000
+				border-radius 6rpx
+				margin-top 4rpx
+				margin-left 28rpx
+				&.active
+					animation linearAnimation 300ms
+					animation-name linearAnimation
+				&.active-trucks
+					animation linearAnimation1 300ms
+					animation-name linearAnimation1
+				&.skewing
+					margin-left 159rpx
 	// 立即办理
-	.free-processing
-		margin-top 98rpx
-		padding 0 70rpx
-		padding-bottom 40rpx
-	// 办理中 查看进度 修改资料 审核失败 确认收货并激活 恢复签约 账单
-	.processing,.viewing-process,.update-info, .audit-failure, .confirm-receipt, .resume-contract, .bill
-		margin-top 40rpx
-		padding 0 60rpx 40rpx
-		.processing-title
-			display flex
-			align-items center
-			height 48rpx
-			& > view
-				&:first-of-type
-					display flex
-					align-items center
-					height 48rpx
-					flex 1
-					font-size 32rpx
-				&:last-of-type
-					display flex
-					height 40rpx
-					align-items center
-					font-size 24rpx
-					color $fontColor9
-					&::after
-						margin-left 5rpx
-						display inline-block
-						width 0
-						content ''
-						border-color rgba(0,0,0,0)
-						border-bottom-style solid
-						border-right 15rpx solid #FFEC9A
-						border-width 15rpx
-						transform rotateZ(45deg)
-		.btn
-			margin 20rpx 10rpx 0
-	// 审核失败
-	.audit-failure
-		.failed
-			margin-top 38rpx
-			display flex
-			align-items center
-			justify-content center
-			height 74rpx
-			color $error
-			font-size 40rpx
-		.tips
-			margin-top 36rpx
-	// 账单
-	.bill
-		padding 0 40rpx
-		.processing-title
-			margin 0 20rpx
-		.bill-info
-			margin 20rpx 0
-			padding 0 20rpx
-			height 178rpx
-			box-shadow: 4rpx 4rpx 46rpx 0 rgba(126,132,156,0.1);
-			border-radius 32rpx
-			& > view
+	.deal-with
+		position relative
+		height 498rpx
+		background-image linear-gradient(#EBFFDC, #CAFFCD)
+		z-index 1
+		.left
+			position absolute
+			z-index 1
+			left 28rpx
+			.introduce-box
+				display flex
+				.introduce
+					padding-top 80rpx
+					min-width 500rpx
+					.title
+						display flex
+						height 64rpx
+						align-items center
+						font-size 52rpx
+						font-family Arial-Black, Arial
+						font-weight 900
+						color #00B85C
+						image
+							width 114rpx
+							margin-top -45rpx
+					.sub-title
+						padding-top 18rpx
+						font-size 24rpx
+						color rgba(102,102,110, 0.8)
+						line-height 34rpx
+					&.introduce-trucks
+						padding-left 450rpx
+			.btn
 				display flex
 				align-items center
-				padding 0 20rpx
-				&:first-of-type
-					height  86rpx
-					border-bottom 1rpx solid #F1F1F1
-					& > view
-						&:first-of-type
-							flex 1
-							font-size 40rpx
-							color rgba(51,51,61,1)
-							font-weight 500
-						&:last-of-type
+				justify-content center
+				width 158rpx
+				height 50rpx
+				border-radius 25rpx
+				margin-top 82rpx
+				background #FFC000
+				font-size 24rpx
+				font-family PingFangSC-Semibold, PingFang SC
+				font-weight 600
+				color: #FFFFFF
+				&.btn-switch-trucks
+					background #3CA1FF
+				&.btn-switch-passenger-car
+					background #FFC000
+		.right
+			position absolute
+			right 0
+			top 45rpx
+			z-index 0
+			image
+				width 488rpx
+			&.right-for-trucks
+				right -488rpx
+	// 订单信息开始
+	.order-info
+		position relative
+		padding 32rpx
+		border-radius 24rpx 24rpx 0rpx 0rpx
+		background #FFFEFE
+		margin-top -32rpx
+		z-index 2
+		.order-info-box
+			height 290rpx
+			background #FFFFFF
+			box-shadow 0rpx 10rpx 30rpx 0rpx rgba(159, 159, 159, 0.15)
+			border-radius 8rpx
+			// 已激活订单-显示账单开始
+			.bill-info
+				display flex
+				height 82rpx
+				padding 52rpx 48rpx 68rpx 46rpx
+				overflow hidden
+			// 显示订单状态开始
+			.vehicle-information
+				display flex
+				height 82rpx
+				padding 52rpx 48rpx 68rpx 46rpx
+				overflow hidden
+				.vehicle-info
+					flex 1
+					position relative
+					.vehicle-info-box
+						flex 1
+						height 82rpx
+						font-size 34rpx
+						font-family PingFangSC-Semibold, PingFang SC
+						font-weight 600
+						color #000000
+						.sub-title
 							font-size 24rpx
-							color $fontColor9
-							&.failed
-								color $error
-								font-size 32rpx
-				&:last-of-type
-					height 90rpx
-					.up, .down
-						display flex
-						align-items center
-						font-size 28rpx
-						color $fontColor9
-						& > view
-							flex 8
-						& > text
-							margin-right 10rpx
-							text-align center
-							align-items center
-							justify-content center
-							width 28rpx
-							height 28rpx
-							line-height 28rpx
-							color #fff
-							font-size 20rpx
-							background: #FFAF9A
-							border-radius 50%
-					.down
-						margin-left 44rpx
-						& > text
-							background: #8CD5B5
-				.fail-money,
-				.success-money
-					flex 4
-					font-size 40rpx
-					color #FF563C
-					line-height 64rpx
-					text-align right
-				.success-money
-					color #2FB565
-				.refund
-					color $fontColor9
-		.bill-empty
-			display flex
-			align-items center
-			justify-content center
-			margin 20rpx 0
-			padding 0 20rpx
-			height 178rpx
-			box-shadow: 4rpx 4rpx 46rpx 0 rgba(126,132,156,0.1);
-			border-radius 32rpx
-			& > image
-				margin-right 30rpx
-				//flex 0 0 106rpx
-				width 150rpx
-				height 106rpx
-				border-radius 12rpx
-			& > view
-				color $fontColor9
-
-	// 分割线
-	.split
-		height 20rpx
-		background: #FAFAFA
-		box-shadow:0px -2rpx 0 0 rgba(241,240,245,1);
-	// 底部导航
-	.nav
-		display flex
-		justify-content center
-		padding-top 26rpx
-		.item
-			margin-left 70rpx
-			text-align center
-			flex 0 0 100rpx
-			&:first-of-type
-				margin-left 0
-			& > view
-				& > image
-					width 100%
-					height 100%
-				&:first-of-type
-					width 100rpx
-					height 100rpx
-					padding 20rpx
-					box-sizing border-box
-					border-radius 20rpx
-					box-shadow:0 6rpx 10rpx 0 rgba(126,132,156,0.1)
-				&:last-of-type
-					margin-top 8rpx
+							font-family PingFangSC-Regular, PingFang SC
+							font-weight 400
+							color rgba(102,102,110, 0.8)
+							line-height 34rpx
+							padding-top 14rpx
+						&.vehicle-info-trucks-box
+							position absolute
+							top 150rpx
+				.btn
+					display flex
+					align-items center
+					justify-content center
+					width 240rpx
+					height 82rpx
+					background #00B85C
+					border-radius 8rpx
+					font-size 28rpx
+					font-family PingFangSC-Semibold, PingFang SC
+					font-weight 600
+					color #FFFFFF
+			.other-entrance
+				display flex
+				height 48rpx
+				align-items center
+				padding 0 32rpx
+				.item
+					flex 1
+					display flex
+					height 48rpx
+					align-items center
+					color rgba(0, 0, 0, 1)
 					font-size 24rpx
-					line-height 40rpx
-					color $fontColor6
-			&.trucks
-				position relative
-				.icon-trucks-discount
-					position absolute
-					width 64rpx
-					right -32rpx
-					top -10rpx
+					border-right 1rpx solid #E7E7E7
+					padding-left 12rpx
+					&::before
+						color #00B85C
+						font-size 32rpx
+						margin-right 8rpx
+					&.invoice
+						&::before
+							content '\e694'
+					&.violation-enquiry
+						&::before
+							content '\e690'
+					&.my-order
+						&::before
+							content '\e699'
+					&.server
+						&::before
+							content '\e697'
+					&.personal-center
+						&::before
+							content '\e695'
+					&:first-child
+						padding-left 0
+					&:last-child
+						border 0
+	// 底部活动
+	.my-swiper
+		.my-swiper-item
+			image
+				width 504rpx

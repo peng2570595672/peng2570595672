@@ -18,10 +18,10 @@ Page({
 		activeEquitiesIndex: -1,// 当前选中权益包
 		rightsAndInterestsList: [],// 加购权益列表
 		basicServiceList: [
-			{title: 'ETC设备与卡片', tips: '包邮', ico: 'service_of_etc', logo: '/pages/default/assets/service_of_etc.svg'},
-			{title: '设备质保两年', ico: 'service_of_equipment', logo: '/pages/default/assets/service_of_equipment.svg'},
-			{title: '开具通行费发票', ico: 'service_of_invoice', logo: '/pages/default/assets/service_of_invoice.svg'},
-			{title: '高速通行9.5折', ico: 'service_of_discount', logo: '/pages/default/assets/service_of_discount.svg'}
+			{title: 'ETC设备与卡片', tips: '包邮', ico: 'service_of_etc'},
+			{title: '设备质保两年', ico: 'service_of_equipment'},
+			{title: '开具通行费发票', ico: 'service_of_invoice'},
+			{title: '高速通行9.5折', ico: 'service_of_discount'}
 		],
 		otherServiceList: [
 			{title: '车主服务享便捷', subTitle: '价值168元'},
@@ -37,19 +37,16 @@ Page({
 				list: [
 					{
 						ico: 'service_of_driving_risk',
-						logo: '/pages/default/assets/service_of_driving_risk.svg',
 						title: '每月领驾乘险',
 						describe: '10000元初始驾驶意外险，如每月无违章，额外获得5000元，最高可提升至50000元。'
 					},
 					{
 						ico: 'service_of_security',
-						logo: '/pages/default/assets/service_of_security.svg',
 						title: '设备延保1年',
 						describe: 'ETC设备非人为损坏质保延长一年，与设备质保叠加最高可达到三年质保。'
 					},
 					{
 						ico: 'service_of_illegal',
-						logo: '/pages/default/assets/service_of_illegal.svg',
 						title: '违章随时查',
 						describe: '每月可免费查询车辆违章情况'
 					}

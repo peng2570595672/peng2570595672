@@ -44,7 +44,7 @@ Page({
 		util.showLoading({title: '加载中'});
 		let params = {
 			beginDate: '2021-05-10',
-			endDate: '2021-05-13',
+			endDate: '2021-05-21',
 			queryMode: this.data.page === 1 ? 1 : 3,// 查询方式1-首次查询2-上一页3-下一页 必填
 			page: this.data.page,
 			pageSize: 10

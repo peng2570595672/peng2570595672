@@ -81,6 +81,35 @@ $yellowColor = #FFC300;
 							align-items center
 							color rgba(0, 0, 0, 0.5)
 							font-size 24rpx
+							.logo
+								display flex
+								height 40rpx
+								align-items center
+								&::before
+									font-size 32rpx
+									color #2FB565
+									margin-right 8rpx
+								&.service_of_etc
+									&::before
+										content '\e683'
+								&.service_of_equipment
+									&::before
+										content '\e67c'
+								&.service_of_invoice
+									&::before
+										content '\e685'
+								&.service_of_discount
+									&::before
+										content '\e67a'
+								&.service_of_oil
+									&::before
+										color #FA5151
+										content '\e680'
+								&.service_of_integral
+									&::before
+										color #FFC300
+										font-size 200rpx
+										content '\e690'
 							image
 								width 32rpx
 								margin-right 8rpx

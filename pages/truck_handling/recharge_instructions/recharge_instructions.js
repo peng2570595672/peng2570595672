@@ -4,12 +4,41 @@
  */
 const util = require('../../../utils/util.js');
 // 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
+		bankCardInfo: {}
 	},
-	next () {
-		util.go(`/pages/account_management/account_recharge/account_recharge`);
+	async onLoad () {
+		this.setData({
+			bankCardInfo: app.globalData.bankCardInfo
+		});
+		this.getBankAccounts();
+	},
+	async getBankAccounts () {
+		const result = await util.getDataFromServersV2('consumer/member/icbcv2/getBankAccounts');
+		if (!result) return;
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+			return;
+		}
+		if (!result.data) result.data = [];
+		this.setData({
+			bankList: result.data
+		});
+	},
+	async next () {
+		let params = {
+			dataComplete: 1,// 资料已完善
+			orderId: app.globalData.orderInfo.orderId// 订单id
+		};
+		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+		this.setData({isRequest: false});
+		if (!result) return;
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+			return;
+		}
+		util.go('/pages/default/processing_progress/processing_progress');
 	}
 });

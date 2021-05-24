@@ -9,11 +9,19 @@ const app = getApp();
 Page({
 	data: {
 		bankList: [],
+		isRechargeEarnestMoney: false,
 		choiceBankObj: undefined,
 		cardInfo: undefined,
 		rechargeAmount: undefined
 	},
-	async onLoad () {
+	async onLoad (options) {
+		if (options.money) {
+			// 预充保证金
+			this.setData({
+				isRechargeEarnestMoney: true,
+				rechargeAmount: options.money
+			});
+		}
 		app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(-4);
 		this.setData({
 			cardInfo: app.globalData.bankCardInfo
@@ -47,10 +55,13 @@ Page({
 		}
 	},
 	async next () {
+		if (this.data.isRechargeEarnestMoney) {
+			return;
+		}
 		if (!this.data.rechargeAmount) return;
 		const result = await util.getDataFromServersV2('consumer/member/icbcv2/recharge', {
 			bankAccountId: this.data.choiceBankObj.bankAccountId,
-			amount: this.data.rechargeAmount
+			amount: +this.data.rechargeAmount * 100
 		});
 		if (!result) return;
 		if (result.code === 0) {
@@ -58,6 +69,17 @@ Page({
 		} else {
 			util.showToastNoIcon(result.message);
 		}
+	},
+	async rechargeEarnestMoney () {
+		const result = await util.getDataFromServersV2('consumer/member/icbcv2/recharge', {
+			orderId: app.globalData.orderInfo.orderId
+		});
+		if (!result) return;
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+			return;
+		}
+		util.go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
 	},
 	// 绑定卡
 	onClickSwitchBankCard () {

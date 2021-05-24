@@ -297,22 +297,8 @@ App({
 			util.hideLoading();
 			if (res.code === 0) {
 				this.globalData.signAContract = 3;
-				// 1.0签约
-				if (appId === 'wxbd687630cd02ce1d') {
-					if (res.data.contractStatus === 1) {
-						util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.globalData.orderInfo.orderId}`);
-					} else {
-						util.showToastNoIcon('未签约成功！');
-					}
-					return;
-				}
 				// 签约成功 userState: "NORMAL"
 				if (res.data.contractStatus === 1 && res.data.userState === 'NORMAL') {
-					//  货车签约
-					if (this.globalData.isTruckHandling) {
-						this.globalData.isTruckHandling = false;// 是否新流程-货车办理
-						return;
-					}
 					// 办理付费h5
 					if (this.globalData.otherEntrance.isPayH5Signing) {
 						this.globalData.otherEntrance.isPayH5Signing = false;

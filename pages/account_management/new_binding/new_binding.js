@@ -68,6 +68,9 @@ Page({
 		this.setData({
 			bankNameIndex: parseInt(e.detail.value)
 		});
+		this.setData({
+			available: this.validateAvailable()
+		});
 	},
 	// 下一步
 	async next () {
@@ -247,21 +250,11 @@ Page({
 		if (!result) return;
 		console.log(result);
 		if (result.code) {
-			const resultStatusArr = [
-				{code: 3403, message: '银行预留手机号不符！'},
-				{code: 98000945, message: '验证码错误，请重新输入！'},
-				{code: 98000944, message: '短信验证码已失效，请重新发送验证码！'},
-				{code: 2210, message: '银行卡号无效，请确认后输入！'},
-				{code: 104, message: result.message}
-			];
-			const findStatus = resultStatusArr.find(item => item.code === result.code);
-			if (findStatus) {
-				util.showToastNoIcon(findStatus.message);
-				return;
-			}
-			util.go(`/pages/truck_handling/binding_account_failure/binding_account_failure?code=${result.code}`);
+			util.showToastNoIcon(result.message);
 		} else {
-			util.go(`/pages/truck_handling/binding_account_successful/binding_account_successful`);
+			wx.navigateBack({
+				delta: 1
+			});
 		}
 	}
 });

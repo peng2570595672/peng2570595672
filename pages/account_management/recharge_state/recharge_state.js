@@ -8,19 +8,20 @@ Page({
 	data: {
 		info: undefined
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		if (options.info) {
 			this.setData({
 				info: JSON.parse(options.info)
 			});
-			if (false) {
-				wx.setNavigationBarTitle({
-					title: '充值成功'
-				});
-			} else {
+			if (this.data.info.code) {
 				wx.setNavigationBarTitle({
 					title: '充值失败'
 				});
+			} else {
+				wx.setNavigationBarTitle({
+					title: '充值成功'
+				});
+				await util.getV2BankId();
 			}
 		}
 	},

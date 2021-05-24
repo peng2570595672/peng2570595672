@@ -4,7 +4,7 @@
         <view class="small-prompt">请输入充值金额（元）</view>
         <view class="money-input-container">
             <view class="label item">￥</view>
-            <input class="item" value="{{ rechargeAmount }}" bindinput="inputValueChange" data-key="rechargeAmount" />
+            <input class="item" value="{{ rechargeAmount }}" bindinput="inputValueChange" data-key="rechargeAmount" disabled="{{isRechargeEarnestMoney}}"/>
         </view>
     </view>
     <!--充值输入框结束-->

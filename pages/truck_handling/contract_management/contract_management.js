@@ -16,10 +16,14 @@ Page({
 		contractTollInfo: undefined,
 		contractPoundageInfo: undefined,
 		contractBondInfo: undefined,
+		bankCardInfo: {},
 		isRequest: false,
 		available: false
 	},
 	async onLoad () {
+		this.setData({
+			bankCardInfo: app.globalData.bankCardInfo
+		});
 		app.globalData.signAContract = 3;
 	},
 	async onShow () {
@@ -137,6 +141,7 @@ Page({
 		}
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		this.setData({isRequest: false});
+		console.log(result)
 		if (!result) return;
 		if (result.code === 0) {
 			app.globalData.isTruckHandling = true;

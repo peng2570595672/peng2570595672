@@ -94,6 +94,37 @@
   color: rgba(0,0,0,0.5);
   font-size: 24rpx;
 }
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item .logo {
+  display: flex;
+  height: 40rpx;
+  align-items: center;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item .logo::before {
+  font-size: 32rpx;
+  color: #2fb565;
+  margin-right: 8rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item .logo.service_of_etc::before {
+  content: '\e683';
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item .logo.service_of_equipment::before {
+  content: '\e67c';
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item .logo.service_of_invoice::before {
+  content: '\e685';
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item .logo.service_of_discount::before {
+  content: '\e67a';
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item .logo.service_of_oil::before {
+  color: #fa5151;
+  content: '\e680';
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item .logo.service_of_integral::before {
+  color: #ffc300;
+  font-size: 200rpx;
+  content: '\e690';
+}
 .package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item image {
   width: 32rpx;
   margin-right: 8rpx;
