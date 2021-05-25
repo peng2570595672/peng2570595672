@@ -207,7 +207,7 @@ Page({
 		this.setData({
 			showServiceIndex: parseInt(e.currentTarget.dataset.index)
 		});
-		// if (this.data.showServiceIndex === 2) return;
+		if (this.data.showServiceIndex === 2) return;
 		if (this.data.showServiceIndex === 1) {
 			this.setData({
 				viewLifeService: this.selectComponent('#viewLifeService')

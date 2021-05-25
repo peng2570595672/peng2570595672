@@ -49,7 +49,7 @@
                         </view>
                     </view>
                     <view class="related-service-title" wx:if="{{item.isShowFeatureService === 1}}">特色服务</view>
-                    <view class="basic-service-list" wx:if="{{item.isShowFeatureService === 1}}" catchtap="onClickCheckTheService" data-index="2">
+                    <view class="basic-service-list feature-service" wx:if="{{item.isShowFeatureService === 1}}" catchtap="onClickCheckTheService" data-index="2">
                         <view class="basic-service-item" wx:for="{{characteristicServiceList}}" wx:key="index">
                             <image src="{{item.logo}}" mode="widthFix"></image>
                             <view>{{item.title}}</view>
