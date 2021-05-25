@@ -628,82 +628,105 @@ function luhmCheck(bankno) {
  *  获取货车新流程订单办理状态 2.0
  */
 function getTruckHandlingStatus(orderInfo) {
-	let status = 0;
+	if (orderInfo.multiContractList.find(item => item.contractStatus === 2)) {
+		return 1; // 货车解约
+	}
 	if (orderInfo.shopProductId === 0) {
-		status = 1;// 办理中 未选套餐
-	} else if (orderInfo.shopProductId !== 0 && orderInfo.status === 0) {
-		status = 3; // 办理中 已选套餐
-	} else if (orderInfo.status === 1 && orderInfo.contractStatus !== 1) {
-		status = 2; // 待签约
-	} else if (orderInfo.contractStatus === 1 && orderInfo.auditStatus === 0) {
-		status = 4; // 查看进度 待审核
-	} else if (orderInfo.status === 1 && orderInfo.auditStatus === 1) {
-		status = 5; // 资料被拒绝 修改资料
-	} else if (orderInfo.auditStatus === 2 && (orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)) {
-		status = 6; // 审核通过  待激活
-	} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)  && orderInfo.auditStatus === 3) {
-		status = 7; // 预审核通过  待审核
-	} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)  && orderInfo.auditStatus === 9) {
-		status = 8; // 高速核验不通过
-	} else if (orderInfo.obuStatus === 1 && orderInfo.auditStatus === 2) {
-		status = 9; // 审核通过  已激活
+		return 2;// 办理中 未选套餐
 	}
-	if (orderInfo.status === 0 && orderInfo.isOwner === 1 && orderInfo.isVehicle === 1 && orderInfo.isHeadstock === 1) {
-		if (orderInfo.isTraction === 0 || (orderInfo.isTraction === 1 && orderInfo.isTransportLicense === 1)) {
-			if (orderInfo.pledgeStatus === 0) {
-				// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
-				status = 11; // 待支付
-			} else {
-				status = 2;
-			}
-		}
+	if (orderInfo.pledgeStatus === 0) {
+		// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
+		return 3;// 待支付
 	}
-	return status;
+	// if (orderInfo.isOwner === 0 || orderInfo.isVehicle === 0 || orderInfo.isHeadstock === 0 || (orderInfo.isTraction === 1 && orderInfo.isTransportLicense !== 1)) {
+	// 	return 4; // 办理中 未上传证件
+	// }
+	if (!app.globalData.bankCardInfo?.accountNo) {
+		// 开通II类户预充保证金 - 未开户
+		return 13;
+	}
+	if (orderInfo.multiContractList.filter(item => item.contractStatus === 1).length !== 3) {
+		return 5; // 未完全签约 - 或存在解约
+	}
+	if (orderInfo.status === 0) {
+		return 14; // 办理中 未授权预充保证金
+	}
+	if (orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) {
+		// auditStatus: -1 无需审核   0 待审核   1 审核失败  2 审核通过  3 预审核通过  9 高速核验不通过
+		return 6;// 待审核 预审核通过(待审核)
+	}
+	if (orderInfo.auditStatus === 1) {
+		return 7; // 资料被拒绝 修改资料
+	}
+	if (orderInfo.auditStatus === 9) {
+		return 8; // 高速核验不通过
+	}
+	if (orderInfo.auditStatus === 2 && orderInfo.holdStatus === 0) {
+		return 15;// 未冻结保证金成功
+	}
+	if (orderInfo.auditStatus === 2 && orderInfo.flowVersion === 2 && orderInfo.hwContractStatus !== 1) {
+		// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
+		return 9; // 审核通过,待签约高速
+	}
+	if (orderInfo.auditStatus === 2 && orderInfo.logisticsId === 0) {
+		return 10; // 审核通过,待发货
+	}
+	if (orderInfo.obuStatus === 0) {
+		return 11; //  待激活
+	}
+	if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
+		return 12; // 已激活
+	}
+	return 0;// 错误状态,未判断到
 }
 /**
  *  获取订单办理状态 2.0
  */
 function getStatus(orderInfo) {
-	let status = 0;
-	// deliveryRule 先签约后发货-0、先发货后签约-1
-	if (orderInfo.deliveryRule === 1 && orderInfo.status === 1) {
-		const statusObj = {
-			0: 4,// 查看进度 待审核
-			1: 5,// 资料被拒绝 修改资料
-			// 审核通过   签约状态不为1,去签约 : obu状态为1 已激活 :  待激活
-			2: orderInfo.contractStatus !== 1 ? 2 : orderInfo.obuStatus === 1 ? 9 : 6,
-			3: 4,// 查看进度 预审核
-		};
-		status = statusObj[orderInfo.auditStatus] ? statusObj[orderInfo.auditStatus] : 8;
-	} else {
-		if (orderInfo.shopProductId === 0) {
-			status = 1;// 办理中 未选套餐 || 待支付
-		} else if (orderInfo.status === 0 && orderInfo.shopProductId !== 0 && (orderInfo.pledgeStatus === -1 || orderInfo.pledgeStatus === 1)) {
-			status = 3; // 办理中 已选套餐 && (无需支付  ||  已经支付)
-		} else if (orderInfo.status === 1 && orderInfo.contractStatus !== 1) {
-			status = 2; // 待签约
-		} else if (orderInfo.contractStatus === 1 && orderInfo.auditStatus === 0) {
-			status = 4; // 查看进度 待审核
-		} else if (orderInfo.status === 1 && orderInfo.auditStatus === 1) {
-			status = 5; // 资料被拒绝 修改资料
-		} else if (orderInfo.auditStatus === 2 && (orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)) {
-			status = 6; // 审核通过  待激活
-		} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)  && orderInfo.auditStatus === 3) {
-			status = 7; // 预审核通过  待审核
-		} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)  && orderInfo.auditStatus === 9) {
-			status = 8; // 高速核验不通过
-		} else if (orderInfo.obuStatus === 1 && orderInfo.auditStatus === 2) {
-			status = 9; // 审核通过  已激活
-		}
+	if (orderInfo.isNewTrucks === 0 && orderInfo.contractStatus === 2) {
+		return 1; // 客车解约
 	}
-	// 审核通过  未高速签约
-	// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
-	if (orderInfo.auditStatus === 2 && orderInfo.flowVersion === 2 && orderInfo.hwContractStatus !== 1) status = 10; // 待签约高速
-	// 不需要审核,为了不改动之前的,所以单独判断
-	if (orderInfo.auditStatus === -1 && orderInfo.status === 1) status = orderInfo.contractStatus !== 1 ? 2 : orderInfo.obuStatus !== 1 ? 6 : 9;
-	// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
-	status = orderInfo.pledgeStatus === 0 ? 11 : status;
-	return status;
+	if (orderInfo.shopProductId === 0) {
+		return 2;// 办理中 未选套餐
+	}
+	if (orderInfo.pledgeStatus === 0) {
+		// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
+		return 3;// 待支付
+	}
+	if (orderInfo.status === 0) {
+		return 4; // 办理中 未上传证件
+	}
+	if (!orderInfo.contractStatus && orderInfo.deliveryRule === 0) {
+		// deliveryRule 先签约后发货-0、先发货后签约-1
+		return 5; // 待微信签约
+	}
+	if (orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) {
+		// auditStatus: -1 无需审核   0 待审核   1 审核失败  2 审核通过  3 预审核通过  9 高速核验不通过
+		return 6;// 待审核 预审核通过(待审核)
+	}
+	if (orderInfo.auditStatus === 1) {
+		return 7; // 资料被拒绝 修改资料
+	}
+	if (orderInfo.auditStatus === 9) {
+		return 8; // 高速核验不通过
+	}
+	if (orderInfo.auditStatus === 2 && orderInfo.flowVersion === 2 && orderInfo.hwContractStatus !== 1) {
+		// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
+		return 9; // 审核通过,待签约高速
+	}
+	if (orderInfo.auditStatus === 2 && orderInfo.logisticsId === 0) {
+		return 10; // 审核通过,待发货
+	}
+	if (orderInfo.auditStatus === 2 && orderInfo.logisticsId !== 0 && orderInfo.deliveryRule === 1) {
+		return 5; // 审核通过,已发货或无需发货,待微信签约
+	}
+	if (orderInfo.obuStatus === 0) {
+		return 11; //  待激活
+	}
+	if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
+		return 12; // 已激活
+	}
+	return 0;// 错误状态,未判断到
 }
 /**
  *  获取订单办理状态 1.0
@@ -793,15 +816,8 @@ function getHandlingType(orderInfo) {
 		// 企业车辆
 		return true;
 	} else {
-		if (orderInfo.carType === 11 || orderInfo.carType === 12 || orderInfo.carType === 13 ||
-			orderInfo.carType === 14 || orderInfo.carType === 15 || orderInfo.carType === 16
-		) {
-			// carType：车辆归类：1,一型客车 2,二型客车   3,三型客车   4,四型客车   11,一型货车  12,二型货车  13,三型货车
-			//14,四型货车  15,五型货车  16,六型货车  21,一型专项作业车  22,二型专项作业车  23,三型专项作业车  24,四型专项作业车  25,五型专项作业车  26,六型专业作业车
-			return true;
-		} else {
-			return false;
-		}
+		return orderInfo.carType === 11 || orderInfo.carType === 12 || orderInfo.carType === 13 ||
+			orderInfo.carType === 14 || orderInfo.carType === 15 || orderInfo.carType === 16;
 	}
 }
 
@@ -820,10 +836,7 @@ function isDuringDate(beginDateStr, endDateStr) {
 	const curDate = new Date();
 	const beginDate = new Date(beginDateStr);
 	const endDate = new Date(endDateStr);
-	if (curDate >= beginDate && curDate < endDate) {
-		return true;
-	}
-	return false;
+	return curDate >= beginDate && curDate < endDate;
 }
 /**
  *  获取当前日期是在某时间段
@@ -1058,16 +1071,24 @@ function weChatSigning(data) {
 		});
 	}
 }
-
+// px转rpx-wxAnimation方法使用的是px
+function getPx (size) {
+	return size / 750 * wx.getSystemInfoSync().windowWidth;
+}
+// rpx转px-wxAnimation方法使用的是px
+function getRpx (size) {
+	return size * 750 / wx.getSystemInfoSync().windowWidth;
+}
 // 创建动画
-function wxAnimation(delay, site, translate) {
+function wxAnimation(delay, site, translate, opacity = 1) {
+	site = getPx(site);
 	let animation = wx.createAnimation({
 		delay,
-		duration: 500,
-		timingFunction: 'ease'
+		duration: 300,
+		timingFunction: 'ease-in'
 	});
 	if (translate === 'translateY') {
-		animation.translateY(site).step();
+		animation.translateY(site).opacity(opacity).step();
 	} else {
 		animation.translateX(site).step();
 	}
@@ -1134,8 +1155,6 @@ async function getLocationInfo (orderInfo) {
 // 获取套餐列表
 async function getListOfPackages (orderInfo, regionCode, notList) {
 	showLoading();
-	console.log(orderInfo)
-	console.log(isTruckHandle)
 	let params = {
 		needRightsPackageIds: true,
 		areaCode: regionCode[0] || 0,
@@ -1248,6 +1267,7 @@ async function getDataFromServersV2(path, params = {}, method = 'POST') {
 	if (!timestamp) {
 		timestamp = parseInt(new Date().getTime() /1000);
 	}
+	if (app.globalData.userInfo?.memberId) params.memberId = app.globalData.userInfo.memberId;
 	// POST请求
 	if (method === 'POST') {
 		// 设置签名
@@ -1383,6 +1403,17 @@ async function updateOrderContractMappingBankAccountId (info, bankCardInfo) {
 	}
 	return isOk;
 }
+// 获取二类户号信息
+async function getV2BankId () {
+	const result = await getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
+	if (!result) return;
+	if (result.code) {
+		showToastNoIcon(result.message);
+		return;
+	}
+	app.globalData.bankCardInfo = result.data;
+	return result.data;
+}
 // 货车-查询车主服务签约
 async function queryContractForTruckHandling () {
 	showLoading({
@@ -1449,5 +1480,6 @@ module.exports = {
 	getETCDetail,
 	updateOrderContractMappingBankAccountId,
 	queryContractForTruckHandling,
+	getV2BankId,
 	weChatSigning
 };

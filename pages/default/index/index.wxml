@@ -1,168 +1,89 @@
-<wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="index">
-	<!--	欢迎语句开始-->
-	<view class="welcome">欢迎<open-data type="userNickName" lang="zh_CN"></open-data>
-	</view>
-	<!--	欢迎语句结束-->
-	<!--	轮播图开始-->
-	<swiper
-		class="my-swiper"
-		indicator-dots="{{true}}"
-		autoplay="{{true}}"
-		interval="{{5000}}"
-		circular="{{true}}">
-		<swiper-item class="my-swiper-item" wx:for="{{rotationChartList}}" wx:key="index" catchtap="onClickSwiper" data-item="{{item}}">
-			<image src="{{item.imgUrl}}"/>
-		</swiper-item>
-	</swiper>
-	<!--	轮播图结束-->
-
-	<!--	立即办理开始-->
-	<view class="free-processing" wx:if="{{!orderInfo}}">
-		<view wx:if="{{loginInfo.needBindingPhone !== 1}}" class="btn" catchtap="freeProcessing">立即办理</view>
-		<button wx:else class="btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">立即办理</button>
-		<view class="tips">立即办理ETC高速通行95折</view>
-	</view>
-	<!--	立即办理结束-->
-	<!--	办理中开始-->
-	<view class="processing" wx:if="{{(orderInfo.selfStatus === 1 || orderInfo.selfStatus === 3) && orderInfo.contractStatus !== 2}}">
-		<view class="processing-title">
-			<view>{{orderInfo.vehPlates}}</view>
-			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
-		</view>
-		<view class="btn" catchtap="onClickContinueHandle">继续办理</view>
-		<view class="tips">这是你离成功最近的一次</view>
-	</view>
-	<!--	办理中结束-->
-
-	<!--	查看进度开始-->
-	<view class="viewing-process" wx:if="{{(orderInfo.selfStatus === 4 || orderInfo.selfStatus === 7) && orderInfo.contractStatus !== 2}}">
-		<view class="processing-title">
-			<view>{{orderInfo.vehPlates}}</view>
-			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
-		</view>
-		<view class="btn" catchtap="onClickViewProcessingProgressHandle">查看进度</view>
-		<!--<view class="btn" catchtap="onClickCctivate" wx:else>确认收货并激活</view>-->
-		<view class="tips">客服小姐姐正埋头审核中...</view>
-	</view>
-	<!--	查看进度结束-->
-
-	<!--	修改资料开始-->
-	<view class="update-info" wx:if="{{(orderInfo.selfStatus === 5 || orderInfo.selfStatus === 8) && orderInfo.contractStatus !== 2}}">
-		<view class="processing-title">
-			<view>{{orderInfo.vehPlates}}</view>
-			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
-		</view>
-		<view class="btn" catchtap="onClickModifiedData">修改资料</view>
-		<view class="tips"><text>你的资料审核有误，</text>请仔细检查</view>
-	</view>
-	<!--	修改资料结束-->
-
-	<!--	审核失败开始-->
-	<view class="audit-failure" wx:if="{{false}}">
-		<view class="processing-title">
-			<view>{{orderInfo.vehPlates}}</view>
-			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
-		</view>
-		<view class="failed">审核失败</view>
-		<view class="tips">说明原因</view>
-	</view>
-	<!--	审核失败结束-->
-
-	<!--	确认收货并激活开始-->
-	<view class="confirm-receipt" wx:if="{{orderInfo.selfStatus === 6 && orderInfo.contractStatus !== 2}}">
-		<view class="processing-title">
-			<view>{{orderInfo.vehPlates}}</view>
-			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
-		</view>
-		<button class="btn" catchtap="onClickViewProcessingProgressHandle">
-			查看进度
-			<!--{{orderInfo.logisticsId === 0 ? '查看进度' : '确认收货并激活 '}}-->
-		</button>
-		<view class="tips">{{orderInfo.logisticsId === 0 ? '审核通过，设备打包中...' : '你的ETC即将到达，期待...  '}}</view>
-	</view>
-	<!--	确认收货并激活结束-->
-	<!--	恢复签约开始-->
-	<view class="resume-contract" wx:if="{{orderInfo.selfStatus === 2 || orderInfo.contractStatus === 2}}">
-		<view class="processing-title">
-			<view>{{orderInfo.vehPlates}}</view>
-			<view class="iconfont" catchtap="onClickMyETCHandle">查看所有ETC</view>
-		</view>
-		<view class="btn" catchtap="onClickBackToSign">{{orderInfo.contractStatus === 2 ? '恢复签约' : '立即签约'}}</view>
-		<view class="tips" wx:if="{{orderInfo.contractStatus === 2}}"><text>赶紧恢复！</text>这将严重影响你的高速通行</view>
-		<view class="tips tips-red" wx:else>一键签约，无感支付</view>
-	</view>
-	<!--	恢复签约结束-->
-
-	<!--	账单开始-->
-	<view class="bill" wx:if="{{orderInfo.selfStatus === 9 && orderInfo.contractStatus !== 2}}">
-		<view class="processing-title">
-			<view>最近一次账单</view>
-			<view class="iconfont" catchtap="go" data-url="my_order">查看所有账单</view>
-		</view>
-		<!--		有通行订单-->
-		<block wx:if="{{recentlyTheBill}}" >
-			<view class="bill-info" catchtap="goOrderDetails">
-				<view>
-					<view>{{recentlyTheBill.vehPlate}}</view>
-					<view class="failed" wx:if="{{recentlyTheBill.deductStatus === 2 || recentlyTheBill.deductStatus === 10}}">扣款失败</view>
-					<view class="succeed" wx:elif="{{recentlyTheBill.deductStatus === 7}}">已退款</view>
-					<view class="succeed" wx:else >{{tools.substring(recentlyTheBill.deductTime,5,16)}} </view>
+	<!--顶部开始-->
+	<view class="top">
+		<!--返回按钮-->
+		<view  class="back iconfont {{isMain ? '' : 'home'}}" catchtap="onClickBackHandle"></view>
+		<view class="bg-image">
+			<view class="bg-desc">
+				<view class="one">
+					<text>客车ETC+</text>
 				</view>
-				<view>
-					<view class="up"><text>上</text><view>{{recentlyTheBill.inStationName}}</view></view>
-					<view class="down"><text>下</text><view>{{recentlyTheBill.stationName}}</view></view>
-					<view class="price {{recentlyTheBill.deductStatus === 7 ? 'refund' : ''}}">{{recentlyTheBill.etcMoney/100}}</view>
+				<view class="two">
+					<text>高速通行</text>
+					<text>95</text>
+					<text>折</text>
+				</view>
+				<view class="three">
+					<text>快捷支付 享多项车主服务</text>
 				</view>
 			</view>
-		</block>
-		<!--		无通行订单-->
-		<block wx:else>
-			<view class="bill-empty">
-				<image src="/pages/default/assets/no_travel.png"/>
-				<view>
-					<view>最近您好像没有出行</view>
-					<view>多出去走走哦~</view>
-				</view>
-			</view>
-		</block>
-	</view>
-	<!--	账单结束-->
-	<!--	分割线开始-->
-	<view class="split"></view>
-	<!--	分割线结束-->
-	<!--	底部导航开始-->
-	<view class="nav">
-		<view class="item" catchtap="onClickMyETCHandle">
-			<view>
-				<image src="/pages/default/assets/icon_for_my_etc.svg"></image>
-			</view>
-			<view>我的ETC</view>
-		</view>
-		<view class="item" catchtap="go" data-url="violation_enquiry" wx:if="{{!isContinentInsurance}}">
-			<view>
-				<image src="/pages/default/assets/icon_for_violation_of_regulations.svg"></image>
-			</view>
-			<view>违章查询</view>
-		</view>
-		<view class="item" catchtap="go" data-url="my_order" wx:if="{{isContinentInsurance}}">
-			<view>
-				<image src="/pages/default/assets/icon_for_my_order.svg"></image>
-			</view>
-			<view>ETC账单</view>
-		</view>
-		<view class="item" catchtap="go" catchtap="go" data-url="online_customer_service">
-			<view>
-				<image src="/pages/default/assets/icon_for_online_service.svg"></image>
-			</view>
-			<view>在线客服</view>
-		</view>
-		<view class="item" catchtap="go" data-url="index">
-			<view>
-				<image src="/pages/default/assets/icon_for_personal_center.svg"></image>
-			</view>
-			<view>个人中心</view>
+            <image src="https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrTdyAT1_9AABR9q2KQdc170.png" mode="widthFix"></image>
 		</view>
 	</view>
-	<!--	底部导航结束-->
+	<!--顶部结束-->
+	<view class="content">
+        <view class="btn-content">
+            <view class="interior">
+                <image src="/pages/default/assets/wechat_pay_01.png" mode="widthFix"></image>
+            </view>
+            <view class="btn" catchtap="onClickHandle">立即办理</view>
+            <view class="trans-tips" catchtap="goTruck">前往办理货车ETC</view>
+        </view>
+        <view class="service-desc">
+            <view class="title">
+                <view class="truck-problem">ETC+尊享服务</view>
+            </view>
+            <view class="photo">
+                <view class="photo-row">
+                    <view class="photo-item one">
+                        <image class="image one" src="/pages/default/assets/service_01.png"></image>
+                        <text>设备质保2年</text>
+                    </view>
+                    <view class="photo-item">
+                        <image class="image three" src="/pages/default/assets/service_03.png"></image>
+                        <text>开通行发票</text>
+                    </view>
+                </view>
+                <view class="photo-row">
+                    <view class="photo-item">
+                        <image class="image second" src="/pages/default/assets/service_02.png"></image>
+                        <text>线上专属客服</text>
+                    </view>
+                    <view class="photo-item">
+                        <image class="image four" src="/pages/default/assets/service_04.png"></image>
+                        <text>高速通行9.5折</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="handle-desc">
+            <view class="process-title">
+                <view class="truck-problem">办理流程</view>
+            </view>
+            <view class="material">需准备资料</view>
+            <view class="photo">
+                <view class="photo-item">
+                    <image class="image" src="/pages/default/assets/id_card_face_bg.png"></image>
+                    <text>车主身份证</text>
+                </view>
+                <view class="photo-item">
+                    <image class="image" src="/pages/default/assets/driving_license_face_bg.png"></image>
+                    <text>行驶证</text>
+                </view>
+                <view class="photo-item">
+                    <image class="image" src="/pages/default/assets/headstock.svg"></image>
+                    <text>车头照</text>
+                </view>
+            </view>
+            <!--流程开始-->
+            <view class="progress_wrapper" >
+                <view class="item" wx:for="{{ processList }}">
+                    <view class="content-title">{{ item.title }}</view>
+                    <view class="content-des">{{ item.content }}</view>
+                </view>
+            </view>
+        </view>
+        <!--	在线客服-->
+        <view class="bottom" catchtap="goOnlineServer">在线客服</view>
+    </view>
 </view>

@@ -1,0 +1,57 @@
+page {
+  background: #f3f3f3;
+}
+page .common-problem {
+  background: #fff;
+  padding-left: 32rpx;
+  margin-bottom: 20rpx;
+}
+page .common-problem .item {
+  position: relative;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid rgba(0,0,0,0.1);
+}
+page .common-problem .item .item-title {
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  color: #66666d;
+  font-size: 28rpx;
+}
+page .common-problem .item .item-title .problem-title {
+  flex: 1;
+}
+page .common-problem .item .item-title .iconfont {
+  margin-right: 42rpx;
+}
+page .common-problem .item .item-title .iconfont::after {
+  display: inline-block;
+  content: '\e60e';
+  font-size: 32rpx;
+  color: rgba(0,0,0,0.3);
+}
+page .common-problem .item .item-title .iconfont.down {
+  transition: 0.4s;
+  transform: rotateZ(90deg);
+}
+page .common-problem .item .item-title .iconfont.up {
+  transition: 0.4s;
+  transform: rotateZ(270deg);
+}
+page .common-problem .item .details {
+  font-size: 24rpx;
+  color: rgba(0,0,0,0.3);
+  padding-top: 26rpx;
+  padding-right: 32rpx;
+  line-height: 34rpx;
+}
+page .common-problem .item .details.show {
+  display: block;
+}
+page .common-problem .item .details.hide {
+  display: none;
+}
+page .common-problem > view:last-child {
+  border-bottom: 0;
+}

@@ -1,16 +1,17 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="recharge-instructions">
     <view class="card">
         <view class="title">授权预充通行保证金</view>
         <view class="transfer">
             <view>
                 <view>转出银行</view>
-                <view>建设银行（0295)</view>
+                <view>{{bankList[0].bankName}}（{{tools.substring(bankList[0].accountNo, bankList[0].accountNo.length - 4, bankList[0].accountNo.length)}})</view>
                 <view class="tips">　</view>
             </view>
             <view class="iconfont arrow"></view>
             <view>
                 <view>转入银行</view>
-                <view>工商银行（9020)</view>
+                <view>工商银行（{{tools.substring(bankCardInfo.accountNo, bankCardInfo.accountNo.length - 4, bankCardInfo.accountNo.length)}})</view>
                 <view class="tips">ETC专用II类户</view>
             </view>
         </view>

@@ -1,226 +1,285 @@
 @import "../../../style/base.styl";
 .index
-	// 公共部分
-	.btn
-		display flex
-		align-items center
-		justify-content center
-		height 98rpx
-		font-size 40rpx
-		font-weight 500
-		color #fff
-		border-radius 49rpx
-		background: linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
-		box-shadow: 0 8rpx 10rpx 0 rgba(132,209,87,0.2);
-	.tips
-		display flex
-		align-items center
-		justify-content center
-		margin-top 20rpx
-		text-align center
-		font-size 24rpx
-		height 40rpx
-		color $fontColor9
-		& > text
-			color $error
-	.tips-red
-		color red
-	// 欢迎语
-	.welcome
-		margin 26rpx 0
-		padding-left 60rpx
-		font-size 60rpx
-		line-height 60rpx
-		font-weight:500
-		& > open-data
-			margin-left 26rpx
-			font-size 32rpx
-			color $fontColor6
-	// 轮播图
-	.my-swiper
-		//margin 40rpx 40rpx 0
-		height 394rpx
-		//border-radius 32rpx
-		overflow hidden
-		.my-swiper-item
-			height 364rpx!important
-			//background: linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
-			border-radius 32rpx
-			& > image
-				text-align center
-				width 90%
-				height 100%
-				margin-left 5%
-				border-radius 32rpx
-		.wx-swiper-dots-horizontal
-			margin-bottom -18rpx
-		.wx-swiper-dot
-			margin-right 4rpx
-			width 10rpx
-			height 10rpx
-			background: #E3E5E6
-			&.wx-swiper-dot-active
-				background: #979999
-	// 立即办理
-	.free-processing
-		margin-top 98rpx
-		padding 0 70rpx
-		padding-bottom 40rpx
-	// 办理中 查看进度 修改资料 审核失败 确认收货并激活 恢复签约 账单
-	.processing,.viewing-process,.update-info, .audit-failure, .confirm-receipt, .resume-contract, .bill
-		margin-top 40rpx
-		padding 0 60rpx 40rpx
-		.processing-title
+	width 100%
+	overflow-x hidden
+	background #F6F6F6;
+	margin 0
+	//顶部
+	.top
+		width 100%
+		padding 40rpx
+		background: linear-gradient(180deg, #9dde89 0%, rgba(132, 209, 87, 0) 100%);
+		.bg-image
+			position relative
+			height 30vh
+			image
+				position absolute
+				right 46rpx
+				top -80rpx
+				width 498rpx
+			.bg-desc
+				margin-top 150rpx
+				margin-left 10rpx
+				.one
+					font-size 48rpx
+					font-weight Semibold
+					color transparent
+					text-shadow #33333E 0 0 3rpx
+				.two
+					font-size 48rpx
+					font-weight Semibold
+					color transparent
+					text-shadow #33333E 0 0 3rpx
+					&>text:nth-child(2)
+						color #FFC000
+						font-weight 500
+						text-shadow none
+				.three
+					font-size 28rpx
+					margin-top 18rpx
+					font-weight Regular
+					color transparent
+					text-shadow #66666E 0 0 2rpx
+	.content
+		position absolute
+		width 100%
+		z-index 1
+		background #F6F6F6
+		//用户导航栏
+		.btn-content
 			display flex
-			align-items center
-			height 48rpx
-			& > view
-				&:first-of-type
-					display flex
-					align-items center
+			flex-direction column
+			text-align center
+			z-index 111
+			width 610rpx
+			height 190rpx
+			border-radius 20rpx
+			margin 0 auto
+			margin-top -120rpx
+			padding 30rpx
+			background rgba(255,255,255,1)
+			.interior
+				image
+					margin-top 20epx
+					width 130rpx
 					height 48rpx
-					flex 1
-					font-size 32rpx
-				&:last-of-type
-					display flex
-					height 40rpx
-					align-items center
-					font-size 24rpx
-					color $fontColor9
-					&::after
-						margin-left 5rpx
-						display inline-block
-						width 0
-						content ''
-						border-color rgba(0,0,0,0)
-						border-bottom-style solid
-						border-right 15rpx solid #FFEC9A
-						border-width 15rpx
-						transform rotateZ(45deg)
-		.btn
-			margin 20rpx 10rpx 0
-	// 审核失败
-	.audit-failure
-		.failed
-			margin-top 38rpx
-			display flex
-			align-items center
-			justify-content center
-			height 74rpx
-			color $error
-			font-size 40rpx
-		.tips
-			margin-top 36rpx
-	// 账单
-	.bill
-		padding 0 40rpx
-		.processing-title
-			margin 0 20rpx
-		.bill-info
-			margin 20rpx 0
-			padding 0 20rpx
-			height 178rpx
-			box-shadow: 4rpx 4rpx 46rpx 0 rgba(126,132,156,0.1);
-			border-radius 32rpx
-			& > view
+					margin-bottom -15rpx
+					padding-left 370rpx
+			.trans-tips
+				margin-top 10rpx
+				margin-bottom 0rpx
+				color: transparent;
+				letter-spacing 0.32rpx
+				text-shadow: #00B1FF 0 0 2rpx
+				font-size 22rpx
+				&>text:nth-child(2)
+					color #F7B500
+			.btn
+				display flex
+				margin 0rpx 30rpx
+				height 100rpx
+				align-items center
+				justify-content center
+				background: linear-gradient(90deg, #00AF62 0%, #68D33F 100%);
+				box-shadow: 0rpx 4rpx 5rpx 0rpx rgba(132, 209, 87, 0.2);
+				border-radius: 50rpx;
+				font-size: 40rpx;
+				font-family: PingFangSC-Medium, PingFang SC;
+				font-weight: 500;
+				color: #FFFFFF;
+		.service-desc
+			margin 30rpx auto
+			background: #FFFFFF;
+			width 610rpx
+			height 348rpx
+			justify-items center
+			box-shadow: 2rpx 2rpx 23rpx 0rpx rgba(126, 132, 156, 0.1);
+			border-radius: 32rpx;
+			padding 30rpx
+			.title
 				display flex
 				align-items center
-				padding 0 20rpx
-				&:first-of-type
-					height  86rpx
-					border-bottom 1rpx solid #F1F1F1
-					& > view
-						&:first-of-type
-							flex 1
-							font-size 40rpx
-							color rgba(51,51,61,1)
-							font-weight 500
-						&:last-of-type
-							font-size 24rpx
-							color $fontColor9
-							&.failed
-								color $error
-								font-size 32rpx
-				&:last-of-type
-					height 90rpx
-					.up, .down
+				font-size 40rpx
+				height 50rpx
+				font-family: PingFangSC-Medium, PingFang SC
+				font-weight: bold;
+				color: #33333D;
+				&::before
+					margin-right 10rpx
+					content ''
+					width 10rpx
+					height 10rpx
+					border 6rpx solid #14AC69
+					border-radius 50%
+			.photo
+				display flex
+				margin-top 20rpx
+				border-radius: 20rpx;
+				view
+					margin-top 12rpx
+					margin-right 30rpx
+					width 290rpx
+					height 92rpx
+					.photo-item
+						display flex
+						flex-direction row
+						align-items center
+						opacity 0.75
+						border 2rpx solid #D4EDCE
+						border-radius 20rpx
+						.image
+							margin-left 34rpx
+							&.one
+								width 42rpx
+								height 48rpx
+							&.second
+								width 52rpx
+								height 46rpx
+							&.three
+								width 42rpx
+								height 42rpx
+							&.four
+								width 48rpx
+								height 48rpx
+						& > text
+							margin-left 14rpx
+							font-size: 24rpx;
+							font-family: PingFangSC-Medium, PingFang SC;
+							font-weight: Regular;
+							letter-spacing 0.4rpx
+							color: #66666D;
+		.handle-desc
+			margin 0 auto
+			background: #FFFFFF;
+			box-shadow: 2rpx 2rpx 23rpx 0rpx rgba(126, 132, 156, 0.1);
+			border-radius: 32rpx;
+			width 610rpx
+			padding 30rpx
+			padding-bottom 0rpx
+			.process-title
+				display flex
+				align-items center
+				font-size 40rpx
+				height 50rpx
+				font-family: PingFangSC-Medium, PingFang SC
+				font-weight: bold;
+				color: #33333D;
+				&::before
+					margin-right 10rpx
+					content ''
+					width 10rpx
+					height 10rpx
+					border 6rpx solid #14AC69
+					border-radius 50%
+			.material
+				margin-top 40rpx
+				margin-left 28rpx
+				font-size: 32rpx;
+				font-family: PingFangSC-Medium, PingFang SC;
+				font-weight: Medium;
+				color: transparent;
+				text-shadow #00B062 0 0 3rpx
+			.photo
+				display flex
+				margin-top 20rpx
+				background: #F3FFF9;
+				border-radius: 20rpx;
+				padding 40rpx 30rpx
+				&>.photo-item:nth-child(1)
+					display flex
+					flex-direction column
+					justify-content center
+					align-items center
+					flex 1
+					.image
+						width 148rpx
+						height 88rpx
+					& > text
+						text-align center
+						margin-top 10rpx
+						font-size: 24rpx;
+						font-family: PingFangSC-Medium, PingFang SC;
+						font-weight: 500;
+						color: #66666D;
+				&>.photo-item:nth-child(2)
+					display flex
+					flex-direction column
+					justify-content center
+					align-items center
+					flex 1
+					.image
+						width 140rpx
+						height 88rpx
+					& > text
+						text-align center
+						margin-top 10rpx
+						font-size: 24rpx;
+						font-family: PingFangSC-Medium, PingFang SC;
+						font-weight: 500;
+						color: #66666D;
+				&>.photo-item:nth-child(3)
+					display flex
+					flex-direction column
+					justify-content center
+					align-items center
+					flex 1
+					.image
+						width 128rpx
+						height 90rpx
+					& > text
+						text-align center
+						margin-top 10rpx
+						font-size: 24rpx;
+						font-family: PingFangSC-Medium, PingFang SC;
+						font-weight: 500;
+						color: #66666D;
+			.progress_wrapper
+				margin-top 60rpx
+				.item
+					position relative
+					padding-bottom 40rpx
+					border-left 1rpx dashed rgba(167,167,167,0.49)
+					&::before
+						position absolute
+						top -8rpx
+						left -9rpx
+						content ''
+						display inline-block
+						width 17rpx
+						height 17rpx
+						border-radius 50%
+						background: #20B068
+					&:last-of-type
+						border-left 0
+						padding-bottom 10rpx
+						&::before
+							left -8rpx
+					.content-title
+						position relative
+						padding-left 32rpx
 						display flex
 						align-items center
-						font-size 28rpx
-						color $fontColor9
-						& > view
-							flex 8
-						& > text
-							margin-right 10rpx
-							text-align center
-							align-items center
-							justify-content center
-							width 28rpx
-							height 28rpx
-							line-height 28rpx
-							color #fff
-							font-size 20rpx
-							background: #FFAF9A
-							border-radius 50%
-					.down
-						margin-left 44rpx
-						& > text
-							background: #8CD5B5
-					.price
-						flex 1
-						text-align right
-						color $fontColor
-						font-weight bold
-						font-size 48rpx
-					.refund
-						color $fontColor9
-		.bill-empty
-			display flex
-			align-items center
-			justify-content center
-			margin 20rpx 0
-			padding 0 20rpx
-			height 178rpx
-			box-shadow: 4rpx 4rpx 46rpx 0 rgba(126,132,156,0.1);
-			border-radius 32rpx
-			& > image
-				margin-right 30rpx
-				//flex 0 0 106rpx
-				width 150rpx
-				height 106rpx
-				border-radius 12rpx
-			& > view
-				color $fontColor9
-
-	// 分割线
-	.split
-		height 20rpx
-		background: #FAFAFA
-		box-shadow:0px -2rpx 0 0 rgba(241,240,245,1);
-	// 底部导航
-	.nav
-		display flex
-		justify-content center
-		padding-top 26rpx
-		.item
-			margin-left 70rpx
+						font-size 32rpx;
+						font-family: PingFangSC-Medium, PingFang SC;
+						font-weight: Medium;
+						color: transparent;
+						text-shadow #15AD69 0 0 3rpx
+						transform translateY(-24rpx)
+					.content-des
+						display flex
+						margin-top 10rpx
+						padding-left 38rpx
+						padding-right 6rpx
+						line-height 40rpx
+						color rgba(126,132,156,0.85)
+						font-size 22rpx
+						transform translateY(-24rpx)
+				.last
+					&::after
+						display none!important
+		.bottom
+			margin-top 30rpx
+			height 100rpx
 			text-align center
-			flex 0 0 100rpx
-			&:first-of-type
-				margin-left 0
-			& > view
-				& > image
-					width 100%
-					height 100%
-				&:first-of-type
-					width 100rpx
-					height 100rpx
-					padding 20rpx
-					box-sizing border-box
-					border-radius 20rpx
-					box-shadow:0 6rpx 10rpx 0 rgba(126,132,156,0.1)
-				&:last-of-type
-					margin-top 8rpx
-					font-size 24rpx
-					line-height 40rpx
-					color $fontColor6
+			font-size 24rpx
+			color rgba(3,158,235,0.85)

@@ -16,10 +16,14 @@ Page({
 		contractTollInfo: undefined,
 		contractPoundageInfo: undefined,
 		contractBondInfo: undefined,
+		bankCardInfo: {},
 		isRequest: false,
 		available: false
 	},
 	async onLoad () {
+		this.setData({
+			bankCardInfo: app.globalData.bankCardInfo
+		});
 		app.globalData.signAContract = 3;
 	},
 	async onShow () {
@@ -40,17 +44,20 @@ Page({
 			contractType: this.data.contractType,
 			immediately: true
 		});
+		console.log(result);
 		if (!result) return;
-		if (result.code === 0) {
-			app.globalData.signAContract = 3;
-			// 签约成功 userState: "NORMAL"
-			if (result.data.contractStatus === 1) {
-				await this.getETCDetail();
-			} else {
-				util.showToastNoIcon('未签约成功！');
-			}
-		} else {
+		if (result.code) {
 			util.showToastNoIcon(result.message);
+			return;
+		}
+		app.globalData.signAContract = 3;
+		// 签约成功 userState: "NORMAL"
+		console.log(result.data);
+		if (result.data.contractStatus === 1) {
+			console.log('-----------');
+			await this.getETCDetail();
+		} else {
+			util.showToastNoIcon('未签约成功！');
 		}
 	},
 	// 加载订单详情
@@ -76,11 +83,13 @@ Page({
 					contractBondInfo = item;
 				}
 			});
+			const list = result.data.multiContractList.filter(item => item.contractStatus === 1);
 			// if (!result.data.multiContractList.length) isContractToll = true;
 			this.setData({
 				// isContractBond,
 				// isContractToll,
 				// isContractPoundage,
+				available: list.length === 3,
 				contractTollInfo,
 				contractPoundageInfo,
 				contractBondInfo,
@@ -90,24 +99,35 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
-	// 查询车主服务签约
-	async queryContract () {
-		const result = await util.getDataFromServersV2('consumer/order/query-contract', {
-			orderId: app.globalData.orderInfo.orderId
-		});
-		if (!result) return;
-		if (result.code === 0) {
-			this.setData({
-				contractStatus: result.data.contractStatus
-			});
-		} else {
-			util.showToastNoIcon(result.message);
-		}
-	},
-	go (e) {
+	async go (e) {
 		let item = e.currentTarget.dataset.item;
+		this.setData({
+			contractType: item.contractType
+		});
 		if (item.contractStatus === 1) return;
-		console.log(item)
+		if (item.contractType === 3 && !item.memberAccountId) {
+			const isOk = await util.updateOrderContractMappingBankAccountId(item, app.globalData.bankCardInfo);
+			if (isOk) this.onclickSign(item);
+			return;
+		}
+		if (item.contractType === 3 && item?.contractStatus === 2 && item.contractId) {
+			app.globalData.isTruckHandling = true;
+			app.globalData.signAContract = 4;
+			wx.navigateToMiniProgram({
+				appId: 'wxbcad394b3d99dac9',
+				path: 'pages/etc/index',
+				extraData: {
+					contract_id: item.contractId
+				},
+				success () {
+				},
+				fail (e) {
+					// 未成功跳转到签约小程序
+					util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
+				}
+			});
+			return;
+		}
 		this.onclickSign(item);
 	},
 	// 微信签约
@@ -117,9 +137,6 @@ Page({
 		} else {
 			this.setData({isRequest: true});
 		}
-		this.setData({
-			contractType: item.contractType
-		});
 		// mta.Event.stat('information_list_next',{});
 		util.showLoading('加载中');
 		let params = {

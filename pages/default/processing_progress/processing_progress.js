@@ -8,6 +8,7 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
+		bankCardInfo: undefined,
 		orderId: undefined,
 		dashedHeight: 0,
 		accountVerification: 0, //  0 没有核验id   1：核验成功，2-正在核验
@@ -20,10 +21,10 @@ Page({
 		memberId: '',
 		weiBaoOrderId: ''
 	},
-	onLoad (options) {
-		// this.showDetail();
+	async onLoad (options) {
 		this.setData({
-			isContinentInsurance: app.globalData.isContinentInsurance
+			isContinentInsurance: app.globalData.isContinentInsurance,
+			bankCardInfo: app.globalData.bankCardInfo
 		});
 		if (options.orderId) {
 			this.setData({
@@ -42,6 +43,7 @@ Page({
 		if (!app.globalData.userInfo.accessToken) {
 			this.login();
 		} else {
+			await util.getV2BankId();
 			this.getProcessingProgress();
 			if (!this.data.isContinentInsurance) {
 				this.getInsuranceOffer();
@@ -60,7 +62,7 @@ Page({
 				}, () => {
 					util.hideLoading();
 					util.showToastNoIcon('登录失败！');
-				}, (res) => {
+				}, async (res) => {
 					if (res.code === 0) {
 						res.data['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
 						this.setData({
@@ -70,6 +72,7 @@ Page({
 						app.globalData.openId = res.data.openId;
 						app.globalData.memberId = res.data.memberId;
 						app.globalData.mobilePhone = res.data.mobilePhone;
+						await util.getV2BankId();
 						this.getProcessingProgress();
 						if (!this.data.isContinentInsurance) {
 							this.getInsuranceOffer();
@@ -86,6 +89,8 @@ Page({
 			}
 		});
 	},
+	// 预充
+	onClickPrecharge () {},
 	// 去微保
 	goMicroInsurance () {
 		mta.Event.stat('processing_progress_weibao',{});
@@ -176,6 +181,7 @@ Page({
 					mta.Event.stat('truck_for_processing_progress',{});
 				}
 				this.setData({
+					bankCardInfo: app.globalData.bankCardInfo,
 					info: res.data
 				});
 				if (this.data.info.orderVerificationId && this.data.info.isNewTrucks !== 1) {

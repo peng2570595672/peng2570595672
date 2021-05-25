@@ -1,5 +1,18 @@
-page {
-  background: #fff;
+.prompt {
+  width: 100%;
+}
+.prompt > view view {
+  width: 100%;
+  background: rgba(255,86,60,0.52);
+  padding: 16rpx 32rpx 16rpx 25rpx;
+  text-align: left;
+  font-size: 24rpx;
+  line-height: 40rpx;
+  box-sizing: border-box;
+  color: #f4f4f4;
+}
+.prompt > view view text {
+  text-decoration: underline;
 }
 .order_details .deduction-amount {
   position: relative;
@@ -7,116 +20,104 @@ page {
   font-size: 76rpx;
   font-weight: 500;
   color: #33333d;
-  line-height: 53px;
-  border-bottom: 5rpx dashed #fff;
-  background: linear-gradient(to right, #fff, #99999d, #fff);
-  background-origin: border-box;
-}
-.order_details .deduction-amount .doubt {
-  position: absolute;
-  top: 32rpx;
-  right: 62rpx;
-  line-height: 38rpx;
-  background: #fff;
-  z-index: 1;
-}
-.order_details .deduction-amount .doubt::before {
-  content: '\e650';
-  color: #039eeb;
-  font-size: 38rpx;
-}
-.order_details .deduction-amount .deduction-amount-box {
-  position: relative;
-  padding: 80rpx 28rpx 68rpx;
-  background: #fff;
-}
-.order_details .deduction-amount .deduction-amount-box .deduction-amount-title {
-  font-size: 32rpx;
-  color: #99999d;
-  font-weight: 400;
-  line-height: 44rpx;
-}
-.order_details .deduction-amount .deduction-amount-box .flow-version-second,
-.order_details .deduction-amount .deduction-amount-box .failure-prompted {
-  font-size: 24rpx;
-  color: #f00;
-  line-height: 34rpx;
-}
-.order_details .deduction-amount .deduction-amount-box .flow-version-second {
-  color: #f7b500;
-}
-.order_details .deduction-amount .deduction-amount-box .deduction-amount-red {
-  color: #f00;
-}
-.order_details .deduction-amount .deduction-amount-box .refund {
-  color: #99999d;
-}
-.order_details .deduction-amount .deduction-amount-box .split-amount {
-  position: absolute;
-  width: 100%;
-  bottom: 10rpx;
-  left: 0;
-  padding: 0 70rpx;
-  box-sizing: border-box;
+  height: 284rpx;
   display: flex;
+  justify-content: center;
+  line-height: 284rpx;
+  margin: 0 32rpx;
+  box-sizing: border-box;
+  background: #fff;
+  border-bottom: 1rpx solid rgba(0,0,0,0.1);
+}
+.order_details .deduction-amount text {
   font-size: 28rpx;
-  height: 40rpx;
-  color: #66666d;
-  align-items: center;
-}
-.order_details .deduction-amount .deduction-amount-box .split-amount > view {
-  flex: 1;
-}
-.order_details .deduction-amount .deduction-amount-box .split-amount > view text {
-  color: #33333d;
-}
-.order_details .deduction-amount .deduction-amount-box .split-amount > view text.buckling-failure {
   color: #ff563c;
+  line-height: 320rpx;
 }
-.order_details .tips {
-  background: #fffaec;
-  padding: 18rpx 40rpx;
-  color: #66666d;
-  font-size: 24rpx;
-  line-height: 36rpx;
+.order_details .deduction-amount.buckling-failure {
+  height: 228rpx;
+  line-height: 228rpx;
 }
-.order_details .tips .blue {
-  color: #039eeb;
+.order_details .deduction-amount.buckling-failure text {
+  line-height: 270rpx;
 }
 .order_details .deduction-details {
   background: #fff;
-  padding: 20rpx 60rpx;
+  padding: 0 32rpx 32rpx;
 }
 .order_details .deduction-details>view {
   display: flex;
   font-size: 28rpx;
-  padding-top: 20rpx;
+  padding-top: 26rpx;
 }
 .order_details .deduction-details>view>view:first-child {
-  flex: 4;
+  flex: 1;
   height: 48rpx;
   color: #66666d;
 }
-.order_details .deduction-details>view>view:last-child {
-  flex: 6;
-  text-align: right;
+.order_details .deduction-details>view>view:first-child.deductions-money {
   color: #33333d;
 }
-.order_details .refund-details {
-  background: rgba(247,181,0,0.08);
-  margin: 40rpx 0 60rpx;
+.order_details .deduction-details>view>view:last-child {
+  flex: 1;
+  text-align: right;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #33333d;
+}
+.order_details .deduction-details>view>view:last-child.deductions {
+  color: #f7b500;
+}
+.order_details .deduction-details>view>view:last-child.refund-success {
+  color: #27b266;
+}
+.order_details .deduction-details>view.add-border {
+  border-bottom: 1rpx solid rgba(0,0,0,0.1);
+  border-top: 1rpx solid rgba(0,0,0,0.1);
+}
+.order_details .deduction-details>view:first-child {
+  padding-top: 32rpx;
+}
+.order_details .deduction-details .consumption-type {
+  padding: 0;
+  height: 115rpx;
+  line-height: 115rpx;
+}
+.order_details .doubt {
+  height: 98rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0 32rpx;
+  border-bottom: 1rpx solid rgba(0,0,0,0.1);
+  border-top: 1rpx solid rgba(0,0,0,0.1);
+  color: #039eeb;
+  font-size: 28rpx;
+}
+.order_details .doubt::before {
+  content: '\e650';
+  font-size: 32rpx;
+  margin-right: 14rpx;
+}
+.order_details .doubt.not-border-bottom {
+  border-bottom: 0;
+}
+.order_details .line {
+  height: 32rpx;
+  background: #eee;
 }
 .order_details .payment {
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 98rpx;
+  height: 204rpx;
   padding: 20rpx 0;
   font-size: 24rpx;
-  color: #9d9da0;
+  color: #66666d;
   text-align: center;
   background: #fff;
+  border-top: 1rpx solid rgba(0,0,0,0.1);
 }
 .order_details .payment button {
   width: 84%;
@@ -128,9 +129,12 @@ page {
   font-size: 40rpx;
   color: #fff;
 }
+.order_details .payment .payment-tips {
+  padding-top: 18rpx;
+}
 .order_details .micro-insurance {
   position: fixed;
-  bottom: 22%;
+  bottom: 25%;
   right: 56rpx;
 }
 .order_details .micro-insurance image {
@@ -151,5 +155,5 @@ page {
   font-size: 30rpx;
 }
 .is-arrears {
-  padding-bottom: 118rpx;
+  padding-bottom: 224rpx;
 }

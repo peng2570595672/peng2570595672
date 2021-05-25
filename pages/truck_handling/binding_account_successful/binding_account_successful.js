@@ -15,10 +15,14 @@ Page({
 		isRequest: false// 是否请求中
 	},
 	async onLoad () {
-		await this.getV2BankId();
+		const result = await util.getV2BankId();
+		this.setData({
+			bankCardInfo: result
+		});
 		const info = await util.getETCDetail();
 		if (info[2]) {
-			const isOk = await util.updateOrderContractMappingBankAccountId(info[2], app.globalData.bankCardInfo);
+			let isOk = true;
+			if (!info[2].memberAccountId) isOk = await util.updateOrderContractMappingBankAccountId(info[2], app.globalData.bankCardInfo);
 			this.setData({
 				info: info[2],
 				isOk
@@ -32,19 +36,6 @@ Page({
 			if (isContract) {
 				util.go('/pages/truck_handling/contract_management/contract_management');
 			}
-		}
-	},
-	// 获取二类户号信息
-	async getV2BankId () {
-		const result = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
-		if (!result) return;
-		if (result.code === 0) {
-			app.globalData.bankCardInfo = result.data;
-			this.setData({
-				bankCardInfo: result.data
-			});
-		} else {
-			util.showToastNoIcon(result.message);
 		}
 	},
 	// 微信签约

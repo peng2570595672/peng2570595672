@@ -26,11 +26,12 @@ Page({
 	async onShow () {
 		await this.getBankAccounts();
 	},
-	// 获取二类户号信息
+	// 获取一类户号信息
 	async getBankAccounts () {
 		const result = await util.getDataFromServersV2('consumer/member/icbcv2/getBankAccounts');
 		if (!result) return;
 		if (result.code === 0) {
+			if (!result.data) result.data = [];
 			result.data.map(item => {
 				item.accountNo = item.accountNo.substr(0, 4) + ' *** *** ' + item.accountNo.substr(-4);
 			});
@@ -56,10 +57,10 @@ Page({
 	// 解绑
 	onClickUnbind (e) {
 		let index = e.currentTarget.dataset['index'];
-		if (this.data.bankList.length === 1) {
-			util.showToastNoIcon('当绑定卡只有1张时不可解绑');
-			return;
-		}
+		// if (this.data.bankList.length === 1) {
+		// 	util.showToastNoIcon('当绑定卡只有1张时不可解绑');
+		// 	return;
+		// }
 		util.alert({
 			title: ``,
 			content: `确定解除当前银行卡的绑定吗？`,

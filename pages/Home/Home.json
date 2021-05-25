@@ -1,9 +1,10 @@
 {
-	"navigationBarBackgroundColor": "#FFFFFF",
-	"backgroundColor": "#FFFFFF",
-	"navigationBarTextStyle": "black",
-	"navigationBarTitleText": "ETC+",
+  "navigationBarTitleText": "",
+  "navigationBarBackgroundColor": "#000000",
+  "backgroundColor": "#000000",
+  "navigationBarTextStyle": "white",
+  "navigationStyle": "custom",
 	"usingComponents": {
-		"signing-prompt": "/components/signing_prompt/signing_prompt"
+      "popup": "/components/dialog/dialog"
 	}
 }

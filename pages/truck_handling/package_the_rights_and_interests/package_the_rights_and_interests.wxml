@@ -30,8 +30,7 @@
                     </view>
                     <view class="basic-service-list">
                         <view class="basic-service-item" wx:for="{{basicServiceList}}" wx:key="index">
-                            <image src="{{item.logo}}" mode="widthFix"></image>
-                            <view>{{item.title}}</view>
+                            <view class="iconfont logo {{item.ico}}">{{item.title}}</view>
                             <view class="tips">{{item.tips}}</view>
                         </view>
                         <view class="other-service-item other-service-first" catchtap="onClickCheckTheService" data-index="0">

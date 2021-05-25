@@ -391,11 +391,11 @@ Page({
 				licenseVicePage: this.data.drivingLicenseBack.fileUrl, // 副页地址 【dataType包含6】
 				fileNumber: back.fileNumber, // 档案编号 【dataType包含6】
 				personsCapacity: back.personsCapacity, // 核定载人数 【dataType包含6】
-				totalMass: back.totalMass + 'kg', // 总质量 【dataType包含6】
-				loadQuality: back.loadQuality ? back.loadQuality + 'kg' : '--', // 核定载质量 【dataType包含6】
-				curbWeight: back.curbWeight + 'kg', // 整备质量 【dataType包含6】
+				totalMass: this.determineTheWeight(back.totalMass), // 总质量 【dataType包含6】
+				loadQuality: this.determineTheWeight(back.loadQuality), // 核定载质量 【dataType包含6】
+				curbWeight: this.determineTheWeight(back.curbWeight), // 整备质量 【dataType包含6】
 				size: `${back.vehicleLength}×${back.vehicleWidth}×${back.vehicleHeight}mm`, // 外廓尺寸 【dataType包含6】
-				tractionMass: back.tractionMass, // 准牵引总质量 【dataType包含6】
+				tractionMass: this.determineTheWeight(back.tractionMass), // 准牵引总质量 【dataType包含6】
 				recode: back.recode, // 检验记录 【dataType包含6】
 				vehicleCategory: 0, // 收费车型(后台选) 一型客车 1,二型客车 2,三型客车 3,四型客车 4,一型货车 11,二型货车 12,三型货车 13,四型货车 14,五型货车 15,六型货车 16
 				axleNum: this.data.carTypeArr[this.data.carType].id, // 轴数
@@ -420,6 +420,11 @@ Page({
 			available: true,
 			isRequest: false
 		});
+	},
+	determineTheWeight (info) {
+		if (!info) return '--';
+		if (info.includes('kg') || info.includes('--')) return info;
+		return info + 'kg';
 	},
 	// 输入项值变化
 	onInputChangedHandle (e) {

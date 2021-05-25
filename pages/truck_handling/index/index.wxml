@@ -8,58 +8,30 @@
 	</view>
 	<!--顶部结束-->
 	<view class="btn-content">
-		<view class="interior">
-			<image src="/pages/truck_handling/assets/wechat_pay.png" mode="widthFix"></image>
-		</view>
 		<view class="online-tips">ETC+货车上线了</view>
 		<view class="memo-content">
 			<text>全国高速</text>
 			<text>85折</text>
 			<text>起</text>
 		</view>
-		<view class="btn" catchtap="onClickHandle">限时免费办理货车ETC</view>
-		<view class="discount-tips">过路费年省5000元，仅支持个人车辆办理</view>
-	</view>
-	<!--权益-->
-	<view class="right-interest">
-		<view class="interest-title">货车ETC+权益</view>
-		<view class="interests-list">
-			<view class="charge_item">
-				<view class="label one iconfont"></view>
-				<view class="charge-text">
-					<view>微信扣费</view>
-					<view>免充值</view>
+		<view class="pay-log">
+			<view>
+				<view>
+					<image src="/pages/truck_handling/assets/ICBC.svg"></image>
+					<view>中国工商银行</view>
 				</view>
-			</view>
-			<view class="charge_item">
-				<view class="label two iconfont"></view>
-				<view class="charge-text two">
-					<view class="btn-charge-detail" catchtap="onclickDetail">详情</view>
-					<view>全国通行</view>
-					<view>85折起</view>
-				</view>
-			</view>
-			<view class="charge_item">
-				<view class="label three iconfont"></view>
-				<view class="charge-text">
-					<view>专属客服</view>
-					<view>在线解疑</view>
-				</view>
-			</view>
-			<view class="charge_item">
-				<image class="label four" src="/pages/truck_handling/assets/not_charge.svg"></image>
-<!--				<view class="label four iconfont"></view>-->
-				<view class="charge-text">
-					<view>扣费失败</view>
-					<view>垫支24小时</view>
+				<view>
+					<image src="/pages/truck_handling/assets/we-chatpay.svg"></image>
+					<view>微信支付</view>
 				</view>
 			</view>
 		</view>
+		<view class="btn" catchtap="onClickHandle">限时免费办理货车ETC</view>
+		<view class="discount-tips">过路费年省5000元，仅支持个人车辆办理</view>
 	</view>
-	<view class="handle-and-process">
+	<view class="handle-desc">
 		<view class="process-title">
-			<view class="sign"><text></text></view>
-			<view class="truck-interest">办理流程</view>
+			<view class="truck-problem">办理说明</view>
 		</view>
 		<view class="material">需准备资料</view>
 		<view class="photo">
@@ -78,47 +50,75 @@
 				<text>道路运输证</text>
 				<text class="memo">牵引车上传</text>
 			</view>
+			<view class="photo-item">
+				<image class="image" src="/pages/truck_handling/assets/bank.svg"></image>
+				<text>I类银行卡</text>
+			</view>
 		</view>
-		<!--	进度开始-->
-		<view class="progress_wrapper" >
-			<view class="item">
-				<view class="content-title">填写资料</view>
-				<view class="content-des">填写车牌及ETC设备收件地址</view>
+		<!--办理流程-->
+		<view class="handle-process">
+			<view class="process-title">
+				<view class="truck-problem">办理流程</view>
 			</view>
-			<view class="item ">
-				<view class="content-title">选择办理方式</view>
-				<view class="content-des">上传身份证，行驶证及车身照片</view>
-			</view>
-			<view class="item">
-				<view class="content-title finished">签约通行费扣款方式</view>
-				<view class="content-des">用于高速通行后自动扣费</view>
-				<view class="tab">
-					<view class="tab-item">
-						<view class="first">还款方式</view>
-						<view>微信支付</view>
-					</view>
-					<view class="tab-item">
-						<view class="first">还款日</view>
-						<view>次日</view>
-					</view>
-					<view class="tab-item">
-						<view class="first">通行手续费</view>
-						<view>6‰</view>
+			<!--	进度开始-->
+			<view class="progress_wrapper" >
+				<view class="item">
+					<view class="content-title">填写资料</view>
+					<view class="content-des">填写邮寄地址及车辆信息</view>
+				</view>
+				<view class="item ">
+					<view class="content-title">选择办理方式，上传证件</view>
+					<view class="content-des">选择办理方式，支付服务费并上传相关证件及车身照片</view>
+				</view>
+				<view class="item">
+					<view class="content-title finished">开通电子账户预充保证金</view>
+					<view class="content-des">开通工商银行II类电子账户，授权预充保证金</view>
+					<view class="tab">
+						<view class="tab-item">
+							<view>货车类型</view>
+							<view>需预充保证金</view>
+						</view>
+						<view class="tab-item">
+							<view>一、二类货车</view>
+							<view>500元</view>
+						</view>
+						<view class="tab-item">
+							<view>三、四类货车</view>
+							<view>1000元</view>
+						</view>
+						<view class="tab-item">
+							<view>五、六类货车</view>
+							<view>2000元</view>
+						</view>
 					</view>
 				</view>
+				<view class="item">
+					<view class="content-title">签约微信免密扣款</view>
+					<view class="content-des">签约微信免密分别代扣保证金、通行费及通行手续费</view>
+				</view>
+				<view class="item last">
+					<view class="content-title">安装激活</view>
+					<view class="content-des">订单审核通过后安排快递配送，收货后请按指引激活ETC</view>
+				</view>
 			</view>
-			<view class="item">
-				<view class="content-title">提交审核</view>
-				<view class="content-des">审核通过后，1-3个工作日内发货</view>
-			</view>
-			<view class="item last">
-				<view class="content-title">安装激活</view>
-				<view class="content-des">收到设备后按提示自助安装</view>
+		</view>
+		<!--权益-->
+		<view class="frequency-problem">
+			<view class="problem-title">常见问题</view>
+			<view class="problems-list">
+				<view class="item" wx:for="{{ problems }}">
+					<view class="item-title iconfont">
+						{{ item.title }}
+					</view>
+					<view class="item-text">
+						<text>
+							{{ item.content }}
+						</text>
+					</view>
+				</view>
 			</view>
 		</view>
 	</view>
 	<!--	在线客服-->
 	<view class="bottom" catchtap="goOnlineServer">在线客服</view>
-    <information-validation-prompt id="notFinishedOrder" promptObject="{{promptObject}}"></information-validation-prompt>
-<!--	<pass-the-discount id="passTheDiscount"></pass-the-discount>-->
 </view>

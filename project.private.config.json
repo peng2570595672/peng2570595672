@@ -55,7 +55,7 @@
         {
           "name": "办理进度",
           "pathName": "pages/default/processing_progress/processing_progress",
-          "query": "orderId=844216137615937536",
+          "query": "orderId=842351271280119808",
           "scene": null
         },
         {
@@ -88,7 +88,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=842351271280119808",
+          "query": "orderId=842350485473071104",
           "scene": null
         },
         {
@@ -160,14 +160,14 @@
           "scene": null
         },
         {
-          "name": "pages/truck_handling/index/index",
-          "pathName": "pages/truck_handling/index/index",
+          "name": "pages/default/index/index",
+          "pathName": "pages/default/index/index",
           "query": "type=101",
           "scene": null
         },
         {
-          "name": "pages/account_management/index/index",
-          "pathName": "pages/account_management/index/index",
+          "name": "pages/truck_handling/index/index",
+          "pathName": "pages/truck_handling/index/index",
           "query": "orderId=807027129899814912",
           "scene": null
         },
@@ -190,8 +190,8 @@
           "scene": null
         },
         {
-          "name": "pages/truck_handling/shot_card/shot_card",
-          "pathName": "pages/truck_handling/shot_card/shot_card",
+          "name": "pages/account_management/account_recharge/account_recharge",
+          "pathName": "pages/account_management/account_recharge/account_recharge",
           "query": "type=1",
           "scene": null
         },
@@ -232,8 +232,8 @@
           "scene": null
         },
         {
-          "name": "pages/personal_center/coupon_details/coupon_details",
-          "pathName": "pages/personal_center/coupon_details/coupon_details",
+          "name": "pages/personal_center/recharge-card-processing/recharge-card-processing",
+          "pathName": "pages/personal_center/recharge-card-processing/recharge-card-processing",
           "query": "orderId=823587582322413568",
           "scene": null
         },

@@ -350,11 +350,11 @@ Page({
 				licenseVicePage: this.data.drivingLicenseBack.fileUrl, // 副页地址 【dataType包含6】
 				fileNumber: back.fileNumber, // 档案编号 【dataType包含6】
 				personsCapacity: back.personsCapacity, // 核定载人数 【dataType包含6】
-				totalMass: back.totalMass + 'kg', // 总质量 【dataType包含6】
-				loadQuality: back.loadQuality ? back.loadQuality + 'kg' : '--', // 核定载质量 【dataType包含6】
-				curbWeight: back.curbWeight + 'kg', // 整备质量 【dataType包含6】
+				totalMass: this.determineTheWeight(back.totalMass), // 总质量 【dataType包含6】
+				loadQuality: this.determineTheWeight(back.loadQuality), // 核定载质量 【dataType包含6】
+				curbWeight: this.determineTheWeight(back.curbWeight), // 整备质量 【dataType包含6】
 				size: back.size, // 外廓尺寸 【dataType包含6】
-				tractionMass: back.tractionMass, // 准牵引总质量 【dataType包含6】
+				tractionMass: this.determineTheWeight(back.tractionMass), // 准牵引总质量 【dataType包含6】
 				recode: back.recode // 检验记录 【dataType包含6】
 			}
 		};
@@ -376,6 +376,11 @@ Page({
 		} else {
 			util.showToastNoIcon(result.message);
 		}
+	},
+	determineTheWeight (info) {
+		if (!info) return '--';
+		if (info.includes('kg') || info.includes('--')) return info;
+		return info + 'kg';
 	},
 	// 输入项值变化
 	onInputChangedHandle (e) {

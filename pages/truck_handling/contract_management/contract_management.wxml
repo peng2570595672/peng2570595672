@@ -1,9 +1,10 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="information-list">
     <view class="list-title">需签约授权微信代扣各项费用</view>
     <view class="list-item">
         <view class="left">
             <view class="title">通行保证金</view>
-            <view>请选择II类账户(0090)签约</view>
+            <view>请选择II类账户({{tools.substring(bankCardInfo.accountNo, bankCardInfo.accountNo.length - 4, bankCardInfo.accountNo.length)}})签约</view>
             <view>授权通行保证金的预充/冻结/划扣</view>
         </view>
         <view class="btn iconfont {{contractBondInfo.contractStatus === 1 ? 'success' : ''}}" catchtap="go" data-item="{{contractBondInfo}}">{{contractBondInfo.contractStatus === 1 ? '' : '去签约'}}</view>
@@ -23,5 +24,5 @@
         <view class="btn iconfont {{contractPoundageInfo.contractStatus === 1 ? 'success' : ''}}" catchtap="go" data-item="{{contractPoundageInfo}}">{{contractPoundageInfo.contractStatus === 1 ? '' : '去签约'}}</view>
     </view>
     <view class="fill"></view>
-    <view class="btn-sign" catchtap="next">下一步</view>
+    <view class="btn-sign {{available ? 'available' : 'unavailable'}}" catchtap="next">下一步</view>
 </view>

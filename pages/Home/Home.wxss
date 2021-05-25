@@ -1,321 +1,332 @@
-.index .btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 98rpx;
-  font-size: 40rpx;
-  font-weight: 500;
-  color: #fff;
-  border-radius: 49rpx;
-  background: linear-gradient(to right, #15ad69, #84d157);
-  box-shadow: 0 8rpx 10rpx 0 rgba(132,209,87,0.2);
+.animated {
+  -webkit-animation-duration: 0.4s;
+  animation-duration: 0.4s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
 }
-.index .tips {
+@-webkit-keyframes linearAnimation {
+  0% {
+    width: 38rpx;
+  }
+  25% {
+    width: 68rpx;
+  }
+  50% {
+    width: 98rpx;
+  }
+  75% {
+    width: 128rpx;
+  }
+  100% {
+    width: 158rpx;
+  }
+}
+@-webkit-keyframes linearAnimation1 {
+  0% {
+    width: 38rpx;
+  }
+  25% {
+    width: 68rpx;
+    margin-left: 129rpx;
+  }
+  50% {
+    width: 98rpx;
+    margin-left: 99rpx;
+  }
+  75% {
+    width: 128rpx;
+    margin-left: 69rpx;
+  }
+  100% {
+    width: 158rpx;
+    margin-left: 39rpx;
+  }
+}
+@keyframes linearAnimation {
+  0% {
+    width: 38rpx;
+  }
+  25% {
+    width: 68rpx;
+  }
+  50% {
+    width: 98rpx;
+  }
+  75% {
+    width: 128rpx;
+  }
+  100% {
+    width: 158rpx;
+  }
+}
+@keyframes linearAnimation1 {
+  0% {
+    width: 38rpx;
+  }
+  25% {
+    width: 68rpx;
+    margin-left: 129rpx;
+  }
+  50% {
+    width: 98rpx;
+    margin-left: 99rpx;
+  }
+  75% {
+    width: 128rpx;
+    margin-left: 69rpx;
+  }
+  100% {
+    width: 158rpx;
+    margin-left: 39rpx;
+  }
+}
+.index {
+  width: 100%;
+  overflow-x: hidden;
+}
+.index .tab {
+  height: 176rpx;
+  background: #ebffdc;
+}
+.index .tab .tab-box {
+  padding: 96rpx 32rpx 0;
+  font-size: 48rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #000;
+}
+.index .tab .tab-box .check-vehicle {
   display: flex;
+}
+.index .tab .tab-box .check-vehicle .item {
+  padding-right: 30rpx;
+  display: flex;
+  height: 64rpx;
   align-items: center;
-  justify-content: center;
-  margin-top: 20rpx;
-  text-align: center;
+}
+.index .tab .tab-box .line {
+  display: flex;
+  width: 38rpx;
+  height: 12rpx;
+  background: #ffc000;
+  border-radius: 6rpx;
+  margin-top: 4rpx;
+  margin-left: 28rpx;
+}
+.index .tab .tab-box .line.active {
+  animation: linearAnimation 300ms;
+  animation-name: linearAnimation;
+}
+.index .tab .tab-box .line.active-trucks {
+  animation: linearAnimation1 300ms;
+  animation-name: linearAnimation1;
+}
+.index .tab .tab-box .line.skewing {
+  margin-left: 159rpx;
+}
+.index .deal-with {
+  position: relative;
+  height: 498rpx;
+  background-image: linear-gradient(#ebffdc, #caffcd);
+  z-index: 1;
+}
+.index .deal-with .left {
+  position: absolute;
+  z-index: 1;
+  left: 28rpx;
+}
+.index .deal-with .left .introduce-box {
+  display: flex;
+}
+.index .deal-with .left .introduce-box .introduce {
+  padding-top: 80rpx;
+  min-width: 500rpx;
+}
+.index .deal-with .left .introduce-box .introduce .title {
+  display: flex;
+  height: 64rpx;
+  align-items: center;
+  font-size: 52rpx;
+  font-family: Arial-Black, Arial;
+  font-weight: 900;
+  color: #00b85c;
+}
+.index .deal-with .left .introduce-box .introduce .title image {
+  width: 114rpx;
+  margin-top: -45rpx;
+}
+.index .deal-with .left .introduce-box .introduce .sub-title {
+  padding-top: 18rpx;
   font-size: 24rpx;
-  height: 40rpx;
-  color: #99999d;
+  color: rgba(102,102,110,0.8);
+  line-height: 34rpx;
 }
-.index .tips > text {
-  color: #ff563c;
+.index .deal-with .left .introduce-box .introduce.introduce-trucks {
+  padding-left: 450rpx;
 }
-.index .tips-red {
-  color: #f00;
-}
-.index .welcome {
-  margin: 26rpx 0;
-  padding-left: 60rpx;
-  font-size: 60rpx;
-  line-height: 60rpx;
-  font-weight: 500;
+.index .deal-with .left .btn {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 158rpx;
+  height: 50rpx;
+  border-radius: 25rpx;
+  margin-top: 82rpx;
+  background: #ffc000;
+  font-size: 24rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #fff;
 }
-.index .welcome .name {
-  flex: 1;
+.index .deal-with .left .btn.btn-switch-trucks {
+  background: #3ca1ff;
 }
-.index .welcome .name > open-data {
-  margin-left: 26rpx;
-  font-size: 32rpx;
-  color: #66666d;
+.index .deal-with .left .btn.btn-switch-passenger-car {
+  background: #ffc000;
 }
-.index .welcome .online-service {
-  margin-right: 66rpx;
-  width: 60rpx;
-  font-size: 18rpx;
-  color: #99999d;
-  text-align: center;
-  line-height: 18rpx;
+.index .deal-with .right {
+  position: absolute;
+  right: 0;
+  top: 45rpx;
+  z-index: 0;
 }
-.index .welcome .online-service image {
-  width: 40rpx;
-  height: 38rpx;
+.index .deal-with .right image {
+  width: 488rpx;
 }
-.index .my-swiper {
-  height: 394rpx;
+.index .deal-with .right.right-for-trucks {
+  right: -488rpx;
+}
+.index .order-info {
+  position: relative;
+  padding: 32rpx;
+  border-radius: 24rpx 24rpx 0rpx 0rpx;
+  background: #fffefe;
+  margin-top: -32rpx;
+  z-index: 2;
+}
+.index .order-info .order-info-box {
+  height: 290rpx;
+  background: #fff;
+  box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(159,159,159,0.15);
+  border-radius: 8rpx;
+}
+.index .order-info .order-info-box .vehicle-information {
+  display: flex;
+  height: 82rpx;
+  padding: 52rpx 48rpx 68rpx 46rpx;
   overflow: hidden;
 }
-.index .my-swiper .my-swiper-item {
-  height: 364rpx !important;
-  border-radius: 32rpx;
-}
-.index .my-swiper .my-swiper-item > image {
-  text-align: center;
-  width: 90%;
-  height: 100%;
-  margin-left: 5%;
-  border-radius: 32rpx;
-}
-.index .my-swiper .wx-swiper-dots-horizontal {
-  margin-bottom: -18rpx;
-}
-.index .my-swiper .wx-swiper-dots-horizontal .wx-swiper-dot {
-  margin-right: 4rpx;
-  width: 10rpx;
-  height: 10rpx;
-  background: #e3e5e6;
-}
-.index .my-swiper .wx-swiper-dots-horizontal .wx-swiper-dot.wx-swiper-dot-active {
-  background: #979999;
-}
-.index .free-processing {
-  margin-top: 98rpx;
-  padding: 0 70rpx;
-  padding-bottom: 40rpx;
-}
-.index .processing,
-.index .viewing-process,
-.index .update-info,
-.index .audit-failure,
-.index .confirm-receipt,
-.index .resume-contract,
-.index .bill {
-  margin-top: 40rpx;
-  padding: 0 60rpx 40rpx;
-}
-.index .processing .processing-title,
-.index .viewing-process .processing-title,
-.index .update-info .processing-title,
-.index .audit-failure .processing-title,
-.index .confirm-receipt .processing-title,
-.index .resume-contract .processing-title,
-.index .bill .processing-title {
-  display: flex;
-  align-items: center;
-  height: 48rpx;
-}
-.index .processing .processing-title > view:first-of-type,
-.index .viewing-process .processing-title > view:first-of-type,
-.index .update-info .processing-title > view:first-of-type,
-.index .audit-failure .processing-title > view:first-of-type,
-.index .confirm-receipt .processing-title > view:first-of-type,
-.index .resume-contract .processing-title > view:first-of-type,
-.index .bill .processing-title > view:first-of-type {
-  display: flex;
-  align-items: center;
-  height: 48rpx;
+.index .order-info .order-info-box .vehicle-information .vehicle-info {
   flex: 1;
-  font-size: 32rpx;
-}
-.index .processing .processing-title > view:last-of-type,
-.index .viewing-process .processing-title > view:last-of-type,
-.index .update-info .processing-title > view:last-of-type,
-.index .audit-failure .processing-title > view:last-of-type,
-.index .confirm-receipt .processing-title > view:last-of-type,
-.index .resume-contract .processing-title > view:last-of-type,
-.index .bill .processing-title > view:last-of-type {
-  display: flex;
-  height: 40rpx;
-  align-items: center;
-  font-size: 24rpx;
-  color: #99999d;
-}
-.index .processing .processing-title > view:last-of-type::after,
-.index .viewing-process .processing-title > view:last-of-type::after,
-.index .update-info .processing-title > view:last-of-type::after,
-.index .audit-failure .processing-title > view:last-of-type::after,
-.index .confirm-receipt .processing-title > view:last-of-type::after,
-.index .resume-contract .processing-title > view:last-of-type::after,
-.index .bill .processing-title > view:last-of-type::after {
-  margin-left: 5rpx;
-  display: inline-block;
-  width: 0;
-  content: '';
-  border-color: rgba(0,0,0,0);
-  border-bottom-style: solid;
-  border-right: 15rpx solid #ffec9a;
-  border-width: 15rpx;
-  transform: rotateZ(45deg);
-}
-.index .processing .btn,
-.index .viewing-process .btn,
-.index .update-info .btn,
-.index .audit-failure .btn,
-.index .confirm-receipt .btn,
-.index .resume-contract .btn,
-.index .bill .btn {
-  margin: 20rpx 10rpx 0;
-}
-.index .audit-failure .failed {
-  margin-top: 38rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 74rpx;
-  color: #ff563c;
-  font-size: 40rpx;
-}
-.index .audit-failure .tips {
-  margin-top: 36rpx;
-}
-.index .bill {
-  padding: 0 40rpx;
-}
-.index .bill .processing-title {
-  margin: 0 20rpx;
-}
-.index .bill .bill-info {
-  margin: 20rpx 0;
-  padding: 0 20rpx;
-  height: 178rpx;
-  box-shadow: 4rpx 4rpx 46rpx 0 rgba(126,132,156,0.1);
-  border-radius: 32rpx;
-}
-.index .bill .bill-info > view {
-  display: flex;
-  align-items: center;
-  padding: 0 20rpx;
-}
-.index .bill .bill-info > view:first-of-type {
-  height: 86rpx;
-  border-bottom: 1rpx solid #f1f1f1;
-}
-.index .bill .bill-info > view:first-of-type > view:first-of-type {
-  flex: 1;
-  font-size: 40rpx;
-  color: #33333d;
-  font-weight: 500;
-}
-.index .bill .bill-info > view:first-of-type > view:last-of-type {
-  font-size: 24rpx;
-  color: #99999d;
-}
-.index .bill .bill-info > view:first-of-type > view:last-of-type.failed {
-  color: #ff563c;
-  font-size: 32rpx;
-}
-.index .bill .bill-info > view:last-of-type {
-  height: 90rpx;
-}
-.index .bill .bill-info > view:last-of-type .up,
-.index .bill .bill-info > view:last-of-type .down {
-  display: flex;
-  align-items: center;
-  font-size: 28rpx;
-  color: #99999d;
-}
-.index .bill .bill-info > view:last-of-type .up > view,
-.index .bill .bill-info > view:last-of-type .down > view {
-  flex: 8;
-}
-.index .bill .bill-info > view:last-of-type .up > text,
-.index .bill .bill-info > view:last-of-type .down > text {
-  margin-right: 10rpx;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  width: 28rpx;
-  height: 28rpx;
-  line-height: 28rpx;
-  color: #fff;
-  font-size: 20rpx;
-  background: #ffaf9a;
-  border-radius: 50%;
-}
-.index .bill .bill-info > view:last-of-type .down {
-  margin-left: 44rpx;
-}
-.index .bill .bill-info > view:last-of-type .down > text {
-  background: #8cd5b5;
-}
-.index .bill .bill-info > view .fail-money,
-.index .bill .bill-info > view .success-money {
-  flex: 4;
-  font-size: 40rpx;
-  color: #ff563c;
-  line-height: 64rpx;
-  text-align: right;
-}
-.index .bill .bill-info > view .success-money {
-  color: #2fb565;
-}
-.index .bill .bill-info > view .refund {
-  color: #99999d;
-}
-.index .bill .bill-empty {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 20rpx 0;
-  padding: 0 20rpx;
-  height: 178rpx;
-  box-shadow: 4rpx 4rpx 46rpx 0 rgba(126,132,156,0.1);
-  border-radius: 32rpx;
-}
-.index .bill .bill-empty > image {
-  margin-right: 30rpx;
-  width: 150rpx;
-  height: 106rpx;
-  border-radius: 12rpx;
-}
-.index .bill .bill-empty > view {
-  color: #99999d;
-}
-.index .split {
-  height: 20rpx;
-  background: #fafafa;
-  box-shadow: 0px -2rpx 0 0 #f1f0f5;
-}
-.index .nav {
-  display: flex;
-  justify-content: center;
-  padding-top: 26rpx;
-}
-.index .nav .item {
-  margin-left: 70rpx;
-  text-align: center;
-  flex: 0 0 100rpx;
-}
-.index .nav .item:first-of-type {
-  margin-left: 0;
-}
-.index .nav .item > view > image {
-  width: 100%;
-  height: 100%;
-}
-.index .nav .item > view:first-of-type {
-  width: 100rpx;
-  height: 100rpx;
-  padding: 20rpx;
-  box-sizing: border-box;
-  border-radius: 20rpx;
-  box-shadow: 0 6rpx 10rpx 0 rgba(126,132,156,0.1);
-}
-.index .nav .item > view:last-of-type {
-  margin-top: 8rpx;
-  font-size: 24rpx;
-  line-height: 40rpx;
-  color: #66666d;
-}
-.index .nav .item.trucks {
   position: relative;
 }
-.index .nav .item.trucks .icon-trucks-discount {
+.index .order-info .order-info-box .vehicle-information .vehicle-info .vehicle-info-box {
+  flex: 1;
+  height: 82rpx;
+  font-size: 34rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #000;
+}
+.index .order-info .order-info-box .vehicle-information .vehicle-info .vehicle-info-box .sub-title {
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: rgba(102,102,110,0.8);
+  line-height: 34rpx;
+  padding-top: 14rpx;
+}
+.index .order-info .order-info-box .vehicle-information .vehicle-info .vehicle-info-box.vehicle-info-trucks-box {
   position: absolute;
-  width: 64rpx;
-  right: -32rpx;
-  top: -10rpx;
+  top: 150rpx;
+}
+.index .order-info .order-info-box .vehicle-information .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 240rpx;
+  height: 82rpx;
+  background: #00b85c;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #fff;
+}
+.index .order-info .order-info-box .vehicle-information .bill-info {
+  text-align: center;
+}
+.index .order-info .order-info-box .vehicle-information .bill-info .bill {
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #00b85c;
+}
+.index .order-info .order-info-box .vehicle-information .bill-info .bill::after {
+  content: '\e63e';
+  font-size: 20rpx;
+  color: #ffec9a;
+  margin-left: 12rpx;
+}
+.index .order-info .order-info-box .vehicle-information .bill-info .bill-status {
+  display: flex;
+  height: 34rpx;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  color: #33333e;
+  line-height: 34rpx;
+  padding-top: 2rpx;
+}
+.index .order-info .order-info-box .vehicle-information .bill-info .bill-status.failure::before {
+  color: #ff3c48;
+  content: '\e617';
+  margin-right: 8rpx;
+}
+.index .order-info .order-info-box .other-entrance {
+  display: flex;
+  height: 48rpx;
+  align-items: center;
+  padding: 0 32rpx;
+}
+.index .order-info .order-info-box .other-entrance .item {
+  flex: 1;
+  display: flex;
+  height: 48rpx;
+  align-items: center;
+  color: #000;
+  font-size: 24rpx;
+  border-right: 1rpx solid #e7e7e7;
+  padding-left: 12rpx;
+}
+.index .order-info .order-info-box .other-entrance .item::before {
+  color: #00b85c;
+  font-size: 32rpx;
+  margin-right: 8rpx;
+}
+.index .order-info .order-info-box .other-entrance .item.invoice::before {
+  content: '\e694';
+}
+.index .order-info .order-info-box .other-entrance .item.violation-enquiry::before {
+  content: '\e690';
+}
+.index .order-info .order-info-box .other-entrance .item.my-order::before {
+  content: '\e699';
+}
+.index .order-info .order-info-box .other-entrance .item.server::before {
+  content: '\e697';
+}
+.index .order-info .order-info-box .other-entrance .item.personal-center::before {
+  content: '\e695';
+}
+.index .order-info .order-info-box .other-entrance .item:first-child {
+  padding-left: 0;
+}
+.index .order-info .order-info-box .other-entrance .item:last-child {
+  border: 0;
+}
+.index .my-swiper .my-swiper-item image {
+  width: 504rpx;
 }

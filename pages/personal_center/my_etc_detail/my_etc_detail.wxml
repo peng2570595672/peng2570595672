@@ -20,15 +20,22 @@
 	</view>
 	<view class="item">
 		<view>订单状态</view>
-		<view class="caution" wx:if="{{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 3 && orderInfo.contractStatus !== 2}}">办理中</view>
-		<view class="caution" wx:if="{{orderInfo.selfStatus === 2 || orderInfo.contractStatus === 2 || orderInfo.selfStatus === 10}}">{{item.selfStatus === 10 ? '高速待签约' : '待签约'}}</view>
-		<view class="caution" wx:elif="{{orderInfo.selfStatus === 4 || orderInfo.selfStatus === 7 && orderInfo.contractStatus !== 2}}">审核中</view>
-		<view class="caution" wx:elif="{{orderInfo.selfStatus === 6 && orderInfo.contractStatus !== 2}}">待激活</view>
-		<view class="failed" wx:elif="{{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 8 && orderInfo.contractStatus !== 2}}">审核失败</view>
-		<view wx:elif="{{orderInfo.selfStatus === 9 && orderInfo.contractStatus !== 2}}" class="succeed">正常使用</view>
-		<view class="caution" wx:elif="{{orderInfo.selfStatus === 11}}">待支付</view>
+        <view class="caution {{orderInfo.selfStatus === 7 || orderInfo.selfStatus === 8 ? 'failed' : ''}} {{orderInfo.selfStatus === 12 ? 'succeed' : ''}}">
+            {{orderInfo.selfStatus === 1 ? '已解约' : ''}}
+            {{orderInfo.selfStatus === 2 || orderInfo.selfStatus === 4 || orderInfo.selfStatus === 14 ? '办理中' : ''}}
+            {{orderInfo.selfStatus === 3 ? '待支付' : ''}}
+            {{orderInfo.selfStatus === 5 ? '待签约' : ''}}
+            {{orderInfo.selfStatus === 6 ? '待审核' : ''}}
+            {{orderInfo.selfStatus === 7 || orderInfo.selfStatus === 8 ? '审核不通过' : ''}}
+            {{orderInfo.selfStatus === 9 ? '待签约高速' : ''}}
+            {{orderInfo.selfStatus === 10 ? '审核通过' : ''}}
+            {{orderInfo.selfStatus === 11 ? '待激活' : ''}}
+            {{orderInfo.selfStatus === 12 ? '已激活' : ''}}
+            {{orderInfo.selfStatus === 13 ? '待开户' : ''}}
+            {{orderInfo.selfStatus === 15 ? '待充保证金' : ''}}
+        </view>
 	</view>
-	<view class="des" wx:if="{{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 8 && orderInfo.contractStatus !== 2}}">{{orderInfo.auditRemark}}</view>
+	<view class="des" wx:if="{{orderInfo.selfStatus === 7 || orderInfo.selfStatus === 8}}">{{orderInfo.auditRemark}}</view>
 	<view class="item {{orderInfo.contractVersion === 'v3' ? 'iconfont' : ''}}">
 		<view>扣费方式</view>
 		<!--应产品(李小芳)要求,微信套餐,隐藏套餐名   productProcess === 1  微信支付  针对部分套餐名称错误的做处理-->
@@ -79,18 +86,20 @@
 	<view class="auto-fill"></view>
 	<!--	按钮开始-->
 	<view class="btns">
-		<button class="btn" wx:if="{{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 3 && orderInfo.contractStatus !== 2}}" catchtap="onClickContinueHandle">继续办理</button>
-		<button class="btn" wx:elif="{{orderInfo.selfStatus === 2 || orderInfo.contractStatus === 2 || orderInfo.selfStatus === 10}}" catchtap="onClickBackToSign">{{orderInfo.selfStatus === 10 ? '签约高速免密支付' : orderInfo.contractStatus === 2? '恢复签约' : '立即签约'}}</button>
-		<button class="btn" wx:elif="{{(orderInfo.selfStatus === 4 || orderInfo.selfStatus === 7) && orderInfo.contractStatus !== 2}}" catchtap="onClickViewProcessingProgressHandle">查看进度</button>
-		<!--<button class="btn" wx:elif="{{(orderInfo.selfStatus === 4 || orderInfo.selfStatus === 7) && orderInfo.contractStatus !== 2 && orderInfo.orderType !== 11}}" catchtap="onClickCctivate">确认收货并激活</button>-->
-		<button class="btn" wx:elif="{{(orderInfo.selfStatus === 5 || orderInfo.selfStatus === 8 && orderInfo.contractStatus !== 2) && orderInfo.auditStatus !== 9}}"  catchtap="onClickModifiedData">修改资料</button>
-		<button class="btn" wx:elif="{{orderInfo.selfStatus === 6 && orderInfo.contractStatus !== 2 && orderInfo.logisticsId === 0}}" catchtap="onClickViewProcessingProgressHandle">查看进度</button>
-		<button class="btn" wx:elif="{{orderInfo.selfStatus === 6 && orderInfo.contractStatus !== 2 && orderInfo.logisticsId !== 0}}" catchtap="onClickCctivate">确认收货并激活</button>
-		<button class="btn" wx:elif="{{orderInfo.selfStatus === 11}}" catchtap="goPaymentAmount">去支付</button>
-		<view class="btn-wrapper" wx:if="{{orderInfo.selfStatus !== 4 && orderInfo.selfStatus !== 6 && orderInfo.selfStatus !== 7}}">
-			<view catchtap="onClickCancelHandle" wx:if="{{orderInfo.selfStatus !== 4 && orderInfo.selfStatus !== 6 && orderInfo.selfStatus !== 7 && orderInfo.selfStatus !== 9 && orderInfo.selfStatus !== 10 && orderInfo.contractStatus !== 2 && orderInfo.orderType !== 51 && orderInfo.obuStatus !== 1}}">取消办理</view>
-			<view catchtap="onClickCancelHandle" wx:if="{{orderInfo.contractStatus === 2 && orderInfo.status === 0 && orderInfo.orderType !== 51 && orderInfo.obuStatus !== 1}}">取消办理</view>
-			<!--<view catchtap="onClickCancelHandle">取消办理</view>-->
+		<button class="btn" catchtap="onClickVehicle" wx:if="{{orderInfo.selfStatus !== 8 && orderInfo.selfStatus !== 12}}">
+            {{orderInfo.selfStatus === 1 ? '恢复签约' : ''}}
+            {{orderInfo.selfStatus === 2 || orderInfo.selfStatus === 4 || orderInfo.selfStatus === 14 ? '继续办理' : ''}}
+            {{orderInfo.selfStatus === 3 ? '去支付' : ''}}
+            {{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 9 ? '去签约' : ''}}
+            {{orderInfo.selfStatus === 6 || orderInfo.selfStatus === 10 ? '查看进度' : ''}}
+            {{orderInfo.selfStatus === 7 ? '修改资料' : ''}}
+            {{orderInfo.selfStatus === 11 ? '去激活' : ''}}
+            {{orderInfo.selfStatus === 13 ? '去开户' : ''}}
+            {{orderInfo.selfStatus === 15 ? '去预充' : ''}}
+        </button>
+		<view class="btn-wrapper">
+			<view catchtap="onClickCancelHandle" wx:if="{{orderInfo.status === 0 && orderInfo.orderType !== 51}}">取消办理</view>
+			<view catchtap="onClickCancelHandle" wx:if="{{orderInfo.status === 1 && (orderInfo.auditStatus === 1 || orderInfo.auditStatus === 9)}}">取消办理</view>
 			<view catchtap="goOnlineServer">客服中心</view>
 		</view>
 	</view>

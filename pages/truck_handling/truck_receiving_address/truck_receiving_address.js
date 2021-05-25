@@ -134,7 +134,7 @@ Page({
 			app.globalData.orderInfo.orderId = result.data.orderId; // 订单id
 			await util.initLocationInfo(orderInfo, true);
 			if (!app.globalData.newPackagePageData.listOfPackages?.length) return;// 没有套餐
-			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`);
+			util.go(`/pages/truck_handling/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`);
 		} else if (result.code === 301) { // 已存在当前车牌未完成订单
 			util.alert({
 				content: '该车牌订单已存在，请前往“首页>我的ETC”页面查看。',

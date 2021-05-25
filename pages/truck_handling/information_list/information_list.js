@@ -157,6 +157,24 @@ Page({
 	async next () {
 		if (!this.data.available) return;
 		if (this.data.isModifiedData) {
+			if (this.data.isRequest) {
+				return;
+			} else {
+				this.setData({isRequest: true});
+			}
+			util.showLoading('加载中');
+			let params = {
+				dataComplete: 1,// 资料已完善
+				orderId: app.globalData.orderInfo.orderId,// 订单id
+				changeAuditStatus: true
+			};
+			const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+			this.setData({isRequest: false});
+			if (!result) return;
+			if (result.code) {
+				util.showToastNoIcon(result.message);
+				return;
+			}
 			util.go('/pages/default/processing_progress/processing_progress');
 			return;
 		}

@@ -11,7 +11,7 @@ Page({
 		isServiceNotificationEntry: false,// 是否是服务通知进入
 		isRequest: false,// 是否请求
 		refundDetails: undefined,
-		popupContent: {},
+		contractMode: undefined,// 签约方式 - 扣款方式
 		requestRefundInfoNum: 0,
 		requestBillNum: 0,
 		details: ''
@@ -19,12 +19,6 @@ Page({
 	onLoad (options) {
 		app.globalData.splitDetails = undefined;
 		if (app.globalData.billingDetails) {
-			// 总对总账单
-			if (app.globalData.billingDetails.productName.includes('微信')) {
-				app.globalData.billingDetails.productType = 1;
-			} else {
-				app.globalData.billingDetails.productType = 2;
-			}
 			this.setData({details: app.globalData.billingDetails});
 		} else {
 			this.setData({
@@ -47,16 +41,8 @@ Page({
 	},
 	onShow () {
 		if (app.globalData.billingDetails) {
-			if (app.globalData.billingDetails.productName.includes('微信')) {
-				app.globalData.billingDetails.productType = 1;
-			} else {
-				app.globalData.billingDetails.productType = 2;
-			}
 			this.setData({details: app.globalData.billingDetails});
-			if (this.data.details.channel === 5) {
-				// 天津退费
-				this.getBillRefundDetail();
-			}
+			this.getBillDetail();
 		} else {
 			if (!app.globalData.userInfo.accessToken) {
 				this.login();
@@ -134,10 +120,28 @@ Page({
 			}
 		}, app.globalData.userInfo.accessToken);
 	},
+	// 获取扣款方式
+	getContractMode () {
+		util.showLoading();
+		const orderInfo = app.globalData.myEtcList.find(item => item.vehPlates === this.data.details.vehPlate);
+		let params = {
+			orderId: orderInfo.id
+		};
+		util.getDataFromServer('consumer/order/getContractMode', params, () => {
+			util.showToastNoIcon('获取扣款方式失败！');
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				this.setData({contractMode: res.data});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
 	// 查询账单退费详情
 	getBillRefundDetail () {
-		if (this.data.requestRefundInfoNum > 0) return;
-		this.setData({requestRefundInfoNum: 1});
 		util.showLoading();
 		let params = {
 			channel: this.data.details.channel,
@@ -158,8 +162,8 @@ Page({
 			util.hideLoading();
 		});
 	},
-	// 隐藏弹窗
-	onHandle () {
+	// 查看拆分列表
+	goSplitList () {
 		app.globalData.splitDetails = this.data.details;
 		this.setData({
 			requestRefundInfoNum: 0,
@@ -167,24 +171,12 @@ Page({
 		});
 		util.go('/pages/personal_center/split_bill/split_bill');
 	},
-	// 去账单说明
-	goOrderInstructions () {
-		let popupContent = {
-			content: '由于该通行账单金额过大导致扣费失败，为保证你的正常通行，系统将自动拆分账单金额发起扣款。',
-			confirm: '查看扣款记录'
-		};
+	goOrderQuestions () {
 		this.setData({
-			popupContent
+			requestRefundInfoNum: 0,
+			requestBillNum: 0
 		});
-		this.selectComponent('#popup').show();
-		// util.go('/pages/personal_center/order_instructions/order_instructions?details=' + JSON.stringify(this.data.details));
-	},
-	callHotLine (e) {
-		let model = e.currentTarget.dataset.model;
-		console.log(model);
-		wx.makePhoneCall({
-			phoneNumber: model // 此号码并非真实电话号码，仅用于测试
-		});
+		util.go(`/pages/personal_center/order_questions/order_questions?details=${JSON.stringify(this.data.details)}&refundDetails=${JSON.stringify(this.data.refundDetails || '')}`);
 	},
 	// 查询账单详情
 	getBillDetail () {
@@ -201,14 +193,11 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
-				res.data.flowVersion = 1;
-				if (res.data.productName.includes('微信')) {
-					res.data.productType = 1;
-				} else {
-					res.data.productType = 2;
-				}
 				this.setData({details: res.data});
+				if (this.data.requestRefundInfoNum > 0) return;
+				this.setData({requestRefundInfoNum: 1});
 				this.getBillRefundDetail();
+				this.getContractMode();// 获取扣款方式
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -218,6 +207,16 @@ Page({
 	},
 	// 去补缴
 	go () {
+		if (this.data.details.splitState && this.data.details.splitState === 1) {
+			// 拆分流水
+			this.goSplitList();
+			return;
+		}
+		if (this.data.details.passDeductStatus && (this.data.details.passDeductStatus === 2 || this.data.details.passDeductStatus === 10)) {
+			// 通行费欠费且通行费手续费欠费
+			util.go('/pages/personal_center/make_up_immediately/make_up_immediately?details=' + JSON.stringify(this.data.details));
+			return;
+		}
 		if (this.data.isRequest) {
 			return;
 		} else {

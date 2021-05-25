@@ -163,16 +163,10 @@ Page({
 	},
 	// 获取二类户号信息
 	async getV2BankId () {
-		const result = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
-		if (!result) return;
-		if (result.code === 0) {
-			app.globalData.bankCardInfo = result.data;
-			this.setData({
-				isOpenTheCard: !!result.data.accountNo
-			});
-		} else {
-			util.showToastNoIcon(result.message);
-		}
+		const result = await util.getV2BankId();
+		this.setData({
+			isOpenTheCard: !!result?.accountNo
+		});
 	},
 	// 获取订单信息
 	async getStatus () {

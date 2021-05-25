@@ -1,105 +1,156 @@
 page {
   min-height: 100vh;
-  background: #f4f4f4;
-}
-.my_order {
-  padding: 58rpx 30rpx 90rpx;
-}
-.my_order .bill-list {
-  box-shadow: 4rpx 4rpx 46rpx 0px rgba(126,132,156,0.1);
-  border-radius: 10rpx;
   background: #fff;
 }
-.my_order .bill-list .order-list-content {
-  padding: 34rpx 40rpx 28rpx;
-  border-bottom: 1rpx solid #e7e7e7;
+.prompt {
+  width: 100%;
 }
-.my_order .bill-list .order-list-content .order-list-top {
+.prompt view {
+  width: 100%;
+  background: rgba(246,197,67,0.46);
+  padding: 16rpx 38rpx 16rpx 32rpx;
+  text-align: left;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  box-sizing: border-box;
+  color: #ff563c;
+}
+.my_order .order-list .bill-list .order-list-content {
+  padding: 32rpx;
+  padding-left: 0;
+  border-top: 1rpx solid rgba(0,0,0,0.1);
+  margin-left: 32rpx;
+}
+.my_order .order-list .bill-list .order-list-content .operating-expenses {
+  border-top: 1rpx solid rgba(0,0,0,0.1);
+  margin-top: 30rpx;
+  padding-top: 30rpx;
+}
+.my_order .order-list .bill-list .order-list-content .order-list-top {
   display: flex;
   height: 64rpx;
-  line-height: 56rpx;
+  align-items: center;
 }
-.my_order .bill-list .order-list-content .order-list-top .license-plate {
+.my_order .order-list .bill-list .order-list-content .order-list-top .license-plate {
   flex: 6;
-  font-size: 40rpx;
-  font-weight: 500;
-  color: #33333d;
+  font-size: 32rpx;
+  color: #66666d;
 }
-.my_order .bill-list .order-list-content .order-list-top .license-plate text {
-  vertical-align: middle;
+.my_order .order-list .bill-list .order-list-content .order-list-top .license-plate text {
   font-size: 20rpx;
   color: #39a6f8;
   margin-left: 28rpx;
 }
-.my_order .bill-list .order-list-content .order-list-top .fail-money,
-.my_order .bill-list .order-list-content .order-list-top .success-money {
+.my_order .order-list .bill-list .order-list-content .order-list-top .fail-money,
+.my_order .order-list .bill-list .order-list-content .order-list-top .success-money {
   flex: 4;
   font-size: 40rpx;
   color: #ff563c;
-  line-height: 64rpx;
   text-align: right;
 }
-.my_order .bill-list .order-list-content .order-list-top .success-money {
+.my_order .order-list .bill-list .order-list-content .order-list-top .success-money {
   color: #2fb565;
 }
-.my_order .bill-list .order-list-content .site {
+.my_order .order-list .bill-list .order-list-content .site {
+  display: flex;
+  align-items: center;
   font-size: 24rpx;
   line-height: 40rpx;
   color: #66666d;
   padding: 10rpx 0;
 }
-.my_order .bill-list .order-list-content .site text::after {
+.my_order .order-list .bill-list .order-list-content .site.poundage::before {
+  content: '\e668';
+  color: #27b266;
+  font-size: 28rpx;
+  margin-right: 12rpx;
+}
+.my_order .order-list .bill-list .order-list-content .site > view:first-child {
+  flex: 1 1 auto;
+}
+.my_order .order-list .bill-list .order-list-content .site > view:first-child text::after {
   content: '\e651';
   color: #66666d;
   font-size: 24rpx;
 }
-.my_order .bill-list .order-list-content .order-list-bottom {
+.my_order .order-list .bill-list .order-list-content .site > view.spilt-deductions {
+  width: 98rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  font-size: 16rpx;
+  text-align: center;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #fff;
+  background: rgba(247,110,0,0.41);
+  border-radius: 18rpx;
+  border: 1rpx solid rgba(247,181,0,0.13);
+  margin-left: 10rpx;
+}
+.my_order .order-list .bill-list .order-list-content .order-list-bottom {
   display: flex;
   font-size: 24rpx;
   color: #99999d;
   line-height: 30rpx;
 }
-.my_order .bill-list .order-list-content .order-list-bottom .accounting-time,
-.my_order .bill-list .order-list-content .order-list-bottom .processing-fail,
-.my_order .bill-list .order-list-content .order-list-bottom .processing-time {
+.my_order .order-list .bill-list .order-list-content .order-list-bottom .accounting-time,
+.my_order .order-list .bill-list .order-list-content .order-list-bottom .processing-fail,
+.my_order .order-list .bill-list .order-list-content .order-list-bottom .processing-time {
   flex: 5;
 }
-.my_order .bill-list .order-list-content .order-list-bottom .processing-fail {
+.my_order .order-list .bill-list .order-list-content .order-list-bottom .processing-fail {
   text-align: right;
   color: #ff563c;
   line-height: 40rpx;
 }
-.my_order .bill-list .order-list-content .order-list-bottom .processing-time {
+.my_order .order-list .bill-list .order-list-content .order-list-bottom .processing-time {
   text-align: right;
 }
-.my_order .total-arrears {
+.my_order .order-list .bill-list .order-list-content > view:first-child {
+  margin: 0;
+  border: 0;
+  padding-top: 0;
+}
+.my_order .order-list .total-arrears {
   display: flex;
-  padding: 20rpx 0 80rpx;
+  padding: 20rpx 32rpx;
   font-size: 28rpx;
   line-height: 64rpx;
-  color: #66666d;
+  color: #33333d;
 }
-.my_order .total-arrears .licence-plate {
-  flex: 2;
+.my_order .order-list .total-arrears .licence-plate {
+  flex: 4;
+  font-size: 40rpx;
 }
-.my_order .total-arrears .arrears {
+.my_order .order-list .total-arrears .arrears {
   flex: 5;
   text-align: right;
+  font-size: 40rpx;
 }
-.my_order .total-arrears .btn {
+.my_order .order-list .total-arrears .arrears text {
+  opacity: 0.9;
+  font-size: 24rpx;
+  padding-right: 12rpx;
+}
+.my_order .order-list .total-arrears .btn {
   flex: 3;
 }
-.my_order .total-arrears .btn button {
+.my_order .order-list .total-arrears .btn button {
   float: right;
   padding: 0;
   margin: 0;
-  width: 158rpx;
-  height: 64rpx;
-  line-height: 64rpx;
-  font-size: 32rpx;
+  width: 124rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  font-size: 28rpx;
   font-weight: 500;
   color: #fff;
   background: linear-gradient(45deg, #14ac69 0%, #84d157 100%);
-  box-shadow: 0px 8rpx 10rpx 0px rgba(132,209,87,0.2);
-  border-radius: 49rpx;
+  box-shadow: 0px 8rpx 10rpx 8rpx rgba(132,209,87,0.2);
+  border-radius: 32rpx;
+}
+.my_order .order-list .line {
+  height: 32rpx;
+  background: #eee;
+  opacity: 0.6;
 }
