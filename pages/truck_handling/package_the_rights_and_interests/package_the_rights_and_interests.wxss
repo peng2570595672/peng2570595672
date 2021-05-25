@@ -83,6 +83,9 @@
   flex-wrap: wrap;
   margin-top: 6rpx;
 }
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list.feature-service {
+  margin-bottom: 32rpx;
+}
 .package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list > view {
   margin-top: 32rpx;
 }

@@ -1,0 +1,72 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<!--提示开始-->
+<view class="prompt" wx:if="{{details.passDeductStatus === 2 || details.passDeductStatus === 10}}">
+	<view>
+		<view>请检查扣款账户余额是否充足或授信额度是否超上限</view>
+	</view>
+</view>
+<!--提示结束-->
+<view class="order_details {{details.passDeductStatus === 2 || details.passDeductStatus === 10 ? 'is-arrears': ''}}">
+	<!--	扣费金额开始-->
+	<view class="deduction-amount {{details.passDeductStatus === 2 || details.passDeductStatus === 10 ? 'buckling-failure' : ''}}">
+		<!--{{(details.totalMmout + details.serviceMoney + (details.passServiceMoney || 0) - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}}-->
+		<view wx:if="{{details.passDeductStatus === 7}}">00.00</view>
+		<view wx:else>{{details.passServiceMoney/100}}</view>
+		<text wx:if="{{details.passDeductStatus === 2 || details.passDeductStatus === 10}}">扣款失败</text>
+	</view>
+	<!--扣费金额结束-->
+	<!--扣费详情开始-->
+	<view class="deduction-details">
+		<view catchtap="goOrderDetails">
+			<view>通行费（折后）</view>
+			<!--<view wx:if="{{details.flowVersion === 2}}">¥{{details.totalMmout/100}}</view>-->
+			<!--<view wx:else>¥{{details.etcMoney/100}}</view>-->
+			<view class="passage-money iconfont">¥{{details.totalMmout/100}}</view>
+		</view>
+		<!--<view wx:if="{{details.passServiceMoney && details.passServiceMoney > 0}}">-->
+		<!--<view>通行手续费（0.6%）</view>-->
+		<!--<view>¥{{details.passServiceMoney/100}}</view>-->
+		<!--</view>-->
+	</view>
+	<view class="doubt iconfont" catchtap="goOrderQuestions">费用疑问</view>
+	<view class="deduction-details">
+		<view>
+			<view>消费类型</view>
+			<view>高速通行</view>
+		</view>
+		<view wx:if="{{contractMode.ctService}}">
+			<view>扣款方式</view>
+			<view>
+                {{contractMode.ctService.contractVersion === 1 || contractMode.ctService.contractVersion === 2 ? '微信零钱支付' : '' }}
+                {{contractMode.ctService.contractVersion === 3 ? contractMode.ctService.bankNameAccount : '' }}
+			</view>
+		</view>
+		<view wx:if="{{refundDetails.deductTime}}">
+			<view>扣款时间</view>
+			<view>{{tools.substring(refundDetails.deductTime,0,16)}}</view>
+		</view>
+		<view wx:if="{{details.addTime}}">
+			<view>出账时间</view>
+			<view>{{tools.substring(details.addTime,0,16)}}</view>
+		</view>
+		<view wx:if="{{details.passPayOrderNo}}">
+			<view>账单流水号</view>
+			<view>{{details.passPayOrderNo}}</view>
+		</view>
+	</view>
+	<view class="line"></view>
+	<!--底部补缴开始-->
+	<view class="payment" wx:if="{{details.passDeductStatus === 2 || details.passDeductStatus === 10}}">
+		<view>
+			<button catchtap="go">一键补缴</button>
+			<view class="payment-tips">当前账单已欠款，将影响你的正常通行，请尽快补缴</view>
+		</view>
+	</view>
+	<!--底部补缴结束-->
+	<!--微保活动开始-->
+	<view class="micro-insurance" wx:if="{{!isContinentInsurance}}">
+		<image wx:if="{{showWeiBao}}" src="https://file.cyzl.com/g001/M06/C7/71/oYYBAF-7FDKALvNhAAFO8Ol7UKg049.png"  mode="widthFix" catchtap="goMicroInsurance"></image>
+		<view wx:if="{{showWeiBao}}" class="close_button iconfont" catchtap="hide"></view>
+	</view>
+	<!--微保活动结束-->
+</view>

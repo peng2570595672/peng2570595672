@@ -28,8 +28,8 @@ Page({
 			{title: '生活服务享精彩', subTitle: '价值100元+'}
 		],
 		characteristicServiceList: [
-			{title: '中国石油特惠加油', ico: 'service_of_oil', logo: '/pages/default/assets/service_of_oil.svg'},
-			{title: '高速通行享2倍积分', ico: 'service_of_integral', logo: '/pages/default/assets/service_of_integral.svg'}
+			{title: '中国石油特惠加油', ico: 'service_of_oil', logo: '/pages/default/assets/service_of_oil.svg'}
+			// {title: '高速通行享2倍积分', ico: 'service_of_integral', logo: '/pages/default/assets/service_of_integral.svg'}
 		],
 		serviceList: [
 			{
@@ -84,7 +84,7 @@ Page({
 				detailsTitle: '特色服务',
 				list: [
 					{
-						ico: 'service_of_oil',
+						// ico: 'service_of_oil',
 						logo: '/pages/default/assets/service_of_oil.svg',
 						title: '中国石油特惠加油',
 						describe: `
@@ -92,14 +92,14 @@ Page({
 							ETC办理成功后，可在指定省份享受中国石油加油优惠0.15-0.2元/升。
 							持ETC卡在中石油加油站进行油费充值，使用ETC卡进行加油时即可享受加油折扣优惠。
 						`
-					},
-					{
-						ico: 'service_of_integral',
-						logo: '/pages/default/assets/service_of_integral.svg',
-						title: '高速通行享2倍积分',
-						describe: `
-						`
 					}
+					// {
+					// 	ico: 'service_of_integral',
+					// 	logo: '/pages/default/assets/service_of_integral.svg',
+					// 	title: '高速通行享2倍积分',
+					// 	describe: `
+					// 	`
+					// }
 				]
 			}
 		],
@@ -204,6 +204,7 @@ Page({
 		this.setData({
 			showServiceIndex: parseInt(e.currentTarget.dataset.index)
 		});
+		if (this.data.showServiceIndex === 2) return;
 		if (this.data.showServiceIndex === 1) {
 			this.setData({
 				viewLifeService: this.selectComponent('#viewLifeService')

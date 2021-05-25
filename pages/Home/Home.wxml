@@ -5,7 +5,7 @@
         <view class="tab-box">
             <view class="check-vehicle">
                 <view catchtap="onClickCheckVehicleType" data-index="1" class="item {{activeIndex === 1 ? 'active' : ''}}">客车</view>
-                <view catchtap="onClickCheckVehicleType" data-index="2" class="item {{activeIndex === 2 ? 'active' : ''}}">货车</view>
+                <view catchtap="onClickCheckVehicleType" data-index="2" class="item {{activeIndex === 2 ? 'active' : ''}}" wx:if="{{isNormalProcess}}">货车</view>
             </view>
             <view class="line {{activeIndex === 1 ? 'active-trucks' : 'active'}} {{btnSwitch ? 'skewing' : ''}}"></view>
         </view>
@@ -99,7 +99,7 @@
                 <button wx:if="{{loginInfo.needBindingPhone === 1 && orderInfo.selfStatus !== 12}}" class="btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber" animation="{{animationTransaction}}">
                     {{!orderInfo ? '新增办理' : ''}}
                 </button>
-                <view class="bill-info" wx:if="{{orderInfo.selfStatus === 12 && recentlyTheBillInfo}}" animation="{{animationTransaction}}">
+                <view class="bill-info" wx:if="{{orderInfo.selfStatus === 12 && recentlyTheBillInfo}}" animation="{{animationTransaction}}" catchtap="onClickBill">
                     <view class="bill iconfont">{{(recentlyTheBillInfo.totalMmout + recentlyTheBillInfo.serviceMoney  - (recentlyTheBillInfo.wxDiscountAmount || 0) - (recentlyTheBillInfo.discountMount || 0) - (recentlyTheBillInfo.refundMoney || 0))/100}}</view>
                     <view class="iconfont bill-status {{recentlyTheBillInfo.deductStatus === 2 ? 'failure' : ''}}" style="width: {{billStatusWidth}}px">
                         {{recentlyTheBillInfo.deductStatus === 2 ? '扣款失败' : ''}}
@@ -122,7 +122,7 @@
             class="my-swiper"
             next-margin="250rpx"
             circular="{{true}}">
-        <swiper-item class="my-swiper-item" wx:for="{{bannerList}}" wx:key="index" catchtap="onClickSwiper" data-url="{{item.url}}" wx:if="{{item.isShow}}">
+        <swiper-item class="my-swiper-item" wx:for="{{bannerList}}" wx:key="index" catchtap="onClickSwiper" data-item="{{item}}" wx:if="{{item.isShow}}">
             <image src="{{item.img}}" mode="widthFix"/>
         </swiper-item>
     </swiper>

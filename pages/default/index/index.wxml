@@ -77,7 +77,7 @@
             </view>
             <!--流程开始-->
             <view class="progress_wrapper" >
-                <view class="item" wx:for="{{ processList }}">
+                <view class="item" wx:for="{{ processList }}" wx:key="index">
                     <view class="content-title">{{ item.title }}</view>
                     <view class="content-des">{{ item.content }}</view>
                 </view>

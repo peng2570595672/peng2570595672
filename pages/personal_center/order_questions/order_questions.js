@@ -26,7 +26,7 @@ Page({
 		});
 	},
 	onclickMoreProblem () {
-		util.go('/pages/personal_center/order_answer/order_answer');
+		util.go(`/pages/personal_center/order_answer/order_answer?details=${JSON.stringify(this.data.details)}`);
 	},
 	callHotLine (e) {
 		let model = e.currentTarget.dataset.model;

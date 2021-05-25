@@ -101,6 +101,7 @@ Page({
 	},
 	async go (e) {
 		let item = e.currentTarget.dataset.item;
+		console.log(item)
 		this.setData({
 			contractType: item.contractType
 		});
@@ -110,7 +111,7 @@ Page({
 			if (isOk) this.onclickSign(item);
 			return;
 		}
-		if (item.contractType === 3 && item?.contractStatus === 2 && item?.userState === 'PAUSE') {
+		if (item.contractType === 3 && item?.contractStatus === 2 && item?.userState.includes('PAUSE')) {
 			app.globalData.isTruckHandling = true;
 			app.globalData.signAContract = 4;
 			wx.navigateToMiniProgram({
@@ -163,5 +164,8 @@ Page({
 		} else {
 			util.showToastNoIcon(result.message);
 		}
+	},
+	next () {
+		util.go('/pages/truck_handling/recharge_instructions/recharge_instructions');
 	}
 });

@@ -106,7 +106,7 @@
 		<view class="frequency-problem">
 			<view class="problem-title">常见问题</view>
 			<view class="problems-list">
-				<view class="item" wx:for="{{ problems }}">
+				<view class="item" wx:for="{{ problems }}" wx:key="index">
 					<view class="item-title iconfont">
 						{{ item.title }}
 					</view>

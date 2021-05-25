@@ -57,10 +57,10 @@ Page({
 	// 解绑
 	onClickUnbind (e) {
 		let index = e.currentTarget.dataset['index'];
-		// if (this.data.bankList.length === 1) {
-		// 	util.showToastNoIcon('当绑定卡只有1张时不可解绑');
-		// 	return;
-		// }
+		if (this.data.bankList.length === 1) {
+			util.showToastNoIcon('当绑定卡只有1张时不可解绑');
+			return;
+		}
 		util.alert({
 			title: ``,
 			content: `确定解除当前银行卡的绑定吗？`,

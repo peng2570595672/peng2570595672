@@ -45,6 +45,8 @@
         "cancel_order_succeed/cancel_order_succeed",
         "order_details/order_details",
         "order_instructions/order_instructions",
+        "passing_charges_details/passing_charges_details",
+        "order_answer/order_answer",
         "order_complaint/order_complaint",
         "complaint_details/complaint_details",
         "help_center/help_center",

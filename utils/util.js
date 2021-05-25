@@ -1069,6 +1069,15 @@ function weChatSigning(data) {
 				showToastNoIcon('调起车主服务签约失败, 请重试！');
 			}
 		});
+		// wx.openBusinessView({
+		// 	businessType: 'wxpayVehicleETC',
+		// 	extraData: {
+		// 		preopen_id: data.extraData.peropen_id
+		// 	},
+		// 	fail(e) {
+		// 		console.log(e)
+		// 	}
+		// })
 	}
 }
 // px转rpx-wxAnimation方法使用的是px

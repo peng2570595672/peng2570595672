@@ -1,0 +1,52 @@
+<view class="nav {{isOwe ? 'is_owes' : ''}}  {{isOweService ? 'is_owner_ervice' : ''}}">
+	<view class="nav-child nav-first-child {{filter_open ? 'active' : 'close'}}" bindtap="subscribe" hidden='{{vehicleList.length > 0 ? false : true}}' data-nav="0">
+		<view class="nav-title">{{selected_filter_name.length > 0 ? selected_filter_name : vehicleType}}</view>
+		<view class="iconfont icon-sanjiao icon"></view>
+	</view>
+	<view class="nav-child {{district_open? 'active' : 'close'}}" bindtap="subscribe" hidden='{{timeList.length > 0 ? false :true}}' data-nav="1">
+		<view class="nav-title">{{district_right_select_name.length > 0 ?district_right_select_name : dropDownMenuTitle[1]}}</view>
+		<view class="iconfont icon-sanjiao icon"></view>
+	</view>
+</view>
+<view class="container animated {{filter_open_wtapper ? 'show' : 'disappear'}} {{isOwe ? 'is_owe' : ''}} {{isOweService ? 'is_owner_ervice' : ''}}" wx:if="{{filter_open}}">
+	<view class="top" catchtap="hide"></view>
+	<view class="z-height animated {{filter_open_wtapper?'slideInDown':'slideOutDown'}}">
+		<view>
+            <view class="sortitem car-title-tab">
+                <view class="tab-item">
+                    <view class="{{vehicleType == '全部车辆' ? ' active ' : ' '}}" data-model='全部车辆' bindtap='choiceVehicleType'>全部车辆</view>
+                    <view class="{{vehicleType == '客车' ? ' active ' : ' '}}" wx:if="{{passengerCarList.length && truckList.length}}" data-model='客车' bindtap='choiceVehicleType'>客车</view>
+                    <view class="{{vehicleType == '货车' ? ' active ' : ' '}}" wx:if="{{passengerCarList.length && truckList.length}}" data-model='货车' bindtap='choiceVehicleType'>货车</view>
+                </view>
+                <view class="line"></view>
+            </view>
+			<block wx:for="{{vehicleList}}" wx:key="unique" wx:if="{{vehicleType == '全部车辆'}}">
+				<view class="sortitem iconfont {{selected_filter_name == item ? ' icon-choice ' : ' '}}" data-model='{{item}}'  bindtap='selectFilterItem'><text data-model='{{item}}'> {{item}}</text><view class="line"></view></view>
+			</block>
+            <block wx:for="{{passengerCarList}}" wx:key="unique" wx:if="{{vehicleType == '客车'}}">
+                <view class="sortitem iconfont {{selected_filter_name == item ? ' icon-choice ' : ' '}}" data-model='{{item}}'  bindtap='selectFilterItem'><text data-model='{{item}}'> {{item}}</text><view class="line"></view></view>
+            </block>
+            <block wx:for="{{truckList}}" wx:key="unique" wx:if="{{vehicleType == '货车'}}">
+                <view class="sortitem iconfont {{selected_filter_name == item ? ' icon-choice ' : ' '}}" data-model='{{item}}'  bindtap='selectFilterItem'><text data-model='{{item}}'> {{item}}</text><view class="line"></view></view>
+            </block>
+		</view>
+	</view>
+</view>
+<view class="district animated {{district_open_wtapper  ? 'show' : 'disappear'}} {{isOwe ? 'is_owe' : ''}} {{isOweService ? 'is_owner_ervice' : ''}}" wx:if="{{district_open}}">
+	<view class="top" catchtap="hide"></view>
+	<view class="mask-box animated {{district_open_wtapper?'slideInDown':'slideOutDown'}}">
+		<view class="half-top-box">
+			<scroll-view class="half half-top" scroll-x='true' scroll-into-view="{{toview}}" scroll-with-animation="true" >
+				<view class="{{district_left_select == item.id ? 'current_left_select' : ''}} year{{item.id}}" wx:for="{{timeList}}" id="year{{item.id}}" bindtap="selectDistrictTop" data-model='{{item}}' wx:key="unique">
+					<text data-model='{{item}}'>{{item.title}}</text>
+				</view>
+			</scroll-view>
+		</view>
+		<view class="half half-bottom">
+			<view class="{{district_right_select == item.id ? 'current_right_select' : ''}} {{(chooseYear === year && month < item.title) ? ' forbidden-choose ' : ' '}}" wx:for="{{timeListRight}}" data-model='{{item}}' wx:key="unique">
+				<text bindtap="selectDistrictBottom" data-model='{{item}}'>{{item.title}}月</text>
+				<view class="line"></view>
+			</view>
+		</view>
+	</view>
+</view>

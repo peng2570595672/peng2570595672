@@ -11,16 +11,16 @@ Page({
 		isContinentInsurance: false, // 是否是大地保险
 		btnSwitch: false,
 		entranceList: [
-			{title: '通行发票', ico: 'invoice', url: 'invoice', isShow: true, statisticsEvent: ''},
-			{title: '违章查询', ico: 'violation-enquiry', url: 'violation_enquiry', isShow: !app.globalData.isContinentInsurance, statisticsEvent: ''},
-			{title: 'ETC账单', ico: 'my-order', url: 'my_order', isShow: app.globalData.isContinentInsurance, statisticsEvent: ''},
-			{title: '在线客服', ico: 'server', url: 'online_customer_service', isShow: true, statisticsEvent: ''},
-			{title: '个人中心', ico: 'personal-center', url: 'index', isShow: true, statisticsEvent: ''}
+			{title: '通行发票', ico: 'invoice', url: 'invoice', isShow: true, statisticsEvent: 'index_invoice'},
+			{title: '违章查询', ico: 'violation-enquiry', url: 'violation_enquiry', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_violation_enquiry'},
+			{title: 'ETC账单', ico: 'my-order', url: 'my_order', isShow: app.globalData.isContinentInsurance, statisticsEvent: 'index_my_order'},
+			{title: '在线客服', ico: 'server', url: 'online_customer_service', isShow: true, statisticsEvent: 'index_server'},
+			{title: '个人中心', ico: 'personal-center', url: 'index', isShow: true, statisticsEvent: 'index_personal_center'}
 		],
 		bannerList: [
-			{img: 'https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrTgOANI-7AABwMlaUjXo345.png', url: 'micro_insurance_car_insurance', isShow: !app.globalData.isContinentInsurance},
-			{img: 'https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrTieAODp3AABi5oqjdrI986.png', url: 'micro_insurance_hcz', isShow: !app.globalData.isContinentInsurance},
-			{img: 'https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrThuACNFGAABtf6A3V68049.png', url: '', isShow: app.globalData.isContinentInsurance}
+			{img: 'https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrTgOANI-7AABwMlaUjXo345.png', url: 'micro_insurance_car_insurance', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_micro_insurance_car_insurance'},
+			{img: 'https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrTieAODp3AABi5oqjdrI986.png', url: 'micro_insurance_hcz', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_micro_insurance_hcz'},
+			{img: 'https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrThuACNFGAABtf6A3V68049.png', url: '', isShow: app.globalData.isContinentInsurance, statisticsEvent: 'index_dadi'}
 		],
 		activeIndex: 1,
 		loginInfo: {},// 登录信息
@@ -126,8 +126,7 @@ Page({
 	onClickCheckVehicleType (e) {
 		let activeIndex = parseInt(e.currentTarget.dataset.index);
 		if (activeIndex === this.data.activeIndex) return;
-		console.log(this.data.passengerCarOrderInfo)
-		console.log(this.data.truckOrderInfo)
+		wx.uma.trackEvent(activeIndex === 1 ? 'index_for_tab_to_passenger_car' : 'index_for_tab_to_truck');
 		this.setData({
 			activeIndex,
 			orderInfo: activeIndex === 1 ? (this.data.passengerCarOrderInfo || false) : (this.data.truckOrderInfo || false),
@@ -206,14 +205,15 @@ Page({
 			util.go('/pages/login/login/login');
 			return;
 		}
-		let url = e.currentTarget.dataset.url;
-		if (url === 'micro_insurance_car_insurance') {
+		let item = e.currentTarget.dataset.item;
+		wx.uma.trackEvent(item.statisticsEvent);
+		if (item?.url === 'micro_insurance_car_insurance') {
 			const pageUrl = 'pages/base/redirect/index?routeKey=PC01_REDIRECT&autoRoute=check&wtagid=116.115.39';
 			// 订阅:车险服务状态提醒
 			this.subscribe(pageUrl);
 			return;
 		}
-		if (url === 'micro_insurance_hcz') {
+		if (item?.url === 'micro_insurance_hcz') {
 			const pageUrl = 'pages/base/redirect/index?routeKey=WEDRIVE_HIGH_JOIN&wtagid=104.210.4';
 			this.openWeiBao(pageUrl);
 		}
@@ -360,7 +360,7 @@ Page({
 	// 点击tab栏下的办理
 	onClickTransaction () {
 		app.globalData.orderInfo.orderId = '';
-		wx.uma.trackEvent('index_for_truck_entrance');
+		wx.uma.trackEvent(this.data.activeIndex === 1 ? 'index_for_passenger_car_entrance' : 'index_for_truck_entrance');
 		mta.Event.stat('index_for_truck_entrance',{});
 		util.go(`/pages/${this.data.activeIndex === 1 ? 'default' : 'truck_handling'}/index/index`);
 	},
@@ -619,13 +619,22 @@ Page({
 		this.setData({dialogContent});
 		this.selectComponent('#dialog').show();
 	},
+	// 去账单详情页
+	onClickBill () {
+		wx.uma.trackEvent('index_for_order_details');
+		mta.Event.stat('013',{});
+		let model = this.data.recentlyTheBillInfo;
+		util.go(`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
+	},
 	// 弹窗确认回调
 	onHandle () {
 		if (this.data.dialogContent.orderInfo) {
 			// 恢复签约
+			wx.uma.trackEvent('index_for_dialog_signing');
 			this.onClickBackToSign(this.data.dialogContent.orderInfo);
 			return;
 		}
+		wx.uma.trackEvent('index_for_arrears_bill');
 		util.go('/pages/personal_center/arrears_bill/arrears_bill');
 	},
 	// 点击车辆信息
@@ -633,6 +642,7 @@ Page({
 		const orderInfo = this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data.truckOrderInfo;
 		if (!orderInfo) {
 			app.globalData.orderInfo.orderId = '';
+			wx.uma.trackEvent(this.data.activeIndex === 1 ? 'index_for_new_deal_with' : 'index_for_truck_new_deal_with');
 			const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address' : '/pages/truck_handling/truck_receiving_address/truck_receiving_address';
 			util.go(url);
 			return;
@@ -658,37 +668,38 @@ Page({
 	},
 	// 去高速签约
 	onClickHighSpeedSigning () {
+		wx.uma.trackEvent('index_for_order_audit');
 		util.go(`/pages/default/order_audit/order_audit`);
 	},
 	// 去预充
 	goRecharge (orderInfo) {
+		wx.uma.trackEvent('index_for_account_recharge');
 		util.go(`/pages/account_management/account_recharge/account_recharge?money=${orderInfo.holdBalance}`);
 	},
 	// 去开户
 	goBindingAccount () {
+		wx.uma.trackEvent('index_for_binding_account');
 		util.go('/pages/truck_handling/binding_account/binding_account');
 	},
 	// 去授权预充保证金
 	goRechargeAuthorization () {
+		wx.uma.trackEvent('index_for_recharge_instructions');
 		util.go('/pages/truck_handling/recharge_instructions/recharge_instructions');
 	},
 	// 去设备详情 审核失败:不可办理
 	goEtcDetails (orderInfo) {
+		wx.uma.trackEvent('index_for_my_etc_detail');
 		util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${orderInfo.id}`);
 	},
 	goPayment (orderInfo) {
 		const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
+		wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'index_for_truck_package' : 'index_for_package');
 		util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
-	},
-	goOrderDetails () {
-		wx.uma.trackEvent('index_for_order_details');
-		mta.Event.stat('013',{});
-		let model = this.data.recentlyTheBill;
-		util.go(`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
 	},
 	// 恢复签约
 	async onClickBackToSign (obj) {
 		if (obj.isNewTrucks === 1) {
+			wx.uma.trackEvent('index_for_contract_management');
 			util.go(`/pages/truck_handling/contract_management/contract_management`);
 			return;
 		}
@@ -700,11 +711,13 @@ Page({
 		if (obj.contractStatus === 2) {
 			app.globalData.orderInfo.orderId = obj.id;
 			// 恢复签约
+			wx.uma.trackEvent('index_for_resume_signing');
 			await this.restoreSign(obj);
 		} else {
 			// 2.0 立即签约
 			app.globalData.signAContract = -1;
 			app.globalData.isSalesmanOrder = obj.orderType === 31;
+			wx.uma.trackEvent('index_for_sign_contract');
 			await this.weChatSign(obj);
 		}
 	},
@@ -785,10 +798,12 @@ Page({
 	onClickViewProcessingProgressHandle (orderInfo) {
 		// 统计点击事件
 		mta.Event.stat('003',{});
+		wx.uma.trackEvent('index_for_processing_progress');
 		util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderInfo.id}`);
 	},
 	// 去激活
 	async onClickCctivate (orderInfo) {
+		wx.uma.trackEvent('index_for_activation');
 		if (orderInfo.logisticsId !== 0) {
 			mta.Event.stat('005',{});
 			await this.confirmReceipt(orderInfo);
@@ -825,29 +840,12 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
-	// 我的ETC
-	onClickMyETCHandle () {
-		if (this.data.exceptionMessage) {
-			util.showToastNoIcon(this.data.exceptionMessage);
-			return;
-		}
-		// 未登录
-		if (!app.globalData.userInfo.accessToken) {
-			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-			util.go('/pages/login/login/login');
-			return;
-		}
-		mta.Event.stat('index_my_etc',{});
-		// 订阅:高速扣费通知、ETC欠费提醒、黑名单状态提醒
-		let urls = '/pages/personal_center/my_etc/my_etc';
-		let tmplIds = ['oz7msNJRXzk7VmASJsJtb2JG0rKEWjX3Ff1PIaAPa78','lY047e1wk-OFdeGuIx2ThV-MOJ4aUOx2HhSxUd1YXi0', 'my5wGmuottanrIAKrEhe2LERPKx4U05oU4aK9Fyucv0'];
-		util.subscribe(tmplIds,urls);
-	},
 	// 修改资料
 	onClickModifiedData (orderInfo) {
 		mta.Event.stat('004',{});
 		if (orderInfo.isNewTrucks === 1) {
 			// 货车办理
+			wx.uma.trackEvent('index_for_truck_modified_data');
 			util.go('/pages/truck_handling/information_list/information_list?isModifiedData=true');
 			return;
 		}
@@ -855,6 +853,7 @@ Page({
 			util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
 			return;
 		}
+		wx.uma.trackEvent('index_for_modified_data');
 		app.globalData.orderInfo.shopProductId = orderInfo.shopProductId;
 		app.globalData.isModifiedData = true; // 修改资料
 		app.globalData.firstVersionData = !!(orderInfo.remark && orderInfo.remark.indexOf('迁移订单数据') !== -1);
@@ -863,7 +862,6 @@ Page({
 	// 继续办理
 	async onClickContinueHandle (orderInfo) {
 		// 统计点击事件
-		wx.uma.trackEvent('index_continue_to_deal_with');
 		mta.Event.stat('002',{});
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.firstVersionData = false;
@@ -875,6 +873,7 @@ Page({
 				util.showToastNoIcon(result.message);
 				return;
 			}
+			wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'index_for_continue_to_truck_package' : 'index_for_continue_to_package');
 			if (app.globalData.newPackagePageData.type || orderInfo.isNewTrucks === 1) {
 				// 只有分对分套餐 || 只有总对总套餐
 				util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`);
@@ -887,6 +886,7 @@ Page({
 			util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
 			return;
 		}
+		wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'index_for_certificate_to_truck_package' : 'index_for_certificate_to_package');
 		util.go(`/pages/${path}/information_list/information_list`);
 	}
 });

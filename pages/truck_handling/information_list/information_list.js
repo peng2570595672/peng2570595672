@@ -180,15 +180,11 @@ Page({
 		}
 		const result = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
 		if (!result) return;
-		if (result.code === 0) {
-			if (result.data) {
-				// 已经开二类户
-				util.go('/pages/truck_handling/binding_account/binding_account');
-			} else {
-				util.go('/pages/truck_handling/contract_management/contract_management');
-			}
-		} else {
+		if (result.code) {
 			util.showToastNoIcon(result.message);
+			return;
 		}
+		const path = result.data?.accountNo ? 'binding_account' : 'contract_management';
+		util.go(`/pages/truck_handling/${path}/${path}`);
 	}
 });

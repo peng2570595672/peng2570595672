@@ -1,0 +1,161 @@
+.prompt {
+  width: 100%;
+}
+.prompt > view view {
+  width: 100%;
+  background: rgba(255,86,60,0.52);
+  padding: 16rpx 32rpx 16rpx 25rpx;
+  text-align: left;
+  font-size: 24rpx;
+  line-height: 40rpx;
+  box-sizing: border-box;
+  color: #f4f4f4;
+}
+.prompt > view view text {
+  text-decoration: underline;
+}
+.order_details .deduction-amount {
+  position: relative;
+  text-align: center;
+  font-size: 76rpx;
+  font-weight: 500;
+  color: #33333d;
+  height: 284rpx;
+  display: flex;
+  justify-content: center;
+  line-height: 284rpx;
+  margin: 0 32rpx;
+  box-sizing: border-box;
+  background: #fff;
+  border-bottom: 1rpx solid rgba(0,0,0,0.1);
+}
+.order_details .deduction-amount text {
+  font-size: 28rpx;
+  color: #ff563c;
+  line-height: 320rpx;
+}
+.order_details .deduction-amount.buckling-failure {
+  height: 228rpx;
+  line-height: 228rpx;
+}
+.order_details .deduction-amount.buckling-failure text {
+  line-height: 270rpx;
+}
+.order_details .deduction-details {
+  background: #fff;
+  padding: 0 32rpx 32rpx;
+}
+.order_details .deduction-details>view {
+  display: flex;
+  font-size: 28rpx;
+  padding-top: 26rpx;
+}
+.order_details .deduction-details>view>view:first-child {
+  flex: 1;
+  height: 48rpx;
+  color: #66666d;
+}
+.order_details .deduction-details>view>view:first-child.deductions-money {
+  color: #33333d;
+}
+.order_details .deduction-details>view>view:last-child {
+  flex: 1;
+  text-align: right;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #33333d;
+}
+.order_details .deduction-details>view>view:last-child.passage-money {
+  color: #39a6f8;
+  font-family: "iconfont";
+}
+.order_details .deduction-details>view>view:last-child.passage-money::after {
+  display: inline-block;
+  content: '\e60e';
+  font-weight: bold;
+  transform: scaleX(-1);
+  margin-left: 18rpx;
+}
+.order_details .deduction-details>view>view:last-child.deductions {
+  color: #f7b500;
+}
+.order_details .deduction-details>view>view:last-child.refund-success {
+  color: #27b266;
+}
+.order_details .deduction-details>view:first-child {
+  padding-top: 32rpx;
+}
+.order_details .doubt {
+  height: 98rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0 32rpx;
+  border-bottom: 1rpx solid rgba(0,0,0,0.1);
+  border-top: 1rpx solid rgba(0,0,0,0.1);
+  color: #039eeb;
+  font-size: 28rpx;
+}
+.order_details .doubt::before {
+  content: '\e650';
+  font-size: 32rpx;
+  margin-right: 14rpx;
+}
+.order_details .doubt.not-border-bottom {
+  border-bottom: 0;
+}
+.order_details .line {
+  height: 32rpx;
+  background: #eee;
+}
+.order_details .payment {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 204rpx;
+  padding: 20rpx 0;
+  font-size: 24rpx;
+  color: #66666d;
+  text-align: center;
+  background: #fff;
+  border-top: 1rpx solid rgba(0,0,0,0.1);
+}
+.order_details .payment button {
+  width: 84%;
+  height: 98rpx;
+  line-height: 98rpx;
+  background: linear-gradient(to right, #15ad69, #84d157);
+  box-shadow: 0px 8rpx 10rpx 0px rgba(132,209,87,0.2);
+  border-radius: 50rpx;
+  font-size: 40rpx;
+  color: #fff;
+}
+.order_details .payment .payment-tips {
+  padding-top: 18rpx;
+}
+.order_details .micro-insurance {
+  position: fixed;
+  bottom: 25%;
+  right: 56rpx;
+}
+.order_details .micro-insurance image {
+  width: 129rpx;
+}
+.order_details .micro-insurance .close_button {
+  width: 49rpx;
+  height: 49rpx;
+  line-height: 49rpx;
+  margin: 20rpx auto;
+  text-align: center;
+  border-radius: 50%;
+  background: #d4d4d4;
+}
+.order_details .micro-insurance .close_button::before {
+  content: '\e63d';
+  color: #fff;
+  font-size: 30rpx;
+}
+.is-arrears {
+  padding-bottom: 224rpx;
+}
