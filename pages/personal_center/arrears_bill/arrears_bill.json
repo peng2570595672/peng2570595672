@@ -1,8 +1,8 @@
 {
-	"navigationBarBackgroundColor": "#FFFFFF",
+	"navigationBarBackgroundColor": "#EDEDED",
 	"backgroundColor": "#FFFFFF",
 	"navigationBarTextStyle": "black",
-	"navigationBarTitleText": "欠费账单",
+	"navigationBarTitleText": "ETC账单",
 	"usingComponents": {
 		"tips": "/components/tips/tips"
 	}

@@ -89,7 +89,7 @@
                     {{orderInfo.selfStatus === 1 ? '恢复签约' : ''}}
                     {{orderInfo.selfStatus === 2 || orderInfo.selfStatus === 4 || orderInfo.selfStatus === 14 ? '继续办理' : ''}}
                     {{orderInfo.selfStatus === 3 ? '去支付' : ''}}
-                    {{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 9 ? '请尽快完成签约' : ''}}
+                    {{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 9 ? '去签约' : ''}}
                     {{orderInfo.selfStatus === 6 || orderInfo.selfStatus === 8 || orderInfo.selfStatus === 10 ? '查看进度' : ''}}
                     {{orderInfo.selfStatus === 7 ? '修改资料' : ''}}
                     {{orderInfo.selfStatus === 11 ? '去激活' : ''}}
@@ -100,17 +100,11 @@
                     {{!orderInfo ? '新增办理' : ''}}
                 </button>
                 <view class="bill-info" wx:if="{{orderInfo.selfStatus === 12 && recentlyTheBillInfo}}" animation="{{animationTransaction}}">
-                    账单
-<!--                    <view>{{tools.parseNum((recentlyTheBillInfo.etcMoney - (recentlyTheBillInfo.splitDeductedMoney || 0))/100)}}</view>-->
-<!--&lt;!&ndash;                    <view>&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                        <view class="success-money" wx:if="{{recentlyTheBill.deductStatus === 1 || recentlyTheBill.deductStatus === 11 || recentlyTheBill.deductStatus === 12 || recentlyTheBill.flowVersion === 2}}">{{tools.parseNum((recentlyTheBill.etcMoney - (recentlyTheBill.splitDeductedMoney || 0))/100)}}</view>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                        <view class="fail-money {{recentlyTheBill.deductStatus === 7 ? 'refund' : ''}}" wx:else></view>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                    </view>&ndash;&gt;-->
-<!--                    <view>-->
-<!--                        <view class="failed" wx:if="{{recentlyTheBill.deductStatus === 2 || recentlyTheBill.deductStatus === 10}}">扣款失败</view>-->
-<!--                        <view class="succeed" wx:elif="{{recentlyTheBill.deductStatus === 7}}">已退款</view>-->
-<!--                        <view class="succeed" wx:else >{{tools.substring(recentlyTheBill.deductTime,5,16)}} </view>-->
-<!--                    </view>-->
+                    <view class="bill iconfont">{{(recentlyTheBillInfo.totalMmout + recentlyTheBillInfo.serviceMoney  - (recentlyTheBillInfo.wxDiscountAmount || 0) - (recentlyTheBillInfo.discountMount || 0) - (recentlyTheBillInfo.refundMoney || 0))/100}}</view>
+                    <view class="iconfont bill-status {{recentlyTheBillInfo.deductStatus === 2 ? 'failure' : ''}}" style="width: {{billStatusWidth}}px">
+                        {{recentlyTheBillInfo.deductStatus === 2 ? '扣款失败' : ''}}
+                        {{recentlyTheBillInfo.deductStatus === 7 ? '退款成功' : ''}}
+                    </view>
                 </view>
             </view>
             <!--	未激活订单-显示订单状态结束-->

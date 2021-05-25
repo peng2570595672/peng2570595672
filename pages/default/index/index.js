@@ -11,19 +11,19 @@ Page({
 		processList: [
 			{
 				title: '填写资料',
-				content: '填写邮寄地址及车辆信息，仅支持蓝牌或绿牌且9座以下客车办理'
+				content: '填写邮寄地址及车辆信息，仅支持蓝牌或绿牌且9座以下客车办理。'
 			},
 			{
 				title: '选择办理方式',
-				content: '选择办理方式及加购权益，完成支付且设备激活后获赠对应服务权益'
+				content: '选择办理方式及加购权益，完成支付且设备激活后获赠对应服务权益。'
 			},
 			{
 				title: '上传证件及签约免密代扣',
-				content: '按要求上传对应资料，签约微信免密代扣通行费。资料审核通过后即安排快递配送'
+				content: '按要求上传对应资料，签约微信免密代扣通行费。资料审核通过后即安排快递配送。'
 			},
 			{
 				title: '安装激活',
-				content: '收到设备后按指引激活ETC，先通行后付费，通行后费用将通过微信代扣'
+				content: '收到设备后按指引激活ETC，先通行后付费，通行后费用将通过微信代扣。'
 			}
 		]
 	},
@@ -35,7 +35,6 @@ Page({
 	goOnlineServer () {
 		// 未登录
 		if (!app.globalData.userInfo.accessToken) {
-			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
 			util.go('/pages/login/login/login');
 			return;
 		}

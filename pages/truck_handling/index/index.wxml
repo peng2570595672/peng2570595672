@@ -18,9 +18,7 @@
 			<view>
 				<view>
 					<image src="/pages/truck_handling/assets/ICBC.svg"></image>
-					<view>
-						中国工商银行
-					</view>
+					<view>中国工商银行</view>
 				</view>
 				<view>
 					<image src="/pages/truck_handling/assets/we-chatpay.svg"></image>
@@ -53,7 +51,7 @@
 				<text class="memo">牵引车上传</text>
 			</view>
 			<view class="photo-item">
-				<image class="image" src="/pages/truck_handling/assets/driving_license_face_bg.png"></image>
+				<image class="image" src="/pages/truck_handling/assets/bank.svg"></image>
 				<text>I类银行卡</text>
 			</view>
 		</view>
@@ -109,7 +107,7 @@
 			<view class="problem-title">常见问题</view>
 			<view class="problems-list">
 				<view class="item" wx:for="{{ problems }}">
-					<view class="item-title">
+					<view class="item-title iconfont">
 						{{ item.title }}
 					</view>
 					<view class="item-text">

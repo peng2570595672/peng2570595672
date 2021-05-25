@@ -108,12 +108,6 @@
 			background #FFFFFF
 			box-shadow 0rpx 10rpx 30rpx 0rpx rgba(159, 159, 159, 0.15)
 			border-radius 8rpx
-			// 已激活订单-显示账单开始
-			.bill-info
-				display flex
-				height 82rpx
-				padding 52rpx 48rpx 68rpx 46rpx
-				overflow hidden
 			// 显示订单状态开始
 			.vehicle-information
 				display flex
@@ -152,6 +146,34 @@
 					font-family PingFangSC-Semibold, PingFang SC
 					font-weight 600
 					color #FFFFFF
+				.bill-info
+					text-align center
+					.bill
+						height 56rpx
+						display flex
+						align-items center
+						font-size 48rpx
+						font-weight bold
+						color #00B85C
+						&::after
+							content '\e63e'
+							font-size 20rpx
+							color #FFEC9A
+							margin-left 12rpx
+					.bill-status
+						display flex
+						height 34rpx
+						align-items center
+						justify-content center
+						font-size 24rpx
+						color #33333E
+						line-height 34rpx
+						padding-top 2rpx
+						&.failure
+							&::before
+								color #FF3C48
+								content '\e617'
+								margin-right 8rpx
 			.other-entrance
 				display flex
 				height 48rpx

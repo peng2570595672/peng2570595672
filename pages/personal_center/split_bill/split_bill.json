@@ -1,8 +1,8 @@
 {
-	"navigationBarBackgroundColor": "#FFFFFF",
+	"navigationBarBackgroundColor": "#EDEDED",
 	"backgroundColor": "#FFFFFF",
 	"navigationBarTextStyle": "black",
-	"navigationBarTitleText": "扣款记录",
+	"navigationBarTitleText": "拆分扣款记录",
 	"usingComponents": {
 		"tips": "/components/tips/tips"
 	}

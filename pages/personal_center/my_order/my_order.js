@@ -186,12 +186,14 @@ Page({
 			const passengerCarList = obuStatusList.filter(item => item.isNewTrucks === 0);
 			truckList.map((item) => {
 				this.data.truckList.push(item.vehPlates);
+				this.data.truckList = [...new Set(this.data.truckList)];
 				this.setData({
 					truckList: this.data.truckList
 				});
 			});
 			passengerCarList.map((item) => {
 				this.data.passengerCarList.push(item.vehPlates);
+				this.data.passengerCarList = [...new Set(this.data.passengerCarList)];
 				this.setData({
 					passengerCarList: this.data.passengerCarList
 				});
@@ -329,9 +331,32 @@ Page({
 	goDetails (e) {
 		app.globalData.billingDetails = undefined;
 		let model = e.currentTarget.dataset.model;
+		let index = e.currentTarget.dataset.index;
 		app.globalData.billingDetails = model;
 		// 统计点击事件
 		mta.Event.stat('018',{});
+		if (parseInt(index) === 2) {
+			// 通行手续费
+			util.go(`/pages/personal_center/passing_charges_details/passing_charges_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
+			return;
+		}
+		if (parseInt(model.splitState) === 1) {
+			util.alert({
+				title: `提醒。`,
+				content: `因账单金额过高导致扣款失败，为避免影响您的通行，系统已自动拆分为{拆分扣款流水数量}条扣款记录，`,
+				showCancel: true,
+				cancelText: '跳过',
+				confirmText: '去查看',
+				confirm: () => {
+					app.globalData.splitDetails = model;
+					util.go('/pages/personal_center/split_bill/split_bill');
+				},
+				cancel: () => {
+					util.go(`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
+				}
+			});
+			return;
+		}
 		util.go(`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
 	},
 	// 下拉选择

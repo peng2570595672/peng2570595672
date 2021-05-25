@@ -71,7 +71,7 @@
                     <text>行驶证</text>
                 </view>
                 <view class="photo-item">
-                    <image class="image" src="/pages/default/assets/driving_license_face_bg.png"></image>
+                    <image class="image" src="/pages/default/assets/headstock.svg"></image>
                     <text>车头照</text>
                 </view>
             </view>

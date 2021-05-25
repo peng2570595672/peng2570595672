@@ -143,6 +143,18 @@
   color: #39a6f8;
   font-size: 24rpx;
 }
+.processing_progress .progress_wrapper .item .content-des.earnest-money {
+  display: block;
+}
+.processing_progress .progress_wrapper .item .content-des.earnest-money .money {
+  color: #00b85c;
+}
+.processing_progress .progress_wrapper .item .content-des.earnest-money .failure {
+  color: #ff3c48;
+}
+.processing_progress .progress_wrapper .item .content-des.earnest-money .precharge {
+  color: #00b1ff;
+}
 .processing_progress .progress_wrapper .last::after {
   display: none !important;
 }

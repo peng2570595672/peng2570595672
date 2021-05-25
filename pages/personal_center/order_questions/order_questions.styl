@@ -1,0 +1,103 @@
+@import "../../../style/base.styl";
+page
+	background #F3F3F3
+.order_questions
+	// 费用明细
+	.order-box
+		background #fff
+		padding-left 32rpx
+		.title
+			color rgba(0,0,0,.9)
+			font-size 34rpx
+			line-height 48rpx
+			padding-top 32rpx
+		.flex-box
+			background #fff
+			margin-bottom 32rpx
+			&>view
+				font-size 28rpx
+				line-height 48rpx
+				padding 32rpx
+				padding-left 0
+				border-bottom 1rpx solid #EDEDED
+				text,
+				.explain
+					color $fontColor9
+				text
+					margin-right 32rpx
+			.line
+				display flex
+			.line view:first-child
+				flex 4
+				height 48rpx
+				line-height 48rpx
+				color $fontColor6
+			.line view:last-child
+				flex 6
+				text-align right
+				color $fontColor3
+			&>view:last-child
+				border 0
+	// 提示
+	.tips
+		background #F3F3F3
+		padding 32rpx
+		padding-bottom 64rpx
+		color $fontColor6
+		font-size 24rpx
+		line-height 36rpx
+		.blue
+			color #039EEB
+	// 常见问题
+	.common-problem
+		background #fff
+		padding-left 32rpx
+		margin-bottom 20rpx
+		.title
+			color rgba(0,0,0,.9)
+			font-size 34rpx
+			line-height 48rpx
+			padding-top 32rpx
+		.item
+			position relative
+			padding 30rpx 0
+			border-bottom 1rpx solid rgba(0, 0, 0, 0.1)
+			.item-title
+				height 48rpx
+				display flex
+				align-items center
+				background #fff
+				color $fontColor6
+				font-size 28rpx
+				.problem-title
+					flex 1
+				.iconfont
+					margin-right 42rpx
+					&::after
+						display inline-block
+						content '\e60e'
+						font-size 32rpx
+						color rgba(0, 0, 0, 0.3)
+					&.down
+						transition: .4s
+						transform rotateZ(90deg)
+					&.up
+						transition: .4s
+						transform rotateZ(270deg)
+			.details
+				font-size 24rpx
+				color rgba(0, 0, 0, 0.3)
+				padding-top 26rpx
+				padding-right 32rpx
+				line-height 34rpx
+				&.show
+					display block
+				&.hide
+					display none
+		.more
+			display flex
+			height 110rpx
+			align-items center
+			justify-content center
+			color $fontColor6
+			font-size 28rpx

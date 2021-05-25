@@ -210,12 +210,6 @@
   box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(159,159,159,0.15);
   border-radius: 8rpx;
 }
-.index .order-info .order-info-box .bill-info {
-  display: flex;
-  height: 82rpx;
-  padding: 52rpx 48rpx 68rpx 46rpx;
-  overflow: hidden;
-}
 .index .order-info .order-info-box .vehicle-information {
   display: flex;
   height: 82rpx;
@@ -258,6 +252,38 @@
   font-family: PingFangSC-Semibold, PingFang SC;
   font-weight: 600;
   color: #fff;
+}
+.index .order-info .order-info-box .vehicle-information .bill-info {
+  text-align: center;
+}
+.index .order-info .order-info-box .vehicle-information .bill-info .bill {
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #00b85c;
+}
+.index .order-info .order-info-box .vehicle-information .bill-info .bill::after {
+  content: '\e63e';
+  font-size: 20rpx;
+  color: #ffec9a;
+  margin-left: 12rpx;
+}
+.index .order-info .order-info-box .vehicle-information .bill-info .bill-status {
+  display: flex;
+  height: 34rpx;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  color: #33333e;
+  line-height: 34rpx;
+  padding-top: 2rpx;
+}
+.index .order-info .order-info-box .vehicle-information .bill-info .bill-status.failure::before {
+  color: #ff3c48;
+  content: '\e617';
+  margin-right: 8rpx;
 }
 .index .order-info .order-info-box .other-entrance {
   display: flex;

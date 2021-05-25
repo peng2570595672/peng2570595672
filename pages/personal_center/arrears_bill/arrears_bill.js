@@ -75,6 +75,7 @@ Page({
 	},
 	// 失败账单列表
 	getFailBill (vehPlates) {
+		util.showLoading();
 		let params = {};
 		if (vehPlates) {
 			let channel;
@@ -96,19 +97,12 @@ Page({
 				let total = 0;
 				let order = {};
 				res.data.map(item => {
-					total += item.etcMoney;
 					order.vehPlates = item.vehPlate;
-					if (item.serviceMoney) {
-						total += item.serviceMoney;
+					if (item.deductStatus === 2 || item.deductStatus === 10) {
+						total += item.totalMmout + (item.serviceMoney || 0) - (item.splitDeductedMoney || 0) - (item.deductServiceMoney || 0) - (item.refundMoney || 0) - (item.wxDiscountAmount || 0) - (item.discountMount || 0);
 					}
-					if (item.passServiceMoney) {
-						total += item.passServiceMoney;
-					}
-					if (item.splitDeductedMoney) { // 拆分账单,已扣金额
-						total -= item.splitDeductedMoney;
-					}
-					if (item.deductServiceMoney) { // 拆分账单,已扣服务费
-						total -= item.deductServiceMoney;
+					if (item.passDeductStatus === 2 || item.passDeductStatus === 10) {
+						total += item.passServiceMoney || 0;
 					}
 				});
 				order.total = total;
@@ -129,7 +123,33 @@ Page({
 	},
 	// 账单详情
 	goDetails (e) {
+		app.globalData.billingDetails = undefined;
 		let model = e.currentTarget.dataset.model;
+		let index = e.currentTarget.dataset.index;
+		app.globalData.billingDetails = model;
+		// 统计点击事件
+		if (parseInt(index) === 2) {
+			// 通行手续费
+			util.go(`/pages/personal_center/passing_charges_details/passing_charges_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
+			return;
+		}
+		if (parseInt(model.splitState) === 1) {
+			util.alert({
+				title: `提醒。`,
+				content: `因账单金额过高导致扣款失败，为避免影响您的通行，系统已自动拆分为{拆分扣款流水数量}条扣款记录，`,
+				showCancel: true,
+				cancelText: '跳过',
+				confirmText: '去查看',
+				confirm: () => {
+					app.globalData.splitDetails = model;
+					util.go('/pages/personal_center/split_bill/split_bill');
+				},
+				cancel: () => {
+					util.go(`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
+				}
+			});
+			return;
+		}
 		util.go(`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
 	},
 	// 补缴

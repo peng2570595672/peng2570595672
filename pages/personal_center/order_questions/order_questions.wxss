@@ -1,0 +1,124 @@
+page {
+  background: #f3f3f3;
+}
+.order_questions .order-box {
+  background: #fff;
+  padding-left: 32rpx;
+}
+.order_questions .order-box .title {
+  color: rgba(0,0,0,0.9);
+  font-size: 34rpx;
+  line-height: 48rpx;
+  padding-top: 32rpx;
+}
+.order_questions .order-box .flex-box {
+  background: #fff;
+  margin-bottom: 32rpx;
+}
+.order_questions .order-box .flex-box>view {
+  font-size: 28rpx;
+  line-height: 48rpx;
+  padding: 32rpx;
+  padding-left: 0;
+  border-bottom: 1rpx solid #ededed;
+}
+.order_questions .order-box .flex-box>view text,
+.order_questions .order-box .flex-box>view .explain {
+  color: #99999d;
+}
+.order_questions .order-box .flex-box>view text {
+  margin-right: 32rpx;
+}
+.order_questions .order-box .flex-box .line {
+  display: flex;
+}
+.order_questions .order-box .flex-box .line view:first-child {
+  flex: 4;
+  height: 48rpx;
+  line-height: 48rpx;
+  color: #66666d;
+}
+.order_questions .order-box .flex-box .line view:last-child {
+  flex: 6;
+  text-align: right;
+  color: #33333d;
+}
+.order_questions .order-box .flex-box>view:last-child {
+  border: 0;
+}
+.order_questions .tips {
+  background: #f3f3f3;
+  padding: 32rpx;
+  padding-bottom: 64rpx;
+  color: #66666d;
+  font-size: 24rpx;
+  line-height: 36rpx;
+}
+.order_questions .tips .blue {
+  color: #039eeb;
+}
+.order_questions .common-problem {
+  background: #fff;
+  padding-left: 32rpx;
+  margin-bottom: 20rpx;
+}
+.order_questions .common-problem .title {
+  color: rgba(0,0,0,0.9);
+  font-size: 34rpx;
+  line-height: 48rpx;
+  padding-top: 32rpx;
+}
+.order_questions .common-problem .item {
+  position: relative;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid rgba(0,0,0,0.1);
+}
+.order_questions .common-problem .item .item-title {
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  color: #66666d;
+  font-size: 28rpx;
+}
+.order_questions .common-problem .item .item-title .problem-title {
+  flex: 1;
+}
+.order_questions .common-problem .item .item-title .iconfont {
+  margin-right: 42rpx;
+}
+.order_questions .common-problem .item .item-title .iconfont::after {
+  display: inline-block;
+  content: '\e60e';
+  font-size: 32rpx;
+  color: rgba(0,0,0,0.3);
+}
+.order_questions .common-problem .item .item-title .iconfont.down {
+  transition: 0.4s;
+  transform: rotateZ(90deg);
+}
+.order_questions .common-problem .item .item-title .iconfont.up {
+  transition: 0.4s;
+  transform: rotateZ(270deg);
+}
+.order_questions .common-problem .item .details {
+  font-size: 24rpx;
+  color: rgba(0,0,0,0.3);
+  padding-top: 26rpx;
+  padding-right: 32rpx;
+  line-height: 34rpx;
+}
+.order_questions .common-problem .item .details.show {
+  display: block;
+}
+.order_questions .common-problem .item .details.hide {
+  display: none;
+}
+.order_questions .common-problem .more {
+  display: flex;
+  height: 110rpx;
+  align-items: center;
+  justify-content: center;
+  color: #66666d;
+  font-size: 28rpx;
+}

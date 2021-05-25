@@ -645,12 +645,12 @@ function getTruckHandlingStatus(orderInfo) {
 		// 开通II类户预充保证金 - 未开户
 		return 13;
 	}
-	// if (orderInfo.multiContractList.filter(item => item.contractStatus === 1).length !== 3) {
-	// 	return 5; // 未完全签约 - 或存在解约
-	// }
-	// if (orderInfo.status === 0) {
-	// 	return 14; // 办理中 未授权预充保证金
-	// }
+	if (orderInfo.multiContractList.filter(item => item.contractStatus === 1).length !== 3) {
+		return 5; // 未完全签约 - 或存在解约
+	}
+	if (orderInfo.status === 0) {
+		return 14; // 办理中 未授权预充保证金
+	}
 	if (orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) {
 		// auditStatus: -1 无需审核   0 待审核   1 审核失败  2 审核通过  3 预审核通过  9 高速核验不通过
 		return 6;// 待审核 预审核通过(待审核)

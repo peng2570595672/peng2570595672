@@ -1,0 +1,78 @@
+<view class="order_questions">
+	<view class="order-box">
+		<view class="title">费用明细</view>
+		<!--账单说明开始-->
+		<view class="flex-box">
+			<view>
+				<view class="line">
+					<view>通行费（折后）</view>
+					<view>¥{{details.totalMmout/100}}</view>
+				</view>
+				<view class="explain">该费用已扣减ETC通行本身的折扣优惠</view>
+			</view>
+            <view wx:if="{{details.passServiceMoney && details.passServiceMoney > 0}}">
+				<view class="line">
+					<view>通行手续费</view>
+					<view>¥{{details.passServiceMoney/100}}</view>
+				</view>
+				<view class="explain">货车每笔通行需加收{{details.totalMmout/100}}*0.6%</view>
+			</view>
+			<view wx:if="{{details.serviceMoney && details.serviceMoney > 0}}">
+				<view class="line" wx:if="{{details.serviceMoney}}">
+					<view>服务费</view>
+					<view>{{details.serviceMoney/100}}</view>
+				</view>
+				<view class="explain">逾期补缴每日产生通行费*0.05%的服务费</view>
+			</view>
+			<view class="line" wx:if="{{details.wxDiscountAmount && details.wxDiscountAmount > 0}}">
+				<view>微信支付优惠</view>
+				<view>{{-details.wxDiscountAmount/100}}</view>
+			</view>
+			<view class="line" wx:if="{{details.discountMount && details.discountMount > 0}}">
+				<view>平台优惠券抵扣</view>
+				<view>{{-details.discountMount/100}}</view>
+			</view>
+			<view class="line">
+				<view></view>
+				<view><text>实扣金额</text>{{(details.totalMmout + details.serviceMoney  - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}}</view>
+			</view>
+		</view>
+		<!--账单说明结束-->
+	</view>
+	<view class="order-box" wx:if="{{refundDetails.refundMoney && refundDetails.refundMoney > 0}}">
+		<!-- 退款金额开始-->
+		<view class="flex-box">
+			<view class="line">
+				<view>退款金额</view>
+				<view>¥{{refundDetails.refundMoney/100}}</view>
+			</view>
+		</view>
+		<!--退款金额结束-->
+	</view>
+	<!--提示开始-->
+	<view class="tips" wx:if="{{details.channelTips.tips2}}">
+		<view>
+			<view>{{details.channelTips.tips1[0]}}</view>
+			<view>
+				{{details.channelTips.tips1[1]}}<text wx:for="{{details.channelTips.tipsArr}}" wx:key="index" data-model="{{item}}" catchtap="callHotLine">
+					<text class="blue">{{item}}</text>{{index === details.channelTips.tipsArr.length-1 ? '' : '/'}}
+				</text>
+			</view>
+			<view>{{details.channelTips.tips2}}</view>
+		</view>
+	</view>
+	<!--提示结束-->
+	<!--常见问题开始-->
+	<view class="common-problem">
+		<view class="title">常见问题</view>
+		<view class="item" wx:for="{{problemList}}" wx:key="index">
+			<view class="item-title" catchtap="onclickProblem" data-index="{{index}}">
+				<view class="problem-title">{{item.title}}</view>
+				<view class="iconfont {{item.open ?'up':'down'}}"></view>
+			</view>
+			<view class="details animated {{item.open ?'show':'hide'}}">{{item.content}}</view>
+		</view>
+		<view class="more" catchtap="onclickMoreProblem">查看更多问题</view>
+	</view>
+	<!--常见问题结束-->
+</view>

@@ -137,7 +137,7 @@ Page({
 			5: () => this.onClickBackToSign(orderInfo), // 签约微信支付 - 去签约
 			6: () => this.onClickViewProcessingProgressHandle(orderInfo), // 订单排队审核中 - 查看进度
 			7: () => this.onClickModifiedData(orderInfo), // 修改资料 - 上传证件页
-			9: () => this.onClickBackToSign(orderInfo), // 去签约
+			9: () => this.onClickHighSpeedSigning(orderInfo), // 去签约
 			10: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
 			11: () => this.onClickCctivate(orderInfo), // 去激活
 			13: () => this.goBindingAccount(orderInfo), // 去开户
@@ -145,6 +145,10 @@ Page({
 			15: () => this.goRecharge(orderInfo) // 保证金预充失败 - 去预充
 		};
 		fun[orderInfo.selfStatus].call();
+	},
+	// 去高速签约
+	onClickHighSpeedSigning () {
+		util.go(`/pages/default/order_audit/order_audit`);
 	},
 	// 去开户
 	goBindingAccount () {
@@ -321,7 +325,7 @@ Page({
 		app.globalData.firstVersionData = false;
 		const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
 		if (orderInfo.selfStatus === 2) {
-			const result = await util.initLocationInfo(orderInfo);
+			const result = await util.initLocationInfo(orderInfo, orderInfo.isNewTrucks === 1);
 			if (!result) return;
 			if (result.code) {
 				util.showToastNoIcon(result.message);

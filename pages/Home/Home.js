@@ -31,6 +31,7 @@ Page({
 		recentlyTheBill: undefined, // 最新客车账单
 		recentlyTheTruckBill: undefined, // 最新货车账单
 		recentlyTheBillInfo: undefined, // 最新货车|客车账单
+		billStatusWidth: 0, // 账单宽度
 		isAllActivation: false,// 是否客车全是激活订单
 		isAllActivationTruck: false,// 是否货车全是激活订单
 		isTruckArrearage: false,// 是否货车欠费
@@ -54,10 +55,6 @@ Page({
 		this.login();
 	},
 	async onShow () {
-		this.setData({
-			activeIndex: 1,
-			btnSwitch: false
-		});
 		if (app.globalData.userInfo.accessToken) {
 			if (app.globalData.salesmanScanCodeToHandleId) {
 				await this.bindOrder();
@@ -129,11 +126,19 @@ Page({
 	onClickCheckVehicleType (e) {
 		let activeIndex = parseInt(e.currentTarget.dataset.index);
 		if (activeIndex === this.data.activeIndex) return;
+		console.log(this.data.passengerCarOrderInfo)
+		console.log(this.data.truckOrderInfo)
 		this.setData({
 			activeIndex,
 			orderInfo: activeIndex === 1 ? (this.data.passengerCarOrderInfo || false) : (this.data.truckOrderInfo || false),
 			recentlyTheBillInfo: activeIndex === 1 ? (this.data.recentlyTheBill || false) : (this.data.recentlyTheTruckBill || false)
 		});
+		const that = this;
+		wx.createSelectorQuery().selectAll('.bill').boundingClientRect(function (rect) {
+			that.setData({
+				billStatusWidth: rect[0]?.width
+			});
+		}).exec();
 		const animation = wx.createAnimation({
 			duration: 300
 		});
@@ -147,7 +152,6 @@ Page({
 			animationVehicleInfoForTrucks: util.wxAnimation(activeIndex === 1 ? 0 : 200, activeIndex === 1 ? 0 : -150, 'translateY',activeIndex === 1 ? 0 : 1),
 			animationTransaction: animation.export()
 		});
-		console.log(this.data.orderInfo)
 		setTimeout(() => {
 			this.setData({
 				btnSwitch: activeIndex === 2
@@ -431,96 +435,7 @@ Page({
 			openId: app.globalData.openId
 		};
 		if (isToMasterQuery) params['toMasterQuery'] = true;// 直接查询主库
-		// const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
-		const result = {
-			code: 0,
-			data: [{
-				"lastOpTime":"2021-04-30 11:33:39",
-				"orderType":31,
-				"logisticsId":-1,
-				"pledgeStatus":-1,
-				"addTime":"2020-06-09 10:17:39",
-				"lastAuditId":"719857740614213632",
-				"addUser":"699765879610548224",
-				"shopProductId":"699009638917599232",
-				"lastOpUser":"700752185801048064",
-				"errCodes":null,
-				"submitHwStatus":0,
-				"isTraction":0,
-				"couponId":0,
-				"productName":"【客车】绑工行卡",
-				"etcCardId":1,
-				"receiveMan":"陈同克",
-				"activityId":0,
-				"productProcess":2,
-				"isOwner":1,
-				"contractTime":"2021-04-30 11:33:39",
-				"shopUserMobilePhone":"18111889044",
-				"id":"719857736895959040",
-				"shopId":"575286944775274496",
-				"vehPlates":"贵Z00066",
-				"memberAccountId":0,
-				"payChannelId":"520366984433500160",
-				"contractPlatformId":"500338116821778434",
-				"memberId":"700752185801048064",
-				"hwLoginStatus":null,
-				"etcContractId":"719857995491577856",
-				"obuNo":"10086",
-				"isReceive":0,
-				"shopUserTrueName":"崔民",
-				"promoterId":"699765879610548224",
-				"etcNo":"10010",
-				"areaCode":"520000",
-				"auditUserId":"699765879610548224",
-				"deliveryRule":0,
-				"auditTime":"2020-06-09 10:17:40",
-				"auditSubmitHw":1,
-				"vehColor":0,
-				"contractPlatformName":"ETC+",
-				"vinRepetition":0,
-				"status":1,
-				"hwRemark":null,
-				"rightsStatus":2,
-				"promoterType":4,
-				"cardName":"贵州黔通卡",
-				"isTransportLicense":0,
-				"description":"0.0",
-				"remark":"",
-				"contractVersion":"v3",
-				"authId":null,
-				"openType":0,
-				"carType":1,
-				"thirdGeneralizeNo":null,
-				"repairPayChannelId":0,
-				"autoAuditStatus":-1,
-				"licenseId":0,
-				"hwContractStatus":0,
-				"channelCode":"0",
-				"obuStatus":1,
-				"wxPlanId":0,
-				"owner":null,
-				"bankCode":"0",
-				"isHeadstock":1,
-				"contractStatus":1,
-				"obuCardType":1,
-				"fullName":"7座及7座以下客车",
-				"flowVersion":1,
-				"auditRemark":"秒审未通过，订单类型不支持秒审",
-				"platformId":"568113867222155265",
-				"shopUserId":"699765879610548224",
-				"dataCompleteTime":"2020-06-09 10:17:39",
-				"sysPlanId":"625824471105667072",
-				"bakStatus":0,
-				"warnStatus":"",
-				"isVehicle":1,
-				"contractId":"wx20200609101847NUcpG13822647301",
-				"auditStatus":2,
-				"isCrop":0,
-				"errNums":null,
-				"remarks":"支付业务员红包-有推广服务商套餐",
-				"isNewTrucks":0
-			}]
-		}
+		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
 		// 订单展示优先级: 扣款失败账单>已解约状态>按最近时间顺序：办理状态or账单记录
 		if (!result) return;
 		if (result.code === 0) {
@@ -558,7 +473,7 @@ Page({
 			});
 			let channelList = activationOrder.concat(activationTruckOrder);
 			channelList = [...new Set(channelList)];
-			// if (channelList.length) await this.getArrearageTheBill(channelList);
+			if (channelList.length) await this.getArrearageTheBill(channelList);
 			if (activationOrder.length) {
 				// 查询客车最近一次账单
 				activationOrder.map(async item => {
@@ -637,6 +552,12 @@ Page({
 				recentlyTheBill: arrearageOrder || this.data.recentlyTheBillList[0],
 				recentlyTheBillInfo: arrearageOrder || this.data.recentlyTheBillList[0]
 			});
+			const that = this;
+			wx.createSelectorQuery().selectAll('.bill').boundingClientRect(function (rect) {
+				that.setData({
+					billStatusWidth: rect[0]?.width
+				});
+			}).exec();
 		}
 		if (this.data.needRequestBillNum === (this.data.requestBillTruckNum + this.data.requestBillNum)) {
 			// 查询账单已结束
@@ -687,12 +608,7 @@ Page({
 			return;
 		}
 		// 解约
-		let orderInfo = isTerminationOrder;
-		if (this.data.isTerminationTruck) {
-			orderInfo = this.data.truckOrderInfo;
-		} else {
-			orderInfo = this.data.passengerCarOrderInfo;
-		}
+		let orderInfo = this.data.isTerminationTruck ? this.data.truckOrderInfo : this.data.passengerCarOrderInfo;
 		let dialogContent = {
 			orderInfo: orderInfo,
 			title: '无法正常扣款',
@@ -717,7 +633,7 @@ Page({
 		const orderInfo = this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data.truckOrderInfo;
 		if (!orderInfo) {
 			app.globalData.orderInfo.orderId = '';
-			const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address' : 'pages/truck_handling/truck_receiving_address/truck_receiving_address';
+			const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address' : '/pages/truck_handling/truck_receiving_address/truck_receiving_address';
 			util.go(url);
 			return;
 		}
@@ -731,7 +647,7 @@ Page({
 			6: () => this.onClickViewProcessingProgressHandle(orderInfo), // 订单排队审核中 - 查看进度
 			7: () => this.onClickModifiedData(orderInfo), // 修改资料 - 上传证件页
 			8: () => this.goEtcDetails(orderInfo), // 高速核验不通过 - 查看进度
-			9: () => this.onClickBackToSign(orderInfo), // 去签约
+			9: () => this.onClickHighSpeedSigning(orderInfo), // 去签约
 			10: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
 			11: () => this.onClickCctivate(orderInfo), // 去激活
 			13: () => this.goBindingAccount(orderInfo), // 去开户
@@ -739,6 +655,10 @@ Page({
 			15: () => this.goRecharge(orderInfo) // 保证金预充失败 - 去预充
 		};
 		fun[orderInfo.selfStatus].call();
+	},
+	// 去高速签约
+	onClickHighSpeedSigning () {
+		util.go(`/pages/default/order_audit/order_audit`);
 	},
 	// 去预充
 	goRecharge (orderInfo) {
@@ -949,7 +869,7 @@ Page({
 		app.globalData.firstVersionData = false;
 		const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
 		if (orderInfo.selfStatus === 2) {
-			const result = await util.initLocationInfo(orderInfo);
+			const result = await util.initLocationInfo(orderInfo, orderInfo.isNewTrucks === 1);
 			if (!result) return;
 			if (result.code) {
 				util.showToastNoIcon(result.message);

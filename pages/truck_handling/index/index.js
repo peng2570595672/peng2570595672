@@ -35,7 +35,6 @@ Page({
 	goOnlineServer () {
 		// 未登录
 		if (!app.globalData.userInfo.accessToken) {
-			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
 			util.go('/pages/login/login/login');
 			return;
 		}

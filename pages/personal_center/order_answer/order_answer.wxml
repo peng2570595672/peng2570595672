@@ -1,0 +1,13 @@
+<view class="order_answer">
+	<!--常见问题开始-->
+	<view class="common-problem">
+		<view class="item" wx:for="{{problemList}}" wx:key="index">
+			<view class="item-title" catchtap="onclickProblem" data-index="{{index}}">
+				<view class="problem-title">{{item.title}}</view>
+				<view class="iconfont {{item.open ?'up':'down'}}"></view>
+			</view>
+			<view class="details animated {{item.open ?'show':'hide'}}">{{item.content}}</view>
+		</view>
+	</view>
+	<!--常见问题结束-->
+</view>

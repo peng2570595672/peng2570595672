@@ -73,6 +73,7 @@
   color: #040003;
   font-weight: bold;
   margin-left: 5rpx;
+  border-bottom: 1rpx solid #cf0106;
 }
 .index .btn-content .pay-log>view:nth-child(1)>view:nth-child(2) {
   display: flex;
@@ -317,8 +318,8 @@
 .index .handle-desc .handle-process .progress_wrapper .item .content-des {
   display: flex;
   margin-top: 10rpx;
-  padding-left: 26rpx;
-  padding-right: 80rpx;
+  padding-left: 38rpx;
+  padding-right: 6rpx;
   line-height: 40rpx;
   color: rgba(126,132,156,0.85);
   font-size: 22rpx;
@@ -409,7 +410,6 @@
   display: flex;
   align-items: center;
   font-size: 26rpx;
-  font-family: PingFangSC-Medium, PingFang SC;
   font-weight: Medium;
   color: transparent;
   text-shadow: #33333e 0 0 3rpx;
@@ -417,11 +417,9 @@
 }
 .index .handle-desc .frequency-problem .problems-list .item .item-title::before {
   margin-right: 10rpx;
-  content: '';
-  width: 10rpx;
-  height: 10rpx;
-  border: 6rpx solid #14ac69;
-  border-radius: 50%;
+  content: '\e696';
+  font-size: 24rpx;
+  color: #00b85c;
 }
 .index .handle-desc .frequency-problem .problems-list .item .item-text {
   font-size: 24rpx;

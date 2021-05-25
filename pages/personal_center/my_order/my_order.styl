@@ -10,50 +10,55 @@ page
 		top 0
 		z-index 999
 		width 100%
-		height 120rpx
-		background #fff
+		height 112rpx
+		background #FBE5A8
 		border-top 1rpx solid #F0F0F0
+		padding-left 32rpx
+		padding-right 38rpx
+		box-sizing border-box
 		.notice-box
-			background #fff
-			height 60rpx
 			display flex
 			align-items center
-			padding 0 30rpx
-			margin 30rpx
+			height 112rpx
+			color #FF563C
 			&>view:first-child
-				flex 8
+				flex 9
 				font-size 28rpx
 				word-break break-all
-				color #FF563C
 			&>view:last-child
-				flex 2
-				font-size 20rpx
-				color #fff
-				text-align right
-				text
+				flex 1
+				display flex
+				align-items center
+				height 112rpx
+				justify-content flex-end
+				&::before
+					content '•'
+					font-size 48rpx
+					line-height 112rpx
+				&::after
 					display inline-block
-					width 120rpx
-					height 48rpx
-					line-height 48rpx
-					border-radius 24rpx
-					background #2FB565
-					text-align center
+					content '\e60e'
+					font-size 32rpx
+					font-weight bold
+					transform scaleX(-1)
+					color rgba(0, 0, 0, 0.3)
 	//通行总额
 	.total-cost
-		padding 20rpx 0 18rpx
+		padding 20rpx 32rpx 18rpx
 		font-size 24rpx
 		color $fontColor9
 		line-height 40rpx
-		text-indent 40rpx
-		border-bottom 1rpx solid #E7E7E7
+		border-bottom 32rpx solid #F9F9F9
 		&>view:first-child
 			color $fontColor6
 			font-weight 600
 	//订单列表
 	.order-list
 		.order-list-content
-			padding 34rpx 40rpx 28rpx
-			border-bottom 1rpx solid #E7E7E7
+			padding 34rpx 32rpx 28rpx
+			border-bottom 32rpx solid #F9F9F9
+			.operating-expenses
+				padding-top 44rpx
 			.order-list-top
 				display flex
 				height 64rpx
@@ -63,11 +68,12 @@ page
 					font-size 40rpx
 					font-weight 500
 					color $fontColor3
+					display flex
+					align-items center
 					text
-						vertical-align middle
 						font-size 20rpx
 						color #39A6F8
-						margin-left 28rpx
+						margin-left 6rpx
 				.fail-money,
 				.success-money
 					flex 4
@@ -76,9 +82,18 @@ page
 					line-height 64rpx
 					text-align right
 				.success-money
-					color #2FB565
+					color $fontColor3
 				.refund
 					color $fontColor9
+				.poundage
+					color $fontColor9
+					font-weight 400
+					font-size 24rpx
+					&::before
+						content '\e668'
+						color #27B266
+						font-size 28rpx
+						margin-right 12rpx
 			.site
 				display flex
 				align-items center

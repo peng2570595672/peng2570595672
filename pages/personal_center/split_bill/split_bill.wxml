@@ -1,14 +1,12 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="my_order">
-<!--提示开始-->
-<tips content="欠费有可能被列为黑名单，影响您的高速通行，请及时补缴！" wx:if="{{details.deductStatus === 2 || details.deductStatus === 10}}"></tips>
-<!--提示结束-->
 <!--拆分总计开始-->
 <view class="split-total">
-	<view class="serial-number">{{details.id}}</view>
+	<view class="serial-number">账单流水号：{{details.id}}</view>
+	<view class="total-amount">{{(details.totalMmout + details.serviceMoney  - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}}</view>
 	<view class="split-amount">
-		<view>已扣金额：<text>{{tools.parseNum((details.splitDeductedMoney + details.deductServiceMoney)/100)}}</text></view>
-		<view><text class="buckling-failure">扣款失败：{{tools.parseNum((details.etcMoney + details.serviceMoney - details.splitDeductedMoney - details.deductServiceMoney)/100)}}</text></view>
+		<view>扣款成功  {{tools.parseNum((details.splitDeductedMoney + details.deductServiceMoney)/100)}}</view>
+		<view class="buckling-failure">扣款失败  {{tools.parseNum((details.etcMoney + details.serviceMoney - details.splitDeductedMoney - details.deductServiceMoney)/100)}}</view>
 	</view>
 </view>
 <!--拆分总计结束-->
@@ -16,19 +14,22 @@
 <view class="split-order-list">
 	<view class="split-order-item" wx:for="{{splitList}}" wx:key="index">
 		<view class="order-message">
-			<view>{{item.id}}</view>
-			<view class="{{item.deductStatus === 2 || item.deductStatus === 10 ? 'fail' : ''}}">{{item.etcMoney/100}}</view>
+			<view>拆分一{{item.id}}</view>
+			<view class="{{item.deductStatus === 2 || item.deductStatus === 10 ? 'fail' : ''}}">{{(item.etcMoney + item.serviceMoney)/100}}</view>
 		</view>
 		<view class="order-status">
-			<view>出账时间：{{item.addTime}}</view>
+			<view>出账时间：{{tools.substring(item.addTime,0,16)}}</view>
 			<view class="{{item.deductStatus === 2 || item.deductStatus === 10 ? 'fail' : ''}}">扣款{{item.deductStatus === 2 || item.deductStatus === 10 ? '失败' : '成功'}}</view>
 		</view>
 	</view>
 </view>
 <!--拆分列表结束-->
-<!--底部补缴开始-->
-<view class="payment" wx:if="{{tools.parseNum((details.etcMoney + details.serviceMoney - details.splitDeductedMoney - details.deductServiceMoney)/100) > 0}}">
-	<button catchtap="payment">补缴</button>
-</view>
-<!--底部补缴结束-->
+	<!--底部补缴开始-->
+	<view class="payment" wx:if="{{tools.parseNum((details.etcMoney + details.serviceMoney - details.splitDeductedMoney - details.deductServiceMoney)/100) > 0}}">
+		<view>
+			<button catchtap="go">一键补缴</button>
+			<view class="payment-tips">当前账单已欠款，将影响你的正常通行，请尽快补缴</view>
+		</view>
+	</view>
+	<!--底部补缴结束-->
 </view>
