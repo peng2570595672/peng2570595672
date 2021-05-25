@@ -110,7 +110,7 @@ Page({
 			if (isOk) this.onclickSign(item);
 			return;
 		}
-		if (item.contractType === 3 && item?.contractStatus === 2 && item.contractId) {
+		if (item.contractType === 3 && item?.contractStatus === 2 && item?.userState === 'PAUSE') {
 			app.globalData.isTruckHandling = true;
 			app.globalData.signAContract = 4;
 			wx.navigateToMiniProgram({
