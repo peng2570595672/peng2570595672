@@ -184,7 +184,7 @@ Page({
 			util.showToastNoIcon(result.message);
 			return;
 		}
-		const path = result.data?.accountNo ? 'binding_account' : 'contract_management';
+		const path = result.data?.accountNo ? 'contract_management' : 'binding_account';
 		util.go(`/pages/truck_handling/${path}/${path}`);
 	}
 });

@@ -10,15 +10,22 @@
     </view>
     <view class="split"></view>
     <view class="account-list">
-        <view class="list-title">账户变动明细</view>
-        <view class="list-item" wx:for="{{6}}" wx:key="index">
+        <view class="list-title">
+            <view class="title">账户变动明细</view>
+            <picker mode="date" value="{{date}}" fields="month" start="2021-01" bindchange="bindDateChange">
+                <view class="picker iconfont">
+                    {{currentMonth}}月
+                </view>
+            </picker>
+        </view>
+        <view class="list-item" wx:for="{{list}}" wx:key="index">
             <view class="first">
-                <view class="type">消费类型</view>
-                <view class="price">-¥100.00</view>
+                <view class="type">{{item.drcrf === 2 ? '转入' : '转出'}}</view>
+                <view class="price">-¥{{item.amount/100}}</view>
             </view>
             <view class="last">
-                <view>消费对象</view>
-                <view class="time">2020-12-14 20:30</view>
+                <view>{{item.remarks}}</view>
+                <view class="time">{{item.busidate}}  {{item.busitime}}</view>
             </view>
         </view>
     </view>

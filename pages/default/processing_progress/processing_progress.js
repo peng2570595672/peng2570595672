@@ -19,6 +19,8 @@ Page({
 		showDetailMask: false,
 		showDetailInsurance: false,// 是否展示车险报价插屏
 		memberId: '',
+		rechargeId: '',// 预充保证金id
+		requestNum: 0,// 请求次数
 		weiBaoOrderId: ''
 	},
 	async onLoad (options) {
@@ -89,8 +91,56 @@ Page({
 			}
 		});
 	},
-	// 预充
-	onClickPrecharge () {},
+	// 获取预充结果
+	async onClickRechargeResult () {
+		this.setData({
+			requestNum: 0
+		});
+		await this.applyQuery(this.data.rechargeId);
+	},
+	// 充值查询
+	async applyQuery (rechargeId) {
+		if (!rechargeId) {
+			util.showToastNoIcon('rechargeId丢失');
+			return;
+		}
+		const result = await util.getDataFromServersV2('consumer/member/icbcv2/applyQuery', {
+			rechargeId: rechargeId
+		});
+		if (!result) return;
+		if (result.code === 1) {
+			// 充值中
+			util.showLoading('正在充值...');
+			this.data.requestNum++;
+			this.setData({
+				requestNum: this.data.requestNum
+			});
+			if (this.data.requestNum === 5) {
+				return;
+			}
+			setTimeout(async () => {
+				await this.applyQuery(rechargeId);
+			}, 2000);
+			return;
+		}
+		util.showToastNoIcon(result.code ? result.message : '充值成功');
+	},
+	// 预充保证金
+	async onClickPrecharge () {
+		const result = await util.getDataFromServersV2('consumer/order/orderDeposit', {
+			bankAccountId: this.data.choiceBankObj.bankAccountId,
+			orderId: app.globalData.orderInfo.orderId
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			this.setData({
+				rechargeId: result?.data?.rechargeId
+			});
+			await this.applyQuery(result?.data?.rechargeId);
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
 	// 去微保
 	goMicroInsurance () {
 		mta.Event.stat('processing_progress_weibao',{});

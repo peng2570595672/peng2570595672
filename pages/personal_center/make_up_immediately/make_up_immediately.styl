@@ -1,0 +1,122 @@
+@import "../../../style/base.styl";
+page
+	min-height 100vh
+	background #fff
+.prompt
+	width 100%
+	view
+		width 100%
+		background rgba(246,197,67,.46)
+		padding 16rpx 38rpx 16rpx 32rpx
+		text-align left
+		font-size 28rpx
+		line-height 40rpx
+		box-sizing border-box
+		color #FF563C
+.my_order
+	.order-list
+		//订单列表
+		.bill-list
+			// 账单信息列表
+			.order-list-content
+				padding 32rpx
+				padding-left 0
+				border-top 1rpx solid rgba(0, 0, 0, 0.1)
+				margin-left 32rpx
+				.operating-expenses
+					border-top 1rpx solid rgba(0, 0, 0, 0.1)
+					margin-top 30rpx
+					padding-top 30rpx
+				.order-list-top
+					display flex
+					height 64rpx
+					align-items center
+					.license-plate
+						flex 6
+						font-size 32rpx
+						color $fontColor6
+						text
+							font-size 20rpx
+							color #39A6F8
+							margin-left 28rpx
+					.fail-money,
+					.success-money
+						flex 4
+						font-size 40rpx
+						color #FF563C
+						text-align right
+					.success-money
+						color #2FB565
+				.site
+					display flex
+					align-items center
+					font-size 24rpx
+					line-height 40rpx
+					color $fontColor6
+					padding 10rpx 0
+					&.poundage
+						&::before
+							content '\e668'
+							color #27B266
+							font-size 28rpx
+							margin-right 12rpx
+					& > view:first-child
+						flex 1 1 auto
+						text::after
+							content '\e651'
+							color $fontColor6
+							font-size 24rpx
+					& > view.spilt-deductions
+						width 98rpx
+						height 28rpx
+						line-height 28rpx
+						font-size 16rpx
+						text-align center
+						font-family PingFangSC-Medium, PingFang SC
+						font-weight 500
+						color #FFFFFF
+						background rgba(247, 110, 0, 0.41)
+						border-radius 18rpx
+						border 1rpx solid rgba(247, 181, 0, 0.13)
+						margin-left 10rpx
+				.order-list-bottom
+					display flex
+					font-size 24rpx
+					color $fontColor9
+					line-height 30rpx
+					.accounting-time,
+					.processing-fail,
+					.processing-time
+						flex 5
+					.processing-fail
+						text-align right
+						color #FF563C
+						line-height 40rpx
+					.processing-time
+						text-align right
+		.line
+			height 32rpx
+			background #EEEEEE
+			opacity 0.6
+	//底部补缴
+	.payment
+		position fixed
+		left 0
+		bottom 0
+		width 100%
+		height 184rpx
+		padding 20rpx 0
+		font-size 24rpx
+		color $fontColor6
+		text-align center
+		background #fff
+		border-top 1rpx solid rgba(0, 0, 0, 0.1)
+		button
+			width 84%
+			height 98rpx
+			line-height 98rpx
+			background linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
+			box-shadow 0px 8rpx 10rpx 0px rgba(132,209,87,0.2)
+			border-radius 50rpx
+			font-size 40rpx
+			color #FFFFFF

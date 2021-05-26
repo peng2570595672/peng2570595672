@@ -459,6 +459,9 @@ Page({
 			const isAllActivationTruck = activationTruckOrder.length === truckList.length;// 是否货车全是激活订单 - true: 展示账单单状态
 			activationOrder = [...new Set(activationOrder)];
 			activationTruckOrder = [...new Set(activationTruckOrder)];
+			// 是否全是激活订单  是 - 拉取第一条订单  否 - 过滤激活订单,拉取第一条
+			const passengerCarListNotActivation = isAllActivation ? passengerCarList[0] : passengerCarList.filter(item => item.selfStatus !== 12)[0];
+			const passengerCarListNotTruckActivation = isAllActivationTruck ? truckList[0] : truckList.filter(item => item.selfStatus !== 12)[0];
 			this.setData({
 				needRequestBillNum: activationTruckOrder.length + activationOrder.length,
 				isTermination: !!terminationOrder,
@@ -467,9 +470,9 @@ Page({
 				truckList,
 				passengerCarList,
 				isAllActivationTruck,
-				truckOrderInfo: terminationTruckOrder || truckList[0], // 解约订单 || 拉取第一条
-				passengerCarOrderInfo: terminationOrder || passengerCarList[0], // 解约订单 || 拉取第一条
-				orderInfo: terminationOrder || passengerCarList[0] // 解约订单 || 拉取第一条
+				truckOrderInfo: terminationTruckOrder || passengerCarListNotTruckActivation, // 解约订单 || 拉取第一条
+				passengerCarOrderInfo: terminationOrder || passengerCarListNotActivation, // 解约订单 || 拉取第一条
+				orderInfo: terminationOrder || passengerCarListNotActivation // 解约订单 || 拉取第一条
 			});
 			let channelList = activationOrder.concat(activationTruckOrder);
 			channelList = [...new Set(channelList)];

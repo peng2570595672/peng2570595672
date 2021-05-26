@@ -1,0 +1,11 @@
+<view class="recharge_result">
+    <view>
+        <!--	成功提示开始-->
+        <image src="/pages/account_management/assets/recharge_result.png" mode="widthFix"/>
+        <view class="signed_title">暂未获取充值结果</view>
+        <!--	成功提示结束-->
+        <!--	操作部分开始-->
+        <view class="btn" catchtap="next">重新获取</view>
+        <!--	操作部分结束-->
+    </view>
+</view>

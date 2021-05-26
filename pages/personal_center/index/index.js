@@ -178,7 +178,6 @@ Page({
 			app.globalData.myEtcList = result.data;
 			let isActivation = result.data.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && (item.obuCardType === 1 || item.obuCardType === 21)); // 1 已激活  2 恢复订单  5 预激活
 			let isShowFeatureService = result.data.findIndex(item => item.isShowFeatureService === 1 && (item.obuStatus === 1 || item.obuStatus === 5)); // 是否有特色服务
-			console.log(isShowFeatureService);
 			this.setData({
 				isShowFeatureService: isShowFeatureService !== -1,
 				isActivation: !!isActivation.length

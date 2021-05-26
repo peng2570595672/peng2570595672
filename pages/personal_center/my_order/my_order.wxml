@@ -20,7 +20,7 @@
 		<!--</view>-->
 	<!--</view>-->
 	<!--欠费通知结束-->
-	<dropdownmenu wx:if="{{vehicleList.length >1}}" isOwe="{{failBillMessage.count}}"
+	<dropdownmenu wx:if="{{vehicleList.length >=1}}" isOwe="{{failBillMessage.count}}"
                   initializationDate="{{initializationDate}}" initializationVehPlates="{{initializationVehPlates}}"
                   isOweService="{{ownerServiceArrearsList.length}}" dropDownMenuTitle='{{dropDownMenuTitle}}'
                   vehicleList='{{vehicleList}}' passengerCarList='{{passengerCarList}}' truckList='{{truckList}}'

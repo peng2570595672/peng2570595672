@@ -270,6 +270,9 @@
   color: #ffec9a;
   margin-left: 12rpx;
 }
+.index .order-info .order-info-box .vehicle-information .bill-info .bill.failure {
+  color: #ff3c48;
+}
 .index .order-info .order-info-box .vehicle-information .bill-info .bill-status {
   display: flex;
   height: 34rpx;

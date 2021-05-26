@@ -223,6 +223,7 @@ Page({
 		util.showLoading();
 		let params = {
 			billIdList: [this.data.details.id],// 账单id集合，采用json数组格式[xx,xx]
+            payTypeDetail: {[this.data.details.id]: 2},//  {"账单id1"：1或者2或者3，"账单id2"：1或者2或者3} 1：通行费补缴  2：通行费手续费补缴  3：1+2补缴
 			vehPlates: this.data.details.vehPlate,// 车牌号
 			payAmount: this.data.details.etcMoney + this.data.details.serviceMoney + (this.data.details.passServiceMoney || 0) - this.data.details.splitDeductedMoney - this.data.details.deductServiceMoney// 补缴金额
 		};

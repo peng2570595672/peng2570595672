@@ -43,6 +43,7 @@
 }
 .account-details .account-list .list-title {
   display: flex;
+  height: 34rpx;
   align-items: center;
   font-size: 34rpx;
   font-family: PingFangSC-Medium, PingFang SC;
@@ -56,6 +57,19 @@
   width: 8rpx;
   height: 44rpx;
   background: #2fb565;
+}
+.account-details .account-list .list-title .title {
+  flex: 1;
+}
+.account-details .account-list .list-title .picker {
+  display: flex;
+  color: rgba(0,184,92,0.31);
+  font-size: 34rpx;
+}
+.account-details .account-list .list-title .picker::before {
+  content: '\e69c';
+  font-size: 32rpx;
+  margin-right: 12rpx;
 }
 .account-details .account-list .list-item {
   border-bottom: 1rpx solid rgba(176,176,176,0.29);

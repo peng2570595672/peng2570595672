@@ -70,7 +70,7 @@
 				<view class="problem-title">{{item.title}}</view>
 				<view class="iconfont {{item.open ?'up':'down'}}"></view>
 			</view>
-			<view class="details animated {{item.open ?'show':'hide'}}">{{item.content}}</view>
+			<text class="details animated {{item.open ?'show':'hide'}}">{{item.content}}</text>
 		</view>
 		<view class="more" catchtap="onclickMoreProblem">查看更多问题</view>
 	</view>

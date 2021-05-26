@@ -1,0 +1,56 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<!--提示开始-->
+<view class="prompt">
+	<view>当前账单尚有通行手续费未缴清，请一并完成补缴</view>
+</view>
+<!--提示结束-->
+<view class="my_order">
+	<!--订单列表开始-->
+	<view class="order-list">
+		<!--账单信息列表开始-->
+		<view class="bill-list">
+			<view class="order-list-content">
+				<view >
+					<view class="order-list-top">
+						<view class="license-plate">{{details.vehPlate}}<text>[高速扣费]</text></view>
+						<view class="fail-money">
+							{{(details.totalMmout + details.serviceMoney  - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0) - (details.splitDeductedMoney || 0))/100}}
+						</view>
+					</view>
+					<view class="site">
+						<view>{{details.inStationName}}<text class="iconfont"></text>{{details.stationName ? details.stationName : details.outStationName}}</view>
+						<view class="spilt-deductions" wx:if="{{details.splitState && details.splitState === 1}}">拆分扣款</view>
+					</view>
+					<view class="order-list-bottom">
+						<view class="accounting-time">出账时间：{{tools.substring(details.addTime,0,16)}}</view>
+						<view class="processing-fail" wx:if="{{details.deductStatus === 2}}">扣款失败</view>
+						<view class="processing-fail" wx:if="{{details.deductStatus === 10}}">补缴中</view>
+					</view>
+				</view>
+				<!--通行手续费开始-->
+				<view wx:if="{{details.isNewTrucks === 1 && (details.passDeductStatus === 2 || details.passDeductStatus === 10)}}" class="operating-expenses">
+					<view class="order-list-top">
+						<view class="license-plate">{{details.vehPlate}}</view>
+						<view class="fail-money">{{tools.parseNum(details.passServiceMoney/100)}}</view>
+					</view>
+					<view class="site poundage iconfont">通行手续费</view>
+					<view class="order-list-bottom">
+						<view class="accounting-time">出账时间：{{tools.substring(details.addTime,0,16)}}</view>
+						<view class="processing-fail" wx:if="{{details.passDeductStatus === 2}}">扣款失败</view>
+						<view class="processing-fail" wx:if="{{details.passDeductStatus === 10}}">补缴中</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="line"></view>
+		<!--账单信息列表结束-->
+	</view>
+	<!--订单列表结束-->
+	<!--底部补缴开始-->
+	<view class="payment" wx:if="{{details.deductStatus === 2 || details.deductStatus === 10}}">
+		<view>
+			<button catchtap="go">立刻补缴</button>
+		</view>
+	</view>
+	<!--底部补缴结束-->
+</view>

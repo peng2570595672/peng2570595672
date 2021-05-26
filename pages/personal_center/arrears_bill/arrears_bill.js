@@ -161,12 +161,17 @@ Page({
 		}
 		let model = e.currentTarget.dataset.model;
 		let idList = [];
+		let payTypeDetail = {};
 		model.list.map(item => {
+            const isPassDeduct = item.passDeductStatus === 2 || item.passDeductStatus === 10;// 是否通行手续费欠费
+            const isDeduct = item.deductStatus === 2 || item.deductStatus === 10;// 是否通行费欠费
+            payTypeDetail[item.id] = isPassDeduct && isDeduct ? 3 : isDeduct ? 1 : 2;
 			idList.push(item.id);
 		});
 		util.showLoading();
 		let params = {
 			billIdList: idList,// 账单id集合，采用json数组格式[xx,xx]
+            payTypeDetail: payTypeDetail,// {"账单id1"：1或者2或者3，"账单id2"：1或者2或者3} 1：通行费补缴  2：通行费手续费补缴  3：1+2补缴
 			vehPlates: model.vehPlates,// 车牌号
 			payAmount: model.total// 补缴金额
 		};

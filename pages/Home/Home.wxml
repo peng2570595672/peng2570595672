@@ -100,7 +100,7 @@
                     {{!orderInfo ? '新增办理' : ''}}
                 </button>
                 <view class="bill-info" wx:if="{{orderInfo.selfStatus === 12 && recentlyTheBillInfo}}" animation="{{animationTransaction}}" catchtap="onClickBill">
-                    <view class="bill iconfont">{{(recentlyTheBillInfo.totalMmout + recentlyTheBillInfo.serviceMoney  - (recentlyTheBillInfo.wxDiscountAmount || 0) - (recentlyTheBillInfo.discountMount || 0) - (recentlyTheBillInfo.refundMoney || 0))/100}}</view>
+                    <view class="bill iconfont {{recentlyTheBillInfo.deductStatus === 2 ? 'failure' : ''}}">{{(recentlyTheBillInfo.totalMmout + recentlyTheBillInfo.serviceMoney  - (recentlyTheBillInfo.wxDiscountAmount || 0) - (recentlyTheBillInfo.discountMount || 0) - (recentlyTheBillInfo.refundMoney || 0))/100}}</view>
                     <view class="iconfont bill-status {{recentlyTheBillInfo.deductStatus === 2 ? 'failure' : ''}}" style="width: {{billStatusWidth}}px">
                         {{recentlyTheBillInfo.deductStatus === 2 ? '扣款失败' : ''}}
                         {{recentlyTheBillInfo.deductStatus === 7 ? '退款成功' : ''}}

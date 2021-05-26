@@ -1,0 +1,136 @@
+page {
+  min-height: 100vh;
+  background: #fff;
+}
+.prompt {
+  width: 100%;
+}
+.prompt view {
+  width: 100%;
+  background: rgba(246,197,67,0.46);
+  padding: 16rpx 38rpx 16rpx 32rpx;
+  text-align: left;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  box-sizing: border-box;
+  color: #ff563c;
+}
+.my_order .order-list .bill-list .order-list-content {
+  padding: 32rpx;
+  padding-left: 0;
+  border-top: 1rpx solid rgba(0,0,0,0.1);
+  margin-left: 32rpx;
+}
+.my_order .order-list .bill-list .order-list-content .operating-expenses {
+  border-top: 1rpx solid rgba(0,0,0,0.1);
+  margin-top: 30rpx;
+  padding-top: 30rpx;
+}
+.my_order .order-list .bill-list .order-list-content .order-list-top {
+  display: flex;
+  height: 64rpx;
+  align-items: center;
+}
+.my_order .order-list .bill-list .order-list-content .order-list-top .license-plate {
+  flex: 6;
+  font-size: 32rpx;
+  color: #66666d;
+}
+.my_order .order-list .bill-list .order-list-content .order-list-top .license-plate text {
+  font-size: 20rpx;
+  color: #39a6f8;
+  margin-left: 28rpx;
+}
+.my_order .order-list .bill-list .order-list-content .order-list-top .fail-money,
+.my_order .order-list .bill-list .order-list-content .order-list-top .success-money {
+  flex: 4;
+  font-size: 40rpx;
+  color: #ff563c;
+  text-align: right;
+}
+.my_order .order-list .bill-list .order-list-content .order-list-top .success-money {
+  color: #2fb565;
+}
+.my_order .order-list .bill-list .order-list-content .site {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  line-height: 40rpx;
+  color: #66666d;
+  padding: 10rpx 0;
+}
+.my_order .order-list .bill-list .order-list-content .site.poundage::before {
+  content: '\e668';
+  color: #27b266;
+  font-size: 28rpx;
+  margin-right: 12rpx;
+}
+.my_order .order-list .bill-list .order-list-content .site > view:first-child {
+  flex: 1 1 auto;
+}
+.my_order .order-list .bill-list .order-list-content .site > view:first-child text::after {
+  content: '\e651';
+  color: #66666d;
+  font-size: 24rpx;
+}
+.my_order .order-list .bill-list .order-list-content .site > view.spilt-deductions {
+  width: 98rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  font-size: 16rpx;
+  text-align: center;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #fff;
+  background: rgba(247,110,0,0.41);
+  border-radius: 18rpx;
+  border: 1rpx solid rgba(247,181,0,0.13);
+  margin-left: 10rpx;
+}
+.my_order .order-list .bill-list .order-list-content .order-list-bottom {
+  display: flex;
+  font-size: 24rpx;
+  color: #99999d;
+  line-height: 30rpx;
+}
+.my_order .order-list .bill-list .order-list-content .order-list-bottom .accounting-time,
+.my_order .order-list .bill-list .order-list-content .order-list-bottom .processing-fail,
+.my_order .order-list .bill-list .order-list-content .order-list-bottom .processing-time {
+  flex: 5;
+}
+.my_order .order-list .bill-list .order-list-content .order-list-bottom .processing-fail {
+  text-align: right;
+  color: #ff563c;
+  line-height: 40rpx;
+}
+.my_order .order-list .bill-list .order-list-content .order-list-bottom .processing-time {
+  text-align: right;
+}
+.my_order .order-list .line {
+  height: 32rpx;
+  background: #eee;
+  opacity: 0.6;
+}
+.my_order .payment {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 184rpx;
+  padding: 20rpx 0;
+  font-size: 24rpx;
+  color: #66666d;
+  text-align: center;
+  background: #fff;
+  border-top: 1rpx solid rgba(0,0,0,0.1);
+}
+.my_order .payment button {
+  width: 84%;
+  height: 98rpx;
+  line-height: 98rpx;
+  background: linear-gradient(to right, #15ad69, #84d157);
+  box-shadow: 0px 8rpx 10rpx 0px rgba(132,209,87,0.2);
+  border-radius: 50rpx;
+  font-size: 40rpx;
+  color: #fff;
+}

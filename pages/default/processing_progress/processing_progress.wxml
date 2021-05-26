@@ -38,7 +38,8 @@
             <view class="content-title">通行保证金预充</view>
             <view class="content-des" wx:if="{{info.auditStatus !== 2}}">待审核通过后系统将自动发起预充</view>
             <view class="content-des earnest-money" wx:if="{{info.auditStatus === 2 && info.holdStatus === 1}}">保证金<text class="money">{{info.holdBalance/100}}</text><text>预充成功</text>，资金已冻结在工商银行II类账户<text>({{tools.substring(bankCardInfo.accountNo, bankCardInfo.accountNo.length - 4, bankCardInfo.accountNo.length)}})</text>，可通过个人中心查看账户余额</view>
-            <view class="content-des earnest-money" wx:if="{{info.auditStatus === 2 && info.holdStatus === 0}}">保证金<text class="money">{{info.holdBalance/100}}</text><text class="failure">预充失败</text>，请确认II类账户绑定银行余额是否充值，余额充值请重新发起<text catchtap="onClickPrecharge" class="precharge">预充</text>，或通过别的银行账户发起转账</view>
+            <view class="content-des earnest-money" wx:if="{{info.auditStatus === 2 && info.holdStatus === 0 && requestNum !== 5}}">保证金<text class="money">{{info.holdBalance/100}}</text><text class="failure">预充失败</text>，请确认II类账户绑定银行余额是否充值，余额充值请重新发起<text catchtap="onClickPrecharge" class="precharge">预充</text>，或通过别的银行账户发起转账</view>
+            <view class="content-des earnest-money" wx:if="{{info.auditStatus === 2 && info.holdStatus === 0 && requestNum === 5}}">保证金预充结果暂未获取，请稍后再试，<text catchtap="onClickRechargeResult" class="precharge">获取结果</text></view>
         </view>
 		<view class="item {{info && info.hwContractStatus !== 0 ? 'finished' : ''}}"  wx:if="{{info.flowVersion === 2}}">
 			<view class="content-title finished">高速签约</view>

@@ -41,6 +41,7 @@
         "my_order/my_order",
         "split_bill/split_bill",
         "arrears_bill/arrears_bill",
+        "make_up_immediately/make_up_immediately",
         "membership_coupon/membership_coupon",
         "cancel_order_succeed/cancel_order_succeed",
         "order_details/order_details",
@@ -83,6 +84,7 @@
       "pages": [
         "index/index",
         "recharge_state/recharge_state",
+        "recharge_result/recharge_result",
         "account_recharge/account_recharge",
         "account_details/account_details",
         "new_binding/new_binding",
