@@ -75,10 +75,10 @@ Page({
 			if (isToast) util.showToastNoIcon('请上传车头照！');
 			return false;
 		}
-		// if (this.data.truckHeadstock.ocrObject.plateNumber !== this.data.vehPlates) {
-		// 	if (isToast) util.showToastNoIcon(`车辆照片与${this.data.vehPlates}不一致`);
-		// 	return;
-		// }
+		if (this.data.truckHeadstock.ocrObject.plateNumber !== this.data.vehPlates) {
+			if (isToast) util.showToastNoIcon(`车辆照片与${this.data.vehPlates}不一致`);
+			return;
+		}
 		if (!this.data.truckSidePhoto.fileUrl) {
 			if (isToast) util.showToastNoIcon('请上传补充角度照！');
 			return false;
@@ -201,14 +201,14 @@ Page({
 					if (res.code === 0) { // 识别成功
 						app.globalData.truckHandlingOCRType = 0;
 						try {
-							// if (res.data[0].ocrObject.plateNumber !== this.data.vehPlates) {
-							// 	this.setData({
-							// 		faceStatus: 3,
-							// 		[`promptObject.content`]: `车辆照片与${this.data.vehPlates}不一致`
-							// 	});
-							// 	this.selectComponent('#notFinishedOrder').show();
-							// 	return;
-							// }
+							if (res.data[0].ocrObject.plateNumber !== this.data.vehPlates) {
+								this.setData({
+									faceStatus: 3,
+									[`promptObject.content`]: `车辆照片与${this.data.vehPlates}不一致`
+								});
+								this.selectComponent('#notFinishedOrder').show();
+								return;
+							}
 							this.setData({
 								faceStatus: 4,
 								truckHeadstock: res.data[0]
