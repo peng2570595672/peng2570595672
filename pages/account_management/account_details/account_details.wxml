@@ -20,8 +20,8 @@
         </view>
         <view class="list-item" wx:for="{{list}}" wx:key="index">
             <view class="first">
-                <view class="type">{{item.drcrf === 2 ? '转入' : '转出'}}</view>
-                <view class="price">-¥{{item.amount/100}}</view>
+                <view class="type">{{item.drcrf === 2 || item.drcrf === '2' ? '转入' : '转出'}}</view>
+                <view class="price">{{item.drcrf === 2 || item.drcrf === '2' ? '' : '-'}}¥{{item.amount/100}}</view>
             </view>
             <view class="last">
                 <view>{{item.remarks}}</view>

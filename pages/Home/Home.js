@@ -442,17 +442,23 @@ Page({
 			const list = this.sortDataArray(result.data);
 			app.globalData.myEtcList = list;
 			// 京东客服
-			let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
+			console.log((new Date()).getTime())
+			let [truckList, passengerCarList, vehicleList, activationOrder, activationTruckOrder] = [[], [], [], [], []];
+			// let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
 			app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
 			list.map((item,index) => {
 				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
 				vehicleList.push(item.vehPlates);
 				wx.setStorageSync('cars', vehicleList.join('、'));
-				if ((item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 0) activationOrder.push(item.obuCardType);
-				if ((item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 1) activationTruckOrder.push(item.obuCardType);
+				if (item.isNewTrucks === 0) {
+					passengerCarList.push(item);
+					if (item.obuStatus === 1 || item.obuStatus === 5) activationOrder.push(item.obuCardType);
+				}
+				if (item.isNewTrucks === 1) {
+					truckList.push(item);
+					if (item.obuStatus === 1 || item.obuStatus === 5) activationTruckOrder.push(item.obuCardType);
+				}
 			});
-			const truckList = list.filter(item => item.isNewTrucks === 1);
-			let passengerCarList = list.filter(item => item.isNewTrucks === 0);
 			const terminationOrder = passengerCarList.find(item => item.selfStatus === 1);// 查询客车第一条解约订单
 			const terminationTruckOrder = truckList.find(item => item.selfStatus === 1);// 查询货车第一条解约订单
 			const isAllActivation = activationOrder.length === passengerCarList.length;// 是否客车全是激活订单 - true: 展示账单单状态
@@ -462,6 +468,7 @@ Page({
 			// 是否全是激活订单  是 - 拉取第一条订单  否 - 过滤激活订单,拉取第一条
 			const passengerCarListNotActivation = isAllActivation ? passengerCarList[0] : passengerCarList.filter(item => item.selfStatus !== 12)[0];
 			const passengerCarListNotTruckActivation = isAllActivationTruck ? truckList[0] : truckList.filter(item => item.selfStatus !== 12)[0];
+			console.log((new Date()).getTime())
 			this.setData({
 				needRequestBillNum: activationTruckOrder.length + activationOrder.length,
 				isTermination: !!terminationOrder,
@@ -471,8 +478,11 @@ Page({
 				passengerCarList,
 				isAllActivationTruck,
 				truckOrderInfo: terminationTruckOrder || passengerCarListNotTruckActivation, // 解约订单 || 拉取第一条
-				passengerCarOrderInfo: terminationOrder || passengerCarListNotActivation, // 解约订单 || 拉取第一条
-				orderInfo: terminationOrder || passengerCarListNotActivation // 解约订单 || 拉取第一条
+				passengerCarOrderInfo: terminationOrder || passengerCarListNotActivation // 解约订单 || 拉取第一条
+			});
+			// 上一页返回时重置
+			this.setData({
+				orderInfo: this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data.truckOrderInfo
 			});
 			let channelList = activationOrder.concat(activationTruckOrder);
 			channelList = [...new Set(channelList)];
@@ -552,8 +562,7 @@ Page({
 			let arrearageOrder = list.find(item => item.deductStatus === 2);// 查询第一条欠费订单
 			this.setData({
 				isArrearage: !!arrearageOrder,
-				recentlyTheBill: arrearageOrder || this.data.recentlyTheBillList[0],
-				recentlyTheBillInfo: arrearageOrder || this.data.recentlyTheBillList[0]
+				recentlyTheBill: arrearageOrder || this.data.recentlyTheBillList[0]
 			});
 			const that = this;
 			wx.createSelectorQuery().selectAll('.bill').boundingClientRect(function (rect) {
@@ -565,6 +574,9 @@ Page({
 		if (this.data.needRequestBillNum === (this.data.requestBillTruckNum + this.data.requestBillNum)) {
 			// 查询账单已结束
 			console.log('------------');
+			this.setData({
+				recentlyTheBillInfo: this.data.activeIndex === 1 ? (this.data.recentlyTheBill || false) : (this.data.recentlyTheTruckBill || false)
+			});
 		}
 	},
 	// 车辆弹窗
@@ -633,6 +645,7 @@ Page({
 	onHandle () {
 		if (this.data.dialogContent.orderInfo) {
 			// 恢复签约
+			app.globalData.orderInfo.orderId = this.data.dialogContent.orderInfo.id;
 			wx.uma.trackEvent('index_for_dialog_signing');
 			this.onClickBackToSign(this.data.dialogContent.orderInfo);
 			return;

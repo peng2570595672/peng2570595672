@@ -49,6 +49,7 @@ Page({
 	onShow () {
 		if (app.globalData.userInfo.accessToken) {
 			let requestList = [this.getV2BankId(), this.getMemberBenefits(), this.getMemberCrowdSourcingAndOrder(), this.getRightsPackageBuyRecords(), this.getOrderRelation()];
+			util.showLoading();
 			Promise.all(requestList);
 			let that = this;
 			wx.getSetting({
@@ -145,6 +146,7 @@ Page({
 						if (isData) {
 							requestList.push(this.submitUserInfo(isData));
 						}
+						util.showLoading();
 						Promise.all(requestList);
 					} else {
 						wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
@@ -163,9 +165,9 @@ Page({
 	},
 	// 获取二类户号信息
 	async getV2BankId () {
-		const result = await util.getV2BankId();
+		if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 		this.setData({
-			isOpenTheCard: !!result?.accountNo
+			isOpenTheCard: !!app.globalData.bankCardInfo?.accountNo
 		});
 	},
 	// 获取订单信息

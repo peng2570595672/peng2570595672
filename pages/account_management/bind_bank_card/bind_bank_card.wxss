@@ -6,43 +6,57 @@
   min-height: 100vh;
 }
 .binding_account .card {
+  position: relative;
+  width: 100%;
   height: 228rpx;
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWIAAAE8AgMAAACHtlNuAAAADFBMVEUAAAD///////////84wDuoAAAABHRSTlMADgkFGKUEVgAABP5JREFUeNrtnL1x20AQhUFiGFwAO2IJKAGBnJglIMDfWAiQ2zNmCWwCJTgw7cAdGE2gBCWOFDuQHMjyEwby7WK1yxlo7mU2l5+Oe28XIO6OUVBQUFBQUFBQUFBQUFBQ0IWUlBNV/ug3j2G3NDmbko9E+A1GQKmfgK+p8O1jZMeKhH5ElNK/kTUV6GZD5g7lxBsCsswedMdKMz4hf9CNP2wDLIZB2YPljp3Hy1QFDN6o/VNyy+EigwdvELAYBKkr5I6X5iZiKn6Iz3lphuXYxmu4aa6WdrGC5Wb+/OF9NbdpnBaQM4rsliUDSqh3pJJkIB2e10dJMpAOwpdIxuJ0EC8jGYvTwasTlAm/WHgTKLnks+qkWUqOfeTY0/NpjR5yIvMcfMeZwDparI2HnEo8B3nIo8xzGBjnSjUIyO6/5K0wzXg/o4W2yMxEmA8IbuoZt7dHEXnPuAYOIvKOru0qEpE3dG03MnJMW6MTkTld46RL3k0AmmTE18pksFplMmI6XXI8idEkbxAT6ZIdJlCZnKEClckI75TJQB2UyT1aqC4ZpqsiXTI6XaFMTlDbymQHayiTYefjU/LP+4keYt9P/3P0k1P8bZB5dzR7P3nEJ9Ylw861NhmmUybHMJ0yeQPTKZMTmE6Z7GA6ZfIOnU6ZnKHTKZP3sLMuGSXYaJN72FmXjBLMlckx7KxM3uLCrUzeoFCUyQkKRZnsUCi6ZBR3rUxGcRfa5BQlaEVutcn7SQkq3smA02mTexS3MhnFbUY+KZNjFLcyeXsBcqRLRhOtzMi1MhntudAmO3tyo0xG42/XQ87+NdEVkjttcmpPPmqT9/bkw3rI45x8P9Vz5M/TkMFD9jy/mpPnqzmvhdzbk4dADuRLkUt7crSeMa9xBgP51ZBXdB0E2e5OZj1k3Net8C5Xn7zm7ylr/D64ou/dO7unECt8JpPYP6GqVvi8roxW81w0tntKbP5ke/40/jzRt4fX3p0n6lnP+TvlVQ989lydbLdSY7+6VGiTM7tVPPuVx1Kb7MzWYRPDVWn7lfTObPU/V9+xYL/LojDbc1Jpk3GZ0CZnF9g1dFAmuwvszsrNdpQ16rvg7HfuVXpkkADTJO9hu9k9EsS/R4JSu52odrtn7Xb8Gu5StttZjRCz3eCdMnkPc5jtui+UyTuYQ5mcIGYwO5FxNDtFkgvJtO0Ks9M6lRp5Fj+YnYo6mp3kaqVk+mCijLxlHKaUkR3jAOhBRM4Y5sijX2fId+2GTtHIMEcRCRSXnMPBEnJCnFqFhZYqY520zQXkkTgdLE701pPD7EXHg52H7GTH6GFa1k9ktIvJPfO0e617Qn98ge8y9q8KdEs95yU7UTpQZr5D9mLfOaInlOJ0jAR5lKZjS/WxTJoOR5ETaTpGirwtBenA+4gSlRRLRpPTUtQ7eprsBD9ihOkhEiZopSnIzERf8+ePJqeeezWyCkjLQw0HjLZOfbKldXgFMpHohcaLeyY59Qyayh/Dm1C7YMgVNR/LBn3FbzTjlNyQQwaZ5U7oBzu6YFUUcyRv2B8PvoM+cVOX0/2FkQ9MH9QxeyJUDb5cQAfuhknomvAFDMpPB1JNgyvOJWKm78+Ab0rC+UQZAk2AMYGsdECfpyFvvxBf6cl0QB9uI+j3/PWafZWf6+Mj+w4DJpJB9A6oOp/vzl/xb74zUAJLVd1GQUFBQUFBQUFBQUEv0h+RqQ1DcW3wIgAAAABJRU5ErkJggg==");
-  background-size: 354rpx 316rpx;
-  background-repeat: no-repeat;
-  background-position: 400rpx;
-  background-color: #c25255;
+  background: #c25255;
+  border-radius: 20rpx;
+  margin-bottom: 32rpx;
+  overflow: hidden;
+}
+.binding_account .card::after {
+  position: absolute;
+  right: -39rpx;
+  top: -49rpx;
+  content: '\e66f';
+  font-size: 320rpx;
+  color: rgba(255,255,255,0.1);
+  opacity: 0.34;
+}
+.binding_account .card .card-box {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 228rpx;
   color: #fff;
   padding: 48rpx 32rpx;
   box-sizing: border-box;
   box-shadow: 0rpx 6rpx 16rpx 0rpx rgba(0,0,0,0.1);
   font-family: PingFangSC-Medium, PingFang SC;
-  border-radius: 20rpx;
-  margin-bottom: 32rpx;
 }
-.binding_account .card .name {
+.binding_account .card .card-box .name {
   display: flex;
   height: 60rpx;
   align-items: center;
   margin-right: 40rpx;
 }
-.binding_account .card .name::before {
+.binding_account .card .card-box .name::before {
   content: '\e66f';
   font-size: 60rpx;
   margin-right: 12rpx;
 }
-.binding_account .card .name > view {
+.binding_account .card .card-box .name > view {
   color: #fff;
   opacity: 0.5;
   font-family: PingFangSC-Medium, PingFang SC;
   font-size: 24rpx;
   line-height: 34rpx;
 }
-.binding_account .card .name > view > view:last-child {
+.binding_account .card .card-box .name > view .type {
   font-size: 18rpx;
   line-height: 26rpx;
 }
-.binding_account .card .card-no {
+.binding_account .card .card-box .card-no {
   display: flex;
   padding-top: 34rpx;
   line-height: 42rpx;
@@ -50,11 +64,62 @@
   font-family: PingFangSC-Regular, PingFang SC;
   color: rgba(255,255,255,0.9);
 }
-.binding_account .card .card-no > view:first-child {
+.binding_account .card .card-box .card-no > view:first-child {
   flex: 1;
   font-size: 38rpx;
   font-family: PingFangSC-Medium, PingFang SC;
   color: #fff;
+}
+.binding_account .card.abchina {
+  background: #2f856d;
+}
+.binding_account .card.abchina::after {
+  top: -90rpx;
+  right: -120rpx;
+  font-size: 380rpx;
+  content: '\e672';
+}
+.binding_account .card.abchina .card-box .name::before {
+  content: '\e672';
+}
+.binding_account .card.boc {
+  background: #b81c22;
+}
+.binding_account .card.boc::after {
+  top: -90rpx;
+  right: -120rpx;
+  font-size: 380rpx;
+  content: '\e674';
+}
+.binding_account .card.boc .card-box .name::before {
+  content: '\e674';
+}
+.binding_account .card.ccb {
+  background: #003a90;
+}
+.binding_account .card.ccb::after {
+  content: '\e671';
+}
+.binding_account .card.ccb .card-box .name::before {
+  content: '\e671';
+}
+.binding_account .card.bankcomm {
+  background: #00367a;
+}
+.binding_account .card.bankcomm::after {
+  content: '\e670';
+}
+.binding_account .card.bankcomm .card-box .name::before {
+  content: '\e670';
+}
+.binding_account .card.psbc {
+  background: #2f856d;
+}
+.binding_account .card.psbc::after {
+  content: '\e66e';
+}
+.binding_account .card.psbc .card-box .name::before {
+  content: '\e66e';
 }
 .binding_account .fill {
   flex: 1;

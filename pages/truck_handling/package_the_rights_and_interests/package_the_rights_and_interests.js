@@ -326,12 +326,19 @@ Page({
 				paySign: extraData.paySign,
 				signType: extraData.signType,
 				timeStamp: extraData.timeStamp,
-				success: (res) => {
+				success: async (res) => {
 					this.setData({isRequest: false});
 					if (res.errMsg === 'requestPayment:ok') {
 						if (this.data.isSalesmanOrder) {
 							// 去支付成功页
-							util.go('/pages/truck_handling/payment_successful/payment_successful');
+							const result = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
+							if (!result) return;
+							if (result.code) {
+								util.showToastNoIcon(result.message);
+								return;
+							}
+							const path = result.data?.accountNo ? 'contract_management' : 'binding_account';
+							util.go(`/pages/truck_handling/${path}/${path}`);
 							return;
 						}
 						util.go('/pages/truck_handling/information_list/information_list');

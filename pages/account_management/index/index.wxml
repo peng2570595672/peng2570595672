@@ -3,7 +3,7 @@
         <view class="card-info">
             <view class="left">
                 <view>当前账户余额（元）</view>
-                <view>{{cardInfo.balanceAmount/100 || 0}}</view>
+                <view>{{(cardInfo.holdBalance + cardInfo.balanceAmount) / 100 || 0}}</view>
                 <view bindtap="onClickAccountDetails">账户明细 ></view>
             </view>
             <view class="right iconfont">

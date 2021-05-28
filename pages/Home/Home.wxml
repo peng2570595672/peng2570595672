@@ -80,7 +80,7 @@
                             {{truckOrderInfo.selfStatus === 11 ? '请按要求激活ETC' : ''}}
                             {{truckOrderInfo.selfStatus === 12 ? recentlyTheTruckBill ? recentlyTheTruckBill.addTime : '暂无通行账单' : ''}}
                             {{truckOrderInfo.selfStatus === 13 ? '开通II类户预充保证金' : ''}}
-                            {{truckOrderInfo.selfStatus === 15 ? '请充值' + truckOrderInfo.holdBalance / 1000 + '元作为保证金' + '' : ''}}
+                            {{truckOrderInfo.selfStatus === 15 ? '请充值' + truckOrderInfo.holdBalance / 100 + '元作为保证金' + '' : ''}}
                         </view>
                     </view>
                 </view>

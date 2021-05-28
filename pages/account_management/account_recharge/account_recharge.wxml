@@ -13,7 +13,7 @@
         <view class="transfer">
             <view>
                 <view>转出银行</view>
-                <view>建设银行（{{choiceBankObj.accountNo}})</view>
+                <view>{{choiceBankObj.bankName}}（{{choiceBankObj.accountNo}})</view>
                 <view class="switch" bindtap="onClickSwitchBankCard">切换</view>
             </view>
             <view class="iconfont arrow"></view>

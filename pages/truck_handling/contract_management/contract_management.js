@@ -52,9 +52,7 @@ Page({
 		}
 		app.globalData.signAContract = 3;
 		// 签约成功 userState: "NORMAL"
-		console.log(result.data);
 		if (result.data.contractStatus === 1) {
-			console.log('-----------');
 			await this.getETCDetail();
 		} else {
 			util.showToastNoIcon('未签约成功！');
@@ -101,7 +99,6 @@ Page({
 	},
 	async go (e) {
 		let item = e.currentTarget.dataset.item;
-		console.log(item)
 		this.setData({
 			contractType: item.contractType
 		});
@@ -156,14 +153,17 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		this.setData({isRequest: false});
 		if (!result) return;
-		if (result.code === 0) {
-			app.globalData.isTruckHandling = true;
-			app.globalData.signAContract = 4;
-			let res = result.data.contract;
-			util.weChatSigning(res);
-		} else {
+		if (result.code) {
 			util.showToastNoIcon(result.message);
+			if (result.message === '该用户已签约，请勿重复签约') {
+				await this.getETCDetail();
+			}
+			return;
 		}
+		app.globalData.isTruckHandling = true;
+		app.globalData.signAContract = 4;
+		let res = result.data.contract;
+		util.weChatSigning(res);
 	},
 	next () {
 		util.go('/pages/truck_handling/recharge_instructions/recharge_instructions');

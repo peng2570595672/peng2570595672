@@ -44,6 +44,7 @@ Page({
 		let data = this.data.details;
 		let params = {
 			billIdList: [data.id],// 账单id集合，采用json数组格式[xx,xx]
+			payTypeDetail: {[data.id]: 1},// {"账单id1"：1或者2或者3，"账单id2"：1或者2或者3} 1：通行费补缴  2：通行费手续费补缴  3：1+2补缴
 			vehPlates: data.vehPlate,// 车牌号
 			payAmount: data.etcMoney + data.serviceMoney - data.splitDeductedMoney - data.deductServiceMoney// 补缴金额
 		};

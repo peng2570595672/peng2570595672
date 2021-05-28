@@ -20,7 +20,7 @@ Page({
 			// 预充保证金
 			this.setData({
 				isRechargeEarnestMoney: true,
-				rechargeAmount: options.money
+				rechargeAmount: options.money / 100
 			});
 		}
 		app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(-4);
@@ -100,11 +100,27 @@ Page({
             return;
         }
         if (result.code === 0 && this.data.isRechargeEarnestMoney) {
-			util.go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
+			await this.orderHold();
 			return;
         }
 		util.go(`/pages/account_management/recharge_state/recharge_state?info=${JSON.stringify(result)}`);
     },
+	// 保证金冻结
+	async orderHold () {
+		util.showLoading('冻结中...');
+		const result = await util.getDataFromServersV2('consumer/order/orderHold', {
+			bankAccountId: app.globalData.bankCardInfo?.bankAccountId,
+			orderId: app.globalData.orderInfo.orderId
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			util.go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
+		} else {
+			util.showToastNoIcon(result.message);
+			// 冻结失败-预充成功,更新账户金额
+			await util.getV2BankId();
+		}
+	},
 	// 预充保证金
 	async rechargeEarnestMoney () {
 		const result = await util.getDataFromServersV2('consumer/order/orderDeposit', {

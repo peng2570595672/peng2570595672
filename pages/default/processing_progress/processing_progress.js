@@ -8,7 +8,7 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
-		bankCardInfo: undefined,
+		bankList: [],
 		orderId: undefined,
 		dashedHeight: 0,
 		accountVerification: 0, //  0 没有核验id   1：核验成功，2-正在核验
@@ -25,8 +25,7 @@ Page({
 	},
 	async onLoad (options) {
 		this.setData({
-			isContinentInsurance: app.globalData.isContinentInsurance,
-			bankCardInfo: app.globalData.bankCardInfo
+			isContinentInsurance: app.globalData.isContinentInsurance
 		});
 		if (options.orderId) {
 			this.setData({
@@ -45,7 +44,7 @@ Page({
 		if (!app.globalData.userInfo.accessToken) {
 			this.login();
 		} else {
-			await util.getV2BankId();
+			await this.getBankAccounts();
 			this.getProcessingProgress();
 			if (!this.data.isContinentInsurance) {
 				this.getInsuranceOffer();
@@ -74,7 +73,7 @@ Page({
 						app.globalData.openId = res.data.openId;
 						app.globalData.memberId = res.data.memberId;
 						app.globalData.mobilePhone = res.data.mobilePhone;
-						await util.getV2BankId();
+						await this.getBankAccounts();
 						this.getProcessingProgress();
 						if (!this.data.isContinentInsurance) {
 							this.getInsuranceOffer();
@@ -90,6 +89,22 @@ Page({
 				util.showToastNoIcon('登录失败！');
 			}
 		});
+	},
+	// 获取一类户号信息
+	async getBankAccounts () {
+		const result = await util.getDataFromServersV2('consumer/member/icbcv2/getBankAccounts');
+		if (!result) return;
+		if (result.code === 0) {
+			if (!result.data) result.data = [];
+			result.data.map(item => {
+				item.accountNo = item.accountNo.substr(0, 4) + ' *** *** ' + item.accountNo.substr(-4);
+			});
+			this.setData({
+				bankList: result.data
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 获取预充结果
 	async onClickRechargeResult () {
@@ -123,13 +138,39 @@ Page({
 			}, 2000);
 			return;
 		}
-		util.showToastNoIcon(result.code ? result.message : '充值成功');
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+			return;
+		}
+		util.showToastNoIcon('充值成功');
+		await this.orderHold();
+	},
+	// 保证金冻结
+	async orderHold () {
+		util.showLoading('冻结中...');
+		const result = await util.getDataFromServersV2('consumer/order/orderHold', {
+			bankAccountId: app.globalData.bankCardInfo?.bankAccountId,
+			orderId: this.data.orderId
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			this.getProcessingProgress();
+		} else {
+			util.showToastNoIcon(result.message);
+			// 冻结失败-预充成功,更新账户金额
+			await util.getV2BankId();
+		}
 	},
 	// 预充保证金
 	async onClickPrecharge () {
+		if (!app.globalData.bankCardInfo?.bankAccountId) await util.getV2BankId();
+		if (this.data.info.holdBalance <= app.globalData.bankCardInfo?.balanceAmount) {
+			await this.orderHold();
+			return;
+		}
 		const result = await util.getDataFromServersV2('consumer/order/orderDeposit', {
-			bankAccountId: this.data.choiceBankObj.bankAccountId,
-			orderId: app.globalData.orderInfo.orderId
+			bankAccountId: this.data.bankList[0].bankAccountId,
+			orderId: this.data.orderId
 		});
 		if (!result) return;
 		if (result.code === 0) {

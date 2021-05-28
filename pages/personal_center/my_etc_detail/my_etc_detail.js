@@ -11,7 +11,7 @@ Page({
 		showDetailMask: false,
 		orderId: undefined
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		app.globalData.isTruckHandling = false;
 		app.globalData.isNeedReturnHome = false;
 		if (options.orderId) {
@@ -28,6 +28,7 @@ Page({
 		if (!app.globalData.userInfo.accessToken) {
 			this.login();
 		} else {
+			await util.getV2BankId();
 			await this.getETCDetail();
 		}
 		if (this.data.showDetailMask) {
@@ -56,6 +57,7 @@ Page({
 						app.globalData.openId = result.data.openId;
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
+						await util.getV2BankId();
 						await this.getETCDetail();
 					}
 				} else {

@@ -10,7 +10,8 @@ Page({
 	data: {
 		cardInfo: undefined
 	},
-	onShow () {
+	async onShow () {
+		await util.getV2BankId();
 		app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(0, 4) + ' *** *** ' + app.globalData.bankCardInfo.accountNo.substr(-4);
 		this.setData({
 			cardInfo: app.globalData.bankCardInfo

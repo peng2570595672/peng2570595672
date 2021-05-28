@@ -91,8 +91,7 @@ Page({
 				});
 			}
 			this.setData({
-				activeIndex: 1, // 初始化变量
-				carList: passengerCarList, // 初始化变量
+				carList: this.data.activeIndex === 1 ? passengerCarList : truckList, // 初始化变量
 				truckList: truckList,
 				passengerCarList: passengerCarList
 			});
@@ -246,9 +245,12 @@ Page({
 	onClickAddNewHandle () {
 		// 统计点击事件
 		mta.Event.stat('015',{});
-		wx.uma.trackEvent('my_etc_for_new_deal_with');
+		// wx.uma.trackEvent('my_etc_for_new_deal_with');
+		// my_etc_for_truck_new_deal_with 没埋点
 		app.globalData.orderInfo.orderId = '';
-		util.go('/pages/default/receiving_address/receiving_address');
+		wx.uma.trackEvent(this.data.activeIndex === 1 ? 'my_etc_for_new_deal_with' : 'my_etc_for_truck_new_deal_with');
+		const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address' : '/pages/truck_handling/truck_receiving_address/truck_receiving_address';
+		util.go(url);
 	},
 	// 恢复签约
 	async onClickBackToSign (obj) {

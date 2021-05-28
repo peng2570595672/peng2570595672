@@ -328,7 +328,7 @@ Page({
 		util.go('/pages/personal_center/arrears_bill/arrears_bill');
 	},
 	// 账单详情
-	goDetails (e) {
+	async goDetails (e) {
 		app.globalData.billingDetails = undefined;
 		let model = e.currentTarget.dataset.model;
 		let index = e.currentTarget.dataset.index;
@@ -341,9 +341,17 @@ Page({
 			return;
 		}
 		if (parseInt(model.splitState) === 1) {
+			const result = await util.getDataFromServersV2('consumer/etc/get-split-bills-count', {
+				detailId: model.id
+			});
+			if (!result) return;
+			if (result.code) {
+				util.showToastNoIcon(result.message);
+				return;
+			}
 			util.alert({
-				title: `提醒。`,
-				content: `因账单金额过高导致扣款失败，为避免影响您的通行，系统已自动拆分为{拆分扣款流水数量}条扣款记录，`,
+				title: `提醒`,
+				content: `因账单金额过高导致扣款失败，为避免影响您的通行，系统已自动拆分为${result.data.ct}条扣款记录`,
 				showCancel: true,
 				cancelText: '跳过',
 				confirmText: '去查看',

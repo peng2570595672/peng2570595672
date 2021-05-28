@@ -64,6 +64,7 @@ Page({
 			});
 		}, 400);
 	},
+	noHide () {},
 	onClickChooseBankCard () {
 		util.go(`/pages/default/shot_bank_card/shot_bank_card?type=0`);
 	},

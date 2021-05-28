@@ -258,7 +258,7 @@
   background: rgba(0,0,0,0.6);
   z-index: 10000;
 }
-.verification-code-wrapper .verification-code-wrapper-content {
+.verification-code-wrapper-content {
   position: absolute;
   left: 0;
   right: 0;
@@ -270,18 +270,18 @@
   background: #fff;
   border-radius: 16rpx;
   margin: 0 auto;
-  z-index: 2;
+  z-index: 100001;
   font-size: 34rpx;
 }
-.verification-code-wrapper .verification-code-wrapper-content .phone {
+.verification-code-wrapper-content .phone {
   padding-top: 64rpx;
   padding-bottom: 32rpx;
   color: #33333e;
 }
-.verification-code-wrapper .verification-code-wrapper-content .phone text {
+.verification-code-wrapper-content .phone text {
   color: rgba(0,0,0,0.9);
 }
-.verification-code-wrapper .verification-code-wrapper-content .input-item {
+.verification-code-wrapper-content .input-item {
   position: relative;
   width: 540rpx;
   height: 52rpx;
@@ -291,32 +291,32 @@
   color: rgba(0,0,0,0.5);
   margin: auto;
 }
-.verification-code-wrapper .verification-code-wrapper-content .input-item > view {
+.verification-code-wrapper-content .input-item > view {
   display: flex;
   align-items: center;
   height: 48rpx;
 }
-.verification-code-wrapper .verification-code-wrapper-content .input-item > input {
+.verification-code-wrapper-content .input-item > input {
   display: flex;
   align-items: center;
-  width: 260rpx;
+  width: 200rpx;
   height: 48rpx;
   border-bottom: 1rpx solid rgba(176,176,176,0.29);
   margin-right: 40rpx;
 }
-.verification-code-wrapper .verification-code-wrapper-content .input-item .validate-code {
+.verification-code-wrapper-content .input-item .validate-code {
   flex: 1;
   height: 44rpx;
   box-sizing: border-box;
   justify-content: flex-end;
 }
-.verification-code-wrapper .verification-code-wrapper-content .input-item .validate-code.ok {
+.verification-code-wrapper-content .input-item .validate-code.ok {
   font-weight: 500;
 }
-.verification-code-wrapper .verification-code-wrapper-content .input-item .validate-code.acquisition {
+.verification-code-wrapper-content .input-item .validate-code.acquisition {
   font-weight: 400 !important;
 }
-.verification-code-wrapper .verification-code-wrapper-content .confirm {
+.verification-code-wrapper-content .confirm {
   height: 110rpx;
   display: flex;
   align-items: center;

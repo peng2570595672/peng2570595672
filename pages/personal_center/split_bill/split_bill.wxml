@@ -14,7 +14,7 @@
 <view class="split-order-list">
 	<view class="split-order-item" wx:for="{{splitList}}" wx:key="index">
 		<view class="order-message">
-			<view>拆分一{{item.id}}</view>
+			<view>拆分{{tools.lowercaseToCapitalization(index + 1)}}{{item.id}}</view>
 			<view class="{{item.deductStatus === 2 || item.deductStatus === 10 ? 'fail' : ''}}">{{(item.etcMoney + item.serviceMoney)/100}}</view>
 		</view>
 		<view class="order-status">
@@ -27,7 +27,7 @@
 	<!--底部补缴开始-->
 	<view class="payment" wx:if="{{tools.parseNum((details.etcMoney + details.serviceMoney - details.splitDeductedMoney - details.deductServiceMoney)/100) > 0}}">
 		<view>
-			<button catchtap="go">一键补缴</button>
+			<button catchtap="payment">一键补缴</button>
 			<view class="payment-tips">当前账单已欠款，将影响你的正常通行，请尽快补缴</view>
 		</view>
 	</view>
