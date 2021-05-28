@@ -20,6 +20,7 @@ Page({
 		isRequest: false// 是否请求中
 	},
 	async onShow () {
+		await util.getV2BankId();
 		app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(0, 4) + ' *** *** ' + app.globalData.bankCardInfo.accountNo.substr(-4);
 		const timestamp = Date.parse(new Date());
 		const date = new Date(timestamp);

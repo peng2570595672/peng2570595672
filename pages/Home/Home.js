@@ -442,7 +442,6 @@ Page({
 			const list = this.sortDataArray(result.data);
 			app.globalData.myEtcList = list;
 			// 京东客服
-			console.log((new Date()).getTime())
 			let [truckList, passengerCarList, vehicleList, activationOrder, activationTruckOrder] = [[], [], [], [], []];
 			// let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
 			app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
@@ -468,7 +467,6 @@ Page({
 			// 是否全是激活订单  是 - 拉取第一条订单  否 - 过滤激活订单,拉取第一条
 			const passengerCarListNotActivation = isAllActivation ? passengerCarList[0] : passengerCarList.filter(item => item.selfStatus !== 12)[0];
 			const passengerCarListNotTruckActivation = isAllActivationTruck ? truckList[0] : truckList.filter(item => item.selfStatus !== 12)[0];
-			console.log((new Date()).getTime())
 			this.setData({
 				needRequestBillNum: activationTruckOrder.length + activationOrder.length,
 				isTermination: !!terminationOrder,
