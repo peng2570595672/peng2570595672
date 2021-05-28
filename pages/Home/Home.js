@@ -517,9 +517,7 @@ Page({
 			return;
 		}
 		if (!result.data) return;
-		const truckBillList = result.data.filter(item => item.channel === 21);
-		let passengerCarBillList = result.data.filter(item => item.channel !== 21);
-		this.vehicleInfoAlert(truckBillList, passengerCarBillList);
+		this.vehicleInfoAlert(result.data.etcMoney);
 	},
 	// 查询最近一次账单
 	async getRecentlyTheBill (item, isTruck = false, num = 0) {
@@ -578,23 +576,10 @@ Page({
 		}
 	},
 	// 车辆弹窗
-	vehicleInfoAlert (truckBillList, passengerCarBillList) {
-		if (truckBillList.length) {
-			// 货车欠费
-			let money = 0;
-			truckBillList.map(item => {
-				money += item.etcMoney;
-			});
-			this.dialogJudge(money);
-			return;
-		}
-		if (passengerCarBillList.length) {
-			// 客车欠费
-			let money = 0;
-			passengerCarBillList.map(item => {
-				money += item.etcMoney;
-			});
-			this.dialogJudge(money);
+	vehicleInfoAlert (etcMoney) {
+		if (etcMoney) {
+			// 货车 || 客车欠费
+			this.dialogJudge(etcMoney);
 			return;
 		}
 		if (this.data.isTerminationTruck) {

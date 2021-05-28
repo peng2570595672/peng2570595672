@@ -27,10 +27,16 @@
 			<!--<view wx:else>¥{{details.etcMoney/100}}</view>-->
 			<view>¥{{details.totalMmout/100}}</view>
 		</view>
-		<!--<view wx:if="{{details.passServiceMoney && details.passServiceMoney > 0}}">-->
-			<!--<view>通行手续费（0.6%）</view>-->
-			<!--<view>¥{{details.passServiceMoney/100}}</view>-->
-		<!--</view>-->
+        <view wx:if="{{details.serviceMoney}}">
+            <view>服务费</view>
+            <!--<view wx:if="{{details.flowVersion === 2}}">¥{{details.totalMmout/100}}</view>-->
+            <!--<view wx:else>¥{{details.etcMoney/100}}</view>-->
+            <view>¥{{details.serviceMoney/100}}</view>
+        </view>
+<!--		<view wx:if="{{details.passServiceMoney}}">-->
+<!--			<view>通行手续费（0.6%）</view>-->
+<!--			<view>¥{{details.passServiceMoney/100}}</view>-->
+<!--		</view>-->
 		<view wx:if="{{details.wxDiscountAmount && details.wxDiscountAmount > 0}}">
 			<view>微信支付优惠</view>
 			<view>{{-details.wxDiscountAmount/100}}</view>

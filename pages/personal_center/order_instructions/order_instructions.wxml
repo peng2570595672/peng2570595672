@@ -29,7 +29,7 @@
 		<view>
 			<view class="line">
 				<view>实付金额</view>
-				<view>¥{{details.etcMoney/100}}</view>
+				<view>¥{{(details.totalMmout + details.serviceMoney  - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}}</view>
 			</view>
 			<view class="explain">应付金额-通行抵扣卡优惠+服务费</view>
 		</view>

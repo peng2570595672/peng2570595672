@@ -7,6 +7,7 @@ Page({
 		open: true,
 		activeIndex: -1,
 		isComplaintDetails: true,
+		entrance: true,// 是否是从账单详情进入 true 是  false 从通行手续费详情进入
 		problemList: [
 			{open: false, title: 'Q：ETC车道与人工车道收费不一样？',content: `
 				A：通常来说，ETC通行费用会比人工通道收费较低，但如果出现ETC通行账单于人工车道收费不一致，可能是一下两种原因。
@@ -34,7 +35,8 @@ Page({
 		}
 		this.setData({
 			details,
-			refundDetails: JSON.parse(options.refundDetails)
+			refundDetails: JSON.parse(options.refundDetails),
+			entrance: +options.entrance === 1
 		});
 	},
 	onclickMoreProblem () {

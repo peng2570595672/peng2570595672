@@ -1,9 +1,9 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
-<view class="my_order {{failBillMessage.count > 0 ? 'is_owes' : ''}} {{ownerServiceArrearsList.length > 0 ? 'is_owner_ervice' : ''}}" >
+<view class="my_order {{failBillMessage.ct > 0 ? 'is_owes' : ''}} {{ownerServiceArrearsList.length > 0 ? 'is_owner_ervice' : ''}}" >
 	<!--车主服务欠费通知开始-->
-	<view class="notice" wx:if="{{ownerServiceArrearsList.length > 0 || failBillMessage.count > 0}}">
-		<view class="notice-box" wx:if="{{failBillMessage.count > 0 && ownerServiceArrearsList.length === 0}}" catchtap="goArrearsBill">
-			<view>扣款失败账单 {{failBillMessage.count}} 条，你已欠款 {{failBillMessage.etcMoney/100}}</view>
+	<view class="notice" wx:if="{{ownerServiceArrearsList.length > 0 || failBillMessage.ct > 0}}">
+		<view class="notice-box" wx:if="{{failBillMessage.ct > 0 && ownerServiceArrearsList.length === 0}}" catchtap="goArrearsBill">
+			<view>扣款失败账单 {{failBillMessage.ct}} 条，你已欠款 {{failBillMessage.etcMoney/100}}</view>
 			<view class="iconfont"></view>
 		</view>
 		<view class="notice-box" wx:if="{{ownerServiceArrearsList.length > 0}}" catchtap="openVehicleOwnerService">
@@ -12,15 +12,7 @@
 		</view>
 	</view>
 	<!--车主服务欠费通知结束-->
-	<!--欠费通知开始-->
-	<!--<view class="notice" wx:if="{{failBillMessage.count > 0}}" catchtap="goArrearsBill">-->
-		<!--<view class="notice-box">-->
-			<!--<view>你有累计欠费账单{{failBillMessage.count}}条，欠费总额:{{failBillMessage.etcMoney/100}}</view>-->
-			<!--<view><text>去查看</text></view>-->
-		<!--</view>-->
-	<!--</view>-->
-	<!--欠费通知结束-->
-	<dropdownmenu wx:if="{{vehicleList.length >=1}}" isOwe="{{failBillMessage.count}}"
+	<dropdownmenu wx:if="{{vehicleList.length >=1}}" isOwe="{{failBillMessage.ct}}"
                   initializationDate="{{initializationDate}}" initializationVehPlates="{{initializationVehPlates}}"
                   isOweService="{{ownerServiceArrearsList.length}}" dropDownMenuTitle='{{dropDownMenuTitle}}'
                   vehicleList='{{vehicleList}}' passengerCarList='{{passengerCarList}}' truckList='{{truckList}}'

@@ -184,7 +184,7 @@ Page({
 			requestRefundInfoNum: 0,
 			requestBillNum: 0
 		});
-		util.go(`/pages/personal_center/order_questions/order_questions?details=${JSON.stringify(this.data.details)}&refundDetails=${JSON.stringify(this.data.refundDetails || '')}`);
+		util.go(`/pages/personal_center/order_questions/order_questions?entrance=2&details=${JSON.stringify(this.data.details)}&refundDetails=${JSON.stringify(this.data.refundDetails || '')}`);
 	},
 	// 查询账单详情
 	getBillDetail () {
@@ -225,7 +225,7 @@ Page({
 			billIdList: [this.data.details.id],// 账单id集合，采用json数组格式[xx,xx]
             payTypeDetail: {[this.data.details.id]: 2},//  {"账单id1"：1或者2或者3，"账单id2"：1或者2或者3} 1：通行费补缴  2：通行费手续费补缴  3：1+2补缴
 			vehPlates: this.data.details.vehPlate,// 车牌号
-			payAmount: this.data.details.etcMoney + this.data.details.serviceMoney + (this.data.details.passServiceMoney || 0) - this.data.details.splitDeductedMoney - this.data.details.deductServiceMoney// 补缴金额
+			payAmount: this.data.details.passServiceMoney// 补缴金额
 		};
 		util.getDataFromServer('consumer/order/bill-pay', params, () => {
 			util.showToastNoIcon('获取支付参数失败！');

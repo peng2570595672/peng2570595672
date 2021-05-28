@@ -23,10 +23,10 @@
 			<!--<view wx:else>¥{{details.etcMoney/100}}</view>-->
 			<view class="passage-money iconfont">¥{{details.totalMmout/100}}</view>
 		</view>
-		<!--<view wx:if="{{details.passServiceMoney && details.passServiceMoney > 0}}">-->
-		<!--<view>通行手续费（0.6%）</view>-->
-		<!--<view>¥{{details.passServiceMoney/100}}</view>-->
-		<!--</view>-->
+		<view wx:if="{{details.passServiceMoney}}">
+            <view>通行手续费（0.6%）</view>
+            <view>¥{{details.passServiceMoney/100}}</view>
+		</view>
 	</view>
 	<view class="doubt iconfont" catchtap="goOrderQuestions">费用疑问</view>
 	<view class="deduction-details">

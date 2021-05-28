@@ -6,7 +6,7 @@
 	<view class="total-amount">{{(details.totalMmout + details.serviceMoney  - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}}</view>
 	<view class="split-amount">
 		<view>扣款成功  {{tools.parseNum((details.splitDeductedMoney + details.deductServiceMoney)/100)}}</view>
-		<view class="buckling-failure">扣款失败  {{tools.parseNum((details.etcMoney + details.serviceMoney - details.splitDeductedMoney - details.deductServiceMoney)/100)}}</view>
+		<view class="buckling-failure">扣款失败  {{tools.parseNum((details.totalMmout + details.serviceMoney - details.splitDeductedMoney - details.deductServiceMoney)/100)}}</view>
 	</view>
 </view>
 <!--拆分总计结束-->
@@ -25,7 +25,7 @@
 </view>
 <!--拆分列表结束-->
 	<!--底部补缴开始-->
-	<view class="payment" wx:if="{{tools.parseNum((details.etcMoney + details.serviceMoney - details.splitDeductedMoney - details.deductServiceMoney)/100) > 0}}">
+	<view class="payment" wx:if="{{tools.parseNum((details.totalMmout + details.serviceMoney - details.splitDeductedMoney - details.deductServiceMoney)/100) > 0}}">
 		<view>
 			<button catchtap="payment">一键补缴</button>
 			<view class="payment-tips">当前账单已欠款，将影响你的正常通行，请尽快补缴</view>

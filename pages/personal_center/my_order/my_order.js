@@ -254,7 +254,7 @@ Page({
 		let params = {
 			channels: channel
 		};
-		util.getDataFromServer('consumer/etc/get-fail-bill-info', params, () => {
+		util.getDataFromServer('consumer/etc/judge-detail-channels', params, () => {
 			util.hideLoading();
 		}, (res) => {
 			util.hideLoading();
@@ -313,7 +313,7 @@ Page({
 				});
 				let allMoney = 0;
 				this.data.successBillList.map((item) => {
-					allMoney += item.etcMoney;
+					allMoney += item.totalMmout + item.serviceMoney + (item.passServiceMoney || 0) - (item.wxDiscountAmount || 0) - (item.discountMount || 0) - (item.refundMoney || 0);
 				});
 				this.setData({
 					allMoney: allMoney
