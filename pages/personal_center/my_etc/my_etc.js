@@ -245,8 +245,6 @@ Page({
 	onClickAddNewHandle () {
 		// 统计点击事件
 		mta.Event.stat('015',{});
-		// wx.uma.trackEvent('my_etc_for_new_deal_with');
-		// my_etc_for_truck_new_deal_with 没埋点
 		app.globalData.orderInfo.orderId = '';
 		wx.uma.trackEvent(this.data.activeIndex === 1 ? 'my_etc_for_new_deal_with' : 'my_etc_for_truck_new_deal_with');
 		const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address' : '/pages/truck_handling/truck_receiving_address/truck_receiving_address';
