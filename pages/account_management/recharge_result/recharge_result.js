@@ -19,10 +19,12 @@ Page({
 	// 账户充值
 	async next () {
 		if (this.data.isRechargeEarnestMoney) {
+			wx.uma.trackEvent('account_management_for_recharge_result_to_recharge_earnest_money');
 			await this.rechargeEarnestMoney();
 			return;
 		}
 		if (!this.data.rechargeAmount) return;
+		wx.uma.trackEvent('account_management_for_recharge_result_to_recharge');
 		const result = await util.getDataFromServersV2('consumer/member/icbcv2/recharge', {
 			bankAccountId: this.data.choiceBankObj.bankAccountId,
 			amount: +this.data.rechargeAmount * 100

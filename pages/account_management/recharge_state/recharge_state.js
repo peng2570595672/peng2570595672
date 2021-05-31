@@ -26,6 +26,7 @@ Page({
 		}
 	},
 	next () {
+		wx.uma.trackEvent('account_management_for_recharge_state_to_index');
 		util.go(`/pages/account_management/index/index`);
 	}
 });

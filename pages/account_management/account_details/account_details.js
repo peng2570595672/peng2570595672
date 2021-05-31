@@ -99,6 +99,7 @@ Page({
 		});
 	},
 	onClickRecharge () {
+		wx.uma.trackEvent('account_management_for_account_details_to_recharge');
 		util.go(`/pages/account_management/account_recharge/account_recharge`);
 	}
 });

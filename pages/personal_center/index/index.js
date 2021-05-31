@@ -46,11 +46,13 @@ Page({
 			});
 		}
 	},
-	onShow () {
+	async onShow () {
 		if (app.globalData.userInfo.accessToken) {
-			let requestList = [this.getV2BankId(), this.getMemberBenefits(), this.getMemberCrowdSourcingAndOrder(), this.getRightsPackageBuyRecords(), this.getOrderRelation()];
+			if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
+			let requestList = [await this.getMemberBenefits(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getOrderRelation()];
 			util.showLoading();
-			Promise.all(requestList);
+			await Promise.all(requestList);
+			util.hideLoading();
 			let that = this;
 			wx.getSetting({
 				success (res) {
@@ -140,14 +142,16 @@ Page({
 						});
 						let requestList = [];
 						if (JSON.stringify(app.globalData.myEtcList) === '{}') {
-							requestList = [this.getStatus()];
+							requestList = [await this.getStatus()];
 						}
-						requestList = [requestList, this.getV2BankId(), this.getMemberBenefits(), this.getMemberCrowdSourcingAndOrder(), this.getRightsPackageBuyRecords(), this.getOrderRelation()];
+						if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
+						requestList = [requestList, await this.getMemberBenefits(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getOrderRelation()];
 						if (isData) {
-							requestList.push(this.submitUserInfo(isData));
+							requestList.push(await this.submitUserInfo(isData));
 						}
 						util.showLoading();
-						Promise.all(requestList);
+						await Promise.all(requestList);
+						util.hideLoading();
 					} else {
 						wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
 						util.go('/pages/login/login/login');
@@ -209,6 +213,7 @@ Page({
 	// 邀请办理-获取用户信息
 	getUserInfo () {
 		mta.Event.stat('personal_center_invitation_deal_with',{});
+		wx.uma.trackEvent('personal_center_for_getuserinfo');
 		util.showLoading({title: '加载中'});
 		let that2 = this; // 解决作用域问题
 		wx.getSetting({
@@ -240,6 +245,7 @@ Page({
 	// 分享好友
 	onShareAppMessage () {
 		mta.Event.stat('personal_center_applet_sharing',{});
+		wx.uma.trackEvent('personal_center_applet_sharing');
 		if (this.data.crowdSourcingMsg.status !== 1) return;
 		return {
 			title: '好友邀你领取ETC',
@@ -291,23 +297,26 @@ Page({
 	go (e) {
 		let url = e.currentTarget.dataset['url'];
 		if (url === 'life_service') {
+			wx.uma.trackEvent('personal_center_for_life_service');
 			this.showDetail(1);
 			return;
 		}
-		if (url === 'the_owner_service') {
-			mta.Event.stat('personal_center_owner_service',{});
-		} else if (url === 'my_etc') {
-			mta.Event.stat('personal_center_my_etc',{});
-		} else if (url === 'my_order') {
-			mta.Event.stat('personal_center_my_order',{});
-		} else if (url === 'service_card_voucher') {
-			mta.Event.stat('personal_center_service_card_voucher',{});
-		} else if (url === 'help_center') {
-			mta.Event.stat('personal_center_help_center',{});
-		}
+		const urlObj = {
+			'the_owner_service': 'personal_center_owner_service',
+			'my_etc': 'personal_center_my_etc',
+			'my_order': 'personal_center_my_order',
+			'service_card_voucher': 'personal_center_service_card_voucher',
+			'help_center': 'personal_center_help_center',
+			'coupon_redemption_centre': 'personal_center_coupon_redemption_centre',
+			'characteristic_service': 'personal_center_characteristic_service',
+			'service_purchase_record': 'personal_center_service_purchase_record'
+		};
+		wx.uma.trackEvent(urlObj[url]);
+		mta.Event.stat(urlObj[url],{});
 		util.go(`/pages/personal_center/${url}/${url}`);
 	},
 	onClickAccountManagement () {
+		wx.uma.trackEvent('personal_center_for_account_management');
 		util.go('/pages/account_management/index/index');
 	},
 	// 扫码
@@ -315,6 +324,7 @@ Page({
 		util.showLoading({title: '正在识别'});
 		// 统计点击事件
 		mta.Event.stat('023',{});
+		wx.uma.trackEvent('personal_center_for_scan');
 		// 只允许从相机扫码
 		wx.scanCode({
 			onlyFromCamera: true,
@@ -365,6 +375,7 @@ Page({
 	},
 	// 统计点击去关注公众号按钮
 	goPublicAccount () {
+		wx.uma.trackEvent('personal_center_for_follow_the_public_account');
 		mta.Event.stat('037',{});
 	},
 	// 关闭详情

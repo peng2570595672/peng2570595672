@@ -3,51 +3,13 @@
 	<view class="content">
 		<!--用户导航栏开始-->
 		<view class="service-nav">
-			<!--我的ETC开始-->
-			<view class="service-item" catchtap="go" data-type="1">
-				<view class="service-item-icon">
-					<!--更新提示-->
-					<image class="img" src="/pages/personal_center/assets/etc_equipment.svg"></image>
-				</view>
-				<view class="service-item-text">ETC设备</view>
-			</view>
-			<!--我的ETC结束-->
-
-			<!--ETC账单开始-->
-			<view class="service-item" catchtap="go" data-type="2">
-				<view class="service-item-icon">
-					<!--更新提示-->
-					<image class="img" src="/pages/personal_center/assets/online_icon.svg"></image>
-				</view>
-				<view class="service-item-text">在线客服</view>
-			</view>
-			<!--ETC账单结束-->
-
-			<!--开发票开始-->
-			<view class="service-item" catchtap="go" data-type="3">
-				<view class="service-item-icon">
-					<image class="img" src="/pages/personal_center/assets/invoice.svg"></image>
-				</view>
-				<view class="service-item-text">开发票</view>
-			</view>
-			<!--开发票结束-->
-			<!--质保两年开始-->
-			<view class="service-item" catchtap="go" data-type="4">
-				<view class="service-item-icon">
-					<image class="img" src="/pages/personal_center/assets/quality_assurance.svg"></image>
-				</view>
-				<view class="service-item-text">质保两年</view>
-			</view>
-			<!--质保两年结束-->
-
-			<!--通行折扣开始-->
-			<view class="service-item" catchtap="go" data-type="5">
-				<view class="service-item-icon">
-					<image class="img" src="/pages/personal_center/assets/pass_the_discount.svg"></image>
-				</view>
-				<view class="service-item-text">通行折扣</view>
-			</view>
-			<!--通行折扣结束-->
+            <view class="service-item" wx:for="{{basicServicesList}}" wx:key="index" catchtap="go" data-type="{{index + 1}}">
+                <view class="service-item-icon">
+                    <!--更新提示-->
+                    <image class="img" src="/pages/personal_center/assets/{{item.img}}.svg"></image>
+                </view>
+                <view class="service-item-text">{{item.title}}</view>
+            </view>
 		</view>
 		<text class="more-text">-更多服务即将上线-</text>
 		<view class="fill"></view>

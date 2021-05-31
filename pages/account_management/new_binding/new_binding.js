@@ -80,6 +80,7 @@ Page({
 		if (!this.data.available || this.data.isRequest) {
 			return;
 		}
+		wx.uma.trackEvent('account_management_for_new_binding_to_bind');
 		this.setData({
 			available: false, // 禁用按钮
 			isRequest: true // 设置状态为请求中
@@ -233,6 +234,7 @@ Page({
 			util.showToastNoIcon('请输入正确的验证码！');
 			return false;
 		}
+		wx.uma.trackEvent('account_management_for_new_binding_to_confirm');
 		this.setData({
 			available: false, // 禁用按钮
 			isRequest: true // 设置状态为请求中

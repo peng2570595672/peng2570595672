@@ -178,8 +178,8 @@
           "scene": null
         },
         {
-          "name": "pages/account_management/recharge_result/recharge_result",
-          "pathName": "pages/account_management/recharge_result/recharge_result",
+          "name": "pages/truck_handling/payment_successful/payment_successful",
+          "pathName": "pages/truck_handling/payment_successful/payment_successful",
           "query": "isRechargeEarnestMoney=1",
           "scene": null
         },
@@ -190,9 +190,9 @@
           "scene": null
         },
         {
-          "name": "pages/account_management/account_recharge/account_recharge",
-          "pathName": "pages/account_management/account_recharge/account_recharge",
-          "query": "type=1",
+          "name": "pages/personal_center/owner_service/owner_service",
+          "pathName": "pages/personal_center/owner_service/owner_service",
+          "query": "",
           "scene": null
         },
         {

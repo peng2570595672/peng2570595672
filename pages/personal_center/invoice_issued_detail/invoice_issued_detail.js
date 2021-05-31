@@ -88,6 +88,7 @@ Page({
 		this.saveInfo();
 	},
 	saveInfo () {
+		wx.uma.trackEvent('personal_center_for_make_invoice_to_confirm');
 		this.setData({
 			isRequest: true
 		});

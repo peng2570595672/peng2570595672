@@ -1,7 +1,6 @@
 const util = require('../../../utils/util.js');
 const app = getApp();
 // 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 Page({
 	data: {
 		isRequest: false,// 是否请求
@@ -167,6 +166,7 @@ Page({
 		} else {
 			this.setData({isRequest: true});
 		}
+		wx.uma.trackEvent('arrears_bill_for_payment');
 		let model = e.currentTarget.dataset.model;
 		let idList = [];
 		let payTypeDetail = {};

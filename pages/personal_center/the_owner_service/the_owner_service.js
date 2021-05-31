@@ -14,6 +14,13 @@ Page({
 	// 跳转
 	go (e) {
 		let type = +e.currentTarget.dataset['type'];
+		const urlObj = {
+			1: 'owner_service_for_driving',
+			2: 'owner_service_for_check_illegal',
+			3: 'owner_service_for_quality_assurance',
+			4: 'owner_service_for_international_license'
+		};
+		wx.uma.trackEvent(urlObj[url]);
 		switch (type) {
 			case 1:
 				// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
@@ -47,10 +54,6 @@ Page({
 				util.showToastNoIcon('暂未开放');
 				break;
 		}
-	},
-	online () {
-		let url = 'online_customer_service';
-		util.go(`/pages/web/web/web?type=${url}`);
 	},
 	// 关闭详情
 	close () {},

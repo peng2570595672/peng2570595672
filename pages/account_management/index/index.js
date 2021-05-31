@@ -18,10 +18,12 @@ Page({
 		});
 	},
 	onClickAccountDetails () {
+		wx.uma.trackEvent('account_management_for_index_to_account_details');
 		util.go(`/pages/account_management/account_details/account_details`);
 	},
 	// 绑定卡
 	onClickBindBankCard () {
+		wx.uma.trackEvent('account_management_for_index_to_bind_bank_card');
 		util.go(`/pages/account_management/bind_bank_card/bind_bank_card`);
 	}
 });

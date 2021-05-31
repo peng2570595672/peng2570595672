@@ -28,7 +28,7 @@ Page({
 		if (!app.globalData.userInfo.accessToken) {
 			this.login();
 		} else {
-			await util.getV2BankId();
+			if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 			await this.getETCDetail();
 		}
 		if (this.data.showDetailMask) {
@@ -57,7 +57,7 @@ Page({
 						app.globalData.openId = result.data.openId;
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
-						await util.getV2BankId();
+						if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 						await this.getETCDetail();
 					}
 				} else {
@@ -89,6 +89,7 @@ Page({
 	// 显示跳转车主服务弹窗
 	onClickBank () {
 		if (this.data.orderInfo.contractVersion === 'v3') {
+			wx.uma.trackEvent('etc_detail_switch_bank_cards');
 			util.alert({
 				title: `您即将前往车主服务。`,
 				content: `注意:请勿暂停车主服务，扣费失败您的ETC可能被拉入黑名单，影响高速通行`,
@@ -117,6 +118,7 @@ Page({
 	},
 	// 点击取消订单
 	onClickCancelHandle () {
+		wx.uma.trackEvent('etc_detail_for_cancel_order_to_alert');
 		util.alert({
 			content: '确定要取消办理吗？',
 			showCancel: true,
@@ -150,29 +152,35 @@ Page({
 	},
 	// 去高速签约
 	onClickHighSpeedSigning () {
+		wx.uma.trackEvent('etc_detail_for_order_audit');
 		util.go(`/pages/default/order_audit/order_audit`);
 	},
 	// 去开户
 	goBindingAccount () {
+		wx.uma.trackEvent('etc_detail_for_binding_account');
 		util.go('/pages/truck_handling/binding_account/binding_account');
 	},
 	// 去授权预充保证金
 	goRechargeAuthorization () {
+		wx.uma.trackEvent('etc_detail_for_recharge_instructions');
 		util.go('/pages/truck_handling/recharge_instructions/recharge_instructions');
 	},
 	// 去预充
 	goRecharge (orderInfo) {
+		wx.uma.trackEvent('etc_detail_for_account_recharge');
 		util.go(`/pages/account_management/account_recharge/account_recharge?money=${orderInfo.holdBalance}`);
 	},
 	// 去支付
 	goPayment (orderInfo) {
 		const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
+		wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'etc_detail_for_truck_package' : 'etc_detail_for_package');
 		util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
 	},
 	// 修改资料
 	onClickModifiedData () {
 		if (this.data.orderInfo.isNewTrucks === 1) {
 			// 货车办理
+			wx.uma.trackEvent('etc_detail_for_truck_modified_data');
 			util.go('/pages/truck_handling/information_list/information_list?isModifiedData=true');
 			return;
 		}
@@ -180,12 +188,14 @@ Page({
 			util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
 			return;
 		}
+		wx.uma.trackEvent('etc_detail_for_modified_data');
 		app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
 		app.globalData.isModifiedData = true; // 修改资料
 		util.go(`/pages/default/information_list/information_list?isModifiedData=true`);
 	},
 	// 取消订单
 	async cancelOrder () {
+		wx.uma.trackEvent('etc_detail_for_cancel_order');
 		util.showLoading({
 			title: '取消中...'
 		});
@@ -205,10 +215,12 @@ Page({
 	},
 	// 查看办理进度
 	onClickViewProcessingProgressHandle () {
+		wx.uma.trackEvent('etc_detail_for_processing_progress');
 		util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.data.orderInfo.id}`);
 	},
 	// 切换银行卡
 	async onClickSwitchBank () {
+		wx.uma.trackEvent('etc_detail_switch_bank_cards_to_go');
 		app.globalData.orderInfo.orderId = this.data.orderInfo.id;
 		const result = await util.getDataFromServersV2('consumer/order/query-contract', {
 			orderId: app.globalData.orderInfo.orderId
@@ -268,6 +280,7 @@ Page({
 	// 恢复签约
 	async onClickBackToSign (obj) {
 		if (obj.isNewTrucks === 1) {
+			wx.uma.trackEvent('etc_detail_for_contract_management');
 			util.go(`/pages/truck_handling/contract_management/contract_management`);
 			return;
 		}
@@ -276,10 +289,12 @@ Page({
 		if (obj.logisticsId !== 0 || obj.obuStatus === 5 || obj.obuStatus === 1) app.globalData.isSecondSigning = true;
 		// 新流程
 		if (obj.contractStatus === 2) {
+			wx.uma.trackEvent('etc_detail_for_resume_signing');
 			// 恢复签约
 			await this.restoreSign(obj);
 		} else {
 			// 2.0 立即签约
+			wx.uma.trackEvent('etc_detail_for_sign_contract');
 			app.globalData.isSalesmanOrder = obj.orderType === 31;
 			app.globalData.signAContract = -1;
 			await this.weChatSign(obj);
@@ -345,14 +360,17 @@ Page({
 			util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
 			return;
 		}
+		wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'etc_detail_for_certificate_to_truck_package' : 'etc_detail_for_certificate_to_package');
 		util.go(`/pages/${path}/information_list/information_list`);
 	},
 	// 在线客服
 	goOnlineServer () {
+		wx.uma.trackEvent('etc_detail_for_server');
 		util.go(`/pages/web/web/web?type=online_customer_service`);
 	},
 	// 去激活
 	async onClickCctivate () {
+		wx.uma.trackEvent('etc_detail_for_activation');
 		if (!this.data.orderInfo?.logisticsId) {
 			// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
 			wx.navigateToMiniProgram({

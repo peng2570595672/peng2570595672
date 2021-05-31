@@ -56,6 +56,7 @@ Page({
 	},
 	// 解绑
 	onClickUnbind (e) {
+		wx.uma.trackEvent('account_management_for_card_list_to_unbind_alert');
 		let index = e.currentTarget.dataset['index'];
 		if (this.data.bankList.length === 1) {
 			util.showToastNoIcon('当绑定卡只有1张时不可解绑');
@@ -76,6 +77,7 @@ Page({
 	},
 	// 获取二类户号信息
 	async unbindingAccount (item) {
+		wx.uma.trackEvent('account_management_for_card_list_to_unbind');
 		const result = await util.getDataFromServersV2('consumer/member/icbcv2/unbindingAccount', {
 			bankAccountId: item.bankAccountId
 		});
@@ -87,6 +89,7 @@ Page({
 		}
 	},
 	onClickNewBinding () {
+		wx.uma.trackEvent('account_management_for_card_list_to_new_binding');
 		util.go(`/pages/account_management/new_binding/new_binding`);
 	}
 });

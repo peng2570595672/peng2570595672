@@ -59,7 +59,7 @@ Page({
 			if (app.globalData.salesmanScanCodeToHandleId) {
 				await this.bindOrder();
 			} else {
-				await util.getV2BankId();
+				if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 				await this.getStatus();
 			}
 		}
@@ -72,7 +72,7 @@ Page({
 			if (app.globalData.salesmanScanCodeToHandleId) {
 				await this.bindOrder();
 			} else {
-				await util.getV2BankId();
+				if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 				await this.getStatus();
 			}
 			wx.removeStorageSync('login_info_final');
@@ -335,7 +335,7 @@ Page({
 						if (app.globalData.salesmanScanCodeToHandleId) {
 							await this.bindOrder();
 						} else {
-							await util.getV2BankId();
+							if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 							if (app.globalData.isSignUpImmediately) {
 								app.globalData.isSignUpImmediately = false;
 								await this.getStatus(true);
@@ -372,7 +372,7 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			app.globalData.salesmanScanCodeToHandleId = undefined;// 处理返回首页再次请求
-			await util.getV2BankId();
+			if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 			await this.getStatus(true);
 		} else {
 			util.showToastNoIcon(result.message);
@@ -409,7 +409,7 @@ Page({
 				if (app.globalData.salesmanScanCodeToHandleId) {
 					await this.bindOrder();
 				} else {
-					await util.getV2BankId();
+					if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 					await this.getStatus();
 				}
 			} else {
