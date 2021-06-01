@@ -135,7 +135,6 @@ Page({
 		} else {
 			this.setData({isRequest: true});
 		}
-		// mta.Event.stat('information_list_next',{});
 		util.showLoading('加载中');
 		let params = {
 			dataComplete: 0,// 资料已完善
@@ -166,6 +165,8 @@ Page({
 		util.weChatSigning(res);
 	},
 	next () {
+		if (!this.data.available) return;
+		wx.uma.trackEvent('truck_contract_management_next');
 		util.go('/pages/truck_handling/recharge_instructions/recharge_instructions');
 	}
 });

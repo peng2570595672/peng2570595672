@@ -162,6 +162,7 @@ Page({
 			} else {
 				this.setData({isRequest: true});
 			}
+			wx.uma.trackEvent('truck_information_list_next');
 			util.showLoading('加载中');
 			let params = {
 				dataComplete: 1,// 资料已完善

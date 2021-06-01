@@ -127,6 +127,7 @@ Page({
 			isRequest: true
 		});
 		mta.Event.stat('truck_for_other_photo_next',{});
+		wx.uma.trackEvent('truck_for_id_card_next');
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: '7', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息

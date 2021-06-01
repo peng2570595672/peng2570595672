@@ -28,6 +28,7 @@ Page({
 		});
 	},
 	async next () {
+		wx.uma.trackEvent('truck_recharge_instructions_next');
 		let params = {
 			dataComplete: 1,// 资料已完善
 			orderId: app.globalData.orderInfo.orderId// 订单id

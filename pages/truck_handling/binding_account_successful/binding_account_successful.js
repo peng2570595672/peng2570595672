@@ -46,7 +46,7 @@ Page({
 		} else {
 			this.setData({isRequest: true});
 		}
-		// mta.Event.stat('information_list_next',{});
+		wx.uma.trackEvent('truck_binding_account_successful_to_signing');
 		util.showLoading('加载中');
 		let params = {
 			dataComplete: 0,// 资料已完善

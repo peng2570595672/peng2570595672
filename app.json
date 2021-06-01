@@ -99,7 +99,6 @@
         "agreement/agreement",
         "icbc_agreement/icbc_agreement",
         "information_validation/information_validation",
-        "payment_way/payment_way",
         "package_the_rights_and_interests/package_the_rights_and_interests",
         "contract_management/contract_management",
         "binding_account/binding_account",
@@ -111,8 +110,6 @@
         "upload_id_card/upload_id_card",
         "upload_other_photo/upload_other_photo",
         "upload_road_transport_certificate/upload_road_transport_certificate",
-        "equipment_cost/equipment_cost",
-        "payment_successful/payment_successful",
         "information_list/information_list"
       ]
     },

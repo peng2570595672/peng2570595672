@@ -115,6 +115,7 @@ Page({
 			isRequest: true
 		});
 		mta.Event.stat('truck_for_transportation_license_next',{});
+		wx.uma.trackEvent('truck_for_transportation_license_next');
 		const obj = this.data.transportationLicenseObj;
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id

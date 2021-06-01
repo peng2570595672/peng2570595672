@@ -96,6 +96,7 @@ Page({
 			available: false, // 禁用按钮
 			isRequest: true // 设置状态为请求中
 		});
+		wx.uma.trackEvent('truck_binding_account_to_open_account');
 		const params = {
 			occupation: this.data.professionIndex + 1,
 			bankAccountNo: this.data.formData.bankCardNo,
@@ -131,6 +132,7 @@ Page({
 			util.showToastNoIcon('请输入正确的验证码！');
 			return false;
 		}
+		wx.uma.trackEvent('truck_binding_account_to_open_card');
 		this.setData({
 			available: false, // 禁用按钮
 			isRequest: true // 设置状态为请求中

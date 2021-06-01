@@ -364,6 +364,7 @@ Page({
 			isRequest: true,
 			available: false
 		});
+		wx.uma.trackEvent('truck_information_validation_next');
 		if (face.vehicleType.includes('牵引') || face.vehicleType.includes('挂') || face.vehicleType.includes('集装箱')) {
 			// 牵引车
 			this.setData({isTraction: 1});
