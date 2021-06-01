@@ -330,6 +330,39 @@
 .index .order-info .order-info-box .other-entrance .item:last-child {
   border: 0;
 }
+.index .order-info .notice {
+  height: 60rpx;
+  background: #f8fff8;
+  display: flex;
+  align-items: center;
+  padding-left: 32rpx;
+  padding-right: 38rpx;
+  box-shadow: 0rpx 4rpx 12rpx 0rpx rgba(0,0,0,0.04);
+}
+.index .order-info .notice .notice-left {
+  flex: 1;
+  color: rgba(0,0,0,0.3);
+  font-size: 24rpx;
+}
+.index .order-info .notice .notice-left::before {
+  content: '\e698';
+  font-size: 28rpx;
+  color: #00b85c;
+  margin-right: 14rpx;
+}
+.index .order-info .notice .notice-right {
+  width: 12rpx;
+  height: 12rpx;
+  background: #ff3c48;
+  border-radius: 50%;
+}
+.index .order-info .notice::after {
+  content: '\e60e';
+  font-size: 22rpx;
+  color: rgba(0,0,0,0.3);
+  margin-left: 14rpx;
+  transform: rotateZ(-180deg);
+}
 .index .my-swiper .my-swiper-item image {
   width: 504rpx;
 }

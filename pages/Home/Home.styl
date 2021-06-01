@@ -213,6 +213,34 @@
 						padding-left 0
 					&:last-child
 						border 0
+		.notice
+			height 60rpx
+			background #F8FFF8
+			display flex
+			align-items center
+			padding-left 32rpx
+			padding-right 38rpx
+			box-shadow 0rpx 4rpx 12rpx 0rpx rgba(0,0,0,0.04)
+			.notice-left
+				flex 1
+				color rgba(0,0,0,.3)
+				font-size 24rpx
+				&::before
+					content '\e698'
+					font-size 28rpx
+					color #00B85C
+					margin-right 14rpx
+			.notice-right
+				width 12rpx
+				height 12rpx
+				background #FF3C48
+				border-radius 50%
+			&::after
+				content '\e60e'
+				font-size 22rpx
+				color rgba(0,0,0,.3)
+				margin-left 14rpx
+				transform rotateZ(-180deg)
 	// 底部活动
 	.my-swiper
 		.my-swiper-item

@@ -146,7 +146,8 @@ Page({
 			animationImage: util.wxAnimation(200, activeIndex === 1 ? 0 : 488, 'translateX'),
 			animationTrucksImage: util.wxAnimation(200, activeIndex === 1 ? 0 : -488, 'translateX'),
 			animationTitle: util.wxAnimation(200, activeIndex === 1 ? 0 : -958, 'translateX'),
-			animationSubTitle: util.wxAnimation(300, activeIndex === 1 ? 0 : -958, 'translateX'),
+			animationSubTitle1: util.wxAnimation(300, activeIndex === 1 ? 0 : -958, 'translateX'),
+			animationSubTitle2: util.wxAnimation(400, activeIndex === 1 ? 0 : -958, 'translateX'),
 			animationVehicleInfo: util.wxAnimation(activeIndex === 1 ? 0 : 200, activeIndex === 1 ? 0 : 150, 'translateY', activeIndex === 1 ? 1 : 0),
 			animationVehicleInfoForTrucks: util.wxAnimation(activeIndex === 1 ? 0 : 200, activeIndex === 1 ? 0 : -150, 'translateY',activeIndex === 1 ? 0 : 1),
 			animationTransaction: animation.export()

@@ -21,15 +21,15 @@
                         <image src="/pages/default/assets/wechat_pay.png" mode="widthFix"></image>
                     </view>
                     <view class="sub-title" animation="{{animationSubTitle}}">
-                        <view>通行折扣 精彩服务</view>
-                        <view>尽情享</view>
+                        <view animation="{{animationSubTitle1}}">通行折扣 精彩服务</view>
+                        <view animation="{{animationSubTitle2}}">尽情享</view>
                     </view>
                 </view>
                 <view class="introduce introduce-trucks">
                     <view class="title" animation="{{animationTitle}}">货车ETC上线啦</view>
-                    <view class="sub-title" animation="{{animationSubTitle}}">
-                        <view>绑定微信支付</view>
-                        <view>享货车通行折扣</view>
+                    <view class="sub-title">
+                        <view animation="{{animationSubTitle1}}">绑定微信支付</view>
+                        <view animation="{{animationSubTitle2}}">享货车通行折扣</view>
                     </view>
                 </view>
             </view>
@@ -114,6 +114,10 @@
                     {{item.title}}
                 </view>
             </view>
+        </view>
+        <view class="notice iconfont" wx:if="{{false}}">
+            <view class="notice-left iconfont">套餐</view>
+            <view class="notice-right"></view>
         </view>
     </view>
     <!--	订单信息结束-->
