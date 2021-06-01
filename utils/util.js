@@ -1059,25 +1059,15 @@ function weChatSigning(data) {
 			}
 		});
 	} else { // 签约车主服务 3.0
-		wx.navigateToMiniProgram({
-			appId: 'wxbcad394b3d99dac9',
-			path: 'pages/etc/index',
+		wx.openBusinessView({
+			businessType: 'wxpayVehicleETC',
 			extraData: {
 				preopen_id: data.extraData.peropen_id
 			},
-			fail () {
-				showToastNoIcon('调起车主服务签约失败, 请重试！');
+			fail(e) {
+				console.log(e)
 			}
-		});
-		// wx.openBusinessView({
-		// 	businessType: 'wxpayVehicleETC',
-		// 	extraData: {
-		// 		preopen_id: data.extraData.peropen_id
-		// 	},
-		// 	fail(e) {
-		// 		console.log(e)
-		// 	}
-		// })
+		})
 	}
 }
 // px转rpx-wxAnimation方法使用的是px
@@ -1316,7 +1306,7 @@ async function getDataFromServersV2(path, params = {}, method = 'POST') {
 			data: obj.data,
 			header: obj.header,
 			success: (res) => {
-				if (res && res.statusCode == 200) {
+				if (res && res.statusCode === 200) {
 					if (res.data.code === 115 || res.data.code === 117 || res.data.code === 118) { // 在别处登录了 重新自动登录一次
 						reAutoLoginV2(path, params, method);
 						return;
