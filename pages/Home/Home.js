@@ -47,6 +47,7 @@ Page({
 		requestBillTruckNum: 0, // 客车账单请求次数
 		needRequestBillNum: 0, // 需要请求的次数
 		requestBillEnd: false, // 账单请求结束
+		isClickNotice: false, // 是否点击过广告位
 		dialogContent: {} // 弹窗内容
 	},
 	async onLoad () {
@@ -55,6 +56,9 @@ Page({
 		this.login();
 	},
 	async onShow () {
+		this.setData({
+			isClickNotice: wx.getStorageSync('is-click-notice')
+		});
 		if (app.globalData.userInfo.accessToken) {
 			if (app.globalData.salesmanScanCodeToHandleId) {
 				await this.bindOrder();
@@ -218,6 +222,10 @@ Page({
 			const pageUrl = 'pages/base/redirect/index?routeKey=WEDRIVE_HIGH_JOIN&wtagid=104.210.4';
 			this.openWeiBao(pageUrl);
 		}
+	},
+	// 点击广告位
+	onClickNotice () {
+		wx.setStorageSync('is-click-notice', true);
 	},
 	/**
 	 *  订阅消息封装

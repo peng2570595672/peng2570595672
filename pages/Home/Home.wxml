@@ -115,9 +115,9 @@
                 </view>
             </view>
         </view>
-        <view class="notice iconfont" wx:if="{{false}}">
+        <view class="notice iconfont" wx:if="{{false}}" catchtap="onClickNotice">
             <view class="notice-left iconfont">套餐</view>
-            <view class="notice-right"></view>
+            <view class="notice-right {{isClickNotice ? 'no-notice-bg' : ''}}"></view>
         </view>
     </view>
     <!--	订单信息结束-->

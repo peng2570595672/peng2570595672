@@ -356,6 +356,9 @@
   background: #ff3c48;
   border-radius: 50%;
 }
+.index .order-info .notice .notice-right.no-notice-bg {
+  display: none;
+}
 .index .order-info .notice::after {
   content: '\e60e';
   font-size: 22rpx;
