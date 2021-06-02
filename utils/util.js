@@ -696,8 +696,8 @@ function getStatus(orderInfo) {
 	if (orderInfo.status === 0) {
 		return 4; // 办理中 未上传证件
 	}
-	if (!orderInfo.contractStatus && orderInfo.deliveryRule === 0) {
-		// deliveryRule 先签约后发货-0、先发货后签约-1
+	if (!orderInfo.contractStatus && orderInfo.deliveryRule === 0 && orderInfo.etcContractId !== -1) {
+		// deliveryRule 先签约后发货-0、先发货后签约-1    etcContractId -1 不签约微信
 		return 5; // 待微信签约
 	}
 	if (orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) {
@@ -717,7 +717,7 @@ function getStatus(orderInfo) {
 	if (orderInfo.auditStatus === 2 && orderInfo.logisticsId === 0) {
 		return 10; // 审核通过,待发货
 	}
-	if (orderInfo.auditStatus === 2 && orderInfo.logisticsId !== 0 && orderInfo.deliveryRule === 1) {
+	if (orderInfo.auditStatus === 2 && orderInfo.logisticsId !== 0 && orderInfo.deliveryRule === 1 && orderInfo.etcContractId !== -1) {
 		return 5; // 审核通过,已发货或无需发货,待微信签约
 	}
 	if (orderInfo.obuStatus === 0) {

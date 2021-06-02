@@ -19,6 +19,7 @@ Page({
 		isDrivingLicenseError: false, // 是否行驶证错误
 		isHeadstockError: false, // 是否车头照错误
 		isModifiedData: false, // 是否是修改资料
+		isEtcContractId: true, // 是否需要签约微信
 		requestNum: 0
 	},
 	onLoad (options) {
@@ -100,6 +101,7 @@ Page({
 				this.getErrorStatus(res.orderAudit);
 			}
 			this.setData({
+				isEtcContractId: orderInfo.etcContractId !== -1,
 				requestNum: 1,
 				orderInfo: orderInfo,
 				orderDetails: res,
@@ -269,7 +271,7 @@ Page({
 			changeAuditStatus: true,
 			needSignContract: true // 是否需要签约 true-是，false-否
 		};
-		if (this.data.contractStatus === 1 || this.data.isModifiedData) {
+		if (this.data.contractStatus === 1 || this.data.isModifiedData || !this.data.isEtcContractId) {
 			delete params.needSignContract;
 			delete params.clientMobilePhone;
 			delete params.clientOpenid;

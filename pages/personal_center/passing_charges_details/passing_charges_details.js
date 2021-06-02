@@ -264,6 +264,7 @@ Page({
 	},
 	// 同步支付信息
 	getBillQuery (id) {
+		this.setData({requestBillNum: 0});
 		util.getDataFromServer('consumer/order/billQuery', {id: id}, () => {
 			this.getBillDetail();
 		}, (res) => {

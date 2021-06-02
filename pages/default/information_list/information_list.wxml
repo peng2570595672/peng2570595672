@@ -17,8 +17,8 @@
         <view class="btn {{orderInfo.isHeadstock === 1  ? 'edit' : ''}}" catchtap="go" data-url="upload_other_photo">{{orderInfo.isHeadstock === 1 ? '修改' : '上传'}}</view>
     </view>
     <view class="fill"></view>
-    <view  class="tips" wx:if="{{fenCheck}}">签约成功后将扣取0.01元作账户验证，随即退回原账户</view>
+    <view  class="tips" wx:if="{{fenCheck && isEtcContractId}}">签约成功后将扣取0.01元作账户验证，随即退回原账户</view>
     <view class="btn-sign {{available ? 'available' : 'unavailable'}}" catchtap="subscribe">
-        <view class="animate" wx:if="{{isRequest}}"></view>{{isModifiedData ? '提交审核': contractStatus === 1 ? '提交' : '签约代扣通行费'}}
+        <view class="animate" wx:if="{{isRequest}}"></view>{{isModifiedData ? '提交审核': contractStatus === 1 || !isEtcContractId ? '提交' : '签约代扣通行费'}}
     </view>
 </view>
