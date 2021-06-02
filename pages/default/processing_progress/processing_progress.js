@@ -272,12 +272,10 @@ Page({
 					mta.Event.stat('truck_for_processing_progress',{});
 				}
 				this.setData({
+					accountVerification: res.data.orderVerificationStatus,
 					bankCardInfo: app.globalData.bankCardInfo,
 					info: res.data
 				});
-				if (this.data.info.orderVerificationId && this.data.info.isNewTrucks !== 1) {
-					this.refreshCheck();
-				}
 				if (res.data.autoAuditStatus === 0 && res.data.auditStatus === 0) {
 					if (that.data.number >= 5) {
 						util.hideLoading();
