@@ -271,7 +271,7 @@ App({
 				const {appId} = res.referrerInfo;
 				// 车主服务签约
 				if (appId === 'wxbcad394b3d99dac9' || appId === 'wxbd687630cd02ce1d') {
-					this.globalData.isTruckHandling ? util.queryContractForTruckHandling() : this.queryContract(appId);;
+					this.globalData.isTruckHandling ? util.queryContractForTruckHandling() : this.queryContract(appId);
 				}
 			} else if (this.globalData.signAContract === 1) {
 				// 解约状态
