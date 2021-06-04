@@ -91,6 +91,20 @@
       ]
     },
     {
+      "root": "pages/international_driving_document",
+      "name": "pages/international_driving_document",
+      "pages": [
+        "index/index",
+        "upload_license/upload_license",
+        "license_information/license_information",
+        "express_information/express_information",
+        "my_order/my_order",
+        "order_detail/order_detail",
+        "upload_shot_card/upload_shot_card",
+        "transact_success/transact_success"
+      ]
+    },
+    {
       "root": "pages/truck_handling",
       "name": "pages/truck_handling",
       "pages": [

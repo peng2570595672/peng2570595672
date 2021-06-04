@@ -4,24 +4,21 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
-		isContinentInsurance: false // 是否是大地保险
+		ownerServiceList: [
+			{title: '领驾乘险', ico: 'led_driving_icon', statisticsEvent: 'owner_service_for_driving', isShow: !app.globalData.isContinentInsurance},
+			{title: '查违章', ico: 'check_illegal', statisticsEvent: 'owner_service_for_check_illegal', isShow: !app.globalData.isContinentInsurance},
+			{title: '延保1年', ico: 'quality_assurance', statisticsEvent: 'owner_service_for_quality_assurance', isShow: true},
+			{title: '国际驾照', ico: 'international_license', statisticsEvent: 'owner_service_for_international_license', isShow: true}
+		]
 	},
 	onLoad () {
-		this.setData({
-			isContinentInsurance: app.globalData.isContinentInsurance
-		});
 	},
 	// 跳转
 	go (e) {
-		let type = +e.currentTarget.dataset['type'];
-		const urlObj = {
-			1: 'owner_service_for_driving',
-			2: 'owner_service_for_check_illegal',
-			3: 'owner_service_for_quality_assurance',
-			4: 'owner_service_for_international_license'
-		};
-		wx.uma.trackEvent(urlObj[url]);
-		switch (type) {
+		let item = e.currentTarget.dataset['item'];
+		let index = +e.currentTarget.dataset['index'];
+		wx.uma.trackEvent(item.statisticsEvent);
+		switch (index + 1) {
 			case 1:
 				// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
 				wx.navigateToMiniProgram({
@@ -51,7 +48,7 @@ Page({
 				});
 				break;
 			case 4:
-				util.showToastNoIcon('暂未开放');
+				util.go('/pages/international_driving_document/index/index');
 				break;
 		}
 	},

@@ -1,0 +1,69 @@
+.international-index
+	min-height 100vh
+	padding-bottom 270rpx
+	.nav
+		display flex
+		flex-direction column
+		height 176rpx
+		background: linear-gradient(to bottom, #EBEBEB 0%, #DDE9DC 100%);
+		.empty
+			flex 1
+		.title_nav
+			height 78rpx
+			display flex
+			align-items center
+			justify-content center
+			.title
+				font-size: 34rpx;
+				font-family: Helvetica;
+				color: #000000;
+				line-height: 40rpx;
+			.back
+				position absolute
+				left 20rpx
+				&::before
+					content '\e60e'
+					color #000000
+					font-size 50rpx
+			.home
+				&::before
+					content '\e65b'
+					line-height 50rpx
+					background rgba(255,255,255,.2)
+					text-align center
+					border 1rpx solid rgba(51,51,51,.2)
+					border-radius 50rpx
+	.content
+		min-height 1800rpx
+		background-image url("https://file.cyzl.com/g001/M07/45/92/oYYBAGC0Oz6AD2W7AAJgIGtfT7Y295.png")
+		background-size 100%
+		background-repeat no-repeat
+	.btns
+		height 270rpx
+		display flex
+		position fixed
+		left 0
+		right 0
+		bottom 0
+		background #fff
+		font-size 32rpx
+		.my-order
+			display flex
+			justify-content center
+			align-items center
+			margin 52rpx 32rpx
+			height 98rpx
+			width 214rpx
+			color #00B85C
+			border-radius 50rpx
+			border: 2rpx solid #00B85C;
+		.create-order
+			display flex
+			justify-content center
+			align-items center
+			margin 52rpx 32rpx 0rpx 0rpx
+			height: 98rpx;
+			flex 1
+			color #fff
+			background: linear-gradient(45deg, #00AF62 0%, #68D33F 100%);
+			border-radius: 50rpx;

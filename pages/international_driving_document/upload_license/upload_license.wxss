@@ -1,0 +1,164 @@
+.step-temp {
+  display: flex;
+  height: 100rpx;
+  padding: 0rpx 12rpx;
+  font-size: 24rpx;
+}
+.step-temp > view {
+  margin-top: -20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  margin: 0rpx 2rpx;
+}
+.step-temp > view:nth-child(2) {
+  flex: 1;
+}
+.step-temp > view:nth-child(2) > view::before {
+  content: '';
+  flex: 1;
+  border: 1rpx dashed rgba(0,0,0,0.1);
+}
+.step-temp > view:last-of-type {
+  flex: 1;
+}
+.step-temp > view:last-of-type > view::before {
+  content: '';
+  flex: 1;
+  border: 1rpx dashed rgba(0,0,0,0.1);
+}
+.step-temp > view.pre > view::before {
+  border: 1rpx dashed #00b85c;
+}
+.step-temp > view.pre > view > text {
+  color: #fff;
+  background: #00b85c;
+}
+.step-temp > view > view {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.step-temp > view > view > text {
+  position: relative;
+  display: flex;
+  margin: 0rpx 20rpx;
+  width: 36rpx;
+  height: 36rpx;
+  line-height: 30rpx;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  font-size: 22rpx;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(0,0,0,0.2);
+}
+.upload-license {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f6f6f6;
+}
+.upload-license .memo {
+  padding: 38rpx 22rpx 12rpx 32rpx;
+  background: #ffc300;
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #ff422a;
+  line-height: 34rpx;
+}
+.upload-license .title {
+  text-align: center;
+  font-size: 34rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #000;
+  line-height: 48rpx;
+}
+.upload-license .photo-wrapper {
+  display: flex;
+  margin: 32rpx;
+}
+.upload-license .photo-wrapper .photo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  height: 370rpx;
+  width: 100%;
+  background: #eee;
+  box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(188,188,188,0.06);
+  border-radius: 8rpx;
+  text-align: center;
+}
+.upload-license .photo-wrapper .photo .not-upload {
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.5);
+  line-height: 54rpx;
+}
+.upload-license .photo-wrapper .photo .not-upload .img-box {
+  height: 98rpx;
+  position: relative;
+}
+.upload-license .photo-wrapper .photo .not-upload .img-box .ico {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 64rpx;
+  height: 54rpx;
+}
+.upload-license .photo-wrapper .photo .not-upload image {
+  width: 50rpx;
+  height: 50rpx;
+  margin: 70rpx 0 8rpx;
+}
+.upload-license .photo-wrapper .photo .success {
+  width: 100%;
+  height: 100%;
+}
+.upload-license .photo-wrapper .photo.not-border {
+  border: 0;
+}
+.upload-license .list-tips {
+  display: flex;
+  flex-direction: column;
+  margin: 16rpx 48rpx;
+}
+.upload-license .list-tips .tips-title {
+  font-size: 28rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #000;
+  line-height: 40rpx;
+  margin-bottom: 10rpx;
+}
+.upload-license .list-tips .tips-item {
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.64);
+  line-height: 44rpx;
+}
+.upload-license .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 48rpx;
+  height: 98rpx;
+  font-size: 40rpx;
+  font-weight: 500;
+  color: #fff;
+  border-radius: 49rpx;
+  background: linear-gradient(45deg, #00af62 0%, #68d33f 100%);
+}

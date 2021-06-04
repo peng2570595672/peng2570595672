@@ -1,0 +1,46 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<view class="my-order">
+	<view class="swiper-tab">
+		<view wx:for="{{tabStatus}}" wx:key="index" class="tab-list {{currentTab=== index ? 'tab-show' : ''}}" data-current="{{index}}" catchtap="switchTabStatus">{{item.name}}</view>
+	</view>
+	<view class="list" wx:if="{{carList.length > 0}}">
+		<!--	etc列表开始-->
+		<block wx:for="{{carList}}" wx:key="index">
+			<view class="list-item animated fadeIn" catchtap="onClickGoOrderDetailHandle" data-index="{{index}}">
+				<view class="item">
+					<view>订单编号</view>
+					<view>{{item.id}}</view>
+				</view>
+				<view class="item">
+					<view>驾驶证姓名</view>
+					<view>{{item.driverName}}</view>
+				</view>
+				<view class="item">
+					<view>驾驶证号</view>
+					<view>{{item.drivingLicence}}</view>
+				</view>
+				<view class="item">
+					<view>预计发货时间</view>
+					<view>{{item.normalSandTime ? tools.substring(item.normalSandTime,0,10) : ''}}</view>
+				</view>
+				<view class="item">
+					<view>预计收货时间</view>
+					<view>{{item.normalExpressTime ? tools.substring(item.normalExpressTime,0,10) :''}}</view>
+				</view>
+				<view class="item">
+					<view>支付状态</view>
+					<view class="{{item.payStatus === 1 ? 'pay': 'un-pay'}}">{{item.payStatus === 1 ?'已支付' : '待支付'}}</view>
+				</view>
+			</view>
+		</block>
+		<view class="fill"></view>
+		<view class="customer-service" catchtap="customerService">
+			<view>订单咨询客服电话：</view>
+			<view>10101020</view>
+		</view>
+	</view>
+	<view class="empty-list" wx:else>
+		<image src="/pages/international_driving_document/assets/no_record.png" mode="widthFix"></image>
+		<view>暂无订单~~</view>
+	</view>
+</view>

@@ -1,0 +1,52 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<view class="order-detail animated fadeIn">
+	<view class="title">订单详情</view>
+	<view class="item">
+		<view>订单号</view>
+		<view>{{orderInfo.id}}</view>
+	</view>
+	<view class="item">
+		<view>驾照姓名</view>
+		<view>{{orderInfo.driverName}}</view>
+	</view>
+	<view class="item">
+		<view>预计发货时间</view>
+		<view>{{orderInfo.normalSandTime ? tools.substring(orderInfo.normalSandTime,0,10) : ''}}</view>
+	</view>
+	<view class="item">
+		<view>预计送达时间</view>
+		<view>{{orderInfo.normalExpressTime ? tools.substring(orderInfo.normalExpressTime,0,10) : ''}}</view>
+	</view>
+	<view class="item" >
+		<view>订单价格</view>
+		<view wx:if="{{orderInfo.paidAmount}}">¥{{orderInfo.paidAmount / 100}}（含快递费）</view>
+		<view></view>
+	</view>
+	<view class="item">
+		<view>支付状态</view>
+		<view class="{{orderInfo.payStatus === 0 ? 'un-pay' : 'success'}}"> {{orderInfo.payStatus === 0 ? '待支付':'已支付'}}</view>
+	</view>
+	<view class="split"></view>
+	<view class="title">收件信息</view>
+	<view class="item" >
+		<view>姓名</view>
+		<view>{{orderInfo.extUsername}}</view>
+	</view>
+	<view class="item" >
+		<view>收货地区</view>
+		<view>{{orderInfo.receiveProvince + orderInfo.receiveCity + orderInfo.receiveCounty}}</view>
+	</view>
+	<view class="item" >
+		<view>详细地址</view>
+		<view>{{orderInfo.extArea}}</view>
+	</view>
+	<view class="item" >
+		<view>手机号</view>
+		<view>{{orderInfo.extPhone}}</view>
+	</view>
+	<view wx:if="{{orderInfo.payStatus === 0}}" class="btn" catchtap="onClickContinueHandle">继续办理</view>
+	<view class="customer-service {{orderInfo.payStatus === 1 ? 'empty': ''}}" catchtap="customerService">
+		<view>订单咨询客服电话：</view>
+		<view>10101020</view>
+	</view>
+</view>

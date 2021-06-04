@@ -1,0 +1,35 @@
+<import src="../template/step_template/step_template.wxml"/>
+<view class="upload-license">
+	<view class="memo">使用国家或地区不包含香港、台湾、澳门、日韩、印度、斯里兰卡等，
+		仅适用于短期海外旅游租车的中国公民（华侨、留学生等不适用）</view>
+	<block>
+		<template is="stepTemplate" data="{{stepArr}}"></template>
+	</block>
+	<view class="title">拍摄驾驶证主页，系统自动识别</view>
+	<!--上传证件部分开始-->
+	<view class="photo-wrapper">
+		<!--车头照开始-->
+		<view class="photo" catchtap="selectionPic">
+			<!--上传行驶证正面开始-->
+			<view class="photo {{drivingLicenseFace.fileUrl ? 'not-border' : ''}}" catchtap="selectionPic">
+				<view class="not-upload" wx:if="{{!drivingLicenseFace.fileUrl}}">
+					<view class="img-box">
+						<image class="ico" src="/pages/international_driving_document/assets/icon_camera_green.png"></image>
+					</view>
+					<view>点击拍摄行驶证主页</view>
+				</view>
+				<image class="success" wx:else src="{{drivingLicenseFace.fileUrl}}"></image>
+			</view>
+		</view>
+		<!--车头照结束-->
+	</view>
+	<view class="list-tips">
+		<view class="tips-title">注意事项</view>
+		<view class="tips-item">1 ｜驾驶证为有效中国内地驾驶证；</view>
+		<view class="tips-item">2｜需要拍摄驾驶证首页正面；</view>
+		<view class="tips-item">3｜正对证件拍摄，无倾斜、无抖动；</view>
+		<view class="tips-item">4｜拍摄的证件清晰无反光；</view>
+		<view class="tips-item">5｜保持网络顺畅。</view>
+	</view>
+	<view wx:if="{{drivingLicenseFace.fileUrl}}" class="btn" catchtap="next">下一步</view>
+</view>

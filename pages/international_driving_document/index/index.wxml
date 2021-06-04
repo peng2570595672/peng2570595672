@@ -1,0 +1,7 @@
+<view class="international-index">
+	<view class="content"></view>
+	<view class="btns">
+		<view class="my-order" catchtap="onClickMyOrder">我的订单</view>
+		<view class="create-order" catchtap="onClickCreateOder">立即免费办理</view>
+	</view>
+</view>

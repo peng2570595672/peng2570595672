@@ -1,0 +1,8 @@
+{
+	"navigationBarBackgroundColor": "#FFFFFF",
+	"backgroundColor": "#EDEDED",
+	"navigationBarTextStyle": "black",
+	"navigationBarTitleText": "驾照上传",
+	"usingComponents": {
+	}
+}

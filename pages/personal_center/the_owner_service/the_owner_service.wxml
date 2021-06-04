@@ -3,42 +3,12 @@
 	<view class="content">
 		<!--用户导航栏开始-->
 		<view class="service-nav">
-			<!--领驾乘险-->
-			<view class="service-item" catchtap="go" data-type="1" wx:if="{{!isContinentInsurance}}">
-				<view class="service-item-icon">
-					<!--更新提示-->
-					<image class="img" src="/pages/personal_center/assets/led_driving_icon.svg"></image>
-				</view>
-				<view class="service-item-text">领驾乘险</view>
-			</view>
-			<!--领驾乘险结束-->
-			<!--查违章-->
-			<view class="service-item" catchtap="go" data-type="2" wx:if="{{!isContinentInsurance}}">
-				<view class="service-item-icon">
-					<!--更新提示-->
-					<image class="img" src="/pages/personal_center/assets/check_illegal.svg"></image>
-				</view>
-				<view class="service-item-text">查违章</view>
-			</view>
-			<!--查违章结束-->
-
-			<!--质保两年开始-->
-			<view class="service-item" catchtap="go" data-type="3">
-				<view class="service-item-icon">
-					<image class="img" src="/pages/personal_center/assets/quality_assurance.svg"></image>
-				</view>
-				<view class="service-item-text">延保1年</view>
-			</view>
-			<!--质保两年结束-->
-
-			<!--通行折扣开始-->
-			<view class="service-item" catchtap="go" data-type="4">
-				<view class="service-item-icon">
-					<image class="img" src="/pages/personal_center/assets/international_license.svg"></image>
-				</view>
-				<view class="service-item-text">国际驾照</view>
-			</view>
-			<!--通行折扣结束-->
+            <view class="service-item" wx:for="{{ownerServiceList}}" wx:key="index" catchtap="go" data-index="{{index}}" data-item="{{item}}">
+                <view class="service-item-icon">
+                    <image class="img" src="/pages/personal_center/assets/{{item.ico}}.svg"></image>
+                </view>
+                <view class="service-item-text">{{item.title}}</view>
+            </view>
 		</view>
 		<view class="fill"></view>
 		<text class="more-text">-更多服务即将上线-</text>

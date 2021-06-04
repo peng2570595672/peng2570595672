@@ -1,0 +1,93 @@
+.my-order {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.my-order .swiper-tab {
+  margin: 40rpx 80rpx 30rpx 80rpx;
+  display: flex;
+  height: 70rpx;
+  background: #f8f8f8;
+  border-radius: 12rpx;
+  border: 1rpx solid rgba(231,231,231,0.42);
+}
+.my-order .swiper-tab .tab-list {
+  display: flex;
+  flex: 1;
+  font-size: 36rpx;
+  color: #66666e;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.my-order .swiper-tab .tab-show {
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 500;
+  color: #fff;
+  background: linear-gradient(49deg, #14ac69 0%, #84d157 100%);
+  border-radius: 12rpx;
+}
+.my-order .list .list-item {
+  margin: 32rpx 36rpx 0rpx 34rpx;
+  background: #fff;
+  box-shadow: 4rpx 4rpx 46rpx 0rpx rgba(125,132,158,0.1);
+  border-radius: 32rpx;
+}
+.my-order .list .list-item .item {
+  display: flex;
+  align-items: center;
+  margin-left: 30rpx;
+  padding-right: 32rpx;
+  font-size: 28rpx;
+  border-bottom: 1rpx solid #f1f1f1;
+}
+.my-order .list .list-item .item:last-of-type {
+  border-bottom: 0rpx;
+}
+.my-order .list .list-item .item > view {
+  padding-top: 30rpx;
+  padding-bottom: 10rpx;
+}
+.my-order .list .list-item .item > view:first-of-type {
+  flex: 1;
+  color: #66666e;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+}
+.my-order .list .list-item .item > view:last-of-type {
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #33333e;
+}
+.my-order .list .list-item .item > view.un-pay {
+  color: #ffc000;
+}
+.my-order .list .list-item .item > view.pay {
+  color: #00b85c;
+}
+.my-order .list .fill {
+  flex: 1;
+}
+.my-order .list .customer-service {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #66666e;
+  font-size: 28rpx;
+  margin: 88rpx 0rpx;
+}
+.my-order .list .customer-service > view:last-of-type {
+  color: #00b1ff;
+}
+.my-order .empty-list {
+  text-align: center;
+  color: #66666d;
+  font-size: 32rpx;
+}
+.my-order .empty-list image {
+  width: 192rpx;
+  margin: 23.5vh 0 5vh;
+}
+.my-order .empty-list view {
+  line-height: 44rpx;
+}

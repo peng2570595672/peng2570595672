@@ -1,0 +1,123 @@
+<!--international_driving_document/pages/license_information/license_information.wxml-->
+<import src="../template/step_template/step_template.wxml"/>
+<view class="content">
+	<view class="memo">使用国家或地区不包含香港、台湾、澳门、日韩、印度、斯里兰卡等，
+		仅适用于短期海外旅游租车的中国公民（华侨、留学生等不适用）</view>
+	<view class="tips-title">请逐项检查以下信息</view>
+	<view class="tips-content">请确保识别信息与驾照信息一致，如有识别错误可点击文字修改，以免影响证件的办理</view>
+	<block>
+		<template is="stepTemplate" data="{{stepArr}}"></template>
+	</block>
+	<view class="title">驾照信息</view>
+	<view class="content-wrapper">
+		<view class="item">
+			<view>驾照号</view>
+			<input type="text" value="{{drivingLicenseFace.number}}" data-key="number" placeholder="请填写驾照号" data-type="3" bindinput="onInputChangedHandle"/>
+		</view>
+		<view class="item">
+			<view>驾照地址</view>
+			<input type="text" value="{{drivingLicenseFace.address}}" placeholder="请填写街道地址" data-key="address" bindinput="onInputChangedHandle"/>
+		</view>
+		<view class="item">
+			<view>中文姓名</view>
+			<input type="text" value="{{drivingLicenseFace.name}}" data-key="name" placeholder="请填写中文姓名" bindinput="onInputChangedHandle"/>
+		</view>
+		<view class="name-item">
+			<view>姓名拼音</view>
+			<input class="middle" type="text" value="{{drivingLicenseFace.firstName}}" placeholder="请填写姓拼音" data-key="firstName" bindinput="onInputChangedHandle"/>
+			<input class="right" type="text" value="{{drivingLicenseFace.lastName}}" placeholder="请填写名拼音" data-key="lastName" bindinput="onInputChangedHandle"/>
+		</view>
+		<view class="item">
+			<view>性别</view>
+			<picker
+				bindchange="sexTypePickerChange"
+				value="{{sexIndex}}"
+				range="{{sexTypeArr}}"
+			>
+				<view class="{{sexIndex === 0 ? 'no-value' : ''}}">{{sexTypeArr[sexIndex]}}</view>
+			</picker>
+		</view>
+		<view class="item">
+			<view>出生日期</view>
+			<picker mode="date"
+				data-key="birth"
+				value="{{drivingLicenseFace.birth}}"
+				bindtap="moveHandle"
+				bindchange="datePickerChange"
+			>
+				<view class="{{!drivingLicenseFace.birth ? 'no-value' : ''}}">{{drivingLicenseFace.birth ? drivingLicenseFace.birth : '请选择出生日期'}}</view>
+			</picker>
+		</view>
+		<view class="item">
+			<view>初次领证日期</view>
+			<picker mode="date"
+			        data-key="firstIssue"
+			        value="{{drivingLicenseFace.firstIssue}}"
+			        bindtap="moveHandle"
+			        bindchange="datePickerChange"
+			>
+				<view class="{{!drivingLicenseFace.firstIssue ? 'no-value' : ''}}">{{drivingLicenseFace.firstIssue ? drivingLicenseFace.firstIssue : '请选择初次领证日期'}}</view>
+			</picker>
+		</view>
+		<view class="item">
+			<view>准驾车型</view>
+			<picker
+				bindchange="licenseTypePickerChange"
+				value="{{licenseTypeIndex}}"
+				range="{{licenseTypeArr}}"
+			>
+				<view class="{{licenseTypeIndex === 0 ? 'no-value' : ''}}">{{licenseTypeArr[licenseTypeIndex]}}</view>
+			</picker>
+		</view>
+		<view class="item">
+			<view>有效起始日期</view>
+			<picker mode="date"
+			        data-key="validDateBegin"
+			        value="{{drivingLicenseFace.validDateBegin}}"
+			        bindtap="moveHandle"
+			        bindchange="datePickerChange"
+			>
+				<view class="{{!drivingLicenseFace.validDateBegin ? 'no-value' : ''}}">{{drivingLicenseFace.validDateBegin ? drivingLicenseFace.validDateBegin : '请选择有效起始日期'}}</view>
+			</picker>
+		</view>
+		<view class="item">
+			<view>有效期限</view>
+			<picker mode="date"
+			        data-key="validDateEnd"
+			        value="{{drivingLicenseFace.validDateEnd}}"
+			        bindtap="moveHandle"
+			        bindchange="datePickerChange"
+			>
+				<view class="{{!drivingLicenseFace.validDateEnd  ? 'no-value' : ''}}">{{drivingLicenseFace.validDateEnd ? drivingLicenseFace.validDateEnd : '请选择有效期限'}}</view>
+			</picker>
+		</view>
+		<view class="item">
+			<view>有效年份</view>
+			<picker
+				bindchange="validityDatePickerChange"
+				value="{{validityDateType}}"
+				range="{{validityDateArr}}"
+			>
+				<view class="{{validityDateType === 0 ? 'no-value' : ''}}">{{validityDateArr[validityDateType]}}</view>
+			</picker>
+		</view>
+		<view class="picker-item">
+			<view>发证地</view>
+			<picker mode="multiSelector" value="{{multiIndex}}" range="{{multiArray}}" bindchange="onPickerCityChangedHandle" bindcolumnchange="bindMultiPickerColumnChange" data-type="2">
+				<view class="picker {{isHaveCity ? 'have-value' : ''}}">{{!isHaveCity ? '请选择发证地' : multiArray[0][multiIndex[0]] +'-'+ multiArray[1][multiIndex[1]]}}</view>
+			</picker>
+			<view class="sample" catchtap="onClickSample">示例</view>
+		</view>
+	</view>
+	<view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next">下一步</view>
+	<view catchtap="hide" class="alert-for-sample animated {{showSampleWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{showSampleWrapper}}">
+		<view catchtap="close" class="alert-for-sample-content animated {{showSampleWrapper ? 'zoomInOther' : 'zoomOutOther'}}">
+			<view class="dialog-title">示例</view>
+			<view class="sample-content">
+				<image class="sample-image" mode="widthFix"  src="https://file.cyzl.com/g001/M07/45/A1/oYYBAGC0T4iAcb01AAE1L5uy0us323.png"></image>
+			</view>
+			<view class="tips">请根据示例位置填写示意图</view>
+			<view class="cancel" bindtap='hide'>我知道了</view>
+		</view>
+	</view>
+</view>

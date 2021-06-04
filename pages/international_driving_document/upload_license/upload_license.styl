@@ -1,0 +1,92 @@
+@import "../template/step_template/step_template.styl";
+.upload-license
+	display flex
+	flex-direction column
+	min-height 100vh
+	background #F6F6F6
+	.memo
+		padding 38rpx 22rpx 12rpx 32rpx
+		background #FFC300
+		font-size 24rpx
+		font-family: PingFangSC-Regular, PingFang SC;
+		font-weight: 400;
+		color: #FF422A;
+		line-height: 34rpx;
+	.title
+		text-align center
+		font-size: 34rpx;
+		font-family: PingFangSC-Regular, PingFang SC;
+		font-weight: 400;
+		color: #000000;
+		line-height: 48rpx;
+	.photo-wrapper
+		display flex
+		margin 32rpx
+		.photo
+			display flex
+			justify-content center
+			align-items center
+			position relative
+			overflow hidden
+			height 370rpx
+			width 100%
+			background: #EEEEEE;
+			box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(188, 188, 188, 0.06);
+			border-radius: 8rpx;
+			text-align center
+			.not-upload
+				font-size 28rpx
+				font-family PingFangSC-Regular, PingFang SC
+				font-weight 400
+				color rgba(0,0,0,0.5)
+				line-height 54rpx
+				.img-box
+					height 98rpx
+					position relative
+					.ico
+						position absolute
+						left 0
+						right 0
+						top 0
+						bottom 0
+						margin auto
+						width 64rpx
+						height 54rpx
+				image
+					width 50rpx
+					height 50rpx
+					margin 70rpx 0 8rpx
+			.success
+				width 100%
+				height 100%
+			&.not-border
+				border 0
+	.list-tips
+		display flex
+		flex-direction column
+		margin 16rpx 48rpx
+		.tips-title
+			font-size: 28rpx;
+			font-family: PingFangSC-Semibold, PingFang SC;
+			font-weight: 600;
+			color: #000000;
+			line-height: 40rpx;
+			margin-bottom 10rpx
+		.tips-item
+			font-size: 24rpx;
+			font-family: PingFangSC-Regular, PingFang SC;
+			font-weight: 400;
+			color: rgba(0,0,0,0.64)
+			line-height: 44rpx;
+	// 下一步
+	.btn
+		display flex
+		align-items center
+		justify-content center
+		margin 48rpx
+		height 98rpx
+		font-size 40rpx
+		font-weight 500
+		color #fff
+		border-radius 49rpx
+		background: linear-gradient(45deg, #00AF62 0%, #68D33F 100%);

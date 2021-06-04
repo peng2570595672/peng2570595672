@@ -1,0 +1,11 @@
+<template name="stepTemplate">
+	<view class="step-temp">
+		<block wx:for="{{stepArr}}" wx:key="this">
+			<view  class="{{item.selected ? 'pre':''}}">
+				<view >
+					<text  class="selected iconfont">{{index+1}}</text>
+				</view>
+			</view>
+		</block>
+	</view>
+</template>

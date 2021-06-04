@@ -1,0 +1,105 @@
+@import "../../../style/base.styl";
+.shot_other_photo
+	height 100vh
+	display flex
+	flex-direction column
+	box-sizing border-box
+	background: #33333C
+	.camera-top
+		display flex
+		// 相机
+		.camera
+			position relative
+			width 100vw
+			height 78vh
+			box-sizing border-box
+			border-radius 4rpx
+			.border
+				width 100vw
+				height 78vh
+			.back
+				position absolute
+				z-index 99999999
+				right -12vw
+				top 20vh
+				font-size 40rpx
+				color #FFFFFF
+				transform rotate(90deg)
+				&::before
+					content '\e60e'
+					font-size 40rpx
+	.fill
+		flex 1
+	// 按钮区域
+	.btns
+		position fixed
+		bottom 60rpx
+		left 0
+		width 100%
+		&.btns-bottom
+			bottom 200rpx
+		.choice-from-album
+			position absolute
+			display flex
+			align-items center
+			justify-content center
+			top 46rpx
+			left 100rpx
+			width 62.6rpx
+			height 50rpx
+			&::before
+				content '\e646'
+				color #fff
+				font-size 70rpx
+				transform rotate(90deg)
+		.take-photo
+			position absolute
+			display flex
+			align-items center
+			justify-content center
+			width 140rpx
+			height 140rpx
+			border-radius 50%
+			background: linear-gradient(46deg, #00AF62 0%, #68D33F 100%);
+			right 78rpx
+			left 50%
+			margin-left -70rpx
+			& > image
+				transform rotate(90deg)
+				width 64rpx
+				height 54rpx
+		.btn
+			position fixed
+			bottom 60rpx
+			left 0
+			width 100%
+			height 140rpx
+			display flex
+			align-items center
+			justify-content center
+			.shoot,
+			.complete
+				width 188rpx
+				height 80rpx
+				display flex
+				align-items center
+				justify-content center
+				border-radius 49rpx
+				border 2rpx solid
+				font-size 32rpx
+				font-family PingFangSC-Regular, PingFang SC
+				color #27B266
+				transform rotate(90deg)
+			.complete
+				background linear-gradient(45deg, #14AC69 0%, #84D157 100%)
+				font-family PingFangSC-Semibold, PingFang SC
+				font-weight 600
+				color #fff
+				border-radius 49rpx
+				border 0
+				margin-left 80rpx
+				transform rotate(90deg)
+	// 压缩图片
+	.press-canvas
+		position fixed
+		left -3000rpx
