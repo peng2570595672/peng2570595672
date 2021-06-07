@@ -105,13 +105,6 @@
       ]
     },
     {
-      "root": "pages/separate_interest_package",
-      "name": "pages/separate_interest_package",
-      "pages": [
-        "index/index"
-      ]
-    },
-    {
       "root": "pages/truck_handling",
       "name": "pages/truck_handling",
       "pages": [
