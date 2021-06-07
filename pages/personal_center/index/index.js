@@ -4,6 +4,8 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
+		isClickNotice: false, // 是否点击过广告位
+		isShowNotice: false, // 是否显示广告位
 		isAttention: 0, // 关注状态 1-已关注，0-未关注
 		height: undefined, // 屏幕高度
 		userInfo: undefined, // 用户信息
@@ -80,11 +82,17 @@ Page({
 			this.login();
 		}
 		this.setData({
+			isClickNotice: wx.getStorageSync('is-click-notice'),
 			mobilePhoneSystem: app.globalData.mobilePhoneSystem,
 			mobilePhone: app.globalData.mobilePhone,
 			screenHeight: wx.getSystemInfoSync().windowHeight
 		});
 	},
+	// 点击广告位
+	onClickNotice () {
+		wx.setStorageSync('is-click-notice', true);
+	},
+	// 获取领券权益订单
 	async getOrderRelation () {
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/get-order-relation', {
 			platformId: app.globalData.platformId
@@ -100,6 +108,7 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
+	// 获取加购权益包订单列表
 	async getRightsPackageBuyRecords () {
 		const result = await util.getDataFromServersV2('consumer/order/rightsPackageBuyRecords', {
 			platformId: app.globalData.platformId

@@ -92,6 +92,50 @@ page .index .top .head_scan .scan-item .scan::before {
   color: #fff;
   font-size: 40rpx;
 }
+page .index .notice {
+  height: 104rpx;
+  background: #f8fff8;
+  padding-left: 32rpx;
+  padding-right: 38rpx;
+  width: 686rpx;
+  box-shadow: 0rpx 4rpx 12rpx 0rpx rgba(0,0,0,0.04);
+  margin: -190rpx 32rpx 0rpx;
+  box-sizing: border-box;
+  border-radius: 16rpx;
+}
+page .index .notice > view {
+  display: flex;
+  height: 78rpx;
+  align-items: center;
+}
+page .index .notice > view .notice-left {
+  flex: 1;
+  color: rgba(0,0,0,0.3);
+  font-size: 24rpx;
+}
+page .index .notice > view .notice-left::before {
+  content: '\e698';
+  font-size: 28rpx;
+  color: #00b85c;
+  margin-right: 14rpx;
+}
+page .index .notice > view .notice-right {
+  width: 12rpx;
+  height: 12rpx;
+  background: #ff3c48;
+  border-radius: 50%;
+}
+page .index .notice > view .notice-right.no-notice-bg {
+  display: none;
+}
+page .index .notice > view::after {
+  line-height: 78rpx;
+  content: '\e60e';
+  font-size: 22rpx;
+  color: rgba(0,0,0,0.3);
+  margin-left: 14rpx;
+  transform: rotateZ(-180deg);
+}
 page .index .user_nav {
   display: flex;
   width: 686rpx;
@@ -149,6 +193,9 @@ page .index .user_nav .user_item .user_item_text {
   font-size: 24rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   color: #000;
+}
+page .index .user_nav.user-nav-top {
+  margin-top: -24rpx;
 }
 page .index .pay-interest {
   display: flex;

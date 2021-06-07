@@ -256,9 +256,9 @@
           "scene": null
         },
         {
-          "name": "pages/personal_center/order_answer/order_answer",
-          "pathName": "pages/personal_center/order_answer/order_answer",
-          "query": "orderId=823587582322413568",
+          "name": "pages/separate_interest_package/index/index",
+          "pathName": "pages/separate_interest_package/index/index",
+          "query": "",
           "scene": null
         },
         {

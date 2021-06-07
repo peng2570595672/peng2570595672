@@ -26,9 +26,14 @@
         </view>
     </view>
     <!--顶部结束-->
-
+    <view class="notice" wx:if="{{isShowNotice}}" catchtap="onClickNotice">
+        <view class="iconfont">
+            <view class="notice-left iconfont">套餐</view>
+            <view class="notice-right {{isClickNotice ? 'no-notice-bg' : ''}}"></view>
+        </view>
+    </view>
     <!--用户导航栏开始-->
-    <view class="user_nav">
+    <view class="user_nav {{isShowNotice ? 'user-nav-top' : ''}}">
         <!--我的ETC开始-->
         <view class="user_item" catchtap="go" data-url="my_etc">
             <view class="user_item_icon iconfont">
