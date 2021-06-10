@@ -330,6 +330,11 @@ Page({
 					this.setData({isRequest: false});
 					if (res.errMsg === 'requestPayment:ok') {
 						if (this.data.isSalesmanOrder) {
+							if (this.data.orderInfo.base?.etcContractId === -1) {
+								// 无需签约
+								util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
+								return;
+							}
 							// 去支付成功页
 							util.go('/pages/default/payment_successful/payment_successful');
 							return;

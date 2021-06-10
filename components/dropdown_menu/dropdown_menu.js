@@ -60,6 +60,8 @@ Component({
 		// ETC月结单提醒
 		subscribe (e) {
 			let index = e.currentTarget.dataset.nav;
+			this.selectTap(e,index);
+			return;
 			// 判断版本，兼容处理
 			let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
 			if (result >= 0) {
