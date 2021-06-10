@@ -1,33 +1,18 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="content">
-	<view class="list-vehicle">
-		<view class="label">当前车牌：</view>
-		<!--tab切换车牌列表开始-->
-		<scroll-view class="list-title" scroll-x='true' scroll-with-animation="true">
-			<view class="list-title-child weight {{tabIndex == index ?'tab-index':''}}" id="index{{index}}" wx:for="{{rightsPackageBuyRecords}}" wx:key="index" catchtap="onClickTab" data-index="{{index}}">
-				<view class="vehPlates-name">{{item.vehPlates}}</view>
-			</view>
-		</scroll-view>
-	</view>
-	<view class="service">
-		<view class="service-detail">
-			<view class="left">
-				<view>{{rightsPackageBuyRecords[tabIndex].rightsPackageCouponList[0].packageName}}</view>
-				<view>{{rightsPackageBuyRecords[tabIndex].payTime}}</view>
-			</view>
-			<view class="right">
-				<view>¥{{rightsPackageBuyRecords[tabIndex].rightsPackagePayMoney / 100}}</view>
-				<!--待生效、已生效、已失效-->
-				<view class="status">
-                    {{rightsPackageBuyRecords[tabIndex].packageStatus === 1 ? '待生效' : rightsPackageBuyRecords[tabIndex].packageStatus === 2 ? '已生效' : '已失效'}}
+    <view class="list">
+        <view class="item" wx:for="{{rightsPackageCouponList}}" wx:key="index">
+            <view class="item-top iconfont {{item.couponType === 2 ? 'parking' : ''}} {{item.couponType === 3 ? 'combination' : ''}}">
+                <view class="item-info">
+                    <view class="title">{{item.denomination/100}}元{{item.couponType === 1 ? '通行券' : '停车券'}}</view>
+                    <view class="time">{{tools.substring(item.payTime,0,16)}}</view>
                 </view>
-			</view>
-		</view>
-		<view class="list-service">
-            <view class="item iconfont" wx:for="{{rightsPackageBuyRecords[tabIndex].rightsPackageCouponList}}" wx:key="index">
-                <view class="list-name {{item.couponType === 2 ? 'parking' : ''}} iconfont">{{item.denomination/100}}元{{item.couponType === 1 ? '通行券' : '停车券'}}</view>
-                <view class="amount iconfont">{{item.couponCount}}</view>
+                <view class="item-right">
+                    <view class="price">¥{{item.denomination/100}}</view>
+                    <view class="status {{item.packageStatus === 2 ? 'take-effect' : ''}}">{{item.packageStatus === 1 ? '待生效' : item.packageStatus === 2 ? '已生效' : '已失效'}}</view>
+                </view>
             </view>
-		</view>
-		<view class="service-tips">权益生效后可在领券中心领取权益券</view>
-	</view>
+            <view class="item-bottom" wx:if="{{item.couponType === 1}}">通行券绑定：{{item.vehPlates}}</view>
+        </view>
+    </view>
 </view>

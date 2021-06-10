@@ -67,7 +67,18 @@
         "the_owner_service/the_owner_service",
         "characteristic_service/characteristic_service",
         "coupon_redemption_centre/coupon_redemption_centre",
+        "coupon_redemption_history/coupon_redemption_history",
         "service_purchase_record/service_purchase_record"
+      ]
+    },
+    {
+      "root": "pages/separate_interest_package",
+      "name": "pages/separate_interest_package",
+      "pages": [
+        "index/index",
+        "prefer_purchase/prefer_purchase",
+        "buy_success/buy_success",
+        "associated_license_plate/associated_license_plate"
       ]
     },
     {

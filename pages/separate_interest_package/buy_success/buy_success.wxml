@@ -1,0 +1,5 @@
+<view class="buy_success">
+    <image src="/pages/separate_interest_package/assets/buy_success.png"/>
+    <view class="signed_title">购买成功</view>
+    <view class="btn" catchtap="next">查看购买记录</view>
+</view>

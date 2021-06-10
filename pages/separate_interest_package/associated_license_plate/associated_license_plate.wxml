@@ -1,0 +1,27 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<view class="page-wrapper">
+    <view class="index-title">请选择通行券绑定的车辆ETC</view>
+    <view class="prompt">办理中或未激活的设备将无法使用，请谨慎绑定</view>
+    <view class="license-plate-list">
+        <view wx:for="{{etcList}}" wx:key="index" class="item {{activeIndex === index ? 'active' : ''}}" catchtap="onClickChoiceLicensePlat" data-index="{{index}}">
+            <image src="/pages/separate_interest_package/assets/equipment.png" mode="widthFix"></image>
+            <view>{{item.vehPlates}}</view>
+            <view class="activated" wx:if="{{item.obuStatus === 1 || item.obuStatus === 5}}">已激活</view>
+        </view>
+    </view>
+    <view class="instructions">
+        <view class="title">说明</view>
+        <view class="content">
+            <view>1、通行券需绑定微信支付划扣通行费的车辆ETC方可使用，非微信支付划扣通行费的ETC暂不支持使用通行券。</view>
+            <view>2、通行券仅限已激活的ETC通行使用。</view>
+            <view>3、若您购买通行券并关联了未激活设备，因个人原因未完成激活导致的券过期，损失由用户自主承担。</view>
+        </view>
+    </view>
+    <view class="fill"></view>
+    <view class="btn-content">
+        <view class="btn" catchtap="onClickPay">
+            <text>去支付</text>
+        </view>
+    </view>
+</view>
+

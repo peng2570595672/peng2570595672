@@ -2,20 +2,18 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
-		tabIndex: 0,
-		rightsPackageBuyRecords: []
+		rightsPackageCouponList: []
 	},
-	onLoad (options) {
-		this.setData({
-			rightsPackageBuyRecords: app.globalData.rightsPackageBuyRecords
+	onLoad () {
+		let rightsPackageCouponList = [];
+		app.globalData.rightsPackageBuyRecords.map(item => {
+			item.rightsPackageCouponList.map(it => {
+				it.vehPlates = item.vehPlates;
+				it.payTime = item.payTime;
+				it.packageStatus = parseInt(item.packageStatus);
+				rightsPackageCouponList.push(it);
+			});
 		});
-	},
-	// tab切换
-	onClickTab (e) {
-		let index = e.currentTarget.dataset['index'];
-		index = parseInt(index);
-		this.setData({
-			tabIndex: index
-		});
+		this.setData({rightsPackageCouponList});
 	}
 });

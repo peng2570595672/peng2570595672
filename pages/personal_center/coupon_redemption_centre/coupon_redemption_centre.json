@@ -1,10 +1,7 @@
 {
-	"navigationBarBackgroundColor": "#FFFFFF",
-	"backgroundColor": "#FFFFFF",
+	"navigationBarBackgroundColor": "#00B85C",
+	"backgroundColor": "#00B85C",
 	"enablePullDownRefresh": false,
 	"navigationBarTextStyle": "black",
-	"navigationBarTitleText": "领券中心",
-	"usingComponents": {
-		"instructions": "/components/instructions/instructions"
-	}
+	"navigationBarTitleText": "领券中心"
 }

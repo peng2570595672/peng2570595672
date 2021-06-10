@@ -1,11 +1,8 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="coupon">
-    <view class="coupon-top">
-        <image src="/pages/personal_center/assets/coupon_redemption_bg.png" mode="widthFix"/>
-    </view>
     <view class="list">
         <view class="item" wx:for="{{3}}" wx:key="index">
-            <view class="coupon-info {{index === 0 ? 'coupon-info-bg' : ''}}">
+            <view class="coupon-info">
                 <view class="img">
                     <image src="/pages/personal_center/assets/{{item.couponType === 1 ? 'passage_coupons' : 'parking_coupon'}}.png" mode="heightFix"></image>
                 </view>
@@ -24,11 +21,5 @@
             </view>
         </view>
     </view>
-    <view class="introduce">
-        <view class="detailed">通行券存放至个人中心-优惠券；</view>
-        <view class="last">
-            <view class="detailed">停车券存放至个人微信卡包-券和礼品券；</view>
-            <view class="history">查看历史</view>
-        </view>
-    </view>
+    <view class="introduce">逾期未领视作你已主动放弃权益，权益不退不补。</view>
 </view>

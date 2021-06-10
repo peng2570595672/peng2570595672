@@ -1,13 +1,8 @@
 @import "../../../style/base.styl";
 .coupon
 	min-height 100vh
-	.coupon-top
-		background #00B85C
-		height 324rpx
-		image
-			width 100%
 	.list
-		margin -158rpx 32rpx 16rpx
+		padding 32rpx 32rpx 16rpx
 		.item
 			background #F7F7F7
 			margin-bottom 32rpx
@@ -32,10 +27,6 @@
 				&::after
 					left auto
 					right -20rpx
-				&.coupon-info-bg
-					&::before,
-					&::after
-						background #00B85C
 				.img
 					width 174rpx
 					height 104rpx
@@ -88,15 +79,6 @@
 				:first-child
 					flex 1
 	.introduce
-		padding 16rpx 32rpx 48rpx
-		.last
-			display flex
-		.detailed
-			flex 1
-			font-size 24rpx
-			color rgba(0, 0, 0, 0.5)
-			line-height 34rpx
-		.history
-			font-size 20rpx
-			color #00A9FF
-			line-height 28rpx
+		text-align center
+		font-size 24rpx
+		color rgba(0, 0, 0, 0.5)
