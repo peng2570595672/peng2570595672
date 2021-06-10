@@ -28,7 +28,7 @@ Page({
 		if (!app.globalData.userInfo.accessToken) {
 			this.login();
 		} else {
-			if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+			// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 			await this.getETCDetail();
 		}
 		if (this.data.showDetailMask) {
@@ -57,7 +57,7 @@ Page({
 						app.globalData.openId = result.data.openId;
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
-						if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+						// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 						await this.getETCDetail();
 					}
 				} else {

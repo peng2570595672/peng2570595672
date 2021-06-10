@@ -50,7 +50,7 @@ Page({
 	},
 	async onShow () {
 		if (app.globalData.userInfo.accessToken) {
-			if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
+			// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
 			let requestList = [await this.getMemberBenefits(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getOrderRelation()];
 			util.showLoading();
 			await Promise.all(requestList);
@@ -153,7 +153,7 @@ Page({
 						if (JSON.stringify(app.globalData.myEtcList) === '{}') {
 							requestList = [await this.getStatus()];
 						}
-						if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
+						// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
 						requestList = [requestList, await this.getMemberBenefits(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getOrderRelation()];
 						if (isData) {
 							requestList.push(await this.submitUserInfo(isData));
@@ -178,10 +178,10 @@ Page({
 	},
 	// 获取二类户号信息
 	async getV2BankId () {
-		if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
-		this.setData({
-			isOpenTheCard: !!app.globalData.bankCardInfo?.accountNo
-		});
+		// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+		// this.setData({
+		// 	isOpenTheCard: !!app.globalData.bankCardInfo?.accountNo
+		// });
 	},
 	// 获取订单信息
 	async getStatus () {

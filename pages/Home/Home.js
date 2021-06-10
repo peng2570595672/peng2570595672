@@ -25,7 +25,8 @@ Page({
 		activeIndex: 1,
 		loginInfo: {},// 登录信息
 		exceptionMessage: undefined, // 异常信息
-		isNormalProcess: !app.globalData.isContinentInsurance, // 是否是正常流程进入
+		// isNormalProcess: !app.globalData.isContinentInsurance, // 是否是正常流程进入
+		isNormalProcess: false, // 是否是正常流程进入
 		recentlyTheBillList: [], // 最新客车账单集合
 		recentlyTheTruckBillList: [], // 最新货车账单集合
 		recentlyTheBill: undefined, // 最新客车账单
@@ -63,7 +64,7 @@ Page({
 			if (app.globalData.salesmanScanCodeToHandleId) {
 				await this.bindOrder();
 			} else {
-				if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+				// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 				await this.getStatus();
 			}
 		}
@@ -76,7 +77,7 @@ Page({
 			if (app.globalData.salesmanScanCodeToHandleId) {
 				await this.bindOrder();
 			} else {
-				if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+				// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 				await this.getStatus();
 			}
 			wx.removeStorageSync('login_info_final');
@@ -344,7 +345,7 @@ Page({
 						if (app.globalData.salesmanScanCodeToHandleId) {
 							await this.bindOrder();
 						} else {
-							if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+							// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 							if (app.globalData.isSignUpImmediately) {
 								app.globalData.isSignUpImmediately = false;
 								await this.getStatus(true);
@@ -381,7 +382,7 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			app.globalData.salesmanScanCodeToHandleId = undefined;// 处理返回首页再次请求
-			if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+			// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 			await this.getStatus(true);
 		} else {
 			util.showToastNoIcon(result.message);
@@ -418,7 +419,7 @@ Page({
 				if (app.globalData.salesmanScanCodeToHandleId) {
 					await this.bindOrder();
 				} else {
-					if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+					// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 					await this.getStatus();
 				}
 			} else {
