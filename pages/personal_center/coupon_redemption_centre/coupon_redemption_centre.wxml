@@ -28,7 +28,7 @@
         <view class="detailed">通行券存放至个人中心-优惠券；</view>
         <view class="last">
             <view class="detailed">停车券存放至个人微信卡包-券和礼品券；</view>
-            <view class="history">查看历史</view>
+            <view class="history" catchtap="onClickSeeHistory">查看历史</view>
         </view>
     </view>
 </view>
