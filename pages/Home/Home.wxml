@@ -2,7 +2,7 @@
 <view class="index">
     <!--	车辆类型切换开始-->
     <view class="tab">
-        <view class="tab-box">
+        <view class="tab-box" wx:if="{{false}}">
             <view class="check-vehicle">
                 <view catchtap="onClickCheckVehicleType" data-index="1" class="item {{activeIndex === 1 ? 'active' : ''}}">客车</view>
                 <view catchtap="onClickCheckVehicleType" data-index="2" class="item {{activeIndex === 2 ? 'active' : ''}}" wx:if="{{isNormalProcess}}">货车</view>
@@ -115,8 +115,8 @@
                 </view>
             </view>
         </view>
-        <view class="notice iconfont" wx:if="{{false}}" catchtap="onClickNotice">
-            <view class="notice-left iconfont">套餐</view>
+        <view class="notice iconfont" wx:if="{{isShowNotice}}" catchtap="onClickNotice">
+            <view class="notice-left iconfont">限购！通行券、停车券 30抵60</view>
             <view class="notice-right {{isClickNotice ? 'no-notice-bg' : ''}}"></view>
         </view>
     </view>

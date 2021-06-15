@@ -3,7 +3,6 @@
  * @desc 信息确认
  */
 const util = require('../../../utils/util.js');
-const app = getApp();
 Page({
 	data: {
 		info: undefined

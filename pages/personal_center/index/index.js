@@ -74,6 +74,7 @@ Page({
 			if (JSON.stringify(app.globalData.myEtcList) !== '{}') {
 				let isActivation = app.globalData.myEtcList.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.obuCardType === 1); // 1 已激活  2 恢复订单  5 预激活
 				this.setData({
+					isShowNotice: !!app.globalData.myEtcList.length,
 					isActivation: !!isActivation.length
 				});
 			}
@@ -91,6 +92,7 @@ Page({
 	// 点击广告位
 	onClickNotice () {
 		wx.setStorageSync('is-click-notice', true);
+		util.go('/pages/separate_interest_package/index/index');
 	},
 	// 获取领券权益订单
 	async getOrderRelation () {
@@ -194,6 +196,7 @@ Page({
 			let isActivation = result.data.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && (item.obuCardType === 1 || item.obuCardType === 21)); // 1 已激活  2 恢复订单  5 预激活
 			let isShowFeatureService = result.data.findIndex(item => item.isShowFeatureService === 1 && (item.obuStatus === 1 || item.obuStatus === 5)); // 是否有特色服务
 			this.setData({
+				isShowNotice: !!app.globalData.myEtcList.length,
 				isShowFeatureService: isShowFeatureService !== -1,
 				isActivation: !!isActivation.length
 			});

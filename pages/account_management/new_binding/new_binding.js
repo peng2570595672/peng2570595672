@@ -3,9 +3,6 @@
  * @desc 填写车牌和收货信息
  */
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
-const app = getApp();
 // 倒计时计时器
 let timer;
 Page({

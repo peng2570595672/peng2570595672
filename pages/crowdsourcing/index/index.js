@@ -2,8 +2,6 @@ const util = require('../../../utils/util.js');
 // 数据统计
 let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
-let savePath;
-let context;
 Page({
 	data: {
 		userList: [
@@ -48,7 +46,7 @@ Page({
 			}
 		});
 	},
-	onShow (option) {
+	onShow () {
 		// 金币抖动动画
 		this.animation1();
 		this.animation2();

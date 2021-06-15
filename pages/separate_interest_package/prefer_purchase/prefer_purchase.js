@@ -3,7 +3,6 @@
  * @desc 优惠购页面
  */
 const util = require('../../../utils/util.js');
-import {checkLogin} from '../../../utils/checkLogin.js';
 const app = getApp();
 Page({
 	data: {
@@ -93,6 +92,10 @@ Page({
 		} else {
 			util.showToastNoIcon(result.message);
 		}
+	},
+	// 查看购买条款
+	onClickPurchaseTerms () {
+		util.go(`/pages/separate_interest_package/purchase_terms/purchase_terms`);
 	},
 	async onClickPay () {
 		if (this.data.info.couponType === 2) {

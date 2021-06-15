@@ -76,6 +76,7 @@
       "name": "pages/separate_interest_package",
       "pages": [
         "index/index",
+        "purchase_terms/purchase_terms",
         "prefer_purchase/prefer_purchase",
         "buy_success/buy_success",
         "associated_license_plate/associated_license_plate"

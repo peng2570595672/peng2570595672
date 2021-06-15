@@ -127,10 +127,11 @@
 		</view>
 	</view>
 	<!--底部补缴结束-->
-	<!--微保活动开始-->
-	<view class="micro-insurance" wx:if="{{!isContinentInsurance}}">
-		<image wx:if="{{showWeiBao}}" src="https://file.cyzl.com/g001/M06/C7/71/oYYBAF-7FDKALvNhAAFO8Ol7UKg049.png"  mode="widthFix" catchtap="goMicroInsurance"></image>
-		<view wx:if="{{showWeiBao}}" class="close_button iconfont" catchtap="hide"></view>
+	<!--广告位开始-->
+	<view class="micro-insurance">
+		<image wx:if="{{showAdvertising && details.flowVersion === 1}}" src="https://file.cyzl.com/g001/M07/4C/E7/oYYBAGDIPoyAD5-9AABPQuQ6Mko943.png"  mode="widthFix" catchtap="onClickAdvertising"></image>
+		<image wx:if="{{showAdvertising && details.flowVersion === 2}}" src="https://file.cyzl.com/g001/M07/4C/E6/oYYBAGDIPjqAN23_AABOWQOyQeI345.png"  mode="widthFix" catchtap="goMicroInsurance"></image>
+		<view wx:if="{{showAdvertising}}" class="close_button iconfont" catchtap="hide"></view>
 	</view>
-	<!--微保活动结束-->
+	<!--广告位结束-->
 </view>

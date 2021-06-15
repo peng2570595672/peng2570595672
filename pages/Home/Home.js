@@ -49,6 +49,7 @@ Page({
 		needRequestBillNum: 0, // 需要请求的次数
 		requestBillEnd: false, // 账单请求结束
 		isClickNotice: false, // 是否点击过广告位
+		isShowNotice: false, // 是否显示广告位
 		dialogContent: {} // 弹窗内容
 	},
 	async onLoad () {
@@ -214,9 +215,8 @@ Page({
 		let item = e.currentTarget.dataset.item;
 		wx.uma.trackEvent(item.statisticsEvent);
 		if (item?.url === 'micro_insurance_car_insurance') {
-			const pageUrl = 'pages/base/redirect/index?routeKey=PC01_REDIRECT&autoRoute=check&wtagid=116.115.39';
 			// 订阅:车险服务状态提醒
-			this.subscribe(pageUrl);
+			this.subscribe();
 			return;
 		}
 		if (item?.url === 'micro_insurance_hcz') {
@@ -227,11 +227,12 @@ Page({
 	// 点击广告位
 	onClickNotice () {
 		wx.setStorageSync('is-click-notice', true);
+		util.go('/pages/separate_interest_package/index/index');
 	},
 	/**
 	 *  订阅消息封装
 	 */
-	subscribe (pageUrl) {
+	subscribe () {
 		// 判断版本，兼容处理
 		let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
 		let orderId = '';
@@ -260,7 +261,7 @@ Page({
 								confirmText: '授权',
 								confirm: () => {
 									wx.openSetting({
-										success: (res) => {
+										success: () => {
 											util.getInsuranceOffer(orderId, '116.115.40');
 										},
 										fail: () => {
@@ -291,7 +292,7 @@ Page({
 							confirmText: '打开设置',
 							confirm: () => {
 								wx.openSetting({
-									success: (res) => {
+									success: () => {
 										util.getInsuranceOffer(orderId,'116.115.40');
 									},
 									fail: () => {
@@ -455,7 +456,7 @@ Page({
 			let [truckList, passengerCarList, vehicleList, activationOrder, activationTruckOrder] = [[], [], [], [], []];
 			// let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
 			app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
-			list.map((item,index) => {
+			list.map(item => {
 				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
 				vehicleList.push(item.vehPlates);
 				wx.setStorageSync('cars', vehicleList.join('、'));
@@ -478,6 +479,7 @@ Page({
 			const passengerCarListNotActivation = isAllActivation ? passengerCarList[0] : passengerCarList.filter(item => item.selfStatus !== 12)[0];
 			const passengerCarListNotTruckActivation = isAllActivationTruck ? truckList[0] : truckList.filter(item => item.selfStatus !== 12)[0];
 			this.setData({
+				isShowNotice: !!app.globalData.myEtcList.length,
 				needRequestBillNum: activationTruckOrder.length + activationOrder.length,
 				isTermination: !!terminationOrder,
 				isTerminationTruck: !!terminationTruckOrder,
@@ -498,13 +500,13 @@ Page({
 			if (activationOrder.length) {
 				// 查询客车最近一次账单
 				activationOrder.map(async item => {
-					await this.getRecentlyTheBill(item, false, activationOrder.length);
+					await this.getRecentlyTheBill(item, false);
 				});
 			}
 			if (activationTruckOrder.length) {
 				// 查询货车最近一次账单
 				await activationTruckOrder.map(async item => {
-					await this.getRecentlyTheBill(item, true, activationTruckOrder.length);
+					await this.getRecentlyTheBill(item, true);
 				});
 			}
 		} else {
@@ -530,7 +532,7 @@ Page({
 		this.vehicleInfoAlert(result.data.etcMoney);
 	},
 	// 查询最近一次账单
-	async getRecentlyTheBill (item, isTruck = false, num = 0) {
+	async getRecentlyTheBill (item, isTruck = false) {
 		const result = await util.getDataFromServersV2('consumer/etc/get-last-bill', {
 			channel: item
 		});
@@ -594,15 +596,15 @@ Page({
 		}
 		if (this.data.isTerminationTruck) {
 			// 货车解约 - 弹窗签约
-			this.dialogJudge(0, true);
+			this.dialogJudge(0);
 			return;
 		}
 		if (this.data.isTermination) {
-			this.dialogJudge(0, true);
+			this.dialogJudge(0);
 			// 客车解约 - 弹窗签约
 		}
 	},
-	dialogJudge (money, isTermination = false) {
+	dialogJudge (money) {
 		if (money) {
 			// 欠费 - 弹窗补缴
 			let dialogContent = {
@@ -751,7 +753,7 @@ Page({
 							},
 							success () {
 							},
-							fail (e) {
+							fail () {
 								// 未成功跳转到签约小程序
 								util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
 							}
