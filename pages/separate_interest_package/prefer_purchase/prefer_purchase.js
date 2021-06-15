@@ -9,10 +9,18 @@ Page({
 		etcList: [],
 		isRequest: false,
 		packageId: undefined,
+		userId: undefined,// 业务员ID
+		shopId: undefined,// 业务员商户ID
 		info: {}
 	},
 	async onLoad (options) {
 		this.setData({packageId: options.packageId});
+		if (options.userId) {
+			this.setData({
+				userId: options.userId,
+				shopId: options.shopId
+			});
+		}
 		if (!app.globalData.userInfo.accessToken) {
 			await this.login();
 		} else {
@@ -104,7 +112,7 @@ Page({
 			return;
 		}
 		if (this.data.etcList?.length) {
-			util.go(`/pages/separate_interest_package/associated_license_plate/associated_license_plate?packageId=${this.data.packageId}`);
+			util.go(`/pages/separate_interest_package/associated_license_plate/associated_license_plate?packageId=${this.data.packageId}&shopId=${this.data.shopId || ''}&userId=${this.data.userId || ''}`);
 			return;
 		}
 		util.alert({
@@ -127,10 +135,16 @@ Page({
 	async packagePayment () {
 		if (this.data.isRequest) return;
 		this.setData({isRequest: true});
-		const result = await util.getDataFromServersV2('consumer/voucher/rights/independent-rights-buy', {
+		const params = {
+			tradeType: 1,
 			packageId: this.data.packageId,
 			openId: app.globalData.userInfo.openId
-		});
+		};
+		if (this.data.userId) {
+			params.shopUserId = this.data.userId;
+			params.shopId = this.data.shopId;
+		}
+		const result = await util.getDataFromServersV2('consumer/voucher/rights/independent-rights-buy', params);
 		if (!result) {
 			this.setData({isRequest: false});
 			return;
