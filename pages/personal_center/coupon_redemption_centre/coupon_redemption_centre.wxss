@@ -106,6 +106,21 @@
 .coupon .list .item .coupon-bottom :first-child {
   flex: 1;
 }
+.coupon .empty {
+  margin: 30rpx 0 60rpx;
+  text-align: center;
+  color: #66666d;
+  font-size: 32rpx;
+}
+.coupon .empty image {
+  width: 192rpx;
+  margin-bottom: 9.5vh;
+  margin-left: -20rpx;
+}
+.coupon .empty view {
+  line-height: 44rpx;
+  margin-top: -40rpx;
+}
 .coupon .introduce {
   padding: 16rpx 32rpx 48rpx;
 }

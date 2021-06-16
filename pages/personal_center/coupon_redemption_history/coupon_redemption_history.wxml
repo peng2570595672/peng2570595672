@@ -1,25 +1,35 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
-<view class="coupon">
+<import src="/pages/personal_center/template/list-loading-template/list-loading-template.wxml"/>
+<view class="coupon" wx:if="{{couponList.length}}">
     <view class="list">
-        <view class="item" wx:for="{{3}}" wx:key="index">
+        <view class="item" wx:for="{{couponList}}" wx:key="index">
             <view class="coupon-info">
                 <view class="img">
                     <image src="/pages/personal_center/assets/{{item.couponType === 1 ? 'passage_coupons' : 'parking_coupon'}}.png" mode="heightFix"></image>
                 </view>
                 <view class="name">
-                    <view>10元高速通行券</view>
-                    <view>满10.00可用</view>
+                    <view>{{item.couponName}}</view>
+                    <view>满{{item.consumptionThreshold/100}}可用</view>
                 </view>
                 <view class="receive">
-                    <view class="{{index === 1 ? 'already-received' : ''}}">领取</view>
-                    <view>剩余期数：4</view>
+                    <view class="already-received">已领{{item.alreadyGetNum}}张</view>
+                    <view>逾期未领：{{item.notAlreadyGetNum}}</view>
                 </view>
             </view>
             <view class="coupon-bottom">
-                <view>{{index === 1 ? '绑定车牌：粤A2S812' : ''}}</view>
-                <view>下期开放时间 2021-6-25</view>
+                <view>{{item.couponType === 1 ? '绑定车牌：' + item.vehPlates : ''}}</view>
+                <view>失效时间 {{item.validityEndTime}}</view>
             </view>
         </view>
     </view>
     <view class="introduce">逾期未领视作你已主动放弃权益，权益不退不补。</view>
+    <!--加载更多动画开始-->
+    <block>
+        <template is="listLoadingTemplate" data="{{...showLoadingMore}}"></template>
+    </block>
+    <!--加载更多动画结束-->
+</view>
+<view class="empty" wx:else>
+    <image src="https://file.cyzl.com/g001/M05/07/08/oYYBAF4DI1KAdQQAAABMmqEDnsc709.svg" mode="widthFix"></image>
+    <view>暂无数据~</view>
 </view>

@@ -178,15 +178,15 @@
           "scene": null
         },
         {
-          "name": "pages/truck_handling/payment_successful/payment_successful",
-          "pathName": "pages/truck_handling/payment_successful/payment_successful",
-          "query": "isRechargeEarnestMoney=1",
+          "name": "pages/personal_center/coupon_redemption_centre/coupon_redemption_centre",
+          "pathName": "pages/personal_center/coupon_redemption_centre/coupon_redemption_centre",
+          "query": "",
           "scene": null
         },
         {
-          "name": "pages/truck_handling/shot_bank_card/shot_bank_card",
-          "pathName": "pages/truck_handling/shot_bank_card/shot_bank_card",
-          "query": "shareId=1235556",
+          "name": "pages/personal_center/service_card_voucher/service_card_voucher",
+          "pathName": "pages/personal_center/service_card_voucher/service_card_voucher",
+          "query": "",
           "scene": null
         },
         {

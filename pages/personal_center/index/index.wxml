@@ -89,7 +89,7 @@
     </view>
 
     <!--付费权益开始-->
-    <view class="pay-interest" wx:if="{{rightsPackageBuyRecords.length || isActivation || rightsAndInterestsVehicleList.length}}">
+    <view class="pay-interest" wx:if="{{rightsPackageBuyRecords.length || isActivation || hasCoupon}}">
         <view class="pay-interest-title">ETC服务</view>
         <view class="pay-interest-content">
             <view class="pay-interest_item" catchtap="go" data-url="basic_services" wx:if="{{isActivation}}">
@@ -104,7 +104,7 @@
                 <view class="pay-interest-item-icon life_service iconfont"></view>
                 <view class="pay-interest_item_text">生活服务</view>
             </view>
-            <view class="pay-interest_item" catchtap="go" data-url="coupon_redemption_centre" wx:if="{{rightsAndInterestsVehicleList.length}}">
+            <view class="pay-interest_item" catchtap="go" data-url="coupon_redemption_centre" wx:if="{{hasCoupon}}">
                 <view class="pay-interest-item-icon coupon_redemption_centre iconfont"></view>
                 <view class="pay-interest_item_text">领券中心</view>
             </view>

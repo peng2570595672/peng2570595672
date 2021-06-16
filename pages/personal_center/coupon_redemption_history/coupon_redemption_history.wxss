@@ -100,3 +100,22 @@
   font-size: 24rpx;
   color: rgba(0,0,0,0.5);
 }
+.empty {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 40%;
+  margin: -120rpx auto 0;
+  text-align: center;
+  color: #66666d;
+  font-size: 32rpx;
+}
+.empty image {
+  width: 192rpx;
+  height: 242rpx;
+  margin-bottom: 9.5vh;
+  margin-left: -20rpx;
+}
+.empty view {
+  line-height: 44rpx;
+}

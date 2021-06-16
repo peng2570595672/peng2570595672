@@ -2,69 +2,109 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
-		popupContent: undefined,
-		dialogShow: false,
-		orderId: undefined,
-		vehicle: undefined,
-		showVehicleList: false,
-		vehicleList: {},
-		couponList: ['','','','','','',''], // 权益列表
-		tabVehicleIndex: 0, // 车牌tab下标
-		tabIndex: 0,// tab下标
-		currentTime: undefined,// 系统当前时间
-		openIndex: 0// 已开放对应下标
+		totalPages: '',// 总页数
+		page: 1,// 当前页
+		pageSize: 10,// 每页多少条数据
+		couponList: [], // 权益列表
+		showLoading: {
+			show: true,
+			text: '加载中...'
+		},
+		showLoadingMore: {
+			hideLoading: false,
+			show: false,
+			text: '加载中...'
+		}
 	},
 	async onLoad () {
+		await this.getCouponCenterList();
 	},
-	onShow () {
+	hideLoadingMore () {
+		this.setData({
+			showLoadingMore: {
+				show: false,
+				text: '加载中...'
+			}
+		});
+	},
+	// 下滑重新加载
+	onPullDownRefresh () {
+		this.setData({
+			page: 1
+		});
+		this.getCouponCenterList(false);
+	},
+	// 上滑分页加载
+	onReachBottom () {
+		if (this.data.couponList.length < this.data.pageSize) return;
+		this.setData({
+			showLoadingMore: {
+				show: true,
+				text: '加载中...'
+			}
+		});
+		this.setData({
+			page: ++this.data.page
+		});
+		if (this.data.page > this.data.totalPages) {
+			this.setData({
+				page: --this.data.page,
+				showLoadingMore: {
+					hideLoading: true,
+					show: true,
+					text: '我是有底线的~'
+				}
+			});
+			return;
+		}
+		this.getCouponCenterList(true);
 	},
 	// 查看历史
 	onClickSeeHistory () {
 		util.go(`/pages/personal_center/coupon_redemption_history/coupon_redemption_history`);
 	},
+	async getCouponCenterList (isLoadingMore) {
+		const result = await util.getDataFromServersV2('consumer/voucher/rights/get-coupon-center-list', {
+			page: this.data.page,
+			pageSize: this.data.pageSize
+		});
+		// 隐藏加载中动画
+		this.hideAnim(isLoadingMore);
+		if (!result) return;
+		if (result.code === 0) {
+			this.setData({
+				couponList: result.data.list,
+				totalPages: result.data.total
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 隐藏加载中动画
+	hideAnim (isLoadingMore) {
+		let tempObj = this.data.showLoading;
+		tempObj.show = false;
+		this.setData({
+			showLoading: tempObj
+		});
+		isLoadingMore ? this.hideLoadingMore() : wx.stopPullDownRefresh();
+	},
 	async onClickReceive (e) {
 		let item = e.currentTarget.dataset.item;
 		let index = e.currentTarget.dataset.index;
-		if ((item.isReceive === 0 && item.couponsStatus === 0) || item.isReceive === 1) return;
+		if (item.isReceive === 1) return;
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/active-by-couponId', {
 			couponId: item.recordId
 		});
 		if (!result) return;
 		if (result.code === 0) {
 			util.showToastNoIcon(`${item.couponType === 1 ? '已领取至个人中心-优惠券' : '已领取至个人微信-卡包'}`);
-			this.data.couponList[this.data.tabIndex].coupons[index].isReceive = 1;
+			this.data.couponList[index].isReceive = 1;
 			this.setData({
 				couponList: this.data.couponList
 			});
 		} else {
 			util.showToastNoIcon(result.message);
 		}
-	},
-	onClickVehicle () {
-		if (this.data.vehicleList.length > 1) {
-			this.setData({
-				showVehicleList: !this.data.showVehicleList
-			});
-		}
-	},
-	choiceVehicle (e) {
-		let index = e.currentTarget.dataset.index;
-		this.setData({
-			vehicle: this.data.vehicleList[index],
-			orderId: this.data.vehicleList[index].id,
-			showVehicleList: false
-		});
-		this.getCouponList();
-	},
-	// tab切换
-	onClickTab (e) {
-		let index = e.currentTarget.dataset['index'];
-		index = parseInt(index);
-		this.setData({
-			vehicle: this.data.vehicleList[index],
-			orderId: this.data.vehicleList[index].id,
-			tabVehicleIndex: index
-		});
-		this.getCouponList();
 	}
 });

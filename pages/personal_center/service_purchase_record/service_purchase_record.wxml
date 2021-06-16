@@ -4,15 +4,15 @@
         <view class="item" wx:for="{{rightsPackageCouponList}}" wx:key="index">
             <view class="item-top iconfont {{item.couponType === 2 ? 'parking' : ''}} {{item.couponType === 3 ? 'combination' : ''}}">
                 <view class="item-info">
-                    <view class="title">{{item.denomination/100}}元{{item.couponType === 1 ? '通行券' : '停车券'}}</view>
+                    <view class="title">{{item.packageName}}</view>
                     <view class="time">{{tools.substring(item.payTime,0,16)}}</view>
                 </view>
                 <view class="item-right">
-                    <view class="price">¥{{item.denomination/100}}</view>
+                    <view class="price">¥{{item.payMoney/100}}</view>
                     <view class="status {{item.packageStatus === 2 ? 'take-effect' : ''}}">{{item.packageStatus === 1 ? '待生效' : item.packageStatus === 2 ? '已生效' : '已失效'}}</view>
                 </view>
             </view>
-            <view class="item-bottom" wx:if="{{item.couponType === 1}}">通行券绑定：{{item.vehPlates}}</view>
+            <view class="item-bottom" wx:if="{{item.vehPlates}}">通行券绑定：{{item.vehPlates}}</view>
         </view>
     </view>
 </view>

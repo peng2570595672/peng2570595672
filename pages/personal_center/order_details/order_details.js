@@ -187,6 +187,7 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
+				res.data.flowVersion = 1;
 				this.setData({details: res.data});
 				if (this.data.requestRefundInfoNum > 0) return;
 				this.setData({requestRefundInfoNum: 1});

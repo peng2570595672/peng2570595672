@@ -16,23 +16,10 @@ Page({
 		showDetailWrapper: false,
 		showDetailMask: false,
 		showPublicAccountType: 0,// 0 关注公众号  1 影音
-		rightsAndInterestsVehicleList: undefined, // 权益车辆列表
 		isActivation: false, // 是否有激活车辆
 		isOpenTheCard: false, // 是否开通三类户
 		isShowFeatureService: false, // 是否显示特色服务
-		payInterest: {
-			interestsList: [
-				{img: 'basic_rights_and_interests', url: 'basic_rights_and_interests'},
-				{img: 'coupon_redemption', url: 'collect_paid_up_interest'},
-				// {img: 'led_driving_risks', url: ''},
-				{img: 'life_service', url: 'life_service'}
-			],
-			describeList: [
-				{title: '高速通行95折', subTitle: '高速通行费用享受95折起的折扣优惠'},
-				{title: 'vip专属客服', subTitle: '售后专人专业解答'},
-				{title: '设备延保一年', subTitle: '设备享有2年的保修服务'}
-			]
-		},
+		hasCoupon: false, // 是否显示领券中心
 		canIUseGetUserProfile: false
 	},
 	onLoad (options) {
@@ -51,7 +38,7 @@ Page({
 	async onShow () {
 		if (app.globalData.userInfo.accessToken) {
 			// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
-			let requestList = [await this.getMemberBenefits(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getOrderRelation()];
+			let requestList = [await this.getMemberBenefits(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon()];
 			util.showLoading();
 			await Promise.all(requestList);
 			util.hideLoading();
@@ -94,25 +81,22 @@ Page({
 		wx.setStorageSync('is-click-notice', true);
 		util.go('/pages/separate_interest_package/index/index');
 	},
-	// 获取领券权益订单
-	async getOrderRelation () {
-		const result = await util.getDataFromServersV2('consumer/voucher/rights/get-order-relation', {
+	// 是否显示领券中心
+	async getHasCoupon () {
+		const result = await util.getDataFromServersV2('consumer/voucher/rights/has-coupon', {
 			platformId: app.globalData.platformId
 		});
 		if (result.code === 0) {
-			if (result.data) {
-				app.globalData.rightsAndInterestsVehicleList = result.data;
-				this.setData({
-					rightsAndInterestsVehicleList: result.data
-				});
-			}
+			this.setData({
+				hasCoupon: !!result.data
+			});
 		} else {
 			util.showToastNoIcon(result.message);
 		}
 	},
 	// 获取加购权益包订单列表
 	async getRightsPackageBuyRecords () {
-		const result = await util.getDataFromServersV2('consumer/order/rightsPackageBuyRecords', {
+		const result = await util.getDataFromServersV2('consumer/voucher/rights/add-buy-record', {
 			platformId: app.globalData.platformId
 		});
 		if (result.code === 0) {
@@ -156,7 +140,7 @@ Page({
 							requestList = [await this.getStatus()];
 						}
 						// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
-						requestList = [requestList, await this.getMemberBenefits(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getOrderRelation()];
+						requestList = [requestList, await this.getMemberBenefits(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon()];
 						if (isData) {
 							requestList.push(await this.submitUserInfo(isData));
 						}
