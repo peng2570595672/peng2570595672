@@ -5,10 +5,7 @@ Page({
 		rightsPackageCouponList: []
 	},
 	async onLoad () {
-		if (!app.globalData.rightsPackageBuyRecords) {
-			await this.getRightsPackageBuyRecords();
-		}
-		this.setData({rightsPackageCouponList: app.globalData.rightsPackageBuyRecords});
+		await this.getRightsPackageBuyRecords();
 	},
 	// 获取加购权益包订单列表
 	async getRightsPackageBuyRecords () {
