@@ -30,5 +30,8 @@ Page({
 		} else {
 			util.showToastNoIcon(result.message);
 		}
+	},
+	goOnlineServer () {
+		util.go(`/pages/web/web/web?type=online_customer_service`);
 	}
 });

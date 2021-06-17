@@ -208,7 +208,19 @@
   margin-top: 32rpx;
   position: relative;
 }
-.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .label-img {
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 174rpx;
+  background: #fff;
+  margin-top: 12rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item.item-top {
+  margin-top: 32rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .label-img {
   position: absolute;
   top: -18rpx;
   z-index: 2;
@@ -224,14 +236,6 @@
   font-weight: 500;
   color: #fff;
   text-shadow: 0rpx 4rpx 8rpx rgba(0,0,0,0.12);
-}
-.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item {
-  width: 100%;
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: 174rpx;
-  background: #fff;
 }
 .package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item::before,
 .package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item::after {

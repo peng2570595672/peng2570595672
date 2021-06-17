@@ -72,10 +72,10 @@
           class="rights-and-interests {{listOfPackages.length === 1 ? 'my-only-equities' : ''}}">
         <view class="rights-and-interests-header">推荐加购</view>
         <view class="rights-and-interests-list">
-            <view class="label-img">90%的用户选择</view>
             <view wx:for="{{rightsAndInterestsList}}" wx:key="index"
-                  class="rights-and-interests-item iconfont {{activeEquitiesIndex === index ? 'item-active' : ''}}"
+                  class="rights-and-interests-item {{item.isMarketingLabel ? 'item-top' : ''}} iconfont {{activeEquitiesIndex === index ? 'item-active' : ''}}"
                   catchtap="showRightsAndInterests" data-index="{{index}}">
+                <view class="label-img" wx:if="{{item.isMarketingLabel}}">{{item.marketingMsg}}</view>
                 <view class="left">
                     <image src="/pages/default/assets/combination_coupon.png" mode="widthFix"></image>
                 </view>

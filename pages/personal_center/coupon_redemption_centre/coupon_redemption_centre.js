@@ -94,7 +94,7 @@ Page({
 		let index = e.currentTarget.dataset.index;
 		if (item.isReceive === 1) return;
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/active-by-couponId', {
-			couponId: item.recordId
+			couponId: item.collectionRecordId
 		});
 		if (!result) return;
 		if (result.code === 0) {

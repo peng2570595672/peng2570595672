@@ -18,4 +18,8 @@
             <view class="pay" bindtap="onClickPay" data-index="{{index}}">去购买</view>
         </view>
     </view>
+    <view class="fill"></view>
+    <view class="server" catchtap="goOnlineServer">
+        <text>在线客服</text>
+    </view>
 </view>

@@ -165,7 +165,7 @@ Page({
 			// params.shopUserInfo = this.data.shopUserInfo;
 			params.shopUserId = this.data.salesmanInfo.shopUserId;
 			params.shopId = this.data.salesmanInfo.shopId;
-			if (this.data.salesmanInfo.orderId) params.orderId = this.data.salesmanInfo.orderId
+			if (this.data.salesmanInfo.orderId) params.orderId = this.data.salesmanInfo.orderId;
 		}
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/independent-rights-buy', params);
 		if (!result) {
