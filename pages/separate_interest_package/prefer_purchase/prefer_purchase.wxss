@@ -50,12 +50,12 @@
   color: #000;
 }
 .page-wrapper .wrapper-content .title>view:nth-child(1) {
-  width: 256rpx;
+  flex: 1;
 }
 .page-wrapper .wrapper-content .title>view:nth-child(2) {
   color: #00b85c;
   opacity: 0.9;
-  margin-left: 288rpx;
+  margin-left: 16rpx;
   font-family: PingFangSC-Semibold, PingFang SC;
   font-weight: 500;
 }

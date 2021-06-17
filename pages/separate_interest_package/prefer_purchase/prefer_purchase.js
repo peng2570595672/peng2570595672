@@ -183,7 +183,7 @@ Page({
 				success: (res) => {
 					this.setData({isRequest: false});
 					if (res.errMsg === 'requestPayment:ok') {
-						util.go(`/pages/separate_interest_package/buy_success/buy_success`);
+						util.go(`/pages/separate_interest_package/buy_success/buy_success?recordId=${result.data.recordId}`);
 					} else {
 						util.showToastNoIcon('支付失败！');
 					}

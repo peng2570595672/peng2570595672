@@ -8,7 +8,7 @@
                     <view class="time">{{tools.substring(item.payTime,0,16)}}</view>
                 </view>
                 <view class="item-right">
-                    <view class="price">¥{{item.payMoney/100}}</view>
+                    <view class="price">¥{{item.payMoney/100 || 0}}</view>
                     <view class="status {{item.packageStatus === 2 ? 'take-effect' : ''}}">{{item.packageStatus === 1 ? '待生效' : item.packageStatus === 2 ? '已生效' : '已失效'}}</view>
                 </view>
             </view>
