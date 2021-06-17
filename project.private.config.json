@@ -226,9 +226,9 @@
           "scene": null
         },
         {
-          "name": "pages/truck_handling/binding_account/binding_account",
-          "pathName": "pages/truck_handling/binding_account/binding_account",
-          "query": "officialChannelId=645937022279614464",
+          "name": "业务员端购券",
+          "pathName": "pages/separate_interest_package/prefer_purchase/prefer_purchase",
+          "query": "scene=RPP%3D855011781460885504",
           "scene": null
         },
         {

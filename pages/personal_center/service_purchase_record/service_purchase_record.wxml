@@ -1,7 +1,7 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="content">
     <view class="list">
-        <view class="item" wx:for="{{rightsPackageCouponList}}" wx:key="index">
+        <view class="item" wx:for="{{rightsPackageCouponList}}" wx:key="index" data-item="{{item}}" catchtap="onClickItem">
             <view class="item-top iconfont {{item.couponType === 2 ? 'parking' : ''}} {{item.couponType === 3 ? 'combination' : ''}}">
                 <view class="item-info">
                     <view class="title">{{item.packageName}}</view>

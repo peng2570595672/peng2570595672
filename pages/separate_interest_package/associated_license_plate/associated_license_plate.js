@@ -9,19 +9,15 @@ Page({
 		etcList: [],
 		activeIndex: -1,
 		packageId: undefined,
-		userId: undefined,// 业务员ID
-		shopId: undefined,// 业务员商户ID
+		shopUserInfo: undefined,// 业务员信息
 		choiceLicensePlat: {}
 	},
 	onLoad (options) {
-		console.log(options)
-		console.log(options.shopId)
 		const etcList = app.globalData.myEtcList.filter(item => item.flowVersion === 1);
 		this.setData({
 			etcList,
 			packageId: options.packageId,
-			userId: options.userId,
-			shopId: options.shopId
+			shopUserInfo: options.shopUserInfo
 		});
 	},
 	onClickChoiceLicensePlat (e) {
@@ -63,9 +59,8 @@ Page({
 			orderId: this.data.etcList[this.data.activeIndex].id,
 			openId: app.globalData.userInfo.openId
 		};
-		if (this.data.userId) {
-			params.shopUserId = this.data.userId;
-			params.shopId = this.data.shopId;
+		if (this.data.shopUserInfo) {
+			params.shopUserInfo = this.data.shopUserInfo;
 		}
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/independent-rights-buy', params);
 		if (!result) {

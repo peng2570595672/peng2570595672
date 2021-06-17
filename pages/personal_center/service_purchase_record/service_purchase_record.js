@@ -27,4 +27,11 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
+	onClickItem (e) {
+		console.log(e);
+		console.log(e.currentTarget.dataset['item']);
+		const item = e.currentTarget.dataset['item'];
+		util.go(`/pages/separate_interest_package/prefer_purchase/prefer_purchase?packageId=${item.packageId}&entrance=details`);
+		// pages/separate_interest_package/prefer_purchase/prefer_purchase?packageId=XXX&userId=业务员id
+	}
 });

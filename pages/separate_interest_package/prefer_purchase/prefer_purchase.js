@@ -9,18 +9,21 @@ Page({
 		etcList: [],
 		isRequest: false,
 		packageId: undefined,
-		userId: undefined,// 业务员ID
-		shopId: undefined,// 业务员商户ID
+		isShowBtn: true,// 是否显示购买按钮
+		shopUserInfo: undefined,// 业务员信息
+		salesmanInfo: undefined,// 业务员信息
 		info: {}
 	},
 	async onLoad (options) {
 		this.setData({packageId: options.packageId});
-		if (options.userId) {
-			this.setData({
-				userId: options.userId,
-				shopId: options.shopId
-			});
+		// 从业务员端扫码
+		if (options.scene) {
+			let obj = this.path2json(decodeURIComponent(options.scene));
+			console.log(obj);
+			this.setData({shopUserInfo: obj.RPP});
 		}
+		// 从加购记录进入
+		if (options.entrance) this.setData({isShowBtn: false});
 		if (!app.globalData.userInfo.accessToken) {
 			await this.login();
 		} else {
@@ -28,6 +31,23 @@ Page({
 			this.setData({etcList});
 			await this.getPackageRelation(options.packageId);
 		}
+	},
+	async onShow () {
+		// 从登录返回 - 业务员端场景进入
+		if (app.globalData.userInfo.accessToken && this.data.shopUserInfo) await this.getIndependentInfo();
+	},
+	// 将url路径转成json a=1&=2 => {a: 1,b: 2}
+	path2json (scene) {
+		let arr = scene.split('&');
+		let obj = {};
+		let temp;
+		for (let i = 0; i < arr.length; i++) {
+			temp = arr[i].split('=');
+			if (temp.length > 1) {
+				obj[temp[0]] = temp[1];
+			}
+		}
+		return obj;
 	},
 	// 自动登录
 	login () {
@@ -50,7 +70,7 @@ Page({
 						app.globalData.openId = result.data.openId;
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
-						await this.getEtcList();
+						await this.getIndependentInfo();
 					} else {
 						wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
 						util.go('/pages/login/login/login');
@@ -66,16 +86,16 @@ Page({
 			}
 		});
 	},
-	// 获取订单信息
-	async getEtcList () {
-		let params = {
-			openId: app.globalData.openId
-		};
-		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
+	async getIndependentInfo () {
+		const result = await util.getDataFromServersV2('consumer/voucher/rights/get-buy-independent-rights-cache-info', {
+			shopUserInfo: this.data.shopUserInfo
+		});
+		if (!result) return;
 		if (result.code === 0) {
-			app.globalData.myEtcList = result.data;
-			const etcList = app.globalData.myEtcList.filter(item => item.flowVersion === 1);
-			this.setData({etcList});
+			this.setData({
+				salesmanInfo: result.data,
+				packageId: result.data.packageId
+			});
 			await this.getPackageRelation(this.data.packageId);
 		} else {
 			util.showToastNoIcon(result.message);
@@ -106,13 +126,13 @@ Page({
 		util.go(`/pages/separate_interest_package/purchase_terms/purchase_terms`);
 	},
 	async onClickPay () {
-		if (this.data.info.couponType === 2) {
+		if (this.data.info.couponType === 2 || this.data.shopUserInfo) {
 			// 不含通行券 - 立即支付
 			await this.packagePayment();
 			return;
 		}
 		if (this.data.etcList?.length) {
-			util.go(`/pages/separate_interest_package/associated_license_plate/associated_license_plate?packageId=${this.data.packageId}&shopId=${this.data.shopId || ''}&userId=${this.data.userId || ''}`);
+			util.go(`/pages/separate_interest_package/associated_license_plate/associated_license_plate?packageId=${this.data.packageId}`);
 			return;
 		}
 		util.alert({
@@ -140,9 +160,12 @@ Page({
 			packageId: this.data.packageId,
 			openId: app.globalData.userInfo.openId
 		};
-		if (this.data.userId) {
-			params.shopUserId = this.data.userId;
-			params.shopId = this.data.shopId;
+		// 业务员端
+		if (this.data.shopUserInfo) {
+			// params.shopUserInfo = this.data.shopUserInfo;
+			params.shopUserId = this.data.salesmanInfo.shopUserId;
+			params.shopId = this.data.salesmanInfo.shopId;
+			if (this.data.salesmanInfo.orderId) params.orderId = this.data.salesmanInfo.orderId
 		}
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/independent-rights-buy', params);
 		if (!result) {
