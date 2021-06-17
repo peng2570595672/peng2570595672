@@ -11,7 +11,6 @@
   display: block;
   margin: 80rpx auto 0;
   width: 304rpx;
-  height: 238rpx;
 }
 .buy_success .signed_title {
   display: flex;

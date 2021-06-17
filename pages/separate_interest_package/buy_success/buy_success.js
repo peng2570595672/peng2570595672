@@ -6,7 +6,7 @@ const util = require('../../../utils/util.js');
 Page({
 	data: {
 		recordId: undefined,
-		status: 0// 0 支付中 1发放成功 2发放失败
+		status: 2// 0 支付中 1发放成功 2发放失败
 	},
 	async onLoad (options) {
 		this.setData({
@@ -21,10 +21,10 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			wx.setNavigationBarTitle({
-				title: result.data.status === 1 ? '购买成功' : result.data.status === 2 ? '支付失败' : '等待支付结果'
+				title: result.data.rightsPackageCode === 1 ? '购买成功' : result.data.rightsPackageCode === 2 ? '支付成功，发放失败' : '等待支付结果'
 			});
 			this.setData({
-				status: result.data.status
+				status: result.data.rightsPackageCode
 			});
 		} else {
 			util.showToastNoIcon(result.message);
@@ -39,7 +39,7 @@ Page({
 		statusObj[this.data.status].call();
 	},
 	onClickReturn () {
-		wx.navigateBack({delta: 1});
+		util.go(`/pages/personal_center/coupon_redemption_centre/coupon_redemption_centre`);
 	},
 	goRecord () {
 		util.go(`/pages/personal_center/service_purchase_record/service_purchase_record`);
