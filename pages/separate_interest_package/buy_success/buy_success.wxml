@@ -3,9 +3,9 @@
     <image wx:elif="{{status === 2}}" src="/pages/separate_interest_package/assets/buy_failure.png"/>
     <image wx:else src="/pages/separate_interest_package/assets/buy_waiting.png"/>
     <view class="signed_title">
-        {{status === 0 ? '支付失败' : ''}}
+        {{status === 0 ? '等待支付结果' : ''}}
         {{status === 1 ? '购买成功' : ''}}
-        {{status === 2 ? '等待支付结果' : ''}}
+        {{status === 2 ? '支付失败' : ''}}
     </view>
     <view class="btn" catchtap="next">
         {{status === 0 ? '刷新结果' : ''}}

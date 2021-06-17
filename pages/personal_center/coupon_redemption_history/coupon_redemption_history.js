@@ -73,7 +73,7 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			this.setData({
-				couponList: result.data.list,
+				couponList: this.data.couponList.concat(result.data.list),
 				totalPages: result.data.total
 			});
 		} else {
