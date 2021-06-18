@@ -11,6 +11,16 @@ page .index .top {
   background-repeat: no-repeat;
   -moz-background-size: 100% 100%;
 }
+page .index .top .back {
+  position: absolute;
+  left: 20rpx;
+  top: 60rpx;
+}
+page .index .top .back::before {
+  content: '\e60e';
+  color: #000;
+  font-size: 50rpx;
+}
 page .index .top .title_nav {
   padding-top: 8%;
   display: flex;

@@ -30,7 +30,6 @@ Page({
 				this.login();
 			} else {
 				this.getBillDetail();
-				this.getContractMode();
 			}
 		}
 	},
@@ -38,13 +37,11 @@ Page({
 		if (app.globalData.billingDetails) {
 			this.setData({details: app.globalData.billingDetails});
 			this.getBillDetail();
-			this.getContractMode();
 		} else {
 			if (!app.globalData.userInfo.accessToken) {
 				this.login();
 			} else {
 				this.getBillDetail();
-				this.getContractMode();
 			}
 		}
 		if (app.globalData.splitDetails) {
@@ -112,7 +109,7 @@ Page({
 			util.hideLoading();
 			if (res.code === 0) {
 				app.globalData.myEtcList = res.data;
-				this.getContractMode();// 获取扣款方式
+				if (this.data.details?.vehPlate) this.getContractMode();// 获取扣款方式
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -123,7 +120,7 @@ Page({
 		util.showLoading();
 		const orderInfo = app.globalData.myEtcList.find(item => item.vehPlates === this.data.details.vehPlate);
 		let params = {
-			orderId: orderInfo.id
+			orderId: orderInfo?.id
 		};
 		util.getDataFromServer('consumer/order/getContractMode', params, () => {
 			util.showToastNoIcon('获取扣款方式失败！');
@@ -152,6 +149,7 @@ Page({
 			if (res.code === 0) {
 				if (res.data) {
 					this.setData({refundDetails: res.data});
+					if (JSON.stringify(app.globalData.myEtcList) !== '{}') this.getContractMode();// 获取扣款方式
 				}
 			} else {
 				util.showToastNoIcon(res.message);
@@ -223,9 +221,9 @@ Page({
 		util.showLoading();
 		let params = {
 			billIdList: [this.data.details.id],// 账单id集合，采用json数组格式[xx,xx]
-            payTypeDetail: {[this.data.details.id]: 1},//  {"账单id1"：1或者2或者3，"账单id2"：1或者2或者3} 1：通行费补缴  2：通行费手续费补缴  3：1+2补缴
+			payTypeDetail: {[this.data.details.id]: 1},//  {"账单id1"：1或者2或者3，"账单id2"：1或者2或者3} 1：通行费补缴  2：通行费手续费补缴  3：1+2补缴
 			vehPlates: this.data.details.vehPlate,// 车牌号
-			payAmount: this.data.details.totalMmout + this.data.details.serviceMoney - this.data.details.splitDeductedMoney - this.data.details.deductServiceMoney// 补缴金额
+			payAmount: this.data.details.totalMmout + this.data.details.serviceMoney - this.data.details.splitDeductedMoney - (this.data.details.discountMount || 0) - this.data.details.deductServiceMoney// 补缴金额
 		};
 		util.getDataFromServer('consumer/order/bill-pay', params, () => {
 			util.showToastNoIcon('获取支付参数失败！');

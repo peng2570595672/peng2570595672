@@ -717,7 +717,7 @@ function getStatus(orderInfo) {
 	if (orderInfo.auditStatus === 2 && orderInfo.logisticsId === 0) {
 		return 10; // 审核通过,待发货
 	}
-	if (orderInfo.auditStatus === 2 && orderInfo.logisticsId !== 0 && orderInfo.deliveryRule === 1 && orderInfo.etcContractId !== -1) {
+	if (orderInfo.auditStatus === 2 && orderInfo.logisticsId !== 0 && orderInfo.deliveryRule === 1 && orderInfo.etcContractId !== -1 && !orderInfo.contractStatus) {
 		return 5; // 审核通过,已发货或无需发货,待微信签约
 	}
 	if (orderInfo.obuStatus === 0) {

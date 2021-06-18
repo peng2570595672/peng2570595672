@@ -373,7 +373,7 @@ Page({
 		app.globalData.orderInfo.orderId = '';
 		wx.uma.trackEvent(this.data.activeIndex === 1 ? 'index_for_passenger_car_entrance' : 'index_for_truck_entrance');
 		mta.Event.stat('index_for_truck_entrance',{});
-		util.go(`/pages/${this.data.activeIndex === 1 ? 'default' : 'truck_handling'}/index/index`);
+		util.go(`/pages/${this.data.activeIndex === 1 ? 'default' : 'truck_handling'}/index/index?isMain=true`);
 	},
 	// 业务员端订单码绑定订单
 	async bindOrder () {

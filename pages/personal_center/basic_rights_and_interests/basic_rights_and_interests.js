@@ -7,7 +7,7 @@ Page({
 			{img: 'icon_make_invoice', title: '开具ETC办理发票', url: 'invoice_issued_list', statisticsEvent: 'equities_for_make_etc_invoice'},
 			{img: 'icon_query', title: '违章不限次数查询', appId: 'wx06a561655ab8f5b2', url: 'pages/base/redirect/index?routeKey=PC01_REDIRECT&autoRoute=CHECKILLEGAL&outsource=souyisou&wtagid=116.115.10', statisticsEvent: 'equities_for_violation_enquiry'},
 			{img: 'icon_make_invoice', title: '开具通行费发票', appId: 'wx9040bb0d3f910004', url: 'pages/index/index', statisticsEvent: 'equities_for_make_invoice'},
-			{img: 'driving_risk', title: '每月领取驾乘险', appId: 'wx06a561655ab8f5b2', url: 'pages/base/redirect/index?routeKey=WD_PAZZ&wtagid=116.115.27', statisticsEvent: 'equities_for_driving_risk'},
+			{img: 'driving_risk', title: '每月领取驾驶险', appId: 'wx06a561655ab8f5b2', url: 'pages/base/redirect/index?routeKey=WD_PAZZ&wtagid=116.115.27', statisticsEvent: 'equities_for_driving_risk'},
 			{img: 'icon_customer_service', title: '在线客服', url: 'online_customer_service', statisticsEvent: 'equities_for_service'}
 		]
 	},

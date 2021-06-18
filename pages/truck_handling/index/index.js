@@ -27,6 +27,19 @@ Page({
 			}
 		]
 	},
+	onLoad (options) {
+		if (options.isMain) {
+			this.setData({
+				isMain: options.isMain
+			});
+		}
+	},
+	// 监听返回按钮
+	onClickBackHandle () {
+		wx.navigateBack({
+			delta: 1
+		});
+	},
 	onClickHandle () {
 		wx.uma.trackEvent('truck_index_next');
 		mta.Event.stat('truck_index',{});

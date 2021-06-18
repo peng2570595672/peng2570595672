@@ -5,7 +5,7 @@ const app = getApp();
 Page({
 	data: {
 		ownerServiceList: [
-			{title: '领驾乘险', ico: 'led_driving_icon', statisticsEvent: 'owner_service_for_driving', isShow: !app.globalData.isContinentInsurance},
+			{title: '领驾驶险', ico: 'led_driving_icon', statisticsEvent: 'owner_service_for_driving', isShow: !app.globalData.isContinentInsurance},
 			{title: '查违章', ico: 'check_illegal', statisticsEvent: 'owner_service_for_check_illegal', isShow: !app.globalData.isContinentInsurance},
 			{title: '延保1年', ico: 'quality_assurance', statisticsEvent: 'owner_service_for_quality_assurance', isShow: true},
 			{title: '国际驾照', ico: 'international_license', statisticsEvent: 'owner_service_for_international_license', isShow: true}

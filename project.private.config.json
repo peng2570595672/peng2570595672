@@ -34,9 +34,9 @@
           "scene": null
         },
         {
-          "name": "pages/account_management/index/index",
-          "pathName": "pages/account_management/index/index",
-          "query": "shareId=1235556",
+          "name": "pages/separate_interest_package/index/index",
+          "pathName": "pages/separate_interest_package/index/index",
+          "query": "",
           "scene": null
         },
         {
