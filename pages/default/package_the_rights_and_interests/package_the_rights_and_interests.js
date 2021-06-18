@@ -37,7 +37,7 @@ Page({
 				list: [
 					{
 						ico: 'service_of_driving_risk',
-						title: '每月领驾乘险',
+						title: '每月领驾驶险',
 						describe: '10000元初始驾驶意外险，如每月无违章，额外获得5000元，最高可提升至50000元。'
 					},
 					{
