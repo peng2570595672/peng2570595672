@@ -27,6 +27,13 @@ Page({
 			}
 		]
 	},
+	onLoad (options) {
+		if (options.isMain) {
+			this.setData({
+				isMain: options.isMain
+			});
+		}
+	},
 	onClickHandle () {
 		wx.uma.trackEvent('truck_index_next');
 		mta.Event.stat('truck_index',{});

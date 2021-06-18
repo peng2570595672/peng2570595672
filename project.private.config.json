@@ -34,8 +34,8 @@
           "scene": null
         },
         {
-          "name": "pages/account_management/index/index",
-          "pathName": "pages/account_management/index/index",
+          "name": "pages/separate_interest_package/index/index",
+          "pathName": "pages/separate_interest_package/index/index",
           "query": "shareId=1235556",
           "scene": null
         },
@@ -49,7 +49,7 @@
         {
           "name": "账单详情",
           "pathName": "pages/personal_center/order_details/order_details",
-          "query": "id=715647420232372225&channel=21&month=202104",
+          "query": "id=781096729975066624&channel=1&month=202011",
           "scene": 1014
         },
         {
@@ -73,9 +73,9 @@
           "scene": null
         },
         {
-          "name": "pages/truck_handling/binding_account/binding_account",
-          "pathName": "pages/truck_handling/binding_account/binding_account",
-          "query": "info={}",
+          "name": "pages/truck_handling/index/index",
+          "pathName": "pages/truck_handling/index/index",
+          "query": "",
           "scene": null
         },
         {
@@ -294,6 +294,12 @@
         {
           "name": "shot_other_photo",
           "pathName": "pages/default/shot_other_photo/shot_other_photo",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/separate_interest_package/index/index",
+          "pathName": "pages/separate_interest_package/index/index",
           "query": "",
           "scene": null
         }
