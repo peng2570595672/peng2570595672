@@ -1,0 +1,25 @@
+<view class="index">
+    <view class="index-title">推荐出行优惠</view>
+    <view class="list">
+        <view class="item" wx:for="{{list}}" wx:key="index">
+            <view class="ico">
+                <image src="/pages/separate_interest_package/assets/passage_coupons.png" mode="heightFix" wx:if="{{item.couponType === 1}}"></image>
+                <image src="/pages/separate_interest_package/assets/parking_coupon.png" mode="heightFix" wx:elif="{{item.couponType === 2}}"></image>
+                <image src="/pages/separate_interest_package/assets/combination_coupon.png" mode="heightFix" wx:else></image>
+            </view>
+            <view class="content">
+                <view class="title">{{item.packageName}}</view>
+                <view class="price">¥{{item.payMoney/100}}</view>
+                <view class="introduce" wx:for="{{item.couponList}}" wx:key="index">
+                    {{item.couponType === 1 ? '通行券：路费' : '停车券：停车'}}满{{item.consumptionThreshold/100}}元减{{item.denomination/100}}元*{{item.couponCount}}张
+                </view>
+                <view class="choice {{item.couponList.length > 1 ? 'choice-margin' : ''}}" wx:if="{{item.isMarketingLabel === 1}}">{{item.marketingMsg}}</view>
+            </view>
+            <view class="pay" bindtap="onClickPay" data-index="{{index}}">去购买</view>
+        </view>
+    </view>
+    <view class="fill"></view>
+    <view class="server" catchtap="goOnlineServer">
+        <text>在线客服</text>
+    </view>
+</view>

@@ -282,6 +282,27 @@ Page({
 			// 必须选择权益
 			return;
 		}
+		if (this.data.listOfPackages[this.data.choiceIndex].mustChoiceRightsPackage === 0 && this.data.rightsAndInterestsList.length && this.data.activeEquitiesIndex === -1) {
+			// 不必选权益 有权益包 未选中权益包
+			util.alert({
+				title: `优惠提醒`,
+				content: `73%的用户都选择加购券权益，你确定要放弃吗？`,
+				showCancel: true,
+				confirmColor: '#576B95',
+				cancelColor: '#000000',
+				cancelText: '确认放弃',
+				confirmText: '我再看看',
+				confirm: () => {
+				},
+				cancel: async () => {
+					await this.saveOrderInfo();
+				}
+			});
+			return;
+		}
+		await this.saveOrderInfo();
+	},
+	async saveOrderInfo () {
 		wx.uma.trackEvent('package_the_rights_and_interests_next');
 		mta.Event.stat('package_the_rights_and_interests_next',{});
 		let params = {
@@ -308,6 +329,7 @@ Page({
 	},
 	// 支付
 	async marginPayment () {
+		if (this.data.isRequest) return;
 		this.setData({isRequest: true});
 		util.showLoading();
 		let params = {
@@ -330,6 +352,11 @@ Page({
 					this.setData({isRequest: false});
 					if (res.errMsg === 'requestPayment:ok') {
 						if (this.data.isSalesmanOrder) {
+							if (this.data.orderInfo.base?.etcContractId === -1) {
+								// 无需签约
+								util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
+								return;
+							}
 							// 去支付成功页
 							util.go('/pages/default/payment_successful/payment_successful');
 							return;

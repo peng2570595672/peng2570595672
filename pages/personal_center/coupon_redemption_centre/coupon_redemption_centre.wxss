@@ -1,207 +1,140 @@
-@font-face {
-  font-family: 'iconfont'; /* project id 1514406 */
-  src: url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot");
-  src: url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.eot?#iefix") format('embedded-opentype'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff2") format('woff2'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.woff") format('woff'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.ttf") format('truetype'), url("//at.alicdn.com/t/font_1514406_rx3tpwk54p.svg#iconfont") format('svg');
-}
-page {
+.coupon {
   min-height: 100vh;
-  background: #fff;
-  overflow: scroll;
 }
-.collect-paid-up-interest {
-  color: #33333d;
-  font-family: PingFangSC-Regular, PingFang SC;
+.coupon .coupon-top {
+  background: #00b85c;
+  height: 324rpx;
 }
-.collect-paid-up-interest .select-vehicle {
-  padding: 64rpx 76rpx 32rpx 32rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.collect-paid-up-interest .select-vehicle .label {
-  width: 190rpx;
-  font-size: 28rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  color: rgba(0,0,0,0.5);
-}
-.collect-paid-up-interest .select-vehicle .vehicle-list {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-.collect-paid-up-interest .select-vehicle .vehicle-list .list-title-child {
-  display: inline-block;
-  font-size: 28rpx;
-  text-align: center;
-  color: rgba(0,0,0,0.8);
-  line-height: 50rpx;
-  margin-right: 26rpx;
-}
-.collect-paid-up-interest .select-vehicle .vehicle-list .tab-vehicle-index {
-  font-size: 34rpx;
-  font-family: PingFangSC-Medium, PingFang SC;
-  font-weight: 500;
-  color: #000;
-  border-bottom: 6rpx solid #1ba566;
-}
-.collect-paid-up-interest .line {
-  height: 20rpx;
-  background: #fafafa;
-}
-.collect-paid-up-interest .list {
-  padding-top: 24rpx;
-}
-.collect-paid-up-interest .list .list-title {
-  width: 100%;
-  height: 140rpx;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-.collect-paid-up-interest .list .list-title .list-title-child {
-  display: inline-block;
-  font-size: 36rpx;
-  text-align: center;
-  color: rgba(47,181,101,0.3);
-  line-height: 50rpx;
-  width: 160rpx;
-}
-.collect-paid-up-interest .list .list-title .list-title-child .period {
-  font-size: 34rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  color: #000;
-  line-height: 48rpx;
-}
-.collect-paid-up-interest .list .list-title .list-title-child .period.not-receive {
-  color: rgba(0,0,0,0.6);
-}
-.collect-paid-up-interest .list .list-title .list-title-child .status {
-  font-size: 24rpx;
-  line-height: 32rpx;
-}
-.collect-paid-up-interest .list .list-title .list-title-child .status.overdue {
-  color: rgba(0,0,0,0.3);
-}
-.collect-paid-up-interest .list .list-title .list-title-child .status.can-receive {
-  color: #2fb565;
-}
-.collect-paid-up-interest .list .list-title .list-title-child > view:nth-child(2) {
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin-top: 16rpx;
-  margin-bottom: 16rpx;
+.coupon .coupon-top image {
   width: 100%;
 }
-.collect-paid-up-interest .list .list-title .list-title-child > view:nth-child(2) > text {
-  position: relative;
-  display: flex;
-  width: 20rpx;
-  height: 20rpx;
-  background: #fff;
-  border: 1rpx solid #2fb565;
-  border-radius: 50%;
+.coupon .list {
+  margin: -158rpx 32rpx 16rpx;
 }
-.collect-paid-up-interest .list .list-title .list-title-child > view:nth-child(2) > text.active {
-  background: #2fb565;
-}
-.collect-paid-up-interest .list .list-title .list-title-child > view:nth-child(2)::before,
-.collect-paid-up-interest .list .list-title .list-title-child > view:nth-child(2)::after {
-  content: '';
-  flex: 1;
-  height: 4rpx;
-  background: #ebecec;
-}
-.collect-paid-up-interest .list .list-title .tab-index .status {
-  color: #2fb565;
-}
-.collect-paid-up-interest .list .list-title .tab-index > view:nth-child(2) > text {
-  background: #2fb565;
-}
-.collect-paid-up-interest .list .vouchers-list {
-  padding: 32rpx;
-}
-.collect-paid-up-interest .list .vouchers-list .item {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 686rpx;
-  height: 176rpx;
+.coupon .list .item {
   background: #f7f7f7;
-  color: #fff;
-  margin-bottom: 20rpx;
+  margin-bottom: 32rpx;
 }
-.collect-paid-up-interest .list .vouchers-list .item::before,
-.collect-paid-up-interest .list .vouchers-list .item::after {
+.coupon .list .item .coupon-info {
+  display: flex;
+  height: 158rpx;
+  align-items: center;
+  position: relative;
+}
+.coupon .list .item .coupon-info::before,
+.coupon .list .item .coupon-info::after {
   position: absolute;
   top: 50%;
   display: inline-block;
-  width: 32rpx;
-  height: 32rpx;
+  width: 34rpx;
+  height: 34rpx;
   content: '';
   border-radius: 50%;
   background-color: #fff;
   transform: translateY(-50%);
 }
-.collect-paid-up-interest .list .vouchers-list .item::before {
+.coupon .list .item .coupon-info::before {
   left: -20rpx;
 }
-.collect-paid-up-interest .list .vouchers-list .item::after {
+.coupon .list .item .coupon-info::after {
   left: auto;
   right: -20rpx;
 }
-.collect-paid-up-interest .list .vouchers-list .item .left {
-  display: flex;
-  justify-content: center;
+.coupon .list .item .coupon-info.coupon-info-bg::before,
+.coupon .list .item .coupon-info.coupon-info-bg::after {
+  background: #00b85c;
+}
+.coupon .list .item .coupon-info .img {
+  width: 174rpx;
+  height: 104rpx;
+  background: #fff;
+  text-align: center;
+  margin: 0 32rpx;
   align-items: center;
-  height: 80rpx;
-  width: 80rpx;
-  background: #2fb565;
-  border-radius: 50%;
-  margin-left: 48rpx;
+  border-radius: 10rpx;
 }
-.collect-paid-up-interest .list .vouchers-list .item .left.overdue {
-  background: #8e8e8e;
+.coupon .list .item .coupon-info .img image {
+  height: 86rpx;
 }
-.collect-paid-up-interest .list .vouchers-list .item .left::before {
-  content: '\e66c';
-  color: #fff;
-  font-size: 77rpx;
-}
-.collect-paid-up-interest .list .vouchers-list .item .left.parking::before {
-  content: '\e66d';
-}
-.collect-paid-up-interest .list .vouchers-list .item .middle {
-  display: flex;
+.coupon .list .item .coupon-info .name {
   flex: 1;
-  flex-direction: column;
-  font-size: 24rpx;
-  color: rgba(0,0,0,0.3);
-  margin: 0rpx 16rpx;
-  line-height: 34rpx;
 }
-.collect-paid-up-interest .list .vouchers-list .item .middle .coupon-name {
+.coupon .list .item .coupon-info .name :first-child {
   font-size: 28rpx;
-  font-family: PingFangSC-Medium, PingFang SC;
-  font-weight: 500;
-  color: rgba(0,0,0,0.5);
+  color: #000;
   line-height: 40rpx;
 }
-.collect-paid-up-interest .list .vouchers-list .item .btn {
+.coupon .list .item .coupon-info .name :last-child {
+  font-size: 24rpx;
+  color: rgba(0,0,0,0.5);
+  line-height: 34rpx;
+  margin-top: 14rpx;
+}
+.coupon .list .item .coupon-info .receive {
+  margin-right: 48rpx;
+  text-align: center;
+}
+.coupon .list .item .coupon-info .receive :first-child {
+  width: 114rpx;
+  height: 52rpx;
   display: flex;
-  min-width: 136rpx;
-  height: 50rpx;
-  margin-right: 76rpx;
   align-items: center;
   justify-content: center;
-  background: #efefef;
-  border-radius: 4rpx;
   font-size: 24rpx;
-  color: #b6b6b6;
+  color: #fff;
+  background: #00b85c;
+  border-radius: 4rpx;
 }
-.collect-paid-up-interest .list .vouchers-list .item .btn.not-click {
-  color: #2fb565;
+.coupon .list .item .coupon-info .receive :first-child.already-received {
+  background: #cfcfcf;
+}
+.coupon .list .item .coupon-info .receive :last-child {
+  font-size: 20rpx;
+  color: rgba(0,0,0,0.3);
+  line-height: 28rpx;
+  margin-top: 12rpx;
+}
+.coupon .list .item .coupon-bottom {
+  display: flex;
+  height: 52rpx;
+  align-items: center;
+  padding: 0 48rpx 0 30rpx;
+  border: 2rpx dashed #e5e5e5;
+  font-size: 20rpx;
+  color: rgba(0,0,0,0.5);
+}
+.coupon .list .item .coupon-bottom :first-child {
+  flex: 1;
+}
+.coupon .empty {
+  margin: 30rpx 0 60rpx;
+  text-align: center;
+  color: #66666d;
+  font-size: 32rpx;
+}
+.coupon .empty image {
+  width: 192rpx;
+  margin-bottom: 9.5vh;
+  margin-left: -20rpx;
+}
+.coupon .empty view {
+  line-height: 44rpx;
+  margin-top: -40rpx;
+}
+.coupon .introduce {
+  padding: 16rpx 32rpx 48rpx;
+}
+.coupon .introduce .last {
+  display: flex;
+}
+.coupon .introduce .detailed {
+  flex: 1;
+  font-size: 24rpx;
+  color: rgba(0,0,0,0.5);
+  line-height: 34rpx;
+}
+.coupon .introduce .history {
+  font-size: 20rpx;
+  color: #00a9ff;
+  line-height: 28rpx;
 }

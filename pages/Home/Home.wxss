@@ -366,6 +366,9 @@
   margin-left: 14rpx;
   transform: rotateZ(-180deg);
 }
+.index .my-swiper {
+  height: 250rpx;
+}
 .index .my-swiper .my-swiper-item image {
   width: 504rpx;
 }

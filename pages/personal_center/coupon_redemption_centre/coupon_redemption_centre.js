@@ -2,150 +2,110 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
-		popupContent: undefined,
-		dialogShow: false,
-		orderId: undefined,
-		vehicle: undefined,
-		showVehicleList: false,
-		vehicleList: {},
-		couponList: ['','','','','','',''], // 权益列表
-		tabVehicleIndex: 0, // 车牌tab下标
-		tabIndex: 0,// tab下标
-		currentTime: undefined,// 系统当前时间
-		openIndex: 0// 已开放对应下标
+		totalPages: '',// 总页数
+		page: 1,// 当前页
+		pageSize: 10,// 每页多少条数据
+		couponList: [], // 权益列表
+		showLoading: {
+			show: true,
+			text: '加载中...'
+		},
+		showLoadingMore: {
+			hideLoading: false,
+			show: false,
+			text: '加载中...'
+		}
 	},
 	async onLoad () {
-		if (app.globalData.systemTime) {
+		await this.getCouponCenterList();
+	},
+	hideLoadingMore () {
+		this.setData({
+			showLoadingMore: {
+				show: false,
+				text: '加载中...'
+			}
+		});
+	},
+	// 下滑重新加载
+	onPullDownRefresh () {
+		this.setData({
+			page: 1
+		});
+		this.getCouponCenterList(false);
+	},
+	// 上滑分页加载
+	onReachBottom () {
+		if (this.data.couponList.length < this.data.pageSize) return;
+		this.setData({
+			showLoadingMore: {
+				show: true,
+				text: '加载中...'
+			}
+		});
+		this.setData({
+			page: ++this.data.page
+		});
+		if (this.data.page > this.data.totalPages) {
 			this.setData({
-				currentTime: app.globalData.systemTime * 1000
+				page: --this.data.page,
+				showLoadingMore: {
+					hideLoading: true,
+					show: true,
+					text: '我是有底线的~'
+				}
 			});
-		} else {
-			this.setData({
-				currentTime: new Date().getTime()
-			});
+			return;
 		}
-		this.setData({
-			vehicleList: app.globalData.rightsAndInterestsVehicleList,
-			vehicle: app.globalData.rightsAndInterestsVehicleList[0]
-		});
-		await this.getCouponList();
+		this.getCouponCenterList(true);
 	},
-	onShow () {
+	// 查看历史
+	onClickSeeHistory () {
+		util.go(`/pages/personal_center/coupon_redemption_history/coupon_redemption_history`);
 	},
-	openConfirm (e) {
-		let instructions = e.currentTarget.dataset.instructions;
-		let popupContent = {
-			title: '使用说明',
-			content: instructions,
-			confirm: '我知道了'
-		};
-		this.setData({
-			popupContent
+	async getCouponCenterList (isLoadingMore) {
+		const result = await util.getDataFromServersV2('consumer/voucher/rights/get-coupon-center-list', {
+			page: this.data.page,
+			pageSize: this.data.pageSize
 		});
-		this.selectComponent('#instructions').show();
-	},
-	tapDialogButton () {
-		this.setData({
-			dialogShow: false
-		});
-	},
-	async getCouponList () {
-		util.showLoading();
-		const result = await util.getDataFromServersV2('consumer/voucher/rights/get-coupon-list', {
-			orderId: this.data.vehicle.orderId
-		});
+		// 隐藏加载中动画
+		this.hideAnim(isLoadingMore);
 		if (!result) return;
 		if (result.code === 0) {
-			const compare = (key) => {
-				return (obj1, obj2) => {
-					let value1 = obj1[key];
-					let value2 = obj2[key];
-					return value1 - value2;
-				};
-			};
-			result.data.sort(compare('stage'));
-			result.data.map((item, index) => {
-				item.status = util.isTimeQuantum(item.coupons[0].validityStartTime.substring(0, 16), item.coupons[0].validityEndTime.substring(0, 16));
-				if (item.status === 1) {
-					this.setData({
-						openIndex: index
-					});
-				}
-				item.coupons.map(it => {
-					it.couponsStatus = item.status;
-				});
-			});
-			const arr = result.data.slice(0, this.data.openIndex);
-			result.data.splice(0, this.data.openIndex);
-			result.data.push(...arr);
 			this.setData({
-				couponList: result.data
+				couponList: this.data.couponList.concat(result.data.list),
+				totalPages: result.data.total
 			});
 		} else {
 			util.showToastNoIcon(result.message);
 		}
 	},
-	currentChange (e) {
+	// 隐藏加载中动画
+	hideAnim (isLoadingMore) {
+		let tempObj = this.data.showLoading;
+		tempObj.show = false;
 		this.setData({
-			tabIndex: e.detail.current
+			showLoading: tempObj
 		});
-	},
-	onClickTheCoupons (e) {
-		let item = e.currentTarget.dataset.item;
-		if (item.isReceive === 1) {
-			// 已领取
-			util.go(`/pages/personal_center/service_card_voucher/service_card_voucher`);
-			return;
-		}
-		if (item.couponsStatus === 2 || (item.isReceive === 0 && item.couponsStatus === 1)) {
-			// 待领取 可领取 -- 去券详情
-			app.globalData.serviceCardVoucherDetails = item;
-			util.go(`/pages/personal_center/coupon_details/coupon_details`);
-		}
+		isLoadingMore ? this.hideLoadingMore() : wx.stopPullDownRefresh();
 	},
 	async onClickReceive (e) {
 		let item = e.currentTarget.dataset.item;
 		let index = e.currentTarget.dataset.index;
-		if ((item.isReceive === 0 && item.couponsStatus === 0) || item.isReceive === 1) return;
+		if (item.isReceive === 1) return;
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/active-by-couponId', {
-			couponId: item.recordId
+			couponId: item.collectionRecordId
 		});
 		if (!result) return;
 		if (result.code === 0) {
 			util.showToastNoIcon(`${item.couponType === 1 ? '已领取至个人中心-优惠券' : '已领取至个人微信-卡包'}`);
-			this.data.couponList[this.data.tabIndex].coupons[index].isReceive = 1;
+			this.data.couponList[index].isReceive = 1;
+			if (parseInt(this.data.couponList[index].surplusPeriodNum) > 0) this.data.couponList[index].surplusPeriodNum--;
 			this.setData({
 				couponList: this.data.couponList
 			});
 		} else {
 			util.showToastNoIcon(result.message);
 		}
-	},
-	onClickVehicle () {
-		if (this.data.vehicleList.length > 1) {
-			this.setData({
-				showVehicleList: !this.data.showVehicleList
-			});
-		}
-	},
-	choiceVehicle (e) {
-		let index = e.currentTarget.dataset.index;
-		this.setData({
-			vehicle: this.data.vehicleList[index],
-			orderId: this.data.vehicleList[index].id,
-			showVehicleList: false
-		});
-		this.getCouponList();
-	},
-	// tab切换
-	onClickTab (e) {
-		let index = e.currentTarget.dataset['index'];
-		index = parseInt(index);
-		this.setData({
-			vehicle: this.data.vehicleList[index],
-			orderId: this.data.vehicleList[index].id,
-			tabVehicleIndex: index
-		});
-		this.getCouponList();
 	}
 });

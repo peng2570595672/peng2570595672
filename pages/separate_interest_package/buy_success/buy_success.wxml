@@ -1,0 +1,16 @@
+<view class="buy_success">
+    <image wx:if="{{status === 1}}" src="/pages/separate_interest_package/assets/buy_success.png" mode="widthFix"/>
+    <image wx:elif="{{status === 2}}" src="/pages/separate_interest_package/assets/buy_failure.png" mode="widthFix"/>
+    <image wx:else src="/pages/separate_interest_package/assets/buy_waiting.png" mode="widthFix"/>
+    <view class="signed_title">
+        {{status === 0 ? '等待支付结果' : ''}}
+        {{status === 1 ? '购买成功' : ''}}
+        {{status === 2 ? '支付成功，发放失败' : ''}}
+    </view>
+    <view class="">券发放失败，请到个人中心-领券中心手动领取</view>
+    <view class="btn" catchtap="next">
+        {{status === 0 ? '刷新结果' : ''}}
+        {{status === 1 ? '查看购买记录' : ''}}
+        {{status === 2 ? '手动领取权益' : ''}}
+    </view>
+</view>

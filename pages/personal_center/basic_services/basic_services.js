@@ -4,7 +4,6 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
-		rightsAndInterestsVehicleList: undefined, // 权益车辆列表
 		basicServicesList: [
 			{title: 'ETC设备', img: 'etc_equipment', statisticsEvent: 'basic_services_for_etc_equipment'},
 			{title: '在线客服', img: 'online_icon', statisticsEvent: 'basic_services_for_online_icon'},
@@ -19,29 +18,7 @@ Page({
 			]
 		}
 	},
-	onLoad (options) {
-		this.getOrderRelation();
-	},
-	getOrderRelation () {
-		util.showLoading();
-		util.getDataFromServer('consumer/voucher/rights/get-order-relation', {
-			platformId: app.globalData.platformId
-		}, () => {
-			util.showToastNoIcon('获取车辆列表失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				if (res.data) {
-					app.globalData.rightsAndInterestsVehicleList = res.data;
-					this.setData({
-						rightsAndInterestsVehicleList: res.data
-					});
-				}
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-		});
+	onLoad () {
 	},
 	// 跳转
 	go (e) {

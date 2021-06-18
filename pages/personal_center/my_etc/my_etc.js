@@ -18,7 +18,7 @@ Page({
 		app.globalData.isTruckHandling = false;
 		app.globalData.isNeedReturnHome = false;
 		if (app.globalData.userInfo.accessToken) {
-			if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+			// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 			await this.getMyETCList();
 		} else {
 			// 公众号进入需要登录
@@ -46,7 +46,7 @@ Page({
 						app.globalData.openId = result.data.openId;
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
-						if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+						// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 						await this.getMyETCList();
 					} else {
 						wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));

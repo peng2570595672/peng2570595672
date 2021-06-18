@@ -1,0 +1,87 @@
+@import "../../../style/base.styl";
+@import "../../../style/my_animate.styl";
+// 多家银行的时候在此处添加即可
+.page-wrapper
+	display flex
+	flex-direction column
+	min-height 100vh
+	background #FCFCFC
+	padding 0 32rpx
+	.index-title
+		display flex
+		align-items center
+		font-size 34rpx
+		font-family PingFangSC-Medium, PingFang SC;
+		font-weight 500
+		color #000
+		padding 32rpx 0rpx 13rpx
+		&::before
+			margin-right 8rpx
+			content ''
+			width 8rpx
+			height 44rpx
+			background #2FB565
+	.prompt
+		font-size 24rpx
+		color #FFC000
+		line-height 34rpx
+	.license-plate-list
+		.item
+			margin-top 32rpx
+			height 132rpx
+			display flex
+			align-items center
+			background #FFFFFF
+			box-shadow 0rpx 0rpx 18rpx 0rpx rgba(0,0,0,0.04)
+			border-radius 16rpx
+			font-family PingFangSC-Medium, PingFang SC
+			font-weight 500
+			color rgba(0,0,0,0.9)
+			padding 0 44rpx
+			&.active
+				border 1rpx solid #00B062
+			image
+				width 58rpx
+				margin-right 12rpx
+			.activated
+				width 94rpx
+				height 32rpx
+				display flex
+				align-items center
+				justify-content center
+				border-radius 20rpx
+				border 1rpx solid #00B85C
+				font-size 20rpx
+				font-family PingFangSC-Regular, PingFang SC
+				font-weight 400
+				color #00B85C
+				margin-left 32rpx
+	.instructions
+		padding-top 32rpx
+		.title
+			font-size 30rpx
+			color #000000
+			line-height 42rpx
+			padding-bottom 8rpx
+		.content
+			font-size 24rpx
+			color rgba(0, 0, 0, 0.5)
+			line-height 38rpx
+	.fill
+		flex 1
+	.btn-content
+		margin-top 68rpx
+		margin-bottom 100rpx
+		.btn
+			display flex
+			margin auto
+			width 610rpx;
+			height 98rpx;
+			border-radius 49rpx
+			align-items center
+			justify-content center
+			background linear-gradient(45deg, #00AF62 0%, #68D33F 100%)
+			font-size: 34rpx
+			font-weight 500
+			color #FFFFFF
+			line-height 50rpx

@@ -88,7 +88,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=849290337313624064",
+          "query": "orderId=852590533712023552",
           "scene": null
         },
         {
@@ -178,15 +178,15 @@
           "scene": null
         },
         {
-          "name": "pages/truck_handling/payment_successful/payment_successful",
-          "pathName": "pages/truck_handling/payment_successful/payment_successful",
-          "query": "isRechargeEarnestMoney=1",
+          "name": "pages/personal_center/coupon_redemption_centre/coupon_redemption_centre",
+          "pathName": "pages/personal_center/coupon_redemption_centre/coupon_redemption_centre",
+          "query": "",
           "scene": null
         },
         {
-          "name": "pages/truck_handling/shot_bank_card/shot_bank_card",
-          "pathName": "pages/truck_handling/shot_bank_card/shot_bank_card",
-          "query": "shareId=1235556",
+          "name": "pages/personal_center/service_card_voucher/service_card_voucher",
+          "pathName": "pages/personal_center/service_card_voucher/service_card_voucher",
+          "query": "",
           "scene": null
         },
         {
@@ -226,9 +226,9 @@
           "scene": null
         },
         {
-          "name": "pages/truck_handling/binding_account/binding_account",
-          "pathName": "pages/truck_handling/binding_account/binding_account",
-          "query": "officialChannelId=645937022279614464",
+          "name": "业务员端购券",
+          "pathName": "pages/separate_interest_package/prefer_purchase/prefer_purchase",
+          "query": "scene=RPP%3D855166428146302976",
           "scene": null
         },
         {
@@ -256,8 +256,8 @@
           "scene": null
         },
         {
-          "name": "pages/separate_interest_package/index/index",
-          "pathName": "pages/separate_interest_package/index/index",
+          "name": "权益包购买成功",
+          "pathName": "pages/separate_interest_package/buy_success/buy_success",
           "query": "",
           "scene": null
         },

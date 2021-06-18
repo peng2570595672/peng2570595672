@@ -1,0 +1,152 @@
+@import "../../../style/base.styl";
+@import "../../../style/my_animate.styl";
+// 多家银行的时候在此处添加即可
+.page-wrapper
+	display flex
+	flex-direction column
+	min-height 100vh
+	overflow-y hidden
+	.top-content
+		width 100%
+		height 402rpx
+		display flex
+		justify-items center
+		align-content center
+		align-items center
+		background rgba(241, 241, 241, 1)
+		image
+			display block
+			margin auto
+			height 288rpx
+	.wrapper-content
+		display flex
+		flex-direction column
+		padding 0 30rpx
+		// 标题
+		.title
+			margin-top 40rpx
+			display flex
+			align-items center
+			height 56rpx
+			font-size 34rpx
+			font-weight 500
+			font-family PingFangSC-Medium, PingFang SC
+			color #000
+			&>view:nth-child(1)
+				flex 1
+			&>view:nth-child(2)
+				color #00B85C
+				opacity 0.9
+				margin-left 16rpx
+				font-family PingFangSC-Semibold, PingFang SC
+				font-weight 500
+			&::before
+				margin-right 12rpx
+				content ''
+				width 8rpx
+				height 44rpx
+				background #2FB565
+		.note
+			color #000000
+			font-weight Regular
+			font-size 24rpx
+			opacity 0.3
+			margin-top 8rpx
+		// 办理方式
+		.check_item
+			display flex
+			height 174rpx
+			align-items center
+			margin-top 12rpx
+			background #F4F4F4
+			opacity: 0.63
+			position relative
+			&::before,
+			&::after
+				position absolute
+				top 50%
+				display inline-block
+				width 34rpx
+				height 34rpx
+				content ''
+				border-radius 50%
+				background-color #fff
+				transform translateY(-50%)
+			&::before
+				left -20rpx
+			&::after
+				left auto
+				right -20rpx
+			.img
+				width 212rpx
+				height 126rpx
+				background #FFFFFF
+				text-align center
+				margin-left 32rpx
+				align-items center
+				image
+					align-items center
+					margin 5rpx auto
+					width 162.25rpx
+					height 110rpx
+			.desc
+				flex 1
+				margin-left 12rpx
+				.top
+					font-size 28rpx
+					font-family: PingFangSC-Regular, PingFang SC
+					font-weight: 400
+					line-height 40rpx
+					color rgba(0, 0, 0, 1)
+				.middle
+					font-size 24rpx
+					font-family: PingFangSC-Regular, PingFang SC
+					font-weight: 400
+					line-height 40rpx
+					color rgba(0, 0, 0, 1)
+				.bottom
+					font-size 24rpx
+					line-height 40rpx
+					color rgba(0, 0, 0, .5)
+			.attache
+				text-align right
+				line-height 28rpx
+				margin-top 55rpx
+				font-size 20rpx
+				color rgba(0, 0, 0, 0.5)
+				margin-right 32rpx
+		.bottom-note
+			margin 0 auto
+			font-size 24rpx
+			margin-top 86rpx
+			line-height 32rpx
+			font-family PingFangSC-Regular, PingFang SC
+			color rgba(0, 0, 0, 0.5)
+			& > view
+				&:nth-child(1)
+					font-weight 600
+					font-size 30rpx
+					color rgba(0, 0, 0, 1)
+					line-height 42rpx
+					margin-bottom 8rpx
+				&:last-of-type
+					font-size 24rpx
+					margin-top 12rpx
+					color rgba(0, 177, 255, 1)
+		// 高度填充
+	.btn-content
+		margin-top 68rpx
+		margin-bottom 100rpx
+		.btn
+			display flex
+			margin auto
+			width 610rpx;
+			height 98rpx;
+			border-radius 49rpx
+			align-items center
+			justify-content center
+			background linear-gradient(45deg, #00AF62 0%, #68D33F 100%)
+			font-size: 34rpx
+			font-weight 500
+			color #FFFFFF
+			line-height 50rpx

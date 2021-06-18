@@ -1,0 +1,46 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<view class="page-wrapper">
+    <!--logo图片-->
+    <view class="top-content">
+        <image src="/pages/separate_interest_package/assets/passage_coupons.png" mode="heightFix" wx:if="{{info.couponType === 1}}"></image>
+        <image src="/pages/separate_interest_package/assets/parking_coupon.png" mode="heightFix" wx:elif="{{info.couponType === 2}}"></image>
+        <image src="/pages/separate_interest_package/assets/combination_coupon.png" mode="heightFix" wx:else></image>
+    </view>
+    <view class="wrapper-content">
+        <view class="title">
+            <view>{{info.packageName}}</view>
+            <view>￥{{info.payMoney/100 || 0}}</view>
+        </view>
+        <!--扣款方式标题结束-->
+        <view wx:if="{{info.couponDetails.length}}" wx:for="{{ info.couponDetails }}" wx:key="i" class="check_item">
+            <view class="img">
+                <image src="/pages/separate_interest_package/assets/passage_coupons.png" mode="heightFix" wx:if="{{item.couponType === 1}}"></image>
+                <image src="/pages/separate_interest_package/assets/parking_coupon.png" mode="heightFix" wx:elif="{{item.couponType === 2}}"></image>
+                <image src="/pages/separate_interest_package/assets/combination_coupon.png" mode="heightFix" wx:else></image>
+            </view>
+            <view class="desc">
+                <view class="top">{{item.couponType === 1 ? '通行券' : '停车券'}}</view>
+                <view class="middle">满{{item.consumptionThreshold/100}}元减{{item.denomination/100}}元*{{item.couponCount}}</view>
+                <view class="bottom">{{item.couponType === 1 ? '抵扣高速路费' : '微信停车场抵扣停车费'}}</view>
+            </view>
+            <view class="attache">
+                <view>领取之日起</view>
+                <view>{{ item.validityDay }}天有效</view>
+            </view>
+        </view>
+        <view class="bottom-note">
+            <view>使用须知</view>
+            <view>1、本商品包含<text wx:if="{{info.couponType === 3}}">通行券*{{info.passTicket}}张、 停车券*{{info.parkingCoupon}}张</text><text wx:elif="{{info.couponType === 2}}">停车券*{{info.parkingCoupon}}张</text><text wx:else>通行券*{{info.passTicket}}张</text></view>
+            <view>2、<text wx:if="{{info.couponType === 3}}">通行券仅限绑定微信支付划扣通行费的ETC通行抵扣路费使用；停车券仅限支持微信支付的停车场付款时抵扣停车费使用</text><text wx:elif="{{info.couponType === 2}}">停车券仅限支持微信支付的停车场付款时抵扣停车费使用</text><text wx:else>通行券仅限绑定微信支付划扣通行费的ETC通行抵扣路费使用</text></view>
+            <view wx:if="{{info.sendMode === 1}}">3、购买完成后将以电子券形式发放领取，您可至个人中心-领券中心按期领取，每期仅可领取1张，每30天为一期，领取成功<text wx:if="{{info.couponType === 3}}">通行券将存入个人中心-优惠券，停车券将存入您个人微信的微信卡包</text><text wx:elif="{{info.couponType === 2}}">停车券将存入您个人微信的微信卡包</text><text wx:else>通行券将存入个人中心-优惠券</text></view>
+            <view wx:else>3、购买完成后将以电子券形式发放领取，<text wx:if="{{info.couponType === 3}}">通行券将存入个人中心-优惠券，停车券将存入您个人微信的微信卡包</text><text wx:elif="{{info.couponType === 2}}">停车券将存入您个人微信的微信卡包</text><text wx:else>通行券将存入个人中心-优惠券</text></view>
+            <view catchtap="onClickPurchaseTerms">查看购买条款</view>
+        </view>
+    </view>
+    <view class="btn-content" wx:if="{{isShowBtn}}">
+        <view class="btn" catchtap="onClickPay">
+            <text>立即购买</text>
+        </view>
+    </view>
+</view>
+

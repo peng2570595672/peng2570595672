@@ -1,0 +1,101 @@
+.index {
+  min-height: 100vh;
+  background: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+}
+.index .index-title {
+  display: flex;
+  align-items: center;
+  font-size: 34rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #000;
+  padding: 32rpx 32rpx 26rpx;
+}
+.index .index-title::before {
+  margin-right: 8rpx;
+  content: '';
+  width: 8rpx;
+  height: 44rpx;
+  background: #2fb565;
+}
+.index .list .item {
+  display: flex;
+  padding: 30rpx 32rpx 42rpx;
+  border-bottom: 1rpx solid rgba(0,0,0,0.03);
+}
+.index .list .item .ico {
+  width: 212rpx;
+  height: 126rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 10rpx;
+}
+.index .list .item .ico image {
+  height: 104rpx;
+}
+.index .list .item .content {
+  flex: 1;
+  margin-left: 32rpx;
+  font-size: 34rpx;
+  line-height: 48rpx;
+}
+.index .list .item .content .title {
+  color: rgba(0,0,0,0.9);
+}
+.index .list .item .content .price {
+  opacity: 0.9;
+  color: #00b85c;
+  font-family: PingFangSC-Medium, PingFang SC;
+}
+.index .list .item .content .introduce {
+  color: rgba(0,0,0,0.3);
+  font-size: 20rpx;
+  line-height: 28rpx;
+  padding-top: 10rpx;
+}
+.index .list .item .content .choice {
+  margin-top: 14rpx;
+  width: 240rpx;
+  height: 34rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,192,0,0.19);
+  font-size: 20rpx;
+  color: #fff;
+  border-radius: 4px;
+}
+.index .list .item .content .choice.sell-out {
+  background: rgba(0,0,0,0.03);
+}
+.index .list .item .content .choice.choice-margin {
+  margin-top: 28rpx;
+}
+.index .list .item .pay {
+  width: 114rpx;
+  height: 52rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4rpx;
+  border: 2rpx solid #00b85c;
+  color: #00b85c;
+  font-size: 24rpx;
+}
+.index .list .item .pay.sell-out {
+  border-color: #dfdfdf;
+  color: rgba(0,0,0,0.13);
+}
+.index .fill {
+  flex: 1;
+}
+.index .server {
+  margin: 60rpx 0;
+  text-align: center;
+  color: #09f;
+  font-size: 24rpx;
+}

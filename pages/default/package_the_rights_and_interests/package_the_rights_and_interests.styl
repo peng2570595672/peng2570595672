@@ -164,8 +164,8 @@ $yellowColor = #FFC300;
 						width 686rpx
 	// 权益选择
 	.rights-and-interests
-		width 646rpx
-		margin 48rpx 72rpx 0 32rpx
+		width 686rpx
+		margin 48rpx 32rpx 44rpx 32rpx
 		box-sizing border-box
 		.rights-and-interests-header
 			display flex
@@ -173,49 +173,92 @@ $yellowColor = #FFC300;
 			align-items center
 			font-size 34rpx
 			color rgba(0, 0, 0, 0.9)
-			margin-bottom 28rpx
+			&::before
+				margin-right 8rpx
+				content ''
+				width 8rpx
+				height 44rpx
+				background #2FB565
 		.rights-and-interests-list
-			margin auto
+			margin-top 32rpx
+			position relative
 			.rights-and-interests-item
+				width 100%
+				position relative
 				display flex
-				height 112rpx
 				align-items center
-				background #FFFFFF
-				border-radius 16rpx
-				box-sizing border-box
-				font-size 28rpx
-				margin-bottom 12rpx
-				color rgba(0, 0, 0, 0.5)
-				padding-left 32rpx
-				padding-right 36rpx
-				image
-					width 44rpx
-					margin-right 8rpx
-				.title
-					flex 1
-					height 112rpx
+				height 174rpx
+				background #fff
+				margin-top 12rpx
+				&.item-top
+					margin-top 32rpx
+				.label-img
+					position absolute
+					top -18rpx
+					z-index 2
+					width 172rpx
+					height 32rpx
 					display flex
 					align-items center
-					&::before
-						content '\e68e'
-						font-size 44rpx
-						color #07C160
-						margin-right 8rpx
-				.price
-					color #576B95
-					margin-right 52rpx
+					justify-content center
+					background linear-gradient(126deg, #FF007E 0%, #F7A400 100%)
+					border-radius 16rpx 16rpx 16rpx 0rpx
+					font-size 18rpx
+					font-family PingFangSC-Medium, PingFang SC
+					font-weight 500
+					color #FFFFFF
+					text-shadow 0rpx 4rpx 8rpx rgba(0, 0, 0, 0.12)
+				&::before,
 				&::after
+					position absolute
+					top 50%
 					display inline-block
-					width 48rpx
-					text-align center
-					content '查看'
-					font-size 24rpx
-					color #576B95
-				&.item-active
-					&::after
-						content '\e67b'
-						font-size 26rpx
-						color #07C160
+					width 32rpx
+					height 32rpx
+					content ''
+					border-radius 50%
+					background-color #F6F6F6
+					transform translateY(-50%)
+				&::before
+					left -22rpx
+				&::after
+					left  auto
+					right -22rpx
+				.left
+					margin 32rpx 54rpx
+					& > image
+						width 144rpx
+				.middle
+					flex 1
+					display flex
+					flex-direction column
+					.item-title
+						color #000000
+						font-size: 28rpx;
+						font-family: PingFangSC-Regular, PingFang SC;
+						font-weight: 400;
+						line-height 40rpx
+					.item-price
+						margin-top 12rpx
+						color #00B85C
+						font-size 34rpx
+						line-height 48rpx
+				.right
+					margin-right 70rpx
+					.item-detail
+						font-size 20rpx
+						color rgba(0, 0, 0, 0.3)
+					.select-item
+						margin-top 18rpx
+						&::after
+							content '\e64f'
+							font-size 48rpx
+							color rgba(0, 0, 0, 0.1)
+						&.item-active
+							&::after
+								color #07C160
+			.rights-and-interests-item:nth-child(odd)
+				margin-top 12rpx
 		&.my-only-equities
 			width 686rpx
 			margin 48rpx 32rpx 0

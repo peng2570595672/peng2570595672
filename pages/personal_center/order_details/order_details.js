@@ -1,13 +1,10 @@
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
 		mask: false,
 		wrapper: false,
-		isContinentInsurance: false, // 是否是大地保险
-		showWeiBao: true,
+		showAdvertising: true,
 		isServiceNotificationEntry: false,// 是否是服务通知进入
 		isRequest: false,// 是否请求
 		refundDetails: undefined,
@@ -21,21 +18,19 @@ Page({
 		if (app.globalData.billingDetails) {
 			this.setData({details: app.globalData.billingDetails});
 		} else {
-			this.setData({
-				isContinentInsurance: app.globalData.isContinentInsurance
-			});
 			if (options.id) {
 				this.setData({details: options});
 			}
 			if (!app.globalData.userInfo.accessToken) {
 				// 公众号模板推送/服务通知进入
-				mta.Event.stat('service_notifications_order_details',{});
+				wx.uma.trackEvent('order_details_for_notice');
 				this.setData({
 					isServiceNotificationEntry: true
 				});
 				this.login();
 			} else {
 				this.getBillDetail();
+				this.getContractMode();
 			}
 		}
 	},
@@ -43,11 +38,13 @@ Page({
 		if (app.globalData.billingDetails) {
 			this.setData({details: app.globalData.billingDetails});
 			this.getBillDetail();
+			this.getContractMode();
 		} else {
 			if (!app.globalData.userInfo.accessToken) {
 				this.login();
 			} else {
 				this.getBillDetail();
+				this.getContractMode();
 			}
 		}
 		if (app.globalData.splitDetails) {
@@ -58,7 +55,7 @@ Page({
 	},
 	hide () {
 		this.setData({
-			showWeiBao: false
+			showAdvertising: false
 		});
 	},
 	// 自动登录
@@ -115,6 +112,7 @@ Page({
 			util.hideLoading();
 			if (res.code === 0) {
 				app.globalData.myEtcList = res.data;
+				this.getContractMode();// 获取扣款方式
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -193,11 +191,11 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
+				res.data.flowVersion = 1;
 				this.setData({details: res.data});
 				if (this.data.requestRefundInfoNum > 0) return;
 				this.setData({requestRefundInfoNum: 1});
 				this.getBillRefundDetail();
-				this.getContractMode();// 获取扣款方式
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -274,21 +272,10 @@ Page({
 			this.getBillDetail();
 		}, app.globalData.userInfo.accessToken);
 	},
-	// 微保活动
-	goMicroInsurance () {
-		mta.Event.stat('order_details_weibao',{});
-		if (this.data.isServiceNotificationEntry) {
-			mta.Event.stat('order_details_service_notifications_weibao',{});
-		}
-		let list = app.globalData.myEtcList;
-		let orderId = '';
-		for (let item of list) {
-			if (item.vehPlates === this.data.details.vehPlates) {
-				orderId = item.id;
-				return;
-			}
-		}
-		util.getInsuranceOffer(orderId,'116.115.13');
+	// 点击广告位
+	onClickAdvertising () {
+		wx.uma.trackEvent(this.data.isServiceNotificationEntry === 1 ? 'order_details_for_advertising_to_notice' : 'order_details_for_advertising_to_normal');
+		util.go('/pages/separate_interest_package/index/index');
 	},
 	onUnload () {
 		app.globalData.billingDetails = undefined;

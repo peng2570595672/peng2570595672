@@ -1,7 +1,7 @@
 {
 	"navigationBarTitleText": "服务加购记录",
-	"navigationBarBackgroundColor": "#FAFAFA",
-	"backgroundColor": "#FAFAFA",
+	"navigationBarBackgroundColor": "#FFFFFF",
+	"backgroundColor": "#FFFFFF",
 	"navigationBarTextStyle": "black",
 	"usingComponents": {}
 }
