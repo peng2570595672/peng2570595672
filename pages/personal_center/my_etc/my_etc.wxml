@@ -24,7 +24,7 @@
                     {{item.selfStatus === 6 ? '待审核' : ''}}
                     {{item.selfStatus === 7 ? '审核不通过' : ''}}
                     {{item.selfStatus === 8 ? '审核不通过' : ''}}
-                    {{item.selfStatus === 9 ? '待签约高速' : ''}}
+                    {{item.selfStatus === 9 ? item.flowVersion === 2 ? '待签约高速' : '待签约银行' : ''}}
                     {{item.selfStatus === 10 ? '审核通过' : ''}}
                     {{item.selfStatus === 11 ? '待激活' : ''}}
                     {{item.selfStatus === 12 ? '已激活' : ''}}

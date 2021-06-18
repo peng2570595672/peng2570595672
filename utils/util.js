@@ -710,7 +710,7 @@ function getStatus(orderInfo) {
 	if (orderInfo.auditStatus === 9) {
 		return 8; // 高速核验不通过
 	}
-	if (orderInfo.auditStatus === 2 && orderInfo.flowVersion === 2 && orderInfo.hwContractStatus !== 1) {
+	if (orderInfo.auditStatus === 2 && (orderInfo.flowVersion === 2 || orderInfo.flowVersion === 3) && orderInfo.hwContractStatus !== 1) {
 		// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
 		return 9; // 审核通过,待签约高速
 	}

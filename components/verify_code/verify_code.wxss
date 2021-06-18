@@ -105,8 +105,9 @@
   color: #fff;
   border-radius: 8rpx;
   line-height: 82rpx;
-  background: #99999d;
+  background: #00b85c;
+  opacity: 0.6;
 }
 .verify_mask .verify_wrapper .verify-button > button.available {
-  background: #00b85c;
+  opacity: 1;
 }

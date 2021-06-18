@@ -27,7 +27,7 @@
             {{orderInfo.selfStatus === 5 ? '待签约' : ''}}
             {{orderInfo.selfStatus === 6 ? '待审核' : ''}}
             {{orderInfo.selfStatus === 7 || orderInfo.selfStatus === 8 ? '审核不通过' : ''}}
-            {{orderInfo.selfStatus === 9 ? '待签约高速' : ''}}
+            {{orderInfo.selfStatus === 9 ? orderInfo.flowVersion === 2 ? '待签约高速' : '待签约银行' : ''}}
             {{orderInfo.selfStatus === 10 ? '审核通过' : ''}}
             {{orderInfo.selfStatus === 11 ? '待激活' : ''}}
             {{orderInfo.selfStatus === 12 ? '已激活' : ''}}

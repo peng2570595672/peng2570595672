@@ -111,6 +111,10 @@ Component({
 		},
 		// 验证并 开户
 		async goVerify () {
+			if (this.data.verifyCode.length !== 6) {
+				util.showToastNoIcon('请输入6位数验证码');
+				return;
+			}
 			util.showLoading({
 				title: '请求中...'
 			});
@@ -121,7 +125,7 @@ Component({
 			});
 			if (!result) return;
 			if (result.code === 0) {
-				util.go(`/pages/default/choose_bank_and_bind_veh/index`);
+				util.go(`/pages/default/choose_bank_and_bind_veh/choose_bank_and_bind_veh`);
 			} else if (result.code === 105) {
 				this.setData({
 					certification: 0
