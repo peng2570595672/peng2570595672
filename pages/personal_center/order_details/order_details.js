@@ -30,6 +30,7 @@ Page({
 				this.login();
 			} else {
 				this.getBillDetail();
+				this.getContractMode();
 			}
 		}
 	},
@@ -37,11 +38,13 @@ Page({
 		if (app.globalData.billingDetails) {
 			this.setData({details: app.globalData.billingDetails});
 			this.getBillDetail();
+			this.getContractMode();
 		} else {
 			if (!app.globalData.userInfo.accessToken) {
 				this.login();
 			} else {
 				this.getBillDetail();
+				this.getContractMode();
 			}
 		}
 		if (app.globalData.splitDetails) {
@@ -109,6 +112,7 @@ Page({
 			util.hideLoading();
 			if (res.code === 0) {
 				app.globalData.myEtcList = res.data;
+				this.getContractMode();// 获取扣款方式
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -192,7 +196,6 @@ Page({
 				if (this.data.requestRefundInfoNum > 0) return;
 				this.setData({requestRefundInfoNum: 1});
 				this.getBillRefundDetail();
-				this.getContractMode();// 获取扣款方式
 			} else {
 				util.showToastNoIcon(res.message);
 			}
