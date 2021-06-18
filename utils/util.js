@@ -1214,7 +1214,7 @@ async function getListOfPackages (orderInfo, regionCode, notList) {
 		return;
 	}
 	const divideAndDivideList = list.filter(item => item.flowVersion === 1);// 分对分套餐
-	const alwaysToAlwaysList = list.filter(item => item.flowVersion === 2);// 总对总套餐
+	const alwaysToAlwaysList = list.filter(item => item.flowVersion === 2 || item.flowVersion === 3);// 总对总套餐
 	let type = !divideAndDivideList.length ? 2 : !alwaysToAlwaysList.length ? 1 : 0;
 	app.globalData.newPackagePageData = {
 		shopId: orderInfo.shopId || app.globalData.miniProgramServiceProvidersId,// 避免老流程没上传shopId

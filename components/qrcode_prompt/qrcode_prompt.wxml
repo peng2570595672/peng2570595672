@@ -1,0 +1,17 @@
+<view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}">
+	<view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}"  wx:if="{{mask}}">
+		<view class="alert-for-box">
+			<view class="top-content">
+				<view class="code">
+					<canvas catchtap="draw" style="width: 230rpx;height: 230rpx;" canvas-id='{{ canvasIdTmp }}' wx:if="{{ qrType == 0 }}" mode="widthFix" class="cav-img"/>
+					<image wx:else mode="widthFix" src='{{ qrUrl }}'  class="img"></image>
+				</view>
+			</view>
+			<view class="alert-prompt-title">{{ title }}</view>
+			<view class="alert-prompt-note">{{ note }}</view>
+			<view catchtap="hide" class="alert-for-button">
+				<text class="btn">{{ btnTitle }}</text>
+			</view>
+		</view>
+	</view>
+</view>

@@ -1,0 +1,247 @@
+@import "../../../style/base.styl";
+$yellowColor = #FFC300;
+.select_contract_bank
+	display flex
+	flex-direction column
+	padding-bottom 170rpx
+	min-height 100vh
+	.select_contract-content
+		display flex
+		flex-direction column
+		// 标题
+		.title
+			margin 32rpx
+			display flex
+			align-items center
+			height 56rpx
+			font-size 34rpx
+			font-weight 500
+			font-family PingFangSC-Medium, PingFang SC
+			color #000
+			&::before
+				margin-right 12rpx
+				content ''
+				width 8rpx
+				height 44rpx
+				background #2FB565
+		// 办理方式
+		.check_item
+			display flex
+			height 152rpx
+			align-items center
+			border-radius 16rpx
+			margin 0rpx 32rpx 32rpx
+			background #F6F6F6
+			.name
+				flex 1
+				.top
+					font-size 28rpx
+					font-family: PingFangSC-Regular, PingFang SC
+					font-weight: 400
+					line-height 40rpx
+					color rgba(0, 0, 0, .9)
+				.bottom
+					font-size 24rpx
+					line-height 40rpx
+					color rgba(0, 0, 0, .5)
+			.choice
+				display flex
+				justify-content center
+				width 98rpx
+				font-size 24rpx
+				color #526C99
+				margin-right 32rpx
+				&.select-success
+					&::after
+						content '\e669'
+						font-size 37rpx
+						color #07C160
+			image
+				flex 0 0 78rpx
+				width 48rpx
+				height 48.02rpx
+				margin-left 32rpx
+				margin-right 12rpx
+		.empty
+			height: 20rpx;
+			background: #FAFAFA;
+		.related-service-title
+			display flex
+			height 44rpx
+			margin 32rpx 32rpx 0rpx 32rpx
+			align-items center
+			color rgba(0, 0, 0, 0.6)
+			font-size 28rpx
+			.tips
+				color $yellowColor
+				font-size 18rpx
+				margin-top -20rpx
+				margin-left 8rpx
+			&::before
+				margin-right 8rpx
+				content ''
+				width 8rpx
+				height 44rpx
+				background #2FB565
+		.basic-service-list
+			display flex
+			flex-wrap wrap
+			margin-left 60rpx
+			&.feature-service
+				margin-bottom 32rpx
+			& > view
+				margin-top 32rpx
+			.basic-service-item
+				width 50%
+				display flex
+				height 40rpx
+				align-items center
+				color rgba(0, 0, 0, 0.5)
+				font-size 24rpx
+				.logo
+					display flex
+					height 40rpx
+					align-items center
+					&::before
+						font-size 32rpx
+						color #2FB565
+						margin-right 8rpx
+					&.service_of_etc
+						&::before
+							content '\e683'
+					&.service_of_equipment
+						&::before
+							content '\e67c'
+					&.service_of_invoice
+						&::before
+							content '\e685'
+					&.service_of_discount
+						&::before
+							content '\e67a'
+					&.service_of_oil
+						&::before
+							color #FA5151
+							content '\e680'
+					&.service_of_integral
+						&::before
+							color #FFC300
+							font-size 200rpx
+							content '\e690'
+				image
+					width 40rpx
+					margin-right 8rpx
+				.tips
+					color $yellowColor
+					font-size 18rpx
+					margin-top -20rpx
+					margin-left 8rpx
+				&.bank
+					image
+						width 268rpx
+						height 78rpx
+		// 权益选择
+		.rights-and-interests
+			width 686rpx
+			margin 48rpx 32rpx 44rpx 32rpx
+			box-sizing border-box
+			.rights-and-interests-header
+				display flex
+				height 48rpx
+				align-items center
+				font-size 34rpx
+				color rgba(0, 0, 0, 0.9)
+				&::before
+					margin-right 8rpx
+					content ''
+					width 8rpx
+					height 44rpx
+					background #2FB565
+			.rights-and-interests-list
+				margin-top 32rpx
+				position relative
+				.label-img
+					position absolute
+					top -18rpx
+					z-index 2
+					width 174rpx
+					height 36rpx
+				.rights-and-interests-item
+					width 100%
+					position relative
+					display flex
+					align-items center
+					height 174rpx
+					background rgba(244, 244, 244, 0.5)
+					&::before,
+					&::after
+						position absolute
+						top 50%
+						display inline-block
+						width 32rpx
+						height 32rpx
+						content ''
+						border-radius 50%
+						background-color #fff
+						transform translateY(-50%)
+					&::before
+						left -22rpx
+					&::after
+						left  auto
+						right -22rpx
+					.left
+						margin 32rpx 54rpx
+						& > image
+							width 144rpx
+							height 104rpx
+					.middle
+						flex 1
+						display flex
+						flex-direction column
+						.item-title
+							color #000000
+							font-size: 28rpx;
+							font-family: PingFangSC-Regular, PingFang SC;
+							font-weight: 400;
+							line-height 40rpx
+						.item-price
+							margin-top 12rpx
+							color #00B85C
+							font-size 34rpx
+							line-height 48rpx
+					.right
+						margin-right 70rpx
+						.select-item
+							margin-top 18rpx
+							&::after
+								content '\e64f'
+								font-size 48rpx
+								color rgba(0, 0, 0, 0.1)
+							&.active
+								&::after
+									color #07C160
+				.rights-and-interests-item:nth-child(odd)
+					margin-top 12rpx
+			&.my-only-equities
+				width 686rpx
+				margin 48rpx 32rpx 0
+		// 下一步
+		.next
+			position fixed
+			bottom 0
+			width 100%
+			height 160rpx
+			.btn
+				width 650rpx
+				height 96rpx
+				line-height 96rpx
+				font-size 36rpx
+				font-family PingFangSC-Medium, PingFang SC
+				font-weight 500
+				color #FFFFFF
+				text-align center
+				background linear-gradient(132deg, #16AD69 0%, #82D057 100%)
+				border-radius 48rpx
+				margin-top 20rpx
+				&.unavailable
+					opacity .6
+

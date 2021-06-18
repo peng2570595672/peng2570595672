@@ -1,0 +1,284 @@
+.select_contract_bank {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 170rpx;
+  min-height: 100vh;
+}
+.select_contract_bank .select_contract-content {
+  display: flex;
+  flex-direction: column;
+}
+.select_contract_bank .select_contract-content .title {
+  margin: 32rpx;
+  display: flex;
+  align-items: center;
+  height: 56rpx;
+  font-size: 34rpx;
+  font-weight: 500;
+  font-family: PingFangSC-Medium, PingFang SC;
+  color: #000;
+}
+.select_contract_bank .select_contract-content .title::before {
+  margin-right: 12rpx;
+  content: '';
+  width: 8rpx;
+  height: 44rpx;
+  background: #2fb565;
+}
+.select_contract_bank .select_contract-content .check_item {
+  display: flex;
+  height: 152rpx;
+  align-items: center;
+  border-radius: 16rpx;
+  margin: 0rpx 32rpx 32rpx;
+  background: #f6f6f6;
+}
+.select_contract_bank .select_contract-content .check_item .name {
+  flex: 1;
+}
+.select_contract_bank .select_contract-content .check_item .name .top {
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  line-height: 40rpx;
+  color: rgba(0,0,0,0.9);
+}
+.select_contract_bank .select_contract-content .check_item .name .bottom {
+  font-size: 24rpx;
+  line-height: 40rpx;
+  color: rgba(0,0,0,0.5);
+}
+.select_contract_bank .select_contract-content .check_item .choice {
+  display: flex;
+  justify-content: center;
+  width: 98rpx;
+  font-size: 24rpx;
+  color: #526c99;
+  margin-right: 32rpx;
+}
+.select_contract_bank .select_contract-content .check_item .choice.select-success::after {
+  content: '\e669';
+  font-size: 37rpx;
+  color: #07c160;
+}
+.select_contract_bank .select_contract-content .check_item image {
+  flex: 0 0 78rpx;
+  width: 48rpx;
+  height: 48.02rpx;
+  margin-left: 32rpx;
+  margin-right: 12rpx;
+}
+.select_contract_bank .select_contract-content .empty {
+  height: 20rpx;
+  background: #fafafa;
+}
+.select_contract_bank .select_contract-content .related-service-title {
+  display: flex;
+  height: 44rpx;
+  margin: 32rpx 32rpx 0rpx 32rpx;
+  align-items: center;
+  color: rgba(0,0,0,0.6);
+  font-size: 28rpx;
+}
+.select_contract_bank .select_contract-content .related-service-title .tips {
+  color: #ffc300;
+  font-size: 18rpx;
+  margin-top: -20rpx;
+  margin-left: 8rpx;
+}
+.select_contract_bank .select_contract-content .related-service-title::before {
+  margin-right: 8rpx;
+  content: '';
+  width: 8rpx;
+  height: 44rpx;
+  background: #2fb565;
+}
+.select_contract_bank .select_contract-content .basic-service-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 60rpx;
+}
+.select_contract_bank .select_contract-content .basic-service-list.feature-service {
+  margin-bottom: 32rpx;
+}
+.select_contract_bank .select_contract-content .basic-service-list > view {
+  margin-top: 32rpx;
+}
+.select_contract_bank .select_contract-content .basic-service-list .basic-service-item {
+  width: 50%;
+  display: flex;
+  height: 40rpx;
+  align-items: center;
+  color: rgba(0,0,0,0.5);
+  font-size: 24rpx;
+}
+.select_contract_bank .select_contract-content .basic-service-list .basic-service-item .logo {
+  display: flex;
+  height: 40rpx;
+  align-items: center;
+}
+.select_contract_bank .select_contract-content .basic-service-list .basic-service-item .logo::before {
+  font-size: 32rpx;
+  color: #2fb565;
+  margin-right: 8rpx;
+}
+.select_contract_bank .select_contract-content .basic-service-list .basic-service-item .logo.service_of_etc::before {
+  content: '\e683';
+}
+.select_contract_bank .select_contract-content .basic-service-list .basic-service-item .logo.service_of_equipment::before {
+  content: '\e67c';
+}
+.select_contract_bank .select_contract-content .basic-service-list .basic-service-item .logo.service_of_invoice::before {
+  content: '\e685';
+}
+.select_contract_bank .select_contract-content .basic-service-list .basic-service-item .logo.service_of_discount::before {
+  content: '\e67a';
+}
+.select_contract_bank .select_contract-content .basic-service-list .basic-service-item .logo.service_of_oil::before {
+  color: #fa5151;
+  content: '\e680';
+}
+.select_contract_bank .select_contract-content .basic-service-list .basic-service-item .logo.service_of_integral::before {
+  color: #ffc300;
+  font-size: 200rpx;
+  content: '\e690';
+}
+.select_contract_bank .select_contract-content .basic-service-list .basic-service-item image {
+  width: 40rpx;
+  margin-right: 8rpx;
+}
+.select_contract_bank .select_contract-content .basic-service-list .basic-service-item .tips {
+  color: #ffc300;
+  font-size: 18rpx;
+  margin-top: -20rpx;
+  margin-left: 8rpx;
+}
+.select_contract_bank .select_contract-content .basic-service-list .basic-service-item.bank image {
+  width: 268rpx;
+  height: 78rpx;
+}
+.select_contract_bank .select_contract-content .rights-and-interests {
+  width: 686rpx;
+  margin: 48rpx 32rpx 44rpx 32rpx;
+  box-sizing: border-box;
+}
+.select_contract_bank .select_contract-content .rights-and-interests .rights-and-interests-header {
+  display: flex;
+  height: 48rpx;
+  align-items: center;
+  font-size: 34rpx;
+  color: rgba(0,0,0,0.9);
+}
+.select_contract_bank .select_contract-content .rights-and-interests .rights-and-interests-header::before {
+  margin-right: 8rpx;
+  content: '';
+  width: 8rpx;
+  height: 44rpx;
+  background: #2fb565;
+}
+.select_contract_bank .select_contract-content .rights-and-interests .rights-and-interests-list {
+  margin-top: 32rpx;
+  position: relative;
+}
+.select_contract_bank .select_contract-content .rights-and-interests .rights-and-interests-list .label-img {
+  position: absolute;
+  top: -18rpx;
+  z-index: 2;
+  width: 174rpx;
+  height: 36rpx;
+}
+.select_contract_bank .select_contract-content .rights-and-interests .rights-and-interests-list .rights-and-interests-item {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 174rpx;
+  background: rgba(244,244,244,0.5);
+}
+.select_contract_bank .select_contract-content .rights-and-interests .rights-and-interests-list .rights-and-interests-item::before,
+.select_contract_bank .select_contract-content .rights-and-interests .rights-and-interests-list .rights-and-interests-item::after {
+  position: absolute;
+  top: 50%;
+  display: inline-block;
+  width: 32rpx;
+  height: 32rpx;
+  content: '';
+  border-radius: 50%;
+  background-color: #fff;
+  transform: translateY(-50%);
+}
+.select_contract_bank .select_contract-content .rights-and-interests .rights-and-interests-list .rights-and-interests-item::before {
+  left: -22rpx;
+}
+.select_contract_bank .select_contract-content .rights-and-interests .rights-and-interests-list .rights-and-interests-item::after {
+  left: auto;
+  right: -22rpx;
+}
+.select_contract_bank .select_contract-content .rights-and-interests .rights-and-interests-list .rights-and-interests-item .left {
+  margin: 32rpx 54rpx;
+}
+.select_contract_bank .select_contract-content .rights-and-interests .rights-and-interests-list .rights-and-interests-item .left > image {
+  width: 144rpx;
+  height: 104rpx;
+}
+.select_contract_bank .select_contract-content .rights-and-interests .rights-and-interests-list .rights-and-interests-item .middle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.select_contract_bank .select_contract-content .rights-and-interests .rights-and-interests-list .rights-and-interests-item .middle .item-title {
+  color: #000;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  line-height: 40rpx;
+}
+.select_contract_bank .select_contract-content .rights-and-interests .rights-and-interests-list .rights-and-interests-item .middle .item-price {
+  margin-top: 12rpx;
+  color: #00b85c;
+  font-size: 34rpx;
+  line-height: 48rpx;
+}
+.select_contract_bank .select_contract-content .rights-and-interests .rights-and-interests-list .rights-and-interests-item .right {
+  margin-right: 70rpx;
+}
+.select_contract_bank .select_contract-content .rights-and-interests .rights-and-interests-list .rights-and-interests-item .right .select-item {
+  margin-top: 18rpx;
+}
+.select_contract_bank .select_contract-content .rights-and-interests .rights-and-interests-list .rights-and-interests-item .right .select-item::after {
+  content: '\e64f';
+  font-size: 48rpx;
+  color: rgba(0,0,0,0.1);
+}
+.select_contract_bank .select_contract-content .rights-and-interests .rights-and-interests-list .rights-and-interests-item .right .select-item.active::after {
+  color: #07c160;
+}
+.select_contract_bank .select_contract-content .rights-and-interests .rights-and-interests-list .rights-and-interests-item:nth-child(odd) {
+  margin-top: 12rpx;
+}
+.select_contract_bank .select_contract-content .rights-and-interests.my-only-equities {
+  width: 686rpx;
+  margin: 48rpx 32rpx 0;
+}
+.select_contract_bank .select_contract-content .next {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 160rpx;
+}
+.select_contract_bank .select_contract-content .next .btn {
+  width: 650rpx;
+  height: 96rpx;
+  line-height: 96rpx;
+  font-size: 36rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+  background: linear-gradient(132deg, #16ad69 0%, #82d057 100%);
+  border-radius: 48rpx;
+  margin-top: 20rpx;
+}
+.select_contract_bank .select_contract-content .next .btn.unavailable {
+  opacity: 0.6;
+}

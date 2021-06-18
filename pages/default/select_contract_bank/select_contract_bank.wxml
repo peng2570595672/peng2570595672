@@ -1,0 +1,62 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<view class="select_contract_bank">
+	<view class="select_contract-content">
+		<!--扣款方式标题开始-->
+		<view class="title">请选择通行费代扣银行</view>
+		<!--扣款方式标题结束-->
+		<view wx:if="{{listOfPackages.length}}" wx:for="{{ listOfPackages }}" wx:key="index" class="check_item" data-id="{{item.id}}" data-index="{{index}}" catchtap="chooseBank">
+			<image src="{{item.productLogo}}"/>
+			<view class="name">
+				<view class="top">{{ item.productName }}</view>
+				<view class="bottom">{{ item.fullName }}</view>
+			</view>
+			<view class="choice iconfont {{choiceIndex === index ? 'select-success' : ''}}">{{choiceIndex === index ? '' : '点击选择'}}</view>
+		</view>
+		<view class="empty"></view>
+		<view class="related-service-title">
+			<view>基础服务</view>
+			<view class="tips">价值158元</view>
+		</view>
+		<view class="basic-service-list">
+			<view class="basic-service-item" wx:for="{{basicServiceList}}" wx:key="index">
+				<!--                            <image src="{{item.logo}}" mode="widthFix"></image>-->
+				<view class="iconfont logo {{item.ico}}">{{item.title}}</view>
+				<view class="tips">{{item.tips}}</view>
+			</view>
+		</view>
+		<!--权益选择开始-->
+		<view wx:if="{{rightsAndInterestsList.length}}"
+		      class="rights-and-interests {{listOfPackages.length === 1 ? 'my-only-equities' : ''}}">
+			<view class="rights-and-interests-header">推荐加购</view>
+			<view class="rights-and-interests-list">
+				<image class="label-img" src="/pages/default/assets/icon_label.png" mode="widthFix"></image>
+				<view wx:for="{{rightsAndInterestsList}}" wx:key="index"
+				      class="rights-and-interests-item iconfont {{activeEquitiesIndex === index ? 'item-active' : ''}}"
+				      catchtap="showRightsAndInterests" data-index="{{index}}">
+					<view class="left">
+						<image src="/pages/default/assets/equities_of_coupons.png" mode="widthFix"></image>
+					</view>
+					<view class="middle">
+						<view class="item-title">{{item.packageName}}</view>
+						<view class="item-price">¥{{tools.parseNum(item.payMoney/100)}}</view>
+					</view>
+					<view class="right">
+						<view class="item-detail">详情</view>
+						<view class="select-item iconfont"></view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<!--权益选择结束-->
+		<!--下一步开始-->
+		<view class="next">
+			<button class="btn {{choiceIndex === -1 || (listOfPackages[activeIndex].mustChoiceRightsPackage === 1 && activeEquitiesIndex === -1) ? 'unavailable' : ''}}" catchtap="next"
+			        wx:if="{{choiceIndex !== -1 && listOfPackages[activeIndex].pledgePrice || (activeEquitiesIndex !== -1 && rightsAndInterestsList[activeEquitiesIndex].payMoney)}}">
+				确认支付{{activeEquitiesIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + rightsAndInterestsList[activeEquitiesIndex].payMoney)/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}元
+			</button>
+			<button class="btn {{choiceIndex === -1 ? 'unavailable' : ''}}" catchtap="next" wx:else>下一步</button>
+		</view>
+		<!--下一步结束-->
+	</view>
+</view>
+

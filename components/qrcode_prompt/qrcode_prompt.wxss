@@ -1,0 +1,190 @@
+.animated {
+  -webkit-animation-duration: 0.4s;
+  animation-duration: 0.4s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+}
+@-webkit-keyframes zoomIn {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.zoomIn {
+  -webkit-animation-name: zoomIn;
+  animation-name: zoomIn;
+}
+@-webkit-keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  to {
+    opacity: 0;
+  }
+}
+.zoomOut {
+  -webkit-animation-name: zoomOut;
+  animation-name: zoomOut;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  to {
+    opacity: 0;
+  }
+}
+.alert-for-not-finished {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 10000;
+}
+.alert-for-not-finished .alert-for-not-finished-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 37%;
+  transform: translate(0, -50%);
+  width: 640rpx;
+  height: 644rpx;
+  background: #fff;
+  box-shadow: 4rpx 12rpx 56rpx 0px rgba(102,102,109,0.19);
+  border-radius: 32rpx;
+  margin: 0 auto;
+  z-index: 2;
+}
+.alert-for-not-finished .alert-for-not-finished-content .alert-for-box {
+  height: 644rpx;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 2;
+  color: #33333d;
+  background: #fff;
+  border-radius: 20rpx;
+  text-align: center;
+  font-size: 40rpx;
+  font-weight: 500;
+  font-family: PingFangSC-Medium, PingFang SC;
+}
+.alert-for-not-finished .alert-for-not-finished-content .alert-for-box .top-content {
+  padding: 48rpx;
+  padding-bottom: 32rpx;
+}
+.alert-for-not-finished .alert-for-not-finished-content .alert-for-box .top-content .code {
+  background: #e7e7e7;
+  margin: 0 auto;
+  width: 314rpx;
+  height: 314rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.alert-for-not-finished .alert-for-not-finished-content .alert-for-box .top-content .code .img {
+  margin-top: 42rpx;
+  width: 230rpx;
+  height: 230rpx;
+}
+.alert-for-not-finished .alert-for-not-finished-content .alert-for-box .top-content .code .cav-img {
+  width: 230rpx;
+  height: 230rpx;
+  margin: auto;
+  margin-top: 42rpx;
+}
+.alert-for-not-finished .alert-for-not-finished-content .alert-for-box .alert-prompt-title {
+  color: #ffc000;
+  font-weight: 400;
+  font-size: 28rpx;
+  letter-spacing: 2rpx;
+}
+.alert-for-not-finished .alert-for-not-finished-content .alert-for-box .alert-prompt-note {
+  color: #ffc000;
+  line-height: 40rpx;
+  font-weight: 400;
+  font-size: 28rpx;
+}
+.alert-for-not-finished .alert-for-not-finished-content .alert-for-box .alert-for-button {
+  width: 240rpx;
+  justify-content: center;
+  font-size: 28rpx;
+  height: 82rpx;
+  margin: 0 auto;
+  border-radius: 8rpx;
+  background: #00b85c;
+  line-height: 82rpx;
+  margin-top: 64rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+}
+.alert-for-not-finished .alert-for-not-finished-content .alert-for-box .alert-for-button .btn {
+  display: inline-block;
+  color: #fff;
+}

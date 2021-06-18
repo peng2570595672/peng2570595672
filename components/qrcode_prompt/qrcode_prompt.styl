@@ -1,0 +1,80 @@
+@import "animate.styl";
+.alert-for-not-finished
+	position: fixed
+	left: 0
+	right: 0
+	top: 0
+	bottom: 0
+	background: rgba(0, 0, 0, 0.6)
+	z-index: 10000
+	.alert-for-not-finished-content
+		position absolute
+		left 0
+		right 0
+		top 37%
+		transform translate(0, -50%)
+		width 640rpx
+		height 644rpx
+		background rgba(255,255,255,1)
+		box-shadow 4rpx 12rpx 56rpx 0px rgba(102,102,109,0.19)
+		border-radius 32rpx
+		margin 0 auto
+		z-index 2
+		.alert-for-box
+			height 644rpx
+			bottom 0
+			left 0
+			right 0
+			margin auto
+			z-index 2
+			color #33333d
+			background #fff
+			border-radius 20rpx
+			text-align center
+			font-size 40rpx
+			font-weight 500
+			font-family PingFangSC-Medium,PingFang SC
+			.top-content
+				padding 48rpx
+				padding-bottom 32rpx
+				.code
+					background rgba(231, 231, 231, 1)
+					margin 0 auto
+					width 314rpx
+					height 314rpx
+					display flex
+					align-items center
+					justify-content center
+					.img
+						margin-top 42rpx
+						width 230rpx
+						height 230rpx
+					.cav-img
+						width 230rpx
+						height 230rpx
+						margin auto
+						margin-top 42rpx
+			.alert-prompt-title
+				color rgba(255, 192, 0, 1)
+				font-weight 400
+				font-size 28rpx
+				letter-spacing 2rpx
+			.alert-prompt-note
+				color rgba(255, 192, 0, 1)
+				line-height 40rpx
+				font-weight 400
+				font-size 28rpx
+			.alert-for-button
+				width 240rpx
+				justify-content center
+				font-size 28rpx
+				height 82rpx
+				margin 0 auto
+				border-radius 8rpx
+				background rgba(0, 184, 92, 1)
+				line-height 82rpx
+				margin-top 64rpx
+				font-family: PingFangSC-Regular, PingFang SC
+				.btn
+					display inline-block
+					color rgba(255, 255, 255, 1)

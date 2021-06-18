@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "选择银行",
+  "usingComponents": {
+    "qrcode-prompt": "/components/qrcode_prompt/qrcode_prompt"
+  }
+}

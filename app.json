@@ -67,7 +67,11 @@
         "characteristic_service/characteristic_service",
         "coupon_redemption_centre/coupon_redemption_centre",
         "coupon_redemption_history/coupon_redemption_history",
-        "service_purchase_record/service_purchase_record"
+        "service_purchase_record/service_purchase_record",
+        "pages/default/bind_withhold/bind_withhold",
+        "pages/default/choose_bank_and_bind_veh/choose_bank_and_bind_veh",
+        "pages/default/select_contract_bank/select_contract_bank",
+        "pages/default/prefer_purchase/index"
       ]
     },
     {
