@@ -67,7 +67,7 @@ Page({
 			choiceIndex: index
 		});
 		let obj = this.data.listOfPackages[index];
-		await this.getList(obj);
+		if (obj?.rightsPackageIds?.length) await this.getList(obj);
 	},
 	// 选择权益
 	onClickDetailsHandle (e) {

@@ -10,6 +10,7 @@ const app = getApp();
 let timer;
 Page({
 	data: {
+		isShowCodeInput: true,// 是否显示验证码输入框
 		vehPlates: undefined,
 		faceStatus: 1, // 1 未上传  2 识别中  3 识别失败  4识别成功
 		backStatus: 1, // 1 未上传  2 识别中  3 识别失败  4识别成功
@@ -112,6 +113,7 @@ Page({
 				idCardBack.ocrObject.validDate = temp.idCardValidDate;
 				idCardBack.fileUrl = temp.idCardNegativeUrl;
 				this.setData({
+					isShowCodeInput: !this.data.orderInfo.ownerIdCard.cardMobilePhone,
 					oldName: idCardFace.ocrObject.name,
 					oldIdNumber: idCardFace.ocrObject.idNumber,
 					idCardFace,
@@ -158,6 +160,9 @@ Page({
 		}
 		// 手机号没有更改不需要重新获取验证码
 		if (this.data.formData.cardMobilePhone !== this.data.orderInfo.ownerIdCard.cardMobilePhone) {
+			this.setData({
+				isShowCodeInput: true
+			});
 			if (!this.data.formData.verifyCode) {
 				if (isToast) util.showToastNoIcon('验证码不能为空！');
 				return false;
@@ -193,11 +198,8 @@ Page({
 		// ocr返回的是 男女  接口是 1 2
 		if (this.data.idCardFace.ocrObject.sex === '男') this.data.idCardFace.ocrObject.sex = 1;
 		if (this.data.idCardFace.ocrObject.sex === '女') this.data.idCardFace.ocrObject.sex = 2;
-		let notVerifyCardPhone = false;
 		// 手机号没有更改不需要重新获取验证码
-		if (this.data.formData.cardMobilePhone === this.data.orderInfo.ownerIdCard.cardMobilePhone) {
-			notVerifyCardPhone = true;
-		}
+		let notVerifyCardPhone = this.data.formData.cardMobilePhone === this.data.orderInfo.ownerIdCard.cardMobilePhone ? 'true' : 'false';
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: '48', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息

@@ -87,13 +87,6 @@
 			       bindinput="onInputChangedHandle" data-key="telNumber"
 			/>
 		</view>
-		<view class="input-item">
-			<view>验证码</view>
-			<input type="number" placeholder="输入验证码" placeholder-class="placeholder" value="{{formData.verifyCode}}"
-			       bindinput="onInputChangedHandle" data-key="verifyCode"
-			/>
-			<text class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} {{mobilePhoneIsOk ? 'ok' : ''}}" bindtap="sendVerifyCode">{{identifyingCode}}</text>
-		</view>
 	</view>
 	<!--	输入结束-->
 	<view class="fill"></view>

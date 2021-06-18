@@ -54,7 +54,7 @@
 		               bindinput="onInputChangedHandle" data-key="cardMobilePhone"
 		        />
 	        </view>
-	        <view class="input-item">
+	        <view class="input-item" wx:if="{{isShowCodeInput}}">
 		        <view>验证码</view>
 		        <input type="number" placeholder="输入短信验证码" placeholder-class="placeholder" value="{{formData.verifyCode}}"
 		               bindinput="onInputChangedHandle" data-key="verifyCode"

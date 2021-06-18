@@ -55,8 +55,13 @@
                             <view>{{item.title}}</view>
                         </view>
                     </view>
-                    <view class="related-service-title" wx:if="{{item.flowVersion === 2}}">支持绑定以下银行卡</view>
+                    <view class="related-service-title" wx:if="{{item.flowVersion === 2 || item.flowVersion === 3}}">支持绑定以下银行卡</view>
                     <view class="basic-service-list" wx:if="{{item.flowVersion === 2}}">
+                        <view class="basic-service-item bank">
+                            <image src="/pages/default/assets/ccb.svg" mode="widthFix"></image>
+                        </view>
+                    </view>
+                    <view class="basic-service-list" wx:if="{{item.flowVersion === 3}}">
                         <view class="basic-service-item bank">
                             <image src="/pages/default/assets/ccb.svg" mode="widthFix"></image>
                         </view>

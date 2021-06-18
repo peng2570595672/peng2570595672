@@ -6,8 +6,6 @@ const util = require('../../../utils/util.js');
 // 数据统计
 let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
-// 倒计时计时器
-let timer;
 Page({
 	data: {
 		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
@@ -16,9 +14,6 @@ Page({
 		carNoStr: '', // 车牌字符串
 		carNo: ['', '', '', '', '', '', '', ''], // 车牌对应的数组
 		mobilePhoneIsOk: false,
-		identifyingCode: '获取验证码',
-		time: 59,// 倒计时
-		isGetIdentifyingCoding: false, // 获取验证码中
 		getAgreement: false, // 是否接受协议
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
@@ -31,8 +26,7 @@ Page({
 			regionCode: [], // 省份编码
 			userName: '', // 收货人姓名
 			telNumber: '', // 电话号码
-			detailInfo: '', // 收货地址详细信息
-			verifyCode: '' // 验证码
+			detailInfo: '' // 收货地址详细信息
 		} // 提交数据
 	},
 	onLoad (options) {
@@ -139,7 +133,7 @@ Page({
 			receiveCity: formData.region[1], // 收货人城市 【dataType包含2】
 			receiveCounty: formData.region[2], // 收货人区县 【dataType包含2】
 			receiveAddress: formData.detailInfo, // 收货人详细地址 【dataType包含2】
-			receivePhoneCode: formData.verifyCode // 收货人手机号验证码, 手机号没有修改时不需要 【dataType包含2】
+			notVerifyReceivePhone: true // true 时不需要验证码
 		};
 		if (app.globalData.otherPlatformsServiceProvidersId) {
 			params['shopId'] = app.globalData.otherPlatformsServiceProvidersId;
@@ -530,60 +524,6 @@ Page({
 			util.showToastNoIcon('获取地理位置信息失败！');
 		});
 	},
-	// 倒计时
-	startTimer () {
-		// 设置状态
-		this.setData({
-			identifyingCode: `${this.data.time}s`
-		});
-		// 清倒计时
-		clearInterval(timer);
-		timer = setInterval(() => {
-			this.setData({time: --this.data.time});
-			if (this.data.time === 0) {
-				clearInterval(timer);
-				this.setData({
-					time: 59,
-					isGetIdentifyingCoding: false,
-					identifyingCode: '重新获取'
-				});
-			} else {
-				this.setData({
-					identifyingCode: `${this.data.time}s`
-				});
-			}
-		}, 1000);
-	},
-	// 发送短信验证码
-	async sendVerifyCode () {
-		if (this.data.isGetIdentifyingCoding) return;
-		// 如果在倒计时，直接不处理
-		if (!this.data.formData.telNumber) {
-			util.showToastNoIcon('请输入手机号');
-			return;
-		} else if (!/^1[0-9]{10}$/.test(this.data.formData.telNumber)) {
-			util.showToastNoIcon('手机号输入不合法');
-			return;
-		}
-		this.setData({
-			isGetIdentifyingCoding: true
-		});
-		util.showLoading({
-			title: '请求中...'
-		});
-		const result = await util.getDataFromServersV2('consumer/order/send-receive-phone-verification-code', {
-			receivePhone: this.data.formData.telNumber // 手机号
-		}, 'GET');
-		if (!result) return;
-		if (result.code === 0) {
-			this.startTimer();
-		} else {
-			this.setData({
-				isGetIdentifyingCoding: false
-			});
-			util.showToastNoIcon(result.message);
-		}
-	},
 	// 输入框输入值
 	onInputChangedHandle (e) {
 		let key = e.currentTarget.dataset.key;
@@ -596,8 +536,6 @@ Page({
 		}
 		if (key === 'telNumber' && e.detail.value.length > 11) {
 			formData[key] = e.detail.value.substring(0, 11);
-		} else if (key === 'verifyCode' && e.detail.value.length > 4) { // 验证码
-			formData[key] = e.detail.value.substring(0, 4);
 		} else {
 			formData[key] = e.detail.value;
 		}
@@ -607,13 +545,6 @@ Page({
 		this.setData({
 			available: this.validateAvailable()
 		});
-		if (e.detail.value.length === 4 && key === 'verifyCode') {
-			wx.hideKeyboard({
-				complete: res => {
-					console.log('hideKeyboard res', res);
-				}
-			});
-		}
 	},
 	// 是否接受协议
 	onClickAgreementHandle () {
@@ -667,8 +598,6 @@ Page({
 		isOk = isOk && formData.detailInfo && formData.detailInfo.length >= 2;
 		// 检验手机号码
 		isOk = isOk && formData.telNumber && /^1[0-9]{10}$/.test(formData.telNumber);
-		// 校验验证码
-		isOk = isOk && formData.verifyCode && /^[0-9]{4}$/.test(formData.verifyCode);
 		return isOk;
 	},
 	// 点击添加新能源
