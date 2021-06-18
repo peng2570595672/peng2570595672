@@ -53,15 +53,7 @@ Page({
 			`}
 		]
 	},
-	onLoad (options) {
-		let details = JSON.parse(options.details);
-		if (details.channelTips.tips1) {
-			details.channelTips.tips1 = details.channelTips.tips1.split('，');
-		}
-		this.setData({
-			details: details
-		});
-		this.getComplaintDetails();
+	onLoad () {
 	},
 	callHotLine (e) {
 		let model = e.currentTarget.dataset.model;
@@ -77,34 +69,5 @@ Page({
 			activeIndex,
 			problemList: this.data.problemList
 		});
-	},
-	// 通过账单id获取账单申诉详情
-	getComplaintDetails () {
-		util.showLoading();
-		let params = {
-			billId: this.data.details.id
-		};
-		util.getDataFromServer('consumer/etc/get-bill-complain-by-bill-id', params, () => {
-			util.showToastNoIcon('获取账单申诉详情失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				this.setData({
-					isComplaintDetails: res.data ? true : false
-				});
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-		});
-	},
-	// 去申诉
-	go () {
-		if (this.data.isComplaintDetails) {
-			let model = this.data.details;
-			util.go(`/pages/personal_center/complaint_details/complaint_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
-		} else {
-			util.go('/pages/personal_center/order_complaint/order_complaint?details=' + JSON.stringify(this.data.details));
-		}
 	}
 });
