@@ -664,7 +664,8 @@ function getTruckHandlingStatus(orderInfo) {
 	if (orderInfo.auditStatus === 2 && orderInfo.holdStatus === 0) {
 		return 15;// 未冻结保证金成功
 	}
-	if (orderInfo.auditStatus === 2 && orderInfo.flowVersion === 2 && orderInfo.hwContractStatus !== 1) {
+	console.log(orderInfo)
+	if (orderInfo.auditStatus === 2 && (orderInfo.flowVersion === 2 || orderInfo.flowVersion === 3) && orderInfo.hwContractStatus !== 1) {
 		// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
 		return 9; // 审核通过,待签约高速
 	}

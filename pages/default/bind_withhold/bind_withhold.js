@@ -103,7 +103,7 @@ Page({
 			orderId: app.globalData.orderInfo.orderId,
 			signChannelId: this.data.signChannelId,
 			signType: this.data.signType,
-			code: this.data.numberNo
+			code: this.data.numberNo.join('')
 		});
 		if (!result) return;
 		this.setData({

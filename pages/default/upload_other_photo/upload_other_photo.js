@@ -50,10 +50,10 @@ Page({
 			if (isToast) util.showToastNoIcon('请上传车头照！');
 			return false;
 		}
-		if (this.data.headstock.ocrObject.plateNumber !== this.data.vehPlates) {
-			if (isToast) util.showToastNoIcon(`当前车头照识别的车牌号与${this.data.vehPlates}不一致，请重新上传`);
-			return;
-		}
+		// if (this.data.headstock.ocrObject.plateNumber !== this.data.vehPlates) {
+		// 	if (isToast) util.showToastNoIcon(`当前车头照识别的车牌号与${this.data.vehPlates}不一致，请重新上传`);
+		// 	return;
+		// }
 		return true;
 	},
 	// 获取订单信息
@@ -136,13 +136,13 @@ Page({
 					if (res.code === 0) { // 识别成功
 						app.globalData.handlingOCRType = 0;
 						try {
-							if (res.data[0].ocrObject.plateNumber !== this.data.vehPlates) {
-								this.setData({
-									faceStatus: 3
-								});
-								util.showToastNoIcon(`请上传与${this.data.vehPlates}一致的车头照片`);
-								return;
-							}
+							// if (res.data[0].ocrObject.plateNumber !== this.data.vehPlates) {
+							// 	this.setData({
+							// 		faceStatus: 3
+							// 	});
+							// 	util.showToastNoIcon(`请上传与${this.data.vehPlates}一致的车头照片`);
+							// 	return;
+							// }
 							this.setData({
 								faceStatus: 4,
 								headstock: res.data[0]
