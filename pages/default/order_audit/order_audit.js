@@ -101,7 +101,7 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			this.hide();
+			util.go(`/pages/default/choose_bank_and_bind_veh/choose_bank_and_bind_veh`);
 		} else {
 			util.showToastNoIcon(result.message);
 		}
