@@ -8,7 +8,6 @@ let mta = require('../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
-		isContinentInsurance: false, // 是否是大地保险
 		btnSwitch: false,
 		entranceList: [
 			{title: '通行发票', ico: 'invoice', url: 'invoice', isShow: true, statisticsEvent: 'index_invoice'},
@@ -329,6 +328,15 @@ Page({
 				const result = await util.getDataFromServersV2('consumer/member/common/applet/code', {
 					platformId: app.globalData.platformId, // 平台id
 					code: res.code // 从微信获取的code
+				});
+				this.data.entranceList[1].isShow = !app.globalData.isContinentInsurance;
+				this.data.entranceList[2].isShow = app.globalData.isContinentInsurance;
+				this.data.bannerList[0].isShow = !app.globalData.isContinentInsurance;
+				this.data.bannerList[1].isShow = !app.globalData.isContinentInsurance;
+				this.data.bannerList[2].isShow = app.globalData.isContinentInsurance;
+				this.setData({
+					entranceList: this.data.entranceList,
+					bannerList: this.data.bannerList
 				});
 				if (!result) return;
 				if (result.code === 0) {
