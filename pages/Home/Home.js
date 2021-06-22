@@ -18,6 +18,7 @@ Page({
 		],
 		bannerList: [
 			{img: 'https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrTgOANI-7AABwMlaUjXo345.png', url: 'micro_insurance_car_insurance', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_micro_insurance_car_insurance'},
+			{img: 'https://file.cyzl.com/g001/M07/50/2F/oYYBAGDRSJaAIRy_AABmOVUonLQ097.png', url: 'xiaoepinpin', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_for_xiaoepinpin'},
 			{img: 'https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrTieAODp3AABi5oqjdrI986.png', url: 'micro_insurance_hcz', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_micro_insurance_hcz'},
 			{img: 'https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrThuACNFGAABtf6A3V68049.png', url: '', isShow: app.globalData.isContinentInsurance, statisticsEvent: 'index_dadi'}
 		],
@@ -222,6 +223,22 @@ Page({
 			const pageUrl = 'pages/base/redirect/index?routeKey=WEDRIVE_HIGH_JOIN&wtagid=104.210.4';
 			this.openWeiBao(pageUrl);
 		}
+		if (item?.url === 'xiaoepinpin') {
+			const pageUrl = 'pages/base/redirect/index?routeKey=WEDRIVE_HIGH_JOIN&wtagid=104.210.4';
+			this.openXiaoEPinPin(pageUrl);
+		}
+	},
+	openXiaoEPinPin () {
+		wx.navigateToMiniProgram({
+			appId: 'wxf6f29613766abce4',
+			path: 'pages/sub-packages/ug/pages/landing-pages/index?themeid=1076&channelid=1&skuid=4843521&&configid=60a78267536306017756bdd0&relatedSpuId=291058&adid=0617sjht_etc_xcx_5810_R',
+			success () {
+			},
+			fail () {
+				// 未成功跳转到签约小程序
+				util.showToastNoIcon('调起小鹅拼拼小程序失败, 请重试！');
+			}
+		});
 	},
 	// 点击广告位
 	onClickNotice () {
@@ -331,9 +348,9 @@ Page({
 				});
 				this.data.entranceList[1].isShow = !app.globalData.isContinentInsurance;
 				this.data.entranceList[2].isShow = app.globalData.isContinentInsurance;
-				this.data.bannerList[0].isShow = !app.globalData.isContinentInsurance;
-				this.data.bannerList[1].isShow = !app.globalData.isContinentInsurance;
-				this.data.bannerList[2].isShow = app.globalData.isContinentInsurance;
+				this.data.bannerList.map(item => {
+					item.statisticsEvent === 'index_dadi' ? item.isShow = app.globalData.isContinentInsurance : item.isShow = !app.globalData.isContinentInsurance;
+				});
 				this.setData({
 					entranceList: this.data.entranceList,
 					bannerList: this.data.bannerList
