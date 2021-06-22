@@ -36,7 +36,8 @@ Page({
 	onShow () {
 		if (app.globalData.billingDetails) {
 			this.setData({details: app.globalData.billingDetails});
-			this.getBillDetail();
+			// this.getBillDetail();
+			this.getContractMode();
 		} else {
 			if (!app.globalData.userInfo.accessToken) {
 				this.login();

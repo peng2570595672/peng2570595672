@@ -2,10 +2,6 @@
     <!--顶部开始-->
     <view class="top">
         <!--返回按钮-->
-        <view class="title_nav">
-            <view class="title">个人中心</view>
-            <view  class="back iconfont {{isMain ? '' : 'home'}}" catchtap="onClickBackHandle"></view>
-        </view>
         <view class="head_scan">
             <!--头像-->
             <view class="head_portrait">

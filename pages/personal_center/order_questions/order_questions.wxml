@@ -6,7 +6,7 @@
 			<view>
 				<view class="line">
 					<view>通行费（折后）</view>
-					<view>¥{{details.totalMmout/100}}</view>
+					<view>¥{{(details.totalMmout || details.etcMoney)/100}}</view>
 				</view>
 				<view class="explain">该费用已扣减ETC通行本身的折扣优惠</view>
 			</view>
@@ -32,12 +32,16 @@
 				<view>平台优惠券抵扣</view>
 				<view>{{-details.discountMount/100}}</view>
 			</view>
-			<view class="line">
+			<view class="line" wx:if="{{details.flowVersion === 1}}">
 				<view></view>
 				<view wx:if="{{entrance && refundDetails && refundDetails.refundMoney > 0 && details.deductStatus === 7}}"><text>实扣金额</text>00.00</view>
 				<view wx:elif="{{entrance && details.deductStatus !== 7}}"><text>实扣金额</text>{{(details.totalMmout + details.serviceMoney  - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}}</view>
 				<view wx:elif="{{!entrance && details.passDeductStatus === 7}}"><text>实扣金额</text>00.00</view>
                 <view wx:else><text>实扣金额</text>{{details.passServiceMoney/100}}</view>
+            </view>
+            <view class="line">
+                <view></view>
+                <view><text>实扣金额</text>{{details.etcMoney/100}}</view>
             </view>
 		</view>
 		<!--账单说明结束-->
