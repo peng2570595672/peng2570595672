@@ -130,7 +130,7 @@
             next-margin="250rpx"
             circular="{{true}}">
         <swiper-item class="my-swiper-item" wx:for="{{bannerList}}" wx:key="index" catchtap="onClickSwiper" data-item="{{item}}" wx:if="{{item.isShow}}">
-            <image src="{{item.img}}" mode="widthFix"/>
+            <image src="{{item.img}}" mode="widthFix" class="{{item.url}}"/>
         </swiper-item>
     </swiper>
     <!--	轮播图结束-->
