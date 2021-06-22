@@ -715,7 +715,6 @@ function getStatus(orderInfo) {
 		// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
 		return 9; // 审核通过,待签约高速
 	}
-	console.log(orderInfo)
 	if (orderInfo.flowVersion === 3 && orderInfo.hwContractStatus !== 3) {
 		return 16; // 审核通过,待车辆关联签约支付渠道
 	}
@@ -1032,7 +1031,6 @@ function goMicroInsuranceVehicleOwner(params, wtagid) {
 	});
 }
 function openWeiBao (pageUrl) {
-	console.log(pageUrl);
 	let appId = app.globalData.test ? 'wx7f3f0032b6e6f0cc':'wx06a561655ab8f5b2';
 	wx.navigateToMiniProgram({
 		appId: appId,

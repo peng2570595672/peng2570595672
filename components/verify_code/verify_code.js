@@ -9,7 +9,6 @@ Component({
 		}
 	},
 	data: {
-		isTest: app.globalData.host.includes('etctest'),
 		mask: false,
 		wrapper: false,
 		available: false,
@@ -29,16 +28,17 @@ Component({
 				wrapper: true
 			});
 		},
-		// hide (e,flag) {
-		// 	this.setData({
-		// 		wrapper: false
-		// 	});
-		// 	setTimeout(() => {
-		// 		this.setData({
-		// 			mask: false
-		// 		});
-		// 	}, 400);
-		// },
+		hide (e,flag) {
+			this.setData({
+				wrapper: false
+			});
+			setTimeout(() => {
+				this.setData({
+					mask: false
+				});
+				this.triggerEvent('onClickHandle', {});
+			}, 400);
+		},
 		onInputChangedHandle (e) {
 			let value = e.detail.value;
 			let verifyCode = '';
@@ -125,6 +125,10 @@ Component({
 			});
 			if (!result) return;
 			if (result.code === 0) {
+				if (this.data.details.needCallback) {
+					this.hide();
+					return;
+				}
 				util.go(`/pages/default/choose_bank_and_bind_veh/choose_bank_and_bind_veh`);
 			} else if (result.code === 105) {
 				this.setData({

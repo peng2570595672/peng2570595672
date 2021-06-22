@@ -86,6 +86,9 @@ Page({
 			} else {
 				util.go(`/pages/default/choose_bank_and_bind_veh/choose_bank_and_bind_veh`);
 			}
+		} else if (result.code === 0) {
+			// 登录已过期
+			this.selectComponent('#verifyCode').show();
 		} else {
 			util.showToastNoIcon(result.message);
 		}

@@ -1,5 +1,5 @@
 <!--车主身份验证弹框-->
-<view catchtap="hide" class="verify_mask animated {{wrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{mask}}">
+<view class="verify_mask animated {{wrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{mask}}">
 	<view class="verify_wrapper animated {{wrapper ? 'zoomInOther' : 'zoomOutOther'}}" wx:if="{{mask}}">
 		<view class="authentication-title">车主身份验证</view>
 		<view class="input-wrapper">

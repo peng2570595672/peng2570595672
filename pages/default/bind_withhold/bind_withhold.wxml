@@ -42,4 +42,5 @@
 	<view class="empty"></view>
 	<numeric-keyboard id="keyboard" index="{{currentIndex}}" show="{{showKeyboard}}" bind:valueChange="valueChange"
 	                  myNumber="{{numberNo}}"></numeric-keyboard>
+    <verify-code details="{{orderInfo}}" id="verifyCode" bindonClickHandle="onClickHandle"></verify-code>
 </view>

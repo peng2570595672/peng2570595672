@@ -20,6 +20,7 @@ Page({
 		showKeyboard: false, // 是否显示输入数字键盘
 		currentIndex: -1, // 当前输入的位置
 		numberNo: '',
+		orderInfo: {},
 		isGetIdentifyingCoding: false // 获取验证码中
 	},
 	async onLoad (options) {
@@ -49,7 +50,11 @@ Page({
 		if (result.code === 0) {
 			this.setData({
 				vehPlates: result.data?.base?.vehPlates,
-				cardMobilePhone: result.data?.ownerIdCard?.cardMobilePhone
+				cardMobilePhone: result.data?.ownerIdCard?.cardMobilePhone,
+				orderInfo: {
+					cardMobilePhone: result.data?.ownerIdCard?.cardMobilePhone,
+					needCallback: true // 需要回调
+				}
 			});
 			await this.getSteps();
 		} else {
@@ -68,9 +73,16 @@ Page({
 				signType: result.data?.signType,
 				signChannelId: result.data?.signChannelId
 			});
+		} else if (result.code === 1) {
+			// 登录已过期
+			this.selectComponent('#verifyCode').show();
 		} else {
 			util.showToastNoIcon(result.message);
 		}
+	},
+	async onClickHandle () {
+		// 登录回调
+		await this.getSteps();
 	},
 	setCurrentCodeNo (e) {
 		if (!this.data.codeSuccess) {

@@ -54,7 +54,7 @@ Page({
 		// 签约状态 0未签约 1:在用 2:解约 3.签约中
 		let status = e.currentTarget.dataset['status'];
 		let signChannelId = e.currentTarget.dataset['channel'];
-		let redirectUrl = '/pages/Home/Home';
+		let redirectUrl = `https://${app.globalData.test ? 'etctest.cyzl.com/etc2-html' : 'etc.cyzl.com/wetc'}/bank_signing_the_callback/index.html`;
 		let signType = e.currentTarget.dataset['type'];
 		if (status !== 1) {
 			wx.uma.trackEvent('choose_bank_and_bind_veh');

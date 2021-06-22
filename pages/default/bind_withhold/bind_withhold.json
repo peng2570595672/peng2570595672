@@ -1,6 +1,7 @@
 {
 	"navigationBarTitleText": "绑定代扣",
 	"usingComponents": {
-		"numeric-keyboard": "/components/numeric_keyboard/numeric_keyboard"
+		"numeric-keyboard": "/components/numeric_keyboard/numeric_keyboard",
+		"verify-code": "/components/verify_code/verify_code"
 	}
 }

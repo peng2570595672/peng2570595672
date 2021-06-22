@@ -9,9 +9,9 @@
             <view class="iconfont icon_{{ item.type }}"></view>
             <view class="name">
                 <view class="top">{{ item.name }}</view>
-                <view class="bottom">{{ item.title }}</view>
+<!--                <view class="bottom">{{ item.title }}</view>-->
             </view>
-            <view class="choice">{{status === 1 ? '已签约' : '点击选择'}}</view>
+            <view class="choice">{{item.status === 1 ? '已签约' : '点击选择'}}</view>
         </view>
         <view class="bottom-note">
             - 更多可签约银行即将上线 -
