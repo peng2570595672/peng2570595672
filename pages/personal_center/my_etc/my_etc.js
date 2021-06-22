@@ -128,9 +128,14 @@ Page({
 			11: () => this.onClickCctivate(orderInfo), // 去激活
 			13: () => this.goBindingAccount(orderInfo), // 去开户
 			14: () => this.goRechargeAuthorization(orderInfo), // 去授权预充保证金
-			15: () => this.goRecharge(orderInfo) // 保证金预充失败 - 去预充
+			15: () => this.goRecharge(orderInfo), // 保证金预充失败 - 去预充
+			16: () => this.goBindingWithholding(orderInfo) // 选装-未已绑定车辆代扣
 		};
 		fun[orderInfo.selfStatus].call();
+	},
+	// 选装-去绑定代扣
+	goBindingWithholding () {
+		util.go(`/pages/default/bind_withhold/bind_withhold?associatedVeh=1`);
 	},
 	// 去高速签约
 	onClickHighSpeedSigning () {

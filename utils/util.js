@@ -715,8 +715,9 @@ function getStatus(orderInfo) {
 		// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
 		return 9; // 审核通过,待签约高速
 	}
+	console.log(orderInfo)
 	if (orderInfo.flowVersion === 3 && orderInfo.hwContractStatus !== 3) {
-		return 13; // 审核通过,待车辆关联签约支付渠道
+		return 16; // 审核通过,待车辆关联签约支付渠道
 	}
 	if (orderInfo.auditStatus === 2 && orderInfo.logisticsId === 0) {
 		return 10; // 审核通过,待发货

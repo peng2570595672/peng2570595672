@@ -22,8 +22,9 @@ Page({
 		numberNo: '',
 		isGetIdentifyingCoding: false // 获取验证码中
 	},
-	onLoad (options) {
-		if (options) {
+	async onLoad (options) {
+		if (options.signChannelId) {
+			// 从选择银行进入
 			this.setData({
 				signChannelId: options.signChannelId,
 				signType: options.signType,
@@ -31,8 +32,45 @@ Page({
 				cardMobilePhone: options.cardMobilePhone
 			});
 		}
+		if (options.associatedVeh) {
+			// 从首页&我的ETC&ETC详情
+			await this.getOrderInfo();
+		}
 	},
 	onShow () {
+	},
+	// 获取订单信息
+	async getOrderInfo () {
+		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
+			orderId: app.globalData.orderInfo.orderId,
+			dataType: '18'
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			this.setData({
+				vehPlates: result.data?.base?.vehPlates,
+				cardMobilePhone: result.data?.ownerIdCard?.cardMobilePhone
+			});
+			await this.getSteps();
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 获取选装签约步骤
+	async getSteps () {
+		const result = await util.getDataFromServersV2('consumer/etc/qtzl/getSteps', {
+			orderId: app.globalData.orderInfo.orderId,
+			mobile: this.data.cardMobilePhone
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			this.setData({
+				signType: result.data?.signType,
+				signChannelId: result.data?.signChannelId
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	setCurrentCodeNo (e) {
 		if (!this.data.codeSuccess) {

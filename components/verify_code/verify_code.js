@@ -138,8 +138,8 @@ Component({
 	// 中国ETC+实名认证
 	goCertification () {
 		wx.navigateToMiniProgram({
-			appId: 'wx06a561655ab8f5b2',
-			path: 'pages/base/redirect/index?routeKey=PC01_REDIRECT&autoRoute=CHECKILLEGAL&outsource=souyisou&wtagid=116.115.10',
+			appId: 'wx22e84d3d44639821',
+			path: 'pages/index/index',
 			envVersion: 'release', // 目前联调为体验版
 			fail () {
 				util.showToastNoIcon('调起小程序失败, 请重试！');
