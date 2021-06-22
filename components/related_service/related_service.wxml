@@ -5,7 +5,7 @@
             <view class="close iconfont" catchtap="onClickHandle"></view>
         </view>
 		<view class="related-service-list">
-            <view wx:for="{{details.list}}" wx:key="index" class="related-service-item">
+            <view wx:for="{{details.list}}" wx:key="index" class="related-service-item" wx:if="{{item.isShow}}">
                 <view class="title">
                     <view class="logo iconfont {{item.ico}}">
                         <image src="{{item.logo}}" mode="heightFix" wx:if="{{!item.ico}}"></image>

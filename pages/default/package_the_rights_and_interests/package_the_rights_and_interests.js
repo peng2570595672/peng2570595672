@@ -38,17 +38,20 @@ Page({
 					{
 						ico: 'service_of_driving_risk',
 						title: '每月领驾驶险',
-						describe: '10000元初始驾驶意外险，如每月无违章，额外获得5000元，最高可提升至50000元。'
+						describe: '10000元初始驾驶意外险，如每月无违章，额外获得5000元，最高可提升至50000元。',
+						isShow: !app.globalData.isContinentInsurance
 					},
 					{
 						ico: 'service_of_security',
 						title: '设备延保1年',
-						describe: 'ETC设备非人为损坏质保延长一年，与设备质保叠加最高可达到三年质保。'
+						describe: 'ETC设备非人为损坏质保延长一年，与设备质保叠加最高可达到三年质保。',
+						isShow: true
 					},
 					{
 						ico: 'service_of_illegal',
 						title: '违章随时查',
-						describe: '每月可免费查询车辆违章情况'
+						describe: '每月可免费查询车辆违章情况',
+						isShow: !app.globalData.isContinentInsurance
 					}
 				]
 			},

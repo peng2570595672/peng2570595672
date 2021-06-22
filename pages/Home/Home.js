@@ -330,6 +330,15 @@ Page({
 					platformId: app.globalData.platformId, // 平台id
 					code: res.code // 从微信获取的code
 				});
+				this.data.entranceList[1].isShow = !app.globalData.isContinentInsurance;
+				this.data.entranceList[2].isShow = app.globalData.isContinentInsurance;
+				this.data.bannerList[0].isShow = !app.globalData.isContinentInsurance;
+				this.data.bannerList[1].isShow = !app.globalData.isContinentInsurance;
+				this.data.bannerList[2].isShow = app.globalData.isContinentInsurance;
+				this.setData({
+					entranceList: this.data.entranceList,
+					bannerList: this.data.bannerList
+				});
 				if (!result) return;
 				if (result.code === 0) {
 					result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data.mobilePhone);
