@@ -222,6 +222,7 @@ Page({
 		if (item?.url === 'micro_insurance_hcz') {
 			const pageUrl = 'pages/base/redirect/index?routeKey=WEDRIVE_HIGH_JOIN&wtagid=104.210.4';
 			this.openWeiBao(pageUrl);
+			return;
 		}
 		if (item?.url === 'xiaoepinpin') {
 			const pageUrl = 'pages/base/redirect/index?routeKey=WEDRIVE_HIGH_JOIN&wtagid=104.210.4';
