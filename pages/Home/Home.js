@@ -8,7 +8,7 @@ let mta = require('../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
-		isContinentInsurance: false, // 是否是大地保险
+		isContinentInsurance: app.globalData.isContinentInsurance,// 是否是大地
 		btnSwitch: false,
 		entranceList: [
 			{title: '通行发票', ico: 'invoice', url: 'invoice', isShow: true, statisticsEvent: 'index_invoice'},
@@ -354,6 +354,7 @@ Page({
 					item.statisticsEvent === 'index_dadi' ? item.isShow = app.globalData.isContinentInsurance : item.isShow = !app.globalData.isContinentInsurance;
 				});
 				this.setData({
+					isContinentInsurance: app.globalData.isContinentInsurance,
 					entranceList: this.data.entranceList,
 					bannerList: this.data.bannerList
 				});

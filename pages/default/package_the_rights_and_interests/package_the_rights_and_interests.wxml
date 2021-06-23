@@ -43,7 +43,7 @@
                             <view>车主服务享便捷</view>
                             <view>价值168元</view>
                         </view>
-                        <view class="other-service-item" wx:if="{{item.pledgePrice}}" catchtap="onClickCheckTheService" data-index="1">
+                        <view class="other-service-item" wx:if="{{item.pledgePrice && !isContinentInsurance}}" catchtap="onClickCheckTheService" data-index="1">
                             <view>生活服务享精彩</view>
                             <view>价值100元+</view>
                         </view>
