@@ -8,6 +8,7 @@ let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
+		isContinentInsurance: app.globalData.isContinentInsurance,// 是否是大地
 		isSelected: false,// 是否选中当前权益包
 		isSalesmanOrder: false,// 是否是业务员端办理
 		isRequest: false,// 是否请求中
