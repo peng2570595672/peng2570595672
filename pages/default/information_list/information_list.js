@@ -96,7 +96,7 @@ Page({
 			let res = result.data.base;
 			let orderInfo = res.orderInfo;
 			let vehPlates = res.vehPlates;
-			if (this.data.isModifiedData && res.orderAudit && this.data.requestNum === 0) {
+			if (this.data.isModifiedData && res.orderAudit?.errNums?.length && this.data.requestNum === 0) {
 				// errNums
 				this.getErrorStatus(res.orderAudit);
 			}
