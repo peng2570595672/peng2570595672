@@ -305,6 +305,42 @@ Page({
 			await this.weChatSign(obj);
 		}
 	},
+	// 恢复签约
+	async restoreSign (obj) {
+		const result = await util.getDataFromServersV2('consumer/order/query-contract', {
+			orderId: obj.id
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			app.globalData.signAContract = 1;
+			// 签约成功 userState: "NORMAL"
+			if (result.data.contractStatus !== 1) {
+				if (result.data.version === 'v3') {
+					if (result.data.contractId) {
+						wx.navigateToMiniProgram({
+							appId: 'wxbcad394b3d99dac9',
+							path: 'pages/etc/index',
+							extraData: {
+								contract_id: result.data.contractId
+							},
+							success () {
+							},
+							fail (e) {
+								// 未成功跳转到签约小程序
+								util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
+							}
+						});
+					} else {
+						await this.weChatSign(obj);
+					}
+				} else {
+					await this.weChatSign(obj);
+				}
+			}
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
 	// 微信签约
 	async weChatSign (isFirstVersion) {
 		util.showLoading('加载中');

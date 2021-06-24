@@ -51,6 +51,8 @@ Page({
 		requestBillEnd: false, // 账单请求结束
 		isClickNotice: false, // 是否点击过广告位
 		isShowNotice: false, // 是否显示广告位
+		isActivityDate: false, // 是否活动期间
+		isActivityForBannerDate: false, // 是否是banner上线时间
 		dialogContent: {} // 弹窗内容
 	},
 	async onLoad () {
@@ -60,6 +62,8 @@ Page({
 	},
 	async onShow () {
 		this.setData({
+			isActivityForBannerDate: util.isDuringDate('2021/06/23', '2021/07/16'),
+			isActivityDate: util.isDuringDate('2021/6/25 11:00', '2021/6/28 15:00'),
 			isClickNotice: wx.getStorageSync('is-click-notice')
 		});
 		if (app.globalData.userInfo.accessToken) {

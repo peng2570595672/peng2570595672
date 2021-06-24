@@ -27,34 +27,31 @@ Page({
 	},
 	onShow () {
 	},
-	fetchBankList () {
+	async fetchBankList () {
 		this.setData({
 			bankList: []
 		});
 		util.showLoading();
-		util.getDataFromServer('consumer/etc/qtzl/getAccountChannelList', {
+		const result = await util.getDataFromServersV2('consumer/etc/qtzl/getAccountChannelList', {
 			orderId: this.data.orderId
-		}, () => {
-			util.showToastNoIcon('获取可签约银行列表失败！');
-		}, (res) => {
-			if (res.code === 0) {
-				if (res.data.list.length > 0) {
-					res.data.list.map(item => {
-						item['icon'] = 'bank_' + item.type;
-					});
-				}
-				this.setData({
-					bankList: res.data.list
-				});
-			} else if (res.code === 1) {
-				// 登录已过期
-				this.selectComponent('#verifyCode').show();
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
 		});
+		if (!result) return;
+		if (result.code === 0) {
+			if (result.data.list.length > 0) {
+				result.data.list.map(item => {
+					item['icon'] = 'bank_' + item.type;
+					item.status = +item.status;
+				});
+			}
+			this.setData({
+				bankList: result.data.list
+			});
+		} else if (result.code === 1) {
+			// 登录已过期
+			this.selectComponent('#verifyCode').show();
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 获取订单信息
 	async getOrderInfo () {

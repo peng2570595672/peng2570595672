@@ -17,6 +17,7 @@ Page({
 	async getSchedule () {
 		let that = this;
 		const result = await util.getDataFromServersV2('consumer/order/transact-schedule', {
+			toMasterQuery: true,
 			orderId: app.globalData.orderInfo.orderId
 		});
 		if (!result) return;

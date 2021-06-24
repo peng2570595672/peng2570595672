@@ -92,7 +92,7 @@ Page({
 				orderInfo: result.data
 			});
 			// 获取实名信息
-			let temp = this.data.orderInfo.idCard;
+			let temp = this.data.orderInfo.ownerIdCard;
 			if (this.data.orderInfo.ownerIdCard.cardMobilePhone) {
 				this.data.formData.cardMobilePhone = this.data.orderInfo.ownerIdCard.cardMobilePhone;
 				this.setData({
@@ -103,15 +103,15 @@ Page({
 			if (temp) {
 				let idCardBack = {ocrObject: {}};
 				let idCardFace = {ocrObject: {}};
-				idCardFace.fileUrl = temp.idCardPositiveUrl;
-				idCardFace.ocrObject.name = temp.idCardTrueName;
-				idCardFace.ocrObject.idNumber = temp.idCardNumber;
-				idCardFace.ocrObject.address = temp.idCardAddress;
-				idCardFace.ocrObject.sex = temp.idCardSex;
-				idCardFace.ocrObject.birth = temp.idCardBirth;
-				idCardBack.ocrObject.authority = temp.idCardAuthority;
-				idCardBack.ocrObject.validDate = temp.idCardValidDate;
-				idCardBack.fileUrl = temp.idCardNegativeUrl;
+				idCardFace.fileUrl = temp.ownerIdCardPositiveUrl;
+				idCardFace.ocrObject.name = temp.ownerIdCardTrueName;
+				idCardFace.ocrObject.idNumber = temp.ownerIdCardNumber;
+				idCardFace.ocrObject.address = temp.ownerIdCardAddress;
+				idCardFace.ocrObject.sex = temp.ownerIdCardSex;
+				idCardFace.ocrObject.birth = temp.ownerIdCardBirth;
+				idCardBack.ocrObject.authority = temp.ownerIdCardAuthority;
+				idCardBack.ocrObject.validDate = temp.ownerIdCardValidDate;
+				idCardBack.fileUrl = temp.ownerIdCardNegativeUrl;
 				this.setData({
 					isShowCodeInput: !this.data.orderInfo.ownerIdCard.cardMobilePhone,
 					oldName: idCardFace.ocrObject.name,

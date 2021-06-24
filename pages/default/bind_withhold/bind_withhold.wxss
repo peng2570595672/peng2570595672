@@ -57,7 +57,7 @@
   margin-top: 21rpx;
   display: flex;
   align-items: center;
-  justify-content: center;
+  padding: 0 32rpx;
 }
 .order-detail .code-no-wrapper > view {
   margin-right: 12rpx;
@@ -74,9 +74,6 @@
   background: linear-gradient(to right, #00b85c, #68d33f);
   transition: all 0.5s ease-in-out;
   border-radius: 8rpx;
-}
-.order-detail .code-no-wrapper > view:nth-child(2) {
-  margin-right: 30rpx;
 }
 .order-detail .code-no-wrapper > view > view:first-of-type {
   display: flex;
@@ -130,11 +127,11 @@
   transform: translateY(18rpx);
 }
 .order-detail .code-no-wrapper .validate-code {
-  width: 140rpx;
-  margin-left: 40rpx;
+  width: 150rpx;
+  margin-left: 30rpx;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   height: 44rpx;
   font-size: 28rpx;
   color: #99999d;

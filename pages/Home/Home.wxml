@@ -15,7 +15,7 @@
     <view class="deal-with" catchtap="onClickTransaction">
         <view class="left">
             <view class="introduce-box">
-                <view class="introduce {{isContinentInsurance ? 'continent-insurance-introduce' : ''}}" wx:if="{{isContinentInsurance}}">
+                <view class="introduce {{isContinentInsurance && isActivityForBannerDate ? 'continent-insurance-introduce' : ''}}" wx:if="{{isContinentInsurance && isActivityForBannerDate}}">
                     <view class="title" animation="{{animationTitle}}">通知</view>
                     <view class="sub-title" animation="{{animationSubTitle}}">
                         <view animation="{{animationSubTitle1}}">
@@ -42,10 +42,10 @@
                     </view>
                 </view>
             </view>
-            <view class="btn {{btnSwitch ? 'btn-switch-trucks' : 'btn-switch-passenger-car'}}" animation="{{animationTransaction}}" wx:if="{{!isContinentInsurance}}">立即办理</view>
+            <view class="btn {{btnSwitch ? 'btn-switch-trucks' : 'btn-switch-passenger-car'}}" animation="{{animationTransaction}}" wx:if="{{!isContinentInsurance && isActivityForBannerDate}}">立即办理</view>
         </view>
-        <view class="right {{isContinentInsurance ? 'continent-insurance-img' : ''}}" animation="{{animationImage}}">
-            <image src="https://file.cyzl.com/g001/M07/50/96/oYYBAGDR0n2ATuz8AAChQo0Wfjs876.png" mode="widthFix" wx:if="{{isContinentInsurance}}"></image>
+        <view class="right {{isContinentInsurance && isActivityForBannerDate ? 'continent-insurance-img' : ''}}" animation="{{animationImage}}">
+            <image src="https://file.cyzl.com/g001/M07/50/96/oYYBAGDR0n2ATuz8AAChQo0Wfjs876.png" mode="widthFix" wx:if="{{isContinentInsurance && isActivityForBannerDate}}"></image>
             <image src="https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrTdyAT1_9AABR9q2KQdc170.png" mode="widthFix" wx:else></image>
         </view>
         <view class="right right-for-trucks" animation="{{animationTrucksImage}}">
@@ -129,7 +129,7 @@
             </view>
         </view>
         <view class="notice iconfont" wx:if="{{isShowNotice}}" catchtap="onClickNotice">
-            <view class="notice-left iconfont">限购！通行券、停车券 30抵60</view>
+            <view class="notice-left iconfont">{{isActivityDate ? '福利！60元通行券限时【19.9】抢！' : '限购！通行券、停车券 30抵60'}}</view>
             <view class="notice-right {{isClickNotice ? 'no-notice-bg' : ''}}"></view>
         </view>
     </view>
