@@ -6,11 +6,14 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		orderInfo: {},
+		cardMobilePhone: '',
+		vehPlates: '',
 		orderId: null,
 		bankList: [],// 套餐列表
 		qrUrl: ''
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		if (options.orderId) {
 			this.setData({
 				orderId: options.orderId
@@ -20,7 +23,7 @@ Page({
 				orderId: app.globalData.orderInfo.orderId
 			});
 		}
-		this.fetchBankList();
+		await this.getOrderInfo();
 	},
 	onShow () {
 	},
@@ -43,12 +46,36 @@ Page({
 				this.setData({
 					bankList: res.data.list
 				});
+			} else if (res.code === 1) {
+				// 登录已过期
+				this.selectComponent('#verifyCode').show();
 			} else {
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken, () => {
 			util.hideLoading();
 		});
+	},
+	// 获取订单信息
+	async getOrderInfo () {
+		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
+			orderId: app.globalData.orderInfo.orderId,
+			dataType: '18'
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			this.setData({
+				vehPlates: result.data?.base?.vehPlates,
+				cardMobilePhone: result.data?.ownerIdCard?.cardMobilePhone,
+				orderInfo: {
+					cardMobilePhone: result.data?.ownerIdCard?.cardMobilePhone,
+					needCallback: true // 需要回调
+				}
+			});
+			this.fetchBankList();
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	chooseBank (e) {
 		// 签约状态 0未签约 1:在用 2:解约 3.签约中
@@ -82,25 +109,12 @@ Page({
 				util.hideLoading();
 			});
 		} else {
-			this.getOrderInfo(signChannelId,signType);
+			util.go(`/pages/default/bind_withhold/bind_withhold?signChannelId=${signChannelId}&signType=${signType}&vehPlates=${this.data.vehPlates}&cardMobilePhone=${this.data.cardMobilePhone}`);
 		}
 	},
-	// 获取订单信息
-	getOrderInfo (signChannelId,signType) {
-		util.showLoading();
-		util.getDataFromServer('consumer/order/get-order-info', {
-			orderId: app.globalData.orderInfo.orderId,
-			dataType: '18'
-		}, () => {
-		}, (res) => {
-			if (res.code === 0) {
-				util.go(`/pages/default/bind_withhold/bind_withhold?signChannelId=${signChannelId}&signType=${signType}&vehPlates=${res.data.base.vehPlates}&cardMobilePhone=${res.data.ownerIdCard.cardMobilePhone}`);
-			} else {
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-		});
+	async onClickHandle () {
+		// 登录回调
+		await this.fetchBankList();
 	},
 	goBack () {
 		wx.reLaunch({

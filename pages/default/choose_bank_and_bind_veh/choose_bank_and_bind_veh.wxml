@@ -20,5 +20,6 @@
     <view class="fill"></view>
     <!--显示银行签约二维码-->
     <qrcode-prompt id="qrcode" bind:onHandle="goBack" title="请截图识别二维码进入银行页面完成签约" qrUrl="{{ qrUrl }}" btnTitle="返回首页"></qrcode-prompt>
+    <verify-code details="{{orderInfo}}" id="verifyCode" bindonClickHandle="onClickHandle"></verify-code>
 </view>
 

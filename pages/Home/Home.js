@@ -460,8 +460,8 @@ Page({
 	// 分享
 	onShareAppMessage () {
 		return {
-			// title: '测试测试',
-			// imageUrl: 'https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrThuACNFGAABtf6A3V68049.png',
+			title: 'ETC+',
+			imageUrl: 'https://file.cyzl.com/g001/M07/50/F6/oYYBAGDS1JaAXuhTAADt79VqVig353.png',
 			path: '/pages/Home/Home'
 		};
 	},
