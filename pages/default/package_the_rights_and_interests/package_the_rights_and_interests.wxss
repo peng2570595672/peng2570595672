@@ -218,7 +218,7 @@
   margin-top: 12rpx;
 }
 .package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item.item-top {
-  margin-top: 32rpx;
+  margin-top: 32rpx !important;
 }
 .package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .label-img {
   position: absolute;

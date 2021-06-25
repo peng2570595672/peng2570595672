@@ -43,5 +43,10 @@ Page({
 	},
 	goRecord () {
 		util.go(`/pages/personal_center/service_purchase_record/service_purchase_record`);
+	},
+	onUnload () {
+		wx.reLaunch({
+			url: '/pages/Home/Home'
+		});
 	}
 });

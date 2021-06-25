@@ -464,6 +464,8 @@ Page({
 	// 分享
 	onShareAppMessage () {
 		return {
+			title: 'ETC+',
+			imageUrl: 'https://file.cyzl.com/g001/M07/50/F6/oYYBAGDS1JaAXuhTAADt79VqVig353.png',
 			path: '/pages/Home/Home'
 		};
 	},
