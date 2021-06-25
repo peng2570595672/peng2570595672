@@ -20,6 +20,7 @@ Page({
 		isOpenTheCard: false, // 是否开通三类户
 		isShowFeatureService: false, // 是否显示特色服务
 		hasCoupon: false, // 是否显示领券中心
+		isActivityDate: false, // 是否活动期间
 		canIUseGetUserProfile: false
 	},
 	onLoad (options) {
@@ -70,6 +71,7 @@ Page({
 			this.login();
 		}
 		this.setData({
+			isActivityDate: util.isDuringDate('2021/6/25 11:00', '2021/6/28 15:00'),
 			isClickNotice: wx.getStorageSync('is-click-notice'),
 			mobilePhoneSystem: app.globalData.mobilePhoneSystem,
 			mobilePhone: app.globalData.mobilePhone,
