@@ -64,7 +64,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255,192,0,0.19);
+  background: #ffc000;
   font-size: 20rpx;
   color: #fff;
   border-radius: 4px;

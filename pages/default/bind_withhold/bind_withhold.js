@@ -162,7 +162,7 @@ Page({
 		});
 		if (result.code === 0) {
 			util.showToastNoIcon('绑定成功！');
-			util.go(`pages/default/processing_progress/processing_progress`);
+			util.go(`/pages/default/processing_progress/processing_progress`);
 		} else {
 			util.showToastNoIcon(result.message);
 		}
