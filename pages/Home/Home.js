@@ -503,6 +503,19 @@ Page({
 					if (item.obuStatus === 1 || item.obuStatus === 5) activationTruckOrder.push(item.obuCardType);
 				}
 			});
+			const isWaitActivation = passengerCarList.find(item => item.auditStatus === 2 && item.logisticsId === 0 && item.obuStatus === 0);// 待激活
+			const isDuringDate = util.isDuringDate('2021/6/26', '2021/7/1');
+			const isAlertPrompt = wx.getStorageSync('is-alert-prompt');
+			if ((isWaitActivation || !list.length) && isDuringDate && !isAlertPrompt) {
+				wx.setStorageSync('is-alert-prompt', true);
+				util.alert({
+					title: `提示`,
+					content: `因ETC系统升级，即日起至6月30日23:59期间所有办理设备将延迟发出。`,
+					showCancel: false,
+					cancelText: '取消',
+					confirmText: '确定'
+				});
+			}
 			const terminationOrder = passengerCarList.find(item => item.selfStatus === 1);// 查询客车第一条解约订单
 			const terminationTruckOrder = truckList.find(item => item.selfStatus === 1);// 查询货车第一条解约订单
 			const isAllActivation = activationOrder.length === passengerCarList.length;// 是否客车全是激活订单 - true: 展示账单单状态
