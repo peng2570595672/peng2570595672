@@ -223,7 +223,7 @@ Page({
 			ownerIdCardSex: this.data.idCardFace.ocrObject.sex, // 实名认证性别 【dataType包含8】
 			ownerIdCardAuthority: this.data.idCardBack.ocrObject.authority, // 发证机关 【dataType包含8】
 			ownerIdCardBirth: this.data.idCardFace.ocrObject.birth, // 出生日期 【dataType包含8】
-			ownerIdCardHaveChange: false, // 车主身份证OCR结果是否被修改过，默认false，修改过传true 【dataType包含8}】
+			ownerIdCardHaveChange: haveChange, // 车主身份证OCR结果是否被修改过，默认false，修改过传true 【dataType包含8}】
 			ownerIdCardValidDate: this.data.idCardBack.ocrObject.validDate,
 			ownerIdCardAddress: this.data.idCardFace.ocrObject.address,
 			cardMobilePhone: this.data.formData.cardMobilePhone, // 车主实名手机号
@@ -284,7 +284,7 @@ Page({
 								const isGreaterThanData = util.isGreaterThanData(endDate);// 身份证结束时间
 								if (isGreaterThanData) {
 									this.setData({
-										faceStatus: 3,
+										backStatus: 3,
 										available: false
 									});
 									util.showToastNoIcon('证件已过期');
