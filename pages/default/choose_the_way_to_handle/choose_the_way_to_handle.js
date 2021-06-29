@@ -20,7 +20,13 @@ Page({
 	},
 	onClickPaymentWay (e) {
 		wx.uma.trackEvent('choose_the_way_to_handle');
-		const type = e.currentTarget.dataset.type;
+		const type = +e.currentTarget.dataset.type;
 		util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?type=${type}`);
+		return;
+		if (type === 1) {
+			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?type=${type}`);
+		} else {
+			util.go(`/pages/default/select_contract_bank/select_contract_bank?type=${type}`);
+		}
 	}
 });

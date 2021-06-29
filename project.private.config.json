@@ -36,7 +36,11 @@
         {
           "name": "pages/separate_interest_package/index/index",
           "pathName": "pages/separate_interest_package/index/index",
+<<<<<<< HEAD
           "query": "shareId=1235556",
+=======
+          "query": "",
+>>>>>>> new_original_process
           "scene": null
         },
         {
@@ -88,7 +92,11 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+<<<<<<< HEAD
           "query": "orderId=759124407025414144",
+=======
+          "query": "orderId=855909783298248704",
+>>>>>>> new_original_process
           "scene": null
         },
         {

@@ -664,7 +664,8 @@ function getTruckHandlingStatus(orderInfo) {
 	if (orderInfo.auditStatus === 2 && orderInfo.holdStatus === 0) {
 		return 15;// 未冻结保证金成功
 	}
-	if (orderInfo.auditStatus === 2 && orderInfo.flowVersion === 2 && orderInfo.hwContractStatus !== 1) {
+	console.log(orderInfo)
+	if (orderInfo.auditStatus === 2 && (orderInfo.flowVersion === 2 || orderInfo.flowVersion === 3) && orderInfo.hwContractStatus !== 1) {
 		// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
 		return 9; // 审核通过,待签约高速
 	}
@@ -710,9 +711,12 @@ function getStatus(orderInfo) {
 	if (orderInfo.auditStatus === 9) {
 		return 8; // 高速核验不通过
 	}
-	if (orderInfo.auditStatus === 2 && orderInfo.flowVersion === 2 && orderInfo.hwContractStatus !== 1) {
+	if (orderInfo.auditStatus === 2 && (orderInfo.flowVersion === 2 || orderInfo.flowVersion === 3) && orderInfo.hwContractStatus === 0) {
 		// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
 		return 9; // 审核通过,待签约高速
+	}
+	if (orderInfo.flowVersion === 3 && orderInfo.hwContractStatus !== 3) {
+		return 16; // 审核通过,待车辆关联签约支付渠道
 	}
 	if (orderInfo.auditStatus === 2 && orderInfo.logisticsId === 0) {
 		return 10; // 审核通过,待发货
@@ -1027,7 +1031,6 @@ function goMicroInsuranceVehicleOwner(params, wtagid) {
 	});
 }
 function openWeiBao (pageUrl) {
-	console.log(pageUrl);
 	let appId = app.globalData.test ? 'wx7f3f0032b6e6f0cc':'wx06a561655ab8f5b2';
 	wx.navigateToMiniProgram({
 		appId: appId,
@@ -1214,7 +1217,7 @@ async function getListOfPackages (orderInfo, regionCode, notList) {
 		return;
 	}
 	const divideAndDivideList = list.filter(item => item.flowVersion === 1);// 分对分套餐
-	const alwaysToAlwaysList = list.filter(item => item.flowVersion === 2);// 总对总套餐
+	const alwaysToAlwaysList = list.filter(item => item.flowVersion === 2 || item.flowVersion === 3);// 总对总套餐
 	let type = !divideAndDivideList.length ? 2 : !alwaysToAlwaysList.length ? 1 : 0;
 	app.globalData.newPackagePageData = {
 		shopId: orderInfo.shopId || app.globalData.miniProgramServiceProvidersId,// 避免老流程没上传shopId

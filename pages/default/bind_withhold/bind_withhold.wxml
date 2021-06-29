@@ -1,0 +1,46 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<view class="order-detail animated fadeIn">
+	<view class="title">请进行短信验证</view>
+	<view class="vehicle">完成{{'{'+vehPlates+'}'}}的代扣绑定</view>
+	<view class="tips">
+		<text>短信验证码将下发至</text>
+		<text>{{'{'+cardMobilePhone+'}'}}</text>
+	</view>
+	<!--验证码开始-->
+	<view class="verify-phone-number">
+		<!--	车牌号开始-->
+		<view class="code-no-wrapper">
+			<view class="{{currentIndex === 0 ? 'selected' : ''}}" data-index="0" catchtap="setCurrentCodeNo">
+				<view>{{numberNo[0]}}</view>
+				<view></view>
+			</view>
+			<view class="{{currentIndex === 1 ? 'selected' : ''}}" data-index="1" catchtap="setCurrentCodeNo">
+				<view>{{numberNo[1]}}</view>
+				<view></view>
+			</view>
+			<view class="{{currentIndex === 2 ? 'selected' : ''}}" data-index="2" catchtap="setCurrentCodeNo">
+				<view>{{numberNo[2]}}</view>
+				<view></view>
+			</view>
+			<view class="{{currentIndex === 3 ? 'selected' : ''}}" data-index="3" catchtap="setCurrentCodeNo">
+				<view>{{numberNo[3]}}</view>
+				<view></view>
+			</view>
+			<view class="{{currentIndex === 4 ? 'selected' : ''}}" data-index="4" catchtap="setCurrentCodeNo">
+				<view>{{numberNo[4]}}</view>
+				<view></view>
+			</view>
+			<view class="{{currentIndex === 5 ? 'selected' : ''}}" data-index="5" catchtap="setCurrentCodeNo">
+				<view>{{numberNo[5]}}</view>
+				<view></view>
+			</view>
+			<text class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} {{cardMobilePhone ? 'ok' : ''}}" bindtap="sendVerifyCode">{{identifyingCode}}</text>
+		</view>
+	</view>
+	<!--验证码结束-->
+	<view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="onClickBind">确认绑定</view>
+	<view class="empty"></view>
+	<numeric-keyboard id="keyboard" index="{{currentIndex}}" show="{{showKeyboard}}" bind:valueChange="valueChange"
+	                  myNumber="{{numberNo}}"></numeric-keyboard>
+    <verify-code details="{{orderInfo}}" id="verifyCode" bindonClickHandle="onClickHandle"></verify-code>
+</view>

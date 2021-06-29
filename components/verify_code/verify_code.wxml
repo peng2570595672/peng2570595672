@@ -1,0 +1,26 @@
+<!--车主身份验证弹框-->
+<view class="verify_mask animated {{wrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{mask}}">
+	<view class="verify_wrapper animated {{wrapper ? 'zoomInOther' : 'zoomOutOther'}}" wx:if="{{mask}}">
+		<view class="authentication-title">车主身份验证</view>
+		<view class="input-wrapper">
+			<view class="input-item">
+				<view>手机号码</view>
+				<input type="number" disabled value="{{details.cardMobilePhone}}"/>
+			</view>
+			<view class="input-item">
+				<view>验证码</view>
+				<input type="number" placeholder="请输入验证码" placeholder-class="placeholder" value="{{verifyCode}}"
+				       bindinput="onInputChangedHandle" catchtap="empty" data-key="verifyCode"
+				/>
+				<text class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} {{details.cardMobilePhone && certification !==0 ? 'ok' : ''}}" catchtap="sendVerifyCode">{{identifyingCode}}</text>
+			</view>
+		</view>
+		<view wx:if="{{ certification === 0}}" class="authentication-tips">*验证失败，请到[中国ETC小程序]完成实名认证后再进行验证</view>
+		<view wx:if="{{ certification !== 0}}" class="verify-button">
+			<button class="{{available ? 'available' : ''}}" catchtap="goVerify">验证</button>
+		</view>
+		<view wx:if="{{ certification === 0}}" class="verify-button">
+			<button catchtap="goCertification">前往实名</button>
+		</view>
+	</view>
+</view>

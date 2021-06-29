@@ -20,7 +20,9 @@ Page({
 		isHeadstockError: false, // 是否车头照错误
 		isModifiedData: false, // 是否是修改资料
 		isEtcContractId: true, // 是否需要签约微信
-		requestNum: 0
+		requestNum: 0,
+		ownerIdCard: {}, // 实名身份信息
+		vehicle: {} // 车辆信息
 	},
 	onLoad (options) {
 		if (options.isModifiedData) {
@@ -88,7 +90,7 @@ Page({
 	async getETCDetail () {
 		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
-			dataType: '16',
+			dataType: '168',
 			needAllInfo: true
 		});
 		if (!result) return;
@@ -96,19 +98,23 @@ Page({
 			let res = result.data.base;
 			let orderInfo = res.orderInfo;
 			let vehPlates = res.vehPlates;
+			let vehicle = result.data.vehicle;
+			let ownerIdCard = result.data.ownerIdCard;
 			if (this.data.isModifiedData && res.orderAudit?.errNums?.length && this.data.requestNum === 0) {
 				// errNums
 				this.getErrorStatus(res.orderAudit);
 			}
 			this.setData({
-				isEtcContractId: orderInfo.etcContractId !== -1,
+				vehicle: vehicle,
+				ownerIdCard: ownerIdCard,
 				requestNum: 1,
 				orderInfo: orderInfo,
+				isEtcContractId: orderInfo.etcContractId !== -1,
 				orderDetails: res,
 				vehicleInfo: res.vehPlates,
 				vehPlates: vehPlates
 			});
-			this.availableCheck(orderInfo,res.vehPlates);
+			this.availableCheck();
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -145,8 +151,15 @@ Page({
 			});
 		}
 	},
-	availableCheck (orderInfo) {
-		if (orderInfo && orderInfo.isOwner === 1 && orderInfo.isVehicle === 1 && orderInfo.isHeadstock === 1) {
+	availableCheck () {
+		if (this.data.orderInfo && this.data.orderInfo.isOwner === 1 && this.data.orderInfo.isVehicle === 1 && this.data.ownerIdCard?.ownerIdCardTrueName !== this.data.vehicle?.owner) {
+			util.showToastNoIcon('身份证与行驶证必须为同一持有人');
+			this.setData({
+				available: false
+			});
+			return false;
+		}
+		if (this.data.orderInfo && this.data.orderInfo.isOwner === 1 && this.data.orderInfo.isVehicle === 1 && this.data.orderInfo.isHeadstock === 1) {
 			this.setData({
 				available: true
 			});
@@ -170,6 +183,10 @@ Page({
 	},
 	// ETC申办审核结果通知、ETC发货提示
 	subscribe () {
+		if (this.data.orderInfo && this.data.orderInfo?.isOwner === 1 && this.data.orderInfo?.isVehicle === 1 && this.data.ownerIdCard?.ownerIdCardTrueName !== this.data.vehicle?.owner) {
+			util.showToastNoIcon('身份证与行驶证必须为同一持有人');
+			return;
+		}
 		if (!this.data.available) return;
 		// 判断版本，兼容处理
 		let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
@@ -281,7 +298,7 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			app.globalData.isNeedReturnHome = true;
-			if (this.data.orderInfo.flowVersion === 2) {
+			if (this.data.orderInfo.flowVersion === 2 || this.data.orderInfo.flowVersion === 3) {
 				// 总对总
 				util.go(`/pages/default/order_audit/order_audit`);
 				return;

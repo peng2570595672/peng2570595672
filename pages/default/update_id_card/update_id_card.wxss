@@ -1,0 +1,169 @@
+@keyframes btnFadeIn {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes btnFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.2;
+  }
+}
+.payment-way {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.payment-way .title {
+  margin-top: 40rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 30rpx;
+  height: 56rpx;
+  font-size: 40rpx;
+  font-weight: 500;
+}
+.payment-way .title::before {
+  margin-right: 10rpx;
+  content: '';
+  width: 10rpx;
+  height: 10rpx;
+  border: 6rpx solid #2fb565;
+  border-radius: 50%;
+}
+.payment-way .title.other-title {
+  display: flex;
+  align-items: center;
+  margin-top: 64rpx;
+}
+.payment-way .title.other-title > view.text {
+  flex: 1;
+}
+.payment-way .title.other-title > view:last-of-type {
+  padding-right: 50rpx;
+  display: flex;
+  align-items: center;
+  height: 92rpx;
+}
+.payment-way .title.other-title > view:last-of-type::before {
+  display: inline-block;
+  width: 42rpx;
+  height: 36rpx;
+  content: '\e61a';
+  font-size: 36rpx;
+  color: #2fb565;
+}
+.payment-way .tips {
+  display: flex;
+  align-items: center;
+  padding-left: 60rpx;
+  height: 40rpx;
+  font-size: 24rpx;
+  color: #66666d;
+}
+.payment-way .shot-id-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 40rpx 60rpx 28rpx;
+  width: 284rpx;
+  height: 70rpx;
+  font-size: 28rpx;
+  color: #fff;
+  border-radius: 35rpx;
+  background: linear-gradient(to right, #15ad69, #84d157);
+}
+.payment-way .shot-id-card::before {
+  display: inline-block;
+  margin-right: 10rpx;
+  width: 42rpx;
+  height: 36rpx;
+  content: '\e65c';
+  font-size: 44rpx;
+  color: #fff;
+  transform: translateY(-6rpx);
+  pointer-events: none;
+}
+.payment-way .input-wrapper {
+  padding: 0 40rpx;
+}
+.payment-way .input-wrapper .photo-wrapper {
+  padding: 10rpx 20rpx 8rpx;
+}
+.payment-way .input-wrapper .photo-wrapper > image {
+  display: inline-block;
+  margin-right: 20rpx;
+  width: 110rpx;
+  height: 70rpx;
+}
+.payment-way .input-wrapper .input-item {
+  display: flex;
+  padding: 16rpx 30rpx 10rpx;
+  font-size: 32rpx;
+  border-bottom: 1rpx solid #f4f4f4;
+}
+.payment-way .input-wrapper .input-item > view {
+  margin-right: 30rpx;
+  flex: 0 0 134rpx;
+  color: #99999d;
+  box-sizing: border-box;
+}
+.payment-way .input-wrapper .input-item > input {
+  flex: 1;
+}
+.payment-way .input-wrapper .input-item:last-of-type {
+  margin-bottom: 20rpx;
+}
+.payment-way .input-wrapper .input-item .validate-code {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 32rpx;
+  height: 44rpx;
+  font-size: 32rpx;
+  color: #99999d;
+  border-left: 1rpx solid #d8d8d8;
+  box-sizing: border-box;
+}
+.payment-way .input-wrapper .input-item .validate-code.ok {
+  font-weight: 500;
+  color: #2fb565;
+}
+.payment-way .input-wrapper .input-item .validate-code.acquisition {
+  color: #2fb565;
+  font-weight: 400 !important;
+}
+.payment-way .fill {
+  flex: 1;
+}
+.payment-way .submit {
+  position: fixed;
+  left: 0;
+  bottom: 0rpx;
+  width: 100%;
+}
+.payment-way .submit .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 86rpx 60rpx 40rpx;
+  height: 98rpx;
+  font-size: 40rpx;
+  font-weight: 500;
+  color: #fff;
+  border-radius: 49rpx;
+  background: linear-gradient(to right, #15ad69, #84d157);
+}
+.payment-way .submit .btn.available {
+  animation: btnFadeIn 0.3s;
+  animation-fill-mode: forwards;
+}
+.payment-way .submit .btn.unavailable {
+  animation: btnFadeOut 0.3s;
+  animation-fill-mode: forwards;
+}

@@ -238,27 +238,6 @@
   -webkit-background-size: contain;
   background-size: contain;
 }
-.receiving_address .input-wrapper .input-item .validate-code {
-  flex: 0 0 216rpx;
-  width: 216rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-left: 50rpx;
-  height: 44rpx;
-  font-size: 32rpx;
-  color: #99999d;
-  border-left: 1rpx solid #d8d8d8;
-  box-sizing: border-box;
-}
-.receiving_address .input-wrapper .input-item .validate-code.ok {
-  font-weight: 500;
-  color: #2fb565;
-}
-.receiving_address .input-wrapper .input-item .validate-code.acquisition {
-  color: #2fb565;
-  font-weight: 400 !important;
-}
 .receiving_address .fill {
   flex: 1;
 }

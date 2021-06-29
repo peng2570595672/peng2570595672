@@ -73,6 +73,7 @@
                             {{passengerCarOrderInfo.selfStatus === 10 ? '审核通过，设备即将发出' : ''}}
                             {{passengerCarOrderInfo.selfStatus === 11 ? '请按要求激活ETC' : ''}}
                             {{passengerCarOrderInfo.selfStatus === 12 ? recentlyTheBill ? recentlyTheBill.addTime : '暂无通行账单' : ''}}
+                            {{orderInfo.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
                         </view>
                     </view>
                     <view class="vehicle-info-box vehicle-info-trucks-box" animation="{{animationVehicleInfoForTrucks}}">
@@ -91,6 +92,7 @@
                             {{truckOrderInfo.selfStatus === 12 ? recentlyTheTruckBill ? recentlyTheTruckBill.addTime : '暂无通行账单' : ''}}
                             {{truckOrderInfo.selfStatus === 13 ? '开通II类户预充保证金' : ''}}
                             {{truckOrderInfo.selfStatus === 15 ? '请充值' + truckOrderInfo.holdBalance / 100 + '元作为保证金' + '' : ''}}
+                            {{orderInfo.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
                         </view>
                     </view>
                 </view>
@@ -105,6 +107,7 @@
                     {{orderInfo.selfStatus === 11 ? '去激活' : ''}}
                     {{orderInfo.selfStatus === 13 ? '去开户' : ''}}
                     {{orderInfo.selfStatus === 15 ? '去预充' : ''}}
+                    {{orderInfo.selfStatus === 16 ? '继续办理' : ''}}
                 </button>
                 <button wx:if="{{loginInfo.needBindingPhone === 1 && orderInfo.selfStatus !== 12}}" class="btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber" animation="{{animationTransaction}}">
                     {{!orderInfo ? '新增办理' : ''}}

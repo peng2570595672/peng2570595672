@@ -1,0 +1,78 @@
+@import "../../../style/base.styl";
+@import "../../../style/my_animate.styl";
+// 多家银行的时候在此处添加即可
+$icons = '004 \e672'
+.page-wrapper
+	display flex
+	flex-direction column
+	min-height 100vh
+	.wrapper-content
+		display flex
+		flex-direction column
+		padding 0 30rpx
+		// 标题
+		.title
+			margin-top 40rpx
+			display flex
+			align-items center
+			height 56rpx
+			font-size 34rpx
+			font-weight 500
+			font-family PingFangSC-Medium, PingFang SC
+			color #000
+			&::before
+				margin-right 12rpx
+				content ''
+				width 8rpx
+				height 44rpx
+				background #2FB565
+		.note
+			color #000000
+			font-weight Regular
+			font-size 24rpx
+			opacity 0.3
+			margin-top 8rpx
+		// 办理方式
+		.check_item
+			display flex
+			height 138rpx
+			align-items center
+			margin-top 40rpx
+			background #F4F4F4
+			opacity: 0.63
+			for key in $icons
+				$type = split(' ',key)[0]
+				$val = split(' ',key)[1]
+				.icon_{$type}
+					margin-left 32rpx
+					margin-right 24rpx
+					&::before
+						content $val
+						font-size 48rpx
+						color #009C96
+			.name
+				flex 1
+				.top
+					font-size 28rpx
+					font-family: PingFangSC-Regular, PingFang SC
+					font-weight: 400
+					line-height 40rpx
+					color rgba(0, 0, 0, 1)
+				.bottom
+					font-size 24rpx
+					line-height 40rpx
+					color rgba(0, 0, 0, .5)
+			.choice
+				font-size 24rpx
+				color #526C99
+				margin-right 32rpx
+		.bottom-note
+			margin 0 auto
+			font-size 24rpx
+			margin-top 34rpx
+			color rgba(0, 0, 0, 0.5)
+		// 高度填充
+	.fill
+		margin-top 64rpx
+		height 20rpx
+		background #FAFAFA
