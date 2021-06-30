@@ -34,13 +34,10 @@
           "scene": null
         },
         {
-          "name": "pages/separate_interest_package/index/index",
-          "pathName": "pages/separate_interest_package/index/index",
-<<<<<<< HEAD
+          "id": 3,
+          "name": "activities/pages/activity_icbc_forty_five_theme/index",
+          "pathName": "activities/pages/activity_icbc_forty_five_theme/index",
           "query": "shareId=1235556",
-=======
-          "query": "",
->>>>>>> new_original_process
           "scene": null
         },
         {
@@ -48,18 +45,6 @@
           "name": "城市服务",
           "pathName": "CitiesServices/pages/CitiesServices/CitiesServices",
           "query": "",
-          "scene": null
-        },
-        {
-          "name": "账单详情",
-          "pathName": "pages/personal_center/order_details/order_details",
-          "query": "id=781096729975066624&channel=1&month=202011",
-          "scene": 1014
-        },
-        {
-          "name": "办理进度",
-          "pathName": "pages/default/processing_progress/processing_progress",
-          "query": "orderId=754022503973654528",
           "scene": null
         },
         {
@@ -77,8 +62,9 @@
           "scene": null
         },
         {
-          "name": "pages/truck_handling/index/index",
-          "pathName": "pages/truck_handling/index/index",
+          "id": 9,
+          "name": "pages/personal_center/recharge-card-processing/recharge-card-processing",
+          "pathName": "pages/personal_center/recharge-card-processing/recharge-card-processing",
           "query": "",
           "scene": null
         },
@@ -92,11 +78,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-<<<<<<< HEAD
-          "query": "orderId=759124407025414144",
-=======
-          "query": "orderId=855909783298248704",
->>>>>>> new_original_process
+          "query": "orderId=859745153131220992",
           "scene": null
         },
         {
@@ -107,207 +89,28 @@
           "scene": null
         },
         {
-          "name": "我的账单",
-          "pathName": "pages/personal_center/my_order/my_order",
+          "name": "易路通达",
+          "pathName": "pages/truck_handling/index/index",
           "query": "",
           "scene": null
         },
         {
-          "name": "联通绑定订单",
-          "pathName": "pages/unicom/binding_plates/binding_plates",
-          "query": "scene=orderId%3D123057146007883123",
-          "scene": null
-        },
-        {
-          "name": "联通签约成功",
-          "pathName": "pages/unicom/signed_successfully/signed_successfully",
+          "id": 12,
+          "name": "货车",
+          "pathName": "pages/truck_handling/index/index",
           "query": "",
           "scene": null
         },
         {
-          "id": 16,
-          "name": "pages/Home/Home",
-          "pathName": "pages/Home/Home",
-          "query": "officialChannelId=645937022279614464",
-          "scene": null
-        },
-        {
-          "name": "pages/truck_handling/truck_receiving_address/truck_receiving_address",
-          "pathName": "pages/truck_handling/truck_receiving_address/truck_receiving_address",
-          "query": "serviceProvidersId=570178295975378944",
-          "scene": null
-        },
-        {
-          "name": "九宫格",
-          "pathName": "pages/default/wechat_sudoku/wechat_sudoku",
-          "query": "bank=ABC",
-          "scene": null
-        },
-        {
-          "name": "大地",
-          "pathName": "pages/Home/Home",
-          "query": "carInsurance=694498029775880192",
-          "scene": null
-        },
-        {
-          "name": "支付",
-          "pathName": "pages/default/payment_amount/payment_amount",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "测试领券",
-          "pathName": "pages/personal_center/test/index",
-          "query": "scene=SPI%3D798934694633668608",
-          "scene": null
-        },
-        {
-          "name": "支付成功",
-          "pathName": "pages/default/payment_successful/payment_successful",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/default/index/index",
+          "id": 13,
+          "name": "客车",
           "pathName": "pages/default/index/index",
-          "query": "type=101",
-          "scene": null
-        },
-        {
-          "name": "pages/truck_handling/index/index",
-          "pathName": "pages/truck_handling/index/index",
-          "query": "orderId=807027129899814912",
-          "scene": null
-        },
-        {
-          "name": "pages/Home/Home",
-          "pathName": "pages/Home/Home",
-          "query": "officialChannelId=645937022279614464",
-          "scene": null
-        },
-        {
-          "name": "pages/personal_center/coupon_redemption_centre/coupon_redemption_centre",
-          "pathName": "pages/personal_center/coupon_redemption_centre/coupon_redemption_centre",
           "query": "",
           "scene": null
         },
         {
-          "name": "pages/personal_center/service_card_voucher/service_card_voucher",
-          "pathName": "pages/personal_center/service_card_voucher/service_card_voucher",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/personal_center/owner_service/owner_service",
-          "pathName": "pages/personal_center/owner_service/owner_service",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/truck_handling/upload_id_card/upload_id_card",
-          "pathName": "pages/truck_handling/upload_id_card/upload_id_card",
-          "query": "type=101",
-          "scene": null
-        },
-        {
-          "name": "pages/default/information_validation/information_validation",
-          "pathName": "pages/default/information_validation/information_validation",
-          "query": "type=101",
-          "scene": null
-        },
-        {
-          "name": "pages/truck_handling/upload_other_photo/upload_other_photo",
-          "pathName": "pages/truck_handling/upload_other_photo/upload_other_photo",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/truck_handling/index/index",
-          "pathName": "pages/truck_handling/index/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "拍照",
-          "pathName": "pages/truck_handling/shot_other_photo/shot_other_photo",
-          "query": "orderId=824659404988092416",
-          "scene": null
-        },
-        {
-          "name": "业务员端购券",
-          "pathName": "pages/separate_interest_package/prefer_purchase/prefer_purchase",
-          "query": "scene=RPP%3D855166428146302976",
-          "scene": null
-        },
-        {
-          "name": "pages/personal_center/recharge-card-processing/recharge-card-processing",
-          "pathName": "pages/personal_center/recharge-card-processing/recharge-card-processing",
-          "query": "orderId=823587582322413568",
-          "scene": null
-        },
-        {
-          "name": "签约管理",
-          "pathName": "pages/truck_handling/contract_management/contract_management",
-          "query": "orderId=823587582322413568",
-          "scene": null
-        },
-        {
-          "name": "基础服务",
-          "pathName": "pages/personal_center/basic_services/basic_services",
-          "query": "orderId=823587582322413568",
-          "scene": null
-        },
-        {
-          "name": "the_owner_service",
-          "pathName": "pages/personal_center/the_owner_service/the_owner_service",
-          "query": "orderId=823587582322413568",
-          "scene": null
-        },
-        {
-          "name": "权益包购买成功",
-          "pathName": "pages/separate_interest_package/buy_success/buy_success",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "特微入口",
-          "pathName": "pingan/pages/ChooseBank/ChooseBank",
-          "query": "orderId=823587582322413568",
-          "scene": null
-        },
-        {
-          "name": "service_card_voucher",
-          "pathName": "pages/personal_center/service_card_voucher/service_card_voucher",
-          "query": "orderId=823587582322413568",
-          "scene": null
-        },
-        {
-          "name": "service_purchase_record",
-          "pathName": "pages/personal_center/service_purchase_record/service_purchase_record",
-          "query": "orderId=823587582322413568",
-          "scene": null
-        },
-        {
-          "name": "coupon_redemption_centre",
-          "pathName": "pages/personal_center/coupon_redemption_centre/coupon_redemption_centre",
-          "query": "orderId=823587582322413568",
-          "scene": null
-        },
-        {
-          "name": "service_card_voucher_details",
-          "pathName": "pages/personal_center/service_card_voucher_details/service_card_voucher_details",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "shot_other_photo",
-          "pathName": "pages/default/shot_other_photo/shot_other_photo",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/separate_interest_package/index/index",
-          "pathName": "pages/separate_interest_package/index/index",
+          "name": "账户管理",
+          "pathName": "pages/precharge_account_management/index/index",
           "query": "",
           "scene": null
         }

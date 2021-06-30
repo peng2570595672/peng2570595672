@@ -89,18 +89,19 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			this.setData({
-				orderInfo: result.data
+				orderInfo: result.data,
+				idCardStatus: result.data.idCard.idCardStatus
 			});
 			// 获取实名信息
-			let temp = this.data.orderInfo.ownerIdCard;
-			if (this.data.orderInfo.ownerIdCard.cardMobilePhone) {
+			let temp = this.data.orderInfo?.ownerIdCard;
+			if (this.data.orderInfo?.ownerIdCard?.cardMobilePhone) {
 				this.data.formData.cardMobilePhone = this.data.orderInfo.ownerIdCard.cardMobilePhone;
 				this.setData({
 					mobilePhoneIsOk: true,
 					formData: this.data.formData
 				});
 			}
-			if (temp) {
+			if (temp?.ownerIdCardTrueName) {
 				let idCardBack = {ocrObject: {}};
 				let idCardFace = {ocrObject: {}};
 				idCardFace.fileUrl = temp.ownerIdCardPositiveUrl;
@@ -119,8 +120,7 @@ Page({
 					idCardFace,
 					idCardBack,
 					backStatus: 4,
-					faceStatus: 4,
-					idCardStatus: temp.idCardStatus
+					faceStatus: 4
 				});
 				this.setData({
 					available: this.validateData(false)

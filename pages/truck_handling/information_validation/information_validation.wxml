@@ -37,13 +37,13 @@
         <!--上传行驶证背面结束-->
     </view>
 	<!--	标题开始-->
-	<view class="title" wx:if="{{current !== 2}}">核对信息</view>
+	<view class="title" wx:if="{{faceStatus === 4 && backStatus === 4}}">核对信息</view>
 	<!--	标题结束-->
 	<!--	提示开始-->
-	<view class="tips" wx:if="{{current !== 2}}">*请仔细核对以下信息，有误项可点击修改</view>
+	<view class="tips" wx:if="{{faceStatus === 4 && backStatus === 4}}">*请仔细核对以下信息，有误项可点击修改</view>
 	<!--	提示结束-->
 	<!--	内容开始-->
-	<view class="content-wrapper">
+	<view class="content-wrapper" wx:if="{{faceStatus === 4 && backStatus === 4}}">
 <!--        <view class="item">-->
 <!--            <view>车辆归属</view>-->
 <!--            <view class="ownership-type">-->

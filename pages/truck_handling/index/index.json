@@ -3,5 +3,8 @@
   "navigationBarBackgroundColor": "#000000",
   "backgroundColor": "#000000",
   "navigationBarTextStyle": "white",
-  "navigationStyle": "custom"
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "discount-details": "/components/discount_details/discount_details"
+  }
 }

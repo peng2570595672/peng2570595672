@@ -27,7 +27,7 @@
                 <image src="/pages/default/assets/wechat_pay_01.png" mode="widthFix"></image>
             </view>
             <view class="btn" catchtap="onClickHandle">立即办理</view>
-<!--            <view class="trans-tips" catchtap="goTruck">前往办理货车ETC</view>-->
+            <view class="trans-tips" catchtap="goTruck">前往办理货车ETC</view>
         </view>
         <view class="service-desc">
             <view class="title">

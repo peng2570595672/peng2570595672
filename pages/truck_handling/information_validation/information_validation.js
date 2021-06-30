@@ -134,10 +134,7 @@ Page({
 									this.selectComponent('#notFinishedOrder').show();
 									return;
 								}
-								const vehicleList = ['普通货车', '厢式货车', '仓栅式货车', '封闭货车', '罐式货车', '平板货车',
-									'集装箱车', '车辆运输车', '特殊结构货车', '自卸货车', '半挂牵引车', '全挂牵引车', '栏板货车',
-									'轻型货车', '多用途货车', '专门用途货车', '低速货车'];
-								if (!vehicleList.includes(faceObj.ocrObject.vehicleType)) {
+								if (!this.checkVehicleType(faceObj.ocrObject.vehicleType)) {
 									util.showToastNoIcon('非货车类型无法办理！');
 									this.setData({
 										available: false,
@@ -218,6 +215,18 @@ Page({
 			}
 		}, () => {
 		});
+	},
+	checkVehicleType (vehicleType) {
+		let flag;
+		const vehicleList = ['普通货车', '厢式货车', '仓栅式货车', '封闭货车', '罐式货车', '平板货车',
+			'集装箱车', '车辆运输车', '特殊结构货车', '自卸货车', '半挂牵引车', '全挂牵引车', '栏板货车',
+			'轻型货车', '多用途货车', '专门用途货车', '低速货车'];
+		for (let name of vehicleList) {
+			if (vehicleType.indexOf(name) !== -1) {
+				flag = true;
+			}
+		}
+		return flag;
 	},
 	// 校验数据
 	validateData (isToast) {

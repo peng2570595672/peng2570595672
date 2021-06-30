@@ -120,9 +120,7 @@ Page({
 									util.showToastNoIcon(`行驶证车牌与${this.data.vehPlates}不一致，请重新上传`);
 									return;
 								}
-								const vehicleList = ['中型普通客车','小型专用客车', '小型轿车', '小型普通客车', '小型面包车', '小型旅居车', '小型客车',
-									'微型越野客车', '微型普通客车', '微型轿车', '轻型客车', '普通客车', '大型轿车', '小型越野客车', '轿车'];
-								if (!vehicleList.includes(faceObj.ocrObject.vehicleType)) {
+								if (!this.checkVehicleType(faceObj.ocrObject.vehicleType)) {
 									util.showToastNoIcon('非客车类型无法办理！');
 									this.setData({
 										available: false,
@@ -196,6 +194,17 @@ Page({
 			}
 		}, () => {
 		});
+	},
+	checkVehicleType (vehicleType) {
+		let flag;
+		const vehicleList = ['中型普通客车','小型专用客车', '小型轿车', '小型普通客车', '小型面包车', '小型旅居车', '小型客车',
+			'微型越野客车', '微型普通客车', '微型轿车', '轻型客车', '普通客车', '大型轿车', '小型越野客车', '轿车'];
+		for (let name of vehicleList) {
+			if (vehicleType.indexOf(name) !== -1) {
+				flag = true;
+			}
+		}
+		return flag;
 	},
 	// 校验数据
 	validateData (isToast) {

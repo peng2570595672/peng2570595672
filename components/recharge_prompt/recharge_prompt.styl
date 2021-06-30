@@ -1,0 +1,73 @@
+@import "animate.styl";
+.alert-for-not-finished
+	position: fixed
+	left: 0
+	right: 0
+	top: 0
+	bottom: 0
+	background: rgba(0, 0, 0, 0.6)
+	z-index: 10000
+	.alert-for-not-finished-content
+		position absolute
+		left 0
+		right 0
+		top 50%
+		transform translate(0, -50%)
+		width 640rpx
+		height 760rpx
+		background rgba(255,255,255,1)
+		box-shadow 4rpx 12rpx 56rpx 0px rgba(102,102,109,0.19)
+		border-radius 16rpx
+		margin 0 auto
+		z-index 2
+		.alert-for-box
+			position absolute
+			height 760rpx
+			bottom 0
+			left 0
+			right 0
+			margin auto
+			z-index 2
+			color #33333d
+			background #fff
+			border-radius 20rpx
+			text-align left
+			line-height 34rpx
+			font-size 24rpx
+			font-weight 500
+			padding 0 32rpx
+			box-sizing border-box
+			font-family PingFangSC-Medium,PingFang SC
+			.alert-title
+				font-size: 28rpx;
+				color: #000000;
+				line-height: 48rpx;
+				padding 56rpx 0 22rpx
+			.alert-content
+				padding 32rpx
+				background #F7F7F7
+				color: #000000;
+				.first
+					font-family: PingFangSC-Medium, PingFang SC;
+					font-weight: 500;
+				.info
+					padding 32rpx 0 50rpx
+					line-height 44rpx
+					text
+						padding-left 12rpx
+						color #00A9FF
+				.alert-prompt
+					color: #FFC000;
+			.alert-for-button
+				width: 240rpx;
+				height: 82rpx;
+				display flex
+				align-items center
+				justify-content center
+				font-size: 28rpx;
+				font-family: PingFangSC-Regular, PingFang SC;
+				font-weight: 400;
+				color: #FFFFFF;
+				background: #00B85C;
+				border-radius: 8rpx;
+				margin 40rpx auto 0

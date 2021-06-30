@@ -114,7 +114,7 @@ Page({
 		}
 		const packages = app.globalData.newPackagePageData;
 		this.setData({
-			listOfPackages: parseInt(options.type) === 1 ? packages.divideAndDivideList : packages.alwaysToAlwaysList
+			listOfPackages: packages.listOfPackages
 		});
 		await this.getSwiperHeight();
 	},

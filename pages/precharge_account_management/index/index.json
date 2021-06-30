@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "账户管理",
+  "usingComponents": {
+    "recharge-prompt": "/components/recharge_prompt/recharge_prompt"
+  }
+}

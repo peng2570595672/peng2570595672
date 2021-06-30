@@ -27,7 +27,7 @@ Page({
 		loginInfo: {},// 登录信息
 		exceptionMessage: undefined, // 异常信息
 		// isNormalProcess: !app.globalData.isContinentInsurance, // 是否是正常流程进入
-		isNormalProcess: false, // 是否是正常流程进入
+		isNormalProcess: true, // 是否是正常流程进入
 		recentlyTheBillList: [], // 最新客车账单集合
 		recentlyTheTruckBillList: [], // 最新货车账单集合
 		recentlyTheBill: undefined, // 最新客车账单

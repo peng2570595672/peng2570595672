@@ -17,7 +17,7 @@ Page({
 		showDetailMask: false,
 		showPublicAccountType: 0,// 0 关注公众号  1 影音
 		isActivation: false, // 是否有激活车辆
-		isOpenTheCard: false, // 是否开通三类户
+		isOpenTheCard: true, // 是否开通三类户
 		isShowFeatureService: false, // 是否显示特色服务
 		hasCoupon: false, // 是否显示领券中心
 		isActivityDate: false, // 是否活动期间
@@ -315,7 +315,7 @@ Page({
 	},
 	onClickAccountManagement () {
 		wx.uma.trackEvent('personal_center_for_account_management');
-		util.go('/pages/account_management/index/index');
+		util.go('/pages/precharge_account_management/index/index');
 	},
 	// 扫码
 	scan () {

@@ -106,6 +106,14 @@
       ]
     },
     {
+      "root": "pages/precharge_account_management",
+      "name": "pages/precharge_account_management",
+      "pages": [
+        "index/index",
+        "account_details/account_details"
+      ]
+    },
+    {
       "root": "pages/international_driving_document",
       "name": "pages/international_driving_document",
       "pages": [
