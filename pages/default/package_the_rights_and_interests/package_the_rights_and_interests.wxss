@@ -311,6 +311,7 @@
   width: 100%;
   height: 160rpx;
   background: #f6f6f6;
+  z-index: 3;
 }
 .package-the-rights-and-interests .next .btn {
   width: 650rpx;

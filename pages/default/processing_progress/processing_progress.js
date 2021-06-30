@@ -92,6 +92,7 @@ Page({
 	},
 	// 获取一类户号信息
 	async getBankAccounts () {
+		return;
 		const result = await util.getDataFromServersV2('consumer/member/icbcv2/getBankAccounts');
 		if (!result) return;
 		if (result.code === 0) {
@@ -435,6 +436,20 @@ Page({
 				}
 			}, app.globalData.userInfo.accessToken);
 		}
+	},
+	// 复制银行卡号
+	onClickCopyBankCardNumber (e) {
+		let bankCardNumber = e.currentTarget.dataset['no'];
+		wx.setClipboardData({
+			data: bankCardNumber,
+			success (res) {
+				wx.getClipboardData({
+					success (res) {
+						console.log(res.data); // data 剪贴板的内容
+					}
+				});
+			}
+		});
 	},
 	goHome () {
 		wx.reLaunch({

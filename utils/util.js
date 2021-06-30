@@ -624,6 +624,7 @@ function luhmCheck(bankno) {
  *  获取货车新流程订单办理状态 2.0
  */
 function getTruckHandlingStatus(orderInfo) {
+	// flowVersion 流程版本，1-分对分，2-新版（总对总）,3-选装 4-预充值 5-保证金模式 6-圈存
 	if (orderInfo.flowVersion === 5 && orderInfo.multiContractList.find(item => item.contractStatus === 2)) {
 		return 1; // 货车解约 - 保证金模式
 	}

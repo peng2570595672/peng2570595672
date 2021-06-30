@@ -156,7 +156,7 @@ Page({
 	// 获取二类户号信息
 	async next () {
 		if (!this.data.available) return;
-		if (this.data.isModifiedData) {
+		if (this.data.isModifiedData || this.data.orderInfo.flowVersion === 4) {
 			if (this.data.isRequest) {
 				return;
 			} else {
@@ -179,13 +179,15 @@ Page({
 			util.go('/pages/default/processing_progress/processing_progress');
 			return;
 		}
-		const result = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
-		if (!result) return;
-		if (result.code) {
-			util.showToastNoIcon(result.message);
-			return;
+		if (this.data.orderInfo.flowVersion === 5) {
+			const result = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
+			if (!result) return;
+			if (result.code) {
+				util.showToastNoIcon(result.message);
+				return;
+			}
+			const path = result.data?.accountNo ? 'contract_management' : 'binding_account';
+			util.go(`/pages/truck_handling/${path}/${path}`);
 		}
-		const path = result.data?.accountNo ? 'contract_management' : 'binding_account';
-		util.go(`/pages/truck_handling/${path}/${path}`);
 	}
 });

@@ -99,11 +99,14 @@
   display: flex;
   margin-top: 10rpx;
   padding-left: 26rpx;
-  padding-right: 80rpx;
+  padding-right: 40rpx;
   line-height: 40rpx;
   color: #66666d;
   font-size: 24rpx;
   transform: translateY(-24rpx);
+}
+.processing_progress .progress_wrapper .item .content-des.prompt {
+  color: #ff3c48;
 }
 .processing_progress .progress_wrapper .item .content-des.error {
   color: #ff563c;
@@ -154,6 +157,26 @@
 }
 .processing_progress .progress_wrapper .item .content-des.earnest-money .precharge {
   color: #00b1ff;
+}
+.processing_progress .progress_wrapper .item .content-des .precharge {
+  color: #00b1ff;
+}
+.processing_progress .progress_wrapper .item .content-info {
+  background: #f0f0f0;
+  margin: 0rpx 40rpx 32rpx 24rpx;
+  padding: 32rpx 18rpx;
+  font-size: 24rpx;
+  line-height: 44rpx;
+}
+.processing_progress .progress_wrapper .item .content-info text {
+  padding-left: 12rpx;
+  color: #00a9ff;
+}
+.processing_progress .progress_wrapper .item .already-prepaid {
+  text-align: right;
+  color: #00b85c;
+  font-size: 24rpx;
+  padding-right: 40rpx;
 }
 .processing_progress .progress_wrapper .last::after {
   display: none !important;

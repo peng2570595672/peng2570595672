@@ -14,11 +14,11 @@ Component({
 		ok (e) {
 			this.hide(e,true);
 		},
-		// 复制快递单号
+		// 复制银行卡号
 		onClickCopyBankCardNumber (e) {
-			let logisticsNo = e.currentTarget.dataset['no'];
+			let bankCardNumber = e.currentTarget.dataset['no'];
 			wx.setClipboardData({
-				data: logisticsNo,
+				data: bankCardNumber,
 				success (res) {
 					wx.getClipboardData({
 						success (res) {
