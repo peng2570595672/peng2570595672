@@ -101,5 +101,12 @@ Page({
 	},
 	onClickToMyOrder () {
 		util.go(`/pages/personal_center/my_order/my_order`);
+	},
+	onUnload () {
+		const pages = getCurrentPages();
+		const prevPage = pages[pages.length - 2];// 上一个页面
+		prevPage.setData({
+			isReload: true // 重置状态
+		});
 	}
 });

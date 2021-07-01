@@ -204,7 +204,7 @@ Page({
 		}
 	},
 	onClickCheckAccount () {
-		util.go('/pages/precharge_account_management/index/index');
+		util.go('/pages/precharge_account_management/index/index?needLoadEtc=true');
 	},
 	// 去微保
 	goMicroInsurance () {
