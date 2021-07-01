@@ -37,6 +37,7 @@ Page({
 							mobilePhone: result.data.mobilePhone
 						});
 						await this.getPackageList();
+						await this.getStatus();
 						util.hideLoading();
 					} else {
 						wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
@@ -52,6 +53,18 @@ Page({
 				util.showToastNoIcon('登录失败！');
 			}
 		});
+	},
+	// 获取订单信息
+	async getStatus () {
+		let params = {
+			openId: app.globalData.openId
+		};
+		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
+		if (result.code === 0) {
+			app.globalData.myEtcList = result.data;
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	onClickPay (e) {
 		const item = this.data.list[+e.target.dataset.index];

@@ -7,7 +7,7 @@
         {{status === 1 ? '购买成功' : ''}}
         {{status === 2 ? '支付成功，发放失败' : ''}}
     </view>
-    <view class="">券发放失败，请到个人中心-领券中心手动领取</view>
+    <view class="" wx:if="{{status === 2}}">券发放失败，请到个人中心-领券中心手动领取</view>
     <view class="btn" catchtap="next">
         {{status === 0 ? '刷新结果' : ''}}
         {{status === 1 ? '查看购买记录' : ''}}
