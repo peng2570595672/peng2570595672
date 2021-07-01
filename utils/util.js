@@ -664,6 +664,10 @@ function getTruckHandlingStatus(orderInfo) {
 	if (orderInfo.flowVersion === 5 && orderInfo.auditStatus === 2 && orderInfo.holdStatus === 0) {
 		return 15;// 未冻结保证金成功
 	}
+	if (orderInfo.flowVersion === 4 && orderInfo.auditStatus === 2 && orderInfo.prechargeFlag === 0) {
+		// prechargeFlag 0未预充 1已预充
+		return 17;// 未预充金额
+	}
 	if (orderInfo.auditStatus === 2 && (orderInfo.flowVersion === 2 || orderInfo.flowVersion === 3) && orderInfo.hwContractStatus !== 1) {
 		// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
 		return 9; // 审核通过,待签约高速

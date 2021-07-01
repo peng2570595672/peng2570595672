@@ -21,7 +21,8 @@ Page({
 		isShowFeatureService: false, // 是否显示特色服务
 		hasCoupon: false, // 是否显示领券中心
 		isActivityDate: false, // 是否活动期间
-		canIUseGetUserProfile: false
+		canIUseGetUserProfile: false,
+		isPrechargeOrder: false // 是否有预充流程 & 已审核通过订单
 	},
 	onLoad (options) {
 		if (wx.getUserProfile) {
@@ -60,11 +61,7 @@ Page({
 				}
 			});
 			if (JSON.stringify(app.globalData.myEtcList) !== '{}') {
-				let isActivation = app.globalData.myEtcList.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.obuCardType === 1); // 1 已激活  2 恢复订单  5 预激活
-				this.setData({
-					isShowNotice: !!app.globalData.myEtcList.length,
-					isActivation: !!isActivation.length
-				});
+				this.getIsShow();
 			}
 		} else {
 			// 公众号进入需要登录
@@ -179,16 +176,21 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
 		if (result.code === 0) {
 			app.globalData.myEtcList = result.data;
-			let isActivation = result.data.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && (item.obuCardType === 1 || item.obuCardType === 21)); // 1 已激活  2 恢复订单  5 预激活
-			let isShowFeatureService = result.data.findIndex(item => item.isShowFeatureService === 1 && (item.obuStatus === 1 || item.obuStatus === 5)); // 是否有特色服务
-			this.setData({
-				isShowNotice: !!app.globalData.myEtcList.length,
-				isShowFeatureService: isShowFeatureService !== -1,
-				isActivation: !!isActivation.length
-			});
+			this.getIsShow();
 		} else {
 			util.showToastNoIcon(result.message);
 		}
+	},
+	getIsShow () {
+		let isActivation = app.globalData.myEtcList.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && (item.obuCardType === 1 || item.obuCardType === 21)); // 1 已激活  2 恢复订单  5 预激活
+		let isShowFeatureService = app.globalData.myEtcList.findIndex(item => item.isShowFeatureService === 1 && (item.obuStatus === 1 || item.obuStatus === 5)); // 是否有特色服务
+		let isPrechargeOrder = app.globalData.myEtcList.findIndex(item => item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
+		this.setData({
+			isShowNotice: !!app.globalData.myEtcList.length,
+			isShowFeatureService: isShowFeatureService !== -1,
+			isPrechargeOrder: isPrechargeOrder !== -1,
+			isActivation: !!isActivation.length
+		});
 	},
 	// 众包-获取用户推广码和订单红包数量
 	async getMemberCrowdSourcingAndOrder () {

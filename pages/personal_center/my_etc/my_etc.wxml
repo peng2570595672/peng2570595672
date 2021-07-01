@@ -49,6 +49,7 @@
                     {{item.selfStatus === 11 ? '去激活' : ''}}
                     {{item.selfStatus === 12 ? '' : ''}}
                     {{item.selfStatus === 13 ? '去开户' : ''}}
+                    {{item.selfStatus === 15 || item.selfStatus === 17 ? '去预充' : ''}}
                     {{item.selfStatus === 15 ? '去预充' : ''}}
                     {{item.selfStatus === 16 ? '继续办理' : ''}}
                 </view>

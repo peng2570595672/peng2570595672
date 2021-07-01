@@ -721,7 +721,8 @@ Page({
 			13: () => this.goBindingAccount(orderInfo), // 去开户
 			14: () => this.goRechargeAuthorization(orderInfo), // 去授权预充保证金
 			15: () => this.goRecharge(orderInfo), // 保证金预充失败 - 去预充
-			16: () => this.goBindingWithholding(orderInfo) // 选装-未已绑定车辆代扣
+			16: () => this.goBindingWithholding(orderInfo), // 选装-未已绑定车辆代扣
+			17: () => this.onClickViewProcessingProgressHandle(orderInfo) // 去预充(预充流程)-查看进度
 		};
 		fun[orderInfo.selfStatus].call();
 	},

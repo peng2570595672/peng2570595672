@@ -12,6 +12,21 @@ Page({
 	},
 	async onShow () {
 	},
+	// 预充模式-查询预充信息
+	async getQueryProcessInfo () {
+		const result = await util.getDataFromServersV2('consumer/order/third/queryProcessInfo', {
+			orderId: this.data.orderId
+		});
+		util.hideLoading();
+		if (!result) return;
+		if (result.code === 0) {
+			this.setData({
+				prechargeInfo: result.data || {}
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
 	onClickRecharge () {
 		this.selectComponent('#rechargePrompt').show();
 	},

@@ -41,22 +41,22 @@
             <view class="content-des earnest-money" wx:if="{{info.auditStatus === 2 && info.holdStatus === 0 && requestNum !== 5}}">保证金<text class="money">{{info.holdBalance/100}}</text><text class="failure">预充失败</text>，请确认II类账户绑定银行余额是否充值，余额充值请重新发起<text catchtap="onClickPrecharge" class="precharge">预充</text>，或通过别的银行账户发起转账</view>
             <view class="content-des earnest-money" wx:if="{{info.auditStatus === 2 && info.holdStatus === 0 && requestNum === 5}}">保证金预充结果暂未获取，请稍后再试，<text catchtap="onClickRechargeResult" class="precharge">获取结果</text></view>
         </view>
-        <view class="item {{info && info.auditStatus !== 0 ? 'finished' : ''}}" wx:if="{{info.flowVersion === 4}}">
+        <view class="item {{prechargeInfo.prechargeFlag === 1 ? 'finished' : ''}} {{isSalesmanPrecharge ? 'last' : ''}}" wx:if="{{info.flowVersion === 4}}">
             <view class="content-title">预充值</view>
             <view wx:if="{{info.auditStatus === 2}}">
-                <view>
-                    <view class="content-des">您的车辆已通过审核，需预存<text class="precharge">10000</text>元。</view>
+                <view wx:if="{{prechargeInfo.prechargeFlag === 0}}">
+                    <view class="content-des">您的车辆已通过审核，需预存<text class="precharge">{{prechargeInfo.prechargeAmount/100}}</text>元。</view>
 <!--                    线下订单 且 审核通过 且未完成首次预充  prompt-->
                     <view class="content-des prompt" wx:if="{{info.orderType === 31}}">激活后3小时内未完成充值设备将被拉黑，无法使用直到充值成功为止。</view>
                     <view class="content-des">请打开其他银行App或网银等渠道，从银行卡中转账到您的ETC账户中。</view>
                     <view class="content-info">
-                        <view>收款人：上海易路通达车联网信息科技有限公司</view>
-                        <view>卡号：{{info.no}} <text data-no="1111" catchtap="onClickCopyBankCardNumber">复制</text></view>
-                        <view>开户行：平安银行</view>
+                        <view>收款人：{{prechargeInfo.bankCardAccount}}</view>
+                        <view>卡号：{{prechargeInfo.bankCardNum}} <text data-no="{{prechargeInfo.bankCardNum}}" catchtap="onClickCopyBankCardNumber">复制</text></view>
+                        <view>开户行：{{prechargeInfo.bankName}}</view>
                     </view>
-                    <view class="already-prepaid">我已完成充值</view>
+                    <view class="already-prepaid" catchtap="getQueryProcessInfo">我已完成充值</view>
                 </view>
-                <view class="content-des">{预充金额}已到账，<text class="precharge">查看</text></view>
+                <view class="content-des" wx:else>{{prechargeInfo.prechargeAmount/100}}已到账，<text class="precharge" catchtap="onClickCheckAccount">查看</text></view>
             </view>
             <view class="content-des" wx:else>等待审核通过，预充指定金额</view>
         </view>
@@ -64,7 +64,7 @@
 			<view class="content-title finished">高速签约</view>
 			<view class="content-des">{{info.hwContractStatus === 0 ? '等待完成高速支付签约' : info.hwContractStatus === 1 ? '已完成高速签约' : '已解约，请恢复签约'}}</view>
 		</view>
-		<view class="item  {{info && info.logisticsId !== 0 ? 'finished' : ''}}" wx:if="{{info.orderType === 11 && info.logisticsId !== -1}}">
+		<view class="item {{info && info.logisticsId !== 0 ? 'finished' : ''}}" wx:if="{{info.orderType === 11 && info.logisticsId !== -1}}">
 			<view class="content-title">快递配送</view>
 			<view class="content-des" wx:if="{{info.logisticsId === 0}}">发货后可查看实时物流信息</view>
 			<view class="content-des" wx:if="{{info.logisticsId !== 0}}">已发货
@@ -75,7 +75,7 @@
 				<text class="copy" catchtap="copyLogisticsNo" data-no="{{info.logisticsNo}}">复制</text>
 			</view>
 		</view>
-		<view class="item {{info && (info.obuStatus !== 0 && info.obuStatus !== 5) ? 'finished' : ''}} last">
+		<view class="item {{info && (info.obuStatus !== 0 && info.obuStatus !== 5) ? 'finished' : ''}} last" wx:if="{{!isSalesmanPrecharge}}">
 			<view class="content-title">安装激活</view>
 			<view class="content-des">收货后可根据操作手册自主安装激活使用，请在使用过程中保证扣款渠道余额充足，以免产生扣费失败情况导致账户被拉黑</view>
 		</view>

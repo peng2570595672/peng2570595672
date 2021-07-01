@@ -330,16 +330,22 @@ Page({
 					this.setData({isRequest: false});
 					if (res.errMsg === 'requestPayment:ok') {
 						if (this.data.isSalesmanOrder) {
-							// 去支付成功页
-							const result = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
-							if (!result) return;
-							if (result.code) {
-								util.showToastNoIcon(result.message);
+							if (this.data.orderInfo?.base?.flowVersion === 5) {
+								// 去支付成功页
+								const result = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
+								if (!result) return;
+								if (result.code) {
+									util.showToastNoIcon(result.message);
+									return;
+								}
+								const path = result.data?.accountNo ? 'contract_management' : 'binding_account';
+								util.go(`/pages/truck_handling/${path}/${path}`);
 								return;
 							}
-							const path = result.data?.accountNo ? 'contract_management' : 'binding_account';
-							util.go(`/pages/truck_handling/${path}/${path}`);
-							return;
+							if (this.data.orderInfo?.base?.flowVersion === 4) {
+								util.go('/pages/default/processing_progress/processing_progress');
+								return;
+							}
 						}
 						util.go('/pages/truck_handling/information_list/information_list');
 					} else {
