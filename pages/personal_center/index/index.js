@@ -76,6 +76,7 @@ Page({
 	},
 	// 点击广告位
 	onClickNotice () {
+		wx.uma.trackEvent('personal_center_for_purchase_coupons');
 		wx.setStorageSync('is-click-notice', true);
 		util.go('/pages/separate_interest_package/index/index');
 	},
