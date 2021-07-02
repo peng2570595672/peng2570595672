@@ -29,6 +29,15 @@ Page({
 			{'id': 5, 'name': '五轴'},
 			{'id': 6, 'name': '六轴'}
 		], // 车型数组
+		wheelCountArr: [
+			{'id': 2, 'name': '2'},
+			{'id': 4, 'name': '4'},
+			{'id': 6, 'name': '6'},
+			{'id': 8, 'name': '8'},
+			{'id': 10, 'name': '10'},
+			{'id': 12, 'name': '12'}
+		], // 车轮数
+		wheelCount: -1, // 车轮
 		carType: -1, // 车型
 		ownershipTypeIndex: 1, // 车辆归属
 		isTraction: 0, // 是否是牵引车 0 不是  1 是
@@ -299,6 +308,14 @@ Page({
 			available: this.validateData(false)
 		});
 	},
+	bindPersonsWheelCountChange (e) {
+		this.setData({
+			wheelCount: parseInt(e.detail.value)
+		});
+		this.setData({
+			available: this.validateData(false)
+		});
+	},
 	// 获取订单信息
 	async getOrderInfo () {
 		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
@@ -309,6 +326,7 @@ Page({
 		if (result.code === 0) {
 			if (result.data.vehicle) { // 是否有行驶证
 				const carType = this.data.carTypeArr.findIndex(item => item.id === result.data.vehicle.axleNum);
+				const wheelCount = this.data.wheelCountArr.findIndex(item => item.id === result.data.vehicle.wheelCount);
 				const size = result.data.vehicle.size.slice(0, result.data.vehicle.size.length - 2).split('×');
 				this.setData({
 					[`drivingLicenseBack.ocrObject`]: result.data.vehicle,
@@ -327,6 +345,7 @@ Page({
 					[`drivingLicenseBack.fileUrl`]: result.data.vehicle.licenseVicePage,
 					isTraction: result.data.vehicle.isTraction,
 					carType,
+					wheelCount,
 					oldDrivingLicenseFace: this.data.drivingLicenseFace,
 					oldDrivingLicenseBack: this.data.drivingLicenseBack,
 					backStatus: 4,
@@ -409,6 +428,7 @@ Page({
 				recode: back.recode, // 检验记录 【dataType包含6】
 				vehicleCategory: 0, // 收费车型(后台选) 一型客车 1,二型客车 2,三型客车 3,四型客车 4,一型货车 11,二型货车 12,三型货车 13,四型货车 14,五型货车 15,六型货车 16
 				axleNum: this.data.carTypeArr[this.data.carType].id, // 轴数
+				wheelCount: this.data.wheelCountArr[this.data.wheelCount].id, // 轴数
 				isTraction: this.data.isTraction // 是否牵引车
 			}
 		};

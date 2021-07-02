@@ -651,6 +651,9 @@ function getTruckHandlingStatus(orderInfo) {
 	if (orderInfo.flowVersion === 4 && orderInfo.status === 0) {
 		return 4; // 办理中 已上传证件 待完善
 	}
+	if (orderInfo.flowVersion === 4 && orderInfo.auditStatus === -1) {
+		return 6; // 我方无需审核,待第三方审核
+	}
 	if (orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) {
 		// auditStatus: -1 无需审核   0 待审核   1 审核失败  2 审核通过  3 预审核通过  9 高速核验不通过
 		return 6;// 待审核 预审核通过(待审核)

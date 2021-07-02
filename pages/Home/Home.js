@@ -134,7 +134,7 @@ Page({
 		util.subscribe(tmplIds,urls);
 	},
 	// 顶部tab切换
-	onClickCheckVehicleType (e) {
+	async onClickCheckVehicleType (e) {
 		let activeIndex = parseInt(e.currentTarget.dataset.index);
 		if (activeIndex === this.data.activeIndex) return;
 		wx.uma.trackEvent(activeIndex === 1 ? 'index_for_tab_to_passenger_car' : 'index_for_tab_to_truck');
@@ -143,6 +143,9 @@ Page({
 			orderInfo: activeIndex === 1 ? (this.data.passengerCarOrderInfo || false) : (this.data.truckOrderInfo || false),
 			recentlyTheBillInfo: activeIndex === 1 ? (this.data.recentlyTheBill || false) : (this.data.recentlyTheTruckBill || false)
 		});
+		if (this.data.orderInfo.selfStatus === 17) {
+			await this.getQueryProcessInfo(this.data.orderInfo.id);
+		}
 		const that = this;
 		wx.createSelectorQuery().selectAll('.bill').boundingClientRect(function (rect) {
 			that.setData({
@@ -541,6 +544,9 @@ Page({
 			this.setData({
 				orderInfo: this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data.truckOrderInfo
 			});
+			if (this.data.orderInfo.selfStatus === 17) {
+				await this.getQueryProcessInfo(this.data.orderInfo.id);
+			}
 			let channelList = activationOrder.concat(activationTruckOrder);
 			channelList = [...new Set(channelList)];
 			if (channelList.length) await this.getArrearageTheBill(channelList);
@@ -556,6 +562,22 @@ Page({
 					await this.getRecentlyTheBill(item, true);
 				});
 			}
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 预充模式-查询预充信息
+	async getQueryProcessInfo (id) {
+		const result = await util.getDataFromServersV2('consumer/order/third/queryProcessInfo', {
+			orderId: id
+		});
+		util.hideLoading();
+		if (!result) return;
+		if (result.code === 0) {
+			this.data.orderInfo.prechargeAmount = result.data?.prechargeAmount || 0;
+			this.setData({
+				orderInfo: this.data.orderInfo
+			});
 		} else {
 			util.showToastNoIcon(result.message);
 		}

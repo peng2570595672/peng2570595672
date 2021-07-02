@@ -62,9 +62,8 @@
           "scene": null
         },
         {
-          "id": 9,
-          "name": "pages/personal_center/recharge-card-processing/recharge-card-processing",
-          "pathName": "pages/personal_center/recharge-card-processing/recharge-card-processing",
+          "name": "pages/account_management/index/index",
+          "pathName": "pages/account_management/index/index",
           "query": "",
           "scene": null
         },
@@ -78,7 +77,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=860126437863460864",
+          "query": "orderId=860692513613156352",
           "scene": null
         },
         {

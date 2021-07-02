@@ -204,7 +204,7 @@ Page({
 		}
 	},
 	onClickCheckAccount () {
-		util.go('/pages/precharge_account_management/index/index?needLoadEtc=true');
+		util.go('/pages/account_management/index/index?needLoadEtc=true');
 	},
 	// 去微保
 	goMicroInsurance () {
@@ -295,6 +295,7 @@ Page({
 					wx.uma.trackEvent('truck_for_processing_progress');
 					mta.Event.stat('truck_for_processing_progress',{});
 				}
+				if (res.data.flowVersion === 4 && res.data.auditStatus === -1) res.data.auditStatus = 0;
 				this.setData({
 					isSalesmanPrecharge: res.data.orderType === 31 && res.data.flowVersion === 4,
 					accountVerification: res.data.orderVerificationStatus,

@@ -5,9 +5,9 @@
 			<view class="alert-content">
                 <view class="first">请打开其他银行App或网银等渠道，从银行卡中转账到您的ETC账户中。</view>
                 <view class="info">
-                    <view>收款人：上海易路通达车联网信息科技有限公司</view>
-                    <view>卡号：{{info.no}} <text data-no="1111" catchtap="onClickCopyBankCardNumber">复制</text></view>
-                    <view>开户行：平安银行</view>
+                    <view>收款人：{{info.bankCardAccount}}</view>
+                    <view>卡号：{{info.bankCardNum}} <text data-no="{{info.bankCardNum}}" catchtap="onClickCopyBankCardNumber">复制</text></view>
+                    <view>开户行：{{info.bankName}}</view>
                 </view>
                 <view class="alert-prompt">*因各家银行转账需时不一，若当下没有更新充值记录请稍后再查。</view>
             </view>

@@ -2,6 +2,7 @@
  * @author 狂奔的蜗牛
  * @desc etc详情
  */
+import { initProductName } from '../../../utils/utils.js';
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
@@ -79,6 +80,7 @@ Page({
 		if (result.code === 0) {
 			let orderInfo = result.data;
 			orderInfo['selfStatus'] = orderInfo.isNewTrucks === 1 ? util.getTruckHandlingStatus(orderInfo) : util.getStatus(orderInfo);
+			orderInfo['productName'] = initProductName(orderInfo);
 			this.setData({
 				orderInfo
 			});

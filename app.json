@@ -97,16 +97,9 @@
         "recharge_result/recharge_result",
         "account_recharge/account_recharge",
         "account_details/account_details",
+        "precharge_account_details/precharge_account_details",
         "new_binding/new_binding",
         "bind_bank_card/bind_bank_card"
-      ]
-    },
-    {
-      "root": "pages/precharge_account_management",
-      "name": "pages/precharge_account_management",
-      "pages": [
-        "index/index",
-        "account_details/account_details"
       ]
     },
     {

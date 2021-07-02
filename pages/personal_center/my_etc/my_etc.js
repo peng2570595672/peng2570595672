@@ -2,6 +2,7 @@
  * @author 狂奔的蜗牛
  * @desc 我的ETC
  */
+import { initProductName } from '../../../utils/utils.js';
 const util = require('../../../utils/util.js');
 const app = getApp();
 // 数据统计
@@ -81,6 +82,7 @@ Page({
 			let vehicleList = [];
 			result.data.map((item) => {
 				vehicleList.push(item.vehPlates);
+				item['productName'] = initProductName(item);
 				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
 				wx.setStorageSync('cars', vehicleList.join('、'));
 			});

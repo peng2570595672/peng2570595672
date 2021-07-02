@@ -82,6 +82,17 @@
                 <view class="choice-axle iconfont">{{carType !== -1 ? carTypeArr[carType].name : '请真实选择车轴数'}}</view>
             </picker>
         </view>
+        <view class="item axle">
+            <view>车轮数</view>
+            <picker
+                    bindchange="bindPersonsWheelCountChange"
+                    value="{{wheelCount}}"
+                    range="{{wheelCountArr}}"
+                    range-key="name"
+            >
+                <view class="choice-axle iconfont">{{wheelCount !== -1 ? wheelCountArr[wheelCount].name : '请真实选择车轮个数'}}</view>
+            </picker>
+        </view>
         <view class="parameter">
             <view class="parameter-item">
                 <view class="parameter-title">尺寸mm</view>

@@ -93,6 +93,7 @@
                             {{truckOrderInfo.selfStatus === 13 ? '开通II类户预充保证金' : ''}}
                             {{truckOrderInfo.selfStatus === 15 ? '请充值' + truckOrderInfo.holdBalance / 100 + '元作为保证金' + '' : ''}}
                             {{orderInfo.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
+                            {{orderInfo.selfStatus === 17 ? '请预充' + (orderInfo.prechargeAmount || 0) / 100 + '元否则设备无法通行' + '' : ''}}
                         </view>
                     </view>
                 </view>

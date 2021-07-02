@@ -317,7 +317,7 @@ Page({
 	},
 	onClickAccountManagement () {
 		wx.uma.trackEvent('personal_center_for_account_management');
-		util.go('/pages/precharge_account_management/index/index');
+		util.go('/pages/account_management/index/index');
 	},
 	// 扫码
 	scan () {
