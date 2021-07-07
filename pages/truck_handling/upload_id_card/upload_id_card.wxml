@@ -25,7 +25,7 @@
                     <image class="img" src="/pages/truck_handling/assets/id_card_back_bg.png"></image>
                     <image class="ico" wx:if="{{backStatus === 1}}" src="/pages/truck_handling/assets/icon_camera_white.png"></image>
                 </view>
-                <view>身份证（人像面）</view>
+                <view>身份证（国徽面）</view>
             </view>
             <view class="identify" wx:if="{{backStatus === 2 || backStatus === 3}}">
                 <image class="refresh" src="/pages/truck_handling/assets/refresh.png"></image>

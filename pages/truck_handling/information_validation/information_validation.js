@@ -38,6 +38,7 @@ Page({
 			{'id': 12, 'name': '12'}
 		], // 车轮数
 		wheelCount: -1, // 车轮
+		wheelCountNo: undefined, // 车轮数量
 		carType: -1, // 车型
 		ownershipTypeIndex: 1, // 车辆归属
 		isTraction: 0, // 是否是牵引车 0 不是  1 是
@@ -57,6 +58,12 @@ Page({
 			vehColor: options.vehColor,
 			vehPlates: options.vehPlates
 		});
+		if (parseInt(options.flowVersion || 0) === 4) {
+			this.data.carTypeArr.pop();
+			this.setData({
+				carTypeArr: this.data.carTypeArr
+			});
+		}
 		await this.getOrderInfo();
 	},
 	onShow () {
@@ -275,6 +282,18 @@ Page({
 			if (isToast) util.showToastNoIcon('请选择车轴数！');
 			return false;
 		}
+		// if (this.data.wheelCount === -1) {
+		// 	if (isToast) util.showToastNoIcon('请选择车轮数！');
+		// 	return false;
+		// }
+		if (!this.data.wheelCountNo) {
+			if (isToast) util.showToastNoIcon('请输入车轮数量！');
+			return false;
+		}
+		if (parseInt(this.data.wheelCountNo) < 4 || parseInt(this.data.wheelCountNo) > 99) {
+			if (isToast) util.showToastNoIcon('车轮个数不合法！');
+			return false;
+		}
 		if (!this.data.drivingLicenseBack.ocrObject.vehicleWidth) {
 			if (isToast) util.showToastNoIcon('车辆尺寸(宽)不能为空！');
 			return false;
@@ -329,6 +348,7 @@ Page({
 				const wheelCount = this.data.wheelCountArr.findIndex(item => item.id === result.data.vehicle.wheelCount);
 				const size = result.data.vehicle.size.slice(0, result.data.vehicle.size.length - 2).split('×');
 				this.setData({
+					wheelCountNo: result.data.vehicle.wheelCount,
 					[`drivingLicenseBack.ocrObject`]: result.data.vehicle,
 					[`drivingLicenseFace.ocrObject`]: result.data.vehicle,
 					[`drivingLicenseBack.ocrObject.vehicleLength`]: size[0],
@@ -428,7 +448,8 @@ Page({
 				recode: back.recode, // 检验记录 【dataType包含6】
 				vehicleCategory: 0, // 收费车型(后台选) 一型客车 1,二型客车 2,三型客车 3,四型客车 4,一型货车 11,二型货车 12,三型货车 13,四型货车 14,五型货车 15,六型货车 16
 				axleNum: this.data.carTypeArr[this.data.carType].id, // 轴数
-				wheelCount: this.data.wheelCountArr[this.data.wheelCount].id, // 轴数
+				// wheelCount: this.data.wheelCountArr[this.data.wheelCount].id, // 车轮
+				wheelCount: this.data.wheelCountNo, // 车轮
 				isTraction: this.data.isTraction // 是否牵引车
 			}
 		};
@@ -477,6 +498,11 @@ Page({
 		if (key === 'personsCapacity') {
 			if (parseInt(value) < 1 || parseInt(value) > 6) value = '';
 			drivingLicenseBack.ocrObject[key] = value;
+		}
+		if (key === 'wheelCountNo') {
+			this.setData({
+				wheelCountNo: value
+			});
 		}
 		this.setData({
 			drivingLicenseFace,

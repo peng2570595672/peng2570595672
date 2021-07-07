@@ -39,7 +39,7 @@
 	<view class="des" wx:if="{{orderInfo.selfStatus === 7 || orderInfo.selfStatus === 8}}">{{orderInfo.auditRemark}}</view>
 	<view class="item {{orderInfo.contractVersion === 'v3' ? 'iconfont' : ''}}">
 		<view>扣费方式</view>
-		<view catchtap="onClickBank">{{orderInfo.productName}}</view>
+		<view catchtap="onClickBank">{{orderInfo.deductionMethod}}</view>
 	</view>
 	<view class="split" wx:if="{{orderInfo.pledgeStatus !== -1 && orderInfo.pledgeType === 2}}"></view>
     <view class="item" wx:if="{{orderInfo.pledgeStatus !== -1 && orderInfo.pledgeType === 2}}">

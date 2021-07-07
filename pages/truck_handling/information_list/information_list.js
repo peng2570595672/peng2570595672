@@ -151,7 +151,7 @@ Page({
 	// 跳转
 	go (e) {
 		let url = e.currentTarget.dataset['url'];
-		util.go(`/pages/truck_handling/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}`);
+		util.go(`/pages/truck_handling/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&flowVersion=${this.data.orderInfo.flowVersion}`);
 	},
 	// 获取二类户号信息
 	async next () {
@@ -176,7 +176,7 @@ Page({
 				util.showToastNoIcon(result.message);
 				return;
 			}
-			util.go('/pages/default/processing_progress/processing_progress');
+			util.go('/pages/default/processing_progress/processing_progress?type=main_process');
 			return;
 		}
 		if (this.data.orderInfo.flowVersion === 5) {

@@ -34,10 +34,9 @@
           "scene": null
         },
         {
-          "id": 3,
-          "name": "activities/pages/activity_icbc_forty_five_theme/index",
-          "pathName": "activities/pages/activity_icbc_forty_five_theme/index",
-          "query": "shareId=1235556",
+          "name": "pages/truck_handling/index/index",
+          "pathName": "pages/truck_handling/index/index",
+          "query": "",
           "scene": null
         },
         {
@@ -62,8 +61,8 @@
           "scene": null
         },
         {
-          "name": "pages/account_management/index/index",
-          "pathName": "pages/account_management/index/index",
+          "name": "pages/truck_handling/agreement/agreement",
+          "pathName": "pages/truck_handling/agreement/agreement",
           "query": "",
           "scene": null
         },
@@ -77,7 +76,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=860692513613156352",
+          "query": "orderId=859745153131220992",
           "scene": null
         },
         {
@@ -110,6 +109,12 @@
         {
           "name": "账户管理",
           "pathName": "pages/precharge_account_management/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/truck_handling/index/index",
+          "pathName": "pages/truck_handling/index/index",
           "query": "",
           "scene": null
         }

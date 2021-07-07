@@ -57,7 +57,6 @@
                     </view>
                     <view class="pay-tips" wx:if="{{item.pledgePrice && item.flowVersion !== 4}}">注：付费产品支付成功且审核通过后，默认你已同意接受服务，不作申请退款。</view>
                     <view class="pay-tips" wx:if="{{item.flowVersion === 4}}">注：办理货车产品根据车辆轴数在审核后需预充指定金额方可发货。</view>
-<!--                    flowVersion = 4 预充值模式-->
                 </view>
             </swiper-item>
         </swiper>

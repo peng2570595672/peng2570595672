@@ -84,14 +84,15 @@
         </view>
         <view class="item axle">
             <view>车轮数</view>
-            <picker
-                    bindchange="bindPersonsWheelCountChange"
-                    value="{{wheelCount}}"
-                    range="{{wheelCountArr}}"
-                    range-key="name"
-            >
-                <view class="choice-axle iconfont">{{wheelCount !== -1 ? wheelCountArr[wheelCount].name : '请真实选择车轮个数'}}</view>
-            </picker>
+            <input type="number" maxlength="2" placeholder="请输入车轮数量" value="{{wheelCountNo}}" data-key="wheelCountNo" data-type="4" bindinput="onInputChangedHandle"/>
+<!--            <picker-->
+<!--                    bindchange="bindPersonsWheelCountChange"-->
+<!--                    value="{{wheelCount}}"-->
+<!--                    range="{{wheelCountArr}}"-->
+<!--                    range-key="name"-->
+<!--            >-->
+<!--                <view class="choice-axle iconfont">{{wheelCount !== -1 ? wheelCountArr[wheelCount].name : '请真实选择车轮个数'}}</view>-->
+<!--            </picker>-->
         </view>
         <view class="parameter">
             <view class="parameter-item">

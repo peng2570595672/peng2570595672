@@ -667,7 +667,7 @@ function getTruckHandlingStatus(orderInfo) {
 	if (orderInfo.flowVersion === 5 && orderInfo.auditStatus === 2 && orderInfo.holdStatus === 0) {
 		return 15;// 未冻结保证金成功
 	}
-	if (orderInfo.flowVersion === 4 && orderInfo.auditStatus === 2 && orderInfo.prechargeFlag === 0) {
+	if (orderInfo.flowVersion === 4 && orderInfo.orderType !== 31 && orderInfo.auditStatus === 2 && orderInfo.prechargeFlag === 0) {
 		// prechargeFlag 0未预充 1已预充
 		return 17;// 未预充金额
 	}
@@ -680,6 +680,10 @@ function getTruckHandlingStatus(orderInfo) {
 	}
 	if (orderInfo.obuStatus === 0) {
 		return 11; //  待激活
+	}
+	if (orderInfo.flowVersion === 4 && orderInfo.orderType === 31 && orderInfo.auditStatus === 2 && orderInfo.prechargeFlag === 0) {
+		// prechargeFlag 0未预充 1已预充
+		return 17;// 未预充金额
 	}
 	if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
 		return 12; // 已激活

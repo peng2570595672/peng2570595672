@@ -80,7 +80,7 @@ Page({
 		if (result.code === 0) {
 			let orderInfo = result.data;
 			orderInfo['selfStatus'] = orderInfo.isNewTrucks === 1 ? util.getTruckHandlingStatus(orderInfo) : util.getStatus(orderInfo);
-			orderInfo['productName'] = initProductName(orderInfo);
+			orderInfo['deductionMethod'] = initProductName(orderInfo);
 			this.setData({
 				orderInfo
 			});

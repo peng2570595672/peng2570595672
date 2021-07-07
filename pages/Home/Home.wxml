@@ -2,10 +2,10 @@
 <view class="index">
     <!--	车辆类型切换开始-->
     <view class="tab">
-        <view class="tab-box">
+        <view class="tab-box" wx:if="{{isNormalProcess}}">
             <view class="check-vehicle">
                 <view catchtap="onClickCheckVehicleType" data-index="1" class="item {{activeIndex === 1 ? 'active' : ''}}">客车</view>
-                <view catchtap="onClickCheckVehicleType" data-index="2" class="item {{activeIndex === 2 ? 'active' : ''}}" wx:if="{{isNormalProcess}}">货车</view>
+                <view catchtap="onClickCheckVehicleType" data-index="2" class="item {{activeIndex === 2 ? 'active' : ''}}">货车</view>
             </view>
             <view class="line {{activeIndex === 1 ? 'active-trucks' : 'active'}} {{btnSwitch ? 'skewing' : ''}}"></view>
         </view>
@@ -37,8 +37,7 @@
                 <view class="introduce introduce-trucks">
                     <view class="title" animation="{{animationTitle}}">货车ETC上线啦</view>
                     <view class="sub-title">
-                        <view animation="{{animationSubTitle1}}">绑定微信支付</view>
-                        <view animation="{{animationSubTitle2}}">享货车通行折扣</view>
+                        <view animation="{{animationSubTitle1}}">高速通行9.5折</view>
                     </view>
                 </view>
             </view>

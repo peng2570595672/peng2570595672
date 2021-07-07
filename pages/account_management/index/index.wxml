@@ -5,7 +5,7 @@
                 <view>当前账户余额（元）</view>
                 <view>货车ETC账户</view>
             </view>
-            <view class="account-info">{{item.Wallet/100}} <text catchtap="goAccountDetails">账户明细 ></text></view>
+            <view class="account-info">{{item.Wallet}} <text catchtap="goAccountDetails" data-id="{{item.orderId}}">账户明细 ></text></view>
             <view class="recharge" catchtap="onClickRecharge" data-id="{{item.orderId}}">充值</view>
         </view>
         <view class="vehicle">账户绑定车牌:{{item.vehPlates}}</view>

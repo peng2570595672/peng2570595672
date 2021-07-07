@@ -82,7 +82,7 @@ Page({
 			let vehicleList = [];
 			result.data.map((item) => {
 				vehicleList.push(item.vehPlates);
-				item['productName'] = initProductName(item);
+				item['deductionMethod'] = initProductName(item);
 				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
 				wx.setStorageSync('cars', vehicleList.join('、'));
 			});

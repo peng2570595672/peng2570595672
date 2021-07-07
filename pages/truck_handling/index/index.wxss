@@ -2,6 +2,7 @@
   width: 100%;
   background: #f6f6f6;
   margin: 0;
+  overflow-x: hidden;
 }
 .index .top {
   width: 100%;
@@ -255,7 +256,7 @@
 }
 .index .handle-desc .handle-process .progress_wrapper .item::before {
   position: absolute;
-  top: -8rpx;
+  top: -10rpx;
   left: -9rpx;
   content: '';
   display: inline-block;

@@ -4,10 +4,14 @@
 		padding-left 32rpx
 	.account-info
 		padding 64rpx 32rpx 0
-		& > view:first-child
+		.account-info-title
 			color rgba(0, 0, 0, .9)
 			font-size 28rpx
 			line-height 39rpx
+			&::after
+				content '\e650'
+				color #039EEB
+				font-size 32rpx
 		.balance
 			display flex
 			height 60rpx

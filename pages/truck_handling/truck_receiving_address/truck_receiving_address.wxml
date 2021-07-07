@@ -91,7 +91,7 @@
 	<!--	输入结束-->
 	<view class="fill"></view>
 	<!--	协议开始-->
-	<view class="agreement iconfont {{getAgreement ? 'selected' : ''}} " bindtap="onClickAgreementHandle">我已阅读并同意<text catchtap="onClickGoAgreementHandle">《ETC+货车用户办理协议》</text></view>
+	<view class="agreement iconfont {{getAgreement ? 'selected' : ''}} " bindtap="onClickAgreementHandle">我已阅读并同意<text catchtap="onClickGoAgreementHandle">《ETC+办理协议》</text></view>
 	<!--	协议结束-->
 	<!--	按钮开始-->
 	<view class="btn {{available && getAgreement ? 'available' : 'unavailable'}}" catchtap="next"><view class="animate" wx:if="{{isRequest}}"></view>下一步</view>

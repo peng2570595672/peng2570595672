@@ -4,10 +4,15 @@
 .account-details .account-info {
   padding: 64rpx 32rpx 0;
 }
-.account-details .account-info > view:first-child {
+.account-details .account-info .account-info-title {
   color: rgba(0,0,0,0.9);
   font-size: 28rpx;
   line-height: 39rpx;
+}
+.account-details .account-info .account-info-title::after {
+  content: '\e650';
+  color: #039eeb;
+  font-size: 32rpx;
 }
 .account-details .account-info .balance {
   display: flex;

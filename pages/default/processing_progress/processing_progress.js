@@ -197,7 +197,7 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			this.setData({
-				prechargeInfo: result.data || {}
+				prechargeInfo: result.data
 			});
 		} else {
 			util.showToastNoIcon(result.message);

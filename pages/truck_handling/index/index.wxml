@@ -13,7 +13,7 @@
             <text>85折</text>
             <text>起</text>
         </view>
-        <view class="btn" catchtap="onClickHandle">限时免费办理货车ETC</view>
+        <view class="btn" catchtap="onClickHandle">立刻办理</view>
         <view class="discount-tips">过路费年省5000元，仅支持个人车辆办理</view>
     </view>
     <view class="handle-desc">
@@ -60,35 +60,35 @@
             <view class="progress_wrapper" >
                 <view class="item">
                     <view class="content-title">填写资料</view>
-                    <view class="content-des">填写车牌及ETC设备收件地址</view>
+                    <view class="content-des">填写车牌及设备收货地址</view>
                 </view>
                 <view class="item ">
                     <view class="content-title">选择办理方式</view>
-                    <view class="content-des">上传身份证，行驶证及车身照片</view>
-                </view>
-                <view class="item">
-                    <view class="content-title finished">签约通行费扣款方式</view>
-                    <view class="content-des">用于高速通行后自动扣费</view>
+                    <view class="content-des">选择产品及服务权益</view>
                     <view class="tab">
                         <view class="tab-item">
                             <view>还款方式</view>
                             <view>还款日</view>
-                            <view>通行手续费</view>
+                            <view>充值手续费</view>
                         </view>
                         <view class="tab-item">
-                            <view>微信支付</view>
+                            <view>货车账户</view>
                             <view>次日</view>
-                            <view>3‰(每次充值成功后扣除)</view>
+                            <view>4‰(每次充值成功后扣除)</view>
                         </view>
                     </view>
                 </view>
                 <view class="item">
+                    <view class="content-title finished">上传车主资料</view>
+                    <view class="content-des">按要求上传车主身份证、行驶证及车身照片</view>
+                </view>
+                <view class="item">
                     <view class="content-title">提交审核</view>
-                    <view class="content-des">审核通过后，1-3个工作日内发货</view>
+                    <view class="content-des">审核通过后，按要求完成充值通行费，1-3个工作日内发货</view>
                 </view>
                 <view class="item last">
                     <view class="content-title">安装激活</view>
-                    <view class="content-des">收到设备后按提示自助安装</view>
+                    <view class="content-des">收到设备后按指引手册自助激活</view>
                 </view>
             </view>
         </view>

@@ -22,14 +22,17 @@ Page({
 		}
 	},
 	async onShow () {
-		await util.getV2BankId();
-		app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(0, 4) + ' *** *** ' + app.globalData.bankCardInfo.accountNo.substr(-4);
-		this.setData({
-			cardInfo: app.globalData.bankCardInfo
-		});
+		// await util.getV2BankId();
+		// app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(0, 4) + ' *** *** ' + app.globalData.bankCardInfo.accountNo.substr(-4);
+		// this.setData({
+		// 	cardInfo: app.globalData.bankCardInfo
+		// });
 		const pages = getCurrentPages();
 		const currPage = pages[pages.length - 1];
 		if (currPage.__data__.isReload) {
+			this.setData({
+				prechargeList: []
+			});
 			this.data.etcList.map(async item => {
 				await this.getQueryWallet(item);
 			});
@@ -81,6 +84,7 @@ Page({
 		}
 	},
 	async onClickRecharge (e) {
+		util.showLoading('正在获取充值账户信息....');
 		const id = e.currentTarget.dataset.id;
 		const result = await util.getDataFromServersV2('consumer/order/third/queryProcessInfo', {
 			orderId: id
@@ -88,6 +92,16 @@ Page({
 		util.hideLoading();
 		if (!result) return;
 		if (result.code === 0) {
+			if (!result.data.bankCardNum) {
+				setTimeout(() => {
+					wx.showToast({
+						title: '获取失败',
+						icon: 'none',
+						duration: 5000
+					});
+				}, 100);
+				return;
+			}
 			this.setData({
 				prechargeInfo: result.data || {}
 			});
@@ -96,7 +110,8 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
-	goAccountDetails () {
-		util.go(`/pages/account_management/precharge_account_details/precharge_account_details`);
+	goAccountDetails (e) {
+		const id = e.currentTarget.dataset.id;
+		util.go(`/pages/account_management/precharge_account_details/precharge_account_details?orderId=${id}`);
 	}
 });

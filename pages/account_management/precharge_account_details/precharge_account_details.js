@@ -6,36 +6,50 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
-		cardInfo: undefined,
+		orderId: undefined,
+		Wallet: 0,
+		prechargeInfo: {},
+		billInfo: {},
 		beginDate: undefined,
 		endDate: undefined,
 		nextpageFlag: 0,// 是否向下翻页
 		currentMonth: 0,// 当前月份
 		list: [],
 		page: 0,
-		bankList: [],
 		available: false, // 按钮是否可点击
 		isRequest: false// 是否请求中
 	},
-	async onShow () {
-		await util.getV2BankId();
-		app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(0, 4) + ' *** *** ' + app.globalData.bankCardInfo.accountNo.substr(-4);
+	async onLoad (options) {
 		const timestamp = Date.parse(new Date());
 		const date = new Date(timestamp);
 		this.setData({
+			orderId: options.orderId,
 			currentMonth: +util.formatTime(date).slice(5, 7),
 			beginDate: `${util.formatTime(date).slice(0, 8)}01`,
-			endDate: `${util.formatTime(date).slice(0, 10)}`,
-			cardInfo: app.globalData.bankCardInfo
+			endDate: `${util.formatTime(date).slice(0, 10)}`
 		});
+		await this.getFailBillDetails();
 		await this.fetchList();
+	},
+	async getFailBillDetails () {
+		const result = await util.getDataFromServersV2('consumer/etc/hw-details-fail', {
+			orderId: this.data.orderId
+		});
+		util.hideLoading();
+		if (!result) return;
+		if (result.code === 0) {
+			this.setData({
+				billInfo: result.data
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	async bindDateChange (e) {
 		this.setData({
 			currentMonth: +e.detail.value.slice(5, 7),
 			beginDate: `${e.detail.value}-01`,
 			endDate: `${e.detail.value}-${this.getCurrentMonthDayNum(e.detail.value)}`,
-			cardInfo: app.globalData.bankCardInfo,
 			list: [],
 			page: 0
 		});
@@ -73,34 +87,65 @@ Page({
 		});
 		util.showLoading({title: '加载中'});
 		let params = {
-            bankAccountId: app.globalData.bankCardInfo.bankAccountId,
-			beginDate: app.globalData.test ? '2021-06-01' : this.data.beginDate,
-			endDate: app.globalData.test ? '2021-06-01' : this.data.endDate,
-			queryMode: this.data.page === 1 ? 1 : 3,// 查询方式1-首次查询2-上一页3-下一页 必填
-			page: this.data.page,
-			pnBusidate: this.data.page > 1 ? this.data.list[this.data.list.length - 1].busidate : '',
-			pnRowRecord: this.data.page > 1 ? this.data.list[this.data.list.length - 1].rowRecord : '',
+			orderId: this.data.orderId,
+			startTime: this.data.beginDate,
+			endTime: this.data.endDate,
+			curPage: this.data.page,
 			pageSize: 10
 		};
-		const result = await util.getDataFromServersV2('consumer/member/icbcv2/detailAccount', params);
+		const result = await util.getDataFromServersV2('consumer/order/third/queryWallet', params);
 		if (!result) return;
 		if (result.code) {
 			util.showToastNoIcon(result.message);
 			return;
 		}
-		let record = result.data.page;
-		let list = result.data.orderDetail || [];
-		this.setData({
-			nextpageFlag: result.data.nextpageFlag,
-			list: this.data.list.concat(list),
-			page: +record
+		let list = result.data.data || [];
+		list.map(item => {
+			item.ChangeMoney = item.ChangeMoney.toString();
+			if (item.ChangeMoney.includes('-')) item.ChangeMoney = item.ChangeMoney.substr(1);
 		});
+		this.setData({
+			Wallet: result.data.Wallet,
+			list: this.data.list.concat(list)
+		});
+		if (this.data.list.length < result.data.RecCount) this.data.nextpageFlag = 1;
 	},
-	onClickRecharge () {
-		this.selectComponent('#rechargePrompt').show();
+	async onClickRecharge () {
+		util.showLoading('正在获取充值账户信息....');
+		const result = await util.getDataFromServersV2('consumer/order/third/queryProcessInfo', {
+			orderId: this.data.orderId
+		});
+		util.hideLoading();
+		if (!result) return;
+		if (result.code === 0) {
+			if (!result.data.bankCardNum) {
+				setTimeout(() => {
+					wx.showToast({
+						title: '获取失败',
+						icon: 'none',
+						duration: 5000
+					});
+				}, 100);
+				return;
+			}
+			this.setData({
+				prechargeInfo: result.data || {}
+			});
+			this.selectComponent('#rechargePrompt').show();
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	onClickToMyOrder () {
 		util.go(`/pages/personal_center/my_order/my_order`);
+	},
+	onClickDoubt () {
+		util.alert({
+			title: '',
+			content: '若您对当前账户余额及变动明细有疑问，请拨打4001-18-4001咨询',
+			showCancel: false,
+			confirmText: '知道了'
+		});
 	},
 	onUnload () {
 		const pages = getCurrentPages();
