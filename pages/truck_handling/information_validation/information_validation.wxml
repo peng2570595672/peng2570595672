@@ -64,8 +64,16 @@
 			<input type="text" value="{{drivingLicenseFace.ocrObject.vehicleType}}" data-key="vehicleType" data-type="3" bindinput="onInputChangedHandle"/>
 		</view>
         <view class="item">
+            <view>品牌型号</view>
+            <input type="text" value="{{drivingLicenseFace.ocrObject.model}}" data-key="model" data-type="3" bindinput="onInputChangedHandle"/>
+        </view>
+        <view class="item">
             <view>车辆识别代号</view>
             <input type="text" value="{{drivingLicenseFace.ocrObject.vin}}" data-key="vin" data-type="3" bindinput="onInputChangedHandle"/>
+        </view>
+        <view class="item">
+            <view>发动机号</view>
+            <input type="text" value="{{drivingLicenseFace.ocrObject.engineNo}}" data-key="engineNo" data-type="3" bindinput="onInputChangedHandle"/>
         </view>
         <view class="item">
             <view>核载人数</view>
@@ -93,6 +101,10 @@
 <!--            >-->
 <!--                <view class="choice-axle iconfont">{{wheelCount !== -1 ? wheelCountArr[wheelCount].name : '请真实选择车轮个数'}}</view>-->
 <!--            </picker>-->
+        </view>
+        <view class="item">
+            <view>准牵引总质量</view>
+            <input type="text" value="{{drivingLicenseBack.ocrObject.tractionMass}}" data-key="tractionMass" data-type="4" bindinput="onInputChangedHandle"/>
         </view>
         <view class="parameter">
             <view class="parameter-item">

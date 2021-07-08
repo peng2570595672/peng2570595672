@@ -266,8 +266,16 @@ Page({
 			if (isToast) util.showToastNoIcon('车辆类型不能为空！');
 			return false;
 		}
+		if (!this.data.drivingLicenseFace.ocrObject.model) {
+			if (isToast) util.showToastNoIcon('品牌型号不能为空！');
+			return false;
+		}
 		if (!this.data.drivingLicenseFace.ocrObject.vin) {
 			if (isToast) util.showToastNoIcon('车辆识别代号不能为空！');
+			return false;
+		}
+		if (!this.data.drivingLicenseFace.ocrObject.engineNo) {
+			if (isToast) util.showToastNoIcon('发动机号不能为空！');
 			return false;
 		}
 		if (!this.data.drivingLicenseBack.ocrObject.personsCapacity) {
@@ -294,6 +302,10 @@ Page({
 			if (isToast) util.showToastNoIcon('车轮个数不合法！');
 			return false;
 		}
+		if (!this.data.drivingLicenseBack.ocrObject.tractionMass) {
+			if (isToast) util.showToastNoIcon('准牵引总质量不能为空！');
+			return false;
+		}
 		if (!this.data.drivingLicenseBack.ocrObject.vehicleWidth) {
 			if (isToast) util.showToastNoIcon('车辆尺寸(宽)不能为空！');
 			return false;
@@ -308,6 +320,10 @@ Page({
 		}
 		if (!this.data.drivingLicenseBack.ocrObject.curbWeight) {
 			if (isToast) util.showToastNoIcon('车辆整备质量不能为空！');
+			return false;
+		}
+		if (!this.data.drivingLicenseBack.ocrObject.loadQuality) {
+			if (isToast) util.showToastNoIcon('核载质量不能为空！');
 			return false;
 		}
 		return true;

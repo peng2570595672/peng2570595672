@@ -406,6 +406,7 @@ Page({
 	},
 	// 点击tab栏下的办理
 	onClickTransaction () {
+		if (this.data.activeIndex !== 1) return;
 		app.globalData.orderInfo.orderId = '';
 		wx.uma.trackEvent(this.data.activeIndex === 1 ? 'index_for_passenger_car_entrance' : 'index_for_truck_entrance');
 		mta.Event.stat('index_for_truck_entrance',{});
@@ -928,9 +929,14 @@ Page({
 		}
 	},
 	// 修改资料
-	onClickModifiedData (orderInfo) {
+	async onClickModifiedData (orderInfo) {
 		mta.Event.stat('004',{});
 		if (orderInfo.isNewTrucks === 1) {
+			if (orderInfo.flowVersion === 4) {
+				// 预充流程取消办理
+				await this.cancelOrder(orderInfo);
+				return;
+			}
 			// 货车办理
 			wx.uma.trackEvent('index_for_truck_modified_data');
 			util.go('/pages/truck_handling/information_list/information_list?isModifiedData=true');
@@ -945,6 +951,25 @@ Page({
 		app.globalData.isModifiedData = true; // 修改资料
 		app.globalData.firstVersionData = !!(orderInfo.remark && orderInfo.remark.indexOf('迁移订单数据') !== -1);
 		util.go('/pages/default/information_list/information_list?isModifiedData=true');
+	},
+	// 取消订单
+	async cancelOrder (orderInfo) {
+		util.showLoading({
+			title: '取消中...'
+		});
+		const result = await util.getDataFromServersV2('consumer/order/cancel-order', {
+			orderId: orderInfo.id
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			let removeList = ['passenger-car-id-card-back', 'passenger-car-id-card-face', 'passenger-car-driving-license-face', 'passenger-car-driving-license-back', 'passenger-car-headstock'];
+			removeList.map(item => wx.removeStorageSync(item));
+			wx.redirectTo({
+				url: '/pages/personal_center/cancel_order_succeed/cancel_order_succeed'
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 继续办理
 	async onClickContinueHandle (orderInfo) {

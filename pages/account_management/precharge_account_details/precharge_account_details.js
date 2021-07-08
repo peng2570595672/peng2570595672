@@ -142,7 +142,7 @@ Page({
 	onClickDoubt () {
 		util.alert({
 			title: '',
-			content: '若您对当前账户余额及变动明细有疑问，请拨打4001-18-4001咨询',
+			content: '若您对当前账户余额及变动明细有疑问，或需开具充值手续费发票，请拨打4001-18-4001咨询',
 			showCancel: false,
 			confirmText: '知道了'
 		});

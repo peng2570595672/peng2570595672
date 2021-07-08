@@ -9,7 +9,7 @@
                     <view>卡号：{{info.bankCardNum}} <text data-no="{{info.bankCardNum}}" catchtap="onClickCopyBankCardNumber">复制</text></view>
                     <view>开户行：{{info.bankName}}</view>
                 </view>
-                <view class="alert-prompt">*因各家银行转账需时不一，若当下没有更新充值记录请稍后再查。</view>
+                <view class="alert-prompt">*因各家银行转账需时不同，若当下没有更新充值记录请稍后再查。</view>
             </view>
             <view class="alert-for-button" catchtap="hide">好的</view>
 		</view>

@@ -43,7 +43,8 @@
                     {{item.selfStatus === 3 ? '去支付' : ''}}
                     {{item.selfStatus === 5 || item.selfStatus === 9 ? '去签约' : ''}}
                     {{item.selfStatus === 6 ? '查看进度' : ''}}
-                    {{item.selfStatus === 7 ? '修改资料' : ''}}
+                    {{item.selfStatus === 7 && item.flowVersion !== 4 ? '修改资料' : ''}}
+                    {{item.selfStatus === 7 && item.flowVersion === 4 ? '取消办理' : ''}}
                     {{item.selfStatus === 8 ? '查看进度' : ''}}
                     {{item.selfStatus === 10 ? '查看进度' : ''}}
                     {{item.selfStatus === 11 ? '去激活' : ''}}
@@ -68,7 +69,7 @@
 	<view class="auto-fill"></view>
 	<!--	高度填充结束-->
 	<!--	新增办理开始-->
-	<view class="btn" catchtap="onClickAddNewHandle">新增办理</view>
+	<view class="btn" catchtap="onClickAddNewHandle" wx:if="{{activeIndex === 1}}">新增办理</view>
 	<!--	新增办理结束-->
 	<!--	津易行弹窗提示-->
 	<jinyixing-prompt id="notJinYiXingPrompt"></jinyixing-prompt>
