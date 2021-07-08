@@ -55,23 +55,32 @@
                             <image src="/pages/default/assets/ccb.svg" mode="widthFix"></image>
                         </view>
                     </view>
-                    <view class="pay-tips" wx:if="{{item.pledgePrice}}">注：付费产品支付成功且审核通过后，默认你已同意接受服务，不作申请退款。</view>
+                    <view class="pay-tips" wx:if="{{item.pledgePrice && item.flowVersion !== 4}}">注：付费产品支付成功且审核通过后，默认你已同意接受服务，不作申请退款。</view>
+                    <view class="pay-tips" wx:if="{{item.flowVersion === 4}}">注：办理货车产品根据车辆轴数在审核后需预充指定金额方可发货。</view>
                 </view>
             </swiper-item>
         </swiper>
     </view>
-    <!--套餐选择结束-->
     <!--权益选择开始-->
     <view wx:if="{{rightsAndInterestsList.length}}"
           class="rights-and-interests {{listOfPackages.length === 1 ? 'my-only-equities' : ''}}">
-        <view class="rights-and-interests-header">推荐加购以下权益包</view>
+        <view class="rights-and-interests-header">推荐加购</view>
         <view class="rights-and-interests-list">
             <view wx:for="{{rightsAndInterestsList}}" wx:key="index"
-                  class="rights-and-interests-item iconfont {{activeEquitiesIndex === index ? 'item-active' : ''}}"
+                  class="rights-and-interests-item {{item.isMarketingLabel ? 'item-top' : ''}} iconfont {{activeEquitiesIndex === index ? 'item-active' : ''}}"
                   catchtap="showRightsAndInterests" data-index="{{index}}">
-                <image src="/pages/default/assets/equities_of_coupons.svg" mode="widthFix"></image>
-                <view class="title">{{item.packageName}}</view>
-                <view class="price">¥{{tools.parseNum(item.payMoney/100)}}</view>
+                <view class="label-img" wx:if="{{item.isMarketingLabel}}">{{item.marketingMsg}}</view>
+                <view class="left">
+                    <image src="/pages/default/assets/combination_coupon.png" mode="widthFix"></image>
+                </view>
+                <view class="middle">
+                    <view class="item-title">{{item.packageName}}</view>
+                    <view class="item-price">¥{{tools.parseNum(item.payMoney/100)}}</view>
+                </view>
+                <view class="right">
+                    <view class="item-detail">详情</view>
+                    <view class="select-item iconfont {{activeEquitiesIndex === index ? 'item-active' : ''}}"></view>
+                </view>
             </view>
         </view>
     </view>

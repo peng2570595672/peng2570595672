@@ -77,10 +77,11 @@
         </view>
         <view class="consumption-type {{refundDetails && refundDetails.refundMoney > 0 ? 'add-border' : ''}}">
             <view>扣款方式</view>
-            <view>
+            <view wx:if="{{details.flowVersion !== 4}}">
                 {{contractMode.ctPass.contractVersion === 1 || contractMode.ctPass.contractVersion === 2 ? '微信零钱支付' : '' }}
                 {{contractMode.ctPass.contractVersion === 3 ? contractMode.ctPass.bankNameAccount || '微信指定银行卡' : '' }}
             </view>
+            <view wx:else>ETC货车账户</view>
         </view>
         <view wx:if="{{refundDetails.deductTime}}">
             <view>扣款时间</view>
@@ -121,7 +122,7 @@
     </view>
     <!--车辆详情结束-->
     <!--底部补缴开始-->
-    <view class="payment" wx:if="{{details.deductStatus === 2 || details.deductStatus === 10}}">
+    <view class="payment" wx:if="{{(details.deductStatus === 2 || details.deductStatus === 10) && details.flowVersion !== 4}}">
         <view>
             <button catchtap="go">{{details.passDeductStatus && (details.passDeductStatus === 2 || details.passDeductStatus === 10) ? '快速补缴' : '一键补缴'}}</button>
             <view class="payment-tips">当前账单已欠款，将影响你的正常通行，请尽快补缴</view>

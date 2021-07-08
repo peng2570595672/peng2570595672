@@ -21,7 +21,9 @@ Page({
 		memberId: '',
 		rechargeId: '',// 预充保证金id
 		requestNum: 0,// 请求次数
-		weiBaoOrderId: ''
+		weiBaoOrderId: '',
+		isSalesmanPrecharge: false,
+		prechargeInfo: ''// 预充流程,预充信息
 	},
 	async onLoad (options) {
 		this.setData({
@@ -46,6 +48,7 @@ Page({
 		} else {
 			await this.getBankAccounts();
 			this.getProcessingProgress();
+			await this.getQueryProcessInfo();
 			if (!this.data.isContinentInsurance) {
 				this.getInsuranceOffer();
 			}
@@ -74,7 +77,8 @@ Page({
 						app.globalData.memberId = res.data.memberId;
 						app.globalData.mobilePhone = res.data.mobilePhone;
 						await this.getBankAccounts();
-						this.getProcessingProgress();
+						await this.getProcessingProgress();
+						await this.getQueryProcessInfo();
 						if (!this.data.isContinentInsurance) {
 							this.getInsuranceOffer();
 						}
@@ -92,6 +96,8 @@ Page({
 	},
 	// 获取一类户号信息
 	async getBankAccounts () {
+		util.hideLoading();
+		return;
 		const result = await util.getDataFromServersV2('consumer/member/icbcv2/getBankAccounts');
 		if (!result) return;
 		if (result.code === 0) {
@@ -182,6 +188,24 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
+	// 预充模式-查询预充信息
+	async getQueryProcessInfo () {
+		const result = await util.getDataFromServersV2('consumer/order/third/queryProcessInfo', {
+			orderId: this.data.orderId
+		});
+		util.hideLoading();
+		if (!result) return;
+		if (result.code === 0) {
+			this.setData({
+				prechargeInfo: result.data
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	onClickCheckAccount () {
+		util.go('/pages/account_management/index/index?needLoadEtc=true');
+	},
 	// 去微保
 	goMicroInsurance () {
 		mta.Event.stat('processing_progress_weibao',{});
@@ -271,7 +295,9 @@ Page({
 					wx.uma.trackEvent('truck_for_processing_progress');
 					mta.Event.stat('truck_for_processing_progress',{});
 				}
+				if (res.data.flowVersion === 4 && res.data.auditStatus === -1) res.data.auditStatus = 0;
 				this.setData({
+					isSalesmanPrecharge: res.data.orderType === 31 && res.data.flowVersion === 4,
 					accountVerification: res.data.orderVerificationStatus,
 					bankCardInfo: app.globalData.bankCardInfo,
 					info: res.data
@@ -325,6 +351,7 @@ Page({
 		}, () => {
 			util.hideLoading();
 		}, (res) => {
+			util.hideLoading();
 			if (res.code === 0) {
 				if (res.data && JSON.stringify(res.data) !== '{}') {
 					let time = new Date().toLocaleDateString();
@@ -435,6 +462,20 @@ Page({
 				}
 			}, app.globalData.userInfo.accessToken);
 		}
+	},
+	// 复制银行卡号
+	onClickCopyBankCardNumber (e) {
+		let bankCardNumber = e.currentTarget.dataset['no'];
+		wx.setClipboardData({
+			data: bankCardNumber,
+			success (res) {
+				wx.getClipboardData({
+					success (res) {
+						console.log(res.data); // data 剪贴板的内容
+					}
+				});
+			}
+		});
 	},
 	goHome () {
 		wx.reLaunch({

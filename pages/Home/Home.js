@@ -26,8 +26,8 @@ Page({
 		activeIndex: 1,
 		loginInfo: {},// 登录信息
 		exceptionMessage: undefined, // 异常信息
-		// isNormalProcess: !app.globalData.isContinentInsurance, // 是否是正常流程进入
-		isNormalProcess: false, // 是否是正常流程进入
+		isNormalProcess: !app.globalData.isContinentInsurance, // 是否是正常流程进入
+		// isNormalProcess: true, // 是否是正常流程进入
 		recentlyTheBillList: [], // 最新客车账单集合
 		recentlyTheTruckBillList: [], // 最新货车账单集合
 		recentlyTheBill: undefined, // 最新客车账单
@@ -134,7 +134,7 @@ Page({
 		util.subscribe(tmplIds,urls);
 	},
 	// 顶部tab切换
-	onClickCheckVehicleType (e) {
+	async onClickCheckVehicleType (e) {
 		let activeIndex = parseInt(e.currentTarget.dataset.index);
 		if (activeIndex === this.data.activeIndex) return;
 		wx.uma.trackEvent(activeIndex === 1 ? 'index_for_tab_to_passenger_car' : 'index_for_tab_to_truck');
@@ -143,6 +143,9 @@ Page({
 			orderInfo: activeIndex === 1 ? (this.data.passengerCarOrderInfo || false) : (this.data.truckOrderInfo || false),
 			recentlyTheBillInfo: activeIndex === 1 ? (this.data.recentlyTheBill || false) : (this.data.recentlyTheTruckBill || false)
 		});
+		if (this.data.orderInfo.selfStatus === 17) {
+			await this.getQueryProcessInfo(this.data.orderInfo.id);
+		}
 		const that = this;
 		wx.createSelectorQuery().selectAll('.bill').boundingClientRect(function (rect) {
 			that.setData({
@@ -359,6 +362,7 @@ Page({
 					item.statisticsEvent === 'index_dadi' ? item.isShow = app.globalData.isContinentInsurance : item.isShow = !app.globalData.isContinentInsurance;
 				});
 				this.setData({
+					isNormalProcess: !app.globalData.isContinentInsurance,
 					isContinentInsurance: app.globalData.isContinentInsurance,
 					entranceList: this.data.entranceList,
 					bannerList: this.data.bannerList
@@ -403,6 +407,7 @@ Page({
 	},
 	// 点击tab栏下的办理
 	onClickTransaction () {
+		if (this.data.activeIndex !== 1) return;
 		app.globalData.orderInfo.orderId = '';
 		wx.uma.trackEvent(this.data.activeIndex === 1 ? 'index_for_passenger_car_entrance' : 'index_for_truck_entrance');
 		mta.Event.stat('index_for_truck_entrance',{});
@@ -542,6 +547,9 @@ Page({
 			this.setData({
 				orderInfo: this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data.truckOrderInfo
 			});
+			if (this.data.orderInfo.selfStatus === 17) {
+				await this.getQueryProcessInfo(this.data.orderInfo.id);
+			}
 			let channelList = activationOrder.concat(activationTruckOrder);
 			channelList = [...new Set(channelList)];
 			if (channelList.length) await this.getArrearageTheBill(channelList);
@@ -557,6 +565,22 @@ Page({
 					await this.getRecentlyTheBill(item, true);
 				});
 			}
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 预充模式-查询预充信息
+	async getQueryProcessInfo (id) {
+		const result = await util.getDataFromServersV2('consumer/order/third/queryProcessInfo', {
+			orderId: id
+		});
+		util.hideLoading();
+		if (!result) return;
+		if (result.code === 0) {
+			this.data.orderInfo.prechargeAmount = result.data?.prechargeAmount || 0;
+			this.setData({
+				orderInfo: this.data.orderInfo
+			});
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -722,7 +746,8 @@ Page({
 			13: () => this.goBindingAccount(orderInfo), // 去开户
 			14: () => this.goRechargeAuthorization(orderInfo), // 去授权预充保证金
 			15: () => this.goRecharge(orderInfo), // 保证金预充失败 - 去预充
-			16: () => this.goBindingWithholding(orderInfo) // 选装-未已绑定车辆代扣
+			16: () => this.goBindingWithholding(orderInfo), // 选装-未已绑定车辆代扣
+			17: () => this.onClickViewProcessingProgressHandle(orderInfo) // 去预充(预充流程)-查看进度
 		};
 		fun[orderInfo.selfStatus].call();
 	},
@@ -905,9 +930,14 @@ Page({
 		}
 	},
 	// 修改资料
-	onClickModifiedData (orderInfo) {
+	async onClickModifiedData (orderInfo) {
 		mta.Event.stat('004',{});
 		if (orderInfo.isNewTrucks === 1) {
+			if (orderInfo.flowVersion === 4) {
+				// 预充流程取消办理
+				await this.cancelOrder(orderInfo);
+				return;
+			}
 			// 货车办理
 			wx.uma.trackEvent('index_for_truck_modified_data');
 			util.go('/pages/truck_handling/information_list/information_list?isModifiedData=true');
@@ -922,6 +952,25 @@ Page({
 		app.globalData.isModifiedData = true; // 修改资料
 		app.globalData.firstVersionData = !!(orderInfo.remark && orderInfo.remark.indexOf('迁移订单数据') !== -1);
 		util.go('/pages/default/information_list/information_list?isModifiedData=true');
+	},
+	// 取消订单
+	async cancelOrder (orderInfo) {
+		util.showLoading({
+			title: '取消中...'
+		});
+		const result = await util.getDataFromServersV2('consumer/order/cancel-order', {
+			orderId: orderInfo.id
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			let removeList = ['passenger-car-id-card-back', 'passenger-car-id-card-face', 'passenger-car-driving-license-face', 'passenger-car-driving-license-back', 'passenger-car-headstock'];
+			removeList.map(item => wx.removeStorageSync(item));
+			wx.redirectTo({
+				url: '/pages/personal_center/cancel_order_succeed/cancel_order_succeed'
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 继续办理
 	async onClickContinueHandle (orderInfo) {

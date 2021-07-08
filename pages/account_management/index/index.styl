@@ -2,9 +2,71 @@
 .index
 	display flex
 	flex-direction column
-	padding 52rpx 32rpx 0rpx
+	padding 32rpx
 	box-sizing border-box
 	min-height 100vh
+	.pre-recharge
+		margin-bottom 32rpx
+		.pre-recharge-info
+			height: 314rpx;
+			background: #00B85C;
+			padding 32rpx
+			box-sizing border-box
+			box-shadow: 0rpx 6rpx 16rpx 0rpx rgba(0,0,0,0.1);
+			border-radius: 20rpx 20rpx 0rpx 0rpx;
+			.type
+				display flex
+				height 40rpx
+				align-items center
+				color #FFFFFF
+				padding-bottom 12rpx
+				:first-child
+					font-size: 28rpx;
+					flex 1
+				:last-child
+					font-size: 24rpx;
+					font-family: PingFangSC-Medium, PingFang SC;
+					font-weight: 500;
+					color: rgba(255, 255, 255, 0.5);
+			.account-info
+				display flex
+				align-items center
+				height 84rpx
+				font-size: 60rpx;
+				font-family: PingFangSC-Semibold, PingFang SC;
+				font-weight: 600;
+				color: #FFFFFF;
+				text
+					font-size: 24rpx;
+					font-family: PingFangSC-Regular, PingFang SC;
+					font-weight: 400;
+					color: rgba(255, 255, 255, 0.9);
+					padding-left 8rpx
+			.recharge
+				display flex
+				align-items center
+				justify-content center
+				margin-top 32rpx
+				width: 114rpx;
+				height: 52rpx;
+				background: #FFFFFF;
+				border-radius: 4rpx;
+				font-size: 24rpx;
+				font-family: PingFangSC-Regular, PingFang SC;
+				font-weight: 400;
+				color: #00B85C;
+		.vehicle
+			display flex
+			align-items center
+			height 70rpx
+			background: #FCFFFD;
+			box-shadow: 0rpx 6rpx 16rpx 0rpx rgba(0,0,0,0.1);
+			border-radius: 0rpx 0rpx 20rpx 20rpx;
+			font-size: 24rpx;
+			font-family: PingFangSC-Regular, PingFang SC;
+			font-weight: 400;
+			color: rgba(0,0,0,.39)
+			padding-left 32rpx
 	.card
 		height 325rpx
 		background-image url("data:image/png;base64,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")

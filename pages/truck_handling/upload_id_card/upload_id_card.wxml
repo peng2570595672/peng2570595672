@@ -25,7 +25,7 @@
                     <image class="img" src="/pages/truck_handling/assets/id_card_back_bg.png"></image>
                     <image class="ico" wx:if="{{backStatus === 1}}" src="/pages/truck_handling/assets/icon_camera_white.png"></image>
                 </view>
-                <view>身份证（人像面）</view>
+                <view>身份证（国徽面）</view>
             </view>
             <view class="identify" wx:if="{{backStatus === 2 || backStatus === 3}}">
                 <image class="refresh" src="/pages/truck_handling/assets/refresh.png"></image>
@@ -42,12 +42,25 @@
         <!--身份证号码&名字开始-->
         <view class="input-wrapper">
             <view class="input-item">
-                <text>车主姓名</text>
+                <view>车主姓名</view>
                 <input value="{{idCardFace.ocrObject.name}}" bindinput="onInputChangedHandle" data-key="name" placeholder-class="placeholder-class" placeholder="请输入车主姓名"/>
             </view>
             <view class="input-item">
-                <text>身份证号</text>
+                <view>身份证号</view>
                 <input value="{{idCardFace.ocrObject.idNumber}}" bindinput="onInputChangedHandle" data-key="idNumber" placeholder-class="placeholder-class" placeholder="请输入身份证号"/>
+            </view>
+            <view class="input-item">
+                <view>手机号</view>
+                <input type="number" placeholder="请输入手机号" placeholder-class="placeholder" value="{{formData.cardMobilePhone}}"
+                       bindinput="onInputChangedHandle" data-key="cardMobilePhone"
+                />
+            </view>
+            <view class="input-item" wx:if="{{isShowCodeInput}}">
+                <view>验证码</view>
+                <input type="number" placeholder="输入短信验证码" placeholder-class="placeholder" value="{{formData.verifyCode}}"
+                       bindinput="onInputChangedHandle" data-key="verifyCode"
+                />
+                <text class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} {{mobilePhoneIsOk ? 'ok' : ''}}" bindtap="sendVerifyCode">{{identifyingCode}}</text>
             </view>
         </view>
         <!--身份证号码&名字结束-->

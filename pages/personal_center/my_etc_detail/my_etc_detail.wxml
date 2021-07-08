@@ -28,7 +28,7 @@
             {{orderInfo.selfStatus === 6 ? '待审核' : ''}}
             {{orderInfo.selfStatus === 7 || orderInfo.selfStatus === 8 ? '审核不通过' : ''}}
             {{orderInfo.selfStatus === 9 ? orderInfo.flowVersion === 2 ? '待签约高速' : '待签约银行' : ''}}
-            {{orderInfo.selfStatus === 10 ? '审核通过' : ''}}
+            {{orderInfo.selfStatus === 10 || orderInfo.selfStatus === 17 ? '审核通过' : ''}}
             {{orderInfo.selfStatus === 11 ? '待激活' : ''}}
             {{orderInfo.selfStatus === 12 ? '已激活' : ''}}
             {{orderInfo.selfStatus === 13 ? '待开户' : ''}}
@@ -39,8 +39,7 @@
 	<view class="des" wx:if="{{orderInfo.selfStatus === 7 || orderInfo.selfStatus === 8}}">{{orderInfo.auditRemark}}</view>
 	<view class="item {{orderInfo.contractVersion === 'v3' ? 'iconfont' : ''}}">
 		<view>扣费方式</view>
-		<!--应产品(李小芳)要求,微信套餐,隐藏套餐名   productProcess === 1  微信支付  针对部分套餐名称错误的做处理-->
-		<view catchtap="onClickBank">{{orderInfo.productName ? (orderInfo.productProcess === 1 ? '微信支付' : orderInfo.productName) : ''}}</view>
+		<view catchtap="onClickBank">{{orderInfo.deductionMethod}}</view>
 	</view>
 	<view class="split" wx:if="{{orderInfo.pledgeStatus !== -1 && orderInfo.pledgeType === 2}}"></view>
     <view class="item" wx:if="{{orderInfo.pledgeStatus !== -1 && orderInfo.pledgeType === 2}}">
@@ -87,7 +86,7 @@
 	<view class="auto-fill"></view>
 	<!--	按钮开始-->
 	<view class="btns">
-		<button class="btn" catchtap="onClickVehicle" wx:if="{{orderInfo.selfStatus !== 8 && orderInfo.selfStatus !== 12}}">
+		<button class="btn" catchtap="onClickVehicle" wx:if="{{orderInfo.selfStatus !== 8 && orderInfo.selfStatus !== 12 && (orderInfo.flowVersion !== 4 || (orderInfo.flowVersion === 4 && orderInfo.selfStatus !== 7))}}">
             {{orderInfo.selfStatus === 1 ? '恢复签约' : ''}}
             {{orderInfo.selfStatus === 2 || orderInfo.selfStatus === 4 || orderInfo.selfStatus === 14 ? '继续办理' : ''}}
             {{orderInfo.selfStatus === 3 ? '去支付' : ''}}
@@ -98,6 +97,7 @@
             {{orderInfo.selfStatus === 13 ? '去开户' : ''}}
             {{orderInfo.selfStatus === 15 ? '去预充' : ''}}
             {{orderInfo.selfStatus === 16 ? '继续办理' : ''}}
+            {{orderInfo.selfStatus === 17 ? '预充值' : ''}}
         </button>
 		<view class="btn-wrapper">
 			<view catchtap="onClickCancelHandle" wx:if="{{orderInfo.status === 0 && orderInfo.orderType !== 51}}">取消办理</view>

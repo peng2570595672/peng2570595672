@@ -74,7 +74,7 @@ Page({
 			let res = result.data.base;
 			let orderInfo = res.orderInfo;
 			let vehPlates = res.vehPlates;
-			if (this.data.isModifiedData && res.orderAudit && this.data.requestNum === 0) {
+			if (this.data.isModifiedData && res.orderAudit && res.orderAudit?.errNums?.length && this.data.requestNum === 0) {
 				// errNums
 				this.getErrorStatus(res.orderAudit);
 			}
@@ -151,12 +151,12 @@ Page({
 	// 跳转
 	go (e) {
 		let url = e.currentTarget.dataset['url'];
-		util.go(`/pages/truck_handling/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}`);
+		util.go(`/pages/truck_handling/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&flowVersion=${this.data.orderInfo.flowVersion}`);
 	},
 	// 获取二类户号信息
 	async next () {
 		if (!this.data.available) return;
-		if (this.data.isModifiedData) {
+		if (this.data.isModifiedData || this.data.orderInfo.flowVersion === 4) {
 			if (this.data.isRequest) {
 				return;
 			} else {
@@ -176,16 +176,18 @@ Page({
 				util.showToastNoIcon(result.message);
 				return;
 			}
-			util.go('/pages/default/processing_progress/processing_progress');
+			util.go('/pages/default/processing_progress/processing_progress?type=main_process');
 			return;
 		}
-		const result = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
-		if (!result) return;
-		if (result.code) {
-			util.showToastNoIcon(result.message);
-			return;
+		if (this.data.orderInfo.flowVersion === 5) {
+			const result = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
+			if (!result) return;
+			if (result.code) {
+				util.showToastNoIcon(result.message);
+				return;
+			}
+			const path = result.data?.accountNo ? 'contract_management' : 'binding_account';
+			util.go(`/pages/truck_handling/${path}/${path}`);
 		}
-		const path = result.data?.accountNo ? 'contract_management' : 'binding_account';
-		util.go(`/pages/truck_handling/${path}/${path}`);
 	}
 });

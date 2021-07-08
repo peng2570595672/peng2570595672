@@ -1,5 +1,16 @@
 <view class="index">
-    <view class="card">
+    <view class="pre-recharge" wx:for="{{prechargeList}}" wx:key="index">
+        <view class="pre-recharge-info">
+            <view class="type">
+                <view>当前账户余额（元）</view>
+                <view>货车ETC账户</view>
+            </view>
+            <view class="account-info">{{item.Wallet}} <text catchtap="goAccountDetails" data-id="{{item.orderId}}">账户明细 ></text></view>
+            <view class="recharge" catchtap="onClickRecharge" data-id="{{item.orderId}}">充值</view>
+        </view>
+        <view class="vehicle">账户绑定车牌:{{item.vehPlates}}</view>
+    </view>
+    <view class="card" wx:if="{{false}}">
         <view class="card-info">
             <view class="left">
                 <view>当前账户余额（元）</view>
@@ -18,4 +29,5 @@
             <view>{{cardInfo.accountNo}}</view>
         </view>
     </view>
+    <recharge-prompt id="rechargePrompt" info="{{prechargeInfo}}"></recharge-prompt>
 </view>

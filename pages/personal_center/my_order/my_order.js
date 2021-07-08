@@ -273,12 +273,22 @@ Page({
 		let channel;
 		channel = this.data.orderList.filter(item => item.vehPlates === vehPlates);
 		let url;
-		if (channel[0].flowVersion === 2) {
+		let type = '';
+		if (channel[0].flowVersion !== 1) {
 			url = 'consumer/etc/hw-details';
+			const typeObj = {
+				1: 2,
+				2: 1,
+				3: 3,
+				4: 4
+			};
+			type = typeObj[`${channel[0].flowVersion}`];
 		} else {
 			url = 'consumer/etc/get-bill';
 		}
 		let params = {
+			orderId: channel[0].id,
+			type: type,
 			vehPlate: vehPlates,
 			month: month,
 			channel: channel[0].obuCardType
@@ -288,26 +298,25 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
-				let data = channel[0].flowVersion === 2 ? res.data.passRecords : res.data;
+				let data = channel[0].flowVersion !== 1 ? res.data.passRecords : res.data;
 				data.map((item) => {
-					channel[0].flowVersion === 2 ? item.flowVersion = 2 : item.flowVersion = 1; item.productName = channel[0].productName;
+					if (channel[0].flowVersion !== 1) {
+						item.flowVersion = channel[0].flowVersion;
+					} else {
+						item.flowVersion = 1;
+						item.productName = channel[0].productName;
+						item.passId = item.id;
+					}
 				});
 				this.setData({
-					successBillList: this.data.successBillList.concat(data)
+					successBillList: [...data, ...this.data.successBillList]
 				});
 				// 数组去重
 				let hash = [];
-				if (channel[0].flowVersion === 2) {
-					this.data.successBillList = this.data.successBillList.reduce((item1, item2) => {
-						hash[item2['passId']] ? '' : hash[item2['passId']] = true && item1.push(item2);
-						return item1;
-					}, []);
-				} else {
-					this.data.successBillList = this.data.successBillList.reduce((item1, item2) => {
-						hash[item2['id']] ? '' : hash[item2['id']] = true && item1.push(item2);
-						return item1;
-					}, []);
-				}
+				this.data.successBillList = this.data.successBillList.reduce((item1, item2) => {
+					hash[item2['passId']] ? '' : hash[item2['passId']] = true && item1.push(item2);
+					return item1;
+				}, []);
 				this.setData({
 					successBillList: this.data.successBillList
 				});

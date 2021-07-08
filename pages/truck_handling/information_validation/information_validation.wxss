@@ -194,6 +194,12 @@
   content: '\e60e';
   transform: rotateZ(-90deg);
 }
+.information_validation .content-wrapper .item.axle input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 .information_validation .content-wrapper .parameter {
   display: block;
   border: 1rpx solid rgba(151,151,151,0.34);

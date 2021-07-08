@@ -1,0 +1,10 @@
+<view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}">
+	<view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}"  wx:if="{{mask}}">
+		<view class="alert-for-box">
+            <view class="alert-title">折扣详情</view>
+			<view class="alert-prompt">贵州省内公路享通行路费85折起，</view>
+			<view class="alert-prompt">其余省份95折起</view>
+			<view class="alert-for-button" catchtap="hide">我知道了</view>
+		</view>
+	</view>
+</view>

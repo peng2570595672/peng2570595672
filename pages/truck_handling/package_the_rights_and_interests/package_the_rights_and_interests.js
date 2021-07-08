@@ -38,17 +38,20 @@ Page({
 					{
 						ico: 'service_of_driving_risk',
 						title: '每月领驾驶险',
-						describe: '10000元初始驾驶意外险，如每月无违章，额外获得5000元，最高可提升至50000元。'
+						describe: '10000元初始驾驶意外险，如每月无违章，额外获得5000元，最高可提升至50000元。',
+						isShow: !app.globalData.isContinentInsurance
 					},
 					{
 						ico: 'service_of_security',
 						title: '设备延保1年',
-						describe: 'ETC设备非人为损坏质保延长一年，与设备质保叠加最高可达到三年质保。'
+						describe: 'ETC设备非人为损坏质保延长一年，与设备质保叠加最高可达到三年质保。',
+						isShow: true
 					},
 					{
 						ico: 'service_of_illegal',
 						title: '违章随时查',
-						describe: '每月可免费查询车辆违章情况'
+						describe: '每月可免费查询车辆违章情况',
+						isShow: !app.globalData.isContinentInsurance
 					}
 				]
 			},
@@ -114,7 +117,7 @@ Page({
 		}
 		const packages = app.globalData.newPackagePageData;
 		this.setData({
-			listOfPackages: parseInt(options.type) === 1 ? packages.divideAndDivideList : packages.alwaysToAlwaysList
+			listOfPackages: packages.listOfPackages
 		});
 		await this.getSwiperHeight();
 	},
@@ -330,16 +333,22 @@ Page({
 					this.setData({isRequest: false});
 					if (res.errMsg === 'requestPayment:ok') {
 						if (this.data.isSalesmanOrder) {
-							// 去支付成功页
-							const result = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
-							if (!result) return;
-							if (result.code) {
-								util.showToastNoIcon(result.message);
+							if (this.data.orderInfo?.base?.flowVersion === 5) {
+								// 去支付成功页
+								const result = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
+								if (!result) return;
+								if (result.code) {
+									util.showToastNoIcon(result.message);
+									return;
+								}
+								const path = result.data?.accountNo ? 'contract_management' : 'binding_account';
+								util.go(`/pages/truck_handling/${path}/${path}`);
 								return;
 							}
-							const path = result.data?.accountNo ? 'contract_management' : 'binding_account';
-							util.go(`/pages/truck_handling/${path}/${path}`);
-							return;
+							if (this.data.orderInfo?.base?.flowVersion === 4) {
+								util.go('/pages/default/processing_progress/processing_progress?type=main_process');
+								return;
+							}
 						}
 						util.go('/pages/truck_handling/information_list/information_list');
 					} else {

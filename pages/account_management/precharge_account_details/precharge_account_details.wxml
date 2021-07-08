@@ -1,0 +1,40 @@
+<view class="account-details">
+    <view class="account-info">
+        <view class="account-info-title iconfont" bindtap="onClickDoubt">当前账户余额（元）</view>
+        <view class="balance">
+            <view class="price">{{Wallet}}</view>
+            <view class="unit">元</view>
+            <view class="recharge" bindtap="onClickRecharge">充值</view>
+        </view>
+        <view class="prompt">
+            <view wx:if="{{Wallet <= 0}}">*当前余额已不足支付通行费，请尽快充值</view>
+            <view class="arrears" wx:if="{{Wallet <= 0 && billInfo.failMoney > 0}}">当前累计欠款{{billInfo.failMoney/100}}元,请尽快充值<text bindtap="onClickToMyOrder">查看账单</text></view>
+        </view>
+    </view>
+    <view class="split"></view>
+    <view class="account-list">
+        <view class="list-title">
+            <view class="title">账户变动明细</view>
+            <picker mode="date" value="{{date}}" fields="month" start="2021-01" bindchange="bindDateChange">
+                <view class="picker iconfont">
+                    {{currentMonth}}月
+                </view>
+            </picker>
+        </view>
+        <view class="list-item" wx:for="{{list}}" wx:key="index">
+            <view class="first">
+                <view class="type">
+                    {{item.MoneyType === 1 ? '充值入账' : ''}}
+                    {{item.MoneyType === 2 ? '充值手续费' : ''}}
+                    {{item.MoneyType === 3 ? 'ETC通行扣费' : ''}}
+                </view>
+                <view class="price">{{item.MoneyType === 1 ? '+' : '-'}}¥{{item.ChangeMoney}}</view>
+            </view>
+            <view class="last">
+                <view></view>
+                <view class="time">{{item.CreateTime}}</view>
+            </view>
+        </view>
+    </view>
+    <recharge-prompt id="rechargePrompt" info="{{prechargeInfo}}"></recharge-prompt>
+</view>

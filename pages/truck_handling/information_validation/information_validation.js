@@ -29,6 +29,16 @@ Page({
 			{'id': 5, 'name': '五轴'},
 			{'id': 6, 'name': '六轴'}
 		], // 车型数组
+		wheelCountArr: [
+			{'id': 2, 'name': '2'},
+			{'id': 4, 'name': '4'},
+			{'id': 6, 'name': '6'},
+			{'id': 8, 'name': '8'},
+			{'id': 10, 'name': '10'},
+			{'id': 12, 'name': '12'}
+		], // 车轮数
+		wheelCount: -1, // 车轮
+		wheelCountNo: undefined, // 车轮数量
 		carType: -1, // 车型
 		ownershipTypeIndex: 1, // 车辆归属
 		isTraction: 0, // 是否是牵引车 0 不是  1 是
@@ -48,6 +58,12 @@ Page({
 			vehColor: options.vehColor,
 			vehPlates: options.vehPlates
 		});
+		if (parseInt(options.flowVersion || 0) === 4) {
+			this.data.carTypeArr.pop();
+			this.setData({
+				carTypeArr: this.data.carTypeArr
+			});
+		}
 		await this.getOrderInfo();
 	},
 	onShow () {
@@ -134,10 +150,7 @@ Page({
 									this.selectComponent('#notFinishedOrder').show();
 									return;
 								}
-								const vehicleList = ['普通货车', '厢式货车', '仓栅式货车', '封闭货车', '罐式货车', '平板货车',
-									'集装箱车', '车辆运输车', '特殊结构货车', '自卸货车', '半挂牵引车', '全挂牵引车', '栏板货车',
-									'轻型货车', '多用途货车', '专门用途货车', '低速货车'];
-								if (!vehicleList.includes(faceObj.ocrObject.vehicleType)) {
+								if (!this.checkVehicleType(faceObj.ocrObject.vehicleType)) {
 									util.showToastNoIcon('非货车类型无法办理！');
 									this.setData({
 										available: false,
@@ -219,6 +232,18 @@ Page({
 		}, () => {
 		});
 	},
+	checkVehicleType (vehicleType) {
+		let flag;
+		const vehicleList = ['普通货车', '厢式货车', '仓栅式货车', '封闭货车', '罐式货车', '平板货车',
+			'集装箱车', '车辆运输车', '特殊结构货车', '自卸货车', '半挂牵引车', '全挂牵引车', '栏板货车',
+			'轻型货车', '多用途货车', '专门用途货车', '低速货车'];
+		for (let name of vehicleList) {
+			if (vehicleType.indexOf(name) !== -1) {
+				flag = true;
+			}
+		}
+		return flag;
+	},
 	// 校验数据
 	validateData (isToast) {
 		if (this.data.faceStatus !== 4 || this.data.backStatus !== 4) {
@@ -241,8 +266,16 @@ Page({
 			if (isToast) util.showToastNoIcon('车辆类型不能为空！');
 			return false;
 		}
+		if (!this.data.drivingLicenseFace.ocrObject.model) {
+			if (isToast) util.showToastNoIcon('品牌型号不能为空！');
+			return false;
+		}
 		if (!this.data.drivingLicenseFace.ocrObject.vin) {
 			if (isToast) util.showToastNoIcon('车辆识别代号不能为空！');
+			return false;
+		}
+		if (!this.data.drivingLicenseFace.ocrObject.engineNo) {
+			if (isToast) util.showToastNoIcon('发动机号不能为空！');
 			return false;
 		}
 		if (!this.data.drivingLicenseBack.ocrObject.personsCapacity) {
@@ -255,6 +288,22 @@ Page({
 		}
 		if (this.data.carType === -1) {
 			if (isToast) util.showToastNoIcon('请选择车轴数！');
+			return false;
+		}
+		// if (this.data.wheelCount === -1) {
+		// 	if (isToast) util.showToastNoIcon('请选择车轮数！');
+		// 	return false;
+		// }
+		if (!this.data.wheelCountNo) {
+			if (isToast) util.showToastNoIcon('请输入车轮数量！');
+			return false;
+		}
+		if (parseInt(this.data.wheelCountNo) < 4 || parseInt(this.data.wheelCountNo) > 99) {
+			if (isToast) util.showToastNoIcon('车轮个数不合法！');
+			return false;
+		}
+		if (!this.data.drivingLicenseBack.ocrObject.tractionMass) {
+			if (isToast) util.showToastNoIcon('准牵引总质量不能为空！');
 			return false;
 		}
 		if (!this.data.drivingLicenseBack.ocrObject.vehicleWidth) {
@@ -271,6 +320,10 @@ Page({
 		}
 		if (!this.data.drivingLicenseBack.ocrObject.curbWeight) {
 			if (isToast) util.showToastNoIcon('车辆整备质量不能为空！');
+			return false;
+		}
+		if (!this.data.drivingLicenseBack.ocrObject.loadQuality) {
+			if (isToast) util.showToastNoIcon('核载质量不能为空！');
 			return false;
 		}
 		return true;
@@ -290,6 +343,14 @@ Page({
 			available: this.validateData(false)
 		});
 	},
+	bindPersonsWheelCountChange (e) {
+		this.setData({
+			wheelCount: parseInt(e.detail.value)
+		});
+		this.setData({
+			available: this.validateData(false)
+		});
+	},
 	// 获取订单信息
 	async getOrderInfo () {
 		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
@@ -300,8 +361,10 @@ Page({
 		if (result.code === 0) {
 			if (result.data.vehicle) { // 是否有行驶证
 				const carType = this.data.carTypeArr.findIndex(item => item.id === result.data.vehicle.axleNum);
+				const wheelCount = this.data.wheelCountArr.findIndex(item => item.id === result.data.vehicle.wheelCount);
 				const size = result.data.vehicle.size.slice(0, result.data.vehicle.size.length - 2).split('×');
 				this.setData({
+					wheelCountNo: result.data.vehicle.wheelCount,
 					[`drivingLicenseBack.ocrObject`]: result.data.vehicle,
 					[`drivingLicenseFace.ocrObject`]: result.data.vehicle,
 					[`drivingLicenseBack.ocrObject.vehicleLength`]: size[0],
@@ -318,6 +381,7 @@ Page({
 					[`drivingLicenseBack.fileUrl`]: result.data.vehicle.licenseVicePage,
 					isTraction: result.data.vehicle.isTraction,
 					carType,
+					wheelCount,
 					oldDrivingLicenseFace: this.data.drivingLicenseFace,
 					oldDrivingLicenseBack: this.data.drivingLicenseBack,
 					backStatus: 4,
@@ -400,6 +464,8 @@ Page({
 				recode: back.recode, // 检验记录 【dataType包含6】
 				vehicleCategory: 0, // 收费车型(后台选) 一型客车 1,二型客车 2,三型客车 3,四型客车 4,一型货车 11,二型货车 12,三型货车 13,四型货车 14,五型货车 15,六型货车 16
 				axleNum: this.data.carTypeArr[this.data.carType].id, // 轴数
+				// wheelCount: this.data.wheelCountArr[this.data.wheelCount].id, // 车轮
+				wheelCount: this.data.wheelCountNo, // 车轮
 				isTraction: this.data.isTraction // 是否牵引车
 			}
 		};
@@ -448,6 +514,11 @@ Page({
 		if (key === 'personsCapacity') {
 			if (parseInt(value) < 1 || parseInt(value) > 6) value = '';
 			drivingLicenseBack.ocrObject[key] = value;
+		}
+		if (key === 'wheelCountNo') {
+			this.setData({
+				wheelCountNo: value
+			});
 		}
 		this.setData({
 			drivingLicenseFace,

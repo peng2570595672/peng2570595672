@@ -34,7 +34,7 @@
         </view>
         <!--上传身份证背面结束-->
     </view>
-    <view wx:if="{{faceStatus === 4 && backStatus === 4}}">
+    <view>
         <!--上传身份证部分结束-->
         <view class="title">核对信息</view>
         <view class="sub-title">*请仔细核对以下信息，有误项可点击修改</view>

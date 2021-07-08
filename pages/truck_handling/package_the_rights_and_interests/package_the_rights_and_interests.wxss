@@ -186,8 +186,8 @@
   width: 686rpx;
 }
 .package-the-rights-and-interests .rights-and-interests {
-  width: 646rpx;
-  margin: 48rpx 72rpx 0 32rpx;
+  width: 686rpx;
+  margin: 48rpx 32rpx 44rpx 32rpx;
   box-sizing: border-box;
 }
 .package-the-rights-and-interests .rights-and-interests .rights-and-interests-header {
@@ -196,47 +196,110 @@
   align-items: center;
   font-size: 34rpx;
   color: rgba(0,0,0,0.9);
-  margin-bottom: 28rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-header::before {
+  margin-right: 8rpx;
+  content: '';
+  width: 8rpx;
+  height: 44rpx;
+  background: #2fb565;
 }
 .package-the-rights-and-interests .rights-and-interests .rights-and-interests-list {
-  margin: auto;
+  margin-top: 32rpx;
+  position: relative;
 }
 .package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item {
+  width: 100%;
+  position: relative;
   display: flex;
-  height: 112rpx;
   align-items: center;
+  height: 174rpx;
   background: #fff;
-  border-radius: 16rpx;
-  box-sizing: border-box;
-  font-size: 28rpx;
-  margin-bottom: 12rpx;
-  color: rgba(0,0,0,0.5);
-  padding-left: 32rpx;
-  padding-right: 36rpx;
+  margin-top: 12rpx;
 }
-.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item image {
-  width: 44rpx;
-  margin-right: 8rpx;
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item.item-top {
+  margin-top: 32rpx !important;
 }
-.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .title {
-  flex: 1;
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .label-img {
+  position: absolute;
+  top: -18rpx;
+  z-index: 2;
+  width: 172rpx;
+  height: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(126deg, #ff007e 0%, #f7a400 100%);
+  border-radius: 16rpx 16rpx 16rpx 0rpx;
+  font-size: 18rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #fff;
+  text-shadow: 0rpx 4rpx 8rpx rgba(0,0,0,0.12);
 }
-.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .price {
-  color: #576b95;
-  margin-right: 52rpx;
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item::before,
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item::after {
+  position: absolute;
+  top: 50%;
+  display: inline-block;
+  width: 32rpx;
+  height: 32rpx;
+  content: '';
+  border-radius: 50%;
+  background-color: #f6f6f6;
+  transform: translateY(-50%);
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item::before {
+  left: -22rpx;
 }
 .package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item::after {
-  display: inline-block;
-  width: 48rpx;
-  text-align: center;
-  content: '查看';
-  font-size: 24rpx;
-  color: #576b95;
+  left: auto;
+  right: -22rpx;
 }
-.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item.item-active::after {
-  content: '\e669';
-  font-size: 26rpx;
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .left {
+  margin: 32rpx 54rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .left > image {
+  width: 144rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .middle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .middle .item-title {
+  color: #000;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  line-height: 40rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .middle .item-price {
+  margin-top: 12rpx;
+  color: #00b85c;
+  font-size: 34rpx;
+  line-height: 48rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .right {
+  margin-right: 70rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .right .item-detail {
+  font-size: 20rpx;
+  color: rgba(0,0,0,0.3);
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .right .select-item {
+  margin-top: 18rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .right .select-item::after {
+  content: '\e64f';
+  font-size: 48rpx;
+  color: rgba(0,0,0,0.1);
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .right .select-item.item-active::after {
   color: #07c160;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item:nth-child(odd) {
+  margin-top: 12rpx;
 }
 .package-the-rights-and-interests .rights-and-interests.my-only-equities {
   width: 686rpx;
@@ -248,6 +311,7 @@
   width: 100%;
   height: 160rpx;
   background: #f6f6f6;
+  z-index: 3;
 }
 .package-the-rights-and-interests .next .btn {
   width: 650rpx;

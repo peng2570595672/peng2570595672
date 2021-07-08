@@ -2,10 +2,10 @@
 <view class="index">
     <!--	车辆类型切换开始-->
     <view class="tab">
-        <view class="tab-box" wx:if="{{false}}">
+        <view class="tab-box" wx:if="{{isNormalProcess && truckList.length > 0}}">
             <view class="check-vehicle">
                 <view catchtap="onClickCheckVehicleType" data-index="1" class="item {{activeIndex === 1 ? 'active' : ''}}">客车</view>
-                <view catchtap="onClickCheckVehicleType" data-index="2" class="item {{activeIndex === 2 ? 'active' : ''}}" wx:if="{{isNormalProcess}}">货车</view>
+                <view catchtap="onClickCheckVehicleType" data-index="2" class="item {{activeIndex === 2 ? 'active' : ''}}">货车</view>
             </view>
             <view class="line {{activeIndex === 1 ? 'active-trucks' : 'active'}} {{btnSwitch ? 'skewing' : ''}}"></view>
         </view>
@@ -37,12 +37,11 @@
                 <view class="introduce introduce-trucks">
                     <view class="title" animation="{{animationTitle}}">货车ETC上线啦</view>
                     <view class="sub-title">
-                        <view animation="{{animationSubTitle1}}">绑定微信支付</view>
-                        <view animation="{{animationSubTitle2}}">享货车通行折扣</view>
+                        <view animation="{{animationSubTitle1}}">高速通行9.5折</view>
                     </view>
                 </view>
             </view>
-            <view class="btn {{btnSwitch ? 'btn-switch-trucks' : 'btn-switch-passenger-car'}}" animation="{{animationTransaction}}" wx:if="{{!isContinentInsurance && isActivityForBannerDate}}">立即办理</view>
+            <view class="btn {{btnSwitch ? 'btn-switch-trucks' : 'btn-switch-passenger-car'}}" animation="{{animationTransaction}}" wx:if="{{!isContinentInsurance && isActivityForBannerDate && activeIndex === 1}}">立即办理</view>
         </view>
         <view class="right {{isContinentInsurance && isActivityForBannerDate ? 'continent-insurance-img' : ''}}" animation="{{animationImage}}">
             <image src="https://file.cyzl.com/g001/M07/50/96/oYYBAGDR0n2ATuz8AAChQo0Wfjs876.png" mode="widthFix" wx:if="{{isContinentInsurance && isActivityForBannerDate}}"></image>
@@ -93,6 +92,7 @@
                             {{truckOrderInfo.selfStatus === 13 ? '开通II类户预充保证金' : ''}}
                             {{truckOrderInfo.selfStatus === 15 ? '请充值' + truckOrderInfo.holdBalance / 100 + '元作为保证金' + '' : ''}}
                             {{orderInfo.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
+                            {{orderInfo.selfStatus === 17 ? '请预充' + (orderInfo.prechargeAmount || 0) / 100 + '元否则设备无法通行' + '' : ''}}
                         </view>
                     </view>
                 </view>
@@ -103,10 +103,11 @@
                     {{orderInfo.selfStatus === 3 ? '去支付' : ''}}
                     {{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 9 ? '去签约' : ''}}
                     {{orderInfo.selfStatus === 6 || orderInfo.selfStatus === 8 || orderInfo.selfStatus === 10 ? '查看进度' : ''}}
-                    {{orderInfo.selfStatus === 7 ? '修改资料' : ''}}
+                    {{orderInfo.selfStatus === 7 && orderInfo.flowVersion !== 4 ? '修改资料' : ''}}
+                    {{orderInfo.selfStatus === 7 && orderInfo.flowVersion === 4 ? '取消办理' : ''}}
                     {{orderInfo.selfStatus === 11 ? '去激活' : ''}}
                     {{orderInfo.selfStatus === 13 ? '去开户' : ''}}
-                    {{orderInfo.selfStatus === 15 ? '去预充' : ''}}
+                    {{orderInfo.selfStatus === 15 || orderInfo.selfStatus === 17 ? '去预充' : ''}}
                     {{orderInfo.selfStatus === 16 ? '继续办理' : ''}}
                 </button>
                 <button wx:if="{{loginInfo.needBindingPhone === 1 && orderInfo.selfStatus !== 12}}" class="btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber" animation="{{animationTransaction}}">
