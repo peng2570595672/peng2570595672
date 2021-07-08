@@ -222,9 +222,9 @@
           "scene": null
         },
         {
-          "name": "pages/truck_handling/index/index",
-          "pathName": "pages/truck_handling/index/index",
-          "query": "",
+          "name": "pages/default/processing_progress/processing_progress",
+          "pathName": "pages/default/processing_progress/processing_progress",
+          "query": "orderId=859745153131220992",
           "scene": null
         },
         {
