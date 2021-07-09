@@ -1,6 +1,4 @@
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -213,7 +211,6 @@ Page({
 	},
 	// 邀请办理-获取用户信息
 	getUserInfo () {
-		mta.Event.stat('personal_center_invitation_deal_with',{});
 		wx.uma.trackEvent('personal_center_for_getuserinfo');
 		util.showLoading({title: '加载中'});
 		let that2 = this; // 解决作用域问题
@@ -245,7 +242,6 @@ Page({
 	},
 	// 分享好友
 	onShareAppMessage () {
-		mta.Event.stat('personal_center_applet_sharing',{});
 		wx.uma.trackEvent('personal_center_applet_sharing');
 		if (this.data.crowdSourcingMsg.status !== 1) return;
 		return {
@@ -313,7 +309,6 @@ Page({
 			'service_purchase_record': 'personal_center_service_purchase_record'
 		};
 		wx.uma.trackEvent(urlObj[url]);
-		mta.Event.stat(urlObj[url],{});
 		util.go(`/pages/personal_center/${url}/${url}`);
 	},
 	onClickAccountManagement () {
@@ -324,7 +319,6 @@ Page({
 	scan () {
 		util.showLoading({title: '正在识别'});
 		// 统计点击事件
-		mta.Event.stat('023',{});
 		wx.uma.trackEvent('personal_center_for_scan');
 		// 只允许从相机扫码
 		wx.scanCode({
@@ -377,7 +371,6 @@ Page({
 	// 统计点击去关注公众号按钮
 	goPublicAccount () {
 		wx.uma.trackEvent('personal_center_for_follow_the_public_account');
-		mta.Event.stat('037',{});
 	},
 	// 关闭详情
 	close () {},

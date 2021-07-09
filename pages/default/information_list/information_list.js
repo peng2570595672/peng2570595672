@@ -3,8 +3,6 @@
  * @desc 信息确认
  */
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -278,7 +276,6 @@ Page({
 			this.setData({isRequest: true});
 		}
 		wx.uma.trackEvent('information_list_next');
-		mta.Event.stat('information_list_next',{});
 		util.showLoading('加载中');
 		let params = {
 			dataComplete: 1,// 资料已完善

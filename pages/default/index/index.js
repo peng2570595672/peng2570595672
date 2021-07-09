@@ -3,8 +3,6 @@
  * @desc 签约成功
  */
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -42,7 +40,6 @@ Page({
 	},
 	onClickHandle () {
 		wx.uma.trackEvent('index_next');
-		mta.Event.stat('truck_index',{});
 		util.go('/pages/default/receiving_address/receiving_address');
 	},
 	goOnlineServer () {
@@ -52,7 +49,6 @@ Page({
 			return;
 		}
 		wx.uma.trackEvent('index_for_service');
-		mta.Event.stat('truck_index_for_service',{});
 		util.go(`/pages/web/web/web?type=online_customer_service`);
 	},
 	goTruck () {

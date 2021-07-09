@@ -3,8 +3,6 @@
  * @desc 填写车牌和收货信息
  */
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -113,7 +111,6 @@ Page({
 		}
 		// 统计点击事件
 		wx.uma.trackEvent('receiving_address_next');
-		mta.Event.stat('024',{});
 		this.setData({
 			available: false, // 禁用按钮
 			isRequest: true // 设置状态为请求中
@@ -413,7 +410,6 @@ Page({
 	onClickAutoFillHandle () {
 		// 统计点击事件
 		wx.uma.trackEvent('receiving_select_the_wechat_address');
-		mta.Event.stat('027',{});
 		wx.chooseAddress({
 			success: (res) => {
 				let formData = this.data.formData;
@@ -464,7 +460,6 @@ Page({
 	onClickChooseLocationHandle () {
 		// 统计点击事件
 		wx.uma.trackEvent('receiving_select_the_address');
-		mta.Event.stat('026',{});
 		wx.chooseLocation({
 			success: (res) => {
 				let address = res.address;
@@ -553,7 +548,6 @@ Page({
 		});
 		if (this.data.getAgreement) {
 			wx.uma.trackEvent('receiving_address_check_agreement');
-			mta.Event.stat('receiving_address_check_agreement',{});
 		}
 		this.setData({
 			available: this.validateAvailable()
@@ -614,7 +608,6 @@ Page({
 	},
 	onUnload () {
 		// 统计点击事件
-		mta.Event.stat('025',{});
 		wx.uma.trackEvent('receiving_address_return');
 		// 清除会员券信息
 		app.globalData.membershipCoupon = {};

@@ -1,6 +1,4 @@
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -20,13 +18,10 @@ Page({
 		wx.hideHomeButton();
 		app.globalData.otherPlatformsServiceProvidersId = '645937022279614464';
 		if (options && options.serviceProvidersId) {
-			mta.Event.stat('activity_high_speed_traffic',{});
 			this.setData({
 				isHighSpeedTrafficActivity: true
 			});
 			app.globalData.otherPlatformsServiceProvidersId = options.serviceProvidersId;
-		} else {
-			mta.Event.stat('activity_micro_insurance',{});
 		}
 		let contentHeight = wx.createSelectorQuery();
 		contentHeight.select('.content-container').boundingClientRect();
@@ -173,11 +168,6 @@ Page({
 		}
 	},
 	freeProcessing (e) {
-		if (this.data.isHighSpeedTrafficActivity) {
-			mta.Event.stat('activity_high_speed_traffic_click',{});
-		} else {
-			mta.Event.stat('activity_micro_insurance_click',{});
-		}
 		util.go('/pages/default/receiving_address/receiving_address');
 	}
 });

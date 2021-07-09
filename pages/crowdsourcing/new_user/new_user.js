@@ -1,6 +1,4 @@
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -36,10 +34,8 @@ Page({
 	getUserInfo (e) {
 		let type = e.currentTarget.dataset.type;
 		if (type === 'image') {
-			mta.Event.stat('fission_user_tap_photo',{});
 			wx.uma.trackEvent('fission_user_tap_photo');
 		} else {
-			mta.Event.stat('fission_user_immediately_receive',{});
 			wx.uma.trackEvent('fission_user_immediately_receive');
 		}
 		util.showLoading();
@@ -242,7 +238,6 @@ Page({
 	},
 	getMoreMoney () {
 		wx.uma.trackEvent('fission_user_make_profit');
-		mta.Event.stat('fission_user_make_profit',{});
 		util.go('/pages/crowdsourcing/index/index');
 	},
 	// 活动过期

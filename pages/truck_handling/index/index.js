@@ -3,8 +3,6 @@
  * @desc 货车落地页
  */
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -28,7 +26,6 @@ Page({
 	},
 	onClickHandle () {
 		wx.uma.trackEvent('truck_index_next');
-		mta.Event.stat('truck_index',{});
 		util.go('/pages/truck_handling/truck_receiving_address/truck_receiving_address');
 	},
 	goOnlineServer () {
@@ -38,7 +35,6 @@ Page({
 			return;
 		}
 		wx.uma.trackEvent('truck_index_for_service');
-		mta.Event.stat('truck_index_for_service',{});
 		util.go(`/pages/web/web/web?type=online_customer_service`);
 	}
 });

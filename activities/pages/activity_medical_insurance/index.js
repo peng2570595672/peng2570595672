@@ -1,6 +1,4 @@
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -171,7 +169,6 @@ Page({
 		}
 	},
 	freeProcessing (e) {
-		mta.Event.stat('activity_medical_insurance_click',{});
 		util.go('/pages/default/receiving_address/receiving_address');
 	}
 });

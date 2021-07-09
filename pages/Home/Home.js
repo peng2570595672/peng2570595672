@@ -3,8 +3,6 @@
  * @desc 首页
  */
 const util = require('../../utils/util.js');
-// 数据统计
-let mta = require('../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -102,13 +100,11 @@ Page({
 		wx.uma.trackEvent(statistics);
 		if (url === 'violation_enquiry') {
 			// 统计点击进入违章查询
-			mta.Event.stat('007',{});
 			this.onClickViolationEnquiry();
 			return;
 		}
 		if (url === 'online_customer_service') {
 			// 统计点击进入在线客服
-			mta.Event.stat('009',{});
 			util.go(`/pages/web/web/web?type=${url}`);
 			return;
 		}
@@ -123,10 +119,8 @@ Page({
 		}
 		if (url === 'index') {
 			// 统计点击进入个人中心事件
-			mta.Event.stat('010',{});
 		} else if (url === 'my_order') {
 			// 统计点击进入我的ETC账单
-			mta.Event.stat('012',{});
 		}
 		// 订阅:高速扣费通知、ETC欠费提醒、黑名单状态提醒
 		let urls = `/pages/personal_center/${url}/${url}?isMain=true`;
@@ -190,7 +184,6 @@ Page({
 	},
 	// 通行发票
 	goMakeInvoice () {
-		mta.Event.stat('index_counterfoi',{});
 		wx.navigateToMiniProgram({
 			appId: 'wx9040bb0d3f910004',
 			path: 'pages/index/index',
@@ -410,7 +403,6 @@ Page({
 		if (this.data.activeIndex !== 1) return;
 		app.globalData.orderInfo.orderId = '';
 		wx.uma.trackEvent(this.data.activeIndex === 1 ? 'index_for_passenger_car_entrance' : 'index_for_truck_entrance');
-		mta.Event.stat('index_for_truck_entrance',{});
 		util.go(`/pages/${this.data.activeIndex === 1 ? 'default' : 'truck_handling'}/index/index?isMain=true`);
 	},
 	// 业务员端订单码绑定订单
@@ -704,7 +696,6 @@ Page({
 	// 去账单详情页
 	onClickBill () {
 		wx.uma.trackEvent('index_for_order_details');
-		mta.Event.stat('013',{});
 		let model = this.data.recentlyTheBillInfo;
 		util.go(`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
 	},
@@ -886,7 +877,6 @@ Page({
 	// 查看办理进度
 	onClickViewProcessingProgressHandle (orderInfo) {
 		// 统计点击事件
-		mta.Event.stat('003',{});
 		wx.uma.trackEvent('index_for_processing_progress');
 		util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderInfo.id}`);
 	},
@@ -894,10 +884,8 @@ Page({
 	async onClickCctivate (orderInfo) {
 		wx.uma.trackEvent('index_for_activation');
 		if (orderInfo.logisticsId !== 0) {
-			mta.Event.stat('005',{});
 			await this.confirmReceipt(orderInfo);
 		} else {
-			mta.Event.stat('005',{});
 			// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
 			wx.navigateToMiniProgram({
 				appId: 'wxdda17150b8e50bc4',
@@ -931,7 +919,6 @@ Page({
 	},
 	// 修改资料
 	async onClickModifiedData (orderInfo) {
-		mta.Event.stat('004',{});
 		if (orderInfo.isNewTrucks === 1) {
 			if (orderInfo.flowVersion === 4) {
 				// 预充流程取消办理
@@ -975,7 +962,6 @@ Page({
 	// 继续办理
 	async onClickContinueHandle (orderInfo) {
 		// 统计点击事件
-		mta.Event.stat('002',{});
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.firstVersionData = false;
 		const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';

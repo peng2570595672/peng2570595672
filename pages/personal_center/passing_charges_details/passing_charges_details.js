@@ -1,6 +1,4 @@
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -29,7 +27,6 @@ Page({
 			}
 			if (!app.globalData.userInfo.accessToken) {
 				// 公众号模板推送/服务通知进入
-				mta.Event.stat('service_notifications_order_details',{});
 				this.setData({
 					isServiceNotificationEntry: true
 				});
@@ -274,10 +271,6 @@ Page({
 	},
 	// 微保活动
 	goMicroInsurance () {
-		mta.Event.stat('order_details_weibao',{});
-		if (this.data.isServiceNotificationEntry) {
-			mta.Event.stat('order_details_service_notifications_weibao',{});
-		}
 		let list = app.globalData.myEtcList;
 		let orderId = '';
 		for (let item of list) {

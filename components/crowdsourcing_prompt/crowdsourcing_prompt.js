@@ -1,6 +1,4 @@
 const util = require('../../utils/util.js');
-// 数据统计
-let mta = require('../../libs/mta_analysis.js');
 const app = getApp();
 let savePath;
 let context;
@@ -138,11 +136,6 @@ Component({
 			}
 		},
 		weixinShare () {
-			if (this.data.originUserPage) {
-				mta.Event.stat('origin_user_share_friends',{});
-			} else {
-				mta.Event.stat('personal_center_share_friends',{});
-			}
 		},
 		loadHeadPhotoImage () {
 			let headPhoto = wx.getStorageSync('head-photo');
@@ -216,11 +209,6 @@ Component({
 			});
 		},
 		saveImage () {
-			if (this.data.originUserPage) {
-				mta.Event.stat('origin_user_share_your_moments',{});
-			} else {
-				mta.Event.stat('personal_center_share_your_moments',{});
-			}
 			if (!this.data.canvasDraw) { // 防止动画还未保存到本地
 				util.showLoading({title: '处理中..'});
 				setTimeout(() => {

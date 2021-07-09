@@ -3,8 +3,6 @@
  * @desc 选择支付方式
  */
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -319,8 +317,6 @@ Page({
 	},
 	// 具体支付方式
 	onClickItemHandle (e) {
-		// 统计点击事件
-		mta.Event.stat('030',{});
 		this.setData({
 			choiceObj: e.detail.targetObj
 		});
@@ -433,8 +429,6 @@ Page({
 			util.showToastNoIcon('部分信息识别失败,请重新上传身份证照片！');
 			return;
 		}
-		// 统计点击事件
-		mta.Event.stat('028',{});
 		// 订阅消息
 		this.subscribe();
 	},

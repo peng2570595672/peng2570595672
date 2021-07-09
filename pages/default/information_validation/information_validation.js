@@ -3,8 +3,6 @@
  * @desc 信息确认
  */
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -309,7 +307,6 @@ Page({
 			return;
 		}
 		wx.uma.trackEvent('information_validation_next');
-		mta.Event.stat('information_validation_next',{});
 		this.confirmHandle();
 	},
 	async confirmHandle () {

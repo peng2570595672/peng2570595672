@@ -3,8 +3,6 @@
  * @desc 选择套餐
  */
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -285,7 +283,6 @@ Page({
 			// 必须选择权益
 			return;
 		}
-		mta.Event.stat('truck_for_package_the_rights_and_interests_next',{});
 		wx.uma.trackEvent('truck_for_package_the_rights_and_interests_next');
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id

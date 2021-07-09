@@ -1,8 +1,6 @@
 ﻿// 是否为测试 TODO
 const IS_TEST = false;
 const util = require('./utils/util.js');
-// 数据统计
-let mta = require('./libs/mta_analysis.js');
 const uma = require('./utils/umtrack-wx.js');
 App({
 	umengConfig: {
@@ -104,15 +102,6 @@ App({
 	},
 	onLaunch (options) {
 		console.log(options);
-		// 统计逻辑开始
-		mta.App.init({
-			'appID': '500710698',
-			'eventID': '500710700',
-			'autoReport': true,// 每个页面自动上报
-			'statParam': false,
-			'ignoreParams': [],
-			'lauchOpts': options
-		});
 		// 统计逻辑结束
 		util.setApp(this);
 		// 获取是否为iphone x系列

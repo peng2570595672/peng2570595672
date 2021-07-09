@@ -3,8 +3,6 @@
  * @desc 信息确认
  */
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 // 倒计时计时器
 let timer;
@@ -193,7 +191,6 @@ Page({
 		});
 		let haveChange = true;
 		if (this.data.oldName === this.data.idCardFace.ocrObject.name && this.data.oldIdNumber === this.data.idCardFace.ocrObject.idNumber) haveChange = false;
-		mta.Event.stat('id_card_next',{});
 		wx.uma.trackEvent('id_card_next');
 		// ocr返回的是 男女  接口是 1 2
 		if (this.data.idCardFace.ocrObject.sex === '男') this.data.idCardFace.ocrObject.sex = 1;

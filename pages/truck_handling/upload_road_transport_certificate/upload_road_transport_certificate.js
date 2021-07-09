@@ -3,8 +3,6 @@
  * @desc 信息确认
  */
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -114,7 +112,6 @@ Page({
 		this.setData({
 			isRequest: true
 		});
-		mta.Event.stat('truck_for_transportation_license_next',{});
 		wx.uma.trackEvent('truck_for_transportation_license_next');
 		const obj = this.data.transportationLicenseObj;
 		let params = {

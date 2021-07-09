@@ -1,7 +1,5 @@
 const util = require('../../../utils/util.js');
-// 数据统计
 // 九宫格入口
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -31,7 +29,6 @@ Page({
 			});
 			console.log(bank);
 			app.globalData.otherPlatformsServiceProvidersId = bank.shopId;
-			mta.Event.stat(bank.buriedPoint,{});
 			wx.uma.trackEvent(bank.buriedPoint);
 		}
 		wx.reLaunch({

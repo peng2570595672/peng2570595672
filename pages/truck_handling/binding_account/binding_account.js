@@ -3,8 +3,6 @@
  * @desc 开通II类户
  */
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 // 倒计时计时器
 let timer;

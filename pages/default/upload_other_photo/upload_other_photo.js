@@ -3,8 +3,6 @@
  * @desc 信息确认
  */
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -92,7 +90,6 @@ Page({
 			isRequest: true
 		});
 		wx.uma.trackEvent('other_photo_next');
-		mta.Event.stat('other_photo_next',{});
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: '7', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息

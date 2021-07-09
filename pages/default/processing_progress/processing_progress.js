@@ -3,8 +3,6 @@
  * @desc 办理进度
  */
 const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 const app = getApp();
 Page({
 	data: {
@@ -208,7 +206,6 @@ Page({
 	},
 	// 去微保
 	goMicroInsurance () {
-		mta.Event.stat('processing_progress_weibao',{});
 		wx.uma.trackEvent('processing_progress_weibao');
 		const wtagid = '104.210.3';
 		let params = {
@@ -231,7 +228,6 @@ Page({
 	goDriverInsurance () {
 		let memberId = this.data.memberId;
 		let orderId = this.data.weiBaoOrderId;
-		mta.Event.stat('processing_progress_car_insurance',{});
 		wx.uma.trackEvent('processing_progress_car_insurance');
 		let url = `outerUserId=${memberId}&outerCarId=${orderId}&companyId=SJHT&configId=sjht&wtagid=116.115.12`;
 		if (this.data.info.orderType === 31) {
@@ -293,7 +289,6 @@ Page({
 				// 新流程-货车订单
 				if (res.data.isNewTrucks === 1) {
 					wx.uma.trackEvent('truck_for_processing_progress');
-					mta.Event.stat('truck_for_processing_progress',{});
 				}
 				if (res.data.flowVersion === 4 && res.data.auditStatus === -1) res.data.auditStatus = 0;
 				this.setData({

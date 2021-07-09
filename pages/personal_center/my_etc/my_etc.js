@@ -5,8 +5,6 @@
 import { initProductName } from '../../../utils/utils.js';
 const util = require('../../../utils/util.js');
 const app = getApp();
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
 Page({
 	data: {
 		notAllCar: false,
@@ -210,8 +208,6 @@ Page({
 	},
 	//	查看详情
 	onClickGoETCDetailHandle (e) {
-		// 统计点击事件
-		mta.Event.stat('016',{});
 		wx.uma.trackEvent('my_etc_for_card_my_etc_detail');
 		let index = e.currentTarget.dataset.index;
 		util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${this.data.carList[parseInt(index)].id}`);
@@ -223,8 +219,6 @@ Page({
 	},
 	// 继续办理
 	async onClickContinueHandle (orderInfo) {
-		// 统计点击事件
-		mta.Event.stat('002',{});
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.firstVersionData = false;
 		const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
@@ -253,8 +247,6 @@ Page({
 	},
 	// 新增
 	onClickAddNewHandle () {
-		// 统计点击事件
-		mta.Event.stat('015',{});
 		app.globalData.orderInfo.orderId = '';
 		wx.uma.trackEvent(this.data.activeIndex === 1 ? 'my_etc_for_new_deal_with' : 'my_etc_for_truck_new_deal_with');
 		const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address' : '/pages/truck_handling/truck_receiving_address/truck_receiving_address';

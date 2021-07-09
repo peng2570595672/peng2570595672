@@ -2,9 +2,7 @@
  * @author 老刘
  * @desc 选择套餐
  */
-const util = require('../../../utils/util.js');
-// 数据统计
-let mta = require('../../../libs/mta_analysis.js');
+const util = require('../../../utils/util.js')
 const app = getApp();
 Page({
 	data: {
@@ -308,7 +306,6 @@ Page({
 	},
 	async saveOrderInfo () {
 		wx.uma.trackEvent('package_the_rights_and_interests_next');
-		mta.Event.stat('package_the_rights_and_interests_next',{});
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			shopId: this.data.orderInfo ? this.data.orderInfo.base.shopId : app.globalData.newPackagePageData.shopId, // 商户id
