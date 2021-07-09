@@ -31,12 +31,11 @@
       "outputPath": ""
     },
     "useIsolateContext": true,
-    "useCompilerModule": false,
-    "userConfirmedUseCompilerModuleSwitch": false,
     "userConfirmedBundleSwitch": true,
     "packNpmManually": false,
     "packNpmRelationList": [],
-    "minifyWXSS": true
+    "minifyWXSS": true,
+    "showES6CompileOption": false
   },
   "compileType": "miniprogram",
   "libVersion": "2.12.2",

@@ -547,7 +547,7 @@ Page({
 			this.setData({
 				orderInfo: this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data.truckOrderInfo
 			});
-			if (this.data.orderInfo.selfStatus === 17) {
+			if (this.data.orderInfo?.selfStatus === 17) {
 				await this.getQueryProcessInfo(this.data.orderInfo.id);
 			}
 			let channelList = activationOrder.concat(activationTruckOrder);
