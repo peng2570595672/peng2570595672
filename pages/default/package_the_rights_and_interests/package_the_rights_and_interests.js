@@ -2,7 +2,7 @@
  * @author 老刘
  * @desc 选择套餐
  */
-const util = require('../../../utils/util.js')
+const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
