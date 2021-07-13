@@ -241,29 +241,6 @@
 .receiving_address .fill {
   flex: 1;
 }
-.receiving_address .agreement {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 48rpx;
-  font-size: 24rpx;
-  color: #99999d;
-}
-.receiving_address .agreement > text {
-  color: #2fb565;
-}
-.receiving_address .agreement::before {
-  margin-right: 10rpx;
-  width: 28rpx;
-  height: 28rpx;
-  content: '\e6e4';
-  font-size: 30rpx;
-  color: #99999d;
-  border-radius: 50%;
-}
-.receiving_address .agreement.selected::before {
-  color: #84d157;
-}
 .receiving_address .btn {
   display: flex;
   align-items: center;

@@ -1,6 +1,6 @@
 .package-the-rights-and-interests {
   min-height: 100vh;
-  padding-bottom: 170rpx;
+  padding-bottom: 240rpx;
   box-sizing: border-box;
   background: #f6f6f6;
 }
@@ -309,9 +309,33 @@
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 160rpx;
+  height: 230rpx;
   background: #f6f6f6;
   z-index: 3;
+}
+.package-the-rights-and-interests .next .agreement {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 28rpx 0rpx;
+  height: 48rpx;
+  font-size: 20rpx;
+  color: #99999d;
+}
+.package-the-rights-and-interests .next .agreement > text {
+  color: #00bc58;
+}
+.package-the-rights-and-interests .next .agreement::before {
+  margin-right: 10rpx;
+  width: 28rpx;
+  height: 28rpx;
+  content: '\e6e4';
+  font-size: 28rpx;
+  color: #99999d;
+  border-radius: 50%;
+}
+.package-the-rights-and-interests .next .agreement.selected::before {
+  color: #00b85c;
 }
 .package-the-rights-and-interests .next .btn {
   width: 650rpx;
@@ -324,7 +348,6 @@
   text-align: center;
   background: linear-gradient(132deg, #16ad69 0%, #82d057 100%);
   border-radius: 48rpx;
-  margin-top: 20rpx;
 }
 .package-the-rights-and-interests .next .btn.unavailable {
   opacity: 0.6;

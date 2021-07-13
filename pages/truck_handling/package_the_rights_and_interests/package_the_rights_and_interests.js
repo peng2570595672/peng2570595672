@@ -105,7 +105,8 @@ Page({
 			}
 		],
 		showServiceIndex: -1,
-		rightsPackageDetails: undefined
+		rightsPackageDetails: undefined,
+		getAgreement: false // 是否接受协议
 	},
 	async onLoad (options) {
 		if (!options.type) {
@@ -201,6 +202,24 @@ Page({
 	onClickHandle () {
 		this.data.viewRightsAndInterests.switchDisplay(false);
 	},
+	// 个人征信授权书
+	onClickGoAuthorizationHandle () {
+		util.go('/pages/truck_handling/agreement/agreement');
+	},
+	// 查看办理协议
+	onClickGoAgreementHandle () {
+		util.go('/pages/truck_handling/agreement/agreement');
+	},
+	// 查看隐私协议
+	onClickGoPrivacyHandle () {
+		util.go('/pages/truck_handling/agreement/agreement');
+	},
+	// 是否接受协议
+	onClickAgreementHandle () {
+		this.setData({
+			getAgreement: !this.data.getAgreement
+		});
+	},
 	onClickCheckTheService (e) {
 		this.setData({
 			showServiceIndex: parseInt(e.currentTarget.dataset.index)
@@ -281,6 +300,10 @@ Page({
 		if (this.data.listOfPackages[this.data.choiceIndex].mustChoiceRightsPackage === 1 && this.data.activeEquitiesIndex === -1) {
 			util.showToastNoIcon('套餐需加购权益包');
 			// 必须选择权益
+			return;
+		}
+		if (!this.data.getAgreement) {
+			util.showToastNoIcon('请同意并勾选协议！');
 			return;
 		}
 		wx.uma.trackEvent('truck_for_package_the_rights_and_interests_next');

@@ -12,7 +12,6 @@ Page({
 		carNoStr: '', // 车牌字符串
 		carNo: ['', '', '', '', '', '', '', ''], // 车牌对应的数组
 		mobilePhoneIsOk: false,
-		getAgreement: false, // 是否接受协议
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
 		isNewPowerCar: false, // 是否为新能源
@@ -103,10 +102,6 @@ Page({
 			available: this.validateAvailable(true)
 		});
 		if (!this.data.available || this.data.isRequest) {
-			return;
-		}
-		if (!this.data.getAgreement) {
-			util.showToastNoIcon('请同意并勾选协议！');
 			return;
 		}
 		// 统计点击事件
@@ -541,18 +536,6 @@ Page({
 			available: this.validateAvailable()
 		});
 	},
-	// 是否接受协议
-	onClickAgreementHandle () {
-		this.setData({
-			getAgreement: !this.data.getAgreement
-		});
-		if (this.data.getAgreement) {
-			wx.uma.trackEvent('receiving_address_check_agreement');
-		}
-		this.setData({
-			available: this.validateAvailable()
-		});
-	},
 	// 校验字段是否满足
 	validateAvailable (checkLicensePlate) {
 		// 是否接受协议
@@ -601,10 +584,6 @@ Page({
 			currentCarNoColor: 1
 		});
 		this.setCurrentCarNo(e);
-	},
-	// 查看办理协议
-	onClickGoAgreementHandle () {
-		util.go('/pages/default/agreement/agreement');
 	},
 	onUnload () {
 		// 统计点击事件
