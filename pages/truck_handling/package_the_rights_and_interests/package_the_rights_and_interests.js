@@ -204,7 +204,7 @@ Page({
 	},
 	// 个人征信授权书
 	onClickGoAuthorizationHandle () {
-		util.go('/pages/truck_handling/agreement/agreement');
+		util.go('/pages/truck_handling/truck_credit_investigation_authorization/truck_credit_investigation_authorization');
 	},
 	// 查看办理协议
 	onClickGoAgreementHandle () {

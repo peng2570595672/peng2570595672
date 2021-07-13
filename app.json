@@ -138,7 +138,8 @@
         "upload_id_card/upload_id_card",
         "upload_other_photo/upload_other_photo",
         "upload_road_transport_certificate/upload_road_transport_certificate",
-        "information_list/information_list"
+        "information_list/information_list",
+        "truck_credit_investigation_authorization/truck_credit_investigation_authorization"
       ]
     },
     {
