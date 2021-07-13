@@ -67,7 +67,8 @@
         "characteristic_service/characteristic_service",
         "coupon_redemption_centre/coupon_redemption_centre",
         "coupon_redemption_history/coupon_redemption_history",
-        "service_purchase_record/service_purchase_record"
+        "service_purchase_record/service_purchase_record",
+        "user_agreement/user_agreement"
       ]
     },
     {
@@ -208,7 +209,7 @@
       ]
     }
   ],
-  "functionalPages":{
+  "functionalPages": {
     "independent": true
   },
   "sitemapLocation": "sitemap.json",

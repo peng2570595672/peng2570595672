@@ -1,0 +1,57 @@
+.user-agreement {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #f7f7f7;
+}
+.user-agreement .title {
+  margin-top: 52rpx;
+  margin-left: 32rpx;
+  display: flex;
+  align-items: center;
+  height: 56rpx;
+  font-size: 34rpx;
+  font-weight: 500;
+  font-family: PingFangSC-Medium, PingFang SC;
+  color: #000;
+}
+.user-agreement .title.truck {
+  margin-top: 106rpx;
+}
+.user-agreement .title::before {
+  margin-right: 12rpx;
+  content: '';
+  width: 8rpx;
+  height: 44rpx;
+  background: #2fb565;
+}
+.user-agreement .list {
+  display: flex;
+  flex-direction: column;
+}
+.user-agreement .list .item {
+  display: flex;
+  height: 106rpx;
+  margin-left: 40rpx;
+  border-bottom: 2rpx solid #ececec;
+}
+.user-agreement .list .item .name {
+  margin-top: 38rpx;
+  flex: 1;
+  font-size: 28rpx;
+  color: #66666d;
+  line-height: 40rpx;
+}
+.user-agreement .list .item .update {
+  margin-top: 38rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 68rpx;
+  width: 126rpx;
+  height: 44rpx;
+  font-size: 24rpx;
+  background: rgba(0,181,92,0.38);
+  border-radius: 22rpx;
+  color: #fff;
+}
