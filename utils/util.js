@@ -1450,9 +1450,43 @@ async function queryContractForTruckHandling () {
 	}
 	return isOk;
 }
+// 查询是否存在触发记录
+async function queryProtocolRecord (protocolType) {
+	const result = await getDataFromServersV2('consumer/member/queryProtocolRecord', {
+		platformId: app.globalData.platformId,
+		memberId: app.globalData.memberId,
+		protocolType: protocolType
+	});
+	if (!result) return;
+	let isOk = false;
+	if (result.code === 0) {
+		isOk = result.data;
+	} else {
+		showToastNoIcon(result.message);
+	}
+	return isOk;
+}
+// 提交触发记录
+async function addProtocolRecord (protocolType) {
+	const result = await getDataFromServersV2('consumer/member/addProtocolRecord', {
+		platformId: app.globalData.platformId,
+		memberId: app.globalData.memberId,
+		protocolType: protocolType
+	});
+	if (!result) return;
+	let isOk = false;
+	if (result.code === 0) {
+		isOk = true;
+	} else {
+		showToastNoIcon(result.message);
+	}
+	return isOk;
+}
 module.exports = {
 	setApp,
 	formatNumber,
+	addProtocolRecord,
+	queryProtocolRecord,
 	goMicroInsuranceVehicleOwner,
 	getDataFromServer, // 从服务器上获取数据
 	parseBase64,

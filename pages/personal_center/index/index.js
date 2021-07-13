@@ -1,3 +1,4 @@
+import { compareDate } from '../../../utils/utils.js';
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
@@ -13,6 +14,10 @@ Page({
 		mobilePhone: undefined,
 		showDetailWrapper: false,
 		showDetailMask: false,
+		showAgreementWrapper: false,
+		isNeedShowAgreement: false,
+		isAgreement: false,
+		isShowHelpCenterUpdate: false,
 		showPublicAccountType: 0,// 0 关注公众号  1 影音
 		isActivation: false, // 是否有激活车辆
 		isOpenTheCard: true, // 是否开通三类户
@@ -38,7 +43,7 @@ Page({
 	async onShow () {
 		if (app.globalData.userInfo.accessToken) {
 			// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
-			let requestList = [await this.getMemberBenefits(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon()];
+			let requestList = [await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon()];
 			util.showLoading();
 			await Promise.all(requestList);
 			util.hideLoading();
@@ -67,17 +72,65 @@ Page({
 		}
 		this.setData({
 			isActivityDate: util.isDuringDate('2021/6/25 11:00', '2021/6/28 15:00'),
-			isClickNotice: wx.getStorageSync('is-click-notice'),
 			mobilePhoneSystem: app.globalData.mobilePhoneSystem,
 			mobilePhone: app.globalData.mobilePhone,
 			screenHeight: wx.getSystemInfoSync().windowHeight
 		});
 	},
+	// 勾选用户协议
+	onClickChangeAgreement () {
+		this.setData({
+			isAgreement: true
+		});
+	},
+	// 跳转用户协议
+	onCLickGoAgreement () {
+		util.go('/pages/default/agreement/agreement');
+	},
+	// 同意用户协议
+	async onClickSubmit () {
+		if (!this.data.isAgreement) {
+			util.showToastNoIcon('请阅读并同意相关协议');
+			return;
+		}
+		const result = await util.addProtocolRecord(1);
+		if (result) {
+			this.setData({
+				showAgreementWrapper: false
+			});
+			setTimeout(() => {
+				this.setData({
+					showAgreementWrapper: false
+				});
+			}, 400);
+		}
+	},
+	// 查询是否提交用户协议
+	async queryProtocolRecord () {
+		const result = await util.queryProtocolRecord(1);
+		this.setData({
+			isNeedShowAgreement: !result
+		});
+	},
+	// 查询是否提交独立权益包入口触发事件
+	async getIsShowNotice () {
+		const result = await util.queryProtocolRecord(2);
+		this.setData({
+			isClickNotice: result
+		});
+	},
 	// 点击广告位
-	onClickNotice () {
+	async onClickNotice () {
+		if (!this.data.isClickNotice) await util.addProtocolRecord(2);
 		wx.uma.trackEvent('personal_center_for_purchase_coupons');
-		wx.setStorageSync('is-click-notice', true);
 		util.go('/pages/separate_interest_package/index/index');
+	},
+	// 查询是否更新帮助中心
+	async queryHelpCenterRecord () {
+		const result = await util.queryProtocolRecord(3);
+		this.setData({
+			isShowHelpCenterUpdate: !result
+		});
 	},
 	// 是否显示领券中心
 	async getHasCoupon () {
@@ -138,7 +191,7 @@ Page({
 							requestList = [await this.getStatus()];
 						}
 						// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
-						requestList = [requestList, await this.getMemberBenefits(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon()];
+						requestList = [requestList, await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon()];
 						if (isData) {
 							requestList.push(await this.submitUserInfo(isData));
 						}
@@ -182,12 +235,14 @@ Page({
 	},
 	getIsShow () {
 		let isActivation = app.globalData.myEtcList.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && (item.obuCardType === 1 || item.obuCardType === 21)); // 1 已激活  2 恢复订单  5 预激活
+		let isNewOrder = app.globalData.myEtcList.findIndex(item => compareDate(item.addTime, '2021-07-13') === true); // 当前用户有办理订单且订单创建日期在2021年7月13日前（含7月13日）
 		let isShowFeatureService = app.globalData.myEtcList.findIndex(item => item.isShowFeatureService === 1 && (item.obuStatus === 1 || item.obuStatus === 5)); // 是否有特色服务
 		let isPrechargeOrder = app.globalData.myEtcList.findIndex(item => item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
 		this.setData({
 			isShowNotice: !!app.globalData.myEtcList.length,
 			isShowFeatureService: isShowFeatureService !== -1,
 			isPrechargeOrder: isPrechargeOrder !== -1,
+			showAgreementWrapper: isNewOrder !== -1,
 			isActivation: !!isActivation.length
 		});
 	},
@@ -291,13 +346,14 @@ Page({
 		}
 	},
 	// 跳转
-	go (e) {
+	async go (e) {
 		let url = e.currentTarget.dataset['url'];
 		if (url === 'life_service') {
 			wx.uma.trackEvent('personal_center_for_life_service');
 			this.showDetail(1);
 			return;
 		}
+		if (url === 'help_center') await util.addProtocolRecord(3);
 		const urlObj = {
 			'the_owner_service': 'personal_center_owner_service',
 			'my_etc': 'personal_center_my_etc',

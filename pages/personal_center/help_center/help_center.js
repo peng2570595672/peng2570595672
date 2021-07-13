@@ -1,3 +1,5 @@
+import {compareDate} from "../../../utils/utils";
+
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
@@ -9,6 +11,8 @@ Page({
 		pageSize: 5,// 每页多少条数据
 		classifyId: '',// 问题分类id
 		tabList: '',// 问题列表
+		isActivation: false,
+		isShowAgreementUpdate: false,
 		showDetailMask: false,// 弹窗
 		showDetailWtapper: false,// 弹窗
 		showPrompt: false,// 弹窗底部提示
@@ -18,8 +22,26 @@ Page({
 		fatherHeight: '',// 弹窗列表高度
 		childHeight: ''// 弹窗列表内容高度
 	},
-	onShow () {
+	async onShow () {
 		this.questionClassification();
+		await this.getIsShow();
+	},
+	async getIsShow () {
+		let isActivation = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && (item.obuCardType === 1 || item.obuCardType === 21)); // 1 已激活  2 恢复订单  5 预激活
+		this.setData({
+			isActivation: isActivation !== -1
+		});
+		if (this.data.isActivation) await this.queryAgreementRecord();
+	},
+	// 查询是否更新用户协议
+	async queryAgreementRecord () {
+		const result = await util.queryProtocolRecord(4);
+		this.setData({
+			isShowAgreementUpdate: !result
+		});
+	},
+	async onClickAgreement () {
+		if (this.data.isShowAgreementUpdate) await util.addProtocolRecord(4);
 	},
 	// 获取问题分类列表
 	questionClassification () {

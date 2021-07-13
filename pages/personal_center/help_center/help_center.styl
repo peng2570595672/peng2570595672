@@ -15,26 +15,44 @@ page
 				line-height 56rpx
 				padding-top 30rpx
 			.service-btn
-				height 80rpx
+				height 78rpx
 				padding-top 20rpx
-				button
-					width 43.5%
-					display inline-block
-					height 80rpx
-					line-height 80rpx
+				display flex
+				align-items center
+				justify-content space-between
+				& > view
+					width 227rpx
+					display flex
+					align-items center
+					justify-content center
+					height 78rpx
 					font-size 32rpx
-					color #fff
-					background rgba(255,255,255,0.3)
+					color #000000
+					background rgba(255,255,255,0.35)
 					border-radius 20rpx
 					text::before
-						content '\e602'
-						color #fff
-						font-size 38rpx
+						content '\e6a4'
+						font-size 34rpx
+						margin-right 14rpx
 					.online-service::before
-						content '\e612'
-						margin-right 20rpx
-				&>button:last-child
-					float right
+						content '\e6a3'
+					.agreement
+						&::before
+							content '\e6a5'
+						&.update
+							position relative
+							&::after
+								position absolute
+								top -6rpx
+								left 24rpx
+								content ''
+								width 16rpx
+								height 16rpx
+								border-radius 50%
+								background #FF3C48
+				&.has-agreement
+					& > view
+						width 326rpx
 		// 帮助列表
 		.help-list
 			background #fff

@@ -15,30 +15,49 @@ page .help-center .service .service-name {
   padding-top: 30rpx;
 }
 page .help-center .service .service-btn {
-  height: 80rpx;
+  height: 78rpx;
   padding-top: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-page .help-center .service .service-btn button {
-  width: 43.5%;
-  display: inline-block;
-  height: 80rpx;
-  line-height: 80rpx;
+page .help-center .service .service-btn > view {
+  width: 227rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 78rpx;
   font-size: 32rpx;
-  color: #fff;
-  background: rgba(255,255,255,0.3);
+  color: #000;
+  background: rgba(255,255,255,0.35);
   border-radius: 20rpx;
 }
-page .help-center .service .service-btn button text::before {
-  content: '\e602';
-  color: #fff;
-  font-size: 38rpx;
+page .help-center .service .service-btn > view text::before {
+  content: '\e6a4';
+  font-size: 34rpx;
+  margin-right: 14rpx;
 }
-page .help-center .service .service-btn button .online-service::before {
-  content: '\e612';
-  margin-right: 20rpx;
+page .help-center .service .service-btn > view .online-service::before {
+  content: '\e6a3';
 }
-page .help-center .service .service-btn>button:last-child {
-  float: right;
+page .help-center .service .service-btn > view .agreement::before {
+  content: '\e6a5';
+}
+page .help-center .service .service-btn > view .agreement.update {
+  position: relative;
+}
+page .help-center .service .service-btn > view .agreement.update::after {
+  position: absolute;
+  top: -6rpx;
+  left: 24rpx;
+  content: '';
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  background: #ff3c48;
+}
+page .help-center .service .service-btn.has-agreement > view {
+  width: 326rpx;
 }
 page .help-center .help-list {
   background: #fff;

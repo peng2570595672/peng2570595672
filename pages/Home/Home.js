@@ -61,8 +61,7 @@ Page({
 	async onShow () {
 		this.setData({
 			isActivityForBannerDate: util.isDuringDate('2021/06/23', '2021/07/16'),
-			isActivityDate: util.isDuringDate('2021/6/25 11:00', '2021/6/28 15:00'),
-			isClickNotice: wx.getStorageSync('is-click-notice')
+			isActivityDate: util.isDuringDate('2021/6/25 11:00', '2021/6/28 15:00')
 		});
 		if (app.globalData.userInfo.accessToken) {
 			if (app.globalData.salesmanScanCodeToHandleId) {
@@ -83,9 +82,16 @@ Page({
 			} else {
 				// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 				await this.getStatus();
+				await this.getIsShowNotice();
 			}
 			wx.removeStorageSync('login_info_final');
 		}
+	},
+	async getIsShowNotice () {
+		const result = await util.queryProtocolRecord(2);
+		this.setData({
+			isClickNotice: result
+		});
 	},
 	// 各入口跳转跳转
 	onClickEntrance (e) {
@@ -243,9 +249,9 @@ Page({
 		});
 	},
 	// 点击广告位
-	onClickNotice () {
+	async onClickNotice () {
+		if (!this.data.isClickNotice) await util.addProtocolRecord(2);
 		wx.uma.trackEvent('index_for_purchase_coupons');
-		wx.setStorageSync('is-click-notice', true);
 		util.go('/pages/separate_interest_package/index/index');
 	},
 	/**
@@ -383,6 +389,7 @@ Page({
 							} else {
 								await this.getStatus();
 							}
+							await this.getIsShowNotice();
 						}
 					}
 				} else {
