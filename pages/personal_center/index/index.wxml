@@ -143,7 +143,7 @@
         <view class="activity_right">去关注</view>
     </button>
 
-    <button class="activity_follow" wx:if="{{isOpenTheCard}}" catchtap="go" data-url="help_center">
+    <button class="activity_follow" wx:if="{{isPrechargeOrder}}" catchtap="go" data-url="help_center">
         <view class="activity_img help-center iconfont"></view>
         <view class="activity_msg {{isShowHelpCenterUpdate ? 'update' : ''}}">帮助中心</view>
     </button>
