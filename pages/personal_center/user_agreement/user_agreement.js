@@ -52,6 +52,7 @@ Page({
 				break;
 			case 2:
 				// 征信授权书
+				util.go('/pages/truck_handling/truck_credit_investigation_authorization/truck_credit_investigation_authorization');
 				break;
 			default:
 				break;

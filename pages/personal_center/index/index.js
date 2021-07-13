@@ -235,7 +235,7 @@ Page({
 	},
 	getIsShow () {
 		let isActivation = app.globalData.myEtcList.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && (item.obuCardType === 1 || item.obuCardType === 21)); // 1 已激活  2 恢复订单  5 预激活
-		let isNewOrder = app.globalData.myEtcList.findIndex(item => compareDate(item.addTime, '2021-07-13') === true); // 当前用户有办理订单且订单创建日期在2021年7月13日前（含7月13日）
+		let isNewOrder = app.globalData.myEtcList.findIndex(item => compareDate(item.addTime, '2021-07-14') === true); // 当前用户有办理订单且订单创建日期在2021年7月13日前（含7月13日）
 		let isShowFeatureService = app.globalData.myEtcList.findIndex(item => item.isShowFeatureService === 1 && (item.obuStatus === 1 || item.obuStatus === 5)); // 是否有特色服务
 		let isPrechargeOrder = app.globalData.myEtcList.findIndex(item => item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
 		this.setData({
