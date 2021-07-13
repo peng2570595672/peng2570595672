@@ -87,7 +87,7 @@
     <!--权益选择结束-->
     <!--下一步开始-->
     <view class="next">
-        <view class="agreement iconfont {{getAgreement ? 'selected' : ''}}" bindtap="onClickAgreementHandle">我已阅读并同意
+        <view class="agreement iconfont {{getAgreement ? 'selected' : ''}}" bindtap="onClickAgreementHandle">阅读并同意
             <text catchtap="onClickGoAgreementHandle">《ETC+货车办理协议》</text>
             <text catchtap="onClickGoAuthorizationHandle">《个人征信授权书》</text>
             <text catchtap="onClickGoPrivacyHandle">《隐私协议》</text>

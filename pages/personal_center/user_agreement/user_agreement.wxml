@@ -1,0 +1,16 @@
+<view class="user-agreement">
+	<view class="title">客车</view>
+	<view class="list" wx:for="{{carAgreementList}}" wx:key="index">
+		<view class="item" catchtap="carAgreementHandle" data-index="{{index}}">
+			<view class="name">{{item.name}}</view>
+			<view class="update" wx:if="{{item.update === 1}}">有更新</view>
+		</view>
+	</view>
+	<view class="title truck">货车</view>
+	<view class="list" wx:for="{{truckAgreementList}}" wx:key="index">
+		<view class="item" catchtap="truckAgreementHandle" data-index="{{index}}">
+			<view class="name">{{item.name}}</view>
+			<view class="update" wx:if="{{item.update === 1}}">有更新</view>
+		</view>
+	</view>
+</view>
