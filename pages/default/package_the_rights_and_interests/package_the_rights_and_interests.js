@@ -209,7 +209,7 @@ Page({
 	},
 	// 查看隐私协议
 	onClickGoPrivacyHandle () {
-		util.go('/pages/default/agreement/agreement');
+		util.go('/pages/default/privacy_agreement/privacy_agreement');
 	},
 	// 是否接受协议
 	onClickAgreementHandle () {

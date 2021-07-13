@@ -42,6 +42,7 @@ Page({
 	},
 	async onClickAgreement () {
 		if (this.data.isShowAgreementUpdate) await util.addProtocolRecord(4);
+		util.go('/pages/personal_center/user_agreement/user_agreement');
 	},
 	// 获取问题分类列表
 	questionClassification () {

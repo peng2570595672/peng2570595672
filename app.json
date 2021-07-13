@@ -5,6 +5,7 @@
     "pages/default/receiving_address/receiving_address",
     "pages/default/high_speed_verification_failed/high_speed_verification_failed",
     "pages/default/agreement/agreement",
+    "pages/default/privacy_agreement/privacy_agreement",
     "pages/default/payment_successful/payment_successful",
     "pages/default/processing_progress/processing_progress",
     "pages/loading_page_for_wx/index",
