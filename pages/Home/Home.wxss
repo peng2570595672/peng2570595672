@@ -399,6 +399,7 @@
 .index .my-swiper .my-swiper-item image {
   width: 504rpx;
 }
+.index .my-swiper .my-swiper-item image.micro_insurance_hcz,
 .index .my-swiper .my-swiper-item image.xiaoepinpin {
   width: 470rpx;
   height: 195rpx !important;

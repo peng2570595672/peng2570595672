@@ -261,8 +261,6 @@
   left: 0;
   right: 0;
   bottom: 0;
-  display: flex;
-  flex-direction: column;
   height: 1040rpx;
   padding-bottom: 20rpx;
   background: #fff;
@@ -296,6 +294,18 @@
 .related-service .related-service-wrapper .related-service-list {
   padding-top: 44rpx;
   padding-left: 32rpx;
+  height: 600rpx;
+  overflow: scroll;
+  position: relative;
+}
+.related-service .related-service-wrapper .related-service-list .transparent {
+  position: fixed;
+  bottom: 263rpx;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 130rpx;
+  background: linear-gradient(180deg, rgba(255,255,255,0.57) 0%, #fff 100%);
 }
 .related-service .related-service-wrapper .related-service-list .related-service-item {
   padding-top: 50rpx;
@@ -330,14 +340,15 @@
   content: '\e691';
   color: #6467f0;
 }
+.related-service .related-service-wrapper .related-service-list .related-service-item .title .logo.service_of_oil::after {
+  content: '\e680';
+  color: #ff3c48;
+}
 .related-service .related-service-wrapper .related-service-list .related-service-item .title .logo image {
   height: 48rpx;
 }
 .related-service .related-service-wrapper .related-service-list .related-service-item .content {
   padding-left: 72rpx;
-}
-.related-service .related-service-wrapper .fill {
-  flex: 1;
 }
 .related-service .related-service-wrapper .btns {
   width: 368rpx;
@@ -350,5 +361,5 @@
   font-weight: 500;
   font-size: 34rpx;
   border-radius: 8rpx;
-  margin: 0 auto 100rpx;
+  margin: 126rpx auto 100rpx;
 }

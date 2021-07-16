@@ -8,6 +8,7 @@ Component({
 		}
 	},
 	data: {
+		showPrompt: false,
 		mask: false,
 		wrapper: false
 	},
@@ -30,6 +31,12 @@ Component({
 					});
 				}, 400);
 			}
+		},
+		// 监听页面滚动事件
+		scroll (e) {
+			this.setData({
+				showPrompt: e.detail.scrollTop > 10 ? false : true
+			});
 		},
 		// 点击半透明层
 		onClickHandle () {

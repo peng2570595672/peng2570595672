@@ -6,7 +6,8 @@ Page({
 			{title: '领驾驶险', ico: 'led_driving_icon', statisticsEvent: 'owner_service_for_driving', isShow: !app.globalData.isContinentInsurance},
 			{title: '查违章', ico: 'check_illegal', statisticsEvent: 'owner_service_for_check_illegal', isShow: !app.globalData.isContinentInsurance},
 			{title: '延保1年', ico: 'quality_assurance', statisticsEvent: 'owner_service_for_quality_assurance', isShow: true},
-			{title: '国际驾照', ico: 'international_license', statisticsEvent: 'owner_service_for_international_license', isShow: true}
+			{title: '国际驾照', ico: 'international_license', statisticsEvent: 'owner_service_for_international_license', isShow: true},
+			{title: '优惠加油', ico: 'oil', statisticsEvent: 'owner_service_for_oil', isShow: true}
 		]
 	},
 	onLoad () {
@@ -47,6 +48,17 @@ Page({
 				break;
 			case 4:
 				util.go('/pages/international_driving_document/index/index');
+				break;
+			case 5:
+				// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
+				wx.navigateToMiniProgram({
+					appId: 'wx65cc950f42e8fff1',
+					path: 'launch/launch?target=refuelStations&from=sjht_etc',
+					envVersion: 'release', // 正式版
+					fail () {
+						util.showToastNoIcon('调起小程序失败, 请重试！');
+					}
+				});
 				break;
 		}
 	},

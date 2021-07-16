@@ -18,7 +18,7 @@ Page({
 		bannerList: [
 			{img: 'https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrTgOANI-7AABwMlaUjXo345.png', url: 'micro_insurance_car_insurance', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_micro_insurance_car_insurance'},
 			{img: 'https://file.cyzl.com/g001/M07/50/2F/oYYBAGDRSJaAIRy_AABmOVUonLQ097.png', url: 'xiaoepinpin', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_for_xiaoepinpin'},
-			{img: 'https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrTieAODp3AABi5oqjdrI986.png', url: 'micro_insurance_hcz', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_micro_insurance_hcz'},
+			{img: 'https://file.cyzl.com/g001/M07/56/6F/oYYBAGDvmOmAKFdjAABX7h3eswc492.png', url: 'micro_insurance_hcz', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_micro_insurance_hcz'},
 			{img: 'https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrThuACNFGAABtf6A3V68049.png', url: '', isShow: app.globalData.isContinentInsurance, statisticsEvent: 'index_dadi'}
 		],
 		activeIndex: 1,
@@ -469,8 +469,8 @@ Page({
 	// 分享
 	onShareAppMessage () {
 		return {
-			title: 'ETC+',
-			imageUrl: 'https://file.cyzl.com/g001/M07/50/F6/oYYBAGDS1JaAXuhTAADt79VqVig353.png',
+			title: '申办即享最新车主出行权益！',
+			imageUrl: 'https://file.cyzl.com/g001/M07/56/C7/oYYBAGDw3haAa9dPAADutBNUNJ4965.png',
 			path: '/pages/Home/Home'
 		};
 	},

@@ -4,7 +4,7 @@
             <view class="title">{{details.detailsTitle}}</view>
             <view class="close iconfont" catchtap="onClickHandle"></view>
         </view>
-		<view class="related-service-list">
+		<scroll-view scroll-y="true" class="related-service-list" bindscroll="scroll">
             <view wx:for="{{details.list}}" wx:key="index" class="related-service-item" wx:if="{{item.isShow}}">
                 <view class="title">
                     <view class="logo iconfont {{item.ico}}">
@@ -14,8 +14,8 @@
                 </view>
                 <view class="content"><text>{{item.describe}}</text></view>
             </view>
-		</view>
-        <view class="fill"></view>
+            <view class="transparent animated {{showPrompt ?'slideInUp':'slideOutDown'}}"></view>
+		</scroll-view>
         <view class="btns" catchtap="onClickHandle">我知道了</view>
 	</view>
 </view>
