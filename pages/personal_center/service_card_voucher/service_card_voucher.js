@@ -2,6 +2,9 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		totalPages: 0,// 总条数
+		page: 1,// 当前页
+		pageSize: 10,// 每页多少条数据
 		showAddCoupon: false,// 控制显示兑换码弹窗
 		showActivateCoupon: false,// 控制显示激活卡券弹窗
 		verificationCode: '',// 短信验证码
@@ -34,6 +37,20 @@ Page({
 			wx.stopPullDownRefresh();
 		},3000);
 	},
+	// 上滑分页加载
+	onReachBottom () {
+		if (this.data.list.length < this.data.pageSize) return;
+		this.setData({
+			page: ++this.data.page
+		});
+		if (this.data.list.length >= this.data.totalPages) {
+			this.setData({
+				page: --this.data.page
+			});
+			return;
+		}
+		this.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
+	},
 	//  tab切换逻辑
 	switchCardVoucherStatus (e) {
 		let that = this;
@@ -41,7 +58,9 @@ Page({
 			return false;
 		} else {
 			that.setData({
-				currentTab: e.target.dataset.current
+				list: [],
+				currentTab: e.target.dataset.current,
+				page: 1
 			});
 			that.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
 		}
@@ -50,7 +69,9 @@ Page({
 	getCardVoucherList (key) {
 		util.showLoading();
 		let params = {
-			status: key
+			status: key,
+			page: this.data.page,
+			pageSize: this.data.pageSize
 		};
 		util.getDataFromServer('consumer/voucher/get-coupon-page-list', params, () => {
 			util.showToastNoIcon('获取卡券列表失败！');
@@ -60,7 +81,8 @@ Page({
 			// });
 			if (res.code === 0) {
 				this.setData({
-					list: res.data.list
+					list: this.data.list.concat(res.data.list),
+					totalPages: res.data.total
 				});
 				if (res.data.list.length > 0) {
 					let listHeight = wx.createSelectorQuery();
