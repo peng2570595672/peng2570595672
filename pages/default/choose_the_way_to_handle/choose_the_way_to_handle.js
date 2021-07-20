@@ -21,6 +21,13 @@ Page({
 	onClickPaymentWay (e) {
 		wx.uma.trackEvent('choose_the_way_to_handle');
 		const type = +e.currentTarget.dataset.type;
+		let etcCardId;
+		if (type === 1) {
+			etcCardId = this.data.listOfPackages.divideAndDivideList[0].etcCardId;
+		} else {
+			etcCardId = this.data.listOfPackages.alwaysToAlwaysList[0].etcCardId;
+		}
+		wx.setStorageSync('etcCardId',etcCardId);
 		util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?type=${type}`);
 		return;
 		if (type === 1) {

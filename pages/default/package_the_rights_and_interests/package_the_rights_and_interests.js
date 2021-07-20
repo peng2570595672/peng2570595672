@@ -211,18 +211,21 @@ Page({
 	},
 	// 查看办理协议
 	onClickGoAgreementHandle () {
-		if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
-			this.data.rightsAndInterestsList[this.data.activeEquitiesIndex]?.payMoney) {
-			util.go(`/pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement`);
+		let etcCardId = wx.getStorageSync('etcCardId');
+		if (etcCardId === 1) {
+			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ) {
+				util.go(`/pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement`);
+			} else {
+				util.go(`/pages/default/free_equipment_agreement/free_equipment_agreement`);
+			}
 		} else {
-			util.go(`/pages/default/free_equipment_agreement/free_equipment_agreement`);
+			util.go(`/pages/default/agreement/agreement`);
 		}
 	},
 	// 黔通用户协议
 	onClickGoQianTongAgreement () {
 		let path = 'free';
-		if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
-			this.data.rightsAndInterestsList[this.data.activeEquitiesIndex]?.payMoney) {
+		if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice) {
 			path = 'charge';
 		}
 		util.go(`/pages/truck_handling/agreement_for_qiantong_to_${path}/agreement`);
