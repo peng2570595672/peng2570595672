@@ -212,7 +212,7 @@ Page({
 	onClickGoQianTongAgreement () {
 		let path = 'free';
 		// 1-自购设备 2-免费设备
-		if (this.data.listOfPackages[this.data.choiceIndex].environmentAttribute === 1) {
+		if (this.data.listOfPackages[this.data.choiceIndex]?.environmentAttribute === 1) {
 			path = 'charge';
 		}
 		util.go(`/pages/truck_handling/agreement_for_qiantong_to_${path}/agreement`);
