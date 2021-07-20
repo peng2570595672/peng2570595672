@@ -21,8 +21,8 @@ Page({
 		let isTruckActivation = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 1); //  货车已激活
 		let [isCharge, isFree] = [0, 0];
 		if (isPassengerCarActivation !== -1) {
-			isCharge = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 0 && orderInfo.pledgeStatus === 0); //  客车已激活&收费
-			isFree = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 0 && orderInfo.pledgeStatus === -1); //  客车已激活&免费
+			isCharge = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 0 && item.pledgeStatus === 0); //  客车已激活&收费
+			isFree = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 0 && item.pledgeStatus === -1); //  客车已激活&免费
 		}
 		this.setData({
 			isPassengerCarActivation: isPassengerCarActivation !== -1,
@@ -30,21 +30,37 @@ Page({
 			isFree: isFree !== -1,
 			isCharge: isCharge !== -1
 		});
+		if (isFree !== -1 && isCharge !== -1) {
+			// 付费和免费均有
+			this.setData({
+				carAgreementList: [
+					{name: '用户办理协议（1）', update: 0, url: 'agreement'},
+					{name: '用户办理协议（2）', update: 0, url: 'self_buy_equipmemnt_agreement'},
+					{name: '隐私协议', update: 0, url: 'privacy_agreement'}
+				]
+			});
+		}
 	},
 	// 客车协议
 	carAgreementHandle (e) {
+		console.log(this.data.carAgreementList.length)
 		let index = e.currentTarget.dataset.index;
-		switch (index) {
-			case 0:
-				// 办理协议
-				util.go('/pages/default/agreement/agreement');
-				break;
-			case 1:
-				// 隐私协议
-				util.go('/pages/default/privacy_agreement/privacy_agreement');
-				break;
-			default:
-				break;
+		if (this.data.carAgreementList.length === 2) {
+			switch (index) {
+				case 0:
+					// 办理协议
+					util.go(`/pages/default/${this.data.isCharge ? 'self_buy_equipmemnt_agreement' : 'agreement'}/${this.data.isCharge ? 'self_buy_equipmemnt_agreement' : 'agreement'}`);
+					break;
+				case 1:
+					// 隐私协议
+					util.go('/pages/default/privacy_agreement/privacy_agreement');
+					break;
+				default:
+					break;
+			}
+		} else {
+			const path = this.data.carAgreementList[index].url;
+			util.go(`/pages/default/${path}/${path}`);
 		}
 	},
 	// 货车协议
