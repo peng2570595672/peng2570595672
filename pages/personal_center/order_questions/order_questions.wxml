@@ -19,10 +19,10 @@
             </view>
             <view wx:if="{{details.serviceMoney && details.serviceMoney > 0}}">
                 <view class="line" wx:if="{{details.serviceMoney}}">
-                    <view>服务费</view>
+                    <view>违约金</view>
                     <view>{{details.serviceMoney/100}}</view>
                 </view>
-                <view class="explain">逾期补缴每日产生通行费*0.05%的服务费</view>
+                <view class="explain">逾期补缴每日产生通行费*0.05%的违约金</view>
             </view>
             <view class="line" wx:if="{{details.wxDiscountAmount && details.wxDiscountAmount > 0}}">
                 <view>微信支付优惠</view>

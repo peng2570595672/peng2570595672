@@ -208,6 +208,15 @@ Page({
 	onClickHandle () {
 		this.data.viewRightsAndInterests.switchDisplay(false);
 	},
+	// 黔通用户协议
+	onClickGoQianTongAgreement () {
+		let path = 'free';
+		if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
+			this.data.rightsAndInterestsList[this.data.activeEquitiesIndex]?.payMoney) {
+			path = 'charge';
+		}
+		util.go(`/pages/truck_handling/agreement_for_qiantong_to_${path}/agreement`);
+	},
 	// 个人征信授权书
 	onClickGoAuthorizationHandle () {
 		util.go('/pages/truck_handling/truck_credit_investigation_authorization/truck_credit_investigation_authorization');

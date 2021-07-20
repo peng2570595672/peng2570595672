@@ -83,9 +83,17 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
-	async onClickRecharge (e) {
-		util.showLoading('正在获取充值账户信息....');
+	// 获取办理进度
+	async getProcessingProgress (e) {
 		const id = e.currentTarget.dataset.id;
+		const result = await util.getDataFromServersV2('consumer/order/transact-schedule', {
+			orderId: id
+		});
+		if (!result) return;
+		await this.onClickRecharge(id, result.data);
+	},
+	async onClickRecharge (id, info) {
+		util.showLoading('正在获取充值账户信息....');
 		const result = await util.getDataFromServersV2('consumer/order/third/queryProcessInfo', {
 			orderId: id
 		});
@@ -102,6 +110,7 @@ Page({
 				}, 100);
 				return;
 			}
+			result.data.holdBalance = info.holdBalance;
 			this.setData({
 				prechargeInfo: result.data || {}
 			});

@@ -7,7 +7,7 @@
             <view class="recharge" bindtap="onClickRecharge">充值</view>
         </view>
         <view class="prompt">
-            <view wx:if="{{Wallet <= 0}}">*当前余额已不足支付通行费，请尽快充值</view>
+            <view wx:if="{{Wallet < info.holdBalance/100}}">*当前余额低于约定的预充值金额,将会被拉黑,请尽快充值</view>
             <view class="arrears" wx:if="{{Wallet <= 0 && billInfo.failMoney > 0}}">当前累计欠款{{billInfo.failMoney/100}}元,请尽快充值<text bindtap="onClickToMyOrder">查看账单</text></view>
         </view>
     </view>

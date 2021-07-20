@@ -125,6 +125,8 @@
         "index/index",
         "truck_receiving_address/truck_receiving_address",
         "agreement/agreement",
+        "agreement_for_qiantong_to_charge/agreement",
+        "agreement_for_qiantong_to_free/agreement",
         "icbc_agreement/icbc_agreement",
         "information_validation/information_validation",
         "package_the_rights_and_interests/package_the_rights_and_interests",

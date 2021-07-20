@@ -51,7 +51,7 @@ Page({
 			clientOpenid: app.globalData.userInfo.openId,
 			clientMobilePhone: app.globalData.userInfo.mobilePhone,
 			orderId: app.globalData.orderInfo.orderId,// 订单id
-			contractType: 3,// 签约类型：1-通行费，2-服务费，3-保证金
+			contractType: 3,// 签约类型：1-通行费，2-违约金，3-保证金
 			needSignContract: true // 是否需要签约 true-是，false-否
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);

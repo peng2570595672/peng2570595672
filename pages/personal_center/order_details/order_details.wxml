@@ -29,7 +29,7 @@
             <view>¥{{(details.totalMmout || details.etcMoney)/100}}</view>
         </view>
         <view wx:if="{{details.serviceMoney}}">
-            <view>服务费</view>
+            <view>违约金</view>
             <!--<view wx:if="{{details.flowVersion === 2}}">¥{{details.totalMmout/100}}</view>-->
             <!--<view wx:else>¥{{details.etcMoney/100}}</view>-->
             <view>¥{{details.serviceMoney/100}}</view>

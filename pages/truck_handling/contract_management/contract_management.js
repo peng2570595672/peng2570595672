@@ -139,7 +139,7 @@ Page({
 			clientOpenid: app.globalData.userInfo.openId,
 			clientMobilePhone: app.globalData.userInfo.mobilePhone,
 			orderId: app.globalData.orderInfo.orderId,// 订单id
-			contractType: item.contractType,// 签约类型：1-通行费，2-服务费，3-保证金
+			contractType: item.contractType,// 签约类型：1-通行费，2-违约金，3-保证金
 			needSignContract: true // 是否需要签约 true-是，false-否
 		};
 		if (this.data.contractStatus === 1 || this.data.isModifiedData) {

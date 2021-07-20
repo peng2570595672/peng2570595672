@@ -8,6 +8,7 @@ Page({
 	data: {
 		orderId: undefined,
 		Wallet: 0,
+		info: {},
 		prechargeInfo: {},
 		billInfo: {},
 		beginDate: undefined,
@@ -30,6 +31,17 @@ Page({
 		});
 		await this.getFailBillDetails();
 		await this.fetchList();
+		await this.getProcessingProgress();
+	},
+	// 获取办理进度
+	async getProcessingProgress () {
+		const result = await util.getDataFromServersV2('consumer/order/transact-schedule', {
+			orderId: this.data.orderId
+		});
+		if (!result) return;
+		this.setData({
+			info: result.data
+		});
 	},
 	async getFailBillDetails () {
 		const result = await util.getDataFromServersV2('consumer/etc/hw-details-fail', {
@@ -128,6 +140,7 @@ Page({
 				}, 100);
 				return;
 			}
+			result.data.holdBalance = this.data.info.holdBalance;
 			this.setData({
 				prechargeInfo: result.data || {}
 			});

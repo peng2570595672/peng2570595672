@@ -1,7 +1,7 @@
 <view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}">
 	<view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}"  wx:if="{{mask}}">
 		<view class="alert-for-box">
-            <view class="alert-title">为避免账户异常，建议充值金额≥300元，以确保通行扣费正常不被拉黑</view>
+            <view class="alert-title">为避免账户异常，建议充值金额≥{{info.holdBalance/100}}元，以确保通行扣费正常不被拉黑</view>
 			<view class="alert-content">
                 <view class="first">请打开其他银行App或网银等渠道，从银行卡中转账到您的ETC账户中。</view>
                 <view class="info">
