@@ -24,7 +24,9 @@
     "pages/default/order_audit/order_audit",
     "pages/landing_page_for_ccb/index",
     "components/pass_the_discount/pass_the_discount",
-    "components/follow_accont_prompt/follow_accont_prompt"
+    "components/follow_accont_prompt/follow_accont_prompt",
+    "pages/default/free_equipment_agreement/free_equipment_agreement",
+    "pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement"
   ],
   "window": {
     "navigationBarBackgroundColor": "#FFFFFF",
