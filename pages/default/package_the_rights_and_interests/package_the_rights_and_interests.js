@@ -213,7 +213,8 @@ Page({
 	onClickGoAgreementHandle () {
 		let etcCardId = wx.getStorageSync('etcCardId');
 		if (etcCardId === 1) {
-			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ) {
+			// 1-自购设备 2-免费设备
+			if (this.data.listOfPackages[this.data.choiceIndex].environmentAttribute === 1) {
 				util.go(`/pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement`);
 			} else {
 				util.go(`/pages/default/free_equipment_agreement/free_equipment_agreement`);
@@ -225,7 +226,8 @@ Page({
 	// 黔通用户协议
 	onClickGoQianTongAgreement () {
 		let path = 'free';
-		if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice) {
+		// 1-自购设备 2-免费设备
+		if (this.data.listOfPackages[this.data.choiceIndex].environmentAttribute === 1) {
 			path = 'charge';
 		}
 		util.go(`/pages/truck_handling/agreement_for_qiantong_to_${path}/agreement`);
