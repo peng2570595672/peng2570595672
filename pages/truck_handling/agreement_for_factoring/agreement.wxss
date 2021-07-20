@@ -1,6 +1,11 @@
 .protocol {
   padding: 20rpx;
 }
+.protocol .h1 {
+  font-weight: bold;
+  text-align: center;
+  padding: 16rpx 0;
+}
 .protocol .h2 {
   display: block;
   font-size: 32rpx;

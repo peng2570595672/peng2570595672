@@ -113,8 +113,8 @@
           "scene": null
         },
         {
-          "name": "pages/truck_handling/agreement/agreement",
-          "pathName": "pages/truck_handling/agreement/agreement",
+          "name": "pages/truck_handling/agreement_for_factoring/agreement",
+          "pathName": "pages/truck_handling/agreement_for_factoring/agreement",
           "query": "",
           "scene": null
         },

@@ -225,6 +225,10 @@ Page({
 	onClickGoAgreementHandle () {
 		util.go('/pages/truck_handling/agreement/agreement');
 	},
+	// 查看保理
+	onClickGoFactoring () {
+		util.go('/pages/default/agreement_for_factoring/agreement');
+	},
 	// 查看隐私协议
 	onClickGoPrivacyHandle () {
 		util.go('/pages/default/privacy_agreement/privacy_agreement');

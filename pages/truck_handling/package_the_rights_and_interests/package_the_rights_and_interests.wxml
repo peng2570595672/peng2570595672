@@ -93,7 +93,7 @@
                 <text catchtap="onClickGoAgreementHandle">《ETC+货车办理协议》</text>
                 <text catchtap="onClickGoQianTongAgreement">《黔通卡ETC用户协议》</text>
                 <text catchtap="onClickGoPrivacyHandle">《用户隐私协议》</text>
-                <text catchtap="onClickGoPrivacyHandle">《保理协议》</text>
+                <text catchtap="onClickGoFactoring">《保理协议》</text>
                 <text catchtap="onClickGoAuthorizationHandle">《个人征信授权书》</text>
             </view>
         </view>
