@@ -24,7 +24,7 @@
 				<view>违约金</view>
 				<view>{{details.serviceMoney >0 ? details.serviceMoney/100 : 0}}</view>
 			</view>
-			<view class="explain">实付通行费 x 万分之四 x欠费天数</view>
+			<view class="explain">实付通行费 x 万分之五 x欠费天数</view>
 		</view>
 		<view>
 			<view class="line">
