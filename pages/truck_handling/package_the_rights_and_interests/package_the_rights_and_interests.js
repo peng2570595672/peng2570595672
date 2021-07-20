@@ -211,8 +211,7 @@ Page({
 	// 黔通用户协议
 	onClickGoQianTongAgreement () {
 		let path = 'free';
-		if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
-			this.data.rightsAndInterestsList[this.data.activeEquitiesIndex]?.payMoney) {
+		if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice) {
 			path = 'charge';
 		}
 		util.go(`/pages/truck_handling/agreement_for_qiantong_to_${path}/agreement`);

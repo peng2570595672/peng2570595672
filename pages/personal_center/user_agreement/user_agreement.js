@@ -4,6 +4,8 @@ Page({
 	data: {
 		isPassengerCarActivation: false,
 		isTruckActivation: false,
+		isCharge: false,
+		isFree: false,
 		carAgreementList: [
 			{name: '用户办理协议', update: 0},
 			{name: '隐私协议', update: 0}
@@ -17,9 +19,16 @@ Page({
 	onLoad () {
 		let isPassengerCarActivation = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 0); //  客车已激活
 		let isTruckActivation = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 1); //  货车已激活
+		let [isCharge, isFree] = [0, 0];
+		if (isPassengerCarActivation !== -1) {
+			isCharge = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 0 && orderInfo.pledgeStatus === 0); //  客车已激活&收费
+			isFree = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 0 && orderInfo.pledgeStatus === -1); //  客车已激活&免费
+		}
 		this.setData({
 			isPassengerCarActivation: isPassengerCarActivation !== -1,
-			isTruckActivation: isTruckActivation !== -1
+			isTruckActivation: isTruckActivation !== -1,
+			isFree: isFree !== -1,
+			isCharge: isCharge !== -1
 		});
 	},
 	// 客车协议
