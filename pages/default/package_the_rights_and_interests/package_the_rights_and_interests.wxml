@@ -102,8 +102,8 @@
 		    <view></view>
 		    <view>我已阅读并同意
 			    <text catchtap="onClickGoAgreementHandle">《ETC+用户办理协议》</text>
-			    <text catchtap="onClickGoQianTongAgreement">《ETC+用户协议》</text>
-			    <text catchtap="onClickGoPrivacyHandle">《隐私协议》</text>
+			    <text catchtap="onClickGoQianTongAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 1}}">《黔通卡ETC用户协议》</text>
+			    <text catchtap="onClickGoPrivacyHandle">《用户隐私协议》</text>
 		    </view>
 	    </view>
         <button class="btn {{choiceIndex === -1 || (listOfPackages[activeIndex].mustChoiceRightsPackage === 1 && activeEquitiesIndex === -1) || !getAgreement ? 'unavailable' : ''}}" catchtap="next"

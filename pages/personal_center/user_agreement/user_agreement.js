@@ -6,13 +6,12 @@ Page({
 		isTruckActivation: false,
 		isCharge: false,
 		isFree: false,
-		carAgreementList: [
-			{name: '用户办理协议', update: 0},
-			{name: '隐私协议', update: 0}
-		],
+		carAgreementList: [],
 		truckAgreementList: [
 			{name: '货车办理协议', update: 0},
+			{name: '黔通卡ETC用户协议', update: 0},
 			{name: '隐私协议', update: 0},
+			{name: '保理协议', update: 0},
 			{name: '个人征信授权书', update: 0}
 		]
 	},
@@ -36,6 +35,8 @@ Page({
 				carAgreementList: [
 					{name: '用户办理协议（1）', update: 0, url: 'agreement'},
 					{name: '用户办理协议（2）', update: 0, url: 'self_buy_equipmemnt_agreement'},
+					{name: '黔通卡ETC用户协议（1）', update: 0, url: 'agreement_for_qiantong_to_free'},
+					{name: '黔通卡ETC用户协议（2）', update: 0, url: 'agreement_for_qiantong_to_charge'},
 					{name: '隐私协议', update: 0, url: 'privacy_agreement'}
 				]
 			});
@@ -43,7 +44,6 @@ Page({
 	},
 	// 客车协议
 	carAgreementHandle (e) {
-		console.log(this.data.carAgreementList.length)
 		let index = e.currentTarget.dataset.index;
 		if (this.data.carAgreementList.length === 2) {
 			switch (index) {
@@ -72,10 +72,19 @@ Page({
 				util.go('/pages/truck_handling/agreement/agreement');
 				break;
 			case 1:
+				let isCharge = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 1 && item.environmentAttribute === 1); //  货车已激活&付费
+				// 黔通卡ETC用户协议
+				util.go(`/pages/truck_handling/agreement_for_qiantong_to_${isCharge ? 'charge' : 'free'}/agreement`);
+				break;
+			case 2:
 				// 隐私协议
 				util.go('/pages/default/privacy_agreement/privacy_agreement');
 				break;
-			case 2:
+			case 3:
+				// 保理协议
+				util.go('/pages/truck_handling/agreement_for_factoring/agreement');
+				break;
+			case 4:
 				// 征信授权书
 				util.go('/pages/truck_handling/truck_credit_investigation_authorization/truck_credit_investigation_authorization');
 				break;

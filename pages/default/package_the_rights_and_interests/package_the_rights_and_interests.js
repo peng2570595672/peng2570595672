@@ -211,9 +211,8 @@ Page({
 	},
 	// 查看办理协议
 	onClickGoAgreementHandle () {
-		let etcCardId = wx.getStorageSync('etcCardId');
-		if (etcCardId === 1) {
-			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ) {
+		if (this.data.listOfPackages[this.data.choiceIndex].etcCardId === 1) {
+			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice) {
 				util.go(`/pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement`);
 			} else {
 				util.go(`/pages/default/free_equipment_agreement/free_equipment_agreement`);
