@@ -17,6 +17,3 @@
 .protocol .weight {
   font-weight: bold;
 }
-.protocol .line {
-  text-decoration: underline;
-}
