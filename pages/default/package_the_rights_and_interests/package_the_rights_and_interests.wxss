@@ -317,12 +317,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 28rpx 0rpx;
+  margin: 32rpx 70rpx;
   height: 48rpx;
-  font-size: 24rpx;
+  font-size: 22rpx;
   color: #99999d;
 }
-.package-the-rights-and-interests .next .agreement > text {
+.package-the-rights-and-interests .next .agreement text {
   color: #00bc58;
 }
 .package-the-rights-and-interests .next .agreement::before {
