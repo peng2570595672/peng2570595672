@@ -218,7 +218,7 @@ Page({
 			let date = new Date();
 			let mouth = date.getMonth() + 1;
 			let time = date.getFullYear() + '-' + util.formatNumber(mouth) + '-' + util.formatNumber(date.getDate());
-			if (time === this.data.info.contractTime.substring(0,10)) {
+			if (this.data.info.contractTime && time === this.data.info.contractTime.substring(0,10)) {
 				params['salesmanId'] = this.data.info.shopUserId;
 			}
 		}
@@ -234,7 +234,7 @@ Page({
 			let date = new Date();
 			let mouth = date.getMonth() + 1;
 			let time = date.getFullYear() + '-' + util.formatNumber(mouth) + '-' + util.formatNumber(date.getDate());
-			if (time === this.data.info.contractTime.substring(0,10)) {
+			if (this.data.info.contractTime && time === this.data.info.contractTime.substring(0,10)) {
 				url = `${url}&sId=${this.data.info.shopUserId}`;
 				console.log(url);
 			}

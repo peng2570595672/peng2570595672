@@ -87,9 +87,9 @@
     <!--权益选择结束-->
     <!--下一步开始-->
     <view class="next">
-        <view class="agreement iconfont {{getAgreement ? 'selected' : ''}}" bindtap="onClickAgreementHandle">
+        <view class="agreement iconfont {{getAgreement ? 'selected' : ''}} {{choiceIndex === -1 ? 'not-agreement' : ''}}" bindtap="onClickAgreementHandle">
             <view></view>
-            <view>阅读并同意
+            <view wx:if="{{choiceIndex !== -1}}">阅读并同意
                 <text catchtap="onClickGoAgreementHandle">《ETC+货车办理协议》</text>
                 <text catchtap="onClickGoQianTongAgreement">《黔通卡ETC用户协议》</text>
                 <text catchtap="onClickGoPrivacyHandle">《用户隐私协议》</text>

@@ -337,6 +337,9 @@
 .package-the-rights-and-interests .next .agreement.selected::before {
   color: #00b85c;
 }
+.package-the-rights-and-interests .next .agreement.not-agreement::before {
+  content: '';
+}
 .package-the-rights-and-interests .next .btn {
   width: 650rpx;
   height: 96rpx;

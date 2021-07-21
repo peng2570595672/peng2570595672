@@ -85,7 +85,7 @@ Page({
 	},
 	// 跳转用户协议
 	onCLickGoAgreement () {
-		util.go('/pages/default/agreement/agreement');
+		util.go('/pages/default/free_equipment_agreement/free_equipment_agreement');
 	},
 	// 同意用户协议
 	async onClickSubmit () {

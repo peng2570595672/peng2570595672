@@ -13,7 +13,6 @@
     "miniprogram": {
       "list": [
         {
-          "id": 0,
           "name": "邮寄地址",
           "pathName": "pages/default/receiving_address/receiving_address",
           "query": "shareId=1235556",
@@ -113,8 +112,8 @@
           "scene": null
         },
         {
-          "name": "pages/truck_handling/agreement_for_factoring/agreement",
-          "pathName": "pages/truck_handling/agreement_for_factoring/agreement",
+          "name": "pages/personal_center/user_agreement/user_agreement",
+          "pathName": "pages/personal_center/user_agreement/user_agreement",
           "query": "",
           "scene": null
         },
