@@ -353,7 +353,7 @@ Page({
 			this.showDetail(1);
 			return;
 		}
-		if (url === 'help_center') await util.addProtocolRecord(3);
+		if (url === 'help_center' && this.data.isShowHelpCenterUpdate) await util.addProtocolRecord(3);
 		const urlObj = {
 			'the_owner_service': 'personal_center_owner_service',
 			'my_etc': 'personal_center_my_etc',
