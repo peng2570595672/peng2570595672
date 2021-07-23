@@ -127,7 +127,7 @@ Page({
 	},
 	// 查询是否更新帮助中心
 	async queryHelpCenterRecord () {
-		const result = await util.queryProtocolRecord(3);
+		const result = await util.queryProtocolRecord(5);
 		this.setData({
 			isShowHelpCenterUpdate: !result
 		});
@@ -353,7 +353,7 @@ Page({
 			this.showDetail(1);
 			return;
 		}
-		if (url === 'help_center' && this.data.isShowHelpCenterUpdate) await util.addProtocolRecord(3);
+		if (url === 'help_center' && this.data.isShowHelpCenterUpdate) await util.addProtocolRecord(5);
 		const urlObj = {
 			'the_owner_service': 'personal_center_owner_service',
 			'my_etc': 'personal_center_my_etc',

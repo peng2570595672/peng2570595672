@@ -325,6 +325,10 @@ Page({
 			util.showToastNoIcon('请同意并勾选协议！');
 			return;
 		}
+		const res = await util.getDataFromServersV2('consumer/order/after-sale-record/addProtocolRecord', {
+			orderId: app.globalData.orderInfo.orderId // 订单id
+		});
+		if (!res) return;
 		wx.uma.trackEvent('truck_for_package_the_rights_and_interests_next');
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
@@ -341,6 +345,10 @@ Page({
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
 				this.data.rightsAndInterestsList[this.data.activeEquitiesIndex]?.payMoney) {
 				await this.marginPayment();
+				return;
+			}
+			if (this.data.isSalesmanOrder) {
+				util.go('/pages/default/processing_progress/processing_progress?type=main_process');
 				return;
 			}
 			util.go('/pages/truck_handling/information_list/information_list');

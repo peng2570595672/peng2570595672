@@ -75,7 +75,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=859526101834141696",
+          "query": "orderId=867781218219855872",
           "scene": null
         },
         {
@@ -112,14 +112,14 @@
           "scene": null
         },
         {
-          "name": "pages/personal_center/user_agreement/user_agreement",
-          "pathName": "pages/personal_center/user_agreement/user_agreement",
+          "name": "CitiesServices/pages/CitiesServices/CitiesServices",
+          "pathName": "CitiesServices/pages/CitiesServices/CitiesServices",
           "query": "",
           "scene": null
         },
         {
-          "name": "pages/truck_handling/agreement_for_qiantong_to_charge/agreement",
-          "pathName": "pages/truck_handling/agreement_for_qiantong_to_charge/agreement",
+          "name": "pages/default/transition_page/transition_page",
+          "pathName": "pages/default/transition_page/transition_page",
           "query": "",
           "scene": null
         }

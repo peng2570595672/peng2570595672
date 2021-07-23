@@ -35,13 +35,13 @@ Page({
 	},
 	// 查询是否更新用户协议
 	async queryAgreementRecord () {
-		const result = await util.queryProtocolRecord(4);
+		const result = await util.queryProtocolRecord(6);
 		this.setData({
 			isShowAgreementUpdate: !result
 		});
 	},
 	async onClickAgreement () {
-		if (this.data.isShowAgreementUpdate) await util.addProtocolRecord(4);
+		if (this.data.isShowAgreementUpdate) await util.addProtocolRecord(6);
 		util.go('/pages/personal_center/user_agreement/user_agreement');
 	},
 	// 获取问题分类列表

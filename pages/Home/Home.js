@@ -754,9 +754,13 @@ Page({
 		util.go(`/pages/default/bind_withhold/bind_withhold?associatedVeh=1`);
 	},
 	// 去高速签约
-	onClickHighSpeedSigning () {
+	onClickHighSpeedSigning (orderInfo) {
+		if (orderInfo.protocolStatus === 0) {
+			this.goPayment(orderInfo);
+			return;
+		}
 		wx.uma.trackEvent('index_for_order_audit');
-		util.go(`/pages/default/order_audit/order_audit`);
+		util.go(`/pages/default/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}`);
 	},
 	// 去预充
 	goRecharge (orderInfo) {
@@ -785,6 +789,15 @@ Page({
 	},
 	// 恢复签约
 	async onClickBackToSign (obj) {
+		if (obj.orderType === 31 && obj.protocolStatus === 0) {
+			const path = obj.isNewTrucks === 1 ? 'truck_handling' : 'default';
+			util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
+			return;
+		}
+		if (obj.orderType === 31 && obj.auditStatus === 0) {
+			this.onClickHighSpeedSigning(obj);
+			return;
+		}
 		if (obj.isNewTrucks === 1) {
 			wx.uma.trackEvent('index_for_contract_management');
 			util.go(`/pages/truck_handling/contract_management/contract_management`);

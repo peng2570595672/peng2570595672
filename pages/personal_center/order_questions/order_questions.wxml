@@ -39,7 +39,7 @@
                 <view wx:elif="{{!entrance && details.passDeductStatus === 7}}"><text>实扣金额</text>00.00</view>
                 <view wx:else><text>实扣金额</text>{{details.passServiceMoney/100}}</view>
             </view>
-            <view class="line">
+            <view class="line" wx:else>
                 <view></view>
                 <view><text>实扣金额</text>{{details.etcMoney/100}}</view>
             </view>

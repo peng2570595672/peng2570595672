@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "即将跳转签约",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "signing-prompt": "/components/signing_prompt/signing_prompt",
+    "verify-code": "/components/verify_code/verify_code"
+  }
+}

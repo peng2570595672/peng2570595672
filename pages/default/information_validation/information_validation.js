@@ -119,7 +119,7 @@ Page({
 									return;
 								}
 								if (!this.checkVehicleType(faceObj.ocrObject.vehicleType)) {
-									util.showToastNoIcon('非客车类型无法办理！');
+									util.showToastNoIcon('车辆类型不符，请检查无误重新上传！');
 									this.setData({
 										available: false,
 										faceStatus: 3

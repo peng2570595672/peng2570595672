@@ -1,5 +1,5 @@
 ﻿// 是否为测试 TODO
-const IS_TEST = true;
+const IS_TEST = false;
 const util = require('./utils/util.js');
 const uma = require('./utils/umtrack-wx.js');
 App({

@@ -6,10 +6,26 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		orderInfo: {},
 		contractStatus: 0// 1已签约
 	},
 	async onLoad () {
 		await this.queryContract();
+		await this.getSchedule();
+	},
+	// 查询办理进度
+	async getSchedule () {
+		const result = await util.getDataFromServersV2('consumer/order/transact-schedule', {
+			orderId: app.globalData.orderInfo.orderId
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			this.setData({
+				orderInfo: result.data
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 查询车主服务签约
 	async queryContract () {
@@ -31,6 +47,10 @@ Page({
 			return;
 		} else {
 			this.setData({isRequest: true});
+		}
+		if (this.data.orderInfo.flowVersion !== 1) {
+			util.go('/pages/default/transition_page/transition_page');
+			return;
 		}
 		util.showLoading('加载中');
 		let params = {

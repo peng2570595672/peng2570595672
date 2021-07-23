@@ -1,0 +1,12 @@
+<view class="signed_successfully">
+    <image mode="widthFix" src="/pages/default/assets/transition_bg.png"/>
+    <view class="tips">即将登录验证车主信息以及签约银行卡代扣通行费</view>
+    <view class="tips">请准备好相应的银行卡号信息</view>
+    <!--	成功提示结束-->
+    <view class="fill"></view>
+    <!--	操作部分开始-->
+    <view class="btn" catchtap="next">签约代扣通行费</view>
+    <!--	操作部分结束-->
+    <signing-prompt id="notSigningPrompt"></signing-prompt>
+    <verify-code details="{{orderInfo}}" id="verifyCode"></verify-code>
+</view>

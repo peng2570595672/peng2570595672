@@ -1,0 +1,41 @@
+.signed_successfully {
+  background: #fff;
+  padding: 0 32rpx;
+  box-sizing: border-box;
+  text-align: center;
+  min-height: 100vh;
+}
+.signed_successfully > image {
+  display: block;
+  margin: 80rpx auto 48rpx;
+  width: 460rpx;
+}
+.signed_successfully .tips {
+  color: #66666d;
+  font-size: 28rpx;
+  line-height: 44rpx;
+  text-align: center;
+}
+.signed_successfully .tips text {
+  color: #39a6f8;
+}
+.signed_successfully .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 136rpx 0rpx 48rpx;
+  height: 98rpx;
+  font-size: 40rpx;
+  font-weight: 500;
+  color: #fff;
+  border-radius: 49rpx;
+  background: linear-gradient(to right, #15ad69, #84d157);
+}
+.signed_successfully .btn.available {
+  animation: btnFadeIn 0.3s;
+  animation-fill-mode: forwards;
+}
+.signed_successfully .btn.unavailable {
+  animation: btnFadeOut 0.3s;
+  animation-fill-mode: forwards;
+}

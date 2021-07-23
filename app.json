@@ -22,6 +22,7 @@
     "pages/default/shot_card/shot_card",
     "pages/default/shot_bank_card/shot_bank_card",
     "pages/default/order_audit/order_audit",
+    "pages/default/transition_page/transition_page",
     "pages/landing_page_for_ccb/index",
     "components/pass_the_discount/pass_the_discount",
     "components/follow_accont_prompt/follow_accont_prompt",

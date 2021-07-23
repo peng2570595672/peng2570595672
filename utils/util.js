@@ -624,6 +624,10 @@ function luhmCheck(bankno) {
  *  获取货车新流程订单办理状态 2.0
  */
 function getTruckHandlingStatus(orderInfo) {
+	if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0) {
+		// protocolStatus 0未签协议 1签了
+		return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
+	}
 	// flowVersion 流程版本，1-分对分，2-新版（总对总）,3-选装 4-预充值 5-保证金模式 6-圈存
 	if (orderInfo.flowVersion === 5 && orderInfo.multiContractList.find(item => item.contractStatus === 2)) {
 		return 1; // 货车解约 - 保证金模式
@@ -671,7 +675,7 @@ function getTruckHandlingStatus(orderInfo) {
 		// prechargeFlag 0未预充 1已预充
 		return 17;// 未预充金额
 	}
-	if (orderInfo.auditStatus === 2 && (orderInfo.flowVersion === 2 || orderInfo.flowVersion === 3) && orderInfo.hwContractStatus !== 1) {
+	if ((orderInfo.auditStatus === 2 || (orderInfo.auditStatus === 0 && orderInfo.orderType === 31)) && (orderInfo.flowVersion === 2 || orderInfo.flowVersion === 3) && orderInfo.hwContractStatus !== 1) {
 		// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
 		return 9; // 审核通过,待签约高速
 	}
@@ -694,6 +698,10 @@ function getTruckHandlingStatus(orderInfo) {
  *  获取订单办理状态 2.0
  */
 function getStatus(orderInfo) {
+	if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0) {
+		// protocolStatus 0未签协议 1签了
+		return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
+	}
 	if (orderInfo.isNewTrucks === 0 && orderInfo.contractStatus === 2) {
 		return 1; // 客车解约
 	}
@@ -711,6 +719,9 @@ function getStatus(orderInfo) {
 		// deliveryRule 先签约后发货-0、先发货后签约-1    etcContractId -1 不签约微信
 		return 5; // 待微信签约
 	}
+	if (orderInfo.orderType === 31 && orderInfo.auditStatus === 0) {
+		return 5;
+	}
 	if (orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) {
 		// auditStatus: -1 无需审核   0 待审核   1 审核失败  2 审核通过  3 预审核通过  9 高速核验不通过
 		return 6;// 待审核 预审核通过(待审核)
@@ -721,7 +732,7 @@ function getStatus(orderInfo) {
 	if (orderInfo.auditStatus === 9) {
 		return 8; // 高速核验不通过
 	}
-	if (orderInfo.auditStatus === 2 && (orderInfo.flowVersion === 2 || orderInfo.flowVersion === 3) && orderInfo.hwContractStatus === 0) {
+	if ((orderInfo.auditStatus === 2 || (orderInfo.auditStatus === 0 && orderInfo.orderType === 31)) && (orderInfo.flowVersion === 2 || orderInfo.flowVersion === 3) && orderInfo.hwContractStatus === 0) {
 		// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
 		return 9; // 审核通过,待签约高速
 	}

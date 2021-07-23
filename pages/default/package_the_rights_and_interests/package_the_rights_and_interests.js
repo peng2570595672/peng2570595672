@@ -349,6 +349,10 @@ Page({
 	},
 	async saveOrderInfo () {
 		wx.uma.trackEvent('package_the_rights_and_interests_next');
+		const res = await util.getDataFromServersV2('consumer/order/after-sale-record/addProtocolRecord', {
+			orderId: app.globalData.orderInfo.orderId // 订单id
+		});
+		if (!res) return;
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			shopId: this.data.orderInfo ? this.data.orderInfo.base.shopId : app.globalData.newPackagePageData.shopId, // 商户id
@@ -366,7 +370,43 @@ Page({
 				await this.marginPayment();
 				return;
 			}
+			if (this.data.isSalesmanOrder) {
+				await this.getSalesmanOrderProcess();
+				return;
+			}
 			util.go('/pages/default/information_list/information_list');
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 获取业务员端流程
+	async getSalesmanOrderProcess () {
+		if (this.data.orderInfo.base?.flowVersion === 1) {
+			// 去签约
+			await this.weChatSign();
+		}
+		if (this.data.orderInfo.base?.flowVersion === 2 || this.data.orderInfo.base?.flowVersion === 3) {
+			// 去银行签约
+			util.go('/pages/default/transition_page/transition_page');
+		}
+	},
+	// 微信签约
+	async weChatSign () {
+		let params = {
+			orderId: app.globalData.orderInfo.orderId, // 订单id
+			clientOpenid: app.globalData.userInfo.openId,
+			clientMobilePhone: app.globalData.userInfo.mobilePhone,
+			needSignContract: true // 是否需要签约 true-是，false-否
+		};
+		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+		if (!result) return;
+		if (result.code === 0) {
+			let res = result.data.contract;
+			// 签约车主服务 2.0
+			app.globalData.signAContract = -1;
+			app.globalData.belongToPlatform = app.globalData.platformId;
+			app.globalData.isNeedReturnHome = true;
+			util.weChatSigning(res);
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -396,9 +436,9 @@ Page({
 					this.setData({isRequest: false});
 					if (res.errMsg === 'requestPayment:ok') {
 						if (this.data.isSalesmanOrder) {
-							if (this.data.orderInfo.base?.etcContractId === -1) {
+							if (this.data.orderInfo.base?.flowVersion !== 1) {
 								// 无需签约
-								util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
+								util.go('/pages/default/transition_page/transition_page');
 								return;
 							}
 							// 去支付成功页
