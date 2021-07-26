@@ -75,7 +75,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=867781218219855872",
+          "query": "orderId=868064923119652864",
           "scene": null
         },
         {
@@ -92,7 +92,6 @@
           "scene": null
         },
         {
-          "id": 12,
           "name": "货车",
           "pathName": "pages/truck_handling/index/index",
           "query": "",
@@ -112,9 +111,9 @@
           "scene": null
         },
         {
-          "name": "CitiesServices/pages/CitiesServices/CitiesServices",
-          "pathName": "CitiesServices/pages/CitiesServices/CitiesServices",
-          "query": "",
+          "name": "pages/default/processing_progress/processing_progress",
+          "pathName": "pages/default/processing_progress/processing_progress",
+          "query": "orderId=859745153131220992",
           "scene": null
         },
         {

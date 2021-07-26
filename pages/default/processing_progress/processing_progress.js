@@ -110,6 +110,11 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
+	// 选择预充方式
+	onClickPrechargeWay (e) {
+		const type = +e.currentTarget.dataset.type;
+		if (type === 2) this.selectComponent('#rechargePrompt').show();
+	},
 	// 获取预充结果
 	async onClickRechargeResult () {
 		this.setData({
@@ -194,6 +199,7 @@ Page({
 		util.hideLoading();
 		if (!result) return;
 		if (result.code === 0) {
+			result.data.source = 1;
 			this.setData({
 				prechargeInfo: result.data
 			});

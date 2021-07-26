@@ -8,6 +8,7 @@ Page({
 	data: {
 		orderId: undefined,
 		Wallet: 0,
+		prechargeAmount: 0,
 		info: {},
 		prechargeInfo: {},
 		billInfo: {},
@@ -118,6 +119,7 @@ Page({
 		});
 		this.setData({
 			Wallet: result.data.Wallet,
+			prechargeAmount: result.data.prechargeAmount/100,
 			list: this.data.list.concat(list)
 		});
 		if (this.data.list.length < result.data.RecCount) this.data.nextpageFlag = 1;

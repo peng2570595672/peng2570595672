@@ -158,8 +158,46 @@
 .processing_progress .progress_wrapper .item .content-des.earnest-money .precharge {
   color: #00b1ff;
 }
+.processing_progress .progress_wrapper .item .content-des.account {
+  display: block;
+}
 .processing_progress .progress_wrapper .item .content-des .precharge {
   color: #00b1ff;
+}
+.processing_progress .progress_wrapper .item .handle-the-way {
+  display: flex;
+  height: 148rpx;
+  width: 552rpx;
+  align-items: center;
+  border-radius: 16rpx;
+  margin-top: 12rpx;
+  margin-left: 26rpx;
+  background: #f6f6f6;
+}
+.processing_progress .progress_wrapper .item .handle-the-way .name {
+  flex: 1;
+}
+.processing_progress .progress_wrapper .item .handle-the-way .name .top {
+  font-size: 34rpx;
+  line-height: 48rpx;
+  color: rgba(0,0,0,0.9);
+}
+.processing_progress .progress_wrapper .item .handle-the-way .name .poundage {
+  font-size: 24rpx;
+  line-height: 40rpx;
+  color: rgba(0,0,0,0.25);
+}
+.processing_progress .progress_wrapper .item .handle-the-way .choice {
+  font-size: 24rpx;
+  color: rgba(0,0,0,0.1);
+  margin-right: 32rpx;
+}
+.processing_progress .progress_wrapper .item .handle-the-way image {
+  flex: 0 0 48rpx;
+  width: 48rpx;
+  height: 48rpx;
+  margin-left: 24rpx;
+  margin-right: 12rpx;
 }
 .processing_progress .progress_wrapper .item .content-info {
   background: #f0f0f0;
@@ -177,6 +215,7 @@
   color: #00b85c;
   font-size: 24rpx;
   padding-right: 40rpx;
+  padding-top: 32rpx;
 }
 .processing_progress .progress_wrapper .last::after {
   display: none !important;

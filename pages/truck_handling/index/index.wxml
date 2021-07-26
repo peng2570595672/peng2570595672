@@ -10,7 +10,7 @@
         <view class="online-tips">ETC+货车上线了</view>
         <view class="memo-content">
             <text>全国高速</text>
-            <text>85折</text>
+            <text>95折</text>
             <text>起</text>
         </view>
         <view class="btn" catchtap="onClickHandle">立刻办理</view>
@@ -18,25 +18,36 @@
     </view>
     <view class="handle-desc">
         <view class="process-title">
-            <view class="truck-problem">货车ETC+权益</view>
-        </view>
-        <view class="equities-list">
-            <view class="item">
-                <image mode="widthFix" src="/pages/truck_handling/assets/pass_the_discount.png"></image>
-                <view>高速通行9.5折</view>
-                <view class="details" catchtap="onClickDetails">详情</view>
-            </view>
-            <view class="item">
-                <image mode="widthFix" src="/pages/truck_handling/assets/server.png"></image>
-                <view>线上专属客服</view>
-            </view>
-        </view>
-    </view>
-    <view class="handle-desc">
-        <view class="process-title">
             <view class="truck-problem">办理流程</view>
         </view>
-        <view class="material">需准备资料</view>
+        <view class="process">
+            <view class="photo-item">
+                <image class="image" mode="widthFix" src="/pages/truck_handling/assets/fill_in_information.png"></image>
+                <text>填写信息</text>
+            </view>
+            <view class="line"></view>
+            <view class="photo-item">
+                <image class="image" mode="widthFix" src="/pages/truck_handling/assets/precharge.png"></image>
+                <text>预充通行费</text>
+            </view>
+            <view class="line"></view>
+            <view class="photo-item">
+                <view class="img-box">
+                    <image class="image" mode="widthFix" src="/pages/truck_handling/assets/expressage.png"></image>
+                </view>
+                <text>快递到家</text>
+            </view>
+            <view class="line"></view>
+            <view class="photo-item">
+                <view class="img-box">
+                    <image class="image" mode="widthFix" src="/pages/truck_handling/assets/installation.png"></image>
+                </view>
+                <text>安装激活</text>
+            </view>
+        </view>
+        <view class="process-title">
+            <view class="truck-problem">申办证件</view>
+        </view>
         <view class="photo">
             <view class="photo-item">
                 <image class="image" src="/pages/truck_handling/assets/id_card_face_bg.png"></image>
@@ -53,43 +64,42 @@
                 <text>道路运输证</text>
                 <text class="memo">牵引车上传</text>
             </view>
+            <view class="photo-item">
+                <view class="img-box">
+                    <image class="img" src="/pages/truck_handling/assets/vehicle_photos.png"></image>
+                </view>
+                <text>车辆照片</text>
+            </view>
         </view>
-        <!--办理流程-->
-        <view class="handle-process">
-            <!--	进度开始-->
-            <view class="progress_wrapper" >
-                <view class="item">
-                    <view class="content-title">填写资料</view>
-                    <view class="content-des">填写车牌及设备收货地址</view>
-                </view>
-                <view class="item ">
-                    <view class="content-title">选择办理方式</view>
-                    <view class="content-des">选择产品及服务权益</view>
-                    <view class="tab">
-                        <view class="tab-item">
-                            <view>还款方式</view>
-                            <view>还款日</view>
-                            <view>充值手续费</view>
-                        </view>
-                        <view class="tab-item">
-                            <view>货车账户</view>
-                            <view>次日</view>
-                            <view>4‰(每次充值成功后扣除)</view>
-                        </view>
-                    </view>
-                </view>
-                <view class="item">
-                    <view class="content-title finished">上传车主资料</view>
-                    <view class="content-des">按要求上传车主身份证、行驶证及车身照片</view>
-                </view>
-                <view class="item">
-                    <view class="content-title">提交审核</view>
-                    <view class="content-des">审核通过后，按要求完成充值通行费，1-3个工作日内发货</view>
-                </view>
-                <view class="item last">
-                    <view class="content-title">安装激活</view>
-                    <view class="content-des">收到设备后按指引手册自助激活</view>
-                </view>
+    </view>
+    <view class="handle-desc">
+        <view class="process-title">
+            <view class="truck-problem">申办证件</view>
+        </view>
+        <view class="tab">
+            <view class="tab-item">
+                <view>消费日期</view>
+                <view>自然日</view>
+            </view>
+            <view class="tab-item">
+                <view>账单日</view>
+                <view>每日</view>
+            </view>
+            <view class="tab-item">
+                <view>起充金额</view>
+                <view>根据货车类型分别对应不同的起充门槛</view>
+            </view>
+            <view class="tab-item">
+                <view>充值手续费</view>
+                <view>充值金额*0.3%</view>
+            </view>
+            <view class="tab-item">
+                <view>扣款日</view>
+                <view>账单当日</view>
+            </view>
+            <view class="tab-item">
+                <view>扣款方式</view>
+                <view>ETC账户代扣</view>
             </view>
         </view>
     </view>
