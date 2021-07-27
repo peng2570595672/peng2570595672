@@ -26,16 +26,16 @@
             <view class="first">
                 <view class="type">
                     <!--1：充值入账；2：手续费；3：ETC通行扣费；4：ETC违约金-->
-                    {{item.MoneyType === 1 ? '充值入账' : ''}}
-                    {{item.MoneyType === 2 ? '充值手续费' : ''}}
-                    {{item.MoneyType === 3 ? 'ETC通行扣费' : ''}}
-                    {{item.MoneyType === 4 ? 'ETC违约金' : ''}}
+                    {{item.moneyType === 1 ? '充值入账' : ''}}
+                    {{item.moneyType === 2 ? '充值手续费' : ''}}
+                    {{item.moneyType === 3 ? 'ETC通行扣费' : ''}}
+                    {{item.moneyType === 4 ? 'ETC违约金' : ''}}
                 </view>
-                <view class="price">{{item.MoneyType === 1 ? '+' : '-'}}¥{{item.ChangeMoney}}</view>
+                <view class="price">{{item.moneyType === 1 ? '+' : '-'}}¥{{item.changeMoney}}</view>
             </view>
             <view class="last">
                 <view></view>
-                <view class="time">{{item.CreateTime}}</view>
+                <view class="time">{{item.thirdCreateTime}}</view>
             </view>
         </view>
     </view>

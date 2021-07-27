@@ -112,14 +112,14 @@ Page({
 			util.showToastNoIcon(result.message);
 			return;
 		}
-		let list = result.data.data || [];
+		let list = result.data.list || [];
 		list.map(item => {
-			item.ChangeMoney = item.ChangeMoney.toString();
-			if (item.ChangeMoney.includes('-')) item.ChangeMoney = item.ChangeMoney.substr(1);
+			item.changeMoney = item.changeMoney.toString();
+			if (item.changeMoney.includes('-')) item.changeMoney = item.changeMoney.substr(1);
 		});
 		this.setData({
-			Wallet: result.data.Wallet,
-			prechargeAmount: result.data.prechargeAmount/100,
+			Wallet: result.data.walletAmount,
+			prechargeAmount: result.data.prechargeAmount / 100,
 			list: this.data.list.concat(list)
 		});
 		if (this.data.list.length < result.data.RecCount) this.data.nextpageFlag = 1;
