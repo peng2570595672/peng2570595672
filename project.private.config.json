@@ -117,9 +117,9 @@
           "scene": null
         },
         {
-          "name": "pages/default/transition_page/transition_page",
-          "pathName": "pages/default/transition_page/transition_page",
-          "query": "",
+          "name": "账户明细",
+          "pathName": "pages/account_management/precharge_account_details/precharge_account_details",
+          "query": "orderId=859745153131220992",
           "scene": null
         }
       ]
