@@ -263,7 +263,7 @@ Page({
 			util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
 			return;
 		}
-		if (obj.orderType === 31 && obj.auditStatus === 0) {
+		if (obj.orderType === 31 && obj.auditStatus === 0 && obj.flowVersion !== 1) {
 			this.onClickHighSpeedSigning(obj);
 			return;
 		}
