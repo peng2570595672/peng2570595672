@@ -30,6 +30,9 @@ Page({
 	onLoad () {
 	},
 	onShow () {
+		this.setData({
+			list: []
+		});
 		this.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
 	},
 	onPullDownRefresh () {

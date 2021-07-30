@@ -4,7 +4,7 @@ Page({
 	data: {
 		totalPages: '',// 总页数
 		page: 1,// 当前页
-		pageSize: 10,// 每页多少条数据
+		pageSize: 100,// 每页多少条数据 后端两张表,导致分页小出问题
 		couponList: [], // 权益列表
 		showLoading: {
 			show: true,
