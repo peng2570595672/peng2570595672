@@ -7,10 +7,12 @@ Page({
 	data: {
 		carNo: ''
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		this.setData({
 			carNo: options.carNo
 		});
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	// 返回首页
 	onClickGoHomeHandle () {

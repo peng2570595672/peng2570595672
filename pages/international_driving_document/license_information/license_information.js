@@ -29,7 +29,7 @@ Page({
 		multiArray: city.multiArray,// 引入city.js中定义的数组
 		objectMultiArray: city.objectMultiArray
 	},
-	onLoad () {
+	async onLoad () {
 		let path = wx.getStorageSync('international-car');
 		if (path) {
 			wx.removeStorageSync('international-car');
@@ -57,6 +57,8 @@ Page({
 				available: this.validateData(false)
 			});
 		}
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	// 上传图片
 	uploadOcrFile (path) {

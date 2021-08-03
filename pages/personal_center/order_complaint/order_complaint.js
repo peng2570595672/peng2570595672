@@ -9,10 +9,12 @@ Page({
 		validResult: '',
 		enabled: false
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		this.setData({
 			details: JSON.parse(options.details)
 		});
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	bindInputChange (e) {
 		// 值名称

@@ -9,12 +9,14 @@ Page({
 		requestNum: 0,
 		isRechargeEarnestMoney: 0
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		if (options.isRechargeEarnestMoney) {
 			this.setData({
 				isRechargeEarnestMoney: +options.isRechargeEarnestMoney
 			});
 		}
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	// 账户充值
 	async next () {

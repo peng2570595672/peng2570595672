@@ -32,6 +32,8 @@ Page({
 		await this.getFailBillDetails();
 		await this.fetchList();
 		await this.getProcessingProgress();
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	// 获取办理进度
 	async getProcessingProgress () {

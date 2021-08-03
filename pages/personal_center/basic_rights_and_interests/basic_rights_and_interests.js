@@ -11,7 +11,7 @@ Page({
 			{img: 'icon_customer_service', title: '在线客服', url: 'online_customer_service', statisticsEvent: 'equities_for_service'}
 		]
 	},
-	onLoad () {
+	async onLoad () {
 		this.setData({
 			isContinentInsurance: app.globalData.isContinentInsurance
 		});
@@ -19,6 +19,8 @@ Page({
 			const interestsList = this.data.interestsList.filter(item => item.appId !== 'wx06a561655ab8f5b2');// 大地保险屏蔽微保&和爱车
 			this.setData({interestsList});
 		}
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	go (e) {
 		let index = e.currentTarget.dataset.index;

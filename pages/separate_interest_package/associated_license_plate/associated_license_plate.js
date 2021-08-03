@@ -12,13 +12,15 @@ Page({
 		shopUserInfo: undefined,// 业务员信息
 		choiceLicensePlat: {}
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		const etcList = app.globalData.myEtcList.filter(item => item.flowVersion === 1);
 		this.setData({
 			etcList,
 			packageId: options.packageId,
 			shopUserInfo: options.shopUserInfo
 		});
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	onClickChoiceLicensePlat (e) {
 		let index = +e.currentTarget.dataset['index'];

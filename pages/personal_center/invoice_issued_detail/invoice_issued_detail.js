@@ -14,7 +14,7 @@ Page({
 		invoiceType: 1, // 开票主体类型 1个人 2企业 必填
 		invoiceInfo: {}
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		this.data.origin = parseInt(options.origin);
 		let invoiceInfo = options.infoStr ? JSON.parse(options.infoStr) : {};
 		if (this.data.origin === 0) {
@@ -27,6 +27,8 @@ Page({
 			disabled: this.data.origin === 1,
 			currentTab: invoiceInfo.invoiceType === 2 ? 1 : 0
 		});
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	onShow () {
 	},

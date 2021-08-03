@@ -13,6 +13,8 @@ Page({
 			recordId: options.recordId
 		});
 		await this.getRecord();
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	async getRecord () {
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/get-buy-independent-rights-record', {

@@ -1,5 +1,5 @@
 ﻿// 是否为测试 TODO
-const IS_TEST = false;
+const IS_TEST = true;
 const util = require('./utils/util.js');
 const uma = require('./utils/umtrack-wx.js');
 App({
@@ -96,6 +96,10 @@ App({
 		handlingOCRType: 0,// 客车办理选择ocr上传类型
 		isTruckHandling: false,// 是否新流程-货车办理
 		isNeedReturnHome: false,// 是否需要返回首页
+		isArrearageData: {
+			isPayment: false,// 是否补缴
+			etcMoney: 0 // 欠费金额
+		},// 欠费数据
 		newPackagePageData: {}, // 新套餐页面数据
 		bankCardInfo: {}, // 二类户信息
 		weiBoUrl: IS_TEST ? '/pages/base/redirect/index?routeKey=CAR_WEBVIEW&url=https://static-dsu.wesure.cn/uatapp/app2/h5-reserve-ad/vendors&query=' : '/pages/base/redirect/index?routeKey=CAR_WEBVIEW&url=https://static.wesure.cn/app2/h5-reserve-ad/vendors&query='

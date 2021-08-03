@@ -30,6 +30,8 @@ Page({
 			const etcList = app.globalData.myEtcList.filter(item => item.flowVersion === 1);
 			this.setData({etcList});
 			await this.getPackageRelation(options.packageId);
+			// 查询是否欠款
+			await util.getIsArrearage();
 		}
 	},
 	async onShow () {

@@ -1,3 +1,11 @@
-// pages/truck_handling/truck_credit_investigation_authorization/truck_credit_investigation_authorization.js
+/**
+ * @author 老刘
+ * @desc 个人征信授权书
+ */
+const util = require('../../../utils/util.js');
 Page({
+	async onLoad () {
+		// 查询是否欠款
+		await util.getIsArrearage();
+	}
 });

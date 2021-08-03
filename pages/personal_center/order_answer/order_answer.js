@@ -53,6 +53,10 @@ Page({
 			`}
 		]
 	},
+	async onLoad () {
+		// 查询是否欠款
+		await util.getIsArrearage();
+	},
 	onclickProblem (e) {
 		let activeIndex = parseInt(e.currentTarget.dataset.index);
 		this.data.problemList[activeIndex].open = !this.data.problemList[activeIndex].open;

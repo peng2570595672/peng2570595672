@@ -84,6 +84,8 @@ Page({
 			this.setData({
 				orderInfo
 			});
+			// 查询是否欠款
+			util.getIsArrearage();
 		} else {
 			util.showToastNoIcon(result.message);
 		}

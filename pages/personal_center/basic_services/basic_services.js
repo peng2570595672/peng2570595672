@@ -16,7 +16,9 @@ Page({
 			]
 		}
 	},
-	onLoad () {
+	async onLoad () {
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	// 跳转
 	go (e) {

@@ -26,7 +26,7 @@ Page({
 			detailInfo: '' // 收货地址详细信息
 		} // 提交数据
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
 			wx.hideHomeButton();
 		}
@@ -49,8 +49,12 @@ Page({
 				formData
 			});
 		}
+		if (app.globalData.userInfo.accessToken) {
+			// 查询是否欠款
+			await util.getIsArrearage();
+		}
 	},
-	onShow () {
+	async onShow () {
 		if (app.globalData.userInfo.accessToken) {
 			this.setData({
 				mobilePhoneMode: app.globalData.mobilePhoneMode
@@ -85,6 +89,8 @@ Page({
 					app.globalData.openId = result.data.openId;
 					app.globalData.memberId = result.data.memberId;
 					app.globalData.mobilePhone = result.data.mobilePhone;
+					// 查询是否欠款
+					await util.getIsArrearage();
 				} else {
 					wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
 					util.go('/pages/login/login/login');

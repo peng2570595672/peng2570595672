@@ -17,6 +17,10 @@ Page({
 		available: false, // 按钮是否可点击
 		isRequest: false// 是否请求中
 	},
+	async onLoad () {
+		// 查询是否欠款
+		await util.getIsArrearage();
+	},
 	async onShow () {
 		await util.getV2BankId();
 		app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(0, 4) + ' *** *** ' + app.globalData.bankCardInfo.accountNo.substr(-4);

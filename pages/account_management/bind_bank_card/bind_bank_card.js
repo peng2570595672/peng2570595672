@@ -10,7 +10,7 @@ Page({
 		available: false, // 按钮是否可点击
 		isRequest: false// 是否请求中
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		if (options.isSwitch) {
 			this.setData({
 				isSwitch: true
@@ -19,6 +19,8 @@ Page({
 				title: '选择银行卡'
 			});
 		}
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	async onShow () {
 		await this.getBankAccounts();

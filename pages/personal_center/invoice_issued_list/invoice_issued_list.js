@@ -4,6 +4,10 @@ Page({
 	data: {
 		currentList: []
 	},
+	async onLoad () {
+		// 查询是否欠款
+		await util.getIsArrearage();
+	},
 	onShow () {
 		this.getList();
 	},

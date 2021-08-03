@@ -97,6 +97,8 @@ Page({
 				truckList: truckList,
 				passengerCarList: passengerCarList
 			});
+			// 查询是否欠款
+			await util.getIsArrearage();
 		} else {
 			util.showToastNoIcon(result.message);
 		}

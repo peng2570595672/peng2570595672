@@ -5,12 +5,14 @@ Page({
 		isRequest: false,// 是否请求
 		details: undefined
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		if (options.details) {
 			this.setData({
 				details: JSON.parse(options.details)
 			});
 		}
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	// 补缴
 	go (e) {

@@ -26,6 +26,8 @@ Page({
 				isOk
 			});
 		}
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	async onShow () {
 		if (app.globalData.signAContract === 4) {

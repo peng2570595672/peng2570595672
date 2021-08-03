@@ -11,11 +11,13 @@ Page({
 			{title: '4.举例说明：',content: '车辆1月1日通行高速时产生一条为50元通行金额的账单并发起扣款，若扣款失败，24小时期间我司主动对用户的通行扣费账户发起此条欠费账单补扣或用户主动补缴，期间未补扣或未补缴成功，则从1月17日（第16个自然日）0点起按日计算违约金。'}
 		]
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		this.setData({
 			details: JSON.parse(options.details)
 		});
 		this.getComplaintDetails();
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	// 通过账单id获取账单申诉详情
 	getComplaintDetails () {

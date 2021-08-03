@@ -30,6 +30,12 @@ Page({
 			detailInfo: '', // 收货地址详细信息
 		} // 提交数据
 	},
+	async onLoad () {
+		if (app.globalData.userInfo.accessToken) {
+			// 查询是否欠款
+			await util.getIsArrearage();
+		}
+	},
 	onShow () {
 		if (app.globalData.userInfo.accessToken) {
 			this.setData({

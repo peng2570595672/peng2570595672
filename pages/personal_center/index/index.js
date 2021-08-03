@@ -228,12 +228,12 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
 		if (result.code === 0) {
 			app.globalData.myEtcList = result.data;
-			this.getIsShow();
+			await this.getIsShow();
 		} else {
 			util.showToastNoIcon(result.message);
 		}
 	},
-	getIsShow () {
+	async getIsShow () {
 		let isActivation = app.globalData.myEtcList.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && (item.obuCardType === 1 || item.obuCardType === 21)); // 1 已激活  2 恢复订单  5 预激活
 		let isNewOrder = app.globalData.myEtcList.findIndex(item => compareDate(item.addTime, '2021-07-14') === true); // 当前用户有办理订单且订单创建日期在2021年7月13日前（含7月13日）
 		let isShowFeatureService = app.globalData.myEtcList.findIndex(item => item.isShowFeatureService === 1 && (item.obuStatus === 1 || item.obuStatus === 5)); // 是否有特色服务
@@ -245,6 +245,8 @@ Page({
 			showAgreementWrapper: isNewOrder !== -1,
 			isActivation: !!isActivation.length
 		});
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	// 众包-获取用户推广码和订单红包数量
 	async getMemberCrowdSourcingAndOrder () {

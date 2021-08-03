@@ -14,6 +14,10 @@ Page({
 		], // 步骤导航
 		drivingLicenseFace: {}
 	},
+	async onLoad () {
+		// 查询是否欠款
+		await util.getIsArrearage();
+	},
 	onShow () {
 		let drivingLicenseFace = wx.getStorageSync('international-driving-license-face');
 		if (drivingLicenseFace) {

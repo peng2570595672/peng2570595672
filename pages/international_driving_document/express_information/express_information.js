@@ -26,7 +26,7 @@ Page({
 			detailInfo: '' // 收货地址详细信息
 		} // 提交数据
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		if (options.orderInfo) {
 			let orderInfo = JSON.parse(options.orderInfo);
 			if (orderInfo.dataStatus === 1) {
@@ -44,6 +44,8 @@ Page({
 				orderInfo
 			});
 		}
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	// 下一步
 	async next () {

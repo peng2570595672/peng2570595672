@@ -10,7 +10,9 @@ Page({
 			{title: '优惠加油', ico: 'oil', statisticsEvent: 'owner_service_for_oil', isShow: true}
 		]
 	},
-	onLoad () {
+	async onLoad () {
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	// 跳转
 	go (e) {

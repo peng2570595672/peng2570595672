@@ -27,7 +27,9 @@ Page({
 		],
 		list: []
 	},
-	onLoad () {
+	async onLoad () {
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	onShow () {
 		this.setData({

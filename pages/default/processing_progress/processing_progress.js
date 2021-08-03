@@ -50,6 +50,8 @@ Page({
 			if (!this.data.isContinentInsurance) {
 				this.getInsuranceOffer();
 			}
+			// 查询是否欠款
+			await util.getIsArrearage();
 		}
 	},
 	// 自动登录
@@ -80,6 +82,8 @@ Page({
 						if (!this.data.isContinentInsurance) {
 							this.getInsuranceOffer();
 						}
+						// 查询是否欠款
+						await util.getIsArrearage();
 					} else {
 						util.hideLoading();
 						util.showToastNoIcon(res.message);

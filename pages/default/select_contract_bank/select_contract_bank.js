@@ -23,6 +23,8 @@ Page({
 		this.setData({
 			listOfPackages: packages.alwaysToAlwaysList
 		});
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	onShow () {
 	},
