@@ -24,7 +24,7 @@
     <!--顶部结束-->
     <view class="notice" wx:if="{{isShowNotice}}" catchtap="onClickNotice">
         <view class="iconfont">
-            <view class="notice-left iconfont">{{isActivityDate ? '福利！60元通行券限时【19.9】抢！' : '限购！通行券、停车券 30抵60'}}</view>
+            <view class="notice-left iconfont">{{isActivityDate ? '福利！60元通行券限时【19.9】抢！' : '限购！通行券、停车券 40抵60'}}</view>
             <view class="notice-right {{isClickNotice ? 'no-notice-bg' : ''}}"></view>
         </view>
     </view>
