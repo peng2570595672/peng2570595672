@@ -701,6 +701,7 @@ Page({
 			this.dialogJudge(etcMoney);
 			return;
 		}
+		// 已补缴 && 签约信息为3.0车辆
 		if (paymentVeh.length) {
 			util.alert({
 				title: `提示`,
@@ -709,8 +710,8 @@ Page({
 				confirmColor: '#576b95',
 				cancelText: '取消',
 				confirmText: '同意',
-				confirm: () => {
-					console.log('tongyi');
+				confirm: async () => {
+					await this.changeByOrderIds();
 				}
 			});
 			return;
@@ -750,6 +751,19 @@ Page({
 		};
 		this.setData({dialogContent});
 		this.selectComponent('#dialog').show();
+	},
+	// 3.0清空签约信息 & 修改成2.0套餐
+	async changeByOrderIds () {
+		const result = await util.getDataFromServersV2('consumer/order/changeByOrderIds', {
+			orderIds: this.data.paymentOrder
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			util.showToastNoIcon('签约版本升级成功');
+			await this.getStatus();
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 去账单详情页
 	onClickBill () {
