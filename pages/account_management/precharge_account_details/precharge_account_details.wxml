@@ -7,7 +7,8 @@
             <view class="recharge" bindtap="onClickRecharge">充值</view>
         </view>
         <view class="prompt">
-            <view wx:if="{{Wallet < info.holdBalance/100}}">*当前余额低于约定的预充值金额,将会被拉黑,请尽快充值</view>
+            <view wx:if="{{Wallet >= prechargeAmount}}" class="normal">请保持账户余额不低于约定金额{{prechargeAmount}}元，避免影响通行</view>
+            <view wx:if="{{Wallet < prechargeAmount && billInfo.failMoney === 0}}">*注意！当前余额已低于约定金额{{prechargeAmount}}元，无法通行</view>
             <view class="arrears" wx:if="{{Wallet <= 0 && billInfo.failMoney > 0}}">当前累计欠款{{billInfo.failMoney/100}}元,请尽快充值<text bindtap="onClickToMyOrder">查看账单</text></view>
         </view>
     </view>
@@ -24,15 +25,17 @@
         <view class="list-item" wx:for="{{list}}" wx:key="index">
             <view class="first">
                 <view class="type">
-                    {{item.MoneyType === 1 ? '充值入账' : ''}}
-                    {{item.MoneyType === 2 ? '充值手续费' : ''}}
-                    {{item.MoneyType === 3 ? 'ETC通行扣费' : ''}}
+                    <!--1：充值入账；2：手续费；3：ETC通行扣费；4：ETC违约金-->
+                    {{item.moneyType === 1 ? '充值入账' : ''}}
+                    {{item.moneyType === 2 ? '充值手续费' : ''}}
+                    {{item.moneyType === 3 ? 'ETC通行扣费' : ''}}
+                    {{item.moneyType === 4 ? 'ETC违约金' : ''}}
                 </view>
-                <view class="price">{{item.MoneyType === 1 ? '+' : '-'}}¥{{item.ChangeMoney}}</view>
+                <view class="price">{{item.moneyType === 1 ? '+' : '-'}}¥{{item.changeMoney}}</view>
             </view>
             <view class="last">
                 <view></view>
-                <view class="time">{{item.CreateTime}}</view>
+                <view class="time">{{item.thirdCreateTime}}</view>
             </view>
         </view>
     </view>

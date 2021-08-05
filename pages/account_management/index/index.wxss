@@ -9,7 +9,7 @@
   margin-bottom: 32rpx;
 }
 .index .pre-recharge .pre-recharge-info {
-  height: 314rpx;
+  height: 278rpx;
   background: #00b85c;
   padding: 32rpx;
   box-sizing: border-box;
@@ -41,19 +41,22 @@
   font-family: PingFangSC-Semibold, PingFang SC;
   font-weight: 600;
   color: #fff;
+  margin-bottom: 10rpx;
 }
-.index .pre-recharge .pre-recharge-info .account-info text {
+.index .pre-recharge .pre-recharge-info .account-info .info {
+  flex: 1;
+}
+.index .pre-recharge .pre-recharge-info .account-info .info text {
   font-size: 24rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: rgba(255,255,255,0.9);
   padding-left: 8rpx;
 }
-.index .pre-recharge .pre-recharge-info .recharge {
+.index .pre-recharge .pre-recharge-info .account-info .recharge {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 32rpx;
   width: 114rpx;
   height: 52rpx;
   background: #fff;
@@ -62,6 +65,13 @@
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: #00b85c;
+}
+.index .pre-recharge .pre-recharge-info .prompt {
+  font-size: 24rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #ffc000;
+  line-height: 34rpx;
 }
 .index .pre-recharge .vehicle {
   display: flex;

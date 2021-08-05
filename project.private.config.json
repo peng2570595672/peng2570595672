@@ -75,7 +75,11 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+<<<<<<< HEAD
           "query": "orderId=869937245119844352",
+=======
+          "query": "orderId=868064923119652864",
+>>>>>>> trucks_for_20210723
           "scene": null
         },
         {

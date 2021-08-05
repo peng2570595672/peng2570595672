@@ -114,7 +114,7 @@
   top: 50%;
   transform: translate(0, -50%);
   width: 640rpx;
-  height: 760rpx;
+  height: 600rpx;
   background: #fff;
   box-shadow: 4rpx 12rpx 56rpx 0px rgba(102,102,109,0.19);
   border-radius: 16rpx;
@@ -123,7 +123,7 @@
 }
 .alert-for-not-finished .alert-for-not-finished-content .alert-for-box {
   position: absolute;
-  height: 760rpx;
+  height: 600rpx;
   bottom: 0;
   left: 0;
   right: 0;
@@ -140,16 +140,11 @@
   box-sizing: border-box;
   font-family: PingFangSC-Medium, PingFang SC;
 }
-.alert-for-not-finished .alert-for-not-finished-content .alert-for-box .alert-title {
-  font-size: 28rpx;
-  color: #000;
-  line-height: 48rpx;
-  padding: 56rpx 0 22rpx;
-}
 .alert-for-not-finished .alert-for-not-finished-content .alert-for-box .alert-content {
   padding: 32rpx;
   background: #f7f7f7;
   color: #000;
+  margin-top: 40rpx;
 }
 .alert-for-not-finished .alert-for-not-finished-content .alert-for-box .alert-content .first {
   font-family: PingFangSC-Medium, PingFang SC;
@@ -165,6 +160,9 @@
 }
 .alert-for-not-finished .alert-for-not-finished-content .alert-for-box .alert-content .alert-prompt {
   color: #ffc000;
+}
+.alert-for-not-finished .alert-for-not-finished-content .alert-for-box .alert-content .alert-prompt text {
+  color: #00b85c;
 }
 .alert-for-not-finished .alert-for-not-finished-content .alert-for-box .alert-for-button {
   width: 240rpx;

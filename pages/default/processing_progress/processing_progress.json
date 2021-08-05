@@ -2,6 +2,7 @@
 	"navigationBarTitleText": "办理进度",
 	"usingComponents": {
 		"jinyixing-prompt": "/components/jinyixing_prompt/jinyixing_prompt",
-		"signing-prompt": "/components/signing_prompt/signing_prompt"
+		"signing-prompt": "/components/signing_prompt/signing_prompt",
+        "recharge-prompt": "/components/recharge_prompt/recharge_prompt"
 	}
 }

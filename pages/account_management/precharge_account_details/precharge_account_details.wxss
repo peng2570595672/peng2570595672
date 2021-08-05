@@ -53,6 +53,9 @@
   color: #ffc000;
   line-height: 34rpx;
 }
+.account-details .account-info .prompt .normal {
+  color: rgba(0,0,0,0.2);
+}
 .account-details .account-info .prompt .arrears {
   color: #ff3c48;
 }
