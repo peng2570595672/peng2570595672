@@ -12,6 +12,8 @@ Page({
 	async onLoad () {
 		await this.queryContract();
 		await this.getSchedule();
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	// 查询办理进度
 	async getSchedule () {

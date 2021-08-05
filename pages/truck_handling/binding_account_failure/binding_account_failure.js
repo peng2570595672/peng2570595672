@@ -7,9 +7,11 @@ Page({
 	data: {
 		code: undefined
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		this.setData({
 			code: parseInt(options.code)
 		});
+		// 查询是否欠款
+		await util.getIsArrearage();
 	}
 });

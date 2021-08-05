@@ -126,6 +126,8 @@ Page({
 			listOfPackages: parseInt(options.type) === 1 ? packages.divideAndDivideList : packages.alwaysToAlwaysList
 		});
 		await this.getSwiperHeight();
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	onShow () {
 	},

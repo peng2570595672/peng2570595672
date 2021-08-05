@@ -31,11 +31,13 @@ Page({
 			verifyCode: '' // 验证码
 		} // 提交数据
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		this.getOrderInfo();
 		this.setData({
 			type: options.type
 		});
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	onShow () {
 		if (this.data.type !== 'normal_process') {

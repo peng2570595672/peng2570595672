@@ -28,12 +28,14 @@ Page({
 			ocrObject: {}
 		} // 行驶证反面 原始数据,用于与新数据比对(秒审)
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		this.setData({
 			vehColor: options.vehColor,
 			vehPlates: options.vehPlates
 		});
-		this.getOrderInfo();
+		await this.getOrderInfo();
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	onShow () {
 		// 行驶证正面

@@ -1,5 +1,9 @@
 const util = require('../../../utils/util.js');
 Page({
+	async onLoad () {
+		// 查询是否欠款
+		await util.getIsArrearage();
+	},
 	onClickMyOrder () {
 		wx.uma.trackEvent('IDL_for_transact_success_to_my_order');
 		let page = wx.getStorageSync('international-create');

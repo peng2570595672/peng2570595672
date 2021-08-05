@@ -6,6 +6,8 @@ Page({
 	},
 	async onLoad () {
 		await this.getRightsPackageBuyRecords();
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	// 获取加购权益包订单列表
 	async getRightsPackageBuyRecords () {

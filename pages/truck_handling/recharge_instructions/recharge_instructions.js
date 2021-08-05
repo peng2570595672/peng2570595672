@@ -13,7 +13,9 @@ Page({
 		this.setData({
 			bankCardInfo: app.globalData.bankCardInfo
 		});
-		this.getBankAccounts();
+		await this.getBankAccounts();
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	async getBankAccounts () {
 		const result = await util.getDataFromServersV2('consumer/member/icbcv2/getBankAccounts');

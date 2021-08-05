@@ -10,8 +10,10 @@ Page({
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
-	onLoad (options) {
+	async onLoad () {
 		this.selectByParams();
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	// 页面上拉触底事件的处理函数
 	onReachBottom () {

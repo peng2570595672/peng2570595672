@@ -31,6 +31,10 @@ Page({
 			verifyCode: '' // 验证码
 		} // 提交数据
 	},
+	async onLoad () {
+		// 查询是否欠款
+		await util.getIsArrearage();
+	},
 	onShow () {
 		// 银行卡
 		let bankCardIdentifyResult = wx.getStorageSync('bank_card_identify_result');

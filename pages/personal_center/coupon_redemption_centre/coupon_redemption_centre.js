@@ -18,6 +18,8 @@ Page({
 	},
 	async onLoad () {
 		await this.getCouponCenterList();
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	hideLoadingMore () {
 		this.setData({

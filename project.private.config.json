@@ -1,5 +1,4 @@
 {
-  "setting": {},
   "condition": {
     "plugin": {
       "list": []
@@ -13,6 +12,7 @@
     "miniprogram": {
       "list": [
         {
+          "id": 0,
           "name": "邮寄地址",
           "pathName": "pages/default/receiving_address/receiving_address",
           "query": "shareId=1235556",
@@ -33,9 +33,10 @@
           "scene": null
         },
         {
-          "name": "pages/truck_handling/index/index",
-          "pathName": "pages/truck_handling/index/index",
-          "query": "",
+          "id": 3,
+          "name": "activities/pages/activity_icbc_forty_five_theme/index",
+          "pathName": "activities/pages/activity_icbc_forty_five_theme/index",
+          "query": "shareId=1235556",
           "scene": null
         },
         {
@@ -60,9 +61,9 @@
           "scene": null
         },
         {
-          "name": "pages/truck_handling/agreement/agreement",
-          "pathName": "pages/truck_handling/agreement/agreement",
-          "query": "",
+          "name": "pages/account_management/precharge_account_details/precharge_account_details",
+          "pathName": "pages/account_management/precharge_account_details/precharge_account_details",
+          "query": "orderId=859745153131220992",
           "scene": null
         },
         {
@@ -73,13 +74,10 @@
           "scene": null
         },
         {
+          "id": 11,
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-<<<<<<< HEAD
-          "query": "orderId=869937245119844352",
-=======
-          "query": "orderId=868064923119652864",
->>>>>>> trucks_for_20210723
+          "query": "orderId=750442877963735040",
           "scene": null
         },
         {
@@ -90,12 +88,14 @@
           "scene": null
         },
         {
-          "name": "易路通达",
-          "pathName": "pages/truck_handling/index/index",
-          "query": "",
+          "id": 16,
+          "name": "pages/Home/Home",
+          "pathName": "pages/Home/Home",
+          "query": "officialChannelId=645937022279614464",
           "scene": null
         },
         {
+          "id": 12,
           "name": "货车",
           "pathName": "pages/truck_handling/index/index",
           "query": "",
@@ -109,21 +109,10 @@
           "scene": null
         },
         {
-          "name": "账户管理",
-          "pathName": "pages/precharge_account_management/index/index",
+          "id": -1,
+          "name": "资料上传列表",
+          "pathName": "pages/truck_handling/information_list/information_list",
           "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/default/processing_progress/processing_progress",
-          "pathName": "pages/default/processing_progress/processing_progress",
-          "query": "orderId=859745153131220992",
-          "scene": null
-        },
-        {
-          "name": "账户明细",
-          "pathName": "pages/account_management/precharge_account_details/precharge_account_details",
-          "query": "orderId=859745153131220992",
           "scene": null
         }
       ]

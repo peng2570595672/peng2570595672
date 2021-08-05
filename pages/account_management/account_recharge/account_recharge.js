@@ -26,6 +26,8 @@ Page({
 			cardInfo: app.globalData.bankCardInfo
 		});
 		await this.getBankAccounts();
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	onShow () {
 		const pages = getCurrentPages();

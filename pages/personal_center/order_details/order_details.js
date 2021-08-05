@@ -240,6 +240,7 @@ Page({
 					success: (res) => {
 						this.setData({isRequest: false});
 						if (res.errMsg === 'requestPayment:ok') {
+							app.globalData.isArrearageData.isPayment = true;
 							this.getBillQuery(id);
 						} else {
 							util.showToastNoIcon('支付失败！');

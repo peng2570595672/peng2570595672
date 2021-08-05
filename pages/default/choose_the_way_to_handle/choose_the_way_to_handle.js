@@ -8,7 +8,9 @@ Page({
 	data: {
 		listOfPackages: []// 套餐列表
 	},
-	onLoad () {
+	async onLoad () {
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	onShow () {
 		this.setData({

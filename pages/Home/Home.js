@@ -40,6 +40,7 @@ Page({
 		isTerminationTruck: false,// 是否货车解约
 		truckList: [],
 		passengerCarList: [],
+		paymentOrder: [],// 已补缴关联车牌订单
 		truckOrderInfo: undefined, // 货车订单
 		passengerCarOrderInfo: undefined, // 客车订单
 		orderInfo: undefined, // 客车|货车订单
@@ -589,6 +590,41 @@ Page({
 			return Date.parse(b.addTime.replace(/-/g,'/')) - Date.parse(a.addTime.replace(/-/g,'/'));
 		});
 	},
+	// 查询已补缴车牌
+	async getPaymentVeh (item, etcMoney) {
+		if (item.includes(21)) this.remove(item,21);// 暂不查货车
+		const result = await util.getDataFromServersV2('consumer/etc/get-supplementary-payment-veh', {
+			channels: item
+		});
+		if (!result) return;
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+			return;
+		}
+		if (!result.data) return;
+		let [paymentOrder, paymentVeh] = [[], []];
+		app.globalData.myEtcList.map(item => {
+			result.data.map(it => {
+				if (it === item.vehPlates && item.contractVersion === 'v3') {
+					paymentOrder.push(item.id);
+					paymentVeh.push(item.vehPlates);
+				}
+			});
+		});
+		this.setData({
+			paymentOrder
+		});
+		this.vehicleInfoAlert(etcMoney, paymentVeh.join('、'));
+	},
+	// 删除方法
+	remove (array,val) {
+		for (let i = 0; i < array.length; i++) {
+			if (array[i] === val) {
+				array.splice(i, 1);
+			}
+		}
+		return -1;
+	},
 	// 查询欠费账单
 	async getArrearageTheBill (item) {
 		const result = await util.getDataFromServersV2('consumer/etc/judge-detail-channels', {
@@ -600,7 +636,7 @@ Page({
 			return;
 		}
 		if (!result.data) return;
-		this.vehicleInfoAlert(result.data.etcMoney);
+		await this.getPaymentVeh(item, result.data.etcMoney);
 	},
 	// 查询最近一次账单
 	async getRecentlyTheBill (item, isTruck = false) {
@@ -659,10 +695,25 @@ Page({
 		}
 	},
 	// 车辆弹窗
-	vehicleInfoAlert (etcMoney) {
+	vehicleInfoAlert (etcMoney, paymentVeh) {
 		if (etcMoney) {
 			// 货车 || 客车欠费
 			this.dialogJudge(etcMoney);
+			return;
+		}
+		// 已补缴 && 签约信息为3.0车辆
+		if (paymentVeh.length) {
+			util.alert({
+				title: `提示`,
+				content: `系统检测到您车牌${paymentVeh}签约版本过低，为保障您高速通行顺利，我们为您升级了新的签约版本。是否同意重新签约？`,
+				showCancel: true,
+				confirmColor: '#576b95',
+				cancelText: '取消',
+				confirmText: '同意',
+				confirm: async () => {
+					await this.changeByOrderIds();
+				}
+			});
 			return;
 		}
 		if (this.data.isTerminationTruck) {
@@ -677,15 +728,16 @@ Page({
 	},
 	dialogJudge (money) {
 		if (money) {
-			// 欠费 - 弹窗补缴
-			let dialogContent = {
-				title: '请尽快补缴欠款',
-				content: `你已欠款${money / 100}元，将影响正常的高速通行`,
-				cancel: '取消',
-				confirm: '立刻补缴'
-			};
-			this.setData({dialogContent});
-			this.selectComponent('#dialog').show();
+			// // 欠费 - 弹窗补缴
+			// let dialogContent = {
+			// 	title: '请尽快补缴欠款',
+			// 	content: `你已欠款${money / 100}元，将影响正常的高速通行`,
+			// 	cancel: '取消',
+			// 	confirm: '立刻补缴'
+			// };
+			// this.setData({dialogContent});
+			// this.selectComponent('#dialog').show();
+			util.alertPayment(money);
 			return;
 		}
 		// 解约
@@ -699,6 +751,19 @@ Page({
 		};
 		this.setData({dialogContent});
 		this.selectComponent('#dialog').show();
+	},
+	// 3.0清空签约信息 & 修改成2.0套餐
+	async changeByOrderIds () {
+		const result = await util.getDataFromServersV2('consumer/order/changeByOrderIds', {
+			orderIds: this.data.paymentOrder
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			util.showToastNoIcon('签约版本升级成功');
+			await this.getStatus();
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 去账单详情页
 	onClickBill () {

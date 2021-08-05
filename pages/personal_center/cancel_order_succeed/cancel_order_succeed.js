@@ -6,6 +6,10 @@ const util = require('../../../utils/util.js');
 Page({
 	data: {
 	},
+	async onLoad () {
+		// 查询是否欠款
+		await util.getIsArrearage();
+	},
 	// 下一步
 	next () {
 		app.globalData.packagePageData = undefined;

@@ -27,7 +27,7 @@ Page({
 			`}
 		]
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		let details = JSON.parse(options.details);
 		if (details?.channelTips?.tips1) {
 			details.channelTips.tips1 = details.channelTips.tips1.split('，');
@@ -38,6 +38,8 @@ Page({
 			refundDetails: JSON.parse(options.refundDetails),
 			entrance: +options.entrance === 1
 		});
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	onclickMoreProblem () {
 		util.go(`/pages/personal_center/order_answer/order_answer?details=${JSON.stringify(this.data.details)}`);

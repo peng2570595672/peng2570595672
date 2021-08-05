@@ -25,12 +25,14 @@ Page({
 			}
 		]
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		if (options.isMain) {
 			this.setData({
 				isMain: options.isMain
 			});
 		}
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	// 监听返回按钮
 	onClickBackHandle () {

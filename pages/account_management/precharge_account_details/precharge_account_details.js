@@ -31,7 +31,7 @@ Page({
 			endDate: `${util.formatTime(date).slice(0, 10)}`
 		});
 		if (app.globalData.userInfo.accessToken) {
-			let requestList = [await this.getFailBillDetails(), await this.fetchList(), await this.getProcessingProgress()];
+			let requestList = [await this.getFailBillDetails(), await this.fetchList(), await this.getProcessingProgress(), await util.getIsArrearage()];
 			util.showLoading();
 			await Promise.all(requestList);
 			util.hideLoading();
@@ -60,7 +60,7 @@ Page({
 						app.globalData.openId = result.data.openId;
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
-						let requestList = [await this.getFailBillDetails(), await this.fetchList(), await this.getProcessingProgress()];
+						let requestList = [await this.getFailBillDetails(), await this.fetchList(), await this.getProcessingProgress(), await util.getIsArrearage()];
 						util.showLoading();
 						await Promise.all(requestList);
 						util.hideLoading();

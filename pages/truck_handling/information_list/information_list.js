@@ -16,12 +16,14 @@ Page({
 		isModifiedData: false, // 是否是修改资料
 		requestNum: 0
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		if (options.isModifiedData) {
 			this.setData({
 				isModifiedData: true
 			});
 		}
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	async onShow () {
 		const pages = getCurrentPages();

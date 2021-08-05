@@ -23,6 +23,8 @@ Page({
 				await util.getV2BankId();
 			}
 		}
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	next () {
 		wx.uma.trackEvent('account_management_for_recharge_state_to_index');

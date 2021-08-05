@@ -20,6 +20,8 @@ Page({
 				await this.getQueryWallet(item);
 			});
 		}
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	async onShow () {
 		// await util.getV2BankId();

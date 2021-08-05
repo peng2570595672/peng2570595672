@@ -3,12 +3,14 @@ Page({
 	data: {
 		orderInfo: {} // 订单详情
 	},
-	onLoad () {
+	async onLoad () {
 		let orderInfo = wx.getStorageSync('international-order_detail');
 		orderInfo = JSON.parse(orderInfo);
 		this.setData({
 			orderInfo
 		});
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	// 继续办理
 	onClickContinueHandle () {

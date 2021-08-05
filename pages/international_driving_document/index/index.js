@@ -1,6 +1,8 @@
 const util = require('../../../utils/util.js');
 Page({
-	onShow () {
+	async onLoad () {
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	onClickMyOrder () {
 		wx.uma.trackEvent('IDL_for_index_to_my_order');

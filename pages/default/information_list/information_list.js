@@ -22,12 +22,14 @@ Page({
 		ownerIdCard: {}, // 实名身份信息
 		vehicle: {} // 车辆信息
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		if (options.isModifiedData) {
 			this.setData({
 				isModifiedData: true
 			});
 		}
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	async onShow () {
 		const pages = getCurrentPages();

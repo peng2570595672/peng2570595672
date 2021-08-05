@@ -1256,8 +1256,8 @@ async function getListOfPackages (orderInfo, regionCode, notList) {
  * @param success 成功后的回调g
  * @param fail 失败后的回调
  */
-async function getDataFromServersV2(path, params = {}, method = 'POST') {
-	showLoading();
+async function getDataFromServersV2(path, params = {}, method = 'POST', isLoading = true) {
+	if (isLoading) showLoading();
 	// common || public 模块下的不需要 token
 	const token = app.globalData.userInfo.accessToken;
 	if (!token && !path.includes('common') && !path.includes('public')) {
@@ -1351,7 +1351,7 @@ async function getDataFromServersV2(path, params = {}, method = 'POST') {
 				reject(err)
 			},
 			complete: () => {
-				hideLoading();
+				if (isLoading) hideLoading();
 			}
 		})
 	});
@@ -1493,6 +1493,78 @@ async function addProtocolRecord (protocolType) {
 	}
 	return isOk;
 }
+// 获取用户是否欠费
+async function getIsArrearage () {
+	if (app.globalData.isArrearageData.etcMoney && !app.globalData.isArrearageData.isPayment) {
+		// 已有欠款 & 并未补缴
+		alertPayment(app.globalData.isArrearageData.etcMoney);
+		return;
+	}
+	if (JSON.stringify(app.globalData.myEtcList) === '{}') {
+		await getEtcList();
+	} else {
+		await getObuCardType();
+	}
+}
+// 获取渠道列表
+async function getObuCardType () {
+	let obuCardType = [];
+	app.globalData.myEtcList.map(item => {
+		if (item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5) {
+			obuCardType.push(item.obuCardType);
+		}
+	}); // 1 已激活  2 恢复订单  5 预激活
+	if (obuCardType.length) {
+		obuCardType = [...new Set(obuCardType)];
+		await getArrearageTheBill(obuCardType);
+	}
+}
+// 获取用户是否欠费
+async function getEtcList () {
+	let params = {
+		openId: app.globalData.openId
+	};
+	const result = await getDataFromServersV2('consumer/order/my-etc-list', params);
+	if (!result) return;
+	if (result.code === 0) {
+		app.globalData.myEtcList = result.data;
+		await getObuCardType();
+	} else {
+		showToastNoIcon(result.message);
+	}
+}
+// 查询欠费账单
+async function getArrearageTheBill (item) {
+	const result = await getDataFromServersV2('consumer/etc/judge-detail-channels', {
+		channels: item
+	});
+	if (!result) return;
+	if (result.code) {
+		showToastNoIcon(result.message);
+		return;
+	}
+	if (!result.data) return;
+	if (result.data.etcMoney) {
+		app.globalData.isArrearageData = {
+			isPayment: false,
+			etcMoney: result.data.etcMoney
+		};
+		alertPayment(result.data.etcMoney);
+	}
+}
+function alertPayment (etcMoney) {
+	alert({
+		title: `请尽快补缴欠款`,
+		content: `你已欠款${etcMoney / 100}元，将影响正常的高速通行`,
+		showCancel: true,
+		confirmColor: '#576b95',
+		cancelText: '取消',
+		confirmText: '立刻补缴',
+		confirm: () => {
+			go('/pages/personal_center/arrears_bill/arrears_bill');
+		}
+	});
+}
 module.exports = {
 	setApp,
 	formatNumber,
@@ -1500,6 +1572,8 @@ module.exports = {
 	queryProtocolRecord,
 	goMicroInsuranceVehicleOwner,
 	getDataFromServer, // 从服务器上获取数据
+	getIsArrearage,
+	alertPayment,
 	parseBase64,
 	formatTime, // 格式化时间
 	go, // 常规跳转

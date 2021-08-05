@@ -11,7 +11,7 @@ Page({
 		isShowSwitchElaborate: false,
 		details: {}
 	},
-	onLoad (options) {
+	async onLoad () {
 		this.setData({
 			details: app.globalData.serviceCardVoucherDetails,
 			mobilePhone: app.globalData.userInfo.mobilePhone
@@ -59,6 +59,8 @@ Page({
 			frontColor: '#000000',
 			backgroundColor: bgHex
 		});
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	// rgb转16进制
 	colorRGB2Hex (color) {

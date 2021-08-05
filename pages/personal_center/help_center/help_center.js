@@ -1,5 +1,3 @@
-import {compareDate} from "../../../utils/utils";
-
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
@@ -21,6 +19,10 @@ Page({
 		detailsTitle: '',// 问题详情标题
 		fatherHeight: '',// 弹窗列表高度
 		childHeight: ''// 弹窗列表内容高度
+	},
+	async onLoad () {
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	async onShow () {
 		this.questionClassification();

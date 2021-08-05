@@ -12,7 +12,7 @@ Page({
 		carList: [],
 		voucherMsg: undefined
 	},
-	onLoad () {
+	async onLoad () {
 		// this.succeedPop();
 		// console.log(this.globalData.rechargeCode)  PZ4mWZcP
 		util.resetData();// 重置数据
@@ -54,6 +54,8 @@ Page({
 							app.globalData.openId = res.data.openId;
 							app.globalData.memberId = res.data.memberId;
 							app.globalData.mobilePhone = res.data.mobilePhone;
+							// 查询是否欠款
+							util.getIsArrearage();
 						} else {
 							util.hideLoading();
 						}

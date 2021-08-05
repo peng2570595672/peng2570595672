@@ -9,8 +9,10 @@ Page({
 		currentTab: 0, // 0已支付 1未支付
 		carList: []
 	},
-	onLoad () {
+	async onLoad () {
 		this.getMyETCList();
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	/**
 	 *  支付状态 0-待支付，1-已支付，2-支付失败, 3 - 退款中，4-已退款，5-退款失败

@@ -170,7 +170,7 @@ Page({
 		}, app.globalData.userInfo.accessToken);
 	},
 	// 加载ETC列表
-	getMyETCList () {
+	async getMyETCList () {
 		// 过滤未激活订单
 		let obuStatusList;
 		// obuStatusList = res.data.filter(item => item.obuStatus === 1); // 正式数据
@@ -260,6 +260,7 @@ Page({
 				this.setData({
 					failBillMessage: res.data
 				});
+				if (res.data.etcMoney) util.alertPayment(res.data.etcMoney);
 			} else {
 				util.showToastNoIcon(res.message);
 			}

@@ -63,6 +63,8 @@ Page({
 			});
 		}
 		await this.getOrderInfo();
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	onShow () {
 		// 行驶证正面

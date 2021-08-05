@@ -12,6 +12,8 @@ Page({
 	},
 	async onLoad () {
 		await this.getSchedule();
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	// 查询车主服务签约
 	async getSchedule () {

@@ -4,6 +4,10 @@ Page({
 	data: {
 		list: []
 	},
+	async onLoad () {
+		// 查询是否欠款
+		await util.getIsArrearage();
+	},
 	async onShow () {
 		if (!app.globalData.userInfo.accessToken) {
 			// 公众号进入需要登录

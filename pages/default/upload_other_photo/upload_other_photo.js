@@ -14,11 +14,13 @@ Page({
 		},// 车头照
 		vehPlates: undefined
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		this.setData({
 			vehPlates: options.vehPlates
 		});
-		this.getOrderInfo();
+		await this.getOrderInfo();
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	onShow () {
 		// 身份证正面

@@ -37,6 +37,8 @@ Page({
 			// 从首页&我的ETC&ETC详情
 			await this.getOrderInfo();
 		}
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 	onShow () {
 	},

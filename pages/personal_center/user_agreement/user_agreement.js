@@ -15,7 +15,9 @@ Page({
 			{name: '个人征信授权书', update: 0}
 		]
 	},
-	onLoad () {
+	async onLoad () {
+		// 查询是否欠款
+		await util.getIsArrearage();
 		let [isPassengerCarActivation, isQTAttribute, isNotQTAttribute, isQTNotAttribute, isNotQTNotAttribute] = [false, false, false, false, false];
 		// 客车已激活  黔通自购  非黔通自购  黔通免费  非黔通免费
 		app.globalData.myEtcList.map(item => {
