@@ -31,7 +31,7 @@
                     {{item.moneyType === 3 ? 'ETC通行扣费' : ''}}
                     {{item.moneyType === 4 ? 'ETC违约金' : ''}}
                 </view>
-                <view class="price">{{item.moneyType === 1 ? '+' : '-'}}¥{{item.changeMoney}}</view>
+                <view class="price">{{item.moneyType === 1 ? '+' : '-'}}¥{{item.changeMoney/100}}</view>
             </view>
             <view class="last">
                 <view></view>

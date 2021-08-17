@@ -160,7 +160,7 @@ Page({
 		let list = result.data.list || [];
 		list.map(item => {
 			item.changeMoney = item.changeMoney.toString();
-			if (item.changeMoney.includes('-')) item.changeMoney = item.changeMoney.substr(1);
+			if (item.changeMoney.includes('-')) item.changeMoney = parseInt(item.changeMoney.substr(1));
 		});
 		this.setData({
 			Wallet: result.data.walletAmount,

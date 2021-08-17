@@ -1,4 +1,5 @@
 {
+  "setting": {},
   "condition": {
     "plugin": {
       "list": []
@@ -74,10 +75,9 @@
           "scene": null
         },
         {
-          "id": 11,
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=750442877963735040",
+          "query": "orderId=876096233066860544",
           "scene": null
         },
         {
@@ -113,6 +113,12 @@
           "name": "资料上传列表",
           "pathName": "pages/truck_handling/information_list/information_list",
           "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/default/processing_progress/processing_progress",
+          "pathName": "pages/default/processing_progress/processing_progress",
+          "query": "orderId=872896335139835904",
           "scene": null
         }
       ]
