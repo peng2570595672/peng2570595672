@@ -163,7 +163,7 @@ Page({
 			if (item.changeMoney.includes('-')) item.changeMoney = parseInt(item.changeMoney.substr(1));
 		});
 		this.setData({
-			Wallet: result.data.walletAmount,
+			Wallet: result.data.walletAmount/100,
 			prechargeAmount: result.data.prechargeAmount / 100,
 			list: this.data.list.concat(list)
 		});
