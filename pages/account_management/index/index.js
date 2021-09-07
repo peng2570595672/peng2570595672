@@ -49,6 +49,14 @@ Page({
 		wx.uma.trackEvent('account_management_for_index_to_bind_bank_card');
 		util.go(`/pages/account_management/bind_bank_card/bind_bank_card`);
 	},
+	//充值
+	onClickPay () {
+		util.go(`/pages/account_management/account_recharge/account_recharge`);
+	},
+	//圈存
+	onClickOBU () {
+		util.go(`/pages/obu/add/add`);
+	},
 	// 获取订单信息
 	async getStatus () {
 		let params = {

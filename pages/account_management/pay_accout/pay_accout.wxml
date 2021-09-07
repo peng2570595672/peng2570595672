@@ -1,0 +1,39 @@
+<view class="binding_account">
+    <view class="box">
+       <view class="h2">扣款授权确认书</view> 
+       <view class="p">本确认书由您向中国工商银行出具,具有授权之法律效力。请您务必审慎阅读、充分理解本确认书各条款内容,特别是免除或者限制责任的条款,前述条款可能以加粗字体显示,您应重点阅读。除非您已阅读并接受本确认书所有条款,否则您无权使用“货车ETC’”的自动扣款等服务。您同意本确认书即视为您已向中国工商银行提供自动扣款授权,并自愿承担由此导致的一切法律后果。如您有任何疑问,应向中国工商银行客服(95588)咨询。</view>
+       <view class="p">您确认并授权世纪恒通科技股份有限公司、贵州黔通智联科技股份有限公司（以下均简称“商户”）向中国工商银行发出扣款指令,中国工商银行即可在不验证您的账户密码、短信动态码等信息的情况下直接从您绑定的中国工商银行账户中(根据商户接入业务渠道选择)中扣划商户指定的款项至商户指定账户。中国工商银行会在首次扣款时验证您的支付密码,你输入支付密码即视为您授权中国工商银行可依据商户的交易指令从您绑定的中国工商银行账户中扣划商户指定的款项至商户指定账户,且中国工商银行后续再扣款时,将无需再验证您的支付密码、短信动态码等信息。</view>
+       <view class="p">在任何情况下,只要商户向中国工商银行发出支付指令,中国工商银行就可按照该指令进行资金扣划,中国工商银行对商户的支付指令在实质上的正确性、合法性、完整性、真
+实性不承担任何法律责任,相关法律责任由您和商户自行承担。</view>
+<view class="p">您在扣款账户内必须预留有足够的被扣划的余额,否则因账户余额不足导致无法及时扣款或扣款错误、失败,责任由您自行承担。因不可归责于中国工商银行的事由,导致的不能及时划付款项、划账错误等责任与中国工商银行无关。</view>
+<view class="p weight">您确认,因商户的原因导致您遭受经济损失的,由您与商户协商解决。 </view>
+    </view>
+    <view class="exp">*为确保充值金额及手续费的正常到账，需要开通小额免密支付</view>
+    <!--	输入结束-->
+    <view class="fill"></view>
+    <!--	协议开始-->
+    <!-- <view class="agreement iconfont {{getAgreement ? 'selected' : ''}} " bindtap="onClickAgreementHandle">我已阅读并同意<text catchtap="onClickGoAgreementHandle">《开通小额免密支付协议》</text></view> -->
+    <!--	协议结束-->
+    <!--	按钮开始-->
+    <view class="btn" catchtap="next"><view class="animate" wx:if="{{isRequest}}"></view>我同意并开通小额免密支付</view>
+    <!--	按钮结束-->
+    <view>
+        <view class="verification-code-wrapper animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}" bindtap="hide"></view>
+        <view class="verification-code-wrapper-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}"  wx:if="{{mask}}" bindtap="noHide">
+            <view class="phone">验证开通小额免密支付</view>
+            <view class="input-item">
+              <view>手机号</view>
+              <input type="number" class="on" bindinput="onInputChangedHandle" placeholder="" placeholder-class="placeholder" value="{{formData.telNumber}}" data-key="telNumber"
+                />
+            </view>
+            <view class="input-item">
+                <view>验证码</view>
+                <input type="number" placeholder="" placeholder-class="placeholder" value="{{formData.verifyCode}}"
+                       bindinput="onInputChangedHandle" data-key="verifyCode"
+                />
+                <view class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} {{mobilePhoneIsOk ? 'ok' : ''}}" bindtap="sendVerifyCode">{{identifyingCode}}</view>
+            </view>
+            <view class="confirm" bindtap="onClickOpenTheCard">确认开通</view>
+        </view>
+    </view>
+</view>

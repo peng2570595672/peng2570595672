@@ -48,24 +48,26 @@ Page({
 		}
 		wx.uma.trackEvent('truck_binding_account_successful_to_signing');
 		util.showLoading('加载中');
-		let params = {
-			dataComplete: 0,// 资料已完善
-			clientOpenid: app.globalData.userInfo.openId,
-			clientMobilePhone: app.globalData.userInfo.mobilePhone,
-			orderId: app.globalData.orderInfo.orderId,// 订单id
-			contractType: 3,// 签约类型：1-通行费，2-违约金，3-保证金
-			needSignContract: true // 是否需要签约 true-是，false-否
-		};
-		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
-		this.setData({isRequest: false});
-		if (!result) return;
-		if (result.code === 0) {
-			app.globalData.isTruckHandling = true;
-			app.globalData.signAContract = 4;
-			let res = result.data.contract;
-			util.weChatSigning(res);
-		} else {
-			util.showToastNoIcon(result.message);
-		}
+		util.go('/pages/truck_handling/signed/signed')
+		// util.go('/pages/truck_handling/signed/signed')
+		// let params = {
+		// 	dataComplete: 0,// 资料已完善
+		// 	clientOpenid: app.globalData.userInfo.openId,
+		// 	clientMobilePhone: app.globalData.userInfo.mobilePhone,
+		// 	orderId: app.globalData.orderInfo.orderId,// 订单id
+		// 	contractType: 3,// 签约类型：1-通行费，2-违约金，3-保证金
+		// 	needSignContract: true // 是否需要签约 true-是，false-否
+		// };
+		// const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+		// this.setData({isRequest: false});
+		// if (!result) return;
+		// if (result.code === 0) {
+		// 	app.globalData.isTruckHandling = true;
+		// 	app.globalData.signAContract = 4;
+		// 	let res = result.data.contract;
+		// 	util.weChatSigning(res);
+		// } else {
+		// 	util.showToastNoIcon(result.message);
+		// }
 	}
 });

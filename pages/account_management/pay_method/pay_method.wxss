@@ -1,0 +1,125 @@
+page{
+  background-color: #eee;
+}
+.icontaocan-1::after{content:'\e68e';}
+.iconyouhuiquan-2::after{content:'\e676';}
+.iconetc1::after{content:'\e681';}
+.box{
+  background-color: #fff;
+  padding:40rpx;
+  margin-bottom:20rpx;
+}
+.h3{
+  font-size:28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #000000;
+  line-height: 20px;
+  margin:40rpx auto;
+}
+.h4{
+  font-size:34rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #000000;
+  border-left:12rpx solid #00B85C;
+  padding-left:20rpx;
+  margin-bottom:80rpx;
+  display: block;
+}
+.list{
+  width:100%;
+  display: block;
+  background: #F6F6F6;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin:40rpx auto;
+  padding:40rpx;
+  display: flex;
+  justify-content:center;
+  position: relative;
+}
+.list>view{
+  flex:1;
+}
+.list .recommend{
+  position: absolute;
+  top:-40rpx;
+  left:0;
+  width:86rpx;
+  height:52rpx;
+  line-height:52rpx;
+  background:#FFB042;
+  color:#fff;
+  text-align: center;
+  font-size:24rpx;
+}
+.list .recommend::after{
+  position: absolute;
+  content:"";
+  top:-3rpx;
+  right:-25rpx;
+  width: 0;
+  height: 0;
+  border-top:30rpx solid transparent;
+  border-left:30rpx solid #FFB042;
+  border-bottom:30rpx solid transparent;
+}
+.list .left{
+  display:flex;
+  text-align: left;
+}
+.list .left .h3{
+  font-size:30rpx;
+  font-weight: 700;
+  margin:0;
+  padding-bottom:10rpx;
+}
+.list .left .h5{
+  font-size:24rpx;
+  color: #ccc;
+}
+.list .left .image{
+  width:92rpx;
+  height:88rpx;
+  padding-right:40rpx;
+  display: block;
+}
+.list .left .image1{
+  width:96rpx;
+  height:64rpx;
+  padding-right:40rpx;
+  display: block;
+}
+
+.list .right{
+  position: absolute;
+  right:60rpx;
+  top:50%;
+  transform:translate(0,-50%);
+}
+
+.price-list{
+  display: flex;
+  align-items:flex-end;
+  margin-bottom:80rpx;
+}
+.price-list .price{
+  font-size:60rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #000000;
+}
+.price-list  .unit{
+  font-size:28rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #33333D;
+  line-height:56rpx;
+}
+.price-list>input{
+  width:130rpx;
+  margin:0 20rpx;
+  vertical-align: middle;
+  font-size:28rpx;
+}

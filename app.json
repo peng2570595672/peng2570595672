@@ -1,4 +1,5 @@
 {
+  "entryPagePath": "pages/Home/Home",
   "pages": [
     "pages/Home/Home",
     "pages/default/index/index",
@@ -27,7 +28,8 @@
     "components/pass_the_discount/pass_the_discount",
     "components/follow_accont_prompt/follow_accont_prompt",
     "pages/default/free_equipment_agreement/free_equipment_agreement",
-    "pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement"
+    "pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement",
+    "pages/default/trucks/trucks"
   ],
   "window": {
     "navigationBarBackgroundColor": "#FFFFFF",
@@ -104,7 +106,9 @@
         "account_details/account_details",
         "precharge_account_details/precharge_account_details",
         "new_binding/new_binding",
-        "bind_bank_card/bind_bank_card"
+        "bind_bank_card/bind_bank_card",
+        "pay_method/pay_method",
+        "pay_accout/pay_accout"
       ]
     },
     {
@@ -145,7 +149,11 @@
         "upload_other_photo/upload_other_photo",
         "upload_road_transport_certificate/upload_road_transport_certificate",
         "information_list/information_list",
-        "truck_credit_investigation_authorization/truck_credit_investigation_authorization"
+        "truck_credit_investigation_authorization/truck_credit_investigation_authorization",
+        "signed/signed",
+        "icbc_agreement_withhold/icbc_agreement_withhold",
+        "icbc_agreement_account/icbc_agreement_account",
+        "icbc_agreement_service/icbc_agreement_service"
       ]
     },
     {
@@ -207,6 +215,15 @@
       "pages": [
         "binding_plates/binding_plates",
         "signed_successfully/signed_successfully"
+      ]
+    },
+    {
+      "root": "pages/obu",
+      "name": "pages/obu",
+      "pages": [
+        "add/add",
+        "bluetooth/bluetooth",
+        "audit_result/audit_result"
       ]
     },
     {

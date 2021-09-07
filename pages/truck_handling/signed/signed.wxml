@@ -1,0 +1,21 @@
+<view class="pages">
+  <view class="h3">请进行短信验证</view>
+  <view class="h4"> 完成{{plateNumber}}的代扣绑定</view>
+  <view class="h5">短信验证码将下发至{{phone}}</view>
+ 
+  <view class="code">
+     <view class="left">
+
+         <input id="1" value="{{value1}}" bindinput="inputListener" bindblur="onBindblur" focus="{{focus && focusIndex == 1}}"  maxlength="1" class="{{value1? 'on':''}}"/>
+         <input id="2" value="{{value2}}" bindinput="inputListener" bindblur="onBindblur" focus="{{focus && focusIndex == 2}}" maxlength="1"  class="{{value2 ? 'on':''}}"/>
+         <input id="3" value="{{value3}}" bindinput="inputListener" bindblur="onBindblur" focus="{{focus && focusIndex == 3}}" maxlength="1"   class="{{value3 ? 'on':''}}"/>
+         <input id="4" value="{{value4}}" bindinput="inputListener" bindblur="onBindblur" focus="{{focus && focusIndex == 4}}" maxlength="1"  class="{{value4 ? 'on':''}}"/>
+         <input id="5" value="{{value5}}" bindinput="inputListener" bindblur="onBindblur" focus="{{focus && focusIndex ==5}}" maxlength="1"  class="{{value5 ? 'on':''}}"/>
+         <input id="6" value="{{value6}}" bindinput="inputListener" bindblur="onBindblur" focus="{{focus && focusIndex == 6}}" maxlength="1"  class="{{value6? 'on':''}}"/>
+     </view>
+     <view class="right" catchtap="getCode" wx:if="{{isGetIdentifyingCoding==1}}">{{identifyingCode}}</view>
+     <view class="right" catchtap="onResubmitETCTradeDepositContract" wx:if="{{isGetIdentifyingCoding==2}}">{{identifyingCode}}</view>
+  </view>
+  <button type="primary" class="but" disabled="{{isDisabled}}" catchtap="onSubmit"><view class="animate" wx:if="{{isRequest}}"></view>立即签约</button> 
+
+</view>

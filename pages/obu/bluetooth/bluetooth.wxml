@@ -1,0 +1,13 @@
+<view>
+
+   <image  wx:if="{{state==1}}" src="../assets/2.png" class="img1"></image>
+   <image  wx:if="{{state==2}}" src="../assets/4.png" class="img1"></image>
+   <image  wx:if="{{state==3}}" src="../assets/5.png" class="img"></image>
+
+  <view class="exp2" wx:if="{{state!=3}}">{{errMsg}}...</view>
+  <view class="exp" wx:if="{{state==3}}">未找到可连接的设备，<view>请确认手机及OBU设备的蓝牙是否启动</view> </view>
+
+  <button type="primary" wx:if="{{state==3}}"  catchtap="onInIt" class="but">重试</button> 
+
+</view>
+

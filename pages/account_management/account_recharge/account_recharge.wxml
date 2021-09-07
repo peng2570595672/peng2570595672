@@ -24,6 +24,10 @@
             </view>
         </view>
     </view>
+    <view class="explist">
+     <view>请确保您的银行卡余额充足，若余额不足将导致充值失败。</view>
+     <view>资金充值成功后，II类户所属银行将即时锁定该笔资金用作通行费划扣，直至您不再使用本产品，经合法注销后资金将自动解冻</view>
+    </view>
     <view class="fill"></view>
     <!--	操作部分开始-->
     <view class="btn {{rechargeAmount ? 'available' : 'unavailable'}}" catchtap="next">充值</view>

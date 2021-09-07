@@ -74,6 +74,7 @@ Page({
 			let res = result.data.base;
 			let orderInfo = res.orderInfo;
 			let vehPlates = res.vehPlates;
+				app.globalData.truckLicensePlate=vehPlates; //存货车出牌
 			if (this.data.isModifiedData && res.orderAudit && res.orderAudit?.errNums?.length && this.data.requestNum === 0) {
 				// errNums
 				this.getErrorStatus(res.orderAudit);
@@ -129,6 +130,7 @@ Page({
 		}
 	},
 	availableCheck (orderInfo,vehicleInfo) {
+		console.log('===342423424234')
 		if (orderInfo.isOwner === 1 && orderInfo.isVehicle === 1 && orderInfo.isHeadstock === 1) {
 			if (vehicleInfo.isTraction === 0 || (vehicleInfo.isTraction === 1 && orderInfo.isTransportLicense === 1)) {
 				this.setData({
@@ -137,6 +139,7 @@ Page({
 			}
 		}
 		if (this.data.isModifiedData && this.data.requestNum === 0) {
+
 			this.setData({
 				available: false
 			});
@@ -147,6 +150,7 @@ Page({
 				available: false
 			});
 		}
+		console.log(this.data.available,'==============行驶证及身份证必须为同一持有人===========')
 	},
 	// 跳转
 	go (e) {
@@ -156,6 +160,7 @@ Page({
 	// 获取二类户号信息
 	async next () {
 		if (!this.data.available) return;
+		console.log(this.data.orderInfo.flowVersion,'========获取二类户号信息=========================')
 		if (this.data.isModifiedData || this.data.orderInfo.flowVersion === 4) {
 			if (this.data.isRequest) {
 				return;
@@ -170,22 +175,26 @@ Page({
 				changeAuditStatus: true
 			};
 			const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+			console.log(result,'==========资料已完善===========')
 			this.setData({isRequest: false});
 			if (!result) return;
 			if (result.code) {
 				util.showToastNoIcon(result.message);
 				return;
 			}
-			util.go('/pages/default/processing_progress/processing_progress?type=main_process');
-			return;
+      console.log('================到这里啦===============')
+			//util.go('/pages/default/processing_progress/processing_progress?type=main_process');
+			//return;
 		}
-		if (this.data.orderInfo.flowVersion === 5) {
+		console.log(this.data.orderInfo.flowVersion,'===============================')
+		if (this.data.orderInfo.flowVersion === 4) { //处理是否需要开二类户
 			const result = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
 			if (!result) return;
 			if (result.code) {
 				util.showToastNoIcon(result.message);
 				return;
 			}
+			console.log(result.data,'--------000000000000000000000000000000----------')
 			const path = result.data?.accountNo ? 'contract_management' : 'binding_account';
 			util.go(`/pages/truck_handling/${path}/${path}`);
 		}

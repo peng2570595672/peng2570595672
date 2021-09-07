@@ -208,14 +208,22 @@
 }
 .binding_account .agreement {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items:left;
+  justify-content:left;
   height: 48rpx;
   font-size: 24rpx;
   color: #99999d;
+  margin-bottom:20rpx;
 }
-.binding_account .agreement > text {
-  color: #2fb565;
+.agreement-box{
+  width: 90%;
+  margin:0 auto;
+}
+.agreement-box .text {
+  color: #00B85C;
+  font-family: PingFangSC-Medium, PingFang SC;
+ font-weight: 500;
+ margin-bottom:10rpx;
 }
 .binding_account .agreement::before {
   margin-right: 10rpx;

@@ -1,0 +1,85 @@
+@keyframes btnFadeIn {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes btnFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.2;
+  }
+}
+
+.pages{
+  padding:80rpx 40rpx;
+}
+.but{
+	background: linear-gradient(45deg, #00AF62 0%, #68D33F 100%);
+	box-shadow: 0px 8rpx 10rpx 0px rgba(104, 211, 63, 0.2);
+  border-radius:50rpx;
+  margin-top:300rpx;
+  width:100%;
+  position: relative;
+}
+.but .animate{
+  position: absolute;
+  top:20rpx;
+  left:25%
+}
+.h3{
+  font-size:34rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #000000;
+  border-left:12rpx solid #00AF62;
+  padding-left:20rpx;
+  margin-bottom:10rpx;
+}
+.h4{
+  font-size:34rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #000000;
+  padding-left:30rpx;
+  margin-bottom:20rpx;
+}
+.h5{
+  font-size:34rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #33333D;
+  padding-left:30rpx;
+  margin-bottom:20rpx;
+}
+.code{
+  display: flex;
+  margin:80rpx auto;
+  width:100%;
+}
+.code .left{
+  flex:9;
+  display: flex;
+}
+.code .left>input{
+  border-bottom:8rpx solid #eee;
+  flex:1;
+  margin-right:30rpx;
+  text-align: center;
+}
+.code .left>input.on{
+  animation: btnFadeOut 0.3s;
+  border-bottom:8rpx solid #68D33F;
+}
+.code .right{
+  flex:3;
+  font-size:32rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #00B85C;
+  text-align: right;
+}

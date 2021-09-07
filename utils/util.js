@@ -624,6 +624,9 @@ function luhmCheck(bankno) {
  *  获取货车新流程订单办理状态 2.0
  */
 function getTruckHandlingStatus(orderInfo) {
+
+	console.log(orderInfo,'----------------获取货车新流程订单办理状态---------------------')
+
 	if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0) {
 		// protocolStatus 0未签协议 1签了
 		return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
@@ -642,7 +645,16 @@ function getTruckHandlingStatus(orderInfo) {
 	if (orderInfo.isOwner === 0 || orderInfo.isVehicle === 0 || orderInfo.isHeadstock === 0 || (orderInfo.isTraction === 1 && orderInfo.isTransportLicense !== 1)) {
 		return 4; // 办理中 未上传证件
 	}
-	if (orderInfo.flowVersion === 5 && !app.globalData.bankCardInfo?.accountNo) {
+
+	console.log(orderInfo.flowVersion,'============flowVersion===========')
+	console.log(orderInfo.icbcv2,'============icbcv2===========')
+
+	if(orderInfo.flowVersion === 6 && orderInfo.icbcv2){ 
+		//代扣通行费
+			return 18;
+	}
+
+	if (orderInfo.flowVersion === 6 && !app.globalData.bankCardInfo?.accountNo) {
 		// 开通II类户预充保证金 - 未开户
 		return 13;
 	}

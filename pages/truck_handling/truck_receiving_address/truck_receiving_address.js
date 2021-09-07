@@ -16,7 +16,7 @@ Page({
 		identifyingCode: '获取验证码',
 		time: 59,// 倒计时
 		isGetIdentifyingCoding: false, // 获取验证码中
-		available: false, // 按钮是否可点击
+		available: true, // 按钮是否可点击
 		isRequest: false,// 是否请求中
 		isNewPowerCar: false, // 是否为新能源
 		showToast: false, // 是否验证码错误

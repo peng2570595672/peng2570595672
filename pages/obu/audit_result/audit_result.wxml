@@ -1,0 +1,8 @@
+<view>
+    <image  wx:if="{{state==1}}" src="../assets/123.png" class="img1"></image>
+    <image  wx:if="{{state==2}}" src="../assets/8.png" class="img2"></image>
+   <view class="exp2" wx:if="{{state==1}}">设备圈存成功</view>
+   <view class="exp2" wx:if="{{state==2}}">设备圈存失败</view>
+   <button type="primary" wx:if="{{state==1}}"  class="but">重试</button> 
+   <button type="primary" wx:if="{{state==2}}"  class="but">查看账户</button> 
+</view>

@@ -109,15 +109,16 @@ Page({
 			sortName: this.data.banks[this.data.bankNameIndex]
 		};
 		const result = await util.getDataFromServersV2('consumer/member/icbcv2/open', params);
+		console.log(result,'==================开通信息===================')
 		this.setData({
 			available: true,
 			isRequest: false
 		});
 		if (!result) return;
 		console.log(result);
-		if (result.code === 0) {
+		if (result.code === 0) { //这里需要code===0
 			this.setData({
-				bankAccountId: result.data.bankAccountId
+				bankAccountId:result.data.bankAccountId
 			});
 			this.show();
 			this.startTimer();
@@ -287,8 +288,16 @@ Page({
 		}
 		return true;
 	},
-	// 查看办理协议
-	onClickGoAgreementHandle () {
-		util.go('/pages/truck_handling/icbc_agreement/icbc_agreement');
+	// 个人银行电子账户服务协议
+	onIcbcAgreementAccount () {
+		util.go('/pages/truck_handling/icbc_agreement_account/icbc_agreement_account');
+	},
+	// 中国工商银行电子银行个人客户服务协议
+	onIcbcAgreementService () {
+		util.go('/pages/truck_handling/icbc_agreement_service/icbc_agreement_service');
+	},
+	// 中国工商银行网上银行个人委托代扣协议
+	onIcbcAgreementWithhold () {
+		util.go('/pages/truck_handling/icbc_agreement_withhold/icbc_agreement_withhold');
 	}
 });

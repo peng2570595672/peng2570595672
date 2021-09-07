@@ -1,0 +1,24 @@
+<view>
+  <view class="box">
+    <view class="h3">请输入充值金额（元）</view>
+    <view class="price-list">
+        <view class="price">￥</view>
+        <input type="number" placeholder="点击输入" bindinput="onInputChangedHandle" value="{{amount}}"/>
+        <view class="unit">元</view>
+    </view>
+  </view>
+  <view class="box">
+    <view class="h4">付款方式</view>
+    <view class="list" wx:for="{{list}}" wx:key="index" bindtap="onClickPay" data-id="{{item}}">
+          <view class="recommend" wx:if="{{item.state==0}}">推荐</view>
+          <view class="left">
+            <image class="{{item.state==0?'image':'image1'}}" src="{{item.imgUrl}}"></image>
+              <view>
+                  <view class="h3">{{item.title}}</view>
+                  <view class="h5">{{item.explain}}</view>
+              </view>
+          </view>
+          <view class="right">点击选择</view>
+    </view>
+  </view>
+</view>
