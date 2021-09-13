@@ -31,7 +31,10 @@ Page({
 	async getIsShow () {
 		let isActivation = 1;
 		if (JSON.stringify(app.globalData.myEtcList) !== '{}') {
-			isActivation = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && (item.obuCardType === 1 || item.obuCardType === 21)); // 1 已激活  2 恢复订单  5 预激活
+			console.log(app.globalData.myEtcList,'------------------')
+			//以前的老条件(item.obuStatus === 1 || item.obuStatus === 5) && (item.obuCardType === 1 || item.obuCardType === 21)
+			isActivation = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5)); // 1 已激活  2 恢复订单  5 预激活
+			console.log(isActivation,"----------预激活预激活预激活预激活----------")
 		}
 		this.setData({
 			isActivation: isActivation !== -1

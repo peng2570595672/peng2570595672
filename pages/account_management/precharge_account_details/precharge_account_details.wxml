@@ -4,7 +4,7 @@
         <view class="balance">
             <view class="price">{{Wallet}}</view>
             <view class="unit">元</view>
-            <view class="recharge" bindtap="onClickRecharge">充值</view>
+            <view class="recharge" bindtap="onProcessingProgress">充值</view>
         </view>
         <view class="prompt">
             <view wx:if="{{Wallet >= prechargeAmount}}" class="normal">请保持账户余额不低于约定金额{{prechargeAmount}}元，避免影响通行</view>

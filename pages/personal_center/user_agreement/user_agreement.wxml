@@ -11,7 +11,7 @@
 	<view wx:if="{{isTruckActivation}}">
         <view class="title truck">货车</view>
         <view class="list" wx:for="{{truckAgreementList}}" wx:key="index">
-            <view class="item" catchtap="truckAgreementHandle" data-index="{{index}}">
+            <view class="item" catchtap="truckAgreementHandle" data-index="{{item.id}}">
                 <view class="name">{{item.name}}</view>
                 <view class="update" wx:if="{{item.update === 1}}">有更新</view>
             </view>

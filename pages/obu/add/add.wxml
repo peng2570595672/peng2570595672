@@ -1,6 +1,6 @@
 <view>
    <view class="top">当前待圈存金额：</view>
-   <view class="money"><view class="symbol">￥</view>{{changeAmount}}</view>
+   <view class="money"><view class="symbol">￥</view>{{changeAmount/100}}</view>
    <view class="list">
       <view class="h3">账户变动明细</view>
       <view class="step">

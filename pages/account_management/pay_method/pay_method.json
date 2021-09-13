@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
-  "navigationBarTitleText": "选择充值方式"
+  "navigationBarTitleText": "选择充值方式",
+  "usingComponents": {
+    "recharge-prompt": "/components/recharge_prompt/recharge_prompt"
+  }
 }

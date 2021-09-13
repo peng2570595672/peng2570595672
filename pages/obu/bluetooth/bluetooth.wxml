@@ -7,7 +7,7 @@
   <view class="exp2" wx:if="{{state!=3}}">{{errMsg}}...</view>
   <view class="exp" wx:if="{{state==3}}">未找到可连接的设备，<view>请确认手机及OBU设备的蓝牙是否启动</view> </view>
 
-  <button type="primary" wx:if="{{state==3}}"  catchtap="onInIt" class="but">重试</button> 
+  <button type="primary" wx:if="{{state==3}}"  catchtap="onRetry" class="but">重试</button> 
 
 </view>
 

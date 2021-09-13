@@ -109,6 +109,7 @@ page{
   font-family: PingFangSC-Semibold, PingFang SC;
   font-weight: 600;
   color: #000000;
+  vertical-align: middle;
 }
 .price-list  .unit{
   font-size:28rpx;
@@ -118,8 +119,19 @@ page{
   line-height:56rpx;
 }
 .price-list>input{
-  width:130rpx;
+  min-width:136rpx;
+  max-width:136rpx;
   margin:0 20rpx;
-  vertical-align: middle;
+  font-size:60rpx;
+  color: #00B85C;
+  font-weight:bold;
+  display: flex;
+  align-items:flex-end;
+  margin-bottom:10rpx;
+}
+.price-list>input.on{
+  max-width: 236rpx;
+}
+.price-list .phcolor{
   font-size:28rpx;
 }

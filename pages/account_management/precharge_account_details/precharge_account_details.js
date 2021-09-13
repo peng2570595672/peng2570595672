@@ -127,6 +127,7 @@ Page({
 	},
 	// 页面上拉触底事件的处理函数
 	async onReachBottom () {
+		console.log('-------------------页面上拉触底事件的处理函数',this.data.nextpageFlag)
 		if (!this.data.nextpageFlag) return;
 		await this.fetchList();
 	},
@@ -167,8 +168,21 @@ Page({
 			prechargeAmount: result.data.prechargeAmount / 100,
 			list: this.data.list.concat(list)
 		});
-		if (this.data.list.length < result.data.RecCount) this.data.nextpageFlag = 1;
+		console.log(result)
+		console.log(this.data.list.length,'----------------------------------',result.data.total)
+		if (this.data.list.length < result.data.total) this.data.nextpageFlag = 1;
 	},
+		// 充值支付
+	async onProcessingProgress (e) {
+		const id =this.data.orderId
+		util.go(`/pages/account_management/pay_method/pay_method?orderId=${id}`);
+		// const result = await util.getDataFromServersV2('consumer/order/transact-schedule', {
+		// 	orderId: id
+		// });
+		// if (!result) return;
+		// await this.onClickRecharge(id, result.data);
+	},
+	// 充值
 	async onClickRecharge () {
 		util.showLoading('正在获取充值账户信息....');
 		const result = await util.getDataFromServersV2('consumer/order/third/queryProcessInfo', {

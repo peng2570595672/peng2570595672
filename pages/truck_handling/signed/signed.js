@@ -18,7 +18,7 @@ Page({
     value6:"",
     identifyingCode: '获取验证码',
     time: 59,// 倒计时
-    plateNumber:"",
+    truckLicensePlate:"",
     phone:"",
     isRequest:false,
     isGetIdentifyingCoding:1,
@@ -28,7 +28,8 @@ Page({
     console.log(app.globalData.userInfo.mobilePhone,'==============================')
     console.log(app.globalData.userInfo,'=============================')
     this.setData({
-      phone:app.globalData.userInfo.mobilePhone
+      phone:app.globalData.userInfo.mobilePhone,
+      truckLicensePlate:app.globalData.truckLicensePlate
     })
     
   },
@@ -107,12 +108,11 @@ Page({
  async getCode(){
       this.startTimer()
       let params = {
-        phone:app.globalData.userInfo.mobilePhone,
-        debug:true
+        phone:"13086459294",//app.globalData.userInfo.mobilePhone,
+        orderId:app.globalData.orderInfo.orderId
       }
       const result = await util.getDataFromServersV2('/consumer/order/submitETCTradeDepositContract', params);
-      console.log(result,'==============================')
-      //const result = await util.getDataFromServersV2('/consumer/order/confirmETCTradeDepositContract', {smsCode:smsCode});
+      console.log(result,'-----------------')
   },
  //贵州工行通行费签约短信超时重发
  async onResubmitETCTradeDepositContract(){
@@ -128,9 +128,10 @@ Page({
     this.setData({isRequest:true});
     let smsCode=this.data.value1.toString()+this.data.value2.toString()+this.data.value3.toString()+this.data.value4.toString()+this.data.value6.toString();
     let params = {
-			smsCode:smsCode
+      smsCode:smsCode,
+      orderId:app.globalData.orderInfo.orderId
     }
-		const result = await util.getDataFromServersV2('/consumer/order/submitETCTradeDepositContract', params);
+		const result = await util.getDataFromServersV2('/consumer/order/confirmETCTradeDepositContract', params);
     //util.go('/pages/default/processing_progress/processing_progress?type=main_process');
   }
 })

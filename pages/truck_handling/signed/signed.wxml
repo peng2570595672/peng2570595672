@@ -1,6 +1,6 @@
 <view class="pages">
   <view class="h3">请进行短信验证</view>
-  <view class="h4"> 完成{{plateNumber}}的代扣绑定</view>
+  <view class="h4"> 完成{{truckLicensePlate}}的代扣绑定</view>
   <view class="h5">短信验证码将下发至{{phone}}</view>
  
   <view class="code">

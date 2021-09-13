@@ -3,7 +3,7 @@
     <view class="h3">请输入充值金额（元）</view>
     <view class="price-list">
         <view class="price">￥</view>
-        <input type="number" placeholder="点击输入" bindinput="onInputChangedHandle" value="{{amount}}"/>
+        <input type="text" placeholder="点击输入" class="{{amount.length>=4 ? 'on':''}}" bindinput="onInputChangedHandle" placeholder-class="phcolor" value="{{amount}}"/>
         <view class="unit">元</view>
     </view>
   </view>
@@ -21,4 +21,5 @@
           <view class="right">点击选择</view>
     </view>
   </view>
+  <recharge-prompt id="rechargePrompt" info="{{prechargeInfo}}"></recharge-prompt>
 </view>

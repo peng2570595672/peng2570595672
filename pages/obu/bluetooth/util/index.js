@@ -264,7 +264,8 @@ const connectDevice=function(foundDevices,callback){
  * 蓝牙连接成功
  */
 const connectSuccess=function(res,callback){
-  if (res.code == 0) {
+  console.log(res,'================蓝牙连接成功======================')
+  if (res.code == 0 || res.code== 10004) {
     console.log(res,'连接成功')
     this.BluetoothInfo.state=2;
   }else{
@@ -280,6 +281,7 @@ const connectSuccess=function(res,callback){
   const listenStatus=function(res){
     if (res.code == 0) {
       this.BluetoothInfo.state=2;
+      console.log(this.BluetoothInfo.state,'---------监听蓝牙状态--------------')
     }else{
       this.BluetoothInfo.state=3;
       this.BluetoothInfo.connectPrefixName="";
@@ -513,7 +515,7 @@ const transCmd=function(cmdArr, type, func) {
    * 车例信息
    * @cmdArr [] 指令信息
    */
- const gitVehicleInfo=function(cmdArr,func){
+ const getVehicleInfo=function(cmdArr,func){
     this.transCmd(cmdArr,'10',res=>{
       let vehicleStr=res[2];
       let vehiclePlates=vehicleStr.substring(56,80);
@@ -525,7 +527,7 @@ const transCmd=function(cmdArr, type, func) {
    * 获取OUB号20
    * @cmdArr ["00B0950000"]
    */
-  const gitObuId=function(cmdArr,func){
+  const getObuId=function(cmdArr,func){
     this.transCmd(cmdArr,20,res=>{
       let obuStr=res[0];
       if(obuStr== undefined || obuStr=="undefined" || obuStr=="" || obuStr== null){
@@ -548,7 +550,7 @@ const transCmd=function(cmdArr, type, func) {
    * 获取卡号是10
    * @cmdArr ["00A40000023F00"]
    */
-  const gitCardId=function(cmdArr,func){
+  const getCardId=function(cmdArr,func){
     this.transCmd(cmdArr,10,res=>{
       let cardStr=res[0];
       if(cardStr== undefined || cardStr=="undefined" || cardStr=="" || cardStr== null){
@@ -567,6 +569,52 @@ const transCmd=function(cmdArr, type, func) {
     })
  }
 
+ /***
+  * 圈存初始化指令结果
+  */
+ const getCosResponse=function(cmdArr,func){
+   console.log(cmdArr,'----------------')
+   //let cosResponse=[];
+  //  //代码需要优化
+  //  this.transCmd([cmdArr[0]],10,res=>{
+  //   console.log(res,'---------------------------------最后结果=====圈存初始化指令结果==========')
+  //     cosResponse.push(res);
+  //     this.transCmd([cmdArr[1]],10,res1=>{
+  //       console.log(res,'---------------------------------最后结果=====圈存初始化指令结果==========')
+  //         cosResponse.push(res);
+  //         this.transCmd([cmdArr[2]],10,res3=>{
+  //           console.log(res,'---------------------------------最后结果=====圈存初始化指令结果==========')
+  //             cosResponse.push(res);
+  //             this.transCmd([cmdArr[3]],10,res4=>{
+  //               console.log(res,'---------------------------------最后结果=====圈存初始化指令结果==========')
+  //                 cosResponse.push(res);
+  //                 this.transCmd([cmdArr[4]],10,res5=>{
+  //                   console.log(res,'---------------------------------最后结果=====圈存初始化指令结果==========')
+  //                     cosResponse.push(res);
+  //                     console.log(cosResponse,'最后结果===============')
+  //                     cosResponse.join(",")
+  //                     return func(cosResponse);
+  //                   })
+  //               })
+  //           })
+  //       })
+  //   })
+    
+    var len=cmdArr.length;
+    let cosResponse=[];
+    function getResult(i){ //外层
+      if(i<len){
+        console.log(i)
+        this.transCmd([cmdArr[i]],10,res=>{
+          cosResponse.push(res)
+          i++
+          getResult(i)
+        })
+      }
+    }
+    getResult(0);
+   return func(cosResponse);
+ }
 
 /**
  * 提示加关蓝牙
@@ -596,9 +644,10 @@ const Bluetooth = {
   transCmd:transCmd,
   alertF:alertF,
   BluetoothInfo:BluetoothInfo,
-  gitVehicleInfo:gitVehicleInfo,
-  gitObuId:gitObuId,
-  gitCardId:gitCardId
+  getVehicleInfo:getVehicleInfo,
+  getObuId:getObuId,
+  getCardId:getCardId,
+  getCosResponse:getCosResponse
 }
 
 module.exports = Bluetooth;

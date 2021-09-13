@@ -8,11 +8,11 @@ Page({
 		isFree: false,
 		carAgreementList: [],
 		truckAgreementList: [
-			{name: '货车办理协议', update: 0},
-			{name: '黔通卡ETC用户协议', update: 0},
-			{name: '隐私协议', update: 0},
-			{name: '保理协议', update: 0},
-			{name: '个人征信授权书', update: 0}
+			{name: '货车办理协议', update: 0,id:0},
+			{name: '黔通卡ETC用户协议', update: 0,id:1},
+			{name: '隐私协议', update: 0,id:2},
+			{name: '保理协议', update: 0,id:3},
+			{name: '个人征信授权书', update: 0,id:4}
 		]
 	},
 	async onLoad () {
@@ -42,8 +42,20 @@ Page({
 			}
 		});
 		let isTruckActivation = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 1); //  货车已激活
+		let isObuCardType = app.globalData.myEtcList.findIndex(item => (item.obuCardType === 1 || item.obuCardType === 21)); //卡类型
+   console.log(isObuCardType,'==============================卡类型==========================================',isTruckActivation)
+	 if(isObuCardType){
+	 let 	truckAgreementList=[
+		    {name: '货车办理协议', update: 0,id:0},
+				{name: '隐私协议', update: 0,id:2},
+	   	]
+			this.setData({
+				truckAgreementList:truckAgreementList
+			})
+  }
 		this.setData({
 			isPassengerCarActivation,
+			isObuCardType:isObuCardType,
 			isTruckActivation: isTruckActivation !== -1,
 			isQTAttribute,
 			isNotQTAttribute,
@@ -59,6 +71,14 @@ Page({
 				{name: '黔通卡ETC用户协议', update: 0, url: 'agreement_for_qiantong_to_charge/agreement', isShow: isQTAttribute},
 				{name: '隐私协议', update: 0, url: 'privacy_agreement/privacy_agreement', isShow: true}
 			];
+     console.log(isObuCardType,'=============================')
+			if(isObuCardType){
+		      carAgreementList=[
+						{name: '用户办理协议', update: 0, url: 'agreement/agreement', isShow: isNotQTNotAttribute || isNotQTAttribute},
+						{name: '用户办理协议', update: 0, url: 'free_equipment_agreement/free_equipment_agreement', isShow: isQTNotAttribute},
+						{name: '隐私协议', update: 0, url: 'privacy_agreement/privacy_agreement', isShow: true}
+					]
+			}
 			carAgreementList = carAgreementList.filter(item => item.isShow === true);
 			let arr = [
 				{name: '用户办理协议', count: 0},

@@ -96,11 +96,12 @@ Page({
 	// 获取办理进度
 	async getProcessingProgress (e) {
 		const id = e.currentTarget.dataset.id;
-		const result = await util.getDataFromServersV2('consumer/order/transact-schedule', {
-			orderId: id
-		});
-		if (!result) return;
-		await this.onClickRecharge(id, result.data);
+		util.go(`/pages/account_management/pay_method/pay_method?orderId=${id}`);
+		// const result = await util.getDataFromServersV2('consumer/order/transact-schedule', {
+		// 	orderId: id
+		// });
+		// if (!result) return;
+		// await this.onClickRecharge(id, result.data);
 	},
 	async onClickRecharge (id, info) {
 		util.showLoading('正在获取充值账户信息....');
