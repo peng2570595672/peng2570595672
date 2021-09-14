@@ -8,11 +8,11 @@ Page({
 		isFree: false,
 		carAgreementList: [],
 		truckAgreementList: [
-			{name: '货车办理协议', update: 0,id:0},
-			{name: '黔通卡ETC用户协议', update: 0,id:1},
-			{name: '隐私协议', update: 0,id:2},
-			{name: '保理协议', update: 0,id:3},
-			{name: '个人征信授权书', update: 0,id:4}
+			{id:0,name: '货车办理协议', update: 0,},
+			{id:1,name: '黔通卡ETC用户协议', update: 0},
+			{id:2,name: '隐私协议', update: 0},
+			{id:3,name: '保理协议', update: 0},
+			{id:4,name: '个人征信授权书', update: 0}
 		]
 	},
 	async onLoad () {
@@ -38,16 +38,22 @@ Page({
 					} else {
 						isNotQTNotAttribute = true;
 					}
+				}else{
+					if (item.obuCardType === 1) {
+						isQTNotAttribute = true;
+					} else {
+						isNotQTNotAttribute = true;
+					}
 				}
 			}
 		});
 		let isTruckActivation = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 1); //  货车已激活
 		let isObuCardType = app.globalData.myEtcList.findIndex(item => (item.obuCardType === 1 || item.obuCardType === 21)); //卡类型
    console.log(isObuCardType,'==============================卡类型==========================================',isTruckActivation)
-	 if(isObuCardType){
+	 if(isObuCardType){ //其他卡
 	 let 	truckAgreementList=[
-		    {name: '货车办理协议', update: 0,id:0},
-				{name: '隐私协议', update: 0,id:2},
+		    {id:0,name: '货车办理协议', update: 0},
+				{id:2,name: '隐私协议', update: 0},
 	   	]
 			this.setData({
 				truckAgreementList:truckAgreementList
@@ -64,22 +70,23 @@ Page({
 		});
 		if (isPassengerCarActivation) {
 			let carAgreementList = [
-				{name: '用户办理协议', update: 0, url: 'agreement/agreement', isShow: isNotQTNotAttribute || isNotQTAttribute},
-				{name: '用户办理协议', update: 0, url: 'free_equipment_agreement/free_equipment_agreement', isShow: isQTNotAttribute},
-				{name: '用户办理协议', update: 0, url: 'self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement', isShow: isQTAttribute},
-				{name: '黔通卡ETC用户协议', update: 0, url: 'agreement_for_qiantong_to_free/agreement', isShow: isQTNotAttribute},
-				{name: '黔通卡ETC用户协议', update: 0, url: 'agreement_for_qiantong_to_charge/agreement', isShow: isQTAttribute},
-				{name: '隐私协议', update: 0, url: 'privacy_agreement/privacy_agreement', isShow: true}
+				{id:0,name: '用户办理协议', update: 0, url: 'agreement/agreement', isShow: isNotQTNotAttribute || isNotQTAttribute},
+				{id:1,name: '用户办理协议', update: 0, url: 'free_equipment_agreement/free_equipment_agreement', isShow: isQTNotAttribute},
+				{id:2,name: '用户办理协议', update: 0, url: 'self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement', isShow: isQTAttribute},
+				{id:3,name: '黔通卡ETC用户协议', update: 0, url: 'agreement_for_qiantong_to_free/agreement', isShow: isQTNotAttribute},
+				{id:4,name: '黔通卡ETC用户协议', update: 0, url: 'agreement_for_qiantong_to_charge/agreement', isShow: isQTAttribute},
+				{id:5,name: '隐私协议', update: 0, url: 'privacy_agreement/privacy_agreement', isShow: true}
 			];
      console.log(isObuCardType,'=============================')
-			if(isObuCardType){
+			if(isObuCardType){ //其他卡不是黔通
 		      carAgreementList=[
-						{name: '用户办理协议', update: 0, url: 'agreement/agreement', isShow: isNotQTNotAttribute || isNotQTAttribute},
-						{name: '用户办理协议', update: 0, url: 'free_equipment_agreement/free_equipment_agreement', isShow: isQTNotAttribute},
-						{name: '隐私协议', update: 0, url: 'privacy_agreement/privacy_agreement', isShow: true}
+						{id:0,name: '用户办理协议', update: 0, url: 'agreement/agreement', isShow: isNotQTNotAttribute || isNotQTAttribute},
+						{id:1,name: '用户办理协议', update: 0, url: 'free_equipment_agreement/free_equipment_agreement', isShow: isQTNotAttribute},
+						{id:5,name: '隐私协议', update: 0, url: 'privacy_agreement/privacy_agreement', isShow: true}
 					]
 			}
 			carAgreementList = carAgreementList.filter(item => item.isShow === true);
+
 			let arr = [
 				{name: '用户办理协议', count: 0},
 				{name: '黔通卡ETC用户协议', count: 0}
@@ -111,13 +118,14 @@ Page({
 	},
 	// 客车协议
 	carAgreementHandle (e) {
-		let index = e.currentTarget.dataset.index;
-		const path = this.data.carAgreementList[index].url;
+		let itme = e.currentTarget.dataset.index;
+		const path = itme.url;
 		util.go(`/pages/${path.includes('qiantong') ? 'truck_handling' : 'default'}/${path}`);
 	},
 	// 货车协议
 	truckAgreementHandle (e) {
-		let index = e.currentTarget.dataset.index;
+		let itme = e.currentTarget.dataset.index;
+		let index = itme.id
 		switch (index) {
 			case 0:
 				// 办理协议

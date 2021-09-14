@@ -574,32 +574,6 @@ const transCmd=function(cmdArr, type, func) {
   */
  const getCosResponse=function(cmdArr,func){
    console.log(cmdArr,'----------------')
-   //let cosResponse=[];
-  //  //代码需要优化
-  //  this.transCmd([cmdArr[0]],10,res=>{
-  //   console.log(res,'---------------------------------最后结果=====圈存初始化指令结果==========')
-  //     cosResponse.push(res);
-  //     this.transCmd([cmdArr[1]],10,res1=>{
-  //       console.log(res,'---------------------------------最后结果=====圈存初始化指令结果==========')
-  //         cosResponse.push(res);
-  //         this.transCmd([cmdArr[2]],10,res3=>{
-  //           console.log(res,'---------------------------------最后结果=====圈存初始化指令结果==========')
-  //             cosResponse.push(res);
-  //             this.transCmd([cmdArr[3]],10,res4=>{
-  //               console.log(res,'---------------------------------最后结果=====圈存初始化指令结果==========')
-  //                 cosResponse.push(res);
-  //                 this.transCmd([cmdArr[4]],10,res5=>{
-  //                   console.log(res,'---------------------------------最后结果=====圈存初始化指令结果==========')
-  //                     cosResponse.push(res);
-  //                     console.log(cosResponse,'最后结果===============')
-  //                     cosResponse.join(",")
-  //                     return func(cosResponse);
-  //                   })
-  //               })
-  //           })
-  //       })
-  //   })
-    
     var len=cmdArr.length;
     let cosResponse=[];
     function getResult(i){ //外层

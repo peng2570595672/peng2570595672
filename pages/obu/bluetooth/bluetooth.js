@@ -26,9 +26,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.onReady()
+    this.onStart()
   },
-  onReady(){
+  onStart(){
       timer=setInterval(()=>{
         console.log(Bluetooth.BluetoothInfo.state,'------------当前状态-----------------')
         this.setData({
@@ -38,7 +38,7 @@ Page({
     isGetOBU=setInterval(()=>{ //处理获取卡号请求指令
       console.log("获取卡号请求指令000000000000000000000000000000")
       if(Bluetooth.BluetoothInfo.state==2) this.onGetOBU();
-    },10000)
+    },12000)
     this.onInIt();//连接蓝牙
   },
   onUnload(){
@@ -49,7 +49,7 @@ Page({
   onRetry(){
     clearInterval(timer); //清调请求
     clearInterval(isGetOBU);
-    this.onReady();
+    this.onStart();
   },
   onInIt(){ //开始蓝牙连接处理
      Bluetooth.BluetoothInfo.state==1;

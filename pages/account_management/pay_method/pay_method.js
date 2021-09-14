@@ -38,7 +38,7 @@ Page({
   onClickPay(event){
     let e=event.currentTarget.dataset.id;
     if(!this.data.amount){
-      util.showToastNoIcon('请填写需要充直金额');
+      util.showToastNoIcon('请填写需要充值金额');
       return false
     }
     if(e.state==0){
