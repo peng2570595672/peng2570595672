@@ -1,0 +1,53 @@
+<view>
+  <view class="top">
+      <view class="left">
+        <input class="search" auto-focus placeholder="搜索地址" bindinput="onSearch"  placeholder-class="input-placeholder" />
+        <view class="iconfont iconweizhangchaxun1"></view>
+      </view>
+      <view class="right">
+          <view>指导价 </view> 
+          <view>98# ¥6.95/升</view>
+      </view>
+  </view>
+ <view class="table">
+   <view class="left"  catchtap="onGetUrl" data-url="/pages/ejiayou/order/order"><text class="iconfont icondingdan"></text>我的加油订单</view>
+   <view class="right" catchtap="onGetUrl" data-url="/pages/ejiayou/ticket/ticket"><text class="iconfont iconkefu1"></text>我的加油券</view>
+ </view>
+
+ <view class="head">
+          <view catchtap="onShowTable" data-id="0">{{distance}}<text class="iconfont iconsanjiaoxing"></text></view>
+          <view catchtap="onShowTable" data-id="1">{{oilCode}}<text class="iconfont iconsanjiaoxing"></text></view>
+          <view catchtap="onShowTable" data-id="2">{{stationTypeName}}<text class="iconfont iconsanjiaoxing"></text></view>
+</view>
+
+<view class="tablist" wx:if="{{isShow}}" catchtap="onHideTable">
+      <view class="item" wx:if="{{isShowID==0}}" catchtap="onTableInde" data-id="0" data-name="{{item}}" wx:for="{{navData}}" wx:key="key">{{item.title}}</view>
+      <view class="item" wx:if="{{isShowID==1}}" catchtap="onTableInde" data-id="1" data-name="{{item}}" wx:for="{{navData2}}" wx:key="key">{{item}}</view>
+      <view class="item" wx:if="{{isShowID==2}}" catchtap="onTableInde" data-id="2" data-name="{{item}}" wx:for="{{navData3}}" wx:key="key">{{item.title}}</view>
+ </view>
+
+ <scroll-view scroll-y class="box" bindscrolltolower="onScrolltolower">
+    <view class="loding" wx:if="{{!total}}">
+    <image src="/pages/default/assets/icon_camera.png" class="img"></image>
+    正在加载中..</view>
+     <view wx:if="{{total}}" class="list" wx:for="{{list}}" wx:key="key">
+        <view class="title">
+         <view class="title-text">{{item.stationName}}</view>
+         <view class="title-nav" catchtap="onNavigation">{{item.distance/1000}}km｜<text class="iconfont iconfasong"></text> 导航</view>
+        </view>
+        <view class="addstr">{{item.location}}</view>
+        <view class="describe">
+            <view class="price">￥{{item.stationPrice/100}}</view> 
+            <view class="unit">/升/92#</view>
+            <view class="del">¥{{item.countryPrice/100}}</view>
+        </view>
+        <view class="ticket" wx:if="{{item.titleWithinIcon}}">
+         <view class="explain">{{item.titleWithinIcon}}</view>
+         <view class="content">{{item.titleAfterIcon}}</view>
+        </view>
+        <view class="but" catchtap="onWebView" data-id="{{item}}">去加油</view>
+     </view>
+     <view wx:if="{{total!=0 && list.length>=total}}" class="bottom">~~到底了，真滑不动了~~</view>
+ </scroll-view>
+
+</view>

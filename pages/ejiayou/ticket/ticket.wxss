@@ -1,0 +1,4 @@
+.error{position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);width:100%;text-align: center;color: #d5d5d5;}
+.error .text{font-size: 28rpx;}
+.error .icondiushi{font-size: 80rpx;display:block;margin:20rpx auto;}
+.error .icondiushi:before {content: "\e627";}

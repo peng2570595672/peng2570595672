@@ -48,7 +48,7 @@
                     <view wx:if="{{prechargeInfo.bankCardNum}}">
                         <view class="content-des">您的车辆已通过审核，需预存<text class="precharge">{{prechargeInfo.prechargeAmount/100}}</text>元。</view>
                         <!--                    线下订单 且 审核通过 且未完成首次预充  prompt-->
-                        <view class="handle-the-way" catchtap="onClickPrechargeWay" data-type="1" wx:if="{{false}}">
+                        <view class="handle-the-way" catchtap="onClickPrechargeWay" data-type="1" wx:if="{{true}}">
                             <image src="/pages/default/assets/wechat.svg"/>
                             <view class="name">
                                 <view class="top">在线充值</view>
@@ -98,7 +98,7 @@
                     <view wx:if="{{prechargeInfo.bankCardNum}}">
                         <view class="content-des">您的车辆已通过审核，需预存<text class="precharge">{{prechargeInfo.prechargeAmount/100}}</text>元。</view>
                         <!--                    线下订单 且 审核通过 且未完成首次预充  prompt-->
-                        <view class="handle-the-way" catchtap="onClickPrechargeWay" data-type="1" wx:if="{{false}}">
+                        <view class="handle-the-way" catchtap="onClickPrechargeWay" data-type="1" wx:if="{{true}}">
                             <image src="/pages/default/assets/wechat.svg"/>
                             <view class="name">
                                 <view class="top">在线充值</view>

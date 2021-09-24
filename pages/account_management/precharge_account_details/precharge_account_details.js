@@ -14,7 +14,7 @@ Page({
 		billInfo: {},
 		beginDate: undefined,
 		endDate: undefined,
-		nextpageFlag: 0,// 是否向下翻页
+		nextpageFlag:false,// 是否向下翻页
 		currentMonth: 0,// 当前月份
 		list: [],
 		page: 0,
@@ -128,7 +128,7 @@ Page({
 	// 页面上拉触底事件的处理函数
 	async onReachBottom () {
 		console.log('-------------------页面上拉触底事件的处理函数',this.data.nextpageFlag)
-		if (!this.data.nextpageFlag) return;
+		if (this.data.nextpageFlag) return;
 		await this.fetchList();
 	},
 	async onPullDownRefresh () {
@@ -149,7 +149,7 @@ Page({
 			orderId: this.data.orderId,
 			startTime: this.data.beginDate,
 			endTime: this.data.endDate,
-			curPage: this.data.page,
+			page: this.data.page,
 			pageSize: 10
 		};
 		const result = await util.getDataFromServersV2('consumer/order/third/queryWallet', params);
@@ -168,9 +168,8 @@ Page({
 			prechargeAmount: result.data.prechargeAmount / 100,
 			list: this.data.list.concat(list)
 		});
-		console.log(result)
 		console.log(this.data.list.length,'----------------------------------',result.data.total)
-		if (this.data.list.length < result.data.total) this.data.nextpageFlag = 1;
+		if (this.data.list.length >= result.data.total)	this.setData({nextpageFlag:true})
 	},
 		// 充值支付
 	async onProcessingProgress (e) {

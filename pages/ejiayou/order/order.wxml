@@ -1,0 +1,23 @@
+<view>
+  <view class="list" wx:for="{{orderList}}" wx:key="key">
+        <view class="box">
+          <view class="logo">
+           <image src="{{item.stationPic}}" class="img"/>
+          </view>
+          <view class="title">
+            <view class="h3">{{item.stationName}}</view>
+            <view class="h4">订单号：{{item.orderId}}</view>
+            <view class="h4">{{item.payTime}}</view>
+          </view>
+          <view class="price">
+            <view class="pay-state">{{item.orderStareString}}</view> 
+             <view class="pay-price">{{item.orderSum}}</view>
+          </view>
+        </view>
+        <view class="bottom" wx:if="{{item.orderState!=4}}">
+          <view class="but" wx:if="{{item.orderState==2}}" catchtap="onRefund">退款</view>
+          <view class="but-on" wx:if="{{item.orderState==3}}">退款审核中</view>
+        </view>
+     </view>
+  <view class="service">如有疑问，请联系易加油客服<text class="phone" catchtap="getPhone">4008396555</text></view>
+</view>

@@ -117,6 +117,7 @@ Page({
 	// 选择预充方式
 	onClickPrechargeWay (e) {
 		const type = +e.currentTarget.dataset.type;
+		if(type === 1) util.go(`/pages/account_management/pay_method/pay_method?orderId=${this.data.orderId}`);
 		if (type === 2) this.selectComponent('#rechargePrompt').show();
 	},
 	// 获取预充结果

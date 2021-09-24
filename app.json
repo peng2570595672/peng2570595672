@@ -232,6 +232,16 @@
       "pages": [
         "web/web"
       ]
+    },
+    {
+      "root": "pages/ejiayou",
+      "name": "pages/ejiayou",
+      "pages": [
+        "index/index",
+        "order/order",
+        "ticket/ticket",
+        "webview/webview"
+      ]
     }
   ],
   "functionalPages": {

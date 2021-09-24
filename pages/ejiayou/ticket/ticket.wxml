@@ -1,0 +1,5 @@
+
+<view class="error">
+  <view class="iconfont icondiushi"></view>
+  <view>你的券包空荡荡</view>
+</view>

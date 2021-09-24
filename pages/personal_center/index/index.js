@@ -25,7 +25,7 @@ Page({
 		hasCoupon: false, // 是否显示领券中心
 		isActivityDate: false, // 是否活动期间
 		canIUseGetUserProfile: false,
-		isPrechargeOrder: false // 是否有预充流程 & 已审核通过订单
+		isPrechargeOrder: true // 是否有预充流程 & 已审核通过订单
 	},
 	onLoad (options) {
 		if (wx.getUserProfile) {
@@ -222,6 +222,7 @@ Page({
 	},
 	// 获取订单信息
 	async getStatus () {
+		console.log("<==================================================获取订单信息")
 		let params = {
 			openId: app.globalData.openId
 		};
@@ -237,7 +238,7 @@ Page({
 		let isActivation = app.globalData.myEtcList.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && (item.obuCardType === 1 || item.obuCardType === 21)); // 1 已激活  2 恢复订单  5 预激活
 		let isNewOrder = app.globalData.myEtcList.findIndex(item => compareDate(item.addTime, '2021-07-14') === true); // 当前用户有办理订单且订单创建日期在2021年7月13日前（含7月13日）
 		let isShowFeatureService = app.globalData.myEtcList.findIndex(item => item.isShowFeatureService === 1 && (item.obuStatus === 1 || item.obuStatus === 5)); // 是否有特色服务
-		let isPrechargeOrder = app.globalData.myEtcList.findIndex(item => item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
+		let isPrechargeOrder = app.globalData.myEtcList.findIndex(item =>item.flowVersion === 6 && item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
 		this.setData({
 			isShowNotice: !!app.globalData.myEtcList.length,
 			isShowFeatureService: isShowFeatureService !== -1,
