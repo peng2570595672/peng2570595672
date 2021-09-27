@@ -1,14 +1,15 @@
 <view>
   <view class="top">
       <view class="left">
-        <input class="search" auto-focus placeholder="搜索地址" bindinput="onSearch"  placeholder-class="input-placeholder" />
+        <input class="search"  placeholder="搜索地址" bindinput="onSearch"  placeholder-class="input-placeholder" />
         <view class="iconfont iconweizhangchaxun1"></view>
       </view>
       <view class="right">
           <view>指导价 </view> 
-          <view>98# ¥6.95/升</view>
+          <view>98# ¥{{todayCountryPrice/100}}/升</view>
       </view>
   </view>
+  <image class="advertising"  mode="widthFix"  src="https://file.cyzl.com/g001/M07/64/1C/oYYBAGFRbwyAAanzAAEigVQNvvI134.png"></image>
  <view class="table">
    <view class="left"  catchtap="onGetUrl" data-url="/pages/ejiayou/order/order"><text class="iconfont icondingdan"></text>我的加油订单</view>
    <view class="right" catchtap="onGetUrl" data-url="/pages/ejiayou/ticket/ticket"><text class="iconfont iconkefu1"></text>我的加油券</view>

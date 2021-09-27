@@ -34,7 +34,7 @@ const openBluetoothAdapter=function(callback){
           title:res.errMsg,
           icon:"none"
         })
-        this.BluetoothInfo.state=3;
+        this.listenStatus(res)
       }
     })
 }
@@ -71,9 +71,8 @@ const onBluetoothDeviceFound=function(callback){
   console.log("===================开始监听====================")
   scanTimeout = setTimeout(()=>{
     wx.closeBluetoothAdapter();
-    this.alertF('扫描蓝牙超时，未找到设备，请打开设备蓝牙')
-    this.BluetoothInfo.state=3;
-    this.BluetoothInfo.connectPrefixName="";
+   let res= {code:10320, msg: "扫描蓝牙超时，未找到设备，请打开设备蓝牙"}
+    this.listenStatus(res)
     console.log('scan timeout');
    }, 15000);
   //  wx.showLoading({
@@ -159,10 +158,7 @@ const onBluetoothDeviceFound=function(callback){
             }
           }
        if(foundDevices.length > 0){
-         // wx.hideLoading();//连接上了
-          this.BluetoothInfo.state=2; //连接上
-          console.log(foundDevices,"----------------------------------------------连接上了-------------------------------------------------------------------------------")
-          this.connectDevice(foundDevices[0],res=>{
+         this.connectDevice(foundDevices[0],res=>{
             return callback(res); 
           })
        }  
@@ -175,62 +171,104 @@ const onBluetoothDeviceFound=function(callback){
 const connectDevice=function(foundDevices,callback){
   let device=foundDevices
   this.BluetoothInfo.connectPrefixName=foundDevices.prefixName;
+  this.BluetoothInfo.state=2;
   wx.stopBluetoothDevicesDiscovery({
      success: (res) => {
       switch (foundDevices.prefixName) {
         case 'WJ':
           wjApi.connectDevice(device,(res)=>{
-            this.connectSuccess(res)
+            console.log(res,'--------------------连接蓝牙')
+            if (res.code == 0) {
+              this.BluetoothInfo.state=2
+              return callback(this.BluetoothInfo.state)
+            } else {
+              this.listenStatus(res);
+            }
           }, (res)=> {
-            this.listenStatus(res);
+             this.listenStatus(res);
           });
           break;
         case 'JL':
           jlApi.connectDevice(device,(res)=>{
-            this.connectSuccess(res)
+            if (res.code == 0) {
+              this.BluetoothInfo.state=2
+              return callback(this.BluetoothInfo.state)
+            } else {
+              this.listenStatus(res);
+            }
           },(res)=>{
             this.listenStatus(res);
           });
           break;
         case 'ETC':
           jlQZApi.connectDevice(device,(res)=>{
-            //this.connectSuccess(res)
-           this.preDevice(res);
+            if (res.code == 0) {
+              this.BluetoothInfo.state=2
+              return callback(this.BluetoothInfo.state)
+            } else {
+              this.listenStatus(res);
+            }
           },(res)=>{
             this.listenStatus(res);
           });
           break;
         case 'JY':
           jyApi.connectDevice(device,(res)=>{
-            this.connectSuccess(res)
+            if (res.code == 0) {
+              this.BluetoothInfo.state=2
+              return callback(this.BluetoothInfo.state)
+            } else {
+              this.listenStatus(res);
+            }
           },(res)=>{
+            console.log(res,'--------------------连接蓝牙')
             this.listenStatus(res);
           });
           break;
         case 'AT':
           atApi.connectDevice(device,(res)=>{
-            this.connectSuccess(res)
+            if (res.code == 0) {
+              this.BluetoothInfo.state=2
+              return callback(this.BluetoothInfo.state)
+            } else {
+              this.listenStatus(res);
+            }
           },(res)=>{
             this.listenStatus(res);
           });
           break;
         case 'JT':
           jtApi.connectDevice(device,(res)=>{
-            this.connectSuccess(res)
+            if (res.code == 0) {
+              this.BluetoothInfo.state=2
+              return callback(this.BluetoothInfo.state)
+            } else {
+              this.listenStatus(res);
+            }
           },(res)=>{
             this.listenStatus(res);
           });
           break;
         case 'WQ':
           wqApi.connectDevice(device,(res)=>{
-            this.connectSuccess(res)
+            if (res.code == 0) {
+              this.BluetoothInfo.state=2
+              return callback(this.BluetoothInfo.state)
+            } else {
+              this.listenStatus(res);
+            }
           },(res)=>{
             this.listenStatus(res);
           });
           break;
         case 'CG':
           cgApi.connectDevice(device,(res)=>{
-            this.connectSuccess(res)
+            if (res.code == 0) {
+              this.BluetoothInfo.state=2
+              return callback(this.BluetoothInfo.state)
+            } else {
+              this.listenStatus(res);
+            }
           },(res)=>{
             this.listenStatus(res);
           });
@@ -238,64 +276,57 @@ const connectDevice=function(foundDevices,callback){
 
         case 'TD':
           tdApi.connectDevice(device, (res) =>{
-            this.connectSuccess(res)
+            if (res.code == 0) {
+              this.BluetoothInfo.state=2
+              return callback(this.BluetoothInfo.state)
+            } else {
+               this.alertF(res.msg);
+            }
           }, (res)=> {
             this.listenStatus(res);
           });
           break;
-
         case 'ZZ':
           zzApi.connectDevice(device, (res)=>{
-            this.connectSuccess(res)
+            if (res.code == 0) {
+              this.BluetoothInfo.state=2
+              return callback(this.BluetoothInfo.state)
+            } else {
+              this.listenStatus(res);
+            }
           }, (res)=> {
             this.listenStatus(res);
           });
           break;
         default:
-          console.log('未找到设备, 请重新搜索---------')
-          this.BluetoothInfo.state=3; //未找到设备, 请重新搜索
-          this.BluetoothInfo.connectPrefixName="";
+          this.listenStatus(res)
           break;
       }
-      return callback(this.BluetoothInfo.state)
      },
      fail:(res)=>{
-        console.log(res);
-        this.BluetoothInfo.state=3;
-        this.BluetoothInfo.connectPrefixName="";
+       console.log(res,'--------------------连接蓝牙')
+        this.BluetoothInfo.state=3
         return callback(this.BluetoothInfo.state) //未找到设备, 请重新搜索
      }
    })
 }
 
-/***
- * 蓝牙连接成功
- */
-const connectSuccess=function(res){
-  console.log(res,'================蓝牙连接成功======================')
-  if (res.code == 0) {
-    console.log(res,'连接成功')
-    this.BluetoothInfo.state=2;
-  }else{
-    this.BluetoothInfo.state=3;
-    this.BluetoothInfo.connectPrefixName="";
-    this.disconnectDevice();//断开蓝牙
-    this.alertF(res.msg);
-  }
-}
 
 /**
    * 监听蓝牙状态
    */
   const listenStatus=function(res){
-    console.log('时时监听蓝牙状态func2');
-    console.log(res)
+    console.log(res,"---------------监听蓝牙状态------------------")
     if (res.code == 0) {
       this.BluetoothInfo.state=2;
+    }else if(res.code == 10320){
+      console.log("扫描蓝牙超时，未找到设备，请打开设备蓝牙")
+      this.alertF(res.msg)
+      this.BluetoothInfo.state=3;
     }else{
-        this.BluetoothInfo.state=3;
+       this.BluetoothInfo.state=3;
+       this.BluetoothInfo.connectPrefixName=""
         this.disconnectDevice();//断开蓝牙
-        this.alertF('蓝牙已断开')
     }
   }
 
@@ -306,66 +337,66 @@ const connectSuccess=function(res){
  */
 const disconnectDevice=function(){
   let connectPrefixName=this.BluetoothInfo.connectPrefixName;
-  console.log(connectPrefixName,'断开蓝牙~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
   switch (connectPrefixName) {
     case 'WJ':
       wjApi.disconnectDevice((res)=>{
-        this.BluetoothInfo.state=3;
-         console.log(res)
+        console.log(res,'---------------------断开蓝牙------------------------')
+        this.alertF(res.msg)
       })
       break;
     case 'JL':
       jlApi.disconnectDevice((res)=>{
-        this.BluetoothInfo.state=3;
-        console.log(res)
+        console.log(res,'---------------------断开蓝牙------------------------')
+        this.alertF(res.msg)
       })
       break;
     case 'ETC':
       jlQZApi.disconnectDevice((res)=>{
-        this.BluetoothInfo.state=3;
-        console.log(res)
+        console.log(res,'---------------------断开蓝牙------------------------')
+        this.alertF(res.msg)
       })
       break;
     case 'JY':
       jyApi.disconnectDevice((res)=>{
-        this.BluetoothInfo.state=3;
-         console.log(res)
+        console.log(res,'---------------------断开蓝牙------------------------')
+        this.alertF(res.msg)
       })
       break;
     case 'AT':
       atApi.disconnectDevice((res)=> {
-        this.BluetoothInfo.state=3;
-         console.log(res)
+        console.log(res,'---------------------断开蓝牙------------------------')
+        this.alertF(res.msg)
       })
       break;
     case 'JT':
       jtApi.disconnectDevice((res)=>{
-        this.BluetoothInfo.state=3;
-        console.log(res)
+        console.log(res,'---------------------断开蓝牙------------------------')
+        this.alertF(res.msg)
       })
       break;
     case 'WQ':
       wqApi.disconnectDevice((res)=>{
-        this.BluetoothInfo.state=3;
-        console.log(res)
+        console.log(res,'---------------------断开蓝牙------------------------')
+        this.alertF(res.msg)
+        
       })
       break;
     case 'CG':
       cgApi.disconnectDevice((res)=> {
-        this.BluetoothInfo.state=3;
-         console.log(res)
+        console.log(res,'---------------------断开蓝牙------------------------')
+        this.alertF(res.msg)
       })
       break;
     case 'TD':
       tdApi.disConnectDevice((res)=>{
-        this.BluetoothInfo.state=3;
-         console.log(res)
+        console.log(res,'---------------------断开蓝牙------------------------')
+        this.alertF(res.msg)
       })
       break;
     case 'ZZ':
       zzApi.disconnectDevice((res)=>{
-        this.BluetoothInfo.state=3;
-        console.log(res)
+        console.log(res,'---------------------断开蓝牙------------------------')
+        this.alertF(res.msg)
       })
       break;
     default:
@@ -485,22 +516,11 @@ const transCmd=function(cmdArr, type, func) {
       break;
     default:
       this.BluetoothInfo.state=3;
-      this.BluetoothInfo.connectPrefixName="";
-       this.alertF('没有找到设备')
+      this.alertF('没有找到设备')
       break;
   }
 }
 
-/**
-   * 前装设备
-   */
-  const preDevice=function(res){
-    if (res.code == 0) {
-      console.log('连接成功')
-    } else {
-      this.alertF(res.msg);
-    }
-  }
 
   /***
    * 车例信息
@@ -590,9 +610,7 @@ const Bluetooth = {
   onBluetoothDeviceFound:onBluetoothDeviceFound,
   connectDevice:connectDevice,
   disconnectDevice:disconnectDevice,
-  connectSuccess:connectSuccess,
   listenStatus:listenStatus,
-  preDevice:preDevice,
   transCmd:transCmd,
   alertF:alertF,
   BluetoothInfo:BluetoothInfo,

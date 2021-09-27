@@ -2,7 +2,6 @@ const wjUtils = require('../etc/WJAPI/wjUtils.js');
 const Bluetooth = require('./util/index.js')
 const util = require('../../../utils/util.js');
 let timer;
-let isGetOBU;
 Page({
 
   /**
@@ -14,7 +13,11 @@ Page({
     obuId:"",
     cardId:"",
     rechargeBalance:'', //价格
-    orderId:'' //订单ID
+    orderId:'', //订单ID
+    payOrders:"", //圈存检测返回的订单号
+    rechargeId:"",
+    applyType:"1",
+    orderType:"0"
   },
   onLoad(opents){
     console.log(opents,'《=======================参数数据信息')
@@ -26,7 +29,7 @@ Page({
   },
   onStart(){ 
       console.log('=================================重新连接蓝牙======================================================')
-      this.onInIt();//连接蓝牙
+      clearInterval(timer); //清调请求
       timer=setInterval(()=>{
           console.log(Bluetooth.BluetoothInfo.state,'------------当前状态--------')
           if(Bluetooth.BluetoothInfo.state==1){
@@ -42,31 +45,33 @@ Page({
           this.setData({
             state:Bluetooth.BluetoothInfo.state
           })
-    },500)
-    isGetOBU=setInterval(()=>{ //处理获取卡号请求指令
-      if(Bluetooth.BluetoothInfo.state==2) this.onGetOBU();
-    },12000)
+       },500);
+    Bluetooth.openBluetoothAdapter(res=>{ //初始化蓝牙模块
+      console.log(res,'-------------初始化蓝牙模块------------------')
+      if(res==2){
+         this.onGetOBU();//执照
+         this.setData({errMsg:"正在写入设备"})
+      }
+   })
+  },
+  onRetry(){ //重新连接
+    if(this.data.cardId){
+      Bluetooth.BluetoothInfo.state==1;
+      this.setData({
+        errMsg:"正在搜索设备"
+      })
+      Bluetooth.openBluetoothAdapter(res=>{ //初始化蓝牙模块
+        if(res==2){
+           this.setData({errMsg:"正在写入设备"})
+           this.onQuancunCheck();
+        }
+     })
+    }else{
+      this.onStart()
+    }
   },
   onUnload(){
     clearInterval(timer); //清调请求
-    clearInterval(isGetOBU);
-  },
-  //重试
-  onRetry(){
-    clearInterval(timer); //清调请求
-    clearInterval(isGetOBU);
-    Bluetooth.BluetoothInfo.state=1;
-    console.log("0000000000--------------点击重试")
-    this.onStart();
-  },
-  onInIt(){ //开始蓝牙连接处理
-      Bluetooth.openBluetoothAdapter(res=>{ //初始化蓝牙模块
-         console.log(res,'--------最后的结果数据-------------') 
-         if(res==2){
-            this.onGetOBU()
-            this.setData({errMsg:"正在写入设备"})
-         }
-      })
   },
   /**
    * 获取卡号和OBU号 
@@ -91,7 +96,6 @@ Page({
           cardId:cardId,
           preBalance:strPreBalance
         })
-        clearInterval(isGetOBU)
         this.quancunCreateOrder()
       })
     }
@@ -108,6 +112,9 @@ async onQuancunCheck(){
   const result = await util.getDataFromServersV2("/consumer/order/after-sale-record/quancunCheck", params); //圈存检测
   console.log(result,'===============圈存检测===================')
   if(result.code!=0) this.wonError(1)
+  this.setData({
+    payOrders:result.data.payOrders
+  })
   if(result.data.chargeStatus==1){ //无异常,可以继续圈存
     this.quancunApply(result.data) //圈存申请
   }else{//存在异常流水
@@ -140,7 +147,10 @@ async onQuancunCheck(){
       preBalance:this.data.preBalance,//充值前金额，单位：分
       command:command.join(),//	圈存初始化指令
       cosResponse:cosResponse.join(),//	圈存初始化指令结果
-      orderId:this.data.orderId
+      orderId:this.data.orderId,
+      rechargeId:this.data.rechargeId, //圈存修复时候如果需要修复返回了需修复圈存订单号
+      applyType:this.data.applyType, //圈存类型,1圈存申请，2半流水修复申请
+      orderType:this.data.orderType//圈存订单类型,0-圈存,1-补卡额
     }
     const result = await util.getDataFromServersV2('/consumer/order/after-sale-record/quancunApply', params);
     console.log(result,'圈存申请----------')
@@ -154,11 +164,12 @@ async onQuancunCheck(){
    * 圈存确认
    */
  quancunConfirm(obj){
+        
           Bluetooth.transCmd([obj.command],10,res=>{
             console.log(res,'-----------------圈存确认9999999999------------------')
               let params={
                 rechargeId:obj.rechargeId, //圈存订单号
-                command:obj.command.join(),//圈存初始化指令
+                command:obj.command,//圈存初始化指令
                 cosResponse:res.join(),//圈存初始化指令结果
             }
               this.getQuancun(params)
@@ -187,17 +198,24 @@ async onQuancunCheck(){
     }
     const result = await util.getDataFromServersV2('/consumer/order/after-sale-record/quancunRepair', params);
     console.log(result,'<======================圈存修复结果')
-    if(result.code!=0){
-      console.log("再来一次圈存检测")
-      return this.onQuancunCheck();//圈存检测
-    } 
-    if(result.fixStatus===1){
-      this.quancunRepair(obj,cosResponse) //再修复
-    }else if(result.fixStatus===2){//修复完成
-      this.quancunConfirm(result) //圈存检测
-    }else{
-      //this.quancunRepair(obj,cosResponse) //再修复
-      //this.wonError(1);
+    if(!result.data) return false;
+    this.setData({
+      rechargeId:result.data.rechargeId,
+      applyType:2,
+    })
+    if(result.data.fixStatus===1){//1重新修复初始化，再次修复
+      console.log("1重新修复初始化，再次修复")
+      this.onQuancunCheck();//圈存检测
+    }else if(result.data.fixStatus===2){// 2–修复完成，进行确认
+      console.log("2–修复完成，进行确认")
+      this.quancunConfirm(result.data) //圈存确认
+    }else if(result.data.fixStatus===3){//3–写卡失败,重新圈存，进行申请
+     let command=result.data.command.split(",")
+     console.log(command,"写卡失败,重新圈存，进行申请")
+      Bluetooth.transCmd(command,10,res=>{
+        console.log(res,"000000000000000000000000")
+          this.getQuancunApply(command,res)
+      });
     }
  },
    /***
@@ -224,7 +242,6 @@ async onQuancunCheck(){
   //失败跳转1失败、2成功
   wonError(state){
     clearInterval(timer); //清调请求
-    clearInterval(isGetOBU);//
     Bluetooth.disconnectDevice()//释放资源
    return util.go(`/pages/obu/audit_result/audit_result?state=${state}`);
   }
