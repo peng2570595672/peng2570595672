@@ -24,7 +24,7 @@ Page({
       const result = await util.getDataFromServersV2("/consumer/order/after-sale-record/rechargeBalance",{orderId:this.data.orderId});
       if (result.code === 0) {
         this.setData({
-          changeAmount:result.data.rechargeBalance 
+          changeAmount:result.data.rechargeBalance?result.data.rechargeBalance:"0.02" 
         })
       } else {
         util.showToastNoIcon(result.message);

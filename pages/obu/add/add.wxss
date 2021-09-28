@@ -17,6 +17,7 @@
   width:100%;
   text-align: center;
   padding:20rpx;
+  box-sizing: border-box;
 }
 .money{
   font-size:34rpx;
@@ -26,6 +27,7 @@
   width:100%;
   text-align: center;
   padding-bottom:40rpx;
+  box-sizing: border-box;
 }
 .money .symbol{
   font-size:24rpx;

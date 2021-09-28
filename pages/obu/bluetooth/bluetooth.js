@@ -17,7 +17,9 @@ Page({
     payOrders:"", //圈存检测返回的订单号
     rechargeId:"",
     applyType:"1",
-    orderType:"0"
+    orderType:"0",
+    command:"",//指令
+    inStep:"0",//进路步骤0是开始-1圈存检测、2圈存修复、3、圈存申请、4、圈存确定
   },
   onLoad(opents){
     console.log(opents,'《=======================参数数据信息')
@@ -104,6 +106,7 @@ Page({
    * 圈存检测
    */
 async onQuancunCheck(){
+  this.setData({inStep:1})
   let params={
     cardId:this.data.cardId, //卡号
     preBalance:this.data.preBalance,//圈存前卡内金额，单位：分
@@ -113,24 +116,31 @@ async onQuancunCheck(){
   console.log(result,'===============圈存检测===================')
   if(result.code!=0) this.wonError(1)
   this.setData({
-    payOrders:result.data.payOrders
+    payOrders:result.data.payOrders,
+    command:result.data.command
   })
   if(result.data.chargeStatus==1){ //无异常,可以继续圈存
-    this.quancunApply(result.data) //圈存申请
+    this.quancunApply() //圈存申请
   }else{//存在异常流水
-    console.log("圈存修复开始了")
-    let command=result.data.command.split(",");
+    this.stepQuancunRepair()//圈存修复
+  }
+},
+stepQuancunRepair(){
+  console.log("圈存修复开始了")
+  this.setData({inStep:2})
+  let command=this.data.command.split(",");
      Bluetooth.transCmd(command,10,res=>{
        console.log(res,'------------圈存修复执行指令结果----------------')
         this.quancunRepair(result.data,res)//圈存修复
      })
-  }
 },
   /***
    * 圈存申请指令
    */
    quancunApply(obj){ 
-    let command=obj.command.split(",");
+    this.setData({inStep:3})
+    console.log("圈存申请开始了")
+    let command=this.data.command.split(",");
       console.log(command,'-----------------圈存申请指令------------------')
       Bluetooth.transCmd(command,10,res=>{
         console.log(res,'<============================圈存初始化指令结果-----------')
@@ -155,7 +165,10 @@ async onQuancunCheck(){
     const result = await util.getDataFromServersV2('/consumer/order/after-sale-record/quancunApply', params);
     console.log(result,'圈存申请----------')
     if(result.code==0){
-       this.quancunConfirm(result.data);
+      this.setData({
+        command:result.data.command
+      })
+       this.quancunConfirm();
     }else{
        this.wonError(1)
      }
@@ -163,13 +176,14 @@ async onQuancunCheck(){
   /***
    * 圈存确认
    */
- quancunConfirm(obj){
-        
-          Bluetooth.transCmd([obj.command],10,res=>{
-            console.log(res,'-----------------圈存确认9999999999------------------')
+ quancunConfirm(){
+         console.log("圈存确认指令")
+         this.setData({inStep:4})
+         let command=this.data.command.split(",");
+          Bluetooth.transCmd(command,10,res=>{
               let params={
-                rechargeId:obj.rechargeId, //圈存订单号
-                command:obj.command,//圈存初始化指令
+                rechargeId:this.data.rechargeId, //圈存订单号
+                command:this.data.command.join(),//圈存初始化指令
                 cosResponse:res.join(),//圈存初始化指令结果
             }
               this.getQuancun(params)
@@ -190,7 +204,7 @@ async onQuancunCheck(){
    */
   async quancunRepair(obj,cosResponse){ 
     console.log("圈存修复------------------------------")
-    let command=obj.command.split(",");
+    let command=this.data.command.split(",");
     let params={
       rechargeId:obj.rechargeId, //圈存订单号
       command:command.join(),//圈存初始化指令
@@ -202,15 +216,16 @@ async onQuancunCheck(){
     this.setData({
       rechargeId:result.data.rechargeId,
       applyType:2,
+      command:result.data.command?result.data.command:this.data.command
     })
     if(result.data.fixStatus===1){//1重新修复初始化，再次修复
       console.log("1重新修复初始化，再次修复")
       this.onQuancunCheck();//圈存检测
     }else if(result.data.fixStatus===2){// 2–修复完成，进行确认
       console.log("2–修复完成，进行确认")
-      this.quancunConfirm(result.data) //圈存确认
+        this.quancunConfirm(result.data) //圈存确认
     }else if(result.data.fixStatus===3){//3–写卡失败,重新圈存，进行申请
-     let command=result.data.command.split(",")
+     let command=this.data.command.split(",")
      console.log(command,"写卡失败,重新圈存，进行申请")
       Bluetooth.transCmd(command,10,res=>{
         console.log(res,"000000000000000000000000")
