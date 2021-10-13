@@ -1,4 +1,5 @@
 const util = require('../../../utils/util.js');
+const  WSCoordinate = require('../../../utils/WSCoordinate.js');  
 const app = getApp();
 Page({
   /**
@@ -82,7 +83,6 @@ Page({
     this.setData({
 			page:  this.data.page + 1
     });
-    console.log(e,"99999999999999999")
     this.onGetList()
   },
   async onGetList(){
@@ -134,9 +134,12 @@ Page({
         const longitude = res.longitude
         const speed = res.speed
         const accuracy = res.accuracy
+        console.log(latitude,'----------定位拿到的坐标---------------',longitude)
+        const result1 = WSCoordinate.transformFromWGSToGCJ(latitude, longitude);
+        console.log(result1,'-------------------------')
         this.setData({
-          latitude,
-          longitude
+          latitude:result1.latitude,
+          longitude:result1.longitude
         })
         this.getCity(latitude,longitude)
       },
@@ -165,9 +168,10 @@ Page({
   //导航
   onNavigation(e){
     let itme=e.currentTarget.dataset.id;
+    const result1 = WSCoordinate.transformFromBaiduToGCJ(itme.latitude, itme.longitude); ////将百度坐标转为GCJ-02(火星坐标)
       wx.openLocation({
-        latitude:itme.latitude,
-        longitude:itme.longitude,
+        latitude:result1.latitude,
+        longitude:result1.longitude,
         name:itme.stationName,//位置名
         address:itme.provinceName+itme.cityName+itme.location,//地址的详细说明
         scale: 18
