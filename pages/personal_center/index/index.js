@@ -351,6 +351,11 @@ Page({
 	// 跳转
 	async go (e) {
 		let url = e.currentTarget.dataset['url'];
+		if (url === 'online_customer_service') {
+			// 统计点击进入在线客服
+			util.go(`/pages/web/web/web?type=${url}`);
+			return;
+		}
 		if (url === 'life_service') {
 			wx.uma.trackEvent('personal_center_for_life_service');
 			this.showDetail(1);

@@ -32,7 +32,7 @@ Page({
       stationId: "",
       page:this.data.page
     }
-    const result = await util.getDataFromServersV2('consumer/order/oil/orderList', params);
+    const result = await util.getDataFromServersV2('consumer/order/oil/userOrderList', params);
     if(result.code!=0) return;
         let list = result.data.orderList || [];
             list.forEach(element => {

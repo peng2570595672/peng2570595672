@@ -12,7 +12,8 @@ Page({
 			{title: '通行发票', ico: 'invoice', url: 'invoice', isShow: true, statisticsEvent: 'index_invoice'},
 			{title: '违章查询', ico: 'violation-enquiry', url: 'violation_enquiry', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_violation_enquiry'},
 			{title: 'ETC账单', ico: 'my-order', url: 'my_order', isShow: app.globalData.isContinentInsurance, statisticsEvent: 'index_my_order'},
-			{title: '在线客服', ico: 'server', url: 'online_customer_service', isShow: true, statisticsEvent: 'index_server'},
+			// {title: '在线客服', ico: 'server', url: 'online_customer_service', isShow: true, statisticsEvent: 'index_server'},
+			{title: '优惠加油', ico: 'icontaocan-jiayou', url: 'preferential_refueling', isShow: true, statisticsEvent: 'index_server'},
 			{title: '个人中心', ico: 'personal-center', url: 'index', isShow: true, statisticsEvent: 'index_personal_center'}
 		],
 		bannerList: [
@@ -108,6 +109,11 @@ Page({
 		if (url === 'violation_enquiry') {
 			// 统计点击进入违章查询
 			this.onClickViolationEnquiry();
+			return;
+		}
+		if (url === 'preferential_refueling') {
+			// 优化加油
+			util.go(`/pages/ejiayou/index/index`);
 			return;
 		}
 		if (url === 'online_customer_service') {

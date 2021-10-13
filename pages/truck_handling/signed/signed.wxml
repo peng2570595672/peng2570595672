@@ -1,11 +1,10 @@
 <view class="pages">
   <view class="h3">请进行短信验证</view>
-  <view class="h4"> 完成{{truckLicensePlate}}的代扣绑定</view>
-  <view class="h5">短信验证码将下发至{{phone}}</view>
+  <view class="h4"> 完成<text class="text">{{truckLicensePlate}}</text>的代扣绑定</view>
+  <view class="h5">短信验证码将下发至<text class="text">{{phone}}</text></view>
  
   <view class="code">
      <view class="left">
-
          <input id="1" value="{{value1}}" bindinput="inputListener" bindblur="onBindblur" focus="{{focus && focusIndex == 1}}"  maxlength="1" class="{{value1? 'on':''}}"/>
          <input id="2" value="{{value2}}" bindinput="inputListener" bindblur="onBindblur" focus="{{focus && focusIndex == 2}}" maxlength="1"  class="{{value2 ? 'on':''}}"/>
          <input id="3" value="{{value3}}" bindinput="inputListener" bindblur="onBindblur" focus="{{focus && focusIndex == 3}}" maxlength="1"   class="{{value3 ? 'on':''}}"/>

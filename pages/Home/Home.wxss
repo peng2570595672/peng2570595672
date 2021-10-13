@@ -1,3 +1,4 @@
+.icontaocan-jiayou::before{content: "\e680";color:#00B85C;font-size:32rpx;margin-right:8rpx;}
 .animated {
   -webkit-animation-duration: 0.4s;
   animation-duration: 0.4s;

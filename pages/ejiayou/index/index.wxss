@@ -149,7 +149,7 @@ page{
   margin:0 auto;
   padding:20rpx;
   height:100%;
-  max-height:600rpx;
+  height:calc(100% - 580rpx);
   overflow:auto;
   left:50%;
   transform: translate(-50%,0);
@@ -299,4 +299,8 @@ padding:20rpx 0 0;
     -ms-transform: rotate(-360deg);
     -webkit-transform: rotate(-360deg);
   }
+}
+
+.prices{
+  font-size:26rpx;
 }

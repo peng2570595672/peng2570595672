@@ -7,6 +7,7 @@ Page({
   data: {
     imgPath:"./assets/app.npg",
     page:1,
+    isLoding:true,
     pageSize:10,
     list:[],
     total:0, //总条数
@@ -25,6 +26,8 @@ Page({
     searchKey:"",
     todayCountryPrice:"0", //今日油加
     key:"6PEBZ-L5ZWU-72EV3-BAYUJ-ZQQY3-HSBA3", //腾讯地图KEY
+    cityId:"",
+    cityCode:""
   },
     /**
    * 生命周期函数--监听页面加载
@@ -61,6 +64,17 @@ Page({
       page:1,
       list:[],
     })
+    if(this.data.orderByField=="price"){
+      let cityCode=this.data.cityId.substring(0,4)+"00"
+      this.setData({
+        cityCode:cityCode
+      })
+    }else{
+      this.setData({
+        cityCode:""
+      })
+    }
+
     this.onGetList()
   },
   onScrolltolower(e){
@@ -79,20 +93,22 @@ Page({
     userLat:this.data.latitude,
     pageSize:this.data.pageSize,
     page:this.data.page,
-    cityId:"",//城市编码
+    cityId:this.data.cityCode,//this.data.cityId,//城市编码
     oilCode:this.data.oilCode,//油号，例如:95#
     stationType:this.data.stationType,//油站品牌
     orderByField:this.data.orderByField,//true就是价格
     searchKey:this.data.searchKey
    }
     const result = await util.getDataFromServersV2('consumer/order/oil/stationsList', params);
-    console.log(result)
     if(result.code!=0) return;
     let list = result.data.list || [];
-        this.setData({
+    console.log(this.data.list)
+      this.setData({
           list:this.data.list.concat(list),
-          total:result.data.total
+          total:result.data.total,
+          isLoding:false
         })
+        console.log(this.data.list,'================数据是多少呢==============')
   },
   //按地址查
   onSearch(e){
@@ -122,9 +138,7 @@ Page({
           latitude,
           longitude
         })
-        this.onGetList();
         this.getCity(latitude,longitude)
-        
       },
       fail:(error)=>{
           console.log(error,'--------失败----------')
@@ -150,11 +164,12 @@ Page({
   },
   //导航
   onNavigation(e){
+    let itme=e.currentTarget.dataset.id;
       wx.openLocation({
-        latitude:this.data.latitude,
-        longitude:this.data.longitude,
-        name:"位置名位置名",//位置名
-        address:"地址的详细说明地址的详细说明",//地址的详细说明
+        latitude:itme.latitude,
+        longitude:itme.longitude,
+        name:itme.stationName,//位置名
+        address:itme.provinceName+itme.cityName+itme.location,//地址的详细说明
         scale: 18
       })
   },
@@ -185,10 +200,10 @@ Page({
     //   util.go(`/pages/ejiayou/webview/webview?url=${url}`)
     // }
   },
-  async statisticsCountryPrice(adcode){
+  async statisticsCountryPrice(adcode){ //今日油加
     let params={
-        cityId:adcode,
-        oilCode: "98#"
+        cityId:adcode.substring(0,4)+"00",
+        oilCode: "92#"
     }
     const result = await util.getDataFromServersV2('consumer/order/oil/statisticsCountryPrice', params);
       if(result.data && result.code==0){
@@ -206,6 +221,10 @@ Page({
       success: function (ops) {
         console.log('定位城市：',ops)
         let adcode=ops.data.result.ad_info.adcode;
+        $this.setData({
+          cityId:adcode
+        })
+        $this.onGetList();
         $this.statisticsCountryPrice(adcode)
       },
       fail: function (resq) {

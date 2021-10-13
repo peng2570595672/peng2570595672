@@ -108,6 +108,10 @@
                 <view class="pay-interest-item-icon characteristic_service iconfont"></view>
                 <view class="pay-interest_item_text">特色服务</view>
             </view>
+            <view class="pay-interest_item" catchtap="go" data-url="online_customer_service" wx:if="{{isShowFeatureService}}">
+                <view class="pay-interest-item-icon server iconfont"></view>
+                <view class="pay-interest_item_text">在线客服</view>
+            </view>
             <view class="pay-interest_item" catchtap="go" data-url="service_purchase_record" wx:if="{{rightsPackageBuyRecords.length}}">
                 <view class="pay-interest-item-icon purchase_records iconfont"></view>
                 <view class="pay-interest_item_text">加购记录</view>

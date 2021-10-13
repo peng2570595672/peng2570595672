@@ -40,16 +40,14 @@ Page({
 	},
 	// 微信签约
 	async onclickSign () {
-		if (!this.data.info || !this.data.isOk) return;
-		if (this.data.isRequest) {
-			return;
-		} else {
-			this.setData({isRequest: true});
-		}
-		wx.uma.trackEvent('truck_binding_account_successful_to_signing');
-		util.showLoading('加载中');
 		util.go('/pages/truck_handling/signed/signed')
-		// util.go('/pages/truck_handling/signed/signed')
+		// if (!this.data.info || !this.data.isOk) return;
+		// if (this.data.isRequest) {
+		// 	return;
+		// } else {
+		// 	this.setData({isRequest: true});
+		// }
+		// wx.uma.trackEvent('truck_binding_account_successful_to_signing');
 		// let params = {
 		// 	dataComplete: 0,// 资料已完善
 		// 	clientOpenid: app.globalData.userInfo.openId,

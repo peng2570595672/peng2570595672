@@ -10,4 +10,3 @@
   <button type="primary" wx:if="{{state==3}}"  catchtap="onRetry" class="but">重试</button> 
 
 </view>
-
