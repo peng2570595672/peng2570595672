@@ -237,8 +237,10 @@
   }
 }
 @font-face {
-  font-family: 'iconfont'; /* Project id 1514406 */
-  src: url("//at.alicdn.com/t/font_1514406_sq2l5fhk03.woff2?t=1626155878746") format('woff2'), url("//at.alicdn.com/t/font_1514406_sq2l5fhk03.woff?t=1626155878746") format('woff'), url("//at.alicdn.com/t/font_1514406_sq2l5fhk03.ttf?t=1626155878746") format('truetype');
+  font-family: 'iconfont';  /* Project id 1514406 */
+  src: url('//at.alicdn.com/t/font_1514406_7r9498kfvef.woff2?t=1634194597465') format('woff2'),
+       url('//at.alicdn.com/t/font_1514406_7r9498kfvef.woff?t=1634194597465') format('woff'),
+       url('//at.alicdn.com/t/font_1514406_7r9498kfvef.ttf?t=1634194597465') format('truetype');
 }
 page {
   font-family: -apple-system-font, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", Arial, sans-serif !important;

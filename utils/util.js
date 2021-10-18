@@ -702,6 +702,7 @@ function getTruckHandlingStatus(orderInfo) {
 		return 17;// 未预充金额
 	}
 	if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
+		console.log("====================已激活已激活=====================================")
 		return 12; // 已激活
 	}
 	return 0;// 错误状态,未判断到
@@ -710,6 +711,7 @@ function getTruckHandlingStatus(orderInfo) {
  *  获取订单办理状态 2.0
  */
 function getStatus(orderInfo) {
+	console.log("-=-----------获取订单办理状态----------------------------------")
 	if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0) {
 		// protocolStatus 0未签协议 1签了
 		return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;

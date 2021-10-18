@@ -81,6 +81,9 @@ Page({
 			let orderInfo = result.data;
 			orderInfo['selfStatus'] = orderInfo.isNewTrucks === 1 ? util.getTruckHandlingStatus(orderInfo) : util.getStatus(orderInfo);
 			orderInfo['deductionMethod'] = initProductName(orderInfo);
+
+			console.log(orderInfo,'===========订单数据==================')
+
 			this.setData({
 				orderInfo
 			});
