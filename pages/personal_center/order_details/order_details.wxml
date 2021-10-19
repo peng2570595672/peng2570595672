@@ -95,6 +95,10 @@
             <view>退款时间</view>
             <view>{{tools.substring(refundDetails.refundDt,0,16)}}</view>
         </view>
+        <view wx:if="{{details.id}}">
+            <view>账单流水号</view>
+            <view>{{details.id}}</view>
+        </view>
     </view>
     <view class="line"></view>
     <!--车辆详情开始-->
