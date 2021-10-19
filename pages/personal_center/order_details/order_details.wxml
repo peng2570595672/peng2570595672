@@ -108,6 +108,10 @@
             <view>{{details.isNewTrucks === 1 ? '货' : '客'}}车ETC</view>
         </view>
         <view>
+            <view>入站时间</view>
+            <view>{{tools.substring(details.inOpTime,0,16)}}</view>
+        </view>
+        <view>
             <view>入站口</view>
             <view>{{details.inStationName}}</view>
         </view>
