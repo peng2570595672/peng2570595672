@@ -10,10 +10,11 @@ Page({
 		isRechargeEarnestMoney: false,
 		choiceBankObj: undefined,
 		cardInfo: undefined,
-        requestNum: 0,
+    requestNum: 0,
 		rechargeAmount: undefined
 	},
 	async onLoad (options) {
+		console.log(options,'---------预充保证金----------')
 		if (options.money) {
 			// 预充保证金
 			this.setData({
@@ -41,7 +42,9 @@ Page({
 	},
 	// 获取二类户号信息
 	async getBankAccounts () {
+		console.log("----------------------")
 		const result = await util.getDataFromServersV2('consumer/member/icbcv2/getBankAccounts');
+		console.log(result,'===================8888888888888888888888获取二类户号信息========================')
 		if (!result) return;
 		if (result.code === 0) {
 			result.data.map(item => {
