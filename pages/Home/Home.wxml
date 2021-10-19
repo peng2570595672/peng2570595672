@@ -110,6 +110,7 @@
                     {{orderInfo.selfStatus === 15 || orderInfo.selfStatus === 17 ? '去预充' : ''}}
                     {{orderInfo.selfStatus === 16 ? '继续办理' : ''}}
                     {{orderInfo.selfStatus === 18 ? '代扣通行费' : ''}}
+                
                 </button>
                 <button wx:if="{{loginInfo.needBindingPhone === 1 && orderInfo.selfStatus !== 12}}" class="btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber" animation="{{animationTransaction}}">
                     {{!orderInfo ? '新增办理' : ''}}

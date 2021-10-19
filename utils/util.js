@@ -646,18 +646,30 @@ function getTruckHandlingStatus(orderInfo) {
 		return 4; // 办理中 未上传证件
 	}
 
-	console.log(orderInfo.flowVersion,'============flowVersion===========')
-	console.log(orderInfo.icbcv2,'============icbcv2===========')
 
-	if(orderInfo.flowVersion === 6 && orderInfo.icbcv2){ 
-		//代扣通行费
-			return 18;
+	if (orderInfo.flowVersion === 6 && !app.globalData.bankCardInfo.accountNo) {// 开通II类户预充保证金 - 未开户
+	  	return 13;
 	}
 
-	if (orderInfo.flowVersion === 6 && !app.globalData.bankCardInfo?.accountNo) {
-		// 开通II类户预充保证金 - 未开户
-		return 13;
+	if(orderInfo.flowVersion === 6 && app.globalData.bankCardInfo.accountNo){ //有二类户-代扣通行费
+		 //contractStatus :-1 签约失败 0发起签约 1已签约 2解约
+		 //	app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(-4);
+		 if(orderInfo.contractStatus==-1){ //通行费代扣签约成功
+		  	return 18;
+		 }
+		 if(orderInfo.contractStatus==0){ //充值
+			return 15;
+		 }
+		 if(orderInfo.contractStatus==1){//小额免密签约成功
+		  	return 15;
+		 }
+		 if(orderInfo.contractStatus==1 && orderInfo.serviceFeeContractStatus){ //小额免密签约成功
+		  	return 15;
+		 }
 	}
+  
+
+
 	if (orderInfo.flowVersion === 5 && orderInfo.multiContractList.filter(item => item.contractStatus === 1).length !== 3) {
 		return 5; // 未完全签约 - 或存在解约
 	}
@@ -683,7 +695,7 @@ function getTruckHandlingStatus(orderInfo) {
 	if (orderInfo.flowVersion === 5 && orderInfo.auditStatus === 2 && orderInfo.holdStatus === 0) {
 		return 15;// 未冻结保证金成功
 	}
-	if (orderInfo.flowVersion === 4 && orderInfo.orderType !== 31 && orderInfo.auditStatus === 2 && orderInfo.prechargeFlag === 0) {
+	if (orderInfo.flowVersion === 4  && orderInfo.orderType !== 31 && orderInfo.auditStatus === 2 && orderInfo.prechargeFlag === 0) {
 		// prechargeFlag 0未预充 1已预充
 		return 17;// 未预充金额
 	}
@@ -711,7 +723,6 @@ function getTruckHandlingStatus(orderInfo) {
  *  获取订单办理状态 2.0
  */
 function getStatus(orderInfo) {
-	console.log("-=-----------获取订单办理状态----------------------------------")
 	if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0) {
 		// protocolStatus 0未签协议 1签了
 		return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;

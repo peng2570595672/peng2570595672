@@ -69,7 +69,7 @@ Page({
 			if (app.globalData.salesmanScanCodeToHandleId) {
 				await this.bindOrder();
 			} else {
-				// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+				if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 				await this.getStatus();
 			}
 		}
@@ -82,7 +82,7 @@ Page({
 			if (app.globalData.salesmanScanCodeToHandleId) {
 				await this.bindOrder();
 			} else {
-				// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+			  if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 				await this.getStatus();
 				await this.getIsShowNotice();
 			}
@@ -389,7 +389,7 @@ Page({
 						if (app.globalData.salesmanScanCodeToHandleId) {
 							await this.bindOrder();
 						} else {
-							// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+							if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 							if (app.globalData.isSignUpImmediately) {
 								app.globalData.isSignUpImmediately = false;
 								await this.getStatus(true);
@@ -427,7 +427,7 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			app.globalData.salesmanScanCodeToHandleId = undefined;// 处理返回首页再次请求
-			// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+			 if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 			await this.getStatus(true);
 		} else {
 			util.showToastNoIcon(result.message);
@@ -464,7 +464,7 @@ Page({
 				if (app.globalData.salesmanScanCodeToHandleId) {
 					await this.bindOrder();
 				} else {
-					// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+				  if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 					await this.getStatus();
 				}
 			} else {
@@ -493,12 +493,11 @@ Page({
 		};
 		if (isToMasterQuery) params['toMasterQuery'] = true;// 直接查询主库
 		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
-		const icbcv2 = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId'); //查卡是否有二通类户
+
 		// 订单展示优先级: 扣款失败账单>已解约状态>按最近时间顺序：办理状态or账单记录
 		if (!result) return;
 		if (result.code === 0) {
 			const list = this.sortDataArray(result.data);
-			list.forEach(res=>res.icbcv2=icbcv2.data)
 			app.globalData.myEtcList = list;
 			// 京东客服
 			let [truckList, passengerCarList, vehicleList, activationOrder, activationTruckOrder] = [[], [], [], [], []];
