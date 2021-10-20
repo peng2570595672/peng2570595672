@@ -83,9 +83,9 @@
             </view>
             <view wx:else>ETC货车账户</view>
         </view>
-        <view wx:if="{{refundDetails.deductTime}}">
+        <view wx:if="{{details.deductTime}}">
             <view>扣款时间</view>
-            <view>{{tools.substring(refundDetails.deductTime,0,16)}}</view>
+            <view>{{tools.substring(details.deductTime,0,16)}}</view>
         </view>
         <view wx:if="{{details.addTime}}">
             <view>出账时间</view>
