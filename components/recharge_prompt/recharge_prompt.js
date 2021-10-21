@@ -37,7 +37,7 @@ Component({
 		hide (e,flag) {
 			console.log(
 				'hide'
-			)
+			);
 			this.setData({
 				wrapper: false
 			});

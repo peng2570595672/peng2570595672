@@ -136,6 +136,7 @@
         "agreement_for_qiantong_to_charge/agreement",
         "agreement_for_qiantong_to_free/agreement",
         "icbc_agreement/icbc_agreement",
+        "recording_user_information/recording_user_information",
         "information_validation/information_validation",
         "package_the_rights_and_interests/package_the_rights_and_interests",
         "contract_management/contract_management",

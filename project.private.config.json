@@ -76,7 +76,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=851851233169248256",
+          "query": "orderId=823587582322413568",
           "scene": null
         },
         {
@@ -147,6 +147,30 @@
         {
           "name": "pages/personal_center/my_order/my_order",
           "pathName": "pages/personal_center/my_order/my_order",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/account_management/new_binding/new_binding",
+          "pathName": "pages/account_management/new_binding/new_binding",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/truck_handling/open_account/open_account",
+          "pathName": "pages/truck_handling/open_account/open_account",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/truck_handling/binding_account/binding_account",
+          "pathName": "pages/truck_handling/binding_account/binding_account",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/truck_handling/recording_user_information/recording_user_information",
+          "pathName": "pages/truck_handling/recording_user_information/recording_user_information",
           "query": "",
           "scene": null
         }

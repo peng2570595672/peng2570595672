@@ -53,6 +53,8 @@ App({
 		isSalesmanOrder: false,// 是否是业务员审核订单
 		officialChannel: false,// 是否是公众号渠道引流
 		SDKVersion: '',// 小程序基础库版本
+		capsule: '', // 胶囊
+		statusBarHeight: 0,
 		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
 		mobilePhoneSystem: false, // false非ios     true:ios
 		firstVersionData: false, // 是否是1.0数据
@@ -113,8 +115,10 @@ App({
 		wx.getSystemInfo({
 			success: (res) => {
 				console.log(res);
+				this.globalData.capsule = wx.getMenuButtonBoundingClientRect();
 				this.globalData.screenWindowAttribute = res;
 				this.globalData.SDKVersion = res.SDKVersion;
+				this.globalData.statusBarHeight = res.statusBarHeight;
 				this.globalData.mobilePhoneSystem = res.system.indexOf('iOS') !== -1 ? true : false;
 				if (res.model.toLowerCase().search('iphone x') !== -1) {
 					this.globalData.mobilePhoneMode = 1;
