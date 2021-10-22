@@ -40,105 +40,63 @@ Page({
 			});
 		}
 	},
-	// 获取二类户号信息
-	async getBankAccounts () {
-		console.log("----------------------")
-		const result = await util.getDataFromServersV2('consumer/member/icbcv2/getBankAccounts');
-		console.log(result,'===================8888888888888888888888获取二类户号信息========================')
-		if (!result) return;
-		if (result.code === 0) {
-			result.data.map(item => {
-				item.accountNo = item.accountNo.substr(-4);
-			});
-			this.setData({
-				bankList: result.data,
-				choiceBankObj: result.data[0]
-			});
-		} else {
-			util.showToastNoIcon(result.message);
-		}
-	},
 	// 账户充值
-	async next () {
-		if (this.data.isRechargeEarnestMoney) {
-			wx.uma.trackEvent('account_management_for_recharge_to_recharge_earnest_money');
-			await this.rechargeEarnestMoney();
-			return;
-		}
+	onNext(){
 		if (!this.data.rechargeAmount) return;
-		wx.uma.trackEvent('account_management_for_recharge_to_recharge');
-		const result = await util.getDataFromServersV2('consumer/member/icbcv2/recharge', {
-			bankAccountId: this.data.choiceBankObj.bankAccountId,
-			amount: +this.data.rechargeAmount * 100
-		});
-		if (!result) return;
-		if (result.code === 0) {
-			await this.applyQuery(result?.data?.rechargeId);
-		} else {
-			util.showToastNoIcon(result.message);
-		}
+		console.log(app.globalData.bankCardInfo,'========订单ID=============')
+		 if(app.globalData.bankCardInfo.serviceFeeContractStatus==1){ //去开通小额免密
+		   	this.icbc2Recharge()
+		 }else{//去开通小额免密签约
+				util.go("/pages/account_management/pay_accout/pay_accout")
+		 }
 	},
-	// 充值查询
-    async applyQuery (rechargeId) {
-		if (!rechargeId) {
-            util.showToastNoIcon('rechargeId丢失');
-            return;
-        }
-        const result = await util.getDataFromServersV2('consumer/member/icbcv2/applyQuery', {
-            rechargeId: rechargeId
-        });
-        if (!result) return;
-        if (result.code === 1) {
-            // 充值中
-            util.showLoading('正在充值中...');
-            this.data.requestNum++;
-            this.setData({
-                requestNum: this.data.requestNum
-            });
-            if (this.data.requestNum === 5) {
-				util.go(`/pages/account_management/recharge_result/recharge_result?isRechargeEarnestMoney=${+this.data.isRechargeEarnestMoney}`);
-                return;
-            }
-            setTimeout(async () => {
-                await this.applyQuery(rechargeId);
-            }, 2000);
-            return;
-        }
-        if (result.code === 0 && this.data.isRechargeEarnestMoney) {
-			await this.orderHold();
-			return;
-        }
-		util.go(`/pages/account_management/recharge_state/recharge_state?info=${JSON.stringify(result)}`);
-    },
-	// 保证金冻结
-	async orderHold () {
-		util.showLoading('冻结中...');
-		const result = await util.getDataFromServersV2('consumer/order/orderHold', {
-			bankAccountId: app.globalData.bankCardInfo?.bankAccountId,
-			orderId: app.globalData.orderInfo.orderId
-		});
-		if (!result) return;
-		if (result.code === 0) {
-			util.go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
-		} else {
-			util.showToastNoIcon(result.message);
-			// 冻结失败-预充成功,更新账户金额
-			await util.getV2BankId();
-		}
+	// 获取有效一类卡列表
+	async getBankAccounts () {
+		const result = await util.getDataFromServersV2('consumer/member/icbcv2/getBankAccounts');
+			if (!result) return;
+			if (result.code === 0) {
+				result.data.map(item => {
+					item.accountNo = item.accountNo.substr(-4);
+				});
+				this.setData({
+					bankList: result.data,
+					choiceBankObj: result.data[0]
+				});
+			} else {
+				util.showToastNoIcon(result.message);
+			}
 	},
-	// 预充保证金
-	async rechargeEarnestMoney () {
-		const result = await util.getDataFromServersV2('consumer/order/orderDeposit', {
-            bankAccountId: this.data.choiceBankObj.bankAccountId,
-			orderId: app.globalData.orderInfo.orderId
-		});
-		if (!result) return;
-		if (result.code === 0) {
-			await this.applyQuery(result?.data?.rechargeId);
-		} else {
-			util.showToastNoIcon(result.message);
-		}
-	},
+	 //是否小额签约
+		//二类户充值发起
+		async	icbc2Recharge(){
+			util.showLoading('正在充值中...');
+			console.log(this.data.choiceBankObj,'一类卡信息')
+			console.log(this.data.cardInfo,'========二类卡信息=============')
+			console.log(app.globalData.orderInfo.orderId,'========订单ID=============')
+			console.log(this.data.rechargeAmount,'========充值金额不=============')
+		
+			const result = await util.getDataFromServersV2('consumer/order/icbc2/recharge', {
+				    orderId:app.globalData.orderInfo.orderId,
+				    bankAccountId:this.data.choiceBankObj.bankAccountId,
+						bankV2AccountId:this.data.cardInfo.bankAccountId,
+						changeAmount:this.data.rechargeAmount
+				});
+				this.icbc2RechargeQuery()
+		},
+		//二类户充值查询
+		async icbc2RechargeQuery(){
+			 // 充值中
+			const result = await util.getDataFromServersV2('consumer/order/icbc2/rechargeQuery', {
+					orderId:app.globalData.orderInfo.orderId,
+					bankAccountId:this.data.choiceBankObj.bankAccountId,
+					bankV2AccountId:this.data.cardInfo.bankAccountId,
+					changeAmount:this.data.rechargeAmount
+				});
+				console.log(result)
+				if(result.code==0){//充值成功
+					util.go("/pages/obu/add/add") //走到了圈存
+				}
+		},
 	// 绑定卡
 	onClickSwitchBankCard () {
 		wx.uma.trackEvent('account_management_for_recharge_to_switch_bank_card');

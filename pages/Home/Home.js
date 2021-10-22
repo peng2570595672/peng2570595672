@@ -150,6 +150,10 @@ Page({
 			orderInfo: activeIndex === 1 ? (this.data.passengerCarOrderInfo || false) : (this.data.truckOrderInfo || false),
 			recentlyTheBillInfo: activeIndex === 1 ? (this.data.recentlyTheBill || false) : (this.data.recentlyTheTruckBill || false)
 		});
+
+		console.log(this.data.orderInfo,'===============顶部tab切换获取到的订单信息==============')
+
+
 		if (this.data.orderInfo.selfStatus === 17) {
 			await this.getQueryProcessInfo(this.data.orderInfo.id);
 		}
@@ -533,15 +537,17 @@ Page({
 			}
 			const terminationOrder = passengerCarList.find(item => item.selfStatus === 1);// 查询客车第一条解约订单
 			const terminationTruckOrder = truckList.find(item => item.selfStatus === 1);// 查询货车第一条解约订单
-			console.log(terminationTruckOrder,'================条解约订单=======================')
+			console.log(terminationTruckOrder,'================查询货车第一条解约订单=======================')
 			const isAllActivation = activationOrder.length === passengerCarList.length;// 是否客车全是激活订单 - true: 展示账单单状态
 			const isAllActivationTruck = activationTruckOrder.length === truckList.length;// 是否货车全是激活订单 - true: 展示账单单状态
+			console.log(isAllActivationTruck,'============是否货车全是激活订单============')
 			activationOrder = [...new Set(activationOrder)];
 			activationTruckOrder = [...new Set(activationTruckOrder)];
 			// 是否全是激活订单  是 - 拉取第一条订单  否 - 过滤激活订单,拉取第一条
 			const passengerCarListNotActivation = isAllActivation ? passengerCarList[0] : passengerCarList.filter(item => item.selfStatus !== 12)[0];
 			const passengerCarListNotTruckActivation = isAllActivationTruck ? truckList[0] : truckList.filter(item => item.selfStatus !== 12)[0];
 
+		 console.log(passengerCarListNotTruckActivation,'--------------------拉取第一条订单--------------------------')
 
 			this.setData({
 				isShowNotice: !!app.globalData.myEtcList.length,
@@ -828,7 +834,8 @@ Page({
 			15: () => this.goRecharge(orderInfo), // 保证金预充失败 - 去预充
 			16: () => this.goBindingWithholding(orderInfo), // 选装-未已绑定车辆代扣
 			17: () => this.onClickViewProcessingProgressHandle(orderInfo), // 去预充(预充流程)-查看进度
-			18: () => this.onTollWithholding(orderInfo) //代扣通行费
+			18: () => this.onTollWithholding(orderInfo), //代扣通行费
+			19: () => this.onGetPhoneNumber(orderInfo) //货车新增
 		};
 		fun[orderInfo.selfStatus].call();
 	},

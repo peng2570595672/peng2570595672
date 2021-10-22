@@ -645,30 +645,26 @@ function getTruckHandlingStatus(orderInfo) {
 	if (orderInfo.isOwner === 0 || orderInfo.isVehicle === 0 || orderInfo.isHeadstock === 0 || (orderInfo.isTraction === 1 && orderInfo.isTransportLicense !== 1)) {
 		return 4; // 办理中 未上传证件
 	}
+	
+	console.log(orderInfo.flowVersion,'==================flowVersionflowVersion=============')
+	console.log(app.globalData.bankCardInfo,'===============================')
+	console.log(orderInfo.obuStatus,"===========到这里了没有呢呢======================")
+	console.log(app.globalData.bankCardInfo,'========订单ID=============')
 
 
-	if (orderInfo.flowVersion === 6 && !app.globalData.bankCardInfo.accountNo) {// 开通II类户预充保证金 - 未开户
-	  	return 13;
-	}
 
-	if(orderInfo.flowVersion === 6 && app.globalData.bankCardInfo.accountNo){ //有二类户-代扣通行费
+	if(orderInfo.flowVersion === 6 && app.globalData.bankCardInfo){ //有二类户-代扣通行费
+			if(!app.globalData.bankCardInfo?.accountNo){ // 开通II类户预充保证金 - 未开户
+					return 13;
+			}
 		 //contractStatus :-1 签约失败 0发起签约 1已签约 2解约
-		 //	app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(-4);
-		 if(orderInfo.contractStatus==-1){ //通行费代扣签约成功
+		 if(orderInfo.contractStatus==1 && app.globalData.bankCardInfo?.accountNo){ //通行费代扣签约成功
 		  	return 18;
 		 }
-		 if(orderInfo.contractStatus==0){ //充值
+		 if(orderInfo.contractStatus!=1 && app.globalData.bankCardInfo?.accountNo){ //充值
 			return 15;
 		 }
-		 if(orderInfo.contractStatus==1){//小额免密签约成功
-		  	return 15;
-		 }
-		 if(orderInfo.contractStatus==1 && orderInfo.serviceFeeContractStatus){ //小额免密签约成功
-		  	return 15;
-		 }
 	}
-  
-
 
 	if (orderInfo.flowVersion === 5 && orderInfo.multiContractList.filter(item => item.contractStatus === 1).length !== 3) {
 		return 5; // 未完全签约 - 或存在解约
@@ -714,8 +710,7 @@ function getTruckHandlingStatus(orderInfo) {
 		return 17;// 未预充金额
 	}
 	if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
-		console.log("====================已激活已激活=====================================")
-		return 12; // 已激活
+      return 12; // 已激活
 	}
 	return 0;// 错误状态,未判断到
 }
