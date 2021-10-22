@@ -30,7 +30,7 @@
     "minifyWXSS": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.12.2",
+  "libVersion": "2.20.0",
   "appid": "wxddb3eb32425e4a96",
   "projectname": "ETC%2B",
   "debugOptions": {

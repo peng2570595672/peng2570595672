@@ -1,7 +1,7 @@
 <!--原点用户入口-->
 <view class="page">
 	<image class="share-er-wei-ma-all-show" src="{{qrCodeUrl}}" bindload="imageLoad"/>
-	<veiw class="top-page">
+	<view class="top-page">
 		<view class="success-user-container">
 			<view class="iconfont la-ba"></view>
 			<swiper class="swiper-box" autoplay='{{true}}' interval='2000' vertical='{{true}}' circular='{{true}}'>
@@ -21,7 +21,7 @@
 		<view class="jin-bi-small" animation="{{animation1}}"></view>
 		<view class="jin-bi-middle" animation="{{animation2}}"></view>
 		<view class="jin-bi-big" animation="{{animation3}}"></view>
-	</veiw>
+	</view>
 	<view class="bott-page">
 		<view class="handle-list-container">
 			<view class="title">好友办理进度 <text catchtap="goPersonalCenter" wx:if="{{handleList && handleList.length > 0}}">查看业绩</text></view>

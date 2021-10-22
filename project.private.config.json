@@ -34,10 +34,9 @@
           "scene": null
         },
         {
-          "id": 3,
-          "name": "activities/pages/activity_icbc_forty_five_theme/index",
-          "pathName": "activities/pages/activity_icbc_forty_five_theme/index",
-          "query": "shareId=1235556",
+          "name": "pages/crowdsourcing/index/index",
+          "pathName": "pages/crowdsourcing/index/index",
+          "query": "",
           "scene": null
         },
         {
@@ -77,7 +76,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=876096233066860544",
+          "query": "orderId=851851233169248256",
           "scene": null
         },
         {
@@ -119,6 +118,36 @@
           "name": "pages/default/processing_progress/processing_progress",
           "pathName": "pages/default/processing_progress/processing_progress",
           "query": "orderId=872896335139835904",
+          "scene": null
+        },
+        {
+          "name": "pingan/pages/ChooseBank/ChooseBank",
+          "pathName": "pingan/pages/ChooseBank/ChooseBank",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/personal_center/membership_coupon/membership_coupon",
+          "pathName": "pages/personal_center/membership_coupon/membership_coupon",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/default/test/shot_card",
+          "pathName": "pages/default/test/shot_card",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/personal_center/order_details/order_details",
+          "pathName": "pages/personal_center/order_details/order_details",
+          "query": "id=undefined&channel=undefined&month=undefined",
+          "scene": null
+        },
+        {
+          "name": "pages/personal_center/my_order/my_order",
+          "pathName": "pages/personal_center/my_order/my_order",
+          "query": "",
           "scene": null
         }
       ]
