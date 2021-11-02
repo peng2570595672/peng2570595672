@@ -1578,7 +1578,7 @@ async function getArrearageTheBill (obuCardType, trucksOrder) {
 		return;
 	}
 	const result = await getDataFromServersV2('consumer/etc/judge-detail-channels', {
-		channels: item
+		channels: obuCardType
 	});
 	if (!result) return;
 	if (result.code) {
@@ -1596,7 +1596,7 @@ async function getArrearageTheBill (obuCardType, trucksOrder) {
 		alertPayment(app.globalData.isArrearageData.etcTrucksMoney, true);
 	}
 }
-function alertPayment (etcMoney) {
+function alertPayment (etcMoney, isTruck) {
 	alert({
 		title: `请尽快补缴欠款`,
 		content: `你已欠款${etcMoney / 100}元，将影响正常的高速通行`,
