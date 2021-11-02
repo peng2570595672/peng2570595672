@@ -1519,12 +1519,7 @@ async function addProtocolRecord (protocolType) {
 async function getIsArrearage () {
 	if (app.globalData.isArrearageData.etcMoney && !app.globalData.isArrearageData.isPayment) {
 		// 已有欠款 & 并未补缴
-		alertPayment(app.globalData.isArrearageData.etcMoney, false);
-		return;
-	}
-	if (app.globalData.isArrearageData.etcTrucksMoney && !app.globalData.isArrearageData.isTrucksPayment) {
-		// 已有欠款 & 并未补缴
-		alertPayment(app.globalData.isArrearageData.etcTrucksMoney, true);
+		alertPayment(app.globalData.isArrearageData.etcMoney);
 		return;
 	}
 	if (JSON.stringify(app.globalData.myEtcList) === '{}') {
@@ -1583,7 +1578,7 @@ async function getArrearageTheBill (obuCardType, trucksOrder) {
 		return;
 	}
 	const result = await getDataFromServersV2('consumer/etc/judge-detail-channels', {
-		channels: obuCardType
+		channels: item
 	});
 	if (!result) return;
 	if (result.code) {
@@ -1601,7 +1596,7 @@ async function getArrearageTheBill (obuCardType, trucksOrder) {
 		alertPayment(app.globalData.isArrearageData.etcTrucksMoney, true);
 	}
 }
-function alertPayment (etcMoney, isTruck) {
+function alertPayment (etcMoney) {
 	alert({
 		title: `请尽快补缴欠款`,
 		content: `你已欠款${etcMoney / 100}元，将影响正常的高速通行`,

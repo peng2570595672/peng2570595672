@@ -30,6 +30,6 @@
     </view>
     <view class="fill"></view>
     <!--	操作部分开始-->
-    <view class="btn {{rechargeAmount ? 'available' : 'unavailable'}}" catchtap="next">充值</view>
+    <view class="btn {{rechargeAmount ? 'available' : 'unavailable'}}" catchtap="onNext">充值</view>
     <!--	操作部分结束-->
 </view>
