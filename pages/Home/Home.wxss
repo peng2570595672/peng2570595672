@@ -345,6 +345,9 @@
 .index .order-info .order-info-box .other-entrance .item.my-order::before {
   content: '\e699';
 }
+.index .order-info .order-info-box .other-entrance .item.icontaocan-jiayou::before {
+  content: '\e6aa';
+}
 .index .order-info .order-info-box .other-entrance .item.server::before {
   content: '\e697';
 }
