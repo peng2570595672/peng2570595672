@@ -33,9 +33,55 @@ Page({
     /**
    * 生命周期函数--监听页面加载
    */
-  onShow: function (options) {
-    this.getLocation();
-  },
+	onShow () {
+		if (!app.globalData.userInfo.accessToken) {
+			this.login();
+		} else {
+			this.getLocation();
+		}
+	},
+	// 自动登录
+	login () {
+		util.showLoading();
+		// 调用微信接口获取code
+		wx.login({
+			success: (res) => {
+				util.getDataFromServer('consumer/member/common/applet/code', {
+					platformId: app.globalData.platformId, // 平台id
+					code: res.code // 从微信获取的code
+				}, () => {
+					util.hideLoading();
+					util.showToastNoIcon('登录失败！');
+				}, (res) => {
+					if (res.code === 0) {
+						res.data['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
+						this.setData({
+							loginInfo: res.data
+						});
+						// 已经绑定了手机号
+						if (res.data.needBindingPhone !== 1) {
+							app.globalData.userInfo = res.data;
+							app.globalData.openId = res.data.openId;
+							app.globalData.memberId = res.data.memberId;
+							app.globalData.mobilePhone = res.data.mobilePhone;
+							// 查询最后一笔订单状态
+							this.getLocation();
+						} else {
+							wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+							util.go('/pages/login/login/login');
+						}
+					} else {
+						util.hideLoading();
+						util.showToastNoIcon(res.message);
+					}
+				});
+			},
+			fail: () => {
+				util.hideLoading();
+				util.showToastNoIcon('登录失败！');
+			}
+		});
+	},
   // 显示table
   onShowTable (e) {
     console.log(e);
@@ -64,7 +110,7 @@ Page({
       page: 1,
       list: []
     });
-    if (this.data.orderByField == 'price') {
+    if (this.data.orderByField === 'price') {
       let cityCode = this.data.cityId.substring(0,4) + '00';
       this.setData({
         cityCode: cityCode
@@ -212,7 +258,7 @@ Page({
         oilCode: '92#'
     };
     const result = await util.getDataFromServersV2('consumer/order/oil/statisticsCountryPrice', params);
-      if (result.data && result.code == 0) {
+      if (result.data && result.code === 0) {
         this.setData({
           todayCountryPrice: parseFloat(result.data.stPrice)
         });

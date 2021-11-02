@@ -624,9 +624,6 @@ function luhmCheck(bankno) {
  *  获取货车新流程订单办理状态 2.0
  */
 function getTruckHandlingStatus(orderInfo) {
-
-	console.log(orderInfo,'----------------获取货车新流程订单办理状态---------------------')
-
 	if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0) {
 		// protocolStatus 0未签协议 1签了
 		return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
@@ -667,7 +664,7 @@ function getTruckHandlingStatus(orderInfo) {
 		  	return 15;
 		 }
 	}
-  
+ 
 
 
 	if (orderInfo.flowVersion === 5 && orderInfo.multiContractList.filter(item => item.contractStatus === 1).length !== 3) {
@@ -1522,7 +1519,12 @@ async function addProtocolRecord (protocolType) {
 async function getIsArrearage () {
 	if (app.globalData.isArrearageData.etcMoney && !app.globalData.isArrearageData.isPayment) {
 		// 已有欠款 & 并未补缴
-		alertPayment(app.globalData.isArrearageData.etcMoney);
+		alertPayment(app.globalData.isArrearageData.etcMoney, false);
+		return;
+	}
+	if (app.globalData.isArrearageData.etcTrucksMoney && !app.globalData.isArrearageData.isTrucksPayment) {
+		// 已有欠款 & 并未补缴
+		alertPayment(app.globalData.isArrearageData.etcTrucksMoney, true);
 		return;
 	}
 	if (JSON.stringify(app.globalData.myEtcList) === '{}') {
@@ -1534,15 +1536,19 @@ async function getIsArrearage () {
 // 获取渠道列表
 async function getObuCardType () {
 	let obuCardType = [];
+	let trucksOrder = [];
 	app.globalData.myEtcList.map(item => {
 		if (item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5) {
-			obuCardType.push(item.obuCardType);
+			if (item.obuCardType !== 21) {
+				obuCardType.push(item.obuCardType);
+			} else {
+				trucksOrder.push(item.id);
+			}
 		}
 	}); // 1 已激活  2 恢复订单  5 预激活
-	if (obuCardType.length) {
-		obuCardType = [...new Set(obuCardType)];
-		await getArrearageTheBill(obuCardType);
-	}
+	app.globalData.isArrearageData.trucksOrderList = trucksOrder;
+	obuCardType = [...new Set(obuCardType)];
+	await getArrearageTheBill(obuCardType, trucksOrder);
 }
 // 获取用户是否欠费
 async function getEtcList () {
@@ -1559,9 +1565,25 @@ async function getEtcList () {
 	}
 }
 // 查询欠费账单
-async function getArrearageTheBill (item) {
+async function getArrearageTheBill (obuCardType, trucksOrder) {
+	if (trucksOrder.length) {
+		const info = await getDataFromServersV2('consumer/etc/judge-detail-channels-truck', {
+			orderNos: trucksOrder
+			// orderNos: ["859745153131220992","859745153131220993"]
+		});
+		if (!info) return;
+		if (info.code) {
+			showToastNoIcon(info.message);
+			return;
+		}
+		app.globalData.isArrearageData.isTrucksPayment = false;
+		app.globalData.isArrearageData.etcTrucksMoney = info.data.etcMoney;
+	}
+	if (!obuCardType.length) {
+		return;
+	}
 	const result = await getDataFromServersV2('consumer/etc/judge-detail-channels', {
-		channels: item
+		channels: obuCardType
 	});
 	if (!result) return;
 	if (result.code) {
@@ -1570,14 +1592,16 @@ async function getArrearageTheBill (item) {
 	}
 	if (!result.data) return;
 	if (result.data.etcMoney) {
-		app.globalData.isArrearageData = {
-			isPayment: false,
-			etcMoney: result.data.etcMoney
-		};
-		alertPayment(result.data.etcMoney);
+		app.globalData.isArrearageData.isPayment = false;
+		app.globalData.isArrearageData.etcMoney = result.data.etcMoney;
+		alertPayment(result.data.etcMoney, false);
+		return;
+	}
+	if (app.globalData.isArrearageData.etcTrucksMoney) {
+		alertPayment(app.globalData.isArrearageData.etcTrucksMoney, true);
 	}
 }
-function alertPayment (etcMoney) {
+function alertPayment (etcMoney, isTruck) {
 	alert({
 		title: `请尽快补缴欠款`,
 		content: `你已欠款${etcMoney / 100}元，将影响正常的高速通行`,
@@ -1586,6 +1610,10 @@ function alertPayment (etcMoney) {
 		cancelText: '取消',
 		confirmText: '立刻补缴',
 		confirm: () => {
+			if (isTruck) {
+				go(`/pages/account_management/precharge_account_details/precharge_account_details?orderId=${app.globalData.isArrearageData.trucksOrderList[0]}`);
+				return;
+			}
 			go('/pages/personal_center/arrears_bill/arrears_bill');
 		}
 	});

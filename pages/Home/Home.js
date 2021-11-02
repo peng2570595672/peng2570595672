@@ -40,6 +40,7 @@ Page({
 		isTermination: false,// 是否货车解约
 		isTerminationTruck: false,// 是否货车解约
 		truckList: [],
+		truckActivationOrderList: [],
 		passengerCarList: [],
 		paymentOrder: [],// 已补缴关联车牌订单
 		truckOrderInfo: undefined, // 货车订单
@@ -82,7 +83,9 @@ Page({
 			if (app.globalData.salesmanScanCodeToHandleId) {
 				await this.bindOrder();
 			} else {
-			  if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+				if (!app.globalData.bankCardInfo?.accountNo) {
+					await util.getV2BankId();
+				}
 				await this.getStatus();
 				await this.getIsShowNotice();
 			}
@@ -427,7 +430,7 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			app.globalData.salesmanScanCodeToHandleId = undefined;// 处理返回首页再次请求
-			 if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+			if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 			await this.getStatus(true);
 		} else {
 			util.showToastNoIcon(result.message);
@@ -464,7 +467,7 @@ Page({
 				if (app.globalData.salesmanScanCodeToHandleId) {
 					await this.bindOrder();
 				} else {
-				  if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+					if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 					await this.getStatus();
 				}
 			} else {
@@ -500,12 +503,11 @@ Page({
 			const list = this.sortDataArray(result.data);
 			app.globalData.myEtcList = list;
 			// 京东客服
-			let [truckList, passengerCarList, vehicleList, activationOrder, activationTruckOrder] = [[], [], [], [], []];
+			let [truckList, passengerCarList, vehicleList, activationOrder, activationTruckOrder, truckActivationOrderList] = [[], [], [], [], [], []];
 
 			// let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
 			app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
 			list.map(item => {
-
 				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
 				vehicleList.push(item.vehPlates);
 				wx.setStorageSync('cars', vehicleList.join('、'));
@@ -515,7 +517,10 @@ Page({
 				}
 				if (item.isNewTrucks === 1) {
 					truckList.push(item);
-					if (item.obuStatus === 1 || item.obuStatus === 5) activationTruckOrder.push(item.obuCardType);
+					if (item.obuStatus === 1 || item.obuStatus === 5) {
+						activationTruckOrder.push(item.obuCardType);
+						truckActivationOrderList.push(item.id);
+					}
 				}
 			});
 			const isWaitActivation = passengerCarList.find(item => item.auditStatus === 2 && item.logisticsId === 0 && item.obuStatus === 0);// 待激活
@@ -533,7 +538,6 @@ Page({
 			}
 			const terminationOrder = passengerCarList.find(item => item.selfStatus === 1);// 查询客车第一条解约订单
 			const terminationTruckOrder = truckList.find(item => item.selfStatus === 1);// 查询货车第一条解约订单
-			console.log(terminationTruckOrder,'================条解约订单=======================')
 			const isAllActivation = activationOrder.length === passengerCarList.length;// 是否客车全是激活订单 - true: 展示账单单状态
 			const isAllActivationTruck = activationTruckOrder.length === truckList.length;// 是否货车全是激活订单 - true: 展示账单单状态
 			activationOrder = [...new Set(activationOrder)];
@@ -541,13 +545,12 @@ Page({
 			// 是否全是激活订单  是 - 拉取第一条订单  否 - 过滤激活订单,拉取第一条
 			const passengerCarListNotActivation = isAllActivation ? passengerCarList[0] : passengerCarList.filter(item => item.selfStatus !== 12)[0];
 			const passengerCarListNotTruckActivation = isAllActivationTruck ? truckList[0] : truckList.filter(item => item.selfStatus !== 12)[0];
-
-
 			this.setData({
 				isShowNotice: !!app.globalData.myEtcList.length,
 				needRequestBillNum: activationTruckOrder.length + activationOrder.length,
 				isTermination: !!terminationOrder,
 				isTerminationTruck: !!terminationTruckOrder,
+				truckActivationOrderList,
 				isAllActivation,
 				truckList,
 				passengerCarList,
@@ -555,7 +558,7 @@ Page({
 				truckOrderInfo: terminationTruckOrder || passengerCarListNotTruckActivation, // 解约订单 || 拉取第一条
 				passengerCarOrderInfo: terminationOrder || passengerCarListNotActivation // 解约订单 || 拉取第一条
 			});
-			app.globalData.truckLicensePlate=passengerCarListNotActivation?passengerCarListNotActivation.vehPlates : ''; //存货车出牌
+			app.globalData.truckLicensePlate = passengerCarListNotActivation ? passengerCarListNotActivation.vehPlates : ''; // 存货车出牌
 			// 上一页返回时重置
 			this.setData({
 				orderInfo: this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data.truckOrderInfo
@@ -604,12 +607,11 @@ Page({
 		});
 	},
 	// 查询已补缴车牌
-	async getPaymentVeh (item, etcMoney) {
+	async getPaymentVeh (item, etcMoney, etcTrucksMoney) {
 		if (item.includes(21)) this.remove(item,21);// 暂不查货车
-		console.log(this.data.orderInfo.shopProductId,'============================')
 		const result = await util.getDataFromServersV2('consumer/etc/get-supplementary-payment-veh', {
 			channels: item,
-			shopProductId:this.data.orderInfo.shopProductId
+			shopProductId: this.data.orderInfo.shopProductId
 		});
 		if (!result) return;
 		if (result.code) {
@@ -626,10 +628,8 @@ Page({
 				}
 			});
 		});
-		this.setData({
-			paymentOrder
-		});
-		this.vehicleInfoAlert(etcMoney, paymentVeh.join('、'));
+		this.setData({paymentOrder});
+		this.vehicleInfoAlert(etcMoney, etcTrucksMoney, paymentVeh.join('、'));
 	},
 	// 删除方法
 	remove (array,val) {
@@ -642,6 +642,19 @@ Page({
 	},
 	// 查询欠费账单
 	async getArrearageTheBill (item) {
+		let etcTrucksMoney = 0;
+		if (item.includes(21)) {
+			this.remove(item,21);// 暂不查货车
+			const info = await util.getDataFromServersV2('consumer/etc/judge-detail-channels-truck', {
+				orderNos: this.data.truckActivationOrderList
+			});
+			if (!info) return;
+			if (info.code) {
+				util.showToastNoIcon(info.message);
+				return;
+			}
+			etcTrucksMoney = info.data.etcMoney;
+		}
 		const result = await util.getDataFromServersV2('consumer/etc/judge-detail-channels', {
 			channels: item
 		});
@@ -651,7 +664,7 @@ Page({
 			return;
 		}
 		if (!result.data) return;
-		await this.getPaymentVeh(item, result.data.etcMoney);
+		await this.getPaymentVeh(item, result.data.etcMoney, etcTrucksMoney);
 	},
 	// 查询最近一次账单
 	async getRecentlyTheBill (item, isTruck = false) {
@@ -710,10 +723,10 @@ Page({
 		}
 	},
 	// 车辆弹窗
-	vehicleInfoAlert (etcMoney, paymentVeh) {
-		if (etcMoney) {
+	vehicleInfoAlert (etcMoney, etcTrucksMoney, paymentVeh) {
+		if (etcMoney || etcTrucksMoney) {
 			// 货车 || 客车欠费
-			this.dialogJudge(etcMoney);
+			this.dialogJudge(etcMoney || etcTrucksMoney, !!etcMoney);
 			return;
 		}
 		// 已补缴 && 签约信息为3.0车辆
@@ -741,7 +754,7 @@ Page({
 			// 客车解约 - 弹窗签约
 		}
 	},
-	dialogJudge (money) {
+	dialogJudge (money, isTruck = false) {
 		if (money) {
 			// // 欠费 - 弹窗补缴
 			// let dialogContent = {
@@ -752,7 +765,7 @@ Page({
 			// };
 			// this.setData({dialogContent});
 			// this.selectComponent('#dialog').show();
-			util.alertPayment(money);
+			util.alertPayment(money, isTruck);
 			return;
 		}
 		// 解约
@@ -800,7 +813,7 @@ Page({
 	},
 	// 点击车辆信息
 	onClickVehicle () {
-		console.log(this.data.activeIndex,'==============这里应是2===================')
+		console.log(this.data.activeIndex,'==============这里应是2===================');
 		const orderInfo = this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data.truckOrderInfo;
 		if (!orderInfo) {
 			app.globalData.orderInfo.orderId = '';
@@ -828,7 +841,7 @@ Page({
 			15: () => this.goRecharge(orderInfo), // 保证金预充失败 - 去预充
 			16: () => this.goBindingWithholding(orderInfo), // 选装-未已绑定车辆代扣
 			17: () => this.onClickViewProcessingProgressHandle(orderInfo), // 去预充(预充流程)-查看进度
-			18: () => this.onTollWithholding(orderInfo) //代扣通行费
+			18: () => this.onTollWithholding(orderInfo) // 代扣通行费
 		};
 		fun[orderInfo.selfStatus].call();
 	},
@@ -855,10 +868,10 @@ Page({
 		wx.uma.trackEvent('index_for_binding_account');
 		util.go('/pages/truck_handling/binding_account/binding_account');
 	},
-	//代口通行费
+	// 代扣通行费
 	onTollWithholding () {
-			util.go(`/pages/truck_handling/binding_account_successful/binding_account_successful`);
-		},
+		util.go(`/pages/truck_handling/binding_account_successful/binding_account_successful`);
+	},
 	// 去授权预充保证金
 	goRechargeAuthorization () {
 		wx.uma.trackEvent('index_for_recharge_instructions');

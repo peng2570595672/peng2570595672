@@ -1,5 +1,5 @@
 ﻿// 是否为测试 TODO
-const IS_TEST = false; // false为正式接口地址，true为测试接口地址
+const IS_TEST = true; // false为正式接口地址，true为测试接口地址
 const util = require('./utils/util.js');
 const uma = require('./utils/umtrack-wx.js');
 App({
@@ -99,7 +99,10 @@ App({
 		isNeedReturnHome: false,// 是否需要返回首页
 		isArrearageData: {
 			isPayment: false,// 是否补缴
-			etcMoney: 0 // 欠费金额
+			isTrucksPayment: false,// 是否货车补缴
+			trucksOrderList: [],// 货车订单
+			etcMoney: 0, // 欠费金额
+			etcTrucksMoney: 0 // 货车欠费金额
 		},// 欠费数据
 		newPackagePageData: {}, // 新套餐页面数据
 		bankCardInfo: {}, // 二类户信息

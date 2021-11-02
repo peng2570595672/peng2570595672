@@ -76,7 +76,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=851851233169248256",
+          "query": "orderId=902267536140537856",
           "scene": null
         },
         {
@@ -142,6 +142,30 @@
           "name": "pages/personal_center/order_details/order_details",
           "pathName": "pages/personal_center/order_details/order_details",
           "query": "id=undefined&channel=undefined&month=undefined",
+          "scene": null
+        },
+        {
+          "name": "pages/personal_center/my_order/my_order",
+          "pathName": "pages/personal_center/my_order/my_order",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/default/information_validation/information_validation",
+          "pathName": "pages/default/information_validation/information_validation",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/account_management/precharge_account_details/precharge_account_details",
+          "pathName": "pages/account_management/precharge_account_details/precharge_account_details",
+          "query": "orderId=861629807241203712",
+          "scene": null
+        },
+        {
+          "name": "pages/ejiayou/index/index",
+          "pathName": "pages/ejiayou/index/index",
+          "query": "",
           "scene": null
         },
         {
