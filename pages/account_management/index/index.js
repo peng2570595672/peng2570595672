@@ -11,17 +11,21 @@ Page({
 		cardInfo: undefined
 	},
 	async onLoad (options) {
-		if (options.needLoadEtc) {
-			await this.getStatus();
+		if (!app.globalData.userInfo.accessToken) {
+			this.login();
 		} else {
-			const etcList = app.globalData.myEtcList.filter(item => item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
-			this.setData({etcList});
-			etcList.map(async item => {
-				await this.getQueryWallet(item);
-			});
+			if (options.needLoadEtc) {
+				await this.getStatus();
+			} else {
+				const etcList = app.globalData.myEtcList.filter(item => item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
+				this.setData({etcList});
+				etcList.map(async item => {
+					await this.getQueryWallet(item);
+				});
+			}
+			// 查询是否欠款
+			await util.getIsArrearage();
 		}
-		// 查询是否欠款
-		await util.getIsArrearage();
 	},
 	async onShow () {
 		// await util.getV2BankId();
@@ -40,6 +44,48 @@ Page({
 			});
 		}
 	},
+	// 自动登录
+	login () {
+		util.showLoading();
+		// 调用微信接口获取code
+		wx.login({
+			success: (res) => {
+				util.getDataFromServer('consumer/member/common/applet/code', {
+					platformId: app.globalData.platformId, // 平台id
+					code: res.code // 从微信获取的code
+				}, () => {
+					util.hideLoading();
+					util.showToastNoIcon('登录失败！');
+				}, async (res) => {
+					if (res.code === 0) {
+						res.data['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
+						this.setData({
+							loginInfo: res.data
+						});
+						// 已经绑定了手机号
+						if (res.data.needBindingPhone !== 1) {
+							app.globalData.userInfo = res.data;
+							app.globalData.openId = res.data.openId;
+							app.globalData.memberId = res.data.memberId;
+							app.globalData.mobilePhone = res.data.mobilePhone;
+							await this.getStatus();
+							// 查询是否欠款
+							await util.getIsArrearage();
+						} else {
+							util.hideLoading();
+						}
+					} else {
+						util.hideLoading();
+						util.showToastNoIcon(res.message);
+					}
+				});
+			},
+			fail: () => {
+				util.hideLoading();
+				util.showToastNoIcon('登录失败！');
+			}
+		});
+	},
 	onClickAccountDetails () {
 		wx.uma.trackEvent('account_management_for_index_to_account_details');
 		util.go(`/pages/account_management/account_details/account_details`);
@@ -49,11 +95,11 @@ Page({
 		wx.uma.trackEvent('account_management_for_index_to_bind_bank_card');
 		util.go(`/pages/account_management/bind_bank_card/bind_bank_card`);
 	},
-	//充值
+	// 充值
 	onClickPay () {
 		util.go(`/pages/account_management/account_recharge/account_recharge`);
 	},
-	//圈存
+	// 圈存
 	onClickOBU () {
 		util.go(`/pages/obu/add/add`);
 	},

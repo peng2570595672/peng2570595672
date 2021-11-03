@@ -17,7 +17,7 @@
         </view>
         <view class="vehicle">账户绑定车牌:{{item.vehPlates}}</view>
     </view>
-    <view class="card" wx:if="{{true}}">
+    <view class="card" wx:if="{{cardInfo.accountNo}}">
         <view class="card-info">
             <view class="left">
                 <view>当前账户余额（元）</view>
