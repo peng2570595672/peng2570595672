@@ -27,7 +27,7 @@ Page({
 			regionCode: [], // 省份编码
 			userName: '', // 收货人姓名
 			telNumber: '', // 电话号码
-			detailInfo: '', // 收货地址详细信息
+			detailInfo: '' // 收货地址详细信息
 		} // 提交数据
 	},
 	async onLoad () {

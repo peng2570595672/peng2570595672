@@ -1,0 +1,95 @@
+@import "../../../style/base.styl";
+@import '/animate.styl';
+.container
+	height 100vh
+	box-sizing border-box
+	background #D8D8D8
+	overflow hidden
+	.camera-box
+		height 61vh
+		background #F6F6F6
+		position relative
+		.camera
+			width 750rpx
+			height 61vh
+			.border
+				width 469rpx
+				height 608rpx
+				margin-top 116rpx
+				margin-left 140rpx
+			.progress
+				position absolute
+				bottom 0
+				width 100%
+				.progress-bar
+					height 16rpx
+					transition 0.4s linear
+				&.progress-moved
+					.progress-bar
+						width 100%
+						background-color #00B85C
+						animation progressAnimation 3s
+		.tips
+			position absolute
+			height 56rpx
+			display flex
+			align-items center
+			font-size 40rpx
+			font-family PingFangSC-Medium, PingFang SC
+			font-weight 500
+			color #FF3C48
+			padding-top 36rpx
+			padding-left 44rpx
+			&::before
+				content ''
+				display block
+				width 14rpx
+				height 14rpx
+				margin-right 16rpx
+				border-radius 50%
+				background #FF3C48
+	.recording
+		text-align center
+		height 56rpx
+		font-size 40rpx
+		font-family PingFangSC-Medium, PingFang SC
+		font-weight 500
+		color #66666E
+		line-height 56rpx
+		padding-top 36rpx
+		.dotting
+			display inline-block
+			width 6rpx
+			height 6rpx
+			box-shadow 6rpx 0 currentColor, 18rpx 0 currentColor, 30rpx 0 currentColor;
+			animation dot 2s infinite step-start both
+			-webkit-animation dot 2s infinite step-start both
+			border-radius 50%
+			&:before
+				content '...'
+			&::before
+				content ''
+	.content-info
+		text-align center
+		margin-top 86rpx
+		.img
+			width 232rpx
+			height 232rpx
+		.tips
+			font-size 40rpx
+			font-family PingFangSC-Semibold, PingFang SC
+			font-weight 600
+			color #33333E
+			line-height 56rpx
+			padding-top 48rpx
+	.btn
+		display flex
+		align-items center
+		justify-content center
+		margin 174rpx 58rpx 70rpx
+		height 98rpx
+		font-size 40rpx
+		font-weight 500
+		color #fff
+		border-radius 49rpx
+		background linear-gradient(to right , $deepThemeColor, $shallowThemeColor)

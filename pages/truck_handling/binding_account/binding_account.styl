@@ -105,7 +105,7 @@
 					font-size 40rpx
 					content '\e654'
 					margin-right 12rpx
-				& > i
+				& > text
 					&:after
 						display flex
 						align-items center
@@ -165,10 +165,11 @@
 	.agreement
 		display flex
 		align-items center
-		justify-content center
 		height 48rpx
 		font-size 24rpx
 		color $fontColor9
+		padding-left 104rpx
+		padding-bottom 22rpx
 		& > text
 			color $fontColor
 		&::before
@@ -180,7 +181,15 @@
 			color $fontColor9
 			border-radius 50%
 		&.selected::before
-			color $shallowThemeColor
+			color #00B85C
+	.protocol-info
+		.protocol
+			color #00B85C
+			font-size 24rpx
+			font-family PingFangSC-Medium, PingFang SC
+			font-weight 500
+			line-height 48rpx
+			padding-left 104rpx
 	// 下一步
 	.btn
 		display flex

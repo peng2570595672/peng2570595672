@@ -31,6 +31,7 @@ Page({
 		} else {
 			// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 			await this.getETCDetail();
+			util.getMemberStatus();
 		}
 		if (this.data.showDetailMask) {
 			this.hide();
@@ -59,6 +60,7 @@ Page({
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
 						// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+						util.getMemberStatus();
 						await this.getETCDetail();
 					}
 				} else {
@@ -82,7 +84,7 @@ Page({
 			orderInfo['selfStatus'] = orderInfo.isNewTrucks === 1 ? util.getTruckHandlingStatus(orderInfo) : util.getStatus(orderInfo);
 			orderInfo['deductionMethod'] = initProductName(orderInfo);
 
-			console.log(orderInfo,'===========订单数据==================')
+			console.log(orderInfo,'===========订单数据==================');
 
 			this.setData({
 				orderInfo
@@ -140,6 +142,7 @@ Page({
 	onClickVehicle () {
 		const orderInfo = this.data.orderInfo;
 		app.globalData.orderInfo.orderId = orderInfo.id;
+		app.globalData.processFlowVersion = orderInfo.flowVersion;
 		const fun = {
 			1: () => this.onClickBackToSign(orderInfo),// 恢复签约
 			2: () => this.onClickContinueHandle(orderInfo),// 继续办理
@@ -155,9 +158,15 @@ Page({
 			14: () => this.goRechargeAuthorization(orderInfo), // 去授权预充保证金
 			15: () => this.goRecharge(orderInfo), // 保证金预充失败 - 去预充
 			16: () => this.goBindingWithholding(orderInfo), // 选装-未已绑定车辆代扣
-			17: () => this.onClickViewProcessingProgressHandle(orderInfo) // 去预充(预充流程)-查看进度
+			17: () => this.onClickViewProcessingProgressHandle(orderInfo), // 去预充(预充流程)-查看进度
+			19: () => this.onClickModifiedData(orderInfo),
+			20: () => this.onClickVerification(orderInfo)
 		};
 		fun[orderInfo.selfStatus].call();
+	},
+	// 交行-去腾讯云核验
+	onClickVerification () {
+		util.go(`/pages/truck_handling/face_of_check_tips/face_of_check_tips`);
 	},
 	// 选装-去绑定代扣
 	goBindingWithholding () {
@@ -173,9 +182,10 @@ Page({
 		util.go(`/pages/default/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}`);
 	},
 	// 去开户
-	goBindingAccount () {
+	goBindingAccount (orderInfo) {
 		wx.uma.trackEvent('etc_detail_for_binding_account');
-		util.go('/pages/truck_handling/binding_account/binding_account');
+		const path = `${orderInfo.flowVersion === 7 ? 'binding_account_bocom' : 'binding_account'}`;
+		util.go(`/pages/truck_handling/${path}/${path}`);
 	},
 	// 去授权预充保证金
 	goRechargeAuthorization () {

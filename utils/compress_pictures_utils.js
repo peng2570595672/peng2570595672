@@ -38,6 +38,7 @@ function  processingPictures (self, path, canvasId, width ,success) {
 					pictureHeight: targetHeight
 				});
 				console.log(2);
+				console.log(res);
 				wx.nextTick(() => {
 					getCanvasImage(canvasId, path,targetWidth, targetHeight, (res) => {
 						if (res) {
@@ -49,15 +50,19 @@ function  processingPictures (self, path, canvasId, width ,success) {
 									// 计算原始宽高比和压缩后的宽高比 如果一直 则通过 否则压缩视为无效
 									if (parseInt(targetWidth) / parseInt(targetHeight) === parseInt(width) / parseInt(height)) {
 										success(res)
+										console.log(55555555555);
 									} else {
+										console.log(444444444444444);
 										success();
 									}
 								},
 								fail: () => {
+									console.log(33333333333);
 									success();
 								}
 							});
 						} else {
+							console.log(6666666666);
 							success();
 						}
 					});

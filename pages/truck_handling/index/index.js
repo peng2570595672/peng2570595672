@@ -8,7 +8,7 @@ Page({
 	data: {
 		isMain: false
 	},
-	async onLoad (options) { 
+	async onLoad (options) {
 		if (options.isMain) {
 			this.setData({
 				isMain: options.isMain

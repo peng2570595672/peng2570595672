@@ -5,19 +5,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    url:""
+    url: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-     let url=decodeURIComponent(options.url)
-     console.log(url)
-       if(url){
+     let url = decodeURIComponent(options.url);
+     console.log(url);
+       if (url) {
          this.setData({
-           url:url
-         })
+           url: url
+         });
        }
   },
 
@@ -69,4 +69,4 @@ Page({
   onShareAppMessage: function () {
 
   }
-})
+});

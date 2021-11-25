@@ -624,9 +624,6 @@ function luhmCheck(bankno) {
  *  获取货车新流程订单办理状态 2.0
  */
 function getTruckHandlingStatus(orderInfo) {
-
-	console.log(orderInfo,'----------------获取货车新流程订单办理状态---------------------')
-
 	if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0) {
 		// protocolStatus 0未签协议 1签了
 		return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
@@ -645,13 +642,22 @@ function getTruckHandlingStatus(orderInfo) {
 	if (orderInfo.isOwner === 0 || orderInfo.isVehicle === 0 || orderInfo.isHeadstock === 0 || (orderInfo.isTraction === 1 && orderInfo.isTransportLicense !== 1)) {
 		return 4; // 办理中 未上传证件
 	}
-
-	console.log(orderInfo.flowVersion,'============flowVersion===========')
-	console.log(orderInfo.icbcv2,'============icbcv2===========')
-
-	if(orderInfo.flowVersion === 6 && orderInfo.icbcv2){ 
+	console.log(app.globalData.memberStatusInfo)
+	if(orderInfo.flowVersion === 7 && !app.globalData.memberStatusInfo?.uploadImageStatus) {
+		// 未影像资料上送
+		return 19;
+	}
+	if(orderInfo.flowVersion === 7 && !app.globalData.memberStatusInfo?.isTencentVerify){
+		// 未上送腾讯云活体人脸核身核验成功
+		return 20;
+	}
+	if(orderInfo.flowVersion === 7 && !app.globalData.memberStatusInfo?.memberBankId){
+		// 交行 开通II类户预充保证金 - 未开户
+		return 13;
+	}
+	if(orderInfo.flowVersion === 6 && orderInfo.icbcv2){
 		//代扣通行费
-			return 18;
+		return 18;
 	}
 
 	if (orderInfo.flowVersion === 6 && !app.globalData.bankCardInfo?.accountNo) {
@@ -702,7 +708,6 @@ function getTruckHandlingStatus(orderInfo) {
 		return 17;// 未预充金额
 	}
 	if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
-		console.log("====================已激活已激活=====================================")
 		return 12; // 已激活
 	}
 	return 0;// 错误状态,未判断到
@@ -711,7 +716,6 @@ function getTruckHandlingStatus(orderInfo) {
  *  获取订单办理状态 2.0
  */
 function getStatus(orderInfo) {
-	console.log("-=-----------获取订单办理状态----------------------------------")
 	if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0) {
 		// protocolStatus 0未签协议 1签了
 		return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
@@ -1052,6 +1056,21 @@ function getInsuranceOffer(orderId, wtagid) {
 	});
 }
 /**
+ *  获取用户状态-交行资料信息
+ */
+function getMemberStatus() {
+	getDataFromServer('consumer/member/bcm/getMemberStatus', {}, () => {}, (res) => {
+		if (res.code === 0) {
+			console.log('res.data');
+			console.log(res.data);
+			app.globalData.memberStatusInfo = res.data;
+		} else {
+			showToastNoIcon(res.message);
+		}
+	}, app.globalData.userInfo.accessToken, () => {
+	});
+}
+/**
  *  去微保好车主
  */
 function goMicroInsuranceVehicleOwner(params, wtagid) {
@@ -1355,7 +1374,7 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
 						reAutoLoginV2(path, params, method);
 						return;
 					}
-					console.log(res.data);
+					// console.log(res.data);
 					resolve(res.data)
 				} else {
 					reject(res)
@@ -1584,6 +1603,7 @@ module.exports = {
 	formatNumber,
 	addProtocolRecord,
 	queryProtocolRecord,
+	getMemberStatus,
 	goMicroInsuranceVehicleOwner,
 	getDataFromServer, // 从服务器上获取数据
 	getIsArrearage,

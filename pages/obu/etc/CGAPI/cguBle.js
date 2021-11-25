@@ -1,12 +1,11 @@
 
+const TAG_FUNCTION = 'function';
+const CGU_SERVICE_UUID = '0000FEE7-0000-1000-8000-00805F9B34FB';// 目标服务
+const CGU_WRTIE_UUID = '0000FFE1-0000-1000-8000-00805F9B34FB';// 目标写特征
+const CGU_READ_UUID = '0000FFE4-0000-1000-8000-00805F9B34FB';// 目标读特征
 
-const TAG_FUNCTION = 'function'
-const CGU_SERVICE_UUID = "0000FEE7-0000-1000-8000-00805F9B34FB";//目标服务
-const CGU_WRTIE_UUID = "0000FFE1-0000-1000-8000-00805F9B34FB";//目标写特征
-const CGU_READ_UUID = "0000FFE4-0000-1000-8000-00805F9B34FB";//目标读特征
-
-const SUCCESS_CODE=0;
-const FAILL_CODE=-1;
+const SUCCESS_CODE = 0;
+const FAILL_CODE = -1;
 
 module.exports = {
   ScanDevice: ScanDevice,
@@ -16,54 +15,54 @@ module.exports = {
   transCmd: transCmd,
   noSleepCmd: noSleepCmd
 
-}
-let foundDevices = []
+};
+let foundDevices = [];
 
 var cguDeviceId = '';
 var cguServiceId = '';
-var cguWriteId = "";
-var cguReadId = "";
-var correctPacketIndex = 1;//理应包数
-var receivePacketSize = 0;//接收总包数
+var cguWriteId = '';
+var cguReadId = '';
+var correctPacketIndex = 1;// 理应包数
+var receivePacketSize = 0;// 接收总包数
 var sendCallback;
 var timeOutId;
 var recevResendCount = 3;
 var recevSuccessFlag = false;
 var flashFlag = false;
-var valueArray = new Array();//完整数据保存
-var cguSendData = new Array();//送法的数据
+var valueArray = new Array();// 完整数据保存
+var cguSendData = new Array();// 送法的数据
 var cguSendIndex = 0;
 var cguResendCount = 3;
-var IntervalTimer = 0;//搜搜蓝牙定时器
+var IntervalTimer = 0;// 搜搜蓝牙定时器
 var SetoutTimer = 0;
-//打开蓝牙适配器
-function openBleAdapter(callback) {
+// 打开蓝牙适配器
+function openBleAdapter (callback) {
   let DevResult = {};
   if (!wx.openBluetoothAdapter) {
     DevResult.code = 10001;
-    DevResult.msg = "当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试";
+    DevResult.msg = '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试';
     DevResult.data = null;
-    typeof callback == TAG_FUNCTION && callback(DevResult)
+    typeof callback === TAG_FUNCTION && callback(DevResult);
   } else {
     wx.openBluetoothAdapter({
       success: function (res) {
         DevResult.code = 0;
-        DevResult.msg = "初始化蓝牙成功";
+        DevResult.msg = '初始化蓝牙成功';
         DevResult.data = res;
-        typeof callback == TAG_FUNCTION && callback(DevResult)
+        typeof callback === TAG_FUNCTION && callback(DevResult);
       },
       fail: function (res) {
         DevResult.code = 10001;
-        DevResult.msg = "初始化蓝牙失败";
+        DevResult.msg = '初始化蓝牙失败';
         DevResult.data = res;
-        typeof callback == TAG_FUNCTION && callback(DevResult)
+        typeof callback === TAG_FUNCTION && callback(DevResult);
       }
-    })
+    });
   }
 }
 
-//搜索蓝牙 flag 是过滤标识
-function ScanDevice(flag, callback) {
+// 搜索蓝牙 flag 是过滤标识
+function ScanDevice (flag, callback) {
   openBleAdapter(function (res) {
     if (res.code == 0) {
       let DevResult = {};
@@ -75,34 +74,34 @@ function ScanDevice(flag, callback) {
           SetoutTimer = setTimeout(function () {
             StopScanDevice(function (res) {
               DevResult.code = 10002;
-              DevResult.msg = "搜索超时，未发现设备";
+              DevResult.msg = '搜索超时，未发现设备';
               DevResult.data = null;
-              typeof callback == TAG_FUNCTION && callback(DevResult);
+              typeof callback === TAG_FUNCTION && callback(DevResult);
             });
           }, 30000);
 
-          function fn() {
+          function fn () {
             wx.onBluetoothDeviceFound(function (res) {
               for (let i = 0; i < res.devices.length; i++) {
-                let isHave = false
+                let isHave = false;
                 for (let j = 0; j < foundDevices.length; j++) {
                   if (res.devices[i].deviceId == foundDevices[j].deviceId) {
-                    isHave = true
-                    break
+                    isHave = true;
+                    break;
                   }
                 }
-               
+
                 var blueName = res.devices[i]['name'];
-                if (typeof (blueName) == undefined || blueName ==''){
-                }else{
-                  console.log("蓝牙名称：", res.devices[i]['name']);
+                if (typeof (blueName) === undefined || blueName == '') {
+                } else {
+                  console.log('蓝牙名称：', res.devices[i]['name']);
                   if (isHave == false) {
                     foundDevices.push(res.devices[i]);
                     var deviceName = res.devices[i]['name'];
-                    //过滤器 name
+                    // 过滤器 name
                     if (deviceName.indexOf(flag) != -1) {
                       var deviceId = res.devices[i]['deviceId'];
-                      //停止搜搜
+                      // 停止搜搜
                       StopScanDevice(function (res) {
                         if (res.code == 0) {
                           clearTimeout(SetoutTimer);
@@ -111,43 +110,41 @@ function ScanDevice(flag, callback) {
                           device.deviceId = deviceId;
                           device.name = deviceName;
                           DevResult.code = 0;
-                          DevResult.msg = "搜索成功";
+                          DevResult.msg = '搜索成功';
                           DevResult.data = device;
-                          typeof callback == TAG_FUNCTION && callback(DevResult)
+                          typeof callback === TAG_FUNCTION && callback(DevResult);
                         } else {
                           DevResult.code = 10002;
-                          DevResult.msg = "搜索失败";
+                          DevResult.msg = '搜索失败';
                           DevResult.data = res;
-                          typeof callback == TAG_FUNCTION && callback(DevResult)
+                          typeof callback === TAG_FUNCTION && callback(DevResult);
                         }
-                      })
-                      break
+                      });
+                      break;
                     } else {
 
                     }
                   }
                 }
-
               }
-            })
+            });
           }
         },
         fail: function (res) {
           DevResult.code = 10001;
-          DevResult.msg = "搜索失败";
+          DevResult.msg = '搜索失败';
           DevResult.data = res;
-          typeof callback == TAG_FUNCTION && callback(DevResult)
+          typeof callback === TAG_FUNCTION && callback(DevResult);
         }
-      })
+      });
     } else {
-      typeof callback == TAG_FUNCTION && callback(res)
+      typeof callback === TAG_FUNCTION && callback(res);
     }
   });
-
 }
 
-//停止搜索
-function StopScanDevice(callback) {
+// 停止搜索
+function StopScanDevice (callback) {
   if (SetoutTimer != 0) {
     clearTimeout(SetoutTimer);
     SetoutTimer = 0;
@@ -157,20 +154,20 @@ function StopScanDevice(callback) {
     success: function (res) {
       DevResult.code = 0;
       DevResult.data = res;
-      DevResult.msg = "操作成功";
-      typeof callback == TAG_FUNCTION && callback(DevResult)
+      DevResult.msg = '操作成功';
+      typeof callback === TAG_FUNCTION && callback(DevResult);
     },
     fail: function (res) {
       DevResult.code = 10030;
       DevResult.data = res;
-      DevResult.msg = "蓝牙已关闭";
-      typeof callback == TAG_FUNCTION && callback(DevResult)
+      DevResult.msg = '蓝牙已关闭';
+      typeof callback === TAG_FUNCTION && callback(DevResult);
     }
-  })
+  });
 }
-//连接蓝牙
-function connectDevice(device, callback, callback_2) {
-  console.log("连接蓝牙==================");
+// 连接蓝牙
+function connectDevice (device, callback, callback_2) {
+  console.log('连接蓝牙==================');
   console.log(device);
   var DevResult = {};
   if (device != null) {
@@ -182,22 +179,22 @@ function connectDevice(device, callback, callback_2) {
     wx.createBLEConnection({
       deviceId: deviceId,
       success: function (data) {
-        console.log("连接成功设备，开始使能服务");
+        console.log('连接成功设备，开始使能服务');
 
         wx.onBLEConnectionStateChange(function (res) {
           if (res.connected == false) {
-            DevResult.code=1;
-            DevResult.data=null;
-            DevResult.msg = "监听到断开连接";
-            console.log("蓝牙异常断开");
-            typeof callback_2 == TAG_FUNCTION && callback_2(DevResult);
-          }else{
+            DevResult.code = 1;
+            DevResult.data = null;
+            DevResult.msg = '监听到断开连接';
+            console.log('蓝牙异常断开');
+            typeof callback_2 === TAG_FUNCTION && callback_2(DevResult);
+          } else {
             DevResult.code = 0;
             DevResult.data = null;
-            DevResult.msg = "监听连接成功";
-            typeof callback_2 == TAG_FUNCTION && callback_2(DevResult);
+            DevResult.msg = '监听连接成功';
+            typeof callback_2 === TAG_FUNCTION && callback_2(DevResult);
           }
-        })
+        });
         wx.getBLEDeviceServices({
           deviceId: deviceId,
           success: function (res) {
@@ -205,7 +202,7 @@ function connectDevice(device, callback, callback_2) {
               let serviceuuid = res.services[i].uuid.toUpperCase();
               if (CGU_SERVICE_UUID.indexOf(serviceuuid) != -1) {
                 cguServiceId = serviceuuid;
-                //获取特征
+                // 获取特征
                 wx.getBLEDeviceCharacteristics({
                   deviceId: cguDeviceId,
                   serviceId: cguServiceId,
@@ -214,61 +211,58 @@ function connectDevice(device, callback, callback_2) {
                       let chauuid = res.characteristics[i].uuid.toUpperCase();
                       if (CGU_READ_UUID.indexOf(chauuid) != -1) {
                         cguReadId = chauuid;
-                      }
-                      else if (CGU_WRTIE_UUID.indexOf(chauuid) != -1) {
+                      } else if (CGU_WRTIE_UUID.indexOf(chauuid) != -1) {
                         cguWriteId = chauuid;
                       }
                     }
                     if (cguWriteId.length == 0 || cguReadId.length == 0) {
                       DevResult.code = -3;
                       DevResult.data = res;
-                      DevResult.msg = "获取特征值失败";
-                      typeof callback == TAG_FUNCTION && callback(DevResult);
-                    }
-                    else {
+                      DevResult.msg = '获取特征值失败';
+                      typeof callback === TAG_FUNCTION && callback(DevResult);
+                    } else {
                       openReceiveData(function (res) {
-                        typeof callback == TAG_FUNCTION && callback(res);
+                        typeof callback === TAG_FUNCTION && callback(res);
                       });
                     }
                   },
                   fail: function (res) {
                     DevResult.code = -2;
                     DevResult.data = res;
-                    DevResult.msg = "获取特征值失败";
-                    typeof callback == TAG_FUNCTION && callback(DevResult);
+                    DevResult.msg = '获取特征值失败';
+                    typeof callback === TAG_FUNCTION && callback(DevResult);
                   }
-                })
+                });
               }
             }
-          }, fail: function (res) {
+          },
+fail: function (res) {
             DevResult.code = -1;
             DevResult.data = res;
-            DevResult.msg = "获取特征值失败";
-            typeof callback == TAG_FUNCTION && callback(DevResult);
+            DevResult.msg = '获取特征值失败';
+            typeof callback === TAG_FUNCTION && callback(DevResult);
           }
-        })
+        });
       },
       fail: function (err) {
         disconnectDevice(function (res) {
           DevResult.code = 10001;
           DevResult.data = res;
-          DevResult.msg = "获取特征值失败";
-          typeof callback == TAG_FUNCTION && callback(DevResult);
+          DevResult.msg = '获取特征值失败';
+          typeof callback === TAG_FUNCTION && callback(DevResult);
         });
-
       }
-    })
+    });
   } else {
     DevResult.code = 10002;
     DevResult.data = device;
-    DevResult.msg = "蓝牙名称为空";
-    typeof callback == TAG_FUNCTION && callback(DevResult)
+    DevResult.msg = '蓝牙名称为空';
+    typeof callback === TAG_FUNCTION && callback(DevResult);
   }
-
 }
 
-//数据接收
-function openReceiveData(callback) {
+// 数据接收
+function openReceiveData (callback) {
   var DevResult = {};
   wx.notifyBLECharacteristicValueChange({
     deviceId: cguDeviceId,
@@ -278,118 +272,114 @@ function openReceiveData(callback) {
     success: function (res) {
       DevResult.code = 0;
       DevResult.data = null;
-      DevResult.msg = "连接蓝牙成功";
+      DevResult.msg = '连接蓝牙成功';
       sendData(noSleepCmd(), function (res) {
-        
+
       });
-      setTimeout(function(){
-        typeof callback == TAG_FUNCTION && callback(DevResult);
-      },500)
-    
-    }, fail: function (res) {
+      setTimeout(function () {
+        typeof callback === TAG_FUNCTION && callback(DevResult);
+      },500);
+    },
+fail: function (res) {
       DevResult.code = -1;
       DevResult.data = res;
-      DevResult.msg = "打开notify失败";
-      typeof callback == TAG_FUNCTION && callback(DevResult);
+      DevResult.msg = '打开notify失败';
+      typeof callback === TAG_FUNCTION && callback(DevResult);
     }
-  })
+  });
   wx.onBLECharacteristicValueChange(function (characteristic) {
     var DevResult = {};
 
     if (CGU_READ_UUID.indexOf(characteristic.characteristicId.toUpperCase()) != -1) {
       let hex = Array.prototype.map.call(new Uint8Array(characteristic.value), x => ('00' + x.toString(16)).slice(-2)).join('');
-      console.log("原始数据：" + hex);
+      console.log('原始数据：' + hex);
       if (hex.length > 6) {
-
         let receivePacketIndex = parseInt(hex.substring(4, 6), 16);
         if (parseInt(hex.substring(2, 4), 16) == 0x80) {
           receivePacketSize = parseInt(hex.substring(4, 6), 16);
         }
         if (receivePacketSize == 1) {
           if ((parseInt(hex.substring(6, 8), 16) != 0xc7) && (parseInt(hex.substring(6, 8), 16) != 0xc0)) {
-            console.log("进入只有一包数据的回调");
+            console.log('进入只有一包数据的回调');
             recevSuccessFlag = true;
             recevResendCount = 3;
             clearInterval(timeOutId);
             hex = hex.substring(6, hex.length - 2);
-            typeof sendCallback == TAG_FUNCTION && sendCallback(SUCCESS_CODE,hex);
+            typeof sendCallback === TAG_FUNCTION && sendCallback(SUCCESS_CODE,hex);
           }
         } else {
           valueArray.push(hex.substring(6, hex.length - 2));
 
           if (correctPacketIndex == 1 && parseInt(hex.substring(2, 4), 16) != 0x80) {
-            recevSuccessFlag = false
-            console.log("第一帧数据丢包");
+            recevSuccessFlag = false;
+            console.log('第一帧数据丢包');
             correctPacketIndex++;
-          }
-          else if (correctPacketIndex != receivePacketIndex && correctPacketIndex != 1) {
-            recevSuccessFlag = false
-            console.log("数据丢包");
+          } else if (correctPacketIndex != receivePacketIndex && correctPacketIndex != 1) {
+            recevSuccessFlag = false;
+            console.log('数据丢包');
             correctPacketIndex++;
           } else if (correctPacketIndex == receivePacketSize) {
             correctPacketIndex = 1;
-            var data = "";
+            var data = '';
             for (var i = 0; i < receivePacketSize; i++) {
               data = data + valueArray[i];
             }
-            console.log("组包后:" + data);
+            console.log('组包后:' + data);
             if ((parseInt(data.substring(0, 2), 16) != 0xc7)) {
               recevSuccessFlag = true;
               recevResendCount = 3;
               clearInterval(timeOutId);
-              typeof sendCallback == TAG_FUNCTION && sendCallback(SUCCESS_CODE,data);
+              typeof sendCallback === TAG_FUNCTION && sendCallback(SUCCESS_CODE,data);
             }
           } else {
             correctPacketIndex++;
           }
-
         }
       }
     }
   });
 }
-//断开连接
-function disconnectDevice(callback) {
+// 断开连接
+function disconnectDevice (callback) {
   let deviceId = cguDeviceId;
   wx.closeBLEConnection({
     deviceId: deviceId,
     success: function (res) {
-      if (res.errCode==0){
+      if (res.errCode == 0) {
         wx.closeBluetoothAdapter({
           success: function (data) {
             let DevResult = {};
             DevResult.code = 0;
-            DevResult.msg = "断开成功";
+            DevResult.msg = '断开成功';
             DevResult.data = data;
-            typeof callback == TAG_FUNCTION && callback(DevResult);
+            typeof callback === TAG_FUNCTION && callback(DevResult);
           }
-        })
-      }else{
+        });
+      } else {
         let DevResult = {};
         DevResult.code = 10001;
-        DevResult.msg = "断开失败";
+        DevResult.msg = '断开失败';
         DevResult.data = res;
-        typeof callback == TAG_FUNCTION && callback(DevResult);
+        typeof callback === TAG_FUNCTION && callback(DevResult);
       }
-    }, fail: function (err) {
+    },
+fail: function (err) {
       let DevResult = {};
       DevResult.code = 10002;
-      DevResult.msg = "断开失败";
+      DevResult.msg = '断开失败';
       DevResult.data = err;
-      typeof callback == TAG_FUNCTION && callback(DevResult);
+      typeof callback === TAG_FUNCTION && callback(DevResult);
     }
-  })
-  
- 
+  });
 }
-//发送数据
-//bufferArray:封好数据包并拆分20字节一帧的数组
-function sendData(bufferArray, callback) {
+// 发送数据
+// bufferArray:封好数据包并拆分20字节一帧的数组
+function sendData (bufferArray, callback) {
   var that = this;
   cguSendData = bufferArray;
   cguSendIndex = 0;
   sendCallback = callback;
-  valueArray = [];//重置记录数据
+  valueArray = [];// 重置记录数据
   if (flashFlag) {
     flashFlag = false;
     recevSuccessFlag = true;
@@ -399,22 +389,22 @@ function sendData(bufferArray, callback) {
   correctPacketIndex = 1;
   startSendData();
 }
-function startSendData() {
+function startSendData () {
   let DevResult = {};
   var that = this;
   let buffer = cguSendData[cguSendIndex];
-  console.log("开始发送第" + cguSendIndex + "包数据: " + Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('') + "，总包数: " + cguSendData.length)
+  console.log('开始发送第' + cguSendIndex + '包数据: ' + Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('') + '，总包数: ' + cguSendData.length);
   wx.writeBLECharacteristicValue({
     deviceId: cguDeviceId,
     serviceId: cguServiceId,
     characteristicId: cguWriteId,
     value: buffer,
     success: function (res) {
-      console.log("发送第" + cguSendIndex + "包数据成功");
+      console.log('发送第' + cguSendIndex + '包数据成功');
       cguResendCount = 3;
       cguSendIndex++;
       if (cguSendIndex < cguSendData.length) {
-        startSendData();//继续发下一个
+        startSendData();// 继续发下一个
       } else {
         // 设置超时
         clearInterval(timeOutId);
@@ -425,17 +415,17 @@ function startSendData() {
     fail: function () {
       clearInterval(timeOutId);
       timeOutId = null;
-      console.log("发送第" + cguSendIndex + "包数据失败");
-      typeof sendCallback == TAG_FUNCTION && sendCallback(FAILL_CODE,"数据发送失败")
+      console.log('发送第' + cguSendIndex + '包数据失败');
+      typeof sendCallback === TAG_FUNCTION && sendCallback(FAILL_CODE,'数据发送失败');
     }
-  })
+  });
 }
-function resendData() {
+function resendData () {
   recevResendCount = 3;
   clearInterval(timeOutId);
   timeOutId = null;
-  console.log("数据接收失败，数据接收超时");
-  typeof sendCallback == TAG_FUNCTION && sendCallback(FAILL_CODE, "数据接收失败");
+  console.log('数据接收失败，数据接收超时');
+  typeof sendCallback === TAG_FUNCTION && sendCallback(FAILL_CODE, '数据接收失败');
 }
 
 /**
@@ -444,13 +434,12 @@ function resendData() {
  * callback(回调)，返回响应指令+状态码数组，
  */
 
-
-function transCmd(cosArr, channelType, callback) {
+function transCmd (cosArr, channelType, callback) {
   var CmdArrayData = new Array();
-  if (cosArr.length>3){
-    let DevResult={};
+  if (cosArr.length > 3) {
+    let DevResult = {};
     var test = Group(cosArr, 3);
-    if (channelType == "20"){
+    if (channelType == '20') {
       let cmd = getEsamCmdByArray(test[0]);
       sendData(cmd, function (code, res) {
         if (code == 0 && parseInt(res.substring(0, 2), 16) == 0xB4) {
@@ -461,24 +450,24 @@ function transCmd(cosArr, channelType, callback) {
               var resultB = getArrayByReturnCmd(res2);
               var dataRarray = resultA.concat(resultB);
               DevResult.code = 0;
-              DevResult.msg = "透传ESAM指令成功";
+              DevResult.msg = '透传ESAM指令成功';
               DevResult.data = dataRarray;
-              typeof callback == TAG_FUNCTION && callback(DevResult);
+              typeof callback === TAG_FUNCTION && callback(DevResult);
             } else {
               DevResult.code = 1;
-              DevResult.msg = "透传ESAM指令失败" + res2;
+              DevResult.msg = '透传ESAM指令失败' + res2;
               DevResult.data = res2;
-              typeof callback == TAG_FUNCTION && callback(DevResult);
+              typeof callback === TAG_FUNCTION && callback(DevResult);
             }
-          })
+          });
         } else {
           DevResult.code = 1;
-          DevResult.msg = "透传ESAM指令失败" + res;
+          DevResult.msg = '透传ESAM指令失败' + res;
           DevResult.data = res;
-          typeof callback == TAG_FUNCTION && callback(DevResult);
+          typeof callback === TAG_FUNCTION && callback(DevResult);
         }
-      })
-    } else if (channelType=="10"){
+      });
+    } else if (channelType == '10') {
       let cmd = getICCardCmdByArray(test[0]);
       sendData(cmd, function (code, res) {
         if (code == 0 && parseInt(res.substring(0, 2), 16) == 0xB3) {
@@ -489,90 +478,87 @@ function transCmd(cosArr, channelType, callback) {
               var resultB = getArrayByReturnCmd(res2);
               var dataRarray = resultA.concat(resultB);
               DevResult.code = 0;
-              DevResult.msg = "透传IC卡指令成功";
+              DevResult.msg = '透传IC卡指令成功';
               DevResult.data = dataRarray;
-              typeof callback == TAG_FUNCTION && callback(DevResult);
+              typeof callback === TAG_FUNCTION && callback(DevResult);
             } else {
               DevResult.code = 1;
-              DevResult.msg = "透传IC卡指令失败" + res2;
+              DevResult.msg = '透传IC卡指令失败' + res2;
               DevResult.data = res2;
-              typeof callback == TAG_FUNCTION && callback(DevResult);
+              typeof callback === TAG_FUNCTION && callback(DevResult);
             }
-          })
+          });
         } else {
           DevResult.code = 1;
-          DevResult.msg = "透传IC卡指令失败" + res;
+          DevResult.msg = '透传IC卡指令失败' + res;
           DevResult.data = res;
-          typeof callback == TAG_FUNCTION && callback(DevResult);
+          typeof callback === TAG_FUNCTION && callback(DevResult);
         }
-      })
+      });
     }
-    
-  }else{
+  } else {
     let DevResult = {};
-    if (channelType == "10") {
+    if (channelType == '10') {
       sendData(getICCardCmdByArray(cosArr), function (code, res) {
         if (code == 0) {
           if (parseInt(res.substring(0, 2), 16) == 0xB3) {
             DevResult.code = 0;
             DevResult.data = getArrayByReturnCmd(res);
-            DevResult.msg = "透传IC卡指令成功";
-            typeof callback == TAG_FUNCTION && callback(DevResult);
+            DevResult.msg = '透传IC卡指令成功';
+            typeof callback === TAG_FUNCTION && callback(DevResult);
           } else {
             DevResult.code = -1;
             DevResult.data = res;
-            DevResult.msg = "透传IC卡指令失败：" + res;
-            typeof callback == TAG_FUNCTION && callback(DevResult);
+            DevResult.msg = '透传IC卡指令失败：' + res;
+            typeof callback === TAG_FUNCTION && callback(DevResult);
           }
         } else {
           DevResult.code = -2;
           DevResult.data = res;
-          DevResult.msg = "指令透传失败：" + res;
-          typeof callback == TAG_FUNCTION && callback(DevResult);
+          DevResult.msg = '指令透传失败：' + res;
+          typeof callback === TAG_FUNCTION && callback(DevResult);
         }
-      })
-    } else if (channelType == "20") {
+      });
+    } else if (channelType == '20') {
       sendData(getEsamCmdByArray(cosArr), function (code, res) {
         if (code == 0) {
           if (parseInt(res.substring(0, 2), 16) == 0xB4) {
             DevResult.code = 0;
             DevResult.data = getArrayByReturnCmd(res);
-            DevResult.msg = "透传ESAM指令成功";
-            typeof callback == TAG_FUNCTION && callback(DevResult);
+            DevResult.msg = '透传ESAM指令成功';
+            typeof callback === TAG_FUNCTION && callback(DevResult);
           } else {
             DevResult.code = -2;
             DevResult.data = res;
-            DevResult.msg = "透传ESAM指令失败：" + res;
-            typeof callback == TAG_FUNCTION && callback(DevResult);
+            DevResult.msg = '透传ESAM指令失败：' + res;
+            typeof callback === TAG_FUNCTION && callback(DevResult);
           }
         }
-      })
+      });
     } else {
-      if (typeof (cosArr) == "object") {
+      if (typeof (cosArr) === 'object') {
 
-      } else if (typeof (cosArr) == "string") {
+      } else if (typeof (cosArr) === 'string') {
         sendData(packetData(cosArr), function (code, res) {
           if (code == 0) {
             DevResult.code = 0;
             DevResult.data = res;
-            DevResult.msg = "透传其他指令成功";
-            typeof callback == TAG_FUNCTION && callback(DevResult);
+            DevResult.msg = '透传其他指令成功';
+            typeof callback === TAG_FUNCTION && callback(DevResult);
           } else {
             DevResult.code = 1;
             DevResult.data = res;
-            DevResult.msg = "透传其他指令失败";
-            typeof callback == TAG_FUNCTION && callback(DevResult);
+            DevResult.msg = '透传其他指令失败';
+            typeof callback === TAG_FUNCTION && callback(DevResult);
           }
-        })
+        });
       }
-
     }
   }
 }
 
-
-//将数组拆分为小数组
-function Group(array, subGroupLength) {
+// 将数组拆分为小数组
+function Group (array, subGroupLength) {
   let index = 0;
   let newArray = [];
   while (index < array.length) {
@@ -581,24 +567,23 @@ function Group(array, subGroupLength) {
   return newArray;
 }
 
-
-function getICCardCmdByArray(cosArr) {
+function getICCardCmdByArray (cosArr) {
   let arrLen = cosArr.length;
-  let cmd = "A3" + intToHexString(arrLen, 1, false);
+  let cmd = 'A3' + intToHexString(arrLen, 1, false);
   for (let i = 0; i < cosArr.length; i++) {
     cmd = cmd + intToHexString(cosArr[i].length / 2, 1, false) + cosArr[i];
   }
   return packetData(cmd);
 }
-function getEsamCmdByArray(cosArr) {
+function getEsamCmdByArray (cosArr) {
   let arrLen = cosArr.length;
-  let cmd = "A4" + intToHexString(arrLen, 1, false);
+  let cmd = 'A4' + intToHexString(arrLen, 1, false);
   for (let i = 0; i < cosArr.length; i++) {
     cmd = cmd + intToHexString(cosArr[i].length / 2, 1, false) + cosArr[i];
   }
   return packetData(cmd);
 }
-function getArrayByReturnCmd(cmd) {
+function getArrayByReturnCmd (cmd) {
   let cmdCount = parseInt(cmd.substring(2, 6), 16);
   let returnCosArr = new Array();
   let startIndex = 6;
@@ -614,22 +599,22 @@ function getArrayByReturnCmd(cmd) {
 
 /**
      * 不休眠60s
-     * 
+     *
      */
-function noSleepCmd() {
-  let cmd = "D13C";//60s
+function noSleepCmd () {
+  let cmd = 'D13C';// 60s
   return packetData(cmd);
 }
 /**
      * 不休眠30s
-     * 
+     *
      */
-function getNoSleepCmd() {
-  let cmd = "D11E";
+function getNoSleepCmd () {
+  let cmd = 'D11E';
   return packetData(cmd);
 }
-function packetData(content) {
-  console.log("开始拆包:" + content);
+function packetData (content) {
+  console.log('开始拆包:' + content);
   let bufferArr = new Array();
   let sendPacketSize;
   let ST, CTL, DATA, BCC;
@@ -641,9 +626,9 @@ function packetData(content) {
   }
   for (let i = 0; i < sendPacketSize; i++) {
     if (i == 0) {
-      CTL = "80" + intToHexString(sendPacketSize, 1, false);
+      CTL = '80' + intToHexString(sendPacketSize, 1, false);
     } else {
-      CTL = "00" + intToHexString(i + 1, 1, false);
+      CTL = '00' + intToHexString(i + 1, 1, false);
     }
     if (contentLength >= 15 * 2) {
       DATA = content.substring(i * 15 * 2, (i + 1) * 15 * 2);
@@ -651,28 +636,28 @@ function packetData(content) {
     } else {
       DATA = content.substring(content.length - contentLength, content.length);
     }
-    ST = "5" + parseInt(DATA.length / 2, 10).toString(16);
+    ST = '5' + parseInt(DATA.length / 2, 10).toString(16);
     BCC = getBcc(ST + CTL + DATA);
-    console.log("组帧：" + "ST:" + ST + "  CTL:" + CTL + "  DATA:" + DATA + "  BCC:" + BCC);
+    console.log('组帧：' + 'ST:' + ST + '  CTL:' + CTL + '  DATA:' + DATA + '  BCC:' + BCC);
     bufferArr.push(str2array(ST + CTL + DATA + BCC).buffer);
   }
   return bufferArr;
 }
 
-//num：要转换的数(number)    bitNum：转换后的字节数(number)   isBig:是不是大端模式(boolean)
-function intToHexString(num, bitNum, isBig) {
-  //转大端hex并补足
+// num：要转换的数(number)    bitNum：转换后的字节数(number)   isBig:是不是大端模式(boolean)
+function intToHexString (num, bitNum, isBig) {
+  // 转大端hex并补足
   let hex = num.toString(16);
   for (let i = hex.length; i < bitNum * 2; i++) {
-    hex = "0" + hex;
+    hex = '0' + hex;
   }
-  //多位截取
+  // 多位截取
   if (hex.length > bitNum * 2) {
     hex = hex.substring(hex.length - bitNum * 2);
   }
-  //转小端
+  // 转小端
   if (isBig == false) {
-    let temp = "";
+    let temp = '';
     for (let i = hex.length - 2; i >= 0; i -= 2) {
       temp = temp + hex.substring(i, i + 2);
     }
@@ -681,25 +666,25 @@ function intToHexString(num, bitNum, isBig) {
   return hex;
 }
 
-//array 转str
-function array2Str(array) {
-  let data = "";
+// array 转str
+function array2Str (array) {
+  let data = '';
   for (let i = 0; i < array.length; i++) {
     data = data + array[i];
   }
   return data;
 }
 
-//str 转 array
-function str2array(str) {
+// str 转 array
+function str2array (str) {
   let array = new Uint8Array(str.match(/[\da-f]{2}/gi).map(function (h) {
-    return parseInt(h, 16)
-  }))
+    return parseInt(h, 16);
+  }));
   return array;
 }
 
-//计算BCC
-function getBcc(data) {
+// 计算BCC
+function getBcc (data) {
   var bcc = 0x00;
   var bcc1;
   for (var i = 0; i < data.length / 2; i++) {
@@ -708,14 +693,14 @@ function getBcc(data) {
   }
   let str = bcc.toString(16);
   if (str.length == 1) {
-    str = "0" + str;
+    str = '0' + str;
   }
   return str;
 }
-function arraycopy(/* array*/ from,  /* index */  from_start,
-/* array */ to, /*  index */  to_start,
-/*  integer */  length) {
-  //逻辑代码；
+function arraycopy (/* array */ from, /* index */ from_start,
+/* array */ to, /*  index */ to_start,
+/*  integer */ length) {
+  // 逻辑代码；
   for (var i = 0; i < length; i++) {
     to[to_start + i] = from[from_start + i];
   }

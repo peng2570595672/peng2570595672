@@ -15,7 +15,7 @@ Page({
 		time: 59,// 倒计时
 		isGetIdentifyingCoding: false, // 获取验证码中
 		getAgreement: false, // 是否接受协议
-		available:true, // 按钮是否可点击
+		available: true, // 按钮是否可点击
 		isRequest: false,// 是否请求中
 		showToast: false, // 是否验证码错误
 		formData: {
@@ -44,7 +44,7 @@ Page({
 	onInputChangedHandle (e) {
 		let key = e.currentTarget.dataset.key;
 		let formData = this.data.formData;
-		console.log(key,'-------------------------')
+		console.log(key,'-------------------------');
 		// 手机号
 		if (key === 'telNumber') {
 			this.setData({
@@ -76,7 +76,7 @@ Page({
 	async next () {
     this.show();
 	},
-	/**开通* */
+	/** 开通* */
 	async onClickOpenTheCard () {
 		if (!this.data.formData.verifyCode) {
 			util.showToastNoIcon('请获取并输入短信验证码！');
@@ -147,7 +147,7 @@ Page({
 	// 发送短信验证码
 	async sendVerifyCode () {
 		if (this.data.isGetIdentifyingCoding) return;
-		console.log(this.data.formData.telNumber,'--------------------')
+		console.log(this.data.formData.telNumber,'--------------------');
 		// 如果在倒计时，直接不处理
 		if (!this.data.formData.telNumber) {
 			util.showToastNoIcon('请输入手机号');

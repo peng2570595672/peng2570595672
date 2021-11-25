@@ -5,64 +5,64 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list:[{
-      imgUrl:"../assets/weixin.png",
-      title:'微信支付',
-      explain:'(手续费0.6%)',
-      state:0
+    list: [{
+      imgUrl: '../assets/weixin.png',
+      title: '微信支付',
+      explain: '(手续费0.6%)',
+      state: 0
     },{
-      imgUrl:"../assets/card.png",
-      title:'银行转账',
-      explain:'(手续费0.3%)',
-      state:1
+      imgUrl: '../assets/card.png',
+      title: '银行转账',
+      explain: '(手续费0.3%)',
+      state: 1
     }],
-    amount:"",
-    orderId:"",
-    prechargeInfo: {},
+    amount: '',
+    orderId: '',
+    prechargeInfo: {}
   },
-  onLoad(options){
+  onLoad (options) {
     this.setData({
-      orderId:options.orderId,
-      amount:options.amount
-    })
+      orderId: options.orderId,
+      amount: options.amount
+    });
   },
   // 输入框输入值
 	onInputChangedHandle (e) {
-		if( e.detail.value.length>4){
+		if (e.detail.value.length > 4) {
 
 		}
     this.setData({
       amount: e.detail.value
-    })
+    });
   },
-  onClickPay(event){
-    let e=event.currentTarget.dataset.id;
-    if(!this.data.amount){
+  onClickPay (event) {
+    let e = event.currentTarget.dataset.id;
+    if (!this.data.amount) {
       util.showToastNoIcon('请填写需要充值金额');
-      return false
+      return false;
     }
-    if(e.state==0){
+    if (e.state == 0) {
       this.marginPayment();
-    }else{
-      this.onCard()
+    } else {
+      this.onCard();
     }
   },
   	// 微信支付
 	marginPayment () {
 		util.showLoading();
-		console.log(app.globalData.userInfo)
-		console.log(app.globalData.userInfo.openId)
+		console.log(app.globalData.userInfo);
+		console.log(app.globalData.userInfo.openId);
 		let params = {
 			orderId: this.data.orderId,
-			rechargeAmount:this.data.amount*100,
-			openid:app.globalData.userInfo.openId
+			rechargeAmount: this.data.amount * 100,
+			openid: app.globalData.userInfo.openId
     };
 		util.getDataFromServer('/consumer/order/third/wxPay', params, () => {
 			util.showToastNoIcon('获取支付参数失败！');
 		}, (res) => {
 			if (res.code === 0) {
 				let extraData = JSON.parse(res.data.payinfo);
-				console.log( extraData.nonceStr)
+				console.log(extraData.nonceStr);
 				wx.requestPayment({
 					nonceStr: extraData.nonceStr,
 					package: extraData.package,
@@ -70,9 +70,9 @@ Page({
 					signType: extraData.signType,
 					timeStamp: extraData.timeStamp,
 					success: (res) => {
-						console.log(res,'=------------------')
+						console.log(res,'=------------------');
 						if (res.errMsg === 'requestPayment:ok') {
-							util.go('/pages/account_management/index/index')
+							util.go('/pages/account_management/index/index');
 						} else {
 							util.showToastNoIcon('支付失败！');
 						}
@@ -90,8 +90,8 @@ Page({
 			util.hideLoading();
 		});
 	},
-   //卡充值
-  async onCard(){
+   // 卡充值
+  async onCard () {
       const result = await util.getDataFromServersV2('consumer/order/transact-schedule', {
         orderId: this.data.orderId
       });
@@ -120,9 +120,9 @@ Page({
 			this.setData({
 				prechargeInfo: result.data || {}
 			});
-			this.selectComponent("#rechargePrompt").show();
+			this.selectComponent('#rechargePrompt').show();
 		} else {
 			util.showToastNoIcon(result.message);
 		}
 	}
-})
+});

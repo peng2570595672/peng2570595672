@@ -19,8 +19,8 @@ App({
 		uma,
 		host: IS_TEST ? 'https://etctest.cyzl.com/etc2-client' : 'https://etc.cyzl.com', // 接口主机地址 正式 etc.cyzl.com/ 测试 etctest.cyzl.com/
 		test: IS_TEST, // 是否为测试
-		uploadOcrUrl: IS_TEST ? 'https://etctest.cyzl.com/file-service/file/upload-ocr' : 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址
-		// uploadOcrUrl: 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址
+		// uploadOcrUrl: IS_TEST ? 'https://etctest.cyzl.com/file-service/file/upload-ocr' : 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址
+		uploadOcrUrl: 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址
 		truckLicensePlate: '',// 货车车牌
 		uploadUrl: 'https://file.cyzl.com/file/upload', // 上传图片无需审核地址
 		plamKey: '123456', // 签名用到的key --- 二发
@@ -72,6 +72,9 @@ App({
 		quality: 80,
 		signAContract: 3,// -1正常签约  1  解约重签  4 货车签约管理页签约
 		userInfo: {},// 用户信息
+		navbarHeight: 0,
+		processFlowVersion: 0,// 流程版本
+		memberStatusInfo: {},// 用户交行信息
 		membershipCoupon: {},// 会员券带参进入
 		ownerServiceArrearsList: [],// 车主服务欠费列表
 		serverInfoId: '',
@@ -120,6 +123,7 @@ App({
 				this.globalData.SDKVersion = res.SDKVersion;
 				this.globalData.statusBarHeight = res.statusBarHeight;
 				this.globalData.mobilePhoneSystem = res.system.indexOf('iOS') !== -1 ? true : false;
+				this.globalData.navbarHeight = (this.globalData.capsule.top - this.globalData.statusBarHeight) * 2 + this.globalData.capsule.height + this.globalData.statusBarHeight;
 				if (res.model.toLowerCase().search('iphone x') !== -1) {
 					this.globalData.mobilePhoneMode = 1;
 				} else if (res.model.toLowerCase().search('iphone') !== -1) {

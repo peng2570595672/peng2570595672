@@ -40,7 +40,7 @@ Page({
 	},
 	// 微信签约
 	async onclickSign () {
-		util.go('/pages/truck_handling/signed/signed')
+		util.go('/pages/truck_handling/signed/signed');
 		// if (!this.data.info || !this.data.isOk) return;
 		// if (this.data.isRequest) {
 		// 	return;

@@ -76,7 +76,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=823587582322413568",
+          "query": "orderId=902267536140537856",
           "scene": null
         },
         {
@@ -151,26 +151,56 @@
           "scene": null
         },
         {
-          "name": "pages/account_management/new_binding/new_binding",
-          "pathName": "pages/account_management/new_binding/new_binding",
+          "name": "pages/default/information_validation/information_validation",
+          "pathName": "pages/default/information_validation/information_validation",
           "query": "",
           "scene": null
         },
         {
-          "name": "pages/truck_handling/open_account/open_account",
-          "pathName": "pages/truck_handling/open_account/open_account",
+          "name": "pages/account_management/precharge_account_details/precharge_account_details",
+          "pathName": "pages/account_management/precharge_account_details/precharge_account_details",
+          "query": "orderId=861629807241203712",
+          "scene": null
+        },
+        {
+          "name": "pages/ejiayou/index/index",
+          "pathName": "pages/ejiayou/index/index",
           "query": "",
           "scene": null
         },
         {
-          "name": "pages/truck_handling/binding_account/binding_account",
-          "pathName": "pages/truck_handling/binding_account/binding_account",
+          "name": "pages/truck_handling/face_of_check_tips/face_of_check_tips",
+          "pathName": "pages/truck_handling/face_of_check_tips/face_of_check_tips",
           "query": "",
           "scene": null
         },
         {
           "name": "pages/truck_handling/recording_user_information/recording_user_information",
           "pathName": "pages/truck_handling/recording_user_information/recording_user_information",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "query": "orderId=861629807241203712",
+          "scene": null
+        },
+        {
+          "name": "pages/truck_handling/binding_account_bocom/binding_account_bocom",
+          "pathName": "pages/truck_handling/binding_account_bocom/binding_account_bocom",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/personal_center/order_details/order_details",
+          "pathName": "pages/personal_center/order_details/order_details",
+          "query": "id=715647420232372225&channel=21&month=202104",
+          "scene": null
+        },
+        {
+          "name": "pages/truck_handling/bocom_management_protocol/bocom_management_protocol",
+          "pathName": "pages/truck_handling/bocom_management_protocol/bocom_management_protocol",
           "query": "",
           "scene": null
         }

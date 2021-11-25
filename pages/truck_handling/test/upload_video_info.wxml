@@ -1,0 +1,16 @@
+<!-- 相机 pages/camera/camera.wxml-->
+        <!-- 相机 -->
+<camera device-position="front" flash="off" binderror="onCameraErrorHandle" style="width: {{cameraWidth}}px; height: {{cameraHeight}}px;">
+    <!-- 拍完显示照片 -->
+    <cover-image wx:if="{{image1Src}}" src='{{image1Src}}'></cover-image>
+    <cover-view>
+        <!-- 拍照按钮 -->
+        <button id='btn-photo-video' bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd" bindlongpress="handleLongPress" bindtap="startShootVideo">
+            点击/长按</button>
+    </cover-view>
+</camera>
+<video wx:if="{{videoSrc}}" src="{{videoSrc}}" controls></video>
+<view class="test">
+    <view>video: {{videoSrc}}</view>
+    <view>img: {{image1Src}}</view>
+</view>
