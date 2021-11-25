@@ -15,7 +15,6 @@ Page({
 
 	},
 	copyLink() {
-		console.log('===');
 		wx.setClipboardData({
 			data: 'http://www.chinatax.gov.cn/aeoi_index.html',
 			success (res) {
