@@ -1,8 +1,14 @@
 <view class="binding_account">
     <view class="title iconfont">你已成功开通II账户</view>
-    <view class="card">
+    <view class="card" wx:if="{{type === 1}}">
         <view class="name iconfont">
-            <text>中国工商银行信用卡</text>
+            <text>中国工商银行</text>
+        </view>
+        <view class="card-no">{{bankCardInfo.accountNo}}</view>
+    </view>
+    <view class="card bocom" wx:else>
+        <view class="name">
+            <text>中国交通银行</text>
         </view>
         <view class="card-no">{{bankCardInfo.accountNo}}</view>
     </view>

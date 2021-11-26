@@ -30,8 +30,8 @@ Page({
 			this.login();
 		} else {
 			// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+			await util.getMemberStatus();
 			await this.getETCDetail();
-			util.getMemberStatus();
 		}
 		if (this.data.showDetailMask) {
 			this.hide();
@@ -60,7 +60,7 @@ Page({
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
 						// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
-						util.getMemberStatus();
+						await util.getMemberStatus();
 						await this.getETCDetail();
 					}
 				} else {
@@ -143,6 +143,7 @@ Page({
 		const orderInfo = this.data.orderInfo;
 		app.globalData.orderInfo.orderId = orderInfo.id;
 		app.globalData.processFlowVersion = orderInfo.flowVersion;
+		app.globalData.truckLicensePlate = orderInfo.vehPlates;
 		const fun = {
 			1: () => this.onClickBackToSign(orderInfo),// 恢复签约
 			2: () => this.onClickContinueHandle(orderInfo),// 继续办理
@@ -150,7 +151,7 @@ Page({
 			4: () => this.onClickContinueHandle(orderInfo), // 继续办理
 			5: () => this.onClickBackToSign(orderInfo), // 签约微信支付 - 去签约
 			6: () => this.onClickViewProcessingProgressHandle(orderInfo), // 订单排队审核中 - 查看进度
-			7: () => this.onClickModifiedData(orderInfo), // 修改资料 - 上传证件页
+			7: () => this.onClickModifiedData(orderInfo, true), // 修改资料 - 上传证件页
 			9: () => this.onClickHighSpeedSigning(orderInfo), // 去签约
 			10: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
 			11: () => this.onClickCctivate(orderInfo), // 去激活
@@ -159,10 +160,15 @@ Page({
 			15: () => this.goRecharge(orderInfo), // 保证金预充失败 - 去预充
 			16: () => this.goBindingWithholding(orderInfo), // 选装-未已绑定车辆代扣
 			17: () => this.onClickViewProcessingProgressHandle(orderInfo), // 去预充(预充流程)-查看进度
-			19: () => this.onClickModifiedData(orderInfo),
-			20: () => this.onClickVerification(orderInfo)
+			19: () => this.onClickModifiedData(orderInfo, false),
+			20: () => this.onClickVerification(orderInfo),
+			21: () => this.onClickSignBank(orderInfo)
 		};
 		fun[orderInfo.selfStatus].call();
+	},
+	// 交行-去签约
+	onClickSignBank (orderInfo) {
+		util.go(`/pages/truck_handling/signed/signed`);
 	},
 	// 交行-去腾讯云核验
 	onClickVerification () {
@@ -204,11 +210,11 @@ Page({
 		util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
 	},
 	// 修改资料
-	onClickModifiedData () {
+	onClickModifiedData (orderInfo, isChange) {
 		if (this.data.orderInfo.isNewTrucks === 1) {
 			// 货车办理
 			wx.uma.trackEvent('etc_detail_for_truck_modified_data');
-			util.go('/pages/truck_handling/information_list/information_list?isModifiedData=true');
+			util.go(`/pages/truck_handling/information_list/information_list?isModifiedData=${isChange}`);
 			return;
 		}
 		if (util.getHandlingType(this.data.orderInfo)) {

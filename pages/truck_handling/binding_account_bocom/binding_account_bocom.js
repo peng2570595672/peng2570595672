@@ -29,8 +29,8 @@ Page({
 		bankAccountId: null,
 		formData: {
 			region: ['省', '市', '区'], // 省市区
-			bankCardNo: '6222620110999392260',
-			telNumber: '17082336107', // 电话号码
+			bankCardNo: '6222620110999392278',
+			telNumber: '17090017787', // 电话号码
 			verifyCode: '' // 验证码
 		} // 提交数据
 	},
@@ -199,7 +199,7 @@ Page({
 		if (!result) return;
 		console.log(result);
 		if (result.code === 0) {
-			util.go(`/pages/truck_handling/binding_account_successful/binding_account_successful`);
+			util.go(`/pages/truck_handling/binding_account_successful/binding_account_successful?accountNo=${result.data.accountNo}&flowVersion=7`);
 		} else {
 			util.showToastNoIcon(result.message);
 		}

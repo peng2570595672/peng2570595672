@@ -628,7 +628,7 @@ function getTruckHandlingStatus(orderInfo) {
 		// protocolStatus 0未签协议 1签了
 		return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
 	}
-	// flowVersion 流程版本，1-分对分，2-新版（总对总）,3-选装 4-预充值 5-保证金模式 6-圈存
+	// flowVersion 流程版本，1-分对分，2-新版（总对总）,3-选装 4-预充值 5-保证金模式 6-圈存 7-交行二类户
 	if (orderInfo.flowVersion === 5 && orderInfo.multiContractList.find(item => item.contractStatus === 2)) {
 		return 1; // 货车解约 - 保证金模式
 	}
@@ -643,17 +643,12 @@ function getTruckHandlingStatus(orderInfo) {
 		return 4; // 办理中 未上传证件
 	}
 	console.log(app.globalData.memberStatusInfo)
-	if(orderInfo.flowVersion === 7 && !app.globalData.memberStatusInfo?.uploadImageStatus) {
-		// 未影像资料上送
-		return 19;
-	}
-	if(orderInfo.flowVersion === 7 && !app.globalData.memberStatusInfo?.isTencentVerify){
-		// 未上送腾讯云活体人脸核身核验成功
-		return 20;
-	}
-	if(orderInfo.flowVersion === 7 && !app.globalData.memberStatusInfo?.memberBankId){
-		// 交行 开通II类户预充保证金 - 未开户
-		return 13;
+	if(orderInfo.flowVersion === 7) {
+		// 交行二类户流程
+		if (!app.globalData.memberStatusInfo?.uploadImageStatus) return 19;// 未影像资料上送
+		if (!app.globalData.memberStatusInfo?.isTencentVerify) return 20;// 未上送腾讯云活体人脸核身核验成功
+		if (!app.globalData.memberStatusInfo?.memberBankId) return 13;// 交行 开通II类户预充保证金 - 未开户
+		if (!orderInfo.contractStatus) return 19;// 未签约银行
 	}
 	if(orderInfo.flowVersion === 6 && orderInfo.icbcv2){
 		//代扣通行费
@@ -1061,8 +1056,6 @@ function getInsuranceOffer(orderId, wtagid) {
 function getMemberStatus() {
 	getDataFromServer('consumer/member/bcm/getMemberStatus', {}, () => {}, (res) => {
 		if (res.code === 0) {
-			console.log('res.data');
-			console.log(res.data);
 			app.globalData.memberStatusInfo = res.data;
 		} else {
 			showToastNoIcon(res.message);

@@ -18,7 +18,7 @@ Page({
 		requestNum: 0
 	},
 	async onLoad (options) {
-		if (options.isModifiedData) {
+		if (options.isModifiedData === 'true') {
 			this.setData({
 				isModifiedData: true
 			});
@@ -80,9 +80,6 @@ Page({
 			if (this.data.isModifiedData && res.orderAudit && res.orderAudit?.errNums?.length && this.data.requestNum === 0) {
 				// errNums
 				this.getErrorStatus(res.orderAudit);
-			}
-			if (result.data.ownerIdCard?.ownerIdCardPositiveUrl && !this.data.isUploadImage) {
-				await this.truckUploadImg();
 			}
 			this.setData({
 				requestNum: 1,
@@ -161,14 +158,6 @@ Page({
 	// 获取二类户号信息
 	async next () {
 		if (!this.data.available) return;
-		if (this.data.orderInfo.flowVersion === 7) {
-			if (!this.data.isUploadImage) {
-				util.showToastNoIcon('加载中,请稍后再试');
-				return;
-			}
-			util.go(`/pages/truck_handling/face_of_check_tips/face_of_check_tips`);
-			return;
-		}
 		if (this.data.isModifiedData || this.data.orderInfo.flowVersion === 4) {
 			if (this.data.isRequest) {
 				return;
@@ -192,6 +181,10 @@ Page({
 			util.go('/pages/default/processing_progress/processing_progress?type=main_process');
 			return;
 		}
+		if (this.data.orderInfo.flowVersion === 7) {
+			await this.truckUploadImg();
+			return;
+		}
 		if (this.data.orderInfo.flowVersion === 6) { // 处理是否需要开二类户
 			const result = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
 			if (!result) return;
@@ -207,13 +200,11 @@ Page({
 	async truckUploadImg () {
 		const result = await util.getDataFromServersV2('consumer/member/bcm/truckUploadImg', {
 			orderId: app.globalData.orderInfo.orderId// 订单id
-		}, 'POST', false);
+		});
 		if (!result) return;
 		if (result.code === 0) {
 			console.log(result);
-			this.setData({
-				isUploadImage: true
-			});
+			util.go(`/pages/truck_handling/face_of_check_tips/face_of_check_tips`);
 		} else {
 			util.showToastNoIcon(result.message);
 		}

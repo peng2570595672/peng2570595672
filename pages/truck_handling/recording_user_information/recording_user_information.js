@@ -111,8 +111,8 @@ Page({
 			webSubPhotoUrl: 'https://file.cyzl.com/g001/M07/6A/F8/oYYBAGGdqu-ASOpWAAKISWHlGGc696.png',
 			orderId: app.globalData.orderInfo.orderId,// 订单id
 			// webSubPhotoUrl: this.data.picPath,
-			idCardTest: '522529199403290212',
-			nameTest: '刘清杰',
+			idCardTest: '522222199905290414',
+			nameTest: '章伟',
 			videoBase64: this.data.videoSrc
 		});
 		if (!result) return;
@@ -121,6 +121,7 @@ Page({
 			this.setData({
 				certificationStatus: 2
 			});
+			util.go(`/pages/truck_handling/binding_account_bocom/binding_account_bocom`);
 		} else {
 			util.showToastNoIcon(result.message);
 			setTimeout(() => {

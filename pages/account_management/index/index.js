@@ -7,7 +7,11 @@ const app = getApp();
 Page({
 	data: {
 		prechargeList: [],
+		etcList: [],// 预充流程且审核通过订单
+		bocomEtcList: [],// 交行二类户流程且审核通过订单
 		prechargeInfo: {},
+		bocomCardInfo: app.globalData.memberStatusInfo,// 交行二类户信息
+		bocomInfo: {},// 交行二类户信息
 		cardInfo: undefined
 	},
 	async onLoad (options) {
@@ -15,7 +19,14 @@ Page({
 			await this.getStatus();
 		} else {
 			const etcList = app.globalData.myEtcList.filter(item => item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
-			this.setData({etcList});
+			const bocomEtcList = app.globalData.myEtcList.filter(item => item.flowVersion === 7 && item.auditStatus === 2); // 是否有交行二类户 & 已审核通过订单
+			this.setData({
+				etcList,
+				bocomEtcList
+			});
+			bocomEtcList.map(async item => {
+				await this.getBocomOrderBankConfigInfo(item);
+			});
 			etcList.map(async item => {
 				await this.getQueryWallet(item);
 			});
@@ -38,6 +49,22 @@ Page({
 			this.data.etcList.map(async item => {
 				await this.getQueryWallet(item);
 			});
+			this.data.bocomEtcList.map(async item => {
+				await this.getBocomOrderBankConfigInfo(item);
+			});
+		}
+	},
+	async getBocomOrderBankConfigInfo (item) {
+		// 获取订单银行配置信息
+		const result = await util.getDataFromServersV2('/consumer/order/getOrderBankConfigInfo', {
+			orderId: item.id
+		});
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+		} else {
+			this.setData({
+				bocomInfo: result.data
+			});
 		}
 	},
 	onClickAccountDetails () {
@@ -49,13 +76,16 @@ Page({
 		wx.uma.trackEvent('account_management_for_index_to_bind_bank_card');
 		util.go(`/pages/account_management/bind_bank_card/bind_bank_card`);
 	},
-	//充值
-	onClickPay () {
-		util.go(`/pages/account_management/account_recharge/account_recharge`);
+	// 充值
+	onClickPay (e) {
+		const type = +e.target.dataset.type;
+		util.go(`/pages/account_management/account_recharge/account_recharge?type=${type}`);
 	},
-	//圈存
-	onClickOBU () {
-		util.go(`/pages/obu/add/add`);
+	// 圈存
+	onClickOBU (e) {
+		const type = +e.target.dataset.type;
+		app.globalData.orderInfo.orderId = this.data.bocomEtcList[0].id;
+		util.go(`/pages/obu/add/add?type=${type}`);
 	},
 	// 获取订单信息
 	async getStatus () {
@@ -66,7 +96,14 @@ Page({
 		if (result.code === 0) {
 			app.globalData.myEtcList = result.data;
 			const etcList = app.globalData.myEtcList.filter(item => item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
-			this.setData({etcList});
+			const bocomEtcList = app.globalData.myEtcList.filter(item => item.flowVersion === 7 && item.auditStatus === 2); // 是否有交行二类户 & 已审核通过订单
+			this.setData({
+				etcList,
+				bocomEtcList
+			});
+			bocomEtcList.map(async item => {
+				await this.getBocomOrderBankConfigInfo(item);
+			});
 			etcList.map(async item => {
 				await this.getQueryWallet(item);
 			});

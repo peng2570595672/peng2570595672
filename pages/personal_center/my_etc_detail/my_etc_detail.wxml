@@ -96,10 +96,8 @@
             {{orderInfo.selfStatus === 11 ? '去激活' : ''}}
             {{orderInfo.selfStatus === 13 ? '去开户' : ''}}
             {{orderInfo.selfStatus === 15 ? '去预充' : ''}}
-            {{orderInfo.selfStatus === 16 ? '继续办理' : ''}}
+            {{orderInfo.selfStatus === 16 || orderInfo.selfStatus === 19 || orderInfo.selfStatus === 20 || orderInfo.selfStatus === 21 ? '继续办理' : ''}}
             {{orderInfo.selfStatus === 17 ? '预充值' : ''}}
-            {{orderInfo.selfStatus === 19 ? '未上传影像' : ''}}
-            {{orderInfo.selfStatus === 20 ? '未核验' : ''}}
         </button>
 		<view class="btn-wrapper">
 			<view catchtap="onClickCancelHandle" wx:if="{{orderInfo.status === 0 && orderInfo.orderType !== 51}}">取消办理</view>
