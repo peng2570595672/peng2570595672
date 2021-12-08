@@ -2,12 +2,13 @@
   "devDependencies": {
     "eslint": "^6.7.2",
     "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-node": "^11.0.0",
-    "eslint-plugin-standard": "^4.0.0",
-    "eslint-plugin-import": "^2.20.1"
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0"
   },
   "dependencies": {
+    "stylus": "^0.55.0",
     "umtrack-wx": "^2.6.2",
     "weui-miniprogram": "^1.0.8"
   }
