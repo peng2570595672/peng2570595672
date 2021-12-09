@@ -4,6 +4,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+	  type: 0,
     state: '1'
   },
   /**
@@ -11,11 +12,12 @@ Page({
    */
   onLoad: function (options) {
    this.setData({
+	   type: +options.type,
     state: options.state
    });
   },
   onRetry () { // 重试
-    util.go('/pages/obu/add/add');
+    util.go(`/pages/obu/add/add?type=${this.data.type}`);
   },
   onAccount () { // 查看账户
     util.go('/pages/account_management/account_details/account_details');

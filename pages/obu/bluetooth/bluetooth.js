@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+	  type: 0,
     state: '1',
     errMsg: '正在搜索设备',
     obuId: '',
@@ -22,11 +23,12 @@ Page({
     command: '',// 指令
     inStep: '1'// 进路步骤1圈存检测、2圈存修复、3、圈存申请、4、圈存确定
   },
-  onLoad (opents) {
-    console.log(opents,'《=======================参数数据信息');
+  onLoad (options) {
+    console.log(options,'《=======================参数数据信息');
       this.setData({
-        rechargeBalance: opents.rechargeBalance,
-        orderId: opents.orderId
+        rechargeBalance: options.rechargeBalance,
+		  type: +options.type,
+        orderId: options.orderId
       });
       this.onStart();
   },
@@ -285,7 +287,7 @@ stepQuancunRepair () {
   wonError (state) {
     clearInterval(timer); // 清调请求
     Bluetooth.disconnectDevice();// 释放资源
-   return util.go(`/pages/obu/audit_result/audit_result?state=${state}`);
+   return util.go(`/pages/obu/audit_result/audit_result?state=${state}&type=${this.data.type}`);
   }
 
 });

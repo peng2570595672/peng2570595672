@@ -4,7 +4,8 @@
         <view class="small-prompt">请输入充值金额（元）</view>
         <view class="money-input-container">
             <view class="label item">￥</view>
-            <input class="item" value="{{ rechargeAmount }}" bindinput="inputValueChange" data-key="rechargeAmount" disabled="{{isRechargeEarnestMoney}}"/>
+            <view class="item" wx:if="{{isShowAlert}}">{{ rechargeAmount }}</view>
+            <input class="item" wx:else value="{{ rechargeAmount }}" bindinput="inputValueChange" data-key="rechargeAmount" disabled="{{isRechargeEarnestMoney}}"/>
         </view>
     </view>
     <!--充值输入框结束-->
@@ -13,23 +14,31 @@
         <view class="transfer">
             <view>
                 <view>转出银行</view>
-                <view>{{choiceBankObj.bankName}}（{{choiceBankObj.accountNo}})</view>
-                <view class="switch" bindtap="onClickSwitchBankCard">切换</view>
+                <view wx:if="{{type === 2}}">{{choiceBankObj.v1BankName}}（{{choiceBankObj.v1Account}})</view>
+                <view wx:else>{{choiceBankObj.bankName}}（{{choiceBankObj.accountNo}})</view>
+                <view class="switch" bindtap="onClickSwitchBankCard" wx:if="{{type !== 2}}">切换</view>
             </view>
             <view class="iconfont arrow"></view>
             <view>
                 <view>转入银行</view>
-                <view>工商银行（{{cardInfo.accountNo}})</view>
+                <view wx:if="{{type === 2}}">交通银行（{{choiceBankObj.account}})</view>
+                <view wx:else>工商银行（{{cardInfo.accountNo}})</view>
                 <view class="tips">ETC专用II类户</view>
             </view>
         </view>
     </view>
     <view class="explist">
-     <view>请确保您的银行卡余额充足，若余额不足将导致充值失败。</view>
-     <view>资金充值成功后，II类户所属银行将即时锁定该笔资金用作通行费划扣，直至您不再使用本产品，经合法注销后资金将自动解冻</view>
+        <view>请确保您的银行卡余额充足，若余额不足将导致充值失败。</view>
+        <view>资金充值成功后，II类户所属银行将即时锁定该笔资金用作通行费划扣，直至您不再使用本产品，经合法注销后资金将自动解冻</view>
+        <view wx:if="{{type === 2}}">单笔充值最低50元起充</view>
     </view>
     <view class="fill"></view>
     <!--	操作部分开始-->
-    <view class="btn {{rechargeAmount ? 'available' : 'unavailable'}}" catchtap="next">充值</view>
+    <view class="btn {{(rechargeAmount && type !== 2) || (rechargeAmount >= 50 && type === 2) ? 'available' : 'unavailable'}}" catchtap="next">充值</view>
+    <bocom-certification id="bocomCertification" rechargeAmount="{{rechargeAmount}}"
+                         choiceBankObj="{{choiceBankObj}}"
+                         isGetIdentifyingCoding="{{isGetIdentifyingCoding}}" identifyingCode="{{identifyingCode}}"
+                         bind:onHandle="onHandle" bind:sendVerifyCode="sendVerifyCode" bind:bcmPayTransfer="bcmPayTransfer"
+    ></bocom-certification>
     <!--	操作部分结束-->
 </view>

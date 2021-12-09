@@ -818,6 +818,7 @@ Page({
 			return;
 		}
 		app.globalData.orderInfo.orderId = orderInfo.id;
+		app.globalData.processFlowVersion = orderInfo.flowVersion;
 		const fun = {
 			1: () => this.onClickBackToSign(orderInfo),// 恢复签约
 			2: () => this.onClickContinueHandle(orderInfo),// 继续办理

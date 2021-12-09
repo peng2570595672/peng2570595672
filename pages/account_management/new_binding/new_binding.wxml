@@ -36,7 +36,7 @@
     <!--	按钮结束-->
     <view class="verification-code-wrapper animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}">
         <view class="verification-code-wrapper-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}"  wx:if="{{mask}}">
-            <view class="phone">短信验证码已下发至<text>{{formData.telNumber}}</text></view>
+            <view class="phone">短信验证码已下发至<text>{{bankMobileNo || formData.telNumber}}</text></view>
             <view class="input-item">
                 <view>验证码</view>
                 <input type="number" placeholder="" placeholder-class="placeholder" value="{{formData.verifyCode}}"

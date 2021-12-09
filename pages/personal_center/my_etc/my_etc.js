@@ -117,6 +117,7 @@ Page({
 	onClickVehicle (e) {
 		let index = e.currentTarget.dataset.index;
 		let orderInfo = this.data.carList[parseInt(index)];
+		app.globalData.processFlowVersion = orderInfo.flowVersion;
 		app.globalData.orderInfo.orderId = orderInfo.id;
 		const fun = {
 			1: () => this.onClickBackToSign(orderInfo),// 恢复签约

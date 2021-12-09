@@ -17,9 +17,9 @@ Page({
 	async onShow () {
 		if (this.data.type === 2) {
 			await this.getBocomOrderBankConfigInfo();
-			return;
+		} else {
+			this.getRechargeBalance();
 		}
-		this.getRechargeBalance();
 	},
 	async getBocomOrderBankConfigInfo () {
 		// 获取订单银行配置信息
@@ -30,7 +30,7 @@ Page({
 			util.showToastNoIcon(result.message);
 		} else {
 			this.setData({
-				changeAmount: (result.data?.rechargeAmount - this.bocomInfo?.excessMoney) || 0
+				changeAmount: result.data?.canLoadAmount || 0
 			});
 		}
 	},
@@ -39,7 +39,7 @@ Page({
 			util.showToastNoIcon('请先充值');
 			return;
 		}
-		util.go(`/pages/obu/bluetooth/bluetooth?rechargeBalance=${this.data.changeAmount}&orderId=${this.data.orderId}`); // 链接蓝牙设备
+		util.go(`/pages/obu/bluetooth/bluetooth?rechargeBalance=${this.data.changeAmount}&orderId=${this.data.orderId}&type=${this.data.type}`); // 链接蓝牙设备
 	},
 	// 可充值圈存金额查询
 	async getRechargeBalance () {

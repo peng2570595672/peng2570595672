@@ -645,9 +645,13 @@ function getTruckHandlingStatus(orderInfo) {
 	console.log(app.globalData.memberStatusInfo)
 	if(orderInfo.flowVersion === 7) {
 		// 交行二类户流程
+		let info;
+		if (app.globalData.memberStatusInfo?.accountList.length) {
+			info = app.globalData.memberStatusInfo.accountList.find(item => item.orderId === orderInfo.id)
+		}
 		if (!app.globalData.memberStatusInfo?.uploadImageStatus) return 19;// 未影像资料上送
 		if (!app.globalData.memberStatusInfo?.isTencentVerify) return 20;// 未上送腾讯云活体人脸核身核验成功
-		if (!app.globalData.memberStatusInfo?.memberBankId) return 13;// 交行 开通II类户预充保证金 - 未开户
+		if (!info?.memberBankId) return 13;// 交行 开通II类户预充保证金 - 未开户
 		if (!orderInfo.contractStatus) return 19;// 未签约银行
 	}
 	if(orderInfo.flowVersion === 6 && orderInfo.icbcv2){

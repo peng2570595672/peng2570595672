@@ -331,16 +331,13 @@ Page({
 		}
 		return true;
 	},
-	// 个人银行电子账户服务协议
-	onIcbcAgreementAccount () {
-		util.go('/pages/truck_handling/icbc_agreement_account/icbc_agreement_account');
+	onManagementProtocol () {
+		util.go('/pages/truck_handling/bocom_management_protocol/bocom_management_protocol');
 	},
-	// 中国工商银行电子银行个人客户服务协议
-	onIcbcAgreementService () {
-		util.go('/pages/truck_handling/icbc_agreement_service/icbc_agreement_service');
+	onClauseProtocol () {
+		util.go('/pages/truck_handling/bocom_clause_protocol/bocom_clause_protocol');
 	},
-	// 中国工商银行网上银行个人委托代扣协议
-	onIcbcAgreementWithhold () {
-		util.go('/pages/truck_handling/icbc_agreement_withhold/icbc_agreement_withhold');
+	onTallageProtocol () {
+		util.go('/pages/truck_handling/bocom_tallage_protocol/bocom_tallage_protocol');
 	}
 });

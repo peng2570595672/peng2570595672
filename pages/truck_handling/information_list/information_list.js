@@ -182,7 +182,27 @@ Page({
 			return;
 		}
 		if (this.data.orderInfo.flowVersion === 7) {
-			await this.truckUploadImg();
+			if (!app.globalData.memberStatusInfo?.uploadImageStatus) {
+				// 未影像资料上送
+				await this.truckUploadImg();
+				return;
+			} else {
+				if (!app.globalData.memberStatusInfo?.isTencentVerify) {
+					// 未上送腾讯云活体人脸核身核验成功
+					util.go(`/pages/truck_handling/face_of_check_tips/face_of_check_tips`);
+					return;
+				}
+				let info;
+				if (app.globalData.memberStatusInfo?.accountList.length) {
+					info = app.globalData.memberStatusInfo.accountList.find(item => item.orderId === app.globalData.orderInfo.orderId);
+				}
+				if (!info?.memberBankId) {
+					// 未开户
+					util.go(`/pages/truck_handling/binding_account_bocom/binding_account_bocom`);
+					return;
+				}
+				util.go('/pages/truck_handling/signed/signed');
+			}
 			return;
 		}
 		if (this.data.orderInfo.flowVersion === 6) { // 处理是否需要开二类户
@@ -203,7 +223,6 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			console.log(result);
 			util.go(`/pages/truck_handling/face_of_check_tips/face_of_check_tips`);
 		} else {
 			util.showToastNoIcon(result.message);

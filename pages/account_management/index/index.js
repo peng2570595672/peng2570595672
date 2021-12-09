@@ -10,8 +10,8 @@ Page({
 		etcList: [],// 预充流程且审核通过订单
 		bocomEtcList: [],// 交行二类户流程且审核通过订单
 		prechargeInfo: {},
-		bocomCardInfo: app.globalData.memberStatusInfo,// 交行二类户信息
 		bocomInfo: {},// 交行二类户信息
+		bocomInfoList: [],// 交行二类户信息
 		cardInfo: undefined
 	},
 	async onLoad (options) {
@@ -40,11 +40,13 @@ Page({
 		// this.setData({
 		// 	cardInfo: app.globalData.bankCardInfo
 		// });
+		await util.getMemberStatus();
 		const pages = getCurrentPages();
 		const currPage = pages[pages.length - 1];
 		if (currPage.__data__.isReload) {
 			this.setData({
-				prechargeList: []
+				prechargeList: [],
+				bocomInfoList: []
 			});
 			this.data.etcList.map(async item => {
 				await this.getQueryWallet(item);
@@ -54,37 +56,77 @@ Page({
 			});
 		}
 	},
-	async getBocomOrderBankConfigInfo (item) {
+	async getBocomOrderBankConfigInfo (orderInfo) {
 		// 获取订单银行配置信息
-		const result = await util.getDataFromServersV2('/consumer/order/getOrderBankConfigInfo', {
-			orderId: item.id
+		const result = await util.getDataFromServersV2('/consumer/member/bcm/queryBalance', {
+			orderId: orderInfo.id,
+			cardType: '01'
 		});
 		if (result.code) {
 			util.showToastNoIcon(result.message);
 		} else {
+			let info;
+			if (app.globalData.memberStatusInfo?.accountList.length) {
+				info = app.globalData.memberStatusInfo.accountList.find(accountItem => accountItem.orderId === orderInfo.id);
+			}
+			let list = this.data.bocomInfoList;
+			result.data.vehPlates = orderInfo.vehPlates;
+			result.data.accountNo = info.accountNo;
+			list.push(result.data);
 			this.setData({
-				bocomInfo: result.data
+				bocomInfoList: list
 			});
 		}
 	},
-	onClickAccountDetails () {
+	onClickAccountDetails (e) {
+		const type = +e.currentTarget.dataset.type;
+		const index = +e.currentTarget.dataset.index;
+		app.globalData.orderInfo.orderId = this.data.bocomEtcList[index].id;
 		wx.uma.trackEvent('account_management_for_index_to_account_details');
+		if (type === 2) {
+			// 交行
+			util.go(`/pages/account_management/bocom_account_details/bocom_account_details?type=${type}&money=${this.data.bocomInfoList[index]?.total_amount}&vehPlates=${this.data.bocomEtcList[index]?.vehPlates}`);
+			return;
+		}
 		util.go(`/pages/account_management/account_details/account_details`);
 	},
 	// 绑定卡
-	onClickBindBankCard () {
+	onClickBindBankCard (e) {
+		const type = +e.currentTarget.dataset.type;
+		const index = +e.currentTarget.dataset.index;
+		app.globalData.orderInfo.orderId = this.data.bocomEtcList[index].id;
 		wx.uma.trackEvent('account_management_for_index_to_bind_bank_card');
+		if (type === 2) {
+			util.alert({
+				title: ``,
+				content: `确定要变更银行卡吗?`,
+				showCancel: true,
+				confirmColor: '#576B95',
+				cancelColor: '#000000',
+				cancelText: '点错了',
+				confirmText: '确认',
+				confirm: () => {
+					util.go(`/pages/account_management/new_binding/new_binding?type=2`);
+				},
+				cancel: () => {
+				}
+			});
+			return;
+		}
 		util.go(`/pages/account_management/bind_bank_card/bind_bank_card`);
 	},
 	// 充值
 	onClickPay (e) {
-		const type = +e.target.dataset.type;
+		const type = +e.currentTarget.dataset.type;
+		const index = +e.currentTarget.dataset.index;
+		app.globalData.orderInfo.orderId = this.data.bocomEtcList[index].id;
 		util.go(`/pages/account_management/account_recharge/account_recharge?type=${type}`);
 	},
 	// 圈存
 	onClickOBU (e) {
-		const type = +e.target.dataset.type;
-		app.globalData.orderInfo.orderId = this.data.bocomEtcList[0].id;
+		const type = +e.currentTarget.dataset.type;
+		const index = +e.currentTarget.dataset.index;
+		app.globalData.orderInfo.orderId = this.data.bocomEtcList[index].id;
 		util.go(`/pages/obu/add/add?type=${type}`);
 	},
 	// 获取订单信息

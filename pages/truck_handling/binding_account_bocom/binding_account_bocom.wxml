@@ -57,9 +57,9 @@
     <view class="agreement-box">
     <view class="agreement iconfont {{getAgreement ? 'selected' : ''}} " bindtap="onClickAgreementHandle">我已阅读并同意</view>
     <view class="protocol-info">
-        <view class="protocol" catchtap="onIcbcAgreementWithhold">《个人人民币银行结算账户管理协议》</view>
-        <view class="protocol" catchtap="onIcbcAgreementAccount">《买卖账户法律责任及惩戒措施相关条款》</view>
-        <view class="protocol" catchtap="onIcbcAgreementAccount">《涉税声明》</view>
+        <view class="protocol" catchtap="onManagementProtocol">《个人人民币银行结算账户管理协议》</view>
+        <view class="protocol" catchtap="onClauseProtocol">《买卖账户法律责任及惩戒措施相关条款》</view>
+        <view class="protocol" catchtap="onTallageProtocol">《涉税声明》</view>
     </view>
  </view>
     <!--	协议结束-->

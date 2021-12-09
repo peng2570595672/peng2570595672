@@ -89,11 +89,38 @@ Page({
 			this.setData({
 				orderInfo
 			});
+			this.getProductOrderInfo();
 			// 查询是否欠款
 			util.getIsArrearage();
 		} else {
 			util.showToastNoIcon(result.message);
 		}
+	},
+	// 根据订单id获取套餐信息
+	getProductOrderInfo () {
+		util.showLoading();
+		util.getDataFromServer('consumer/order/get-product-by-order-id', {
+			orderId: this.data.orderId
+		}, () => {
+		}, (res) => {
+			if (res.code === 0) {
+				this.setData({
+					productInfo: res.data
+				});
+				if (res.data.fenCheck === 1) {
+					this.setData({
+						tipsForDeduction: true
+					});
+				}
+				if (res.data.productProcess === 3) {
+					this.getOrderInfo();
+				}
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
 	},
 	// 显示跳转车主服务弹窗
 	onClickBank () {
