@@ -160,7 +160,8 @@
         "icbc_agreement_account/icbc_agreement_account",
         "icbc_agreement_service/icbc_agreement_service",
         "bocom_tallage_protocol/bocom_tallage_protocol",
-        "bocom_clause_protocol/bocom_clause_protocol"
+        "bocom_clause_protocol/bocom_clause_protocol",
+        "bocom_deduction_collection_protocol/bocom_deduction_collection_protocol"
       ]
     },
     {
