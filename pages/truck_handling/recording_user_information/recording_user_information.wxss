@@ -146,3 +146,7 @@
   border-radius: 49rpx;
   background: linear-gradient(to right, #15ad69, #84d157);
 }
+.press-canvas {
+  position: fixed;
+  left: -3000rpx;
+}

@@ -349,7 +349,7 @@ Page({
 				await this.marginPayment();
 				return;
 			}
-			if (this.data.isSalesmanOrder) {
+			if (this.data.isSalesmanOrder && this.data.orderInfo.flowVersion !== 7) {
 				util.go('/pages/default/processing_progress/processing_progress?type=main_process');
 				return;
 			}

@@ -5,7 +5,6 @@
         <image class="img" src="/pages/truck_handling/assets/certification.png"></image>
     </view>
     <view class="tips">请正对屏幕并使脸位于取景框内</view>
-    <view class="tips">请正对屏幕并使脸位于取景框内</view>
     <view class="fill"></view>
     <view type="primary" class="btn" catchtap="onHandleUploadVideo">开始识别</view>
 </view>

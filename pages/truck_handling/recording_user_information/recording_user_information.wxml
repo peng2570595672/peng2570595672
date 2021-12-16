@@ -25,3 +25,7 @@
     </view>
 </view>
 <!--认证中开始-->
+<canvas
+        canvas-id='pressCanvas'
+        class='press-canvas'
+        style='width: {{pictureWidth}}px; height: {{pictureHeight}}px;' ></canvas>

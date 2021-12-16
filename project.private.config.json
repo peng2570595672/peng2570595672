@@ -233,6 +233,30 @@
           "pathName": "pages/account_management/account_details/account_details",
           "query": "type=2&vehPlates=%E8%B4%B5Z55EEE",
           "scene": null
+        },
+        {
+          "name": "pages/truck_handling/index/index",
+          "pathName": "pages/truck_handling/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "query": "orderId=920628007247286272",
+          "scene": null
+        },
+        {
+          "name": "pages/truck_handling/face_of_check_tips/face_of_check_tips",
+          "pathName": "pages/truck_handling/face_of_check_tips/face_of_check_tips",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "query": "orderId=913436035747155968",
+          "scene": null
         }
       ]
     }

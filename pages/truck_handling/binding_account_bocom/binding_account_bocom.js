@@ -29,8 +29,8 @@ Page({
 		bankAccountId: null,
 		formData: {
 			region: ['省', '市', '区'], // 省市区
-			bankCardNo: '6222620110999392278',
-			telNumber: '17090017787', // 电话号码
+			bankCardNo: '',
+			telNumber: '', // 电话号码
 			verifyCode: '' // 验证码
 		} // 提交数据
 	},
@@ -333,6 +333,9 @@ Page({
 	},
 	onManagementProtocol () {
 		util.go('/pages/truck_handling/bocom_management_protocol/bocom_management_protocol');
+	},
+	onCollectingProtocol () {
+		util.go('/pages/truck_handling/bocom_deduction_collection_protocol/bocom_deduction_collection_protocol');
 	},
 	onClauseProtocol () {
 		util.go('/pages/truck_handling/bocom_clause_protocol/bocom_clause_protocol');

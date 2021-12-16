@@ -163,9 +163,10 @@ Page({
 		util.go(`/pages/default/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}`);
 	},
 	// 去开户
-	goBindingAccount () {
+	goBindingAccount (orderInfo) {
 		wx.uma.trackEvent('my_etc_for_binding_account');
-		util.go('/pages/truck_handling/binding_account/binding_account');
+		const path = `${orderInfo.flowVersion === 7 ? 'binding_account_bocom' : 'binding_account'}`;
+		util.go(`/pages/truck_handling/${path}/${path}`);
 	},
 	// 去预充
 	goRecharge (orderInfo) {

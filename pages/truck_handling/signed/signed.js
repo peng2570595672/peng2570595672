@@ -40,8 +40,9 @@ Page({
 				});
 			}
 		}
+		const info = app.globalData.memberStatusInfo.accountList.find(item => item.orderId === this.data.orderId)
 		this.setData({
-			phone: app.globalData.userInfo.mobilePhone,
+			phone: info?.mobilePhone || app.globalData.userInfo.mobilePhone,
 			truckLicensePlate: app.globalData.truckLicensePlate
 		});
 	},
@@ -119,8 +120,8 @@ Page({
 	// 获取验证码-签约短信验证码
 	async getCode () {
 		let params = {
-			mobilePhone: '17090017787',// app.globalData.userInfo.mobilePhone,
-			phone: '13086459294',// app.globalData.userInfo.mobilePhone,
+			mobilePhone: app.globalData.userInfo.mobilePhone,
+			phone: this.data.phone,
 			orderId: app.globalData.orderInfo.orderId
 		};
 		const path = `/consumer/order/${app.globalData.processFlowVersion === 7 ? 'bcmFastPayContractSms' : 'submitETCTradeDepositContract'}`;

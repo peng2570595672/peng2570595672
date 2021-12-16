@@ -624,6 +624,7 @@ function luhmCheck(bankno) {
  *  获取货车新流程订单办理状态 2.0
  */
 function getTruckHandlingStatus(orderInfo) {
+	console.log('////////////////')
 	if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0) {
 		// protocolStatus 0未签协议 1签了
 		return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
@@ -642,17 +643,18 @@ function getTruckHandlingStatus(orderInfo) {
 	if (orderInfo.isOwner === 0 || orderInfo.isVehicle === 0 || orderInfo.isHeadstock === 0 || (orderInfo.isTraction === 1 && orderInfo.isTransportLicense !== 1)) {
 		return 4; // 办理中 未上传证件
 	}
-	console.log(app.globalData.memberStatusInfo)
-	if(orderInfo.flowVersion === 7) {
+	console.log(orderInfo)
+	if (orderInfo.flowVersion === 7) {
 		// 交行二类户流程
 		let info;
-		if (app.globalData.memberStatusInfo?.accountList.length) {
+		console.log(info)
+		if (app.globalData.memberStatusInfo?.accountList?.length) {
 			info = app.globalData.memberStatusInfo.accountList.find(item => item.orderId === orderInfo.id)
 		}
 		if (!app.globalData.memberStatusInfo?.uploadImageStatus) return 19;// 未影像资料上送
 		if (!app.globalData.memberStatusInfo?.isTencentVerify) return 20;// 未上送腾讯云活体人脸核身核验成功
 		if (!info?.memberBankId) return 13;// 交行 开通II类户预充保证金 - 未开户
-		if (!orderInfo.contractStatus) return 19;// 未签约银行
+		if (!orderInfo.contractStatus) return 21;// 未签约银行
 	}
 	if(orderInfo.flowVersion === 6 && orderInfo.icbcv2){
 		//代扣通行费

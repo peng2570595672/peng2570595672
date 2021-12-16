@@ -20,15 +20,15 @@
                     {{item.selfStatus === 1 ? '已解约' : ''}}
                     {{item.selfStatus === 2 || item.selfStatus === 4 || item.selfStatus === 14 ? '办理中' : ''}}
                     {{item.selfStatus === 3 ? '待支付' : ''}}
-                    {{item.selfStatus === 5 ? '待签约' : ''}}
+                    {{item.selfStatus === 5 || item.selfStatus === 21 ? '待签约' : ''}}
                     {{item.selfStatus === 6 ? '待审核' : ''}}
                     {{item.selfStatus === 7 ? '审核不通过' : ''}}
                     {{item.selfStatus === 8 ? '审核不通过' : ''}}
-                    {{item.selfStatus === 9 ? item.flowVersion === 2 ? '待签约高速' : '待签约银行' : ''}}
+                    {{item.selfStatus === 9 ? (item.flowVersion === 2 ? '待签约高速' : (item.flowVersion === 7 ? '待开户' : '待签约银行')) : ''}}
                     {{item.selfStatus === 10 || item.selfStatus === 17 ? '审核通过' : ''}}
                     {{item.selfStatus === 11 ? '待激活' : ''}}
                     {{item.selfStatus === 12 ? '已激活' : ''}}
-                    {{item.selfStatus === 13 ? '待开户' : ''}}
+                    {{item.selfStatus === 13 || item.selfStatus === 19 || item.selfStatus === 20 ? '待开户' : ''}}
                     {{item.selfStatus === 15 ? '待充保证金' : ''}}
                     {{item.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
                 </view>
@@ -41,7 +41,7 @@
                     {{item.selfStatus === 1 ? '恢复签约' : ''}}
                     {{item.selfStatus === 2 || item.selfStatus === 4 || item.selfStatus === 14 ? '继续办理' : ''}}
                     {{item.selfStatus === 3 ? '去支付' : ''}}
-                    {{item.selfStatus === 5 || item.selfStatus === 9 ? '去签约' : ''}}
+                    {{item.selfStatus === 5 || item.selfStatus === 9 ? (item.flowVersion === 7 ? '继续办理' : '去签约') : ''}}
                     {{item.selfStatus === 6 ? '查看进度' : ''}}
                     {{item.selfStatus === 7 && item.flowVersion !== 4 ? '修改资料' : ''}}
                     {{item.selfStatus === 7 && item.flowVersion === 4 ? '取消办理' : ''}}
@@ -49,9 +49,9 @@
                     {{item.selfStatus === 10 ? '查看进度' : ''}}
                     {{item.selfStatus === 11 ? '去激活' : ''}}
                     {{item.selfStatus === 12 ? '' : ''}}
-                    {{item.selfStatus === 13 ? '去开户' : ''}}
+                    {{item.selfStatus === 13 || item.selfStatus === 19 ? '去开户' : ''}}
                     {{item.selfStatus === 15 ? '去预充' : ''}}
-                    {{orderInfo.selfStatus === 16 || orderInfo.selfStatus === 19 || orderInfo.selfStatus === 20 || orderInfo.selfStatus === 21 ? '继续办理' : ''}}
+                    {{item.selfStatus === 16 || item.selfStatus === 20 || item.selfStatus === 21 ? '继续办理' : ''}}
                     {{item.selfStatus === 17 ? '预充值' : ''}}
                 </view>
 			</view>

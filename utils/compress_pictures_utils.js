@@ -48,7 +48,7 @@ function  processingPictures (self, path, canvasId, width ,success) {
 									let width = r.width;
 									let height = r.height;
 									// 计算原始宽高比和压缩后的宽高比 如果一直 则通过 否则压缩视为无效
-									if (parseInt(targetWidth) / parseInt(targetHeight) === parseInt(width) / parseInt(height)) {
+									if (Math.abs(parseInt(targetWidth) / parseInt(targetHeight) - parseInt(width) / parseInt(height)) < 5) {
 										success(res)
 										console.log(55555555555);
 									} else {
