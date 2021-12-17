@@ -104,19 +104,3 @@
 .account-details .account-list .list-item > view.last .time {
   font-size: 28rpx;
 }
-.account-info .red{
-  color: #FF3C48 !important;
-}
-.account-info .platenumber{
-  float:right;
-}
-.balance .recharge{
-  min-width:80rpx;
-  height: 54rpx;
-  line-height:54rpx;
-  background: #eee;
-  text-align: center;
-  margin:0 20rpx;
-  padding:0 10rpx;
-  border-radius:10rpx;
-}

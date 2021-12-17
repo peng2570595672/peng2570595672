@@ -281,7 +281,7 @@ Page({
 							} else {
 								const endDate = res.data[0].ocrObject.validDate.split('-')[1].split('.').join('/');
 								const isGreaterThanData = util.isGreaterThanData(endDate);// 身份证结束时间
-								if (isGreaterThanData) {
+								if (isGreaterThanData && !res.data[0].ocrObject.validDate.includes('长期')) {
 									this.setData({
 										backStatus: 3,
 										available: false
