@@ -225,7 +225,7 @@ Page({
 	},
 	// 查看办理协议
 	onClickGoAgreementHandle () {
-		if (this.data.orderInfo?.base?.flowVersion === 7) {
+		if (this.data.listOfPackages[this.data.choiceIndex].flowVersion === 7) {
 			util.go('/pages/truck_handling/bocom_handle_protocol/bocom_handle_protocol');
 		} else {
 			util.go('/pages/truck_handling/agreement/agreement');
