@@ -77,6 +77,7 @@ App({
 		membershipCoupon: {},// 会员券带参进入
 		ownerServiceArrearsList: [],// 车主服务欠费列表
 		serverInfoId: '',
+		truckLicensePlate: '',// 货车车牌
 		memberId: '',// 用户id,用于京东客服
 		mobilePhone: '',// 用户手机用于京东客服
 		openId: '',// 用于查签约/解约
@@ -103,7 +104,10 @@ App({
 		isNeedReturnHome: false,// 是否需要返回首页
 		isArrearageData: {
 			isPayment: false,// 是否补缴
-			etcMoney: 0 // 欠费金额
+			isTrucksPayment: false,// 是否货车补缴
+			trucksOrderList: [],// 货车订单
+			etcMoney: 0, // 欠费金额
+			etcTrucksMoney: 0 // 货车欠费金额
 		},// 欠费数据
 		newPackagePageData: {}, // 新套餐页面数据
 		bankCardInfo: {}, // 二类户信息

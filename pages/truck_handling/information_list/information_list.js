@@ -14,7 +14,6 @@ Page({
 		isHeadstockError: false, // 是否车头照错误
 		isRoadTransportCertificateError: false, // 是否道路运输证错误
 		isModifiedData: false, // 是否是修改资料
-		isUploadImage: !!app.globalData.memberStatusInfo?.uploadImageStatus, // 是否上传交行影像资料 flowVersion-7
 		requestNum: 0
 	},
 	async onLoad (options) {
@@ -182,18 +181,22 @@ Page({
 			return;
 		}
 		if (this.data.orderInfo.flowVersion === 7) {
-			if (!app.globalData.memberStatusInfo?.uploadImageStatus) {
+			let checkResults;
+			if (app.globalData.memberStatusInfo?.orderBankConfigList?.length) {
+				checkResults = app.globalData.memberStatusInfo.orderBankConfigList.find(item => item.orderId === app.globalData.orderInfo.orderId);
+			}
+			if (!checkResults?.uploadImageStatus) {
 				// 未影像资料上送
 				await this.truckUploadImg();
 				return;
 			} else {
-				if (!app.globalData.memberStatusInfo?.isTencentVerify) {
+				if (!checkResults?.isTencentVerify) {
 					// 未上送腾讯云活体人脸核身核验成功
 					util.go(`/pages/truck_handling/face_of_check_tips/face_of_check_tips`);
 					return;
 				}
 				let info;
-				if (app.globalData.memberStatusInfo?.accountList.length) {
+				if (app.globalData.memberStatusInfo?.accountList?.length) {
 					info = app.globalData.memberStatusInfo.accountList.find(item => item.orderId === app.globalData.orderInfo.orderId);
 				}
 				if (!info?.memberBankId) {

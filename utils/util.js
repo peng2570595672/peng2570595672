@@ -646,13 +646,15 @@ function getTruckHandlingStatus(orderInfo) {
 	console.log(orderInfo)
 	if (orderInfo.flowVersion === 7) {
 		// 交行二类户流程
-		let info;
-		console.log(info)
+		let info, checkResults;
 		if (app.globalData.memberStatusInfo?.accountList?.length) {
 			info = app.globalData.memberStatusInfo.accountList.find(item => item.orderId === orderInfo.id)
 		}
-		if (!app.globalData.memberStatusInfo?.uploadImageStatus) return 19;// 未影像资料上送
-		if (!app.globalData.memberStatusInfo?.isTencentVerify) return 20;// 未上送腾讯云活体人脸核身核验成功
+		if (app.globalData.memberStatusInfo?.orderBankConfigList?.length) {
+			checkResults = app.globalData.memberStatusInfo.orderBankConfigList.find(item => item.orderId === orderInfo.id)
+		}
+		if (!checkResults?.uploadImageStatus) return 19;// 未影像资料上送
+		if (!checkResults?.isTencentVerify) return 20;// 未上送腾讯云活体人脸核身核验成功
 		if (!info?.memberBankId) return 13;// 交行 开通II类户预充保证金 - 未开户
 		if (!orderInfo.contractStatus) return 21;// 未签约银行
 	}
@@ -1059,15 +1061,9 @@ function getInsuranceOffer(orderId, wtagid) {
 /**
  *  获取用户状态-交行资料信息
  */
-function getMemberStatus() {
-	getDataFromServer('consumer/member/bcm/getMemberStatus', {}, () => {}, (res) => {
-		if (res.code === 0) {
-			app.globalData.memberStatusInfo = res.data;
-		} else {
-			showToastNoIcon(res.message);
-		}
-	}, app.globalData.userInfo.accessToken, () => {
-	});
+async function getMemberStatus() {
+	const result = await getDataFromServersV2('consumer/member/bcm/getMemberStatus');
+	app.globalData.memberStatusInfo = result.data;
 }
 /**
  *  去微保好车主
