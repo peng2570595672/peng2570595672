@@ -40,6 +40,7 @@ Page({
 				content: '检查您未授权录音或者拍照，请授权',
 				showCancel: true,
 				confirmText: '授权',
+				confirmColor: '#576B95',
 				confirm: async () => {
 					await openSetting();
 				}

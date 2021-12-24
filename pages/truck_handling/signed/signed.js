@@ -40,7 +40,8 @@ Page({
 				});
 			}
 		}
-		const info = app.globalData.memberStatusInfo.accountList.find(item => item.orderId === this.data.orderId)
+		await util.getMemberStatus();
+		const info = app.globalData.memberStatusInfo.accountList.find(item => item.orderId === app.globalData.orderInfo.orderId);
 		this.setData({
 			phone: info?.mobilePhone || app.globalData.userInfo.mobilePhone,
 			truckLicensePlate: app.globalData.truckLicensePlate

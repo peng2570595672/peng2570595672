@@ -20,7 +20,7 @@ export function alert({
 						  showCancel = false,
 						  confirmText = '我知道了',
 						  cancelText = '取消',
-						  confirmColor = '$fontColor',
+						  confirmColor = '#576B95',
 						  cancelColor = '#99999D',
 						  confirm = () => {
 						  },
