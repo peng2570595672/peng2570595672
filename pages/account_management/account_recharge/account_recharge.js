@@ -144,6 +144,7 @@ Page({
 		});
 		const result = await util.getDataFromServersV2('consumer/order/bcmPayTransfer', {
 			marId: this.data.marId,
+			orderId: app.globalData.orderInfo.orderId,
 			mobileCode: e.detail.verifyCode,
 			amount: +this.data.rechargeAmount * 100
 		});
@@ -177,7 +178,7 @@ Page({
 		if (!this.data.rechargeAmount) return;
 		wx.uma.trackEvent('account_management_for_recharge_to_recharge');
 		if (this.data.type === 2) {
-			if (this.data.rechargeAmount < 50) return;
+			// if (this.data.rechargeAmount < 50) return;
 			// 交行
 			await this.sendVerifyCode();
 			return;

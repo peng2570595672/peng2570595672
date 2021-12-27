@@ -273,7 +273,13 @@
         {
           "name": "pages/personal_center/my_etc_detail/my_etc_detail",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=861629807241203712",
+          "query": "orderId=922424870816714752",
+          "scene": null
+        },
+        {
+          "name": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "query": "orderId=923231889613918208",
           "scene": null
         }
       ]

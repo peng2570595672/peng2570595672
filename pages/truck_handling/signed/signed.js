@@ -121,7 +121,7 @@ Page({
 	// 获取验证码-签约短信验证码
 	async getCode () {
 		let params = {
-			mobilePhone: app.globalData.userInfo.mobilePhone,
+			mobilePhone: this.data.phone || app.globalData.userInfo.mobilePhone,
 			phone: this.data.phone,
 			orderId: app.globalData.orderInfo.orderId
 		};

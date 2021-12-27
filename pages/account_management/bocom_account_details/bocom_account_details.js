@@ -85,7 +85,7 @@ Page({
 		let params = {
 			orderId: app.globalData.orderInfo.orderId,
 			inquiryStartTime: this.data.beginDate.replace(/-/g,''),// 起始查询日期；格式 yyyymmdd
-			inquiryEndTime: app.globalData.test ? '20220707' : this.data.endDate.replace(/-/g,''),// 结束查询日期 格式 yyyymmdd
+			inquiryEndTime: this.data.endDate.replace(/-/g,''),// 结束查询日期 格式 yyyymmdd
 			beginTime: '000000', // 起始查询时间；hhmmss；翻页前后此时间要保持一致
 			endTime: '235959', // 结束查询时间；hhmmss；翻页前后此时间要保持一致
 			isFirstRequest: this.data.page === 1 ? 1 : 0, // 是否为第一次请求；0代表非首次，1代表首次
