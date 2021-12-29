@@ -103,13 +103,13 @@ Page({
 		}
 		let list = result.data.response_data || [];
 		list.map(item => {
-			if (item.voucher_bus_remark.includes('快捷网关')) {
+			if (item.voucher_bus_remark.includes('快捷网关') || item.voucher_bus_remark.includes('世纪恒通科技股份有限公司')) {
 				item.accountType = 1;// 服务费划扣
 			}
 			if (item.voucher_bus_remark.includes('资金转入')) {
 				item.accountType = 2;// 充值
 			}
-			if (item.voucher_bus_remark.includes('A097')) {
+			if (item.voucher_bus_remark.includes('A097') || item.voucher_bus_remark.includes('A106')) {
 				item.accountType = 3;// 通行费划扣
 			}
 			if (item.voucher_bus_remark.includes('转账')) {
