@@ -724,7 +724,7 @@ function getStatus(orderInfo) {
 		// protocolStatus 0未签协议 1签了
 		return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
 	}
-	if (orderInfo.isNewTrucks === 0 && orderInfo.contractStatus !== 1) {
+	if (orderInfo.isNewTrucks === 0 && orderInfo.contractStatus !== 1 && orderInfo.status === 1) {
 		return 1; // 客车解约
 	}
 	if (orderInfo.shopProductId === 0) {
