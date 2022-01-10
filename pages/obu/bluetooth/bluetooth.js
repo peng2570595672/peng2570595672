@@ -32,6 +32,9 @@ Page({
       });
       this.onStart();
   },
+	shifang () {
+		Bluetooth.disconnectDevice();// 释放资源
+	},
   onStart () {
       console.log('=================================重新连接蓝牙======================================================');
       clearInterval(timer); // 清调请求
@@ -208,7 +211,10 @@ stepQuancunRepair () {
  quancunConfirm () {
          console.log(this.data.command,'圈存确认指令');
          this.setData({inStep: 4});
-          Bluetooth.transCmd([this.data.command],10,res => {
+         const data = this.data.command.split(',');
+         console.log(data);
+          Bluetooth.transCmd(data,10,res => {
+              console.log(res,'---------111111----------');
               this.getQuancun(this.data.command,res);
           });
   },
@@ -217,13 +223,17 @@ stepQuancunRepair () {
      let params = {
         rechargeId: this.data.rechargeId, // 圈存订单号
         command: command,// 圈存初始化指令
-        cosResponse: res.join()// 圈存初始化指令结果
+        cosResponse: res.join(',')// 圈存初始化指令结果
      };
     const result = await util.getDataFromServersV2('/consumer/order/after-sale-record/quancunConfirm', params);
     console.log(result,'圈存确定');
         if (result.code == 0) {
           this.wonError(2);// 成功失败
         } else {
+        	if (result.message.includes('请进行修复') && result.message.includes('Doris提示')) {
+						this.quancunRepair(res);// 圈存修复
+						return;
+					}
           this.wonError(1);
         }
   },

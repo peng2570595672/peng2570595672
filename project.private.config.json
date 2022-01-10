@@ -76,7 +76,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=902267536140537856",
+          "query": "orderId=922563515469271040",
           "scene": null
         },
         {
@@ -169,117 +169,9 @@
           "scene": null
         },
         {
-          "name": "pages/truck_handling/face_of_check_tips/face_of_check_tips",
-          "pathName": "pages/truck_handling/face_of_check_tips/face_of_check_tips",
+          "name": "pages/personal_center/my_order/my_order",
+          "pathName": "pages/personal_center/my_order/my_order",
           "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/truck_handling/recording_user_information/recording_user_information",
-          "pathName": "pages/truck_handling/recording_user_information/recording_user_information",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=535473104349036544",
-          "scene": null
-        },
-        {
-          "name": "pages/truck_handling/binding_account_successful/binding_account_successful",
-          "pathName": "pages/truck_handling/binding_account_successful/binding_account_successful",
-          "query": "accountNo=6222620110999441596&flowVersion=7",
-          "scene": null
-        },
-        {
-          "name": "pages/personal_center/order_details/order_details",
-          "pathName": "pages/personal_center/order_details/order_details",
-          "query": "id=715647420232372225&channel=21&month=202104",
-          "scene": null
-        },
-        {
-          "name": "pages/truck_handling/bocom_management_protocol/bocom_management_protocol",
-          "pathName": "pages/truck_handling/bocom_management_protocol/bocom_management_protocol",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/truck_handling/index/index",
-          "pathName": "pages/truck_handling/index/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/truck_handling/binding_account_bocom/binding_account_bocom",
-          "pathName": "pages/truck_handling/binding_account_bocom/binding_account_bocom",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/account_management/index/index",
-          "pathName": "pages/account_management/index/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/account_management/account_recharge/account_recharge",
-          "pathName": "pages/account_management/account_recharge/account_recharge",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/account_management/account_details/account_details",
-          "pathName": "pages/account_management/account_details/account_details",
-          "query": "type=2&vehPlates=%E8%B4%B5Z55EEE",
-          "scene": null
-        },
-        {
-          "name": "pages/truck_handling/index/index",
-          "pathName": "pages/truck_handling/index/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=920628007247286272",
-          "scene": null
-        },
-        {
-          "name": "pages/truck_handling/face_of_check_tips/face_of_check_tips",
-          "pathName": "pages/truck_handling/face_of_check_tips/face_of_check_tips",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=913436035747155968",
-          "scene": null
-        },
-        {
-          "name": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=920628007247286272",
-          "scene": null
-        },
-        {
-          "name": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=920628007247286272",
-          "scene": null
-        },
-        {
-          "name": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=922424870816714752",
-          "scene": null
-        },
-        {
-          "name": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=923231889613918208",
           "scene": null
         }
       ]

@@ -1063,6 +1063,8 @@ function getInsuranceOffer(orderId, wtagid) {
  */
 async function getMemberStatus() {
 	const result = await getDataFromServersV2('consumer/member/bcm/getMemberStatus');
+	console.log('交行信息');
+	console.log(result.data);
 	app.globalData.memberStatusInfo = result.data;
 }
 /**
