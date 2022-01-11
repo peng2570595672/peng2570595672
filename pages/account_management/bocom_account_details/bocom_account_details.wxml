@@ -18,7 +18,7 @@
     <view class="account-list">
         <view class="list-title">
             <view class="title">账户变动明细</view>
-            <picker mode="date" value="{{date}}" fields="month" start="2021-01" bindchange="bindDateChange">
+            <picker mode="date" value="{{date}}" fields="month" end="{{endDate}}" start="2021-01" bindchange="bindDateChange">
                 <view class="picker iconfont">
                     {{currentMonth}}月
                 </view>

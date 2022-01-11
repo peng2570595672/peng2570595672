@@ -9,6 +9,7 @@ Page({
 		cardInfo: undefined,
 		beginDate: undefined,
 		endDate: undefined,
+		currentDate: undefined,
 		nextpageFlag: 0,// 是否向下翻页
 		currentMonth: 0,// 当前月份
 		list: [],
@@ -40,7 +41,8 @@ Page({
 			list: [],
 			currentMonth: +util.formatTime(date).slice(5, 7),
 			beginDate: `${util.formatTime(date).slice(0, 8)}01`,
-			endDate: `${util.formatTime(date).slice(0, 10)}`
+			endDate: `${util.formatTime(date).slice(0, 10)}`,
+			currentDate: `${util.formatTime(date).slice(0, 10)}`
 		});
 		await this.fetchList();
 	},
@@ -81,6 +83,13 @@ Page({
 	},
 	// 加载列表
 	async fetchList (callback) {
+		if (!util.isGreaterThanData(this.data.beginDate) && !util.isGreaterThanData(this.data.endDate)) {
+			util.showToastNoIcon('不能选择大于当前日期!');
+			return;
+		}
+		if (util.isGreaterThanData(this.data.beginDate) && !util.isGreaterThanData(this.data.endDate)) {
+			this.data.endDate = this.data.currentDate;
+		}
 		if (!this.data.page) this.data.page = 1;
 		util.showLoading({title: '加载中'});
 		let params = {
