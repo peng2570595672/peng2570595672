@@ -77,6 +77,7 @@ App({
 		membershipCoupon: {},// 会员券带参进入
 		ownerServiceArrearsList: [],// 车主服务欠费列表
 		serverInfoId: '',
+		accountChannelInfo: {},// 账户渠道-用于圈存跳转不同账户
 		truckLicensePlate: '',// 货车车牌
 		memberId: '',// 用户id,用于京东客服
 		mobilePhone: '',// 用户手机用于京东客服

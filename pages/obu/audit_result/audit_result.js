@@ -20,6 +20,10 @@ Page({
     util.go(`/pages/obu/add/add?type=${this.data.type}`);
   },
   onAccount () { // 查看账户
+  	if (this.data.type === 2) {
+			util.go(`/pages/account_management/bocom_account_details/bocom_account_details`);
+			return;
+		}
     util.go('/pages/account_management/account_details/account_details');
   }
 });

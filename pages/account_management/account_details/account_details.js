@@ -68,6 +68,7 @@ Page({
 			page: 0
 		});
 		await this.fetchList(() => { wx.stopPullDownRefresh(); });
+		wx.stopPullDownRefresh();
 	},
 	// 加载列表
 	async fetchList (callback) {

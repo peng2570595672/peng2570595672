@@ -24,9 +24,9 @@ Page({
 	async onLoad (options) {
 		console.log(options);
 		this.setData({
-			type: +options.type,
-			holdBalance: options.money,
-			vehPlates: options.vehPlates
+			type: app.globalData.accountChannelInfo.type,
+			holdBalance: app.globalData.accountChannelInfo.money,
+			vehPlates: app.globalData.accountChannelInfo.vehPlates
 		});
 		// 查询是否欠款
 		await util.getIsArrearage();
@@ -77,13 +77,14 @@ Page({
 			page: 1
 		});
 		await this.fetchList(() => { wx.stopPullDownRefresh(); });
+		wx.stopPullDownRefresh();
 	},
 	// 加载列表
 	async fetchList (callback) {
 		if (!this.data.page) this.data.page = 1;
 		util.showLoading({title: '加载中'});
 		let params = {
-			orderId: app.globalData.orderInfo.orderId,
+			orderId: app.globalData.accountChannelInfo.orderId,
 			inquiryStartTime: this.data.beginDate.replace(/-/g,''),// 起始查询日期；格式 yyyymmdd
 			inquiryEndTime: this.data.endDate.replace(/-/g,''),// 结束查询日期 格式 yyyymmdd
 			beginTime: '000000', // 起始查询时间；hhmmss；翻页前后此时间要保持一致

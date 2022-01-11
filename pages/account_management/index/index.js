@@ -85,7 +85,13 @@ Page({
 		wx.uma.trackEvent('account_management_for_index_to_account_details');
 		if (type === 2) {
 			// 交行
-			util.go(`/pages/account_management/bocom_account_details/bocom_account_details?type=${type}&money=${this.data.bocomInfoList[index]?.total_amount}&vehPlates=${this.data.bocomEtcList[index]?.vehPlates}`);
+			app.globalData.accountChannelInfo = {
+				type: 2,
+				orderId: this.data.bocomEtcList[index].id,
+				money: this.data.bocomInfoList[index]?.total_amount || 0,
+				vehPlates: this.data.bocomInfoList[index]?.vehPlates || ''
+			};
+			util.go(`/pages/account_management/bocom_account_details/bocom_account_details`);
 			return;
 		}
 		util.go(`/pages/account_management/account_details/account_details`);
@@ -127,6 +133,14 @@ Page({
 		const type = +e.currentTarget.dataset.type;
 		const index = +e.currentTarget.dataset.index;
 		app.globalData.orderInfo.orderId = this.data.bocomEtcList[index].id;
+		if (type === 2) {
+			app.globalData.accountChannelInfo = {
+				type: 2,
+				orderId: this.data.bocomEtcList[index].id,
+				money: this.data.bocomInfoList[index]?.total_amount || 0,
+				vehPlates: this.data.bocomInfoList[index]?.vehPlates || ''
+			};
+		}
 		util.go(`/pages/obu/add/add?type=${type}`);
 	},
 	// 获取订单信息
