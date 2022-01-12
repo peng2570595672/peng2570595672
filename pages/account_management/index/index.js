@@ -7,24 +7,29 @@ const app = getApp();
 Page({
 	data: {
 		prechargeList: [],
+		etcList: [],// 预充流程且审核通过订单
+		bocomEtcList: [],// 交行二类户流程且审核通过订单
 		prechargeInfo: {},
+		bocomInfo: {},// 交行二类户信息
+		bocomInfoList: [],// 交行二类户信息
 		cardInfo: undefined
 	},
 	async onLoad (options) {
 		if (!app.globalData.userInfo.accessToken) {
 			this.login();
 		} else {
-			if (options.needLoadEtc) {
-				await this.getStatus();
-			} else {
-				const etcList = app.globalData.myEtcList.filter(item => item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
-				this.setData({etcList});
-				etcList.map(async item => {
-					await this.getQueryWallet(item);
-				});
-			}
-			// 查询是否欠款
-			await util.getIsArrearage();
+			const etcList = app.globalData.myEtcList.filter(item => item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
+			const bocomEtcList = app.globalData.myEtcList.filter(item => item.flowVersion === 7 && item.auditStatus === 2); // 是否有交行二类户 & 已审核通过订单
+			this.setData({
+				etcList,
+				bocomEtcList
+			});
+			bocomEtcList.map(async item => {
+				await this.getBocomOrderBankConfigInfo(item);
+			});
+			etcList.map(async item => {
+				await this.getQueryWallet(item);
+			});
 		}
 	},
 	async onShow () {
@@ -33,75 +38,107 @@ Page({
 		// this.setData({
 		// 	cardInfo: app.globalData.bankCardInfo
 		// });
+		await util.getMemberStatus();
 		const pages = getCurrentPages();
 		const currPage = pages[pages.length - 1];
 		if (currPage.__data__.isReload) {
 			this.setData({
-				prechargeList: []
+				prechargeList: [],
+				bocomInfoList: []
 			});
 			this.data.etcList.map(async item => {
 				await this.getQueryWallet(item);
 			});
+			this.data.bocomEtcList.map(async item => {
+				await this.getBocomOrderBankConfigInfo(item);
+			});
 		}
 	},
-	// 自动登录
-	login () {
-		util.showLoading();
-		// 调用微信接口获取code
-		wx.login({
-			success: (res) => {
-				util.getDataFromServer('consumer/member/common/applet/code', {
-					platformId: app.globalData.platformId, // 平台id
-					code: res.code // 从微信获取的code
-				}, () => {
-					util.hideLoading();
-					util.showToastNoIcon('登录失败！');
-				}, async (res) => {
-					if (res.code === 0) {
-						res.data['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
-						this.setData({
-							loginInfo: res.data
-						});
-						// 已经绑定了手机号
-						if (res.data.needBindingPhone !== 1) {
-							app.globalData.userInfo = res.data;
-							app.globalData.openId = res.data.openId;
-							app.globalData.memberId = res.data.memberId;
-							app.globalData.mobilePhone = res.data.mobilePhone;
-							await this.getStatus();
-							// 查询是否欠款
-							await util.getIsArrearage();
-						} else {
-							util.hideLoading();
-						}
-					} else {
-						util.hideLoading();
-						util.showToastNoIcon(res.message);
-					}
-				});
-			},
-			fail: () => {
-				util.hideLoading();
-				util.showToastNoIcon('登录失败！');
-			}
+	async getBocomOrderBankConfigInfo (orderInfo) {
+		// 获取订单银行配置信息
+		const result = await util.getDataFromServersV2('/consumer/member/bcm/queryBalance', {
+			orderId: orderInfo.id,
+			cardType: '01'
 		});
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+		} else {
+			let info;
+			if (app.globalData.memberStatusInfo?.accountList.length) {
+				info = app.globalData.memberStatusInfo.accountList.find(accountItem => accountItem.orderId === orderInfo.id);
+			}
+			let list = this.data.bocomInfoList;
+			result.data.vehPlates = orderInfo.vehPlates;
+			result.data.accountNo = info.accountNo;
+			list.push(result.data);
+			this.setData({
+				bocomInfoList: list
+			});
+		}
 	},
-	onClickAccountDetails () {
+	onClickAccountDetails (e) {
+		const type = +e.currentTarget.dataset.type;
+		const index = +e.currentTarget.dataset.index;
+		app.globalData.orderInfo.orderId = this.data.bocomEtcList[index].id;
 		wx.uma.trackEvent('account_management_for_index_to_account_details');
+		if (type === 2) {
+			// 交行
+			app.globalData.accountChannelInfo = {
+				type: 2,
+				orderId: this.data.bocomEtcList[index].id,
+				money: this.data.bocomInfoList[index]?.total_amount || 0,
+				vehPlates: this.data.bocomInfoList[index]?.vehPlates || ''
+			};
+			util.go(`/pages/account_management/bocom_account_details/bocom_account_details`);
+			return;
+		}
 		util.go(`/pages/account_management/account_details/account_details`);
 	},
 	// 绑定卡
-	onClickBindBankCard () {
+	onClickBindBankCard (e) {
+		const type = +e.currentTarget.dataset.type;
+		const index = +e.currentTarget.dataset.index;
+		app.globalData.orderInfo.orderId = this.data.bocomEtcList[index].id;
 		wx.uma.trackEvent('account_management_for_index_to_bind_bank_card');
+		if (type === 2) {
+			util.alert({
+				title: ``,
+				content: `确定要变更银行卡吗?`,
+				showCancel: true,
+				confirmColor: '#576B95',
+				cancelColor: '#000000',
+				cancelText: '点错了',
+				confirmText: '确认',
+				confirm: () => {
+					util.go(`/pages/account_management/new_binding/new_binding?type=2`);
+				},
+				cancel: () => {
+				}
+			});
+			return;
+		}
 		util.go(`/pages/account_management/bind_bank_card/bind_bank_card`);
 	},
-	// 充值
-	onClickPay () {
-		util.go(`/pages/account_management/account_recharge/account_recharge`);
+	onClickPay (e) {
+		const type = +e.currentTarget.dataset.type;
+		const index = +e.currentTarget.dataset.index;
+		app.globalData.orderInfo.orderId = this.data.bocomEtcList[index].id;
+		util.go(`/pages/account_management/account_recharge/account_recharge?type=${type}`);
 	},
 	// 圈存
-	onClickOBU () {
-		util.go(`/pages/obu/add/add`);
+	onClickOBU (e) {
+		const type = +e.currentTarget.dataset.type;
+		const index = +e.currentTarget.dataset.index;
+		app.globalData.orderInfo.orderId = this.data.bocomEtcList[index].id;
+		if (type === 2) {
+			app.globalData.accountChannelInfo = {
+				type: 2,
+				orderId: this.data.bocomEtcList[index].id,
+				money: this.data.bocomInfoList[index]?.total_amount || 0,
+				vehPlates: this.data.bocomInfoList[index]?.vehPlates || ''
+			};
+		}
+		util.go(`/pages/obu/add/add?type=${type}`);
 	},
 	// 获取订单信息
 	async getStatus () {
@@ -112,7 +149,14 @@ Page({
 		if (result.code === 0) {
 			app.globalData.myEtcList = result.data;
 			const etcList = app.globalData.myEtcList.filter(item => item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
-			this.setData({etcList});
+			const bocomEtcList = app.globalData.myEtcList.filter(item => item.flowVersion === 7 && item.auditStatus === 2); // 是否有交行二类户 & 已审核通过订单
+			this.setData({
+				etcList,
+				bocomEtcList
+			});
+			bocomEtcList.map(async item => {
+				await this.getBocomOrderBankConfigInfo(item);
+			});
 			etcList.map(async item => {
 				await this.getQueryWallet(item);
 			});

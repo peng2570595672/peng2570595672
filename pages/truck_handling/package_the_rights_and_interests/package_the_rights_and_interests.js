@@ -225,7 +225,11 @@ Page({
 	},
 	// 查看办理协议
 	onClickGoAgreementHandle () {
-		util.go('/pages/truck_handling/agreement/agreement');
+		if (this.data.listOfPackages[this.data.choiceIndex].flowVersion === 7) {
+			util.go('/pages/truck_handling/bocom_handle_protocol/bocom_handle_protocol');
+		} else {
+			util.go('/pages/truck_handling/agreement/agreement');
+		}
 	},
 	// 查看保理
 	onClickGoFactoring () {
@@ -349,7 +353,7 @@ Page({
 				await this.marginPayment();
 				return;
 			}
-			if (this.data.isSalesmanOrder) {
+			if (this.data.isSalesmanOrder && this.data.orderInfo.flowVersion !== 7) {
 				util.go('/pages/default/processing_progress/processing_progress?type=main_process');
 				return;
 			}

@@ -1,0 +1,24 @@
+<wxs src='../../utils/util.wxs' module='tools'/>
+<view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}">
+    <view class="mask" catchtap="hide" wx:if="{{mask}}"></view>
+	<view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}"  wx:if="{{mask}}">
+		<view class="alert-for-box">
+			<view class="top-content">
+				<view class="title">短信认证</view>
+                <view class="account">向账户({{choiceBankObj.account}})转账</view>
+                <view class="money">¥{{rechargeAmount}}</view>
+			</view>
+            <view class="input-item">
+                <view>验证码</view>
+                <input type="number" placeholder="输入短信验证码" placeholder-class="placeholder" value="{{verifyCode}}"
+                       bindinput="onInputChangedHandle" data-key="verifyCode"
+                />
+                <view class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} ok" catchtap="onSendVerifyCode">{{identifyingCode}}</view>
+            </view>
+            <view class="tips">请入{{tools.substring(choiceBankObj.mobilePhone,0,3)}}******{{tools.substring(choiceBankObj.mobilePhone,8,11)}}到的证码</view>
+			<view catchtap="onSubmit" class="alert-for-button">
+				<text class="btn">确认</text>
+			</view>
+		</view>
+	</view>
+</view>

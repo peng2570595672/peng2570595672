@@ -235,7 +235,7 @@ Page({
 				};
 				await util.initLocationInfo(orderInfo);
 				if (!app.globalData.newPackagePageData.listOfPackages?.length) return;// 没有套餐
-				console.log(app.globalData.newPackagePageData.type,'==============================')
+				console.log(app.globalData.newPackagePageData.type,'==============================');
 				if (app.globalData.newPackagePageData.type) {
 					// 只有分对分套餐 || 只有总对总套餐
 					util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`);

@@ -1,14 +1,17 @@
 <view class="account-details">
     <view class="account-info">
-        <view>当前账户余额（元）<view class="platenumber">贵H8B869</view></view>
+        <view class="top-info">
+            <view class="left">当前账户余额（元）</view>
+            <view class="right">{{vehPlates}}</view>
+        </view>
         <view class="balance">
             <view class="price">{{(cardInfo.holdBalance + cardInfo.balanceAmount) / 100 || 0}}</view>
             <view class="unit">元</view>
             <view class="recharge" bindtap="onClickRecharge">充值</view>
-            <view class="recharge" bindtap="onClickObu">设备圈存</view>
+            <view class="recharge load" bindtap="onClickObu">设备圈存</view>
         </view>
         <!-- <view>冻结金额{{cardInfo.holdBalance/100 || 0}}元，可用金额{{cardInfo.balanceAmount/100 || 0}}元</view> -->
-        <view class="red">充值成功后必须完成设备圈存，否则设备无法正常通行</view>
+        <view class="tips">充值成功后必须完成设备圈存，否则设备无法正常通行</view>
     </view>
     <view class="split"></view>
     <view class="account-list">

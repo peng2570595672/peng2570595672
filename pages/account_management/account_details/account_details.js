@@ -68,6 +68,7 @@ Page({
 			page: 0
 		});
 		await this.fetchList(() => { wx.stopPullDownRefresh(); });
+		wx.stopPullDownRefresh();
 	},
 	// 加载列表
 	async fetchList (callback) {
@@ -104,7 +105,7 @@ Page({
 		wx.uma.trackEvent('account_management_for_account_details_to_recharge');
 		util.go(`/pages/account_management/account_recharge/account_recharge`);
 	},
-	onClickObu(){
+	onClickObu () {
 		util.go(`/pages/obu/add/add`);
 	}
 });

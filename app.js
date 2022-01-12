@@ -21,7 +21,6 @@ App({
 		test: IS_TEST, // 是否为测试
 		uploadOcrUrl: IS_TEST ? 'https://etctest.cyzl.com/file-service/file/upload-ocr' : 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址
 		// uploadOcrUrl: 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址
-		truckLicensePlate: '',// 货车车牌
 		uploadUrl: 'https://file.cyzl.com/file/upload', // 上传图片无需审核地址
 		plamKey: '123456', // 签名用到的key --- 二发
 		mapKey: '2PEBZ-EJKKX-V624T-Z4MH6-LVHUS-D6BNM', // 腾讯地图所使用key
@@ -53,6 +52,8 @@ App({
 		isSalesmanOrder: false,// 是否是业务员审核订单
 		officialChannel: false,// 是否是公众号渠道引流
 		SDKVersion: '',// 小程序基础库版本
+		capsule: '', // 胶囊
+		statusBarHeight: 0,
 		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
 		mobilePhoneSystem: false, // false非ios     true:ios
 		firstVersionData: false, // 是否是1.0数据
@@ -70,9 +71,14 @@ App({
 		quality: 80,
 		signAContract: 3,// -1正常签约  1  解约重签  4 货车签约管理页签约
 		userInfo: {},// 用户信息
+		navbarHeight: 0,
+		processFlowVersion: 0,// 流程版本
+		memberStatusInfo: {},// 用户交行信息
 		membershipCoupon: {},// 会员券带参进入
 		ownerServiceArrearsList: [],// 车主服务欠费列表
 		serverInfoId: '',
+		accountChannelInfo: {},// 账户渠道-用于圈存跳转不同账户
+		truckLicensePlate: '',// 货车车牌
 		memberId: '',// 用户id,用于京东客服
 		mobilePhone: '',// 用户手机用于京东客服
 		openId: '',// 用于查签约/解约
@@ -116,9 +122,12 @@ App({
 		wx.getSystemInfo({
 			success: (res) => {
 				console.log(res);
+				this.globalData.capsule = wx.getMenuButtonBoundingClientRect();
 				this.globalData.screenWindowAttribute = res;
 				this.globalData.SDKVersion = res.SDKVersion;
+				this.globalData.statusBarHeight = res.statusBarHeight;
 				this.globalData.mobilePhoneSystem = res.system.indexOf('iOS') !== -1 ? true : false;
+				this.globalData.navbarHeight = (this.globalData.capsule.top - this.globalData.statusBarHeight) * 2 + this.globalData.capsule.height + this.globalData.statusBarHeight;
 				if (res.model.toLowerCase().search('iphone x') !== -1) {
 					this.globalData.mobilePhoneMode = 1;
 				} else if (res.model.toLowerCase().search('iphone') !== -1) {

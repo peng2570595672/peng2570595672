@@ -3,6 +3,7 @@
  * @desc 填写车牌和收货信息
  */
 const util = require('../../../utils/util.js');
+const app = getApp();
 // 倒计时计时器
 let timer;
 Page({
@@ -12,6 +13,7 @@ Page({
 		banks: ['icbc','abchina','boc','ccb','bankcomm','psbc'],
 		bankNameIndex: null, // 开户行：1-工行，2-农行，3-中行，4建行，5-交行，6-邮储 (接口上传：bankNameIndex+1)
 		bankNameArr: ['工商银行', '农业银行', '中国银行', '建设银行', '交通银行', '邮政储蓄'],
+		bankAbbreviation: ['ICBC', 'ABC', 'BOC', 'CCB', 'BCM', 'PSBC'],
 		mobilePhoneIsOk: false,
 		identifyingCode: '获取验证码',
 		time: 59,// 倒计时
@@ -20,14 +22,21 @@ Page({
 		isRequest: false,// 是否请求中
 		showToast: false, // 是否验证码错误
 		bankCardObj: null,
+		bankMobileNo: '',
 		bankAccountId: null,
+		type: 1,//  1 工行  2 交行
 		formData: {
 			bankCardNo: undefined,
 			telNumber: '', // 电话号码
 			verifyCode: '' // 验证码
 		} // 提交数据
 	},
-	async onLoad () {
+	async onLoad (options) {
+		if (options.type) {
+			this.setData({
+				type: +options.type
+			});
+		}
 		// 查询是否欠款
 		await util.getIsArrearage();
 	},
@@ -82,6 +91,12 @@ Page({
 			return;
 		}
 		wx.uma.trackEvent('account_management_for_new_binding_to_bind');
+		if (this.data.type === 2) {
+			// 交行
+			this.show();
+			this.sendVerifyCode();
+			return;
+		}
 		this.setData({
 			available: false, // 禁用按钮
 			isRequest: true // 设置状态为请求中
@@ -166,11 +181,24 @@ Page({
 		util.showLoading({
 			title: '请求中...'
 		});
-		const result = await util.getDataFromServersV2('consumer/member/icbcv2/sendCode', {
-			bankAccountId: this.data.bankAccountId
-		});
+		let result;
+		if (this.data.type === 2) {
+			result = await util.getDataFromServersV2('consumer/member/bcm/opSendMsg', {
+				type: 3,// 短信类型:1-二类户销户,3-二类户换绑卡
+				orderId: app.globalData.orderInfo.orderId
+			});
+		} else {
+			result = await util.getDataFromServersV2('consumer/member/icbcv2/sendCode', {
+				bankAccountId: this.data.bankAccountId
+			});
+		}
 		if (!result) return;
 		if (result.code === 0) {
+			if (result.data.mobile_no) {
+				this.setData({
+					bankMobileNo: result.data.mobile_no
+				});
+			}
 			this.startTimer();
 		} else {
 			this.setData({
@@ -240,12 +268,28 @@ Page({
 			available: false, // 禁用按钮
 			isRequest: true // 设置状态为请求中
 		});
-		const params = {
-			bankType: 2,// 1开户 2绑卡
-			bankAccountId: this.data.bankAccountId,
-			smsCode: this.data.formData.verifyCode
-		};
-		const result = await util.getDataFromServersV2('consumer/member/icbcv2/verifyCode', params);
+		let result;
+		if (this.data.type === 2) {
+			const params = {
+				orderId: app.globalData.orderInfo.orderId,
+				newBankCard: this.data.formData.bankCardNo, // 新绑定卡号
+				mobileCode: this.data.formData.verifyCode, // 验证码
+				bankAddName: this.data.bankAbbreviation[this.data.bankNameIndex], // 银行英文简称
+				bankName: this.data.bankNameArr[this.data.bankNameIndex], // 开户银行全称
+				bankType: this.data.bankCardObj?.cardType === '贷记卡' ? 'SCC' : 'DC', // 银行类型：DC 储蓄卡  CC信用卡  SCC 准贷记卡 PC预付费卡
+				mobilePhone: this.data.formData.telNumber, // 手机号
+				bankId: 0, // 银行id
+				bankCardUrl: this.data.bankCardObj?.fileUrl || '' // 银行卡图片地址
+			};
+			result = await util.getDataFromServersV2('consumer/member/bcm/changeCard', params);
+		} else {
+			const params = {
+				bankType: 2,// 1开户 2绑卡
+				bankAccountId: this.data.bankAccountId,
+				smsCode: this.data.formData.verifyCode
+			};
+			result = await util.getDataFromServersV2('consumer/member/icbcv2/verifyCode', params);
+		}
 		this.setData({
 			available: true,
 			isRequest: false

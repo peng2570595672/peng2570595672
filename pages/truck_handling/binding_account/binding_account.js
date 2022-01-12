@@ -109,16 +109,16 @@ Page({
 			sortName: this.data.banks[this.data.bankNameIndex]
 		};
 		const result = await util.getDataFromServersV2('consumer/member/icbcv2/open', params);
-		console.log(result,'==================开通信息===================')
+		console.log(result,'==================开通信息===================');
 		this.setData({
 			available: true,
 			isRequest: false
 		});
 		if (!result) return;
 		console.log(result);
-		if (result.code === 0) { //这里需要code===0
+		if (result.code === 0) { // 这里需要code===0
 			this.setData({
-				bankAccountId:result.data.bankAccountId
+				bankAccountId: result.data.bankAccountId
 			});
 			this.show();
 			this.startTimer();

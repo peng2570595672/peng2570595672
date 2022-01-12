@@ -67,10 +67,12 @@ Page({
 			isActivityDate: util.isDuringDate('2021/6/25 11:00', '2021/6/28 15:00')
 		});
 		if (app.globalData.userInfo.accessToken) {
+			util.getMemberStatus();
 			if (app.globalData.salesmanScanCodeToHandleId) {
 				await this.bindOrder();
 			} else {
-				if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+				// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+				await util.getMemberStatus();
 				await this.getStatus();
 			}
 		}
@@ -83,9 +85,8 @@ Page({
 			if (app.globalData.salesmanScanCodeToHandleId) {
 				await this.bindOrder();
 			} else {
-				if (!app.globalData.bankCardInfo?.accountNo) {
-					await util.getV2BankId();
-				}
+				// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+				await util.getMemberStatus();
 				await this.getStatus();
 				await this.getIsShowNotice();
 			}
@@ -389,10 +390,12 @@ Page({
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
 						// 查询最后一笔订单状态
+						util.getMemberStatus();
 						if (app.globalData.salesmanScanCodeToHandleId) {
 							await this.bindOrder();
 						} else {
-							if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+							// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+							await util.getMemberStatus();
 							if (app.globalData.isSignUpImmediately) {
 								app.globalData.isSignUpImmediately = false;
 								await this.getStatus(true);
@@ -467,7 +470,8 @@ Page({
 				if (app.globalData.salesmanScanCodeToHandleId) {
 					await this.bindOrder();
 				} else {
-					if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+					await util.getMemberStatus();
+					// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 					await this.getStatus();
 				}
 			} else {
@@ -496,11 +500,14 @@ Page({
 		};
 		if (isToMasterQuery) params['toMasterQuery'] = true;// 直接查询主库
 		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
-
+		const icbcv2 = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId'); // 查卡是否有二通类户
 		// 订单展示优先级: 扣款失败账单>已解约状态>按最近时间顺序：办理状态or账单记录
 		if (!result) return;
 		if (result.code === 0) {
 			const list = this.sortDataArray(result.data);
+			list.forEach(res => {
+				res.icbcv2 = icbcv2.data;
+			});
 			app.globalData.myEtcList = list;
 			// 京东客服
 			let [truckList, passengerCarList, vehicleList, activationOrder, activationTruckOrder, truckActivationOrderList] = [[], [], [], [], [], []];
@@ -819,12 +826,14 @@ Page({
 		if (!orderInfo) {
 			app.globalData.orderInfo.orderId = '';
 			wx.uma.trackEvent(this.data.activeIndex === 1 ? 'index_for_new_deal_with' : 'index_for_truck_new_deal_with');
-		//	const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address' : '/pages/truck_handling/truck_receiving_address/truck_receiving_address';
-		const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address' : '/pages/default/trucks/trucks';
-		util.go(url);
+			//	const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address' : '/pages/truck_handling/truck_receiving_address/truck_receiving_address';
+			const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address' : '/pages/default/trucks/trucks';
+			util.go(url);
 			return;
 		}
 		app.globalData.orderInfo.orderId = orderInfo.id;
+		app.globalData.processFlowVersion = orderInfo.flowVersion;
+		app.globalData.truckLicensePlate = orderInfo.vehPlates;
 		const fun = {
 			1: () => this.onClickBackToSign(orderInfo),// 恢复签约
 			2: () => this.onClickContinueHandle(orderInfo),// 继续办理
@@ -832,8 +841,7 @@ Page({
 			4: () => this.onClickContinueHandle(orderInfo), // 继续办理
 			5: () => this.onClickBackToSign(orderInfo), // 签约微信支付 - 去签约
 			6: () => this.onClickViewProcessingProgressHandle(orderInfo), // 订单排队审核中 - 查看进度
-			7: () => this.onClickModifiedData(orderInfo), // 修改资料 - 上传证件页
-			8: () => this.goEtcDetails(orderInfo), // 高速核验不通过 - 查看进度
+			7: () => this.onClickModifiedData(orderInfo, true), // 修改资料 - 上传证件页
 			9: () => this.onClickHighSpeedSigning(orderInfo), // 去签约
 			10: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
 			11: () => this.onClickCctivate(orderInfo), // 去激活
@@ -842,9 +850,20 @@ Page({
 			15: () => this.goRecharge(orderInfo), // 保证金预充失败 - 去预充
 			16: () => this.goBindingWithholding(orderInfo), // 选装-未已绑定车辆代扣
 			17: () => this.onClickViewProcessingProgressHandle(orderInfo), // 去预充(预充流程)-查看进度
-			18: () => this.onTollWithholding(orderInfo) // 代扣通行费
+			18: () => this.onTollWithholding(orderInfo), // 代扣通行费
+			19: () => this.onClickModifiedData(orderInfo, false),
+			20: () => this.onClickVerification(orderInfo),
+			21: () => this.onClickSignBank(orderInfo)
 		};
 		fun[orderInfo.selfStatus].call();
+	},
+	// 交行-去签约
+	onClickSignBank (orderInfo) {
+		util.go(`/pages/truck_handling/signed/signed`);
+	},
+	// 交行-去腾讯云核验
+	onClickVerification () {
+		util.go(`/pages/truck_handling/face_of_check_tips/face_of_check_tips`);
 	},
 	// 选装-去绑定代扣
 	goBindingWithholding () {
@@ -865,9 +884,10 @@ Page({
 		util.go(`/pages/account_management/account_recharge/account_recharge?money=${orderInfo.holdBalance}`);
 	},
 	// 去开户
-	goBindingAccount () {
+	goBindingAccount (orderInfo) {
 		wx.uma.trackEvent('index_for_binding_account');
-		util.go('/pages/truck_handling/binding_account/binding_account');
+		const path = `${orderInfo.flowVersion === 7 ? 'binding_account_bocom' : 'binding_account'}`;
+		util.go(`/pages/truck_handling/${path}/${path}`);
 	},
 	// 代扣通行费
 	onTollWithholding () {
@@ -1039,7 +1059,7 @@ Page({
 		}
 	},
 	// 修改资料
-	async onClickModifiedData (orderInfo) {
+	async onClickModifiedData (orderInfo, isChange) {
 		if (orderInfo.isNewTrucks === 1) {
 			if (orderInfo.flowVersion === 4) {
 				// 预充流程取消办理
@@ -1048,7 +1068,7 @@ Page({
 			}
 			// 货车办理
 			wx.uma.trackEvent('index_for_truck_modified_data');
-			util.go('/pages/truck_handling/information_list/information_list?isModifiedData=true');
+			util.go(`/pages/truck_handling/information_list/information_list?isModifiedData=${isChange}`);
 			return;
 		}
 		if (util.getHandlingType(orderInfo)) {

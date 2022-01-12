@@ -628,7 +628,7 @@ function getTruckHandlingStatus(orderInfo) {
 		// protocolStatus 0未签协议 1签了
 		return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
 	}
-	// flowVersion 流程版本，1-分对分，2-新版（总对总）,3-选装 4-预充值 5-保证金模式 6-圈存
+	// flowVersion 流程版本，1-分对分，2-新版（总对总）,3-选装 4-预充值 5-保证金模式 6-圈存 7-交行二类户
 	if (orderInfo.flowVersion === 5 && orderInfo.multiContractList.find(item => item.contractStatus === 2)) {
 		return 1; // 货车解约 - 保证金模式
 	}
@@ -645,7 +645,22 @@ function getTruckHandlingStatus(orderInfo) {
 
 
 	if (orderInfo.flowVersion === 6 && !app.globalData.bankCardInfo.accountNo) {// 开通II类户预充保证金 - 未开户
-	  	return 13;
+		return 13;
+	}
+	console.log(orderInfo)
+	if (orderInfo.flowVersion === 7) {
+		// 交行二类户流程
+		let info, checkResults;
+		if (app.globalData.memberStatusInfo?.accountList?.length) {
+			info = app.globalData.memberStatusInfo.accountList.find(item => item.orderId === orderInfo.id)
+		}
+		if (app.globalData.memberStatusInfo?.orderBankConfigList?.length) {
+			checkResults = app.globalData.memberStatusInfo.orderBankConfigList.find(item => item.orderId === orderInfo.id)
+		}
+		if (!checkResults?.uploadImageStatus) return 19;// 未影像资料上送
+		if (!checkResults?.isTencentVerify) return 20;// 未上送腾讯云活体人脸核身核验成功
+		if (!info?.memberBankId) return 13;// 交行 开通II类户预充保证金 - 未开户
+		if (!orderInfo.contractStatus) return 21;// 未签约银行
 	}
 
 	if(orderInfo.flowVersion === 6 && app.globalData.bankCardInfo.accountNo){ //有二类户-代扣通行费
@@ -711,7 +726,6 @@ function getTruckHandlingStatus(orderInfo) {
 		return 17;// 未预充金额
 	}
 	if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
-		console.log("====================已激活已激活=====================================")
 		return 12; // 已激活
 	}
 	return 0;// 错误状态,未判断到
@@ -1060,6 +1074,15 @@ function getInsuranceOffer(orderId, wtagid) {
 	});
 }
 /**
+ *  获取用户状态-交行资料信息
+ */
+async function getMemberStatus() {
+	const result = await getDataFromServersV2('consumer/member/bcm/getMemberStatus');
+	console.log('交行信息');
+	console.log(result.data);
+	app.globalData.memberStatusInfo = result.data;
+}
+/**
  *  去微保好车主
  */
 function goMicroInsuranceVehicleOwner(params, wtagid) {
@@ -1363,7 +1386,7 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
 						reAutoLoginV2(path, params, method);
 						return;
 					}
-					console.log(res.data);
+					// console.log(res.data);
 					resolve(res.data)
 				} else {
 					reject(res)
@@ -1618,6 +1641,7 @@ module.exports = {
 	formatNumber,
 	addProtocolRecord,
 	queryProtocolRecord,
+	getMemberStatus,
 	goMicroInsuranceVehicleOwner,
 	getDataFromServer, // 从服务器上获取数据
 	getIsArrearage,

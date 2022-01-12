@@ -1,0 +1,27 @@
+.protocol {
+  padding: 20rpx;
+}
+.protocol .h3 {
+  display: block;
+  font-size: 32rpx;
+  color: #4d4d4d;
+}
+.protocol .p {
+  display: block;
+  text-align: left;
+  font-size: 24rpx;
+  color: #4d4d4d;
+  line-height: 40rpx;
+  text-indent: 2em;
+}
+.protocol .weight {
+  font-weight: bold;
+}
+.protocol .line {
+  display: inline-block;
+  width: 200rpx;
+  border-bottom: 1rpx solid #4d4d4d;
+}
+.protocol .red {
+  color: #ec0808;
+}

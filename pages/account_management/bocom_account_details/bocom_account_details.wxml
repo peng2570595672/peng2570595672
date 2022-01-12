@@ -1,0 +1,41 @@
+<view class="account-details">
+    <view class="account-info">
+        <view class="top-info">
+            <view class="left">当前账户余额（元）</view>
+            <view class="right">{{vehPlates}}</view>
+        </view>
+        <view class="balance">
+            <view class="price" wx:if="{{type === 2}}">{{holdBalance}}</view>
+            <view class="price" wx:else>{{(cardInfo.holdBalance + cardInfo.balanceAmount) / 100 || 0}}</view>
+            <view class="unit">元</view>
+            <view class="recharge" bindtap="onClickRecharge">充值</view>
+            <view class="recharge load" bindtap="onClickObu">设备圈存</view>
+        </view>
+        <!-- <view>冻结金额{{cardInfo.holdBalance/100 || 0}}元，可用金额{{cardInfo.balanceAmount/100 || 0}}元</view> -->
+        <view class="tips">充值成功后必须完成设备圈存，否则设备无法正常通行</view>
+    </view>
+    <view class="split"></view>
+    <view class="account-list">
+        <view class="list-title">
+            <view class="title">账户变动明细</view>
+            <picker mode="date" value="{{date}}" fields="month" end="{{currentDate}}" start="2021-01" bindchange="bindDateChange">
+                <view class="picker iconfont">
+                    {{currentMonth}}月
+                </view>
+            </picker>
+        </view>
+        <view class="list-item" wx:for="{{list}}" wx:key="index">
+            <view class="first">
+                <view class="type">
+                    {{item.accountType === 1 ? '服务费' : ''}}
+                    {{item.accountType === 2 || item.accountType === 4 ? '充值' : ''}}
+                    {{item.accountType === 3 ? '通行费' : ''}}
+                </view>
+                <view class="price">{{item.accountType === 2 || item.accountType === 4 ? '+' : '-'}}¥{{item.voucher_cams}}</view>
+            </view>
+            <view class="last">
+                <view class="time">{{item.transactionDate}}</view>
+            </view>
+        </view>
+    </view>
+</view>

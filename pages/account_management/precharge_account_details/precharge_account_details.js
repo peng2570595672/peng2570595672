@@ -14,7 +14,7 @@ Page({
 		billInfo: {},
 		beginDate: undefined,
 		endDate: undefined,
-		nextpageFlag:false,// 是否向下翻页
+		nextpageFlag: false,// 是否向下翻页
 		currentMonth: 0,// 当前月份
 		list: [],
 		page: 0,
@@ -31,7 +31,7 @@ Page({
 			endDate: `${util.formatTime(date).slice(0, 10)}`
 		});
 		if (app.globalData.userInfo.accessToken) {
-			let requestList = [await this.getFailBillDetails(), await this.fetchList(), await this.getProcessingProgress(), await util.getIsArrearage()];
+			let requestList = [await this.getFailBillDetails(), await this.fetchList(), await this.getProcessingProgress()];
 			util.showLoading();
 			await Promise.all(requestList);
 			util.hideLoading();
@@ -60,7 +60,7 @@ Page({
 						app.globalData.openId = result.data.openId;
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
-						let requestList = [await this.getFailBillDetails(), await this.fetchList(), await this.getProcessingProgress(), await util.getIsArrearage()];
+						let requestList = [await this.getFailBillDetails(), await this.fetchList(), await this.getProcessingProgress()];
 						util.showLoading();
 						await Promise.all(requestList);
 						util.hideLoading();
@@ -127,7 +127,7 @@ Page({
 	},
 	// 页面上拉触底事件的处理函数
 	async onReachBottom () {
-		console.log('-------------------页面上拉触底事件的处理函数',this.data.nextpageFlag)
+		console.log('-------------------页面上拉触底事件的处理函数',this.data.nextpageFlag);
 		if (this.data.nextpageFlag) return;
 		await this.fetchList();
 	},
@@ -164,16 +164,16 @@ Page({
 			if (item.changeMoney.includes('-')) item.changeMoney = parseInt(item.changeMoney.substr(1));
 		});
 		this.setData({
-			Wallet: result.data.walletAmount/100,
+			Wallet: result.data.walletAmount / 100,
 			prechargeAmount: result.data.prechargeAmount / 100,
 			list: this.data.list.concat(list)
 		});
-		console.log(this.data.list.length,'----------------------------------',result.data.total)
-		if (this.data.list.length >= result.data.total)	this.setData({nextpageFlag:true})
+		console.log(this.data.list.length,'----------------------------------',result.data.total);
+		if (this.data.list.length >= result.data.total)	this.setData({nextpageFlag: true});
 	},
 		// 充值支付
 	async onProcessingProgress (e) {
-		const id =this.data.orderId
+		const id = this.data.orderId;
 		util.go(`/pages/account_management/pay_method/pay_method?orderId=${id}`);
 		// const result = await util.getDataFromServersV2('consumer/order/transact-schedule', {
 		// 	orderId: id

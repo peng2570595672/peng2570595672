@@ -1,0 +1,118 @@
+@import "animate.styl";
+.alert-for-not-finished
+	.mask
+		position: fixed
+		left: 0
+		right: 0
+		top: 0
+		bottom: 0
+		background: rgba(0, 0, 0, 0.6)
+		z-index: 10000
+	.alert-for-not-finished-content
+		position absolute
+		left 0
+		right 0
+		top 37%
+		transform translate(0, -50%)
+		width 640rpx
+		height 644rpx
+		background rgba(255,255,255,1)
+		box-shadow 4rpx 12rpx 56rpx 0px rgba(102,102,109,0.19)
+		border-radius 32rpx
+		margin 0 auto
+		z-index 10001
+		.alert-for-box
+			height 644rpx
+			bottom 0
+			left 0
+			right 0
+			margin auto
+			z-index 2
+			color #33333d
+			background #fff
+			padding 0 32rpx
+			box-sizing border-box
+			border-radius 20rpx
+			text-align center
+			font-size 40rpx
+			font-weight 500
+			font-family PingFangSC-Medium,PingFang SC
+			.top-content
+				text-align center
+				font-size 34rpx
+				line-height 48rpx
+				.title
+					font-family PingFangSC-Medium, PingFang SC
+					font-weight 500
+					color #000000
+					padding 48rpx 0 14rpx
+				.account
+					font-family PingFangSC-Regular, PingFang SC
+					font-weight 400
+					color #66666E
+				.money
+					font-size 68rpx
+					font-family PingFangSC-Regular, PingFang SC
+					font-weight 400
+					color #00B85C
+					line-height 96rpx
+					padding 22rpx 0
+			.input-item
+				position relative
+				display flex
+				align-items center
+				padding-bottom 12rpx
+				font-size 32rpx
+				color rgba(0, 0, 0, .5)
+				border-bottom 1rpx solid #E8E8E8
+				& > view
+					display flex
+					align-items center
+					height 48rpx
+					color $fontColor9
+				& > input
+					//width 600rpx
+					display flex
+					align-items center
+					flex 1
+					height 48rpx
+					font-size 32rpx
+					text-align left
+					margin-left 60rpx
+				// 获取验证码
+				.validate-code
+					display flex
+					align-items center
+					padding-left 20rpx
+					height 44rpx
+					font-size 32rpx
+					color $fontColor9
+					box-sizing border-box
+					&.ok
+						font-weight 500
+						color $fontColor
+					&.acquisition
+						color $fontColor
+						font-weight 400!important
+			.tips
+				text-align left
+				font-size 24rpx
+				font-family PingFangSC-Regular, PingFang SC
+				font-weight 400
+				color rgba(76, 76, 76, 0.8)
+				line-height 34rpx
+				padding-top 22rpx
+			.alert-for-button
+				width 240rpx
+				justify-content center
+				font-size 28rpx
+				height 82rpx
+				margin 0 auto
+				border-radius 8rpx
+				background rgba(0, 184, 92, 1)
+				line-height 82rpx
+				margin-top 96rpx
+				font-family: PingFangSC-Regular, PingFang SC
+				.btn
+					display inline-block
+					color rgba(255, 255, 255, 1)

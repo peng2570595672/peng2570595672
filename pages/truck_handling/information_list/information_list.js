@@ -17,7 +17,7 @@ Page({
 		requestNum: 0
 	},
 	async onLoad (options) {
-		if (options.isModifiedData) {
+		if (options.isModifiedData === 'true') {
 			this.setData({
 				isModifiedData: true
 			});
@@ -74,7 +74,8 @@ Page({
 			let res = result.data.base;
 			let orderInfo = res.orderInfo;
 			let vehPlates = res.vehPlates;
-				app.globalData.truckLicensePlate=vehPlates; //存货车出牌
+			app.globalData.truckLicensePlate = vehPlates; // 存货车出牌
+			app.globalData.processFlowVersion = orderInfo.flowVersion;
 			if (this.data.isModifiedData && res.orderAudit && res.orderAudit?.errNums?.length && this.data.requestNum === 0) {
 				// errNums
 				this.getErrorStatus(res.orderAudit);
@@ -94,7 +95,6 @@ Page({
 	},
 	// 获取错误状态
 	getErrorStatus (info) {
-		console.log(info);
 		// 101 身份证  102 行驶证  103 营业执照  104 车头照  105 银行卡  106 无资料  201 邮寄地址  301 已办理过其他ETC
 		// 106 道路运输证  107 车辆侧身照  302 暂不支持企业用户  303 不支持车型  304 特殊情况  401 通用回复
 		let errNums = [];
@@ -130,7 +130,6 @@ Page({
 		}
 	},
 	availableCheck (orderInfo,vehicleInfo) {
-		console.log('===342423424234')
 		if (orderInfo.isOwner === 1 && orderInfo.isVehicle === 1 && orderInfo.isHeadstock === 1) {
 			if (vehicleInfo.isTraction === 0 || (vehicleInfo.isTraction === 1 && orderInfo.isTransportLicense === 1)) {
 				this.setData({
@@ -139,7 +138,6 @@ Page({
 			}
 		}
 		if (this.data.isModifiedData && this.data.requestNum === 0) {
-
 			this.setData({
 				available: false
 			});
@@ -150,7 +148,6 @@ Page({
 				available: false
 			});
 		}
-		console.log(this.data.available,'==============行驶证及身份证必须为同一持有人===========')
 	},
 	// 跳转
 	go (e) {
@@ -160,7 +157,6 @@ Page({
 	// 获取二类户号信息
 	async next () {
 		if (!this.data.available) return;
-		console.log(this.data.orderInfo.flowVersion,'========获取二类户号信息=========================')
 		if (this.data.isModifiedData || this.data.orderInfo.flowVersion === 4) {
 			if (this.data.isRequest) {
 				return;
@@ -175,28 +171,64 @@ Page({
 				changeAuditStatus: true
 			};
 			const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
-			console.log(result,'==========资料已完善===========')
 			this.setData({isRequest: false});
 			if (!result) return;
 			if (result.code) {
 				util.showToastNoIcon(result.message);
 				return;
 			}
-      console.log('================到这里啦===============')
-			//util.go('/pages/default/processing_progress/processing_progress?type=main_process');
-			//return;
+			util.go('/pages/default/processing_progress/processing_progress?type=main_process');
+			return;
 		}
-		console.log(this.data.orderInfo.flowVersion,'===============================')
-		if (this.data.orderInfo.flowVersion === 4) { //处理是否需要开二类户
+		if (this.data.orderInfo.flowVersion === 7) {
+			let checkResults;
+			if (app.globalData.memberStatusInfo?.orderBankConfigList?.length) {
+				checkResults = app.globalData.memberStatusInfo.orderBankConfigList.find(item => item.orderId === app.globalData.orderInfo.orderId);
+			}
+			if (!checkResults?.uploadImageStatus) {
+				// 未影像资料上送
+				await this.truckUploadImg();
+				return;
+			} else {
+				if (!checkResults?.isTencentVerify) {
+					// 未上送腾讯云活体人脸核身核验成功
+					util.go(`/pages/truck_handling/face_of_check_tips/face_of_check_tips`);
+					return;
+				}
+				let info;
+				if (app.globalData.memberStatusInfo?.accountList?.length) {
+					info = app.globalData.memberStatusInfo.accountList.find(item => item.orderId === app.globalData.orderInfo.orderId);
+				}
+				if (!info?.memberBankId) {
+					// 未开户
+					util.go(`/pages/truck_handling/binding_account_bocom/binding_account_bocom`);
+					return;
+				}
+				util.go('/pages/truck_handling/signed/signed');
+			}
+			return;
+		}
+		if (this.data.orderInfo.flowVersion === 6) { // 处理是否需要开二类户
 			const result = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
 			if (!result) return;
 			if (result.code) {
 				util.showToastNoIcon(result.message);
 				return;
 			}
-			console.log(result.data,'--------000000000000000000000000000000----------')
 			const path = result.data?.accountNo ? 'contract_management' : 'binding_account';
 			util.go(`/pages/truck_handling/${path}/${path}`);
+		}
+	},
+	// 影像资料上送
+	async truckUploadImg () {
+		const result = await util.getDataFromServersV2('consumer/member/bcm/truckUploadImg', {
+			orderId: app.globalData.orderInfo.orderId// 订单id
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			util.go(`/pages/truck_handling/face_of_check_tips/face_of_check_tips`);
+		} else {
+			util.showToastNoIcon(result.message);
 		}
 	}
 });

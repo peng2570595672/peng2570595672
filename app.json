@@ -104,6 +104,7 @@
         "recharge_result/recharge_result",
         "account_recharge/account_recharge",
         "account_details/account_details",
+        "bocom_account_details/bocom_account_details",
         "precharge_account_details/precharge_account_details",
         "new_binding/new_binding",
         "bind_bank_card/bind_bank_card",
@@ -136,10 +137,14 @@
         "agreement_for_qiantong_to_charge/agreement",
         "agreement_for_qiantong_to_free/agreement",
         "icbc_agreement/icbc_agreement",
+        "face_of_check_tips/face_of_check_tips",
+        "recording_user_information/recording_user_information",
         "information_validation/information_validation",
         "package_the_rights_and_interests/package_the_rights_and_interests",
         "contract_management/contract_management",
         "binding_account/binding_account",
+        "bocom_management_protocol/bocom_management_protocol",
+        "binding_account_bocom/binding_account_bocom",
         "binding_account_successful/binding_account_successful",
         "binding_account_failure/binding_account_failure",
         "recharge_instructions/recharge_instructions",
@@ -153,7 +158,11 @@
         "signed/signed",
         "icbc_agreement_withhold/icbc_agreement_withhold",
         "icbc_agreement_account/icbc_agreement_account",
-        "icbc_agreement_service/icbc_agreement_service"
+        "icbc_agreement_service/icbc_agreement_service",
+        "bocom_tallage_protocol/bocom_tallage_protocol",
+        "bocom_clause_protocol/bocom_clause_protocol",
+        "bocom_deduction_collection_protocol/bocom_deduction_collection_protocol",
+        "bocom_handle_protocol/bocom_handle_protocol"
       ]
     },
     {

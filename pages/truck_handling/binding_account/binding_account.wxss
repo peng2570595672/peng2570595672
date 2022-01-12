@@ -143,8 +143,8 @@
   content: '\e654';
   margin-right: 12rpx;
 }
-.binding_account .input-wrapper .input-item > input > i:after,
-.binding_account .input-wrapper .input-item > picker > i:after {
+.binding_account .input-wrapper .input-item > input > text:after,
+.binding_account .input-wrapper .input-item > picker > text:after {
   display: flex;
   align-items: center;
   content: '\e622';
@@ -209,10 +209,11 @@
 .binding_account .agreement {
   display: flex;
   align-items: center;
-  justify-content: center;
   height: 48rpx;
   font-size: 24rpx;
   color: #99999d;
+  padding-left: 104rpx;
+  padding-bottom: 22rpx;
 }
 .binding_account .agreement > text {
   color: #2fb565;
@@ -227,7 +228,15 @@
   border-radius: 50%;
 }
 .binding_account .agreement.selected::before {
-  color: #84d157;
+  color: #00b85c;
+}
+.binding_account .protocol-info .protocol {
+  color: #00b85c;
+  font-size: 24rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  line-height: 48rpx;
+  padding-left: 104rpx;
 }
 .binding_account .btn {
   display: flex;

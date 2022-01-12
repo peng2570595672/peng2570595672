@@ -30,6 +30,7 @@ Page({
 			this.login();
 		} else {
 			// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+			await util.getMemberStatus();
 			await this.getETCDetail();
 		}
 		if (this.data.showDetailMask) {
@@ -59,6 +60,7 @@ Page({
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
 						// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
+						await util.getMemberStatus();
 						await this.getETCDetail();
 					}
 				} else {
@@ -82,16 +84,43 @@ Page({
 			orderInfo['selfStatus'] = orderInfo.isNewTrucks === 1 ? util.getTruckHandlingStatus(orderInfo) : util.getStatus(orderInfo);
 			orderInfo['deductionMethod'] = initProductName(orderInfo);
 
-			console.log(orderInfo,'===========订单数据==================')
+			console.log(orderInfo,'===========订单数据==================');
 
 			this.setData({
 				orderInfo
 			});
+			this.getProductOrderInfo();
 			// 查询是否欠款
 			util.getIsArrearage();
 		} else {
 			util.showToastNoIcon(result.message);
 		}
+	},
+	// 根据订单id获取套餐信息
+	getProductOrderInfo () {
+		util.showLoading();
+		util.getDataFromServer('consumer/order/get-product-by-order-id', {
+			orderId: this.data.orderId
+		}, () => {
+		}, (res) => {
+			if (res.code === 0) {
+				this.setData({
+					productInfo: res.data
+				});
+				if (res.data.fenCheck === 1) {
+					this.setData({
+						tipsForDeduction: true
+					});
+				}
+				if (res.data.productProcess === 3) {
+					this.getOrderInfo();
+				}
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
 	},
 	// 显示跳转车主服务弹窗
 	onClickBank () {
@@ -140,6 +169,8 @@ Page({
 	onClickVehicle () {
 		const orderInfo = this.data.orderInfo;
 		app.globalData.orderInfo.orderId = orderInfo.id;
+		app.globalData.processFlowVersion = orderInfo.flowVersion;
+		app.globalData.truckLicensePlate = orderInfo.vehPlates;
 		const fun = {
 			1: () => this.onClickBackToSign(orderInfo),// 恢复签约
 			2: () => this.onClickContinueHandle(orderInfo),// 继续办理
@@ -147,7 +178,7 @@ Page({
 			4: () => this.onClickContinueHandle(orderInfo), // 继续办理
 			5: () => this.onClickBackToSign(orderInfo), // 签约微信支付 - 去签约
 			6: () => this.onClickViewProcessingProgressHandle(orderInfo), // 订单排队审核中 - 查看进度
-			7: () => this.onClickModifiedData(orderInfo), // 修改资料 - 上传证件页
+			7: () => this.onClickModifiedData(orderInfo, true), // 修改资料 - 上传证件页
 			9: () => this.onClickHighSpeedSigning(orderInfo), // 去签约
 			10: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
 			11: () => this.onClickCctivate(orderInfo), // 去激活
@@ -155,9 +186,20 @@ Page({
 			14: () => this.goRechargeAuthorization(orderInfo), // 去授权预充保证金
 			15: () => this.goRecharge(orderInfo), // 保证金预充失败 - 去预充
 			16: () => this.goBindingWithholding(orderInfo), // 选装-未已绑定车辆代扣
-			17: () => this.onClickViewProcessingProgressHandle(orderInfo) // 去预充(预充流程)-查看进度
+			17: () => this.onClickViewProcessingProgressHandle(orderInfo), // 去预充(预充流程)-查看进度
+			19: () => this.onClickModifiedData(orderInfo, false),
+			20: () => this.onClickVerification(orderInfo),
+			21: () => this.onClickSignBank(orderInfo)
 		};
 		fun[orderInfo.selfStatus].call();
+	},
+	// 交行-去签约
+	onClickSignBank (orderInfo) {
+		util.go(`/pages/truck_handling/signed/signed`);
+	},
+	// 交行-去腾讯云核验
+	onClickVerification () {
+		util.go(`/pages/truck_handling/face_of_check_tips/face_of_check_tips`);
 	},
 	// 选装-去绑定代扣
 	goBindingWithholding () {
@@ -173,9 +215,10 @@ Page({
 		util.go(`/pages/default/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}`);
 	},
 	// 去开户
-	goBindingAccount () {
+	goBindingAccount (orderInfo) {
 		wx.uma.trackEvent('etc_detail_for_binding_account');
-		util.go('/pages/truck_handling/binding_account/binding_account');
+		const path = `${orderInfo.flowVersion === 7 ? 'binding_account_bocom' : 'binding_account'}`;
+		util.go(`/pages/truck_handling/${path}/${path}`);
 	},
 	// 去授权预充保证金
 	goRechargeAuthorization () {
@@ -194,11 +237,11 @@ Page({
 		util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
 	},
 	// 修改资料
-	onClickModifiedData () {
+	onClickModifiedData (orderInfo, isChange) {
 		if (this.data.orderInfo.isNewTrucks === 1) {
 			// 货车办理
 			wx.uma.trackEvent('etc_detail_for_truck_modified_data');
-			util.go('/pages/truck_handling/information_list/information_list?isModifiedData=true');
+			util.go(`/pages/truck_handling/information_list/information_list?isModifiedData=${isChange}`);
 			return;
 		}
 		if (util.getHandlingType(this.data.orderInfo)) {

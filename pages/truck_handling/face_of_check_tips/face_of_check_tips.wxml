@@ -1,0 +1,10 @@
+<view class="container">
+    <view class="h3">为保证账户安全</view>
+    <view class="h4">即将为您开通交通银行电子II类账户，应中央人民银行要求，开通电子账户需完成人脸识别认证。</view>
+    <view class="logo">
+        <image class="img" src="/pages/truck_handling/assets/certification.png"></image>
+    </view>
+    <view class="tips">请正对屏幕并使脸位于取景框内</view>
+    <view class="fill"></view>
+    <view type="primary" class="btn" catchtap="onHandleUploadVideo">开始识别</view>
+</view>

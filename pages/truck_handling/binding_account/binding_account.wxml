@@ -14,7 +14,7 @@
         <view class="input-item iconfont choose-bank">
             <view>关联银行</view>
             <picker bindchange="bindBankNameChange" value="{{bankNameIndex}}" range="{{bankNameArr}}">
-                <view class="persons bankName"><i class="iconfont logo {{banks[bankNameIndex]}}" ></i>{{bankNameArr[bankNameIndex]}}<text wx:if="{{bankNameIndex === null}}" class="prompt">点击选择开户行</text></view>
+                <view class="persons bankName"><text class="iconfont logo {{banks[bankNameIndex]}}" ></text>{{bankNameArr[bankNameIndex]}}<text wx:if="{{bankNameIndex === null}}" class="prompt">点击选择开户行</text></view>
             </picker>
         </view>
         <view class="input-item iconfont choose-bank">
@@ -35,9 +35,11 @@
     <!--协议开始-->
     <view class="agreement-box">
     <view class="agreement iconfont {{getAgreement ? 'selected' : ''}} " bindtap="onClickAgreementHandle">我已阅读并同意</view>
-    <view class="text" catchtap="onIcbcAgreementWithhold">《中国工商银行网上银行个人委托代扣协议》</view>
-    <view class="text" catchtap="onIcbcAgreementAccount">《个人银行电子账户服务协议》</view>
-    <view class="text" catchtap="onIcbcAgreementService">《中国工商银行电子银行个人客户服务协议》</view>
+    <view class="protocol-info">
+        <view class="protocol" catchtap="onIcbcAgreementWithhold">《中国工商银行网上银行个人委托代扣协议》</view>
+        <view class="protocol" catchtap="onIcbcAgreementAccount">《个人银行电子账户服务协议》</view>
+        <view class="protocol" catchtap="onIcbcAgreementService">《中国工商银行电子银行个人客户服务协议》</view>
+    </view>
  </view>
     <!--	协议结束-->
     <!--	按钮开始-->
