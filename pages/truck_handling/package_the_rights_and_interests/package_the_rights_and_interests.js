@@ -353,11 +353,51 @@ Page({
 				await this.marginPayment();
 				return;
 			}
-			if (this.data.isSalesmanOrder && this.data.orderInfo.flowVersion !== 7) {
+			if (this.data.isSalesmanOrder && this.data.listOfPackages[this.data.choiceIndex].flowVersion !== 7) {
 				util.go('/pages/default/processing_progress/processing_progress?type=main_process');
 				return;
 			}
+			if (this.data.isSalesmanOrder && this.data.listOfPackages[this.data.choiceIndex].flowVersion === 7) {
+				let checkResults;
+				if (app.globalData.memberStatusInfo?.orderBankConfigList?.length) {
+					checkResults = app.globalData.memberStatusInfo.orderBankConfigList.find(item => item.orderId === app.globalData.orderInfo.orderId);
+				}
+				if (!checkResults?.uploadImageStatus) {
+					// 未影像资料上送
+					await this.truckUploadImg();
+					return;
+				} else {
+					if (!checkResults?.isTencentVerify) {
+						// 未上送腾讯云活体人脸核身核验成功
+						util.go(`/pages/truck_handling/face_of_check_tips/face_of_check_tips`);
+						return;
+					}
+					let info;
+					if (app.globalData.memberStatusInfo?.accountList?.length) {
+						info = app.globalData.memberStatusInfo.accountList.find(item => item.orderId === app.globalData.orderInfo.orderId);
+					}
+					if (!info?.memberBankId) {
+						// 未开户
+						util.go(`/pages/truck_handling/binding_account_bocom/binding_account_bocom`);
+						return;
+					}
+					util.go('/pages/truck_handling/signed/signed');
+				}
+				return;
+			}
 			util.go('/pages/truck_handling/information_list/information_list');
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 影像资料上送
+	async truckUploadImg () {
+		const result = await util.getDataFromServersV2('consumer/member/bcm/truckUploadImg', {
+			orderId: app.globalData.orderInfo.orderId// 订单id
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			util.go(`/pages/truck_handling/face_of_check_tips/face_of_check_tips`);
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -386,7 +426,7 @@ Page({
 					this.setData({isRequest: false});
 					if (res.errMsg === 'requestPayment:ok') {
 						if (this.data.isSalesmanOrder) {
-							if (this.data.orderInfo?.base?.flowVersion === 5) {
+							if (this.data.listOfPackages[this.data.choiceIndex].flowVersion === 5) {
 								// 去支付成功页
 								const result = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
 								if (!result) return;
@@ -398,7 +438,7 @@ Page({
 								util.go(`/pages/truck_handling/${path}/${path}`);
 								return;
 							}
-							if (this.data.orderInfo?.base?.flowVersion === 4) {
+							if (this.data.listOfPackages[this.data.choiceIndex].flowVersion === 4) {
 								util.go('/pages/default/processing_progress/processing_progress?type=main_process');
 								return;
 							}

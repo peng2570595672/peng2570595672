@@ -78,8 +78,13 @@
         <view class="consumption-type {{refundDetails && refundDetails.refundMoney > 0 ? 'add-border' : ''}}">
             <view>扣款方式</view>
             <view wx:if="{{details.flowVersion !== 4}}">
-                {{contractMode.ctPass.contractVersion === 1 || contractMode.ctPass.contractVersion === 2 ? '微信零钱支付' : '' }}
-                {{contractMode.ctPass.contractVersion === 3 ? contractMode.ctPass.bankNameAccount || '微信指定银行卡' : '' }}
+                <text wx:if="{{details.flowVersion !== 1}}">
+                    {{details.flowVersion === 2 || details.flowVersion === 3 ? '银行卡扣款' : 'ETC货车账户支付'}}
+                </text>
+                <text wx:else>
+                    {{contractMode.ctPass.contractVersion === 1 || contractMode.ctPass.contractVersion === 2 ? '微信零钱支付' : '' }}
+                    {{contractMode.ctPass.contractVersion === 3 ? contractMode.ctPass.bankNameAccount || '微信指定银行卡' : '' }}
+                </text>
             </view>
             <view wx:else>ETC货车账户</view>
         </view>

@@ -93,8 +93,8 @@
                 <text catchtap="onClickGoAgreementHandle">《ETC+货车办理协议》</text>
                 <text catchtap="onClickGoQianTongAgreement">《黔通卡ETC用户协议》</text>
                 <text catchtap="onClickGoPrivacyHandle">《用户隐私协议》</text>
-                <text catchtap="onClickGoFactoring">《保理协议》</text>
-                <text catchtap="onClickGoAuthorizationHandle">《个人征信授权书》</text>
+                <text catchtap="onClickGoFactoring" wx:if="{{listOfPackages[activeIndex].flowVersion === 4}}">《保理协议》</text>
+                <text catchtap="onClickGoAuthorizationHandle" wx:if="{{listOfPackages[activeIndex].flowVersion === 4}}">《个人征信授权书》</text>
             </view>
         </view>
         <button class="btn {{(listOfPackages[activeIndex].mustChoiceRightsPackage === 1 && activeEquitiesIndex === -1) || !getAgreement || choiceIndex === -1 ? 'unavailable' : ''}}" catchtap="next"

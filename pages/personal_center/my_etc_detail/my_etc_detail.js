@@ -107,12 +107,12 @@ Page({
 				this.setData({
 					productInfo: res.data
 				});
-				if (res.data.fenCheck === 1) {
+				if (res.data?.fenCheck === 1) {
 					this.setData({
 						tipsForDeduction: true
 					});
 				}
-				if (res.data.productProcess === 3) {
+				if (res.data?.productProcess === 3) {
 					this.getOrderInfo();
 				}
 			} else {

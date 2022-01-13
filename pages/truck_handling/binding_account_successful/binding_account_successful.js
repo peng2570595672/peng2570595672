@@ -19,7 +19,7 @@ Page({
 			this.setData({
 				type: 2,
 				bankCardInfo: {
-					accountNo: options.accountNo
+					accountNo: options.accountNo.substr(0, 4) + ' *** *** ' + options.accountNo.substr(-4)
 				}
 			});
 		} else {
