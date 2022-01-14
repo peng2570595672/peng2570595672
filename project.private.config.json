@@ -173,6 +173,18 @@
           "pathName": "pages/personal_center/my_order/my_order",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/truck_handling/signed/signed",
+          "pathName": "pages/truck_handling/signed/signed",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "query": "orderId=923231889613918208",
+          "scene": null
         }
       ]
     }

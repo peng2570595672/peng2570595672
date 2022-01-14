@@ -24,7 +24,11 @@ Page({
 		isRequest: false,
 		isSetBankConfig: false,
 		isGetIdentifyingCoding: 1,
-		isDisabled: true
+		isDisabled: true,
+		numberNoStr: ['', '', '', '', '', ''],
+		showKeyboard: false, // 是否显示输入数字键盘
+		currentIndex: -1, // 当前输入的位置
+		numberNo: ''
 	},
 	async onLoad () {
 		if (app.globalData.processFlowVersion === 7) {
@@ -59,6 +63,54 @@ Page({
 			this.setData({
 			focus: false
 			});
+		}
+	},
+	setCurrentCodeNo (e) {
+		let index = e.currentTarget.dataset['index'];
+		index = parseInt(index);
+		if (app.globalData.SDKVersion < '2.6.1') {
+			let keyboard = this.selectComponent('#keyboard');
+			keyboard.indexMethod(index, this.data.currentIndex);
+		}
+		this.setData({
+			currentIndex: index
+		});
+		this.setData({
+			showKeyboard: true
+		});
+		// 低版本微信 无法显示键盘 兼容处理方式
+		if (app.globalData.SDKVersion < '2.6.1') {
+			let keyboard = this.selectComponent('#keyboard');
+			keyboard.showMethod(this.data.showKeyboard);
+		}
+	},
+	valueChange (e) {
+		if (app.globalData.SDKVersion < '2.6.1') {
+			let keyboard = this.selectComponent('#keyboard');
+			keyboard.indexMethod(e.detail.index, this.data.currentIndex);
+		}
+		this.setData({
+			numberNo: e.detail.numberNo,
+			numberNoStr: e.detail.numberNo.join(''),
+			currentIndex: e.detail.index,
+			showKeyboard: e.detail.show
+		});
+		if (app.globalData.SDKVersion < '2.6.1') {
+			let keyboard = this.selectComponent('#keyboard');
+			keyboard.showMethod(this.data.showKeyboard);
+		}
+		if (!this.data.showKeyboard) {
+			wx.pageScrollTo({
+				scrollTop: 0,
+				duration: 400
+			});
+		}
+		if (this.data.numberNoStr.length === 6 && (e.detail.index === 6 || (e.detail.status && e.detail.status === 'end'))) {
+			this.setData({
+				showKeyboard: false
+			});
+			let keyboard = this.selectComponent('#keyboard');
+			keyboard.showMethod(this.data.showKeyboard);
 		}
 	},
 	// 失去焦点
@@ -141,8 +193,7 @@ Page({
 	},
 	// 提交代码
 	async onSubmit () {
-		let smsCode = this.data.value1.toString() + this.data.value2.toString() + this.data.value3.toString() + this.data.value4.toString() + this.data.value5.toString() + this.data.value6.toString();
-		if (smsCode.length !== 6) {
+		if (this.data.numberNoStr.length !== 6) {
 			util.showToastNoIcon('请输入验证码');
 			return;
 		}
@@ -162,7 +213,7 @@ Page({
 		}
 		this.setData({isRequest: true});
 		let params = {
-			smsCode: smsCode,
+			smsCode: this.data.numberNoStr,
 			smsCodeSeq: this.data.smsCodeSeq,// 短信验证码序号-交行二类户
 			orderId: app.globalData.orderInfo.orderId
 		};
