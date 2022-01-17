@@ -185,6 +185,12 @@
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
           "query": "orderId=923231889613918208",
           "scene": null
+        },
+        {
+          "name": "pages/truck_handling/binding_account_bocom/binding_account_bocom",
+          "pathName": "pages/truck_handling/binding_account_bocom/binding_account_bocom",
+          "query": "",
+          "scene": null
         }
       ]
     }

@@ -177,13 +177,17 @@ Page({
 			isRequest: true // 设置状态为请求中
 		});
 		wx.uma.trackEvent('truck_binding_account_to_open_account');
+		const workInfo = this.data.professionArr[0][this.data.professionIndex[0]];
+		const workInfo1 = this.data.professionArr[1][this.data.professionIndex[1]];
+		const workName = `${workInfo.name}${workInfo1?.name ? '-' + workInfo1?.name : ''}`;
 		const params = {
 			orderId: app.globalData.orderInfo.orderId,
 			mobileCode: this.data.formData.verifyCode,
 			areaName: this.data.formData.region[0],
 			cityName: this.data.formData.region[1],
 			district: this.data.formData.region[2],
-			workCode: this.data.professionArr[1][this.data.professionIndex[1]]?.code || this.data.professionArr[0][this.data.professionIndex[0]].code,
+			workCode: workInfo1?.code || workInfo.code,
+			workName: workName,
 			bankAccountNo: this.data.formData.bankCardNo,
 			bankName: this.data.bankNameArr[this.data.bankNameIndex],
 			mobilePhone: this.data.formData.telNumber,
