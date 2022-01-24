@@ -269,5 +269,12 @@ Page({
 		this.setData({
 			rechargeAmount: amount
 		});
+	},
+	onUnload () {
+		const pages = getCurrentPages();
+		const prevPage = pages[pages.length - 2];// 上一个页面
+		prevPage.setData({
+			isReload: true // 重置状态
+		});
 	}
 });

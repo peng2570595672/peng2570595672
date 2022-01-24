@@ -44,7 +44,22 @@ Page({
 			endDate: `${util.formatTime(date).slice(0, 10)}`,
 			currentDate: `${util.formatTime(date).slice(0, 10)}`
 		});
+		await this.getBocomOrderBankConfigInfo();
 		await this.fetchList();
+	},
+	async getBocomOrderBankConfigInfo () {
+		// 获取订单银行配置信息
+		const result = await util.getDataFromServersV2('/consumer/member/bcm/queryBalance', {
+			orderId: app.globalData.accountChannelInfo.orderId,
+			cardType: '01'
+		});
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+		} else {
+			this.setData({
+				holdBalance: result.data.total_amount
+			});
+		}
 	},
 	async bindDateChange (e) {
 		this.setData({
@@ -140,5 +155,12 @@ Page({
 	},
 	onClickObu () {
 		util.go(`/pages/obu/add/add?type=${this.data.type}`);
+	},
+	onUnload () {
+		const pages = getCurrentPages();
+		const prevPage = pages[pages.length - 2];// 上一个页面
+		prevPage.setData({
+			isReload: true // 重置状态
+		});
 	}
 });
