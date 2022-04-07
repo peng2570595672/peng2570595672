@@ -14,7 +14,7 @@
         <view class="input-item iconfont choose-bank">
             <view>关联银行</view>
             <picker bindchange="bindBankNameChange" value="{{bankNameIndex}}" range="{{bankNameArr}}">
-                <view class="persons bankName"><text class="iconfont logo {{banks[bankNameIndex]}}" ></text>{{bankNameArr[bankNameIndex]}}<text wx:if="{{bankNameIndex === null}}" class="prompt">点击选择开户行</text></view>
+                <view class="persons bankName"><text class="iconfont logo {{banks[bankNameIndex]}}" ></text>{{bankNameArr[bankNameIndex]}}<text wx:if="{{bankNameIndex === null}}" class="prompt">选择卡号关联银行</text></view>
             </picker>
         </view>
         <view class="input-item iconfont choose-bank">

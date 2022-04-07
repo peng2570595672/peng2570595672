@@ -35,7 +35,15 @@ Page({
 		} // 提交数据
 	},
 	async onLoad () {
+		const result = await util.getDataFromServersV2('consumer/system/get-bank-info', {useBusiness: 1});// 使用业务，1=货车交行二类户
+		let banks = []; let bankNameArr = [];
+		result.data.map(item => {
+			banks.push(item.shortName);
+			bankNameArr.push(item.name);
+		});
 		this.setData({
+			banks: banks,
+			bankNameArr: bankNameArr,
 			professionInfo: professionInfo,
 			professionArr: [professionInfo, professionInfo[0].children]
 		});
