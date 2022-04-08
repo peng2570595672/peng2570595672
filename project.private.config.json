@@ -191,6 +191,33 @@
           "pathName": "pages/truck_handling/binding_account_bocom/binding_account_bocom",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "query": "orderId=923231889613918208",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "query": "orderId=950694924494311424",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "query": "orderId=923231889613918208",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/personal_center/order_details/order_details",
+          "query": "id=824225201962094592&channel=1&month=202103",
+          "scene": null,
+          "launchMode": "default"
         }
       ]
     }
