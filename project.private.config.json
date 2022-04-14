@@ -94,10 +94,10 @@
           "scene": null
         },
         {
-          "id": 12,
           "name": "货车",
           "pathName": "pages/truck_handling/index/index",
           "query": "",
+          "launchMode": "default",
           "scene": null
         },
         {
@@ -216,6 +216,13 @@
           "name": "",
           "pathName": "pages/personal_center/order_details/order_details",
           "query": "id=824225201962094592&channel=1&month=202103",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pingan/pages/ChooseBank/ChooseBank",
+          "query": "",
           "scene": null,
           "launchMode": "default"
         }
