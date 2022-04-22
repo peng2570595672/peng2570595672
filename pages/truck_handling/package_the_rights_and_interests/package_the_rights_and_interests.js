@@ -54,7 +54,7 @@ Page({
 					{
 						ico: 'service_of_oil',
 						title: '优惠加油',
-						describe: '限时新人福利赠100元券包，全国加油9折',
+						describe: '全国加油9折起',
 						isShow: true
 					}
 				]

@@ -74,9 +74,9 @@
   line-height: 34rpx;
 }
 .index .pre-recharge .vehicle {
+  height: 70rpx;
   display: flex;
   align-items: center;
-  height: 70rpx;
   background: #fcfffd;
   box-shadow: 0rpx 6rpx 16rpx 0rpx rgba(0,0,0,0.1);
   border-radius: 0rpx 0rpx 20rpx 20rpx;
@@ -188,7 +188,10 @@
   background-position: 0;
   background-color: #003a90;
 }
-.index .vehicle {
+.index .bocom-info {
+  margin-bottom: 20rpx;
+}
+.index .bocom-info .vehicle {
   position: relative;
   z-index: 0;
   height: 176rpx;
