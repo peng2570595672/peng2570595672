@@ -5,7 +5,7 @@
 		<view class="service-nav">
             <view class="service-item" wx:for="{{ownerServiceList}}" wx:key="index" catchtap="go" data-index="{{index}}" data-item="{{item}}">
                 <view class="service-item-icon">
-                    <image class="img" src="/pages/personal_center/assets/{{item.ico}}.svg"></image>
+                    <image class="img" src="/pages/personal_center/assets/{{item.ico}}.{{item.ico === 'rescue' ? 'png' : 'svg'}}" mode="widthFix"></image>
                 </view>
                 <view class="service-item-text">{{item.title}}</view>
             </view>

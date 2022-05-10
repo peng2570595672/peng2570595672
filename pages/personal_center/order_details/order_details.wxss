@@ -138,7 +138,7 @@
   right: 56rpx;
 }
 .order_details .micro-insurance image {
-  width: 129rpx;
+  width: 140rpx;
 }
 .order_details .micro-insurance .close_button {
   width: 49rpx;

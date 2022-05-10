@@ -7,7 +7,8 @@ Page({
 			{title: '查违章', ico: 'check_illegal', statisticsEvent: 'owner_service_for_check_illegal', isShow: !app.globalData.isContinentInsurance},
 			{title: '延保1年', ico: 'quality_assurance', statisticsEvent: 'owner_service_for_quality_assurance', isShow: true},
 			{title: '国际驾照', ico: 'international_license', statisticsEvent: 'owner_service_for_international_license', isShow: true},
-			{title: '优惠加油', ico: 'oil', statisticsEvent: 'owner_service_for_oil', isShow: true}
+			{title: '优惠加油', ico: 'oil', statisticsEvent: 'owner_service_for_oil', isShow: true},
+			{title: '救援补贴', ico: 'rescue', statisticsEvent: 'owner_service_for_micro_high_speed', isShow: !app.globalData.isContinentInsurance}
 		]
 	},
 	async onLoad () {
@@ -22,7 +23,7 @@ Page({
 		switch (index + 1) {
 			case 1:
 				// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
-				wx.navigateToMiniProgram({
+				wx.openEmbeddedMiniProgram({
 					appId: 'wx06a561655ab8f5b2',
 					path: 'pages/base/redirect/index?routeKey=WD_PAZZ&wtagid=116.115.27',
 					envVersion: 'release', // 正式版
@@ -33,7 +34,7 @@ Page({
 				break;
 			case 2:
 				// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
-				wx.navigateToMiniProgram({
+				wx.openEmbeddedMiniProgram({
 					appId: 'wx06a561655ab8f5b2',
 					path: 'pages/base/redirect/index?routeKey=PC01_REDIRECT&autoRoute=CHECKILLEGAL&outsource=souyisou&wtagid=116.115.10',
 					envVersion: 'release', // 目前联调为体验版
@@ -62,6 +63,17 @@ Page({
 				// 		util.showToastNoIcon('调起小程序失败, 请重试！');
 				// 	}
 				// });
+				break;
+			case 6:
+				// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
+				wx.openEmbeddedMiniProgram({
+					appId: 'wx06a561655ab8f5b2',
+					path: 'pages/base/redirect/index?routeKey=ETC_RESCUE&wtagid=W389.13.2',
+					envVersion: 'release', // 正式版
+					fail () {
+						util.showToastNoIcon('调起小程序失败, 请重试！');
+					}
+				});
 				break;
 		}
 	},

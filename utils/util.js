@@ -1098,7 +1098,7 @@ function goMicroInsuranceVehicleOwner(params, wtagid) {
 }
 function openWeiBao (pageUrl) {
 	let appId = app.globalData.test ? 'wx7f3f0032b6e6f0cc':'wx06a561655ab8f5b2';
-	wx.navigateToMiniProgram({
+	wx.openEmbeddedMiniProgram({
 		appId: appId,
 		path: pageUrl,
 		envVersion: 'release',

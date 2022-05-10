@@ -253,7 +253,7 @@ Page({
 		let weiBoUrl = app.globalData.weiBoUrl + encodeURIComponent(url);
 		let appId = app.globalData.test ? 'wx7f3f0032b6e6f0cc' : 'wx06a561655ab8f5b2';
 		console.log(weiBoUrl);
-		wx.navigateToMiniProgram({
+		wx.openEmbeddedMiniProgram({
 			appId: appId,
 			path: weiBoUrl,
 			envVersion: 'release',

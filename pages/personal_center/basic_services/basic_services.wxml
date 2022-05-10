@@ -3,7 +3,7 @@
 	<view class="content">
 		<!--用户导航栏开始-->
 		<view class="service-nav">
-            <view class="service-item" wx:for="{{basicServicesList}}" wx:key="index" catchtap="go" data-type="{{index + 1}}">
+            <view class="service-item" wx:for="{{basicServicesList}}" wx:key="index" catchtap="go" data-type="{{index + 1}}" wx:if="{{item.isShow}}">
                 <view class="service-item-icon">
                     <!--更新提示-->
                     <image class="img" src="/pages/personal_center/assets/{{item.img}}.svg"></image>

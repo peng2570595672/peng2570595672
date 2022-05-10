@@ -27,7 +27,7 @@ Page({
 		let item = this.data.interestsList[index];
 		if (item.appId) {
 			// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
-			wx.navigateToMiniProgram({
+			wx.openEmbeddedMiniProgram({
 				appId: item.appId,
 				path: item.url,
 				envVersion: 'release', // 正式版

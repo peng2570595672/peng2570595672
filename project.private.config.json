@@ -1,33 +1,21 @@
 {
   "setting": {},
   "condition": {
-    "plugin": {
-      "list": []
-    },
-    "game": {
-      "list": []
-    },
-    "gamePlugin": {
-      "list": []
-    },
     "miniprogram": {
       "list": [
         {
-          "id": 0,
           "name": "邮寄地址",
           "pathName": "pages/default/receiving_address/receiving_address",
           "query": "shareId=1235556",
           "scene": null
         },
         {
-          "id": 1,
           "name": "我的ETC",
           "pathName": "pages/personal_center/my_etc/my_etc",
           "query": "shareId=123455",
           "scene": null
         },
         {
-          "id": 2,
           "name": "个人中心",
           "pathName": "pages/personal_center/index/index",
           "query": "",
@@ -40,21 +28,18 @@
           "scene": null
         },
         {
-          "id": 4,
           "name": "城市服务",
           "pathName": "CitiesServices/pages/CitiesServices/CitiesServices",
           "query": "",
           "scene": null
         },
         {
-          "id": 7,
           "name": "充值",
           "pathName": "pages/personal_center/recharge-card-processing/recharge-card-processing",
           "query": "",
           "scene": null
         },
         {
-          "id": 8,
           "name": "支付付费金额",
           "pathName": "pages/default/margin_payment/margin_payment",
           "query": "orderId=719857736895959040",
@@ -67,7 +52,6 @@
           "scene": null
         },
         {
-          "id": 10,
           "name": "会员券",
           "pathName": "pages/personal_center/membership_coupon/membership_coupon",
           "query": "orderId=710126117226287104",
@@ -80,14 +64,12 @@
           "scene": null
         },
         {
-          "id": 12,
           "name": "大地入口",
           "pathName": "pages/Home/Home",
           "query": "carInsurance=1111",
           "scene": null
         },
         {
-          "id": 16,
           "name": "pages/Home/Home",
           "pathName": "pages/Home/Home",
           "query": "officialChannelId=645937022279614464",
@@ -101,14 +83,12 @@
           "scene": null
         },
         {
-          "id": 13,
           "name": "客车",
           "pathName": "pages/default/index/index",
           "query": "",
           "scene": null
         },
         {
-          "id": -1,
           "name": "资料上传列表",
           "pathName": "pages/truck_handling/information_list/information_list",
           "query": "",
@@ -223,10 +203,75 @@
           "name": "",
           "pathName": "pingan/pages/ChooseBank/ChooseBank",
           "query": "",
-          "scene": null,
-          "launchMode": "default"
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "query": "orderId=968701422332153856",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "query": "orderId=968704499077230592",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "CitiesServices/pages/CitiesServices/CitiesServices",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "query": "orderId=968707483596361728",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/personal_center/basic_services/basic_services",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/personal_center/order_details/order_details",
+          "query": "id=undefined&channel=undefined&month=undefined",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/personal_center/the_owner_service/the_owner_service",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/default/package_the_rights_and_interests/package_the_rights_and_interests",
+          "query": "type=1",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "query": "orderId=867158535467700224",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
-  }
+  },
+  "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+  "libVersion": "2.24.1"
 }

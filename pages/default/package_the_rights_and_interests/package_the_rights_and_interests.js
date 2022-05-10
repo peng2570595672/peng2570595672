@@ -35,6 +35,12 @@ Page({
 				detailsTitle: '车主服务',
 				list: [
 					{
+						ico: 'service_of_high_speed',
+						title: '领高速补贴 ',
+						describe: '高速公路非事故救援服务费用补贴，含拖车、接电等，累计最高500元。',
+						isShow: !app.globalData.isContinentInsurance
+					},
+					{
 						ico: 'service_of_driving_risk',
 						title: '每月领驾驶险',
 						describe: '10000元初始驾驶意外险，如每月无违章，额外获得5000元，最高可提升至50000元。',

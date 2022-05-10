@@ -3,11 +3,11 @@ const app = getApp();
 Page({
 	data: {
 		basicServicesList: [
-			{title: 'ETC设备', img: 'etc_equipment', statisticsEvent: 'basic_services_for_etc_equipment'},
-			{title: '在线客服', img: 'online_icon', statisticsEvent: 'basic_services_for_online_icon'},
-			{title: '开发票', img: 'invoice', statisticsEvent: 'basic_services_for_invoice'},
-			{title: '质保两年', img: 'quality_assurance', statisticsEvent: 'basic_services_for_quality_assurance'},
-			{title: '通行折扣', img: 'pass_the_discount', statisticsEvent: 'basic_services_for_pass_the_discount'}
+			{title: 'ETC设备', img: 'etc_equipment', statisticsEvent: 'basic_services_for_etc_equipment', isShow: true},
+			{title: '在线客服', img: 'online_icon', statisticsEvent: 'basic_services_for_online_icon', isShow: true},
+			{title: '开发票', img: 'invoice', statisticsEvent: 'basic_services_for_invoice', isShow: true},
+			{title: '质保两年', img: 'quality_assurance', statisticsEvent: 'basic_services_for_quality_assurance', isShow: true},
+			{title: '通行折扣', img: 'pass_the_discount', statisticsEvent: 'basic_services_for_pass_the_discount', isShow: true}
 		],
 		payInterest: {
 			describeList: [
@@ -64,6 +64,17 @@ Page({
 					showDetailWrapper: true,
 					showDetailMask: true,
 					iconType: type
+				});
+				break;
+			case 6:
+				// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
+				wx.openEmbeddedMiniProgram({
+					appId: 'wx06a561655ab8f5b2',
+					path: 'pages/base/redirect/index?routeKey=ETC_RESCUE&wtagid=W389.13.2',
+					envVersion: 'release', // 正式版
+					fail () {
+						util.showToastNoIcon('调起小程序失败, 请重试！');
+					}
 				});
 				break;
 		}

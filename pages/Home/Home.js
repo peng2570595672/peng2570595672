@@ -17,6 +17,7 @@ Page({
 			{title: '个人中心', ico: 'personal-center', url: 'index', isShow: true, statisticsEvent: 'index_personal_center'}
 		],
 		bannerList: [
+			{img: 'https://file.cyzl.com/g001/M07/83/64/oYYBAGJzZImAaHqlAAKimDHtunU897.png', url: 'micro_high_speed', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_micro_high_speed'},
 			{img: 'https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrTgOANI-7AABwMlaUjXo345.png', url: 'micro_insurance_car_insurance', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_micro_insurance_car_insurance'},
 			// {img: 'https://file.cyzl.com/g001/M07/50/2F/oYYBAGDRSJaAIRy_AABmOVUonLQ097.png', url: 'xiaoepinpin', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_for_xiaoepinpin'},
 			{img: 'https://file.cyzl.com/g001/M07/56/6F/oYYBAGDvmOmAKFdjAABX7h3eswc492.png', url: 'micro_insurance_hcz', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_micro_insurance_hcz'},
@@ -190,7 +191,7 @@ Page({
 	// 违章查询
 	onClickViolationEnquiry () {
 		// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
-		wx.navigateToMiniProgram({
+		wx.openEmbeddedMiniProgram({
 			appId: 'wx06a561655ab8f5b2',
 			path: 'pages/base/redirect/index?routeKey=PC01_REDIRECT&autoRoute=CHECKILLEGAL&outsource=souyisou&wtagid=116.115.10',
 			envVersion: 'release',
@@ -212,7 +213,7 @@ Page({
 	},
 	// 微保好车主
 	openWeiBao (pageUrl) {
-		wx.navigateToMiniProgram({
+		wx.openEmbeddedMiniProgram({
 			appId: 'wx06a561655ab8f5b2',// 正式
 			// appId: app.globalData.test ? 'wx7f3f0032b6e6f0cc' : 'wx06a561655ab8f5b2',
 			path: pageUrl,
@@ -239,6 +240,11 @@ Page({
 		}
 		if (item?.url === 'micro_insurance_hcz') {
 			const pageUrl = 'pages/base/redirect/index?routeKey=WEDRIVE_HIGH_JOIN&wtagid=104.210.4';
+			this.openWeiBao(pageUrl);
+			return;
+		}
+		if (item?.url === 'micro_high_speed') {
+			const pageUrl = 'pages/base/redirect/index?routeKey=ETC_RESCUE&wtagid=W389.13.1';
 			this.openWeiBao(pageUrl);
 			return;
 		}

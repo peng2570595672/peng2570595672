@@ -144,8 +144,7 @@
     <!--底部补缴结束-->
     <!--广告位开始-->
     <view class="micro-insurance">
-        <image wx:if="{{showAdvertising && details.flowVersion === 1}}" src="https://file.cyzl.com/g001/M07/4C/E7/oYYBAGDIPoyAD5-9AABPQuQ6Mko943.png"  mode="widthFix" catchtap="onClickAdvertising"></image>
-        <image wx:if="{{showAdvertising && details.flowVersion === 2}}" src="https://file.cyzl.com/g001/M07/4C/E6/oYYBAGDIPjqAN23_AABOWQOyQeI345.png"  mode="widthFix" catchtap="goMicroInsurance"></image>
+        <image wx:if="{{showAdvertising}}" src="https://file.cyzl.com/g001/M00/83/70/oYYBAGJzmQiAW-NQAACbiM4qarw461.jpg" mode="widthFix" catchtap="onClickAdvertising"></image>
         <view wx:if="{{showAdvertising}}" class="close_button iconfont" catchtap="hide"></view>
     </view>
     <!--广告位结束-->
