@@ -37,7 +37,7 @@
                 <view class="photo-row">
                     <view class="photo-item one">
                         <image class="image one" src="/pages/default/assets/service_01.png"></image>
-                        <text>设备质保2年</text>
+                        <text>设备质保1年</text>
                     </view>
                     <view class="photo-item">
                         <image class="image three" src="/pages/default/assets/service_03.png"></image>
