@@ -19,7 +19,7 @@
 			<view class="close_button iconfont" catchtap="hide"></view>
 			<view class="item {{iconType === 4 ? 'quality' : ''}} iconfont">
 				<view class="item-content quality" wx:if="{{iconType === 4}}">
-					<view>设备质保两年</view>
+					<view>设备质保一年</view>
 					<view class="top">ETC设备两年内非人为损坏可提供保修服务。如有需要请联系
 						<text class="btn-online" catchtap="online">在线客服</text>
 					</view>

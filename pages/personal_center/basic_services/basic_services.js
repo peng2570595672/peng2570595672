@@ -6,13 +6,13 @@ Page({
 			{title: 'ETC设备', img: 'etc_equipment', statisticsEvent: 'basic_services_for_etc_equipment', isShow: true},
 			{title: '在线客服', img: 'online_icon', statisticsEvent: 'basic_services_for_online_icon', isShow: true},
 			{title: '开发票', img: 'invoice', statisticsEvent: 'basic_services_for_invoice', isShow: true},
-			{title: '质保两年', img: 'quality_assurance', statisticsEvent: 'basic_services_for_quality_assurance', isShow: true},
+			{title: '质保一年', img: 'quality_assurance', statisticsEvent: 'basic_services_for_quality_assurance', isShow: true},
 			{title: '通行折扣', img: 'pass_the_discount', statisticsEvent: 'basic_services_for_pass_the_discount', isShow: true}
 		],
 		payInterest: {
 			describeList: [
 				{title: '高速通行9.5折', subTitle: '全国高速走ETC车道享受不低于95折优惠。使用说明：进出高速收费站时走ETC通道'},
-				{title: '设备质保两年', subTitle: 'ETC设备两年内非人为损坏可提供保修服务。如有需要请联系 '}
+				{title: '设备质保一年', subTitle: 'ETC设备两年内非人为损坏可提供保修服务。如有需要请联系 '}
 			]
 		}
 	},

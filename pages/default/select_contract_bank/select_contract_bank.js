@@ -8,7 +8,7 @@ Page({
 	data: {
 		basicServiceList: [
 			{title: 'ETC设备与卡片', tips: '包邮', ico: 'service_of_etc'},
-			{title: '设备质保两年', ico: 'service_of_equipment'},
+			{title: '设备质保一年', ico: 'service_of_equipment'},
 			{title: '开具通行费发票', ico: 'service_of_invoice'},
 			{title: '高速通行9.5折', ico: 'service_of_discount'}
 		],
