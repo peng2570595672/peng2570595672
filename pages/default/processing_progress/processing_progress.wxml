@@ -141,16 +141,16 @@
 		</view>
 	</view>
 	<!--微保活动弹框-->
-	<view catchtap="hide" class="detail_mask animated {{showDetailWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{showDetailMask && !showDetailInsurance}}">
-		<view catchtap="close" class="detail_wrapper animated {{showDetailWrapper ? 'zoomInOther' : 'zoomOutOther'}}" >
-			<view class="close_button iconfont" catchtap="hide"></view>
-			<image mode="widthFix" src="https://file.cyzl.com/g001/M06/A6/A9/oYYBAF-NAkWANER7AAEYvxMmkz0996.png" catchtap="goMicroInsurance"></image>
-			<view class="activity_button" catchtap="goMicroInsurance">
-				<button>立即领取</button>
-<!--				<image mode="widthFix" src="https://file.cyzl.com/g001/M06/94/6A/oYYBAF9sakiAbF3rADnKJ0IrJ7o206.png"></image>-->
-			</view>
-		</view>
-	</view>
+<!--	<view catchtap="hide" class="detail_mask animated {{showDetailWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{showDetailMask && !showDetailInsurance}}">-->
+<!--		<view catchtap="close" class="detail_wrapper animated {{showDetailWrapper ? 'zoomInOther' : 'zoomOutOther'}}" >-->
+<!--			<view class="close_button iconfont" catchtap="hide"></view>-->
+<!--			<image mode="widthFix" src="https://file.cyzl.com/g001/M06/A6/A9/oYYBAF-NAkWANER7AAEYvxMmkz0996.png" catchtap="goMicroInsurance"></image>-->
+<!--			<view class="activity_button" catchtap="goMicroInsurance">-->
+<!--				<button>立即领取</button>-->
+<!--&lt;!&ndash;				<image mode="widthFix" src="https://file.cyzl.com/g001/M06/94/6A/oYYBAF9sakiAbF3rADnKJ0IrJ7o206.png"></image>&ndash;&gt;-->
+<!--			</view>-->
+<!--		</view>-->
+<!--	</view>-->
 	<!--微保活动结束-->
 	<jinyixing-prompt id="notJinYiXingPrompt"></jinyixing-prompt>
 	<signing-prompt id="notSigningPrompt"></signing-prompt>
