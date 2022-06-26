@@ -401,7 +401,7 @@ Page({
 			isOk = isOk && formData.currentCarNoColor === 4;
 			// 进行正则匹配
 			if (isOk) {
-				let xreg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[ADGF]$)|([ADGF][A-HJ-NP-Z0-9][0-9]{4}$))/;
+				let xreg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{6}$/;
 				isOk = xreg.test(this.data.carNoStr);
 				if (checkLicensePlate && !isOk) {
 					util.showToastNoIcon('车牌输入不合法，请检查重填');

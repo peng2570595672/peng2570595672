@@ -1,4 +1,4 @@
-<div class="signing-owner">
+<view class="signing-owner">
 	<view class="content">
 		<view class="signing-owner-top">
 			<view>
@@ -16,7 +16,7 @@
 				<view>
 					<image src="/pages/pay_h5/assets/tolls.png" mode="widthFix"/>
 				</view>
-				<div>通行费代扣</div>
+				<view>通行费代扣</view>
 			</view>
 			<view class="query-bill">
 				<view>
@@ -30,4 +30,4 @@
 		<button wx:if="{{loginInfo.needBindingPhone !== 1}}" catchtap="weChatSign">一键签约</button>
 		<button wx:else open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">一键签约</button>
 	</view>
-</div>
+</view>
