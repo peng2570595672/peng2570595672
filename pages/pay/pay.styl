@@ -1,0 +1,44 @@
+@import "../../style/base.styl";
+.pay_status
+	// 成功结果
+	text-align center
+	.iconfont
+		padding 90rpx 0 64rpx
+		&::before
+			display block
+			font-size 180rpx
+			content '\e630'
+			color #FF6300
+		&.error
+			display flex
+			align-items center
+			justify-content center
+			&::before
+				width 180rpx
+				height 180rpx
+				display flex
+				align-items center
+				justify-content center
+				border-radius 50%
+				font-size 80rpx
+				content '\e603'
+				color #fff
+				background #FF6300
+	.success
+		font-size 40rpx
+		font-family PingFangSC-Medium, PingFang SC
+		font-weight 500
+		color #000000
+		line-height 57rpx
+		padding-bottom 14rpx
+	button
+		width 650rpx
+		height 96rpx
+		line-height 96rpx
+		font-size 36rpx
+		font-family PingFangSC-Medium, PingFang SC
+		font-weight 500
+		color #FFFFFF
+		text-align center
+		background: linear-gradient(45deg, #FF6300 0%, #F16339 100%);
+		border-radius 48rpx

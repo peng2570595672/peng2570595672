@@ -1,0 +1,49 @@
+.pay_status {
+  text-align: center;
+}
+.pay_status .iconfont {
+  padding: 90rpx 0 64rpx;
+}
+.pay_status .iconfont::before {
+  display: block;
+  font-size: 180rpx;
+  content: '\e630';
+  color: #ff6300;
+}
+.pay_status .iconfont.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pay_status .iconfont.error::before {
+  width: 180rpx;
+  height: 180rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 80rpx;
+  content: '\e603';
+  color: #fff;
+  background: #ff6300;
+}
+.pay_status .success {
+  font-size: 40rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #000;
+  line-height: 57rpx;
+  padding-bottom: 14rpx;
+}
+.pay_status button {
+  width: 650rpx;
+  height: 96rpx;
+  line-height: 96rpx;
+  font-size: 36rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+  background: linear-gradient(45deg, #ff6300 0%, #f16339 100%);
+  border-radius: 48rpx;
+}
