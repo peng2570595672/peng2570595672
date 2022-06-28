@@ -1,0 +1,39 @@
+@import "../../../style/base.styl";
+.signed_successfully
+	display flex
+	flex-direction column
+	background #FFFFFF
+	min-height 100vh
+	// 成功结果
+	& > image
+		display block
+		margin 80rpx auto 0
+		width 304rpx
+	// 主标题
+	.signed_title
+		display flex
+		align-items center
+		justify-content center
+		height 76rpx
+		font-size 32rpx
+		color $fontColor6
+		font-weight 500
+	// 操作部分
+	// 下一步
+	.btn
+		display flex
+		align-items center
+		justify-content center
+		margin 86rpx 60rpx 30rpx
+		height 98rpx
+		font-size 40rpx
+		font-weight 500
+		color #fff
+		border-radius 49rpx
+		background: linear-gradient(to right , $deepThemeColor, $shallowThemeColor)
+		&.available
+			animation btnFadeIn .3s
+			animation-fill-mode forwards
+		&.unavailable
+			animation btnFadeOut .3s
+			animation-fill-mode forwards

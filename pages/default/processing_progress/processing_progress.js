@@ -1,3 +1,5 @@
+import {jumpCouponMini} from "../../../utils/utils";
+
 /**
  * @author 狂奔的蜗牛
  * @desc 办理进度
@@ -21,6 +23,8 @@ Page({
 		requestNum: 0,// 请求次数
 		weiBaoOrderId: '',
 		isSalesmanPrecharge: false,
+		showCouponWrapper: false,
+		showCouponMask: false,
 		prechargeInfo: ''// 预充流程,预充信息
 	},
 	async onLoad (options) {
@@ -53,6 +57,32 @@ Page({
 			// 查询是否欠款
 			await util.getIsArrearage();
 		}
+	},
+	initCouponMask () {
+		let time = new Date().toLocaleDateString();
+		let that = this;
+		// 首先获取是否执行过
+		wx.getStorage({
+			key: 'today',
+			success: function (res) {
+				// 成功的话 说明之前执行过，再判断时间是否是当天
+				if (res.data && res.data !== time) {
+					wx.setStorageSync('today', new Date().toLocaleDateString());
+					that.setData({
+						showCouponWrapper: true,
+						showCouponMask: true
+					});
+				}
+			},
+			fail: function (res) {
+				// 没有执行过的话 先存一下当前的执行时间
+				that.setData({
+					showCouponWrapper: true,
+					showCouponMask: true
+				});
+				wx.setStorageSync('today', new Date().toLocaleDateString());
+			}
+		});
 	},
 	// 自动登录
 	login () {
@@ -274,14 +304,19 @@ Page({
 	close () {},
 	hide () {
 		this.setData({
-			showDetailWrapper: false
+			showDetailWrapper: false,
+			showCouponWrapper: false
 		});
 		setTimeout(() => {
 			this.setData({
+				showCouponMask: false,
 				showDetailInsurance: false,
 				showDetailMask: false
 			});
 		}, 400);
+	},
+	handleCouponMini () {
+		jumpCouponMini();
 	},
 	// 签约高速弹窗
 	signingExpress () {
@@ -297,6 +332,9 @@ Page({
 			util.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
+				if (res.data?.isSignTtCoupon === 1) {
+					this.initCouponMask();
+				}
 				// 新流程-货车订单
 				if (res.data.isNewTrucks === 1) {
 					wx.uma.trackEvent('truck_for_processing_progress');

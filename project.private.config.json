@@ -275,6 +275,69 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/pay/pay",
+          "query": "pinanOrderId=5392899969022101647360&orderId=989897786235301888&redirectUrl=https://test-hcz-static.pingan.com.cn/fin-common/umc-etc-agent/index.html#/payResult?orderNo=5392899969022101647360&supplyCode=chezhuyun&supplyOrderNo=989897786235301888&actualAmount=1.00",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/default/index/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/default/package_the_rights_and_interests/package_the_rights_and_interests",
+          "query": "type=1",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "query": "orderId=990993934819790848",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/default/payment_successful/payment_successful",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "query": "orderId=990988014580666368",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/default/payment_fail/payment_fail",
+          "query": "type=main_process",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/default/processing_progress/processing_progress",
+          "query": "orderId=990604712581533696",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/default/coupon_agreement/coupon_agreement",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

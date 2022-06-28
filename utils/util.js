@@ -734,12 +734,16 @@ function getTruckHandlingStatus(orderInfo) {
  *  获取订单办理状态 2.0
  */
 function getStatus(orderInfo) {
-	if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0) {
+	if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0 && orderInfo.isSignTtCoupon !== 1) {
 		// protocolStatus 0未签协议 1签了
 		return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
 	}
 	if (orderInfo.isNewTrucks === 0 && orderInfo.contractStatus !== 1 && orderInfo.status === 1) {
 		return 1; // 客车解约
+	}
+	if (orderInfo.status === 1 && orderInfo.isSignTtCoupon === 1 && orderInfo.ttContractStatus !== 1) {
+		// 通通券签约套餐 解约
+		return 22;
 	}
 	if (orderInfo.shopProductId === 0) {
 		return 2;// 办理中 未选套餐
@@ -752,11 +756,11 @@ function getStatus(orderInfo) {
 		return 4; // 办理中 未上传证件
 	}
 	if (!orderInfo.contractStatus && orderInfo.deliveryRule === 0 && orderInfo.etcContractId !== -1) {
-		// deliveryRule 先签约后发货-0、先发货后签约-1    etcContractId -1 不签约微信
+		// deliveryRule 先签约后发货-0、先发货后签约-1    etcContractId -1 不需要签约微信
 		return 5; // 待微信签约
 	}
 	if (orderInfo.orderType === 31 && orderInfo.auditStatus === 0) {
-		return 5;
+		return 6;
 	}
 	if (orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) {
 		// auditStatus: -1 无需审核   0 待审核   1 审核失败  2 审核通过  3 预审核通过  9 高速核验不通过

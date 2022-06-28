@@ -4,7 +4,27 @@ export function initProductName (orderInfo) {
 	if (orderInfo.productProcess === 1) return '微信支付'
 	return orderInfo.productName || '';
 }
-
+// 签约通通券
+export function thirdContractSigning(data) {
+	wx.navigateToMiniProgram({
+		appId: 'wxbd687630cd02ce1d',
+		path: 'pages/index/index',
+		extraData: data,
+		fail () {
+			showToastNoIcon('调起通通券签约失败, 请重试！');
+		}
+	});
+}
+// 跳转通通券小程序
+export function jumpCouponMini() {
+	wx.navigateToMiniProgram({
+		appId: 'wx7e5d0f72c61b0c17',
+		path: 'pages/index/index',
+		fail () {
+			showToastNoIcon('跳转通通券小程序失败, 请重试！');
+		}
+	});
+}
 // 比较两个日期
 export function compareDate (date1, date2) {
 	date1 = date1.slice(0, 16).replace(new RegExp('-','g'), '/');

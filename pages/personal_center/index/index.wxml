@@ -85,7 +85,7 @@
     </view>
 
     <!--付费权益开始-->
-    <view class="pay-interest" wx:if="{{rightsPackageBuyRecords.length || isActivation || hasCoupon}}">
+    <view class="pay-interest" wx:if="{{rightsPackageBuyRecords.length || isActivation || hasCoupon || isShowCoupon || isShowFeatureService}}">
         <view class="pay-interest-title">ETC服务</view>
         <view class="pay-interest-content">
             <view class="pay-interest_item" catchtap="go" data-url="basic_services" wx:if="{{isActivation}}">
@@ -115,6 +115,10 @@
             <view class="pay-interest_item" catchtap="go" data-url="service_purchase_record" wx:if="{{rightsPackageBuyRecords.length}}">
                 <view class="pay-interest-item-icon purchase_records iconfont"></view>
                 <view class="pay-interest_item_text">加购记录</view>
+            </view>
+            <view class="coupon_item pay-interest_item" catchtap="handleCouponMini" wx:if="{{isShowCoupon}}">
+                <image src="https://file.cyzl.com/g001/M07/8A/24/oYYBAGK4SDSABl7lAAADWJ2H5X4108.png" mode="widthFix"></image>
+                <view class="pay-interest_item_text">通通券权益</view>
             </view>
         </view>
     </view>

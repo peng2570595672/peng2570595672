@@ -58,6 +58,14 @@
 .package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .package.active::after {
   color: #07c160;
 }
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .coupon-tips {
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #ffc000;
+  line-height: 34rpx;
+  padding-bottom: 36rpx;
+}
 .package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .related-service-title {
   display: flex;
   height: 44rpx;
@@ -184,6 +192,28 @@
 }
 .package-the-rights-and-interests .swiper-box .my-swiper.my-only-swiper .my-swiper-item .my-swiper-item-box {
   width: 686rpx;
+}
+.package-the-rights-and-interests .tongtongquan .equities-title {
+  display: flex;
+  height: 48rpx;
+  align-items: center;
+  font-size: 34rpx;
+  color: rgba(0,0,0,0.9);
+  padding: 50rpx 32rpx 32rpx;
+}
+.package-the-rights-and-interests .tongtongquan .equities-title::before {
+  margin-right: 8rpx;
+  content: '';
+  width: 8rpx;
+  height: 44rpx;
+  background: #2fb565;
+}
+.package-the-rights-and-interests .tongtongquan .equities-logo {
+  text-align: center;
+}
+.package-the-rights-and-interests .tongtongquan .equities-logo image {
+  width: 686rpx;
+  height: 420rpx;
 }
 .package-the-rights-and-interests .rights-and-interests {
   width: 686rpx;

@@ -1,5 +1,5 @@
 ﻿// 是否为测试 TODO
-const IS_TEST = false; // false为正式接口地址，true为测试接口地址
+export const IS_TEST = true; // false为正式接口地址，true为测试接口地址
 const util = require('./utils/util.js');
 const uma = require('./utils/umtrack-wx.js');
 App({
@@ -70,6 +70,7 @@ App({
 		splitDetails: undefined, // 账单详情(拆分账单)
 		quality: 80,
 		signAContract: 3,// -1正常签约  1  解约重签  4 货车签约管理页签约
+		signTongTongQuanAContract: 0,// 0 未签约  1 去签约 2解约重签
 		userInfo: {},// 用户信息
 		navbarHeight: 0,
 		processFlowVersion: 0,// 流程版本
@@ -264,6 +265,7 @@ App({
 		console.log(res);
 		if (res.path === 'pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license' ||
 			res.path === 'pages/default/shot_bank_card/shot_bank_card' ||
+			res.path === 'pages/default/package_the_rights_and_interests/package_the_rights_and_interests' ||
 			res.path === 'pages/default/information_validation/information_validation'
 		) {
 			// 解决安卓平台上传行驶证自动返回上一页
@@ -276,6 +278,9 @@ App({
 				const {appId} = res.referrerInfo;
 				// 车主服务签约
 				if (appId === 'wxbcad394b3d99dac9' || appId === 'wxbd687630cd02ce1d') {
+					if (res.path === 'pages/default/package_the_rights_and_interests/package_the_rights_and_interests') {
+						return;
+					}
 					this.globalData.isTruckHandling ? util.queryContractForTruckHandling() : this.queryContract(appId);
 				}
 			} else if (this.globalData.signAContract === 1) {
@@ -286,6 +291,28 @@ App({
 					url: '/pages/Home/Home'
 				});
 			}
+		}
+		if (res && res.scene === 1038 && res.referrerInfo.appId === 'wxbd687630cd02ce1d') {
+			// 解约重签通通券
+			if (res.path === 'pages/default/package_the_rights_and_interests/package_the_rights_and_interests') {
+				return;
+			}
+			this.getOrderInfo();
+		}
+	},
+	async getOrderInfo () {
+		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
+			orderId: this.globalData.orderInfo.orderId,
+			dataType: '3'
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			this.globalData.signTongTongQuanAContract = 0;
+			if (result.data.product?.ttContractStatus === 1) {
+				util.showToastNoIcon('签约成功');
+			}
+		} else {
+			util.showToastNoIcon(result.message);
 		}
 	},
 	// 查询车主服务签约

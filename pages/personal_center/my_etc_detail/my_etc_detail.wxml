@@ -21,7 +21,7 @@
 	<view class="item">
 		<view>订单状态</view>
         <view class="caution {{orderInfo.selfStatus === 7 || orderInfo.selfStatus === 8 ? 'failed' : ''}} {{orderInfo.selfStatus === 12 ? 'succeed' : ''}}">
-            {{orderInfo.selfStatus === 1 ? '已解约' : ''}}
+            {{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 22 ? '已解约' : ''}}
             {{orderInfo.selfStatus === 2 || orderInfo.selfStatus === 4 || orderInfo.selfStatus === 14 ? '办理中' : ''}}
             {{orderInfo.selfStatus === 3 ? '待支付' : ''}}
             {{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 21 ? '待签约' : ''}}
@@ -87,7 +87,7 @@
 	<!--	按钮开始-->
 	<view class="btns">
 		<button class="btn" catchtap="onClickVehicle" wx:if="{{orderInfo.selfStatus !== 8 && orderInfo.selfStatus !== 12 && (orderInfo.flowVersion !== 4 || (orderInfo.flowVersion === 4 && orderInfo.selfStatus !== 7))}}">
-            {{orderInfo.selfStatus === 1 ? '恢复签约' : ''}}
+            {{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 22 ? '恢复签约' : ''}}
             {{orderInfo.selfStatus === 2 || orderInfo.selfStatus === 4 || orderInfo.selfStatus === 14 ? '继续办理' : ''}}
             {{orderInfo.selfStatus === 3 ? '去支付' : ''}}
             {{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 9 ? (orderInfo.flowVersion === 7 ? '继续办理' : '去签约') : ''}}

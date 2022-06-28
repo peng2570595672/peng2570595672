@@ -1,4 +1,4 @@
-import { compareDate } from '../../../utils/utils.js';
+import {compareDate, jumpCouponMini} from '../../../utils/utils.js';
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
@@ -22,6 +22,7 @@ Page({
 		isActivation: false, // 是否有激活车辆
 		isOpenTheCard: true, // 是否开通三类户
 		isShowFeatureService: false, // 是否显示特色服务
+		isShowCoupon: false, // 是否显示通通券入口
 		hasCoupon: false, // 是否显示领券中心
 		isActivityDate: false, // 是否活动期间
 		canIUseGetUserProfile: false,
@@ -76,6 +77,9 @@ Page({
 			mobilePhone: app.globalData.mobilePhone,
 			screenHeight: wx.getSystemInfoSync().windowHeight
 		});
+	},
+	handleCouponMini () {
+		jumpCouponMini();
 	},
 	// 勾选用户协议
 	onClickChangeAgreement () {
@@ -238,11 +242,13 @@ Page({
 		let isNewOrder = app.globalData.myEtcList.findIndex(item => compareDate(item.addTime, '2021-07-14') === true); // 当前用户有办理订单且订单创建日期在2021年7月13日前（含7月13日）
 		let isShowFeatureService = app.globalData.myEtcList.findIndex(item => item.isShowFeatureService === 1 && (item.obuStatus === 1 || item.obuStatus === 5)); // 是否有特色服务
 		let isPrechargeOrder = app.globalData.myEtcList.findIndex(item => (item.flowVersion === 6 || item.flowVersion === 4 || item.flowVersion === 7) && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
+		let isShowCoupon = app.globalData.myEtcList.findIndex(item => (item.isSignTtCoupon === 1 && item.ttContractStatus !== 0)); // 通通券 存在签约或解约
 		this.setData({
 			isShowNotice: !!app.globalData.myEtcList.length,
 			isShowFeatureService: isShowFeatureService !== -1,
 			isPrechargeOrder: isPrechargeOrder !== -1,
 			showAgreementWrapper: isNewOrder !== -1,
+			isShowCoupon: isShowCoupon !== -1,
 			isActivation: !!isActivation.length
 		});
 		// 查询是否欠款

@@ -24,6 +24,9 @@
                         </view>
                         <view>¥{{tools.parseNum(item.pledgePrice/100)}}</view>
                     </view>
+                    <view wx:if="{{ item.isSignTtCoupon === 1 }}" class="coupon-tips">
+                        您已选择通通券*ETC联名套餐，默认你已同意以连续包月模式开通 通通券会员，套餐内含ETC设备一套，会员期内可免费享受以下ETC权益
+                    </view>
                     <view class="related-service-title">
                         <view>基础服务</view>
                         <view class="tips">价值158元</view>
@@ -43,7 +46,7 @@
                             <view>车主服务享便捷</view>
                             <view>价值168元</view>
                         </view>
-                        <view class="other-service-item" wx:if="{{item.pledgePrice && !isContinentInsurance}}" catchtap="onClickCheckTheService" data-index="1">
+                        <view class="other-service-item" wx:if="{{item.pledgePrice && !isContinentInsurance && item.isSignTtCoupon !== 1}}" catchtap="onClickCheckTheService" data-index="1">
                             <view>生活服务享精彩</view>
                             <view>价值100元+</view>
                         </view>
@@ -72,6 +75,15 @@
         </swiper>
     </view>
     <!--套餐选择结束-->
+    <!--通通券权益开始-->
+    <!--0不需要通通券 1需要通通券-->
+    <view wx:if="{{choiceIndex !== -1 && listOfPackages.length && listOfPackages[choiceIndex].isSignTtCoupon === 1}}" class="tongtongquan">
+        <view class="equities-title">联名权益</view>
+        <view class="equities-logo">
+            <image src="/pages/default/assets/equities1.png"></image>
+        </view>
+    </view>
+    <!--通通券权益结束-->
     <!--权益选择开始-->
     <view wx:if="{{rightsAndInterestsList.length}}"
           class="rights-and-interests {{listOfPackages.length === 1 ? 'my-only-equities' : ''}}">
@@ -101,12 +113,20 @@
 	    <view class="agreement iconfont {{getAgreement ? 'selected' : ''}} {{choiceIndex === -1 ? 'not-agreement' : ''}}" bindtap="onClickAgreementHandle">
 		    <view></view>
 		    <view wx:if="{{choiceIndex !== -1}}">我已阅读并同意
+<!--                <text catchtap="onClickGoQianTongAgreement" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon === 1}}">《通通券&ETC+联合会员协议》</text>-->
+                <text catchtap="onClickGoQianTongAgreement1" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon === 1}}">《通通券会员服务协议》</text>
 			    <text catchtap="onClickGoAgreementHandle">《ETC+用户办理协议》</text>
 			    <text catchtap="onClickGoQianTongAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 1}}">《黔通卡ETC用户协议》</text>
 			    <text catchtap="onClickGoPrivacyHandle">《用户隐私协议》</text>
 		    </view>
 	    </view>
-        <view>
+        <view wx:if="{{ isSalesmanOrder && choiceIndex !== -1 && isPay && listOfPackages.length && listOfPackages[choiceIndex].isSignTtCoupon === 1 }}">
+            <!--通用券套餐已支付或无需支付-->
+            <button class="btn {{!getAgreement ? 'unavailable' : ''}}" catchtap="handleSign">
+                {{contractStatus === 1 ? '开通连续包月服务' : '签约代扣通行费'}}
+            </button>
+        </view>
+        <view wx:else>
             <button class="btn {{choiceIndex === -1 || (listOfPackages[activeIndex].mustChoiceRightsPackage === 1 && activeEquitiesIndex === -1) || !getAgreement ? 'unavailable' : ''}}" catchtap="next"
                     wx:if="{{choiceIndex !== -1 && listOfPackages[activeIndex].pledgePrice || (activeEquitiesIndex !== -1 && rightsAndInterestsList[activeEquitiesIndex].payMoney)}}">
                 确认支付{{activeEquitiesIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + rightsAndInterestsList[activeEquitiesIndex].payMoney)/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}元

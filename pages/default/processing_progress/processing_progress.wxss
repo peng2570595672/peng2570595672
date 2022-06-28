@@ -325,3 +325,40 @@
   opacity: 0.57;
   font-size: 28rpx;
 }
+.processing_progress .coupon_mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+}
+.processing_progress .coupon_mask .detail_wrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 100%;
+  min-height: 400rpx;
+  margin: 0 auto;
+  z-index: 2;
+  text-align: center;
+}
+.processing_progress .coupon_mask .detail_wrapper .mask-bg image {
+  width: 500rpx;
+}
+.processing_progress .coupon_mask .detail_wrapper .vip-bg {
+  position: relative;
+  z-index: 1;
+  margin-top: -156rpx;
+}
+.processing_progress .coupon_mask .detail_wrapper .vip-bg image {
+  width: 464rpx;
+}
+.processing_progress .coupon_mask .detail_wrapper .mask-btn {
+  margin-top: 20rpx;
+}
+.processing_progress .coupon_mask .detail_wrapper .mask-btn image {
+  width: 686rpx;
+}

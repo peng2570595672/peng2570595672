@@ -1,3 +1,5 @@
+import {thirdContractSigning} from '../../utils/utils';
+
 /**
  * @author 狂奔的蜗牛
  * @desc 首页
@@ -859,9 +861,23 @@ Page({
 			18: () => this.onTollWithholding(orderInfo), // 代扣通行费
 			19: () => this.onClickModifiedData(orderInfo, false),
 			20: () => this.onClickVerification(orderInfo),
-			21: () => this.onClickSignBank(orderInfo)
+			21: () => this.onClickSignBank(orderInfo),
+			22: () => this.onClickSignTongTongQuan(orderInfo)// 签约通通券代扣
 		};
 		fun[orderInfo.selfStatus].call();
+	},
+	// 通通券签约
+	async onClickSignTongTongQuan () {
+		let params = {
+			orderId: app.globalData.orderInfo.orderId // 订单id
+		};
+		const result = await util.getDataFromServersV2('consumer/order/thirdContract', params);
+		if (!result) return;
+		if (result.code === 0) {
+			thirdContractSigning(result.data);
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 交行-去签约
 	onClickSignBank (orderInfo) {
@@ -1112,6 +1128,16 @@ Page({
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.firstVersionData = false;
 		const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
+		if (orderInfo.orderType === 31 && orderInfo.isSignTtCoupon === 1) {
+			// 通通券套餐流程
+			if (orderInfo.ttContractStatus === 1 && orderInfo.ttDeductStatus !== 1) {
+				// 已签约通通券 & 未扣款
+				util.go('/pages/default/payment_fail/payment_fail');
+				return;
+			}
+			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?contractStatus=${orderInfo.contractStatus}&ttContractStatus=${orderInfo.ttContractStatus}`);
+			return;
+		}
 		if (orderInfo.selfStatus === 2) {
 			const result = await util.initLocationInfo(orderInfo, orderInfo.isNewTrucks === 1);
 			if (!result) return;

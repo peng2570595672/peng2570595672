@@ -1,0 +1,9 @@
+<view class="signed_successfully">
+    <!--	成功提示开始-->
+    <image src="/pages/default/assets/audit_failure.png" mode="widthFix"/>
+    <view class="signed_title">通通券首月扣费失败，请确保微信余额充足。</view>
+    <!--	成功提示结束-->
+    <!--	操作部分开始-->
+    <view class="btn" catchtap="deductByContractThird">重新发起扣款</view>
+    <!--	操作部分结束-->
+</view>

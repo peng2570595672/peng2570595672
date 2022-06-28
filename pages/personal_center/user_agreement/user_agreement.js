@@ -51,6 +51,7 @@ Page({
 		let isTruckActivation = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 1); //  货车已激活
 		let isBcoTruckActivation = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 1 && item.flowVersion === 7); //  交行货车已激活
 		let isObuCardType = app.globalData.myEtcList.findIndex(item => (item.obuCardType === 1 || item.obuCardType === 21)); // 卡类型 (黔通 客车 & 易路通达货车)
+		let isShowCoupon = app.globalData.myEtcList.findIndex(item => (item.isSignTtCoupon === 1 && item.ttContractStatus !== 0)); // 通通券 存在签约或解约
 		console.log(isObuCardType,'==============================卡类型==========================================',isTruckActivation);
 		if (isObuCardType === -1) { // 其他卡
 			let truckAgreementList = [
@@ -131,6 +132,13 @@ Page({
 			});
 			this.setData({
 				carAgreementList
+			});
+		}
+		if (isShowCoupon !== -1) {
+			const obj = {id: 9,name: '通通券会员服务协议', update: 0, url: 'coupon_agreement/coupon_agreement', isShow: true};
+			this.data.carAgreementList.push(obj);
+			this.setData({
+				carAgreementList: this.data.carAgreementList
 			});
 		}
 	},
