@@ -63,11 +63,11 @@ Page({
 		let that = this;
 		// 首先获取是否执行过
 		wx.getStorage({
-			key: 'today',
+			key: 'coupon-today',
 			success: function (res) {
 				// 成功的话 说明之前执行过，再判断时间是否是当天
 				if (res.data && res.data !== time) {
-					wx.setStorageSync('today', new Date().toLocaleDateString());
+					wx.setStorageSync('coupon-today', new Date().toLocaleDateString());
 					that.setData({
 						showCouponWrapper: true,
 						showCouponMask: true
@@ -80,7 +80,7 @@ Page({
 					showCouponWrapper: true,
 					showCouponMask: true
 				});
-				wx.setStorageSync('today', new Date().toLocaleDateString());
+				wx.setStorageSync('coupon-today', new Date().toLocaleDateString());
 			}
 		});
 	},
