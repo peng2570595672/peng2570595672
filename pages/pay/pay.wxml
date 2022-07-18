@@ -1,7 +1,7 @@
 <view class="pay_status" wx:if="{{payStatus}}">
     <view class="iconfont {{payStatus === 1 ? '' : 'error'}}"></view>
     <view class="success">支付{{payStatus === 1 ? '成功' : '失败'}}</view>
-    <view class="btn" wx:if="{{IS_TEST}}">
+    <view class="btn">
         <button open-type="launchApp" app-parameter="{{parameterUrl}}" bindlaunchapp="launchAppSuccess" binderror="launchAppError">返回APP</button>
     </view>
 </view>

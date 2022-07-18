@@ -19,6 +19,7 @@ Page({
 		wx.hideHomeButton();
 		console.log(options);
 		this.setData({
+			payStatus: 0,
 			IS_TEST: IS_TEST,
 			orderId: options.orderId,
 			pinanOrderId: options.pinanOrderId
@@ -26,9 +27,15 @@ Page({
 		this.onPay();
 	},
 	launchAppSuccess (e) {
+		this.setData({
+			payStatus: 0
+		});
 		console.log('success', e);
 	},
 	launchAppError (e) {
+		this.setData({
+			payStatus: 0
+		});
 		console.log(e.detail.errMsg);
 	},
 	onPay () {
