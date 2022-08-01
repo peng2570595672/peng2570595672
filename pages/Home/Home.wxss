@@ -404,8 +404,26 @@
 }
 .index .my-swiper .my-swiper-item image.micro_high_speed,
 .index .my-swiper .my-swiper-item image.micro_insurance_hcz,
-.index .my-swiper .my-swiper-item image.xiaoepinpin {
+.index .my-swiper .my-swiper-item image.xiaoepinpin,
+.index .my-swiper .my-swiper-item image.moving_integral {
   width: 470rpx;
   height: 195rpx !important;
   margin: 20rpx;
+}
+.index .moving_integral_pop-up {
+	width: 550rpx;
+	height: 650rpx;
+	background-color: #fcfcfc;
+	position: absolute;
+	z-index: 100;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+.index .moving_integral_pop-up .scroll_pop-up{
+	margin-left: 5%;
+	width: 90%;
+	height: 550rpx;
+	background-color: #fcfcfc;
+	border-bottom: 2rpx solid #ccc;
 }
