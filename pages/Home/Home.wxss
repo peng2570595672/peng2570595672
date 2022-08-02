@@ -414,6 +414,8 @@
 	width: 550rpx;
 	height: 650rpx;
 	background-color: #fcfcfc;
+	border-radius: 16rpx;
+	overflow: hidden;
 	position: absolute;
 	z-index: 100;
 	top: 50%;
@@ -423,7 +425,31 @@
 .index .moving_integral_pop-up .scroll_pop-up{
 	margin-left: 5%;
 	width: 90%;
-	height: 550rpx;
+	margin-top: 50rpx;
+	height: 500rpx;
 	background-color: #fcfcfc;
-	border-bottom: 2rpx solid #ccc;
+}
+.index .moving_integral_pop-up .scroll_pop-up view{
+	color: #686868;
+}
+.index .moving_integral_pop-up .scroll_pop-up view:nth-of-type(1){
+	color: #000;
+}
+.index .moving_integral_pop-up .btn_scroll{
+	border-top: 1rpx solid #ccc;
+	display: flex;
+}
+.index .moving_integral_pop-up .btn_scroll button{
+	border: none;
+	outline: none;
+	border-radius: 0rpx;
+	height: 100%;
+}
+.index .moving_integral_pop-up .btn_scroll button:nth-of-type(1){
+	flex: 12;
+	border-right: 0.5rpx solid #ccc;
+}
+.index .moving_integral_pop-up .btn_scroll button:nth-of-type(2){
+	flex: 12;
+	color: #3ca1ff;
 }

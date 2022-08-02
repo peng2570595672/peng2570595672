@@ -255,6 +255,15 @@
         "ticket/ticket",
         "webview/webview"
       ]
+    },
+    {
+      "root": "pages/moving_integral",
+      "name": "pages/moving_integral",
+      "pages": [
+        "bound_changyou/bound_changyou",
+        "unbound_changyou/unbound_changyou"
+
+      ]
     }
   ],
   "functionalPages": {
