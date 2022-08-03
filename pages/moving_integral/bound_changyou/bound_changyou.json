@@ -1,4 +1,7 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText": "移动积分兑通行券"
+  "navigationBarTitleText": "移动积分兑通行券",
+  "disableScroll": true,
+  "enablePullDownRefresh": true,
+  "navigationBarBackgroundColor": "#00B85C"
 }
