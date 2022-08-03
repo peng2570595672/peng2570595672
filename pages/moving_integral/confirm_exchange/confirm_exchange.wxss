@@ -1,0 +1,5 @@
+/* pages/moving_integral/confirm_exchange/confirm_exchange.wxss */
+.main {
+  height: 351rpx;
+  background: linear-gradient(#00B85C, #fff)
+}

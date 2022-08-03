@@ -1,0 +1,32 @@
+/* pages/moving_integral/exchange_fail/exchange_fail.wxss */
+.exchange_fail {
+  text-align: center;
+}
+.main1 {
+  display: flex;
+  justify-content: center;
+}
+.main1 .top_img {
+  width: 304rpx;
+  height: 214rpx;
+  /* background: url(https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPnge326806cdc0276a1eeb0e53bfed95318d7ef6eb123a5fde93513e37486138ed4)
+    0px 0px no-repeat;
+  background-size: 304rpx 228rpx;
+  margin-left: 80rpx; */
+  background-color: burlywood;
+  margin-top: 20rpx;
+}
+
+.exchange_fail view:nth-of-type(2) {
+  font-size: 44rpx;
+  font-family: PingFangSC-Regular;
+  line-height: 66rpx;
+  margin-top: 30rpx;
+}
+.exchange_fail button {
+  width: 240rpx;
+  height: 82rpx;
+  line-height: 82rpx;
+  font-size: 28rpx;
+  margin-top: 128rpx;
+}

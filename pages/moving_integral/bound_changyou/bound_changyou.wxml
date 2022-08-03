@@ -13,11 +13,20 @@
       <image src="../assets/bianzhu.png" style="width: 100%;height: 100%;" />
     </view>
     <view class="main3">
-      <view class="ticket_exchange">
-        <view class="upper" >
-          
+      <view class="ticket_exchange" wx:for="{{pass_ticket}}" wx:key="index" data-item="item">
+        <view class="upper">
+          <view class="upper_money">
+            <text>￥</text>
+            <text>{{item.price}}</text>
+          </view>
+          <text>通行券</text>
+          <text>{{item.integral}}移动积分</text>
         </view>
-        <view class="lower"></view>
+        <view class="lower">
+        
+          <button style="background-color: {{item.integral <= moving_integral ? 'rgba(255, 179, 59, 1)' : 'rgba(234, 234, 234, 1)'}}"
+                  catchtap="confirm_exchange" data-price="{{item.price}}" data-integral="{{item.integral}}" disabled="{{item.integral <= moving_integral ? false : true}}">立即兑换</button>
+        </view>
       </view>
     </view>
     <view class="main4">

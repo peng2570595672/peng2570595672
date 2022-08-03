@@ -1,0 +1,44 @@
+/* pages/moving_integral/exchange_success/exchange_success.wxss */
+.exchange_success {
+  text-align: center;
+}
+.main1 {
+  display: flex;
+  justify-content: center;
+}
+.main1 .top_img {
+  width: 304rpx;
+  height: 214rpx;
+  /* background: url(https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPnge326806cdc0276a1eeb0e53bfed95318d7ef6eb123a5fde93513e37486138ed4)
+    0px 0px no-repeat;
+  background-size: 304rpx 228rpx;
+  margin-left: 80rpx; */
+  background-color: burlywood;
+  margin-top: 20rpx;
+}
+.main2 {
+  margin-top: 30rpx;
+  font-size: 44rpx;
+}
+
+.exchange_success button {
+   width: 84%;
+   border-radius: 50rpx;
+   font-size: 34rpx;
+   font-family: PingFangSC-Medium;
+   
+}
+
+.exchange_success button:nth-of-type(1) {
+  background: linear-gradient(to right,#02B061,#73D650);
+  color: #fff;
+  margin-top: 120rpx;
+}
+
+.exchange_success button:nth-of-type(2) {
+  border: 1rpx solid #00B85C;
+  color:#00B85C;
+  margin-top: 30rpx;
+}
+
+

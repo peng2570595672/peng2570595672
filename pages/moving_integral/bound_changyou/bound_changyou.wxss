@@ -65,14 +65,14 @@
 
 .main .main3 .ticket_exchange .upper {
   width: 100%;
-  height: 65%;
+  height: 70%;
   background-color: #fff;
   position: relative;
   border-bottom: 1rpx dashed #E5E5E5 ;
 }
 .main .main3 .ticket_exchange .lower {
   width: 100%;
-  height: 35%;
+  height: 30%;
   background-color: #fff;
   position: relative;
 }
@@ -105,6 +105,64 @@
   z-index: 100;
 }
 
+.main .main3 .ticket_exchange .upper .upper_money{
+  position: relative;
+  font-family: PingFangSC-Regular;
+  color: rgba(0, 184, 92, 1);
+}
+
+.main .main3 .ticket_exchange .upper .upper_money text:nth-of-type(1){
+  position: absolute; 
+  bottom: 0rpx;
+  left: 20%;
+  font-size: 34rpx;
+}
+
+.main .main3 .ticket_exchange .upper .upper_money text:nth-of-type(2){
+  display: block;
+  width: 100%;
+  height: 150rpx;
+  font-size: 144rpx;
+  text-align: center;
+}
+
+.main .main3 .ticket_exchange .upper>text {
+  display: block;
+  text-align: center;
+  font-size: 34rpx;
+  margin-top: 25rpx;
+}
+
+.main .main3 .ticket_exchange .upper>text:nth-of-type(1){
+  color: rgba(0, 184, 92, 1);
+  overflow-wrap: break-word;
+  font-family: PingFangSC-Semibold;
+  /*  */
+  font-weight: bold;
+}
+
+.main .main3 .ticket_exchange .upper>text:nth-of-type(2){
+  overflow-wrap: break-word;
+  color: rgba(255, 192, 0, 1);
+  font-family: PingFangSC-Regular;
+  margin-top: 20rpx;
+}
+
+.main .main3 .ticket_exchange .lower button{
+  width: 80%;
+  height: 68rpx;
+  line-height: 68rpx;
+  text-align: center;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular;
+  /* font-weight: bold; */
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
 
 
 
@@ -115,6 +173,7 @@
   line-height: 80rpx;
   margin: 30rpx 5% 0 5%;
   background-color: #10C96C;
+  font-size: 28rpx;
   border-radius: 20rpx;
   opacity: 0.6;
   display: flex;
@@ -123,7 +182,8 @@
 
 .footers {
   text-align: center;
-  color: #8b8a8a;
+  color: #9b9999;
   text-align: center;
   margin-top: 140rpx;
+  font-size: 24rpx;
 }

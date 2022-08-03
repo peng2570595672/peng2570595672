@@ -1,1 +1,84 @@
 /* pages/moving_integral/unbound_changyou/unbound_changyou.wxss */
+.main1 {
+  height: 104rpx;
+  width: 90%;
+  margin: 0 5% 0 5%;
+  padding-top: 60rpx;
+  margin-bottom: 50rpx;
+}
+
+.main1 view {
+  text-align: left;
+  height: 32rpx;
+  overflow-wrap: break-word;
+  line-height: 32rpx;
+}
+
+.main1 view:nth-of-type(1) {
+  font-size: 34rpx;
+  margin-bottom: 40rpx;
+  text-indent: 1rem;
+}
+
+.main1 view:nth-of-type(2) {
+  text-align: left;
+  text-indent: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+.main1 view:nth-of-type(2) text:nth-of-type(1) {
+  font-size: 34rpx;
+}
+
+.page_container {
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.3);
+  z-index: 50;
+  position: absolute;
+  top: 0;
+}
+
+.moving_integral_pop-up {
+	width: 550rpx;
+	height: 650rpx;
+	background-color: #fcfcfc;
+	border-radius: 16rpx;
+	overflow: hidden;
+	position: absolute;
+	z-index: 100;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+.moving_integral_pop-up .scroll_pop-up{
+	margin-left: 5%;
+	width: 90%;
+	margin-top: 50rpx;
+	height: 500rpx;
+	background-color: #fcfcfc;
+}
+.moving_integral_pop-up .scroll_pop-up view{
+	color: #686868;
+}
+.index .moving_integral_pop-up .scroll_pop-up view:nth-of-type(1){
+	color: #000;
+}
+.moving_integral_pop-up .btn_scroll{
+	border-top: 1rpx solid #ccc;
+	display: flex;
+}
+.moving_integral_pop-up .btn_scroll button{
+	border: none;
+	outline: none;
+	border-radius: 0rpx;
+	height: 100%;
+}
+.moving_integral_pop-up .btn_scroll button:nth-of-type(1){
+	flex: 12;
+	border-right: 0.5rpx solid #ccc;
+}
+.moving_integral_pop-up .btn_scroll button:nth-of-type(2){
+	flex: 12;
+	color: #3ca1ff;
+}

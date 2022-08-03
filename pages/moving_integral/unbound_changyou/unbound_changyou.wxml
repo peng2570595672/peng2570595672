@@ -1,2 +1,32 @@
 <!--pages/moving_integral/unbound_changyou/unbound_changyou.wxml-->
-<text>pages/moving_integral/unbound_changyou/unbound_changyou.wxml</text>
+<view class="unbound_changyou">
+  <view class="main1">
+    <view>
+      <text>欢迎，{{phone_number}}</text>
+    </view>
+    <view>
+      <text>移动积分：{{moving_integral}}</text>
+      <text catchtap="btn">规则说明</text>
+    </view>
+  </view>
+  <!-- 遮罩层 -->
+  <view class="page_container" wx:if="{{movingIntegralControl}}"></view>
+
+
+  <view class="moving_integral_pop-up" wx:if="{{movingIntegralControl}}" >
+		<scroll-view class="scroll_pop-up"  scroll-y="{{true}}" scroll-top="true" show-scrollbar="true" enhanced>
+			<view>{{arr1.title}}</view>
+			<text>\n</text>
+			<view>{{arr1.text1}}</view>
+			<view>{{arr1.text2}}</view>
+			<view>{{arr1.text3}}</view>
+			<view>{{arr1.text4}}</view>
+		</scroll-view>
+		<view class="btn_scroll">
+			<button id="cancel" catchtap="btnMovingIntegral">取消</button>
+			<button id="confirm" catchtap="btnMovingIntegral">确认</button>
+		</view>
+	</view>
+
+
+</view>

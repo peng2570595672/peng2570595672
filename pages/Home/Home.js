@@ -1292,13 +1292,24 @@ Page({
 			movingIntegralControl: false
 		})
 		if (e.currentTarget.id === 'cancel') {
-			
 			console.log("点击取消");
 		} else{
-			wx.navigateTo({
-				url: "/pages/moving_integral/bound_changyou/bound_changyou"
+      // 已绑定 畅游积分
+			// wx.navigateTo({
+			// 	url: "/pages/moving_integral/bound_changyou/bound_changyou"
+      // })
+      // 未绑定 畅游积分
+      // wx.navigateTo({
+			// 	url: "/pages/moving_integral/unbound_changyou/unbound_changyou"
+      // })
+      
+      // 测试
+      // wx.navigateTo({
+			// 	url: "/pages/moving_integral/exchange_success/exchange_success"
+      // })
+      wx.navigateTo({
+				url: "/pages/moving_integral/exchange_fail/exchange_fail"
 			})
-			console.log("点击确认");
 		}
 	}
 });
