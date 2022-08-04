@@ -2,6 +2,7 @@
 .bound_changyou {
   width: 100wh;
   height: 100vh;
+  position: relative;
 }
 
 .main {
@@ -181,9 +182,12 @@
 }
 
 .footers {
-  text-align: center;
+  /* text-align: center; */
   color: #9b9999;
-  text-align: center;
-  margin-top: 140rpx;
-  font-size: 24rpx;
+  /* margin-top: 140rpx;
+  font-size: 24rpx; */
+  position: absolute;
+  bottom: 100rpx;
+  left: 20%;
+  transform: translateX(-10%);
 }

@@ -383,7 +383,7 @@ Page({
 										},
 										fail: () => {
 											showToastNoIcon(
-											'打开设置界面失败，请重试！');
+												'打开设置界面失败，请重试！');
 											util.getInsuranceOffer(orderId,
 												'116.115.40');
 										}
@@ -448,10 +448,10 @@ Page({
 		wx.login({
 			success: async (res) => {
 				const result = await util.getDataFromServersV2(
-				'consumer/member/common/applet/code', {
-					platformId: app.globalData.platformId, // 平台id
-					code: res.code // 从微信获取的code
-				});
+					'consumer/member/common/applet/code', {
+						platformId: app.globalData.platformId, // 平台id
+						code: res.code // 从微信获取的code
+					});
 				this.data.entranceList[1].isShow = !app.globalData.isContinentInsurance;
 				this.data.entranceList[2].isShow = app.globalData.isContinentInsurance;
 				this.data.bannerList.map(item => {
@@ -614,7 +614,7 @@ Page({
 
 			// let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
 			app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !==
-			undefined); // 筛选车主服务欠费
+				undefined); // 筛选车主服务欠费
 			list.map(item => {
 				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) :
 					util.getStatus(item);
@@ -650,9 +650,9 @@ Page({
 			const terminationOrder = passengerCarList.find(item => item.selfStatus === 1); // 查询客车第一条解约订单
 			const terminationTruckOrder = truckList.find(item => item.selfStatus === 1); // 查询货车第一条解约订单
 			const isAllActivation = activationOrder.length === passengerCarList
-			.length; // 是否客车全是激活订单 - true: 展示账单单状态
+				.length; // 是否客车全是激活订单 - true: 展示账单单状态
 			const isAllActivationTruck = activationTruckOrder.length === truckList
-			.length; // 是否货车全是激活订单 - true: 展示账单单状态
+				.length; // 是否货车全是激活订单 - true: 展示账单单状态
 			activationOrder = [...new Set(activationOrder)];
 			activationTruckOrder = [...new Set(activationTruckOrder)];
 			// 是否全是激活订单  是 - 拉取第一条订单  否 - 过滤激活订单,拉取第一条
@@ -672,7 +672,7 @@ Page({
 				passengerCarList,
 				isAllActivationTruck,
 				truckOrderInfo: terminationTruckOrder ||
-				passengerCarListNotTruckActivation, // 解约订单 || 拉取第一条
+					passengerCarListNotTruckActivation, // 解约订单 || 拉取第一条
 				passengerCarOrderInfo: terminationOrder ||
 					passengerCarListNotActivation // 解约订单 || 拉取第一条
 			});
@@ -927,7 +927,8 @@ Page({
 		wx.uma.trackEvent('index_for_order_details');
 		let model = this.data.recentlyTheBillInfo;
 		util.go(
-			`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
+			`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`
+			);
 	},
 	// 弹窗确认回调
 	onHandle() {
@@ -1016,7 +1017,8 @@ Page({
 		}
 		wx.uma.trackEvent('index_for_order_audit');
 		util.go(
-			`/pages/default/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}`);
+			`/pages/default/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}`
+			);
 	},
 	// 去预充
 	goRecharge(orderInfo) {
@@ -1257,7 +1259,8 @@ Page({
 				return;
 			}
 			util.go(
-				`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?contractStatus=${orderInfo.contractStatus}&ttContractStatus=${orderInfo.ttContractStatus}`);
+				`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?contractStatus=${orderInfo.contractStatus}&ttContractStatus=${orderInfo.ttContractStatus}`
+				);
 			return;
 		}
 		if (orderInfo.selfStatus === 2) {
@@ -1272,7 +1275,8 @@ Page({
 			if (app.globalData.newPackagePageData.type || orderInfo.isNewTrucks === 1) {
 				// 只有分对分套餐 || 只有总对总套餐
 				util.go(
-					`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`);
+					`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`
+					);
 			} else {
 				util.go(`/pages/${path}/choose_the_way_to_handle/choose_the_way_to_handle`);
 			}
@@ -1287,29 +1291,29 @@ Page({
 		util.go(`/pages/${path}/information_list/information_list`);
 	},
 	// 点击移动积分兑换ETC 高速通行券
-	btnMovingIntegral (e) {
+	btnMovingIntegral(e) {
 		this.setData({
 			movingIntegralControl: false
 		})
 		if (e.currentTarget.id === 'cancel') {
 			console.log("点击取消");
-		} else{
-      // 已绑定 畅游积分
-			// wx.navigateTo({
-			// 	url: "/pages/moving_integral/bound_changyou/bound_changyou"
-      // })
-      // 未绑定 畅游积分
-      // wx.navigateTo({
-			// 	url: "/pages/moving_integral/unbound_changyou/unbound_changyou"
-      // })
-      
-      // 测试
-      // wx.navigateTo({
-			// 	url: "/pages/moving_integral/exchange_success/exchange_success"
-      // })
-      wx.navigateTo({
-				url: "/pages/moving_integral/exchange_fail/exchange_fail"
+		} else {
+			// 已绑定 畅游积分
+			wx.navigateTo({
+				url: "/pages/moving_integral/bound_changyou/bound_changyou"
 			})
+			// 未绑定 畅游积分
+			// wx.navigateTo({
+			// 	url: "/pages/moving_integral/unbound_changyou/unbound_changyou"
+			// })
+
+			// 测试
+			// wx.navigateTo({
+			// 	url: "/pages/moving_integral/exchange_success/exchange_success"
+			// })
+			// wx.navigateTo({
+			// 	url: "/pages/moving_integral/exchange_fail/exchange_fail"
+			// })
 		}
 	}
 });
