@@ -40,6 +40,11 @@
     "backgroundColor": "#FFFFFF",
     "navigationBarTextStyle": "black"
   },
+  "requiredPrivateInfos": [
+    "chooseAddress",
+    "chooseLocation",
+    "getLocation"
+  ],
   "subpackages": [
     {
       "root": "pages/personal_center",
