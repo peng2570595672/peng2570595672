@@ -1,3 +1,4 @@
+// 获取画布图像
 function getCanvasImage(canvasId, imagePath, imageW, imageH, getImgsuccess) {
 	const ctx = wx.createCanvasContext(canvasId);
 	ctx.drawImage(imagePath, 0, 0, imageW, imageH);
@@ -22,6 +23,7 @@ function getCanvasImage(canvasId, imagePath, imageW, imageH, getImgsuccess) {
 		});
 	});
 }
+// 处理图片
 function  processingPictures (self, path, canvasId, width ,success) {
 	let selftWidth = width || 640;
 	wx.getImageInfo({
