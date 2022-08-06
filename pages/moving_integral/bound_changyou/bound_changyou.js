@@ -16,7 +16,23 @@ Page({
       {
         price: 10,
         integral: 500,
-      }
+      },
+      {
+        price: 15,
+        integral: 800,
+      },
+      {
+        price: 20,
+        integral: 1200,
+      },
+      {
+        price: 5,
+        integral: 200,
+      },
+      {
+        price: 10,
+        integral: 500,
+      },
     ]
   },
 

@@ -1,24 +1,17 @@
 <!--pages/moving_integral/bound_changyou/bound_changyou.wxml-->
 <view class="bound_changyou">
-  <view class="main">
-    <view class="main1">
-      <view>
-        <text>欢迎，{{phone_number}}</text>
-      </view>
-      <view>
-        <text>移动积分：{{moving_integral}}</text>
-      </view>
-    </view>
-    <view class="main2">
-      <image src="../assets/bianzhu.png" style="width: 100%;height: 100%;" />
-    </view>
-    <view class="main4">
-      <text>积分兑高速路费补贴最高立减20元</text>
-      <text>规则说明</text>
-    </view>
-    <view class="main3">
-      <view class="ticket_exchange" wx:for="{{pass_ticket}}" wx:key="index" data-item="item">
-        <view class="upper">
+  <view class="main_1">
+    <text>欢迎，{{phone_number}}</text>
+    <text>移动积分: {{moving_integral}}</text>
+    <view>图片</view>
+  </view>
+  <view class="main_2">
+    <text>积分兑高速路费补贴最高立减20元</text>
+    <text>规则说明</text>
+  </view>
+  <view class="main_3" >
+    <view wx:for="{{pass_ticket}}" wx:key="index" data-item="{{item}}" wx:if="index === " class="ticket_exchange">
+      <view class="upper">
           <view class="upper_money">
             <text>￥</text>
             <text>{{item.price}}</text>
@@ -30,8 +23,8 @@
           <button style="background-color: {{item.integral <= moving_integral ? 'rgba(255, 179, 59, 1)' : 'rgba(234, 234, 234, 1)'}}"
                   catchtap="confirm_exchange" data-price="{{item.price}}" data-integral="{{item.integral}}" disabled="{{item.integral <= moving_integral ? false : true}}">立即兑换</button>
         </view>
-      </view>
     </view>
+    
   </view>
   <view class="footers">
     <text>由上海分互链信息技术有限公司提供积分兑换</text>

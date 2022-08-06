@@ -1,84 +1,105 @@
 /* pages/moving_integral/bound_changyou/bound_changyou.wxss */
 .bound_changyou {
-  width: 100wh;
-  height: 100vh;
+  /* height: 100vh; */
+  position: relative;
+  background: linear-gradient(rgba(0, 184, 92, 1), rgba(246, 246, 246, 1))
+}
+
+.main_1 {
+  width: 100%;
+  height: 256rpx;
+  display: flex;
+  position: relative;
+  top: 6rpx;
+}
+
+.main_1 text {
+  font-size: 34rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FFFFFF;
+  position: absolute;
+  left: 64rpx;
+}
+
+.main_1 text:nth-of-type(1) {
+  top: 54rpx;
+}
+
+.main_1 text:nth-of-type(2) {
+  top: 126rpx;
+}
+
+.main_1 view {
+  width: 328rpx;
+  height: 256rpx;
+  background-color: sandybrown;
+  position: absolute;
+  right: 20rpx;
+}
+
+.main_2 {
+  width: 686rpx;
+  height: 74rpx;
+  border-radius: 16rpx;
+  /* background: linear-gradient(rgba(16, 201, 108, 1),rgba(157, 255, 206, 1)); */
+  background: linear-gradient(117deg, #10C96C 0%, #9DFFCE 100%);
+  position: relative;
+  top: 20rpx;
+  left: 32rpx;
+}
+
+.main_2 text {
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FFFFFF;
+  position: absolute;
+  top: 18rpx;
+}
+
+.main_2 text:nth-of-type(1) {
+  left: 32rpx;
+}
+
+.main_2 text:nth-of-type(2) {
+  right: 32rpx;
+}
+
+.main_3 {
+  width: 686rpx;
+  height: auto;
+  background: linear-gradient(42deg, rgba(255,255,255,0.1900) 0%, rgba(255,255,255,0.1300) 100%);
+  border-radius: 16rpx;
+  position: relative;
+  top: 40rpx;
+  left: 32rpx;
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 50rpx;
+  /* overflow: hidden; */
+}
+.main_3 .ticket_exchange {
+  width: 298rpx;
+  height: 432rpx;
+  margin-top: 46rpx;
+  margin-left: 30rpx;
+  background-color: snow;
   position: relative;
 }
-
-.main {
-  height: 80vh;
-  background: linear-gradient(#00B85C, #fff)
-}
-
-.main .main1 {
-  height: 104rpx;
-  width: 90%;
-  margin: 0 5% 0 5%;
-  color: #fff;
-  padding-top: 60rpx;
-  margin-bottom: 50rpx;
-}
-
-.main .main1 view {
-  text-align: left;
-  height: 32rpx;
-  overflow-wrap: break-word;
-  line-height: 32rpx;
-}
-
-.main .main1 view:nth-of-type(1) {
-  font-size: 34rpx;
-  margin-bottom: 40rpx;
-  text-indent: 1rem;
-}
-
-.main .main1 view:nth-of-type(2) {
-  font-size: 34rpx;
-  text-align: left;
-  text-indent: 1rem;
-}
-
-.main .main2 {
-  position: absolute;
-  width: 290rpx;
-  height: 243rpx;
-  top: 20rpx;
-  right: 5%;
-}
-
-.main .main3 {
-  width: 90%;
-  margin: 0 5% 0 5%;
-  height: 650rpx;
-  background-color: rgba(255, 255, 255, 0.3);
-  border-radius: 20rpx;
-  display: flex;
-}
-
-.main .main3 .ticket_exchange {
-  width: 42.5%;
-  height: 70%;
-  /* background-color: rgba(255, 255, 255, 0); */
-  margin: 15% 0 0 5%;
-  border-radius: 20rpx;
-  overflow: hidden;
-}
-
-.main .main3 .ticket_exchange .upper {
+.main_3 .ticket_exchange .upper {
   width: 100%;
   height: 70%;
-  background-color: #fff;
   position: relative;
   border-bottom: 1rpx dashed #E5E5E5 ;
 }
-.main .main3 .ticket_exchange .lower {
+.main_3 .ticket_exchange .lower {
   width: 100%;
   height: 30%;
-  background-color: #fff;
   position: relative;
 }
 
-.main .main3 .ticket_exchange .upper::before {
+.main_3 .ticket_exchange .upper::before {
   width: 60rpx;
   height: 60rpx;
   -webkit-clip-path: circle(34.0% at 0 49%);
@@ -91,8 +112,7 @@
   content: "";
   z-index: 100;
 }
-
-.main .main3 .ticket_exchange .upper::after {
+.main_3 .ticket_exchange .upper::after {
   width: 60rpx;
   height: 60rpx;
   -webkit-clip-path: circle(34.0% at 100% 50%);
@@ -106,57 +126,60 @@
   z-index: 100;
 }
 
-.main .main3 .ticket_exchange .upper .upper_money{
+.main_3 .ticket_exchange .upper .upper_money{
   position: relative;
-  font-family: PingFangSC-Regular;
-  color: rgba(0, 184, 92, 1);
+  color: #00B85C;
 }
 
-.main .main3 .ticket_exchange .upper .upper_money text:nth-of-type(1){
+.main_3 .ticket_exchange .upper .upper_money text:nth-of-type(1){
+  font-size: 34rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
   position: absolute; 
   bottom: 0rpx;
-  left: 20%;
-  font-size: 34rpx;
+  left: 10%;
 }
 
-.main .main3 .ticket_exchange .upper .upper_money text:nth-of-type(2){
+.main_3 .ticket_exchange .upper .upper_money text:nth-of-type(2){
   display: block;
   width: 100%;
   height: 150rpx;
   font-size: 144rpx;
+  font-weight: 600;
+  font-family: PingFangSC-Semibold, PingFang SC;
   text-align: center;
 }
 
-.main .main3 .ticket_exchange .upper>text {
+.main_3 .ticket_exchange .upper>text {
   display: block;
   text-align: center;
   font-size: 34rpx;
   margin-top: 25rpx;
 }
 
-.main .main3 .ticket_exchange .upper>text:nth-of-type(1){
+.main_3 .ticket_exchange .upper>text:nth-of-type(1){
   color: rgba(0, 184, 92, 1);
   overflow-wrap: break-word;
-  font-family: PingFangSC-Semibold;
-  /*  */
-  font-weight: bold;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
 }
 
-.main .main3 .ticket_exchange .upper>text:nth-of-type(2){
+.main_3 .ticket_exchange .upper>text:nth-of-type(2){
   overflow-wrap: break-word;
   color: rgba(255, 192, 0, 1);
-  font-family: PingFangSC-Regular;
+  font-family: PingFangSC-Regular, PingFang SC;
   margin-top: 20rpx;
+  font-weight: 400;
 }
 
-.main .main3 .ticket_exchange .lower button{
+.main_3 .ticket_exchange .lower button{
   width: 80%;
   height: 68rpx;
   line-height: 68rpx;
   text-align: center;
   font-size: 28rpx;
-  font-family: PingFangSC-Regular;
-  /* font-weight: bold; */
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
   color: #fff;
   position: absolute;
   top: 50%;
@@ -165,33 +188,15 @@
 }
 
 
-
-
-.main .main4 {
-  width: 90%;
-  height: 80rpx;
-  color: #fff;
-  line-height: 80rpx;
-  margin: 50rpx 5% 30rpx 5%;
-  background: linear-gradient(117deg, #10C96C 0%, #9DFFCE 100%);
-  border-radius: 16rpx;
-  /* opacity: 0.25; */
-  /* background: url(../assets/bound1.png); */
-  font-size: 28rpx;
-  opacity: 0.8;
-  display: flex;
-  justify-content: space-around;
-}
-
 .footers {
   width: 528rpx;
-  height: 48rpx;
-  position: fixed;
-  left: 112rpx;
-  bottom: 102rpx;
+  height: 200rpx;
+  /* background-color: khaki; */
   font-size: 24rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: #99999D;
   text-align: center;
+  line-height: 200rpx;
+  margin: 40rpx 0rpx 0rpx 112rpx;
 }
