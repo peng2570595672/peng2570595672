@@ -1,6 +1,42 @@
 <!--pages/moving_integral/confirm_exchange/confirm_exchange.wxml-->
 <view class="confirm_exchange">
   <view class="main">
-    <image src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPnge192867f674f5af83aa4f1c42ef79b791ce4a4ad94bfd8ee599e326b97acd8a9"></image>
+    <view class="progress_bar">
+      <text class="bar_1">
+        <text class="bar_2"></text>
+      </text>
+      <view class="picure_1">图片1</view>
+      <view class="exchange_tip">兑换1</view>
+      <view class="picure_1">图片2</view>
+      <view class="exchange_tip">兑换2</view>
+      <view class="picure_1">图片3</view>
+    </view>
+    <view class="text_1">
+      <text>移动积分</text>
+      <text>300</text>
+      <text>兑换成功</text>
+      <text>畅游积分</text>
+    </view>
+    <view class="pass">
+      <view>
+        <text>通行券</text>
+        <text>5元</text>
+      </view>
+      <view>
+        <text>ETC+通行费满5元可用 自领取之日起30天内有效</text>
+      </view>
+    </view>
   </view>
+  <view class="main_1">
+    <view>
+      <text>绑定账户</text><text>19855565656</text>
+    </view>
+    <view>
+      <text>验证码</text><text>请输入验证码</text><button>获取</button>
+    </view>
+    <view>
+      *本次兑换将消耗您对应的移动积分转换为畅由分后，再使用畅由分完成商品兑换。当您点击“确认兑换”时，则默认您已接受移动积分转换为畅由分后不可回退。  
+    </view>
+  </view>
+  <button type="primary" class="ok">确认兑换</button>
 </view>

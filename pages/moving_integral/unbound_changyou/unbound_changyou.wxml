@@ -27,6 +27,8 @@
 			<button id="confirm" catchtap="btnMovingIntegral">确认</button>
 		</view>
 	</view>
-
+  <view class="footers">
+    <text>由上海分互链信息技术有限公司提供积分兑换</text>
+  </view>
 
 </view>

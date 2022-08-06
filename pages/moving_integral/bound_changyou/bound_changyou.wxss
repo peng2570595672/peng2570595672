@@ -172,22 +172,26 @@
   height: 80rpx;
   color: #fff;
   line-height: 80rpx;
-  margin: 30rpx 5% 0 5%;
-  background-color: #10C96C;
+  margin: 50rpx 5% 30rpx 5%;
+  background: linear-gradient(117deg, #10C96C 0%, #9DFFCE 100%);
+  border-radius: 16rpx;
+  /* opacity: 0.25; */
+  /* background: url(../assets/bound1.png); */
   font-size: 28rpx;
-  border-radius: 20rpx;
-  opacity: 0.6;
+  opacity: 0.8;
   display: flex;
   justify-content: space-around;
 }
 
 .footers {
-  /* text-align: center; */
-  color: #9b9999;
-  /* margin-top: 140rpx;
-  font-size: 24rpx; */
-  position: absolute;
-  bottom: 100rpx;
-  left: 20%;
-  transform: translateX(-10%);
+  width: 528rpx;
+  height: 48rpx;
+  position: fixed;
+  left: 112rpx;
+  bottom: 102rpx;
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #99999D;
+  text-align: center;
 }
