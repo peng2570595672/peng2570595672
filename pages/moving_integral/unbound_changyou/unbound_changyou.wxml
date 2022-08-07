@@ -10,23 +10,43 @@
     </view>
   </view>
   <!-- 遮罩层 -->
-  <view class="page_container" wx:if="{{movingIntegralControl}}"></view>
+  <view class="page_container" wx:if="{{mask}}"></view>
 
 
-  <view class="moving_integral_pop-up" wx:if="{{movingIntegralControl}}" >
-		<scroll-view class="scroll_pop-up"  scroll-y="{{true}}" scroll-top="true" show-scrollbar="true" enhanced>
-			<view>{{arr1.title}}</view>
-			<text>\n</text>
-			<view>{{arr1.text1}}</view>
-			<view>{{arr1.text2}}</view>
-			<view>{{arr1.text3}}</view>
-			<view>{{arr1.text4}}</view>
-		</scroll-view>
-		<view class="btn_scroll">
-			<button id="cancel" catchtap="btnMovingIntegral">取消</button>
-			<button id="confirm" catchtap="btnMovingIntegral">确认</button>
-		</view>
-	</view>
+  <view class="moving_integral_pop-up" wx:if="{{movingIntegralControl}}">
+    <scroll-view class="scroll_pop-up" scroll-y="true" 	bindscroll="get_scroll_info">
+      <view>{{arr1.title}}</view>
+      <view>{{arr1.text1}}<text>\n</text>{{arr1.text2}}<text>\n</text>{{arr1.text3}}<text>\n</text>{{arr1.text4}}</view>
+    </scroll-view>
+    <view class="scrollBar" style="height: {{sliderHeight}}rpx;">
+        <view class="bar" style="margin-top: {{scrollTop}}rpx;height: {{slideBar}}rpx;"></view>
+      </view>
+    <view class="solid"></view>
+    <view class="btn_scroll">
+      <button id="cancel" catchtap="btnMovingIntegral">取消</button>
+      <button id="confirm" catchtap="btnMovingIntegral">继续</button>
+    </view>
+  </view>
+
+  <!-- 验证码弹窗 -->
+  <view class="verification_code" wx:if="{{verification_code}}">
+    <view>
+      <text>积分兑换服务需短信验证码确认\n</text>
+      <text>验证码已下发至<text class="number_phone">{{15870105554}}</text></text>
+    </view>
+    <view>
+      <input type="text" maxlength="1"  name="" id=""/>
+      <input type="text" maxlength="1"  name="" id=""/>
+      <input type="text" maxlength="1"  name="" id=""/>
+      <input type="text" maxlength="1"  name="" id=""/>
+      <input type="text" maxlength="1"  name="" id=""/>
+      <input type="text" maxlength="1"  name="" id=""/>
+    </view>
+    <button catchtap="btn_verification_code">{{get_code}}
+      <text wx:if="time_flag"><text>(</text>{{set_time_out}}<text>)</text></text>
+    </button>
+  </view>
+
   <view class="footers">
     <text>由上海分互链信息技术有限公司提供积分兑换</text>
   </view>

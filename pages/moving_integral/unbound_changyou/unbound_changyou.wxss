@@ -1,9 +1,10 @@
 /* pages/moving_integral/unbound_changyou/unbound_changyou.wxss */
-.unbound_changyou{
+.unbound_changyou {
   position: relative;
   width: 100%;
   height: 100vh;
 }
+
 .main1 {
   height: 104rpx;
   width: 90%;
@@ -39,16 +40,16 @@
 .page_container {
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(76, 76, 76, 0.8000);
   z-index: 50;
   position: absolute;
   top: 0;
 }
 
 .moving_integral_pop-up {
-  width: 550rpx;
-  height: 650rpx;
-  background-color: #fcfcfc;
+  width: 640rpx;
+  height: 892rpx;
+  background-color: #fff;
   border-radius: 16rpx;
   overflow: hidden;
   position: absolute;
@@ -58,50 +59,165 @@
   transform: translate(-50%, -50%);
 }
 
-.moving_integral_pop-up .scroll_pop-up {
-  margin-left: 5%;
-  width: 90%;
-  margin-top: 50rpx;
-  height: 500rpx;
-  background-color: #fcfcfc;
+.moving_integral_pop-up>.scroll_pop-up {
+  width: 568rpx;
+  height: 684rpx;
+  color: #000000;
+  line-height: 46rpx;
+  margin: 64rpx 0 0 48rpx;
+
 }
+
 
 .moving_integral_pop-up .scroll_pop-up view {
-  color: #686868;
+  width: 532rpx;
+  height: auto;
 }
 
-.index .moving_integral_pop-up .scroll_pop-up view:nth-of-type(1) {
-  color: #000;
+.moving_integral_pop-up .scroll_pop-up view:nth-of-type(1) {
+  font-size: 26rpx;
+  font-weight: 500;
+  font-family: PingFangSC-Medium, PingFang SC;
+  color: #000000;
+  padding-bottom: 20rpx;
+}
+
+.moving_integral_pop-up .scroll_pop-up view:nth-of-type(2) {
+  font-size: 24rpx;
+  font-weight: 400;
+  font-family: PingFangSC-Regular, PingFang SC;
+  padding-bottom: 20rpx;
+}
+
+/* 滚动条 */
+.scrollBar {
+  width: 12rpx;
+  border-radius: 6rpx;
+  position: absolute;
+  top: 76rpx;
+  right: 24rpx;
+  background-color: rgba(240, 240, 240, 1);
+}
+
+.scrollBar .bar {
+  width: 12rpx;
+  border-radius: 6rpx;
+  background-color: rgba(216, 216, 216, 1);
+}
+
+.moving_integral_pop-up .solid {
+  width: 100%;
+  height: 2rpx;
+  background: rgba(0, 0, 0, 0.1000);
+  margin-top: 36rpx;
 }
 
 .moving_integral_pop-up .btn_scroll {
-  border-top: 1rpx solid #ccc;
+  width: 100%;
+  height: 106rpx;
   display: flex;
 }
 
 .moving_integral_pop-up .btn_scroll button {
-  border: none;
   outline: none;
-  border-radius: 0rpx;
+  border: none;
+  width: 50%;
   height: 100%;
+  border-radius: 0;
+  font-size: 34rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  letter-spacing: 2rpx;
+  line-height: 106rpx;
+  background-color: #fff;
 }
 
 .moving_integral_pop-up .btn_scroll button:nth-of-type(1) {
-  flex: 12;
-  border-right: 0.5rpx solid #ccc;
+  border-right: 1rpx solid rgba(0, 0, 0, 0.1000);
+  color: #000000;
 }
 
 .moving_integral_pop-up .btn_scroll button:nth-of-type(2) {
-  flex: 12;
-  color: #3ca1ff;
+  color: #576B95;
 }
+
+/* 验证码弹窗 */
+.verification_code {
+  width: 640rpx;
+  height: 464rpx;
+  border-radius: 16rpx;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+
+.verification_code view:nth-of-type(1) {
+  width: 544rpx;
+  height: 96rpx;
+  text-align: center;
+  margin: 64rpx 48rpx 0 48rpx;
+  font-size: 34rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #000000;
+  line-height: 48rpx;
+}
+
+.verification_code view:nth-of-type(1) .number_phone {
+  color: rgba(25, 191, 107, 1);
+}
+
+.verification_code view:nth-of-type(2) {
+  width: 512rpx;
+  height: 82rpx;
+  position: relative;
+  top: 34rpx;
+  left: 64rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.verification_code view:nth-of-type(2) input {
+  display: inline-block;
+  width: 68rpx;
+  height: 82rpx;
+  text-align: center;
+  font-size: 70rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #00B85C;
+  line-height: 98rpx;
+  border-bottom: 6rpx solid rgba(216, 216, 216, 1);
+  margin-top: -6rpx;
+}
+
+.verification_code button {
+  width: 240rpx;
+  height: 48rpx;
+  font-size: 34rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #000000;
+  line-height: 48rpx;
+  background-color: #fff;
+  border: none;
+  
+  position: relative;
+  top: 100rpx;
+}
+
+
+
 
 .footers {
   width: 528rpx;
   height: 48rpx;
   position: fixed;
   left: 112rpx;
-  bottom: 102rpx;
+  bottom: 82rpx;
   font-size: 24rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
