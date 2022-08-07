@@ -1,4 +1,5 @@
 // pages/moving_integral/exchange_fail/exchange_fail.js
+import { uploadFile_1 } from '../../../utils/util'
 Page({
 
   /**
@@ -12,7 +13,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    uploadFile_1()
   },
 
   /**

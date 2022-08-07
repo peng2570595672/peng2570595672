@@ -142,11 +142,11 @@
             next-margin="250rpx"
             circular="{{true}}">
         <swiper-item class="my-swiper-item" wx:for="{{bannerList}}" wx:key="index" catchtap="onClickSwiper" data-item="{{item}}" wx:if="{{item.isShow}}">
-            <image src="{{item.img}}" mode="widthFix" class="{{item.url}}"/>
+            <image src="{{item.img}}" mode="widthFix" class="{{index === 3 ? img_1 : item.url}}"/>
         </swiper-item>
     </swiper>
     <!--	轮播图结束-->
-	
+    
 	<!-- @cyl -->
 	<view class="moving_integral_pop-up" wx:if="{{movingIntegralControl}}" >
 		<scroll-view class="scroll_pop-up"  scroll-y="{{true}}" scroll-top="true" show-scrollbar="true" enhanced>
@@ -162,7 +162,6 @@
 			<button id="confirm" catchtap="btnMovingIntegral">确认</button>
 		</view>
 	</view>
-	
     <!--	弹窗开始-->
     <popup id='dialog' dialogContent="{{dialogContent}}" bind:onHandle="onHandle"></popup>
     <!--	弹窗结束-->

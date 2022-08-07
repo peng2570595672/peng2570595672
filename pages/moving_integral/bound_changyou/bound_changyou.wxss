@@ -33,20 +33,30 @@
 .main_1 view {
   width: 328rpx;
   height: 256rpx;
-  background-color: sandybrown;
   position: absolute;
   right: 20rpx;
+  overflow: hidden;
+}
+.main_1 view image {
+  width: 100%;
+  height: 100%;
 }
 
 .main_2 {
   width: 686rpx;
   height: 74rpx;
   border-radius: 16rpx;
-  /* background: linear-gradient(rgba(16, 201, 108, 1),rgba(157, 255, 206, 1)); */
-  background: linear-gradient(117deg, #10C96C 0%, #9DFFCE 100%);
   position: relative;
   top: 20rpx;
   left: 32rpx;
+}
+.main_2 view {
+  width: 686rpx;
+  height: 74rpx;
+  border-radius: 16rpx;
+  background: url("https://file.cyzl.com/g001/M00/91/D0/oYYBAGLvgdiAUi7dAAAUGwcw6jI836.png") no-repeat;
+  background-size: 100% 100%;
+  opacity: 0.25;
 }
 
 .main_2 text {
@@ -56,6 +66,7 @@
   color: #FFFFFF;
   position: absolute;
   top: 18rpx;
+  opacity: 1;
 }
 
 .main_2 text:nth-of-type(1) {
@@ -69,7 +80,6 @@
 .main_3 {
   width: 686rpx;
   height: auto;
-  background: linear-gradient(42deg, rgba(255,255,255,0.1900) 0%, rgba(255,255,255,0.1300) 100%);
   border-radius: 16rpx;
   position: relative;
   top: 40rpx;
@@ -77,21 +87,32 @@
   display: flex;
   flex-wrap: wrap;
   padding-bottom: 50rpx;
-  /* overflow: hidden; */
+}
+
+.main_3>view:nth-of-type(1) {
+  position: absolute;
+  width: 686rpx;
+  height: 100%;
+  border-radius: 16rpx;
+  background: url('https://file.cyzl.com/g001/M07/91/D0/oYYBAGLvg0uAL94KAAAKhAa7I30472.png') no-repeat;
+  background-size: 100% 100%;
+  opacity: 0.25;
 }
 .main_3 .ticket_exchange {
   width: 298rpx;
   height: 432rpx;
   margin-top: 46rpx;
   margin-left: 30rpx;
-  background-color: snow;
+  background: url(https://file.cyzl.com/g001/M07/91/D0/oYYBAGLvhTKAGehJAAAEnD2rknU775.png) no-repeat;
+  background-size: 100% 100%;
+  z-index: 100;
   position: relative;
 }
 .main_3 .ticket_exchange .upper {
   width: 100%;
   height: 70%;
   position: relative;
-  border-bottom: 1rpx dashed #E5E5E5 ;
+  
 }
 .main_3 .ticket_exchange .lower {
   width: 100%;
@@ -99,32 +120,6 @@
   position: relative;
 }
 
-.main_3 .ticket_exchange .upper::before {
-  width: 60rpx;
-  height: 60rpx;
-  -webkit-clip-path: circle(34.0% at 0 49%);
-  clip-path: circle(34.0% at 0 49%);
-  background: linear-gradient(#a7edd4,#b6f0db);
-  transform: translateY(30rpx);
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  content: "";
-  z-index: 100;
-}
-.main_3 .ticket_exchange .upper::after {
-  width: 60rpx;
-  height: 60rpx;
-  -webkit-clip-path: circle(34.0% at 100% 50%);
-  clip-path: circle(34.0% at 100% 50%);
-  background: linear-gradient(#a7edd4,#b6f0db);
-  transform: translateY(30rpx);
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  content: "";
-  z-index: 100;
-}
 
 .main_3 .ticket_exchange .upper .upper_money{
   position: relative;
@@ -145,7 +140,7 @@
   width: 100%;
   height: 150rpx;
   font-size: 144rpx;
-  font-weight: 600;
+  font-weight: 400;
   font-family: PingFangSC-Semibold, PingFang SC;
   text-align: center;
 }

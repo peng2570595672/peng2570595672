@@ -3,13 +3,15 @@
   <view class="main_1">
     <text>欢迎，{{phone_number}}</text>
     <text>移动积分: {{moving_integral}}</text>
-    <view>图片</view>
+    <view><image src="../assets/money2.png"/></view>
   </view>
   <view class="main_2">
+    <view></view>
     <text>积分兑高速路费补贴最高立减20元</text>
     <text>规则说明</text>
   </view>
   <view class="main_3" >
+    <view></view>
     <view wx:for="{{pass_ticket}}" wx:key="index" data-item="{{item}}" wx:if="index === " class="ticket_exchange">
       <view class="upper">
           <view class="upper_money">
@@ -24,7 +26,6 @@
                   catchtap="confirm_exchange" data-price="{{item.price}}" data-integral="{{item.integral}}" disabled="{{item.integral <= moving_integral ? false : true}}">立即兑换</button>
         </view>
     </view>
-    
   </view>
   <view class="footers">
     <text>由上海分互链信息技术有限公司提供积分兑换</text>

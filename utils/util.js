@@ -314,6 +314,7 @@ function showToastNoIcon(content) {
 
 // 上传图片 需要识别
 function uploadOcrFile(filePath, type, fail, success, complete, onProgressUpdate) {
+	console.log("你好");
 	let requestTask = wx.uploadFile({
 		url: app.globalData.uploadOcrUrl, // 仅为示例，非真实的接口地址
 		filePath: filePath,
@@ -342,6 +343,11 @@ function uploadOcrFile(filePath, type, fail, success, complete, onProgressUpdate
 
 // 上传图片 不需要是被
 function uploadFile(filePath, fail, success, complete, onProgressUpdate) {
+	console.log(filePath);
+	console.log(fail);
+	console.log(success);
+	console.log(complete);
+	console.log(onProgressUpdate);
 	let requestTask = wx.uploadFile({
 		url: app.globalData.uploadUrl, // 仅为示例，非真实的接口地址
 		filePath: filePath,
@@ -350,16 +356,23 @@ function uploadFile(filePath, fail, success, complete, onProgressUpdate) {
 			'Content-Type': 'multipart/form-data'
 		},
 		success: (res) => {
+			console.log("成功");
+			console.log(res.data);
 			success && success(res.data);
 		},
 		fail: (res) => {
+			console.log(filePath);
+			console.log(res);
+			console.log("失败");
 			fail && fail(res);
 		},
 		complete: () => {
+			console.log("1");
 			complete && complete();
 		}
 	});
 	requestTask.onProgressUpdate((res) => {
+		console.log("你好111");
 		onProgressUpdate && onProgressUpdate(res);
 	});
 }
@@ -1640,6 +1653,25 @@ function alertPayment (etcMoney, isTruck) {
 		}
 	});
 }
+
+// 上传图片 并返回url 地址
+function uploadFile_1() {
+  wx.chooseImage({
+    success (res) {
+      console.log(res.tempFilePaths)
+      const tempFilePaths = res.tempFilePaths
+      wx.uploadFile({
+        url: 'https://file.cyzl.com/file/upload', //仅为示例，非真实的接口地址
+        filePath: tempFilePaths[0],
+        name: 'file',
+        success (res){
+          const data = JSON.parse(res.data)
+          console.log(data.data[0].fileUrl)
+        }
+      })
+    }
+  })
+}
 module.exports = {
 	setApp,
 	formatNumber,
@@ -1688,5 +1720,6 @@ module.exports = {
 	updateOrderContractMappingBankAccountId,
 	queryContractForTruckHandling,
 	getV2BankId,
-	weChatSigning
+  weChatSigning,
+  uploadFile_1
 };

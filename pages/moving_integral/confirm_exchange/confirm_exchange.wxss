@@ -7,8 +7,9 @@
 .main {
   height: 574rpx;
   /* 背景是一张图片 */
-  background: linear-gradient(#00B85C, #F6F6F6);
-  /* background: url(https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng0edfb641d2f7bcd8eb901a733ddc55247e76b2b538b2757fbb55d2c5cce99334); */
+  /* background: url(https://file.cyzl.com/g001/M00/91/D1/oYYBAGLviPuAdHpjAAAljm3kCGw424.png) no-repeat;
+  background-size: 100% 100%; */
+  background: linear-gradient(rgba(0, 184, 92, 1),rgba(255, 255, 255, 1));
 }
 
 .main .progress_bar {
@@ -48,18 +49,24 @@
 .main .progress_bar .picure_1 {
   width: 72rpx;
   height: 62rpx;
-  background-color: pink;
+  
 }
 
 .main .progress_bar .picure_1:nth-of-type(1) {
+  background: url(https://file.cyzl.com/g001/M00/91/D0/oYYBAGLvhtOAO0EUAAAJSxVRXEI753.png) no-repeat;
+  background-size: 100% 100%;
   left: 90rpx;
 }
 
 .main .progress_bar .picure_1:nth-of-type(3) {
+  background: url(https://file.cyzl.com/g001/M00/91/D1/oYYBAGLvh7GAd-TQAAAJchFmr5Y024.png) no-repeat;
+  background-size: 100% 100%;
   left: 334rpx;
 }
 
 .main .progress_bar .picure_1:nth-of-type(5) {
+  background: url(https://file.cyzl.com/g001/M00/91/D1/oYYBAGLvh92AJfsXAAAcoq6SSws893.png) no-repeat;
+  background-size: 100% 100%;
   left: 580rpx;
 }
 
@@ -118,7 +125,8 @@
   width: 686rpx;
   height: 174rpx;
   display: flex;
-  background-color: #fff;
+  background: url(https://file.cyzl.com/g001/M07/91/D0/oYYBAGLvhfmAO1GyAAAtzfPK9L8903.png) no-repeat;
+  background-size: 100% 100%;
   position: relative;
   top: 200rpx;
   left: 32rpx;

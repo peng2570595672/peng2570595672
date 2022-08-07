@@ -71,7 +71,7 @@ Page({
 			},
 			// @cyl
 			{
-				img: 'https://file.cyzl.com/g001/M07/83/64/oYYBAGJzZImAaHqlAAKimDHtunU897.png',
+				img: 'https://file.cyzl.com/g001/M00/91/CF/oYYBAGLvfp2AJ6_aAAEiO5l6BYc353.png',
 				url: 'moving_integral',
 				isShow: !app.globalData.isContinentInsurance,
 				statisticsEvent: 'index_moving_integral'
@@ -123,6 +123,8 @@ Page({
 		app.globalData.isTruckHandling = false;
 		app.globalData.isNeedReturnHome = false;
 		this.login();
+		
+    
 	},
 	async onShow() {
 		this.setData({
@@ -1292,6 +1294,7 @@ Page({
 	},
 	// 点击移动积分兑换ETC 高速通行券
 	btnMovingIntegral(e) {
+     
 		this.setData({
 			movingIntegralControl: false
 		})
@@ -1299,9 +1302,9 @@ Page({
 			console.log("点击取消");
 		} else {
 			// 已绑定 畅游积分
-			wx.navigateTo({
-				url: "/pages/moving_integral/bound_changyou/bound_changyou"
-			})
+			// wx.navigateTo({
+			// 	url: "/pages/moving_integral/bound_changyou/bound_changyou"
+			// })
 			// 未绑定 畅游积分
 			// wx.navigateTo({
 			// 	url: "/pages/moving_integral/unbound_changyou/unbound_changyou"
@@ -1311,9 +1314,9 @@ Page({
 			// wx.navigateTo({
 			// 	url: "/pages/moving_integral/exchange_success/exchange_success"
 			// })
-			// wx.navigateTo({
-			// 	url: "/pages/moving_integral/exchange_fail/exchange_fail"
-			// })
+			wx.navigateTo({
+				url: "/pages/moving_integral/exchange_fail/exchange_fail"
+			})
 		}
 	}
 });

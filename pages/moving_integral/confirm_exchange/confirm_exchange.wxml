@@ -5,11 +5,11 @@
       <text class="bar_1">
         <text class="bar_2"></text>
       </text>
-      <view class="picure_1">图片1</view>
-      <view class="exchange_tip">兑换1</view>
-      <view class="picure_1">图片2</view>
-      <view class="exchange_tip">兑换2</view>
-      <view class="picure_1">图片3</view>
+      <view class="picure_1"></view>
+      <view class="exchange_tip">兑换</view>
+      <view class="picure_1"></view>
+      <view class="exchange_tip">兑换</view>
+      <view class="picure_1"></view>
     </view>
     <view class="text_1">
       <text>移动积分</text>

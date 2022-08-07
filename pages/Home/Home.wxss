@@ -410,6 +410,8 @@
   height: 195rpx !important;
   margin: 20rpx;
 }
+
+
 .index .moving_integral_pop-up {
 	width: 550rpx;
 	height: 650rpx;
@@ -452,4 +454,8 @@
 .index .moving_integral_pop-up .btn_scroll button:nth-of-type(2){
 	flex: 12;
 	color: #3ca1ff;
+}
+.img_1 {
+  width: 504rpx !important;
+  height: 195rpx !important;
 }

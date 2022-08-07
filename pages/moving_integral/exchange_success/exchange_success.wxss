@@ -8,13 +8,12 @@
 }
 .main1 .top_img {
   width: 304rpx;
-  height: 214rpx;
-  /* background: url(https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPnge326806cdc0276a1eeb0e53bfed95318d7ef6eb123a5fde93513e37486138ed4)
-    0px 0px no-repeat;
-  background-size: 304rpx 228rpx;
-  margin-left: 80rpx; */
-  background-color: burlywood;
+  height: 238rpx;
+  background: url(https://file.cyzl.com/g001/M00/91/D2/oYYBAGLvjN-AFM1bAABabvB8T8g393.png) no-repeat;
+  background-size: 100% 100%;
   margin-top: 20rpx;
+  position: relative;
+  top: 22rpx;
 }
 .main2 {
   margin-top: 30rpx;
@@ -22,15 +21,16 @@
 }
 
 .exchange_success button {
-   width: 84%;
+   width: 610rpx;
    border-radius: 50rpx;
    font-size: 34rpx;
-   font-family: PingFangSC-Medium;
-   
+   font-weight: 500;
+   font-family: PingFangSC-Medium, PingFang SC;
 }
 
 .exchange_success button:nth-of-type(1) {
   background: linear-gradient(to right,#02B061,#73D650);
+  box-shadow: 0px 8rpx 10rpx 0px rgba(104,211,63,0.2000);
   color: #fff;
   margin-top: 120rpx;
 }

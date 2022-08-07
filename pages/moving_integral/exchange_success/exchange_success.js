@@ -1,4 +1,5 @@
 // pages/moving_integral/exchange_success/exchange_success.js
+// import { uploadFile_1 } from '../../../utils/util'
 Page({
 
   /**

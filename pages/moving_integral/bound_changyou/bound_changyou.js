@@ -1,11 +1,12 @@
 // pages/moving_integral/bound_changyou/bound_changyou.js
+import { mobilePhoneReplace, uploadFile_1 } from '../../../utils/util'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    phone_number: '15870105857'.replace(/(\d{3})\d{4}(\d{4})/, "$1****$2"),	//电话号码 隐藏号码的中间四位
+    phone_number: mobilePhoneReplace('15870105857'),	//电话号码 隐藏号码的中间四位
     moving_integral: 399,	//移动积分
     // flag: false, //根据是否绑定控制页面元素的显示与隐藏
     pass_ticket: [
@@ -40,36 +41,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    
+    // 调用图片上传返回地址函数
+    // uploadFile_1()
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
   // 确认兑换
   confirm_exchange (e) {
     const value = e.currentTarget.dataset
