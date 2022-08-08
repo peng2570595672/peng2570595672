@@ -1,5 +1,5 @@
 // pages/moving_integral/bound_changyou/bound_changyou.js
-import { mobilePhoneReplace, uploadFile_1 } from '../../../utils/util'
+import { mobilePhoneReplace} from '../../../utils/util'
 Page({
 
   /**

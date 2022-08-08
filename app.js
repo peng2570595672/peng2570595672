@@ -120,7 +120,7 @@ App({
 		 */
 		_fmOpt: {
 		  partnerCode: "tongdun",
-		  appName: "tongdun_web",
+		  appName: "changyou_web",
 		  // 生产环境开启该选项
 		  // env: "PRODUCTION"
 		}
@@ -386,4 +386,5 @@ App({
 			}
 		}, this.globalData.userInfo.accessToken);
 	}
+	
 });

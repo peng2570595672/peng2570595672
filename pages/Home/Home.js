@@ -3,6 +3,14 @@ import {
 } from '../../utils/utils';
 
 /**
+ * @author cyl
+ * 同盾
+ * 引用设备指纹SDK文件，两种方式均可，es6的方式推荐在小程序框架内使用
+ */
+var FMAgent = require('../../fmsdk/fm-1.6.0-umd.min.js');
+import chanyou from '../../utils/changyou'
+
+/**
  * @author 狂奔的蜗牛
  * @desc 首页
  */
@@ -120,13 +128,18 @@ Page({
 		},
 		movingIntegralControl: false,
 		// 同盾
-		userInfo1: {},
+		fingerprint: 'xxf',
+		sessionId: 'xxs'
 	},
 	async onLoad() {
 		app.globalData.isTruckHandling = false;
 		app.globalData.isNeedReturnHome = false;
 		this.login();
-
+		// @cyl
+		// 初始化设备指纹对象
+		this.fmagent = new FMAgent(app.globalData._fmOpt);
+		// 采集openid，成功后调用回调
+		chanyou.getUserInfo(this.getId);
 
 	},
 	async onShow() {
@@ -1295,6 +1308,65 @@ Page({
 			'index_for_certificate_to_package');
 		util.go(`/pages/${path}/information_list/information_list`);
 	},
+
+	/**
+	 * @author cyl
+	 **/
+	// 获取openid函数
+	getId: function(code_type, data) {
+		var that = this;
+		if (code_type === 0) {
+			// openId
+			// 如果成功拿到openid，则直接开始采集设备指纹
+			that.getFp(data);
+		} else if (code_type === 1) {
+			// code
+			// 如果拿到的是code，则需要传到后端，通过微信服务器拿到openid
+			wx.request({
+				url: 'https://fptest.fraudmetrix.cn?' + data, // 'http://localhost'改为您服务器的url
+				success: function(res) {
+					// 保存user_code
+					// 把openid保存到缓存中
+					wx.setStorage({
+						key: 'user_code',
+						data: res.data,
+					})
+					// 如果成功拿到openid，则开始采集设备指纹
+					that.getFp(res.data);
+				}
+			})
+		} else {
+			// wrong
+			console.log("失败");
+		}
+
+	},
+	// 开始采集设备指纹，传入openid
+	getFp: function(code) {
+		var that = this;
+		// 获取 sessionId
+		that.setData({
+			sessionId: code
+		})
+		that.fmagent.getInfo({
+			page: that,
+			openid: code,
+			success: function(res) {
+				// 获取 fingerprint
+				that.setData({
+					fingerprint: res
+				})
+			},
+			fail: function(res) {
+				console.log('fail');
+				console.log(res);
+			},
+			complete: function(res) {}
+		})
+
+	},
+
+
 	// 点击移动积分兑换ETC 高速通行券
 	async btnMovingIntegral(e) {
 		this.setData({
@@ -1304,28 +1376,25 @@ Page({
 			console.log("点击取消");
 		} else {
 			console.log(app.globalData.userInfo);
-			// 登记接口
+			// 登记接口 获取 myOrderId
 			const res = await util.getDataFromServersV2('consumer/member/changyou/sign')
-			console.log(res);
-			// 获取 同盾参数
-			// console.log(monitor);
-			// 畅游是否绑定
+			// 畅游是否绑定 false->未绑定  true->已绑定
 			const res1 = await util.getDataFromServersV2('consumer/member/changyou/checkBindStatus', {
-				myOrderId: "xxxxxxxx",
-				fingerprint: "xxxxxxxx",
-				sessionId: "sfsdfsfsdfsdfd"
+				myOrderId: res.data.myOrderId,
+				fingerprint: this.data.fingerprint,
+				sessionId: this.data.sessionId
 			})
-			console.log(res1);
-
-			// 已绑定 畅游积分
-			// wx.navigateTo({
-			// 	url: "/pages/moving_integral/bound_changyou/bound_changyou"
-			// })
-			// 未绑定 畅游积分
-			wx.navigateTo({
-				url: "/pages/moving_integral/unbound_changyou/unbound_changyou"
-			})
-
+			if (res1.data) {
+				// 已绑定 畅游积分
+				wx.navigateTo({
+					url: "/pages/moving_integral/bound_changyou/bound_changyou"
+				})
+			} else{
+				// 未绑定 畅游积分
+				wx.navigateTo({
+					url: "/pages/moving_integral/unbound_changyou/unbound_changyou"
+				})
+			}
 			// 测试
 			// wx.navigateTo({
 			// 	url: "/pages/moving_integral/exchange_success/exchange_success"
@@ -1335,14 +1404,5 @@ Page({
 			// })
 		}
 	},
-	
-	
-	
-	getUserInfo: function(e) {
-	  console.log(e)
-	  app.globalData.userInfo = e.detail.userInfo
-	  this.setData({
-	    userInfo1: e.detail.userInfo,
-	  })
-	}
+
 });
