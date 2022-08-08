@@ -18,12 +18,9 @@ Page({
 			text3: '3、表明您已明确知晓上海分互链信息技术有限公司及“分互链积分平台”并非中国移动的关联公司或由中国移动运营，您使用“分互链积分平台”或上海分互链信息技术有限公司提供的其他服务的行为均与中国移动无关，您也不能就使用中国移动网站注册信息登录及使用“分互链积分平台”的后果要求中国移动承担任何责任。',
 			text4: '4、中国移动郑重提醒您保管好您在中国移动网站的注册登录信息，切勿向任何人透露您的账号、密码等相关信息。除非得到您的同意及授权，中国移动不会向任何第三方透露您的任何信息。',
 		},
-		focus_num: 0,
-		scrollTop: 0,
-		windowHeight: '',
-		slideBar: 100,
-		sliderHeight: 672,
 		get_code: '获取验证码',
+		vc_value: "",   //输入框的值
+		
 		set_time_out: 60,
 		time_flag: false
 	},
@@ -57,7 +54,14 @@ Page({
 			time_flag: true
 		})
 	},
-
+	
+	// 测试 点击 规则说明
+	btn() {
+		this.setData({
+			movingIntegralControl: true,
+			mask: true
+		})
+	},
 	// 点击 弹出模态框的 继续 按键
 	btnMovingIntegral(e) {
 		if (e.currentTarget.id === 'cancel') {
@@ -80,13 +84,17 @@ Page({
 			// })
 		}
 	},
-	// 测试 点击 规则说明
-	btn() {
-		this.setData({
-			movingIntegralControl: true,
-			mask: true
+	input_change (e) {
+		let that = this;
+		let str = "";
+		that.setData({
+			vc_value: e.detail.value
 		})
-    },
+		if (that.data.vc_value.length === 6) {
+			console.log("dsadsad");
+		}
+	},
+	// 点击关闭遮慕层·
     btn_off () {
         this.setData({
             movingIntegralControl: false,

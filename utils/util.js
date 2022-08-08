@@ -1648,24 +1648,7 @@ function alertPayment (etcMoney, isTruck) {
 	});
 }
 
-// 上传图片 并返回url 地址
-function uploadFile_1() {
-  wx.chooseImage({
-    success (res) {
-      console.log(res.tempFilePaths)
-      const tempFilePaths = res.tempFilePaths
-      wx.uploadFile({
-        url: 'https://file.cyzl.com/file/upload', //仅为示例，非真实的接口地址
-        filePath: tempFilePaths[0],
-        name: 'file',
-        success (res){
-          const data = JSON.parse(res.data)
-          console.log(data.data[0].fileUrl)
-        }
-      })
-    }
-  })
-}
+
 
 
 module.exports = {
@@ -1716,6 +1699,5 @@ module.exports = {
 	updateOrderContractMappingBankAccountId,
 	queryContractForTruckHandling,
 	getV2BankId,
-    weChatSigning,
-    uploadFile_1
+    weChatSigning
 };

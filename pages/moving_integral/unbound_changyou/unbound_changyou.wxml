@@ -32,18 +32,19 @@
       <text>验证码已下发至<text class="number_phone">{{15870105554}}</text></text>
     </view>
     <view>
-      <input type="text" maxlength="1"  name="" id=""/>
-      <input type="text" maxlength="1"  name="" id=""/>
-      <input type="text" maxlength="1"  name="" id=""/>
-      <input type="text" maxlength="1"  name="" id=""/>
-      <input type="text" maxlength="1"  name="" id=""/>
-      <input type="text" maxlength="1"  name="" id=""/>
+      <input type="text" bindinput="input_change" maxlength="6"/>
+      <text style="border-bottom: {{ vc_value[0] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vc_value[0]}}</text>
+      <text style="border-bottom: {{ vc_value[1] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vc_value[1]}}</text>
+      <text style="border-bottom: {{ vc_value[2] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vc_value[2]}}</text>
+      <text style="border-bottom: {{ vc_value[3] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vc_value[3]}}</text>
+      <text style="border-bottom: {{ vc_value[4] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vc_value[4]}}</text>
+      <text style="border-bottom: {{ vc_value[5] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vc_value[5]}}</text>
     </view>
     <button catchtap="btn_verification_code">{{get_code}}
       <text wx:if="time_flag"><text>(</text>{{set_time_out}}<text>)</text></text>
     </button>
   </view>
- 
+ <!-- 关闭遮慕层和验证框 -->
   <button class="btn_off" wx:if="{{btn_off}}" catchtap="btn_off">X</button>
 
   <view class="footers">
