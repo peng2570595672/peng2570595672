@@ -148,21 +148,25 @@
     <!--	轮播图结束-->
     
 	<!-- @cyl -->
-	<view class="moving_integral_pop-up" wx:if="{{movingIntegralControl}}" >
-		<scroll-view class="scroll_pop-up"  scroll-y="{{true}}" scroll-top="true" show-scrollbar="true" enhanced>
-			<view>{{arr1.title}}</view>
-			<text>\n</text>
-			<view>{{arr1.text1}}</view>
-			<view>{{arr1.text2}}</view>
-			<view>{{arr1.text3}}</view>
-			<view>{{arr1.text4}}</view>
-		</scroll-view>
-		<view class="btn_scroll">
-			<button id="cancel" catchtap="btnMovingIntegral">取消</button>
-			<button id="confirm" catchtap="btnMovingIntegral">确认</button>
-		</view>
+  <view class="moving_integral_pop-up" wx:if="{{movingIntegralControl}}">
+	<scroll-view class="scroll_pop-up" scroll-y="true">
+	  <view>{{arr1.title}}</view>
+	  <view>{{arr1.text1}}<text>\n</text>{{arr1.text2}}<text>\n</text>{{arr1.text3}}<text>\n</text>{{arr1.text4}}</view>
+	</scroll-view>
+	<view class="solid"></view>
+	<view class="btn_scroll">
+	  <button id="cancel" catchtap="btnMovingIntegral">取消</button>
+	  <button id="confirm" catchtap="btnMovingIntegral">继续</button>
 	</view>
+   </view>
+
     <!--	弹窗开始-->
     <popup id='dialog' dialogContent="{{dialogContent}}" bind:onHandle="onHandle"></popup>
     <!--	弹窗结束-->
+	
+	<!--同盾  在需要采集设备信息的页面加入以下节点-->
+	<view wx:if="{{(hideFMCanvas != undefined) && !hideFMCanvas}}">
+		<!--根据您页面的布局，修改margin-top的值-->
+	    <canvas canvas-id='tdcanvas'style='margin-top:200rpx'></canvas>
+	</view>
 </view>

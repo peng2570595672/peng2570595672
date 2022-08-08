@@ -11,22 +11,19 @@
   </view>
   <!-- 遮罩层 -->
   <view class="page_container" wx:if="{{mask}}"></view>
-
-
+	
+	<!-- 授权弹窗 -->
   <view class="moving_integral_pop-up" wx:if="{{movingIntegralControl}}">
-    <scroll-view class="scroll_pop-up" scroll-y="true" 	bindscroll="get_scroll_info">
-      <view>{{arr1.title}}</view>
-      <view>{{arr1.text1}}<text>\n</text>{{arr1.text2}}<text>\n</text>{{arr1.text3}}<text>\n</text>{{arr1.text4}}</view>
-    </scroll-view>
-    <view class="scrollBar" style="height: {{sliderHeight}}rpx;">
-        <view class="bar" style="margin-top: {{scrollTop}}rpx;height: {{slideBar}}rpx;"></view>
-      </view>
-    <view class="solid"></view>
-    <view class="btn_scroll">
-      <button id="cancel" catchtap="btnMovingIntegral">取消</button>
-      <button id="confirm" catchtap="btnMovingIntegral">继续</button>
-    </view>
-  </view>
+  	<scroll-view class="scroll_pop-up" scroll-y="true">
+  	  <view>{{arr1.title}}</view>
+  	  <view>{{arr1.text1}}<text>\n</text>{{arr1.text2}}<text>\n</text>{{arr1.text3}}<text>\n</text>{{arr1.text4}}</view>
+  	</scroll-view>
+  	<view class="solid"></view>
+  	<view class="btn_scroll">
+  	  <button id="cancel" catchtap="btnMovingIntegral">取消</button>
+  	  <button id="confirm" catchtap="btnMovingIntegral">继续</button>
+  	</view>
+   </view>
 
   <!-- 验证码弹窗 -->
   <view class="verification_code" wx:if="{{verification_code}}">
@@ -46,6 +43,8 @@
       <text wx:if="time_flag"><text>(</text>{{set_time_out}}<text>)</text></text>
     </button>
   </view>
+ 
+  <button class="btn_off" wx:if="{{btn_off}}" catchtap="btn_off">X</button>
 
   <view class="footers">
     <text>由上海分互链信息技术有限公司提供积分兑换</text>

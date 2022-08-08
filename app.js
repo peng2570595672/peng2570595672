@@ -1,4 +1,4 @@
-﻿// 是否为测试 TODO
+// 是否为测试 TODO
 export const IS_TEST = true; // false为正式接口地址，true为测试接口地址
 const util = require('./utils/util.js');
 const uma = require('./utils/umtrack-wx.js');
@@ -113,8 +113,17 @@ App({
 		},// 欠费数据
 		newPackagePageData: {}, // 新套餐页面数据
 		bankCardInfo: {}, // 二类户信息
-    weiBoUrl: IS_TEST ? '/pages/base/redirect/index?routeKey=CAR_WEBVIEW&url=https://static-dsu.wesure.cn/uatapp/app2/h5-reserve-ad/vendors&query=' : '/pages/base/redirect/index?routeKey=CAR_WEBVIEW&url=https://static.wesure.cn/app2/h5-reserve-ad/vendors&query='
-
+		weiBoUrl: IS_TEST ? '/pages/base/redirect/index?routeKey=CAR_WEBVIEW&url=https://static-dsu.wesure.cn/uatapp/app2/h5-reserve-ad/vendors&query=' : '/pages/base/redirect/index?routeKey=CAR_WEBVIEW&url=https://static.wesure.cn/app2/h5-reserve-ad/vendors&query=',
+		/* 同盾
+		 *_fmOpt配置信息
+		 * 填入对应partnerCode和appName
+		 */
+		_fmOpt: {
+		  partnerCode: "tongdun",
+		  appName: "tongdun_web",
+		  // 生产环境开启该选项
+		  // env: "PRODUCTION"
+		}
 	},
 	onLaunch (options) {
 		console.log(options);

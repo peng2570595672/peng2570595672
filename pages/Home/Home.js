@@ -110,6 +110,7 @@ Page({
 		isActivityDate: false, // 是否活动期间
 		isActivityForBannerDate: false, // 是否是banner上线时间
 		dialogContent: {}, // 弹窗内容
+		// @cyl
 		arr1: {
 			title: '您即将授权当前手机号使用中国移动账户登录上海分互链信息技术有限公司所有的“分互链积分平台”，如果您无法认同如下内容，请您点击“取消”并拒绝授权。如您点击“继续”：',
 			text1: '1、即视为您同意和授权中国移动向上海分互链信息技术有限公司提供账户数据接口以使上海分互链信息技术有限公司可以调用您在中国移动网站(www.10086.cn)的注册账户的登录信息，便于您直接使用您在中国移动网站的注册信息登录“分互链积分平台”。',
@@ -117,14 +118,16 @@ Page({
 			text3: '3、表明您已明确知晓上海分互链信息技术有限公司及“分互链积分平台”并非中国移动的关联公司或由中国移动运营，您使用“分互链积分平台”或上海分互链信息技术有限公司提供的其他服务的行为均与中国移动无关，您也不能就使用中国移动网站注册信息登录及使用“分互链积分平台”的后果要求中国移动承担任何责任。',
 			text4: '4、中国移动郑重提醒您保管好您在中国移动网站的注册登录信息，切勿向任何人透露您的账号、密码等相关信息。除非得到您的同意及授权，中国移动不会向任何第三方透露您的任何信息。',
 		},
-		movingIntegralControl: false
+		movingIntegralControl: false,
+		// 同盾
+		userInfo1: {},
 	},
 	async onLoad() {
 		app.globalData.isTruckHandling = false;
 		app.globalData.isNeedReturnHome = false;
 		this.login();
-		
-    
+
+
 	},
 	async onShow() {
 		this.setData({
@@ -930,7 +933,7 @@ Page({
 		let model = this.data.recentlyTheBillInfo;
 		util.go(
 			`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`
-			);
+		);
 	},
 	// 弹窗确认回调
 	onHandle() {
@@ -1020,7 +1023,7 @@ Page({
 		wx.uma.trackEvent('index_for_order_audit');
 		util.go(
 			`/pages/default/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}`
-			);
+		);
 	},
 	// 去预充
 	goRecharge(orderInfo) {
@@ -1262,7 +1265,7 @@ Page({
 			}
 			util.go(
 				`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?contractStatus=${orderInfo.contractStatus}&ttContractStatus=${orderInfo.ttContractStatus}`
-				);
+			);
 			return;
 		}
 		if (orderInfo.selfStatus === 2) {
@@ -1278,7 +1281,7 @@ Page({
 				// 只有分对分套餐 || 只有总对总套餐
 				util.go(
 					`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`
-					);
+				);
 			} else {
 				util.go(`/pages/${path}/choose_the_way_to_handle/choose_the_way_to_handle`);
 			}
@@ -1293,14 +1296,27 @@ Page({
 		util.go(`/pages/${path}/information_list/information_list`);
 	},
 	// 点击移动积分兑换ETC 高速通行券
-	btnMovingIntegral(e) {
-     
+	async btnMovingIntegral(e) {
 		this.setData({
 			movingIntegralControl: false
 		})
 		if (e.currentTarget.id === 'cancel') {
 			console.log("点击取消");
 		} else {
+			console.log(app.globalData.userInfo);
+			// 登记接口
+			const res = await util.getDataFromServersV2('consumer/member/changyou/sign')
+			console.log(res);
+			// 获取 同盾参数
+			// console.log(monitor);
+			// 畅游是否绑定
+			const res1 = await util.getDataFromServersV2('consumer/member/changyou/checkBindStatus', {
+				myOrderId: "xxxxxxxx",
+				fingerprint: "xxxxxxxx",
+				sessionId: "sfsdfsfsdfsdfd"
+			})
+			console.log(res1);
+
 			// 已绑定 畅游积分
 			// wx.navigateTo({
 			// 	url: "/pages/moving_integral/bound_changyou/bound_changyou"
@@ -1318,5 +1334,15 @@ Page({
 			// 	url: "/pages/moving_integral/exchange_fail/exchange_fail"
 			// })
 		}
+	},
+	
+	
+	
+	getUserInfo: function(e) {
+	  console.log(e)
+	  app.globalData.userInfo = e.detail.userInfo
+	  this.setData({
+	    userInfo1: e.detail.userInfo,
+	  })
 	}
 });

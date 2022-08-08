@@ -314,7 +314,6 @@ function showToastNoIcon(content) {
 
 // 上传图片 需要识别
 function uploadOcrFile(filePath, type, fail, success, complete, onProgressUpdate) {
-	console.log("你好");
 	let requestTask = wx.uploadFile({
 		url: app.globalData.uploadOcrUrl, // 仅为示例，非真实的接口地址
 		filePath: filePath,
@@ -343,11 +342,6 @@ function uploadOcrFile(filePath, type, fail, success, complete, onProgressUpdate
 
 // 上传图片 不需要是被
 function uploadFile(filePath, fail, success, complete, onProgressUpdate) {
-	console.log(filePath);
-	console.log(fail);
-	console.log(success);
-	console.log(complete);
-	console.log(onProgressUpdate);
 	let requestTask = wx.uploadFile({
 		url: app.globalData.uploadUrl, // 仅为示例，非真实的接口地址
 		filePath: filePath,
@@ -1672,6 +1666,8 @@ function uploadFile_1() {
     }
   })
 }
+
+
 module.exports = {
 	setApp,
 	formatNumber,
@@ -1720,6 +1716,6 @@ module.exports = {
 	updateOrderContractMappingBankAccountId,
 	queryContractForTruckHandling,
 	getV2BankId,
-  weChatSigning,
-  uploadFile_1
+    weChatSigning,
+    uploadFile_1
 };

@@ -1,6 +1,7 @@
 /* pages/moving_integral/bound_changyou/bound_changyou.wxss */
 .bound_changyou {
   /* height: 100vh; */
+  height: 100%;
   position: relative;
   background: linear-gradient(rgba(0, 184, 92, 1), rgba(246, 246, 246, 1))
 }
