@@ -278,6 +278,13 @@ Page({
 			// 签约通通券代扣 1.0
 			app.globalData.signTongTongQuanAContract = 1;
 			thirdContractSigning(result.data);
+		} else if (result.code === 300) {
+			// 已签约
+			app.globalData.signAContract = 3;
+			this.setData({
+				contractStatus: 1
+			});
+			await this.deductByContractThird();
 		} else {
 			util.showToastNoIcon(result.message);
 		}

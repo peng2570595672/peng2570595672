@@ -2,7 +2,7 @@
     <view class="iconfont {{payStatus === 1 ? '' : 'error'}}"></view>
     <view class="success">支付{{payStatus === 1 ? '成功' : '失败'}}</view>
     <view class="btn">
-        <button open-type="launchApp" app-parameter="{{parameterUrl}}" bindlaunchapp="launchAppSuccess" binderror="launchAppError">返回APP</button>
+        <button open-type="launchApp" app-parameter="{{parameterUrl}}" bindlaunchapp="launchAppSuccess" binderror="launchAppError">返回好车主</button>
     </view>
 </view>
 
