@@ -33,15 +33,15 @@
     </view>
     <view>
       <input type="text" bindinput="input_change" maxlength="6"/>
-      <text style="border-bottom: {{ vc_value[0] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vc_value[0]}}</text>
-      <text style="border-bottom: {{ vc_value[1] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vc_value[1]}}</text>
-      <text style="border-bottom: {{ vc_value[2] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vc_value[2]}}</text>
-      <text style="border-bottom: {{ vc_value[3] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vc_value[3]}}</text>
-      <text style="border-bottom: {{ vc_value[4] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vc_value[4]}}</text>
-      <text style="border-bottom: {{ vc_value[5] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vc_value[5]}}</text>
+      <text style="border-bottom: {{ vcValue[0] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vcValue[0]}}</text>
+      <text style="border-bottom: {{ vcValue[1] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vcValue[1]}}</text>
+      <text style="border-bottom: {{ vcValue[2] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vcValue[2]}}</text>
+      <text style="border-bottom: {{ vcValue[3] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vcValue[3]}}</text>
+      <text style="border-bottom: {{ vcValue[4] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vcValue[4]}}</text>
+      <text style="border-bottom: {{ vcValue[5] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vcValue[5]}}</text>
     </view>
-    <button catchtap="btn_verification_code">{{get_code}}
-      <text wx:if="time_flag"><text>d</text>{{set_time_out}}<text></text></text>
+    <button catchtap="{{ timeFlag ? '':'btnVerificationCode'}}" style="color:{{ timeFlag ? '#ccc':'#000'}}" >{{getCode}}
+      <text wx:if="{{timeFlag}}">({{time}}s)</text>
     </button>
   </view>
  <!-- 关闭遮慕层和验证框 -->

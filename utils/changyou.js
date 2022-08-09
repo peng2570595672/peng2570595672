@@ -1,9 +1,8 @@
 /**
  * @cyl
  *  */
-
+ 
 let app = getApp();
-
 // 获取openid函数，支持传入回调函数
 function getUserInfo(callback) {
 	console.log("nihao");
@@ -34,7 +33,6 @@ function getUserInfo(callback) {
 		}
 	})
 };
-
 // 上传图片 并返回url 地址
 function uploadFile_1() {
   wx.chooseImage({

@@ -1,10 +1,5 @@
 // pages/moving_integral/confirm_exchange/confirm_exchange.js
-const bound_changyoy = 
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
 
   },
@@ -30,24 +25,12 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
    * 生命周期函数--监听页面卸载
    */
   onUnload() {
-
+	wx.reLaunch({
+		url: "pages/Home/Home"
+	})
   },
 
   /**
@@ -64,10 +47,4 @@ Page({
 
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
-  }
 })

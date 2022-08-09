@@ -1352,6 +1352,7 @@ Page({
 			page: that,
 			openid: code,
 			success: function(res) {
+				console.log(res);
 				// 获取 fingerprint
 				that.setData({
 					fingerprint: res
@@ -1365,11 +1366,10 @@ Page({
 		})
 
 	},
-
-
 	// 点击移动积分兑换ETC 高速通行券
 	async btnMovingIntegral(e) {
-		this.setData({
+		let that = this
+		that.setData({
 			movingIntegralControl: false
 		})
 		if (e.currentTarget.id === 'cancel') {
@@ -1377,12 +1377,12 @@ Page({
 		} else {
 			console.log(app.globalData.userInfo);
 			// 登记接口 获取 myOrderId
-			const res = await util.getDataFromServersV2('consumer/member/changyou/sign')
+			const res2 = await util.getDataFromServersV2('consumer/member/changyou/sign')
 			// 畅游是否绑定 false->未绑定  true->已绑定
 			const res1 = await util.getDataFromServersV2('consumer/member/changyou/checkBindStatus', {
-				myOrderId: res.data.myOrderId,
-				fingerprint: this.data.fingerprint,
-				sessionId: this.data.sessionId
+				myOrderId: res2.data.myOrderId,
+				fingerprint: that.data.fingerprint,
+				sessionId: that.data.sessionId
 			})
 			if (res1.data) {
 				// 已绑定 畅游积分
@@ -1392,7 +1392,22 @@ Page({
 			} else{
 				// 未绑定 畅游积分
 				wx.navigateTo({
-					url: "/pages/moving_integral/unbound_changyou/unbound_changyou"
+					url: "/pages/moving_integral/unbound_changyou/unbound_changyou",
+					events: {
+					    // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+					    unbound_changyou: function(data) {
+					      console.log(data)
+					    }
+					  },
+					success: function(res) {
+					    // 通过 eventChannel 向被打开页面传送数据
+						res.eventChannel.emit('Home', { sendOutData: {
+							sign: res2.data,
+							checkBindStatus: res1.data,
+							fingerprint: that.data.fingerprint,
+							sessionId: that.data.sessionId
+						}})
+					}
 				})
 			}
 			// 测试
