@@ -4,7 +4,8 @@
 const util = require('./util');
 const tonDunObj = {
 	fingerprint: '',
-	sessionId: ''
+	sessionId: '',
+	goodsListNum: '',
 }
 let app = getApp();
 let signList = null;
@@ -13,7 +14,8 @@ let queryIntegralList = null;
 let getVerificationCodeList = null;
 let queryProductsList = null;
 let queryScoresList = null;
-
+let prepareOrderList = null;
+let queryScoreCodeList = null;
 
 // 获取openid函数，支持传入回调函数
 function getUserInfo(callback) {
@@ -132,6 +134,31 @@ async function changYouApi(obj) {
 			})
 			console.log(queryScoresList);
 			return queryScoresList;
+			break;
+		case 'prepareOrder':
+			// 预下单
+			prepareOrderList = await util.getDataFromServersV2('consumer/member/changyou/prepareOrder', {
+				myOrderId: signList.data.myOrderId,
+				couponConfigId: queryProductsList.data.list[tonDunObj.goodsListNum].id,
+				actualPrice: queryProductsList.data.list[tonDunObj.goodsListNum].goodPoints,
+				goodsList: [{
+					goodsNo: queryProductsList.data.list[tonDunObj.goodsListNum].goodsNo,
+					goodsNum: 1
+				}]
+			})
+			console.log(prepareOrderList);
+			return prepareOrderList;
+			break;
+		case 'queryScoreCode':
+			// 获取兑换积分验证码
+			queryScoreCodeList = await util.getDataFromServersV2('consumer/member/changyou/queryScoreCode', {
+				myOrderId: signList.data.myOrderId,
+				outerOrderId: prepareOrderList.data.sessionId,
+				outerPoints: "500",
+				orderId: prepareOrderList.data.orderId
+			})
+			console.log(queryScoreCodeList);
+			return queryScoreCodeList;
 			break;
 		default:
 			break;

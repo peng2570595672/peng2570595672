@@ -16,14 +16,17 @@
       <view class="upper">
           <view class="upper_money">
             <text>￥</text>
-            <text>{{item.price}}</text>
+            <text>{{item.goodsPrice}}</text>
           </view>
           <text>通行券</text>
-          <text>{{item.integral}}移动积分</text>
+          <text>{{item.goodPoints}}移动积分</text>
         </view>
         <view class="lower">
-          <button style="background-color: {{item.integral <= moving_integral ? 'rgba(255, 179, 59, 1)' : 'rgba(234, 234, 234, 1)'}}"
-                  catchtap="confirm_exchange" data-price="{{item.price}}" data-integral="{{item.integral}}" disabled="{{item.integral <= moving_integral ? false : true}}">立即兑换</button>
+          <button style="background-color: {{item.goodPoints <= moving_integral ? 'rgba(255, 179, 59, 1)' : 'rgba(234, 234, 234, 1)'}}"
+                  catchtap="confirm_exchange" 
+				  disabled="{{item.goodPoints <= moving_integral ? false : true}}"
+				  data-index="{{index}}"
+				  >立即兑换</button>
         </view>
     </view>
   </view>

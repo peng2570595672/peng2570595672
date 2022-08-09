@@ -29,10 +29,10 @@
   </view>
   <view class="main_1">
     <view>
-      <text>绑定账户</text><text>19855565656</text>
+      <text>绑定账户</text><text>{{phone_number}}</text>
     </view>
     <view>
-      <text>验证码</text><text>请输入验证码</text><button>获取</button>
+      <text>验证码</text><text>请输入验证码</text><button catchtap="getChangYouCode" >获取</button>
     </view>
     <view>
       *本次兑换将消耗您对应的移动积分转换为畅由分后，再使用畅由分完成商品兑换。当您点击“确认兑换”时，则默认您已接受移动积分转换为畅由分后不可回退。  
