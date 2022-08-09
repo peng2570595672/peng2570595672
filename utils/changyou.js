@@ -1,11 +1,22 @@
 /**
  * @cyl
  *  */
- 
+const util = require('./util');
+const tonDunObj = {
+	fingerprint: '',
+	sessionId: ''
+}
 let app = getApp();
+let signList = null;
+let checkBindStatusList = null;
+let queryIntegralList = null;
+let getVerificationCodeList = null;
+let queryProductsList = null;
+let queryScoresList = null;
+
+
 // 获取openid函数，支持传入回调函数
 function getUserInfo(callback) {
-	console.log("nihao");
 	wx.checkSession({
 		success: function(res) {
 			// 这里把加密后的openid存入缓存，下次就不必再去发起请求
@@ -33,27 +44,107 @@ function getUserInfo(callback) {
 		}
 	})
 };
+
 // 上传图片 并返回url 地址
 function uploadFile_1() {
-  wx.chooseImage({
-    success (res) {
-      console.log(res.tempFilePaths)
-      const tempFilePaths = res.tempFilePaths
-      wx.uploadFile({
-        url: 'https://file.cyzl.com/file/upload', //仅为示例，非真实的接口地址
-        filePath: tempFilePaths[0],
-        name: 'file',
-        success (res){
-          const data = JSON.parse(res.data)
-          console.log(data.data[0].fileUrl)
-        }
-      })
-    }
-  })
+	wx.chooseImage({
+		success(res) {
+			console.log(res.tempFilePaths)
+			const tempFilePaths = res.tempFilePaths
+			wx.uploadFile({
+				url: 'https://file.cyzl.com/file/upload', //仅为示例，非真实的接口地址
+				filePath: tempFilePaths[0],
+				name: 'file',
+				success(res) {
+					const data = JSON.parse(res.data)
+					console.log(data.data[0].fileUrl)
+				}
+			})
+		}
+	})
 }
+
+async function changYouApi(obj) {
+	console.log(obj);
+	switch (obj) {
+		case 'sign':
+			// 登记接口 获取 myOrderId
+			signList = await util.getDataFromServersV2('consumer/member/changyou/sign');
+			console.log(signList);
+			return signList;
+			break;
+		case 'checkBindStatus':
+			// 畅游是否绑定 false->未绑定  true->已绑定
+			checkBindStatusList = await util.getDataFromServersV2('consumer/member/changyou/checkBindStatus', {
+				myOrderId: signList.data.myOrderId,
+				fingerprint: tonDunObj.fingerprint,
+				sessionId: tonDunObj.sessionId
+			});
+			console.log(checkBindStatusList);
+			return checkBindStatusList;
+			break;
+		case 'queryIntegral':
+			// 查询积分 查看是否授权
+			const queryIntegralList = await util.getDataFromServersV2('consumer/member/changyou/queryScores', {
+				myOrderId: signList.data.myOrderId,
+				fingerprint: tonDunObj.fingerprint,
+				sessionId: tonDunObj.sessionId
+			})
+			console.log(queryIntegralList);
+			return queryIntegralList;
+			break;
+		case 'getVerificationCode':
+			// 获取绑定验证码 有请求数量限制
+			getVerificationCodeList = await util.getDataFromServersV2('consumer/member/changyou/queryBindCode', {
+				myOrderId: signList.data.myOrderId
+			})
+			console.log(getVerificationCodeList);
+			return getVerificationCodeList;
+			break;
+		case 'bindChangYou':
+			// 绑定畅游
+			bindChangYouList = await util.getDataFromServersV2('consumer/member/changyou/bindChangYou', {
+				myOrderId: signList.data.myOrderId,
+				token: getVerificationCodeList.data.token,
+				type: getVerificationCodeList.data.type,
+				smscode: getVerificationCodeList.data.smscode,
+				validateToken: getVerificationCodeList.data.validateToken
+			})
+			console.log(bindChangYouList);
+			return bindChangYouList;
+			break;
+		case 'queryProducts':
+			// 查询商品
+			queryProductsList = await util.getDataFromServersV2('consumer/member/changyou/queryProducts', {
+				myOrderId: signList.data.myOrderId,
+				pageNum: '1',
+				pageSize: '10'
+			})
+			console.log(queryProductsList)
+			return queryProductsList;
+			break;
+		case 'queryScores':
+			// 查询积分
+			queryScoresList = await util.getDataFromServersV2('consumer/member/changyou/queryScores', {
+				myOrderId: signList.data.myOrderId,
+				fingerprint: tonDunObj.fingerprint,
+				sessionId: tonDunObj.sessionId
+			})
+			console.log(queryScoresList);
+			return queryScoresList;
+			break;
+		default:
+			break;
+	}
+}
+
+
+
 
 
 module.exports = {
 	getUserInfo,
-	uploadFile_1
+	uploadFile_1,
+	changYouApi,
+	tonDunObj
 }

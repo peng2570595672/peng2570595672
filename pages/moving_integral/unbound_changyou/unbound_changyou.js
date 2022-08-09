@@ -3,6 +3,7 @@ import {
 	mobilePhoneReplace
 } from '../../../utils/util'
 const util = require('../../../utils/util')
+const changyou = require('../../../utils/changyou')
 const app = getApp();
 Page({
 	data: {
@@ -23,27 +24,14 @@ Page({
 		vcValue: "", //输入框的值
 		time: 60,
 		timeFlag: false,
-		myOrderId: '',
-		fingerprint: '',
-		sessionId: '',
-		getVerificationCode: null
 	},
 
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad(options) {
-		let that = this
-		const eventChannel = that.getOpenerEventChannel()
-		// 监听 Home 事件，获取上一页面通过 eventChannel 传送到当前页面的数据
-		eventChannel.on('Home', function(sendOutData) {
-			console.log(sendOutData)
-			that.setData({
-				myOrderId: sendOutData.sendOutData.sign.myOrderId,
-				fingerprint: sendOutData.sendOutData.fingerprint,
-				sessionId: sendOutData.sendOutData.sessionId
-			})
-		})
+		// 查询积分 查看是否授权
+		changyou.changYouApi('queryIntegral')
 	},
 
 	// 获取验证码 验证等待的时间
@@ -53,22 +41,10 @@ Page({
 			timeFlag: true,
 			getCode: '重新获取'
 		})
-		// 查询积分
-		const queryIntegral = await util.getDataFromServersV2('consumer/member/changyou/queryScores',{
-			myOrderId: that.data.myOrderId,
-			fingerprint: that.data.fingerprint,
-			sessionId: that.data.sessionId
-		})
-		console.log(queryIntegral);
 		
 		// 获取绑定验证码 有请求数量限制
-		// const getVerificationCode = await util.getDataFromServersV2('consumer/member/changyou/queryBindCode',{
-		// 	myOrderId: that.data.myOrderId
-		// })
-		// console.log(getVerificationCode);
-		// that.setData({
-		// 	getVerificationCode: getVerificationCode.data
-		// })
+		// await changyou.changYouApi('getVerificationCode')
+		
 		let timeClose = setInterval(function() {
 			let num = --that.data.time
 			if (num < 0) {
@@ -94,20 +70,11 @@ Page({
 		if (that.data.vcValue.length === 6) {
 			// 验证码输入第六位后触发
 			// 绑定畅游 
-			// const bindChangYou = await util.getDataFromServersV2('consumer/member/changyou/bindChangYou',{
-			// 	myOrderId: that.data.myOrderId,
-			// 	token: that.data.getVerificationCode.token,
-			// 	type: that.data.getVerificationCode.type,
-			// 	smscode: that.data.getVerificationCode.smscode,
-			// 	validateToken: that.data.getVerificationCode.validateToken
-			// })
-			// console.log(bindChangYou);
+			// const res = await changyou.changYouApi('bindChangYou')
 			
 			if (true) {
 				// 已绑定 畅游积分
-				wx.navigateTo({
-					url: "/pages/moving_integral/bound_changyou/bound_changyou"
-				})
+				util.go("/pages/moving_integral/bound_changyou/bound_changyou")
 			}else {
 				util.showToastNoIcon("验证失败")
 			}

@@ -8,7 +8,7 @@ import {
  * 引用设备指纹SDK文件，两种方式均可，es6的方式推荐在小程序框架内使用
  */
 var FMAgent = require('../../fmsdk/fm-1.6.0-umd.min.js');
-import chanyou from '../../utils/changyou'
+import changyou from '../../utils/changyou'
 
 /**
  * @author 狂奔的蜗牛
@@ -127,9 +127,7 @@ Page({
 			text4: '4、中国移动郑重提醒您保管好您在中国移动网站的注册登录信息，切勿向任何人透露您的账号、密码等相关信息。除非得到您的同意及授权，中国移动不会向任何第三方透露您的任何信息。',
 		},
 		movingIntegralControl: false,
-		// 同盾
-		fingerprint: 'xxf',
-		sessionId: 'xxs'
+		
 	},
 	async onLoad() {
 		app.globalData.isTruckHandling = false;
@@ -139,8 +137,7 @@ Page({
 		// 初始化设备指纹对象
 		this.fmagent = new FMAgent(app.globalData._fmOpt);
 		// 采集openid，成功后调用回调
-		chanyou.getUserInfo(this.getId);
-
+		changyou.getUserInfo(this.getId);
 	},
 	async onShow() {
 		this.setData({
@@ -1314,13 +1311,14 @@ Page({
 	 **/
 	// 获取openid函数
 	getId: function(code_type, data) {
+		console.log(code_type);
+		console.log(data);
 		var that = this;
 		if (code_type === 0) {
 			// openId
 			// 如果成功拿到openid，则直接开始采集设备指纹
 			that.getFp(data);
 		} else if (code_type === 1) {
-			// code
 			// 如果拿到的是code，则需要传到后端，通过微信服务器拿到openid
 			wx.request({
 				url: 'https://fptest.fraudmetrix.cn?' + data, // 'http://localhost'改为您服务器的url
@@ -1343,20 +1341,18 @@ Page({
 	},
 	// 开始采集设备指纹，传入openid
 	getFp: function(code) {
+		console.log(code);
 		var that = this;
 		// 获取 sessionId
-		that.setData({
-			sessionId: code
-		})
+		changyou.tonDunObj.sessionId = code;
 		that.fmagent.getInfo({
-			page: that,
+			page: that,	//当前页面
 			openid: code,
 			success: function(res) {
+				console.log("success");
 				console.log(res);
 				// 获取 fingerprint
-				that.setData({
-					fingerprint: res
-				})
+				changyou.tonDunObj.fingerprint = res;
 			},
 			fail: function(res) {
 				console.log('fail');
@@ -1375,48 +1371,17 @@ Page({
 		if (e.currentTarget.id === 'cancel') {
 			console.log("点击取消");
 		} else {
-			console.log(app.globalData.userInfo);
 			// 登记接口 获取 myOrderId
-			const res2 = await util.getDataFromServersV2('consumer/member/changyou/sign')
+			const res1 = await changyou.changYouApi('sign');
 			// 畅游是否绑定 false->未绑定  true->已绑定
-			const res1 = await util.getDataFromServersV2('consumer/member/changyou/checkBindStatus', {
-				myOrderId: res2.data.myOrderId,
-				fingerprint: that.data.fingerprint,
-				sessionId: that.data.sessionId
-			})
-			if (res1.data) {
+			const res2 = await changyou.changYouApi('checkBindStatus');
+			if (res2.data) {
 				// 已绑定 畅游积分
-				wx.navigateTo({
-					url: "/pages/moving_integral/bound_changyou/bound_changyou"
-				})
+				util.go("/pages/moving_integral/bound_changyou/bound_changyou")
 			} else{
 				// 未绑定 畅游积分
-				wx.navigateTo({
-					url: "/pages/moving_integral/unbound_changyou/unbound_changyou",
-					events: {
-					    // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-					    unbound_changyou: function(data) {
-					      console.log(data)
-					    }
-					  },
-					success: function(res) {
-					    // 通过 eventChannel 向被打开页面传送数据
-						res.eventChannel.emit('Home', { sendOutData: {
-							sign: res2.data,
-							checkBindStatus: res1.data,
-							fingerprint: that.data.fingerprint,
-							sessionId: that.data.sessionId
-						}})
-					}
-				})
+				util.go("/pages/moving_integral/unbound_changyou/unbound_changyou")
 			}
-			// 测试
-			// wx.navigateTo({
-			// 	url: "/pages/moving_integral/exchange_success/exchange_success"
-			// })
-			// wx.navigateTo({
-			// 	url: "/pages/moving_integral/exchange_fail/exchange_fail"
-			// })
 		}
 	},
 
