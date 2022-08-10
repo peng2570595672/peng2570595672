@@ -1368,28 +1368,15 @@ Page({
 	},
 	// 点击移动积分兑换ETC 高速通行券
 	async btnMovingIntegral(e) {
-		// app.globalData.userInfo.mobilePhone = '18224621104'
-		// app.globalData.userInfo.showMobilePhone = '18224621104'
-		let that = this
-		that.setData({
+		this.setData({
 			movingIntegralControl: false
 		})
 		if (e.currentTarget.id === 'cancel') {
 			console.log("点击取消");
 		} else {
-			// app.globalData.userInfo.mobilePhone = '18224621104'
-			// 登记接口 获取 myOrderId
-			const res1 = await changyou.changYouApi('sign');
-			// 畅游是否绑定 false->未绑定  true->已绑定
-			const res2 = await changyou.changYouApi('checkBindStatus');
-			if (res2.data) {
-				// 已绑定 畅游积分
-				util.go("/pages/moving_integral/bound_changyou/bound_changyou")
-			} else{
-				// 未绑定 畅游积分
-				util.go("/pages/moving_integral/unbound_changyou/unbound_changyou")
-			}
+			// 跳转到 移动积分兑通行券 页面
+			util.go("/pages/moving_integral/bound_changyou/bound_changyou")
 		}
 	},
-
+	
 });
