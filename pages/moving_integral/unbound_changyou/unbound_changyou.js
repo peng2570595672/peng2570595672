@@ -30,21 +30,23 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad(options) {
+		console.log(app.globalData.userInfo);
 		// 查询积分 查看是否授权
 		changyou.changYouApi('queryIntegral')
+		
 	},
 
 	// 获取验证码 验证等待的时间
-	async btnVerificationCode() {
+	btnVerificationCode() {
 		let that = this
 		that.setData({
 			timeFlag: true,
 			getCode: '重新获取'
 		})
 		
-		// 获取绑定验证码 有请求数量限制
-		// await changyou.changYouApi('getVerificationCode')
-		
+		// 获取绑定验证码 有请求数量限制 一天5次
+		// const res = changyou.changYouApi('getVerificationCode')
+		// console.log(res);
 		let timeClose = setInterval(function() {
 			let num = --that.data.time
 			if (num < 0) {
@@ -69,12 +71,14 @@ Page({
 		})
 		if (that.data.vcValue.length === 6) {
 			// 验证码输入第六位后触发
+			changyou.tonDunObj.smscode = that.data.vcValue
+			console.log(changyou.tonDunObj.smscode);
 			// 绑定畅游 
-			// const res = await changyou.changYouApi('bindChangYou')
-			
-			if (true) {
+			console.log("=============================================");
+			if (!changyou.changYouApi('bindChangYou').data) {
 				// 已绑定 畅游积分
 				util.go("/pages/moving_integral/bound_changyou/bound_changyou")
+				util.showToastNoIcon("绑定畅游")
 			}else {
 				util.showToastNoIcon("验证失败")
 			}

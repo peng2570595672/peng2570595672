@@ -462,6 +462,7 @@ Page({
 		// 调用微信接口获取code
 		wx.login({
 			success: async (res) => {
+				console.log(res);
 				const result = await util.getDataFromServersV2(
 					'consumer/member/common/applet/code', {
 						platformId: app.globalData.platformId, // 平台id
@@ -480,8 +481,10 @@ Page({
 					entranceList: this.data.entranceList,
 					bannerList: this.data.bannerList
 				});
+				console.log(result);
 				if (!result) return;
 				if (result.code === 0) {
+					// result.data.mobilePhone = '18224621104';
 					result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data
 						.mobilePhone);
 					this.setData({
@@ -1323,6 +1326,7 @@ Page({
 			wx.request({
 				url: 'https://fptest.fraudmetrix.cn?' + data, // 'http://localhost'改为您服务器的url
 				success: function(res) {
+					console.log(res);
 					// 保存user_code
 					// 把openid保存到缓存中
 					wx.setStorage({
@@ -1364,6 +1368,8 @@ Page({
 	},
 	// 点击移动积分兑换ETC 高速通行券
 	async btnMovingIntegral(e) {
+		// app.globalData.userInfo.mobilePhone = '18224621104'
+		// app.globalData.userInfo.showMobilePhone = '18224621104'
 		let that = this
 		that.setData({
 			movingIntegralControl: false
@@ -1371,6 +1377,7 @@ Page({
 		if (e.currentTarget.id === 'cancel') {
 			console.log("点击取消");
 		} else {
+			// app.globalData.userInfo.mobilePhone = '18224621104'
 			// 登记接口 获取 myOrderId
 			const res1 = await changyou.changYouApi('sign');
 			// 畅游是否绑定 false->未绑定  true->已绑定

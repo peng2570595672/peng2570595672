@@ -40,7 +40,7 @@
       <text style="border-bottom: {{ vcValue[4] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vcValue[4]}}</text>
       <text style="border-bottom: {{ vcValue[5] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vcValue[5]}}</text>
     </view>
-    <button catchtap="{{ timeFlag ? '':'btnVerificationCode'}}" style="color:{{ timeFlag ? '#ccc':'#000'}}" >{{getCode}}
+    <button catchtap="{{ timeFlag ? '':'btnVerificationCode'}}" style="color:{{ timeFlag ? '#ccc':'#000'}}">{{getCode}}
       <text wx:if="{{timeFlag}}">({{time}}s)</text>
     </button>
   </view>

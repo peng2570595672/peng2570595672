@@ -12,7 +12,8 @@ Page({
 	 */
 	data: {
 		phone_number: mobilePhoneReplace('15870105857'), //电话号码 隐藏号码的中间四位
-		moving_integral: 399, //移动积分
+		moving_integral: 1488, //移动积分
+		chang_you_integral: 0,	//畅游积分
 		// flag: false, //根据是否绑定控制页面元素的显示与隐藏
 		pass_ticket: []
 	},
@@ -28,7 +29,11 @@ Page({
 			pass_ticket: queryProductList.data.list
 		})
 		// 查询积分
-		const queryScoresList = await changyou.changYouApi('queryScores')
+		const queryScoresList = await changyou.changYouApi('queryIntegral')
+		// moving_integral: queryScoresList.data.cmcc.lmPoints,
+		that.setData({
+			chang_you_integral: queryScoresList.data.cmcc.points
+		})
 	},
 
 	// 立即兑换

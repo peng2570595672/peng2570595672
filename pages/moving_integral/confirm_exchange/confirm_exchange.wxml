@@ -20,7 +20,7 @@
     <view class="pass">
       <view>
         <text>通行券</text>
-        <text>5元</text>
+        <text>{{goodsInfo.goodsPrice}}元</text>
       </view>
       <view>
         <text>ETC+通行费满5元可用 自领取之日起30天内有效</text>
@@ -32,11 +32,13 @@
       <text>绑定账户</text><text>{{phone_number}}</text>
     </view>
     <view>
-      <text>验证码</text><text>请输入验证码</text><button catchtap="getChangYouCode" >获取</button>
+      <text>验证码</text>
+      <input type="text" maxlength="6" placeholder="请输入验证码" bindinput="inputCode2"/>
+      <button catchtap="getChangYouCode">获取</button>
     </view>
     <view>
-      *本次兑换将消耗您对应的移动积分转换为畅由分后，再使用畅由分完成商品兑换。当您点击“确认兑换”时，则默认您已接受移动积分转换为畅由分后不可回退。  
+      *本次兑换将消耗您对应的移动积分转换为畅由分后，再使用畅由分完成商品兑换。当您点击“确认兑换”时，则默认您已接受移动积分转换为畅由分后不可回退。
     </view>
   </view>
-  <button type="primary" class="ok">确认兑换</button>
+  <button type="primary" class="confirmBtnControll {{confirmBtn ? 'err':'ok'}}" catchtap="{{ confirmBtn ? '':'confirmExchange'}}" aria-disabled="{{confirmBtn}}">确认兑换</button>
 </view>

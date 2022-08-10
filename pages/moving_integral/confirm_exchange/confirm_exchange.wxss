@@ -184,11 +184,19 @@
   position: absolute;
   top: 32rpx;
 }
+.main_1 view:nth-of-type(2) input {
+	width: 240rpx;
+	position: absolute;
+	background-color: pink;
+	top: 20rpx;
+}
 
 .main_1 view:nth-of-type(1) text:nth-of-type(2),
-.main_1 view:nth-of-type(2) text:nth-of-type(2) {
+.main_1 view:nth-of-type(2) input {
   left: 144rpx;
 }
+
+
 
 .main_1 view:nth-of-type(2) button {
   width: 114rpx;
@@ -217,18 +225,24 @@
   left: 32rpx;
 }
 
+.confirm_exchange>.confirmBtnControll {
+	width: 610rpx;
+	height: 98rpx;
+	border-radius: 50rpx;
+	font-size: 34rpx;
+	font-family: PingFangSC-Medium, PingFang SC;
+	font-weight: 500;
+	color: #FFFFFF;
+	line-height: 98rpx;
+	position: fixed;
+	bottom: 100rpx;
+	left: 70rpx;
+}
+
 .confirm_exchange>.ok {
-  width: 610rpx;
-  height: 98rpx;
   background: linear-gradient(to right, #00AF62, #68D33F);
   box-shadow: 0px 8rpx 10rpx 0px rgba(104, 211, 63, 0.2000);
-  border-radius: 50rpx;
-  font-size: 34rpx;
-  font-family: PingFangSC-Medium, PingFang SC;
-  font-weight: 500;
-  color: #FFFFFF;
-  line-height: 98rpx;
-  position: fixed;
-  bottom: 100rpx;
-  left: 70rpx;
+}
+.confirm_exchange>.err {
+  background-color: #ccc;
 }
