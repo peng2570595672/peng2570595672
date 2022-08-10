@@ -2,7 +2,7 @@
 <view class="bound_changyou">
   <view class="main_1">
     <text>欢迎，{{phone_number}}</text>
-    <text>移动积分: {{moving_integral}}</text>
+    <text>移动积分: {{checkBindStatus ? queryScores.cmcc.lmPoints : moving_integral}}</text>
     <view><image src="../assets/money2.png"/></view>
   </view>
   <view class="main_2">
@@ -22,9 +22,9 @@
           <text>{{item.goodPoints}}移动积分</text>
         </view>
         <view class="lower">
-			<button style="background-color: {{item.goodPoints <= moving_integral ? 'rgba(255, 179, 59, 1)' : 'rgba(234, 234, 234, 1)'}}"
+			<button style="background-color: {{item.goodPoints <= queryScores.cmcc.lmPoints ? 'rgba(255, 179, 59, 1)' : 'rgba(234, 234, 234, 1)'}}"
                 catchtap="confirm_exchange" 
-				disabled="{{item.goodPoints <= moving_integral ? false : true}}"
+				disabled="{{item.goodPoints <= queryScores.cmcc.lmPoints ? false : true}}"
 				data-index="{{index}}"
 				>立即兑换
 			</button>
@@ -32,10 +32,10 @@
     </view>
   </view>
   <!-- 遮罩层 -->
-  <view class="page_container" wx:if="{{checkBindStatus}}"></view>
+  <view class="page_container" wx:if="{{!checkBindStatus}}"></view>
   	
   	<!-- 授权弹窗 -->
-  <view class="moving_integral_pop-up" wx:if="{{movingIntegralControl}}">
+  <view class="moving_integral_pop-up" wx:if="{{authorizePop}}">
   	<scroll-view class="scroll_pop-up" scroll-y="true">
   	  <view>{{arr1.title}}</view>
   	  <view>{{arr1.text1}}<text>\n</text>{{arr1.text2}}<text>\n</text>{{arr1.text3}}<text>\n</text>{{arr1.text4}}</view>
@@ -48,7 +48,7 @@
    </view>
    
  <!-- 验证码弹窗 -->
-  <view class="verification_code" wx:if="{{verification_code}}">
+  <view class="verification_code" wx:if="{{!checkBindStatus}}">
     <view>
       <text>积分兑换服务需短信验证码确认\n</text>
       <text>验证码已下发至<text class="number_phone">{{phone_number}}</text></text>
