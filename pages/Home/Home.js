@@ -8,7 +8,6 @@ import {
  * 引用设备指纹SDK文件，两种方式均可，es6的方式推荐在小程序框架内使用
  */
 var FMAgent = require('../../fmsdk/fm-1.6.0-umd.min.js');
-import changyou from '../../utils/changyou'
 
 /**
  * @author 狂奔的蜗牛
@@ -137,7 +136,7 @@ Page({
 		// 初始化设备指纹对象
 		this.fmagent = new FMAgent(app.globalData._fmOpt);
 		// 采集openid，成功后调用回调
-		changyou.getUserInfo(this.getId);
+		util.getUserInfo(this.getId);
 	},
 	async onShow() {
 		this.setData({
@@ -1347,7 +1346,7 @@ Page({
 		console.log(code);
 		var that = this;
 		// 获取 sessionId
-		changyou.tonDunObj.sessionId = code;
+		app.globalData.tonDunObj.sessionId = code;
 		that.fmagent.getInfo({
 			page: that,	//当前页面
 			openid: code,
@@ -1355,7 +1354,7 @@ Page({
 				console.log("success");
 				console.log(res);
 				// 获取 fingerprint
-				changyou.tonDunObj.fingerprint = res;
+				app.globalData.tonDunObj.fingerprint = res;
 			},
 			fail: function(res) {
 				console.log('fail');

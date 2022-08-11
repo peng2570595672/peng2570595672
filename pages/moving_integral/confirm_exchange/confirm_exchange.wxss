@@ -97,29 +97,30 @@
 }
 
 .main .text_1 text {
+  width: 150rpx;
+  height: 100rpx;
+  display: inline-block;
+  /* background-color: #ffaaff; */
   font-size: 28rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
+  text-align: center;
   color: #FFFFFF;
   position: absolute;
 }
 
 .main .text_1 text:nth-of-type(1) {
-  left: 82rpx;
+  left: 50rpx;
 }
 
 .main .text_1 text:nth-of-type(2) {
-  left: 348rpx;
+  left: 290rpx;
 }
 
 .main .text_1 text:nth-of-type(3) {
-  right: 84rpx;
+  right: 60rpx;
 }
 
-.main .text_1 text:nth-of-type(4) {
-  top: 36rpx;
-  right: 320rpx;
-}
 
 .main .pass {
   width: 686rpx;

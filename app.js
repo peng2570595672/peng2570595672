@@ -123,6 +123,11 @@ App({
 		  appName: "changyou_web",
 		  // 生产环境开启该选项
 		  // env: "PRODUCTION"
+		},
+		tonDunObj: {
+			fingerprint: '',
+			sessionId: '',
+			myOrderId: ''
 		}
 	},
 	onLaunch (options) {

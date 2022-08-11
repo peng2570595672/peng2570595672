@@ -3,29 +3,22 @@ import {
 	mobilePhoneReplace
 } from '../../../utils/util';
 const util = require('../../../utils/util');
-const changyou = require('../../../utils/changyou')
+// const changyou = require('../../../utils/changyou')
 const app = getApp();
 Page({
-
-	/**
-	 * 页面的初始数据
-	 */
 	data: {
 		phone_number: mobilePhoneReplace(app.globalData.userInfo.mobilePhone), 	//电话号码 隐藏号码的中间四位
 		moving_integral: '_', 									//移动积分
 		chang_you_integral: 0, 									//畅游积分
-
 		mask: false,											//控制遮慕层的显示隐藏
 		authorizePop: false, 									//控制授权说明弹窗的显示隐藏
 		verification_code: false, 								//控制验证码弹窗的显示隐藏
-
 		checkBindStatus: null, 									//畅游是否绑定
 		queryProducts: null, 									//商品列表
 		sign: {}, //登记信息
 		queryScores: null, 										//用户积分信息
 		queryBindCode: null,									//获取绑定验证码信息
 		prepareOrder: null,										//预下单信息
-		
 		arr1: {
 			text1: '1. 本活动为移动积分兑换通行券活动，由合作伙伴上海分互链信息技术有限公司通过数据接口实时读取您在中国移动的消费积分的剩余数量，以完成兑换畅由积分后再兑换相应的ETC+通行券。',
 			text2: '2. 积分兑换比例为：120移动积分=100畅由积分；180畅由积分=1元通行券，具体可兑换面值以页面可选为准。',
@@ -40,17 +33,11 @@ Page({
 	},
 
 	onLoad(options) {
-		console.log("1");
+		console.log(app.globalData.tonDunObj);
 		let that = this;
 		setTimeout(that.loginCall, 0)
 	},
-	
-	onShow() {
-		console.log("2");
-	},
-	
 	onReady() {
-		console.log("3");
 		setTimeout(this.queryGoods, 1000)
 	},
 
@@ -62,13 +49,14 @@ Page({
 		that.setData({
 			sign: res1.data
 		});
+		app.globalData.tonDunObj.myOrderId = res1.data.myOrderId
 		console.log('登记');
-		console.log(res1.data);
+		console.log(res1);
 
 		// 畅游是否绑定 false->未绑定  true->已绑定
 		const res2 = await util.getDataFromServersV2('consumer/member/changyou/checkBindStatus', {
-			fingerprint: changyou.tonDunObj.fingerprint,
-			sessionId: changyou.tonDunObj.sessionId,
+			fingerprint: app.globalData.tonDunObj.fingerprint,
+			sessionId: app.globalData.tonDunObj.sessionId,
 			myOrderId: res1.data.myOrderId
 		});
 		that.setData({
@@ -93,11 +81,10 @@ Page({
 		console.log(res3);
 	},
 
-	// 立即兑换
+	// 点击立即兑换
 	async confirm_exchange(e) {
 		let that = this;
 		const index = e.currentTarget.dataset.index
-		console.log(e.currentTarget.dataset.index);
 		// 预下单
 		const res7 = await util.getDataFromServersV2('consumer/member/changyou/prepareOrder', {
 			myOrderId: that.data.sign.myOrderId,
@@ -110,16 +97,10 @@ Page({
 		})
 		console.log("预下单");
 		console.log(res7);
+		const outerOrderId = res7.data.sessionId;
+		const orderId = res7.data.orderId;
 		wx.navigateTo({
-			url: '/pages/moving_integral/confirm_exchange/confirm_exchange',
-			success: function(res) {
-			    res.eventChannel.emit('boundChangYouData', { 
-					prepareOrder: res7.data,
-					goodsObj: that.data.queryProducts.list[index],
-					queryScores: that.data.queryScores,
-					myOrderId: that.data.sign.myOrderId
-				})
-			}
+			url: `/pages/moving_integral/confirm_exchange/confirm_exchange?index=${index}&outerOrderId=${outerOrderId}&orderId=${orderId}`,
 		});
 	},
 
@@ -131,13 +112,7 @@ Page({
 				authorizePop: true,
 				mask: true
 			})
-		}else if (e.currentTarget.id === 'cancel') {
-			this.setData({
-				authorizePop: false,
-				mask: false
-			})
-			console.log("点击取消");
-		} else {
+		}else {
 			this.setData({
 				authorizePop: false,
 				mask: false
@@ -206,8 +181,8 @@ Page({
 			util.showToastNoIcon("已绑定畅游")
 			// 查询积分
 			const res4 = await util.getDataFromServersV2('consumer/member/changyou/queryScores', {
-				fingerprint: changyou.tonDunObj.fingerprint,
-				sessionId: changyou.tonDunObj.sessionId,
+				fingerprint: app.globalData.tonDunObj.fingerprint,
+				sessionId: app.globalData.tonDunObj.sessionId,
 				myOrderId: that.data.sign.myOrderId
 			});
 			that.setData({

@@ -27,41 +27,7 @@ let makeOrderList = null;
 // let bindChangYouList = null;
 
 
-// 获取openid函数，支持传入回调函数
-function getUserInfo(callback) {
-	wx.checkSession({
-		success: function(res) {
-			console.log(res);
-			// 这里把加密后的openid存入缓存，下次就不必再去发起请求
-			const openId = wx.getStorageSync('user_code');
-			if (openId) {
-				console.log(openId);
-				app.globalData.openId = openId;
-				callback(0, openId); // 回调函数接受两个参数，第一个代表code种类，0为openId，1为code
-			} else {
-				// 如果缓存中没有，则需要再次调用登录接口获取code
-				wx.login({
-					success: function(res) {
-						console.log(res);
-						app.globalData.code = res.code;
-						callback(1, res.code);
-					}
-				})
-			}
-		},
-		fail: function(res) {
-			console.log("失败");
-			console.log(res);
-			wx.login({
-				success: function(res) {
-					console.log(res);
-					app.globalData.code = res.code;
-					callback(1, res.code);
-				}
-			})
-		}
-	})
-};
+
 
 // 上传图片 并返回url 地址
 function uploadFile_1() {
@@ -174,26 +140,26 @@ async function changYouApi(obj) {
 			console.log(queryScoreCodeList);
 			return queryScoreCodeList;
 			break;
-		case 'exchangeScore':
-			// 兑换积分
-			exchangeScoreList = await util.getDataFromServersV2('consumer/member/changyou/exchangeScore', {
-				myOrderId: signList.data.myOrderId,
-				outerOrderId: prepareOrderList.data.sessionId,
-				outerPoints: "500",
-				orderId: prepareOrderList.data.orderId,
-				optCode: 
-			})
-			console.log("兑换积分");
-			console.log(exchangeScoreList);
-			return exchangeScoreList;
-			break;
+		// case 'exchangeScore':
+		// 	// 兑换积分
+		// 	exchangeScoreList = await util.getDataFromServersV2('consumer/member/changyou/exchangeScore', {
+		// 		myOrderId: signList.data.myOrderId,
+		// 		outerOrderId: prepareOrderList.data.sessionId,
+		// 		outerPoints: "500",
+		// 		orderId: prepareOrderList.data.orderId,
+		// 		// optCode: 
+		// 	})
+		// 	console.log("兑换积分");
+		// 	console.log(exchangeScoreList);
+		// 	return exchangeScoreList;
+		// 	break;
 		case 'makeOrder':
 			// 下单
 			makeOrderList = await util.getDataFromServersV2('consumer/member/changyou/makeOrder', {
 				myOrderId: signList.data.myOrderId,
 				orderId: prepareOrderList.data.orderId,
 				sessionId: tonDunObj.sessionId,
-				mobileCode: 
+				// mobileCode: 
 			})
 			console.log("下单");
 			console.log(makeOrderList);
@@ -209,7 +175,6 @@ async function changYouApi(obj) {
 
 
 module.exports = {
-	getUserInfo,
 	uploadFile_1,
 	changYouApi,
 	tonDunObj

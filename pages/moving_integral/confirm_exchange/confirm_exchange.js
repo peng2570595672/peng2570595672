@@ -8,11 +8,14 @@ const app = getApp();
 Page({
 	data: {
 		phone_number: mobilePhoneReplace(app.globalData.userInfo.mobilePhone),	//电话号码 隐藏号码的中间四位
-		confirmBtn: true,														//确认兑换按钮的颜色控制
+		confirmBtn: false,														//确认兑换按钮的颜色控制
 		myOrderId: '',															//畅由侧返回的标识ID
+		index: null,
 		goodsInfo: {},															//商品的信息
 		integral: {},															//积分信息
-		prepareOrder: null,														//预下单信息
+		
+		outerOrderId: '',														//预下单信息
+		orderId: '',															//预下单信息
 		queryScoreCode: null,													//获取兑换积分验证码返回的信息
 		integralHighlight: false,												//确定谁的积分高亮
 		optCode: '',															//验证码
@@ -20,61 +23,80 @@ Page({
 		makeOrder: null															//下单返回的信息
 	},
 	onLoad(options) {
+		console.log(options);
 		let that = this;
-		that.getPrevPageData()
+		that.setData({
+			myOrderId: options.myOrderId,
+			index: options.index,
+			outerOrderId: options.outerOrderId,
+			orderId: options.orderId
+		})
+		that.firstFuncton(options)
 	},
 	onReady() {
 		let that = this;
 	},
 	
-	// 获取上一个页面传来的数据
-	getPrevPageData() {
-		let that = this
-		const eventChannel = this.getOpenerEventChannel();
-		eventChannel.on('boundChangYouData', function(data) {
-			console.log(data);
-		    that.setData({
-				myOrderId: data.myOrderId,
-				goodsInfo: data.goodsObj,
-				integral: data.queryScores.cmcc,
-				prepareOrder: data.prepareOrder
-			})
-		})
-		that.moveAndChangYou()
-	},
-	// 移动积分和畅游积分用谁来兑换
-	moveAndChangYou() {
+	async firstFuncton(options) {
 		let that = this;
-		if (that.data.integral.lmPoints >= that.data.goodsInfo.goodPoints) {
+		// 查询商品
+		const res1 = await util.getDataFromServersV2('consumer/member/changyou/queryProducts', {
+			myOrderId: app.globalData.tonDunObj.myOrderId,
+			pageSize: '10',
+			pageNum: '1'
+		})
+		that.setData({
+			goodsInfo: res1.data.list[options.index]
+		});
+		console.log("查询商品");
+		console.log(res1);
+		
+		// 查询积分
+		const res2 = await util.getDataFromServersV2('consumer/member/changyou/queryScores', {
+			fingerprint: app.globalData.tonDunObj.fingerprint,
+			sessionId: app.globalData.tonDunObj.sessionId,
+			myOrderId: app.globalData.tonDunObj.myOrderId
+		});
+		that.setData({
+			integral: res2.data.cmcc,
+		});
+		console.log("查询积分");
+		console.log(res2);
+		// 判断畅游积分是否大于商品积分
+		if (800 >= res1.data.list[options.index].goodPoints) {
 			that.setData({
 				integralHighlight: true,
 				confirmBtn: false
 			})
-		} else{
-			console.log("cccc");
 		}
+		console.log(res2.data.points);
+		console.log(that.data.integralHighlight);
 	},
+	
+	
+	
 	// 获取兑换积分验证码
 	async getChangYouCode() {
 		let that = this;
 		const res = await util.getDataFromServersV2('consumer/member/changyou/queryScoreCode', {
-			myOrderId: that.data.myOrderId,
-			outerOrderId: that.data.prepareOrder.sessionId,
+			myOrderId: app.globalData.tonDunObj.myOrderId,
+			outerOrderId: that.data.outerOrderId,
 			outerPoints: "500",					//移动积分
-			orderId: that.data.prepareOrder.orderId
+			orderId: that.data.orderId
 		})
 		that.setData({
 			queryScoreCode: res.data.data
 		})
 		console.log(res);
-		
 	},
-	// 点击兑换畅游积分
+	
+	// 点击兑换畅游积分和下单
 	confirmExchange() {
-		if (!this.data.integralHighlight) {
-			this.redeemPoints()
-		} else{
+		console.log("aaaaaa");
+		if (that.data.integralHighlight) {
 			this.overBooking()
+		} else{
+			this.redeemPoints()
 		}
 	},
 	// 兑换积分api
@@ -83,10 +105,10 @@ Page({
 		console.log(that.data.optCode);
 		// 兑换畅游积分
 		const res1 = await util.getDataFromServersV2('consumer/member/changyou/exchangeScore', {
-			myOrderId: that.data.myOrderId,
-			outerOrderId: that.data.prepareOrder.outerOrderId,
+			myOrderId: tapp.globalData.tonDunObj.myOrderId,
+			outerOrderId: that.data.outerOrderId,
+			orderId: that.data.orderId,
 			outerPoints: that.data.integral.lmPoints,
-			orderId: that.data.prepareOrder.orderId,
 			optCode: that.data.optCode
 		})
 		console.log("兑换畅游积分");
@@ -108,8 +130,8 @@ Page({
 		// const res2 = await util.getDataFromServersV2('consumer/member/changyou/makeOrder', {
 		// 	myOrderId: that.data.myOrderId,
 		// 	orderId: that.data.exchangeScore.orderId,
-		// 	sessionId: changyou.tonDunObj.sessionId
-		// 	// mobileCode: 弃用
+		// sessionId: app.globalData.tonDunObj.sessionId
+		// mobileCode: 弃用
 		// })
 		// that.setData({
 		// 	makeOrder: res2.data
@@ -125,12 +147,9 @@ Page({
 	inputCode2(e) {
 		console.log(e.detail.value);
 		let that = this;
-		that.setData({
-			confirmBtn: true
-		})
 		if (e.detail.value.length === 6) {
 			that.setData({
-				confirmBtn: false,
+				confirmBtn: true,
 				optCode: e.detail.value
 			})
 		}
@@ -139,7 +158,9 @@ Page({
 	/**
 	 * 生命周期函数--监听页面卸载
 	 */
-	onUnload() {},
+	onUnload() {
+		
+	},
 
 
 })
