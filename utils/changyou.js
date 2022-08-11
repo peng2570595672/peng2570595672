@@ -174,31 +174,31 @@ async function changYouApi(obj) {
 			console.log(queryScoreCodeList);
 			return queryScoreCodeList;
 			break;
-		// case 'exchangeScore':
-		// 	// 兑换积分
-		// 	exchangeScoreList = await util.getDataFromServersV2('consumer/member/changyou/exchangeScore', {
-		// 		myOrderId: signList.data.myOrderId,
-		// 		outerOrderId: prepareOrderList.data.sessionId,
-		// 		outerPoints: "500",
-		// 		orderId: prepareOrderList.data.orderId,
-		// 		optCode: 
-		// 	})
-		// 	console.log("兑换积分");
-		// 	console.log(exchangeScoreList);
-		// 	return exchangeScoreList;
-		// 	break;
-		// case 'makeOrder':
-		// 	// 下单
-		// 	makeOrderList = await util.getDataFromServersV2('consumer/member/changyou/makeOrder', {
-		// 		myOrderId: signList.data.myOrderId,
-		// 		orderId: prepareOrderList.data.orderId,
-		// 		sessionId: tonDunObj.sessionId,
-		// 		mobileCode: 
-		// 	})
-		// 	console.log("下单");
-		// 	console.log(makeOrderList);
-		// 	return makeOrderList;
-		// 	break;
+		case 'exchangeScore':
+			// 兑换积分
+			exchangeScoreList = await util.getDataFromServersV2('consumer/member/changyou/exchangeScore', {
+				myOrderId: signList.data.myOrderId,
+				outerOrderId: prepareOrderList.data.sessionId,
+				outerPoints: "500",
+				orderId: prepareOrderList.data.orderId,
+				optCode: 
+			})
+			console.log("兑换积分");
+			console.log(exchangeScoreList);
+			return exchangeScoreList;
+			break;
+		case 'makeOrder':
+			// 下单
+			makeOrderList = await util.getDataFromServersV2('consumer/member/changyou/makeOrder', {
+				myOrderId: signList.data.myOrderId,
+				orderId: prepareOrderList.data.orderId,
+				sessionId: tonDunObj.sessionId,
+				mobileCode: 
+			})
+			console.log("下单");
+			console.log(makeOrderList);
+			return makeOrderList;
+			break;
 		default:
 			break;
 	}

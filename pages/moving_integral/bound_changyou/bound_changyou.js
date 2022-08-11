@@ -11,10 +11,11 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		phone_number: util.mobilePhoneReplace('15870105857'), 	//电话号码 隐藏号码的中间四位
+		phone_number: mobilePhoneReplace(app.globalData.userInfo.mobilePhone), 	//电话号码 隐藏号码的中间四位
 		moving_integral: '_', 									//移动积分
 		chang_you_integral: 0, 									//畅游积分
 
+		mask: false,											//控制遮慕层的显示隐藏
 		authorizePop: false, 									//控制授权说明弹窗的显示隐藏
 		verification_code: false, 								//控制验证码弹窗的显示隐藏
 
@@ -23,13 +24,14 @@ Page({
 		sign: {}, //登记信息
 		queryScores: null, 										//用户积分信息
 		queryBindCode: null,									//获取绑定验证码信息
+		prepareOrder: null,										//预下单信息
 		
 		arr1: {
-			title: '您即将授权当前手机号使用中国移动账户登录上海分互链信息技术有限公司所有的“分互链积分平台”，如果您无法认同如下内容，请您点击“取消”并拒绝授权。如您点击“继续”：',
-			text1: '1、即视为您同意和授权中国移动向上海分互链信息技术有限公司提供账户数据接口以使上海分互链信息技术有限公司可以调用您在中国移动网站(www.10086.cn)的注册账户的登录信息，便于您直接使用您在中国移动网站的注册信息登录“分互链积分平台”。',
-			text2: '2、即视为您同意及授权（1）上海分互链信息技术有限公司通过数据接口实时读取您在中国移动的消费积分的剩余数量，以完成兑换畅由积分、集分宝或其他积分权益；（2）上海分互链信息技术有限公司将您在中国移动的消费积分的剩余数量，共享给小程序页面运营方世纪恒通科技股份限公司，用于为您在页面显示剩余积分数量。',
-			text3: '3、表明您已明确知晓上海分互链信息技术有限公司及“分互链积分平台”并非中国移动的关联公司或由中国移动运营，您使用“分互链积分平台”或上海分互链信息技术有限公司提供的其他服务的行为均与中国移动无关，您也不能就使用中国移动网站注册信息登录及使用“分互链积分平台”的后果要求中国移动承担任何责任。',
-			text4: '4、中国移动郑重提醒您保管好您在中国移动网站的注册登录信息，切勿向任何人透露您的账号、密码等相关信息。除非得到您的同意及授权，中国移动不会向任何第三方透露您的任何信息。',
+			text1: '1. 本活动为移动积分兑换通行券活动，由合作伙伴上海分互链信息技术有限公司通过数据接口实时读取您在中国移动的消费积分的剩余数量，以完成兑换畅由积分后再兑换相应的ETC+通行券。',
+			text2: '2. 积分兑换比例为：120移动积分=100畅由积分；180畅由积分=1元通行券，具体可兑换面值以页面可选为准。',
+			text3: '3. 一旦您确认使用移动积分兑换，指定的移动积分将自动消耗并转换为对应的畅由积分，默认您已接受积分不可回退事实，如您不接受该情况，请勿操作兑换。',
+			text4: '4. 畅由积分成功兑换通行券后，不支持退货，如您不接受该情况，请勿操作兑换。',
+			text4: '5. 通行券有效期为自领取之日起30天内有效，逾期自动作废且不可补发。通行券仅限ETC+办理用户用于通行高速时抵扣ETC通行费，不支持其他渠道ETC及其他通行扣费使用。'
 		},
 		vcValue: '', 											//验证码弹窗输入的值
 		time: 60,
@@ -37,17 +39,16 @@ Page({
 		timeFlag: false, 										//控制验证时间的
 	},
 
-	/**
-	 * 生命周期函数--监听页面加载
-	 */
 	onLoad(options) {
 		console.log("1");
 		let that = this;
 		setTimeout(that.loginCall, 0)
 	},
+	
 	onShow() {
 		console.log("2");
 	},
+	
 	onReady() {
 		console.log("3");
 		setTimeout(this.queryGoods, 1000)
@@ -61,6 +62,7 @@ Page({
 		that.setData({
 			sign: res1.data
 		});
+		console.log('登记');
 		console.log(res1.data);
 
 		// 畅游是否绑定 false->未绑定  true->已绑定
@@ -72,6 +74,7 @@ Page({
 		that.setData({
 			checkBindStatus: res2.data
 		});
+		console.log('是否绑定畅游');
 		console.log(res2);
 	},
 
@@ -86,17 +89,8 @@ Page({
 		that.setData({
 			queryProducts: res3.data
 		});
+		console.log("查询商品");
 		console.log(res3);
-		// 查询积分
-		const res4 = await util.getDataFromServersV2('consumer/member/changyou/queryScores', {
-			fingerprint: changyou.tonDunObj.fingerprint,
-			sessionId: changyou.tonDunObj.sessionId,
-			myOrderId: that.data.sign.myOrderId
-		});
-		that.setData({
-			queryScores: res4.data
-		});
-		console.log(res4);
 	},
 
 	// 立即兑换
@@ -114,23 +108,39 @@ Page({
 				goodsNum: 1
 			}]
 		})
+		console.log("预下单");
 		console.log(res7);
-		util.go('/pages/moving_integral/confirm_exchange/confirm_exchange')
-		console.log("点击确认");
+		wx.navigateTo({
+			url: '/pages/moving_integral/confirm_exchange/confirm_exchange',
+			success: function(res) {
+			    res.eventChannel.emit('boundChangYouData', { 
+					prepareOrder: res7.data,
+					goodsObj: that.data.queryProducts.list[index],
+					queryScores: that.data.queryScores,
+					myOrderId: that.data.sign.myOrderId
+				})
+			}
+		});
 	},
 
 	// 点击 弹出模态框的 继续 按键
-	btnMovingIntegral(e) {
-		if (e.currentTarget.id === 'cancel') {
+	ruleDescription(e) {
+		let that = this;
+		if (e.currentTarget.id === 'rule') {
+			that.setData({
+				authorizePop: true,
+				mask: true
+			})
+		}else if (e.currentTarget.id === 'cancel') {
 			this.setData({
-				movingIntegralControl: false,
-				mask: false,
+				authorizePop: false,
+				mask: false
 			})
 			console.log("点击取消");
 		} else {
 			this.setData({
-				movingIntegralControl: false,
-				mask: true,
+				authorizePop: false,
+				mask: false
 			})
 		}
 	},
@@ -162,6 +172,7 @@ Page({
 		// that.setData({
 		// 	queryBindCode: res5.data
 		// })
+		console.log("获取绑定验证码");
 		// console.log(res5);
 	},
 
@@ -181,6 +192,7 @@ Page({
 	async bindChangYou(vcValue) {
 		console.log(vcValue);
 		let that = this;
+		console.log(that.data.queryBindCode);
 		// const res6 = await util.getDataFromServersV2('consumer/member/changyou/bindChangYou', {
 		// 	validateToken: that.data.queryBindCode.validateToken,
 		// 	myOrderId: that.data.sign.myOrderId,
@@ -188,23 +200,63 @@ Page({
 		// 	type: that.data.queryBindCode.type,
 		// 	smscode: vcValue
 		// })
+		console.log("绑定畅游");
 		// console.log(res6);
 		if (true) {
+			util.showToastNoIcon("已绑定畅游")
+			// 查询积分
+			const res4 = await util.getDataFromServersV2('consumer/member/changyou/queryScores', {
+				fingerprint: changyou.tonDunObj.fingerprint,
+				sessionId: changyou.tonDunObj.sessionId,
+				myOrderId: that.data.sign.myOrderId
+			});
+			that.setData({
+				queryScores: res4.data,
+				vcValue: ''
+			});
+			console.log("查询积分");
+			console.log(res4);
+			// 测试用的
 			that.setData({
 				authorizePop: false,
 				verification_code: false,
 				checkBindStatus: true,
 				queryScores:{
 					cmcc:{
-						lmPoints: 800
+						lmPoints: 800,
+						points: 1600
 					}
 				}
 			})
-			util.showToastNoIcon("已绑定畅游")
+			
 		} else {
 			util.showToastNoIcon("验证失败")
-			util.go('/pages/Home/Home')
+			// setTimeout(function(){
+			// 	util.go('/pages/Home/Home')
+			// },1000)
+			that.setData({
+				vcValue: ''
+			})
 		}
-	}
-
+	},
+	
+	/**
+	 * 页面相关事件处理函数--监听用户下拉动作
+	 */
+	onPullDownRefresh() {
+		// 执行 再次加载 积分查询 和 商品查询
+		// setTimeout(this.queryGoods, 0)
+		util.showToastNoIcon("已刷新")
+	},
+	
+	/**
+	 * 页面上拉触底事件的处理函数
+	 */
+	onReachBottom() {
+		let that = this;
+		if (that.data.mask || !that.data.checkBindStatus) {
+			return
+		}
+		util.showToastNoIcon("亲，已到底了")
+	},
 })

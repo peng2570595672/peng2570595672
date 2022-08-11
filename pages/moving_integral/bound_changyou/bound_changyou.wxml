@@ -8,7 +8,7 @@
   <view class="main_2">
     <view></view>
     <text>积分兑高速路费补贴最高立减20元</text>
-    <text>规则说明</text>
+    <text catchtap="ruleDescription" id='rule'>规则说明</text>
   </view>
   <view class="main_3" >
     <view></view>
@@ -32,18 +32,21 @@
     </view>
   </view>
   <!-- 遮罩层 -->
-  <view class="page_container" wx:if="{{!checkBindStatus}}"></view>
+  <view class="page_container" wx:if="{{!checkBindStatus || mask}}"></view>
   	
   	<!-- 授权弹窗 -->
   <view class="moving_integral_pop-up" wx:if="{{authorizePop}}">
   	<scroll-view class="scroll_pop-up" scroll-y="true">
-  	  <view>{{arr1.title}}</view>
-  	  <view>{{arr1.text1}}<text>\n</text>{{arr1.text2}}<text>\n</text>{{arr1.text3}}<text>\n</text>{{arr1.text4}}</view>
+  	  <view>{{arr1.text1}}<text>\n</text>
+		{{arr1.text2}}<text>\n</text>
+		{{arr1.text3}}<text>\n</text>
+		{{arr1.text4}}<text>\n</text>
+		{{arr1.text5}}
+	</view>
   	</scroll-view>
   	<view class="solid"></view>
   	<view class="btn_scroll">
-  	  <button id="cancel" catchtap="btnMovingIntegral">取消</button>
-  	  <button id="confirm" catchtap="btnMovingIntegral">继续</button>
+  	  <button id="confirm" catchtap="ruleDescription">确认</button>
   	</view>
    </view>
    

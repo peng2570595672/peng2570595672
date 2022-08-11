@@ -3,13 +3,13 @@
   <view class="main">
     <view class="progress_bar">
       <text class="bar_1">
-        <text class="bar_2"></text>
+        <text class="bar_2" style="margin-left: {{ integralHighlight ? 312:0}}rpx"></text>
       </text>
+      <view class="picure_1" style="opacity: {{integralHighlight ? 0.8:1}};"></view>
+      <view class="exchange_tip" style="background-color: {{integralHighlight ? '#2AC376':'#FFB33B' }};opacity: {{integralHighlight ? 0.8:1}};" >兑换</view>
       <view class="picure_1"></view>
-      <view class="exchange_tip">兑换</view>
-      <view class="picure_1"></view>
-      <view class="exchange_tip">兑换</view>
-      <view class="picure_1"></view>
+      <view class="exchange_tip" style="background-color: {{integralHighlight ? '#FFB33B':'#2AC376' }};opacity: {{integralHighlight ? 1:0.8}};">兑换</view>
+      <view class="picure_1" style="opacity: {{integralHighlight ? 1:0.8}};"></view>
     </view>
     <view class="text_1">
       <text>移动积分</text>
@@ -31,12 +31,12 @@
     <view>
       <text>绑定账户</text><text>{{phone_number}}</text>
     </view>
-    <view>
+    <view wx:if="{{integralHighlight}}">
       <text>验证码</text>
       <input type="text" maxlength="6" placeholder="请输入验证码" bindinput="inputCode2"/>
       <button catchtap="getChangYouCode">获取</button>
     </view>
-    <view>
+    <view wx:if="{{integralHighlight}}">
       *本次兑换将消耗您对应的移动积分转换为畅由分后，再使用畅由分完成商品兑换。当您点击“确认兑换”时，则默认您已接受移动积分转换为畅由分后不可回退。
     </view>
   </view>

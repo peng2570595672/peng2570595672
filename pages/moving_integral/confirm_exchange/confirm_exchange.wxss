@@ -22,20 +22,22 @@
 }
 
 .bar_1,
-.bar_2 {
+.bar_2{
   height: 12rpx;
   display: block;
   border-radius: 6rpx;
+  position: relative;
+  
 }
 
 .main .progress_bar .bar_1 {
   width: 624rpx;
   margin: 0 58rpx;
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.16);
 }
 
 .main .progress_bar .bar_1 .bar_2 {
-  width: 320rpx;
+  width: 312rpx;
   background-color: #FFB33B;
 }
 
@@ -79,12 +81,10 @@
 }
 
 .main .progress_bar .exchange_tip:nth-of-type(2) {
-  background-color: #FFB33B;
   left: 206rpx;
 }
 
 .main .progress_bar .exchange_tip:nth-of-type(4) {
-  background-color: #2AC376;
   left: 452rpx;
 }
 
@@ -187,7 +187,7 @@
 .main_1 view:nth-of-type(2) input {
 	width: 240rpx;
 	position: absolute;
-	background-color: pink;
+	/* background-color: pink; */
 	top: 20rpx;
 }
 

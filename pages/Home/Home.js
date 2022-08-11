@@ -484,7 +484,6 @@ Page({
 				console.log(result);
 				if (!result) return;
 				if (result.code === 0) {
-					// result.data.mobilePhone = '18224621104';
 					result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data
 						.mobilePhone);
 					this.setData({
@@ -1368,6 +1367,7 @@ Page({
 	},
 	// 点击移动积分兑换ETC 高速通行券
 	async btnMovingIntegral(e) {
+		console.log(app.globalData.userInfo);
 		this.setData({
 			movingIntegralControl: false
 		})
