@@ -1373,6 +1373,19 @@ Page({
 		if (e.currentTarget.id === 'cancel') {
 			console.log("点击取消");
 		} else {
+			// 登记接口 获取 myOrderId
+			const res1 = await util.getDataFromServersV2('consumer/member/changyou/sign');
+			app.globalData.tonDunObj.myOrderId = res1.data.myOrderId
+			console.log('登记');
+			// 畅游是否绑定 false->未绑定  true->已绑定
+			const res2 = await util.getDataFromServersV2('consumer/member/changyou/checkBindStatus', {
+				fingerprint: app.globalData.tonDunObj.fingerprint,
+				sessionId: app.globalData.tonDunObj.sessionId,
+				myOrderId: app.globalData.tonDunObj.myOrderId
+			});
+			app.globalData.tonDunObj.checkBindStatus = res2.data
+			console.log('是否绑定畅游');
+			console.log(res2);
 			// 跳转到 移动积分兑通行券 页面
 			util.go("/pages/moving_integral/bound_changyou/bound_changyou")
 		}

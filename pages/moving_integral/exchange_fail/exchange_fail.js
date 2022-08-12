@@ -1,19 +1,20 @@
 // pages/moving_integral/exchange_fail/exchange_fail.js
-import { uploadFile_1 } from '../../../utils/util'
+const util = require('../../../utils/util')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+	
   },
-
+	goBack() {
+		util.go('')
+	}
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    uploadFile_1()
   },
 
   /**

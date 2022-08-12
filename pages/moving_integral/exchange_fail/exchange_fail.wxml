@@ -4,5 +4,5 @@
     <view class="top_img"></view>
   </view>
   <view>兑换失败</view>
-  <button type="primary">返回</button>
+  <button type="primary" catchtap="goBack">返回</button>
 </view>

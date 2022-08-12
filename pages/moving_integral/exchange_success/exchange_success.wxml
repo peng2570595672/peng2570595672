@@ -4,8 +4,8 @@
     <view class="top_img"></view>
   </view>
   <view class="main2">[ 5元通行券 ]<text>\n</text>已下发至您的ETC账户</view>
-  <button>查看优惠劵</button>
+  <button catchtap="seeCoupons">查看优惠劵</button>
   <text>\n</text>
-  <button plain >继续兑换</button>
+  <button plain catchtap="continueToExchange">继续兑换</button>
 
 </view>

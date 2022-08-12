@@ -127,7 +127,8 @@ App({
 		tonDunObj: {
 			fingerprint: '',
 			sessionId: '',
-			myOrderId: ''
+			myOrderId: '',
+			checkBindStatus: null
 		}
 	},
 	onLaunch (options) {

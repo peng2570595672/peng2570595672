@@ -266,7 +266,6 @@
       "name": "pages/moving_integral",
       "pages": [
         "bound_changyou/bound_changyou",
-        "unbound_changyou/unbound_changyou",
         "confirm_exchange/confirm_exchange",
         "exchange_success/exchange_success",
         "exchange_fail/exchange_fail"

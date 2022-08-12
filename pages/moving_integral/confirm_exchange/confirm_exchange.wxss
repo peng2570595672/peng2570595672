@@ -1,5 +1,6 @@
 /* pages/moving_integral/confirm_exchange/confirm_exchange.wxss */
 .confirm_exchange {
+  height: 100%;
   position: relative;
   
 }
@@ -187,18 +188,16 @@
 }
 .main_1 view:nth-of-type(2) input {
 	width: 240rpx;
+	height: 80rpx;
 	position: absolute;
 	/* background-color: pink; */
-	top: 20rpx;
+	top: 10rpx;
 }
 
 .main_1 view:nth-of-type(1) text:nth-of-type(2),
 .main_1 view:nth-of-type(2) input {
   left: 144rpx;
 }
-
-
-
 .main_1 view:nth-of-type(2) button {
   width: 114rpx;
   height: 52rpx;
@@ -235,9 +234,10 @@
 	font-weight: 500;
 	color: #FFFFFF;
 	line-height: 98rpx;
-	position: fixed;
-	bottom: 100rpx;
-	left: 70rpx;
+	/* margin: 150rpx 70rpx; */
+	position: relative;
+	top: 200rpx;
+	bottom: 200rpx;
 }
 
 .confirm_exchange>.ok {
@@ -247,3 +247,66 @@
 .confirm_exchange>.err {
   background-color: #ccc;
 }
+
+/* 验证码弹窗 */
+.verification_code {
+  width: 640rpx;
+  height: 464rpx;
+  border-radius: 16rpx;
+  background-color: #fff;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+
+.verification_code view:nth-of-type(1) {
+  width: 544rpx;
+  height: 96rpx;
+  text-align: center;
+  margin: 64rpx 48rpx 0 48rpx;
+  font-size: 34rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #000000;
+  line-height: 48rpx;
+}
+
+.verification_code view:nth-of-type(1) .number_phone {
+  color: rgba(25, 191, 107, 1);
+}
+
+.verification_code view:nth-of-type(2) {
+  width: 512rpx;
+  height: 82rpx;
+  position: relative;
+  top: 34rpx;
+  left: 64rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.verification_code view:nth-of-type(2) text {
+  display: inline-block;
+  width: 68rpx;
+  height: 98rpx;
+  text-align: center;
+  font-size: 70rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  line-height: 88rpx;
+  border-bottom: 6rpx solid rgba(216, 216, 216, 1);
+  margin-top: -6rpx;
+  color: #00B85C;
+}
+
+.verification_code view:nth-of-type(2) input {
+  width: 100%;
+  height: 98rpx;
+  color: rgba(0, 0, 0, 0);
+  position: absolute;
+  opacity: 0;
+}
+
+

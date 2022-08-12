@@ -1684,7 +1684,6 @@ function getUserInfo(callback) {
 };
 
 
-
 module.exports = {
 	setApp,
 	formatNumber,

@@ -12,8 +12,8 @@
       <view class="picure_1" style="opacity: {{integralHighlight ? 1:0.8}};"></view>
     </view>
     <view class="text_1">
-      <text style="color: {{integralHighlight ? 'rgba(255,255,255,0.5)': 'rgba(255,255,255,1)'}}">{{12}}\n移动积分</text>
-      <text>{{300}}\n畅游积分</text>
+      <text style="color: {{integralHighlight ? 'rgba(255,255,255,0.5)': 'rgba(255,255,255,1)'}}">{{integral.cmcc.lmPoints}}\n移动积分</text>
+      <text>{{integral.points||0}}\n畅游积分</text>
       <text style="color: {{integralHighlight ? 'rgba(255,255,255,1)': 'rgba(255,255,255,0.5)'}}">兑换成功</text>
     </view>
     <view class="pass">
@@ -39,5 +39,22 @@
       *本次兑换将消耗您对应的移动积分转换为畅由分后，再使用畅由分完成商品兑换。当您点击“确认兑换”时，则默认您已接受移动积分转换为畅由分后不可回退。
     </view>
   </view>
+  <!-- 验证码弹窗 -->
+   <view class="verification_code" wx:if="{{popFlag}}">
+     <view>
+       <text>畅游积分兑换服务需短信验证码确认\n</text>
+       <text>验证码已下发至<text class="number_phone">{{phone_number}}</text></text>
+     </view>
+     <view>
+       <input type="text" bindinput="input_change" maxlength="6"/>
+       <text style="border-bottom: {{ vcValue[0] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vcValue[0]}}</text>
+       <text style="border-bottom: {{ vcValue[1] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vcValue[1]}}</text>
+       <text style="border-bottom: {{ vcValue[2] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vcValue[2]}}</text>
+       <text style="border-bottom: {{ vcValue[3] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vcValue[3]}}</text>
+       <!-- <text style="border-bottom: {{ vcValue[4] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vcValue[4]}}</text>
+       <text style="border-bottom: {{ vcValue[5] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vcValue[5]}}</text> -->
+     </view>
+   </view>
+   <!-- 确认按钮 -->
   <button type="primary" class="confirmBtnControll {{integralHighlight ? 'ok':'err'}}" catchtap="{{confirmBtn || integralHighlight ? 'confirmExchange': ''}}">确认兑换</button>
 </view>
