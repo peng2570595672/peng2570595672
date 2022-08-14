@@ -128,7 +128,10 @@ App({
 			fingerprint: '',
 			sessionId: '',
 			myOrderId: '',
-			checkBindStatus: null
+			checkBindStatus: null,
+			integralHighlight: false,
+			orderId: '',
+			index: 0
 		}
 	},
 	onLaunch (options) {

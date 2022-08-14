@@ -16,12 +16,12 @@ Page({
 
   },
   seeCoupons() {
-	  util.go('/pages/moving_integral/bound_changyou/bound_changyou')
-  }
+	  util.go('/pages/personal_center/service_card_voucher/service_card_voucher')
+  },
   // 跳转到个人中心ETC优惠券
   continueToExchange(){
-	  util.go('/pages/personal_center/service_card_voucher/service_card_voucher')
-  }
+	  util.go('/pages/moving_integral/bound_changyou/bound_changyou')
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

@@ -269,7 +269,6 @@
         "confirm_exchange/confirm_exchange",
         "exchange_success/exchange_success",
         "exchange_fail/exchange_fail"
-
       ]
     }
   ],

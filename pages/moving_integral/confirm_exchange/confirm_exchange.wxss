@@ -254,6 +254,8 @@
   height: 464rpx;
   border-radius: 16rpx;
   background-color: #fff;
+  box-sizing: border-box;
+  box-shadow: 0rpx 0rpx 10rpx 1rpx #ccc;
   position: fixed;
   top: 50%;
   left: 50%;

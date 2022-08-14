@@ -9,8 +9,8 @@ Page({
 	
   },
 	goBack() {
-		util.go('')
-	}
+		util.go('/pages/moving_integral/confirm_exchange/confirm_exchange')
+	},
   /**
    * 生命周期函数--监听页面加载
    */
@@ -42,7 +42,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload() {
-
+	util.go('/pages/moving_integral/confirm_exchange/confirm_exchange')
   },
 
   /**

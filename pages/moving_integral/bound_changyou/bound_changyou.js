@@ -22,7 +22,7 @@ Page({
 			text2: '2. 积分兑换比例为：120移动积分=100畅由积分；180畅由积分=1元通行券，具体可兑换面值以页面可选为准。',
 			text3: '3. 一旦您确认使用移动积分兑换，指定的移动积分将自动消耗并转换为对应的畅由积分，默认您已接受积分不可回退事实，如您不接受该情况，请勿操作兑换。',
 			text4: '4. 畅由积分成功兑换通行券后，不支持退货，如您不接受该情况，请勿操作兑换。',
-			text4: '5. 通行券有效期为自领取之日起30天内有效，逾期自动作废且不可补发。通行券仅限ETC+办理用户用于通行高速时抵扣ETC通行费，不支持其他渠道ETC及其他通行扣费使用。'
+			text5: '5. 通行券有效期为自领取之日起30天内有效，逾期自动作废且不可补发。通行券仅限ETC+办理用户用于通行高速时抵扣ETC通行费，不支持其他渠道ETC及其他通行扣费使用。'
 		},
 		vcValue: '', 															//验证码弹窗输入的值
 		time: 60,
@@ -62,21 +62,21 @@ Page({
 			sessionId: app.globalData.tonDunObj.sessionId,
 			myOrderId: app.globalData.tonDunObj.myOrderId
 		});
-		// that.setData({
-		// 	queryScores: res4.data,
-		// })
+		that.setData({
+			queryScores: res4.data,
+		})
 		console.log(res4);
 		// 测试
-		if (app.globalData.tonDunObj.checkBindStatus) {
-			that.setData({
-				queryScores:{
-					cmcc:{
-						lmPoints: 800,
-						points: 1600
-					}
-				}
-			})
-		}
+		// if (app.globalData.tonDunObj.checkBindStatus) {
+		// 	that.setData({
+		// 		queryScores:{
+		// 			points: 100,
+		// 			cmcc: {
+		// 				lmPoints: 800
+		// 			}
+		// 		}
+		// 	})
+		// }
 	},
 
 	// 点击 弹出模态框的 继续 按键
@@ -155,16 +155,18 @@ Page({
 		console.log(res6);
 		if (res6.data) {
 			util.showToastNoIcon("已绑定畅游")
-			that.changYouIntegral();	// 查询积分
 			that.setData({
 				mask: false,
+				checkBindStatus: true,
+				timeFlag: false
 			})
+			that.changYouIntegral();	// 查询积分
 			app.globalData.tonDunObj.checkBindStatus = true
 		} else {
 			util.showToastNoIcon("验证失败");
-			// setTimeout(function(){
-			// 	util.go('/pages/Home/Home')
-			// },1000)
+			setTimeout(function(){
+				util.go('/pages/Home/Home')
+			},1000)
 		}
 		setTimeout(()=>{
 			that.setData({
@@ -182,6 +184,7 @@ Page({
 			myOrderId: app.globalData.tonDunObj.myOrderId,
 			couponConfigId: that.data.queryProducts.list[index].id,
 			actualPrice: that.data.queryProducts.list[index].goodPoints,
+			sessionId: app.globalData.tonDunObj.sessionId,
 			goodsList: [{
 				goodsNo: that.data.queryProducts.list[index].goodsNo,
 				goodsNum: 1
@@ -189,19 +192,21 @@ Page({
 		})
 		console.log("预下单");
 		console.log(res7);
-		const outerOrderId = res7.data.sessionId;
-		const orderId = res7.data.orderId;
-		wx.navigateTo({
-			url: `/pages/moving_integral/confirm_exchange/confirm_exchange?index=${index}&outerOrderId=${outerOrderId}&orderId=${orderId}`,
-		});
+		// 判断畅游积分是否大于商品积分
+		if (that.data.queryScores.points >= parseInt(that.data.queryProducts.list[index].goodPoints)/1.2) {
+			app.globalData.tonDunObj.integralHighlight = true;
+		}
+		app.globalData.tonDunObj.orderId = res7.data.orderId;
+		app.globalData.tonDunObj.index = index;
+		util.go('/pages/moving_integral/confirm_exchange/confirm_exchange')
 	},
 	// 下拉刷新
-	async onPullDownRefresh() {
+/* 	async onPullDownRefresh() {
 		let that = this;
 		// 执行 再次加载 积分查询 和 商品查询
 		that.queryGoods();
 		setTimeout(function() { util.showToastNoIcon("已刷新") },1500)
-	},
+	}, */
 	/**
 	 * 页面上拉触底事件的处理函数
 	 */

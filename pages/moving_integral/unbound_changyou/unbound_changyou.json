@@ -1,7 +1,0 @@
-{
-  "usingComponents": {},
-  "navigationBarTitleText": "移动积分兑通行券",
-  "usingComponents": {
-    "popup": "/components/keyboard/keyboard"
-  }
-}
