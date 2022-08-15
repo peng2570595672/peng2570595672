@@ -1375,7 +1375,8 @@ Page({
 		} else {
 			// 登记接口 获取 myOrderId
 			const res1 = await util.getDataFromServersV2('consumer/member/changyou/sign');
-			// app.globalData.tonDunObj.myOrderId = res1.data.myOrderId
+			app.globalData.tonDunObj.myOrderId = res1.data.myOrderId
+			app.globalData.tonDunObj.orderId = res1.data.orderId
 			console.log('登记');
 			console.log(res1);
 			// 畅游是否绑定 false->未绑定  true->已绑定

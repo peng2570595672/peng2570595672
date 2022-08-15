@@ -32,7 +32,7 @@
     </view>
     <view wx:if="{{!integralHighlight}}">
       <text>验证码</text>
-      <input type="text" maxlength="6" placeholder="请输入验证码" bindinput="inputCode2"/>
+      <input type="text" maxlength="6" placeholder="请输入验证码" model:value="{{optCode}}" bindinput="inputCode2" ref="clear"/>
       <button catchtap="getChangYouCode">获取</button>
     </view>
     <view wx:if="{{!integralHighlight}}">
@@ -46,7 +46,7 @@
        <text>验证码已下发至<text class="number_phone">{{phone_number}}</text></text>
      </view>
      <view>
-       <input type="text" bindinput="input_change" maxlength="4"/>
+       <input type="text" bindinput="input_change" model:value="{{vcValue}}" maxlength="4"/>
        <text style="border-bottom: {{ vcValue[0] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vcValue[0]}}</text>
        <text style="border-bottom: {{ vcValue[1] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vcValue[1]}}</text>
        <text style="border-bottom: {{ vcValue[2] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vcValue[2]}}</text>
@@ -54,5 +54,8 @@
      </view>
    </view>
    <!-- 确认按钮 -->
-  <button type="primary" class="confirmBtnControll {{integralHighlight || confirmBtn ? 'ok':'err'}}" catchtap="{{integralHighlight || confirmBtn ? 'confirmExchange': ''}}">确认兑换</button>
+  <button type="primary" 
+	class="confirmBtnControll {{integralHighlight || confirmBtn ? 'ok':'err'}} {{ iphoneModel ? 'iphonModelIpad': 'iphonModel'}}" 
+	catchtap="{{integralHighlight || confirmBtn ? 'confirmExchange': ''}}"
+	>确认兑换</button>
 </view>

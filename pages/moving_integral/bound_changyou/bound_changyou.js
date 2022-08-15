@@ -32,7 +32,7 @@ Page({
 
 	onLoad(options) {
 		let that = this;
-		setTimeout(that.queryGoods, 10)
+		that.queryGoods();
 	},
 	// 查询商品
 	async queryGoods() {
@@ -67,16 +67,16 @@ Page({
 		})
 		console.log(res4);
 		// 测试
-		// if (app.globalData.tonDunObj.checkBindStatus) {
-		// 	that.setData({
-		// 		queryScores:{
-		// 			points: 100,
-		// 			cmcc: {
-		// 				lmPoints: 800
-		// 			}
-		// 		}
-		// 	})
-		// }
+		if (app.globalData.tonDunObj.checkBindStatus) {
+			that.setData({
+				queryScores:{
+					points: 100,
+					cmcc: {
+						lmPoints: 800
+					}
+				}
+			})
+		}
 	},
 
 	// 点击 弹出模态框的 继续 按键
@@ -184,7 +184,6 @@ Page({
 			myOrderId: app.globalData.tonDunObj.myOrderId,
 			couponConfigId: that.data.queryProducts.list[index].id,
 			actualPrice: that.data.queryProducts.list[index].goodPoints,
-			sessionId: app.globalData.tonDunObj.sessionId,
 			goodsList: [{
 				goodsNo: that.data.queryProducts.list[index].goodsNo,
 				goodsNum: 1
@@ -197,16 +196,17 @@ Page({
 			app.globalData.tonDunObj.integralHighlight = true;
 		}
 		app.globalData.tonDunObj.orderId = res7.data.orderId;
+		console.log(app.globalData.tonDunObj.orderId);
 		app.globalData.tonDunObj.index = index;
 		util.go('/pages/moving_integral/confirm_exchange/confirm_exchange')
 	},
 	// 下拉刷新
-/* 	async onPullDownRefresh() {
+	async onPullDownRefresh() {
 		let that = this;
 		// 执行 再次加载 积分查询 和 商品查询
 		that.queryGoods();
 		setTimeout(function() { util.showToastNoIcon("已刷新") },1500)
-	}, */
+	},
 	/**
 	 * 页面上拉触底事件的处理函数
 	 */
@@ -216,5 +216,8 @@ Page({
 			return
 		}
 		util.showToastNoIcon("亲，已到底了")
+	},
+	onUnload() {
+		util.go('/pages/Home/Home')
 	},
 })

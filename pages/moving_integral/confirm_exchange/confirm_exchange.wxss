@@ -234,10 +234,14 @@
 	font-weight: 500;
 	color: #FFFFFF;
 	line-height: 98rpx;
-	/* margin: 150rpx 70rpx; */
-	position: relative;
-	top: 200rpx;
-	bottom: 200rpx;
+}
+.confirm_exchange>.iphonModel{
+	position: fixed;
+	left: 65rpx;
+	bottom: 80rpx;
+}
+.confirm_exchange>.iphonModelIpad{
+	margin-top: 100rpx;
 }
 
 .confirm_exchange>.ok {

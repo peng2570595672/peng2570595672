@@ -15,14 +15,24 @@ Page({
 		queryScoreCode: null, //获取兑换积分验证码返回的信息
 		integralHighlight: false, //确定谁的积分高亮
 		optCode: '', //验证码
-		vcValue: '', //单前验证码
+		vcValue: '', //下单前验证码
 		exchangeScore: null, //兑换畅游积分返回的信息
 		makeOrder: null, //下单返回的信息
 		confirmBtn: false, //控制确认按钮是下单还是兑换积分
+		iphoneModel: false
 	},
 
 	onLoad(options) {
 		let that = this;
+		wx.getSystemInfo({
+			success(res) {
+				if (res.model == 'iPad'){
+					that.setData({
+						iphoneModel: true
+					})
+				}
+			}
+		})
 		console.log(app.globalData.tonDunObj.index);
 		that.setData({
 			integralHighlight: app.globalData.tonDunObj.integralHighlight,
@@ -93,20 +103,16 @@ Page({
 	// 畅游积分可直接 兑换的输入获取
 	input_change(e) {
 		let that = this;
-		that.setData({
-			vcValue: e.detail.value,
-		})
 		if (e.detail.value.length === 4) {
 			that.utilOverBooking(e.detail.value)
 		}
 	},
 	// 当畅游积分不足输入验证码
 	inputCode2(e) {
-		console.log(e.detail.value);
 		let that = this;
+		console.log(that.data.optCode);
 		if (e.detail.value.length === 6) {
 			that.setData({
-				optCode: e.detail.value,
 				confirmBtn: true
 			})
 		}
@@ -138,10 +144,14 @@ Page({
 		that.setData({
 			exchangeScore: res1.data,
 		})
-		if (res1.code != '000000') {
+		that.changYouIntegral()
+		if (res1.code != 0) {
+			that.setData({
+				optCode: ''
+			})
 			// 如果兑换不成功 直接跳回  上一个页面
 			util.showToastNoIcon('畅游积分兑换失败')
-			// util.go('/pages/moving_integral/bound_changyou/bound_changyou')
+			setTimeout(()=>{util.go('/pages/moving_integral/bound_changyou/bound_changyou')},1000)
 			return
 		}
 		that.setData({
@@ -161,7 +171,24 @@ Page({
 			that.setData({
 				mobileCode: ''
 			})
-			that.utilOverBooking(that.data.mobileCode)
+			// 下单
+			console.log(app.globalData.tonDunObj.myOrderId);
+			console.log(that.data.orderId);
+			console.log(app.globalData.tonDunObj.sessionId);
+			const res2 = await util.getDataFromServersV2('consumer/member/changyou/makeOrder', {
+				myOrderId: app.globalData.tonDunObj.myOrderId,
+				orderId: that.data.orderId,
+				sessionId: app.globalData.tonDunObj.sessionId,
+			})
+			that.setData({
+				makeOrder: res2.data
+			})
+			console.log(res2);
+			if (res2.code == 0) {
+				util.go(`/pages/moving_integral/exchange_success/exchange_success?price=${that.data.goodsInfo.goodsPrice}`)
+			} else {
+				util.go("/pages/moving_integral/exchange_fail/exchange_fail")
+			}
 		} else {
 			// 畅游没有兑换过积分  必须 获取下单验证码
 			console.log('畅游没有兑换过积分  必须 获取下单验证码');
@@ -176,7 +203,7 @@ Page({
 		}
 	},
 
-	// 下单-public-跳转
+	// 下单-畅游积分足够不需要兑换 直接跳转
 	async utilOverBooking(mobileCode) {
 		console.log(mobileCode);
 		let that = this;
@@ -185,16 +212,16 @@ Page({
 			myOrderId: app.globalData.tonDunObj.myOrderId,
 			orderId: that.data.orderId,
 			sessionId: app.globalData.tonDunObj.sessionId,
-			mobileCode: `${mobileCode}`
+			mobileCode: mobileCode
 		})
 		that.setData({
 			makeOrder: res2.data
 		})
 		console.log(res2);
-		if (res2.data.orderTime !== "") {
-			util.go('/pages/moving_integral/exchange_success/exchange_success')
+		if (res2.code == 0) {
+			util.go(`/pages/moving_integral/exchange_success/exchange_success?price=${that.data.goodsInfo.goodsPrice}`)
 		} else {
-			util.go('/pages/moving_integral/exchange_fail/exchange_fail')
+			util.go("/pages/moving_integral/exchange_fail/exchange_fail")
 		}
 	},
 
@@ -202,7 +229,7 @@ Page({
 	 * 生命周期函数--监听页面卸载
 	 */
 	onUnload() {
-		// util.go('/pages/moving_integral/bound_changyou/bound_changyou')
+		util.go('/pages/moving_integral/bound_changyou/bound_changyou')
 	},
 
 

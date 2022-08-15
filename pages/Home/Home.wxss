@@ -526,10 +526,10 @@
 
 .moving_integral_pop-up .scroll_pop-up view:nth-of-type(1) {
 	font-size: 26rpx;
-	font-weight: 500;
+	font-weight: bold;
 	font-family: PingFangSC-Medium, PingFang SC;
 	color: #000000;
-	padding-bottom: 20rpx;
+	padding-bottom: 10rpx;
 }
 
 .moving_integral_pop-up .scroll_pop-up view:nth-of-type(2) {
@@ -538,7 +538,13 @@
 	font-family: PingFangSC-Regular, PingFang SC;
 	padding-bottom: 20rpx;
 }
-
+.moving_integral_pop-up .scroll_pop-up view:nth-of-type(2)>text:nth-of-type(1) {
+	color: #00f;
+}
+.moving_integral_pop-up .scroll_pop-up view:nth-of-type(2) text .textBold{
+	color: #000;
+	font-weight: bold;
+}
 ::-webkit-scrollbar {
 	width: 12rpx;
 	height: 672rpx;
