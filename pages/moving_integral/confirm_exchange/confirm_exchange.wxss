@@ -2,7 +2,7 @@
 .confirm_exchange {
   height: 100%;
   position: relative;
-  
+
 }
 
 .main {
@@ -10,7 +10,7 @@
   /* 背景是一张图片 */
   /* background: url(https://file.cyzl.com/g001/M00/91/D1/oYYBAGLviPuAdHpjAAAljm3kCGw424.png) no-repeat;
   background-size: 100% 100%; */
-  background: linear-gradient(rgba(0, 184, 92, 1),rgba(255, 255, 255, 1));
+  background: linear-gradient(rgba(0, 184, 92, 1), rgba(255, 255, 255, 1));
 }
 
 .main .progress_bar {
@@ -23,12 +23,12 @@
 }
 
 .bar_1,
-.bar_2{
+.bar_2 {
   height: 12rpx;
   display: block;
   border-radius: 6rpx;
   position: relative;
-  
+
 }
 
 .main .progress_bar .bar_1 {
@@ -52,7 +52,7 @@
 .main .progress_bar .picure_1 {
   width: 72rpx;
   height: 62rpx;
-  
+
 }
 
 .main .progress_bar .picure_1:nth-of-type(1) {
@@ -186,18 +186,20 @@
   position: absolute;
   top: 32rpx;
 }
+
 .main_1 view:nth-of-type(2) input {
-	width: 240rpx;
-	height: 80rpx;
-	position: absolute;
-	/* background-color: pink; */
-	top: 10rpx;
+  width: 240rpx;
+  height: 80rpx;
+  position: absolute;
+  /* background-color: pink; */
+  top: 10rpx;
 }
 
 .main_1 view:nth-of-type(1) text:nth-of-type(2),
 .main_1 view:nth-of-type(2) input {
   left: 144rpx;
 }
+
 .main_1 view:nth-of-type(2) button {
   width: 114rpx;
   height: 52rpx;
@@ -226,28 +228,31 @@
 }
 
 .confirm_exchange>.confirmBtnControll {
-	width: 610rpx;
-	height: 98rpx;
-	border-radius: 50rpx;
-	font-size: 34rpx;
-	font-family: PingFangSC-Medium, PingFang SC;
-	font-weight: 500;
-	color: #FFFFFF;
-	line-height: 98rpx;
+  width: 610rpx;
+  height: 98rpx;
+  border-radius: 50rpx;
+  font-size: 34rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #FFFFFF;
+  line-height: 98rpx;
 }
-.confirm_exchange>.iphonModel{
-	position: fixed;
-	left: 65rpx;
-	bottom: 80rpx;
+
+.confirm_exchange>.iphonModel {
+  position: fixed;
+  left: 65rpx;
+  bottom: 80rpx;
 }
-.confirm_exchange>.iphonModelIpad{
-	margin-top: 100rpx;
+
+.confirm_exchange>.iphonModelIpad {
+  margin-top: 100rpx;
 }
 
 .confirm_exchange>.ok {
   background: linear-gradient(to right, #00AF62, #68D33F);
   box-shadow: 0px 8rpx 10rpx 0px rgba(104, 211, 63, 0.2000);
 }
+
 .confirm_exchange>.err {
   background-color: #ccc;
 }
@@ -314,5 +319,3 @@
   position: absolute;
   opacity: 0;
 }
-
-

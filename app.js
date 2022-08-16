@@ -119,10 +119,8 @@ App({
 		 * 填入对应partnerCode和appName
 		 */
 		_fmOpt: {
-		  partnerCode: "tongdun",
-		  appName: "changyou_web",
-		  // 生产环境开启该选项
-		  // env: "PRODUCTION"
+			partnerCode: 'tongdun',
+			appName: 'changyou_web'
 		},
 		tonDunObj: {
 			fingerprint: '',
@@ -131,7 +129,9 @@ App({
 			checkBindStatus: null,
 			integralHighlight: false,
 			orderId: '',
-			index: 0
+			index: 0,
+			price: '',
+			changYouIntegral: 0
 		}
 	},
 	onLaunch (options) {
@@ -395,5 +395,5 @@ App({
 			}
 		}, this.globalData.userInfo.accessToken);
 	}
-	
+
 });

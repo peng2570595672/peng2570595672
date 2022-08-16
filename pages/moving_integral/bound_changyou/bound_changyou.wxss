@@ -38,6 +38,7 @@
   right: 20rpx;
   overflow: hidden;
 }
+
 .main_1 view image {
   width: 100%;
   height: 100%;
@@ -51,6 +52,7 @@
   top: 20rpx;
   left: 32rpx;
 }
+
 .main_2 view {
   width: 686rpx;
   height: 74rpx;
@@ -99,6 +101,7 @@
   background-size: 100% 100%;
   opacity: 0.25;
 }
+
 .main_3 .ticket_exchange {
   width: 298rpx;
   height: 432rpx;
@@ -109,12 +112,14 @@
   z-index: 100;
   position: relative;
 }
+
 .main_3 .ticket_exchange .upper {
   width: 100%;
   height: 70%;
   position: relative;
-  
+
 }
+
 .main_3 .ticket_exchange .lower {
   width: 100%;
   height: 30%;
@@ -122,21 +127,21 @@
 }
 
 
-.main_3 .ticket_exchange .upper .upper_money{
+.main_3 .ticket_exchange .upper .upper_money {
   position: relative;
   color: #00B85C;
 }
 
-.main_3 .ticket_exchange .upper .upper_money text:nth-of-type(1){
+.main_3 .ticket_exchange .upper .upper_money text:nth-of-type(1) {
   font-size: 34rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
-  position: absolute; 
+  position: absolute;
   bottom: 0rpx;
   left: 10%;
 }
 
-.main_3 .ticket_exchange .upper .upper_money text:nth-of-type(2){
+.main_3 .ticket_exchange .upper .upper_money text:nth-of-type(2) {
   display: block;
   width: 100%;
   height: 150rpx;
@@ -153,14 +158,14 @@
   margin-top: 25rpx;
 }
 
-.main_3 .ticket_exchange .upper>text:nth-of-type(1){
+.main_3 .ticket_exchange .upper>text:nth-of-type(1) {
   color: rgba(0, 184, 92, 1);
   overflow-wrap: break-word;
   font-family: PingFangSC-Semibold, PingFang SC;
   font-weight: 600;
 }
 
-.main_3 .ticket_exchange .upper>text:nth-of-type(2){
+.main_3 .ticket_exchange .upper>text:nth-of-type(2) {
   overflow-wrap: break-word;
   color: rgba(255, 192, 0, 1);
   font-family: PingFangSC-Regular, PingFang SC;
@@ -168,7 +173,7 @@
   font-weight: 400;
 }
 
-.main_3 .ticket_exchange .lower button{
+.main_3 .ticket_exchange .lower button {
   width: 80%;
   height: 68rpx;
   line-height: 68rpx;
@@ -180,7 +185,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
 }
 
 /* 弹窗============================================ */
@@ -192,6 +197,7 @@
   position: absolute;
   top: 0;
 }
+
 .moving_integral_pop-up {
   width: 640rpx;
   height: 892rpx;

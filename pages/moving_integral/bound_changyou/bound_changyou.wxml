@@ -3,61 +3,59 @@
   <view class="main_1">
     <text>欢迎，{{phone_number}}</text>
     <text>移动积分: {{checkBindStatus ? queryScores.cmcc.lmPoints : moving_integral}}</text>
-    <view><image src="../assets/money2.png"/></view>
+    <view>
+      <image src="../assets/money2.png" />
+    </view>
   </view>
   <view class="main_2">
     <view></view>
     <text>积分兑高速路费补贴最高立减20元</text>
     <text catchtap="ruleDescription" id='rule'>规则说明</text>
   </view>
-  <view class="main_3" >
+  <view class="main_3">
     <view></view>
-    <view wx:for="{{queryProducts.list}}" wx:key="index" data-item="{{item}}" wx:if="index === " class="ticket_exchange">
+    <view wx:for="{{couponsConfigureArr}}" wx:key="index" data-item="{{item}}" wx:if="index === " class="ticket_exchange">
       <view class="upper">
-          <view class="upper_money">
-            <text>￥</text>
-            <text>{{item.goodsPrice}}</text>
-          </view>
-          <text>通行券</text>
-          <text>{{item.goodPoints}}移动积分</text>
+        <view class="upper_money">
+          <text>￥</text>
+          <text>{{item.price}}</text>
         </view>
-        <view class="lower">
-			<button style="background-color: {{item.goodPoints <= queryScores.cmcc.lmPoints ? 'rgba(255, 179, 59, 1)' : 'rgba(234, 234, 234, 1)'}}"
-                catchtap="confirm_exchange" 
-				disabled="{{item.goodPoints <= queryScores.cmcc.lmPoints ? false : true}}"
-				data-index="{{index}}"
-				>立即兑换
-			</button>
-        </view>
+        <text>通行券</text>
+        <text>{{item.movingIntegral}}移动积分</text>
+      </view>
+      <view class="lower">
+        <button style="background-color: {{item.movingIntegral <= queryScores.cmcc.lmPoints ? 'rgba(255, 179, 59, 1)' : 'rgba(234, 234, 234, 1)'}}" catchtap="confirm_exchange" disabled="{{item.movingIntegral <= queryScores.cmcc.lmPoints ? false : true}}" data-index="{{index}}">立即兑换
+        </button>
+      </view>
     </view>
   </view>
   <!-- 遮罩层 -->
   <view class="page_container" wx:if="{{!checkBindStatus || mask}}"></view>
-  	
-  	<!-- 授权弹窗 -->
+
+  <!-- 授权弹窗 -->
   <view class="moving_integral_pop-up" wx:if="{{authorizePop}}">
-  	<scroll-view class="scroll_pop-up" scroll-y="true">
-  	  <view>{{arr1.text1}}<text>\n</text>
-		{{arr1.text2}}<text>\n</text>
-		{{arr1.text3}}<text>\n</text>
-		{{arr1.text4}}<text>\n</text>
-		{{arr1.text5}}
-		</view>
-  	</scroll-view>
-  	<view class="solid"></view>
-  	<view class="btn_scroll">
-  	  <button id="confirm" catchtap="ruleDescription">确认</button>
-  	</view>
-   </view>
-   
- <!-- 验证码弹窗 -->
+    <scroll-view class="scroll_pop-up" scroll-y="true">
+      <view>{{arr1.text1}}<text>\n</text>
+        {{arr1.text2}}<text>\n</text>
+        {{arr1.text3}}<text>\n</text>
+        {{arr1.text4}}<text>\n</text>
+        {{arr1.text5}}
+      </view>
+    </scroll-view>
+    <view class="solid"></view>
+    <view class="btn_scroll">
+      <button id="confirm" catchtap="ruleDescription">确认</button>
+    </view>
+  </view>
+
+  <!-- 验证码弹窗 -->
   <view class="verification_code" wx:if="{{!checkBindStatus}}">
     <view>
       <text>积分兑换服务需短信验证码确认\n</text>
       <text>验证码已下发至<text class="number_phone">{{phone_number}}</text></text>
     </view>
     <view>
-      <input type="text" bindinput="input_change" maxlength="6"/>
+      <input type="text" bindinput="input_change" model:value="{{vcValue}}" maxlength="6" />
       <text style="border-bottom: {{ vcValue[0] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vcValue[0]}}</text>
       <text style="border-bottom: {{ vcValue[1] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vcValue[1]}}</text>
       <text style="border-bottom: {{ vcValue[2] ? '6rpx solid #8D8D8D ' : '6rpx solid #D8D8D8' }}">{{vcValue[2]}}</text>
@@ -69,9 +67,9 @@
       <text wx:if="{{timeFlag}}">({{time}}s)</text>
     </button>
   </view>
- 
-  
-  
+
+
+
   <view class="footers">
     <text>由上海分互链信息技术有限公司提供积分兑换</text>
   </view>

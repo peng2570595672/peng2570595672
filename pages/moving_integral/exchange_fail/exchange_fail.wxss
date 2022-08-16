@@ -2,10 +2,12 @@
 .exchange_fail {
   text-align: center;
 }
+
 .main1 {
   display: flex;
   justify-content: center;
 }
+
 .main1 .top_img {
   width: 304rpx;
   height: 206rpx;
@@ -25,6 +27,7 @@
   position: relative;
   top: 60rpx;
 }
+
 .exchange_fail button {
   width: 240rpx;
   height: 82rpx;
