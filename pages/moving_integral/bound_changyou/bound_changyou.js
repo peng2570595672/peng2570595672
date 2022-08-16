@@ -82,7 +82,6 @@ Page({
   onLoad (options) {
     let that = this;
     that.changYouIntegral();
-    that.queryGoods();
   },
   // 查询积分
   async changYouIntegral () {
@@ -101,7 +100,7 @@ Page({
     if (app.globalData.tonDunObj.checkBindStatus) {
       that.setData({
         queryScores: {
-          points: 5000,
+          points: 1000,
           cmcc: {
             lmPoints: 4000
           }
@@ -221,14 +220,13 @@ Page({
     });
     console.log('预下单');
     console.log(res7);
-
-    // 判断畅游积分是否大于商品积分
-    if (parseInt(that.data.queryScores.points) >= parseInt(that.data.couponsConfigureArr[index]
-      .changYouIntegral)) {
-      app.globalData.tonDunObj.integralHighlight = true;
-    }
+	// 判断畅游积分是否大于商品积分
+	if (that.data.queryScores.points >= that.data.couponsConfigureArr[index].changYouIntegral) {
+		app.globalData.tonDunObj.integralHighlight = true;
+	} else {
+		app.globalData.tonDunObj.integralHighlight = false;
+	}
     app.globalData.tonDunObj.orderId = res7.data.orderId;
-    console.log(app.globalData.tonDunObj.orderId);
     app.globalData.tonDunObj.index = index;
     app.globalData.tonDunObj.price = that.data.couponsConfigureArr[index].price;
     app.globalData.tonDunObj.changYouIntegral = that.data.couponsConfigureArr[index].changYouIntegral;

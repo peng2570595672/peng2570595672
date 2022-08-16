@@ -109,6 +109,8 @@ Page({
   // 点击兑换畅游积分和下单
   confirmExchange () {
     let that = this;
+	console.log(that.data.confirmBtn);
+	console.log(that.data.integralHighlight);
     if (that.data.confirmBtn && !that.data.integralHighlight) {
       that.redeemPoints();
     } else {
@@ -133,7 +135,7 @@ Page({
       exchangeScore: res1.data
     });
     that.changYouIntegral();
-    if (res1.code !== 0) {
+    if (res1.data.code !== 0) {
       that.setData({
         optCode: ''
       });
@@ -211,7 +213,7 @@ Page({
       makeOrder: res2.data
     });
     console.log('下单');
-    console.log(res2.data.code);
+    console.log(res2.data);
     if (res2.data.code == null) {
       util.go(
         `/pages/moving_integral/exchange_success/exchange_success?price=${app.globalData.tonDunObj.price}`
