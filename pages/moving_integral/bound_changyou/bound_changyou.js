@@ -176,7 +176,7 @@ Page({
     console.log('绑定畅游');
     console.log(res6);
     if (res6.data) {
-	  app.globalData.tonDunObj.checkBindStatus = true;
+      app.globalData.tonDunObj.checkBindStatus = true;
       util.showToastNoIcon('已绑定畅游');
       that.setData({
         mask: false,
@@ -185,7 +185,7 @@ Page({
       });
       that.changYouIntegral(); // 查询积分
     } else {
-	  app.globalData.tonDunObj.checkBindStatus = false;
+      app.globalData.tonDunObj.checkBindStatus = false;
       util.showToastNoIcon('验证失败');
       setTimeout(function () {
         util.go('/pages/Home/Home');
@@ -215,27 +215,13 @@ Page({
     console.log('预下单');
     console.log(res7);
 
-	// 判断畅游积分是否大于商品畅游积分
-	if (that.data.queryScores.points >= that.data.couponsConfigureArr[index].changYouIntegral) {
-		app.globalData.tonDunObj.integralHighlight = true;
-	} else {
-		app.globalData.tonDunObj.integralHighlight = false;
-	}
+		// 判断畅游积分是否大于商品畅游积分
+		app.globalData.tonDunObj.integralHighlight = that.data.queryScores.points >= that.data.couponsConfigureArr[index].changYouIntegral;
     app.globalData.tonDunObj.orderId = res7.data.orderId;
     app.globalData.tonDunObj.index = index;
     app.globalData.tonDunObj.price = that.data.couponsConfigureArr[index].price;
     app.globalData.tonDunObj.changYouIntegral = that.data.couponsConfigureArr[index].changYouIntegral;
     util.go('/pages/moving_integral/confirm_exchange/confirm_exchange');
-  },
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom () {
-    let that = this;
-    if (that.data.mask || !that.data.checkBindStatus) {
-      return;
-    }
-    util.showToastNoIcon('亲，已到底了');
   },
   onUnload () {
     util.go('/pages/Home/Home');
