@@ -146,7 +146,7 @@
         </swiper-item>
     </swiper>
     <!--	轮播图结束-->
-    
+
 	<!-- @cyl -->
   <view class="moving_integral_pop-up" wx:if="{{movingIntegralControl}}">
 	<scroll-view class="scroll_pop-up" scroll-y="true">
@@ -171,10 +171,10 @@
     <!--	弹窗开始-->
     <popup id='dialog' dialogContent="{{dialogContent}}" bind:onHandle="onHandle"></popup>
     <!--	弹窗结束-->
-	
+
 	<!--同盾  在需要采集设备信息的页面加入以下节点-->
 	<view wx:if="{{(hideFMCanvas != undefined) && !hideFMCanvas}}">
 		<!--根据您页面的布局，修改margin-top的值-->
-	    <canvas canvas-id='tdcanvas'style='margin-top:200rpx'></canvas>
+	    <canvas canvas-id='tdcanvas' style='margin-top:200rpx'></canvas>
 	</view>
 </view>

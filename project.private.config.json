@@ -342,6 +342,27 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/test/test",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pingan/pages/ChooseBank/ChooseBank",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/default/bind_withhold/bind_withhold",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
