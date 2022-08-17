@@ -1382,12 +1382,10 @@ Page({
 				myOrderId: app.globalData.tonDunObj.myOrderId
 			});
 			app.globalData.tonDunObj.checkBindStatus = res2.data;
-			// app.globalData.tonDunObj.checkBindStatus = false
 			console.log('是否绑定畅游');
 			console.log(res2);
 			// 跳转到 移动积分兑通行券 页面
 			util.go('/pages/moving_integral/bound_changyou/bound_changyou');
 		}
 	}
-
 });

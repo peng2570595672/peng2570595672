@@ -28,7 +28,8 @@ Page({
     getCode: '获取验证码',
     timeFlag: false, // 控制验证时间的
     // 通行券的列表
-    couponsConfigureArr: [{
+    couponsConfigureArr: [
+	{
       price: 2,
       movingIntegral: 360,
       changYouIntegral: 300,
@@ -37,20 +38,20 @@ Page({
       batchId: '202208161417595704'
     },
     {
+      price: 4,
+      movingIntegral: 720,
+      changYouIntegral: 600,
+      productCode: 'GZLL10043',
+      couponConfigId: '1009408396188721152',
+      batchId: '202208171028354950'
+    },
+    {
       price: 6,
       movingIntegral: 1080,
       changYouIntegral: 900,
-      productCode: 'GZLL10043',
+      productCode: 'GZLL10044',
       couponConfigId: '1009105498342957056',
       batchId: '202208161424593245'
-    },
-    {
-      price: 8,
-      movingIntegral: 1440,
-      changYouIntegral: 1200,
-      productCode: 'GZLL10044',
-      couponConfigId: '1009105895468048384',
-      batchId: '202208161426335196'
     },
     {
       price: 10,
@@ -81,7 +82,11 @@ Page({
 
   onLoad (options) {
     let that = this;
-    that.changYouIntegral();
+	if (app.globalData.tonDunObj.checkBindStatus) {
+		that.changYouIntegral();
+	} else {
+		util.showToastNoIcon('暂未绑定畅游,请先绑定畅游');
+	}
   },
   // 查询积分
   async changYouIntegral () {
@@ -96,16 +101,8 @@ Page({
     });
     console.log('查询积分');
     console.log(res4);
-    // 测试
-    if (app.globalData.tonDunObj.checkBindStatus) {
-      that.setData({
-        queryScores: {
-          points: 1000,
-          cmcc: {
-            lmPoints: 4000
-          }
-        }
-      });
+    if (res4.data.cmcc.msg === '号码所在归属省暂未开通此业务，敬请期待！') {
+		util.showToastNoIcon('号码归属省暂不支持兑换');
     }
   },
 
@@ -159,7 +156,6 @@ Page({
   // 验证码的输入
   input_change () {
     let that = this;
-    console.log(that.data.vcValue);
     // 验证码输入第六位后触发
     if (that.data.vcValue.length === 6) {
       this.bindChangYou(that.data.vcValue);
@@ -169,8 +165,6 @@ Page({
   // 绑定畅游
   async bindChangYou (vcValue) {
     let that = this;
-    console.log(vcValue);
-    console.log(that.data.queryBindCode);
     // 绑定畅游
     const res6 = await util.getDataFromServersV2('consumer/member/changyou/bindChangYou', {
       validateToken: that.data.queryBindCode.validateToken,
@@ -182,6 +176,7 @@ Page({
     console.log('绑定畅游');
     console.log(res6);
     if (res6.data) {
+	  app.globalData.tonDunObj.checkBindStatus = true;
       util.showToastNoIcon('已绑定畅游');
       that.setData({
         mask: false,
@@ -189,8 +184,8 @@ Page({
         timeFlag: false
       });
       that.changYouIntegral(); // 查询积分
-      app.globalData.tonDunObj.checkBindStatus = true;
     } else {
+	  app.globalData.tonDunObj.checkBindStatus = false;
       util.showToastNoIcon('验证失败');
       setTimeout(function () {
         util.go('/pages/Home/Home');
@@ -205,7 +200,6 @@ Page({
 
   // 点击立即兑换
   async confirm_exchange (e) {
-    console.log(e);
     let that = this;
     const index = e.currentTarget.dataset.index;
     // 预下单
@@ -220,7 +214,8 @@ Page({
     });
     console.log('预下单');
     console.log(res7);
-	// 判断畅游积分是否大于商品积分
+
+	// 判断畅游积分是否大于商品畅游积分
 	if (that.data.queryScores.points >= that.data.couponsConfigureArr[index].changYouIntegral) {
 		app.globalData.tonDunObj.integralHighlight = true;
 	} else {
@@ -231,15 +226,6 @@ Page({
     app.globalData.tonDunObj.price = that.data.couponsConfigureArr[index].price;
     app.globalData.tonDunObj.changYouIntegral = that.data.couponsConfigureArr[index].changYouIntegral;
     util.go('/pages/moving_integral/confirm_exchange/confirm_exchange');
-  },
-  // 下拉刷新
-  async onPullDownRefresh () {
-    let that = this;
-    // 执行 再次加载 积分查询 和 商品查询
-    that.queryGoods();
-    setTimeout(function () {
-      util.showToastNoIcon('已刷新');
-    }, 1500);
   },
   /**
    * 页面上拉触底事件的处理函数
