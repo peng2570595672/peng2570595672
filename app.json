@@ -21,6 +21,7 @@
     "pages/default/upload_other_photo/upload_other_photo",
     "pages/default/shot_other_photo/shot_other_photo",
     "pages/default/shot_card/shot_card",
+    "pages/default/bind_withhold/bind_withhold",
     "pages/default/shot_bank_card/shot_bank_card",
     "pages/default/order_audit/order_audit",
     "pages/default/transition_page/transition_page",
