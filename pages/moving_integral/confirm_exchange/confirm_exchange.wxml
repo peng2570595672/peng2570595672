@@ -12,7 +12,7 @@
       <view class="picure_1" style="opacity: {{integralHighlight ? 1:0.8}};"></view>
     </view>
     <view class="text_1">
-      <text style="color: {{integralHighlight ? 'rgba(255,255,255,0.5)': 'rgba(255,255,255,1)'}}">{{changYouIntegral * 1.2}}\n移动积分</text>
+      <text style="color: {{integralHighlight ? 'rgba(255,255,255,0.5)': 'rgba(255,255,255,1)'}}">{{integralHighlight ? '' : changYouIntegral * 1.2}}\n移动积分</text>
       <text>{{changYouIntegral}}\n畅游积分</text>
       <text style="color: {{integralHighlight ? 'rgba(255,255,255,1)': 'rgba(255,255,255,0.5)'}}">兑换成功</text>
     </view>

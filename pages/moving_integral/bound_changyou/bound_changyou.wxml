@@ -24,11 +24,14 @@
         <text>{{item.movingIntegral}}移动积分</text>
       </view>
       <view class="lower">
-        <button style="background-color: {{item.movingIntegral <= queryScores.cmcc.lmPoints ? 'rgba(255, 179, 59, 1)' : 'rgba(234, 234, 234, 1)'}}" catchtap="confirm_exchange" disabled="{{item.movingIntegral <= queryScores.cmcc.lmPoints ? false : true}}" data-index="{{index}}">立即兑换
+        <button style="background-color: {{(item.movingIntegral <= queryScores.cmcc.lmPoints) || (item.changYouIntegral <= queryScores.points) ? 'rgba(255, 179, 59, 1)' : 'rgba(234, 234, 234, 1)'}}" 
+          catchtap="confirm_exchange" 
+          disabled="{{(item.movingIntegral <= queryScores.cmcc.lmPoints) || (item.changYouIntegral <= queryScores.points) ? false : true}}" data-index="{{index}}">立即兑换
         </button>
       </view>
     </view>
   </view>
+  
   <!-- 遮罩层 -->
   <view class="page_container" wx:if="{{!checkBindStatus || mask}}"></view>
 
@@ -67,8 +70,6 @@
       <text wx:if="{{timeFlag}}">({{time}}s)</text>
     </button>
   </view>
-
-
 
   <view class="footers">
     <text>由上海分互链信息技术有限公司提供积分兑换</text>

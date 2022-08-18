@@ -103,7 +103,7 @@ Page({
     console.log(res4);
     if (res4.data.cmcc.msg === '号码所在归属省暂未开通此业务，敬请期待！') {
 		util.showToastNoIcon('号码归属省暂不支持兑换');
-    }
+    };
   },
 
   // 点击 弹出模态框的 继续 按键
@@ -153,7 +153,7 @@ Page({
     console.log(res5);
   },
 
-  // 验证码的输入
+  // 验证码的输入获取
   input_change () {
     let that = this;
     // 验证码输入第六位后触发
@@ -216,7 +216,7 @@ Page({
     console.log(res7);
 
 		// 判断畅游积分是否大于商品畅游积分
-		app.globalData.tonDunObj.integralHighlight = that.data.queryScores.points >= that.data.couponsConfigureArr[index].changYouIntegral;
+		app.globalData.tonDunObj.integralHighlight = parseInt(that.data.queryScores.points) >= parseInt(that.data.couponsConfigureArr[index].changYouIntegral);
     app.globalData.tonDunObj.orderId = res7.data.orderId;
     app.globalData.tonDunObj.index = index;
     app.globalData.tonDunObj.price = that.data.couponsConfigureArr[index].price;
