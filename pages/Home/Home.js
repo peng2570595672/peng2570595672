@@ -121,7 +121,7 @@ Page({
     movingIntegralControl: false
 
   },
-  async onLoad() {
+  async onLoad () {
     app.globalData.isTruckHandling = false;
     app.globalData.isNeedReturnHome = false;
     this.login();
@@ -131,7 +131,7 @@ Page({
     // 采集openid，成功后调用回调
     util.getUserInfo(this.getId);
   },
-  async onShow() {
+  async onShow () {
     this.setData({
       isActivityForBannerDate: util.isDuringDate('2021/06/23', '2021/07/16'),
       isActivityDate: util.isDuringDate('2021/6/25 11:00', '2021/6/28 15:00')
@@ -163,14 +163,14 @@ Page({
       wx.removeStorageSync('login_info_final');
     }
   },
-  async getIsShowNotice() {
+  async getIsShowNotice () {
     const result = await util.queryProtocolRecord(2);
     this.setData({
       isClickNotice: result
     });
   },
   // 各入口跳转跳转
-  onClickEntrance(e) {
+  onClickEntrance (e) {
     // 未登录
     if (!app.globalData.userInfo?.accessToken) {
       wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
@@ -217,7 +217,7 @@ Page({
     util.subscribe(tmplIds, urls);
   },
   // 顶部tab切换
-  async onClickCheckVehicleType(e) {
+  async onClickCheckVehicleType (e) {
     let activeIndex = parseInt(e.currentTarget.dataset.index);
     if (activeIndex === this.data.activeIndex) return;
     wx.uma.trackEvent(activeIndex === 1 ? 'index_for_tab_to_passenger_car' : 'index_for_tab_to_truck');
@@ -264,42 +264,42 @@ Page({
     }, 300);
   },
   // 违章查询
-  onClickViolationEnquiry() {
+  onClickViolationEnquiry () {
     // 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
     wx.openEmbeddedMiniProgram({
       appId: 'wx06a561655ab8f5b2',
       path: 'pages/base/redirect/index?routeKey=PC01_REDIRECT&autoRoute=CHECKILLEGAL&outsource=souyisou&wtagid=116.115.10',
       envVersion: 'release',
-      fail() {
+      fail () {
         util.showToastNoIcon('调起小程序失败, 请重试！');
       }
     });
   },
   // 通行发票
-  goMakeInvoice() {
+  goMakeInvoice () {
     wx.navigateToMiniProgram({
       appId: 'wx9040bb0d3f910004',
       path: 'pages/index/index',
       envVersion: 'release', // 目前联调为体验版
-      fail() {
+      fail () {
         util.showToastNoIcon('调起票根小程序失败, 请重试！');
       }
     });
   },
   // 微保好车主
-  openWeiBao(pageUrl) {
+  openWeiBao (pageUrl) {
     wx.openEmbeddedMiniProgram({
       appId: 'wx06a561655ab8f5b2', // 正式
       // appId: app.globalData.test ? 'wx7f3f0032b6e6f0cc' : 'wx06a561655ab8f5b2',
       path: pageUrl,
       envVersion: 'release',
-      fail() {
+      fail () {
         util.showToastNoIcon('调起微保小程序失败, 请重试！');
       }
     });
   },
   // 点击轮播图
-  onClickSwiper(e) {
+  onClickSwiper (e) {
     // 未登录
     if (!app.globalData.userInfo.accessToken) {
       wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
@@ -334,19 +334,19 @@ Page({
       });
     }
   },
-  openXiaoEPinPin() {
+  openXiaoEPinPin () {
     wx.navigateToMiniProgram({
       appId: 'wxf6f29613766abce4',
       path: 'pages/sub-packages/ug/pages/landing-pages/index?themeid=1076&channelid=1&skuid=4843521&&configid=60a78267536306017756bdd0&relatedSpuId=291058&adid=0617sjht_etc_xcx_5810_R',
-      success() { },
-      fail() {
+      success () { },
+      fail () {
         // 未成功跳转到签约小程序
         util.showToastNoIcon('调起小鹅拼拼小程序失败, 请重试！');
       }
     });
   },
   // 点击广告位
-  async onClickNotice() {
+  async onClickNotice () {
     if (!this.data.isClickNotice) await util.addProtocolRecord(2);
     wx.uma.trackEvent('index_for_purchase_coupons');
     util.go('/pages/separate_interest_package/index/index');
@@ -354,7 +354,7 @@ Page({
   /**
    *  订阅消息封装
    */
-  subscribe() {
+  subscribe () {
     // 判断版本，兼容处理
     let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
     let orderId = '';
@@ -448,7 +448,7 @@ Page({
     }
   },
   // 自动登录
-  login() {
+  login () {
     util.showLoading();
     // 调用微信接口获取code
     wx.login({
@@ -516,7 +516,7 @@ Page({
     });
   },
   // 点击tab栏下的办理
-  onClickTransaction() {
+  onClickTransaction () {
     if (this.data.activeIndex !== 1) return;
     app.globalData.orderInfo.orderId = '';
     wx.uma.trackEvent(this.data.activeIndex === 1 ? 'index_for_passenger_car_entrance'
@@ -524,7 +524,7 @@ Page({
     util.go(`/pages/${this.data.activeIndex === 1 ? 'default' : 'truck_handling'}/index/index?isMain=true`);
   },
   // 业务员端订单码绑定订单
-  async bindOrder() {
+  async bindOrder () {
     const result = await util.getDataFromServersV2('consumer/member/bind-order', {
       orderId: app.globalData.salesmanScanCodeToHandleId
     });
@@ -538,7 +538,7 @@ Page({
     }
   },
   // 获取手机号
-  async onGetPhoneNumber(e) {
+  async onGetPhoneNumber (e) {
     // 允许授权
     if (e.detail.errMsg === 'getPhoneNumber:ok') {
       let encryptedData = e.detail.encryptedData;
@@ -579,14 +579,14 @@ Page({
     }
   },
   // 分享
-  onShareAppMessage() {
+  onShareAppMessage () {
     return {
       title: '申办即享最新车主出行权益！',
       imageUrl: 'https://file.cyzl.com/g001/M07/56/C7/oYYBAGDw3haAa9dPAADutBNUNJ4965.png',
       path: '/pages/Home/Home'
     };
   },
-  sortDataArray(dataArray) {
+  sortDataArray (dataArray) {
     return dataArray.sort(function (a, b) {
       if (b.lastOpTime && a.lastOpTime) {
         return Date.parse(b.lastOpTime.replace(/-/g, '/')) - Date
@@ -595,7 +595,7 @@ Page({
     });
   },
   // 获取ETC信息
-  async getStatus(isToMasterQuery) {
+  async getStatus (isToMasterQuery) {
     let params = {
       openId: app.globalData.openId
     };
@@ -611,16 +611,7 @@ Page({
       });
       app.globalData.myEtcList = list;
       // 京东客服
-      let [truckList, passengerCarList, vehicleList, activationOrder, activationTruckOrder,
-        truckActivationOrderList
-      ] = [
-          [],
-          [],
-          [],
-          [],
-          [],
-          []
-        ];
+      let [truckList, passengerCarList, vehicleList, activationOrder, activationTruckOrder, truckActivationOrderList] = [[], [], [], [], [], []];
 
       // let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
       app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !==
@@ -718,7 +709,7 @@ Page({
     }
   },
   // 预充模式-查询预充信息
-  async getQueryProcessInfo(id) {
+  async getQueryProcessInfo (id) {
     const result = await util.getDataFromServersV2('consumer/order/third/queryProcessInfo', {
       orderId: id
     });
@@ -733,13 +724,13 @@ Page({
       util.showToastNoIcon(result.message);
     }
   },
-  sortBillArray(dataArray) {
+  sortBillArray (dataArray) {
     return dataArray.sort(function (a, b) {
       return Date.parse(b.addTime.replace(/-/g, '/')) - Date.parse(a.addTime.replace(/-/g, '/'));
     });
   },
   // 查询已补缴车牌
-  async getPaymentVeh(item, etcMoney, etcTrucksMoney) {
+  async getPaymentVeh (item, etcMoney, etcTrucksMoney) {
     if (item.includes(21)) this.remove(item, 21); // 暂不查货车
     const result = await util.getDataFromServersV2('consumer/etc/get-supplementary-payment-veh', {
       channels: item,
@@ -769,7 +760,7 @@ Page({
     this.vehicleInfoAlert(etcMoney, etcTrucksMoney, paymentVeh.join('、'));
   },
   // 删除方法
-  remove(array, val) {
+  remove (array, val) {
     for (let i = 0; i < array.length; i++) {
       if (array[i] === val) {
         array.splice(i, 1);
@@ -778,7 +769,7 @@ Page({
     return -1;
   },
   // 查询欠费账单
-  async getArrearageTheBill(item) {
+  async getArrearageTheBill (item) {
     let etcTrucksMoney = 0;
     if (item.includes(21)) {
       this.remove(item, 21); // 暂不查货车
@@ -804,7 +795,7 @@ Page({
     await this.getPaymentVeh(item, result.data.etcMoney, etcTrucksMoney);
   },
   // 查询最近一次账单
-  async getRecentlyTheBill(item, isTruck = false) {
+  async getRecentlyTheBill (item, isTruck = false) {
     const result = await util.getDataFromServersV2('consumer/etc/get-last-bill', {
       channel: item
     });
@@ -861,7 +852,7 @@ Page({
     }
   },
   // 车辆弹窗
-  vehicleInfoAlert(etcMoney, etcTrucksMoney, paymentVeh) {
+  vehicleInfoAlert (etcMoney, etcTrucksMoney, paymentVeh) {
     if (etcMoney || etcTrucksMoney) {
       // 货车 || 客车欠费
       this.dialogJudge(etcMoney || etcTrucksMoney, !etcMoney);
@@ -892,7 +883,7 @@ Page({
       // 客车解约 - 弹窗签约
     }
   },
-  dialogJudge(money, isTruck = false) {
+  dialogJudge (money, isTruck = false) {
     if (money) {
       // // 欠费 - 弹窗补缴
       // let dialogContent = {
@@ -922,7 +913,7 @@ Page({
     this.selectComponent('#dialog').show();
   },
   // 3.0清空签约信息 & 修改成2.0套餐
-  async changeByOrderIds() {
+  async changeByOrderIds () {
     const result = await util.getDataFromServersV2('consumer/order/changeByOrderIds', {
       orderIds: this.data.paymentOrder
     });
@@ -935,7 +926,7 @@ Page({
     }
   },
   // 去账单详情页
-  onClickBill() {
+  onClickBill () {
     wx.uma.trackEvent('index_for_order_details');
     let model = this.data.recentlyTheBillInfo;
     util.go(
@@ -943,7 +934,7 @@ Page({
     );
   },
   // 弹窗确认回调
-  onHandle() {
+  onHandle () {
     if (this.data.dialogContent.orderInfo) {
       // 恢复签约
       app.globalData.orderInfo.orderId = this.data.dialogContent.orderInfo.id;
@@ -955,7 +946,7 @@ Page({
     util.go('/pages/personal_center/arrears_bill/arrears_bill');
   },
   // 点击车辆信息
-  onClickVehicle() {
+  onClickVehicle () {
     console.log(this.data.activeIndex, '==============这里应是2===================');
     const orderInfo = this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data
       .truckOrderInfo;
@@ -997,7 +988,7 @@ Page({
     fun[orderInfo.selfStatus].call();
   },
   // 通通券签约
-  async onClickSignTongTongQuan() {
+  async onClickSignTongTongQuan () {
     let params = {
       orderId: app.globalData.orderInfo.orderId // 订单id
     };
@@ -1010,19 +1001,19 @@ Page({
     }
   },
   // 交行-去签约
-  onClickSignBank(orderInfo) {
+  onClickSignBank (orderInfo) {
     util.go(`/pages/truck_handling/signed/signed`);
   },
   // 交行-去腾讯云核验
-  onClickVerification() {
+  onClickVerification () {
     util.go(`/pages/truck_handling/face_of_check_tips/face_of_check_tips`);
   },
   // 选装-去绑定代扣
-  goBindingWithholding() {
+  goBindingWithholding () {
     util.go(`/pages/default/bind_withhold/bind_withhold?associatedVeh=1`);
   },
   // 去高速签约
-  onClickHighSpeedSigning(orderInfo) {
+  onClickHighSpeedSigning (orderInfo) {
     if (orderInfo.protocolStatus === 0) {
       this.goPayment(orderInfo);
       return;
@@ -1033,37 +1024,37 @@ Page({
     );
   },
   // 去预充
-  goRecharge(orderInfo) {
+  goRecharge (orderInfo) {
     wx.uma.trackEvent('index_for_account_recharge');
     util.go(`/pages/account_management/account_recharge/account_recharge?money=${orderInfo.holdBalance}`);
   },
   // 去开户
-  goBindingAccount(orderInfo) {
+  goBindingAccount (orderInfo) {
     wx.uma.trackEvent('index_for_binding_account');
     const path = `${orderInfo.flowVersion === 7 ? 'binding_account_bocom' : 'binding_account'}`;
     util.go(`/pages/truck_handling/${path}/${path}`);
   },
   // 代扣通行费
-  onTollWithholding() {
+  onTollWithholding () {
     util.go(`/pages/truck_handling/binding_account_successful/binding_account_successful`);
   },
   // 去授权预充保证金
-  goRechargeAuthorization() {
+  goRechargeAuthorization () {
     wx.uma.trackEvent('index_for_recharge_instructions');
     util.go('/pages/truck_handling/recharge_instructions/recharge_instructions');
   },
   // 去设备详情 审核失败:不可办理
-  goEtcDetails(orderInfo) {
+  goEtcDetails (orderInfo) {
     wx.uma.trackEvent('index_for_my_etc_detail');
     util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${orderInfo.id}`);
   },
-  goPayment(orderInfo) {
+  goPayment (orderInfo) {
     const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
     wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'index_for_truck_package' : 'index_for_package');
     util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
   },
   // 恢复签约
-  async onClickBackToSign(obj) {
+  async onClickBackToSign (obj) {
     if (obj.orderType === 31 && obj.protocolStatus === 0) {
       const path = obj.isNewTrucks === 1 ? 'truck_handling' : 'default';
       util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
@@ -1100,7 +1091,7 @@ Page({
     }
   },
   // 恢复签约
-  async restoreSign(obj) {
+  async restoreSign (obj) {
     const result = await util.getDataFromServersV2('consumer/order/query-contract', {
       orderId: obj.id
     });
@@ -1118,8 +1109,8 @@ Page({
               extraData: {
                 contract_id: result.data.contractId
               },
-              success() { },
-              fail() {
+              success () { },
+              fail () {
                 // 未成功跳转到签约小程序
                 util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
               }
@@ -1136,7 +1127,7 @@ Page({
     }
   },
   // 微信签约
-  async weChatSign(obj) {
+  async weChatSign (obj) {
     let params = {
       orderId: obj.id, // 订单id
       clientOpenid: app.globalData.userInfo.openId,
@@ -1172,13 +1163,13 @@ Page({
     }
   },
   // 查看办理进度
-  onClickViewProcessingProgressHandle(orderInfo) {
+  onClickViewProcessingProgressHandle (orderInfo) {
     // 统计点击事件
     wx.uma.trackEvent('index_for_processing_progress');
     util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderInfo.id}`);
   },
   // 去激活
-  async onClickCctivate(orderInfo) {
+  async onClickCctivate (orderInfo) {
     wx.uma.trackEvent('index_for_activation');
     if (orderInfo.logisticsId !== 0) {
       await this.confirmReceipt(orderInfo);
@@ -1188,14 +1179,14 @@ Page({
         appId: 'wxdda17150b8e50bc4',
         path: 'pages/index/index',
         envVersion: 'release', // 目前联调为体验版
-        fail() {
+        fail () {
           util.showToastNoIcon('调起激活小程序失败, 请重试！');
         }
       });
     }
   },
   // 确认收货
-  async confirmReceipt(orderInfo) {
+  async confirmReceipt (orderInfo) {
     const result = await util.getDataFromServersV2('consumer/order/affirm-take-obu', {
       logisticsId: orderInfo.logisticsId
     });
@@ -1206,7 +1197,7 @@ Page({
         appId: 'wxdda17150b8e50bc4',
         path: 'pages/index/index',
         envVersion: 'release', // 目前联调为体验版
-        fail() {
+        fail () {
           util.showToastNoIcon('调起激活小程序失败, 请重试！');
         }
       });
@@ -1215,7 +1206,7 @@ Page({
     }
   },
   // 修改资料
-  async onClickModifiedData(orderInfo, isChange) {
+  async onClickModifiedData (orderInfo, isChange) {
     if (orderInfo.isNewTrucks === 1) {
       if (orderInfo.flowVersion === 4) {
         // 预充流程取消办理
@@ -1238,7 +1229,7 @@ Page({
     util.go('/pages/default/information_list/information_list?isModifiedData=true');
   },
   // 取消订单
-  async cancelOrder(orderInfo) {
+  async cancelOrder (orderInfo) {
     util.showLoading({
       title: '取消中...'
     });
@@ -1260,7 +1251,7 @@ Page({
     }
   },
   // 继续办理
-  async onClickContinueHandle(orderInfo) {
+  async onClickContinueHandle (orderInfo) {
     // 统计点击事件
     app.globalData.isModifiedData = false; // 非修改资料
     app.globalData.firstVersionData = false;
@@ -1361,7 +1352,7 @@ Page({
     });
   },
   // 点击移动积分兑换ETC 高速通行券
-  async btnMovingIntegral(e) {
+  async btnMovingIntegral (e) {
     console.log(app.globalData.userInfo);
     this.setData({
       movingIntegralControl: false
