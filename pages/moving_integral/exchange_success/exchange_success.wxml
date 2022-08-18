@@ -7,5 +7,4 @@
   <button catchtap="seeCoupons">查看优惠劵</button>
   <text>\n</text>
   <button plain catchtap="continueToExchange">继续兑换</button>
-
 </view>
