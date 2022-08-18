@@ -3,9 +3,7 @@
   <view class="main_1">
     <text>欢迎，{{phone_number}}</text>
     <text>移动积分: {{checkBindStatus ? queryScores.cmcc.lmPoints : moving_integral}}</text>
-    <view>
-      <image src="../assets/money2.png" />
-    </view>
+    <view></view>
   </view>
   <view class="main_2">
     <view></view>

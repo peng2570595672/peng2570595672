@@ -37,6 +37,8 @@
   position: absolute;
   right: 20rpx;
   overflow: hidden;
+  background: url('https://file.cyzl.com/g001/M00/94/53/oYYBAGL-JLuAMyszAAEBJfZUXmY883.png') no-repeat;
+  background-size: 100% 100%;
 }
 
 .main_1 view image {
@@ -137,8 +139,8 @@
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   position: absolute;
-  bottom: 0rpx;
-  left: 10%;
+  bottom: -10rpx;
+  left: 12%;
 }
 
 .main_3 .ticket_exchange .upper .upper_money text:nth-of-type(2) {
