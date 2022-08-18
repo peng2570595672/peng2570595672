@@ -212,8 +212,8 @@ Page({
         goodsNum: 1
       }]
     });
-    // console.log('预下单');
-    // console.log(res7);
+    console.log('预下单');
+    console.log(res7);
 
 		// 判断畅游积分是否大于商品畅游积分
 		app.globalData.tonDunObj.integralHighlight = that.data.queryScores.points >= that.data.couponsConfigureArr[index].changYouIntegral;
