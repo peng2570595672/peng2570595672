@@ -1651,18 +1651,15 @@ function alertPayment (etcMoney, isTruck) {
 function getUserInfo(callback) {
 	wx.checkSession({
 		success: function(res) {
-			console.log(res);
 			// 这里把加密后的openid存入缓存，下次就不必再去发起请求
 			const openId = wx.getStorageSync('user_code');
 			if (openId) {
-				console.log(openId);
 				app.globalData.openId = openId;
 				callback(0, openId); // 回调函数接受两个参数，第一个代表code种类，0为openId，1为code
 			} else {
 				// 如果缓存中没有，则需要再次调用登录接口获取code
 				wx.login({
 					success: function(res) {
-						console.log(res);
 						app.globalData.code = res.code;
 						callback(1, res.code);
 					}
@@ -1671,7 +1668,6 @@ function getUserInfo(callback) {
 		},
 		fail: function(res) {
 			console.log("失败");
-			console.log(res);
 			wx.login({
 				success: function(res) {
 					console.log(res);

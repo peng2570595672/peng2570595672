@@ -1301,8 +1301,6 @@ Page({
    **/
   // 获取openid函数
   getId: function (codeType, data) {
-    console.log(codeType);
-    console.log(data);
     var that = this;
     if (codeType === 0) {
       // openId
@@ -1313,7 +1311,6 @@ Page({
       wx.request({
         url: 'https://fptest.fraudmetrix.cn?' + data, // 'http://localhost'改为您服务器的url
         success: function (res) {
-          console.log(res);
           // 保存user_code
           // 把openid保存到缓存中
           wx.setStorage({
@@ -1331,7 +1328,6 @@ Page({
   },
   // 开始采集设备指纹，传入openid
   getFp: function (code) {
-    console.log(code);
     var that = this;
     // 获取 sessionId
     app.globalData.tonDunObj.sessionId = code;
@@ -1340,20 +1336,17 @@ Page({
       openid: code,
       success: function (res) {
         console.log('success');
-        console.log(res);
         // 获取 fingerprint
         app.globalData.tonDunObj.fingerprint = res;
       },
       fail: function (res) {
         console.log('fail');
-        console.log(res);
       },
       complete: function (res) { }
     });
   },
   // 点击移动积分兑换ETC 高速通行券
   async btnMovingIntegral (e) {
-    console.log(app.globalData.userInfo);
     this.setData({
       movingIntegralControl: false
     });
@@ -1373,7 +1366,6 @@ Page({
         myOrderId: app.globalData.tonDunObj.myOrderId
       });
       app.globalData.tonDunObj.checkBindStatus = res2.data;
-      // app.globalData.tonDunObj.checkBindStatus = false
       console.log('是否绑定畅游');
       console.log(res2);
       // 跳转到 移动积分兑通行券 页面

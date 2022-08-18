@@ -149,7 +149,7 @@ Page({
         myOrderId: app.globalData.tonDunObj.myOrderId,
         orderId: that.data.orderId
       });
-	    console.log('畅游没有兑换过积分必须获取下单验证码');
+      console.log('畅游没有兑换过积分必须获取下单验证码');
       console.log(res3);
       that.setData({
         popFlag: true

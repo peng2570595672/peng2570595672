@@ -102,7 +102,7 @@ Page({
     console.log('查询积分');
     console.log(res4);
     if (res4.data.cmcc.msg === '号码所在归属省暂未开通此业务，敬请期待！') {
-		util.showToastNoIcon('号码归属省暂不支持兑换');
+      util.showToastNoIcon('号码归属省暂不支持兑换');
     };
   },
 
@@ -129,6 +129,7 @@ Page({
       timeFlag: true,
       getCode: '重新获取'
     });
+    // 定时
     let timeClose = setInterval(function () {
       let num = --that.data.time;
       if (num < 0) {
