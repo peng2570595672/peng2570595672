@@ -17,9 +17,12 @@ Page({
     exchangeScore: null, // 兑换畅游积分返回的信息
     makeOrder: null, // 下单返回的信息
     confirmBtn: false, // 控制确认按钮是下单还是兑换积分
-    iphoneModel: false,
-    price: null,
-    changYouIntegral: null
+    iphoneModel: false, // 控制iPad类型的样式
+    price: null, // 商品价格
+    changYouIntegral: null, // 畅游积分
+    time: 60, // 定时时间
+    timeFlag: false,
+    getCode: '获取'
   },
 
   onLoad (options) {
@@ -43,7 +46,27 @@ Page({
 
   // 获取兑换积分验证码
   async getChangYouCode () {
+    console.log('虎丘');
     let that = this;
+    that.setData({
+      timeFlag: true,
+      getCode: '已获取'
+    });
+    // 定时
+    let timeClose = setInterval(function () {
+      let num = --that.data.time;
+      if (num < 0) {
+        clearInterval(timeClose);
+        return that.setData({
+          timeFlag: false,
+          time: 60,
+          getCode: '获取'
+        });
+      }
+      that.setData({
+        time: num
+      });
+    }, 1000);
     const res = await util.getDataFromServersV2('consumer/member/changyou/queryScoreCode', {
       myOrderId: app.globalData.tonDunObj.myOrderId,
       outerPoints: parseInt(app.globalData.tonDunObj.changYouIntegral) * 1.2, // 移动积分
@@ -52,7 +75,7 @@ Page({
     that.setData({
       queryScoreCode: res.data
     });
-	console.log('获取兑换积分验证码');
+    console.log('获取兑换积分验证码');
     console.log(res);
   },
 

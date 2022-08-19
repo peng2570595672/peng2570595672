@@ -7,7 +7,7 @@ const app = getApp();
 Page({
   data: {
     phone_number: mobilePhoneReplace(app.globalData.userInfo.mobilePhone), // 电话号码 隐藏号码的中间四位
-    moving_integral: '_', // 移动积分
+    moving_integral: '-', // 移动积分
     chang_you_integral: 0, // 畅游积分
     mask: false, // 控制遮慕层的显示隐藏
     authorizePop: false, // 控制授权说明弹窗的显示隐藏
