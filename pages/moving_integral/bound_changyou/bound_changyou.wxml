@@ -40,7 +40,8 @@
         {{arr1.text2}}<text>\n</text>
         {{arr1.text3}}<text>\n</text>
         {{arr1.text4}}<text>\n</text>
-        {{arr1.text5}}
+        {{arr1.text5}}<text>\n</text>
+        {{arr1.text6}}
       </view>
     </scroll-view>
     <view class="solid"></view>

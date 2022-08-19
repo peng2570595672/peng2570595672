@@ -20,8 +20,12 @@ Page({
   },
   // 跳转到个人中心ETC优惠券
   seeCoupons () {
+    // wx.reLaunch({
+    //   url: '/pages/personal_center/service_card_voucher/service_card_voucher'
+    // });
     util.go('/pages/personal_center/service_card_voucher/service_card_voucher');
   },
+  // 继续兑换
   continueToExchange () {
     util.go('/pages/moving_integral/bound_changyou/bound_changyou');
   },
