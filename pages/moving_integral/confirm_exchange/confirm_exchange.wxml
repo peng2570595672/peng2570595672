@@ -42,7 +42,7 @@
   <!-- 验证码弹窗 -->
   <view class="verification_code" wx:if="{{popFlag}}">
     <view>
-      <text>畅游积分下单\n</text>
+      <text>畅由积分下单\n</text>
       <text>验证码已下发至<text class="number_phone">{{phone_number}}</text></text>
     </view>
     <view>

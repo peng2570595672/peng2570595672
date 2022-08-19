@@ -1355,10 +1355,22 @@ Page({
     } else {
       // 登记接口 获取 myOrderId
       const res1 = await util.getDataFromServersV2('consumer/member/changyou/sign');
-      app.globalData.tonDunObj.myOrderId = res1.data.myOrderId;
-      app.globalData.tonDunObj.orderId = res1.data.orderId;
       console.log('登记');
       console.log(res1);
+      app.globalData.tonDunObj.myOrderId = res1.data.myOrderId;
+      app.globalData.tonDunObj.orderId = res1.data.orderId;
+      // 检查手机是联通还是移动，如果是联通 data 为 空
+      const res3 = await util.getDataFromServersV2('consumer/member/changyou/checkPhone',{
+        myOrderId: res1.data.myOrderId
+      });
+      console.log(' 检查手机是联通还是移动');
+      console.log(res3);
+      if (res3.data === {}) {
+        util.showToastNoIcon('本活动仅限移动用户参与');
+        return this.setData({
+          movingIntegralControl: false
+        });
+      }
       // 畅游是否绑定 false->未绑定  true->已绑定
       const res2 = await util.getDataFromServersV2('consumer/member/changyou/checkBindStatus', {
         fingerprint: app.globalData.tonDunObj.fingerprint,

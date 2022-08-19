@@ -131,7 +131,8 @@ App({
 			orderId: '',
 			index: 0,
 			price: '',
-			changYouIntegral: 0
+			changYouIntegral: 0,
+			pages: 0
 		}
 	},
 	onLaunch (options) {

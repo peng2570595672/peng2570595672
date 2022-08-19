@@ -127,7 +127,7 @@ Page({
         optCode: ''
       });
       // 如果兑换不成功 直接跳回  上一个页面
-      util.showToastNoIcon('畅游积分兑换失败');
+      util.showToastNoIcon('畅由积分兑换失败');
       setTimeout(() => {
         util.go('/pages/moving_integral/bound_changyou/bound_changyou');
       }, 1000);
@@ -137,7 +137,7 @@ Page({
       integralHighlight: true
     });
     app.globalData.tonDunObj.integralHighlight = true;
-    util.showToastNoIcon('畅游积分兑换成功');
+    util.showToastNoIcon('畅由积分兑换成功');
   },
 
   // 下单
@@ -196,9 +196,7 @@ Page({
     console.log('下单');
     console.log(res2.data);
     if (res2.data.code == null) {
-      util.go(
-        `/pages/moving_integral/exchange_success/exchange_success?price=${app.globalData.tonDunObj.price}`
-      );
+      util.go('/pages/moving_integral/exchange_success/exchange_success');
     } else {
       util.go('/pages/moving_integral/exchange_fail/exchange_fail');
     }
@@ -208,7 +206,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload () {
-    util.go('/pages/moving_integral/bound_changyou/bound_changyou');
+    app.globalData.tonDunObj.pages = 2;
   }
 
 });

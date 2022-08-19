@@ -86,8 +86,14 @@ Page({
 	if (app.globalData.tonDunObj.checkBindStatus) {
 		that.changYouIntegral();
 	} else {
-		util.showToastNoIcon('暂未绑定畅游,请先绑定畅游');
+		util.showToastNoIcon('暂未绑定畅由,请先绑定畅由');
 	}
+  },
+  onShow () {
+    let that = this;
+    if (app.globalData.tonDunObj.pages === 2 || app.globalData.tonDunObj.pages === 3 || app.globalData.tonDunObj.pages === 4) {
+      that.changYouIntegral();
+    }
   },
   // 查询积分
   async changYouIntegral () {
@@ -105,14 +111,14 @@ Page({
     if (res4.data.cmcc.msg === '号码所在归属省暂未开通此业务，敬请期待！') {
       util.showToastNoIcon('号码归属省暂不支持兑换');
     };
-    that.setData({
-      queryScores: {
-        points: 2000,
-        cmcc: {
-          lmPoints: 3000
-        }
-      }
-    });
+    // that.setData({
+    //   queryScores: {
+    //     points: 2000,
+    //     cmcc: {
+    //       lmPoints: 3000
+    //     }
+    //   }
+    // });
   },
 
   // 点击 弹出模态框的 继续 按键
@@ -187,7 +193,7 @@ Page({
     console.log(res6);
     if (res6.data) {
       app.globalData.tonDunObj.checkBindStatus = true;
-      util.showToastNoIcon('已绑定畅游');
+      util.showToastNoIcon('已绑定畅由');
       that.setData({
         mask: false,
         checkBindStatus: true,
@@ -234,6 +240,8 @@ Page({
     util.go('/pages/moving_integral/confirm_exchange/confirm_exchange');
   },
   onUnload () {
-    util.go('/pages/Home/Home');
+    wx.reLaunch({
+      url: '/pages/Home/Home'
+    });
   }
 });

@@ -1,5 +1,6 @@
 // pages/moving_integral/exchange_fail/exchange_fail.js
 const util = require('../../../utils/util');
+const app = getApp();
 Page({
 
   /**
@@ -20,6 +21,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload () {
-    util.go('/pages/moving_integral/confirm_exchange/confirm_exchange');
+    app.globalData.tonDunObj.pages = 4;
   }
 });
