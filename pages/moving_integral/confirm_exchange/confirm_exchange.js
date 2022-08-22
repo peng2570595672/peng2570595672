@@ -183,6 +183,9 @@ Page({
   // 下单-畅游积分足够不需要兑换 直接跳转
   async utilOverBooking (mobileCode) {
     let that = this;
+    that.setData({
+      popFlag: false
+    });
     // 下单
     const res2 = await util.getDataFromServersV2('consumer/member/changyou/makeOrder', {
       myOrderId: app.globalData.tonDunObj.myOrderId,

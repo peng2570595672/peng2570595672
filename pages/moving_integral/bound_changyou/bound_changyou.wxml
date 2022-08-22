@@ -54,7 +54,7 @@
   <view class="verification_code" wx:if="{{!checkBindStatus}}">
     <view>
       <text>积分兑换服务需短信验证码确认\n</text>
-      <text>验证码已下发至<text class="number_phone">{{phone_number}}</text></text>
+      <text>验证码将下发至<text class="number_phone">{{phone_number}}</text></text>
     </view>
     <view>
       <input type="text" bindinput="input_change" model:value="{{vcValue}}" maxlength="6" />

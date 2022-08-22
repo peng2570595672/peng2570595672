@@ -14,7 +14,6 @@
   background: url(https://file.cyzl.com/g001/M00/91/D2/oYYBAGLvj-aAP80UAABAACsEaO4488.png) no-repeat;
   background-size: 100% 100%;
   position: relative;
-  /* background-color: red; */
   top: 64rpx;
 }
 

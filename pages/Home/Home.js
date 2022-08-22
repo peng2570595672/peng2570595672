@@ -1365,7 +1365,7 @@ Page({
       });
       console.log(' 检查手机是联通还是移动');
       console.log(res3);
-      if (res3.data === {}) {
+      if (res3.data.isp === '中国联通') {
         util.showToastNoIcon('本活动仅限移动用户参与');
         return this.setData({
           movingIntegralControl: false
