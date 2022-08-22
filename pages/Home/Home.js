@@ -118,7 +118,8 @@ Page({
     isActivityForBannerDate: false, // 是否是banner上线时间
     dialogContent: {}, // 弹窗内容
     // @cyl
-    movingIntegralControl: false
+    movingIntegralControl: false, // 控制弹窗的显示与隐藏
+    areaNotOpened: ['河南','江西','广西','辽宁','重庆','云南'] // 号码归属地还未开通 移动积分业务的
 
   },
   async onLoad () {
@@ -1365,11 +1366,18 @@ Page({
       });
       console.log(' 检查手机是联通还是移动');
       console.log(res3);
+      // 拦截不是移动的用户
+      // res3.data.isp = '中国联通';
       if (res3.data.isp !== '中国移动') {
         util.showToastNoIcon('本活动仅限移动用户参与');
         return this.setData({
           movingIntegralControl: false
         });
+      }
+      // 拦截未开通此业务的省份
+      // res3.data.province = '河南';
+      if (this.data.areaNotOpened.includes(res3.data.province)) {
+          return util.showToastNoIcon('号码所在归属省暂未开通此业务，敬请期待！');
       }
       // 畅游是否绑定 false->未绑定  true->已绑定
       const res2 = await util.getDataFromServersV2('consumer/member/changyou/checkBindStatus', {
