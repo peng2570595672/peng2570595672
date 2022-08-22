@@ -166,7 +166,7 @@
 	  <button id="cancel" catchtap="btnMovingIntegral">取消</button>
 	  <button id="confirm" catchtap="btnMovingIntegral">继续</button>
 	</view>
-   </view>
+  </view>
 
     <!--	弹窗开始-->
     <popup id='dialog' dialogContent="{{dialogContent}}" bind:onHandle="onHandle"></popup>

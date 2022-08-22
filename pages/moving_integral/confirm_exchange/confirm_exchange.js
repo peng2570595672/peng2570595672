@@ -22,7 +22,8 @@ Page({
     changYouIntegral: null, // 畅游积分
     time: 60, // 定时时间
     timeFlag: false,
-    getCode: '获取'
+    getCode: '获取',
+    flag: false // 判断有没有获取验证码
   },
 
   onLoad (options) {
@@ -49,7 +50,9 @@ Page({
     console.log('虎丘');
     let that = this;
     that.setData({
+      optCode: '',
       timeFlag: true,
+      flag: true,
       getCode: '已获取'
     });
     // 定时
@@ -93,6 +96,10 @@ Page({
       that.setData({
         confirmBtn: true
       });
+    } else {
+      that.setData({
+        confirmBtn: false
+      });
     }
   },
 
@@ -105,10 +112,17 @@ Page({
       that.overBooking();
     }
   },
+  // 按钮置灰时 触发
+  invalidBtn () {
+    util.showToastNoIcon('请输入6位短信验证码');
+  },
 
   // 兑换积分
   async redeemPoints () {
     let that = this;
+    if (!that.data.flag) {
+      return util.showToastNoIcon('请先获取验证码');
+    }
     // 兑换畅游积分
     const res1 = await util.getDataFromServersV2('consumer/member/changyou/exchangeScore', {
       myOrderId: app.globalData.tonDunObj.myOrderId,
@@ -126,15 +140,11 @@ Page({
       that.setData({
         optCode: ''
       });
-      // 如果兑换不成功 直接跳回  上一个页面
-      util.showToastNoIcon('畅由积分兑换失败');
-      setTimeout(() => {
-        util.go('/pages/moving_integral/bound_changyou/bound_changyou');
-      }, 1000);
-      return;
+      return util.showToastNoIcon('验证码错误');
     }
     that.setData({
-      integralHighlight: true
+      integralHighlight: true,
+      flag: false
     });
     app.globalData.tonDunObj.integralHighlight = true;
     util.showToastNoIcon('畅由积分兑换成功');
@@ -199,7 +209,7 @@ Page({
     console.log('下单');
     console.log(res2.data);
     if (res2.data.code == null) {
-      util.go('/pages/moving_integral/exchange_success/exchange_success');
+      util.go(`/pages/moving_integral/exchange_success/exchange_success?price=${app.globalData.tonDunObj.price}`);
     } else {
       util.go('/pages/moving_integral/exchange_fail/exchange_fail');
     }

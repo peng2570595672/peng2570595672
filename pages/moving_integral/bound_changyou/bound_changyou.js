@@ -78,16 +78,19 @@ Page({
       couponConfigId: '1009114584463712256',
       batchId: '202208161501050363'
     }
-    ]
+    ],
+    flag: false // 判断有没有获取验证码
+
   },
 
   onLoad (options) {
     let that = this;
-	if (app.globalData.tonDunObj.checkBindStatus) {
-		that.changYouIntegral();
-	} else {
-		util.showToastNoIcon('暂未绑定畅由,请先绑定畅由');
-	}
+    if (app.globalData.tonDunObj.checkBindStatus) {
+      that.changYouIntegral();
+    } else {
+      that.changYouIntegral();
+      util.showToastNoIcon('暂未绑定畅由,请先绑定畅由');
+    }
   },
   onShow () {
     let that = this;
@@ -95,6 +98,7 @@ Page({
       that.changYouIntegral();
     }
   },
+
   // 查询积分
   async changYouIntegral () {
     let that = this;
@@ -111,6 +115,9 @@ Page({
     if (res4.data.cmcc.msg === '号码所在归属省暂未开通此业务，敬请期待！') {
       util.showToastNoIcon('号码归属省暂不支持兑换');
     };
+    if (res4.data.cmcc == null) {
+      return that.changYouIntegral();
+    }
     // that.setData({
     //   queryScores: {
     //     points: 2000,
@@ -121,7 +128,7 @@ Page({
     // });
   },
 
-  // 点击 弹出模态框的 继续 按键
+  // 点击 弹出模态框的 确认 按键
   ruleDescription (e) {
     let that = this;
     if (e.currentTarget.id === 'rule') {
@@ -141,7 +148,9 @@ Page({
   async btnVerificationCode () {
     let that = this;
     that.setData({
+      vcValue: '',
       timeFlag: true,
+      flag: true,
       getCode: '重新获取'
     });
     // 定时
@@ -181,6 +190,9 @@ Page({
   // 绑定畅游
   async bindChangYou (vcValue) {
     let that = this;
+    if (!this.data.flag) {
+      return util.showToastNoIcon('请先获取验证码');
+    }
     // 绑定畅游
     const res6 = await util.getDataFromServersV2('consumer/member/changyou/bindChangYou', {
       validateToken: that.data.queryBindCode.validateToken,
@@ -209,7 +221,8 @@ Page({
     }
     setTimeout(() => {
       that.setData({
-        vcValue: ''
+        vcValue: '',
+        flag: false
       });
     }, 1000);
   },

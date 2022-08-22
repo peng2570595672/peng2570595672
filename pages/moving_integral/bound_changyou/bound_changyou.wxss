@@ -322,11 +322,12 @@
 
 .verification_code view:nth-of-type(2) {
   width: 512rpx;
-  height: 82rpx;
+  height: 98rpx;
   position: relative;
   top: 34rpx;
   left: 64rpx;
   display: flex;
+  overflow: hidden;
   justify-content: space-between;
 }
 
@@ -345,10 +346,12 @@
 }
 
 .verification_code view:nth-of-type(2) input {
-  width: 100%;
+  width: 200%;
   height: 98rpx;
-  color: rgba(0, 0, 0, 0);
+  color: transparent;
+  text-indent: -999rem;
   position: absolute;
+  left: -512rpx;
   opacity: 0;
 }
 
