@@ -1375,9 +1375,9 @@ Page({
         });
       }
       // 拦截未开通此业务的省份
-      // res3.data.province = '河南';
+      // res3.data.province = '广西';
       if (this.data.areaNotOpened.includes(res3.data.province)) {
-          return util.showToastNoIcon('号码所在归属省暂未开通此业务，敬请期待！');
+          return util.showToastNoIcon('号码归属省份暂未开通此业务，敬请期待！');
       }
       // 畅游是否绑定 false->未绑定  true->已绑定
       const res2 = await util.getDataFromServersV2('consumer/member/changyou/checkBindStatus', {
