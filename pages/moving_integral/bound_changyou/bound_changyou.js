@@ -194,6 +194,11 @@ Page({
     });
     console.log('获取绑定验证码');
     console.log(res5);
+    if (res5.data.code === 'B001') {
+      util.showToastNoIcon('用户未注册');
+    } else if (res5.data.code === '80830915') {
+      util.showToastNoIcon('你操作太频繁了');
+    }
   },
 
   // 验证码的输入获取

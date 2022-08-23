@@ -1358,6 +1358,9 @@ Page({
       const res1 = await util.getDataFromServersV2('consumer/member/changyou/sign');
       console.log('登记');
       console.log(res1);
+      if (res1.code === '104' || res1.code === 104) {
+        return util.showToastNoIcon('登记时间已过');
+      }
       app.globalData.tonDunObj.myOrderId = res1.data.myOrderId;
       app.globalData.tonDunObj.orderId = res1.data.orderId;
       // 检查手机是联通还是移动，如果是联通 data 为 空
