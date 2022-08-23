@@ -77,6 +77,9 @@ Page({
     that.setData({
       queryScoreCode: res.data
     });
+    if (res.code === '104' || res.code === 104) {
+      util.showToastNoIcon('获取验证码失败');
+    }
     console.log('获取兑换积分验证码');
     console.log(res);
   },
@@ -183,6 +186,9 @@ Page({
       });
       console.log('畅游没有兑换过积分必须获取下单验证码');
       console.log(res3);
+      if (res.code === '104' || res.code === 104) {
+        util.showToastNoIcon('获取验证码失败');
+      }
       that.setData({
         popFlag: true
       });
