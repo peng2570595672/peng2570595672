@@ -35,48 +35,66 @@ Page({
       movingIntegral: 360,
       changYouIntegral: 300,
       productCode: 'GZLL10042',
-      couponConfigId: '1009103738631102464',
-      batchId: '202208161417595704'
+      // couponConfigId: '1009103738631102464',
+      // batchId: '202208161417595704'
+      // 正式
+      couponConfigId: '1011680033739776000',
+      batchId: '202208231655169416'
     },
     {
       price: 4,
       movingIntegral: 720,
       changYouIntegral: 600,
       productCode: 'GZLL10043',
-      couponConfigId: '1009408396188721152',
-      batchId: '202208171028354950'
+      // couponConfigId: '1009408396188721152',
+      // batchId: '202208171028354950'
+      // 正式
+      couponConfigId: '1011681278806335488',
+      batchId: '202208231700121589'
     },
     {
       price: 6,
       movingIntegral: 1080,
       changYouIntegral: 900,
       productCode: 'GZLL10044',
-      couponConfigId: '1009105498342957056',
-      batchId: '202208161424593245'
+      // couponConfigId: '1009105498342957056',
+      // batchId: '202208161424593245'
+      // 正式
+      couponConfigId: '1011681951572566016',
+      batchId: '202208231702535132'
     },
     {
       price: 10,
       movingIntegral: 1800,
       changYouIntegral: 1500,
       productCode: 'GZLL10045',
-      couponConfigId: '1009106240629907456',
-      batchId: '202208161427563345'
+      // couponConfigId: '1009106240629907456',
+      // batchId: '202208161427563345'
+      // 正式
+      couponConfigId: '1011682232708505600',
+      batchId: '202208231704004264'
     },
     {
       price: 16,
       movingIntegral: 2880,
       changYouIntegral: 2400,
       productCode: 'GZLL10046',
-      couponConfigId: '1009107183123570688',
-      batchId: '202208161431407191'
+      // couponConfigId: '1009107183123570688',
+      // batchId: '202208161431407191'
+      // 正式
+      couponConfigId: '1011682845441662976',
+      batchId: '202208231706260817'
     },
     {
       price: 20,
       movingIntegral: 3600,
       changYouIntegral: 3000,
       productCode: 'GZLL10047',
-      couponConfigId: '1009114584463712256',
-      batchId: '202208161501050363'
+      // couponConfigId: '1009114584463712256',
+      // batchId: '202208161501050363'
+      // 正式
+      couponConfigId: '1011683287760510976',
+      batchId: '202208231708115132'
     }
     ],
     flag: false // 判断有没有获取验证码
