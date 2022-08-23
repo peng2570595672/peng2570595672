@@ -47,7 +47,6 @@ Page({
 
   // 获取兑换积分验证码
   async getChangYouCode () {
-    console.log('虎丘');
     let that = this;
     that.setData({
       optCode: '',
@@ -215,9 +214,6 @@ Page({
     }
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
   onUnload () {
     app.globalData.tonDunObj.pages = 2;
   }
