@@ -98,7 +98,7 @@ Page({
     }
     ],
     flag: false, // 判断有没有获取验证码
-    flag1: false // 判断查询积分 的cmcc是否为空
+    flag1: false // 判断是否授权 true 为已授权，false 为未授权
 
   },
 
@@ -160,7 +160,7 @@ Page({
     if (authData.code !== '0' || authData.code !== 0) {
       return setTimeout(function () {
         that.authorize();
-      },1000);
+      },0);
     }
     that.setData({
       flag1: true
