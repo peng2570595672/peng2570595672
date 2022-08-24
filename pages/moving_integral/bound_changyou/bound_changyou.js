@@ -107,7 +107,7 @@ Page({
     if (app.globalData.tonDunObj.checkBindStatus) {
       that.changYouIntegral();
     } else {
-      that.changYouIntegral();
+      that.authorize();
       util.showToastNoIcon('暂未绑定畅由,请先绑定畅由');
     }
   },
@@ -131,17 +131,12 @@ Page({
     });
     console.log('查询积分');
     console.log(res4);
-    if (res4.data.cmcc.msg === '号码所在归属省暂未开通此业务，敬请期待！') {
-      util.showToastNoIcon('号码归属省暂不支持兑换');
-    };
     if (res4.data.cmcc == null) {
       util.showToastNoIcon('null');
-      return that.changYouIntegral();
+      setTimeout(function () {
+        return that.changYouIntegral();
+      },1500);
     }
-    that.setData({
-      flag1: true
-    });
-    util.showToastNoIcon('已授权');
     // 模拟数据
     // that.setData({
     //   queryScores: {
@@ -151,6 +146,28 @@ Page({
     //     }
     //   }
     // });
+  },
+
+  // 获取授权
+  async authorize () {
+    let that = this;
+    const authData = await util.getDataFromServersV2('consumer/member/changyou/quickAuth', {
+      myOrderId: app.globalData.tonDunObj.myOrderId
+    });
+    console.log('授权');
+    console.log(authData);
+    // authData.code = '80909999';
+    if (authData.code !== '0' || authData.code !== 0) {
+      return setTimeout(function () {
+        that.authorize();
+      },1000);
+    }
+    that.setData({
+      flag1: true
+    });
+    if (!that.data.checkBindStatus) {
+      util.showToastNoIcon('已授权');
+    }
   },
 
   // 点击 弹出模态框的 确认 按键

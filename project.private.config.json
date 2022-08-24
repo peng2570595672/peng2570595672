@@ -363,6 +363,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "畅由失败",
+          "pathName": "/pages/moving_integral/exchange_fail/exchange_fail",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
