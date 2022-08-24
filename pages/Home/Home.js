@@ -56,7 +56,15 @@ Page({
       statisticsEvent: 'index_personal_center'
     }
     ],
-    bannerList: [{
+    bannerList: [
+      // @cyl
+    {
+      img: 'https://file.cyzl.com/g001/M00/91/CF/oYYBAGLvfp2AJ6_aAAEiO5l6BYc353.png',
+      url: 'moving_integral',
+      isShow: !app.globalData.isContinentInsurance,
+      statisticsEvent: 'index_moving_integral'
+    },
+    {
       img: 'https://file.cyzl.com/g001/M07/83/64/oYYBAGJzZImAaHqlAAKimDHtunU897.png',
       url: 'micro_high_speed',
       isShow: !app.globalData.isContinentInsurance,
@@ -75,13 +83,6 @@ Page({
       url: '',
       isShow: app.globalData.isContinentInsurance,
       statisticsEvent: 'index_dadi'
-    },
-    // @cyl
-    {
-      img: 'https://file.cyzl.com/g001/M00/91/CF/oYYBAGLvfp2AJ6_aAAEiO5l6BYc353.png',
-      url: 'moving_integral',
-      isShow: !app.globalData.isContinentInsurance,
-      statisticsEvent: 'index_moving_integral'
     }
     ],
     activeIndex: 1,

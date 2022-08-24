@@ -53,7 +53,7 @@
   <!-- 验证码弹窗 -->
   <view class="verification_code" wx:if="{{!checkBindStatus}}">
     <view>
-      <text>积分兑换服务需短信验证码确认\n</text>
+      <text>正在授权登录获取积分\n</text>
       <text>验证码将下发至<text class="number_phone">{{phone_number}}</text></text>
     </view>
     <view>

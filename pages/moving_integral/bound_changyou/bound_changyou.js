@@ -97,7 +97,8 @@ Page({
       batchId: '202208231708115132'
     }
     ],
-    flag: false // 判断有没有获取验证码
+    flag: false, // 判断有没有获取验证码
+    flag1: false // 判断查询积分 的cmcc是否为空
 
   },
 
@@ -134,8 +135,14 @@ Page({
       util.showToastNoIcon('号码归属省暂不支持兑换');
     };
     if (res4.data.cmcc == null) {
+      util.showToastNoIcon('null');
       return that.changYouIntegral();
     }
+    that.setData({
+      flag1: true
+    });
+    util.showToastNoIcon('已授权');
+    // 模拟数据
     // that.setData({
     //   queryScores: {
     //     points: 2000,
@@ -165,6 +172,9 @@ Page({
   // 获取验证码 验证等待的时间
   async btnVerificationCode () {
     let that = this;
+    if (!that.data.flag1) {
+      return util.showToastNoIcon('暂未授权请稍等');
+    }
     that.setData({
       vcValue: '',
       timeFlag: true,
@@ -194,10 +204,12 @@ Page({
     });
     console.log('获取绑定验证码');
     console.log(res5);
-    if (res5.data.code === 'B001') {
-      util.showToastNoIcon('用户未注册');
-    } else if (res5.data.code === '80830915') {
+    if (res5.code === 105 || res5.code === '105') {
+      util.showToastNoIcon('号码已绑定');
+    } else if (res5.data.code === '80830915' || res5.data.code === 80830915) {
       util.showToastNoIcon('你操作太频繁了');
+    } else if (res5.data.code === 'B001' || res5.data.code === B001) {
+      util.showToastNoIcon('用户未注册');
     }
   },
 
@@ -226,6 +238,7 @@ Page({
     });
     console.log('绑定畅游');
     console.log(res6);
+    // 测试
     if (res6.data) {
       app.globalData.tonDunObj.checkBindStatus = true;
       util.showToastNoIcon('已绑定畅由');
