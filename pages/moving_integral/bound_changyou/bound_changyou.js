@@ -134,6 +134,7 @@ Page({
     that.setData({
       flag1: true
     });
+    if (!that.data.checkBindStatus) { util.showToastNoIcon('已授权'); }
     // 模拟数据
     // that.setData({
     //   queryScores: {
@@ -228,17 +229,6 @@ Page({
     } else if (res5.data.code !== null) {
       util.showToastNoIcon(res.data.mesg);
     }
-    // if (res5.data.code === '80830915') {
-    //   util.showToastNoIcon('你操作太频繁了');
-    // }
-    // if (res5.data.code === 'B001') {
-    //   util.showToastNoIcon('用户未注册');
-    // }
-    // if (res5.data.code === '0' || res5.data.code === 0) {
-    //   util.showToastNoIcon('验证码下发成功');
-    // } else {
-    //   util.showToastNoIcon('无提示');
-    // }
   },
 
   // 验证码的输入获取
@@ -276,7 +266,7 @@ Page({
         timeFlag: false
       });
       // 再次调用
-      const sign = await util.getDataFromServersV2('consumer/member/changyou/sign');
+      const sign = await util.getDataFromServersV2('consumer/member/changyou/sign'); // 登记
       app.globalData.tonDunObj.myOrderId = sign.data.myOrderId;
       app.globalData.tonDunObj.orderId = sign.data.orderId;
       that.authorize(); // 授权
@@ -312,9 +302,6 @@ Page({
     });
     console.log('预下单');
     console.log(res7);
-    if (res7.code !== 0 || res7.data.code !== null) {
-      return util.showToastNoIcon('预下单失败');
-    }
 		// 判断畅游积分是否大于商品畅游积分
 		app.globalData.tonDunObj.integralHighlight = parseInt(that.data.queryScores.points) >= parseInt(that.data.couponsConfigureArr[index].changYouIntegral);
     app.globalData.tonDunObj.orderId = res7.data.orderId;
