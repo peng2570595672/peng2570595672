@@ -1383,6 +1383,15 @@ Page({
       if (this.data.areaNotOpened.includes(res3.data.province)) {
           return util.showToastNoIcon('号码归属省份暂未开通此业务，敬请期待！');
       }
+      // 登录授权
+      const authData = await util.getDataFromServersV2('consumer/member/changyou/quickAuth', {
+        myOrderId: app.globalData.tonDunObj.myOrderId
+      });
+      console.log('授权');
+      console.log(authData);
+      if (authData.data.code !== '000000' || authData.code !== 0) {
+        util.showToastNoIcon('未授权');
+      }
       // 畅游是否绑定 false->未绑定  true->已绑定
       const res2 = await util.getDataFromServersV2('consumer/member/changyou/checkBindStatus', {
         fingerprint: app.globalData.tonDunObj.fingerprint,
@@ -1392,7 +1401,7 @@ Page({
       console.log('是否绑定畅由');
       console.log(res2);
       app.globalData.tonDunObj.checkBindStatus = res2.data;
-      // app.globalData.tonDunObj.checkBindStatus = false;
+      app.globalData.tonDunObj.checkBindStatus = false;
       // 跳转到 移动积分兑通行券 页面
       util.go('/pages/moving_integral/bound_changyou/bound_changyou');
     }

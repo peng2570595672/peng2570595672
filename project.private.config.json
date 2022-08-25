@@ -370,6 +370,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "畅由成功",
+          "pathName": "pages/moving_integral/exchange_success/exchange_success",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
