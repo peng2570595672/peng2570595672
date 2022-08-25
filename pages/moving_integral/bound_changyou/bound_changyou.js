@@ -30,64 +30,64 @@ Page({
     timeFlag: false, // 控制验证时间的
     // 通行券的列表
     couponsConfigureArr: [
-	{
-      price: 2,
-      movingIntegral: 360,
-      changYouIntegral: 300,
-      productCode: 'GZLL10042',
-      // couponConfigId: '1009103738631102464',
-      // batchId: '202208161417595704'
-      // 正式
-      couponConfigId: '1011680033739776000',
-      batchId: '202208231655169416'
-    },
-    {
-      price: 4,
-      movingIntegral: 720,
-      changYouIntegral: 600,
-      productCode: 'GZLL10043',
-      // 正式
-      couponConfigId: '1011681278806335488',
-      batchId: '202208231700121589'
-    },
-    {
-      price: 6,
-      movingIntegral: 1080,
-      changYouIntegral: 900,
-      productCode: 'GZLL10044',
-      // 正式
-      couponConfigId: '1011681951572566016',
-      batchId: '202208231702535132'
-    },
-    {
-      price: 10,
-      movingIntegral: 1800,
-      changYouIntegral: 1500,
-      productCode: 'GZLL10045',
-      // 正式
-      couponConfigId: '1011682232708505600',
-      batchId: '202208231704004264'
-    },
-    {
-      price: 16,
-      movingIntegral: 2880,
-      changYouIntegral: 2400,
-      productCode: 'GZLL10046',
-      // couponConfigId: '1009107183123570688',
-      // batchId: '202208161431407191'
-      // 正式
-      couponConfigId: '1011682845441662976',
-      batchId: '202208231706260817'
-    },
-    {
-      price: 20,
-      movingIntegral: 3600,
-      changYouIntegral: 3000,
-      productCode: 'GZLL10047',
-      // 正式
-      couponConfigId: '1011683287760510976',
-      batchId: '202208231708115132'
-    }
+      {
+        price: 2,
+        movingIntegral: 360,
+        changYouIntegral: 300,
+        productCode: 'GZLL10042',
+        // couponConfigId: '1009103738631102464',
+        // batchId: '202208161417595704'
+        // 正式
+        couponConfigId: '1011680033739776000',
+        batchId: '202208231655169416'
+      },
+      {
+        price: 4,
+        movingIntegral: 720,
+        changYouIntegral: 600,
+        productCode: 'GZLL10043',
+        // 正式
+        couponConfigId: '1011681278806335488',
+        batchId: '202208231700121589'
+      },
+      {
+        price: 6,
+        movingIntegral: 1080,
+        changYouIntegral: 900,
+        productCode: 'GZLL10044',
+        // 正式
+        couponConfigId: '1011681951572566016',
+        batchId: '202208231702535132'
+      },
+      {
+        price: 10,
+        movingIntegral: 1800,
+        changYouIntegral: 1500,
+        productCode: 'GZLL10045',
+        // 正式
+        couponConfigId: '1011682232708505600',
+        batchId: '202208231704004264'
+      },
+      {
+        price: 16,
+        movingIntegral: 2880,
+        changYouIntegral: 2400,
+        productCode: 'GZLL10046',
+        // couponConfigId: '1009107183123570688',
+        // batchId: '202208161431407191'
+        // 正式
+        couponConfigId: '1011682845441662976',
+        batchId: '202208231706260817'
+      },
+      {
+        price: 20,
+        movingIntegral: 3600,
+        changYouIntegral: 3000,
+        productCode: 'GZLL10047',
+        // 正式
+        couponConfigId: '1011683287760510976',
+        batchId: '202208231708115132'
+      }
     ],
     flag: false, // 判断有没有获取验证码
     flag1: false, // 判断是否授权 true 为已授权，false 为未授权
@@ -130,6 +130,9 @@ Page({
       } else {
         return that.changYouIntegral();
       }
+    } else if (res4.data.cmcc.code === 'D499'){
+      // 移动限制的
+      util.showToastNoIcon('系统繁忙，请稍候再试');
     }
     that.setData({
       flag1: true
@@ -156,7 +159,9 @@ Page({
       return setTimeout(function () { util.go('/pages/Home/Home'); },1000);
     }
     const authData = await util.getDataFromServersV2('consumer/member/changyou/quickAuth', {
-      myOrderId: app.globalData.tonDunObj.myOrderId
+      fingerprint: app.globalData.tonDunObj.fingerprint,
+        sessionId: app.globalData.tonDunObj.sessionId,
+        myOrderId: app.globalData.tonDunObj.myOrderId
     });
     console.log('授权');
     console.log(authData);
@@ -221,13 +226,13 @@ Page({
     that.setData({
       queryBindCode: res5.data
     });
-    util.showToastNoIcon('获取验证码ssss');
+    util.showToastNoIcon('获取验证码');
     console.log('获取绑定验证码');
     console.log(res5);
     if (res5.code === 105 || res5.code === '105') {
       util.showToastNoIcon('号码已绑定');
     } else if (res5.data.code !== null) {
-      util.showToastNoIcon(res.data.mesg);
+      util.showToastNoIcon(`${res.data.mesg}`);
     }
   },
 
@@ -247,6 +252,8 @@ Page({
       return util.showToastNoIcon('请先获取验证码');
     }
     // 绑定畅游
+    util.showToastNoIcon(`${that.data.queryBindCode.validateToken}`);
+    
     const res6 = await util.getDataFromServersV2('consumer/member/changyou/bindChangYou', {
       validateToken: that.data.queryBindCode.validateToken,
       myOrderId: app.globalData.tonDunObj.myOrderId,
