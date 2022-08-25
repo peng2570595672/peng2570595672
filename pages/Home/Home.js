@@ -1391,6 +1391,8 @@ Page({
       console.log(authData);
       if (authData.data.code !== '000000' || authData.code !== 0) {
         util.showToastNoIcon('未授权');
+      } else {
+        util.showToastNoIcon('已授权');
       }
       // 畅游是否绑定 false->未绑定  true->已绑定
       const res2 = await util.getDataFromServersV2('consumer/member/changyou/checkBindStatus', {
