@@ -282,11 +282,14 @@ Page({
         timeFlag: false
       });
       // 再次调用
-      const sign = await util.getDataFromServersV2('consumer/member/changyou/sign'); // 登记
-      app.globalData.tonDunObj.myOrderId = sign.data.myOrderId;
-      app.globalData.tonDunObj.orderId = sign.data.orderId;
-      that.authorize(); // 授权
+      // const sign = await util.getDataFromServersV2('consumer/member/changyou/sign'); // 登记
+      // app.globalData.tonDunObj.myOrderId = sign.data.myOrderId;
+      // app.globalData.tonDunObj.orderId = sign.data.orderId;
+      const res5 = await util.getDataFromServersV2('consumer/member/changyou/queryBindCode', {
+        myOrderId: app.globalData.tonDunObj.myOrderId
+      });
       that.changYouIntegral(); // 查询积分
+      // that.authorize(); // 授权
     } else {
       app.globalData.tonDunObj.checkBindStatus = false;
       util.showToastNoIcon('验证失败');
