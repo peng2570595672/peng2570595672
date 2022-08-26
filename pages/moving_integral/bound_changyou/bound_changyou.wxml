@@ -22,7 +22,7 @@
         <text>{{item.movingIntegral}}移动积分</text>
       </view>
       <view class="lower">
-        <button style="background-color: {{(item.movingIntegral <= queryScores.cmcc.lmPoints) || (item.changYouIntegral <= queryScores.points) ? 'rgba(255, 179, 59, 1)' : 'rgba(234, 234, 234, 1)'}}" 
+        <button style="background-color: {{ (item.movingIntegral <= queryScores.cmcc.lmPoints) || (item.changYouIntegral <= queryScores.points) ? 'rgba(255, 179, 59, 1)' : 'rgba(234, 234, 234, 1)'}}" 
           catchtap="confirm_exchange" 
           disabled="{{(item.movingIntegral <= queryScores.cmcc.lmPoints) || (item.changYouIntegral <= queryScores.points) ? false : true}}" data-index="{{index}}">立即兑换
         </button>

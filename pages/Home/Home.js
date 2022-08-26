@@ -1365,6 +1365,14 @@ Page({
       app.globalData.tonDunObj.myOrderId = res1.data.myOrderId;
       app.globalData.tonDunObj.orderId = res1.data.orderId;
 
+      // // 获取 session
+      // const getSession = await util.getDataFromServersV2('consumer/member/changyou/getSessionId',{
+      //   myOrderId: res1.data.myOrderId
+      // });
+      // console.log('获取sessionId');
+      // console.log(getSession);
+      // app.globalData.tonDunObj.sessionId = getSession.data;
+
       // 检查手机是联通还是移动，如果是联通 data 为 空
       const res3 = await util.getDataFromServersV2('consumer/member/changyou/checkPhone',{
         myOrderId: res1.data.myOrderId
@@ -1393,8 +1401,10 @@ Page({
       });
       console.log('授权');
       console.log(authData);
-      if (authData.data.code !== '000000' || authData.code !== 0) {
-        util.showToastNoIcon('未授权');
+      if (authData.code !== 0) {
+        util.showToastNoIcon(`${authData.message}`);
+      } else if (authData.data.code !== '000000') {
+        util.showToastNoIcon(`${authData.data.mesg}`);
       } else {
         util.showToastNoIcon('已授权');
       }
@@ -1408,7 +1418,7 @@ Page({
       console.log('是否绑定畅由');
       console.log(res2);
       app.globalData.tonDunObj.checkBindStatus = res2.data;
-      app.globalData.tonDunObj.checkBindStatus = false;
+      // app.globalData.tonDunObj.checkBindStatus = false;
       // 跳转到 移动积分兑通行券 页面
       util.go('/pages/moving_integral/bound_changyou/bound_changyou');
     }

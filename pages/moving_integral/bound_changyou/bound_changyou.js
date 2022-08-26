@@ -118,9 +118,11 @@ Page({
       sessionId: app.globalData.tonDunObj.sessionId,
       myOrderId: app.globalData.tonDunObj.myOrderId
     });
-    that.setData({
-      queryScores: res4.data
-    });
+    if (that.data.checkBindStatus) {
+      that.setData({
+        queryScores: res4.data
+      });
+    }
     console.log('查询积分');
     console.log(res4);
     if (res4.data.cmcc == null) {
@@ -167,9 +169,14 @@ Page({
     console.log('授权');
     console.log(authData);
     // authData.code = '80909999';
-    if (authData.data.code !== '000000' || authData.code !== 0) {
-      util.showToastNoIcon('系统繁忙，请稍后再试');
+    if (authData.code !== 0) {
+      util.showToastNoIcon(`${authData.message}`);
       return setTimeout(function () { that.authorize(); },1500);
+    } else if (authData.data.code !== '000000') {
+      util.showToastNoIcon(`${authData.data.mesg}`);
+      return setTimeout(function () { that.authorize(); },1500);
+    } else {
+      util.showToastNoIcon('已授权');
     }
     that.setData({
       flag1: true,
@@ -198,7 +205,7 @@ Page({
   async btnVerificationCode () {
     let that = this;
     if (!that.data.flag1) {
-      return util.showToastNoIcon('暂未授权请稍等');
+      return util.showToastNoIcon(`暂未授权请稍等或者退出重新进入`);
     }
     that.setData({
       vcValue: '',
@@ -313,8 +320,10 @@ Page({
     console.log(res7);
     if (res7.code !== 0) {
       return util.showToastNoIcon(`${res7.message}`);
-    } else if (res7.data.code !== null) {
-      return util.showToastNoIcon(`${res7.data.mesg}`);
+    } else if (res7.data.code != null) {
+      if (res7.data.mesg !== undefined) {
+        return util.showToastNoIcon(`${res7.data.mesg}`);
+      }
     }
 		// 判断畅游积分是否大于商品畅游积分
 		app.globalData.tonDunObj.integralHighlight = parseInt(that.data.queryScores.points) >= parseInt(that.data.couponsConfigureArr[index].changYouIntegral);
