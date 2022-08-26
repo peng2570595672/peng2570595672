@@ -123,30 +123,31 @@ Page({
     });
     console.log('查询积分');
     console.log(res4);
-    // res4.data.cmcc = null;
     if (res4.data.cmcc == null) {
       if (!that.data.checkBindStatus) {
         return that.authorize();
       } else {
         return that.changYouIntegral();
       }
-    } else if (res4.data.cmcc.code === 'D499'){
+    } else if (res4.data.cmcc.code === 'D499') {
       // 移动限制的
-      util.showToastNoIcon('系统繁忙，请稍候再试');
+      return util.showToastNoIcon('系统繁忙，请稍候再试');
+    } else if (res4.data.cmcc !== null) {
+      util.showToastNoIcon(`${res4.data.cmcc.msg}`);
     }
     that.setData({
       flag1: true
     });
     if (!that.data.checkBindStatus) { util.showToastNoIcon('已授权'); }
-    // 模拟数据
-    // that.setData({
-    //   queryScores: {
-    //     points: 2000,
-    //     cmcc: {
-    //       lmPoints: 3000
-    //     }
-    //   }
-    // });
+      // 模拟数据
+      // that.setData({
+      //   queryScores: {
+      //     points: 1000,
+      //     cmcc: {
+      //       lmPoints: 3000
+      //     }
+      //   }
+      // });
   },
 
   // 获取授权
@@ -226,13 +227,16 @@ Page({
     that.setData({
       queryBindCode: res5.data
     });
-    util.showToastNoIcon('获取验证码');
     console.log('获取绑定验证码');
     console.log(res5);
-    if (res5.code === 105 || res5.code === '105') {
-      util.showToastNoIcon('号码已绑定');
-    } else if (res5.data.code !== null) {
-      util.showToastNoIcon(`${res.data.mesg}`);
+    if (res5.code !== 0) {
+      util.showToastNoIcon(`${res5.message}`);
+    } else if (res5.data.code != null) {
+      if (res5.data.mesg !== undefined) {
+        util.showToastNoIcon(`${res.data.mesg}`);
+      }
+    } else {
+      util.showToastNoIcon(`发送成功`);
     }
   },
 
@@ -252,8 +256,6 @@ Page({
       return util.showToastNoIcon('请先获取验证码');
     }
     // 绑定畅游
-    util.showToastNoIcon(`${that.data.queryBindCode.validateToken}`);
-    
     const res6 = await util.getDataFromServersV2('consumer/member/changyou/bindChangYou', {
       validateToken: that.data.queryBindCode.validateToken,
       myOrderId: app.globalData.tonDunObj.myOrderId,
@@ -309,6 +311,11 @@ Page({
     });
     console.log('预下单');
     console.log(res7);
+    if (res7.code !== 0) {
+      return util.showToastNoIcon(`${res7.message}`);
+    } else if (res7.data.code !== null) {
+      return util.showToastNoIcon(`${res7.data.mesg}`);
+    }
 		// 判断畅游积分是否大于商品畅游积分
 		app.globalData.tonDunObj.integralHighlight = parseInt(that.data.queryScores.points) >= parseInt(that.data.couponsConfigureArr[index].changYouIntegral);
     app.globalData.tonDunObj.orderId = res7.data.orderId;

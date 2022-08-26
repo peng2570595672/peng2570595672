@@ -57,7 +57,13 @@ Page({
     }
     ],
     bannerList: [
-    
+      // @cyl
+    {
+      img: 'https://file.cyzl.com/g001/M00/91/CF/oYYBAGLvfp2AJ6_aAAEiO5l6BYc353.png',
+      url: 'moving_integral',
+      isShow: !app.globalData.isContinentInsurance,
+      statisticsEvent: 'index_moving_integral'
+    },
     {
       img: 'https://file.cyzl.com/g001/M07/83/64/oYYBAGJzZImAaHqlAAKimDHtunU897.png',
       url: 'micro_high_speed',
@@ -77,14 +83,7 @@ Page({
       url: '',
       isShow: app.globalData.isContinentInsurance,
       statisticsEvent: 'index_dadi'
-    },
-      // @cyl
-      {
-        img: 'https://file.cyzl.com/g001/M00/91/CF/oYYBAGLvfp2AJ6_aAAEiO5l6BYc353.png',
-        url: 'moving_integral',
-        isShow: !app.globalData.isContinentInsurance,
-        statisticsEvent: 'index_moving_integral'
-      },
+    }
     ],
     activeIndex: 1,
     loginInfo: {}, // 登录信息
@@ -1365,6 +1364,7 @@ Page({
       }
       app.globalData.tonDunObj.myOrderId = res1.data.myOrderId;
       app.globalData.tonDunObj.orderId = res1.data.orderId;
+
       // 检查手机是联通还是移动，如果是联通 data 为 空
       const res3 = await util.getDataFromServersV2('consumer/member/changyou/checkPhone',{
         myOrderId: res1.data.myOrderId
@@ -1384,7 +1384,7 @@ Page({
       if (this.data.areaNotOpened.includes(res3.data.province)) {
           return util.showToastNoIcon('号码归属省份暂未开通此业务，敬请期待！');
       }
-      util.showToastNoIcon(`${res3.data.province}`)
+
       // 登录授权
       const authData = await util.getDataFromServersV2('consumer/member/changyou/quickAuth', {
         fingerprint: app.globalData.tonDunObj.fingerprint,
@@ -1398,7 +1398,7 @@ Page({
       } else {
         util.showToastNoIcon('已授权');
       }
-      util.showToastNoIcon('fffff')
+
       // 畅游是否绑定 false->未绑定  true->已绑定
       const res2 = await util.getDataFromServersV2('consumer/member/changyou/checkBindStatus', {
         fingerprint: app.globalData.tonDunObj.fingerprint,
@@ -1407,10 +1407,8 @@ Page({
       });
       console.log('是否绑定畅由');
       console.log(res2);
-      util.showToastNoIcon('ggggggg')
-      
       app.globalData.tonDunObj.checkBindStatus = res2.data;
-      // app.globalData.tonDunObj.checkBindStatus = false;
+      app.globalData.tonDunObj.checkBindStatus = false;
       // 跳转到 移动积分兑通行券 页面
       util.go('/pages/moving_integral/bound_changyou/bound_changyou');
     }

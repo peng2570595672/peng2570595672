@@ -14,7 +14,6 @@ Page({
     integralHighlight: false, // 确定谁的积分高亮
     optCode: '', // 验证码
     vcValue: '', // 下单前验证码
-    exchangeScore: null, // 兑换畅游积分返回的信息
     makeOrder: null, // 下单返回的信息
     confirmBtn: false, // 控制确认按钮是下单还是兑换积分
     iphoneModel: false, // 控制iPad类型的样式
@@ -77,11 +76,20 @@ Page({
     that.setData({
       queryScoreCode: res.data
     });
-    if (res.code === '104' || res.code === 104) {
-      util.showToastNoIcon('获取验证码失败');
-    }
     console.log('获取兑换积分验证码');
     console.log(res);
+    if (res.code !== 0) {
+      util.showToastNoIcon(`${res.message}`);
+      that.setData({
+        flag: false
+      });
+    } else if (res.data.code !== '') {
+      if (res.data.mesg !== undefined) {
+        util.showToastNoIcon(`${res.data.mesg}`);
+      }
+    } else {
+      util.showToastNoIcon('发送成功');
+    }
   },
 
   // 畅游积分可直接 兑换的输入获取
@@ -91,6 +99,7 @@ Page({
       that.utilOverBooking(e.detail.value);
     }
   },
+
   // 当畅游积分不足输入验证码
   inputCode2 (e) {
     let that = this;
@@ -136,20 +145,22 @@ Page({
     console.log('兑换畅游积分');
     console.log(res1);
     that.setData({
-      exchangeScore: res1.data
+      optCode: ''
     });
-    if (res1.data.code !== null) {
+    if (res1.code !== 0) {
+      return util.showToastNoIcon(`${res1.message}`);
+      // return util.go(`/pages/moving_integral/exchange_fail/exchange_fail?exchange=true`);
+    } else if (res1.data.code !== null) {
+      return util.showToastNoIcon(`${res1.data.mesg}`);
+      // return util.go(`/pages/moving_integral/exchange_fail/exchange_fail?exchange=true`);
+    } else {
       that.setData({
-        optCode: ''
+        integralHighlight: true,
+        flag: false
       });
-      return util.showToastNoIcon('验证码错误');
+      app.globalData.tonDunObj.integralHighlight = true;
+      util.showToastNoIcon('畅由积分兑换成功');
     }
-    that.setData({
-      integralHighlight: true,
-      flag: false
-    });
-    app.globalData.tonDunObj.integralHighlight = true;
-    util.showToastNoIcon('畅由积分兑换成功');
   },
 
   // 下单
@@ -171,12 +182,18 @@ Page({
       });
       console.log('下单');
       console.log(res2);
-      if (res2.data.code == null) {
-        util.go(
+      if (res2.code !== 0) {
+        util.showToastNoIcon(`${res2.message}`);
+        return util.go('/pages/moving_integral/exchange_fail/exchange_fail');
+      } else if (res2.data.code != null) {
+        if (res2.data.mesg !== undefined) {
+          util.showToastNoIcon(`${res2.data.mesg}`);
+        }
+        return util.go('/pages/moving_integral/exchange_fail/exchange_fail');
+      } else {
+        return util.go(
           `/pages/moving_integral/exchange_success/exchange_success?price=${app.globalData.tonDunObj.price}`
         );
-      } else {
-        util.go('/pages/moving_integral/exchange_fail/exchange_fail');
       }
     } else {
       // 畅游没有兑换过积分  必须 获取下单验证码
@@ -186,8 +203,14 @@ Page({
       });
       console.log('畅游没有兑换过积分必须获取下单验证码');
       console.log(res3);
-      if (res.code === '104' || res.code === 104) {
-        util.showToastNoIcon('获取验证码失败');
+      if (res3.code !== 0) {
+        util.showToastNoIcon(`${res3.message}`);
+      } else if (res3.data.code != null) {
+        if (res3.data.mesg !== undefined) {
+          util.showToastNoIcon(`${res3.data.mesg}`);
+        }
+      } else {
+        util.showToastNoIcon(`下单验证码发送成功`);
       }
       that.setData({
         popFlag: true
@@ -213,10 +236,18 @@ Page({
     });
     console.log('下单');
     console.log(res2.data);
-    if (res2.data.code == null) {
-      util.go(`/pages/moving_integral/exchange_success/exchange_success?price=${app.globalData.tonDunObj.price}`);
+    if (res2.code !== 0) {
+      util.showToastNoIcon(`${res2.message}`);
+      return util.go('/pages/moving_integral/exchange_fail/exchange_fail');
+    } else if (res2.data.code != null) {
+      if (res2.data.mesg !== undefined) {
+        util.showToastNoIcon(`${res2.data.mesg}`);
+      }
+      return util.go('/pages/moving_integral/exchange_fail/exchange_fail');
     } else {
-      util.go('/pages/moving_integral/exchange_fail/exchange_fail');
+      return util.go(
+        `/pages/moving_integral/exchange_success/exchange_success?price=${app.globalData.tonDunObj.price}`
+      );
     }
   },
 
