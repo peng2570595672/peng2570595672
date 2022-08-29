@@ -1311,7 +1311,7 @@ Page({
     } else if (codeType === 1) {
       // 如果拿到的是code，则需要传到后端，通过微信服务器拿到openid
       wx.request({
-        url: 'https://fptest.fraudmetrix.cn?' + data, // 'http://localhost'改为您服务器的url
+        url: 'https://fp.tongdun.net?' + data, // 'http://localhost'改为您服务器的url
         success: function (res) {
           // 保存user_code
           // 把openid保存到缓存中
@@ -1365,62 +1365,66 @@ Page({
       app.globalData.tonDunObj.myOrderId = res1.data.myOrderId;
       app.globalData.tonDunObj.orderId = res1.data.orderId;
 
-      // // 获取 session
-      // const getSession = await util.getDataFromServersV2('consumer/member/changyou/getSessionId',{
-      //   myOrderId: res1.data.myOrderId
-      // });
-      // console.log('获取sessionId');
-      // console.log(getSession);
-      // app.globalData.tonDunObj.sessionId = getSession.data;
-
       // 检查手机是联通还是移动，如果是联通 data 为 空
       const res3 = await util.getDataFromServersV2('consumer/member/changyou/checkPhone',{
         myOrderId: res1.data.myOrderId
       });
       console.log(' 检查手机是联通还是移动');
       console.log(res3);
-      // 拦截不是移动的用户
+      // 拦截不是移动的用户 拦截未开通此业务的省份
       // res3.data.isp = '中国联通';
       if (res3.data.isp !== '中国移动') {
         util.showToastNoIcon('本活动仅限移动用户参与');
         return this.setData({
           movingIntegralControl: false
         });
-      }
-      // 拦截未开通此业务的省份
-      // res3.data.province = '广西';
-      if (this.data.areaNotOpened.includes(res3.data.province)) {
+      } else if (this.data.areaNotOpened.includes(res3.data.province)) {
           return util.showToastNoIcon('号码归属省份暂未开通此业务，敬请期待！');
       }
-
-      // 登录授权
-      const authData = await util.getDataFromServersV2('consumer/member/changyou/quickAuth', {
-        fingerprint: app.globalData.tonDunObj.fingerprint,
-        sessionId: app.globalData.tonDunObj.sessionId,
-        myOrderId: app.globalData.tonDunObj.myOrderId
-      });
-      console.log('授权');
-      console.log(authData);
-      if (authData.code !== 0) {
-        util.showToastNoIcon(`${authData.message}`);
-      } else if (authData.data.code !== '000000') {
-        util.showToastNoIcon(`${authData.data.mesg}`);
-      } else {
-        util.showToastNoIcon('已授权');
-      }
-
-      // 畅游是否绑定 false->未绑定  true->已绑定
-      const res2 = await util.getDataFromServersV2('consumer/member/changyou/checkBindStatus', {
+      // 畅游是否绑定
+      const res2 = await util.getDataFromServersV2('consumer/member/changyou/queryScores', {
         fingerprint: app.globalData.tonDunObj.fingerprint,
         sessionId: app.globalData.tonDunObj.sessionId,
         myOrderId: app.globalData.tonDunObj.myOrderId
       });
       console.log('是否绑定畅由');
       console.log(res2);
-      app.globalData.tonDunObj.checkBindStatus = res2.data;
+      if (res2.code !== 0) {
+        util.showToastNoIcon(`${res2.message}`);
+        this.changYouAuth();
+      } else if (res2.data.cmcc && res2.data.cmcc.bindStatus === '1') {
+        app.globalData.tonDunObj.checkBindStatus = true;
+      } else {
+        util.showToastNoIcon('未绑定畅由');
+        this.changYouAuth();
+      }
+
       // app.globalData.tonDunObj.checkBindStatus = false;
       // 跳转到 移动积分兑通行券 页面
-      util.go('/pages/moving_integral/bound_changyou/bound_changyou');
+      setTimeout(() => {
+        util.go('/pages/moving_integral/bound_changyou/bound_changyou');
+      },1500);
+    }
+  },
+  // 畅由授权
+  async changYouAuth () {
+    // 授权
+    const authData = await util.getDataFromServersV2('consumer/member/changyou/quickAuth', {
+      fingerprint: app.globalData.tonDunObj.fingerprint,
+      sessionId: app.globalData.tonDunObj.sessionId,
+      myOrderId: app.globalData.tonDunObj.myOrderId
+    });
+    console.log('授权');
+    console.log(authData);
+    if (authData.code !== 0) {
+      app.globalData.tonDunObj.auth = false;
+      util.showToastNoIcon(`${authData.message}`);
+    } else if (authData.data.code !== '000000') {
+      app.globalData.tonDunObj.auth = false;
+      util.showToastNoIcon(`${authData.data.mesg}`);
+    } else {
+      app.globalData.tonDunObj.auth = true;
+      util.showToastNoIcon('已授权');
     }
   }
 

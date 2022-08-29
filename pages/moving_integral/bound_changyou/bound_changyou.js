@@ -91,6 +91,7 @@ Page({
     ],
     flag: false, // 判断有没有获取验证码
     flag1: false, // 判断是否授权 true 为已授权，false 为未授权
+    flag2: false,
     count: 0 // 授权次数
   },
 
@@ -98,9 +99,12 @@ Page({
     let that = this;
     if (app.globalData.tonDunObj.checkBindStatus) {
       that.changYouIntegral();
-    } else {
-      util.showToastNoIcon('暂未绑定畅由,请先绑定畅由');
+    } else if (!app.globalData.tonDunObj.auth) {
       that.changYouIntegral();
+    } else {
+      that.setData({
+        flag1: true
+      });
     }
   },
   onShow () {
@@ -126,14 +130,22 @@ Page({
     console.log('查询积分');
     console.log(res4);
     if (res4.data.cmcc == null) {
-      if (!that.data.checkBindStatus) {
-        return that.authorize();
+      if (that.dat.flag2) {
+        const bCode = await util.getDataFromServersV2('consumer/member/changyou/queryBindCode', {
+          myOrderId: app.globalData.tonDunObj.myOrderId
+        });
+        if (bCode.code === 1114) {
+          that.setData({
+            flag2: false
+          });
+          return that.changYouIntegral();
+        }
       } else {
-        return that.changYouIntegral();
+        return that.authorize();
       }
-    } else if (res4.data.cmcc.code === 'D499') {
+    } else if (res4.data.cmcc.code !== '0000') {
       // 移动限制的
-      return util.showToastNoIcon('系统繁忙，请稍候再试');
+      return util.showToastNoIcon(`${res4.data.cmcc.msg}`);
     } else if (res4.data.cmcc !== null) {
       util.showToastNoIcon(`${res4.data.cmcc.msg}`);
     }
@@ -162,13 +174,12 @@ Page({
       return setTimeout(function () { util.go('/pages/Home/Home'); },1000);
     }
     const authData = await util.getDataFromServersV2('consumer/member/changyou/quickAuth', {
-      fingerprint: app.globalData.tonDunObj.fingerprint,
+        fingerprint: app.globalData.tonDunObj.fingerprint,
         sessionId: app.globalData.tonDunObj.sessionId,
         myOrderId: app.globalData.tonDunObj.myOrderId
     });
     console.log('授权');
     console.log(authData);
-    // authData.code = '80909999';
     if (authData.code !== 0) {
       util.showToastNoIcon(`${authData.message}`);
       return setTimeout(function () { that.authorize(); },1500);
@@ -177,12 +188,8 @@ Page({
       return setTimeout(function () { that.authorize(); },1500);
     } else {
       util.showToastNoIcon('已授权');
+      return that.changYouIntegral();
     }
-    that.setData({
-      flag1: true,
-      count: 0
-    });
-    if (!that.data.checkBindStatus) { util.showToastNoIcon('已授权'); }
   },
 
   // 点击 弹出模态框的 确认 按键
@@ -262,6 +269,10 @@ Page({
     if (!this.data.flag) {
       return util.showToastNoIcon('请先获取验证码');
     }
+    console.log(that.data.queryBindCode);
+    console.log(app.globalData.tonDunObj.myOrderId);
+    console.log(vcValue);
+    console.log('--------------------------------------');
     // 绑定畅游
     const res6 = await util.getDataFromServersV2('consumer/member/changyou/bindChangYou', {
       validateToken: that.data.queryBindCode.validateToken,
@@ -272,37 +283,33 @@ Page({
     });
     console.log('绑定畅游');
     console.log(res6);
-    // 测试
-    if (res6.data) {
-      app.globalData.tonDunObj.checkBindStatus = true;
-      util.showToastNoIcon('已绑定畅由');
-      that.setData({
-        mask: false,
-        checkBindStatus: true,
-        timeFlag: false
-      });
-      // 再次调用
-      // const sign = await util.getDataFromServersV2('consumer/member/changyou/sign'); // 登记
-      // app.globalData.tonDunObj.myOrderId = sign.data.myOrderId;
-      // app.globalData.tonDunObj.orderId = sign.data.orderId;
-      const res5 = await util.getDataFromServersV2('consumer/member/changyou/queryBindCode', {
-        myOrderId: app.globalData.tonDunObj.myOrderId
-      });
-      that.changYouIntegral(); // 查询积分
-      // that.authorize(); // 授权
-    } else {
-      app.globalData.tonDunObj.checkBindStatus = false;
-      util.showToastNoIcon('验证失败');
-      setTimeout(function () {
-        util.go('/pages/Home/Home');
+    // 规定时间 去执行 避免调用太快
+    setTimeout(async function () {
+      if (res6.data) {
+        app.globalData.tonDunObj.checkBindStatus = true;
+        util.showToastNoIcon('已绑定畅由');
+        that.setData({
+          mask: false,
+          checkBindStatus: true,
+          timeFlag: false,
+          flag2: true
+        });
+        // 再次获取验证码
+        that.changYouIntegral();
+      } else {
+        app.globalData.tonDunObj.checkBindStatus = false;
+        util.showToastNoIcon('验证失败');
+        setTimeout(function () {
+          util.go('/pages/Home/Home');
+        }, 1000);
+      }
+      setTimeout(() => {
+        that.setData({
+          vcValue: '',
+          flag: false
+        });
       }, 1000);
-    }
-    setTimeout(() => {
-      that.setData({
-        vcValue: '',
-        flag: false
-      });
-    }, 1000);
+    },1500);
   },
 
   // 点击立即兑换

@@ -34,20 +34,20 @@ Page({
    */
   onUnload () {
     app.globalData.tonDunObj.pages = 4;
-    if (this.data.flag) {
-      // util.go('/pages/moving_integral/bound_changyou/bound_changyou');
-      wx.navigateTo({
-        url: '/pages/moving_integral/bound_changyou/bound_changyou'
-      });
-      var pages = getCurrentPages(); // 页面指针数组
-      var prePage = pages[pages.length - 3]; // 获取上一页
-      console.log(prePage.route); // 上一页的路径
-      // this.pageRouter.redirectTo({
-      //   url: '/pages/moving_integral/bound_changyou/bound_changyou'
-      // });
-      // wx.navigateBack({
-      //   delta: 2
-      // });
-    }
+    // if (this.data.flag) {
+    //   // util.go('/pages/moving_integral/bound_changyou/bound_changyou');
+    //   wx.navigateTo({
+    //     url: '/pages/moving_integral/bound_changyou/bound_changyou'
+    //   });
+    //   // var pages = getCurrentPages(); // 页面指针数组
+    //   // var prePage = pages[pages.length - 3]; // 获取上一页
+    //   // console.log(prePage.route); // 上一页的路径
+    //   // this.pageRouter.redirectTo({
+    //   //   url: '/pages/moving_integral/bound_changyou/bound_changyou'
+    //   // });
+    //   // wx.navigateBack({
+    //   //   delta: 2
+    //   // });
+    // }
   }
 });
