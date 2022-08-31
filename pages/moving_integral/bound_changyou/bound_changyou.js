@@ -92,12 +92,16 @@ Page({
     flag: false, // 判断有没有获取验证码
     flag1: false, // 判断是否授权 true 为已授权，false 为未授权
     flag2: false,
-    count: 0 // 授权次数
+    count: 0, // 授权次数
+    closeSetTime: null
   },
 
   onLoad (options) {
     let that = this;
     if (app.globalData.tonDunObj.checkBindStatus) {
+      that.setData({
+        checkBindStatus: app.globalData.tonDunObj.checkBindStatus
+      });
       that.changYouIntegral();
     } else if (!app.globalData.tonDunObj.auth) {
       that.changYouIntegral();
@@ -130,7 +134,7 @@ Page({
     console.log('查询积分');
     console.log(res4);
     if (res4.data.cmcc == null) {
-      if (that.dat.flag2) {
+      if (that.data.flag2) {
         const bCode = await util.getDataFromServersV2('consumer/member/changyou/queryBindCode', {
           myOrderId: app.globalData.tonDunObj.myOrderId
         });
@@ -153,15 +157,15 @@ Page({
       flag1: true
     });
     if (!that.data.checkBindStatus) { util.showToastNoIcon('已授权'); }
-      // 模拟数据
-      // that.setData({
-      //   queryScores: {
-      //     points: 1000,
-      //     cmcc: {
-      //       lmPoints: 3000
-      //     }
-      //   }
-      // });
+    // 模拟数据
+    // that.setData({
+    //   queryScores: {
+    //     points: 1000,
+    //     cmcc: {
+    //       lmPoints: 3000
+    //     }
+    //   }
+    // });
   },
 
   // 获取授权
@@ -171,21 +175,21 @@ Page({
       that.setData({
         count: 0
       });
-      return setTimeout(function () { util.go('/pages/Home/Home'); },1000);
+      return setTimeout(function () { util.go('/pages/Home/Home'); }, 1000);
     }
     const authData = await util.getDataFromServersV2('consumer/member/changyou/quickAuth', {
-        fingerprint: app.globalData.tonDunObj.fingerprint,
-        sessionId: app.globalData.tonDunObj.sessionId,
-        myOrderId: app.globalData.tonDunObj.myOrderId
+      fingerprint: app.globalData.tonDunObj.fingerprint,
+      sessionId: app.globalData.tonDunObj.sessionId,
+      myOrderId: app.globalData.tonDunObj.myOrderId
     });
     console.log('授权');
     console.log(authData);
     if (authData.code !== 0) {
       util.showToastNoIcon(`${authData.message}`);
-      return setTimeout(function () { that.authorize(); },1500);
+      return setTimeout(function () { that.authorize(); }, 1500);
     } else if (authData.data.code !== '000000') {
       util.showToastNoIcon(`${authData.data.mesg}`);
-      return setTimeout(function () { that.authorize(); },1500);
+      return setTimeout(function () { that.authorize(); }, 1500);
     } else {
       util.showToastNoIcon('已授权');
       return that.changYouIntegral();
@@ -283,33 +287,26 @@ Page({
     });
     console.log('绑定畅游');
     console.log(res6);
-    // 规定时间 去执行 避免调用太快
-    setTimeout(async function () {
-      if (res6.data) {
-        app.globalData.tonDunObj.checkBindStatus = true;
-        util.showToastNoIcon('已绑定畅由');
-        that.setData({
-          mask: false,
-          checkBindStatus: true,
-          timeFlag: false,
-          flag2: true
-        });
-        // 再次获取验证码
-        that.changYouIntegral();
-      } else {
-        app.globalData.tonDunObj.checkBindStatus = false;
-        util.showToastNoIcon('验证失败');
-        setTimeout(function () {
-          util.go('/pages/Home/Home');
-        }, 1000);
-      }
-      setTimeout(() => {
-        that.setData({
-          vcValue: '',
-          flag: false
-        });
+    if (res6.data) {
+      clearTimeout(that.data.closeSetTime);
+      app.globalData.tonDunObj.checkBindStatus = true;
+      util.showToastNoIcon('已绑定畅由');
+      that.setData({
+        mask: false,
+        checkBindStatus: true,
+        timeFlag: false,
+        flag2: true
+      });
+      // 再次查询积分
+      return that.changYouIntegral();
+    } else {
+      // 超过月绑定次数上限
+      app.globalData.tonDunObj.checkBindStatus = false;
+      util.showToastNoIcon('验证失败');
+      that.data.closeSetTime = setTimeout(function () {
+        util.go('/pages/Home/Home');
       }, 1000);
-    },1500);
+    }
   },
 
   // 点击立即兑换
@@ -335,8 +332,8 @@ Page({
         return util.showToastNoIcon(`${res7.data.mesg}`);
       }
     }
-		// 判断畅游积分是否大于商品畅游积分
-		app.globalData.tonDunObj.integralHighlight = parseInt(that.data.queryScores.points) >= parseInt(that.data.couponsConfigureArr[index].changYouIntegral);
+    // 判断畅游积分是否大于商品畅游积分
+    app.globalData.tonDunObj.integralHighlight = parseInt(that.data.queryScores.points) >= parseInt(that.data.couponsConfigureArr[index].changYouIntegral);
     app.globalData.tonDunObj.orderId = res7.data.orderId;
     app.globalData.tonDunObj.index = index;
     app.globalData.tonDunObj.price = that.data.couponsConfigureArr[index].price;

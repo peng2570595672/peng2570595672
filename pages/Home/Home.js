@@ -1381,29 +1381,15 @@ Page({
       } else if (this.data.areaNotOpened.includes(res3.data.province)) {
           return util.showToastNoIcon('号码归属省份暂未开通此业务，敬请期待！');
       }
-      // 畅游是否绑定
-      const res2 = await util.getDataFromServersV2('consumer/member/changyou/queryScores', {
+      const checkBind = await util.getDataFromServersV2('consumer/member/changyou/checkBindStatus', {
         fingerprint: app.globalData.tonDunObj.fingerprint,
         sessionId: app.globalData.tonDunObj.sessionId,
         myOrderId: app.globalData.tonDunObj.myOrderId
       });
-      console.log('是否绑定畅由');
-      console.log(res2);
-      if (res2.code !== 0) {
-        util.showToastNoIcon(`${res2.message}`);
-        this.changYouAuth();
-      } else if (res2.data.cmcc && res2.data.cmcc.bindStatus === '1') {
-        app.globalData.tonDunObj.checkBindStatus = true;
-      } else {
-        util.showToastNoIcon('未绑定畅由');
-        this.changYouAuth();
-      }
-
-      // app.globalData.tonDunObj.checkBindStatus = false;
-      // 跳转到 移动积分兑通行券 页面
-      setTimeout(() => {
-        util.go('/pages/moving_integral/bound_changyou/bound_changyou');
-      },1500);
+      console.log('检查是否绑定');
+      console.log(checkBind.data);
+      app.globalData.tonDunObj.checkBindStatus = checkBind.data;
+      this.changYouAuth();
     }
   },
   // 畅由授权
@@ -1426,6 +1412,8 @@ Page({
       app.globalData.tonDunObj.auth = true;
       util.showToastNoIcon('已授权');
     }
+    // 跳转到 移动积分兑通行券 页面
+    util.go('/pages/moving_integral/bound_changyou/bound_changyou');
   }
 
 });
