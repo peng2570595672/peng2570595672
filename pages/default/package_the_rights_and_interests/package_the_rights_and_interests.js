@@ -372,15 +372,19 @@ Page({
 	},
 	// 查看办理协议
 	onClickGoAgreementHandle () {
-		if (this.data.listOfPackages[this.data.choiceIndex].etcCardId === 1) {
-			// 1-自购设备 2-免费设备
-			if (this.data.listOfPackages[this.data.choiceIndex]?.environmentAttribute === 1) {
-				util.go(`/pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement`);
-			} else {
+		// 1-自购设备 2-免费设备 3-自购(其他)
+		if (this.data.listOfPackages[this.data.choiceIndex]?.environmentAttribute === 2) {
+			if (this.data.listOfPackages[this.data.choiceIndex].etcCardId === 1) {
 				util.go(`/pages/default/free_equipment_agreement/free_equipment_agreement`);
+			} else {
+				util.go(`/pages/default/agreement/agreement`);
 			}
 		} else {
-			util.go(`/pages/default/agreement/agreement`);
+			if (this.data.listOfPackages[this.data.choiceIndex].isSignTtCoupon === 1) {
+				util.go(`/pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement`);
+			} else {
+				util.go(`/pages/default/new_self_buy_equipmemnt_agreement/index`);
+			}
 		}
 	},
 	// 通通券协议
