@@ -9,7 +9,7 @@
   </view>
   <view class="box">
     <view class="h4">付款方式</view>
-    <view class="list" wx:for="{{list}}" wx:key="index" bindtap="onClickPay" data-id="{{item}}">
+    <view class="list" wx:for="{{list}}" wx:key="index" bindtap="onClickPay" data-state="{{item.state}}">
           <view class="recommend" wx:if="{{item.state==0}}">推荐</view>
           <view class="left">
             <image class="{{item.state==0?'image':'image1'}}" src="{{item.imgUrl}}"></image>

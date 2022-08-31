@@ -36,18 +36,18 @@ Page({
     });
   },
   onClickPay (event) {
-    let e = event.currentTarget.dataset.id;
+    let state = event.currentTarget.dataset.state;
     if (!this.data.amount) {
       util.showToastNoIcon('请填写需要充值金额');
       return false;
     }
-    if (e.state == 0) {
+    if (state === 0) {
       this.marginPayment();
     } else {
       this.onCard();
     }
   },
-  	// 微信支付
+	// 微信支付
 	marginPayment () {
 		util.showLoading();
 		console.log(app.globalData.userInfo);

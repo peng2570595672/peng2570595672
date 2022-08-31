@@ -19,20 +19,13 @@ Page({
 	async onLoad () {
 		// 查询是否欠款
 		await util.getIsArrearage();
-		let [isPassengerCarActivation, isQTAttribute, isNotQTAttribute, isQTNotAttribute, isNotQTNotAttribute] = [false, false, false, false, false];
-		// 客车已激活  黔通自购  非黔通自购  黔通免费  非黔通免费
+		let [isPassengerCarActivation, isQTAttribute, isNotQTAttribute, isQTNotAttribute, isNotQTNotAttribute, isTTQAttribute] = [false, false, false, false, false, false];
+		// 客车已激活  黔通自购  非黔通自购  黔通免费  非黔通免费  通通券
 		app.globalData.myEtcList.map(item => {
 			if ((item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 0) {
 				//  客车已激活
 				isPassengerCarActivation = true;
-				if (item?.environmentAttribute === 1) {
-					// 自购
-					if (item.obuCardType === 1) {
-						isQTAttribute = true;
-					} else {
-						isNotQTAttribute = true;
-					}
-				} else if (item?.environmentAttribute === 2) {
+				if (item?.environmentAttribute === 2) {
 					// 免费
 					if (item.obuCardType === 1) {
 						isQTNotAttribute = true;
@@ -40,10 +33,14 @@ Page({
 						isNotQTNotAttribute = true;
 					}
 				} else {
-					if (item.obuCardType === 1) {
-						isQTNotAttribute = true;
+					if (item.isSignTtCoupon === 1) {
+						isTTQAttribute = true;
 					} else {
-						isNotQTNotAttribute = true;
+						if (item.obuCardType === 1) {
+							isQTAttribute = true;
+						} else {
+							isNotQTAttribute = true;
+						}
 					}
 				}
 			}
@@ -85,16 +82,18 @@ Page({
 			isQTAttribute,
 			isNotQTAttribute,
 			isQTNotAttribute,
+			isTTQAttribute,
 			isNotQTNotAttribute
 		});
 		if (isPassengerCarActivation) {
 			let carAgreementList = [
 				{id: 0,name: '用户办理协议', update: 0, url: 'agreement/agreement', isShow: isNotQTNotAttribute || isNotQTAttribute},
 				{id: 1,name: '用户办理协议', update: 0, url: 'free_equipment_agreement/free_equipment_agreement', isShow: isQTNotAttribute},
-				{id: 2,name: '用户办理协议', update: 0, url: 'self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement', isShow: isQTAttribute},
-				{id: 3,name: '黔通卡ETC用户协议', update: 0, url: 'agreement_for_qiantong_to_free/agreement', isShow: isQTNotAttribute},
-				{id: 4,name: '黔通卡ETC用户协议', update: 0, url: 'agreement_for_qiantong_to_charge/agreement', isShow: isQTAttribute},
-				{id: 5,name: '隐私协议', update: 0, url: 'privacy_agreement/privacy_agreement', isShow: true}
+				{id: 2,name: '用户办理协议', update: 0, url: 'self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement', isShow: isTTQAttribute},
+				{id: 3,name: '用户办理协议', update: 0, url: 'new_self_buy_equipmemnt_agreement/index', isShow: isQTAttribute},
+				{id: 4,name: '黔通卡ETC用户协议', update: 0, url: 'agreement_for_qiantong_to_free/agreement', isShow: isQTNotAttribute},
+				{id: 5,name: '黔通卡ETC用户协议', update: 0, url: 'agreement_for_qiantong_to_charge/agreement', isShow: isQTAttribute},
+				{id: 6,name: '隐私协议', update: 0, url: 'privacy_agreement/privacy_agreement', isShow: true}
 			];
      console.log(isObuCardType,'=============================');
 			if (isObuCardType) { // 其他卡不是黔通
