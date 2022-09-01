@@ -133,7 +133,8 @@ App({
 			price: '',
 			changYouIntegral: 0,
 			pages: 0,
-			auth: false // 授权
+			auth: false, // 授权
+			runFrequency: 1	// 限制调用次数
 		}
 	},
 	onLaunch (options) {

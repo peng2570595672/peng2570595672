@@ -33,5 +33,6 @@ Page({
    */
   onUnload () {
     app.globalData.tonDunObj.pages = 3;
+    util.go('/pages/moving_integral/bound_changyou/bound_changyou');
   }
 });
