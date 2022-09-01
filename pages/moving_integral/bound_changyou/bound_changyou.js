@@ -158,14 +158,14 @@ Page({
     });
     if (!that.data.checkBindStatus) { util.showToastNoIcon('已授权'); }
     // 模拟数据
-    that.setData({
-      queryScores: {
-        points: 1000,
-        cmcc: {
-          lmPoints: 3000
-        }
-      }
-    });
+    // that.setData({
+    //   queryScores: {
+    //     points: 1000,
+    //     cmcc: {
+    //       lmPoints: 3000
+    //     }
+    //   }
+    // });
   },
 
   // 获取授权

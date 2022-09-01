@@ -1389,6 +1389,7 @@ Page({
       console.log('检查是否绑定');
       console.log(checkBind.data);
       app.globalData.tonDunObj.checkBindStatus = checkBind.data;
+      // app.globalData.tonDunObj.checkBindStatus = true;
       this.changYouAuth();
     }
   },
