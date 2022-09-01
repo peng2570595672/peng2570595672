@@ -151,21 +151,21 @@ Page({
       // 移动限制的
       return util.showToastNoIcon(`${res4.data.cmcc.msg}`);
     } else if (res4.data.cmcc !== null) {
-      util.showToastNoIcon(`${res4.data.cmcc.msg}`);
+      // util.showToastNoIcon(`${res4.data.cmcc.msg}`);
     }
     that.setData({
       flag1: true
     });
     if (!that.data.checkBindStatus) { util.showToastNoIcon('已授权'); }
     // 模拟数据
-    // that.setData({
-    //   queryScores: {
-    //     points: 1000,
-    //     cmcc: {
-    //       lmPoints: 3000
-    //     }
-    //   }
-    // });
+    that.setData({
+      queryScores: {
+        points: 1000,
+        cmcc: {
+          lmPoints: 3000
+        }
+      }
+    });
   },
 
   // 获取授权
@@ -175,6 +175,7 @@ Page({
       that.setData({
         count: 0
       });
+      util.showToastNoIcon(`系统繁忙，请稍后再试`);
       return setTimeout(function () { util.go('/pages/Home/Home'); }, 1000);
     }
     const authData = await util.getDataFromServersV2('consumer/member/changyou/quickAuth', {
@@ -273,10 +274,6 @@ Page({
     if (!this.data.flag) {
       return util.showToastNoIcon('请先获取验证码');
     }
-    console.log(that.data.queryBindCode);
-    console.log(app.globalData.tonDunObj.myOrderId);
-    console.log(vcValue);
-    console.log('--------------------------------------');
     // 绑定畅游
     const res6 = await util.getDataFromServersV2('consumer/member/changyou/bindChangYou', {
       validateToken: that.data.queryBindCode.validateToken,
@@ -300,7 +297,7 @@ Page({
       // 再次查询积分
       return that.changYouIntegral();
     } else {
-      // 超过月绑定次数上限
+      // 超过月绑定次数上限/超过年绑定次数上限
       app.globalData.tonDunObj.checkBindStatus = false;
       util.showToastNoIcon('验证失败');
       that.data.closeSetTime = setTimeout(function () {

@@ -1410,7 +1410,9 @@ Page({
       util.showToastNoIcon(`${authData.data.mesg}`);
     } else {
       app.globalData.tonDunObj.auth = true;
-      util.showToastNoIcon('已授权');
+      if (app.globalData.tonDunObj.runFrequency++ === 1) {
+         util.showToastNoIcon('已授权');
+      }
     }
     // 跳转到 移动积分兑通行券 页面
     util.go('/pages/moving_integral/bound_changyou/bound_changyou');
