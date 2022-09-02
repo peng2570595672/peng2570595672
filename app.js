@@ -135,7 +135,8 @@ App({
 			pages: 0,
 			auth: false, // 授权
 			runFrequency: 1	// 限制调用次数
-		}
+		},
+		showCount: 1	// control dialog count
 	},
 	onLaunch (options) {
 		console.log(options);

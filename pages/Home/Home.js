@@ -121,7 +121,6 @@ Page({
     // @cyl
     movingIntegralControl: false, // 控制弹窗的显示与隐藏
     areaNotOpened: ['河南','江西','广西','辽宁','重庆','云南'] // 号码归属地还未开通 移动积分业务的
-
   },
   async onLoad () {
     app.globalData.isTruckHandling = false;
@@ -164,6 +163,8 @@ Page({
       }
       wx.removeStorageSync('login_info_final');
     }
+	// 疫情温馨提示
+	this.EpidemicSituationTips();
   },
   async getIsShowNotice () {
     const result = await util.queryProtocolRecord(2);
@@ -1417,6 +1418,20 @@ Page({
     }
     // 跳转到 移动积分兑通行券 页面
     util.go('/pages/moving_integral/bound_changyou/bound_changyou');
+  },
+  // 因疫情影响，ETC发货续作延时通知
+  EpidemicSituationTips () {
+    let dialogContent = {
+      title: '通知',
+      content: '受发货所在地疫情管控影响，当前申办ETC将延期发货，具体发货时间待疫情缓和后将第一时间为您发出，如有疑问可联系在线客服。',
+      cancel: '确认'
+    };
+    this.setData({
+      dialogContent
+    });
+	if (app.globalData.showCount++ === 1) {
+		this.selectComponent('#dialog').show();
+	}
   }
 
 });
