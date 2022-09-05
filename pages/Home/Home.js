@@ -1421,6 +1421,7 @@ Page({
   },
   // 因疫情影响，ETC发货续作延时通知
   EpidemicSituationTips () {
+    // wx.setStorageSync('showCount', `${app.globalData.showCount++}`);
     let dialogContent = {
       title: '通知',
       content: '受发货所在地疫情管控影响，当前申办ETC将延期发货，具体发货时间待疫情缓和后将第一时间为您发出，如有疑问可联系在线客服。',
@@ -1429,9 +1430,11 @@ Page({
     this.setData({
       dialogContent
     });
-	if (app.globalData.showCount++ === 1) {
-		this.selectComponent('#dialog').show();
-	}
+    let show = wx.getStorageSync('showCount');
+    console.log(show);
+    if (show === '0') {
+      this.selectComponent('#dialog').show();
+    }
   }
 
 });
