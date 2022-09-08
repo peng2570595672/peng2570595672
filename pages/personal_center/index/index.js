@@ -1,4 +1,4 @@
-import {compareDate, jumpCouponMini} from '../../../utils/utils.js';
+import { compareDate, jumpCouponMini } from '../../../utils/utils.js';
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
@@ -28,7 +28,7 @@ Page({
 		canIUseGetUserProfile: false,
 		isPrechargeOrder: true // 是否有预充流程 || 交行二类户 || 工行二类户  & 已审核通过订单
 	},
-	onLoad (options) {
+	onLoad(options) {
 		if (wx.getUserProfile) {
 			this.setData({
 				canIUseGetUserProfile: true
@@ -41,7 +41,7 @@ Page({
 			});
 		}
 	},
-	async onShow () {
+	async onShow() {
 		if (app.globalData.userInfo.accessToken) {
 			// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
 			let requestList = [await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon()];
@@ -50,7 +50,7 @@ Page({
 			util.hideLoading();
 			let that = this;
 			wx.getSetting({
-				success (res) {
+				success(res) {
 					if (res.authSetting['scope.userInfo']) {
 						// 已经授权，可以直接调用 getUserInfo 获取头像昵称
 						wx.getUserInfo({
@@ -78,21 +78,21 @@ Page({
 			screenHeight: wx.getSystemInfoSync().windowHeight
 		});
 	},
-	handleCouponMini () {
+	handleCouponMini() {
 		jumpCouponMini();
 	},
 	// 勾选用户协议
-	onClickChangeAgreement () {
+	onClickChangeAgreement() {
 		this.setData({
 			isAgreement: true
 		});
 	},
 	// 跳转用户协议
-	onCLickGoAgreement () {
+	onCLickGoAgreement() {
 		util.go('/pages/default/free_equipment_agreement/free_equipment_agreement');
 	},
 	// 同意用户协议
-	async onClickSubmit () {
+	async onClickSubmit() {
 		if (!this.data.isAgreement) {
 			util.showToastNoIcon('请阅读并同意相关协议');
 			return;
@@ -110,34 +110,34 @@ Page({
 		}
 	},
 	// 查询是否提交用户协议
-	async queryProtocolRecord () {
+	async queryProtocolRecord() {
 		const result = await util.queryProtocolRecord(1);
 		this.setData({
 			isNeedShowAgreement: !result
 		});
 	},
 	// 查询是否提交独立权益包入口触发事件
-	async getIsShowNotice () {
+	async getIsShowNotice() {
 		const result = await util.queryProtocolRecord(2);
 		this.setData({
 			isClickNotice: result
 		});
 	},
 	// 点击广告位
-	async onClickNotice () {
+	async onClickNotice() {
 		if (!this.data.isClickNotice) await util.addProtocolRecord(2);
 		wx.uma.trackEvent('personal_center_for_purchase_coupons');
 		util.go('/pages/separate_interest_package/index/index');
 	},
 	// 查询是否更新帮助中心
-	async queryHelpCenterRecord () {
+	async queryHelpCenterRecord() {
 		const result = await util.queryProtocolRecord(5);
 		this.setData({
 			isShowHelpCenterUpdate: !result
 		});
 	},
 	// 是否显示领券中心
-	async getHasCoupon () {
+	async getHasCoupon() {
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/has-coupon', {
 			platformId: app.globalData.platformId
 		});
@@ -150,7 +150,7 @@ Page({
 		}
 	},
 	// 获取加购权益包订单列表
-	async getRightsPackageBuyRecords () {
+	async getRightsPackageBuyRecords() {
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/add-buy-record', {
 			platformId: app.globalData.platformId
 		});
@@ -167,7 +167,7 @@ Page({
 		}
 	},
 	// 自动登录
-	login (isData) {
+	login(isData) {
 		util.showLoading();
 		// 调用微信接口获取code
 		wx.login({
@@ -218,14 +218,14 @@ Page({
 		});
 	},
 	// 获取二类户号信息
-	async getV2BankId () {
+	async getV2BankId() {
 		// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 		// this.setData({
 		// 	isOpenTheCard: !!app.globalData.bankCardInfo?.accountNo
 		// });
 	},
 	// 获取订单信息
-	async getStatus () {
+	async getStatus() {
 		let params = {
 			openId: app.globalData.openId
 		};
@@ -237,7 +237,7 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
-	async getIsShow () {
+	async getIsShow() {
 		let isActivation = app.globalData.myEtcList.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && (item.obuCardType === 1 || item.obuCardType === 21 || item.obuCardType === 22)); // 1 已激活  2 恢复订单  5 预激活
 		let isNewOrder = app.globalData.myEtcList.findIndex(item => compareDate(item.addTime, '2021-07-14') === true); // 当前用户有办理订单且订单创建日期在2021年7月13日前（含7月13日）
 		let isShowFeatureService = app.globalData.myEtcList.findIndex(item => item.isShowFeatureService === 1 && (item.obuStatus === 1 || item.obuStatus === 5)); // 是否有特色服务
@@ -255,7 +255,7 @@ Page({
 		await util.getIsArrearage();
 	},
 	// 众包-获取用户推广码和订单红包数量
-	async getMemberCrowdSourcingAndOrder () {
+	async getMemberCrowdSourcingAndOrder() {
 		const result = await util.getDataFromServersV2('consumer/member/getMemberCrowdSourcingAndOrder', {});
 		if (result.code === 0) {
 			// status - 0 未成为推广者，1-已经是推广者，8-活动已经结束
@@ -268,21 +268,21 @@ Page({
 		}
 	},
 	// 邀请好友
-	inviteFriends () {
+	inviteFriends() {
 		app.globalData.crowdsourcingServiceProvidersId = '753646562833342464';// 测试
 		util.go('/pages/crowdsourcing/index/index');
 	},
 	// 邀请办理-获取用户信息
-	getUserInfo () {
+	getUserInfo() {
 		wx.uma.trackEvent('personal_center_for_getuserinfo');
-		util.showLoading({title: '加载中'});
+		util.showLoading({ title: '加载中' });
 		let that2 = this; // 解决作用域问题
 		wx.getSetting({
-			success (res) {
+			success(res) {
 				if (!res.authSetting['scope.userInfo']) {
 					wx.authorize({
 						scope: 'scope.userInfo',
-						success () {
+						success() {
 						}
 					});
 				} else {
@@ -300,11 +300,11 @@ Page({
 			}
 		});
 	},
-	cancelHandle () {
+	cancelHandle() {
 		this.selectComponent('#crowdsourcingPrompt').hide();
 	},
 	// 分享好友
-	onShareAppMessage () {
+	onShareAppMessage() {
 		wx.uma.trackEvent('personal_center_applet_sharing');
 		if (this.data.crowdSourcingMsg.status !== 1) return;
 		return {
@@ -313,7 +313,7 @@ Page({
 			path: `/pages/crowdsourcing/new_user/new_user?shopId=${app.globalData.crowdsourcingServiceProvidersId}&memberId=${app.globalData.memberId}`
 		};
 	},
-	async submitUserInfo (user) {
+	async submitUserInfo(user) {
 		let params = {
 			encryptedData: user.encryptedData,
 			iv: user.iv
@@ -322,7 +322,7 @@ Page({
 		if (result.code) util.showToastNoIcon(result.message);
 	},
 	// 获取会员信息
-	async getMemberBenefits () {
+	async getMemberBenefits() {
 		const result = await util.getDataFromServersV2('consumer/member/member-status', {});
 		if (result.code === 0) {
 			this.setData({
@@ -332,7 +332,7 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
-	getUserProfile (e) {
+	getUserProfile(e) {
 		wx.getUserProfile({
 			desc: '用于完善用户资料',
 			success: (res) => {
@@ -345,7 +345,7 @@ Page({
 			}
 		});
 	},
-	bindGetUserInfo (e) {
+	bindGetUserInfo(e) {
 		this.setData({
 			userInfo: e.detail.userInfo
 		});
@@ -354,7 +354,7 @@ Page({
 		}
 	},
 	// 跳转
-	async go (e) {
+	async go(e) {
 		let url = e.currentTarget.dataset['url'];
 		if (url === 'online_customer_service') {
 			// 统计点击进入在线客服
@@ -380,13 +380,17 @@ Page({
 		wx.uma.trackEvent(urlObj[url]);
 		util.go(`/pages/personal_center/${url}/${url}`);
 	},
-	onClickAccountManagement () {
+	onClickAccountManagement() {
 		wx.uma.trackEvent('personal_center_for_account_management');
-		util.go('/pages/account_management/index/index');
+		if (true) {
+			util.go(`/pages/personal_center/passenger_car_account_management/passenger_car_account_management`);
+		}
+		// util.go('/pages/account_management/index/index');
 	},
+
 	// 扫码
-	scan () {
-		util.showLoading({title: '正在识别'});
+	scan() {
+		util.showLoading({ title: '正在识别' });
 		// 统计点击事件
 		wx.uma.trackEvent('personal_center_for_scan');
 		// 只允许从相机扫码
@@ -418,7 +422,7 @@ Page({
 		});
 	},
 	// 显示详情
-	showDetail (type) {
+	showDetail(type) {
 		this.setData({
 			showPublicAccountType: type,
 			showDetailWrapper: true,
@@ -426,7 +430,7 @@ Page({
 		});
 	},
 	// 监听返回按钮
-	onClickBackHandle () {
+	onClickBackHandle() {
 		if (this.data.isMain) {
 			wx.navigateBack({
 				delta: 1
@@ -438,12 +442,12 @@ Page({
 		}
 	},
 	// 统计点击去关注公众号按钮
-	goPublicAccount () {
+	goPublicAccount() {
 		wx.uma.trackEvent('personal_center_for_follow_the_public_account');
 	},
 	// 关闭详情
-	close () {},
-	hide () {
+	close() { },
+	hide() {
 		this.setData({
 			showDetailWrapper: false
 		});

@@ -377,6 +377,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "个人中心",
+          "pathName": "/pages/personal_center/index/index",
+          "query": "isMain=true",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
