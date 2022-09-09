@@ -223,5 +223,13 @@ Page({
 	goAccountDetails (e) {
 		const id = e.currentTarget.dataset.id;
 		util.go(`/pages/account_management/precharge_account_details/precharge_account_details?orderId=${id}`);
+	},
+	// @cyl
+	// 押金模式的 function
+	goAccountDetailsMargin (e) {
+		const margin = e.currentTarget.dataset.margin
+		console.log(margin);
+		util.go(`/pages/account_management/precharge_account_details/precharge_account_details?margin=${margin}`)
 	}
+
 });

@@ -7,7 +7,7 @@ const app = getApp();
 Page({
 	data: {
 		orderId: undefined,
-		Wallet: 0,
+		Wallet: 200,
 		prechargeAmount: 0,
 		info: {},
 		prechargeInfo: {},
@@ -19,7 +19,8 @@ Page({
 		list: [],
 		page: 0,
 		available: false, // 按钮是否可点击
-		isRequest: false// 是否请求中
+		isRequest: false,// 是否请求中
+		margin: false	//是否押金模式的
 	},
 	async onLoad (options) {
 		const timestamp = Date.parse(new Date());
@@ -28,7 +29,8 @@ Page({
 			orderId: options.orderId,
 			currentMonth: +util.formatTime(date).slice(5, 7),
 			beginDate: `${util.formatTime(date).slice(0, 8)}01`,
-			endDate: `${util.formatTime(date).slice(0, 10)}`
+			endDate: `${util.formatTime(date).slice(0, 10)}`,
+			margin: options.margin
 		});
 		if (app.globalData.userInfo.accessToken) {
 			let requestList = [await this.getFailBillDetails(), await this.fetchList(), await this.getProcessingProgress()];

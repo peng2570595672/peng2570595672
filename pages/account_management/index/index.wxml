@@ -85,13 +85,14 @@
             </view>
         </block>
     </view>
-    <view class="card margin">
+    <!-- @cyl ETC押金账户 card -->
+    <view class="card margin" wx:if="{{true}}">
         <view class="card-info">
             <view class="left">
                 <view>当前账户余额（元）</view>
                 <view>
                     <text class="money">2000.00</text>
-                    <text class="t2" bindtap="onClickAccountDetails">账户明细 ></text>
+                    <text class="t2" bindtap="goAccountDetailsMargin" data-margin = 'true'>账户明细 ></text>
                     <text class="t3" wx:if="{{true}}">充值</text>
                 </view>
             </view>
