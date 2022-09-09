@@ -1,4 +1,4 @@
-<wxs src='../../../utils/util.wxs' module='tools'/>
+<wxs src='../../../utils/util.wxs' module='tools' />
 <view class="index">
     <view class="pre-recharge" wx:for="{{prechargeList}}" wx:key="index">
         <view class="pre-recharge-info">
@@ -11,14 +11,19 @@
                     {{item.walletAmount/100}}
                     <text catchtap="goAccountDetails" data-id="{{item.orderId}}">账户明细 ></text>
                 </view>
-                <view class="recharge" catchtap="getProcessingProgress" data-id="{{item.orderId}}">充值</view>
+                <view class="recharge" catchtap="getProcessingProgress" data-id="{{item.orderId}}">
+                    充值
+                </view>
             </view>
-            <view class="prompt" wx:if="{{item.walletAmount < item.prechargeAmount}}">注意！余额低于约定金额{{item.prechargeAmount/100}}元</view>
+            <view class="prompt" wx:if="{{item.walletAmount < item.prechargeAmount}}">
+                注意！余额低于约定金额{{item.prechargeAmount/100}}元
+            </view>
             <view class="prompt" wx:if="{{item.walletAmount < item.prechargeAmount}}">无法通行</view>
         </view>
         <view class="vehicle">账户绑定车牌:{{item.vehPlates}}</view>
     </view>
-    <view class="card" wx:if="{{true}}">
+    <!-- xxxx -->
+    <view class="card" wx:if="{{false}}">
         <view class="card-info">
             <view class="left">
                 <view>当前账户余额（元）</view>
@@ -34,9 +39,18 @@
         </view>
         <view class="accont">{{cardInfo.accountNo}}</view>
         <view class="card-no">
-                <view wx:if="{{cardInfo.accountNo}}" bindtap="onClickPay" data-type="1"><text class="iconfont icontaocan-1"></text>充值</view>
-                <view wx:if="{{cardInfo.accountNo}}" bindtap="onClickOBU" data-type="1"><text class="iconfont iconetc1"></text>设备圈存</view>
-                <view bindtap="onClickBindBankCard" data-type="1"><text class="iconfont iconyouhuiquan-2"></text>绑定卡</view>
+            <view wx:if="{{cardInfo.accountNo}}" bindtap="onClickPay" data-type="1">
+                <text class="iconfont icontaocan-1"></text>
+                充值
+            </view>
+            <view wx:if="{{cardInfo.accountNo}}" bindtap="onClickOBU" data-type="1">
+                <text class="iconfont iconetc1"></text>
+                设备圈存
+            </view>
+            <view bindtap="onClickBindBankCard" data-type="1">
+                <text class="iconfont iconyouhuiquan-2"></text>
+                绑定卡
+            </view>
         </view>
     </view>
     <view class="bocom-list">
@@ -49,19 +63,47 @@
                             <view>{{item.total_amount}}</view>
                             <view class="account-info" bindtap="onClickAccountDetails" data-type="2" data-index="{{index}}">
                                 <view class="name">账户明细 ></view>
-                                <view class="account">{{tools.substring(item.accountNo,0,4)}} *** *** {{tools.substring(item.accountNo,15,19)}}</view>
+                                <view class="account">
+                                    {{tools.substring(item.accountNo,0,4)}} *** *** {{tools.substring(item.accountNo,15,19)}}
+                                </view>
                             </view>
                         </view>
                     </view>
                     <view class="card-no">
-                        <view class="iconfont recharge" bindtap="onClickPay" data-index="{{index}}" data-type="2">充值</view>
-                        <view class="iconfont deposit" bindtap="onClickOBU" data-index="{{index}}" data-type="2">设备圈存</view>
-                        <view class="iconfont tied-card" bindtap="onClickBindBankCard" data-index="{{index}}" data-type="2">换绑</view>
+                        <view class="iconfont recharge" bindtap="onClickPay" data-index="{{index}}" data-type="2">
+                            充值
+                        </view>
+                        <view class="iconfont deposit" bindtap="onClickOBU" data-index="{{index}}" data-type="2">
+                            设备圈存
+                        </view>
+                        <view class="iconfont tied-card" bindtap="onClickBindBankCard" data-index="{{index}}" data-type="2">
+                            换绑
+                        </view>
                     </view>
                 </view>
                 <view class="vehicle">账户绑定车牌:{{item.vehPlates}}</view>
             </view>
         </block>
+    </view>
+    <view class="card margin">
+        <view class="card-info">
+            <view class="left">
+                <view>当前账户余额（元）</view>
+                <view>
+                    <text class="money">2000.00</text>
+                    <text class="t2" bindtap="onClickAccountDetails">账户明细 ></text>
+                    <text class="t3" wx:if="{{true}}">充值</text>
+                </view>
+            </view>
+            <view class="right1"><view>ETC押金账户</view></view>
+        </view>
+        <view class="accont" wx:if="{{false}}">
+            <view>充值激活</view>
+        </view>
+        <view class="tip" wx:else>注意！余额低于约定金额{约定金额}元无法通行</view>
+        <view class="card-no">
+            <view class="accountBind">账户绑定车牌:粤ZH0987</view>
+        </view>
     </view>
     <recharge-prompt id="rechargePrompt" info="{{prechargeInfo}}"></recharge-prompt>
 </view>

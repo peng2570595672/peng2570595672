@@ -382,9 +382,6 @@ Page({
 	},
 	onClickAccountManagement() {
 		wx.uma.trackEvent('personal_center_for_account_management');
-		// if (true) {
-		// 	util.go(`/pages/personal_center/passenger_car_account_management/passenger_car_account_management`);
-		// }
 		util.go('/pages/account_management/index/index');
 	},
 

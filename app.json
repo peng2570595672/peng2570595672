@@ -85,8 +85,7 @@
         "coupon_redemption_centre/coupon_redemption_centre",
         "coupon_redemption_history/coupon_redemption_history",
         "service_purchase_record/service_purchase_record",
-        "user_agreement/user_agreement",
-        "passenger_car_account_management/passenger_car_account_management"
+        "user_agreement/user_agreement"
       ]
     },
     {
