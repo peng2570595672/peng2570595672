@@ -381,6 +381,7 @@ Page({
 		util.go(`/pages/personal_center/${url}/${url}`);
 	},
 	onClickAccountManagement() {
+		// console.log(this.getStatus());//获取订单信息
 		wx.uma.trackEvent('personal_center_for_account_management');
 		util.go('/pages/account_management/index/index');
 	},

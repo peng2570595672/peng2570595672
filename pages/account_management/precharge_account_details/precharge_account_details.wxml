@@ -2,7 +2,7 @@
     <view class="account-info">
         <view class="account-info-title iconfont" bindtap="onClickDoubt">当前账户余额（元）</view>
         <view class="balance">
-            <view class="price">{{Wallet}}.00</view>
+            <view class="price">{{Wallet}}</view>
             <view class="unit">元</view>
             <view class="recharge" bindtap="onProcessingProgress">{{ margin ? '充值激活':'充值'}}</view>
         </view>
@@ -30,6 +30,8 @@
                     {{item.moneyType === 2 ? '充值手续费' : ''}}
                     {{item.moneyType === 3 ? 'ETC通行扣费' : ''}}
                     {{item.moneyType === 4 ? 'ETC违约金' : ''}}
+                    <!-- {{item.moneyType === 5 ? '划扣' : ''}}
+                    {{item.moneyType === 6 ? '充值' : ''}} -->
                 </view>
                 <view class="price">{{item.moneyType === 1 ? '+' : '-'}}¥{{item.changeMoney/100}}</view>
             </view>

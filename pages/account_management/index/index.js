@@ -7,14 +7,20 @@ const app = getApp();
 Page({
 	data: {
 		prechargeList: [],
-		etcList: [],// 预充流程且审核通过订单
-		bocomEtcList: [],// 交行二类户流程且审核通过订单
+		etcList: [], // 预充流程且审核通过订单
+		bocomEtcList: [], // 交行二类户流程且审核通过订单
 		prechargeInfo: {},
-		bocomInfo: {},// 交行二类户信息
-		bocomInfoList: [],// 交行二类户信息
-		cardInfo: undefined
+		bocomInfo: {}, // 交行二类户信息
+		bocomInfoList: [], // 交行二类户信息
+		cardInfo: undefined,
+		ETCMargin: [{	//ETC押金 变量
+			money: 2000,
+			agreedAmount: 200, //约定金额
+			cardName: 'ETC押金账户',
+			carId: '粤ZH0987',
+		}]
 	},
-	async onLoad (options) {
+	async onLoad(options) {
 		if (!app.globalData.userInfo.accessToken) {
 			this.login();
 		} else {
@@ -32,7 +38,7 @@ Page({
 			});
 		}
 	},
-	async onShow () {
+	async onShow() {
 		// await util.getV2BankId();
 		// app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(0, 4) + ' *** *** ' + app.globalData.bankCardInfo.accountNo.substr(-4);
 		// this.setData({
@@ -54,7 +60,7 @@ Page({
 			});
 		}
 	},
-	async getBocomOrderBankConfigInfo (orderInfo) {
+	async getBocomOrderBankConfigInfo(orderInfo) {
 		// 获取订单银行配置信息
 		const result = await util.getDataFromServersV2('/consumer/member/bcm/queryBalance', {
 			orderId: orderInfo.id,
@@ -76,7 +82,7 @@ Page({
 			});
 		}
 	},
-	onClickAccountDetails (e) {
+	onClickAccountDetails(e) {
 		const type = +e.currentTarget.dataset.type;
 		const index = +e.currentTarget.dataset.index;
 		app.globalData.orderInfo.orderId = this.data.bocomEtcList[index].id;
@@ -95,7 +101,7 @@ Page({
 		util.go(`/pages/account_management/account_details/account_details`);
 	},
 	// 绑定卡
-	onClickBindBankCard (e) {
+	onClickBindBankCard(e) {
 		const type = +e.currentTarget.dataset.type;
 		const index = +e.currentTarget.dataset.index;
 		app.globalData.orderInfo.orderId = this.data.bocomEtcList[index].id;
@@ -112,21 +118,20 @@ Page({
 				confirm: () => {
 					util.go(`/pages/account_management/new_binding/new_binding?type=2`);
 				},
-				cancel: () => {
-				}
+				cancel: () => {}
 			});
 			return;
 		}
 		util.go(`/pages/account_management/bind_bank_card/bind_bank_card`);
 	},
-	onClickPay (e) {
+	onClickPay(e) {
 		const type = +e.currentTarget.dataset.type;
 		const index = +e.currentTarget.dataset.index;
 		app.globalData.orderInfo.orderId = this.data.bocomEtcList[index].id;
 		util.go(`/pages/account_management/account_recharge/account_recharge?type=${type}`);
 	},
 	// 圈存
-	onClickOBU (e) {
+	onClickOBU(e) {
 		const type = +e.currentTarget.dataset.type;
 		const index = +e.currentTarget.dataset.index;
 		app.globalData.orderInfo.orderId = this.data.bocomEtcList[index].id;
@@ -141,7 +146,7 @@ Page({
 		util.go(`/pages/obu/add/add?type=${type}`);
 	},
 	// 获取订单信息
-	async getStatus () {
+	async getStatus() {
 		let params = {
 			openId: app.globalData.openId
 		};
@@ -165,7 +170,7 @@ Page({
 		}
 	},
 	// 预充模式-账户信息查询
-	async getQueryWallet (item) {
+	async getQueryWallet(item) {
 		const result = await util.getDataFromServersV2('consumer/order/third/queryWallet', {
 			orderId: item.id,
 			pageSize: 1
@@ -184,7 +189,8 @@ Page({
 		}
 	},
 	// 获取办理进度
-	async getProcessingProgress (e) {
+	async getProcessingProgress(e) {
+		console.log('sadsa');
 		const id = e.currentTarget.dataset.id;
 		util.go(`/pages/account_management/pay_method/pay_method?orderId=${id}`);
 		// const result = await util.getDataFromServersV2('consumer/order/transact-schedule', {
@@ -193,7 +199,7 @@ Page({
 		// if (!result) return;
 		// await this.onClickRecharge(id, result.data);
 	},
-	async onClickRecharge (id, info) {
+	async onClickRecharge(id, info) {
 		util.showLoading('正在获取充值账户信息....');
 		const result = await util.getDataFromServersV2('consumer/order/third/queryProcessInfo', {
 			orderId: id
@@ -220,16 +226,20 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
-	goAccountDetails (e) {
+	goAccountDetails(e) {
 		const id = e.currentTarget.dataset.id;
 		util.go(`/pages/account_management/precharge_account_details/precharge_account_details?orderId=${id}`);
 	},
 	// @cyl
-	// 押金模式的 function
-	goAccountDetailsMargin (e) {
+	// 押金模式的 账户明细页面
+	goAccountDetailsMargin(e) {
 		const margin = e.currentTarget.dataset.margin
 		console.log(margin);
 		util.go(`/pages/account_management/precharge_account_details/precharge_account_details?margin=${margin}`)
+	},
+	// 押金模式的 充值页面
+	btnRecharge (e) {
+		console.log(e);
+		util.go(`/pages/account_management/margin_recharge_model/margin_recharge_model`)
 	}
-
 });

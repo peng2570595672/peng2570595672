@@ -251,18 +251,19 @@
 
 .index .margin .card-info .left view:nth-of-type(2) {
   font-family: PingFangSC-Semibold, PingFang SC;
-  padding-top: 16rpx;
+  margin-top: 10rpx;
   line-height: 84rpx;
 }
 
-.index .margin .card-info .left view:nth-of-type(2) .money {
+.index .margin>.card-info .left view:nth-of-type(2) .money {
   font-size: 60rpx;
 }
 
-.index .margin .card-info .left view:nth-of-type(2) .t2 {
+.index .margin>.card-info .left view:nth-of-type(2) .t2 {
+  height: 84rpx;
   font-size: 28rpx;
-  position: absolute;
-  left: 278rpx;
+  line-height: 30rpx;
+  margin-left: 25rpx;
   opacity: 0.9;
 }
 
@@ -274,11 +275,12 @@
   background: #FFFFFF;
   border-radius: 2px;
   color: #00B85C;
-  font-size: 28rpx;
+  font-size: 24rpx;
   font-weight: 400;
   position: absolute;
-  top: 114rpx;
+  top: 115rpx;
   right: 48rpx;
+  z-index: 100;
 }
 
 .index .margin .card-info .right1 {
@@ -320,8 +322,8 @@
 
 .index .margin .card-no .accountBind {
   width: 100%;
-  height: 74rpx;
-  line-height: 74rpx;
+  height: 60rpx;
+  line-height: 65rpx;
   font-size: 24rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;

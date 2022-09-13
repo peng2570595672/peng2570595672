@@ -7,7 +7,7 @@ const app = getApp();
 Page({
 	data: {
 		orderId: undefined,
-		Wallet: 200,
+		Wallet: new Number(200).toFixed(2),
 		prechargeAmount: 0,
 		info: {},
 		prechargeInfo: {},
