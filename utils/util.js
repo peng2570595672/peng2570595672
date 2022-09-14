@@ -1247,6 +1247,7 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
 		params.shopId = app.globalData.miniProgramServiceProvidersId;
 	}
 	let result = await getDataFromServersV2('consumer/system/get-usable-product', params);
+	console.log("套餐",result);
 	if (!result) return '';
 	if (result.code) {
 		showToastNoIcon(result.message);

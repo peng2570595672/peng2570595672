@@ -124,8 +124,10 @@ Page({
 		contractStatus: undefined,
 		getAgreement: false, // 是否接受协议
 		isPay: false // 已选择通通券套餐&无需支付||已经支付
+
 	},
 	async onLoad (options) {
+		console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
 		this.setData({
 			contractStatus: +options.contractStatus
 		});
@@ -135,9 +137,12 @@ Page({
 			return;
 		}
 		const packages = app.globalData.newPackagePageData;
+
+		console.log('你好',packages);
 		this.setData({
 			listOfPackages: parseInt(options.type) === 1 ? packages.divideAndDivideList : packages.alwaysToAlwaysList
 		});
+		console.log(this.data.listOfPackages);
 		await this.getSwiperHeight();
 		// 查询是否欠款
 		await util.getIsArrearage();

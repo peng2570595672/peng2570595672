@@ -1,18 +1,9 @@
-<wxs src='../../../utils/util.wxs' module='tools'/>
+<wxs src='../../../utils/util.wxs' module='tools' />
 <view class="package-the-rights-and-interests">
-    <!--套餐选择开始-->
+    <!-- 套餐选择开始 -->
     <view class="swiper-box">
-        <swiper
-                class="my-swiper {{listOfPackages.length === 1 ? 'my-only-swiper' : ''}}"
-                indicator-dots="{{false}}"
-                autoplay="{{false}}"
-                next-margin="{{listOfPackages.length !== 1 ? '62rpx' : '12rpx'}}"
-                previous-margin="12rpx"
-                bindchange="currentChange"
-                style="height: {{boxHeight[activeIndex]}}px;"
-                circular="{{true}}">
-            <swiper-item wx:for="{{listOfPackages}}" wx:key="index" class="my-swiper-item"
-                         catchtap="onClickSwiper" data-index="{{index}}">
+        <swiper class="my-swiper {{listOfPackages.length === 1 ? 'my-only-swiper' : ''}}" indicator-dots="{{false}}" autoplay="{{false}}" next-margin="{{listOfPackages.length !== 1 ? '62rpx' : '12rpx'}}" previous-margin="12rpx" bindchange="currentChange" style="height: {{boxHeight[activeIndex]}}px;" circular="{{true}}">
+            <swiper-item wx:for="{{listOfPackages}}" wx:key="index" class="my-swiper-item" catchtap="onClickSwiper" data-index="{{index}}">
                 <view class="my-swiper-item-box item-{{index}}">
                     <view class="package iconfont {{choiceIndex === index ? 'active' : ''}}">
                         <view>
@@ -33,32 +24,34 @@
                     </view>
                     <view class="basic-service-list">
                         <view class="basic-service-item" wx:for="{{basicServiceList}}" wx:key="index">
-<!--                            <image src="{{item.logo}}" mode="widthFix"></image>-->
+                            <!-- <image src="{{item.logo}}" mode="widthFix"></image> -->
                             <view class="iconfont logo {{item.ico}}">{{item.title}}</view>
                             <view class="tips">{{item.tips}}</view>
                         </view>
-<!--                        <view wx:for="{{otherServiceList}}" wx:for-item="it" wx:key="index"-->
-<!--                              class="other-service-item {{index === 0 ? 'other-service-first' : ''}}" catchtap="onClickCheckTheService" data-index="{{index}}">-->
-<!--                            <view>{{it.title}}</view>-->
-<!--                            <view>{{it.subTitle}}</view>-->
-<!--                        </view>-->
+                        <!-- <view wx:for="{{otherServiceList}}" wx:for-item="it" wx:key="index" -->
+                        <!-- class="other-service-item {{index === 0 ? 'other-service-first' : ''}}" catchtap="onClickCheckTheService" data-index="{{index}}"> -->
+                        <!-- <view>{{it.title}}</view> -->
+                        <!-- <view>{{it.subTitle}}</view> -->
+                        <!-- </view> -->
                         <view class="other-service-item other-service-first" wx:if="{{item.isSignTtCoupon === 1}}" catchtap="onClickCheckTheService" data-index="0">
                             <view>车主服务享便捷</view>
                             <view>价值168元</view>
                         </view>
-<!--                        <view class="other-service-item" wx:if="{{item.pledgePrice && !isContinentInsurance && item.isSignTtCoupon !== 1}}" catchtap="onClickCheckTheService" data-index="1">-->
-<!--                            <view>生活服务享精彩</view>-->
-<!--                            <view>价值100元+</view>-->
-<!--                        </view>-->
+                        <!-- <view class="other-service-item" wx:if="{{item.pledgePrice && !isContinentInsurance && item.isSignTtCoupon !== 1}}" catchtap="onClickCheckTheService" data-index="1"> -->
+                        <!-- <view>生活服务享精彩</view> -->
+                        <!-- <view>价值100元+</view> -->
+                        <!-- </view> -->
                     </view>
-<!--                    <view class="related-service-title" wx:if="{{item.isShowFeatureService === 1}}">特色服务</view>-->
-<!--                    <view class="basic-service-list feature-service" wx:if="{{item.isShowFeatureService === 1}}" catchtap="onClickCheckTheService" data-index="2">-->
-<!--                        <view class="basic-service-item" wx:for="{{characteristicServiceList}}" wx:key="index">-->
-<!--                            <image src="{{item.logo}}" mode="widthFix"></image>-->
-<!--                            <view>{{item.title}}</view>-->
-<!--                        </view>-->
-<!--                    </view>-->
-                    <view class="related-service-title" wx:if="{{item.flowVersion === 2 || item.flowVersion === 3}}">支持绑定以下银行卡</view>
+                    <!-- <view class="related-service-title" wx:if="{{item.isShowFeatureService === 1}}">特色服务</view> -->
+                    <!-- <view class="basic-service-list feature-service" wx:if="{{item.isShowFeatureService === 1}}" catchtap="onClickCheckTheService" data-index="2"> -->
+                    <!-- <view class="basic-service-item" wx:for="{{characteristicServiceList}}" wx:key="index"> -->
+                    <!-- <image src="{{item.logo}}" mode="widthFix"></image> -->
+                    <!-- <view>{{item.title}}</view> -->
+                    <!-- </view> -->
+                    <!-- </view> -->
+                    <view class="related-service-title" wx:if="{{item.flowVersion === 2 || item.flowVersion === 3}}">
+                        支持绑定以下银行卡
+                    </view>
                     <view class="basic-service-list" wx:if="{{item.flowVersion === 2}}">
                         <view class="basic-service-item bank">
                             <image src="/pages/default/assets/ccb.svg" mode="widthFix"></image>
@@ -69,30 +62,42 @@
                             <image src="/pages/default/assets/abc.svg" mode="widthFix"></image>
                         </view>
                     </view>
-                    <view class="pay-tips" wx:if="{{item.pledgePrice}}">注：付费产品支付成功且审核通过后，默认你已同意接受服务，不作申请退款。</view>
+                    <!-- <view class="pay-tips" wx:if="{{item.pledgePrice}}">注：付费产品支付成功且审核通过后，默认你已同意接受服务，不作申请退款。</view> -->
+                    <!-- @cyl -->
+                    <view class="related-service-title newAdd">
+                        <view>资费标准</view>
+                    </view>
+                    <view class="textTip">
+                        <text>办理费用：0元 \n</text>
+                        <text wx:if="{{item.productName == '押金免费办理'}}">押金收费：200元 \n</text>
+                        <text>平台服务费：每笔通行费金额×【1】%（自动代扣） \n</text>
+                    </view>
+                    <view class="userAgreement">
+                        <text wx:if="{{item.productName !== '押金免费办理'}}">注：收费产品支付成功且审核通过后，默认同意不退款 \n</text>
+                        <text style="text-decoration: underline;" catchtap="onClickGoAgreementHandle">具体扣费规则详见用户办理协议</text>
+                    </view>
                 </view>
             </swiper-item>
         </swiper>
     </view>
-    <!--套餐选择结束-->
-    <!--通通券权益开始-->
-    <!--0不需要通通券 1需要通通券-->
+    <!-- 套餐选择结束 -->
+    <!-- 通通券权益开始 -->
+    <!-- 0不需要通通券 1需要通通券 -->
     <view wx:if="{{choiceIndex !== -1 && listOfPackages.length && listOfPackages[choiceIndex].isSignTtCoupon === 1}}" class="tongtongquan">
         <view class="equities-title">联名权益</view>
         <view class="equities-logo">
             <image src="/pages/default/assets/equities1.png"></image>
         </view>
     </view>
-    <!--通通券权益结束-->
-    <!--权益选择开始-->
-    <view wx:if="{{rightsAndInterestsList.length}}"
-          class="rights-and-interests {{listOfPackages.length === 1 ? 'my-only-equities' : ''}}">
+    <!-- 通通券权益结束 -->
+    <!-- 权益选择开始 -->
+    <view wx:if="{{rightsAndInterestsList.length}}" class="rights-and-interests {{listOfPackages.length === 1 ? 'my-only-equities' : ''}}">
         <view class="rights-and-interests-header">推荐加购</view>
         <view class="rights-and-interests-list">
-            <view wx:for="{{rightsAndInterestsList}}" wx:key="index"
-                  class="rights-and-interests-item {{item.isMarketingLabel ? 'item-top' : ''}} iconfont {{activeEquitiesIndex === index ? 'item-active' : ''}}"
-                  catchtap="showRightsAndInterests" data-index="{{index}}">
-                <view class="label-img" wx:if="{{item.isMarketingLabel}}">{{item.marketingMsg}}</view>
+            <view wx:for="{{rightsAndInterestsList}}" wx:key="index" class="rights-and-interests-item {{item.isMarketingLabel ? 'item-top' : ''}} iconfont {{activeEquitiesIndex === index ? 'item-active' : ''}}" catchtap="showRightsAndInterests" data-index="{{index}}">
+                <view class="label-img" wx:if="{{item.isMarketingLabel}}">
+                    {{item.marketingMsg}}
+                </view>
                 <view class="left">
                     <image src="/pages/default/assets/combination_coupon.png" mode="widthFix"></image>
                 </view>
@@ -107,38 +112,48 @@
             </view>
         </view>
     </view>
-	<!--权益选择结束-->
-    <!--下一步开始-->
+    <!-- 权益选择结束 -->
+    <!-- 下一步开始 -->
     <view class="next">
-	    <view class="agreement iconfont {{getAgreement ? 'selected' : ''}} {{choiceIndex === -1 ? 'not-agreement' : ''}}" bindtap="onClickAgreementHandle">
-		    <view></view>
-		    <view wx:if="{{choiceIndex !== -1}}">我已阅读并同意
-<!--                <text catchtap="onClickGoQianTongAgreement" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon === 1}}">《通通券&ETC+联合会员协议》</text>-->
-                <text catchtap="onClickGoQianTongAgreement1" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon === 1}}">《通通券会员服务协议》</text>
-			    <text catchtap="onClickGoAgreementHandle" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon === 1}}">《ETC+用户办理协议》</text>
-			    <text catchtap="onClickGoAgreementHandle" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon !== 1}}">《ETC+用户办理协议》</text>
-			    <text catchtap="onClickGoQianTongAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 1}}">《黔通卡ETC用户协议》</text>
-			    <text catchtap="onClickGoPrivacyHandle">《用户隐私协议》</text>
-		    </view>
-	    </view>
+        <view class="agreement iconfont {{getAgreement ? 'selected' : ''}} {{choiceIndex === -1 ? 'not-agreement' : ''}}" bindtap="onClickAgreementHandle">
+            <view></view>
+            <view wx:if="{{choiceIndex !== -1}}">
+                我已阅读并同意
+                <!-- <text catchtap="onClickGoQianTongAgreement" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon === 1}}">《通通券&ETC+联合会员协议》</text> -->
+                <text catchtap="onClickGoQianTongAgreement1" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon === 1}}">
+                    《通通券会员服务协议》
+                </text>
+                <text catchtap="onClickGoAgreementHandle" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon === 1}}">
+                    《ETC+用户办理协议》
+                </text>
+                <text catchtap="onClickGoAgreementHandle" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon !== 1}}">
+                    《ETC+用户办理协议》
+                </text>
+                 <text catchtap="onClickGoQianTongAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 1}}">
+                    《黔通卡ETC用户协议》
+                </text>
+                <text catchtap="onClickGoPrivacyHandle">《用户隐私协议》</text>
+            </view>
+        </view>
         <view wx:if="{{ isSalesmanOrder && choiceIndex !== -1 && isPay && listOfPackages.length && listOfPackages[choiceIndex].isSignTtCoupon === 1 }}">
-            <!--通用券套餐已支付或无需支付-->
+            <!-- 通用券套餐已支付或无需支付 -->
             <button class="btn {{!getAgreement ? 'unavailable' : ''}}" catchtap="handleSign">
                 {{contractStatus === 1 ? '开通连续包月服务' : '签约代扣通行费'}}
             </button>
         </view>
         <view wx:else>
-            <button class="btn {{choiceIndex === -1 || (listOfPackages[activeIndex].mustChoiceRightsPackage === 1 && activeEquitiesIndex === -1) || !getAgreement ? 'unavailable' : ''}}" catchtap="next"
-                    wx:if="{{choiceIndex !== -1 && listOfPackages[activeIndex].pledgePrice || (activeEquitiesIndex !== -1 && rightsAndInterestsList[activeEquitiesIndex].payMoney)}}">
+            <button class="btn {{choiceIndex === -1 || (listOfPackages[activeIndex].mustChoiceRightsPackage === 1 && activeEquitiesIndex === -1) || !getAgreement ? 'unavailable' : ''}}" catchtap="next" wx:if="{{choiceIndex !== -1 && listOfPackages[activeIndex].pledgePrice || (activeEquitiesIndex !== -1 && rightsAndInterestsList[activeEquitiesIndex].payMoney)}}">
                 确认支付{{activeEquitiesIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + rightsAndInterestsList[activeEquitiesIndex].payMoney)/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}元
             </button>
-            <button class="btn {{choiceIndex === -1 || !getAgreement ? 'unavailable' : ''}}" catchtap="next" wx:else>{{isSalesmanOrder ? '去签约' : '下一步'}}</button>
+            <button class="btn {{choiceIndex === -1 || !getAgreement ? 'unavailable' : ''}}" catchtap="next" wx:else>
+                {{isSalesmanOrder ? '去签约' : '下一步'}}
+            </button>
         </view>
     </view>
-    <!--下一步结束-->
-    <!--查看权益详情开始-->
+    <!-- 下一步结束 -->
+    <!-- 查看权益详情开始 -->
     <rights_package id="showRightsPackage" bindonClickHandle="onClickHandle" bindonClickDetailsHandle="onClickDetailsHandle" isSelected="{{isSelected}}" details="{{rightsPackageDetails}}"></rights_package>
-    <!--查看权益详情结束-->
+    <!-- 查看权益详情结束 -->
     <related_service id="viewRightsService" bindonClickHandle="onClickClose" details="{{serviceList[showServiceIndex]}}" wx:if="{{showServiceIndex === 0 || showServiceIndex === 2}}"></related_service>
     <life_service id="viewLifeService" bindonClickHandle="onClickClose" details="{{serviceList[1]}}" wx:if="{{showServiceIndex === 1}}"></life_service>
 </view>
