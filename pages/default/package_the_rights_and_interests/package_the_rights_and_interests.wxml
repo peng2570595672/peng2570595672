@@ -20,7 +20,8 @@
                     </view>
                     <view class="related-service-title">
                         <view>基础服务</view>
-                        <view class="tips" wx:if="{{item.isSignTtCoupon === 1}}">价值158元</view>
+                         <!-- @cyl 注释 -->
+                        <!-- <view class="tips" wx:if="{{item.isSignTtCoupon === 1}}">价值158元</view> -->
                     </view>
                     <view class="basic-service-list">
                         <view class="basic-service-item" wx:for="{{basicServiceList}}" wx:key="index">
@@ -33,10 +34,11 @@
                         <!-- <view>{{it.title}}</view> -->
                         <!-- <view>{{it.subTitle}}</view> -->
                         <!-- </view> -->
-                        <view class="other-service-item other-service-first" wx:if="{{item.isSignTtCoupon === 1}}" catchtap="onClickCheckTheService" data-index="0">
+                        <!-- @cyl 注释 -->
+                        <!-- <view class="other-service-item other-service-first" wx:if="{{item.isSignTtCoupon === 1}}" catchtap="onClickCheckTheService" data-index="0">
                             <view>车主服务享便捷</view>
                             <view>价值168元</view>
-                        </view>
+                        </view> -->
                         <!-- <view class="other-service-item" wx:if="{{item.pledgePrice && !isContinentInsurance && item.isSignTtCoupon !== 1}}" catchtap="onClickCheckTheService" data-index="1"> -->
                         <!-- <view>生活服务享精彩</view> -->
                         <!-- <view>价值100元+</view> -->
@@ -68,12 +70,13 @@
                         <view>资费标准</view>
                     </view>
                     <view class="textTip">
-                        <text>办理费用：0元 \n</text>
-                        <text wx:if="{{item.productName == '押金免费办理'}}">押金收费：200元 \n</text>
+                        <text>办理费用：{{item.pledgeType === 1 ? tools.parseNum(item.pledgePrice/100) : 0 }} 元 \n</text>
+                        <text wx:if="{{item.pledgeType === 4}}">押金收费：{{tools.parseNum(item.pledgePrice/100)}}元 \n</text>
+                        <text wx:if="{{item.isSignTtCoupon === 1}}">通通券会员费：{{tools.parseNum(item.ttCouponPayAmount/100)}}元/月 (微信自动代扣) \n</text>
                         <text>平台服务费：每笔通行费金额×【1】%（自动代扣） \n</text>
                     </view>
                     <view class="userAgreement">
-                        <text wx:if="{{item.productName !== '押金免费办理'}}">注：收费产品支付成功且审核通过后，默认同意不退款 \n</text>
+                        <text wx:if="{{item.pledgeType !== 4 }}">注：收费产品支付成功且审核通过后，默认同意不退款 \n</text>
                         <text style="text-decoration: underline;" catchtap="onClickGoAgreementHandle">具体扣费规则详见用户办理协议</text>
                     </view>
                 </view>

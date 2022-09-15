@@ -63,7 +63,7 @@
         </view>
         <!--我的卡劵结束-->
         <!--帮助中心开始 isPrechargeOrder-->
-        <view class="user_item" catchtap="onClickAccountManagement" wx:if="{{true}}">
+        <view class="user_item" catchtap="onClickAccountManagement" wx:if="{{isPrechargeOrder}}">
             <view class="user_item_icon">
                 <image class="user_icon_card" src="/pages/personal_center/assets/account_management.svg"></image>
                 <!--更新提示-->

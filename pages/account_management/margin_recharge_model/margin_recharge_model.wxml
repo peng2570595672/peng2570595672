@@ -1,4 +1,4 @@
-<!-- pages/account_management/margin_recharge_model/margin_recharge_model.wxml -->
+<wxs src='../../../utils/util.wxs' module='tools' />
 <view id="marginRecharge">
   <view class="title">当前押金余额 0.00元</view>
   <view class="inputMoney">

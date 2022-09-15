@@ -127,7 +127,6 @@ Page({
 
 	},
 	async onLoad (options) {
-		console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
 		this.setData({
 			contractStatus: +options.contractStatus
 		});
@@ -137,12 +136,10 @@ Page({
 			return;
 		}
 		const packages = app.globalData.newPackagePageData;
-
 		console.log('你好',packages);
 		this.setData({
 			listOfPackages: parseInt(options.type) === 1 ? packages.divideAndDivideList : packages.alwaysToAlwaysList
 		});
-		console.log(this.data.listOfPackages);
 		await this.getSwiperHeight();
 		// 查询是否欠款
 		await util.getIsArrearage();
@@ -176,6 +173,7 @@ Page({
 			await that.getList(that.data.listOfPackages[0]);
 		}
 	},
+	// 获取 套餐信息
 	async getProductOrderInfo () {
 		const result = await util.getDataFromServersV2('consumer/order/get-product-by-order-id', {
 			orderId: app.globalData.orderInfo.orderId,

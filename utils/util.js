@@ -1474,6 +1474,7 @@ async function updateOrderContractMappingBankAccountId(info, bankCardInfo) {
 		id: info.id,
 		bankAccountId: bankCardInfo.bankAccountId,
 	});
+	console.log(result);
 	if (!result) return;
 	let isOk = false;
 	if (result.code === 0) {

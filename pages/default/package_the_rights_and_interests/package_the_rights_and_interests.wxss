@@ -433,20 +433,22 @@
   z-index: 3;
 }
 
-.package-the-rights-and-interests .next .agreement {
+.package-the-rights-and-interests .next .agreement{
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
   margin: 32rpx ;
   height: 48rpx;
   font-size: 22rpx;
   color: #99999d;
   text-align: center;
+  position: relative;
 }
 
 .package-the-rights-and-interests .next .agreement text {
   display: inline-block;
   color: #00bc58;
+  line-height: 15rpx;
 }
 
 .package-the-rights-and-interests .next .agreement::before {
@@ -457,6 +459,7 @@
   font-size: 30rpx;
   color: #99999d;
   border-radius: 50%;
+  line-height: 48rpx;
 }
 
 .package-the-rights-and-interests .next .agreement.selected::before {

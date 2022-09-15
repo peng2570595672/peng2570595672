@@ -86,28 +86,28 @@
         </block>
     </view>
     <!-- @cyl ETC押金账户 card -->
-    <view class="card margin" wx:if="{{true}}" wx:for="{{ETCMargin}}" wx:key="index">
+    <view class="card margin" wx:if="{{item.promoterType}}" wx:for="{{ETCMargin}}" wx:key="index">
         <view class="card-info">
             <view class="left">
                 <view>当前账户余额（元）</view>
                 <view>
-                    <text class="money">{{item.money+'.00'}}</text>
-                    <text class="t2" bindtap="goAccountDetailsMargin" data-margin='true'>
+                    <text class="money">{{tools.parseNum(item.pledgeMoney/100)}}</text>
+                    <text class="t2" bindtap="goAccountDetailsMargin" data-orderid='{{item.memberId}}'>
                         账户明细 >
                     </text>
-                    <text class="t3" wx:if="{{item.money < 200 ? true : false}}" bindtap="btnRecharge">充值</text>
+                    <text class="t3" wx:if="{{tools.parseNum(item.pledgeMoney/100) < 200 ? true : false}}" bindtap="btnRecharge" data-orderid='{{item.memberId}}'>充值</text>
                 </view>
             </view>
             <view class="right1">
-                <view>{{item.cardName || 'ETC押金账户'}}</view>
+                <view>{{'ETC押金账户'}}</view>
             </view>
         </view>
-        <view class="accont" wx:if="{{item.money < 200 ? false : true}}">
-            <view bindtap="btnRecharge">充值激活</view>
+        <view class="accont" wx:if="{{tools.parseNum(item.pledgeMoney/100) < 200 ? false : true}}">
+            <view bindtap="btnRecharge" data-orderid='{{item.memberId}}'>充值激活</view>
         </view>
-        <view class="tip" wx:else>注意！余额低于约定金额{{item.agreedAmount}}元无法通行</view>
+        <view class="tip" wx:else>注意！余额低于约定金额{{200}}元无法通行</view>
         <view class="card-no">
-            <view class="accountBind">账户绑定车牌:{{item.carId}}</view>
+            <view class="accountBind">账户绑定车牌:{{item.vehPlates}}</view>
         </view>
     </view>
     <recharge-prompt id="rechargePrompt" info="{{prechargeInfo}}"></recharge-prompt>

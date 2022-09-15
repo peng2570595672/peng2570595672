@@ -319,14 +319,16 @@ $yellowColor = #FFC300;
 		// 协议
 		.agreement
 			display flex
-			align-items center
 			justify-content center
-			margin 32rpx 70rpx
+			margin 32rpx
 			height 48rpx
 			font-size 22rpx
 			color $fontColor9
+			text-align center
 			text
+				display inline-block
 				color #00BC58
+				line-height 15rpx
 			&::before
 				margin-right 10rpx
 				width 28rpx
@@ -335,6 +337,7 @@ $yellowColor = #FFC300;
 				font-size 30rpx
 				color $fontColor9
 				border-radius 50%
+  			line-height 48rpx
 			&.selected::before
 				color #00B85C
 			&.not-agreement::before
