@@ -127,6 +127,7 @@ Page({
 
 	},
 	async onLoad (options) {
+		console.log(options);
 		this.setData({
 			contractStatus: +options.contractStatus
 		});
@@ -179,6 +180,7 @@ Page({
 			orderId: app.globalData.orderInfo.orderId,
 			needRightsPackageIds: true
 		});
+		console.log(result);
 		if (!result) return;
 		if (result.code === 0) {
 			this.setData({

@@ -8,7 +8,7 @@ Page({
 	data: {
 		orderId: undefined,
 		Wallet: 0,
-		prechargeAmount: 0,
+		prechargeAmount: 0,	// 约定金额
 		info: {},
 		prechargeInfo: {},
 		billInfo: {},
@@ -23,6 +23,7 @@ Page({
 		margin: false	// 是否押金模式的
 	},
 	async onLoad (options) {
+		console.log(options);
 		const timestamp = Date.parse(new Date());
 		const date = new Date(timestamp);
 		this.setData({
@@ -154,6 +155,7 @@ Page({
 			page: this.data.page,
 			pageSize: 10
 		};
+		console.log(params);
 		const result = await util.getDataFromServersV2('consumer/order/third/queryWallet', params);
 		console.log(result);
 		if (!result) return;

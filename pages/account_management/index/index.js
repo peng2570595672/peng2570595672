@@ -165,7 +165,7 @@ Page({
 		} else {
 			util.showToastNoIcon(result.message);
 		}
-		console.log(result);
+		console.log(result.data);
 	},
 	// 预充模式-账户信息查询
 	async getQueryWallet (item) {
@@ -188,7 +188,6 @@ Page({
 	},
 	// 获取办理进度
 	async getProcessingProgress (e) {
-		console.log('sadsa');
 		const id = e.currentTarget.dataset.id;
 		util.go(`/pages/account_management/pay_method/pay_method?orderId=${id}`);
 		// const result = await util.getDataFromServersV2('consumer/order/transact-schedule', {
@@ -232,11 +231,11 @@ Page({
 	// 押金模式的 账户明细页面
 	goAccountDetailsMargin (e) {
 		const orderId = e.currentTarget.dataset.orderid;
-		util.go(`/pages/account_management/precharge_account_details/precharge_account_details?orderId=${orderId}`);
+		util.go(`/pages/account_management/precharge_account_details/precharge_account_details?orderId=${orderId}&margin=true`);
 	},
 	// 押金模式的 充值页面
 	btnRecharge (e) {
-		const orderId = e.currentTarget.dataset.orderid;
-		util.go(`/pages/account_management/margin_recharge_model/margin_recharge_model?orderId=${orderId}`);
+		const Id = e.currentTarget.dataset.id;
+		util.go(`/pages/account_management/margin_recharge_model/margin_recharge_model?Id=${Id}`);
 	}
 });

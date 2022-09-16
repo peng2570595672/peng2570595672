@@ -170,6 +170,7 @@ Page({
 	},
 	// 账户充值
 	async next () {
+		console.log(this.data.isRechargeEarnestMoney);
 		if (this.data.isRechargeEarnestMoney) {
 			wx.uma.trackEvent('account_management_for_recharge_to_recharge_earnest_money');
 			await this.rechargeEarnestMoney();

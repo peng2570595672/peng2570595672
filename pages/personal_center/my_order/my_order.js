@@ -175,6 +175,7 @@ Page({
 		let obuStatusList;
 		// obuStatusList = res.data.filter(item => item.obuStatus === 1); // 正式数据
 		obuStatusList = app.globalData.myEtcList.filter(item => item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5); // 1 已激活  2 恢复订单  5 预激活
+		console.log(app.globalData.myEtcList);
 		if (obuStatusList.length > 0) {
 			// 需要过滤未激活的套餐
 			this.setData({
@@ -281,7 +282,7 @@ Page({
 				3: 3,
 				4: 4
 			};
-			type = typeObj[`${channel[0].flowVersion}`];
+			type = typeObj[`${channel[0].flowVersion}`] || 2;
 		} else {
 			url = 'consumer/etc/get-bill';
 		}

@@ -92,10 +92,11 @@
                 <view>当前账户余额（元）</view>
                 <view>
                     <text class="money">{{tools.parseNum(item.pledgeMoney/100)}}</text>
-                    <text class="t2" bindtap="goAccountDetailsMargin" data-orderid='{{item.memberId}}'>
+                    <text class="t2" bindtap="goAccountDetailsMargin" data-orderid='{{item.id}}'>
                         账户明细 >
                     </text>
-                    <text class="t3" wx:if="{{tools.parseNum(item.pledgeMoney/100) < 200 ? true : false}}" bindtap="btnRecharge" data-orderid='{{item.memberId}}'>充值</text>
+                    <text class="t3" wx:if="{{tools.parseNum(item.pledgeMoney/100) < 200 ? true : false}}" 
+                        bindtap="btnRecharge" data-id='{{item.id}}'>充值</text>
                 </view>
             </view>
             <view class="right1">
@@ -103,7 +104,7 @@
             </view>
         </view>
         <view class="accont" wx:if="{{tools.parseNum(item.pledgeMoney/100) < 200 ? false : true}}">
-            <view bindtap="btnRecharge" data-orderid='{{item.memberId}}'>充值激活</view>
+            <view bindtap="btnRecharge" data-id='{{item.id}}'>充值激活</view>
         </view>
         <view class="tip" wx:else>注意！余额低于约定金额{{200}}元无法通行</view>
         <view class="card-no">

@@ -73,11 +73,11 @@
                         <text>办理费用：{{item.pledgeType === 1 ? tools.parseNum(item.pledgePrice/100) : 0 }} 元 \n</text>
                         <text wx:if="{{item.pledgeType === 4}}">押金收费：{{tools.parseNum(item.pledgePrice/100)}}元 \n</text>
                         <text wx:if="{{item.isSignTtCoupon === 1}}">通通券会员费：{{tools.parseNum(item.ttCouponPayAmount/100)}}元/月 (微信自动代扣) \n</text>
-                        <text>平台服务费：每笔通行费金额×【1】%（自动代扣） \n</text>
+                        <!-- <text>平台服务费：每笔通行费金额×【1】%（自动代扣） \n</text> -->
                     </view>
                     <view class="userAgreement">
                         <text wx:if="{{item.pledgeType !== 4 }}">注：收费产品支付成功且审核通过后，默认同意不退款 \n</text>
-                        <text style="text-decoration: underline;" catchtap="onClickGoAgreementHandle">具体扣费规则详见用户办理协议</text>
+                        <!-- <text style="text-decoration: underline;" catchtap="onClickGoAgreementHandle">具体扣费规则详见用户办理协议</text> -->
                     </view>
                 </view>
             </swiper-item>

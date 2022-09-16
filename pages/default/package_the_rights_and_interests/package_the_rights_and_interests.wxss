@@ -117,7 +117,6 @@
 
 .package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .userAgreement {
   width: 616rpx;
-  height: 34rpx;
   font-size: 24rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
