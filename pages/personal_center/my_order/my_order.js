@@ -281,7 +281,7 @@ Page({
 				3: 3,
 				4: 4
 			};
-			type = typeObj[`${channel[0].flowVersion}`];
+			type = typeObj[`${channel[0].flowVersion}`] || 2;
 		} else {
 			url = 'consumer/etc/get-bill';
 		}
