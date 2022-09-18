@@ -27,6 +27,7 @@ Page({
 				bocomEtcList,
 				ETCMargin: ETCMargin1
 			});
+			console.log(this.data.etcList);
 			bocomEtcList.map(async item => {
 				await this.getBocomOrderBankConfigInfo(item);
 			});
@@ -229,8 +230,14 @@ Page({
 	},
 	// @cyl
 	// 押金模式的 账户明细页面
-	goAccountDetailsMargin (e) {
+	async goAccountDetailsMargin (e) {
 		const orderId = e.currentTarget.dataset.orderid;
+		console.log(orderId);
+		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
+			orderId: orderId,
+			dataType: '13'
+		});
+		console.log(result);
 		util.go(`/pages/account_management/precharge_account_details/precharge_account_details?orderId=${orderId}&margin=true`);
 	},
 	// 押金模式的 充值页面

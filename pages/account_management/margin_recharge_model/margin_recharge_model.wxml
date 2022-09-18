@@ -11,5 +11,5 @@
     <text>•若您已完成押金充值激活，请确认是否还存在通行费欠款未缴，若存在，请尽快完成补缴方可正常使用设备通行。</text>
   </view>
   <view class="splitLine"></view>
-  <button class="btnmarginRecharge" bindtap="weChatPay">充值激活</button>
+  <button class="btnmarginRecharge" bindtap="btnmarginRecharge">充值激活</button>
 </view>
