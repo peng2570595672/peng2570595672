@@ -229,7 +229,6 @@ Page({
 		let params = {
 			openId: app.globalData.openId
 		};
-		console.log(app.globalData.myEtcList);
 		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
 		if (result.code === 0) {
 			app.globalData.myEtcList = result.data;
@@ -237,13 +236,13 @@ Page({
 		} else {
 			util.showToastNoIcon(result.message);
 		}
-		console.log(result.data);
+		console.log(app.globalData.myEtcList);
 	},
 	async getIsShow () {
 		let isActivation = app.globalData.myEtcList.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && (item.obuCardType === 1 || item.obuCardType === 21 || item.obuCardType === 22)); // 1 已激活  2 恢复订单  5 预激活
 		let isNewOrder = app.globalData.myEtcList.findIndex(item => compareDate(item.addTime, '2021-07-14') === true); // 当前用户有办理订单且订单创建日期在2021年7月13日前（含7月13日）
 		let isShowFeatureService = app.globalData.myEtcList.findIndex(item => item.isShowFeatureService === 1 && (item.obuStatus === 1 || item.obuStatus === 5)); // 是否有特色服务
-		let isPrechargeOrder = app.globalData.myEtcList.findIndex(item => ((item.flowVersion === 6 || item.flowVersion === 4 || item.flowVersion === 7) && item.auditStatus === 2) || (item.pledgeType === 4 && item.pledgeStatus === 1) || item.flowVersion === 5); // 是否有预充流程 & 已审核通过订单
+		let isPrechargeOrder = app.globalData.myEtcList.findIndex(item => ((item.flowVersion === 6 || item.flowVersion === 4 || item.flowVersion === 7) && item.auditStatus === 2) || (item.pledgeType === 4 && item.pledgeStatus === 1) || item.flowVersion === 1); // 是否有预充流程 & 已审核通过订单
 		let isShowCoupon = app.globalData.myEtcList.findIndex(item => (item.isSignTtCoupon === 1 && item.ttContractStatus !== 0)); // 通通券 存在签约或解约
 		this.setData({
 			isShowNotice: !!app.globalData.myEtcList.length,

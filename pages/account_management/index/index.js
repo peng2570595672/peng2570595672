@@ -21,13 +21,12 @@ Page({
 		} else {
 			const etcList = app.globalData.myEtcList.filter(item => item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
 			const bocomEtcList = app.globalData.myEtcList.filter(item => item.flowVersion === 7 && item.auditStatus === 2); // 是否有交行二类户 & 已审核通过订单
-			const ETCMargin1 = app.globalData.myEtcList.filter(item => item.promoterType === 4 && item.flowVersion === 5);	// 是否 二类账户，以及 是否押金模式且已支付
+			const ETCMargin1 = app.globalData.myEtcList.filter(item => item.pledgeType === 4 && item.flowVersion === 1);	// 是否 二类账户，以及 是否押金模式且已支付
 			this.setData({
 				etcList,
 				bocomEtcList,
 				ETCMargin: ETCMargin1
 			});
-			console.log(this.data.etcList);
 			bocomEtcList.map(async item => {
 				await this.getBocomOrderBankConfigInfo(item);
 			});
@@ -42,13 +41,15 @@ Page({
 		// this.setData({
 		// 	cardInfo: app.globalData.bankCardInfo
 		// });
+		const ETCMargin1 = app.globalData.myEtcList.filter(item => item.promoterType === 4 && item.flowVersion === 1);	// 是否 二类账户，以及 是否押金模式且已支付
 		await util.getMemberStatus();
 		const pages = getCurrentPages();
 		const currPage = pages[pages.length - 1];
 		if (currPage.__data__.isReload) {
 			this.setData({
 				prechargeList: [],
-				bocomInfoList: []
+				bocomInfoList: [],
+				ETCMargin: ETCMargin1
 			});
 			this.data.etcList.map(async item => {
 				await this.getQueryWallet(item);
@@ -166,7 +167,6 @@ Page({
 		} else {
 			util.showToastNoIcon(result.message);
 		}
-		console.log(result.data);
 	},
 	// 预充模式-账户信息查询
 	async getQueryWallet (item) {
@@ -231,14 +231,9 @@ Page({
 	// @cyl
 	// 押金模式的 账户明细页面
 	async goAccountDetailsMargin (e) {
-		const orderId = e.currentTarget.dataset.orderid;
-		console.log(orderId);
-		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
-			orderId: orderId,
-			dataType: '13'
-		});
-		console.log(result);
-		util.go(`/pages/account_management/precharge_account_details/precharge_account_details?orderId=${orderId}&margin=true`);
+		const memberId = e.currentTarget.dataset.memberid;
+		const Id = e.currentTarget.dataset.id;
+		util.go(`/pages/account_management/precharge_account_details/precharge_account_details?memberId=${memberId}&margin=true&Id=${Id}`);
 	},
 	// 押金模式的 充值页面
 	btnRecharge (e) {

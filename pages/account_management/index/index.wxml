@@ -92,7 +92,7 @@
                 <view>当前账户余额（元）</view>
                 <view>
                     <text class="money">{{tools.parseNum(item.pledgeMoney/100)}}</text>
-                    <text class="t2" bindtap="goAccountDetailsMargin" data-orderid='{{item.id}}'>
+                    <text class="t2" bindtap="goAccountDetailsMargin" data-memberId='{{item.memberId}}' data-id='{{item.id}}'>
                         账户明细 >
                     </text>
                     <text class="t3" wx:if="{{tools.parseNum(item.pledgeMoney/100) < 200 ? true : false}}" 

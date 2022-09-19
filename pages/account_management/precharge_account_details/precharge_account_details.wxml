@@ -31,14 +31,16 @@
                     {{item.moneyType === 2 ? '充值手续费' : ''}}
                     {{item.moneyType === 3 ? 'ETC通行扣费' : ''}}
                     {{item.moneyType === 4 ? 'ETC违约金' : ''}}
-                    <!-- {{item.moneyType === 5 ? '划扣' : ''}}
-                    {{item.moneyType === 6 ? '充值' : ''}} -->
+                    {{item.status === 1 ? '划扣' : ''}}
+                    {{item.status === 2 ? '充值' : ''}}
                 </view>
-                <view class="price">{{item.moneyType === 1 ? '+' : '-'}}¥{{item.changeMoney/100}}</view>
+                <view class="price" wx:if="{{margin}}">{{item.status === 1 ? '-' : '+'}}¥{{item.transactionMoney/100}}</view>
+                <view class="price" wx:else>{{item.moneyType === 1 ? '+' : '-'}}¥{{item.changeMoney/100}}</view>
             </view>
             <view class="last">
                 <view></view>
-                <view class="time">{{item.thirdCreateTime}}</view>
+                <view class="time" wx:if="{{margin}}">{{item.transactionTime}}</view>
+                <view class="time" wx:else>{{item.thirdCreateTime}}</view>
             </view>
         </view>
 
