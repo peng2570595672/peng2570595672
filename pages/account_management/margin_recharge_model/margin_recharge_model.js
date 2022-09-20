@@ -6,10 +6,8 @@ Page({
 		orderId: undefined,
 		depositBalance: 0, // 押金余额
 		rechargeAmount: 0, // 充值金额
-		isRequest: false,	// 是否请求中
-		ETCMargin: undefined,	// 订单信息
-		orderInfo: undefined,
-		listOfPackages: undefined	/// / 加购权益列表
+		ETCMargin: undefined	// 订单信息
+
 	},
 
 	/**
@@ -19,7 +17,6 @@ Page({
 		let that = this;
 		const ETCMargin1 = app.globalData.myEtcList.filter(item => item.id === options.Id);
 		that.setData({
-			// orderId: ETCMargin1[0].memberId,
 			rechargeAmount: Number(0.02).toFixed(2),
 			depositBalance: ETCMargin1[0].pledgeMoney / 100,
 			ETCMargin: ETCMargin1[0]
