@@ -120,7 +120,9 @@ Page({
     dialogContent: {}, // 弹窗内容
     // @cyl
     movingIntegralControl: false, // 控制弹窗的显示与隐藏
-    areaNotOpened: ['河南','江西','广西','辽宁','重庆','云南'] // 号码归属地还未开通 移动积分业务的
+    areaNotOpened: ['河南','江西','广西','辽宁','重庆','云南'], // 号码归属地还未开通 移动积分业务的
+    isPackageTotalToTotal: false // ETC是否为总对总套餐 false -> no  true -> yes
+
   },
   async onLoad () {
     app.globalData.isTruckHandling = false;
@@ -163,8 +165,8 @@ Page({
       }
       wx.removeStorageSync('login_info_final');
     }
-	// 疫情温馨提示
-	this.EpidemicSituationTips();
+    // 疫情温馨提示
+    this.EpidemicSituationTips();
   },
   async getIsShowNotice () {
     const result = await util.queryProtocolRecord(2);
@@ -489,6 +491,8 @@ Page({
             app.globalData.openId = result.data.openId;
             app.globalData.memberId = result.data.memberId;
             app.globalData.mobilePhone = result.data.mobilePhone;
+            // 获取套餐列表
+            // await this.getEtcList();
             // 查询最后一笔订单状态
             util.getMemberStatus();
             if (app.globalData.salesmanScanCodeToHandleId) {
@@ -1350,12 +1354,18 @@ Page({
   },
   // 点击移动积分兑换ETC 高速通行券
   async btnMovingIntegral (e) {
+    console.log(app.globalData.newPackagePageData);
+    await this.getEtcList();
+
     this.setData({
       movingIntegralControl: false
     });
     if (e.currentTarget.id === 'cancel') {
       console.log('点击取消');
     } else {
+      if (this.data.isPackageTotalToTotal) {
+        return util.showToastNoIcon('抱歉，您的ETC设备模式不符合兑换条件');
+      }
       // 登记接口 获取 myOrderId
       const res1 = await util.getDataFromServersV2('consumer/member/changyou/sign');
       console.log('登记');
@@ -1433,5 +1443,29 @@ Page({
 			cancelText: '取消',
 			confirmText: '确定'
 		});
+  },
+  // 获取ETC+ 套餐信息
+  async getEtcList () {
+    let that = this;
+    console.log(that.data.passengerCarOrderInfo);
+    console.log(that.data.orderInfo);
+    let params = {
+      openId: app.globalData.openId
+    };
+    const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
+    console.log(result);
+    if (!result) return;
+    if (result.code === 0) {
+      result.data.map(item => {
+        if (item.flowVersion === 2) {
+          that.setData({
+            isPackageTotalToTotal: true
+          });
+        }
+      });
+    } else {
+      showToastNoIcon(result.message);
+    }
+    console.log(that.data.isPackageTotalToTotal);
   }
 });

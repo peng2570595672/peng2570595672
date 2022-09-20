@@ -111,13 +111,12 @@ Page({
       });
     }
   },
-  onShow () {
+  async onShow () {
     let that = this;
     if (app.globalData.tonDunObj.pages === 2 || app.globalData.tonDunObj.pages === 3 || app.globalData.tonDunObj.pages === 4) {
       that.changYouIntegral();
     }
   },
-
   // 查询积分
   async changYouIntegral () {
     let that = this;
@@ -158,14 +157,14 @@ Page({
     });
     if (!that.data.checkBindStatus) { util.showToastNoIcon('已授权'); }
     // 模拟数据
-    // that.setData({
-    //   queryScores: {
-    //     points: 1000,
-    //     cmcc: {
-    //       lmPoints: 3000
-    //     }
-    //   }
-    // });
+    that.setData({
+      queryScores: {
+        points: 1000,
+        cmcc: {
+          lmPoints: 3000
+        }
+      }
+    });
   },
 
   // 获取授权

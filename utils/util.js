@@ -1592,6 +1592,7 @@ async function getEtcList () {
 	} else {
 		showToastNoIcon(result.message);
 	}
+	console.log(result);
 }
 // 查询欠费账单
 async function getArrearageTheBill (obuCardType, trucksOrder) {
