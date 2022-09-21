@@ -853,8 +853,6 @@ Page({
           false) : (this.data.recentlyTheTruckBill || false)
       });
     }
-    // 获取套餐列表
-    this.getEtcList();
   },
   // 车辆弹窗
   vehicleInfoAlert (etcMoney, etcTrucksMoney, paymentVeh) {
@@ -1355,6 +1353,8 @@ Page({
     this.setData({
       movingIntegralControl: false
     });
+    // 获取订单列表
+    await this.getEtcList();
     if (e.currentTarget.id === 'cancel') {
       console.log('点击取消');
     } else {
@@ -1449,7 +1449,7 @@ Page({
     };
     // 全部已创建的订单
     const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
-    console.log(result);
+    // console.log(result);
     if (!result) return;
     if (result.code === 0) {
       app.globalData.tonDunObj.carNumbers = [];
