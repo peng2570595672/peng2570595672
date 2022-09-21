@@ -4,7 +4,7 @@
         <view class="balance">
             <view class="price">{{Wallet}}</view>
             <view class="unit">元</view>
-            <view class="recharge" bindtap="onProcessingProgress">{{ margin ? '充值激活':'充值'}}</view>
+            <view class="recharge" bindtap="onProcessingProgress">{{ Wallet < 200 ? (margin ? '充值激活':'充值') : ''}}</view>
         </view>
         <view class="prompt">
             <view class="normal" wx:if="{{margin}}">请保证按时缴纳通行费，欠费超过180天将自动扣除账户押金</view>
