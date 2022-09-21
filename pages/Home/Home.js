@@ -853,6 +853,8 @@ Page({
           false) : (this.data.recentlyTheTruckBill || false)
       });
     }
+    // 获取套餐列表
+    this.getEtcList();
   },
   // 车辆弹窗
   vehicleInfoAlert (etcMoney, etcTrucksMoney, paymentVeh) {
@@ -1356,6 +1358,9 @@ Page({
     if (e.currentTarget.id === 'cancel') {
       console.log('点击取消');
     } else {
+      if (this.data.isPackageTotalToTotal) {
+        return util.showToastNoIcon('抱歉，您的ETC设备模式不符合兑换条件');
+      }
       // 登记接口 获取 myOrderId
       const res1 = await util.getDataFromServersV2('consumer/member/changyou/sign');
       console.log('登记');
@@ -1433,5 +1438,32 @@ Page({
 			cancelText: '取消',
 			confirmText: '确定'
 		});
+  },
+  // 获取ETC+ 套餐信息
+  async getEtcList () {
+    let that = this;
+    // 当前订单
+    // console.log(that.data.orderInfo);
+    let params = {
+      openId: app.globalData.openId
+    };
+    // 全部已创建的订单
+    const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
+    console.log(result);
+    if (!result) return;
+    if (result.code === 0) {
+      app.globalData.tonDunObj.carNumbers = [];
+      result.data.map(item => {
+        if (item.flowVersion === 2 && that.data.orderInfo.vehPlates === item.vehPlates) {
+          that.setData({
+            isPackageTotalToTotal: true
+          });
+        } else {
+          app.globalData.tonDunObj.carNumbers.push(item.vehPlates);
+        }
+      });
+    } else {
+      showToastNoIcon(result.message);
+    }
   }
 });

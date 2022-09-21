@@ -22,7 +22,8 @@ Page({
     time: 60, // 定时时间
     timeFlag: false,
     getCode: '获取',
-    flag: false // 判断有没有获取验证码
+    flag: false, // 判断有没有获取验证码,
+    carNumbers: [] // 可用车牌号
   },
 
   onLoad (options) {
@@ -40,7 +41,8 @@ Page({
       integralHighlight: app.globalData.tonDunObj.integralHighlight,
       orderId: app.globalData.tonDunObj.orderId,
       price: app.globalData.tonDunObj.price,
-      changYouIntegral: app.globalData.tonDunObj.changYouIntegral
+      changYouIntegral: app.globalData.tonDunObj.changYouIntegral,
+      carNumbers: app.globalData.tonDunObj.carNumbers
     });
   },
 

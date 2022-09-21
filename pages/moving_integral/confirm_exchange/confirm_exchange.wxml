@@ -30,14 +30,21 @@
     <view>
       <text>绑定账户</text><text>{{phone_number}}</text>
     </view>
-    <view wx:if="{{!integralHighlight}}">
+    <view wx:if="{{!integralHighlight}}" class="bindCode">
       <text>验证码</text>
       <input type="text" maxlength="6" placeholder="请输入验证码" model:value="{{optCode}}" bindinput="inputCode2" ref="clear" />
       <button catchtap="{{timeFlag ? '' : 'getChangYouCode'}}" class="{{timeFlag ? 'err':'ok' }}" >{{ timeFlag ? time : ''}} {{getCode}}</button>
     </view>
-    <view wx:if="{{!integralHighlight}}">
+	
+    <view class="carNumber" >
+      <view><text>可用车辆</text></view>
+	  <view><text wx:for="{{carNumbers}}" wx:key="index">{{item}}</text></view>
+    </view>
+	
+    <view class="tip" wx:if="{{!integralHighlight}}">
       *本次兑换将消耗您对应的移动积分转换为畅由分后，再使用畅由分完成商品兑换。当您点击“确认兑换”时，则默认您已接受移动积分转换为畅由分后不可回退。
     </view>
+    
   </view>
   <!-- 验证码弹窗 -->
   <view class="verification_code" wx:if="{{popFlag}}">

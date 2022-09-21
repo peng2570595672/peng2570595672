@@ -134,7 +134,8 @@ App({
 			changYouIntegral: 0,
 			pages: 0,
 			auth: false, // 授权
-			runFrequency: 1	// 限制调用次数
+			runFrequency: 1,	// 限制调用次数
+			carNumbers: []	// 可用车辆的车牌号
 		}
 	},
 	onLaunch (options) {

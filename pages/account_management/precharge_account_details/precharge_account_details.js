@@ -251,6 +251,7 @@ Page({
 			page: 1,
 			pageSize: 10
 		});
+		console.log(result);
 		let list = result.data.detailData.list || [];
 		list.map(item => {
 			item.transactionMoney = item.transactionMoney.toString();

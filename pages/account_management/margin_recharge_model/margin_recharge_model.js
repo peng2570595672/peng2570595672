@@ -50,8 +50,10 @@ Page({
 					// 去支付成功页
 					util.showToastNoIcon('支付成功');
 					this.getStatus();
-					wx.redirectTo({
-						url: `/pages/account_management/precharge_account_details/precharge_account_details?memberId=${this.data.ETCMargin.memberId}&margin=true&Id=${this.data.ETCMargin.id}`
+					setTimeout(() => {
+						wx.redirectTo({
+							url: `/pages/account_management/precharge_account_details/precharge_account_details?memberId=${this.data.ETCMargin.memberId}&margin=true&Id=${this.data.ETCMargin.id}`
+						},1000);
 					});
 				},
 				fail: (res) => {

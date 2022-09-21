@@ -168,10 +168,11 @@
 }
 
 
-.main_1 view:nth-of-type(1),
-.main_1 view:nth-of-type(2) {
+.main_1>view:nth-of-type(1),
+.main_1>.bindCode,
+.main_1>.carNumber {
   width: 686rpx;
-  height: 86rpx;
+  min-height: 86rpx;
   font-size: 28rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
@@ -181,28 +182,26 @@
   left: 32rpx;
 }
 
-.main_1 view:nth-of-type(1) text,
-.main_1 view:nth-of-type(2) text {
+.main_1>view:nth-of-type(1) text,
+.main_1>.bindCode text {
   position: absolute;
   top: 32rpx;
 }
 
-.main_1 view:nth-of-type(2) input {
+.main_1>.bindCode input {
   width: 240rpx;
   height: 80rpx;
   position: absolute;
-  /* background-color: pink; */
   top: 10rpx;
 }
 
-.main_1 view:nth-of-type(1) text:nth-of-type(2),
-.main_1 view:nth-of-type(2) input {
+.main_1>view:nth-of-type(1) text:nth-of-type(2),
+.main_1>.bindCode input {
   left: 144rpx;
 }
 
 /* 获取验证码按钮 */
-.main_1 view:nth-of-type(2) button {
-  /* width: 114rpx; */
+.main_1 .bindCode button {
   min-width: 150rpx;
   height: 52rpx;
   font-size: 24rpx;
@@ -210,22 +209,22 @@
   line-height: 52rpx;
   border-radius: 4rpx;
   position: absolute;
-  top: 12rpx;
+  top: 20rpx;
   right: 74rpx;
 }
 
-.main_1 view:nth-of-type(2) .ok{
+.main_1 .bindCode .ok {
   color: #FFFFFF;
   background-color: #FFB33B;
 }
 
-.main_1 view:nth-of-type(2) .err{
+.main_1 .bindCode .err {
   color: #FFFFFF;
   background-color: #ccc;
 }
 
 
-.main_1 view:nth-of-type(3) {
+.main_1>.tip {
   width: 686rpx;
   height: 114rpx;
   font-size: 22rpx;
@@ -237,6 +236,49 @@
   top: 32rpx;
   left: 32rpx;
 }
+
+.main_1>.carNumber {
+  border-bottom: none;
+  display: flex;
+}
+
+.main_1>.carNumber>view:nth-of-type(1) {
+  min-width: 112rpx;
+  height: 100%;
+}
+
+.main_1>.carNumber>view:nth-of-type(1)>text {
+  position: relative;
+  top: 32rpx;
+}
+
+.main_1>.carNumber>view:nth-of-type(2) {
+  height: 100%;
+  margin-left: 32rpx;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+}
+
+.main_1>.carNumber>view:nth-of-type(2)::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 32rpx;
+}
+
+.main_1>.carNumber>view:nth-of-type(2)>text {
+  width: 164rpx;
+  height: 50rpx;
+  text-align: center;
+  line-height: 50rpx;
+  background-color: #00B85C;
+  border-radius: 4rpx;
+  margin: 5rpx 0;
+  color: #FFFFFF;
+}
+
 
 /* 确认兑换按钮 */
 .confirm_exchange>.confirmBtnControll {
@@ -329,7 +371,7 @@
   width: 200%;
   height: 98rpx;
   color: transparent;
-	text-indent: -999rem;
+  text-indent: -999rem;
   position: absolute;
   left: -512rpx;
   opacity: 0;
