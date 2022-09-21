@@ -589,11 +589,13 @@ Page({
 		console.log(this.data.listOfPackages);
 		let params = {};
 		if (pledgeType === 4) {
+			// 押金模式
 			params = {
 				payVersion: 'v3',
 				orderId: app.globalData.orderInfo.orderId
 			};
 		} else {
+			// 普通模式
 			params = {
 				orderId: app.globalData.orderInfo.orderId
 			};

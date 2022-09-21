@@ -53,7 +53,7 @@ Page({
 					setTimeout(() => {
 						wx.redirectTo({
 							url: `/pages/account_management/precharge_account_details/precharge_account_details?memberId=${this.data.ETCMargin.memberId}&margin=true&Id=${this.data.ETCMargin.id}`
-						},1000);
+						},1500);
 					});
 				},
 				fail: (res) => {
