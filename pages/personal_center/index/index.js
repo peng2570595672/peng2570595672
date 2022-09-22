@@ -398,7 +398,7 @@ Page({
 			success: async (res) => {
 				let key = res.result.match(/(\S*)=/);
 				let val = res.result.match(/=(\S*)/);
-				if (key && val && key[1] && val[1].length === 18 && key[1] === 'orderId') {
+				if (key && val && key[1] && (val[1].length.length === 18 || val[1].length.length === 19) && key[1] === 'orderId') {
 					const result = await util.getDataFromServersV2('consumer/member/bind-order', {
 						orderId: val[1]
 					});

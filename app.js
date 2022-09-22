@@ -185,7 +185,7 @@ App({
 		if (options.scene === 1047 || options.scene === 1048 || options.scene === 1049 || options.scene === 1017) {
 			let obj = this.path2json(decodeURIComponent(options.query.scene));
 			if (obj && JSON.stringify(obj) !== '{}') {
-				if (obj.orderId && obj.orderId.length === 18) {
+				if (obj.orderId && (obj.orderId.length === 18 || obj.orderId.length === 19)) {
 					util.resetData();// 重置数据
 					// 业务员端订单码
 					this.globalData.salesmanScanCodeToHandleId = obj.orderId;
