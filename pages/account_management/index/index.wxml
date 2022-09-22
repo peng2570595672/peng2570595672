@@ -86,7 +86,7 @@
         </block>
     </view>
     <!-- @cyl ETC押金账户 card -->
-    <view class="card margin" wx:if="{{item.promoterType}}" wx:for="{{ETCMargin}}" wx:key="index">
+    <view class="card margin" wx:for="{{ETCMargin}}" wx:key="index">
         <view class="card-info">
             <view class="left">
                 <view>当前账户余额（元）</view>

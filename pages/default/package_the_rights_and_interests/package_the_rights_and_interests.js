@@ -532,6 +532,7 @@ Page({
 			areaCode: this.data.orderInfo ? this.data.orderInfo.product.areaCode : app.globalData.newPackagePageData.areaCode
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+		console.log(result);
 		if (!result) return;
 		if (result.code === 0) {
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
@@ -585,7 +586,6 @@ Page({
 		if (this.data.isRequest) return;
 		this.setData({isRequest: true});
 		util.showLoading();
-		console.log(this);
 		console.log(this.data.listOfPackages);
 		let params = {};
 		if (pledgeType === 4) {
@@ -603,6 +603,7 @@ Page({
 			};
 		}
 		const result = await util.getDataFromServersV2('consumer/order/pledge-pay', params);
+		console.log(result);
 		if (!result) {
 			this.setData({isRequest: false});
 			return;
