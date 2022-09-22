@@ -139,14 +139,22 @@ Page({
 		if (this.data.nextpageFlag) return;
 		await this.fetchList();
 	},
+	// 下拉刷新
 	async onPullDownRefresh () {
-		this.setData({
-			list: [],
-			page: 0
-		});
-		await this.fetchList(() => {
-			wx.stopPullDownRefresh();
-		});
+		if (this.data.margin) {
+			this.setData({
+				page: 1
+			});
+			await this.marginModeBillDetails(1);
+		} else {
+			this.setData({
+				list: [],
+				page: 0
+			});
+			await this.fetchList(() => {
+				wx.stopPullDownRefresh();
+			});
+		}
 	},
 	// 加载列表
 	async fetchList (callback) {
@@ -157,38 +165,43 @@ Page({
 		util.showLoading({
 			title: '加载中'
 		});
-		let params = {
-			orderId: this.data.orderId,
-			startTime: this.data.beginDate,
-			endTime: this.data.endDate,
-			page: this.data.page,
-			pageSize: 10
-		};
-		const result = await util.getDataFromServersV2('consumer/order/third/queryWallet', params);
-		if (!result) return;
-		if (result.code) {
-			util.showToastNoIcon(result.message);
-			return;
-		}
-		let list = result.data.list || [];
-		list.map(item => {
-			item.changeMoney = item.changeMoney.toString();
-			if (item.changeMoney.includes('-')) item.changeMoney = parseInt(item.changeMoney.substr(1));
-		});
-		this.setData({
-			Wallet: result.data.walletAmount / 100,
-			prechargeAmount: result.data.prechargeAmount / 100,
-			list: this.data.list.concat(list)
-		});
-		console.log(this.data.list.length, '----------------------------------', result.data.total);
-		if (this.data.list.length >= result.data.total) {
-			this.setData({
-				nextpageFlag: true
+		if (this.data.margin) {
+			await this.marginModeBillDetails(2);
+		} else {
+			let params = {
+				orderId: this.data.orderId,
+				startTime: this.data.beginDate,
+				endTime: this.data.endDate,
+				page: this.data.page,
+				pageSize: 10
+			};
+			const result = await util.getDataFromServersV2('consumer/order/third/queryWallet', params);
+			console.log(result);
+			if (!result) return;
+			if (result.code) {
+				util.showToastNoIcon(result.message);
+				return;
+			}
+			let list = result.data.list || [];
+			list.map(item => {
+				item.changeMoney = item.changeMoney.toString();
+				if (item.changeMoney.includes('-')) item.changeMoney = parseInt(item.changeMoney.substr(1));
 			});
+			this.setData({
+				Wallet: result.data.walletAmount / 100,
+				prechargeAmount: result.data.prechargeAmount / 100,
+				list: this.data.list.concat(list)
+			});
+			console.log(this.data.list.length, '----------------------------------', result.data.total);
+			if (this.data.list.length >= result.data.total) {
+				this.setData({
+					nextpageFlag: true
+				});
+			}
 		}
-	},
-	// 充值支付
-	async onProcessingProgress (e) {
+},
+// 充值支付
+async onProcessingProgress (e) {
 		const id = this.data.orderId;
 		if (this.data.margin) {
 			wx.redirectTo({
@@ -206,68 +219,76 @@ Page({
 	},
 	// 充值
 	async onClickRecharge () {
-		util.showLoading('正在获取充值账户信息....');
-		const result = await util.getDataFromServersV2('consumer/order/third/queryProcessInfo', {
-			orderId: this.data.orderId
-		});
-		util.hideLoading();
-		if (!result) return;
-		if (result.code === 0) {
-			if (!result.data.bankCardNum) {
-				setTimeout(() => {
-					wx.showToast({
-						title: '获取失败',
-						icon: 'none',
-						duration: 5000
-					});
-				}, 100);
-				return;
-			}
-			result.data.holdBalance = this.data.info.holdBalance;
-			this.setData({
-				prechargeInfo: result.data || {}
+			util.showLoading('正在获取充值账户信息....');
+			const result = await util.getDataFromServersV2('consumer/order/third/queryProcessInfo', {
+				orderId: this.data.orderId
 			});
-			this.selectComponent('#rechargePrompt').show();
-		} else {
-			util.showToastNoIcon(result.message);
-		}
-	},
-	onClickToMyOrder () {
-		util.go(`/pages/personal_center/my_order/my_order`);
-	},
-	onClickDoubt () {
-		util.alert({
-			title: '',
-			content: '若您对当前账户余额及变动明细有疑问，或需开具充值手续费发票，请拨打4001-18-4001咨询',
-			showCancel: false,
-			confirmText: '知道了'
-		});
-	},
-	// 押金模式 的账单明细
-	async marginModeBillDetails () {
-		const result = await util.getDataFromServersV2('consumer/order/enusre-money-detail', {
-			memberId: this.data.memberId,
-			page: 1,
-			pageSize: 10,
-			orderId: this.data.orderId
-		});
-		console.log(result);
-		let list = result.data.detailData.list || [];
-		list.map(item => {
-			item.transactionMoney = item.transactionMoney.toString();
-			if (item.transactionMoney.includes('-')) item.transactionMoney = parseInt(item.transactionMoney.substr(1));
-		});
-		this.setData({
-			Wallet: result.data.amount,
-			list: list
-		});
-	},
-	async onUnload () {
-		const pages = getCurrentPages();
-		const prevPage = pages[pages.length - 2]; // 上一个页面
-		prevPage.setData({
-			isReload: true // 重置状态
-		});
-		util.getIsArrearage();
-	}
+			util.hideLoading();
+			if (!result) return;
+			if (result.code === 0) {
+				if (!result.data.bankCardNum) {
+					setTimeout(() => {
+						wx.showToast({
+							title: '获取失败',
+							icon: 'none',
+							duration: 5000
+						});
+					}, 100);
+					return;
+				}
+				result.data.holdBalance = this.data.info.holdBalance;
+				this.setData({
+					prechargeInfo: result.data || {}
+				});
+				this.selectComponent('#rechargePrompt').show();
+			} else {
+				util.showToastNoIcon(result.message);
+			}
+		},
+		onClickToMyOrder () {
+			util.go(`/pages/personal_center/my_order/my_order`);
+		},
+		onClickDoubt () {
+			util.alert({
+				title: '',
+				content: '若您对当前账户余额及变动明细有疑问，或需开具充值手续费发票，请拨打4001-18-4001咨询',
+				showCancel: false,
+				confirmText: '知道了'
+			});
+		},
+		// 押金模式 的账单明细
+		async marginModeBillDetails (number) {
+				const result = await util.getDataFromServersV2('consumer/order/enusre-money-detail', {
+					memberId: this.data.memberId,
+					page: this.data.page,
+					pageSize: 10,
+					orderId: this.data.orderId
+				});
+				console.log(result);
+				let list = result.data.detailData.list || [];
+				list.map(item => {
+					item.transactionMoney = item.transactionMoney.toString();
+					if (item.transactionMoney.includes('-')) item.transactionMoney = parseInt(item.transactionMoney.substr(1));
+				});
+				this.setData({
+					Wallet: result.data.amount,
+					list: list
+				});
+				if (this.data.list.length >= result.data.detailData.total && number === 2) {
+					this.setData({
+						nextpageFlag: true
+					});
+				}
+				if (number === 1) {
+					wx.stopPullDownRefresh();
+				}
+			},
+			async onUnload () {
+				const pages = getCurrentPages();
+				const prevPage = pages[pages.length - 2]; // 上一个页面
+				prevPage.setData({
+					isReload: true // 重置状态
+				});
+				util.getIsArrearage();
+			}
 });
