@@ -131,6 +131,7 @@ Page({
     this.fmagent = new FMAgent(app.globalData._fmOpt);
     // 采集openid，成功后调用回调
     util.getUserInfo(this.getId);
+    console.log('--------------------------------------------');
   },
   async onShow () {
     this.setData({
@@ -1353,15 +1354,9 @@ Page({
     this.setData({
       movingIntegralControl: false
     });
-    let num = await this.getMargin();
-    console.log(num);
-    console.log(app.globalData.myEtcList);
     if (e.currentTarget.id === 'cancel') {
       console.log('点击取消');
     } else {
-      if (num === app.globalData.myEtcList.length) {
-        return util.showToastNoIcon('抱歉，您的ETC设备模式不符合兑换条件');
-      }
       // 登记接口 获取 myOrderId
       const res1 = await util.getDataFromServersV2('consumer/member/changyou/sign');
       console.log('登记');
@@ -1439,15 +1434,5 @@ Page({
 			cancelText: '取消',
 			confirmText: '确定'
 		});
-  },
-  getMargin () {
-    // app.globalData.myEtcList[0].flowVersion = 2;
-    let num = 0;
-    app.globalData.myEtcList.map(item => {
-      if (item.flowVersion === 2) {
-        num++;
-      }
-    });
-    return num;
   }
 });

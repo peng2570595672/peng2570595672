@@ -21,7 +21,8 @@ Page({
 		} else {
 			const etcList = app.globalData.myEtcList.filter(item => item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
 			const bocomEtcList = app.globalData.myEtcList.filter(item => item.flowVersion === 7 && item.auditStatus === 2); // 是否有交行二类户 & 已审核通过订单
-			const ETCMargin1 = app.globalData.myEtcList.filter(item => item.pledgeType === 4);	// 是否押金模式且已支付
+			const ETCMargin1 = app.globalData.myEtcList.filter(item => item.pledgeType === 4);	// 是否押金模式
+			console.log(ETCMargin1);
 			this.setData({
 				etcList,
 				bocomEtcList,
