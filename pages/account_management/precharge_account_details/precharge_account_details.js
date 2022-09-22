@@ -20,8 +20,7 @@ Page({
 		page: 0,
 		available: false, // 按钮是否可点击
 		isRequest: false, // 是否请求中
-		margin: false, // 是否押金模式的
-		Id: undefined // 订单号
+		margin: false // 是否押金模式的
 	},
 	async onLoad (options) {
 		const timestamp = Date.parse(new Date());
@@ -32,7 +31,7 @@ Page({
 			beginDate: `${util.formatTime(date).slice(0, 8)}01`,
 			endDate: `${util.formatTime(date).slice(0, 10)}`,
 			margin: options.margin,
-			Id: options.Id
+			orderId: options.Id
 		});
 		if (this.data.margin) {
 			// 账户明细
@@ -193,7 +192,7 @@ Page({
 		const id = this.data.orderId;
 		if (this.data.margin) {
 			wx.redirectTo({
-				url: `/pages/account_management/margin_recharge_model/margin_recharge_model?Id=${this.data.Id}`
+				url: `/pages/account_management/margin_recharge_model/margin_recharge_model?Id=${id}`
 			});
 			// util.go(`/pages/account_management/margin_recharge_model/margin_recharge_model?Id=${this.data.Id}`);
 		} else {
@@ -249,7 +248,8 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/enusre-money-detail', {
 			memberId: this.data.memberId,
 			page: 1,
-			pageSize: 10
+			pageSize: 10,
+			orderId: this.data.orderId
 		});
 		console.log(result);
 		let list = result.data.detailData.list || [];

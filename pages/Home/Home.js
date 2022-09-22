@@ -1353,12 +1353,13 @@ Page({
     this.setData({
       movingIntegralControl: false
     });
-    // 获取订单列表
-    await this.getEtcList();
+    let num = await this.getMargin();
+    console.log(num);
+    console.log(app.globalData.myEtcList);
     if (e.currentTarget.id === 'cancel') {
       console.log('点击取消');
     } else {
-      if (this.data.isPackageTotalToTotal) {
+      if (num === app.globalData.myEtcList.length) {
         return util.showToastNoIcon('抱歉，您的ETC设备模式不符合兑换条件');
       }
       // 登记接口 获取 myOrderId
@@ -1439,31 +1440,14 @@ Page({
 			confirmText: '确定'
 		});
   },
-  // 获取ETC+ 套餐信息
-  async getEtcList () {
-    let that = this;
-    // 当前订单
-    // console.log(that.data.orderInfo);
-    let params = {
-      openId: app.globalData.openId
-    };
-    // 全部已创建的订单
-    const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
-    // console.log(result);
-    if (!result) return;
-    if (result.code === 0) {
-      app.globalData.tonDunObj.carNumbers = [];
-      result.data.map(item => {
-        if (item.flowVersion === 2 && that.data.orderInfo.vehPlates === item.vehPlates) {
-          that.setData({
-            isPackageTotalToTotal: true
-          });
-        } else {
-          app.globalData.tonDunObj.carNumbers.push(item.vehPlates);
-        }
-      });
-    } else {
-      showToastNoIcon(result.message);
-    }
+  getMargin () {
+    // app.globalData.myEtcList[0].flowVersion = 2;
+    let num = 0;
+    app.globalData.myEtcList.map(item => {
+      if (item.flowVersion === 2) {
+        num++;
+      }
+    });
+    return num;
   }
 });

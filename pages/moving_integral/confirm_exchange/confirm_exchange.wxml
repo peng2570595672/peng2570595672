@@ -38,7 +38,7 @@
 	
     <view class="carNumber" >
       <view><text>可用车辆</text></view>
-	  <view><text wx:for="{{carNumbers}}" wx:key="index">{{item}}</text></view>
+	  <view><text wx:for="{{carNumbers}}" wx:key="index">{{item.vehPlates}}</text></view>
     </view>
 	
     <view class="tip" wx:if="{{!integralHighlight}}">
@@ -61,5 +61,7 @@
     </view>
   </view>
   <!-- 确认按钮 -->
-  <button type="primary" class="confirmBtnControll {{integralHighlight || confirmBtn ? 'ok':'err'}} {{ iphoneModel ? 'iphonModelIpad': 'iphonModel'}}" catchtap="{{integralHighlight || confirmBtn ? 'confirmExchange': 'invalidBtn'}}">确认兑换</button>
+  <view class="btn">
+    <button type="primary" class="confirmBtnControll {{ iphoneModel ? 'iphonModelIpad': 'iphonModel'}} {{integralHighlight || confirmBtn ? 'ok':'err'}}" catchtap="{{integralHighlight || confirmBtn ? 'confirmExchange': 'invalidBtn'}}">确认兑换</button>
+  </view>
 </view>

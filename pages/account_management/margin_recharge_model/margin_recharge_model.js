@@ -21,6 +21,8 @@ Page({
 			depositBalance: ETCMargin1[0].pledgeMoney / 100,
 			ETCMargin: ETCMargin1[0]
 		});
+		// 查询是否欠款
+		await util.getIsArrearage();
 	},
 
 	// 微信支付

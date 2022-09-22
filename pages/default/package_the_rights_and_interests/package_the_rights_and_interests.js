@@ -592,7 +592,9 @@ Page({
 			// 押金模式
 			params = {
 				payVersion: 'v3',
-				orderId: app.globalData.orderInfo.orderId
+				tradeType: 1,
+				orderId: app.globalData.orderInfo.orderId,
+				openid: app.globalData.openId
 			};
 		} else {
 			// 普通模式

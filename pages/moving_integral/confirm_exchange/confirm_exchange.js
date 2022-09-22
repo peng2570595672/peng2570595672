@@ -37,12 +37,13 @@ Page({
         }
       }
     });
+    let list = app.globalData.myEtcList.filter(item => (item.flowVersion !== 2));
     that.setData({
       integralHighlight: app.globalData.tonDunObj.integralHighlight,
       orderId: app.globalData.tonDunObj.orderId,
       price: app.globalData.tonDunObj.price,
       changYouIntegral: app.globalData.tonDunObj.changYouIntegral,
-      carNumbers: app.globalData.tonDunObj.carNumbers
+      carNumbers: list
     });
   },
 
