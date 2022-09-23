@@ -17,7 +17,7 @@ Page({
 		let that = this;
 		const ETCMargin1 = app.globalData.myEtcList.filter(item => item.id === options.Id);
 		that.setData({
-			rechargeAmount: Number(200.00).toFixed(2),
+			rechargeAmount: Number(0.02).toFixed(2),
 			depositBalance: ETCMargin1[0].pledgeMoney / 100,
 			ETCMargin: ETCMargin1[0]
 		});

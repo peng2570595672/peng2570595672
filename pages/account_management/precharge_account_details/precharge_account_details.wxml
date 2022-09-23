@@ -46,6 +46,6 @@
         </view>
 
     </view>
-    <view class="error" wx:if="{{nextpageFlag}}">暂无更多数据~~</view>
+    <view class="error" style="padding-bottom: 100rpx" wx:if="{{nextpageFlag}}">暂无更多数据~~</view>
     <recharge-prompt id="rechargePrompt" info="{{prechargeInfo}}"></recharge-prompt>
 </view>
