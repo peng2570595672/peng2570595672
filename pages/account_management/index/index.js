@@ -59,6 +59,7 @@ Page({
 				await this.getBocomOrderBankConfigInfo(item);
 			});
 		}
+		console.log(this.data.ETCMargin);
 	},
 	async getBocomOrderBankConfigInfo (orderInfo) {
 		// 获取订单银行配置信息

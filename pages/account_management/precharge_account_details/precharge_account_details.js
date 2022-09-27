@@ -20,9 +20,11 @@ Page({
 		page: 0,
 		available: false, // 按钮是否可点击
 		isRequest: false, // 是否请求中
-		margin: false // 是否押金模式的
+		margin: false, // 是否押金模式的
+		flag: false // 是否支付 true->已支付
 	},
 	async onLoad (options) {
+		console.log(options);
 		const timestamp = Date.parse(new Date());
 		const date = new Date(timestamp);
 		this.setData({
@@ -31,11 +33,15 @@ Page({
 			beginDate: `${util.formatTime(date).slice(0, 8)}01`,
 			endDate: `${util.formatTime(date).slice(0, 10)}`,
 			margin: options.margin,
-			orderId: options.Id
+			orderId: options.Id,
+			flag: options.select
 		});
+		// 判断 margin ，如果为 true 执行押金的账单详细
 		if (this.data.margin) {
-			// 账户明细
-			this.marginModeBillDetails();
+			await this.marginModeBillDetails();
+			if (this.data.flag) {
+				this.getStatus();
+			}
 		} else {
 			if (app.globalData.userInfo.accessToken) {
 				let requestList = [await this.getFailBillDetails(), await this.fetchList(), await this.getProcessingProgress()];
@@ -261,13 +267,14 @@ Page({
 	},
 	// 押金模式 的账单明细
 	async marginModeBillDetails (number) {
+		console.log(number);
 		const result = await util.getDataFromServersV2('consumer/order/enusre-money-detail', {
 			memberId: this.data.memberId,
 			page: number ? (number === 1 ? 1 : ++this.data.page) : 1,
 			pageSize: 10,
 			orderId: this.data.orderId
 		});
-		console.log(result);
+		// console.log(result.data);
 		let list = result.data.detailData.list || [];
 		list.map(item => {
 			item.transactionMoney = item.transactionMoney.toString();
@@ -283,12 +290,25 @@ Page({
 				Wallet: result.data.amount,
 				list: list
 			});
-			return wx.stopPullDownRefresh();
+			wx.stopPullDownRefresh();
 		}
 		if (this.data.list.length >= result.data.detailData.total && number === 2) {
 			this.setData({
 				nextpageFlag: true
 			});
+		}
+	},
+	// 获取订单信息
+	async getStatus () {
+		let params = {
+			openId: app.globalData.openId
+		};
+		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
+		// console.log(result.data);
+		if (result.code === 0) {
+			app.globalData.myEtcList = result.data;
+		} else {
+			util.showToastNoIcon(result.message);
 		}
 	},
 	async onUnload () {
@@ -297,6 +317,6 @@ Page({
 		prevPage.setData({
 			isReload: true // 重置状态
 		});
-		util.getIsArrearage();
+		// util.getIsArrearage();
 	}
 });

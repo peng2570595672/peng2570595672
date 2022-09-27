@@ -51,30 +51,17 @@ Page({
 				success: (res) => {
 					// 去支付成功页
 					util.showToastNoIcon('支付成功');
-					this.getStatus();
 					setTimeout(() => {
 						wx.redirectTo({
-							url: `/pages/account_management/precharge_account_details/precharge_account_details?memberId=${this.data.ETCMargin.memberId}&margin=true&Id=${this.data.ETCMargin.id}`
-						},1500);
-					});
+							url: `/pages/account_management/precharge_account_details/precharge_account_details?memberId=${this.data.ETCMargin.memberId}&margin=true&Id=${this.data.ETCMargin.id}&select=true`
+						});
+					},2000);
 				},
 				fail: (res) => {
 					util.showToastNoIcon('支付失败');
+					this.getStatus();
 				}
 			});
-		} else {
-			util.showToastNoIcon(result.message);
-		}
-	},
-
-	// 获取订单信息
-	async getStatus () {
-		let params = {
-			openId: app.globalData.openId
-		};
-		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
-		if (result.code === 0) {
-			app.globalData.myEtcList = result.data;
 		} else {
 			util.showToastNoIcon(result.message);
 		}
