@@ -61,7 +61,7 @@ Page({
     {
       img: 'https://file.cyzl.com/g001/M00/91/CF/oYYBAGLvfp2AJ6_aAAEiO5l6BYc353.png',
       url: 'moving_integral',
-      isShow: !app.globalData.isContinentInsurance,
+      isShow: true,
       statisticsEvent: 'index_moving_integral'
     },
     {
