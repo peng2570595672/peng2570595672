@@ -61,7 +61,8 @@ Page({
     {
       img: 'https://file.cyzl.com/g001/M00/91/CF/oYYBAGLvfp2AJ6_aAAEiO5l6BYc353.png',
       url: 'moving_integral',
-      isShow: !app.globalData.isContinentInsurance,
+      isShow: true,
+			alwaysShow: true,
       statisticsEvent: 'index_moving_integral'
     },
     {
@@ -463,20 +464,8 @@ Page({
           platformId: app.globalData.platformId, // 平台id
           code: res.code // 从微信获取的code
         });
-        this.data.entranceList[1].isShow = !app.globalData.isContinentInsurance;
-        this.data.entranceList[2].isShow = app.globalData.isContinentInsurance;
-        this.data.bannerList.map(item => {
-          item.statisticsEvent === 'index_dadi' ? item.isShow = app.globalData
-            .isContinentInsurance : item.isShow = !app.globalData
-              .isContinentInsurance;
-        });
-        this.setData({
-          isNormalProcess: !app.globalData.isContinentInsurance,
-          isContinentInsurance: app.globalData.isContinentInsurance,
-          entranceList: this.data.entranceList,
-          bannerList: this.data.bannerList
-        });
         console.log(result);
+        this.initDadi();
         if (!result) return;
         if (result.code === 0) {
           result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data
@@ -519,6 +508,20 @@ Page({
       }
     });
   },
+	initDadi () {
+		this.data.entranceList[1].isShow = !app.globalData.isContinentInsurance;
+		this.data.entranceList[2].isShow = app.globalData.isContinentInsurance;
+		this.data.bannerList.map(item => {
+			item.statisticsEvent === 'index_dadi' ? item.isShow = app.globalData.isContinentInsurance && !app.globalData.isPingAn : item.isShow = !app.globalData.isContinentInsurance && !app.globalData.isPingAn;
+			item.alwaysShow ? item.isShow = true : '';
+		});
+		this.setData({
+			isNormalProcess: !app.globalData.isContinentInsurance,
+			isContinentInsurance: app.globalData.isContinentInsurance,
+			entranceList: this.data.entranceList,
+			bannerList: this.data.bannerList
+		});
+	},
   // 点击tab栏下的办理
   onClickTransaction () {
     if (this.data.activeIndex !== 1) return;
@@ -617,7 +620,6 @@ Page({
       app.globalData.myEtcList = list;
       // 京东客服
       let [truckList, passengerCarList, vehicleList, activationOrder, activationTruckOrder, truckActivationOrderList] = [[], [], [], [], [], []];
-
       // let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
       app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !==
         undefined); // 筛选车主服务欠费
@@ -626,6 +628,12 @@ Page({
           : util.getStatus(item);
         vehicleList.push(item.vehPlates);
         wx.setStorageSync('cars', vehicleList.join('、'));
+        if (item.shopId === '692062170707394560') { // 大地商户
+					app.globalData.isContinentInsurance = true;
+				}
+        if (item.shopId === '568113867222155299') { // 平安商户
+					app.globalData.isPingAn = true;
+				}
         if (item.isNewTrucks === 0) {
           passengerCarList.push(item);
           if (item.obuStatus === 1 || item.obuStatus === 5) {
@@ -641,6 +649,7 @@ Page({
           }
         }
       });
+			this.initDadi();
       const isWaitActivation = passengerCarList.find(item => item.auditStatus === 2 && item
         .logisticsId === 0 && item.obuStatus === 0); // 待激活
       const isDuringDate = util.isDuringDate('2021/6/26', '2021/7/1');

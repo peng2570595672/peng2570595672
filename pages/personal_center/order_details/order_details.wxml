@@ -143,7 +143,7 @@
     </view>
     <!--底部补缴结束-->
     <!--广告位开始-->
-    <view class="micro-insurance">
+    <view class="micro-insurance" wx:if="{{!isContinentInsurance}}">
         <image wx:if="{{showAdvertising}}" src="https://file.cyzl.com/g001/M00/83/70/oYYBAGJzmQiAW-NQAACbiM4qarw461.jpg" mode="widthFix" catchtap="onClickAdvertising"></image>
         <view wx:if="{{showAdvertising}}" class="close_button iconfont" catchtap="hide"></view>
     </view>

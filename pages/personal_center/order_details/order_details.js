@@ -4,6 +4,7 @@ Page({
 	data: {
 		mask: false,
 		wrapper: false,
+		isContinentInsurance: app.globalData.isContinentInsurance || app.globalData.isPingAn,
 		showAdvertising: true,
 		isServiceNotificationEntry: false,// 是否是服务通知进入
 		isRequest: false,// 是否请求
