@@ -29,7 +29,7 @@ Page({
 	login () {
 		util.showLoading();
 		// 调用微信接口获取code
-		wx.login({
+		info.login({
 			success: async (res) => {
 				const result = await util.getDataFromServersV2('consumer/member/common/applet/code', {
 					platformId: app.globalData.platformId, // 平台id

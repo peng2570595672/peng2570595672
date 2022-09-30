@@ -5,6 +5,7 @@
   "navigationBarTextStyle": "white",
   "navigationStyle": "custom",
 	"usingComponents": {
-      "popup": "/components/dialog/dialog"
+      "popup": "/components/dialog/dialog",
+      "agreement-dialog": "/components/agreement_dialog/agreement_dialog"
 	}
 }

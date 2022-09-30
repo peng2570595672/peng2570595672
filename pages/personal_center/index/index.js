@@ -386,7 +386,14 @@ Page({
 		wx.uma.trackEvent('personal_center_for_account_management');
 		util.go('/pages/account_management/index/index');
 	},
-
+	handleAuth () {
+		wx.openSetting({
+			success: () => {},
+			fail: () => {
+				util.showToastNoIcon('打开设置界面失败，请重试！');
+			}
+		});
+	},
 	// 扫码
 	scan () {
 		util.showLoading({ title: '正在识别' });

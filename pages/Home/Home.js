@@ -165,8 +165,6 @@ Page({
       }
       wx.removeStorageSync('login_info_final');
     }
-	// 疫情温馨提示
-	this.EpidemicSituationTips();
   },
   async getIsShowNotice () {
     const result = await util.queryProtocolRecord(2);
@@ -494,7 +492,9 @@ Page({
               }
               await this.getIsShowNotice();
             }
-          }
+          } else {
+						this.selectComponent('#agreement-dialog').show();
+					}
         } else {
           this.setData({
             exceptionMessage: result.message
@@ -718,6 +718,7 @@ Page({
           await this.getRecentlyTheBill(item, true);
         });
       }
+			this.selectComponent('#agreement-dialog').show();
     } else {
       util.showToastNoIcon(result.message);
     }
@@ -1433,21 +1434,6 @@ Page({
     }
     // 跳转到 移动积分兑通行券 页面
     util.go('/pages/moving_integral/bound_changyou/bound_changyou');
-  },
-  // 因疫情影响，ETC发货续作延时通知
-  EpidemicSituationTips () {
-		const showToast = wx.getStorageSync('showToast');
-		if (showToast) {
-			return;
-		}
-		wx.setStorageSync('showToast', true);
-		util.alert({
-			title: `提示`,
-			content: `受发货所在地疫情管控影响，当前申办ETC将延期发货，具体发货时间待疫情缓和后将第一时间为您发出，如有疑问可联系在线客服。`,
-			showCancel: false,
-			cancelText: '取消',
-			confirmText: '确定'
-		});
   },
   getMargin () {
     // app.globalData.myEtcList[0].flowVersion = 2;

@@ -2,6 +2,7 @@
   "entryPagePath": "pages/Home/Home",
   "pages": [
     "pages/Home/Home",
+    "pages/active_tips/active_tips",
     "pages/default/index/index",
     "pages/default/receiving_address/receiving_address",
     "pages/default/high_speed_verification_failed/high_speed_verification_failed",

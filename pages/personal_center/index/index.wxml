@@ -175,6 +175,7 @@
         </view>
         <!--	众包推广信息结束-->
     </view>
+    <view class="auth" bindtap="handleAuth">授权管理</view>
     <!--	成为众包推广者结束开始-->
     <!--	&lt;!&ndash;	未成为众包推广者开始&ndash;&gt;-->
     <!--	<view wx:if="{{crowdSourcingMsg.status === 0}}">-->
