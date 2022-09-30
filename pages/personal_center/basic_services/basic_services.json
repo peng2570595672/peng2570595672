@@ -3,5 +3,7 @@
 	"navigationBarBackgroundColor": "#FFFFFF",
 	"backgroundColor": "#FFFFFF",
 	"navigationBarTextStyle": "black",
-	"usingComponents": {}
+	"usingComponents": {
+		"popup1": "/components/dialog1/dialog"
+	}
 }

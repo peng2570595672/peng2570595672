@@ -26,7 +26,8 @@ Page({
 		hasCoupon: false, // 是否显示领券中心
 		isActivityDate: false, // 是否活动期间
 		canIUseGetUserProfile: false,
-		isPrechargeOrder: true // 是否有预充流程 || 交行二类户 || 工行二类户  & 已审核通过订单
+		isPrechargeOrder: true, // 是否有预充流程 || 交行二类户 || 工行二类户  & 已审核通过订单
+		disclaimerDesc: app.globalData.disclaimerDesc
 	},
 	onLoad (options) {
 		if (wx.getUserProfile) {
@@ -79,6 +80,12 @@ Page({
 		});
 	},
 	handleCouponMini () {
+		this.selectComponent('#dialog1').show();
+		// jumpCouponMini();
+	},
+	// 免责弹窗
+	popUp () {
+		this.selectComponent('#dialog1').noShow();
 		jumpCouponMini();
 	},
 	// 勾选用户协议
