@@ -148,4 +148,6 @@
         <view wx:if="{{showAdvertising}}" class="close_button iconfont" catchtap="hide"></view>
     </view>
     <!--广告位结束-->
+    <popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="popUp"></popup1>
+
 </view>

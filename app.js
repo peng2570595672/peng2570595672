@@ -138,7 +138,13 @@ App({
 			auth: false, // 授权
 			runFrequency: 1,	// 限制调用次数
 			carNumbers: []	// 可用车辆的车牌号
-		}
+		},
+		disclaimerDesc: {
+      // 免责弹窗
+      title: '免责声明',
+      content: '您即将通过该链接跳转至第三方页面。在第三方页面中提交信息将由第三方按照其相关用户服务协议及隐私协议正常执行并负责，服务及责任均由第三方提供或承担，如有疑问请致电第三方客服电话。',
+      confirm: '我知道了'
+    }
 	},
 	onLaunch (options) {
 		console.log(options);

@@ -1,0 +1,197 @@
+.animated {
+  -webkit-animation-duration: 0.4s;
+  animation-duration: 0.4s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+}
+@-webkit-keyframes zoomIn {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.zoomIn {
+  -webkit-animation-name: zoomIn;
+  animation-name: zoomIn;
+}
+@-webkit-keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  to {
+    opacity: 0;
+  }
+}
+.zoomOut {
+  -webkit-animation-name: zoomOut;
+  animation-name: zoomOut;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  to {
+    opacity: 0;
+  }
+}
+@font-face {
+  font-family: 'iconfont'; /* Project id 1514406 */
+  src: url("//at.alicdn.com/t/font_1514406_r2ex32p9up.woff2?t=1651741878795") format('woff2'), url("//at.alicdn.com/t/font_1514406_r2ex32p9up.woff?t=1651741878795") format('woff'), url("//at.alicdn.com/t/font_1514406_r2ex32p9up.ttf?t=1651741878795") format('truetype');
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.alert-for-not-finished {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 10000;
+}
+.alert-for-not-finished-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 640rpx;
+  height: auto;
+  background: #fff;
+  box-shadow: 4rpx 12rpx 56rpx 0px rgba(102,102,109,0.19);
+  border-radius: 16rpx;
+  margin: 0 auto;
+  z-index: 100002;
+}
+.alert-for-not-finished-content .dialog-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  min-height: 464rpx;
+  border: 2rpx solid #ccc;
+  border-radius: 16rpx;
+  box-sizing: bordre-box;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.alert-for-not-finished-content .dialog-container .wx-dialog-title {
+  text-align: center;
+  color: rgba(0,0,0,0.9);
+  font-size: 34rpx;
+  padding: 64rpx 0 32rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  line-height: 48rpx;
+  font-weight: bold;
+}
+.alert-for-not-finished-content .dialog-container .wx-dialog-con {
+  text-align: center;
+  padding: 0 48rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.5);
+  font-size: 34rpx;
+  line-height: 48rpx;
+}
+.alert-for-not-finished-content .dialog-container .fill {
+  flex: 1;
+}
+.alert-for-not-finished-content .dialog-container .wx-dialog-btn {
+  display: flex;
+  height: 110rpx;
+  align-items: center;
+  justify-content: center;
+  border-top: 1rpx solid rgba(0,0,0,0.1);
+  margin-top: 40rpx;
+}
+.alert-for-not-finished-content .dialog-container .wx-dialog-btn > view {
+  flex: 1;
+  display: flex;
+  height: 110rpx;
+  align-items: center;
+  justify-content: center;
+  font-size: 34rpx;
+  color: #576b95;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+}
+.alert-for-not-finished-content .dialog-container .wx-dialog-btn > view.cancel {
+  border-right: 1rpx solid rgba(0,0,0,0.1);
+  color: rgba(0,0,0,0.9);
+}
+.alert-for-not-finished-content .dialog-container .wx-dialog-btn > view.confirm {
+  border-right: 1rpx solid rgba(0,0,0,0.1);
+  color: #2FB565;
+}

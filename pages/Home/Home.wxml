@@ -170,6 +170,7 @@
 
     <!--	弹窗开始-->
     <popup id='dialog' dialogContent="{{dialogContent}}" bind:onHandle="onHandle"></popup>
+    <popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="popUp"></popup1>
     <!--	弹窗结束-->
     <!--	弹窗开始-->
     <agreement-dialog id='agreement-dialog'></agreement-dialog>
