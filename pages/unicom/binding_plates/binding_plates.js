@@ -16,7 +16,7 @@ Page({
 	},
 	onLoad () {
 		util.resetData();// 重置数据
-		infoideHomeButton();
+		wx.hideHomeButton();
 		app.globalData.otherEntrance.isUnicom = true;
 		this.login();
 	},
