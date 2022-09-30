@@ -5,6 +5,8 @@
 	"navigationBarTitleText": "账单详情",
 	"usingComponents": {
 		"popup": "/components/popup/popup",
-		"tips": "/components/tips/tips"
+		"tips": "/components/tips/tips",
+		"popup1": "/components/dialog1/dialog"
+		
 	}
 }

@@ -170,6 +170,7 @@
 
     <!--	弹窗开始-->
     <popup id='dialog' dialogContent="{{dialogContent}}" bind:onHandle="onHandle"></popup>
+    <popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="popUp"></popup1>
     <!--	弹窗结束-->
 
 	<!--同盾  在需要采集设备信息的页面加入以下节点-->
