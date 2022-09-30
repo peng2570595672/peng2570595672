@@ -391,6 +391,20 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "query": "orderId=1022576874733178880",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/active_tips/active_tips",
+          "query": "type=1",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

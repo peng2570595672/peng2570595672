@@ -29,7 +29,7 @@ Page({
 	},
 	async onLoad (options) {
 		this.setData({
-			isContinentInsurance: app.globalData.isContinentInsurance
+			isContinentInsurance: app.globalData.isContinentInsurance || app.globalData.isPingAn
 		});
 		if (options.orderId) {
 			this.setData({

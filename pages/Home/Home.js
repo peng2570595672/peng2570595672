@@ -20,76 +20,71 @@ Page({
     isContinentInsurance: app.globalData.isContinentInsurance, // 是否是大地
     btnSwitch: false,
     entranceList: [{
-        title: '通行发票',
-        ico: 'invoice',
-        url: 'invoice',
-        isShow: true,
-        statisticsEvent: 'index_invoice'
-      },
-      {
-        title: '违章查询',
-        ico: 'violation-enquiry',
-        url: 'violation_enquiry',
-        isShow: !app.globalData.isContinentInsurance,
-        statisticsEvent: 'index_violation_enquiry'
-      },
-      {
-        title: 'ETC账单',
-        ico: 'my-order',
-        url: 'my_order',
-        isShow: app.globalData.isContinentInsurance,
-        statisticsEvent: 'index_my_order'
-      },
-      {
-        title: '在线客服',
-        ico: 'server',
-        url: 'online_customer_service',
-        isShow: true,
-        statisticsEvent: 'index_server'
-      },
-      // {
-      // 	title: '优惠加油',
-      // 	ico: 'icontaocan-jiayou',
-      // 	url: 'preferential_refueling',
-      // 	isShow: true,
-      // 	statisticsEvent: 'index_oil'
-      // },
-      {
-        title: '个人中心',
-        ico: 'personal-center',
-        url: 'index',
-        isShow: true,
-        statisticsEvent: 'index_personal_center'
-      }
+      title: '通行发票',
+      ico: 'invoice',
+      url: 'invoice',
+      isShow: true,
+      statisticsEvent: 'index_invoice'
+    },
+    {
+      title: '违章查询',
+      ico: 'violation-enquiry',
+      url: 'violation_enquiry',
+      isShow: !app.globalData.isContinentInsurance,
+      statisticsEvent: 'index_violation_enquiry'
+    },
+    {
+      title: 'ETC账单',
+      ico: 'my-order',
+      url: 'my_order',
+      isShow: app.globalData.isContinentInsurance,
+      statisticsEvent: 'index_my_order'
+    },
+    { title: '在线客服', ico: 'server', url: 'online_customer_service', isShow: true, statisticsEvent: 'index_server' },
+    // {
+    // 	title: '优惠加油',
+    // 	ico: 'icontaocan-jiayou',
+    // 	url: 'preferential_refueling',
+    // 	isShow: true,
+    // 	statisticsEvent: 'index_oil'
+    // },
+    {
+      title: '个人中心',
+      ico: 'personal-center',
+      url: 'index',
+      isShow: true,
+      statisticsEvent: 'index_personal_center'
+    }
     ],
     bannerList: [
       // @cyl
-      {
-        img: 'https://file.cyzl.com/g001/M00/91/CF/oYYBAGLvfp2AJ6_aAAEiO5l6BYc353.png',
-        url: 'moving_integral',
-        isShow: true,
-        statisticsEvent: 'index_moving_integral'
-      },
-      {
-        img: 'https://file.cyzl.com/g001/M07/83/64/oYYBAGJzZImAaHqlAAKimDHtunU897.png',
-        url: 'micro_high_speed',
-        isShow: !app.globalData.isContinentInsurance,
-        statisticsEvent: 'index_micro_high_speed'
-      },
-      {
-        img: 'https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrTgOANI-7AABwMlaUjXo345.png',
-        url: 'micro_insurance_car_insurance',
-        isShow: !app.globalData.isContinentInsurance,
-        statisticsEvent: 'index_micro_insurance_car_insurance'
-      },
-      // {img: 'https://file.cyzl.com/g001/M07/50/2F/oYYBAGDRSJaAIRy_AABmOVUonLQ097.png', url: 'xiaoepinpin', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_for_xiaoepinpin'},
-      // {img: 'https://file.cyzl.com/g001/M07/56/6F/oYYBAGDvmOmAKFdjAABX7h3eswc492.png', url: 'micro_insurance_hcz', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_micro_insurance_hcz'},
-      {
-        img: 'https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrThuACNFGAABtf6A3V68049.png',
-        url: '',
-        isShow: app.globalData.isContinentInsurance,
-        statisticsEvent: 'index_dadi'
-      }
+    {
+      img: 'https://file.cyzl.com/g001/M00/91/CF/oYYBAGLvfp2AJ6_aAAEiO5l6BYc353.png',
+      url: 'moving_integral',
+      isShow: true,
+			alwaysShow: true,
+      statisticsEvent: 'index_moving_integral'
+    },
+    {
+      img: 'https://file.cyzl.com/g001/M07/83/64/oYYBAGJzZImAaHqlAAKimDHtunU897.png',
+      url: 'micro_high_speed',
+      isShow: !app.globalData.isContinentInsurance,
+      statisticsEvent: 'index_micro_high_speed'
+    },
+    {
+      img: 'https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrTgOANI-7AABwMlaUjXo345.png',
+      url: 'micro_insurance_car_insurance',
+      isShow: !app.globalData.isContinentInsurance,
+      statisticsEvent: 'index_micro_insurance_car_insurance'
+    },
+    // {img: 'https://file.cyzl.com/g001/M07/50/2F/oYYBAGDRSJaAIRy_AABmOVUonLQ097.png', url: 'xiaoepinpin', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_for_xiaoepinpin'},
+    // {img: 'https://file.cyzl.com/g001/M07/56/6F/oYYBAGDvmOmAKFdjAABX7h3eswc492.png', url: 'micro_insurance_hcz', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_micro_insurance_hcz'},
+    {
+      img: 'https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrThuACNFGAABtf6A3V68049.png',
+      url: '',
+      isShow: app.globalData.isContinentInsurance,
+      statisticsEvent: 'index_dadi'
+    }
     ],
     activeIndex: 1,
     loginInfo: {}, // 登录信息
@@ -126,9 +121,8 @@ Page({
     dialogContent: {}, // 弹窗内容
     // @cyl
     movingIntegralControl: false, // 控制弹窗的显示与隐藏
-    areaNotOpened: ['河南', '江西', '广西', '辽宁', '重庆', '云南'], // 号码归属地还未开通 移动积分业务的
-    disclaimerDesc: app.globalData.disclaimerDesc
-
+    areaNotOpened: ['河南','江西','广西','辽宁','重庆','云南'], // 号码归属地还未开通 移动积分业务的
+		disclaimerDesc: app.globalData.disclaimerDesc
   },
   async onLoad () {
     app.globalData.isTruckHandling = false;
@@ -172,8 +166,6 @@ Page({
       }
       wx.removeStorageSync('login_info_final');
     }
-    // 疫情温馨提示
-    this.EpidemicSituationTips();
   },
   async getIsShowNotice () {
     const result = await util.queryProtocolRecord(2);
@@ -475,23 +467,11 @@ Page({
         console.log(res);
         const result = await util.getDataFromServersV2(
           'consumer/member/common/applet/code', {
-            platformId: app.globalData.platformId, // 平台id
-            code: res.code // 从微信获取的code
-          });
-        this.data.entranceList[1].isShow = !app.globalData.isContinentInsurance;
-        this.data.entranceList[2].isShow = app.globalData.isContinentInsurance;
-        this.data.bannerList.map(item => {
-          item.statisticsEvent === 'index_dadi' ? item.isShow = app.globalData
-            .isContinentInsurance : item.isShow = !app.globalData
-            .isContinentInsurance;
-        });
-        this.setData({
-          isNormalProcess: !app.globalData.isContinentInsurance,
-          isContinentInsurance: app.globalData.isContinentInsurance,
-          entranceList: this.data.entranceList,
-          bannerList: this.data.bannerList
+          platformId: app.globalData.platformId, // 平台id
+          code: res.code // 从微信获取的code
         });
         console.log(result);
+        this.initDadi();
         if (!result) return;
         if (result.code === 0) {
           result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data
@@ -520,7 +500,9 @@ Page({
               }
               await this.getIsShowNotice();
             }
-          }
+          } else {
+						this.selectComponent('#agreement-dialog').show();
+					}
         } else {
           this.setData({
             exceptionMessage: result.message
@@ -534,6 +516,20 @@ Page({
       }
     });
   },
+	initDadi () {
+		this.data.entranceList[1].isShow = !app.globalData.isContinentInsurance;
+		this.data.entranceList[2].isShow = app.globalData.isContinentInsurance;
+		this.data.bannerList.map(item => {
+			item.statisticsEvent === 'index_dadi' ? item.isShow = app.globalData.isContinentInsurance && !app.globalData.isPingAn : item.isShow = !app.globalData.isContinentInsurance && !app.globalData.isPingAn;
+			item.alwaysShow ? item.isShow = true : '';
+		});
+		this.setData({
+			isNormalProcess: !app.globalData.isContinentInsurance,
+			isContinentInsurance: app.globalData.isContinentInsurance,
+			entranceList: this.data.entranceList,
+			bannerList: this.data.bannerList
+		});
+	},
   // 点击tab栏下的办理
   onClickTransaction () {
     if (this.data.activeIndex !== 1) return;
@@ -631,15 +627,7 @@ Page({
       });
       app.globalData.myEtcList = list;
       // 京东客服
-      let [truckList, passengerCarList, vehicleList, activationOrder, activationTruckOrder, truckActivationOrderList] = [
-        [],
-        [],
-        [],
-        [],
-        [],
-        []
-      ];
-
+      let [truckList, passengerCarList, vehicleList, activationOrder, activationTruckOrder, truckActivationOrderList] = [[], [], [], [], [], []];
       // let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
       app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !==
         undefined); // 筛选车主服务欠费
@@ -648,6 +636,12 @@ Page({
           : util.getStatus(item);
         vehicleList.push(item.vehPlates);
         wx.setStorageSync('cars', vehicleList.join('、'));
+        if (item.shopId === '692062170707394560') { // 大地商户
+					app.globalData.isContinentInsurance = true;
+				}
+        if (item.shopId === '568113867222155299') { // 平安商户
+					app.globalData.isPingAn = true;
+				}
         if (item.isNewTrucks === 0) {
           passengerCarList.push(item);
           if (item.obuStatus === 1 || item.obuStatus === 5) {
@@ -663,6 +657,7 @@ Page({
           }
         }
       });
+			this.initDadi();
       const isWaitActivation = passengerCarList.find(item => item.auditStatus === 2 && item
         .logisticsId === 0 && item.obuStatus === 0); // 待激活
       const isDuringDate = util.isDuringDate('2021/6/26', '2021/7/1');
@@ -731,6 +726,7 @@ Page({
           await this.getRecentlyTheBill(item, true);
         });
       }
+			this.selectComponent('#agreement-dialog').show();
     } else {
       util.showToastNoIcon(result.message);
     }
@@ -1136,7 +1132,7 @@ Page({
               extraData: {
                 contract_id: result.data.contractId
               },
-              success () {},
+              success () { },
               fail () {
                 // 未成功跳转到签约小程序
                 util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
@@ -1369,7 +1365,7 @@ Page({
       fail: function (res) {
         console.log('fail');
       },
-      complete: function (res) {}
+      complete: function (res) { }
     });
   },
   // 点击移动积分兑换ETC 高速通行券
@@ -1446,21 +1442,6 @@ Page({
     }
     // 跳转到 移动积分兑通行券 页面
     util.go('/pages/moving_integral/bound_changyou/bound_changyou');
-  },
-  // 因疫情影响，ETC发货续作延时通知
-  EpidemicSituationTips () {
-    const showToast = wx.getStorageSync('showToast');
-    if (showToast) {
-      return;
-    }
-    wx.setStorageSync('showToast', true);
-    util.alert({
-      title: `提示`,
-      content: `受发货所在地疫情管控影响，当前申办ETC将延期发货，具体发货时间待疫情缓和后将第一时间为您发出，如有疑问可联系在线客服。`,
-      showCancel: false,
-      cancelText: '取消',
-      confirmText: '确定'
-    });
   },
   getMargin () {
     // app.globalData.myEtcList[0].flowVersion = 2;

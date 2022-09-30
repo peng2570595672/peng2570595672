@@ -369,7 +369,7 @@
   justify-content: center;
   margin: 32rpx;
   height: 48rpx;
-  line-height: 30rpx;
+  line-height: 34rpx;
   font-size: 22rpx;
   color: #99999d;
   text-align: center;
@@ -377,14 +377,14 @@
 .package-the-rights-and-interests .next .agreement text {
   display: inline-block;
   color: #00bc58;
-  line-height: 0rpx;
+  line-height: 15rpx;
 }
 .package-the-rights-and-interests .next .agreement::before {
   margin-right: 10rpx;
   width: 28rpx;
   height: 28rpx;
   content: '\e6e4';
-  font-size: 34rpx;
+  font-size: 30rpx;
   color: #99999d;
   border-radius: 50%;
 }
