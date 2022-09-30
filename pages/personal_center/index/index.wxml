@@ -212,3 +212,4 @@
 </view>
 <!--勾选用户协议结束-->
 <canvas canvas-id="pictorial" class="pictorial"  disable-scroll="true"></canvas>
+<popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="popUp"></popup1>

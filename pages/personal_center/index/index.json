@@ -4,6 +4,7 @@
   "backgroundColor": "#2FB565",
   "navigationBarTextStyle": "black",
   "usingComponents": {
-    "crowdsourcing-prompt": "/components/crowdsourcing_prompt/crowdsourcing_prompt"
+    "crowdsourcing-prompt": "/components/crowdsourcing_prompt/crowdsourcing_prompt",
+    "popup1": "/components/dialog1/dialog"
   }
 }
