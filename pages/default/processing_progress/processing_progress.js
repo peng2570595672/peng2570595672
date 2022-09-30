@@ -1,4 +1,4 @@
-import {jumpCouponMini} from "../../../utils/utils";
+import {jumpCouponMini} from '../../../utils/utils';
 
 /**
  * @author 狂奔的蜗牛
@@ -25,7 +25,8 @@ Page({
 		isSalesmanPrecharge: false,
 		showCouponWrapper: false,
 		showCouponMask: false,
-		prechargeInfo: ''// 预充流程,预充信息
+		prechargeInfo: '',// 预充流程,预充信息
+		disclaimerDesc: app.globalData.disclaimerDesc
 	},
 	async onLoad (options) {
 		this.setData({
@@ -129,20 +130,20 @@ Page({
 	// 获取一类户号信息
 	async getBankAccounts () {
 		util.hideLoading();
-		return;
-		const result = await util.getDataFromServersV2('consumer/member/icbcv2/getBankAccounts');
-		if (!result) return;
-		if (result.code === 0) {
-			if (!result.data) result.data = [];
-			result.data.map(item => {
-				item.accountNo = item.accountNo.substr(0, 4) + ' *** *** ' + item.accountNo.substr(-4);
-			});
-			this.setData({
-				bankList: result.data
-			});
-		} else {
-			util.showToastNoIcon(result.message);
-		}
+		// return;
+		// const result = await util.getDataFromServersV2('consumer/member/icbcv2/getBankAccounts');
+		// if (!result) return;
+		// if (result.code === 0) {
+		// 	if (!result.data) result.data = [];
+		// 	result.data.map(item => {
+		// 		item.accountNo = item.accountNo.substr(0, 4) + ' *** *** ' + item.accountNo.substr(-4);
+		// 	});
+		// 	this.setData({
+		// 		bankList: result.data
+		// 	});
+		// } else {
+		// 	util.showToastNoIcon(result.message);
+		// }
 	},
 	// 选择预充方式
 	onClickPrechargeWay (e) {
@@ -316,7 +317,15 @@ Page({
 		}, 400);
 	},
 	handleCouponMini () {
-		jumpCouponMini();
+		this.selectComponent('#dialog1').show('allCoupon');
+		// jumpCouponMini();
+	},
+	// 免责声明
+	popUp () {
+		let str = this.selectComponent('#dialog1').noShow();
+		if (str === 'allCoupon') {
+			jumpCouponMini();
+		}
 	},
 	// 签约高速弹窗
 	signingExpress () {
