@@ -4,6 +4,7 @@ Page({
 	data: {
 		mask: false,
 		wrapper: false,
+		isContinentInsurance: app.globalData.isContinentInsurance || app.globalData.isPingAn,
 		showAdvertising: true,
 		isServiceNotificationEntry: false,// 是否是服务通知进入
 		isRequest: false,// 是否请求
@@ -11,7 +12,9 @@ Page({
 		contractMode: undefined,// 签约方式 - 扣款方式
 		requestRefundInfoNum: 0,
 		requestBillNum: 0,
-		details: ''
+		details: '',
+    disclaimerDesc: app.globalData.disclaimerDesc
+
 	},
 	onLoad (options) {
 		app.globalData.splitDetails = undefined;
@@ -273,6 +276,20 @@ Page({
 	},
 	// 点击广告位
 	onClickAdvertising () {
+		this.selectComponent('#dialog1').show();
+		// wx.uma.trackEvent(this.data.isServiceNotificationEntry ? 'order_details_for_advertising_to_notice' : 'order_details_for_advertising_to_normal');
+		// wx.openEmbeddedMiniProgram({
+		// 	appId: 'wx06a561655ab8f5b2',
+		// 	path: 'pages/base/redirect/index?routeKey=ETC_RESCUE&wtagid=W389.13.3',
+		// 	envVersion: 'release', // 正式版
+		// 	fail () {
+		// 		util.showToastNoIcon('调起小程序失败, 请重试！');
+		// 	}
+		// });
+	},
+	// @cyl
+	popUp () {
+		this.selectComponent('#dialog1').noShow();
 		wx.uma.trackEvent(this.data.isServiceNotificationEntry ? 'order_details_for_advertising_to_notice' : 'order_details_for_advertising_to_normal');
 		wx.openEmbeddedMiniProgram({
 			appId: 'wx06a561655ab8f5b2',

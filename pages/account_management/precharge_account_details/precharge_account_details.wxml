@@ -1,22 +1,24 @@
 <view class="account-details">
     <view class="account-info">
-        <view class="account-info-title iconfont" bindtap="onClickDoubt">当前账户余额（元）</view>
+        <view class="account-info-title iconfont" bindtap="onClickDoubt">{{ margin ? '当前账户押金（元）':'当前账户余额（元）'}}</view>
         <view class="balance">
             <view class="price">{{Wallet}}</view>
             <view class="unit">元</view>
-            <view class="recharge" bindtap="onProcessingProgress">充值</view>
+            <view class="recharge" bindtap="onProcessingProgress" wx:if="{{Wallet < 200 && margin}}">充值激活</view>
+            <view class="recharge" bindtap="onProcessingProgress" wx:if="{{!margin}}">充值</view>
         </view>
         <view class="prompt">
-            <view wx:if="{{Wallet >= prechargeAmount}}" class="normal">请保持账户余额不低于约定金额{{prechargeAmount}}元，避免影响通行</view>
-            <view wx:if="{{Wallet < prechargeAmount && billInfo.failMoney === 0}}">*注意！当前余额已低于约定金额{{prechargeAmount}}元，无法通行</view>
-            <view class="arrears" wx:if="{{Wallet <= 0 && billInfo.failMoney > 0}}">当前累计欠款{{billInfo.failMoney/100}}元,请尽快充值<text bindtap="onClickToMyOrder">查看账单</text></view>
+            <view class="normal" wx:if="{{margin}}">请保证按时缴纳通行费，欠费超过180天将自动扣除账户押金</view>
+            <view wx:if="{{Wallet >= prechargeAmount && !margin }}" class="normal">请保持账户余额不低于约定金额{{prechargeAmount}}元，避免影响通行</view>
+            <view wx:if="{{Wallet < prechargeAmount && billInfo.failMoney === 0 && !margin}}">*注意！当前余额已低于约定金额{{prechargeAmount}}元，无法通行</view>
+            <view class="arrears" wx:if="{{Wallet <= 0 && billInfo.failMoney > 0 && !margin}}">当前累计欠款{{billInfo.failMoney/100}}元,请尽快充值<text bindtap="onClickToMyOrder">查看账单</text></view>
         </view>
     </view>
     <view class="split"></view>
     <view class="account-list">
         <view class="list-title">
             <view class="title">账户变动明细</view>
-            <picker mode="date" value="{{date}}" fields="month" start="2021-01" bindchange="bindDateChange">
+            <picker mode="date" value="{{date}}" fields="month" start="2021-01" bindchange="bindDateChange" wx:if="{{!margin}}">
                 <view class="picker iconfont">
                     {{currentMonth}}月
                 </view>
@@ -30,15 +32,20 @@
                     {{item.moneyType === 2 ? '充值手续费' : ''}}
                     {{item.moneyType === 3 ? 'ETC通行扣费' : ''}}
                     {{item.moneyType === 4 ? 'ETC违约金' : ''}}
+                    {{item.status === 1 ? '划扣' : ''}}
+                    {{item.status === 2 ? '充值' : ''}}
                 </view>
-                <view class="price">{{item.moneyType === 1 ? '+' : '-'}}¥{{item.changeMoney/100}}</view>
+                <view class="price" wx:if="{{margin}}">{{item.status === 1 ? '-' : '+'}}¥{{item.transactionMoney/100}}</view>
+                <view class="price" wx:else>{{item.moneyType === 1 ? '+' : '-'}}¥{{item.changeMoney/100}}</view>
             </view>
             <view class="last">
                 <view></view>
-                <view class="time">{{item.thirdCreateTime}}</view>
+                <view class="time" wx:if="{{margin}}">{{item.transactionTime}}</view>
+                <view class="time" wx:else>{{item.thirdCreateTime}}</view>
             </view>
         </view>
+
     </view>
-    <view class="error" wx:if="{{nextpageFlag}}">暂无更多数据~~</view>
+    <view class="error" style="padding-bottom: 100rpx;" wx:if="{{nextpageFlag}}">暂无更多数据~~</view>
     <recharge-prompt id="rechargePrompt" info="{{prechargeInfo}}"></recharge-prompt>
 </view>

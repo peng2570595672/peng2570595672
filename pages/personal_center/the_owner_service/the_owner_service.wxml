@@ -24,4 +24,5 @@
 			</view>
 		</view>
 	</view>
+	<popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="popUp"></popup1>
 </view>

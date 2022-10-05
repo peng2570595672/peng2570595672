@@ -1,4 +1,4 @@
-import {compareDate, jumpCouponMini} from '../../../utils/utils.js';
+import { compareDate, jumpCouponMini } from '../../../utils/utils.js';
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
@@ -26,7 +26,8 @@ Page({
 		hasCoupon: false, // 是否显示领券中心
 		isActivityDate: false, // 是否活动期间
 		canIUseGetUserProfile: false,
-		isPrechargeOrder: true // 是否有预充流程 || 交行二类户 || 工行二类户  & 已审核通过订单
+		isPrechargeOrder: true, // 是否有预充流程 || 交行二类户 || 工行二类户  & 已审核通过订单
+		disclaimerDesc: app.globalData.disclaimerDesc
 	},
 	onLoad (options) {
 		if (wx.getUserProfile) {
@@ -79,6 +80,12 @@ Page({
 		});
 	},
 	handleCouponMini () {
+		this.selectComponent('#dialog1').show();
+		// jumpCouponMini();
+	},
+	// 免责弹窗
+	popUp () {
+		this.selectComponent('#dialog1').noShow();
 		jumpCouponMini();
 	},
 	// 勾选用户协议
@@ -236,12 +243,13 @@ Page({
 		} else {
 			util.showToastNoIcon(result.message);
 		}
+		console.log(app.globalData.myEtcList);
 	},
 	async getIsShow () {
 		let isActivation = app.globalData.myEtcList.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && (item.obuCardType === 1 || item.obuCardType === 21 || item.obuCardType === 22)); // 1 已激活  2 恢复订单  5 预激活
 		let isNewOrder = app.globalData.myEtcList.findIndex(item => compareDate(item.addTime, '2021-07-14') === true); // 当前用户有办理订单且订单创建日期在2021年7月13日前（含7月13日）
 		let isShowFeatureService = app.globalData.myEtcList.findIndex(item => item.isShowFeatureService === 1 && (item.obuStatus === 1 || item.obuStatus === 5)); // 是否有特色服务
-		let isPrechargeOrder = app.globalData.myEtcList.findIndex(item => (item.flowVersion === 6 || item.flowVersion === 4 || item.flowVersion === 7) && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
+		let isPrechargeOrder = app.globalData.myEtcList.findIndex(item => ((item.flowVersion === 6 || item.flowVersion === 4 || item.flowVersion === 7) && item.auditStatus === 2) || (item.pledgeType === 4 && (item.pledgeStatus === 1 || item.pledgeStatus === 2))); // 是否有预充流程 & 已审核通过订单 & 已支付的押金模式
 		let isShowCoupon = app.globalData.myEtcList.findIndex(item => (item.isSignTtCoupon === 1 && item.ttContractStatus !== 0)); // 通通券 存在签约或解约
 		this.setData({
 			isShowNotice: !!app.globalData.myEtcList.length,
@@ -267,6 +275,14 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
+	handleAuth () {
+		wx.openSetting({
+			success: () => {},
+			fail: () => {
+				util.showToastNoIcon('打开设置界面失败，请重试！');
+			}
+		});
+	},
 	// 邀请好友
 	inviteFriends () {
 		app.globalData.crowdsourcingServiceProvidersId = '753646562833342464';// 测试
@@ -275,7 +291,7 @@ Page({
 	// 邀请办理-获取用户信息
 	getUserInfo () {
 		wx.uma.trackEvent('personal_center_for_getuserinfo');
-		util.showLoading({title: '加载中'});
+		util.showLoading({ title: '加载中' });
 		let that2 = this; // 解决作用域问题
 		wx.getSetting({
 			success (res) {
@@ -381,12 +397,14 @@ Page({
 		util.go(`/pages/personal_center/${url}/${url}`);
 	},
 	onClickAccountManagement () {
+		// console.log(this.getStatus());//获取订单信息
 		wx.uma.trackEvent('personal_center_for_account_management');
 		util.go('/pages/account_management/index/index');
 	},
+	
 	// 扫码
 	scan () {
-		util.showLoading({title: '正在识别'});
+		util.showLoading({ title: '正在识别' });
 		// 统计点击事件
 		wx.uma.trackEvent('personal_center_for_scan');
 		// 只允许从相机扫码
@@ -395,7 +413,7 @@ Page({
 			success: async (res) => {
 				let key = res.result.match(/(\S*)=/);
 				let val = res.result.match(/=(\S*)/);
-				if (key && val && key[1] && val[1].length === 18 && key[1] === 'orderId') {
+				if (key && val && key[1] && (val[1].length === 18 || val[1].length === 19) && key[1] === 'orderId') {
 					const result = await util.getDataFromServersV2('consumer/member/bind-order', {
 						orderId: val[1]
 					});
@@ -442,7 +460,7 @@ Page({
 		wx.uma.trackEvent('personal_center_for_follow_the_public_account');
 	},
 	// 关闭详情
-	close () {},
+	close () { },
 	hide () {
 		this.setData({
 			showDetailWrapper: false

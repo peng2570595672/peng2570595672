@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-export const IS_TEST = false; // false为正式接口地址，true为测试接口地址
+export const IS_TEST = true; // false为正式接口地址，true为测试接口地址
 const util = require('./utils/util.js');
 const uma = require('./utils/umtrack-wx.js');
 App({
@@ -34,6 +34,8 @@ App({
 		isCitiesServices: false, // 从城市服务进入
 		isWeChatSudoku: false, // 从微信九宫格进入(微信--生活缴费--ETC办理)
 		isContinentInsurance: false, // 是否是大地保险 用来屏蔽微保
+		isToastAgreement: true,
+		isPingAn: false, // 是否是平安 用来屏蔽微保
 		isJinYiXing: false, // 是否是津易行办理
 		belongToPlatform: '500338116821778434', // 套餐所属平台id,用于判断流程
 		salesmanScanCodeToHandleId: undefined,// 业务员扫描小程序码办理订单ID
@@ -134,8 +136,15 @@ App({
 			changYouIntegral: 0,
 			pages: 0,
 			auth: false, // 授权
-			runFrequency: 1	// 限制调用次数
-		}
+			runFrequency: 1,	// 限制调用次数
+			carNumbers: []	// 可用车辆的车牌号
+		},
+		disclaimerDesc: {
+      // 免责弹窗
+      title: '免责声明',
+      content: '您即将通过该链接跳转至第三方页面。在第三方页面中提交信息将由第三方按照其相关用户服务协议及隐私协议正常执行并负责，服务及责任均由第三方提供或承担，如有疑问请致电第三方客服电话。',
+      confirm: '我知道了'
+    }
 	},
 	onLaunch (options) {
 		console.log(options);
@@ -184,7 +193,7 @@ App({
 		if (options.scene === 1047 || options.scene === 1048 || options.scene === 1049 || options.scene === 1017) {
 			let obj = this.path2json(decodeURIComponent(options.query.scene));
 			if (obj && JSON.stringify(obj) !== '{}') {
-				if (obj.orderId && obj.orderId.length === 18) {
+				if (obj.orderId && (obj.orderId.length === 18 || obj.orderId.length === 19)) {
 					util.resetData();// 重置数据
 					// 业务员端订单码
 					this.globalData.salesmanScanCodeToHandleId = obj.orderId;

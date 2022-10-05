@@ -9,7 +9,8 @@ Page({
 			{title: '国际驾照', ico: 'international_license', statisticsEvent: 'owner_service_for_international_license', isShow: true},
 			// {title: '优惠加油', ico: 'oil', statisticsEvent: 'owner_service_for_oil', isShow: true},
 			{title: '救援补贴', ico: 'rescue', statisticsEvent: 'owner_service_for_micro_high_speed', isShow: !app.globalData.isContinentInsurance}
-		]
+		],
+		disclaimerDesc: app.globalData.disclaimerDesc
 	},
 	async onLoad () {
 		// 查询是否欠款
@@ -22,26 +23,28 @@ Page({
 		wx.uma.trackEvent(item.statisticsEvent);
 		switch (index + 1) {
 			case 1:
+				this.selectComponent('#dialog1').show(1);
 				// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
-				wx.openEmbeddedMiniProgram({
-					appId: 'wx06a561655ab8f5b2',
-					path: 'pages/base/redirect/index?routeKey=WD_PAZZ&wtagid=116.115.27',
-					envVersion: 'release', // 正式版
-					fail () {
-						util.showToastNoIcon('调起小程序失败, 请重试！');
-					}
-				});
+				// wx.openEmbeddedMiniProgram({
+				// 	appId: 'wx06a561655ab8f5b2',
+				// 	path: 'pages/base/redirect/index?routeKey=WD_PAZZ&wtagid=116.115.27',
+				// 	envVersion: 'release', // 正式版
+				// 	fail () {
+				// 		util.showToastNoIcon('调起小程序失败, 请重试！');
+				// 	}
+				// });
 				break;
 			case 2:
+				this.selectComponent('#dialog1').show(2);
 				// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
-				wx.openEmbeddedMiniProgram({
-					appId: 'wx06a561655ab8f5b2',
-					path: 'pages/base/redirect/index?routeKey=PC01_REDIRECT&autoRoute=CHECKILLEGAL&outsource=souyisou&wtagid=116.115.10',
-					envVersion: 'release', // 目前联调为体验版
-					fail () {
-						util.showToastNoIcon('调起小程序失败, 请重试！');
-					}
-				});
+				// wx.openEmbeddedMiniProgram({
+				// 	appId: 'wx06a561655ab8f5b2',
+				// 	path: 'pages/base/redirect/index?routeKey=PC01_REDIRECT&autoRoute=CHECKILLEGAL&outsource=souyisou&wtagid=116.115.10',
+				// 	envVersion: 'release', // 目前联调为体验版
+				// 	fail () {
+				// 		util.showToastNoIcon('调起小程序失败, 请重试！');
+				// 	}
+				// });
 				break;
 			case 3:
 				this.setData({
@@ -65,16 +68,50 @@ Page({
 			// 	// });
 			// 	break;
 			case 5:
+				this.selectComponent('#dialog1').show(5);
 				// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
-				wx.openEmbeddedMiniProgram({
-					appId: 'wx06a561655ab8f5b2',
-					path: 'pages/base/redirect/index?routeKey=ETC_RESCUE&wtagid=W389.13.2',
-					envVersion: 'release', // 正式版
-					fail () {
-						util.showToastNoIcon('调起小程序失败, 请重试！');
-					}
-				});
+				// wx.openEmbeddedMiniProgram({
+				// 	appId: 'wx06a561655ab8f5b2',
+				// 	path: 'pages/base/redirect/index?routeKey=ETC_RESCUE&wtagid=W389.13.2',
+				// 	envVersion: 'release', // 正式版
+				// 	fail () {
+				// 		util.showToastNoIcon('调起小程序失败, 请重试！');
+				// 	}
+				// });
 				break;
+		}
+	},
+	popUp () {
+		let str = this.selectComponent('#dialog1').noShow();
+		if (str === 1) {
+			wx.openEmbeddedMiniProgram({
+				appId: 'wx06a561655ab8f5b2',
+				path: 'pages/base/redirect/index?routeKey=WD_PAZZ&wtagid=116.115.27',
+				envVersion: 'release', // 正式版
+				fail () {
+					util.showToastNoIcon('调起小程序失败, 请重试！');
+				}
+			});
+		}
+		if (str === 2) {
+			wx.openEmbeddedMiniProgram({
+				appId: 'wx06a561655ab8f5b2',
+				path: 'pages/base/redirect/index?routeKey=PC01_REDIRECT&autoRoute=CHECKILLEGAL&outsource=souyisou&wtagid=116.115.10',
+				envVersion: 'release', // 目前联调为体验版
+				fail () {
+					util.showToastNoIcon('调起小程序失败, 请重试！');
+				}
+			});
+		}
+		if (str === 5) {
+			wx.openEmbeddedMiniProgram({
+				appId: 'wx06a561655ab8f5b2',
+				path: 'pages/base/redirect/index?routeKey=ETC_RESCUE&wtagid=W389.13.2',
+				envVersion: 'release', // 正式版
+				fail () {
+					util.showToastNoIcon('调起小程序失败, 请重试！');
+				}
+			});
 		}
 	},
 	// 关闭详情

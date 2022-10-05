@@ -8,35 +8,49 @@ Page({
 	data: {
 		orderId: undefined,
 		Wallet: 0,
-		prechargeAmount: 0,
+		prechargeAmount: 0, // 约定金额
 		info: {},
 		prechargeInfo: {},
 		billInfo: {},
 		beginDate: undefined,
 		endDate: undefined,
-		nextpageFlag: false,// 是否向下翻页
-		currentMonth: 0,// 当前月份
+		nextpageFlag: false, // 是否向下翻页
+		currentMonth: 0, // 当前月份
 		list: [],
 		page: 0,
 		available: false, // 按钮是否可点击
-		isRequest: false// 是否请求中
+		isRequest: false, // 是否请求中
+		margin: false, // 是否押金模式的
+		flag: false // 是否支付 true->已支付
 	},
 	async onLoad (options) {
+		console.log(options);
 		const timestamp = Date.parse(new Date());
 		const date = new Date(timestamp);
 		this.setData({
-			orderId: options.orderId,
+			memberId: options.memberId,
 			currentMonth: +util.formatTime(date).slice(5, 7),
 			beginDate: `${util.formatTime(date).slice(0, 8)}01`,
-			endDate: `${util.formatTime(date).slice(0, 10)}`
+			endDate: `${util.formatTime(date).slice(0, 10)}`,
+			margin: options.margin,
+			orderId: options.Id,
+			flag: options.select
 		});
-		if (app.globalData.userInfo.accessToken) {
-			let requestList = [await this.getFailBillDetails(), await this.fetchList(), await this.getProcessingProgress()];
-			util.showLoading();
-			await Promise.all(requestList);
-			util.hideLoading();
+		// 判断 margin ，如果为 true 执行押金的账单详细
+		if (this.data.margin) {
+			await this.marginModeBillDetails();
+			if (this.data.flag) {
+				this.getStatus();
+			}
 		} else {
-			await this.login();
+			if (app.globalData.userInfo.accessToken) {
+				let requestList = [await this.getFailBillDetails(), await this.fetchList(), await this.getProcessingProgress()];
+				util.showLoading();
+				await Promise.all(requestList);
+				util.hideLoading();
+			} else {
+				await this.login();
+			}
 		}
 	},
 	// 自动登录
@@ -127,16 +141,33 @@ Page({
 	},
 	// 页面上拉触底事件的处理函数
 	async onReachBottom () {
-		console.log('-------------------页面上拉触底事件的处理函数',this.data.nextpageFlag);
+		console.log('-------------------页面上拉触底事件的处理函数', this.data.nextpageFlag);
 		if (this.data.nextpageFlag) return;
-		await this.fetchList();
+		if (this.data.margin) {
+			this.setData({
+				page: 1
+			});
+			await this.marginModeBillDetails(2);
+		} else {
+			await this.fetchList();
+		}
 	},
+	// 下拉刷新
 	async onPullDownRefresh () {
-		this.setData({
-			list: [],
-			page: 0
-		});
-		await this.fetchList(() => { wx.stopPullDownRefresh(); });
+		if (this.data.margin) {
+			this.setData({
+				page: 1
+			});
+			await this.marginModeBillDetails(1);
+		} else {
+			this.setData({
+				list: [],
+				page: 0
+			});
+			await this.fetchList(() => {
+				wx.stopPullDownRefresh();
+			});
+		}
 	},
 	// 加载列表
 	async fetchList (callback) {
@@ -144,7 +175,9 @@ Page({
 		this.setData({
 			page: this.data.page + 1
 		});
-		util.showLoading({title: '加载中'});
+		util.showLoading({
+			title: '加载中'
+		});
 		let params = {
 			orderId: this.data.orderId,
 			startTime: this.data.beginDate,
@@ -153,6 +186,7 @@ Page({
 			pageSize: 10
 		};
 		const result = await util.getDataFromServersV2('consumer/order/third/queryWallet', params);
+		console.log(result);
 		if (!result) return;
 		if (result.code) {
 			util.showToastNoIcon(result.message);
@@ -168,13 +202,24 @@ Page({
 			prechargeAmount: result.data.prechargeAmount / 100,
 			list: this.data.list.concat(list)
 		});
-		console.log(this.data.list.length,'----------------------------------',result.data.total);
-		if (this.data.list.length >= result.data.total)	this.setData({nextpageFlag: true});
+		console.log(this.data.list.length, '----------------------------------', result.data.total);
+		if (this.data.list.length >= result.data.total) {
+			this.setData({
+				nextpageFlag: true
+			});
+		}
 	},
-		// 充值支付
+	// 充值支付
 	async onProcessingProgress (e) {
 		const id = this.data.orderId;
-		util.go(`/pages/account_management/pay_method/pay_method?orderId=${id}`);
+		if (this.data.margin) {
+			wx.redirectTo({
+				url: `/pages/account_management/margin_recharge_model/margin_recharge_model?Id=${id}`
+			});
+			// util.go(`/pages/account_management/margin_recharge_model/margin_recharge_model?Id=${this.data.Id}`);
+		} else {
+			util.go(`/pages/account_management/pay_method/pay_method?orderId=${id}`);
+		}
 		// const result = await util.getDataFromServersV2('consumer/order/transact-schedule', {
 		// 	orderId: id
 		// });
@@ -220,11 +265,58 @@ Page({
 			confirmText: '知道了'
 		});
 	},
-	onUnload () {
+	// 押金模式 的账单明细
+	async marginModeBillDetails (number) {
+		console.log(number);
+		const result = await util.getDataFromServersV2('consumer/order/enusre-money-detail', {
+			memberId: this.data.memberId,
+			page: number ? (number === 1 ? 1 : ++this.data.page) : 1,
+			pageSize: 10,
+			orderId: this.data.orderId
+		});
+		// console.log(result.data);
+		let list = result.data.detailData.list || [];
+		list.map(item => {
+			item.transactionMoney = item.transactionMoney.toString();
+			if (item.transactionMoney.includes('-')) item.transactionMoney = parseInt(item.transactionMoney.substr(1));
+		});
+		if (this.data.page > 1) {
+			this.setData({
+				Wallet: result.data.amount,
+				list: this.data.list.concat(list)
+			});
+		} else {
+			this.setData({
+				Wallet: result.data.amount,
+				list: list
+			});
+			wx.stopPullDownRefresh();
+		}
+		if (this.data.list.length >= result.data.detailData.total && number === 2) {
+			this.setData({
+				nextpageFlag: true
+			});
+		}
+	},
+	// 获取订单信息
+	async getStatus () {
+		let params = {
+			openId: app.globalData.openId
+		};
+		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
+		// console.log(result.data);
+		if (result.code === 0) {
+			app.globalData.myEtcList = result.data;
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	async onUnload () {
 		const pages = getCurrentPages();
-		const prevPage = pages[pages.length - 2];// 上一个页面
+		const prevPage = pages[pages.length - 2]; // 上一个页面
 		prevPage.setData({
 			isReload: true // 重置状态
 		});
+		// util.getIsArrearage();
 	}
 });

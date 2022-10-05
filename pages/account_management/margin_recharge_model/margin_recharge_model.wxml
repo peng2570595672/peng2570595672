@@ -1,0 +1,15 @@
+<wxs src='../../../utils/util.wxs' module='tools' />
+<view id="marginRecharge">
+  <view class="title">当前押金余额 {{depositBalance || '0.00'}}元</view>
+  <view class="inputMoney">
+    <text>{{rechargeAmount}}</text>
+    <text>元</text>
+  </view>
+  <view class="textTip">
+    <text>•请确保您的微信余额充足，若余额不足将导致充值失败 \n</text>
+    <text>•通行押金必须保证200元，否则将影响你的正常通行 \n</text>
+    <text>•若您已完成押金充值激活，请确认是否还存在通行费欠款未缴，若存在，请尽快完成补缴方可正常使用设备通行。</text>
+  </view>
+  <view class="splitLine"></view>
+  <button class="btnmarginRecharge" bindtap="weChatPay">充值激活</button>
+</view>

@@ -169,4 +169,5 @@
 	<jinyixing-prompt id="notJinYiXingPrompt"></jinyixing-prompt>
 	<signing-prompt id="notSigningPrompt"></signing-prompt>
     <recharge-prompt id="rechargePrompt" info="{{prechargeInfo}}"></recharge-prompt>
+    <popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="popUp"></popup1>
 </view>

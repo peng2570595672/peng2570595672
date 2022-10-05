@@ -62,7 +62,7 @@
             <view class="user_item_text iconfont">优惠券</view>
         </view>
         <!--我的卡劵结束-->
-        <!--帮助中心开始-->
+        <!--帮助中心开始 isPrechargeOrder-->
         <view class="user_item" catchtap="onClickAccountManagement" wx:if="{{isPrechargeOrder}}">
             <view class="user_item_icon">
                 <image class="user_icon_card" src="/pages/personal_center/assets/account_management.svg"></image>
@@ -175,6 +175,7 @@
         </view>
         <!--	众包推广信息结束-->
     </view>
+    <view class="auth" bindtap="handleAuth">授权管理</view>
     <!--	成为众包推广者结束开始-->
     <!--	&lt;!&ndash;	未成为众包推广者开始&ndash;&gt;-->
     <!--	<view wx:if="{{crowdSourcingMsg.status === 0}}">-->
@@ -211,3 +212,4 @@
 </view>
 <!--勾选用户协议结束-->
 <canvas canvas-id="pictorial" class="pictorial"  disable-scroll="true"></canvas>
+<popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="popUp"></popup1>

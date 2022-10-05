@@ -1,0 +1,6 @@
+<view class="container">
+    <view class="title">免责声明</view>
+    <view class="content">您即将通过该链接跳转至第三方页面。在第三方页面中提交信息将由第三方按照其相关用户服务协议及隐私协议正常执行并负责，服务及责任均由第三方提供或承担，如有疑问请致电第三方客服电话。</view>
+    <view class="btn" catchtap="showToast">我知道了</view>
+</view>
+<view class="mask"></view>

@@ -124,8 +124,10 @@ Page({
 		contractStatus: undefined,
 		getAgreement: false, // 是否接受协议
 		isPay: false // 已选择通通券套餐&无需支付||已经支付
+
 	},
 	async onLoad (options) {
+		console.log(options);
 		this.setData({
 			contractStatus: +options.contractStatus
 		});
@@ -135,6 +137,7 @@ Page({
 			return;
 		}
 		const packages = app.globalData.newPackagePageData;
+		console.log('你好',packages);
 		this.setData({
 			listOfPackages: parseInt(options.type) === 1 ? packages.divideAndDivideList : packages.alwaysToAlwaysList
 		});
@@ -171,11 +174,13 @@ Page({
 			await that.getList(that.data.listOfPackages[0]);
 		}
 	},
+	// 获取 套餐信息
 	async getProductOrderInfo () {
 		const result = await util.getDataFromServersV2('consumer/order/get-product-by-order-id', {
 			orderId: app.globalData.orderInfo.orderId,
 			needRightsPackageIds: true
 		});
+		console.log(result);
 		if (!result) return;
 		if (result.code === 0) {
 			this.setData({
@@ -527,11 +532,12 @@ Page({
 			areaCode: this.data.orderInfo ? this.data.orderInfo.product.areaCode : app.globalData.newPackagePageData.areaCode
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+		console.log(result);
 		if (!result) return;
 		if (result.code === 0) {
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
 				this.data.rightsAndInterestsList[this.data.activeEquitiesIndex]?.payMoney) {
-				await this.marginPayment();
+				await this.marginPayment(this.data.listOfPackages[this.data.choiceIndex].pledgeType);
 				return;
 			}
 			if (this.data.isSalesmanOrder) {
@@ -576,14 +582,28 @@ Page({
 		}
 	},
 	// 支付
-	async marginPayment () {
+	async marginPayment (pledgeType) {
 		if (this.data.isRequest) return;
 		this.setData({isRequest: true});
 		util.showLoading();
-		let params = {
-			orderId: app.globalData.orderInfo.orderId
-		};
+		console.log(this.data.listOfPackages);
+		let params = {};
+		if (pledgeType === 4) {
+			// 押金模式
+			params = {
+				payVersion: 'v3',
+				tradeType: 1,
+				orderId: app.globalData.orderInfo.orderId,
+				openid: app.globalData.openId
+			};
+		} else {
+			// 普通模式
+			params = {
+				orderId: app.globalData.orderInfo.orderId
+			};
+		}
 		const result = await util.getDataFromServersV2('consumer/order/pledge-pay', params);
+		console.log(result);
 		if (!result) {
 			this.setData({isRequest: false});
 			return;

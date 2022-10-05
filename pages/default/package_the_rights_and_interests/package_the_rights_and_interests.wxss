@@ -86,6 +86,27 @@
   height: 44rpx;
   background: #2fb565;
 }
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .newAdd {
+  margin: 32rpx 0;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .textTip {
+  width: 552rpx;
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #000;
+  line-height: 34rpx;
+  opacity: 0.5;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .userAgreement {
+  width: 616rpx;
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #ffc000;
+  line-height: 34rpx;
+  padding-top: 28rpx;
+}
 .package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list {
   display: flex;
   flex-wrap: wrap;
@@ -345,15 +366,18 @@
 }
 .package-the-rights-and-interests .next .agreement {
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin: 32rpx 70rpx;
+  margin: 32rpx;
   height: 48rpx;
+  line-height: 34rpx;
   font-size: 22rpx;
   color: #99999d;
+  text-align: center;
 }
 .package-the-rights-and-interests .next .agreement text {
+  display: inline-block;
   color: #00bc58;
+  line-height: 15rpx;
 }
 .package-the-rights-and-interests .next .agreement::before {
   margin-right: 10rpx;

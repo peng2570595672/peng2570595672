@@ -69,7 +69,7 @@ function parseBase64(message) {
  * @param path 路径
  * @param token token
  */
-function signature(params, path, token = '',  timestamp, nonceStr) {
+function signature(params, path, token = '', timestamp, nonceStr) {
 	// 先以对象key排序
 	let keys = Object.keys(params).sort();
 	let sign = '';
@@ -156,13 +156,13 @@ async function getDataFromServer(path, params, fail, success, token = '', comple
 	};
 	let header = {};
 	// timestamp 时间戳  nonceStr随机字符串 uuid
-	let timestamp,nonceStr;
+	let timestamp, nonceStr;
 	nonceStr = getUuid();
 	if (app.globalData.isSystemTime) {
 		if (app.globalData.systemTime) {
 			timestamp = app.globalData.systemTime
-		} else{
-			timestamp = parseInt(new Date().getTime() /1000);
+		} else {
+			timestamp = parseInt(new Date().getTime() / 1000);
 		}
 	} else {
 		await getSystemTime().then(res => {
@@ -170,7 +170,7 @@ async function getDataFromServer(path, params, fail, success, token = '', comple
 		});
 	}
 	if (!timestamp) {
-		timestamp = parseInt(new Date().getTime() /1000);
+		timestamp = parseInt(new Date().getTime() / 1000);
 	}
 	// POST请求
 	if (method === 'POST') {
@@ -193,8 +193,8 @@ async function getDataFromServer(path, params, fail, success, token = '', comple
 		// 设置签名
 		header = {
 			sign: getSignature({}, obj.url.replace(app.globalData.host, ''), token, timestamp, nonceStr),
-			timestamp:timestamp,
-			nonceStr:nonceStr
+			timestamp: timestamp,
+			nonceStr: nonceStr
 		};
 	}
 	// 设置token
@@ -243,8 +243,8 @@ const formatNumber = (n) => {
 	return n[1] ? n : `0${n}`;
 };
 // 获取系统时间戳
-function getSystemTime () {
-	return new Promise((resolve, callback ) => {
+function getSystemTime() {
+	return new Promise((resolve, callback) => {
 		let obj = {
 			url: app.globalData.host + '/consumer/system/public/get-system-second',
 			method: 'GET',
@@ -385,18 +385,18 @@ function isJsonString(str) {
 
 // 弹窗
 function alert({
-	               title = '提示',
-	               content = '描述信息',
-	               showCancel = false,
-	               confirmText = '我知道了',
-	               cancelText = '取消',
-	               confirmColor = '#2FB565',
-	               cancelColor = '#99999D',
-	               confirm = () => {
-	               },
-	               cancel = () => {
-	               }
-               } = {}) {
+	title = '提示',
+	content = '描述信息',
+	showCancel = false,
+	confirmText = '我知道了',
+	cancelText = '取消',
+	confirmColor = '#2FB565',
+	cancelColor = '#99999D',
+	confirm = () => {
+	},
+	cancel = () => {
+	}
+} = {}) {
 	wx.showModal({
 		title: title,
 		content: content,
@@ -420,9 +420,9 @@ function alert({
 
 // 加载中。。。
 function showLoading({
-	                     title = '加载中...',
-	                     mask = true
-                     } = {}) {
+	title = '加载中...',
+	mask = true
+} = {}) {
 	wx.showLoading({
 		title: title,
 		mask: mask
@@ -670,23 +670,23 @@ function getTruckHandlingStatus(orderInfo) {
 		if (!orderInfo.contractStatus) return 21;// 未签约银行
 	}
 
-	if(orderInfo.flowVersion === 6 && app.globalData.bankCardInfo.accountNo){ //有二类户-代扣通行费
-		 //contractStatus :-1 签约失败 0发起签约 1已签约 2解约
-		 //	app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(-4);
-		 if(orderInfo.contractStatus==-1){ //通行费代扣签约成功
-		  	return 18;
-		 }
-		 if(orderInfo.contractStatus==0){ //充值
+	if (orderInfo.flowVersion === 6 && app.globalData.bankCardInfo.accountNo) { //有二类户-代扣通行费
+		//contractStatus :-1 签约失败 0发起签约 1已签约 2解约
+		//	app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(-4);
+		if (orderInfo.contractStatus == -1) { //通行费代扣签约成功
+			return 18;
+		}
+		if (orderInfo.contractStatus == 0) { //充值
 			return 15;
-		 }
-		 if(orderInfo.contractStatus==1){//小额免密签约成功
-		  	return 15;
-		 }
-		 if(orderInfo.contractStatus==1 && orderInfo.serviceFeeContractStatus){ //小额免密签约成功
-		  	return 15;
-		 }
+		}
+		if (orderInfo.contractStatus == 1) {//小额免密签约成功
+			return 15;
+		}
+		if (orderInfo.contractStatus == 1 && orderInfo.serviceFeeContractStatus) { //小额免密签约成功
+			return 15;
+		}
 	}
- 
+
 
 
 	if (orderInfo.flowVersion === 5 && orderInfo.multiContractList.filter(item => item.contractStatus === 1).length !== 3) {
@@ -714,7 +714,7 @@ function getTruckHandlingStatus(orderInfo) {
 	if (orderInfo.flowVersion === 5 && orderInfo.auditStatus === 2 && orderInfo.holdStatus === 0) {
 		return 15;// 未冻结保证金成功
 	}
-	if (orderInfo.flowVersion === 4  && orderInfo.orderType !== 31 && orderInfo.auditStatus === 2 && orderInfo.prechargeFlag === 0) {
+	if (orderInfo.flowVersion === 4 && orderInfo.orderType !== 31 && orderInfo.auditStatus === 2 && orderInfo.prechargeFlag === 0) {
 		// prechargeFlag 0未预充 1已预充
 		return 17;// 未预充金额
 	}
@@ -814,11 +814,11 @@ function getStatusFirstVersion(orderInfo) {
 		status = 4; // 查看进度 待审核
 	} else if (orderInfo.auditStatus === 1) {
 		status = 5; // 资料被拒绝 修改资料
-	} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)  && orderInfo.auditStatus === 2) {
+	} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5) && orderInfo.auditStatus === 2) {
 		status = 6; // 审核通过  待激活
-	} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)  && orderInfo.auditStatus === 3) {
+	} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5) && orderInfo.auditStatus === 3) {
 		status = 7; // 预审核通过  待审核
-	} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5)  && orderInfo.auditStatus === 9) {
+	} else if ((orderInfo.obuStatus === 0 || orderInfo.obuStatus === 5) && orderInfo.auditStatus === 9) {
 		status = 8; // 高速核验不通过
 	} else if (orderInfo.obuStatus === 1 && orderInfo.auditStatus === 2) {
 		status = 9; // 审核通过  已激活
@@ -914,8 +914,8 @@ function isDuringDate(beginDateStr, endDateStr) {
  *  获取当前日期是在某时间段
  */
 function isTimeQuantum(beginDateStr, endDateStr) {
-	beginDateStr = beginDateStr.slice(0, 16).replace(new RegExp('-','g'), '/');
-	endDateStr = endDateStr.slice(0, 16).replace(new RegExp('-','g'), '/');
+	beginDateStr = beginDateStr.slice(0, 16).replace(new RegExp('-', 'g'), '/');
+	endDateStr = endDateStr.slice(0, 16).replace(new RegExp('-', 'g'), '/');
 	let curDate;
 	if (app.globalData.systemTime) {
 		curDate = new Date(app.globalData.systemTime * 1000);
@@ -1107,13 +1107,13 @@ function goMicroInsuranceVehicleOwner(params, wtagid) {
 	}, app.globalData.userInfo.accessToken, () => {
 	});
 }
-function openWeiBao (pageUrl) {
-	let appId = app.globalData.test ? 'wx7f3f0032b6e6f0cc':'wx06a561655ab8f5b2';
+function openWeiBao(pageUrl) {
+	let appId = app.globalData.test ? 'wx7f3f0032b6e6f0cc' : 'wx06a561655ab8f5b2';
 	wx.openEmbeddedMiniProgram({
 		appId: appId,
 		path: pageUrl,
 		envVersion: 'release',
-		fail () {
+		fail() {
 			showToastNoIcon('调起微保小程序失败, 请重试！');
 		}
 	});
@@ -1125,7 +1125,7 @@ function weChatSigning(data) {
 			appId: 'wxbd687630cd02ce1d',
 			path: 'pages/index/index',
 			extraData: data.extraData,
-			fail () {
+			fail() {
 				showToastNoIcon('调起车主服务签约失败, 请重试！');
 			}
 		});
@@ -1134,7 +1134,7 @@ function weChatSigning(data) {
 			appId: 'wxbcad394b3d99dac9',
 			path: 'pages/route/index',
 			extraData: data.extraData,
-			fail () {
+			fail() {
 				showToastNoIcon('调起车主服务签约失败, 请重试！');
 			}
 		});
@@ -1151,11 +1151,11 @@ function weChatSigning(data) {
 	}
 }
 // px转rpx-wxAnimation方法使用的是px
-function getPx (size) {
+function getPx(size) {
 	return size / 750 * wx.getSystemInfoSync().windowWidth;
 }
 // rpx转px-wxAnimation方法使用的是px
-function getRpx (size) {
+function getRpx(size) {
 	return size * 750 / wx.getSystemInfoSync().windowWidth;
 }
 // 创建动画
@@ -1175,7 +1175,7 @@ function wxAnimation(delay, site, translate, opacity = 1) {
 }
 // 获取定位数据
 let isTruckHandle = false;// 是否是货车办理
-function initLocationInfo (orderInfo, isTruck = false) {
+function initLocationInfo(orderInfo, isTruck = false) {
 	isTruckHandle = isTruck;
 	// 是否缓存了定位信息
 	let locationInfo = wx.getStorageSync('location-info');
@@ -1194,18 +1194,18 @@ function initLocationInfo (orderInfo, isTruck = false) {
 	return getLocationInfo(orderInfo);
 }
 // 授权定位
-async function getLocationInfo (orderInfo) {
+async function getLocationInfo(orderInfo) {
 	showLoading();
 	let res = await new Promise((resolve, reject) => {
 		wx.getLocation({
 			type: 'wgs84',
 			success: async (res) => {
-				getAddressInfo(res.latitude, res.longitude,  (res) => {
-					wx.setStorageSync('location-info',JSON.stringify(res));
+				getAddressInfo(res.latitude, res.longitude, (res) => {
+					wx.setStorageSync('location-info', JSON.stringify(res));
 					let info = res.result.ad_info;
 					let regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
 					resolve(regionCode)
-				},  () => {
+				}, () => {
 					resolve([])
 				});
 			},
@@ -1232,7 +1232,7 @@ async function getLocationInfo (orderInfo) {
 	return getListOfPackages(orderInfo, res);
 }
 // 获取套餐列表
-async function getListOfPackages (orderInfo, regionCode, notList) {
+async function getListOfPackages(orderInfo, regionCode, notList) {
 	showLoading();
 	let params = {
 		needRightsPackageIds: true,
@@ -1247,6 +1247,7 @@ async function getListOfPackages (orderInfo, regionCode, notList) {
 		params.shopId = app.globalData.miniProgramServiceProvidersId;
 	}
 	let result = await getDataFromServersV2('consumer/system/get-usable-product', params);
+	console.log("套餐",result);
 	if (!result) return '';
 	if (result.code) {
 		showToastNoIcon(result.message);
@@ -1330,13 +1331,13 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
 	};
 	let header = {};
 	// timestamp 时间戳  nonceStr随机字符串 uuid
-	let timestamp,nonceStr;
+	let timestamp, nonceStr;
 	nonceStr = getUuid();
 	if (app.globalData.isSystemTime) {
 		if (app.globalData.systemTime) {
 			timestamp = app.globalData.systemTime
-		} else{
-			timestamp = parseInt(new Date().getTime() /1000);
+		} else {
+			timestamp = parseInt(new Date().getTime() / 1000);
 		}
 	} else {
 		await getSystemTime().then(res => {
@@ -1344,7 +1345,7 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
 		});
 	}
 	if (!timestamp) {
-		timestamp = parseInt(new Date().getTime() /1000);
+		timestamp = parseInt(new Date().getTime() / 1000);
 	}
 	if (app.globalData.userInfo?.memberId) params.memberId = app.globalData.userInfo.memberId;
 	// POST请求
@@ -1368,8 +1369,8 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
 		// 设置签名
 		header = {
 			sign: getSignature({}, obj.url.replace(app.globalData.host, ''), token, timestamp, nonceStr),
-			timestamp:timestamp,
-			nonceStr:nonceStr
+			timestamp: timestamp,
+			nonceStr: nonceStr
 		};
 	}
 	// 设置token
@@ -1444,7 +1445,7 @@ function reAutoLoginV2(path, params, method) {
 }
 
 // 加载订单详情
-async function getETCDetail () {
+async function getETCDetail() {
 	const result = await getDataFromServersV2('consumer/order/order-detail', {
 		orderId: app.globalData.orderInfo.orderId
 	});
@@ -1468,11 +1469,12 @@ async function getETCDetail () {
 	return [contractTollInfo, contractPoundageInfo, contractBondInfo];
 }
 // 二类户绑卡到订单
-async function updateOrderContractMappingBankAccountId (info, bankCardInfo) {
+async function updateOrderContractMappingBankAccountId(info, bankCardInfo) {
 	const result = await getDataFromServersV2('consumer/order/updateOrderContractMappingBankAccountId', {
 		id: info.id,
 		bankAccountId: bankCardInfo.bankAccountId,
 	});
+	console.log(result);
 	if (!result) return;
 	let isOk = false;
 	if (result.code === 0) {
@@ -1483,7 +1485,7 @@ async function updateOrderContractMappingBankAccountId (info, bankCardInfo) {
 	return isOk;
 }
 // 获取二类户号信息
-async function getV2BankId () {
+async function getV2BankId() {
 	const result = await getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
 	if (!result) return;
 	if (result.code) {
@@ -1494,7 +1496,7 @@ async function getV2BankId () {
 	return result.data;
 }
 // 货车-查询车主服务签约
-async function queryContractForTruckHandling () {
+async function queryContractForTruckHandling() {
 	showLoading({
 		title: '签约查询中...'
 	});
@@ -1518,7 +1520,7 @@ async function queryContractForTruckHandling () {
 	return isOk;
 }
 // 查询是否存在触发记录
-async function queryProtocolRecord (protocolType) {
+async function queryProtocolRecord(protocolType) {
 	const result = await getDataFromServersV2('consumer/member/queryProtocolRecord', {
 		platformId: app.globalData.platformId,
 		memberId: app.globalData.memberId,
@@ -1534,7 +1536,7 @@ async function queryProtocolRecord (protocolType) {
 	return isOk;
 }
 // 提交触发记录
-async function addProtocolRecord (protocolType) {
+async function addProtocolRecord(protocolType) {
 	const result = await getDataFromServersV2('consumer/member/addProtocolRecord', {
 		platformId: app.globalData.platformId,
 		memberId: app.globalData.memberId,
@@ -1550,7 +1552,7 @@ async function addProtocolRecord (protocolType) {
 	return isOk;
 }
 // 获取用户是否欠费
-async function getIsArrearage () {
+async function getIsArrearage() {
 	if (app.globalData.isArrearageData.etcMoney && !app.globalData.isArrearageData.isPayment) {
 		// 已有欠款 & 并未补缴
 		alertPayment(app.globalData.isArrearageData.etcMoney);
@@ -1563,7 +1565,7 @@ async function getIsArrearage () {
 	}
 }
 // 获取渠道列表
-async function getObuCardType () {
+async function getObuCardType() {
 	let obuCardType = [];
 	let trucksOrder = [];
 	app.globalData.myEtcList.map(item => {
@@ -1580,7 +1582,7 @@ async function getObuCardType () {
 	await getArrearageTheBill(obuCardType, trucksOrder);
 }
 // 获取用户是否欠费
-async function getEtcList () {
+async function getEtcList() {
 	let params = {
 		openId: app.globalData.openId
 	};
@@ -1595,7 +1597,7 @@ async function getEtcList () {
 	console.log(result);
 }
 // 查询欠费账单
-async function getArrearageTheBill (obuCardType, trucksOrder) {
+async function getArrearageTheBill(obuCardType, trucksOrder) {
 	if (trucksOrder.length) {
 		const info = await getDataFromServersV2('consumer/etc/judge-detail-channels-truck', {
 			orderNos: trucksOrder
@@ -1631,7 +1633,7 @@ async function getArrearageTheBill (obuCardType, trucksOrder) {
 		alertPayment(app.globalData.isArrearageData.etcTrucksMoney, true);
 	}
 }
-function alertPayment (etcMoney, isTruck) {
+function alertPayment(etcMoney, isTruck) {
 	alert({
 		title: `请尽快补缴欠款`,
 		content: `你已欠款${etcMoney / 100}元，将影响正常的高速通行`,
@@ -1651,7 +1653,7 @@ function alertPayment (etcMoney, isTruck) {
 // @cyl 获取openid函数，支持传入回调函数
 function getUserInfo(callback) {
 	wx.checkSession({
-		success: function(res) {
+		success: function (res) {
 			// 这里把加密后的openid存入缓存，下次就不必再去发起请求
 			const openId = wx.getStorageSync('user_code');
 			if (openId) {
@@ -1660,17 +1662,17 @@ function getUserInfo(callback) {
 			} else {
 				// 如果缓存中没有，则需要再次调用登录接口获取code
 				wx.login({
-					success: function(res) {
+					success: function (res) {
 						app.globalData.code = res.code;
 						callback(1, res.code);
 					}
 				})
 			}
 		},
-		fail: function(res) {
+		fail: function (res) {
 			console.log("失败");
 			wx.login({
-				success: function(res) {
+				success: function (res) {
 					console.log(res);
 					app.globalData.code = res.code;
 					callback(1, res.code);
@@ -1729,6 +1731,6 @@ module.exports = {
 	updateOrderContractMappingBankAccountId,
 	queryContractForTruckHandling,
 	getV2BankId,
-    weChatSigning,
+	weChatSigning,
 	getUserInfo
 };

@@ -14,7 +14,8 @@ Page({
 				{title: '高速通行9.5折', subTitle: '全国高速走ETC车道享受不低于95折优惠。使用说明：进出高速收费站时走ETC通道'},
 				{title: '设备质保一年', subTitle: 'ETC设备两年内非人为损坏可提供保修服务。如有需要请联系 '}
 			]
-		}
+		},
+		disclaimerDesc: app.globalData.disclaimerDesc
 	},
 	async onLoad () {
 		// 查询是否欠款
@@ -32,25 +33,26 @@ Page({
 				util.go(`/pages/web/web/web?type=online_customer_service`);
 				break;
 			case 3:
-				wx.showActionSheet({
-					itemList: ['开服务费发票', '开通行费发票'],
-					success: (res) => {
-						wx.uma.trackEvent(res.tapIndex ? 'basic_services_for_make_invoice' : 'basic_services_for_make_etc_invoice');
-						if (res.tapIndex === 0) {
-							util.go(`/pages/personal_center/invoice_issued_list/invoice_issued_list`);
-						} else {
-							// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
-							wx.navigateToMiniProgram({
-								appId: 'wx9040bb0d3f910004',
-								path: 'pages/index/index',
-								envVersion: 'release', // 正式版
-								fail () {
-									util.showToastNoIcon('调起小程序失败, 请重试！');
-								}
-							});
-						}
-					}
-				});
+				this.selectComponent('#dialog1').show();
+				// wx.showActionSheet({
+				// 	itemList: ['开服务费发票', '开通行费发票'],
+				// 	success: (res) => {
+				// 		wx.uma.trackEvent(res.tapIndex ? 'basic_services_for_make_invoice' : 'basic_services_for_make_etc_invoice');
+				// 		if (res.tapIndex === 0) {
+				// 			util.go(`/pages/personal_center/invoice_issued_list/invoice_issued_list`);
+				// 		} else {
+				// 			// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
+				// 			wx.navigateToMiniProgram({
+				// 				appId: 'wx9040bb0d3f910004',
+				// 				path: 'pages/index/index',
+				// 				envVersion: 'release', // 正式版
+				// 				fail () {
+				// 					util.showToastNoIcon('调起小程序失败, 请重试！');
+				// 				}
+				// 			});
+				// 		}
+				// 	}
+				// });
 				break;
 			case 4:
 				this.setData({
@@ -95,5 +97,27 @@ Page({
 				showDetailMask: false
 			});
 		}, 400);
+	},
+	popUp () {
+		this.selectComponent('#dialog1').noShow();
+		wx.showActionSheet({
+			itemList: ['开服务费发票', '开通行费发票'],
+			success: (res) => {
+				wx.uma.trackEvent(res.tapIndex ? 'basic_services_for_make_invoice' : 'basic_services_for_make_etc_invoice');
+				if (res.tapIndex === 0) {
+					util.go(`/pages/personal_center/invoice_issued_list/invoice_issued_list`);
+				} else {
+					// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
+					wx.navigateToMiniProgram({
+						appId: 'wx9040bb0d3f910004',
+						path: 'pages/index/index',
+						envVersion: 'release', // 正式版
+						fail () {
+							util.showToastNoIcon('调起小程序失败, 请重试！');
+						}
+					});
+				}
+			}
+		});
 	}
 });
