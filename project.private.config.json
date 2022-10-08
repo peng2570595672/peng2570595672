@@ -405,6 +405,13 @@
           "query": "type=1",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "押金-用户办理协议",
+          "pathName": "pages/default/margin_user_handling_agreement/margin_user_handling_agreement",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

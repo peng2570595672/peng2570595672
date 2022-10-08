@@ -378,6 +378,10 @@ Page({
 	// 查看办理协议
 	onClickGoAgreementHandle () {
 		// 1-自购设备 2-免费设备 3-自购(其他)
+		if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4) {
+			// ETC押金办理模式 协议
+			return util.go('/pages/default/margin_user_handling_agreement/margin_user_handling_agreement');
+		}
 		if (this.data.listOfPackages[this.data.choiceIndex]?.environmentAttribute === 2) {
 			if (this.data.listOfPackages[this.data.choiceIndex].etcCardId === 1) {
 				util.go(`/pages/default/free_equipment_agreement/free_equipment_agreement`);

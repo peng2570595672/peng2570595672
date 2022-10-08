@@ -90,6 +90,7 @@ Component({
 			}, 400);
 		},
 		handleAgreement () {
+			console.log(type);
 			if (type === 1) {
 				util.go('/pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement');
 			} else if (type === 2 || type === 3) {

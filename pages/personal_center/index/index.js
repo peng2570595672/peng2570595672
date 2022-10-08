@@ -401,7 +401,7 @@ Page({
 		wx.uma.trackEvent('personal_center_for_account_management');
 		util.go('/pages/account_management/index/index');
 	},
-	
+
 	// 扫码
 	scan () {
 		util.showLoading({ title: '正在识别' });
