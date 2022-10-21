@@ -3,8 +3,8 @@
   <image src="../assets/top.png" class="img"></image>
   <view class="box">
       <view class="h3">货车专用ETC</view>
-      <view class="exp">全国高速<tex class="yellow">95</tex>折起</view>
-      <button type="primary" class="but" catchtap="onReceivingAddress">快速办理</button> 
+      <view class="exp">全国高速<text class="yellow">95</text>折起</view>
+      <button type="primary" class="but" catchtap="onReceivingAddress">快速办理</button>
       <view class="bottom">过路费年省5000元，仅支持个人车辆办理</view>
   </view>
 
@@ -30,7 +30,7 @@
     </view>
   </view>
 
-  <view class="h4">申办证件</view> 
+  <view class="h4">申办证件</view>
   <view class="step">
     <view>
       <view class="item">
