@@ -1,5 +1,5 @@
 <view class="binding_account">
-    <image class="img" src="/pages/truck_handling/assets/bill_img.png" mode="widthFix"></image>
+    <image class="img" src="https://file.cyzl.com/g001/M07/9C/9E/oYYBAGNSW86AZrVdAAAPHdq43Ps561.png" mode="widthFix"></image>
 	<view class="title">不可办理</view>
 	<view class="content">
         {{code === 93014306 ? '绑定的银行卡账户不存在，请修改资料或联系银行核实账户信息' : ''}}

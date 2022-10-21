@@ -35,12 +35,12 @@
                     </view>
                     <view class="basic-service-list" wx:if="{{item.flowVersion === 2}}">
                         <view class="basic-service-item bank">
-                            <image src="/pages/default/assets/ccb.svg" mode="widthFix"></image>
+                            <image src="https://file.cyzl.com/g001/M07/9C/9E/oYYBAGNSXL2AEzd8AAB4P105RRw464.svg" mode="widthFix"></image>
                         </view>
                     </view>
                     <view class="basic-service-list" wx:if="{{item.flowVersion === 3}}">
                         <view class="basic-service-item bank">
-                            <image src="/pages/default/assets/abc.svg" mode="widthFix"></image>
+                            <image src="https://file.cyzl.com/g001/M00/9C/9E/oYYBAGNSXIqAFlpjAAB53KOQJBo783.svg" mode="widthFix"></image>
                         </view>
                     </view>
                     <!-- <view class="pay-tips" wx:if="{{item.pledgePrice}}">注：付费产品支付成功且审核通过后，默认你已同意接受服务，不作申请退款。</view> -->
