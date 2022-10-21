@@ -1,4 +1,4 @@
-/* pages/default/margin_user_handling_agreement/margin_user_handling_agreement.wxss */.protocol {
+.protocol {
   padding: 20rpx;
 }
 .protocol .h3 {

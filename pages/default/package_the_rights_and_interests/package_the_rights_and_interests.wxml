@@ -29,28 +29,7 @@
                             <view class="iconfont logo {{item.ico}}">{{item.title}}</view>
                             <view class="tips">{{item.tips}}</view>
                         </view>
-                        <!-- <view wx:for="{{otherServiceList}}" wx:for-item="it" wx:key="index" -->
-                        <!-- class="other-service-item {{index === 0 ? 'other-service-first' : ''}}" catchtap="onClickCheckTheService" data-index="{{index}}"> -->
-                        <!-- <view>{{it.title}}</view> -->
-                        <!-- <view>{{it.subTitle}}</view> -->
-                        <!-- </view> -->
-                        <!-- @cyl 注释 -->
-                        <!-- <view class="other-service-item other-service-first" wx:if="{{item.isSignTtCoupon === 1}}" catchtap="onClickCheckTheService" data-index="0">
-                            <view>车主服务享便捷</view>
-                            <view>价值168元</view>
-                        </view> -->
-                        <!-- <view class="other-service-item" wx:if="{{item.pledgePrice && !isContinentInsurance && item.isSignTtCoupon !== 1}}" catchtap="onClickCheckTheService" data-index="1"> -->
-                        <!-- <view>生活服务享精彩</view> -->
-                        <!-- <view>价值100元+</view> -->
-                        <!-- </view> -->
                     </view>
-                    <!-- <view class="related-service-title" wx:if="{{item.isShowFeatureService === 1}}">特色服务</view> -->
-                    <!-- <view class="basic-service-list feature-service" wx:if="{{item.isShowFeatureService === 1}}" catchtap="onClickCheckTheService" data-index="2"> -->
-                    <!-- <view class="basic-service-item" wx:for="{{characteristicServiceList}}" wx:key="index"> -->
-                    <!-- <image src="{{item.logo}}" mode="widthFix"></image> -->
-                    <!-- <view>{{item.title}}</view> -->
-                    <!-- </view> -->
-                    <!-- </view> -->
                     <view class="related-service-title" wx:if="{{item.flowVersion === 2 || item.flowVersion === 3}}">
                         支持绑定以下银行卡
                     </view>

@@ -60,12 +60,6 @@ Page({
 						describe: '每月可免费查询车辆违章情况',
 						isShow: !app.globalData.isContinentInsurance
 					}
-					// {
-					// 	ico: 'service_of_oil',
-					// 	title: '优惠加油',
-					// 	describe: '限时新人福利赠100元券包，全国加油9折',
-					// 	isShow: true
-					// }
 				]
 			},
 			{
@@ -109,13 +103,6 @@ Page({
 							持ETC卡在中石油加油站进行油费充值，使用ETC卡进行加油时即可享受加油折扣优惠。
 						`
 					}
-					// {
-					// 	// ico: 'service_of_integral',
-					// 	logo: '/pages/default/assets/service_of_integral.svg',
-					// 	title: '高速通行享2倍积分',
-					// 	describe: `
-					// 	`
-					// }
 				]
 			}
 		],

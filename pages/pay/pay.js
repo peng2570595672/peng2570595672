@@ -12,6 +12,7 @@ Page({
 		orderId: undefined,
 		parameterUrl: undefined,
 		IS_TEST: false,
+		isGrey: false,
 		pledMoney: 0,
 		payStatus: 0 // 0-待支付 1-支付成功 2-支付失败
 	},
@@ -22,6 +23,7 @@ Page({
 			payStatus: 0,
 			IS_TEST: IS_TEST,
 			orderId: options.orderId,
+			isGrey: +options.isGrey === 1,
 			pinanOrderId: options.pinanOrderId
 		});
 		this.onPay();
@@ -56,7 +58,7 @@ Page({
 						const money = (res.data.pledMoney / 100).toFixed(2);
 						this.setData({
 							pledMoney: money,
-							parameterUrl: `https://${IS_TEST ? 'test-hcz-static' : 'hcz-static'}.pingan.com.cn/fin-common/umc-etc-agent/index.html#/payResult?orderNo=${this.data.pinanOrderId}&supplyOrderNo=${this.data.orderId}&supplyCode=chezhuyun&actualAmount=${money}`
+							parameterUrl: `https://${IS_TEST ? 'test-hcz-static' : 'hcz-static'}.pingan.com.cn/fin-common/${this.data.isGrey ? 'umc-etc-agent-gray' : 'umc-etc-agent'}/index.html#/payResult?orderNo=${this.data.pinanOrderId}&supplyOrderNo=${this.data.orderId}&supplyCode=chezhuyun&actualAmount=${money}`
 						});
 						wx.requestPayment({
 							nonceStr: extraData.nonceStr,

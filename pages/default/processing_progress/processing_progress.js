@@ -49,7 +49,6 @@ Page({
 		if (!app.globalData.userInfo.accessToken) {
 			this.login();
 		} else {
-			await this.getBankAccounts();
 			this.getProcessingProgress();
 			await this.getQueryProcessInfo();
 			if (!this.data.isContinentInsurance) {
@@ -107,7 +106,6 @@ Page({
 						app.globalData.openId = res.data.openId;
 						app.globalData.memberId = res.data.memberId;
 						app.globalData.mobilePhone = res.data.mobilePhone;
-						await this.getBankAccounts();
 						await this.getProcessingProgress();
 						await this.getQueryProcessInfo();
 						if (!this.data.isContinentInsurance) {
@@ -126,24 +124,6 @@ Page({
 				util.showToastNoIcon('登录失败！');
 			}
 		});
-	},
-	// 获取一类户号信息
-	async getBankAccounts () {
-		util.hideLoading();
-		// return;
-		// const result = await util.getDataFromServersV2('consumer/member/icbcv2/getBankAccounts');
-		// if (!result) return;
-		// if (result.code === 0) {
-		// 	if (!result.data) result.data = [];
-		// 	result.data.map(item => {
-		// 		item.accountNo = item.accountNo.substr(0, 4) + ' *** *** ' + item.accountNo.substr(-4);
-		// 	});
-		// 	this.setData({
-		// 		bankList: result.data
-		// 	});
-		// } else {
-		// 	util.showToastNoIcon(result.message);
-		// }
 	},
 	// 选择预充方式
 	onClickPrechargeWay (e) {
