@@ -159,7 +159,7 @@ Page({
 			});
 			return false;
 		}
-		if (this.data.orderInfo && this.data.orderInfo.isOwner === 1 && this.data.orderInfo.isVehicle === 1 && ((this.data.orderInfo.isHeadstock === 1 && this.data.orderInfo.orderType !== 11) || this.data.orderInfo.orderType === 11)) {
+		if (this.data.orderInfo && this.data.orderInfo.isOwner === 1 && this.data.orderInfo.isVehicle === 1 && ((this.data.orderInfo.obuCardType === 1 && this.data.orderInfo.orderType === 11) || (this.data.orderInfo.isHeadstock === 1 && this.data.orderInfo.orderType === 11 && this.data.orderInfo.obuCardType !== 1))) {
 			this.setData({
 				available: true
 			});
