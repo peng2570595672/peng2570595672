@@ -646,7 +646,7 @@ function getTruckHandlingStatus(orderInfo) {
 		// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
 		return 3;// 待支付
 	}
-	if (orderInfo.isOwner === 0 || orderInfo.isVehicle === 0 || (orderInfo.isHeadstock === 0 && orderInfo.obuCardType !== 1 && orderInfo.orderType === 11) || (orderInfo.isTraction === 1 && orderInfo.isTransportLicense !== 1)) {
+	if (orderInfo.isOwner === 0 || orderInfo.isVehicle === 0 || (orderInfo.isHeadstock === 0 && orderInfo.obuCardType !== 1) || (orderInfo.isTraction === 1 && orderInfo.isTransportLicense !== 1)) {
 		return 4; // 办理中 未上传证件
 	}
 
