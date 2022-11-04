@@ -43,7 +43,7 @@ function parseIn(val) {
 // 倒计时函数
 function formatterTimer(systimestamp, compareTime, countdownTime) {
   countdownTime = countdownTime || 0;
-  var reg = new RegExp("-", "g"); // 获取正则表达式，全局替换
+  var reg = getRegExp("-", "g"); // 获取正则表达式，全局替换
   compareTime = compareTime.replace(reg, '/'); // 时间格式转换
   // 将字符串转换成时间格式
   compareTime = getDate(compareTime).valueOf();
