@@ -176,6 +176,7 @@ Page({
 			requestBillNum: 0
 		});
 		util.go(`/pages/personal_center/order_questions/order_questions?entrance=1&details=${JSON.stringify(this.data.details)}&refundDetails=${JSON.stringify(this.data.refundDetails || '')}`);
+		// util.go(`/pages/personal_center/order_answer/order_answer`);
 	},
 	// 查询账单详情
 	getBillDetail () {

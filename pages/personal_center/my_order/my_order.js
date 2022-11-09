@@ -298,6 +298,7 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
+				console.log('账单：' ,res);
 				let data = channel[0].flowVersion !== 1 ? res.data.passRecords : res.data;
 				data.map((item) => {
 					if (channel[0].flowVersion !== 1) {
@@ -320,6 +321,7 @@ Page({
 				this.setData({
 					successBillList: this.data.successBillList
 				});
+
 				let allMoney = 0;
 				this.data.successBillList.map((item) => {
 					allMoney += item.totalMmout + item.serviceMoney + (item.passServiceMoney || 0) - (item.wxDiscountAmount || 0) - (item.discountMount || 0) - (item.refundMoney || 0);

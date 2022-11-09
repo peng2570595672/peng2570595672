@@ -43,6 +43,16 @@ page {
   text-align: right;
   color: #33333d;
 }
+.order_questions .order-box .flex-box .line .font-money{
+  font-size: 34rpx;
+  color: #33333d;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+}
+.order_questions .order-box .flex-box .line .font-money text {
+  font-size: 28rpx;
+  font-weight: 400;
+}
 .order_questions .order-box .flex-box>view:last-child {
   border: 0;
 }
@@ -56,6 +66,14 @@ page {
 }
 .order_questions .tips .blue {
   color: #039eeb;
+}
+.order_questions .tips .sub-tips-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 100rpx;
+  background-color: rgb(255, 252, 236);
+  
 }
 .order_questions .common-problem {
   background: #fff;

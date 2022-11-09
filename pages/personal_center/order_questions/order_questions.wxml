@@ -15,7 +15,10 @@
                     <view>通行手续费</view>
                     <view>¥{{details.passServiceMoney/100}}</view>
                 </view>
-                <view class="explain">货车每笔通行需加收{{details.totalMmout/100}}*0.6%</view>
+                <!-- ------------@cyl----------start--------------------- -->
+                <!-- <view class="explain">货车每笔通行需加收{{details.totalMmout/100}}*0.6%</view> -->
+                <view class="explain">每笔通行需加收{{details.totalMmout/100}}*1%</view>
+                <!-- ---------------------------end --------------------- -->
             </view>
             <view wx:if="{{details.serviceMoney && details.serviceMoney > 0}}">
                 <view class="line" wx:if="{{details.serviceMoney}}">
@@ -34,30 +37,30 @@
             </view>
             <view class="line" wx:if="{{details.flowVersion === 1}}">
                 <view></view>
-                <view wx:if="{{entrance && refundDetails && refundDetails.refundMoney > 0 && details.deductStatus === 7}}"><text>实扣金额</text>00.00</view>
-                <view wx:elif="{{entrance && details.deductStatus !== 7}}"><text>实扣金额</text>{{(details.totalMmout + details.serviceMoney  - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}}</view>
-                <view wx:elif="{{!entrance && details.passDeductStatus === 7}}"><text>实扣金额</text>00.00</view>
-                <view wx:else><text>实扣金额</text>{{details.passServiceMoney/100}}</view>
+                <view class="font-money" wx:if="{{entrance && refundDetails && refundDetails.refundMoney > 0 && details.deductStatus === 7}}"><text>实扣金额</text>00.00</view>
+                <view class="font-money" wx:elif="{{entrance && details.deductStatus !== 7}}"><text>实扣金额</text>{{(details.totalMmout + details.serviceMoney  - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}}</view>
+                <view class="font-money" wx:elif="{{!entrance && details.passDeductStatus === 7}}"><text>实扣金额</text>00.00</view>
+                <view class="font-money" wx:else><text>实扣金额</text>{{details.passServiceMoney/100}}</view>
             </view>
             <view class="line" wx:else>
                 <view></view>
-                <view><text>实扣金额</text>{{details.etcMoney/100}}</view>
+                <view class="font-money"><text>实扣金额</text>{{details.etcMoney/100}}</view>
             </view>
         </view>
         <!--账单说明结束-->
     </view>
-    <view class="order-box" wx:if="{{refundDetails.refundMoney && refundDetails.refundMoney > 0}}">
+    <view class="order-box" wx:if="{{ true || refundDetails.refundMoney && refundDetails.refundMoney > 0}}">
         <!-- 退款金额开始-->
         <view class="flex-box">
             <view class="line">
                 <view>退款金额</view>
-                <view>¥{{refundDetails.refundMoney/100}}</view>
+                <view class="font-money">¥{{refundDetails.refundMoney/100}}</view>
             </view>
         </view>
         <!--退款金额结束-->
     </view>
     <!--提示开始-->
-    <view class="tips" wx:if="{{details.channelTips.tips2}}">
+    <view class="tips" wx:if="{{ true ||details.channelTips.tips2}}">
         <view>
             <view>{{details.channelTips.tips1[0]}}</view>
             <view>
@@ -67,6 +70,12 @@
             </view>
             <view>{{details.channelTips.tips2}}</view>
         </view>
+        <!-- ---------@cyl ----------start ----------- -->
+        <view class="sub-tips-two">
+            <view class="iconfont icon-tip">2</view>
+            <view class="">提示内容adsdsad萨达萨达萨达萨达萨达萨达萨达萨达萨达是阿达萨达萨达萨达萨达撒旦萨达萨达萨达萨达萨达倒萨</view>
+        </view>
+        <!-- ---------@cyl ----------end ----------- -->
     </view>
     <!--提示结束-->
     <!--常见问题开始-->
