@@ -52,6 +52,7 @@ Page({
 				details: app.globalData.splitDetails
 			});
 		}
+		console.log('账单详情top:',this.data.details);
 	},
 	hide () {
 		this.setData({
@@ -191,6 +192,7 @@ Page({
 		util.getDataFromServer('consumer/etc/get-bill-by-id', params, () => {
 			util.showToastNoIcon('获取账单详情失败！');
 		}, (res) => {
+			console.log('账单详情：',res);
 			util.hideLoading();
 			if (res.code === 0) {
 				res.data.flowVersion = 1;

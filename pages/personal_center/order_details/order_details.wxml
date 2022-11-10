@@ -34,13 +34,12 @@
             <!--<view wx:else>¥{{details.etcMoney/100}}</view>-->
             <view>¥{{details.serviceMoney/100}}</view>
         </view>
-				<!-- --------@cyl---------start ------------------ -->
-				<!-- <view wx:if="{{true || details.passServiceMoney}}">
-					<view>通行手续费（0.6%）</view>
-					<view>¥{{details.passServiceMoney/100}}</view>
-				</view> -->
-				<!-- -----------------end ------------------ -->
-
+        <!-- --------@cyl---------start ------------------ -->
+        <view wx:if="{{true || details.passServiceMoney}}">
+            <view>通行手续费（1%）</view>
+            <view>¥{{details.passServiceMoney/100}}</view>
+        </view>
+        <!-- -----------------end ------------------ -->
         <view wx:if="{{details.wxDiscountAmount && details.wxDiscountAmount > 0}}">
             <view>微信支付优惠</view>
             <view>{{-details.wxDiscountAmount/100}}</view>

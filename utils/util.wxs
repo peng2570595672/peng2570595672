@@ -1,7 +1,5 @@
 // 字符串截取
 function substring(val,start,end) {
-  console.log(val);
-  console.log(val.length);
   if (val.length == 0 || val == undefined) {
     return;
   }
