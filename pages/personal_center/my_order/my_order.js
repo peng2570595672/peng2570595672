@@ -346,7 +346,7 @@ Page({
 		app.globalData.billingDetails = model;
 		console.log(model);
 		// @cyl   条件：1. 订单为黔通卡类型(1); 2. 订单为新增; 3. 订单为所有的客车类型
-		let test = (new Array(model)).findIndex(item => (item.etcCardId === 1 && util.timeComparison(item.addTime,'2022-11-11 00:00:00') === 1));
+		let test = (new Array(model)).findIndex(item => ((item.etcCardId === 1 && util.timeComparison(item.addTime,'2022-11-11 00:00:00') === 1) || (item.carType === 1 || item.carType === 2 || item.carType === 3 || item.carType === 4)));
 		console.log(test);
 		if (parseInt(index) === 2) {
 			// 通行手续费
