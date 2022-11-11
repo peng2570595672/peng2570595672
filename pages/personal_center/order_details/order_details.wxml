@@ -35,10 +35,10 @@
             <view>¥{{details.serviceMoney/100}}</view>
         </view>
         <!-- --------@cyl---------start ------------------ -->
-        <view wx:if="{{true || details.passServiceMoney}}">
+        <!-- <view wx:if="{{true || details.passServiceMoney}}">
             <view>通行手续费（1%）</view>
             <view>¥{{details.passServiceMoney/100}}</view>
-        </view>
+        </view> -->
         <!-- -----------------end ------------------ -->
         <view wx:if="{{details.wxDiscountAmount && details.wxDiscountAmount > 0}}">
             <view>微信支付优惠</view>

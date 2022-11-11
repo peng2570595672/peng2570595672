@@ -35,6 +35,7 @@ Page({
 				this.getBillDetail();
 			}
 		}
+		console.log('账单详情top1:',this.data.details);
 	},
 	onShow () {
 		if (app.globalData.billingDetails) {
