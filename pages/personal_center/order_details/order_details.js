@@ -35,6 +35,7 @@ Page({
 				this.getBillDetail();
 			}
 		}
+		console.log('账单详情top1:',this.data.details);
 	},
 	onShow () {
 		if (app.globalData.billingDetails) {
@@ -52,6 +53,7 @@ Page({
 				details: app.globalData.splitDetails
 			});
 		}
+		console.log('账单详情top:',this.data.details);
 	},
 	hide () {
 		this.setData({
@@ -176,6 +178,7 @@ Page({
 			requestBillNum: 0
 		});
 		util.go(`/pages/personal_center/order_questions/order_questions?entrance=1&details=${JSON.stringify(this.data.details)}&refundDetails=${JSON.stringify(this.data.refundDetails || '')}`);
+		// util.go(`/pages/personal_center/order_answer/order_answer`);
 	},
 	// 查询账单详情
 	getBillDetail () {
@@ -190,6 +193,7 @@ Page({
 		util.getDataFromServer('consumer/etc/get-bill-by-id', params, () => {
 			util.showToastNoIcon('获取账单详情失败！');
 		}, (res) => {
+			console.log('账单详情：',res);
 			util.hideLoading();
 			if (res.code === 0) {
 				res.data.flowVersion = 1;

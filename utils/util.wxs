@@ -3,7 +3,7 @@ function substring(val,start,end) {
   if (val.length == 0 || val == undefined) {
     return;
   }
-    return val.substring(start,end);
+  return val.substring(start,end);
 }
 // 字符串转数组
 function stringToArray(string,splitKeyword) {

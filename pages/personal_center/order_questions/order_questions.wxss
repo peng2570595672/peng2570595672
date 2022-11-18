@@ -57,6 +57,7 @@ page {
 .order_questions .tips .blue {
   color: #039eeb;
 }
+
 .order_questions .common-problem {
   background: #fff;
   padding-left: 32rpx;

@@ -298,6 +298,7 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
+				console.log('账单：' ,res);
 				let data = channel[0].flowVersion !== 1 ? res.data.passRecords : res.data;
 				data.map((item) => {
 					if (channel[0].flowVersion !== 1) {
@@ -320,6 +321,7 @@ Page({
 				this.setData({
 					successBillList: this.data.successBillList
 				});
+
 				let allMoney = 0;
 				this.data.successBillList.map((item) => {
 					allMoney += item.totalMmout + item.serviceMoney + (item.passServiceMoney || 0) - (item.wxDiscountAmount || 0) - (item.discountMount || 0) - (item.refundMoney || 0);
@@ -342,6 +344,10 @@ Page({
 		let model = e.currentTarget.dataset.model;
 		let index = e.currentTarget.dataset.index;
 		app.globalData.billingDetails = model;
+		console.log(model);
+		// @cyl   条件：1. 订单为黔通卡类型(1); 2. 订单为新增; 3. 订单为所有的客车类型
+		let test = (new Array(model)).findIndex(item => ((item.etcCardId === 1 && util.timeComparison(item.addTime,'2022-11-11 00:00:00') === 1) || (item.carType === 1 || item.carType === 2 || item.carType === 3 || item.carType === 4)));
+		console.log(test);
 		if (parseInt(index) === 2) {
 			// 通行手续费
 			util.go(`/pages/personal_center/passing_charges_details/passing_charges_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
