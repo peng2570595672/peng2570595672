@@ -2,7 +2,7 @@
 <view class="index">
     <!--	车辆类型切换开始-->
     <view class="tab">
-        <view class="tab-box" wx:if="{{truckList.length >= 0}}">
+        <view class="tab-box" wx:if="{{truckList.length > 0}}">
             <view class="check-vehicle">
                 <view catchtap="onClickCheckVehicleType" data-index="1" class="item {{activeIndex === 1 ? 'active' : ''}}">客车</view>
                 <view catchtap="onClickCheckVehicleType" data-index="2" class="item {{activeIndex === 2 ? 'active' : ''}}">货车</view>
