@@ -37,6 +37,7 @@ Page({
   },
   onClickPay (event) {
     let state = event.currentTarget.dataset.state;
+		console.log(state);
     if (!this.data.amount) {
       util.showToastNoIcon('请填写需要充值金额');
       return false;
@@ -50,8 +51,6 @@ Page({
 	// 微信支付
 	marginPayment () {
 		util.showLoading();
-		console.log(app.globalData.userInfo);
-		console.log(app.globalData.userInfo.openId);
 		let params = {
 			orderId: this.data.orderId,
 			rechargeAmount: this.data.amount * 100,
