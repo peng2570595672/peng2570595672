@@ -183,6 +183,7 @@ Page({
 			orderId: app.globalData.orderInfo.orderId,
 			dataType: '13'
 		});
+		console.log(result);
 		if (!result) return;
 		if (result.code === 0) {
 			if (isSearchPay) {
@@ -242,6 +243,7 @@ Page({
 		}
 	},
 	async handleSign () {
+		console.log('出阿道夫');
 		if (!this.data.getAgreement) {
 			util.showToastNoIcon('请同意并勾选协议！');
 			return;

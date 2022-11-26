@@ -177,6 +177,7 @@ Page({
 			pageSize: 1
 		});
 		util.hideLoading();
+		console.log('货车数据：',result);
 		if (!result) return;
 		if (result.code === 0) {
 			result.data.vehPlates = item.vehPlates;
