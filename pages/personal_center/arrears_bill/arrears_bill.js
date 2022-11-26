@@ -9,6 +9,11 @@ Page({
 		failBillList: []
 	},
 	onShow () {
+		if (JSON.stringify(app.globalData.myEtcList) === '{}') {
+			// 直接打开该页面
+			this.login();
+			return;
+		}
 		if (app.globalData.myEtcList.length !== 0) {
 			let obuStatusList;
 			obuStatusList = app.globalData.myEtcList.filter(item => item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5); // 测试数据处理
@@ -30,6 +35,48 @@ Page({
 		} else {
 			this.getMyETCList();
 		}
+	},
+	// 自动登录
+	login () {
+		util.showLoading();
+		// 调用微信接口获取code
+		wx.login({
+			success: (res) => {
+				util.getDataFromServer('consumer/member/common/applet/code', {
+					platformId: app.globalData.platformId, // 平台id
+					code: res.code // 从微信获取的code
+				}, () => {
+					util.hideLoading();
+					util.showToastNoIcon('登录失败！');
+				}, (res) => {
+					if (res.code === 0) {
+						res.data['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
+						this.setData({
+							loginInfo: res.data
+						});
+						// 已经绑定了手机号
+						if (res.data.needBindingPhone !== 1) {
+							app.globalData.userInfo = res.data;
+							app.globalData.openId = res.data.openId;
+							app.globalData.memberId = res.data.memberId;
+							app.globalData.mobilePhone = res.data.mobilePhone;
+							this.getMyETCList();
+						} else {
+							wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+							util.go('/pages/login/login/login');
+							util.hideLoading();
+						}
+					} else {
+						util.hideLoading();
+						util.showToastNoIcon(res.message);
+					}
+				});
+			},
+			fail: () => {
+				util.hideLoading();
+				util.showToastNoIcon('登录失败！');
+			}
+		});
 	},
 	// 加载ETC列表
 	getMyETCList () {
