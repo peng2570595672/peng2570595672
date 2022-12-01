@@ -88,6 +88,7 @@ Page({
 			util.showToastNoIcon('获取车辆列表失败！');
 		}, (res) => {
 			if (res.code === 0) {
+				app.globalData.myEtcList = res.data;
 				// 过滤未激活订单
 				let obuStatusList;
 				app.globalData.ownerServiceArrearsList = res.data.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
@@ -143,6 +144,8 @@ Page({
 				let total = 0;
 				let order = {};
 				res.data.map(item => {
+					const obj = app.globalData.myEtcList.find(item => item.vehPlates);
+					item.flowVersion = obj.flowVersion;
 					order.vehPlates = item.vehPlate;
 					if (item.deductStatus === 2 || item.deductStatus === 10) {
 						total += item.totalMmout + (item.serviceMoney || 0) - (item.splitDeductedMoney || 0) - (item.deductServiceMoney || 0) - (item.refundMoney || 0) - (item.wxDiscountAmount || 0) - (item.discountMount || 0);
