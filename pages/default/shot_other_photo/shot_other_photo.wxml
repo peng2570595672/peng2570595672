@@ -1,7 +1,7 @@
 <view class="shot_other_photo">
 	<!--	左边相机部分开始-->
 	<view class="camera-top">
-        <camera class="camera" device-position="back" flash="auto" binderror="cameraErrorHandle" wx:if="{{showInfo}}">
+        <camera class="camera" device-position="back" flash="auto" binderror="onCameraErrorHandle" wx:if="{{showInfo}}">
             <cover-view wx:if="{{!picUrl}}">
                 <cover-image wx:if="{{type === 101}}" class="border sample" src="https://file.cyzl.com/g001/M07/9C/9F/oYYBAGNSZVOAChwMAAC09LmrfkE409.png"></cover-image>
                 <cover-image wx:if="{{type === 102}}" class="border sample" src="/pages/default/assets/side_photo.png"></cover-image>

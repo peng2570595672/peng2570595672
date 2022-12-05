@@ -37,7 +37,7 @@ Page({
 		});
 	},
 	// 相机初始化失败
-	cameraErrorHandle (e) {
+	onCameraErrorHandle (e) {
 		console.log(e);
 		// 拒绝定位导致失败
 		let that = this;

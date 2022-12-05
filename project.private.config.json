@@ -1,6 +1,6 @@
 {
   "setting": {
-    "compileHotReLoad": true,
+    "compileHotReLoad": false,
     "urlCheck": true,
     "bigPackageSizeSupport": true
   },
@@ -17,12 +17,14 @@
           "name": "我的ETC",
           "pathName": "pages/personal_center/my_etc/my_etc",
           "query": "shareId=123455",
+          "launchMode": "default",
           "scene": null
         },
         {
           "name": "个人中心",
           "pathName": "pages/personal_center/index/index",
           "query": "",
+          "launchMode": "default",
           "scene": null
         },
         {
@@ -64,7 +66,7 @@
         {
           "name": "ETC详情",
           "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=1034131925440139264",
+          "query": "orderId=887664969029128192",
           "launchMode": "default",
           "scene": null
         },
@@ -193,8 +195,8 @@
         },
         {
           "name": "",
-          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-          "query": "orderId=923231889613918208",
+          "pathName": "pages/default/index/index",
+          "query": "",
           "launchMode": "default",
           "scene": null
         },
@@ -403,14 +405,42 @@
         },
         {
           "name": "",
-          "pathName": "pages/active_tips/active_tips",
-          "query": "type=1",
+          "pathName": "pages/personal_center/my_order/my_order",
+          "query": "",
           "launchMode": "default",
           "scene": null
         },
         {
           "name": "押金-用户办理协议",
           "pathName": "pages/default/margin_user_handling_agreement/margin_user_handling_agreement",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+          "query": "orderId=1042539019231039488",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/account_management/pay_method/pay_method",
+          "query": "orderId=859745153131220992",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/pay_h5/sign_up/sign_up",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/personal_center/arrears_bill/arrears_bill",
           "query": "",
           "launchMode": "default",
           "scene": null

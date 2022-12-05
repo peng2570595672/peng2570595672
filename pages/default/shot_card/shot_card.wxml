@@ -1,6 +1,6 @@
 <view class="shot_card">
 	<!--	相加开始-->
-	<camera class="camera" device-position="back" flash="auto" binderror="cameraErrorHandle" wx:if="{{showInfo}}">
+	<camera class="camera" device-position="back" flash="auto" binderror="onCameraErrorHandle" wx:if="{{showInfo}}">
 		<cover-image class="border" wx:if="{{!picUrl}}" src="/pages/default/assets/{{picPath}}_border.png"></cover-image>
 		<cover-image class="border" wx:else src="{{picUrl}}"></cover-image>
 	</camera>
