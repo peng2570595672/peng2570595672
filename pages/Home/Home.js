@@ -686,7 +686,7 @@ Page({
 						truckActivationOrderList.push(item.id);
 					}
 				}
-				if (item.orderType === 11 && item.logisticsId === 0 && auditStatus === 2) {
+				if (item.orderType === 11 && item.logisticsId === 0 && item.auditStatus === 2) {
 					const dates = this.data.date.getDate();
 					if (wx.getStorageSync('time') !== dates || !wx.getStorageSync('time')) {
 						this.fangDou(function () {
