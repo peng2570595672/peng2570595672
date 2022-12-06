@@ -70,6 +70,9 @@
         <view class="equities-logo">
             <image src="/pages/default/assets/equities1.png"></image>
         </view>
+        <!-- <view class="equities-logo" wx:else>
+            <image src="/pages/default/assets/equities2.png"></image>
+        </view> -->
     </view>
     <!-- 通通券权益结束 -->
     <!-- 权益选择开始 -->
