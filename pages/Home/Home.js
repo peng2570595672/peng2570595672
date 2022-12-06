@@ -20,12 +20,12 @@ Page({
 		isContinentInsurance: app.globalData.isContinentInsurance, // 是否是大地
 		btnSwitch: false,
 		entranceList: [{
-			title: '通行发票',
-			ico: 'invoice',
-			url: 'invoice',
-			isShow: true,
-			statisticsEvent: 'index_invoice'
-		},
+				title: '通行发票',
+				ico: 'invoice',
+				url: 'invoice',
+				isShow: true,
+				statisticsEvent: 'index_invoice'
+			},
 			{
 				title: '违章查询',
 				ico: 'violation-enquiry',
@@ -40,7 +40,13 @@ Page({
 				isShow: app.globalData.isContinentInsurance,
 				statisticsEvent: 'index_my_order'
 			},
-			{ title: '在线客服', ico: 'server', url: 'online_customer_service', isShow: true, statisticsEvent: 'index_server' },
+			{
+				title: '在线客服',
+				ico: 'server',
+				url: 'online_customer_service',
+				isShow: true,
+				statisticsEvent: 'index_server'
+			},
 			// {
 			// 	title: '优惠加油',
 			// 	ico: 'icontaocan-jiayou',
@@ -121,10 +127,15 @@ Page({
 		dialogContent: {}, // 弹窗内容
 		// @cyl
 		movingIntegralControl: false, // 控制弹窗的显示与隐藏
-		areaNotOpened: ['河南','江西','广西','辽宁','重庆','云南'], // 号码归属地还未开通 移动积分业务的
-		disclaimerDesc: app.globalData.disclaimerDesc
+		areaNotOpened: ['河南', '江西', '广西', '辽宁', '重庆', '云南'], // 号码归属地还未开通 移动积分业务的
+		disclaimerDesc: app.globalData.disclaimerDesc,
+		timeout: null,
+		date: null
 	},
-	async onLoad () {
+	async onLoad (options) {
+		this.setData({
+			date: new Date()
+		});
 		app.globalData.isTruckHandling = false;
 		app.globalData.isNeedReturnHome = false;
 		this.login();
@@ -609,6 +620,18 @@ Page({
 			}
 		});
 	},
+	// 防抖
+	fangDou (fn, time) {
+		let that = this;
+		return (function () {
+			if (that.data.timeout) {
+				clearTimeout(that.data.timeout);
+			}
+			that.data.timeout = setTimeout(() => {
+				fn.apply(this, arguments);
+			}, time);
+		})();
+	},
 	// 获取ETC信息
 	async getStatus (isToMasterQuery) {
 		let params = {
@@ -618,7 +641,6 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
 		const icbcv2 = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId'); // 查卡是否有二通类户
 		// 订单展示优先级: 扣款失败账单>已解约状态>按最近时间顺序：办理状态or账单记录
-		console.log('sadsadsadsa');
 		console.log(result);
 		if (!result) return;
 		if (result.code === 0) {
@@ -628,7 +650,14 @@ Page({
 			});
 			app.globalData.myEtcList = list;
 			// 京东客服
-			let [truckList, passengerCarList, vehicleList, activationOrder, activationTruckOrder, truckActivationOrderList] = [[], [], [], [], [], []];
+			let [truckList, passengerCarList, vehicleList, activationOrder, activationTruckOrder, truckActivationOrderList] = [
+				[],
+				[],
+				[],
+				[],
+				[],
+				[]
+			];
 			// let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
 			app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !==
 				undefined); // 筛选车主服务欠费
@@ -655,6 +684,24 @@ Page({
 					if (item.obuStatus === 1 || item.obuStatus === 5) {
 						activationTruckOrder.push(item.obuCardType);
 						truckActivationOrderList.push(item.id);
+					}
+				}
+				if (item.orderType === 11 && item.logisticsId === 0) {
+					const dates = this.data.date.getDate();
+					if (wx.getStorageSync('time') !== dates || !wx.getStorageSync('time')) {
+						this.fangDou(function () {
+							wx.setStorage({
+								key: 'time',
+								data: dates
+							});
+							util.alert({
+								title: `提示`,
+								content: `受疫情封控影响，设备预计七个工作日内陆续发货。带来不便，敬请谅解。`,
+								showCancel: false,
+								cancelText: '取消',
+								confirmText: '确定'
+							});
+						}, 500);
 					}
 				}
 			});
@@ -1133,7 +1180,7 @@ Page({
 							extraData: {
 								contract_id: result.data.contractId
 							},
-							success () { },
+							success () {},
 							fail () {
 								// 未成功跳转到签约小程序
 								util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
@@ -1365,7 +1412,7 @@ Page({
 			fail: function (res) {
 				console.log('fail');
 			},
-			complete: function (res) { }
+			complete: function (res) {}
 		});
 	},
 	// 点击移动积分兑换ETC 高速通行券

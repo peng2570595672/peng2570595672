@@ -172,7 +172,7 @@ Page({
 		if (result.code === 0) {
 			this.setData({
 				listOfPackages: [result.data]
-			});
+      });
 			await this.getSwiperHeight();
 		} else {
 			util.showToastNoIcon(result.message);
