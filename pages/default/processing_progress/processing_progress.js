@@ -17,7 +17,6 @@ Page({
 		number: 0,
 		showDetailWrapper: false,
 		showDetailMask: false,
-		showDetailInsurance: false,// 是否展示车险报价插屏
 		memberId: '',
 		rechargeId: '',// 预充保证金id
 		requestNum: 0,// 请求次数
@@ -243,7 +242,6 @@ Page({
 	// 显示详情
 	showDetail (e) {
 		this.setData({
-			showDetailInsurance: this.data.showDetailInsurance,
 			showDetailWrapper: true,
 			showDetailMask: true
 		});
@@ -258,7 +256,6 @@ Page({
 		setTimeout(() => {
 			this.setData({
 				showCouponMask: false,
-				showDetailInsurance: false,
 				showDetailMask: false
 			});
 		}, 400);
