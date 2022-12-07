@@ -1,7 +1,7 @@
 {
   "navigationBarTitleText": "个人中心",
-  "navigationBarBackgroundColor": "#ccc",
-  "backgroundColor": "#ccc",
+  "navigationBarBackgroundColor": "#2FB565",
+  "backgroundColor": "#2FB565",
   "navigationBarTextStyle": "black",
   "usingComponents": {
     "crowdsourcing-prompt": "/components/crowdsourcing_prompt/crowdsourcing_prompt",

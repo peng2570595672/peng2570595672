@@ -80,13 +80,6 @@
     margin-left: 39rpx;
   }
 }
-page {
-  color: #333;
-  -webkit-filter: grayscale(100%);
-  -moz-filter: grayscale(100%);
-  -ms-filter: grayscale(100%);
-  -o-filter: grayscale(100%);
-}
 .index {
   width: 100%;
   overflow-x: hidden;
