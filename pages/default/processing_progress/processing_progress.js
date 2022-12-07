@@ -51,9 +51,6 @@ Page({
 		} else {
 			this.getProcessingProgress();
 			await this.getQueryProcessInfo();
-			if (!this.data.isContinentInsurance) {
-				this.getInsuranceOffer();
-			}
 			// 查询是否欠款
 			await util.getIsArrearage();
 		}
@@ -108,9 +105,6 @@ Page({
 						app.globalData.mobilePhone = res.data.mobilePhone;
 						await this.getProcessingProgress();
 						await this.getQueryProcessInfo();
-						if (!this.data.isContinentInsurance) {
-							this.getInsuranceOffer();
-						}
 						// 查询是否欠款
 						await util.getIsArrearage();
 					} else {
@@ -246,33 +240,6 @@ Page({
 		}
 		util.goMicroInsuranceVehicleOwner(params, wtagid);
 	},
-	// 展示车险报价插屏
-	goDriverInsurance () {
-		let memberId = this.data.memberId;
-		let orderId = this.data.weiBaoOrderId;
-		wx.uma.trackEvent('processing_progress_car_insurance');
-		let url = `outerUserId=${memberId}&outerCarId=${orderId}&companyId=SJHT&configId=sjht&wtagid=116.115.12`;
-		if (this.data.info.orderType === 31) {
-			let date = new Date();
-			let mouth = date.getMonth() + 1;
-			let time = date.getFullYear() + '-' + util.formatNumber(mouth) + '-' + util.formatNumber(date.getDate());
-			if (this.data.info.contractTime && time === this.data.info.contractTime.substring(0,10)) {
-				url = `${url}&sId=${this.data.info.shopUserId}`;
-				console.log(url);
-			}
-		}
-		let weiBoUrl = app.globalData.weiBoUrl + encodeURIComponent(url);
-		let appId = app.globalData.test ? 'wx7f3f0032b6e6f0cc' : 'wx06a561655ab8f5b2';
-		console.log(weiBoUrl);
-		wx.openEmbeddedMiniProgram({
-			appId: appId,
-			path: weiBoUrl,
-			envVersion: 'release',
-			fail () {
-				util.showToastNoIcon('调起微保小程序失败, 请重试！');
-			}
-		});
-	},
 	// 显示详情
 	showDetail (e) {
 		this.setData({
@@ -374,66 +341,6 @@ Page({
 			}
 		}, app.globalData.userInfo.accessToken, () => {
 			util.hideLoading();
-		});
-	},
-	// 获取是否在车险报价窗口期内
-	getInsuranceOffer () {
-		util.showLoading();
-		util.getDataFromServer('consumer/order/insuranceOffer', {
-			orderId: this.data.orderId
-		}, () => {
-			util.hideLoading();
-		}, (res) => {
-			util.hideLoading();
-			if (res.code === 0) {
-				if (res.data && JSON.stringify(res.data) !== '{}') {
-					let time = new Date().toLocaleDateString();
-					this.data.weiBaoOrderId = res.data.orderId;
-					this.data.memberId = res.data.memberId;
-					let that = this;
-					// 首先获取是否执行过
-					wx.getStorage({
-						key: 'today',
-						success: function (res) {
-							// 成功的话 说明之前执行过，再判断时间是否是当天
-							if (res.data && res.data !== time) {
-								wx.setStorageSync('today', new Date().toLocaleDateString());
-								that.data.showDetailInsurance = true;
-								that.showDetail();
-							}
-						},
-						fail: function (res) {
-							// 没有执行过的话 先存一下当前的执行时间
-							that.data.showDetailInsurance = true;
-							that.showDetail();
-							wx.setStorageSync('today', new Date().toLocaleDateString());
-						}
-					});
-				} else {
-					let time = new Date().toLocaleDateString();
-					let that = this;
-					// 首先获取是否执行过
-					wx.getStorage({
-						key: 'today',
-						success: function (res) {
-							// 成功的话 说明之前执行过，再判断时间是否是当天
-							if (res.data && res.data !== time) {
-								wx.setStorageSync('today', new Date().toLocaleDateString());
-								that.showDetail();
-							}
-						},
-						fail: function (res) {
-							// 没有执行过的话 先存一下当前的执行时间
-							that.showDetail();
-							wx.setStorageSync('today', new Date().toLocaleDateString());
-						}
-					});
-				}
-			} else {
-				util.hideLoading();
-				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
 		});
 	},
 	// 去设备详情 审核失败:不可办理

@@ -68,10 +68,4 @@
 		</view>
 	</view>
 	<!--底部补缴结束-->
-	<!--微保活动开始-->
-	<view class="micro-insurance" wx:if="{{!isContinentInsurance}}">
-		<image wx:if="{{showWeiBao}}" src="https://file.cyzl.com/g001/M06/C7/71/oYYBAF-7FDKALvNhAAFO8Ol7UKg049.png"  mode="widthFix" catchtap="goMicroInsurance"></image>
-		<view wx:if="{{showWeiBao}}" class="close_button iconfont" catchtap="hide"></view>
-	</view>
-	<!--微保活动结束-->
 </view>

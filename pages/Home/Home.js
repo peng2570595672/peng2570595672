@@ -77,12 +77,6 @@ Page({
 				isShow: !app.globalData.isContinentInsurance,
 				statisticsEvent: 'index_micro_high_speed'
 			},
-			{
-				img: 'https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrTgOANI-7AABwMlaUjXo345.png',
-				url: 'micro_insurance_car_insurance',
-				isShow: !app.globalData.isContinentInsurance,
-				statisticsEvent: 'index_micro_insurance_car_insurance'
-			},
 			// {img: 'https://file.cyzl.com/g001/M07/50/2F/oYYBAGDRSJaAIRy_AABmOVUonLQ097.png', url: 'xiaoepinpin', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_for_xiaoepinpin'},
 			// {img: 'https://file.cyzl.com/g001/M07/56/6F/oYYBAGDvmOmAKFdjAABX7h3eswc492.png', url: 'micro_insurance_hcz', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_micro_insurance_hcz'},
 			{
@@ -325,12 +319,6 @@ Page({
 		}
 		let item = e.currentTarget.dataset.item;
 		wx.uma.trackEvent(item.statisticsEvent);
-		if (item?.url === 'micro_insurance_car_insurance') {
-			this.selectComponent('#dialog1').show('micro_insurance_car_insurance');
-			// 订阅:车险服务状态提醒
-			// this.subscribe();
-			return;
-		}
 		if (item?.url === 'micro_insurance_hcz') {
 			this.selectComponent('#dialog1').show('micro_insurance_hcz');
 			// const pageUrl = 'pages/base/redirect/index?routeKey=WEDRIVE_HIGH_JOIN&wtagid=104.210.4';
@@ -406,23 +394,21 @@ Page({
 								confirm: () => {
 									wx.openSetting({
 										success: () => {
-											util.getInsuranceOffer(orderId,
-												'116.115.40');
+											util.hideLoading();
 										},
 										fail: () => {
 											showToastNoIcon(
 												'打开设置界面失败，请重试！');
-											util.getInsuranceOffer(orderId,
-												'116.115.40');
+												util.hideLoading();
 										}
 									});
 								},
 								cancel: () => { // 点击取消按钮
-									util.getInsuranceOffer(orderId, '116.115.40');
+									util.hideLoading();
 								}
 							});
 						} else {
-							util.getInsuranceOffer(orderId, '116.115.40');
+							util.hideLoading();
 						}
 					}
 				},
@@ -431,7 +417,7 @@ Page({
 					util.hideLoading();
 					// 不是点击的取消按钮
 					if (res.errMsg === 'requestSubscribeMessage:fail cancel') {
-						util.getInsuranceOffer(orderId, '116.115.40');
+						util.hideLoading();
 					} else {
 						util.alert({
 							content: '调起订阅消息失败，是否前往"设置" -> "订阅消息"进行订阅？',
@@ -440,18 +426,16 @@ Page({
 							confirm: () => {
 								wx.openSetting({
 									success: () => {
-										util.getInsuranceOffer(orderId,
-											'116.115.40');
+										util.hideLoading();
 									},
 									fail: () => {
 										showToastNoIcon('打开设置界面失败，请重试！');
-										util.getInsuranceOffer(orderId,
-											'116.115.40');
+										util.hideLoading();
 									}
 								});
 							},
 							cancel: () => {
-								util.getInsuranceOffer(orderId, '116.115.40');
+								util.hideLoading();
 							}
 						});
 					}
@@ -464,7 +448,7 @@ Page({
 				confirmText: '继续使用',
 				showCancel: true,
 				confirm: () => {
-					util.getInsuranceOffer(orderId, '116.115.40');
+					util.hideLoading();
 				}
 			});
 		}
@@ -1507,9 +1491,6 @@ Page({
 		}
 		if (str === 'invoice') {
 			this.goMakeInvoice();
-		}
-		if (str === 'micro_insurance_car_insurance') {
-			this.subscribe();
 		}
 		if (str === 'micro_insurance_hcz') {
 			const pageUrl = 'pages/base/redirect/index?routeKey=WEDRIVE_HIGH_JOIN&wtagid=104.210.4';
