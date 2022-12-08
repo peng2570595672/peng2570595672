@@ -40,7 +40,6 @@
             <view class="user_item_text">我的ETC</view>
         </view>
         <!--我的ETC结束-->
-
         <!--ETC账单开始-->
         <view class="user_item" catchtap="go" data-url="my_order">
             <view class="user_item_icon">
@@ -51,7 +50,6 @@
             <view class="user_item_text">ETC账单</view>
         </view>
         <!--ETC账单结束-->
-
         <!--我的卡劵开始-->
         <view class="user_item" catchtap="go" data-url="service_card_voucher">
             <view class="user_item_icon">
@@ -83,7 +81,11 @@
         </view>
         <!--帮助中心结束-->
     </view>
-
+	<!-- 权益商城即将上线 banner 开始-->
+    <view class="equity-mall">
+        <image class="equity-mall-img"src="/pages/personal_center/assets/equityMall.png"></image>
+    </view>
+	<!-- 权益商城即将上线 banner 结束-->
     <!--付费权益开始-->
     <view class="pay-interest" wx:if="{{rightsPackageBuyRecords.length || isActivation || hasCoupon || isShowCoupon || isShowFeatureService}}">
         <view class="pay-interest-title">ETC服务</view>

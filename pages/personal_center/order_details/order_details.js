@@ -5,24 +5,26 @@ Page({
 		mask: false,
 		wrapper: false,
 		isContinentInsurance: app.globalData.isContinentInsurance || app.globalData.isPingAn,
-		showAdvertising: true,
-		isServiceNotificationEntry: false,// 是否是服务通知进入
-		isRequest: false,// 是否请求
+		isServiceNotificationEntry: false, // 是否是服务通知进入
+		isRequest: false, // 是否请求
 		refundDetails: undefined,
-		contractMode: undefined,// 签约方式 - 扣款方式
+		contractMode: undefined, // 签约方式 - 扣款方式
 		requestRefundInfoNum: 0,
 		requestBillNum: 0,
 		details: '',
-    disclaimerDesc: app.globalData.disclaimerDesc
-
+		disclaimerDesc: app.globalData.disclaimerDesc
 	},
 	onLoad (options) {
 		app.globalData.splitDetails = undefined;
 		if (app.globalData.billingDetails) {
-			this.setData({details: app.globalData.billingDetails});
+			this.setData({
+				details: app.globalData.billingDetails
+			});
 		} else {
 			if (options.id) {
-				this.setData({details: options});
+				this.setData({
+					details: options
+				});
 			}
 			if (!app.globalData.userInfo.accessToken) {
 				// 公众号模板推送/服务通知进入
@@ -35,11 +37,13 @@ Page({
 				this.getBillDetail();
 			}
 		}
-		console.log('账单详情top1:',this.data.details);
+		console.log('账单详情top1:', this.data.details);
 	},
 	onShow () {
 		if (app.globalData.billingDetails) {
-			this.setData({details: app.globalData.billingDetails});
+			this.setData({
+				details: app.globalData.billingDetails
+			});
 			this.getContractMode();
 		} else {
 			if (!app.globalData.userInfo.accessToken) {
@@ -53,12 +57,7 @@ Page({
 				details: app.globalData.splitDetails
 			});
 		}
-		console.log('账单详情top:',this.data.details);
-	},
-	hide () {
-		this.setData({
-			showAdvertising: false
-		});
+		console.log('账单详情top:', this.data.details);
 	},
 	// 自动登录
 	login () {
@@ -114,7 +113,7 @@ Page({
 			util.hideLoading();
 			if (res.code === 0) {
 				app.globalData.myEtcList = res.data;
-				if (this.data.details?.vehPlate) this.getContractMode();// 获取扣款方式
+				if (this.data.details?.vehPlate) this.getContractMode(); // 获取扣款方式
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -132,7 +131,9 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
-				this.setData({contractMode: res.data});
+				this.setData({
+					contractMode: res.data
+				});
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -153,8 +154,10 @@ Page({
 			util.hideLoading();
 			if (res.code === 0) {
 				if (res.data) {
-					this.setData({refundDetails: res.data});
-					if (JSON.stringify(app.globalData.myEtcList) !== '{}') this.getContractMode();// 获取扣款方式
+					this.setData({
+						refundDetails: res.data
+					});
+					if (JSON.stringify(app.globalData.myEtcList) !== '{}') this.getContractMode(); // 获取扣款方式
 				}
 			} else {
 				util.showToastNoIcon(res.message);
@@ -183,7 +186,9 @@ Page({
 	// 查询账单详情
 	getBillDetail () {
 		if (this.data.requestBillNum > 0) return;
-		this.setData({requestBillNum: 1});
+		this.setData({
+			requestBillNum: 1
+		});
 		util.showLoading();
 		let params = {
 			channel: this.data.details.channel,
@@ -193,13 +198,17 @@ Page({
 		util.getDataFromServer('consumer/etc/get-bill-by-id', params, () => {
 			util.showToastNoIcon('获取账单详情失败！');
 		}, (res) => {
-			console.log('账单详情：',res);
+			console.log('账单详情：', res);
 			util.hideLoading();
 			if (res.code === 0) {
 				res.data.flowVersion = 1;
-				this.setData({details: res.data});
+				this.setData({
+					details: res.data
+				});
 				if (this.data.requestRefundInfoNum > 0) return;
-				this.setData({requestRefundInfoNum: 1});
+				this.setData({
+					requestRefundInfoNum: 1
+				});
 				this.getBillRefundDetail();
 			} else {
 				util.showToastNoIcon(res.message);
@@ -223,14 +232,18 @@ Page({
 		if (this.data.isRequest) {
 			return;
 		} else {
-			this.setData({isRequest: true});
+			this.setData({
+				isRequest: true
+			});
 		}
 		util.showLoading();
 		let params = {
-			billIdList: [this.data.details.id],// 账单id集合，采用json数组格式[xx,xx]
-			payTypeDetail: {[this.data.details.id]: 1},//  {"账单id1"：1或者2或者3，"账单id2"：1或者2或者3} 1：通行费补缴  2：通行费手续费补缴  3：1+2补缴
-			vehPlates: this.data.details.vehPlate,// 车牌号
-			payAmount: this.data.details.totalMmout + this.data.details.serviceMoney - this.data.details.splitDeductedMoney - (this.data.details.discountMount || 0) - this.data.details.deductServiceMoney// 补缴金额
+			billIdList: [this.data.details.id], // 账单id集合，采用json数组格式[xx,xx]
+			payTypeDetail: {
+				[this.data.details.id]: 1
+			}, //  {"账单id1"：1或者2或者3，"账单id2"：1或者2或者3} 1：通行费补缴  2：通行费手续费补缴  3：1+2补缴
+			vehPlates: this.data.details.vehPlate, // 车牌号
+			payAmount: this.data.details.totalMmout + this.data.details.serviceMoney - this.data.details.splitDeductedMoney - (this.data.details.discountMount || 0) - this.data.details.deductServiceMoney // 补缴金额
 		};
 		util.getDataFromServer('consumer/order/bill-pay', params, () => {
 			util.showToastNoIcon('获取支付参数失败！');
@@ -245,7 +258,9 @@ Page({
 					signType: extraData.signType,
 					timeStamp: extraData.timeStamp,
 					success: (res) => {
-						this.setData({isRequest: false});
+						this.setData({
+							isRequest: false
+						});
 						if (res.errMsg === 'requestPayment:ok') {
 							app.globalData.isArrearageData.isPayment = true;
 							this.getBillQuery(id);
@@ -254,14 +269,18 @@ Page({
 						}
 					},
 					fail: (res) => {
-						this.setData({isRequest: false});
+						this.setData({
+							isRequest: false
+						});
 						if (res.errMsg !== 'requestPayment:fail cancel') {
 							util.showToastNoIcon('支付失败！');
 						}
 					}
 				});
 			} else {
-				this.setData({isRequest: false});
+				this.setData({
+					isRequest: false
+				});
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken, () => {
@@ -270,39 +289,17 @@ Page({
 	},
 	// 同步支付信息
 	getBillQuery (id) {
-		this.setData({requestBillNum: 0});
-		util.getDataFromServer('consumer/order/billQuery', {id: id}, () => {
+		this.setData({
+			requestBillNum: 0
+		});
+		util.getDataFromServer('consumer/order/billQuery', {
+			id: id
+		}, () => {
 			this.getBillDetail();
 		}, (res) => {
 			console.log(res);
 			this.getBillDetail();
 		}, app.globalData.userInfo.accessToken);
-	},
-	// 点击广告位
-	onClickAdvertising () {
-		this.selectComponent('#dialog1').show();
-		// wx.uma.trackEvent(this.data.isServiceNotificationEntry ? 'order_details_for_advertising_to_notice' : 'order_details_for_advertising_to_normal');
-		// wx.openEmbeddedMiniProgram({
-		// 	appId: 'wx06a561655ab8f5b2',
-		// 	path: 'pages/base/redirect/index?routeKey=ETC_RESCUE&wtagid=W389.13.3',
-		// 	envVersion: 'release', // 正式版
-		// 	fail () {
-		// 		util.showToastNoIcon('调起小程序失败, 请重试！');
-		// 	}
-		// });
-	},
-	// @cyl
-	popUp () {
-		this.selectComponent('#dialog1').noShow();
-		wx.uma.trackEvent(this.data.isServiceNotificationEntry ? 'order_details_for_advertising_to_notice' : 'order_details_for_advertising_to_normal');
-		wx.openEmbeddedMiniProgram({
-			appId: 'wx06a561655ab8f5b2',
-			path: 'pages/base/redirect/index?routeKey=ETC_RESCUE&wtagid=W389.13.3',
-			envVersion: 'release', // 正式版
-			fail () {
-				util.showToastNoIcon('调起小程序失败, 请重试！');
-			}
-		});
 	},
 	onUnload () {
 		app.globalData.billingDetails = undefined;

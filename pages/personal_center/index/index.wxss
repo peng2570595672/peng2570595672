@@ -182,6 +182,15 @@ page .index .user_nav .user_item .user_item_text {
 page .index .user_nav.user-nav-top {
   margin-top: -24rpx;
 }
+page .index .equity-mall {
+  height: 200rpx;
+  overflow: hidden;
+}
+page .index .equity-mall .equity-mall-img {
+  width: 757rpx;
+  height: 200rpx;
+  margin-left: -7rpx;
+}
 page .index .pay-interest {
   display: flex;
   flex-direction: column;
@@ -189,7 +198,7 @@ page .index .pay-interest {
   box-shadow: 0rpx 0rpx 18rpx 0rpx rgba(0,0,0,0.04);
   border-radius: 16rpx;
   width: 686rpx;
-  margin: 30rpx;
+  margin: -5rpx 30rpx 30rpx 30rpx;
 }
 page .index .pay-interest .pay-interest-title {
   margin: 32rpx 0rpx 0rpx 32rpx;
@@ -543,3 +552,4 @@ page .invite_friends image {
 .agreement-mask .agreement-wrapper .alert-btn.active {
   opacity: 1;
 }
+
