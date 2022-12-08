@@ -182,16 +182,16 @@ page .index .user_nav .user_item .user_item_text {
 page .index .user_nav.user-nav-top {
   margin-top: -24rpx;
 }
-page .index .equity-mall {
+.equity-mall {
   height: 200rpx;
   overflow: hidden;
 }
-page .index .equity-mall .equity-mall-img {
+.equity-mall .equity-mall-img {
   width: 757rpx;
   height: 200rpx;
   margin-left: -7.5rpx;
 }
-page .index .pay-interest {
+.pay-interest {
   display: flex;
   flex-direction: column;
   background: #fff;
@@ -200,20 +200,20 @@ page .index .pay-interest {
   width: 686rpx;
   margin: -5rpx 30rpx 30rpx 30rpx;
 }
-page .index .pay-interest .pay-interest-title {
+.pay-interest .pay-interest-title {
   margin: 32rpx 0rpx 0rpx 32rpx;
   font-size: 34rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: #000;
 }
-page .index .pay-interest .pay-interest-content {
+.pay-interest .pay-interest-content {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   margin-bottom: 32rpx;
 }
-page .index .pay-interest .pay-interest-content .pay-interest_item {
+.pay-interest .pay-interest-content .pay-interest_item {
   width: 158rpx;
   background: transparent;
   padding: 0;
@@ -224,71 +224,71 @@ page .index .pay-interest .pay-interest-content .pay-interest_item {
   flex-direction: column;
   text-align: center;
 }
-page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon {
+.pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon {
   text-align: center;
   padding: 0;
   margin: 0;
 }
-page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon::before {
+.pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon::before {
   font-size: 44rpx;
 }
-page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon.purchase_records::before {
+.pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon.purchase_records::before {
   content: '\e688';
   color: #fba820;
 }
-page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon.characteristic_service::before {
+.pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon.characteristic_service::before {
   content: '\e68a';
   color: #3fb064;
 }
-page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon.server::before {
+.pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon.server::before {
   content: '\e697';
   color: #3fb064;
 }
-page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon.coupon_redemption_centre::before {
+.pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon.coupon_redemption_centre::before {
   content: '\e689';
   color: #c87d2f;
 }
-page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon.life_service::before {
+.pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon.life_service::before {
   content: '\e68c';
   color: #39a6f8;
 }
-page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon.car_service::before {
+.pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon.car_service::before {
   content: '\e687';
   color: #6467f0;
 }
-page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon.basic_services::before {
+.pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon.basic_services::before {
   content: '\e68b';
   color: #ffc300;
 }
-page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon .img {
+.pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon .img {
   height: 46rpx;
   width: 46rp;
 }
-page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon .life_service_icon {
+.pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon .life_service_icon {
   height: 42rpx;
   width: 42rpx;
 }
-page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon .coupon_redemption_icon {
+.pay-interest .pay-interest-content .pay-interest_item .pay-interest-item-icon .coupon_redemption_icon {
   height: 52rpx;
   width: 52rpx;
 }
-page .index .pay-interest .pay-interest-content .pay-interest_item .pay-interest_item_text {
+.pay-interest .pay-interest-content .pay-interest_item .pay-interest_item_text {
   margin-top: 8rpx;
   font-size: 24rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   color: #969393;
 }
-page .index .pay-interest .pay-interest-content .coupon_item {
+.pay-interest .pay-interest-content .coupon_item {
   width: 158rpx;
   text-align: center;
 }
-page .index .pay-interest .pay-interest-content .coupon_item image {
+.pay-interest .pay-interest-content .coupon_item image {
   width: 46rpx;
 }
-page .index .pay-interest .pay-interest-content .coupon_item .pay-interest_item_text {
+.pay-interest .pay-interest-content .coupon_item .pay-interest_item_text {
   margin-top: 0rpx;
 }
-page .index .activity_follow {
+.activity_follow {
   display: flex;
   flex-direction: row;
   margin: 30rpx 30rpx 0;
@@ -298,19 +298,19 @@ page .index .activity_follow {
   background: #fff;
   align-items: center;
 }
-page .index .activity_follow .activity_img {
+.activity_follow .activity_img {
   margin-left: 30rpx;
 }
-page .index .activity_follow .activity_img::before {
+.activity_follow .activity_img::before {
   content: '\e686';
   color: #fa5151;
   font-size: 32rpx;
 }
-page .index .activity_follow .activity_img.help-center::before {
+.activity_follow .activity_img.help-center::before {
   content: '\e68f';
   color: #fac451;
 }
-page .index .activity_follow .activity_msg {
+.activity_follow .activity_msg {
   flex: 1;
   margin-left: 20rpx;
   font-size: 34rpx;
@@ -319,10 +319,10 @@ page .index .activity_follow .activity_msg {
   font-family: PingFangSC-Regular, PingFang SC;
   color: #000;
 }
-page .index .activity_follow .activity_msg.update {
+.activity_follow .activity_msg.update {
   position: relative;
 }
-page .index .activity_follow .activity_msg.update::after {
+.activity_follow .activity_msg.update::after {
   position: absolute;
   right: 50rpx;
   top: 16rpx;
@@ -332,12 +332,12 @@ page .index .activity_follow .activity_msg.update::after {
   border-radius: 50%;
   background: #ff3c48;
 }
-page .index .activity_follow .activity_right {
+.activity_follow .activity_right {
   color: #576b95;
   font-size: 24rpx;
   margin-right: 20rpx;
 }
-page .index .auth {
+.auth {
   text-align: center;
   font-size: 28rpx;
   font-family: PingFangSC-Regular, PingFang SC;
@@ -346,7 +346,7 @@ page .index .auth {
   line-height: 40rpx;
   padding-top: 32rpx;
 }
-page .detail_mask {
+.detail_mask {
   position: fixed;
   left: 0;
   top: 0;
@@ -354,7 +354,7 @@ page .detail_mask {
   bottom: 0;
   background: rgba(0,0,0,0.7);
 }
-page .detail_mask .detail_wrapper {
+.detail_mask .detail_wrapper {
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -366,7 +366,7 @@ page .detail_mask .detail_wrapper {
   border-radius: 16px;
   z-index: 2;
 }
-page .detail_mask .detail_wrapper .public-account-title {
+.detail_mask .detail_wrapper .public-account-title {
   margin: 64rpx 48rpx 32rpx 48rpx;
   font-size: 34rpx;
   font-family: PingFangSC-Medium, PingFang SC;
@@ -375,13 +375,13 @@ page .detail_mask .detail_wrapper .public-account-title {
   line-height: 48rpx;
   text-align: center;
 }
-page .detail_mask .detail_wrapper > image {
+.detail_mask .detail_wrapper > image {
   margin-left: 32rpx;
   margin-right: 32rpx;
   width: 574rpx;
   height: 306rpx;
 }
-page .detail_mask .detail_wrapper .public-account-tips {
+.detail_mask .detail_wrapper .public-account-tips {
   text-align: center;
   margin-top: 32rpx;
   padding-bottom: 64rpx;
@@ -392,10 +392,10 @@ page .detail_mask .detail_wrapper .public-account-tips {
   line-height: 48rpx;
   border-bottom: 1rpx solid #e5e5e5;
 }
-page .detail_mask .detail_wrapper .activity_button {
+.detail_mask .detail_wrapper .activity_button {
   text-align: center;
 }
-page .detail_mask .detail_wrapper .activity_button > button {
+.detail_mask .detail_wrapper .activity_button > button {
   text-align: center;
   background-color: transparent;
   font-size: 34rpx;
@@ -405,7 +405,7 @@ page .detail_mask .detail_wrapper .activity_button > button {
   line-height: 48rpx;
   margin: 30rpx;
 }
-page .crowdsourcing_msg {
+.crowdsourcing_msg {
   width: 682rpx;
   background: #fff;
   padding: 30rpx 30rpx;
@@ -413,35 +413,35 @@ page .crowdsourcing_msg {
   box-sizing: border-box;
   margin: 30rpx;
 }
-page .crowdsourcing_msg .title {
+.crowdsourcing_msg .title {
   display: flex;
   align-items: center;
   color: #000;
   font-size: 34rpx;
   font-weight: 400;
 }
-page .crowdsourcing_msg > view {
+.crowdsourcing_msg > view {
   display: flex;
 }
-page .crowdsourcing_msg > view > view {
+.crowdsourcing_msg > view > view {
   flex: 1;
   font-size: 29rpx;
   color: rgba(0,0,0,0.5);
   padding: 40rpx 0 20rpx;
 }
-page .crowdsourcing_msg > view > view:last-child {
+.crowdsourcing_msg > view > view:last-child {
   font-size: 40rpx;
   text-align: right;
   color: #33333d;
 }
-page .crowdsourcing_msg > view:nth-child(3) {
+.crowdsourcing_msg > view:nth-child(3) {
   border-top: 1rpx solid #e8e8e8;
   border-bottom: 1rpx solid #e8e8e8;
 }
-page .crowdsourcing_msg > view:last-child {
+.crowdsourcing_msg > view:last-child {
   padding: 36rpx 0 44rpx;
 }
-page .crowdsourcing_msg button {
+.crowdsourcing_msg button {
   display: flex;
   background: none;
   font-size: 32rpx;
@@ -453,15 +453,15 @@ page .crowdsourcing_msg button {
   justify-content: center;
   vertical-align: top;
 }
-page .crowdsourcing_msg button image {
+.crowdsourcing_msg button image {
   width: 40rpx;
   margin-right: 10rpx;
 }
-page .invite_friends {
+.invite_friends {
   text-align: center;
   margin-top: 20rpx;
 }
-page .invite_friends image {
+.invite_friends image {
   width: 682rpx;
 }
 .pictorial {
@@ -552,4 +552,3 @@ page .invite_friends image {
 .agreement-mask .agreement-wrapper .alert-btn.active {
   opacity: 1;
 }
-

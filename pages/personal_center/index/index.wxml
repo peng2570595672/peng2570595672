@@ -83,7 +83,7 @@
     </view>
 	<!-- 权益商城即将上线 banner 开始-->
     <view class="equity-mall">
-        <image class="equity-mall-img"src="/pages/personal_center/assets/equityMall.png"></image>
+        <image class="equity-mall-img" src="/pages/personal_center/assets/equityMall.png"></image>
     </view>
 	<!-- 权益商城即将上线 banner 结束-->
     <!--付费权益开始-->
