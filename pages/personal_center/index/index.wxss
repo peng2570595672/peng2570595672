@@ -189,7 +189,7 @@ page .index .equity-mall {
 page .index .equity-mall .equity-mall-img {
   width: 757rpx;
   height: 200rpx;
-  margin-left: -7rpx;
+  margin-left: -7.5rpx;
 }
 page .index .pay-interest {
   display: flex;
