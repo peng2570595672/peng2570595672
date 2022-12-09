@@ -1,14 +1,29 @@
 <view class="related-service animated {{wrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{mask}}" catchtap="onClickHandle">
-	<view class="related-service-wrapper animated {{wrapper ? 'slideInUp' : 'slideOutDown'}}" wx:if="{{mask}}" catchtap="onClickCatchHandle">
-		<view class="related-service-box">
+    <view class="related-service-wrapper animated {{wrapper ? 'slideInUp' : 'slideOutDown'}}" wx:if="{{mask}}" catchtap="onClickCatchHandle">
+        <view class="related-service-box">
             <view class="related-service-title">
                 <view class="name">{{details.packageName}}</view>
-                <view>¥{{details.payMoney/100}}</view>
+                <view class="amounts">¥{{details.payMoney/100}}</view>
             </view>
             <view class="related-service-list">
                 <view>
-                    <view class="title" wx:if="{{trafficTicket.length}}">高速通行券</view>
-                    <view wx:for="{{trafficTicket}}" wx:key="index" class="related-service-item iconfont">
+                    <view class="title" wx:if="{{trafficTicket.length}}">{{trafficTicketMoney/100}}元高速通行券</view>
+                    <view class="maximum-quantity" wx:if="{{trafficTicket.length}}">
+                        每个月最高可领{{trafficTicketCount}}张，领后{{15}}天有效
+                    </view>
+					<view  class="new-related-service">
+						<view class="new-list-item" wx:for="{{trafficTicket}}" wx:key="index">
+                            <image class="buttomImg" src="/pages/default/assets/equityImg.png" mode="aspectFit" />
+                            <view class="contentMoney">
+                                <view class="money">¥<span>{{item.denomination/100}}</span></view>
+                                <view class="condition">满{{item.consumptionThreshold/100}}元可用</view>
+                            </view>
+                            <view class="contentCount">
+                                <view class="count">X <span>{{item.couponCount}}张</span></view>
+                            </view>
+						</view>
+					</view>
+                    <!-- <view wx:for="{{trafficTicket}}" wx:key="index" class="related-service-item iconfont">
                         <image src="/pages/default/assets/equities_of_passage.svg"></image>
                         <view class="list-name iconfont">
                             <view>
@@ -17,29 +32,50 @@
                             </view>
                         </view>
                         <view class="amount iconfont">{{item.couponCount}}</view>
-                    </view>
+                    </view> -->
                 </view>
                 <view>
-                    <view class="title" wx:if="{{parkingTicket.length}}">微信停车券</view>
-                    <view wx:for="{{parkingTicket}}" wx:key="index" class="related-service-item iconfont">
+                    <view class="title" wx:if="{{parkingTicket.length}}">{{parkingTicketMoney/100}}元微信停车券</view>
+                    <view class="maximum-quantity" wx:if="{{parkingTicket.length}}">
+                        每个月最高可领{{parkingTicketCount}}张，领后{{15}}天有效
+                    </view>
+                    <view class="new-related-service">
+						<view class="new-list-item" wx:for="{{parkingTicket}}" wx:key="index" >
+                            <image class="buttomImg" src="/pages/default/assets/equityImg.png" mode="aspectFit" />
+                            <view class="contentMoney">
+                                <view class="money">¥<span>{{item.denomination/100}}</span></view>
+                                <view class="condition">满{{item.consumptionThreshold/100}}元可用</view>
+                            </view>
+                            <view class="contentCount">
+                                <view class="count">X <span>{{item.couponCount}}张</span></view>
+                            </view>
+						</view>
+					</view>
+                    <!-- <view wx:for="{{parkingTicket}}" wx:key="index" class="related-service-item iconfont">
                         <image src="/pages/default/assets/equities_of_parking.svg"></image>
                         <view class="list-name iconfont">
                             <view>
-                                <view>{{item.denomination/100}}元{{item.couponType === 1 ? '通行券' : '停车券'}}</view>
+                                <view>
+                                    {{item.denomination/100}}元{{item.couponType === 1 ? '通行券' : '停车券'}}
+                                </view>
                                 <view>满{{item.consumptionThreshold/100}}元可用</view>
                             </view>
                         </view>
                         <view class="amount iconfont">{{item.couponCount}}</view>
-                    </view>
+                    </view> -->
                 </view>
             </view>
             <view class="bottom">
                 <view class="tips">Tips：支付成功且订单审核通过后，在个人中心可按月领取券</view>
                 <view class="btn">
-                    <view class="{{isSelected ? 'pay' : 'close'}}" catchtap="onClickHandle">再看看</view>
-                    <view class="{{isSelected ? 'close' : 'pay'}}" catchtap="onClickChoice">{{isSelected ? '取消加购' : '确认加购买'}}</view>
+                    <view class="{{isSelected ? 'pay' : 'close'}}" catchtap="onClickHandle">
+                        再看看
+                    </view>
+                    <view class="{{isSelected ? 'close' : 'pay'}}" catchtap="onClickChoice">
+                        {{isSelected ? '取消加购' : '确认加购买'}}
+                    </view>
                 </view>
             </view>
         </view>
-	</view>
+    </view>
 </view>
