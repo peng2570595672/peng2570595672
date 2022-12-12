@@ -502,15 +502,17 @@
 	color: #fff;
 	background: linear-gradient(45deg, #14ac69 0%, #84d157 100%);
 }
+
 /* @cyl */
 .related-service .related-service-wrapper .related-service-box .related-service-list .new-related-service {
 	width: 710rpx;
-	display:flex;
+	display: flex;
 	display: -webkit-flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
 	margin-bottom: 50rpx;
 }
+
 .related-service .related-service-wrapper .related-service-box .related-service-list .new-related-service .new-list-item {
 	width: 370rpx;
 	height: 178rpx;
@@ -519,10 +521,12 @@
 	overflow: hidden;
 	text-shadow: 0rpx 4rpx 8rpx #FDE1C1;
 }
+
 .related-service .related-service-wrapper .related-service-box .related-service-list .new-related-service .new-list-item .buttomImg {
 	width: 370rpx;
 	height: 178rpx;
 }
+
 .related-service .related-service-wrapper .related-service-box .related-service-list .new-related-service .new-list-item .contentMoney {
 	position: absolute;
 	width: 150rpx;
@@ -531,6 +535,7 @@
 	left: 25rpx;
 	text-align: center;
 }
+
 .related-service .related-service-wrapper .related-service-box .related-service-list .new-related-service .new-list-item .contentMoney .money {
 	height: 54rpx;
 	font-size: 24rpx;
@@ -540,9 +545,11 @@
 	line-height: 54rpx;
 	margin-top: 15rpx;
 }
+
 .related-service .related-service-wrapper .related-service-box .related-service-list .new-related-service .new-list-item .contentMoney .money span {
 	font-size: 48rpx;
 }
+
 .related-service .related-service-wrapper .related-service-box .related-service-list .new-related-service .new-list-item .contentMoney .condition {
 	height: 28rpx;
 	font-size: 20rpx;
@@ -551,6 +558,7 @@
 	color: #765026;
 	line-height: 28rpx;
 }
+
 .related-service .related-service-wrapper .related-service-box .related-service-list .new-related-service .new-list-item .contentCount {
 	position: absolute;
 	width: 130rpx;
@@ -559,15 +567,14 @@
 	right: 30rpx;
 	text-align: center;
 }
+
 .related-service .related-service-wrapper .related-service-box .related-service-list .new-related-service .new-list-item .contentCount .count {
-	font-size: 16px;
+	font-size: 32rpx;
 	font-family: ArialMT;
 	color: #EC512B;
 	line-height: 100rpx;
 }
+
 .related-service .related-service-wrapper .related-service-box .related-service-list .new-related-service .new-list-item .contentCount .count span {
 	font-size: 42rpx;
 }
-
-
-

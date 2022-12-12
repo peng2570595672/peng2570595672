@@ -97,8 +97,8 @@
                     <view class="item-price">¥{{tools.parseNum(item.payMoney/100)}}</view>
                 </view>
                 <view class="right">
-                    <view class="item-detail">详情</view>
-                    <view class="select-item iconfont {{activeEquitiesIndex === index ? 'item-active' : ''}}"></view>
+                    <view class="item-detail" >详情</view>
+                    <view class="select-item iconfont {{activeEquitiesIndex === index ? 'item-active' : ''}}" catchtap="detailsBtn" data-index="{{index}}"></view>
                 </view>
             </view>
         </view>
