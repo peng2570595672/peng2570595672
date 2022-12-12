@@ -56,50 +56,51 @@ Component({
 			});
 			if (!result) return;
 			if (result.code === 0) {
-				result.data = [
-					{
-						consumptionThreshold: 500,
-						couponCount: 15,
-						couponType: 1,
-						denomination: 1000
-					},
-					{
-						consumptionThreshold: 3000,
-						couponCount: 15,
-						couponType: 1,
-						denomination: 5000
-					},
-					{
-						consumptionThreshold: 1500,
-						couponCount: 8,
-						couponType: 1,
-						denomination: 2000
-					},
-					{
-						consumptionThreshold: 1500,
-						couponCount: 8,
-						couponType: 1,
-						denomination: 3000
-					},
-					{
-						consumptionThreshold: 500,
-						couponCount: 15,
-						couponType: 2,
-						denomination: 1000
-					},
-					{
-						consumptionThreshold: 5000,
-						couponCount: 7,
-						couponType: 2,
-						denomination: 6000
-					},
-					{
-						consumptionThreshold: 8000,
-						couponCount: 3,
-						couponType: 2,
-						denomination: 10000
-					}
-				];
+				// 测试数据
+				// result.data = [
+				// 	{
+				// 		consumptionThreshold: 500,
+				// 		couponCount: 15,
+				// 		couponType: 1,
+				// 		denomination: 1000
+				// 	},
+				// 	{
+				// 		consumptionThreshold: 3000,
+				// 		couponCount: 15,
+				// 		couponType: 1,
+				// 		denomination: 5000
+				// 	},
+				// 	{
+				// 		consumptionThreshold: 1500,
+				// 		couponCount: 8,
+				// 		couponType: 1,
+				// 		denomination: 2000
+				// 	},
+				// 	{
+				// 		consumptionThreshold: 1500,
+				// 		couponCount: 8,
+				// 		couponType: 1,
+				// 		denomination: 3000
+				// 	},
+				// 	{
+				// 		consumptionThreshold: 500,
+				// 		couponCount: 15,
+				// 		couponType: 2,
+				// 		denomination: 1000
+				// 	},
+				// 	{
+				// 		consumptionThreshold: 5000,
+				// 		couponCount: 7,
+				// 		couponType: 2,
+				// 		denomination: 6000
+				// 	},
+				// 	{
+				// 		consumptionThreshold: 8000,
+				// 		couponCount: 3,
+				// 		couponType: 2,
+				// 		denomination: 10000
+				// 	}
+				// ];
 				const trafficTicket = result.data.filter(item => item.couponType === 1);
 				const parkingTicket = result.data.filter(item => item.couponType === 2);
 				let trafficTicketNum = 0;
