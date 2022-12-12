@@ -4,11 +4,22 @@ const app = getApp();
 Page({
 	data: {
 		isRequest: false,// 是否请求
+		enterSource: 0,// 是否是好车主
 		orderList: [],
 		vehicleList: [],
 		failBillList: []
 	},
 	onShow () {
+		wx.hideHomeButton();
+		let pages = getCurrentPages();
+		let currentPage = pages[pages.length - 1];
+		console.log(currentPage.options);
+		if (currentPage.options && currentPage.options.type) {
+			// 好车主
+			this.setData({
+				enterSource: +currentPage.options.type
+			});
+		}
 		if (JSON.stringify(app.globalData.myEtcList) === '{}') {
 			// 直接打开该页面
 			this.login();
@@ -16,7 +27,10 @@ Page({
 		}
 		if (app.globalData.myEtcList.length !== 0) {
 			let obuStatusList;
-			obuStatusList = app.globalData.myEtcList.filter(item => item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5); // 测试数据处理
+			obuStatusList = app.globalData.myEtcList.filter(item => item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5);
+			if (this.data.enterSource) {
+				obuStatusList = app.globalData.myEtcList.filter(item => item.platformId === '568113867222155288' || item.platformId === '500338116821778436');
+			}
 			this.setData({
 				failBillList: [],
 				orderList: obuStatusList
@@ -92,8 +106,10 @@ Page({
 				// 过滤未激活订单
 				let obuStatusList;
 				app.globalData.ownerServiceArrearsList = res.data.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
-				// obuStatusList = res.data.filter(item => item.obuStatus === 1); // 正式数据
-				obuStatusList = res.data.filter(item => item.obuCardType !== 0); // 测试数据处理
+				obuStatusList = res.data.filter(item => item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5); // 正式数据
+				if (this.data.enterSource) {
+					obuStatusList = app.globalData.myEtcList.filter(item => item.platformId === '568113867222155288' || item.platformId === '500338116821778436');
+				}
 				if (obuStatusList.length > 0) {
 					// 需要过滤未激活的套餐
 					this.setData({
@@ -133,6 +149,7 @@ Page({
 			};
 		} else {
 			params = {
+				vehPlate: this.data.enterSource ? (this.data.orderList[0].vehPlates || '') : '',
 				channel: this.data.orderList[0].obuCardType
 			};
 		}
@@ -172,6 +189,7 @@ Page({
 	},
 	// 账单详情
 	async goDetails (e) {
+		if (this.data.enterSource) return;
 		app.globalData.billingDetails = undefined;
 		let model = e.currentTarget.dataset.model;
 		let index = e.currentTarget.dataset.index;
@@ -221,15 +239,15 @@ Page({
 		let idList = [];
 		let payTypeDetail = {};
 		model.list.map(item => {
-            const isPassDeduct = item.passDeductStatus === 2 || item.passDeductStatus === 10;// 是否通行手续费欠费
-            const isDeduct = item.deductStatus === 2 || item.deductStatus === 10;// 是否通行费欠费
-            payTypeDetail[item.id] = isPassDeduct && isDeduct ? 3 : isDeduct ? 1 : 2;
+      const isPassDeduct = item.passDeductStatus === 2 || item.passDeductStatus === 10;// 是否通行手续费欠费
+      const isDeduct = item.deductStatus === 2 || item.deductStatus === 10;// 是否通行费欠费
+      payTypeDetail[item.id] = isPassDeduct && isDeduct ? 3 : isDeduct ? 1 : 2;
 			idList.push(item.id);
 		});
 		util.showLoading();
 		let params = {
 			billIdList: idList,// 账单id集合，采用json数组格式[xx,xx]
-            payTypeDetail: payTypeDetail,// {"账单id1"：1或者2或者3，"账单id2"：1或者2或者3} 1：通行费补缴  2：通行费手续费补缴  3：1+2补缴
+			payTypeDetail: payTypeDetail,// {"账单id1"：1或者2或者3，"账单id2"：1或者2或者3} 1：通行费补缴  2：通行费手续费补缴  3：1+2补缴
 			vehPlates: model.vehPlates,// 车牌号
 			payAmount: model.total// 补缴金额
 		};
@@ -278,6 +296,12 @@ Page({
 			});
 		}, (res) => {
 			console.log(res);
+			if (this.data.enterSource) {
+				wx.redirectTo({
+					url: '/pages/personal_center/xxx/xxx'
+				});
+				return;
+			}
 			this.data.vehicleList.map((item) => {
 				this.getFailBill(item);
 			});
