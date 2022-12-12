@@ -20,7 +20,7 @@
                     </view>
                     <view class="related-service-title">
                         <view>基础服务</view>
-                         <!-- @cyl 注释 -->
+                        <!-- @cyl 注释 -->
                         <!-- <view class="tips" wx:if="{{item.isSignTtCoupon === 1}}">价值158元</view> -->
                     </view>
                     <view class="basic-service-list">
@@ -49,9 +49,15 @@
                         <view>资费标准</view>
                     </view>
                     <view class="textTip">
-                        <text>办理费用：{{item.pledgeType === 1 ? tools.parseNum(item.pledgePrice/100) : 0 }} 元 \n</text>
-                        <text wx:if="{{item.pledgeType === 4}}">押金收费：{{tools.parseNum(item.pledgePrice/100)}}元 \n</text>
-                        <text wx:if="{{item.isSignTtCoupon === 1}}">通通券会员费：{{tools.parseNum(item.ttCouponPayAmount/100)}}元/月 (微信自动代扣) \n</text>
+                        <text>
+                            办理费用：{{item.pledgeType === 1 ? tools.parseNum(item.pledgePrice/100) : 0 }} 元 \n
+                        </text>
+                        <text wx:if="{{item.pledgeType === 4}}">
+                            押金收费：{{tools.parseNum(item.pledgePrice/100)}}元 \n
+                        </text>
+                        <text wx:if="{{item.isSignTtCoupon === 1}}">
+                            通通券会员费：{{tools.parseNum(item.ttCouponPayAmount/100)}}元/月 (微信自动代扣) \n
+                        </text>
                         <!-- <text>平台服务费：每笔通行费金额×【1】%（自动代扣） \n</text> -->
                     </view>
                     <view class="userAgreement">
@@ -67,7 +73,7 @@
     <!-- 0不需要通通券 1需要通通券 -->
     <view wx:if="{{choiceIndex !== -1 && listOfPackages.length && listOfPackages[choiceIndex].isSignTtCoupon === 1}}" class="tongtongquan">
         <view class="equities-title">联名权益</view>
-        <view class="equities-logo" >
+        <view class="equities-logo">
             <image src="/pages/default/assets/equities1.png"></image>
         </view>
         <!-- <view class="equities-logo" wx:else wx:if="{{tools.parseNum(listOfPackages[choiceIndex].ttCouponPayAmount) > 0}}">
@@ -91,8 +97,8 @@
                     <view class="item-price">¥{{tools.parseNum(item.payMoney/100)}}</view>
                 </view>
                 <view class="right">
-                    <view class="item-detail">详情</view>
-                    <view class="select-item iconfont {{activeEquitiesIndex === index ? 'item-active' : ''}}"></view>
+                    <view class="item-detail" >详情</view>
+                    <view class="select-item iconfont {{activeEquitiesIndex === index ? 'item-active' : ''}}" catchtap="detailsBtn" data-index="{{index}}"></view>
                 </view>
             </view>
         </view>
@@ -114,7 +120,7 @@
                 <text catchtap="onClickGoAgreementHandle" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon !== 1}}">
                     《ETC+用户办理协议》
                 </text>
-                 <text catchtap="onClickGoQianTongAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 1}}">
+                <text catchtap="onClickGoQianTongAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 1}}">
                     《黔通卡ETC用户协议》
                 </text>
                 <text catchtap="onClickGoPrivacyHandle">《用户隐私协议》</text>
@@ -126,7 +132,7 @@
                 {{contractStatus === 1 ? '开通连续包月服务' : '签约代扣通行费'}}
             </button>
             <!-- 通通券金额 为0 时 -->
-             <!-- <button class="btn {{!getAgreement ? 'unavailable' : ''}}" catchtap="weChatSign" wx:if="{{tools.parseNum(listOfPackages[choiceIndex].ttCouponPayAmount) > 0}}">
+            <!-- <button class="btn {{!getAgreement ? 'unavailable' : ''}}" catchtap="weChatSign" wx:if="{{tools.parseNum(listOfPackages[choiceIndex].ttCouponPayAmount) > 0}}">
                 去签约
             </button> -->
         </view>

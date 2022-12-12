@@ -47,6 +47,10 @@
 				color rgba(0, 0, 0, 0.9)
 				.name
 					flex 1
+				.amounts
+					font-weight 600
+					color #00B85C
+					margin-right -15rpx
 			.related-service-list
 				padding 0 32rpx
 				// 标题
@@ -65,6 +69,72 @@
 						width 8rpx
 						height 44rpx
 						background #2FB565
+				// ui 优化
+				.maximum-quantity
+					width 100%
+					height 40rpx
+					font-size 28rpx
+					font-family PingFangSC-Regular, PingFang SC
+					font-weight 400
+					color #765026
+					line-height 40rpx
+					margin 22rpx 0 14rpx 0
+				.new-related-service
+					width 710rpx
+					displayflex
+					display -webkit-flex
+					flex-wrap wrap
+					justify-content space-between
+					margin-bottom 50rpx
+					.new-list-item
+						width 370rpx
+						height 178rpx
+						margin-left -19rpx
+						position relative
+						overflow hidden
+						text-shadow 0rpx 4rpx 8rpx #FDE1C1
+						.buttomImg
+							width 370rpx
+							height 178rpx
+						.contentMoney
+							position absolute
+							width 150rpx
+							height 100rpx
+							top 32rpx
+							left 25rpx
+							text-align center
+							.money
+								height 54rpx
+								font-size 24rpx
+								font-family Arial-BoldMT, Arial
+								font-weight normal
+								color #EC512B
+								line-height 54rpx
+								margin-top 15rpx
+								span
+									font-size 48rpx
+							.condition
+								height 28rpx
+								font-size 20rpx
+								font-family PingFangSC-Regular, PingFang SC
+								font-weight 400
+								color #765026
+								line-height 28rpx
+						.contentCount
+							position absolute
+							width 130rpx
+							height 100rpx
+							top 32rpx
+							right 30rpx
+							text-align center
+							.count
+								font-size 32rpx
+								font-family ArialMT
+								color #EC512B
+								line-height 100rpx
+								span
+									font-size 42rpx
+
 				.related-service-item
 					display flex
 					height 176rpx

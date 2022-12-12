@@ -643,5 +643,18 @@ Page({
 			this.setData({isRequest: false});
 			util.showToastNoIcon(result.message);
 		}
+	},
+	// 权益点击高亮，不用显示详情弹窗
+	detailsBtn (e) {
+		const index = e.currentTarget.dataset.index;
+		if (this.data.activeEquitiesIndex !== index) {
+			this.setData({
+				activeEquitiesIndex: index
+			});
+		} else {
+			this.setData({
+				activeEquitiesIndex: -1
+			});
+		}
 	}
 });
