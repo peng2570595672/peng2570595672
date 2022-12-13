@@ -20,7 +20,9 @@ Component({
 		parkingTicketCount: undefined,
 		trafficTicketCount: undefined,
 		trafficTicketMoney: undefined,
-		parkingTicketMoney: undefined
+		parkingTicketMoney: undefined,
+		parkingTicketValidityDay: undefined,
+		trafficTicketValidityDay: undefined
 	},
 	methods: {
 		// 显示或者隐藏
@@ -62,43 +64,58 @@ Component({
 				// 		consumptionThreshold: 500,
 				// 		couponCount: 15,
 				// 		couponType: 1,
-				// 		denomination: 1000
+				// 		denomination: 1000,
+				// 		validityDay: 50,
+				// 		addTime: '2021-01-03 14:10:42'
 				// 	},
 				// 	{
 				// 		consumptionThreshold: 3000,
 				// 		couponCount: 15,
 				// 		couponType: 1,
-				// 		denomination: 5000
+				// 		denomination: 5000,
+				// 		validityDay: 30,
+				// 		addTime: '2020-02-03 14:10:42'
 				// 	},
 				// 	{
 				// 		consumptionThreshold: 1500,
 				// 		couponCount: 8,
 				// 		couponType: 1,
-				// 		denomination: 2000
+				// 		denomination: 2000,
+				// 		validityDay: 10,
+				// 		addTime: '2019-02-03 14:10:42'
 				// 	},
 				// 	{
 				// 		consumptionThreshold: 1500,
 				// 		couponCount: 8,
 				// 		couponType: 1,
-				// 		denomination: 3000
+				// 		denomination: 3000,
+				// 		validityDay: 10,
+				// 		addTime: '2021-02-03 14:10:42'
 				// 	},
+
 				// 	{
 				// 		consumptionThreshold: 500,
 				// 		couponCount: 15,
 				// 		couponType: 2,
-				// 		denomination: 1000
+				// 		denomination: 1000,
+				// 		validityDay: 10,
+				// 		addTime: '2021-02-03 14:10:45'
 				// 	},
 				// 	{
 				// 		consumptionThreshold: 5000,
 				// 		couponCount: 7,
 				// 		couponType: 2,
-				// 		denomination: 6000
+				// 		denomination: 6000,
+				// 		validityDay: 90,
+				// 		addTime: '2021-02-03 14:10:42'
 				// 	},
 				// 	{
 				// 		consumptionThreshold: 8000,
 				// 		couponCount: 3,
 				// 		couponType: 2,
-				// 		denomination: 10000
+				// 		denomination: 10000,
+				// 		validityDay: 15,
+				// 		addTime: '2021-02-03 14:10:43'
 				// 	}
 				// ];
 				const trafficTicket = result.data.filter(item => item.couponType === 1);
@@ -107,13 +124,33 @@ Component({
 				let parkingTicketNum = 0;
 				let trafficTicketMoney = 0;
 				let parkingTicketMoney = 0;
+				let parkingTicketValidityDay = parkingTicket[0].validityDay;
+				let trafficTicketValidityDay = trafficTicket[0].validityDay;
+				let trafficTicketTime = trafficTicket[0].addTime;
+				let parkingTicketTime = parkingTicket[0].addTime;
 				trafficTicket.map(item => {
 					trafficTicketNum += item.couponCount;
 					trafficTicketMoney += item.couponCount * item.denomination;
+					if (trafficTicket.length === 1) {
+						trafficTicketValidityDay = item.validityDay;
+					} else {
+						if (util.timeComparison(trafficTicketTime,item.addTime) === 2) {
+							trafficTicketTime = item.addTime;
+							trafficTicketValidityDay = item.validityDay;
+						}
+					}
 				});
 				parkingTicket.map(item => {
 					parkingTicketNum += item.couponCount;
 					parkingTicketMoney += item.couponCount * item.denomination;
+					if (parkingTicket.length === 1) {
+						parkingTicketValidityDay = item.validityDay;
+					} else {
+						if (util.timeComparison(parkingTicketTime,item.addTime) === 2) {
+							parkingTicketTime = item.addTime;
+							parkingTicketValidityDay = item.validityDay;
+						}
+					}
 				});
 				this.setData({
 					trafficTicket,
@@ -123,7 +160,9 @@ Component({
 					trafficTicketCount: trafficTicketNum,
 					parkingTicketCount: parkingTicketNum,
 					parkingTicketMoney,
-					trafficTicketMoney
+					trafficTicketMoney,
+					parkingTicketValidityDay,
+					trafficTicketValidityDay
 				});
 			} else {
 				util.showToastNoIcon(result.message);
