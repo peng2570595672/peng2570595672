@@ -124,10 +124,10 @@ Component({
 				let parkingTicketNum = 0;
 				let trafficTicketMoney = 0;
 				let parkingTicketMoney = 0;
-				let parkingTicketValidityDay = parkingTicket[0].validityDay;
-				let trafficTicketValidityDay = trafficTicket[0].validityDay;
 				let trafficTicketTime = trafficTicket[0].addTime;
 				let parkingTicketTime = parkingTicket[0].addTime;
+				let parkingTicketValidityDay = parkingTicket[0].validityDay;
+				let trafficTicketValidityDay = trafficTicket[0].validityDay;
 				trafficTicket.map(item => {
 					trafficTicketNum += item.couponCount;
 					trafficTicketMoney += item.couponCount * item.denomination;
