@@ -59,6 +59,7 @@
         "my_etc_detail/my_etc_detail",
         "my_order/my_order",
         "split_bill/split_bill",
+        "bill_payment_success/bill_payment_success",
         "arrears_bill/arrears_bill",
         "make_up_immediately/make_up_immediately",
         "membership_coupon/membership_coupon",
