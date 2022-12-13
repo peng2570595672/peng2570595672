@@ -1,0 +1,5 @@
+<view class="content">
+	<image class="img" src="https://file.cyzl.com/g001/M07/07/66/oYYBAGAc55iARIz7AABYiHNmY0s105.png"></image>
+	<view class="status-text">补缴成功</view>
+	<view class="btn" catchtap="handleBackMini">返回ETC好车主查看账单</view>
+</view>

@@ -440,7 +440,7 @@
         },
         {
           "name": "",
-          "pathName": "pages/personal_center/arrears_bill/arrears_bill",
+          "pathName": "pages/personal_center/bill_payment_success/bill_payment_success",
           "query": "",
           "launchMode": "default",
           "scene": null

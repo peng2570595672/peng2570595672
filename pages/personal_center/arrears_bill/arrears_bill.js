@@ -229,6 +229,12 @@ Page({
 	},
 	// 补缴
 	payment (e) {
+		
+		
+		wx.redirectTo({
+			url: '/pages/personal_center/bill_payment_success/bill_payment_success'
+		});
+		return
 		if (this.data.isRequest) {
 			return;
 		} else {
@@ -298,7 +304,7 @@ Page({
 			console.log(res);
 			if (this.data.enterSource) {
 				wx.redirectTo({
-					url: '/pages/personal_center/xxx/xxx'
+					url: '/pages/personal_center/bill_payment_success/bill_payment_success'
 				});
 				return;
 			}
