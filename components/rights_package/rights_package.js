@@ -69,17 +69,17 @@ Component({
 				let trafficTicketMoney = 0;
 				let parkingTicketMoney = 0;
 				if (trafficTicket.length > 0) {
-					let trafficTicketTime = trafficTicket[0].addTime;
-					let trafficTicketValidityDay = trafficTicket[0].validityDay;
+					let trafficTicketTime = trafficTicket[0].minTime;
+					let trafficTicketValidityDay = trafficTicket[0].minDays;
 					trafficTicket.map(item => {
-						trafficTicketNum += item.couponCount;
+						trafficTicketNum += item.periodCount;
 						trafficTicketMoney += item.couponCount * item.denomination;
 						if (trafficTicket.length === 1) {
-							trafficTicketValidityDay = item.validityDay;
+							trafficTicketValidityDay = item.minDays;
 						} else {
-							if (util.timeComparison(trafficTicketTime,item.addTime) === 2) {
-								trafficTicketTime = item.addTime;
-								trafficTicketValidityDay = item.validityDay;
+							if (util.timeComparison(trafficTicketTime,item.minTime) === 2) {
+								trafficTicketTime = item.minTime;
+								trafficTicketValidityDay = item.minDays;
 							}
 						}
 					});
@@ -91,17 +91,17 @@ Component({
 					});
 				}
 				if (parkingTicket.length > 0) {
-					let parkingTicketTime = parkingTicket[0].addTime;
-					let parkingTicketValidityDay = parkingTicket[0].validityDay;
+					let parkingTicketTime = parkingTicket[0].minTime;
+					let parkingTicketValidityDay = parkingTicket[0].minDays;
 					parkingTicket.map(item => {
-						parkingTicketNum += item.couponCount;
+						parkingTicketNum += item.periodCount;
 						parkingTicketMoney += item.couponCount * item.denomination;
 						if (parkingTicket.length === 1) {
-							parkingTicketValidityDay = item.validityDay;
+							parkingTicketValidityDay = item.minDays;
 						} else {
-							if (util.timeComparison(parkingTicketTime,item.addTime) === 2) {
-								parkingTicketTime = item.addTime;
-								parkingTicketValidityDay = item.validityDay;
+							if (util.timeComparison(parkingTicketTime,item.minTime) === 2) {
+								parkingTicketTime = item.minTime;
+								parkingTicketValidityDay = item.minDays;
 							}
 						}
 					});
