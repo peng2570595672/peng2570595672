@@ -1,5 +1,5 @@
 const util = require('../../../utils/util.js');
-const WSCoordinate = require('../../../utils/WSCoordinate.js');
+const WSCoordinate = require('../util/WSCoordinate.js');
 const app = getApp();
 Page({
   /**

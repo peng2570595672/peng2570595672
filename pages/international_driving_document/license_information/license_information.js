@@ -1,5 +1,5 @@
 const util = require('../../../utils/util.js');
-const city = require('../../../utils/citys.js');
+const city = require('../util/citys.js');
 Page({
 	data: {
 		stepArr: [
