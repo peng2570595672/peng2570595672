@@ -133,7 +133,7 @@
             <button class="btn {{!getAgreement ? 'unavailable' : ''}}" catchtap="handleSign" wx:if="{{tools.parseNum(listOfPackages[choiceIndex].ttCouponPayAmount) > 0}}">
                 {{contractStatus === 1 ? '开通连续包月服务' : '签约代扣通行费'}}
             </button>
-            <!-- 通通券金额 为0 时 -->
+            <!-- 通通券金额 为0 时 执行微信签约-->
             <button class="btn {{!getAgreement ? 'unavailable' : ''}}" catchtap="toWeChatSign" wx:else>
                 去签约
             </button>

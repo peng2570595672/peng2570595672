@@ -861,8 +861,7 @@ Page({
 			return;
 		}
 		// 解约
-		let orderInfo = this.data.isTerminationTruck ? this.data.truckOrderInfo : this.data
-			.passengerCarOrderInfo;
+		let orderInfo = this.data.isTerminationTruck ? this.data.truckOrderInfo : this.data.passengerCarOrderInfo;
 		let dialogContent = {
 			orderInfo: orderInfo,
 			title: '无法正常扣款',
