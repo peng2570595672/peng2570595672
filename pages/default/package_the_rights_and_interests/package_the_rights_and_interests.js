@@ -110,7 +110,9 @@ Page({
 		rightsPackageDetails: undefined,
 		contractStatus: undefined,
 		getAgreement: false, // 是否接受协议
-		isPay: false // 已选择通通券套餐&无需支付||已经支付
+		isPay: false, // 已选择通通券套餐&无需支付||已经支付
+		ttCouponPayAmount: undefined,	// 通通券金额
+		isSignTtCoupon: undefined	// 是否签约通通券
 
 	},
 	async onLoad (options) {
@@ -234,6 +236,9 @@ Page({
 			app.globalData.signAContract = 3;
 			if (result.data.contractStatus === 1) {
 				util.showToastNoIcon('签约成功');
+				if (this.data.ttCouponPayAmount === 0 && this.data.isSignTtCoupon === 1) {
+					util.go(`/pages/default/processing_progress/processing_progress?${app.globalData.orderInfo.orderId}`);
+				}
 			}
 			this.setData({
 				contractStatus: result.data.contractStatus
@@ -243,7 +248,6 @@ Page({
 		}
 	},
 	async handleSign () {
-		console.log('出阿道夫');
 		if (!this.data.getAgreement) {
 			util.showToastNoIcon('请同意并勾选协议！');
 			return;
@@ -254,6 +258,14 @@ Page({
 			return;
 		}
 		await this.signWeChat();
+	},
+	// 通通券金额为 0 时，调用此接口
+	toWeChatSign () {
+		if (!this.data.getAgreement) {
+			util.showToastNoIcon('请同意并勾选协议！');
+			return;
+		}
+		this.weChatSign();
 	},
 	async signThirdContract () {
 		if (this.data.isRequest) {
@@ -315,7 +327,7 @@ Page({
 		}
 		util.showLoading('加载中');
 		let params = {
-			dataComplete: 0,// 已完善资料,进入待审核
+			dataComplete: this.data.ttCouponPayAmount === 0 && this.data.isSignTtCoupon === 1 ? 1 : 0, // 订单资料是否已完善 1-是，0-否,// 已完善资料,进入待审核
 			orderId: app.globalData.orderInfo.orderId,// 订单id
 			clientOpenid: app.globalData.userInfo.openId,
 			clientMobilePhone: app.globalData.userInfo.mobilePhone,
@@ -507,6 +519,12 @@ Page({
 			});
 			return;
 		}
+		if (this.data.listOfPackages[this.data.choiceIndex].ttCouponPayAmount && this.data.listOfPackages[this.data.choiceIndex].isSignTtCoupon) {
+			this.setData({
+				ttCouponPayAmount: parseInt(this.data.listOfPackages[this.data.choiceIndex].ttCouponPayAmount),
+				isSignTtCoupon: parseInt(this.data.listOfPackages[this.data.choiceIndex].isSignTtCoupon)
+			});
+		}
 		await this.saveOrderInfo();
 	},
 	async saveOrderInfo () {
@@ -519,7 +537,7 @@ Page({
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			shopId: this.data.orderInfo ? this.data.orderInfo.base.shopId : app.globalData.newPackagePageData.shopId, // 商户id
 			dataType: '3', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
-			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
+			dataComplete: this.data.ttCouponPayAmount === 0 && this.data.isSignTtCoupon === 1 ? 1 : 0, // 订单资料是否已完善 1-是，0-否
 			shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
 			rightsPackageId: this.data.rightsAndInterestsList[this.data.activeEquitiesIndex]?.id || '',
 			areaCode: this.data.orderInfo ? this.data.orderInfo.product.areaCode : app.globalData.newPackagePageData.areaCode

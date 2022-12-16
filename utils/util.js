@@ -749,8 +749,8 @@ function getStatus(orderInfo) {
 		return 1; // 客车解约
 	}
 	if (orderInfo.status === 1 && orderInfo.isSignTtCoupon === 1 && orderInfo.ttContractStatus !== 1) {
-		// 通通券签约套餐 解约
-		return 22;
+		// 通通券签约套餐 解约 洛阳工行 通通券金额为 0 时 返回 6 进入办理进度页
+		return orderInfo.ttCouponPayAmount > 0 ? 22 : 6;
 	}
 	if (orderInfo.shopProductId === 0) {
 		return 2;// 办理中 未选套餐
