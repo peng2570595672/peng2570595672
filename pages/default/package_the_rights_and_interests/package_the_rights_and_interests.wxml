@@ -15,7 +15,7 @@
                         </view>
                         <view>¥{{tools.parseNum(item.pledgePrice/100)}}</view>
                     </view>
-                    <view wx:if="{{ item.isSignTtCoupon === 1 }}" class="coupon-tips">
+                    <view wx:if="{{ item.isSignTtCoupon === 1 && tools.parseNum(item.ttCouponPayAmount) > 0}}" class="coupon-tips">
                         您已选择通通券*ETC联名套餐，默认你已同意以连续包月模式开通 通通券会员，套餐内含ETC设备一套，会员期内可免费享受以下ETC权益
                     </view>
                     <view class="related-service-title">
@@ -25,7 +25,6 @@
                     </view>
                     <view class="basic-service-list">
                         <view class="basic-service-item" wx:for="{{basicServiceList}}" wx:key="index">
-                            <!-- <image src="{{item.logo}}" mode="widthFix"></image> -->
                             <view class="iconfont logo {{item.ico}}">{{item.title}}</view>
                             <view class="tips">{{item.tips}}</view>
                         </view>
@@ -43,23 +42,20 @@
                             <image src="https://file.cyzl.com/g001/M00/9C/9E/oYYBAGNSXIqAFlpjAAB53KOQJBo783.svg" mode="widthFix"></image>
                         </view>
                     </view>
-                    <!-- <view class="pay-tips" wx:if="{{item.pledgePrice}}">注：付费产品支付成功且审核通过后，默认你已同意接受服务，不作申请退款。</view> -->
-                    <!-- @cyl -->
                     <view class="related-service-title newAdd">
                         <view>资费标准</view>
                     </view>
                     <view class="textTip">
                         <text>
-                            办理费用：{{item.pledgeType === 1 ? tools.parseNum(item.pledgePrice/100) : 0 }} 元 \n
+                            办理费用：{{item.pledgeType === 1 ? tools.parseNum(item.pledgePrice/100) : 0 }} 元
                         </text>
                         <text wx:if="{{item.pledgeType === 4}}">
-                            押金收费：{{tools.parseNum(item.pledgePrice/100)}}元 \n
+                            押金收费：{{tools.parseNum(item.pledgePrice/100)}}元
                         </text>
                         <text wx:if="{{item.isSignTtCoupon === 1 && tools.parseNum(item.ttCouponPayAmount) > 0}}">
                             <!-- 当发起通通券签约，通通券金额为 0 时，不展示  -->
-                            通通券会员费：{{tools.parseNum(item.ttCouponPayAmount/100)}}元/月 (微信自动代扣) \n
+                            通通券会员费：{{tools.parseNum(item.ttCouponPayAmount/100)}}元/月 (微信自动代扣)
                         </text>
-                        <!-- <text>平台服务费：每笔通行费金额×【1】%（自动代扣） \n</text> -->
                     </view>
                     <view class="userAgreement">
                         <text wx:if="{{item.pledgeType !== 4 }}">注：收费产品支付成功且审核通过后，默认同意不退款 \n</text>

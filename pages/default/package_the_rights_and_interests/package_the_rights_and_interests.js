@@ -110,9 +110,7 @@ Page({
 		rightsPackageDetails: undefined,
 		contractStatus: undefined,
 		getAgreement: false, // 是否接受协议
-		isPay: false, // 已选择通通券套餐&无需支付||已经支付
-		ttCouponPayAmount: undefined,	// 通通券金额
-		isSignTtCoupon: undefined	// 是否签约通通券
+		isPay: false // 已选择通通券套餐&无需支付||已经支付
 
 	},
 	async onLoad (options) {
@@ -174,7 +172,7 @@ Page({
 		if (result.code === 0) {
 			this.setData({
 				listOfPackages: [result.data]
-      });
+			});
 			await this.getSwiperHeight();
 		} else {
 			util.showToastNoIcon(result.message);
@@ -236,8 +234,10 @@ Page({
 			app.globalData.signAContract = 3;
 			if (result.data.contractStatus === 1) {
 				util.showToastNoIcon('签约成功');
-				if (this.data.ttCouponPayAmount === 0 && this.data.isSignTtCoupon === 1) {
-					util.go(`/pages/default/processing_progress/processing_progress?${app.globalData.orderInfo.orderId}`);
+				let ttCouponPayAmount = parseInt(this.data.listOfPackages[this.data.choiceIndex].ttCouponPayAmount);
+				let isSignTtCoupon = parseInt(this.data.listOfPackages[this.data.choiceIndex].isSignTtCoupon);
+				if (ttCouponPayAmount === 0 && isSignTtCoupon === 1) {
+					this.submitOrder();
 				}
 			}
 			this.setData({
@@ -325,9 +325,11 @@ Page({
 		} else {
 			this.setData({isRequest: true});
 		}
+		let ttCouponPayAmount = parseInt(this.data.listOfPackages[this.data.choiceIndex].ttCouponPayAmount);
+		let isSignTtCoupon = parseInt(this.data.listOfPackages[this.data.choiceIndex].isSignTtCoupon);
 		util.showLoading('加载中');
 		let params = {
-			dataComplete: this.data.ttCouponPayAmount === 0 && this.data.isSignTtCoupon === 1 ? 1 : 0, // 订单资料是否已完善 1-是，0-否,// 已完善资料,进入待审核
+			dataComplete: ttCouponPayAmount === 0 && isSignTtCoupon === 1 ? 1 : 0, // 订单资料是否已完善 1-是，0-否,// 已完善资料,进入待审核
 			orderId: app.globalData.orderInfo.orderId,// 订单id
 			clientOpenid: app.globalData.userInfo.openId,
 			clientMobilePhone: app.globalData.userInfo.mobilePhone,
@@ -519,12 +521,6 @@ Page({
 			});
 			return;
 		}
-		if (this.data.listOfPackages[this.data.choiceIndex].ttCouponPayAmount && this.data.listOfPackages[this.data.choiceIndex].isSignTtCoupon) {
-			this.setData({
-				ttCouponPayAmount: parseInt(this.data.listOfPackages[this.data.choiceIndex].ttCouponPayAmount),
-				isSignTtCoupon: parseInt(this.data.listOfPackages[this.data.choiceIndex].isSignTtCoupon)
-			});
-		}
 		await this.saveOrderInfo();
 	},
 	async saveOrderInfo () {
@@ -533,11 +529,13 @@ Page({
 			orderId: app.globalData.orderInfo.orderId // 订单id
 		});
 		if (!res) return;
+		let ttCouponPayAmount = parseInt(this.data.listOfPackages[this.data.choiceIndex].ttCouponPayAmount);
+		let isSignTtCoupon = parseInt(this.data.listOfPackages[this.data.choiceIndex].isSignTtCoupon);
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			shopId: this.data.orderInfo ? this.data.orderInfo.base.shopId : app.globalData.newPackagePageData.shopId, // 商户id
 			dataType: '3', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
-			dataComplete: this.data.ttCouponPayAmount === 0 && this.data.isSignTtCoupon === 1 ? 1 : 0, // 订单资料是否已完善 1-是，0-否
+			dataComplete: ttCouponPayAmount === 0 && isSignTtCoupon === 1 ? 1 : 0, // 订单资料是否已完善 1-是，0-否
 			shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
 			rightsPackageId: this.data.rightsAndInterestsList[this.data.activeEquitiesIndex]?.id || '',
 			areaCode: this.data.orderInfo ? this.data.orderInfo.product.areaCode : app.globalData.newPackagePageData.areaCode

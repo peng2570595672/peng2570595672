@@ -87,15 +87,15 @@
   background: #2fb565;
 }
 .package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .newAdd {
-  margin: 32rpx 0;
+  margin: 32rpx 0 0 0;
 }
 .package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .textTip {
   width: 552rpx;
   font-size: 24rpx;
   font-family: PingFangSC-Regular, PingFang SC;
+  line-height: 34rpx;
   font-weight: 400;
   color: #000;
-  line-height: 34rpx;
   opacity: 0.5;
 }
 .package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .userAgreement {
@@ -200,14 +200,7 @@
   background-image: url("https://file.cyzl.com/g001/M07/34/B4/oYYBAGCGFHGANGvFAAASff6NJMs668.svg");
   margin-right: auto;
 }
-.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .pay-tips {
-  color: #ffc300;
-  font-size: 24rpx;
-  line-height: 34rpx;
-  font-family: PingFangSC-Semibold, PingFang SC;
-  font-weight: 600;
-  margin-top: 32rpx;
-}
+
 .package-the-rights-and-interests .swiper-box .my-swiper.my-only-swiper .my-swiper-item {
   width: 686rpx;
 }
