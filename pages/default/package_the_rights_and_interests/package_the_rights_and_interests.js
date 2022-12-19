@@ -236,7 +236,8 @@ Page({
 				util.showToastNoIcon('签约成功');
 				let ttCouponPayAmount = parseInt(this.data.listOfPackages[this.data.choiceIndex].ttCouponPayAmount);
 				let isSignTtCoupon = parseInt(this.data.listOfPackages[this.data.choiceIndex].isSignTtCoupon);
-				if (ttCouponPayAmount === 0 && isSignTtCoupon === 1) {
+				let shopProductId = this.data.listOfPackages[this.data.choiceIndex].shopProductId;
+				if (ttCouponPayAmount === 0 && isSignTtCoupon === 1 && shopProductId === '1053333932522610688') {
 					this.submitOrder();
 				}
 			}
