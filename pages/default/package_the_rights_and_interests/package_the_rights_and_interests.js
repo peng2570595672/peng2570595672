@@ -325,11 +325,9 @@ Page({
 		} else {
 			this.setData({isRequest: true});
 		}
-		let ttCouponPayAmount = parseInt(this.data.listOfPackages[this.data.choiceIndex].ttCouponPayAmount);
-		let isSignTtCoupon = parseInt(this.data.listOfPackages[this.data.choiceIndex].isSignTtCoupon);
 		util.showLoading('加载中');
 		let params = {
-			dataComplete: ttCouponPayAmount === 0 && isSignTtCoupon === 1 ? 1 : 0, // 订单资料是否已完善 1-是，0-否,// 已完善资料,进入待审核
+			dataComplete: 0, // 订单资料是否已完善 1-是，0-否,// 已完善资料,进入待审核
 			orderId: app.globalData.orderInfo.orderId,// 订单id
 			clientOpenid: app.globalData.userInfo.openId,
 			clientMobilePhone: app.globalData.userInfo.mobilePhone,
@@ -529,13 +527,11 @@ Page({
 			orderId: app.globalData.orderInfo.orderId // 订单id
 		});
 		if (!res) return;
-		let ttCouponPayAmount = parseInt(this.data.listOfPackages[this.data.choiceIndex].ttCouponPayAmount);
-		let isSignTtCoupon = parseInt(this.data.listOfPackages[this.data.choiceIndex].isSignTtCoupon);
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			shopId: this.data.orderInfo ? this.data.orderInfo.base.shopId : app.globalData.newPackagePageData.shopId, // 商户id
 			dataType: '3', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
-			dataComplete: ttCouponPayAmount === 0 && isSignTtCoupon === 1 ? 1 : 0, // 订单资料是否已完善 1-是，0-否
+			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
 			rightsPackageId: this.data.rightsAndInterestsList[this.data.activeEquitiesIndex]?.id || '',
 			areaCode: this.data.orderInfo ? this.data.orderInfo.product.areaCode : app.globalData.newPackagePageData.areaCode
