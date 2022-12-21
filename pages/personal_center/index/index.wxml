@@ -73,7 +73,7 @@
         <!--帮助中心开始-->
         <view class="user_item" catchtap="go" data-url="help_center" wx:else>
             <view class="user_item_icon {{isShowHelpCenterUpdate ? 'update' : ''}}">
-                <image class="img" src="/pages/personal_center/assets/help.svg"></image>
+                <image class="img" src="/pages/personal_center/assets/help.svg" ></image>
                 <!--更新提示-->
                 <view></view>
             </view>
@@ -82,8 +82,8 @@
         <!--帮助中心结束-->
     </view>
 	<!-- 权益商城即将上线 banner 开始-->
-    <view class="equity-mall">
-        <image class="equity-mall-img" src="/pages/personal_center/assets/equityMall.png"></image>
+    <view class="equity-mall" wx:if="{{isShowEquityImg}}" catchtap="">
+        <image class="equity-mall-img" src="https://file.cyzl.com/g001/M07/A8/FD/oYYBAGOitlKAMJZcAADu4q5cp6k282.png" model="widthFix"></image>
     </view>
 	<!-- 权益商城即将上线 banner 结束-->
     <!--付费权益开始-->
@@ -98,10 +98,10 @@
                 <view class="pay-interest-item-icon car_service iconfont"></view>
                 <view class="pay-interest_item_text">车主服务</view>
             </view>
-            <view class="pay-interest_item" catchtap="go" data-url="life_service" wx:if="{{rightsPackageBuyRecords.length}}">
+            <!-- <view class="pay-interest_item" catchtap="go" data-url="life_service" wx:if="{{rightsPackageBuyRecords.length}}">
                 <view class="pay-interest-item-icon life_service iconfont"></view>
                 <view class="pay-interest_item_text">生活服务</view>
-            </view>
+            </view> -->
             <view class="pay-interest_item" catchtap="go" data-url="coupon_redemption_centre" wx:if="{{hasCoupon}}">
                 <view class="pay-interest-item-icon coupon_redemption_centre iconfont"></view>
                 <view class="pay-interest_item_text">领券中心</view>

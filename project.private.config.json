@@ -27,6 +27,13 @@
 					"query": "",
 					"launchMode": "default",
 					"scene": null
+				},
+				{
+					"name": "我的ETC",
+					"pathName": "pages/personal_center/my_etc/my_etc",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
 				}
 			]
 		}

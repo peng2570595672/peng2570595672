@@ -24,9 +24,9 @@
                         <!-- <view class="tips" wx:if="{{item.isSignTtCoupon === 1}}">价值158元</view> -->
                     </view>
                     <view class="basic-service-list">
-                        <view class="basic-service-item" wx:for="{{basicServiceList}}" wx:key="index">
-                            <view class="iconfont logo {{item.ico}}">{{item.title}}</view>
-                            <view class="tips">{{item.tips}}</view>
+                        <view class="basic-service-item" wx:for="{{basicServiceList}}" wx:for-item="itemBase" wx:key="index">
+                            <view class="iconfont logo {{itemBase.ico}}">{{item.pledgeType === 4 && itemBase.title === '设备质保一年' ? '升级三年设备质保' : itemBase.title}}</view>
+                            <view class="tips">{{itemBase.tips ? (item.pledgeType === 4 ? '赠送':itemBase.tips) : ''}}</view>
                         </view>
                     </view>
                     <view class="related-service-title" wx:if="{{item.flowVersion === 2 || item.flowVersion === 3}}">
@@ -42,15 +42,30 @@
                             <image src="https://file.cyzl.com/g001/M00/9C/9E/oYYBAGNSXIqAFlpjAAB53KOQJBo783.svg" mode="widthFix"></image>
                         </view>
                     </view>
-                    <view class="related-service-title newAdd">
+
+                    <view class="related-service-title newAdd"  wx:if="{{item.pledgeType === 4}}">
+                        <view>权益商城任意兑</view>
+                    </view>
+                    <view class="equityShop"  wx:if="{{item.pledgeType === 4}}">
+                        <!-- 套餐里有券额 证明这个套餐是 “权益券额套餐模式” -->
+                        <view class="equityImg" >
+                            <view class="imgShop" wx:for="{{equityShop}}" wx:for-item="itemEquity"  wx:for-index="ins" wx:key="ins">
+                                <view class="couponOffset">{{itemEquity.couponOffset}}</view>
+                                <view class="imgText {{itemEquity.shopName === 'youku'? 'youku':''}}">
+                                    <image src="{{itemEquity.shopImg}}" mode="widthFix"/>
+                                </view>
+                                <view class="couponPrice">券后价<text>{{itemEquity.couponPrice}}</text>元</view>
+                            </view>
+                        </view>
+                        <view class="equityText">-购买成功立即膨胀，更多精品权益任选-</view>
+                    </view>
+
+                    <view class="related-service-title newAdd" wx:if="{{item.pledgeType !== 4}}">
                         <view>资费标准</view>
                     </view>
-                    <view class="textTip">
+                    <view class="textTip" wx:if="{{item.pledgeType !== 4}}">
                         <text>
                             办理费用：{{item.pledgeType === 1 ? tools.parseNum(item.pledgePrice/100) : 0 }} 元
-                        </text>
-                        <text wx:if="{{item.pledgeType === 4}}">
-                            押金收费：{{tools.parseNum(item.pledgePrice/100)}}元
                         </text>
                         <text wx:if="{{item.isSignTtCoupon === 1 && tools.parseNum(item.ttCouponPayAmount) > 0}}">
                             <!-- 当发起通通券签约，通通券金额为 0 时，不展示  -->
@@ -59,7 +74,7 @@
                     </view>
                     <view class="userAgreement">
                         <text wx:if="{{item.pledgeType !== 4 }}">注：收费产品支付成功且审核通过后，默认同意不退款 \n</text>
-                        <!-- <text style="text-decoration: underline;" catchtap="onClickGoAgreementHandle">具体扣费规则详见用户办理协议</text> -->
+                        <text wx:else>请注意：默认您已同意在支付成功后即时将支付金额权益券额，券额不支持退款。</text>
                     </view>
                 </view>
             </swiper-item>

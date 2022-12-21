@@ -27,7 +27,8 @@ Page({
 		isActivityDate: false, // 是否活动期间
 		canIUseGetUserProfile: false,
 		isPrechargeOrder: true, // 是否有预充流程 || 交行二类户 || 工行二类户  & 已审核通过订单
-		disclaimerDesc: app.globalData.disclaimerDesc
+		disclaimerDesc: app.globalData.disclaimerDesc,
+		isShowEquityImg: false	// 是否显示权益商城banner
 	},
 	onLoad (options) {
 		if (wx.getUserProfile) {
@@ -239,6 +240,12 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
 		if (result.code === 0) {
 			app.globalData.myEtcList = result.data;
+			let flag = result.data.findIndex(item => (item.pledgeType === 4 && item.pledgeStatus !== 0));
+			if (flag !== -1) {
+				this.setData({
+					isShowEquityImg: true
+				});
+			}
 			await this.getIsShow();
 		} else {
 			util.showToastNoIcon(result.message);
