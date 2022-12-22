@@ -535,7 +535,7 @@ Page({
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
 			rightsPackageId: this.data.rightsAndInterestsList[this.data.activeEquitiesIndex]?.id || '',
-			areaCode: this.data.orderInfo ? this.data.orderInfo.product.areaCode : app.globalData.newPackagePageData.areaCode
+			areaCode: this.data.orderInfo ? (this.data.orderInfo.product.areaCode || '0') : app.globalData.newPackagePageData.areaCode
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		console.log(result);
@@ -544,6 +544,11 @@ Page({
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
 				this.data.rightsAndInterestsList[this.data.activeEquitiesIndex]?.payMoney) {
 				await this.marginPayment(this.data.listOfPackages[this.data.choiceIndex].pledgeType);
+				return;
+			}
+			if (this.data.orderInfo?.base?.orderType === 61) {
+				// 电销&无需支付
+				await this.weChatSign();
 				return;
 			}
 			if (this.data.isSalesmanOrder) {
@@ -637,6 +642,11 @@ Page({
 								return;
 							}
 							// 去支付成功页
+							util.go('/pages/default/payment_successful/payment_successful');
+							return;
+						}
+						if (this.data.orderInfo?.base?.orderType === 61) {
+							// 电销模式
 							util.go('/pages/default/payment_successful/payment_successful');
 							return;
 						}

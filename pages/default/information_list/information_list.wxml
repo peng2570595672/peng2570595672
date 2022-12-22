@@ -5,16 +5,24 @@
     </view>
     <view class="list-item">
         <view class="left iconfont {{orderInfo.isOwner === 1 ? 'success' : ''}} {{isIdCardError ? 'error' : ''}}">车主身份证</view>
-        <view class="btn {{orderInfo.isOwner === 1 ? 'edit': ''}}" catchtap="go" data-url="upload_id_card">{{orderInfo.isOwner === 1 ? '修改' : '上传'}}</view>
+        <view wx:if="{{ orderDetails.orderType !== 61 }}" class="btn {{orderInfo.isOwner === 1 ? 'edit': ''}}"
+              catchtap="go" data-url="upload_id_card">
+            {{orderInfo.isOwner === 1 ? '修改' : '上传'}}
+        </view>
     </view>
     <view class="list-item">
         <view class="left iconfont {{orderInfo.isVehicle === 1 ? 'success' : ''}} {{isDrivingLicenseError ? 'error' : ''}}">行驶证</view>
-        <view class="btn {{orderInfo.isVehicle === 1 ? 'edit' : ''}}"
-              catchtap="go" data-url="information_validation">{{orderInfo.isVehicle === 1 ? '修改' : '上传'}}</view>
+        <view wx:if="{{ orderDetails.orderType !== 61 }}" class="btn {{orderInfo.isVehicle === 1 ? 'edit' : ''}}"
+              catchtap="go" data-url="information_validation">
+            {{orderInfo.isVehicle === 1 ? '修改' : '上传'}}
+        </view>
     </view>
     <view class="list-item" wx:if="{{ orderInfo.obuCardType !== 1 }}">
         <view class="left iconfont {{orderInfo.isHeadstock === 1 ? 'success' : ''}} {{isHeadstockError ? 'error' : ''}}">车辆照片</view>
-        <view class="btn {{orderInfo.isHeadstock === 1  ? 'edit' : ''}}" catchtap="go" data-url="upload_other_photo">{{orderInfo.isHeadstock === 1 ? '修改' : '上传'}}</view>
+        <view wx:if="{{ orderDetails.orderType !== 61 }}" class="btn {{orderInfo.isHeadstock === 1  ? 'edit' : ''}}"
+              catchtap="go" data-url="upload_other_photo">
+            {{orderInfo.isHeadstock === 1 ? '修改' : '上传'}}
+        </view>
     </view>
     <view class="fill"></view>
     <view  class="tips" wx:if="{{fenCheck && isEtcContractId}}">签约成功后将扣取0.01元作账户验证，随即退回原账户</view>
