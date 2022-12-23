@@ -298,7 +298,6 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
-				console.log('账单：' ,res);
 				let data = channel[0].flowVersion !== 1 ? res.data.passRecords : res.data;
 				data.map((item) => {
 					if (channel[0].flowVersion !== 1) {
