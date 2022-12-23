@@ -128,6 +128,7 @@ Page({
 			5: () => this.onClickBackToSign(orderInfo), // 签约微信支付 - 去签约
 			6: () => this.onClickViewProcessingProgressHandle(orderInfo), // 订单排队审核中 - 查看进度
 			7: () => this.onClickModifiedData(orderInfo, true), // 修改资料 - 上传证件页
+			8: () => this.onClickViewProcessingProgressHandle(orderInfo), // 不可办理
 			9: () => this.onClickHighSpeedSigning(orderInfo), // 去签约
 			10: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
 			11: () => this.onClickCctivate(orderInfo), // 去激活

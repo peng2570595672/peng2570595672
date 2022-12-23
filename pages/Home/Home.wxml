@@ -67,7 +67,7 @@
                             {{passengerCarOrderInfo.selfStatus === 5 ? '签约微信支付，免密代扣' : ''}}
                             {{passengerCarOrderInfo.selfStatus === 6 ? '订单排队审核中' : ''}}
                             {{passengerCarOrderInfo.selfStatus === 7 ? '订单审核不通过' : ''}}
-                            {{passengerCarOrderInfo.selfStatus === 8 ? '审核失败，车牌重复办理' : ''}}
+                            {{passengerCarOrderInfo.selfStatus === 8 ? '审核失败，车牌不可办理' : ''}}
                             {{passengerCarOrderInfo.selfStatus === 9 ? '签约银行卡代扣通行费' : ''}}
                             {{passengerCarOrderInfo.selfStatus === 10 ? '审核通过，设备即将发出' : ''}}
                             {{passengerCarOrderInfo.selfStatus === 11 ? '请按要求激活ETC' : ''}}
@@ -84,7 +84,7 @@
                             {{truckOrderInfo.selfStatus === 5 ? '签约微信支付，免密代扣' : ''}}
                             {{truckOrderInfo.selfStatus === 6 ? '订单排队审核中' : ''}}
                             {{truckOrderInfo.selfStatus === 7 ? '订单审核不通过' : ''}}
-                            {{truckOrderInfo.selfStatus === 8 ? '审核失败，车牌重复办理' : ''}}
+                            {{truckOrderInfo.selfStatus === 8 ? '审核失败，车牌不可办理' : ''}}
                             {{truckOrderInfo.selfStatus === 9 || truckOrderInfo.selfStatus === 21 ? '签约银行卡代扣通行费' : ''}}
                             {{truckOrderInfo.selfStatus === 10 ? '审核通过，设备即将发出' : ''}}
                             {{truckOrderInfo.selfStatus === 11 ? '请按要求激活ETC' : ''}}
