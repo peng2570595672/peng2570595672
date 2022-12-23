@@ -1,6 +1,6 @@
 {
 	"setting": {
-		"compileHotReLoad": true,
+		"compileHotReLoad": false,
 		"urlCheck": true,
 		"bigPackageSizeSupport": true
 	},
@@ -17,7 +17,7 @@
 				{
 					"name": "",
 					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "orderId=1050733106962632704",
+					"query": "orderId=1053362740355534848",
 					"launchMode": "default",
 					"scene": null
 				},
@@ -32,6 +32,27 @@
 					"name": "帮助中心",
 					"pathName": "pages/personal_center/help_center/help_center",
 					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/personal_center/arrears_bill/arrears_bill",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+					"query": "orderId=1055264741775118336",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+					"query": "orderId=1055249857402376192",
 					"launchMode": "default",
 					"scene": null
 				}
