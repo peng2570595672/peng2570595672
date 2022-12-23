@@ -115,6 +115,7 @@ Page({
 	},
 	async onLoad (options) {
 		console.log(options);
+		app.globalData.isTelemarketing = false;
 		this.setData({
 			contractStatus: +options.contractStatus
 		});
@@ -548,7 +549,7 @@ Page({
 			}
 			if (this.data.orderInfo?.base?.orderType === 61) {
 				// 电销&无需支付
-				await this.weChatSign();
+				await this.perfectOrder();
 				return;
 			}
 			if (this.data.isSalesmanOrder) {
@@ -556,6 +557,27 @@ Page({
 				return;
 			}
 			util.go('/pages/default/information_list/information_list');
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	async perfectOrder () {
+		app.globalData.isTelemarketing = true;
+		let params = {
+			dataComplete: 1,// 资料已完善
+			clientOpenid: app.globalData.userInfo.openId,
+			clientMobilePhone: app.globalData.userInfo.mobilePhone,
+			orderId: app.globalData.orderInfo.orderId,// 订单id
+			changeAuditStatus: true,
+			needSignContract: true // 是否需要签约 true-是，false-否
+		};
+		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+		if (!result) return;
+		if (result.code === 0) {
+			app.globalData.signAContract = -1;
+			app.globalData.belongToPlatform = app.globalData.platformId;
+			let res = result.data.contract;
+			util.weChatSigning(res);
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -647,7 +669,7 @@ Page({
 						}
 						if (this.data.orderInfo?.base?.orderType === 61) {
 							// 电销模式
-							util.go('/pages/default/payment_successful/payment_successful');
+							this.perfectOrder();
 							return;
 						}
 						util.go('/pages/default/information_list/information_list');

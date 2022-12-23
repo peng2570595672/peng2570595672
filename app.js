@@ -64,6 +64,7 @@ App({
 		isFaceToFaceICBC: false, // 是否是面对面工行活动
 		isFaceToFaceWeChat: false, // 是否是面对面微信活动
 		isToMicroInsurancePromote: false, // 是否是微保推广
+		isTelemarketing: false, // 是否是电销模式
 		faceToFacePromotionId: undefined, // 面对面推广ID
 		activitiesOfDrainage: false, // 活动引流
 		activityUrl: undefined, // 活动地址
@@ -296,7 +297,6 @@ App({
 		console.log(res);
 		if (res.path === 'pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license' ||
 			res.path === 'pages/default/shot_bank_card/shot_bank_card' ||
-			res.path === 'pages/default/package_the_rights_and_interests/package_the_rights_and_interests' ||
 			res.path === 'pages/default/information_validation/information_validation'
 		) {
 			// 解决安卓平台上传行驶证自动返回上一页
@@ -310,7 +310,10 @@ App({
 				// 车主服务签约
 				if (appId === 'wxbcad394b3d99dac9' || appId === 'wxbd687630cd02ce1d') {
 					if (res.path === 'pages/default/package_the_rights_and_interests/package_the_rights_and_interests') {
-						return;
+						if (this.globalData.isTelemarketing || this.globalData.isSalesmanOrder) {
+						} else {
+							return;
+						}
 					}
 					this.globalData.isTruckHandling ? util.queryContractForTruckHandling() : this.queryContract(appId);
 				}
@@ -360,6 +363,8 @@ App({
 			util.hideLoading();
 			if (res.code === 0) {
 				this.globalData.signAContract = 3;
+				this.globalData.isSalesmanOrder = false;
+				this.globalData.isTelemarketing = false;
 				// 签约成功 userState: "NORMAL"
 				if (res.data.contractStatus === 1 && res.data.userState === 'NORMAL') {
 					// 办理付费h5
