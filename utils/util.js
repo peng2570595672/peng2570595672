@@ -744,6 +744,14 @@ function getStatus(orderInfo) {
 	if (orderInfo.orderType === 61 && (orderInfo.auditStatus === 9 || orderInfo.auditStatus === 1)) {
 		return 8; // 电销模式审核不通过,不允许修改资料
 	}
+	if (orderInfo.orderType === 61 && orderInfo.status === 0) {
+		// 电销办理只让在套餐页完成剩余流程
+		if (orderInfo.pledgeStatus === 0) {
+			// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
+			return 3;// 待支付
+		}
+		return 23;
+	}
 	if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0 && orderInfo.isSignTtCoupon !== 1) {
 		// protocolStatus 0未签协议 1签了
 		return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;

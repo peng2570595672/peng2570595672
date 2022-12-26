@@ -140,7 +140,8 @@ Page({
 			19: () => this.onClickModifiedData(orderInfo, false),
 			20: () => this.onClickVerification(orderInfo),
 			21: () => this.onClickSignBank(orderInfo),
-			22: () => this.onClickSignTongTongQuan(orderInfo)// 签约通通券代扣
+			22: () => this.onClickSignTongTongQuan(orderInfo),// 签约通通券代扣
+			23: () => this.goPayment(orderInfo)
 		};
 		fun[orderInfo.selfStatus].call();
 	},
