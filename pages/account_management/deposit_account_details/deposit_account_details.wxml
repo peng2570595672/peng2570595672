@@ -22,9 +22,9 @@
         <view class="list-item" wx:for="{{list}}" wx:key="index">
             <view class="first">
                 <view class="type">
-
+                    {{ item.remark }}
                 </view>
-                <view class="price">{{item.transType === 2 ? '-' : '+'}}¥{{item.transValue/100}}</view>
+                <view class="price">{{item.transType === 2 ? '-' : '+'}}¥{{item.transValue/100}}券额</view>
             </view>
             <view class="last">
                 <view></view>
