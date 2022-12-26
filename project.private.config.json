@@ -29,6 +29,13 @@
 					"scene": null
 				},
 				{
+					"name": "帮助中心",
+					"pathName": "pages/personal_center/help_center/help_center",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
 					"name": "",
 					"pathName": "pages/personal_center/arrears_bill/arrears_bill",
 					"query": "",
