@@ -91,7 +91,7 @@ Page({
 		}
 	},
 	async getRightAccount () {
-		const result = await util.getDataFromServersV2('/consumer/order/right/account', {
+		const result = await util.getDataFromServersV2('/consumer/member/right/account', {
 			page: 1,
 			pageSize: 1
 		});

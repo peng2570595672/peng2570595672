@@ -15,22 +15,22 @@
 					"scene": null
 				},
 				{
-					"name": "",
+					"name": "ETC详情",
 					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
 					"query": "orderId=1050733106962632704",
 					"launchMode": "default",
 					"scene": null
 				},
 				{
-					"name": "",
+					"name": "我的ETC",
 					"pathName": "pages/personal_center/my_etc/my_etc",
 					"query": "",
 					"launchMode": "default",
 					"scene": null
 				},
 				{
-					"name": "我的ETC",
-					"pathName": "pages/personal_center/my_etc/my_etc",
+					"name": "天津特微(津易行)",
+					"pathName": "pingan/pages/ChooseBank/ChooseBank",
 					"query": "",
 					"launchMode": "default",
 					"scene": null

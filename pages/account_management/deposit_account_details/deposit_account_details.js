@@ -129,7 +129,7 @@ Page({
 			page: this.data.page,
 			pageSize: 10
 		};
-		const result = await util.getDataFromServersV2('/consumer/order/right/account', params);
+		const result = await util.getDataFromServersV2('/consumer/member/right/account', params);
 		console.log(result);
 		if (!result) return;
 		if (result.code) {
