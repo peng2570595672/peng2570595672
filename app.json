@@ -125,6 +125,7 @@
         "bind_bank_card/bind_bank_card",
         "pay_method/pay_method",
         "pay_accout/pay_accout",
+        "deposit_account_details/deposit_account_details",
         "margin_recharge_model/margin_recharge_model"
       ]
     },

@@ -13,6 +13,7 @@ Page({
 		bocomInfo: {}, // 交行二类户信息
 		bocomInfoList: [], // 交行二类户信息
 		cardInfo: undefined,
+		depositAmount: 0,
 		ETCMargin: []
 	},
 	async onLoad (options) {
@@ -21,13 +22,16 @@ Page({
 		} else {
 			const etcList = app.globalData.myEtcList.filter(item => item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
 			const bocomEtcList = app.globalData.myEtcList.filter(item => item.flowVersion === 7 && item.auditStatus === 2); // 是否有交行二类户 & 已审核通过订单
-			const ETCMargin1 = app.globalData.myEtcList.filter(item => item.pledgeType === 4 && (item.pledgeStatus === 1 || item.pledgeStatus === 2));	// 是否押金模式
-			console.log(ETCMargin1);
+			const ETCMargin = app.globalData.myEtcList.filter(item => item.pledgeType === 4 && (item.pledgeStatus === 1 || item.pledgeStatus === 2));	// 是否押金模式
+			console.log(ETCMargin);
 			this.setData({
 				etcList,
 				bocomEtcList,
-				ETCMargin: ETCMargin1
+				ETCMargin: ETCMargin
 			});
+			if (ETCMargin.length) {
+				await this.getRightAccount();
+			}
 			bocomEtcList.map(async item => {
 				await this.getBocomOrderBankConfigInfo(item);
 			});
@@ -42,7 +46,7 @@ Page({
 		// this.setData({
 		// 	cardInfo: app.globalData.bankCardInfo
 		// });
-		const ETCMargin1 = app.globalData.myEtcList.filter(item => item.pledgeType === 4 && (item.pledgeStatus === 1 || item.pledgeStatus === 2));	// 是否押金模式且已支付
+		const ETCMargin = app.globalData.myEtcList.filter(item => item.pledgeType === 4 && (item.pledgeStatus === 1 || item.pledgeStatus === 2));	// 是否押金模式且已支付
 		await util.getMemberStatus();
 		const pages = getCurrentPages();
 		const currPage = pages[pages.length - 1];
@@ -50,8 +54,11 @@ Page({
 			this.setData({
 				prechargeList: [],
 				bocomInfoList: [],
-				ETCMargin: ETCMargin1
+				ETCMargin: ETCMargin
 			});
+			if (ETCMargin.length) {
+				await this.getRightAccount();
+			}
 			this.data.etcList.map(async item => {
 				await this.getQueryWallet(item);
 			});
@@ -80,6 +87,19 @@ Page({
 			list.push(result.data);
 			this.setData({
 				bocomInfoList: list
+			});
+		}
+	},
+	async getRightAccount () {
+		const result = await util.getDataFromServersV2('/consumer/order/right/account', {
+			page: 1,
+			pageSize: 1
+		});
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+		} else {
+			this.setData({
+				depositAmount: result.data.amount
 			});
 		}
 	},
@@ -236,7 +256,7 @@ Page({
 	async goAccountDetailsMargin (e) {
 		const memberId = e.currentTarget.dataset.memberid;
 		const Id = e.currentTarget.dataset.id;
-		util.go(`/pages/account_management/precharge_account_details/precharge_account_details?memberId=${memberId}&margin=true&Id=${Id}`);
+		util.go(`/pages/account_management/deposit_account_details/deposit_account_details`);
 	},
 	// 押金模式的 充值页面
 	btnRecharge (e) {

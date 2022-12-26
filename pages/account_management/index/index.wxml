@@ -89,24 +89,24 @@
     <view class="card margin" wx:for="{{ETCMargin}}" wx:key="index">
         <view class="card-info">
             <view class="left">
-                <view>当前账户余额（元）</view>
+                <view>当前账户剩余券额</view>
                 <view>
-                    <text class="money">{{tools.parseNum(item.pledgeMoney/100)}}</text>
+                    <text class="money">{{tools.parseNum(depositAmount/100)}}</text>
                     <text class="t2" bindtap="goAccountDetailsMargin" data-memberId='{{item.memberId}}' data-id='{{item.id}}'>
                         账户明细 >
                     </text>
-                    <text class="t3" wx:if="{{tools.parseNum(item.pledgeMoney/100) < 200 ? true : false}}" 
-                        bindtap="btnRecharge" data-id='{{item.id}}'>充值</text>
+<!--                    <text class="t3" wx:if="{{tools.parseNum(item.pledgeMoney/100) < 200 ? true : false}}"-->
+<!--                        bindtap="btnRecharge" data-id='{{item.id}}'>充值</text>-->
                 </view>
             </view>
             <view class="right1">
-                <view>{{'ETC押金账户'}}</view>
+                <view>ETC+权益账户</view>
             </view>
         </view>
         <!-- <view class="accont" wx:if="{{tools.parseNum(item.pledgeMoney/100) < 200 ? false : true}}">
             <view bindtap="btnRecharge" data-id='{{item.id}}'>充值激活</view>
         </view> -->
-        <view class="tip" wx:if="{{tools.parseNum(item.pledgeMoney/100) < 200 ? true : false}}">注意！余额低于约定金额{{200}}元无法通行</view>
+<!--        <view class="tip" wx:if="{{tools.parseNum(item.pledgeMoney/100) < 200 ? true : false}}">注意！余额低于约定金额{{200}}元无法通行</view>-->
         <view class="card-no">
             <view class="accountBind">账户绑定车牌:{{item.vehPlates}}</view>
         </view>
