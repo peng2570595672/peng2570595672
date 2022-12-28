@@ -24,11 +24,12 @@
 	<view class="content">
         <view class="btn-content">
             <view class="interior">
-                <view class="textContent">微信支付</view>
+                <!-- <view class="textContent">微信支付</view>
                 <view class="split">|</view>
                 <view class="textContent">高速费用95折扣</view>
                 <view class="split">|</view>
-                <view class="textContent">2%权益服务费</view>
+                <view class="textContent">2%权益服务费</view> -->
+                <image src="/pages/default/assets/wechat_pay_01.png" mode="widthFix"></image>
             </view>
             <view class="btn" catchtap="onClickHandle">立即办理</view>
 <!--            <view class="trans-tips" catchtap="goTruck">前往办理货车ETC</view>-->

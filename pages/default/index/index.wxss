@@ -89,7 +89,15 @@
   background: #fff;
 }
 
-.index .content .btn-content .interior {
+.index .content .btn-content .interior image {
+  margin-top: 20epx;
+  width: 130rpx;
+  height: 48rpx;
+  margin-bottom: -15rpx;
+  padding-left: 370rpx;
+}
+
+/* .index .content .btn-content .interior {
   display: flex;
   display: -webkit-flex;
   font-size: 20rpx;
@@ -113,8 +121,7 @@
   font-size: 24rpx;
   font-weight: bold;
   color: #ccc;
-}
-
+} */
 .index .content .btn-content .trans-tips {
   margin-top: 10rpx;
   margin-bottom: 0rpx;
