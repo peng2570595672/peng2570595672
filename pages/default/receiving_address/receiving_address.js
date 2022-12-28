@@ -24,7 +24,9 @@ Page({
 			userName: '', // 收货人姓名
 			telNumber: '', // 电话号码
 			detailInfo: '' // 收货地址详细信息
-		} // 提交数据
+		}, // 提交数据
+		enterType: -1,// 进入小程序类型  23.搜一搜小程序独立办理链接A，24.搜一搜小程序独立办理链接B
+		productId: ''
 	},
 	async onLoad (options) {
 		if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
@@ -34,6 +36,12 @@ Page({
 			util.resetData();// 重置数据
 			// 高速通行公众号进入办理
 			app.globalData.isHighSpeedTraffic = options.shareId;
+		}
+		if (options.enterType) {
+			this.setData({
+				enterType: +options.enterType,
+				productId: options.productId
+			});
 		}
 		app.globalData.firstVersionData = false; // 非1.0数据办理
 		app.globalData.isModifiedData = false; // 非修改资料
@@ -215,6 +223,25 @@ Page({
 			params['shopId'] = app.globalData.crowdsourcingServiceProvidersId;
 			params['promoterId'] = app.globalData.crowdsourcingPromotionId;// 推广者ID标识
 			params['promoterType'] = 1; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
+		}
+		// 搜一搜进入
+		if (this.data.enterType === 23 || this.data.enterType === 24) {
+			params['shopId'] = '';
+			params['promoterId'] = 0;// 推广者ID标识
+			params['promoterType'] = this.data.enterType; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
+			if (this.data.enterType === 23) {
+				let locationInfo = wx.getStorageSync('location-info');
+				let regionCode = [0];
+				if (locationInfo) {
+					let res = JSON.parse(locationInfo);
+					let info = res.result.ad_info;
+					// 获取区域编码
+					regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
+				}
+				params['dataType'] = '123';
+				params['shopProductId'] = this.data.productId;
+				params['areaCode'] = regionCode[0];
+			}
 		}
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		if (!result) return;

@@ -55,6 +55,13 @@
 					"query": "orderId=1055249857402376192",
 					"launchMode": "default",
 					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/default/receiving_address/receiving_address",
+					"query": "shopId=638423000831492096&enterType=23",
+					"launchMode": "default",
+					"scene": null
 				}
 			]
 		}
