@@ -323,7 +323,7 @@ Page({
 
 				let allMoney = 0;
 				this.data.successBillList.map((item) => {
-					allMoney += item.totalMmout + item.serviceMoney + (item.passServiceMoney || 0) - (item.wxDiscountAmount || 0) - (item.discountMount || 0) - (item.refundMoney || 0);
+					allMoney += item.totalMmout + item.serviceMoney + (item.poundage || 0) + (item.passServiceMoney || 0) - (item.wxDiscountAmount || 0) - (item.discountMount || 0) - (item.refundMoney || 0);
 				});
 				this.setData({
 					allMoney: allMoney

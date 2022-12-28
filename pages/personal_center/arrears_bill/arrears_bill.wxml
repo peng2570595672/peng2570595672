@@ -22,7 +22,7 @@
 						<view class="license-plate">{{item.vehPlate}}<text>[高速扣费]</text></view>
 						<view class="fail-money">
 							<!--{{tools.parseNum((item.etcMoney + item.serviceMoney  - (item.splitDeductedMoney || 0))/100)}}-->
-							{{(item.totalMmout + item.serviceMoney  - (item.wxDiscountAmount || 0) - (item.discountMount || 0) - (item.refundMoney || 0) - (item.splitDeductedMoney || 0))/100}}
+							{{(item.totalMmout + item.serviceMoney + (item.poundage || 0)  - (item.wxDiscountAmount || 0) - (item.discountMount || 0) - (item.refundMoney || 0) - (item.splitDeductedMoney || 0))/100}}
 						</view>
 					</view>
 					<view class="site">
