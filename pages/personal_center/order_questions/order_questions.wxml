@@ -15,15 +15,23 @@
                     <view>通行手续费</view>
                     <view>¥{{details.passServiceMoney/100}}</view>
                 </view>
-                <!-- <view class="explain">货车每笔通行需加收{{details.totalMmout/100}}*0.6%</view> -->
-                <view class="explain">每笔通行需加收{{details.totalMmout/100}}*1%</view>
+                <view class="explain">货车每笔通行需加收{{details.totalMmout/100}}*0.6%</view>
             </view>
+             <!-- --------@cyl---------start ---------权益服务费--------- -->
+            <view wx:if="{{details.poundage}}">
+                <view class="line">
+                    <view>权益服务费（2%）</view>
+                    <view>¥{{details.poundage/100}}</view>
+                </view>
+                <view class="explain">每笔通行需加收{{details.poundage/100}}*2%</view>
+            </view>
+            <!-- -----------------end ------------------ -->
             <view wx:if="{{details.serviceMoney && details.serviceMoney > 0}}">
                 <view class="line" wx:if="{{details.serviceMoney}}">
-                    <view>违约金</view>
+                    <view>延期服务费</view>
                     <view>{{details.serviceMoney/100}}</view>
                 </view>
-                <view class="explain">逾期补缴每日产生通行费*0.05%的违约金</view>
+                <view class="explain">逾期补缴每日产生通行费*0.05%的延期服务费</view>
             </view>
             <view class="line" wx:if="{{details.wxDiscountAmount && details.wxDiscountAmount > 0}}">
                 <view>微信支付优惠</view>
@@ -36,7 +44,7 @@
             <view class="line" wx:if="{{details.flowVersion === 1}}">
                 <view></view>
                 <view  wx:if="{{entrance && refundDetails && refundDetails.refundMoney > 0 && details.deductStatus === 7}}"><text>实扣金额</text>00.00</view>
-                <view  wx:elif="{{entrance && details.deductStatus !== 7}}"><text>实扣金额</text>{{(details.totalMmout + details.serviceMoney  - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}}</view>
+                <view  wx:elif="{{entrance && details.deductStatus !== 7}}"><text>实扣金额</text>{{(details.totalMmout + details.serviceMoney + (details.poundage || 0)  - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}}</view>
                 <view  wx:elif="{{!entrance && details.passDeductStatus === 7}}"><text>实扣金额</text>00.00</view>
                 <view  wx:else><text>实扣金额</text>{{details.passServiceMoney/100}}</view>
             </view>
