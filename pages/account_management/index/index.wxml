@@ -86,13 +86,13 @@
         </block>
     </view>
     <!-- @cyl ETC押金账户 card -->
-    <view class="card margin" wx:for="{{ETCMargin}}" wx:key="index">
+    <view class="card margin" wx:for="{{equityList}}" wx:key="index">
         <view class="card-info">
             <view class="left">
                 <view>当前账户剩余券额</view>
                 <view>
-                    <text class="money">{{tools.parseNum(depositAmount/100)}}</text>
-                    <text class="t2" bindtap="goAccountDetailsMargin" data-memberId='{{item.memberId}}' data-id='{{item.id}}'>
+                    <text class="money">{{tools.parseNum(item.balance/100)}}</text>
+                    <text class="t2" bindtap="goAccountDetailsMargin" data-index="{{ index }}">
                         账户明细 >
                     </text>
 <!--                    <text class="t3" wx:if="{{tools.parseNum(item.pledgeMoney/100) < 200 ? true : false}}"-->

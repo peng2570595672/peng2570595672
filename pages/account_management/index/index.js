@@ -13,8 +13,7 @@ Page({
 		bocomInfo: {}, // 交行二类户信息
 		bocomInfoList: [], // 交行二类户信息
 		cardInfo: undefined,
-		depositAmount: 0,
-		ETCMargin: []
+		equityList: []
 	},
 	async onLoad (options) {
 		if (!app.globalData.userInfo.accessToken) {
@@ -22,16 +21,11 @@ Page({
 		} else {
 			const etcList = app.globalData.myEtcList.filter(item => item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
 			const bocomEtcList = app.globalData.myEtcList.filter(item => item.flowVersion === 7 && item.auditStatus === 2); // 是否有交行二类户 & 已审核通过订单
-			const ETCMargin = app.globalData.myEtcList.filter(item => item.pledgeType === 4 && (item.pledgeStatus === 1 || item.pledgeStatus === 2));	// 是否押金模式
-			console.log(ETCMargin);
 			this.setData({
 				etcList,
-				bocomEtcList,
-				ETCMargin: ETCMargin
+				bocomEtcList
 			});
-			if (ETCMargin.length) {
-				await this.getRightAccount();
-			}
+			await this.getRightAccount();
 			bocomEtcList.map(async item => {
 				await this.getBocomOrderBankConfigInfo(item);
 			});
@@ -46,19 +40,15 @@ Page({
 		// this.setData({
 		// 	cardInfo: app.globalData.bankCardInfo
 		// });
-		const ETCMargin = app.globalData.myEtcList.filter(item => item.pledgeType === 4 && (item.pledgeStatus === 1 || item.pledgeStatus === 2));	// 是否押金模式且已支付
 		await util.getMemberStatus();
 		const pages = getCurrentPages();
 		const currPage = pages[pages.length - 1];
 		if (currPage.__data__.isReload) {
 			this.setData({
 				prechargeList: [],
-				bocomInfoList: [],
-				ETCMargin: ETCMargin
+				bocomInfoList: []
 			});
-			if (ETCMargin.length) {
-				await this.getRightAccount();
-			}
+			await this.getRightAccount();
 			this.data.etcList.map(async item => {
 				await this.getQueryWallet(item);
 			});
@@ -66,7 +56,6 @@ Page({
 				await this.getBocomOrderBankConfigInfo(item);
 			});
 		}
-		console.log(this.data.ETCMargin);
 	},
 	async getBocomOrderBankConfigInfo (orderInfo) {
 		// 获取订单银行配置信息
@@ -99,7 +88,7 @@ Page({
 			util.showToastNoIcon(result.message);
 		} else {
 			this.setData({
-				depositAmount: result.data.amount
+				equityList: result.data
 			});
 		}
 	},
@@ -254,9 +243,8 @@ Page({
 	// @cyl
 	// 押金模式的 账户明细页面
 	async goAccountDetailsMargin (e) {
-		const memberId = e.currentTarget.dataset.memberid;
-		const Id = e.currentTarget.dataset.id;
-		util.go(`/pages/account_management/deposit_account_details/deposit_account_details`);
+		const index = e.currentTarget.dataset.index;
+		util.go(`/pages/account_management/deposit_account_details/deposit_account_details?index=${index}`);
 	},
 	// 押金模式的 充值页面
 	btnRecharge (e) {

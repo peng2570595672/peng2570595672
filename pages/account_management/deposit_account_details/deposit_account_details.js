@@ -16,21 +16,21 @@ Page({
 		page: 0,
 		available: false, // 按钮是否可点击
 		isRequest: false, // 是否请求中
+		index: 0 // 对应数组下标
 	},
 	async onLoad (options) {
 		console.log(options);
 		const timestamp = Date.parse(new Date());
 		const date = new Date(timestamp);
 		this.setData({
+			index: +options.index,
 			currentMonth: +util.formatTime(date).slice(5, 7),
 			beginDate: `${util.formatTime(date).slice(0, 8)}01`,
-			endDate: `${util.formatTime(date).slice(0, 10)}`,
+			endDate: `${util.formatTime(date).slice(0, 10)}`
 		});
 		// 判断 margin ，如果为 true 执行押金的账单详细
 		if (app.globalData.userInfo.accessToken) {
-			let requestList = [await this.fetchList()];
-			util.showLoading();
-			await Promise.all(requestList);
+			await this.fetchList();
 			util.hideLoading();
 		} else {
 			await this.login();
@@ -57,9 +57,8 @@ Page({
 						app.globalData.openId = result.data.openId;
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
-						let requestList = [await this.fetchList()];
 						util.showLoading();
-						await Promise.all(requestList);
+						await this.fetchList();
 						util.hideLoading();
 					} else {
 						wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
@@ -136,9 +135,9 @@ Page({
 			util.showToastNoIcon(result.message);
 			return;
 		}
-		let list = result.data.detailData.list || [];
+		let list = result.data[this.data.index].detailData.list || [];
 		this.setData({
-			Wallet: result.data.amount / 100,
+			Wallet: result.data[this.data.index].balance / 100,
 			list: this.data.list.concat(list)
 		});
 		console.log(this.data.list.length, '----------------------------------', result.data.total);
