@@ -26,7 +26,9 @@ Page({
 			detailInfo: '' // 收货地址详细信息
 		}, // 提交数据
 		enterType: -1,// 进入小程序类型  23.搜一搜小程序独立办理链接A，24.搜一搜小程序独立办理链接B
-		productId: ''
+		productId: '',
+		rightsPackageId: '',
+		shopId: ''
 	},
 	async onLoad (options) {
 		if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
@@ -40,6 +42,8 @@ Page({
 		if (options.enterType) {
 			this.setData({
 				enterType: +options.enterType,
+				shopId: options.shopId,
+				rightsPackageId: options.rightsPackageId || '',
 				productId: options.productId
 			});
 		}
@@ -226,7 +230,7 @@ Page({
 		}
 		// 搜一搜进入
 		if (this.data.enterType === 23 || this.data.enterType === 24) {
-			params['shopId'] = '';
+			params['shopId'] = this.data.shopId;
 			params['promoterId'] = 0;// 推广者ID标识
 			params['promoterType'] = this.data.enterType; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
 			if (this.data.enterType === 23) {
@@ -240,6 +244,7 @@ Page({
 				}
 				params['dataType'] = '123';
 				params['shopProductId'] = this.data.productId;
+				params['rightsPackageId'] = this.data.rightsPackageId;
 				params['areaCode'] = regionCode[0];
 			}
 		}
