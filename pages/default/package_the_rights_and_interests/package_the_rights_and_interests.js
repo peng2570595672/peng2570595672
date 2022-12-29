@@ -556,7 +556,7 @@ Page({
 				await this.getSalesmanOrderProcess();
 				return;
 			}
-			util.go('/pages/default/information_list/information_list');
+			util.go('/pages/default/information_list/information_list?type=1');
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -672,7 +672,7 @@ Page({
 							this.perfectOrder();
 							return;
 						}
-						util.go('/pages/default/information_list/information_list');
+						util.go('/pages/default/information_list/information_list?type=1');
 					} else {
 						util.showToastNoIcon('支付失败！');
 					}

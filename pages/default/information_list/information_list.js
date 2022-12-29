@@ -19,6 +19,7 @@ Page({
 		isModifiedData: false, // 是否是修改资料
 		isEtcContractId: true, // 是否需要签约微信
 		requestNum: 0,
+		isReturn: false,
 		ownerIdCard: {}, // 实名身份信息
 		vehicle: {} // 车辆信息
 	},
@@ -26,6 +27,11 @@ Page({
 		if (options.isModifiedData) {
 			this.setData({
 				isModifiedData: true
+			});
+		}
+		if (options.type) {
+			this.setData({
+				isReturn: +options.type === 1
 			});
 		}
 		// 查询是否欠款
@@ -313,6 +319,13 @@ Page({
 			util.weChatSigning(res);
 		} else {
 			util.showToastNoIcon(result.message);
+		}
+	},
+	onUnload () {
+		if (this.data.isReturn) {
+			wx.reLaunch({
+				url: '/pages/Home/Home'
+			});
 		}
 	}
 });
