@@ -123,8 +123,8 @@ Page({
 			title: '加载中'
 		});
 		let params = {
-			startTime: this.data.beginDate,
-			endTime: this.data.endDate,
+			startTime: this.data.beginDate + ' 00:00:00',
+			endTime: this.data.endDate + ' 23:59:59',
 			page: this.data.page,
 			pageSize: 10
 		};
@@ -141,7 +141,7 @@ Page({
 			list: this.data.list.concat(list)
 		});
 		console.log(this.data.list.length, '----------------------------------', result.data.total);
-		if (this.data.list.length >= result.data.detailData.total) {
+		if (this.data.list.length >= result.data.detailData[this.data.index].total) {
 			this.setData({
 				nextpageFlag: true
 			});
