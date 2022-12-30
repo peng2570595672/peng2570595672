@@ -24,7 +24,7 @@
                 <view class="type">
                     {{ item.remark }}
                 </view>
-                <view class="price">{{item.transType === 2 ? '-' : '+'}}¥{{item.transValue/100}}券额</view>
+                <view class="price">{{item.transType === 2 ? '-' : '+'}}{{item.transValue/100}}券额</view>
             </view>
             <view class="last">
                 <view></view>
