@@ -153,7 +153,7 @@
   font-family: Arial-Black;
   font-weight: bold;
 }
-.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .equityShop .equityImg .equityText {
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .equityShop .equityText {
   width: 510rpx;
   height: 40rpx;
   font-size: 28rpx;
