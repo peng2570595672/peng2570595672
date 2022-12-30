@@ -3,7 +3,7 @@
         <view class="account-info-title" bindtap="onClickDoubt">当前账户剩余券额</view>
         <view class="balance">
             <view class="price">{{Wallet}}</view>
-            <view class="unit">元</view>
+<!--            <view class="unit">元</view>-->
         </view>
         <view class="prompt">
             <view class="normal">充值成功后将即时将您的充值金额兑换为权益</view>
