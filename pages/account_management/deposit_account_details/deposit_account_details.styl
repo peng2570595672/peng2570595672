@@ -1,0 +1,106 @@
+@import "../../../style/base.styl";
+.account-details
+	& > view
+		padding-left 32rpx
+	.account-info
+		padding 64rpx 32rpx 0
+		.account-info-title
+			color rgba(0, 0, 0, .9)
+			font-size 28rpx
+			line-height 39rpx
+		.balance
+			display flex
+			height 60rpx
+			align-items center
+			padding 32rpx 0 12rpx
+			color #2FB565
+			font-size 28rpx
+			font-family PingFangSC-Semibold, PingFang SC
+			font-weight 600
+			.price
+				line-height 57rpx
+				font-size 60rpx
+			.unit
+				color $fontColor3
+				padding-left 12rpx
+				padding-right 32rpx
+			.recharge
+				display flex
+				align-items center
+				justify-content center
+				width: 114rpx;
+				height: 52rpx;
+				background: rgba(207,207,207, .2)
+				font-size: 24rpx;
+				font-family: PingFangSC-Regular, PingFang SC;
+				font-weight: 400;
+				color: #00B85C;
+		.prompt
+			padding 32rpx 0
+			font-size: 24rpx;
+			font-family: PingFangSC-Regular, PingFang SC;
+			font-weight: 400;
+			color: #FFC000;
+			line-height: 34rpx;
+			.normal
+				color rgba(0,0,0,.2)
+			.arrears
+				color #FF3C48;
+				text
+					color #00A9FF
+					padding-left 8rpx
+	.split
+		height 20rpx
+		background #FAFAFA
+	.account-list
+		padding 32rpx
+		.list-title
+			display flex
+			height 34rpx
+			align-items center
+			font-size 34rpx
+			font-family PingFangSC-Medium, PingFang SC;
+			font-weight 500
+			color #000
+			padding-bottom 26rpx
+			&::before
+				margin-right 8rpx
+				content ''
+				width 8rpx
+				height 44rpx
+				background #2FB565
+			.title
+				flex 1
+			.picker
+				display flex
+				color rgba(0,184,92, .31)
+				font-size 34rpx
+				&::before
+					content '\e69c'
+					font-size 32rpx
+					margin-right 12rpx
+		.list-item
+			border-bottom 1rpx solid rgba(176, 176, 176, .29)
+			& > view
+				color $fontColor3
+				font-size 36rpx
+				display flex
+				& > view
+					flex 1
+					&:last-child
+						text-align right
+				&.first
+					padding-top 32rpx
+					padding-bottom 16rpx
+					.type
+						font-size 28rpx
+						color $fontColor6
+					.price
+						font-family PingFangSC-Medium, PingFang SC
+						font-weight 500
+				&.last
+					line-height 50rpx
+					padding-bottom 12rpx
+					.time
+						font-size 28rpx
+

@@ -27,7 +27,8 @@ Page({
 		isActivityDate: false, // 是否活动期间
 		canIUseGetUserProfile: false,
 		isPrechargeOrder: true, // 是否有预充流程 || 交行二类户 || 工行二类户  & 已审核通过订单
-		disclaimerDesc: app.globalData.disclaimerDesc
+		disclaimerDesc: app.globalData.disclaimerDesc,
+		isShowEquityImg: false	// 是否显示权益商城banner
 	},
 	onLoad (options) {
 		if (wx.getUserProfile) {
@@ -251,16 +252,22 @@ Page({
 		let isShowFeatureService = app.globalData.myEtcList.findIndex(item => item.isShowFeatureService === 1 && (item.obuStatus === 1 || item.obuStatus === 5)); // 是否有特色服务
 		let isPrechargeOrder = app.globalData.myEtcList.findIndex(item => ((item.flowVersion === 6 || item.flowVersion === 4 || item.flowVersion === 7) && item.auditStatus === 2) || (item.pledgeType === 4 && (item.pledgeStatus === 1 || item.pledgeStatus === 2))); // 是否有预充流程 & 已审核通过订单 & 已支付的押金模式
 		let isShowCoupon = app.globalData.myEtcList.findIndex(item => (item.isSignTtCoupon === 1 && item.ttContractStatus !== 0)); // 通通券 存在签约或解约
+		let flag = app.globalData.myEtcList.findIndex(item => (item.pledgeType === 4 && item.pledgeStatus !== 0));
 		this.setData({
 			isShowNotice: !!app.globalData.myEtcList.length,
 			isShowFeatureService: isShowFeatureService !== -1,
 			isPrechargeOrder: isPrechargeOrder !== -1,
 			showAgreementWrapper: isNewOrder !== -1,
 			isShowCoupon: isShowCoupon !== -1,
+			isShowEquityImg: flag !== -1,
 			isActivation: !!isActivation.length
 		});
 		// 查询是否欠款
 		await util.getIsArrearage();
+	},
+	handleMall () {
+		const url = `https://${app.globalData.test ? 'etctest' : 'etc'}.cyzl.com/${app.globalData.test ? 'etc2-html' : 'wetc'}/etc_life_rights_and_interests/index.html#/?auth=${app.globalData.userInfo.accessToken}`;
+		util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
 	},
 	// 众包-获取用户推广码和订单红包数量
 	async getMemberCrowdSourcingAndOrder () {

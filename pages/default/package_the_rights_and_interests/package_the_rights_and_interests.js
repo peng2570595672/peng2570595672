@@ -106,6 +106,12 @@ Page({
 				]
 			}
 		],
+		equityShop: [
+			// 权益套餐的 数据展示
+			{shopName: '芒果TV', couponOffset: '券抵2元',shopImg: 'https://file.cyzl.com/g001/M07/A8/C7/oYYBAGOiZk6AFCaXAAATwk4t0bI012.png',couponPrice: 10},
+			{shopName: 'QQ音乐', couponOffset: '券抵5元',shopImg: 'https://file.cyzl.com/g001/M07/A8/C6/oYYBAGOiZjiAURpOAAAOt4rE0_o138.png',couponPrice: 22.68},
+			{shopName: 'youku', couponOffset: '券抵8元',shopImg: 'https://file.cyzl.com/g001/M00/A8/C6/oYYBAGOiZfWACbdbAAAOdTx1taA728.png',couponPrice: 38.08}
+		],
 		showServiceIndex: -1,
 		rightsPackageDetails: undefined,
 		contractStatus: undefined,
@@ -503,6 +509,25 @@ Page({
 			util.showToastNoIcon('请同意并勾选协议！');
 			return;
 		}
+		if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4) {
+			// 判断是否是 权益券额套餐模式 ，如果是再判断以前是否有过办理，如果有则弹窗提示，并且不执行后面流程
+			const result = await util.getDataFromServersV2('consumer/order/precharge/list');
+			if (result.data !== []) {
+				util.alert({
+					title: `提示`,
+					content: `该套餐目前暂只支持单人办理一台车辆`,
+					confirmColor: '#576B95',
+					cancelColor: '#000000',
+					cancelText: '我知道了',
+					confirm: () => {
+					},
+					cancel: async () => {
+					}
+				});
+				return;
+			}
+		}
+
 		if (this.data.listOfPackages[this.data.choiceIndex].mustChoiceRightsPackage === 0 && this.data.rightsAndInterestsList.length && this.data.activeEquitiesIndex === -1) {
 			// 不必选权益 有权益包 未选中权益包
 			util.alert({

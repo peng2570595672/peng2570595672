@@ -15,14 +15,14 @@
 					"scene": null
 				},
 				{
-					"name": "",
+					"name": "ETC详情",
 					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
 					"query": "orderId=1053362740355534848",
 					"launchMode": "default",
 					"scene": null
 				},
 				{
-					"name": "",
+					"name": "我的ETC",
 					"pathName": "pages/personal_center/my_etc/my_etc",
 					"query": "",
 					"launchMode": "default",
