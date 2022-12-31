@@ -137,7 +137,7 @@ Page({
 		}
 		let list = result.data[this.data.index].detailData.list || [];
 		this.setData({
-			Wallet: result.data[this.data.index].balance / 100,
+			Wallet: result.data[this.data.index].balance,
 			list: this.data.list.concat(list)
 		});
 		console.log(this.data.list.length, '----------------------------------', result.data.total);
