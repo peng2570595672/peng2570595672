@@ -55,6 +55,7 @@
       "name": "pages/personal_center",
       "pages": [
         "index/index",
+        "equity_payment/equity_payment",
         "my_etc/my_etc",
         "my_etc_detail/my_etc_detail",
         "my_order/my_order",

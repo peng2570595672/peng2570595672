@@ -266,7 +266,7 @@ Page({
 		await util.getIsArrearage();
 	},
 	handleMall () {
-		const url = `https://${app.globalData.test ? 'etctest' : 'etc'}.cyzl.com/${app.globalData.test ? 'etc2-html' : 'wetc'}/etc_life_rights_and_interests/index.html#/?auth=${app.globalData.userInfo.accessToken}`;
+		const url = `https://${app.globalData.test ? 'etctest' : 'etc'}.cyzl.com/${app.globalData.test ? 'etc2-html' : 'wetc'}/etc_life_rights_and_interests/index.html#/?auth=${app.globalData.userInfo.accessToken}&platformId=${app.globalData.platformId}`;
 		util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
 	},
 	// 众包-获取用户推广码和订单红包数量

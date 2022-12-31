@@ -62,6 +62,13 @@
 					"query": "shopId=559369191740669952&enterType=23&productId=1057708284953763840&rightsPackageId=1057687431872520192",
 					"launchMode": "default",
 					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/pay/pay",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
 				}
 			]
 		}
