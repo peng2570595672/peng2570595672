@@ -177,6 +177,7 @@ Page({
 				this.setData({
 					failBillList: this.data.failBillList
 				});
+				// let flag = this.data.failBillList.filter(item => (item.list.length > 0));
 				if (this.data.failBillList.length === 0) {
 					wx.navigateBack({
 						delta: 1
