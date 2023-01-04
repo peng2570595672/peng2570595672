@@ -752,7 +752,8 @@ function getStatus(orderInfo) {
 		}
 		return 23;
 	}
-	if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0 && orderInfo.isSignTtCoupon !== 1) {
+	if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0 && orderInfo.isSignTtCoupon !== 1 && orderInfo.platformId !== '568113867222155288' && orderInfo.platformId !== '500338116821778436') {
+		// 过滤好车主的
 		// protocolStatus 0未签协议 1签了
 		return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
 	}
