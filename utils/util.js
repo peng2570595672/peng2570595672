@@ -756,10 +756,10 @@ function getStatus(orderInfo) {
 		// protocolStatus 0未签协议 1签了
 		return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
 	}
-	if (orderInfo.isNewTrucks === 0 && orderInfo.contractStatus !== 1 && orderInfo.status === 1) {
+	if (orderInfo.isNewTrucks === 0 && orderInfo.contractStatus !== 1 && orderInfo.status === 1 && orderInfo.pledgeStatus !== 0) {
 		return 1; // 客车解约
 	}
-	if (orderInfo.status === 1 && orderInfo.isSignTtCoupon === 1 && orderInfo.ttContractStatus !== 1) {
+	if (orderInfo.status === 1 && orderInfo.isSignTtCoupon === 1 && orderInfo.ttContractStatus !== 1 && orderInfo.pledgeStatus !== 0) {
 		// 通通券签约套餐 解约 洛阳工行 通通券金额为 0 时 返回 6 进入办理进度页
 		return orderInfo.ttCouponPayAmount > 0 ? 22 : 6;
 	}

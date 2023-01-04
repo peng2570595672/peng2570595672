@@ -3,26 +3,35 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
-        price: 0,
-        lifeServiceRecordId: '1058727543109058560'
+		isRequest: false,
+		price: 0,
+		lifeServiceRecordId: ''
 	},
 	onLoad (options) {
-        this.setData({
-            price: +options.price || 0,
-            lifeServiceRecordId: options.lifeServiceRecordId
-        });
-
+      this.setData({
+          price: +options.price || 0,
+          lifeServiceRecordId: options.lifeServiceRecordId
+      });
 	},
 	onShow () {
-
 	},
     handlePay () {
+        if (this.data.isRequest) return;
+        this.setData({
+          isRequest: true
+        });
         util.getDataFromServer('consumer/voucher/rights/recharge/apply', {
             openId: app.globalData.openId,
             lifeServiceRecordId: this.data.lifeServiceRecordId
         }, () => {
+            this.setData({
+              isRequest: false
+            });
             util.showToastNoIcon('支付失败！');
         }, (res) => {
+            this.setData({
+              isRequest: false
+            });
             if (res.code === 0) {
                 let extraData = res.data.extraData;
                 wx.requestPayment({
