@@ -243,7 +243,7 @@ Page({
 				[this.data.details.id]: 1
 			}, //  {"账单id1"：1或者2或者3，"账单id2"：1或者2或者3} 1：通行费补缴  2：通行费手续费补缴  3：1+2补缴
 			vehPlates: this.data.details.vehPlate, // 车牌号
-			payAmount: this.data.details.totalMmout + this.data.details.serviceMoney - this.data.details.splitDeductedMoney - (this.data.details.discountMount || 0) - this.data.details.deductServiceMoney // 补缴金额
+			payAmount: this.data.details.totalMmout + (this.data.details.poundage || 0) + this.data.details.serviceMoney - this.data.details.splitDeductedMoney - (this.data.details.discountMount || 0) - this.data.details.deductServiceMoney // 补缴金额
 		};
 		util.getDataFromServer('consumer/order/bill-pay', params, () => {
 			util.showToastNoIcon('获取支付参数失败！');
