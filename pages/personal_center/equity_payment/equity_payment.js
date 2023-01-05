@@ -30,9 +30,6 @@ Page({
             util.showToastNoIcon('支付失败！');
         }, (res) => {
             const info = res.data;
-            this.setData({
-              isRequest: false
-            });
             if (res.code === 0) {
                 let extraData = res.data.extraData;
                 wx.requestPayment({
@@ -42,6 +39,9 @@ Page({
                     signType: extraData.signType,
                     timeStamp: extraData.timeStamp,
                     success: (res) => {
+                        this.setData({
+                            isRequest: false
+                        });
                         console.log(res);
                         if (res.errMsg === 'requestPayment:ok') {
                             const url = `https://${app.globalData.test ? 'etctest' : 'etc'}.cyzl.com/${app.globalData.test ? 'etc2-html' : 'wetc'}/etc_life_rights_and_interests/index.html#/pay_success?auth=${app.globalData.userInfo.accessToken}`;
@@ -61,6 +61,9 @@ Page({
                     }
                 });
             } else {
+                this.setData({
+                  isRequest: false
+                });
                 util.showToastNoIcon(res.message);
             }
         }, app.globalData.userInfo.accessToken, () => {
