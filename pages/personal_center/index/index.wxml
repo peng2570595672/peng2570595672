@@ -83,7 +83,7 @@
     </view>
 	<!-- 权益商城即将上线 banner 开始-->
     <view class="equity-mall" wx:if="{{isShowEquityImg}}" catchtap="handleMall">
-        <image class="equity-mall-img" src="https://file.cyzl.com/g001/M07/A8/FD/oYYBAGOitlKAMJZcAADu4q5cp6k282.png" model="widthFix"></image>
+        <image class="equity-mall-img" src="https://file.cyzl.com/g001/M07/B1/11/oYYBAGO2bZWAD9GaAADxGFtuxM8717.png" model="widthFix"></image>
     </view>
 	<!-- 权益商城即将上线 banner 结束-->
     <!--付费权益开始-->

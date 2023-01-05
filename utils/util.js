@@ -1635,10 +1635,10 @@ async function getArrearageTheBill(obuCardType, trucksOrder) {
 		return;
 	}
 	if (!result.data) return;
-	if (result.data.etcMoney) {
+	if (result.data.totalAmout) {
 		app.globalData.isArrearageData.isPayment = false;
-		app.globalData.isArrearageData.etcMoney = result.data.etcMoney;
-		alertPayment(result.data.etcMoney, false);
+		app.globalData.isArrearageData.etcMoney = result.data.totalAmout;
+		alertPayment(result.data.totalAmout, false);
 		return;
 	}
 	if (app.globalData.isArrearageData.etcTrucksMoney) {

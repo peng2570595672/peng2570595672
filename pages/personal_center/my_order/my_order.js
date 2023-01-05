@@ -261,7 +261,7 @@ Page({
 				this.setData({
 					failBillMessage: res.data
 				});
-				if (res.data.etcMoney) util.alertPayment(res.data.etcMoney);
+				if (res.data.totalAmout) util.alertPayment(res.data.totalAmout);
 			} else {
 				util.showToastNoIcon(res.message);
 			}

@@ -755,7 +755,7 @@ Page({
 			return;
 		}
 		if (!result.data) return;
-		await this.getPaymentVeh(item, result.data.etcMoney, etcTrucksMoney);
+		await this.getPaymentVeh(item, result.data.totalAmout, etcTrucksMoney);
 	},
 	// 查询最近一次账单
 	async getRecentlyTheBill (item, isTruck = false) {
