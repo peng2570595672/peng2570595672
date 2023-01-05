@@ -51,6 +51,9 @@ Page({
                         }
                     },
                     fail: (res) => {
+                        this.setData({
+                            isRequest: false
+                        });
                         console.log(res);
                         if (res.errMsg !== 'requestPayment:fail cancel') {
                             util.showToastNoIcon('支付失败！');
