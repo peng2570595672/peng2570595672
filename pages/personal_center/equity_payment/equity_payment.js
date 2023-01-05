@@ -29,6 +29,7 @@ Page({
             });
             util.showToastNoIcon('支付失败！');
         }, (res) => {
+            const info = res.data;
             this.setData({
               isRequest: false
             });
@@ -53,6 +54,9 @@ Page({
                         console.log(res);
                         if (res.errMsg !== 'requestPayment:fail cancel') {
                             util.showToastNoIcon('支付失败！');
+                        } else {
+                            // 支付取消
+                            this.rightAccount(info);
                         }
                     }
                 });
@@ -62,5 +66,11 @@ Page({
         }, app.globalData.userInfo.accessToken, () => {
             util.hideLoading();
         });
-    }
+    },
+		rightAccount (info) {
+			util.getDataFromServer('consumer/voucher/rights/recharge/refund/rightAccount', info, () => {
+			}, (res) => {
+			}, app.globalData.userInfo.accessToken, () => {
+			});
+		}
 });
