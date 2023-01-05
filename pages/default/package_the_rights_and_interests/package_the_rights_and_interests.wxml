@@ -88,7 +88,7 @@
          <view class="equities-logo" wx:if="{{tools.parseNum(listOfPackages[choiceIndex].ttCouponPayAmount) > 0}}">
             <image src="/pages/default/assets/equities1.png" ></image>
         </view>
-        <view class="equities-logo" wx:if="{{listOfPackages[choiceIndex].shopProductId === '1053333932522610688'}}" >
+        <view class="equities-logo" wx:if="{{isTest ? listOfPackages[choiceIndex].shopProductId === '1053333932522610688' : listOfPackages[choiceIndex].shopProductId === '1060638877005914112'}}" >
             <!-- 通通券金额为 0 时，展示此图 -->
             <image src="/pages/default/assets/equities2.png"></image>
         </view>
@@ -145,7 +145,7 @@
                 {{contractStatus === 1 ? '开通连续包月服务' : '签约代扣通行费'}}
             </button>
             <!-- 通通券金额 为0 时 执行微信签约-->
-            <button class="btn {{!getAgreement ? 'unavailable' : ''}}" catchtap="toWeChatSign" wx:elif="{{listOfPackages[choiceIndex].shopProductId === '1053333932522610688'}}">
+            <button class="btn {{!getAgreement ? 'unavailable' : ''}}" catchtap="toWeChatSign" wx:elif="{{isTest ? listOfPackages[choiceIndex].shopProductId === '1053333932522610688' : listOfPackages[choiceIndex].shopProductId === '1060638877005914112'}}">
                 去签约
             </button>
         </view>

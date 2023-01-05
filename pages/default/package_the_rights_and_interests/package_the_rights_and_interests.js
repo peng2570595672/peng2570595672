@@ -116,7 +116,8 @@ Page({
 		rightsPackageDetails: undefined,
 		contractStatus: undefined,
 		getAgreement: false, // 是否接受协议
-		isPay: false // 已选择通通券套餐&无需支付||已经支付
+		isPay: false, // 已选择通通券套餐&无需支付||已经支付
+		isTest: app.globalData.test
 
 	},
 	async onLoad (options) {
@@ -244,7 +245,8 @@ Page({
 				let ttCouponPayAmount = parseInt(this.data.listOfPackages[this.data.choiceIndex].ttCouponPayAmount);
 				let isSignTtCoupon = parseInt(this.data.listOfPackages[this.data.choiceIndex].isSignTtCoupon);
 				let shopProductId = this.data.listOfPackages[this.data.choiceIndex].shopProductId;
-				if (ttCouponPayAmount === 0 && isSignTtCoupon === 1 && shopProductId === '1053333932522610688') {
+				let falgs = this.data.isTest ? shopProductId === '1053333932522610688' : shopProductId === '1060638877005914112';
+				if (ttCouponPayAmount === 0 && isSignTtCoupon === 1 && falgs) {
 					this.submitOrder();
 				}
 			}
