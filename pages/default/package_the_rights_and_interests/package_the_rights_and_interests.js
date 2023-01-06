@@ -108,9 +108,9 @@ Page({
 		],
 		equityShop: [
 			// 权益套餐的 数据展示
-			{shopName: '芒果TV', couponOffset: '券抵2元',shopImg: 'https://file.cyzl.com/g001/M07/A8/C7/oYYBAGOiZk6AFCaXAAATwk4t0bI012.png',couponPrice: 10},
-			{shopName: 'QQ音乐', couponOffset: '券抵5元',shopImg: 'https://file.cyzl.com/g001/M07/A8/C6/oYYBAGOiZjiAURpOAAAOt4rE0_o138.png',couponPrice: 22.68},
-			{shopName: 'youku', couponOffset: '券抵8元',shopImg: 'https://file.cyzl.com/g001/M00/A8/C6/oYYBAGOiZfWACbdbAAAOdTx1taA728.png',couponPrice: 38.08}
+			{shopName: '芒果TV', couponOffset: '券抵2元',shopImg: 'https://file.cyzl.com/g001/M07/B1/B5/oYYBAGO3kWiALcwoAAAG0YIQbVI397.png',couponPrice: 10},
+			{shopName: 'QQ音乐', couponOffset: '券抵5元',shopImg: 'https://file.cyzl.com/g001/M07/B1/B5/oYYBAGO3kUWAc_EDAAAHrHwpCD0833.png',couponPrice: 22.68},
+			{shopName: 'youku', couponOffset: '券抵8元',shopImg: 'https://file.cyzl.com/g001/M00/B1/B4/oYYBAGO3kQOAf9V6AAAFnKab-Vg960.png',couponPrice: 38.08}
 		],
 		showServiceIndex: -1,
 		rightsPackageDetails: undefined,

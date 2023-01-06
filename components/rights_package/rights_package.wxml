@@ -13,7 +13,7 @@
 					</view>
 					<view class="new-related-service">
 						<view class="new-list-item" wx:for="{{trafficTicket}}" wx:key="index">
-							<image class="buttomImg" src="/pages/default/assets/equityImg.png" mode="aspectFit" />
+							<image class="buttomImg" src="https://file.cyzl.com/g001/M00/B1/B6/oYYBAGO3khaATF2aAAAVyAY9ZKk746.png" mode="aspectFit" />
 							<view class="contentMoney">
 								<view class="money">¥<span>{{item.denomination/100}}</span></view>
 								<view class="condition">满{{item.consumptionThreshold/100}}元可用</view>
@@ -41,7 +41,7 @@
 					</view>
 					<view class="new-related-service">
 						<view class="new-list-item" wx:for="{{parkingTicket}}" wx:key="index">
-							<image class="buttomImg" src="/pages/default/assets/equityImg.png" mode="aspectFit" />
+							<image class="buttomImg" src="https://file.cyzl.com/g001/M00/B1/B6/oYYBAGO3khaATF2aAAAVyAY9ZKk746.png" mode="aspectFit" />
 							<view class="contentMoney">
 								<view class="money">¥<span>{{item.denomination/100}}</span></view>
 								<view class="condition">满{{item.consumptionThreshold/100}}元可用</view>
