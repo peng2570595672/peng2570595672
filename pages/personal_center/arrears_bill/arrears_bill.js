@@ -269,9 +269,9 @@ Page({
 						this.setData({isRequest: false});
 						if (res.errMsg === 'requestPayment:ok') {
 							app.globalData.isArrearageData.isPayment = true;
-							// this.setData({	// 清空原有的失败账单，再次用来存储最新的失败账单
-							// 	failBillList: []
-							// });
+							this.setData({	// 清空原有的失败账单，再次用来存储最新的失败账单
+								failBillList: []
+							});
 							this.getBillQuery(id);
 						} else {
 							util.showToastNoIcon('支付失败！');
