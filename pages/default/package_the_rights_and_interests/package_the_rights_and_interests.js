@@ -363,6 +363,14 @@ Page({
 			isSelected: false,
 			activeEquitiesIndex: e.detail.isSelected ? -1 : this.data.rightsPackageDetails.index
 		});
+		if (this.data.listOfPackages[this.data.choiceIndex]?.mustChoiceRightsPackage === 1) {
+			const index = this.data.rightsAndInterestsList.findIndex(item => item.id === this.data.listOfPackages[0]?.rightsPackageIds[0]);
+			if (index !== -1 && this.data.choiceIndex !== -1) {
+				this.setData({
+					activeEquitiesIndex: index
+				});
+			}
+		}
 		this.data.viewRightsAndInterests.switchDisplay(false);
 	},
 	// 查看权益详情
@@ -468,6 +476,15 @@ Page({
 					this.setData({
 						activeEquitiesIndex
 					});
+				}
+			} else {
+				if (this.data.listOfPackages[0]?.mustChoiceRightsPackage === 1) {
+					const index = result.data.findIndex(item => item.id === this.data.listOfPackages[0]?.rightsPackageIds[0]);
+					if (index !== -1 && this.data.choiceIndex !== -1) {
+						this.setData({
+							activeEquitiesIndex: index
+						});
+					}
 				}
 			}
 		} else {
@@ -720,6 +737,9 @@ Page({
 	},
 	// 权益点击高亮，不用显示详情弹窗
 	detailsBtn (e) {
+		if (this.data.listOfPackages[this.data.activeIndex]?.mustChoiceRightsPackage === 1) {
+			return;
+		}
 		const index = e.currentTarget.dataset.index;
 		if (this.data.activeEquitiesIndex !== index) {
 			this.setData({

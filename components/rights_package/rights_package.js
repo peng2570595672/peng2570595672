@@ -6,6 +6,10 @@ Component({
 			type: Object,
 			value: {}
 		},
+		comboInfo: {
+			type: Object,
+			value: {}
+		},
 		isSelected: {
 			type: Boolean,
 			value: {}

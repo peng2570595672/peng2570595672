@@ -160,7 +160,7 @@
     </view>
     <!-- 下一步结束 -->
     <!-- 查看权益详情开始 -->
-    <rights_package id="showRightsPackage" bindonClickHandle="onClickHandle" bindonClickDetailsHandle="onClickDetailsHandle" isSelected="{{isSelected}}" details="{{rightsPackageDetails}}"></rights_package>
+    <rights_package id="showRightsPackage" bindonClickHandle="onClickHandle" bindonClickDetailsHandle="onClickDetailsHandle" isSelected="{{isSelected}}" details="{{rightsPackageDetails}}" comboInfo="{{ listOfPackages[choiceIndex] }}"></rights_package>
     <!-- 查看权益详情结束 -->
     <related_service id="viewRightsService" bindonClickHandle="onClickClose" details="{{serviceList[showServiceIndex]}}" wx:if="{{showServiceIndex === 0 || showServiceIndex === 2}}"></related_service>
     <life_service id="viewLifeService" bindonClickHandle="onClickClose" details="{{serviceList[1]}}" wx:if="{{showServiceIndex === 1}}"></life_service>
