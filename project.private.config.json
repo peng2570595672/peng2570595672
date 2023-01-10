@@ -59,7 +59,7 @@
 				{
 					"name": "",
 					"pathName": "pages/default/receiving_address/receiving_address",
-					"query": "shopId=559369191740669952&enterType=23&productId=1057708284953763840&rightsPackageId=1057687431872520192",
+					"query": "shopId=1060506912810344448&enterType=24",
 					"launchMode": "default",
 					"scene": null
 				},
@@ -67,6 +67,13 @@
 					"name": "",
 					"pathName": "pages/pay/pay",
 					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+					"query": "orderId=1062469345000689664",
 					"launchMode": "default",
 					"scene": null
 				}

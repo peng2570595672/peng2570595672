@@ -364,7 +364,7 @@ Page({
 			activeEquitiesIndex: e.detail.isSelected ? -1 : this.data.rightsPackageDetails.index
 		});
 		if (this.data.listOfPackages[this.data.choiceIndex]?.mustChoiceRightsPackage === 1) {
-			const index = this.data.rightsAndInterestsList.findIndex(item => item.id === this.data.listOfPackages[0]?.rightsPackageIds[0]);
+			const index = this.data.rightsAndInterestsList.findIndex(item => item.id === this.data.listOfPackages[this.data.choiceIndex]?.rightsPackageIds[0]);
 			if (index !== -1 && this.data.choiceIndex !== -1) {
 				this.setData({
 					activeEquitiesIndex: index
@@ -518,7 +518,10 @@ Page({
 		}
 	},
 	async next () {
-		if (this.data.choiceIndex === -1) return;
+		if (this.data.choiceIndex === -1) {
+			util.showToastNoIcon('请选择套餐');
+			return;
+		}
 		if (this.data.listOfPackages[this.data.choiceIndex].mustChoiceRightsPackage === 1 && this.data.activeEquitiesIndex === -1) {
 			util.showToastNoIcon('套餐需加购权益包');
 			// 必须选择权益
