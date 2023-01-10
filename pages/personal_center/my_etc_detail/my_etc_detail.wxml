@@ -101,8 +101,7 @@
         </button>
 		<view class="btn-wrapper">
 			<!-- 如果是 权益券额套餐模式并且已支付成功时，隐藏 ”取消办理“按钮和替换 “ 客服中心”为“在线客服”-->
-			<view catchtap="onClickCancelHandle" wx:if="{{orderInfo.status === 0 && orderInfo.orderType !== 51 && orderInfo.pledgeType !== 4}}">取消办理</view>
-			<view catchtap="onClickCancelHandle" wx:if="{{orderInfo.status === 1 && (orderInfo.auditStatus === 1 || orderInfo.auditStatus === 9) && orderInfo.pledgeType !== 4}}">取消办理</view>
+			<view catchtap="onClickCancelHandle" wx:if="{{orderInfo.status === 1 && orderInfo.orderType !== 51 && (orderInfo.auditStatus === 1 || orderInfo.auditStatus === 9) && orderInfo.pledgeType !== 4}}">取消办理</view>
 			<view catchtap="goOnlineServer">{{orderInfo.pledgeType === 4 && pledgeStatus !== 0 ? '在线客服' : '客服中心'}}</view>
 		</view>
 	</view>
