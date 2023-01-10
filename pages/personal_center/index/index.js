@@ -46,7 +46,7 @@ Page({
 	async onShow () {
 		if (app.globalData.userInfo.accessToken) {
 			// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
-			let requestList = [await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon()];
+			let requestList = [await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon(), await this.getRightsAccount()];
 			util.showLoading();
 			await Promise.all(requestList);
 			util.hideLoading();
@@ -203,7 +203,7 @@ Page({
 							requestList = [await this.getStatus()];
 						}
 						// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
-						requestList = [requestList, await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon()];
+						requestList = [requestList, await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon(), await this.getRightsAccount()];
 						if (isData) {
 							requestList.push(await this.submitUserInfo(isData));
 						}
@@ -277,6 +277,17 @@ Page({
 			app.globalData.crowdsourcingServiceProvidersId = result.data.shopId;
 			this.setData({
 				crowdSourcingMsg: result.data
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 获取用户权益账户
+	async getRightsAccount () {
+		const result = await util.getDataFromServersV2('consumer/member/right/account', {});
+		if (result.code === 0) {
+			this.setData({
+				isShowEquityImg: result.data?.length
 			});
 		} else {
 			util.showToastNoIcon(result.message);
