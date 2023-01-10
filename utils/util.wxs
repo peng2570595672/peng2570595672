@@ -63,11 +63,16 @@ function formatterTimer(systimestamp, compareTime, countdownTime) {
   }
   return date > 0 ? date : 0;
 }
+// 数据长度
+function dataLen(obj) {
+  return obj.length
+}
 module.exports = {
   substring: substring,
   lowercaseToCapitalization: lowercaseToCapitalization,
   stringToArray: stringToArray,
   parseIn: parseIn,
   parseNum: parseNum,
-  formatterTimer: formatterTimer
+  formatterTimer: formatterTimer,
+  dataLen: dataLen
 };

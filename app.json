@@ -55,21 +55,15 @@
 		"list": [
 		  {
 			"pagePath": "pages/Home/Home",
-			"text": "首页",
-			"iconPath": "",
-			"selectedIconPath": ""
+			"text": "首页"
 		  },
 		  {
 			"pagePath": "pages/default/index/index",
-			"text": "ETC办理",
-			"iconPath": "",
-			"selectedIconPath": ""
+			"text": "ETC办理"
 		  },
 		  {
 			"pagePath": "pages/my/index",
-			"text": "我的",
-			"iconPath": "",
-			"selectedIconPath": ""
+			"text": "我的"
 		  }
 		]
 	},

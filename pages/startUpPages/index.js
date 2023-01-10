@@ -54,12 +54,12 @@ Page({
 		if (result.code === 0) {
 			if (result.data.length > 0) {
 				// 跳转首页;
-				wx.switchTab({
-					url: '/pages/Home/Home'
-				});
 				// wx.switchTab({
-				// 	url: '/pages/default/index/index'
+				// 	url: '/pages/Home/Home'
 				// });
+				wx.switchTab({
+					url: '/pages/default/index/index'
+				});
 			} else {
 				// 跳转 客车产品介绍页
 				wx.switchTab({

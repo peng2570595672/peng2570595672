@@ -23,7 +23,14 @@ Page({
 				title: '安装激活',
 				content: '收到设备后按指引激活ETC，先通行后付费，通行后费用将通过微信代扣。'
 			}
-		]
+		],
+		testData: [
+			{title: '哪些车辆支持办理ETC？',contant: '支持9座及以下的小型汽车办理，货车办理通，敬请关注。支持9座及以下的小型汽车办理，货车办理通，敬请关注。'},
+			{title: '办理你们的ETC是否支持全国通行？通行全国高速都是95折',contant: '是的。目前全国高速已实现联网，ETC设备通行均可享受通行费95折的普惠政策，如部分省份高速或路段还有其他优惠可叠加同享。'},
+			{title: '哪些车辆支持已经办理过ETC还能再办吗？',contant: '根据交通部规定一个车牌号只能办理一个ETC设备，如您的车牌已办理过，需要先注销原有ETC，可联系在线客服咨询如何注销'},
+			{title: '哪些车辆支持办理ETC？',contant: '支持9座及以下的小型汽车办理，货车办理通，敬请关注。'}
+		],
+		viewTc: {}
 	},
 	async onLoad (options) {
 		if (options.isMain) {
@@ -56,5 +63,14 @@ Page({
 	goTruck () {
 		// 去办理货车ETC
 		util.go(`/pages/truck_handling/index/index`);
+	},
+	// 查看办理步骤
+	viewProcedure () {
+		this.setData({
+			viewTc: {
+				type: 'moduleOne'
+			}
+		});
+		this.selectComponent('#viewProcedure').show();
 	}
 });

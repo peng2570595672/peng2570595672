@@ -1,0 +1,11 @@
+<view>
+	<view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" bindtap="hide" wx:if="{{mask}}"></view>
+	<view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}" wx:if="{{mask}}">
+        <!-- 自助办理流程 -->
+        <view class="moduleOne" wx:if="{{viewTc.type === 'moduleOne'}}">
+		    <view class="title">自助办理流程</view>
+            <view class="topImg">顶部图片</view>
+            <view class="content"></view>
+        </view>
+	</view>
+</view>
