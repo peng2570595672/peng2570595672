@@ -478,8 +478,8 @@ Page({
 					});
 				}
 			} else {
-				if (this.data.listOfPackages[0]?.mustChoiceRightsPackage === 1) {
-					const index = result.data.findIndex(item => item.id === this.data.listOfPackages[0]?.rightsPackageIds[0]);
+				if (this.data.listOfPackages[this.data.choiceIndex]?.mustChoiceRightsPackage === 1) {
+					const index = result.data.findIndex(item => item.id === this.data.listOfPackages[this.data.choiceIndex]?.rightsPackageIds[0]);
 					if (index !== -1 && this.data.choiceIndex !== -1) {
 						this.setData({
 							activeEquitiesIndex: index
