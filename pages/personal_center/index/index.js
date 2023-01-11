@@ -46,7 +46,7 @@ Page({
 	async onShow () {
 		if (app.globalData.userInfo.accessToken) {
 			// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
-			let requestList = [await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon(), await this.getRightsAccount()];
+			let requestList = [await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon()];
 			util.showLoading();
 			await Promise.all(requestList);
 			util.hideLoading();
@@ -203,7 +203,7 @@ Page({
 							requestList = [await this.getStatus()];
 						}
 						// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
-						requestList = [requestList, await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon(), await this.getRightsAccount()];
+						requestList = [requestList, await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon()];
 						if (isData) {
 							requestList.push(await this.submitUserInfo(isData));
 						}
@@ -250,9 +250,9 @@ Page({
 		let isActivation = app.globalData.myEtcList.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && (item.obuCardType === 1 || item.obuCardType === 21 || item.obuCardType === 22)); // 1 已激活  2 恢复订单  5 预激活
 		let isNewOrder = app.globalData.myEtcList.findIndex(item => compareDate(item.addTime, '2021-07-14') === true); // 当前用户有办理订单且订单创建日期在2021年7月13日前（含7月13日）
 		let isShowFeatureService = app.globalData.myEtcList.findIndex(item => item.isShowFeatureService === 1 && (item.obuStatus === 1 || item.obuStatus === 5)); // 是否有特色服务
-		let isPrechargeOrder = app.globalData.myEtcList.findIndex(item => ((item.flowVersion === 6 || item.flowVersion === 4 || item.flowVersion === 7) && item.auditStatus === 2) || (item.pledgeType === 4 && (item.pledgeStatus === 1 || item.pledgeStatus === 2))); // 是否有预充流程 & 已审核通过订单 & 已支付的押金模式
+		let isPrechargeOrder = app.globalData.myEtcList.findIndex(item => ((item.flowVersion === 6 || item.flowVersion === 4 || item.flowVersion === 7) && item.auditStatus === 2) || (item.pledgeType === 4 && (item.pledgeStatus === 1 || item.pledgeStatus === 2)) || (item.orderType === 51 && (item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5))); // 是否有预充流程 & 已审核通过订单 & 已支付的押金模式
 		let isShowCoupon = app.globalData.myEtcList.findIndex(item => (item.isSignTtCoupon === 1 && item.ttContractStatus !== 0)); // 通通券 存在签约或解约
-		let flag = app.globalData.myEtcList.findIndex(item => (item.pledgeType === 4 && item.pledgeStatus !== 0 && item.platformId !== '568113867222155288' && item.platformId !== '500338116821778436'));
+		let flag = app.globalData.myEtcList.findIndex(item => ((item.pledgeType === 4 && item.pledgeStatus === 1 && item.platformId !== '568113867222155288' && item.platformId !== '500338116821778436') || (item.orderType === 51 && (item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5))));
 		this.setData({
 			isShowNotice: !!app.globalData.myEtcList.length,
 			isShowFeatureService: isShowFeatureService !== -1,
@@ -266,7 +266,7 @@ Page({
 		await util.getIsArrearage();
 	},
 	handleMall () {
-		const url = `https://${app.globalData.test ? 'etctest' : 'etc'}.cyzl.com/${app.globalData.test ? 'etc2-html' : 'wetc'}/etc_life_rights_and_interests/index.html#/?auth=${app.globalData.userInfo.accessToken}&platformId=${app.globalData.platformId}`;
+		const url = `https://${app.globalData.test ? 'etctest' : 'etc'}.cyzl.com/${app.globalData.test ? 'etc2-html' : 'wetc'}/equity_mall/index.html#/?auth=${app.globalData.userInfo.accessToken}&platformId=${app.globalData.platformId}`;
 		util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
 	},
 	// 众包-获取用户推广码和订单红包数量
@@ -277,17 +277,6 @@ Page({
 			app.globalData.crowdsourcingServiceProvidersId = result.data.shopId;
 			this.setData({
 				crowdSourcingMsg: result.data
-			});
-		} else {
-			util.showToastNoIcon(result.message);
-		}
-	},
-	// 获取用户权益账户
-	async getRightsAccount () {
-		const result = await util.getDataFromServersV2('consumer/member/right/account', {});
-		if (result.code === 0) {
-			this.setData({
-				isShowEquityImg: result.data?.length
 			});
 		} else {
 			util.showToastNoIcon(result.message);
