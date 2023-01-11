@@ -17,10 +17,10 @@
                 </view>
                 <view class="explain">货车每笔通行需加收{{details.totalMmout/100}}*0.6%</view>
             </view>
-             <!-- --------@cyl---------start ---------权益服务费--------- -->
+             <!-- --------@cyl---------start ---------综合服务费--------- -->
             <view wx:if="{{details.poundage}}">
                 <view class="line">
-                    <view>权益服务费（2%）</view>
+                    <view>综合服务费（2%）</view>
                     <view>¥{{details.poundage/100}}</view>
                 </view>
                 <view class="explain">每笔通行需加收{{details.totalMmout/100}}*2%</view>

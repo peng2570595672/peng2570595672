@@ -35,7 +35,7 @@
         </view>
         <!-- --------@cyl---------start ------------------ -->
         <view wx:if="{{details.poundage}}">
-            <view>权益服务费（2%）</view>
+            <view>综合服务费（2%）</view>
             <view>¥{{details.poundage/100}}</view>
         </view>
         <!-- -----------------end ------------------ -->
