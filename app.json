@@ -39,7 +39,9 @@
 		"pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement",
 		"pages/default/trucks/trucks",
 		"pages/default/margin_user_handling_agreement/margin_user_handling_agreement",
-		"pages/my/index"
+		"pages/my/index",
+		"pages/etc_handle/etc_handle",
+		"pages/membershipCertificate/membershipCertificate"
 		
 	],
 	"window": {
@@ -48,6 +50,7 @@
 		"navigationBarTextStyle": "black"
 	},
 	"tabBar": {
+		"custom": true,
 		"color": "bfbfbf",
 		"selectedColor": "#d3257a",
 		"backgroundColor": "#fff",
@@ -58,8 +61,12 @@
 			"text": "首页"
 		  },
 		  {
-			"pagePath": "pages/default/index/index",
+			"pagePath": "pages/etc_handle/etc_handle",
 			"text": "ETC办理"
+		  },
+		  {
+			"pagePath": "pages/membershipCertificate/membershipCertificate",
+			"text": "会员券"
 		  },
 		  {
 			"pagePath": "pages/my/index",

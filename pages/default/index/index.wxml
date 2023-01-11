@@ -1,8 +1,8 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
-<view class="index" style="background-color: {{'rgb(28,86,97)'}}">
+<view class="index" style="background-color: {{'rgb(28,86,97)'}}" catchtouchmove="{{whetherToStay ? 'stopRoll' : ''}}">
     <!-- 顶部banner 背景颜色和图片是动态的 -->
-    <view class="topBanner" style="background-color: {{'green'}}">
-        <image class="topImg" src="{{}}" />
+    <view class="topBanner" style="background-color: {{'green'}}" catchtap="" >
+        <image class="topImg" src="{{'https://file.cyzl.com/g001/M07/B6/F4/oYYBAGO-ebuALxEMAAF_Efyf1k0965.jpg'}}" />
     </view>
     <!-- 模块1 支持微信多种代扣方式 -->
     <view class="module one">
@@ -11,14 +11,11 @@
         <view class="imgText"></view>
         <view class="buttomText oneButtom">*同意办理即默认收取2%权益服务费</view>
     </view>
-    <!-- 模块2 全国包邮 -->
-    <view class="module two">
-        <view class="title">3分钟自助办理 全国包邮</view>
-        <view class="imgText"></view>
-        <view class="buttomText twoButtom" catchtap="viewProcedure">查看具体办理步骤</view>
-    </view>
     <!-- 模块3 一站式车主服务 -->
     <view class="module three">
+        <view class="title">3分钟自助办理 全国包邮</view>
+        <view class="imgText"></view>
+        <view class="buttomText twoButtom" catchtap="viewProcedure" data-pop="moduleOne">查看具体办理步骤</view>
         <view class="title">一站式车主服务</view>
         <view class="iconImg"></view>
         <view class="title">在线售后 无忧服务</view>
@@ -37,14 +34,14 @@
             </view>
             <view class="answer">{{item.contant}}</view>
         </view>
-        <view class="moreQuestions" catchtap="" wx:if="{{tools.dataLen(testData) < 3 ? false : true}}">更多热问热答</view>
+        <view class="moreQuestions" catchtap="viewProcedure" data-pop="moduleTwo" wx:if="{{tools.dataLen(testData) < 3 ? false : true}}">更多热问热答</view>
     </view>
     <!-- 占位 -->
     <view class="split"></view>
     <!-- 立即办理 -->
-    <view class="handleImmediately">
-        <button>立即办理</button>
+    <view class="handleImmediately {{isFade ? 'fadeIn' : 'fadeOut'}} ">
+        <button catchtap="onClickHandle" >立即办理</button>
     </view>
     <!-- 组件 -->
-    <viewProcedure id="viewProcedure" viewTc="{{viewTc}}"></viewProcedure>
+    <viewProcedure id="viewProcedure" bind:onHandle="onHandle" viewTc="{{viewTc}}"></viewProcedure>
 </view>

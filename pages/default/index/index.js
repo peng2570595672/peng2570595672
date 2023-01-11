@@ -6,8 +6,7 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
-		processList: [
-			{
+		processList: [{
 				title: '填写资料',
 				content: '填写邮寄地址及车辆信息，仅支持蓝牌或绿牌且9座以下客车办理。'
 			},
@@ -24,13 +23,42 @@ Page({
 				content: '收到设备后按指引激活ETC，先通行后付费，通行后费用将通过微信代扣。'
 			}
 		],
-		testData: [
-			{title: '哪些车辆支持办理ETC？',contant: '支持9座及以下的小型汽车办理，货车办理通，敬请关注。支持9座及以下的小型汽车办理，货车办理通，敬请关注。'},
-			{title: '办理你们的ETC是否支持全国通行？通行全国高速都是95折',contant: '是的。目前全国高速已实现联网，ETC设备通行均可享受通行费95折的普惠政策，如部分省份高速或路段还有其他优惠可叠加同享。'},
-			{title: '哪些车辆支持已经办理过ETC还能再办吗？',contant: '根据交通部规定一个车牌号只能办理一个ETC设备，如您的车牌已办理过，需要先注销原有ETC，可联系在线客服咨询如何注销'},
-			{title: '哪些车辆支持办理ETC？',contant: '支持9座及以下的小型汽车办理，货车办理通，敬请关注。'}
+		testData: [{
+				title: '哪些车辆支持办理ETC？',
+				contant: '支持9座及以下的小型汽车办理，货车办理通，敬请关注。'
+			},
+			{
+				title: '办理你们的ETC是否支持全国通行？通行全国高速都是95折',
+				contant: '是的。目前全国高速已实现联网，ETC设备通行均可享受通行费95折的普惠政策，如部分省份高速或路段还有其他优惠可叠加同享。'
+			},
+			{
+				title: '哪些车辆支持已经办理过ETC还能再办吗？',
+				contant: '根据交通部规定一个车牌号只能办理一个ETC设备，如您的车牌已办理过，需要先注销原有ETC，可联系在线客服咨询如何注销'
+			},
+			{
+				title: '哪些车辆支持已经办理过ETC还能再办吗？',
+				contant: '根据交通部规定一个车牌号只能办理一个ETC设备，如您的车牌已办理过，需要先注销原有ETC，可联系在线客服咨询如何注销'
+			},
+			{
+				title: '哪些车辆支持已经办理过ETC还能再办吗？',
+				contant: '根据交通部规定一个车牌号只能办理一个ETC设备，如您的车牌已办理过，需要先注销原有ETC，可联系在线客服咨询如何注销'
+			},
+			{
+				title: '哪些车辆支持已经办理过ETC还能再办吗？',
+				contant: '根据交通部规定一个车牌号只能办理一个ETC设备，如您的车牌已办理过，需要先注销原有ETC，可联系在线客服咨询如何注销'
+			},
+			{
+				title: '哪些车辆支持已经办理过ETC还能再办吗？',
+				contant: '根据交通部规定一个车牌号只能办理一个ETC设备，如您的车牌已办理过，需要先注销原有ETC，可联系在线客服咨询如何注销'
+			},
+			{
+				title: '哪些车辆支持办理ETC？',
+				contant: '支持9座及以下的小型汽车办理，货车办理通，敬请关注。'
+			}
 		],
-		viewTc: {}
+		viewTc: {},	// 用于存放弹窗数据
+		whetherToStay: false,	// 用于控制显示弹窗时，最底层页面禁止不动
+		isFade: true	// 控制"浮动按钮"的显示隐藏
 	},
 	async onLoad (options) {
 		if (options.isMain) {
@@ -38,6 +66,10 @@ Page({
 				isMain: options.isMain
 			});
 		}
+		// 查询是否欠款
+		await util.getIsArrearage();
+	},
+	async onShow () {
 		// 查询是否欠款
 		await util.getIsArrearage();
 	},
@@ -64,13 +96,59 @@ Page({
 		// 去办理货车ETC
 		util.go(`/pages/truck_handling/index/index`);
 	},
-	// 查看办理步骤
-	viewProcedure () {
-		this.setData({
-			viewTc: {
-				type: 'moduleOne'
+	// 监听页面滚动
+	onPageScroll (e) {
+		if (e.scrollTop) {
+			this.setData({
+				isFade: false
+			});
+		}
+		this.fangDou(500);
+	},
+	// 用户停止滑动时 显示 "立即办理"按钮
+	fangDou (time) {
+		let that = this;
+		return (function () {
+			if (that.data.timeout) {
+				clearTimeout(that.data.timeout);
 			}
-		});
+			that.data.timeout = setTimeout(() => {
+				that.setData({
+					isFade: true
+				});
+			}, time);
+		})();
+	},
+	// 查看办理步骤 弹窗 和 查看热门问答 弹窗
+	viewProcedure (e) {
+		let flag = e.currentTarget.dataset.pop;
+		if (flag === 'moduleOne') {
+			this.setData({
+				viewTc: {
+					type: 'moduleOne'
+				},
+				whetherToStay: true
+			});
+		}
+		if (flag === 'moduleTwo') {
+			let data = this.data.testData;
+			this.setData({
+				viewTc: {
+					type: 'moduleTwo',
+					data
+				},
+				whetherToStay: true
+			});
+		}
 		this.selectComponent('#viewProcedure').show();
-	}
+	},
+	// 关闭弹窗
+	onHandle () {
+		this.setData({
+			whetherToStay: false
+		});
+	},
+	// 当弹出弹窗时，调用它，不可删
+	stopRoll () {}
+
 });

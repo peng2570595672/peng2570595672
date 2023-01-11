@@ -57,15 +57,13 @@ Page({
 				// wx.switchTab({
 				// 	url: '/pages/Home/Home'
 				// });
-				wx.switchTab({
-					url: '/pages/default/index/index'
-				});
+				util.go('/pages/default/index/index');
 			} else {
 				// 跳转 客车产品介绍页
-				wx.switchTab({
-					url: '/pages/default/index/index'
-				});
+				util.go('/pages/default/index/index');
 			}
+			// 查询是否欠款
+			// await util.getIsArrearage();
 		} else {
 			util.showToastNoIcon(result.message);
 		}

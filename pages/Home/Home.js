@@ -141,6 +141,14 @@ Page({
 		console.log('--------------------------------------------');
 	},
 	async onShow () {
+		console.log(this.getTabBar);
+		if (typeof this.getTabBar === 'function' &&
+			this.getTabBar()) {
+			this.getTabBar().setData({
+			// 唯一标识（其它设置不同的整数）
+			selected: 0
+			});
+		}
 		this.setData({
 			isActivityForBannerDate: util.isDuringDate('2021/06/23', '2021/07/16'),
 			isActivityDate: util.isDuringDate('2021/6/25 11:00', '2021/6/28 15:00')

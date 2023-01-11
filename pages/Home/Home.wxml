@@ -181,4 +181,5 @@
 		<!--根据您页面的布局，修改margin-top的值-->
 	    <canvas canvas-id='tdcanvas' style='margin-top:200rpx'></canvas>
 	</view>
+    <tab_bar></tab_bar>
 </view>

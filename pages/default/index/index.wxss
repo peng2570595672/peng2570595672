@@ -12,8 +12,10 @@
 }
 
 .index .topBanner .topImg {
+	z-index: -1;
 	width: 100%;
 	height: 100%;
+	display: block;
 }
 
 /* 模块 */
@@ -31,12 +33,9 @@
 	margin-top: -28rpx;
 }
 
-.index .module.two {
-	height: 350rpx;
-}
-
 .index .module.three {
-	height: 646rpx;
+	height: auto;
+	padding-bottom: 60rpx;
 }
 
 .index .module.four {
@@ -56,8 +55,8 @@
 }
 
 .index .module .textLeft {
-	color: #FFFFFF;
 	text-align: left;
+	color: #FFFFFF;
 	padding-top: 30rpx;
 }
 
@@ -66,8 +65,8 @@
 	font-size: 28rpx;
 	font-weight: 400;
 	color: #4D4D51;
-	line-height: 40rpx;
 	margin-top: 10rpx;
+	line-height: 40rpx;
 }
 
 .index .module .imgText {
@@ -84,14 +83,20 @@
 	margin-top: 38rpx;
 }
 
-.index .module,
-.buttomText.oneButtom {
+.index .module .oneButtom {
 	color: #B4B4B4;
 }
 
-.index .module,
-.buttomText.twoButtom {
+.index .module .twoButtom {
+	width: 180rpx;
+	height: 20rpx;
 	color: #1A5045;
+	padding: 10rpx 20rpx;
+	border-radius: 20rpx;
+	background-color: rgba(200, 200, 200, 0.5);
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
 }
 
 .index .module .iconImg {
@@ -109,8 +114,8 @@
 .index .module .answersQuestions {
 	width: 100%;
 	height: auto;
-	color: #FFFFFF;
 	text-align: left;
+	color: #FFFFFF;
 	margin-top: 30rpx;
 	padding-bottom: 22rpx;
 	font-family: PingFangSC-Medium, PingFang SC;
@@ -123,19 +128,20 @@
 .index .module .answersQuestions .questions .questionsImg {
 	width: 24rpx;
 	height: 24rpx;
+	line-height: 42rpx;
 }
 
 .index .module .answersQuestions .questions .questionsImg image {
-	width: 99%;
-	height: 99%;
+	width: 100%;
+	height: 100%;
 }
 
 .index .module .answersQuestions .questions .questionsTitle {
 	width: 616rpx;
 	font-size: 28rpx;
 	font-weight: 500;
-	line-height: 40rpx;
 	margin-left: 8rpx;
+	line-height: 40rpx;
 	text-align: justify;
 }
 
@@ -164,34 +170,71 @@
 	bottom: 20rpx;
 }
 
-
-
-
-
 /* 占位 */
 .index .split {
-	height: 180rpx;
+	height: 260rpx;
 	overflow: hidden;
 }
 
 /* 底部按钮“立即办理” */
 .index .handleImmediately {
 	width: 100vw;
-	height: 120rpx;
-	background-color: rgb(28, 86, 97);
+	height: 244rpx;
+	background: #FFFFFF;
+	border-radius: 16rpx 16rpx 0px 0px;
 	position: fixed;
-	bottom: 0;
+	opacity: 0.9;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .index .handleImmediately button {
-	height: 100rpx;
-	margin: 10rpx 28rpx;
-	font-size: 17px;
-	font-weight: 500;
+	width: 662rpx;
+	height: 110rpx;
 	color: #FFFFFF;
-	line-height: 100rpx;
-	border-radius: 50rpx;
-	font-family: PingFangSC-Medium, PingFang SC;
-	background: linear-gradient(45deg, #00AF62 0%, #68D33F 100%);
-	box-shadow: 0px 4px 5px 0px rgba(104, 211, 63, 0.2);
+	line-height: 110rpx;
+	background: #2A4F44;
+	box-shadow: 0rpx 4rpx 2rpx 0rpx rgba(212, 212, 212, 0.5);
+	border-radius: 64rpx;
+}
+.index .fadeIn {
+	position: fixed;
+	animation: fade_in 0.2s linear forwards;
+}
+.index .fadeOut {
+	position: fixed;
+	animation: fade_out 0.2s linear forwards;
+}
+@keyframes fade_in {
+	0%{
+		bottom: -244rpx;
+	}
+	100%{
+		bottom: 0rpx;
+	}
+}
+@keyframes fade_out {
+	0%{
+		bottom: 0rpx;
+	}
+	100%{
+		bottom: -244rpx;
+	}
+}
+@-webkit-keyframes fade_in {
+	0%{
+		bottom: -244rpx;
+	}
+	100%{
+		bottom: 0rpx;
+	}
+}
+@-webkit-keyframes fade_out {
+	0%{
+		bottom: 0rpx;
+	}
+	100%{
+		bottom: -244rpx;
+	}
 }

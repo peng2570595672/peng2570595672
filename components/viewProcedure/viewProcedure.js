@@ -15,7 +15,7 @@ Component({
 	},
 	methods: {
 		ok (e) {
-			this.hide(e,true);
+			this.hide(e, true);
 		},
 		show () {
 			this.setData({
@@ -23,7 +23,7 @@ Component({
 				wrapper: true
 			});
 		},
-		hide (e,flag) {
+		hide (e) {
 			this.setData({
 				wrapper: false
 			});
@@ -31,11 +31,7 @@ Component({
 				this.setData({
 					mask: false
 				});
-				if (flag) {
-					this.triggerEvent('onHandle');
-				} else {
-					this.triggerEvent('cancelHandle');
-				}
+				this.triggerEvent('onHandle');
 			}, 400);
 		}
 	}

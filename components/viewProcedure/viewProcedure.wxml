@@ -1,11 +1,19 @@
 <view>
 	<view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" bindtap="hide" wx:if="{{mask}}"></view>
 	<view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}" wx:if="{{mask}}">
-        <!-- 自助办理流程 -->
-        <view class="moduleOne" wx:if="{{viewTc.type === 'moduleOne'}}">
-		    <view class="title">自助办理流程</view>
-            <view class="topImg">顶部图片</view>
-            <view class="content"></view>
-        </view>
+		<!-- 自助办理流程 -->
+		<view class="communal moduleOne" wx:if="{{viewTc.type === 'moduleOne'}}">
+			<view class="title">自助办理流程</view>
+			<view class="topImg">顶部图片</view>
+			<view class="content"></view>
+		</view>
+		<!-- 热门问答 -->
+		<scroll-view scroll-y="true" class="communal moduleTwo" wx:if="{{viewTc.type === 'moduleTwo'}}" >
+			<view class="title">热门问答</view>
+			<view class="substance" wx:for="{{viewTc.data}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+				<view class="subTitle">{{index + 1}}、{{item.title}}</view>
+				<view class="text">答：{{item.contant}}</view>
+			</view>
+		</scroll-view>
 	</view>
 </view>
