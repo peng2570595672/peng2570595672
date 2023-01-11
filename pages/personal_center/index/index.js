@@ -252,7 +252,7 @@ Page({
 		let isShowFeatureService = app.globalData.myEtcList.findIndex(item => item.isShowFeatureService === 1 && (item.obuStatus === 1 || item.obuStatus === 5)); // 是否有特色服务
 		let isPrechargeOrder = app.globalData.myEtcList.findIndex(item => ((item.flowVersion === 6 || item.flowVersion === 4 || item.flowVersion === 7) && item.auditStatus === 2) || (item.pledgeType === 4 && (item.pledgeStatus === 1 || item.pledgeStatus === 2)) || (item.orderType === 51 && (item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5))); // 是否有预充流程 & 已审核通过订单 & 已支付的押金模式
 		let isShowCoupon = app.globalData.myEtcList.findIndex(item => (item.isSignTtCoupon === 1 && item.ttContractStatus !== 0)); // 通通券 存在签约或解约
-		let flag = app.globalData.myEtcList.findIndex(item => ((item.pledgeType === 4 && item.pledgeStatus === 1 && item.platformId !== '568113867222155288' && item.platformId !== '500338116821778436') || (item.orderType === 51 && (item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5))));
+		let flag = app.globalData.myEtcList.findIndex(item => ((item.pledgeType === 4 && (item.pledgeStatus === 1 || item.pledgeStatus === 2) && item.platformId !== '568113867222155288' && item.platformId !== '500338116821778436') || (item.orderType === 51 && (item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5))));
 		this.setData({
 			isShowNotice: !!app.globalData.myEtcList.length,
 			isShowFeatureService: isShowFeatureService !== -1,
