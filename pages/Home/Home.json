@@ -4,10 +4,10 @@
   "backgroundColor": "#000000",
   "navigationBarTextStyle": "white",
   "navigationStyle": "custom",
+	"component": true,
 	"usingComponents": {
       "popup": "/components/dialog/dialog",
       "popup1": "/components/dialog1/dialog",
-      "agreement-dialog": "/components/agreement_dialog/agreement_dialog",
-      "tab_bar": "/components/tab_bar/index"
+      "agreement-dialog": "/components/agreement_dialog/agreement_dialog"
 	}
 }

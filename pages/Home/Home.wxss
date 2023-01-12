@@ -1,508 +1,278 @@
-.animated {
-  -webkit-animation-duration: 0.4s;
-  animation-duration: 0.4s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
+.home {
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: auto;
+	background-color: #EBEDF0;
 }
-@-webkit-keyframes linearAnimation {
-  0% {
-    width: 38rpx;
-  }
-  25% {
-    width: 68rpx;
-  }
-  50% {
-    width: 98rpx;
-  }
-  75% {
-    width: 128rpx;
-  }
-  100% {
-    width: 158rpx;
-  }
-}
-@-webkit-keyframes linearAnimation1 {
-  0% {
-    width: 38rpx;
-  }
-  25% {
-    width: 68rpx;
-    margin-left: 129rpx;
-  }
-  50% {
-    width: 98rpx;
-    margin-left: 99rpx;
-  }
-  75% {
-    width: 128rpx;
-    margin-left: 69rpx;
-  }
-  100% {
-    width: 158rpx;
-    margin-left: 39rpx;
-  }
-}
-@keyframes linearAnimation {
-  0% {
-    width: 38rpx;
-  }
-  25% {
-    width: 68rpx;
-  }
-  50% {
-    width: 98rpx;
-  }
-  75% {
-    width: 128rpx;
-  }
-  100% {
-    width: 158rpx;
-  }
-}
-@keyframes linearAnimation1 {
-  0% {
-    width: 38rpx;
-  }
-  25% {
-    width: 68rpx;
-    margin-left: 129rpx;
-  }
-  50% {
-    width: 98rpx;
-    margin-left: 99rpx;
-  }
-  75% {
-    width: 128rpx;
-    margin-left: 69rpx;
-  }
-  100% {
-    width: 158rpx;
-    margin-left: 39rpx;
-  }
-}
-.index {
-  width: 100%;
-  overflow-x: hidden;
-  padding-bottom: 170rpx;
 
-/*定义滚动条轨道 内阴影+圆角*/
-/*定义滑块 内阴影+圆角*/
-}
-.index .tab {
-  height: 176rpx;
-  background: #ebffdc;
-}
-.index .tab .tab-box {
-  padding: 96rpx 32rpx 0;
-  font-size: 48rpx;
-  font-family: PingFangSC-Semibold, PingFang SC;
-  font-weight: 600;
-  color: #000;
-}
-.index .tab .tab-box .check-vehicle {
-  display: flex;
-}
-.index .tab .tab-box .check-vehicle .item {
-  padding-right: 30rpx;
-  display: flex;
-  height: 64rpx;
-  align-items: center;
-}
-.index .tab .tab-box .line {
-  display: flex;
-  width: 38rpx;
-  height: 12rpx;
-  background: #ffc000;
-  border-radius: 6rpx;
-  margin-top: 4rpx;
-  margin-left: 28rpx;
-}
-.index .tab .tab-box .line.active {
-  animation: linearAnimation 300ms;
-  animation-name: linearAnimation;
-}
-.index .tab .tab-box .line.active-trucks {
-  animation: linearAnimation1 300ms;
-  animation-name: linearAnimation1;
-}
-.index .tab .tab-box .line.skewing {
-  margin-left: 159rpx;
-}
-.index .deal-with {
-  position: relative;
-  height: 498rpx;
-  background-image: linear-gradient(#ebffdc, #caffcd);
-  z-index: 1;
-}
-.index .deal-with .left {
-  position: absolute;
-  z-index: 1;
-  left: 28rpx;
-}
-.index .deal-with .left .introduce-box {
-  display: flex;
-}
-.index .deal-with .left .introduce-box .introduce {
-  padding-top: 80rpx;
-  min-width: 500rpx;
-}
-.index .deal-with .left .introduce-box .introduce .title {
-  display: flex;
-  height: 64rpx;
-  align-items: center;
-  font-size: 52rpx;
-  font-family: Arial-Black, Arial;
-  font-weight: 900;
-  color: #00b85c;
-}
-.index .deal-with .left .introduce-box .introduce .title image {
-  width: 114rpx;
-  margin-top: -45rpx;
-}
-.index .deal-with .left .introduce-box .introduce .sub-title {
-  padding-top: 18rpx;
-  font-size: 24rpx;
-  color: rgba(102,102,110,0.8);
-  line-height: 34rpx;
-}
-.index .deal-with .left .introduce-box .introduce.introduce-trucks {
-  padding-left: 450rpx;
-}
-.index .deal-with .left .introduce-box .introduce.continent-insurance-introduce {
-  padding-top: 0;
-}
-.index .deal-with .left .introduce-box .introduce.continent-insurance-introduce .title {
-  color: #fb4e58;
-  font-size: 52rpx;
-}
-.index .deal-with .left .introduce-box .introduce.continent-insurance-introduce .sub-title {
-  padding-top: 32rpx;
-  width: 470rpx;
-  font-size: 28rpx;
-  line-height: 40rpx;
-  font-family: PingFangSC-Semibold, PingFang SC;
-  color: rgba(0,0,0,0.8);
-}
-.index .deal-with .left .introduce-box .introduce.continent-insurance-introduce .sub-title text {
-  color: #f51d55;
-}
-.index .deal-with .left .introduce-box .introduce.continent-insurance-introduce .sub-title .last {
-  padding-top: 32rpx;
-  font-size: 24rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-  line-height: 34rpx;
-}
-.index .deal-with .left .btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 158rpx;
-  height: 50rpx;
-  border-radius: 25rpx;
-  margin-top: 82rpx;
-  background: #ffc000;
-  font-size: 24rpx;
-  font-family: PingFangSC-Semibold, PingFang SC;
-  font-weight: 600;
-  color: #fff;
-}
-.index .deal-with .left .btn.btn-switch-trucks {
-  background: #3ca1ff;
-}
-.index .deal-with .left .btn.btn-switch-passenger-car {
-  background: #ffc000;
-}
-.index .deal-with .right {
-  position: absolute;
-  right: 0;
-  top: 45rpx;
-  z-index: 0;
-}
-.index .deal-with .right image {
-  width: 488rpx;
-}
-.index .deal-with .right.right-for-trucks {
-  right: -488rpx;
-}
-.index .deal-with .right.continent-insurance-img {
-  top: -65rpx;
-}
-.index .order-info {
-  position: relative;
-  padding: 32rpx;
-  border-radius: 24rpx 24rpx 0rpx 0rpx;
-  background: #fffefe;
-  margin-top: -32rpx;
-  z-index: 2;
-}
-.index .order-info .order-info-box {
-  height: 290rpx;
-  background: #fff;
-  box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(159,159,159,0.15);
-  border-radius: 8rpx;
-}
-.index .order-info .order-info-box .vehicle-information {
-  display: flex;
-  height: 82rpx;
-  padding: 52rpx 48rpx 68rpx 46rpx;
-  overflow: hidden;
-}
-.index .order-info .order-info-box .vehicle-information .vehicle-info {
-  flex: 1;
-  position: relative;
-}
-.index .order-info .order-info-box .vehicle-information .vehicle-info .vehicle-info-box {
-  flex: 1;
-  height: 82rpx;
-  font-size: 34rpx;
-  font-family: PingFangSC-Semibold, PingFang SC;
-  font-weight: 600;
-  color: #000;
-}
-.index .order-info .order-info-box .vehicle-information .vehicle-info .vehicle-info-box .sub-title {
-  font-size: 24rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  color: rgba(102,102,110,0.8);
-  line-height: 34rpx;
-  padding-top: 14rpx;
-}
-.index .order-info .order-info-box .vehicle-information .vehicle-info .vehicle-info-box.vehicle-info-trucks-box {
-  position: absolute;
-  top: 150rpx;
-}
-.index .order-info .order-info-box .vehicle-information .btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 240rpx;
-  height: 82rpx;
-  background: #00b85c;
-  border-radius: 8rpx;
-  font-size: 28rpx;
-  font-family: PingFangSC-Semibold, PingFang SC;
-  font-weight: 600;
-  color: #fff;
-}
-.index .order-info .order-info-box .vehicle-information .bill-info {
-  text-align: center;
-}
-.index .order-info .order-info-box .vehicle-information .bill-info .bill {
-  height: 56rpx;
-  display: flex;
-  align-items: center;
-  font-size: 48rpx;
-  font-weight: bold;
-  color: #00b85c;
-}
-.index .order-info .order-info-box .vehicle-information .bill-info .bill::after {
-  content: '\e63e';
-  font-size: 20rpx;
-  color: #ffec9a;
-  margin-left: 12rpx;
-}
-.index .order-info .order-info-box .vehicle-information .bill-info .bill.failure {
-  color: #ff3c48;
-}
-.index .order-info .order-info-box .vehicle-information .bill-info .bill-status {
-  display: flex;
-  height: 34rpx;
-  align-items: center;
-  justify-content: center;
-  font-size: 24rpx;
-  color: #33333e;
-  line-height: 34rpx;
-  padding-top: 2rpx;
-}
-.index .order-info .order-info-box .vehicle-information .bill-info .bill-status.failure::before {
-  color: #ff3c48;
-  content: '\e617';
-  margin-right: 8rpx;
-}
-.index .order-info .order-info-box .other-entrance {
-  display: flex;
-  height: 48rpx;
-  align-items: center;
-  padding: 0 32rpx;
-}
-.index .order-info .order-info-box .other-entrance .item {
-  flex: 1;
-  display: flex;
-  height: 48rpx;
-  align-items: center;
-  color: #000;
-  font-size: 24rpx;
-  border-right: 1rpx solid #e7e7e7;
-  padding-left: 12rpx;
-}
-.index .order-info .order-info-box .other-entrance .item::before {
-  color: #00b85c;
-  font-size: 32rpx;
-  margin-right: 8rpx;
-}
-.index .order-info .order-info-box .other-entrance .item.invoice::before {
-  content: '\e694';
-}
-.index .order-info .order-info-box .other-entrance .item.violation-enquiry::before {
-  content: '\e690';
-}
-.index .order-info .order-info-box .other-entrance .item.my-order::before {
-  content: '\e699';
-}
-.index .order-info .order-info-box .other-entrance .item.icontaocan-jiayou::before {
-  content: '\e6aa';
-}
-.index .order-info .order-info-box .other-entrance .item.server::before {
-  content: '\e6a3';
-}
-.index .order-info .order-info-box .other-entrance .item.personal-center::before {
-  content: '\e695';
-}
-.index .order-info .order-info-box .other-entrance .item:first-child {
-  padding-left: 0;
-}
-.index .order-info .order-info-box .other-entrance .item:last-child {
-  border: 0;
-}
-.index .order-info .notice {
-  height: 60rpx;
-  background: #f8fff8;
-  display: flex;
-  align-items: center;
-  padding-left: 32rpx;
-  padding-right: 38rpx;
-  box-shadow: 0rpx 4rpx 12rpx 0rpx rgba(0,0,0,0.04);
-}
-.index .order-info .notice .notice-left {
-  flex: 1;
-  color: rgba(0,0,0,0.3);
-  font-size: 24rpx;
-}
-.index .order-info .notice .notice-left::before {
-  content: '\e698';
-  font-size: 28rpx;
-  color: #00b85c;
-  margin-right: 14rpx;
-}
-.index .order-info .notice .notice-right {
-  width: 12rpx;
-  height: 12rpx;
-  background: #ff3c48;
-  border-radius: 50%;
-}
-.index .order-info .notice .notice-right.no-notice-bg {
-  display: none;
-}
-.index .order-info .notice::after {
-  content: '\e60e';
-  font-size: 22rpx;
-  color: rgba(0,0,0,0.3);
-  margin-left: 14rpx;
-  transform: rotateZ(-180deg);
-}
-.index .my-swiper {
-  height: 250rpx;
-}
-.index .my-swiper .my-swiper-item image {
-  width: 504rpx;
-}
-.index .my-swiper .my-swiper-item image.micro_high_speed,
-.index .my-swiper .my-swiper-item image.micro_insurance_hcz,
-.index .my-swiper .my-swiper-item image.xiaoepinpin {
-  width: 470rpx;
-  height: 195rpx !important;
-  margin: 20rpx;
-}
-.index .moving_integral_pop-up {
-  width: 640rpx;
-  height: 892rpx;
-  background-color: #fff;
-  border-radius: 16rpx;
-  box-shadow: 1rpx 1rpx 1rpx 1rpx rgba(0,0,0,0.1);
-  overflow: hidden;
-  position: fixed;
-  z-index: 100;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.index .moving_integral_pop-up .scroll_pop-up {
-  width: 568rpx;
-  height: 684rpx;
-  color: #000;
-  line-height: 46rpx;
-  margin: 64rpx 0 0 48rpx;
-}
-.index .moving_integral_pop-up .scroll_pop-up view {
-  width: 532rpx;
-  height: auto;
-  text-align: justify;
-}
-.index .moving_integral_pop-up .scroll_pop-up view:nth-of-type(1) {
-  font-size: 26rpx;
-  font-weight: bold;
-  font-family: PingFangSC-Medium, PingFang SC;
-  color: #000;
-  padding-bottom: 10rpx;
-}
-.index .moving_integral_pop-up .scroll_pop-up view:nth-of-type(2) {
-  font-size: 24rpx;
-  font-weight: 400;
-  font-family: PingFangSC-Regular, PingFang SC;
-  padding-bottom: 20rpx;
-}
-.index .moving_integral_pop-up .scroll_pop-up view:nth-of-type(2) text:nth-of-type(1) {
-  color: #00aff9;
-}
-.index .moving_integral_pop-up .scroll_pop-up view:nth-of-type(2) text .textBold {
-  color: #000;
-  font-weight: bold;
-}
-.index .moving_integral_pop-up .solid {
-  width: 100%;
-  height: 2rpx;
-  background: rgba(0,0,0,0.1);
-  margin-top: 36rpx;
-}
-.index .moving_integral_pop-up .btn_scroll {
-  width: 100%;
-  height: 106rpx;
-  display: flex;
-}
-.index .moving_integral_pop-up .btn_scroll button {
-  outline: none;
-  border: none;
-  width: 319rpx;
-  height: 100%;
-  border-radius: 0;
-  font-size: 34rpx;
-  font-family: PingFangSC-Medium, PingFang SC;
-  font-weight: 500;
-  letter-spacing: 2rpx;
-  line-height: 106rpx;
-  background-color: #fff;
-}
-.index .moving_integral_pop-up .btn_scroll button:nth-of-type(1) {
-  border-right: 1rpx solid rgba(0,0,0,0.1);
-  color: #000;
-}
-.index .moving_integral_pop-up .btn_scroll button:nth-of-type(2) {
-  color: #576b95;
-}
-.index .moving_integral_pop-up .img_1 {
-  width: 504rpx !important;
-  height: 195rpx !important;
-}
-.index ::-webkit-scrollbar {
-  width: 12rpx;
-  height: 672rpx;
-  border-radius: 6rpx;
-  background: #f0f0f0;
-}
-.index ::-webkit-scrollbar-track {
-  border-radius: 12rpx;
-}
-.index ::-webkit-scrollbar-thumb {
-  border-radius: 12rpx;
-  background-color: #d8d8d8;
+/*  顶部 滑块视图 */
+.home .topSwiper {
+	width: 100%;
+	height: 628rpx;
+	font-family: PingFangSC-Regular, PingFang SC;
+}
+
+.home .topSwiper .swiperBox {
+	width: 100%;
+	height: 100%;
+}
+
+.home .topSwiper .swiperBox .swiper-item {
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	display: block;
+}
+
+.home .topSwiper .swiperBox .swiper-item .topImg {
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+.home .module {
+	width: 694rpx;
+	border-radius: 16rpx;
+	background: #FFFFFF;
+	margin: 32rpx 28rpx 0rpx 28rpx;
+	box-shadow: 0rpx 4rpx 8rpx 8rpx rgba(240, 240, 240, 0.5);
+}
+
+/* 模块一  */
+.home .moduleOne {
+	display: flex;
+	min-height: 302rpx;
+	align-items: center;
+	justify-content: space-around;
+	position: relative;
+	top: -76rpx;
+}
+
+.home .moduleOne .moduleOneBox {
+	width: 186rpx;
+	height: 238rpx;
+	font-family: PingFangSC-Regular, PingFang SC;
+}
+
+.home .moduleOne .moduleOneBox .imgTitle {
+	width: 118rpx;
+	height: 118rpx;
+	margin: 0 34rpx;
+	overflow: hidden;
+	border-radius: 50%;
+	background: #2A4F44;
+}
+
+.home .moduleOne .moduleOneBox .imgTitle image {
+	width: 100%;
+	height: 100%;
+}
+
+.home .moduleOne .moduleOneBox .title {
+	width: 100%;
+	height: 40rpx;
+	font-size: 28rpx;
+	font-weight: 400;
+	color: #000000;
+	margin-top: 14rpx;
+	line-height: 40rpx;
+	text-align: center;
+}
+
+.home .moduleOne .moduleOneBox .btn_two {
+	width: 100%;
+	height: 50rpx;
+	font-size: 20rpx;
+	font-weight: 400;
+	color: #E4CB86;
+	margin-top: 16rpx;
+	text-align: center;
+	line-height: 50rpx;
+	border-radius: 26rpx;
+	background: #F8F1DF;
+}
+
+/* 模块二 */
+.home .moduleTwo {
+	margin-top: -40rpx;
+	background-color: transparent;
+	font-family: PingFangSC-Medium, PingFang SC;
+}
+
+.home .module .head {
+	font-size: 28rpx;
+	font-weight: 500;
+	color: #000000;
+	margin-bottom: 16rpx;
+	font-family: PingFangSC-Medium, PingFang SC;
+}
+
+.home .moduleTwo .moduleTwoBox {
+	width: 100%;
+	height: 154rpx;
+	display: flex;
+	justify-content: space-between;
+}
+
+.home .moduleTwo .moduleTwoBox .integral {
+	height: 100%;
+	width: 334rpx;
+	display: flex;
+	align-items: center;
+	border-radius: 32rpx;
+	background: #FFFFFF;
+	box-shadow: 0rpx 4rpx 8rpx 0rpx rgba(240, 240, 240, 0.5);
+}
+
+.home .moduleTwo .moduleTwoBox .integral .integralDescribe {
+	width: 152rpx;
+	height: 82rpx;
+	font-size: 24rpx;
+	font-weight: 500;
+	color: #000;
+	line-height: 38rpx;
+	margin: 36rpx 10rpx 36rpx 40rpx;
+}
+
+.home .moduleTwo .moduleTwoBox .integral .integralImg {
+	width: 104rpx;
+	height: 121rpx;
+	overflow: hidden;
+}
+
+.home .moduleTwo .moduleTwoBox .integral .integralImg image {
+	width: 100%;
+	height: 100%;
+}
+
+/* 模块三 */
+.home .moduleThree {
+	height: auto;
+	background-color: transparent;
+}
+
+.home .moduleThree .moduleThreeBox {
+	width: 100%;
+	overflow: hidden;
+	min-height: 256rpx;
+	background: #fff;
+	border-radius: 16rpx;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding {
+	margin: 28rpx;
+	width: 638rpx;
+	display: flex;
+	height: 200rpx;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .leftImg {
+	width: 200rpx;
+	height: 200rpx;
+	overflow: hidden;
+	margin-right: 28rpx;
+	border-radius: 16rpx;
+	background: #EFEFEF;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .leftImg image {
+	width: 100%;
+	height: 100%;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView {
+	width: 410rpx;
+	min-height: 128rpx;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView .directSeedingTitle {
+	width: 100%;
+	height: auto;
+	display: flex;
+	justify-content: space-between;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView .directSeedingTitle view:first-child {
+	height: auto;
+	width: 290rpx;
+	font-size: 28rpx;
+	font-weight: 500;
+	color: #000000;
+	overflow: hidden;
+	line-height: 40rpx;
+	font-family: PingFangSC-Medium, PingFang SC;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView .directSeedingTitle .directSeedingImg {
+	height: 40rpx;
+	display: flex;
+	font-size: 16rpx;
+	font-weight: 400;
+	color: #000000;
+	line-height: 40rpx;
+	font-family: PingFangSC-Regular, PingFang SC;
+	
+}
+
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView .directSeedingTitle .directSeedingImg .loginImg {
+	width: 26rpx;
+	height: 28rpx;
+	overflow: hidden;
+	margin-right: 2rpx;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView .directSeedingTitle .directSeedingImg .loginImg image {
+	width: 100%;
+	height: 100%;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView .lsBack {
+	width: 100%;
+	height: 34rpx;
+	margin-top: 8rpx;
+	font-size: 24rpx;
+	font-weight: 400;
+	color: #000000;
+	line-height: 34rpx;
+	font-family: PingFangSC-Regular, PingFang SC;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView .viewText{
+	width: 100%;
+	height: 24rpx;
+	display: flex;
+	margin-top: 8rpx;
+	align-items: center;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView .viewText view:first-child {
+	width: 24rpx;
+	height: 24rpx;
+	overflow: hidden;
+	margin-right: 8rpx;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView .viewText view:first-child image {
+	width: 100%;
+	height: 100%;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView text {
+	display: block;
+}
+
+
+
+
+
+/* 占位 */
+.home .split {
+	width: 100%;
+	height: 300rpx;
+	overflow: hidden;
 }

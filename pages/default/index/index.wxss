@@ -201,10 +201,12 @@
 .index .fadeIn {
 	position: fixed;
 	animation: fade_in 0.2s linear forwards;
+    -webkit-animation: fade_in 1s linear forwards;
 }
 .index .fadeOut {
 	position: fixed;
 	animation: fade_out 0.2s linear forwards;
+    -webkit-animation: fade_out 1s linear forwards;
 }
 @keyframes fade_in {
 	0%{

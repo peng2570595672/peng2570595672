@@ -124,7 +124,19 @@ Page({
 		areaNotOpened: ['河南', '江西', '广西', '辽宁', '重庆', '云南'], // 号码归属地还未开通 移动积分业务的
 		disclaimerDesc: app.globalData.disclaimerDesc,
 		timeout: null,
-		date: null
+		date: null,
+		// 版本4.0 所需数据
+		imgList: ['https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png','https://file.cyzl.com/g001/M07/B6/F4/oYYBAGO-ebuALxEMAAF_Efyf1k0965.jpg'],
+		moduleOneList: [
+			{icon: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png', title: '账单查询', btn: '最近通行的记录'},
+			{icon: '', title: '通行发票', btn: '开高速路费发票'},
+			{icon: '', title: '权益商城', btn: '免税商品上线'}
+		],
+		moduleTwoList: [
+			{icon: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png', text1: '移动积分', text2: '兑20元路费'},
+			{icon: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png', text1: '移动积分', text2: '兑20元路费'}
+		]
+
 	},
 	async onLoad (options) {
 		this.setData({
@@ -141,12 +153,12 @@ Page({
 		console.log('--------------------------------------------');
 	},
 	async onShow () {
-		console.log(this.getTabBar);
 		if (typeof this.getTabBar === 'function' &&
 			this.getTabBar()) {
 			this.getTabBar().setData({
 			// 唯一标识（其它设置不同的整数）
-			selected: 0
+				selected: 0,
+				index: 0
 			});
 		}
 		this.setData({

@@ -145,8 +145,7 @@ App({
 			title: '免责声明',
 			content: '您即将通过该链接跳转至第三方页面。在第三方页面中提交信息将由第三方按照其相关用户服务协议及隐私协议正常执行并负责，服务及责任均由第三方提供或承担，如有疑问请致电第三方客服电话。',
 			confirm: '我知道了'
-		},
-		selectedIndex: 0	// 自定义tabBar 导航栏
+		}
 	},
 	onLaunch (options) {
 		console.log(options);
