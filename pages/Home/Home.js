@@ -578,38 +578,18 @@ Page({
 						truckActivationOrderList.push(item.id);
 					}
 				}
-				if (item.orderType === 11 && item.logisticsId === 0 && item.auditStatus === 2) {
-					const dates = this.data.date.getDate();
-					if (wx.getStorageSync('time') !== dates || !wx.getStorageSync('time')) {
-						this.fangDou(function () {
-							wx.setStorage({
-								key: 'time',
-								data: dates
-							});
-							util.alert({
-								title: `提示`,
-								content: `受疫情封控影响，设备预计七个工作日内陆续发货。带来不便，敬请谅解。`,
-								showCancel: false,
-								cancelText: '取消',
-								confirmText: '确定'
-							});
-						}, 500);
-					}
-				}
 			});
 			this.initDadi();
-			const isWaitActivation = passengerCarList.find(item => item.auditStatus === 2 && item
-				.logisticsId === 0 && item.obuStatus === 0); // 待激活
-			const isDuringDate = util.isDuringDate('2021/6/26', '2021/7/1');
-			const isAlertPrompt = wx.getStorageSync('is-alert-prompt');
+			const isWaitActivation = passengerCarList.find(item => item.logisticsId === 0); // 待激活
+			const isDuringDate = util.isDuringDate('2023/1/12', '2023/1/28');
+			const isAlertPrompt = wx.getStorageSync('is-delay-delivery-20230112');
 			if ((isWaitActivation || !list.length) && isDuringDate && !isAlertPrompt) {
-				wx.setStorageSync('is-alert-prompt', true);
+				wx.setStorageSync('is-delay-delivery-20230112', true);
 				util.alert({
-					title: `提示`,
-					content: `因ETC系统升级，即日起至6月30日23:59期间所有办理设备将延迟发出。`,
+					title: '',
+					content: `因春节期间快递业务停发，故2023年1月14日至1月28日期间暂停发货及售后，预计在1月29日起逐步恢复。祝您新年路路畅行。`,
 					showCancel: false,
-					cancelText: '取消',
-					confirmText: '确定'
+					confirmText: '我知道了'
 				});
 			}
 			const terminationOrder = passengerCarList.find(item => item.selfStatus === 1); // 查询客车第一条解约订单

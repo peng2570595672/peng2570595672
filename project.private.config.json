@@ -17,7 +17,7 @@
 				{
 					"name": "ETC详情",
 					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "orderId=1060590513796681728",
+					"query": "orderId=1045401931515695104",
 					"launchMode": "default",
 					"scene": null
 				},
@@ -72,8 +72,8 @@
 				},
 				{
 					"name": "",
-					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "orderId=1062469345000689664",
+					"pathName": "pages/truck_handling/agreement_for_qiantong_to_charge/agreement",
+					"query": "",
 					"launchMode": "default",
 					"scene": null
 				}

@@ -127,10 +127,7 @@
                 <text catchtap="onClickGoQianTongAgreement1" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon === 1}}">
                     《通通券会员服务协议》
                 </text>
-                <text catchtap="onClickGoAgreementHandle" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon === 1}}">
-                    《ETC+用户办理协议》
-                </text>
-                <text catchtap="onClickGoAgreementHandle" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon !== 1}}">
+                <text catchtap="onClickGoAgreementHandle">
                     《ETC+用户办理协议》
                 </text>
                 <text catchtap="onClickGoQianTongAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 1}}">

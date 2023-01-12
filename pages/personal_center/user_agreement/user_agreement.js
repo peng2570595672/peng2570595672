@@ -87,22 +87,23 @@ Page({
 		});
 		if (isPassengerCarActivation) {
 			let carAgreementList = [
-				{id: 0,name: '用户办理协议', update: 0, url: 'agreement/agreement', isShow: isNotQTNotAttribute || isNotQTAttribute},
-				{id: 1,name: '用户办理协议', update: 0, url: 'free_equipment_agreement/free_equipment_agreement', isShow: isQTNotAttribute},
-				{id: 2,name: '用户办理协议（权益设备）', update: 0, url: 'self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement', isShow: isTTQAttribute},
-				{id: 3,name: '用户办理协议（付费设备）', update: 0, url: 'new_self_buy_equipmemnt_agreement/index', isShow: isQTAttribute},
-				{id: 4,name: '黔通卡ETC用户协议', update: 0, url: 'agreement_for_qiantong_to_free/agreement', isShow: isQTNotAttribute},
-				{id: 5,name: '黔通卡ETC用户协议', update: 0, url: 'agreement_for_qiantong_to_charge/agreement', isShow: isQTAttribute},
+				{id: 0,name: '用户办理协议', update: 0, url: 'agreement/agreement', isShow: isPassengerCarActivation},
+				// {id: 1,name: '用户办理协议', update: 0, url: 'free_equipment_agreement/free_equipment_agreement', isShow: isQTNotAttribute},
+				// {id: 2,name: '用户办理协议（权益设备）', update: 0, url: 'self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement', isShow: isTTQAttribute},
+				// {id: 3,name: '用户办理协议（付费设备）', update: 0, url: 'new_self_buy_equipmemnt_agreement/index', isShow: isQTAttribute},
+				// {id: 4,name: '黔通卡ETC用户协议', update: 0, url: 'agreement_for_qiantong_to_free/agreement', isShow: isQTNotAttribute},
+				{id: 5,name: '黔通卡ETC用户协议', update: 0, url: 'agreement_for_qiantong_to_charge/agreement', isShow: isQTAttribute || isQTNotAttribute},
 				{id: 6,name: '隐私协议', update: 0, url: 'privacy_agreement/privacy_agreement', isShow: true}
 			];
+     console.log(carAgreementList,'=============================');
      console.log(isObuCardType,'=============================');
-			if (isObuCardType) { // 其他卡不是黔通
-				carAgreementList = [
-					{id: 0,name: '用户办理协议', update: 0, url: 'agreement/agreement', isShow: isNotQTNotAttribute || isNotQTAttribute},
-					{id: 1,name: '用户办理协议', update: 0, url: 'free_equipment_agreement/free_equipment_agreement', isShow: isQTNotAttribute},
-					{id: 5,name: '隐私协议', update: 0, url: 'privacy_agreement/privacy_agreement', isShow: true}
-				];
-			}
+			// if (isObuCardType) { // 其他卡不是黔通
+			// 	carAgreementList = [
+			// 		{id: 0,name: '用户办理协议', update: 0, url: 'agreement/agreement', isShow: isCarActivation !== -1},
+			// 		// {id: 1,name: '用户办理协议', update: 0, url: 'free_equipment_agreement/free_equipment_agreement', isShow: isQTNotAttribute},
+			// 		{id: 5,name: '隐私协议', update: 0, url: 'privacy_agreement/privacy_agreement', isShow: true}
+			// 	];
+			// }
 			carAgreementList = carAgreementList.filter(item => item.isShow === true);
 
 			let arr = [

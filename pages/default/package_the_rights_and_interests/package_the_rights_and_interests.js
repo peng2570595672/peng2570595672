@@ -396,28 +396,11 @@ Page({
 	},
 	// 查看办理协议
 	onClickGoAgreementHandle () {
-		// 1-自购设备 2-免费设备 3-自购(其他)
-		if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4) {
-			// ETC押金办理模式 协议
-			return util.go('/pages/default/margin_user_handling_agreement/margin_user_handling_agreement');
-		}
-		if (this.data.listOfPackages[this.data.choiceIndex]?.environmentAttribute === 2) {
-			if (this.data.listOfPackages[this.data.choiceIndex].etcCardId === 1) {
-				util.go(`/pages/default/free_equipment_agreement/free_equipment_agreement`);
-			} else {
-				util.go(`/pages/default/agreement/agreement`);
-			}
-		} else {
-			if (this.data.listOfPackages[this.data.choiceIndex].isSignTtCoupon === 1) {
-				util.go(`/pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement`);
-			} else {
-				util.go(`/pages/default/new_self_buy_equipmemnt_agreement/index`);
-			}
-		}
+		util.go(`/pages/default/agreement/agreement`);
 	},
-	// 通通券协议
+	// 黔通用户协议
 	onClickGoQianTongAgreement () {
-		util.go('/pages/default/coupon_and_etc_agreement/coupon_and_etc_agreement');
+		util.go('/pages/truck_handling/agreement_for_qiantong_to_charge/agreement');
 	},
 	// 通通券协议
 	onClickGoQianTongAgreement1 () {

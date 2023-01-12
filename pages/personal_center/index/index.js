@@ -259,7 +259,7 @@ Page({
 			isPrechargeOrder: isPrechargeOrder !== -1,
 			showAgreementWrapper: isNewOrder !== -1,
 			isShowCoupon: isShowCoupon !== -1,
-			isShowEquityImg: flag !== -1,
+			isShowEquityImg: true,
 			isActivation: !!isActivation.length
 		});
 		// 查询是否欠款
