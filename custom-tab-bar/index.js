@@ -31,23 +31,25 @@ Component({
 				'selectedIconPath': 'https://file.cyzl.com/g001/M00/B5/7C/oYYBAGO9BUuAQSYeAAABmpSmZv4643.png'
 			}
 		],
-		isFade: false
+		isFade: false,
+		counts: 0
 	},
 	attached () {},
 	methods: {
 		switchTab (e) {
 			const url = e.currentTarget.dataset.path;
 			let index = e.currentTarget.dataset.index;
-			this.setData({
-				selected: e.currentTarget.dataset.index,
-				index: -1
-			});
-
-			// 根据index判断，发布是渲染的时候是没有url的
-			if (url) {
-				wx.switchTab({
-					url: url
+			if (index !== this.data.index) {
+				this.setData({
+					selected: e.currentTarget.dataset.index,
+					index: -1
 				});
+				// 根据index判断，发布是渲染的时候是没有url的
+				if (url) {
+					wx.switchTab({
+						url: url
+					});
+				}
 			}
 		}
 	}

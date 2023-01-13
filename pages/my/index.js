@@ -32,7 +32,7 @@ Page({
 		this.getTabBar().setData({
 		// 唯一标识（其它设置不同的整数）
 			selected: 3,
-			index: '3'
+			index: 3
 		});
 	}
 	},
