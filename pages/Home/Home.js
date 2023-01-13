@@ -126,16 +126,36 @@ Page({
 		timeout: null,
 		date: null,
 		// 版本4.0 所需数据
-		imgList: ['https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png','https://file.cyzl.com/g001/M07/B6/F4/oYYBAGO-ebuALxEMAAF_Efyf1k0965.jpg'],
-		moduleOneList: [
-			{icon: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png', title: '账单查询', btn: '最近通行的记录'},
-			{icon: '', title: '通行发票', btn: '开高速路费发票'},
-			{icon: '', title: '权益商城', btn: '免税商品上线'}
+		imgList: ['https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png', 'https://file.cyzl.com/g001/M07/B6/F4/oYYBAGO-ebuALxEMAAF_Efyf1k0965.jpg'],
+		moduleOneList: [{
+				icon: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',
+				title: '账单查询',
+				btn: '最近通行的记录'
+			},
+			{
+				icon: '',
+				title: '通行发票',
+				btn: '开高速路费发票'
+			},
+			{
+				icon: '',
+				title: '权益商城',
+				btn: '免税商品上线'
+			}
 		],
-		moduleTwoList: [
-			{icon: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png', text1: '移动积分', text2: '兑20元路费'},
-			{icon: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png', text1: '移动积分', text2: '兑20元路费'}
-		]
+		moduleTwoList: [{
+				icon: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',
+				text1: '移动积分',
+				text2: '兑20元路费'
+			},
+			{
+				icon: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',
+				text1: '移动积分',
+				text2: '兑20元路费'
+			}
+		],
+		viewTc: {}, // 用于存放弹窗数据
+		whetherToStay: false // 用于控制显示弹窗时，最底层页面禁止不动
 
 	},
 	async onLoad (options) {
@@ -145,22 +165,16 @@ Page({
 		app.globalData.isTruckHandling = false;
 		app.globalData.isNeedReturnHome = false;
 		this.login();
+
+		console.log('--------------------------------------------');
+	},
+	async onShow () {
+		util.customTabbar(this, 0);
 		// @cyl
 		// 初始化设备指纹对象
 		this.fmagent = new FMAgent(app.globalData._fmOpt);
 		// 采集openid，成功后调用回调
 		util.getUserInfo(this.getId);
-		console.log('--------------------------------------------');
-	},
-	async onShow () {
-		if (typeof this.getTabBar === 'function' &&
-			this.getTabBar()) {
-			this.getTabBar().setData({
-			// 唯一标识（其它设置不同的整数）
-				selected: 0,
-				index: 0
-			});
-		}
 		this.setData({
 			isActivityForBannerDate: util.isDuringDate('2021/06/23', '2021/07/16'),
 			isActivityDate: util.isDuringDate('2021/6/25 11:00', '2021/6/28 15:00')
@@ -192,6 +206,27 @@ Page({
 			wx.removeStorageSync('login_info_final');
 		}
 	},
+	// --------------------------------测试方法: 广告弹窗------------------------
+	testFunc (e) {
+		let flag = e.currentTarget.dataset.value || 0;
+		if (flag) {
+			this.setData({
+				whetherToStay: false
+			});
+		} else {
+			this.setData({
+				viewTc: {
+					img: 'https://file.cyzl.com/g001/M07/B6/F4/oYYBAGO-ebuALxEMAAF_Efyf1k0965.jpg',
+					whetherToStay: true,
+					radius: true,
+					src: '/pages/default/agreement/agreement'
+				}
+			});
+			this.selectComponent('#viewImg').show();
+		}
+	},
+	// ---------------------------------end---------------------------
+
 	async getIsShowNotice () {
 		const result = await util.queryProtocolRecord(2);
 		this.setData({

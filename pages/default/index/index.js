@@ -58,7 +58,8 @@ Page({
 		],
 		viewTc: {},	// 用于存放弹窗数据
 		whetherToStay: false,	// 用于控制显示弹窗时，最底层页面禁止不动
-		isFade: true	// 控制"浮动按钮"的显示隐藏
+		isFade: true,	// 控制"浮动按钮"的显示隐藏
+		lastScrollTop: 0	// 控制"浮动按钮"在向上滚动和禁止时不隐藏，向下滚动时隐藏
 	},
 	async onLoad (options) {
 		if (options.isMain) {
@@ -67,7 +68,7 @@ Page({
 			});
 		}
 		// 查询是否欠款
-		await util.getIsArrearage();
+		// await util.getIsArrearage();
 	},
 	async onShow () {
 		// 查询是否欠款
@@ -98,15 +99,12 @@ Page({
 	},
 	// 监听页面滚动
 	onPageScroll (e) {
-		if (e.scrollTop) {
+		if (e.scrollTop > this.data.lastScrollTop) {
 			this.setData({
 				isFade: false
 			});
 		}
-		this.fangDou(500);
-	},
-	// 用户停止滑动时 显示 "立即办理"按钮
-	fangDou (time) {
+		// 页面停止滚动或页面向上滚动时 显示 "立即办理"按钮
 		let that = this;
 		return (function () {
 			if (that.data.timeout) {
@@ -114,41 +112,48 @@ Page({
 			}
 			that.data.timeout = setTimeout(() => {
 				that.setData({
-					isFade: true
+					isFade: true,
+					lastScrollTop: e.scrollTop
 				});
-			}, time);
+			}, 500);
 		})();
 	},
 	// 查看办理步骤 弹窗 和 查看热门问答 弹窗
 	viewProcedure (e) {
-		let flag = e.currentTarget.dataset.pop;
-		if (flag === 'moduleOne') {
-			this.setData({
-				viewTc: {
-					type: 'moduleOne'
-				},
-				whetherToStay: true
-			});
+		let flag = e.currentTarget.dataset.pop || 0;
+		let value = e.currentTarget.dataset.value || 0;
+		if (flag) {
+			if (flag === 'moduleOne') {
+				this.setData({
+					viewTc: {
+						type: 'moduleOne'
+					},
+					whetherToStay: true
+				});
+			}
+			if (flag === 'moduleTwo') {
+				let data = this.data.testData;
+				this.setData({
+					viewTc: {
+						type: 'moduleTwo',
+						data
+					},
+					whetherToStay: true
+				});
+			}
+			this.selectComponent('#viewProcedure').show();
+		} else {
+			if (value) {
+			// 关闭弹窗 解除底层“禁止”状态
+				this.setData({
+					whetherToStay: false
+				});
+			}
 		}
-		if (flag === 'moduleTwo') {
-			let data = this.data.testData;
-			this.setData({
-				viewTc: {
-					type: 'moduleTwo',
-					data
-				},
-				whetherToStay: true
-			});
-		}
-		this.selectComponent('#viewProcedure').show();
 	},
-	// 关闭弹窗
-	onHandle () {
-		this.setData({
-			whetherToStay: false
-		});
-	},
-	// 当弹出弹窗时，调用它，不可删
-	stopRoll () {}
+	// 当弹出弹窗时，调用它
+	stopRoll () {
+		console.log('dsadasd');
+	}
 
 });

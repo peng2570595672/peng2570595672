@@ -2,7 +2,7 @@
 <view class="home">
     <!-- 顶部 滑块视图 -->
     <view class="topSwiper">
-        <swiper class="swiperBox" autoplay circular indicator-dots='{{tools.dataLen(imgList) !== 1}}' duration="1000" indicator-active-color='rgba(255,0,0 0.5)' indicator-color="rgba(255,0,0 0.5)">
+        <swiper class="swiperBox" autoplay circular indicator-dots='{{tools.dataLen(imgList) !== 1}}' duration="1000">
             <swiper-item class="swiper-item" wx:for="{{imgList}}" wx:key="index">
                 <image class="topImg" src='{{item}}' />
             </swiper-item>
@@ -15,14 +15,14 @@
                 <image src="{{item.icon}}" />
             </view>
             <view class="title">{{item.title}}</view>
-            <view class="btn_two" catchtap="">{{item.btn}}</view>
+            <view class="btn_two" catchtap="testFunc">{{item.btn}}</view>
         </view>
     </view>
     <!-- 模块2 出行贴心服务-->
     <view class="module moduleTwo">
         <view class="head">出行贴心服务</view>
-        <view class="moduleTwoBox" catchtap="">
-            <view class="integral" wx:for="{{moduleTwoList}}" wx:key="index">
+        <view class="moduleTwoBox">
+            <view class="integral" wx:for="{{moduleTwoList}}" wx:key="index" data-index="{{index}}">
                 <view class="integralDescribe">
                     <text >{{item.text1}}\n</text>
                     <text >{{item.text2}}</text> 
@@ -54,11 +54,11 @@
             </view>
         </view>
     </view>
-
-
-
     <!-- 占位 -->
     <view class="split"></view>
+
+    <!-- 弹窗 -->
+    <view-img id="viewImg" bind:onHandle="testFunc" data-value="false" viewTc="{{viewTc}}"></view-img>
     <popup id='dialog' dialogContent="{{dialogContent}}" bind:onHandle="onHandle"></popup>
     <popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="popUp"></popup1>
     <agreement-dialog id='agreement-dialog'></agreement-dialog>

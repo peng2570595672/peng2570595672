@@ -7,11 +7,10 @@ Page({
 	},
 
 	onLoad (options) {
-		this.login();
 	},
 
 	onShow () {
-
+		this.login();
 	},
 
 	// 自动登录
@@ -23,11 +22,10 @@ Page({
 					'consumer/member/common/applet/code', {
 						platformId: app.globalData.platformId, // 平台id
 						code: res.code // 从微信获取的code
-					});
+					},'POST',false);
 				if (!result) return;
 				if (result.code === 0) {
-					result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data
-						.mobilePhone);
+					result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data.mobilePhone);
 					// 已经绑定了手机号
 					if (result.data.needBindingPhone !== 1) {
 						app.globalData.userInfo = result.data;
@@ -50,7 +48,7 @@ Page({
 	// 查询订单列表
 	async getOrderList () {
 		let params = { openId: app.globalData.openId };
-		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
+		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params,'POST',false);
 		if (result.code === 0) {
 			if (result.data.length > 0) {
 				// 跳转首页;

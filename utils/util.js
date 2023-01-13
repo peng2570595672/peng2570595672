@@ -1704,6 +1704,17 @@ function timeComparison(fixedTime,flexibleTime) {
 	} else {
 		return 2	//旧订单
 	}
+};
+// 自定义tabbar  做唯一标识
+function customTabbar (that, num) {
+	if (typeof that.getTabBar === 'function' &&
+	that.getTabBar()) {
+		that.getTabBar().setData({
+		// 唯一标识（其它设置不同的整数）
+		selected: num,
+		index: num
+	});
+}
 }
 
 module.exports = {
@@ -1756,5 +1767,6 @@ module.exports = {
 	getV2BankId,
 	weChatSigning,
 	getUserInfo,
-	timeComparison
+	timeComparison,
+	customTabbar
 };

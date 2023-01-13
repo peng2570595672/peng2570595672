@@ -183,6 +183,7 @@
 	background: #FFFFFF;
 	border-radius: 16rpx 16rpx 0px 0px;
 	position: fixed;
+	bottom: 0;
 	opacity: 0.9;
 	display: flex;
 	align-items: center;
@@ -200,13 +201,13 @@
 }
 .index .fadeIn {
 	position: fixed;
-	animation: fade_in 0.2s linear forwards;
-    -webkit-animation: fade_in 1s linear forwards;
+	animation: fade_in 0.7s linear forwards;
+    -webkit-animation: fade_in 0.7s linear forwards;
 }
 .index .fadeOut {
 	position: fixed;
-	animation: fade_out 0.2s linear forwards;
-    -webkit-animation: fade_out 1s linear forwards;
+	animation: fade_out 0.5s linear forwards;
+    -webkit-animation: fade_out 0.5s linear forwards;
 }
 @keyframes fade_in {
 	0%{

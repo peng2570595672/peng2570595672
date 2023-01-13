@@ -76,6 +76,13 @@
 					"query": "orderId=1062301756366655488",
 					"launchMode": "default",
 					"scene": null
+				},
+				{
+					"name": "填写基础信息",
+					"pathName": "pages/default/receiving_address/receiving_address",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
 				}
 			]
 		}

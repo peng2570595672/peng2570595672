@@ -1,4 +1,5 @@
-// pages/membershipCertificate/membershipCertificate.js
+const util = require('../../utils/util.js');
+
 Page({
 
 	/**
@@ -19,13 +20,7 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow () {
-		if (typeof this.getTabBar === 'function' && this.getTabBar()) {
-			this.getTabBar().setData({
-				// 唯一标识（其它设置不同的整数）
-				selected: 2,
-				index: 2
-			});
-		}
+		util.customTabbar(this, 2);
 	},
 
 	/**
