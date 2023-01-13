@@ -45,6 +45,9 @@ Page({
 	},
 	async onShow () {
 		if (app.globalData.userInfo.accessToken) {
+			this.setData({
+				isShowEquityImg: true
+			});
 			// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
 			let requestList = [await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon()];
 			util.showLoading();
