@@ -1,5 +1,5 @@
 <wxs src='../../utils/util.wxs' module='tools' />
-<view class="home">
+<view class="home" style="background-color: {{'#EBEDF0'}}">
     <!-- 顶部 滑块视图 -->
     <view class="topSwiper">
         <swiper class="swiperBox" autoplay circular indicator-dots='{{tools.dataLen(imgList) !== 1}}' duration="1000">

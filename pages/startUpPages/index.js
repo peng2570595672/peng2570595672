@@ -23,6 +23,7 @@ Page({
 						platformId: app.globalData.platformId, // 平台id
 						code: res.code // 从微信获取的code
 					},'POST',false);
+					console.log('微信信息：' ,result);
 				if (!result) return;
 				if (result.code === 0) {
 					result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data.mobilePhone);
@@ -53,7 +54,7 @@ Page({
 			if (result.data.length > 0) {
 				// 跳转首页;
 				wx.switchTab({
-					url: '/pages/Home/Home'
+					url: '/pages/my/index'
 				});
 				// util.go('/pages/default/index/index');
 			} else {

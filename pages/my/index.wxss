@@ -1,1 +1,258 @@
-/* pages/my/index.wxss */
+.my {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 1622px;
+    padding-top: 192rpx;
+}
+
+.no {
+    background: linear-gradient(180deg, #BDE3D7 0%, #EBEDF0 16%, #EBEDF0 100%);
+}
+
+.is {
+    background: linear-gradient(180deg, #E9CA7B 0%, #EBEDF0 16%, #EBEDF0 100%);
+}
+
+/* 顶部user信息 */
+.my .user {
+    width: 100vw;
+    height: 92rpx;
+    display: flex;
+    padding: 0 28rpx;
+}
+
+.my .user .headPortrait {
+    width: 92rpx;
+    height: 92rpx;
+    overflow: hidden;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+}
+
+.my .user .headPortrait image {
+    width: 100%;
+    height: 100%;
+}
+
+.my .user .userInfo {
+    height: 100%;
+    width: 574rpx;
+    margin-left: 28rpx;
+    font-family: PingFangSC-Semibold, PingFang SC;
+}
+
+.my .user .userInfo .userName {
+    width: 100%;
+    height: 50rpx;
+    font-size: 36rpx;
+    font-weight: 600;
+    color: #1E1E1E;
+    line-height: 50rpx;
+}
+
+.my .user .userInfo .mobilePhoneEquity {
+    width: 100%;
+    height: 34rpx;
+    display: flex;
+    font-size: 24rpx;
+    font-weight: 600;
+    color: #2A4F44;
+    line-height: 34rpx;
+    justify-content: space-between;
+}
+
+.my .user .userInfo .mobilePhoneEquity .ETCMobilePhone {
+    color: #262626;
+}
+
+.my .user .userInfo .mobilePhoneEquity .viewEquity,
+.my .user .userInfo .mobilePhoneEquity .ETCMobilePhone text {
+    font-weight: 400;
+    font-family: PingFangSC-Regular, PingFang SC;
+}
+
+.my .user .userInfo .mobilePhoneEquity .viewEquity {
+    font-weight: bold;
+}
+
+/* 模块 */
+.my .module {
+    width: 694rpx;
+    border-radius: 16rpx;
+    background: #FFFFFF;
+    margin: 36rpx 28rpx 0rpx 28rpx;
+    box-shadow: 0rpx 4rpx 8rpx 8rpx rgba(240, 240, 240, 0.5);
+}
+
+/* 模块一 */
+.my .moduleOne {
+    height: 196rpx;
+    overflow: hidden;
+    margin-top: 16rpx;
+}
+
+.my .green {
+    background: linear-gradient(90deg, #225444 0%, #2B664D 29%, #214E46 100%);
+}
+
+.my .yellow {
+    background: linear-gradient(318deg, #A47D33 0%, #AC8530 100%);
+}
+
+.my .moduleOne .mountAccount,
+.my .moduleOne .recordPlate {
+    display: flex;
+    align-items: center;
+    margin: 0 42rpx;
+    justify-content: space-between;
+}
+
+.my .moduleOne .mountAccount {
+    height: 54rpx;
+    margin-top: 28rpx;
+}
+
+.my .moduleOne .mountAccount view:first-child {
+    font-size: 48rpx;
+    color: #FFFFFF;
+    line-height: 54rpx;
+    font-weight: normal;
+    font-style: oblique;
+    font-family: Arial-BoldItalicMT, Arial;
+}
+
+.my .moduleOne .mountAccount view:last-child {
+    opacity: 0.7;
+    width: 172rpx;
+    height: 44rpx;
+    font-size: 20rpx;
+    font-weight: 500;
+    color: #8bc5b4;
+    line-height: 44rpx;
+    text-align: center;
+    border-radius: 22rpx;
+    background: #2A4F44;
+    font-family: PingFangSC-Medium, PingFang SC;
+}
+
+.my .moduleOne .recordPlate {
+    height: 24rpx;
+    margin-top: 6rpx;
+    font-weight: 400;
+    color: #FFFFFF;
+    font-family: PingFangSC-Regular, PingFang SC;
+}
+
+.my .moduleOne .recordPlate view:first-child {
+    font-size: 20rpx;
+}
+
+.my .moduleOne .recordPlate view:last-child {
+    width: 172rpx;
+    font-size: 24rpx;
+    text-align: center;
+}
+
+/* 模块二 */
+.my .moduleTwo {
+    height: 168rpx;
+    display: flex;
+    background: transparent;
+    justify-content: space-between;
+}
+
+.my .moduleTwo .func {
+    height: 100%;
+    width: 162rpx;
+    border-radius: 16rpx;
+    background: #FFFFFF;
+}
+
+.my .moduleTwo .func .icon {
+    width: 80rpx;
+    height: 80rpx;
+    margin: 20rpx 41rpx 18rpx 41rpx;
+    background-color: #E9CA7B;
+}
+
+.my .moduleTwo .func .icon image {
+    width: 100%;
+    height: 100%;
+}
+
+.my .moduleTwo .func .iconText {
+    font-size: 24rpx;
+    font-weight: 400;
+    color: #262626;
+    text-align: center;
+    font-family: PingFangSC-Regular, PingFang SC;
+}
+
+/* 模块三 */
+.my .moduleThree {
+    height: 270rpx;
+    overflow: hidden;
+}
+
+.my .moduleThree image {
+    width: 100%;
+    height: 100%;
+}
+
+/* 模块四 */
+.my .moduleFour {
+    min-height: 294rpx;
+}
+
+.my .moduleFour .funcList {
+    height: 98rpx;
+    display: flex;
+    padding: 0 31rpx;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1rpx solid #ccc;
+}
+
+.my .moduleFour .funcList .funcListLeft {
+    width: 590rpx;
+    display: flex;
+    align-items: center;
+}
+
+.my .moduleFour .funcList .funcListLeft .icon {
+    width: 42rpx;
+    height: 42rpx;
+    /* background-color: #BDE3D7; */
+}
+
+.my .moduleFour .funcList .funcListLeft .icon image {
+    width: 100%;
+    height: 100%;
+}
+
+.my .moduleFour .funcList .funcListLeft .funcListText {
+    margin-left: 8rpx;
+}
+
+.my .moduleFour .funcList .funcListRight {
+    width: 15rpx;
+    height: 15rpx;
+    border-top: 3rpx solid #000;
+    border-right: 3rpx solid #000;
+    transform-origin: center;
+    transform: rotateZ(45deg);
+    -moz-transform-origin: center;
+    -moz-transform: rotateZ(45deg);
+}
+
+
+
+
+
+/* 占位 */
+.my .split {
+    width: 100%;
+    height: 300rpx;
+    overflow: hidden;
+}
