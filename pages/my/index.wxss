@@ -1,8 +1,24 @@
+@font-face {
+    font-family: 'iconfont';
+    /* Project id 1514406 */
+    src: url('//at.alicdn.com/t/c/font_3864314_56wami89tgp.woff2?t=1673759875818') format('woff2'),
+        url('//at.alicdn.com/t/c/font_3864314_56wami89tgp.woff?t=1673759875818') format('woff'),
+        url('//at.alicdn.com/t/c/font_3864314_56wami89tgp.ttf?t=1673759875818') format('truetype');
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 .my {
     margin: 0;
     padding: 0;
     width: 100vw;
-    height: 1622px;
+    height: auto;
     padding-top: 192rpx;
 }
 
@@ -17,7 +33,7 @@
 /* 顶部user信息 */
 .my .user {
     width: 100vw;
-    height: 92rpx;
+    height: 96rpx;
     display: flex;
     padding: 0 28rpx;
 }
@@ -28,6 +44,14 @@
     overflow: hidden;
     border-radius: 50%;
     background-color: #FFFFFF;
+}
+
+.my .user .yellowU {
+    border: 2px solid #AC8A35;
+}
+
+.my .user .greenU {
+    border: 2px solid #285F4D;
 }
 
 .my .user .headPortrait image {
@@ -45,6 +69,7 @@
 .my .user .userInfo .userName {
     width: 100%;
     height: 50rpx;
+    margin-top: 4rpx;
     font-size: 36rpx;
     font-weight: 600;
     color: #1E1E1E;
@@ -57,23 +82,36 @@
     display: flex;
     font-size: 24rpx;
     font-weight: 600;
-    color: #2A4F44;
     line-height: 34rpx;
     justify-content: space-between;
 }
 
-.my .user .userInfo .mobilePhoneEquity .ETCMobilePhone {
-    color: #262626;
+.my .user .userInfo .mobilePhoneEquity .yellowC {
+    color: #D4AF53;
+}
+
+.my .user .userInfo .mobilePhoneEquity .greenC {
+    color: #2A4F44;
 }
 
 .my .user .userInfo .mobilePhoneEquity .viewEquity,
 .my .user .userInfo .mobilePhoneEquity .ETCMobilePhone text {
     font-weight: 400;
+    color: #262626;
     font-family: PingFangSC-Regular, PingFang SC;
 }
 
 .my .user .userInfo .mobilePhoneEquity .viewEquity {
+    font-size: 24rpx;
     font-weight: bold;
+}
+
+.my .user .userInfo .mobilePhoneEquity .viewEquity::after {
+    display: inline-block;
+    content: "\e607";
+    font-size: 26rpx;
+    color: rgba(0, 0, 0, 0.7);
+    margin-left: 14rpx;
 }
 
 /* 模块 */
@@ -89,7 +127,7 @@
 .my .moduleOne {
     height: 196rpx;
     overflow: hidden;
-    margin-top: 16rpx;
+    margin-top: 20rpx;
 }
 
 .my .green {
@@ -103,8 +141,8 @@
 .my .moduleOne .mountAccount,
 .my .moduleOne .recordPlate {
     display: flex;
-    align-items: center;
     margin: 0 42rpx;
+    align-items: center;
     justify-content: space-between;
 }
 
@@ -128,13 +166,22 @@
     height: 44rpx;
     font-size: 20rpx;
     font-weight: 500;
-    color: #8bc5b4;
     line-height: 44rpx;
     text-align: center;
     border-radius: 22rpx;
-    background: #2A4F44;
     font-family: PingFangSC-Medium, PingFang SC;
 }
+
+.my .moduleOne .mountAccount .greenM {
+    color: #87BFAE;
+    background: #2A4F44;
+}
+
+.my .moduleOne .mountAccount .yellowM {
+    color: #81591B;
+    background: #E9CB7F
+}
+
 
 .my .moduleOne .recordPlate {
     height: 24rpx;
@@ -172,9 +219,19 @@
 .my .moduleTwo .func .icon {
     width: 80rpx;
     height: 80rpx;
+    border-radius: 50%;
     margin: 20rpx 41rpx 18rpx 41rpx;
-    background-color: #E9CA7B;
 }
+
+.my .moduleTwo .func .yellowF {
+    background: linear-gradient(180deg, #FEF7E2 0%, #F5ECD3 100%);
+}
+
+.my .moduleTwo .func .greenF {
+    background: linear-gradient(180deg, #EFF7F4 0%, #D4EAE3 100%);
+}
+
+
 
 .my .moduleTwo .func .icon image {
     width: 100%;
@@ -208,10 +265,15 @@
 .my .moduleFour .funcList {
     height: 98rpx;
     display: flex;
-    padding: 0 31rpx;
+    margin-left: 31rpx;
     align-items: center;
+    padding-right: 15rpx;
     justify-content: space-between;
-    border-bottom: 1rpx solid #ccc;
+    border-bottom: 2rpx solid rgba(66, 66, 66, 0.05);
+}
+
+.my .moduleFour .funcList:last-child {
+    border: none;
 }
 
 .my .moduleFour .funcList .funcListLeft {
@@ -220,10 +282,27 @@
     align-items: center;
 }
 
-.my .moduleFour .funcList .funcListLeft .icon {
+.my .moduleFour .funcList .funcListLeft .icon::before {
+    display: block;
     width: 42rpx;
     height: 42rpx;
-    /* background-color: #BDE3D7; */
+    font-size: 35rpx;
+    text-align: center;
+    line-height: 42rpx;
+    margin-right: 10rpx;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.my .moduleFour .funcList .funcListLeft .img0::before {
+    content: "\e8b9";
+}
+
+.my .moduleFour .funcList .funcListLeft .img1::before {
+    content: "\eb25";
+}
+
+.my .moduleFour .funcList .funcListLeft .img2::before {
+    content: "\e621";
 }
 
 .my .moduleFour .funcList .funcListLeft .icon image {
@@ -235,15 +314,11 @@
     margin-left: 8rpx;
 }
 
-.my .moduleFour .funcList .funcListRight {
-    width: 15rpx;
-    height: 15rpx;
-    border-top: 3rpx solid #000;
-    border-right: 3rpx solid #000;
-    transform-origin: center;
-    transform: rotateZ(45deg);
-    -moz-transform-origin: center;
-    -moz-transform: rotateZ(45deg);
+.my .moduleFour .funcList .funcListRight::before {
+    display: inline-block;
+    content: "\e607";
+    font-size: 40rpx;
+    color: rgba(0, 0, 0, 0.5);
 }
 
 

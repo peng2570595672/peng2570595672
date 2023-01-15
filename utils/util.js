@@ -299,15 +299,15 @@ function go(url) {
 }
 
 /**
- *  弹出吐司提示 不带icon
+ *  弹出吐司提示 不带icon 默认停留2秒
  * @param content 提示内容
  */
-function showToastNoIcon(content) {
+function showToastNoIcon(content,time=2000) {
 	setTimeout(() => {
 		wx.showToast({
 			title: content,
 			icon: 'none',
-			duration: 2000
+			duration: time
 		});
 	}, 100);
 }

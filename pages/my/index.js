@@ -68,6 +68,13 @@ Page({
 		}
 	},
 
+	// 测试是否Vip的变化
+	btnChange () {
+		this.setData({
+			isVip: !this.data.isVip
+		});
+	},
+
 	onUnload () {
 
 	}

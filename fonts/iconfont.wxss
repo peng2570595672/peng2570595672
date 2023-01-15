@@ -2,5 +2,5 @@
   font-family: 'iconfont';  /* Project id 1514406 */
   src: url('//at.alicdn.com/t/font_1514406_r2ex32p9up.woff2?t=1651741878795') format('woff2'),
   url('//at.alicdn.com/t/font_1514406_r2ex32p9up.woff?t=1651741878795') format('woff'),
-  url('//at.alicdn.com/t/font_1514406_r2ex32p9up.ttf?t=1651741878795') format('truetype');
+  url('//at.alicdn.com/t/font_1514406_r2ex32p9up.ttf?t=1651741878795') format('truetype')
 }
