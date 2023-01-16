@@ -26,18 +26,18 @@ Page({
 				isShow: true,
 				statisticsEvent: 'index_invoice'
 			},
-			{
-				title: '违章查询',
-				ico: 'violation-enquiry',
-				url: 'violation_enquiry',
-				isShow: !app.globalData.isContinentInsurance,
-				statisticsEvent: 'index_violation_enquiry'
-			},
+			// {
+			// 	title: '违章查询',
+			// 	ico: 'violation-enquiry',
+			// 	url: 'violation_enquiry',
+			// 	isShow: !app.globalData.isContinentInsurance,
+			// 	statisticsEvent: 'index_violation_enquiry'
+			// },
 			{
 				title: 'ETC账单',
 				ico: 'my-order',
 				url: 'my_order',
-				isShow: app.globalData.isContinentInsurance,
+				isShow: true,
 				statisticsEvent: 'index_my_order'
 			},
 			{
@@ -89,7 +89,7 @@ Page({
 		activeIndex: 1,
 		loginInfo: {}, // 登录信息
 		exceptionMessage: undefined, // 异常信息
-		isNormalProcess: !app.globalData.isContinentInsurance, // 是否是正常流程进入
+		isNormalProcess: false, // 是否是正常流程进入
 		// isNormalProcess: true, // 是否是正常流程进入
 		recentlyTheBillList: [], // 最新客车账单集合
 		recentlyTheTruckBillList: [], // 最新货车账单集合
@@ -420,8 +420,8 @@ Page({
 		});
 	},
 	initDadi () {
-		this.data.entranceList[1].isShow = !app.globalData.isContinentInsurance;
-		this.data.entranceList[2].isShow = app.globalData.isContinentInsurance;
+		// this.data.entranceList[1].isShow = !app.globalData.isContinentInsurance;
+		// this.data.entranceList[2].isShow = app.globalData.isContinentInsurance;
 		this.data.bannerList.map(item => {
 			item.statisticsEvent === 'index_dadi' ? item.isShow = app.globalData.isContinentInsurance && !app.globalData.isPingAn : item.isShow = !app.globalData.isContinentInsurance && !app.globalData.isPingAn;
 			item.alwaysShow ? item.isShow = true : '';

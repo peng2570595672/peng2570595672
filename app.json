@@ -56,6 +56,7 @@
       "pages": [
         "index/index",
         "equity_payment/equity_payment",
+        "equity_mall/equity_mall",
         "my_etc/my_etc",
         "my_etc_detail/my_etc_detail",
         "my_order/my_order",

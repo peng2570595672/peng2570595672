@@ -45,11 +45,8 @@ Page({
 	},
 	async onShow () {
 		if (app.globalData.userInfo.accessToken) {
-			this.setData({
-				isShowEquityImg: true
-			});
 			// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
-			let requestList = [await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon()];
+			let requestList = [await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon(), await this.getPrechargeOrders()];
 			util.showLoading();
 			await Promise.all(requestList);
 			util.hideLoading();
@@ -203,7 +200,7 @@ Page({
 						});
 						let requestList = [];
 						if (JSON.stringify(app.globalData.myEtcList) === '{}') {
-							requestList = [await this.getStatus()];
+							requestList = [await this.getStatus(), await this.getPrechargeOrders()];
 						}
 						// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
 						requestList = [requestList, await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon()];
@@ -249,6 +246,20 @@ Page({
 		}
 		console.log(app.globalData.myEtcList);
 	},
+	// 获取是否有预充账户
+	async getPrechargeOrders () {
+		let params = {
+			openId: app.globalData.openId
+		};
+		const result = await util.getDataFromServersV2('consumer/order/member/precharge/orders', params);
+		if (result.code === 0) {
+			this.setData({
+				isShowEquityImg: result.data.isShow
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
 	async getIsShow () {
 		let isActivation = app.globalData.myEtcList.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && (item.obuCardType === 1 || item.obuCardType === 21 || item.obuCardType === 22)); // 1 已激活  2 恢复订单  5 预激活
 		let isNewOrder = app.globalData.myEtcList.findIndex(item => compareDate(item.addTime, '2021-07-14') === true); // 当前用户有办理订单且订单创建日期在2021年7月13日前（含7月13日）
@@ -262,15 +273,13 @@ Page({
 			isPrechargeOrder: isPrechargeOrder !== -1,
 			showAgreementWrapper: isNewOrder !== -1,
 			isShowCoupon: isShowCoupon !== -1,
-			isShowEquityImg: true,
 			isActivation: !!isActivation.length
 		});
 		// 查询是否欠款
 		await util.getIsArrearage();
 	},
 	handleMall () {
-		const url = `https://${app.globalData.test ? 'etctest' : 'etc'}.cyzl.com/${app.globalData.test ? 'etc2-html' : 'wetc'}/equity_mall/index.html#/?auth=${app.globalData.userInfo.accessToken}&platformId=${app.globalData.platformId}`;
-		util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
+		util.go(`/pages/personal_center/equity_mall/equity_mall`);
 	},
 	// 众包-获取用户推广码和订单红包数量
 	async getMemberCrowdSourcingAndOrder () {

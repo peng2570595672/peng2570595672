@@ -76,6 +76,20 @@
 					"query": "",
 					"launchMode": "default",
 					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/personal_center/equity_mall/equity_mall",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/separate_interest_package/index/index",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
 				}
 			]
 		}
