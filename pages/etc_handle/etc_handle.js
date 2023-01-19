@@ -30,6 +30,10 @@ Page({
 		util.customTabbar(this, 1);
 	},
 
+	go () {
+		util.go('/pages/default/choose_a_package/choose_a_package');
+	},
+
 	/**
 	 * 生命周期函数--监听页面隐藏
 	 */

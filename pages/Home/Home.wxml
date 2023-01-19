@@ -3,7 +3,7 @@
     <!-- 顶部 滑块视图 -->
     <view class="topSwiper">
         <swiper class="swiperBox" autoplay circular indicator-dots='{{tools.dataLen(imgList) !== 1}}' duration="1000">
-            <swiper-item class="swiper-item" wx:for="{{imgList}}" wx:key="index">
+            <swiper-item class="swiper-item" wx:for="{{imgList}}" wx:key="index" catchtap="pageGo">
                 <image class="topImg" src='{{item}}' />
             </swiper-item>
         </swiper>

@@ -1,5 +1,7 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="index" style="background-color: {{'rgb(28,86,97)'}}" catchtouchmove="{{whetherToStay ? 'viewProcedure' : ''}}">
+    <!-- 顶部返回按钮 -->
+    <view class="iconfont topBack" catchtap="goBack">返回</view>
     <!-- 顶部banner 背景颜色和图片是动态的 -->
     <view class="topBanner" style="background-color: {{'green'}}" catchtap="" >
         <image class="topImg" src="{{'https://file.cyzl.com/g001/M07/B6/F4/oYYBAGO-ebuALxEMAAF_Efyf1k0965.jpg'}}" />
@@ -38,6 +40,7 @@
     </view>
     <!-- 占位 -->
     <view class="split"></view>
+    
     <!-- 立即办理 -->
     <view class="handleImmediately {{isFade ? 'fadeIn' : 'fadeOut'}} ">
         <button catchtap="onClickHandle" >立即办理</button>

@@ -83,6 +83,20 @@
 					"query": "",
 					"launchMode": "default",
 					"scene": null
+				},
+				{
+					"name": "4.0 选择套餐页",
+					"pathName": "pages/default/choose_a_package/choose_a_package",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "4.0 活动页",
+					"pathName": "pages/default/index/index",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
 				}
 			]
 		}

@@ -1,0 +1,10 @@
+<import src="/pages/templateList/progress-bar/progress-bar.wxml" />
+<view class="choosPackage">
+    <!-- 顶部 进度条 -->
+    <view class="block">
+        <template is="progressBar" data="{{...template}}" ></template>
+    </view>
+
+
+
+</view>

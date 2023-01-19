@@ -154,6 +154,13 @@ Page({
 	// 当弹出弹窗时，调用它
 	stopRoll () {
 		console.log('dsadasd');
+	},
+
+	// 返回上一页
+	goBack () {
+		wx.switchTab({
+			url: '/pages/Home/Home'
+		});
 	}
 
 });

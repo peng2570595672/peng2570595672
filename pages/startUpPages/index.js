@@ -18,6 +18,7 @@ Page({
 		// 调用微信接口获取code
 		wx.login({
 			success: async (res) => {
+				console.log(res);
 				const result = await util.getDataFromServersV2(
 					'consumer/member/common/applet/code', {
 						platformId: app.globalData.platformId, // 平台id
@@ -54,7 +55,7 @@ Page({
 			if (result.data.length > 0) {
 				// 跳转首页;
 				wx.switchTab({
-					url: '/pages/my/index'
+					url: '/pages/etc_handle/etc_handle'
 				});
 				// util.go('/pages/default/index/index');
 			} else {

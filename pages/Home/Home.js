@@ -225,6 +225,10 @@ Page({
 			this.selectComponent('#viewImg').show();
 		}
 	},
+	pageGo () {
+		// 跳转 活动页面
+		util.go('/pages/default/index/index');
+	},
 	// ---------------------------------end---------------------------
 
 	async getIsShowNotice () {
