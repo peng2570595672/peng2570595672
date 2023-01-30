@@ -1,10 +1,42 @@
-<import src="/pages/templateList/progress-bar/progress-bar.wxml" />
-<view class="choosPackage">
-    <!-- 顶部 进度条 -->
-    <view class="block">
-        <template is="progressBar" data="{{...template}}" ></template>
+<wxs src='../../../utils/util.wxs' module='tools' />
+<view class="index">
+    <!-- 顶部 进度条 组件 -->
+    <view class="topSplit">
+        <topProgressBar progressStage="{{2}}" />
     </view>
-
-
-
+    <!-- 套餐模块 -->
+    <view class="package" wx:for="{{5}}" wx:key="index">
+        <view class="module moduleOne iconfont {{index === activeIndex ? 'btnHighLight' : ''}}" data-index="{{index}}" catchtap="test">
+            <view class="upperPart">
+                <view class="titleMOney">
+                    <!-- 套餐名称：取后台套餐名称 -->
+                    <view class="title">{{'ETC基础套餐'}}</view>
+                    <!-- 取后台支付金额，保留小数点后2位，若套餐支付金额为0时，前端价格展示为免费 -->
+                    <view class="money">￥{{tools.parseNum(200)}}</view>
+                </view>
+                <!-- 副标题：取后台套餐副标题（原套餐全称） -->
+                <view class="subTitle">这是副标题最长就15个字符好吧</view>
+                <!-- 套餐描述 取后台配置展示，若无配置则不展示 -->
+                <view class="description" wx:if="{{tools.dataLen(basicServiceList) > 0}}">
+                    <view class="descriptionModule" wx:for="{{basicServiceList}}" wx:key="index1">
+                        {{item.title}}
+                    </view>
+                </view>
+            </view>
+            <!-- 增值业务 -->
+            <view class="lowerpart {{index === isCloseUpperPart ? 'open' : 'close'}}">
+                <view class="titleDetails">
+                    <view class="titles">
+                        <view class="icon"><image src="{{}}" /></view>
+                        <view class="text">{{'120元出行无忧券'}}</view>
+                    </view>
+                    <view class="details" catchtap="test1" data-index="{{index}}">收起</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!-- 占位 -->
+    <view class="split {{ isFade ? '' : 'littleSplit'}}" />
+    <!-- 支付和协议说明 模块 -->
+    <view class="payAndAgreement {{isFade ? 'fadeIn' : 'fadeOut'}}">支付和协议说明</view>
 </view>

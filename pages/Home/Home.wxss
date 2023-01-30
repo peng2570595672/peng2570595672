@@ -120,10 +120,16 @@
 	height: 100%;
 	width: 334rpx;
 	display: flex;
+	overflow: hidden;
 	align-items: center;
-	border-radius: 32rpx;
+	border-radius: 16rpx;
 	background: #FFFFFF;
 	box-shadow: 0rpx 4rpx 8rpx 0rpx rgba(240, 240, 240, 0.5);
+}
+
+.home .moduleTwo .moduleTwoBox .integral image {
+	width: 100%;
+	height: 100%;
 }
 
 .home .moduleTwo .moduleTwoBox .integral .integralDescribe {
@@ -215,7 +221,7 @@
 	color: #000000;
 	line-height: 40rpx;
 	font-family: PingFangSC-Regular, PingFang SC;
-	
+
 }
 
 
@@ -242,7 +248,7 @@
 	font-family: PingFangSC-Regular, PingFang SC;
 }
 
-.home .moduleThree .moduleThreeBox .directSeeding .rightView .viewText{
+.home .moduleThree .moduleThreeBox .directSeeding .rightView .viewText {
 	width: 100%;
 	height: 24rpx;
 	display: flex;
@@ -266,13 +272,10 @@
 	display: block;
 }
 
-
-
-
-
 /* 占位 */
 .home .split {
 	width: 100%;
 	height: 300rpx;
 	overflow: hidden;
 }
+

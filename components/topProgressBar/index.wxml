@@ -1,0 +1,11 @@
+<view class="top">
+    <view class="innerBox">
+        <view class="stage" style="background-color:{{progressStage > 0 ? '#5EBE68': ''}}">1</view>
+        <view class="bar"   style="background-color:{{progressStage > 1 ? '#5EBE68': ''}}"></view>
+        <view class="stage" style="background-color:{{progressStage > 1 ? '#5EBE68': ''}}">2</view>
+        <view class="bar"   style="background-color:{{progressStage > 2 ? '#5EBE68': ''}}"></view>
+        <view class="stage" style="background-color:{{progressStage > 2 ? '#5EBE68': ''}}">3</view>
+        <view class="bar"   style="background-color:{{progressStage > 3 ? '#5EBE68': ''}}"></view>
+        <view class="stage" style="background-color:{{progressStage > 3 ? '#5EBE68': ''}}">4</view>
+    </view>
+</view>

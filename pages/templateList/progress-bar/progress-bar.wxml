@@ -1,6 +1,0 @@
-<template name="progressBar">
-    <view class="topProgressBar" >
-        <view ></view>
-        <view class="bar">dsadsad {{number}}</view>
-    </view>
-</template>

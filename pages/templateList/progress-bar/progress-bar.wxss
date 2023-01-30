@@ -5,9 +5,6 @@
     background: aqua !important;
 }
 
-.topProgressBar view:first-child {
-    display: inner-block;
-    width: 300rpx !important;
-    height: 26rpx !important;
-    background: antiquewhite !important;
+.topProgressBar .bar {
+    color: aqua;
 }

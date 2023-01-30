@@ -33,6 +33,17 @@ Component({
 				});
 				this.triggerEvent('onHandle');
 			}, 400);
+		},
+		btnMovingIntegral (e) {
+			this.setData({
+				wrapper: false
+			});
+			setTimeout(() => {
+				this.setData({
+					mask: false
+				});
+				this.triggerEvent('btnMovingIntegral',e);
+			}, 400);
 		}
 	}
 });

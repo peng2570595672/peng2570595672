@@ -18,37 +18,48 @@
             <view class="btn_two" catchtap="testFunc">{{item.btn}}</view>
         </view>
     </view>
-    <!-- 模块2 出行贴心服务-->
+    <!-- 模块2 出行贴心服务 -->
     <view class="module moduleTwo">
         <view class="head">出行贴心服务</view>
         <view class="moduleTwoBox">
-            <view class="integral" wx:for="{{moduleTwoList}}" wx:key="index" data-index="{{index}}">
-                <view class="integralDescribe">
+            <view class="integral" wx:for="{{moduleTwoList}}" wx:key="index" catchtap="onClickSwiper" data-item="{{item}}">
+                <image src="{{item.imgUrl}}" />
+                <!-- <view class="integralDescribe">
                     <text >{{item.text1}}\n</text>
                     <text >{{item.text2}}</text> 
                 </view>
-                <view class="integralImg"><image src="{{item.icon}}" /></view>
+                <view class="integralImg"><image src="{{item.icon}}" /></view> -->
             </view>
         </view>
     </view>
-    <!-- 模块3 ETC使用Tips-->
+    <!-- 模块3 ETC使用Tips -->
     <view class="module moduleThree">
         <view class="head">ETC使用Tips</view>
         <view class="moduleThreeBox">
             <view class="directSeeding">
-                <view class="leftImg"><image src="{{'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png'}}" /></view>
+                <view class="leftImg">
+                    <image src="{{'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png'}}" />
+                </view>
                 <view class="rightView">
                     <view class="directSeedingTitle">
-                        <view >{{'换车后ETC怎么迁移？'}}</view>
+                        <view>{{'换车后ETC怎么迁移？'}}</view>
                         <view class="directSeedingImg">
-                            <view class="loginImg"><image src="https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png" /></view>
-                            <text style="color: {{true ? 'red' : 'green'}}">{{true ? '直播中':'已休息'}}</text>
+                            <view class="loginImg">
+                                <image src="https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png" />
+                            </view>
+                            <text style="color: {{true ? 'red' : 'green'}}">
+                                {{true ? '直播中':'已休息'}}
+                            </text>
                         </view>
                     </view>
-                    <view class="lsBack" style="color: {{true ? 'red' : 'green'}}">{{true ? '正在直播...' : '观看回放'}}</view>
+                    <view class="lsBack" style="color: {{true ? 'red' : 'green'}}">
+                        {{true ? '正在直播...' : '观看回放'}}
+                    </view>
                     <view class="viewText">
-                        <view ><image src="https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png" /></view>
-                        <text >12580</text>
+                        <view>
+                            <image src="https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png" />
+                        </view>
+                        <text>12580</text>
                     </view>
                 </view>
             </view>
@@ -56,8 +67,8 @@
     </view>
     <!-- 占位 -->
     <view class="split"></view>
-
     <!-- 弹窗 -->
+    <viewProcedure id="viewProcedure" bind:onHandle="viewProcedure" bind:btnMovingIntegral="btnMovingIntegral" data-value="false" viewTc="{{movingIntegralObj}}"></viewProcedure>
     <view-img id="viewImg" bind:onHandle="testFunc" data-value="false" viewTc="{{viewTc}}"></view-img>
     <popup id='dialog' dialogContent="{{dialogContent}}" bind:onHandle="onHandle"></popup>
     <popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="popUp"></popup1>

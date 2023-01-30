@@ -120,7 +120,7 @@ Page({
 		isActivityForBannerDate: false, // 是否是banner上线时间
 		dialogContent: {}, // 弹窗内容
 		// @cyl
-		movingIntegralControl: false, // 控制弹窗的显示与隐藏
+		// movingIntegralControl: false, // 控制弹窗的显示与隐藏
 		areaNotOpened: ['河南', '江西', '广西', '辽宁', '重庆', '云南'], // 号码归属地还未开通 移动积分业务的
 		disclaimerDesc: app.globalData.disclaimerDesc,
 		timeout: null,
@@ -143,19 +143,12 @@ Page({
 				btn: '免税商品上线'
 			}
 		],
-		moduleTwoList: [{
-				icon: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',
-				text1: '移动积分',
-				text2: '兑20元路费'
-			},
-			{
-				icon: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',
-				text1: '移动积分',
-				text2: '兑20元路费'
-			}
-		],
+		moduleTwoList: [],	// 出行贴心服务
 		viewTc: {}, // 用于存放弹窗数据
-		whetherToStay: false // 用于控制显示弹窗时，最底层页面禁止不动
+		whetherToStay: false, // 用于控制显示弹窗时，最底层页面禁止不动
+		movingIntegralObj: {
+			movingIntegralControl: false
+		}
 
 	},
 	async onLoad (options) {
@@ -167,6 +160,7 @@ Page({
 		this.login();
 
 		console.log('--------------------------------------------');
+		this.testBanner();
 	},
 	async onShow () {
 		util.customTabbar(this, 0);
@@ -229,8 +223,37 @@ Page({
 		// 跳转 活动页面
 		util.go('/pages/default/index/index');
 	},
-	// ---------------------------------end---------------------------
+	// 获取 “出行贴心服务” banner
+	async testBanner () {
+		let params = {
+			platformId: app.globalData.platformId
+		};
+		const result = await util.getDataFromServersV2('consumer/system/common/get-activity-banner', params,'POST',false);
+		console.log('banner：',result);
+		if (result.code === 0) {
+			let moduleTwoList = result.data.filter(item => (item.remark === 'micro_high_speed' || item.remark === 'moving_integral'));
+			moduleTwoList.map(item => {
+				if (item.remark === 'moving_integral') {
+					item.url = item.remark;
+					item.isShow = true;
+					item.alwaysShow = true;
+					item.statisticsEvent = 'index_moving_integral';
+				}
+				if (item.remark === 'micro_high_speed') {
+					item.url = item.remark;
+					item.isShow = app.globalData.isContinentInsurance;
+					item.statisticsEvent = 'index_micro_high_speed';
+				}
+			});
+			console.log(moduleTwoList);
 
+			this.setData({
+				moduleTwoList
+			});
+		}
+	},
+
+	// ---------------------------------end---------------------------
 	async getIsShowNotice () {
 		const result = await util.queryProtocolRecord(2);
 		this.setData({
@@ -398,9 +421,6 @@ Page({
 		// @cyl
 		if (item?.url === 'moving_integral') {
 			this.selectComponent('#dialog1').show('moving_integral');
-			// this.setData({
-			//   movingIntegralControl: true
-			// });
 		}
 	},
 	openXiaoEPinPin () {
@@ -1369,11 +1389,9 @@ Page({
 	},
 	// 点击移动积分兑换ETC 高速通行券
 	async btnMovingIntegral (e) {
-		this.setData({
-			movingIntegralControl: false
-		});
+		console.log(e.detail);
 		let num = await this.getMargin();
-		if (e.currentTarget.id === 'cancel') {
+		if (e.detail.currentTarget.id === 'cancel') {
 			console.log('点击取消');
 		} else {
 			if (num === app.globalData.myEtcList.length) {
@@ -1398,9 +1416,6 @@ Page({
 			// res3.data.isp = '中国联通';
 			if (res3.data.isp !== '中国移动') {
 				util.showToastNoIcon('本活动仅限移动用户参与');
-				return this.setData({
-					movingIntegralControl: false
-				});
 			} else if (this.data.areaNotOpened.includes(res3.data.province)) {
 				return util.showToastNoIcon('号码归属省份暂未开通此业务，敬请期待！');
 			}
@@ -1474,8 +1489,11 @@ Page({
 		}
 		if (str === 'moving_integral') {
 			this.setData({
-				movingIntegralControl: true
+				movingIntegralObj: {
+					movingIntegralControl: true
+				}
 			});
+			this.selectComponent('#viewProcedure').show();
 		}
 	}
 });
