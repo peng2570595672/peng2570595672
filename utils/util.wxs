@@ -67,6 +67,18 @@ function formatterTimer(systimestamp, compareTime, countdownTime) {
 function dataLen(obj) {
   return obj.length
 }
+// 限制展示的字符个数 ,arg1:表示展示的文本，arg2:限制的个数
+function limitNumber(obj,num) {
+  console.log(obj);
+  console.log(num);
+  var len = obj.length
+  if (len <= num) {
+    return obj
+  } else {
+    var str = obj.substring(0,num) + '...'
+    return str
+  }
+}
 module.exports = {
   substring: substring,
   lowercaseToCapitalization: lowercaseToCapitalization,
@@ -74,5 +86,6 @@ module.exports = {
   parseIn: parseIn,
   parseNum: parseNum,
   formatterTimer: formatterTimer,
-  dataLen: dataLen
+  dataLen: dataLen,
+  limitNumber: limitNumber
 };
