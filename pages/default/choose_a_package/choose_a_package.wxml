@@ -6,18 +6,20 @@
     </view>
     <!-- 套餐模块 -->
     <view class="package" wx:for="{{shopProductList}}" wx:key="index">
-        <view class="module moduleOne iconfont {{index === activeIndex ? 'btnHighLight' : ''}}" data-index="{{index}}" catchtap="test">
-            <!-- 活动标签 -->
-            <view class="active"><text>{{tools.limitNumber('限时活动限时活动111',8)}}</text></view>
+        <view class="module moduleOne iconfont {{'module' + index}} {{index === activeIndex ? 'btnHighLight' : ''}}" data-index="{{index}}" catchtap="test">
+            <!-- 活动标签 限制字符8个 -->
+            <view class="active {{index === activeIndex ? 'activeChange' : ''}}" wx:if="{{true}}">
+                <text>{{tools.limitNumber('限时活动限时活动111',8)}}</text>
+            </view>
             <!-- 默认展示的套餐上半部分 -->
             <view class="upperPart">
                 <!-- 背景图 -->
-                <!-- <view class="bgImg">
+                <view class="bgImg">
                     <image src="{{item.productLogo}}" />
-                </view> -->
+                </view>
                 <view class="titleMOney">
                     <!-- 套餐名称：取后台套餐名称 -->
-                    <view class="title">{{item.productName}}</view>
+                    <view class="title">{{tools.limitNumber(item.productName,18)}}</view>
                     <!-- 取后台支付金额，保留小数点后2位，若套餐支付金额为0时，前端价格展示为免费 -->
                     <view class="money">
                         <span wx:if="{{item.pledgePrice !== 0}}">
@@ -25,42 +27,67 @@
                         </span>
                         <span wx:else style="color: #0f0">免费</span>
                     </view>
+                    <view class="titleExplain" wx:if="{{true}}">
+                        <view class="innerBox1">
+                            <text >现金限时膨账 \n</text>
+                            <text >权益商城100+权益任兑</text>
+                        </view>
+                    </view>
                 </view>
                 <!-- 副标题：取后台套餐副标题（原套餐全称productLogo） -->
-                <view class="subTitle">{{item.fullName}}</view>
+                <view class="subTitle">{{tools.limitNumber(item.fullName,15)}}</view>
                 <!-- 套餐描述 取后台配置展示，若无配置则不展示 -->
                 <view class="description" wx:if="{{tools.dataLen(basicServiceList) > 0}}">
                     <view class="descriptionModule" wx:for="{{basicServiceList}}" wx:key="index1">
-                        <view class="ico"><image src="{{item.ico}}" /></view>
+                        <view class="ico">
+                            <image src="{{item.ico}}" />
+                        </view>
                         <view class="title">{{item.title}}</view>
                     </view>
                 </view>
             </view>
             <!-- 增值业务 展示的套餐下半部分 -->
-            <view class="lowerpart {{index === isCloseUpperPart ? 'open' : 'close'}}" wx:if="{{item.rightsPackageId}}">
+            <view class="lowerpart {{index === activeIndex ? '' : 'showBorder'}}" wx:if="{{tools.dataLen(item.rightsPackageIds)}}">
                 <view class="titleDetails">
                     <view class="titles">
                         <view class="icon">
-                            <image src="{{'https://file.cyzl.com/g001/M00/BD/0C/oYYBAGPY2keAfmvUAAABdQBuYIY183.png'}}" />
+                            <image src="{{'https://file.cyzl.com/g001/M01/BE/6E/oYYBAGPbUnKAYG8pAAABdQBuYIY953.png'}}" />
                         </view>
                         <view class="text">{{item.fullName}}</view>
                     </view>
-                    <view class="details" catchtap="test1" data-index="{{index}}">收起</view>
+                    <view class="details" catchtap="test1" data-index="{{[index,isCloseUpperPart,activeIndex]}}">
+                        {{ index === activeIndex ? isCloseUpperPart1 ? '收起' : '展开' : isCloseUpperPart2 && index === isCloseUpperPart ? '收起' : '展开'}}
+                    </view>
+                </view>
+                <!-- 套餐 展示模块 -->
+                <view wx:if="{{index === activeIndex ? isCloseUpperPart1 : isCloseUpperPart2 && index === isCloseUpperPart }}">
+                    <addValueService addValueService="{{item.rightsPackageIds}}"></addValueService>
                 </view>
             </view>
         </view>
     </view>
-    <!-- 占位 {{ isFade ? '' : 'littleSplit'}}-->
-    <view class="split " />
-    <!-- 支付和协议说明 模块 {{isFade ? 'fadeIn' : 'fadeOut'}}-->
-    <view class="payAndAgreement ">
+    <!-- 占位 -->
+    <view class="split {{ isFade ? 'bigSplit' : 'littleSplit'}}" />
+    <!-- 支付和协议说明 模块 -->
+    <view class="payAndAgreement {{isFade ? 'fadeIn' : 'fadeOut'}}">
         <view class="agreementConfirm" bindtap="test2">
             <view class="confirm iconfont {{isConfirm ? 'tick' : ''}}" catchtap="test2"></view>
-            <view class="agreement">当您勾选同意并点击“立即支付”按钮，即代表您已阅读、理解并接受<span class="agreementColor">ETC+用户协议及黔通卡用户协议及隐私协议</span>里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。</view>
+            <view class="agreement">
+                当您勾选同意并点击“立即支付”按钮，即代表您已阅读、理解并接受
+                <span class="agreementColor">ETC+用户协议及黔通卡用户协议及隐私协议</span>
+                里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。
+            </view>
         </view>
         <view class="moneyPay {{isFade ? 'confirmPackage' : ''}}">
-            <view class="money" wx:if="{{isFade}}">￥<span>{{tools.parseNum(shopProductList[activeIndex].pledgePrice/100)}}</span></view>
-            <view class="pay {{ !isFade ? 'payWidth' : ''}} {{isConfirm ? 'payColor' : ''}}" data-isconfirm="{{isConfirm}}" catchtap="test3">去支付</view>
+            <view class="money" wx:if="{{isFade}}">
+                ￥
+                <span class="mpneySpan">
+                    {{tools.parseNum(shopProductList[activeIndex].pledgePrice/100)}}
+                </span>
+            </view>
+            <view class="pay {{ !isFade ? 'payWidth' : ''}} {{isConfirm ? 'payColor' : ''}}" data-isconfirm="{{isConfirm}}" catchtap="test3">
+                去支付
+            </view>
         </view>
     </view>
 </view>

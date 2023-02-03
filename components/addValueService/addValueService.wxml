@@ -1,0 +1,53 @@
+<view class="addValueService">
+    <view class="moduleOne" wx:if="{{true}}">
+        <view class="related-service-list">
+            <view>
+                <view class="title" wx:if="{{trafficTicket.length}}">
+                    {{trafficTicketMoney/100}}元高速通行券
+                </view>
+                <view class="maximum-quantity" wx:if="{{trafficTicket.length}}">
+                    每个月最高可领{{trafficTicketCount}}张，领后{{trafficTicketValidityDay}}天有效
+                </view>
+                <view class="new-related-service">
+                    <view class="new-list-item" wx:for="{{trafficTicket}}" wx:key="index">
+                        <view class="contentMoney">
+                            <view class="money">
+                                ¥<span class="span">{{item.denomination/100}}</span>
+                            </view>
+                            <view class="condition">满{{item.consumptionThreshold/100}}元可用</view>
+                        </view>
+                        <view class="contentCount">
+                            <view class="count">
+                                X<span class="span">{{item.couponCount}}张</span>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view>
+                <view class="title" wx:if="{{parkingTicket.length}}">
+                    {{parkingTicketMoney/100}}元微信停车券
+                </view>
+                <view class="maximum-quantity" wx:if="{{parkingTicket.length}}">
+                    每个月最高可领{{parkingTicketCount}}张，领后{{parkingTicketValidityDay}}天有效
+                </view>
+                <view class="new-related-service">
+                    <view class="new-list-item" wx:for="{{parkingTicket}}" wx:key="index">
+                        <view class="contentMoney">
+                            <view class="money">
+                                ¥<span class="span">{{item.denomination/100}}</span>
+                            </view>
+                            <view class="condition">满{{item.consumptionThreshold/100}}元可用</view>
+                        </view>
+                        <view class="contentCount">
+                            <view class="count">
+                                X<span class="span">{{item.couponCount}}张</span>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="moduleTwo" wx:if="{{false}}">dsffdsfs</view>
+</view>

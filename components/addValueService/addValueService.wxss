@@ -1,0 +1,93 @@
+.addValueService {
+    width: 100%;
+    height: 100%;
+    margin-top: 40rpx;
+}
+
+.addValueService .moduleOne .related-service-list .title {
+    margin-top: 50rpx;
+    height: 48rpx;
+    font-size: 24rpx;
+    font-weight: 500;
+    font-family: PingFangSC-Medium, PingFang SC;
+    color: #000;
+}
+
+.addValueService .moduleOne .related-service-list .maximum-quantity {
+    width: 100%;
+    height: 40rpx;
+    font-size: 24rpx;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #765026;
+    line-height: 40rpx;
+}
+
+.addValueService .moduleOne .related-service-list .new-related-service {
+    width: 100%;
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+    margin-top: 36rpx;
+}
+
+.addValueService .moduleOne .related-service-list .new-related-service .new-list-item {
+    width: 184rpx;
+    height: 90rpx;
+    position: relative;
+    overflow: hidden;
+    border-radius: 16rpx;
+    background-color: #5EBE68;
+    margin-right: 36rpx;
+}
+.addValueService .moduleOne .related-service-list .new-related-service .new-list-item .contentMoney {
+    position: absolute;
+    width: 100rpx;
+    height: 90rpx;
+    top: 0rpx;
+    left: 0rpx;
+    text-align: center;
+    background-color: #79d0f3;
+}
+
+.addValueService .moduleOne .related-service-list .new-related-service .new-list-item .contentMoney .money {
+    height: 44rpx;
+    font-size: 24rpx;
+    font-family: Arial-BoldMT, Arial;
+    font-weight: normal;
+    color: #ffffff;
+    line-height: 44rpx;
+    margin-top: 15rpx;
+}
+
+.addValueService .moduleOne .related-service-list .new-related-service .new-list-item .contentMoney .money .span {
+    font-size: 34rpx;
+    font-family: ArialMT;
+}
+
+.addValueService .moduleOne .related-service-list .new-related-service .new-list-item .contentMoney .condition {
+    font-size: 16rpx;
+    font-weight: 400;
+    color: #ffffff;
+    font-family: PingFangSC-Regular, PingFang SC;
+}
+
+.addValueService .moduleOne .related-service-list .new-related-service .new-list-item .contentCount {
+    position: absolute;
+    width: 100;
+    height: 100%;
+    top: 0rpx;
+    right: 0rpx;
+    text-align: center;
+}
+
+.addValueService .moduleOne .related-service-list .new-related-service .new-list-item .contentCount .count {
+    font-size: 24rpx;
+    color: #ffffff;
+    line-height: 100rpx;
+    font-family: ArialMT;
+}
+
+.addValueService .moduleOne .related-service-list .new-related-service .new-list-item .contentCount .count .span {
+    font-size: 34rpx;
+}

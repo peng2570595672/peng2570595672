@@ -16,7 +16,7 @@
 .tab-bar-item {
     flex: 1;
     display: flex;
-    font-size: 10px;
+    font-size: 20rpx;
     margin-top: -50rpx;
     text-align: center;
     align-items: center;
@@ -26,12 +26,9 @@
     padding-top: 30rpx;
 }
 
-.tab-bar-item image {
+.tab-bar-item .coverImg {
     width: 27px;
     height: 27px;
-}
-
-.CoverImg {
     margin-bottom: 10rpx;
 }
 
