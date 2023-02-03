@@ -140,8 +140,7 @@ Page({
 			Wallet: result.data[this.data.index].balance,
 			list: this.data.list.concat(list)
 		});
-		console.log(this.data.list.length, '----------------------------------', result.data.total);
-		if (this.data.list.length >= result.data.detailData[this.data.index].total) {
+		if (this.data.list.length >= result.data[this.data.index].detailData.total) {
 			this.setData({
 				nextpageFlag: true
 			});
