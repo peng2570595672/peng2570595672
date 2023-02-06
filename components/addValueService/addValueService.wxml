@@ -1,4 +1,5 @@
 <view class="addValueService">
+    <!-- 券权益包 -->
     <view class="moduleOne" wx:if="{{true}}">
         <view class="related-service-list">
             <view>
@@ -18,7 +19,7 @@
                         </view>
                         <view class="contentCount">
                             <view class="count">
-                                X<span class="span">{{item.couponCount}}张</span>
+                                X<span class="span">{{item.couponCount}}</span>
                             </view>
                         </view>
                     </view>
@@ -41,7 +42,7 @@
                         </view>
                         <view class="contentCount">
                             <view class="count">
-                                X<span class="span">{{item.couponCount}}张</span>
+                                X<span class="span">{{item.couponCount}}</span>
                             </view>
                         </view>
                     </view>
@@ -49,5 +50,8 @@
             </view>
         </view>
     </view>
-    <view class="moduleTwo" wx:if="{{false}}">dsffdsfs</view>
+    <!-- 通通券权益 签约通通券会员则展示 -->
+    <view class="moduleTwo" wx:if="{{false}}">
+        
+    </view>
 </view>

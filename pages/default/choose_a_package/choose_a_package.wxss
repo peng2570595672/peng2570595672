@@ -84,9 +84,9 @@
 
 /* 套餐模块的上半部分 */
 .index .package .module .upperPart {
-    opacity: 0.9;
     overflow: hidden;
     position: relative;
+    opacity: 1;
     padding: 32rpx 28rpx 0rpx 28rpx;
 }
 
@@ -163,7 +163,7 @@
     background-color: #5EBE68;
 }
 
-.index .package .module .upperPart .titleMOney .titleExplain .innerBox1 text {
+.index .package .module .upperPart .titleMOney .titleExplain .innerBox1 .innerBox2 {
     display: inline-block;
     padding: 2rpx 10rpx;
 }
@@ -213,19 +213,36 @@
 
 /* 套餐模块的下半部分 */
 .index .package .module .lowerpart {
-    width: 638rpx;
     background-color: #F9F6EF;
-    padding: 20rpx 28rpx 40rpx 28rpx;
+    padding: 20rpx 28rpx 30rpx 28rpx;
     border-bottom-left-radius: 16rpx;
     border-bottom-right-radius: 16rpx;
 }
 
 .index .package .module .showBorder {
+    width: 638rpx;
     border: 4rpx solid #F9F6EF;
     border-top: transparent;
     position: relative;
     left: -4rpx;
     bottom: -4rpx;
+}
+
+.index .package .module .showBorder::after {
+    content: '';
+    width: 100%;
+    height: 4rpx;
+    background-color: #F9F6EF;
+    border-left: 4rpx solid #F9F6EF;
+    border-right: 4rpx solid #F9F6EF;
+    position: absolute;
+    top: -4rpx;
+    left: -4rpx;
+}
+
+.index .package .module .showMarinBorder {
+    /* width: 638rpx; */
+    /* border-right: 4rpx solid #E9CA7B; */
 }
 
 .index .package .module .lowerpart .titleDetails {
@@ -234,6 +251,7 @@
     font-size: 28rpx;
     font-weight: 600;
     line-height: 40rpx;
+    align-items: center;
     justify-content: space-between;
     font-family: PingFangSC-Semibold, PingFang SC;
 }
@@ -266,6 +284,9 @@
 
 .index .package .module .lowerpart .titleDetails .details {
     color: #2A4F44;
+    width: 56rpx;
+    height: 40rpx;
+    padding: 10rpx 20rpx;
 }
 
 
@@ -280,14 +301,25 @@
     width: 100%;
     height: 50rpx;
     height: 330rpx;
-    margin-top: 32rpx;
     overflow: hidden;
+    margin-top: 32rpx;
+    text-align: center;
+    line-height: 330rpx;
+    color: rgba(0, 0, 1, 0.25);
+    font-family: PingFangSC-Semibold, PingFang SC;
 }
 
-.index .bigSplit {}
+.index .bigSplit {
+    height: 900rpx;
+    font-size: 50rpx;
+    font-weight: bold;
+    line-height: 300rpx;
+
+}
 
 .index .littleSplit {
-    height: 50rpx;
+    height: 120rpx;
+    line-height: 80rpx;
 }
 
 

@@ -14,9 +14,9 @@
             <!-- 默认展示的套餐上半部分 -->
             <view class="upperPart">
                 <!-- 背景图 -->
-                <view class="bgImg">
+                <!-- <view class="bgImg">
                     <image src="{{item.productLogo}}" />
-                </view>
+                </view> -->
                 <view class="titleMOney">
                     <!-- 套餐名称：取后台套餐名称 -->
                     <view class="title">{{tools.limitNumber(item.productName,18)}}</view>
@@ -29,8 +29,8 @@
                     </view>
                     <view class="titleExplain" wx:if="{{true}}">
                         <view class="innerBox1">
-                            <text >现金限时膨账 \n</text>
-                            <text >权益商城100+权益任兑</text>
+                            <text class="innerBox2">现金限时膨账 \n</text>
+                            <text class="innerBox2">权益商城100+权益任兑</text>
                         </view>
                     </view>
                 </view>
@@ -47,13 +47,13 @@
                 </view>
             </view>
             <!-- 增值业务 展示的套餐下半部分 -->
-            <view class="lowerpart {{index === activeIndex ? '' : 'showBorder'}}" wx:if="{{tools.dataLen(item.rightsPackageIds)}}">
+            <view class="lowerpart {{index === activeIndex ? 'showMarinBorder' : 'showBorder'}}" wx:if="{{tools.dataLen(item.rightsPackageIds)}}">
                 <view class="titleDetails">
                     <view class="titles">
                         <view class="icon">
                             <image src="{{'https://file.cyzl.com/g001/M01/BE/6E/oYYBAGPbUnKAYG8pAAABdQBuYIY953.png'}}" />
                         </view>
-                        <view class="text">{{item.fullName}}</view>
+                        <view class="text">{{item.packageName}}</view>
                     </view>
                     <view class="details" catchtap="test1" data-index="{{[index,isCloseUpperPart,activeIndex]}}">
                         {{ index === activeIndex ? isCloseUpperPart1 ? '收起' : '展开' : isCloseUpperPart2 && index === isCloseUpperPart ? '收起' : '展开'}}
@@ -67,7 +67,9 @@
         </view>
     </view>
     <!-- 占位 -->
-    <view class="split {{ isFade ? 'bigSplit' : 'littleSplit'}}" />
+    <view class="split {{ isFade ? (activeIndex > tools.dataLen(shopProductList)-3? 'bigSplit' : '') : 'littleSplit'}}" >
+        <text >亲，没有更多的套餐了</text>
+    </view>
     <!-- 支付和协议说明 模块 -->
     <view class="payAndAgreement {{isFade ? 'fadeIn' : 'fadeOut'}}">
         <view class="agreementConfirm" bindtap="test2">
@@ -80,8 +82,7 @@
         </view>
         <view class="moneyPay {{isFade ? 'confirmPackage' : ''}}">
             <view class="money" wx:if="{{isFade}}">
-                ￥
-                <span class="mpneySpan">
+                ￥<span class="mpneySpan">
                     {{tools.parseNum(shopProductList[activeIndex].pledgePrice/100)}}
                 </span>
             </view>
