@@ -2,7 +2,15 @@
 <view class="package-the-rights-and-interests">
     <!-- 套餐选择开始 -->
     <view class="swiper-box">
-        <swiper class="my-swiper {{listOfPackages.length === 1 ? 'my-only-swiper' : ''}}" indicator-dots="{{false}}" autoplay="{{false}}" next-margin="{{listOfPackages.length !== 1 ? '62rpx' : '12rpx'}}" previous-margin="12rpx" bindchange="currentChange" style="height: {{boxHeight[activeIndex]}}px;" circular="{{true}}">
+        <swiper
+                class="my-swiper {{listOfPackages.length === 1 ? 'my-only-swiper' : ''}}"
+                indicator-dots="{{false}}"
+                autoplay="{{false}}"
+                next-margin="{{listOfPackages.length !== 1 ? '62rpx' : '12rpx'}}"
+                previous-margin="12rpx"
+                bindchange="currentChange"
+                style="height: {{boxHeight[activeIndex]}}px;"
+                circular="{{true}}">
             <swiper-item wx:for="{{listOfPackages}}" wx:key="index" class="my-swiper-item" catchtap="onClickSwiper" data-index="{{index}}">
                 <view class="my-swiper-item-box item-{{index}}">
                     <view class="package iconfont {{choiceIndex === index ? 'active' : ''}}">
@@ -79,6 +87,9 @@
                 </view>
             </swiper-item>
         </swiper>
+        <view class="swiper-indicator" wx:if="{{listOfPackages.length > 1}}">
+            <view wx:for="{{listOfPackages}}" wx:key="index" class="indicator-item {{activeIndex === index ? 'indicator-active': ''}}"></view>
+        </view>
     </view>
     <!-- 套餐选择结束 -->
     <!-- 通通券权益开始 -->

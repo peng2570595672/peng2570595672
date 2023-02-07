@@ -279,6 +279,23 @@
 .package-the-rights-and-interests .swiper-box .my-swiper.my-only-swiper .my-swiper-item .my-swiper-item-box {
   width: 686rpx;
 }
+.package-the-rights-and-interests .swiper-box .swiper-indicator {
+  display: flex;
+  justify-content: center;
+  margin: 24rpx 0 12rpx;
+}
+.package-the-rights-and-interests .swiper-box .swiper-indicator .indicator-item {
+  display: flex;
+  align-items: center;
+  width: 52rpx;
+  height: 14rpx;
+  background: #dde1df;
+  border-radius: 7rpx;
+  margin: 0 8rpx;
+}
+.package-the-rights-and-interests .swiper-box .swiper-indicator .indicator-item.indicator-active {
+  background: #00b85c;
+}
 .package-the-rights-and-interests .tongtongquan .equities-title {
   display: flex;
   height: 48rpx;
