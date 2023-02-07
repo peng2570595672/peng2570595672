@@ -2,7 +2,7 @@
 <view class="index">
     <!-- 顶部 进度条 组件 -->
     <view class="topSplit">
-        <topProgressBar progressStage="{{2}}" />
+        <topProgressBar progressStage="{{topProgressBar}}" />
     </view>
     <!-- 套餐模块 -->
     <view class="package" wx:for="{{shopProductList}}" wx:key="index">
@@ -12,7 +12,7 @@
                 <text>{{tools.limitNumber('限时活动限时活动111',8)}}</text>
             </view>
             <!-- 默认展示的套餐上半部分 -->
-            <view class="upperPart {{tools.dataLen(item.rightsPackageIds) > 0 ? '' : 'subUpperPart'}}">
+            <view class="upperPart {{tools.dataLen(item.rightsPackageIds) > 0 || item.isSignTtCoupon ? '' : 'subUpperPart'}}">
                 <!-- 背景图 -->
                 <view class="bgImg">
                     <image src="{{item.productLogo}}" />
@@ -46,23 +46,30 @@
                     </view>
                 </view>
             </view>
-            <!-- 增值业务 展示的套餐下半部分 -->
-            <view class="lowerpart" wx:if="{{tools.dataLen(item.rightsPackageIds)}}">
+            <!-- 增值业务 展示的套餐下半部分 如果又权益和签约通通券则展示-->
+            <view class="lowerpart" wx:if="{{tools.dataLen(item.rightsPackageIds) || item.isSignTtCoupon}}">
                 <view class="titleDetails">
                     <view class="titles">
-                        <view class="icon iconfont">
-                            <!-- <image class="image" src="{{'https://file.cyzl.com/g001/M01/BE/6E/oYYBAGPbUnKAYG8pAAABdQBuYIY953.png'}}" /> -->
-                        </view>
-                        <view class="text">{{item.packageName}}</view>
+                        <view class="iconfont {{item.isSignTtCoupon ? 'isSignTtCoupon' : 'icon'}}"></view>
+                        <view class="text">{{item.isSignTtCoupon ? 'ETC*通通券联名会员权益' : itempageName}}</view>
                     </view>
                     <view class="details" catchtap="test1" data-index="{{[index,isCloseUpperPart,activeIndex]}}">
                         {{ index === activeIndex ? isCloseUpperPart1 ? '收起' : '展开' : isCloseUpperPart2 && index === isCloseUpperPart ? '收起' : '展开'}}
                     </view>
                 </view>
                 <!-- 套餐 展示模块 -->
-                <view wx:if="{{index === activeIndex ? isCloseUpperPart1 : isCloseUpperPart2 && index === isCloseUpperPart }}">
+                <view class="detailsInfo" wx:if="{{index === activeIndex ? isCloseUpperPart1 : isCloseUpperPart2 && index === isCloseUpperPart }}">
                     <!-- 券权益包 -->
                     <addValueService addValueService="{{item.rightsPackageIds}}" wx:if="{{tools.dataLen(item.rightsPackageIds)}}"></addValueService>
+                    <!-- 签约通通券 -->
+                    <view wx:elif="{{item.isSignTtCoupon}}" class="isSignTtCoupon">
+                        <view wx:if="{{item.ttCouponPayAmount > 0}}" class="ttImgs">
+                            <image class="ttImg" src="/pages/default/assets/equities1.png" />
+                        </view>
+                        <view wx:if="{{item.ttCouponPayAmount === 0}}" class="ttImgs">
+                            <image class="ttImg" src="/pages/default/assets/equities2.png" />
+                        </view>
+                    </view>
                 </view>
             </view>
         </view>
@@ -88,7 +95,7 @@
                 </span>
             </view>
             <view class="pay {{ !isFade ? 'payWidth' : ''}} {{isConfirm ? 'payColor' : ''}}" data-isconfirm="{{isConfirm}}" catchtap="test3">
-                去支付
+                {{shopProductList[activeIndex].isSignTtCoupon === 0 && shopProductList[activeIndex].ttCouponPayAmount > 0 ? '通通券代扣金额' : '去支付'}}
             </view>
         </view>
     </view>

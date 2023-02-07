@@ -35,6 +35,12 @@
 .top .innerBox .bar {
     width: 158rpx;
     height: 12rpx;
+    overflow: hidden;
     border-radius: 6px;
     background: #E3E3E3;
+}
+
+.top .innerBox .bar .innerBar {
+    height: 12rpx;
+    border-radius: 6px;
 }

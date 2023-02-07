@@ -50,8 +50,5 @@
             </view>
         </view>
     </view>
-    <!-- 通通券权益 签约通通券会员则展示 -->
-    <view class="moduleTwo" wx:if="{{false}}">
-        
-    </view>
+
 </view>

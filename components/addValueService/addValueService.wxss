@@ -1,11 +1,11 @@
 .addValueService {
     width: 100%;
     height: 100%;
-    margin-top: 40rpx;
+    margin-top: 20rpx;
 }
 
 .addValueService .moduleOne .related-service-list .title {
-    margin-top: 50rpx;
+    margin-top: 30rpx;
     height: 48rpx;
     font-size: 24rpx;
     font-weight: 500;

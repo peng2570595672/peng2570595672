@@ -7,6 +7,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
+		topProgressBar: 2,	// 进度条展示的长度 ，再此页面的取值范围 [2,3),默认为2
 		isFade: false,
 		activeIndex: -1,
 		isCloseUpperPart: false, // 控制 详情是否显示
@@ -76,7 +77,8 @@ Page({
 		that.setData({
 			isFade,
 			activeIndex: isFade ? e.currentTarget.dataset.index : -1,
-			isConfirm: false
+			isConfirm: false,
+			topProgressBar: isFade ? 2.4 : 2
 		});
 		if (isFade) { // 当套餐高亮时，默认展开 详情
 			this.setData({
@@ -123,7 +125,8 @@ Page({
 		}
 		let isConfirm = !this.data.isConfirm;
 		this.setData({
-			isConfirm
+			isConfirm,
+			topProgressBar: isConfirm ? 2.7 : 2.4
 		});
 		this.controllShopProductPosition(this.data.activeIndex);
 	},
@@ -150,6 +153,12 @@ Page({
 		};
 		const result = await util.getDataFromServersV2('consumer/system/get-usable-product', params, 'POST', false);
 		if (result.code === 0) {
+			result.data.map((item,index) => {
+				if (index === 1) {
+					item.isSignTtCoupon = 1;
+					item.ttCouponPayAmount = 100;
+				}
+			});
 			this.setData({
 				shopProductList: result.data
 				// shopProductList: [
