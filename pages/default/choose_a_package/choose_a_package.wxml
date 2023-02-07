@@ -12,11 +12,11 @@
                 <text>{{tools.limitNumber('限时活动限时活动111',8)}}</text>
             </view>
             <!-- 默认展示的套餐上半部分 -->
-            <view class="upperPart">
+            <view class="upperPart {{tools.dataLen(item.rightsPackageIds) > 0 ? '' : 'subUpperPart'}}">
                 <!-- 背景图 -->
-                <!-- <view class="bgImg">
+                <view class="bgImg">
                     <image src="{{item.productLogo}}" />
-                </view> -->
+                </view>
                 <view class="titleMOney">
                     <!-- 套餐名称：取后台套餐名称 -->
                     <view class="title">{{tools.limitNumber(item.productName,18)}}</view>
@@ -40,18 +40,18 @@
                 <view class="description" wx:if="{{tools.dataLen(basicServiceList) > 0}}">
                     <view class="descriptionModule" wx:for="{{basicServiceList}}" wx:key="index1">
                         <view class="ico">
-                            <image src="{{item.ico}}" />
+                            <image class="image" src="{{item.ico}}" />
                         </view>
                         <view class="title">{{item.title}}</view>
                     </view>
                 </view>
             </view>
             <!-- 增值业务 展示的套餐下半部分 -->
-            <view class="lowerpart {{index === activeIndex ? 'showMarinBorder' : 'showBorder'}}" wx:if="{{tools.dataLen(item.rightsPackageIds)}}">
+            <view class="lowerpart" wx:if="{{tools.dataLen(item.rightsPackageIds)}}">
                 <view class="titleDetails">
                     <view class="titles">
-                        <view class="icon">
-                            <image src="{{'https://file.cyzl.com/g001/M01/BE/6E/oYYBAGPbUnKAYG8pAAABdQBuYIY953.png'}}" />
+                        <view class="icon iconfont">
+                            <!-- <image class="image" src="{{'https://file.cyzl.com/g001/M01/BE/6E/oYYBAGPbUnKAYG8pAAABdQBuYIY953.png'}}" /> -->
                         </view>
                         <view class="text">{{item.packageName}}</view>
                     </view>
@@ -61,7 +61,8 @@
                 </view>
                 <!-- 套餐 展示模块 -->
                 <view wx:if="{{index === activeIndex ? isCloseUpperPart1 : isCloseUpperPart2 && index === isCloseUpperPart }}">
-                    <addValueService addValueService="{{item.rightsPackageIds}}"></addValueService>
+                    <!-- 券权益包 -->
+                    <addValueService addValueService="{{item.rightsPackageIds}}" wx:if="{{tools.dataLen(item.rightsPackageIds)}}"></addValueService>
                 </view>
             </view>
         </view>
