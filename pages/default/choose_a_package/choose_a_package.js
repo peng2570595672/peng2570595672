@@ -7,7 +7,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		topProgressBar: 2,	// 进度条展示的长度 ，再此页面的取值范围 [2,3),默认为2
+		topProgressBar: 2,	// 进度条展示的长度 ，再此页面的取值范围 [2,3),默认为2,保留一位小数
 		isFade: false,
 		activeIndex: -1,
 		isCloseUpperPart: false, // 控制 详情是否显示

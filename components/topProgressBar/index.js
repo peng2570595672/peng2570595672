@@ -6,7 +6,7 @@ Component({
 	properties: {
 		progressStage: {
 			type: Number,
-			value: 1,
+			value: 0,
 			observer: function (newVal, oldVal) {
 				newVal = parseInt(newVal * 100);
 				oldVal = parseInt(oldVal * 100);
@@ -27,7 +27,7 @@ Component({
 	 */
 	methods: {
 		dataChange (newVal,oldVal) {
-			if (oldVal === 100) {
+			if (oldVal === 0) {
 				this.setData({
 					mmm: newVal / 100
 				});

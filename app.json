@@ -42,8 +42,8 @@
 		"pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement",
 		"pages/default/trucks/trucks",
 		"pages/default/margin_user_handling_agreement/margin_user_handling_agreement",
-
-		"pages/default/choose_a_package/choose_a_package"
+		"pages/default/choose_a_package/choose_a_package",
+		"pages/default/fill_in_basic_information/fill_in_basic_information"
 		
 	],
 	"window": {
