@@ -157,8 +157,11 @@ Page({
 				if (index === 1) {
 					item.isSignTtCoupon = 1;
 					item.ttCouponPayAmount = 100;
+				} else if (index === 0) {
+					item['pageName'] = '120元出行无忧券';
 				}
 			});
+			console.log(result.data);
 			this.setData({
 				shopProductList: result.data
 				// shopProductList: [

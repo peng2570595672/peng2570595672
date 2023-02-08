@@ -250,10 +250,12 @@
 }
 
 .index .package .module .lowerpart .titleDetails .titles .icon::before {
+    width: 40rpx;
+    height: 40rpx;
     display: block;
     content: '\e6a1';
     color: #E9CA7B;
-    font-size: 28rpx;
+    font-size: 24rpx;
 }
 
 .index .package .module .lowerpart .titleDetails .titles .text {
@@ -261,6 +263,7 @@
     font-weight: 600;
     color: #E9CA7B;
     line-height: 39rpx;
+    margin-left: 10rpx;
 }
 
 .index .package .module .lowerpart .titleDetails .details {

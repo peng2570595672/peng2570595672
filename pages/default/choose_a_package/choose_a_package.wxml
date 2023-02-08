@@ -51,7 +51,7 @@
                 <view class="titleDetails">
                     <view class="titles">
                         <view class="iconfont {{item.isSignTtCoupon ? 'isSignTtCoupon' : 'icon'}}"></view>
-                        <view class="text">{{item.isSignTtCoupon ? 'ETC*通通券联名会员权益' : itempageName}}</view>
+                        <view class="text">{{item.isSignTtCoupon ? 'ETC*通通券联名会员权益' : item.pageName}}</view>
                     </view>
                     <view class="details" catchtap="test1" data-index="{{[index,isCloseUpperPart,activeIndex]}}">
                         {{ index === activeIndex ? isCloseUpperPart1 ? '收起' : '展开' : isCloseUpperPart2 && index === isCloseUpperPart ? '收起' : '展开'}}
@@ -61,7 +61,7 @@
                 <view class="detailsInfo" wx:if="{{index === activeIndex ? isCloseUpperPart1 : isCloseUpperPart2 && index === isCloseUpperPart }}">
                     <!-- 券权益包 -->
                     <addValueService addValueService="{{item.rightsPackageIds}}" wx:if="{{tools.dataLen(item.rightsPackageIds)}}"></addValueService>
-                    <!-- 签约通通券 -->
+                    <!-- 通通券 -->
                     <view wx:elif="{{item.isSignTtCoupon}}" class="isSignTtCoupon">
                         <view wx:if="{{item.ttCouponPayAmount > 0}}" class="ttImgs">
                             <image class="ttImg" src="/pages/default/assets/equities1.png" />
