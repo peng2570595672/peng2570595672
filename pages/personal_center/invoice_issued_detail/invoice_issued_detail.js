@@ -20,8 +20,12 @@ Page({
 		if (this.data.origin === 0) {
 			invoiceInfo.userPhone = app.globalData.mobilePhone;
 			invoiceInfo.invoiceType = 1;
+		} else {
+			const index = invoiceInfo.invoiceType === 2 ? 0 : 1;
+			this.data.invoiceTypes.splice(index,1);
 		}
 		this.setData({
+			invoiceTypes: this.data.invoiceTypes,
 			origin: this.data.origin,
 			invoiceInfo: invoiceInfo,
 			disabled: this.data.origin === 1,

@@ -59,7 +59,7 @@
 				{
 					"name": "",
 					"pathName": "pages/default/receiving_address/receiving_address",
-					"query": "shopId=1060506912810344448&enterType=24",
+					"query": "shopId=1072188767418851328&enterType=23&productId=1072189794897371136",
 					"launchMode": "default",
 					"scene": null
 				},
@@ -87,6 +87,20 @@
 				{
 					"name": "",
 					"pathName": "pages/separate_interest_package/index/index",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+					"query": "orderId=1048624796910227456",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/personal_center/equity_mall/equity_mall",
 					"query": "",
 					"launchMode": "default",
 					"scene": null

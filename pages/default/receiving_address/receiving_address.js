@@ -228,6 +228,11 @@ Page({
 			params['promoterId'] = app.globalData.crowdsourcingPromotionId;// 推广者ID标识
 			params['promoterType'] = 1; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
 		}
+		// MTC推广
+		if (app.globalData.MTCChannel) {
+			params['promoterId'] = 0;// 推广者ID标识
+			params['promoterType'] = 25; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
+		}
 		// 搜一搜进入
 		if (this.data.enterType === 23 || this.data.enterType === 24) {
 			params['shopId'] = this.data.shopId;

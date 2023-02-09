@@ -94,3 +94,11 @@
 .content .btn.available {
   opacity: 1;
 }
+.content .success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48rpx;
+  color: #99999d;
+  margin-top: 40rpx;
+}

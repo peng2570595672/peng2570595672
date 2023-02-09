@@ -227,6 +227,10 @@ App({
 			this.globalData.otherPlatformsServiceProvidersId = options.query.officialChannelId;
 			this.globalData.officialChannel = true;
 		}
+		if (options.query.MTCChannel) {
+			util.resetData();// 重置数据
+			this.globalData.MTCChannel = true;
+		}
 		if (options.query.carInsurance) {
 			util.resetData();// 重置数据
 			// 2.0大地保险链接进入
@@ -258,7 +262,7 @@ App({
 				}
 				this.globalData.scanCodeToHandle = res.data;
 				if (res.data.hasOwnProperty('isCrowdsourcing')) {
-					wx.reLaunch({
+					wx.综合服务费aunch({
 						url: '/pages/default/receiving_address/receiving_address'
 					});
 				}

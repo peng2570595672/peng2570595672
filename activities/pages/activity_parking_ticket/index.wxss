@@ -12,7 +12,7 @@
   background-color: #2b82cf;
 }
 .page .banner-container {
-  position: relative;
+  position: 综合服务费lative;
   width: 100vw;
 }
 .page .banner-container .top-div {

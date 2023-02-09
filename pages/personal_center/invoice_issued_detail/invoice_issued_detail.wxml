@@ -1,7 +1,7 @@
 <!--pages/personal_center/invoice_issued_detail/invoice_issued_detail.wxml-->
 <view class="content">
 	<view class="swiper-tab">
-		<view wx:for="{{invoiceTypes}}" wx:key="index" class="tab-list {{currentTab=== index ? 'tab-show' : ''}}" data-current="{{index}}" bindtap="switchInvoiceType">{{item.name}}</view>
+		<view wx:for="{{invoiceTypes}}" wx:key="index" class="tab-list {{currentTab=== index || origin === 1 ? 'tab-show' : ''}}" data-current="{{index}}" bindtap="switchInvoiceType">{{item.name}}</view>
 	</view>
 	<view class="title">基本信息<text>向您发送电子发票</text></view>
 	<view class="input-wrapper">
@@ -51,6 +51,7 @@
 			       bindinput="onInputChangedHandle" data-key="account"/>
 		</view>
 	</view>
+    <view class="success" wx:if="{{origin === 1}}">-发票开具成功-</view>
 	<view class="fill"></view>
 	<view wx:if="{{origin === 0}}" class="btn {{available ? 'available' :''}}" catchtap="onClickCommit">确认</view>
 	<success-tips></success-tips>
