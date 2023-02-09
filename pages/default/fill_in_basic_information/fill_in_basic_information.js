@@ -10,7 +10,8 @@ Page({
 		currentIndex: -1,
 		available: false, // 按钮是否可点击
 		test: false,
-		test1: false
+		test1: false,
+		isNewPowerCar: true
 	},
 
 	/**

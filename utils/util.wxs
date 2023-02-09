@@ -77,6 +77,17 @@ function limitNumber(obj,num) {
     return str
   }
 }
+// 省市区格式转换 省 - 市 - 区
+function addressFormat (obj) {
+  if (obj.length === 0) {
+    return
+  }
+  var address = obj[0]
+  for (var index = 1; index < obj.length; index++) {
+    address += ' - ' + obj[index]
+  }
+  return address
+}
 module.exports = {
   substring: substring,
   lowercaseToCapitalization: lowercaseToCapitalization,
@@ -85,5 +96,6 @@ module.exports = {
   parseNum: parseNum,
   formatterTimer: formatterTimer,
   dataLen: dataLen,
-  limitNumber: limitNumber
+  limitNumber: limitNumber,
+  addressFormat: addressFormat
 };

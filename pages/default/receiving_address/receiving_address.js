@@ -6,6 +6,7 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		topProgressBar: 1.0,	// 进度条展示的长度 ，再此页面的取值范围 [1,2),默认为1,保留一位小数
 		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
 		showKeyboard: false, // 是否显示键盘
 		currentIndex: -1, // 当前选中的输入车牌位置
@@ -19,7 +20,7 @@ Page({
 		isOnlineDealWith: true, // 是否是线上办理
 		formData: {
 			currentCarNoColor: 0, // 0 蓝色 1 渐变绿 2黄色
-			region: ['省', '市', '区'], // 省市区
+			region: [], // 省市区
 			regionCode: [], // 省份编码
 			userName: '', // 收货人姓名
 			telNumber: '', // 电话号码
@@ -76,6 +77,12 @@ Page({
 			this.login();
 		}
 	},
+	// 测试 -------------------------
+	testaa () {
+		console.log('saasasasas');
+	},
+	// end ----------------------------
+
 	// 自动登录
 	login () {
 		util.showLoading();
@@ -446,6 +453,7 @@ Page({
 		wx.uma.trackEvent('receiving_select_the_wechat_address');
 		wx.chooseAddress({
 			success: (res) => {
+				console.log(res);
 				let formData = this.data.formData;
 				formData.userName = res.userName; // 姓名
 				formData.telNumber = res.telNumber; // 电话
