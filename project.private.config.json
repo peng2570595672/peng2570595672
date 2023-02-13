@@ -78,15 +78,8 @@
 					"scene": null
 				},
 				{
-					"name": "填写基础信息",
+					"name": "4.0 填写基础信息",
 					"pathName": "pages/default/receiving_address/receiving_address",
-					"query": "",
-					"launchMode": "default",
-					"scene": null
-				},
-				{
-					"name": "4.0 选择套餐页",
-					"pathName": "pages/default/choose_a_package/choose_a_package",
 					"query": "",
 					"launchMode": "default",
 					"scene": null
@@ -95,6 +88,13 @@
 					"name": "4.0 活动页",
 					"pathName": "pages/default/index/index",
 					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "选择套餐",
+					"pathName": "pages/default/package_the_rights_and_interests/package_the_rights_and_interests",
+					"query": "type=1",
 					"launchMode": "default",
 					"scene": null
 				}

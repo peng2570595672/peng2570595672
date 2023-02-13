@@ -54,7 +54,6 @@ Page({
 		],
 		shopProductList: [],
 		isConfirm: false,
-		scrollTops: 0,
 		nodeHeightList: [], // 存储节点高度 集合
 		phoneType: 2
 	},
@@ -63,11 +62,6 @@ Page({
 
 	onShow () {
 		this.getShopProduct();
-	},
-	onPageScroll (e) {
-		this.setData({
-			scrollTops: e.scrollTop
-		});
 	},
 	// 测试------------------------------------------------
 	test (e) { // 点击高亮
@@ -164,175 +158,6 @@ Page({
 			console.log(result.data);
 			this.setData({
 				shopProductList: result.data
-				// shopProductList: [
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
-				// 	{
-				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-				// 		productName: '通通券联名套餐',
-				// 		pledgePrice: 10000,
-				// 		fullName: '默认开通通通券连续包月会员',
-				// 		packageName: '120元出行无忧券',
-				// 		rightsPackageIds: ['1046938140865994752']
-				// 	},
 				// 	{
 				// 		productLogo: 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
 				// 		productName: '通通券联名套餐',
