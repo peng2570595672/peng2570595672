@@ -29,7 +29,11 @@ Page({
 		enterType: -1,// 进入小程序类型  23.搜一搜小程序独立办理链接A，24.搜一搜小程序独立办理链接B
 		productId: '',
 		rightsPackageId: '',
-		shopId: ''
+		shopId: '',
+		operatorPhoneNumber: '',	// 线上：用户点好；线下：经办人电话
+		tip1: '',	// 经办人电话号码校验提示
+		tip2: '',	// 收件人姓名校验
+		tip3: ''	// 校验收件人电话号码提示
 	},
 	async onLoad (options) {
 		if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
@@ -77,11 +81,6 @@ Page({
 			this.login();
 		}
 	},
-	// 测试 -------------------------
-	testaa () {
-		console.log('saasasasas');
-	},
-	// end ----------------------------
 
 	// 自动登录
 	login () {
@@ -486,6 +485,7 @@ Page({
 	},
 	// 省市区选择
 	onPickerChangedHandle (e) {
+		console.log(e);
 		let formData = this.data.formData;
 		formData.region = e.detail.value;
 		if (e.detail.code && e.detail.code.length === 3) {
@@ -518,7 +518,6 @@ Page({
 						util.showToastNoIcon('获取地理位置信息失败！');
 					});
 				}
-				console.log(res);
 			},
 			fail: (e) => {
 				// 选择地址未允许授权
@@ -612,6 +611,8 @@ Page({
 		} else {
 			isOk = false;
 		}
+		// 校验经办人手机号码
+		isOk = isOk && this.data.operatorPhoneNumber && /^1[0-9]{10}$/.test(this.data.operatorPhoneNumber);
 		// 校验姓名
 		isOk = isOk && formData.userName && formData.userName.length >= 1;
 		// 校验省市区
@@ -623,6 +624,83 @@ Page({
 		// 检验手机号码
 		isOk = isOk && formData.telNumber && /^1[0-9]{10}$/.test(formData.telNumber);
 		return isOk;
+	},
+	// etc4.0：新增-拉起微信授权手机号
+	getWchatPhoneNumber (e) {
+		if (e.detail.errMsg === 'getPhoneNumber:ok') {	// 同意授权
+			if (this.data.loginInfo.needBindingPhone === 0) {	// 判断是否绑定过手机号
+				this.setData({
+					operatorPhoneNumber: app.globalData.mobilePhone,
+					available: this.validateAvailable(true)
+				});
+			} else {
+				util.showToastNoIcon('手机号为绑定，马上跳转登录页登录');
+				setTimeout(() => {
+					wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+					util.go('/pages/login/login/login');
+				},1500);
+			}
+		}
+	},
+	// etc4.0:新增-校验(手机号，收件人，地址等)
+	validateNew (e) {
+		let name = e.currentTarget.dataset.name;
+		let value = e.detail.value;
+		let len = e.detail.cursor;
+		// 校验手机号
+		if (name === 'operator' || name === 'telNumber') {
+			let flag = /^1[1-9][0-9]{9}$/.test(value);
+			let tip = len < 11 ? '*手机号未满11位，请检查' : (len === 11 ? (flag ? '' : '非法号码') : '非法号码');
+			if (tip === '非法号码') {
+				if (name === 'operator') {
+					this.setData({
+						operatorPhoneNumber: '',
+						tip1: tip
+					});
+				} else {
+					this.setData({
+						'formData.telNumber': '',
+						tip3: tip
+					});
+				}
+				util.showToastNoIcon('非法号码');
+			} else {
+				if (name === 'operator') {
+					this.setData({
+						tip1: tip,
+						available: this.validateAvailable(true)
+					});
+				} else {
+					this.setData({
+						tip3: tip,
+						available: this.validateAvailable(true)
+					});
+				}
+			}
+		}
+		// 收件人姓名校验
+		if (name === 'name') {
+			let patrn = /[`~!@#$%^&*()_\-+=<>?:"{}|,.\/;'\\[\]·~！@#￥%……&*（）——\-+={}|《》？：“”【】、；‘'，。、]/im;	// 校验非法字符
+			let patrn1 = /^[a-zA-Z]+$/;	// 校验英文
+			let patrn2 = /^[\u4e00-\u9fa5]{0,}$/;	// 校验汉字
+			let tip2 = '';
+			if (len < 1) {
+				this.setData({
+					tip2: '姓名不可为空'
+				});
+			} else if (patrn.test(value)) {
+				util.showToastNoIcon('非法字符');
+			} else {
+				if (patrn2.test(value)) {
+					tip2 = len < 5 ? '' : '最大输入文字为4';
+				} else {
+					tip2 = len < 9 ? '' : '英文最大可输入8';
+				}
+				this.setData({
+					tip2: tip2
+				});
+			}
+		}
 	},
 	// 点击添加新能源
 	onClickNewPowerCarHandle (e) {
