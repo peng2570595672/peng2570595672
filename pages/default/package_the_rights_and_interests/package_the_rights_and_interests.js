@@ -17,6 +17,7 @@ Page({
 		isConfirm: false,
 		nodeHeightList: [], // 存储节点高度 集合
 		phoneType: 2,
+		equityListMap: [],	// 权益列表集合
 
 		isContinentInsurance: app.globalData.isContinentInsurance,// 是否是大地
 		isSelected: false,// 是否选中当前权益包
@@ -177,6 +178,7 @@ Page({
 			});
 		});
 		if (that.data.listOfPackages[0]?.rightsPackageIds?.length) {
+			console.log(that.data.listOfPackages[0]);
 			// 获取权益
 			await that.getList(that.data.listOfPackages[0]);
 		}
@@ -467,6 +469,7 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
 			packageIds: obj.rightsPackageIds
 		});
+		console.log(result);
 		if (!result) return;
 		if (result.code === 0) {
 			this.setData({
@@ -831,24 +834,39 @@ Page({
 		} else if (!e.currentTarget.dataset.isconfirm) {
 			util.showToastNoIcon('请阅读相关协议并勾选同意');
 		} else {
-			util.showToastNoIcon('请支付');
+			// util.showToastNoIcon('请支付');
+			util.go('/pages/default/information_list/information_list?type=1');
 		}
 	},
 	// 获取节点的高度
-	getNodeHeight (num) {
-		console.log(num);
+	async getNodeHeight (num) {
 		let that = this;
 		let nodeHeightList = [];
+		let equityListMap = [];
 		for (let index = 0; index < num; index++) {
 			let allIndex = 'module' + index;
 			wx.createSelectorQuery().select(`.${allIndex}`).boundingClientRect(function (rect) {
-				console.log('节点信息: ',rect);
+				// console.log('节点信息: ',rect);
 				nodeHeightList.push(rect.height);
 				that.setData({
 					nodeHeightList
 				});
 			}).exec();
+			const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
+				packageIds: this.data.listOfPackages[index].rightsPackageIds.length > 1 ? new Array(this.data.listOfPackages[index].rightsPackageIds[0]) : this.data.listOfPackages[index].rightsPackageIds
+			},'POST',false);
+			if (result.code === 0) {
+				let equityObj = {index: index, packageName: result.data[0].packageName,payMoney: result.data[0].payMoney};
+				equityListMap.push(equityObj);
+			} else {
+				// 占位
+				let equityObj = {index: index, packageName: ''};
+				equityListMap.push(equityObj);
+			}
 		}
+		this.setData({
+			equityListMap: equityListMap
+		});
 		wx.getSystemInfo({
 			success: (res) => {
 				let arr = [

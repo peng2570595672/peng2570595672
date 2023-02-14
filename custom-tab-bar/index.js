@@ -9,26 +9,26 @@ Component({
 		list: [{
 				'pagePath': '/pages/Home/Home',
 				'text': '首页',
-				'iconPath': 'https://file.cyzl.com/g001/M00/B5/7C/oYYBAGO9BUuAQSYeAAABmpSmZv4643.png',
-				'selectedIconPath': 'https://file.cyzl.com/g001/M00/B5/7C/oYYBAGO9BUuAQSYeAAABmpSmZv4643.png'
+				'iconPath': 'https://file.cyzl.com/g001/M01/C7/64/oYYBAGPrT8KAUf0zAAAK0gShQtE694.png',
+				'selectedIconPath': 'https://file.cyzl.com/g001/M01/C7/65/oYYBAGPrT-qALbyAAAAMEqUNATM774.png'
 			},
 			{
 				'pagePath': '/pages/etc_handle/etc_handle',
 				'text': 'ETC办理',
-				'iconPath': 'https://file.cyzl.com/g001/M00/B5/7C/oYYBAGO9BUuAQSYeAAABmpSmZv4643.png',
-				'selectedIconPath': 'https://file.cyzl.com/g001/M00/B5/7C/oYYBAGO9BUuAQSYeAAABmpSmZv4643.png'
+				'iconPath': 'https://file.cyzl.com/g001/M01/C7/65/oYYBAGPrUASALSs-AAAL6GWOYSs692.png',
+				'selectedIconPath': 'https://file.cyzl.com/g001/M01/C7/65/oYYBAGPrUBeANJ0PAAANz35xPUQ701.png'
 			},
 			{
 				'pagePath': '/pages/membershipCertificate/membershipCertificate',
 				'text': '会员券',
-				'iconPath': 'https://file.cyzl.com/g001/M00/B5/7C/oYYBAGO9BUuAQSYeAAABmpSmZv4643.png',
-				'selectedIconPath': 'https://file.cyzl.com/g001/M00/B5/7C/oYYBAGO9BUuAQSYeAAABmpSmZv4643.png'
+				'iconPath': 'https://file.cyzl.com/g001/M01/C7/65/oYYBAGPrUCiAFrfGAAAK2PKj_tE701.png',
+				'selectedIconPath': 'https://file.cyzl.com/g001/M01/C7/65/oYYBAGPrUDuAcRN5AAAMBHnGARw079.png'
 			},
 			{
 				'pagePath': '/pages/my/index',
 				'text': '我的',
-				'iconPath': 'https://file.cyzl.com/g001/M00/B5/7C/oYYBAGO9BUuAQSYeAAABmpSmZv4643.png',
-				'selectedIconPath': 'https://file.cyzl.com/g001/M00/B5/7C/oYYBAGO9BUuAQSYeAAABmpSmZv4643.png'
+				'iconPath': 'https://file.cyzl.com/g001/M01/C7/65/oYYBAGPrUFGAe0RkAAAJn-d-Bfc662.png',
+				'selectedIconPath': 'https://file.cyzl.com/g001/M01/C7/65/oYYBAGPrUHaAHqTgAAAKSbNvinE427.png'
 			}
 		],
 		isFade: false,

@@ -55,7 +55,7 @@ Page({
 			if (result.data.length > 0) {
 				// 跳转首页;
 				wx.switchTab({
-					url: '/pages/etc_handle/etc_handle'
+					url: '/pages/Home/Home'
 				});
 				// util.go('/pages/default/index/index');
 			} else {

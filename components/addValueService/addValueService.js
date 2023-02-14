@@ -94,5 +94,6 @@ Component({
 				util.showToastNoIcon(result.message);
 			}
 		}
+
 	}
 });

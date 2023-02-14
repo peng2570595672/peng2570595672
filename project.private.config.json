@@ -97,6 +97,20 @@
 					"query": "type=1",
 					"launchMode": "default",
 					"scene": null
+				},
+				{
+					"name": "4.0上传信息选择页",
+					"pathName": "pages/default/information_list/information_list",
+					"query": "type=1",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "4.0 上传身份证页",
+					"pathName": "pages/default/upload_id_card/upload_id_card",
+					"query": "vehPlates=%E7%90%BCYZX44D&vehColor=0",
+					"launchMode": "default",
+					"scene": null
 				}
 			]
 		}

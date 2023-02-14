@@ -6,6 +6,7 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		topProgressBar: 3,	// 进度条展示的长度 ，再此页面的取值范围 [3,4),默认为3,保留一位小数
 		fenCheck: false,
 		contractStatus: 0,// 1已签约
 		orderInfo: undefined,
@@ -21,7 +22,8 @@ Page({
 		requestNum: 0,
 		isReturn: false,
 		ownerIdCard: {}, // 实名身份信息
-		vehicle: {} // 车辆信息
+		vehicle: {}, // 车辆信息
+		tips: ''	// 审核失败返回的结果
 	},
 	async onLoad (options) {
 		if (options.isModifiedData) {

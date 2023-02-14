@@ -1,8 +1,0 @@
-{
-	"navigationBarTitleText": "选择套餐",
-	"navigationBarBackgroundColor": "#ECECEC",
-	"usingComponents": {
-		"topProgressBar": "/components/topProgressBar/index",
-		"addValueService": "/components/addValueService/addValueService"
-	}
-}

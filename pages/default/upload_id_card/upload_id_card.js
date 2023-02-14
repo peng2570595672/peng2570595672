@@ -8,6 +8,7 @@ const app = getApp();
 let timer;
 Page({
 	data: {
+		topProgressBar: 3,	// 进度条展示的长度 ，再此页面的取值范围 [3,4),默认为3,保留一位小数
 		isShowCodeInput: true,// 是否显示验证码输入框
 		vehPlates: undefined,
 		faceStatus: 1, // 1 未上传  2 识别中  3 识别失败  4识别成功
@@ -134,6 +135,7 @@ Page({
 	},
 	// 校验数据
 	validateData (isToast) {
+		console.log(isToast);
 		if (this.data.faceStatus !== 4 || this.data.backStatus !== 4) {
 			if (isToast) util.showToastNoIcon('请上传身份证！');
 			return false;
@@ -150,28 +152,28 @@ Page({
 			if (isToast) util.showToastNoIcon('身份证号格式不正确！');
 			return false;
 		}
-		if (!this.data.formData.cardMobilePhone) {
-			if (isToast) util.showToastNoIcon('手机号码不能为空！');
-			return false;
-		}
-		if (!/^1[0-9]{10}$/.test(this.data.formData.cardMobilePhone)) {
-			if (isToast) util.showToastNoIcon('手机号码格式不正确！');
-			return false;
-		}
-		// 手机号没有更改不需要重新获取验证码
-		if (this.data.formData.cardMobilePhone !== this.data.orderInfo.ownerIdCard.cardMobilePhone) {
-			this.setData({
-				isShowCodeInput: true
-			});
-			if (!this.data.formData.verifyCode) {
-				if (isToast) util.showToastNoIcon('验证码不能为空！');
-				return false;
-			}
-			if (!/^[0-9]{4}$/.test(this.data.formData.verifyCode)) {
-				if (isToast) util.showToastNoIcon('验证码格式不正确！');
-				return false;
-			}
-		}
+		// if (!this.data.formData.cardMobilePhone) {
+		// 	if (isToast) util.showToastNoIcon('手机号码不能为空！');
+		// 	return false;
+		// }
+		// if (!/^1[0-9]{10}$/.test(this.data.formData.cardMobilePhone)) {
+		// 	if (isToast) util.showToastNoIcon('手机号码格式不正确！');
+		// 	return false;
+		// }
+		// // 手机号没有更改不需要重新获取验证码
+		// if (this.data.formData.cardMobilePhone !== this.data.orderInfo.ownerIdCard.cardMobilePhone) {
+		// 	this.setData({
+		// 		isShowCodeInput: true
+		// 	});
+		// 	if (!this.data.formData.verifyCode) {
+		// 		if (isToast) util.showToastNoIcon('验证码不能为空！');
+		// 		return false;
+		// 	}
+		// 	if (!/^[0-9]{4}$/.test(this.data.formData.verifyCode)) {
+		// 		if (isToast) util.showToastNoIcon('验证码格式不正确！');
+		// 		return false;
+		// 	}
+		// }
 		if (!this.data.idCardBack.ocrObject.validDate || !this.data.idCardFace.ocrObject.address ||
 			!this.data.idCardBack.ocrObject.authority || !this.data.idCardFace.ocrObject.birth ||
 			!this.data.idCardFace.ocrObject.sex) {
@@ -198,7 +200,7 @@ Page({
 		if (this.data.idCardFace.ocrObject.sex === '男') this.data.idCardFace.ocrObject.sex = 1;
 		if (this.data.idCardFace.ocrObject.sex === '女') this.data.idCardFace.ocrObject.sex = 2;
 		// 手机号没有更改不需要重新获取验证码
-		let notVerifyCardPhone = this.data.formData.cardMobilePhone === this.data.orderInfo.ownerIdCard.cardMobilePhone ? 'true' : 'false';
+		// let notVerifyCardPhone = this.data.formData.cardMobilePhone === this.data.orderInfo.ownerIdCard.cardMobilePhone ? 'true' : 'false';
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: '48', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
@@ -269,6 +271,7 @@ Page({
 					res = JSON.parse(res);
 					if (res.code === 0) { // 识别成功
 						app.globalData.handlingOCRType = 0;
+						console.log(res.data);
 						try {
 							if (type === 1) {
 								this.setData({
@@ -278,6 +281,10 @@ Page({
 									idCardFace: res.data[0]
 								});
 								wx.setStorageSync('passenger-car-id-card-face', JSON.stringify(res.data[0]));
+								wx.setNavigationBarColor({
+									backgroundColor: '#ECECEC',
+									frontColor: '#000000'
+								});
 							} else {
 								const endDate = res.data[0].ocrObject.validDate.split('-')[1].split('.').join('/');
 								const isGreaterThanData = util.isGreaterThanData(endDate);// 身份证结束时间
@@ -286,7 +293,7 @@ Page({
 										backStatus: 3,
 										available: false
 									});
-									util.showToastNoIcon('证件已过期');
+									util.showToastNoIcon('证件已过期，请重新上传有效证件,');
 									return;
 								}
 								this.setData({
@@ -294,6 +301,10 @@ Page({
 									idCardBack: res.data[0]
 								});
 								wx.setStorageSync('passenger-car-id-card-back', JSON.stringify(res.data[0]));
+								wx.setNavigationBarColor({
+									backgroundColor: '#ECECEC',
+									frontColor: '#000000'
+								});
 							}
 							this.setData({
 								available: this.validateData(false)
@@ -340,27 +351,28 @@ Page({
 	},
 	// 输入框输入值做处理
 	onInputChangedHandle (e) {
+		console.log(e);
 		let key = e.currentTarget.dataset.key;
-		let formData = this.data.formData;
+		// let formData = this.data.formData;
 		// 手机号
-		if (key === 'cardMobilePhone') {
-			this.setData({
-				mobilePhoneIsOk: /^1[0-9]{10}$/.test(e.detail.value.substring(0, 11))
-			});
-		}
-		if (key === 'cardMobilePhone' && e.detail.value.length > 11) {
-			formData[key] = e.detail.value.substring(0, 11);
-		} else if (key === 'verifyCode' && e.detail.value.length > 4) { // 验证码
-			formData[key] = e.detail.value.substring(0, 4);
-			this.setData({formData});
-		} else if (key === 'verifyCode' || key === 'cardMobilePhone') {
-			formData[key] = e.detail.value;
-			this.setData({formData});
-		} else {
-			this.setData({
-				[`idCardFace.ocrObject.${key}`]: e.detail.value
-			});
-		}
+		// if (key === 'cardMobilePhone') {
+		// 	this.setData({
+		// 		mobilePhoneIsOk: /^1[0-9]{10}$/.test(e.detail.value.substring(0, 11))
+		// 	});
+		// }
+		// if (key === 'cardMobilePhone' && e.detail.value.length > 11) {
+		// 	formData[key] = e.detail.value.substring(0, 11);
+		// } else if (key === 'verifyCode' && e.detail.value.length > 4) { // 验证码
+		// 	formData[key] = e.detail.value.substring(0, 4);
+		// 	this.setData({formData});
+		// } else if (key === 'verifyCode' || key === 'cardMobilePhone') {
+		// 	formData[key] = e.detail.value;
+		// 	this.setData({formData});
+		// } else {
+		// 	this.setData({
+		// 		[`idCardFace.ocrObject.${key}`]: e.detail.value
+		// 	});
+		// }
 		this.setData({
 			available: this.validateData(false)
 		});

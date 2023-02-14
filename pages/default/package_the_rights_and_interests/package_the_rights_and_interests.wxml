@@ -13,7 +13,7 @@
             </view>
             <!-- 默认展示的套餐上半部分 -->
             <view class="upperPart {{tools.dataLen(item.rightsPackageIds) > 0 || item.isSignTtCoupon ? '' : 'subUpperPart'}}">
-                <!-- 背景图 -->
+                <!-- 背景logo -->
                 <view class="bgImg">
                     <image src="{{item.productLogo}}" />
                 </view>
@@ -40,7 +40,7 @@
                 <view class="description" wx:if="{{tools.dataLen(basicServiceList) > 0}}">
                     <view class="descriptionModule" wx:for="{{basicServiceList}}" wx:key="index1">
                         <view class="ico">
-                            <image class="image" src="{{item.ico}}" />
+                            <!-- <image class="image" src="{{item.ico}}" /> -->
                         </view>
                         <view class="title">{{item.title}}</view>
                     </view>
@@ -51,7 +51,7 @@
                 <view class="titleDetails">
                     <view class="titles">
                         <view class="iconfont {{item.isSignTtCoupon ? 'isSignTtCoupon' : 'icon'}}"></view>
-                        <view class="text">{{item.isSignTtCoupon ? 'ETC*通通券联名会员权益' : item.pageName}}</view>
+                        <view class="text">{{item.isSignTtCoupon ? 'ETC*通通券联名会员权益' : equityListMap[index].packageName}}</view>
                     </view>
                     <view class="details" catchtap="btnOpenOrOff" data-index="{{[index,isCloseUpperPart,activeIndex]}}">
                         {{ index === activeIndex ? isCloseUpperPart1 ? '收起' : '展开' : isCloseUpperPart2 && index === isCloseUpperPart ? '收起' : '展开'}}
@@ -88,6 +88,7 @@
                 里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。
             </view>
         </view>
+
         <view class="moneyPay {{isFade ? 'confirmPackage' : ''}}">
             <view class="money" wx:if="{{isFade}}">
                 ￥<span class="mpneySpan">
