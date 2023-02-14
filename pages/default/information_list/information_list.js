@@ -189,10 +189,10 @@ Page({
 	},
 	// ETC申办审核结果通知、ETC发货提示
 	subscribe () {
-		if (this.data.orderInfo && this.data.orderInfo?.isOwner === 1 && this.data.orderInfo?.isVehicle === 1 && this.data.ownerIdCard?.ownerIdCardTrueName !== this.data.vehicle?.owner) {
-			util.showToastNoIcon('身份证与行驶证必须为同一持有人');
-			return;
-		}
+		// if (this.data.orderInfo && this.data.orderInfo?.isOwner === 1 && this.data.orderInfo?.isVehicle === 1 && this.data.ownerIdCard?.ownerIdCardTrueName !== this.data.vehicle?.owner) {
+		// 	util.showToastNoIcon('身份证与行驶证必须为同一持有人');
+		// 	return;
+		// }
 		if (!this.data.available) return;
 		// 判断版本，兼容处理
 		let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
