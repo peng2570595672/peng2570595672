@@ -59,7 +59,7 @@
 				{
 					"name": "",
 					"pathName": "pages/default/receiving_address/receiving_address",
-					"query": "shopId=1072188767418851328&enterType=23&productId=1072189794897371136",
+					"query": "shopId=1072188767418851328&enterType=24",
 					"launchMode": "default",
 					"scene": null
 				},

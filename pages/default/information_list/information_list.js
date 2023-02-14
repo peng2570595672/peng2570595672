@@ -158,13 +158,13 @@ Page({
 		}
 	},
 	availableCheck () {
-		if (this.data.orderInfo && this.data.orderInfo.isOwner === 1 && this.data.orderInfo.isVehicle === 1 && this.data.ownerIdCard?.ownerIdCardTrueName !== this.data.vehicle?.owner) {
-			util.showToastNoIcon('身份证与行驶证必须为同一持有人');
-			this.setData({
-				available: false
-			});
-			return false;
-		}
+		// if (this.data.orderInfo && this.data.orderInfo.isOwner === 1 && this.data.orderInfo.isVehicle === 1 && this.data.ownerIdCard?.ownerIdCardTrueName !== this.data.vehicle?.owner) {
+		// 	util.showToastNoIcon('身份证与行驶证必须为同一持有人');
+		// 	this.setData({
+		// 		available: false
+		// 	});
+		// 	return false;
+		// }
 		if (this.data.orderInfo && this.data.orderInfo.isOwner === 1 && this.data.orderInfo.isVehicle === 1 && ((this.data.orderInfo.isHeadstock === 1 && this.data.orderInfo.obuCardType !== 1) || (this.data.orderInfo.obuCardType === 1))) {
 			this.setData({
 				available: true

@@ -44,7 +44,7 @@ Page({
                         });
                         console.log(res);
                         if (res.errMsg === 'requestPayment:ok') {
-                            const url = `https://${app.globalData.test ? 'etctest' : 'etc'}.cyzl.com/${app.globalData.test ? 'etc2-html' : 'wetc'}/etc_life_rights_and_interests/index.html#/pay_success?auth=${app.globalData.userInfo.accessToken}`;
+                            const url = `https://${app.globalData.test ? 'etctest' : 'etc'}.cyzl.com/${app.globalData.test ? 'etc2-html' : 'wetc'}/equity_mall/index.html#/pay_success?auth=${app.globalData.userInfo.accessToken}`;
                             util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
                         } else {
                             util.showToastNoIcon('支付失败！');
