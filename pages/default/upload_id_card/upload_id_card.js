@@ -9,7 +9,6 @@ let timer;
 Page({
 	data: {
 		topProgressBar: 3,	// 进度条展示的长度 ，再此页面的取值范围 [3,4),默认为3,保留一位小数
-		isShowCodeInput: true,// 是否显示验证码输入框
 		vehPlates: undefined,
 		faceStatus: 1, // 1 未上传  2 识别中  3 识别失败  4识别成功
 		backStatus: 1, // 1 未上传  2 识别中  3 识别失败  4识别成功
@@ -24,13 +23,11 @@ Page({
 		idCardBack: {
 			ocrObject: {}
 		},// 身份证反面
-		formData: {
-			cardMobilePhone: '', // 电话号码
-			verifyCode: '' // 验证码
-		}, // 提交数据
-		identifyingCode: '获取验证码',
-		time: 59,// 倒计时
-		isGetIdentifyingCoding: false // 获取验证码中
+		tipObj: {// 提示弹窗组件的标题和内容
+			type: 'one',
+			title: '中国ETC',
+			content: '若用户信息查询通过，接着调用车牌唯一性校验接口，校验通过则保存信息返回上传证件页。'
+		}
 	},
 	async onLoad (options) {
 		this.setData({
@@ -46,15 +43,24 @@ Page({
 		if (path) {
 			wx.removeStorageSync('passenger-car-1');
 			if (app.globalData.handlingOCRType) this.uploadOcrFile(path);
+			this.setData({
+				topProgressBar: this.data.idCardBack.fileUrl ? 3.4 : 3.2
+			});
 		}
+		console.log(path);
+
 		// 身份证反面
 		path = wx.getStorageSync('passenger-car-2');
 		if (path) {
 			wx.removeStorageSync('passenger-car-2');
 			if (app.globalData.handlingOCRType) this.uploadOcrFile(path);
+			this.setData({
+				topProgressBar: this.data.idCardFace.fileUrl ? 3.4 : 3.2
+			});
 		}
 		if (!app.globalData.handlingOCRType) {
 			// 没通过上传
+			console.log('dddddd');
 			let idCardFace = wx.getStorageSync('passenger-car-id-card-face');
 			if (idCardFace) {
 				idCardFace = JSON.parse(idCardFace);
@@ -65,7 +71,8 @@ Page({
 					idCardFace
 				});
 				this.setData({
-					available: this.validateData(false)
+					available: this.validateData(false),
+					topProgressBar: this.data.idCardBack.fileUrl ? 3.4 : 3.2
 				});
 			}
 			let idCardBack = wx.getStorageSync('passenger-car-id-card-back');
@@ -76,7 +83,8 @@ Page({
 					idCardBack
 				});
 				this.setData({
-					available: this.validateData(false)
+					available: this.validateData(false),
+					topProgressBar: this.data.idCardFace.fileUrl ? 3.4 : 3.2
 				});
 			}
 		}
@@ -95,13 +103,6 @@ Page({
 			});
 			// 获取实名信息
 			let temp = this.data.orderInfo?.ownerIdCard;
-			if (this.data.orderInfo?.ownerIdCard?.cardMobilePhone) {
-				this.data.formData.cardMobilePhone = this.data.orderInfo.ownerIdCard.cardMobilePhone;
-				this.setData({
-					mobilePhoneIsOk: true,
-					formData: this.data.formData
-				});
-			}
 			if (temp?.ownerIdCardTrueName) {
 				let idCardBack = {ocrObject: {}};
 				let idCardFace = {ocrObject: {}};
@@ -135,7 +136,6 @@ Page({
 	},
 	// 校验数据
 	validateData (isToast) {
-		console.log(isToast);
 		if (this.data.faceStatus !== 4 || this.data.backStatus !== 4) {
 			if (isToast) util.showToastNoIcon('请上传身份证！');
 			return false;
@@ -152,28 +152,6 @@ Page({
 			if (isToast) util.showToastNoIcon('身份证号格式不正确！');
 			return false;
 		}
-		// if (!this.data.formData.cardMobilePhone) {
-		// 	if (isToast) util.showToastNoIcon('手机号码不能为空！');
-		// 	return false;
-		// }
-		// if (!/^1[0-9]{10}$/.test(this.data.formData.cardMobilePhone)) {
-		// 	if (isToast) util.showToastNoIcon('手机号码格式不正确！');
-		// 	return false;
-		// }
-		// // 手机号没有更改不需要重新获取验证码
-		// if (this.data.formData.cardMobilePhone !== this.data.orderInfo.ownerIdCard.cardMobilePhone) {
-		// 	this.setData({
-		// 		isShowCodeInput: true
-		// 	});
-		// 	if (!this.data.formData.verifyCode) {
-		// 		if (isToast) util.showToastNoIcon('验证码不能为空！');
-		// 		return false;
-		// 	}
-		// 	if (!/^[0-9]{4}$/.test(this.data.formData.verifyCode)) {
-		// 		if (isToast) util.showToastNoIcon('验证码格式不正确！');
-		// 		return false;
-		// 	}
-		// }
 		if (!this.data.idCardBack.ocrObject.validDate || !this.data.idCardFace.ocrObject.address ||
 			!this.data.idCardBack.ocrObject.authority || !this.data.idCardFace.ocrObject.birth ||
 			!this.data.idCardFace.ocrObject.sex) {
@@ -226,10 +204,7 @@ Page({
 			ownerIdCardBirth: this.data.idCardFace.ocrObject.birth, // 出生日期 【dataType包含8】
 			ownerIdCardHaveChange: haveChange, // 车主身份证OCR结果是否被修改过，默认false，修改过传true 【dataType包含8}】
 			ownerIdCardValidDate: this.data.idCardBack.ocrObject.validDate,
-			ownerIdCardAddress: this.data.idCardFace.ocrObject.address,
-			cardMobilePhone: this.data.formData.cardMobilePhone, // 车主实名手机号
-			cardPhoneCode: this.data.formData.verifyCode, // 手机号验证码
-			notVerifyCardPhone: notVerifyCardPhone // true 时不需要验证码
+			ownerIdCardAddress: this.data.idCardFace.ocrObject.address
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		this.setData({
@@ -237,14 +212,19 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			const pages = getCurrentPages();
-			const prevPage = pages[pages.length - 2];// 上一个页面
-			prevPage.setData({
-				isChangeIdCard: true // 重置状态
-			});
-			wx.navigateBack({
-				delta: 1
-			});
+			console.log(result.data);
+			if (this.userCarCheck(result.data)) {
+				return true;
+			}
+
+			// const pages = getCurrentPages();
+			// const prevPage = pages[pages.length - 2];// 上一个页面
+			// prevPage.setData({
+			// 	isChangeIdCard: true // 重置状态
+			// });
+			// wx.navigateBack({
+			// 	delta: 1
+			// });
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -351,83 +331,44 @@ Page({
 	},
 	// 输入框输入值做处理
 	onInputChangedHandle (e) {
-		console.log(e);
 		let key = e.currentTarget.dataset.key;
-		// let formData = this.data.formData;
-		// 手机号
-		// if (key === 'cardMobilePhone') {
-		// 	this.setData({
-		// 		mobilePhoneIsOk: /^1[0-9]{10}$/.test(e.detail.value.substring(0, 11))
-		// 	});
-		// }
-		// if (key === 'cardMobilePhone' && e.detail.value.length > 11) {
-		// 	formData[key] = e.detail.value.substring(0, 11);
-		// } else if (key === 'verifyCode' && e.detail.value.length > 4) { // 验证码
-		// 	formData[key] = e.detail.value.substring(0, 4);
-		// 	this.setData({formData});
-		// } else if (key === 'verifyCode' || key === 'cardMobilePhone') {
-		// 	formData[key] = e.detail.value;
-		// 	this.setData({formData});
-		// } else {
-		// 	this.setData({
-		// 		[`idCardFace.ocrObject.${key}`]: e.detail.value
-		// 	});
-		// }
-		this.setData({
-			available: this.validateData(false)
-		});
-	},
-	// 倒计时
-	startTimer () {
-		// 设置状态
-		this.setData({
-			identifyingCode: `${this.data.time}s`
-		});
-		// 清倒计时
-		clearInterval(timer);
-		timer = setInterval(() => {
-			this.setData({time: --this.data.time});
-			if (this.data.time === 0) {
-				clearInterval(timer);
-				this.setData({
-					time: 59,
-					isGetIdentifyingCoding: false,
-					identifyingCode: '重新获取'
-				});
-			} else {
-				this.setData({
-					identifyingCode: `${this.data.time}s`
-				});
-			}
-		}, 1000);
-	},
-	// 发送短信验证码
-	async sendVerifyCode () {
-		if (this.data.isGetIdentifyingCoding) return;
-		// 如果在倒计时，直接不处理
-		if (!this.data.formData.cardMobilePhone) {
-			util.showToastNoIcon('请输入手机号');
-			return;
-		} else if (!/^1[0-9]{10}$/.test(this.data.formData.cardMobilePhone)) {
-			util.showToastNoIcon('手机号输入不合法');
-			return;
+		let value = e.detail.value;
+		if (key === 'name') {
+			this.setData({
+				'idCardFace.ocrObject.name': value
+			});
+			this.fangDou('',1000);
+		} else if (key === 'idNumber') {
+			this.setData({
+				'idCardFace.ocrObject.idNumber': value
+			});
+			this.fangDou('',2000);
 		}
-		this.setData({
-			isGetIdentifyingCoding: true
+	},
+	fangDou (fn, time) {
+		let that = this;
+		return (function () {
+			if (that.data.timeout) {
+				clearTimeout(that.data.timeout);
+			}
+			that.data.timeout = setTimeout(() => {
+				that.setData({
+					available: that.validateData(true)
+				});
+			}, time);
+		})();
+	},
+	// 用户信息查询 + 车牌唯一性校验
+	async userCarCheck (obj) {
+		const result = await util.getDataFromServersV2('consumer/etc/qtzl/queryUserAndCheckPlate', {
+			orderId: obj.orderId
 		});
-		util.showLoading({
-			title: '请求中...'
-		});
-		const result = await util.getDataFromServersV2('consumer/order/send-receive-phone-verification-code', {
-			receivePhone: this.data.formData.cardMobilePhone + '' // 手机号
-		}, 'GET');
+		console.log(result);
 		if (!result) return;
 		if (result.code === 0) {
-			this.startTimer();
+			return false;
 		} else {
-			this.setData({
-				isGetIdentifyingCoding: false
-			});
+			// this.selectComponent('#popTipComp').show();
 			util.showToastNoIcon(result.message);
 		}
 	}

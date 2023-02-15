@@ -21,7 +21,7 @@ Page({
 			mobilePhone: app.globalData.mobilePhone
 		});
 	},
-
+	// 获取头像和昵称
 	getUserProfile () {
 		var that = this;
 		wx.showModal({
@@ -42,7 +42,7 @@ Page({
 							wx.setStorageSync('userInfoStorageTime', setNowTime);
 						},
 						fail: function (err) {
-							console.log(err);
+							util.showToastNoIcon(err);
 						}
 					});
 				}
@@ -70,9 +70,10 @@ Page({
 
 	// 测试是否Vip的变化
 	btnChange () {
-		this.setData({
-			isVip: !this.data.isVip
-		});
+		// this.setData({
+		// 	isVip: !this.data.isVip
+		// });
+		util.go(`/pages/personal_center/personal_information/personal_information?isVip=${this.data.isVip}`);
 	},
 
 	onUnload () {

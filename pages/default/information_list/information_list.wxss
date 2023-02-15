@@ -60,13 +60,6 @@
   font-family: PingFangSC-Semibold, PingFang SC;
 }
 
-.index .module .left.success::after {
-  content: '\e669';
-  font-size: 37rpx;
-  color: #07c160;
-  margin-left: 16rpx;
-}
-
 .index .module .left.error::after {
   content: '\e66a';
   font-size: 37rpx;
@@ -92,6 +85,25 @@
   color: #ffffff;
   background: #F19C38;
 }
+
+.index .module .icon {
+  width: 152rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  margin-right: 36rpx;
+  justify-content: center;
+}
+
+.index .module .success::before {
+  content: '\e669';
+  font-size: 37rpx;
+  color: #07c160;
+  font-weight: 600;
+  margin-left: 16rpx;
+}
+
+
 
 .index .tips {
   font-size: 30rpx;

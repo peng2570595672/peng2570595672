@@ -1,0 +1,19 @@
+<view>
+    <view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}"></view>
+    <view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}" wx:if="{{mask}}">
+        <view class="module moduleOne" wx:if="{{tipObj.type === 'one'}}">
+            <view class="title">{{tipObj.title}}</view>
+            <view class="contant">{{tipObj.content}}</view>
+            <button class="btn" catchtap="hide">确定</button>
+            <view class="close iconfont" catchtap="hide"></view>
+        </view>
+        <view class="module moduleTwo" wx:if="{{tipObj.type === 'two'}}">
+            <view class="title">{{tipObj.title}}</view>
+            <view class="contant">{{tipObj.content}}</view>
+            <view class="bottomBtn">
+                <button class="cancel" catchtap="hide">取消</button>
+                <button class="ok" catchtap="hide">确定</button>
+            </view>
+        </view>
+    </view>
+</view>

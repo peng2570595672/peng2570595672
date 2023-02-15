@@ -120,7 +120,8 @@
 				"coupon_redemption_history/coupon_redemption_history",
 				"service_purchase_record/service_purchase_record",
 				"user_agreement/user_agreement",
-				"order_questions/order_questions"
+				"order_questions/order_questions",
+				"personal_information/personal_information"
 			]
 		},
 		{

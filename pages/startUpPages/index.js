@@ -65,6 +65,9 @@ Page({
 			// 查询是否欠款
 			// await util.getIsArrearage();
 		} else {
+			wx.switchTab({
+				url: '/pages/my/index'
+			});
 			util.showToastNoIcon(result.message);
 		}
 	},

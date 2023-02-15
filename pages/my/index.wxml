@@ -11,7 +11,7 @@
                     {{isVip ? 'ETC+PLUS': 'ETC+'}}
                     <text>{{mobilePhone}}</text>
                 </view>
-                <view class="iconfont viewEquity">查看权益</view>
+                <view class="iconfont viewEquity" catchtap="">查看权益</view>
             </view>
         </view>
     </view>

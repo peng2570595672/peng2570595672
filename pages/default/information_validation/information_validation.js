@@ -6,6 +6,7 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		topProgressBar: 3,	// 进度条展示的长度 ，再此页面的取值范围 [3,4),默认为3,保留一位小数
 		faceStatus: 1, // 1 未上传  2 识别中  3 识别失败  4识别成功
 		backStatus: 1, // 1 未上传  2 识别中  3 识别失败  4识别成功
 		personIndex: 0, // 选择框当前选中索引

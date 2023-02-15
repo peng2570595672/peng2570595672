@@ -111,6 +111,13 @@
 					"query": "vehPlates=%E7%90%BCYZX44D&vehColor=0",
 					"launchMode": "default",
 					"scene": null
+				},
+				{
+					"name": "4.0 上传行驶证",
+					"pathName": "pages/default/information_validation/information_validation",
+					"query": "vehPlates=%E9%84%82DF6666&vehColor=0",
+					"launchMode": "default",
+					"scene": null
 				}
 			]
 		}
