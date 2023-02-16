@@ -92,7 +92,7 @@
     <view class="split" />
     <!-- 底部悬浮按钮   立即办理 -->
     <view class="floatButton">
-        <view class="handleImmediately {{available ? 'btn':''}}" catchtap="next">立即办理</view>
+        <view class="handleImmediately {{available ? 'btn':''}}" catchtap="validateCar">立即办理</view>
     </view>
     <!-- 拉起键盘 -->
 	<keyboard id="keyboard" index="{{currentIndex}}" show="{{showKeyboard}}" bind:valueChange="valueChange" myCar="{{carNo}}"></keyboard>

@@ -60,6 +60,14 @@
   font-family: PingFangSC-Semibold, PingFang SC;
 }
 
+.index .module .left.success::after {
+  content: '\e669';
+  font-size: 37rpx;
+  color: #07c160;
+  font-weight: 600;
+  margin-left: 16rpx;
+}
+
 .index .module .left.error::after {
   content: '\e66a';
   font-size: 37rpx;
@@ -95,7 +103,7 @@
   justify-content: center;
 }
 
-.index .module .success::before {
+.index .module .successs::before {
   content: '\e669';
   font-size: 37rpx;
   color: #07c160;
@@ -141,7 +149,7 @@
 }
 
 .index .bottomBtn .available {
-  background: linear-gradient(45deg, #14ac69 0%, #84d157 100%);
+  background: #2A4F44;
   animation: btnFadeIn 0.3s;
   animation-fill-mode: forwards;
 }

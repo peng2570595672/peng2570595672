@@ -5,11 +5,11 @@
     </view>
     <view class="module moduleOne">
         <view class="left iconfont {{isIdCardError ? 'error' : ''}}">车主身份证</view>
-        <view wx:if="{{ orderDetails.orderType !== 61 && orderInfo.isOwner !== 1 }}" class="btn {{orderInfo.isOwner === 1 ? 'edit': ''}}"
+        <view wx:if="{{ orderDetails.orderType !== 61 }}" class="btn {{orderInfo.isOwner === 1 ? 'edit': ''}}"
               catchtap="go" data-url="upload_id_card">
             {{orderInfo.isOwner === 1 ? '修改' : '上传'}}
         </view>
-        <view wx:else class="icon {{orderInfo.isOwner === 1 ? 'success' : ''}} iconfont"></view>
+        <!-- <view wx:else class="icon {{orderInfo.isOwner === 1 ? 'successs' : ''}} iconfont"></view> -->
     </view>
     <view class="module moduleTwo">
         <view class="left iconfont {{orderInfo.isVehicle === 1 ? 'success' : ''}} {{isDrivingLicenseError ? 'error' : ''}}">车辆行驶证</view>

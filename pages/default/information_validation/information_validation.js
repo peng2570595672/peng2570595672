@@ -27,7 +27,12 @@ Page({
 		}, // 行驶证正面 原始数据,用于与新数据比对(秒审)
 		oldDrivingLicenseBack: {
 			ocrObject: {}
-		} // 行驶证反面 原始数据,用于与新数据比对(秒审)
+		}, // 行驶证反面 原始数据,用于与新数据比对(秒审)
+		tipObj: {// 提示弹窗组件的标题和内容
+			type: 'two',
+			title: '提示',
+			content: '若此时返回上级页面则已上传图片将清空，请确认是否返回！'
+		}
 	},
 	async onLoad (options) {
 		this.setData({
@@ -37,6 +42,7 @@ Page({
 		await this.getOrderInfo();
 		// 查询是否欠款
 		await util.getIsArrearage();
+		// this.selectComponent('#popTipComp').show();
 	},
 	onShow () {
 		// 行驶证正面
@@ -77,6 +83,12 @@ Page({
 					available: this.validateData(false)
 				});
 			}
+		}
+		if (this.data.faceStatus === 4 || this.data.backStatus === 4) {
+			wx.setNavigationBarColor({
+				backgroundColor: '#ECECEC',
+				frontColor: '#000000'
+			});
 		}
 	},
 	// 上传图片
@@ -170,6 +182,12 @@ Page({
 						this.setData({
 							available: this.validateData(false)
 						});
+						if (this.data.faceStatus === 4 || this.data.backStatus === 4) {
+							wx.setNavigationBarColor({
+								backgroundColor: '#ECECEC',
+								frontColor: '#000000'
+							});
+						}
 					} else { // 识别失败
 						if (type === 3) {
 							this.setData({faceStatus: 3});
@@ -213,6 +231,10 @@ Page({
 			if (isToast) util.showToastNoIcon('请上传行驶证！');
 			return false;
 		}
+		if (!this.data.drivingLicenseFace.ocrObject.owner) {
+			if (isToast) util.showToastNoIcon('车辆所有人不能为空！');
+			return false;
+		}
 		if (!this.data.drivingLicenseFace.ocrObject.numberPlates || !this.data.drivingLicenseBack.ocrObject.numberPlates) {
 			if (isToast) util.showToastNoIcon('车牌号不能为空！');
 			return false;
@@ -221,24 +243,48 @@ Page({
 			if (isToast) util.showToastNoIcon(`行驶证车牌与${this.data.vehPlates}不一致，请重新上传`);
 			return false;
 		}
-		if (!this.data.drivingLicenseFace.ocrObject.owner) {
-			if (isToast) util.showToastNoIcon('车辆所有人不能为空！');
-			return false;
-		}
-		if (!this.data.drivingLicenseFace.ocrObject.vehicleType) {
-			if (isToast) util.showToastNoIcon('车辆类型不能为空！');
+		if (!this.data.drivingLicenseFace.ocrObject.engineNo) {
+			if (isToast) util.showToastNoIcon('发动机号不能为空！');
 			return false;
 		}
 		if (!this.data.drivingLicenseFace.ocrObject.vin) {
 			if (isToast) util.showToastNoIcon('车辆识别代号不能为空！');
 			return false;
 		}
-		if (!this.data.drivingLicenseBack.ocrObject.personsCapacity) {
-			if (isToast) util.showToastNoIcon('车辆核载人数不能为空！');
+		if (!this.data.drivingLicenseFace.ocrObject.vehicleType) {
+			if (isToast) util.showToastNoIcon('车辆类型不能为空！');
 			return false;
 		}
-		if (!this.data.drivingLicenseBack.ocrObject.size) {
-			if (isToast) util.showToastNoIcon('车辆尺寸不能为空！');
+		if (!this.checkVehicleType(this.data.drivingLicenseFace.ocrObject.vehicleType)) {
+			if (isToast) util.showToastNoIcon('车辆类型不符，请检查无误重新上传！');
+			return false;
+		}
+		if (!this.data.drivingLicenseFace.ocrObject.address) {
+			if (isToast) util.showToastNoIcon('地址不能为空！');
+			return false;
+		}
+		if (!this.data.drivingLicenseFace.ocrObject.useCharacter) {
+			if (isToast) util.showToastNoIcon('使用性质不能为空！');
+			return false;
+		}
+		if (!this.data.drivingLicenseFace.ocrObject.model) {
+			if (isToast) util.showToastNoIcon('品牌型号不能为空！');
+			return false;
+		}
+		if (!this.data.drivingLicenseFace.ocrObject.resgisterDate) {
+			if (isToast) util.showToastNoIcon('注册日期不能为空！');
+			return false;
+		}
+		if (!this.data.drivingLicenseFace.ocrObject.issueDate) {
+			if (isToast) util.showToastNoIcon('发证日期不能为空！');
+			return false;
+		}
+		if (!this.data.drivingLicenseBack.ocrObject.fileNumber) {
+			if (isToast) util.showToastNoIcon('档案编号不能为空！');
+			return false;
+		}
+		if (!this.data.drivingLicenseBack.ocrObject.personsCapacity) {
+			if (isToast) util.showToastNoIcon('车辆核载人数不能为空！');
 			return false;
 		}
 		if (!this.data.drivingLicenseBack.ocrObject.totalMass) {
@@ -249,6 +295,19 @@ Page({
 			if (isToast) util.showToastNoIcon('车辆整备质量不能为空！');
 			return false;
 		}
+		if (!this.data.drivingLicenseBack.ocrObject.size) {
+			if (isToast) util.showToastNoIcon('车辆尺寸不能为空！');
+			return false;
+		}
+		if (!this.data.drivingLicenseBack.ocrObject.remark) {
+			if (isToast) util.showToastNoIcon('车辆备注不能为空！');
+			return false;
+		}
+		if (!this.data.drivingLicenseBack.ocrObject.recode) {
+			if (isToast) util.showToastNoIcon('车辆检验记录不能为空！');
+			return false;
+		}
+
 		return true;
 	},
 	// 选择图片
@@ -296,6 +355,10 @@ Page({
 				});
 				this.setData({
 					available: this.validateData(false)
+				});
+				wx.setNavigationBarColor({
+					backgroundColor: '#ECECEC',
+					frontColor: '#000000'
 				});
 				wx.setStorageSync('passenger-car-driving-license-face', JSON.stringify(this.data.drivingLicenseFace));
 				wx.setStorageSync('passenger-car-driving-license-back', JSON.stringify(this.data.drivingLicenseBack));
@@ -364,8 +427,10 @@ Page({
 				curbWeight: this.determineTheWeight(back.curbWeight), // 整备质量 【dataType包含6】
 				size: back.size, // 外廓尺寸 【dataType包含6】
 				tractionMass: this.determineTheWeight(back.tractionMass), // 准牵引总质量 【dataType包含6】
-				recode: back.recode // 检验记录 【dataType包含6】
+				recode: back.recode, // 检验记录 【dataType包含6】
+				remark: back.remark	// 备注
 			}
+
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		this.setData({
@@ -374,14 +439,7 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			const pages = getCurrentPages();
-			const prevPage = pages[pages.length - 2];// 上一个页面
-			prevPage.setData({
-				isChangeDrivingLicenseError: true // 重置状态
-			});
-			wx.navigateBack({
-				delta: 1
-			});
+			this.brandChargingModel(result.data);
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -418,7 +476,7 @@ Page({
 			drivingLicenseBack
 		});
 		this.setData({
-			available: this.validateData(false)
+			available: this.validateData(true)
 		});
 	},
 	// 选择注册日期
@@ -449,5 +507,26 @@ Page({
 		this.setData({
 			drivingLicenseBack
 		});
+	},
+	// 车辆品牌收费车型校验
+	async brandChargingModel (obj) {
+		const result = await util.getDataFromServersV2('consumer/etc/qtzl/checkCarChargeType', {
+			orderId: obj.orderId
+		});
+		console.log(result);
+		if (!result) return;
+		if (result.code === 0) {
+			// const pages = getCurrentPages();
+			// const prevPage = pages[pages.length - 2];// 上一个页面
+			// prevPage.setData({
+			// 	isChangeDrivingLicenseError: true // 重置状态
+			// });
+			// wx.navigateBack({
+			// 	delta: 1
+			// });
+		} else {
+			return util.showToastNoIcon(result.message);
+		}
 	}
+
 });

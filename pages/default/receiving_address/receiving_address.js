@@ -122,12 +122,6 @@ Page({
 	},
 	// 下一步
 	async next () {
-		this.setData({
-			available: this.validateAvailable(true)
-		});
-		if (!this.data.available || this.data.isRequest) {
-			return;
-		}
 		// 统计点击事件
 		wx.uma.trackEvent('receiving_address_next');
 		this.setData({
@@ -254,6 +248,7 @@ Page({
 				params['areaCode'] = regionCode[0];
 			}
 		}
+
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		if (!result) return;
 		this.setData({
@@ -578,9 +573,7 @@ Page({
 		this.setData({
 			formData
 		});
-		this.setData({
-			available: this.validateAvailable()
-		});
+		this.validateNew(e);
 	},
 	// 校验字段是否满足
 	validateAvailable (checkLicensePlate) {
@@ -628,7 +621,8 @@ Page({
 	// etc4.0：新增-拉起微信授权手机号
 	getWchatPhoneNumber (e) {
 		if (e.detail.errMsg === 'getPhoneNumber:ok') {	// 同意授权
-			if (this.data.loginInfo.needBindingPhone === 0) {	// 判断是否绑定过手机号
+			console.log(app.globalData.userInfo);
+			if (app.globalData.userInfo.needBindingPhone === 0) {	// 判断是否绑定过手机号
 				this.setData({
 					operatorPhoneNumber: app.globalData.mobilePhone,
 					available: this.validateAvailable(true)
@@ -667,14 +661,14 @@ Page({
 			} else {
 				if (name === 'operator') {
 					this.setData({
-						tip1: tip,
-						available: this.validateAvailable(true)
+						tip1: tip
 					});
+					this.fangDou('',1500);
 				} else {
 					this.setData({
-						tip3: tip,
-						available: this.validateAvailable(true)
+						tip3: tip
 					});
+					this.fangDou('',1500);
 				}
 			}
 		}
@@ -699,7 +693,42 @@ Page({
 				this.setData({
 					tip2: tip2
 				});
+				this.fangDou('',1500);
 			}
+		}
+	},
+	fangDou (fn, time) {
+		let that = this;
+		return (function () {
+			if (that.data.timeout) {
+				clearTimeout(that.data.timeout);
+			}
+			that.data.timeout = setTimeout(() => {
+				that.setData({
+					available: that.validateAvailable(true)
+				});
+			}, time);
+		})();
+	},
+	// 传车牌及车牌颜色校验是否已有黔通订单
+	async validateCar () {
+		this.setData({
+			available: this.validateAvailable(true)
+		});
+		if (!this.data.available || this.data.isRequest) {
+			return;
+		}
+		let formData = this.data.formData; // 输入信息
+		const res = await util.getDataFromServersV2('consumer/etc/qtzl/checkVehPlateExists', {
+			vehiclePlate: this.data.carNoStr,
+			vehicleColor: formData.currentCarNoColor === 1 ? 4 : 0 // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】,
+		},'POST',false);
+		console.log('车牌颜色L:L:',res);
+		if (!res) return;
+		if (res.code === 0) {
+			this.next();
+		} else {
+			return util.showToastNoIcon(res.message);
 		}
 	},
 	// 点击添加新能源

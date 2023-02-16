@@ -41,20 +41,6 @@ Page({
 				statisticsEvent: 'index_my_order'
 			},
 			{
-				title: '在线客服',
-				ico: 'server',
-				url: 'online_customer_service',
-				isShow: true,
-				statisticsEvent: 'index_server'
-			},
-			// {
-			// 	title: '优惠加油',
-			// 	ico: 'icontaocan-jiayou',
-			// 	url: 'preferential_refueling',
-			// 	isShow: true,
-			// 	statisticsEvent: 'index_oil'
-			// },
-			{
 				title: '个人中心',
 				ico: 'personal-center',
 				url: 'index',
@@ -126,21 +112,28 @@ Page({
 		timeout: null,
 		date: null,
 		// 版本4.0 所需数据
-		imgList: ['https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png', 'https://file.cyzl.com/g001/M07/B6/F4/oYYBAGO-ebuALxEMAAF_Efyf1k0965.jpg'],
-		moduleOneList: [{
+		imgList: ['https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png', 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png'],
+		moduleOneList: [{	// 账单查询 通行发票 权益商城
 				icon: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',
 				title: '账单查询',
-				btn: '最近通行的记录'
+				btn: '最近通行的记录',
+				isShow: true,
+				url: 'invoice',
+				statisticsEvent: 'index_invoice'
 			},
 			{
-				icon: '',
+				icon: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',
 				title: '通行发票',
-				btn: '开高速路费发票'
+				btn: '开高速路费发票',
+				url: 'invoice',
+				statisticsEvent: 'index_invoice'
 			},
 			{
-				icon: '',
+				icon: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',
 				title: '权益商城',
-				btn: '免税商品上线'
+				btn: '免税商品上线',
+				url: 'invoice',
+				statisticsEvent: 'index_invoice'
 			}
 		],
 		moduleTwoList: [],	// 出行贴心服务
@@ -160,7 +153,7 @@ Page({
 		this.login();
 
 		console.log('--------------------------------------------');
-		this.testBanner();
+		this.getBanner();
 	},
 	async onShow () {
 		util.customTabbar(this, 0);
@@ -224,12 +217,11 @@ Page({
 		util.go('/pages/default/index/index');
 	},
 	// 获取 “出行贴心服务” banner
-	async testBanner () {
+	async getBanner () {
 		let params = {
 			platformId: app.globalData.platformId
 		};
 		const result = await util.getDataFromServersV2('consumer/system/common/get-activity-banner', params,'POST',false);
-		console.log('banner：',result);
 		if (result.code === 0) {
 			let moduleTwoList = result.data.filter(item => (item.remark === 'micro_high_speed' || item.remark === 'moving_integral'));
 			moduleTwoList.map(item => {
@@ -245,8 +237,6 @@ Page({
 					item.statisticsEvent = 'index_micro_high_speed';
 				}
 			});
-			console.log(moduleTwoList);
-
 			this.setData({
 				moduleTwoList
 			});
@@ -715,17 +705,14 @@ Page({
 				truckList,
 				passengerCarList,
 				isAllActivationTruck,
-				truckOrderInfo: terminationTruckOrder ||
-					passengerCarListNotTruckActivation, // 解约订单 || 拉取第一条
-				passengerCarOrderInfo: terminationOrder ||
-					passengerCarListNotActivation // 解约订单 || 拉取第一条
+				truckOrderInfo: terminationTruckOrder || passengerCarListNotTruckActivation, // 解约订单 || 拉取第一条
+				passengerCarOrderInfo: terminationOrder || passengerCarListNotActivation // 解约订单 || 拉取第一条
 			});
 			app.globalData.truckLicensePlate = passengerCarListNotActivation ? passengerCarListNotActivation
 				.vehPlates : ''; // 存货车出牌
 			// 上一页返回时重置
 			this.setData({
-				orderInfo: this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data
-					.truckOrderInfo
+				orderInfo: this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data.truckOrderInfo
 			});
 			if (this.data.orderInfo?.selfStatus === 17) {
 				await this.getQueryProcessInfo(this.data.orderInfo.id);
@@ -989,8 +976,7 @@ Page({
 	// 点击车辆信息
 	onClickVehicle () {
 		console.log(this.data.activeIndex, '==============这里应是2===================');
-		const orderInfo = this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data
-			.truckOrderInfo;
+		const orderInfo = this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data.truckOrderInfo;
 		if (!orderInfo) {
 			app.globalData.orderInfo.orderId = '';
 			wx.uma.trackEvent(this.data.activeIndex === 1 ? 'index_for_new_deal_with'
@@ -1389,9 +1375,8 @@ Page({
 	},
 	// 点击移动积分兑换ETC 高速通行券
 	async btnMovingIntegral (e) {
-		console.log(e.detail);
 		let num = await this.getMargin();
-		if (e.detail.currentTarget.id === 'cancel') {
+		if (e.detail.currentTarget.dataset.name === 'cancel') {
 			console.log('点击取消');
 		} else {
 			if (num === app.globalData.myEtcList.length) {

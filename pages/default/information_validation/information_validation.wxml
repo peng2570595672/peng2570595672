@@ -153,7 +153,7 @@
         <view class="keyValue">
             <view class="attrName">备注</view>
             <view class="attrValue">
-                <input class="input" type="idcard" value="{{'*'}}" bindinput="onInputChangedHandle" data-key="{{}}" data-type="4" placeholder-class="input-placeholder"/>
+                <input class="input" type="idcard" value="{{drivingLicenseBack.ocrObject.remark}}" bindinput="onInputChangedHandle" data-key="remark" placeholder-class="input-placeholder"/>
             </view>
         </view>
         <view class="keyValue">
@@ -168,7 +168,7 @@
     <!-- 占位 -->
     <view class="split"></view>
     <!-- 底部悬浮按钮 -->
-    <view class="bottomBtn">
+    <view class="bottomBtn" wx:if="{{faceStatus === 4 && backStatus === 4}}">
         <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="onClickConfirmHandle">
             确认资料并保存
         </view>

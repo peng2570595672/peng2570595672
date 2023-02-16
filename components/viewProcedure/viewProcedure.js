@@ -35,6 +35,7 @@ Component({
 			}, 400);
 		},
 		btnMovingIntegral (e) {
+			console.log(e);
 			this.setData({
 				wrapper: false
 			});

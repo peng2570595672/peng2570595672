@@ -23,17 +23,17 @@ Page({
 		idCardBack: {
 			ocrObject: {}
 		},// 身份证反面
-		tipObj: {// 提示弹窗组件的标题和内容
-			type: 'one',
-			title: '中国ETC',
-			content: '若用户信息查询通过，接着调用车牌唯一性校验接口，校验通过则保存信息返回上传证件页。'
+		tipObj: {
+			type: '',
+			title: '',
+			content: ''
 		}
 	},
 	async onLoad (options) {
 		this.setData({
 			vehPlates: options.vehPlates
 		});
-		await this.getOrderInfo();
+		// await this.getOrderInfo();
 		// 查询是否欠款
 		await util.getIsArrearage();
 	},
@@ -47,8 +47,6 @@ Page({
 				topProgressBar: this.data.idCardBack.fileUrl ? 3.4 : 3.2
 			});
 		}
-		console.log(path);
-
 		// 身份证反面
 		path = wx.getStorageSync('passenger-car-2');
 		if (path) {
@@ -60,7 +58,6 @@ Page({
 		}
 		if (!app.globalData.handlingOCRType) {
 			// 没通过上传
-			console.log('dddddd');
 			let idCardFace = wx.getStorageSync('passenger-car-id-card-face');
 			if (idCardFace) {
 				idCardFace = JSON.parse(idCardFace);
@@ -87,6 +84,12 @@ Page({
 					topProgressBar: this.data.idCardFace.fileUrl ? 3.4 : 3.2
 				});
 			}
+		}
+		if (this.data.faceStatus === 4 || this.data.backStatus === 4) {
+			wx.setNavigationBarColor({
+				backgroundColor: '#ECECEC',
+				frontColor: '#000000'
+			});
 		}
 	},
 	// 获取订单信息
@@ -126,6 +129,10 @@ Page({
 				});
 				this.setData({
 					available: this.validateData(false)
+				});
+				wx.setNavigationBarColor({
+					backgroundColor: '#ECECEC',
+					frontColor: '#000000'
 				});
 				wx.setStorageSync('passenger-car-id-card-back', JSON.stringify(idCardBack));
 				wx.setStorageSync('passenger-car-id-card-face', JSON.stringify(idCardFace));
@@ -212,19 +219,7 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			console.log(result.data);
-			if (this.userCarCheck(result.data)) {
-				return true;
-			}
-
-			// const pages = getCurrentPages();
-			// const prevPage = pages[pages.length - 2];// 上一个页面
-			// prevPage.setData({
-			// 	isChangeIdCard: true // 重置状态
-			// });
-			// wx.navigateBack({
-			// 	delta: 1
-			// });
+			this.userCarCheck(result.data);
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -261,10 +256,6 @@ Page({
 									idCardFace: res.data[0]
 								});
 								wx.setStorageSync('passenger-car-id-card-face', JSON.stringify(res.data[0]));
-								wx.setNavigationBarColor({
-									backgroundColor: '#ECECEC',
-									frontColor: '#000000'
-								});
 							} else {
 								const endDate = res.data[0].ocrObject.validDate.split('-')[1].split('.').join('/');
 								const isGreaterThanData = util.isGreaterThanData(endDate);// 身份证结束时间
@@ -281,6 +272,8 @@ Page({
 									idCardBack: res.data[0]
 								});
 								wx.setStorageSync('passenger-car-id-card-back', JSON.stringify(res.data[0]));
+							}
+							if (this.data.faceStatus === 4 || this.data.backStatus === 4) {
 								wx.setNavigationBarColor({
 									backgroundColor: '#ECECEC',
 									frontColor: '#000000'
@@ -366,10 +359,48 @@ Page({
 		console.log(result);
 		if (!result) return;
 		if (result.code === 0) {
-			return false;
+			// result.data.result = false;
+			// result.data.info = '核心提示【车牌贵GF9158已中国ETC实名在2019-08-2117:13:59,在统一平台贵州发行方办理有OBU,请联系渠道方处理】';
+			let isOk2 = result.data.rcode && result.data.rcode !== 0 ? true : false;
+			if (!result.data.result || isOk2) {
+				if (!result.data.result) {
+					let index = result.data.info.indexOf('【');
+					let lastIndex = result.data.info.lastIndexOf('】');
+					let info = result.data.info.slice(index + 1,lastIndex);
+					this.setData({
+						tipObj: {
+							type: 'one',
+							title: '车辆需注销重办',
+							content: info
+						}
+					});
+				} else {
+					let flag = result.data.rmsg.indexOf('中国ETC服务小程序进行实名') || result.data.message.indexOf('中国ETC服务小程序进行实名');
+					if (flag !== -1) {
+						this.setData({
+							tipObj: {
+								type: 'one',
+								title: '身份证需实名',
+								content: '请用微信搜索中国ETC服务小程序，进入小程序登陆授权完成实名认证即可继续办理'
+							}
+						});
+					} else {
+						util.showToastNoIcon(result.message);
+					}
+				}
+				this.selectComponent('#popTipComp').show();
+				return;
+			}
+			const pages = getCurrentPages();
+			const prevPage = pages[pages.length - 2];// 上一个页面
+			prevPage.setData({
+				isChangeIdCard: true // 重置状态
+			});
+			wx.navigateBack({
+				delta: 1
+			});
 		} else {
-			// this.selectComponent('#popTipComp').show();
-			util.showToastNoIcon(result.message);
+			return util.showToastNoIcon(result.message);
 		}
 	}
 });

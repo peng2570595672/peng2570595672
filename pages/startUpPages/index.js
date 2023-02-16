@@ -23,7 +23,7 @@ Page({
 					'consumer/member/common/applet/code', {
 						platformId: app.globalData.platformId, // 平台id
 						code: res.code // 从微信获取的code
-					},'POST',false);
+				},'POST',false);
 					console.log('微信信息：' ,result);
 				if (!result) return;
 				if (result.code === 0) {

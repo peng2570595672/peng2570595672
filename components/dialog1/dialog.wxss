@@ -176,7 +176,7 @@
   border-top: 1rpx solid rgba(0,0,0,0.1);
   margin-top: 40rpx;
 }
-.alert-for-not-finished-content .dialog-container .wx-dialog-btn > view {
+.alert-for-not-finished-content .dialog-container .wx-dialog-btn > .view {
   flex: 1;
   display: flex;
   height: 110rpx;
@@ -187,11 +187,11 @@
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
 }
-.alert-for-not-finished-content .dialog-container .wx-dialog-btn > view.cancel {
+.alert-for-not-finished-content .dialog-container .wx-dialog-btn > .view.cancel {
   border-right: 1rpx solid rgba(0,0,0,0.1);
   color: rgba(0,0,0,0.9);
 }
-.alert-for-not-finished-content .dialog-container .wx-dialog-btn > view.confirm {
+.alert-for-not-finished-content .dialog-container .wx-dialog-btn > .view.confirm {
   border-right: 1rpx solid rgba(0,0,0,0.1);
   color: #2fb565;
 }

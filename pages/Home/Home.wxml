@@ -45,8 +45,8 @@
     </view>
     <!-- 模块1 账单查询 通行发票 权益商城 -->
     <view class="module moduleOne">
-        <view class="moduleOneBox" wx:for="{{moduleOneList}}" wx:key="index">
-            <view class="imgTitle" catchtap="">
+        <view class="moduleOneBox" wx:for="{{moduleOneList}}" wx:key="index" data-url="{{item.url}}" data-statistics="{{item.statisticsEvent}}">
+            <view class="imgTitle" catchtap="onClickEntrance">
                 <image src="{{item.icon}}" />
             </view>
             <view class="title">{{item.title}}</view>
@@ -67,8 +67,8 @@
             </view>
         </view>
     </view>
-    <!-- 模块3 ETC使用Tips -->
-    <view class="module moduleThree">
+    <!-- 模块3 ETC使用Tips 一期不做，待二期补充-->
+    <view class="module moduleThree" wx:if="{{false}}">
         <view class="head">ETC使用Tips</view>
         <view class="moduleThreeBox">
             <view class="directSeeding">

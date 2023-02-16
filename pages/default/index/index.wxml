@@ -4,7 +4,7 @@
     <view class="iconfont topBack" catchtap="goBack">返回</view>
     <!-- 顶部banner 背景颜色和图片是动态的 -->
     <view class="topBanner" style="background-color: {{'green'}}" catchtap="" >
-        <image class="topImg" src="{{'https://file.cyzl.com/g001/M07/B6/F4/oYYBAGO-ebuALxEMAAF_Efyf1k0965.jpg'}}" />
+        <image class="topImg" src="{{'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png'}}" />
     </view>
     <!-- 模块1 支持微信多种代扣方式 -->
     <view class="module one">

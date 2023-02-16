@@ -26,6 +26,7 @@ Page({
 		tips: ''	// 审核失败返回的结果
 	},
 	async onLoad (options) {
+		console.log('参数：',options);
 		if (options.isModifiedData) {
 			this.setData({
 				isModifiedData: true
