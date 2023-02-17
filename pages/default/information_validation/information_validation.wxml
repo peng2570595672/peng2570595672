@@ -51,43 +51,43 @@
         <view class="keyValue">
             <view class="attrName">车牌号</view>
             <view class="attrValue">
-                <input class="input" type="idcard" value="{{drivingLicenseFace.ocrObject.numberPlates}}" bindinput="onInputChangedHandle" data-key="numberPlates" data-type="3" placeholder-class="input-placeholder" placeholder="请输入车牌号"/>
+                <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.numberPlates}}" bindinput="onInputChangedHandle" data-key="numberPlates" data-type="3" placeholder-class="input-placeholder" placeholder="请输入车牌号"/>
             </view>
         </view>
         <view class="keyValue">
             <view class="attrName">发动机号</view>
             <view class="attrValue">
-                <input class="input" type="idcard" value="{{drivingLicenseFace.ocrObject.engineNo}}" bindinput="onInputChangedHandle" data-key="engineNo" data-type="3" placeholder-class="input-placeholder" placeholder="请输入发动机号"/>
+                <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.engineNo}}" bindinput="onInputChangedHandle" data-key="engineNo" data-type="3" placeholder-class="input-placeholder" placeholder="请输入发动机号"/>
             </view>
         </view>
         <view class="keyValue">
             <view class="attrName">车辆识别代号</view>
             <view class="attrValue">
-                <input class="input" type="idcard" value="{{drivingLicenseFace.ocrObject.vin}}" bindinput="onInputChangedHandle" data-key="vin" data-type="3" placeholder-class="input-placeholder" placeholder="请输入车辆识别代号"/>
+                <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.vin}}" bindinput="onInputChangedHandle" data-key="vin" data-type="3" placeholder-class="input-placeholder" placeholder="请输入车辆识别代号"/>
             </view>
         </view>
         <view class="keyValue">
             <view class="attrName">车辆类型</view>
             <view class="attrValue">
-                <input class="input" type="idcard" value="{{drivingLicenseFace.ocrObject.vehicleType}}" bindinput="onInputChangedHandle" data-key="vehicleType" data-type="3" placeholder-class="input-placeholder" placeholder="请输入车辆类型"/>
+                <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.vehicleType}}" bindinput="onInputChangedHandle" data-key="vehicleType" data-type="3" placeholder-class="input-placeholder" placeholder="请输入车辆类型"/>
             </view>
         </view>
         <view class="keyValue">
             <view class="attrName">地址</view>
             <view class="attrValue">
-                <input class="input" type="idcard" value="{{drivingLicenseFace.ocrObject.address}}" bindinput="onInputChangedHandle" data-key="address" data-type="3" placeholder-class="input-placeholder" placeholder="请输入地址"/>
+                <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.address}}" bindinput="onInputChangedHandle" data-key="address" data-type="3" placeholder-class="input-placeholder" placeholder="请输入地址"/>
             </view>
         </view>
         <view class="keyValue">
             <view class="attrName">使用性质</view>
             <view class="attrValue">
-                <input class="input" type="idcard" value="{{drivingLicenseFace.ocrObject.useCharacter}}" bindinput="onInputChangedHandle" data-key="useCharacter" data-type="3" placeholder-class="input-placeholder" placeholder="请输入使用性质"/>
+                <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.useCharacter}}" bindinput="onInputChangedHandle" data-key="useCharacter" data-type="3" placeholder-class="input-placeholder" placeholder="请输入使用性质"/>
             </view>
         </view>
         <view class="keyValue">
             <view class="attrName">品牌型号</view>
             <view class="attrValue">
-                <input class="input" type="idcard" value="{{drivingLicenseFace.ocrObject.model}}" bindinput="onInputChangedHandle" data-key="model" data-type="3" placeholder-class="input-placeholder" placeholder="请输入品牌型号"/>
+                <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.model}}" bindinput="onInputChangedHandle" data-key="model" data-type="3" placeholder-class="input-placeholder" placeholder="请输入品牌型号"/>
             </view>
         </view>
         <view class="keyValue">
@@ -109,7 +109,7 @@
         <view class="keyValue">
             <view class="attrName">档案编号</view>
             <view class="attrValue">
-                <input class="input" type="idcard" value="{{drivingLicenseBack.ocrObject.fileNumber}}" bindinput="onInputChangedHandle" data-key="fileNumber" data-type="4" placeholder-class="input-placeholder" placeholder="请输入档案编号"/>
+                <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.fileNumber}}" bindinput="onInputChangedHandle" data-key="fileNumber" data-type="4" placeholder-class="input-placeholder" placeholder="请输入档案编号"/>
             </view>
         </view>
         <view class="keyValue">
@@ -123,43 +123,43 @@
         <view class="keyValue">
             <view class="attrName">总质量</view>
             <view class="attrValue">
-                <input class="input" type="idcard" value="{{drivingLicenseBack.ocrObject.totalMass}}" bindinput="onInputChangedHandle" data-key="totalMass" data-type="4" placeholder-class="input-placeholder" placeholder="请输入总质量"/>
+                <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.totalMass}}" bindinput="onInputChangedHandle" data-key="totalMass" data-type="4" placeholder-class="input-placeholder" placeholder="请输入总质量"/>
             </view>
         </view>
         <view class="keyValue">
             <view class="attrName">整备质量</view>
             <view class="attrValue">
-                <input class="input" type="idcard" value="{{drivingLicenseBack.ocrObject.curbWeight}}" bindinput="onInputChangedHandle" data-key="curbWeight" data-type="4" placeholder-class="input-placeholder" placeholder="请输入整备质量"/>
+                <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.curbWeight}}" bindinput="onInputChangedHandle" data-key="curbWeight" data-type="4" placeholder-class="input-placeholder" placeholder="请输入整备质量"/>
             </view>
         </view>
         <view class="keyValue">
             <view class="attrName">核定载质量</view>
             <view class="attrValue">
-                <input class="input" type="idcard" value="{{drivingLicenseBack.ocrObject.loadQuality}}" bindinput="onInputChangedHandle" data-key="loadQuality" data-type="4" placeholder-class="input-placeholder"/>
+                <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.loadQuality}}" bindinput="onInputChangedHandle" data-key="loadQuality" data-type="4" placeholder-class="input-placeholder"/>
             </view>
         </view>
         <view class="keyValue">
             <view class="attrName">外廓尺寸</view>
             <view class="attrValue">
-                <input class="input" type="idcard" value="{{drivingLicenseBack.ocrObject.size}}" bindinput="onInputChangedHandle" data-key="size" data-type="4" placeholder-class="input-placeholder" placeholder="请输入外廓尺寸"/>
+                <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.size}}" bindinput="onInputChangedHandle" data-key="size" data-type="4" placeholder-class="input-placeholder" placeholder="请输入外廓尺寸"/>
             </view>
         </view>
         <view class="keyValue">
             <view class="attrName">准牵引总质量</view>
             <view class="attrValue">
-                <input class="input" type="idcard" value="{{drivingLicenseBack.ocrObject.tractionMass}}" bindinput="onInputChangedHandle" data-key="tractionMass" data-type="4" placeholder-class="input-placeholder"/>
+                <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.tractionMass}}" bindinput="onInputChangedHandle" data-key="tractionMass" data-type="4" placeholder-class="input-placeholder"/>
             </view>
         </view>
         <view class="keyValue">
             <view class="attrName">备注</view>
             <view class="attrValue">
-                <input class="input" type="idcard" value="{{drivingLicenseBack.ocrObject.remark}}" bindinput="onInputChangedHandle" data-key="remark" placeholder-class="input-placeholder"/>
+                <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.remark}}" bindinput="onInputChangedHandle" data-key="remark" placeholder-class="input-placeholder"/>
             </view>
         </view>
         <view class="keyValue">
             <view class="attrName">检验记录</view>
             <view class="attrValue">
-                <textarea class="textarea" auto-height="{{true}}" type="idcard" value="{{drivingLicenseBack.ocrObject.recode}}" bindinput="onInputChangedHandle" data-key="recode" data-type="4" placeholder-class="input-placeholder" placeholder="请输入检验记录"/>
+                <textarea class="textarea" auto-height="{{true}}" type="text" value="{{drivingLicenseBack.ocrObject.recode}}" bindinput="onInputChangedHandle" data-key="recode" data-type="4" placeholder-class="input-placeholder" placeholder="请输入检验记录"/>
             </view>
         </view>
        

@@ -14,7 +14,6 @@ Page({
 		isCloseUpperPart: false, // 控制 详情是否显示
 		isCloseUpperPart1: false, // 控制 详情是否显示
 		isCloseUpperPart2: false, // 控制 详情是否显示
-		isConfirm: false,
 		nodeHeightList: [], // 存储节点高度 集合
 		phoneType: 2,
 		equityListMap: [],	// 权益列表集合
@@ -30,10 +29,10 @@ Page({
 		activeEquitiesIndex: -1,// 当前选中权益包
 		rightsAndInterestsList: [],// 加购权益列表
 		basicServiceList: [
-			{title: 'ETC设备与卡片', tips: '包邮', ico: 'service_of_etc'},
-			{title: '设备质保一年', ico: 'service_of_equipment'},
-			{title: '开具通行费发票', ico: 'service_of_invoice'},
-			{title: '高速通行9.5折', ico: 'service_of_discount'}
+			{title: 'ETC设备与卡片', tips: '包邮', icos: 'service_of_etc'},
+			{title: '设备质保一年', icos: 'service_of_equipment'},
+			{title: '开具通行费发票', icos: 'service_of_invoice'},
+			{title: '高速通行9.5折', icos: 'service_of_discount'}
 		],
 		otherServiceList: [
 			{title: '车主服务享便捷', subTitle: '价值168元'},
@@ -441,11 +440,18 @@ Page({
 	onClickGoPrivacyHandle () {
 		util.go('/pages/default/privacy_agreement/privacy_agreement');
 	},
-	// 是否接受协议
+	// 是否接受协议   点击同意协议并且跳转指定套餐模块
 	onClickAgreementHandle () {
+		if (this.data.activeIndex === -1) {
+			return util.showToastNoIcon('亲，请选套餐哦');
+		}
+		let getAgreement = !this.data.getAgreement;
 		this.setData({
-			getAgreement: !this.data.getAgreement
+			getAgreement,
+			topProgressBar: getAgreement ? 2.7 : 2.4
 		});
+		// 跳转指定套餐模块
+		this.controllShopProductPosition(this.data.activeIndex);
 	},
 	onClickCheckTheService (e) {
 		this.setData({
@@ -776,7 +782,8 @@ Page({
 			isFade,
 			activeIndex: isFade ? e.currentTarget.dataset.index : -1,
 			isConfirm: false,
-			topProgressBar: isFade ? 2.4 : 2
+			topProgressBar: isFade ? 2.4 : 2,
+			choiceIndex: isFade ? e.currentTarget.dataset.index : -1
 		});
 		if (isFade) { // 当套餐高亮时，默认展开 详情
 			this.setData({
@@ -816,26 +823,14 @@ Page({
 			});
 		}
 	},
-	// 点击同意协议并且跳转指定套餐模块
-	consentAgreement () {
-		if (this.data.activeIndex === -1) {
-			return util.showToastNoIcon('亲，请选套餐哦');
-		}
-		let isConfirm = !this.data.isConfirm;
-		this.setData({
-			isConfirm,
-			topProgressBar: isConfirm ? 2.7 : 2.4
-		});
-		this.controllShopProductPosition(this.data.activeIndex);
-	},
 	payMoney (e) {
 		if (this.data.activeIndex === -1) {
 			util.showToastNoIcon('亲，请选套餐哦');
-		} else if (!e.currentTarget.dataset.isconfirm) {
+		} else if (!e.currentTarget.dataset.getAgreement) {
 			util.showToastNoIcon('请阅读相关协议并勾选同意');
 		} else {
 			// util.showToastNoIcon('请支付');
-			util.go('/pages/default/information_list/information_list?type=1');
+			// util.go('/pages/default/information_list/information_list?type=1');
 		}
 	},
 	// 获取节点的高度

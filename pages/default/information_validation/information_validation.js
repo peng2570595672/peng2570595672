@@ -7,6 +7,7 @@ const app = getApp();
 Page({
 	data: {
 		topProgressBar: 3,	// 进度条展示的长度 ，再此页面的取值范围 [3,4),默认为3,保留一位小数
+		topProgressBar1: 0,	// 存放上个页面传来进度条长度
 		faceStatus: 1, // 1 未上传  2 识别中  3 识别失败  4识别成功
 		backStatus: 1, // 1 未上传  2 识别中  3 识别失败  4识别成功
 		personIndex: 0, // 选择框当前选中索引
@@ -35,9 +36,12 @@ Page({
 		}
 	},
 	async onLoad (options) {
+		console.log(options);
 		this.setData({
 			vehColor: options.vehColor,
-			vehPlates: options.vehPlates
+			vehPlates: options.vehPlates,
+			topProgressBar: parseFloat(options.topProgressBar),
+			topProgressBar1: parseFloat(options.topProgressBar)
 		});
 		await this.getOrderInfo();
 		// 查询是否欠款
@@ -84,12 +88,7 @@ Page({
 				});
 			}
 		}
-		if (this.data.faceStatus === 4 || this.data.backStatus === 4) {
-			wx.setNavigationBarColor({
-				backgroundColor: '#ECECEC',
-				frontColor: '#000000'
-			});
-		}
+		this.processBarSize();
 	},
 	// 上传图片
 	uploadOcrFile (path) {
@@ -182,12 +181,7 @@ Page({
 						this.setData({
 							available: this.validateData(false)
 						});
-						if (this.data.faceStatus === 4 || this.data.backStatus === 4) {
-							wx.setNavigationBarColor({
-								backgroundColor: '#ECECEC',
-								frontColor: '#000000'
-							});
-						}
+						this.processBarSize();
 					} else { // 识别失败
 						if (type === 3) {
 							this.setData({faceStatus: 3});
@@ -356,12 +350,9 @@ Page({
 				this.setData({
 					available: this.validateData(false)
 				});
-				wx.setNavigationBarColor({
-					backgroundColor: '#ECECEC',
-					frontColor: '#000000'
-				});
 				wx.setStorageSync('passenger-car-driving-license-face', JSON.stringify(this.data.drivingLicenseFace));
 				wx.setStorageSync('passenger-car-driving-license-back', JSON.stringify(this.data.drivingLicenseBack));
+				this.processBarSize();
 			}
 		} else {
 			util.showToastNoIcon(result.message);
@@ -439,7 +430,14 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			this.brandChargingModel(result.data);
+			const pages = getCurrentPages();
+			const prevPage = pages[pages.length - 2];// 上一个页面
+			prevPage.setData({
+				isChangeDrivingLicenseError: true // 重置状态
+			});
+			wx.navigateBack({
+				delta: 1
+			});
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -516,16 +514,23 @@ Page({
 		console.log(result);
 		if (!result) return;
 		if (result.code === 0) {
-			// const pages = getCurrentPages();
-			// const prevPage = pages[pages.length - 2];// 上一个页面
-			// prevPage.setData({
-			// 	isChangeDrivingLicenseError: true // 重置状态
-			// });
-			// wx.navigateBack({
-			// 	delta: 1
-			// });
+
 		} else {
 			return util.showToastNoIcon(result.message);
+		}
+	},
+	// 控制进度条的长短
+	processBarSize () {
+		console.log(this.data.topProgressBar1);
+		if (this.data.faceStatus === 4 || this.data.backStatus === 4) {
+			let flag = this.data.topProgressBar1;
+			wx.setNavigationBarColor({
+				backgroundColor: '#ECECEC',
+				frontColor: '#000000'
+			});
+			this.setData({
+				topProgressBar: this.data.faceStatus === 4 && this.data.backStatus === 4 ? flag + 0.3 : this.data.faceStatus === 4 || this.data.backStatus === 4 ? flag + 0.15 : flag
+			});
 		}
 	}
 

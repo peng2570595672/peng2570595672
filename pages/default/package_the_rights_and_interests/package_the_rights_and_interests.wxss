@@ -213,16 +213,39 @@
 .index .package .module .upperPart .description .descriptionModule .ico {
   width: 40rpx;
   height: 40rpx;
+  font-weight: 400;
   overflow: hidden;
   margin-right: 8rpx;
   display: flex;
   align-items: center;
+  justify-content: center;
+  /* background-color: #E9CA7B; */
 }
 
-.index .package .module .upperPart .description .descriptionModule .ico .image {
-  width: 32rpx;
-  height: 24rpx;
+.index .package .module .upperPart .description .descriptionModule .service_of_etc::before {
+  content: '\e683';
+  font-size: 30rpx;
+  color: #5EBE68;
 }
+
+.index .package .module .upperPart .description .descriptionModule .service_of_equipment::before {
+  content: '\e685';
+  font-size: 30rpx;
+  color: #5EBE68;
+}
+
+.index .package .module .upperPart .description .descriptionModule .service_of_invoice::before {
+  content: '\e67a';
+  font-size: 30rpx;
+  color: #5EBE68;
+}
+
+.index .package .module .upperPart .description .descriptionModule .service_of_discount::before {
+  content: '\e680';
+  font-size: 30rpx;
+  color: #5EBE68;
+}
+
 
 
 /* 套餐模块的下半部分 */
@@ -373,7 +396,11 @@
   color: #5EBE68;
 }
 
-.index .payAndAgreement .moneyPay {
+
+
+.index .payAndAgreement .paySign .moneyPay,
+.index .payAndAgreement .ttCounpon,
+.index .payAndAgreement .nextSign {
   height: 90rpx;
   display: flex;
   align-items: flex-end;
@@ -382,24 +409,35 @@
   font-family: Arial-BoldItalicMT, Arial;
 }
 
-.index .payAndAgreement .confirmPackage {
+.index .payAndAgreement .ttCounpon .btn,
+.index .payAndAgreement .paySign .nextSign .btns {
+  width: 600rpx;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 90rpx;
+  border-radius: 64rpx;
+  background-color: #ccc;
+  box-shadow: 0rpx 4rpx 2rpx 0rpx rgba(212, 212, 212, 0.5);
+}
+
+.index .payAndAgreement .paySign .confirmPackage {
   justify-content: space-between;
 }
 
-.index .payAndAgreement .moneyPay .money {
+.index .payAndAgreement .paySign .moneyPay .money {
   font-size: 44rpx;
   color: #000000;
   line-height: 44rpx;
   font-weight: normal;
 }
 
-.index .payAndAgreement .moneyPay .money .mpneySpan {
+.index .payAndAgreement .paySign .moneyPay .money .mpneySpan {
   font-size: 76rpx;
   line-height: 76rpx;
   font-style: oblique;
 }
 
-.index .payAndAgreement .moneyPay .pay {
+.index .payAndAgreement .paySign .moneyPay .pay {
   width: 348rpx;
   height: 90rpx;
   font-size: 36Rpx;
@@ -412,11 +450,13 @@
   box-shadow: 0rpx 4rpx 2rpx 0rpx rgba(212, 212, 212, 0.5);
 }
 
-.index .payAndAgreement .moneyPay .payWidth {
+.index .payAndAgreement .paySign .moneyPay .payWidth {
   width: 600rpx;
 }
 
-.index .payAndAgreement .moneyPay .payColor {
+.index .payAndAgreement .paySign .moneyPay .payColor,
+.index .payAndAgreement .ttCounpon .payColor,
+.index .payAndAgreement .paySign .nextSign .payColor {
   background-color: #2A4F44;
 }
 

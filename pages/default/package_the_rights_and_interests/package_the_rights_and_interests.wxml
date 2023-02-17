@@ -38,11 +38,9 @@
                 <view class="subTitle">{{tools.limitNumber(item.fullName,15)}}</view>
                 <!-- 套餐描述 取后台配置展示，若无配置则不展示 -->
                 <view class="description" wx:if="{{tools.dataLen(basicServiceList) > 0}}">
-                    <view class="descriptionModule" wx:for="{{basicServiceList}}" wx:key="index1">
-                        <view class="ico">
-                            <!-- <image class="image" src="{{item.ico}}" /> -->
-                        </view>
-                        <view class="title">{{item.title}}</view>
+                    <view class="descriptionModule" wx:for="{{basicServiceList}}" wx:for-item="itemBase" wx:key="index1">
+                        <view class="ico {{itemBase.icos}}"></view>
+                        <view class="title">{{item.pledgeType === 4 && itemBase.title === '设备质保一年' ? '升级三年设备质保' : itemBase.title}}</view>
                     </view>
                 </view>
             </view>
@@ -80,8 +78,8 @@
     </view>
     <!-- 支付和协议说明 模块 -->
     <view class="payAndAgreement {{isFade ? 'fadeIn' : 'fadeOut'}}">
-        <view class="agreementConfirm" bindtap="consentAgreement">
-            <view class="confirm iconfont {{isConfirm ? 'tick' : ''}}" catchtap="consentAgreement"></view>
+        <view class="agreementConfirm" bindtap="onClickAgreementHandle">
+            <view class="confirm iconfont {{getAgreement ? 'tick' : ''}}" catchtap="onClickAgreementHandle"></view>
             <view class="agreement">
                 当您勾选同意并点击“立即支付”按钮，即代表您已阅读、理解并接受
                 <span class="agreementColor">ETC+用户协议及黔通卡用户协议及隐私协议</span>
@@ -89,14 +87,32 @@
             </view>
         </view>
 
-        <view class="moneyPay {{isFade ? 'confirmPackage' : ''}}">
-            <view class="money" wx:if="{{isFade}}">
-                ￥<span class="mpneySpan">
-                    {{tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}
-                </span>
+        <!-- 按钮设置 -->
+        <!-- 通通券 -->
+        <view class="ttCounpon" wx:if="{{ isSalesmanOrder && choiceIndex !== -1 && isPay && listOfPackages.length && listOfPackages[choiceIndex].isSignTtCoupon === 1 }}">
+            <!-- 通用券套餐已支付或无需支付 -->
+            <button class="btn {{getAgreement ? 'payColor' : ''}}" catchtap="handleSign" wx:if="{{tools.parseNum(listOfPackages[choiceIndex].ttCouponPayAmount) > 0}}">
+                {{contractStatus === 1 ? '开通连续包月服务' : '签约代扣通行费'}}
+            </button>
+            <!-- 通通券金额 为0 时 执行微信签约 -->
+            <button class="btn {{getAgreement ? 'payColor' : ''}}" catchtap="toWeChatSign" wx:elif="{{isTest ? listOfPackages[choiceIndex].shopProductId === '1053333932522610688' : listOfPackages[choiceIndex].shopProductId === '1060638877005914112'}}">
+                去签约
+            </button>
+        </view>
+        <!-- 签约、支付、下一步 -->
+        <view class="paySign" wx:else>
+            <view class="moneyPay {{isFade ? 'confirmPackage' : ''}}" wx:if="{{choiceIndex !== -1 && listOfPackages[activeIndex].pledgePrice || (activeEquitiesIndex !== -1 && rightsAndInterestsList[activeEquitiesIndex].payMoney)}}">
+                <view class="money" wx:if="{{isFade}}">
+                    ￥<span class="mpneySpan">
+                        {{activeEquitiesIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + rightsAndInterestsList[activeEquitiesIndex].payMoney)/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}
+                    </span>
+                </view>
+                <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}}" data-isconfirm="{{getAgreement}}" catchtap="next">去支付</view>
             </view>
-            <view class="pay {{ !isFade ? 'payWidth' : ''}} {{isConfirm ? 'payColor' : ''}}" data-isconfirm="{{isConfirm}}" catchtap="payMoney">
-                {{listOfPackages[activeIndex].isSignTtCoupon === 0 && listOfPackages[activeIndex].ttCouponPayAmount > 0 ? '通通券代扣金额' : '去支付'}}
+            <view class="nextSign" wx:else>
+                <button class="btns {{choiceIndex === -1 || getAgreement ? 'payColor' : ''}}" catchtap="next" >
+                    {{isSalesmanOrder ? '去签约' : '下一步'}}
+                </button>
             </view>
         </view>
     </view>

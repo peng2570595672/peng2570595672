@@ -9,14 +9,14 @@
             <view class="mobilePhoneEquity">
                 <view class="ETCMobilePhone {{isVip ? 'yellowC' : 'greenC'}}">
                     {{isVip ? 'ETC+PLUS': 'ETC+'}}
-                    <text>{{mobilePhone}}</text>
+                    <text>{{mobilePhones}}</text>
                 </view>
                 <view class="iconfont viewEquity" catchtap="">查看权益</view>
             </view>
         </view>
     </view>
     <!-- 模块1 ETC电子账户 -->
-    <view class="module moduleOne {{isVip ? 'yellow' : 'green'}}">
+    <view class="module moduleOne {{isVip ? 'yellow' : 'green'}}" >
         <!-- 金额和账户 -->
         <view class="mountAccount">
             <view>￥{{'200.00'}}</view>
@@ -30,7 +30,7 @@
     </view>
     <!-- 模块2 功能栏 -->
     <view class="module moduleTwo">
-        <view class="func" wx:for="{{4}}" wx:key="index">
+        <view class="func" wx:for="{{4}}" wx:key="index" data-url="my_etc" catchtap="go">
             <view class="icon {{isVip ? 'yellowF' : 'greenF'}}">
                 <!-- <image src="{{testImg}}" /> -->
             </view>

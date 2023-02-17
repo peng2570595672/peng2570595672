@@ -9,6 +9,7 @@ let timer;
 Page({
 	data: {
 		topProgressBar: 3,	// 进度条展示的长度 ，再此页面的取值范围 [3,4),默认为3,保留一位小数
+		topProgressBar1: 0,	// 存放上个页面传来进度条长度
 		vehPlates: undefined,
 		faceStatus: 1, // 1 未上传  2 识别中  3 识别失败  4识别成功
 		backStatus: 1, // 1 未上传  2 识别中  3 识别失败  4识别成功
@@ -31,9 +32,11 @@ Page({
 	},
 	async onLoad (options) {
 		this.setData({
-			vehPlates: options.vehPlates
+			vehPlates: options.vehPlates,
+			topProgressBar: parseFloat(options.topProgressBar),
+			topProgressBar1: parseFloat(options.topProgressBar)
 		});
-		// await this.getOrderInfo();
+		await this.getOrderInfo();
 		// 查询是否欠款
 		await util.getIsArrearage();
 	},
@@ -43,18 +46,12 @@ Page({
 		if (path) {
 			wx.removeStorageSync('passenger-car-1');
 			if (app.globalData.handlingOCRType) this.uploadOcrFile(path);
-			this.setData({
-				topProgressBar: this.data.idCardBack.fileUrl ? 3.4 : 3.2
-			});
 		}
 		// 身份证反面
 		path = wx.getStorageSync('passenger-car-2');
 		if (path) {
 			wx.removeStorageSync('passenger-car-2');
 			if (app.globalData.handlingOCRType) this.uploadOcrFile(path);
-			this.setData({
-				topProgressBar: this.data.idCardFace.fileUrl ? 3.4 : 3.2
-			});
 		}
 		if (!app.globalData.handlingOCRType) {
 			// 没通过上传
@@ -68,8 +65,7 @@ Page({
 					idCardFace
 				});
 				this.setData({
-					available: this.validateData(false),
-					topProgressBar: this.data.idCardBack.fileUrl ? 3.4 : 3.2
+					available: this.validateData(false)
 				});
 			}
 			let idCardBack = wx.getStorageSync('passenger-car-id-card-back');
@@ -80,17 +76,11 @@ Page({
 					idCardBack
 				});
 				this.setData({
-					available: this.validateData(false),
-					topProgressBar: this.data.idCardFace.fileUrl ? 3.4 : 3.2
+					available: this.validateData(false)
 				});
 			}
 		}
-		if (this.data.faceStatus === 4 || this.data.backStatus === 4) {
-			wx.setNavigationBarColor({
-				backgroundColor: '#ECECEC',
-				frontColor: '#000000'
-			});
-		}
+		this.processBarSize();
 	},
 	// 获取订单信息
 	async getOrderInfo () {
@@ -130,12 +120,9 @@ Page({
 				this.setData({
 					available: this.validateData(false)
 				});
-				wx.setNavigationBarColor({
-					backgroundColor: '#ECECEC',
-					frontColor: '#000000'
-				});
 				wx.setStorageSync('passenger-car-id-card-back', JSON.stringify(idCardBack));
 				wx.setStorageSync('passenger-car-id-card-face', JSON.stringify(idCardFace));
+				this.processBarSize();
 			}
 		} else {
 			util.showToastNoIcon(result.message);
@@ -273,12 +260,7 @@ Page({
 								});
 								wx.setStorageSync('passenger-car-id-card-back', JSON.stringify(res.data[0]));
 							}
-							if (this.data.faceStatus === 4 || this.data.backStatus === 4) {
-								wx.setNavigationBarColor({
-									backgroundColor: '#ECECEC',
-									frontColor: '#000000'
-								});
-							}
+							this.processBarSize();
 							this.setData({
 								available: this.validateData(false)
 							});
@@ -401,6 +383,19 @@ Page({
 			});
 		} else {
 			return util.showToastNoIcon(result.message);
+		}
+	},
+	// 控制进度条的长短
+	processBarSize () {
+		if (this.data.faceStatus === 4 || this.data.backStatus === 4) {
+			let flag = this.data.topProgressBar1;
+			wx.setNavigationBarColor({
+				backgroundColor: '#ECECEC',
+				frontColor: '#000000'
+			});
+			this.setData({
+				topProgressBar: this.data.faceStatus === 4 && this.data.backStatus === 4 ? flag + 0.3 : this.data.faceStatus === 4 || this.data.backStatus === 4 ? flag + 0.15 : flag
+			});
 		}
 	}
 });
