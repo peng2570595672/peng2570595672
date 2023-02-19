@@ -1,3 +1,4 @@
+
 // 字符串截取
 function substring(val,start,end) {
   if (val.length == 0 || val == undefined) {
@@ -88,6 +89,20 @@ function addressFormat (obj) {
   }
   return address
 }
+// 判断在对象中是否有 指定的对象
+function onlineService (obj,twoPar) {
+  if (obj.indexOf(twoPar) !== -1) {
+    return false
+  }
+  return true
+}
+// 手机号展示部分隐藏
+function phoneNumberHide (obj) {
+  var left = obj.substring(0,4);
+  var right = obj.substring(8,12)
+  var obj = left + '****' + right
+  return obj
+}
 module.exports = {
   substring: substring,
   lowercaseToCapitalization: lowercaseToCapitalization,
@@ -97,5 +112,7 @@ module.exports = {
   formatterTimer: formatterTimer,
   dataLen: dataLen,
   limitNumber: limitNumber,
-  addressFormat: addressFormat
+  addressFormat: addressFormat,
+  onlineService: onlineService,
+  phoneNumberHide: phoneNumberHide
 };

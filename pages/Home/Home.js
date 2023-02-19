@@ -436,13 +436,11 @@ Page({
 		// 调用微信接口获取code
 		wx.login({
 			success: async (res) => {
-				console.log(res);
 				const result = await util.getDataFromServersV2(
 					'consumer/member/common/applet/code', {
 						platformId: app.globalData.platformId, // 平台id
 						code: res.code // 从微信获取的code
 					});
-				console.log(result);
 				this.initDadi();
 				if (!result) return;
 				if (result.code === 0) {
@@ -602,7 +600,6 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
 		const icbcv2 = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId'); // 查卡是否有二通类户
 		// 订单展示优先级: 扣款失败账单>已解约状态>按最近时间顺序：办理状态or账单记录
-		console.log(result);
 		if (!result) return;
 		if (result.code === 0) {
 			const list = this.sortDataArray(result.data);
@@ -1363,7 +1360,6 @@ Page({
 			page: that, // 当前页面
 			openid: code,
 			success: function (res) {
-				console.log('success');
 				// 获取 fingerprint
 				app.globalData.tonDunObj.fingerprint = res;
 			},

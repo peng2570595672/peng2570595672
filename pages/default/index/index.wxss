@@ -39,7 +39,7 @@
 	text-align: center;
 	border-radius: 12rpx;
 	margin: 28rpx 28rpx 0 28rpx;
-	background-color: #FFFFFF;
+	background-color: rgba(250, 250, 250, 1);
 	font-family: PingFangSC-Regular, PingFang SC;
 }
 
@@ -85,17 +85,20 @@
 }
 
 .index .module .imgText {
+	display: flex;
 	height: 130rpx;
+	align-items: center;
 	margin: 24rpx 56rpx 0 56rpx;
-	background-color: #00AF62;
+	justify-content: space-between;
 }
+
 
 .index .module .buttomText {
 	height: 22rpx;
 	font-size: 20rpx;
 	font-weight: 400;
-	line-height: 22rpx;
 	margin-top: 38rpx;
+	line-height: 22rpx;
 }
 
 .index .module .oneButtom {
@@ -115,15 +118,58 @@
 }
 
 .index .module .iconImg {
+	display: flex;
 	height: 120rpx;
-	margin-top: 50rpx;
-	background-color: #00AF62;
+	align-items: center;
+	padding-bottom: 100rpx;
+	justify-content: space-between;
+	margin: 50rpx 32rpx 0rpx 32rpx;
+	border-bottom: 2rpx solid #ccc;
+}
+
+.index .module .imgText .depositImg,
+.index .module .iconImg .oneService .depositImg {
+	display: flex;
+	width: 126rpx;
+	height: 126rpx;
+	align-items: center;
+	border-radius: 46rpx;
+	justify-content: center;
+	background-color: rgba(255, 255, 255, 1);
+	box-shadow: 0rpx 2rpx 4rpx 0rpx rgba(220, 220, 220, 0.5);
+}
+
+.index .module .oneService .titleText {
+	font-size: 24rpx;
+	font-weight: NaN;
+	margin-top: 12rpx;
+	text-align: center;
+	line-height: 34rpx;
+	white-space: nowrap;
+	letter-spacing: 0.28rpx;
+	color: rgba(51, 51, 62, 1);
+	font-family: PingFangSC-Regular;
 }
 
 .index .module .imgTextThree {
+	display: flex;
 	height: 150rpx;
 	margin-top: 28rpx;
-	background-color: #00AF62;
+	align-items: center;
+	justify-content: space-between;
+	margin: 50rpx 32rpx 0rpx 32rpx;
+	/* background-color: #00AF62; */
+}
+
+.index .module .imgTextThree .oneService .onlineService {
+	display: flex;
+	width: 104rpx;
+	height: 104rpx;
+	align-items: center;
+	border-radius: 32rpx;
+	justify-content: center;
+	background-color: rgba(255, 255, 255, 1);
+	box-shadow: 0rpx 2rpx 4rpx 0rpx rgba(220, 220, 220, 0.5);
 }
 
 .index .module .answersQuestions {
@@ -172,6 +218,10 @@
 	font-family: PingFangSC-Regular, PingFang SC
 }
 
+.index .module .answersQuestions .answer .onlineSpan {
+	color: rgba(47, 200, 224, 1)
+}
+
 .index .module .moreQuestions {
 	width: 100rpx;
 	height: 22rpx;
@@ -199,7 +249,7 @@
 	border-radius: 16rpx 16rpx 0px 0px;
 	position: fixed;
 	bottom: 0;
-	opacity: 0.9;
+	opacity: 1;
 	display: flex;
 	align-items: center;
 	justify-content: center;

@@ -1,3 +1,4 @@
+<wxs src='../../utils/util.wxs' module='tools' />
 <view class="my {{isVip ? 'is' : 'no'}}">
     <!-- 顶部user信息 -->
     <view class="user">
@@ -9,9 +10,9 @@
             <view class="mobilePhoneEquity">
                 <view class="ETCMobilePhone {{isVip ? 'yellowC' : 'greenC'}}">
                     {{isVip ? 'ETC+PLUS': 'ETC+'}}
-                    <text>{{mobilePhones}}</text>
+                    <text>{{tools.phoneNumberHide(mobilePhone)}}</text>
                 </view>
-                <view class="iconfont viewEquity" catchtap="">查看权益</view>
+                <view class="iconfont viewEquity" data-url="description_of_equity" catchtap="go">查看权益</view>
             </view>
         </view>
     </view>
@@ -30,11 +31,11 @@
     </view>
     <!-- 模块2 功能栏 -->
     <view class="module moduleTwo">
-        <view class="func" wx:for="{{4}}" wx:key="index" data-url="my_etc" catchtap="go">
+        <view class="func" wx:for="{{funcList}}" wx:key="index" data-url="{{item.url}}" catchtap="go">
             <view class="icon {{isVip ? 'yellowF' : 'greenF'}}">
                 <!-- <image src="{{testImg}}" /> -->
             </view>
-            <view class="iconText">我的订单</view>
+            <view class="iconText">{{item.title}}</view>
         </view>
     </view>
     <!-- 模块3 广告 -->
@@ -43,12 +44,12 @@
     </view>
     <!-- 模块4 -->
     <view class="module moduleFour">
-        <view class="funcList" wx:for="{{3}}" wx:key="index">
+        <view class="funcList" wx:for="{{funcList2}}" data-url="{{item.url}}" wx:key="index" catchtap="go">
             <view class="funcListLeft">
                 <view class="icon iconfont {{'img' + index}}">
                     <!-- <image src="{{testImg}}" /> -->
                 </view>
-                <view class="funcListText">手机号管理</view>
+                <view class="funcListText">{{item.title}}</view>
             </view>
             <view class="funcListRight iconfont"></view>
         </view>

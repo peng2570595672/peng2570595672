@@ -4,8 +4,23 @@
 		<!-- 自助办理流程 -->
 		<view class="communal moduleOne" wx:if="{{viewTc.type === 'moduleOne'}}">
 			<view class="title">自助办理流程</view>
-			<view class="topImg">顶部图片</view>
-			<view class="content"></view>
+			<view class="topImg">
+				<view class="material">请提前准备以下证件资料</view>
+				<view class="photo">
+					<view class="photo-item" wx:for="{{handlingProcess}}" wx:key="index">
+						<image class="image" src="{{item.icon}}"></image>
+						<text class="textm">{{item.title}}</text>
+					</view>
+				</view>
+			</view>
+			<view class="content">
+				<!--流程开始-->
+				<view class="item" wx:for="{{ processList }}" wx:key="index">
+					<view class="content-title">{{ item.title }}</view>
+					<view class="content-des">{{ item.content }}</view>
+				</view>
+			</view>
+            
 		</view>
 		<!-- 热门问答 -->
 		<scroll-view scroll-y="true" class="communal moduleTwo" wx:if="{{viewTc.type === 'moduleTwo'}}" >

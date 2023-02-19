@@ -5,9 +5,20 @@ const app = getApp();
 Page({
 	data: {
 		isVip: false, //	用户是否是Vip
-		mobilePhones: undefined,	// 微信绑定的电话号码
-		userInfos: {},	// 存放用户的头像和昵称
 		testImg: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',	// 测试所用的图片和icon
+		funcList: [
+			{icon: '',title: '我的订单',url: 'my_etc'},
+			{icon: '',title: '通行流水',url: 'my_order'},
+			{icon: '',title: '领券中心',url: 'coupon_redemption_centre'},
+			{icon: '',title: '帮助中心',url: 'help_center'}
+
+		],
+		funcList2: [
+			{icon: '',title: '在线客服',url: 'online_customer_service'},
+			// {icon: '',title: '手机号管理',url: ''},   //本期先隐藏该项，暂不做功能
+			{icon: '',title: '发票助手',url: 'invoice_assistant'},
+			{icon: '',title: '相关协议',url: 'user_agreement'}
+		],
 
 		isClickNotice: false, // 是否点击过广告位
 		isShowNotice: false, // 是否显示广告位
@@ -49,15 +60,11 @@ Page({
 				isMain: options.isMain
 			});
 		}
-		// 4.0
-		this.setUserInfoStorageTime();
 	},
 	async onShow () {
 		// 4.0
+		this.getUserProfiles();
 		util.customTabbar(this, 3);
-		this.setData({
-			mobilePhones: app.globalData.mobilePhone
-		});
 		// --------------end------------
 		if (app.globalData.userInfo.accessToken) {
 			// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
@@ -259,7 +266,6 @@ Page({
 		} else {
 			util.showToastNoIcon(result.message);
 		}
-		console.log(app.globalData.myEtcList);
 	},
 	async getIsShow () {
 		let isActivation = app.globalData.myEtcList.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && (item.obuCardType === 1 || item.obuCardType === 21 || item.obuCardType === 22)); // 1 已激活  2 恢复订单  5 预激活
@@ -367,6 +373,8 @@ Page({
 			encryptedData: user.encryptedData,
 			iv: user.iv
 		};
+		console.log('参数：',params);
+		console.log('值：',user);
 		const result = await util.getDataFromServersV2('consumer/member/applet/update-user-info', params);
 		if (result.code) util.showToastNoIcon(result.message);
 	},
@@ -507,56 +515,33 @@ Page({
 	// ------------------------------------------------------------------------------------------------------
 	// 获取头像和昵称
 	getUserProfiles () {
+		let personInformation = wx.getStorageSync('person_information');
+		if (personInformation) {
+			return this.setData({
+				userInfo: {
+					avatarUrl: personInformation.headPhoto,
+					nickName: personInformation.nicheng
+				}
+			});
+		}
+
 		var that = this;
 		wx.showModal({
 			title: '提示',
-			content: '是否允许获取微信昵称和头像？',
+			content: '您的个人信息已过期，请立即补充',
 			success (res) {
 				if (res.confirm) {
-					wx.getUserProfile({
-						desc: '用于完善用户资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-						success: (res) => {
-							console.log(res.userInfo);
-							app.globalData.userInfo = res.userInfo; // 这个我有时候获取不到
-							that.setData({
-								userInfo: res.userInfo
-							});
-							wx.setStorageSync('userInfo', res.userInfo);
-							let setNowTime = Date.now() + 3600 * 1000 * 24 * 30; // 设置30天有效期
-							wx.setStorageSync('userInfoStorageTime', setNowTime);
-						},
-						fail: function (err) {
-							util.showToastNoIcon(err);
-						}
-					});
+					util.go(`/pages/personal_center/personal_information/personal_information?isVip=${that.data.isVip}`);
 				}
+			},
+			fail (err) {
+				util.showToastNoIcon(err);
 			}
 		});
 	},
 
-	setUserInfoStorageTime () {
-		var that = this;
-		let nowTime = Date.now();
-		let oldTime = wx.getStorageSync('userInfoStorageTime');
-		let userInfo = wx.getStorageSync('userInfo');
-		if (userInfo.nickName !== undefined && userInfo.nickName !== null && userInfo.nickName !== '') {
-			if (oldTime && nowTime < oldTime) {
-				that.setData({
-					userInfos: userInfo
-				});
-			} else {
-				that.getUserProfiles();
-			}
-		} else {
-			that.getUserProfiles();
-		}
-	},
-
 	// 测试是否Vip的变化
 	btnChange () {
-		// this.setData({
-		// 	isVip: !this.data.isVip
-		// });
 		util.go(`/pages/personal_center/personal_information/personal_information?isVip=${this.data.isVip}`);
 	}
 });

@@ -121,6 +121,7 @@ Page({
 				orderDetails: res,
 				vehicleInfo: res.vehPlates,
 				vehPlates: vehPlates,
+				tips: result.data.base.orderAudit.remark,
 				topProgressBar: orderInfo.isOwner && orderInfo.isVehicle ? 3.6 : orderInfo.isOwner || orderInfo.isVehicle ? 3.3 : 3
 			});
 			this.availableCheck();
@@ -314,8 +315,8 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			app.globalData.isNeedReturnHome = true;
+
 			if (this.data.orderInfo.flowVersion === 2 || this.data.orderInfo.flowVersion === 3) {
-				// 总对总
 				util.go(`/pages/default/order_audit/order_audit`);
 				return;
 			}

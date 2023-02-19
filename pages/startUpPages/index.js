@@ -18,13 +18,12 @@ Page({
 		// 调用微信接口获取code
 		wx.login({
 			success: async (res) => {
-				console.log(res);
 				const result = await util.getDataFromServersV2(
 					'consumer/member/common/applet/code', {
 						platformId: app.globalData.platformId, // 平台id
 						code: res.code // 从微信获取的code
 				},'POST',false);
-					console.log('微信信息：' ,result);
+					// console.log('微信信息：' ,result);
 				if (!result) return;
 				if (result.code === 0) {
 					result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data.mobilePhone);
@@ -65,9 +64,6 @@ Page({
 			// 查询是否欠款
 			// await util.getIsArrearage();
 		} else {
-			wx.switchTab({
-				url: '/pages/my/index'
-			});
 			util.showToastNoIcon(result.message);
 		}
 	},

@@ -5,7 +5,8 @@ Page({
 	data: {
 		isVip: '', // 是否VIP用户
 		bgColor: '', // 背景色
-		nicheng: '小男孩',
+		nicheng: '',
+		headPhoto: '',
 		userInfo: {} // 存放用户的头像和昵称
 	},
 
@@ -17,7 +18,21 @@ Page({
 	},
 
 	onShow () {
-
+		let personInformation = wx.getStorageSync('person_information');
+		if (personInformation) {
+			this.setData({
+				headPhoto: personInformation.headPhoto,
+				nicheng: personInformation.nicheng
+			});
+		}
+	},
+	// 保存个人信息 到本地环境
+	save () {
+		wx.setStorageSync('person_information', {
+			nicheng: this.data.nicheng,
+			headPhoto: this.data.headPhoto
+		});
+		util.showToastNoIcon('保存成功');
 	},
 	// 根据是否VIP决定此页面的背景色
 	decisionColor (isVip) {
@@ -70,11 +85,10 @@ Page({
 							console.log(res.userInfo);
 							app.globalData.userInfo = res.userInfo; // 这个我有时候获取不到
 							that.setData({
-								userInfo: res.userInfo
+								userInfo: res.userInfo,
+								headPhoto: res.userInfo.avatarUrl,
+								nicheng: res.userInfo.nickName
 							});
-							wx.setStorageSync('userInfo', res.userInfo);
-							let setNowTime = Date.now() + 3600 * 1000 * 24 * 30; // 设置30天有效期
-							wx.setStorageSync('userInfoStorageTime', setNowTime);
 						},
 						fail: function (err) {
 							util.showToastNoIcon(err);
@@ -86,6 +100,7 @@ Page({
 	},
 	// 相册选择
 	getChooseImage () {
+		let that = this;
 		wx.chooseImage({
 			count: 1,
 			sizeType: ['original', 'compressed'],
@@ -93,7 +108,12 @@ Page({
 			success (res) {
 				// tempFilePath可以作为 img 标签的 src 属性显示图片
 				const tempFilePaths = res.tempFilePaths;
-				console.log(res);
+				that.setData({
+					headPhoto: tempFilePaths
+				});
+			},
+			fail (err) {
+				util.showToastNoIcon(err);
 			}
 		});
 	}
