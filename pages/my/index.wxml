@@ -2,53 +2,57 @@
 <view class="my {{isVip ? 'is' : 'no'}}">
     <!-- 顶部user信息 -->
     <view class="user">
-        <view class="headPortrait {{isVip ? 'yellowU' : 'greenU'}}" catchtap="btnChange">
-            <image src="{{userInfo.avatarUrl}}" />
+        <view class="headPortrait {{isVip ? 'yellowU' : 'greenU'}}" catchtap="goUserInfo">
+            <image class="headImg" src="{{userInfo.avatarUrl || wChatHeadImg}}" />
         </view>
         <view class="userInfo">
-            <view class="userName">{{userInfo.nickName || '昵称'}}</view>
+            <view class="userName" catchtap="getUserProfile">{{userInfo.nickName ? userInfo.nickName : 'E+车主' }}</view>
             <view class="mobilePhoneEquity">
                 <view class="ETCMobilePhone {{isVip ? 'yellowC' : 'greenC'}}">
                     {{isVip ? 'ETC+PLUS': 'ETC+'}}
-                    <text>{{tools.phoneNumberHide(mobilePhone)}}</text>
+                    <text class="textPhone">{{tools.phoneNumberHide(mobilePhone)}}</text>
                 </view>
                 <view class="iconfont viewEquity" data-url="description_of_equity" catchtap="go">查看权益</view>
             </view>
         </view>
     </view>
     <!-- 模块1 ETC电子账户 -->
-    <view class="module moduleOne {{isVip ? 'yellow' : 'green'}}" >
-        <!-- 金额和账户 -->
-        <view class="mountAccount">
-            <view>￥{{'200.00'}}</view>
-            <view class="{{isVip ? 'yellowM' : 'greenM'}}">ETC电子账户</view>
-        </view>
-        <!-- 记录和车牌 -->
-        <view class="recordPlate">
-            <view>查看账户充值及消费记录</view>
-            <view>{{'粤AHUHAQ'}}</view>
-        </view>
+    <view class="module moduleOne {{isVip ? 'yellow' : 'green'}}" wx:if="{{true}}">
+        <swiper class="swiperBox" autoplay='{{false}}' circular indicator-dots='{{false}}' bindchange="">
+            <swiper-item class="swiper-item" wx:for="{{myAccountList}}" wx:key="index" catchtap="">
+                <!-- 金额和账户 -->
+                <view class="mountAccount">
+                    <view class="money">{{item.pledgeType === 1 ? '权益券额' : '￥'}} {{item.pledgeMoney}}</view>
+                    <view class="count {{isVip ? 'yellowM' : 'greenM'}}">ETC电子账户</view>
+                </view>
+                <!-- 记录和车牌 -->
+                <view class="recordPlate">
+                    <view class="record" catchtap="onClickAccountManagement">查看账户充值及消费记录</view>
+                    <view class="plate">{{item.vehPlates}}</view>
+                </view>
+            </swiper-item>
+        </swiper>
+        <view class="styleNum" wx:if="{{tools.dataLen(myAccountList) > 1}}" style="background:{{isVip ? '#85682E' : '#2d765f'}}"></view>
+        <view class="styleNum1" wx:if="{{tools.dataLen(myAccountList) > 1}}" style="background:{{isVip ? '#644E23' : '#4f8d73'}}"></view>
     </view>
     <!-- 模块2 功能栏 -->
-    <view class="module moduleTwo">
+    <view class="module moduleTwo {{tools.dataLen(myAccountList) > 1 ? 'marginTop' : ''}}">
         <view class="func" wx:for="{{funcList}}" wx:key="index" data-url="{{item.url}}" catchtap="go">
             <view class="icon {{isVip ? 'yellowF' : 'greenF'}}">
-                <!-- <image src="{{testImg}}" /> -->
+                <image class="iconImg" src="{{}}" />
             </view>
             <view class="iconText">{{item.title}}</view>
         </view>
     </view>
     <!-- 模块3 广告 -->
-    <view class="module moduleThree" wx:if="{{true}}">
-        <image src="{{testImg}}" />
+    <view class="module moduleThree" wx:if="{{true}}" catchtap="">
+        <image class="image" src="{{testImg}}" />
     </view>
     <!-- 模块4 -->
     <view class="module moduleFour">
         <view class="funcList" wx:for="{{funcList2}}" data-url="{{item.url}}" wx:key="index" catchtap="go">
             <view class="funcListLeft">
-                <view class="icon iconfont {{'img' + index}}">
-                    <!-- <image src="{{testImg}}" /> -->
-                </view>
+                <view class="icon iconfont {{'img' + index}}"></view>
                 <view class="funcListText">{{item.title}}</view>
             </view>
             <view class="funcListRight iconfont"></view>

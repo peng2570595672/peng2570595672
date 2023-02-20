@@ -98,6 +98,9 @@ function onlineService (obj,twoPar) {
 }
 // 手机号展示部分隐藏
 function phoneNumberHide (obj) {
+  if (!obj) { //判断是否为 空
+    return false
+  }
   var left = obj.substring(0,4);
   var right = obj.substring(8,12)
   var obj = left + '****' + right

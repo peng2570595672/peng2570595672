@@ -36,7 +36,6 @@ Page({
 		}
 	},
 	async onLoad (options) {
-		console.log(options);
 		this.setData({
 			vehColor: options.vehColor,
 			vehPlates: options.vehPlates,
@@ -293,10 +292,10 @@ Page({
 			if (isToast) util.showToastNoIcon('车辆尺寸不能为空！');
 			return false;
 		}
-		if (!this.data.drivingLicenseBack.ocrObject.remark) {
-			if (isToast) util.showToastNoIcon('车辆备注不能为空！');
-			return false;
-		}
+		// if (!this.data.drivingLicenseBack.ocrObject.remark) {
+		// 	if (isToast) util.showToastNoIcon('车辆备注不能为空！');
+		// 	return false;
+		// }
 		if (!this.data.drivingLicenseBack.ocrObject.recode) {
 			if (isToast) util.showToastNoIcon('车辆检验记录不能为空！');
 			return false;
@@ -469,6 +468,14 @@ Page({
 			if (parseInt(value) < 1 || parseInt(value) > 6) value = '';
 			drivingLicenseBack.ocrObject[key] = value;
 		}
+
+		if (key === 'owner' || key === 'engineNo' || key === 'vin' || key === 'vehicleType' || key === 'address' || key === 'useCharacter' || key === 'model') {
+			drivingLicenseFace.ocrObject[key] = value;
+		}
+		if (key === 'fileNumber' || key === 'totalMass' || key === 'curbWeight' || key === 'loadQuality' || key === 'size' || key === 'tractionMass' || key === 'remark' || key === 'recode') {
+			drivingLicenseBack.ocrObject[key] = value;
+		}
+
 		this.setData({
 			drivingLicenseFace,
 			drivingLicenseBack
@@ -506,22 +513,8 @@ Page({
 			drivingLicenseBack
 		});
 	},
-	// 车辆品牌收费车型校验
-	async brandChargingModel (obj) {
-		const result = await util.getDataFromServersV2('consumer/etc/qtzl/checkCarChargeType', {
-			orderId: obj.orderId
-		});
-		console.log(result);
-		if (!result) return;
-		if (result.code === 0) {
-
-		} else {
-			return util.showToastNoIcon(result.message);
-		}
-	},
 	// 控制进度条的长短
 	processBarSize () {
-		console.log(this.data.topProgressBar1);
 		if (this.data.faceStatus === 4 || this.data.backStatus === 4) {
 			let flag = this.data.topProgressBar1;
 			wx.setNavigationBarColor({

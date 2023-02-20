@@ -1710,7 +1710,7 @@ function customTabbar (that, num) {
 		index: num
 	});
 }
-}
+};
 
 module.exports = {
 	setApp,

@@ -32,7 +32,7 @@ Page({
 
 	go () {
 		// util.go('/pages/default/choose_a_package/choose_a_package');
-		util.go('/pages/default/fill_in_basic_information/fill_in_basic_information');
+		// util.go('/pages/default/fill_in_basic_information/fill_in_basic_information');
 	},
 
 	/**

@@ -122,7 +122,7 @@ Page({
 				vehicleInfo: res.vehPlates,
 				vehPlates: vehPlates,
 				tips: res.orderAudit ? res.orderAudit.remark : '',
-				topProgressBar: orderInfo.isOwner && orderInfo.isVehicle ? 3.6 : orderInfo.isOwner || orderInfo.isVehicle ? 3.3 : 3
+				topProgressBar: orderInfo.isOwner && orderInfo.isVehicle ? 4 : orderInfo.isOwner || orderInfo.isVehicle ? 3.3 : 3
 			});
 			this.availableCheck();
 		} else {
@@ -162,13 +162,13 @@ Page({
 		}
 	},
 	availableCheck () {
-		if (this.data.orderInfo && this.data.orderInfo.isOwner === 1 && this.data.orderInfo.isVehicle === 1 && this.data.ownerIdCard?.ownerIdCardTrueName !== this.data.vehicle?.owner) {
-			util.showToastNoIcon('身份证与行驶证必须为同一持有人');
-			this.setData({
-				available: false
-			});
-			return false;
-		}
+		// if (this.data.orderInfo && this.data.orderInfo.isOwner === 1 && this.data.orderInfo.isVehicle === 1 && this.data.ownerIdCard?.ownerIdCardTrueName !== this.data.vehicle?.owner) {
+		// 	util.showToastNoIcon('身份证与行驶证必须为同一持有人');
+		// 	this.setData({
+		// 		available: false
+		// 	});
+		// 	return false;
+		// }
 		if (this.data.orderInfo && this.data.orderInfo.isOwner === 1 && this.data.orderInfo.isVehicle === 1 && ((this.data.orderInfo.isHeadstock === 1 && this.data.orderInfo.obuCardType !== 1) || (this.data.orderInfo.obuCardType === 1))) {
 			this.setData({
 				available: true
@@ -201,8 +201,16 @@ Page({
 		util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}`);
 	},
 	// ETC申办审核结果通知、ETC发货提示
-	subscribe () {
+	async subscribe () {
+		// if (this.data.orderInfo && this.data.orderInfo?.isOwner === 1 && this.data.orderInfo?.isVehicle === 1 && this.data.ownerIdCard?.ownerIdCardTrueName !== this.data.vehicle?.owner) {
+		// 	util.showToastNoIcon('身份证与行驶证必须为同一持有人');
+		// 	return;
+		// }
 		if (!this.data.available) return;
+		let brandChargingModel = await this.brandChargingModel();
+		if (!brandChargingModel) {
+			return;
+		}
 		// 判断版本，兼容处理
 		let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
 		if (result >= 0) {
@@ -331,16 +339,24 @@ Page({
 		}
 	},
 	// 车辆品牌收费车型校验
-	async brandChargingModel (obj) {
+	async brandChargingModel () {
+		console.log('hahha1');
 		const result = await util.getDataFromServersV2('consumer/etc/qtzl/checkCarChargeType', {
-			orderId: obj.orderId
+			orderId: app.globalData.orderInfo.orderId
 		});
 		console.log(result);
 		if (!result) return;
 		if (result.code === 0) {
-			console.log(res.data);
+			let res = result.data.data;
+			console.log(res);
+			if (res.checkResult === 1) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
-			return util.showToastNoIcon(result.message);
+			util.showToastNoIcon(result.message);
+			return false;
 		}
 	},
 	onUnload () {

@@ -6,6 +6,7 @@ Page({
 	data: {
 		isVip: false, //	用户是否是Vip
 		testImg: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',	// 测试所用的图片和icon
+		wChatHeadImg: 'https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132',	// 微信默认头像
 		funcList: [
 			{icon: '',title: '我的订单',url: 'my_etc'},
 			{icon: '',title: '通行流水',url: 'my_order'},
@@ -19,6 +20,7 @@ Page({
 			{icon: '',title: '发票助手',url: 'invoice_assistant'},
 			{icon: '',title: '相关协议',url: 'user_agreement'}
 		],
+		myAccountList: [],
 
 		isClickNotice: false, // 是否点击过广告位
 		isShowNotice: false, // 是否显示广告位
@@ -42,18 +44,12 @@ Page({
 		isShowCoupon: false, // 是否显示通通券入口
 		hasCoupon: false, // 是否显示领券中心
 		isActivityDate: false, // 是否活动期间
-		canIUseGetUserProfile: false,
 		isPrechargeOrder: true, // 是否有预充流程 || 交行二类户 || 工行二类户  & 已审核通过订单
 		disclaimerDesc: app.globalData.disclaimerDesc,
 		isShowEquityImg: false	// 是否显示权益商城banner
 	},
 
 	onLoad (options) {
-		if (wx.getUserProfile) {
-			this.setData({
-				canIUseGetUserProfile: true
-			});
-		}
 		app.globalData.orderInfo.orderId = '';
 		if (options.isMain) {
 			this.setData({
@@ -73,21 +69,6 @@ Page({
 			await Promise.all(requestList);
 			util.hideLoading();
 			let that = this;
-			wx.getSetting({
-				success (res) {
-					if (res.authSetting['scope.userInfo']) {
-						// 已经授权，可以直接调用 getUserInfo 获取头像昵称
-						wx.getUserInfo({
-							success: function (res) {
-								that.setData({
-									userInfo: res.userInfo
-								});
-								that.submitUserInfo(res);
-							}
-						});
-					}
-				}
-			});
 			if (JSON.stringify(app.globalData.myEtcList) !== '{}') {
 				this.getIsShow();
 			}
@@ -224,11 +205,11 @@ Page({
 						if (JSON.stringify(app.globalData.myEtcList) === '{}') {
 							requestList = [await this.getStatus()];
 						}
+						this.setData({
+							myAccountList: app.globalData.myEtcList
+						});
 						// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
 						requestList = [requestList, await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon(), await this.getRightsAccount()];
-						if (isData) {
-							requestList.push(await this.submitUserInfo(isData));
-						}
 						util.showLoading();
 						await Promise.all(requestList);
 						util.hideLoading();
@@ -262,6 +243,9 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
 		if (result.code === 0) {
 			app.globalData.myEtcList = result.data;
+			this.setData({
+				myAccountList: result.data
+			});
 			await this.getIsShow();
 		} else {
 			util.showToastNoIcon(result.message);
@@ -368,16 +352,7 @@ Page({
 			path: `/pages/crowdsourcing/new_user/new_user?shopId=${app.globalData.crowdsourcingServiceProvidersId}&memberId=${app.globalData.memberId}`
 		};
 	},
-	async submitUserInfo (user) {
-		let params = {
-			encryptedData: user.encryptedData,
-			iv: user.iv
-		};
-		console.log('参数：',params);
-		console.log('值：',user);
-		const result = await util.getDataFromServersV2('consumer/member/applet/update-user-info', params);
-		if (result.code) util.showToastNoIcon(result.message);
-	},
+
 	// 获取会员信息
 	async getMemberBenefits () {
 		const result = await util.getDataFromServersV2('consumer/member/member-status', {});
@@ -389,27 +364,7 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
-	getUserProfile (e) {
-		wx.getUserProfile({
-			desc: '用于完善用户资料',
-			success: (res) => {
-				this.setData({
-					userInfo: res.userInfo
-				});
-				if (res.userInfo) {
-					this.submitUserInfo(res);
-				}
-			}
-		});
-	},
-	bindGetUserInfo (e) {
-		this.setData({
-			userInfo: e.detail.userInfo
-		});
-		if (e.detail.userInfo) {
-			this.submitUserInfo(e.detail);
-		}
-	},
+
 	// 跳转
 	async go (e) {
 		let url = e.currentTarget.dataset['url'];
@@ -438,11 +393,9 @@ Page({
 		util.go(`/pages/personal_center/${url}/${url}`);
 	},
 	onClickAccountManagement () {
-		// console.log(this.getStatus());//获取订单信息
 		wx.uma.trackEvent('personal_center_for_account_management');
 		util.go('/pages/account_management/index/index');
 	},
-
 	// 扫码
 	scan () {
 		util.showLoading({ title: '正在识别' });
@@ -519,29 +472,25 @@ Page({
 		if (personInformation) {
 			return this.setData({
 				userInfo: {
-					avatarUrl: personInformation.headPhoto,
+					avatarUrl: personInformation.avatarUrl,
 					nickName: personInformation.nicheng
 				}
 			});
 		}
-
-		var that = this;
-		// wx.showModal({
-		// 	title: '提示',
-		// 	content: '您的个人信息已过期，请立即补充',
-		// 	success (res) {
-		// 		if (res.confirm) {
-		// 			util.go(`/pages/personal_center/personal_information/personal_information?isVip=${that.data.isVip}`);
-		// 		}
-		// 	},
-		// 	fail (err) {
-		// 		util.showToastNoIcon(err);
-		// 	}
-		// });
 	},
-
-	// 测试是否Vip的变化
-	btnChange () {
-		util.go(`/pages/personal_center/personal_information/personal_information?isVip=${this.data.isVip}`);
+	// 前往个人信息
+	goUserInfo () {
+		this.fangDou(this.data.isVip,1000);
+	},
+	fangDou (value, time) {
+		let that = this;
+		return (function () {
+			if (that.data.timeout) {
+				clearTimeout(that.data.timeout);
+			}
+			that.data.timeout = setTimeout(() => {
+				util.go(`/pages/personal_center/personal_information/personal_information?isVip=${value}`);
+			}, time);
+		})();
 	}
 });

@@ -5,9 +5,9 @@ Page({
 	data: {
 		isVip: '', // 是否VIP用户
 		bgColor: '', // 背景色
-		nicheng: '',
-		headPhoto: '',
-		userInfo: {} // 存放用户的头像和昵称
+		nicheng: undefined,	// 昵称
+		avatarUrl: undefined,	// 头像
+		wChatHeadImg: 'https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132' // 微信默认头像
 	},
 
 	onLoad (options) {
@@ -21,16 +21,16 @@ Page({
 		let personInformation = wx.getStorageSync('person_information');
 		if (personInformation) {
 			this.setData({
-				headPhoto: personInformation.headPhoto,
-				nicheng: personInformation.nicheng
+				avatarUrl: personInformation.avatarUrl || this.data.wChatHeadImg,
+				nicheng: personInformation.nicheng || 'E+车主'
 			});
 		}
 	},
 	// 保存个人信息 到本地环境
 	save () {
 		wx.setStorageSync('person_information', {
-			nicheng: this.data.nicheng,
-			headPhoto: this.data.headPhoto
+			avatarUrl: this.data.avatarUrl,
+			nicheng: this.data.nicheng
 		});
 		util.showToastNoIcon('保存成功');
 	},
@@ -54,68 +54,60 @@ Page({
 			});
 		}
 	},
-
-	getPhoto () {
-		let that = this;
-		wx.showActionSheet({
-			itemList: ['用微信头像', '从相册选择'],
-			success (res) {
-				if (res.tapIndex === 0) {
-					that.getUserProfile();
-				} else {
-					that.getChooseImage();
-				}
-			},
-			fail (res) {
-				console.log(res.errMsg);
-			}
+	onChooseAvatar (e) {
+		const { avatarUrl } = e.detail;
+		this.setData({
+			avatarUrl
 		});
 	},
-	// 获取微信头像和昵称
-	getUserProfile () {
-		var that = this;
-		wx.showModal({
-			title: '提示',
-			content: '是否允许获取微信昵称和头像？',
-			success (res) {
-				if (res.confirm) {
-					wx.getUserProfile({
-						desc: '用于完善用户资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-						success: (res) => {
-							console.log(res.userInfo);
-							app.globalData.userInfo = res.userInfo; // 这个我有时候获取不到
-							that.setData({
-								userInfo: res.userInfo,
-								headPhoto: res.userInfo.avatarUrl,
-								nicheng: res.userInfo.nickName
-							});
-						},
-						fail: function (err) {
-							util.showToastNoIcon(err);
-						}
-					});
-				}
-			}
-		});
+	bindKeyInput (e) {
+		const { value } = e.detail;
+		this.fangDou(value,500);
 	},
-	// 相册选择
-	getChooseImage () {
+	fangDou (value, time) {
 		let that = this;
-		wx.chooseImage({
-			count: 1,
-			sizeType: ['original', 'compressed'],
-			sourceType: ['album', 'camera'],
-			success (res) {
-				// tempFilePath可以作为 img 标签的 src 属性显示图片
-				const tempFilePaths = res.tempFilePaths;
+		return (function () {
+			if (that.data.timeout) {
+				clearTimeout(that.data.timeout);
+			}
+			that.data.timeout = setTimeout(() => {
 				that.setData({
-					headPhoto: tempFilePaths
+					nicheng: value
 				});
-			},
-			fail (err) {
-				util.showToastNoIcon(err);
-			}
-		});
+			}, time);
+		})();
 	}
+	// 旧版本
+	// getUserProfile (e) {
+	// 	wx.getUserProfile({
+	// 		desc: '用于完善用户资料',
+	// 		success: (res) => {
+	// 			this.setData({
+	// 				userInfo: res.userInfo
+	// 			});
+	// 			if (res.userInfo) {
+	// 				this.submitUserInfo(res);
+	// 			}
+	// 		}
+	// 	});
+	// },
+	// bindGetUserInfo (e) {
+	// 	this.setData({
+	// 		userInfo: e.detail.userInfo
+	// 	});
+	// 	if (e.detail.userInfo) {
+	// 		this.submitUserInfo(e.detail);
+	// 	}
+	// }
+	// async submitUserInfo (user) {
+	// 	let params = {
+	// 		encryptedData: user.encryptedData,
+	// 		iv: user.iv
+	// 	};
+	// 	console.log('参数：',params);
+	// 	console.log('值：',user);
+	// 	const result = await util.getDataFromServersV2('consumer/member/applet/update-user-info', params);
+	// 	if (result.code) util.showToastNoIcon(result.message);
+	// },
 
 });

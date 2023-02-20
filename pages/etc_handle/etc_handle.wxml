@@ -1,5 +1,3 @@
 <view catchtap="go">
-    <button >
-        点击跳转选择套餐页
-    </button>
+    ETC办理
 </view>

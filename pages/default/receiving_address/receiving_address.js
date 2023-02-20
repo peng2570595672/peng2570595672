@@ -708,7 +708,7 @@ Page({
 			}, time);
 		})();
 	},
-	// 传车牌及车牌颜色校验是否已有黔通订单
+	// 传车牌及车牌颜色校验是否已有黔通订单 三方接口
 	async validateCar () {
 		this.setData({
 			available: this.validateAvailable(true)
