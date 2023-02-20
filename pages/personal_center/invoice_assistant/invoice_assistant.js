@@ -5,7 +5,7 @@ Page({
 		listOne: [
 			{name: '开票说明',url: 'invoicing_instructions',icon: 'explain'},
 			{name: '通行费开票',url: 'toll',icon: 'toll'},
-			{name: '办理费开票',url: 'invoice_issued_detail',icon: 'handlingFee'}
+			{name: '办理费开票',url: 'invoice_issued_list',icon: 'handlingFee'}
 		],
 		disclaimerDesc: app.globalData.disclaimerDesc
 	},
@@ -19,7 +19,7 @@ Page({
 	},
 	go (e) {
 		let url = e.currentTarget.dataset.url;
-		if (url === 'invoicing_instructions' || url === 'invoice_issued_detail') {
+		if (url === 'invoicing_instructions' || url === 'invoice_issued_list') {
 			return util.go(`/pages/personal_center/${url}/${url}`);
 		}
 		if (url === 'toll') {

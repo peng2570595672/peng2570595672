@@ -17,8 +17,8 @@
 .my {
     margin: 0;
     padding: 0;
-    width: 100vw;
     height: auto;
+    width: 750rpx;
     padding-top: 192rpx;
 }
 

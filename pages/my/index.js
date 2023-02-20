@@ -526,18 +526,18 @@ Page({
 		}
 
 		var that = this;
-		wx.showModal({
-			title: '提示',
-			content: '您的个人信息已过期，请立即补充',
-			success (res) {
-				if (res.confirm) {
-					util.go(`/pages/personal_center/personal_information/personal_information?isVip=${that.data.isVip}`);
-				}
-			},
-			fail (err) {
-				util.showToastNoIcon(err);
-			}
-		});
+		// wx.showModal({
+		// 	title: '提示',
+		// 	content: '您的个人信息已过期，请立即补充',
+		// 	success (res) {
+		// 		if (res.confirm) {
+		// 			util.go(`/pages/personal_center/personal_information/personal_information?isVip=${that.data.isVip}`);
+		// 		}
+		// 	},
+		// 	fail (err) {
+		// 		util.showToastNoIcon(err);
+		// 	}
+		// });
 	},
 
 	// 测试是否Vip的变化

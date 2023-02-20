@@ -121,7 +121,7 @@ Page({
 				orderDetails: res,
 				vehicleInfo: res.vehPlates,
 				vehPlates: vehPlates,
-				tips: result.data.base.orderAudit.remark,
+				tips: res.orderAudit ? res.orderAudit.remark : '',
 				topProgressBar: orderInfo.isOwner && orderInfo.isVehicle ? 3.6 : orderInfo.isOwner || orderInfo.isVehicle ? 3.3 : 3
 			});
 			this.availableCheck();
@@ -194,6 +194,7 @@ Page({
 		if (this.data.orderInfo.isOwner || this.data.orderInfo.isVehicle) {
 			topProgressBar = 3.3;
 		}
+		console.log(this.data.orderInfo.isOwner);
 		if (url === 'information_validation' && !this.data.orderInfo.isOwner) {
 			return util.showToastNoIcon('请先上传身份证');
 		}
@@ -201,10 +202,6 @@ Page({
 	},
 	// ETC申办审核结果通知、ETC发货提示
 	subscribe () {
-		if (this.data.orderInfo && this.data.orderInfo?.isOwner === 1 && this.data.orderInfo?.isVehicle === 1 && this.data.ownerIdCard?.ownerIdCardTrueName !== this.data.vehicle?.owner) {
-			util.showToastNoIcon('身份证与行驶证必须为同一持有人');
-			return;
-		}
 		if (!this.data.available) return;
 		// 判断版本，兼容处理
 		let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');

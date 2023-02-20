@@ -540,13 +540,13 @@ Page({
 	},
 	async next () {
 		if (this.data.choiceIndex === -1) return;
+		if (!this.data.getAgreement) {
+			util.showToastNoIcon('请同意并勾选协议！');
+			return;
+		}
 		if (this.data.listOfPackages[this.data.choiceIndex].mustChoiceRightsPackage === 1 && this.data.activeEquitiesIndex === -1) {
 			util.showToastNoIcon('套餐需加购权益包');
 			// 必须选择权益
-			return;
-		}
-		if (!this.data.getAgreement) {
-			util.showToastNoIcon('请同意并勾选协议！');
 			return;
 		}
 		if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4) {

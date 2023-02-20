@@ -399,10 +399,6 @@ Page({
 	// 点击车牌颜色选择车牌颜色
 	onClickCarNoColorHandle (e) {
 		let index = e.currentTarget.dataset.index;
-		// if (parseInt(index) === 2) {
-		// 	util.showToastNoIcon('暂不支持黄牌车办理！');
-		// 	return;
-		// }
 		let formData = this.data.formData;
 		formData.currentCarNoColor = parseInt(index);
 		this.setData({
@@ -616,6 +612,7 @@ Page({
 		isOk = isOk && formData.detailInfo && formData.detailInfo.length >= 2;
 		// 检验手机号码
 		isOk = isOk && formData.telNumber && /^1[0-9]{10}$/.test(formData.telNumber);
+		this.controllTopTabBar();
 		return isOk;
 	},
 	// etc4.0：新增-拉起微信授权手机号
@@ -696,6 +693,7 @@ Page({
 				this.fangDou('',1500);
 			}
 		}
+		this.controllTopTabBar();
 	},
 	fangDou (fn, time) {
 		let that = this;
@@ -738,6 +736,28 @@ Page({
 			currentCarNoColor: 1
 		});
 		this.setCurrentCarNo(e);
+	},
+	// 控制顶部进度条的大小
+	controllTopTabBar () {
+		let num = 0;
+		if (this.data.carNoStr.length > 0) {
+			num += 1;
+		}
+		if (this.data.formData.userName) {
+			num += 1;
+		}
+		if (this.data.formData.region) {
+			num += 1;
+		}
+		if (this.data.formData.detailInfo) {
+			num += 1;
+		}
+		if (this.data.operatorPhoneNumber) {
+			num += 1;
+		}
+		this.setData({
+			topProgressBar: 1 + 0.15 * num
+		});
 	},
 	onUnload () {
 		// 统计点击事件

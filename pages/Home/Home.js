@@ -118,8 +118,8 @@ Page({
 				title: '账单查询',
 				btn: '最近通行的记录',
 				isShow: true,
-				url: 'invoice',
-				statisticsEvent: 'index_invoice'
+				url: 'my-order',
+				statisticsEvent: 'index_my-order'
 			},
 			{
 				icon: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',
@@ -132,8 +132,8 @@ Page({
 				icon: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',
 				title: '权益商城',
 				btn: '免税商品上线',
-				url: 'invoice',
-				statisticsEvent: 'index_invoice'
+				url: 'equity',
+				statisticsEvent: 'index_equity'
 			}
 		],
 		moduleTwoList: [],	// 出行贴心服务
@@ -264,7 +264,6 @@ Page({
 		if (url === 'violation_enquiry') {
 			// 统计点击进入违章查询
 			this.selectComponent('#dialog1').show('violation_enquiry');
-			// this.onClickViolationEnquiry();
 			return;
 		}
 		if (url === 'preferential_refueling') {
@@ -275,6 +274,10 @@ Page({
 		if (url === 'online_customer_service') {
 			// 统计点击进入在线客服
 			util.go(`/pages/web/web/web?type=${url}`);
+			return;
+		}
+		if (url === 'equity') {
+			this.handleMall();
 			return;
 		}
 		if (url === 'invoice') {
@@ -289,9 +292,13 @@ Page({
 		}
 		if (url === 'index') {
 			// 统计点击进入个人中心事件
-		} else if (url === 'my_order') {
-			// 统计点击进入我的ETC账单
 		}
+		if (url === 'my_order') {
+			// 统计点击进入我的ETC账单
+			util.go(`/pages/personal_center/${url}/${url}`);
+			return;
+		}
+
 		// 订阅:高速扣费通知、ETC欠费提醒、黑名单状态提醒
 		let urls = `/pages/personal_center/${url}/${url}?isMain=true`;
 		let tmplIds = ['oz7msNJRXzk7VmASJsJtb2JG0rKEWjX3Ff1PIaAPa78',
@@ -644,24 +651,24 @@ Page({
 						truckActivationOrderList.push(item.id);
 					}
 				}
-				if (item.orderType === 11 && item.logisticsId === 0 && item.auditStatus === 2) {
-					const dates = this.data.date.getDate();
-					if (wx.getStorageSync('time') !== dates || !wx.getStorageSync('time')) {
-						this.fangDou(function () {
-							wx.setStorage({
-								key: 'time',
-								data: dates
-							});
-							util.alert({
-								title: `提示`,
-								content: `受疫情封控影响，设备预计七个工作日内陆续发货。带来不便，敬请谅解。`,
-								showCancel: false,
-								cancelText: '取消',
-								confirmText: '确定'
-							});
-						}, 500);
-					}
-				}
+				// if (item.orderType === 11 && item.logisticsId === 0 && item.auditStatus === 2) {
+				// 	const dates = this.data.date.getDate();
+				// 	if (wx.getStorageSync('time') !== dates || !wx.getStorageSync('time')) {
+				// 		this.fangDou(function () {
+				// 			wx.setStorage({
+				// 				key: 'time',
+				// 				data: dates
+				// 			});
+				// 			util.alert({
+				// 				title: `提示`,
+				// 				content: `受疫情封控影响，设备预计七个工作日内陆续发货。带来不便，敬请谅解。`,
+				// 				showCancel: false,
+				// 				cancelText: '取消',
+				// 				confirmText: '确定'
+				// 			});
+				// 		}, 500);
+				// 	}
+				// }
 			});
 			this.initDadi();
 			const isWaitActivation = passengerCarList.find(item => item.auditStatus === 2 && item
@@ -1476,5 +1483,10 @@ Page({
 			});
 			this.selectComponent('#viewProcedure').show();
 		}
+	},
+	handleMall () {
+		const url = `https://${app.globalData.test ? 'etctest' : 'etc'}.cyzl.com/${app.globalData.test ? 'etc2-html' : 'wetc'}/etc_life_rights_and_interests/index.html#/?auth=${app.globalData.userInfo.accessToken}&platformId=${app.globalData.platformId}`;
+		util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
 	}
+
 });

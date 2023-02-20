@@ -178,7 +178,7 @@
 
 .index .module .publicCode .publicCoderight .input-placeholder {
   opacity: 0.63;
-  font-size: 30rpx;
+  font-size: 20rpx;
   font-weight: 400;
   color: #1E1E1E;
   letter-spacing: 3rpx;

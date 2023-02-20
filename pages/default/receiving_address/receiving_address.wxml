@@ -41,7 +41,7 @@
         <view class="publicCode">
             <view class="publicCodeLeft">手机号码</view>
             <view class="publicCoderight">
-                <input class="input" type="number" placeholder="用于开具通行费发票" value="{{operatorPhoneNumber}}" placeholder-class="input-placeholder" data-name="operator" maxlength="11" bindblur="validateNew" />
+                <input class="input" type="number" placeholder="用于开具通行费发票" value="{{operatorPhoneNumber}}" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" data-name="operator" maxlength="11" bindblur="validateNew" />
                 <button class="btns" open-type="getPhoneNumber" bindgetphonenumber="getWchatPhoneNumber">获取微信手机号</button>
                 <text class="errTip" wx:if="{{tip1}}">{{tip1}}</text>
             </view>
@@ -66,7 +66,6 @@
         <view class="publicCode">
             <view class="publicCodeLeft">选择地区</view>
             <view class="publicCoderight">
-                <!-- <input class="input" type="text" placeholder="选择收货 省-市-区" value="{{tools.addressFormat(formData.region)}}" placeholder-class="input-placeholder" /> -->
                 <picker class="input" mode="region" value="{{formData.region}}" bindchange="onPickerChangedHandle">
                     <view wx:if="{{tools.addressFormat(formData.region)}}">{{tools.addressFormat(formData.region)}}</view>
                     <span wx:else class="input-placeholder">选择收货 省-市-区</span>
