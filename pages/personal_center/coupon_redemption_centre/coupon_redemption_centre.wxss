@@ -1,26 +1,32 @@
 .coupon {
   min-height: 100vh;
 }
+
 .coupon .coupon-top {
   background: #00b85c;
   height: 324rpx;
 }
+
 .coupon .coupon-top image {
   width: 100%;
 }
+
 .coupon .list {
   margin: -158rpx 32rpx 16rpx;
 }
+
 .coupon .list .item {
   background: #f7f7f7;
   margin-bottom: 32rpx;
 }
+
 .coupon .list .item .coupon-info {
   display: flex;
   height: 158rpx;
   align-items: center;
   position: relative;
 }
+
 .coupon .list .item .coupon-info::before,
 .coupon .list .item .coupon-info::after {
   position: absolute;
@@ -33,17 +39,21 @@
   background-color: #fff;
   transform: translateY(-50%);
 }
+
 .coupon .list .item .coupon-info::before {
   left: -20rpx;
 }
+
 .coupon .list .item .coupon-info::after {
   left: auto;
   right: -20rpx;
 }
+
 .coupon .list .item .coupon-info.coupon-info-bg::before,
 .coupon .list .item .coupon-info.coupon-info-bg::after {
   background: #00b85c;
 }
+
 .coupon .list .item .coupon-info .img {
   width: 174rpx;
   height: 104rpx;
@@ -53,27 +63,33 @@
   align-items: center;
   border-radius: 10rpx;
 }
+
 .coupon .list .item .coupon-info .img image {
   height: 86rpx;
 }
+
 .coupon .list .item .coupon-info .name {
   flex: 1;
 }
+
 .coupon .list .item .coupon-info .name :first-child {
   font-size: 28rpx;
   color: #000;
   line-height: 40rpx;
 }
+
 .coupon .list .item .coupon-info .name :last-child {
   font-size: 24rpx;
-  color: rgba(0,0,0,0.5);
+  color: rgba(0, 0, 0, 0.5);
   line-height: 34rpx;
   margin-top: 14rpx;
 }
+
 .coupon .list .item .coupon-info .receive {
   margin-right: 48rpx;
   text-align: center;
 }
+
 .coupon .list .item .coupon-info .receive :first-child {
   width: 114rpx;
   height: 52rpx;
@@ -85,15 +101,18 @@
   background: #00b85c;
   border-radius: 4rpx;
 }
+
 .coupon .list .item .coupon-info .receive :first-child.already-received {
   background: #cfcfcf;
 }
+
 .coupon .list .item .coupon-info .receive :last-child {
   font-size: 20rpx;
-  color: rgba(0,0,0,0.3);
+  color: rgba(0, 0, 0, 0.3);
   line-height: 28rpx;
   margin-top: 12rpx;
 }
+
 .coupon .list .item .coupon-bottom {
   display: flex;
   height: 52rpx;
@@ -101,40 +120,43 @@
   padding: 0 48rpx 0 30rpx;
   border: 2rpx dashed #e5e5e5;
   font-size: 20rpx;
-  color: rgba(0,0,0,0.5);
+  color: rgba(0, 0, 0, 0.5);
 }
+
 .coupon .list .item .coupon-bottom :first-child {
   flex: 1;
 }
+
 .coupon .empty {
   margin: 30rpx 0 60rpx;
   text-align: center;
   color: #66666d;
   font-size: 32rpx;
 }
+
 .coupon .empty image {
   width: 192rpx;
   margin-bottom: 9.5vh;
   margin-left: -20rpx;
 }
+
 .coupon .empty view {
   line-height: 44rpx;
   margin-top: -40rpx;
 }
+
 .coupon .introduce {
-  padding: 16rpx 32rpx 48rpx;
+  width: 100%;
+  height: 300rpx;
+  margin-top: 150rpx;
 }
-.coupon .introduce .last {
-  display: flex;
-}
-.coupon .introduce .detailed {
-  flex: 1;
-  font-size: 24rpx;
-  color: rgba(0,0,0,0.5);
-  line-height: 34rpx;
-}
-.coupon .introduce .history {
-  font-size: 20rpx;
-  color: #00a9ff;
-  line-height: 28rpx;
+
+.coupon .introduce .view {
+  width: 308rpx;
+  height: 68rpx;
+  margin: 28rpx 219rpx;
+  line-height: 68rpx;
+  text-align: center;
+  border-radius: 12rpx;
+  border: 2rpx solid #2A4F44;
 }

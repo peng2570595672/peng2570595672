@@ -13,10 +13,10 @@
 
 }
 
-.tab-bar-item {
+.tab-bar .tab-bar-item {
     flex: 1;
     display: flex;
-    font-size: 10px;
+    font-size: 20rpx;
     margin-top: -50rpx;
     text-align: center;
     align-items: center;
@@ -26,18 +26,31 @@
     padding-top: 30rpx;
 }
 
-.tab-bar-item image {
+.tab-bar .tab-bar-item .coverImg {
     width: 27px;
     height: 27px;
-}
-
-.CoverImg {
     margin-bottom: 10rpx;
 }
 
+.tab-bar .tab-bar-item .titleBar {
+    font-size: 20rpx;
+    font-weight: 400;
+    color: #66666E;
+    line-height: 28rpx;
+    font-family: PingFangSC-Regular, PingFang SC;
+}
+
+.tab-bar .tab-bar-item .selectBar {
+    font-size: 24rpx;
+    font-weight: 600;
+    color: #000000;
+    line-height: 34rpx;
+    font-family: PingFangSC-Semibold, PingFang SC;
+}
+
 .fadeIn {
-    -webkit-animation: fade_in 0.7s linear;
-    animation: fade_in 0.7s linear;
+    -webkit-animation: fade_in 0.5s linear;
+    animation: fade_in 0.5s linear;
 }
 
 

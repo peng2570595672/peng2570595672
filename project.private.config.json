@@ -78,8 +78,71 @@
 					"scene": null
 				},
 				{
-					"name": "填写基础信息",
+					"name": "4.0 填写基础信息",
 					"pathName": "pages/default/receiving_address/receiving_address",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "4.0 活动页",
+					"pathName": "pages/default/index/index",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "4.0 选择套餐",
+					"pathName": "pages/default/package_the_rights_and_interests/package_the_rights_and_interests",
+					"query": "type=1",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "4.0上传信息选择页",
+					"pathName": "pages/default/information_list/information_list",
+					"query": "type=1",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "4.0 上传身份证页",
+					"pathName": "pages/default/upload_id_card/upload_id_card",
+					"query": "vehPlates=%E7%90%BCYZX44D&vehColor=0",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "4.0 上传行驶证",
+					"pathName": "pages/default/information_validation/information_validation",
+					"query": "vehPlates=%E9%84%82DF6666&vehColor=0",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "4.0 我的",
+					"pathName": "pages/my/index",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "4.0相关协议",
+					"pathName": "pages/personal_center/related_agreements/related_agreements",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "4.0领券中心",
+					"pathName": "pages/personal_center/coupon_redemption_centre/coupon_redemption_centre",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "4.0我的权益",
+					"pathName": "pages/personal_center/description_of_equity/description_of_equity",
 					"query": "",
 					"launchMode": "default",
 					"scene": null

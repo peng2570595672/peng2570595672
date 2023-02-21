@@ -4,8 +4,23 @@
 		<!-- 自助办理流程 -->
 		<view class="communal moduleOne" wx:if="{{viewTc.type === 'moduleOne'}}">
 			<view class="title">自助办理流程</view>
-			<view class="topImg">顶部图片</view>
-			<view class="content"></view>
+			<view class="topImg">
+				<view class="material">请提前准备以下证件资料</view>
+				<view class="photo">
+					<view class="photo-item" wx:for="{{handlingProcess}}" wx:key="index">
+						<image class="image" src="{{item.icon}}"></image>
+						<text class="textm">{{item.title}}</text>
+					</view>
+				</view>
+			</view>
+			<view class="content">
+				<!--流程开始-->
+				<view class="item" wx:for="{{ processList }}" wx:key="index">
+					<view class="content-title">{{ item.title }}</view>
+					<view class="content-des">{{ item.content }}</view>
+				</view>
+			</view>
+            
 		</view>
 		<!-- 热门问答 -->
 		<scroll-view scroll-y="true" class="communal moduleTwo" wx:if="{{viewTc.type === 'moduleTwo'}}" >
@@ -15,5 +30,25 @@
 				<view class="text">答：{{item.contant}}</view>
 			</view>
 		</scroll-view>
+		<!-- 移动积分 -->
+		<view class="moving_integral_pop-up" wx:if="{{viewTc.movingIntegralControl}}">
+			<scroll-view class="scroll_pop-up" scroll-y="true">
+				<view class="view view1">尊敬的用户：</view>
+				<view class="view view2">
+					<text class="textColor">您即将通过本登录页面使用中国移动账户登录上海分互链信息技术有限公司所有的“分互链积分平台”，如果您无法认同如下内容，请您点击“返回”并拒绝授权：\n</text>
+					<text>1、<text class="textBold">如您点击“继续”</text>，即视为您同意和授权中国移动向上海分互链信息技术有限公司提供账户数据接口以使上海分互链信息技术有限公司可以调用您在中国移动网站(www.10086.cn)的注册账户的登录信息，便于您直接使用您在中国移动网站的注册信息登录“分互链积分平台”。\n</text>
+					<text>2、<text class="textBold">如您点击“继续”</text>，即视为您同意及授权（1）上海分互链信息技术有限公司通过数据接口实时读取您在中国移动的消费积分的剩余数量，以完成兑换畅由积分、集分宝或其他积分权益；（2）上海分互链信息技术有限公司将您在中国移动的消费积分的剩余数量，共享给小程序或H5页面运营方广州澜立信息科技有限公司，用于为您在页面显示剩余积分数量。\n</text>
+					<text>3、<text class="textBold">如您点击“继续”</text>，则表明您已明确知晓上海分互链信息技术有限公司及“分互链积分平台”并非中国移动的关联公司或由中国移动运营，您使用“分互链积分平台”或上海分互链信息技术有限公司提供的其他服务的行为均与中国移动无关，您也不能就使用中国移动网站注册信息登录及使用“分互链积分平台”的后果要求中国移动承担任何责任。\n</text>
+					<text>4、上海分互链信息技术有限公司及“分互链积分平台”所提供的商品或服务的质量和品质由上海分互联信息技术有限公司独立负责，上海分互链信息技术有限公司自行对提供该等商品或服务引起的后果向您承担全部责任。\n</text>
+					<text>5、中国移动郑重提醒您保管好您在中国移动网站的注册登录信息，切勿向任何人透露您的账号、密码等相关信息。除非得到您的同意及授权，中国移动不会向任何第三方透露您的任何信息。\n</text>
+					<text>6、中国移动郑重提醒您启用杀毒软件和安全措施，以防范各类网络风险\n</text>
+				</view>
+			</scroll-view>
+			<view class="solid"></view>
+			<view class="btn_scroll">
+				<button class="button cancel" bindtap="btnMovingIntegral" data-name="cancel">取消</button>
+				<button class="button confirm" bindtap="btnMovingIntegral" data-name="confirm">继续</button>
+			</view>
+    	</view>
 	</view>
 </view>

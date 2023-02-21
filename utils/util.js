@@ -9,7 +9,6 @@ const QQMapWX = require('../libs/qqmap-wx-jssdk.min.js');
 let app = getApp();
 
 function setApp(a) {
-	console.log(1);
 	app = a;
 }
 
@@ -957,7 +956,6 @@ function subscribe(tmplIds, url) {
 		wx.requestSubscribeMessage({
 			tmplIds: tmplIds,
 			success: (res) => {
-				console.log(res);
 				wx.hideLoading();
 				if (res.errMsg === 'requestSubscribeMessage:ok') {
 					let keys = Object.keys(res);
@@ -1008,7 +1006,6 @@ function subscribe(tmplIds, url) {
 				}
 			},
 			fail: (res) => {
-				console.log(res);
 				wx.hideLoading();
 				// 不是点击的取消按钮
 				if (res.errMsg === 'requestSubscribeMessage:fail cancel') {
@@ -1101,8 +1098,6 @@ function getInsuranceOffer(orderId, wtagid) {
  */
 async function getMemberStatus() {
 	const result = await getDataFromServersV2('consumer/member/bcm/getMemberStatus');
-	console.log('交行信息');
-	console.log(result.data);
 	app.globalData.memberStatusInfo = result.data;
 }
 /**
@@ -1715,7 +1710,7 @@ function customTabbar (that, num) {
 		index: num
 	});
 }
-}
+};
 
 module.exports = {
 	setApp,

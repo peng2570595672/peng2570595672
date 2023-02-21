@@ -1,0 +1,7 @@
+{
+	"navigationBarTitleText": "发票助手",
+	"navigationBarBackgroundColor": "#ECECEC",
+	"usingComponents": {
+		"popup1": "/components/dialog1/dialog"
+	}
+}

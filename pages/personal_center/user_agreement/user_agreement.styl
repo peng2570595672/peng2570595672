@@ -1,49 +1,68 @@
-.user-agreement
-	display flex
-	flex-direction column
+.iconfont
+	font-family "iconfont" !important
+	font-size 16px
+	font-style normal
+	-webkit-font-smoothing antialiased
+	-moz-osx-font-smoothing grayscale
+
+.index
+	margin 0
+	padding 0
+	width 100vw
 	min-height 100vh
-	background #F7F7F7
-	.title
-		margin-top 52rpx
-		margin-left 32rpx
-		display flex
-		align-items center
-		height 56rpx
-		font-size 34rpx
-		font-weight 500
-		font-family PingFangSC-Medium, PingFang SC
-		color #000
-		&.truck
-			margin-top 106rpx
-		&::before
-			margin-right 12rpx
-			content ''
-			width 8rpx
-			height 44rpx
-			background #2FB565
-	.list
-		display flex
-		flex-direction column
-		.item
+	background-color #ECECEC
+	/* 顶部占位 */
+	.split
+		width 100%
+		height 0rpx
+		overflow hidden
+	/* 公共模块 */
+	.module
+		width 658rpx
+		margin-top 28rpx
+		border-radius 16rpx
+		background-color #fff
+		padding 28rpx 0rpx 28rpx 36rpx
+		font-family PingFangSC-Regular, PingFang SC
+		box-shadow 0px 4rpx 2rpx 0rpx rgba(212, 212, 212, 0.5)
+		position relative
+		left 50%
+		transform translateX(-50%)
+		.title
+			font-size 32rpx
+			font-weight 600
+			color #1E1E1E
+			font-family PingFangSC-Semibold, PingFang SC
+		.iconNameSpot
 			display flex
-			height 106rpx
-			margin-left 40rpx
-			border-bottom 2rpx solid #ECECEC
-			.name
-				margin-top 38rpx
-				flex 1
-				font-size 28rpx
-				color #66666d
-				line-height: 40rpx;
-			.update
-				margin-top 38rpx
+			height 68rpx
+			align-items center
+			margin-bottom 24rpx
+			justify-content space-between
+			border-bottom 2rpx solid #e7e7e7
+			.icon
+				width 42rpx
+				height 42rpx
 				display flex
-				justify-content center
 				align-items center
-				margin-right 68rpx
-				width: 126rpx;
-				height: 44rpx;
+				justify-content center
+				&::before
+					display block
+					content "\e6a5"
+					opacity 0.8
+			.name
+				width 580rpx
+				height 68rpx
 				font-size 24rpx
-				background: rgba(0,181,92,0.38);
-				border-radius: 22rpx;
-				color #fff
+				font-weight 400
+				color #1E1E1E
+				line-height 68rpx
+				font-family PingFangSC-Regular, PingFang SC
+			.spot
+				width 20rpx
+				height 20rpx
+				margin-right 36rpx
+				border-radius 50%
+				&.shows
+					background-color rgb(255, 30, 0)
+

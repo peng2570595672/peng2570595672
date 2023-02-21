@@ -148,13 +148,11 @@ App({
 		}
 	},
 	onLaunch (options) {
-		console.log(options);
 		// 统计逻辑结束
 		util.setApp(this);
 		// 获取是否为iphone x系列
 		wx.getSystemInfo({
 			success: (res) => {
-				console.log(res);
 				this.globalData.capsule = wx.getMenuButtonBoundingClientRect();
 				this.globalData.screenWindowAttribute = res;
 				this.globalData.SDKVersion = res.SDKVersion;
@@ -294,7 +292,6 @@ App({
 	onShow (res) {
 		// 初始化数据
 		this.initData(res);
-		console.log(res);
 		if (res.path === 'pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license' ||
 			res.path === 'pages/default/shot_bank_card/shot_bank_card' ||
 			res.path === 'pages/default/information_validation/information_validation'

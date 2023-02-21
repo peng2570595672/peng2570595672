@@ -109,5 +109,9 @@ Page({
 		} else {
 			util.showToastNoIcon(result.message);
 		}
+	},
+	goCoupon () {
+		util.go('/pages/personal_center/service_card_voucher/service_card_voucher');
 	}
+
 });

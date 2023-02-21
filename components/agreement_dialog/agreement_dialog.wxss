@@ -164,10 +164,10 @@
   font-size: 30rpx;
   line-height: 48rpx;
 }
-.alert-for-not-finished-content .dialog-container .wx-dialog-con view {
+.alert-for-not-finished-content .dialog-container .wx-dialog-con .view1 {
   text-indent: 2em;
 }
-.alert-for-not-finished-content .dialog-container .wx-dialog-con view text {
+.alert-for-not-finished-content .dialog-container .wx-dialog-con .view1 .text {
   color: #2fb565;
 }
 .alert-for-not-finished-content .dialog-container .fill {
@@ -180,7 +180,7 @@
   justify-content: center;
   border-top: 1rpx solid rgba(0,0,0,0.1);
 }
-.alert-for-not-finished-content .dialog-container .wx-dialog-btn > view {
+.alert-for-not-finished-content .dialog-container .wx-dialog-btn > .view {
   flex: 1;
   display: flex;
   height: 110rpx;
@@ -191,7 +191,7 @@
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
 }
-.alert-for-not-finished-content .dialog-container .wx-dialog-btn > view.cancel {
+.alert-for-not-finished-content .dialog-container .wx-dialog-btn > .view.cancel {
   border-right: 1rpx solid rgba(0,0,0,0.1);
   color: rgba(0,0,0,0.9);
 }

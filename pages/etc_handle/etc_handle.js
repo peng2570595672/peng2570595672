@@ -30,6 +30,11 @@ Page({
 		util.customTabbar(this, 1);
 	},
 
+	go () {
+		// util.go('/pages/default/choose_a_package/choose_a_package');
+		// util.go('/pages/default/fill_in_basic_information/fill_in_basic_information');
+	},
+
 	/**
 	 * 生命周期函数--监听页面隐藏
 	 */

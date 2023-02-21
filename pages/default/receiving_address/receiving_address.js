@@ -6,6 +6,7 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		topProgressBar: 1.0,	// 进度条展示的长度 ，再此页面的取值范围 [1,2),默认为1,保留一位小数
 		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
 		showKeyboard: false, // 是否显示键盘
 		currentIndex: -1, // 当前选中的输入车牌位置
@@ -19,7 +20,7 @@ Page({
 		isOnlineDealWith: true, // 是否是线上办理
 		formData: {
 			currentCarNoColor: 0, // 0 蓝色 1 渐变绿 2黄色
-			region: ['省', '市', '区'], // 省市区
+			region: [], // 省市区
 			regionCode: [], // 省份编码
 			userName: '', // 收货人姓名
 			telNumber: '', // 电话号码
@@ -28,7 +29,11 @@ Page({
 		enterType: -1,// 进入小程序类型  23.搜一搜小程序独立办理链接A，24.搜一搜小程序独立办理链接B
 		productId: '',
 		rightsPackageId: '',
-		shopId: ''
+		shopId: '',
+		operatorPhoneNumber: '',	// 线上：用户点好；线下：经办人电话
+		tip1: '',	// 经办人电话号码校验提示
+		tip2: '',	// 收件人姓名校验
+		tip3: ''	// 校验收件人电话号码提示
 	},
 	async onLoad (options) {
 		if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
@@ -76,6 +81,7 @@ Page({
 			this.login();
 		}
 	},
+
 	// 自动登录
 	login () {
 		util.showLoading();
@@ -116,12 +122,6 @@ Page({
 	},
 	// 下一步
 	async next () {
-		this.setData({
-			available: this.validateAvailable(true)
-		});
-		if (!this.data.available || this.data.isRequest) {
-			return;
-		}
 		// 统计点击事件
 		wx.uma.trackEvent('receiving_address_next');
 		this.setData({
@@ -248,6 +248,7 @@ Page({
 				params['areaCode'] = regionCode[0];
 			}
 		}
+
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		if (!result) return;
 		this.setData({
@@ -398,10 +399,6 @@ Page({
 	// 点击车牌颜色选择车牌颜色
 	onClickCarNoColorHandle (e) {
 		let index = e.currentTarget.dataset.index;
-		// if (parseInt(index) === 2) {
-		// 	util.showToastNoIcon('暂不支持黄牌车办理！');
-		// 	return;
-		// }
 		let formData = this.data.formData;
 		formData.currentCarNoColor = parseInt(index);
 		this.setData({
@@ -446,6 +443,7 @@ Page({
 		wx.uma.trackEvent('receiving_select_the_wechat_address');
 		wx.chooseAddress({
 			success: (res) => {
+				console.log(res);
 				let formData = this.data.formData;
 				formData.userName = res.userName; // 姓名
 				formData.telNumber = res.telNumber; // 电话
@@ -478,6 +476,7 @@ Page({
 	},
 	// 省市区选择
 	onPickerChangedHandle (e) {
+		console.log(e);
 		let formData = this.data.formData;
 		formData.region = e.detail.value;
 		if (e.detail.code && e.detail.code.length === 3) {
@@ -510,7 +509,6 @@ Page({
 						util.showToastNoIcon('获取地理位置信息失败！');
 					});
 				}
-				console.log(res);
 			},
 			fail: (e) => {
 				// 选择地址未允许授权
@@ -571,9 +569,7 @@ Page({
 		this.setData({
 			formData
 		});
-		this.setData({
-			available: this.validateAvailable()
-		});
+		this.validateNew(e);
 	},
 	// 校验字段是否满足
 	validateAvailable (checkLicensePlate) {
@@ -604,6 +600,8 @@ Page({
 		} else {
 			isOk = false;
 		}
+		// 校验经办人手机号码
+		isOk = isOk && this.data.operatorPhoneNumber && /^1[0-9]{10}$/.test(this.data.operatorPhoneNumber);
 		// 校验姓名
 		isOk = isOk && formData.userName && formData.userName.length >= 1;
 		// 校验省市区
@@ -614,7 +612,122 @@ Page({
 		isOk = isOk && formData.detailInfo && formData.detailInfo.length >= 2;
 		// 检验手机号码
 		isOk = isOk && formData.telNumber && /^1[0-9]{10}$/.test(formData.telNumber);
+		this.controllTopTabBar();
 		return isOk;
+	},
+	// etc4.0：新增-拉起微信授权手机号
+	getWchatPhoneNumber (e) {
+		if (e.detail.errMsg === 'getPhoneNumber:ok') {	// 同意授权
+			console.log(app.globalData.userInfo);
+			if (app.globalData.userInfo.needBindingPhone === 0) {	// 判断是否绑定过手机号
+				this.setData({
+					operatorPhoneNumber: app.globalData.mobilePhone,
+					available: this.validateAvailable(true)
+				});
+			} else {
+				util.showToastNoIcon('手机号为绑定，马上跳转登录页登录');
+				setTimeout(() => {
+					wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+					util.go('/pages/login/login/login');
+				},1500);
+			}
+		}
+	},
+	// etc4.0:新增-校验(手机号，收件人，地址等)
+	validateNew (e) {
+		let name = e.currentTarget.dataset.name;
+		let value = e.detail.value;
+		let len = e.detail.cursor;
+		// 校验手机号
+		if (name === 'operator' || name === 'telNumber') {
+			let flag = /^1[1-9][0-9]{9}$/.test(value);
+			let tip = len < 11 ? '*手机号未满11位，请检查' : (len === 11 ? (flag ? '' : '非法号码') : '非法号码');
+			if (tip === '非法号码') {
+				if (name === 'operator') {
+					this.setData({
+						operatorPhoneNumber: '',
+						tip1: tip
+					});
+				} else {
+					this.setData({
+						'formData.telNumber': '',
+						tip3: tip
+					});
+				}
+				util.showToastNoIcon('非法号码');
+			} else {
+				if (name === 'operator') {
+					this.setData({
+						tip1: tip
+					});
+					this.fangDou('',1500);
+				} else {
+					this.setData({
+						tip3: tip
+					});
+					this.fangDou('',1500);
+				}
+			}
+		}
+		// 收件人姓名校验
+		if (name === 'name') {
+			let patrn = /[`~!@#$%^&*()_\-+=<>?:"{}|,.\/;'\\[\]·~！@#￥%……&*（）——\-+={}|《》？：“”【】、；‘'，。、]/im;	// 校验非法字符
+			let patrn1 = /^[a-zA-Z]+$/;	// 校验英文
+			let patrn2 = /^[\u4e00-\u9fa5]{0,}$/;	// 校验汉字
+			let tip2 = '';
+			if (len < 1) {
+				this.setData({
+					tip2: '姓名不可为空'
+				});
+			} else if (patrn.test(value)) {
+				util.showToastNoIcon('非法字符');
+			} else {
+				if (patrn2.test(value)) {
+					tip2 = len < 5 ? '' : '最大输入文字为4';
+				} else {
+					tip2 = len < 9 ? '' : '英文最大可输入8';
+				}
+				this.setData({
+					tip2: tip2
+				});
+				this.fangDou('',1500);
+			}
+		}
+		this.controllTopTabBar();
+	},
+	fangDou (fn, time) {
+		let that = this;
+		return (function () {
+			if (that.data.timeout) {
+				clearTimeout(that.data.timeout);
+			}
+			that.data.timeout = setTimeout(() => {
+				that.setData({
+					available: that.validateAvailable(true)
+				});
+			}, time);
+		})();
+	},
+	// 传车牌及车牌颜色校验是否已有黔通订单 三方接口
+	async validateCar () {
+		this.setData({
+			available: this.validateAvailable(true)
+		});
+		if (!this.data.available || this.data.isRequest) {
+			return;
+		}
+		let formData = this.data.formData; // 输入信息
+		const res = await util.getDataFromServersV2('consumer/etc/qtzl/checkVehPlateExists', {
+			vehiclePlate: this.data.carNoStr,
+			vehicleColor: formData.currentCarNoColor === 1 ? 4 : 0 // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】,
+		},'POST',false);
+		console.log('车牌颜色L:L:',res);
+		if (!res) return;
+		if (res.code === 0) {
+			this.next();
+		} else {
+			return util.showToastNoIcon(res.message);
+		}
 	},
 	// 点击添加新能源
 	onClickNewPowerCarHandle (e) {
@@ -623,6 +736,28 @@ Page({
 			currentCarNoColor: 1
 		});
 		this.setCurrentCarNo(e);
+	},
+	// 控制顶部进度条的大小
+	controllTopTabBar () {
+		let num = 0;
+		if (this.data.carNoStr.length > 0) {
+			num += 1;
+		}
+		if (this.data.formData.userName) {
+			num += 1;
+		}
+		if (this.data.formData.region) {
+			num += 1;
+		}
+		if (this.data.formData.detailInfo) {
+			num += 1;
+		}
+		if (this.data.operatorPhoneNumber) {
+			num += 1;
+		}
+		this.setData({
+			topProgressBar: 1 + 0.15 * num
+		});
 	},
 	onUnload () {
 		// 统计点击事件

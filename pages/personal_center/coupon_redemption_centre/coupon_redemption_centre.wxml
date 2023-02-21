@@ -33,13 +33,10 @@
     </view>
     <view class="empty" wx:else>
         <image src="https://file.cyzl.com/g001/M05/07/08/oYYBAF4DI1KAdQQAAABMmqEDnsc709.svg" mode="widthFix"></image>
-        <view>暂无数据~</view>
+        <view>本月暂无可领用券~</view>
     </view>
     <view class="introduce">
-        <view class="detailed">通行券存放至个人中心-优惠券；</view>
-        <view class="last">
-            <view class="detailed">停车券存放至个人微信卡包-券和礼品券；</view>
-            <view class="history" catchtap="onClickSeeHistory">查看历史</view>
-        </view>
+        <view class="view" catchtap="goCoupon">查看我的电子券</view>
+        <view class="view" catchtap="onClickSeeHistory">查看优惠券购买记录</view>
     </view>
 </view>

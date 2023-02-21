@@ -95,8 +95,7 @@
                     <text class="t2" bindtap="goAccountDetailsMargin" data-index="{{ index }}">
                         账户明细 >
                     </text>
-<!--                    <text class="t3" wx:if="{{tools.parseNum(item.pledgeMoney/100) < 200 ? true : false}}"-->
-<!--                        bindtap="btnRecharge" data-id='{{item.id}}'>充值</text>-->
+                   <!-- <text class="t3" wx:if="{{tools.parseNum(item.pledgeMoney/100) < 200 ? true : false}}" bindtap="btnRecharge" data-id='{{item.id}}'>充值</text> -->
                 </view>
             </view>
             <view class="right1">

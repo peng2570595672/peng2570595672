@@ -6,8 +6,8 @@
 			<view class="wx-dialog-con">{{dialogContent.content}}</view>
             <view class="fill"></view>
 			<view class="wx-dialog-btn">
-				<view class="cancel" bindtap='hide' wx:if="{{dialogContent.cancel}}">{{dialogContent.cancel}}</view>
-				<view class="confirm" bindtap='ok' wx:if="{{dialogContent.confirm}}">{{dialogContent.confirm}}</view>
+				<view class="view cancel" bindtap='hide' wx:if="{{dialogContent.cancel}}">{{dialogContent.cancel}}</view>
+				<view class="view confirm" bindtap='ok' wx:if="{{dialogContent.confirm}}">{{dialogContent.confirm}}</view>
 			</view>
 		</view>
 	</view>

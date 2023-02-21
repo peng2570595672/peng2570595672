@@ -1,0 +1,316 @@
+.home {
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: auto;
+	background-color: #EBEDF0;
+}
+
+/*  顶部 滑块视图 */
+.home .topSwiper {
+	width: 100%;
+	height: 628rpx;
+	font-family: PingFangSC-Regular, PingFang SC;
+}
+
+.home .topSwiper .swiperBox {
+	width: 100%;
+	height: 100%;
+}
+
+.home .topSwiper .swiperBox .swiper-item {
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	display: block;
+}
+
+.home .topSwiper .swiperBox .swiper-item .topImg {
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+.home .module {
+	width: 694rpx;
+	border-radius: 16rpx;
+	background: #FFFFFF;
+	margin: 32rpx 28rpx 0rpx 28rpx;
+	box-shadow: 0rpx 4rpx 8rpx 8rpx rgba(240, 240, 240, 0.5);
+}
+
+/* 办理模块 */
+.home .immediately {
+	height: 160rpx;
+	position: relative;
+	top: -100rpx;
+	overflow: hidden;
+}
+
+.home .immediately .carPlan {
+	display: flex;
+	height: 60rpx;
+	align-items: center;
+	justify-content: space-between;
+	margin: 34rpx 34rpx 0rpx 34rpx;
+}
+.home .immediately .carPlan .car{
+	font-size: 36rpx;
+	font-weight: 400;
+	color: #2A4F44;
+}
+
+.home .immediately .carPlan .plan {
+	height: 60rpx;
+	color: #ffffff;
+	font-size: 24rpx;
+	font-weight: 400;
+	line-height: 60rpx;
+	padding: 0rpx 30rpx;
+	border-radius: 12rpx;
+	background-color: #5EBE68;
+}
+.home .immediately .tipsClerk {
+	font-size: 24rpx;
+	margin: 10rpx 34rpx 0rpx 34rpx;
+
+}
+
+/* 模块一  */
+.home .moduleOne {
+	display: flex;
+	min-height: 302rpx;
+	align-items: center;
+	justify-content: space-around;
+	margin-top: -68rpx;
+}
+
+.home .moduleOne .moduleOneBox {
+	width: 186rpx;
+	height: 238rpx;
+	font-family: PingFangSC-Regular, PingFang SC;
+}
+
+.home .moduleOne .moduleOneBox .imgTitle {
+	width: 118rpx;
+	height: 118rpx;
+	margin: 0 34rpx;
+	overflow: hidden;
+	border-radius: 50%;
+	background: #2A4F44;
+}
+
+.home .moduleOne .moduleOneBox .imgTitle image {
+	width: 100%;
+	height: 100%;
+}
+
+.home .moduleOne .moduleOneBox .title {
+	width: 100%;
+	height: 40rpx;
+	font-size: 28rpx;
+	font-weight: 400;
+	color: #000000;
+	margin-top: 14rpx;
+	line-height: 40rpx;
+	text-align: center;
+}
+
+.home .moduleOne .moduleOneBox .btn_two {
+	width: 100%;
+	height: 50rpx;
+	font-size: 20rpx;
+	font-weight: 400;
+	color: #E4CB86;
+	margin-top: 16rpx;
+	text-align: center;
+	line-height: 50rpx;
+	border-radius: 26rpx;
+	background: #F8F1DF;
+}
+
+/* 模块二 */
+.home .moduleTwo {
+	background-color: transparent;
+	font-family: PingFangSC-Medium, PingFang SC;
+}
+
+.home .module .head {
+	font-size: 28rpx;
+	font-weight: 500;
+	color: #000000;
+	margin-bottom: 16rpx;
+	font-family: PingFangSC-Medium, PingFang SC;
+}
+
+.home .moduleTwo .moduleTwoBox {
+	width: 100%;
+	height: 154rpx;
+	display: flex;
+	justify-content: space-between;
+}
+
+.home .moduleTwo .moduleTwoBox .integral {
+	height: 100%;
+	width: 334rpx;
+	display: flex;
+	overflow: hidden;
+	align-items: center;
+	border-radius: 16rpx;
+	background: #FFFFFF;
+	box-shadow: 0rpx 4rpx 8rpx 0rpx rgba(240, 240, 240, 0.5);
+}
+
+.home .moduleTwo .moduleTwoBox .integral image {
+	width: 100%;
+	height: 100%;
+}
+
+.home .moduleTwo .moduleTwoBox .integral .integralDescribe {
+	width: 152rpx;
+	height: 82rpx;
+	font-size: 24rpx;
+	font-weight: 500;
+	color: #000;
+	line-height: 38rpx;
+	margin: 36rpx 10rpx 36rpx 40rpx;
+}
+
+.home .moduleTwo .moduleTwoBox .integral .integralImg {
+	width: 104rpx;
+	height: 121rpx;
+	overflow: hidden;
+}
+
+.home .moduleTwo .moduleTwoBox .integral .integralImg image {
+	width: 100%;
+	height: 100%;
+}
+
+/* 模块三 */
+.home .moduleThree {
+	height: auto;
+	background-color: transparent;
+}
+
+.home .moduleThree .moduleThreeBox {
+	width: 100%;
+	overflow: hidden;
+	min-height: 256rpx;
+	background: #fff;
+	border-radius: 16rpx;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding {
+	margin: 28rpx;
+	width: 638rpx;
+	display: flex;
+	height: 200rpx;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .leftImg {
+	width: 200rpx;
+	height: 200rpx;
+	overflow: hidden;
+	margin-right: 28rpx;
+	border-radius: 16rpx;
+	background: #EFEFEF;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .leftImg image {
+	width: 100%;
+	height: 100%;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView {
+	width: 410rpx;
+	min-height: 128rpx;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView .directSeedingTitle {
+	width: 100%;
+	height: auto;
+	display: flex;
+	justify-content: space-between;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView .directSeedingTitle view:first-child {
+	height: auto;
+	width: 290rpx;
+	font-size: 28rpx;
+	font-weight: 500;
+	color: #000000;
+	overflow: hidden;
+	line-height: 40rpx;
+	font-family: PingFangSC-Medium, PingFang SC;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView .directSeedingTitle .directSeedingImg {
+	height: 40rpx;
+	display: flex;
+	font-size: 16rpx;
+	font-weight: 400;
+	color: #000000;
+	line-height: 40rpx;
+	font-family: PingFangSC-Regular, PingFang SC;
+
+}
+
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView .directSeedingTitle .directSeedingImg .loginImg {
+	width: 26rpx;
+	height: 28rpx;
+	overflow: hidden;
+	margin-right: 2rpx;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView .directSeedingTitle .directSeedingImg .loginImg image {
+	width: 100%;
+	height: 100%;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView .lsBack {
+	width: 100%;
+	height: 34rpx;
+	margin-top: 8rpx;
+	font-size: 24rpx;
+	font-weight: 400;
+	color: #000000;
+	line-height: 34rpx;
+	font-family: PingFangSC-Regular, PingFang SC;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView .viewText {
+	width: 100%;
+	height: 24rpx;
+	display: flex;
+	margin-top: 8rpx;
+	align-items: center;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView .viewText view:first-child {
+	width: 24rpx;
+	height: 24rpx;
+	overflow: hidden;
+	margin-right: 8rpx;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView .viewText view:first-child image {
+	width: 100%;
+	height: 100%;
+}
+
+.home .moduleThree .moduleThreeBox .directSeeding .rightView text {
+	display: block;
+}
+
+/* 占位 */
+.home .split {
+	width: 100%;
+	height: 300rpx;
+	overflow: hidden;
+}
+

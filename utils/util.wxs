@@ -1,3 +1,4 @@
+
 // 字符串截取
 function substring(val,start,end) {
   if (val.length == 0 || val == undefined) {
@@ -67,6 +68,44 @@ function formatterTimer(systimestamp, compareTime, countdownTime) {
 function dataLen(obj) {
   return obj.length
 }
+// 限制展示的字符个数 ,arg1:表示展示的文本，arg2:限制的个数
+function limitNumber(obj,num) {
+  var len = obj.length
+  if (len <= num) {
+    return obj
+  } else {
+    var str = obj.substring(0,num) + '...'
+    return str
+  }
+}
+// 省市区格式转换 省 - 市 - 区
+function addressFormat (obj) {
+  if (obj.length === 0) {
+    return
+  }
+  var address = obj[0]
+  for (var index = 1; index < obj.length; index++) {
+    address += ' - ' + obj[index]
+  }
+  return address
+}
+// 判断在对象中是否有 指定的对象
+function onlineService (obj,twoPar) {
+  if (obj.indexOf(twoPar) !== -1) {
+    return false
+  }
+  return true
+}
+// 手机号展示部分隐藏
+function phoneNumberHide (obj) {
+  if (!obj) { //判断是否为 空
+    return false
+  }
+  var left = obj.substring(0,4);
+  var right = obj.substring(8,12)
+  var obj = left + '****' + right
+  return obj
+}
 module.exports = {
   substring: substring,
   lowercaseToCapitalization: lowercaseToCapitalization,
@@ -74,5 +113,9 @@ module.exports = {
   parseIn: parseIn,
   parseNum: parseNum,
   formatterTimer: formatterTimer,
-  dataLen: dataLen
+  dataLen: dataLen,
+  limitNumber: limitNumber,
+  addressFormat: addressFormat,
+  onlineService: onlineService,
+  phoneNumberHide: phoneNumberHide
 };
