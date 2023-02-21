@@ -42,7 +42,7 @@
 		"pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement",
 		"pages/default/trucks/trucks",
 		"pages/default/margin_user_handling_agreement/margin_user_handling_agreement"
-		
+
 	],
 	"window": {
 		"navigationBarBackgroundColor": "#FFFFFF",
@@ -85,6 +85,7 @@
 			"name": "pages/personal_center",
 			"pages": [
 				"index/index",
+				"choice_vehicle/choice_vehicle",
 				"equity_payment/equity_payment",
 				"my_etc/my_etc",
 				"my_etc_detail/my_etc_detail",
