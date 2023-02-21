@@ -7,8 +7,7 @@ Page({
 	data: {
 		isVip: false, //	用户是否是Vip
 		mobilePhone: undefined,	// 微信绑定的电话号码
-		userInfo: {},	// 存放用户的头像和昵称
-		testImg: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png'	// 测试所用的图片和icon
+		userInfo: {}	// 存放用户的头像和昵称
 	},
 
 	onLoad (options) {
@@ -74,7 +73,10 @@ Page({
 			isVip: !this.data.isVip
 		});
 	},
-
+	handleEquitiesMall () {
+		// util.go(`/pages/personal_center/equity_payment/equity_payment?payId=123333&price=1&source=ttq`);
+		util.go(`/pages/personal_center/choice_vehicle/choice_vehicle`);
+	},
 	onUnload () {
 
 	}

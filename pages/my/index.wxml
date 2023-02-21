@@ -32,21 +32,19 @@
     <view class="module moduleTwo">
         <view class="func" wx:for="{{4}}" wx:key="index">
             <view class="icon {{isVip ? 'yellowF' : 'greenF'}}">
-                <!-- <image src="{{testImg}}" /> -->
             </view>
             <view class="iconText">我的订单</view>
         </view>
     </view>
     <!-- 模块3 广告 -->
-    <view class="module moduleThree" wx:if="{{true}}">
-        <image src="{{testImg}}" />
+    <view class="module moduleThree" wx:if="{{true}}" catchtap="handleEquitiesMall">
+        <image src="https://file.cyzl.com/g001/M01/C8/27/oYYBAGP0JC-AY5rVAABU5vcPutY386.png" />
     </view>
     <!-- 模块4 -->
     <view class="module moduleFour">
         <view class="funcList" wx:for="{{3}}" wx:key="index">
             <view class="funcListLeft">
                 <view class="icon iconfont {{'img' + index}}">
-                    <!-- <image src="{{testImg}}" /> -->
                 </view>
                 <view class="funcListText">手机号管理</view>
             </view>
