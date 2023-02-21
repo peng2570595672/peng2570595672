@@ -451,10 +451,10 @@ Page({
 				formData.detailInfo = res.detailInfo; // 详细地址
 				this.setData({
 					formData,
-					mobilePhoneIsOk: /^1[0-9]{10}$/.test(res.telNumber.substring(0, 11))
-				});
-				this.setData({
-					available: this.validateAvailable()
+					tip2: '',
+					tip3: '',
+					mobilePhoneIsOk: /^1[0-9]{10}$/.test(res.telNumber.substring(0, 11)),
+					available: this.validateAvailable(true)
 				});
 			},
 			fail: (e) => {
@@ -486,7 +486,7 @@ Page({
 			formData
 		});
 		this.setData({
-			available: this.validateAvailable()
+			available: this.validateAvailable(true)
 		});
 	},
 	// 选择当前地址
@@ -553,9 +553,25 @@ Page({
 	},
 	// 输入框输入值
 	onInputChangedHandle (e) {
-		let key = e.currentTarget.dataset.key;
+		console.log(e);
+		let key = e.currentTarget.dataset.name;
 		let formData = this.data.formData;
 		// 手机号
+		if (key === 'telNumber' || key === 'operator') {
+			let value = e.detail.value;
+			if (value.substring(0,1) !== '1' || value.substring(1,2) === '0') {
+				if (key === 'telNumber') {
+					this.setData({
+						'formData.telNumber': ''
+					});
+				} else {
+					this.setData({
+						operatorPhoneNumber: ''
+					});
+				}
+				return util.showToastNoIcon('非法号码');
+			}
+		}
 		if (key === 'telNumber') {
 			this.setData({
 				mobilePhoneIsOk: /^1[0-9]{10}$/.test(e.detail.value.substring(0, 11))
@@ -618,14 +634,14 @@ Page({
 	// etc4.0：新增-拉起微信授权手机号
 	getWchatPhoneNumber (e) {
 		if (e.detail.errMsg === 'getPhoneNumber:ok') {	// 同意授权
-			console.log(app.globalData.userInfo);
 			if (app.globalData.userInfo.needBindingPhone === 0) {	// 判断是否绑定过手机号
 				this.setData({
+					tip1: '',
 					operatorPhoneNumber: app.globalData.mobilePhone,
 					available: this.validateAvailable(true)
 				});
 			} else {
-				util.showToastNoIcon('手机号为绑定，马上跳转登录页登录');
+				util.showToastNoIcon('手机号未绑定，马上跳转登录页登录');
 				setTimeout(() => {
 					wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
 					util.go('/pages/login/login/login');
@@ -638,6 +654,7 @@ Page({
 		let name = e.currentTarget.dataset.name;
 		let value = e.detail.value;
 		let len = e.detail.cursor;
+
 		// 校验手机号
 		if (name === 'operator' || name === 'telNumber') {
 			let flag = /^1[1-9][0-9]{9}$/.test(value);
@@ -660,12 +677,12 @@ Page({
 					this.setData({
 						tip1: tip
 					});
-					this.fangDou('',1500);
+					this.fangDou('',500);
 				} else {
 					this.setData({
 						tip3: tip
 					});
-					this.fangDou('',1500);
+					this.fangDou('',500);
 				}
 			}
 		}
@@ -690,7 +707,7 @@ Page({
 				this.setData({
 					tip2: tip2
 				});
-				this.fangDou('',1500);
+				this.fangDou('',500);
 			}
 		}
 		this.controllTopTabBar();
@@ -758,6 +775,9 @@ Page({
 		this.setData({
 			topProgressBar: 1 + 0.15 * num
 		});
+	},
+	test (e) {
+		console.log(e);
 	},
 	onUnload () {
 		// 统计点击事件

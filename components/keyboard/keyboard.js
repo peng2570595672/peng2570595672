@@ -124,7 +124,7 @@ Component({
 			if (this.data.provinces.length === 0) {
 				this.setData({
 					provinces: '京津沪渝苏浙豫粤川陕冀辽吉皖闽鄂湘鲁晋黑赣贵甘桂琼云青蒙藏宁新'.split(''),
-					letters: '0123456789ABCDEFGHJKLMNOPQRSTUVWXYZ警'.split('')
+					letters: '0123456789ABCDEFGHJKLMNPQRSTUVWXYZ警'.split('')
 				});
 			}
 			let datas = [];

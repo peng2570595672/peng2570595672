@@ -18,12 +18,12 @@ Component({
 				'iconPath': 'https://file.cyzl.com/g001/M01/C7/65/oYYBAGPrUASALSs-AAAL6GWOYSs692.png',
 				'selectedIconPath': 'https://file.cyzl.com/g001/M01/C7/65/oYYBAGPrUBeANJ0PAAANz35xPUQ701.png'
 			},
-			{
-				'pagePath': '/pages/membershipCertificate/membershipCertificate',
-				'text': '会员券',
-				'iconPath': 'https://file.cyzl.com/g001/M01/C7/65/oYYBAGPrUCiAFrfGAAAK2PKj_tE701.png',
-				'selectedIconPath': 'https://file.cyzl.com/g001/M01/C7/65/oYYBAGPrUDuAcRN5AAAMBHnGARw079.png'
-			},
+			// {
+			// 	'pagePath': '/pages/membershipCertificate/membershipCertificate',
+			// 	'text': '会员券',
+			// 	'iconPath': 'https://file.cyzl.com/g001/M01/C7/65/oYYBAGPrUCiAFrfGAAAK2PKj_tE701.png',
+			// 	'selectedIconPath': 'https://file.cyzl.com/g001/M01/C7/65/oYYBAGPrUDuAcRN5AAAMBHnGARw079.png'
+			// },
 			{
 				'pagePath': '/pages/my/index',
 				'text': '我的',

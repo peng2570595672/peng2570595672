@@ -76,7 +76,7 @@
         <view class="publicCode">
             <view class="publicCodeLeft">详细地址</view>
             <view class="publicCoderight">
-                <input class="input" type="text" placeholder="输出详细收货地址" value="{{formData.detailInfo}}" data-key="detailInfo" placeholder-class="input-placeholder"  bindinput="onInputChangedHandle" />
+                <input class="input" type="text" placeholder="输出详细收货地址" value="{{formData.detailInfo}}" data-name="detailInfo" placeholder-class="input-placeholder"  bindinput="onInputChangedHandle" />
             </view>
         </view>
         <view class="publicCode">
