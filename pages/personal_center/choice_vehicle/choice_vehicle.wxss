@@ -28,6 +28,7 @@
   box-shadow: 0rpx 4rpx 2rpx 0rpx rgba(212,212,212,0.5);
   border-radius: 16rpx;
   box-sizing: border-box;
+  margin-bottom: 28rpx;
 }
 .container .veh-info .item .item-top {
   height: 40rpx;
