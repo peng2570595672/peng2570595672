@@ -140,9 +140,6 @@ Page({
 
 	// 返回上一页
 	goBack () {
-		this.setData({
-			show: false
-		});
 		wx.switchTab({
 			url: '/pages/Home/Home'
 		});
