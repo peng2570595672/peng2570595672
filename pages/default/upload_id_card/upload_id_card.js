@@ -11,8 +11,8 @@ Page({
 		topProgressBar: 3,	// 进度条展示的长度 ，再此页面的取值范围 [3,4),默认为3,保留一位小数
 		topProgressBar1: 0,	// 存放上个页面传来进度条长度
 		vehPlates: undefined,
-		faceStatus: 1, // 1 未上传  2 识别中  3 识别失败  4识别成功
-		backStatus: 1, // 1 未上传  2 识别中  3 识别失败  4识别成功
+		faceStatus: 1, // 1 未上传  4识别成功
+		backStatus: 1, // 1 未上传  4识别成功
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
 		idCardStatus: 0,// 实名认证标识  默认0
@@ -41,44 +41,29 @@ Page({
 		await util.getIsArrearage();
 	},
 	onShow () {
-		// 身份证正面
-		let path = wx.getStorageSync('passenger-car-1');
-		if (path) {
-			wx.removeStorageSync('passenger-car-1');
-			if (app.globalData.handlingOCRType) this.uploadOcrFile(path);
+		let idCardFace = wx.getStorageSync('passenger-car-id-card-face');
+		if (idCardFace) {
+			idCardFace = JSON.parse(idCardFace);
+			this.setData({
+				oldName: idCardFace.ocrObject.name,
+				oldIdNumber: idCardFace.ocrObject.idNumber,
+				faceStatus: 4,
+				idCardFace
+			});
+			this.setData({
+				available: this.validateData(false)
+			});
 		}
-		// 身份证反面
-		path = wx.getStorageSync('passenger-car-2');
-		if (path) {
-			wx.removeStorageSync('passenger-car-2');
-			if (app.globalData.handlingOCRType) this.uploadOcrFile(path);
-		}
-		if (!app.globalData.handlingOCRType) {
-			// 没通过上传
-			let idCardFace = wx.getStorageSync('passenger-car-id-card-face');
-			if (idCardFace) {
-				idCardFace = JSON.parse(idCardFace);
-				this.setData({
-					oldName: idCardFace.ocrObject.name,
-					oldIdNumber: idCardFace.ocrObject.idNumber,
-					faceStatus: 4,
-					idCardFace
-				});
-				this.setData({
-					available: this.validateData(false)
-				});
-			}
-			let idCardBack = wx.getStorageSync('passenger-car-id-card-back');
-			if (idCardBack) {
-				idCardBack = JSON.parse(idCardBack);
-				this.setData({
-					backStatus: 4,
-					idCardBack
-				});
-				this.setData({
-					available: this.validateData(false)
-				});
-			}
+		let idCardBack = wx.getStorageSync('passenger-car-id-card-back');
+		if (idCardBack) {
+			idCardBack = JSON.parse(idCardBack);
+			this.setData({
+				backStatus: 4,
+				idCardBack
+			});
+			this.setData({
+				available: this.validateData(false)
+			});
 		}
 		this.processBarSize();
 	},
@@ -211,98 +196,10 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
-	// 上传图片
-	uploadOcrFile (path) {
-		const type = app.globalData.handlingOCRType;
-		if (type === 1) {
-			this.setData({faceStatus: 2});
-		} else {
-			this.setData({backStatus: 2});
-		}
-		// 上传并识别图片
-		util.uploadOcrFile(path, type, () => {
-			if (type === 1) {
-				this.setData({faceStatus: 3});
-			} else {
-				this.setData({backStatus: 3});
-			}
-			util.showToastNoIcon('文件服务器异常！');
-		}, (res) => {
-			try {
-				if (res) {
-					res = JSON.parse(res);
-					if (res.code === 0) { // 识别成功
-						app.globalData.handlingOCRType = 0;
-						console.log(res.data);
-						try {
-							if (type === 1) {
-								this.setData({
-									oldName: res.data[0].ocrObject.name,
-									oldIdNumber: res.data[0].ocrObject.idNumber,
-									faceStatus: 4,
-									idCardFace: res.data[0]
-								});
-								wx.setStorageSync('passenger-car-id-card-face', JSON.stringify(res.data[0]));
-							} else {
-								const endDate = res.data[0].ocrObject.validDate.split('-')[1].split('.').join('/');
-								const isGreaterThanData = util.isGreaterThanData(endDate);// 身份证结束时间
-								if (isGreaterThanData && !res.data[0].ocrObject.validDate.includes('长期')) {
-									this.setData({
-										backStatus: 3,
-										available: false
-									});
-									util.showToastNoIcon('证件已过期，请重新上传有效证件,');
-									return;
-								}
-								this.setData({
-									backStatus: 4,
-									idCardBack: res.data[0]
-								});
-								wx.setStorageSync('passenger-car-id-card-back', JSON.stringify(res.data[0]));
-							}
-							this.processBarSize();
-							this.setData({
-								available: this.validateData(false)
-							});
-						} catch (e) {
-							if (type === 1) {
-								this.setData({faceStatus: 3});
-							} else {
-								this.setData({backStatus: 3});
-							}
-						}
-					} else { // 识别失败
-						if (type === 1) {
-							this.setData({faceStatus: 3});
-						} else {
-							this.setData({backStatus: 3});
-						}
-					}
-				} else { // 识别失败
-					if (type === 1) {
-						this.setData({faceStatus: 3});
-					} else {
-						this.setData({backStatus: 3});
-					}
-					util.showToastNoIcon('识别失败');
-				}
-			} catch (e) {
-				if (type === 1) {
-					this.setData({faceStatus: 3});
-				} else {
-					this.setData({backStatus: 3});
-				}
-				util.showToastNoIcon('文件服务器异常！');
-			}
-		}, () => {
-		});
-	},
 	// 选择图片
 	selectionPic (e) {
 		let type = +e.currentTarget.dataset['type'];
-		// 识别中禁止修改
-		if ((type === 1 && this.data.faceStatus === 2) || (type === 2 && this.data.backStatus === 2)) return;
-		util.go(`/pages/default/shot_card/shot_card?type=${type}&pathUrl=${type === 1 ? this.data.idCardFace.fileUrl : this.data.idCardBack.fileUrl}`);
+		util.go(`/pages/default/shot_card/shot_card?type=${type}`);
 	},
 	// 输入框输入值做处理
 	onInputChangedHandle (e) {

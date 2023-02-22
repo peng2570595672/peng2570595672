@@ -24,6 +24,13 @@ Page({
 			payId: this.data.payId,
 			openId: app.globalData.openId
 		});
+		if (result.code) {
+			this.setData({
+				isRequest: false
+			});
+			util.showToastNoIcon(result.message);
+			return;
+		}
 		this.handlePayOrder(result);
 	},
 	async handlePay () {
