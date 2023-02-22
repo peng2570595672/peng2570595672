@@ -11,11 +11,7 @@
                 <view class="photo {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeTwo' : ''}}" data-type="3" catchtap="selectionPic">
                     <view class="upload {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeThree' : ''}}">
                         <view class="img-box" wx:if="{{faceStatus !== 4}}">
-                            <image class="ico" wx:if="{{faceStatus === 1}}" src="/pages/default/assets/camera.svg"></image>
-                            <view class="identify" wx:if="{{faceStatus === 2 || faceStatus === 3}}">
-                                <image class="refresh" src="/pages/default/assets/refresh.png"></image>
-                                <view>{{faceStatus === 2 ? '识别中…' : '重新拍摄'}}</view>
-                            </view>
+                            <image class="ico" src="/pages/default/assets/camera.svg"></image>
                         </view>
                         <image class="success" wx:else src="{{drivingLicenseFace.fileUrl}}"></image>
                     </view>
@@ -26,11 +22,7 @@
                 <view class="photo {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeTwo' : ''}}" data-type="4" catchtap="selectionPic">
                     <view class="upload {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeThree' : ''}}">
                         <view class="img-box" wx:if="{{backStatus !== 4}}">
-                            <image class="ico" wx:if="{{backStatus === 1}}" src="/pages/default/assets/camera.svg"></image>
-                            <view class="identify" wx:if="{{backStatus === 2 || backStatus === 3}}">
-                                <image class="refresh" src="/pages/default/assets/refresh.png"></image>
-                                <view>{{backStatus === 2 ? '识别中…' : '重新拍摄'}}</view>
-                            </view>
+                            <image class="ico" src="/pages/default/assets/camera.svg"></image>
                         </view>
                         <image class="success" wx:else src="{{drivingLicenseBack.fileUrl}}"></image>
                     </view>
@@ -174,7 +166,7 @@
         </view>
     </view>
     <!-- 子容器覆盖 -->
-    <page-container 
+    <page-container
         show="{{show}}"
         round="{{round}}"
         overlay="{{overlay}}"

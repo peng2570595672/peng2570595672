@@ -13,12 +13,8 @@
     </view>
 <!--    <view class="fill"></view>-->
 	<!--	底部按钮区域开始-->
-    <view class="btns {{picUrl ? '' : 'btns-bottom'}}">
-        <view wx:if="{{picUrl}}" class="btn">
-            <view class="shoot" catchtap="onClickShoot">重拍</view>
-            <view class="complete" catchtap="onClickComplete">完成</view>
-        </view>
-        <view wx:else>
+    <view class="btns btns-bottom">
+        <view>
             <view class="iconfont choice-from-album" catchtap="choiceFromAbumHandle"></view>
             <view class="iconfont take-photo" catchtap="takePhotoHandle"><image src="/pages/default/assets/icon_camera_white.png"/></view>
         </view>

@@ -2,14 +2,15 @@
  * @author 老刘
  * @desc 信息确认
  */
+import {checkVehicleType} from '../../../utils/utils';
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
 		topProgressBar: 3,	// 进度条展示的长度 ，再此页面的取值范围 [3,4),默认为3,保留一位小数
 		topProgressBar1: 0,	// 存放上个页面传来进度条长度
-		faceStatus: 1, // 1 未上传  2 识别中  3 识别失败  4识别成功
-		backStatus: 1, // 1 未上传  2 识别中  3 识别失败  4识别成功
+		faceStatus: 1, // 1 未上传   4识别成功
+		backStatus: 1, // 1 未上传  4识别成功
 		personIndex: 0, // 选择框当前选中索引
 		oldPersonIndex: 0, // 选择框当前选中索引 原始数据,用于与新数据比对(秒审)
 		personsArr: [2, 3, 4, 5, 6, 7, 8, 9], // 核载人数选择框
@@ -59,177 +60,31 @@ Page({
 		// this.selectComponent('#popTipComp').show();
 	},
 	onShow () {
-		// 行驶证正面
-		let path = wx.getStorageSync('passenger-car-3');
-		if (path) {
-			wx.removeStorageSync('passenger-car-3');
-			if (app.globalData.handlingOCRType) this.uploadOcrFile(path);
+		let drivingLicenseFace = wx.getStorageSync('passenger-car-driving-license-face');
+		if (drivingLicenseFace) {
+			drivingLicenseFace = JSON.parse(drivingLicenseFace);
+			this.setData({
+				faceStatus: 4,
+				drivingLicenseFace,
+				oldDrivingLicenseFace: drivingLicenseFace
+			});
+			this.setData({
+				available: this.validateData(false)
+			});
 		}
-		// 行驶证反面
-		path = wx.getStorageSync('passenger-car-4');
-		if (path) {
-			wx.removeStorageSync('passenger-car-4');
-			if (app.globalData.handlingOCRType) this.uploadOcrFile(path);
-		}
-		if (!app.globalData.handlingOCRType) {
-			// 没通过上传
-			let drivingLicenseFace = wx.getStorageSync('passenger-car-driving-license-face');
-			if (drivingLicenseFace) {
-				drivingLicenseFace = JSON.parse(drivingLicenseFace);
-				this.setData({
-					faceStatus: 4,
-					drivingLicenseFace,
-					oldDrivingLicenseFace: drivingLicenseFace
-				});
-				this.setData({
-					available: this.validateData(false)
-				});
-			}
-			let drivingLicenseBack = wx.getStorageSync('passenger-car-driving-license-back');
-			if (drivingLicenseBack) {
-				drivingLicenseBack = JSON.parse(drivingLicenseBack);
-				this.setData({
-					backStatus: 4,
-					drivingLicenseBack,
-					oldDrivingLicenseBack: drivingLicenseBack
-				});
-				this.setData({
-					available: this.validateData(false)
-				});
-			}
+		let drivingLicenseBack = wx.getStorageSync('passenger-car-driving-license-back');
+		if (drivingLicenseBack) {
+			drivingLicenseBack = JSON.parse(drivingLicenseBack);
+			this.setData({
+				backStatus: 4,
+				drivingLicenseBack,
+				oldDrivingLicenseBack: drivingLicenseBack
+			});
+			this.setData({
+				available: this.validateData(false)
+			});
 		}
 		this.processBarSize();
-	},
-	// 上传图片
-	uploadOcrFile (path) {
-		const type = app.globalData.handlingOCRType;
-		if (type === 3) {
-			this.setData({faceStatus: 2});
-		} else {
-			this.setData({backStatus: 2});
-		}
-		// 上传并识别图片
-		util.uploadOcrFile(path, type, () => {
-			if (type === 3) {
-				this.setData({faceStatus: 3});
-			} else {
-				this.setData({backStatus: 3});
-			}
-			util.showToastNoIcon('文件服务器异常！');
-		}, (res) => {
-			try {
-				if (res) {
-					res = JSON.parse(res);
-					console.log(res);
-					if (res.code === 0) { // 识别成功
-						app.globalData.handlingOCRType = 0;
-						if (type === 3) {
-							try {
-								const faceObj = res.data[0];
-								if (!faceObj.ocrObject.numberPlates || !faceObj.ocrObject.owner || !faceObj.ocrObject.vehicleType) {
-									util.showToastNoIcon('识别失败！');
-									this.setData({
-										available: false,
-										faceStatus: 3
-									});
-									return;
-								}
-								if (faceObj.ocrObject.numberPlates !== this.data.vehPlates) {
-									this.setData({
-										faceStatus: 3,
-										available: false
-									});
-									util.showToastNoIcon(`行驶证车牌与${this.data.vehPlates}不一致，请重新上传`);
-									return;
-								}
-								if (!this.checkVehicleType(faceObj.ocrObject.vehicleType)) {
-									util.showToastNoIcon('车辆类型不符，请检查无误重新上传！');
-									this.setData({
-										available: false,
-										faceStatus: 3
-									});
-									return;
-								}
-								this.setData({
-									faceStatus: 4,
-									drivingLicenseFace: faceObj,
-									oldDrivingLicenseFace: faceObj,
-									isInput: true
-								});
-								wx.setStorageSync('passenger-car-driving-license-face', JSON.stringify(faceObj));
-							} catch (err) {
-								this.setData({
-									available: false,
-									faceStatus: 3
-								});
-							}
-						} else {
-							try {
-								const backObj = res.data[0];
-								// 计算人数
-								let personsCapacity = backObj.ocrObject.personsCapacity;
-								const personsCapacityStr = personsCapacity.slice(0, personsCapacity.length - 1);
-								let personsCapacityNum = 0;
-								if (personsCapacityStr.includes('+')) {
-									personsCapacityNum = parseInt(personsCapacityStr.split('+')[0]) + parseInt(personsCapacityStr.split('+')[1]);
-								} else {
-									personsCapacityNum = personsCapacityStr;
-								}
-								backObj.ocrObject.personsCapacity = personsCapacityNum;
-								this.setData({
-									backStatus: 4,
-									oldDrivingLicenseBack: backObj,
-									drivingLicenseBack: backObj,
-									isInput: true
-								});
-								wx.setStorageSync('passenger-car-driving-license-back', JSON.stringify(backObj));
-							} catch (err) {
-								this.setData({
-									available: false,
-									faceStatus: 4
-								});
-							}
-						}
-						this.setData({
-							available: this.validateData(false)
-						});
-						this.processBarSize();
-					} else { // 识别失败
-						if (type === 3) {
-							this.setData({faceStatus: 3});
-						} else {
-							this.setData({backStatus: 3});
-						}
-					}
-				} else { // 识别失败
-					if (type === 3) {
-						this.setData({faceStatus: 3});
-					} else {
-						this.setData({backStatus: 3});
-					}
-					util.showToastNoIcon('识别失败');
-				}
-			} catch (e) {
-				if (type === 3) {
-					this.setData({faceStatus: 3});
-				} else {
-					this.setData({backStatus: 3});
-				}
-				util.showToastNoIcon('文件服务器异常！');
-			}
-		}, () => {
-		});
-	},
-	checkVehicleType (vehicleType) {
-		let flag;
-		const vehicleList = ['中型普通客车','小型专用客车', '小型轿车', '小型普通客车', '小型面包车', '小型旅居车', '小型客车',
-			'微型越野客车', '微型普通客车', '微型轿车', '轻型客车', '普通客车', '大型轿车', '小型越野客车', '轿车'];
-		for (let name of vehicleList) {
-			if (vehicleType.indexOf(name) !== -1) {
-				flag = true;
-			}
-		}
-		return flag;
 	},
 	// 校验数据
 	validateData (isToast) {
@@ -261,7 +116,7 @@ Page({
 			if (isToast) util.showToastNoIcon('车辆类型不能为空！');
 			return false;
 		}
-		if (!this.checkVehicleType(this.data.drivingLicenseFace.ocrObject.vehicleType)) {
+		if (!checkVehicleType(this.data.drivingLicenseFace.ocrObject.vehicleType)) {
 			if (isToast) util.showToastNoIcon('车辆类型不符，请检查无误重新上传！');
 			return false;
 		}
@@ -319,9 +174,7 @@ Page({
 	// 选择图片
 	selectionPic (e) {
 		let type = +e.currentTarget.dataset['type'];
-		// 识别中禁止修改
-		if ((type === 3 && this.data.faceStatus === 2) || (type === 4 && this.data.backStatus === 2)) return;
-		util.go(`/pages/default/shot_card/shot_card?type=${type}&pathUrl=${type === 3 ? this.data.drivingLicenseFace.fileUrl : this.data.drivingLicenseBack.fileUrl}`);
+		util.go(`/pages/default/shot_card/shot_card?type=${type}&vehPlates=${this.data.vehPlates}`);
 	},
 	bindPersonsCarTypeChange (e) {
 		this.setData({
