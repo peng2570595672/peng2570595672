@@ -483,9 +483,7 @@ Page({
 			formData.regionCode = e.detail.code;
 		}
 		this.setData({
-			formData
-		});
-		this.setData({
+			formData,
 			available: this.validateAvailable(true)
 		});
 	},
@@ -504,6 +502,9 @@ Page({
 							let location = result.location;
 							// 根据经纬度信息 反查详细地址信息
 							this.getAddressInfo(location, address);
+							this.setData({
+								available: this.validateAvailable(true)
+							});
 						}
 					}, () => {
 						util.showToastNoIcon('获取地理位置信息失败！');

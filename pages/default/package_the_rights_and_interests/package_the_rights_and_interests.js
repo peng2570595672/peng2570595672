@@ -142,7 +142,6 @@ Page({
 			return;
 		}
 		const packages = app.globalData.newPackagePageData;
-		console.log('你好',packages);
 		this.setData({
 			listOfPackages: parseInt(options.type) === 1 ? packages.divideAndDivideList : packages.alwaysToAlwaysList
 		});

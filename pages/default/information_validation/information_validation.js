@@ -44,8 +44,9 @@ Page({
 		isOut: false,	// 用于控制子容器离开前的判断
 		isInput: false,
 		customStyle: 'overflow-y:auto !important;z-index:-1;',
-		overlayStyle: 'z-index:-2;'
+		overlayStyle: 'z-index:-2;',
 		// ----end-----
+		baseInfo: {}	// 订单的基础信息
 	},
 	async onLoad (options) {
 		this.setData({
@@ -101,6 +102,10 @@ Page({
 			return false;
 		}
 		if (this.data.drivingLicenseFace.ocrObject.numberPlates !== this.data.vehPlates) {
+			if (isToast) util.showToastNoIcon(`行驶证车牌与${this.data.vehPlates}不一致，请重新上传`);
+			return false;
+		}
+		if (this.data.drivingLicenseFace.ocrObject.numberPlates !== this.data.vehPlates || this.data.drivingLicenseBack.ocrObject.numberPlates !== this.data.vehPlates || this.data.drivingLicenseFace.ocrObject.numberPlates !== this.data.drivingLicenseBack.ocrObject.numberPlates) {
 			if (isToast) util.showToastNoIcon(`行驶证车牌与${this.data.vehPlates}不一致，请重新上传`);
 			return false;
 		}
@@ -211,6 +216,7 @@ Page({
 					faceStatus: 4,
 					oldDrivingLicenseFace: this.data.drivingLicenseFace,
 					oldDrivingLicenseBack: this.data.drivingLicenseBack
+
 				});
 				this.setData({
 					available: this.validateData(false)
@@ -421,6 +427,8 @@ Page({
 			content: '若此时返回上级页面则已上传图片将清空，请确认是否返回',
 			showCancel: true,
 			confirmText: '确定',
+			confirmColor: '#99999D',
+			cancelColor: '#2FB565',
 			confirm: () => {
 				wx.removeStorageSync('passenger-car-driving-license-face');
 				wx.removeStorageSync('passenger-car-driving-license-back');

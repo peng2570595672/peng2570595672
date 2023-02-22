@@ -115,6 +115,20 @@
 					"scene": null
 				},
 				{
+					"name": "我的ETC",
+					"pathName": "pages/personal_center/my_etc/my_etc",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "4.0 订单分类",
+					"pathName": "pages/personal_center/order_triage/order_triage",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
 					"name": "",
 					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
 					"query": "orderId=1077994159542898688",

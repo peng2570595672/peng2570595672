@@ -128,7 +128,7 @@ Page({
 			return false;
 		}
 		if (!/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/.test(this.data.idCardFace.ocrObject.idNumber)) {
-			if (isToast) util.showToastNoIcon('身份证号格式不正确！');
+			if (isToast) util.showToastNoIcon('身份证号码不合法');
 			return false;
 		}
 		if (!this.data.idCardBack.ocrObject.validDate || !this.data.idCardFace.ocrObject.address ||
@@ -235,7 +235,6 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/etc/qtzl/queryUserAndCheckPlate', {
 			orderId: obj.orderId
 		});
-		console.log(result);
 		if (!result) return;
 		if (result.code === 0) {
 			// result.data.result = false;

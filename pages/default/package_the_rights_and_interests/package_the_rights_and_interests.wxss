@@ -271,6 +271,12 @@
     height: 100%;
     display: flex;
 }
+.index .package .module .lowerpart .titleDetails .titles .isTtIcon {
+    width: 40rpx;
+    height: 40rpx;
+    background: url('https://file.cyzl.com/g001/M01/C8/9E/oYYBAGP1z2iAZxFoAAAVlwqnjac464.svg') center no-repeat;
+    background-size: 40rpx 40rpx;
+}
 
 .index .package .module .lowerpart .titleDetails .titles .icon::before {
     width: 40rpx;
