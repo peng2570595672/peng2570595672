@@ -21,6 +21,7 @@ Page({
 	},
 
 	onLoad (options) {
+		console.log(options);
 		this.setData({
 			isVip: options.isVip === 'true' ? true : false
 		});
@@ -39,10 +40,6 @@ Page({
 	},
 	// 保存个人信息 到本地环境
 	save () {
-		let flag = this.data.nicheng.indexOf('emoji');
-		if (flag !== -1) {
-			return util.showToastNoIcon('非法字符');
-		}
 		wx.setStorageSync('person_information', {
 			avatarUrl: this.data.avatarUrl,
 			nicheng: this.data.nicheng
@@ -81,13 +78,14 @@ Page({
 		const {
 			value
 		} = e.detail;
-		// let regs = /[~~!@#$%&*()+=l[':;',//[\].<>/?~! @#￥%....* ()-+[]; : 。，、? ]/;
-		// let flag = regs.test(value);
-		let flag = value.indexOf('emoji');
-		if (flag !== -1) {
+		// emoji校验
+		let regs = /[\u{1F601}-\u{1F64F}\u{2702}-\u{27B0}\u{1F680}-\u{1F6C0}\u{1F170}-\u{1F251}\u{1F600}-\u{1F636}\u{1F681}-\u{1F6C5}\u{1F30D}-\u{1F567}]/gu;
+		if (regs.test(value)) {
+			this.setData({ nicheng: '' });
 			return util.showToastNoIcon('非法字符');
+		} else {
+			this.fangDou(value, 300);
 		}
-		this.fangDou(value, 300);
 	},
 	fangDou (value, time) {
 		let that = this;

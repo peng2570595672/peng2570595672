@@ -55,7 +55,7 @@
         <view class="publicCode">
             <view class="publicCodeLeft">收货人</view>
             <view class="publicCoderight">
-                <input class="input" type="text" placeholder="输入收货人姓名" value="{{formData.userName}}" data-key="userName" data-name="name" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" bindblur="validateNew"/>
+                <input class="input" type="text" placeholder="输入收货人姓名" value="{{formData.userName}}" data-name="userName" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" bindblur="validateNew"/>
                 <view class="btns" catchtap="onClickAutoFillHandle">
                     <span class="wChat iconfont" />
                     <span class="text">选择微信地址</span>
@@ -82,7 +82,7 @@
         <view class="publicCode">
             <view class="publicCodeLeft">手机号</view>
             <view class="publicCoderight">
-                <input class="input" type="number" placeholder="输入收货手机号" value="{{formData.telNumber}}" data-key="telNumber" data-name="telNumber" placeholder-class="input-placeholder" maxlength="11"  bindinput="onInputChangedHandle" bindblur="validateNew"/>
+                <input class="input" type="number" placeholder="输入收货手机号" value="{{formData.telNumber}}"  data-name="telNumber" placeholder-class="input-placeholder" maxlength="11"  bindinput="onInputChangedHandle" bindblur="validateNew"/>
                 <text class="errTip" wx:if="{{tip3}}">{{tip3}}</text>
             </view>
         </view>

@@ -142,7 +142,7 @@ Component({
 						datas.push('');
 					}
 				} else {
-					if (this.data.letters[i] !== undefined && i < 35) {
+					if (this.data.letters[i] !== undefined && i < 34) {
 						datas.push(this.data.letters[i]);
 					} else {
 						datas.push('');
