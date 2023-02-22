@@ -48,7 +48,7 @@
             <view class="lowerpart" wx:if="{{tools.dataLen(item.rightsPackageIds) || item.isSignTtCoupon}}">
                 <view class="titleDetails">
                     <view class="titles">
-                        <view class="iconfont {{item.isSignTtCoupon ? 'isSignTtCoupon' : 'icon'}}"></view>
+                        <view class="iconfont {{item.isSignTtCoupon ? 'isTtIcon' : 'icon'}}"></view>
                         <view class="text">{{item.isSignTtCoupon ? 'ETC*通通券联名会员权益' : equityListMap[index].packageName}}</view>
                     </view>
                     <view class="details" catchtap="btnOpenOrOff" data-index="{{[index,isCloseUpperPart,activeIndex]}}">
@@ -95,7 +95,7 @@
                 {{contractStatus === 1 ? '开通连续包月服务' : '签约代扣通行费'}}
             </button>
             <!-- 通通券金额 为0 时 执行微信签约 -->
-            <button class="btn {{getAgreement ? 'payColor' : ''}}" catchtap="toWeChatSign" wx:elif="{{isTest ? listOfPackages[choiceIndex].shopProductId === '1053333932522610688' : listOfPackages[choiceIndex].shopProductId === '1060638877005914112'}}">
+            <button class="btn {{getAgreement ? 'payColor' : ''}}" catchtap="toWeChatSign" wx:else>
                 去签约
             </button>
         </view>
