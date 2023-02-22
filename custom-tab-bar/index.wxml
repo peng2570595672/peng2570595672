@@ -1,4 +1,4 @@
-<view class="tab-bar fadeIn" wx:if="{{selected === index}}">
+<view class="tab-bar {{selected === 1 ? 'fadeIn' : 'fadeOut'}}" wx:if="{{selected === index && selected !== '1' && index !== '1'}}">
 	<view wx:for="{{list}}" wx:key="index" class="tab-bar-item" data-path="{{item.pagePath}}" data-index="{{index}}" bindtap="switchTab" >
 		<image src="{{selected === index ? item.selectedIconPath : item.iconPath}}" class="coverImg"/>
 		<view style="color: {{selected === index ? selectedColor : color}}" class=" {{selected === index ? 'selectBar' : 'titleBar'}}">{{item.text}}</view>

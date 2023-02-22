@@ -37,6 +37,7 @@ Component({
 	attached () {},
 	methods: {
 		switchTab (e) {
+			console.log(e);
 			const url = e.currentTarget.dataset.path;
 			let index = e.currentTarget.dataset.index;
 			if (index !== this.data.index) {
