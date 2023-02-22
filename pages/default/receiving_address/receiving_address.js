@@ -731,7 +731,7 @@ Page({
 			available: this.validateAvailable(true)
 		});
 		if (!this.data.available || this.data.isRequest) {
-			return;
+			return util.showToastNoIcon('请填写相关信息');
 		}
 		let formData = this.data.formData; // 输入信息
 		const res = await util.getDataFromServersV2('consumer/etc/qtzl/checkVehPlateExists', {

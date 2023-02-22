@@ -118,7 +118,7 @@ Page({
 				title: '账单查询',
 				btn: '最近通行的记录',
 				isShow: true,
-				url: 'my-order',
+				url: 'my_order',
 				statisticsEvent: 'index_my-order'
 			},
 			{
@@ -293,6 +293,7 @@ Page({
 		if (url === 'index') {
 			// 统计点击进入个人中心事件
 		}
+		console.log(url);
 		if (url === 'my_order') {
 			// 统计点击进入我的ETC账单
 			util.go(`/pages/personal_center/${url}/${url}`);

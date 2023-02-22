@@ -269,7 +269,7 @@
 /* 热门问答 */
 .alert-for-not-finished-content .moduleTwo {
 	width: 610rpx;
-	height: 60vh;
+	max-height: 60vh;
 	padding: 0 20rpx;
 }
 

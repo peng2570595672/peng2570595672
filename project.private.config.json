@@ -146,6 +146,13 @@
 					"query": "",
 					"launchMode": "default",
 					"scene": null
+				},
+				{
+					"name": "4.0 ETC办理",
+					"pathName": "pages/etc_handle/etc_handle",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
 				}
 			]
 		}
