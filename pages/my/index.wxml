@@ -3,10 +3,10 @@
     <!-- 顶部user信息 -->
     <view class="user">
         <view class="headPortrait {{isVip ? 'yellowU' : 'greenU'}}" catchtap="goUserInfo">
-            <image class="headImg" src="{{userInfo.avatarUrl || wChatHeadImg}}" />
+            <image class="headImg" src="{{userInfo.avatarUrl}}" />
         </view>
         <view class="userInfo">
-            <view class="userName" catchtap="getUserProfile">{{userInfo.nickName ? userInfo.nickName : 'E+车主' }}</view>
+            <view class="userName" catchtap="getUserProfile">{{userInfo.nickName }}</view>
             <view class="mobilePhoneEquity">
                 <view class="ETCMobilePhone {{isVip ? 'yellowC' : 'greenC'}}">
                     {{isVip ? 'ETC+PLUS': 'ETC+'}}

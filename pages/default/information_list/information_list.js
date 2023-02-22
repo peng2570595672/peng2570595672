@@ -188,7 +188,6 @@ Page({
 	},
 	// 跳转
 	go (e) {
-		console.log(e);
 		let topProgressBar = 3;
 		let url = e.currentTarget.dataset['url'];
 		if (this.data.orderInfo.isOwner || this.data.orderInfo.isVehicle) {
@@ -207,10 +206,6 @@ Page({
 		// 	return;
 		// }
 		if (!this.data.available) return;
-		let brandChargingModel = await this.brandChargingModel();
-		if (!brandChargingModel) {
-			return;
-		}
 		// 判断版本，兼容处理
 		let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
 		if (result >= 0) {
@@ -320,7 +315,7 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			app.globalData.isNeedReturnHome = true;
-
+			this.brandChargingModel();
 			if (this.data.orderInfo.flowVersion === 2 || this.data.orderInfo.flowVersion === 3) {
 				util.go(`/pages/default/order_audit/order_audit`);
 				return;
@@ -348,7 +343,6 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			let res = result.data.data;
-			console.log(res);
 			if (res.checkResult === 1) {
 				return true;
 			} else {

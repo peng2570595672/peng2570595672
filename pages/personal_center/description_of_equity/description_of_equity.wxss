@@ -25,7 +25,15 @@
 
 .index .title .icon {
     height: 74rpx;
-    background-color: #FFFFFF;
+    width: 100rpx;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.index .title .icon .image {
+    width: 100%;
+    height: 100%;
 }
 
 .index .title .text1 {
@@ -57,7 +65,7 @@
     border: 4rpx solid;
     border-bottom: transparent;
     border-image: linear-gradient(227deg, rgba(255, 249, 243, 1), rgba(246, 217, 190, 1)) 2 2;
-    position: absolute;
+    position: relative;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -99,11 +107,11 @@
     height: 520rpx;
     opacity: 0.38;
     overflow: hidden;
-    background-color: rgba(255, 255, 255, 0.82);
+    background-color: rgba(255, 255, 255, 0.72);
     backdrop-filter: blur(10rpx);
     clip-path: polygon(50% 21%, 100% 0, 100% 100%, 0 100%, 0 0);
     -webkit-clip-path: polygon(50% 21%, 100% 0, 100% 100%, 0 100%, 0 0);
-    box-shadow: 0rpx 42rpx 26rpx 0rpx rgba(190, 156, 124, 0.36), inset 0rpx 18rpx 42rpx 0rpx rgba(255, 255, 255, 0.82), inset 0rpx 2rpx 6rpx 0rpx rgba(255, 255, 255, 0.68);
+    box-shadow: 0rpx 42rpx 26rpx 0rpx rgba(190, 156, 124, 0.8), inset 0rpx 18rpx 42rpx 0rpx rgba(255, 255, 255, 0.42), inset 0rpx 2rpx 6rpx 0rpx rgba(255, 255, 255, 0.68);
     position: fixed;
     bottom: 0rpx;
     z-index: 20;

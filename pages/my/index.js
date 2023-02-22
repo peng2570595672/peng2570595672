@@ -6,7 +6,6 @@ Page({
 	data: {
 		isVip: false, //	用户是否是Vip
 		testImg: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',	// 测试所用的图片和icon
-		wChatHeadImg: 'https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132',	// 微信默认头像
 		funcList: [
 			{icon: '',title: '我的订单',url: 'my_etc'},
 			{icon: '',title: '通行流水',url: 'my_order'},
@@ -49,7 +48,8 @@ Page({
 		isShowEquityImg: false	// 是否显示权益商城banner
 	},
 
-	onLoad (options) {
+	async onLoad (options) {
+		await this.getUserIsVip();
 		app.globalData.orderInfo.orderId = '';
 		if (options.isMain) {
 			this.setData({
@@ -59,8 +59,9 @@ Page({
 	},
 	async onShow () {
 		// 4.0
-		this.getUserProfiles();
-		util.customTabbar(this, 3);
+		util.customTabbar(this, 2);
+		await this.getUserProfiles();
+		await this.getUserIsVip();
 		// --------------end------------
 		if (app.globalData.userInfo.accessToken) {
 			// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
@@ -367,10 +368,13 @@ Page({
 
 	// 跳转
 	async go (e) {
+		let that = this;
 		let url = e.currentTarget.dataset['url'];
 		if (url === 'online_customer_service') {
 			// 统计点击进入在线客服
-			util.go(`/pages/web/web/web?type=${url}`);
+			this.fangDou(() => {
+				util.go(`/pages/web/web/web?type=${url}`);
+			},1000);
 			return;
 		}
 		if (url === 'life_service') {
@@ -389,8 +393,16 @@ Page({
 			'characteristic_service': 'personal_center_characteristic_service',
 			'service_purchase_record': 'personal_center_service_purchase_record'
 		};
+		if (url === 'description_of_equity') {
+			this.fangDou(() => {
+				util.go(`/pages/personal_center/${url}/${url}?isVip=${that.data.isVip}`);
+			},1000);
+			return;
+		}
 		wx.uma.trackEvent(urlObj[url]);
-		util.go(`/pages/personal_center/${url}/${url}`);
+		this.fangDou(() => {
+			util.go(`/pages/personal_center/${url}/${url}`);
+		},1000);
 	},
 	onClickAccountManagement () {
 		wx.uma.trackEvent('personal_center_for_account_management');
@@ -466,30 +478,50 @@ Page({
 		}, 400);
 	},
 	// ------------------------------------------------------------------------------------------------------
+	async getUserIsVip () {
+		const result = await util.getDataFromServersV2('consumer/order/member/userType', {},'POST',false);
+		if (!result) return;
+		console.log(result);
+		if (result.code === 0) {
+			this.setData({
+				isVip: result.data.userType === 1 ? false : true
+			});
+		} else {
+			this.setData({
+				isVip: false
+			});
+			util.showToastNoIcon(result.message);
+		}
+	},
 	// 获取头像和昵称
 	getUserProfiles () {
 		let personInformation = wx.getStorageSync('person_information');
-		if (personInformation) {
-			return this.setData({
-				userInfo: {
-					avatarUrl: personInformation.avatarUrl,
-					nickName: personInformation.nicheng
-				}
-			});
-		}
+		let isVip = this.data.isVip;
+		let noVip = 'https://file.cyzl.com/g001/M01/C8/3F/oYYBAGP0VgGAQa01AAAG5Ng7rok991.svg';
+		let yesVip = 'https://file.cyzl.com/g001/M01/C8/3F/oYYBAGP0VdeAZ2uZAAAG57UJ39U085.svg';
+		this.setData({
+			userInfo: {
+				avatarUrl: personInformation.avatarUrl ? personInformation.avatarUrl : isVip ? yesVip : noVip,
+				nickName: personInformation.nicheng ? personInformation.nicheng : 'E+车主'
+			}
+		});
 	},
 	// 前往个人信息
 	goUserInfo () {
-		this.fangDou(this.data.isVip,1000);
+		let that = this;
+		this.fangDou(() => {
+			util.go(`/pages/personal_center/personal_information/personal_information?isVip=${that.data.isVip}`);
+		},1000);
 	},
-	fangDou (value, time) {
+	// 防止点击重复触发
+	fangDou (fn, time) {
 		let that = this;
 		return (function () {
 			if (that.data.timeout) {
 				clearTimeout(that.data.timeout);
 			}
 			that.data.timeout = setTimeout(() => {
-				util.go(`/pages/personal_center/personal_information/personal_information?isVip=${value}`);
+				fn.apply(this, arguments);
 			}, time);
 		})();
 	},

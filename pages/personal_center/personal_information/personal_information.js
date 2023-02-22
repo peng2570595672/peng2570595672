@@ -5,12 +5,23 @@ Page({
 	data: {
 		isVip: '', // 是否VIP用户
 		bgColor: '', // 背景色
-		nicheng: undefined,	// 昵称
-		avatarUrl: undefined,	// 头像
-		wChatHeadImg: 'https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132' // 微信默认头像
+		nicheng: undefined, // 昵称
+		avatarUrl: undefined, // 头像
+
+		show: true,
+		duration: 0,
+		position: 'center',
+		round: false,
+		overlay: true,
+		isOut: false,	// 用于控制子容器离开前的判断
+		isInput: false,
+		customStyle: 'overflow-y:auto !important;z-index:-1;',
+		overlayStyle: 'z-index:-2;'
+
 	},
 
 	onLoad (options) {
+		console.log(options);
 		this.setData({
 			isVip: options.isVip === 'true' ? true : false
 		});
@@ -19,12 +30,13 @@ Page({
 
 	onShow () {
 		let personInformation = wx.getStorageSync('person_information');
-		if (personInformation) {
-			this.setData({
-				avatarUrl: personInformation.avatarUrl || this.data.wChatHeadImg,
-				nicheng: personInformation.nicheng || 'E+车主'
-			});
-		}
+		let noVip = 'https://file.cyzl.com/g001/M01/C8/3F/oYYBAGP0VgGAQa01AAAG5Ng7rok991.svg';
+		let yesVip = 'https://file.cyzl.com/g001/M01/C8/3F/oYYBAGP0VdeAZ2uZAAAG57UJ39U085.svg';
+		let isVip = this.data.isVip;
+		this.setData({
+			avatarUrl: personInformation.avatarUrl ? personInformation.avatarUrl : isVip ? yesVip : noVip,
+			nicheng: personInformation.nicheng ? personInformation.nicheng : 'E+车主'
+		});
 	},
 	// 保存个人信息 到本地环境
 	save () {
@@ -55,14 +67,25 @@ Page({
 		}
 	},
 	onChooseAvatar (e) {
-		const { avatarUrl } = e.detail;
+		const {
+			avatarUrl
+		} = e.detail;
 		this.setData({
 			avatarUrl
 		});
 	},
 	bindKeyInput (e) {
-		const { value } = e.detail;
-		this.fangDou(value,500);
+		const {
+			value
+		} = e.detail;
+		// emoji校验
+		let regs = /[\u{1F601}-\u{1F64F}\u{2702}-\u{27B0}\u{1F680}-\u{1F6C0}\u{1F170}-\u{1F251}\u{1F600}-\u{1F636}\u{1F681}-\u{1F6C5}\u{1F30D}-\u{1F567}]/gu;
+		if (regs.test(value)) {
+			this.setData({ nicheng: '' });
+			return util.showToastNoIcon('非法字符');
+		} else {
+			this.fangDou(value, 300);
+		}
 	},
 	fangDou (value, time) {
 		let that = this;
@@ -76,38 +99,21 @@ Page({
 				});
 			}, time);
 		})();
+	},
+	onBeforeLeave () {
+		let personInformation = wx.getStorageSync('person_information');
+		if (personInformation.avatarUrl !== this.data.avatarUrl || personInformation.nicheng !== this.data.nicheng) {
+			util.alert({
+				content: '您的资料尚未保存',
+				showCancel: false,
+				confirmText: '知道了',
+				confirm: () => {},
+				cancel: () => {}
+			});
+		} else {
+			wx.switchTab({
+				url: '/pages/my/index'
+			});
+		}
 	}
-	// 旧版本
-	// getUserProfile (e) {
-	// 	wx.getUserProfile({
-	// 		desc: '用于完善用户资料',
-	// 		success: (res) => {
-	// 			this.setData({
-	// 				userInfo: res.userInfo
-	// 			});
-	// 			if (res.userInfo) {
-	// 				this.submitUserInfo(res);
-	// 			}
-	// 		}
-	// 	});
-	// },
-	// bindGetUserInfo (e) {
-	// 	this.setData({
-	// 		userInfo: e.detail.userInfo
-	// 	});
-	// 	if (e.detail.userInfo) {
-	// 		this.submitUserInfo(e.detail);
-	// 	}
-	// }
-	// async submitUserInfo (user) {
-	// 	let params = {
-	// 		encryptedData: user.encryptedData,
-	// 		iv: user.iv
-	// 	};
-	// 	console.log('参数：',params);
-	// 	console.log('值：',user);
-	// 	const result = await util.getDataFromServersV2('consumer/member/applet/update-user-info', params);
-	// 	if (result.code) util.showToastNoIcon(result.message);
-	// },
-
 });

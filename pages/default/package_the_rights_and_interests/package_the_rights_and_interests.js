@@ -17,7 +17,7 @@ Page({
 		nodeHeightList: [], // 存储节点高度 集合
 		phoneType: 2,
 		equityListMap: [],	// 权益列表集合
-
+		// ------------------------------------------------------------------------------
 		isContinentInsurance: app.globalData.isContinentInsurance,// 是否是大地
 		isSelected: false,// 是否选中当前权益包
 		isSalesmanOrder: false,// 是否是业务员端办理
@@ -161,27 +161,27 @@ Page({
 			this.getOrderInfo(false);
 		}
 	},
-	async getSwiperHeight () {
-		let boxHeight = [];
-		const that = this;
-		that.data.listOfPackages.map((item, index) => {
-			let height = wx.createSelectorQuery();
-			height.select(`.item-${index}`).boundingClientRect();
-			height.exec(res => {
-				boxHeight.push(res[0].height);
-				if (boxHeight.length === that.data.listOfPackages.length) {
-					that.setData({
-						boxHeight
-					});
-				}
-			});
-		});
-		if (that.data.listOfPackages[0]?.rightsPackageIds?.length) {
-			console.log(that.data.listOfPackages[0]);
-			// 获取权益
-			await that.getList(that.data.listOfPackages[0]);
-		}
-	},
+	// async getSwiperHeight () {
+	// 	let boxHeight = [];
+	// 	const that = this;
+	// 	that.data.listOfPackages.map((item, index) => {
+	// 		let height = wx.createSelectorQuery();
+	// 		height.select(`.item-${index}`).boundingClientRect();
+	// 		height.exec(res => {
+	// 			boxHeight.push(res[0].height);
+	// 			if (boxHeight.length === that.data.listOfPackages.length) {
+	// 				that.setData({
+	// 					boxHeight
+	// 				});
+	// 			}
+	// 		});
+	// 	});
+	// 	if (that.data.listOfPackages[0]?.rightsPackageIds?.length) {
+	// 		console.log(that.data.listOfPackages[0]);
+	// 		// 获取权益
+	// 		await that.getList(that.data.listOfPackages[0]);
+	// 	}
+	// },
 	// 获取 套餐信息
 	async getProductOrderInfo () {
 		const result = await util.getDataFromServersV2('consumer/order/get-product-by-order-id', {
@@ -194,7 +194,7 @@ Page({
 			this.setData({
 				listOfPackages: [result.data]
 			});
-			await this.getSwiperHeight();
+			this.getNodeHeight(this.data.listOfPackages.length);
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -544,11 +544,6 @@ Page({
 			util.showToastNoIcon('请同意并勾选协议！');
 			return;
 		}
-		if (this.data.listOfPackages[this.data.choiceIndex].mustChoiceRightsPackage === 1 && this.data.activeEquitiesIndex === -1) {
-			util.showToastNoIcon('套餐需加购权益包');
-			// 必须选择权益
-			return;
-		}
 		if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4) {
 			// 判断是否是 权益券额套餐模式 ，如果是再判断以前是否有过办理，如果有则弹窗提示，并且不执行后面流程
 			const result = await util.getDataFromServersV2('consumer/order/precharge/list',{
@@ -570,7 +565,7 @@ Page({
 			}
 		}
 
-		if (this.data.listOfPackages[this.data.choiceIndex].mustChoiceRightsPackage === 0 && this.data.rightsAndInterestsList.length && this.data.activeEquitiesIndex === -1) {
+		if (this.data.listOfPackages[this.data.choiceIndex].mustChoiceRightsPackage === 0 && this.data.rightsAndInterestsList.length) {
 			// 不必选权益 有权益包 未选中权益包
 			util.alert({
 				title: `优惠提醒`,
@@ -603,15 +598,14 @@ Page({
 			dataType: '3', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
-			rightsPackageId: this.data.rightsAndInterestsList[this.data.activeEquitiesIndex]?.id || '',
+			rightsPackageId: this.data.equityListMap[this.data.activeIndex]?.id || '',
 			areaCode: this.data.orderInfo ? (this.data.orderInfo.product.areaCode || '0') : app.globalData.newPackagePageData.areaCode
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
-		console.log(result);
 		if (!result) return;
 		if (result.code === 0) {
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
-				this.data.rightsAndInterestsList[this.data.activeEquitiesIndex]?.payMoney) {
+				this.data.equityListMap[this.data.activeIndex]?.payMoney) {
 				await this.marginPayment(this.data.listOfPackages[this.data.choiceIndex].pledgeType);
 				return;
 			}
@@ -757,6 +751,7 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
+	// ------------------------------------------------------------------------------------------------------------------
 	// 权益点击高亮，不用显示详情弹窗
 	detailsBtn (e) {
 		if (this.data.listOfPackages[this.data.activeIndex]?.mustChoiceRightsPackage === 1) {
@@ -823,18 +818,9 @@ Page({
 			});
 		}
 	},
-	payMoney (e) {
-		if (this.data.activeIndex === -1) {
-			util.showToastNoIcon('亲，请选套餐哦');
-		} else if (!e.currentTarget.dataset.getAgreement) {
-			util.showToastNoIcon('请阅读相关协议并勾选同意');
-		} else {
-			// util.showToastNoIcon('请支付');
-			// util.go('/pages/default/information_list/information_list?type=1');
-		}
-	},
 	// 获取节点的高度
 	async getNodeHeight (num) {
+		console.log(num);
 		let that = this;
 		let nodeHeightList = [];
 		let equityListMap = [];
@@ -851,13 +837,14 @@ Page({
 				packageIds: this.data.listOfPackages[index].rightsPackageIds.length > 1 ? new Array(this.data.listOfPackages[index].rightsPackageIds[0]) : this.data.listOfPackages[index].rightsPackageIds
 			},'POST',false);
 			if (result.code === 0) {
-				let equityObj = {index: index, packageName: result.data[0].packageName,payMoney: result.data[0].payMoney};
+				let equityObj = {index: index, packageName: result.data[0].packageName,payMoney: result.data[0].payMoney,id: result.data[0].id};
 				equityListMap.push(equityObj);
 			} else {
 				// 占位
-				let equityObj = {index: index, packageName: ''};
+				let equityObj = {index: index, packageName: '',payMoney: 0};
 				equityListMap.push(equityObj);
 			}
+			console.log(result);
 		}
 		this.setData({
 			equityListMap: equityListMap

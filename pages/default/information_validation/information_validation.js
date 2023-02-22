@@ -33,7 +33,18 @@ Page({
 			type: 'two',
 			title: '提示',
 			content: '若此时返回上级页面则已上传图片将清空，请确认是否返回！'
-		}
+		},
+		// 页面容器-----
+		show: true,
+		duration: 0,
+		position: 'center',
+		round: false,
+		overlay: true,
+		isOut: false,	// 用于控制子容器离开前的判断
+		isInput: false,
+		customStyle: 'overflow-y:auto !important;z-index:-1;',
+		overlayStyle: 'z-index:-2;'
+		// ----end-----
 	},
 	async onLoad (options) {
 		this.setData({
@@ -142,7 +153,8 @@ Page({
 								this.setData({
 									faceStatus: 4,
 									drivingLicenseFace: faceObj,
-									oldDrivingLicenseFace: faceObj
+									oldDrivingLicenseFace: faceObj,
+									isInput: true
 								});
 								wx.setStorageSync('passenger-car-driving-license-face', JSON.stringify(faceObj));
 							} catch (err) {
@@ -167,7 +179,8 @@ Page({
 								this.setData({
 									backStatus: 4,
 									oldDrivingLicenseBack: backObj,
-									drivingLicenseBack: backObj
+									drivingLicenseBack: backObj,
+									isInput: true
 								});
 								wx.setStorageSync('passenger-car-driving-license-back', JSON.stringify(backObj));
 							} catch (err) {
@@ -429,6 +442,9 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
+			this.setData({
+				isOut: true
+			});
 			const pages = getCurrentPages();
 			const prevPage = pages[pages.length - 2];// 上一个页面
 			prevPage.setData({
@@ -448,6 +464,7 @@ Page({
 	},
 	// 输入项值变化
 	onInputChangedHandle (e) {
+		let isInput = false;
 		let key = e.currentTarget.dataset.key;
 		let type = e.currentTarget.dataset.type;
 		let value = e.detail.value.trim();
@@ -463,22 +480,27 @@ Page({
 		if (key === 'numberPlates') {
 			drivingLicenseFace.ocrObject[key] = value;
 			drivingLicenseBack.ocrObject[key] = value;
+			isInput = true;
 		}
 		if (key === 'personsCapacity') {
 			if (parseInt(value) < 1 || parseInt(value) > 6) value = '';
 			drivingLicenseBack.ocrObject[key] = value;
+			isInput = true;
 		}
 
 		if (key === 'owner' || key === 'engineNo' || key === 'vin' || key === 'vehicleType' || key === 'address' || key === 'useCharacter' || key === 'model') {
 			drivingLicenseFace.ocrObject[key] = value;
+			isInput = true;
 		}
 		if (key === 'fileNumber' || key === 'totalMass' || key === 'curbWeight' || key === 'loadQuality' || key === 'size' || key === 'tractionMass' || key === 'remark' || key === 'recode') {
 			drivingLicenseBack.ocrObject[key] = value;
+			isInput = true;
 		}
 
 		this.setData({
 			drivingLicenseFace,
-			drivingLicenseBack
+			drivingLicenseBack,
+			isInput
 		});
 		this.setData({
 			available: this.validateData(true)
@@ -490,7 +512,8 @@ Page({
 		let drivingLicenseFace = this.data.drivingLicenseFace;
 		drivingLicenseFace.ocrObject.resgisterDate = value;
 		this.setData({
-			drivingLicenseFace
+			drivingLicenseFace,
+			isInput: true
 		});
 	},
 	// 选择发证日期
@@ -499,7 +522,8 @@ Page({
 		let drivingLicenseFace = this.data.drivingLicenseFace;
 		drivingLicenseFace.ocrObject.issueDate = value;
 		this.setData({
-			drivingLicenseFace
+			drivingLicenseFace,
+			isInput: true
 		});
 	},
 	// 选择人数
@@ -510,7 +534,8 @@ Page({
 		let drivingLicenseBack = this.data.drivingLicenseBack;
 		drivingLicenseBack.ocrObject.personsCapacity = this.data.personsArr[this.data.personIndex];
 		this.setData({
-			drivingLicenseBack
+			drivingLicenseBack,
+			isInput: true
 		});
 	},
 	// 控制进度条的长短
@@ -525,6 +550,39 @@ Page({
 				topProgressBar: this.data.faceStatus === 4 && this.data.backStatus === 4 ? flag + 0.3 : this.data.faceStatus === 4 || this.data.backStatus === 4 ? flag + 0.15 : flag
 			});
 		}
+	},
+	// 离开前触发
+	onBeforeLeave (e) {
+		if (this.data.isOut || !this.data.isInput) {
+			const pages = getCurrentPages();
+			const prevPage = pages[pages.length - 2];// 上一个页面
+			prevPage.setData({
+				isChangeDrivingLicenseError: true // 重置状态
+			});
+			wx.navigateBack({
+				delta: 1
+			});
+			return;
+		}
+		util.alert({
+			content: '若此时返回上级页面则已上传图片将清空，请确认是否返回',
+			showCancel: true,
+			confirmText: '确定',
+			confirm: () => {
+				wx.removeStorageSync('passenger-car-driving-license-face');
+				wx.removeStorageSync('passenger-car-driving-license-back');
+				const pages = getCurrentPages();
+				const prevPage = pages[pages.length - 2];// 上一个页面
+				prevPage.setData({
+					isChangeDrivingLicenseError: true // 重置状态
+				});
+				wx.navigateBack({
+					delta: 1
+				});
+			},
+			cancel: () => {
+			}
+		});
 	}
 
 });
