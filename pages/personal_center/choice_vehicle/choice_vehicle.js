@@ -26,5 +26,13 @@ Page({
 				equityList: result.data
 			});
 		}
+	},
+	async handleAccount (e) {
+		const index = e.target.dataset.index;
+		const item = this.data.equityList[index];
+		const result = await util.getDataFromServersV2('/consumer/order/walfare/noPassLogin', {
+			accountId: item.id
+		});
+		console.log(result);
 	}
 });

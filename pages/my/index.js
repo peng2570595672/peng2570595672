@@ -492,5 +492,9 @@ Page({
 				util.go(`/pages/personal_center/personal_information/personal_information?isVip=${value}`);
 			}, time);
 		})();
-	}
+	},
+	handleEquitiesMall () {
+		// util.go(`/pages/personal_center/equity_payment/equity_payment?payId=123333&price=1&source=ttq`);
+		util.go(`/pages/personal_center/choice_vehicle/choice_vehicle`);
+	},
 });
