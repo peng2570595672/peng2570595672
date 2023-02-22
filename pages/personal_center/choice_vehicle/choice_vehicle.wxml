@@ -13,7 +13,7 @@
             </view>
             <view class="item-bottom">
                 <view class="balance">{{tools.parseNum(item.balance)}}</view>
-                <view class="btn">选择账户</view>
+                <view class="btn" catchtap="handleAccount" data-index="{{index}}">选择账户</view>
             </view>
         </view>
     </view>

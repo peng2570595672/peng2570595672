@@ -148,8 +148,13 @@
 					"scene": null
 				},
 				{
+<<<<<<< HEAD
 					"name": "4.0 ETC办理",
 					"pathName": "pages/etc_handle/etc_handle",
+=======
+					"name": "",
+					"pathName": "pingan/pages/ChooseBank/ChooseBank",
+>>>>>>> 560864a8d0ef83789b36e196b9efa58582b945a2
 					"query": "",
 					"launchMode": "default",
 					"scene": null
