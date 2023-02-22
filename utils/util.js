@@ -1185,20 +1185,20 @@ let isTruckHandle = false;// 是否是货车办理
 function initLocationInfo(orderInfo, isTruck = false) {
 	isTruckHandle = isTruck;
 	// 是否缓存了定位信息
-	let locationInfo = wx.getStorageSync('location-info');
-	if (locationInfo) {
-		let res = JSON.parse(locationInfo);
-		let info = res.result.ad_info;
-		// 获取区域编码
-		let regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
-		const result = getListOfPackages(orderInfo, regionCode)
-		if (result) {
-			return result
-		}
-		return '';
-	}
+	// let locationInfo = wx.getStorageSync('location-info');
+	// if (locationInfo) {
+	// 	let res = JSON.parse(locationInfo);
+	// 	let info = res.result.ad_info;
+	// 	// 获取区域编码
+	// 	let regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
+	// 	const result = getListOfPackages(orderInfo, regionCode)
+	// 	if (result) {
+	// 		return result
+	// 	}
+	// 	return '';
+	// }
 	// 定位
-	return getLocationInfo(orderInfo);
+	return getListOfPackages(orderInfo);
 }
 // 授权定位
 async function getLocationInfo(orderInfo) {
@@ -1230,7 +1230,7 @@ async function getLocationInfo(orderInfo) {
 							resolve([])
 						}
 					});
-				} else if (res.errMsg === 'getLocation:fail:ERROR_NOCELL&WIFI_LOCATIONSWITCHOFF' || res.errMsg === 'getLocation:fail system permission denied') {
+				} else if (res.errMsg === 'getLocation:fail:ERROR_NOCELL&WIFI_LOCATIONSWITCHOFF' || res.errMsg === 'getLocation:fail system permission denied' || res.errMsg === 'getLocation:fail:system permission denied') {
 					showToastNoIcon('请开启手机或微信定位功能！');
 				}
 			}
@@ -1243,7 +1243,7 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
 	showLoading();
 	let params = {
 		needRightsPackageIds: true,
-		areaCode: regionCode[0] || 0,
+		areaCode: '',
 		productType: 2,
 		vehType: 1,
 		platformId: app.globalData.platformId,
@@ -1307,7 +1307,7 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
 	app.globalData.newPackagePageData = {
 		shopId: orderInfo.shopId || app.globalData.miniProgramServiceProvidersId,// 避免老流程没上传shopId
 		listOfPackages: list,
-		areaCode: regionCode[0] || 0,
+		areaCode: '0',
 		type,
 		divideAndDivideList,
 		alwaysToAlwaysList
