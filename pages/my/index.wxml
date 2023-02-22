@@ -46,7 +46,7 @@
     </view>
     <!-- 模块3 广告 -->
     <view class="module moduleThree" wx:if="{{true}}" catchtap="handleEquitiesMall">
-        <image src="https://file.cyzl.com/g001/M01/C8/27/oYYBAGP0JC-AY5rVAABU5vcPutY386.png" mode="widthFix" />
+        <image class="image" src="https://file.cyzl.com/g001/M01/C8/27/oYYBAGP0JC-AY5rVAABU5vcPutY386.png" mode="widthFix" />
     </view>
     <!-- 模块4 -->
     <view class="module moduleFour">
