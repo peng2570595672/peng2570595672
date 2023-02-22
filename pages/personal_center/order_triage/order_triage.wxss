@@ -14,17 +14,31 @@
     background-color: #ECECEC;
 }
 
+.index .splitTop {
+    height: 28rpx;
+    overflow: hidden;
+}
+
 .index .module {
-    width: 694rpx;
+    margin: 28rpx;
+    padding: 28rpx;
     border-radius: 16rpx;
     background-color: #fff;
     font-family: PingFangSC-Regular, PingFang SC;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 .index .moduleOne {
-    height: 200rpx;
-    padding-top: 28rpx;
+    height: auto;
 }
+
+.index .moduleTwo {
+    height: auto;
+}
+
+.index .module .typeName {
+    font-size: 32rpx;
+    font-weight: 600;
+    color: #1E1E1E;
+    font-family: PingFangSC-Semibold, PingFang SC;
+}
+

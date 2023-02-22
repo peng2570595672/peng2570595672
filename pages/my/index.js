@@ -4,7 +4,7 @@ const util = require('../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
-		isVip: false, //	用户是否是Vip
+		isVip: false, //	用户是否是Vip(即ETC+PLUS)
 		testImg: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',	// 测试所用的图片和icon
 		funcList: [
 			{icon: '',title: '我的订单',url: 'order_triage'},
@@ -49,19 +49,19 @@ Page({
 	},
 
 	async onLoad (options) {
-		await this.getUserIsVip();
 		app.globalData.orderInfo.orderId = '';
 		if (options.isMain) {
 			this.setData({
 				isMain: options.isMain
 			});
 		}
+		util.getUserIsVip();
 	},
 	async onShow () {
 		// 4.0
 		util.customTabbar(this, 2);
 		await this.getUserProfiles();
-		await this.getUserIsVip();
+		util.getUserIsVip();
 		// --------------end------------
 		if (app.globalData.userInfo.accessToken) {
 			// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
@@ -478,21 +478,6 @@ Page({
 		}, 400);
 	},
 	// ------------------------------------------------------------------------------------------------------
-	async getUserIsVip () {
-		const result = await util.getDataFromServersV2('consumer/order/member/userType', {},'POST',false);
-		if (!result) return;
-		console.log(result);
-		if (result.code === 0) {
-			this.setData({
-				isVip: result.data.userType === 1 ? false : true
-			});
-		} else {
-			this.setData({
-				isVip: false
-			});
-			util.showToastNoIcon(result.message);
-		}
-	},
 	// 获取头像和昵称
 	getUserProfiles () {
 		let personInformation = wx.getStorageSync('person_information');

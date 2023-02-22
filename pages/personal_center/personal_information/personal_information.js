@@ -13,8 +13,6 @@ Page({
 		position: 'center',
 		round: false,
 		overlay: true,
-		isOut: false,	// 用于控制子容器离开前的判断
-		isInput: false,
 		customStyle: 'overflow-y:auto !important;z-index:-1;',
 		overlayStyle: 'z-index:-2;'
 

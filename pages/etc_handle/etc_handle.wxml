@@ -1,65 +1,77 @@
 <wxs src='../../utils/util.wxs' module='tools'/>
-<view class="index" style="background-color: {{'rgb(28,86,97)'}}" catchtouchmove="{{whetherToStay ? 'viewProcedure' : ''}}">
-    <!-- 顶部返回按钮 -->
-    <view class="iconfont topBack" catchtap="goBack">返回</view>
-    <!-- 顶部banner 背景颜色和图片是动态的 -->
-    <view class="topBanner" style="background-color: {{'green'}}" catchtap="" >
-        <image class="topImg" src="{{'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png'}}" />
-    </view>
-    <!-- 模块1 支持微信多种代扣方式 -->
-    <view class="module one">
-        <view class="title">支持微信多种代扣方式</view>
-        <view class="billNotice">先通行后付费丨账单通知丨一键补缴</view>
-        <view class="imgText">
-            <view class="depositImg" wx:for="{{3}}" wx:key="index">
-                aaaa
-            </view>
+<view >
+    <view class="index" style="background-color: {{'rgb(28,86,97)'}}" catchtouchmove="{{whetherToStay ? 'viewProcedure' : ''}}">
+        <!-- 顶部返回按钮 -->
+        <view class="iconfont topBack" catchtap="goBack">返回</view>
+        <!-- 顶部banner 背景颜色和图片是动态的 -->
+        <view class="topBanner" style="background-color: {{'green'}}" catchtap="" >
+            <image class="topImg" src="{{'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png'}}" />
         </view>
-        <view class="buttomText oneButtom">*同意办理即默认收取2%权益服务费</view>
-    </view>
-    <!-- 模块3 一站式车主服务 -->
-    <view class="module three">
-        <view class="title">3分钟自助办理 全国包邮</view>
-        <view class="imgText"></view>
-        <view class="buttomText twoButtom" catchtap="viewProcedure" data-pop="moduleOne">查看具体办理步骤</view>
-        <view class="title">一站式车主服务</view>
-        <view class="iconImg">
-            <view class="oneService" wx:for="{{4}}"  wx:key="index">
-                <view class="depositImg"></view>
-                <view class="titleText">账单提醒</view>
-            </view>
-        </view>
-        <view class="title">在线售后 无忧服务</view>
-        <view class="billNotice">7*24小时在线客服丨1v1专属服务管家</view>
-        <view class="imgTextThree">
-            <view class="oneService" wx:for="{{4}}"  wx:key="index">
-                <view class="onlineService"></view>
-                <view class="titleText">账单提醒</view>
-            </view>
-        </view>
-    </view>
-    <!-- 模块4 车主热问热答 -->
-    <view class="module four">
-        <view class="title textLeft">车主热问热答</view>
-        <view class="answersQuestions" wx:for="{{testData}}" wx:for-index="index" wx:if="{{index < 3}}" wx:key="index">
-            <view class="questions">
-                <view class="questionsImg">
-                    <image src="https://file.cyzl.com/g001/M00/B5/7C/oYYBAGO9BUuAQSYeAAABmpSmZv4643.png" />
+        <!-- 模块1 支持微信多种代扣方式 -->
+        <view class="module one">
+            <view class="title">支持微信多种代扣方式</view>
+            <view class="billNotice">先通行后付费丨账单通知丨一键补缴</view>
+            <view class="imgText">
+                <view class="depositImg" wx:for="{{3}}" wx:key="index">
+                    aaaa
                 </view>
-                <view class="questionsTitle">{{item.title}}</view>
             </view>
-            <view class="answer" wx:if="{{tools.onlineService(item.contant,'在线客服')}}">{{item.contant}}</view>
-            <view class="answer" wx:else>根据交通部规定一个车牌号只能办理一个ETC设备，如您的车牌已办理过，需要先注销原有ETC，可联系<span class="onlineSpan" bindtap="goOnlineServer">在线客服</span>咨询如何注销</view>
+            <view class="buttomText oneButtom">*同意办理即默认收取2%权益服务费</view>
         </view>
-        <view class="moreQuestions" catchtap="viewProcedure" data-pop="moduleTwo" wx:if="{{tools.dataLen(testData) < 3 ? false : true}}">更多热问热答</view>
+        <!-- 模块3 一站式车主服务 -->
+        <view class="module three">
+            <view class="title">3分钟自助办理 全国包邮</view>
+            <view class="imgText"></view>
+            <view class="buttomText twoButtom" catchtap="viewProcedure" data-pop="moduleOne">查看具体办理步骤</view>
+            <view class="title">一站式车主服务</view>
+            <view class="iconImg">
+                <view class="oneService" wx:for="{{4}}"  wx:key="index">
+                    <view class="depositImg"></view>
+                    <view class="titleText">账单提醒</view>
+                </view>
+            </view>
+            <view class="title">在线售后 无忧服务</view>
+            <view class="billNotice">7*24小时在线客服丨1v1专属服务管家</view>
+            <view class="imgTextThree">
+                <view class="oneService" wx:for="{{4}}"  wx:key="index">
+                    <view class="onlineService"></view>
+                    <view class="titleText">账单提醒</view>
+                </view>
+            </view>
+        </view>
+        <!-- 模块4 车主热问热答 -->
+        <view class="module four">
+            <view class="title textLeft">车主热问热答</view>
+            <view class="answersQuestions" wx:for="{{testData}}" wx:for-index="index" wx:if="{{index < 3}}" wx:key="index">
+                <view class="questions">
+                    <view class="questionsImg">
+                        <image src="https://file.cyzl.com/g001/M00/B5/7C/oYYBAGO9BUuAQSYeAAABmpSmZv4643.png" />
+                    </view>
+                    <view class="questionsTitle">{{item.title}}</view>
+                </view>
+                <view class="answer" wx:if="{{tools.onlineService(item.contant,'在线客服')}}">{{item.contant}}</view>
+                <view class="answer" wx:else>根据交通部规定一个车牌号只能办理一个ETC设备，如您的车牌已办理过，需要先注销原有ETC，可联系<span class="onlineSpan" bindtap="goOnlineServer">在线客服</span>咨询如何注销</view>
+            </view>
+            <view class="moreQuestions" catchtap="viewProcedure" data-pop="moduleTwo" wx:if="{{tools.dataLen(testData) < 3 ? false : true}}">更多热问热答</view>
+        </view>
+        <!-- 占位 -->
+        <view class="split"></view>
+        
+        <!-- 立即办理 {{isFade ? 'fadeIn' : 'fadeOut'}}-->
+        <view class="handleImmediately  ">
+            <button catchtap="onClickHandle" >立即办理</button>
+        </view>
     </view>
-    <!-- 占位 -->
-    <view class="split"></view>
-    
-    <!-- 立即办理 {{isFade ? 'fadeIn' : 'fadeOut'}}-->
-    <view class="handleImmediately  ">
-        <button catchtap="onClickHandle" >立即办理</button>
-    </view>
+
+    <page-container 
+        show="{{show}}"
+        duration="{{duration}}"
+        position="{{position}}"
+        custom-style="{{customStyle}}"
+        overlay-style="{{overlayStyle}}"
+        close-on-slide-down="{{true}}"
+        bindbeforeleave="goBack">
+    </page-container>
     <!-- 组件 -->
     <viewProcedure id="viewProcedure" bind:onHandle="viewProcedure" data-value="false" viewTc="{{viewTc}}"></viewProcedure>
 </view>

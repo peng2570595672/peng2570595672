@@ -3,21 +3,23 @@
 	margin: 0;
 	width: 100vw;
 	height: auto;
+	z-index: 100;
 }
 
 /* 顶部 返回按钮 */
 .index .topBack {
-	width: 50rpx;
-	height: 50rpx;
-	line-height: 50rpx;
+	width: 80rpx;
+	height: 80rpx;
 	overflow: hidden;
-	font-size: 20rpx;
+	font-size: 28rpx;
 	text-align: center;
 	border-radius: 50%;
+	line-height: 80rpx;
 	background-color: #ffffff;
 	position: absolute;
 	top: 100rpx;
 	left: 30rpx;
+	
 }
 
 /* 顶部banner */

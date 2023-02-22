@@ -34,6 +34,7 @@ Page({
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
 						this.getOrderList();
+						util.getUserIsVip();
 					} else {
 // ----差东西---------------------------
 					}
@@ -51,24 +52,24 @@ Page({
 		let params = { openId: app.globalData.openId };
 		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params,'POST',false);
 		if (result.code === 0) {
+			let equity = result.data.filter(item => (item.pledgeType === 4 && item.obuStatus === 1));
+			app.globalData.isEquityRights = equity.length > 0 ? true : false;
 			if (result.data.length > 0) {
 				// 跳转首页;
 				wx.switchTab({
 					url: '/pages/Home/Home'
 				});
-				// util.go('/pages/default/index/index');
 			} else {
 				// 跳转 客车产品介绍页
-				util.go('/pages/default/index/index');
+				wx.switchTab({
+					url: '/pages/etc_handle/etc_handle'
+				});
 			}
 			// 查询是否欠款
 			// await util.getIsArrearage();
 		} else {
 			util.showToastNoIcon(result.message);
 		}
-	},
-
-	onUnload () {
-
 	}
+
 });

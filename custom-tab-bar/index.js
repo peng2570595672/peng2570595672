@@ -2,8 +2,8 @@ const app = getApp();
 const util = require('../utils/util.js');
 Component({
 	data: {
-		selected: '0',
-		index: '0',
+		selected: 0,
+		index: 0,
 		color: '#ccc', // 颜色
 		selectedColor: '#252525', // 被选中颜色
 		list: [{
@@ -37,7 +37,6 @@ Component({
 	attached () {},
 	methods: {
 		switchTab (e) {
-			console.log(e);
 			const url = e.currentTarget.dataset.path;
 			let index = e.currentTarget.dataset.index;
 			if (index !== this.data.index) {
@@ -45,6 +44,12 @@ Component({
 					selected: e.currentTarget.dataset.index,
 					index: -1
 				});
+				if (index === 1) {
+					wx.reLaunch({
+						url: url
+					});
+					return;
+				}
 				// 根据index判断，发布是渲染的时候是没有url的
 				if (url) {
 					wx.switchTab({

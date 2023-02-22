@@ -1709,9 +1709,30 @@ function customTabbar (that, num) {
 		selected: num,
 		index: num
 	});
-}
+	}
 };
-
+// 防止点击重复触发
+function fangDou (that,fn, time) {
+	return (function () {
+		if (that.data.timeout) {
+			clearTimeout(that.data.timeout);
+		}
+		that.data.timeout = setTimeout(() => {
+			fn.apply(that, arguments);
+		}, time);
+	})();
+}
+// 获取用户是否 ETC+Plus用户
+async function getUserIsVip() {
+	const result = await getDataFromServersV2('consumer/order/member/userType', {},'post',false);
+	if (!result) return;
+	if (result.code === 0) {
+		app.globalData.isVip = result.data.userType === 1 ? false : true;
+	} else {
+		app.globalData.isVip = false
+		showToastNoIcon(result.message);
+	}
+}
 module.exports = {
 	setApp,
 	formatNumber,
@@ -1763,5 +1784,7 @@ module.exports = {
 	weChatSigning,
 	getUserInfo,
 	timeComparison,
-	customTabbar
+	customTabbar,
+	fangDou,
+	getUserIsVip
 };

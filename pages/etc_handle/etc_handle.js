@@ -26,20 +26,32 @@ Page({
 		viewTc: {},	// 用于存放弹窗数据
 		whetherToStay: false,	// 用于控制显示弹窗时，最底层页面禁止不动
 		isFade: true,	// 控制"浮动按钮"的显示隐藏
-		lastScrollTop: 0	// 控制"浮动按钮"在向上滚动和禁止时不隐藏，向下滚动时隐藏
+		lastScrollTop: 0,	// 控制"浮动按钮"在向上滚动和禁止时不隐藏，向下滚动时隐藏
+
+		show: true,
+		duration: 0,
+		position: 'center',
+		customStyle: 'overflow:auto !important;z-index:-10 !important;',
+		overlayStyle: 'overflow:auto !important;z-index:-10'
+
 	},
-	async onLoad (options) {
-		if (options.isMain) {
-			this.setData({
-				isMain: options.isMain
-			});
-		}
+	async onLoad () {
+		util.customTabbar(this, 1);
 		// 查询是否欠款
-		// await util.getIsArrearage();
+		await util.getIsArrearage();
 	},
 	async onShow () {
 		// 查询是否欠款
 		await util.getIsArrearage();
+		await util.getUserIsVip();
+		this.setData({
+			show: true,
+			duration: 0,
+			position: 'center',
+			customStyle: 'overflow:auto !important;z-index:-10 !important;',
+			overlayStyle: 'overflow:auto !important;z-index:-10'
+		});
+		console.log(this.data.show);
 	},
 	// 监听返回按钮
 	onClickBackHandle () {
@@ -122,9 +134,15 @@ Page({
 	stopRoll () {
 		console.log('');
 	},
+	onBeforeLeave () {
+		this.goBack();
+	},
 
 	// 返回上一页
 	goBack () {
+		this.setData({
+			show: false
+		});
 		wx.switchTab({
 			url: '/pages/Home/Home'
 		});

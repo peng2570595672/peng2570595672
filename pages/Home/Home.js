@@ -135,6 +135,13 @@ Page({
 				url: 'equity',
 				statisticsEvent: 'index_equity'
 			}
+			// {
+			// 	icon: '',
+			// 	title: '在线客服',
+			// 	btn: '',
+			// 	url: '',
+			// 	statisticsEvent: ''
+			// }
 		],
 		moduleTwoList: [],	// 出行贴心服务
 		viewTc: {}, // 用于存放弹窗数据
@@ -157,6 +164,7 @@ Page({
 	},
 	async onShow () {
 		util.customTabbar(this, 0);
+		util.getUserIsVip();
 		// @cyl
 		// 初始化设备指纹对象
 		this.fmagent = new FMAgent(app.globalData._fmOpt);
