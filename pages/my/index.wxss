@@ -130,7 +130,9 @@
 }
 
 .my .green {
-    background: linear-gradient(90deg, #225444 0%, #2B664D 29%, #214E46 100%);
+    /* background: linear-gradient(90deg, #225444 0%, #2B664D 29%, #214E46 100%); */
+    background: url('https://file.cyzl.com/g001/M01/C8/B9/oYYBAGP2ysaAXqBIAAFVaSG5dyU076.png') center no-repeat;
+    background-size: 100% 100%;
 }
 
 .my .yellow {

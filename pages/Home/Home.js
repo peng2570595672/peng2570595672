@@ -1097,7 +1097,6 @@ Page({
 	},
 	// 恢复签约
 	async onClickBackToSign (obj) {
-		console.log('1',obj);
 		if (obj.orderType === 31 && obj.protocolStatus === 0) {
 			const path = obj.isNewTrucks === 1 ? 'truck_handling' : 'default';
 			util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
@@ -1121,7 +1120,6 @@ Page({
 				.isSecondSigning = true;
 		}
 		if (obj.contractStatus === 2) {
-			console.log('2',obj);
 			app.globalData.orderInfo.orderId = obj.id;
 			// 恢复签约
 			wx.uma.trackEvent('index_for_resume_signing');
@@ -1136,7 +1134,6 @@ Page({
 	},
 	// 恢复签约
 	async restoreSign (obj) {
-		util.showToastNoIcon(obj.id);
 		const result = await util.getDataFromServersV2('consumer/order/query-contract', {
 			orderId: obj.id
 		});

@@ -678,14 +678,13 @@ Page({
 					this.setData({
 						tip1: tip
 					});
-					this.fangDou('',500);
 				} else {
 					this.setData({
 						tip3: tip
 					});
-					this.fangDou('',500);
 				}
 			}
+			this.fangDou('',500);
 		}
 		// 收件人姓名校验
 		if (name === 'userName') {
