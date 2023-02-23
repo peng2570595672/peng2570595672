@@ -555,7 +555,6 @@ Page({
 	},
 	// 输入框输入值
 	onInputChangedHandle (e) {
-		console.log(e);
 		let key = e.currentTarget.dataset.name;
 		let formData = this.data.formData;
 		// 手机号
@@ -745,6 +744,7 @@ Page({
 	},
 	// 传车牌及车牌颜色校验是否已有黔通订单 三方接口
 	async validateCar () {
+		util.showLoading();
 		this.setData({
 			available: this.validateAvailable(true)
 		});
@@ -759,6 +759,7 @@ Page({
 		console.log('车牌颜色L:L:',res);
 		if (!res) return;
 		if (res.code === 0) {
+			util.hideLoading();
 			this.next();
 		} else {
 			return util.showToastNoIcon(res.message);
