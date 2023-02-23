@@ -744,7 +744,6 @@ Page({
 	},
 	// 传车牌及车牌颜色校验是否已有黔通订单 三方接口
 	async validateCar () {
-		util.showLoading();
 		this.setData({
 			available: this.validateAvailable(true)
 		});
@@ -755,11 +754,9 @@ Page({
 		const res = await util.getDataFromServersV2('consumer/etc/qtzl/checkVehPlateExists', {
 			vehiclePlate: this.data.carNoStr,
 			vehicleColor: formData.currentCarNoColor === 1 ? 4 : 0 // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】,
-		},'POST',false);
-		console.log('车牌颜色L:L:',res);
+		});
 		if (!res) return;
 		if (res.code === 0) {
-			util.hideLoading();
 			this.next();
 		} else {
 			return util.showToastNoIcon(res.message);
@@ -794,9 +791,6 @@ Page({
 		this.setData({
 			topProgressBar: 1 + 0.15 * num
 		});
-	},
-	test (e) {
-		console.log(e);
 	},
 	onUnload () {
 		// 统计点击事件
