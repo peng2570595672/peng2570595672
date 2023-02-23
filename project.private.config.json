@@ -141,6 +141,13 @@
 					"query": "orderId=1063109394054516736",
 					"launchMode": "default",
 					"scene": null
+				},
+				{
+					"name": "4.0 我的权益",
+					"pathName": "pages/personal_center/description_of_equity/description_of_equity",
+					"query": "isVip=undefined",
+					"launchMode": "default",
+					"scene": null
 				}
 			]
 		}

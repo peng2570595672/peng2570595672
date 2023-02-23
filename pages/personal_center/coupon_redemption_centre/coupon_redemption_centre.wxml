@@ -37,6 +37,6 @@
     </view>
     <view class="introduce">
         <view class="view" catchtap="goCoupon">查看我的电子券</view>
-        <view class="view" catchtap="onClickSeeHistory">查看优惠券购买记录</view>
+        <view class="view" catchtap="onClickSeeHistory">查看优惠券领取记录</view>
     </view>
 </view>
