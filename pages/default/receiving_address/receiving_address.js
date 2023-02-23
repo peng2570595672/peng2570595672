@@ -258,6 +258,7 @@ Page({
 			isRequest: false
 		});
 		if (result.code === 0) {
+			app.globalData.handledByTelephone = this.data.formData.operator;
 			app.globalData.orderInfo.orderId = result.data.orderId; // 订单id
 			if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
 				await this.getProduct();
