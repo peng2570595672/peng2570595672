@@ -148,6 +148,13 @@
 					"query": "isVip=undefined",
 					"launchMode": "default",
 					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/default/receiving_address/receiving_address",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
 				}
 			]
 		}

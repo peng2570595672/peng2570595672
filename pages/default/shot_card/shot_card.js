@@ -18,6 +18,7 @@ Page({
 		pictureHeight: 0,
 		showInfo: true, // 用于判断拒绝授权后重新授权camera重新加载显示
 		compressionUrl: '',
+		requestNum: 0,// 身份证识别两次  行驶证识别三次
 		vehPlates: '' // 创建订单时上传的车牌号
 	},
 	onLoad (options) {
@@ -200,9 +201,15 @@ Page({
 									address: '地址',
 									idNumber: '公民身份证号码'
 								};
+								const reg = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
 								for (let key in ruleForm) {
-									if (!info[key]) {
-										return util.showToastNoIcon(`${ruleForm[key]}不能为空`);
+									if (key === 'idNumber' && info[key]) {
+										if (!reg.test(info[key])) {
+											return this.initPageAndToast(`身份证号码不合法`, true);
+										}
+									}
+									if (!info[key] && this.data.requestNum < 2) {
+										return this.initPageAndToast(`${ruleForm[key]}不能为空`, true);
 									}
 								}
 								wx.setStorageSync('passenger-car-id-card-face', JSON.stringify(res.data[0]));
@@ -214,15 +221,14 @@ Page({
 									validDate: '有效期限'
 								};
 								for (let key in ruleForm) {
-									if (!info[key]) {
-										return util.showToastNoIcon(`${ruleForm[key]}不能为空`);
+									if (!info[key] && this.data.requestNum < 2) {
+										return this.initPageAndToast(`${ruleForm[key]}不能为空`, true);
 									}
 								}
 								const endDate = res.data[0].ocrObject.validDate.split('-')[1].split('.').join('/');
 								const isGreaterThanData = util.isGreaterThanData(endDate);// 身份证结束时间
 								if (isGreaterThanData && !res.data[0].ocrObject.validDate.includes('长期')) {
-									util.showToastNoIcon('证件已过期，请重新上传有效证件');
-									return;
+									return this.initPageAndToast(`证件已过期，请重新上传有效证件`, true);
 								}
 								wx.setStorageSync('passenger-car-id-card-back', JSON.stringify(res.data[0]));
 								wx.navigateBack({delta: 1});
@@ -231,18 +237,24 @@ Page({
 								const ruleForm = {
 									numberPlates: '车牌号码',
 									vehicleType: '车辆类型',
-									owner: '所有人'
+									owner: '所有人',
+									useCharacter: '使用性质',
+									model: '品牌型号',
+									vin: '车辆识别代码',
+									engineNo: '发动机号码',
+									resgisterDate: '注册日期',
+									issueDate: '发证日期'
 								};
 								for (let key in ruleForm) {
 									if (key === 'numberPlates' && info[key] && info[key] !== this.data.vehPlates) {
-										return util.showToastNoIcon(`行驶证车牌与${this.data.vehPlates}不一致，请重新上传`);
+										return this.initPageAndToast(`行驶证前置录入车牌前置录入车牌${this.data.vehPlates}不一致`, true);
 									}
-									if (!info[key]) {
-										return util.showToastNoIcon(`${ruleForm[key]}不能为空`);
+									if (!info[key] && this.data.requestNum < 3) {
+										return this.initPageAndToast(`${ruleForm[key]}不能为空`, true);
 									}
 								}
 								if (!checkVehicleType(info.vehicleType)) {
-									return util.showToastNoIcon('车辆类型不符，请检查无误重新上传！');
+									return this.initPageAndToast(`不支持该类型车辆办理！`, true);
 								}
 								wx.setStorageSync('passenger-car-driving-license-face', JSON.stringify(res.data[0]));
 								wx.navigateBack({delta: 1});
@@ -258,22 +270,51 @@ Page({
 									personsCapacityNum = personsCapacityStr;
 								}
 								res.data[0].ocrObject.personsCapacity = personsCapacityNum;
+								const ruleForm = {
+									numberPlates: '车牌号码',
+									personsCapacity: '核定载人数',
+									totalMass: '总质量',
+									curbWeight: '整备质量',
+									size: '外廓尺寸'
+								};
+								for (let key in ruleForm) {
+									if (key === 'numberPlates' && info[key] && info[key] !== this.data.vehPlates) {
+										return this.initPageAndToast(`行驶证前置录入车牌前置录入车牌${this.data.vehPlates}不一致`, true);
+									}
+									if (key === 'personsCapacity' && info[key] && parseInt(info[key]) > 9) {
+										return this.initPageAndToast(`超出最大可载数，不支持该类车辆办理`, true);
+									}
+									if (!info[key] && this.data.requestNum < 3) {
+										return this.initPageAndToast(`${ruleForm[key]}不能为空`, true);
+									}
+								}
 								wx.setStorageSync('passenger-car-driving-license-back', JSON.stringify(res.data[0]));
 								wx.navigateBack({delta: 1});
 							}
 						} catch (e) {
-							util.showToastNoIcon('OCR数据解析异常');
+							this.initPageAndToast('OCR数据解析异常');
 						}
 					} else { // 识别失败
-						util.showToastNoIcon('OCR识别失败，请重新上传');
+						this.initPageAndToast('OCR识别失败，请重新上传');
 					}
 				} else { // 识别失败
-					util.showToastNoIcon('OCR识别失败，请重新上传');
+					this.initPageAndToast('OCR识别失败，请重新上传');
 				}
 			} catch (e) {
-				util.showToastNoIcon('文件服务器异常！');
+				this.initPageAndToast('文件服务器异常！');
 			}
 		}, () => {
 		});
+	},
+	initPageAndToast (tips, needAddNum) {
+		if (needAddNum) {
+			this.setData({
+				requestNum: this.data.requestNum + 1
+			});
+		}
+		this.setData({
+			picUrl: ''
+		});
+		util.showToastNoIcon(tips);
 	}
 });
