@@ -56,14 +56,12 @@ Page({
 			});
 		}
 		util.getUserIsVip();
-		this.setData({
-			isVip: app.globalData.isVip
-		});
 	},
 	async onShow () {
 		// 4.0
 		util.customTabbar(this, 2);
 		await this.getUserProfiles();
+		util.getUserIsVip();
 		// --------------end------------
 		if (app.globalData.userInfo.accessToken) {
 			// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
@@ -83,8 +81,7 @@ Page({
 			isActivityDate: util.isDuringDate('2021/6/25 11:00', '2021/6/28 15:00'),
 			mobilePhoneSystem: app.globalData.mobilePhoneSystem,
 			mobilePhone: app.globalData.mobilePhone,
-			screenHeight: wx.getSystemInfoSync().windowHeight,
-			isVip: app.globalData.isVip
+			screenHeight: wx.getSystemInfoSync().windowHeight
 		});
 	},
 	handleCouponMini () {
@@ -514,7 +511,7 @@ Page({
 		})();
 	},
 	handleEquitiesMall () {
-		// util.go(`/pages/personal_center/equity_payment/equity_payment?payId=123333&price=1&source=ttq`);
-		util.go(`/pages/personal_center/choice_vehicle/choice_vehicle`);
+		util.go(`/pages/personal_center/equity_payment/equity_payment?payId=1077979271034572801&price=1&source=ttq`);
+		// util.go(`/pages/personal_center/choice_vehicle/choice_vehicle`);
 	}
 });
