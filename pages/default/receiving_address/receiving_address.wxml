@@ -41,7 +41,7 @@
         <view class="publicCode">
             <view class="publicCodeLeft">手机号码</view>
             <view class="publicCoderight">
-                <input class="input" type="number" placeholder="用于开具通行费发票" value="{{operatorPhoneNumber}}" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" data-name="operator" maxlength="11" bindblur="validateNew" />
+                <input class="input" type="number" placeholder="用于开具通行费发票" value="{{formData.operator}}" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" data-name="operator" maxlength="11" />
                 <button class="btns" open-type="getPhoneNumber" bindgetphonenumber="getWchatPhoneNumber">获取微信手机号</button>
                 <text class="errTip" wx:if="{{tip1}}">{{tip1}}</text>
             </view>
@@ -55,7 +55,7 @@
         <view class="publicCode">
             <view class="publicCodeLeft">收货人</view>
             <view class="publicCoderight">
-                <input class="input" type="text" placeholder="输入收货人姓名" value="{{formData.userName}}" data-name="userName" maxlength="10" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" bindblur="validateNew"/>
+                <input class="input" type="text" placeholder="输入收货人姓名" value="{{formData.userName}}" maxlength="{{size}}" data-name="userName"  placeholder-class="input-placeholder" bindinput="onInputChangedHandle"/>
                 <view class="btns" catchtap="onClickAutoFillHandle">
                     <span class="wChat iconfont" />
                     <span class="text">选择微信地址</span>
@@ -82,7 +82,7 @@
         <view class="publicCode">
             <view class="publicCodeLeft">手机号</view>
             <view class="publicCoderight">
-                <input class="input" type="number" placeholder="输入收货手机号" value="{{formData.telNumber}}"  data-name="telNumber" placeholder-class="input-placeholder" maxlength="11"  bindinput="onInputChangedHandle" bindblur="validateNew"/>
+                <input class="input" type="number" placeholder="输入收货手机号" value="{{formData.telNumber}}"  data-name="telNumber" placeholder-class="input-placeholder" maxlength="11"  bindinput="onInputChangedHandle"/>
                 <text class="errTip" wx:if="{{tip3}}">{{tip3}}</text>
             </view>
         </view>

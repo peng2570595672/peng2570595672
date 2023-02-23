@@ -346,7 +346,7 @@ Page({
 			if (res.checkResult === 1) {
 				return true;
 			} else {
-				return false;
+				util.showToastNoIcon(res.checkMsg);
 			}
 		} else {
 			util.showToastNoIcon(result.message);

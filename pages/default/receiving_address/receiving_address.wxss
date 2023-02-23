@@ -147,7 +147,7 @@
   }
   
   .index .module .publicCode .publicCodeLeft {
-    width: 112rpx;
+    width: 116rpx;
     font-size: 28rpx;
     font-weight: 400;
     color: #1E1E1E;
