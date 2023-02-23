@@ -208,7 +208,7 @@ Page({
 											return this.initPageAndToast(`身份证号码不合法`, true);
 										}
 									}
-									if (!info[key] && this.data.requestNum < 2) {
+									if (!info[key] && this.data.requestNum < 1) {
 										return this.initPageAndToast(`${ruleForm[key]}不能为空`, true);
 									}
 								}
@@ -221,7 +221,7 @@ Page({
 									validDate: '有效期限'
 								};
 								for (let key in ruleForm) {
-									if (!info[key] && this.data.requestNum < 2) {
+									if (!info[key] && this.data.requestNum < 1) {
 										return this.initPageAndToast(`${ruleForm[key]}不能为空`, true);
 									}
 								}
@@ -249,7 +249,7 @@ Page({
 									if (key === 'numberPlates' && info[key] && info[key] !== this.data.vehPlates) {
 										return this.initPageAndToast(`行驶证前置录入车牌前置录入车牌${this.data.vehPlates}不一致`, true);
 									}
-									if (!info[key] && this.data.requestNum < 3) {
+									if (!info[key] && this.data.requestNum < 2) {
 										return this.initPageAndToast(`${ruleForm[key]}不能为空`, true);
 									}
 								}
@@ -284,7 +284,7 @@ Page({
 									if (key === 'personsCapacity' && info[key] && parseInt(info[key]) > 9) {
 										return this.initPageAndToast(`超出最大可载数，不支持该类车辆办理`, true);
 									}
-									if (!info[key] && this.data.requestNum < 3) {
+									if (!info[key] && this.data.requestNum < 2) {
 										return this.initPageAndToast(`${ruleForm[key]}不能为空`, true);
 									}
 								}
