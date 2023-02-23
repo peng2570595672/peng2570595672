@@ -17,32 +17,35 @@
 .index .swiperBox {
     width: 100%;
     height: 100%;
-}
-
-.index .swiperBox {
-    height: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .index .swiperBox .title {
-    width: 638rpx;
-    height: 200rpx;
-    margin-top: 80rpx;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 100%;
+    height: 17vh;
+    display: flex;
+    text-align: center;
+    margin-bottom: 20rpx;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.index .swiperBox .title .titleOne {
+
 }
 
 .index .swiperBox .title .icon {
     height: 74rpx;
-    width: 100rpx;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    margin-top: 30rpx;
 }
 
 .index .swiperBox .title .icon .image {
-    width: 100%;
-    height: 100%;
+    height: 74rpx;
+    width: 100rpx;
 }
 
 .index .swiperBox .title .text1 {
@@ -53,24 +56,16 @@
     font-family: PingFangSC-Semibold, PingFang SC;
 }
 
+/* 图片 */
 .index .swiperBox .content {
     width: 638rpx;
-    height: 996rpx;
+    height: 75vh;
+    overflow: hidden;
+    margin: 0rpx 56rpx;
     position: relative;
-    top: 20rpx;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
-.index .swiperBox .content .bgImg {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    opacity: 1;
-}
-
-.index .swiperBox .content .bgImg .images {
+.index .swiperBox .content .images {
     width: 100%;
     height: 100%;
 }
@@ -78,9 +73,9 @@
 .index .swiperBox .content .contentText {
     width: 446rpx;
     text-align: center;
-    position: relative;
+    position: absolute;
     left: 50%;
-    top: 440rpx;
+    top: 40vh;
     transform: translateX(-50%);
 }
 
@@ -93,9 +88,17 @@
 }
 
 
+
+
+
+
+
+
+
+
 .index .swiperBox .bgColorOne {
     width: 750rpx;
-    height: 446rpx;
+    height: 32vh;
     background: #FFFFFF;
     border-radius: 30rpx 30rpx 0rpx 0rpx;
     backdrop-filter: blur(10rpx);
@@ -108,10 +111,10 @@
 
 .index .swiperBox .bgColorTwo {
     width: 750rpx;
-    height: 520rpx;
+    height: 32vh;
     opacity: 0.38;
     overflow: hidden;
-    background-color: rgba(255, 255, 255, 0.82);
+    background-color: rgba(255, 255, 255, 0.72);
     backdrop-filter: blur(10rpx);
     clip-path: polygon(50% 21%, 100% 0, 100% 100%, 0 100%, 0 0);
     -webkit-clip-path: polygon(50% 21%, 100% 0, 100% 100%, 0 100%, 0 0);
@@ -122,15 +125,15 @@
 }
 
 .index .swiperBox .bgColorTwo .btn {
-    width: 468rpx;
-    height: 124rpx;
+    width: 50vw;
+    height: 8vh;
     font-weight: 600;
     color: #A95F2C;
     font-size: 36rpx;
     text-align: center;
     margin-top: 120rpx;
     border-radius: 68rpx;
-    line-height: 124rpx;
+    line-height: 8vh;
     font-family: PingFangSC-Semibold, PingFang SC;
     background: linear-gradient(65deg, #DEB893 0%, #F8E5D2 100%);
     box-shadow: 0rpx 16rpx 30rpx 0rpx rgba(170, 118, 68, 0.54), 0rpx 4rpx 8rpx 0rpx #C59061, 0rpx -4rpx 36rpx 0rpx rgba(214, 186, 159, 0.63), inset 0rpx 4rpx 0rpx 0rpx rgba(255, 255, 255, 0.71), inset -12rpx 12rpx 10rpx 0rpx rgba(255, 255, 255, 0.5), inset 0rpx 32rpx 14rpx 0rpx rgba(0, 0, 0, 0.07), inset 0rpx -6rpx 14rpx 0rpx #CA9E73, inset -2rpx 4rpx 6rpx 0rpx rgba(255, 255, 255, 0.5);
@@ -141,7 +144,7 @@
 
 .index .dots {
     position: fixed;
-    bottom: 100rpx;
+    bottom: 120rpx;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -160,25 +163,3 @@
     width: 60rpx;
     background-color: orange;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

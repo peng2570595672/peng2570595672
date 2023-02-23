@@ -17,7 +17,9 @@
 .my {
     height: auto;
     width: 100%;
+    height: 100vh;
     padding-top: 192rpx;
+    overflow: hidden;
 }
 
 .no {

@@ -10,7 +10,6 @@
     border-radius: 16rpx 16rpx 0px 0px;
     padding-bottom: env(safe-area-inset-bottom);
     box-shadow: 0rpx -8rpx 30rpx 0rpx rgba(223, 223, 223, 0.36);
-
 }
 
 .tab-bar .tab-bar-item {
