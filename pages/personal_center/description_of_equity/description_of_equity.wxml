@@ -1,25 +1,32 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="index">
-    <view class="bgColorOne"></view>
-    <view class="title" wx:for="{{listOne}}" wx:key="index" wx:if="{{index === activeIndex}}">
-        <view class="icon"><image class="image" src="{{'https://file.cyzl.com/g001/M01/C8/61/oYYBAGP0m8eAZz4SAAAKr1mc5IM024.svg'}}" /></view>
-        <view class="text1">{{item.title1}}</view>
-        <view class="text1">{{item.title2}}</view>
-    </view>
-    <view class="marginBox">
-        <view class="innerBox">
-            <swiper class="swiperBox" autoplay circular indicator-dots='{{tools.dataLen(imgList) !== 1}}' duration="1000" bindchange="bindchange">
-                <swiper-item class="swiper-item" wx:for="{{listOne}}" wx:key="index" catchtap="pageGo">
-                        <view class="img">
-                            <!-- <image class="bgImg" src="{{item.bgImg}}" /> -->
-                        </view>
+    <swiper class="swiperBox" bindchange="monitorCurrent" indicator-dots="{{false}}" circular="true" indicator-color="white"
+        indicator-active-color="orange" current="{{current}}" autoplay="{{autoplay}}">
+        <block wx:for="{{listOne}}" wx:key="*this" wx:if="{{isVip ? true : item.id !== 4}}">
+            <swiper-item>
+                <view class="title">
+                    <view class="icon"><image class="image" src="{{'https://file.cyzl.com/g001/M01/C8/61/oYYBAGP0m8eAZz4SAAAKr1mc5IM024.svg'}}" /></view>
+                    <view class="text1">{{item.title1}}</view>
+                    <view class="text1">{{item.title2}}</view>
+                </view>
+                <view class="content">
+                    <view class="bgImg"><image class="images" src="{{item.bgImg}}" /></view>
+                    <view class="contentText">
                         <view class="text" wx:if="{{tools.onlineService(item.text,'立即咨询')}}">{{item.text}}</view>
                         <view class="text" wx:else>在线客服：尊敬的车主，我们为您7*24H在线专人客服，如有疑问点击这里 <span class="span" catchtap="goOnlineServer">立即咨询</span></view>
-                </swiper-item>
-            </swiper>
-        </view>
-    </view>
-    <view class="bgColorTwo">
-        <view class="btn" wx:if="{{activeIndex === 3}}" catchtap='handleMall'>去权益商城</view>
-    </view>
+                    </view>
+                </view>
+                <view class="bgColorOne"></view>
+                <view class="bgColorTwo">
+                    <view class="btn" wx:if="{{index === 3}}" catchtap='handleMall'>去权益商城</view>
+                </view>
+            </swiper-item>
+        </block>
+  </swiper>
+  <!-- 自定义轮播图进度点 -->
+  <view class="dots">
+    <block wx:for="{{listOne}}" wx:for-index="index" wx:key="*this" wx:if="{{isVip ? true : item.id !== 4}}">
+      <view class="littleDots {{current === index?'active':''}}"></view>
+    </block>
+  </view>
 </view>
