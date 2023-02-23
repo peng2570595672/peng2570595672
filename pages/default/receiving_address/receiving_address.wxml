@@ -55,7 +55,7 @@
         <view class="publicCode">
             <view class="publicCodeLeft">收货人</view>
             <view class="publicCoderight">
-                <input class="input" type="text" placeholder="输入收货人姓名" value="{{formData.userName}}" data-name="userName" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" bindblur="validateNew"/>
+                <input class="input" type="text" placeholder="输入收货人姓名" value="{{formData.userName}}" data-name="userName" maxlength="10" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" bindblur="validateNew"/>
                 <view class="btns" catchtap="onClickAutoFillHandle">
                     <span class="wChat iconfont" />
                     <span class="text">选择微信地址</span>

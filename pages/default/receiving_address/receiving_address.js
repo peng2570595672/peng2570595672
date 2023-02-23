@@ -33,7 +33,8 @@ Page({
 		operatorPhoneNumber: '',	// 线上：用户点好；线下：经办人电话
 		tip1: '',	// 经办人电话号码校验提示
 		tip2: '',	// 收件人姓名校验
-		tip3: ''	// 校验收件人电话号码提示
+		tip3: '',	// 校验收件人电话号码提示
+		isName: true	// 控制收货人名称是否合格
 	},
 	async onLoad (options) {
 		if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
@@ -573,6 +574,11 @@ Page({
 				return util.showToastNoIcon('非法号码');
 			}
 		}
+		if (key === 'operator') {
+			this.setData({
+				operatorPhoneNumber: e.detail.value
+			});
+		}
 		if (key === 'telNumber') {
 			this.setData({
 				mobilePhoneIsOk: /^1[0-9]{10}$/.test(e.detail.value.substring(0, 11))
@@ -620,7 +626,7 @@ Page({
 		// 校验经办人手机号码
 		isOk = isOk && this.data.operatorPhoneNumber && /^1[0-9]{10}$/.test(this.data.operatorPhoneNumber);
 		// 校验姓名
-		isOk = isOk && formData.userName && formData.userName.length >= 1;
+		isOk = isOk && formData.userName && formData.userName.length >= 1 && this.data.isName;
 		// 校验省市区
 		isOk = isOk && formData.region && formData.region.length === 3 && formData.region[0] !== '省';
 		// 校验省市区编码
@@ -655,7 +661,6 @@ Page({
 		let name = e.currentTarget.dataset.name;
 		let value = e.detail.value;
 		let len = e.detail.cursor;
-
 		// 校验手机号
 		if (name === 'operator' || name === 'telNumber') {
 			let flag = /^1[1-9][0-9]{9}$/.test(value);
@@ -684,32 +689,45 @@ Page({
 					});
 				}
 			}
-			this.fangDou('',500);
 		}
 		// 收件人姓名校验
 		if (name === 'userName') {
 			let patrn = /[`~!@#$%^&*()_\-+=<>?:"{}|,.\/;'\\[\]·~！@#￥%……&*（）——\-+={}|《》？：“”【】、；‘'，。、]/im;	// 校验非法字符
-			let patrn1 = /^[a-zA-Z]+$/;	// 校验英文
+			let patrn1 = /^[A-Za-z]+$/;	// 校验英文
 			let patrn2 = /^[\u4e00-\u9fa5]{0,}$/;	// 校验汉字
 			let tip2 = '';
+			let isName;
 			if (len < 1) {
 				this.setData({
-					tip2: '姓名不可为空'
+					tip2: '姓名不可为空',
+					isName: false
+				});
+			} else if (!patrn2.test(value) && !patrn1.test(value)) {
+				this.setData({
+					tip2: '姓名不能同时包含汉字和英文',
+					isName: false
 				});
 			} else if (patrn.test(value)) {
+				this.setData({
+					isName: false
+				});
 				util.showToastNoIcon('非法字符');
 			} else {
 				if (patrn2.test(value)) {
 					tip2 = len < 5 ? '' : '最大输入文字为4';
-				} else {
+					isName = len > 4 ? false : true;
+				}
+				if (patrn1.test(value)) {
 					tip2 = len < 9 ? '' : '英文最大可输入8';
+					isName = len > 8 ? false : true;
 				}
 				this.setData({
-					tip2: tip2
+					tip2: tip2,
+					isName: isName
 				});
-				this.fangDou('',500);
 			}
 		}
+		this.fangDou('',500);
 		this.controllTopTabBar();
 	},
 	fangDou (fn, time) {
