@@ -497,14 +497,16 @@ Page({
 		wx.chooseLocation({
 			success: (res) => {
 				let address = res.address;
+				let name = res.name;
 				if (address) {
 					// 根据地理位置信息获取经纬度
 					util.getInfoByAddress(address, (res) => {
 						let result = res.result;
 						if (result) {
 							let location = result.location;
+							name = result.title + name;
 							// 根据经纬度信息 反查详细地址信息
-							this.getAddressInfo(location, address);
+							this.getAddressInfo(location, name);
 							this.setData({
 								available: this.validateAvailable(true)
 							});
@@ -533,14 +535,14 @@ Page({
 		});
 	},
 	//  根据经纬度信息查地址
-	getAddressInfo (location, address) {
+	getAddressInfo (location, name) {
 		util.getAddressInfo(location.lat, location.lng, (res) => {
 			if (res.result) {
 				let info = res.result.ad_info;
 				let formData = this.data.formData;
 				formData.region = [info.province, info.city, info.district]; // 省市区
 				formData.regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode]; // 省市区区域编码
-				formData.detailInfo = address.replace(info.province + info.city + info.district, ''); // 详细地址
+				formData.detailInfo = name; // 详细地址
 				this.setData({
 					formData
 				});
