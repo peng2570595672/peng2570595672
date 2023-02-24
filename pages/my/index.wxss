@@ -15,20 +15,27 @@
 }
 
 .my {
-    height: auto;
     width: 100%;
-    padding-top: 192rpx;
+    height: 100vh;
+    overflow: hidden;
 }
 
+
+/* 顶部user信息 */
+.my::before {
+    width: 100%;
+    display: block;
+    content: '';
+    height: 192rpx;
+    overflow: hidden;
+}
 .no {
-    background: linear-gradient(180deg, #BDE3D7 0%, #EBEDF0 16%, #EBEDF0 100%);
+    background: linear-gradient(180deg, #BDE3D7 0%, #EBEDF0 30%, #EBEDF0 100%);
 }
 
 .is {
-    background: linear-gradient(180deg, #E9CA7B 0%, #EBEDF0 16%, #EBEDF0 100%);
+    background: linear-gradient(180deg, #E9CA7B 0%, #EBEDF0 30%, #EBEDF0 100%);
 }
-
-/* 顶部user信息 */
 .my .user {
     width: 100vw;
     height: 96rpx;

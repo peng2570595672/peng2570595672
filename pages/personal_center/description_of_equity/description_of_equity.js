@@ -35,7 +35,7 @@ Page({
 		current: 0,
 		// 是否自动播放轮播图
 		autoplay: false,
-		isVip: undefined
+		isVip: false
 	},
 
 	onLoad (options) {
@@ -45,7 +45,9 @@ Page({
 	},
 
 	onShow () {
-
+		this.setData({
+			needData: this.data.isVip ? this.data.listOne : this.data.listOne.filter(item => (item.id !== 4))
+		});
 	},
 
 	// 监听轮播图的下标

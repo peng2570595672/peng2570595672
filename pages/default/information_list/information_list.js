@@ -315,7 +315,9 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			app.globalData.isNeedReturnHome = true;
-			this.brandChargingModel();
+			if (this.data.orderInfo.obuCardType === 1) {
+				this.brandChargingModel();
+			}
 			if (this.data.orderInfo.flowVersion === 2 || this.data.orderInfo.flowVersion === 3) {
 				util.go(`/pages/default/order_audit/order_audit`);
 				return;
@@ -335,23 +337,9 @@ Page({
 	},
 	// 车辆品牌收费车型校验
 	async brandChargingModel () {
-		console.log('hahha1');
-		const result = await util.getDataFromServersV2('consumer/etc/qtzl/checkCarChargeType', {
+		await util.getDataFromServersV2('consumer/etc/qtzl/checkCarChargeType', {
 			orderId: app.globalData.orderInfo.orderId
 		});
-		console.log(result);
-		if (!result) return;
-		if (result.code === 0) {
-			let res = result.data.data;
-			if (res.checkResult === 1) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			util.showToastNoIcon(result.message);
-			return false;
-		}
 	},
 	onUnload () {
 		if (this.data.isReturn) {

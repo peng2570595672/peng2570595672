@@ -24,17 +24,18 @@ Page({
 			regionCode: [], // 省份编码
 			userName: '', // 收货人姓名
 			telNumber: '', // 电话号码
-			detailInfo: '' // 收货地址详细信息
+			detailInfo: '', // 收货地址详细信息
+			operator: ''// 线上：用户点好；线下：经办人电话
 		}, // 提交数据
 		enterType: -1,// 进入小程序类型  23.搜一搜小程序独立办理链接A，24.搜一搜小程序独立办理链接B
 		productId: '',
 		rightsPackageId: '',
 		shopId: '',
-		operatorPhoneNumber: '',	// 线上：用户点好；线下：经办人电话
 		tip1: '',	// 经办人电话号码校验提示
 		tip2: '',	// 收件人姓名校验
 		tip3: '',	// 校验收件人电话号码提示
-		isName: true	// 控制收货人名称是否合格
+		isName: true,	// 控制收货人名称是否合格
+		size: 30
 	},
 	async onLoad (options) {
 		if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
@@ -257,6 +258,7 @@ Page({
 			isRequest: false
 		});
 		if (result.code === 0) {
+			app.globalData.handledByTelephone = this.data.formData.operator;
 			app.globalData.orderInfo.orderId = result.data.orderId; // 订单id
 			if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
 				await this.getProduct();
@@ -553,48 +555,9 @@ Page({
 			util.showToastNoIcon('获取地理位置信息失败！');
 		});
 	},
-	// 输入框输入值
-	onInputChangedHandle (e) {
-		let key = e.currentTarget.dataset.name;
-		let formData = this.data.formData;
-		// 手机号
-		if (key === 'telNumber' || key === 'operator') {
-			let value = e.detail.value;
-			if (value.substring(0,1) !== '1' || value.substring(1,2) === '0') {
-				if (key === 'telNumber') {
-					this.setData({
-						'formData.telNumber': ''
-					});
-				} else {
-					this.setData({
-						operatorPhoneNumber: ''
-					});
-				}
-				return util.showToastNoIcon('非法号码');
-			}
-		}
-		if (key === 'operator') {
-			this.setData({
-				operatorPhoneNumber: e.detail.value
-			});
-		}
-		if (key === 'telNumber') {
-			this.setData({
-				mobilePhoneIsOk: /^1[0-9]{10}$/.test(e.detail.value.substring(0, 11))
-			});
-		}
-		if (key === 'telNumber' && e.detail.value.length > 11) {
-			formData[key] = e.detail.value.substring(0, 11);
-		} else {
-			formData[key] = e.detail.value;
-		}
-		this.setData({
-			formData
-		});
-		this.validateNew(e);
-	},
 	// 校验字段是否满足
 	validateAvailable (checkLicensePlate) {
+		console.log('ssss');
 		// 是否接受协议
 		let isOk = true;
 		let formData = this.data.formData;
@@ -623,9 +586,9 @@ Page({
 			isOk = false;
 		}
 		// 校验经办人手机号码
-		isOk = isOk && this.data.operatorPhoneNumber && /^1[0-9]{10}$/.test(this.data.operatorPhoneNumber);
+		isOk = isOk && this.data.formData.operator && /^1[0-9]{10}$/.test(this.data.formData.operator);
 		// 校验姓名
-		isOk = isOk && formData.userName && formData.userName.length >= 1 && this.data.isName;
+		isOk = isOk && formData.userName && formData.userName.length >= 1;
 		// 校验省市区
 		isOk = isOk && formData.region && formData.region.length === 3 && formData.region[0] !== '省';
 		// 校验省市区编码
@@ -643,7 +606,7 @@ Page({
 			if (app.globalData.userInfo.needBindingPhone === 0) {	// 判断是否绑定过手机号
 				this.setData({
 					tip1: '',
-					operatorPhoneNumber: app.globalData.mobilePhone,
+					'formData.operator': app.globalData.mobilePhone,
 					available: this.validateAvailable(true)
 				});
 			} else {
@@ -655,77 +618,72 @@ Page({
 			}
 		}
 	},
-	// etc4.0:新增-校验(手机号，收件人，地址等)
-	validateNew (e) {
-		let name = e.currentTarget.dataset.name;
+	// 输入框输入值
+	onInputChangedHandle (e) {
+		let key = e.currentTarget.dataset.name;	//
+		let len = e.detail.cursor;	// 输入值的长度
 		let value = e.detail.value;
-		let len = e.detail.cursor;
-		// 校验手机号
-		if (name === 'operator' || name === 'telNumber') {
+		let formData = this.data.formData;
+		let tip1 = '';	// 办理人手机号提示
+		let tip2 = '';	// 收货姓名提示
+		let tip3 = '';	// 收获人手机号提示
+		// 手机号 校验
+		if (key === 'telNumber' || key === 'operator') {
+			let value = e.detail.value;
 			let flag = /^1[1-9][0-9]{9}$/.test(value);
-			let tip = len < 11 ? '*手机号未满11位，请检查' : (len === 11 ? (flag ? '' : '非法号码') : '非法号码');
-			if (tip === '非法号码') {
-				if (name === 'operator') {
+			if (value.substring(0,1) !== '1' || value.substring(1,2) === '0') {
+				if (key === 'telNumber') {
 					this.setData({
-						operatorPhoneNumber: '',
-						tip1: tip
+						'formData.telNumber': ''
 					});
 				} else {
 					this.setData({
-						'formData.telNumber': '',
-						tip3: tip
+						'formData.operator': ''
 					});
 				}
+				return util.showToastNoIcon('非法号码');
+			} else if (len < 11) {
+				tip1 = key === 'operator' ? '*手机号未满11位，请检查' : '';
+				tip3 = key === 'telNumber' ? '*手机号未满11位，请检查' : '';
+			} else if (len === 11 && !flag) {
 				util.showToastNoIcon('非法号码');
-			} else {
-				if (name === 'operator') {
-					this.setData({
-						tip1: tip
-					});
-				} else {
-					this.setData({
-						tip3: tip
-					});
-				}
 			}
 		}
-		// 收件人姓名校验
-		if (name === 'userName') {
+		// 收货人姓名 校验
+		if (key === 'userName') {
 			let patrn = /[`~!@#$%^&*()_\-+=<>?:"{}|,.\/;'\\[\]·~！@#￥%……&*（）——\-+={}|《》？：“”【】、；‘'，。、]/im;	// 校验非法字符
 			let patrn1 = /^[A-Za-z]+$/;	// 校验英文
 			let patrn2 = /^[\u4e00-\u9fa5]{0,}$/;	// 校验汉字
-			let tip2 = '';
-			let isName;
 			if (len < 1) {
+				tip2 = '姓名不可为空';
+			} else if (patrn.test(value)) {
+				value = '';
+				tip2 = '非法字符';
+				util.showToastNoIcon('非法字符');
+			} else if (patrn2.test(value)) {
+				tip2 = len > 13 ? '超出可输入最大数' : '';
 				this.setData({
-					tip2: '姓名不可为空',
-					isName: false
+					size: 13
+				});
+			} else if (patrn1.test(value)) {
+				tip2 = len > 26 ? '超出可输入最大数' : '';
+				this.setData({
+					size: 26
 				});
 			} else if (!patrn2.test(value) && !patrn1.test(value)) {
+				tip2 = len > 26 ? '超出可输入最大数' : '';
 				this.setData({
-					tip2: '姓名不能同时包含汉字和英文',
-					isName: false
-				});
-			} else if (patrn.test(value)) {
-				this.setData({
-					isName: false
-				});
-				util.showToastNoIcon('非法字符');
-			} else {
-				if (patrn2.test(value)) {
-					tip2 = len < 5 ? '' : '最大输入文字为4';
-					isName = len > 4 ? false : true;
-				}
-				if (patrn1.test(value)) {
-					tip2 = len < 9 ? '' : '英文最大可输入8';
-					isName = len > 8 ? false : true;
-				}
-				this.setData({
-					tip2: tip2,
-					isName: isName
+					size: 26
 				});
 			}
 		}
+		formData[key] = value;
+		this.setData({
+			formData,
+			tip1,
+			tip2,
+			tip3
+		});
 		this.fangDou('',500);
 		this.controllTopTabBar();
 	},
@@ -747,6 +705,7 @@ Page({
 		this.setData({
 			available: this.validateAvailable(true)
 		});
+		util.showLoading();
 		if (!this.data.available || this.data.isRequest) {
 			return util.showToastNoIcon('请填写相关信息');
 		}
@@ -757,8 +716,10 @@ Page({
 		});
 		if (!res) return;
 		if (res.code === 0) {
+			util.hideLoading();
 			this.next();
 		} else {
+			util.hideLoading();
 			return util.showToastNoIcon(res.message);
 		}
 	},
@@ -785,7 +746,7 @@ Page({
 		if (this.data.formData.detailInfo) {
 			num += 1;
 		}
-		if (this.data.operatorPhoneNumber) {
+		if (this.data.formData.operator) {
 			num += 1;
 		}
 		this.setData({

@@ -155,6 +155,20 @@
 					"query": "",
 					"launchMode": "default",
 					"scene": null
+				},
+				{
+					"name": "4.0 填写基础信息",
+					"pathName": "pages/default/receiving_address/receiving_address",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/personal_center/my_etc/my_etc",
+					"query": "test=gggg",
+					"launchMode": "default",
+					"scene": null
 				}
 			]
 		}

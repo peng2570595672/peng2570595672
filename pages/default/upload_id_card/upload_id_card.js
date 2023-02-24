@@ -183,7 +183,11 @@ Page({
 			ownerIdCardBirth: this.data.idCardFace.ocrObject.birth, // 出生日期 【dataType包含8】
 			ownerIdCardHaveChange: haveChange, // 车主身份证OCR结果是否被修改过，默认false，修改过传true 【dataType包含8}】
 			ownerIdCardValidDate: this.data.idCardBack.ocrObject.validDate,
-			ownerIdCardAddress: this.data.idCardFace.ocrObject.address
+			ownerIdCardAddress: this.data.idCardFace.ocrObject.address,
+			cardMobilePhone: app.globalData.handledByTelephone
+			// cardMobilePhone: this.data.formData.cardMobilePhone, // 车主实名手机号
+			// cardPhoneCode: this.data.formData.verifyCode, // 手机号验证码
+			// notVerifyCardPhone: notVerifyCardPhone // true 时不需要验证码
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		this.setData({
@@ -191,7 +195,18 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			this.userCarCheck(result.data);
+			if (app.globalData.orderInfo.obuCardType === 1) {
+				this.userCarCheck(result.data);
+			} else {
+				const pages = getCurrentPages();
+				const prevPage = pages[pages.length - 2];// 上一个页面
+				prevPage.setData({
+					isChangeIdCard: true // 重置状态
+				});
+				wx.navigateBack({
+					delta: 1
+				});
+			}
 		} else {
 			util.showToastNoIcon(result.message);
 		}
