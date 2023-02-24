@@ -705,6 +705,7 @@ Page({
 		this.setData({
 			available: this.validateAvailable(true)
 		});
+		util.showLoading();
 		if (!this.data.available || this.data.isRequest) {
 			return util.showToastNoIcon('请填写相关信息');
 		}
@@ -715,8 +716,10 @@ Page({
 		});
 		if (!res) return;
 		if (res.code === 0) {
+			util.hideLoading();
 			this.next();
 		} else {
+			util.hideLoading();
 			return util.showToastNoIcon(res.message);
 		}
 	},

@@ -25,41 +25,47 @@
 /* 顶部banner */
 .index .topBanner {
 	width: 100%;
-	height: 520rpx;
+	height: 176rpx;
+	overflow: hidden;
 }
 
-.index .topBanner .topImg {
-	z-index: -1;
+.index .one {
+	width: 100%;
+	height: 802rpx;
+	overflow: hidden;
+}
+
+.index .one .image {
 	width: 100%;
 	height: 100%;
-	display: block;
 }
+
+.index .three {
+	width: 100%;
+	height: 1074rpx;
+	overflow: hidden;
+}
+
+.index .three .images {
+	width: 100%;
+	height: 100%;
+}
+
 
 /* 模块 */
 .index .module {
 	height: auto;
 	text-align: center;
-	border-radius: 12rpx;
-	margin: 28rpx 28rpx 0 28rpx;
-	background-color: rgba(250, 250, 250, 1);
+	background-color: rgba(21,94,78, 1);
 	font-family: PingFangSC-Regular, PingFang SC;
 }
 
-.index .module.one {
-	height: 390rpx;
-	margin-top: -28rpx;
-}
-
-.index .module.three {
-	height: auto;
-	padding-bottom: 60rpx;
-}
 
 .index .module.four {
 	height: auto;
-	padding-bottom: 50rpx;
-	background-color: rgb(28, 86, 97);
+	border-top: 2rpx dashed #fff;
 	position: relative;
+	padding-bottom: 50rpx;
 }
 
 .index .module .title {
@@ -69,6 +75,7 @@
 	color: #4D4D51;
 	line-height: 44rpx;
 	padding-top: 50rpx;
+	margin-left: 28rpx;
 }
 
 .index .module .textLeft {
@@ -160,7 +167,6 @@
 	align-items: center;
 	justify-content: space-between;
 	margin: 50rpx 32rpx 0rpx 32rpx;
-	/* background-color: #00AF62; */
 }
 
 .index .module .imgTextThree .oneService .onlineService {
@@ -175,7 +181,7 @@
 }
 
 .index .module .answersQuestions {
-	width: 100%;
+	margin: 0rpx 28rpx;
 	height: auto;
 	text-align: left;
 	color: #FFFFFF;
@@ -226,7 +232,6 @@
 
 .index .module .moreQuestions {
 	width: 200rpx;
-	/* height: 22rpx; */
 	font-size: 28rpx;
 	font-weight: 400;
 	color: #00A9FF;
@@ -241,6 +246,7 @@
 /* 占位 */
 .index .split {
 	height: 260rpx;
+	background-color: rgba(21,94,78, 1);
 	overflow: hidden;
 }
 
