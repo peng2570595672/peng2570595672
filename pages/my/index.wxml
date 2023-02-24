@@ -39,7 +39,7 @@
     <view class="module moduleTwo {{tools.dataLen(myAccountList) > 1 ? 'marginTop' : ''}}">
         <view class="func" wx:for="{{funcList}}" wx:key="index" data-url="{{item.url}}" catchtap="go">
             <view class="icon {{isVip ? 'yellowF' : 'greenF'}}">
-                <image class="iconImg" src="{{}}" />
+                <image class="iconImg" src="{{item.icon}}" />
             </view>
             <view class="iconText">{{item.title}}</view>
         </view>

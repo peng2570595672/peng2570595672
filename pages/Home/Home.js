@@ -114,7 +114,7 @@ Page({
 		// 版本4.0 所需数据
 		imgList: ['https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png', 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png'],
 		moduleOneList: [{	// 账单查询 通行发票 权益商城
-				icon: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',
+				icon: 'https://file.cyzl.com/g001/M01/C9/14/oYYBAGP4LYyAT9vPAAAz3QomDgg758.svg',
 				title: '账单查询',
 				btn: '最近通行的记录',
 				isShow: true,
@@ -122,33 +122,38 @@ Page({
 				statisticsEvent: 'index_my-order'
 			},
 			{
-				icon: 'https://file.cyzl.com/g001/M01/C9/14/oYYBAGP4LYyAT9vPAAAz3QomDgg758.svg',
+				icon: 'https://file.cyzl.com/g001/M01/C9/17/oYYBAGP4MB6AVSCCAABCVE2pcV8180.svg',
 				title: '通行发票',
 				btn: '开高速路费发票',
+				isShow: true,
 				url: 'invoice',
 				statisticsEvent: 'index_invoice'
 			},
 			{
-				icon: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',
+				icon: 'https://file.cyzl.com/g001/M01/C9/17/oYYBAGP4L_yAG8hyAAAwVJVl1og765.svg',
 				title: '权益商城',
 				btn: '免税商品上线',
+				isShow: true,
 				url: 'equity',
 				statisticsEvent: 'index_equity'
+			},
+			{
+				icon: 'https://file.cyzl.com/g001/M01/C9/1C/oYYBAGP4N6SALEr7AAAvm9uNF7o633.svg',
+				title: '在线客服',
+				btn: '1V1专人客服',
+				isShow: true,
+				url: 'online_customer_service',
+				statisticsEvent: 'index_server'
 			}
-			// {
-			// 	icon: '',
-			// 	title: '在线客服',
-			// 	btn: '',
-			// 	url: '',
-			// 	statisticsEvent: ''
-			// }
 		],
 		moduleTwoList: [],	// 出行贴心服务
 		viewTc: {}, // 用于存放弹窗数据
 		whetherToStay: false, // 用于控制显示弹窗时，最底层页面禁止不动
 		movingIntegralObj: {
 			movingIntegralControl: false
-		}
+		},
+		isVip: app.globalData.isVip,	// 是否是ETC+Plus用户
+		isEquityRights: app.globalData.isEquityRights	// 是否是权益券额用户
 
 	},
 	async onLoad (options) {
@@ -158,13 +163,15 @@ Page({
 		app.globalData.isTruckHandling = false;
 		app.globalData.isNeedReturnHome = false;
 		this.login();
-
-		console.log('--------------------------------------------');
 		this.getBanner();
+		this.setData({
+			moduleOneList: app.globalData.isVip || app.globalData.isEquityRights ? this.data.moduleOneList.filter(item => item.title !== '在线客服') : this.data.moduleOneList.filter(item => item.title !== '权益商城')
+		});
 	},
 	async onShow () {
 		util.customTabbar(this, 0);
 		util.getUserIsVip();
+
 		// @cyl
 		// 初始化设备指纹对象
 		this.fmagent = new FMAgent(app.globalData._fmOpt);
@@ -222,7 +229,7 @@ Page({
 	},
 	pageGo () {
 		// 跳转 活动页面
-		util.go('/pages/default/index/index');
+		// util.go('/pages/default/index/index');
 	},
 	// 获取 “出行贴心服务” banner
 	async getBanner () {
@@ -635,6 +642,8 @@ Page({
 			// let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
 			app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !==
 				undefined); // 筛选车主服务欠费
+			// 判断是否权益券额用户
+			app.globalData.isEquityRights = list.filter(item => item.pledgeType === 4 && item.pledgeStatus === 1).length > 0;
 			list.map(item => {
 				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item)
 					: util.getStatus(item);
@@ -708,6 +717,7 @@ Page({
 			const passengerCarListNotTruckActivation = isAllActivationTruck ? truckList[0] : truckList
 				.filter(item => item.selfStatus !== 12)[0];
 			app.globalData.isArrearageData.trucksOrderList = truckActivationOrderList;
+
 			this.setData({
 				isShowNotice: !!app.globalData.myEtcList.length,
 				needRequestBillNum: activationTruckOrder.length + activationOrder.length,

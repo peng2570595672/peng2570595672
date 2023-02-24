@@ -297,7 +297,7 @@
 
 .index .package .module .lowerpart .titleDetails .details {
     color: #2A4F44;
-    width: 56rpx;
+    width: 60rpx;
     height: 40rpx;
     padding: 10rpx 20rpx;
 }
