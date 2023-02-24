@@ -7,10 +7,23 @@ Page({
 		isVip: false, //	用户是否是Vip(即ETC+PLUS)
 		testImg: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',	// 测试所用的图片和icon
 		funcList: [
-			{icon: '',title: '我的订单',url: 'order_triage'},
-			{icon: '',title: '通行流水',url: 'my_order'},
-			{icon: '',title: '领券中心',url: 'coupon_redemption_centre'},
-			{icon: '',title: '帮助中心',url: 'help_center'}
+			{
+				icon: 'https://file.cyzl.com/g001/M01/C9/1D/oYYBAGP4OlOADWQKAAWyyaAG1H4541.svg',
+				title: '我的订单',
+				url: 'order_triage'},
+			{
+				icon: 'https://file.cyzl.com/g001/M01/C9/1D/oYYBAGP4OiaAdN9gAAWMTPzu62k488.svg',
+				title: '通行流水',
+				url: 'my_order'},
+			{
+				icon: 'https://file.cyzl.com/g001/M01/C9/1D/oYYBAGP4OaGAJ-ImAAWmhyqdgxo977.svg',
+				title: '领券中心',
+				url: 'coupon_redemption_centre'},
+			{
+				icon: 'https://file.cyzl.com/g001/M01/C9/1D/oYYBAGP4OnaANbE3AAWZBnVW83M524.svg',
+				title: '帮助中心',
+				url: 'help_center'
+			}
 
 		],
 		funcList2: [

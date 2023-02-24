@@ -74,6 +74,7 @@ Page({
 			});
 		}
 		let drivingLicenseBack = wx.getStorageSync('passenger-car-driving-license-back');
+		console.log(drivingLicenseBack);
 		if (drivingLicenseBack) {
 			drivingLicenseBack = JSON.parse(drivingLicenseBack);
 			this.setData({

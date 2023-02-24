@@ -52,8 +52,8 @@ Page({
 		let params = { openId: app.globalData.openId };
 		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params,'POST',false);
 		if (result.code === 0) {
-			let equity = result.data.filter(item => (item.pledgeType === 4 && item.obuStatus === 1));
-			app.globalData.isEquityRights = equity.length > 0 ? true : false;
+			// // 判断是否权益券额用户
+			app.globalData.isEquityRights = result.data.filter(item => item.pledgeType === 4 && item.pledgeStatus === 1).length > 0;
 			if (result.data.length > 0) {
 				// 跳转首页;
 				wx.switchTab({

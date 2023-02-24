@@ -103,7 +103,7 @@
 
 .home .moduleOne .moduleOneBox .imgTitle image {
 	width: 100%;
-	height: 100%;
+	height: 96%;
 }
 
 .home .moduleOne .moduleOneBox .title {
