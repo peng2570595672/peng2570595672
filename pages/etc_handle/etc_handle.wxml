@@ -11,6 +11,7 @@
         </view>
         <!-- 模块3 一站式车主服务 -->
         <view class="three">
+            <view class="buttomText twoButtom" catchtap="viewProcedure" data-pop="moduleOne">查看具体办理步骤</view>
             <image class="images" src="{{'https://file.cyzl.com/g001/M01/C9/0E/oYYBAGP4IhCAfnh_AACLStl5jQM863.png'}}" />
         </view>
         <!-- 模块4 车主热问热答 -->
