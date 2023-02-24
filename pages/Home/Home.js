@@ -112,9 +112,9 @@ Page({
 		timeout: null,
 		date: null,
 		// 版本4.0 所需数据
-		imgList: ['https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png', 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png'],
+		imgList: ['https://file.cyzl.com/g001/M01/C9/54/oYYBAGP4sCaAF2EtAABbvIQbTLM503.png'],
 		moduleOneList: [{	// 账单查询 通行发票 权益商城
-				icon: 'https://file.cyzl.com/g001/M01/C9/14/oYYBAGP4LYyAT9vPAAAz3QomDgg758.svg',
+				icon: 'https://file.cyzl.com/g001/M01/C9/52/oYYBAGP4m4GAT2K6AAAXZHV0_fQ770.png',
 				title: '账单查询',
 				btn: '最近通行的记录',
 				isShow: true,
@@ -122,7 +122,7 @@ Page({
 				statisticsEvent: 'index_my-order'
 			},
 			{
-				icon: 'https://file.cyzl.com/g001/M01/C9/17/oYYBAGP4MB6AVSCCAABCVE2pcV8180.svg',
+				icon: 'https://file.cyzl.com/g001/M01/C9/52/oYYBAGP4m7aAMvNTAAAWe51oJH8617.png',
 				title: '通行发票',
 				btn: '开高速路费发票',
 				isShow: true,
@@ -130,7 +130,7 @@ Page({
 				statisticsEvent: 'index_invoice'
 			},
 			{
-				icon: 'https://file.cyzl.com/g001/M01/C9/17/oYYBAGP4L_yAG8hyAAAwVJVl1og765.svg',
+				icon: 'https://file.cyzl.com/g001/M01/C9/52/oYYBAGP4m8yAGlQoAAAYB8oQHLk631.png',
 				title: '权益商城',
 				btn: '免税商品上线',
 				isShow: true,
@@ -138,7 +138,7 @@ Page({
 				statisticsEvent: 'index_equity'
 			},
 			{
-				icon: 'https://file.cyzl.com/g001/M01/C9/1C/oYYBAGP4N6SALEr7AAAvm9uNF7o633.svg',
+				icon: 'https://file.cyzl.com/g001/M01/C9/52/oYYBAGP4m-CAKkEUAAAdkg4yIFU047.jpg',
 				title: '在线客服',
 				btn: '1V1专人客服',
 				isShow: true,
@@ -152,7 +152,6 @@ Page({
 		movingIntegralObj: {
 			movingIntegralControl: false
 		},
-		isVip: app.globalData.isVip,	// 是否是ETC+Plus用户
 		isEquityRights: app.globalData.isEquityRights	// 是否是权益券额用户
 
 	},
@@ -167,11 +166,10 @@ Page({
 		this.setData({
 			moduleOneList: app.globalData.isVip || app.globalData.isEquityRights ? this.data.moduleOneList.filter(item => item.title !== '在线客服') : this.data.moduleOneList.filter(item => item.title !== '权益商城')
 		});
+		util.getUserIsVip();
 	},
 	async onShow () {
 		util.customTabbar(this, 0);
-		util.getUserIsVip();
-
 		// @cyl
 		// 初始化设备指纹对象
 		this.fmagent = new FMAgent(app.globalData._fmOpt);
@@ -179,7 +177,8 @@ Page({
 		util.getUserInfo(this.getId);
 		this.setData({
 			isActivityForBannerDate: util.isDuringDate('2021/06/23', '2021/07/16'),
-			isActivityDate: util.isDuringDate('2021/6/25 11:00', '2021/6/28 15:00')
+			isActivityDate: util.isDuringDate('2021/6/25 11:00', '2021/6/28 15:00'),
+			isVip: app.globalData.isVip
 		});
 		if (app.globalData.userInfo.accessToken) {
 			util.getMemberStatus();
@@ -238,18 +237,14 @@ Page({
 		};
 		const result = await util.getDataFromServersV2('consumer/system/common/get-activity-banner', params,'POST',false);
 		if (result.code === 0) {
-			let moduleTwoList = result.data.filter(item => (item.remark === 'micro_high_speed' || item.remark === 'moving_integral'));
+			let moduleTwoList = result.data.filter(item => (item.remark === 'moving_integral'));
 			moduleTwoList.map(item => {
 				if (item.remark === 'moving_integral') {
 					item.url = item.remark;
 					item.isShow = true;
 					item.alwaysShow = true;
+					item.imgUrl = 'https://file.cyzl.com/g001/M01/C9/52/oYYBAGP4mXiAVfbDAAAkI9pn5Nw707.png';
 					item.statisticsEvent = 'index_moving_integral';
-				}
-				if (item.remark === 'micro_high_speed') {
-					item.url = item.remark;
-					item.isShow = app.globalData.isContinentInsurance;
-					item.statisticsEvent = 'index_micro_high_speed';
 				}
 			});
 			this.setData({

@@ -67,6 +67,7 @@
 	width: 180rpx;
 	height: 20rpx;
 	color: #1A5045;
+	text-align: center;
 	padding: 10rpx 20rpx;
 	border-radius: 20rpx;
 	background-color: rgba(200, 200, 200, 0.5);
@@ -87,7 +88,7 @@
 
 .index .module.four {
 	height: auto;
-	border-top: 2rpx dashed #fff;
+	border-top: 2rpx dashed transparent;
 	position: relative;
 	padding-bottom: 50rpx;
 }

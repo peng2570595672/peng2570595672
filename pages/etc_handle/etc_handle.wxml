@@ -1,6 +1,6 @@
 <wxs src='../../utils/util.wxs' module='tools'/>
-<view >
-    <view class="index" style="background-color: {{'rgb(28,82,67)'}}" catchtouchmove="{{whetherToStay ? 'viewProcedure' : ''}}">
+<view catchtouchmove="{{whetherToStay ? 'viewProcedure' : ''}}">
+    <view class="index" style="background-color: {{'rgb(28,82,67)'}}" >
         <!-- 顶部返回按钮 -->
         <view class="iconfont topBack" catchtap="goBack">返回</view>
         <!-- 顶部banner 背景颜色和图片是动态的 -->

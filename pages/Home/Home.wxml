@@ -2,7 +2,7 @@
 <view class="home" style="background-color: {{'#EBEDF0'}}">
     <!-- 顶部 滑块视图 -->
     <view class="topSwiper">
-        <swiper class="swiperBox" autoplay circular indicator-dots='{{tools.dataLen(imgList) !== 1}}' duration="1000">
+        <swiper class="swiperBox" autoplay circular duration="{{'1000'}}">
             <swiper-item class="swiper-item" wx:for="{{imgList}}" wx:key="index" catchtap="pageGo">
                 <image class="topImg" src='{{item}}' />
             </swiper-item>
@@ -54,21 +54,16 @@
         </view>
     </view>
     <!-- 模块2 出行贴心服务 -->
-    <view class="module moduleTwo">
+    <view class="moduleTwo">
         <view class="head">出行贴心服务</view>
         <view class="moduleTwoBox">
             <view class="integral" wx:for="{{moduleTwoList}}" wx:key="index" catchtap="onClickSwiper" data-item="{{item}}">
                 <image src="{{item.imgUrl}}" />
-                <!-- <view class="integralDescribe">
-                    <text >{{item.text1}}\n</text>
-                    <text >{{item.text2}}</text> 
-                </view>
-                <view class="integralImg"><image src="{{item.icon}}" /></view> -->
             </view>
         </view>
     </view>
     <!-- 模块3 ETC使用Tips 一期不做，待二期补充-->
-    <view class="module moduleThree" wx:if="{{false}}">
+    <view class="moduleThree" wx:if="{{false}}">
         <view class="head">ETC使用Tips</view>
         <view class="moduleThreeBox">
             <view class="directSeeding">

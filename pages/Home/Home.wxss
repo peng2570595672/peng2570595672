@@ -6,10 +6,19 @@
 	background-color: #EBEDF0;
 }
 
+.home::before {
+	width: 100%;
+    display: block;
+    content: '';
+    height: 176rpx;
+    overflow: hidden;
+	background-color: rgba(26,80,67,1);
+}
+
 /*  顶部 滑块视图 */
 .home .topSwiper {
 	width: 100%;
-	height: 628rpx;
+	height: 452rpx;
 	font-family: PingFangSC-Regular, PingFang SC;
 }
 
@@ -33,11 +42,10 @@
 }
 
 .home .module {
-	width: 694rpx;
+	padding: 0rpx 28rpx;
 	border-radius: 16rpx;
 	background: #FFFFFF;
 	margin: 32rpx 28rpx 0rpx 28rpx;
-	/* box-shadow: 0rpx 4rpx 8rpx 8rpx rgba(240, 240, 240, 0.5); */
 }
 
 /* 办理模块 */
@@ -51,9 +59,9 @@
 .home .immediately .carPlan {
 	display: flex;
 	height: 60rpx;
+	margin-top: 34rpx;
 	align-items: center;
 	justify-content: space-between;
-	margin: 34rpx 34rpx 0rpx 34rpx;
 }
 .home .immediately .carPlan .car{
 	font-size: 36rpx;
@@ -73,8 +81,7 @@
 }
 .home .immediately .tipsClerk {
 	font-size: 24rpx;
-	margin: 10rpx 34rpx 0rpx 34rpx;
-
+	margin-top: 10rpx;
 }
 
 /* 模块一  */
@@ -83,27 +90,24 @@
 	margin-top: -68rpx;
 	min-height: 302rpx;
 	align-items: center;
-	justify-content: space-around;
+	justify-content: space-between;
 }
 
 .home .moduleOne .moduleOneBox {
 	width: 186rpx;
 	height: 238rpx;
 	font-family: PingFangSC-Regular, PingFang SC;
-	/* background-color: #5EBE68; */
 }
 
 .home .moduleOne .moduleOneBox .imgTitle {
 	width: 118rpx;
 	height: 118rpx;
 	margin: 0 34rpx;
-	border-radius: 50%;
-	background: #2A4F44;
 }
 
 .home .moduleOne .moduleOneBox .imgTitle image {
 	width: 100%;
-	height: 96%;
+	height: 100%;
 }
 
 .home .moduleOne .moduleOneBox .title {
@@ -132,12 +136,12 @@
 
 /* 模块二 */
 .home .moduleTwo {
-	background-color: transparent;
+	margin: 32rpx 28rpx 0rpx 28rpx;
 	font-family: PingFangSC-Medium, PingFang SC;
 }
 
-.home .module .head {
-	font-size: 28rpx;
+.home .head {
+	font-size: 30rpx;
 	font-weight: 500;
 	color: #000000;
 	margin-bottom: 16rpx;
@@ -191,6 +195,7 @@
 /* 模块三 */
 .home .moduleThree {
 	height: auto;
+	margin: 32rpx 28rpx 0rpx 28rpx;
 	background-color: transparent;
 }
 

@@ -4,7 +4,6 @@ const util = require('../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
-		isVip: false, //	用户是否是Vip(即ETC+PLUS)
 		testImg: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',	// 测试所用的图片和icon
 		funcList: [
 			{
@@ -68,16 +67,12 @@ Page({
 				isMain: options.isMain
 			});
 		}
-		util.getUserIsVip();
 	},
 	async onShow () {
-		// 4.0
 		util.customTabbar(this, 2);
-		await this.getUserProfiles();
 		util.getUserIsVip();
 		// --------------end------------
 		if (app.globalData.userInfo.accessToken) {
-			// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
 			let requestList = [await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon(), await this.getRightsAccount()];
 			util.showLoading();
 			await Promise.all(requestList);
@@ -94,8 +89,10 @@ Page({
 			isActivityDate: util.isDuringDate('2021/6/25 11:00', '2021/6/28 15:00'),
 			mobilePhoneSystem: app.globalData.mobilePhoneSystem,
 			mobilePhone: app.globalData.mobilePhone,
-			screenHeight: wx.getSystemInfoSync().windowHeight
+			screenHeight: wx.getSystemInfoSync().windowHeight,
+			isVip: app.globalData.isVip
 		});
+		await this.getUserProfiles();
 	},
 	handleCouponMini () {
 		this.selectComponent('#dialog1').show();
@@ -499,7 +496,7 @@ Page({
 		let yesVip = 'https://file.cyzl.com/g001/M01/C8/3F/oYYBAGP0VdeAZ2uZAAAG57UJ39U085.svg';
 		this.setData({
 			userInfo: {
-				avatarUrl: personInformation.avatarUrl ? personInformation.avatarUrl : isVip ? yesVip : noVip,
+				avatarUrl: personInformation.avatarUrl ? personInformation.avatarUrl : app.globalData.isVip ? yesVip : noVip,
 				nickName: personInformation.nicheng ? personInformation.nicheng : 'E+车主'
 			}
 		});
