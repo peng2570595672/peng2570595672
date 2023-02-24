@@ -196,9 +196,9 @@ Page({
 								// 身份证正面
 								const ruleForm = {
 									name: '姓名',
-									sex: '性别',
+									// sex: '性别',
 									birth: '出生年月日',
-									address: '地址',
+									// address: '地址',
 									idNumber: '公民身份证号码'
 								};
 								const reg = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
@@ -217,7 +217,7 @@ Page({
 							} else if (type === 2) {
 								// 身份证反面
 								const ruleForm = {
-									authority: '签发机关',
+									// authority: '签发机关',
 									validDate: '有效期限'
 								};
 								for (let key in ruleForm) {
@@ -236,14 +236,14 @@ Page({
 								// 行驶证正面
 								const ruleForm = {
 									numberPlates: '车牌号码',
-									vehicleType: '车辆类型',
-									owner: '所有人',
-									useCharacter: '使用性质',
-									model: '品牌型号',
-									vin: '车辆识别代码',
-									engineNo: '发动机号码',
-									resgisterDate: '注册日期',
-									issueDate: '发证日期'
+									vehicleType: '车辆类型'
+									// owner: '所有人',
+									// useCharacter: '使用性质',
+									// model: '品牌型号',
+									// vin: '车辆识别代码',
+									// engineNo: '发动机号码'
+									// resgisterDate: '注册日期',
+									// issueDate: '发证日期'
 								};
 								for (let key in ruleForm) {
 									if (key === 'numberPlates' && info[key] && info[key] !== this.data.vehPlates) {
@@ -272,10 +272,10 @@ Page({
 								res.data[0].ocrObject.personsCapacity = personsCapacityNum;
 								const ruleForm = {
 									numberPlates: '车牌号码',
-									personsCapacity: '核定载人数',
-									totalMass: '总质量',
-									curbWeight: '整备质量',
-									size: '外廓尺寸'
+									personsCapacity: '核定载人数'
+									// totalMass: '总质量',
+									// curbWeight: '整备质量',
+									// size: '外廓尺寸'
 								};
 								for (let key in ruleForm) {
 									if (key === 'numberPlates' && info[key] && info[key] !== this.data.vehPlates) {
