@@ -14,8 +14,8 @@ Component({
 		wrapper: false,
 		handlingProcess: [
 			{icon: '/pages/default/assets/id_card_face_bg.png' ,title: '车主身份证'},
-			{icon: '/pages/default/assets/driving_license_face_bg.png' ,title: '行驶证'},
-			{icon: '/pages/default/assets/headstock.svg' ,title: '车头照'}
+			{icon: '/pages/default/assets/driving_license_face_bg.png' ,title: '行驶证'}
+			// {icon: '/pages/default/assets/headstock.svg' ,title: '车头照'}
 		],
 		processList: [{
 			title: '填写基础信息',

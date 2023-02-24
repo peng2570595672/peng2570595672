@@ -58,7 +58,6 @@ Page({
 		await this.getOrderInfo();
 		// 查询是否欠款
 		await util.getIsArrearage();
-		// this.selectComponent('#popTipComp').show();
 	},
 	onShow () {
 		let drivingLicenseFace = wx.getStorageSync('passenger-car-driving-license-face');
@@ -74,12 +73,13 @@ Page({
 			});
 		}
 		let drivingLicenseBack = wx.getStorageSync('passenger-car-driving-license-back');
-		console.log(drivingLicenseBack);
 		if (drivingLicenseBack) {
 			drivingLicenseBack = JSON.parse(drivingLicenseBack);
+			let index = this.data.personsArr.findIndex((value) => value === parseInt(drivingLicenseBack.ocrObject.personsCapacity));
 			this.setData({
 				backStatus: 4,
 				drivingLicenseBack,
+				personIndex: index,
 				oldDrivingLicenseBack: drivingLicenseBack
 			});
 			this.setData({

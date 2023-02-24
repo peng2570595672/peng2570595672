@@ -38,6 +38,8 @@ Page({
 		size: 30
 	},
 	async onLoad (options) {
+		console.log(options);
+		console.log(app.globalData.orderInfo);
 		if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
 			wx.hideHomeButton();
 		}
@@ -74,6 +76,7 @@ Page({
 		}
 	},
 	async onShow () {
+		console.log(app.globalData.userInfo);
 		if (app.globalData.userInfo.accessToken) {
 			this.setData({
 				mobilePhoneMode: app.globalData.mobilePhoneMode
@@ -389,7 +392,6 @@ Page({
 		this.setData({
 			currentIndex: index
 		});
-		// if (!this.data.showKeyboard) {
 		this.setData({
 			showKeyboard: true
 		});

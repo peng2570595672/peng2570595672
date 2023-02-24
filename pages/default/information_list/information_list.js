@@ -193,7 +193,6 @@ Page({
 		if (this.data.orderInfo.isOwner || this.data.orderInfo.isVehicle) {
 			topProgressBar = 3.3;
 		}
-		console.log(this.data.orderInfo.isOwner);
 		if (url === 'information_validation' && !this.data.orderInfo.isOwner) {
 			return util.showToastNoIcon('请先上传身份证');
 		}

@@ -151,7 +151,7 @@
 	left: 0;
 	right: 0;
 	top: 50%;
-	width: 650rpx;
+	width: 85vw;
 	height: auto;
 	margin: 0 auto;
 	overflow: hidden;
@@ -188,7 +188,7 @@
 	margin-top: 32rpx;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 }
 
 .alert-for-not-finished-content .moduleOne .topImg .photo .photo-item {
@@ -198,6 +198,10 @@
 	text-align: center;
 	border-radius: 16rpx;
 	background-color: rgba(243, 255, 249, 1);
+}
+
+.alert-for-not-finished-content .moduleOne .topImg .photo .photo-item:first-child {
+	margin-right: 10rpx;
 }
 
 .alert-for-not-finished-content .moduleOne .topImg .photo .photo-item .image {

@@ -37,7 +37,7 @@
 	border-radius: 16rpx;
 	background: #FFFFFF;
 	margin: 32rpx 28rpx 0rpx 28rpx;
-	box-shadow: 0rpx 4rpx 8rpx 8rpx rgba(240, 240, 240, 0.5);
+	/* box-shadow: 0rpx 4rpx 8rpx 8rpx rgba(240, 240, 240, 0.5); */
 }
 
 /* 办理模块 */
@@ -109,7 +109,7 @@
 .home .moduleOne .moduleOneBox .title {
 	width: 100%;
 	height: 40rpx;
-	font-size: 28rpx;
+	font-size: 30rpx;
 	font-weight: 400;
 	color: #000000;
 	margin-top: 14rpx;
