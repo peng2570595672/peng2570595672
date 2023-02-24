@@ -122,7 +122,7 @@ Page({
 				statisticsEvent: 'index_my-order'
 			},
 			{
-				icon: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',
+				icon: 'https://file.cyzl.com/g001/M01/C9/14/oYYBAGP4LYyAT9vPAAAz3QomDgg758.svg',
 				title: '通行发票',
 				btn: '开高速路费发票',
 				url: 'invoice',

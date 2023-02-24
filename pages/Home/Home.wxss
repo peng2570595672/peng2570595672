@@ -97,7 +97,6 @@
 	width: 118rpx;
 	height: 118rpx;
 	margin: 0 34rpx;
-	overflow: hidden;
 	border-radius: 50%;
 	background: #2A4F44;
 }
