@@ -3,8 +3,14 @@
     <!-- 顶部 滑块视图 -->
     <view class="topSwiper">
         <swiper class="swiperBox" autoplay circular duration="{{'1000'}}">
-            <swiper-item class="swiper-item" wx:for="{{imgList}}" wx:key="index" catchtap="pageGo">
+            <swiper-item class="swiper-item" wx:for="{{imgList}}" wx:key="index" catchtap="testFunc">
                 <image class="topImg" src='{{item}}' />
+                <view class="swiperText">
+                    <view class="textOne">小汽车ETC</view>
+                    <view class="textTwo">微信支付更心</view>
+                    <view class="textThree">通行95折/全国通行/过站免排队</view>
+                    <view class="iconfont textFour">了解详情</view>
+                </view>
             </swiper-item>
         </swiper>
     </view>
@@ -97,15 +103,16 @@
     </view>
     <!-- 占位 -->
     <view class="split"></view>
-    <!-- 弹窗 -->
-    <viewProcedure id="viewProcedure" bind:onHandle="viewProcedure" bind:btnMovingIntegral="btnMovingIntegral" data-value="false" viewTc="{{movingIntegralObj}}"></viewProcedure>
-    <view-img id="viewImg" bind:onHandle="testFunc" data-value="false" viewTc="{{viewTc}}"></view-img>
-    <popup id='dialog' dialogContent="{{dialogContent}}" bind:onHandle="onHandle"></popup>
-    <popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="popUp"></popup1>
-    <agreement-dialog id='agreement-dialog'></agreement-dialog>
     <!-- 同盾  在需要采集设备信息的页面加入以下节点 -->
     <view wx:if="{{(hideFMCanvas != undefined) && !hideFMCanvas}}">
         <!-- 根据您页面的布局，修改margin-top的值 -->
         <canvas canvas-id='tdcanvas' style='margin-top:200rpx'></canvas>
     </view>
+    <!-- 弹窗 -->
+    <viewProcedure id="viewProcedure" bind:onHandle="viewProcedure" bind:btnMovingIntegral="btnMovingIntegral" data-value="false" viewTc="{{movingIntegralObj}}"></viewProcedure>
+    <view-img id="viewImg" bind:onHandle="testFunc" data-value="false" viewTc="{{viewTc}}"></view-img>
+    <popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="popUp"></popup1>
+    <agreement-dialog id='agreement-dialog'></agreement-dialog>
+    <!-- 测试弹窗 -->
+    <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
 </view>

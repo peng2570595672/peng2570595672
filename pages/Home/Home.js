@@ -104,7 +104,6 @@ Page({
 		isShowNotice: false, // 是否显示广告位
 		isActivityDate: false, // 是否活动期间
 		isActivityForBannerDate: false, // 是否是banner上线时间
-		dialogContent: {}, // 弹窗内容
 		// @cyl
 		// movingIntegralControl: false, // 控制弹窗的显示与隐藏
 		areaNotOpened: ['河南', '江西', '广西', '辽宁', '重庆', '云南'], // 号码归属地还未开通 移动积分业务的
@@ -152,8 +151,8 @@ Page({
 		movingIntegralObj: {
 			movingIntegralControl: false
 		},
-		isEquityRights: app.globalData.isEquityRights	// 是否是权益券额用户
-
+		isEquityRights: app.globalData.isEquityRights,	// 是否是权益券额用户
+		popList: []
 	},
 	async onLoad (options) {
 		this.setData({
@@ -163,13 +162,11 @@ Page({
 		app.globalData.isNeedReturnHome = false;
 		this.login();
 		this.getBanner();
-		this.setData({
-			moduleOneList: app.globalData.isVip || app.globalData.isEquityRights ? this.data.moduleOneList.filter(item => item.title !== '在线客服') : this.data.moduleOneList.filter(item => item.title !== '权益商城')
-		});
 		util.getUserIsVip();
 	},
 	async onShow () {
 		util.customTabbar(this, 0);
+		util.getUserIsVip();
 		// @cyl
 		// 初始化设备指纹对象
 		this.fmagent = new FMAgent(app.globalData._fmOpt);
@@ -177,9 +174,18 @@ Page({
 		util.getUserInfo(this.getId);
 		this.setData({
 			isActivityForBannerDate: util.isDuringDate('2021/06/23', '2021/07/16'),
-			isActivityDate: util.isDuringDate('2021/6/25 11:00', '2021/6/28 15:00'),
-			isVip: app.globalData.isVip
+			isActivityDate: util.isDuringDate('2021/6/25 11:00', '2021/6/28 15:00')
 		});
+		if (app.globalData.isVip || app.globalData.isEquityRights) {
+			this.setData({
+				moduleOneList: this.data.moduleOneList.filter(item => item.title !== '在线客服')
+			});
+		} else {
+			this.setData({
+				moduleOneList: this.data.moduleOneList.filter(item => item.title !== '权益商城')
+			});
+		}
+		console.log('数据列表：',this.data.moduleOneList);
 		if (app.globalData.userInfo.accessToken) {
 			util.getMemberStatus();
 			if (app.globalData.salesmanScanCodeToHandleId) {
@@ -207,28 +213,16 @@ Page({
 			wx.removeStorageSync('login_info_final');
 		}
 	},
+
 	// --------------------------------测试方法: 广告弹窗------------------------
 	testFunc (e) {
-		let flag = e.currentTarget.dataset.value || 0;
-		if (flag) {
-			this.setData({
-				whetherToStay: false
-			});
-		} else {
-			this.setData({
-				viewTc: {
-					img: 'https://file.cyzl.com/g001/M07/B6/F4/oYYBAGO-ebuALxEMAAF_Efyf1k0965.jpg',
-					whetherToStay: true,
-					radius: true,
-					src: '/pages/default/agreement/agreement'
-				}
-			});
-			this.selectComponent('#viewImg').show();
-		}
-	},
-	pageGo () {
-		// 跳转 活动页面
-		// util.go('/pages/default/index/index');
+		this.selectComponent('#viewImg').show({
+			img: 'https://file.cyzl.com/g001/M07/B6/F4/oYYBAGO-ebuALxEMAAF_Efyf1k0965.jpg',
+			whetherToStay: true,
+			radius: true,
+			src: '/pages/default/agreement/agreement',
+			btnShadowHide: true
+		});
 	},
 	// 获取 “出行贴心服务” banner
 	async getBanner () {
@@ -592,8 +586,7 @@ Page({
 	sortDataArray (dataArray) {
 		return dataArray.sort(function (a, b) {
 			if (b.lastOpTime && a.lastOpTime) {
-				return Date.parse(b.lastOpTime.replace(/-/g, '/')) - Date
-					.parse(a.lastOpTime.replace(/-/g, '/'));
+				return Date.parse(b.lastOpTime.replace(/-/g, '/')) - Date.parse(a.lastOpTime.replace(/-/g, '/'));
 			}
 		});
 	},
@@ -684,8 +677,7 @@ Page({
 				// }
 			});
 			this.initDadi();
-			const isWaitActivation = passengerCarList.find(item => item.auditStatus === 2 && item
-				.logisticsId === 0 && item.obuStatus === 0); // 待激活
+			const isWaitActivation = passengerCarList.find(item => item.auditStatus === 2 && item.logisticsId === 0 && item.obuStatus === 0); // 待激活
 			const isDuringDate = util.isDuringDate('2021/6/26', '2021/7/1');
 			const isAlertPrompt = wx.getStorageSync('is-alert-prompt');
 			if ((isWaitActivation || !list.length) && isDuringDate && !isAlertPrompt) {
@@ -931,32 +923,34 @@ Page({
 		}
 	},
 	dialogJudge (money, isTruck = false) {
+		// 请尽快补缴欠款
 		if (money) {
-			// // 欠费 - 弹窗补缴
-			// let dialogContent = {
-			// 	title: '请尽快补缴欠款',
-			// 	content: `你已欠款${money / 100}元，将影响正常的高速通行`,
-			// 	cancel: '取消',
-			// 	confirm: '立刻补缴'
-			// };
-			// this.setData({dialogContent});
-			// this.selectComponent('#dialog').show();
-			util.alertPayment(money, isTruck);
+			this.selectComponent('#popTipComp').show({
+				type: 'three',
+				title: '请尽快补缴欠款',
+				btnCancel: '取消',
+				btnconfirm: '立刻补缴',
+				btnShadowHide: true,
+				params: {
+					money: money,
+					isTruck: isTruck
+				}
+			});
+			// util.alertPayment(money, isTruck);
 			return;
 		}
 		// 解约
 		let orderInfo = this.data.isTerminationTruck ? this.data.truckOrderInfo : this.data.passengerCarOrderInfo;
-		let dialogContent = {
-			orderInfo: orderInfo,
+		this.selectComponent('#popTipComp').show({
+			type: 'four',
 			title: '无法正常扣款',
 			content: '检测到你已解除车主服务签约，将影响正常的高速通行',
-			cancel: '取消',
-			confirm: '恢复签约'
-		};
-		this.setData({
-			dialogContent
+			btnCancel: '取消',
+			btnconfirm: '恢复签约',
+			params: {
+				orderInfo: orderInfo
+			}
 		});
-		this.selectComponent('#dialog').show();
 	},
 	// 3.0清空签约信息 & 修改成2.0套餐
 	async changeByOrderIds () {
@@ -980,12 +974,12 @@ Page({
 		);
 	},
 	// 弹窗确认回调
-	onHandle () {
-		if (this.data.dialogContent.orderInfo) {
+	onHandle (e) {
+		if (e.detail.orderInfo) {
 			// 恢复签约
-			app.globalData.orderInfo.orderId = this.data.dialogContent.orderInfo.id;
+			app.globalData.orderInfo.orderId = e.detail.orderInfo.id;
 			wx.uma.trackEvent('index_for_dialog_signing');
-			this.onClickBackToSign(this.data.dialogContent.orderInfo);
+			this.onClickBackToSign(e.detail.orderInfo);
 			return;
 		}
 		wx.uma.trackEvent('index_for_arrears_bill');
@@ -997,11 +991,8 @@ Page({
 		const orderInfo = this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data.truckOrderInfo;
 		if (!orderInfo) {
 			app.globalData.orderInfo.orderId = '';
-			wx.uma.trackEvent(this.data.activeIndex === 1 ? 'index_for_new_deal_with'
-				: 'index_for_truck_new_deal_with');
-			//	const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address' : '/pages/truck_handling/truck_receiving_address/truck_receiving_address';
-			const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address'
-				: '/pages/default/trucks/trucks';
+			wx.uma.trackEvent(this.data.activeIndex === 1 ? 'index_for_new_deal_with' : 'index_for_truck_new_deal_with');
+			const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address' : '/pages/default/trucks/trucks';
 			util.go(url);
 			return;
 		}
@@ -1503,5 +1494,4 @@ Page({
 		const url = `https://${app.globalData.test ? 'etctest' : 'etc'}.cyzl.com/${app.globalData.test ? 'etc2-html' : 'wetc'}/etc_life_rights_and_interests/index.html#/?auth=${app.globalData.userInfo.accessToken}&platformId=${app.globalData.platformId}`;
 		util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
 	}
-
 });

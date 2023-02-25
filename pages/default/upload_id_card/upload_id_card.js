@@ -252,8 +252,6 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			// result.data.result = false;
-			// result.data.info = '核心提示【车牌贵GF9158已中国ETC实名在2019-08-2117:13:59,在统一平台贵州发行方办理有OBU,请联系渠道方处理】';
 			let isOk2 = result.data.rcode && result.data.rcode !== 0 ? true : false;
 			if (!result.data.result || isOk2) {
 				if (!result.data.result) {

@@ -8,11 +8,11 @@
 
 .home::before {
 	width: 100%;
-    display: block;
-    content: '';
-    height: 176rpx;
-    overflow: hidden;
-	background-color: rgba(26,80,67,1);
+	display: block;
+	content: '';
+	height: 176rpx;
+	overflow: hidden;
+	background-color: rgba(26, 80, 67, 1);
 }
 
 /*  顶部 滑块视图 */
@@ -41,6 +41,49 @@
 	display: block;
 }
 
+.home .topSwiper .swiperBox .swiper-item .swiperText {
+	width: 380rpx;
+	height: 300rpx;
+	font-weight: 400;
+	position: absolute;
+	top: 24rpx;
+	left: 28rpx;
+	font-family: PingFangSC-Semibold, PingFang SC;
+}
+
+.home .topSwiper .swiperBox .swiper-item .swiperText .textOne {
+	font-size: 58rpx;
+	font-weight: 600;
+	color: #E4CB86;
+}
+
+.home .topSwiper .swiperBox .swiper-item .swiperText .textTwo {
+	font-size: 36rpx;
+	color: #FFFFFF;
+	margin-top: 10rpx;
+}
+
+.home .topSwiper .swiperBox .swiper-item .swiperText .textThree {
+	font-size: 24rpx;
+	font-weight: 400;
+	color: #FFFFFF;
+	margin-top: 24rpx;
+}
+
+.home .topSwiper .swiperBox .swiper-item .swiperText .textFour {
+	font-size: 32rpx;
+	color: #E4CB86;
+	margin-top: 28rpx;
+}
+
+.home .topSwiper .swiperBox .swiper-item .swiperText .textFour::after {
+	display: inline-block;
+	content: '\e601';
+	color: #E4CB86;
+	font-size: 20rpx;
+	margin-left: 30rpx;
+}
+
 .home .module {
 	padding: 0rpx 28rpx;
 	border-radius: 16rpx;
@@ -63,7 +106,8 @@
 	align-items: center;
 	justify-content: space-between;
 }
-.home .immediately .carPlan .car{
+
+.home .immediately .carPlan .car {
 	font-size: 36rpx;
 	font-weight: 400;
 	color: #2A4F44;
@@ -79,6 +123,7 @@
 	border-radius: 12rpx;
 	background-color: #5EBE68;
 }
+
 .home .immediately .tipsClerk {
 	font-size: 24rpx;
 	margin-top: 10rpx;
@@ -90,7 +135,7 @@
 	margin-top: -68rpx;
 	min-height: 302rpx;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: space-around;
 }
 
 .home .moduleOne .moduleOneBox {
@@ -318,4 +363,3 @@
 	height: 300rpx;
 	overflow: hidden;
 }
-

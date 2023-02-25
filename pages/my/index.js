@@ -491,7 +491,6 @@ Page({
 	// 获取头像和昵称
 	getUserProfiles () {
 		let personInformation = wx.getStorageSync('person_information');
-		let isVip = this.data.isVip;
 		let noVip = 'https://file.cyzl.com/g001/M01/C8/3F/oYYBAGP0VgGAQa01AAAG5Ng7rok991.svg';
 		let yesVip = 'https://file.cyzl.com/g001/M01/C8/3F/oYYBAGP0VdeAZ2uZAAAG57UJ39U085.svg';
 		this.setData({

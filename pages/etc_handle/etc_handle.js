@@ -51,7 +51,6 @@ Page({
 			customStyle: 'overflow:auto !important;z-index:-10 !important;',
 			overlayStyle: 'overflow:auto !important;z-index:-10'
 		});
-		console.log(this.data.show);
 	},
 	// 监听返回按钮
 	onClickBackHandle () {

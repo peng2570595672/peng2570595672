@@ -1724,18 +1724,15 @@ function fangDou (that,fn, time) {
 }
 // 获取用户是否 ETC+Plus用户
 async function getUserIsVip() {
-	console.log('进入');
 	const result = await getDataFromServersV2('consumer/order/member/userType', {},'POST',false);
 	if (!result) return;
 	if (result.code === 0) {
 		if ( result.data.userType === 2) {
 			app.globalData.isVip = true
-			console.log('ssss');
 		} else {
 			app.globalData.isVip = false
 		}
 	} else {
-		app.globalData.isVip = false
 		showToastNoIcon(result.message);
 	}
 }
