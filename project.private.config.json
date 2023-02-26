@@ -172,5 +172,9 @@
 				}
 			]
 		}
+	},
+	"projectname": "etc_plus_mini_2.0",
+	"setting": {
+		"compileHotReLoad": true
 	}
 }

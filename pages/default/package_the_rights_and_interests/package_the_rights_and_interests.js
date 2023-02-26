@@ -843,7 +843,6 @@ Page({
 				let equityObj = {index: index, packageName: '',payMoney: 0};
 				equityListMap.push(equityObj);
 			}
-			console.log(result);
 		}
 		this.setData({
 			equityListMap: equityListMap
