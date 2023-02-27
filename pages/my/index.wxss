@@ -108,7 +108,7 @@
 
 .my .user .userInfo .mobilePhoneEquity .viewEquity {
     font-size: 24rpx;
-    font-weight: bold;
+    font-weight: 400;
 }
 
 .my .user .userInfo .mobilePhoneEquity .viewEquity::after {

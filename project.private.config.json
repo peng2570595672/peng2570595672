@@ -94,114 +94,13 @@
 					"scene": null
 				},
 				{
-					"name": "4.0 我的",
-					"pathName": "pages/my/index",
-					"query": "",
-					"launchMode": "default",
-					"scene": null
-				},
-				{
-					"name": "4.0 ETC办理",
-					"pathName": "pages/etc_handle/etc_handle",
-					"query": "",
-					"launchMode": "default",
-					"scene": null
-				},
-				{
-					"name": "4.0 首页",
-					"pathName": "pages/Home/Home",
-					"query": "",
-					"launchMode": "default",
-					"scene": null
-				},
-				{
-					"name": "我的ETC",
-					"pathName": "pages/personal_center/my_etc/my_etc",
-					"query": "",
-					"launchMode": "default",
-					"scene": null
-				},
-				{
-					"name": "4.0 订单分类",
-					"pathName": "pages/personal_center/order_triage/order_triage",
-					"query": "",
-					"launchMode": "default",
-					"scene": null
-				},
-				{
-					"name": "",
-					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "orderId=1077994159542898688",
-					"launchMode": "default",
-					"scene": null
-				},
-				{
-					"name": "",
-					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "orderId=1063109394054516736",
-					"launchMode": "default",
-					"scene": null
-				},
-				{
-					"name": "4.0 我的权益",
-					"pathName": "pages/personal_center/description_of_equity/description_of_equity",
-					"query": "isVip=undefined",
-					"launchMode": "default",
-					"scene": null
-				},
-				{
-					"name": "",
-					"pathName": "pages/default/receiving_address/receiving_address",
-					"query": "",
-					"launchMode": "default",
-					"scene": null
-				},
-				{
-					"name": "4.0 填写基础信息",
-					"pathName": "pages/default/receiving_address/receiving_address",
-					"query": "",
-					"launchMode": "default",
-					"scene": null
-				},
-				{
-					"name": "",
-					"pathName": "pages/personal_center/my_etc/my_etc",
-					"query": "test=gggg",
-					"launchMode": "default",
-					"scene": null
-				},
-				{
-					"name": "",
-					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "orderId=1052921616029192192",
-					"launchMode": "default",
-					"scene": null
-				},
-				{
-					"name": "",
-					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "orderId=1038104740237414400",
-					"launchMode": "default",
-					"scene": null
-				},
-				{
 					"name": "",
 					"pathName": "pages/my/index",
-					"query": "",
-					"launchMode": "default",
-					"scene": null
-				},
-				{
-					"name": "",
-					"pathName": "pages/account_management/index/index",
 					"query": "",
 					"launchMode": "default",
 					"scene": null
 				}
 			]
 		}
-	},
-	"setting": {
-		"useIsolateContext": false
 	}
 }

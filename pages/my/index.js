@@ -4,7 +4,6 @@ const util = require('../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
-		isVip: false, //	用户是否是Vip(即ETC+PLUS)
 		testImg: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',	// 测试所用的图片和icon
 		funcList: [
 			{
@@ -84,6 +83,8 @@ Page({
 		if (app.globalData.userInfo.accessToken) {
 			// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
 			let requestList = [await util.getUserIsVip(),await this.getRightAccount(), await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon(), await this.getRightsAccount()];
+			util.customTabbar(this, 2);
+			util.getUserIsVip();
 			util.showLoading();
 			await Promise.all(requestList);
 			util.hideLoading();
@@ -106,8 +107,10 @@ Page({
 			isActivityDate: util.isDuringDate('2021/6/25 11:00', '2021/6/28 15:00'),
 			mobilePhoneSystem: app.globalData.mobilePhoneSystem,
 			mobilePhone: app.globalData.mobilePhone,
-			screenHeight: wx.getSystemInfoSync().windowHeight
+			screenHeight: wx.getSystemInfoSync().windowHeight,
+			isVip: app.globalData.isVip
 		});
+		await this.getUserProfiles();
 	},
 	cardChange (e) {
 		if (e.detail.index === 3 && this.data.cardList.length !== 4) {
@@ -601,12 +604,11 @@ Page({
 	// 获取头像和昵称
 	getUserProfiles () {
 		let personInformation = wx.getStorageSync('person_information');
-		let isVip = this.data.isVip;
 		let noVip = 'https://file.cyzl.com/g001/M01/C8/3F/oYYBAGP0VgGAQa01AAAG5Ng7rok991.svg';
 		let yesVip = 'https://file.cyzl.com/g001/M01/C8/3F/oYYBAGP0VdeAZ2uZAAAG57UJ39U085.svg';
 		this.setData({
 			userInfo: {
-				avatarUrl: personInformation.avatarUrl ? personInformation.avatarUrl : isVip ? yesVip : noVip,
+				avatarUrl: personInformation.avatarUrl ? personInformation.avatarUrl : app.globalData.isVip ? yesVip : noVip,
 				nickName: personInformation.nicheng ? personInformation.nicheng : 'E+车主'
 			}
 		});

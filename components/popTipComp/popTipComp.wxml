@@ -1,20 +1,39 @@
 <!-- ETC4.0新增 -->
+<wxs src='../../utils/util.wxs' module='tools' />
 <view>
-    <view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}"></view>
+    <view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}" catchtap="{{ tipObj.btnShadowHide ? 'hide' : ''}}"></view>
     <view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}" wx:if="{{mask}}">
+        <!-- 带标题 只有确定按钮 -->
         <view class="module moduleOne" wx:if="{{tipObj.type === 'one'}}">
             <view class="title">{{tipObj.title}}</view>
-            <view class="contant">{{tipObj.content}}</view>
+            <view class="contant">{{tools.limitNumber(tipObj.content,90)}}</view>
             <button class="btn" catchtap="hide">确定</button>
             <view class="close iconfont" catchtap="hide"></view>
         </view>
+        <!-- 带标题 拥有取消和确定按钮 -->
         <view class="module moduleTwo" wx:if="{{tipObj.type === 'two'}}">
             <view class="title">{{tipObj.title}}</view>
-            <view class="contant">{{tipObj.content}}</view>
+            <view class="contant">{{tools.limitNumber(tipObj.content,90)}}</view>
             <view class="bottomBtn">
                 <button class="cancel" catchtap="hide">取消</button>
                 <button class="ok" catchtap="hide">确定</button>
             </view>
+        </view>
+        <!-- 欠费补缴  -->
+        <view class="module moduleThree" wx:if="{{tipObj.type === 'three'}}">
+            <view class="title">{{tipObj.title}}</view>
+            <view class="contant">你已欠款 <span class="span"> {{tipObj.params.money / 100}} </span>元，将影响正常的高速通行</view>
+            <view class="bottomBtn">
+                <button class="cancel" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</button>
+                <button class="ok" catchtap="supplementaryPayment">{{tools.limitNumber(tipObj.btnconfirm,4)}}</button>
+            </view>
+        </view>
+        <!-- 恢复签约 -->
+        <view class="module moduleFour" wx:if="{{tipObj.type === 'four'}}">
+            <view class="title">{{tipObj.title}}</view>
+            <view class="contant">{{tipObj.content}}</view>
+            <button class="btn" catchtap="resumeSigning">{{tools.limitNumber(tipObj.btnconfirm,4)}}</button>
+            <view class="close iconfont" catchtap="hide"></view>
         </view>
     </view>
 </view>

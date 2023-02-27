@@ -1,7 +1,7 @@
 .addValueService {
     width: 100%;
     height: 100%;
-    margin-top: 20rpx;
+	margin-top: 20rpx;
 }
 
 .addValueService .moduleOne .related-service-list .title {
@@ -10,7 +10,7 @@
     font-size: 24rpx;
     font-weight: 500;
     font-family: PingFangSC-Medium, PingFang SC;
-    color: #000;
+	color: #000;
 }
 
 .addValueService .moduleOne .related-service-list .maximum-quantity {
@@ -19,7 +19,7 @@
     font-size: 24rpx;
     font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;
-    color: #765026;
+    color: rgba(118, 80, 38, 0.9);
     line-height: 40rpx;
 }
 
@@ -44,7 +44,7 @@
 .addValueService .moduleOne .related-service-list .new-related-service .new-list-item::before {
     display: block;
     width: 18rpx;
-    height: 10rpx;
+    height: 11rpx;
     content: '';
     border-radius: 0rpx 0rpx 10rpx 10rpx;
     background-color: #F9F6EF;
@@ -56,7 +56,7 @@
 .addValueService .moduleOne .related-service-list .new-related-service .new-list-item::after {
     display: block;
     width: 18rpx;
-    height: 10rpx;
+    height: 11rpx;
     content: '';
     border-radius: 10rpx 10rpx 0rpx 0rpx;
     background-color: #F9F6EF;

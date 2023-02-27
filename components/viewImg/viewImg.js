@@ -12,6 +12,7 @@ Component({
 	},
 
 	data: {
+		viewTc: {},
 		// 广告弹窗可以控制：图片，图片是否圆角
 		mask: false,
 		wrapper: false
@@ -28,10 +29,11 @@ Component({
 				wrapper: false
 			});
 		},
-		show () {
+		show (obj) {
 			this.setData({
 				mask: true,
-				wrapper: true
+				wrapper: true,
+				viewTc: obj
 			});
 		},
 		hide (e) {
@@ -42,7 +44,6 @@ Component({
 				this.setData({
 					mask: false
 				});
-				this.triggerEvent('onHandle');
 			}, 400);
 		}
 	}

@@ -73,6 +73,9 @@ function dataLen(obj) {
 }
 // 限制展示的字符个数 ,arg1:表示展示的文本，arg2:限制的个数
 function limitNumber(obj,num) {
+  if (!obj) {
+    return
+  }
   var len = obj.length
   if (len <= num) {
     return obj

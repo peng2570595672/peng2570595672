@@ -6,7 +6,7 @@
     position: fixed;
     top: 0;
     background-color: #ECECEC;
-    z-index: 10;
+	z-index: 10;
 }
 
 .top .innerBox {
@@ -25,8 +25,9 @@
     color: #FFFFFF;
     line-height: 28rpx;
     text-align: center;
-    font-weight: normal;
-    border-radius: 14rpx;
+	font-weight: normal;
+	line-height: 32rpx;
+    border-radius: 28rpx;
     background: #E3E3E3;
     border: 4rpx solid #ECECEC;
     font-family: Arial-BoldItalicMT, Arial;

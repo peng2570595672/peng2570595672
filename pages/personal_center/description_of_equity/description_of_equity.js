@@ -42,11 +42,12 @@ Page({
 		this.setData({
 			isVip: options.isVip === 'true' ? true : false
 		});
+		app.globalData.isEquityRights = app.globalData.myEtcList.filter(item => item.pledgeType === 4 && item.pledgeStatus === 1).length > 0;
 	},
 
 	onShow () {
 		this.setData({
-			needData: this.data.isVip ? this.data.listOne : this.data.listOne.filter(item => (item.id !== 4))
+			needData: this.data.isVip || app.globalData.isEquityRights ? this.data.listOne : this.data.listOne.filter(item => (item.id !== 4))
 		});
 	},
 

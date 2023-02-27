@@ -144,7 +144,7 @@
     top: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.6);
-    z-index: 10000;
+    z-index: 100000;
 }
 
 .alert-for-not-finished-content {
@@ -152,7 +152,7 @@
     left: 0;
     right: 0;
     top: 50%;
-    width: 650rpx;
+    width: 694rpx;
     height: auto;
     margin: 0 auto;
     border-radius: 16rpx;
@@ -187,6 +187,11 @@
     text-align: justify;
     margin: 28rpx 0rpx 64rpx 0rpx;
     font-family: PingFangSC-Regular, PingFang SC;
+}
+
+.alert-for-not-finished-content .module .contant .span {
+    font-size: 32rpx;
+    color: #f00;
 }
 
 .alert-for-not-finished-content .module .btn {
@@ -236,11 +241,40 @@
     width: 220rpx;
     height: 96rpx;
     color: #2A4F44;
+    line-height: 96rpx;
     border-radius: 54rpx;
     border: 2rpx solid #2A4F44;
 }
 
 .alert-for-not-finished-content .moduleTwo .bottomBtn .ok {
+    width: 310rpx;
+    height: 96rpx;
+    color: #FFFFFF;
+    line-height: 96rpx;
+    border-radius: 54rpx;
+    background: #2A4F44;
+}
+
+/* 欠费补缴 */
+.alert-for-not-finished-content .moduleThree .bottomBtn {
+    display: flex;
+    font-size: 36rpx;
+    font-weight: 400;
+    text-align: center;
+    justify-content: space-between;
+    font-family: PingFangSC-Regular, PingFang SC;
+}
+
+.alert-for-not-finished-content .moduleThree .bottomBtn .cancel {
+    width: 220rpx;
+    height: 96rpx;
+    color: #2A4F44;
+    line-height: 96rpx;
+    border-radius: 54rpx;
+    border: 2rpx solid #2A4F44;
+}
+
+.alert-for-not-finished-content .moduleThree .bottomBtn .ok {
     width: 310rpx;
     height: 96rpx;
     color: #FFFFFF;

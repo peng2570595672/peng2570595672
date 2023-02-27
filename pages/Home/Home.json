@@ -6,11 +6,11 @@
   "navigationStyle": "custom",
 	"component": true,
 	"usingComponents": {
-      "popup": "/components/dialog/dialog",
       "popup1": "/components/dialog1/dialog",
       "agreement-dialog": "/components/agreement_dialog/agreement_dialog",
       "view-img": "/components/viewImg/viewImg",
-      "viewProcedure": "/components/viewProcedure/viewProcedure"
+      "viewProcedure": "/components/viewProcedure/viewProcedure",
+      "popTipComp": "/components/popTipComp/popTipComp"
 
 	}
 }
