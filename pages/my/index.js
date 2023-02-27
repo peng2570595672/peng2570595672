@@ -8,28 +8,32 @@ Page({
 		funcList: [
 			{
 				icon: 'https://file.cyzl.com/g001/M01/C9/1D/oYYBAGP4OlOADWQKAAWyyaAG1H4541.svg',
+				iconVip: 'https://file.cyzl.com/g001/M01/CA/15/oYYBAGP8PBKAcu-ZAAWzoBj0ITE404.svg',
 				title: '我的订单',
 				url: 'order_triage'},
 			{
 				icon: 'https://file.cyzl.com/g001/M01/C9/1D/oYYBAGP4OiaAdN9gAAWMTPzu62k488.svg',
+				iconVip: 'https://file.cyzl.com/g001/M01/CA/15/oYYBAGP8PC2ALTVSAAWM7dN3bB8663.svg',
 				title: '通行流水',
 				url: 'my_order'},
 			{
 				icon: 'https://file.cyzl.com/g001/M01/C9/1D/oYYBAGP4OaGAJ-ImAAWmhyqdgxo977.svg',
+				iconVip: 'https://file.cyzl.com/g001/M01/CA/15/oYYBAGP8PEGAFTPWAAWnPpy3j-o653.svg',
 				title: '领券中心',
 				url: 'coupon_redemption_centre'},
 			{
 				icon: 'https://file.cyzl.com/g001/M01/C9/1D/oYYBAGP4OnaANbE3AAWZBnVW83M524.svg',
+				iconVip: 'https://file.cyzl.com/g001/M01/CA/15/oYYBAGP8PFCAQBrdAAWZ9FCgDIw288.svg',
 				title: '帮助中心',
 				url: 'help_center'
 			}
 
 		],
 		funcList2: [
-			{icon: '',title: '在线客服',url: 'online_customer_service'},
-			// {icon: '',title: '手机号管理',url: ''},   //本期先隐藏该项，暂不做功能
-			{icon: '',title: '发票助手',url: 'invoice_assistant'},
-			{icon: '',title: '相关协议',url: 'user_agreement'}
+			{icon: '',title: '在线客服',url: 'online_customer_service',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8O5WAfXwSAAAOCAtM_x0245.svg'},
+			// {icon: '',title: '手机号管理',url: '',img: ''},   //本期先隐藏该项，暂不做功能
+			{icon: '',title: '发票助手',url: 'invoice_assistant',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8OrKABB0VAAAMgE_4pJ8510.svg'},
+			{icon: '',title: '相关协议',url: 'user_agreement',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8OzyAWjMrAAAI3O0L414758.svg'}
 		],
 		myAccountList: [],
 

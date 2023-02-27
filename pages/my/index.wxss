@@ -125,7 +125,7 @@
     border-radius: 16rpx;
     background: #FFFFFF;
     margin: 36rpx 28rpx 0rpx 28rpx;
-    box-shadow: 0rpx 4rpx 8rpx 8rpx rgba(240, 240, 240, 0.5);
+    /* box-shadow: 0rpx 4rpx 8rpx 8rpx rgba(240, 240, 240, 0.5); */
 }
 
 /* 模块一 */
@@ -193,6 +193,7 @@
 .my .moduleThree {
     height: 270rpx;
     overflow: hidden;
+    box-shadow: 0rpx 4rpx 8rpx 8rpx rgba(240, 240, 240, 0.5);
 }
 
 .my .moduleThree>.image {
@@ -203,6 +204,7 @@
 /* 模块四 */
 .my .moduleFour {
     min-height: 294rpx;
+    box-shadow: 0rpx 4rpx 8rpx 8rpx rgba(240, 240, 240, 0.5);
 }
 
 .my .moduleFour .funcList {
@@ -225,27 +227,14 @@
     align-items: center;
 }
 
-.my .moduleFour .funcList .funcListLeft .icon::before {
-    display: block;
+.my .moduleFour .funcList .funcListLeft .icon {
     width: 42rpx;
     height: 42rpx;
-    font-size: 35rpx;
-    text-align: center;
-    line-height: 42rpx;
-    margin-right: 10rpx;
-    color: rgba(0, 0, 0, 0.5);
 }
 
-.my .moduleFour .funcList .funcListLeft .img0::before {
-    content: "\e8b9";
-}
-
-.my .moduleFour .funcList .funcListLeft .img1::before {
-    content: "\eb25";
-}
-
-.my .moduleFour .funcList .funcListLeft .img2::before {
-    content: "\e621";
+.my .moduleFour .funcList .funcListLeft .icon .iconImg {
+    width: 100%;
+    height: 100%;
 }
 
 .my .moduleFour .funcList .funcListLeft .funcListText {
