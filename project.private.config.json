@@ -100,6 +100,20 @@
 					"query": "",
 					"launchMode": "default",
 					"scene": null
+				},
+				{
+					"name": "4.0 我的",
+					"pathName": "pages/my/index",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "4.0 填写基础信息页",
+					"pathName": "pages/default/receiving_address/receiving_address",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
 				}
 			]
 		}

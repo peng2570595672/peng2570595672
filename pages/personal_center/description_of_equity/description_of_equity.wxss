@@ -74,7 +74,11 @@
 
 .index .swiperBox .content .contentText {
     width: 446rpx;
+    font-weight: 400;
+    font-size: 28rpx;
+    color: #B5774C;
     text-align: center;
+    font-family: PingFangSC-Regular, PingFang SC;
     position: absolute;
     left: 50%;
     top: 40vh;

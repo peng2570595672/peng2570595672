@@ -7,6 +7,7 @@ Page({
 	},
 
 	onLoad (options) {
+
 	},
 
 	onShow () {
@@ -23,7 +24,7 @@ Page({
 						platformId: app.globalData.platformId, // 平台id
 						code: res.code // 从微信获取的code
 				},'POST',false);
-					// console.log('微信信息：' ,result);
+				// console.log('微信信息：' ,result);
 				if (!result) return;
 				if (result.code === 0) {
 					result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data.mobilePhone);
@@ -36,13 +37,22 @@ Page({
 						this.getOrderList();
 						util.getUserIsVip();
 					} else {
-// ----差东西---------------------------
+						wx.switchTab({
+							url: '/pages/Home/Home'
+						});
 					}
 				} else {
+					// 跳转首页;
+					wx.switchTab({
+						url: '/pages/Home/Home'
+					});
 					util.showToastNoIcon(result.message);
 				}
 			},
 			fail: () => {
+				wx.switchTab({
+					url: '/pages/Home/Home'
+				});
 				util.showToastNoIcon('登录失败！');
 			}
 		});
@@ -61,7 +71,7 @@ Page({
 				});
 			} else {
 				// 跳转 客车产品介绍页
-				wx.switchTab({
+				wx.reLaunch({
 					url: '/pages/etc_handle/etc_handle'
 				});
 			}
