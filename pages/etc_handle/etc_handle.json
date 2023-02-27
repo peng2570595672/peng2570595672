@@ -3,6 +3,7 @@
 	"navigationBarBackgroundColor": "#000000",
 	"backgroundColor": "#000000",
 	"navigationBarTextStyle": "white",
+	"enablePullDownRefresh": false,
 	"navigationStyle": "custom",
 	"usingComponents": {
 		"viewProcedure": "/components/viewProcedure/viewProcedure"

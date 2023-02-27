@@ -216,13 +216,16 @@ Page({
 
 	// --------------------------------测试方法: 广告弹窗------------------------
 	testFunc (e) {
-		this.selectComponent('#viewImg').show({
-			img: 'https://file.cyzl.com/g001/M07/B6/F4/oYYBAGO-ebuALxEMAAF_Efyf1k0965.jpg',
-			whetherToStay: true,
-			radius: true,
-			src: '/pages/default/agreement/agreement',
-			btnShadowHide: true
+		wx.switchTab({
+			url: '/pages/etc_handle/etc_handle'
 		});
+		// this.selectComponent('#viewImg').show({
+		// 	img: 'https://file.cyzl.com/g001/M07/B6/F4/oYYBAGO-ebuALxEMAAF_Efyf1k0965.jpg',
+		// 	whetherToStay: true,
+		// 	radius: true,
+		// 	src: '/pages/default/agreement/agreement',
+		// 	btnShadowHide: true
+		// });
 	},
 	// 获取 “出行贴心服务” banner
 	async getBanner () {

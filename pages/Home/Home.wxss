@@ -47,7 +47,7 @@
 	font-weight: 400;
 	position: absolute;
 	top: 24rpx;
-	left: 28rpx;
+	left: 50rpx;
 	font-family: PingFangSC-Semibold, PingFang SC;
 }
 
@@ -81,7 +81,7 @@
 	content: '\e601';
 	color: #E4CB86;
 	font-size: 20rpx;
-	margin-left: 30rpx;
+	margin-left: 10rpx;
 }
 
 .home .module {
@@ -89,13 +89,13 @@
 	border-radius: 16rpx;
 	background: #FFFFFF;
 	margin: 32rpx 28rpx 0rpx 28rpx;
+	position: relative;
+	top: -100rpx;
 }
 
 /* 办理模块 */
 .home .immediately {
 	height: 160rpx;
-	position: relative;
-	top: -100rpx;
 	overflow: hidden;
 }
 
@@ -129,10 +129,59 @@
 	margin-top: 10rpx;
 }
 
+.home .immediately .bill-info {
+	text-align: center;
+	margin-top: 34rpx;
+}
+
+.home .immediately .bill-info .bill {
+	height: 60rpx;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	font-size: 48rpx;
+	font-weight: bold;
+	color: #00b85c;
+	/* background-color: #9ad5ff; */
+}
+
+.home .immediately .bill-info .bill::after {
+	content: '\e63e';
+	font-size: 20rpx;
+	color: #ffec9a;
+	margin-left: 12rpx;
+}
+
+.home .immediately .bill-info .bill.failure {
+	color: #ff3c48;
+}
+
+.home .immediately .bill-info .bill-status {
+	display: flex;
+	height: 34rpx;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	font-size: 24rpx;
+	color: #33333e;
+	line-height: 34rpx;
+	padding-top: 2rpx;
+}
+
+.home .immediately .bill-info .bill-status.failure::before {
+	color: #ff3c48;
+	content: '\e617';
+	margin-right: 8rpx;
+}
+
+
+
+
+
+
 /* 模块一  */
 .home .moduleOne {
 	display: flex;
-	margin-top: -68rpx;
 	min-height: 302rpx;
 	align-items: center;
 	justify-content: space-around;
@@ -183,6 +232,8 @@
 .home .moduleTwo {
 	margin: 32rpx 28rpx 0rpx 28rpx;
 	font-family: PingFangSC-Medium, PingFang SC;
+	position: relative;
+	top: -100rpx;
 }
 
 .home .head {
@@ -242,6 +293,8 @@
 	height: auto;
 	margin: 32rpx 28rpx 0rpx 28rpx;
 	background-color: transparent;
+	position: relative;
+	top: -100rpx;
 }
 
 .home .moduleThree .moduleThreeBox {

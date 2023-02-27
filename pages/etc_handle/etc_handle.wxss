@@ -12,14 +12,19 @@
 	height: 80rpx;
 	overflow: hidden;
 	font-size: 28rpx;
-	text-align: center;
 	border-radius: 50%;
-	line-height: 80rpx;
-	background-color: #ffffff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	position: absolute;
 	top: 100rpx;
 	left: 30rpx;
-	
+	/* background-color: antiquewhite; */
+}
+
+.index .topBack .goBanckImg {
+	width: 50%;
+	height: 50%;
 }
 
 /* 顶部banner */
