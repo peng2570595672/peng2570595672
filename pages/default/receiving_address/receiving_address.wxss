@@ -168,7 +168,7 @@
     margin-left: 20rpx;
     color: #1E1E1E;
     font-size: 32rpx;
-    font-weight: 400;
+    font-weight: 600;
   }
   
   .index .moduleThree .publicCode:nth-of-type(4) .publicCoderight .input {
@@ -184,12 +184,12 @@
   }
   
   .index .module .publicCode .publicCoderight .btns {
-    height: 45rpx;
+    height: 46rpx;
     color: #fff;
     font-size: 16rpx;
     font-weight: 400;
     text-align: center;
-    line-height: 45rpx;
+    line-height: 46rpx;
     padding: 0rpx 20rpx;
     border-radius: 24rpx;
     background: #5EBE68;

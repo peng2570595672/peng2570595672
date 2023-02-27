@@ -113,6 +113,13 @@
 					"query": "",
 					"launchMode": "default",
 					"scene": null
+				},
+				{
+					"name": "4.0我的订单",
+					"pathName": "pages/personal_center/order_triage/order_triage",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
 				}
 			]
 		}
