@@ -143,21 +143,14 @@
     font-family: Arial-BoldItalicMT, Arial;
 }
 
-.index .package .module .upperPart .titleMOney .titleExplain {
-    width: 186rpx;
-    height: 60rpx;
-    font-size: 16rpx;
-    font-weight: 400;
-    color: #FFFDFD;
-    line-height: 2r2px;
-    text-align: right;
-    font-family: PingFangSC-Regular, PingFang SC;
-    position: absolute;
-    right: 24rpx;
-    top: 82rpx;
+.index .package .module .upperPart .titleExplain {
+    width: 632rpx;
+    height: 47rpx;
+    border-radius: 16rpx;
+    background: #E9CA7B;
 }
 
-.index .package .module .upperPart .titleMOney .titleExplain::before {
+.index .package .module .upperPart .titleExplain::before {
     display: block;
     content: '';
     border: 5rpx solid;
@@ -166,20 +159,6 @@
     top: -3rpx;
     right: 0;
 
-}
-
-.index .package .module .upperPart .titleMOney .titleExplain .innerBox1 {
-    width: 100%;
-    height: 55rpx;
-    margin-top: 7rpx;
-    border-radius: 16rpx;
-    border-top-right-radius: 0rpx;
-    background-color: #5EBE68;
-}
-
-.index .package .module .upperPart .titleMOney .titleExplain .innerBox1 .innerBox2 {
-    display: inline-block;
-    padding: 2rpx 10rpx;
 }
 
 .index .package .module .upperPart .subTitle {
@@ -271,6 +250,7 @@
     height: 100%;
     display: flex;
 }
+
 .index .package .module .lowerpart .titleDetails .titles .isTtIcon {
     width: 40rpx;
     height: 40rpx;
@@ -298,12 +278,12 @@
 .index .package .module .lowerpart .titleDetails .details {
     color: #2A4F44;
     width: 60rpx;
-	height: 40rpx;
-	font-size: 28rpx;
-	font-weight: 400;
-	padding: 10rpx 20rpx;
-	margin-right: -10rpx;
-	font-family: PingFangSC-Regular, PingFang SC;
+    height: 40rpx;
+    font-size: 28rpx;
+    font-weight: 400;
+    padding: 10rpx 20rpx;
+    margin-right: -10rpx;
+    font-family: PingFangSC-Regular, PingFang SC;
 }
 
 .index .package .module .lowerpart .detailsInfo .isSignTtCoupon {
@@ -438,15 +418,15 @@
     font-size: 44rpx;
     color: #000000;
     line-height: 44rpx;
-	font-weight: bold;
-	font-style: oblique;
-	font-family: Arial-BoldItalicMT, Arial;
+    font-weight: bold;
+    font-style: oblique;
+    font-family: Arial-BoldItalicMT, Arial;
 }
 
 .index .payAndAgreement .paySign .moneyPay .money .mpneySpan {
     font-size: 76rpx;
     line-height: 76rpx;
-	font-style: oblique;
+    font-style: oblique;
 }
 
 .index .payAndAgreement .paySign .moneyPay .pay {

@@ -34,9 +34,9 @@
                 {{orderInfo.selfStatus === 16 || orderInfo.selfStatus === 19 || orderInfo.selfStatus === 20 || orderInfo.selfStatus === 21 ? '继续办理' : ''}}
                 {{orderInfo.selfStatus === 18 ? '代扣通行费' : ''}}
             </view>
-            <view wx:if="{{loginInfo.needBindingPhone === 1 && orderInfo.selfStatus !== 12}}" class="plan" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber" animation="{{animationTransaction}}">
+            <button class="plan" wx:if="{{loginInfo.needBindingPhone === 1 && orderInfo.selfStatus !== 12}}" class="plan" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber" animation="{{animationTransaction}}">
                 {{!orderInfo ? '新增办理' : ''}}
-            </view>
+            </button>
             <view class="plan" wx:if="{{orderInfo.selfStatus === 12 && recentlyTheBillInfo}}" animation="{{animationTransaction}}" catchtap="onClickBill">
                 立即补缴
             </view>

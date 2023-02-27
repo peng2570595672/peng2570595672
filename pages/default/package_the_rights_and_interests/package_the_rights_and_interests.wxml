@@ -27,15 +27,13 @@
                         </span>
                         <span wx:else style="color: #0f0">免费</span>
                     </view>
-                    <view class="titleExplain" wx:if="{{item.pledgeType === 4}}">
-                        <view class="innerBox1">
-                            <text class="innerBox2">现金限时膨账 \n</text>
-                            <text class="innerBox2">权益商城100+权益任兑</text>
-                        </view>
-                    </view>
+                    
                 </view>
                 <!-- 副标题：取后台套餐副标题（原套餐全称productLogo） -->
                 <view class="subTitle">{{tools.limitNumber(item.fullName,15)}}</view>
+                <view class="titleExplain" wx:if="{{item.pledgeType === 4}}">
+                        
+                 </view>
                 <!-- 套餐描述 取后台配置展示，若无配置则不展示 -->
                 <view class="description" wx:if="{{tools.dataLen(basicServiceList) > 0}}">
                     <view class="descriptionModule" wx:for="{{basicServiceList}}" wx:for-item="itemBase" wx:key="index1">
