@@ -57,7 +57,10 @@ Page({
 		isActivityDate: false, // 是否活动期间
 		isPrechargeOrder: true, // 是否有预充流程 || 交行二类户 || 工行二类户  & 已审核通过订单
 		disclaimerDesc: app.globalData.disclaimerDesc,
-		isShowEquityImg: false	// 是否显示权益商城banner
+		isShowEquityImg: false,	// 是否显示权益商城banner
+		initData: true,
+		cardList: [],
+		nextPageData: []
 	},
 
 	async onLoad (options) {
@@ -69,15 +72,30 @@ Page({
 		}
 	},
 	async onShow () {
+		this.setData({
+			cardList: [],
+			nextPageData: []
+		});
+		// 4.0
 		util.customTabbar(this, 2);
-		util.getUserIsVip();
+		await this.getUserProfiles();
 		// --------------end------------
 		if (app.globalData.userInfo.accessToken) {
-			let requestList = [await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon(), await this.getRightsAccount()];
+			// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
+			let requestList = [await util.getUserIsVip(),await this.getRightAccount(), await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon(), await this.getRightsAccount()];
+			util.customTabbar(this, 2);
+			util.getUserIsVip();
 			util.showLoading();
 			await Promise.all(requestList);
 			util.hideLoading();
-			let that = this;
+			if (this.data.cardList.length > 1) {
+				this.setData({
+					cardList: this.data.cardList.concat(this.data.cardList)
+				});
+			}
+			this.setData({
+				isVip: app.globalData.isVip
+			});
 			if (JSON.stringify(app.globalData.myEtcList) !== '{}') {
 				this.getIsShow();
 			}
@@ -93,6 +111,95 @@ Page({
 			isVip: app.globalData.isVip
 		});
 		await this.getUserProfiles();
+	},
+	cardChange (e) {
+		if (e.detail.index === 3 && this.data.cardList.length !== 4) {
+			util.go('/pages/account_management/index/index');
+		}
+	},
+	// 获取权益账户
+	// 权益>货车预充值>交行>工行  账户最多显示3个
+	async getRightAccount () {
+		const result = await util.getDataFromServersV2('/consumer/member/right/account', {
+			page: 1,
+			pageSize: 1
+		});
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+		} else {
+			result.data.map(item => {
+				item.accountType = 1;// 1-权益账户   2-货车预充值 3-交行 4-工行
+			});
+			this.setData({
+				cardList: result.data,
+				nextPageData: result.data
+			});
+			if (result.data.length < 3) {
+				// 获取预充值的
+				const etcList = app.globalData.myEtcList.filter(item => item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
+				etcList.map(async (item, index) => {
+					this.getQueryWallet(item, index === etcList.length - 1);
+				});
+			}
+		}
+	},
+	// 预充模式-账户信息查询
+	async getQueryWallet (item, isRequestCompletion) {
+		const result = await util.getDataFromServersV2('consumer/order/third/queryWallet', {
+			orderId: item.id,
+			pageSize: 1
+		});
+		util.hideLoading();
+		console.log('货车数据：',result);
+		if (!result) return;
+		if (result.code === 0) {
+			if (this.data.cardList.length < 3) {
+				result.data.vehPlates = item.vehPlates;
+				result.data.orderId = item.id;
+				result.data.accountType = 2;
+				this.data.cardList = this.data.cardList.concat(result.data);
+				this.setData({
+					cardList: this.data.cardList,
+					nextPageData: this.data.nextPageData
+				});
+				if (isRequestCompletion && this.data.cardList.length < 3) {
+					// 获取交行
+					const bocomEtcList = app.globalData.myEtcList.filter(item => item.flowVersion === 7 && item.auditStatus === 2); // 是否有交行二类户 & 已审核通过订单
+					bocomEtcList.map(async (item, index) => {
+						await this.getBocomOrderBankConfigInfo(item, index === bocomEtcList.length - 1);
+					});
+				}
+			}
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 交行二类户查询
+	async getBocomOrderBankConfigInfo (orderInfo, isRequestCompletion) {
+		// 获取订单银行配置信息
+		const result = await util.getDataFromServersV2('/consumer/member/bcm/queryBalance', {
+			orderId: orderInfo.id,
+			cardType: '01'
+		});
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+		} else {
+			if (this.data.cardList.length < 3) {
+				let info;
+				if (app.globalData.memberStatusInfo?.accountList.length) {
+					info = app.globalData.memberStatusInfo.accountList.find(accountItem => accountItem.orderId === orderInfo.id);
+				}
+				result.data.vehPlates = orderInfo.vehPlates;
+				result.data.accountType = 3;
+				result.data.id = orderInfo.id;
+				result.data.accountNo = info.accountNo;
+				this.data.cardList.push(result.data);
+				this.setData({
+					cardList: this.data.cardList,
+					nextPageData: this.data.nextPageData
+				});
+			}
+		}
 	},
 	handleCouponMini () {
 		this.selectComponent('#dialog1').show();
@@ -214,15 +321,21 @@ Page({
 						});
 						let requestList = [];
 						if (JSON.stringify(app.globalData.myEtcList) === '{}') {
-							requestList = [await this.getStatus()];
+							requestList = [await util.getUserIsVip(),await this.getStatus()];
 						}
 						this.setData({
+							isVip: app.globalData.isVip,
 							myAccountList: app.globalData.myEtcList
 						});
 						// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
-						requestList = [requestList, await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon(), await this.getRightsAccount()];
+						requestList = [requestList, await this.getRightAccount(), await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon(), await this.getRightsAccount()];
 						util.showLoading();
 						await Promise.all(requestList);
+						if (this.data.cardList.length > 1) {
+							this.setData({
+								cardList: this.data.cardList.concat(this.data.cardList)
+							});
+						}
 						util.hideLoading();
 					} else {
 						wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));

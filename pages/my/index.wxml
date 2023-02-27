@@ -17,26 +17,39 @@
         </view>
     </view>
     <!-- 模块1 ETC电子账户 -->
-    <view class="module moduleOne {{isVip ? 'yellow' : 'green'}}" wx:if="{{true}}">
-        <swiper class="swiperBox" autoplay='{{false}}' circular indicator-dots='{{false}}' bindchange="">
-            <swiper-item class="swiper-item" wx:for="{{myAccountList}}" wx:key="index" catchtap="">
-                <!-- 金额和账户 -->
-                <view class="mountAccount">
-                    <view class="money">{{item.pledgeType === 1 ? '权益券额' : '￥'}} {{item.pledgeMoney}}</view>
-                    <view class="count {{isVip ? 'yellowM' : 'greenM'}}">ETC电子账户</view>
-                </view>
-                <!-- 记录和车牌 -->
-                <view class="recordPlate">
-                    <view class="record" catchtap="onClickAccountManagement">查看账户充值及消费记录</view>
-                    <view class="plate">{{item.vehPlates}}</view>
-                </view>
-            </swiper-item>
-        </swiper>
-        <view class="styleNum" wx:if="{{tools.dataLen(myAccountList) > 1}}" style="background:{{isVip ? '#85682E' : '#2d765f'}}"></view>
-        <view class="styleNum1" wx:if="{{tools.dataLen(myAccountList) > 1}}" style="background:{{isVip ? '#644E23' : '#4f8d73'}}"></view>
+    <view class="module moduleOne" wx:if="{{cardList.length}}">
+        <cardSwiper
+                wx:if="{{initData}}"
+                generic:cardItem="card"
+                cardsData="{{cardList}}"
+                showNum="{{cardList.length === 4 ? 2 : 3}}"
+                isVip="{{isVip}}"
+                nextPageData="{{nextPageData}}"
+                isCycle="{{!!nextPageData.length}}"
+                offsetY="{{16}}"
+                my_cards_panel="my-cardSwiper-panel"
+                bind:cardChange="cardChange"
+        >
+        </cardSwiper>
+<!--        <swiper class="swiperBox" autoplay='{{false}}' circular indicator-dots='{{false}}' bindchange="">-->
+<!--            <swiper-item class="swiper-item" wx:for="{{myAccountList}}" wx:key="index" catchtap="">-->
+<!--                &lt;!&ndash; 金额和账户 &ndash;&gt;-->
+<!--                <view class="mountAccount">-->
+<!--                    <view class="money">{{item.pledgeType === 1 ? '权益券额' : '￥'}} {{item.pledgeMoney}}</view>-->
+<!--                    <view class="count {{isVip ? 'yellowM' : 'greenM'}}">ETC电子账户</view>-->
+<!--                </view>-->
+<!--                &lt;!&ndash; 记录和车牌 &ndash;&gt;-->
+<!--                <view class="recordPlate">-->
+<!--                    <view class="record" catchtap="onClickAccountManagement">查看账户充值及消费记录</view>-->
+<!--                    <view class="plate">{{item.vehPlates}}</view>-->
+<!--                </view>-->
+<!--            </swiper-item>-->
+<!--        </swiper>-->
+<!--        <view class="styleNum" wx:if="{{tools.dataLen(myAccountList) > 1}}" style="background:{{isVip ? '#85682E' : '#2d765f'}}"></view>-->
+<!--        <view class="styleNum1" wx:if="{{tools.dataLen(myAccountList) > 1}}" style="background:{{isVip ? '#644E23' : '#4f8d73'}}"></view>-->
     </view>
     <!-- 模块2 功能栏 -->
-    <view class="module moduleTwo {{tools.dataLen(myAccountList) > 1 ? 'marginTop' : ''}}">
+    <view class="module moduleTwo {{tools.dataLen(myAccountList) > 1 ? 'marginTop' : ''}}" style="margin-top: {{cardList.length * 10 + 30 }}rpx">
         <view class="func" wx:for="{{funcList}}" wx:key="index" data-url="{{item.url}}" catchtap="go">
             <view class="icon {{isVip ? 'yellowF' : 'greenF'}}">
                 <image class="iconImg" src="{{item.icon}}" />
@@ -45,7 +58,7 @@
         </view>
     </view>
     <!-- 模块3 广告 -->
-    <view class="module moduleThree" wx:if="{{true}}" catchtap="handleEquitiesMall">
+    <view class="module moduleThree" wx:if="{{false}}" catchtap="handleEquitiesMall">
         <image class="image" src="https://file.cyzl.com/g001/M01/C8/27/oYYBAGP0JC-AY5rVAABU5vcPutY386.png" mode="widthFix" />
     </view>
     <!-- 模块4 -->
