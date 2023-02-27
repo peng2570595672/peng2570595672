@@ -169,8 +169,39 @@
 					"query": "test=gggg",
 					"launchMode": "default",
 					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+					"query": "orderId=1052921616029192192",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+					"query": "orderId=1038104740237414400",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/my/index",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/account_management/index/index",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
 				}
 			]
 		}
+	},
+	"setting": {
+		"useIsolateContext": false
 	}
 }

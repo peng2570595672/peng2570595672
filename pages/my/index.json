@@ -1,5 +1,7 @@
 {
-	"navigationStyle": "custom",
-
-	"usingComponents": {}
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "cardSwiper":"../../components/card_swiper/index",
+    "card":"./components/card/index"
+  }
 }
