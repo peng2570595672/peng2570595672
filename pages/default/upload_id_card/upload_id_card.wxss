@@ -100,12 +100,12 @@
   }
   
   .index .moduleOne .photo-wrapper .photo:nth-of-type(1) .upload .img-box {
-    background: url('https://file.cyzl.com/g001/M01/C7/75/oYYBAGPraQeAd8VcAAANbmC6Sdo255.png') center no-repeat;
+    background: url('https://file.cyzl.com/g001/M01/CA/4F/oYYBAGP8tVuAGQNnAAANbmC6Sdo207.png') center no-repeat;
     background-size: 80% 80%;
   }
   
   .index .moduleOne .photo-wrapper .photo:nth-of-type(2) .upload .img-box {
-    background: url('https://file.cyzl.com/g001/M01/C7/75/oYYBAGPraQeAd8VcAAANbmC6Sdo255.png') center no-repeat;
+    background: url('https://file.cyzl.com/g001/M01/CA/4F/oYYBAGP8tYGAc0C7AAAL0oJkeVs625.png') center no-repeat;
     background-size: 80% 80%;
   }
   
@@ -162,6 +162,7 @@
     font-size: 28Rpx;
     font-weight: 600;
     color: #262626;
+    opacity: 0.9;
     font-family: PingFangSC-Semibold, PingFang SC;
   }
   

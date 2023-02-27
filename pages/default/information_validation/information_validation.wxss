@@ -171,6 +171,7 @@
   text-align: right;
   word-wrap: break-word;
   font-family: PingFangSC-Semibold, PingFang SC;
+  opacity: 0.9;
 }
 
 .index .moduleTwo .keyValue .attrValue .textarea {

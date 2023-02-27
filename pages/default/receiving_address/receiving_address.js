@@ -723,7 +723,11 @@ Page({
 		if (!res) return;
 		if (res.code === 0) {
 			util.hideLoading();
-			this.next();
+			if (res.data.canSubmit === 1) {
+				this.next();
+			} else {
+				return util.showToastNoIcon(res.data.canSubmitMsg);
+			}
 		} else {
 			util.hideLoading();
 			return util.showToastNoIcon(res.message);

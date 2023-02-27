@@ -9,7 +9,7 @@
         <view class="module moduleOne iconfont {{'module' + index}} {{index === activeIndex ? 'btnHighLight' : ''}}" data-index="{{index}}" catchtap="btnHeightLight">
             <!-- 活动标签 限制字符8个 -->
             <view class="active {{index === activeIndex ? 'activeChange' : ''}}" wx:if="{{false}}">
-                <text>{{tools.limitNumber('限时活动限时活动111',8)}}</text>
+                <text>{{tools.limitNumber('限时活动',8)}}</text>
             </view>
             <!-- 默认展示的套餐上半部分 -->
             <view class="upperPart {{tools.dataLen(item.rightsPackageIds) > 0 || item.isSignTtCoupon ? '' : 'subUpperPart'}}">
@@ -27,17 +27,16 @@
                         </span>
                         <span wx:else style="color: #0f0">免费</span>
                     </view>
-                    
                 </view>
                 <!-- 副标题：取后台套餐副标题（原套餐全称productLogo） -->
                 <view class="subTitle">{{tools.limitNumber(item.fullName,15)}}</view>
                 <view class="titleExplain" wx:if="{{item.pledgeType === 4}}">
-                        
+                    <span class="planSpan">现金限时膨账权益商城100+权益任兑</span>
                  </view>
                 <!-- 套餐描述 取后台配置展示，若无配置则不展示 -->
                 <view class="description" wx:if="{{tools.dataLen(basicServiceList) > 0}}">
                     <view class="descriptionModule" wx:for="{{basicServiceList}}" wx:for-item="itemBase" wx:key="index1">
-                        <view class="ico {{itemBase.icos}}"></view>
+                        <!-- <view class="ico {{itemBase.icos}}"></view> -->
                         <view class="title">{{item.pledgeType === 4 && itemBase.title === '设备质保一年' ? '升级三年设备质保' : itemBase.title}}</view>
                     </view>
                 </view>
@@ -50,7 +49,7 @@
                         <view class="text">{{item.isSignTtCoupon ? 'ETC*通通券联名会员权益' : tools.limitNumber(equityListMap[index].packageName,17)}}</view>
                     </view>
                     <view class="details" catchtap="btnOpenOrOff" data-index="{{[index,isCloseUpperPart,activeIndex]}}">
-                        {{ index === activeIndex ? isCloseUpperPart1 ? '收起' : '展开' : isCloseUpperPart2 && index === isCloseUpperPart ? '收起' : '展开'}}
+                        {{ index === activeIndex ? isCloseUpperPart1 ? '收起' : '展开' : isCloseUpperPart2 && index === isCloseUpperPart ? '收起' : '详情'}}
                     </view>
                 </view>
                 <!-- 套餐 展示模块 -->
@@ -80,7 +79,7 @@
             <view class="confirm iconfont {{getAgreement ? 'tick' : ''}}" catchtap="onClickAgreementHandle"></view>
             <view class="agreement">
                 当您勾选同意并点击“立即支付”按钮，即代表您已阅读、理解并接受
-                <span class="agreementColor">ETC+用户协议及黔通卡用户协议及隐私协议</span>
+                <span class="agreementColor" catchtap="goAgreement">ETC+用户协议及黔通卡用户协议及隐私协议</span>
                 里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。
             </view>
         </view>

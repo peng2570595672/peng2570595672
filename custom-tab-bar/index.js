@@ -15,8 +15,8 @@ Component({
 			{
 				'pagePath': '/pages/etc_handle/etc_handle',
 				'text': 'ETC办理',
-				'iconPath': 'https://file.cyzl.com/g001/M01/C7/65/oYYBAGPrUASALSs-AAAL6GWOYSs692.png',
-				'selectedIconPath': 'https://file.cyzl.com/g001/M01/C7/65/oYYBAGPrUBeANJ0PAAANz35xPUQ701.png'
+				'iconPath': 'https://file.cyzl.com/g001/M01/CA/50/oYYBAGP8wMuAE-onAAAqS368_vk401.png',
+				'selectedIconPath': 'https://file.cyzl.com/g001/M01/CA/50/oYYBAGP8v4aALyjWAAAQ7J67NrA433.svg'
 			},
 			// {
 			// 	'pagePath': '/pages/membershipCertificate/membershipCertificate',

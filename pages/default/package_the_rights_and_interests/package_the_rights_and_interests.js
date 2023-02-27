@@ -751,6 +751,11 @@ Page({
 		}
 	},
 	// ------------------------------------------------------------------------------------------------------------------
+	// 前去相关协议页面
+	goAgreement () {
+		console.log('前去相关协议');
+		util.go('/pages/personal_center/user_agreement/user_agreement');
+	},
 	// 权益点击高亮，不用显示详情弹窗
 	detailsBtn (e) {
 		if (this.data.listOfPackages[this.data.activeIndex]?.mustChoiceRightsPackage === 1) {

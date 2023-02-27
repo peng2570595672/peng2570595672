@@ -124,7 +124,7 @@
     backdrop-filter: blur(10rpx);
     clip-path: polygon(50% 21%, 100% 0, 100% 100%, 0 100%, 0 0);
     -webkit-clip-path: polygon(50% 21%, 100% 0, 100% 100%, 0 100%, 0 0);
-    box-shadow: 0rpx 42rpx 26rpx 0rpx rgba(190, 156, 124, 0.8), inset 0rpx 18rpx 42rpx 0rpx rgba(255, 255, 255, 0.42), inset 0rpx 2rpx 6rpx 0rpx rgba(255, 255, 255, 0.68);
+    box-shadow: 0rpx -20rpx 24rpx 0rpx rgba(206,130,59,0.31), inset 0rpx 22rpx 42rpx 0rpx #FFFFFF;
     position: fixed;
     bottom: 0rpx;
     z-index: 20;

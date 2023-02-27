@@ -2,7 +2,7 @@
 	margin: 0;
 	padding: 0;
 	width: 100vw;
-	height: auto;
+	min-height: 100vh;
 	background-color: #EBEDF0;
 }
 
@@ -95,59 +95,66 @@
 
 /* 办理模块 */
 .home .immediately {
-	height: 160rpx;
-	overflow: hidden;
-}
-
-.home .immediately .carPlan {
 	display: flex;
-	height: 60rpx;
-	margin-top: 30rpx;
+	overflow: hidden;
 	align-items: center;
-	justify-content: space-between;
+	padding: 0rpx 28rpx;
 }
 
-.home .immediately .carPlan .car {
+.home .immediately .vehicle-info {
+	flex: 1;
+	position: relative;
+}
+
+.home .immediately .vehicle-info .vehicle-info-box {
+	flex: 1;
+	/* height: 98rpx; */
 	font-size: 36rpx;
-	font-weight: 400;
-	color: #2A4F44;
+	margin: 32rpx 0rpx;
+	font-family: PingFangSC-Semibold, PingFang SC;
+	font-weight: 600;
+	color: #1E1E1E;
 }
 
-.home .immediately .carPlan .plan {
-	height: 76rpx;
-	color: #ffffff;
+.home .immediately .vehicle-info .vehicle-info-box .sub-title {
 	font-size: 28rpx;
+	font-family: PingFangSC-Regular, PingFang SC;
 	font-weight: 400;
-	line-height: 76rpx;
-	text-align: center;
-	padding: 0rpx 30rpx;
-	border-radius: 16rpx;
-	background: #2A4F44;
-	position: absolute;
-	top: 50%;
-	right: 28rpx;
-	transform: translateY(-50%);
+	color: #1E1E1E;
+	line-height: 34rpx;
+	padding-top: 20rpx;
 }
 
-.home .immediately .tipsClerk {
-	font-size: 24rpx;
-	margin-top: 8rpx;
+.home .immediately .vehicle-info .vehicle-info-box.vehicle-info-trucks-box {
+	position: absolute;
+	top: 150rpx;
+}
+
+.home .immediately .btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0rpx 36rpx;
+	height: 76rpx;
+	background: #2A4F44;
+	border-radius: 16rpx;
+	font-size: 28rpx;
+	font-family: PingFangSC-Semibold, PingFang SC;
+	font-weight: 400;
+	color: #fff;
 }
 
 .home .immediately .bill-info {
 	text-align: center;
-	margin-top: 34rpx;
 }
 
 .home .immediately .bill-info .bill {
-	height: 60rpx;
+	height: 56rpx;
 	display: flex;
 	align-items: center;
-	justify-content: space-around;
 	font-size: 48rpx;
 	font-weight: bold;
 	color: #00b85c;
-	/* background-color: #9ad5ff; */
 }
 
 .home .immediately .bill-info .bill::after {
@@ -166,7 +173,6 @@
 	height: 34rpx;
 	align-items: center;
 	justify-content: center;
-	text-align: center;
 	font-size: 24rpx;
 	color: #33333e;
 	line-height: 34rpx;
@@ -178,8 +184,6 @@
 	content: '\e617';
 	margin-right: 8rpx;
 }
-
-
 
 
 
@@ -418,6 +422,6 @@
 /* 占位 */
 .home .split {
 	width: 100%;
-	height: 300rpx;
+	height: 200rpx;
 	overflow: hidden;
 }

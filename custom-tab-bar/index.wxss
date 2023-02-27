@@ -26,8 +26,9 @@
 }
 
 .tab-bar .tab-bar-item .coverImg {
-    width: 54rpx;
+    width: 58rpx;
     height: 54rpx;
+    /* background-color: aqua; */
     margin-bottom: 10rpx;
 }
 
