@@ -38,6 +38,7 @@ Page({
 		size: 30
 	},
 	async onLoad (options) {
+		app.globalData.orderInfo.orderId = '';
 		util.resetData();// 重置数据
 		console.log(options);
 		console.log(app.globalData.orderInfo);
