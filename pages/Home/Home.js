@@ -1004,7 +1004,7 @@ Page({
 			util.showToastNoIcon('货车办理系统升级中，暂时不可申办');
 			return;
 		}
-		if (orderInfo.orderType === 11 && orderInfo.status !== 1) {
+		if (orderInfo.orderType === 51 && orderInfo.status !== 1) {
 			util.showToastNoIcon('请返回原渠道办理');
 			return;
 		}
