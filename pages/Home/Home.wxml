@@ -7,7 +7,7 @@
                 <image class="topImg" src='{{item}}' />
                 <view class="swiperText">
                     <view class="textOne">小汽车ETC</view>
-                    <view class="textTwo">微信支付更心</view>
+                    <view class="textTwo">微信支付更省心</view>
                     <view class="textThree">通行95折/全国通行/过站免排队</view>
                     <view class="iconfont textFour">了解详情</view>
                 </view>

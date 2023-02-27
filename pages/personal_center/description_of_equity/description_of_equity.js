@@ -5,7 +5,7 @@ Page({
 		listOne: [{
 				id: 1,
 				title1: 'ETC设备',
-				title2: '包含OUB设备一台及卡片一张',
+				title2: '包含OBU设备一台及卡片一张',
 				text: '当您的ETC激活以后，即可全国通行，过站免排队，全国高速通行95折，如部分省份高速或路段还有其他优惠可叠加同享。',
 				bgImg: 'https://file.cyzl.com/g001/M01/C8/62/oYYBAGP0n6CACqw2AAFS1cNEZfY540.jpg'
 			},

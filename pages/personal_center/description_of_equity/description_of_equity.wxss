@@ -58,11 +58,13 @@
 
 /* 图片 */
 .index .swiperBox .content {
-    width: 638rpx;
+    width: 698rpx;
     height: 75vh;
     overflow: hidden;
-    margin: 0rpx 56rpx;
+    /* margin: 0rpx 56rpx; */
     position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .index .swiperBox .content .images {

@@ -113,7 +113,7 @@ Page({
 		// 版本4.0 所需数据
 		imgList: ['https://file.cyzl.com/g001/M01/C9/54/oYYBAGP4sCaAF2EtAABbvIQbTLM503.png'],
 		moduleOneList: [{	// 账单查询 通行发票 权益商城
-				icon: 'https://file.cyzl.com/g001/M01/C9/52/oYYBAGP4m4GAT2K6AAAXZHV0_fQ770.png',
+				icon: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eRKAK0mDAAAg6lZHRZU754.jpg',
 				title: '账单查询',
 				btn: '最近通行的记录',
 				isShow: true,
@@ -121,7 +121,7 @@ Page({
 				statisticsEvent: 'index_my-order'
 			},
 			{
-				icon: 'https://file.cyzl.com/g001/M01/C9/52/oYYBAGP4m7aAMvNTAAAWe51oJH8617.png',
+				icon: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eSmAVDOGAAAfG-36GVE351.jpg',
 				title: '通行发票',
 				btn: '开高速路费发票',
 				isShow: true,
@@ -129,7 +129,7 @@ Page({
 				statisticsEvent: 'index_invoice'
 			},
 			{
-				icon: 'https://file.cyzl.com/g001/M01/C9/52/oYYBAGP4m8yAGlQoAAAYB8oQHLk631.png',
+				icon: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eT-AKA3cAAAg7GXq-Ts112.jpg',
 				title: '权益商城',
 				btn: '免税商品上线',
 				isShow: true,
@@ -137,7 +137,7 @@ Page({
 				statisticsEvent: 'index_equity'
 			},
 			{
-				icon: 'https://file.cyzl.com/g001/M01/C9/52/oYYBAGP4m-CAKkEUAAAdkg4yIFU047.jpg',
+				icon: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eVeADTAhAAAd33onhO0108.jpg',
 				title: '在线客服',
 				btn: '1V1专人客服',
 				isShow: true,
@@ -216,9 +216,10 @@ Page({
 
 	// --------------------------------测试方法: 广告弹窗------------------------
 	testFunc (e) {
-		wx.switchTab({
+		wx.reLaunch({
 			url: '/pages/etc_handle/etc_handle'
 		});
+
 		// this.selectComponent('#viewImg').show({
 		// 	img: 'https://file.cyzl.com/g001/M07/B6/F4/oYYBAGO-ebuALxEMAAF_Efyf1k0965.jpg',
 		// 	whetherToStay: true,
