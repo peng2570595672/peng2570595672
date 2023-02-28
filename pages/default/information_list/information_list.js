@@ -63,7 +63,9 @@ Page({
 		}
 		await this.getETCDetail();
 		if (!this.data.isModifiedData) {
-			await this.queryContract();
+			if (this.data.orderInfo.status === 1) {
+				await this.queryContract();
+			}
 			await this.getProductOrderInfo();
 		}
 	},
