@@ -33,7 +33,7 @@
         </cardSwiper>
     </view>
     <!-- 模块2 功能栏 -->
-    <view class="module moduleTwo {{tools.dataLen(myAccountList) > 1 ? 'marginTop' : ''}}" style="margin-top: {{!cardList.length ? 20 : cardList.length === 1 ? 40: cardList.length * 10 }}rpx">
+    <view class="module moduleTwo {{tools.dataLen(myAccountList) > 1 ? 'marginTop' : ''}}" style="margin-top: {{!cardList.length ? 20 : cardList.length === 1 ? 40: cardList.length * 10 + 30 }}rpx">
         <view class="func" wx:for="{{funcList}}" wx:key="index" data-url="{{item.url}}" catchtap="go">
             <view class="icon {{isVip ? 'yellowF' : 'greenF'}}">
                 <image class="iconImg" src="{{isVip ? item.iconVip : item.icon}}" />
@@ -42,8 +42,8 @@
         </view>
     </view>
     <!-- 模块3 广告 -->
-    <view class="module moduleThree" wx:if="{{false}}" catchtap="handleEquitiesMall">
-        <image class="image" src="https://file.cyzl.com/g001/M01/C8/27/oYYBAGP0JC-AY5rVAABU5vcPutY386.png" mode="widthFix" />
+    <view class="module moduleThree" wx:if="{{isShowEquityImg}}" catchtap="handleEquitiesMall">
+        <image class="image" src="https://file.cyzl.com/g001/M01/CA/B1/oYYBAGP9_VSAUb68AAB5WC1RcEA800.png" mode="widthFix" />
     </view>
     <!-- 模块4 功能列-->
     <view class="module moduleFour">
@@ -55,6 +55,7 @@
             <view class="funcListRight iconfont"></view>
         </view>
     </view>
+    <view class="auth" bindtap="handleAuth">授权管理</view>
     <!-- 占位 -->
     <view class="split"></view>
 </view>

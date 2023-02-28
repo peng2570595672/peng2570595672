@@ -1097,7 +1097,7 @@ function getInsuranceOffer(orderId, wtagid) {
  *  获取用户状态-交行资料信息
  */
 async function getMemberStatus() {
-	const result = await getDataFromServersV2('consumer/member/bcm/getMemberStatus');
+	const result = await getDataFromServersV2('consumer/member/bcm/getMemberStatus', {}, 'POST', false);
 	app.globalData.memberStatusInfo = result.data;
 }
 /**
@@ -1532,7 +1532,7 @@ async function queryProtocolRecord(protocolType) {
 		platformId: app.globalData.platformId,
 		memberId: app.globalData.memberId,
 		protocolType: protocolType
-	});
+	},'POST',false);
 	if (!result) return;
 	let isOk = false;
 	if (result.code === 0) {
