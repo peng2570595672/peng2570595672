@@ -538,6 +538,11 @@ Page({
 		}
 	},
 	async next () {
+		if (this.data.isRequest) {
+			return;
+		} else {
+			this.setData({isRequest: true});
+		}
 		if (this.data.choiceIndex === -1) return;
 		if (!this.data.getAgreement) {
 			util.showToastNoIcon('请同意并勾选协议！');
@@ -591,6 +596,7 @@ Page({
 			orderId: app.globalData.orderInfo.orderId // 订单id
 		});
 		if (!res) return;
+		this.setData({isRequest: false});
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			shopId: this.data.orderInfo ? this.data.orderInfo.base.shopId : app.globalData.newPackagePageData.shopId, // 商户id
