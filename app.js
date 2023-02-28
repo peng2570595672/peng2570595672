@@ -320,8 +320,7 @@ App({
 			} else if (this.globalData.signAContract === 1) {
 				// 解约状态
 				this.globalData.signAContract = 3;
-				wx.reLaunch({
-					// url: '/pages/default/index/index'
+				wx.switchTab({
 					url: '/pages/Home/Home'
 				});
 			}

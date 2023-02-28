@@ -985,8 +985,8 @@ function subscribe(tmplIds, url) {
 							cancel: () => { // 点击取消按钮
 								// if (url === '/pages/default/index/index') {
 								if (url === '/pages/Home/Home') {
-									wx.reLaunch({
-										url: url
+									wx.switchTab({
+										url: '/pages/Home/Home'
 									});
 								} else {
 									go(url)
@@ -996,8 +996,8 @@ function subscribe(tmplIds, url) {
 					} else {
 						if (url === '/pages/Home/Home') {
 							// if (url === '/pages/default/index/index') {
-							wx.reLaunch({
-								url: url
+							wx.switchTab({
+								url: '/pages/Home/Home'
 							});
 						} else {
 							go(url)
@@ -1011,8 +1011,8 @@ function subscribe(tmplIds, url) {
 				if (res.errMsg === 'requestSubscribeMessage:fail cancel') {
 					// if (url === '/pages/default/index/index') {
 					if (url === '/pages/Home/Home') {
-						wx.reLaunch({
-							url: url
+						wx.switchTab({
+							url: '/pages/Home/Home'
 						});
 					} else {
 						go(url)
@@ -1034,8 +1034,8 @@ function subscribe(tmplIds, url) {
 						cancel: () => {
 							// if (url === '/pages/default/index/index') {
 							if (url === '/pages/Home/Home') {
-								wx.reLaunch({
-									url: url
+								wx.switchTab({
+									url: '/pages/Home/Home'
 								});
 							} else {
 								go(url)
@@ -1054,8 +1054,8 @@ function subscribe(tmplIds, url) {
 			confirm: () => {
 				// if (url === '/pages/default/index/index') {
 				if (url === '/pages/Home/Home') {
-					wx.reLaunch({
-						url: url
+					wx.switchTab({
+						url: '/pages/Home/Home'
 					});
 				} else {
 					go(url)

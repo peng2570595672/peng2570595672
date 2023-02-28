@@ -63,7 +63,9 @@ Page({
 		}
 		await this.getETCDetail();
 		if (!this.data.isModifiedData) {
-			await this.queryContract();
+			if (this.data.orderInfo.status === 1) {
+				await this.queryContract();
+			}
 			await this.getProductOrderInfo();
 		}
 	},
@@ -342,7 +344,7 @@ Page({
 	},
 	onUnload () {
 		if (this.data.isReturn) {
-			wx.reLaunch({
+			wx.switchTab({
 				url: '/pages/Home/Home'
 			});
 		}

@@ -94,7 +94,8 @@ Page({
 			util.hideLoading();
 			if (this.data.cardList.length > 1) {
 				this.setData({
-					cardList: this.data.cardList.concat(this.data.cardList)
+					cardList: this.data.cardList.concat(this.data.cardList),
+					nextPageData: this.data.cardList.concat(this.data.cardList)
 				});
 			}
 			this.setData({
@@ -117,7 +118,7 @@ Page({
 		await this.getUserProfiles();
 	},
 	cardChange (e) {
-		if (e.detail.index === 3 && this.data.cardList.length !== 4) {
+		if (e.detail.index === 3 && this.data.cardList.length === 6) {
 			util.go('/pages/account_management/index/index');
 		}
 	},
@@ -337,7 +338,8 @@ Page({
 						await Promise.all(requestList);
 						if (this.data.cardList.length > 1) {
 							this.setData({
-								cardList: this.data.cardList.concat(this.data.cardList)
+								cardList: this.data.cardList.concat(this.data.cardList),
+								nextPageData: this.data.cardList.concat(this.data.cardList)
 							});
 						}
 						util.hideLoading();
@@ -583,7 +585,7 @@ Page({
 				delta: 1
 			});
 		} else {
-			wx.reLaunch({
+			wx.switchTab({
 				url: '/pages/Home/Home'
 			});
 		}
