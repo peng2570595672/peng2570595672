@@ -71,7 +71,7 @@
     </view>
     <!-- 占位 -->
     <view class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}}" >
-       <text >亲，没有更多的套餐了</text>
+       
     </view>
     <!-- 支付和协议说明 模块 -->
     <view class="payAndAgreement {{isFade ? 'fadeIn' : 'fadeOut'}}">
