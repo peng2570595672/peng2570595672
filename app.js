@@ -97,6 +97,7 @@ App({
 		crowdsourcingPromotionId: undefined, // 众包推广ID
 		isCrowdsourcingPromote: false, // 是不是众包推广
 		MTCChannel: false, // 是不是MTC推广
+		isCheckCarChargeType: false, // 是否需要校检黔通车型
 		crowdsourcingServiceProvidersId: undefined, // 众包服务商id 用于加载不同套餐
 		rightsPackageBuyRecords: undefined, // 权益购买记录
 		myEtcList: {}, // 车辆列表
@@ -370,6 +371,9 @@ App({
 				this.globalData.signAContract = 3;
 				this.globalData.isSalesmanOrder = false;
 				this.globalData.isTelemarketing = false;
+				if (this.globalData.isCheckCarChargeType) {
+					this.brandChargingModel();
+				}
 				// 签约成功 userState: "NORMAL"
 				if (res.data.contractStatus === 1 && res.data.userState === 'NORMAL') {
 					// 办理付费h5
@@ -416,6 +420,12 @@ App({
 				util.showToastNoIcon(res.message);
 			}
 		}, this.globalData.userInfo.accessToken);
+	},
+	// 车辆品牌收费车型校验
+	async brandChargingModel () {
+		await util.getDataFromServersV2('consumer/etc/qtzl/checkCarChargeType', {
+			orderId: app.globalData.orderInfo.orderId
+		});
 	}
 
 });
