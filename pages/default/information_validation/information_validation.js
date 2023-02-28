@@ -446,6 +446,15 @@ Page({
 				cancel: () => {
 				}
 			});
+		} else {
+			const pages = getCurrentPages();
+			const prevPage = pages[pages.length - 2];// 上一个页面
+			prevPage.setData({
+				isChangeDrivingLicenseError: true // 重置状态
+			});
+			wx.navigateBack({
+				delta: 1
+			});
 		}
 	}
 
