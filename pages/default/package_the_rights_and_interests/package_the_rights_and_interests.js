@@ -17,6 +17,11 @@ Page({
 		nodeHeightList: [], // 存储节点高度 集合
 		phoneType: 2,
 		equityListMap: [],	// 权益列表集合
+		ttCouponImgList: [	// 通通券图片展示
+			{img: 'https://file.cyzl.com/g001/M01/CA/91/oYYBAGP9r8KAadO3AAAhbDu7b-c635.png'},
+			{img: 'https://file.cyzl.com/g001/M01/CA/92/oYYBAGP9r9eAbYMrAAAfwNWjlCE671.png'},
+			{img: 'https://file.cyzl.com/g001/M01/CA/92/oYYBAGP9r-KAOszNAAAg2fHzpLY270.png'}
+		],
 		// ------------------------------------------------------------------------------
 		isContinentInsurance: app.globalData.isContinentInsurance,// 是否是大地
 		isSelected: false,// 是否选中当前权益包
@@ -115,12 +120,6 @@ Page({
 					}
 				]
 			}
-		],
-		equityShop: [
-			// 权益套餐的 数据展示
-			{shopName: '芒果TV', couponOffset: '券抵2元',shopImg: 'https://file.cyzl.com/g001/M07/B1/B5/oYYBAGO3kWiALcwoAAAG0YIQbVI397.png',couponPrice: 10},
-			{shopName: 'QQ音乐', couponOffset: '券抵5元',shopImg: 'https://file.cyzl.com/g001/M07/B1/B5/oYYBAGO3kUWAc_EDAAAHrHwpCD0833.png',couponPrice: 22.68},
-			{shopName: 'youku', couponOffset: '券抵8元',shopImg: 'https://file.cyzl.com/g001/M00/B1/B4/oYYBAGO3kQOAf9V6AAAFnKab-Vg960.png',couponPrice: 38.08}
 		],
 		showServiceIndex: -1,
 		rightsPackageDetails: undefined,

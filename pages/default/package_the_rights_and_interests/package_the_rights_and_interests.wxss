@@ -298,21 +298,31 @@
 
 .index .package .module .lowerpart .detailsInfo .isSignTtCoupon {
     width: 100%;
-    height: 420rpx;
     margin-top: 20rpx;
     overflow: hidden;
 }
 
-.index .package .module .lowerpart .detailsInfo .isSignTtCoupon .ttImgs {
-    width: 100%;
-    height: 100%;
+.index .package .module .lowerpart .detailsInfo .isSignTtCoupon .signTitle {
+    height: 48rpx;
+    font-size: 24rpx;
+    font-family: PingFangSC-Semibold, PingFang SC;
+    font-weight: 600;
+    color: #1E1E1E;
+    line-height: 48rpx;
 }
 
-.index .package .module .lowerpart .detailsInfo .isSignTtCoupon .ttImgs .ttImg {
-    width: 100%;
-    height: 100%;
+.index .package .module .lowerpart .detailsInfo .isSignTtCoupon .signImg {
+    display: flex;
+    height: 160rpx;
+    margin-top: 20rpx;
+    align-items: center;
+    justify-content: space-between;
 }
 
+.index .package .module .lowerpart .detailsInfo .pictures {
+    width: 212rpx;
+    height: 160rpx;
+}
 
 /* 占位 */
 .index .split {

@@ -58,11 +58,11 @@
                     <addValueService addValueService="{{item.rightsPackageIds}}" wx:if="{{tools.dataLen(item.rightsPackageIds)}}"></addValueService>
                     <!-- 通通券 -->
                     <view wx:elif="{{item.isSignTtCoupon}}" class="isSignTtCoupon">
-                        <view wx:if="{{item.ttCouponPayAmount > 0}}" class="ttImgs">
-                            <image class="ttImg" src="/pages/default/assets/equities1.png" />
-                        </view>
-                        <view wx:if="{{item.ttCouponPayAmount === 0}}" class="ttImgs">
-                            <image class="ttImg" src="/pages/default/assets/equities2.png" />
+                        <view class="signTitle">通通券，涵盖出行+生活的优惠聚合平台</view>
+                        <view class="signImg">
+                            <view class="imageSize" wx:for="{{ttCouponImgList}}" wx:for-item="itemTt" wx:key="index">
+                                <image class="pictures" src="{{itemTt.img}}" />
+                            </view>
                         </view>
                     </view>
                 </view>
