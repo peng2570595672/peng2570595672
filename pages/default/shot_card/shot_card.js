@@ -25,6 +25,7 @@ Page({
 		app.globalData.handlingOCRType = 0;
 		// 当前拍照类型
 		this.setData({
+			requestNum: 0,
 			type: parseInt(options.type),
 			vehPlates: options.vehPlates
 		});
