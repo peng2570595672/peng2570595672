@@ -33,7 +33,7 @@
         </cardSwiper>
     </view>
     <!-- 模块2 功能栏 -->
-    <view class="module moduleTwo {{tools.dataLen(myAccountList) > 1 ? 'marginTop' : ''}}" style="margin-top: {{!cardList.length ? 20 : cardList.length === 1 ? 40: cardList.length * 10 + 30 }}rpx">
+    <view class="module moduleTwo" style="margin-top: {{!cardList.length ? 20 : cardList.length === 1 ? 70: cardList.length * 10 + 30 }}rpx">
         <view class="func" wx:for="{{funcList}}" wx:key="index" data-url="{{item.url}}" bindtap="go">
             <view class="icon {{isVip ? 'yellowF' : 'greenF'}}">
                 <image class="iconImg" src="{{isVip ? item.iconVip : item.icon}}" />
