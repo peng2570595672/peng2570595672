@@ -5,19 +5,19 @@
     </view>
     <view class="module moduleOne">
         <view class="left iconfont {{isIdCardError ? 'error' : ''}}">车主身份证</view>
-        <view wx:if="{{ orderDetails.orderType !== 61 && (isModifiedData || orderInfo.isOwner !== 1) }}" class="btn {{orderInfo.isOwner === 1 ? 'edit': ''}}"
+        <view wx:if="{{ orderDetails.orderType !== 61 && ((isModifiedData && isIdCardError) || orderInfo.isOwner !== 1 ) }}" class="btn {{orderInfo.isOwner === 1 ? 'edit': ''}}"
               catchtap="go" data-url="upload_id_card">
             {{orderInfo.isOwner === 1 ? '修改' : '上传'}}
         </view>
-        <view wx:else class="icon {{orderInfo.isOwner === 1 ? 'successs' : ''}} iconfont"></view>
+        <view wx:else class="icon {{orderInfo.isOwner === 1 ? 'success' : ''}} iconfont"></view>
     </view>
     <view class="module moduleTwo">
         <view class="left iconfont {{isDrivingLicenseError ? 'error' : ''}}">车辆行驶证</view>
-        <view wx:if="{{ orderDetails.orderType !== 61 && (isModifiedData || orderInfo.isVehicle !== 1)}}" class="btn {{orderInfo.isVehicle === 1 ? 'edit' : ''}}"
+        <view wx:if="{{ orderDetails.orderType !== 61 && ((isModifiedData && isDrivingLicenseError) || orderInfo.isVehicle !== 1 )}}" class="btn {{orderInfo.isVehicle === 1 ? 'edit' : ''}}"
               catchtap="go" data-url="information_validation">
             {{orderInfo.isVehicle === 1 ? '修改' : '上传'}}
         </view>
-        <view wx:else class="icon {{orderInfo.isVehicle === 1 ? 'successs' : ''}} iconfont"></view>
+        <view wx:else class="icon {{orderInfo.isVehicle === 1 ? 'success' : ''}} iconfont"></view>
     </view>
     <view class="module moduleThree" wx:if="{{ orderInfo.obuCardType !== 1 }}">
         <view class="left iconfont {{isHeadstockError ? 'error' : ''}}">车辆照片</view>
@@ -25,7 +25,7 @@
               catchtap="go" data-url="upload_other_photo">
             {{orderInfo.isHeadstock === 1 ? '修改' : '上传'}}
         </view>
-        <view wx:else class="icon {{orderInfo.isHeadstock === 1 ? 'successs' : ''}} iconfont"></view>
+        <view wx:else class="icon {{orderInfo.isHeadstock === 1 ? 'success' : ''}} iconfont"></view>
     </view>
     <view class="tips" wx:if="{{tips}}">{{tips}}</view>
 

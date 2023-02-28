@@ -17,6 +17,7 @@
 	.module
 		display flex
 		width 694rpx
+		height 152rpx
 		align-items center
 		border-radius 16rpx
 		background-color #F6F6F6
@@ -34,18 +35,18 @@
 			line-height 48rpx
 			margin-left 36rpx
 			font-family PingFangSC-Semibold, PingFang SC
-			&.success
-				&::after
-					content '\e669'
-					font-size 37rpx
-					color #07C160
-					margin-left 16rpx
-			&.error
-				&::after
-					content '\e66a'
-					font-size 37rpx
-					color #F7B500
-					margin-left 16rpx
+		.success
+			padding-right 76rpx
+			&::after
+				content '\e669'
+				font-size 37rpx
+				color #07C160
+		.error
+			&::after
+				content '\e66a'
+				font-size 37rpx
+				color #F7B500
+				margin-left 16rpx
 		.btn
 			display flex
 			width 152rpx
