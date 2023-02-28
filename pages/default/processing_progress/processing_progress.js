@@ -415,13 +415,11 @@ Page({
 		});
 	},
 	goHome () {
-		app.globalData.orderInfo.orderId = '';
 		wx.switchTab({
 			url: '/pages/Home/Home'
 		});
 	},
 	onUnload () {
-		app.globalData.orderInfo.orderId = '';
 		if (this.data.type === 'main_process' || app.globalData.isNeedReturnHome) {
 			wx.switchTab({
 				url: '/pages/Home/Home'

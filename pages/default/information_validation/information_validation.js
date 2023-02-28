@@ -424,7 +424,7 @@ Page({
 		// 	});
 		// 	return;
 		// }
-		if (this.data.drivingLicenseFace.fileUrl || this.data.drivingLicenseBack.fileUrl) {
+		if (!this.data.isOut && (this.data.drivingLicenseFace.fileUrl || this.data.drivingLicenseBack.fileUrl)) {
 			util.alert({
 				content: '若此时返回上级页面则已上传图片将清空，请确认是否返回',
 				showCancel: true,
