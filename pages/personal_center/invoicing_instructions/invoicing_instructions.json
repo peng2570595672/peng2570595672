@@ -1,5 +1,7 @@
 {
 	"navigationBarTitleText": "开票说明",
 	"navigationBarBackgroundColor": "#ECECEC",
+    "enablePullDownRefresh": false,
+    "disableScroll": true,
 	"usingComponents": {}
 }
