@@ -130,7 +130,7 @@
   box-shadow: 4rpx 12rpx 56rpx 0px rgba(102,102,109,0.19);
   border-radius: 16rpx;
   margin: 0 auto;
-  z-index: 10002;
+  z-index: 100002;
 }
 .alert-for-not-finished-content .dialog-container {
   position: absolute;
