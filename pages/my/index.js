@@ -442,7 +442,7 @@ Page({
 				avatarUrl: personInformation.avatarUrl ? personInformation.avatarUrl : app.globalData.isVip ? yesVip : noVip,
 				nickName: personInformation.nicheng ? personInformation.nicheng : 'E+车主'
 			},
-			isShowEquityImg: app.globalData.isVip || app.globalData.isEquityRights ? true : false
+			isShowEquityImg: !!(app.globalData.isVip || app.globalData.isEquityRights)
 		});
 	},
 	// 前往个人信息

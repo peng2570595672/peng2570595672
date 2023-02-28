@@ -16,9 +16,11 @@
 
 .my {
     width: 100%;
-    min-height: 100vh;
+  	min-height: 100vh;
+	padding-bottom: 168rpx;
+	box-sizing: border-box;
+  	overflow-x: hidden;
 	display: flex;
-    overflow: hidden;
 	flex-direction: column;
 }
 
