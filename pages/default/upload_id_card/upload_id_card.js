@@ -24,14 +24,7 @@ Page({
 		idCardBack: {
 			ocrObject: {}
 		},// 身份证反面
-		checkKeyWord: [
-			{key: 'name', show: false, isFace: true, label: '姓名'},
-			{key: 'sex', show: false, isFace: true, label: '性别'},
-			{key: 'birth', show: false, isFace: true, label: '出生日期'},
-			{key: 'address', show: false, isFace: true, label: '地址'},
-			{key: 'authority', show: false, isFace: false, label: '签发机关'},
-			{key: 'validDate', show: false, isFace: false, label: '有效期限'}
-		],
+		checkKeyWord: [],
 		sexArr: ['男', '女'],
 		sexIndex: -1,
 		tipObj: {
@@ -51,6 +44,16 @@ Page({
 		await util.getIsArrearage();
 	},
 	onShow () {
+		this.setData({
+			checkKeyWord: [
+				{key: 'name', show: false, isFace: true, label: '姓名'},
+				{key: 'sex', show: false, isFace: true, label: '性别'},
+				{key: 'birth', show: false, isFace: true, label: '出生日期'},
+				{key: 'address', show: false, isFace: true, label: '地址'},
+				{key: 'authority', show: false, isFace: false, label: '签发机关'},
+				{key: 'validDate', show: false, isFace: false, label: '有效期限'}
+			]
+		});
 		let idCardFace = wx.getStorageSync('passenger-car-id-card-face');
 		if (idCardFace) {
 			idCardFace = JSON.parse(idCardFace);
