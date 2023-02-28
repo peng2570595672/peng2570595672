@@ -145,7 +145,15 @@ Page({
 				statisticsEvent: 'index_server'
 			}
 		],
-		moduleTwoList: [],	// 出行贴心服务
+		moduleTwoList: [
+			{
+				url: 'moving_integral',
+				isShow: true,
+				alwaysShow: true,
+				imgUrl: 'https://file.cyzl.com/g001/M01/C9/52/oYYBAGP4mXiAVfbDAAAkI9pn5Nw707.png',
+				statisticsEvent: 'index_moving_integral'
+			}
+		],	// 出行贴心服务
 		viewTc: {}, // 用于存放弹窗数据
 		whetherToStay: false, // 用于控制显示弹窗时，最底层页面禁止不动
 		movingIntegralObj: {
@@ -163,8 +171,17 @@ Page({
 		app.globalData.isTruckHandling = false;
 		app.globalData.isNeedReturnHome = false;
 		this.login();
-		this.getBanner();
+		// this.getBanner();
 		util.getUserIsVip();
+		if (app.globalData.isVip || app.globalData.isEquityRights) {
+			this.setData({
+				moduleOneList: this.data.moduleOneList.filter(item => item.title !== '在线客服')
+			});
+		} else {
+			this.setData({
+				moduleOneList: this.data.moduleOneList.filter(item => item.title !== '权益商城')
+			});
+		}
 	},
 	async onShow () {
 		util.customTabbar(this, 0);

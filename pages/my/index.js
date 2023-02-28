@@ -74,6 +74,9 @@ Page({
 				isMain: options.isMain
 			});
 		}
+		this.setData({
+			isVip: app.globalData.isVip
+		});
 	},
 	async onShow () {
 		this.setData({
