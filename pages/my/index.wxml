@@ -55,7 +55,7 @@
             <view class="funcListRight iconfont"></view>
         </view>
     </view>
-    <view class="auth" bindtap="handleAuth">授权管理</view>
+    <view class="auth"><text bindtap="handleAuth">授权管理</text></view>
     <!-- 占位 -->
     <view class="split"></view>
 </view>

@@ -66,7 +66,7 @@ Page({
 			this.setData({
 				faceStatus: 4,
 				drivingLicenseFace,
-				oldDrivingLicenseFace: drivingLicenseFace
+				oldDrivingLicenseFace: JSON.parse(JSON.stringify(drivingLicenseFace))
 			});
 			this.setData({
 				available: this.validateData(false)
@@ -80,7 +80,7 @@ Page({
 				backStatus: 4,
 				drivingLicenseBack,
 				personIndex: index,
-				oldDrivingLicenseBack: drivingLicenseBack
+				oldDrivingLicenseBack: JSON.parse(JSON.stringify(drivingLicenseBack))
 			});
 			this.setData({
 				available: this.validateData(false)
@@ -102,14 +102,14 @@ Page({
 			if (isToast) util.showToastNoIcon('车牌号不能为空！');
 			return false;
 		}
-		if (this.data.drivingLicenseFace.ocrObject.numberPlates !== this.data.vehPlates) {
-			if (isToast) util.showToastNoIcon(`行驶证车牌与${this.data.vehPlates}不一致，请重新上传`);
-			return false;
-		}
-		if (this.data.drivingLicenseFace.ocrObject.numberPlates !== this.data.vehPlates || this.data.drivingLicenseBack.ocrObject.numberPlates !== this.data.vehPlates || this.data.drivingLicenseFace.ocrObject.numberPlates !== this.data.drivingLicenseBack.ocrObject.numberPlates) {
-			if (isToast) util.showToastNoIcon(`行驶证车牌与${this.data.vehPlates}不一致，请重新上传`);
-			return false;
-		}
+		// if (this.data.drivingLicenseFace.ocrObject.numberPlates !== this.data.vehPlates) {
+		// 	if (isToast) util.showToastNoIcon(`行驶证车牌与${this.data.vehPlates}不一致，请重新上传`);
+		// 	return false;
+		// }
+		// if (this.data.drivingLicenseFace.ocrObject.numberPlates !== this.data.vehPlates || this.data.drivingLicenseBack.ocrObject.numberPlates !== this.data.vehPlates || this.data.drivingLicenseFace.ocrObject.numberPlates !== this.data.drivingLicenseBack.ocrObject.numberPlates) {
+		// 	if (isToast) util.showToastNoIcon(`行驶证车牌与${this.data.vehPlates}不一致，请重新上传`);
+		// 	return false;
+		// }
 		if (!this.data.drivingLicenseFace.ocrObject.engineNo) {
 			if (isToast) util.showToastNoIcon('发动机号不能为空！');
 			return false;
@@ -215,8 +215,8 @@ Page({
 				this.setData({
 					backStatus: 4,
 					faceStatus: 4,
-					oldDrivingLicenseFace: this.data.drivingLicenseFace,
-					oldDrivingLicenseBack: this.data.drivingLicenseBack
+					oldDrivingLicenseFace: JSON.parse(JSON.stringify(this.data.drivingLicenseFace)),
+					oldDrivingLicenseBack: JSON.parse(JSON.stringify(this.data.drivingLicenseBack))
 
 				});
 				this.setData({
