@@ -538,33 +538,39 @@ Page({
 		}
 	},
 	async next () {
-		if (this.data.isRequest) {
-			return;
-		} else {
-			this.setData({isRequest: true});
-		}
 		if (this.data.choiceIndex === -1) return;
 		if (!this.data.getAgreement) {
 			util.showToastNoIcon('请同意并勾选协议！');
 			return;
+		}
+		if (this.data.isRequest) {
+			return;
+		} else {
+			this.setData({isRequest: true});
 		}
 		if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4) {
 			// 判断是否是 权益券额套餐模式 ，如果是再判断以前是否有过办理，如果有则弹窗提示，并且不执行后面流程
 			const result = await util.getDataFromServersV2('consumer/order/precharge/list',{
 				orderId: app.globalData.orderInfo.orderId // 订单id
 			});
-			if (result.data.length > 0) {
-				util.alert({
-					title: `提示`,
-					content: `该套餐目前暂只支持单人办理一台车辆`,
-					confirmColor: '#576B95',
-					cancelColor: '#000000',
-					cancelText: '我知道了',
-					confirm: () => {
-					},
-					cancel: async () => {
-					}
-				});
+			if (!result) return;
+			if (result.code === 0) {
+				if (result.data.length > 0) {
+					util.alert({
+						title: `提示`,
+						content: `该套餐目前暂只支持单人办理一台车辆`,
+						confirmColor: '#576B95',
+						cancelColor: '#000000',
+						cancelText: '我知道了',
+						confirm: () => {
+						},
+						cancel: async () => {
+						}
+					});
+					return;
+				}
+			} else {
+				util.showToastNoIcon(result.message);
 				return;
 			}
 		}
@@ -608,6 +614,7 @@ Page({
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		if (!result) return;
+		this.setData({isRequest: false});
 		if (result.code === 0) {
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
 				this.data.equityListMap[this.data.activeIndex]?.payMoney) {

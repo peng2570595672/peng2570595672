@@ -87,6 +87,7 @@ Page({
 			// 公众号进入需要登录
 			this.login();
 		}
+		this.getWchatPhoneNumber();
 	},
 
 	// 自动登录
@@ -607,21 +608,23 @@ Page({
 		return isOk;
 	},
 	// etc4.0：新增-拉起微信授权手机号
-	getWchatPhoneNumber (e) {
-		if (e.detail.errMsg === 'getPhoneNumber:ok') {	// 同意授权
-			if (app.globalData.userInfo.needBindingPhone === 0) {	// 判断是否绑定过手机号
-				this.setData({
-					tip1: '',
-					'formData.operator': app.globalData.mobilePhone,
-					available: this.validateAvailable(true)
-				});
-			} else {
-				util.showToastNoIcon('手机号未绑定，马上跳转登录页登录');
-				setTimeout(() => {
-					wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-					util.go('/pages/login/login/login');
-				},1500);
-			}
+	focus () {
+		// 拉起下面输入框键盘时关闭 输入车牌号键盘
+		this.selectComponent('#keyboard').hide();
+	},
+	getWchatPhoneNumber () {
+		if (app.globalData.userInfo.needBindingPhone !== 1) {	// 判断是否绑定过手机号
+			this.setData({
+				tip1: '',
+				'formData.operator': app.globalData.mobilePhone,
+				available: this.validateAvailable(true)
+			});
+		} else {
+			util.showToastNoIcon('手机号未绑定，马上跳转登录页登录');
+			setTimeout(() => {
+				wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+				util.go('/pages/login/login/login');
+			},1500);
 		}
 	},
 	// 输入框输入值

@@ -159,6 +159,21 @@ Component({
 		},
 		stop () {
 			console.log(11);
+		},
+		hide (e) {
+			this.setData({
+				wrapper: false
+			});
+			setTimeout(() => {
+				this.setData({
+					myShow: false
+				});
+				this.triggerEvent('valueChange', {
+					carNo: this.data.carNo,
+					index: this.data.index,
+					show: this.data.myShow
+				});
+			}, 400);
 		}
 	},
 	lifetimes: {

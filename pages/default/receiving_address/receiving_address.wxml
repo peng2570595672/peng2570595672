@@ -42,10 +42,11 @@
             <view class="publicCodeLeft">手机号码</view>
             <view class="publicCoderight">
                 <input class="input" type="number" placeholder="用于开具通行费发票" value="{{formData.operator}}" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" data-name="operator" maxlength="11" />
-                <button class="btns" open-type="getPhoneNumber" bindgetphonenumber="getWchatPhoneNumber">获取微信手机号</button>
-                <text class="errTip" wx:if="{{tip1}}">{{tip1}}</text>
+                <!-- <button class="btns" open-type="getPhoneNumber" bindgetphonenumber="getWchatPhoneNumber">获取微信手机号</button> -->
+                
             </view>
         </view>
+        <view class="tipPhone" >这是当前微信绑定手机号，将用于开具通行费发票</view>
     </view>
     <!-- 模块三   办理邮寄信息 -->
     <view class="module moduleThree">
@@ -55,7 +56,7 @@
         <view class="publicCode">
             <view class="publicCodeLeft">收货人</view>
             <view class="publicCoderight">
-                <input class="input" type="text" placeholder="输入收货人姓名" value="{{formData.userName}}" maxlength="{{size}}" data-name="userName"  placeholder-class="input-placeholder" bindinput="onInputChangedHandle"/>
+                <input class="input" type="text" placeholder="输入收货人姓名" value="{{formData.userName}}" maxlength="{{size}}" data-name="userName"  placeholder-class="input-placeholder" bindinput="onInputChangedHandle" bindfocus="focus"/>
                 <view class="btns" catchtap="onClickAutoFillHandle">
                     <span class="wChat iconfont" />
                     <span class="text">选择微信地址</span>
@@ -66,7 +67,7 @@
         <view class="publicCode">
             <view class="publicCodeLeft">选择地区</view>
             <view class="publicCoderight">
-                <picker class="input" mode="region" value="{{formData.region}}" bindchange="onPickerChangedHandle">
+                <picker class="input" mode="region" value="{{formData.region}}" bindchange="onPickerChangedHandle" catchtap="focus">
                     <view wx:if="{{tools.addressFormat(formData.region)}}">{{tools.addressFormat(formData.region)}}</view>
                     <span wx:else class="input-placeholder">选择收货 省-市-区</span>
                 </picker>
@@ -76,13 +77,13 @@
         <view class="publicCode">
             <view class="publicCodeLeft">详细地址</view>
             <view class="publicCoderight">
-                <input class="input" type="text" placeholder="输出详细收货地址" value="{{formData.detailInfo}}" data-name="detailInfo" placeholder-class="input-placeholder"  bindinput="onInputChangedHandle" />
+                <input class="input" type="text" placeholder="输出详细收货地址" value="{{formData.detailInfo}}" data-name="detailInfo" placeholder-class="input-placeholder"  bindinput="onInputChangedHandle" bindfocus="focus"/>
             </view>
         </view>
         <view class="publicCode">
             <view class="publicCodeLeft">手机号</view>
             <view class="publicCoderight">
-                <input class="input" type="number" placeholder="输入收货手机号" value="{{formData.telNumber}}"  data-name="telNumber" placeholder-class="input-placeholder" maxlength="11"  bindinput="onInputChangedHandle"/>
+                <input class="input" type="number" placeholder="输入收货手机号" value="{{formData.telNumber}}"  data-name="telNumber" placeholder-class="input-placeholder" maxlength="11"  bindinput="onInputChangedHandle" bindfocus="focus"/>
                 <text class="errTip" wx:if="{{tip3}}">{{tip3}}</text>
             </view>
         </view>
