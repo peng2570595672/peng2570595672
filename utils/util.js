@@ -1665,7 +1665,7 @@ function getUserInfo(callback) {
 			// 这里把加密后的openid存入缓存，下次就不必再去发起请求
 			const openId = wx.getStorageSync('user_code');
 			if (openId) {
-				app.globalData.openId = openId;
+				app.globalData.openIdTonDun = openId;
 				callback(0, openId); // 回调函数接受两个参数，第一个代表code种类，0为openId，1为code
 			} else {
 				// 如果缓存中没有，则需要再次调用登录接口获取code

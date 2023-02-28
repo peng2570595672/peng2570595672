@@ -233,7 +233,7 @@ Page({
 			wx.removeStorageSync('login_info_final');
 		}
 	},
-	
+
 	// --------------------------------测试方法: 广告弹窗------------------------
 	testFunc (e) {
 		// 未登录
@@ -268,7 +268,7 @@ Page({
 			});
 		}
 	},
-	
+
 	// ---------------------------------end---------------------------
 	async getIsShowNotice () {
 		const result = await util.queryProtocolRecord(2);
@@ -325,7 +325,7 @@ Page({
 			util.go(`/pages/personal_center/${url}/${url}`);
 			return;
 		}
-		
+
 		// 订阅:高速扣费通知、ETC欠费提醒、黑名单状态提醒
 		let urls = `/pages/personal_center/${url}/${url}?isMain=true`;
 		let tmplIds = ['oz7msNJRXzk7VmASJsJtb2JG0rKEWjX3Ff1PIaAPa78',
@@ -720,7 +720,7 @@ Page({
 			const passengerCarListNotActivation = isAllActivation ? passengerCarList[0] : passengerCarList.filter(item => item.selfStatus !== 12)[0];
 			const passengerCarListNotTruckActivation = isAllActivationTruck ? truckList[0] : truckList.filter(item => item.selfStatus !== 12)[0];
 			app.globalData.isArrearageData.trucksOrderList = truckActivationOrderList;
-			
+
 			this.setData({
 				isShowNotice: !!app.globalData.myEtcList.length,
 				needRequestBillNum: activationTruckOrder.length + activationOrder.length,
@@ -1473,6 +1473,7 @@ Page({
 		// 跳转到 移动积分兑通行券 页面
 		util.go('/pages/moving_integral/bound_changyou/bound_changyou');
 	},
+
 	getMargin () {
 		// app.globalData.myEtcList[0].flowVersion = 2;
 		let num = 0;
