@@ -17,7 +17,7 @@
               catchtap="go" data-url="information_validation">
             {{orderInfo.isVehicle === 1 ? '修改' : '上传'}}
         </view>
-        <view wx:else class="icon {{orderInfo.isVehicle === 1 ? 'success' : ''}} iconfont"></view>
+        <view wx:else class="icon {{orderInfo.isVehicle === 1 ? 'success' : ''}} iconfont" catchtap="go" data-url="information_validation"></view>
     </view>
     <view class="module moduleThree" wx:if="{{ orderInfo.obuCardType !== 1 }}">
         <view class="left iconfont {{isHeadstockError ? 'error' : ''}}">车辆照片</view>
