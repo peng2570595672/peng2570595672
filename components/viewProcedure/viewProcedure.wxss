@@ -330,21 +330,21 @@
 
 /* 移动积分 弹窗布局设置 */
 .alert-for-not-finished-content .moving_integral_pop-up {
-  width: 640rpx;
+  width: 100%;
   background-color: #fff;
   border-radius: 16rpx;
 }
 
 .alert-for-not-finished-content .moving_integral_pop-up .scroll_pop-up {
-  width: 568rpx;
+  width: 620rpx;
   height: 684rpx;
   color: #000;
   line-height: 46rpx;
-  margin: 64rpx 0 0 68rpx;
+  margin: 64rpx 0 0 40rpx;
 }
 
 .alert-for-not-finished-content .moving_integral_pop-up .scroll_pop-up .view {
-  width: 532rpx;
+  width: 590rpx;
   height: auto;
   text-align: justify;
 }
@@ -397,7 +397,7 @@
   font-weight: 500;
   letter-spacing: 2rpx;
   line-height: 106rpx;
-  margin-left: 20rpx;
+  /* margin-left: 20rpx; */
   background-color: #fff;
 }
 
