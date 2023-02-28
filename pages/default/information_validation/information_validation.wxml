@@ -62,7 +62,7 @@
             <view class="keyValue">
                 <view class="attrName">车辆类型</view>
                 <view class="attrValue">
-                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.vehicleType}}" bindinput="onInputChangedHandle" data-key="vehicleType" data-type="3" placeholder-class="input-placeholder" placeholder="请输入车辆类型"/>
+                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.vehicleType}}" disabled="{{true}}" bindinput="onInputChangedHandle" data-key="vehicleType" data-type="3" placeholder-class="input-placeholder" placeholder="请输入车辆类型"/>
                 </view>
             </view>
             <view class="keyValue">
