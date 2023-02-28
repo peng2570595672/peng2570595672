@@ -396,6 +396,10 @@
     color: #5EBE68;
 }
 
+.index .payAndAgreement .agreementConfirm .agreement .agreementColor .agreeSpan {
+    color: #000000;
+}
+
 
 
 .index .payAndAgreement .paySign .moneyPay,

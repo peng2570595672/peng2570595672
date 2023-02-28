@@ -243,6 +243,7 @@
     color: #2A4F44;
     line-height: 96rpx;
     border-radius: 54rpx;
+    background-color: #FFFFFF;
     border: 2rpx solid #2A4F44;
 }
 
@@ -257,6 +258,7 @@
 
 /* 欠费补缴 */
 .alert-for-not-finished-content .moduleThree .bottomBtn {
+    width: 100%;
     display: flex;
     font-size: 36rpx;
     font-weight: 400;
@@ -266,15 +268,19 @@
 }
 
 .alert-for-not-finished-content .moduleThree .bottomBtn .cancel {
+    display: block;
     width: 220rpx;
     height: 96rpx;
     color: #2A4F44;
     line-height: 96rpx;
     border-radius: 54rpx;
+    background-color: #FFFFFF;
     border: 2rpx solid #2A4F44;
+    
 }
 
 .alert-for-not-finished-content .moduleThree .bottomBtn .ok {
+    display: block;
     width: 310rpx;
     height: 96rpx;
     color: #FFFFFF;

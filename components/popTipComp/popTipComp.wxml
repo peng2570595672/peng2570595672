@@ -15,8 +15,8 @@
             <view class="title">{{tipObj.title}}</view>
             <view class="contant">{{tools.limitNumber(tipObj.content,90)}}</view>
             <view class="bottomBtn">
-                <button class="cancel" catchtap="hide">取消</button>
-                <button class="ok" catchtap="hide">确定</button>
+                <view class="cancel" catchtap="hide">取消</view>
+                <view class="ok" catchtap="hide">确定</view>
             </view>
         </view>
         <!-- 欠费补缴  -->
@@ -24,8 +24,8 @@
             <view class="title">{{tipObj.title}}</view>
             <view class="contant">你已欠款 <span class="span"> {{tipObj.params.money / 100}} </span>元，将影响正常的高速通行</view>
             <view class="bottomBtn">
-                <button class="cancel" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</button>
-                <button class="ok" catchtap="supplementaryPayment">{{tools.limitNumber(tipObj.btnconfirm,4)}}</button>
+                <view class="cancel" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+                <view class="ok" catchtap="supplementaryPayment">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
             </view>
         </view>
         <!-- 恢复签约 -->

@@ -13,7 +13,7 @@ Page({
 				id: 2,
 				title1: '整机保修',
 				title2: '合约期内只换不修',
-				text: '合约期内只换不修',
+				text: '时效保修: 尊敬的车主，我们将根据为您办理设备的时效提供相应的ETC保修服务',
 				bgImg: 'https://file.cyzl.com/g001/M01/C8/62/oYYBAGP0oCyAQB_TAAFddsoJEGA643.jpg'
 			},
 			{
@@ -25,8 +25,8 @@ Page({
 			},
 			{
 				id: 4,
-				title1: '权益商城',
-				title2: '全天候服务支持',
+				title1: '会员商城',
+				title2: '享受ETC会员优惠',
 				text: '我们准备了涵盖出行、生活、影视听娱乐、免税商品等多项权益，任供ETC车主用户消费及使用',
 				bgImg: 'https://file.cyzl.com/g001/M01/C8/62/oYYBAGP0n_qAP8hbAAFIgtccSOc371.jpg'
 			}

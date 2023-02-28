@@ -543,11 +543,6 @@ Page({
 			util.showToastNoIcon('请同意并勾选协议！');
 			return;
 		}
-		if (this.data.isRequest) {
-			return;
-		} else {
-			this.setData({isRequest: true});
-		}
 		if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4) {
 			// 判断是否是 权益券额套餐模式 ，如果是再判断以前是否有过办理，如果有则弹窗提示，并且不执行后面流程
 			const result = await util.getDataFromServersV2('consumer/order/precharge/list',{
@@ -597,6 +592,11 @@ Page({
 	},
 	// 提交订单
 	async saveOrderInfo () {
+		if (this.data.isRequest) {
+			return;
+		} else {
+			this.setData({isRequest: true});
+		}
 		wx.uma.trackEvent('package_the_rights_and_interests_next');
 		const res = await util.getDataFromServersV2('consumer/order/after-sale-record/addProtocolRecord', {
 			orderId: app.globalData.orderInfo.orderId // 订单id
@@ -613,8 +613,8 @@ Page({
 			areaCode: this.data.orderInfo ? (this.data.orderInfo.product.areaCode || '0') : app.globalData.newPackagePageData.areaCode
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
-		if (!result) return;
 		this.setData({isRequest: false});
+		if (!result) return;
 		if (result.code === 0) {
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
 				this.data.equityListMap[this.data.activeIndex]?.payMoney) {
