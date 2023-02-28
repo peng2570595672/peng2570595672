@@ -46,15 +46,9 @@ function cardStyleTop(offsetY,index,nowIndex,showNum,isCycle,dataLength){
     if(position < showNum){
       if(showNum - position > index) {
         return offsetY*(position+index)
-      };
+      }
     }
   }
-	
-	// console.log('--------------')
-	// console.log(offsetY)
-	// console.log('nowIndex')
-	// console.log(index)
-	// console.log(offsetY*(index - nowIndex))
   return offsetY*(index - nowIndex);
 }
 function cardStyleTranslate(showNum,index,nowIndex,showNum,isCycle,dataLength){
@@ -63,18 +57,21 @@ function cardStyleTranslate(showNum,index,nowIndex,showNum,isCycle,dataLength){
     if(position < showNum){
       if(showNum - position > index) {
         return showNum-(position+index)
-      };
+      }
     }
   }
   return showNum-(index - nowIndex);
 }
 function cardStyleScale(scale,index,nowIndex,showNum,isCycle,dataLength){
+	if (dataLength === 1) {
+		return 1;
+	}
   if(isCycle){
     var position = dataLength  - nowIndex; //确定当前显示的卡片所处位置
     if(position < showNum){
       if(showNum - position > index) {
         return 1-scale*(position+index)
-      };
+      }
     }
   }
   return 1-scale*(index - nowIndex);
@@ -88,7 +85,7 @@ function cardStyleOpacity(index,nowIndex,showNum,isCycle,dataLength){
     if(position < showNum){
       if(showNum - position > index) {
         return 0.5
-      };
+      }
     }
   }
   return index == nowIndex?1:0.5 ;
@@ -96,10 +93,8 @@ function cardStyleOpacity(index,nowIndex,showNum,isCycle,dataLength){
 
 //开始移动
 function touchstart(e,ownerInstance){
-	console.log(';;;');
   instance = e.instance;
   var dataset = instance.getDataset() //页面传值
-	// console.log(JSON.stringify(dataset))
   cardListIndex = dataset.cardListIndex;
   cardIndex = dataset.cardIndex
 	cardsLength = dataset.cardsLength;
@@ -125,7 +120,7 @@ function touchstart(e,ownerInstance){
   SLIDE_THRESHOLD = dataset.slideThershold
   var notFristCardClass = '.my_card_item_panel'+(cardIndex + 1 == cardsLength?0:cardIndex + 1)
   ownerInstance.selectComponent(notFristCardClass)&&ownerInstance.selectComponent(notFristCardClass).setStyle({
-    "opacity": "1",
+    "opacity": "1"
   });
 }
 
@@ -141,7 +136,7 @@ function touchmove(e,ownerInstance){
   moveX = clientX - startX;
   instance.setStyle({
     "transition": "unset",
-    "transform": "translate3d(" + moveX + "px, 0, " + 3 + "px)  rotate(" + ROTATE_DEG /CONTEXT_WIDTH * moveX + "deg)",
+    "transform": "translate3d(" + moveX + "px, 0, " + 3 + "px)  rotate(" + ROTATE_DEG /CONTEXT_WIDTH * moveX + "deg)"
   })
  
 }
@@ -160,15 +155,15 @@ function touchend(e,ownerInstance){
     lock = false
     var notFristCardClass = '.my_card_item_panel'+(cardIndex + 1 == cardsLength?0:cardIndex + 1)
     ownerInstance.selectComponent(notFristCardClass)&&ownerInstance.selectComponent(notFristCardClass).setStyle({
-      "opacity": Math.abs(moveX) < SLIDE_THRESHOLD?"0.6":"1",
+      "opacity": Math.abs(moveX) < SLIDE_THRESHOLD?"0.6":"1"
     });
-  };
+  }
   instance.setStyle({
     "transform": Math.abs(moveX) < SLIDE_THRESHOLD ?
         // 如果小于滑出阈值，放弃setStyle，使用之前的transfrom
         "translate3d()" :
         "translate3d(" + (moveX > 0 ? 750 : -750) + "rpx, 0, " + 3 + "px) rotate(" + (moveX > 0 ? ROTATE_DEG : -ROTATE_DEG) + "deg)",
-        "transition": "all ease " + 0.2 + "s",
+        "transition": "all ease " + 0.2 + "s"
   })
 }
 
@@ -187,7 +182,7 @@ function nextCarkStart(e,ownerInstance){
 
     var notFristCardClass = '.my_card_item_panel'+(cardIndex + 1 == cardsLength?0:cardIndex + 1)
     ownerInstance.selectComponent(notFristCardClass)&&ownerInstance.selectComponent(notFristCardClass).setStyle({
-      "opacity": Math.abs(moveX) < SLIDE_THRESHOLD?"0.6":"1",
+      "opacity": Math.abs(moveX) < SLIDE_THRESHOLD?"0.6":"1"
     });
     last_cardIndex = cardIndex
     TRANSITION_STATUS = 0;
@@ -226,7 +221,7 @@ function tapNextCard(e,ownerInstance){
   TRANSITION_STATUS = 1;
   instance.setStyle({
     "transition": "all ease " + 0.2 + "s",
-    "transform": "translate3d(" + moveX + "rpx, 0, " + 3 + "px)  rotate(" + (moveX > 0 ? ROTATE_DEG :-ROTATE_DEG) + "deg)",
+    "transform": "translate3d(" + moveX + "rpx, 0, " + 3 + "px)  rotate(" + (moveX > 0 ? ROTATE_DEG :-ROTATE_DEG) + "deg)"
   })
 }
 
