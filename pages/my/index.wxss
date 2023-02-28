@@ -16,8 +16,6 @@
 
 .my {
     width: 100%;
-    height: 100vh;
-    overflow: hidden;
 	display: flex;
 	flex-direction: column;
 }
@@ -199,8 +197,8 @@
 }
 
 .my .moduleThree>.image {
-    width: 100%;
-    height: 100%;
+  	width: 694rpx;
+    height: 270rpx;
 }
 
 /* 模块四 */

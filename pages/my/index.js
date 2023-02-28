@@ -51,6 +51,7 @@ Page({
 		disclaimerDesc: app.globalData.disclaimerDesc,
 		initData: true,
 		cardList: [],
+		isShowEquityImg: false,	// 是否显示权益商城banner
 		nextPageData: []
 	},
 
@@ -73,7 +74,7 @@ Page({
 		// --------------end------------
 		if (app.globalData.userInfo.accessToken) {
 			// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
-			let requestList = [await util.getUserIsVip(),await this.getRightAccount(), await util.getMemberStatus(), await this.queryHelpCenterRecord(), await this.getRightsPackageBuyRecords()];
+			let requestList = [await util.getUserIsVip(),await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
 			util.customTabbar(this, 2);
 			util.getUserIsVip();
 			util.showLoading();
@@ -122,6 +123,7 @@ Page({
 				item.accountType = 1;// 1-权益账户   2-货车预充值 3-交行 4-工行
 			});
 			this.setData({
+				isShowEquityImg: result.data?.length,
 				cardList: result.data,
 				nextPageData: result.data
 			});
@@ -256,7 +258,7 @@ Page({
 							myAccountList: app.globalData.myEtcList
 						});
 						// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
-						requestList = [requestList, await this.getRightAccount(), await util.getMemberStatus(), await this.queryHelpCenterRecord(), await this.getRightsPackageBuyRecords()];
+						requestList = [requestList, await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
 						util.showLoading();
 						await Promise.all(requestList);
 						util.hideLoading();
@@ -459,7 +461,9 @@ Page({
 		})();
 	},
 	handleEquitiesMall () {
-		util.go(`/pages/personal_center/equity_payment/equity_payment?payId=1077979271034572801&price=1&source=ttq`);
-		// util.go(`/pages/personal_center/choice_vehicle/choice_vehicle`);
+		const url = `https://${app.globalData.test ? 'etctest' : 'etc'}.cyzl.com/${app.globalData.test ? 'etc2-html' : 'wetc'}/etc_life_rights_and_interests/index.html#/?auth=${app.globalData.userInfo.accessToken}&platformId=${app.globalData.platformId}`;
+		util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
+		// util.go(`/pages/personal_center/equity_payment/equity_payment?payId=1077979271034572801&price=1&source=ttq`);
+		// // util.go(`/pages/personal_center/choice_vehicle/choice_vehicle`);
 	}
 });
