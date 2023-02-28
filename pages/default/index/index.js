@@ -7,9 +7,9 @@ const app = getApp();
 Page({
 	data: {
 		testData: [{
-				title: '哪些车辆支持办理ETC？',
-				contant: '支持9座及以下的小型汽车办理，货车办理通，敬请关注。'
-			},
+			title: '哪些车辆支持办理ETC？',
+			contant: '支持9座及以下的小型汽车办理，货车办理通，敬请关注。'
+		},
 			{
 				title: '办理你们的ETC是否支持全国通行？通行全国高速都是95折',
 				contant: '是的。目前全国高速已实现联网，ETC设备通行均可享受通行费95折的普惠政策，如部分省份高速或路段还有其他优惠可叠加同享。'
@@ -127,7 +127,7 @@ Page({
 			this.selectComponent('#viewProcedure').show();
 		} else {
 			if (value) {
-			// 关闭弹窗 解除底层“禁止”状态
+				// 关闭弹窗 解除底层“禁止”状态
 				this.setData({
 					whetherToStay: false
 				});

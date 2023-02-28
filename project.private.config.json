@@ -186,9 +186,23 @@
 					"scene": null
 				},
 				{
-					"name": "4.0我的订单",
-					"pathName": "pages/personal_center/order_triage/order_triage",
+					"name": "",
+					"pathName": "pages/etc_handle/etc_handle",
 					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+					"query": "orderId=870619276925734912",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+					"query": "orderId=870615969473761280",
 					"launchMode": "default",
 					"scene": null
 				}
