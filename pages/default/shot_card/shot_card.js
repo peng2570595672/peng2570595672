@@ -268,14 +268,16 @@ Page({
 								// 行驶证背面
 								// 计算人数
 								let personsCapacity = res.data[0].ocrObject.personsCapacity;
-								const personsCapacityStr = personsCapacity.slice(0, personsCapacity.length - 1);
-								let personsCapacityNum = 0;
-								if (personsCapacityStr.includes('+')) {
-									personsCapacityNum = parseInt(personsCapacityStr.split('+')[0]) + parseInt(personsCapacityStr.split('+')[1]);
-								} else {
-									personsCapacityNum = personsCapacityStr;
+								if (personsCapacity) {
+									const personsCapacityStr = personsCapacity.slice(0, personsCapacity.length - 1);
+									let personsCapacityNum = 0;
+									if (personsCapacityStr.includes('+')) {
+										personsCapacityNum = parseInt(personsCapacityStr.split('+')[0]) + parseInt(personsCapacityStr.split('+')[1]);
+									} else {
+										personsCapacityNum = personsCapacityStr;
+									}
+									res.data[0].ocrObject.personsCapacity = personsCapacityNum;
 								}
-								res.data[0].ocrObject.personsCapacity = personsCapacityNum;
 								const ruleForm = {
 									numberPlates: '车牌号码',
 									personsCapacity: '核定载人数'
