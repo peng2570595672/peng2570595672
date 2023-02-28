@@ -18,7 +18,7 @@ Page({
 	onClickReturn () {
 		wx.uma.trackEvent('IDL_for_transact_success_to_return_home');
 		// 返回首页
-		wx.reLaunch({
+		wx.switchTab({
 			url: '/pages/Home/Home'
 		});
 	},

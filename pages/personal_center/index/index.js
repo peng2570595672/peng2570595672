@@ -468,7 +468,7 @@ Page({
 				delta: 1
 			});
 		} else {
-			wx.reLaunch({
+			wx.switchTab({
 				url: '/pages/Home/Home'
 			});
 		}

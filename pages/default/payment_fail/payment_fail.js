@@ -68,7 +68,7 @@ Page({
 	},
 	onUnload () {
 		if (this.data.isMainProcess) {
-			wx.reLaunch({
+			wx.switchTab({
 				url: '/pages/Home/Home'
 			});
 		}

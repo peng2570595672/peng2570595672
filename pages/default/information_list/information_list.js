@@ -342,7 +342,7 @@ Page({
 	},
 	onUnload () {
 		if (this.data.isReturn) {
-			wx.reLaunch({
+			wx.switchTab({
 				url: '/pages/Home/Home'
 			});
 		}

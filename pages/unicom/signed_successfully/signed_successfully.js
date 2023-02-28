@@ -12,7 +12,7 @@ Page({
 	},
 	// 返回首页
 	onClickGoHomeHandle () {
-		wx.reLaunch({
+		wx.switchTab({
 			url: '/pages/Home/Home'
 		});
 	}

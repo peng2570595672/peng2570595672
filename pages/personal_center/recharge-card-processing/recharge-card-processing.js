@@ -206,7 +206,7 @@ Page({
 		});
 	},
 	goHome () {
-		wx.reLaunch({
+		wx.switchTab({
 			url: '/pages/Home/Home'
 		});
 	},

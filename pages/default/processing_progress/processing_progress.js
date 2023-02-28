@@ -416,16 +416,14 @@ Page({
 	},
 	goHome () {
 		app.globalData.orderInfo.orderId = '';
-		wx.reLaunch({
-			// url: '/pages/default/index/index'
+		wx.switchTab({
 			url: '/pages/Home/Home'
 		});
 	},
 	onUnload () {
 		app.globalData.orderInfo.orderId = '';
 		if (this.data.type === 'main_process' || app.globalData.isNeedReturnHome) {
-			wx.reLaunch({
-				// url: '/pages/default/index/index'
+			wx.switchTab({
 				url: '/pages/Home/Home'
 			});
 		}

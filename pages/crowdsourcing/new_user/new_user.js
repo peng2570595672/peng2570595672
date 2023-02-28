@@ -247,7 +247,9 @@ Page({
 			content: '本次活动已结束。',
 			confirmText: '我知道了',
 			confirm: () => {
-				util.go('/pages/Home/Home');
+				wx.switchTab({
+					url: '/pages/Home/Home'
+				});
 			}
 		});
 	}

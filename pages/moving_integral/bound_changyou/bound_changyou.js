@@ -175,7 +175,11 @@ Page({
         count: 0
       });
       util.showToastNoIcon(`系统繁忙，请稍后再试`);
-      return setTimeout(function () { util.go('/pages/Home/Home'); }, 1000);
+      return setTimeout(function () {
+				wx.switchTab({
+					url: '/pages/Home/Home'
+				});
+      }, 1000);
     }
     const authData = await util.getDataFromServersV2('consumer/member/changyou/quickAuth', {
       fingerprint: app.globalData.tonDunObj.fingerprint,
@@ -300,7 +304,9 @@ Page({
       app.globalData.tonDunObj.checkBindStatus = false;
       util.showToastNoIcon('验证失败');
       that.data.closeSetTime = setTimeout(function () {
-        util.go('/pages/Home/Home');
+				wx.switchTab({
+					url: '/pages/Home/Home'
+				});
       }, 1000);
     }
   },
@@ -338,8 +344,8 @@ Page({
   },
 
   onUnload () {
-    wx.reLaunch({
-      url: '/pages/Home/Home'
-    });
+		wx.switchTab({
+			url: '/pages/Home/Home'
+		});
   }
 });
