@@ -410,7 +410,7 @@ Page({
 	// 显示详情
 	showDetail (type) {
 		this.setData({
-			showPublicAccountType: type,
+			showPublicAccountType: type
 		});
 	},
 	// 监听返回按钮
@@ -441,7 +441,8 @@ Page({
 			userInfo: {
 				avatarUrl: personInformation.avatarUrl ? personInformation.avatarUrl : app.globalData.isVip ? yesVip : noVip,
 				nickName: personInformation.nicheng ? personInformation.nicheng : 'E+车主'
-			}
+			},
+			isShowEquityImg: app.globalData.isVip || app.globalData.isEquityRights ? true : false
 		});
 	},
 	// 前往个人信息
