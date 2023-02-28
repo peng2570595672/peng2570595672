@@ -2,8 +2,8 @@
 <view class="home" style="background-color: {{'#EBEDF0'}}">
     <!-- 顶部 滑块视图 -->
     <view class="topSwiper">
-        <swiper class="swiperBox" autoplay circular duration="{{'1000'}}">
-            <swiper-item class="swiper-item" wx:for="{{imgList}}" wx:key="index" catchtap="testFunc">
+        <swiper class="swiperBox {{tools.dataLen(imgList) === 1 ? 'regular':''}}" autoplay circular duration="{{'1000'}}">
+            <swiper-item class="swiper-item {{tools.dataLen(imgList) === 1 ? 'regular-item':''}}" wx:for="{{imgList}}" wx:key="index" catchtap="testFunc" catchtouchmove="{{tools.dataLen(imgList) === 1 ? 'catchtouchmove':''}}">
                 <image class="topImg" src='{{item}}' />
                 <view class="swiperText">
                     <view class="textOne">小汽车ETC</view>

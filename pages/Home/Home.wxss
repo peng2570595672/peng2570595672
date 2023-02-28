@@ -27,11 +27,19 @@
 	height: 100%;
 }
 
+.home .topSwiper .regular {
+	pointer-events:none
+}
+
 .home .topSwiper .swiperBox .swiper-item {
 	width: 100%;
 	height: 100%;
 	z-index: -1;
 	display: block;
+}
+
+.home .topSwiper .regular .regular-item{
+	pointer-events:auto;
 }
 
 .home .topSwiper .swiperBox .swiper-item .topImg {
