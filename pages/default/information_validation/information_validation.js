@@ -363,7 +363,7 @@ Page({
 			isInput
 		});
 		this.setData({
-			available: this.validateData(true)
+			available: this.validateData(false)
 		});
 	},
 	// 选择注册日期
