@@ -428,7 +428,7 @@ Page({
 	},
 	// 通通券协议
 	onClickGoQianTongAgreement () {
-		util.go('/pages/default/coupon_and_etc_agreement/coupon_and_etc_agreement');
+		util.go('/pages/truck_handling/agreement_for_qiantong_to_charge/agreement');
 	},
 	// 通通券协议
 	onClickGoQianTongAgreement1 () {
@@ -470,6 +470,7 @@ Page({
 	},
 	// 获取权益列表
 	async getList (obj) {
+		if (!obj.rightsPackageIds?.length) return;
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
 			packageIds: obj.rightsPackageIds
 		});
@@ -837,6 +838,9 @@ Page({
 	// 获取节点的高度
 	async getNodeHeight (num) {
 		console.log(num);
+		util.showLoading({
+			title: '加载中'
+		});
 		let that = this;
 		let nodeHeightList = [];
 		let equityListMap = [];
@@ -849,16 +853,22 @@ Page({
 					nodeHeightList
 				});
 			}).exec();
-			const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
-				packageIds: this.data.listOfPackages[index].rightsPackageIds.length > 1 ? new Array(this.data.listOfPackages[index].rightsPackageIds[0]) : this.data.listOfPackages[index].rightsPackageIds
-			},'POST',false);
-			if (result.code === 0) {
-				let equityObj = {index: index, packageName: result.data[0].packageName,payMoney: result.data[0].payMoney,id: result.data[0].id};
-				equityListMap.push(equityObj);
-			} else {
-				// 占位
+			const packageIds = this.data.listOfPackages[index].rightsPackageIds.length > 1 ? new Array(this.data.listOfPackages[index].rightsPackageIds[0]) : this.data.listOfPackages[index].rightsPackageIds;
+			if (!packageIds?.length) {
 				let equityObj = {index: index, packageName: '',payMoney: 0};
 				equityListMap.push(equityObj);
+			} else {
+				const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
+					packageIds: packageIds
+				},'POST',false);
+				if (result.code === 0) {
+					let equityObj = {index: index, packageName: result.data[0].packageName,payMoney: result.data[0].payMoney,id: result.data[0].id};
+					equityListMap.push(equityObj);
+				} else {
+					// 占位
+					let equityObj = {index: index, packageName: '',payMoney: 0};
+					equityListMap.push(equityObj);
+				}
 			}
 		}
 		this.setData({
@@ -881,6 +891,7 @@ Page({
 				}
 			}
 		});
+		util.hideLoading();
 	},
 	// 控制 选中套餐 的位置
 	controllShopProductPosition (eIndex) {
