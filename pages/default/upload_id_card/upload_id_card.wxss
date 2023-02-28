@@ -131,7 +131,7 @@
   
   /* 模块二 信息显示 */
   .index .moduleTwo {
-    padding-top: 40rpx;
+    padding: 40rpx 0rpx 20rpx 0rpx;
   }
   
   .index .moduleTwo .keyValue {
