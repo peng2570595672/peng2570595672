@@ -22,7 +22,7 @@
                 wx:if="{{initData}}"
                 generic:cardItem="card"
                 cardsData="{{cardList}}"
-                showNum="{{cardList.length === 4 ? 2 : 3}}"
+                showNum="{{cardList.length === 6 ? 3 : 2}}"
                 isVip="{{isVip}}"
                 nextPageData="{{nextPageData}}"
                 isCycle="{{!!nextPageData.length}}"
@@ -31,25 +31,9 @@
                 bind:cardChange="cardChange"
         >
         </cardSwiper>
-<!--        <swiper class="swiperBox" autoplay='{{false}}' circular indicator-dots='{{false}}' bindchange="">-->
-<!--            <swiper-item class="swiper-item" wx:for="{{myAccountList}}" wx:key="index" catchtap="">-->
-<!--                &lt;!&ndash; 金额和账户 &ndash;&gt;-->
-<!--                <view class="mountAccount">-->
-<!--                    <view class="money">{{item.pledgeType === 1 ? '权益券额' : '￥'}} {{item.pledgeMoney}}</view>-->
-<!--                    <view class="count {{isVip ? 'yellowM' : 'greenM'}}">ETC电子账户</view>-->
-<!--                </view>-->
-<!--                &lt;!&ndash; 记录和车牌 &ndash;&gt;-->
-<!--                <view class="recordPlate">-->
-<!--                    <view class="record" catchtap="onClickAccountManagement">查看账户充值及消费记录</view>-->
-<!--                    <view class="plate">{{item.vehPlates}}</view>-->
-<!--                </view>-->
-<!--            </swiper-item>-->
-<!--        </swiper>-->
-<!--        <view class="styleNum" wx:if="{{tools.dataLen(myAccountList) > 1}}" style="background:{{isVip ? '#85682E' : '#2d765f'}}"></view>-->
-<!--        <view class="styleNum1" wx:if="{{tools.dataLen(myAccountList) > 1}}" style="background:{{isVip ? '#644E23' : '#4f8d73'}}"></view>-->
     </view>
     <!-- 模块2 功能栏 -->
-    <view class="module moduleTwo {{tools.dataLen(myAccountList) > 1 ? 'marginTop' : ''}}" style="margin-top: {{cardList.length * 10 + 30 }}rpx">
+    <view class="module moduleTwo {{tools.dataLen(myAccountList) > 1 ? 'marginTop' : ''}}" style="margin-top: {{!cardList.length ? 20 : cardList.length * 10 }}rpx">
         <view class="func" wx:for="{{funcList}}" wx:key="index" data-url="{{item.url}}" catchtap="go">
             <view class="icon {{isVip ? 'yellowF' : 'greenF'}}">
                 <image class="iconImg" src="{{isVip ? item.iconVip : item.icon}}" />
