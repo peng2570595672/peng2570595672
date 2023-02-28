@@ -41,13 +41,6 @@ Page({
 		mobilePhoneSystem: false,
 		isMain: false,// 是否从主流程进入
 		mobilePhone: undefined,
-		isAgreement: false,
-		isShowHelpCenterUpdate: false,
-		showPublicAccountType: 0,// 0 关注公众号  1 影音
-		isActivation: false, // 是否有激活车辆
-		isOpenTheCard: true, // 是否开通三类户
-		isShowFeatureService: false, // 是否显示特色服务
-		isShowCoupon: false, // 是否显示通通券入口
 		disclaimerDesc: app.globalData.disclaimerDesc,
 		initData: true,
 		cardList: [],
@@ -76,7 +69,6 @@ Page({
 		await this.getUserProfiles();
 		// --------------end------------
 		if (app.globalData.userInfo.accessToken) {
-			// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
 			let requestList = [await util.getUserIsVip(),await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
 			util.customTabbar(this, 2);
 			util.getUserIsVip();
@@ -93,7 +85,8 @@ Page({
 				isVip: app.globalData.isVip
 			});
 			if (JSON.stringify(app.globalData.myEtcList) !== '{}') {
-				this.getIsShow();
+				// 查询是否欠款
+				await util.getIsArrearage();
 			}
 		} else {
 			// 公众号进入需要登录
@@ -205,12 +198,6 @@ Page({
 		this.selectComponent('#dialog1').noShow();
 		jumpCouponMini();
 	},
-	// 勾选用户协议
-	onClickChangeAgreement () {
-		this.setData({
-			isAgreement: true
-		});
-	},
 	// 获取加购权益包订单列表
 	async getRightsPackageBuyRecords () {
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/add-buy-record', {
@@ -260,7 +247,6 @@ Page({
 							isVip: app.globalData.isVip,
 							myAccountList: app.globalData.myEtcList
 						});
-						// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
 						requestList = [requestList, await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
 						util.showLoading();
 						await Promise.all(requestList);
@@ -287,13 +273,6 @@ Page({
 			}
 		});
 	},
-	// 获取二类户号信息
-	async getV2BankId () {
-		// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
-		// this.setData({
-		// 	isOpenTheCard: !!app.globalData.bankCardInfo?.accountNo
-		// });
-	},
 	// 获取订单信息
 	async getStatus () {
 		let params = {
@@ -305,24 +284,11 @@ Page({
 			this.setData({
 				myAccountList: result.data
 			});
-			await this.getIsShow();
+			// 查询是否欠款
+			await util.getIsArrearage();
 		} else {
 			util.showToastNoIcon(result.message);
 		}
-	},
-	async getIsShow () {
-		let isActivation = app.globalData.myEtcList.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && (item.obuCardType === 1 || item.obuCardType === 21 || item.obuCardType === 22)); // 1 已激活  2 恢复订单  5 预激活
-		let isNewOrder = app.globalData.myEtcList.findIndex(item => compareDate(item.addTime, '2021-07-14') === true); // 当前用户有办理订单且订单创建日期在2021年7月13日前（含7月13日）
-		let isShowFeatureService = app.globalData.myEtcList.findIndex(item => item.isShowFeatureService === 1 && (item.obuStatus === 1 || item.obuStatus === 5)); // 是否有特色服务
-		let isShowCoupon = app.globalData.myEtcList.findIndex(item => (item.isSignTtCoupon === 1 && item.ttContractStatus !== 0)); // 通通券 存在签约或解约
-		let flag = app.globalData.myEtcList.findIndex(item => (item.pledgeType === 4 && item.pledgeStatus !== 0 && item.platformId !== '568113867222155288' && item.platformId !== '500338116821778436'));
-		this.setData({
-			isShowFeatureService: isShowFeatureService !== -1,
-			isShowCoupon: isShowCoupon !== -1,
-			isActivation: !!isActivation.length
-		});
-		// 查询是否欠款
-		await util.getIsArrearage();
 	},
 	handleMall () {
 		const url = `https://${app.globalData.test ? 'etctest' : 'etc'}.cyzl.com/${app.globalData.test ? 'etc2-html' : 'wetc'}/etc_life_rights_and_interests/index.html#/?auth=${app.globalData.userInfo.accessToken}&platformId=${app.globalData.platformId}`;
@@ -352,7 +318,6 @@ Page({
 			this.showDetail(1);
 			return;
 		}
-		if (url === 'help_center' && this.data.isShowHelpCenterUpdate) await util.addProtocolRecord(5);
 		const urlObj = {
 			'the_owner_service': 'personal_center_owner_service',
 			'my_etc': 'personal_center_my_etc',
@@ -405,12 +370,6 @@ Page({
 					util.showToastNoIcon('扫码失败');
 				}
 			}
-		});
-	},
-	// 显示详情
-	showDetail (type) {
-		this.setData({
-			showPublicAccountType: type
 		});
 	},
 	// 监听返回按钮
