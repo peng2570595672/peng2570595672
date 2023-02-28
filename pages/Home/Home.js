@@ -1190,6 +1190,7 @@ Page({
 	},
 	// 微信签约
 	async weChatSign (obj) {
+		app.globalData.orderInfo.orderId = obj.id;
 		let params = {
 			orderId: obj.id, // 订单id
 			clientOpenid: app.globalData.userInfo.openId,
