@@ -61,7 +61,6 @@ Page({
 		isActivityDate: false, // 是否活动期间
 		isPrechargeOrder: true, // 是否有预充流程 || 交行二类户 || 工行二类户  & 已审核通过订单
 		disclaimerDesc: app.globalData.disclaimerDesc,
-		isShowEquityImg: false,	// 是否显示权益商城banner
 		initData: true,
 		cardList: [],
 		nextPageData: []
@@ -86,7 +85,7 @@ Page({
 		// --------------end------------
 		if (app.globalData.userInfo.accessToken) {
 			// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
-			let requestList = [await util.getUserIsVip(),await this.getRightAccount(), await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon(), await this.getRightsAccount()];
+			let requestList = [await util.getUserIsVip(),await this.getRightAccount(), await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon()];
 			util.customTabbar(this, 2);
 			util.getUserIsVip();
 			util.showLoading();
@@ -128,7 +127,7 @@ Page({
 		const result = await util.getDataFromServersV2('/consumer/member/right/account', {
 			page: 1,
 			pageSize: 1
-		});
+		}, 'POST', false);
 		if (result.code) {
 			util.showToastNoIcon(result.message);
 		} else {
@@ -153,8 +152,7 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/third/queryWallet', {
 			orderId: item.id,
 			pageSize: 1
-		});
-		util.hideLoading();
+		}, 'POST', false);
 		console.log('货车数据：',result);
 		if (!result) return;
 		if (result.code === 0) {
@@ -185,7 +183,7 @@ Page({
 		const result = await util.getDataFromServersV2('/consumer/member/bcm/queryBalance', {
 			orderId: orderInfo.id,
 			cardType: '01'
-		});
+		}, 'POST', false);
 		if (result.code) {
 			util.showToastNoIcon(result.message);
 		} else {
@@ -274,7 +272,7 @@ Page({
 	async getHasCoupon () {
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/has-coupon', {
 			platformId: app.globalData.platformId
-		});
+		}, 'POST', false);
 		if (result.code === 0) {
 			this.setData({
 				hasCoupon: !!result.data
@@ -287,7 +285,7 @@ Page({
 	async getRightsPackageBuyRecords () {
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/add-buy-record', {
 			platformId: app.globalData.platformId
-		});
+		}, 'POST', false);
 		if (result.code === 0) {
 			if (result?.data) {
 				let res = result?.data;
@@ -309,7 +307,7 @@ Page({
 				const result = await util.getDataFromServersV2('consumer/member/common/applet/code', {
 					platformId: app.globalData.platformId, // 平台id
 					code: res.code // 从微信获取的code
-				});
+				}, 'POST', false);
 				if (result.code === 0) {
 					result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data.mobilePhone);
 					this.setData({
@@ -333,22 +331,23 @@ Page({
 							myAccountList: app.globalData.myEtcList
 						});
 						// if (!app.globalData.bankCardInfo?.accountNo) await this.getV2BankId();
-						requestList = [requestList, await this.getRightAccount(), await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon(), await this.getRightsAccount()];
+						requestList = [requestList, await this.getRightAccount(), await util.getMemberStatus(), await this.getMemberBenefits(), await this.queryProtocolRecord(), await this.getIsShowNotice(), await this.queryHelpCenterRecord(), await this.getMemberCrowdSourcingAndOrder(), await this.getRightsPackageBuyRecords(), await this.getHasCoupon()];
 						util.showLoading();
 						await Promise.all(requestList);
+						util.hideLoading();
 						if (this.data.cardList.length > 1) {
 							this.setData({
 								cardList: this.data.cardList.concat(this.data.cardList),
 								nextPageData: this.data.cardList.concat(this.data.cardList)
 							});
 						}
-						util.hideLoading();
 					} else {
+						util.hideLoading();
 						wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
 						util.go('/pages/login/login/login');
-						util.hideLoading();
 					}
 				} else {
+					util.hideLoading();
 					util.showToastNoIcon(result.message);
 				}
 			},
@@ -370,7 +369,7 @@ Page({
 		let params = {
 			openId: app.globalData.openId
 		};
-		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
+		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params, 'POST', false);
 		if (result.code === 0) {
 			app.globalData.myEtcList = result.data;
 			this.setData({
@@ -394,7 +393,6 @@ Page({
 			isPrechargeOrder: isPrechargeOrder !== -1,
 			showAgreementWrapper: isNewOrder !== -1,
 			isShowCoupon: isShowCoupon !== -1,
-			isShowEquityImg: flag !== -1,
 			isActivation: !!isActivation.length
 		});
 		// 查询是否欠款
@@ -406,23 +404,12 @@ Page({
 	},
 	// 众包-获取用户推广码和订单红包数量
 	async getMemberCrowdSourcingAndOrder () {
-		const result = await util.getDataFromServersV2('consumer/member/getMemberCrowdSourcingAndOrder', {});
+		const result = await util.getDataFromServersV2('consumer/member/getMemberCrowdSourcingAndOrder', {}, 'POST', false);
 		if (result.code === 0) {
 			// status - 0 未成为推广者，1-已经是推广者，8-活动已经结束
 			app.globalData.crowdsourcingServiceProvidersId = result.data.shopId;
 			this.setData({
 				crowdSourcingMsg: result.data
-			});
-		} else {
-			util.showToastNoIcon(result.message);
-		}
-	},
-	// 获取用户权益账户
-	async getRightsAccount () {
-		const result = await util.getDataFromServersV2('consumer/member/right/account', {});
-		if (result.code === 0) {
-			this.setData({
-				isShowEquityImg: result.data?.length
 			});
 		} else {
 			util.showToastNoIcon(result.message);
@@ -485,7 +472,7 @@ Page({
 
 	// 获取会员信息
 	async getMemberBenefits () {
-		const result = await util.getDataFromServersV2('consumer/member/member-status', {});
+		const result = await util.getDataFromServersV2('consumer/member/member-status', {}, 'POST', false);
 		if (result.code === 0) {
 			this.setData({
 				isAttention: result.data.attentionStatus
@@ -547,7 +534,7 @@ Page({
 				if (key && val && key[1] && (val[1].length === 18 || val[1].length === 19) && key[1] === 'orderId') {
 					const result = await util.getDataFromServersV2('consumer/member/bind-order', {
 						orderId: val[1]
-					});
+					}, 'POST', false);
 					if (result.code === 0) {
 						app.globalData.orderInfo.orderId = val[1];
 						util.go('/pages/personal_center/my_etc_detail/my_etc_detail');

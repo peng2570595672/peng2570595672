@@ -167,6 +167,7 @@ Page({
 		util.getUserIsVip();
 	},
 	async onShow () {
+		util.showLoading();
 		util.customTabbar(this, 0);
 		util.getUserIsVip();
 		// @cyl
@@ -456,7 +457,7 @@ Page({
 					'consumer/member/common/applet/code', {
 						platformId: app.globalData.platformId, // 平台id
 						code: res.code // 从微信获取的code
-					});
+					}, 'POST', false);
 				this.initDadi();
 				if (!result) return;
 				if (result.code === 0) {
@@ -472,7 +473,6 @@ Page({
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
 						// 查询最后一笔订单状态
-						util.getMemberStatus();
 						if (app.globalData.salesmanScanCodeToHandleId) {
 							await this.bindOrder();
 						} else {
@@ -528,7 +528,7 @@ Page({
 	async bindOrder () {
 		const result = await util.getDataFromServersV2('consumer/member/bind-order', {
 			orderId: app.globalData.salesmanScanCodeToHandleId
-		});
+		}, 'POST', false);
 		if (!result) return;
 		if (result.code === 0) {
 			app.globalData.salesmanScanCodeToHandleId = undefined; // 处理返回首页再次请求
@@ -551,7 +551,7 @@ Page({
 				certificate: this.data.loginInfo.certificate,
 				encryptedData: encryptedData, // 微信加密数据
 				iv: iv // 微信加密数据
-			});
+			}, 'POST', false);
 			if (!result) return;
 			// 绑定手机号成功
 			if (result.code === 0) {
@@ -612,8 +612,8 @@ Page({
 			openId: app.globalData.openId
 		};
 		if (isToMasterQuery) params['toMasterQuery'] = true; // 直接查询主库
-		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
-		const icbcv2 = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId'); // 查卡是否有二通类户
+		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params, 'POST', false);
+		const icbcv2 = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId', {}, 'POST', false); // 查卡是否有二通类户
 		// 订单展示优先级: 扣款失败账单>已解约状态>按最近时间顺序：办理状态or账单记录
 		if (!result) return;
 		if (result.code === 0) {
@@ -632,13 +632,11 @@ Page({
 				[]
 			];
 			// let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
-			app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !==
-				undefined); // 筛选车主服务欠费
+			app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
 			// 判断是否权益券额用户
 			app.globalData.isEquityRights = list.filter(item => item.pledgeType === 4 && item.pledgeStatus === 1).length > 0;
 			list.map(item => {
-				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item)
-					: util.getStatus(item);
+				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
 				vehicleList.push(item.vehPlates);
 				wx.setStorageSync('cars', vehicleList.join('、'));
 				if (item.shopId === '692062170707394560') { // 大地商户
@@ -650,8 +648,7 @@ Page({
 				if (item.isNewTrucks === 0) {
 					passengerCarList.push(item);
 					if (item.obuStatus === 1 || item.obuStatus === 5) {
-						activationOrder.push(item
-							.obuCardType);
+						activationOrder.push(item.obuCardType);
 					}
 				}
 				if (item.isNewTrucks === 1) {
@@ -703,10 +700,8 @@ Page({
 			activationOrder = [...new Set(activationOrder)];
 			activationTruckOrder = [...new Set(activationTruckOrder)];
 			// 是否全是激活订单  是 - 拉取第一条订单  否 - 过滤激活订单,拉取第一条
-			const passengerCarListNotActivation = isAllActivation ? passengerCarList[0] : passengerCarList
-				.filter(item => item.selfStatus !== 12)[0];
-			const passengerCarListNotTruckActivation = isAllActivationTruck ? truckList[0] : truckList
-				.filter(item => item.selfStatus !== 12)[0];
+			const passengerCarListNotActivation = isAllActivation ? passengerCarList[0] : passengerCarList.filter(item => item.selfStatus !== 12)[0];
+			const passengerCarListNotTruckActivation = isAllActivationTruck ? truckList[0] : truckList.filter(item => item.selfStatus !== 12)[0];
 			app.globalData.isArrearageData.trucksOrderList = truckActivationOrderList;
 
 			this.setData({
@@ -722,8 +717,7 @@ Page({
 				truckOrderInfo: terminationTruckOrder || passengerCarListNotTruckActivation, // 解约订单 || 拉取第一条
 				passengerCarOrderInfo: terminationOrder || passengerCarListNotActivation // 解约订单 || 拉取第一条
 			});
-			app.globalData.truckLicensePlate = passengerCarListNotActivation ? passengerCarListNotActivation
-				.vehPlates : ''; // 存货车出牌
+			app.globalData.truckLicensePlate = passengerCarListNotActivation ? passengerCarListNotActivation.vehPlates : ''; // 存货车出牌
 			// 上一页返回时重置
 			this.setData({
 				orderInfo: this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data.truckOrderInfo
@@ -750,13 +744,13 @@ Page({
 		} else {
 			util.showToastNoIcon(result.message);
 		}
+		util.hideLoading();
 	},
 	// 预充模式-查询预充信息
 	async getQueryProcessInfo (id) {
 		const result = await util.getDataFromServersV2('consumer/order/third/queryProcessInfo', {
 			orderId: id
-		});
-		util.hideLoading();
+		}, 'POST', false);
 		if (!result) return;
 		if (result.code === 0) {
 			this.data.orderInfo.prechargeAmount = result.data?.prechargeAmount || 0;
@@ -778,7 +772,7 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/etc/get-supplementary-payment-veh', {
 			channels: item,
 			shopProductId: this.data.orderInfo.shopProductId
-		});
+		}, 'POST', false);
 		if (!result) return;
 		if (result.code) {
 			util.showToastNoIcon(result.message);
@@ -818,7 +812,7 @@ Page({
 			this.remove(item, 21); // 暂不查货车
 			const info = await util.getDataFromServersV2('consumer/etc/judge-detail-channels-truck', {
 				orderNos: this.data.truckActivationOrderList
-			});
+			}, 'POST', false);
 			if (!info) return;
 			if (info.code) {
 				util.showToastNoIcon(info.message);
@@ -828,7 +822,7 @@ Page({
 		}
 		const result = await util.getDataFromServersV2('consumer/etc/judge-detail-channels', {
 			channels: item
-		});
+		}, 'POST', false);
 		if (!result) return;
 		if (result.code) {
 			util.showToastNoIcon(result.message);
@@ -841,7 +835,7 @@ Page({
 	async getRecentlyTheBill (item, isTruck = false) {
 		const result = await util.getDataFromServersV2('consumer/etc/get-last-bill', {
 			channel: item
-		});
+		}, 'POST', false);
 		if (!result) return;
 		if (result.code) {
 			util.showToastNoIcon(result.message);
@@ -960,7 +954,7 @@ Page({
 	async changeByOrderIds () {
 		const result = await util.getDataFromServersV2('consumer/order/changeByOrderIds', {
 			orderIds: this.data.paymentOrder
-		});
+		}, 'POST', false);
 		if (!result) return;
 		if (result.code === 0) {
 			util.showToastNoIcon('签约版本升级成功');
