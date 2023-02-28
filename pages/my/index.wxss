@@ -264,5 +264,5 @@
   color: rgba(0,0,0,0.5);
   line-height: 40rpx;
   padding-top: 32rpx;
-  padding-bottom: 190rpx;
+  padding-bottom: 90rpx;
 }

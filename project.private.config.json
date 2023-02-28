@@ -121,8 +121,32 @@
 					"query": "",
 					"launchMode": "default",
 					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+					"query": "orderId=1080064515220967424",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/default/shot_card/shot_card",
+					"query": "type=4",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/my/index",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
 				}
 			]
 		}
+	},
+	"setting": {
+		"useIsolateContext": false
 	}
 }
