@@ -111,7 +111,7 @@ Page({
 		timeout: null,
 		date: null,
 		// 版本4.0 所需数据
-		imgList: ['https://file.cyzl.com/g001/M01/C9/54/oYYBAGP4sCaAF2EtAABbvIQbTLM503.png', 'https://file.cyzl.com/g001/M01/C9/54/oYYBAGP4sCaAF2EtAABbvIQbTLM503.png'],
+		imgList: ['https://file.cyzl.com/g001/M01/C9/54/oYYBAGP4sCaAF2EtAABbvIQbTLM503.png'],
 		moduleOneList: [{	// 账单查询 通行发票 权益商城
 				icon: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eRKAK0mDAAAg6lZHRZU754.jpg',
 				title: '账单查询',

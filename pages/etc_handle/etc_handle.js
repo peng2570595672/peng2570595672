@@ -52,8 +52,6 @@ Page({
 	},
 	async onLoad () {
 		util.customTabbar(this, 1);
-		// 查询是否欠款
-		await util.getIsArrearage();
 	},
 	async onShow () {
 		// 查询是否欠款

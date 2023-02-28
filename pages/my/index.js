@@ -523,15 +523,11 @@ Page({
 			'service_purchase_record': 'personal_center_service_purchase_record'
 		};
 		if (url === 'description_of_equity') {
-			this.fangDou(() => {
-				util.go(`/pages/personal_center/${url}/${url}?isVip=${that.data.isVip}`);
-			},1000);
+			util.go(`/pages/personal_center/${url}/${url}?isVip=${that.data.isVip}`);
 			return;
 		}
 		wx.uma.trackEvent(urlObj[url]);
-		this.fangDou(() => {
-			util.go(`/pages/personal_center/${url}/${url}`);
-		},1000);
+		util.go(`/pages/personal_center/${url}/${url}`);
 	},
 	onClickAccountManagement () {
 		wx.uma.trackEvent('personal_center_for_account_management');
