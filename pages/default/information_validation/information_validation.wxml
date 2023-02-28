@@ -26,7 +26,7 @@
                         </view>
                         <image class="success" wx:else src="{{drivingLicenseBack.fileUrl}}"></image>
                     </view>
-                    <view class="cardText">行驶证（反页）</view>
+                    <view class="cardText">行驶证（副页）</view>
                 </view>
             <!--上传身份证背面结束-->
             </view>
