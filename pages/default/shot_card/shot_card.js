@@ -25,6 +25,7 @@ Page({
 		app.globalData.handlingOCRType = 0;
 		// 当前拍照类型
 		this.setData({
+			requestNum: 0,
 			type: parseInt(options.type),
 			vehPlates: options.vehPlates
 		});
@@ -208,8 +209,14 @@ Page({
 											return this.initPageAndToast(`身份证号码不合法`, true);
 										}
 									}
-									if (!info[key] && this.data.requestNum < 1) {
-										return this.initPageAndToast(`${ruleForm[key]}不能为空`, true);
+									if (!info[key]) {
+										if (key !== 'idNumber') {
+											return this.initPageAndToast(`${ruleForm[key]}不能为空`, true);
+										} else {
+											if (this.data.requestNum < 1) {
+												return this.initPageAndToast(`${ruleForm[key]}不能为空`, true);
+											}
+										}
 									}
 								}
 								wx.setStorageSync('passenger-car-id-card-face', JSON.stringify(res.data[0]));
@@ -249,7 +256,7 @@ Page({
 									if (key === 'numberPlates' && info[key] && info[key] !== this.data.vehPlates) {
 										return this.initPageAndToast(`行驶证前置录入车牌前置录入车牌${this.data.vehPlates}不一致`, true);
 									}
-									if (!info[key] && this.data.requestNum < 2) {
+									if (!info[key]) {
 										return this.initPageAndToast(`${ruleForm[key]}不能为空`, true);
 									}
 								}
@@ -262,14 +269,16 @@ Page({
 								// 行驶证背面
 								// 计算人数
 								let personsCapacity = res.data[0].ocrObject.personsCapacity;
-								const personsCapacityStr = personsCapacity.slice(0, personsCapacity.length - 1);
-								let personsCapacityNum = 0;
-								if (personsCapacityStr.includes('+')) {
-									personsCapacityNum = parseInt(personsCapacityStr.split('+')[0]) + parseInt(personsCapacityStr.split('+')[1]);
-								} else {
-									personsCapacityNum = personsCapacityStr;
+								if (personsCapacity) {
+									const personsCapacityStr = personsCapacity.slice(0, personsCapacity.length - 1);
+									let personsCapacityNum = 0;
+									if (personsCapacityStr.includes('+')) {
+										personsCapacityNum = parseInt(personsCapacityStr.split('+')[0]) + parseInt(personsCapacityStr.split('+')[1]);
+									} else {
+										personsCapacityNum = personsCapacityStr;
+									}
+									res.data[0].ocrObject.personsCapacity = personsCapacityNum;
 								}
-								res.data[0].ocrObject.personsCapacity = personsCapacityNum;
 								const ruleForm = {
 									numberPlates: '车牌号码',
 									personsCapacity: '核定载人数'
@@ -284,7 +293,7 @@ Page({
 									if (key === 'personsCapacity' && info[key] && parseInt(info[key]) > 9) {
 										return this.initPageAndToast(`超出最大可载数，不支持该类车辆办理`, true);
 									}
-									if (!info[key] && this.data.requestNum < 2) {
+									if (!info[key]) {
 										return this.initPageAndToast(`${ruleForm[key]}不能为空`, true);
 									}
 								}

@@ -363,7 +363,7 @@ Page({
 			isInput
 		});
 		this.setData({
-			available: this.validateData(true)
+			available: this.validateData(false)
 		});
 	},
 	// 选择注册日期
@@ -413,7 +413,40 @@ Page({
 	},
 	// 离开前触发
 	onBeforeLeave (e) {
-		if (this.data.isOut || !this.data.isInput) {
+		// if (this.data.isOut || !this.data.isInput) {
+		// 	const pages = getCurrentPages();
+		// 	const prevPage = pages[pages.length - 2];// 上一个页面
+		// 	prevPage.setData({
+		// 		isChangeDrivingLicenseError: true // 重置状态
+		// 	});
+		// 	wx.navigateBack({
+		// 		delta: 1
+		// 	});
+		// 	return;
+		// }
+		if (this.data.drivingLicenseFace.fileUrl || this.data.drivingLicenseBack.fileUrl) {
+			util.alert({
+				content: '若此时返回上级页面则已上传图片将清空，请确认是否返回',
+				showCancel: true,
+				confirmText: '确定',
+				confirmColor: '#99999D',
+				cancelColor: '#2FB565',
+				confirm: () => {
+					wx.removeStorageSync('passenger-car-driving-license-face');
+					wx.removeStorageSync('passenger-car-driving-license-back');
+					const pages = getCurrentPages();
+					const prevPage = pages[pages.length - 2];// 上一个页面
+					prevPage.setData({
+						isChangeDrivingLicenseError: true // 重置状态
+					});
+					wx.navigateBack({
+						delta: 1
+					});
+				},
+				cancel: () => {
+				}
+			});
+		} else {
 			const pages = getCurrentPages();
 			const prevPage = pages[pages.length - 2];// 上一个页面
 			prevPage.setData({
@@ -422,29 +455,7 @@ Page({
 			wx.navigateBack({
 				delta: 1
 			});
-			return;
 		}
-		util.alert({
-			content: '若此时返回上级页面则已上传图片将清空，请确认是否返回',
-			showCancel: true,
-			confirmText: '确定',
-			confirmColor: '#99999D',
-			cancelColor: '#2FB565',
-			confirm: () => {
-				wx.removeStorageSync('passenger-car-driving-license-face');
-				wx.removeStorageSync('passenger-car-driving-license-back');
-				const pages = getCurrentPages();
-				const prevPage = pages[pages.length - 2];// 上一个页面
-				prevPage.setData({
-					isChangeDrivingLicenseError: true // 重置状态
-				});
-				wx.navigateBack({
-					delta: 1
-				});
-			},
-			cancel: () => {
-			}
-		});
 	}
 
 });
