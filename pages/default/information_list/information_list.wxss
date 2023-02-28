@@ -102,12 +102,12 @@
   font-family: PingFangSC-Semibold, PingFang SC;
   box-shadow: 0rpx -8rpx 30rpx 0rpx rgba(223,223,223,0.36), 0rpx 4rpx 2rpx 0rpx rgba(212,212,212,0);
 }
-.index .bottomBtn.available {
+.index .bottomBtn .btnClose.available {
   background: linear-gradient(45deg, #14ac69 0%, #84d157 100%);
   animation: btnFadeIn 0.3s;
   animation-fill-mode: forwards;
 }
-.index .bottomBtn.unavailable {
+.index .bottomBtn .btnClose.unavailable {
   animation: btnFadeOut 0.3s;
   animation-fill-mode: forwards;
 }
