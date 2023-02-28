@@ -426,12 +426,12 @@ Page({
 			}
 		}
 	},
-	// 通通券协议
+	// 黔通用户协议
 	onClickGoQianTongAgreement () {
 		util.go('/pages/truck_handling/agreement_for_qiantong_to_charge/agreement');
 	},
 	// 通通券协议
-	onClickGoQianTongAgreement1 () {
+	onClickGoTTQAgreement1 () {
 		util.go('/pages/default/coupon_agreement/coupon_agreement');
 	},
 	// 查看隐私协议
