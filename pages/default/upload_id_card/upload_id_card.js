@@ -24,6 +24,16 @@ Page({
 		idCardBack: {
 			ocrObject: {}
 		},// 身份证反面
+		checkKeyWord: [
+			{key: 'name', show: false, isFace: true, label: '姓名'},
+			{key: 'sex', show: false, isFace: true, label: '性别'},
+			{key: 'birth', show: false, isFace: true, label: '出生日期'},
+			{key: 'address', show: false, isFace: true, label: '地址'},
+			{key: 'authority', show: false, isFace: false, label: '签发机关'},
+			{key: 'validDate', show: false, isFace: false, label: '有效期限'}
+		],
+		sexArr: ['男', '女'],
+		sexIndex: -1,
 		tipObj: {
 			type: '',
 			title: '',
@@ -50,6 +60,7 @@ Page({
 				faceStatus: 4,
 				idCardFace
 			});
+			this.initIsShowInput(idCardFace.ocrObject);
 			this.setData({
 				available: this.validateData(false)
 			});
@@ -61,11 +72,41 @@ Page({
 				backStatus: 4,
 				idCardBack
 			});
+			this.initIsShowInput(idCardBack.ocrObject);
 			this.setData({
 				available: this.validateData(false)
 			});
 		}
 		this.processBarSize();
+	},
+	// 选择性别
+	onSexCapacityPickerChange (e) {
+		const val = +e.detail.value;
+		this.setData({
+			sexIndex: val
+		});
+		this.data.idCardFace.ocrObject.sex = val ? '女' : '男';
+	},
+	initIsShowInput (cardObj) {
+		for (let item in cardObj) {
+			if (!cardObj[item]) {
+				this.data.checkKeyWord.map(keyItem => {
+					if (keyItem.key === item) {
+						keyItem.show = true;
+					}
+				});
+			}
+		}
+		this.setData({
+			checkKeyWord: this.data.checkKeyWord
+		});
+	},
+	// 选择有效期限
+	validDatePickerChange (e) {
+		this.data.idCardBack.ocrObject.validDate = e.detail.value;
+		this.setData({
+			available: this.validateData(false)
+		});
 	},
 	// 获取订单信息
 	async getOrderInfo () {
@@ -93,12 +134,16 @@ Page({
 				idCardBack.ocrObject.authority = temp.ownerIdCardAuthority;
 				idCardBack.ocrObject.validDate = temp.ownerIdCardValidDate;
 				idCardBack.fileUrl = temp.ownerIdCardNegativeUrl;
+				this.data.checkKeyWord.map(item => {
+					item.show = false;
+				});
 				this.setData({
 					isShowCodeInput: !this.data.orderInfo.ownerIdCard.cardMobilePhone,
 					oldName: idCardFace.ocrObject.name,
 					oldIdNumber: idCardFace.ocrObject.idNumber,
 					idCardFace,
 					idCardBack,
+					checkKeyWord: this.data.checkKeyWord,
 					backStatus: 4,
 					faceStatus: 4
 				});
@@ -119,23 +164,45 @@ Page({
 			if (isToast) util.showToastNoIcon('请上传身份证！');
 			return false;
 		}
-		if (!this.data.idCardFace.ocrObject.name) {
-			if (isToast) util.showToastNoIcon('姓名不能为空！');
-			return false;
+		// 校检正面
+		const idCardFace = this.data.idCardFace.ocrObject;
+		const ruleForm = {
+			name: '姓名',
+			sex: '性别',
+			birth: '出生年月日',
+			address: '地址',
+			idNumber: '公民身份证号码'
+		};
+		const reg = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
+		for (let key in ruleForm) {
+			if (key === 'idNumber' && idCardFace[key]) {
+				if (!reg.test(idCardFace[key])) {
+					if (isToast) {
+						util.showToastNoIcon(`身份证号码不合法`);
+					}
+					return false;
+				}
+			}
+			if (!idCardFace[key]) {
+				if (isToast) {
+					util.showToastNoIcon(`${ruleForm[key]}不能为空`);
+				}
+				return false;
+			}
 		}
-		if (!this.data.idCardFace.ocrObject.idNumber) {
-			if (isToast) util.showToastNoIcon('身份证号不能为空！');
-			return false;
-		}
-		if (!/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/.test(this.data.idCardFace.ocrObject.idNumber)) {
-			if (isToast) util.showToastNoIcon('身份证号码不合法');
-			return false;
-		}
-		if (!this.data.idCardBack.ocrObject.validDate || !this.data.idCardFace.ocrObject.address ||
-			!this.data.idCardBack.ocrObject.authority || !this.data.idCardFace.ocrObject.birth ||
-			!this.data.idCardFace.ocrObject.sex) {
-			if (isToast) util.showToastNoIcon('部分信息识别失败,请重新上传身份证照片！');
-			return false;
+		// 校检背面
+		const idCardBack = this.data.idCardBack.ocrObject;
+		const ruleBackForm = {
+			authority: '签发机关',
+			validDate: '有效期限'
+		};
+		for (let key in ruleBackForm) {
+			if (!idCardBack[key]) {
+				if (isToast) {
+					util.showToastNoIcon(`${ruleForm[key]}不能为空`);
+				}
+				return false;
+			}
 		}
 		return true;
 	},
@@ -219,18 +286,20 @@ Page({
 	// 输入框输入值做处理
 	onInputChangedHandle (e) {
 		let key = e.currentTarget.dataset.key;
+		let type = +e.currentTarget.dataset.type;
 		let value = e.detail.value;
-		if (key === 'name') {
-			this.setData({
-				'idCardFace.ocrObject.name': value
-			});
-			this.fangDou('',1000);
-		} else if (key === 'idNumber') {
-			this.setData({
-				'idCardFace.ocrObject.idNumber': value
-			});
-			this.fangDou('',2000);
+		let idCardFace = this.data.idCardFace;
+		let idCardBack = this.data.idCardBack;
+		if (type === 1) {
+			idCardFace.ocrObject[key] = value;
+		} else {
+			idCardBack.ocrObject[key] = value;
 		}
+		this.setData({
+			idCardFace,
+			idCardBack
+		});
+		this.fangDou('',2000);
 	},
 	fangDou (fn, time) {
 		let that = this;
@@ -240,7 +309,7 @@ Page({
 			}
 			that.data.timeout = setTimeout(() => {
 				that.setData({
-					available: that.validateData(true)
+					available: that.validateData(false)
 				});
 			}, time);
 		})();

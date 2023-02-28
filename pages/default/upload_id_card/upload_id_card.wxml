@@ -36,13 +36,29 @@
         <view class="keyValue">
             <view class="attrName">车主姓名</view>
             <view class="attrValue">
-                <input class="input" type="text" value="{{idCardFace.ocrObject.name}}" bindinput="onInputChangedHandle" data-key="name" placeholder-class="input-placeholder" placeholder="请输入车主姓名"/>
+                <input class="input" type="text" value="{{idCardFace.ocrObject.name}}" bindinput="onInputChangedHandle" data-key="name" placeholder-class="input-placeholder" data-type="1" placeholder="请输入车主姓名"/>
             </view>
         </view>
         <view class="keyValue">
             <view class="attrName">身份证号</view>
             <view class="attrValue">
-                <input class="input" type="idcard" value="{{idCardFace.ocrObject.idNumber}}" bindinput="onInputChangedHandle" data-key="idNumber" placeholder-class="input-placeholder" placeholder="请输入身份证号"/>
+                <input class="input" type="idcard" value="{{idCardFace.ocrObject.idNumber}}" bindinput="onInputChangedHandle" data-key="idNumber" placeholder-class="input-placeholder" data-type="1" placeholder="请输入身份证号"/>
+            </view>
+        </view>
+        <view class="keyValue" wx:for="{{checkKeyWord}}" wx:key="index" wx:if="{{item.show}}">
+            <view class="attrName">{{item.label}}</view>
+            <view class="attrValue" wx:if="{{item.key === 'sex'}}">
+                <picker class="input" bindchange="onSexCapacityPickerChange" value="{{sexIndex}}" range="{{sexArr}}">
+                    <view>{{sexIndex === -1 ? '请选择性别' : sexArr[sexIndex]}}</view>
+                </picker>
+            </view>
+            <view class="attrValue" wx:elif="{{item.key === 'validDate'}}">
+                <picker class="input" mode="date" value="{{idCardBack.ocrObject.validDate}}" bindchange="validDatePickerChange">
+                    <view class="input">{{idCardBack.ocrObject.validDate || '请选择有效期限'}}</view>
+                </picker>
+            </view>
+            <view class="attrValue" wx:else>
+                <input class="input" type="text" value="{{item.isFace ? idCardFace.ocrObject[item.key] : idCardBack.ocrObject[item.key]}}" bindinput="onInputChangedHandle" data-key="{{item.key}}" data-type="{{item.isFace ? 1 : 2}}" placeholder-class="input-placeholder" placeholder="请输入{{item.label}}"/>
             </view>
         </view>
     </view>
