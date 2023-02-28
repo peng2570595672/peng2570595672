@@ -213,7 +213,6 @@
 .alert-for-not-finished-content .moduleOne .content {
   padding: 20rpx;
   margin-top: 12rpx;
-
   border-radius: 16rpx;
 }
 
