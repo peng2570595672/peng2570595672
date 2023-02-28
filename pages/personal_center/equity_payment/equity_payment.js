@@ -55,7 +55,7 @@ Page({
         util.showToastNoIcon(result.message);
         return;
       }
-			this.handlePayOrder();
+			this.handlePayOrder(result);
 	},
 	handlePayOrder (result) {
 		const info = result.data;
