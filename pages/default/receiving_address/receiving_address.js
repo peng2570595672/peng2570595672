@@ -39,7 +39,6 @@ Page({
 	},
 	async onLoad (options) {
 		app.globalData.orderInfo.orderId = '';
-		util.resetData();// 重置数据
 		console.log(options);
 		console.log(app.globalData.orderInfo);
 		if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {

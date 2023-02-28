@@ -102,14 +102,14 @@ Page({
 			if (isToast) util.showToastNoIcon('车牌号不能为空！');
 			return false;
 		}
-		// if (this.data.drivingLicenseFace.ocrObject.numberPlates !== this.data.vehPlates) {
-		// 	if (isToast) util.showToastNoIcon(`行驶证车牌与${this.data.vehPlates}不一致，请重新上传`);
-		// 	return false;
-		// }
-		// if (this.data.drivingLicenseFace.ocrObject.numberPlates !== this.data.vehPlates || this.data.drivingLicenseBack.ocrObject.numberPlates !== this.data.vehPlates || this.data.drivingLicenseFace.ocrObject.numberPlates !== this.data.drivingLicenseBack.ocrObject.numberPlates) {
-		// 	if (isToast) util.showToastNoIcon(`行驶证车牌与${this.data.vehPlates}不一致，请重新上传`);
-		// 	return false;
-		// }
+		if (this.data.drivingLicenseFace.ocrObject.numberPlates !== this.data.vehPlates) {
+			if (isToast) util.showToastNoIcon(`行驶证车牌与${this.data.vehPlates}不一致，请重新上传`);
+			return false;
+		}
+		if (this.data.drivingLicenseFace.ocrObject.numberPlates !== this.data.vehPlates || this.data.drivingLicenseBack.ocrObject.numberPlates !== this.data.vehPlates || this.data.drivingLicenseFace.ocrObject.numberPlates !== this.data.drivingLicenseBack.ocrObject.numberPlates) {
+			if (isToast) util.showToastNoIcon(`行驶证车牌与${this.data.vehPlates}不一致，请重新上传`);
+			return false;
+		}
 		if (!this.data.drivingLicenseFace.ocrObject.engineNo) {
 			if (isToast) util.showToastNoIcon('发动机号不能为空！');
 			return false;
@@ -176,6 +176,9 @@ Page({
 		}
 
 		return true;
+	},
+	handleToast () {
+		util.showToastNoIcon('该项不支持修改！');
 	},
 	// 选择图片
 	selectionPic (e) {

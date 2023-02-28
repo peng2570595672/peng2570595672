@@ -890,6 +890,7 @@ function resetData() {
 	app.globalData.isSecondSigningInformationPerfect = false;
 	app.globalData.isTruckHandling = false;
 	app.globalData.MTCChannel = false;
+	app.globalData.isCheckCarChargeType = false;
 	app.globalData.otherEntrance = {};// 初始化其它入口
 }
 /**
