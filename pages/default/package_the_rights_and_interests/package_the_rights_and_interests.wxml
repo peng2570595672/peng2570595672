@@ -58,11 +58,11 @@
                     <addValueService addValueService="{{item.rightsPackageIds}}" wx:if="{{tools.dataLen(item.rightsPackageIds)}}"></addValueService>
                     <!-- 通通券 -->
                     <view wx:elif="{{item.isSignTtCoupon}}" class="isSignTtCoupon">
-                        <view wx:if="{{item.ttCouponPayAmount > 0}}" class="ttImgs">
-                            <image class="ttImg" src="/pages/default/assets/equities1.png" />
-                        </view>
-                        <view wx:if="{{item.ttCouponPayAmount === 0}}" class="ttImgs">
-                            <image class="ttImg" src="/pages/default/assets/equities2.png" />
+                        <view class="signTitle">通通券，涵盖出行+生活的优惠聚合平台</view>
+                        <view class="signImg">
+                            <view class="imageSize" wx:for="{{ttCouponImgList}}" wx:for-item="itemTt" wx:key="index">
+                                <image class="pictures" src="{{itemTt.img}}" />
+                            </view>
                         </view>
                     </view>
                 </view>
@@ -70,16 +70,20 @@
         </view>
     </view>
     <!-- 占位 -->
-    <view class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}}" >
-        <text >亲，没有更多的套餐了</text>
-    </view>
+<!--    <view class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}}" >-->
+<!--        <text >亲，没有更多的套餐了</text>-->
+<!--    </view>-->
     <!-- 支付和协议说明 模块 -->
     <view class="payAndAgreement {{isFade ? 'fadeIn' : 'fadeOut'}}">
         <view class="agreementConfirm" bindtap="onClickAgreementHandle">
             <view class="confirm iconfont {{getAgreement ? 'tick' : ''}}" catchtap="onClickAgreementHandle"></view>
             <view class="agreement">
-                当您勾选同意并点击“立即支付”按钮，即代表您已阅读、理解并接受
-                <span class="agreementColor" catchtap="goAgreement">ETC+用户协议及黔通卡用户协议及隐私协议</span>
+                当您勾选同意并点击“去支付”按钮，即代表您已阅读、理解并接受
+                <!-- <span class="agreementColor" catchtap="goAgreement">ETC+用户协议及黔通卡用户协议及隐私协议</span> -->
+                <text class="agreementColor" catchtap="onClickGoTTQAgreement1" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon === 1}}">通通券会员服务协议、</text>
+                <text class="agreementColor" catchtap="onClickGoAgreementHandle">ETC+用户办理协议、</text>
+                <text class="agreementColor" catchtap="onClickGoQianTongAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 1}}">黔通卡ETC用户协议、</text>
+                <text class="agreementColor" catchtap="onClickGoPrivacyHandle">用户隐私协议</text>
                 里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。
             </view>
         </view>

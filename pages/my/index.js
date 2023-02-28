@@ -383,12 +383,6 @@ Page({
 			});
 		}
 	},
-	// 统计点击去关注公众号按钮
-	goPublicAccount () {
-		wx.uma.trackEvent('personal_center_for_follow_the_public_account');
-	},
-	// 关闭详情
-	close () { },
 	// ------------------------------------------------------------------------------------------------------
 	// 获取头像和昵称
 	getUserProfiles () {
@@ -406,9 +400,7 @@ Page({
 	// 前往个人信息
 	goUserInfo () {
 		let that = this;
-		this.fangDou(() => {
-			util.go(`/pages/personal_center/personal_information/personal_information?isVip=${that.data.isVip}`);
-		},1000);
+		util.go(`/pages/personal_center/personal_information/personal_information?isVip=${that.data.isVip}`);
 	},
 	// 防止点击重复触发
 	fangDou (fn, time) {

@@ -17,6 +17,11 @@ Page({
 		nodeHeightList: [], // 存储节点高度 集合
 		phoneType: 2,
 		equityListMap: [],	// 权益列表集合
+		ttCouponImgList: [	// 通通券图片展示
+			{img: 'https://file.cyzl.com/g001/M01/CA/91/oYYBAGP9r8KAadO3AAAhbDu7b-c635.png'},
+			{img: 'https://file.cyzl.com/g001/M01/CA/92/oYYBAGP9r9eAbYMrAAAfwNWjlCE671.png'},
+			{img: 'https://file.cyzl.com/g001/M01/CA/92/oYYBAGP9r-KAOszNAAAg2fHzpLY270.png'}
+		],
 		// ------------------------------------------------------------------------------
 		isContinentInsurance: app.globalData.isContinentInsurance,// 是否是大地
 		isSelected: false,// 是否选中当前权益包
@@ -115,12 +120,6 @@ Page({
 					}
 				]
 			}
-		],
-		equityShop: [
-			// 权益套餐的 数据展示
-			{shopName: '芒果TV', couponOffset: '券抵2元',shopImg: 'https://file.cyzl.com/g001/M07/B1/B5/oYYBAGO3kWiALcwoAAAG0YIQbVI397.png',couponPrice: 10},
-			{shopName: 'QQ音乐', couponOffset: '券抵5元',shopImg: 'https://file.cyzl.com/g001/M07/B1/B5/oYYBAGO3kUWAc_EDAAAHrHwpCD0833.png',couponPrice: 22.68},
-			{shopName: 'youku', couponOffset: '券抵8元',shopImg: 'https://file.cyzl.com/g001/M00/B1/B4/oYYBAGO3kQOAf9V6AAAFnKab-Vg960.png',couponPrice: 38.08}
 		],
 		showServiceIndex: -1,
 		rightsPackageDetails: undefined,
@@ -427,12 +426,12 @@ Page({
 			}
 		}
 	},
-	// 通通券协议
+	// 黔通用户协议
 	onClickGoQianTongAgreement () {
-		util.go('/pages/default/coupon_and_etc_agreement/coupon_and_etc_agreement');
+		util.go('/pages/truck_handling/agreement_for_qiantong_to_charge/agreement');
 	},
 	// 通通券协议
-	onClickGoQianTongAgreement1 () {
+	onClickGoTTQAgreement1 () {
 		util.go('/pages/default/coupon_agreement/coupon_agreement');
 	},
 	// 查看隐私协议
@@ -471,6 +470,7 @@ Page({
 	},
 	// 获取权益列表
 	async getList (obj) {
+		if (!obj.rightsPackageIds?.length) return;
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
 			packageIds: obj.rightsPackageIds
 		});
@@ -548,18 +548,24 @@ Page({
 			const result = await util.getDataFromServersV2('consumer/order/precharge/list',{
 				orderId: app.globalData.orderInfo.orderId // 订单id
 			});
-			if (result.data.length > 0) {
-				util.alert({
-					title: `提示`,
-					content: `该套餐目前暂只支持单人办理一台车辆`,
-					confirmColor: '#576B95',
-					cancelColor: '#000000',
-					cancelText: '我知道了',
-					confirm: () => {
-					},
-					cancel: async () => {
-					}
-				});
+			if (!result) return;
+			if (result.code === 0) {
+				if (result.data.length > 0) {
+					util.alert({
+						title: `提示`,
+						content: `该套餐目前暂只支持单人办理一台车辆`,
+						confirmColor: '#576B95',
+						cancelColor: '#000000',
+						cancelText: '我知道了',
+						confirm: () => {
+						},
+						cancel: async () => {
+						}
+					});
+					return;
+				}
+			} else {
+				util.showToastNoIcon(result.message);
 				return;
 			}
 		}
@@ -586,11 +592,17 @@ Page({
 	},
 	// 提交订单
 	async saveOrderInfo () {
+		if (this.data.isRequest) {
+			return;
+		} else {
+			this.setData({isRequest: true});
+		}
 		wx.uma.trackEvent('package_the_rights_and_interests_next');
 		const res = await util.getDataFromServersV2('consumer/order/after-sale-record/addProtocolRecord', {
 			orderId: app.globalData.orderInfo.orderId // 订单id
 		});
 		if (!res) return;
+		this.setData({isRequest: false});
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			shopId: this.data.orderInfo ? this.data.orderInfo.base.shopId : app.globalData.newPackagePageData.shopId, // 商户id
@@ -601,6 +613,7 @@ Page({
 			areaCode: this.data.orderInfo ? (this.data.orderInfo.product.areaCode || '0') : app.globalData.newPackagePageData.areaCode
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+		this.setData({isRequest: false});
 		if (!result) return;
 		if (result.code === 0) {
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
@@ -825,6 +838,9 @@ Page({
 	// 获取节点的高度
 	async getNodeHeight (num) {
 		console.log(num);
+		util.showLoading({
+			title: '加载中'
+		});
 		let that = this;
 		let nodeHeightList = [];
 		let equityListMap = [];
@@ -837,16 +853,22 @@ Page({
 					nodeHeightList
 				});
 			}).exec();
-			const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
-				packageIds: this.data.listOfPackages[index].rightsPackageIds.length > 1 ? new Array(this.data.listOfPackages[index].rightsPackageIds[0]) : this.data.listOfPackages[index].rightsPackageIds
-			},'POST',false);
-			if (result.code === 0) {
-				let equityObj = {index: index, packageName: result.data[0].packageName,payMoney: result.data[0].payMoney,id: result.data[0].id};
-				equityListMap.push(equityObj);
-			} else {
-				// 占位
+			const packageIds = this.data.listOfPackages[index].rightsPackageIds.length > 1 ? new Array(this.data.listOfPackages[index].rightsPackageIds[0]) : this.data.listOfPackages[index].rightsPackageIds;
+			if (!packageIds?.length) {
 				let equityObj = {index: index, packageName: '',payMoney: 0};
 				equityListMap.push(equityObj);
+			} else {
+				const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
+					packageIds: packageIds
+				},'POST',false);
+				if (result.code === 0) {
+					let equityObj = {index: index, packageName: result.data[0].packageName,payMoney: result.data[0].payMoney,id: result.data[0].id};
+					equityListMap.push(equityObj);
+				} else {
+					// 占位
+					let equityObj = {index: index, packageName: '',payMoney: 0};
+					equityListMap.push(equityObj);
+				}
 			}
 		}
 		this.setData({
@@ -869,6 +891,7 @@ Page({
 				}
 			}
 		});
+		util.hideLoading();
 	},
 	// 控制 选中套餐 的位置
 	controllShopProductPosition (eIndex) {

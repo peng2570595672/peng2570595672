@@ -177,6 +177,13 @@
 					"query": "",
 					"launchMode": "default",
 					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+					"query": "orderId=870619276925734912",
+					"launchMode": "default",
+					"scene": null
 				}
 			]
 		}
