@@ -124,7 +124,7 @@ Component({
 			if (this.data.provinces.length === 0) {
 				this.setData({
 					provinces: '京津沪渝苏浙豫粤川陕冀辽吉皖闽鄂湘鲁晋黑赣贵甘桂琼云青蒙藏宁新'.split(''),
-					letters: '0123456789ABCDEFGHJKLMNOPQRSTUVWXYZ警'.split('')
+					letters: '0123456789ABCDEFGHJKLMNPQRSTUVWXYZ警'.split('')
 				});
 			}
 			let datas = [];
@@ -142,7 +142,7 @@ Component({
 						datas.push('');
 					}
 				} else {
-					if (this.data.letters[i] !== undefined && i < 35) {
+					if (this.data.letters[i] !== undefined && i < 34) {
 						datas.push(this.data.letters[i]);
 					} else {
 						datas.push('');
@@ -159,6 +159,21 @@ Component({
 		},
 		stop () {
 			console.log(11);
+		},
+		hide (e) {
+			this.setData({
+				wrapper: false
+			});
+			setTimeout(() => {
+				this.setData({
+					myShow: false
+				});
+				this.triggerEvent('valueChange', {
+					carNo: this.data.carNo,
+					index: this.data.index,
+					show: this.data.myShow
+				});
+			}, 400);
 		}
 	},
 	lifetimes: {

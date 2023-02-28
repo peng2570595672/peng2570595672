@@ -5,6 +5,7 @@ Page({
 		isPassengerCarActivation: false,
 		isTruckActivation: false,
 		isBcoTruckActivation: false,
+		isThree: false,
 		isCharge: false,
 		isFree: false,
 		carAgreementList: [],
@@ -14,6 +15,13 @@ Page({
 			{id: 2,name: '隐私协议', update: 0},
 			{id: 3,name: '保理协议', update: 0},
 			{id: 4,name: '个人征信授权书', update: 0}
+		],
+		listThree: [
+			{id: 6,name: '隐私协议',url: 'privacy_agreement',update: 0}
+		],
+		listFour: [
+			{name: '通通券会员服务协议',url: '',update: 0},
+			{name: '工商银行开户协议',url: '',update: 0}
 		]
 	},
 	async onLoad () {
@@ -196,5 +204,9 @@ Page({
 			default:
 				break;
 		}
+	},
+	go (e) {
+		let url = e.currentTarget.dataset.url;
+		util.go(`/pages/default/${url}/${url}`);
 	}
 });

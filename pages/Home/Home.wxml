@@ -1,184 +1,153 @@
-<wxs src='../../utils/util.wxs' module='tools'/>
-<view class="index">
-    <!--	车辆类型切换开始-->
-    <view class="tab">
-        <view class="tab-box" wx:if="{{truckList.length > 0}}">
-            <view class="check-vehicle">
-                <view catchtap="onClickCheckVehicleType" data-index="1" class="item {{activeIndex === 1 ? 'active' : ''}}">客车</view>
-                <view catchtap="onClickCheckVehicleType" data-index="2" class="item {{activeIndex === 2 ? 'active' : ''}}">货车</view>
-            </view>
-            <view class="line {{activeIndex === 1 ? 'active-trucks' : 'active'}} {{btnSwitch ? 'skewing' : ''}}"></view>
-        </view>
-    </view>
-    <!--	车辆类型切换结束-->
-    <!--	立即办理开始-->
-    <view class="deal-with" catchtap="onClickTransaction">
-        <view class="left">
-            <view class="introduce-box">
-<!--                <view class="introduce {{isContinentInsurance && isActivityForBannerDate ? 'continent-insurance-introduce' : ''}}" wx:if="{{isContinentInsurance && isActivityForBannerDate}}">-->
-<!--                    <view class="title" animation="{{animationTitle}}">通知</view>-->
-<!--                    <view class="sub-title" animation="{{animationSubTitle}}">-->
-<!--                        <view animation="{{animationSubTitle1}}">-->
-<!--                            因ETC政策调整，<text>6月23日-7月15日</text>将暂停免费办理服务，期间如有需要可选择99元付费办理-->
-<!--                        </view>-->
-<!--                        <view animation="{{animationSubTitle2}}" class="last">（具体恢复时间以最终更新公告为准）</view>-->
-<!--                    </view>-->
-<!--                </view>-->
-                <view class="introduce">
-                    <view class="title" animation="{{animationTitle}}">
-                        ETC+
-                        <image src="/pages/default/assets/wechat_pay.png" mode="widthFix"></image>
-                    </view>
-                    <view class="sub-title" animation="{{animationSubTitle}}">
-                        <view animation="{{animationSubTitle1}}">通行折扣 精彩服务</view>
-                        <view animation="{{animationSubTitle2}}">尽情享</view>
-                    </view>
+<wxs src='../../utils/util.wxs' module='tools' />
+<view class="home" style="background-color: {{'#EBEDF0'}}">
+    <!-- 顶部 滑块视图 -->
+    <view class="topSwiper">
+        <swiper class="swiperBox {{tools.dataLen(imgList) === 1 ? 'regular':''}}" autoplay circular duration="{{'1000'}}">
+            <swiper-item class="swiper-item {{tools.dataLen(imgList) === 1 ? 'regular-item':''}}" wx:for="{{imgList}}" wx:key="index" catchtap="testFunc" catchtouchmove="{{tools.dataLen(imgList) === 1 ? 'catchtouchmove':''}}">
+                <image class="topImg" src='{{item}}' />
+                <view class="swiperText">
+                    <view class="textOne">小汽车ETC</view>
+                    <view class="textTwo">微信支付更省心</view>
+                    <view class="textThree">通行95折/全国通行/过站免排队</view>
+                    <view class="iconfont textFour">了解详情</view>
                 </view>
-                <view class="introduce introduce-trucks">
-                    <view class="title" animation="{{animationTitle}}">货车ETC上线啦</view>
-                    <view class="sub-title">
-                        <view animation="{{animationSubTitle1}}">高速通行9.5折</view>
-                    </view>
+            </swiper-item>
+        </swiper>
+    </view>
+    <!-- 办理模块 -->
+    <view class="module immediately" wx:if="{{true}}">
+        <view class="vehicle-info">
+            <view class="vehicle-info-box" animation="{{animationVehicleInfo}}">
+                <view>{{!passengerCarOrderInfo ? '使用微信支付的ETC' : passengerCarOrderInfo.vehPlates}}</view>
+                <view class="sub-title">
+                    {{passengerCarOrderInfo.selfStatus === 1 || passengerCarOrderInfo.selfStatus === 22 ? '无法正常划扣通行费' : ''}}
+                    {{passengerCarOrderInfo.selfStatus === 2 || passengerCarOrderInfo.selfStatus === 4 || passengerCarOrderInfo.selfStatus === 23 ? '还差几步即可完成申办' : ''}}
+                    {{passengerCarOrderInfo.selfStatus === 3 ? '当前订单未完成支付' : ''}}
+                    {{passengerCarOrderInfo.selfStatus === 5 ? '签约微信支付，免密代扣' : ''}}
+                    {{passengerCarOrderInfo.selfStatus === 6 ? '订单排队审核中' : ''}}
+                    {{passengerCarOrderInfo.selfStatus === 7 ? '订单审核不通过' : ''}}
+                    {{passengerCarOrderInfo.selfStatus === 8 ? '审核失败，车牌不可办理' : ''}}
+                    {{passengerCarOrderInfo.selfStatus === 9 ? '签约银行卡代扣通行费' : ''}}
+                    {{passengerCarOrderInfo.selfStatus === 10 ? '审核通过，设备即将发出' : ''}}
+                    {{passengerCarOrderInfo.selfStatus === 11 ? '请按要求激活ETC' : ''}}
+                    {{passengerCarOrderInfo.selfStatus === 12 ? recentlyTheBill ? recentlyTheBill.addTime : '暂无通行账单' : ''}}
+                    {{passengerCarOrderInfo.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
                 </view>
             </view>
-            <view class="btn {{btnSwitch ? 'btn-switch-trucks' : 'btn-switch-passenger-car'}}" animation="{{animationTransaction}}" wx:if="{{activeIndex === 1}}">立即办理</view>
+            <view class="vehicle-info-box vehicle-info-trucks-box" animation="{{animationVehicleInfoForTrucks}}">
+                <view>{{!truckOrderInfo ? '使用微信支付的ETC' : truckOrderInfo.vehPlates}}</view>
+                <view class="sub-title">
+                    {{truckOrderInfo.selfStatus === 1 || passengerCarOrderInfo.selfStatus === 22 ? '无法正常划扣通行费' : ''}}
+                    {{truckOrderInfo.selfStatus === 2 || truckOrderInfo.selfStatus === 4 || truckOrderInfo.selfStatus === 14 ? '还差几步即可完成申办' : ''}}
+                    {{truckOrderInfo.selfStatus === 3 ? '当前订单未完成支付' : ''}}
+                    {{truckOrderInfo.selfStatus === 5 ? '签约微信支付，免密代扣' : ''}}
+                    {{truckOrderInfo.selfStatus === 6 ? '订单排队审核中' : ''}}
+                    {{truckOrderInfo.selfStatus === 7 ? '订单审核不通过' : ''}}
+                    {{truckOrderInfo.selfStatus === 8 ? '审核失败，车牌不可办理' : ''}}
+                    {{truckOrderInfo.selfStatus === 9 || truckOrderInfo.selfStatus === 21 ? '签约银行卡代扣通行费' : ''}}
+                    {{truckOrderInfo.selfStatus === 10 ? '审核通过，设备即将发出' : ''}}
+                    {{truckOrderInfo.selfStatus === 11 ? '请按要求激活ETC' : ''}}
+                    {{truckOrderInfo.selfStatus === 12 ? recentlyTheTruckBill ? recentlyTheTruckBill.addTime : '暂无通行账单' : ''}}
+                    {{truckOrderInfo.selfStatus === 13 || truckOrderInfo.selfStatus === 19 || truckOrderInfo.selfStatus === 20 ? '开通ETC电子账户' : ''}}
+                    {{truckOrderInfo.selfStatus === 15 ? '请充值' + truckOrderInfo.holdBalance / 100 + '元作为保证金' + '' : ''}}
+                    {{truckOrderInfo.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
+                    {{truckOrderInfo.selfStatus === 17 ? '请预充' + (truckOrderInfo.prechargeAmount || 0) / 100 + '元否则设备无法通行' + '' : ''}}
+                </view>
+            </view>
         </view>
-        <view class="right {{isContinentInsurance && isActivityForBannerDate ? 'continent-insurance-img' : ''}}" animation="{{animationImage}}">
-            <image src="https://file.cyzl.com/g001/M07/50/96/oYYBAGDR0n2ATuz8AAChQo0Wfjs876.png" mode="widthFix" wx:if="{{isContinentInsurance && isActivityForBannerDate}}"></image>
-            <image src="https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrTdyAT1_9AABR9q2KQdc170.png" mode="widthFix" wx:else></image>
-        </view>
-        <view class="right right-for-trucks" animation="{{animationTrucksImage}}">
-            <image src="https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrTcKAXJ_uAADoZguuCxw579.png" mode="widthFix"></image>
+        <button wx:if="{{loginInfo.needBindingPhone !== 1 && orderInfo.selfStatus !== 12}}" class="btn" catchtap="onClickVehicle" animation="{{animationTransaction}}">
+            {{!orderInfo ? '新增办理' : ''}}
+            {{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 22 ? '恢复签约' : ''}}
+            {{orderInfo.selfStatus === 2 || orderInfo.selfStatus === 4 || orderInfo.selfStatus === 14 || orderInfo.selfStatus === 23 ? '继续办理' : ''}}
+            {{orderInfo.selfStatus === 3 ? '去支付' : ''}}
+            {{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 9 ? (orderInfo.flowVersion === 7 ? '继续办理' : '去签约') : ''}}
+            {{orderInfo.selfStatus === 6 || orderInfo.selfStatus === 8 || orderInfo.selfStatus === 10 ? '查看进度' : ''}}
+            {{orderInfo.selfStatus === 7 && orderInfo.flowVersion !== 4 ? '修改资料' : ''}}
+            {{orderInfo.selfStatus === 7 && orderInfo.flowVersion === 4 ? '取消办理' : ''}}
+            {{orderInfo.selfStatus === 11 ? '去激活' : ''}}
+            {{orderInfo.selfStatus === 13 ? '去开户' : ''}}
+            {{orderInfo.selfStatus === 15 || orderInfo.selfStatus === 17 ? '去预充' : ''}}
+            {{orderInfo.selfStatus === 16 || orderInfo.selfStatus === 19 || orderInfo.selfStatus === 20 || orderInfo.selfStatus === 21 ? '继续办理' : ''}}
+            {{orderInfo.selfStatus === 18 ? '代扣通行费' : ''}}
+        </button>
+        <button wx:if="{{loginInfo.needBindingPhone === 1 && orderInfo.selfStatus !== 12}}" class="btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber" animation="{{animationTransaction}}">
+            {{!orderInfo ? '新增办理' : ''}}
+        </button>
+        <button wx:if="{{recentlyTheBillInfo && orderInfo.selfStatus === 12}}" class="btn" catchtap="onClickBill" animation="{{animationTransaction}}">
+            立即补缴
+        </button>
+        <!-- <view class="bill-info" wx:if="{{orderInfo.selfStatus === 12 && recentlyTheBillInfo}}" animation="{{animationTransaction}}" catchtap="onClickBill">
+            <view class="bill iconfont {{recentlyTheBillInfo.deductStatus === 2 ? 'failure' : ''}}">{{(recentlyTheBillInfo.totalMmout + recentlyTheBillInfo.serviceMoney  - (recentlyTheBillInfo.wxDiscountAmount || 0) - (recentlyTheBillInfo.discountMount || 0) - (recentlyTheBillInfo.refundMoney || 0))/100}}</view>
+            <view class="iconfont bill-status {{recentlyTheBillInfo.deductStatus === 2 ? 'failure' : ''}}" style="width: 80px">
+                {{recentlyTheBillInfo.deductStatus === 2 ? '扣款失败' : ''}}
+                {{recentlyTheBillInfo.deductStatus === 7 ? '退款成功' : ''}}
+            </view>
+        </view> -->
+    </view>
+    <!-- 模块1 账单查询 通行发票 权益商城 -->
+    <view class="module moduleOne">
+        <view class="moduleOneBox" wx:for="{{moduleOneList}}" wx:key="index" data-url="{{item.url}}" catchtap="onClickEntrance">
+            <view class="imgTitle" data-statistics="{{item.statisticsEvent}}">
+                <image src="{{item.icon}}" />
+            </view>
+            <view class="title">{{item.title}}</view>
+            <view class="btn_two">{{item.btn}}</view>
         </view>
     </view>
-    <!--	立即办理结束-->
-    <!--	订单信息开始-->
-    <view class="order-info">
-        <view class="order-info-box">
-            <!--	未激活订单-显示订单状态开始-->
-            <view class="vehicle-information">
-                <view class="vehicle-info">
-                    <view class="vehicle-info-box" animation="{{animationVehicleInfo}}">
-                        <view>{{!passengerCarOrderInfo ? '使用微信支付的ETC' : passengerCarOrderInfo.vehPlates}}</view>
-                        <view class="sub-title">
-                            {{passengerCarOrderInfo.selfStatus === 1 || passengerCarOrderInfo.selfStatus === 22 ? '无法正常划扣通行费' : ''}}
-                            {{passengerCarOrderInfo.selfStatus === 2 || passengerCarOrderInfo.selfStatus === 4 || passengerCarOrderInfo.selfStatus === 23 ? '还差几步即可完成申办' : ''}}
-                            {{passengerCarOrderInfo.selfStatus === 3 ? '当前订单未完成支付' : ''}}
-                            {{passengerCarOrderInfo.selfStatus === 5 ? '签约微信支付，免密代扣' : ''}}
-                            {{passengerCarOrderInfo.selfStatus === 6 ? '订单排队审核中' : ''}}
-                            {{passengerCarOrderInfo.selfStatus === 7 ? '订单审核不通过' : ''}}
-                            {{passengerCarOrderInfo.selfStatus === 8 ? '审核失败，车牌不可办理' : ''}}
-                            {{passengerCarOrderInfo.selfStatus === 9 ? '签约银行卡代扣通行费' : ''}}
-                            {{passengerCarOrderInfo.selfStatus === 10 ? '审核通过，设备即将发出' : ''}}
-                            {{passengerCarOrderInfo.selfStatus === 11 ? '请按要求激活ETC' : ''}}
-                            {{passengerCarOrderInfo.selfStatus === 12 ? recentlyTheBill ? recentlyTheBill.addTime : '暂无通行账单' : ''}}
-                            {{passengerCarOrderInfo.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
+    <!-- 模块2 出行贴心服务 -->
+    <view class="moduleTwo" wx:if="{{tools.dataLen(moduleTwoList) > 0}}">
+        <view class="head">出行贴心服务</view>
+        <view class="moduleTwoBox">
+            <view class="integral" wx:for="{{moduleTwoList}}" wx:key="index" catchtap="onClickSwiper" data-item="{{item}}">
+                <image src="{{item.imgUrl}}" />
+            </view>
+        </view>
+    </view>
+    <!-- 模块3 ETC使用Tips 一期不做，待二期补充-->
+    <view class="moduleThree" wx:if="{{false}}">
+        <view class="head">ETC使用Tips</view>
+        <view class="moduleThreeBox">
+            <view class="directSeeding">
+                <view class="leftImg">
+                    <image src="{{'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png'}}" />
+                </view>
+                <view class="rightView">
+                    <view class="directSeedingTitle">
+                        <view>{{'换车后ETC怎么迁移？'}}</view>
+                        <view class="directSeedingImg">
+                            <view class="loginImg">
+                                <image src="https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png" />
+                            </view>
+                            <text style="color: {{true ? 'red' : 'green'}}">
+                                {{true ? '直播中':'已休息'}}
+                            </text>
                         </view>
                     </view>
-                    <view class="vehicle-info-box vehicle-info-trucks-box" animation="{{animationVehicleInfoForTrucks}}">
-                        <view>{{!truckOrderInfo ? '使用微信支付的ETC' : truckOrderInfo.vehPlates}}</view>
-                        <view class="sub-title">
-                            {{truckOrderInfo.selfStatus === 1 || passengerCarOrderInfo.selfStatus === 22 ? '无法正常划扣通行费' : ''}}
-                            {{truckOrderInfo.selfStatus === 2 || truckOrderInfo.selfStatus === 4 || truckOrderInfo.selfStatus === 14 ? '还差几步即可完成申办' : ''}}
-                            {{truckOrderInfo.selfStatus === 3 ? '当前订单未完成支付' : ''}}
-                            {{truckOrderInfo.selfStatus === 5 ? '签约微信支付，免密代扣' : ''}}
-                            {{truckOrderInfo.selfStatus === 6 ? '订单排队审核中' : ''}}
-                            {{truckOrderInfo.selfStatus === 7 ? '订单审核不通过' : ''}}
-                            {{truckOrderInfo.selfStatus === 8 ? '审核失败，车牌不可办理' : ''}}
-                            {{truckOrderInfo.selfStatus === 9 || truckOrderInfo.selfStatus === 21 ? '签约银行卡代扣通行费' : ''}}
-                            {{truckOrderInfo.selfStatus === 10 ? '审核通过，设备即将发出' : ''}}
-                            {{truckOrderInfo.selfStatus === 11 ? '请按要求激活ETC' : ''}}
-                            {{truckOrderInfo.selfStatus === 12 ? recentlyTheTruckBill ? recentlyTheTruckBill.addTime : '暂无通行账单' : ''}}
-                            {{truckOrderInfo.selfStatus === 13 || truckOrderInfo.selfStatus === 19 || truckOrderInfo.selfStatus === 20 ? '开通ETC电子账户' : ''}}
-                            {{truckOrderInfo.selfStatus === 15 ? '请充值' + truckOrderInfo.holdBalance / 100 + '元作为保证金' + '' : ''}}
-                            {{truckOrderInfo.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
-                            {{truckOrderInfo.selfStatus === 17 ? '请预充' + (truckOrderInfo.prechargeAmount || 0) / 100 + '元否则设备无法通行' + '' : ''}}
+                    <view class="lsBack" style="color: {{true ? 'red' : 'green'}}">
+                        {{true ? '正在直播...' : '观看回放'}}
+                    </view>
+                    <view class="viewText">
+                        <view>
+                            <image src="https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png" />
                         </view>
-                    </view>
-                </view>
-                <button wx:if="{{loginInfo.needBindingPhone !== 1 && orderInfo.selfStatus !== 12}}" class="btn" catchtap="onClickVehicle" animation="{{animationTransaction}}">
-                    {{!orderInfo ? '新增办理' : ''}}
-                    {{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 22 ? '恢复签约' : ''}}
-                    {{orderInfo.selfStatus === 2 || orderInfo.selfStatus === 4 || orderInfo.selfStatus === 14 || orderInfo.selfStatus === 23 ? '继续办理' : ''}}
-                    {{orderInfo.selfStatus === 3 ? '去支付' : ''}}
-                    {{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 9 ? (orderInfo.flowVersion === 7 ? '继续办理' : '去签约') : ''}}
-                    {{orderInfo.selfStatus === 6 || orderInfo.selfStatus === 8 || orderInfo.selfStatus === 10 ? '查看进度' : ''}}
-                    {{orderInfo.selfStatus === 7 && orderInfo.flowVersion !== 4 ? '修改资料' : ''}}
-                    {{orderInfo.selfStatus === 7 && orderInfo.flowVersion === 4 ? '取消办理' : ''}}
-                    {{orderInfo.selfStatus === 11 ? '去激活' : ''}}
-                    {{orderInfo.selfStatus === 13 ? '去开户' : ''}}
-                    {{orderInfo.selfStatus === 15 || orderInfo.selfStatus === 17 ? '去预充' : ''}}
-                    {{orderInfo.selfStatus === 16 || orderInfo.selfStatus === 19 || orderInfo.selfStatus === 20 || orderInfo.selfStatus === 21 ? '继续办理' : ''}}
-                    {{orderInfo.selfStatus === 18 ? '代扣通行费' : ''}}
-                </button>
-                <button wx:if="{{loginInfo.needBindingPhone === 1 && orderInfo.selfStatus !== 12}}" class="btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber" animation="{{animationTransaction}}">
-                    {{!orderInfo ? '新增办理' : ''}}
-                </button>
-                <view class="bill-info" wx:if="{{orderInfo.selfStatus === 12 && recentlyTheBillInfo}}" animation="{{animationTransaction}}" catchtap="onClickBill">
-                    <view class="bill iconfont {{recentlyTheBillInfo.deductStatus === 2 ? 'failure' : ''}}">{{(recentlyTheBillInfo.totalMmout + recentlyTheBillInfo.serviceMoney  - (recentlyTheBillInfo.wxDiscountAmount || 0) - (recentlyTheBillInfo.discountMount || 0) - (recentlyTheBillInfo.refundMoney || 0))/100}}</view>
-                    <view class="iconfont bill-status {{recentlyTheBillInfo.deductStatus === 2 ? 'failure' : ''}}" style="width: 80px">
-                        {{recentlyTheBillInfo.deductStatus === 2 ? '扣款失败' : ''}}
-                        {{recentlyTheBillInfo.deductStatus === 7 ? '退款成功' : ''}}
+                        <text>12580</text>
                     </view>
                 </view>
             </view>
-            <!--	未激活订单-显示订单状态结束-->
-            <view class="other-entrance">
-                <view wx:for="{{entranceList}}" wx:key="index" catchtap="onClickEntrance" data-url="{{item.url}}" data-statistics="{{item.statisticsEvent}}"
-                      class="item iconfont {{item.ico}}" wx:if="{{item.isShow}}">
-                    {{item.title}}
-                </view>
-            </view>
-        </view>
-        <view class="notice iconfont" wx:if="{{isShowNotice}}" catchtap="onClickNotice">
-            <view class="notice-left iconfont">{{isActivityDate ? '福利！60元通行券限时【19.9】抢！' : '限购！通行券、停车券 40抵60'}}</view>
-            <view class="notice-right {{isClickNotice ? 'no-notice-bg' : ''}}"></view>
         </view>
     </view>
-    <!--	订单信息结束-->
-    <!--	轮播图开始-->
-    <swiper
-            class="my-swiper"
-            next-margin="250rpx"
-            circular="{{true}}">
-        <swiper-item class="my-swiper-item" wx:for="{{bannerList}}" wx:key="index" catchtap="onClickSwiper" data-item="{{item}}" wx:if="{{item.isShow}}">
-            <image src="{{item.img}}" mode="widthFix" class="{{index === 3 ? img_1 : item.url}}"/>
-        </swiper-item>
-    </swiper>
-    <!--	轮播图结束-->
-
-	<!-- @cyl -->
-  <view class="moving_integral_pop-up" wx:if="{{movingIntegralControl}}">
-	<scroll-view class="scroll_pop-up" scroll-y="true">
-	  <view>尊敬的用户：</view>
-	  <view>
-		  <text>您即将通过本登录页面使用中国移动账户登录上海分互链信息技术有限公司所有的“分互链积分平台”，如果您无法认同如下内容，请您点击“返回”并拒绝授权：\n</text>
-		  <text>1、<text class="textBold">如您点击“继续”</text>，即视为您同意和授权中国移动向上海分互链信息技术有限公司提供账户数据接口以使上海分互链信息技术有限公司可以调用您在中国移动网站(www.10086.cn)的注册账户的登录信息，便于您直接使用您在中国移动网站的注册信息登录“分互链积分平台”。\n</text>
-		  <text>2、<text class="textBold">如您点击“继续”</text>，即视为您同意及授权（1）上海分互链信息技术有限公司通过数据接口实时读取您在中国移动的消费积分的剩余数量，以完成兑换畅由积分、集分宝或其他积分权益；（2）上海分互链信息技术有限公司将您在中国移动的消费积分的剩余数量，共享给小程序或H5页面运营方广州澜立信息科技有限公司，用于为您在页面显示剩余积分数量。\n</text>
-		  <text>3、<text class="textBold">如您点击“继续”</text>，则表明您已明确知晓上海分互链信息技术有限公司及“分互链积分平台”并非中国移动的关联公司或由中国移动运营，您使用“分互链积分平台”或上海分互链信息技术有限公司提供的其他服务的行为均与中国移动无关，您也不能就使用中国移动网站注册信息登录及使用“分互链积分平台”的后果要求中国移动承担任何责任。\n</text>
-		  <text>4、上海分互链信息技术有限公司及“分互链积分平台”所提供的商品或服务的质量和品质由上海分互联信息技术有限公司独立负责，上海分互链信息技术有限公司自行对提供该等商品或服务引起的后果向您承担全部责任。\n</text>
-		  <text>5、中国移动郑重提醒您保管好您在中国移动网站的注册登录信息，切勿向任何人透露您的账号、密码等相关信息。除非得到您的同意及授权，中国移动不会向任何第三方透露您的任何信息。\n</text>
-		  <text>6、中国移动郑重提醒您启用杀毒软件和安全措施，以防范各类网络风险\n</text>
-	  </view>
-	</scroll-view>
-	<view class="solid"></view>
-	<view class="btn_scroll">
-	  <button id="cancel" catchtap="btnMovingIntegral">取消</button>
-	  <button id="confirm" catchtap="btnMovingIntegral">继续</button>
-	</view>
-  </view>
-
-    <!--	弹窗开始-->
-    <popup id='dialog' dialogContent="{{dialogContent}}" bind:onHandle="onHandle"></popup>
+    <!-- 占位 -->
+    <view class="split"></view>
+    <!-- 同盾  在需要采集设备信息的页面加入以下节点 -->
+    <view wx:if="{{(hideFMCanvas != undefined) && !hideFMCanvas}}">
+        <!-- 根据您页面的布局，修改margin-top的值 -->
+        <canvas canvas-id='tdcanvas' style='margin-top:200rpx'></canvas>
+    </view>
+    <!-- 弹窗 -->
+    <viewProcedure id="viewProcedure" bind:onHandle="viewProcedure" bind:btnMovingIntegral="btnMovingIntegral" data-value="false" viewTc="{{movingIntegralObj}}"></viewProcedure>
+    <view-img id="viewImg" bind:onHandle="testFunc" data-value="false" viewTc="{{viewTc}}"></view-img>
     <popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="popUp"></popup1>
-    <!--	弹窗结束-->
-    <!--	弹窗开始-->
     <agreement-dialog id='agreement-dialog'></agreement-dialog>
-    <!--	弹窗结束-->
-
-	<!--同盾  在需要采集设备信息的页面加入以下节点-->
-	<view wx:if="{{(hideFMCanvas != undefined) && !hideFMCanvas}}">
-		<!--根据您页面的布局，修改margin-top的值-->
-	    <canvas canvas-id='tdcanvas' style='margin-top:200rpx'></canvas>
-	</view>
+    <!-- 测试弹窗 -->
+    <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
 </view>

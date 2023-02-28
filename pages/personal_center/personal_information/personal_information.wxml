@@ -1,0 +1,37 @@
+<view >
+    <view class="index" style="background: {{bgColor}}">
+        <!-- 模块一 -->
+        <view class="module moduleOne">
+            <view class="attr">
+                <view class="attrName">头像</view>
+                <view class="headImg {{isVip ? 'yes' : ''}}">
+                    <button class="images" open-type='chooseAvatar' bindchooseavatar="onChooseAvatar">
+                        <image class="image" src="{{avatarUrl}}" />
+                    </button>
+                </view>
+            </view>
+            <view class="attr">
+                <view class="attrName">昵称</view>
+                <view class="attrValue">
+                    <input class="input" type="nickname" value="{{nicheng}}" maxlength="10" bindinput="bindKeyInput"  placeholder="请输入昵称" />
+                </view>
+            </view>
+            <view class="tips">*昵称支持中文、大小写英文字母，暂不支持emoji等特殊符号，最大限制10个字符</view>
+        </view>
+        <!-- 底部悬浮按钮 -->
+        <view class="bottomBtn">
+            <view class="btnClose" catchtap="save">保存</view>
+        </view>
+    </view>
+    <page-container 
+        show="{{show}}"
+        round="{{round}}"
+        overlay="{{overlay}}"
+        duration="{{duration}}"
+        position="{{position}}"
+        custom-style="{{customStyle}}"
+        overlay-style="{{overlayStyle}}"
+        close-on-slide-down="{{false}}"
+        bindbeforeleave="onBeforeLeave">
+    </page-container>
+</view>

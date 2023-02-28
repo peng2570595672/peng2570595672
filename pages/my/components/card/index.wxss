@@ -1,0 +1,70 @@
+.hear_card_panel{
+  width: 100%;
+  height: 100%;
+  background-image: url("https://file.cyzl.com/g001/M01/CA/38/oYYBAGP8aNmAbEDtAAFvMJaYW2Q123.jpg");
+  background-size: contain;
+  border-radius: 16rpx;
+  overflow: hidden;
+  padding: 28rpx 36rpx;
+  box-sizing: border-box;
+}
+.vip-box {
+  background-image: url("https://file.cyzl.com/g001/M01/CA/33/oYYBAGP8Y5uAcQ8DAAFK4NUMAP4876.jpg");
+}
+.top-info {
+  display: flex;
+  height: 50rpx;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+.top-info .quota {
+  flex: 1;
+  font-size: 48rpx;
+  font-family: Arial-BoldItalicMT, Arial;
+  font-weight: normal;
+  color: #FFFFFF;
+}
+.top-info .btn {
+  width: 172rpx;
+  height: 44rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #2A4F44;
+  border-radius: 22rpx;
+  font-size: 20rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #87BFAE;
+}
+.vip-box .top-info .btn {
+  background: #E9CB7F;
+  color: #81591B;
+}
+.bottom-info {
+  display: flex;
+}
+.bottom-info .details {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-size: 20rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FFFFFF;
+}
+.bottom-info .details image{
+  margin-left: 8rpx;
+  width: 20rpx;
+  height: 20rpx;
+}
+.bottom-info .veh-info {
+  width: 172rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FFFFFF;
+}

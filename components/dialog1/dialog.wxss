@@ -100,7 +100,7 @@
 }
 @font-face {
   font-family: 'iconfont'; /* Project id 1514406 */
-  src: url("//at.alicdn.com/t/font_1514406_r2ex32p9up.woff2?t=1651741878795") format('woff2'), url("//at.alicdn.com/t/font_1514406_r2ex32p9up.woff?t=1651741878795") format('woff'), url("//at.alicdn.com/t/font_1514406_r2ex32p9up.ttf?t=1651741878795") format('truetype');
+  src: url("//at.alicdn.com/t/c/font_1514406_xegvgy9twos.woff2?t=1675854177437") format('woff2'), url("//at.alicdn.com/t/c/font_1514406_xegvgy9twos.woff?t=1675854177437") format('woff'), url("//at.alicdn.com/t/c/font_1514406_xegvgy9twos.ttf?t=1675854177437") format('truetype');
 }
 .iconfont {
   font-family: "iconfont" !important;
@@ -176,7 +176,7 @@
   border-top: 1rpx solid rgba(0,0,0,0.1);
   margin-top: 40rpx;
 }
-.alert-for-not-finished-content .dialog-container .wx-dialog-btn > view {
+.alert-for-not-finished-content .dialog-container .wx-dialog-btn > .view {
   flex: 1;
   display: flex;
   height: 110rpx;
@@ -187,11 +187,11 @@
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
 }
-.alert-for-not-finished-content .dialog-container .wx-dialog-btn > view.cancel {
+.alert-for-not-finished-content .dialog-container .wx-dialog-btn > .view.cancel {
   border-right: 1rpx solid rgba(0,0,0,0.1);
   color: rgba(0,0,0,0.9);
 }
-.alert-for-not-finished-content .dialog-container .wx-dialog-btn > view.confirm {
+.alert-for-not-finished-content .dialog-container .wx-dialog-btn > .view.confirm {
   border-right: 1rpx solid rgba(0,0,0,0.1);
   color: #2fb565;
 }

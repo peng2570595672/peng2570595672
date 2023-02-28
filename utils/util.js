@@ -9,7 +9,6 @@ const QQMapWX = require('../libs/qqmap-wx-jssdk.min.js');
 let app = getApp();
 
 function setApp(a) {
-	console.log(1);
 	app = a;
 }
 
@@ -299,15 +298,15 @@ function go(url) {
 }
 
 /**
- *  弹出吐司提示 不带icon
+ *  弹出吐司提示 不带icon 默认停留2秒
  * @param content 提示内容
  */
-function showToastNoIcon(content) {
+function showToastNoIcon(content,time=2000) {
 	setTimeout(() => {
 		wx.showToast({
 			title: content,
 			icon: 'none',
-			duration: 2000
+			duration: time
 		});
 	}, 100);
 }
@@ -958,7 +957,6 @@ function subscribe(tmplIds, url) {
 		wx.requestSubscribeMessage({
 			tmplIds: tmplIds,
 			success: (res) => {
-				console.log(res);
 				wx.hideLoading();
 				if (res.errMsg === 'requestSubscribeMessage:ok') {
 					let keys = Object.keys(res);
@@ -988,8 +986,8 @@ function subscribe(tmplIds, url) {
 							cancel: () => { // 点击取消按钮
 								// if (url === '/pages/default/index/index') {
 								if (url === '/pages/Home/Home') {
-									wx.reLaunch({
-										url: url
+									wx.switchTab({
+										url: '/pages/Home/Home'
 									});
 								} else {
 									go(url)
@@ -999,8 +997,8 @@ function subscribe(tmplIds, url) {
 					} else {
 						if (url === '/pages/Home/Home') {
 							// if (url === '/pages/default/index/index') {
-							wx.reLaunch({
-								url: url
+							wx.switchTab({
+								url: '/pages/Home/Home'
 							});
 						} else {
 							go(url)
@@ -1009,14 +1007,13 @@ function subscribe(tmplIds, url) {
 				}
 			},
 			fail: (res) => {
-				console.log(res);
 				wx.hideLoading();
 				// 不是点击的取消按钮
 				if (res.errMsg === 'requestSubscribeMessage:fail cancel') {
 					// if (url === '/pages/default/index/index') {
 					if (url === '/pages/Home/Home') {
-						wx.reLaunch({
-							url: url
+						wx.switchTab({
+							url: '/pages/Home/Home'
 						});
 					} else {
 						go(url)
@@ -1038,8 +1035,8 @@ function subscribe(tmplIds, url) {
 						cancel: () => {
 							// if (url === '/pages/default/index/index') {
 							if (url === '/pages/Home/Home') {
-								wx.reLaunch({
-									url: url
+								wx.switchTab({
+									url: '/pages/Home/Home'
 								});
 							} else {
 								go(url)
@@ -1058,8 +1055,8 @@ function subscribe(tmplIds, url) {
 			confirm: () => {
 				// if (url === '/pages/default/index/index') {
 				if (url === '/pages/Home/Home') {
-					wx.reLaunch({
-						url: url
+					wx.switchTab({
+						url: '/pages/Home/Home'
 					});
 				} else {
 					go(url)
@@ -1101,9 +1098,7 @@ function getInsuranceOffer(orderId, wtagid) {
  *  获取用户状态-交行资料信息
  */
 async function getMemberStatus() {
-	const result = await getDataFromServersV2('consumer/member/bcm/getMemberStatus');
-	console.log('交行信息');
-	console.log(result.data);
+	const result = await getDataFromServersV2('consumer/member/bcm/getMemberStatus', {}, 'POST', false);
 	app.globalData.memberStatusInfo = result.data;
 }
 /**
@@ -1191,20 +1186,20 @@ let isTruckHandle = false;// 是否是货车办理
 function initLocationInfo(orderInfo, isTruck = false) {
 	isTruckHandle = isTruck;
 	// 是否缓存了定位信息
-	let locationInfo = wx.getStorageSync('location-info');
-	if (locationInfo) {
-		let res = JSON.parse(locationInfo);
-		let info = res.result.ad_info;
-		// 获取区域编码
-		let regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
-		const result = getListOfPackages(orderInfo, regionCode)
-		if (result) {
-			return result
-		}
-		return '';
-	}
+	// let locationInfo = wx.getStorageSync('location-info');
+	// if (locationInfo) {
+	// 	let res = JSON.parse(locationInfo);
+	// 	let info = res.result.ad_info;
+	// 	// 获取区域编码
+	// 	let regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
+	// 	const result = getListOfPackages(orderInfo, regionCode)
+	// 	if (result) {
+	// 		return result
+	// 	}
+	// 	return '';
+	// }
 	// 定位
-	return getLocationInfo(orderInfo);
+	return getListOfPackages(orderInfo);
 }
 // 授权定位
 async function getLocationInfo(orderInfo) {
@@ -1236,7 +1231,7 @@ async function getLocationInfo(orderInfo) {
 							resolve([])
 						}
 					});
-				} else if (res.errMsg === 'getLocation:fail:ERROR_NOCELL&WIFI_LOCATIONSWITCHOFF' || res.errMsg === 'getLocation:fail system permission denied') {
+				} else if (res.errMsg === 'getLocation:fail:ERROR_NOCELL&WIFI_LOCATIONSWITCHOFF' || res.errMsg === 'getLocation:fail system permission denied' || res.errMsg === 'getLocation:fail:system permission denied') {
 					showToastNoIcon('请开启手机或微信定位功能！');
 				}
 			}
@@ -1249,7 +1244,7 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
 	showLoading();
 	let params = {
 		needRightsPackageIds: true,
-		areaCode: regionCode[0] || 0,
+		areaCode: '',
 		productType: 2,
 		vehType: 1,
 		platformId: app.globalData.platformId,
@@ -1313,7 +1308,7 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
 	app.globalData.newPackagePageData = {
 		shopId: orderInfo.shopId || app.globalData.miniProgramServiceProvidersId,// 避免老流程没上传shopId
 		listOfPackages: list,
-		areaCode: regionCode[0] || 0,
+		areaCode: '0',
 		type,
 		divideAndDivideList,
 		alwaysToAlwaysList
@@ -1538,7 +1533,7 @@ async function queryProtocolRecord(protocolType) {
 		platformId: app.globalData.platformId,
 		memberId: app.globalData.memberId,
 		protocolType: protocolType
-	});
+	},'POST',false);
 	if (!result) return;
 	let isOk = false;
 	if (result.code === 0) {
@@ -1705,8 +1700,43 @@ function timeComparison(fixedTime,flexibleTime) {
 	} else {
 		return 2	//旧订单
 	}
+};
+// 自定义tabbar  做唯一标识
+function customTabbar (that, num) {
+	if (typeof that.getTabBar === 'function' &&
+	that.getTabBar()) {
+		that.getTabBar().setData({
+		// 唯一标识（其它设置不同的整数）
+		selected: num,
+		index: num
+	});
+	}
+};
+// 防止点击重复触发
+function fangDou (that,fn, time) {
+	return (function () {
+		if (that.data.timeout) {
+			clearTimeout(that.data.timeout);
+		}
+		that.data.timeout = setTimeout(() => {
+			fn.apply(that, arguments);
+		}, time);
+	})();
 }
-
+// 获取用户是否 ETC+Plus用户
+async function getUserIsVip() {
+	const result = await getDataFromServersV2('consumer/order/member/userType', {},'POST',false);
+	if (!result) return;
+	if (result.code === 0) {
+		if ( result.data.userType === 2) {
+			app.globalData.isVip = true
+		} else {
+			app.globalData.isVip = false
+		}
+	} else {
+		showToastNoIcon(result.message);
+	}
+}
 module.exports = {
 	setApp,
 	formatNumber,
@@ -1757,5 +1787,8 @@ module.exports = {
 	getV2BankId,
 	weChatSigning,
 	getUserInfo,
-	timeComparison
+	timeComparison,
+	customTabbar,
+	fangDou,
+	getUserIsVip
 };

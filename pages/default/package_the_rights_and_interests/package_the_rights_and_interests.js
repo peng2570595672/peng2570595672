@@ -8,21 +8,31 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		topProgressBar: 2,	// 进度条展示的长度 ，再此页面的取值范围 [2,3),默认为2,保留一位小数
+		isFade: false,
+		activeIndex: -1,
+		isCloseUpperPart: false, // 控制 详情是否显示
+		isCloseUpperPart1: false, // 控制 详情是否显示
+		isCloseUpperPart2: false, // 控制 详情是否显示
+		nodeHeightList: [], // 存储节点高度 集合
+		phoneType: 2,
+		equityListMap: [],	// 权益列表集合
+		// ------------------------------------------------------------------------------
 		isContinentInsurance: app.globalData.isContinentInsurance,// 是否是大地
 		isSelected: false,// 是否选中当前权益包
 		isSalesmanOrder: false,// 是否是业务员端办理
 		isRequest: false,// 是否请求中
 		orderInfo: undefined,// 订单信息
 		listOfPackages: undefined,
-		activeIndex: 0,// 当前轮播下标 -- 用于计算轮播高度
+		// activeIndex: 0,// 当前轮播下标 -- 用于计算轮播高度
 		choiceIndex: 0,// 当前选中套餐下标
 		activeEquitiesIndex: -1,// 当前选中权益包
 		rightsAndInterestsList: [],// 加购权益列表
 		basicServiceList: [
-			{title: 'ETC设备与卡片', tips: '包邮', ico: 'service_of_etc'},
-			{title: '设备质保一年', ico: 'service_of_equipment'},
-			{title: '开具通行费发票', ico: 'service_of_invoice'},
-			{title: '高速通行9.5折', ico: 'service_of_discount'}
+			{title: 'ETC设备与卡片', tips: '包邮', icos: 'service_of_etc'},
+			{title: '设备质保一年', icos: 'service_of_equipment'},
+			{title: '开具通行费发票', icos: 'service_of_invoice'},
+			{title: '高速通行9.5折', icos: 'service_of_discount'}
 		],
 		otherServiceList: [
 			{title: '车主服务享便捷', subTitle: '价值168元'},
@@ -118,7 +128,7 @@ Page({
 		getAgreement: false, // 是否接受协议
 		isPay: false, // 已选择通通券套餐&无需支付||已经支付
 		isTest: app.globalData.test
-
+		
 	},
 	async onLoad (options) {
 		console.log(options);
@@ -132,11 +142,12 @@ Page({
 			return;
 		}
 		const packages = app.globalData.newPackagePageData;
-		console.log('你好',packages);
 		this.setData({
 			listOfPackages: parseInt(options.type) === 1 ? packages.divideAndDivideList : packages.alwaysToAlwaysList
 		});
-		await this.getSwiperHeight();
+		// await this.getSwiperHeight();
+		// 获取 套餐模块的高度
+		this.getNodeHeight(this.data.listOfPackages.length);
 		// 查询是否欠款
 		await util.getIsArrearage();
 	},
@@ -149,26 +160,27 @@ Page({
 			this.getOrderInfo(false);
 		}
 	},
-	async getSwiperHeight () {
-		let boxHeight = [];
-		const that = this;
-		that.data.listOfPackages.map((item, index) => {
-			let height = wx.createSelectorQuery();
-			height.select(`.item-${index}`).boundingClientRect();
-			height.exec(res => {
-				boxHeight.push(res[0].height);
-				if (boxHeight.length === that.data.listOfPackages.length) {
-					that.setData({
-						boxHeight
-					});
-				}
-			});
-		});
-		if (that.data.listOfPackages[0]?.rightsPackageIds?.length) {
-			// 获取权益
-			await that.getList(that.data.listOfPackages[0]);
-		}
-	},
+	// async getSwiperHeight () {
+	// 	let boxHeight = [];
+	// 	const that = this;
+	// 	that.data.listOfPackages.map((item, index) => {
+	// 		let height = wx.createSelectorQuery();
+	// 		height.select(`.item-${index}`).boundingClientRect();
+	// 		height.exec(res => {
+	// 			boxHeight.push(res[0].height);
+	// 			if (boxHeight.length === that.data.listOfPackages.length) {
+	// 				that.setData({
+	// 					boxHeight
+	// 				});
+	// 			}
+	// 		});
+	// 	});
+	// 	if (that.data.listOfPackages[0]?.rightsPackageIds?.length) {
+	// 		console.log(that.data.listOfPackages[0]);
+	// 		// 获取权益
+	// 		await that.getList(that.data.listOfPackages[0]);
+	// 	}
+	// },
 	// 获取 套餐信息
 	async getProductOrderInfo () {
 		const result = await util.getDataFromServersV2('consumer/order/get-product-by-order-id', {
@@ -181,7 +193,7 @@ Page({
 			this.setData({
 				listOfPackages: [result.data]
 			});
-			await this.getSwiperHeight();
+			this.getNodeHeight(this.data.listOfPackages.length);
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -364,7 +376,7 @@ Page({
 			activeEquitiesIndex: e.detail.isSelected ? -1 : this.data.rightsPackageDetails.index
 		});
 		if (this.data.listOfPackages[this.data.choiceIndex]?.mustChoiceRightsPackage === 1) {
-			const index = this.data.rightsAndInterestsList.findIndex(item => item.id === this.data.listOfPackages[this.data.choiceIndex]?.rightsPackageIds[0]);
+			const index = this.data.rightsAndInterestsList.findIndex(item => item.id === this.data.listOfPackages[0]?.rightsPackageIds[0]);
 			if (index !== -1 && this.data.choiceIndex !== -1) {
 				this.setData({
 					activeEquitiesIndex: index
@@ -396,11 +408,28 @@ Page({
 	},
 	// 查看办理协议
 	onClickGoAgreementHandle () {
-		util.go(`/pages/default/agreement/agreement`);
+		// 1-自购设备 2-免费设备 3-自购(其他)
+		if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4) {
+			// ETC押金办理模式 协议
+			return util.go('/pages/default/margin_user_handling_agreement/margin_user_handling_agreement');
+		}
+		if (this.data.listOfPackages[this.data.choiceIndex]?.environmentAttribute === 2) {
+			if (this.data.listOfPackages[this.data.choiceIndex].etcCardId === 1) {
+				util.go(`/pages/default/free_equipment_agreement/free_equipment_agreement`);
+			} else {
+				util.go(`/pages/default/agreement/agreement`);
+			}
+		} else {
+			if (this.data.listOfPackages[this.data.choiceIndex].isSignTtCoupon === 1) {
+				util.go(`/pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement`);
+			} else {
+				util.go(`/pages/default/new_self_buy_equipmemnt_agreement/index`);
+			}
+		}
 	},
-	// 黔通用户协议
+	// 通通券协议
 	onClickGoQianTongAgreement () {
-		util.go('/pages/truck_handling/agreement_for_qiantong_to_charge/agreement');
+		util.go('/pages/default/coupon_and_etc_agreement/coupon_and_etc_agreement');
 	},
 	// 通通券协议
 	onClickGoQianTongAgreement1 () {
@@ -410,11 +439,18 @@ Page({
 	onClickGoPrivacyHandle () {
 		util.go('/pages/default/privacy_agreement/privacy_agreement');
 	},
-	// 是否接受协议
+	// 是否接受协议   点击同意协议并且跳转指定套餐模块
 	onClickAgreementHandle () {
+		if (this.data.activeIndex === -1) {
+			return util.showToastNoIcon('亲，请选套餐哦');
+		}
+		let getAgreement = !this.data.getAgreement;
 		this.setData({
-			getAgreement: !this.data.getAgreement
+			getAgreement,
+			topProgressBar: getAgreement ? 2.7 : 2.4
 		});
+		// 跳转指定套餐模块
+		this.controllShopProductPosition(this.data.activeIndex);
 	},
 	onClickCheckTheService (e) {
 		this.setData({
@@ -438,6 +474,7 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
 			packageIds: obj.rightsPackageIds
 		});
+		console.log(result);
 		if (!result) return;
 		if (result.code === 0) {
 			this.setData({
@@ -461,8 +498,8 @@ Page({
 					});
 				}
 			} else {
-				if (this.data.listOfPackages[this.data.choiceIndex]?.mustChoiceRightsPackage === 1) {
-					const index = result.data.findIndex(item => item.id === this.data.listOfPackages[this.data.choiceIndex]?.rightsPackageIds[0]);
+				if (this.data.listOfPackages[0]?.mustChoiceRightsPackage === 1) {
+					const index = result.data.findIndex(item => item.id === this.data.listOfPackages[0]?.rightsPackageIds[0]);
 					if (index !== -1 && this.data.choiceIndex !== -1) {
 						this.setData({
 							activeEquitiesIndex: index
@@ -501,15 +538,7 @@ Page({
 		}
 	},
 	async next () {
-		if (this.data.choiceIndex === -1) {
-			util.showToastNoIcon('请选择套餐');
-			return;
-		}
-		if (this.data.listOfPackages[this.data.choiceIndex].mustChoiceRightsPackage === 1 && this.data.activeEquitiesIndex === -1) {
-			util.showToastNoIcon('套餐需加购权益包');
-			// 必须选择权益
-			return;
-		}
+		if (this.data.choiceIndex === -1) return;
 		if (!this.data.getAgreement) {
 			util.showToastNoIcon('请同意并勾选协议！');
 			return;
@@ -534,8 +563,8 @@ Page({
 				return;
 			}
 		}
-
-		if (this.data.listOfPackages[this.data.choiceIndex].mustChoiceRightsPackage === 0 && this.data.rightsAndInterestsList.length && this.data.activeEquitiesIndex === -1) {
+		
+		if (this.data.listOfPackages[this.data.choiceIndex].mustChoiceRightsPackage === 0 && this.data.rightsAndInterestsList.length) {
 			// 不必选权益 有权益包 未选中权益包
 			util.alert({
 				title: `优惠提醒`,
@@ -555,6 +584,7 @@ Page({
 		}
 		await this.saveOrderInfo();
 	},
+	// 提交订单
 	async saveOrderInfo () {
 		wx.uma.trackEvent('package_the_rights_and_interests_next');
 		const res = await util.getDataFromServersV2('consumer/order/after-sale-record/addProtocolRecord', {
@@ -567,15 +597,14 @@ Page({
 			dataType: '3', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
-			rightsPackageId: this.data.rightsAndInterestsList[this.data.activeEquitiesIndex]?.id || '',
+			rightsPackageId: this.data.equityListMap[this.data.activeIndex]?.id || '',
 			areaCode: this.data.orderInfo ? (this.data.orderInfo.product.areaCode || '0') : app.globalData.newPackagePageData.areaCode
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
-		console.log(result);
 		if (!result) return;
 		if (result.code === 0) {
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
-				this.data.rightsAndInterestsList[this.data.activeEquitiesIndex]?.payMoney) {
+				this.data.equityListMap[this.data.activeIndex]?.payMoney) {
 				await this.marginPayment(this.data.listOfPackages[this.data.choiceIndex].pledgeType);
 				return;
 			}
@@ -721,6 +750,12 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
+	// ------------------------------------------------------------------------------------------------------------------
+	// 前去相关协议页面
+	goAgreement () {
+		console.log('前去相关协议');
+		util.go('/pages/personal_center/user_agreement/user_agreement');
+	},
 	// 权益点击高亮，不用显示详情弹窗
 	detailsBtn (e) {
 		if (this.data.listOfPackages[this.data.activeIndex]?.mustChoiceRightsPackage === 1) {
@@ -736,5 +771,120 @@ Page({
 				activeEquitiesIndex: -1
 			});
 		}
+	},
+	// 点击高亮
+	btnHeightLight (e) {
+		let that = this;
+		let isFade = e.currentTarget.dataset.index !== that.data.activeIndex;
+		// 控制点击 套餐高亮
+		that.setData({
+			isFade,
+			activeIndex: isFade ? e.currentTarget.dataset.index : -1,
+			isConfirm: false,
+			topProgressBar: isFade ? 2.4 : 2,
+			choiceIndex: isFade ? e.currentTarget.dataset.index : -1
+		});
+		if (isFade) { // 当套餐高亮时，默认展开 详情
+			this.setData({
+				isCloseUpperPart1: true,
+				isCloseUpperPart2: false
+			});
+		} else {
+			this.setData({
+				isCloseUpperPart: e.currentTarget.dataset.index,
+				isCloseUpperPart1: false,
+				isCloseUpperPart2: false
+			});
+		}
+		// 点击套餐 让套餐模块置顶 一定的距离
+		if (!isFade) {
+			return false;
+		} else {
+			this.controllShopProductPosition(e.currentTarget.dataset.index);
+		}
+	},
+	btnOpenOrOff (e) { // 展开和收起
+		let index = e.currentTarget.dataset.index[0];
+		let activeIndex = e.currentTarget.dataset.index[2];
+		let isCloseUpperPart = e.currentTarget.dataset.index[1];
+		let flag = this.data.isCloseUpperPart1;
+		let flag2 = this.data.isCloseUpperPart2;
+		if (index === activeIndex) { // 选中套餐 点击 展开和收起 的控制
+			this.setData({
+				isCloseUpperPart1: !flag,
+				isCloseUpperPart2: isCloseUpperPart !== index ? false : !flag2
+			});
+		} else { // 未选中套餐 点击 展开和收起 的控制
+			this.setData({
+				isCloseUpperPart: index,
+				isCloseUpperPart1: false,
+				isCloseUpperPart2: isCloseUpperPart !== index ? true : !flag2
+			});
+		}
+	},
+	// 获取节点的高度
+	async getNodeHeight (num) {
+		console.log(num);
+		let that = this;
+		let nodeHeightList = [];
+		let equityListMap = [];
+		for (let index = 0; index < num; index++) {
+			let allIndex = 'module' + index;
+			wx.createSelectorQuery().select(`.${allIndex}`).boundingClientRect(function (rect) {
+				// console.log('节点信息: ',rect);
+				nodeHeightList.push(rect.height);
+				that.setData({
+					nodeHeightList
+				});
+			}).exec();
+			const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
+				packageIds: this.data.listOfPackages[index].rightsPackageIds.length > 1 ? new Array(this.data.listOfPackages[index].rightsPackageIds[0]) : this.data.listOfPackages[index].rightsPackageIds
+			},'POST',false);
+			if (result.code === 0) {
+				let equityObj = {index: index, packageName: result.data[0].packageName,payMoney: result.data[0].payMoney,id: result.data[0].id};
+				equityListMap.push(equityObj);
+			} else {
+				// 占位
+				let equityObj = {index: index, packageName: '',payMoney: 0};
+				equityListMap.push(equityObj);
+			}
+		}
+		this.setData({
+			equityListMap: equityListMap
+		});
+		wx.getSystemInfo({
+			success: (res) => {
+				let arr = [
+					['iPhone 5'],['Nexus 5'],['iPhone 6/7/8','iPhone X','iPhone 12/13 mini','iPhone 12/13 (Pro)','Mac 13-inch and below','Mac 15-inch'],
+					['iPhone XR','iPhone XS Max','Mac 21-inch and above','Nexus 5X','Nexus 6','iPhone 6/7/8 Plus'],['iPhone 12/13 Pro Max','iPhone 14 Pro Max'],
+					['Windows'],['iPad'],['iPad Pro 10.5-inch'],['iPad Pro 12.9-inch']
+				];
+				// 指定索引
+				for (let index = 0; index < 9; index++) {
+					if (arr[index].includes(res.model)) {
+						return that.setData({
+							phoneType: index
+						});
+					}
+				}
+			}
+		});
+	},
+	// 控制 选中套餐 的位置
+	controllShopProductPosition (eIndex) {
+		let flags = 'module' + eIndex;
+		let topValue = 0;
+		let that = this;
+		for (let index = 0; index < that.data.nodeHeightList.length; index++) {
+			if (index < eIndex) {
+				topValue += that.data.nodeHeightList[index];
+			}
+		}
+		let num = [16.4,18.4,19.4,20.4,21.4,24.4,38.4,42.4,51.4];	// 减少选中模块距离顶部的 中间值,是根据手机型号 来获取对应的值
+		wx.pageScrollTo({
+			selector: `.${flags}`,
+			scrollTop: topValue + that.data.activeIndex * num[that.data.phoneType] - that.data.activeIndex,
+			duration: 200
+		});
 	}
 });

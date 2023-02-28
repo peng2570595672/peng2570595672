@@ -6,7 +6,8 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
-		fenCheck: false,
+		topProgressBar: 3,	// 进度条展示的长度 ，再此页面的取值范围 [3,4),默认为3,保留一位小数
+		fenCheck: false,	// 是否1分钱校验 1 是   默认0
 		contractStatus: 0,// 1已签约
 		orderInfo: undefined,
 		orderDetails: undefined,
@@ -21,7 +22,8 @@ Page({
 		requestNum: 0,
 		isReturn: false,
 		ownerIdCard: {}, // 实名身份信息
-		vehicle: {} // 车辆信息
+		vehicle: {}, // 车辆信息
+		tips: ''	// 审核失败返回的结果
 	},
 	async onLoad (options) {
 		if (options.isModifiedData) {
@@ -118,7 +120,9 @@ Page({
 				isEtcContractId: orderInfo.etcContractId !== -1,
 				orderDetails: res,
 				vehicleInfo: res.vehPlates,
-				vehPlates: vehPlates
+				vehPlates: vehPlates,
+				tips: res.orderAudit ? res.orderAudit.remark : '',
+				topProgressBar: orderInfo.isOwner && orderInfo.isVehicle ? 4 : orderInfo.isOwner || orderInfo.isVehicle ? 3.3 : 3
 			});
 			this.availableCheck();
 		} else {
@@ -184,11 +188,18 @@ Page({
 	},
 	// 跳转
 	go (e) {
+		let topProgressBar = 3;
 		let url = e.currentTarget.dataset['url'];
-		util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}`);
+		if (this.data.orderInfo.isOwner || this.data.orderInfo.isVehicle) {
+			topProgressBar = 3.3;
+		}
+		if (url === 'information_validation' && !this.data.orderInfo.isOwner) {
+			return util.showToastNoIcon('请先上传身份证');
+		}
+		util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}`);
 	},
 	// ETC申办审核结果通知、ETC发货提示
-	subscribe () {
+	async subscribe () {
 		// if (this.data.orderInfo && this.data.orderInfo?.isOwner === 1 && this.data.orderInfo?.isVehicle === 1 && this.data.ownerIdCard?.ownerIdCardTrueName !== this.data.vehicle?.owner) {
 		// 	util.showToastNoIcon('身份证与行驶证必须为同一持有人');
 		// 	return;
@@ -303,8 +314,10 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			app.globalData.isNeedReturnHome = true;
+			if (this.data.orderInfo.obuCardType === 1) {
+				this.brandChargingModel();
+			}
 			if (this.data.orderInfo.flowVersion === 2 || this.data.orderInfo.flowVersion === 3) {
-				// 总对总
 				util.go(`/pages/default/order_audit/order_audit`);
 				return;
 			}
@@ -321,9 +334,15 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
+	// 车辆品牌收费车型校验
+	async brandChargingModel () {
+		await util.getDataFromServersV2('consumer/etc/qtzl/checkCarChargeType', {
+			orderId: app.globalData.orderInfo.orderId
+		});
+	},
 	onUnload () {
 		if (this.data.isReturn) {
-			wx.reLaunch({
+			wx.switchTab({
 				url: '/pages/Home/Home'
 			});
 		}

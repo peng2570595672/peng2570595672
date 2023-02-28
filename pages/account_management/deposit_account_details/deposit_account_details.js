@@ -16,14 +16,14 @@ Page({
 		page: 0,
 		available: false, // 按钮是否可点击
 		isRequest: false, // 是否请求中
-		index: 0 // 对应数组下标
+		id: '' // 对应数组下标
 	},
 	async onLoad (options) {
 		console.log(options);
 		const timestamp = Date.parse(new Date());
 		const date = new Date(timestamp);
 		this.setData({
-			index: +options.index,
+			id: options.id,
 			currentMonth: +util.formatTime(date).slice(5, 7),
 			beginDate: `${util.formatTime(date).slice(0, 8)}01`,
 			endDate: `${util.formatTime(date).slice(0, 10)}`
@@ -135,12 +135,14 @@ Page({
 			util.showToastNoIcon(result.message);
 			return;
 		}
-		let list = result.data[this.data.index].detailData.list || [];
+		const index = result.data.findIndex(item => item.id === this.data.id);
+		let list = result.data[index].detailData.list || [];
 		this.setData({
-			Wallet: result.data[this.data.index].balance,
+			Wallet: result.data[index].balance,
 			list: this.data.list.concat(list)
 		});
-		if (this.data.list.length >= result.data[this.data.index].detailData.total) {
+		console.log(this.data.list.length, '----------------------------------', result.data.total);
+		if (this.data.list.length >= result.data.detailData[index].total) {
 			this.setData({
 				nextpageFlag: true
 			});

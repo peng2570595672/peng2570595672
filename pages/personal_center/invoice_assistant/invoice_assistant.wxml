@@ -1,0 +1,11 @@
+<view class="index">
+    <view class="split"></view>
+    <view class="module moduleOne">
+        <view class="iconNameSpot" wx:for="{{listOne}}" wx:key="index" data-url="{{item.url}}" catchtap="go">
+            <view class="icon {{item.icon}} iconfont"></view>
+            <view class="name">{{item.name}}</view>
+            <view class="spot"></view>
+        </view>
+    </view>
+    <popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="popUp"></popup1>
+</view>

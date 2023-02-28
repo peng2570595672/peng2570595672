@@ -1,0 +1,210 @@
+.index {
+	padding: 0;
+	margin: 0;
+	width: 100vw;
+	height: auto;
+	z-index: 100;
+}
+
+/* 顶部 返回按钮 */
+.index .topBack {
+	width: 80rpx;
+	height: 80rpx;
+	overflow: hidden;
+	font-size: 28rpx;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	top: 100rpx;
+	left: 20rpx;
+	/* background-color: antiquewhite; */
+}
+
+.index .topBack .goBanckImg {
+	width: 50%;
+	height: 50%;
+}
+
+/* 顶部banner */
+.index .topBanner {
+	width: 100%;
+	height: 176rpx;
+	overflow: hidden;
+}
+
+.index .one {
+	width: 100%;
+	height: 802rpx;
+	overflow: hidden;
+}
+
+.index .one .image {
+	width: 100%;
+	height: 100%;
+}
+
+.index .three {
+	width: 100%;
+	height: 1074rpx;
+	overflow: hidden;
+	position: relative;
+}
+
+.index .three .images {
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+}
+
+.index .three .buttomText {
+	height: 22rpx;
+	font-size: 20rpx;
+	font-weight: 400;
+	margin-top: 38rpx;
+	line-height: 22rpx;
+	position: absolute;
+	top: 240rpx;
+}
+
+.index .three .twoButtom {
+	width: 180rpx;
+	height: 20rpx;
+	color: #1A5045;
+	text-align: center;
+	padding: 10rpx 20rpx;
+	border-radius: 20rpx;
+	background-color: rgba(200, 200, 200, 0.5);
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+
+/* 模块 */
+.index .module {
+	height: auto;
+	text-align: center;
+	background-color: rgba(21,94,78, 1);
+	font-family: PingFangSC-Regular, PingFang SC;
+}
+
+
+.index .module.four {
+	height: auto;
+	border-top: 2rpx dashed transparent;
+	position: relative;
+	padding-bottom: 50rpx;
+}
+
+.index .module .title {
+	height: 44rpx;
+	font-size: 32rpx;
+	font-weight: 600;
+	color: #4D4D51;
+	line-height: 44rpx;
+	padding-top: 50rpx;
+	margin-left: 28rpx;
+}
+
+.index .module .textLeft {
+	text-align: left;
+	color: #FFFFFF;
+	padding-top: 30rpx;
+}
+
+.index .module .answersQuestions {
+	margin: 0rpx 28rpx;
+	height: auto;
+	text-align: left;
+	color: #FFFFFF;
+	margin-top: 30rpx;
+	padding-bottom: 22rpx;
+	font-family: PingFangSC-Medium, PingFang SC;
+}
+
+.index .module .answersQuestions .questions {
+	display: flex;
+}
+
+.index .module .answersQuestions .questions .questionsImg {
+	width: 24rpx;
+	height: 24rpx;
+	line-height: 42rpx;
+}
+
+.index .module .answersQuestions .questions .questionsImg image {
+	width: 100%;
+	height: 100%;
+}
+
+.index .module .answersQuestions .questions .questionsTitle {
+	width: 616rpx;
+	font-size: 28rpx;
+	font-weight: 500;
+	margin-left: 8rpx;
+	line-height: 40rpx;
+	text-align: justify;
+}
+
+.index .module .answersQuestions .answer {
+	height: auto;
+	opacity: 0.8;
+	font-size: 22rpx;
+	font-weight: 400;
+	color: #FFFFFF;
+	line-height: 40rpx;
+	text-align: justify;
+	margin: 8rpx 30rpx 0 30rpx;
+	font-family: PingFangSC-Regular, PingFang SC
+}
+
+.index .module .answersQuestions .answer .onlineSpan {
+	color: rgba(47, 200, 224, 1)
+}
+
+.index .module .moreQuestions {
+	width: 200rpx;
+	font-size: 28rpx;
+	font-weight: 400;
+	color: #00A9FF;
+	line-height: 22rpx;
+	font-family: PingFangSC-Regular, PingFang SC;
+	position: relative;
+    top: 10rpx;
+	left: 50%;
+    transform: translateX(-50%);
+}
+
+/* 占位 */
+.index .split {
+	height: 260rpx;
+	background-color: rgba(21,94,78, 1);
+	overflow: hidden;
+}
+
+/* 底部按钮“立即办理” */
+.index .handleImmediately {
+	width: 100vw;
+	height: 244rpx;
+	background: #FFFFFF;
+	border-radius: 16rpx 16rpx 0px 0px;
+	position: fixed;
+	bottom: 0;
+	opacity: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.index .handleImmediately button {
+	width: 662rpx;
+	height: 110rpx;
+	color: #FFFFFF;
+	line-height: 110rpx;
+	background: #2A4F44;
+	box-shadow: 0rpx 4rpx 2rpx 0rpx rgba(212, 212, 212, 0.5);
+	border-radius: 64rpx;
+}
+

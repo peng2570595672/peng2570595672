@@ -1,0 +1,44 @@
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.index {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    min-height: 100vh;
+    background-color: #ECECEC;
+}
+
+.index .splitTop {
+    height: 28rpx;
+    overflow: hidden;
+}
+
+.index .module {
+    margin: 28rpx;
+    padding: 28rpx;
+    border-radius: 16rpx;
+    background-color: #fff;
+    font-family: PingFangSC-Regular, PingFang SC;
+}
+
+.index .moduleOne {
+    height: auto;
+}
+
+.index .moduleTwo {
+    height: auto;
+}
+
+.index .module .typeName {
+    font-size: 32rpx;
+    font-weight: 600;
+    color: #1E1E1E;
+    font-family: PingFangSC-Semibold, PingFang SC;
+}
+

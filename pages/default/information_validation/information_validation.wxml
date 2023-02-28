@@ -1,137 +1,182 @@
-<view class="information_validation">
-    <view class="label">正在申请 {{vehPlates}} 客车ETC</view>
-    <view class="title">请按要求上传相关资料</view>
-    <!--上传行驶证部分开始-->
-    <view class="photo-wrapper">
-        <!--上传行驶证正面开始-->
-        <view class="photo" data-type="3" catchtap="selectionPic">
-            <view class="upload">
-                <view class="img-box" wx:if="{{faceStatus !== 4}}">
-                    <image class="ico" wx:if="{{faceStatus === 1}}" src="/pages/default/assets/camera.svg"></image>
-                    <view class="identify" wx:if="{{faceStatus === 2 || faceStatus === 3}}">
-                        <image class="refresh" src="/pages/default/assets/refresh.png"></image>
-                        <view>{{faceStatus === 2 ? '识别中…' : '重新拍摄'}}</view>
+<view >
+    <view class="index {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeBg' : ''}}">
+        <!-- 顶部 进度条 组件 -->
+        <view class="topSplit" wx:if="{{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl}}">
+            <topProgressBar progressStage="{{topProgressBar}}" />
+        </view>
+        <!-- 模块一 上传照片 -->
+        <view class="module moduleOne {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'boxS' : ''}}">
+            <view class="titles" wx:if="{{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl}}">车辆行驶证</view>
+            <view class="photo-wrapper {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeOne' : ''}}">
+                <view class="photo {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeTwo' : ''}}" data-type="3" catchtap="selectionPic">
+                    <view class="upload {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeThree' : ''}}">
+                        <view class="img-box" wx:if="{{faceStatus !== 4}}">
+                            <image class="ico" src="/pages/default/assets/camera.svg"></image>
+                        </view>
+                        <image class="success" wx:else src="{{drivingLicenseFace.fileUrl}}"></image>
                     </view>
+                    <view class="cardText">行驶证（正页）</view>
                 </view>
-                <image class="success" wx:else src="{{drivingLicenseFace.fileUrl}}"></image>
-            </view>
-            <view>行驶证（正页）</view>
-        </view>
-        <!--上传行驶证正面结束-->
-        <!--上传行驶证背面开始-->
-        <view class="photo" data-type="4" catchtap="selectionPic">
-            <view class="upload">
-                <view class="img-box" wx:if="{{backStatus !== 4}}">
-                    <image class="ico" wx:if="{{backStatus === 1}}" src="/pages/default/assets/camera.svg"></image>
-                    <view class="identify" wx:if="{{backStatus === 2 || backStatus === 3}}">
-                        <image class="refresh" src="/pages/default/assets/refresh.png"></image>
-                        <view>{{backStatus === 2 ? '识别中…' : '重新拍摄'}}</view>
+                <!--上传身份证正面结束-->
+                <!--上传身份证背面开始-->
+                <view class="photo {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeTwo' : ''}}" data-type="4" catchtap="selectionPic">
+                    <view class="upload {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeThree' : ''}}">
+                        <view class="img-box" wx:if="{{backStatus !== 4}}">
+                            <image class="ico" src="/pages/default/assets/camera.svg"></image>
+                        </view>
+                        <image class="success" wx:else src="{{drivingLicenseBack.fileUrl}}"></image>
                     </view>
+                    <view class="cardText">行驶证（副页）</view>
                 </view>
-                <image class="success" wx:else src="{{drivingLicenseBack.fileUrl}}"></image>
-            </view>
-            <view>行驶证（副页）</view>
-        </view>
-        <!--上传行驶证背面结束-->
-    </view>
-    <view wx:if="{{faceStatus === 4 && backStatus === 4}}">
-        <!--	标题开始-->
-        <view class="title">信息核对</view>
-        <!--	标题结束-->
-        <!--	提示开始-->
-        <view class="tips">*请仔细核对以下信息，有误项可点击修改</view>
-        <!--	提示结束-->
-        <!--	内容开始-->
-        <view class="content-wrapper">
-            <view class="item">
-                <view>车主姓名</view>
-                <input type="text" value="{{drivingLicenseFace.ocrObject.owner}}" data-key="owner" data-type="3" bindinput="onInputChangedHandle"/>
-            </view>
-            <view class="item">
-                <view>车牌号</view>
-                <input type="text" value="{{drivingLicenseFace.ocrObject.numberPlates}}" data-key="numberPlates" data-type="3" bindinput="onInputChangedHandle"/>
-            </view>
-            <view class="item">
-                <view>发动机号</view>
-                <input type="text" value="{{drivingLicenseFace.ocrObject.engineNo}}" data-key="engineNo" data-type="3" bindinput="onInputChangedHandle"/>
-            </view>
-            <view class="item first">
-                <view>车辆识别代号</view>
-                <input type="text" value="{{drivingLicenseFace.ocrObject.vin}}" data-key="vin" data-type="3" bindinput="onInputChangedHandle"/>
-            </view>
-            <view class="split"></view>
-            <view class="item last">
-                <view>车辆类型</view>
-                <input type="text" value="{{drivingLicenseFace.ocrObject.vehicleType}}" data-key="vehicleType" data-type="3" bindinput="onInputChangedHandle"/>
-            </view>
-            <view class="item">
-                <view>地址</view>
-                <textarea auto-height="{{true}}" value="{{drivingLicenseFace.ocrObject.address}}" data-key="address" data-type="3" bindinput="onInputChangedHandle"/>
-            </view>
-            <view class="item">
-                <view>使用性质</view>
-                <input type="text" value="{{drivingLicenseFace.ocrObject.useCharacter}}" data-key="useCharacter" data-type="3" bindinput="onInputChangedHandle"/>
-            </view>
-            <view class="item">
-                <view>品牌型号</view>
-                <input type="text" value="{{drivingLicenseFace.ocrObject.model}}" data-key="model" data-type="3" bindinput="onInputChangedHandle"/>
-            </view>
-            <view class="item">
-                <view>注册日期</view>
-                <picker mode="date" value="{{drivingLicenseFace.ocrObject.resgisterDate}}"
-                        bindchange="resgisterDatePickerChange"
-                >
-                    <view>{{drivingLicenseFace.ocrObject.resgisterDate || '选择注册日期'}}</view>
-                </picker>
-            </view>
-            <view class="item">
-                <view>发证日期</view>
-                <picker mode="date" value="{{drivingLicenseFace.ocrObject.issueDate}}"
-                        bindchange="issueDatePickerChange"
-                >
-                    <view>{{drivingLicenseFace.ocrObject.issueDate || '选择发证日期'}}</view>
-                </picker>
-            </view>
-            <view class="item">
-                <view>档案编号</view>
-                <input type="text" value="{{drivingLicenseBack.ocrObject.fileNumber}}" data-key="fileNumber" data-type="4" bindinput="onInputChangedHandle"/>
-            </view>
-            <view class="item">
-                <view>核载人数</view>
-                <picker
-                        bindchange="onPersonsCapacityPickerChange"
-                        value="{{personIndex}}"
-                        range="{{personsArr}}"
-                >
-                    <view>{{personsArr[personIndex]}}人</view>
-                </picker>
-            </view>
-            <view class="item">
-                <view>总质量</view>
-                <input type="text" value="{{drivingLicenseBack.ocrObject.totalMass}}" data-key="totalMass" data-type="4" bindinput="onInputChangedHandle"/>
-            </view>
-            <view class="item">
-                <view>整备质量</view>
-                <input type="text" value="{{drivingLicenseBack.ocrObject.curbWeight}}" data-key="curbWeight" data-type="4" bindinput="onInputChangedHandle"/>
-            </view>
-            <view class="item">
-                <view>核定载质量</view>
-                <input type="text" value="{{drivingLicenseBack.ocrObject.loadQuality}}" data-key="loadQuality" data-type="4" bindinput="onInputChangedHandle"/>
-            </view>
-            <view class="item">
-                <view>外廓尺寸</view>
-                <input type="text" value="{{drivingLicenseBack.ocrObject.size}}" data-key="size" data-type="4" bindinput="onInputChangedHandle"/>
-            </view>
-            <view class="item">
-                <view>准牵引总质量</view>
-                <input type="text" value="{{drivingLicenseBack.ocrObject.tractionMass}}" data-key="tractionMass" data-type="4" bindinput="onInputChangedHandle"/>
-            </view>
-            <view class="item">
-                <view>检验记录</view>
-                <textarea auto-height="{{true}}"  value="{{drivingLicenseBack.ocrObject.recode}}" data-key="recode" data-type="4" bindinput="onInputChangedHandle"/>
+            <!--上传身份证背面结束-->
             </view>
         </view>
-        <!--	内容结束-->
-        <view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="onClickConfirmHandle"><view class="animate" wx:if="{{isRequest}}"></view>确认资料并保存</view>
+        <!-- 模块二 信息显示 -->
+        <view class="module moduleTwo" wx:if="{{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl}}">
+            <view class="titles">信息核对</view>
+            <view class="tips">*请仔细核对以下信息，有误项可点击修改</view>
+            <view class="keyValue">
+                <view class="attrName">车主姓名</view>
+                <view class="attrValue">
+                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.owner}}" bindinput="onInputChangedHandle" data-key="owner" data-type="3" placeholder-class="input-placeholder" placeholder="请输入车主姓名"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName">车牌号</view>
+                <view class="attrValue">
+                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.numberPlates}}" bindinput="onInputChangedHandle" data-key="numberPlates" data-type="3" placeholder-class="input-placeholder" placeholder="请输入车牌号"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName">发动机号</view>
+                <view class="attrValue">
+                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.engineNo}}" bindinput="onInputChangedHandle" data-key="engineNo" data-type="3" placeholder-class="input-placeholder" placeholder="请输入发动机号"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName">车辆识别代号</view>
+                <view class="attrValue">
+                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.vin}}" bindinput="onInputChangedHandle" data-key="vin" data-type="3" placeholder-class="input-placeholder" placeholder="请输入车辆识别代号"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName">车辆类型</view>
+                <view class="attrValue">
+                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.vehicleType}}" disabled="{{true}}" bindinput="onInputChangedHandle" data-key="vehicleType" data-type="3" placeholder-class="input-placeholder" placeholder="请输入车辆类型"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName">地址</view>
+                <view class="attrValue">
+                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.address}}" bindinput="onInputChangedHandle" data-key="address" data-type="3" placeholder-class="input-placeholder" placeholder="请输入地址"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName">使用性质</view>
+                <view class="attrValue">
+                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.useCharacter}}" bindinput="onInputChangedHandle" data-key="useCharacter" data-type="3" placeholder-class="input-placeholder" placeholder="请输入使用性质"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName">品牌型号</view>
+                <view class="attrValue">
+                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.model}}" bindinput="onInputChangedHandle" data-key="model" data-type="3" placeholder-class="input-placeholder" placeholder="请输入品牌型号"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName">注册日期</view>
+                <view class="attrValue">
+                    <picker mode="date" value="{{drivingLicenseFace.ocrObject.resgisterDate}}" bindchange="resgisterDatePickerChange">
+                        <view class="input">{{drivingLicenseFace.ocrObject.resgisterDate || '选择注册日期'}}</view>
+                    </picker>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName">发证日期</view>
+                <view class="attrValue">
+                    <picker mode="date" value="{{drivingLicenseFace.ocrObject.issueDate}}" bindchange="issueDatePickerChange">
+                        <view class="input">{{drivingLicenseFace.ocrObject.issueDate || '选择发证日期'}}</view>
+                    </picker>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName">档案编号</view>
+                <view class="attrValue">
+                    <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.fileNumber}}" bindinput="onInputChangedHandle" data-key="fileNumber" data-type="4" placeholder-class="input-placeholder" placeholder="请输入档案编号"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName">核载人数</view>
+                <view class="attrValue">
+                    <picker class="input" bindchange="onPersonsCapacityPickerChange" value="{{personIndex}}" range="{{personsArr}}">
+                        <view>{{personsArr[personIndex]}}人</view>
+                    </picker>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName">总质量</view>
+                <view class="attrValue">
+                    <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.totalMass}}" bindinput="onInputChangedHandle" data-key="totalMass" data-type="4" placeholder-class="input-placeholder" placeholder="请输入总质量"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName">整备质量</view>
+                <view class="attrValue">
+                    <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.curbWeight}}" bindinput="onInputChangedHandle" data-key="curbWeight" data-type="4" placeholder-class="input-placeholder" placeholder="请输入整备质量"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName">核定载质量</view>
+                <view class="attrValue">
+                    <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.loadQuality}}" bindinput="onInputChangedHandle" data-key="loadQuality" data-type="4" placeholder-class="input-placeholder"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName">外廓尺寸</view>
+                <view class="attrValue">
+                    <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.size}}" bindinput="onInputChangedHandle" data-key="size" data-type="4" placeholder-class="input-placeholder" placeholder="请输入外廓尺寸"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName">准牵引总质量</view>
+                <view class="attrValue">
+                    <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.tractionMass}}" bindinput="onInputChangedHandle" data-key="tractionMass" data-type="4" placeholder-class="input-placeholder"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName">备注</view>
+                <view class="attrValue">
+                    <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.remark}}" bindinput="onInputChangedHandle" data-key="remark" placeholder-class="input-placeholder"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName">检验记录</view>
+                <view class="attrValue">
+                    <textarea class="textarea" auto-height="{{true}}" type="text" value="{{drivingLicenseBack.ocrObject.recode}}" bindinput="onInputChangedHandle" data-key="recode" data-type="4" placeholder-class="input-placeholder" placeholder="请输入检验记录"/>
+                </view>
+            </view>
+        </view>
+        <!-- 占位 -->
+        <view class="split"></view>
+        <!-- 底部悬浮按钮 -->
+        <view class="bottomBtn" wx:if="{{faceStatus === 4 && backStatus === 4}}">
+            <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="onClickConfirmHandle">
+                确认资料并保存
+            </view>
+        </view>
     </view>
+    <!-- 子容器覆盖 -->
+    <page-container
+        show="{{show}}"
+        round="{{round}}"
+        overlay="{{overlay}}"
+        duration="{{duration}}"
+        position="{{position}}"
+        custom-style="{{customStyle}}"
+        overlay-style="{{overlayStyle}}"
+        close-on-slide-down="{{false}}"
+        bindbeforeleave="onBeforeLeave">
+    </page-container>
+    <!-- 组件 提示 -->
+    <popTipComp id="popTipComp" tipObj="{{tipObj}}"></popTipComp>
 </view>

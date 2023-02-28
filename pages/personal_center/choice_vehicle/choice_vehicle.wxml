@@ -1,0 +1,20 @@
+<wxs src='../../../utils/util.wxs' module='tools' />
+<navbar isShowArrow="true" title="进入商城" background="#1A5345"></navbar>
+<view class="container" style="padding-top: {{navbarHeight}}px">
+    <view class="bg">
+        <image src="https://file.cyzl.com/g001/M01/C8/25/oYYBAGP0He2Ab-n-AAFVaSG5dyU111.png" mode="widthFix"></image>
+    </view>
+    <view class="veh-info">
+        <view class="title">请选择一个账户进入商城进行消费吧</view>
+        <view class="item" wx:for="{{equityList}}" wx:key="index">
+            <view class="item-top">
+                <view class="label">权益券额</view>
+                <view class="vehPlates">{{item.vehPlates}}</view>
+            </view>
+            <view class="item-bottom">
+                <view class="balance">{{tools.parseNum(item.balance)}}</view>
+                <view class="btn" catchtap="handleAccount" data-index="{{index}}">选择账户</view>
+            </view>
+        </view>
+    </view>
+</view>

@@ -8,10 +8,11 @@ const app = getApp();
 let timer;
 Page({
 	data: {
-		isShowCodeInput: true,// 是否显示验证码输入框
+		topProgressBar: 3,	// 进度条展示的长度 ，再此页面的取值范围 [3,4),默认为3,保留一位小数
+		topProgressBar1: 0,	// 存放上个页面传来进度条长度
 		vehPlates: undefined,
-		faceStatus: 1, // 1 未上传  2 识别中  3 识别失败  4识别成功
-		backStatus: 1, // 1 未上传  2 识别中  3 识别失败  4识别成功
+		faceStatus: 1, // 1 未上传  4识别成功
+		backStatus: 1, // 1 未上传  4识别成功
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
 		idCardStatus: 0,// 实名认证标识  默认0
@@ -23,62 +24,92 @@ Page({
 		idCardBack: {
 			ocrObject: {}
 		},// 身份证反面
-		formData: {
-			cardMobilePhone: '', // 电话号码
-			verifyCode: '' // 验证码
-		}, // 提交数据
-		identifyingCode: '获取验证码',
-		time: 59,// 倒计时
-		isGetIdentifyingCoding: false // 获取验证码中
+		checkKeyWord: [],
+		sexArr: ['男', '女'],
+		sexIndex: -1,
+		tipObj: {
+			type: '',
+			title: '',
+			content: ''
+		}
 	},
 	async onLoad (options) {
 		this.setData({
-			vehPlates: options.vehPlates
+			vehPlates: options.vehPlates,
+			topProgressBar: parseFloat(options.topProgressBar),
+			topProgressBar1: parseFloat(options.topProgressBar)
 		});
 		await this.getOrderInfo();
 		// 查询是否欠款
 		await util.getIsArrearage();
 	},
 	onShow () {
-		// 身份证正面
-		let path = wx.getStorageSync('passenger-car-1');
-		if (path) {
-			wx.removeStorageSync('passenger-car-1');
-			if (app.globalData.handlingOCRType) this.uploadOcrFile(path);
+		this.setData({
+			checkKeyWord: [
+				{key: 'name', show: false, isFace: true, label: '姓名'},
+				{key: 'sex', show: false, isFace: true, label: '性别'},
+				{key: 'birth', show: false, isFace: true, label: '出生日期'},
+				{key: 'address', show: false, isFace: true, label: '地址'},
+				{key: 'authority', show: false, isFace: false, label: '签发机关'},
+				{key: 'validDate', show: false, isFace: false, label: '有效期限'}
+			]
+		});
+		let idCardFace = wx.getStorageSync('passenger-car-id-card-face');
+		if (idCardFace) {
+			idCardFace = JSON.parse(idCardFace);
+			this.setData({
+				oldName: idCardFace.ocrObject.name,
+				oldIdNumber: idCardFace.ocrObject.idNumber,
+				faceStatus: 4,
+				idCardFace
+			});
+			this.initIsShowInput(idCardFace.ocrObject);
+			this.setData({
+				available: this.validateData(false)
+			});
 		}
-		// 身份证反面
-		path = wx.getStorageSync('passenger-car-2');
-		if (path) {
-			wx.removeStorageSync('passenger-car-2');
-			if (app.globalData.handlingOCRType) this.uploadOcrFile(path);
+		let idCardBack = wx.getStorageSync('passenger-car-id-card-back');
+		if (idCardBack) {
+			idCardBack = JSON.parse(idCardBack);
+			this.setData({
+				backStatus: 4,
+				idCardBack
+			});
+			this.initIsShowInput(idCardBack.ocrObject);
+			this.setData({
+				available: this.validateData(false)
+			});
 		}
-		if (!app.globalData.handlingOCRType) {
-			// 没通过上传
-			let idCardFace = wx.getStorageSync('passenger-car-id-card-face');
-			if (idCardFace) {
-				idCardFace = JSON.parse(idCardFace);
-				this.setData({
-					oldName: idCardFace.ocrObject.name,
-					oldIdNumber: idCardFace.ocrObject.idNumber,
-					faceStatus: 4,
-					idCardFace
-				});
-				this.setData({
-					available: this.validateData(false)
+		this.processBarSize();
+	},
+	// 选择性别
+	onSexCapacityPickerChange (e) {
+		const val = +e.detail.value;
+		this.setData({
+			sexIndex: val
+		});
+		this.data.idCardFace.ocrObject.sex = val ? '女' : '男';
+	},
+	initIsShowInput (cardObj) {
+		for (let item in cardObj) {
+			if (!cardObj[item]) {
+				this.data.checkKeyWord.map(keyItem => {
+					if (keyItem.key === item) {
+						keyItem.show = true;
+					}
 				});
 			}
-			let idCardBack = wx.getStorageSync('passenger-car-id-card-back');
-			if (idCardBack) {
-				idCardBack = JSON.parse(idCardBack);
-				this.setData({
-					backStatus: 4,
-					idCardBack
-				});
-				this.setData({
-					available: this.validateData(false)
-				});
-			}
 		}
+		this.setData({
+			checkKeyWord: this.data.checkKeyWord
+		});
+	},
+	// 选择有效期限
+	validDatePickerChange (e) {
+		this.data.idCardBack.ocrObject.validDate = e.detail.value;
+		this.setData({
+			available: this.validateData(false)
+		});
 	},
 	// 获取订单信息
 	async getOrderInfo () {
@@ -94,13 +125,6 @@ Page({
 			});
 			// 获取实名信息
 			let temp = this.data.orderInfo?.ownerIdCard;
-			if (this.data.orderInfo?.ownerIdCard?.cardMobilePhone) {
-				this.data.formData.cardMobilePhone = this.data.orderInfo.ownerIdCard.cardMobilePhone;
-				this.setData({
-					mobilePhoneIsOk: true,
-					formData: this.data.formData
-				});
-			}
 			if (temp?.ownerIdCardTrueName) {
 				let idCardBack = {ocrObject: {}};
 				let idCardFace = {ocrObject: {}};
@@ -113,12 +137,16 @@ Page({
 				idCardBack.ocrObject.authority = temp.ownerIdCardAuthority;
 				idCardBack.ocrObject.validDate = temp.ownerIdCardValidDate;
 				idCardBack.fileUrl = temp.ownerIdCardNegativeUrl;
+				this.data.checkKeyWord.map(item => {
+					item.show = false;
+				});
 				this.setData({
 					isShowCodeInput: !this.data.orderInfo.ownerIdCard.cardMobilePhone,
 					oldName: idCardFace.ocrObject.name,
 					oldIdNumber: idCardFace.ocrObject.idNumber,
 					idCardFace,
 					idCardBack,
+					checkKeyWord: this.data.checkKeyWord,
 					backStatus: 4,
 					faceStatus: 4
 				});
@@ -127,6 +155,7 @@ Page({
 				});
 				wx.setStorageSync('passenger-car-id-card-back', JSON.stringify(idCardBack));
 				wx.setStorageSync('passenger-car-id-card-face', JSON.stringify(idCardFace));
+				this.processBarSize();
 			}
 		} else {
 			util.showToastNoIcon(result.message);
@@ -138,45 +167,45 @@ Page({
 			if (isToast) util.showToastNoIcon('请上传身份证！');
 			return false;
 		}
-		if (!this.data.idCardFace.ocrObject.name) {
-			if (isToast) util.showToastNoIcon('姓名不能为空！');
-			return false;
-		}
-		if (!this.data.idCardFace.ocrObject.idNumber) {
-			if (isToast) util.showToastNoIcon('身份证号不能为空！');
-			return false;
-		}
-		if (!/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/.test(this.data.idCardFace.ocrObject.idNumber)) {
-			if (isToast) util.showToastNoIcon('身份证号格式不正确！');
-			return false;
-		}
-		if (!this.data.formData.cardMobilePhone) {
-			if (isToast) util.showToastNoIcon('手机号码不能为空！');
-			return false;
-		}
-		if (!/^1[0-9]{10}$/.test(this.data.formData.cardMobilePhone)) {
-			if (isToast) util.showToastNoIcon('手机号码格式不正确！');
-			return false;
-		}
-		// 手机号没有更改不需要重新获取验证码
-		if (this.data.formData.cardMobilePhone !== this.data.orderInfo.ownerIdCard.cardMobilePhone) {
-			this.setData({
-				isShowCodeInput: true
-			});
-			if (!this.data.formData.verifyCode) {
-				if (isToast) util.showToastNoIcon('验证码不能为空！');
-				return false;
+		// 校检正面
+		const idCardFace = this.data.idCardFace.ocrObject;
+		const ruleForm = {
+			name: '姓名',
+			sex: '性别',
+			birth: '出生年月日',
+			address: '地址',
+			idNumber: '公民身份证号码'
+		};
+		const reg = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
+		for (let key in ruleForm) {
+			if (key === 'idNumber' && idCardFace[key]) {
+				if (!reg.test(idCardFace[key])) {
+					if (isToast) {
+						util.showToastNoIcon(`身份证号码不合法`);
+					}
+					return false;
+				}
 			}
-			if (!/^[0-9]{4}$/.test(this.data.formData.verifyCode)) {
-				if (isToast) util.showToastNoIcon('验证码格式不正确！');
+			if (!idCardFace[key]) {
+				if (isToast) {
+					util.showToastNoIcon(`${ruleForm[key]}不能为空`);
+				}
 				return false;
 			}
 		}
-		if (!this.data.idCardBack.ocrObject.validDate || !this.data.idCardFace.ocrObject.address ||
-			!this.data.idCardBack.ocrObject.authority || !this.data.idCardFace.ocrObject.birth ||
-			!this.data.idCardFace.ocrObject.sex) {
-			if (isToast) util.showToastNoIcon('部分信息识别失败,请重新上传身份证照片！');
-			return false;
+		// 校检背面
+		const idCardBack = this.data.idCardBack.ocrObject;
+		const ruleBackForm = {
+			authority: '签发机关',
+			validDate: '有效期限'
+		};
+		for (let key in ruleBackForm) {
+			if (!idCardBack[key]) {
+				if (isToast) {
+					util.showToastNoIcon(`${ruleForm[key]}不能为空`);
+				}
+				return false;
+			}
 		}
 		return true;
 	},
@@ -198,7 +227,7 @@ Page({
 		if (this.data.idCardFace.ocrObject.sex === '男') this.data.idCardFace.ocrObject.sex = 1;
 		if (this.data.idCardFace.ocrObject.sex === '女') this.data.idCardFace.ocrObject.sex = 2;
 		// 手机号没有更改不需要重新获取验证码
-		let notVerifyCardPhone = this.data.formData.cardMobilePhone === this.data.orderInfo.ownerIdCard.cardMobilePhone ? 'true' : 'false';
+		// let notVerifyCardPhone = this.data.formData.cardMobilePhone === this.data.orderInfo.ownerIdCard.cardMobilePhone ? 'true' : 'false';
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: '48', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
@@ -225,9 +254,10 @@ Page({
 			ownerIdCardHaveChange: haveChange, // 车主身份证OCR结果是否被修改过，默认false，修改过传true 【dataType包含8}】
 			ownerIdCardValidDate: this.data.idCardBack.ocrObject.validDate,
 			ownerIdCardAddress: this.data.idCardFace.ocrObject.address,
-			cardMobilePhone: this.data.formData.cardMobilePhone, // 车主实名手机号
-			cardPhoneCode: this.data.formData.verifyCode, // 手机号验证码
-			notVerifyCardPhone: notVerifyCardPhone // true 时不需要验证码
+			cardMobilePhone: app.globalData.handledByTelephone
+			// cardMobilePhone: this.data.formData.cardMobilePhone, // 车主实名手机号
+			// cardPhoneCode: this.data.formData.verifyCode, // 手机号验证码
+			// notVerifyCardPhone: notVerifyCardPhone // true 时不需要验证码
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		this.setData({
@@ -235,6 +265,95 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
+			if (app.globalData.orderInfo.obuCardType === 1) {
+				this.userCarCheck(result.data);
+			} else {
+				const pages = getCurrentPages();
+				const prevPage = pages[pages.length - 2];// 上一个页面
+				prevPage.setData({
+					isChangeIdCard: true // 重置状态
+				});
+				wx.navigateBack({
+					delta: 1
+				});
+			}
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 选择图片
+	selectionPic (e) {
+		let type = +e.currentTarget.dataset['type'];
+		util.go(`/pages/default/shot_card/shot_card?type=${type}`);
+	},
+	// 输入框输入值做处理
+	onInputChangedHandle (e) {
+		let key = e.currentTarget.dataset.key;
+		let type = +e.currentTarget.dataset.type;
+		let value = e.detail.value;
+		let idCardFace = this.data.idCardFace;
+		let idCardBack = this.data.idCardBack;
+		if (type === 1) {
+			idCardFace.ocrObject[key] = value;
+		} else {
+			idCardBack.ocrObject[key] = value;
+		}
+		this.setData({
+			idCardFace,
+			idCardBack
+		});
+		this.fangDou('',2000);
+	},
+	fangDou (fn, time) {
+		let that = this;
+		return (function () {
+			if (that.data.timeout) {
+				clearTimeout(that.data.timeout);
+			}
+			that.data.timeout = setTimeout(() => {
+				that.setData({
+					available: that.validateData(false)
+				});
+			}, time);
+		})();
+	},
+	// 用户信息查询 + 车牌唯一性校验
+	async userCarCheck (obj) {
+		const result = await util.getDataFromServersV2('consumer/etc/qtzl/queryUserAndCheckPlate', {
+			orderId: obj.orderId
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			let isOk2 = result.data.rcode && result.data.rcode !== 0 ? true : false;
+			if (!result.data.result || isOk2) {
+				if (!result.data.result) {
+					let index = result.data.info.indexOf('【');
+					let lastIndex = result.data.info.lastIndexOf('】');
+					let info = result.data.info.slice(index + 1,lastIndex);
+					this.setData({
+						tipObj: {
+							type: 'one',
+							title: '车辆需注销重办',
+							content: info
+						}
+					});
+				} else {
+					let flag = result.data.rmsg.indexOf('中国ETC服务小程序进行实名') || result.data.message.indexOf('中国ETC服务小程序进行实名');
+					if (flag !== -1) {
+						this.setData({
+							tipObj: {
+								type: 'one',
+								title: '身份证需实名',
+								content: '请用微信搜索中国ETC服务小程序，进入小程序登陆授权完成实名认证即可继续办理'
+							}
+						});
+					} else {
+						util.showToastNoIcon(result.message);
+					}
+				}
+				this.selectComponent('#popTipComp').show();
+				return;
+			}
 			const pages = getCurrentPages();
 			const prevPage = pages[pages.length - 2];// 上一个页面
 			prevPage.setData({
@@ -244,179 +363,20 @@ Page({
 				delta: 1
 			});
 		} else {
-			util.showToastNoIcon(result.message);
+			return util.showToastNoIcon(result.message);
 		}
 	},
-	// 上传图片
-	uploadOcrFile (path) {
-		const type = app.globalData.handlingOCRType;
-		if (type === 1) {
-			this.setData({faceStatus: 2});
-		} else {
-			this.setData({backStatus: 2});
-		}
-		// 上传并识别图片
-		util.uploadOcrFile(path, type, () => {
-			if (type === 1) {
-				this.setData({faceStatus: 3});
-			} else {
-				this.setData({backStatus: 3});
-			}
-			util.showToastNoIcon('文件服务器异常！');
-		}, (res) => {
-			try {
-				if (res) {
-					res = JSON.parse(res);
-					if (res.code === 0) { // 识别成功
-						app.globalData.handlingOCRType = 0;
-						try {
-							if (type === 1) {
-								this.setData({
-									oldName: res.data[0].ocrObject.name,
-									oldIdNumber: res.data[0].ocrObject.idNumber,
-									faceStatus: 4,
-									idCardFace: res.data[0]
-								});
-								wx.setStorageSync('passenger-car-id-card-face', JSON.stringify(res.data[0]));
-							} else {
-								const endDate = res.data[0].ocrObject.validDate.split('-')[1].split('.').join('/');
-								const isGreaterThanData = util.isGreaterThanData(endDate);// 身份证结束时间
-								if (isGreaterThanData && !res.data[0].ocrObject.validDate.includes('长期')) {
-									this.setData({
-										backStatus: 3,
-										available: false
-									});
-									util.showToastNoIcon('证件已过期');
-									return;
-								}
-								this.setData({
-									backStatus: 4,
-									idCardBack: res.data[0]
-								});
-								wx.setStorageSync('passenger-car-id-card-back', JSON.stringify(res.data[0]));
-							}
-							this.setData({
-								available: this.validateData(false)
-							});
-						} catch (e) {
-							if (type === 1) {
-								this.setData({faceStatus: 3});
-							} else {
-								this.setData({backStatus: 3});
-							}
-						}
-					} else { // 识别失败
-						if (type === 1) {
-							this.setData({faceStatus: 3});
-						} else {
-							this.setData({backStatus: 3});
-						}
-					}
-				} else { // 识别失败
-					if (type === 1) {
-						this.setData({faceStatus: 3});
-					} else {
-						this.setData({backStatus: 3});
-					}
-					util.showToastNoIcon('识别失败');
-				}
-			} catch (e) {
-				if (type === 1) {
-					this.setData({faceStatus: 3});
-				} else {
-					this.setData({backStatus: 3});
-				}
-				util.showToastNoIcon('文件服务器异常！');
-			}
-		}, () => {
-		});
-	},
-	// 选择图片
-	selectionPic (e) {
-		let type = +e.currentTarget.dataset['type'];
-		// 识别中禁止修改
-		if ((type === 1 && this.data.faceStatus === 2) || (type === 2 && this.data.backStatus === 2)) return;
-		util.go(`/pages/default/shot_card/shot_card?type=${type}&pathUrl=${type === 1 ? this.data.idCardFace.fileUrl : this.data.idCardBack.fileUrl}`);
-	},
-	// 输入框输入值做处理
-	onInputChangedHandle (e) {
-		let key = e.currentTarget.dataset.key;
-		let formData = this.data.formData;
-		// 手机号
-		if (key === 'cardMobilePhone') {
-			this.setData({
-				mobilePhoneIsOk: /^1[0-9]{10}$/.test(e.detail.value.substring(0, 11))
+	// 控制进度条的长短
+	processBarSize () {
+		if (this.data.faceStatus === 4 || this.data.backStatus === 4) {
+			let flag = this.data.topProgressBar1;
+			wx.setNavigationBarColor({
+				backgroundColor: '#ECECEC',
+				frontColor: '#000000'
 			});
-		}
-		if (key === 'cardMobilePhone' && e.detail.value.length > 11) {
-			formData[key] = e.detail.value.substring(0, 11);
-		} else if (key === 'verifyCode' && e.detail.value.length > 4) { // 验证码
-			formData[key] = e.detail.value.substring(0, 4);
-			this.setData({formData});
-		} else if (key === 'verifyCode' || key === 'cardMobilePhone') {
-			formData[key] = e.detail.value;
-			this.setData({formData});
-		} else {
 			this.setData({
-				[`idCardFace.ocrObject.${key}`]: e.detail.value
+				topProgressBar: this.data.faceStatus === 4 && this.data.backStatus === 4 ? flag + 0.3 : this.data.faceStatus === 4 || this.data.backStatus === 4 ? flag + 0.15 : flag
 			});
-		}
-		this.setData({
-			available: this.validateData(false)
-		});
-	},
-	// 倒计时
-	startTimer () {
-		// 设置状态
-		this.setData({
-			identifyingCode: `${this.data.time}s`
-		});
-		// 清倒计时
-		clearInterval(timer);
-		timer = setInterval(() => {
-			this.setData({time: --this.data.time});
-			if (this.data.time === 0) {
-				clearInterval(timer);
-				this.setData({
-					time: 59,
-					isGetIdentifyingCoding: false,
-					identifyingCode: '重新获取'
-				});
-			} else {
-				this.setData({
-					identifyingCode: `${this.data.time}s`
-				});
-			}
-		}, 1000);
-	},
-	// 发送短信验证码
-	async sendVerifyCode () {
-		if (this.data.isGetIdentifyingCoding) return;
-		// 如果在倒计时，直接不处理
-		if (!this.data.formData.cardMobilePhone) {
-			util.showToastNoIcon('请输入手机号');
-			return;
-		} else if (!/^1[0-9]{10}$/.test(this.data.formData.cardMobilePhone)) {
-			util.showToastNoIcon('手机号输入不合法');
-			return;
-		}
-		this.setData({
-			isGetIdentifyingCoding: true
-		});
-		util.showLoading({
-			title: '请求中...'
-		});
-		const result = await util.getDataFromServersV2('consumer/order/send-receive-phone-verification-code', {
-			receivePhone: this.data.formData.cardMobilePhone + '' // 手机号
-		}, 'GET');
-		if (!result) return;
-		if (result.code === 0) {
-			this.startTimer();
-		} else {
-			this.setData({
-				isGetIdentifyingCoding: false
-			});
-			util.showToastNoIcon(result.message);
 		}
 	}
 });

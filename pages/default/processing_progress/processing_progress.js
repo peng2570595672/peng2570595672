@@ -415,15 +415,13 @@ Page({
 		});
 	},
 	goHome () {
-		wx.reLaunch({
-			// url: '/pages/default/index/index'
+		wx.switchTab({
 			url: '/pages/Home/Home'
 		});
 	},
 	onUnload () {
 		if (this.data.type === 'main_process' || app.globalData.isNeedReturnHome) {
-			wx.reLaunch({
-				// url: '/pages/default/index/index'
+			wx.switchTab({
 				url: '/pages/Home/Home'
 			});
 		}

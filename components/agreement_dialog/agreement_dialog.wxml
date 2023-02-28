@@ -4,13 +4,13 @@
 		<view class='dialog-container'>
 			<view class="wx-dialog-title">办理协议及隐私政策</view>
 			<view class="wx-dialog-con">
-                <view>为充分维护您的合法权益，请您务必审慎阅读、充分理解“ETC+用户办理协议”及“ETC+隐私政策”中相关条款内容，包括但不限于：为了更好的向您提供服务，我们需要收集您的相关信息、操作日志等信息用于分析、优化应用性能。</view>
-                <view>您可以阅读<text catchtap="handleAgreement">《ETC+用户办理协议》</text>及<text catchtap="handlePrivacy">《ETC+隐私政策》</text>了解详细信息。如果您同意，请点击下面按钮开始接受我们的服务。</view>
+                <view class="view1">为充分维护您的合法权益，请您务必审慎阅读、充分理解“ETC+用户办理协议”及“ETC+隐私政策”中相关条款内容，包括但不限于：为了更好的向您提供服务，我们需要收集您的相关信息、操作日志等信息用于分析、优化应用性能。</view>
+                <view class="view1">您可以阅读<text class="text" catchtap="handleAgreement">《ETC+用户办理协议》</text>及<text class="text" catchtap="handlePrivacy">《ETC+隐私政策》</text>了解详细信息。如果您同意，请点击下面按钮开始接受我们的服务。</view>
             </view>
             <view class="fill"></view>
 			<view class="wx-dialog-btn">
-				<view class="cancel" bindtap='hide'>暂不同意</view>
-				<view class="confirm" bindtap='hide'>同意并接受</view>
+				<view class="view cancel" bindtap='hide'>暂不同意</view>
+				<view class="view confirm" bindtap='hide'>同意并接受</view>
 			</view>
 		</view>
 	</view>

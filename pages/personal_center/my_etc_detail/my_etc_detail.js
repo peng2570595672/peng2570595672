@@ -13,6 +13,7 @@ Page({
 		orderId: undefined
 	},
 	async onLoad (options) {
+		util.resetData();// 重置数据
 		app.globalData.isTruckHandling = false;
 		app.globalData.isNeedReturnHome = false;
 		if (options.orderId) {
@@ -168,6 +169,14 @@ Page({
 	// 点击车辆信息
 	onClickVehicle () {
 		const orderInfo = this.data.orderInfo;
+		if (orderInfo.isNewTrucks === 1 && orderInfo.status !== 1) {
+			util.showToastNoIcon('货车办理系统升级中，暂时不可申办');
+			return;
+		}
+		if (orderInfo.orderType === 51 && orderInfo.status !== 1) {
+			util.showToastNoIcon('请返回原渠道办理');
+			return;
+		}
 		app.globalData.orderInfo.orderId = orderInfo.id;
 		app.globalData.processFlowVersion = orderInfo.flowVersion;
 		app.globalData.truckLicensePlate = orderInfo.vehPlates;

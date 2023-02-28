@@ -1,0 +1,71 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: 100vh;
+  background: #ececec;
+}
+.container .bg image {
+  width: 100%;
+}
+.container .veh-info {
+  padding: 0 28rpx;
+  margin-top: -140rpx;
+}
+.container .veh-info .title {
+  font-size: 24rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #e9ca7b;
+  line-height: 34rpx;
+  margin-bottom: 24rpx;
+}
+.container .veh-info .item {
+  width: 694rpx;
+  height: 166rpx;
+  padding: 28rpx;
+  background: #fff;
+  box-shadow: 0rpx 4rpx 2rpx 0rpx rgba(212,212,212,0.5);
+  border-radius: 16rpx;
+  box-sizing: border-box;
+  margin-bottom: 28rpx;
+}
+.container .veh-info .item .item-top {
+  height: 40rpx;
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #1e1e1e;
+  margin-bottom: 16rpx;
+}
+.container .veh-info .item .item-top .label {
+  flex: 1;
+}
+.container .veh-info .item .item-bottom {
+  height: 54rpx;
+  display: flex;
+  align-items: center;
+}
+.container .veh-info .item .item-bottom .balance {
+  flex: 1;
+  font-size: 48rpx;
+  font-family: Arial-BoldItalicMT, Arial;
+  font-weight: normal;
+  color: #2a4f44;
+  font-style: italic;
+}
+.container .veh-info .item .item-bottom .btn {
+  width: 154rpx;
+  height: 40rpx;
+  background: rgba(233,202,123,0.46);
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #896122;
+}

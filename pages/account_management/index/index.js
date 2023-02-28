@@ -244,7 +244,7 @@ Page({
 	// 押金模式的 账户明细页面
 	async goAccountDetailsMargin (e) {
 		const index = e.currentTarget.dataset.index;
-		util.go(`/pages/account_management/deposit_account_details/deposit_account_details?index=${index}`);
+		util.go(`/pages/account_management/deposit_account_details/deposit_account_details?id=${this.data.equityList[index].id}`);
 	},
 	// 押金模式的 充值页面
 	btnRecharge (e) {

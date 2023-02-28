@@ -16,8 +16,7 @@ Page({
 	},
 	// 返回首页
 	onClickGoHomeHandle () {
-		wx.reLaunch({
-			// url: '/pages/default/index/index'
+		wx.switchTab({
 			url: '/pages/Home/Home'
 		});
 	}

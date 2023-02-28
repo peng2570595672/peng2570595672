@@ -1,0 +1,61 @@
+<wxs src='../../utils/util.wxs' module='tools' />
+<view class="my {{isVip ? 'is' : 'no'}}">
+    <!-- 顶部user信息 -->
+    <view class="user">
+        <view class="headPortrait {{isVip ? 'yellowU' : 'greenU'}}" catchtap="goUserInfo">
+            <image class="headImg" src="{{userInfo.avatarUrl}}" />
+        </view>
+        <view class="userInfo">
+            <view class="userName" catchtap="getUserProfile">{{userInfo.nickName }}</view>
+            <view class="mobilePhoneEquity">
+                <view class="ETCMobilePhone {{isVip ? 'yellowC' : 'greenC'}}">
+                    {{isVip ? 'ETC+PLUS': 'ETC+'}}
+                    <text class="textPhone">{{tools.phoneNumberHide(mobilePhone)}}</text>
+                </view>
+                <view class="iconfont viewEquity" data-url="description_of_equity" catchtap="go">查看权益</view>
+            </view>
+        </view>
+    </view>
+    <!-- 模块1 ETC电子账户 -->
+    <view class="module moduleOne" wx:if="{{cardList.length}}">
+        <cardSwiper
+                wx:if="{{initData}}"
+                generic:cardItem="card"
+                cardsData="{{cardList}}"
+                showNum="{{cardList.length === 6 ? 3 : 2}}"
+                isVip="{{isVip}}"
+                nextPageData="{{nextPageData}}"
+                isCycle="{{!!nextPageData.length}}"
+                offsetY="{{16}}"
+                my_cards_panel="my-cardSwiper-panel"
+                bind:cardChange="cardChange"
+        >
+        </cardSwiper>
+    </view>
+    <!-- 模块2 功能栏 -->
+    <view class="module moduleTwo {{tools.dataLen(myAccountList) > 1 ? 'marginTop' : ''}}" style="margin-top: {{!cardList.length ? 20 : cardList.length === 1 ? 40: cardList.length * 10 + 30 }}rpx">
+        <view class="func" wx:for="{{funcList}}" wx:key="index" data-url="{{item.url}}" bindtap="go">
+            <view class="icon {{isVip ? 'yellowF' : 'greenF'}}">
+                <image class="iconImg" src="{{isVip ? item.iconVip : item.icon}}" />
+            </view>
+            <view class="iconText">{{item.title}}</view>
+        </view>
+    </view>
+    <!-- 模块3 广告 -->
+    <view class="module moduleThree" wx:if="{{isShowEquityImg}}" bindtap="handleMall">
+        <image class="image" src="https://file.cyzl.com/g001/M01/CA/B1/oYYBAGP9_VSAUb68AAB5WC1RcEA800.png" mode="widthFix" />
+    </view>
+    <!-- 模块4 功能列-->
+    <view class="module moduleFour">
+        <view class="funcList" wx:for="{{funcList2}}" data-url="{{item.url}}" wx:key="index" bindtap="go">
+            <view class="funcListLeft">
+                <view class="icon"><image class="iconImg" src="{{item.img}}" /></view>
+                <view class="funcListText">{{item.title}}</view>
+            </view>
+            <view class="funcListRight iconfont"></view>
+        </view>
+    </view>
+    <view class="auth"><text bindtap="handleAuth">授权管理</text></view>
+    <!-- 占位 -->
+    <view class="split"></view>
+</view>

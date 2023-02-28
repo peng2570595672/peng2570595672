@@ -24,11 +24,11 @@
 	<!--	办理进度失败-->
 	<!--	进度开始-->
 	<view class="progress_wrapper" >
-		<view class="item finished" wx:if="{{accountVerification !== 0 && info.flowVersion === 1 && info.isNewTrucks !== 1}}">
-			<view class="content-title finished">账户验证</view>
-			<view class="content-des" wx:if="{{accountVerification === 2 || accountVerification === '2'}}">正在验证中....<text class="refresh iconfont" catchtap="refreshCheck">刷新结果</text></view>
-			<view class="content-des" wx:else>{{accountVerification === 0 ? '审核通过' : '验证成功'}}</view>
-		</view>
+<!--		<view class="item finished" wx:if="{{accountVerification !== 0 && info.flowVersion === 1 && info.isNewTrucks !== 1}}">-->
+<!--			<view class="content-title finished">账户验证</view>-->
+<!--			<view class="content-des" wx:if="{{accountVerification === 2 || accountVerification === '2'}}">正在验证中....<text class="refresh iconfont" catchtap="refreshCheck">刷新结果</text></view>-->
+<!--			<view class="content-des" wx:else>{{accountVerification === 0 ? '审核通过' : '验证成功'}}</view>-->
+<!--		</view>-->
 		<view class="item {{info && info.auditStatus !== 0 ? 'finished' : ''}}" wx:if="{{info.auditStatus !== -1}}">
 			<view class="content-title">资料审核</view>
 			<view class="content-des iconfont {{info && (info.auditStatus === 1 || info.auditStatus === 9) ? 'error' : ''}}" wx:if="{{info && (info.auditStatus === 1 || info.auditStatus === 9)}}">审核不通过<text class="edit iconfont" catchtap="goEtcDetails">查看详情</text></view>

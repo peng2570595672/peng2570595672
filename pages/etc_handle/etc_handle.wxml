@@ -1,0 +1,51 @@
+<wxs src='../../utils/util.wxs' module='tools'/>
+<view catchtouchmove="{{whetherToStay ? 'viewProcedure' : ''}}">
+    <view class="index" style="background-color: {{'rgb(28,82,67)'}}" >
+        <!-- 顶部返回按钮 -->
+        <view class="iconfont topBack" catchtap="goBack"><image class="goBanckImg" src="{{'https://file.cyzl.com/g001/M01/CA/1D/oYYBAGP8SGqAa4UOAAAFNvmKtp4507.svg'}}" /></view>
+        <!-- 顶部banner 背景颜色和图片是动态的 -->
+        <view class="topBanner"> </view>
+        <!-- 模块1 支持微信多种代扣方式 -->
+        <view class="one">
+            <image class="image" src="{{'https://file.cyzl.com/g001/M01/CA/47/oYYBAGP8g7yAEXg0AACM0rP-DX8583.png'}}" />
+        </view>
+        <!-- 模块3 一站式车主服务 -->
+        <view class="three">
+            <view class="buttomText twoButtom" catchtap="viewProcedure" data-pop="moduleOne">查看具体办理步骤</view>
+            <image class="images" src="{{'https://file.cyzl.com/g001/M01/C9/0E/oYYBAGP4IhCAfnh_AACLStl5jQM863.png'}}" />
+        </view>
+        <!-- 模块4 车主热问热答 -->
+        <view class="module four">
+            <view class="title textLeft">车主热问热答</view>
+            <view class="answersQuestions" wx:for="{{testData}}" wx:for-index="index" wx:if="{{index < 3}}" wx:key="index">
+                <view class="questions">
+                    <view class="questionsImg">
+                        <image src="https://file.cyzl.com/g001/M00/B5/7C/oYYBAGO9BUuAQSYeAAABmpSmZv4643.png" />
+                    </view>
+                    <view class="questionsTitle">{{item.title}}</view>
+                </view>
+                <view class="answer" wx:if="{{tools.onlineService(item.contant,'在线客服')}}">{{item.contant}}</view>
+                <view class="answer" wx:else>根据交通部规定一个车牌号只能办理一个ETC设备，如您的车牌已办理过，需要先注销原有ETC，可联系<span class="onlineSpan" bindtap="goOnlineServer">在线客服</span>咨询如何注销</view>
+            </view>
+            <view class="moreQuestions" catchtap="viewProcedure" data-pop="moduleTwo" wx:if="{{tools.dataLen(testData) < 3 ? false : true}}">更多热问热答</view>
+        </view>
+        <!-- 占位 -->
+        <view class="split"></view>
+        <!-- 立即办理 {{isFade ? 'fadeIn' : 'fadeOut'}}-->
+        <view class="handleImmediately  ">
+            <button catchtap="onClickHandle" >立即办理</button>
+        </view>
+    </view>
+
+    <page-container 
+        show="{{show}}"
+        duration="{{duration}}"
+        position="{{position}}"
+        custom-style="{{customStyle}}"
+        overlay-style="{{overlayStyle}}"
+        close-on-slide-down="{{true}}"
+        bindbeforeleave="goBack">
+    </page-container>
+    <!-- 组件 -->
+    <viewProcedure id="viewProcedure" bind:onHandle="viewProcedure" data-value="false" viewTc="{{viewTc}}"></viewProcedure>
+</view>

@@ -1,0 +1,34 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<view class="index">
+    <swiper class="swiperBox" bindchange="monitorCurrent" indicator-dots="{{false}}" circular="true" indicator-color="white"
+        indicator-active-color="orange" current="{{current}}" autoplay="{{autoplay}}">
+        <block wx:for="{{needData}}" wx:key="index">
+            <swiper-item>
+                <view class="title">
+                    <view class="titleOne">
+                        <view class="icon"><image class="image" src="{{'https://file.cyzl.com/g001/M01/C8/61/oYYBAGP0m8eAZz4SAAAKr1mc5IM024.svg'}}" /></view>
+                        <view class="text1">{{item.title1}}</view>
+                        <view class="text1">{{item.title2}}</view>
+                    </view>
+                </view>
+                <view class="content">
+                    <image class="images" src="{{item.bgImg}}"/>
+                    <view class="contentText">
+                        <view class="text" wx:if="{{tools.onlineService(item.text,'立即咨询')}}">{{item.text}}</view>
+                        <view class="text" wx:else>在线客服：尊敬的车主，我们为您7*24H在线专人客服，如有疑问点击这里 <span class="span" catchtap="goOnlineServer">立即咨询</span></view>
+                    </view>
+                </view>
+                <view class="bgColorOne"></view>
+                <view class="bgColorTwo">
+                    <view class="btn" wx:if="{{index === 3}}" catchtap='handleMall'>去权益商城</view>
+                </view>
+            </swiper-item>
+        </block>
+  </swiper>
+  <!-- 自定义轮播图进度点 -->
+  <view class="dots">
+    <block wx:for="{{needData}}" wx:for-index="index" wx:key="index">
+      <view class="littleDots {{current === index?'active':''}}"></view>
+    </block>
+  </view>
+</view>

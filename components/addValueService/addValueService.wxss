@@ -1,0 +1,130 @@
+.addValueService {
+    width: 100%;
+    height: 100%;
+	margin-top: 20rpx;
+}
+
+.addValueService .moduleOne .related-service-list .title {
+    margin-top: 30rpx;
+    height: 48rpx;
+    font-size: 24rpx;
+    font-weight: 500;
+    font-family: PingFangSC-Medium, PingFang SC;
+	color: #000;
+}
+
+.addValueService .moduleOne .related-service-list .maximum-quantity {
+    width: 100%;
+    height: 40rpx;
+    font-size: 24rpx;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: rgba(118, 80, 38, 0.9);
+    line-height: 40rpx;
+}
+
+.addValueService .moduleOne .related-service-list .new-related-service {
+    width: 100%;
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+    margin-top: 36rpx;
+}
+
+.addValueService .moduleOne .related-service-list .new-related-service .new-list-item {
+    width: 184rpx;
+    height: 90rpx;
+    position: relative;
+    overflow: hidden;
+    border-radius: 16rpx;
+    background-color: #5EBE68;
+    margin-right: 36rpx;
+}
+
+.addValueService .moduleOne .related-service-list .new-related-service .new-list-item::before {
+    display: block;
+    width: 18rpx;
+    height: 11rpx;
+    content: '';
+    border-radius: 0rpx 0rpx 10rpx 10rpx;
+    background-color: #F9F6EF;
+    position: absolute;
+    top: 0rpx;
+    left: 95rpx;
+}
+
+.addValueService .moduleOne .related-service-list .new-related-service .new-list-item::after {
+    display: block;
+    width: 18rpx;
+    height: 11rpx;
+    content: '';
+    border-radius: 10rpx 10rpx 0rpx 0rpx;
+    background-color: #F9F6EF;
+    position: absolute;
+    bottom: 0rpx;
+    left: 95rpx;
+}
+
+.addValueService .moduleOne .related-service-list .new-related-service .new-list-item .contentMoney {
+    position: absolute;
+    width: 100rpx;
+    height: 90rpx;
+    top: 0rpx;
+    left: 0rpx;
+    text-align: center;
+}
+
+.addValueService .moduleOne .related-service-list .new-related-service .new-list-item .contentMoney::after {
+    display: block;
+    width: 1rpx;
+    height: 60rpx;
+    content: '';
+    border-right: 1rpx dashed rgba(255, 255, 255, 0.25);
+    position: absolute;
+    top: 15rpx;
+    left: 100rpx;
+}
+
+.addValueService .moduleOne .related-service-list .new-related-service .new-list-item .contentMoney .money {
+    height: 44rpx;
+    font-size: 24rpx;
+    color: #ffffff;
+    margin-top: 15rpx;
+    line-height: 44rpx;
+    font-weight: normal;
+    font-family: Arial-BoldMT, Arial;
+}
+
+.addValueService .moduleOne .related-service-list .new-related-service .new-list-item .contentMoney .money .span {
+    font-size: 34rpx;
+    font-family: ArialMT;
+}
+
+.addValueService .moduleOne .related-service-list .new-related-service .new-list-item .contentMoney .condition {
+    font-size: 16rpx;
+    font-weight: 400;
+    color: #ffffff;
+    font-family: PingFangSC-Regular, PingFang SC;
+}
+
+.addValueService .moduleOne .related-service-list .new-related-service .new-list-item .contentCount {
+    width: 80rpx;
+    height: 100%;
+    text-align: center;
+    position: absolute;
+    top: 0rpx;
+    right: 0rpx;
+}
+
+.addValueService .moduleOne .related-service-list .new-related-service .new-list-item .contentCount .count {
+    font-size: 20rpx;
+    color: #ffffff;
+    line-height: 90rpx;
+    font-family: ArialMT;
+}
+
+.addValueService .moduleOne .related-service-list .new-related-service .new-list-item .contentCount .count .span {
+    font-size: 34rpx;
+    padding-left: 3rpx;
+}
+

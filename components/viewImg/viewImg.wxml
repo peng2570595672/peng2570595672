@@ -1,0 +1,12 @@
+<view>
+	<view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}" catchtap="{{ tipObj.btnShadowHide ? 'hide' : ''}}"></view>
+	<view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}" wx:if="{{mask}}">
+		<!-- 营销图片 -->
+		<view class="MarketingImg {{viewTc.radius ? 'radius' : ''}}" bindtap="go">
+            <image class="image" src="{{viewTc.img}}" />
+        </view>
+        <view class="iconfont close" catchtap="hide">
+            <!-- <image class="images" src="https://file.cyzl.com/g001/M07/B8/B1/oYYBAGPBCIOAb8YvAAACkMSVQNc153.png" /> -->
+        </view>
+	</view>
+</view>

@@ -20,40 +20,26 @@ Page({
 		isContinentInsurance: app.globalData.isContinentInsurance, // 是否是大地
 		btnSwitch: false,
 		entranceList: [{
-				title: '通行发票',
-				ico: 'invoice',
-				url: 'invoice',
-				isShow: true,
-				statisticsEvent: 'index_invoice'
+			title: '通行发票',
+			ico: 'invoice',
+			url: 'invoice',
+			isShow: true,
+			statisticsEvent: 'index_invoice'
+		},
+			{
+				title: '违章查询',
+				ico: 'violation-enquiry',
+				url: 'violation_enquiry',
+				isShow: !app.globalData.isContinentInsurance,
+				statisticsEvent: 'index_violation_enquiry'
 			},
-			// {
-			// 	title: '违章查询',
-			// 	ico: 'violation-enquiry',
-			// 	url: 'violation_enquiry',
-			// 	isShow: !app.globalData.isContinentInsurance,
-			// 	statisticsEvent: 'index_violation_enquiry'
-			// },
 			{
 				title: 'ETC账单',
 				ico: 'my-order',
 				url: 'my_order',
-				isShow: true,
+				isShow: app.globalData.isContinentInsurance,
 				statisticsEvent: 'index_my_order'
 			},
-			{
-				title: '在线客服',
-				ico: 'server',
-				url: 'online_customer_service',
-				isShow: true,
-				statisticsEvent: 'index_server'
-			},
-			// {
-			// 	title: '优惠加油',
-			// 	ico: 'icontaocan-jiayou',
-			// 	url: 'preferential_refueling',
-			// 	isShow: true,
-			// 	statisticsEvent: 'index_oil'
-			// },
 			{
 				title: '个人中心',
 				ico: 'personal-center',
@@ -89,7 +75,7 @@ Page({
 		activeIndex: 1,
 		loginInfo: {}, // 登录信息
 		exceptionMessage: undefined, // 异常信息
-		isNormalProcess: false, // 是否是正常流程进入
+		isNormalProcess: !app.globalData.isContinentInsurance, // 是否是正常流程进入
 		// isNormalProcess: true, // 是否是正常流程进入
 		recentlyTheBillList: [], // 最新客车账单集合
 		recentlyTheTruckBillList: [], // 最新货车账单集合
@@ -118,33 +104,90 @@ Page({
 		isShowNotice: false, // 是否显示广告位
 		isActivityDate: false, // 是否活动期间
 		isActivityForBannerDate: false, // 是否是banner上线时间
-		dialogContent: {}, // 弹窗内容
 		// @cyl
-		movingIntegralControl: false, // 控制弹窗的显示与隐藏
+		// movingIntegralControl: false, // 控制弹窗的显示与隐藏
 		areaNotOpened: ['河南', '江西', '广西', '辽宁', '重庆', '云南'], // 号码归属地还未开通 移动积分业务的
 		disclaimerDesc: app.globalData.disclaimerDesc,
 		timeout: null,
-		date: null
+		date: null,
+		// 版本4.0 所需数据
+		imgList: ['https://file.cyzl.com/g001/M01/C9/54/oYYBAGP4sCaAF2EtAABbvIQbTLM503.png', 'https://file.cyzl.com/g001/M01/C9/54/oYYBAGP4sCaAF2EtAABbvIQbTLM503.png'],
+		moduleOneList: [{	// 账单查询 通行发票 权益商城
+			icon: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eRKAK0mDAAAg6lZHRZU754.jpg',
+			title: '账单查询',
+			btn: '最近通行的记录',
+			isShow: true,
+			url: 'my_order',
+			statisticsEvent: 'index_my-order'
+		},
+			{
+				icon: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eSmAVDOGAAAfG-36GVE351.jpg',
+				title: '通行发票',
+				btn: '开高速路费发票',
+				isShow: true,
+				url: 'invoice',
+				statisticsEvent: 'index_invoice'
+			},
+			{
+				icon: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eT-AKA3cAAAg7GXq-Ts112.jpg',
+				title: '权益商城',
+				btn: '免税商品上线',
+				isShow: true,
+				url: 'equity',
+				statisticsEvent: 'index_equity'
+			},
+			{
+				icon: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eVeADTAhAAAd33onhO0108.jpg',
+				title: '在线客服',
+				btn: '1V1专人客服',
+				isShow: true,
+				url: 'online_customer_service',
+				statisticsEvent: 'index_server'
+			}
+		],
+		moduleTwoList: [],	// 出行贴心服务
+		viewTc: {}, // 用于存放弹窗数据
+		whetherToStay: false, // 用于控制显示弹窗时，最底层页面禁止不动
+		movingIntegralObj: {
+			movingIntegralControl: false
+		},
+		isEquityRights: app.globalData.isEquityRights,	// 是否是权益券额用户
+		popList: []
 	},
 	async onLoad (options) {
+		app.globalData.orderInfo.orderId = '';
+		util.resetData();// 重置数据
 		this.setData({
 			date: new Date()
 		});
 		app.globalData.isTruckHandling = false;
 		app.globalData.isNeedReturnHome = false;
 		this.login();
+		this.getBanner();
+		util.getUserIsVip();
+	},
+	async onShow () {
+		util.customTabbar(this, 0);
+		util.getUserIsVip();
 		// @cyl
 		// 初始化设备指纹对象
 		this.fmagent = new FMAgent(app.globalData._fmOpt);
 		// 采集openid，成功后调用回调
 		util.getUserInfo(this.getId);
-		console.log('--------------------------------------------');
-	},
-	async onShow () {
 		this.setData({
 			isActivityForBannerDate: util.isDuringDate('2021/06/23', '2021/07/16'),
 			isActivityDate: util.isDuringDate('2021/6/25 11:00', '2021/6/28 15:00')
 		});
+		if (app.globalData.isVip || app.globalData.isEquityRights) {
+			this.setData({
+				moduleOneList: this.data.moduleOneList.filter(item => item.title !== '在线客服')
+			});
+		} else {
+			this.setData({
+				moduleOneList: this.data.moduleOneList.filter(item => item.title !== '权益商城')
+			});
+		}
+		console.log('数据列表：',this.data.moduleOneList);
 		if (app.globalData.userInfo.accessToken) {
 			util.getMemberStatus();
 			if (app.globalData.salesmanScanCodeToHandleId) {
@@ -172,6 +215,43 @@ Page({
 			wx.removeStorageSync('login_info_final');
 		}
 	},
+	
+	// --------------------------------测试方法: 广告弹窗------------------------
+	testFunc (e) {
+		// 未登录
+		if (!app.globalData.userInfo?.accessToken) {
+			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+			util.go('/pages/login/login/login');
+			return;
+		}
+		wx.reLaunch({
+			url: '/pages/etc_handle/etc_handle'
+		});
+	},
+	// 获取 “出行贴心服务” banner
+	async getBanner () {
+		let params = {
+			platformId: app.globalData.platformId
+		};
+		const result = await util.getDataFromServersV2('consumer/system/common/get-activity-banner', params,'POST',false);
+		if (result.code === 0) {
+			let moduleTwoList = result.data.filter(item => (item.remark === 'moving_integral'));
+			moduleTwoList.map(item => {
+				if (item.remark === 'moving_integral') {
+					item.url = item.remark;
+					item.isShow = true;
+					item.alwaysShow = true;
+					item.imgUrl = 'https://file.cyzl.com/g001/M01/C9/52/oYYBAGP4mXiAVfbDAAAkI9pn5Nw707.png';
+					item.statisticsEvent = 'index_moving_integral';
+				}
+			});
+			this.setData({
+				moduleTwoList
+			});
+		}
+	},
+	
+	// ---------------------------------end---------------------------
 	async getIsShowNotice () {
 		const result = await util.queryProtocolRecord(2);
 		this.setData({
@@ -192,7 +272,6 @@ Page({
 		if (url === 'violation_enquiry') {
 			// 统计点击进入违章查询
 			this.selectComponent('#dialog1').show('violation_enquiry');
-			// this.onClickViolationEnquiry();
 			return;
 		}
 		if (url === 'preferential_refueling') {
@@ -203,6 +282,10 @@ Page({
 		if (url === 'online_customer_service') {
 			// 统计点击进入在线客服
 			util.go(`/pages/web/web/web?type=${url}`);
+			return;
+		}
+		if (url === 'equity') {
+			this.handleMall();
 			return;
 		}
 		if (url === 'invoice') {
@@ -217,9 +300,14 @@ Page({
 		}
 		if (url === 'index') {
 			// 统计点击进入个人中心事件
-		} else if (url === 'my_order') {
-			// 统计点击进入我的ETC账单
 		}
+		console.log(url);
+		if (url === 'my_order') {
+			// 统计点击进入我的ETC账单
+			util.go(`/pages/personal_center/${url}/${url}`);
+			return;
+		}
+		
 		// 订阅:高速扣费通知、ETC欠费提醒、黑名单状态提醒
 		let urls = `/pages/personal_center/${url}/${url}?isMain=true`;
 		let tmplIds = ['oz7msNJRXzk7VmASJsJtb2JG0rKEWjX3Ff1PIaAPa78',
@@ -339,9 +427,6 @@ Page({
 		// @cyl
 		if (item?.url === 'moving_integral') {
 			this.selectComponent('#dialog1').show('moving_integral');
-			// this.setData({
-			//   movingIntegralControl: true
-			// });
 		}
 	},
 	openXiaoEPinPin () {
@@ -367,13 +452,11 @@ Page({
 		// 调用微信接口获取code
 		wx.login({
 			success: async (res) => {
-				console.log(res);
 				const result = await util.getDataFromServersV2(
 					'consumer/member/common/applet/code', {
 						platformId: app.globalData.platformId, // 平台id
 						code: res.code // 从微信获取的code
 					});
-				console.log(result);
 				this.initDadi();
 				if (!result) return;
 				if (result.code === 0) {
@@ -420,8 +503,8 @@ Page({
 		});
 	},
 	initDadi () {
-		// this.data.entranceList[1].isShow = !app.globalData.isContinentInsurance;
-		// this.data.entranceList[2].isShow = app.globalData.isContinentInsurance;
+		this.data.entranceList[1].isShow = !app.globalData.isContinentInsurance;
+		this.data.entranceList[2].isShow = app.globalData.isContinentInsurance;
 		this.data.bannerList.map(item => {
 			item.statisticsEvent === 'index_dadi' ? item.isShow = app.globalData.isContinentInsurance && !app.globalData.isPingAn : item.isShow = !app.globalData.isContinentInsurance && !app.globalData.isPingAn;
 			item.alwaysShow ? item.isShow = true : '';
@@ -507,8 +590,7 @@ Page({
 	sortDataArray (dataArray) {
 		return dataArray.sort(function (a, b) {
 			if (b.lastOpTime && a.lastOpTime) {
-				return Date.parse(b.lastOpTime.replace(/-/g, '/')) - Date
-					.parse(a.lastOpTime.replace(/-/g, '/'));
+				return Date.parse(b.lastOpTime.replace(/-/g, '/')) - Date.parse(a.lastOpTime.replace(/-/g, '/'));
 			}
 		});
 	},
@@ -533,7 +615,6 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
 		const icbcv2 = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId'); // 查卡是否有二通类户
 		// 订单展示优先级: 扣款失败账单>已解约状态>按最近时间顺序：办理状态or账单记录
-		console.log(result);
 		if (!result) return;
 		if (result.code === 0) {
 			const list = this.sortDataArray(result.data);
@@ -553,6 +634,8 @@ Page({
 			// let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
 			app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !==
 				undefined); // 筛选车主服务欠费
+			// 判断是否权益券额用户
+			app.globalData.isEquityRights = list.filter(item => item.pledgeType === 4 && item.pledgeStatus === 1).length > 0;
 			list.map(item => {
 				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item)
 					: util.getStatus(item);
@@ -578,18 +661,37 @@ Page({
 						truckActivationOrderList.push(item.id);
 					}
 				}
+				// if (item.orderType === 11 && item.logisticsId === 0 && item.auditStatus === 2) {
+				// 	const dates = this.data.date.getDate();
+				// 	if (wx.getStorageSync('time') !== dates || !wx.getStorageSync('time')) {
+				// 		this.fangDou(function () {
+				// 			wx.setStorage({
+				// 				key: 'time',
+				// 				data: dates
+				// 			});
+				// 			util.alert({
+				// 				title: `提示`,
+				// 				content: `受疫情封控影响，设备预计七个工作日内陆续发货。带来不便，敬请谅解。`,
+				// 				showCancel: false,
+				// 				cancelText: '取消',
+				// 				confirmText: '确定'
+				// 			});
+				// 		}, 500);
+				// 	}
+				// }
 			});
 			this.initDadi();
-			const isWaitActivation = passengerCarList.find(item => item.logisticsId === 0); // 待激活
-			const isDuringDate = util.isDuringDate('2023/1/12', '2023/1/28');
-			const isAlertPrompt = wx.getStorageSync('is-delay-delivery-20230112');
+			const isWaitActivation = passengerCarList.find(item => item.auditStatus === 2 && item.logisticsId === 0 && item.obuStatus === 0); // 待激活
+			const isDuringDate = util.isDuringDate('2021/6/26', '2021/7/1');
+			const isAlertPrompt = wx.getStorageSync('is-alert-prompt');
 			if ((isWaitActivation || !list.length) && isDuringDate && !isAlertPrompt) {
-				wx.setStorageSync('is-delay-delivery-20230112', true);
+				wx.setStorageSync('is-alert-prompt', true);
 				util.alert({
-					title: '',
-					content: `因春节期间快递业务停发，故2023年1月14日至1月28日期间暂停发货及售后，预计在1月29日起逐步恢复。祝您新年路路畅行。`,
+					title: `提示`,
+					content: `因ETC系统升级，即日起至6月30日23:59期间所有办理设备将延迟发出。`,
 					showCancel: false,
-					confirmText: '我知道了'
+					cancelText: '取消',
+					confirmText: '确定'
 				});
 			}
 			const terminationOrder = passengerCarList.find(item => item.selfStatus === 1); // 查询客车第一条解约订单
@@ -606,6 +708,7 @@ Page({
 			const passengerCarListNotTruckActivation = isAllActivationTruck ? truckList[0] : truckList
 				.filter(item => item.selfStatus !== 12)[0];
 			app.globalData.isArrearageData.trucksOrderList = truckActivationOrderList;
+			
 			this.setData({
 				isShowNotice: !!app.globalData.myEtcList.length,
 				needRequestBillNum: activationTruckOrder.length + activationOrder.length,
@@ -616,17 +719,14 @@ Page({
 				truckList,
 				passengerCarList,
 				isAllActivationTruck,
-				truckOrderInfo: terminationTruckOrder ||
-					passengerCarListNotTruckActivation, // 解约订单 || 拉取第一条
-				passengerCarOrderInfo: terminationOrder ||
-					passengerCarListNotActivation // 解约订单 || 拉取第一条
+				truckOrderInfo: terminationTruckOrder || passengerCarListNotTruckActivation, // 解约订单 || 拉取第一条
+				passengerCarOrderInfo: terminationOrder || passengerCarListNotActivation // 解约订单 || 拉取第一条
 			});
 			app.globalData.truckLicensePlate = passengerCarListNotActivation ? passengerCarListNotActivation
 				.vehPlates : ''; // 存货车出牌
 			// 上一页返回时重置
 			this.setData({
-				orderInfo: this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data
-					.truckOrderInfo
+				orderInfo: this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data.truckOrderInfo
 			});
 			if (this.data.orderInfo?.selfStatus === 17) {
 				await this.getQueryProcessInfo(this.data.orderInfo.id);
@@ -827,32 +927,34 @@ Page({
 		}
 	},
 	dialogJudge (money, isTruck = false) {
+		// 请尽快补缴欠款
 		if (money) {
-			// // 欠费 - 弹窗补缴
-			// let dialogContent = {
-			// 	title: '请尽快补缴欠款',
-			// 	content: `你已欠款${money / 100}元，将影响正常的高速通行`,
-			// 	cancel: '取消',
-			// 	confirm: '立刻补缴'
-			// };
-			// this.setData({dialogContent});
-			// this.selectComponent('#dialog').show();
-			util.alertPayment(money, isTruck);
+			this.selectComponent('#popTipComp').show({
+				type: 'three',
+				title: '请尽快补缴欠款',
+				btnCancel: '取消',
+				btnconfirm: '立刻补缴',
+				btnShadowHide: true,
+				params: {
+					money: money,
+					isTruck: isTruck
+				}
+			});
+			// util.alertPayment(money, isTruck);
 			return;
 		}
 		// 解约
 		let orderInfo = this.data.isTerminationTruck ? this.data.truckOrderInfo : this.data.passengerCarOrderInfo;
-		let dialogContent = {
-			orderInfo: orderInfo,
+		this.selectComponent('#popTipComp').show({
+			type: 'four',
 			title: '无法正常扣款',
 			content: '检测到你已解除车主服务签约，将影响正常的高速通行',
-			cancel: '取消',
-			confirm: '恢复签约'
-		};
-		this.setData({
-			dialogContent
+			btnCancel: '取消',
+			btnconfirm: '恢复签约',
+			params: {
+				orderInfo: orderInfo
+			}
 		});
-		this.selectComponent('#dialog').show();
 	},
 	// 3.0清空签约信息 & 修改成2.0套餐
 	async changeByOrderIds () {
@@ -876,12 +978,12 @@ Page({
 		);
 	},
 	// 弹窗确认回调
-	onHandle () {
-		if (this.data.dialogContent.orderInfo) {
+	onHandle (e) {
+		if (e.detail.orderInfo) {
 			// 恢复签约
-			app.globalData.orderInfo.orderId = this.data.dialogContent.orderInfo.id;
+			app.globalData.orderInfo.orderId = e.detail.orderInfo.id;
 			wx.uma.trackEvent('index_for_dialog_signing');
-			this.onClickBackToSign(this.data.dialogContent.orderInfo);
+			this.onClickBackToSign(e.detail.orderInfo);
 			return;
 		}
 		wx.uma.trackEvent('index_for_arrears_bill');
@@ -890,16 +992,20 @@ Page({
 	// 点击车辆信息
 	onClickVehicle () {
 		console.log(this.data.activeIndex, '==============这里应是2===================');
-		const orderInfo = this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data
-			.truckOrderInfo;
+		const orderInfo = this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data.truckOrderInfo;
 		if (!orderInfo) {
 			app.globalData.orderInfo.orderId = '';
-			wx.uma.trackEvent(this.data.activeIndex === 1 ? 'index_for_new_deal_with'
-				: 'index_for_truck_new_deal_with');
-			//	const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address' : '/pages/truck_handling/truck_receiving_address/truck_receiving_address';
-			const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address'
-				: '/pages/default/trucks/trucks';
+			wx.uma.trackEvent(this.data.activeIndex === 1 ? 'index_for_new_deal_with' : 'index_for_truck_new_deal_with');
+			const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address' : '/pages/default/trucks/trucks';
 			util.go(url);
+			return;
+		}
+		if (orderInfo.isNewTrucks === 1 && orderInfo.status !== 1) {
+			util.showToastNoIcon('货车办理系统升级中，暂时不可申办');
+			return;
+		}
+		if (orderInfo.orderType === 51 && orderInfo.status !== 1) {
+			util.showToastNoIcon('请返回原渠道办理');
 			return;
 		}
 		app.globalData.orderInfo.orderId = orderInfo.id;
@@ -1039,6 +1145,7 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/query-contract', {
 			orderId: obj.id
 		});
+		console.log('3',result);
 		if (!result) return;
 		if (result.code === 0) {
 			app.globalData.signAContract = 1;
@@ -1278,7 +1385,6 @@ Page({
 			page: that, // 当前页面
 			openid: code,
 			success: function (res) {
-				console.log('success');
 				// 获取 fingerprint
 				app.globalData.tonDunObj.fingerprint = res;
 			},
@@ -1290,11 +1396,8 @@ Page({
 	},
 	// 点击移动积分兑换ETC 高速通行券
 	async btnMovingIntegral (e) {
-		this.setData({
-			movingIntegralControl: false
-		});
 		let num = await this.getMargin();
-		if (e.currentTarget.id === 'cancel') {
+		if (e.detail.currentTarget.dataset.name === 'cancel') {
 			console.log('点击取消');
 		} else {
 			if (num === app.globalData.myEtcList.length) {
@@ -1319,9 +1422,6 @@ Page({
 			// res3.data.isp = '中国联通';
 			if (res3.data.isp !== '中国移动') {
 				util.showToastNoIcon('本活动仅限移动用户参与');
-				return this.setData({
-					movingIntegralControl: false
-				});
 			} else if (this.data.areaNotOpened.includes(res3.data.province)) {
 				return util.showToastNoIcon('号码归属省份暂未开通此业务，敬请期待！');
 			}
@@ -1395,8 +1495,14 @@ Page({
 		}
 		if (str === 'moving_integral') {
 			this.setData({
-				movingIntegralControl: true
+				movingIntegralObj: {
+					movingIntegralControl: true
+				}
 			});
+			this.selectComponent('#viewProcedure').show();
 		}
+	},
+	handleMall () {
+		util.go(`/pages/personal_center/equity_mall/equity_mall`);
 	}
 });

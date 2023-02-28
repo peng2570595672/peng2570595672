@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-export const IS_TEST = false; // false为正式接口地址，true为测试接口地址
+export const IS_TEST = true; // false为正式接口地址，true为测试接口地址
 const util = require('./utils/util.js');
 const uma = require('./utils/umtrack-wx.js');
 App({
@@ -96,6 +96,7 @@ App({
 		crowdsourcingShopMsg: undefined, // 众包信息
 		crowdsourcingPromotionId: undefined, // 众包推广ID
 		isCrowdsourcingPromote: false, // 是不是众包推广
+		MTCChannel: false, // 是不是MTC推广
 		crowdsourcingServiceProvidersId: undefined, // 众包服务商id 用于加载不同套餐
 		rightsPackageBuyRecords: undefined, // 权益购买记录
 		myEtcList: {}, // 车辆列表
@@ -141,20 +142,21 @@ App({
 			carNumbers: []	// 可用车辆的车牌号
 		},
 		disclaimerDesc: {
-      // 免责弹窗
-      title: '免责声明',
-      content: '您即将通过该链接跳转至第三方页面。在第三方页面中提交信息将由第三方按照其相关用户服务协议及隐私协议正常执行并负责，服务及责任均由第三方提供或承担，如有疑问请致电第三方客服电话。',
-      confirm: '我知道了'
-    }
+			// 免责弹窗
+			title: '免责声明',
+			content: '您即将通过该链接跳转至第三方页面。在第三方页面中提交信息将由第三方按照其相关用户服务协议及隐私协议正常执行并负责，服务及责任均由第三方提供或承担，如有疑问请致电第三方客服电话。',
+			confirm: '我知道了'
+		},
+		isEquityRights: undefined,	//	权益券额套餐的用户： true表示是，false表示不是
+		isVip: undefined,	// 收取综合服务费的用户：  true表示是，false表示不是
+		handledByTelephone: undefined	// 4.0办理人的电话
 	},
 	onLaunch (options) {
-		console.log(options);
 		// 统计逻辑结束
 		util.setApp(this);
 		// 获取是否为iphone x系列
 		wx.getSystemInfo({
 			success: (res) => {
-				console.log(res);
 				this.globalData.capsule = wx.getMenuButtonBoundingClientRect();
 				this.globalData.screenWindowAttribute = res;
 				this.globalData.SDKVersion = res.SDKVersion;
@@ -298,7 +300,6 @@ App({
 	onShow (res) {
 		// 初始化数据
 		this.initData(res);
-		console.log(res);
 		if (res.path === 'pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license' ||
 			res.path === 'pages/default/shot_bank_card/shot_bank_card' ||
 			res.path === 'pages/default/information_validation/information_validation'
@@ -324,8 +325,7 @@ App({
 			} else if (this.globalData.signAContract === 1) {
 				// 解约状态
 				this.globalData.signAContract = 3;
-				wx.reLaunch({
-					// url: '/pages/default/index/index'
+				wx.switchTab({
 					url: '/pages/Home/Home'
 				});
 			}

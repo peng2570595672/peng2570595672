@@ -1,6 +1,10 @@
 {
-	"navigationBarTitleText": "上传证件页",
-	"navigationBarBackgroundColor": "#FFFFFF",
+	"navigationBarTitleText": "上传办理证件",
+	"navigationBarBackgroundColor": "#ECECEC",
 	"backgroundColor": "#FFFFFF",
-	"navigationBarTextStyle": "black"
+	"navigationBarTextStyle": "black",
+	"usingComponents": {
+		"topProgressBar": "/components/topProgressBar/index"
+	}
 }
+	

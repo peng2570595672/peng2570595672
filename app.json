@@ -1,294 +1,330 @@
 {
-  "entryPagePath": "pages/Home/Home",
-  "pages": [
-    "pages/Home/Home",
-    "pages/active_tips/active_tips",
-    "pages/default/index/index",
-    "pages/default/receiving_address/receiving_address",
-    "pages/default/high_speed_verification_failed/high_speed_verification_failed",
-    "pages/default/agreement/agreement",
-    "pages/default/privacy_agreement/privacy_agreement",
-    "pages/default/payment_successful/payment_successful",
-    "pages/default/processing_progress/processing_progress",
-    "pages/loading_page_for_wx/index",
-    "pages/loading_page_for_wechat/index",
-    "pages/loading_page_for_bank/index",
-    "pages/default/wechat_sudoku/wechat_sudoku",
-    "pages/default/package_the_rights_and_interests/package_the_rights_and_interests",
-    "pages/default/choose_the_way_to_handle/choose_the_way_to_handle",
-    "pages/default/information_list/information_list",
-    "pages/default/upload_id_card/upload_id_card",
-    "pages/default/information_validation/information_validation",
-    "pages/default/upload_other_photo/upload_other_photo",
-    "pages/default/shot_other_photo/shot_other_photo",
-    "pages/default/shot_card/shot_card",
-    "pages/default/bind_withhold/bind_withhold",
-    "pages/default/shot_bank_card/shot_bank_card",
-    "pages/default/order_audit/order_audit",
-    "pages/default/transition_page/transition_page",
-    "pages/default/coupon_and_etc_agreement/coupon_and_etc_agreement",
-    "pages/default/coupon_agreement/coupon_agreement",
-    "pages/landing_page_for_ccb/index",
-    "pages/pay/pay",
-    "pages/default/new_self_buy_equipmemnt_agreement/index",
-    "pages/default/payment_fail/payment_fail",
-    "components/pass_the_discount/pass_the_discount",
-    "components/follow_accont_prompt/follow_accont_prompt",
-    "pages/default/free_equipment_agreement/free_equipment_agreement",
-    "pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement",
-    "pages/default/trucks/trucks",
-    "pages/default/margin_user_handling_agreement/margin_user_handling_agreement"
-  ],
-  "window": {
-    "navigationBarBackgroundColor": "#FFFFFF",
-    "backgroundColor": "#FFFFFF",
-    "navigationBarTextStyle": "black"
-  },
-  "requiredPrivateInfos": [
-    "chooseAddress",
-    "chooseLocation",
-    "getLocation"
-  ],
-  "subpackages": [
-    {
-      "root": "pages/personal_center",
-      "name": "pages/personal_center",
-      "pages": [
-        "index/index",
-        "equity_payment/equity_payment",
-        "equity_mall/equity_mall",
-        "my_etc/my_etc",
-        "my_etc_detail/my_etc_detail",
-        "my_order/my_order",
-        "split_bill/split_bill",
-        "bill_payment_success/bill_payment_success",
-        "arrears_bill/arrears_bill",
-        "make_up_immediately/make_up_immediately",
-        "membership_coupon/membership_coupon",
-        "cancel_order_succeed/cancel_order_succeed",
-        "order_details/order_details",
-        "order_instructions/order_instructions",
-        "passing_charges_details/passing_charges_details",
-        "order_answer/order_answer",
-        "order_complaint/order_complaint",
-        "complaint_details/complaint_details",
-        "help_center/help_center",
-        "recharge-card-processing/recharge-card-processing",
-        "search_help/search_help",
-        "service_card_voucher/service_card_voucher",
-        "service_card_voucher_details/service_card_voucher_details",
-        "coupon_details/coupon_details",
-        "crowdsourcing_user/crowdsourcing_user",
-        "my_crowdsourcing_gains/my_crowdsourcing_gains",
-        "basic_rights_and_interests/basic_rights_and_interests",
-        "invoice_issued_list/invoice_issued_list",
-        "invoice_issued_detail/invoice_issued_detail",
-        "success_tips/success_tips",
-        "basic_services/basic_services",
-        "the_owner_service/the_owner_service",
-        "characteristic_service/characteristic_service",
-        "coupon_redemption_centre/coupon_redemption_centre",
-        "coupon_redemption_history/coupon_redemption_history",
-        "service_purchase_record/service_purchase_record",
-        "user_agreement/user_agreement",
-        "order_questions/order_questions"
-      ]
-    },
-    {
-      "root": "pages/separate_interest_package",
-      "name": "pages/separate_interest_package",
-      "pages": [
-        "index/index",
-        "purchase_terms/purchase_terms",
-        "prefer_purchase/prefer_purchase",
-        "buy_success/buy_success",
-        "associated_license_plate/associated_license_plate"
-      ]
-    },
-    {
-      "root": "pages/login",
-      "name": "pages/login",
-      "pages": [
-        "login/login"
-      ]
-    },
-    {
-      "root": "pages/account_management",
-      "name": "pages/account_management",
-      "pages": [
-        "index/index",
-        "recharge_state/recharge_state",
-        "recharge_result/recharge_result",
-        "account_recharge/account_recharge",
-        "account_details/account_details",
-        "bocom_account_details/bocom_account_details",
-        "precharge_account_details/precharge_account_details",
-        "new_binding/new_binding",
-        "bind_bank_card/bind_bank_card",
-        "pay_method/pay_method",
-        "pay_accout/pay_accout",
-        "deposit_account_details/deposit_account_details",
-        "margin_recharge_model/margin_recharge_model"
-      ]
-    },
-    {
-      "root": "pages/international_driving_document",
-      "name": "pages/international_driving_document",
-      "pages": [
-        "index/index",
-        "upload_license/upload_license",
-        "license_information/license_information",
-        "express_information/express_information",
-        "my_order/my_order",
-        "order_detail/order_detail",
-        "upload_shot_card/upload_shot_card",
-        "transact_success/transact_success"
-      ]
-    },
-    {
-      "root": "pages/truck_handling",
-      "name": "pages/truck_handling",
-      "pages": [
-        "index/index",
-        "truck_receiving_address/truck_receiving_address",
-        "agreement/agreement",
-        "agreement_for_factoring/agreement",
-        "agreement_for_qiantong_to_charge/agreement",
-        "agreement_for_qiantong_to_free/agreement",
-        "icbc_agreement/icbc_agreement",
-        "face_of_check_tips/face_of_check_tips",
-        "recording_user_information/recording_user_information",
-        "information_validation/information_validation",
-        "package_the_rights_and_interests/package_the_rights_and_interests",
-        "contract_management/contract_management",
-        "binding_account/binding_account",
-        "bocom_management_protocol/bocom_management_protocol",
-        "binding_account_bocom/binding_account_bocom",
-        "binding_account_successful/binding_account_successful",
-        "binding_account_failure/binding_account_failure",
-        "recharge_instructions/recharge_instructions",
-        "shot_card/shot_card",
-        "shot_other_photo/shot_other_photo",
-        "upload_id_card/upload_id_card",
-        "upload_other_photo/upload_other_photo",
-        "upload_road_transport_certificate/upload_road_transport_certificate",
-        "information_list/information_list",
-        "truck_credit_investigation_authorization/truck_credit_investigation_authorization",
-        "signed/signed",
-        "icbc_agreement_withhold/icbc_agreement_withhold",
-        "icbc_agreement_account/icbc_agreement_account",
-        "icbc_agreement_service/icbc_agreement_service",
-        "bocom_tallage_protocol/bocom_tallage_protocol",
-        "bocom_clause_protocol/bocom_clause_protocol",
-        "bocom_deduction_collection_protocol/bocom_deduction_collection_protocol",
-        "bocom_handle_protocol/bocom_handle_protocol"
-      ]
-    },
-    {
-      "root": "CitiesServices",
-      "name": "CitiesServices",
-      "pages": [
-        "pages/CitiesServices/CitiesServices"
-      ]
-    },
-    {
-      "root": "pages/crowdsourcing",
-      "name": "pages/crowdsourcing",
-      "pages": [
-        "index/index",
-        "new_user/new_user"
-      ]
-    },
-    {
-      "root": "pingan",
-      "name": "pingan",
-      "pages": [
-        "pages/ChooseBank/ChooseBank",
-        "pages/Login/Login",
-        "pages/BindMobile/BindMobile"
-      ]
-    },
-    {
-      "root": "activities",
-      "name": "activities",
-      "pages": [
-        "pages/activity_wechat_eighteen_hook/index",
-        "pages/activity_wechat_eighteen_theme/index",
-        "pages/activity_icbc_forty_five_hook/index",
-        "pages/activity_icbc_forty_five_theme/index",
-        "pages/activity_micro_insurance/index",
-        "pages/activity_medical_insurance/index",
-        "pages/activity_icbc_fifty_theme/index",
-        "pages/activity_parking_ticket/index",
-        "pages/activity_coupons/index",
-        "pages/activity_for_heaiche/index",
-        "pages/activity_high_speed_traffic/index",
-        "pages/activity_icbc_twenty_eight/index",
-        "pages/ActivityForCCBForSixty/index",
-        "pages/ActivityForICBCForSixty/index",
-        "pages/ActivityForLTForSixty/index"
-      ]
-    },
-    {
-      "root": "pages/pay_h5",
-      "name": "pages/pay_h5",
-      "pages": [
-        "sign_up/sign_up",
-        "signed_successfully/signed_successfully"
-      ]
-    },
-    {
-      "root": "pages/unicom",
-      "name": "pages/unicom",
-      "pages": [
-        "binding_plates/binding_plates",
-        "signed_successfully/signed_successfully"
-      ]
-    },
-    {
-      "root": "pages/obu",
-      "name": "pages/obu",
-      "pages": [
-        "add/add",
-        "bluetooth/bluetooth",
-        "audit_result/audit_result"
-      ]
-    },
-    {
-      "root": "pages/web",
-      "name": "pages/web",
-      "pages": [
-        "web/web"
-      ]
-    },
-    {
-      "root": "pages/ejiayou",
-      "name": "pages/ejiayou",
-      "pages": [
-        "index/index",
-        "order/order",
-        "ticket/ticket",
-        "webview/webview"
-      ]
-    },
-    {
-      "root": "pages/moving_integral",
-      "name": "pages/moving_integral",
-      "pages": [
-        "bound_changyou/bound_changyou",
-        "confirm_exchange/confirm_exchange",
-        "exchange_success/exchange_success",
-        "exchange_fail/exchange_fail"
-      ]
-    }
-  ],
-  "functionalPages": {
-    "independent": true
-  },
-  "sitemapLocation": "sitemap.json",
-  "permission": {
-    "scope.userLocation": {
-      "desc": "你的位置信息将用于获取当前位置可办理套餐信息"
-    }
-  }
+	"entryPagePath": "pages/startUpPages/index",
+	"pages": [
+		"pages/startUpPages/index",
+		"pages/Home/Home",
+		"pages/etc_handle/etc_handle",
+		"pages/membershipCertificate/membershipCertificate",
+		"pages/my/index",
+		"pages/active_tips/active_tips",
+		"pages/default/index/index",
+		"pages/default/receiving_address/receiving_address",
+		"pages/default/high_speed_verification_failed/high_speed_verification_failed",
+		"pages/default/agreement/agreement",
+		"pages/default/privacy_agreement/privacy_agreement",
+		"pages/default/payment_successful/payment_successful",
+		"pages/default/processing_progress/processing_progress",
+		"pages/loading_page_for_wx/index",
+		"pages/loading_page_for_wechat/index",
+		"pages/loading_page_for_bank/index",
+		"pages/default/wechat_sudoku/wechat_sudoku",
+		"pages/default/package_the_rights_and_interests/package_the_rights_and_interests",
+		"pages/default/choose_the_way_to_handle/choose_the_way_to_handle",
+		"pages/default/information_list/information_list",
+		"pages/default/upload_id_card/upload_id_card",
+		"pages/default/information_validation/information_validation",
+		"pages/default/upload_other_photo/upload_other_photo",
+		"pages/default/shot_other_photo/shot_other_photo",
+		"pages/default/shot_card/shot_card",
+		"pages/default/bind_withhold/bind_withhold",
+		"pages/default/shot_bank_card/shot_bank_card",
+		"pages/default/order_audit/order_audit",
+		"pages/default/transition_page/transition_page",
+		"pages/default/coupon_and_etc_agreement/coupon_and_etc_agreement",
+		"pages/default/coupon_agreement/coupon_agreement",
+		"pages/landing_page_for_ccb/index",
+		"pages/pay/pay",
+		"pages/default/new_self_buy_equipmemnt_agreement/index",
+		"pages/default/payment_fail/payment_fail",
+		"components/pass_the_discount/pass_the_discount",
+		"components/follow_accont_prompt/follow_accont_prompt",
+		"pages/default/free_equipment_agreement/free_equipment_agreement",
+		"pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement",
+		"pages/default/trucks/trucks",
+		"pages/default/margin_user_handling_agreement/margin_user_handling_agreement"
+
+	],
+	"window": {
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#FFFFFF",
+		"navigationBarTextStyle": "black"
+	},
+	"tabBar": {
+		"custom": true,
+		"color": "bfbfbf",
+		"selectedColor": "#d3257a",
+		"backgroundColor": "#fff",
+		"borderStyle": "black",
+		"list": [
+		  {
+			"pagePath": "pages/Home/Home",
+			"text": "首页"
+		  },
+		  {
+			"pagePath": "pages/etc_handle/etc_handle",
+			"text": "ETC办理"
+		  },
+		  {
+			"pagePath": "pages/membershipCertificate/membershipCertificate",
+			"text": "会员券"
+		  },
+		  {
+			"pagePath": "pages/my/index",
+			"text": "我的"
+		  }
+		]
+	},
+	"requiredPrivateInfos": [
+		"chooseAddress",
+		"chooseLocation",
+		"getLocation"
+	],
+	"subpackages": [
+		{
+			"root": "pages/personal_center",
+			"name": "pages/personal_center",
+			"pages": [
+				"index/index",
+				"choice_vehicle/choice_vehicle",
+				"equity_payment/equity_payment",
+				"my_etc/my_etc",
+				"equity_mall/equity_mall",
+				"my_etc_detail/my_etc_detail",
+				"my_order/my_order",
+				"split_bill/split_bill",
+				"bill_payment_success/bill_payment_success",
+				"arrears_bill/arrears_bill",
+				"make_up_immediately/make_up_immediately",
+				"membership_coupon/membership_coupon",
+				"cancel_order_succeed/cancel_order_succeed",
+				"order_details/order_details",
+				"order_instructions/order_instructions",
+				"passing_charges_details/passing_charges_details",
+				"order_answer/order_answer",
+				"order_complaint/order_complaint",
+				"complaint_details/complaint_details",
+				"help_center/help_center",
+				"recharge-card-processing/recharge-card-processing",
+				"search_help/search_help",
+				"service_card_voucher/service_card_voucher",
+				"service_card_voucher_details/service_card_voucher_details",
+				"coupon_details/coupon_details",
+				"crowdsourcing_user/crowdsourcing_user",
+				"my_crowdsourcing_gains/my_crowdsourcing_gains",
+				"basic_rights_and_interests/basic_rights_and_interests",
+				"invoice_issued_list/invoice_issued_list",
+				"invoice_issued_detail/invoice_issued_detail",
+				"success_tips/success_tips",
+				"basic_services/basic_services",
+				"the_owner_service/the_owner_service",
+				"characteristic_service/characteristic_service",
+				"coupon_redemption_centre/coupon_redemption_centre",
+				"coupon_redemption_history/coupon_redemption_history",
+				"service_purchase_record/service_purchase_record",
+				"user_agreement/user_agreement",
+				"order_questions/order_questions",
+				"personal_information/personal_information",
+				"description_of_equity/description_of_equity",
+				"invoice_assistant/invoice_assistant",
+				"invoicing_instructions/invoicing_instructions",
+				"order_triage/order_triage"
+			]
+		},
+		{
+			"root": "pages/separate_interest_package",
+			"name": "pages/separate_interest_package",
+			"pages": [
+				"index/index",
+				"purchase_terms/purchase_terms",
+				"prefer_purchase/prefer_purchase",
+				"buy_success/buy_success",
+				"associated_license_plate/associated_license_plate"
+			]
+		},
+		{
+			"root": "pages/login",
+			"name": "pages/login",
+			"pages": [
+				"login/login"
+			]
+		},
+		{
+			"root": "pages/account_management",
+			"name": "pages/account_management",
+			"pages": [
+				"index/index",
+				"recharge_state/recharge_state",
+				"recharge_result/recharge_result",
+				"account_recharge/account_recharge",
+				"account_details/account_details",
+				"bocom_account_details/bocom_account_details",
+				"precharge_account_details/precharge_account_details",
+				"new_binding/new_binding",
+				"bind_bank_card/bind_bank_card",
+				"pay_method/pay_method",
+				"pay_accout/pay_accout",
+				"deposit_account_details/deposit_account_details",
+				"margin_recharge_model/margin_recharge_model"
+			]
+		},
+		{
+			"root": "pages/international_driving_document",
+			"name": "pages/international_driving_document",
+			"pages": [
+				"index/index",
+				"upload_license/upload_license",
+				"license_information/license_information",
+				"express_information/express_information",
+				"my_order/my_order",
+				"order_detail/order_detail",
+				"upload_shot_card/upload_shot_card",
+				"transact_success/transact_success"
+			]
+		},
+		{
+			"root": "pages/truck_handling",
+			"name": "pages/truck_handling",
+			"pages": [
+				"index/index",
+				"truck_receiving_address/truck_receiving_address",
+				"agreement/agreement",
+				"agreement_for_factoring/agreement",
+				"agreement_for_qiantong_to_charge/agreement",
+				"agreement_for_qiantong_to_free/agreement",
+				"icbc_agreement/icbc_agreement",
+				"face_of_check_tips/face_of_check_tips",
+				"recording_user_information/recording_user_information",
+				"information_validation/information_validation",
+				"package_the_rights_and_interests/package_the_rights_and_interests",
+				"contract_management/contract_management",
+				"binding_account/binding_account",
+				"bocom_management_protocol/bocom_management_protocol",
+				"binding_account_bocom/binding_account_bocom",
+				"binding_account_successful/binding_account_successful",
+				"binding_account_failure/binding_account_failure",
+				"recharge_instructions/recharge_instructions",
+				"shot_card/shot_card",
+				"shot_other_photo/shot_other_photo",
+				"upload_id_card/upload_id_card",
+				"upload_other_photo/upload_other_photo",
+				"upload_road_transport_certificate/upload_road_transport_certificate",
+				"information_list/information_list",
+				"truck_credit_investigation_authorization/truck_credit_investigation_authorization",
+				"signed/signed",
+				"icbc_agreement_withhold/icbc_agreement_withhold",
+				"icbc_agreement_account/icbc_agreement_account",
+				"icbc_agreement_service/icbc_agreement_service",
+				"bocom_tallage_protocol/bocom_tallage_protocol",
+				"bocom_clause_protocol/bocom_clause_protocol",
+				"bocom_deduction_collection_protocol/bocom_deduction_collection_protocol",
+				"bocom_handle_protocol/bocom_handle_protocol"
+			]
+		},
+		{
+			"root": "CitiesServices",
+			"name": "CitiesServices",
+			"pages": [
+				"pages/CitiesServices/CitiesServices"
+			]
+		},
+		{
+			"root": "pages/crowdsourcing",
+			"name": "pages/crowdsourcing",
+			"pages": [
+				"index/index",
+				"new_user/new_user"
+			]
+		},
+		{
+			"root": "pingan",
+			"name": "pingan",
+			"pages": [
+				"pages/ChooseBank/ChooseBank",
+				"pages/Login/Login",
+				"pages/BindMobile/BindMobile"
+			]
+		},
+		{
+			"root": "activities",
+			"name": "activities",
+			"pages": [
+				"pages/activity_wechat_eighteen_hook/index",
+				"pages/activity_wechat_eighteen_theme/index",
+				"pages/activity_icbc_forty_five_hook/index",
+				"pages/activity_icbc_forty_five_theme/index",
+				"pages/activity_micro_insurance/index",
+				"pages/activity_medical_insurance/index",
+				"pages/activity_icbc_fifty_theme/index",
+				"pages/activity_parking_ticket/index",
+				"pages/activity_coupons/index",
+				"pages/activity_for_heaiche/index",
+				"pages/activity_high_speed_traffic/index",
+				"pages/activity_icbc_twenty_eight/index",
+				"pages/ActivityForCCBForSixty/index",
+				"pages/ActivityForICBCForSixty/index",
+				"pages/ActivityForLTForSixty/index"
+			]
+		},
+		{
+			"root": "pages/pay_h5",
+			"name": "pages/pay_h5",
+			"pages": [
+				"sign_up/sign_up",
+				"signed_successfully/signed_successfully"
+			]
+		},
+		{
+			"root": "pages/unicom",
+			"name": "pages/unicom",
+			"pages": [
+				"binding_plates/binding_plates",
+				"signed_successfully/signed_successfully"
+			]
+		},
+		{
+			"root": "pages/obu",
+			"name": "pages/obu",
+			"pages": [
+				"add/add",
+				"bluetooth/bluetooth",
+				"audit_result/audit_result"
+			]
+		},
+		{
+			"root": "pages/web",
+			"name": "pages/web",
+			"pages": [
+				"web/web"
+			]
+		},
+		{
+			"root": "pages/ejiayou",
+			"name": "pages/ejiayou",
+			"pages": [
+				"index/index",
+				"order/order",
+				"ticket/ticket",
+				"webview/webview"
+			]
+		},
+		{
+			"root": "pages/moving_integral",
+			"name": "pages/moving_integral",
+			"pages": [
+				"bound_changyou/bound_changyou",
+				"confirm_exchange/confirm_exchange",
+				"exchange_success/exchange_success",
+				"exchange_fail/exchange_fail"
+			]
+		}
+	],
+	"functionalPages": {
+		"independent": true
+	},
+	"sitemapLocation": "sitemap.json",
+	"permission": {
+		"scope.userLocation": {
+			"desc": "你的位置信息将用于获取当前位置可办理套餐信息"
+		}
+	}
 }

@@ -122,19 +122,16 @@
   margin-top: -40rpx;
 }
 .coupon .introduce {
-  padding: 16rpx 32rpx 48rpx;
+  width: 100%;
+  height: 300rpx;
+  margin-top: 150rpx;
 }
-.coupon .introduce .last {
-  display: flex;
-}
-.coupon .introduce .detailed {
-  flex: 1;
-  font-size: 24rpx;
-  color: rgba(0,0,0,0.5);
-  line-height: 34rpx;
-}
-.coupon .introduce .history {
-  font-size: 20rpx;
-  color: #00a9ff;
-  line-height: 28rpx;
+.coupon .introduce .view {
+  width: 308rpx;
+  height: 68rpx;
+  margin: 28rpx 219rpx;
+  line-height: 68rpx;
+  text-align: center;
+  border-radius: 12rpx;
+  border: 2rpx solid #2a4f44;
 }

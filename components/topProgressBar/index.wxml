@@ -1,0 +1,17 @@
+<view class="top">
+    <view class="innerBox">
+        <view class="stage" style="background-color:{{mmm > 1 || mmm === 1 ? '#5EBE68': ''}}">1</view>
+        <view class="bar">
+            <view class="innerBar" style="background-color:{{mmm > 1 ? '#5EBE68': ''}};width:{{158 * (mmm - 1)}}rpx"></view>
+        </view>
+        <view class="stage" style="background-color:{{mmm > 2 || mmm === 2 ? '#5EBE68': ''}}">2</view>
+        <view class="bar">
+            <view class="innerBar" style="background-color:{{mmm > 2 ? '#5EBE68' : ''}};width:{{158 * (mmm - 2)}}rpx;"></view>
+        </view>
+        <view class="stage" style="background-color:{{mmm > 3 || mmm === 3 ? '#5EBE68': ''}}">3</view>
+        <view class="bar">
+            <view class="innerBar" style="background-color:{{mmm > 3 ? '#5EBE68' : ''}};width:{{158 * (mmm - 3)}}rpx"></view>
+        </view>
+        <view class="stage" style="background-color:{{mmm > 4 || mmm === 4 ? '#5EBE68': ''}}">4</view>
+    </view>
+</view>

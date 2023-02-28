@@ -1,20 +1,37 @@
-<view class="user-agreement">
-	<view wx:if="{{isPassengerCarActivation}}">
-        <view class="title">客车</view>
-        <view class="list" wx:for="{{carAgreementList}}" wx:key="index">
-            <view class="item" catchtap="carAgreementHandle" data-index="{{item}}">
-                <view class="name">{{item.name}}</view>
-                <view class="update" wx:if="{{item.update === 1}}">有更新</view>
-            </view>
+
+<view class="index">
+    <view class="split"></view>
+    <view class="module moduleOne" wx:if="{{isPassengerCarActivation}}">
+        <view class="title">客车办理协议</view>
+        <view class="iconNameSpot" wx:for="{{carAgreementList}}" wx:key="index" data-index="{{item}}" catchtap="carAgreementHandle">
+            <view class="icon iconfont"></view>
+            <view class="name">{{item.name}}</view>
+            <view class="spot {{item.update === 1 ? 'shows' : ''}}"></view>
         </view>
     </view>
-	<view wx:if="{{isTruckActivation}}">
-        <view class="title truck">货车</view>
-        <view class="list" wx:for="{{truckAgreementList}}" wx:key="index">
-            <view class="item" catchtap="truckAgreementHandle" data-index="{{item}}">
-                <view class="name">{{item.name}}</view>
-                <view class="update" wx:if="{{item.update === 1}}">有更新</view>
-            </view>
+    <view class="module moduleTwo" wx:if="{{isTruckActivation}}">
+        <view class="title">货车办理协议</view>
+        <view class="iconNameSpot" wx:for="{{truckAgreementList}}" wx:key="index" data-index="{{item}}" catchtap="truckAgreementHandle">
+            <view class="icon iconfont"></view>
+            <view class="name">{{item.name}}</view>
+            <view class="spot {{item.update === 1 ? 'shows' : ''}}"></view>
         </view>
     </view>
+    <view class="module moduleThree">
+        <view class="title">平台协议</view>
+        <view class="iconNameSpot" wx:for="{{listThree}}" wx:key="index" data-url="{{item.url}}" catchtap="go">
+            <view class="icon iconfont"></view>
+            <view class="name">{{item.name}}</view>
+            <view class="spot {{item.update === 1 ? 'shows' : ''}}"></view>
+        </view>
+    </view>
+    <view class="module moduleFour" wx:if="{{isThree}}">
+        <view class="title">三方合作协议</view>
+        <view class="iconNameSpot" wx:for="{{listFour}}" wx:key="index" data-url="{{item.url}}" catchtap="go">
+            <view class="icon iconfont"></view>
+            <view class="name">{{item.name}}</view>
+            <view class="spot {{item.update === 1 ? 'shows' : ''}}"></view>
+        </view>
+    </view>
+    
 </view>

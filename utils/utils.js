@@ -4,6 +4,17 @@ export function initProductName (orderInfo) {
 	if (orderInfo.productProcess === 1) return '微信支付'
 	return orderInfo.productName || '';
 }
+export function checkVehicleType (vehicleType) {
+	let flag;
+	const vehicleList = ['中型普通客车','小型专用客车', '小型轿车', '小型普通客车', '小型面包车', '小型旅居车', '小型客车',
+		'微型越野客车', '微型普通客车', '微型轿车', '轻型客车', '普通客车', '大型轿车', '小型越野客车', '轿车'];
+	for (let name of vehicleList) {
+		if (vehicleType === name) {
+			flag = true;
+		}
+	}
+	return flag;
+}
 // 签约通通券
 export function thirdContractSigning(data) {
 	wx.navigateToMiniProgram({

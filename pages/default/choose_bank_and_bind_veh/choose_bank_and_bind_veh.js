@@ -116,7 +116,7 @@ Page({
 		await this.fetchBankList();
 	},
 	goBack () {
-		wx.reLaunch({
+		wx.switchTab({
 			url: '/pages/Home/Home'
 		});
 	}

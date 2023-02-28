@@ -6,6 +6,7 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		topProgressBar: 1.0,	// 进度条展示的长度 ，再此页面的取值范围 [1,2),默认为1,保留一位小数
 		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
 		showKeyboard: false, // 是否显示键盘
 		currentIndex: -1, // 当前选中的输入车牌位置
@@ -19,18 +20,28 @@ Page({
 		isOnlineDealWith: true, // 是否是线上办理
 		formData: {
 			currentCarNoColor: 0, // 0 蓝色 1 渐变绿 2黄色
-			region: ['省', '市', '区'], // 省市区
+			region: [], // 省市区
 			regionCode: [], // 省份编码
 			userName: '', // 收货人姓名
 			telNumber: '', // 电话号码
-			detailInfo: '' // 收货地址详细信息
+			detailInfo: '', // 收货地址详细信息
+			operator: ''// 线上：用户点好；线下：经办人电话
 		}, // 提交数据
 		enterType: -1,// 进入小程序类型  23.搜一搜小程序独立办理链接A，24.搜一搜小程序独立办理链接B
 		productId: '',
 		rightsPackageId: '',
-		shopId: ''
+		shopId: '',
+		tip1: '',	// 经办人电话号码校验提示
+		tip2: '',	// 收件人姓名校验
+		tip3: '',	// 校验收件人电话号码提示
+		isName: true,	// 控制收货人名称是否合格
+		size: 30
 	},
 	async onLoad (options) {
+		app.globalData.orderInfo.orderId = '';
+		util.resetData();// 重置数据
+		console.log(options);
+		console.log(app.globalData.orderInfo);
 		if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
 			wx.hideHomeButton();
 		}
@@ -67,6 +78,7 @@ Page({
 		}
 	},
 	async onShow () {
+		console.log(app.globalData.userInfo);
 		if (app.globalData.userInfo.accessToken) {
 			this.setData({
 				mobilePhoneMode: app.globalData.mobilePhoneMode
@@ -75,7 +87,9 @@ Page({
 			// 公众号进入需要登录
 			this.login();
 		}
+		this.getWchatPhoneNumber();
 	},
+
 	// 自动登录
 	login () {
 		util.showLoading();
@@ -116,12 +130,6 @@ Page({
 	},
 	// 下一步
 	async next () {
-		this.setData({
-			available: this.validateAvailable(true)
-		});
-		if (!this.data.available || this.data.isRequest) {
-			return;
-		}
 		// 统计点击事件
 		wx.uma.trackEvent('receiving_address_next');
 		this.setData({
@@ -253,6 +261,7 @@ Page({
 				params['areaCode'] = regionCode[0];
 			}
 		}
+
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		if (!result) return;
 		this.setData({
@@ -260,6 +269,7 @@ Page({
 			isRequest: false
 		});
 		if (result.code === 0) {
+			app.globalData.handledByTelephone = this.data.formData.operator;
 			app.globalData.orderInfo.orderId = result.data.orderId; // 订单id
 			if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
 				await this.getProduct();
@@ -390,7 +400,6 @@ Page({
 		this.setData({
 			currentIndex: index
 		});
-		// if (!this.data.showKeyboard) {
 		this.setData({
 			showKeyboard: true
 		});
@@ -403,10 +412,6 @@ Page({
 	// 点击车牌颜色选择车牌颜色
 	onClickCarNoColorHandle (e) {
 		let index = e.currentTarget.dataset.index;
-		// if (parseInt(index) === 2) {
-		// 	util.showToastNoIcon('暂不支持黄牌车办理！');
-		// 	return;
-		// }
 		let formData = this.data.formData;
 		formData.currentCarNoColor = parseInt(index);
 		this.setData({
@@ -451,6 +456,7 @@ Page({
 		wx.uma.trackEvent('receiving_select_the_wechat_address');
 		wx.chooseAddress({
 			success: (res) => {
+				console.log(res);
 				let formData = this.data.formData;
 				formData.userName = res.userName; // 姓名
 				formData.telNumber = res.telNumber; // 电话
@@ -458,10 +464,10 @@ Page({
 				formData.detailInfo = res.detailInfo; // 详细地址
 				this.setData({
 					formData,
-					mobilePhoneIsOk: /^1[0-9]{10}$/.test(res.telNumber.substring(0, 11))
-				});
-				this.setData({
-					available: this.validateAvailable()
+					tip2: '',
+					tip3: '',
+					mobilePhoneIsOk: /^1[0-9]{10}$/.test(res.telNumber.substring(0, 11)),
+					available: this.validateAvailable(true)
 				});
 			},
 			fail: (e) => {
@@ -483,16 +489,15 @@ Page({
 	},
 	// 省市区选择
 	onPickerChangedHandle (e) {
+		console.log(e);
 		let formData = this.data.formData;
 		formData.region = e.detail.value;
 		if (e.detail.code && e.detail.code.length === 3) {
 			formData.regionCode = e.detail.code;
 		}
 		this.setData({
-			formData
-		});
-		this.setData({
-			available: this.validateAvailable()
+			formData,
+			available: this.validateAvailable(true)
 		});
 	},
 	// 选择当前地址
@@ -502,20 +507,24 @@ Page({
 		wx.chooseLocation({
 			success: (res) => {
 				let address = res.address;
+				let name = res.name;
 				if (address) {
 					// 根据地理位置信息获取经纬度
 					util.getInfoByAddress(address, (res) => {
 						let result = res.result;
 						if (result) {
 							let location = result.location;
+							name = result.title + name;
 							// 根据经纬度信息 反查详细地址信息
-							this.getAddressInfo(location, address);
+							this.getAddressInfo(location, name);
+							this.setData({
+								available: this.validateAvailable(true)
+							});
 						}
 					}, () => {
 						util.showToastNoIcon('获取地理位置信息失败！');
 					});
 				}
-				console.log(res);
 			},
 			fail: (e) => {
 				// 选择地址未允许授权
@@ -536,14 +545,14 @@ Page({
 		});
 	},
 	//  根据经纬度信息查地址
-	getAddressInfo (location, address) {
+	getAddressInfo (location, name) {
 		util.getAddressInfo(location.lat, location.lng, (res) => {
 			if (res.result) {
 				let info = res.result.ad_info;
 				let formData = this.data.formData;
 				formData.region = [info.province, info.city, info.district]; // 省市区
 				formData.regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode]; // 省市区区域编码
-				formData.detailInfo = address.replace(info.province + info.city + info.district, ''); // 详细地址
+				formData.detailInfo = name; // 详细地址
 				this.setData({
 					formData
 				});
@@ -558,30 +567,9 @@ Page({
 			util.showToastNoIcon('获取地理位置信息失败！');
 		});
 	},
-	// 输入框输入值
-	onInputChangedHandle (e) {
-		let key = e.currentTarget.dataset.key;
-		let formData = this.data.formData;
-		// 手机号
-		if (key === 'telNumber') {
-			this.setData({
-				mobilePhoneIsOk: /^1[0-9]{10}$/.test(e.detail.value.substring(0, 11))
-			});
-		}
-		if (key === 'telNumber' && e.detail.value.length > 11) {
-			formData[key] = e.detail.value.substring(0, 11);
-		} else {
-			formData[key] = e.detail.value;
-		}
-		this.setData({
-			formData
-		});
-		this.setData({
-			available: this.validateAvailable()
-		});
-	},
 	// 校验字段是否满足
 	validateAvailable (checkLicensePlate) {
+		console.log('ssss');
 		// 是否接受协议
 		let isOk = true;
 		let formData = this.data.formData;
@@ -609,6 +597,8 @@ Page({
 		} else {
 			isOk = false;
 		}
+		// 校验经办人手机号码
+		isOk = isOk && this.data.formData.operator && /^1[0-9]{10}$/.test(this.data.formData.operator);
 		// 校验姓名
 		isOk = isOk && formData.userName && formData.userName.length >= 1;
 		// 校验省市区
@@ -619,7 +609,137 @@ Page({
 		isOk = isOk && formData.detailInfo && formData.detailInfo.length >= 2;
 		// 检验手机号码
 		isOk = isOk && formData.telNumber && /^1[0-9]{10}$/.test(formData.telNumber);
+		this.controllTopTabBar();
 		return isOk;
+	},
+	// etc4.0：新增-拉起微信授权手机号
+	focus () {
+		// 拉起下面输入框键盘时关闭 输入车牌号键盘
+		this.selectComponent('#keyboard').hide();
+	},
+	getWchatPhoneNumber () {
+		if (app.globalData.userInfo.needBindingPhone !== 1) {	// 判断是否绑定过手机号
+			this.setData({
+				tip1: '',
+				'formData.operator': app.globalData.mobilePhone,
+				available: this.validateAvailable(true)
+			});
+		} else {
+			util.showToastNoIcon('手机号未绑定，马上跳转登录页登录');
+			setTimeout(() => {
+				wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+				util.go('/pages/login/login/login');
+			},1500);
+		}
+	},
+	// 输入框输入值
+	onInputChangedHandle (e) {
+		let key = e.currentTarget.dataset.name;	//
+		let len = e.detail.cursor;	// 输入值的长度
+		let value = e.detail.value;
+		let formData = this.data.formData;
+		let tip1 = '';	// 办理人手机号提示
+		let tip2 = '';	// 收货姓名提示
+		let tip3 = '';	// 收获人手机号提示
+		// 手机号 校验
+		if (key === 'telNumber' || key === 'operator') {
+			let value = e.detail.value;
+			let flag = /^1[1-9][0-9]{9}$/.test(value);
+			if (value.substring(0,1) !== '1' || value.substring(1,2) === '0') {
+				if (key === 'telNumber') {
+					this.setData({
+						'formData.telNumber': ''
+					});
+				} else {
+					this.setData({
+						'formData.operator': ''
+					});
+				}
+				return util.showToastNoIcon('非法号码');
+			} else if (len < 11) {
+				tip1 = key === 'operator' ? '*手机号未满11位，请检查' : '';
+				tip3 = key === 'telNumber' ? '*手机号未满11位，请检查' : '';
+			} else if (len === 11 && !flag) {
+				util.showToastNoIcon('非法号码');
+			}
+		}
+		// 收货人姓名 校验
+		if (key === 'userName') {
+			let patrn = /[`~!@#$%^&*()_\-+=<>?:"{}|,.\/;'\\[\]·~！@#￥%……&*（）——\-+={}|《》？：“”【】、；‘'，。、]/im;	// 校验非法字符
+			let patrn1 = /^[A-Za-z]+$/;	// 校验英文
+			let patrn2 = /^[\u4e00-\u9fa5]{0,}$/;	// 校验汉字
+			if (len < 1) {
+				tip2 = '姓名不可为空';
+			} else if (patrn.test(value)) {
+				value = '';
+				tip2 = '非法字符';
+				util.showToastNoIcon('非法字符');
+			} else if (patrn2.test(value)) {
+				tip2 = len > 13 ? '超出可输入最大数' : '';
+				this.setData({
+					size: 13
+				});
+			} else if (patrn1.test(value)) {
+				tip2 = len > 26 ? '超出可输入最大数' : '';
+				this.setData({
+					size: 26
+				});
+			} else if (!patrn2.test(value) && !patrn1.test(value)) {
+				tip2 = len > 26 ? '超出可输入最大数' : '';
+				this.setData({
+					size: 26
+				});
+			}
+		}
+		formData[key] = value;
+		this.setData({
+			formData,
+			tip1,
+			tip2,
+			tip3
+		});
+		this.fangDou('',500);
+		this.controllTopTabBar();
+	},
+	fangDou (fn, time) {
+		let that = this;
+		return (function () {
+			if (that.data.timeout) {
+				clearTimeout(that.data.timeout);
+			}
+			that.data.timeout = setTimeout(() => {
+				that.setData({
+					available: that.validateAvailable(true)
+				});
+			}, time);
+		})();
+	},
+	// 传车牌及车牌颜色校验是否已有黔通订单 三方接口
+	async validateCar () {
+		this.setData({
+			available: this.validateAvailable(true)
+		});
+		util.showLoading();
+		if (!this.data.available || this.data.isRequest) {
+			return util.showToastNoIcon('请填写相关信息');
+		}
+		let formData = this.data.formData; // 输入信息
+		const res = await util.getDataFromServersV2('consumer/etc/qtzl/checkVehPlateExists', {
+			vehiclePlate: this.data.carNoStr,
+			vehicleColor: formData.currentCarNoColor === 1 ? 4 : 0 // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】,
+		});
+		if (!res) return;
+		if (res.code === 0) {
+			util.hideLoading();
+			if (res.data.canSubmit === 1) {
+				this.next();
+			} else {
+				return util.showToastNoIcon(res.data.canSubmitMsg);
+			}
+		} else {
+			util.hideLoading();
+			return util.showToastNoIcon(res.message);
+		}
 	},
 	// 点击添加新能源
 	onClickNewPowerCarHandle (e) {
@@ -628,6 +748,28 @@ Page({
 			currentCarNoColor: 1
 		});
 		this.setCurrentCarNo(e);
+	},
+	// 控制顶部进度条的大小
+	controllTopTabBar () {
+		let num = 0;
+		if (this.data.carNoStr.length > 0) {
+			num += 1;
+		}
+		if (this.data.formData.userName) {
+			num += 1;
+		}
+		if (this.data.formData.region) {
+			num += 1;
+		}
+		if (this.data.formData.detailInfo) {
+			num += 1;
+		}
+		if (this.data.formData.operator) {
+			num += 1;
+		}
+		this.setData({
+			topProgressBar: 1 + 0.15 * num
+		});
 	},
 	onUnload () {
 		// 统计点击事件

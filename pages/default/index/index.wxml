@@ -1,94 +1,65 @@
-<view class="index">
-	<!--顶部开始-->
-	<view class="top">
-		<!--返回按钮-->
-		<view  class="back iconfont {{isMain ? '' : 'home'}}" catchtap="onClickBackHandle"></view>
-		<view class="bg-image">
-			<view class="bg-desc">
-				<view class="one">
-					<text>客车ETC+</text>
-				</view>
-				<view class="two">
-					<text>高速通行</text>
-					<text>95</text>
-					<text>折</text>
-				</view>
-				<view class="three">
-					<text>快捷支付 享多项车主服务</text>
-				</view>
-			</view>
-            <image src="https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrTdyAT1_9AABR9q2KQdc170.png" mode="widthFix"></image>
-		</view>
-	</view>
-	<!--顶部结束-->
-	<view class="content">
-        <view class="btn-content">
-            <view class="interior">
-                <!-- <view class="textContent">微信支付</view>
-                <view class="split">|</view>
-                <view class="textContent">高速费用95折扣</view>
-                <view class="split">|</view>
-                <view class="textContent">2%综合服务费</view> -->
-                <image src="/pages/default/assets/wechat_pay_01.png" mode="widthFix"></image>
-            </view>
-            <view class="btn" catchtap="onClickHandle">立即办理</view>
-<!--            <view class="trans-tips" catchtap="goTruck">前往办理货车ETC</view>-->
-        </view>
-        <view class="service-desc">
-            <view class="title">
-                <view class="truck-problem">ETC+尊享服务</view>
-            </view>
-            <view class="photo">
-                <view class="photo-row">
-                    <view class="photo-item one">
-                        <image class="image one" src="/pages/default/assets/service_01.png"></image>
-                        <text>设备质保1年</text>
-                    </view>
-                    <view class="photo-item">
-                        <image class="image three" src="/pages/default/assets/service_03.png"></image>
-                        <text>开通行发票</text>
-                    </view>
-                </view>
-                <view class="photo-row">
-                    <view class="photo-item">
-                        <image class="image second" src="/pages/default/assets/service_02.png"></image>
-                        <text>线上专属客服</text>
-                    </view>
-                    <view class="photo-item">
-                        <image class="image four" src="/pages/default/assets/service_04.png"></image>
-                        <text>高速通行9.5折</text>
-                    </view>
-                </view>
-            </view>
-        </view>
-        <view class="handle-desc">
-            <view class="process-title">
-                <view class="truck-problem">办理流程</view>
-            </view>
-            <view class="material">需准备资料</view>
-            <view class="photo">
-                <view class="photo-item">
-                    <image class="image" src="/pages/default/assets/id_card_face_bg.png"></image>
-                    <text>车主身份证</text>
-                </view>
-                <view class="photo-item">
-                    <image class="image" src="/pages/default/assets/driving_license_face_bg.png"></image>
-                    <text>行驶证</text>
-                </view>
-                <view class="photo-item">
-                    <image class="image" src="/pages/default/assets/headstock.svg"></image>
-                    <text>车头照</text>
-                </view>
-            </view>
-            <!--流程开始-->
-            <view class="progress_wrapper" >
-                <view class="item" wx:for="{{ processList }}" wx:key="index">
-                    <view class="content-title">{{ item.title }}</view>
-                    <view class="content-des">{{ item.content }}</view>
-                </view>
-            </view>
-        </view>
-        <!--	在线客服-->
-        <view class="bottom" catchtap="goOnlineServer">在线客服</view>
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<view class="index" style="background-color: {{'rgb(28,86,97)'}}" catchtouchmove="{{whetherToStay ? 'viewProcedure' : ''}}">
+    <!-- 顶部返回按钮 -->
+    <view class="iconfont topBack" catchtap="goBack">返回</view>
+    <!-- 顶部banner 背景颜色和图片是动态的 -->
+    <view class="topBanner" style="background-color: {{'green'}}" catchtap="" >
+        <image class="topImg" src="{{'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png'}}" />
     </view>
+    <!-- 模块1 支持微信多种代扣方式 -->
+    <view class="module one">
+        <view class="title">支持微信多种代扣方式</view>
+        <view class="billNotice">先通行后付费丨账单通知丨一键补缴</view>
+        <view class="imgText">
+            <view class="depositImg" wx:for="{{3}}" wx:key="index">
+                aaaa
+            </view>
+        </view>
+        <view class="buttomText oneButtom">*同意办理即默认收取2%权益服务费</view>
+    </view>
+    <!-- 模块3 一站式车主服务 -->
+    <view class="module three">
+        <view class="title">3分钟自助办理 全国包邮</view>
+        <view class="imgText"></view>
+        <view class="buttomText twoButtom" catchtap="viewProcedure" data-pop="moduleOne">查看具体办理步骤</view>
+        <view class="title">一站式车主服务</view>
+        <view class="iconImg">
+            <view class="oneService" wx:for="{{4}}"  wx:key="index">
+                <view class="depositImg"></view>
+                <view class="titleText">账单提醒</view>
+            </view>
+        </view>
+        <view class="title">在线售后 无忧服务</view>
+        <view class="billNotice">7*24小时在线客服丨1v1专属服务管家</view>
+        <view class="imgTextThree">
+            <view class="oneService" wx:for="{{4}}"  wx:key="index">
+                <view class="onlineService"></view>
+                <view class="titleText">账单提醒</view>
+            </view>
+        </view>
+    </view>
+    <!-- 模块4 车主热问热答 -->
+    <view class="module four">
+        <view class="title textLeft">车主热问热答</view>
+        <view class="answersQuestions" wx:for="{{testData}}" wx:for-index="index" wx:if="{{index < 3}}" wx:key="index">
+            <view class="questions">
+                <view class="questionsImg">
+                    <image src="https://file.cyzl.com/g001/M00/B5/7C/oYYBAGO9BUuAQSYeAAABmpSmZv4643.png" />
+                </view>
+                <view class="questionsTitle">{{item.title}}</view>
+            </view>
+            <view class="answer" wx:if="{{tools.onlineService(item.contant,'在线客服')}}">{{item.contant}}</view>
+            <view class="answer" wx:else>根据交通部规定一个车牌号只能办理一个ETC设备，如您的车牌已办理过，需要先注销原有ETC，可联系<span class="onlineSpan" bindtap="goOnlineServer">在线客服</span>咨询如何注销</view>
+        </view>
+        <view class="moreQuestions" catchtap="viewProcedure" data-pop="moduleTwo" wx:if="{{tools.dataLen(testData) < 3 ? false : true}}">更多热问热答</view>
+    </view>
+    <!-- 占位 -->
+    <view class="split"></view>
+
+    <!-- 立即办理 {{isFade ? 'fadeIn' : 'fadeOut'}}-->
+    <view class="handleImmediately  ">
+        <button catchtap="onClickHandle" >立即办理</button>
+    </view>
+    <!-- 组件 -->
+    <viewProcedure id="viewProcedure" bind:onHandle="viewProcedure" data-value="false" viewTc="{{viewTc}}"></viewProcedure>
 </view>
