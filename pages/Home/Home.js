@@ -77,17 +77,11 @@ Page({
 		exceptionMessage: undefined, // 异常信息
 		isNormalProcess: !app.globalData.isContinentInsurance, // 是否是正常流程进入
 		// isNormalProcess: true, // 是否是正常流程进入
-		recentlyTheBillList: [], // 最新客车账单集合
-		recentlyTheTruckBillList: [], // 最新货车账单集合
-		recentlyTheBill: undefined, // 最新客车账单
-		recentlyTheTruckBill: undefined, // 最新货车账单
-		recentlyTheBillInfo: undefined, // 最新货车|客车账单
+		userFailBillList: [], // 用户失败账单
 		billStatusWidth: 0, // 账单宽度
 		isAllActivation: false, // 是否客车全是激活订单
 		isAllActivationTruck: false, // 是否货车全是激活订单
-		isTruckArrearage: false, // 是否货车欠费
-		isArrearage: false, // 是否客车欠费
-		isTermination: false, // 是否货车解约
+		isTermination: false, // 是否客车解约
 		isTerminationTruck: false, // 是否货车解约
 		truckList: [],
 		truckActivationOrderList: [],
@@ -102,8 +96,6 @@ Page({
 		requestBillEnd: false, // 账单请求结束
 		isClickNotice: false, // 是否点击过广告位
 		isShowNotice: false, // 是否显示广告位
-		isActivityDate: false, // 是否活动期间
-		isActivityForBannerDate: false, // 是否是banner上线时间
 		// @cyl
 		// movingIntegralControl: false, // 控制弹窗的显示与隐藏
 		areaNotOpened: ['河南', '江西', '广西', '辽宁', '重庆', '云南'], // 号码归属地还未开通 移动积分业务的
@@ -192,10 +184,6 @@ Page({
 		this.fmagent = new FMAgent(app.globalData._fmOpt);
 		// 采集openid，成功后调用回调
 		util.getUserInfo(this.getId);
-		this.setData({
-			isActivityForBannerDate: util.isDuringDate('2021/06/23', '2021/07/16'),
-			isActivityDate: util.isDuringDate('2021/6/25 11:00', '2021/6/28 15:00')
-		});
 		if (app.globalData.isVip || app.globalData.isEquityRights) {
 			this.setData({
 				moduleOneList: this.data.moduleOneList.filter(item => item.title !== '在线客服')
@@ -286,16 +274,6 @@ Page({
 		let url = e.currentTarget.dataset.url;
 		let statistics = e.currentTarget.dataset.statistics;
 		wx.uma.trackEvent(statistics);
-		if (url === 'violation_enquiry') {
-			// 统计点击进入违章查询
-			this.selectComponent('#dialog1').show('violation_enquiry');
-			return;
-		}
-		if (url === 'preferential_refueling') {
-			// 优化加油
-			util.go(`/pages/ejiayou/index/index`);
-			return;
-		}
 		if (url === 'online_customer_service') {
 			// 统计点击进入在线客服
 			util.go(`/pages/web/web/web?type=${url}`);
@@ -319,11 +297,11 @@ Page({
 			// 统计点击进入个人中心事件
 		}
 		console.log(url);
-		if (url === 'my_order') {
-			// 统计点击进入我的ETC账单
-			util.go(`/pages/personal_center/${url}/${url}`);
-			return;
-		}
+		// if (url === 'my_order') {
+		// 	// 统计点击进入我的ETC账单
+		// 	util.go(`/pages/personal_center/${url}/${url}`);
+		// 	return;
+		// }
 
 		// 订阅:高速扣费通知、ETC欠费提醒、黑名单状态提醒
 		let urls = `/pages/personal_center/${url}/${url}?isMain=true`;
@@ -331,53 +309,6 @@ Page({
 			'lY047e1wk-OFdeGuIx2ThV-MOJ4aUOx2HhSxUd1YXi0', 'my5wGmuottanrIAKrEhe2LERPKx4U05oU4aK9Fyucv0'
 		];
 		util.subscribe(tmplIds, urls);
-	},
-	// 顶部tab切换
-	async onClickCheckVehicleType (e) {
-		let activeIndex = parseInt(e.currentTarget.dataset.index);
-		if (activeIndex === this.data.activeIndex) return;
-		wx.uma.trackEvent(activeIndex === 1 ? 'index_for_tab_to_passenger_car' : 'index_for_tab_to_truck');
-		this.setData({
-			activeIndex,
-			orderInfo: activeIndex === 1 ? (this.data.passengerCarOrderInfo || false) : (this.data
-				.truckOrderInfo || false),
-			recentlyTheBillInfo: activeIndex === 1 ? (this.data.recentlyTheBill || false) : (this
-				.data.recentlyTheTruckBill || false)
-		});
-		if (this.data.orderInfo.selfStatus === 17) {
-			await this.getQueryProcessInfo(this.data.orderInfo.id);
-		}
-		const that = this;
-		wx.createSelectorQuery().selectAll('.bill').boundingClientRect(function (rect) {
-			that.setData({
-				billStatusWidth: rect[0]?.width
-			});
-		}).exec();
-		const animation = wx.createAnimation({
-			duration: 300
-		});
-		animation.opacity(0).scale(0).step(); // 修改透明度,放大
-		this.setData({
-			animationImage: util.wxAnimation(200, activeIndex === 1 ? 0 : 488, 'translateX'),
-			animationTrucksImage: util.wxAnimation(200, activeIndex === 1 ? 0 : -488, 'translateX'),
-			animationTitle: util.wxAnimation(200, activeIndex === 1 ? 0 : -958, 'translateX'),
-			animationSubTitle1: util.wxAnimation(300, activeIndex === 1 ? 0 : -958, 'translateX'),
-			animationSubTitle2: util.wxAnimation(400, activeIndex === 1 ? 0 : -958, 'translateX'),
-			animationVehicleInfo: util.wxAnimation(activeIndex === 1 ? 0 : 200, activeIndex === 1
-				? 0 : 150, 'translateY', activeIndex === 1 ? 1 : 0),
-			animationVehicleInfoForTrucks: util.wxAnimation(activeIndex === 1 ? 0 : 200,
-				activeIndex === 1 ? 0 : -150, 'translateY', activeIndex === 1 ? 0 : 1),
-			animationTransaction: animation.export()
-		});
-		setTimeout(() => {
-			this.setData({
-				btnSwitch: activeIndex === 2
-			});
-			animation.opacity(1).scale(1).step(); // 修改透明度,放大
-			this.setData({
-				animationTransaction: animation.export()
-			});
-		}, 300);
 	},
 	// 违章查询
 	onClickViolationEnquiry () {
@@ -653,7 +584,7 @@ Page({
 			// 判断是否权益券额用户
 			app.globalData.isEquityRights = list.filter(item => item.pledgeType === 4 && item.pledgeStatus === 1).length > 0;
 			this.setData({
-				isShowHandle: list.filter(item => item.obuStatus !== 1).length > 0
+				isShowHandle: list.filter(item => item.obuStatus !== 1 && item.obuStatus !== 2 && item.obuStatus !== 5).length > 0
 			});
 			list.map(item => {
 				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
@@ -678,24 +609,6 @@ Page({
 						truckActivationOrderList.push(item.id);
 					}
 				}
-				// if (item.orderType === 11 && item.logisticsId === 0 && item.auditStatus === 2) {
-				// 	const dates = this.data.date.getDate();
-				// 	if (wx.getStorageSync('time') !== dates || !wx.getStorageSync('time')) {
-				// 		this.fangDou(function () {
-				// 			wx.setStorage({
-				// 				key: 'time',
-				// 				data: dates
-				// 			});
-				// 			util.alert({
-				// 				title: `提示`,
-				// 				content: `受疫情封控影响，设备预计七个工作日内陆续发货。带来不便，敬请谅解。`,
-				// 				showCancel: false,
-				// 				cancelText: '取消',
-				// 				confirmText: '确定'
-				// 			});
-				// 		}, 500);
-				// 	}
-				// }
 			});
 			this.initDadi();
 			const isWaitActivation = passengerCarList.find(item => item.auditStatus === 2 && item.logisticsId === 0 && item.obuStatus === 0); // 待激活
@@ -853,7 +766,7 @@ Page({
 	},
 	// 查询最近一次账单
 	async getRecentlyTheBill (item, isTruck = false) {
-		const result = await util.getDataFromServersV2('consumer/etc/get-last-bill', {
+		const result = await util.getDataFromServersV2('consumer/etc/get-fail-bill', {
 			channel: item
 		}, 'POST', false);
 		if (!result) return;
@@ -866,45 +779,16 @@ Page({
 			requestBillNum: this.data.requestBillNum
 		});
 		if (result.data) {
-			if (isTruck) {
-				this.data.recentlyTheTruckBillList.push(result.data);
-				this.setData({
-					recentlyTheTruckBillList: this.data.recentlyTheTruckBillList
-				});
-			} else {
-				this.data.recentlyTheBillList.push(result.data);
-				this.setData({
-					recentlyTheBillList: this.data.recentlyTheBillList
-				});
-			}
-		}
-		if (isTruck) { // 货车账单
-			const list = this.sortBillArray(this.data.recentlyTheTruckBillList);
-			let arrearageOrder = list.find(item => item.deductStatus === 2); // 查询第一条欠费订单
 			this.setData({
-				isTruckArrearage: !!arrearageOrder,
-				recentlyTheTruckBill: arrearageOrder || this.data.recentlyTheTruckBillList[0]
+				userFailBillList: this.data.userFailBillList.concat(result.data)
 			});
-		} else { // 客车账单
-			const list = this.sortBillArray(this.data.recentlyTheBillList);
-			let arrearageOrder = list.find(item => item.deductStatus === 2); // 查询第一条欠费订单
-			this.setData({
-				isArrearage: !!arrearageOrder,
-				recentlyTheBill: arrearageOrder || this.data.recentlyTheBillList[0]
-			});
-			const that = this;
-			wx.createSelectorQuery().selectAll('.bill').boundingClientRect(function (rect) {
-				that.setData({
-					billStatusWidth: rect[0]?.width
-				});
-			}).exec();
 		}
 		if (this.data.needRequestBillNum === (this.data.requestBillTruckNum + this.data.requestBillNum)) {
 			// 查询账单已结束
-			console.log('------------');
+			console.log('-----查询账单已结束-------');
+			const list = this.sortBillArray(this.data.userFailBillList);
 			this.setData({
-				recentlyTheBillInfo: this.data.activeIndex === 1 ? (this.data.recentlyTheBill ||
-					false) : (this.data.recentlyTheTruckBill || false)
+				userFailBillList: list
 			});
 		}
 	},
@@ -986,7 +870,7 @@ Page({
 	// 去账单详情页
 	onClickBill () {
 		wx.uma.trackEvent('index_for_order_details');
-		let model = this.data.recentlyTheBillInfo;
+		let model = this.data.userFailBillList[0];
 		util.go(
 			`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`
 		);
