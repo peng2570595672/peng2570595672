@@ -194,6 +194,7 @@ App({
 	},
 	// 初始化数据
 	initData (options) {
+		console.log(options);
 		// 扫码 长按识别 相册选取进入拿到分享二维码人的id
 		if (options.scene === 1047 || options.scene === 1048 || options.scene === 1049 || options.scene === 1017) {
 			let obj = this.path2json(decodeURIComponent(options.query.scene));
@@ -266,7 +267,7 @@ App({
 				}
 				this.globalData.scanCodeToHandle = res.data;
 				if (res.data.hasOwnProperty('isCrowdsourcing')) {
-					wx.综合服务费aunch({
+					wx.reLaunch({
 						url: '/pages/default/receiving_address/receiving_address'
 					});
 				}
@@ -312,8 +313,10 @@ App({
 		if ((res && res.referrerInfo && res.referrerInfo.appId && (res.referrerInfo.appId === 'wxbcad394b3d99dac9' || res.referrerInfo.appId === 'wxbd687630cd02ce1d')) ||
 			(res && res.scene === 1038)) { // 场景值1038：从被打开的小程序返回
 			// 因微信场景值问题,故未用场景值判断
+			console.log('this.globalData.signAContract');
+			console.log(this.globalData.signAContract);
+			const {appId} = res.referrerInfo;
 			if (this.globalData.signAContract === -1) {
-				const {appId} = res.referrerInfo;
 				// 车主服务签约
 				if (appId === 'wxbcad394b3d99dac9' || appId === 'wxbd687630cd02ce1d') {
 					if (res.path === 'pages/default/package_the_rights_and_interests/package_the_rights_and_interests') {
@@ -326,10 +329,13 @@ App({
 				}
 			} else if (this.globalData.signAContract === 1) {
 				// 解约状态
-				this.globalData.signAContract = 3;
-				wx.switchTab({
-					url: '/pages/Home/Home'
-				});
+				if (res.path === 'pages/default/package_the_rights_and_interests/package_the_rights_and_interests') {
+					if (this.globalData.isTelemarketing || this.globalData.isSalesmanOrder) {
+					} else {
+						return;
+					}
+				}
+				this.globalData.isTruckHandling ? util.queryContractForTruckHandling() : this.queryContract(appId);
 			}
 		}
 		if (res && res.scene === 1038 && res.referrerInfo.appId === 'wxbd687630cd02ce1d') {
@@ -365,17 +371,26 @@ App({
 			immediately: true
 		}, () => {
 			util.hideLoading();
-		}, (res) => {
+		}, async (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
 				this.globalData.signAContract = 3;
 				this.globalData.isSalesmanOrder = false;
 				this.globalData.isTelemarketing = false;
-				if (this.globalData.isCheckCarChargeType) {
-					this.brandChargingModel();
-				}
 				// 签约成功 userState: "NORMAL"
 				if (res.data.contractStatus === 1 && res.data.userState === 'NORMAL') {
+					console.log('this.globalData.isCheckCarChargeType');
+					console.log(this.globalData.isCheckCarChargeType);
+					if (this.globalData.isCheckCarChargeType) {
+						await this.brandChargingModel();
+					}
+					if (this.globalData.signAContract === 1) {
+						this.globalData.signAContract = 3;
+						wx.switchTab({
+							url: '/pages/Home/Home'
+						});
+						return;
+					}
 					// 办理付费h5
 					if (this.globalData.otherEntrance.isPayH5Signing) {
 						this.globalData.otherEntrance.isPayH5Signing = false;
@@ -423,8 +438,9 @@ App({
 	},
 	// 车辆品牌收费车型校验
 	async brandChargingModel () {
+		console.log('车辆品牌收费车型校验');
 		await util.getDataFromServersV2('consumer/etc/qtzl/checkCarChargeType', {
-			orderId: app.globalData.orderInfo.orderId
+			orderId: this.globalData.orderInfo.orderId
 		});
 	}
 

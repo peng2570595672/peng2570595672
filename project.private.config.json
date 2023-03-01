@@ -202,7 +202,14 @@
 				{
 					"name": "",
 					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "orderId=870615969473761280",
+					"query": "orderId=1080300107385016320",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+					"query": "orderId=744989679090667520",
 					"launchMode": "default",
 					"scene": null
 				}

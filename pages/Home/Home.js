@@ -164,7 +164,6 @@ Page({
 		isShowHandle: true	// 是否显示办理状态栏
 	},
 	async onLoad (options) {
-		app.globalData.orderInfo.orderId = '';
 		util.resetData();// 重置数据
 		this.setData({
 			date: new Date()
@@ -1026,6 +1025,7 @@ Page({
 		app.globalData.orderInfo.orderId = orderInfo.id;
 		app.globalData.processFlowVersion = orderInfo.flowVersion;
 		app.globalData.truckLicensePlate = orderInfo.vehPlates;
+		app.globalData.isCheckCarChargeType = orderInfo.obuCardType === 1 && orderInfo.orderType === 11 && orderInfo.auditStatus === 0;
 		const fun = {
 			1: () => this.onClickBackToSign(orderInfo), // 恢复签约
 			2: () => this.onClickContinueHandle(orderInfo), // 继续办理
@@ -1194,6 +1194,7 @@ Page({
 	},
 	// 微信签约
 	async weChatSign (obj) {
+		app.globalData.orderInfo.orderId = obj.id;
 		let params = {
 			orderId: obj.id, // 订单id
 			clientOpenid: app.globalData.userInfo.openId,

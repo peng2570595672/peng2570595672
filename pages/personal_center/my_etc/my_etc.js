@@ -14,7 +14,6 @@ Page({
 		truckList: []// 货车
 	},
 	async onShow () {
-		app.globalData.orderInfo.orderId = '';
 		util.resetData();// 重置数据
 		app.globalData.isTruckHandling = false;
 		app.globalData.isNeedReturnHome = false;
@@ -127,6 +126,7 @@ Page({
 			util.showToastNoIcon('请返回原渠道办理');
 			return;
 		}
+		app.globalData.isCheckCarChargeType = orderInfo.obuCardType === 1 && orderInfo.orderType === 11 && orderInfo.auditStatus === 0;
 		app.globalData.processFlowVersion = orderInfo.flowVersion;
 		app.globalData.orderInfo.orderId = orderInfo.id;
 		app.globalData.truckLicensePlate = orderInfo.vehPlates;

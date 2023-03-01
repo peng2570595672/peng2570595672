@@ -26,6 +26,7 @@ Page({
 		tips: ''	// 审核失败返回的结果
 	},
 	async onLoad (options) {
+		app.globalData.isCheckCarChargeType = false;
 		if (options.isModifiedData) {
 			this.setData({
 				isModifiedData: true
