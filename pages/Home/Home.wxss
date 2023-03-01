@@ -275,7 +275,6 @@
 	overflow: hidden;
 	align-items: center;
 	border-radius: 16rpx;
-	background: #FFFFFF;
 	box-shadow: 0rpx 4rpx 8rpx 0rpx rgba(240, 240, 240, 0.5);
 }
 

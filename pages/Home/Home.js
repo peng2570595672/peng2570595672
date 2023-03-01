@@ -112,14 +112,15 @@ Page({
 		date: null,
 		// 版本4.0 所需数据
 		imgList: ['https://file.cyzl.com/g001/M01/C9/54/oYYBAGP4sCaAF2EtAABbvIQbTLM503.png'],
-		moduleOneList: [{	// 账单查询 通行发票 权益商城
-			icon: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eRKAK0mDAAAg6lZHRZU754.jpg',
-			title: '账单查询',
-			btn: '最近通行的记录',
-			isShow: true,
-			url: 'my_order',
-			statisticsEvent: 'index_my-order'
-		},
+		moduleOneList: [
+			{	// 账单查询 通行发票 权益商城
+				icon: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eRKAK0mDAAAg6lZHRZU754.jpg',
+				title: '账单查询',
+				btn: '最近通行的记录',
+				isShow: true,
+				url: 'my_order',
+				statisticsEvent: 'index_my-order'
+			},
 			{
 				icon: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eSmAVDOGAAAfG-36GVE351.jpg',
 				title: '通行发票',
@@ -160,7 +161,7 @@ Page({
 			movingIntegralControl: false
 		},
 		isEquityRights: app.globalData.isEquityRights,	// 是否是权益券额用户
-		popList: []
+		isShowHandle: true	// 是否显示办理状态栏
 	},
 	async onLoad (options) {
 		app.globalData.orderInfo.orderId = '';
@@ -205,7 +206,6 @@ Page({
 				moduleOneList: this.data.moduleOneList.filter(item => item.title !== '权益商城')
 			});
 		}
-		console.log('数据列表：',this.data.moduleOneList);
 		if (app.globalData.userInfo.accessToken) {
 			util.getMemberStatus();
 			if (app.globalData.salesmanScanCodeToHandleId) {
@@ -649,9 +649,13 @@ Page({
 				[]
 			];
 			// let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
+			console.log(app.globalData.myEtcList);
 			app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
 			// 判断是否权益券额用户
 			app.globalData.isEquityRights = list.filter(item => item.pledgeType === 4 && item.pledgeStatus === 1).length > 0;
+			this.setData({
+				isShowHandle: list.filter(item => item.obuStatus !== 1).length > 0
+			});
 			list.map(item => {
 				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
 				vehicleList.push(item.vehPlates);
