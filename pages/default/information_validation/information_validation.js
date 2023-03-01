@@ -126,10 +126,10 @@ Page({
 			if (isToast) util.showToastNoIcon('车辆类型不符，请检查无误重新上传！');
 			return false;
 		}
-		if (!this.data.drivingLicenseFace.ocrObject.address) {
-			if (isToast) util.showToastNoIcon('地址不能为空！');
-			return false;
-		}
+		// if (!this.data.drivingLicenseFace.ocrObject.address) {
+		// 	if (isToast) util.showToastNoIcon('地址不能为空！');
+		// 	return false;
+		// }
 		if (!this.data.drivingLicenseFace.ocrObject.useCharacter) {
 			if (isToast) util.showToastNoIcon('使用性质不能为空！');
 			return false;
@@ -146,10 +146,10 @@ Page({
 			if (isToast) util.showToastNoIcon('发证日期不能为空！');
 			return false;
 		}
-		if (!this.data.drivingLicenseBack.ocrObject.fileNumber) {
-			if (isToast) util.showToastNoIcon('档案编号不能为空！');
-			return false;
-		}
+		// if (!this.data.drivingLicenseBack.ocrObject.fileNumber) {
+		// 	if (isToast) util.showToastNoIcon('档案编号不能为空！');
+		// 	return false;
+		// }
 		if (!this.data.drivingLicenseBack.ocrObject.personsCapacity) {
 			if (isToast) util.showToastNoIcon('车辆核载人数不能为空！');
 			return false;
@@ -162,18 +162,18 @@ Page({
 			if (isToast) util.showToastNoIcon('车辆整备质量不能为空！');
 			return false;
 		}
-		if (!this.data.drivingLicenseBack.ocrObject.size) {
-			if (isToast) util.showToastNoIcon('车辆尺寸不能为空！');
-			return false;
-		}
+		// if (!this.data.drivingLicenseBack.ocrObject.size) {
+		// 	if (isToast) util.showToastNoIcon('车辆尺寸不能为空！');
+		// 	return false;
+		// }
 		// if (!this.data.drivingLicenseBack.ocrObject.remark) {
 		// 	if (isToast) util.showToastNoIcon('车辆备注不能为空！');
 		// 	return false;
 		// }
-		if (!this.data.drivingLicenseBack.ocrObject.recode) {
-			if (isToast) util.showToastNoIcon('车辆检验记录不能为空！');
-			return false;
-		}
+		// if (!this.data.drivingLicenseBack.ocrObject.recode) {
+		// 	if (isToast) util.showToastNoIcon('车辆检验记录不能为空！');
+		// 	return false;
+		// }
 
 		return true;
 	},
