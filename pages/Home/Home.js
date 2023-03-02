@@ -1301,14 +1301,15 @@ Page({
 			console.log('点击取消');
 		} else {
 			if (num === app.globalData.myEtcList.length) {
-				return util.showToastNoIcon('抱歉，您的ETC设备模式不符合兑换条件');
+				util.showToastNoIcon('抱歉，您的ETC设备模式不符合兑换条件');
+				return;
 			}
 			// 登记接口 获取 myOrderId
 			const res1 = await util.getDataFromServersV2('consumer/member/changyou/sign');
-			console.log('登记');
-			console.log(res1);
+			console.log('登记：',res1);
 			if (res1.code === '104' || res1.code === 104) {
-				return util.showToastNoIcon('登记时间已过');
+				util.showToastNoIcon('登记时间已过');
+				return;
 			}
 			app.globalData.tonDunObj.myOrderId = res1.data.myOrderId;
 			app.globalData.tonDunObj.orderId = res1.data.orderId;
@@ -1316,22 +1317,22 @@ Page({
 			const res3 = await util.getDataFromServersV2('consumer/member/changyou/checkPhone', {
 				myOrderId: res1.data.myOrderId
 			});
-			console.log(' 检查手机是联通还是移动');
-			console.log(res3);
+			console.log('检查手机是联通还是移动：',res3);
 			// 拦截不是移动的用户 拦截未开通此业务的省份
 			// res3.data.isp = '中国联通';
 			if (res3.data.isp !== '中国移动') {
 				util.showToastNoIcon('本活动仅限移动用户参与');
+				return;
 			} else if (this.data.areaNotOpened.includes(res3.data.province)) {
-				return util.showToastNoIcon('号码归属省份暂未开通此业务，敬请期待！');
+				util.showToastNoIcon('号码归属省份暂未开通此业务，敬请期待！');
+				return;
 			}
 			const checkBind = await util.getDataFromServersV2('consumer/member/changyou/checkBindStatus', {
 				fingerprint: app.globalData.tonDunObj.fingerprint,
 				sessionId: app.globalData.tonDunObj.sessionId,
 				myOrderId: app.globalData.tonDunObj.myOrderId
 			});
-			console.log('检查是否绑定');
-			console.log(checkBind.data);
+			console.log('检查是否绑定：',checkBind.data);
 			app.globalData.tonDunObj.checkBindStatus = checkBind.data;
 			// app.globalData.tonDunObj.checkBindStatus = true;
 			this.changYouAuth();
@@ -1345,8 +1346,7 @@ Page({
 			sessionId: app.globalData.tonDunObj.sessionId,
 			myOrderId: app.globalData.tonDunObj.myOrderId
 		});
-		console.log('授权');
-		console.log(authData);
+		console.log('授权：',authData);
 		if (authData.code !== 0) {
 			app.globalData.tonDunObj.auth = false;
 			util.showToastNoIcon(`${authData.message}`);
