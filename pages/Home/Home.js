@@ -530,7 +530,7 @@ Page({
 	onShareAppMessage () {
 		return {
 			title: '申办即享最新车主出行权益！',
-			imageUrl: 'https://file.cyzl.com/g001/M07/56/C7/oYYBAGDw3haAa9dPAADutBNUNJ4965.png',
+			imageUrl: 'https://file.cyzl.com/g001/M01/CB/5E/oYYBAGQAaeyASw5fAABJbg74uSk558.png',
 			path: '/pages/Home/Home'
 		};
 	},
