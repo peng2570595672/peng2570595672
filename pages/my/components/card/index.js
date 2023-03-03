@@ -38,7 +38,7 @@ Component({
 			if (info.accountType === 1) {
 				util.go(`/pages/account_management/deposit_account_details/deposit_account_details?id=${info.id}`);
 			} else if (info.accountType === 2) {
-				util.go(`/pages/account_management/precharge_account_details/precharge_account_details?orderId=${info.id}`);
+				util.go(`/pages/account_management/precharge_account_details/precharge_account_details?Id=${info.orderId}`);
 			} else if (info.accountType === 3) {
 				app.globalData.accountChannelInfo = {
 					type: 2,

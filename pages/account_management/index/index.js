@@ -238,7 +238,7 @@ Page({
 	},
 	goAccountDetails (e) {
 		const id = e.currentTarget.dataset.id;
-		util.go(`/pages/account_management/precharge_account_details/precharge_account_details?orderId=${id}`);
+		util.go(`/pages/account_management/precharge_account_details/precharge_account_details?Id=${id}`);
 	},
 	// @cyl
 	// 押金模式的 账户明细页面

@@ -1651,7 +1651,7 @@ function alertPayment(etcMoney, isTruck) {
 		confirmText: '立刻补缴',
 		confirm: () => {
 			if (isTruck) {
-				go(`/pages/account_management/precharge_account_details/precharge_account_details?orderId=${app.globalData.isArrearageData.trucksOrderList[0]}`);
+				go(`/pages/account_management/precharge_account_details/precharge_account_details?Id=${app.globalData.isArrearageData.trucksOrderList[0]}`);
 				return;
 			}
 			go('/pages/personal_center/arrears_bill/arrears_bill');
