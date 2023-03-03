@@ -118,6 +118,7 @@ Page({
 			result.data.map(item => {
 				item.accountType = 1;// 1-权益账户   2-货车预充值 3-交行 4-工行
 			});
+			app.globalData.isEquityRights = result.data?.length;
 			this.setData({
 				isShowEquityImg: result.data?.length,
 				cardList: result.data,

@@ -415,6 +415,7 @@ Page({
 					});
 					// 已经绑定了手机号
 					if (result.data.needBindingPhone !== 1) {
+						util.getRightAccount();
 						app.globalData.userInfo = result.data;
 						app.globalData.openId = result.data.openId;
 						app.globalData.memberId = result.data.memberId;
@@ -516,6 +517,7 @@ Page({
 				if (app.globalData.salesmanScanCodeToHandleId) {
 					await this.bindOrder();
 				} else {
+					util.getRightAccount();
 					await util.getMemberStatus();
 					// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 					await this.getStatus();
@@ -581,8 +583,6 @@ Page({
 			// let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
 			console.log(app.globalData.myEtcList);
 			app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
-			// 判断是否权益券额用户
-			app.globalData.isEquityRights = list.filter(item => item.pledgeType === 4 && item.pledgeStatus === 1).length > 0;
 			this.setData({
 				isShowHandle: list.filter(item => item.obuStatus !== 1 && item.obuStatus !== 2 && item.obuStatus !== 5).length > 0
 			});

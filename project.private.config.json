@@ -219,6 +219,13 @@
 					"query": "orderId=1080598069025705984",
 					"launchMode": "default",
 					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/my/index",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
 				}
 			]
 		}

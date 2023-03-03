@@ -1543,6 +1543,16 @@ async function queryProtocolRecord(protocolType) {
 	}
 	return isOk;
 }
+async function getRightAccount () {
+	const result = await getDataFromServersV2('/consumer/member/right/account', {
+		page: 1,
+		pageSize: 1
+	}, 'POST', false);
+	if (result.code) {
+	} else {
+		app.globalData.isEquityRights = result.data?.length;
+	}
+}
 // 提交触发记录
 async function addProtocolRecord(protocolType) {
 	const result = await getDataFromServersV2('consumer/member/addProtocolRecord', {
@@ -1790,5 +1800,6 @@ module.exports = {
 	timeComparison,
 	customTabbar,
 	fangDou,
+	getRightAccount,
 	getUserIsVip
 };

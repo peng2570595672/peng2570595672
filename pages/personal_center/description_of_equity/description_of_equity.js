@@ -42,7 +42,6 @@ Page({
 		this.setData({
 			isVip: options.isVip === 'true' ? true : false
 		});
-		app.globalData.isEquityRights = app.globalData.myEtcList.filter(item => item.pledgeType === 4 && item.pledgeStatus === 1).length > 0;
 	},
 
 	onShow () {

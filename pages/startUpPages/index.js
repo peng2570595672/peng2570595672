@@ -34,6 +34,7 @@ Page({
 						app.globalData.openId = result.data.openId;
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
+						util.getRightAccount();
 						this.getOrderList();
 						util.getUserIsVip();
 					} else {
@@ -62,8 +63,7 @@ Page({
 		let params = { openId: app.globalData.openId };
 		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params,'POST',false);
 		if (result.code === 0) {
-			// // 判断是否权益券额用户
-			app.globalData.isEquityRights = result.data.filter(item => item.pledgeType === 4 && item.pledgeStatus === 1).length > 0;
+			app.globalData.myEtcList = result.data;
 			if (result.data.length > 0) {
 				// 跳转首页;
 				wx.switchTab({
