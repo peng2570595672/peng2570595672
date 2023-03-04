@@ -43,7 +43,7 @@
             <view class="publicCoderight">
                 <input class="input" type="number" placeholder="用于开具通行费发票" disabled="{{true}}" value="{{formData.operator}}" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" data-name="operator" maxlength="11" />
                 <!-- <button class="btns" open-type="getPhoneNumber" bindgetphonenumber="getWchatPhoneNumber">获取微信手机号</button> -->
-                
+
             </view>
         </view>
         <view class="tipPhone" >这是当前微信绑定手机号，将用于开具通行费发票</view>
