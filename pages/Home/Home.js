@@ -164,15 +164,6 @@ Page({
 		app.globalData.isNeedReturnHome = false;
 		this.login();
 		// this.getBanner();
-		if (app.globalData.isVip || app.globalData.isEquityRights) {
-			this.setData({
-				moduleOneList: this.data.moduleOneList.filter(item => item.title !== '在线客服')
-			});
-		} else {
-			this.setData({
-				moduleOneList: this.data.moduleOneList.filter(item => item.title !== '权益商城')
-			});
-		}
 	},
 	async onShow () {
 		util.showLoading();
@@ -182,18 +173,18 @@ Page({
 		this.fmagent = new FMAgent(app.globalData._fmOpt);
 		// 采集openid，成功后调用回调
 		util.getUserInfo(this.getId);
-		if (app.globalData.isVip || app.globalData.isEquityRights) {
-			this.setData({
-				moduleOneList: this.data.moduleOneList.filter(item => item.title !== '在线客服')
-			});
-		} else {
-			this.setData({
-				moduleOneList: this.data.moduleOneList.filter(item => item.title !== '权益商城')
-			});
-		}
 		if (app.globalData.userInfo.accessToken) {
-			util.getUserIsVip();
-			util.getRightAccount();
+			await util.getUserIsVip();
+			await util.getRightAccount();
+			if (app.globalData.isVip || app.globalData.isEquityRights) {
+				this.setData({
+					moduleOneList: this.data.moduleOneList.filter(item => item.title !== '在线客服')
+				});
+			} else {
+				this.setData({
+					moduleOneList: this.data.moduleOneList.filter(item => item.title !== '权益商城')
+				});
+			}
 			util.getMemberStatus();
 			if (app.globalData.salesmanScanCodeToHandleId) {
 				await this.bindOrder();
@@ -419,8 +410,17 @@ Page({
 						app.globalData.openId = result.data.openId;
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
-						util.getUserIsVip();
-						util.getRightAccount();
+						await util.getUserIsVip();
+						await util.getRightAccount();
+						if (app.globalData.isVip || app.globalData.isEquityRights) {
+							this.setData({
+								moduleOneList: this.data.moduleOneList.filter(item => item.title !== '在线客服')
+							});
+						} else {
+							this.setData({
+								moduleOneList: this.data.moduleOneList.filter(item => item.title !== '权益商城')
+							});
+						}
 						// 查询最后一笔订单状态
 						if (app.globalData.salesmanScanCodeToHandleId) {
 							await this.bindOrder();
@@ -512,8 +512,17 @@ Page({
 				let loginInfo = this.data.loginInfo;
 				loginInfo['showMobilePhone'] = util.mobilePhoneReplace(result.data.mobilePhone);
 				loginInfo.needBindingPhone = 0;
-				util.getUserIsVip();
-				util.getRightAccount();
+				await util.getUserIsVip();
+				await util.getRightAccount();
+				if (app.globalData.isVip || app.globalData.isEquityRights) {
+					this.setData({
+						moduleOneList: this.data.moduleOneList.filter(item => item.title !== '在线客服')
+					});
+				} else {
+					this.setData({
+						moduleOneList: this.data.moduleOneList.filter(item => item.title !== '权益商城')
+					});
+				}
 				this.setData({
 					loginInfo
 				});
