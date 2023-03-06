@@ -23,7 +23,7 @@ Page({
 		this.setData({
 			isVip: options.isVip === 'true' ? true : false
 		});
-		this.decisionColor(options.isVip);
+		this.decisionColor(this.data.isVip);
 	},
 
 	onShow () {
@@ -46,7 +46,7 @@ Page({
 	},
 	// 根据是否VIP决定此页面的背景色
 	decisionColor (isVip) {
-		if (isVip === 'false') { // 普通用户的背景
+		if (isVip === 'false' || isVip === false) { // 普通用户的背景
 			wx.setNavigationBarColor({
 				backgroundColor: '#BDE3D7',
 				frontColor: '#000000'
