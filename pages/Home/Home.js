@@ -164,7 +164,6 @@ Page({
 		app.globalData.isNeedReturnHome = false;
 		this.login();
 		// this.getBanner();
-		util.getUserIsVip();
 		if (app.globalData.isVip || app.globalData.isEquityRights) {
 			this.setData({
 				moduleOneList: this.data.moduleOneList.filter(item => item.title !== '在线客服')
@@ -178,7 +177,6 @@ Page({
 	async onShow () {
 		util.showLoading();
 		util.customTabbar(this, 0);
-		util.getUserIsVip();
 		// @cyl
 		// 初始化设备指纹对象
 		this.fmagent = new FMAgent(app.globalData._fmOpt);
@@ -194,6 +192,8 @@ Page({
 			});
 		}
 		if (app.globalData.userInfo.accessToken) {
+			util.getUserIsVip();
+			util.getRightAccount();
 			util.getMemberStatus();
 			if (app.globalData.salesmanScanCodeToHandleId) {
 				await this.bindOrder();
@@ -415,11 +415,12 @@ Page({
 					});
 					// 已经绑定了手机号
 					if (result.data.needBindingPhone !== 1) {
-						util.getRightAccount();
 						app.globalData.userInfo = result.data;
 						app.globalData.openId = result.data.openId;
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
+						util.getUserIsVip();
+						util.getRightAccount();
 						// 查询最后一笔订单状态
 						if (app.globalData.salesmanScanCodeToHandleId) {
 							await this.bindOrder();
@@ -511,13 +512,14 @@ Page({
 				let loginInfo = this.data.loginInfo;
 				loginInfo['showMobilePhone'] = util.mobilePhoneReplace(result.data.mobilePhone);
 				loginInfo.needBindingPhone = 0;
+				util.getUserIsVip();
+				util.getRightAccount();
 				this.setData({
 					loginInfo
 				});
 				if (app.globalData.salesmanScanCodeToHandleId) {
 					await this.bindOrder();
 				} else {
-					util.getRightAccount();
 					await util.getMemberStatus();
 					// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 					await this.getStatus();
