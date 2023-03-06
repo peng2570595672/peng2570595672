@@ -254,7 +254,7 @@ Page({
 								};
 								for (let key in ruleForm) {
 									if (key === 'numberPlates' && info[key] && info[key] !== this.data.vehPlates) {
-										return this.initPageAndToast(`行驶证前置录入车牌前置录入车牌${this.data.vehPlates}不一致`, true);
+										return this.initPageAndToast(`行驶证车牌与前置录入车牌${this.data.vehPlates}不一致`, true);
 									}
 									if (!info[key]) {
 										return this.initPageAndToast(`${ruleForm[key]}不能为空`, true);
@@ -288,7 +288,7 @@ Page({
 								};
 								for (let key in ruleForm) {
 									if (key === 'numberPlates' && info[key] && info[key] !== this.data.vehPlates) {
-										return this.initPageAndToast(`行驶证前置录入车牌前置录入车牌${this.data.vehPlates}不一致`, true);
+										return this.initPageAndToast(`行驶证车牌与前置录入车牌${this.data.vehPlates}不一致`, true);
 									}
 									if (key === 'personsCapacity' && info[key] && parseInt(info[key]) > 9) {
 										return this.initPageAndToast(`超出最大可载数，不支持该类车辆办理`, true);

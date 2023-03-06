@@ -142,7 +142,7 @@ Page({
 			list: this.data.list.concat(list)
 		});
 		console.log(this.data.list.length, '----------------------------------', result.data.total);
-		if (this.data.list.length >= result.data.detailData[index].total) {
+		if (this.data.list.length >= result.data[index].detailData.total) {
 			this.setData({
 				nextpageFlag: true
 			});
