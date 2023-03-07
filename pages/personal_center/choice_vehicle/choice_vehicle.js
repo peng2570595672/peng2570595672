@@ -34,5 +34,14 @@ Page({
 			accountId: item.id
 		});
 		console.log(result);
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+		} else {
+			if (result.data?.data?.path) {
+				util.go(`/pages/web/web/web?url=${encodeURIComponent(result.data.data.path)}`);
+			} else {
+				util.showToastNoIcon(result.data?.message || '未获取到跳转地址');
+			}
+		}
 	}
 });

@@ -5,33 +5,41 @@ Page({
 	data: {
 		isRequest: false,
 		price: 0,
-		source: '',
-		payId: '',
 		lifeServiceRecordId: ''
 	},
 	onLoad (options) {
-    this.setData({
-        price: +options.price || 0,
-        lifeServiceRecordId: options.lifeServiceRecordId,
-        source: options.source,
-        payId: options.payId
-    });
+		if (options.lifeServiceRecordId) {
+			// 权益商城h5
+			this.setData({
+				price: +options.price || 0,
+				lifeServiceRecordId: options.lifeServiceRecordId
+			});
+		} else {
+			this.setData({
+				isXiaoTuPay: true
+			});
+			// 小兔平台支付
+			const params = decodeURIComponent(options.params);
+			console.log(params);
+			this.handleXiaoTuPay(params);
+		}
 	},
 	onShow () {
 	},
-	async handlePayTTQOrder () {
-		const result = await util.getDataFromServersV2('consumer/order/pay/transactions/walfare-pay', {
-			payId: this.data.payId,
-			openId: app.globalData.openId
+	handleXiaoTuPay (params) {
+		wx.requestPayment({
+			nonceStr: params.nonceStr,
+			package: params.package,
+			paySign: params.paySign,
+			signType: params.signType,
+			timeStamp: params.timeStamp,
+			success: (res) => {
+				wx.navigateBack({});
+			},
+			fail: (res) => {
+				wx.navigateBack({});
+			}
 		});
-		if (result.code) {
-			this.setData({
-				isRequest: false
-			});
-			util.showToastNoIcon(result.message);
-			return;
-		}
-		this.handlePayOrder(result);
 	},
 	async handlePay () {
       if (this.data.isRequest) return;
@@ -39,11 +47,6 @@ Page({
         isRequest: true
       });
       util.showLoading();
-      if (this.data.source === 'ttq') {
-        this.handlePayTTQOrder();
-        // 通通券
-        return;
-      }
       const result = await util.getDataFromServersV2('consumer/voucher/rights/recharge/apply', {
         lifeServiceRecordId: this.data.lifeServiceRecordId,
         openId: app.globalData.openId
@@ -74,9 +77,6 @@ Page({
 				console.log(res);
 				if (res.errMsg === 'requestPayment:ok') {
 					let url = `https://${app.globalData.test ? 'etctest' : 'etc'}.cyzl.com/${app.globalData.test ? 'etc2-html' : 'wetc'}/equity_mall/index.html#/pay_success?auth=${app.globalData.userInfo.accessToken}`;
-					if (this.data.source === 'ttq') {
-						url = extraData.h5PayBackUrl;
-					}
 					util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
 				} else {
 					util.showToastNoIcon('支付失败！');
@@ -91,9 +91,6 @@ Page({
 				if (res.errMsg !== 'requestPayment:fail cancel') {
 					util.showToastNoIcon('支付失败！');
 				} else {
-					if (this.data.source === 'ttq') {
-						return;
-					}
 					// 支付取消
 					this.rightAccount(info);
 				}

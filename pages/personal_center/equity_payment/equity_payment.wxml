@@ -1,5 +1,5 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
-<view class="container">
+<view class="container" wx:if="{{!isXiaoTuPay}}">
     <view class="price">￥{{ tools.parseNum(price / 100) }}</view>
     <view class="title">支付方式</view>
     <view class="pay-mode" catchtap="handlePay">

@@ -194,15 +194,15 @@
 				},
 				{
 					"name": "",
-					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "orderId=870619276925734912",
+					"pathName": "pages/default/shot_bank_card/shot_bank_card",
+					"query": "type=9",
 					"launchMode": "default",
 					"scene": null
 				},
 				{
 					"name": "",
-					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "orderId=1080300107385016320",
+					"pathName": "pages/account_management/new_binding/new_binding",
+					"query": "",
 					"launchMode": "default",
 					"scene": null
 				},
@@ -222,7 +222,7 @@
 				},
 				{
 					"name": "",
-					"pathName": "pages/my/index",
+					"pathName": "pages/Home/Home",
 					"query": "",
 					"launchMode": "default",
 					"scene": null
