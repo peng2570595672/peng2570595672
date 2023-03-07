@@ -327,14 +327,17 @@ Page({
 			let isOk2 = result.data.rcode && result.data.rcode !== 0 ? true : false;
 			if (!result.data.result || isOk2) {
 				if (!result.data.result) {
-					let index = result.data.info.indexOf('【');
-					let lastIndex = result.data.info.lastIndexOf('】');
-					let info = result.data.info.slice(index + 1,lastIndex);
+					let info = '';
+					if (result.data.info) {
+						let index = result.data.info.indexOf('【');
+						let lastIndex = result.data.info.lastIndexOf('】');
+						info = result.data.info.slice(index + 1,lastIndex);
+					}
 					this.setData({
 						tipObj: {
 							type: 'one',
 							title: '车辆需注销重办',
-							content: info
+							content: info || result.data.rmsg
 						}
 					});
 				} else {
