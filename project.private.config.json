@@ -152,8 +152,8 @@
 				},
 				{
 					"name": "",
-					"pathName": "pages/personal_center/equity_mall/equity_mall",
-					"query": "",
+					"pathName": "pages/personal_center/equity_payment/equity_payment",
+					"query": "params=%7B%22timeStamp%22%3A%221678194209%22%2C%22package%22%3A%22prepay_id%3Dwx07210329566475f39e361d4c22818e0000%22%2C%22paySign%22%3A%222D94D017D92A9B882C60E0A33BF0F480%22%2C%22appid%22%3A%22wxddb3eb32425e4a96%22%2C%22signType%22%3A%22MD5%22%2C%22nonceStr%22%3A%22ErVsuqpwweNCtWAb2Xw2f73QmJWoitN1%22%7D ",
 					"launchMode": "default",
 					"scene": null
 				},
@@ -208,15 +208,15 @@
 				},
 				{
 					"name": "",
-					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "orderId=744989679090667520",
+					"pathName": "pages/default/signature_confirmation/signature_confirmation",
+					"query": "",
 					"launchMode": "default",
 					"scene": null
 				},
 				{
 					"name": "",
 					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "orderId=1080598069025705984",
+					"query": "orderId=1083400882948673536",
 					"launchMode": "default",
 					"scene": null
 				},
@@ -224,6 +224,27 @@
 					"name": "",
 					"pathName": "pages/Home/Home",
 					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+					"query": "orderId=1082615728404041728",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/default/signature_confirmation/signature_confirmation",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/default/processing_progress/processing_progress",
+					"query": "orderId=1082615728404041728",
 					"launchMode": "default",
 					"scene": null
 				}

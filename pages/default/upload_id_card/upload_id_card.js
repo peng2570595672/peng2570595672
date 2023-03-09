@@ -27,6 +27,7 @@ Page({
 		checkKeyWord: [],
 		sexArr: ['男', '女'],
 		sexIndex: -1,
+		obuCardType: 0,
 		tipObj: {
 			type: '',
 			title: '',
@@ -36,6 +37,7 @@ Page({
 	async onLoad (options) {
 		this.setData({
 			vehPlates: options.vehPlates,
+			obuCardType: +options.obuCardType,
 			topProgressBar: parseFloat(options.topProgressBar),
 			topProgressBar1: parseFloat(options.topProgressBar)
 		});
@@ -265,7 +267,7 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			if (app.globalData.orderInfo.obuCardType === 1) {
+			if (this.data.obuCardType === 1) {
 				this.userCarCheck(result.data);
 			} else {
 				const pages = getCurrentPages();

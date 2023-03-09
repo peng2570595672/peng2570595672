@@ -294,8 +294,8 @@ Page({
 		}
 	},
 	handleMall () {
-		util.go(`/pages/personal_center/equity_mall/equity_mall`);
-		return;
+		// util.go(`/pages/personal_center/equity_mall/equity_mall`);
+		// return;
 		if (this.data.accountList.length === 1) {
 			this.handleAccount();
 			return;
@@ -438,5 +438,13 @@ Page({
 				fn.apply(this, arguments);
 			}, time);
 		})();
+	},
+	// 分享
+	onShareAppMessage () {
+		return {
+			title: 'ETC一键申办，无需储值，包邮到家',
+			imageUrl: 'https://file.cyzl.com/g001/M01/CB/5E/oYYBAGQAaeyASw5fAABJbg74uSk558.png',
+			path: '/pages/my/index'
+		};
 	}
 });

@@ -127,7 +127,6 @@ Page({
 		getAgreement: false, // 是否接受协议
 		isPay: false, // 已选择通通券套餐&无需支付||已经支付
 		isTest: app.globalData.test
-		
 	},
 	async onLoad (options) {
 		console.log(options);
@@ -569,7 +568,7 @@ Page({
 				return;
 			}
 		}
-		
+
 		if (this.data.listOfPackages[this.data.choiceIndex].mustChoiceRightsPackage === 0 && this.data.rightsAndInterestsList.length) {
 			// 不必选权益 有权益包 未选中权益包
 			util.alert({

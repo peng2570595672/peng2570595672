@@ -41,8 +41,9 @@
 		"pages/default/free_equipment_agreement/free_equipment_agreement",
 		"pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement",
 		"pages/default/trucks/trucks",
+		"pages/default/signature_confirmation/signature_confirmation",
+		"pages/default/statement_of_interest/statement_of_interest",
 		"pages/default/margin_user_handling_agreement/margin_user_handling_agreement"
-
 	],
 	"window": {
 		"navigationBarBackgroundColor": "#FFFFFF",

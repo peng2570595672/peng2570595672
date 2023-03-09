@@ -8,6 +8,7 @@ Page({
 		lifeServiceRecordId: ''
 	},
 	onLoad (options) {
+		console.log(options);
 		if (options.lifeServiceRecordId) {
 			// 权益商城h5
 			this.setData({
@@ -19,15 +20,18 @@ Page({
 				isXiaoTuPay: true
 			});
 			// 小兔平台支付
-			const params = decodeURIComponent(options.params);
-			console.log(params);
-			this.handleXiaoTuPay(params);
+			this.handleXiaoTuPay(options);
 		}
 	},
 	onShow () {
 	},
-	handleXiaoTuPay (params) {
+	handleXiaoTuPay (options) {
+		let params = decodeURIComponent(options.params);
+		params = JSON.parse(params);
+		console.log(params);
 		wx.requestPayment({
+			appid: params.appid,
+			appId: params.appid,
 			nonceStr: params.nonceStr,
 			package: params.package,
 			paySign: params.paySign,

@@ -84,7 +84,6 @@ Page({
 			let orderInfo = result.data;
 			orderInfo['selfStatus'] = orderInfo.isNewTrucks === 1 ? util.getTruckHandlingStatus(orderInfo) : util.getStatus(orderInfo);
 			orderInfo['deductionMethod'] = initProductName(orderInfo);
-
 			console.log(orderInfo,'===========订单数据==================');
 
 			this.setData({
@@ -181,6 +180,14 @@ Page({
 		app.globalData.orderInfo.orderId = orderInfo.id;
 		app.globalData.processFlowVersion = orderInfo.flowVersion;
 		app.globalData.truckLicensePlate = orderInfo.vehPlates;
+		if ((orderInfo.orderType === 31 && orderInfo.pledgeStatus === 0) || (orderInfo.orderType === 51 && orderInfo.contractStatus !== 1)) {
+			// 业务员端办理 & 待支付
+			if (orderInfo.isShowRightsDesc === 1 && ((orderInfo.isNeedSign === 1 && !orderInfo.userSign) || orderInfo.isNeedSign === 0)) {
+				// 需要查看权益
+				util.go(`/pages/default/statement_of_interest/statement_of_interest?isNeedSign=${orderInfo.isNeedSign}&shopProductId=${orderInfo.shopProductId}&shopId=${orderInfo.shopId}`);
+				return;
+			}
+		}
 		const fun = {
 			1: () => this.onClickBackToSign(orderInfo),// 恢复签约
 			2: () => this.onClickContinueHandle(orderInfo),// 继续办理
@@ -231,10 +238,10 @@ Page({
 	},
 	// 去高速签约
 	onClickHighSpeedSigning (orderInfo) {
-		if (orderInfo.protocolStatus === 0) {
-			this.goPayment(orderInfo);
-			return;
-		}
+		// if (orderInfo.protocolStatus === 0) {
+		// 	this.goPayment(orderInfo);
+		// 	return;
+		// }
 		wx.uma.trackEvent('etc_detail_for_order_audit');
 		util.go(`/pages/default/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}`);
 	},
@@ -363,11 +370,11 @@ Page({
 	},
 	// 恢复签约
 	async onClickBackToSign (obj) {
-		if (obj.orderType === 31 && obj.protocolStatus === 0) {
-			const path = obj.isNewTrucks === 1 ? 'truck_handling' : 'default';
-			util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
-			return;
-		}
+		// if (obj.orderType === 31 && obj.protocolStatus === 0) {
+		// 	const path = obj.isNewTrucks === 1 ? 'truck_handling' : 'default';
+		// 	util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
+		// 	return;
+		// }
 		if (obj.orderType === 31 && obj.auditStatus === 0 && obj.flowVersion !== 1) {
 			this.onClickHighSpeedSigning(obj);
 			return;

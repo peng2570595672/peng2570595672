@@ -149,7 +149,14 @@ Page({
 	onBeforeLeave () {
 		this.goBack();
 	},
-
+	// 分享
+	onShareAppMessage () {
+		return {
+			title: 'ETC一键申办，无需储值，包邮到家',
+			imageUrl: 'https://file.cyzl.com/g001/M01/CB/5E/oYYBAGQAaeyASw5fAABJbg74uSk558.png',
+			path: '/pages/etc_handle/etc_handle'
+		};
+	},
 	// 返回上一页
 	goBack () {
 		wx.switchTab({

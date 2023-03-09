@@ -1,0 +1,10 @@
+<view class="container">
+    <image src="https://file.cyzl.com/g001/M01/CD/6C/oYYBAGQIOqOAazQZAAC6AM39Xso715.png" class="img" mode="widthFix"></image>
+    <image src="https://file.cyzl.com/g001/M01/CD/5D/oYYBAGQIIfmAZQJeAAIEmH5LPOA531.jpg" class="img" mode="widthFix"></image>
+    <view class="btn-container">
+        <view>
+<!--            <view class="btn-tips">如您已清晰以上内容，请确认</view>-->
+            <view class="btn" bindtap="handleConfirm">{{isNeedSign === 1 ? '签字确认' : '我已确认'}}</view>
+        </view>
+    </view>
+</view>

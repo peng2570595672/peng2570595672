@@ -751,11 +751,11 @@ function getStatus(orderInfo) {
 		}
 		return 23;
 	}
-	if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0 && orderInfo.isSignTtCoupon !== 1 && orderInfo.platformId !== '568113867222155288' && orderInfo.platformId !== '500338116821778436') {
-		// 过滤好车主的
-		// protocolStatus 0未签协议 1签了
-		return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
-	}
+	// if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0 && orderInfo.isSignTtCoupon !== 1 && orderInfo.platformId !== '568113867222155288' && orderInfo.platformId !== '500338116821778436') {
+	// 	// 过滤好车主的
+	// 	// protocolStatus 0未签协议 1签了
+	// 	return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
+	// }
 	if (orderInfo.isNewTrucks === 0 && orderInfo.contractStatus !== 1 && orderInfo.status === 1 && orderInfo.pledgeStatus !== 0) {
 		return 1; // 客车解约
 	}
@@ -1547,7 +1547,7 @@ async function getRightAccount () {
 	const result = await getDataFromServersV2('/consumer/member/right/account', {
 		page: 1,
 		pageSize: 1
-	}, 'POST', false);
+	});
 	if (result.code) {
 	} else {
 		app.globalData.isEquityRights = result.data?.length;
@@ -1735,7 +1735,7 @@ function fangDou (that,fn, time) {
 }
 // 获取用户是否 ETC+Plus用户
 async function getUserIsVip() {
-	const result = await getDataFromServersV2('consumer/order/member/userType', {},'POST',false);
+	const result = await getDataFromServersV2('consumer/order/member/userType', {});
 	if (!result) return;
 	if (result.code === 0) {
 		if ( result.data.userType === 2) {

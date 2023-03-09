@@ -197,7 +197,7 @@ Page({
 		if (url === 'information_validation' && !this.data.orderInfo.isOwner) {
 			return util.showToastNoIcon('请先上传身份证');
 		}
-		util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}`);
+		util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}&obuCardType=${this.data.orderInfo.obuCardType}`);
 	},
 	// ETC申办审核结果通知、ETC发货提示
 	async subscribe () {

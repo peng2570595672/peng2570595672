@@ -37,7 +37,7 @@
         </view>
     </view>
 
-    <page-container 
+    <page-container
         show="{{show}}"
         duration="{{duration}}"
         position="{{position}}"

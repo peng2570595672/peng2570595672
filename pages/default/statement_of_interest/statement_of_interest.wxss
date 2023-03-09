@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background: #2a4f44;
+  min-height: 100vh;
+}
+.container .img {
+  width: 100%;
+  display: block;
+  font-size: 0;
+  vertical-align: top;
+  margin-top: -1rpx;
+}
+.container .btn-container {
+  width: 750rpx;
+  height: 248rpx;
+  background: #fff;
+  border-radius: 16rpx 16rpx 0rpx 0rpx;
+  opacity: 0.96;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 40rpx 44rpx;
+  box-sizing: border-box;
+}
+.container .btn-container .btn-tips {
+  font-size: 22rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #39812b;
+  line-height: 32rpx;
+  padding-bottom: 32rpx;
+}
+.container .btn-container .btn {
+  width: 662rpx;
+  height: 110rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #2a4f44;
+  box-shadow: 0rpx 4rpx 2rpx 0rpx rgba(212,212,212,0.5);
+  border-radius: 64rpx;
+  font-size: 36rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #fff;
+}
