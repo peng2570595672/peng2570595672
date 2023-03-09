@@ -87,6 +87,7 @@
 			"pages": [
 				"index/index",
 				"choice_vehicle/choice_vehicle",
+				"transfer_page/transfer_page",
 				"equity_payment/equity_payment",
 				"my_etc/my_etc",
 				"equity_mall/equity_mall",

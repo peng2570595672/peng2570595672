@@ -1,0 +1,41 @@
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  background: #fff;
+  padding-top: 288rpx;
+  box-sizing: border-box;
+  text-align: center;
+}
+.container .logo {
+  width: 370rpx;
+}
+.container .tips {
+  font-size: 28rpx;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: rgba(30,30,30,0.751);
+  line-height: 40rpx;
+  padding-bottom: 112rpx;
+}
+.container .btn {
+  width: 590rpx;
+  height: 110rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 55rpx;
+  font-size: 36rpx;
+  font-family: PingFang SC-Semibold, PingFang SC;
+  font-weight: 600;
+}
+.container .btn.confirm {
+  background: #2a4f44;
+  color: #fff;
+}
+.container .btn.cancel {
+  border: 2rpx solid #2a4f44;
+  font-size: 28rpx;
+  color: #2a4f44;
+  margin-top: 28rpx;
+}

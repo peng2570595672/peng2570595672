@@ -1,0 +1,8 @@
+<view class="container">
+    <view class="content">
+        <image class="logo" src="https://file.cyzl.com/g001/M01/CD/E0/oYYBAGQJ7FaAIRWLAAAP_6EnOyY669.png" mode="widthFix"></image>
+        <view class="tips">您即将离开跳转至中萃到家小程序</view>
+        <view class="btn confirm" bindtap="handleConfirm">确认</view>
+        <view class="btn cancel" bindtap="handleCancel">取消</view>
+    </view>
+</view>
