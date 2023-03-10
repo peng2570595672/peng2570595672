@@ -221,7 +221,7 @@ Page({
 
 	// --------------------------------测试方法: 广告弹窗------------------------
 	catchtouchmove () {},
-	testFunc (e) {
+	testFunc () {
 		// 未登录
 		if (!app.globalData.userInfo?.accessToken) {
 			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
