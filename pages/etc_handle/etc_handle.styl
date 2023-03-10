@@ -1,0 +1,159 @@
+
+// @import "../../../style/base.styl"
+.index
+    padding 0
+    margin 0
+    width 100vw
+    height auto
+    z-index 100
+    /* 顶部 返回按钮 */
+    .topBack
+        width 80rpx
+        height 80rpx
+        overflow hidden
+        font-size 28rpx
+        border-radius 50%
+        display flex
+        align-items center
+        justify-content center
+        position absolute
+        top 100rpx
+        left 20rpx
+        .goBanckImg
+            width 50%
+            height 50%
+    /* 顶部banner */
+    .topBanner
+        width 100%
+        height 176rpx
+        overflow hidden
+    .one
+        width 100%
+        height 802rpx
+        overflow hidden
+        .image
+            width 100%
+            height 100%
+    .three
+        width 100%
+        height 1074rpx
+        overflow hidden
+        position relative
+        .images
+            width 100%
+            height 100%
+            z-index -1
+        .buttomText
+            height 22rpx
+            font-size 20rpx
+            font-weight 400
+            margin-top 38rpx
+            line-height 22rpx
+            position absolute
+            top 240rpx
+        .twoButtom
+            width 180rpx
+            height 20rpx
+            color #1A5045
+            text-align center
+            padding 10rpx 20rpx
+            border-radius 20rpx
+            background-color rgba(200, 200, 200, 0.5)
+            position absolute
+            left 50%
+            transform translateX(-50%)
+    /* 模块 */
+    .module
+        height auto
+        text-align center
+        background-color rgba(21,94,78, 1)
+        font-family PingFangSC-Regular, PingFang SC
+        &.four
+            height auto
+            border-top 2rpx dashed transparent
+            position relative
+            padding-bottom 50rpx
+        .title
+            height 44rpx
+            font-size 32rpx
+            font-weight 600
+            color #4D4D51
+            line-height 44rpx
+            padding-top 50rpx
+            margin-left 28rpx
+        .textLeft
+            text-align left
+            color #FFFFFF
+            padding-top 30rpx
+        .answersQuestions
+            margin 0rpx 28rpx
+            height auto
+            text-align left
+            color #FFFFFF
+            margin-top 30rpx
+            padding-bottom 22rpx
+            font-family PingFangSC-Medium, PingFang SC
+            .questions
+                display flex
+                .questionsImg
+                    width 24rpx
+                    height 24rpx
+                    line-height 42rpx
+                    image
+                        width 100%
+                        height 100%
+                .questionsTitle
+                    width 616rpx
+                    font-size 28rpx
+                    font-weight 500
+                    margin-left 8rpx
+                    line-height 40rpx
+                    text-align justify
+            .answer
+                height auto
+                opacity 0.8
+                font-size 22rpx
+                font-weight 400
+                color #FFFFFF
+                line-height 40rpx
+                text-align justify
+                margin 8rpx 30rpx 0 30rpx
+                font-family PingFangSC-Regular, PingFang SC
+            .onlineSpan
+                color rgba(47, 200, 224, 1)
+        .moreQuestions
+            width 200rpx
+            font-size 28rpx
+            font-weight 400
+            color #00A9FF
+            line-height 22rpx
+            font-family PingFangSC-Regular, PingFang SC
+            position relative
+            top 10rpx
+            left 50%
+            transform translateX(-50%)
+     /* 占位 */
+    .split
+        height 260rpx
+        background-color rgba(21,94,78, 1)
+        overflow hidden
+    /* 底部按钮“立即办理” */
+    .handleImmediately
+        width 100vw
+        height 244rpx
+        background #FFFFFF
+        border-radius 16rpx 16rpx 0px 0px
+        position fixed
+        bottom 0
+        opacity 1
+        display flex
+        align-items center
+        justify-content center
+        button
+            width 662rpx
+            height 110rpx
+            color #FFFFFF
+            line-height 110rpx
+            background #2A4F44
+            box-shadow 0rpx 4rpx 2rpx 0rpx rgba(212, 212, 212, 0.5)
+            border-radius 64rpx
