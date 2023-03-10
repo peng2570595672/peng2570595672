@@ -43,6 +43,7 @@ Page({
 	async onShow () {
 		const pages = getCurrentPages();
 		const currPage = pages[pages.length - 1];
+		console.log(currPage.__data__);
 		// 修改资料不需要查询订单详情
 		if (currPage.__data__.isChangeHeadstock) {
 			this.setData({

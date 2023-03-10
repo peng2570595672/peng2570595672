@@ -326,6 +326,7 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
+			result.data = JSON.parse(JSON.stringify(result.data));
 			let isOk2 = result.data.rcode && result.data.rcode !== 0 ? true : false;
 			if (!result.data.result || isOk2) {
 				if (!result.data.result) {
@@ -335,28 +336,23 @@ Page({
 						let lastIndex = result.data.info.lastIndexOf('】');
 						info = result.data.info.slice(index + 1,lastIndex);
 					}
-					this.setData({
-						tipObj: {
-							type: 'one',
-							title: '车辆需注销重办',
-							content: info || result.data.rmsg
-						}
+					this.selectComponent('#popTipComp').show({
+						type: 'one',
+						title: '车辆需注销重办',
+						content: info || result.data.rmsg
 					});
 				} else {
 					let flag = result.data.rmsg.indexOf('中国ETC服务小程序进行实名') || result.data.message.indexOf('中国ETC服务小程序进行实名');
 					if (flag !== -1) {
-						this.setData({
-							tipObj: {
-								type: 'one',
-								title: '身份证需实名',
-								content: '请用微信搜索中国ETC服务小程序，进入小程序登陆授权完成实名认证即可继续办理'
-							}
+						this.selectComponent('#popTipComp').show({
+							type: 'one',
+							title: '身份证需实名',
+							content: '请用微信搜索中国ETC服务小程序，进入小程序登陆授权完成实名认证即可继续办理'
 						});
 					} else {
 						util.showToastNoIcon(result.message);
 					}
 				}
-				this.selectComponent('#popTipComp').show();
 				return;
 			}
 			const pages = getCurrentPages();
