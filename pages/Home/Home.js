@@ -147,7 +147,6 @@ Page({
 				statisticsEvent: 'index_moving_integral'
 			}
 		],	// 出行贴心服务
-		viewTc: {}, // 用于存放弹窗数据
 		whetherToStay: false, // 用于控制显示弹窗时，最底层页面禁止不动
 		movingIntegralObj: {
 			movingIntegralControl: false
@@ -221,6 +220,7 @@ Page({
 	},
 
 	// --------------------------------测试方法: 广告弹窗------------------------
+	catchtouchmove () {},
 	testFunc (e) {
 		// 未登录
 		if (!app.globalData.userInfo?.accessToken) {
