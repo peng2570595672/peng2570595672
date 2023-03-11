@@ -1,171 +1,142 @@
 .iconfont {
-    font-family: "iconfont" !important;
-    font-size: 16px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: 'iconfont' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-
 .index {
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(180deg, #FBE7CA 0%, #EBEDF0 83%, #EBEDF0 100%);
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(180deg, #fbe7ca 0, #ebedf0 83%, #ebedf0 100%);
 }
-
 .index .swiperBox {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.index .swiperBox .title {
-    width: 100%;
-    height: 17vh;
-    display: flex;
-    text-align: center;
-    margin-bottom: 20rpx;
-    align-items: flex-end;
-    justify-content: center;
-    overflow: hidden;
-}
-
-.index .swiperBox .title .titleOne {
-
-}
-
-.index .swiperBox .title .icon {
-    height: 74rpx;
-    width: 100%;
-    text-align: center;
-    margin-top: 30rpx;
-}
-
-.index .swiperBox .title .icon .image {
-    height: 74rpx;
-    width: 100rpx;
-}
-
-.index .swiperBox .title .text1 {
-    font-size: 40rpx;
-    font-weight: 600;
-    color: #B36C3B;
-    text-align: center;
-    font-family: PingFangSC-Semibold, PingFang SC;
-}
-
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
 /* 图片 */
+}
+.index .swiperBox .title {
+  width: 100%;
+  height: 17vh;
+  display: flex;
+  text-align: center;
+  margin-bottom: 20rpx;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+}
+.index .swiperBox .title .icon {
+  width: 100%;
+  height: 74rpx;
+  text-align: center;
+  margin-top: 30rpx;
+}
+.index .swiperBox .title .icon .image {
+  width: 100rpx;
+  height: 74rpx;
+}
+.index .swiperBox .title .text1 {
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #b36c3b;
+  text-align: center;
+  font-family: PingFangSC-Semibold, PingFang SC;
+}
 .index .swiperBox .content {
-    width: 698rpx;
-    height: 75vh;
-    overflow: hidden;
-    /* margin: 0rpx 56rpx; */
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+  width: 698rpx;
+  height: 75vh;
+  overflow: hidden /* margin 0rpx 56rpx */;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
-
 .index .swiperBox .content .images {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
-
 .index .swiperBox .content .contentText {
-    width: 446rpx;
-    font-weight: 400;
-    font-size: 28rpx;
-    color: #B5774C;
-    text-align: center;
-    font-family: PingFangSC-Regular, PingFang SC;
-    position: absolute;
-    left: 50%;
-    top: 40vh;
-    transform: translateX(-50%);
+  width: 446rpx;
+  font-weight: 400;
+  font-size: 28rpx;
+  color: #b5774c;
+  text-align: center;
+  font-family: PingFangSC-Regular, PingFang SC;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 40vh;
 }
-
 .index .swiperBox .content .contentText .text {
-    text-align: justify;
+  text-align: justify;
 }
-
 .index .swiperBox .content .contentText .text .span {
-    color: #00A9FF;
+  color: #00a9ff;
 }
-
-
-
-
-
-
-
-
-
-
 .index .swiperBox .bgColorOne {
-    width: 750rpx;
-    height: 32vh;
-    background: #FFFFFF;
-    border-radius: 30rpx 30rpx 0rpx 0rpx;
-    backdrop-filter: blur(10rpx);
-    box-shadow: 0rpx 50rpx 50rpx rgba(255, 255, 255, 0.68);
-    position: fixed;
-    bottom: 146rpx;
-    opacity: 0.68;
-    z-index: -2;
+  width: 750rpx;
+  height: 32vh;
+  background: #fff;
+  border-radius: 30rpx 30rpx 0 0;
+  -webkit-backdrop-filter: blur(10rpx);
+          backdrop-filter: blur(10rpx);
+  box-shadow: 0 50rpx 50rpx rgba(255,255,255,0.68);
+  position: fixed;
+  bottom: 146rpx;
+  opacity: 0.68;
+  z-index: -2;
 }
-
 .index .swiperBox .bgColorTwo {
-    width: 750rpx;
-    height: 32vh;
-    opacity: 0.38;
-    overflow: hidden;
-    background-color: rgba(255, 255, 255, 0.72);
-    backdrop-filter: blur(10rpx);
-    clip-path: polygon(50% 21%, 100% 0, 100% 100%, 0 100%, 0 0);
-    -webkit-clip-path: polygon(50% 21%, 100% 0, 100% 100%, 0 100%, 0 0);
-    box-shadow: 0rpx -20rpx 24rpx 0rpx rgba(206,130,59,0.31), inset 0rpx 22rpx 42rpx 0rpx #FFFFFF;
-    position: fixed;
-    bottom: 0rpx;
-    z-index: 20;
+  width: 750rpx;
+  height: 32vh;
+  opacity: 0.38;
+  overflow: hidden;
+  background-color: rgba(255,255,255,0.72);
+  -webkit-backdrop-filter: blur(10rpx);
+          backdrop-filter: blur(10rpx);
+  clip-path: polygon(50% 21%, 100% 0, 100% 100%, 0 100%, 0 0);
+  -webkit-clip-path: polygon(50% 21%, 100% 0, 100% 100%, 0 100%, 0 0);
+  box-shadow: 0 -20rpx 24rpx 0 rgba(206,130,59,0.31), inset 0 22rpx 42rpx 0 #fff;
+  position: fixed;
+  bottom: 0;
+  z-index: 20;
 }
-
 .index .swiperBox .bgColorTwo .btn {
-    width: 50vw;
-    height: 8vh;
-    font-weight: 600;
-    color: #A95F2C;
-    font-size: 36rpx;
-    text-align: center;
-    margin-top: 120rpx;
-    border-radius: 68rpx;
-    line-height: 8vh;
-    font-family: PingFangSC-Semibold, PingFang SC;
-    background: linear-gradient(65deg, #DEB893 0%, #F8E5D2 100%);
-    box-shadow: 0rpx 16rpx 30rpx 0rpx rgba(170, 118, 68, 0.54), 0rpx 4rpx 8rpx 0rpx #C59061, 0rpx -4rpx 36rpx 0rpx rgba(214, 186, 159, 0.63), inset 0rpx 4rpx 0rpx 0rpx rgba(255, 255, 255, 0.71), inset -12rpx 12rpx 10rpx 0rpx rgba(255, 255, 255, 0.5), inset 0rpx 32rpx 14rpx 0rpx rgba(0, 0, 0, 0.07), inset 0rpx -6rpx 14rpx 0rpx #CA9E73, inset -2rpx 4rpx 6rpx 0rpx rgba(255, 255, 255, 0.5);
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+  width: 50vw;
+  height: 8vh;
+  font-weight: 600;
+  color: #a95f2c;
+  font-size: 36rpx;
+  text-align: center;
+  margin-top: 120rpx;
+  border-radius: 68rpx;
+  line-height: 8vh;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  background: linear-gradient(65deg, #deb893 0, #f8e5d2 100%);
+  box-shadow: 0 16rpx 30rpx 0 rgba(170,118,68,0.54), 0 4rpx 8rpx 0 #c59061, 0 -4rpx 36rpx 0 rgba(214,186,159,0.63), inset 0 4rpx 0 0 rgba(255,255,255,0.71), inset -12rpx 12rpx 10rpx 0 rgba(255,255,255,0.5), inset 0 32rpx 14rpx 0 rgba(0,0,0,0.07), inset 0 -6rpx 14rpx 0 #ca9e73, inset -2rpx 4rpx 6rpx 0 rgba(255,255,255,0.5);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
-
 .index .dots {
-    position: fixed;
-    bottom: 120rpx;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+  position: fixed;
+  bottom: 120rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
-
 .index .dots .littleDots {
-    width: 30rpx;
-    height: 10rpx;
-    margin: 0 6rpx;
-    border-radius: 10rpx;
-    background-color: #fff;
+  width: 30rpx;
+  height: 10rpx;
+  margin: 0 6rpx;
+  border-radius: 10rpx;
+  background-color: #fff;
 }
-
 .index .dots .active {
-    width: 60rpx;
-    background-color: orange;
+  width: 60rpx;
+  background-color: #ffa500;
 }
