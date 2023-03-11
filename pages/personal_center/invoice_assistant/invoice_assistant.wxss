@@ -1,97 +1,87 @@
 .iconfont {
-    font-family: "iconfont" !important;
-    font-size: 16px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: 'iconfont' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-
 .index {
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background-color: #ECECEC;
-}
-
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #ececec;
 /* 顶部占位 */
-.index .split {
-    width: 100%;
-    height: 0rpx;
-    overflow: hidden;
-}
-
 /* 公共模块 */
+}
+.index .split {
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+}
 .index .module {
-    width: 658rpx;
-    margin-top: 28rpx;
-    border-radius: 16rpx;
-    background-color: #fff;
-    padding: 28rpx 0rpx 28rpx 36rpx;
-    font-family: PingFangSC-Regular, PingFang SC;
-    box-shadow: 0px 4rpx 2rpx 0rpx rgba(212, 212, 212, 0.5);
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+  width: 658rpx;
+  margin-top: 28rpx;
+  border-radius: 16rpx;
+  background-color: #fff;
+  padding: 28rpx 0 28rpx 36rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  box-shadow: 0 4rpx 2rpx 0 rgba(212,212,212,0.5);
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
-
 .index .module .title {
-    font-size: 32rpx;
-    font-weight: 600;
-    color: #1E1E1E;
-    font-family: PingFangSC-Semibold, PingFang SC;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1e1e1e;
+  font-family: PingFangSC-Semibold, PingFang SC;
 }
-
 .index .module .iconNameSpot {
-    display: flex;
-    height: 68rpx;
-    align-items: center;
-    margin-bottom: 24rpx;
-    justify-content: space-between;
-    border-bottom: 2rpx solid #e7e7e7;
+  display: flex;
+  height: 68rpx;
+  align-items: center;
+  margin-bottom: 24rpx;
+  justify-content: space-between;
+  border-bottom: 2rpx solid #e7e7e7;
 }
-
 .index .module .iconNameSpot .icon {
-    width: 42rpx;
-    height: 42rpx;
-    display: flex;
-    overflow: hidden;
-    align-items: center;
-    justify-content: center;
+  width: 42rpx;
+  height: 42rpx;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
 }
-
 .index .module .iconNameSpot .explain::before {
-    display: block;
-    content: "\e650";
-    opacity: 0.8;
+  display: block;
+  content: '\e650';
+  opacity: 0.8;
 }
-
 .index .module .iconNameSpot .toll::before {
-    display: block;
-    content: "\e6a5";
-    opacity: 0.8;
+  display: block;
+  content: '\e6a5';
+  opacity: 0.8;
 }
-
 .index .module .iconNameSpot .handlingFee::before {
-    display: block;
-    content: "\e6a5";
-    opacity: 0.8;
+  display: block;
+  content: '\e6a5';
+  opacity: 0.8;
 }
-
 .index .module .iconNameSpot .name {
-    width: 580rpx;
-    height: 68rpx;
-    font-size: 24rpx;
-    font-weight: 400;
-    color: #1E1E1E;
-    line-height: 68rpx;
-    font-family: PingFangSC-Regular, PingFang SC;
+  width: 580rpx;
+  height: 68rpx;
+  font-size: 24rpx;
+  font-weight: 400;
+  color: #1e1e1e;
+  margin-left: 14rpx;
+  line-height: 68rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
 }
-
 .index .module .iconNameSpot .spot {
-    width: 20rpx;
-    height: 20rpx;
-    margin-right: 36rpx;
-    border-radius: 50%;
+  width: 20rpx;
+  height: 20rpx;
+  margin-right: 36rpx;
+  border-radius: 50%;
 }
