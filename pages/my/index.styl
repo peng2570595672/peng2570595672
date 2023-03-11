@@ -1,0 +1,179 @@
+mixinsWidthHeight($width=100%, $height=100%)
+    width $width
+    height $height
+@font-face
+    font-family: 'iconfont'
+    /* Project id 1514406 */
+    src: url('//at.alicdn.com/t/c/font_3864314_56wami89tgp.woff2?t=1673759875818') format('woff2'),
+        url('//at.alicdn.com/t/c/font_3864314_56wami89tgp.woff?t=1673759875818') format('woff'),
+        url('//at.alicdn.com/t/c/font_3864314_56wami89tgp.ttf?t=1673759875818') format('truetype')
+.iconfont
+    font-family "iconfont" !important
+    font-size 16px
+    font-style normal
+    -webkit-font-smoothing antialiased
+    -moz-osx-font-smoothing grayscale
+.no
+    background linear-gradient(180deg, #BDE3D7 0%, #EBEDF0 30%, #EBEDF0 100%)
+.is
+    background linear-gradient(180deg, #E9CA7B 0%, #EBEDF0 30%, #EBEDF0 100%)
+.my
+    width 100%
+    min-height 100vh
+    padding-bottom 168rpx
+    box-sizing border-box
+    overflow-x hidden
+    display flex
+    flex-direction column
+    /* 顶部user信息 */
+    &::before
+        mixinsWidthHeight(,192rpx)
+        display block
+        content ''
+        overflow hidden
+    .user
+        mixinsWidthHeight(,96rpx)
+        display flex
+        padding 0 28rpx
+        .headPortrait
+            mixinsWidthHeight(92rpx,92rpx)
+            overflow hidden
+            border-radius 50%
+            background-color #FFFFFF
+            .headImg
+                mixinsWidthHeight()
+        .yellowU
+            border 2px solid #AC8A35
+        .greenU
+            border 2px solid #285F4D
+        .userInfo
+            mixinsWidthHeight(574rpx,)
+            margin-left 28rpx
+            font-family PingFangSC-Semibold, PingFang SC
+            .userName
+                mixinsWidthHeight(,50rpx)
+                margin-top 4rpx
+                font-size 36rpx
+                font-weight 600
+                color #1E1E1E
+                line-height 50rpx
+            .mobilePhoneEquity
+                mixinsWidthHeight(,34rpx)
+                display flex
+                font-size 24rpx
+                font-weight 600
+                line-height 34rpx
+                justify-content space-between
+                .yellowC
+                    color #D4AF53
+                .greenC
+                    color #2A4F44
+                .viewEquity
+                    font-size 24rpx
+                    font-weight 400
+                    color #262626
+                    font-family PingFangSC-Regular, PingFang SC
+                    &::after
+                        display inline-block
+                        content "\e607"
+                        font-size 26rpx
+                        color rgba(0, 0, 0, 0.7)
+                        margin-left 14rpx
+                .ETCMobilePhone
+                    .textPhone
+                        font-weight 400
+                        color #262626
+                        font-family PingFangSC-Regular, PingFang SC
+    /* 模块 */
+    .module
+        width 694rpx
+        border-radius 16rpx
+        background #FFFFFF
+        margin 36rpx 28rpx 0rpx 28rpx
+        /* box-shadow 0rpx 4rpx 8rpx 8rpx rgba(240, 240, 240, 0.5) */
+    /* 模块一 */
+    .moduleOne
+        height 196rpx
+        margin-top 20rpx
+        position relative
+        background transparent
+        .my-cardSwiper-panel
+            mixinsWidthHeight(694rpx,196rpx)
+            margin-top 20rpx
+    /* 模块二 */
+    .moduleTwo
+        height 168rpx
+        display flex
+        background transparent
+        justify-content space-between
+        .func
+            mixinsWidthHeight(162rpx,)
+            border-radius 16rpx
+            background #FFFFFF
+            .icon
+                mixinsWidthHeight(80rpx,80rpx)
+                border-radius 50%
+                margin 20rpx 41rpx 18rpx 41rpx
+                .iconImg
+                    mixinsWidthHeight()
+            .yellowF
+                background linear-gradient(180deg, #FEF7E2 0%, #F5ECD3 100%)
+            .greenF
+                background linear-gradient(180deg, #EFF7F4 0%, #D4EAE3 100%)
+            .iconText
+                font-size 24rpx
+                font-weight 400
+                color #262626
+                text-align center
+                font-family PingFangSC-Regular, PingFang SC
+    /* 模块三 */
+    .moduleThree
+        height 270rpx
+        overflow hidden
+        box-shadow 0rpx 4rpx 8rpx 8rpx rgba(240, 240, 240, 0.5)
+        .image
+            mixinsWidthHeight(694rpx,270rpx)
+    /* 模块四 */
+    .moduleFour
+        min-height 294rpx
+        box-shadow 0rpx 4rpx 8rpx 8rpx rgba(240, 240, 240, 0.5)
+        .funcList
+            height 98rpx
+            display flex
+            margin-left 31rpx
+            align-items center
+            padding-right 15rpx
+            justify-content space-between
+            border-bottom 2rpx solid rgba(66, 66, 66, 0.05)
+            &:last-child
+                border none
+            .funcListLeft
+                width 590rpx
+                display flex
+                align-items center
+                .icon
+                    mixinsWidthHeight(42rpx,42rpx)
+                    .iconImg
+                        mixinsWidthHeight()
+                .funcListText
+                    margin-left 8rpx
+            .funcListRight
+                &::before
+                    display inline-block
+                    content "\e607"
+                    font-size 40rpx
+                    color rgba(0, 0, 0, 0.5)
+    /* 占位 */
+    .split
+        flex 1
+    // 授权管理 
+    .auth
+        text-align center
+        font-size 28rpx
+        font-family PingFangSC-Regular, PingFang SC
+        font-weight 400
+        color rgba(0,0,0,0.5)
+        line-height 40rpx
+        padding-top 32rpx
+        padding-bottom 90rpx
+
