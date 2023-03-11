@@ -64,6 +64,7 @@
   font-weight: 400;
   color: #1e1e1e;
   line-height: 68rpx;
+  margin-left: 14rpx;
   font-family: PingFangSC-Regular, PingFang SC;
 }
 .index .module .iconNameSpot .spot {
