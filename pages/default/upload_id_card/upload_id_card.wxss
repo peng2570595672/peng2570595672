@@ -14,7 +14,6 @@
 }
 .changeBg {
   background-color: #ececec;
-  padding-bottom: 244rpx;
 }
 .index .topSplit {
   width: 100%;
