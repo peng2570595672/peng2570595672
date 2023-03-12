@@ -402,7 +402,9 @@
 .payAndAgreement .paySign .payWidth {
   width: 600rpx;
 }
-.payColor {
+.payAndAgreement .paySign .moneyPay .payColor,
+.payAndAgreement .ttCounpon .payColor,
+.payAndAgreement .paySign .nextSign .payColor {
   background-color: #2a4f44;
 }
 /* 动画 */

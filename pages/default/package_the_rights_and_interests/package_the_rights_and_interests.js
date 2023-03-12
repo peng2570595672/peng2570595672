@@ -792,7 +792,7 @@ Page({
 		that.setData({
 			isFade,
 			activeIndex: isFade ? e.currentTarget.dataset.index : -1,
-			isConfirm: false,
+			getAgreement: false,
 			topProgressBar: isFade ? 2.4 : 2,
 			choiceIndex: isFade ? e.currentTarget.dataset.index : -1
 		});
