@@ -49,7 +49,7 @@
                         <view class="text">{{item.isSignTtCoupon ? 'ETC*通通券联名会员权益' : tools.limitNumber(equityListMap[index].packageName,17)}}</view>
                     </view>
                     <view class="details" catchtap="btnOpenOrOff" data-index="{{[index,isCloseUpperPart,activeIndex]}}">
-                        {{ index === activeIndex ? isCloseUpperPart1 ? '收起' : '展开' : isCloseUpperPart2 && index === isCloseUpperPart ? '收起' : '详情'}}
+                        {{ index === activeIndex ? isCloseUpperPart1 ? '收起' : '详情' : isCloseUpperPart2 && index === isCloseUpperPart ? '收起' : '详情'}}
                     </view>
                 </view>
                 <!-- 套餐 展示模块 -->
