@@ -1,0 +1,368 @@
+@charset "UTF-8"
+// 以下配置用于stylus编译后不添加前缀 如@-moz-keyframes 小程序会报错
+vendors = official
+mixinsWidthHeight($width = 100%, $height = 100%)
+    width $width
+    height $height
+mixinsIconfont($content='',$size=16px,$color=#5EBE68)
+    content $content
+    font-size $size
+    color $color
+mixinsPositionPack($position=relative)
+    position $position
+    left 50%
+    transform translateX(-50%)
+.iconfont
+    font-family 'iconfont' !important
+    font-size 16px
+    font-style normal
+    -webkit-font-smoothing antialiased
+    -moz-osx-font-smoothing grayscale
+.index
+    margin 0
+    padding 0
+    width 100vw
+    min-height 100vh
+    background-color #ECECEC
+    /* 顶部组件占位 */
+    .topSplit
+        mixinsWidthHeight(,60rpx)
+/* 套餐模块 */
+    .package 
+        .module
+            width 694rpx
+            border-radius 16rpx
+            background-color #F9F6EF
+            margin 32rpx 0 0 0
+            font-family PingFangSC-Regular, PingFang SC
+            box-shadow 0 4rpx 2rpx 0 rgba(212, 212, 212, 0.5)
+            mixinsPositionPack()
+            /* 活动提示模块 */
+            .active
+                color #fff
+                height 36rpx
+                font-weight 400
+                font-size 16rpx
+                text-align center
+                line-height 30rpx
+                padding 0 20rpx
+                letter-spacing 3rpx
+                background-color #E9CA7B
+                font-family PingFangSC-Regular, PingFang SC
+                border-top-right-radius 16rpx
+                border-bottom-left-radius 16rpx
+                position absolute
+                top 0
+                right 0
+                z-index 10
+            .activeChange
+                position absolute
+                top -4rpx
+                right -4rpx
+                border-top 4rpx solid #E9CA7B
+                border-right 4rpx solid #E9CA7B
+            .subUpperPart
+                border-radius 16rpx
+            /* 套餐模块的上半部分 */
+            .upperPart
+                opacity 1
+                overflow hidden
+                position relative
+                border-top-right-radius 16rpx
+                border-top-left-radius 16rpx
+                background-color #fff
+                padding 38rpx 28rpx 0 28rpx
+                .bgImg
+                    mixinsWidthHeight(234rpx,234rpx)
+                    position absolute
+                    right -50rpx
+                    bottom -100rpx
+                    z-index 1
+                    opacity 0.1
+                    image
+                        mixinsWidthHeight()
+                .titleMOney
+                    height 54rpx
+                    display flex
+                    align-items center
+                    justify-content space-between
+                    .title
+                        font-size 32rpx
+                        font-weight 600
+                        color #1E1E1E
+                    .money
+                        height 54rpx
+                        font-size 50rpx
+                        color #2A4F44
+                        line-height 54rpx
+                        font-weight bold
+                        font-style oblique
+                        font-family Arial-BoldItalicMT, Arial
+                .titleExplain
+                    mixinsWidthHeight(632rpx,47rpx)
+                    font-size 20rpx
+                    font-weight 400
+                    color #FFFDFD
+                    line-height 47rpx
+                    border-radius 16rpx
+                    background #E9CA7B
+                    border-top-right-radius 0
+                    font-family PingFangSC-Regular, PingFang SC
+                    position relative
+                    &::before
+                        display block
+                        content ''
+                        border 10rpx solid
+                        border-color transparent #E9CA7B #E9CA7B transparent
+                        position absolute
+                        top -10rpx
+                        right 0
+                    .planSpan
+                        padding-left 28rpx
+                .subTitle
+                    height 40rpx
+                    font-size 28rpx
+                    font-weight 400
+                    color #262626
+                    margin-top 10rpx
+                    line-height 40rpx
+                    padding-bottom 15rpx
+                    border-bottom 2rpx solid #F6F6F6
+                .description
+                    display flex
+                    flex-wrap wrap
+                    font-size 24rpx
+                    font-weight 400
+                    color #262626
+                    margin-bottom 36rpx
+                    justify-content space-between
+                    .descriptionModule
+                        width 242rpx
+                        display flex
+                        align-items center
+                        margin 12rpx 0 4rpx 0
+                        .ico
+                            mixinsWidthHeight(40rpx,40rpx)
+                            font-weight 400
+                            overflow hidden
+                            margin-right 8rpx
+                            display flex
+                            align-items center
+                            justify-content center
+                        .service_of_etc
+                            &::before
+                                mixinsIconfont('\e683',30rpx,#5EBE68)
+                        .service_of_equipment
+                            &::before
+                                mixinsIconfont('\e685',30rpx,#5EBE68)
+                        .service_of_invoice
+                            &::before
+                                mixinsIconfont('\e67a',30rpx,#5EBE68)
+                        .service_of_discount
+                            &::before
+                                mixinsIconfont('\e680',30rpx,#5EBE68)
+            /* 套餐模块的下半部分 */
+            .lowerpart
+                padding 20rpx 28rpx 30rpx 28rpx
+                border-bottom-left-radius 16rpx
+                border-bottom-right-radius 16rpx
+                .titleDetails
+                    height 40rpx
+                    display flex
+                    font-size 28rpx
+                    font-weight 600
+                    line-height 40rpx
+                    align-items center
+                    justify-content space-between
+                    font-family PingFangSC-Semibold, PingFang SC
+                    .titles
+                        height 100%
+                        display flex
+                        .isTtIcon
+                            mixinsWidthHeight(40rpx,40rpx)
+                            background url('https://file.cyzl.com/g001/M01/C8/9E/oYYBAGP1z2iAZxFoAAAVlwqnjac464.svg') center no-repeat
+                            background-size 40rpx 40rpx
+                        .icon
+                            &::before
+                                mixinsWidthHeight(40rpx,40rpx)
+                                display block
+                                mixinsIconfont('\e6a1',24rpx,#E9CA7B)
+                        .text
+                            font-size 28rpx
+                            font-weight 600
+                            color #E9CA7B
+                            line-height 39rpx
+                            margin-left 10rpx
+                    .details
+                        color #2A4F44
+                        mixinsWidthHeight(60rpx,40rpx)
+                        font-size 28rpx
+                        font-weight 400
+                        padding 10rpx 20rpx
+                        margin-right -10rpx
+                        font-family PingFangSC-Regular, PingFang SC
+                .detailsInfo 
+                    .isSignTtCoupon
+                        width 100%
+                        margin-top 20rpx
+                        overflow hidden
+                        .signTitle
+                            height 48rpx
+                            font-size 24rpx
+                            font-family PingFangSC-Semibold, PingFang SC
+                            font-weight 600
+                            color #1E1E1E
+                            line-height 48rpx
+                        .signImg
+                            display flex
+                            height 160rpx
+                            margin-top 20rpx
+                            align-items center
+                            justify-content space-between
+                    .pictures
+                        mixinsWidthHeight(212rpx,160rpx)
+        .moduleOne
+            margin-top 38rpx
+        .btnHighLight
+            border 4rpx solid #E9CA7B
+            &::before
+                mixinsWidthHeight(42.6rpx,32rpx)
+                display block
+                mixinsIconfont('\e669',20rpx,#FFFFFF)
+                text-align center
+                line-height 32rpx
+                background-color #E9CA7B
+                border-top-left-radius 16rpx
+                border-bottom-right-radius 16rpx
+                position absolute
+                top -4rpx
+                left -4rpx
+                z-index 10
+    /* 占位 */
+    .split
+        mixinsWidthHeight(,330rpx)
+        overflow hidden
+        margin-top 32rpx
+        text-align center
+        line-height 330rpx
+        color rgba(0, 0, 1, 0.25)
+        font-family PingFangSC-Semibold, PingFang SC
+    .bigSplit
+        height 1000rpx
+        font-size 50rpx
+        font-weight bold
+        line-height 300rpx
+    .littleSplit
+        height 120rpx
+        line-height 80rpx
+    /* 支付和协议说明 模块 */
+    .payAndAgreement
+        mixinsWidthHeight(750rpx,330rpx)
+        background #FBFBFB;
+        box-shadow 0 -20rpx 16rpx 0 rgba(152, 168, 151, 0.11)
+        position fixed
+        bottom 0
+        z-index 10
+        .agreementConfirm
+            height 84rpx
+            display flex
+            font-size 20rpx
+            font-weight 400
+            color #000000
+            line-height 28rpx
+            justify-content space-between
+            margin 30rpx 38rpx 0 38rpx
+            font-family PingFangSC-Regular, PingFang SC
+            .confirm
+                mixinsWidthHeight(44rpx,44rpx)
+                border-radius 50%
+                background-color #ccc
+            .tick
+                &::before
+                    display block
+                    mixinsWidthHeight(44rpx,44rpx)
+                    mixinsIconfont('\e669',22rpx,#FFFFFF)
+                    text-align center
+                    line-height 44rpx
+                    border-radius 50%
+                    background-color #39812B
+            .agreement
+                mixinsWidthHeight(614rpx,)
+                text-align justify
+                .agreementColor
+                    color #5EBE68
+                    .agreeSpan
+                        color #000000
+        .paySign .moneyPay,.ttCounpon, .nextSign
+            height 90rpx
+            display flex
+            align-items flex-end
+            justify-content center
+            margin 32rpx 38rpx 0 38rpx
+            font-family Arial-BoldItalicMT, Arial
+        .ttCounpon .btn,.paySign .nextSign .btns
+            width 600rpx
+            color #FFFFFF
+            text-align center
+            line-height 90rpx
+            border-radius 64rpx
+            background-color #ccc
+            box-shadow 0 4rpx 2rpx 0 rgba(212, 212, 212, 0.5)
+        .paySign 
+            .confirmPackage
+                justify-content space-between
+            .moneyPay 
+                .money
+                    font-size 44rpx
+                    color #000000
+                    line-height 44rpx
+                    font-weight bold
+                    font-style oblique
+                    font-family Arial-BoldItalicMT, Arial
+                    .mpneySpan
+                        font-size 76rpx
+                        line-height 76rpx
+                        font-style oblique
+                .pay
+                    mixinsWidthHeight(348rpx,90rpx)
+                    font-size 36Rpx
+                    font-weight 600
+                    color #FFFFFF
+                    text-align center
+                    line-height 90rpx
+                    border-radius 64rpx
+                    background-color #ccc
+                    box-shadow 0 4rpx 2rpx 0 rgba(212, 212, 212, 0.5)
+            .payWidth
+                width 600rpx
+    .payColor
+        background-color #2A4F44
+    /* 动画 */
+    .fadeIn
+        position fixed
+        animation fade_in 0.5s linear forwards
+        -webkit-animation fade_in 0.5s linear forwards
+    .fadeOut
+        position fixed
+        animation fade_out 0.5s linear forwards
+        -webkit-animation fade_out 0.5s linear forwards
+@keyframes fade_in
+    0%
+        bottom -330rpx
+    100%
+        bottom 0
+@keyframes fade_out
+    0%
+        bottom 0
+    100%
+        bottom -330rpx
+@keyframes fade_in
+    0%
+        bottom -330rpx
+    100%
+        bottom 0
+@keyframes fade_out
+    0%
+        bottom 0
+    100%
+        bottom -330rpx
