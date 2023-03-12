@@ -406,6 +406,7 @@
 .payAndAgreement .ttCounpon .payColor,
 .payAndAgreement .paySign .nextSign .payColor {
   background-color: #2a4f44;
+  box-shadow: 0rpx 4rpx 2rpx 0rpx rgba(212,212,212,0.5);
 }
 /* 动画 */
 .fadeIn {
