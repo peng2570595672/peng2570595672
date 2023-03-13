@@ -27,7 +27,7 @@ Page({
 	async onLoad () {
 		// 查询是否欠款
 		await util.getIsArrearage();
-		let [isPassengerCarActivation, isQTAttribute, isNotQTAttribute, isQTNotAttribute, isNotQTNotAttribute, isTTQAttribute] = [false, false, false, false, false, false];
+		let [isPassengerCarActivation, isQTAttribute, isNotQTAttribute, isQTNotAttribute, isNotQTNotAttribute, isTTQAttribute, isServiceFeeType] = [false, false, false, false, false, false, false];
 		// 客车已激活  黔通自购  非黔通自购  黔通免费  非黔通免费  通通券
 		app.globalData.myEtcList.map(item => {
 			if ((item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 0) {
@@ -95,13 +95,14 @@ Page({
 		});
 		if (isPassengerCarActivation) {
 			let carAgreementList = [
-				{id: 0,name: '用户办理协议', update: 0, url: 'agreement/agreement', isShow: isPassengerCarActivation},
+				{id: 0,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement', isShow: isPassengerCarActivation},
 				// {id: 1,name: '用户办理协议', update: 0, url: 'free_equipment_agreement/free_equipment_agreement', isShow: isQTNotAttribute},
 				// {id: 2,name: '用户办理协议（权益设备）', update: 0, url: 'self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement', isShow: isTTQAttribute},
 				// {id: 3,name: '用户办理协议（付费设备）', update: 0, url: 'new_self_buy_equipmemnt_agreement/index', isShow: isQTAttribute},
-				// {id: 4,name: '黔通卡ETC用户协议', update: 0, url: 'agreement_for_qiantong_to_free/agreement', isShow: isQTNotAttribute},
-				{id: 5,name: '黔通卡ETC用户协议', update: 0, url: 'agreement_for_qiantong_to_charge/agreement', isShow: isQTAttribute || isQTNotAttribute},
-				{id: 6,name: '隐私协议', update: 0, url: 'privacy_agreement/privacy_agreement', isShow: true}
+				// {id: 4,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement', isShow: isServiceFeeType},
+				{id: 5,name: '黔通卡ETC用户协议', update: 0, url: 'agreement_for_qiantong_to_free/agreement', isShow: isQTNotAttribute},
+				{id: 6,name: '黔通卡ETC用户协议', update: 0, url: 'agreement_for_qiantong_to_charge/agreement', isShow: isQTAttribute || isQTNotAttribute},
+				{id: 7,name: '隐私协议', update: 0, url: 'privacy_agreement/privacy_agreement', isShow: true}
 			];
      console.log(carAgreementList,'=============================');
      console.log(isObuCardType,'=============================');

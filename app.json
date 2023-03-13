@@ -34,6 +34,7 @@
 		"pages/default/coupon_agreement/coupon_agreement",
 		"pages/landing_page_for_ccb/index",
 		"pages/pay/pay",
+        "pages/default/equity_agreement/equity_agreement",
 		"pages/default/new_self_buy_equipmemnt_agreement/index",
 		"pages/default/payment_fail/payment_fail",
 		"components/pass_the_discount/pass_the_discount",

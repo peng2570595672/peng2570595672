@@ -406,24 +406,35 @@ Page({
 	},
 	// 查看办理协议
 	onClickGoAgreementHandle () {
+		const item = this.data.listOfPackages[this.data.choiceIndex];
+		if (item.etcCardId === 1) {
+			// serviceFeeType  是否收取权益服务费：0否，1是
+			return util.go('/pages/default/equity_agreement/equity_agreement');
+		}
 		// 1-自购设备 2-免费设备 3-自购(其他)
-		if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4) {
-			// ETC押金办理模式 协议
-			return util.go('/pages/default/margin_user_handling_agreement/margin_user_handling_agreement');
-		}
-		if (this.data.listOfPackages[this.data.choiceIndex]?.environmentAttribute === 2) {
-			if (this.data.listOfPackages[this.data.choiceIndex].etcCardId === 1) {
-				util.go(`/pages/default/free_equipment_agreement/free_equipment_agreement`);
-			} else {
-				util.go(`/pages/default/agreement/agreement`);
-			}
+		if (item?.environmentAttribute === 2) {
+			util.go(`/pages/default/agreement/agreement`);
 		} else {
-			if (this.data.listOfPackages[this.data.choiceIndex].isSignTtCoupon === 1) {
-				util.go(`/pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement`);
-			} else {
-				util.go(`/pages/default/new_self_buy_equipmemnt_agreement/index`);
-			}
+			util.go(`/pages/default/new_self_buy_equipmemnt_agreement/index`);
 		}
+		// if (item.pledgeType === 4) {
+		// 	// ETC押金办理模式 协议
+		// 	return util.go('/pages/default/margin_user_handling_agreement/margin_user_handling_agreement');
+		// }
+		// // 1-自购设备 2-免费设备 3-自购(其他)
+		// if (item?.environmentAttribute === 2) {
+		// 	if (item.etcCardId === 1) {
+		// 		util.go(`/pages/default/free_equipment_agreement/free_equipment_agreement`);
+		// 	} else {
+		// 		util.go(`/pages/default/agreement/agreement`);
+		// 	}
+		// } else {
+		// 	if (item.isSignTtCoupon === 1) {
+		// 		util.go(`/pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement`);
+		// 	} else {
+		// 		util.go(`/pages/default/new_self_buy_equipmemnt_agreement/index`);
+		// 	}
+		// }
 	},
 	// 黔通用户协议
 	onClickGoQianTongAgreement () {

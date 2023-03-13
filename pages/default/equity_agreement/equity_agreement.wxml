@@ -1,0 +1,5 @@
+﻿<view class="protocol">
+    <view class="">
+        <rich-text nodes="{{agreementContent}}"></rich-text>
+    </view>
+</view>
