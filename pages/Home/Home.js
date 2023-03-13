@@ -1460,7 +1460,7 @@ Page({
 		util.go(`/pages/personal_center/choice_vehicle/choice_vehicle`);
 	},
 	async handleAccount () {
-		const item = this.data.accountList[0];
+		const item = app.globalData.accountList[0];
 		const result = await util.getDataFromServersV2('/consumer/order/walfare/noPassLogin', {
 			accountId: item.id
 		});
