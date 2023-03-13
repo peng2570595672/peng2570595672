@@ -1669,37 +1669,6 @@ function alertPayment(etcMoney, isTruck) {
 		}
 	});
 }
-// @cyl 获取openid函数，支持传入回调函数
-function getUserInfo(callback) {
-	wx.checkSession({
-		success: function (res) {
-			// 这里把加密后的openid存入缓存，下次就不必再去发起请求
-			const openId = wx.getStorageSync('user_code');
-			if (openId) {
-				app.globalData.openIdTonDun = openId;
-				callback(0, openId); // 回调函数接受两个参数，第一个代表code种类，0为openId，1为code
-			} else {
-				// 如果缓存中没有，则需要再次调用登录接口获取code
-				wx.login({
-					success: function (res) {
-						app.globalData.code = res.code;
-						callback(1, res.code);
-					}
-				})
-			}
-		},
-		fail: function (res) {
-			console.log("失败");
-			wx.login({
-				success: function (res) {
-					console.log(res);
-					app.globalData.code = res.code;
-					callback(1, res.code);
-				}
-			})
-		}
-	})
-};
 // @cyl 时间比较=》 fixedTime: 固定时间，flexibleTime: 灵活时间。 适用于：根据某个时间前后来判断订单是否为新
 function timeComparison(fixedTime,flexibleTime) {
 	fixedTime = fixedTime.slice(0, 19).replace(new RegExp('-', 'g'), '/');	//转换是为了iPhone
@@ -1797,7 +1766,6 @@ module.exports = {
 	queryContractForTruckHandling,
 	getV2BankId,
 	weChatSigning,
-	getUserInfo,
 	timeComparison,
 	customTabbar,
 	fangDou,

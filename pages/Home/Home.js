@@ -165,6 +165,12 @@ Page({
 			this.login();
 		}
 		// this.getBanner();
+
+		// @cyl
+		// 初始化设备指纹对象
+		app.globalData.fmagent = new FMAgent(app.globalData._fmOpt);
+		// 采集openid，成功后调用回调
+		this.getUserInfo();
 	},
 	async onShow () {
 		if (app.globalData.userInfo.accessToken) {
@@ -196,11 +202,7 @@ Page({
 			}
 		}
 		util.customTabbar(this, 0);
-		// @cyl
-		// 初始化设备指纹对象
-		this.fmagent = new FMAgent(app.globalData._fmOpt);
-		// 采集openid，成功后调用回调
-		util.getUserInfo(this.getId);
+
 		// 登录页返回
 		let loginInfoFinal = wx.getStorageSync('login_info_final');
 		if (loginInfoFinal) {
@@ -1296,13 +1298,43 @@ Page({
 	/**
 	 * @author cyl
 	 **/
+	// 同盾获取openid函数，支持传入回调函数
+	getUserInfo () {
+		let that = this;
+		wx.checkSession({
+			success: function (res) {
+				// 这里把加密后的openid存入缓存，下次就不必再去发起请求
+				const openId = wx.getStorageSync('user_code');
+				if (openId) {
+					app.globalData.openIdTonDun = openId;
+					that.getId(0, app.globalData.openIdTonDun); // 回调函数接受两个参数，第一个代表code种类，0为openId，1为code
+				} else {
+					// 如果缓存中没有，则需要再次调用登录接口获取code
+					wx.login({
+						success: function (res) {
+							app.globalData.code = res.code;
+							that.getId(1, res.code);
+						}
+					});
+				}
+			},
+			fail: function (res) {
+				wx.login({
+					success: function (res) {
+						app.globalData.code = res.code;
+						that.getId(1, res.code);
+					}
+				});
+			}
+		});
+	},
 	// 获取openid函数
 	getId: function (codeType, data) {
 		var that = this;
 		if (codeType === 0) {
 			// openId
 			// 如果成功拿到openid，则直接开始采集设备指纹
-			that.getFp(data);
+			that.getTongdun(data);
 		} else if (codeType === 1) {
 			// 如果拿到的是code，则需要传到后端，通过微信服务器拿到openid
 			wx.request({
@@ -1315,7 +1347,7 @@ Page({
 						data: res.data
 					});
 					// 如果成功拿到openid，则开始采集设备指纹
-					that.getFp(res.data);
+					that.getTongdun(res.data);
 				}
 			});
 		} else {
@@ -1324,11 +1356,11 @@ Page({
 		}
 	},
 	// 开始采集设备指纹，传入openid
-	getFp: function (code) {
+	getTongdun: function (code) {
 		var that = this;
 		// 获取 sessionId
 		app.globalData.tonDunObj.sessionId = code;
-		that.fmagent.getInfo({
+		app.globalData.fmagent.getInfo({
 			page: that, // 当前页面
 			openid: code,
 			success: function (res) {

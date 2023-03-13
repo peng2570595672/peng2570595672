@@ -144,6 +144,7 @@ App({
 			runFrequency: 1,	// 限制调用次数
 			carNumbers: []	// 可用车辆的车牌号
 		},
+		fmagent: {},
 		disclaimerDesc: {
 			// 免责弹窗
 			title: '免责声明',
