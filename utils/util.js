@@ -1550,6 +1550,7 @@ async function getRightAccount () {
 	});
 	if (result.code) {
 	} else {
+		app.globalData.accountList = result.data;
 		app.globalData.isEquityRights = result.data?.length;
 	}
 }

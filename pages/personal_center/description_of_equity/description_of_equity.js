@@ -68,7 +68,29 @@ Page({
 		util.go(`/pages/web/web/web?type=online_customer_service`);
 	},
 	handleMall () {
-		util.go(`/pages/personal_center/equity_mall/equity_mall`);
+		// util.go(`/pages/personal_center/equity_mall/equity_mall`);
+		// return;
+		if (app.globalData.accountList.length === 1) {
+			this.handleAccount();
+			return;
+		}
+		util.go(`/pages/personal_center/choice_vehicle/choice_vehicle`);
+	},
+	async handleAccount () {
+		const item = this.data.accountList[0];
+		const result = await util.getDataFromServersV2('/consumer/order/walfare/noPassLogin', {
+			accountId: item.id
+		});
+		console.log(result);
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+		} else {
+			if (result.data?.data?.path) {
+				util.go(`/pages/web/web/web?url=${encodeURIComponent(result.data.data.path)}`);
+			} else {
+				util.showToastNoIcon(result.data?.message || '未获取到跳转地址');
+			}
+		}
 	}
 
 });

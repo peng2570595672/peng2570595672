@@ -101,6 +101,7 @@ App({
 		crowdsourcingServiceProvidersId: undefined, // 众包服务商id 用于加载不同套餐
 		rightsPackageBuyRecords: undefined, // 权益购买记录
 		myEtcList: {}, // 车辆列表
+		accountList: [], // 权益列表
 		packagePageData: undefined, // 套餐页面数据
 		orderInfo: {
 			orderId: ''
