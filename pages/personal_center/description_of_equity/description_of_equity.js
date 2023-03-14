@@ -68,8 +68,8 @@ Page({
 		util.go(`/pages/web/web/web?type=online_customer_service`);
 	},
 	handleMall () {
-		// util.go(`/pages/personal_center/equity_mall/equity_mall`);
-		// return;
+		util.go(`/pages/personal_center/equity_mall/equity_mall`);
+		return;
 		if (app.globalData.accountList.length === 1) {
 			this.handleAccount();
 			return;

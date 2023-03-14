@@ -295,8 +295,8 @@ Page({
 		}
 	},
 	handleMall () {
-		// util.go(`/pages/personal_center/equity_mall/equity_mall`);
-		// return;
+		util.go(`/pages/personal_center/equity_mall/equity_mall`);
+		return;
 		if (this.data.accountList.length === 1) {
 			this.handleAccount();
 			return;
