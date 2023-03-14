@@ -180,6 +180,16 @@ Page({
 		app.globalData.orderInfo.orderId = orderInfo.id;
 		app.globalData.processFlowVersion = orderInfo.flowVersion;
 		app.globalData.truckLicensePlate = orderInfo.vehPlates;
+		if (orderInfo.orderType === 31 && orderInfo.status === 0) {
+			util.alert({
+				title: '提示',
+				content: '当前订单无法修改，请联系业务员或在线客服处理！',
+				confirmText: '我知道了',
+				confirm: () => {
+				}
+			});
+			return;
+		}
 		if ((orderInfo.orderType === 31 && orderInfo.pledgeStatus === 0) || (orderInfo.orderType === 51 && orderInfo.contractStatus !== 1)) {
 			// 业务员端办理 & 待支付
 			if (orderInfo.isShowRightsDesc === 1 && ((orderInfo.isNeedSign === 1 && !orderInfo.userSign) || orderInfo.isNeedSign === 0)) {
