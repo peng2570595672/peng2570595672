@@ -177,7 +177,7 @@ Page({
 			util.showLoading();
 			await util.getUserIsVip();
 			await util.getRightAccount();
-			if (app.globalData.isVip || app.globalData.isEquityRights) {
+			if (app.globalData.isEquityRights) {
 				this.data.moduleOneList.map(item => {
 					item.isShow = item.title !== '在线客服';
 				});
@@ -424,7 +424,7 @@ Page({
 						app.globalData.mobilePhone = result.data.mobilePhone;
 						await util.getUserIsVip();
 						await util.getRightAccount();
-						if (app.globalData.isVip || app.globalData.isEquityRights) {
+						if (app.globalData.isEquityRights) {
 							this.data.moduleOneList.map(item => {
 								item.isShow = item.title !== '在线客服';
 							});
@@ -534,7 +534,7 @@ Page({
 				loginInfo.needBindingPhone = 0;
 				await util.getUserIsVip();
 				await util.getRightAccount();
-				if (app.globalData.isVip || app.globalData.isEquityRights) {
+				if (app.globalData.isEquityRights) {
 					this.data.moduleOneList.map(item => {
 						item.isShow = item.title !== '在线客服';
 					});
