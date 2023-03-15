@@ -37,7 +37,7 @@
 		"useCompilerPlugins": false,
 		"ignoreUploadUnusedFiles": true,
 		"useStaticServer": true,
-		"condition": true
+		"condition": false
 	},
 	"compileType": "miniprogram",
 	"simulatorType": "wechat",
