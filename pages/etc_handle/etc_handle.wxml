@@ -7,7 +7,7 @@
         <view class="topBanner"> </view>
         <!-- 模块1 支持微信多种代扣方式 -->
         <view class="one">
-            <image class="image" src="{{'https://file.cyzl.com/g001/M01/CA/47/oYYBAGP8g7yAEXg0AACM0rP-DX8583.png'}}" />
+            <image class="image" src="{{'https://file.cyzl.com/g001/M01/CE/63/oYYBAGQRSI6AFCPjAABvN6Vmnvw694.png'}}" />
         </view>
         <!-- 模块3 一站式车主服务 -->
         <view class="three">
