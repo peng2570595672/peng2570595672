@@ -95,8 +95,8 @@
 					"scene": null
 				},
 				{
-					"name": "",
-					"pathName": "pages/my/index",
+					"name": "津易行",
+					"pathName": "pingan/pages/ChooseBank/ChooseBank",
 					"query": "",
 					"launchMode": "default",
 					"scene": null
