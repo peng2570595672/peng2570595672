@@ -10,15 +10,12 @@ Page({
 	data: {
 		orderInfo: {},
 		orderType: 0,
-		isNeedSign: 0, // 是否需要签字
-		shopProductId: 0 // 是否需要签字
+		isNeedSign: 0 // 是否需要签字
 	},
 	async onLoad (options) {
 		this.setData({
 			isNeedSign: +options.isNeedSign,
-			orderType: +options.orderType,
-			shopProductId: options.shopProductId,
-			shopId: options.shopId
+			orderType: +options.orderType
 		});
 		this.getETCDetail();
 	},

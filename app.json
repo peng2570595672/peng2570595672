@@ -30,6 +30,7 @@
 		"pages/default/shot_bank_card/shot_bank_card",
 		"pages/default/order_audit/order_audit",
 		"pages/default/transition_page/transition_page",
+		"pages/default/third_party_signing/third_party_signing",
 		"pages/default/coupon_and_etc_agreement/coupon_and_etc_agreement",
 		"pages/default/coupon_agreement/coupon_agreement",
 		"pages/landing_page_for_ccb/index",
