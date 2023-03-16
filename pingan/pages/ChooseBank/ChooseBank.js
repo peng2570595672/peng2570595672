@@ -448,7 +448,7 @@ Page({
 			dataComplete: 1, // 订单资料是否已完善 1-是，0-否
 			shopProductId: this.data.choiceObj.shopProductId,
 			shopId: this.data.shopId,
-			areaCode: this.data.choiceObj.areaCode,
+			areaCode: this.data.choiceObj?.areaCode || '0',
 			idCardStatus: this.data.orderInfo['idCard'].idCardStatus,
 			idCardValidDate: this.data.idCardBack.ocrObject.validDate,
 			idCardAddress: this.data.idCardFace.ocrObject.address,
