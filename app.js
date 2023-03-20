@@ -120,31 +120,6 @@ App({
 		newPackagePageData: {}, // 新套餐页面数据
 		bankCardInfo: {}, // 二类户信息
 		weiBoUrl: IS_TEST ? '/pages/base/redirect/index?routeKey=CAR_WEBVIEW&url=https://static-dsu.wesure.cn/uatapp/app2/h5-reserve-ad/vendors&query=' : '/pages/base/redirect/index?routeKey=CAR_WEBVIEW&url=https://static.wesure.cn/app2/h5-reserve-ad/vendors&query=',
-		/* 同盾
-		 *_fmOpt配置信息
-		 * 填入对应partnerCode和appName
-		 */
-		_fmOpt: {
-			partnerCode: 'tongdun',
-			appName: 'changyou_web'
-		},
-		openIdTonDun: '',
-		tonDunObj: {
-			fingerprint: '',
-			sessionId: '',
-			myOrderId: '',
-			checkBindStatus: null,
-			integralHighlight: false,
-			orderId: '',
-			index: 0,
-			price: '',
-			changYouIntegral: 0,
-			pages: 0,
-			auth: false, // 授权
-			runFrequency: 1,	// 限制调用次数
-			carNumbers: []	// 可用车辆的车牌号
-		},
-		fmagent: {},
 		disclaimerDesc: {
 			// 免责弹窗
 			title: '免责声明',

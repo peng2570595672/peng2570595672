@@ -89,9 +89,6 @@ Page({
 		requestBillEnd: false, // 账单请求结束
 		isClickNotice: false, // 是否点击过广告位
 		isShowNotice: false, // 是否显示广告位
-		// @cyl
-		// movingIntegralControl: false, // 控制弹窗的显示与隐藏
-		areaNotOpened: ['河南', '江西', '广西', '辽宁', '重庆', '云南'], // 号码归属地还未开通 移动积分业务的
 		disclaimerDesc: app.globalData.disclaimerDesc,
 		timeout: null,
 		date: null,
@@ -141,9 +138,6 @@ Page({
 			}
 		],	// 出行贴心服务
 		whetherToStay: false, // 用于控制显示弹窗时，最底层页面禁止不动
-		movingIntegralObj: {
-			movingIntegralControl: false
-		},
 		isEquityRights: app.globalData.isEquityRights,	// 是否是权益券额用户
 		isShowHandle: true	// 是否显示办理状态栏
 	},

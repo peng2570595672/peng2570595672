@@ -140,7 +140,6 @@
     <!-- 占位 -->
     <view class="split"></view>
     <!-- 弹窗 -->
-    <viewProcedure id="viewProcedure" bind:onHandle="viewProcedure" bind:btnMovingIntegral="btnMovingIntegral" data-value="false" viewTc="{{movingIntegralObj}}"></viewProcedure>
     <view-img id="viewImg"></view-img>
     <popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="popUp"></popup1>
     <agreement-dialog id='agreement-dialog'></agreement-dialog>
