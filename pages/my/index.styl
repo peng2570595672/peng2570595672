@@ -1,12 +1,6 @@
 mixinsWidthHeight($width=100%, $height=100%)
     width $width
     height $height
-@font-face
-    font-family: 'iconfont'
-    /* Project id 1514406 */
-    src: url('//at.alicdn.com/t/c/font_3864314_56wami89tgp.woff2?t=1673759875818') format('woff2'),
-        url('//at.alicdn.com/t/c/font_3864314_56wami89tgp.woff?t=1673759875818') format('woff'),
-        url('//at.alicdn.com/t/c/font_3864314_56wami89tgp.ttf?t=1673759875818') format('truetype')
 .iconfont
     font-family "iconfont" !important
     font-size 16px
@@ -75,10 +69,11 @@ mixinsWidthHeight($width=100%, $height=100%)
                     font-family PingFangSC-Regular, PingFang SC
                     &::after
                         display inline-block
-                        content "\e607"
+                        content "\e661"
                         font-size 26rpx
                         color rgba(0, 0, 0, 0.7)
                         margin-left 14rpx
+                        transform rotateZ(-90deg)
                 .ETCMobilePhone
                     .textPhone
                         font-weight 400
@@ -152,17 +147,23 @@ mixinsWidthHeight($width=100%, $height=100%)
                 display flex
                 align-items center
                 .icon
+                    display flex
+                    align-items center
+                    justify-content center
                     mixinsWidthHeight(42rpx,42rpx)
                     .iconImg
                         mixinsWidthHeight()
+                    .isTon
+                        mixinsWidthHeight(80%,80%)
                 .funcListText
                     margin-left 8rpx
             .funcListRight
                 &::before
                     display inline-block
-                    content "\e607"
-                    font-size 40rpx
+                    content "\e661"
+                    font-size 30rpx
                     color rgba(0, 0, 0, 0.5)
+                    transform rotateZ(-90deg)
     /* 占位 */
     .split
         flex 1

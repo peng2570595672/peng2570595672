@@ -47,9 +47,9 @@
     </view>
     <!-- 模块4 功能列-->
     <view class="module moduleFour">
-        <view class="funcList" wx:for="{{funcList2}}" data-url="{{item.url}}" wx:key="index" bindtap="go">
+        <view class="funcList" wx:for="{{funcList2}}" data-url="{{item.url}}" wx:key="index" bindtap="go" wx:if="{{item.show}}">
             <view class="funcListLeft">
-                <view class="icon"><image class="iconImg" src="{{item.img}}" /></view>
+                <view class="icon"><image class="iconImg {{item.url === 'tonTonQuan' ? 'isTon':''}}" src="{{item.img}}" /></view>
                 <view class="funcListText">{{item.title}}</view>
             </view>
             <view class="funcListRight iconfont"></view>
@@ -58,4 +58,5 @@
     <view class="auth"><text bindtap="handleAuth">授权管理</text></view>
     <!-- 占位 -->
     <view class="split"></view>
+    <popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="popUp"></popup1>
 </view>

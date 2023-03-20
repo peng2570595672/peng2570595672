@@ -30,10 +30,11 @@ Page({
 
 		],
 		funcList2: [
-			{icon: '',title: '在线客服',url: 'online_customer_service',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8O5WAfXwSAAAOCAtM_x0245.svg'},
+			{icon: '', title: '通通券',url: 'tonTonQuan',img: 'https://file.cyzl.com/g001/M01/CF/5F/oYYBAGQXvWyAcN7sAAC9paTs3nM581.png',show: false},
+			{icon: '',title: '在线客服',url: 'online_customer_service',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8O5WAfXwSAAAOCAtM_x0245.svg',show: true},
 			// {icon: '',title: '手机号管理',url: '',img: ''},   //本期先隐藏该项，暂不做功能
-			{icon: '',title: '发票助手',url: 'invoice_assistant',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8OrKABB0VAAAMgE_4pJ8510.svg'},
-			{icon: '',title: '相关协议',url: 'user_agreement',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8OzyAWjMrAAAI3O0L414758.svg'}
+			{icon: '',title: '发票助手',url: 'invoice_assistant',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8OrKABB0VAAAMgE_4pJ8510.svg',show: true},
+			{icon: '',title: '相关协议',url: 'user_agreement',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8OzyAWjMrAAAI3O0L414758.svg',show: true}
 		],
 		myAccountList: [],
 		height: undefined, // 屏幕高度
@@ -59,6 +60,7 @@ Page({
 		this.setData({
 			isVip: app.globalData.isVip
 		});
+		this.conditionalDisplay();
 	},
 	async onShow () {
 		this.setData({
@@ -88,6 +90,7 @@ Page({
 			if (JSON.stringify(app.globalData.myEtcList) !== '{}') {
 				// 查询是否欠款
 				await util.getIsArrearage();
+				this.conditionalDisplay();
 			}
 		} else {
 			// 公众号进入需要登录
@@ -100,6 +103,15 @@ Page({
 			isVip: app.globalData.isVip
 		});
 		await this.getUserProfiles();
+	},
+	// 根据条件展示相关功能
+	conditionalDisplay () {
+		let flag = app.globalData.myEtcList.filter(item => item.isSignTtCoupon === 1 && item.pledgeStatus === 1 && item.status !== -1 && item.obuStatus !== 2);
+		if (flag.length > 0) {	// 展示通通券
+			this.setData({
+				'funcList2[0].show': true
+			});
+		}
 	},
 	cardChange (e) {
 		if (e.detail.index === 3 && this.data.cardList.length === 6) {
@@ -192,15 +204,6 @@ Page({
 				});
 			}
 		}
-	},
-	handleCouponMini () {
-		this.selectComponent('#dialog1').show();
-		// jumpCouponMini();
-	},
-	// 免责弹窗
-	popUp () {
-		this.selectComponent('#dialog1').noShow();
-		jumpCouponMini();
 	},
 	// 获取加购权益包订单列表
 	async getRightsPackageBuyRecords () {
@@ -357,8 +360,25 @@ Page({
 			util.go(`/pages/personal_center/${url}/${url}?isVip=${that.data.isVip}`);
 			return;
 		}
+		if (url === 'tonTonQuan') {	// 跳转通通券
+			this.selectComponent('#dialog1').show('tonTonQuan');
+			return;
+		}
 		wx.uma.trackEvent(urlObj[url]);
 		util.go(`/pages/personal_center/${url}/${url}`);
+	},
+	// 免责弹窗
+	popUp () {
+		// 未登录
+		if (!app.globalData.userInfo?.accessToken) {
+			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+			util.go('/pages/login/login/login');
+			return;
+		}
+		let url = this.selectComponent('#dialog1').noShow();
+		if (url === 'tonTonQuan') {	// 跳转通通券
+			jumpCouponMini();
+		}
 	},
 	onClickAccountManagement () {
 		wx.uma.trackEvent('personal_center_for_account_management');

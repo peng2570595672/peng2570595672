@@ -1,8 +1,3 @@
-@font-face {
-  font-family: 'iconfont';
-/* Project id 1514406 */
-  src: url("//at.alicdn.com/t/c/font_3864314_56wami89tgp.woff2?t=1673759875818") format('woff2'), url("//at.alicdn.com/t/c/font_3864314_56wami89tgp.woff?t=1673759875818") format('woff'), url("//at.alicdn.com/t/c/font_3864314_56wami89tgp.ttf?t=1673759875818") format('truetype');
-}
 .iconfont {
   font-family: "iconfont" !important;
   font-size: 16px;
@@ -100,10 +95,11 @@
 }
 .my .user .userInfo .mobilePhoneEquity .viewEquity::after {
   display: inline-block;
-  content: "\e607";
+  content: "\e661";
   font-size: 26rpx;
   color: rgba(0,0,0,0.7);
   margin-left: 14rpx;
+  transform: rotateZ(-90deg);
 }
 .my .user .userInfo .mobilePhoneEquity .ETCMobilePhone .textPhone {
   font-weight: 400;
@@ -194,6 +190,9 @@
   align-items: center;
 }
 .my .moduleFour .funcList .funcListLeft .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 42rpx;
   height: 42rpx;
 }
@@ -201,14 +200,19 @@
   width: 100%;
   height: 100%;
 }
+.my .moduleFour .funcList .funcListLeft .icon .isTon {
+  width: 80%;
+  height: 80%;
+}
 .my .moduleFour .funcList .funcListLeft .funcListText {
   margin-left: 8rpx;
 }
 .my .moduleFour .funcList .funcListRight::before {
   display: inline-block;
-  content: "\e607";
-  font-size: 40rpx;
+  content: "\e661";
+  font-size: 30rpx;
   color: rgba(0,0,0,0.5);
+  transform: rotateZ(-90deg);
 }
 .my .split {
   flex: 1;
