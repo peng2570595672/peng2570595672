@@ -177,7 +177,7 @@ Page({
 			util.showLoading();
 			await util.getUserIsVip();
 			await util.getRightAccount();
-			if (app.globalData.isVip || app.globalData.isEquityRights) {
+			if (app.globalData.isEquityRights) {
 				this.data.moduleOneList.map(item => {
 					item.isShow = item.title !== '在线客服';
 				});
@@ -424,7 +424,7 @@ Page({
 						app.globalData.mobilePhone = result.data.mobilePhone;
 						await util.getUserIsVip();
 						await util.getRightAccount();
-						if (app.globalData.isVip || app.globalData.isEquityRights) {
+						if (app.globalData.isEquityRights) {
 							this.data.moduleOneList.map(item => {
 								item.isShow = item.title !== '在线客服';
 							});
@@ -534,7 +534,7 @@ Page({
 				loginInfo.needBindingPhone = 0;
 				await util.getUserIsVip();
 				await util.getRightAccount();
-				if (app.globalData.isVip || app.globalData.isEquityRights) {
+				if (app.globalData.isEquityRights) {
 					this.data.moduleOneList.map(item => {
 						item.isShow = item.title !== '在线客服';
 					});
@@ -965,7 +965,7 @@ Page({
 			// 业务员端办理 & 待支付
 			if (orderInfo.isShowRightsDesc === 1 && ((orderInfo.isNeedSign === 1 && !orderInfo.userSign) || orderInfo.isNeedSign === 0)) {
 				// 需要查看权益
-				util.go(`/pages/default/statement_of_interest/statement_of_interest?isNeedSign=${orderInfo.isNeedSign}&shopProductId=${orderInfo.shopProductId}&shopId=${orderInfo.shopId}`);
+				util.go(`/pages/default/statement_of_interest/statement_of_interest?isNeedSign=${orderInfo.isNeedSign}&orderType=${orderInfo.orderType}`);
 				return;
 			}
 		}

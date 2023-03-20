@@ -95,8 +95,8 @@
 					"scene": null
 				},
 				{
-					"name": "",
-					"pathName": "pages/my/index",
+					"name": "津易行",
+					"pathName": "pingan/pages/ChooseBank/ChooseBank",
 					"query": "",
 					"launchMode": "default",
 					"scene": null
@@ -245,6 +245,13 @@
 					"name": "中转页",
 					"pathName": "pages/personal_center/transfer_page/transfer_page",
 					"query": "path=pages/personal_center/transfer_page/transfer_page&appId=123",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "第三方签约",
+					"pathName": "pages/default/third_party_signing/third_party_signing",
+					"query": "scene=orderId%3D1085158828212752384",
 					"launchMode": "default",
 					"scene": null
 				}

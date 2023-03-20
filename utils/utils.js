@@ -172,3 +172,16 @@ export function isOpenBluetooth () {
 		});
 	})
 }
+// 将url路径转成json a=1&=2 => {a: 1,b: 2}
+export function path2json (scene) {
+	let arr = scene.split('&');
+	let obj = {};
+	let temp;
+	for (let i = 0; i < arr.length; i++) {
+		temp = arr[i].split('=');
+		if (temp.length > 1) {
+			obj[temp[0]] = temp[1];
+		}
+	}
+	return obj;
+}

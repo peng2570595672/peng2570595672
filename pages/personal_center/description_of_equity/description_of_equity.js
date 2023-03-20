@@ -46,7 +46,7 @@ Page({
 
 	onShow () {
 		this.setData({
-			needData: this.data.isVip || app.globalData.isEquityRights ? this.data.listOne : this.data.listOne.filter(item => (item.id !== 4))
+			needData: app.globalData.isEquityRights ? this.data.listOne : this.data.listOne.filter(item => (item.id !== 4))
 		});
 	},
 

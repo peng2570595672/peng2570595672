@@ -23,6 +23,7 @@ Page({
 			ocrObject: {}
 		},// 身份证反面
 		regionCode: [],// 区域编码
+		listOfPackages: [],
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
 		orderInfo: undefined // 订单信息
@@ -229,7 +230,7 @@ Page({
 	getListOfPackages () {
 		util.showLoading();
 		let params = {
-			areaCode: this.data.regionCode[0] || '0',
+			areaCode: this.data.regionCode[0] || '',
 			productType: 2,
 			platformId: app.globalData.platformId,
 			shopId: app.globalData.otherPlatformsServiceProvidersId
@@ -239,10 +240,8 @@ Page({
 		}, (res) => {
 			if (res.code === 0) {
 				if (res.data.length === 0) {
-					if (app.globalData.isSalesmanPromotion) {
-						util.showToastNoIcon('未查询到套餐，请联系工作人员处理！');
-						return;
-					}
+					util.showToastNoIcon('未查询到套餐，请联系工作人员处理！');
+					return;
 				}
 				let list = res.data;
 				this.setData({
@@ -296,8 +295,9 @@ Page({
 	},
 	// 选择银行
 	choiceSetMeal () {
-		if (this.data.regionCode.length === 0) {
-			this.init();
+		console.log(this.data.regionCode)
+		if (this.data.listOfPackages.length === 0) {
+			this.getListOfPackages();
 			return;
 		}
 		if (!app.globalData.otherPlatformsServiceProvidersId) {
@@ -448,7 +448,7 @@ Page({
 			dataComplete: 1, // 订单资料是否已完善 1-是，0-否
 			shopProductId: this.data.choiceObj.shopProductId,
 			shopId: this.data.shopId,
-			areaCode: this.data.choiceObj.areaCode,
+			areaCode: this.data.choiceObj?.areaCode || '0',
 			idCardStatus: this.data.orderInfo['idCard'].idCardStatus,
 			idCardValidDate: this.data.idCardBack.ocrObject.validDate,
 			idCardAddress: this.data.idCardFace.ocrObject.address,

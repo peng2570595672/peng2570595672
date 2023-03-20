@@ -11,20 +11,14 @@ Page({
 		beginDraw: false, // 开始绘画
 		startX: 0,// 屏幕点x坐标
 		startY: 0, // 屏幕点y坐标
-		strokeNum: 0, // 笔画
-		shopProductId: 0,
-		shopId: 0,
+		strokeNum: 0 // 笔画
 	},
-	onLoad (options) {
-		this.setData({
-			shopProductId: options.shopProductId,
-			shopId: options.shopId
-		});
-		context = wx.createCanvasContext('canvas-id');
-		context.setLineWidth(4);// 设置线宽
-		context.setLineCap('round');// 设置线末端样式
-		context.setLineJoin('round');// 设置线条的结束交点样式
-		this.getETCDetail();
+		onLoad (options) {
+			context = wx.createCanvasContext('canvas-id');
+			context.setLineWidth(4);// 设置线宽
+			context.setLineCap('round');// 设置线末端样式
+			context.setLineJoin('round');// 设置线条的结束交点样式
+			this.getETCDetail();
 	},
 	// 清除签名
 	handleClearSign () {

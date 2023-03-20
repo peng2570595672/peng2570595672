@@ -1,0 +1,24 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<view wx:if="{{status === 0}}" class="jump"><text></text>加载中...</view>
+<view wx:if="{{status === 1}}" catchtouchmove="{{whetherToStay ? 'viewProcedure' : ''}}">
+    <view class="index" style="background-color: {{'rgb(28,82,67)'}}" >
+        <!-- 顶部返回按钮 -->
+        <!-- 顶部banner 背景颜色和图片是动态的 -->
+        <view class="topBanner"> </view>
+        <!-- 模块1 支持微信多种代扣方式 -->
+        <view class="one">
+            <image class="image" src="{{'https://file.cyzl.com/g001/M01/CE/63/oYYBAGQRSI6AFCPjAABvN6Vmnvw694.png'}}" />
+        </view>
+        <!-- 模块3 一站式车主服务 -->
+        <view class="three">
+            <view class="buttomText twoButtom" catchtap="viewProcedure" data-pop="moduleOne">查看具体办理步骤</view>
+            <image class="images" src="{{'https://file.cyzl.com/g001/M01/C9/0E/oYYBAGP4IhCAfnh_AACLStl5jQM863.png'}}" />
+        </view>
+        <!-- 占位 -->
+        <view class="split"></view>
+        <!-- 立即办理 {{isFade ? 'fadeIn' : 'fadeOut'}}-->
+        <view class="handleImmediately  ">
+            <button catchtap="onClickHandle" >去签约</button>
+        </view>
+    </view>
+</view>
