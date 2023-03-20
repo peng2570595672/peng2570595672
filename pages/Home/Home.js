@@ -3,13 +3,6 @@ import {
 } from '../../utils/utils';
 
 /**
- * @author cyl
- * 同盾
- * 引用设备指纹SDK文件，两种方式均可，es6的方式推荐在小程序框架内使用
- */
-var FMAgent = require('../../fmsdk/fm-1.6.0-umd.min.js');
-
-/**
  * @author 狂奔的蜗牛
  * @desc 首页
  */
@@ -165,12 +158,6 @@ Page({
 			this.login();
 		}
 		// this.getBanner();
-
-		// @cyl
-		// 初始化设备指纹对象
-		app.globalData.fmagent = new FMAgent(app.globalData._fmOpt);
-		// 采集openid，成功后调用回调
-		this.getUserInfo();
 	},
 	async onShow () {
 		if (app.globalData.userInfo.accessToken) {
@@ -1305,153 +1292,6 @@ Page({
 			: 'index_for_certificate_to_package');
 		util.go(`/pages/${path}/information_list/information_list`);
 	},
-	/**
-	 * @author cyl
-	 **/
-	// 同盾获取openid函数，支持传入回调函数
-	getUserInfo () {
-		let that = this;
-		wx.checkSession({
-			success: function (res) {
-				// 这里把加密后的openid存入缓存，下次就不必再去发起请求
-				const openId = wx.getStorageSync('user_code');
-				if (openId) {
-					app.globalData.openIdTonDun = openId;
-					that.getId(0, app.globalData.openIdTonDun); // 回调函数接受两个参数，第一个代表code种类，0为openId，1为code
-				} else {
-					// 如果缓存中没有，则需要再次调用登录接口获取code
-					wx.login({
-						success: function (res) {
-							app.globalData.code = res.code;
-							that.getId(1, res.code);
-						}
-					});
-				}
-			},
-			fail: function (res) {
-				wx.login({
-					success: function (res) {
-						app.globalData.code = res.code;
-						that.getId(1, res.code);
-					}
-				});
-			}
-		});
-	},
-	// 获取openid函数
-	getId: function (codeType, data) {
-		var that = this;
-		if (codeType === 0) {
-			// openId
-			// 如果成功拿到openid，则直接开始采集设备指纹
-			that.getTongdun(data);
-		} else if (codeType === 1) {
-			// 如果拿到的是code，则需要传到后端，通过微信服务器拿到openid
-			wx.request({
-				url: 'https://fp.tongdun.net?' + data, // 'http://localhost'改为您服务器的url
-				success: function (res) {
-					// 保存user_code
-					// 把openid保存到缓存中
-					wx.setStorage({
-						key: 'user_code',
-						data: res.data
-					});
-					// 如果成功拿到openid，则开始采集设备指纹
-					that.getTongdun(res.data);
-				}
-			});
-		} else {
-			// wrong
-			console.log('失败');
-		}
-	},
-	// 开始采集设备指纹，传入openid
-	getTongdun: function (code) {
-		var that = this;
-		// 获取 sessionId
-		app.globalData.tonDunObj.sessionId = code;
-		app.globalData.fmagent.getInfo({
-			page: that, // 当前页面
-			openid: code,
-			success: function (res) {
-				// 获取 fingerprint
-				app.globalData.tonDunObj.fingerprint = res;
-			},
-			fail: function (res) {
-				console.log('fail');
-			},
-			complete: function (res) {}
-		});
-	},
-	// 点击移动积分兑换ETC 高速通行券
-	async btnMovingIntegral (e) {
-		let num = await this.getMargin();
-		if (e.detail.currentTarget.dataset.name === 'cancel') {
-			console.log('点击取消');
-		} else {
-			if (num === app.globalData.myEtcList.length) {
-				util.showToastNoIcon('抱歉，您的ETC设备模式不符合兑换条件');
-				return;
-			}
-			// 登记接口 获取 myOrderId
-			const res1 = await util.getDataFromServersV2('consumer/member/changyou/sign');
-			console.log('登记：',res1);
-			if (res1.code === '104' || res1.code === 104) {
-				util.showToastNoIcon('登记时间已过');
-				return;
-			}
-			app.globalData.tonDunObj.myOrderId = res1.data.myOrderId;
-			app.globalData.tonDunObj.orderId = res1.data.orderId;
-			// 检查手机是联通还是移动，如果是联通 data 为 空
-			const res3 = await util.getDataFromServersV2('consumer/member/changyou/checkPhone', {
-				myOrderId: res1.data.myOrderId
-			});
-			console.log('检查手机是联通还是移动：',res3);
-			// 拦截不是移动的用户 拦截未开通此业务的省份
-			// res3.data.isp = '中国联通';
-			if (res3.data.isp !== '中国移动') {
-				util.showToastNoIcon('本活动仅限移动用户参与');
-				return;
-			} else if (this.data.areaNotOpened.includes(res3.data.province)) {
-				util.showToastNoIcon('号码归属省份暂未开通此业务，敬请期待！');
-				return;
-			}
-			const checkBind = await util.getDataFromServersV2('consumer/member/changyou/checkBindStatus', {
-				fingerprint: app.globalData.tonDunObj.fingerprint,
-				sessionId: app.globalData.tonDunObj.sessionId,
-				myOrderId: app.globalData.tonDunObj.myOrderId
-			});
-			console.log('检查是否绑定：',checkBind.data);
-			app.globalData.tonDunObj.checkBindStatus = checkBind.data;
-			// app.globalData.tonDunObj.checkBindStatus = true;
-			this.changYouAuth();
-		}
-	},
-	// 畅由授权
-	async changYouAuth () {
-		// 授权
-		const authData = await util.getDataFromServersV2('consumer/member/changyou/quickAuth', {
-			fingerprint: app.globalData.tonDunObj.fingerprint,
-			sessionId: app.globalData.tonDunObj.sessionId,
-			myOrderId: app.globalData.tonDunObj.myOrderId
-		});
-		console.log('授权：',authData);
-		if (authData.code !== 0) {
-			app.globalData.tonDunObj.auth = false;
-			util.showToastNoIcon(`${authData.message}`);
-		} else if (authData.data.code !== '000000') {
-			app.globalData.tonDunObj.auth = false;
-			util.showToastNoIcon(`${authData.data.mesg}`);
-		} else {
-			app.globalData.tonDunObj.auth = true;
-			if (app.globalData.tonDunObj.runFrequency++ === 1) {
-				util.showToastNoIcon('已授权');
-			}
-		}
-		// 跳转到 移动积分兑通行券 页面
-		util.go('/pages/moving_integral/bound_changyou/bound_changyou');
-	},
-
 	getMargin () {
 		// app.globalData.myEtcList[0].flowVersion = 2;
 		let num = 0;

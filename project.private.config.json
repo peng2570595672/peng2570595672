@@ -236,7 +236,7 @@
 				},
 				{
 					"name": "",
-					"pathName": "pages/default/signature_confirmation/signature_confirmation",
+					"pathName": "pages/default/shot_card/shot_card",
 					"query": "",
 					"launchMode": "default",
 					"scene": null

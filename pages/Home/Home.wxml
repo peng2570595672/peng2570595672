@@ -139,11 +139,6 @@
     </view>
     <!-- 占位 -->
     <view class="split"></view>
-    <!-- 同盾  在需要采集设备信息的页面加入以下节点 -->
-    <view wx:if="{{(hideFMCanvas != undefined) && !hideFMCanvas}}">
-        <!-- 根据您页面的布局，修改margin-top的值 -->
-        <canvas canvas-id='tdcanvas' style='margin-top:200rpx'></canvas>
-    </view>
     <!-- 弹窗 -->
     <viewProcedure id="viewProcedure" bind:onHandle="viewProcedure" bind:btnMovingIntegral="btnMovingIntegral" data-value="false" viewTc="{{movingIntegralObj}}"></viewProcedure>
     <view-img id="viewImg"></view-img>
