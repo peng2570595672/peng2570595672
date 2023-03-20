@@ -149,6 +149,5 @@
     <view-img id="viewImg"></view-img>
     <popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="popUp"></popup1>
     <agreement-dialog id='agreement-dialog'></agreement-dialog>
-    <!-- 测试弹窗 -->
     <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
 </view>

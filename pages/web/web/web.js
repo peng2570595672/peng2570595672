@@ -55,6 +55,8 @@ Page({
 				url: url
 			});
 			return;
+		} else if (options.type === 'moving_integral') {
+			url = `https://h5.couponto.cn/jf_exchange/?activityListId=159294188336701440`;
 		} else {
 		}
 		this.setData({
