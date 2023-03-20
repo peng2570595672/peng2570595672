@@ -1325,12 +1325,6 @@ Page({
 		}
 		if (str === 'moving_integral') {
 			util.go(`/pages/web/web/web?type=moving_integral`);	// 点击积分兑换跳转我方积分兑换
-			// this.setData({
-			// 	movingIntegralObj: {
-			// 		movingIntegralControl: true
-			// 	}
-			// });
-			// this.selectComponent('#viewProcedure').show();
 		}
 	},
 	handleMall () {
