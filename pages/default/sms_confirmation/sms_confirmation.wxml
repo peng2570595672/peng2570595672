@@ -16,7 +16,7 @@
             />
             <text class="validate-code" bindtap="sendVerifyCode">{{identifyingCode}}</text>
         </view>
-        <view class="sign-tips" bindtap="handleSignStatus">使用手动签字确认</view>
+<!--        <view class="sign-tips" bindtap="handleSignStatus">使用手动签字确认</view>-->
         <view class="notice">
             <view class="waring">注意！不可用于抵扣通行费也无奖励金返还</view>
             <view class="">

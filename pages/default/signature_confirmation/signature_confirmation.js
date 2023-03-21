@@ -244,7 +244,7 @@ Page({
 	},
 	handleCancel () {
 		wx.navigateBack({
-			delta: 2
+			delta: 1
 		});
 	},
 	// 开始

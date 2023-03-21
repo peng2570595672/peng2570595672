@@ -71,8 +71,6 @@
   font-weight: 600;
   color: #ec602a;
   line-height: 44rpx;
-}
-.container .sms-box .notice.notice-occupied {
   margin-top: 84rpx;
 }
 .container .sms-box .notice .waring {

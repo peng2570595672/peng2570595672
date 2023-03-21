@@ -19,6 +19,11 @@ Page({
 		isNeedJump: true,
 		strokeNum: 0 // 笔画
 	},
+	onShow () {
+		this.setData({
+			isNeedJump: true
+		});
+	},
 	async onLoad (options) {
 			const phone = app.globalData.userInfo.mobilePhone;
 			this.setData({
@@ -84,11 +89,11 @@ Page({
 	handleSignStatus () {
 		util.go(`/pages/default/signature_confirmation/signature_confirmation`);
 	},
-	async saveSign (fileUrl) {
+	async saveSign (verifyCode) {
 		util.showLoading('加载中');
 		let params = {
 			signType: this.data.signType,
-			userSign: fileUrl,
+			verifyCode: verifyCode,
 			orderId: app.globalData.orderInfo.orderId// 订单id
 		};
 		console.log('保存签名信息');
@@ -112,7 +117,7 @@ Page({
 			this.setData({
 				isNeedJump: false
 			});
-			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests`);
+			util.go(`/pages/default/signature_confirmation/signature_confirmation`);
 		} else {
 			util.showToastNoIcon(result.message);
 		}
