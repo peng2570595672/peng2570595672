@@ -259,6 +259,7 @@
 		}
 	},
 	"setting": {
-		"useIsolateContext": false
+		"useIsolateContext": false,
+		"urlCheck": false
 	}
 }
