@@ -198,8 +198,6 @@ Page({
 				return;
 			}
 		}
-		// util.go(`/pages/default/signature_confirmation/signature_confirmation`);
-		// return;
 		const fun = {
 			1: () => this.onClickBackToSign(orderInfo),// 恢复签约
 			2: () => this.onClickContinueHandle(orderInfo),// 继续办理
