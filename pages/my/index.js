@@ -60,7 +60,6 @@ Page({
 		this.setData({
 			isVip: app.globalData.isVip
 		});
-		this.conditionalDisplay();
 	},
 	async onShow () {
 		this.setData({
@@ -90,7 +89,6 @@ Page({
 			if (JSON.stringify(app.globalData.myEtcList) !== '{}') {
 				// 查询是否欠款
 				await util.getIsArrearage();
-				this.conditionalDisplay();
 			}
 		} else {
 			// 公众号进入需要登录
@@ -103,13 +101,21 @@ Page({
 			isVip: app.globalData.isVip
 		});
 		await this.getUserProfiles();
+		await this.conditionalDisplay();
 	},
 	// 根据条件展示相关功能
-	conditionalDisplay () {
-		let flag = app.globalData.myEtcList.filter(item => item.isSignTtCoupon === 1 && item.pledgeStatus === 1 && item.status !== -1 && item.obuStatus !== 2);
-		if (flag.length > 0) {	// 展示通通券
+	async conditionalDisplay () {
+		let params = {
+			openId: app.globalData.openId
+		};
+		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
+		if (!result) return;
+		if (result.code === 0) {
+			let flag = result.data.filter(item => item.isSignTtCoupon === 1 && item.pledgeStatus === 1 && item.status !== -1 && item.obuStatus !== 2);
+			console.log(flag);
+			// 展示通通券
 			this.setData({
-				'funcList2[0].show': true
+				'funcList2[0].show': flag.length > 0
 			});
 		}
 	},
