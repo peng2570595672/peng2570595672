@@ -1722,6 +1722,8 @@ module.exports = {
 	formatNumber,
 	addProtocolRecord,
 	queryProtocolRecord,
+	getRpx,
+	getPx,
 	getMemberStatus,
 	goMicroInsuranceVehicleOwner,
 	getDataFromServer, // 从服务器上获取数据

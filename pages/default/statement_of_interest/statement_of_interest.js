@@ -1,5 +1,3 @@
-import {initProductName} from "../../../utils/utils";
-
 /**
  * @author 老刘
  * @desc 信息确认
@@ -21,7 +19,7 @@ Page({
 	},
 	async handleConfirm () {
 		if (this.data.isNeedSign === 1) {
-			util.go(`/pages/default/signature_confirmation/signature_confirmation`);
+			util.go(`/pages/default/sms_confirmation/sms_confirmation`);
 		} else {
 			const obj = this.data.orderInfo;
 			if (this.data.orderType === 51) {
