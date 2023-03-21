@@ -1,0 +1,28 @@
+<view class="container">
+    <image class="img" src="https://file.cyzl.com/g001/M01/CF/99/oYYBAGQY9oOAK84NAACJn0fUYMM626.png" mode="widthFix"></image>
+    <view class="sms-box">
+        <view class="input-item phone">
+            <view>
+                <image src="https://file.cyzl.com/g001/M01/CF/9A/oYYBAGQY-OiAdTNUAAAED_jOpHo153.svg"></image>
+            </view>
+            <input value="{{mobilePhone}}" data-key="name" placeholder-class="placeholder-class" disabled="disabled" placeholder="请输入用户手机号"/>
+        </view>
+        <view class="input-item">
+            <view>
+                <image src="https://file.cyzl.com/g001/M01/CF/9A/oYYBAGQY-LKACpGMAAALHGgB4Nk051.svg"></image>
+            </view>
+            <input type="number" placeholder="输入短信验证码" placeholder-class="placeholder" value="{{verifyCode}}"
+                   bindinput="onInputChangedHandle" data-key="verifyCode"
+            />
+            <text class="validate-code" bindtap="sendVerifyCode">{{identifyingCode}}</text>
+        </view>
+        <view class="sign-tips" bindtap="handleSignStatus">使用手动签字确认</view>
+        <view class="notice">
+            <view class="waring">注意！不可用于抵扣通行费也无奖励金返还</view>
+            <view class="">
+                <view>为避免不良引导，特此声明：</view>
+                <view>本权益券额不包含高速通行费，请用户悉知</view>
+            </view>
+        </view>
+    </view>
+</view>

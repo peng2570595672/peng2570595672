@@ -1,5 +1,3 @@
-import {wxApi2Promise} from '../../../utils/utils';
-
 /**
  * @author 老刘
  * @desc 签字确认-真机调试不能绘制
@@ -8,16 +6,13 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 // 倒计时计时器
 let timer;
-let context;//
 Page({
 	data: {
 		identifyingCode: '获取验证码',
 		time: 59,// 倒计时
 		isGetIdentifyingCoding: false, // 获取验证码中
-		signType: 1,// 1-签字  2-验证码
+		signType: 2,// 1-签字  2-验证码
 		mobilePhone: '',
-		winInfo: {},
-		windowHeight: '',
 		beginDraw: false, // 开始绘画
 		startX: 0,// 屏幕点x坐标
 		startY: 0, // 屏幕点y坐标
@@ -25,106 +20,69 @@ Page({
 		strokeNum: 0 // 笔画
 	},
 	async onLoad (options) {
-		this.setData({
-			winInfo: app.globalData.screenWindowAttribute
-		});
-			context = wx.createCanvasContext('canvas-id');
-			context.setLineWidth(4);// 设置线宽
-			context.setLineCap('round');// 设置线末端样式
-			context.setLineJoin('round');// 设置线条的结束交点样式
+			const phone = app.globalData.userInfo.mobilePhone;
+			this.setData({
+				mobilePhone: phone.slice(0,3) + ' ' + phone.slice(3,7) + ' ' + phone.slice(7,11)
+			});
 			this.getETCDetail();
 	},
-	async draw (signPath) {
-		// 内容位置参照wxss
-		// 4 * rpx2px 4倍图,下载更高清;相应的canvas样式放大对应倍数(如果还不清晰,再对应加大倍数即可)
-		const bgres = await wxApi2Promise(wx.getImageInfo, {
-			src: 'https://file.cyzl.com/g001/M01/CF/AF/oYYBAGQZZFiAdGRiAAC64hEQVpg731.png'
-		}, this.data);
-		const winInfo = app.globalData.screenWindowAttribute;
-		const magnification = 4;
-		const ctx = wx.createCanvasContext('pictorial', this);
-		ctx.clearRect(0, 0, magnification * util.getPx(winInfo.windowWidth), magnification * util.getPx(winInfo.windowHeight));
-		// 绘制背景
-		ctx.drawImage(bgres.path, 0, 0, magnification * util.getPx(winInfo.windowWidth), magnification * util.getPx(winInfo.windowHeight));
-		// 绘制签字开始
-		ctx.save();
-		ctx.beginPath();
-		ctx.drawImage(signPath, magnification * util.getPx(14), magnification * util.getPx(300 + winInfo.statusBarHeight), magnification * util.getPx(319), magnification * util.getPx(283));
-		ctx.restore();
-		// 绘制签字结束
-		ctx.draw(true);
+	// 倒计时
+	startTimer () {
+		// 设置状态
 		this.setData({
-			initFinished: true
+			identifyingCode: `${this.data.time}s`
 		});
-		const res = await wxApi2Promise(wx.canvasToTempFilePath, {
-			x: 0,
-			y: 0,
-			width: 4 * util.getPx(winInfo.windowWidth) * 4,
-			height: 4 * util.getPx(winInfo.windowHeight) * 4,
-			destWidth: 4 * util.getPx(winInfo.windowWidth) * 4 * this.pixelRatio,
-			destHeight: 4 * util.getPx(winInfo.windowHeight) * 4 * this.pixelRatio,
-			canvasId: 'pictorial'
-		}, this);
-		console.log(res)
-		this.uploadFile(res.tempFilePath);
+		// 清倒计时
+		clearInterval(timer);
+		timer = setInterval(() => {
+			this.setData({time: --this.data.time});
+			if (this.data.time === 0) {
+				clearInterval(timer);
+				this.setData({
+					time: 59,
+					isGetIdentifyingCoding: false,
+					identifyingCode: '重新获取'
+				});
+			} else {
+				this.setData({
+					identifyingCode: `（${this.data.time}S）`
+				});
+			}
+		}, 1000);
 	},
-	// 清除签名
-	handleClearSign () {
-		context.draw(); // true 接着上次的继续画图，false 取消上次的画图 默认值
-		context.setLineWidth(4);
-		context.setLineCap('round');
-		context.setLineJoin('round');
+	// 发送短信验证码
+	async sendVerifyCode () {
+		if (this.data.isGetIdentifyingCoding) return;
 		this.setData({
-			strokeNum: 0,
-			startX: 0,
-			startY: 0
+			isGetIdentifyingCoding: true
 		});
-	},
-	// 提交签名
-	handleSubmitSign () {
-		if (this.data.strokeNum <= 1) {
-			util.showToastNoIcon('请重新签字！');
-			return;
+		util.showLoading({
+			title: '请求中...'
+		});
+		const result = await util.getDataFromServersV2('consumer/order/sendRightsConfirmVerifyCode', {
+			orderId: app.globalData.orderInfo.orderId // 手机号
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			this.startTimer();
+		} else {
+			this.setData({
+				isGetIdentifyingCoding: false
+			});
+			util.showToastNoIcon(result.message);
 		}
-		util.showLoading('加载中');
-		const that = this;
-		wx.canvasToTempFilePath({
-			canvasId: 'canvas-id',
-			fileType: 'png',
-			success: (res) => {
-				if (!res.tempFilePath) {
-					util.hideLoading();
-					util.showToastNoIcon('生成签名图片出错！');
-					return;
-				}
-				this.draw(res.tempFilePath);
-			},
-			fail: () => {
-				util.hideLoading();
-				util.showToastNoIcon('保存报错，请稍后重试！');
-			}
-		});
 	},
-	uploadFile (path) {
-		// 上传文件
-		util.uploadFile(path, () => {
-			util.hideLoading();
-			util.showToastNoIcon('上传失败！');
-		}, (res) => {
-			if (res) {
-				res = JSON.parse(res);
-				if (res.code === 0) { // 文件上传成功
-					this.saveSign(res.data[0].fileUrl);
-				} else { // 文件上传失败
-					util.hideLoading();
-					util.showToastNoIcon(res.message);
-				}
-			} else { // 文件上传失败
-				util.hideLoading();
-				util.showToastNoIcon('上传失败');
-			}
-		}, () => {
+	// 输入框输入值做处理
+	onInputChangedHandle (e) {
+		this.setData({
+			verifyCode: e.detail.value.substring(0, 6)
 		});
+		if (this.data.verifyCode.length === 6) {
+			this.saveSign(this.data.verifyCode);
+		}
+	},
+	handleSignStatus () {
+		util.go(`/pages/default/signature_confirmation/signature_confirmation`);
 	},
 	async saveSign (fileUrl) {
 		util.showLoading('加载中');
@@ -244,7 +202,7 @@ Page({
 	},
 	handleCancel () {
 		wx.navigateBack({
-			delta: 2
+			delta: 1
 		});
 	},
 	// 开始
