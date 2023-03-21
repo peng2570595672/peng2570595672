@@ -21,7 +21,7 @@ Page({
 	},
 	async handleConfirm () {
 		if (this.data.isNeedSign === 1) {
-			util.go(`/pages/default/signature_confirmation/signature_confirmation?shopProductId=${this.data.shopProductId}&shopId=${this.data.shopId}`);
+			util.go(`/pages/default/signature_confirmation/signature_confirmation`);
 		} else {
 			const obj = this.data.orderInfo;
 			if (this.data.orderType === 51) {

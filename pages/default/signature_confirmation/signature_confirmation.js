@@ -4,21 +4,92 @@
  */
 const util = require('../../../utils/util.js');
 const app = getApp();
-
+// 倒计时计时器
+let timer;
 let context;//
 Page({
 	data: {
+		identifyingCode: '获取验证码',
+		time: 59,// 倒计时
+		isGetIdentifyingCoding: false, // 获取验证码中
+		signType: 2,// 1-签字  2-验证码
+		mobilePhone: '',
 		beginDraw: false, // 开始绘画
 		startX: 0,// 屏幕点x坐标
 		startY: 0, // 屏幕点y坐标
+		isNeedJump: true,
 		strokeNum: 0 // 笔画
 	},
-		onLoad (options) {
+	async onLoad (options) {
+			const phone = app.globalData.userInfo.mobilePhone;
+			this.setData({
+				mobilePhone: phone.slice(0,3) + ' ' + phone.slice(3,7) + ' ' + phone.slice(7,11)
+			});
 			context = wx.createCanvasContext('canvas-id');
 			context.setLineWidth(4);// 设置线宽
 			context.setLineCap('round');// 设置线末端样式
 			context.setLineJoin('round');// 设置线条的结束交点样式
 			this.getETCDetail();
+	},
+	// 倒计时
+	startTimer () {
+		// 设置状态
+		this.setData({
+			identifyingCode: `${this.data.time}s`
+		});
+		// 清倒计时
+		clearInterval(timer);
+		timer = setInterval(() => {
+			this.setData({time: --this.data.time});
+			if (this.data.time === 0) {
+				clearInterval(timer);
+				this.setData({
+					time: 59,
+					isGetIdentifyingCoding: false,
+					identifyingCode: '重新获取'
+				});
+			} else {
+				this.setData({
+					identifyingCode: `（${this.data.time}S）`
+				});
+			}
+		}, 1000);
+	},
+	// 发送短信验证码
+	async sendVerifyCode () {
+		if (this.data.isGetIdentifyingCoding) return;
+		this.setData({
+			isGetIdentifyingCoding: true
+		});
+		util.showLoading({
+			title: '请求中...'
+		});
+		const result = await util.getDataFromServersV2('consumer/order/sendRightsConfirmVerifyCode', {
+			orderId: app.globalData.orderInfo.orderId // 手机号
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			this.startTimer();
+		} else {
+			this.setData({
+				isGetIdentifyingCoding: false
+			});
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 输入框输入值做处理
+	onInputChangedHandle (e) {
+		this.setData({
+			verifyCode: e.detail.value.substring(0, 6)
+		});
+		if (this.data.verifyCode.length === 6) {
+			this.saveSign(this.data.verifyCode);
+		}
+	},
+	handleSignStatus () {
+		this.setData({
+			signType: 1
+		});
 	},
 	// 清除签名
 	handleClearSign () {
@@ -42,6 +113,7 @@ Page({
 		const that = this;
 		wx.canvasToTempFilePath({
 			canvasId: 'canvas-id',
+			fileType: 'png',
 			success: (res) => {
 				if (!res.tempFilePath) {
 					util.hideLoading();
@@ -80,6 +152,7 @@ Page({
 	async saveSign (fileUrl) {
 		util.showLoading('加载中');
 		let params = {
+			signType: this.data.signType,
 			userSign: fileUrl,
 			orderId: app.globalData.orderInfo.orderId// 订单id
 		};
@@ -100,6 +173,10 @@ Page({
 				}
 				return;
 			}
+			if (!this.data.isNeedJump) return;
+			this.setData({
+				isNeedJump: false
+			});
 			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests`);
 		} else {
 			util.showToastNoIcon(result.message);

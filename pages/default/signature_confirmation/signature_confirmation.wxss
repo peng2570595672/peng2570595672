@@ -9,6 +9,75 @@
   vertical-align: top;
   margin-top: -1rpx;
 }
+.container .sms-box {
+  padding: 18rpx 56rpx;
+}
+.container .sms-box .input-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 98rpx;
+  color: #fff;
+  font-size: 44rpx;
+  box-sizing: border-box;
+  border: 2rpx solid #e4cb86;
+}
+.container .sms-box .input-item.phone {
+  margin-bottom: 36rpx;
+}
+.container .sms-box .input-item > view {
+  display: flex;
+  flex: 0 0 94rpx;
+  align-items: center;
+  justify-content: center;
+}
+.container .sms-box .input-item > view image {
+  width: 33rpx;
+  height: 42rpx;
+}
+.container .sms-box .input-item > input {
+  flex: 1;
+}
+.container .sms-box .input-item .placeholder {
+  font-size: 24rpx;
+}
+.container .sms-box .input-item .validate-code {
+  width: 250rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 54rpx;
+  font-size: 32rpx;
+  color: #e4cb86;
+  border-left: 1rpx solid #e4cb86;
+  box-sizing: border-box;
+}
+.container .sms-box .sign-tips {
+  height: 44rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 24rpx;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #4191f0;
+  padding-top: 16rpx;
+  padding-bottom: 24rpx;
+}
+.container .sms-box .notice {
+  height: 44rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #ec602a;
+  line-height: 44rpx;
+}
+.container .sms-box .notice.notice-occupied {
+  margin-top: 84rpx;
+}
+.container .sms-box .notice .waring {
+  margin-bottom: 14rpx;
+}
 .container .canvas-box {
   width: 694rpx;
   height: 838rpx;
@@ -44,6 +113,8 @@
 .container .canvas-box .canvas-content {
   width: 100%;
   height: 560rpx;
+  background: url("https://file.cyzl.com/g001/M01/CF/9B/oYYBAGQZCSeASFK1AAAStaH6eaM004.png");
+  background-size: cover;
 }
 .container .canvas-box .tips {
   text-align: center;

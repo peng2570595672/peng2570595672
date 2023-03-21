@@ -1,6 +1,31 @@
 <view class="container">
-    <image class="img" src="https://file.cyzl.com/g001/M01/CD/5F/oYYBAGQIJxaANv9xAACXVVF3LJ8021.png" mode="widthFix"></image>
-    <view class="canvas-box">
+    <image class="img" src="https://file.cyzl.com/g001/M01/CF/99/oYYBAGQY9oOAK84NAACJn0fUYMM626.png" mode="widthFix"></image>
+    <view class="sms-box" wx:if="{{signType === 2}}">
+        <view class="input-item phone">
+            <view>
+                <image src="https://file.cyzl.com/g001/M01/CF/9A/oYYBAGQY-OiAdTNUAAAED_jOpHo153.svg"></image>
+            </view>
+            <input value="{{mobilePhone}}" data-key="name" placeholder-class="placeholder-class" disabled="disabled" placeholder="请输入用户手机号"/>
+        </view>
+        <view class="input-item">
+            <view>
+                <image src="https://file.cyzl.com/g001/M01/CF/9A/oYYBAGQY-LKACpGMAAALHGgB4Nk051.svg"></image>
+            </view>
+            <input type="number" placeholder="输入短信验证码" placeholder-class="placeholder" value="{{verifyCode}}"
+                   bindinput="onInputChangedHandle" data-key="verifyCode"
+            />
+            <text class="validate-code" bindtap="sendVerifyCode">{{identifyingCode}}</text>
+        </view>
+        <view class="sign-tips" bindtap="handleSignStatus" wx:if="{{identifyingCode === '重新获取'}}">未收到验证码？使用手动签字确认</view>
+        <view class="notice {{identifyingCode !== '重新获取' ? 'notice-occupied' : ''}}">
+            <view class="waring">注意！不可用于抵扣通行费也无奖励金返还</view>
+            <view class="">
+                <view>为避免不良引导，特此声明：</view>
+                <view>本权益券额不包含高速通行费，请用户悉知</view>
+            </view>
+        </view>
+    </view>
+    <view class="canvas-box" wx:else>
         <view class="canvas-title">
             <image class="ico" src="https://file.cyzl.com/g001/M01/CD/63/oYYBAGQIK_KAfUSBAAAM8BRHS2Y787.svg" mode="widthFix"></image>
             <view class="title">签字确认权益</view>
@@ -12,7 +37,7 @@
         <view class="tips">签名即代表您已知晓本次消费购买的实际内容</view>
         <view class="btn-container">
             <view class="cancel" bindtap="handleCancel">我再看看</view>
-            <view class="btn" bindtap="handleSubmitSign">{{orderInfo.orderType === 51 ? '提交并签约' : '提交并支付'}}</view>
+            <view class="btn" bindtap="handleSubmitSign">确认并提交</view>
         </view>
     </view>
 </view>
