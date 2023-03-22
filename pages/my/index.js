@@ -62,13 +62,13 @@ Page({
 		});
 	},
 	async onShow () {
+		// 4.0
+		util.customTabbar(this, 2);
+		await this.getUserProfiles();
 		this.setData({
 			cardList: [],
 			nextPageData: []
 		});
-		// 4.0
-		util.customTabbar(this, 2);
-		await this.getUserProfiles();
 		// --------------end------------
 		if (app.globalData.userInfo.accessToken) {
 			let requestList = [await util.getUserIsVip(),await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
@@ -112,7 +112,6 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			let flag = result.data.filter(item => item.isSignTtCoupon === 1 && item.pledgeStatus === 1 && item.status !== -1 && item.obuStatus !== 2);
-			console.log(flag);
 			// 展示通通券
 			this.setData({
 				'funcList2[0].show': flag.length > 0

@@ -312,6 +312,7 @@
 				"webview/webview"
 			]
 		}
+		
 	],
 	"functionalPages": {
 		"independent": true
