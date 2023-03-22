@@ -11,17 +11,9 @@
 /* 模块三 */
 /* 占位 */
 }
-.home::before {
-  width: 100%;
-  display: block;
-  content: '';
-  height: 176rpx;
-  overflow: hidden;
-  background-color: #1a5043;
-}
 .home .topSwiper {
   width: 100%;
-  height: 452rpx;
+  height: auto;
   font-family: PingFangSC-Regular, PingFang SC;
 }
 .home .topSwiper .swiperBox {
@@ -37,43 +29,6 @@
   z-index: -1;
   width: 100%;
   height: 100%;
-}
-.home .topSwiper .swiperBox .swiper-item .swiperText {
-  width: 380rpx;
-  height: 300rpx;
-  font-weight: 400;
-  position: absolute;
-  top: 24rpx;
-  left: 50rpx;
-  font-family: PingFangSC-Semibold, PingFang SC;
-}
-.home .topSwiper .swiperBox .swiper-item .swiperText .textOne {
-  font-size: 58rpx;
-  font-weight: 600;
-  color: #e4cb86;
-}
-.home .topSwiper .swiperBox .swiper-item .swiperText .textTwo {
-  font-size: 36rpx;
-  color: #fff;
-  margin-top: 10rpx;
-}
-.home .topSwiper .swiperBox .swiper-item .swiperText .textThree {
-  font-size: 24rpx;
-  font-weight: 400;
-  color: #fff;
-  margin-top: 24rpx;
-}
-.home .topSwiper .swiperBox .swiper-item .swiperText .textFour {
-  font-size: 32rpx;
-  color: #e4cb86;
-  margin-top: 28rpx;
-}
-.home .topSwiper .swiperBox .swiper-item .swiperText .textFour::after {
-  display: inline-block;
-  content: '\e601';
-  color: #e4cb86;
-  font-size: 20rpx;
-  margin-left: 10rpx;
 }
 .home .topSwiper .regular {
   pointer-eventsnone: none;
@@ -222,6 +177,7 @@
   font-family: PingFangSC-Medium, PingFang SC;
   position: relative;
   top: -100rpx;
+  height: auto;
 }
 .home .moduleTwo .moduleTwoBox {
   width: 100%;

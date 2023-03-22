@@ -94,6 +94,8 @@ Page({
 		date: null,
 		// 版本4.0 所需数据
 		imgList: ['https://file.cyzl.com/g001/M01/C9/54/oYYBAGP4sCaAF2EtAABbvIQbTLM503.png'],
+		duration: 1000,	// 轮播图时间间隔
+		Hei: 628,	// banner高度
 		moduleOneList: [
 			{	// 账单查询 通行发票 权益商城
 				icon: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eRKAK0mDAAAg6lZHRZU754.jpg',
@@ -142,6 +144,7 @@ Page({
 		isShowHandle: true	// 是否显示办理状态栏
 	},
 	async onLoad (options) {
+		await this.getBackgroundConfiguration();
 		util.resetData();// 重置数据
 		this.setData({
 			date: new Date()
@@ -151,7 +154,6 @@ Page({
 		if (!app.globalData.userInfo.accessToken) {
 			this.login();
 		}
-		// this.getBanner();
 	},
 	async onShow () {
 		util.customTabbar(this, 0);
@@ -159,21 +161,21 @@ Page({
 			util.showLoading();
 			await util.getUserIsVip();
 			await util.getRightAccount();
-			if (app.globalData.isEquityRights) {
-				this.data.moduleOneList.map(item => {
-					item.isShow = item.title !== '在线客服';
-				});
-				this.setData({
-					moduleOneList: this.data.moduleOneList
-				});
-			} else {
-				this.data.moduleOneList.map(item => {
-					item.isShow = item.title !== '权益商城';
-				});
-				this.setData({
-					moduleOneList: this.data.moduleOneList
-				});
-			}
+			// if (app.globalData.isEquityRights) {
+			// 	this.data.moduleOneList.map(item => {
+			// 		item.isShow = item.title !== '在线客服';
+			// 	});
+			// 	this.setData({
+			// 		moduleOneList: this.data.moduleOneList
+			// 	});
+			// } else {
+			// 	this.data.moduleOneList.map(item => {
+			// 		item.isShow = item.title !== '权益商城';
+			// 	});
+			// 	this.setData({
+			// 		moduleOneList: this.data.moduleOneList
+			// 	});
+			// }
 			util.getMemberStatus();
 			if (app.globalData.salesmanScanCodeToHandleId) {
 				await this.bindOrder();
@@ -200,56 +202,152 @@ Page({
 			}
 			wx.removeStorageSync('login_info_final');
 		}
-		// await this.getBackgroundConfiguration();
 	},
-	// 测试
+	// 获取后台配置的数据
 	async getBackgroundConfiguration () {
 		let res = await util.getDataFromServersV2('consumer/member/pageConfig/query',{
 			configType: 1, // 配置类型(1:小程序首页配置;2:客车介绍页配置;3:首页公告配置;4:个人中心配置)
 			pagePath: 1, // 页面路径(1:小程序首页；2：客车介绍页；)
 			platformType: 4, // 小程序平台(1:ETC好车主;2:微ETC;4:ETC+)，对于多选情况，将值与对应枚举值做与运算，结果为1则包含该选项。
-			channel: 0, // 渠道(0:所有渠道;)
+			channel: 1, // 渠道(0:所有渠道;)
 			affectArea: '0' // 面向区域(0:全国)
 		},'POST',false);
 		console.log('后台数据：',res);
+		if (!res) return;
+		if (res.code === 0) {
+			let newDate = util.formatTime(new Date());	// 当前时间
+			let data = res.data.contentConfig;	// 数据
+			if (util.timeComparison(res.data.affectEndTime,newDate) === 1) return;	// 当前时间超过限定时间，不往下执行
+			// 首页 banner 轮播图 模块
+			let duration = data.rotationChartConfig.interval * 1000;	// 轮播图间隔时间
+			let bannerList = data.rotationChartConfig.rotationCharts.filter(item => util.timeComparison(item.affectEndTime,newDate) === 2 && util.timeComparison(item.affectStartTime,newDate) === 1);	// 过滤掉当前时间不在规定时间内的数据，得到合格的数据
+			bannerList.sort(this.compare('sort'));	// 排序
+
+			// 账单、权益、发票、在线 模块
+			let funcListOne = data.importantFuncConfig.funcs.filter(item => util.timeComparison(item.affectEndTime,newDate) === 2 && util.timeComparison(item.affectStartTime,newDate) === 1);
+			// visibleUser: 1-普通用户 2-ETC+PLUS用户(百二权益用户) 3-权益券额用户 组合判断,如[1,2,3]->表示全部可见
+			funcListOne.map(item => {
+				let arr1 = item.visibleUser;
+				item.isShow = arr1.length === 3 ? true : (arr1.indexOf(2) !== -1 && app.globalData.isVip) ? true : (arr1.indexOf(3) !== -1 && app.globalData.isEquityRights > 0) ? true : (arr1.indexOf(1) !== -1 && !app.globalData.isVip && app.globalData.isEquityRights === 0) ? true : false;
+			});
+			funcListOne.sort(this.compare('sort'));	// 排序
+
+			// 出行贴心服务 模块
+			let funcListTwo = data.outServiceFuncConfig.funcs.filter(item => util.timeComparison(item.affectEndTime,newDate) === 2 && util.timeComparison(item.affectStartTime,newDate) === 1);
+			funcListTwo.sort(this.compare('sort'));	// 排序
+			this.setData({
+				duration,
+				imgList: bannerList,
+				moduleOneList: funcListOne,
+				moduleTwoList: funcListTwo
+			});
+		}
 	},
-	// -------------------end--------------
-	// banner触摸移动返回
-	catchtouchmove () {},
-	// 点击banner
-	testFunc () {
+	// 排序
+	compare (prop) {
+		return function (obj1, obj2) {
+			const val1 = +obj1[prop];
+			const val2 = +obj2[prop];
+			if (val1 < val2) {
+				return -1;
+			} else if (val1 > val2) {
+				return 1;
+			} else {
+				return 0;
+			}
+		};
+	},
+	// 图片自适应
+	imgH (e) {
+		console.log(e);
+		const winWid = wx.getSystemInfoSync().windowWidth; // 获取当前屏幕的宽度
+		const imgh = e.detail.height; // 图片高度
+		const imgw = e.detail.width;
+		const swiperH = winWid * imgh / imgw + 'px'; // 等比设置swiper的高度。  即 屏幕宽度 / swiper高度 = 图片宽度 / 图片高度    ==》swiper高度 = 屏幕宽度 * 图片高度 / 图片宽度
+		this.setData({
+			Hei: swiperH // 设置高度
+		});
+	},
+	// 跳转页面、小程序、第三方
+	goPath (e) {
 		// 未登录
 		if (!app.globalData.userInfo?.accessToken) {
 			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
 			util.go('/pages/login/login/login');
 			return;
 		}
-		wx.reLaunch({
-			url: '/pages/etc_handle/etc_handle'
-		});
+		let obj = e.currentTarget.dataset.information;
+		console.log(obj);
+		let appIdPath = obj.appId && obj.appId.length > 0;
+		let webPath = obj.jumpUrl.indexOf('https') !== -1;
+		if (!appIdPath && !webPath) {
+			// 小程序内部页面跳转
+			util.go(`${obj.jumpUrl}`);
+			return;
+		}
+		// 免责弹窗声明
+		this.selectComponent('#dialog1').show({params: obj});
 	},
-	// 获取 “出行贴心服务” banner
-	async getBanner () {
-		let params = {
-			platformId: app.globalData.platformId
-		};
-		const result = await util.getDataFromServersV2('consumer/system/common/get-activity-banner', params,'POST',false);
-		if (result.code === 0) {
-			let moduleTwoList = result.data.filter(item => (item.remark === 'moving_integral'));
-			moduleTwoList.map(item => {
-				if (item.remark === 'moving_integral') {
-					item.url = item.remark;
-					item.isShow = true;
-					item.alwaysShow = true;
-					item.imgUrl = 'https://file.cyzl.com/g001/M01/C9/52/oYYBAGP4mXiAVfbDAAAkI9pn5Nw707.png';
-					item.statisticsEvent = 'index_moving_integral';
+	backFunc () {
+		let obj = this.selectComponent('#dialog1').noShow().params;
+		console.log(obj);
+		let appIdPath = obj.appId && obj.appId.length > 0;
+		let webPath = obj.jumpUrl.indexOf('https') !== -1;
+		if (appIdPath) {
+			// 跳转到另一个小程序
+			wx.navigateToMiniProgram({
+				appId: obj.appId,
+				path: obj.jumpUrl,
+				envVersion: 'release',
+				fail () {
+					util.showToastNoIcon('调起小程序失败, 请重试！');
 				}
 			});
-			this.setData({
-				moduleTwoList
-			});
+			return;
+		}
+		if (webPath) {
+			// 跳转 h5
+			util.go(`/pages/web/web/web?url=${obj.jumpUrl}`);
 		}
 	},
+	// -------------------end--------------
+
+	// banner触摸移动返回
+	catchtouchmove () {},
+	// 点击banner
+	// testFunc () {
+	// 	// 未登录
+	// 	if (!app.globalData.userInfo?.accessToken) {
+	// 		wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+	// 		util.go('/pages/login/login/login');
+	// 		return;
+	// 	}
+	// 	wx.reLaunch({
+	// 		url: '/pages/etc_handle/etc_handle'
+	// 	});
+	// },
+	// 获取 “出行贴心服务” banner
+	// async getBanner () {
+	// 	let params = {
+	// 		platformId: app.globalData.platformId
+	// 	};
+	// 	const result = await util.getDataFromServersV2('consumer/system/common/get-activity-banner', params,'POST',false);
+	// 	if (result.code === 0) {
+	// 		let moduleTwoList = result.data.filter(item => (item.remark === 'moving_integral'));
+	// 		moduleTwoList.map(item => {
+	// 			if (item.remark === 'moving_integral') {
+	// 				item.url = item.remark;
+	// 				item.isShow = true;
+	// 				item.alwaysShow = true;
+	// 				item.imgUrl = 'https://file.cyzl.com/g001/M01/C9/52/oYYBAGP4mXiAVfbDAAAkI9pn5Nw707.png';
+	// 				item.statisticsEvent = 'index_moving_integral';
+	// 			}
+	// 		});
+	// 		this.setData({
+	// 			moduleTwoList
+	// 		});
+	// 	}
+	// },
 
 	// ---------------------------------end---------------------------
 	async getIsShowNotice () {
@@ -613,7 +711,6 @@ Page({
 				[]
 			];
 			// let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
-			console.log(app.globalData.myEtcList);
 			app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
 			this.setData({
 				isShowHandle: list.filter(item => item.obuStatus !== 1 && item.obuStatus !== 2 && item.obuStatus !== 5).length > 0
