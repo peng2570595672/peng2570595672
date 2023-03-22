@@ -1,5 +1,3 @@
 {
-  "navigationBarTitleText": "",
-  "navigationBarBackgroundColor": "#2A4F44",
-  "navigationBarTextStyle": "black"
+  "navigationStyle": "custom"
 }
