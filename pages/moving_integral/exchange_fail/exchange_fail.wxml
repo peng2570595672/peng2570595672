@@ -1,8 +1,0 @@
-<!--pages/moving_integral/exchange_fail/exchange_fail.wxml-->
-<view class="exchange_fail">
-  <view class="main1">
-    <view class="top_img"></view>
-  </view>
-  <view>兑换失败</view>
-  <button type="primary" catchtap="goBack">返回</button>
-</view>

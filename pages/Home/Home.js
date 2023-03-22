@@ -154,6 +154,7 @@ Page({
 		// this.getBanner();
 	},
 	async onShow () {
+		util.customTabbar(this, 0);
 		if (app.globalData.userInfo.accessToken) {
 			util.showLoading();
 			await util.getUserIsVip();
@@ -182,7 +183,6 @@ Page({
 				await this.getStatus();
 			}
 		}
-		util.customTabbar(this, 0);
 
 		// 登录页返回
 		let loginInfoFinal = wx.getStorageSync('login_info_final');
