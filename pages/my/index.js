@@ -62,13 +62,13 @@ Page({
 		});
 	},
 	async onShow () {
+		// 4.0
+		util.customTabbar(this, 2);
+		await this.getUserProfiles();
 		this.setData({
 			cardList: [],
 			nextPageData: []
 		});
-		// 4.0
-		util.customTabbar(this, 2);
-		await this.getUserProfiles();
 		// --------------end------------
 		if (app.globalData.userInfo.accessToken) {
 			let requestList = [await util.getUserIsVip(),await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
