@@ -144,7 +144,6 @@ Page({
 		isShowHandle: true	// 是否显示办理状态栏
 	},
 	async onLoad (options) {
-		await this.getBackgroundConfiguration();
 		util.resetData();// 重置数据
 		this.setData({
 			date: new Date()
@@ -157,6 +156,7 @@ Page({
 	},
 	async onShow () {
 		util.customTabbar(this, 0);
+		await this.getBackgroundConfiguration();
 		if (app.globalData.userInfo.accessToken) {
 			util.showLoading();
 			await util.getUserIsVip();
