@@ -307,7 +307,7 @@ Page({
 		}
 		if (webPath) {
 			// 跳转 h5
-			util.go(`/pages/web/web/web?url=${obj.jumpUrl}`);
+			util.go(`/pages/web/web/web?url=${encodeURIComponent(obj.jumpUrl)}`);
 		}
 	},
 	// -------------------end--------------
