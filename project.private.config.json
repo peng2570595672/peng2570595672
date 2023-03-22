@@ -13,6 +13,7 @@
 					"name": "我的ETC",
 					"pathName": "pages/personal_center/my_etc/my_etc",
 					"query": "shareId=123455",
+					"launchMode": "default",
 					"scene": null
 				},
 				{
