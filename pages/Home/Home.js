@@ -92,6 +92,7 @@ Page({
 		disclaimerDesc: app.globalData.disclaimerDesc,
 		timeout: null,
 		date: null,
+		channel: 0,// 小程序推广渠道
 		// 版本4.0 所需数据
 		imgList: [	// 默认数据
 			{
@@ -168,6 +169,14 @@ Page({
 		}
 	},
 	async onShow () {
+		let pages = getCurrentPages();
+		let currentPage = pages[pages.length - 1];
+		console.log(currentPage.options);
+		if (currentPage.options?.channel) {
+			this.setData({
+				channel: +currentPage.options?.channel
+			});
+		}
 		util.customTabbar(this, 0);
 		await this.getBackgroundConfiguration();
 		if (app.globalData.userInfo.accessToken) {
@@ -218,46 +227,29 @@ Page({
 	},
 	// 获取后台配置的数据
 	async getBackgroundConfiguration () {
-		let res = await util.getDataFromServersV2('consumer/member/pageConfig/query',{
+		let res = await util.getDataFromServersV2('consumer/member/common/pageConfig/query',{
 			configType: 1, // 配置类型(1:小程序首页配置;2:客车介绍页配置;3:首页公告配置;4:个人中心配置)
 			pagePath: 1, // 页面路径(1:小程序首页；2：客车介绍页；)
 			platformType: 4, // 小程序平台(1:ETC好车主;2:微ETC;4:ETC+)，对于多选情况，将值与对应枚举值做与运算，结果为1则包含该选项。
-			channel: 0, // 渠道(0:所有渠道;)
+			channel: this.data.channel, // 渠道(0:所有渠道;)
 			affectArea: '0' // 面向区域(0:全国)
-		},'POST',false);
+		});
 		console.log('后台数据：',res);
 		if (!res) return;
 		if (res.code === 0) {
-			let newDate = util.formatTime(new Date());	// 当前时间
 			let data = res.data.contentConfig;	// 数据
 			// 当前时间不在限定时间内，不往下执行
-			if (util.timeComparison(res.data.affectEndTime,newDate) === 1 && util.timeComparison(res.data.affectStartTime,newDate) === 2) {
+			if (!util.isDuringDate(res.data.affectStartTime, res.data.affectEndTime)) {
 				// 获取的数据不符合是使用默认数据来展示
-				if (app.globalData.isEquityRights) {
-					this.data.moduleOneList.map(item => {
-						item.isShow = item.funcName !== '在线客服';
-					});
-					this.setData({
-						moduleOneList: this.data.moduleOneList
-					});
-				} else {
-					this.data.moduleOneList.map(item => {
-						item.isShow = item.funcName !== '权益商城';
-					});
-					this.setData({
-						moduleOneList: this.data.moduleOneList
-					});
-				}
 				return;
-			};
-
+			}
 			// 首页 banner 轮播图 模块
 			let interval = data.rotationChartConfig.interval * 1000;	// 轮播图间隔时间
-			let bannerList = data.rotationChartConfig.rotationCharts.filter(item => util.timeComparison(item.affectEndTime,newDate) === 2 && util.timeComparison(item.affectStartTime,newDate) === 1);	// 过滤掉当前时间不在规定时间内的数据，得到合格的数据
+			let bannerList = data.rotationChartConfig.rotationCharts.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime));	// 过滤掉当前时间不在规定时间内的数据，得到合格的数据
 			bannerList.sort(this.compare('sort'));	// 排序
 
 			// 账单、权益、发票、在线 模块
-			let funcListOne = data.importantFuncConfig.funcs.filter(item => util.timeComparison(item.affectEndTime,newDate) === 2 && util.timeComparison(item.affectStartTime,newDate) === 1);
+			let funcListOne = data.importantFuncConfig.funcs.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime));
 			// visibleUser: 1-普通用户 2-ETC+PLUS用户(百二权益用户) 3-权益券额用户 组合判断,如[1,2,3]->表示全部可见
 			funcListOne.map(item => {
 				let arr1 = item.visibleUser;
@@ -268,7 +260,7 @@ Page({
 			funcListOne.sort(this.compare('sort'));	// 排序
 
 			// 出行贴心服务 模块
-			let funcListTwo = data.outServiceFuncConfig.funcs.filter(item => util.timeComparison(item.affectEndTime,newDate) === 2 && util.timeComparison(item.affectStartTime,newDate) === 1);
+			let funcListTwo = data.outServiceFuncConfig.funcs.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime));
 			funcListTwo.sort(this.compare('sort'));	// 排序
 			this.setData({
 				interval,
@@ -567,21 +559,7 @@ Page({
 						app.globalData.mobilePhone = result.data.mobilePhone;
 						await util.getUserIsVip();
 						await util.getRightAccount();
-						if (app.globalData.isEquityRights) {
-							this.data.moduleOneList.map(item => {
-								item.isShow = item.title !== '在线客服';
-							});
-							this.setData({
-								moduleOneList: this.data.moduleOneList
-							});
-						} else {
-							this.data.moduleOneList.map(item => {
-								item.isShow = item.title !== '权益商城';
-							});
-							this.setData({
-								moduleOneList: this.data.moduleOneList
-							});
-						}
+						this.initPageParams();
 						// 查询最后一笔订单状态
 						if (app.globalData.salesmanScanCodeToHandleId) {
 							await this.bindOrder();
@@ -678,21 +656,7 @@ Page({
 				await util.getUserIsVip();
 				await util.getRightAccount();
 				await this.getBackgroundConfiguration();
-				// if (app.globalData.isEquityRights) {
-				// 	this.data.moduleOneList.map(item => {
-				// 		item.isShow = item.title !== '在线客服';
-				// 	});
-				// 	this.setData({
-				// 		moduleOneList: this.data.moduleOneList
-				// 	});
-				// } else {
-				// 	this.data.moduleOneList.map(item => {
-				// 		item.isShow = item.title !== '权益商城';
-				// 	});
-				// 	this.setData({
-				// 		moduleOneList: this.data.moduleOneList
-				// 	});
-				// }
+				this.initPageParams();
 				this.setData({
 					loginInfo
 				});
@@ -707,6 +671,23 @@ Page({
 				util.hideLoading();
 				util.showToastNoIcon(result.message);
 			}
+		}
+	},
+	initPageParams () {
+		if (app.globalData.isEquityRights) {
+			this.data.moduleOneList.map(item => {
+				item.isShow = item.funcName !== '在线客服';
+			});
+			this.setData({
+				moduleOneList: this.data.moduleOneList
+			});
+		} else {
+			this.data.moduleOneList.map(item => {
+				item.isShow = item.funcName !== '权益商城';
+			});
+			this.setData({
+				moduleOneList: this.data.moduleOneList
+			});
 		}
 	},
 	// 分享
