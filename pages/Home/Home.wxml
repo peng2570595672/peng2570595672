@@ -2,7 +2,7 @@
 <view class="home" style="background-color: {{'#EBEDF0'}}">
     <!-- 顶部 滑块视图 -->
     <view class="topSwiper">
-        <swiper class="swiperBox {{tools.dataLen(imgList) === 1 ? 'regular':''}}" style="height: {{Hei}};" autoplay circular duration="{{duration}}">
+        <swiper class="swiperBox {{tools.dataLen(imgList) === 1 ? 'regular':''}}" style="height: {{Hei}};" autoplay circular interval="{{interval}}" duration="{{duration}}">
             <swiper-item class="swiper-item {{tools.dataLen(imgList) === 1 ? 'regular-item':''}}" wx:for="{{imgList}}" wx:key="index" data-information="{{item}}" catchtap="goPath" catchtouchmove="{{tools.dataLen(imgList) === 1 ? 'catchtouchmove':''}}">
                 <image class="topImg" src='{{item.imgUrl}}'mode="widthFix" bindload="imgH" alt="暂无图片"/>
             </swiper-item>

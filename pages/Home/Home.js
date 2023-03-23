@@ -94,7 +94,8 @@ Page({
 		date: null,
 		// 版本4.0 所需数据
 		imgList: ['https://file.cyzl.com/g001/M01/C9/54/oYYBAGP4sCaAF2EtAABbvIQbTLM503.png'],
-		duration: 1000,	// 轮播图时间间隔
+		duration: 500,	// 轮播图时间间隔
+		interval: 5000,	// 轮播图切换时间
 		Hei: 628,	// banner高度
 		moduleOneList: [
 			{	// 账单查询 通行发票 权益商城
@@ -219,7 +220,7 @@ Page({
 			let data = res.data.contentConfig;	// 数据
 			if (util.timeComparison(res.data.affectEndTime,newDate) === 1) return;	// 当前时间超过限定时间，不往下执行
 			// 首页 banner 轮播图 模块
-			let duration = data.rotationChartConfig.interval * 1000;	// 轮播图间隔时间
+			let interval = data.rotationChartConfig.interval * 1000;	// 轮播图间隔时间
 			let bannerList = data.rotationChartConfig.rotationCharts.filter(item => util.timeComparison(item.affectEndTime,newDate) === 2 && util.timeComparison(item.affectStartTime,newDate) === 1);	// 过滤掉当前时间不在规定时间内的数据，得到合格的数据
 			bannerList.sort(this.compare('sort'));	// 排序
 
@@ -237,9 +238,8 @@ Page({
 			// 出行贴心服务 模块
 			let funcListTwo = data.outServiceFuncConfig.funcs.filter(item => util.timeComparison(item.affectEndTime,newDate) === 2 && util.timeComparison(item.affectStartTime,newDate) === 1);
 			funcListTwo.sort(this.compare('sort'));	// 排序
-			console.log(funcListTwo);
 			this.setData({
-				duration,
+				interval,
 				imgList: bannerList,
 				moduleOneList: funcListOne,
 				moduleTwoList: funcListTwo
