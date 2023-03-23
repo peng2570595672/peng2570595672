@@ -93,51 +93,62 @@ Page({
 		timeout: null,
 		date: null,
 		// 版本4.0 所需数据
-		imgList: ['https://file.cyzl.com/g001/M01/C9/54/oYYBAGP4sCaAF2EtAABbvIQbTLM503.png'],
+		imgList: [	// 默认数据
+			{
+				appId: '',
+				imgUrl: 'https://file.cyzl.com/g001/M01/CF/DD/oYYBAGQav3SAZ33-AAAiNjMKTNI431.png',
+				jumpUrl: '/pages/etc_handle/etc_handle',
+				templateId: ['']
+			}
+		],
 		duration: 500,	// 轮播图时间间隔
 		interval: 5000,	// 轮播图切换时间
 		Hei: 628,	// banner高度
-		moduleOneList: [
+		moduleOneList: [	// 默认数据
 			{	// 账单查询 通行发票 权益商城
-				icon: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eRKAK0mDAAAg6lZHRZU754.jpg',
-				title: '账单查询',
-				btn: '最近通行的记录',
+				appId: '',
+				funcDesc: '最近通行的记录',
+				funcName: '账单查询',
+				imgUrl: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eRKAK0mDAAAg6lZHRZU754.jpg',
 				isShow: true,
-				url: 'my_order',
-				statisticsEvent: 'index_my-order'
+				jumpUrl: '/pages/personal_center/my_order/my_order',
+				templateId: ['oz7msNJRXzk7VmASJsJtb2JG0rKEWjX3Ff1PIaAPa78', 'lY047e1wk-OFdeGuIx2ThV-MOJ4aUOx2HhSxUd1YXi0']
 			},
 			{
-				icon: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eSmAVDOGAAAfG-36GVE351.jpg',
-				title: '通行发票',
-				btn: '开高速路费发票',
+				appId: 'wx9040bb0d3f910004',
+				funcDesc: '开高速路费发票',
+				funcName: '通行发票',
+				imgUrl: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eSmAVDOGAAAfG-36GVE351.jpg',
 				isShow: true,
-				url: 'invoice',
-				statisticsEvent: 'index_invoice'
+				jumpUrl: 'pages/index/index',
+				templateId: ['']
 			},
 			{
-				icon: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eT-AKA3cAAAg7GXq-Ts112.jpg',
-				title: '权益商城',
-				btn: '免税商品上线',
+				appId: '',
+				funcDesc: '免税商品上线',
+				funcName: '权益商城',
+				imgUrl: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eT-AKA3cAAAg7GXq-Ts112.jpg',
 				isShow: false,
-				url: 'equity',
-				statisticsEvent: 'index_equity'
+				jumpUrl: '11111',
+				templateId: ['']
 			},
 			{
-				icon: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eVeADTAhAAAd33onhO0108.jpg',
-				title: '在线客服',
-				btn: '1V1专人客服',
+				appId: '',
+				funcDesc: '1V1专人客服',
+				funcName: '在线客服',
+				imgUrl: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eVeADTAhAAAd33onhO0108.jpg',
 				isShow: true,
-				url: 'online_customer_service',
-				statisticsEvent: 'index_server'
+				jumpUrl: '/pages/web/web/web?type=online_customer_service',
+				templateId: ['']
 			}
 		],
-		moduleTwoList: [
+		moduleTwoList: [	// 默认数据
 			{
-				url: 'moving_integral',
-				isShow: true,
-				alwaysShow: true,
+				appId: '',
 				imgUrl: 'https://file.cyzl.com/g001/M01/C9/52/oYYBAGP4mXiAVfbDAAAkI9pn5Nw707.png',
-				statisticsEvent: 'index_moving_integral'
+				isShow: true,
+				jumpUrl: 'https://h5.couponto.cn/jf_exchange/?activityListId=159294188336701440',
+				templateId: ['']
 			}
 		],	// 出行贴心服务
 		whetherToStay: false, // 用于控制显示弹窗时，最底层页面禁止不动
@@ -218,7 +229,26 @@ Page({
 		if (res.code === 0) {
 			let newDate = util.formatTime(new Date());	// 当前时间
 			let data = res.data.contentConfig;	// 数据
-			if (util.timeComparison(res.data.affectEndTime,newDate) === 1) return;	// 当前时间超过限定时间，不往下执行
+			if (util.timeComparison(res.data.affectEndTime,newDate) === 1 && util.timeComparison(res.data.affectStartTime,newDate) === 2) {
+				// 当前时间不在限定时间内，不往下执行
+				if (app.globalData.isEquityRights) {
+					this.data.moduleOneList.map(item => {
+						item.isShow = item.funcName !== '在线客服';
+					});
+					this.setData({
+						moduleOneList: this.data.moduleOneList
+					});
+				} else {
+					this.data.moduleOneList.map(item => {
+						item.isShow = item.funcName !== '权益商城';
+					});
+					this.setData({
+						moduleOneList: this.data.moduleOneList
+					});
+				}
+				return;
+			};
+
 			// 首页 banner 轮播图 模块
 			let interval = data.rotationChartConfig.interval * 1000;	// 轮播图间隔时间
 			let bannerList = data.rotationChartConfig.rotationCharts.filter(item => util.timeComparison(item.affectEndTime,newDate) === 2 && util.timeComparison(item.affectStartTime,newDate) === 1);	// 过滤掉当前时间不在规定时间内的数据，得到合格的数据
@@ -288,6 +318,12 @@ Page({
 			if (templateId) {
 				// 订阅消息
 				util.subscribe(obj.templateId, obj.jumpUrl);
+				return;
+			}
+			if (obj.jumpUrl.indexOf('/pages/etc_handle/etc_handle') || obj.jumpUrl.indexOf('pages/my/index')) {
+				wx.reLaunch({
+					url: `${obj.jumpUrl}`
+				});
 				return;
 			}
 			util.go(`${obj.jumpUrl}`);
