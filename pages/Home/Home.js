@@ -113,7 +113,9 @@ Page({
 				imgUrl: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eRKAK0mDAAAg6lZHRZU754.jpg',
 				isShow: true,
 				jumpUrl: '/pages/personal_center/my_order/my_order',
-				templateId: ['oz7msNJRXzk7VmASJsJtb2JG0rKEWjX3Ff1PIaAPa78', 'lY047e1wk-OFdeGuIx2ThV-MOJ4aUOx2HhSxUd1YXi0']
+				templateId: ['oz7msNJRXzk7VmASJsJtb2JG0rKEWjX3Ff1PIaAPa78',
+					'lY047e1wk-OFdeGuIx2ThV-MOJ4aUOx2HhSxUd1YXi0', 'my5wGmuottanrIAKrEhe2LERPKx4U05oU4aK9Fyucv0'
+				]
 			},
 			{
 				appId: 'wx9040bb0d3f910004',
