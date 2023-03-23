@@ -103,7 +103,8 @@ Page({
 		],
 		duration: 500,	// 轮播图时间间隔
 		interval: 5000,	// 轮播图切换时间
-		Hei: 628,	// banner高度
+		Hei: 628,	// banner默认高度
+		HeiList: [],	// banner 图片高度集合
 		moduleOneList: [	// 默认数据
 			{	// 账单查询 通行发票 权益商城
 				appId: '',
@@ -229,8 +230,9 @@ Page({
 		if (res.code === 0) {
 			let newDate = util.formatTime(new Date());	// 当前时间
 			let data = res.data.contentConfig;	// 数据
+			// 当前时间不在限定时间内，不往下执行
 			if (util.timeComparison(res.data.affectEndTime,newDate) === 1 && util.timeComparison(res.data.affectStartTime,newDate) === 2) {
-				// 当前时间不在限定时间内，不往下执行
+				// 获取的数据不符合是使用默认数据来展示
 				if (app.globalData.isEquityRights) {
 					this.data.moduleOneList.map(item => {
 						item.isShow = item.funcName !== '在线客服';
@@ -295,9 +297,11 @@ Page({
 		const winWid = wx.getSystemInfoSync().windowWidth; // 获取当前屏幕的宽度
 		const imgh = e.detail.height; // 图片高度
 		const imgw = e.detail.width;
-		const swiperH = winWid * imgh / imgw + 'px'; // 等比设置swiper的高度。  即 屏幕宽度 / swiper高度 = 图片宽度 / 图片高度    ==》swiper高度 = 屏幕宽度 * 图片高度 / 图片宽度
+		let swiperH = (winWid * imgh / imgw) * 2; // 等比设置swiper的高度。  即 屏幕宽度 / swiper高度 = 图片宽度 / 图片高度    ==》swiper高度 = 屏幕宽度 * 图片高度 / 图片宽度
+		this.data.HeiList.push(swiperH);
+		swiperH = Math.max(...this.data.HeiList);	// 获取最大的值
 		this.setData({
-			Hei: swiperH // 设置高度
+			Hei: swiperH + 'rpx' // 设置高度
 		});
 	},
 	// 跳转页面、小程序、第三方
@@ -337,6 +341,10 @@ Page({
 		console.log(obj);
 		let appIdPath = obj.appId && obj.appId.length > 0;
 		let webPath = obj.jumpUrl.indexOf('https') !== -1;
+		// if (obj.funcName === '权益商城') {
+		// 	this.handleMall();
+		// 	return;
+		// }
 		if (appIdPath) {
 			// 跳转到另一个小程序
 			wx.navigateToMiniProgram({
@@ -408,7 +416,6 @@ Page({
 			util.go('/pages/login/login/login');
 			return;
 		}
-		let url = e.currentTarget.dataset.url;
 		let statistics = e.currentTarget.dataset.statistics;
 		wx.uma.trackEvent(statistics);
 		if (url === 'online_customer_service') {
