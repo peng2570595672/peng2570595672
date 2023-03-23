@@ -228,7 +228,9 @@ Page({
 			// visibleUser: 1-普通用户 2-ETC+PLUS用户(百二权益用户) 3-权益券额用户 组合判断,如[1,2,3]->表示全部可见
 			funcListOne.map(item => {
 				let arr1 = item.visibleUser;
-				item.isShow = arr1.length === 3 ? true : (arr1.indexOf(2) !== -1 && app.globalData.isVip) ? true : (arr1.indexOf(3) !== -1 && app.globalData.isEquityRights > 0) ? true : (arr1.indexOf(1) !== -1 && !app.globalData.isVip && app.globalData.isEquityRights === 0) ? true : false;
+				// item.isShow = arr1.length === 3 ? true : (arr1.indexOf(2) !== -1 && app.globalData.isVip) ? true : (arr1.indexOf(3) !== -1 && app.globalData.isEquityRights > 0) ? true : (arr1.indexOf(1) !== -1 && !app.globalData.isVip && app.globalData.isEquityRights === 0) ? true : false;
+				// 2% 暂时不判断
+				item.isShow = arr1.length === 3 ? true : (arr1.indexOf(3) !== -1 && app.globalData.isEquityRights > 0) ? true : (arr1.indexOf(1) !== -1 && app.globalData.isEquityRights === 0) ? true : false;
 			});
 			funcListOne.sort(this.compare('sort'));	// 排序
 

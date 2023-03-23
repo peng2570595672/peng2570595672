@@ -108,7 +108,7 @@ Page({
 		let params = {
 			openId: app.globalData.openId
 		};
-		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
+		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params, 'POST', false);
 		if (!result) return;
 		if (result.code === 0) {
 			let flag = result.data.filter(item => item.isSignTtCoupon === 1 && item.pledgeStatus === 1 && item.status !== -1 && item.obuStatus !== 2);
