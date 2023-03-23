@@ -218,7 +218,7 @@ Page({
 	},
 	// 获取后台配置的数据
 	async getBackgroundConfiguration () {
-		let res = await util.getDataFromServersV2('consumer/member/pageConfig/query',{
+		let res = await util.getDataFromServersV2('consumer/member/common/pageConfig/query',{
 			configType: 1, // 配置类型(1:小程序首页配置;2:客车介绍页配置;3:首页公告配置;4:个人中心配置)
 			pagePath: 1, // 页面路径(1:小程序首页；2：客车介绍页；)
 			platformType: 4, // 小程序平台(1:ETC好车主;2:微ETC;4:ETC+)，对于多选情况，将值与对应枚举值做与运算，结果为1则包含该选项。

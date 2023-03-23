@@ -184,6 +184,8 @@
   width: 100%;
   height: 154rpx;
   display: flex;
+  margin-bottom: 150rpx;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 .home .moduleTwo .moduleTwoBox .integral {
@@ -191,6 +193,7 @@
   width: 334rpx;
   display: flex;
   overflow: hidden;
+  margin-bottom: 28rpx;
   align-items: center;
   border-radius: 16rpx;
   box-shadow: 0rpx 4rpx 8rpx 0rpx rgba(240,240,240,0.5);

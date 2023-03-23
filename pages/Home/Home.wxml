@@ -82,7 +82,7 @@
     <!-- 模块1 账单查询 通行发票 权益商城 -->
     <view class="module moduleOne">
         <view class="moduleOneBox" wx:for="{{moduleOneList}}" wx:if="{{item.isShow}}" wx:key="index"catchtap="goPath" data-information="{{item}}">
-            <view class="imgTitle" data-statistics="{{item.statisticsEvent}}">
+            <view class="imgTitle">
                 <image src="{{item.imgUrl}}" />
             </view>
             <view class="title">{{item.funcName}}</view>
