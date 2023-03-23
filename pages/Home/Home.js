@@ -309,6 +309,10 @@ Page({
 		let appIdPath = obj.appId && obj.appId.length > 0;
 		let webPath = obj.jumpUrl.indexOf('https') !== -1;
 		let templateId = obj.templateId && obj.templateId[0] !== '';
+		if (obj.funcName === '权益商城') {
+			this.handleMall();
+			return;
+		}
 		if (!appIdPath && !webPath) {
 			// 小程序内部页面跳转
 			if (templateId) {
