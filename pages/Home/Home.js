@@ -92,7 +92,6 @@ Page({
 		disclaimerDesc: app.globalData.disclaimerDesc,
 		timeout: null,
 		date: null,
-		channel: 0,// 小程序推广渠道
 		// 版本4.0 所需数据
 		imgList: [	// 默认数据
 			{
@@ -171,11 +170,8 @@ Page({
 	async onShow () {
 		let pages = getCurrentPages();
 		let currentPage = pages[pages.length - 1];
-		console.log(currentPage.options);
 		if (currentPage.options?.channel) {
-			this.setData({
-				channel: +currentPage.options?.channel
-			});
+			app.globalData.isChannelPromotion = +currentPage.options?.channel;
 		}
 		util.customTabbar(this, 0);
 		await this.getBackgroundConfiguration();
@@ -231,7 +227,7 @@ Page({
 			configType: 1, // 配置类型(1:小程序首页配置;2:客车介绍页配置;3:首页公告配置;4:个人中心配置)
 			pagePath: 1, // 页面路径(1:小程序首页；2：客车介绍页；)
 			platformType: 4, // 小程序平台(1:ETC好车主;2:微ETC;4:ETC+)，对于多选情况，将值与对应枚举值做与运算，结果为1则包含该选项。
-			channel: this.data.channel, // 渠道(0:所有渠道;)
+			channel: app.globalData.isChannelPromotion, // 渠道(0:所有渠道;)
 			affectArea: '0' // 面向区域(0:全国)
 		});
 		console.log('后台数据：',res);
