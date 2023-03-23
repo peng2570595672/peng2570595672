@@ -696,7 +696,7 @@ Page({
 			openId: app.globalData.openId
 		};
 		if (isToMasterQuery) params['toMasterQuery'] = true; // 直接查询主库
-		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
+		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params,'POST', false);
 		const icbcv2 = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId', {}, 'POST', false); // 查卡是否有二通类户
 		// 订单展示优先级: 扣款失败账单>已解约状态>按最近时间顺序：办理状态or账单记录
 		util.hideLoading();

@@ -1547,7 +1547,7 @@ async function getRightAccount () {
 	const result = await getDataFromServersV2('/consumer/member/right/account', {
 		page: 1,
 		pageSize: 1
-	});
+	},'POST',false);
 	if (result.code) {
 	} else {
 		app.globalData.accountList = result.data;
@@ -1705,7 +1705,7 @@ function fangDou (that,fn, time) {
 }
 // 获取用户是否 ETC+Plus用户
 async function getUserIsVip() {
-	const result = await getDataFromServersV2('consumer/order/member/userType', {});
+	const result = await getDataFromServersV2('consumer/order/member/userType', {},'POST',false);
 	if (!result) return;
 	if (result.code === 0) {
 		if ( result.data.userType === 2) {
