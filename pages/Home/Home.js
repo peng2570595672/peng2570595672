@@ -237,6 +237,7 @@ Page({
 			// 出行贴心服务 模块
 			let funcListTwo = data.outServiceFuncConfig.funcs.filter(item => util.timeComparison(item.affectEndTime,newDate) === 2 && util.timeComparison(item.affectStartTime,newDate) === 1);
 			funcListTwo.sort(this.compare('sort'));	// 排序
+			console.log(funcListTwo);
 			this.setData({
 				duration,
 				imgList: bannerList,
@@ -281,7 +282,7 @@ Page({
 		console.log(obj);
 		let appIdPath = obj.appId && obj.appId.length > 0;
 		let webPath = obj.jumpUrl.indexOf('https') !== -1;
-		let templateId = obj.templateId[0] !== '';
+		let templateId = obj.templateId && obj.templateId[0] !== '';
 		if (!appIdPath && !webPath) {
 			// 小程序内部页面跳转
 			if (templateId) {
