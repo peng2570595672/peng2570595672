@@ -72,6 +72,7 @@ App({
 		billingDetails: undefined, // 账单详情(总对总)
 		splitDetails: undefined, // 账单详情(拆分账单)
 		quality: 80,
+		isChannelPromotion: 0,// 渠道推广参数
 		signAContract: 3,// -1正常签约  1  解约重签  4 货车签约管理页签约
 		signTongTongQuanAContract: 0,// 0 未签约  1 去签约 2解约重签
 		userInfo: {},// 用户信息
