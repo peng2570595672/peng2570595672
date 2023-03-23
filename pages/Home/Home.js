@@ -337,10 +337,6 @@ Page({
 		console.log(obj);
 		let appIdPath = obj.appId && obj.appId.length > 0;
 		let webPath = obj.jumpUrl.indexOf('https') !== -1;
-		// if (obj.funcName === '权益商城') {
-		// 	this.handleMall();
-		// 	return;
-		// }
 		if (appIdPath) {
 			// 跳转到另一个小程序
 			wx.navigateToMiniProgram({
