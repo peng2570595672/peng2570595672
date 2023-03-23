@@ -132,7 +132,7 @@
         </view>
     </view>
     <!-- 占位 -->
-    <view class="split"></view>
+    <view class="split" style="height: {{ tools.dataLen(moduleTwoList) > 2 ? '300' : '200'}}rpx"></view>
     <!-- 弹窗 -->
     <view-img id="viewImg"></view-img>
     <popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="backFunc"></popup1>
