@@ -259,7 +259,6 @@ Page({
 	},
 	// 图片自适应
 	imgH (e) {
-		console.log(e);
 		const winWid = wx.getSystemInfoSync().windowWidth; // 获取当前屏幕的宽度
 		const imgh = e.detail.height; // 图片高度
 		const imgw = e.detail.width;
@@ -280,8 +279,14 @@ Page({
 		console.log(obj);
 		let appIdPath = obj.appId && obj.appId.length > 0;
 		let webPath = obj.jumpUrl.indexOf('https') !== -1;
+		let templateId = obj.templateId[0] !== '';
 		if (!appIdPath && !webPath) {
 			// 小程序内部页面跳转
+			if (templateId) {
+				// 订阅消息
+				util.subscribe(obj.templateId, obj.jumpUrl);
+				return;
+			}
 			util.go(`${obj.jumpUrl}`);
 			return;
 		}
@@ -626,21 +631,22 @@ Page({
 				loginInfo.needBindingPhone = 0;
 				await util.getUserIsVip();
 				await util.getRightAccount();
-				if (app.globalData.isEquityRights) {
-					this.data.moduleOneList.map(item => {
-						item.isShow = item.title !== '在线客服';
-					});
-					this.setData({
-						moduleOneList: this.data.moduleOneList
-					});
-				} else {
-					this.data.moduleOneList.map(item => {
-						item.isShow = item.title !== '权益商城';
-					});
-					this.setData({
-						moduleOneList: this.data.moduleOneList
-					});
-				}
+				await this.getBackgroundConfiguration();
+				// if (app.globalData.isEquityRights) {
+				// 	this.data.moduleOneList.map(item => {
+				// 		item.isShow = item.title !== '在线客服';
+				// 	});
+				// 	this.setData({
+				// 		moduleOneList: this.data.moduleOneList
+				// 	});
+				// } else {
+				// 	this.data.moduleOneList.map(item => {
+				// 		item.isShow = item.title !== '权益商城';
+				// 	});
+				// 	this.setData({
+				// 		moduleOneList: this.data.moduleOneList
+				// 	});
+				// }
 				this.setData({
 					loginInfo
 				});
