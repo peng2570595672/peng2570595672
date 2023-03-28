@@ -181,6 +181,7 @@ Page({
 			util.showLoading();
 			await util.getUserIsVip();
 			await util.getRightAccount();
+			this.initPageParams();
 			// if (app.globalData.isEquityRights) {
 			// 	this.data.moduleOneList.map(item => {
 			// 		item.isShow = item.title !== '在线客服';
@@ -229,7 +230,7 @@ Page({
 			configType: 1, // 配置类型(1:小程序首页配置;2:客车介绍页配置;3:首页公告配置;4:个人中心配置)
 			pagePath: 1, // 页面路径(1:小程序首页；2：客车介绍页；)
 			platformType: 4, // 小程序平台(1:ETC好车主;2:微ETC;4:ETC+)，对于多选情况，将值与对应枚举值做与运算，结果为1则包含该选项。
-			channel: app.globalData.isChannelPromotion, // 渠道(0:所有渠道;)
+			channel: `${app.globalData.isChannelPromotion}`, // 渠道(0:所有渠道;)
 			affectArea: '0' // 面向区域(0:全国)
 		});
 		console.log('后台数据：',res);

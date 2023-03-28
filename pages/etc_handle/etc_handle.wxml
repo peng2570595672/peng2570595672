@@ -1,18 +1,18 @@
 <wxs src='../../utils/util.wxs' module='tools'/>
 <view catchtouchmove="{{whetherToStay ? 'viewProcedure' : ''}}">
-    <view class="index" style="background-color: {{'rgb(28,82,67)'}}" >
+    <view class="index" style="background-color: {{imagesConfig.backgroundColor}}" >
         <!-- 顶部返回按钮 -->
         <view class="iconfont topBack" catchtap="goBack"><image class="goBanckImg" src="{{'https://file.cyzl.com/g001/M01/CA/1D/oYYBAGP8SGqAa4UOAAAFNvmKtp4507.svg'}}" /></view>
         <!-- 顶部banner 背景颜色和图片是动态的 -->
-        <view class="topBanner"> </view>
         <!-- 模块1 支持微信多种代扣方式 -->
         <view class="one">
-            <image class="image" src="{{'https://file.cyzl.com/g001/M01/CE/63/oYYBAGQRSI6AFCPjAABvN6Vmnvw694.png'}}" />
+            <image class="image" src="{{imagesConfig.marketingImgUrl}}" mode="widthFix" />
+            <image class="withholding" src="https://file.cyzl.com/g001/M01/D1/0F/oYYBAGQiQRCAcboXAAA5_qeQgZI022.png" mode="widthFix"></image>
         </view>
         <!-- 模块3 一站式车主服务 -->
         <view class="three">
             <view class="buttomText twoButtom" catchtap="viewProcedure" data-pop="moduleOne">查看具体办理步骤</view>
-            <image class="images" src="{{'https://file.cyzl.com/g001/M01/C9/0E/oYYBAGP4IhCAfnh_AACLStl5jQM863.png'}}" />
+            <image class="images" src="https://file.cyzl.com/g001/M01/D0/FD/oYYBAGQhWOSAPfI0AAA5pVk0LcQ342.png" />
         </view>
         <!-- 模块4 车主热问热答 -->
         <view class="module four">
