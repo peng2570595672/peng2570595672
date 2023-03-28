@@ -163,8 +163,12 @@
   height: 270rpx;
   overflow: hidden;
   box-shadow: 0rpx 4rpx 8rpx 8rpx rgba(240,240,240,0.5);
+  background: transparent;
 }
-.my .moduleThree .image {
+.my .moduleThree .swiperBox {
+  width: 694rpx;
+}
+.my .moduleThree image {
   width: 694rpx;
   height: 270rpx;
 }

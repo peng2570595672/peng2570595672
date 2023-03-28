@@ -35,17 +35,23 @@
 .index .one {
   width: 100%;
   height: 802rpx;
-  overflow: hidden;
+  padding-bottom: 150rpx;
 }
 .index .one .image {
   width: 100%;
   height: 100%;
+}
+.index .one .withholding {
+  width: 100%;
+  margin-top: -103rpx;
 }
 .index .three {
   width: 100%;
   height: 1074rpx;
   overflow: hidden;
   position: relative;
+  padding-top: 20rpx;
+  box-sizing: border-box;
 }
 .index .three .images {
   width: 100%;
@@ -76,7 +82,6 @@
 .index .module {
   height: auto;
   text-align: center;
-  background-color: #155e4e;
   font-family: PingFangSC-Regular, PingFang SC;
 }
 .index .module.four {
@@ -156,7 +161,6 @@
 }
 .index .split {
   height: 260rpx;
-  background-color: #155e4e;
   overflow: hidden;
 }
 .index .handleImmediately {

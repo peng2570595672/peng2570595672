@@ -1,5 +1,5 @@
 // pages/my/index.js
-import { compareDate, jumpCouponMini } from '../../utils/utils.js';
+import {compare, compareDate, jumpCouponMini} from '../../utils/utils.js';
 const util = require('../../utils/util.js');
 const app = getApp();
 Page({
@@ -44,6 +44,9 @@ Page({
 		mobilePhone: undefined,
 		disclaimerDesc: app.globalData.disclaimerDesc,
 		initData: true,
+		interval: 0,
+		showCarousel: false,
+		carouselList: [],
 		cardList: [],
 		accountList: [],
 		isShowEquityImg: false,	// 是否显示权益商城banner
@@ -51,6 +54,7 @@ Page({
 	},
 
 	async onLoad (options) {
+		this.getBackgroundConfiguration();
 		app.globalData.orderInfo.orderId = '';
 		if (options.isMain) {
 			this.setData({
@@ -64,14 +68,14 @@ Page({
 	async onShow () {
 		// 4.0
 		util.customTabbar(this, 2);
-		await this.getUserProfiles();
 		this.setData({
 			cardList: [],
 			nextPageData: []
 		});
 		// --------------end------------
 		if (app.globalData.userInfo.accessToken) {
-			let requestList = [await util.getUserIsVip(),await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
+			util.showLoading();
+			let requestList = [await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip(),await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
 			util.customTabbar(this, 2);
 			util.getUserIsVip();
 			util.showLoading();
@@ -100,8 +104,38 @@ Page({
 			screenHeight: wx.getSystemInfoSync().windowHeight,
 			isVip: app.globalData.isVip
 		});
-		await this.getUserProfiles();
-		await this.conditionalDisplay();
+	},
+	// 获取后台配置的数据
+	async getBackgroundConfiguration () {
+		let res = await util.getDataFromServersV2('consumer/member/common/pageConfig/query',{
+			configType: 4, // 配置类型(1:小程序首页配置;2:客车介绍页配置;3:首页公告配置;4:个人中心配置)
+			pagePath: 4, // 页面路径(1:小程序首页；2：客车介绍页；)
+			platformType: 4, // 小程序平台(1:ETC好车主;2:微ETC;4:ETC+)，对于多选情况，将值与对应枚举值做与运算，结果为1则包含该选项。
+			affectArea: '0', // 面向区域(0:全国)
+			channel: '0'
+		});
+		console.log('后台数据：',res);
+		if (!res) return;
+		if (res.code === 0) {
+			let data = res.data.contentConfig;	// 数据
+			// 当前时间不在限定时间内，不往下执行
+			if (!util.isDuringDate(res.data.affectStartTime, res.data.affectEndTime)) {
+				// 获取的数据不符合是使用默认数据来展示
+				return;
+			}
+			// 首页 banner 轮播图 模块
+			let interval = data.rotationChartConfig.interval * 1000;	// 轮播图间隔时间
+			let bannerList = data.rotationChartConfig.rotationCharts.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime));	// 过滤掉当前时间不在规定时间内的数据，得到合格的数据
+			bannerList.sort(compare('sort'));	// 排序
+			bannerList.map(item => {
+				item.isShow = true;
+			});
+			this.setData({
+				interval,
+				showCarousel: bannerList.length > 0,
+				carouselList: bannerList
+			});
+		}
 	},
 	// 根据条件展示相关功能
 	async conditionalDisplay () {
@@ -111,9 +145,11 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params, 'POST', false);
 		if (!result) return;
 		if (result.code === 0) {
+			app.globalData.myEtcList = result.data;
 			let flag = result.data.filter(item => item.isSignTtCoupon === 1 && item.pledgeStatus === 1 && item.status !== -1 && item.obuStatus !== 2);
 			// 展示通通券
 			this.setData({
+				myAccountList: app.globalData.myEtcList,
 				'funcList2[0].show': flag.length > 0
 			});
 		}
@@ -138,7 +174,20 @@ Page({
 			});
 			app.globalData.accountList = result.data;
 			app.globalData.isEquityRights = result.data?.length;
+			this.data.carouselList.map(item => {
+				item.isShow = true;
+			});
+			if (!result.data?.length) {
+				this.data.carouselList.map((item, index) => {
+					if (item.jumpUrl === '权益商城') {
+						item.isShow = false;
+					}
+				});
+			}
+			const index = this.data.carouselList.findIndex(item => item.isShow);
 			this.setData({
+				showCarousel: index !== -1,
+				carouselList: this.data.carouselList,
 				isShowEquityImg: result.data?.length,
 				cardList: result.data,
 				accountList: result.data,
@@ -253,7 +302,7 @@ Page({
 						});
 						let requestList = [];
 						if (JSON.stringify(app.globalData.myEtcList) === '{}') {
-							requestList = [await util.getUserIsVip(),await this.getStatus()];
+							requestList = [await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip()];
 						}
 						this.setData({
 							isVip: app.globalData.isVip,
@@ -285,21 +334,40 @@ Page({
 			}
 		});
 	},
-	// 获取订单信息
-	async getStatus () {
-		let params = {
-			openId: app.globalData.openId
-		};
-		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params, 'POST', false);
-		if (result.code === 0) {
-			app.globalData.myEtcList = result.data;
-			this.setData({
-				myAccountList: result.data
+	handleSwiperItem (e) {
+		console.log(e.currentTarget.dataset.index)
+		const index = +e.currentTarget.dataset.index;
+		const item = this.data.carouselList[index];
+		if (item.jumpUrl === '权益商城') {
+			this.handleMall();
+			return;
+		}
+		let appIdPath = item.appId && item.appId.length > 0;
+		let webPath = item.jumpUrl.indexOf('https') !== -1;
+		if (!appIdPath && !webPath) {
+			// 小程序内部页面跳转
+			if (item.jumpUrl.indexOf('/pages/etc_handle/etc_handle') || item.jumpUrl.indexOf('pages/my/index')) {
+				wx.reLaunch({
+					url: `${item.jumpUrl}`
+				});
+				return;
+			}
+			util.go(`${item.jumpUrl}`);
+		}
+		if (appIdPath) {
+			// 跳转到另一个小程序
+			wx.navigateToMiniProgram({
+				appId: item.appId,
+				path: item.jumpUrl,
+				envVersion: 'release',
+				fail () {
+					util.showToastNoIcon('调起小程序失败, 请重试！');
+				}
 			});
-			// 查询是否欠款
-			await util.getIsArrearage();
-		} else {
-			util.showToastNoIcon(result.message);
+			return;
+		}
+		if (webPath) {
+			util.go(`/pages/web/web/web?url=${encodeURIComponent(item.jumpUrl)}`);
 		}
 	},
 	handleMall () {
@@ -440,7 +508,20 @@ Page({
 		let personInformation = wx.getStorageSync('person_information');
 		let noVip = 'https://file.cyzl.com/g001/M01/C8/3F/oYYBAGP0VgGAQa01AAAG5Ng7rok991.svg';
 		let yesVip = 'https://file.cyzl.com/g001/M01/C8/3F/oYYBAGP0VdeAZ2uZAAAG57UJ39U085.svg';
+		this.data.carouselList.map(item => {
+			item.isShow = true;
+		});
+		if (!app.globalData.isEquityRights) {
+			this.data.carouselList.map(item => {
+				if (item.jumpUrl === '权益商城') {
+					item.isShow = false;
+				}
+			});
+		}
+		const index = this.data.carouselList.findIndex(item => item.isShow);
 		this.setData({
+			showCarousel: index !== -1,
+			carouselList: this.data.carouselList,
 			userInfo: {
 				avatarUrl: personInformation.avatarUrl ? personInformation.avatarUrl : app.globalData.isVip ? yesVip : noVip,
 				nickName: personInformation.nicheng ? personInformation.nicheng : 'E+车主'

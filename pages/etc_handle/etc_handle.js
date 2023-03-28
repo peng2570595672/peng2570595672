@@ -1,3 +1,4 @@
+
 /**
  * @author 老刘
  * @desc 签约成功
@@ -47,16 +48,22 @@ Page({
 		duration: 0,
 		position: 'center',
 		customStyle: 'overflow:auto !important;z-index:-10 !important;',
-		overlayStyle: 'overflow:auto !important;z-index:-10'
-
+		overlayStyle: 'overflow:auto !important;z-index:-10',
+		imagesConfig: {
+			backgroundColor: '#2D5D4F',
+			marketingImgUrl: 'https://file.cyzl.com/g001/M01/D1/10/oYYBAGQiQxuAUiQdAABFf46DvQQ847.png'
+		}
 	},
 	async onLoad () {
+		this.getBackgroundConfiguration();
 		util.customTabbar(this, 1);
 	},
 	async onShow () {
 		// 查询是否欠款
-		await util.getIsArrearage();
-		await util.getUserIsVip();
+		if (app.globalData.userInfo.accessToken) {
+			await util.getIsArrearage();
+			await util.getUserIsVip();
+		}
 		this.setData({
 			show: true,
 			duration: 0,
@@ -64,6 +71,29 @@ Page({
 			customStyle: 'overflow:auto !important;z-index:-10 !important;',
 			overlayStyle: 'overflow:auto !important;z-index:-10'
 		});
+	},
+	// 获取后台配置的数据
+	async getBackgroundConfiguration () {
+		let res = await util.getDataFromServersV2('consumer/member/common/pageConfig/query',{
+			configType: 2, // 配置类型(1:小程序首页配置;2:客车介绍页配置;3:首页公告配置;4:个人中心配置)
+			pagePath: 2, // 页面路径(1:小程序首页；2：客车介绍页；)
+			platformType: 4, // 小程序平台(1:ETC好车主;2:微ETC;4:ETC+)，对于多选情况，将值与对应枚举值做与运算，结果为1则包含该选项。
+			affectArea: '0', // 面向区域(0:全国)
+			channel: '0'
+		});
+		console.log('后台数据：',res);
+		if (!res) return;
+		if (res.code === 0) {
+			let data = res.data.contentConfig;	// 数据
+			// 当前时间不在限定时间内，不往下执行
+			if (!util.isDuringDate(res.data.affectStartTime, res.data.affectEndTime)) {
+				// 获取的数据不符合是使用默认数据来展示
+				return;
+			}
+			this.setData({
+				imagesConfig: data.imagesConfig
+			});
+		}
 	},
 	// 监听返回按钮
 	onClickBackHandle () {
