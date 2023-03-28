@@ -139,9 +139,10 @@ Page({
 		const index = result.data.findIndex(item => item.id === this.data.id);
 		let list = result.data[index].detailData.list || [];
 		this.setData({
-			Wallet: result.data[index].balance + (result.data[index].serviceFeeBalance || 0),
-			list: this.data.list.concat(list),
-			infoData: result.data[index]
+			// Wallet: result.data[index].balance + (result.data[index].serviceFeeBalance || 0),
+			Wallet: result.data[index].balance,
+			list: this.data.list.concat(list)
+			// infoData: result.data[index]
 		});
 		console.log(this.data.list.length, '----------------------------------', result.data.total);
 		if (this.data.list.length >= result.data[index].detailData.total) {

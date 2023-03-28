@@ -335,7 +335,7 @@ Page({
 		});
 	},
 	handleSwiperItem (e) {
-		console.log(e.currentTarget.dataset.index)
+		console.log(e.currentTarget.dataset.index);
 		const index = +e.currentTarget.dataset.index;
 		const item = this.data.carouselList[index];
 		if (item.jumpUrl === '权益商城') {
