@@ -16,7 +16,8 @@ Page({
 		page: 0,
 		available: false, // 按钮是否可点击
 		isRequest: false, // 是否请求中
-		id: '' // 对应数组下标
+		id: '', // 对应数组下标
+		infoData: undefined	// 账户数据
 	},
 	async onLoad (options) {
 		console.log(options);
@@ -135,10 +136,13 @@ Page({
 			util.showToastNoIcon(result.message);
 			return;
 		}
+		this.setData({
+			infoData: result.data[0]
+		});
 		const index = result.data.findIndex(item => item.id === this.data.id);
 		let list = result.data[index].detailData.list || [];
 		this.setData({
-			Wallet: result.data[index].balance,
+			Wallet: result.data[index].balance + (result.data[index].serviceFeeBalance || 0),
 			list: this.data.list.concat(list)
 		});
 		console.log(this.data.list.length, '----------------------------------', result.data.total);
@@ -155,5 +159,12 @@ Page({
 			isReload: true // 重置状态
 		});
 		// util.getIsArrearage();
+	},
+	btnIcon () {
+		util.alert({
+			title: `券额有效期说明`,
+			content: `办理了权益券额套餐或综合服务的用户获得的券额3年有效，过期不补`
+		});
 	}
+
 });
