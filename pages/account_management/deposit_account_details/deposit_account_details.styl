@@ -8,6 +8,17 @@
 			color rgba(0, 0, 0, .9)
 			font-size 28rpx
 			line-height 39rpx
+			display flex
+			align-items center
+			.iconTop
+				margin-left 10rpx
+				&::after
+					display inline-block
+					content '\e650'
+					width 30rpx
+					height 30rpx
+					font-size 28rpx
+					color #2FB565
 		.balance
 			display flex
 			height 60rpx
@@ -28,13 +39,13 @@
 				display flex
 				align-items center
 				justify-content center
-				width: 114rpx;
-				height: 52rpx;
-				background: rgba(207,207,207, .2)
-				font-size: 24rpx;
-				font-family: PingFangSC-Regular, PingFang SC;
-				font-weight: 400;
-				color: #00B85C;
+				width 114rpx;
+				height 52rpx;
+				background rgba(207,207,207, .2)
+				font-size 24rpx;
+				font-family PingFangSC-Regular, PingFang SC;
+				font-weight 400;
+				color #00B85C;
 		.prompt
 			padding 32rpx 0
 			font-size: 24rpx;
@@ -49,6 +60,9 @@
 				text
 					color #00A9FF
 					padding-left 8rpx
+			span
+				color #000
+				font-size 22rpx;
 	.split
 		height 20rpx
 		background #FAFAFA
