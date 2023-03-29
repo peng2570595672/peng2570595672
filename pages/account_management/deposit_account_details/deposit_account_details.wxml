@@ -6,8 +6,8 @@
 <!--            <view class="unit">元</view>-->
         </view>
         <view class="prompt">
-            <span wx:if="{{infoData.serviceFeeBalance > 0}}">{{infoData.serviceFeeBalanceRemark}}{{infoData.balance > 0 ? ', ' : ''}}</span>
-            <span wx:if="{{infoData.balance > 0}}">{{infoData.balanceRemark}}</span>
+            <span wx:if="{{infoData.serviceFeeBalanceRemark}}">{{infoData.serviceFeeBalanceRemark}}{{infoData.balanceRemark ? ', ' : ''}}</span>
+            <span wx:if="{{infoData.balanceRemark}}">{{infoData.balanceRemark}}</span>
             <view class="normal">充值成功后将即时将您的充值金额兑换为权益</view>
         </view>
     </view>

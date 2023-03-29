@@ -12,7 +12,7 @@
                 <view class="vehPlates">{{item.vehPlates}}</view>
             </view>
             <view class="item-bottom">
-                <view class="balance">{{tools.parseNum(item.balance + (item.serviceFeeBalance || 0))}}</view>
+                <view class="balance">{{tools.parseNum(item.balance)}}</view>
                 <view class="btn" catchtap="handleAccount" data-index="{{index}}">选择账户</view>
             </view>
         </view>

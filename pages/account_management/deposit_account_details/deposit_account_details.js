@@ -139,7 +139,7 @@ Page({
 		const index = result.data.findIndex(item => item.id === this.data.id);
 		let list = result.data[index].detailData.list || [];
 		this.setData({
-			Wallet: result.data[index].balance + (result.data[index].serviceFeeBalance || 0),
+			Wallet: result.data[index].balance,
 			list: this.data.list.concat(list),
 			infoData: result.data[index]
 		});

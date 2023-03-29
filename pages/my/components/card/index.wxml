@@ -3,7 +3,7 @@
     <view class="top-info">
 <!--        // 1-权益账户   2-货车预充值 3-交行 4-工行-->
         <view class="quota">
-            <text wx:if="{{ cardData.accountType === 1 }}">{{tools.parseNum(cardData.balance + (cardData.serviceFeeBalance || 0))}}</text>
+            <text wx:if="{{ cardData.accountType === 1 }}">{{tools.parseNum(cardData.balance)}}</text>
             <text wx:if="{{ cardData.accountType === 2 }}">¥{{tools.parseNum(cardData.walletAmount/100)}}</text>
             <text wx:if="{{ cardData.accountType === 3 }}">¥{{tools.parseNum(cardData.total_amount)}}</text>
         </view>
