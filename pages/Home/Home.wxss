@@ -4,6 +4,7 @@
   width: 100vw;
   min-height: 100vh;
   background-color: #ebedf0;
+  position: relative;
 /* 顶部 滑块视图 */
 /* 办理模块 */
 /* 模块一 */
@@ -15,6 +16,8 @@
   width: 100%;
   height: auto;
   font-family: PingFangSC-Regular, PingFang SC;
+  position: relative;
+  z-index: 1;
 }
 .home .topSwiper .swiperBox {
   width: 100%;
@@ -42,6 +45,7 @@
   background: #fff;
   margin: 32rpx 28rpx 0rpx 28rpx;
   position: relative;
+  z-index: 2;
   top: -100rpx;
 }
 .home .immediately {
