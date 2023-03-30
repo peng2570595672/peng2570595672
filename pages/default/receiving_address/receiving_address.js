@@ -272,6 +272,7 @@ Page({
 		if (result.code === 0) {
 			app.globalData.handledByTelephone = this.data.formData.operator;
 			app.globalData.orderInfo.orderId = result.data.orderId; // 订单id
+			app.globalData.newEnergy = formData.currentCarNoColor === 1 ? true : false;
 			if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
 				await this.getProduct();
 			} else {

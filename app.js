@@ -129,7 +129,8 @@ App({
 		},
 		isEquityRights: undefined,	//	权益券额套餐的用户： true表示是，false表示不是
 		isVip: undefined,	// 收取综合服务费的用户：  true表示是，false表示不是
-		handledByTelephone: undefined	// 4.0办理人的电话
+		handledByTelephone: undefined,	// 4.0办理人的电话
+		newEnergy: false	// false 表示不是新能源车牌
 	},
 	onLaunch (options) {
 		// 统计逻辑结束

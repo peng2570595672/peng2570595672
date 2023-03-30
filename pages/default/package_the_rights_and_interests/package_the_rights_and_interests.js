@@ -142,9 +142,12 @@ Page({
 			return;
 		}
 		const packages = app.globalData.newPackagePageData;
+		console.log(packages);
 		if (packages.shopId === '1091000458138361856') {	// 根据商户ID判断是不是中信银行联名套餐
+			let carp = app.globalData.myEtcList.filter(item => item.id === app.globalData.orderInfo.orderId);
 			this.setData({
-				citicBank: true
+				citicBank: true,
+				activeIndex: app.globalData.newEnergy ? 1 : carp.length !== 0 && carp[0].vehPlates.length === 8 ? 1 : 0
 			});
 		}
 		this.setData({
@@ -638,8 +641,21 @@ Page({
 		this.setData({isRequest: false});
 		if (!result) return;
 		if (result.code === 0) {
-			if (this.data.citicBank && this.data.listOfPackages[this.data.choiceIndex].shopProductId === '1091001046012010496') {
-				console.log('hhhhh');
+			let flag = app.globalData.test ? params.shopProductId === '1091001046012010496' : params.shopProductId === '';
+			console.log(flag);
+			console.log(params.shopProductId);
+			if (this.data.citicBank && flag) {
+				this.selectComponent('#popTipComp').show({
+					type: 'five',
+					title: '新客户免首年年费',
+					btnCancel: '我再想想',
+					btnconfirm: '我知道了',
+					params: {
+						pledgeType: this.data.listOfPackages[this.data.choiceIndex].pledgeType,
+						money: this.data.listOfPackages[this.data.choiceIndex].pledgePrice,
+						equityMoney: this.data.equityListMap[this.data.activeIndex].payMoney
+					}
+				});
 				return;
 			}
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||

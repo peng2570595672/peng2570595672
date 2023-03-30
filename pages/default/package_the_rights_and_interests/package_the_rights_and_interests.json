@@ -3,6 +3,7 @@
   "navigationBarBackgroundColor": "#ECECEC",
   "usingComponents": {
     "topProgressBar": "/components/topProgressBar/index",
-    "addValueService": "/components/addValueService/addValueService"
+    "addValueService": "/components/addValueService/addValueService",
+    "popTipComp": "/components/popTipComp/popTipComp"
   }
 }

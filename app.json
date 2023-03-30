@@ -46,7 +46,9 @@
 		"pages/default/signature_confirmation/signature_confirmation",
 		"pages/default/sms_confirmation/sms_confirmation",
 		"pages/default/statement_of_interest/statement_of_interest",
-		"pages/default/margin_user_handling_agreement/margin_user_handling_agreement"
+		"pages/default/margin_user_handling_agreement/margin_user_handling_agreement",
+		"pages/default/new_pay/new_pay"
+
 	],
 	"window": {
 		"navigationBarBackgroundColor": "#FFFFFF",

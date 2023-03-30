@@ -1,0 +1,20 @@
+<wxs src='../../../utils/util.wxs' module='tools' />
+<view class="index">
+    <view class="topModule">
+        <!-- 收款方 -->
+        <view class="payee">收款方: {{'贵州世纪恒通有限公司'}}</view>
+        <!-- 订单流水号 -->
+        <view class="orderSerialNumber">ETC+_{{'{{'+orderId+'}}'}}</view>
+        <!-- 金额 -->
+        <view class="money">￥<span>{{tools.parseNum(money + equityMoney)/100}}</span></view>
+        <!-- 支付金处备注 -->
+        <view class="remarks">中信银行套餐活动优惠</view>
+        <view class="describe">符合银行新客标准，并成功办理信用卡后将返回{{tools.parseNum(money + equityMoney)/100}}元</view>
+    </view>
+
+    <!-- 支付方式 -->
+    <view class="payMethod">
+        <view class="public">支付方式</view>
+        <view class="public iconfont wChatPay" catchtap="payMethod">微信支付</view>
+    </view>
+</view>

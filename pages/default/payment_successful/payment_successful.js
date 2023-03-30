@@ -7,9 +7,16 @@ const app = getApp();
 Page({
 	data: {
 		orderInfo: {},
-		contractStatus: 0// 1已签约
+		contractStatus: 0, // 1已签约
+		citicBank: false	// false 不是中信银行联名套餐
 	},
-	async onLoad () {
+	async onLoad (options) {
+		console.log(options);
+		if (options.citicBank || options.citicBank === 'true') {
+			this.setData({
+				citicBank: true
+			});
+		}
 		await this.queryContract();
 		await this.getSchedule();
 		// 查询是否欠款
@@ -84,6 +91,9 @@ Page({
 		} else {
 			util.showToastNoIcon(result.message);
 		}
+	},
+	go () {
+		util.go(`pages/default/information_list/information_list?citicBank=true`);
 	},
 	onUnload () {
 		wx.switchTab({

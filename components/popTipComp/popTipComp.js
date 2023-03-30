@@ -53,6 +53,15 @@ Component({
 				wrapper: false
 			});
 		},
+		goPay () {
+			console.log(this.data.tipObj);
+			// 跳转保证金支付页
+			util.go(`/pages/default/new_pay/new_pay?pledgeType=${this.data.tipObj.params.pledgeType}&money=${this.data.tipObj.params.money}&equityMoney=${this.data.tipObj.params.equityMoney}`);
+			this.setData({
+				mask: false,
+				wrapper: false
+			});
+		},
 		// 前去补缴
 		supplementaryPayment () {
 			this.hide();
