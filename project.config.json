@@ -1,153 +1,152 @@
 {
-	"description": "项目配置文件，详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
-	"cloudfunctionRoot": "cloud_function/",
-	"setting": {
-		"urlCheck": true,
-		"es6": false,
-		"enhance": true,
-		"postcss": true,
-		"preloadBackgroundData": false,
-		"minified": true,
-		"newFeature": false,
-		"coverView": true,
-		"nodeModules": true,
-		"autoAudits": false,
-		"showShadowRootInWxmlPanel": true,
-		"scopeDataCheck": false,
-		"uglifyFileName": false,
-		"checkInvalidKey": true,
-		"checkSiteMap": true,
-		"uploadWithSourceMap": true,
-		"compileHotReLoad": false,
-		"lazyloadPlaceholderEnable": false,
-		"useMultiFrameRuntime": true,
-		"babelSetting": {
-			"ignore": [],
-			"disablePlugins": [],
-			"outputPath": ""
-		},
-		"useIsolateContext": true,
-		"userConfirmedBundleSwitch": false,
-		"packNpmManually": false,
-		"packNpmRelationList": [],
-		"minifyWXSS": true,
-		"disableUseStrict": false,
-		"minifyWXML": true,
-		"showES6CompileOption": false,
-		"useCompilerPlugins": false,
-		"ignoreUploadUnusedFiles": false,
-		"useStaticServer": true,
-		"condition": false
-	},
-	"compileType": "miniprogram",
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
-	"cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
-	"condition": {
-		"miniprogram": {
-			"list": [
-				{
-					"name": "邮寄地址",
-					"pathName": "pages/default/receiving_address/receiving_address",
-					"query": "shareId=1235556",
-					"scene": null
-				},
-				{
-					"name": "我的ETC",
-					"pathName": "pages/personal_center/my_etc/my_etc",
-					"query": "shareId=123455",
-					"scene": null
-				},
-				{
-					"name": "个人中心",
-					"pathName": "pages/personal_center/index/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"name": "activities/pages/activity_icbc_forty_five_theme/index",
-					"pathName": "activities/pages/activity_icbc_forty_five_theme/index",
-					"query": "shareId=1235556",
-					"scene": null
-				},
-				{
-					"name": "城市服务",
-					"pathName": "CitiesServices/pages/CitiesServices/CitiesServices",
-					"query": "",
-					"scene": null
-				},
-				{
-					"name": "充值",
-					"pathName": "pages/personal_center/recharge-card-processing/recharge-card-processing",
-					"query": "",
-					"scene": null
-				},
-				{
-					"name": "支付付费金额",
-					"pathName": "pages/default/margin_payment/margin_payment",
-					"query": "orderId=719857736895959040",
-					"scene": null
-				},
-				{
-					"name": "pages/personal_center/recharge-card-processing/recharge-card-processing",
-					"pathName": "pages/personal_center/recharge-card-processing/recharge-card-processing",
-					"query": "",
-					"scene": null
-				},
-				{
-					"name": "会员券",
-					"pathName": "pages/personal_center/membership_coupon/membership_coupon",
-					"query": "orderId=710126117226287104",
-					"scene": null
-				},
-				{
-					"name": "ETC详情",
-					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "orderId=750442877963735040",
-					"scene": null
-				},
-				{
-					"name": "大地入口",
-					"pathName": "pages/Home/Home",
-					"query": "carInsurance=1111",
-					"scene": null
-				},
-				{
-					"name": "pages/Home/Home",
-					"pathName": "pages/Home/Home",
-					"query": "officialChannelId=645937022279614464",
-					"scene": null
-				},
-				{
-					"name": "货车",
-					"pathName": "pages/truck_handling/index/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"name": "客车",
-					"pathName": "pages/default/index/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"name": "资料上传列表",
-					"pathName": "pages/truck_handling/information_list/information_list",
-					"query": "",
-					"scene": null
-				}
-			]
-		}
-	},
-	"editorSetting": {
-		"tabIndent": "tab",
-		"tabSize": 4
-	},
-	"packOptions": {
-		"ignore": [],
-		"include": []
-	},
-	"appid": "wxddb3eb32425e4a96",
-	"projectname": "etc_plus_mini_2.0",
-	"libVersion": "2.24.7"
+    "description": "项目配置文件，详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+    "cloudfunctionRoot": "cloud_function/",
+    "setting": {
+        "urlCheck": true,
+        "es6": false,
+        "enhance": true,
+        "postcss": true,
+        "preloadBackgroundData": false,
+        "minified": true,
+        "newFeature": false,
+        "coverView": true,
+        "nodeModules": true,
+        "autoAudits": false,
+        "showShadowRootInWxmlPanel": true,
+        "scopeDataCheck": false,
+        "uglifyFileName": false,
+        "checkInvalidKey": true,
+        "checkSiteMap": true,
+        "uploadWithSourceMap": true,
+        "compileHotReLoad": false,
+        "lazyloadPlaceholderEnable": false,
+        "useMultiFrameRuntime": true,
+        "babelSetting": {
+            "ignore": [],
+            "disablePlugins": [],
+            "outputPath": ""
+        },
+        "useIsolateContext": true,
+        "userConfirmedBundleSwitch": false,
+        "packNpmManually": false,
+        "packNpmRelationList": [],
+        "minifyWXSS": true,
+        "disableUseStrict": false,
+        "minifyWXML": true,
+        "showES6CompileOption": false,
+        "useCompilerPlugins": false,
+        "ignoreUploadUnusedFiles": true,
+        "useStaticServer": true,
+        "condition": false
+    },
+    "compileType": "miniprogram",
+    "simulatorType": "wechat",
+    "simulatorPluginLibVersion": {},
+    "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
+    "condition": {
+        "miniprogram": {
+            "list": [
+                {
+                    "name": "邮寄地址",
+                    "pathName": "pages/default/receiving_address/receiving_address",
+                    "query": "shareId=1235556",
+                    "scene": null
+                },
+                {
+                    "name": "我的ETC",
+                    "pathName": "pages/personal_center/my_etc/my_etc",
+                    "query": "shareId=123455",
+                    "scene": null
+                },
+                {
+                    "name": "个人中心",
+                    "pathName": "pages/personal_center/index/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "activities/pages/activity_icbc_forty_five_theme/index",
+                    "pathName": "activities/pages/activity_icbc_forty_five_theme/index",
+                    "query": "shareId=1235556",
+                    "scene": null
+                },
+                {
+                    "name": "城市服务",
+                    "pathName": "CitiesServices/pages/CitiesServices/CitiesServices",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "充值",
+                    "pathName": "pages/personal_center/recharge-card-processing/recharge-card-processing",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "支付付费金额",
+                    "pathName": "pages/default/margin_payment/margin_payment",
+                    "query": "orderId=719857736895959040",
+                    "scene": null
+                },
+                {
+                    "name": "pages/personal_center/recharge-card-processing/recharge-card-processing",
+                    "pathName": "pages/personal_center/recharge-card-processing/recharge-card-processing",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "会员券",
+                    "pathName": "pages/personal_center/membership_coupon/membership_coupon",
+                    "query": "orderId=710126117226287104",
+                    "scene": null
+                },
+                {
+                    "name": "ETC详情",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=750442877963735040",
+                    "scene": null
+                },
+                {
+                    "name": "大地入口",
+                    "pathName": "pages/Home/Home",
+                    "query": "carInsurance=1111",
+                    "scene": null
+                },
+                {
+                    "name": "pages/Home/Home",
+                    "pathName": "pages/Home/Home",
+                    "query": "officialChannelId=645937022279614464",
+                    "scene": null
+                },
+                {
+                    "name": "货车",
+                    "pathName": "pages/truck_handling/index/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "客车",
+                    "pathName": "pages/default/index/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "资料上传列表",
+                    "pathName": "pages/truck_handling/information_list/information_list",
+                    "query": "",
+                    "scene": null
+                }
+            ]
+        }
+    },
+    "editorSetting": {
+        "tabIndent": "auto",
+        "tabSize": 4
+    },
+    "libVersion": "2.30.3",
+    "packOptions": {
+        "ignore": [],
+        "include": []
+    },
+    "appid": "wxddb3eb32425e4a96"
 }
