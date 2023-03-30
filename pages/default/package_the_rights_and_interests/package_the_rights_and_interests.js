@@ -142,7 +142,6 @@ Page({
 			return;
 		}
 		const packages = app.globalData.newPackagePageData;
-		console.log(packages);
 		if (packages.shopId === '1091000458138361856') {	// 根据商户ID判断是不是中信银行联名套餐
 			let carp = app.globalData.myEtcList.filter(item => item.id === app.globalData.orderInfo.orderId);
 			this.setData({
@@ -642,8 +641,6 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			let flag = app.globalData.test ? params.shopProductId === '1091001046012010496' : params.shopProductId === '';
-			console.log(flag);
-			console.log(params.shopProductId);
 			if (this.data.citicBank && flag) {
 				this.selectComponent('#popTipComp').show({
 					type: 'five',
