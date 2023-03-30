@@ -77,7 +77,6 @@ Page({
 		}
 	},
 	async onShow () {
-		console.log(app.globalData.userInfo);
 		if (app.globalData.userInfo.accessToken) {
 			this.setData({
 				mobilePhoneMode: app.globalData.mobilePhoneMode
@@ -87,6 +86,9 @@ Page({
 			this.login();
 		}
 		this.getWchatPhoneNumber();
+		if (app.globalData.isChannelPromotion === 100) {	// 暂时以渠道为 100 来判断用户是从中信银行过来的
+			app.globalData.otherPlatformsServiceProvidersId = '1091000458138361856';
+		}
 	},
 
 	// 自动登录

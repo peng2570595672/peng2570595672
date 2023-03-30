@@ -126,7 +126,9 @@ Page({
 		contractStatus: undefined,
 		getAgreement: false, // 是否接受协议
 		isPay: false, // 已选择通通券套餐&无需支付||已经支付
-		isTest: app.globalData.test
+		isTest: app.globalData.test,
+		citicBank: false	// 是否是中信银行联名套餐
+
 	},
 	async onLoad (options) {
 		console.log(options);
@@ -140,6 +142,11 @@ Page({
 			return;
 		}
 		const packages = app.globalData.newPackagePageData;
+		if (packages.shopId === '1091000458138361856') {	// 根据商户ID判断是不是中信银行联名套餐
+			this.setData({
+				citicBank: true
+			});
+		}
 		this.setData({
 			listOfPackages: parseInt(options.type) === 1 ? packages.divideAndDivideList : packages.alwaysToAlwaysList
 		});
@@ -191,6 +198,11 @@ Page({
 			this.setData({
 				listOfPackages: [result.data]
 			});
+			if (result.data.shopId === '1091000458138361856') {
+				this.setData({
+					citicBank: true
+				});
+			}
 			this.getNodeHeight(this.data.listOfPackages.length);
 		} else {
 			util.showToastNoIcon(result.message);
@@ -626,6 +638,10 @@ Page({
 		this.setData({isRequest: false});
 		if (!result) return;
 		if (result.code === 0) {
+			if (this.data.citicBank && this.data.listOfPackages[this.data.choiceIndex].shopProductId === '1091001046012010496') {
+				console.log('hhhhh');
+				return;
+			}
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
 				this.data.equityListMap[this.data.activeIndex]?.payMoney) {
 				await this.marginPayment(this.data.listOfPackages[this.data.choiceIndex].pledgeType);

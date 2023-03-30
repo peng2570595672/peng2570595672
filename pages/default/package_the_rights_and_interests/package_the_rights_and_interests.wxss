@@ -280,6 +280,11 @@
   left: -4rpx;
   z-index: 10;
 }
+.splitText {
+  text-align: center;
+  margin-top: 20rpx;
+  font-size: 24rpx;
+}
 /* 占位 */
 .split {
   width: 100%;
@@ -419,12 +424,28 @@
   animation: fade_out 0.5s linear forwards;
   -webkit-animation: fade_out 0.5s linear forwards;
 }
+@-webkit-keyframes fade_in {
+  0% {
+    bottom: -330rpx;
+  }
+  100% {
+    bottom: 0;
+  }
+}
 @keyframes fade_in {
   0% {
     bottom: -330rpx;
   }
   100% {
     bottom: 0;
+  }
+}
+@-webkit-keyframes fade_out {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: -330rpx;
   }
 }
 @keyframes fade_out {

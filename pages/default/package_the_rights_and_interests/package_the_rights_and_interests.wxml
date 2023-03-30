@@ -8,7 +8,7 @@
     <view class="package" wx:for="{{listOfPackages}}" wx:key="index">
         <view class="module moduleOne iconfont {{'module' + index}} {{index === activeIndex ? 'btnHighLight' : ''}}" data-index="{{index}}" catchtap="btnHeightLight">
             <!-- 活动标签 限制字符8个 -->
-            <view class="active {{index === activeIndex ? 'activeChange' : ''}}" wx:if="{{false}}">
+            <view class="active {{index === activeIndex ? 'activeChange' : ''}}" wx:if="{{citicBank}}">
                 <text>{{tools.limitNumber('限时活动',8)}}</text>
             </view>
             <!-- 默认展示的套餐上半部分 -->
@@ -69,6 +69,7 @@
             </view>
         </view>
     </view>
+    <view class="splitText" wx:if="{{citicBank}}">保证金说明: 成功办理后即退还全额保证金</view>
     <!-- 占位 -->
     <view class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}}" >
        
@@ -107,7 +108,7 @@
                     ￥<span class="mpneySpan">{{activeIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + equityListMap[activeIndex].payMoney)/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}
                 </span>
                 </view>
-                <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}}" data-isconfirm="{{getAgreement}}" catchtap="next">去支付</view>
+                <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}}" data-isconfirm="{{getAgreement}}" catchtap="next">{{ citicBank ? '支付保证经' : '去支付'}}</view>
             </view>
             <view class="nextSign" wx:else>
                 <button class="btns {{choiceIndex === -1 || getAgreement ? 'payColor' : ''}}" catchtap="next" >
