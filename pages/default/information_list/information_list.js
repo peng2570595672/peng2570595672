@@ -23,7 +23,9 @@ Page({
 		isReturn: false,
 		ownerIdCard: {}, // 实名身份信息
 		vehicle: {}, // 车辆信息
-		tips: ''	// 审核失败返回的结果
+		tips: '',	// 审核失败返回的结果
+		citicBank: false, // 是否是中信银行联名套餐
+		openSheet: false
 	},
 	async onLoad (options) {
 		app.globalData.isCheckCarChargeType = false;
@@ -114,6 +116,7 @@ Page({
 				// errNums
 				this.getErrorStatus(res.orderAudit);
 			}
+
 			this.setData({
 				vehicle: vehicle,
 				ownerIdCard: ownerIdCard,
@@ -126,6 +129,13 @@ Page({
 				tips: res.orderAudit ? res.orderAudit.remark : '',
 				topProgressBar: orderInfo.isOwner && orderInfo.isVehicle ? 4 : orderInfo.isOwner || orderInfo.isVehicle ? 3.3 : 3
 			});
+			if (orderInfo.shopId === '1091000458138361856') {
+				this.setData({
+					citicBank: true,
+					isEtcContractId: false,
+					contractStatus: false
+				});
+			}
 			this.availableCheck();
 		} else {
 			util.showToastNoIcon(result.message);
@@ -304,19 +314,25 @@ Page({
 			clientMobilePhone: app.globalData.userInfo.mobilePhone,
 			orderId: app.globalData.orderInfo.orderId,// 订单id
 			changeAuditStatus: true,
-			needSignContract: true // 是否需要签约 true-是，false-否
+			needSignContract: this.data.citicBank ? false : true // 是否需要签约 true-是，false-否
 		};
 		if (this.data.contractStatus === 1 || this.data.isModifiedData || !this.data.isEtcContractId) {
 			delete params.needSignContract;
 			delete params.clientMobilePhone;
 			delete params.clientOpenid;
 		}
+
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		this.setData({isRequest: false});
 		if (!result) return;
 		if (result.code === 0) {
 			app.globalData.isNeedReturnHome = true;
 			app.globalData.isCheckCarChargeType = this.data.orderInfo.obuCardType === 1 && this.data.orderInfo.orderType === 11 && !this.data.isModifiedData;
+			if (this.data.citicBank) {
+				// 中信银行在没收到设备时是不需要签约的
+				util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
+				return;
+			}
 			if (this.data.orderInfo.flowVersion === 2 || this.data.orderInfo.flowVersion === 3) {
 				util.go(`/pages/default/order_audit/order_audit`);
 				return;
@@ -333,6 +349,37 @@ Page({
 		} else {
 			util.showToastNoIcon(result.message);
 		}
+	},
+	// 中信银行的 提交 按钮
+	submitCiticBank () {
+		if (!this.data.available) return;
+		if (this.data.citicBank) {
+			this.setData({
+				openSheet: true
+			});
+		}
+	},
+	skip () {
+		let that = this;
+		util.alert({
+			title: `办理提醒`,
+			content: `本优惠套餐仅限于办理成功银行信用卡之后，可进行保证金退还，如跳过办理流程，保证金将不予退回`,
+			showCancel: true,
+			confirmColor: '#576b95',
+			cancelText: '我再想想',
+			confirmText: '我知道了',
+			confirm: async () => {
+				that.setData({
+					openSheet: false
+				});
+				this.subscribe();
+			}
+		});
+	},
+	onclickhandel () {
+		this.setData({
+			openSheet: false
+		});
 	},
 	onUnload () {
 		if (this.data.isReturn) {

@@ -93,7 +93,8 @@ Page({
 		}
 	},
 	go () {
-		util.go(`pages/default/information_list/information_list?citicBank=true`);
+		// 跳转上传证件页
+		util.go(`/pages/default/information_list/information_list`);
 	},
 	onUnload () {
 		wx.switchTab({
