@@ -52,7 +52,11 @@ Page({
 		imagesConfig: {
 			backgroundColor: '#2D5D4F',
 			marketingImgUrl: 'https://file.cyzl.com/g001/M01/D1/10/oYYBAGQiQxuAUiQdAABFf46DvQQ847.png'
-		}
+		},
+		citicBank: false, // 是否有中信银行联名套餐的订单
+		transactScheduleData: undefined,	// 中信银行信用卡申请进度查询结果
+		showhandleOrView: false,	// 中信银行信用卡 false 表示 ”查看信用卡办理进度“
+		firstCiticBank: false	// 从中信银行过来
 	},
 	async onLoad () {
 		this.getBackgroundConfiguration();
@@ -63,6 +67,7 @@ Page({
 		if (app.globalData.userInfo.accessToken) {
 			await util.getIsArrearage();
 			await util.getUserIsVip();
+			this.viewCiticBankList();
 		}
 		this.setData({
 			show: true,
@@ -192,6 +197,48 @@ Page({
 		wx.switchTab({
 			url: '/pages/Home/Home'
 		});
+	},
+	// 获取
+	async viewCiticBankList () {
+		let flag = app.globalData.myEtcList.filter(item => item.productName.indexOf('联名白金卡') !== -1 || item.productName.indexOf('联名金卡') !== -1);
+		// let flag1 = app.globalData.myEtcList.filter(item => item.productName.indexOf('联名白金卡') !== -1);
+		// let flag2 = app.globalData.myEtcList.filter(item => item.productName.indexOf('联名金卡') !== -1);
+		if (flag.length > 0) {
+			this.setData({
+				citicBank: true,
+				viewCiticBankList: flag
+			});
+			const result = await util.getDataFromServersV2('consumer/order/zx/transact-schedule', {
+				orderId: flag[0].id
+			});
+			if (!result) return;
+			if (result.code === 0) {
+				console.log(result);
+				this.setData({
+					transactScheduleData: result.data,
+					showhandleOrView: result.data[0].applyStatus === '111' || result.data[0].applyStatus === '112'
+				});
+			} else {
+				util.showToastNoIcon(result.message);
+			}
+		} else {
+			this.setData({
+				firstCiticBank: app.globalData.isChannelPromotion === 100
+			});
+		}
+	},
+	// 中信联名权益 查看
+	viewEquity (e) {
+		let index = e.currentTarget.dataset.index;
+		let url = index === 1 ? `https://creditcard.ecitic.com/h5/shenqing/iche/index.html?sid=SJCSJHT01&paId=${this.data.viewCiticBankList[0].id}&partnerId=SJHT` : `https://creditcard.ecitic.com/h5/shenqing/chezhu/index.html?sid=SJCSJHT01&paId=${this.data.viewCiticBankList[0].id}&partnerId=SJHT`;
+		util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
+	},
+	citicBankProgress () {
+		if (!this.data.showhandleOrView) {	// 查看信用卡办理进度
+			util.go(`/pages/default/citicBank_processing_progress/citicBank_processing_progress?orderId=${this.data.viewCiticBankList[0].id}`);
+		} else {	// 继续办理信用卡
+
+		}
 	}
 
 });

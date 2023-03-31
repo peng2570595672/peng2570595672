@@ -1,0 +1,61 @@
+@charset "UTF-8";
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.index {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ececec;
+}
+.index .topSplit {
+  height: 32rpx;
+}
+.index .module {
+  height: 152rpx;
+  border-radius: 16rpx;
+  background-color: #fff;
+  margin: 28rpx;
+  padding: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  box-shadow: 0px 4rpx 2rpx 0rpx rgba(212,212,212,0.5);
+}
+.index .module .title {
+  font-size: 36rpx;
+  padding-bottom: 28rpx;
+  font-weight: bold;
+}
+.index .moduleTwo {
+  height: auto;
+}
+.index .moduleTwo .changeColor {
+  color: #706f6f;
+}
+.index .moduleTwo .setp {
+  height: 100rpx;
+}
+.index .moduleTwo .setp .head {
+  font-size: 32rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+.index .moduleTwo .setp .head::before {
+  height: 30rpx;
+  line-height: 20rpx;
+  display: block;
+  content: '•';
+  font-size: 100rpx;
+  margin: 10rpx 10rpx 20rpx -10rpx;
+}
+.index .moduleTwo .setp .content {
+  margin-left: 40rpx;
+}
+.index .moduleTwo .margingTop {
+  margin-top: 28rpx;
+}
