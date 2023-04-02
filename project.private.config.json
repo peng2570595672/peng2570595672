@@ -9,6 +9,20 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "我的ETC列表",
+                    "pathName": "pages/personal_center/my_etc/my_etc",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "ETC详情",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1063109394054516736",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

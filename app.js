@@ -294,6 +294,9 @@ App({
 			// 因微信场景值问题,故未用场景值判断
 			console.log('this.globalData.signAContract');
 			console.log(this.globalData.signAContract);
+			if (res.path === 'pages/default/citic_bank_sign/citic_bank_sign') {
+				return;
+			}
 			const {appId} = res.referrerInfo;
 			if (this.globalData.signAContract === -1) {
 				// 车主服务签约

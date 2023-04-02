@@ -104,16 +104,12 @@
 }
 .index .bottomBtn .btnClose.available {
   background: linear-gradient(45deg, #14ac69 0%, #84d157 100%);
-  -webkit-animation: btnFadeIn 0.3s;
-          animation: btnFadeIn 0.3s;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
+  animation: btnFadeIn 0.3s;
+  animation-fill-mode: forwards;
 }
 .index .bottomBtn .btnClose.unavailable {
-  -webkit-animation: btnFadeOut 0.3s;
-          animation: btnFadeOut 0.3s;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
+  animation: btnFadeOut 0.3s;
+  animation-fill-mode: forwards;
 }
 .index .bottomBtn .actionSheet {
   position: relative;

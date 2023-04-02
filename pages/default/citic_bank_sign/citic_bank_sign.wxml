@@ -1,0 +1,3 @@
+<view class="container">
+    <view class="btn" catchtap="handleSign">签约代扣通行费</view>
+</view>

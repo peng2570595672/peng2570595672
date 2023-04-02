@@ -48,6 +48,7 @@
 		"pages/default/statement_of_interest/statement_of_interest",
 		"pages/default/margin_user_handling_agreement/margin_user_handling_agreement",
 		"pages/default/new_pay/new_pay",
+		"pages/default/citic_bank_sign/citic_bank_sign",
 		"pages/default/citicBank_processing_progress/citicBank_processing_progress"
 
 	],
@@ -315,7 +316,7 @@
 				"webview/webview"
 			]
 		}
-		
+
 	],
 	"functionalPages": {
 		"independent": true
