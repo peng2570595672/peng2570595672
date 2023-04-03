@@ -42,6 +42,9 @@ Page({
 				if (result.data.contractStatus === 1) {
 					// 签约成功
 					console.log('签约成功');
+					if (this.data.orderInfo.obuCardType === 1) {
+						await this.brandChargingModel();
+					}
 				}
 				this.setData({
 					contractStatus: result.data.contractStatus
@@ -114,6 +117,13 @@ Page({
 			} else {
 				util.showToastNoIcon(result.message);
 			}
+		},
+		// 车辆品牌收费车型校验
+		async brandChargingModel () {
+			console.log('车辆品牌收费车型校验');
+			await util.getDataFromServersV2('consumer/etc/qtzl/checkCarChargeType', {
+				orderId: this.globalData.orderInfo.orderId
+			});
 		},
 		async handleSign () {
 			const obj = this.data.orderInfo;
