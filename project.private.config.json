@@ -48,9 +48,9 @@
                 {
                     "name": "",
                     "pathName": "pages/Home/Home",
-                    "query": "",
+                    "query": "channel=100",
                     "launchMode": "default",
-                    "scene": null
+                    "scene": 1011
                 }
             ]
         }

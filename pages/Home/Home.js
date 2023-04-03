@@ -175,6 +175,7 @@ Page({
 		if (currentPage.options?.channel) {
 			app.globalData.isChannelPromotion = +currentPage.options?.channel;
 		}
+		console.log(app.globalData.isChannelPromotion);
 		util.customTabbar(this, 0);
 		await this.getBackgroundConfiguration();
 		if (app.globalData.userInfo.accessToken) {
