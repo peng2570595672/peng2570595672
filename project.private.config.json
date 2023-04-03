@@ -23,6 +23,13 @@
                     "query": "orderId=1063109394054516736",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/default/upload_id_card/upload_id_card",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
