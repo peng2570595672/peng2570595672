@@ -98,23 +98,25 @@
 			&.unavailable
 				animation btnFadeOut .3s
 				animation-fill-mode forwards
-		.actionSheet
-			position relative
-			.top
-				text-align center
-				height 120rpx
+	.actionSheet
+		position relative
+		.top
+			text-align center
+			height auto
+			font-size 36rpx
+			font-weight bold
+			.skip
+				height 60rpx
+				color rgb(21, 177, 255)
+				line-height 60rpx
+				text-align right
+				padding 5rpx 28rpx
+				font-size 28rpx
+				position absolute
+				right 0
+			.head
 				line-height 120rpx
-				font-size 36rpx
-				font-weight bold
-				.skip
-					height 60rpx
-					color rgb(21, 177, 255)
-					line-height 60rpx
-					text-align right
-					padding 5rpx 28rpx
-					font-size 28rpx
-					position absolute
-					right 0
+				margin-top 10rpx
 			.center
 				text-align center
 				width 694rpx
@@ -127,9 +129,11 @@
 				padding-top 28rpx
 				height 40rpx
 				font-size 28rpx
-			.ok
-				height 80rpx
-				line-height 80rpx
+				font-weight 400
+				margin-bottom 20rpx
+		.ok
+			height 80rpx
+			line-height 80rpx
 
 
 

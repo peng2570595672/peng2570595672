@@ -129,11 +129,13 @@ Page({
 				tips: res.orderAudit ? res.orderAudit.remark : '',
 				topProgressBar: orderInfo.isOwner && orderInfo.isVehicle ? 4 : orderInfo.isOwner || orderInfo.isVehicle ? 3.3 : 3
 			});
-			if (orderInfo.shopId === '1091000458138361856') {
+			// 中信银行
+			if (orderInfo.shopId === app.globalData.citicBankShopId) {
 				this.setData({
 					citicBank: true,
 					isEtcContractId: false,
-					contractStatus: false
+					contractStatus: false,
+					isCiticBankPlatinum: res.orderInfo.shopProductId === app.globalData.citicBankShopshopProductId	// 判断是不是白金卡套餐
 				});
 			}
 			this.availableCheck();
@@ -377,9 +379,22 @@ Page({
 		});
 	},
 	onclickhandel () {
+		// 未登录
+		if (!app.globalData.userInfo?.accessToken) {
+			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+			util.go('/pages/login/login/login');
+			return;
+		}
 		this.setData({
 			openSheet: false
 		});
+		let url = '';
+		if (this.data.isCiticBankPlatinum) {
+			url = `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?sid=SJCSJHT01&paId=${this.data.orderDetails.orderId}&partnerId=SJHT&pid=CS0840`;
+		} else {
+			url = `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?pid=CS0207&sid=SJCSJHT01&paId=${this.data.orderDetails.orderId}&partnerId=SJHT`;
+		}
+		util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
 	},
 	onUnload () {
 		if (this.data.isReturn) {

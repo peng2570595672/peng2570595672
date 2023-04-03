@@ -67,8 +67,8 @@ Page({
 		if (app.globalData.userInfo.accessToken) {
 			await util.getIsArrearage();
 			await util.getUserIsVip();
-			this.viewCiticBankList();
 		}
+		this.viewCiticBankList();
 		this.setData({
 			show: true,
 			duration: 0,
@@ -198,15 +198,15 @@ Page({
 			url: '/pages/Home/Home'
 		});
 	},
-	// 获取
+	// 获取中信银行订单
 	async viewCiticBankList () {
-		let flag = app.globalData.myEtcList.filter(item => item.productName.indexOf('联名白金卡') !== -1 || item.productName.indexOf('联名金卡') !== -1);
-		// let flag1 = app.globalData.myEtcList.filter(item => item.productName.indexOf('联名白金卡') !== -1);
-		// let flag2 = app.globalData.myEtcList.filter(item => item.productName.indexOf('联名金卡') !== -1);
+		let flag = app.globalData.myEtcList.filter(item => item.shopId === app.globalData.citicBankShopId);
+		console.log(flag);
 		if (flag.length > 0) {
 			this.setData({
 				citicBank: true,
-				viewCiticBankList: flag
+				viewCiticBankList: flag,
+				isCiticBankPlatinum: flag[0].shopProductId === app.globalData.citicBankShopshopProductId	// 判断是不是白金卡套餐
 			});
 			const result = await util.getDataFromServersV2('consumer/order/zx/transact-schedule', {
 				orderId: flag[0].id
@@ -229,15 +229,28 @@ Page({
 	},
 	// 中信联名权益 查看
 	viewEquity (e) {
+		// 未登录
+		if (!app.globalData.userInfo?.accessToken) {
+			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+			util.go('/pages/login/login/login');
+			return;
+		}
 		let index = e.currentTarget.dataset.index;
-		let url = index === 1 ? `https://creditcard.ecitic.com/h5/shenqing/iche/index.html?sid=SJCSJHT01&paId=${this.data.viewCiticBankList[0].id}&partnerId=SJHT` : `https://creditcard.ecitic.com/h5/shenqing/chezhu/index.html?sid=SJCSJHT01&paId=${this.data.viewCiticBankList[0].id}&partnerId=SJHT`;
+		let url = index === '2' ? `https://creditcard.ecitic.com/h5/shenqing/iche/index.html?sid=SJCSJHT01&paId=${this.data.viewCiticBankList[0].id}&partnerId=SJHT` : `https://creditcard.ecitic.com/h5/shenqing/chezhu/index.html?sid=SJCSJHT01&paId=${this.data.viewCiticBankList[0].id}&partnerId=SJHT`;
 		util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
 	},
 	citicBankProgress () {
+		// 未登录
+		if (!app.globalData.userInfo?.accessToken) {
+			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+			util.go('/pages/login/login/login');
+			return;
+		}
 		if (!this.data.showhandleOrView) {	// 查看信用卡办理进度
 			util.go(`/pages/default/citicBank_processing_progress/citicBank_processing_progress?orderId=${this.data.viewCiticBankList[0].id}`);
-		} else {	// 继续办理信用卡
-
+		} else {	// 继续办理信用卡 - 跳转第三方
+			let url = this.data.isCiticBankPlatinum ? `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?sid=SJCSJHT01&paId=${this.data.viewCiticBankList[0].id}&partnerId=SJHT&pid=CS0840` : `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?pid=CS0207&sid=SJCSJHT01&paId=${this.data.viewCiticBankList[0].id}&partnerId=SJHT`;
+			util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
 		}
 	}
 

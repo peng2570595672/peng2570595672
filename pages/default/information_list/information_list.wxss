@@ -104,24 +104,27 @@
 }
 .index .bottomBtn .btnClose.available {
   background: linear-gradient(45deg, #14ac69 0%, #84d157 100%);
-  animation: btnFadeIn 0.3s;
-  animation-fill-mode: forwards;
+  -webkit-animation: btnFadeIn 0.3s;
+          animation: btnFadeIn 0.3s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
 }
 .index .bottomBtn .btnClose.unavailable {
-  animation: btnFadeOut 0.3s;
-  animation-fill-mode: forwards;
+  -webkit-animation: btnFadeOut 0.3s;
+          animation: btnFadeOut 0.3s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
 }
-.index .bottomBtn .actionSheet {
+.index .actionSheet {
   position: relative;
 }
-.index .bottomBtn .actionSheet .top {
+.index .actionSheet .top {
   text-align: center;
-  height: 120rpx;
-  line-height: 120rpx;
+  height: auto;
   font-size: 36rpx;
   font-weight: bold;
 }
-.index .bottomBtn .actionSheet .top .skip {
+.index .actionSheet .top .skip {
   height: 60rpx;
   color: #15b1ff;
   line-height: 60rpx;
@@ -131,22 +134,28 @@
   position: absolute;
   right: 0;
 }
-.index .bottomBtn .actionSheet .center {
+.index .actionSheet .top .head {
+  line-height: 120rpx;
+  margin-top: 10rpx;
+}
+.index .actionSheet .top .center {
   text-align: center;
   width: 694rpx;
   height: 300rpx;
   margin-left: 28rpx;
 }
-.index .bottomBtn .actionSheet .center .image {
+.index .actionSheet .top .center .image {
   width: 100%;
   height: 100%;
 }
-.index .bottomBtn .actionSheet .desub {
+.index .actionSheet .top .desub {
   padding-top: 28rpx;
   height: 40rpx;
   font-size: 28rpx;
+  font-weight: 400;
+  margin-bottom: 20rpx;
 }
-.index .bottomBtn .actionSheet .ok {
+.index .actionSheet .ok {
   height: 80rpx;
   line-height: 80rpx;
 }

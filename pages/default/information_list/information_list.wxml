@@ -36,22 +36,17 @@
         <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="subscribe" wx:else>
             {{isModifiedData ? '提交审核': contractStatus === 1 || !isEtcContractId ? '提交' : '签约代扣通行费'}}
         </view>
-
-        <action-sheet hidden="{{!openSheet}}" class="actionSheet">
-            <view class="top">
-                <span class="skip" catchtap="skip">跳过</span>
-                <view class="head">办理中信银行</view>
-            </view>
-            <action-sheet-item >
-                <view class="center">
-                    <image class="image" src="https://file.cyzl.com/g001/M01/D1/DB/oYYBAGQmSU-AEOF7AAGjDU5oq3o346.jpg"/>
-                </view>
-                <view class="desub">点击跳转到中信银行信用卡办理</view>
-            </action-sheet-item>
-                <!--自动隐藏action-sheet-->
-            <action-sheet-cancel class="ok" catchtap="onclickhandel">立即办理</action-sheet-cancel>
-        </action-sheet>
-
     </view>
-    
+    <!-- 中信银行 拉起弹窗-->
+    <action-sheet hidden="{{!openSheet}}" class="actionSheet">
+        <view class="top">
+            <span class="skip" catchtap="skip">跳过</span>
+            <view class="head">办理中信银行</view>
+            <view class="center">
+                <image class="image" src="https://file.cyzl.com/g001/M01/D1/DB/oYYBAGQmSU-AEOF7AAGjDU5oq3o346.jpg"/>
+            </view>
+            <view class="desub">点击跳转到中信银行信用卡办理</view>
+        </view>
+        <action-sheet-cancel class="ok" catchtap="onclickhandel">立即办理</action-sheet-cancel>
+    </action-sheet>
 </view>

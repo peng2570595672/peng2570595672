@@ -142,7 +142,7 @@ Page({
 			return;
 		}
 		const packages = app.globalData.newPackagePageData;
-		if (packages.shopId === '1091000458138361856') {	// 根据商户ID判断是不是中信银行联名套餐
+		if (packages.shopId === app.globalData.citicBankShopId) {	// 根据商户ID判断是不是中信银行联名套餐
 			let carp = app.globalData.myEtcList.filter(item => item.id === app.globalData.orderInfo.orderId);
 			this.setData({
 				citicBank: true,
@@ -200,7 +200,8 @@ Page({
 			this.setData({
 				listOfPackages: [result.data]
 			});
-			if (result.data.shopId === '1091000458138361856') {
+			// 中信银行
+			if (result.data.shopId === app.globalData.citicBankShopId) {
 				this.setData({
 					citicBank: true
 				});
@@ -640,8 +641,8 @@ Page({
 		this.setData({isRequest: false});
 		if (!result) return;
 		if (result.code === 0) {
-			let flag = app.globalData.test ? params.shopProductId === '1091001046012010496' : params.shopProductId === '';
-			if (this.data.citicBank && flag) {
+			// 中信银行
+			if (this.data.citicBank && params.shopProductId === app.globalData.citicBankShopshopProductId) {
 				this.selectComponent('#popTipComp').show({
 					type: 'five',
 					title: '新客户免首年年费',
