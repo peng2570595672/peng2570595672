@@ -30,6 +30,27 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "优惠购",
+                    "pathName": "pages/separate_interest_package/prefer_purchase/prefer_purchase",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "优惠购购买成功",
+                    "pathName": "pages/separate_interest_package/citic_bank_pay_success/citic_bank_pay_success",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/Home/Home",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

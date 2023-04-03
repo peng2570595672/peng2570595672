@@ -148,7 +148,8 @@
 				"purchase_terms/purchase_terms",
 				"prefer_purchase/prefer_purchase",
 				"buy_success/buy_success",
-				"associated_license_plate/associated_license_plate"
+				"associated_license_plate/associated_license_plate",
+				"citic_bank_pay_success/citic_bank_pay_success"
 			]
 		},
 		{

@@ -132,7 +132,8 @@ App({
 		handledByTelephone: undefined,	// 4.0办理人的电话
 		newEnergy: false,	// false 表示不是新能源车牌
 		citicBankShopId: IS_TEST ? '1091000458138361856' : '',	// 中信银行套餐的商户ID 分别是测试环境下和正式环境下
-		citicBankShopshopProductId: IS_TEST ? '1091001046012010496' : ''	// 中信银行里的白金套餐的套餐ID 分别是测试环境下和正式环境下
+		citicBankShopshopProductId: IS_TEST ? '1091001046012010496' : '',	// 中信银行里的白金套餐的套餐ID 分别是测试环境下和正式环境下
+		citicBankRightId: IS_TEST ? '1092482405515665408' : ''	// 中信银行权益ID
 	},
 	onLaunch (options) {
 		// 统计逻辑结束

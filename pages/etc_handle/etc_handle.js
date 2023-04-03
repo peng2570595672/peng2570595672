@@ -200,8 +200,10 @@ Page({
 	},
 	// 获取中信银行订单
 	async viewCiticBankList () {
-		let flag = app.globalData.myEtcList.filter(item => item.shopId === app.globalData.citicBankShopId);
-		console.log(flag);
+		let flag = [];
+		if (app.globalData.myEtcList.length > 0) {
+			flag = app.globalData.myEtcList.filter(item => item.shopId === app.globalData.citicBankShopId);
+		}
 		if (flag.length > 0) {
 			this.setData({
 				citicBank: true,
@@ -236,7 +238,8 @@ Page({
 			return;
 		}
 		let index = e.currentTarget.dataset.index;
-		let url = index === '2' ? `https://creditcard.ecitic.com/h5/shenqing/iche/index.html?sid=SJCSJHT01&paId=${this.data.viewCiticBankList[0].id}&partnerId=SJHT` : `https://creditcard.ecitic.com/h5/shenqing/chezhu/index.html?sid=SJCSJHT01&paId=${this.data.viewCiticBankList[0].id}&partnerId=SJHT`;
+		let paId = this.data.viewCiticBankList && this.data.viewCiticBankList.length > 0 ? this.data.viewCiticBankList[0].id : 'HHXXXXX';
+		let url = index === '2' ? `https://creditcard.ecitic.com/h5/shenqing/iche/index.html?sid=SJCSJHT01&paId=${paId}&partnerId=SJHT` : `https://creditcard.ecitic.com/h5/shenqing/chezhu/index.html?sid=SJCSJHT01&paId=${paId}&partnerId=SJHT`;
 		util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
 	},
 	citicBankProgress () {

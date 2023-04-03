@@ -42,6 +42,17 @@ Page({
 				if (result.data.contractStatus === 1) {
 					// 签约成功
 					console.log('签约成功');
+					util.alert({
+						title: `新客优惠提醒`,
+						content: `即日起，完成中信信用卡激活的用户，使用新卡支付，即可享受0.01元购买20元通行券限时优惠`,
+						showCancel: true,
+						confirmColor: '#576b95',
+						cancelText: '暂不考虑',
+						confirmText: '立即领取',
+						confirm: async () => {
+							util.go(`/pages/separate_interest_package/prefer_purchase/prefer_purchase?packageId=${app.globalData.citicBankRightId}`);
+						}
+					});
 					if (this.data.orderInfo.obuCardType === 1) {
 						await this.brandChargingModel();
 					}
@@ -122,7 +133,7 @@ Page({
 		async brandChargingModel () {
 			console.log('车辆品牌收费车型校验');
 			await util.getDataFromServersV2('consumer/etc/qtzl/checkCarChargeType', {
-				orderId: this.globalData.orderInfo.orderId
+				orderId: app.globalData.orderInfo.orderId
 			});
 		},
 		async handleSign () {
