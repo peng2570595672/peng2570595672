@@ -175,7 +175,6 @@ Page({
 		if (currentPage.options?.channel) {
 			app.globalData.isChannelPromotion = +currentPage.options?.channel;
 		}
-		console.log(app.globalData.isChannelPromotion);
 		util.customTabbar(this, 0);
 		await this.getBackgroundConfiguration();
 		if (app.globalData.userInfo.accessToken) {
@@ -305,7 +304,6 @@ Page({
 			return;
 		}
 		let obj = e.currentTarget.dataset.information;
-		console.log(obj);
 		let appIdPath = obj.appId && obj.appId.length > 0;
 		let webPath = obj.jumpUrl.indexOf('https') !== -1;
 		let templateId = obj.templateId && obj.templateId[0] !== '';

@@ -56,11 +56,15 @@ Page({
 		citicBank: false, // 是否有中信银行联名套餐的订单
 		transactScheduleData: undefined,	// 中信银行信用卡申请进度查询结果
 		showhandleOrView: false,	// 中信银行信用卡 false 表示 ”查看信用卡办理进度“
-		firstCiticBank: false	// 从中信银行过来
+		firstCiticBank: false,	// 从中信银行过来
+		citicBankChannel: false	// true 表示从首页banner中信 跳过来
 	},
-	async onLoad () {
+	async onLoad (options) {
 		this.getBackgroundConfiguration();
 		util.customTabbar(this, 1);
+		if (options.channel) {
+			this.setData({citicBankChannel: parseInt(options.channel)});
+		}
 	},
 	async onShow () {
 		// 查询是否欠款
@@ -204,6 +208,10 @@ Page({
 		if (app.globalData.myEtcList.length > 0) {
 			flag = app.globalData.myEtcList.filter(item => item.shopId === app.globalData.citicBankShopId);
 		}
+		if (app.globalData.isChannelPromotion === 100 || this.data.citicBankChannel === 100) {	// 暂时以渠道为 100 来判断用户是从中信银行过来的
+			app.globalData.otherPlatformsServiceProvidersId = app.globalData.citicBankShopId;
+		}
+		// console.log(app.globalData.isChannelPromotion,this.data.citicBankChannel,flag);
 		if (flag.length > 0) {
 			this.setData({
 				citicBank: true,
@@ -225,7 +233,7 @@ Page({
 			}
 		} else {
 			this.setData({
-				firstCiticBank: app.globalData.isChannelPromotion === 100
+				firstCiticBank: app.globalData.isChannelPromotion === 100 || this.data.citicBankChannel === 100
 			});
 		}
 	},

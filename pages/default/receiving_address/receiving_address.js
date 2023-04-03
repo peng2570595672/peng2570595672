@@ -86,9 +86,6 @@ Page({
 			this.login();
 		}
 		this.getWchatPhoneNumber();
-		if (app.globalData.isChannelPromotion === 100) {	// 暂时以渠道为 100 来判断用户是从中信银行过来的
-			app.globalData.otherPlatformsServiceProvidersId = app.globalData.citicBankShopId;
-		}
 	},
 
 	// 自动登录
