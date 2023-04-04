@@ -10,7 +10,7 @@ Page({
 	},
 	async onLoad (options) {
 		this.setData({
-			path: options.path,
+			path: decodeURIComponent(options.path),
 			appId: options.appId
 		});
 	},
