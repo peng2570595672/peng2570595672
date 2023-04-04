@@ -37,7 +37,7 @@
   font-size: 60rpx;
 }
 .account-details .account-info .balance .unit {
-  color: #33333d;
+  color: $fontColor3;
   padding-left: 12rpx;
   padding-right: 32rpx;
 }
@@ -72,7 +72,6 @@
   padding-left: 8rpx;
 }
 .account-details .account-info .prompt span {
-  color: #000;
   font-size: 22rpx;
 }
 .account-details .split {
@@ -116,7 +115,7 @@
   border-bottom: 1rpx solid rgba(176,176,176,0.29);
 }
 .account-details .account-list .list-item > view {
-  color: #33333d;
+  color: $fontColor3;
   font-size: 36rpx;
   display: flex;
 }
@@ -132,7 +131,7 @@
 }
 .account-details .account-list .list-item > view.first .type {
   font-size: 28rpx;
-  color: #66666d;
+  color: $fontColor6;
 }
 .account-details .account-list .list-item > view.first .price {
   font-family: PingFangSC-Medium, PingFang SC;
