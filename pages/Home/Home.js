@@ -318,7 +318,7 @@ Page({
 				util.subscribe(obj.templateId, obj.jumpUrl);
 				return;
 			}
-			if (obj.jumpUrl.indexOf('/pages/etc_handle/etc_handle') || obj.jumpUrl.indexOf('pages/my/index')) {
+			if (obj.jumpUrl.indexOf('/pages/etc_handle/etc_handle') !== -1 || obj.jumpUrl.indexOf('pages/my/index') !== -1) {
 				wx.reLaunch({
 					url: `${obj.jumpUrl}`
 				});

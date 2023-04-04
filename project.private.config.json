@@ -51,6 +51,13 @@
                     "query": "channel=100",
                     "launchMode": "default",
                     "scene": 1011
+                },
+                {
+                    "name": "中信办理进度",
+                    "pathName": "pages/default/citicBank_processing_progress/citicBank_processing_progress",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
