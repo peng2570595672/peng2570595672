@@ -8,6 +8,7 @@
 	"usingComponents": {
       "popup1": "/components/dialog1/dialog",
       "agreement-dialog": "/components/agreement_dialog/agreement_dialog",
+      "authorization-phone": "/components/authorization_phone/authorization_phone",
       "view-img": "/components/viewImg/viewImg",
       "popTipComp": "/components/popTipComp/popTipComp"
 
