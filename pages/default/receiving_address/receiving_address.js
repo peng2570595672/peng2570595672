@@ -656,8 +656,12 @@ Page({
 				loginInfo['showMobilePhone'] = util.mobilePhoneReplace(result.data.mobilePhone);
 				loginInfo.needBindingPhone = 0;
 				this.setData({
-					loginInfo
+					loginInfo,
+					tip1: '',
+					'formData.operator': app.globalData.mobilePhone,
+					available: this.validateAvailable(true)
 				});
+				util.hideLoading();
 			} else {
 				util.hideLoading();
 				util.showToastNoIcon(result.message);
