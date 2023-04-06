@@ -847,7 +847,6 @@ Page({
 	},
 	// 获取节点的高度
 	async getNodeHeight (num) {
-		console.log(num);
 		util.showLoading({
 			title: '加载中'
 		});
@@ -858,7 +857,6 @@ Page({
 			let allIndex = 'module' + index;
 			wx.createSelectorQuery().select(`.${allIndex}`).boundingClientRect(function (rect) {
 				nodeHeightList.push(rect.top);
-				console.log('节点距离顶部高度列表：',nodeHeightList);
 				that.setData({
 					nodeHeightList
 				});
