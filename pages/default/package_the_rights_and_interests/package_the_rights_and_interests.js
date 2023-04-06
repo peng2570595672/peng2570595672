@@ -887,8 +887,8 @@ Page({
 		for (let index = 0; index < num; index++) {
 			let allIndex = 'module' + index;
 			wx.createSelectorQuery().select(`.${allIndex}`).boundingClientRect(function (rect) {
-				// console.log('节点信息: ',rect);
-				nodeHeightList.push(rect.height);
+				nodeHeightList.push(rect.top);
+				console.log('节点距离顶部高度列表：',nodeHeightList);
 				that.setData({
 					nodeHeightList
 				});
@@ -914,39 +914,15 @@ Page({
 		this.setData({
 			equityListMap: equityListMap
 		});
-		wx.getSystemInfo({
-			success: (res) => {
-				let arr = [
-					['iPhone 5'],['Nexus 5'],['iPhone 6/7/8','iPhone X','iPhone 12/13 mini','iPhone 12/13 (Pro)','Mac 13-inch and below','Mac 15-inch'],
-					['iPhone XR','iPhone XS Max','Mac 21-inch and above','Nexus 5X','Nexus 6','iPhone 6/7/8 Plus'],['iPhone 12/13 Pro Max','iPhone 14 Pro Max'],
-					['Windows'],['iPad'],['iPad Pro 10.5-inch'],['iPad Pro 12.9-inch']
-				];
-				// 指定索引
-				for (let index = 0; index < 9; index++) {
-					if (arr[index].includes(res.model)) {
-						return that.setData({
-							phoneType: index
-						});
-					}
-				}
-			}
-		});
 		util.hideLoading();
 	},
 	// 控制 选中套餐 的位置
 	controllShopProductPosition (eIndex) {
 		let flags = 'module' + eIndex;
-		let topValue = 0;
 		let that = this;
-		for (let index = 0; index < that.data.nodeHeightList.length; index++) {
-			if (index < eIndex) {
-				topValue += that.data.nodeHeightList[index];
-			}
-		}
-		let num = [16.4,18.4,19.4,20.4,21.4,24.4,38.4,42.4,51.4];	// 减少选中模块距离顶部的 中间值,是根据手机型号 来获取对应的值
 		wx.pageScrollTo({
 			selector: `.${flags}`,
-			scrollTop: topValue + that.data.activeIndex * num[that.data.phoneType] - that.data.activeIndex,
+			scrollTop: that.data.nodeHeightList[that.data.activeIndex] - (that.data.nodeHeightList[0] + 4),
 			duration: 200
 		});
 	}
