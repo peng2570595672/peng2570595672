@@ -14,7 +14,7 @@ Page({
 		isCloseUpperPart: false, // 控制 详情是否显示
 		isCloseUpperPart1: false, // 控制 详情是否显示
 		isCloseUpperPart2: false, // 控制 详情是否显示
-		nodeHeightList: [], // 存储节点高度 集合
+		nodeHeightList: [], // 存储节点距离top 集合
 		phoneType: 2,
 		equityListMap: [],	// 权益列表集合
 		ttCouponImgList: [	// 通通券图片展示
@@ -877,7 +877,6 @@ Page({
 	},
 	// 获取节点的高度
 	async getNodeHeight (num) {
-		console.log(num);
 		util.showLoading({
 			title: '加载中'
 		});
@@ -888,7 +887,6 @@ Page({
 			let allIndex = 'module' + index;
 			wx.createSelectorQuery().select(`.${allIndex}`).boundingClientRect(function (rect) {
 				nodeHeightList.push(rect.top);
-				console.log('节点距离顶部高度列表：',nodeHeightList);
 				that.setData({
 					nodeHeightList
 				});
