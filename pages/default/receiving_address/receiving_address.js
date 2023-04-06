@@ -118,7 +118,7 @@ Page({
 					await util.getIsArrearage();
 				} else {
 					wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-					util.go('/pages/login/login/login');
+					// util.go('/pages/login/login/login');
 				}
 			},
 			fail: () => {
@@ -627,8 +627,41 @@ Page({
 			util.showToastNoIcon('手机号未绑定，马上跳转登录页登录');
 			setTimeout(() => {
 				wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-				util.go('/pages/login/login/login');
+				// util.go('/pages/login/login/login');
 			},1500);
+		}
+	},
+	async onGetPhoneNumber (e) {
+		// 允许授权
+		if (e.detail.errMsg === 'getPhoneNumber:ok') {
+			let encryptedData = e.detail.encryptedData;
+			let iv = e.detail.iv;
+			util.showLoading({
+				title: '绑定中...'
+			});
+			const result = await util.getDataFromServersV2('consumer/member/common/applet/bindingPhone', {
+				certificate: this.data.loginInfo.certificate,
+				encryptedData: encryptedData, // 微信加密数据
+				iv: iv // 微信加密数据
+			}, 'POST', false);
+			if (!result) return;
+			// 绑定手机号成功
+			if (result.code === 0) {
+				result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data.mobilePhone);
+				app.globalData.userInfo = result.data; // 用户登录信息
+				app.globalData.openId = result.data.openId;
+				app.globalData.memberId = result.data.memberId;
+				app.globalData.mobilePhone = result.data.mobilePhone;
+				let loginInfo = this.data.loginInfo;
+				loginInfo['showMobilePhone'] = util.mobilePhoneReplace(result.data.mobilePhone);
+				loginInfo.needBindingPhone = 0;
+				this.setData({
+					loginInfo
+				});
+			} else {
+				util.hideLoading();
+				util.showToastNoIcon(result.message);
+			}
 		}
 	},
 	// 输入框输入值
