@@ -25,7 +25,7 @@
             <view >
                 <image src="https://file.cyzl.com/g001/M01/D1/EC/oYYBAGQmbzqAMNy8AAJalSVjby0953.jpg" mode="widthFix"/>
             </view>
-            <view class="btnCiti" wx:if="{{firstCiticBank}}">
+            <view class="btnCiti" wx:if="{{isShowBtn}}">
                 <span class="btn1" catchtap="citicBankProgress">{{showhandleOrView ? '继续办理信用卡':'查看信用卡办理进度'}}</span>
             </view>
         </view>

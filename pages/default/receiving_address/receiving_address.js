@@ -737,7 +737,7 @@ Page({
 			util.hideLoading();
 			if (res.data.canSubmit === 1) {
 				if (this.data.citicBank) {
-					this.selectComponent('#popTipComp').citicBank1({
+					this.selectComponent('#popTipComp').show({
 						type: 'five',
 						title: '新客户免首年年费',
 						btnCancel: '我再想想',

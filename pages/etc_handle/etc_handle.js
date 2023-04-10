@@ -225,16 +225,17 @@ Page({
 			if (result.code === 0) {
 				this.setData({
 					transactScheduleData: result.data,
-					showhandleOrView: result.data[0].applyStatus === '111' || result.data[0].applyStatus === '112'
+					showhandleOrView: result.data[0].applyStatus === '111' || result.data[0].applyStatus === '112',
+					isShowBtn: true
 				});
 			} else {
 				util.showToastNoIcon(result.message);
 			}
 		} else {
 			this.setData({
-				firstCiticBank: app.globalData.isChannelPromotion === 100 || this.data.citicBankChannel
+				firstCiticBank: app.globalData.isChannelPromotion === 100 || this.data.citicBankChannel,
+				isShowBtn: false
 			});
-			console.log(this.data.firstCiticBank);
 		}
 	},
 	// 中信联名权益 查看

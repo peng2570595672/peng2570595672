@@ -7,7 +7,6 @@ Page({
 		equityMoney: undefined
     },
     onLoad (options) {
-        console.log(options);
         this.setData({
             pledgeType: options.pledgeType,
             orderId: app.globalData.orderInfo.orderId,

@@ -1190,6 +1190,8 @@ Page({
 		// 	util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
 		// 	return;
 		// }
+		console.log('哈哈哈哈',obj);
+
 		if (obj.shopId === app.globalData.citicBankShopId && !obj.contractStatus) {
 			util.go(`/pages/default/citic_bank_sign/citic_bank_sign`);
 			return;
