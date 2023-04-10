@@ -1,0 +1,30 @@
+<view class="container">
+    <view class="list">
+        <view class="title">请选择您要绑定的设备</view>
+        <view wx:for="{{deviceList}}" wx:key="index" class="item {{activeIndex === index ? 'active' : ''}}" catchtap="handleDeviceItem" data-index="{{index}}">
+            <view wx:if="{{activeIndex === index}}" class="check iconfont"></view>
+            <view class="logo"></view>
+            <view class="info">
+                <view class="content">
+                    <view class="label">设备号码</view>
+                    <view>5202 2051 0112 1791</view>
+                </view>
+                <view class="card content">
+                    <view class="label">卡片号码</view>
+                    <view>5202 2051 0112 1791</view>
+                </view>
+            </view>
+        </view>
+        <view class="btn" catchtap="handleBinding">绑定并激活</view>
+    </view>
+</view>
+<view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}"></view>
+<view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}" wx:if="{{mask}}">
+    <view class='popup-container'>
+        <view class="wx-popup-title">提示</view>
+        <view class="wx-popup-con">我们检测到您有多笔订单，友情提示您，<text>一辆车只能办理和使用一台ETC</text>，如您需多辆车使用请忽略此信息，谢谢！</view>
+        <view class="wx-popup-btn">
+            <view class="confirm" bindtap='hide'>确定</view>
+        </view>
+    </view>
+</view>

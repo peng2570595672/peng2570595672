@@ -181,8 +181,8 @@
 				},
 				{
 					"name": "",
-					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "orderId=870619276925734912",
+					"pathName": "pages/default/processing_progress/processing_progress",
+					"query": "",
 					"launchMode": "default",
 					"scene": null
 				},
@@ -236,8 +236,8 @@
 					"scene": null
 				},
 				{
-					"name": "",
-					"pathName": "pages/default/shot_card/shot_card",
+					"name": "天津特微",
+					"pathName": "pingan/pages/ChooseBank/ChooseBank",
 					"query": "",
 					"launchMode": "default",
 					"scene": null
@@ -260,6 +260,20 @@
 					"name": "",
 					"pathName": "pages/Home/Home",
 					"query": "channel=9",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "空发首页",
+					"pathName": "pages/empty_hair/order_inquiry/order_inquiry",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/empty_hair/device_list/device_list",
+					"query": "",
 					"launchMode": "default",
 					"scene": null
 				}

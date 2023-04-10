@@ -1,0 +1,137 @@
+@import "../../../style/base.styl";
+.container
+	min-height 100vh
+	padding 44rpx 0
+	background-color #ECECEC
+	box-sizing border-box
+	.list
+		width: 694rpx;
+		background: #FFFFFF;
+		border-radius: 16rpx;
+		padding 24rpx 36rpx 48rpx
+		box-sizing border-box
+		margin auto
+		.title
+			font-size: 32rpx;
+			font-family: PingFang SC-Semibold, PingFang SC;
+			font-weight: 600;
+			color: $fontColor3;
+			line-height: 38rpx;
+		.item
+			width: 622rpx;
+			height: 158rpx;
+			background: #F6F6F6;
+			border-radius: 8rpx;
+			margin-top 28rpx
+			display flex
+			align-items center
+			position relative
+			overflow hidden
+			box-sizing border-box
+			&.active
+				border: 2rpx solid #E9CA7B;
+				.check
+					position absolute
+					left 0
+					top 0
+					z-index 1
+					width: 43rpx;
+					height: 32rpx;
+					display flex
+					align-items center
+					justify-content center
+					background: #E9CA7B;
+					border-radius: 8rpx 0 8rpx 0;
+					&::before
+						content: '\e669';
+						font-size: 24rpx;
+						color: #333333;
+			.info
+				font-size: 24rpx;
+				font-family: PingFang SC-Regular, PingFang SC;
+				font-weight: 400;
+				color: $fontColor3;
+				margin-left 20rpx
+				.content
+					display flex
+				.card
+					margin-top 16rpx
+				.label
+					margin-right 16rpx
+		.btn
+			margin 28rpx auto 0
+			width: 598rpx;
+			height: 106rpx;
+			display flex
+			align-items center
+			justify-content center
+			background: #2A4F44;
+			border-radius: 53rpx;
+			font-size: 36rpx;
+			font-family: PingFang SC-Regular, PingFang SC;
+			font-weight: 400;
+			color: #FFFFFF;
+.alert-for-not-finished
+	position: fixed
+	left: 0
+	right: 0
+	top: 0
+	bottom: 0
+	background: rgba(42,80,68, 0.8256);
+	z-index: 10000
+.alert-for-not-finished-content
+	position absolute
+	left 0
+	right 0
+	top 50%
+	transform translate(0, -50%)
+	width 694rpx
+	background rgba(255,255,255,1)
+	background #fff
+	border-radius 16rpx
+	margin 0 auto
+	z-index 100002
+	.popup-container
+		position absolute
+		left 50%
+		top 50%
+		width 100%
+		border 2rpx solid #ccc
+		border-radius 32rpx
+		box-sizing bordre-box
+		transform translate(-50%, -50%)
+		overflow hidden
+		background #fff
+		.wx-popup-title
+			text-align center
+			font-size: 44rpx;
+			font-family: PingFang SC-Medium, PingFang SC;
+			font-weight: 500;
+			color: #1E1E1E;
+			line-height: 52rpx;
+			padding: 48rpx 0 36rpx;
+		.wx-popup-con
+			padding 0 48rpx 64rpx
+			font-size: 32rpx;
+			font-family: PingFang SC-Regular, PingFang SC;
+			font-weight: 400;
+			color: #262626;
+			line-height: 54rpx;
+			text
+				font-family: PingFang SC-Semibold;
+				font-weight: 600;
+		.wx-popup-btn
+			padding-bottom 48rpx
+			& > view
+				width: 598rpx;
+				height: 106rpx;
+				background: #2A4F44;
+				border-radius: 53rpx;
+				display flex
+				align-items center
+				justify-content center
+				font-size: 36rpx;
+				font-family: PingFang SC-Regular, PingFang SC;
+				font-weight: 400;
+				color: #FFFFFF;
+				margin auto

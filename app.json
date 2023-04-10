@@ -311,8 +311,17 @@
 				"ticket/ticket",
 				"webview/webview"
 			]
+		},
+		{
+			"root": "pages/empty_hair",
+			"name": "pages/empty_hair",
+			"pages": [
+				"order_inquiry/order_inquiry",
+				"basic_information/basic_information",
+				"device_list/device_list"
+			]
 		}
-		
+
 	],
 	"functionalPages": {
 		"independent": true
