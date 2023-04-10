@@ -16,16 +16,16 @@
         </view>
         <!-- 模块5  中信银行-联名权益-->
         <view class="module five" wx:if="{{citicBank || firstCiticBank}}">
-            <view class="titles left">联名权益</view>
-            <view class="titles">金白信用卡-燃油车 <span data-index='1' catchtap="viewEquity">查看权益</span></view>
+            <view class="titles left">中信银行信用卡专属优惠活动</view>
+            <view class="titles">中信标准车主卡-金卡<span data-index='1' catchtap="viewEquity">查看权益</span></view>
             <view >
                 <image src="https://file.cyzl.com/g001/M01/D1/EC/oYYBAGQmbyGAJQ4wAAOzK-HiEM0583.jpg" mode="widthFix"/>
             </view>
-            <view class="titles">金卡信用卡-新能源 <span data-index='2' catchtap="viewEquity">查看权益</span></view>
+            <view class="titles">中信i车银联白金卡（冰川白）<span data-index='2' catchtap="viewEquity">查看权益</span></view>
             <view >
                 <image src="https://file.cyzl.com/g001/M01/D1/EC/oYYBAGQmbzqAMNy8AAJalSVjby0953.jpg" mode="widthFix"/>
             </view>
-            <view class="btnCiti" wx:if="{{!firstCiticBank}}">
+            <view class="btnCiti" wx:if="{{firstCiticBank}}">
                 <span class="btn1" catchtap="citicBankProgress">{{showhandleOrView ? '继续办理信用卡':'查看信用卡办理进度'}}</span>
             </view>
         </view>

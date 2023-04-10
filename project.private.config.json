@@ -58,6 +58,13 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "中信签约",
+                    "pathName": "pages/default/citic_bank_sign/citic_bank_sign",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

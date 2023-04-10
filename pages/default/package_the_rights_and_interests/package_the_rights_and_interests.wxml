@@ -69,7 +69,11 @@
             </view>
         </view>
     </view>
-    <view class="splitText" wx:if="{{citicBank}}">保证金说明: 成功办理后即退还全额保证金</view>
+    <view class="splitText" wx:if="{{citicBank}}">
+        <view class="title">办理说明</view>
+        <view class="text1">1、中信银行信用卡活动，非持卡人可支付保证金后申请中信银行信用卡指定卡板</view>
+        <view class="text1">2、成功办理中信银行信用卡的新客户即退还全额保证金，信用卡未批核将退回保证金</view>
+    </view>
     <!-- 占位 -->
     <view class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}}" >
        
@@ -117,5 +121,4 @@
             </view>
         </view>
     </view>
-    <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
 </view>

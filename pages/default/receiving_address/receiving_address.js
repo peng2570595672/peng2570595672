@@ -35,7 +35,8 @@ Page({
 		tip2: '',	// 收件人姓名校验
 		tip3: '',	// 校验收件人电话号码提示
 		isName: true,	// 控制收货人名称是否合格
-		size: 30
+		size: 30,
+		citicBank: false
 	},
 	async onLoad (options) {
 		app.globalData.orderInfo.orderId = '';
@@ -55,6 +56,11 @@ Page({
 				shopId: options.shopId,
 				rightsPackageId: options.rightsPackageId || '',
 				productId: options.productId
+			});
+		}
+		if (options.citicBank) {
+			this.setData({
+				citicBank: true
 			});
 		}
 		app.globalData.firstVersionData = false; // 非1.0数据办理
@@ -568,7 +574,6 @@ Page({
 	},
 	// 校验字段是否满足
 	validateAvailable (checkLicensePlate) {
-		console.log('ssss');
 		// 是否接受协议
 		let isOk = true;
 		let formData = this.data.formData;
@@ -731,6 +736,15 @@ Page({
 		if (res.code === 0) {
 			util.hideLoading();
 			if (res.data.canSubmit === 1) {
+				if (this.data.citicBank) {
+					this.selectComponent('#popTipComp').citicBank1({
+						type: 'five',
+						title: '新客户免首年年费',
+						btnCancel: '我再想想',
+						btnconfirm: '我知道了'
+					});
+					return;
+				}
 				this.next();
 			} else {
 				return util.showToastNoIcon(res.data.canSubmitMsg);
@@ -739,6 +753,10 @@ Page({
 			util.hideLoading();
 			return util.showToastNoIcon(res.message);
 		}
+	},
+	// 弹窗 确认 回调
+	onHandle () {
+		this.next();
 	},
 	// 点击添加新能源
 	onClickNewPowerCarHandle (e) {

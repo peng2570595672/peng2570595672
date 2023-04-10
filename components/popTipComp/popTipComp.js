@@ -53,10 +53,9 @@ Component({
 				wrapper: false
 			});
 		},
-		goPay () {
-			console.log(this.data.tipObj);
-			// 跳转保证金支付页
-			util.go(`/pages/default/new_pay/new_pay?pledgeType=${this.data.tipObj.params.pledgeType}&money=${this.data.tipObj.params.money}&equityMoney=${this.data.tipObj.params.equityMoney}`);
+		// 中信 办理提醒
+		citicBank () {
+			this.triggerEvent('onHandle');
 			this.setData({
 				mask: false,
 				wrapper: false

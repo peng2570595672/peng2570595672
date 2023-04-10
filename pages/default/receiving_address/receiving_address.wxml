@@ -96,5 +96,5 @@
     </view>
     <!-- 拉起键盘 -->
 	<keyboard id="keyboard" index="{{currentIndex}}" show="{{showKeyboard}}" bind:valueChange="valueChange" myCar="{{carNo}}"></keyboard>
-
+    <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
 </view>

@@ -1,8 +1,23 @@
+.container .topIcon {
+  height: 300rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50rpx;
+}
+.container .topIcon image {
+  width: 60%;
+}
+.container .text {
+  margin: 28rpx;
+  color: #585555;
+  text-align: center;
+}
 .container .btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 136rpx 0rpx 48rpx;
+  margin: 80rpx 28rpx 0;
   height: 98rpx;
   font-size: 40rpx;
   font-weight: 500;
@@ -11,10 +26,14 @@
   background: linear-gradient(to right, #15ad69, #84d157);
 }
 .container .btn.available {
-  animation: btnFadeIn 0.3s;
-  animation-fill-mode: forwards;
+  -webkit-animation: btnFadeIn 0.3s;
+          animation: btnFadeIn 0.3s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
 }
 .container .btn.unavailable {
-  animation: btnFadeOut 0.3s;
-  animation-fill-mode: forwards;
+  -webkit-animation: btnFadeOut 0.3s;
+          animation: btnFadeOut 0.3s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
 }

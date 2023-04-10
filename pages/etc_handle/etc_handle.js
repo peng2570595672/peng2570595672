@@ -60,10 +60,11 @@ Page({
 		citicBankChannel: false	// true 表示从首页banner中信 跳过来
 	},
 	async onLoad (options) {
+		console.log(options);
 		this.getBackgroundConfiguration();
 		util.customTabbar(this, 1);
-		if (options.channel) {
-			this.setData({citicBankChannel: parseInt(options.channel)});
+		if (options.channel) {	// 渠道 === 100 为中信
+			this.setData({citicBankChannel: options.channel === '100'});
 		}
 	},
 	async onShow () {
@@ -112,7 +113,7 @@ Page({
 	},
 	onClickHandle () {
 		wx.uma.trackEvent('index_next');
-		util.go('/pages/default/receiving_address/receiving_address');
+		util.go(`/pages/default/receiving_address/receiving_address?citicBank=${this.data.citicBank}`);
 	},
 	goOnlineServer () {
 		// 未登录
@@ -208,10 +209,9 @@ Page({
 		if (app.globalData.myEtcList.length > 0) {
 			flag = app.globalData.myEtcList.filter(item => item.shopId === app.globalData.citicBankShopId);
 		}
-		if (app.globalData.isChannelPromotion === 100 || this.data.citicBankChannel === 100) {	// 暂时以渠道为 100 来判断用户是从中信银行过来的
+		if (app.globalData.isChannelPromotion === 100 || this.data.citicBankChannel) {	// 暂时以渠道为 100 来判断用户是从中信银行过来的
 			app.globalData.otherPlatformsServiceProvidersId = app.globalData.citicBankShopId;
 		}
-		// console.log(app.globalData.isChannelPromotion,this.data.citicBankChannel,flag);
 		if (flag.length > 0) {
 			this.setData({
 				citicBank: true,
@@ -223,7 +223,6 @@ Page({
 			});
 			if (!result) return;
 			if (result.code === 0) {
-				console.log(result);
 				this.setData({
 					transactScheduleData: result.data,
 					showhandleOrView: result.data[0].applyStatus === '111' || result.data[0].applyStatus === '112'
@@ -233,8 +232,9 @@ Page({
 			}
 		} else {
 			this.setData({
-				firstCiticBank: app.globalData.isChannelPromotion === 100 || this.data.citicBankChannel === 100
+				firstCiticBank: app.globalData.isChannelPromotion === 100 || this.data.citicBankChannel
 			});
+			console.log(this.data.firstCiticBank);
 		}
 	},
 	// 中信联名权益 查看

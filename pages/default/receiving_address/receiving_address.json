@@ -3,6 +3,7 @@
 	"navigationBarBackgroundColor": "#ECECEC",
 	"usingComponents": {
 		"keyboard": "/components/keyboard/keyboard",
-		"topProgressBar": "/components/topProgressBar/index"
+		"topProgressBar": "/components/topProgressBar/index",
+		"popTipComp": "/components/popTipComp/popTipComp"
 	}
 }

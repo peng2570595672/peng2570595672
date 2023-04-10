@@ -282,8 +282,14 @@
 }
 .splitText {
   text-align: center;
-  margin-top: 20rpx;
+  margin: 28rpx;
   font-size: 24rpx;
+}
+.splitText .title {
+  margin-bottom: 20rpx;
+}
+.splitText .text1 {
+  text-align: left;
 }
 /* 占位 */
 .split {
@@ -424,12 +430,28 @@
   animation: fade_out 0.5s linear forwards;
   -webkit-animation: fade_out 0.5s linear forwards;
 }
+@-webkit-keyframes fade_in {
+  0% {
+    bottom: -330rpx;
+  }
+  100% {
+    bottom: 0;
+  }
+}
 @keyframes fade_in {
   0% {
     bottom: -330rpx;
   }
   100% {
     bottom: 0;
+  }
+}
+@-webkit-keyframes fade_out {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: -330rpx;
   }
 }
 @keyframes fade_out {

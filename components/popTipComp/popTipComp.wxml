@@ -39,12 +39,14 @@
         <view class="module moduleTwo" wx:if="{{tipObj.type === 'five'}}">
             <view class="title">{{tipObj.title}}</view>
             <view class="contant">
-                <view >年刷卡(含取现) 12次免次年年费老客户首年需支付480元/年，年刷卡(含取现)12次免次年年费</view>
-                <view >注:新客户指在活动期间批核信用卡，名下未曾持有任何中信银行信用卡，或仅有注销卡且销卡时间距新卡申请日超过180自然日及以上客户</view>
+                <view >1、活动限中信银行信用卡新客户参与</view>
+                <view >2、中信标准车主卡-金卡:年费200元/年，卡片批核成功后，开卡当月刷卡消费或取现一次（不限金额）免首年年费，刷卡消费或取现五次（不限金额）免次年年费，以此类推</view>
+                <view >3、中信I车银联白金卡（冰川白）：新客户免首年年费，刷卡（含取现）12次免次年年费，非新客户首年480元刚性收取，刷卡（含取现）12次免次年年费</view>
+                <view >4、新客户指：在活动期间批核信用卡，名下未曾持有任何中信信用，或仅有注销卡且注销时间距新卡申请日超过180自然日及以上客户</view>
             </view>
             <view class="bottomBtn">
                 <view class="cancel" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
-                <view class="ok" catchtap="goPay">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
+                <view class="ok" data-ok='true' catchtap="citicBank">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
             </view>
         </view>
     </view>

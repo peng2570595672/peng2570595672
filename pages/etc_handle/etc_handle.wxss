@@ -168,6 +168,7 @@
   background: #fff;
   border-radius: 16rpx;
   margin: 20rpx 28rpx 0rpx 28rpx;
+  padding: 28rpx 0;
   text-align: center;
 }
 .index .module.five .titles {

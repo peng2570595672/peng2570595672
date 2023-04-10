@@ -642,18 +642,9 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			// 中信银行
-			if (this.data.citicBank && params.shopProductId === app.globalData.citicBankShopshopProductId) {
-				this.selectComponent('#popTipComp').show({
-					type: 'five',
-					title: '新客户免首年年费',
-					btnCancel: '我再想想',
-					btnconfirm: '我知道了',
-					params: {
-						pledgeType: this.data.listOfPackages[this.data.choiceIndex].pledgeType,
-						money: this.data.listOfPackages[this.data.choiceIndex].pledgePrice,
-						equityMoney: this.data.equityListMap[this.data.activeIndex].payMoney
-					}
-				});
+			if (this.data.citicBank) {
+				// 跳转保证金支付页
+				util.go(`/pages/default/new_pay/new_pay?pledgeType=${this.data.listOfPackages[this.data.choiceIndex].pledgeType}&money=${this.data.listOfPackages[this.data.choiceIndex].pledgePrice}&equityMoney=${this.data.equityListMap[this.data.activeIndex].payMoney}`);
 				return;
 			}
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
