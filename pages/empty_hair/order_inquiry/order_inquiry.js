@@ -9,8 +9,8 @@ let timer;
 Page({
 	data: {
 		loginInfo: {},
-		mobilePhoneTips: '手机号不正确',
-		verifyCodeTips: '验证码不正确',
+		mobilePhoneTips: '*手机号不正确',
+		verifyCodeTips: '*验证码不正确',
 		formData: {
 			mobilePhone: '',
 			verifyCode: ''
@@ -73,7 +73,7 @@ Page({
 		if (this.data.isGetIdentifyingCoding) return;
 		// 如果在倒计时，直接不处理
 		this.setData({
-			mobilePhoneTips: /^1[0-9]{10}$/.test(this.data.formData.mobilePhone) ? '' : '手机号不正确'
+			mobilePhoneTips: /^1[0-9]{10}$/.test(this.data.formData.mobilePhone) ? '' : '*手机号不正确'
 		});
 		if (this.data.mobilePhoneTips) {
 			return;
@@ -143,8 +143,8 @@ Page({
 		isOk = isOk && formData.verifyCode;
 		isOk = isOk && this.data.isAgreement;
 		this.setData({
-			mobilePhoneTips: /^1[0-9]{10}$/.test(formData.mobilePhone) ? '' : '手机号不正确',
-			verifyCodeTips: formData.verifyCode.length === 6 ? '' : '验证码不正确',
+			mobilePhoneTips: /^1[0-9]{10}$/.test(formData.mobilePhone) ? '' : '*手机号不正确',
+			verifyCodeTips: formData.verifyCode.length === 6 ? '' : '*验证码不正确',
 			available: isOk
 		});
 	},
@@ -165,6 +165,8 @@ Page({
 		});
 	},
 	async handleBind () {
+		const params = this.data.formData;
+		params.contractPlatformId = app.globalData.platformId;
 		const result = await util.getDataFromServersV2('consumer/order/queryEmptySendOrdersByMobile', this.data.formData);
 		// const result = {"message":"操作成功","code":0,"data":{"noActiveOrders":[{"etcNo":"6666","orderId":"1094912451081674752","vehColor":0,"auditStatus":0,"obuNo":"123456","vehPlate":"","payStatus":-1,"obuStatus":0},{"etcNo":"66666","orderId":"1094919258055385088","vehColor":0,"auditStatus":0,"obuNo":"123456789","vehPlate":"贵Z42111","payStatus":-1,"obuStatus":0}],"acticedOrders":[]}}
 		if (!result) return;
