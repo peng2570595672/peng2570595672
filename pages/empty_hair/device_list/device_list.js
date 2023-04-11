@@ -9,12 +9,10 @@ Page({
 		activeIndex: -1
 	},
 	onLoad () {
-		if (app.globalData.emptyHairDeviceList?.activeOrders?.length) {
-			this.setData({
-				mask: true,
-				wrapper: true
-			});
-		}
+		this.setData({
+			mask: true,
+			wrapper: true
+		});
 		const slicingLength = 4;
 		app.globalData.emptyHairDeviceList.noActiveOrders.map((item, index) => {
 			let strEtcNo = [];
