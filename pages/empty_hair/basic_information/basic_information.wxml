@@ -54,13 +54,13 @@
         <view class="publicCode">
             <view class="publicCodeLeft">标签号</view>
             <view class="publicCoderight">
-                <input class="input" type="number" placeholder="输入标签号" disabled="{{true}}" value="{{orderInfo.newObuNo}}"  data-name="newObuNo" placeholder-class="input-placeholder" maxlength="11"  bindinput="onInputChangedHandle" bindfocus="focus"/>
+                <input class="input" type="number" placeholder="输入标签号" disabled="{{true}}" value="{{orderInfo.newObuNo}}"  data-name="newObuNo" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" bindfocus="focus"/>
             </view>
         </view>
         <view class="publicCode">
             <view class="publicCodeLeft">卡号</view>
             <view class="publicCoderight">
-                <input class="input" type="number" placeholder="输入卡号" disabled="{{true}}" value="{{orderInfo.newEtcNo}}"  data-name="newEtcNo" placeholder-class="input-placeholder" maxlength="11"  bindinput="onInputChangedHandle" bindfocus="focus"/>
+                <input class="input" type="number" placeholder="输入卡号" disabled="{{true}}" value="{{orderInfo.newEtcNo}}"  data-name="newEtcNo" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" bindfocus="focus"/>
             </view>
         </view>
     </view>

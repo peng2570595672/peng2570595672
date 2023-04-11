@@ -168,7 +168,7 @@ Page({
 		const params = this.data.formData;
 		params.contractPlatformId = app.globalData.platformId;
 		const result = await util.getDataFromServersV2('consumer/order/queryEmptySendOrdersByMobile', this.data.formData);
-		// const result = {"message":"操作成功","code":0,"data":{"noActiveOrders":[{"etcNo":"6666","orderId":"1094912451081674752","vehColor":0,"auditStatus":0,"obuNo":"123456","vehPlate":"","payStatus":-1,"obuStatus":0},{"etcNo":"66666","orderId":"1094919258055385088","vehColor":0,"auditStatus":0,"obuNo":"123456789","vehPlate":"贵Z42111","payStatus":-1,"obuStatus":0}],"acticedOrders":[]}}
+		// const result = {"message":"操作成功","code":0,"data":{"noActiveOrders":[{"etcNo":"0123456789876543210","orderId":"1094912451081674752","vehColor":0,"auditStatus":0,"obuNo":"123456","vehPlate":"","payStatus":-1,"obuStatus":0},{"etcNo":"66666","orderId":"1094919258055385088","vehColor":0,"auditStatus":0,"obuNo":"123456789","vehPlate":"贵Z42111","payStatus":-1,"obuStatus":0}],"acticedOrders":[]}}
 		if (!result) return;
 		if (result.code === 0) {
 			const list = result.data.noActiveOrders;
