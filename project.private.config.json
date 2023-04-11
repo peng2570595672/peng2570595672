@@ -259,7 +259,7 @@
                 {
                     "name": "",
                     "pathName": "pages/Home/Home",
-                    "query": "channel=9",
+                    "query": "channel=100",
                     "launchMode": "default",
                     "scene": null
                 },
