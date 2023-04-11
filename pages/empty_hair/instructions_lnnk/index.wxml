@@ -1,0 +1,22 @@
+<view class="root">
+	<view class="title">激活流程</view>
+	<view class="subtitle">在打开激活小程序进行设备激活前，您可以先了解一下激活注意事项，有助您顺利激活</view>
+	<view class="ul">
+		<view class="li">
+			<view class="title">1、点击“立即激活”打开“ETC服务小程序，点击页面上的“自助激活”按钮</view>
+			<image src="/pages/empty_hair/assets/lnnk/1.png" />
+		</view>
+		<view class="li">
+			<view class="title">2、观看激活教程后点击”立即激活“授权登录”</view>
+			<image src="/pages/empty_hair/assets/lnnk/2.png" />
+		</view>
+		<view class="li">
+			<view class="title">3、若”我的待激活“列表内无可激活车辆，点击”激活其他订单”输入车牌号+手机查询并进行下一步激活</view>
+			<image src="/pages/empty_hair/assets/lnnk/3.png" />
+		</view>
+	</view>
+	<view class="next" catchtap="next">立即激活</view>
+	<view class="service">
+		<navigator catchtap="showService" hover-class="noshadow">在线客服</navigator>
+	</view>
+</view>

@@ -166,16 +166,37 @@ Page({
 	},
 	async handleBind () {
 		const result = await util.getDataFromServersV2('consumer/order/queryEmptySendOrdersByMobile', this.data.formData);
+		// const result = {"message":"操作成功","code":0,"data":{"noActiveOrders":[{"etcNo":"6666","orderId":"1094912451081674752","vehColor":0,"auditStatus":0,"obuNo":"123456","vehPlate":"","payStatus":-1,"obuStatus":0},{"etcNo":"66666","orderId":"1094919258055385088","vehColor":0,"auditStatus":0,"obuNo":"123456789","vehPlate":"贵Z42111","payStatus":-1,"obuStatus":0}],"acticedOrders":[]}}
 		if (!result) return;
 		if (result.code === 0) {
-			if (!result.data.noActiveOrders.length) {
-				//
-				// console.log(app.globalData.myEtcList)
+			const list = result.data.noActiveOrders;
+			if (!list.length) {
 				this.handleNoOrderTips();
-			} else if (result.data.noActiveOrders.length === 1) {
-				util.go(`/pages/empty_hair/basic_information/basic_information`);
+			} else if (list.length === 1) {
+				const slicingLength = 4;
+				let strEtcNo = [];
+				for (let i = 0; i < list[0].etcNo.length; i += slicingLength) {
+					strEtcNo.push(list[0].etcNo.slice(i,i + slicingLength));
+				}
+				list[0].newEtcNo = strEtcNo.join(' ');
+				let strObuNo = [];
+				for (let i = 0; i < list[0].obuNo.length; i += slicingLength) {
+					strObuNo.push(list[0].obuNo.slice(i,i + slicingLength));
+				}
+				list[0].newObuNo = strObuNo.join(' ');
+				if ((list[0].status === 1 && list[0].contractStatus) || list[0].auditStatus === 2) {
+					util.go(`/pages/default/processing_progress/processing_progress?orderId=${list[0].orderId}`);
+					return;
+				}
+				if (list[0].vehPlate) {
+					app.globalData.orderInfo.orderId = list[0].orderId;
+					util.go('/pages/default/information_list/information_list');
+					return;
+				}
+				util.go(`/pages/empty_hair/basic_information/basic_information?info=${JSON.stringify(list[0])}`);
 			} else {
 				app.globalData.emptyHairDeviceList = result.data;
+				util.go(`/pages/empty_hair/device_list/device_list`);
 			}
 			util.hideLoading();
 		} else {

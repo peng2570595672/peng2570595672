@@ -52,6 +52,12 @@
   font-size: 24rpx;
   color: #333;
 }
+.container .list .item .logo {
+  display: flex;
+}
+.container .list .item .logo image {
+  width: 116rpx;
+}
 .container .list .item .info {
   font-size: 24rpx;
   font-family: PingFang SC-Regular, PingFang SC;

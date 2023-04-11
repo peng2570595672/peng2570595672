@@ -414,6 +414,23 @@ Page({
 			}
 		});
 	},
+	goInstallationTutorial () {
+		let channel = this.data.info?.obuCardType;
+		switch (channel) {
+			case 1:	// 贵州 黔通卡
+				util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${this.data.info.auditStatus}`);
+				break;
+			case 8:	// 辽宁 辽通卡
+				util.go(`/pages/empty_hair/instructions_lnnk/index?auditStatus=${this.data.info.auditStatus}`);
+				break;
+			case 3:	// 山东 鲁通卡
+			case 9:	// 山东 齐鲁通卡
+				util.go(`/pages/empty_hair/instructions_ujds/index?auditStatus=${this.data.info.auditStatus}`);
+				break;
+			default:	// 其他需要我们自己激活的省
+				util.go(`/pages/empty_hair/instructions/index?auditStatus=${this.data.info.auditStatus}`);
+		}
+	},
 	goHome () {
 		wx.switchTab({
 			url: '/pages/Home/Home'

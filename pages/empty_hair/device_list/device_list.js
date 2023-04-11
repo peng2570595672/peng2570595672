@@ -5,30 +5,32 @@ Page({
 	data: {
 		mask: false,
 		wrapper: false,
-		deviceList: [{}, {}],
+		deviceList: [],
 		activeIndex: -1
-		// deviceList: app.globalData.emptyHairDeviceList.noActiveOrders
 	},
 	onLoad () {
-		if (!app.globalData.emptyHairDeviceList?.activeOrders?.length) {
+		if (app.globalData.emptyHairDeviceList?.activeOrders?.length) {
 			this.setData({
 				mask: true,
 				wrapper: true
 			});
 		}
-		const list = [
-			{key: '1234124124514'},
-			{key: '1234124124514'}
-		];
 		const slicingLength = 4;
-		list.map((item, index) => {
-			let strArr = [];
-			for (let i = 0; i < item.key.length; i += slicingLength) {
-				strArr.push(item.key.slice(i,i + slicingLength));
+		app.globalData.emptyHairDeviceList.noActiveOrders.map((item, index) => {
+			let strEtcNo = [];
+			for (let i = 0; i < item.etcNo.length; i += slicingLength) {
+				strEtcNo.push(item.etcNo.slice(i,i + slicingLength));
 			}
-			item.newKey = strArr.join(' ');
+			item.newEtcNo = strEtcNo.join(' ');
+			let strObuNo = [];
+			for (let i = 0; i < item.obuNo.length; i += slicingLength) {
+				strObuNo.push(item.obuNo.slice(i,i + slicingLength));
+			}
+			item.newObuNo = strObuNo.join(' ');
 		});
-		console.log(list);
+		this.setData({
+			deviceList: app.globalData.emptyHairDeviceList.noActiveOrders
+		});
 	},
 	handleDeviceItem (e) {
 		let index = e.currentTarget.dataset.index;
@@ -47,6 +49,20 @@ Page({
 		}, 400);
 	},
 	handleBinding () {
-	
+		if (this.data.activeIndex === -1) {
+			util.showToastNoIcon('请选择您要绑定的设备');
+			return;
+		}
+		const item = this.data.deviceList[this.data.activeIndex];
+		if ((item.status === 1 && item.contractStatus) || item.auditStatus === 2) {
+			util.go(`/pages/default/processing_progress/processing_progress?orderId=${item.orderId}`);
+			return;
+		}
+		if (item.vehPlate) {
+			app.globalData.orderInfo.orderId = item.orderId;
+			util.go('/pages/default/information_list/information_list');
+			return;
+		}
+		util.go(`/pages/empty_hair/basic_information/basic_information?info=${JSON.stringify(item)}`);
 	}
 });

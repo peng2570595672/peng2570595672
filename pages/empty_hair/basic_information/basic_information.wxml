@@ -8,7 +8,7 @@
     <view class="module moduleOne">
         <view class="title">
             <view class="titles">办理车牌号</view>
-            <view class="colorBrand" wx:if="{{tools.dataLen(carNoStr) > 6}}" style="background:{{ tools.dataLen(carNoStr) === 7 ? '#276AD9' : '#5EBE68'}}">{{tools.dataLen(carNoStr) === 7 ? '蓝牌' : '绿牌'}}</view>
+<!--            <view class="colorBrand" wx:if="{{tools.dataLen(carNoStr) > 6}}" style="background:{{ tools.dataLen(carNoStr) === 7 ? '#276AD9' : '#5EBE68'}}">{{tools.dataLen(carNoStr) === 7 ? '蓝牌' : '绿牌'}}</view>-->
         </view>
         <!-- 车牌号的输入 -->
         <view class="input">
@@ -41,9 +41,8 @@
         <view class="publicCode">
             <view class="publicCodeLeft">手机号码</view>
             <view class="publicCoderight">
-                <input class="input" type="number" placeholder="用于开具通行费发票" disabled="{{true}}" value="{{formData.operator}}" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" data-name="operator" maxlength="11" />
-                 <button class="btns" open-type="getPhoneNumber" bindgetphonenumber="getWchatPhoneNumber">获取微信手机号</button>
-
+                <input class="input" type="number" placeholder="用于开具通行费发票" disabled="{{true}}" value="{{mobilePhone}}" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" data-name="mobilePhone" maxlength="11" />
+                 <button class="btns" open-type="getPhoneNumber" bindgetphonenumber="getWchatPhoneNumber" wx:if="{{false}}">获取微信手机号</button>
             </view>
         </view>
     </view>
@@ -55,15 +54,13 @@
         <view class="publicCode">
             <view class="publicCodeLeft">标签号</view>
             <view class="publicCoderight">
-                <input class="input" type="number" placeholder="输入标签号" disabled="{{true}}" value="{{formData.telNumber}}"  data-name="telNumber" placeholder-class="input-placeholder" maxlength="11"  bindinput="onInputChangedHandle" bindfocus="focus"/>
-                <text class="errTip" wx:if="{{tip3}}">{{tip3}}</text>
+                <input class="input" type="number" placeholder="输入标签号" disabled="{{true}}" value="{{orderInfo.newObuNo}}"  data-name="newObuNo" placeholder-class="input-placeholder" maxlength="11"  bindinput="onInputChangedHandle" bindfocus="focus"/>
             </view>
         </view>
         <view class="publicCode">
             <view class="publicCodeLeft">卡号</view>
             <view class="publicCoderight">
-                <input class="input" type="number" placeholder="输入卡号" disabled="{{true}}" value="{{formData.telNumber}}"  data-name="telNumber" placeholder-class="input-placeholder" maxlength="11"  bindinput="onInputChangedHandle" bindfocus="focus"/>
-                <text class="errTip" wx:if="{{tip3}}">{{tip3}}</text>
+                <input class="input" type="number" placeholder="输入卡号" disabled="{{true}}" value="{{orderInfo.newEtcNo}}"  data-name="newEtcNo" placeholder-class="input-placeholder" maxlength="11"  bindinput="onInputChangedHandle" bindfocus="focus"/>
             </view>
         </view>
     </view>

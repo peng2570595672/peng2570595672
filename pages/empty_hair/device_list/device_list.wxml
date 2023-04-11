@@ -3,15 +3,17 @@
         <view class="title">请选择您要绑定的设备</view>
         <view wx:for="{{deviceList}}" wx:key="index" class="item {{activeIndex === index ? 'active' : ''}}" catchtap="handleDeviceItem" data-index="{{index}}">
             <view wx:if="{{activeIndex === index}}" class="check iconfont"></view>
-            <view class="logo"></view>
+            <view class="logo">
+                <image src="/pages/empty_hair/assets/device.png" mode="widthFix"></image>
+            </view>
             <view class="info">
                 <view class="content">
                     <view class="label">设备号码</view>
-                    <view>5202 2051 0112 1791</view>
+                    <view>{{item.newObuNo}}</view>
                 </view>
                 <view class="card content">
                     <view class="label">卡片号码</view>
-                    <view>5202 2051 0112 1791</view>
+                    <view>{{item.newEtcNo}}</view>
                 </view>
             </view>
         </view>

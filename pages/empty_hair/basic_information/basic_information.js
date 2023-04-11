@@ -17,58 +17,51 @@ Page({
 		isRequest: false,// 是否请求中
 		isNewPowerCar: false, // 是否为新能源
 		showToast: false, // 是否验证码错误
-		isOnlineDealWith: true, // 是否是线上办理
-		formData: {
-			currentCarNoColor: 0, // 0 蓝色 1 渐变绿 2黄色
-			region: [], // 省市区
-			regionCode: [], // 省份编码
-			userName: '', // 收货人姓名
-			telNumber: '', // 电话号码
-			detailInfo: '', // 收货地址详细信息
-			operator: ''// 线上：用户点好；线下：经办人电话
-		}, // 提交数据
-		enterType: -1,// 进入小程序类型  23.搜一搜小程序独立办理链接A，24.搜一搜小程序独立办理链接B
-		productId: '',
-		rightsPackageId: '',
-		shopId: '',
+		mobilePhone: '',
 		tip1: '',	// 经办人电话号码校验提示
-		tip2: '',	// 收件人姓名校验
-		tip3: '',	// 校验收件人电话号码提示
-		isName: true,	// 控制收货人名称是否合格
-		size: 30
+		orderInfo: {}
 	},
 	async onLoad (options) {
-		app.globalData.orderInfo.orderId = '';
+		this.setData({
+			orderInfo: JSON.parse(options.info)
+		});
+		if (this.data.orderInfo.vehPlate) {
+			this.setData({
+				available: true,
+				carNoStr: this.data.orderInfo.vehPlate,
+				carNo: this.data.orderInfo.vehPlate.split('')
+			});
+		}
+		app.globalData.orderInfo.orderId = this.data.orderInfo.orderId;
 		app.globalData.firstVersionData = false; // 非1.0数据办理
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.signAContract = 3;
 	},
 	async onShow () {
 		this.getWchatPhoneNumber();
-		this.controllTopTabBar();
 	},
 	// 下一步
 	async next () {
-		// 统计点击事件
-		wx.uma.trackEvent('receiving_address_next');
 		this.setData({
 			available: false, // 禁用按钮
 			isRequest: true // 设置状态为请求中
 		});
-		let formData = this.data.formData; // 输入信息
 		let params = {
+			mobilePhone: this.data.mobilePhone,
+			orderId: this.data.orderInfo.orderId,
+			vehPlates: this.data.carNoStr,
+			vehColor: this.data.carNoStr.length === 8 ? 4 : 0
 		};
 
-		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+		const result = await util.getDataFromServersV2('consumer/order/bindEmptySendOrder', params);
 		if (!result) return;
 		this.setData({
 			available: true,
 			isRequest: false
 		});
 		if (result.code === 0) {
-		} else if (result.code === 301) { // 已存在当前车牌未完成订单
-		} else if (result.code === 104 && result.message === '该车牌已存在订单') {
-			util.go(`/pages/default/high_speed_verification_failed/high_speed_verification_failed?carNo=${this.data.carNoStr}`);
+			app.globalData.handledByTelephone = this.data.mobilePhone;
+			util.go('/pages/default/information_list/information_list');
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -81,14 +74,11 @@ Page({
 			keyboard.indexMethod(e.detail.index, this.data.currentIndex);
 		}
 		// 设置数据
-		let formData = this.data.formData;
-		formData.currentCarNoColor = e.detail.carNo.join('').length === 8 ? 1 : 0;
 		this.setData({
 			carNo: e.detail.carNo, // 车牌号数组
 			carNoStr: e.detail.carNo.join(''), // 车牌号字符串
 			currentIndex: e.detail.index, // 当前输入车牌号位置
-			showKeyboard: e.detail.show, // 是否显示键盘
-			formData
+			showKeyboard: e.detail.show // 是否显示键盘
 		});
 		// 不是新能源 输入车牌最后一位隐藏键盘
 		if (!this.data.isNewPowerCar && this.data.currentIndex === 7) {
@@ -118,6 +108,9 @@ Page({
 	},
 	// 点击某一位输入车牌
 	setCurrentCarNo (e) {
+		if (this.data.orderInfo.vehPlate) {
+			return;
+		}
 		let index = e.currentTarget.dataset['index'];
 		index = parseInt(index);
 		if (app.globalData.SDKVersion < '2.6.1') {
@@ -136,34 +129,6 @@ Page({
 		}
 		// }
 	},
-	// 点击车牌颜色选择车牌颜色
-	onClickCarNoColorHandle (e) {
-		let index = e.currentTarget.dataset.index;
-		let formData = this.data.formData;
-		formData.currentCarNoColor = parseInt(index);
-		this.setData({
-			formData,
-			isNewPowerCar: formData.currentCarNoColor === 1// 如果选择了新能源 那么最后一个显示可输入
-		});
-		if (parseInt(index) === 0 && this.data.carNoStr.length === 8) {
-			util.showToastNoIcon('8位车牌号为绿牌车！');
-		} else if (parseInt(index) === 1 && this.data.carNoStr.length === 7) {
-			util.showToastNoIcon('7位车牌号为蓝牌车！');
-			// util.showToastNoIcon('7位车牌号为蓝牌车或黄牌车！');
-		}
-		// 不是新能源 车牌为8位 去掉最后一位输入的车牌
-		if (!this.data.isNewPowerCar && this.data.carNoStr.length === 8) {
-			let carNo = this.data.carNo;
-			carNo[7] = '';
-			this.setData({
-				carNoStr: this.data.carNoStr.substring(0, 7), // 车牌字符串
-				carNo: carNo// 车牌对应的数组
-			});
-		}
-		this.setData({
-			available: this.validateAvailable()
-		});
-	},
 	// 显示键盘时，点击其他区域关闭键盘
 	touchHandle (e) {
 		if (this.data.showKeyboard) {
@@ -179,13 +144,10 @@ Page({
 	},
 	// 校验字段是否满足
 	validateAvailable (checkLicensePlate) {
-		console.log('ssss');
 		// 是否接受协议
 		let isOk = true;
-		let formData = this.data.formData;
 		// 验证车牌和车牌颜色
 		if (this.data.carNoStr.length === 7) { // 蓝牌或者黄牌
-			isOk = isOk && (formData.currentCarNoColor === 0 || formData.currentCarNoColor === 2);
 			// 进行正则匹配
 			if (isOk) {
 				let creg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}$/;
@@ -195,7 +157,6 @@ Page({
 				}
 			}
 		} else if (this.data.carNoStr.length === 8) {
-			isOk = isOk && formData.currentCarNoColor === 1;
 			// 进行正则匹配
 			if (isOk) {
 				let xreg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{6}$/;
@@ -208,18 +169,7 @@ Page({
 			isOk = false;
 		}
 		// 校验经办人手机号码
-		isOk = isOk && this.data.formData.operator && /^1[0-9]{10}$/.test(this.data.formData.operator);
-		// 校验姓名
-		isOk = isOk && formData.userName && formData.userName.length >= 1;
-		// 校验省市区
-		isOk = isOk && formData.region && formData.region.length === 3 && formData.region[0] !== '省';
-		// 校验省市区编码
-		isOk = isOk && formData.regionCode && formData.region.length === 3;
-		// 校验详细地址
-		isOk = isOk && formData.detailInfo && formData.detailInfo.length >= 2;
-		// 检验手机号码
-		isOk = isOk && formData.telNumber && /^1[0-9]{10}$/.test(formData.telNumber);
-		this.controllTopTabBar();
+		isOk = isOk && this.data.mobilePhone && /^1[0-9]{10}$/.test(this.data.mobilePhone);
 		return isOk;
 	},
 	// etc4.0：新增-拉起微信授权手机号
@@ -231,7 +181,7 @@ Page({
 		if (app.globalData.userInfo.needBindingPhone !== 1) {	// 判断是否绑定过手机号
 			this.setData({
 				tip1: '',
-				'formData.operator': app.globalData.mobilePhone,
+				mobilePhone: app.globalData.mobilePhone,
 				available: this.validateAvailable(true)
 			});
 		} else {
@@ -247,38 +197,25 @@ Page({
 		let key = e.currentTarget.dataset.name;	//
 		let len = e.detail.cursor;	// 输入值的长度
 		let value = e.detail.value;
-		let formData = this.data.formData;
 		let tip1 = '';	// 办理人手机号提示
-		let tip2 = '';	// 收货姓名提示
-		let tip3 = '';	// 收获人手机号提示
 		// 手机号 校验
-		if (key === 'telNumber' || key === 'operator') {
+		if (key === 'mobilePhone') {
 			let value = e.detail.value;
 			let flag = /^1[1-9][0-9]{9}$/.test(value);
 			if (value.substring(0,1) !== '1' || value.substring(1,2) === '0') {
-				if (key === 'telNumber') {
-					this.setData({
-						'formData.telNumber': ''
-					});
-				} else {
-					this.setData({
-						'formData.operator': ''
-					});
-				}
+				this.setData({
+					mobilePhone: ''
+				});
 				return util.showToastNoIcon('非法号码');
 			} else if (len < 11) {
-				tip1 = key === 'operator' ? '*手机号未满11位，请检查' : '';
-				tip3 = key === 'telNumber' ? '*手机号未满11位，请检查' : '';
+				tip1 = key === 'mobilePhone' ? '*手机号未满11位，请检查' : '';
 			} else if (len === 11 && !flag) {
 				util.showToastNoIcon('非法号码');
 			}
 		}
-		formData[key] = value;
 		this.setData({
-			formData,
-			tip1,
-			tip2,
-			tip3
+			[key]: value,
+			tip1
 		});
 		this.fangDou('',500);
 	},
@@ -304,10 +241,9 @@ Page({
 		if (!this.data.available || this.data.isRequest) {
 			return util.showToastNoIcon('请填写相关信息');
 		}
-		let formData = this.data.formData; // 输入信息
 		const res = await util.getDataFromServersV2('consumer/etc/qtzl/checkVehPlateExists', {
 			vehiclePlate: this.data.carNoStr,
-			vehicleColor: formData.currentCarNoColor === 1 ? 4 : 0 // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】,
+			vehicleColor: this.data.carNoStr.length === 8 ? 4 : 0 // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】,
 		});
 		if (!res) return;
 		if (res.code === 0) {
@@ -324,17 +260,14 @@ Page({
 	},
 	// 点击添加新能源
 	onClickNewPowerCarHandle (e) {
+		if (this.data.orderInfo.vehPlate) {
+			return;
+		}
 		this.setData({
 			isNewPowerCar: true,
 			currentCarNoColor: 1
 		});
 		this.setCurrentCarNo(e);
-	},
-	// 控制顶部进度条的大小
-	controllTopTabBar () {
-		this.setData({
-			topProgressBar: 2.0
-		});
 	},
 	onUnload () {
 	}

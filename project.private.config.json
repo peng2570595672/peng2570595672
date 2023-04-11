@@ -182,7 +182,7 @@
 				{
 					"name": "",
 					"pathName": "pages/default/processing_progress/processing_progress",
-					"query": "",
+					"query": "orderId=1038104740237414400",
 					"launchMode": "default",
 					"scene": null
 				},
@@ -272,7 +272,7 @@
 				},
 				{
 					"name": "",
-					"pathName": "pages/empty_hair/device_list/device_list",
+					"pathName": "pages/empty_hair/instructions/index",
 					"query": "",
 					"launchMode": "default",
 					"scene": null
