@@ -257,7 +257,7 @@
                     "scene": null
                 },
                 {
-                    "name": "",
+                    "name": "中信",
                     "pathName": "pages/Home/Home",
                     "query": "channel=100",
                     "launchMode": "default",

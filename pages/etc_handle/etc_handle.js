@@ -113,7 +113,7 @@ Page({
 	},
 	onClickHandle () {
 		wx.uma.trackEvent('index_next');
-		util.go(`/pages/default/receiving_address/receiving_address?citicBank=${this.data.citicBank}`);
+		util.go(`/pages/default/receiving_address/receiving_address?citicBank=${app.globalData.isChannelPromotion === 100 || this.data.citicBankChannel}`);
 	},
 	goOnlineServer () {
 		// 未登录

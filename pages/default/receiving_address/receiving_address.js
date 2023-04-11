@@ -41,7 +41,6 @@ Page({
 	async onLoad (options) {
 		app.globalData.orderInfo.orderId = '';
 		console.log(options);
-		console.log(app.globalData.orderInfo);
 		if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
 			wx.hideHomeButton();
 		}
@@ -60,7 +59,7 @@ Page({
 		}
 		if (options.citicBank) {
 			this.setData({
-				citicBank: true
+				citicBank: options.citicBank === 'true'
 			});
 		}
 		app.globalData.firstVersionData = false; // 非1.0数据办理
@@ -773,6 +772,7 @@ Page({
 		if (res.code === 0) {
 			util.hideLoading();
 			if (res.data.canSubmit === 1) {
+				console.log(this.data.citicBank);
 				if (this.data.citicBank) {
 					this.selectComponent('#popTipComp').show({
 						type: 'five',
@@ -787,8 +787,6 @@ Page({
 				return util.showToastNoIcon(res.data.canSubmitMsg);
 			}
 		} else {
-			util.hideLoading();
-			return util.showToastNoIcon(res.message);
 		}
 	},
 	// 弹窗 确认 回调
