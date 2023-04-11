@@ -137,5 +137,6 @@
     <view-img id="viewImg"></view-img>
     <popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="backFunc"></popup1>
     <agreement-dialog id='agreement-dialog'></agreement-dialog>
+    <authorization-phone bindPhoneInfo="onGetPhoneNumber" wx:if="{{loginInfo.needBindingPhone === 1}}"></authorization-phone>
     <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
 </view>

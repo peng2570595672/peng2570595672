@@ -1,0 +1,2 @@
+<button class="container" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber"></button>
+

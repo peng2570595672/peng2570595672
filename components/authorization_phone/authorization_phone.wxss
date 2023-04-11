@@ -1,0 +1,9 @@
+.container {
+  background: transparent;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100% !important;
+  height: 100%;
+  z-index: 99999;
+}
