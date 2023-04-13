@@ -125,7 +125,7 @@
 	</view>
 	<!--	进度结束-->
 	<!--	按钮开始-->
-	<button class="btn" wx:if="{{info && info.logisticsId !== 0 && info.obuStatus !== 1 && ((info.flowVersion === 2 && info.hwContractStatus === 1) || (info.flowVersion === 1 && info.auditStatus === 2))}}" catchtap="onClickCctivate">确认收货并激活</button>
+	<button class="btn" wx:if="{{info && info.logisticsId !== 0 && info.obuStatus !== 1 && ((info.flowVersion === 2 && info.hwContractStatus === 1) || (info.flowVersion === 1 && info.auditStatus === 2))}}" catchtap="onClickCctivate">{{info.flowVersion === 71 ? '立即激活' : '确认收货并激活'}}</button>
 	<button class="btn" wx:if="{{info && info.auditStatus === 2 && info.flowVersion === 2 && info.hwContractStatus !== 1}}" catchtap="signingExpress">签约高速支付渠道</button>
 	<!--	按钮结束-->
 	<view class="auto-fill"></view>
