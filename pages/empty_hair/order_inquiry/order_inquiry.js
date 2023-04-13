@@ -31,9 +31,7 @@ Page({
 		this.setData({
 			isAgreement: !this.data.isAgreement
 		});
-		this.setData({
-			available: this.validateAvailable()
-		});
+		this.validateAvailable();
 	},
 	handleProtocol () {
 		util.go('/pages/default/equity_agreement/equity_agreement');
@@ -165,6 +163,12 @@ Page({
 		});
 	},
 	async handleBind () {
+		if (!this.data.available) {
+			if (!this.data.isAgreement) {
+				util.showToastNoIcon('请查看并勾选协议');
+			}
+			return;
+		}
 		const params = this.data.formData;
 		params.contractPlatformId = app.globalData.platformId;
 		const result = await util.getDataFromServersV2('consumer/order/queryEmptySendOrdersByMobile', this.data.formData);
@@ -255,9 +259,7 @@ Page({
 		this.setData({
 			formData
 		});
-		this.setData({
-			available: this.validateAvailable()
-		});
+		this.validateAvailable();
 	},
 	onUnload () {
 	}
