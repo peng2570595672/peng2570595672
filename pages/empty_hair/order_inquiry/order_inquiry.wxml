@@ -27,8 +27,8 @@
     <view class="fill" />
     <view class="bottom-container">
         <view catchtap="goOnlineServer">联系客服</view>|
-        <view catchtap="handleNoOrderTips">找不到订单？</view>|
-        <view catchtap="handleInstall">安装绑定</view>
+        <view catchtap="handleNoOrderTips">找不到订单？</view>
+<!--        <view catchtap="handleInstall">安装绑定</view>-->
     </view>
     <authorization-phone bindPhoneInfo="onGetPhoneNumber" wx:if="{{loginInfo.needBindingPhone === 1}}"></authorization-phone>
 </view>
