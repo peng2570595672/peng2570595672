@@ -181,8 +181,8 @@
 				},
 				{
 					"name": "",
-					"pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-					"query": "orderId=870619276925734912",
+					"pathName": "pages/default/processing_progress/processing_progress",
+					"query": "orderId=1038104740237414400",
 					"launchMode": "default",
 					"scene": null
 				},
@@ -236,8 +236,8 @@
 					"scene": null
 				},
 				{
-					"name": "",
-					"pathName": "pages/default/shot_card/shot_card",
+					"name": "天津特微",
+					"pathName": "pingan/pages/ChooseBank/ChooseBank",
 					"query": "",
 					"launchMode": "default",
 					"scene": null
@@ -260,6 +260,27 @@
 					"name": "",
 					"pathName": "pages/Home/Home",
 					"query": "channel=9",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "空发首页",
+					"pathName": "pages/empty_hair/order_inquiry/order_inquiry",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/personal_center/choice_vehicle/choice_vehicle",
+					"query": "",
+					"launchMode": "default",
+					"scene": null
+				},
+				{
+					"name": "",
+					"pathName": "pages/empty_hair/basic_information/basic_information",
+					"query": "info=%7B%22etcNo%22%3A%220123456789876543210%22%2C%22orderId%22%3A%221094912451081674752%22%2C%22vehColor%22%3A0%2C%22auditStatus%22%3A0%2C%22obuNo%22%3A%22123456%22%2C%22vehPlate%22%3A%22%22%2C%22payStatus%22%3A-1%2C%22obuStatus%22%3A0%2C%22newEtcNo%22%3A%220123%204567%208987%206543%20210%22%2C%22newObuNo%22%3A%221234%2056%22%7D",
 					"launchMode": "default",
 					"scene": null
 				}

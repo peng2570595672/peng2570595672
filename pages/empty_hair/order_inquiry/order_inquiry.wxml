@@ -1,0 +1,34 @@
+<wxs src='../../../utils/util.wxs' module='tools' />
+<view class="container">
+    <view class="input-wrapper">
+        <view class="input-title">查询ETC订单</view>
+        <view class="input-item">
+            <input type="number" placeholder="请输入手机号" placeholder-class="placeholder" value="{{formData.mobilePhone}}"
+                   bindinput="onInputChangedHandle" data-key="mobilePhone"
+            />
+        </view>
+        <view class="tips">{{mobilePhoneTips}}</view>
+        <view class="input-item">
+            <input type="number" placeholder="输入短信验证码" placeholder-class="placeholder" value="{{formData.verifyCode}}"
+                   bindinput="onInputChangedHandle" data-key="verifyCode"
+            />
+            <text class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} {{mobilePhoneIsOk ? 'ok' : ''}}" bindtap="sendVerifyCode">{{identifyingCode}}</text>
+        </view>
+        <view class="tips">{{verifyCodeTips}}</view>
+    </view>
+    <view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="handleBind">绑定并激活</view>
+    <view class="protocol" catchtap="handleCheckAgreement">
+        <view class="circle {{isAgreement ? 'check-circle' : ''}}"></view>
+        <view class="label">查看并同意</view>
+        <view catchtap="handleProtocol">《ETC+用户协议》</view>
+        <view catchtap="handleQTProtocol">《黔通卡用户协议》</view>
+        <view catchtap="handlePrivacy">《隐私政策》</view>
+    </view>
+    <view class="fill" />
+    <view class="bottom-container">
+        <view catchtap="goOnlineServer">联系客服</view>|
+        <view catchtap="handleNoOrderTips">找不到订单？</view>
+<!--        <view catchtap="handleInstall">安装绑定</view>-->
+    </view>
+    <authorization-phone bindPhoneInfo="onGetPhoneNumber" wx:if="{{loginInfo.needBindingPhone === 1}}"></authorization-phone>
+</view>

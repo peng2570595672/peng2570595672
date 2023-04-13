@@ -1,0 +1,7 @@
+{
+	"navigationBarTitleText": "ETC绑定激活",
+	"navigationBarBackgroundColor": "#ECECEC",
+	"usingComponents": {
+      "authorization-phone": "/components/authorization_phone/authorization_phone"
+	}
+}
