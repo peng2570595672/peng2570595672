@@ -776,7 +776,7 @@ Page({
 				if (this.data.citicBank) {
 					this.selectComponent('#popTipComp').show({
 						type: 'five',
-						title: '新客户免首年年费',
+						title: '活动细则',
 						btnCancel: '我再想想',
 						btnconfirm: '我知道了'
 					});
