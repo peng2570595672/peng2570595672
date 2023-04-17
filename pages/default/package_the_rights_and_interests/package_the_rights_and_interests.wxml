@@ -37,7 +37,7 @@
                 <view class="description" wx:if="{{tools.dataLen(basicServiceList) > 0}}">
                     <view class="descriptionModule" wx:for="{{basicServiceList}}" wx:for-item="itemBase" wx:key="index1">
                         <!-- <view class="ico {{itemBase.icos}}"></view> -->
-                        <view class="title">{{item.pledgeType === 4 && itemBase.title === '设备质保一年' ? '升级三年设备质保' : itemBase.title}}</view>
+                        <view class="title">{{item.pledgeType === 4 && itemBase.title === '设备质保一年' ? '3年质保加赠1年' : itemBase.title}}</view>
                     </view>
                 </view>
             </view>
@@ -71,7 +71,7 @@
     </view>
     <!-- 占位 -->
     <view class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}}" >
-       
+
     </view>
     <!-- 支付和协议说明 模块 -->
     <view class="payAndAgreement {{isFade ? 'fadeIn' : 'fadeOut'}}">
