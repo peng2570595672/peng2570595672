@@ -12,7 +12,7 @@
         <!-- 模块3 一站式车主服务 -->
         <view class="three">
             <view class="buttomText twoButtom" catchtap="viewProcedure" data-pop="moduleOne">查看具体办理步骤</view>
-            <image class="images" src="https://file.cyzl.com/g001/M01/D0/FD/oYYBAGQhWOSAPfI0AAA5pVk0LcQ342.png" />
+            <image class="images" src="https://file.cyzl.com/g001/M01/D6/10/oYYBAGQ9CtGAWTanAACKna76zm8143.png" />
         </view>
         <!-- 模块5  中信银行-联名权益-->
         <view class="module five" wx:if="{{citicBank || firstCiticBank}}">
