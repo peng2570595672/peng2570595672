@@ -125,13 +125,13 @@
 	</view>
 	<!--	进度结束-->
 	<!--	按钮开始-->
-	<button class="btn" wx:if="{{info && info.logisticsId !== 0 && info.obuStatus !== 1 && ((info.flowVersion === 2 && info.hwContractStatus === 1) || (info.flowVersion === 1 && info.auditStatus === 2))}}" catchtap="onClickCctivate">确认收货并激活</button>
+	<button class="btn" wx:if="{{info && info.logisticsId !== 0 && info.obuStatus !== 1 && ((info.flowVersion === 2 && info.hwContractStatus === 1) || (info.flowVersion === 1 && info.auditStatus === 2))}}" catchtap="onClickCctivate">{{info.flowVersion === 71 ? '立即激活' : '确认收货并激活'}}</button>
 	<button class="btn" wx:if="{{info && info.auditStatus === 2 && info.flowVersion === 2 && info.hwContractStatus !== 1}}" catchtap="signingExpress">签约高速支付渠道</button>
 	<!--	按钮结束-->
 	<view class="auto-fill"></view>
 
 	<!--	在线客服开始-->
-	<view class="bottom"><text catchtap="goHome">返回首页</text>|<text catchtap="goOnlineServer">在线客服</text></view>
+	<view class="bottom"><text catchtap="goHome">返回首页</text>|<text catchtap="goOnlineServer">在线客服</text>|<text catchtap="goInstallationTutorial">安装教程</text></view>
 	<!--	在线客服结束-->
 	<!--展示通通券弹窗-->
 	<view catchtap="hide" class="coupon_mask animated {{showCouponWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{showCouponMask}}">

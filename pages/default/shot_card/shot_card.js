@@ -280,8 +280,8 @@ Page({
 									res.data[0].ocrObject.personsCapacity = personsCapacityNum;
 								}
 								const ruleForm = {
-									numberPlates: '车牌号码',
-									personsCapacity: '核定载人数'
+									numberPlates: '车牌号码'
+									// personsCapacity: '核定载人数'
 									// totalMass: '总质量',
 									// curbWeight: '整备质量',
 									// size: '外廓尺寸'

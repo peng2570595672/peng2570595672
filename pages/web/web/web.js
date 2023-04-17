@@ -32,7 +32,7 @@ Page({
 			// url = `https://api.wesure.cn/app/carinsure-new/driving/home/index.html?companyId=SJHT&outerUserId=${app.globalData.memberId}&wtagid=104.210.3`;
 			// url = `https://static.wesure.cn/app2/h5-mobile/home?companyId=ETC&outerUserId=${app.globalData.memberId}&wtagid=${wtagid}`;
 		} else if (options.type === 'online_customer_service') {
-			url = `https://wpa1.qq.com/GhL5oRJ0?_type=wpa&qidian=true`;
+			url = `https://wpa1.qq.com/jjrmum8i?_type=wpa&qidian=true`;
 		} else if (options.type === 'heaiche') {
 			url = `https://dhwap.mlocso.com/haccarwash/html/carwash.html?app=07200053&p=cwash_game&mobile=${app.globalData.activityUrl}`;
 			this.setData({

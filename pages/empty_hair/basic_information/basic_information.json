@@ -1,0 +1,8 @@
+{
+	"navigationBarTitleText": "设备绑定激活",
+	"navigationBarBackgroundColor": "#ECECEC",
+	"usingComponents": {
+		"keyboard": "/components/keyboard/keyboard",
+		"topProgressBar": "/components/topProgressBar/index"
+	}
+}

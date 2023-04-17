@@ -1,0 +1,33 @@
+<view class="root">
+	<view class="title">激活流程</view>
+	<view class="subtitle">在打开激活小程序进行设备激活前，您可以先了解一下激活注意事项，有助您顺利激活</view>
+	<view class="ul">
+		<view class="li">
+			<view class="title">1、点击“立即激活打开“九州ETC”小程序，点击页面上的“激活服务”按钮</view>
+			<image src="/pages/empty_hair/assets/gvvz/1.png" data-tag="small" />
+		</view>
+		<view class="li">
+			<view class="title">2、根据卡面信息，黔通卡选择“九州ETC”；昆仑卡选择“昆仑ETC”</view>
+			<image src="/pages/empty_hair/assets/gvvz/2.png" data-tag="small" />
+		</view>
+		<view class="li">
+			<view class="title">3、请根据以下方式操作打开设备蓝牙</view>
+			<image src="https://file.cyzl.com/g001/M05/3E/B0/oYYBAF6QI66ANPK0AAUlGMAOH_o116.gif" data-tag="gif" />
+			<view class="desc">检查设备正面或侧面是否有按钮，若有则按下按钮启动蓝牙，启动成功设备显示“蓝牙打开”</view>
+			<view class="prompt">若设备没有按钮，请尝试方式二/方式三</view>
+		</view>
+		<view class="li">
+			<image src="https://file.cyzl.com/g001/M05/3E/B0/oYYBAF6QI_GAJBeUAAQWMR4EFhw240.gif" data-tag="gif" />
+			<view class="desc">快速插卡-拔卡重复2次，启动成功设备显示“蓝牙打开”</view>
+			<view class="prompt">若无法启动，请尝试方式三</view>
+		</view>
+		<view class="li">
+			<image src="https://file.cyzl.com/g001/M05/3E/B0/oYYBAF6QJAmAXrBgAAQBcNllgGQ731.gif" data-tag="gif" />
+			<view class="desc">将卡片插入设备后，快速把卡片往内推动2次，启动成功设备显示“蓝牙打开”</view>
+		</view>
+	</view>
+	<view class="next {{timer < 0 ? '' : 'disabled'}}" catchtap="next">立即激活{{countdownText}}</view>
+	<view class="service">
+		<navigator catchtap="showService" hover-class="noshadow">在线客服</navigator>
+	</view>
+</view>

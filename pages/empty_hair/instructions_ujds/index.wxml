@@ -1,0 +1,25 @@
+<view class="root">
+	<view class="title">激活流程</view>
+	<view class="subtitle">您的设备激活需要下载【高速ETC】app进行，请按以下教程完成激活</view>
+	<view class="ul">
+		<view class="li">
+			<view class="title">1、打开APP后首页右下角【我的】进行登录</view>
+			<image src="/pages/empty_hair/assets/ujds/1.png" mode="widthFix" />
+		</view>
+		<view class="li">
+			<view class="title">2、使用办理时的手机号进行登录</view>
+			<image src="/pages/empty_hair/assets/ujds/2.png" mode="widthFix" />
+		</view>
+		<view class="li">
+			<view class="title">3、首页点击“ETC卡激活” ，按要求输入车辆信息及申请ETC使用的手机号</view>
+			<image src="/pages/empty_hair/assets/ujds/3.png" mode="widthFix" />
+		</view>
+		<view class="li">
+			<view class="title">4、选择“自助认证激活”，按指引往下操作完成激活</view>
+			<image src="/pages/empty_hair/assets/ujds/4.png" mode="widthFix" />
+		</view>
+	</view>
+	<view class="service">
+		<navigator catchtap="showService" hover-class="noshadow">在线客服</navigator>
+	</view>
+</view>

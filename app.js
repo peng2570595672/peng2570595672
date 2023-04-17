@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-export const IS_TEST = false; // false为正式接口地址，true为测试接口地址
+export const IS_TEST = true; // false为正式接口地址，true为测试接口地址
 const util = require('./utils/util.js');
 const uma = require('./utils/umtrack-wx.js');
 App({
@@ -103,6 +103,7 @@ App({
 		rightsPackageBuyRecords: undefined, // 权益购买记录
 		myEtcList: {}, // 车辆列表
 		accountList: [], // 权益列表
+		emptyHairDeviceList: [], // 空发设备列表
 		packagePageData: undefined, // 套餐页面数据
 		orderInfo: {
 			orderId: ''
