@@ -336,10 +336,14 @@ Page({
 						let lastIndex = result.data.info.lastIndexOf('】');
 						info = result.data.info.slice(index + 1,lastIndex);
 					}
+					let content = info || result.data.rmsg;
+					if (content === '操作成功' && result.data?.data?.message) {
+						content = result.data.data.message;
+					}
 					this.selectComponent('#popTipComp').show({
 						type: 'one',
 						title: '车辆需注销重办',
-						content: info || result.data.rmsg
+						content: content
 					});
 				} else {
 					let flag = result.data.rmsg.indexOf('中国ETC服务小程序进行实名') || result.data.message.indexOf('中国ETC服务小程序进行实名');
