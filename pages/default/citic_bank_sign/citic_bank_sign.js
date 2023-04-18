@@ -42,17 +42,7 @@ Page({
 				if (result.data.contractStatus === 1) {
 					// 签约成功
 					console.log('签约成功');
-					util.alert({
-						title: `新客优惠提醒`,
-						content: `即日起，完成中信信用卡激活的用户，使用新卡支付，即可享受0.01元购买20元通行券限时优惠`,
-						showCancel: true,
-						confirmColor: '#576b95',
-						cancelText: '暂不考虑',
-						confirmText: '立即领取',
-						confirm: async () => {
-							util.go(`/pages/separate_interest_package/prefer_purchase/prefer_purchase?packageId=${app.globalData.citicBankRightId}`);
-						}
-					});
+					await this.citicBankProcess();
 					if (this.data.orderInfo.obuCardType === 1) {
 						await this.brandChargingModel();
 					}
@@ -144,6 +134,32 @@ Page({
 				// 2.0 立即签约
 				app.globalData.signAContract = -1;
 				await this.weChatSign(obj);
+			}
+		},
+		// 中信银行信用卡申请进度
+		async citicBankProcess () {
+			const result = await util.getDataFromServersV2('consumer/order/zx/transact-schedule', {
+				orderId: app.globalData.orderInfo.orderId
+			});
+			if (!result) return;
+			if (result.code === 0) {
+				console.log('中信银行信用卡申请进度',result);
+				let flag = result.data.includes(item => item.applyStatus === '50');
+				if (flag) {
+					util.alert({
+						title: `新客优惠提醒`,
+						content: `即日起，完成中信信用卡激活的用户，使用新卡支付，即可享受0.01元购买20元通行券限时优惠`,
+						showCancel: true,
+						confirmColor: '#576b95',
+						cancelText: '暂不考虑',
+						confirmText: '立即领取',
+						confirm: async () => {
+							util.go(`/pages/separate_interest_package/prefer_purchase/prefer_purchase?packageId=${app.globalData.citicBankRightId}`);
+						}
+					});
+				}
+			} else {
+				util.showToastNoIcon(result.message);
 			}
 		}
 });

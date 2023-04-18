@@ -16,6 +16,7 @@ Page({
 			this.setData({
 				citicBank: true
 			});
+			return;
 		}
 		await this.queryContract();
 		await this.getSchedule();
