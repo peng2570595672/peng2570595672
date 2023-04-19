@@ -12,7 +12,8 @@ Page({
 		isShowBtn: true,// 是否显示购买按钮
 		shopUserInfo: undefined,// 业务员信息
 		salesmanInfo: undefined,// 业务员信息
-		info: {}
+		info: {},
+		cictBank: false	// false 表示不是从中信签约页面过来的
 	},
 	async onLoad (options) {
 		this.setData({packageId: options.packageId});
@@ -24,6 +25,7 @@ Page({
 		}
 		// 从加购记录进入
 		if (options.entrance) this.setData({isShowBtn: false});
+		if (options.cictBank) this.setData({cictBank: true});
 		if (!app.globalData.userInfo.accessToken) {
 			await this.login();
 		} else {
@@ -72,6 +74,11 @@ Page({
 						app.globalData.openId = result.data.openId;
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
+						if (this.data.packageId === app.globalData.citicBankRightId) {
+							// 中信银行
+							await this.getPackageRelation(this.data.packageId);
+							return;
+						}
 						await this.getIndependentInfo();
 					} else {
 						wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
@@ -128,6 +135,11 @@ Page({
 		util.go(`/pages/separate_interest_package/purchase_terms/purchase_terms`);
 	},
 	async onClickPay () {
+		if (this.data.packageId === app.globalData.citicBankRightId) {
+			// 中信银行
+			await this.packagePayment();
+			return;
+		}
 		if (this.data.info.couponType === 2 || this.data.shopUserInfo) {
 			// 不含通行券 - 立即支付
 			await this.packagePayment();
@@ -153,7 +165,7 @@ Page({
 			}
 		});
 	},
-	// 支付
+	// 支付d
 	async packagePayment () {
 		if (this.data.isRequest) return;
 		this.setData({isRequest: true});
@@ -168,6 +180,9 @@ Page({
 			params.shopUserId = this.data.salesmanInfo.shopUserId;
 			params.shopId = this.data.salesmanInfo.shopId;
 			if (this.data.salesmanInfo.orderId) params.orderId = this.data.salesmanInfo.orderId;
+		}
+		if (this.data.packageId === app.globalData.citicBankRightId) {
+			params.orderId = app.globalData.orderInfo.orderId;
 		}
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/independent-rights-buy', params);
 		if (!result) {
@@ -185,6 +200,10 @@ Page({
 				success: (res) => {
 					this.setData({isRequest: false});
 					if (res.errMsg === 'requestPayment:ok') {
+						if (this.data.packageId === app.globalData.citicBankRightId) {
+							util.go(`/pages/separate_interest_package/citic_bank_pay_success/citic_bank_pay_success?orderId=${app.globalData.orderInfo.orderId}`);
+							return;
+						}
 						util.go(`/pages/separate_interest_package/buy_success/buy_success?recordId=${result.data.recordId}`);
 					} else {
 						util.showToastNoIcon('支付失败！');
@@ -200,6 +219,14 @@ Page({
 		} else {
 			this.setData({isRequest: false});
 			util.showToastNoIcon(result.message);
+		}
+	},
+	onUnload () {
+		if (this.data.cictBank) {
+			// 跳转首页; 避免返回中信签约页面
+			wx.switchTab({
+				url: '/pages/Home/Home'
+			});
 		}
 	}
 });

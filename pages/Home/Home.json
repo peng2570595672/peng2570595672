@@ -11,6 +11,5 @@
       "authorization-phone": "/components/authorization_phone/authorization_phone",
       "view-img": "/components/viewImg/viewImg",
       "popTipComp": "/components/popTipComp/popTipComp"
-
 	}
 }

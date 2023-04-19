@@ -14,7 +14,7 @@ Page({
 		isCloseUpperPart: false, // 控制 详情是否显示
 		isCloseUpperPart1: false, // 控制 详情是否显示
 		isCloseUpperPart2: false, // 控制 详情是否显示
-		nodeHeightList: [], // 存储节点高度 集合
+		nodeHeightList: [], // 存储节点距离top 集合
 		phoneType: 2,
 		equityListMap: [],	// 权益列表集合
 		ttCouponImgList: [	// 通通券图片展示
@@ -126,7 +126,9 @@ Page({
 		contractStatus: undefined,
 		getAgreement: false, // 是否接受协议
 		isPay: false, // 已选择通通券套餐&无需支付||已经支付
-		isTest: app.globalData.test
+		isTest: app.globalData.test,
+		citicBank: false	// 是否是中信银行联名套餐
+
 	},
 	async onLoad (options) {
 		console.log(options);
@@ -140,6 +142,13 @@ Page({
 			return;
 		}
 		const packages = app.globalData.newPackagePageData;
+		if (packages.shopId === app.globalData.citicBankShopId) {	// 根据商户ID判断是不是中信银行联名套餐
+			let carp = app.globalData.myEtcList.filter(item => item.id === app.globalData.orderInfo.orderId);
+			this.setData({
+				citicBank: true,
+				activeIndex: app.globalData.newEnergy ? 1 : carp.length !== 0 && carp[0].vehPlates.length === 8 ? 1 : 0
+			});
+		}
 		this.setData({
 			listOfPackages: parseInt(options.type) === 1 ? packages.divideAndDivideList : packages.alwaysToAlwaysList
 		});
@@ -191,6 +200,12 @@ Page({
 			this.setData({
 				listOfPackages: [result.data]
 			});
+			// 中信银行
+			if (result.data.shopId === app.globalData.citicBankShopId) {
+				this.setData({
+					citicBank: true
+				});
+			}
 			this.getNodeHeight(this.data.listOfPackages.length);
 		} else {
 			util.showToastNoIcon(result.message);
@@ -626,6 +641,12 @@ Page({
 		this.setData({isRequest: false});
 		if (!result) return;
 		if (result.code === 0) {
+			// 中信银行
+			if (this.data.citicBank) {
+				// 跳转保证金支付页
+				util.go(`/pages/default/new_pay/new_pay?pledgeType=${this.data.listOfPackages[this.data.choiceIndex].pledgeType}&money=${this.data.listOfPackages[this.data.choiceIndex].pledgePrice}&equityMoney=${this.data.equityListMap[this.data.activeIndex].payMoney}`);
+				return;
+			}
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
 				this.data.equityListMap[this.data.activeIndex]?.payMoney) {
 				await this.marginPayment(this.data.listOfPackages[this.data.choiceIndex].pledgeType);

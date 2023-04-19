@@ -130,7 +130,11 @@ App({
 		},
 		isEquityRights: undefined,	//	权益券额套餐的用户： true表示是，false表示不是
 		isVip: undefined,	// 收取综合服务费的用户：  true表示是，false表示不是
-		handledByTelephone: undefined	// 4.0办理人的电话
+		handledByTelephone: undefined,	// 4.0办理人的电话
+		newEnergy: false,	// false 表示不是新能源车牌
+		citicBankShopId: IS_TEST ? '1091000458138361856' : '1098187047525031936',	// 中信银行套餐的商户ID 分别是测试环境下和正式环境下
+		citicBankShopshopProductId: IS_TEST ? '1091001046012010496' : '1098189669350776832',	// 中信银行里的白金套餐的套餐ID 分别是测试环境下和正式环境下
+		citicBankRightId: IS_TEST ? '1092482405515665408' : '109818228930092236'	// 中信银行签约后独立权益ID
 	},
 	onLaunch (options) {
 		// 统计逻辑结束
@@ -294,6 +298,9 @@ App({
 			// 因微信场景值问题,故未用场景值判断
 			console.log('this.globalData.signAContract');
 			console.log(this.globalData.signAContract);
+			if (res.path === 'pages/default/citic_bank_sign/citic_bank_sign') {
+				return;
+			}
 			const {appId} = res.referrerInfo;
 			if (this.globalData.signAContract === -1) {
 				// 车主服务签约

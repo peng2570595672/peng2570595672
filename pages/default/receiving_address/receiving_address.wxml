@@ -96,5 +96,6 @@
     </view>
     <!-- 拉起键盘 -->
 	<keyboard id="keyboard" index="{{currentIndex}}" show="{{showKeyboard}}" bind:valueChange="valueChange" myCar="{{carNo}}"></keyboard>
+    <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
     <authorization-phone bindPhoneInfo="onGetPhoneNumber" wx:if="{{loginInfo.needBindingPhone === 1}}"></authorization-phone>
 </view>

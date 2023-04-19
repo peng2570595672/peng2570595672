@@ -1,0 +1,45 @@
+<!-- 中信银行卡办理进度页 -->
+<view class="index">
+    <view class="topSplit"></view>
+    <view class="module moduleOne">
+        <view class="title">办理流水号</view>
+        <view class="textNumber">{{transactScheduleData.paId}}</view>
+    </view>
+    <view class="module moduleTwo">
+        <view class="title changeColor">办理进度</view>
+        <view class="setp">
+            <view class="head">申请状态</view>
+            <view class="content">
+                {{transactScheduleData.applyStatus === '10' ? '申请提交成功': ''}}
+                {{transactScheduleData.applyStatus === '20' ? '初审拒绝': ''}}
+                {{transactScheduleData.applyStatus === '30' ? '初审通过': ''}}
+                {{transactScheduleData.applyStatus === '40' ? '面签拒绝': ''}}
+                {{transactScheduleData.applyStatus === '50' ? '面签成功': ''}}
+                {{transactScheduleData.applyStatus === '55' ? '激活失败': ''}}
+                {{transactScheduleData.applyStatus === '56' ? '激活成功': ''}}
+                {{transactScheduleData.applyStatus === '60' ? '已首刷': ''}}
+            </view>
+        </view>
+        <view class="setp margingTop">
+            <view class="head">当前状态</view>
+            <view class="content">
+                {{transactScheduleData.applyStatus === '10' ? '申请提交成功': ''}}
+                {{transactScheduleData.applyStatus === '20' ? '初审拒绝': ''}}
+                {{transactScheduleData.applyStatus === '30' ? '初审通过': ''}}
+                {{transactScheduleData.applyStatus === '40' ? '面签拒绝': ''}}
+                {{transactScheduleData.applyStatus === '50' ? '面签成功': ''}}
+                {{transactScheduleData.applyStatus === '55' ? '激活失败': ''}}
+                {{transactScheduleData.applyStatus === '56' ? '激活成功': ''}}
+                {{transactScheduleData.applyStatus === '60' ? '已首刷': ''}}
+            </view>
+        </view>
+        <view class="setp margingTop">
+            <view class="head">审批时间</view>
+            <view class="content">{{transactScheduleData.apexTime}}</view>
+        </view>
+        <view class="setp margingTop">
+            <view class="head">激活时间</view>
+            <view class="content">{{transactScheduleData.activeTime}}</view>
+        </view>
+    </view>
+</view>

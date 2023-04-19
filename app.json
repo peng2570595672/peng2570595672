@@ -46,7 +46,11 @@
 		"pages/default/signature_confirmation/signature_confirmation",
 		"pages/default/sms_confirmation/sms_confirmation",
 		"pages/default/statement_of_interest/statement_of_interest",
-		"pages/default/margin_user_handling_agreement/margin_user_handling_agreement"
+		"pages/default/margin_user_handling_agreement/margin_user_handling_agreement",
+		"pages/default/new_pay/new_pay",
+		"pages/default/citic_bank_sign/citic_bank_sign",
+		"pages/default/citicBank_processing_progress/citicBank_processing_progress"
+
 	],
 	"window": {
 		"navigationBarBackgroundColor": "#FFFFFF",
@@ -143,7 +147,8 @@
 				"purchase_terms/purchase_terms",
 				"prefer_purchase/prefer_purchase",
 				"buy_success/buy_success",
-				"associated_license_plate/associated_license_plate"
+				"associated_license_plate/associated_license_plate",
+				"citic_bank_pay_success/citic_bank_pay_success"
 			]
 		},
 		{
@@ -325,7 +330,7 @@
 				"instructions_ujds/index"
 			]
 		}
-    ],
+	],
 	"functionalPages": {
 		"independent": true
 	},

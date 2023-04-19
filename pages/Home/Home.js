@@ -304,7 +304,6 @@ Page({
 			return;
 		}
 		let obj = e.currentTarget.dataset.information;
-		console.log(obj);
 		let appIdPath = obj.appId && obj.appId.length > 0;
 		let webPath = obj.jumpUrl.indexOf('https') !== -1;
 		let templateId = obj.templateId && obj.templateId[0] !== '';
@@ -1191,6 +1190,10 @@ Page({
 		// 	util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
 		// 	return;
 		// }
+		if (obj.shopId === app.globalData.citicBankShopId && !obj.contractStatus) {
+			util.go(`/pages/default/citic_bank_sign/citic_bank_sign`);
+			return;
+		}
 		if (obj.orderType === 31 && obj.auditStatus === 0 && obj.flowVersion !== 1) {
 			this.onClickHighSpeedSigning(obj);
 			return;

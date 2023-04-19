@@ -1,0 +1,7 @@
+<view class="container">
+    <view class='topIcon'>
+        <image src='https://file.cyzl.com/g001/M01/D4/3E/oYYBAGQzxUCAVBBSAAAYDXdz_HY549.png' mode="widthFix"/>
+    </view>
+    <view class='text'>即将登录验证车主信息以及签约银行卡代扣通行费请准备好相应的银行卡号信息</view>
+    <view class="btn" catchtap="handleSign">签约代扣通行费</view>
+</view>

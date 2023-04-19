@@ -1,0 +1,51 @@
+@charset "UTF-8"
+vendors = official
+mixinsWidthHeight($width = 100%, $height = 100%)
+    width $width
+    height $height
+.iconfont
+    font-family 'iconfont' !important
+    font-size 16px
+    font-style normal
+    -webkit-font-smoothing antialiased
+    -moz-osx-font-smoothing grayscale
+.index
+    margin 0
+    padding 0
+    width 100vw
+    height 100vh
+    background-color #fff
+    .topModule
+        mixinsWidthHeight(,400rpx)
+        background #ECECEC
+        text-align center
+        .payee
+            padding-top 20rpx
+            font-size 28rpx
+        .orderSerialNumber
+            font-size 36rpx
+            margin-top 30rpx
+        .money
+            margin-top 60rpx
+            span
+                font-size 46rpx
+        .remarks
+            color #fcd809
+            margin-top 30rpx
+        .describe
+            margin-top 30rpx
+    .payMethod
+        mixinsWidthHeight(,auto)
+        .public
+            height 100rpx
+            line-height 100rpx
+            border-bottom 1rpx solid #ccc
+            padding-left 28rpx
+            font-size 36rpx
+        .wChatPay
+            &::before
+                display inline-block
+                content '\e6b1'
+                color #0f0
+                font-size 50rpx
+                margin-right 10rpx

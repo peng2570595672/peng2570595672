@@ -4,7 +4,7 @@
     <view class="topSwiper">
         <swiper class="swiperBox {{tools.dataLen(imgList) === 1 ? 'regular':''}}" style="height: {{Hei}};" autoplay circular interval="{{interval}}" duration="{{duration}}">
             <swiper-item class="swiper-item {{tools.dataLen(imgList) === 1 ? 'regular-item':''}}" wx:for="{{imgList}}" wx:key="index" data-information="{{item}}" catchtap="goPath" catchtouchmove="{{tools.dataLen(imgList) === 1 ? 'catchtouchmove':''}}">
-                <image class="topImg" src='{{item.imgUrl}}'mode="widthFix" bindload="imgH" alt="暂无图片"/>
+                <image class="topImg" src='{{item.imgUrl}}' mode="widthFix" bindload="imgH" alt="暂无图片"/>
             </swiper-item>
         </swiper>
     </view>
@@ -26,7 +26,7 @@
                         {{passengerCarOrderInfo.selfStatus === 9 ? '签约银行卡代扣通行费' : ''}}
                         {{passengerCarOrderInfo.selfStatus === 10 ? '审核通过，设备即将发出' : ''}}
                         {{passengerCarOrderInfo.selfStatus === 11 ? '请按要求激活ETC' : ''}}
-<!--                        {{passengerCarOrderInfo.selfStatus === 12 ? userFailBillList.length ? userFailBillList[0].addTime : '暂无通行账单' : ''}}-->
+                       <!-- {{passengerCarOrderInfo.selfStatus === 12 ? userFailBillList.length ? userFailBillList[0].addTime : '暂无通行账单' : ''}} -->
                         {{passengerCarOrderInfo.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
                     </view>
                 </view>
@@ -46,7 +46,7 @@
                         {{truckOrderInfo.selfStatus === 9 || truckOrderInfo.selfStatus === 21 ? '签约银行卡代扣通行费' : ''}}
                         {{truckOrderInfo.selfStatus === 10 ? '审核通过，设备即将发出' : ''}}
                         {{truckOrderInfo.selfStatus === 11 ? '请按要求激活ETC' : ''}}
-<!--                        {{ truckOrderInfo.selfStatus === 12 ? userFailBillList.length ? userFailBillList[0].addTime : '暂无通行账单' : ''}}-->
+                       <!-- {{ truckOrderInfo.selfStatus === 12 ? userFailBillList.length ? userFailBillList[0].addTime : '暂无通行账单' : ''}} -->
                         {{truckOrderInfo.selfStatus === 13 || truckOrderInfo.selfStatus === 19 || truckOrderInfo.selfStatus === 20 ? '开通ETC电子账户' : ''}}
                         {{truckOrderInfo.selfStatus === 15 ? '请充值' + truckOrderInfo.holdBalance / 100 + '元作为保证金' + '' : ''}}
                         {{truckOrderInfo.selfStatus === 16 ? '完成验证绑定代扣' : ''}}

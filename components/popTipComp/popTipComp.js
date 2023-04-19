@@ -53,6 +53,14 @@ Component({
 				wrapper: false
 			});
 		},
+		// 中信 办理提醒
+		citicBank () {
+			this.triggerEvent('onHandle');
+			this.setData({
+				mask: false,
+				wrapper: false
+			});
+		},
 		// 前去补缴
 		supplementaryPayment () {
 			this.hide();

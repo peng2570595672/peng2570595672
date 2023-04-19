@@ -35,12 +35,12 @@ Page({
 		tip2: '',	// 收件人姓名校验
 		tip3: '',	// 校验收件人电话号码提示
 		isName: true,	// 控制收货人名称是否合格
-		size: 30
+		size: 30,
+		citicBank: false
 	},
 	async onLoad (options) {
 		app.globalData.orderInfo.orderId = '';
 		console.log(options);
-		console.log(app.globalData.orderInfo);
 		if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
 			wx.hideHomeButton();
 		}
@@ -55,6 +55,11 @@ Page({
 				shopId: options.shopId,
 				rightsPackageId: options.rightsPackageId || '',
 				productId: options.productId
+			});
+		}
+		if (options.citicBank) {
+			this.setData({
+				citicBank: options.citicBank === 'true'
 			});
 		}
 		app.globalData.firstVersionData = false; // 非1.0数据办理
@@ -77,7 +82,6 @@ Page({
 		}
 	},
 	async onShow () {
-		console.log(app.globalData.userInfo);
 		if (app.globalData.userInfo.accessToken) {
 			this.setData({
 				mobilePhoneMode: app.globalData.mobilePhoneMode
@@ -270,6 +274,7 @@ Page({
 		if (result.code === 0) {
 			app.globalData.handledByTelephone = this.data.formData.operator;
 			app.globalData.orderInfo.orderId = result.data.orderId; // 订单id
+			app.globalData.newEnergy = formData.currentCarNoColor === 1 ? true : false;
 			if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
 				await this.getProduct();
 			} else {
@@ -568,7 +573,6 @@ Page({
 	},
 	// 校验字段是否满足
 	validateAvailable (checkLicensePlate) {
-		console.log('ssss');
 		// 是否接受协议
 		let isOk = true;
 		let formData = this.data.formData;
@@ -768,14 +772,26 @@ Page({
 		if (res.code === 0) {
 			util.hideLoading();
 			if (res.data.canSubmit === 1) {
+				console.log(this.data.citicBank);
+				if (this.data.citicBank) {
+					this.selectComponent('#popTipComp').show({
+						type: 'five',
+						title: '活动细则',
+						btnCancel: '我再想想',
+						btnconfirm: '我知道了'
+					});
+					return;
+				}
 				this.next();
 			} else {
 				return util.showToastNoIcon(res.data.canSubmitMsg);
 			}
 		} else {
-			util.hideLoading();
-			return util.showToastNoIcon(res.message);
 		}
+	},
+	// 弹窗 确认 回调
+	onHandle () {
+		this.next();
 	},
 	// 点击添加新能源
 	onClickNewPowerCarHandle (e) {

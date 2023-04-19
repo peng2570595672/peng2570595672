@@ -280,6 +280,17 @@
   left: -4rpx;
   z-index: 10;
 }
+.splitText {
+  text-align: center;
+  margin: 28rpx;
+  font-size: 24rpx;
+}
+.splitText .title {
+  margin-bottom: 20rpx;
+}
+.splitText .text1 {
+  text-align: left;
+}
 /* 占位 */
 .split {
   width: 100%;
