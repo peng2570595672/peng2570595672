@@ -167,7 +167,7 @@ Page({
 			// 	util.showToastNoIcon(result.message);
 			// }
 
-			// if (flag && !flag1 && !this.data.orderInfo.contractStatus) {	// 申请中信信用卡面签成功且是新用户，并且是第一次签约
+			// if (flag && !flag1 && !this.data.orderInfo.contractStatus) {	// 申请中信信用卡面签成功且是新用户，并且是第一次签约，并且在加购记录里是没有中信权益包加购的
 			// 	util.alert({
 			// 		title: `新客优惠提醒`,
 			// 		content: `即日起，完成中信信用卡激活的用户，使用新卡支付，即可享受0.01元购买20元通行券限时优惠`,
