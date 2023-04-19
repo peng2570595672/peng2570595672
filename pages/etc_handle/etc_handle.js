@@ -230,8 +230,6 @@ Page({
 					transactScheduleData: result.data,
 					showhandleOrView: result.data[0].applyStatus === '111' || result.data[0].applyStatus === '112'
 				});
-			} else {
-				util.showToastNoIcon(result.message);
 			}
 		} else {
 			this.setData({
