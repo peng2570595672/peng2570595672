@@ -113,7 +113,7 @@ Page({
 	},
 	onClickHandle () {
 		wx.uma.trackEvent('index_next');
-		util.go(`/pages/default/receiving_address/receiving_address?citicBank=${app.globalData.isChannelPromotion === 100 || this.data.citicBankChannel}`);
+		util.go(`/pages/default/receiving_address/receiving_address?citicBank=${this.data.citicBankChannel}`);
 	},
 	goOnlineServer () {
 		// 未登录
@@ -209,8 +209,10 @@ Page({
 		if (app.globalData.myEtcList.length > 0) {
 			flag = app.globalData.myEtcList.filter(item => item.shopId === app.globalData.citicBankShopId);
 		}
-		if (app.globalData.isChannelPromotion === 100 || this.data.citicBankChannel) {	// 暂时以渠道为 100 来判断用户是从中信银行过来的
+		if (this.data.citicBankChannel) {	// 暂时以渠道为 100 来判断用户是从中信银行过来的
 			app.globalData.otherPlatformsServiceProvidersId = app.globalData.citicBankShopId;
+		} else {
+			app.globalData.otherPlatformsServiceProvidersId = undefined;
 		}
 		if (flag.length > 0) {
 			this.setData({
@@ -233,7 +235,7 @@ Page({
 			}
 		} else {
 			this.setData({
-				firstCiticBank: app.globalData.isChannelPromotion === 100 || this.data.citicBankChannel,
+				firstCiticBank: this.data.citicBankChannel,
 				isShowBtn: false
 			});
 		}
