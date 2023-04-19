@@ -12,7 +12,8 @@ Page({
 		isShowBtn: true,// 是否显示购买按钮
 		shopUserInfo: undefined,// 业务员信息
 		salesmanInfo: undefined,// 业务员信息
-		info: {}
+		info: {},
+		cictBank: false	// false 表示不是从中信签约页面过来的
 	},
 	async onLoad (options) {
 		this.setData({packageId: options.packageId});
@@ -24,6 +25,7 @@ Page({
 		}
 		// 从加购记录进入
 		if (options.entrance) this.setData({isShowBtn: false});
+		if (options.cictBank) this.setData({cictBank: true});
 		if (!app.globalData.userInfo.accessToken) {
 			await this.login();
 		} else {
@@ -217,6 +219,14 @@ Page({
 		} else {
 			this.setData({isRequest: false});
 			util.showToastNoIcon(result.message);
+		}
+	},
+	onUnload () {
+		if (this.data.cictBank) {
+			// 跳转首页; 避免返回中信签约页面
+			wx.switchTab({
+				url: '/pages/Home/Home'
+			});
 		}
 	}
 });

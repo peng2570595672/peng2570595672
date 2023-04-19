@@ -224,9 +224,9 @@ Page({
 			if (!result) return;
 			if (result.code === 0) {
 				this.setData({
+					isShowBtn: true,
 					transactScheduleData: result.data,
-					showhandleOrView: result.data[0].applyStatus === '111' || result.data[0].applyStatus === '112',
-					isShowBtn: true
+					showhandleOrView: result.data[0].applyStatus === '111' || result.data[0].applyStatus === '112'
 				});
 			} else {
 				util.showToastNoIcon(result.message);

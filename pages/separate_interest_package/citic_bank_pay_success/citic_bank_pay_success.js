@@ -17,5 +17,12 @@ Page({
     },
     next () {
         util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.data.orderId}`);
-    }
+    },
+    onUnload () {
+        // 跳转首页; 避免返回通行券购买页。重复购买
+        wx.switchTab({
+            url: '/pages/Home/Home'
+        });
+	}
+
 });

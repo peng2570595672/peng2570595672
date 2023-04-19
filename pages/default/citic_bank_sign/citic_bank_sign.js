@@ -144,8 +144,9 @@ Page({
 			if (!result) return;
 			if (result.code === 0) {
 				console.log('中信银行信用卡申请进度',result);
-				let flag = result.data.includes(item => item.applyStatus === '50');
-				if (flag) {
+				let flag = result.data.includes(item => item.applyStatus === '50' && item.newCustFlag === '1');
+				console.log(flag);
+				if (!flag && !this.data.orderInfo.contractStatus) {	// 申请中信信用卡面签成功且是新用户，并且是第一次签约
 					util.alert({
 						title: `新客优惠提醒`,
 						content: `即日起，完成中信信用卡激活的用户，使用新卡支付，即可享受0.01元购买20元通行券限时优惠`,
@@ -154,8 +155,19 @@ Page({
 						cancelText: '暂不考虑',
 						confirmText: '立即领取',
 						confirm: async () => {
-							util.go(`/pages/separate_interest_package/prefer_purchase/prefer_purchase?packageId=${app.globalData.citicBankRightId}`);
+							util.go(`/pages/separate_interest_package/prefer_purchase/prefer_purchase?packageId=${app.globalData.citicBankRightId}&cictBank=true`);
+						},
+						cancel: () => {
+							// 跳转首页;
+							wx.switchTab({
+								url: '/pages/Home/Home'
+							});
 						}
+					});
+				} else {
+					// 跳转首页;
+					wx.switchTab({
+						url: '/pages/Home/Home'
 					});
 				}
 			} else {
