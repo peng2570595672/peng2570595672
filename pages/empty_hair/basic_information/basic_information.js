@@ -61,7 +61,7 @@ Page({
 		});
 		if (result.code === 0) {
 			app.globalData.handledByTelephone = this.data.mobilePhone;
-			util.go('/pages/default/information_list/information_list');
+			util.go('/pages/default/package_the_rights_and_interests/package_the_rights_and_interests');
 		} else {
 			util.showToastNoIcon(result.message);
 		}

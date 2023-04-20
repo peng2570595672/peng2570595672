@@ -272,7 +272,7 @@
                 },
                 {
                     "name": "",
-                    "pathName": "pages/empty_hair/instructions/index",
+                    "pathName": "pages/empty_hair/basic_information/basic_information",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
