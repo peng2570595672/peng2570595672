@@ -124,6 +124,7 @@ Page({
 		showServiceIndex: -1,
 		rightsPackageDetails: undefined,
 		contractStatus: undefined,
+		isLoaded: false, // 是否加载数据完成
 		getAgreement: false, // 是否接受协议
 		isPay: false, // 已选择通通券套餐&无需支付||已经支付
 		isTest: app.globalData.test,
@@ -617,6 +618,10 @@ Page({
 	},
 	// 提交订单
 	async saveOrderInfo () {
+		if (!this.data.isLoaded) {
+			util.showToastNoIcon('数据加载中,请稍后重试');
+			return;
+		}
 		if (this.data.isRequest) {
 			return;
 		} else {
@@ -634,7 +639,7 @@ Page({
 			dataType: '3', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
-			rightsPackageId: this.data.equityListMap[this.data.activeIndex]?.id || '',
+			rightsPackageId: this.data.listOfPackages[this.data.choiceIndex].rightsPackageIds[0] || '',
 			areaCode: this.data.orderInfo ? (this.data.orderInfo.product.areaCode || '0') : app.globalData.newPackagePageData.areaCode
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
@@ -868,6 +873,9 @@ Page({
 	},
 	// 获取节点的高度
 	async getNodeHeight (num) {
+		this.setData({
+			isLoaded: false
+		});
 		util.showLoading({
 			title: '加载中'
 		});
@@ -901,6 +909,7 @@ Page({
 			}
 		}
 		this.setData({
+			isLoaded: true,
 			equityListMap: equityListMap
 		});
 		util.hideLoading();
