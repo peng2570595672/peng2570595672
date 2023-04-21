@@ -177,7 +177,6 @@ Page({
 			this.data.carouselList.map(item => {
 				item.isShow = true;
 			});
-			console.log(this.data.carouselLis);
 			if (!result.data?.length) {
 				this.data.carouselList.map((item, index) => {
 					if (item.jumpUrl === '权益商城') {
