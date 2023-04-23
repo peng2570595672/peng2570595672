@@ -9,8 +9,8 @@ let timer;
 Page({
 	data: {
 		loginInfo: {},
-		mobilePhoneTips: '*手机号不正确',
-		verifyCodeTips: '*验证码不正确',
+		mobilePhoneTips: '',
+		verifyCodeTips: '',
 		formData: {
 			mobilePhone: '',
 			verifyCode: ''
@@ -134,15 +134,15 @@ Page({
 		});
 	},
 	// 校验字段是否满足
-	validateAvailable () {
+	validateAvailable (key) {
 		let isOk = true;
 		let formData = this.data.formData;
 		isOk = isOk && /^1[0-9]{10}$/.test(formData.mobilePhone);
-		isOk = isOk && formData.verifyCode;
+		isOk = isOk && formData.verifyCode && formData.verifyCode.length === 6;
 		isOk = isOk && this.data.isAgreement;
 		this.setData({
-			mobilePhoneTips: /^1[0-9]{10}$/.test(formData.mobilePhone) ? '' : '*手机号不正确',
-			verifyCodeTips: formData.verifyCode.length === 6 ? '' : '*验证码不正确',
+			mobilePhoneTips: key === 'mobilePhone' ? /^1[0-9]{10}$/.test(formData.mobilePhone) ? '' : '*手机号不正确' : '',
+			verifyCodeTips: key === 'verifyCode' ? formData.verifyCode.length === 6 ? '' : '*验证码不正确' : '',
 			available: isOk
 		});
 	},
@@ -259,7 +259,19 @@ Page({
 		this.setData({
 			formData
 		});
-		this.validateAvailable();
+		this.fangDou(key,500);
+	},
+	fangDou (fn, time) {
+		let that = this;
+		that.setData({available: false});
+		return (function () {
+			if (that.data.timeout) {
+				clearTimeout(that.data.timeout);
+			}
+			that.data.timeout = setTimeout(() => {
+				that.validateAvailable(fn);
+			}, time);
+		})();
 	},
 	onUnload () {
 	}

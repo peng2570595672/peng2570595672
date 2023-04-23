@@ -290,6 +290,13 @@
                     "query": "orderId=1071126438080557056",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/empty_hair/order_inquiry/order_inquiry",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
