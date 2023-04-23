@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-export const IS_TEST = true; // false为正式接口地址，true为测试接口地址
+export const IS_TEST = false; // false为正式接口地址，true为测试接口地址
 const util = require('./utils/util.js');
 const uma = require('./utils/umtrack-wx.js');
 App({
@@ -134,7 +134,7 @@ App({
 		newEnergy: false,	// false 表示不是新能源车牌
 		citicBankShopId: IS_TEST ? '1091000458138361856' : '1098187047525031936',	// 中信银行套餐的商户ID 分别是测试环境下和正式环境下
 		citicBankShopshopProductId: IS_TEST ? '1091001046012010496' : '1098189669350776832',	// 中信银行里的白金套餐的套餐ID 分别是测试环境下和正式环境下
-		citicBankRightId: IS_TEST ? '1092482405515665408' : '109818228930092236'	// 中信银行签约后独立权益ID
+		citicBankRightId: IS_TEST ? '1092482405515665408' : '1098182289300922368'	// 中信银行签约后独立权益ID
 	},
 	onLaunch (options) {
 		// 统计逻辑结束
