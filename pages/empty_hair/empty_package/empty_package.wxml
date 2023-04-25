@@ -1,0 +1,124 @@
+<wxs src='../../../utils/util.wxs' module='tools' />
+<view class="index">
+    <!-- 顶部 进度条 组件 -->
+    <view class="topSplit">
+        <topProgressBar progressStage="{{topProgressBar}}" />
+    </view>
+    <!-- 套餐模块 -->
+    <view class="package" wx:for="{{listOfPackages}}" wx:key="index">
+        <view class="module moduleOne iconfont {{'module' + index}} {{index === activeIndex ? 'btnHighLight' : ''}}" data-index="{{index}}" catchtap="btnHeightLight">
+            <!-- 活动标签 限制字符8个 -->
+            <view class="active {{index === activeIndex ? 'activeChange' : ''}}" wx:if="{{citicBank}}">
+                <text>{{tools.limitNumber('限时活动',8)}}</text>
+            </view>
+            <!-- 默认展示的套餐上半部分 -->
+            <view class="upperPart {{tools.dataLen(item.rightsPackageIds) > 0 || item.isSignTtCoupon ? '' : 'subUpperPart'}}">
+                <!-- 背景logo -->
+                <view class="bgImg">
+                    <image src="{{item.productLogo}}" />
+                </view>
+                <view class="titleMOney">
+                    <!-- 套餐名称：取后台套餐名称 -->
+                    <view class="title">{{tools.limitNumber(item.productName,18)}}</view>
+                    <!-- 取后台支付金额，保留小数点后2位，若套餐支付金额为0时，前端价格展示为免费 -->
+                    <view class="money">
+                        <span wx:if="{{item.pledgePrice || equityListMap[index].payMoney}}" >
+                            ￥{{tools.parseNum(item.pledgePrice + equityListMap[index].payMoney)/100}}
+                        </span>
+                        <span wx:else style="color: #0f0">免费</span>
+                    </view>
+                </view>
+                <!-- 副标题：取后台套餐副标题（原套餐全称productLogo） -->
+                <view class="subTitle">{{tools.limitNumber(item.fullName,15)}}</view>
+                <view class="titleExplain" wx:if="{{item.pledgeType === 4}}">
+                    <span class="planSpan">现金限时膨账权益商城100+权益任兑</span>
+                </view>
+                <!-- 套餐描述 取后台配置展示，若无配置则不展示 -->
+                <view class="description" wx:if="{{tools.dataLen(basicServiceList) > 0}}">
+                    <view class="descriptionModule" wx:for="{{basicServiceList}}" wx:for-item="itemBase" wx:key="index1">
+                        <!-- <view class="ico {{itemBase.icos}}"></view> -->
+                        <view class="title">{{item.etcCardId === 1 && itemBase.title === '设备质保一年' ? '3年质保' : itemBase.title}}</view>
+                    </view>
+                </view>
+            </view>
+            <!-- 增值业务 展示的套餐下半部分 如果又权益和签约通通券则展示-->
+            <view class="lowerpart" wx:if="{{tools.dataLen(item.rightsPackageIds) || item.isSignTtCoupon}}">
+                <view class="titleDetails">
+                    <view class="titles">
+                        <view class="iconfont {{item.isSignTtCoupon ? 'isTtIcon' : 'icon'}}"></view>
+                        <view class="text">{{item.isSignTtCoupon ? 'ETC*通通券联名会员权益' : tools.limitNumber(equityListMap[index].packageName,17)}}</view>
+                    </view>
+                    <view class="details" catchtap="btnOpenOrOff" data-index="{{[index,isCloseUpperPart,activeIndex]}}">
+                        {{ index === activeIndex ? isCloseUpperPart1 ? '收起' : '详情' : isCloseUpperPart2 && index === isCloseUpperPart ? '收起' : '详情'}}
+                    </view>
+                </view>
+                <!-- 套餐 展示模块 -->
+                <view class="detailsInfo" wx:if="{{index === activeIndex ? isCloseUpperPart1 : isCloseUpperPart2 && index === isCloseUpperPart }}">
+                    <!-- 券权益包 -->
+                    <addValueService addValueService="{{item.rightsPackageIds}}" wx:if="{{tools.dataLen(item.rightsPackageIds)}}"></addValueService>
+                    <!-- 通通券 -->
+                    <view wx:elif="{{item.isSignTtCoupon}}" class="isSignTtCoupon">
+                        <view class="signTitle">通通券，涵盖出行+生活的优惠聚合平台</view>
+                        <view class="signImg">
+                            <view class="imageSize" wx:for="{{ttCouponImgList}}" wx:for-item="itemTt" wx:key="index">
+                                <image class="pictures" src="{{itemTt.img}}" />
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="splitText" wx:if="{{citicBank}}">
+        <view class="title">办理说明</view>
+        <view class="text1">1、中信银行信用卡活动，非持卡人可支付保证金后申请中信银行信用卡指定卡板</view>
+        <view class="text1">2、成功办理中信银行信用卡的新客户即退还全额保证金，信用卡申请不通过，可取消订单退还保证金</view>
+    </view>
+    <!-- 占位 -->
+    <view class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}}" >
+
+    </view>
+    <!-- 支付和协议说明 模块 -->
+    <view class="payAndAgreement {{isFade ? 'fadeIn' : 'fadeOut'}}">
+        <view class="agreementConfirm" bindtap="onClickAgreementHandle">
+            <view class="confirm iconfont {{getAgreement ? 'tick' : ''}}" catchtap="onClickAgreementHandle"></view>
+            <view class="agreement">
+                当您勾选同意并点击“去支付”按钮，即代表您已阅读、理解并接受
+                <!-- <span class="agreementColor" catchtap="goAgreement">ETC+用户协议及黔通卡用户协议及隐私协议</span> -->
+                <text class="agreementColor" catchtap="onClickGoTTQAgreement1" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon === 1}}">通通券会员服务协议、</text>
+                <text class="agreementColor" catchtap="onClickGoAgreementHandle">ETC+用户办理协议、</text>
+                <text class="agreementColor" catchtap="onClickGoQianTongAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 1}}">黔通卡ETC用户协议、</text>
+                <text class="agreementColor" catchtap="onClickGoPrivacyHandle">用户隐私协议</text>
+                里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。
+            </view>
+        </view>
+
+        <!-- 按钮设置 -->
+        <!-- 通通券 -->
+        <view class="ttCounpon" wx:if="{{ isSalesmanOrder && choiceIndex !== -1 && isPay && listOfPackages.length && listOfPackages[choiceIndex].isSignTtCoupon === 1 }}">
+            <!-- 通用券套餐已支付或无需支付 -->
+            <button class="btn {{getAgreement ? 'payColor' : ''}}" catchtap="handleSign" wx:if="{{tools.parseNum(listOfPackages[choiceIndex].ttCouponPayAmount) > 0}}">
+                {{contractStatus === 1 ? '开通连续包月服务' : '签约代扣通行费'}}
+            </button>
+            <!-- 通通券金额 为0 时 执行微信签约 -->
+            <button class="btn {{getAgreement ? 'payColor' : ''}}" catchtap="toWeChatSign" wx:else>
+                去签约
+            </button>
+        </view>
+        <!-- 签约、支付、下一步 -->
+        <view class="paySign" wx:else>
+            <view class="moneyPay {{isFade ? 'confirmPackage' : ''}}" wx:if="{{choiceIndex !== -1 && listOfPackages[activeIndex].pledgePrice || equityListMap[activeIndex].payMoney}}">
+                <view class="money" wx:if="{{isFade}}">
+                    ￥<span class="mpneySpan">{{activeIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + equityListMap[activeIndex].payMoney)/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}
+                </span>
+                </view>
+                <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}}" data-isconfirm="{{getAgreement}}" catchtap="next">{{ citicBank ? '支付保证金' : '去支付'}}</view>
+            </view>
+            <view class="nextSign" wx:else>
+                <button class="btns {{choiceIndex === -1 || getAgreement ? 'payColor' : ''}}" catchtap="next" >
+                    {{isSalesmanOrder ? '去签约' : '下一步'}}
+                </button>
+            </view>
+        </view>
+    </view>
+</view>

@@ -327,7 +327,9 @@
 				"instructions/index",
 				"instructions_gvvz/index",
 				"instructions_lnnk/index",
-				"instructions_ujds/index"
+				"instructions_ujds/index",
+				"empty_package/empty_package",
+				"empty_qrcode/empty_qrcode"
 			]
 		}
 	],

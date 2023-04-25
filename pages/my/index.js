@@ -114,7 +114,7 @@ Page({
 			affectArea: '0', // 面向区域(0:全国)
 			channel: '0'
 		});
-		console.log('个人中心后台数据：',res);
+		// console.log('个人中心后台数据：',res);
 		if (!res) return;
 		if (res.code === 0) {
 			let data = res.data.contentConfig;	// 数据

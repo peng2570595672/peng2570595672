@@ -134,7 +134,8 @@ App({
 		newEnergy: false,	// false 表示不是新能源车牌
 		citicBankShopId: IS_TEST ? '1091000458138361856' : '1098187047525031936',	// 中信银行套餐的商户ID 分别是测试环境下和正式环境下
 		citicBankShopshopProductId: IS_TEST ? '1091001046012010496' : '1098189669350776832',	// 中信银行里的白金套餐的套餐ID 分别是测试环境下和正式环境下
-		citicBankRightId: IS_TEST ? '1092482405515665408' : '1098182289300922368'	// 中信银行签约后独立权益ID
+		citicBankRightId: IS_TEST ? '1092482405515665408' : '1098182289300922368',	// 中信银行签约后独立权益ID
+		emptyPackageId: IS_TEST ? '1092879686798680064' : '' // 空发套餐ID
 	},
 	onLaunch (options) {
 		// 统计逻辑结束
@@ -238,6 +239,10 @@ App({
 			util.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
+				if (res.data.shopProductId === this.globalData.emptyPackageId) {
+					util.go(`/pages/empty_hair/empty_package/empty_package?emptyPackageId=${this.globalData.emptyPackageId}`);
+					return;
+				}
 				if (res.data.codeType === 1) {
 					// 2.0大地保险
 					this.globalData.isContinentInsurance = true;
