@@ -239,8 +239,8 @@ App({
 			util.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
-				if (res.data.shopProductId === this.globalData.emptyPackageId) {
-					util.go(`/pages/empty_hair/empty_package/empty_package?emptyPackageId=${this.globalData.emptyPackageId}`);
+				if (res.data.shopProductId) {
+					util.go(`/pages/empty_hair/empty_package/empty_package?emptyPackageId=${res.data.shopProductId}`);
 					return;
 				}
 				if (res.data.codeType === 1) {
