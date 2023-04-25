@@ -918,8 +918,10 @@ function isGreaterThanData(dateStr) {
  */
 function isDuringDate(beginDateStr, endDateStr) {
 	const curDate = new Date();
-	const beginDate = new Date(beginDateStr);
-	const endDate = new Date(endDateStr);
+	const fixedTime = beginDateStr.slice(0, 19).replace(new RegExp('-', 'g'), '/');	//转换是为了iPhone
+	const flexibleTime = endDateStr.slice(0, 19).replace(new RegExp('-', 'g'), '/');
+	const beginDate = new Date(fixedTime);
+	const endDate = new Date(flexibleTime);
 	return curDate >= beginDate && curDate < endDate;
 }
 /**
