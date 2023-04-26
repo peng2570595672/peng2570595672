@@ -167,8 +167,8 @@
                 },
                 {
                     "name": "",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1048624796910227456",
+                    "pathName": "pages/default/processing_progress/processing_progress",
+                    "query": "orderId=1038104740237414400",
                     "launchMode": "default",
                     "scene": null
                 },
