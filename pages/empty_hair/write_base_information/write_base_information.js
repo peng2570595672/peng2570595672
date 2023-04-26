@@ -45,12 +45,7 @@ Page({
 		}
 	},
 	async onShow () {
-		if (app.globalData.userInfo.accessToken) {
-			this.setData({
-				mobilePhoneMode: app.globalData.mobilePhoneMode
-			});
-		} else {
-			// 公众号进入需要登录
+		if (!app.globalData.userInfo.accessToken) {
 			this.login();
 		}
 	},
