@@ -329,7 +329,7 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			app.globalData.isNeedReturnHome = true;
-			app.globalData.isCheckCarChargeType = this.data.orderInfo.obuCardType === 1 && (this.data.orderInfo.orderType === 11 || this.data.orderInfo.orderType === 71) && !this.data.isModifiedData;
+			app.globalData.isCheckCarChargeType = this.data.orderInfo.obuCardType === 1 && (this.data.orderInfo.orderType === 11 || this.data.orderInfo.orderType === 71 || this.data.orderInfo.promoterType === 41) && !this.data.isModifiedData;
 			if (this.data.citicBank) {
 				// 中信银行在没收到设备时是不需要签约的
 				util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
