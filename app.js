@@ -135,7 +135,7 @@ App({
 		citicBankShopId: IS_TEST ? '1091000458138361856' : '1098187047525031936',	// 中信银行套餐的商户ID 分别是测试环境下和正式环境下
 		citicBankShopshopProductId: IS_TEST ? '1091001046012010496' : '1098189669350776832',	// 中信银行里的白金套餐的套餐ID 分别是测试环境下和正式环境下
 		citicBankRightId: IS_TEST ? '1092482405515665408' : '1098182289300922368',	// 中信银行签约后独立权益ID
-		emptyPackageId: IS_TEST ? '1092879686798680064' : '' // 空发套餐ID
+		salesmanEmptyObj: {}	// 业务员空发对象
 	},
 	onLaunch (options) {
 		// 统计逻辑结束
@@ -240,7 +240,11 @@ App({
 		}, (res) => {
 			if (res.code === 0) {
 				if (res.data.shopProductId) {
-					util.go(`/pages/empty_hair/empty_package/empty_package?emptyPackageId=${res.data.shopProductId}`);
+					this.globalData.salesmanEmptyObj = res.data;
+					// util.go(`/pages/empty_hair/empty_package/empty_package?emptyPackageId=${res.data.shopProductId}`);
+					wx.reLaunch({
+						url: `/pages/empty_hair/empty_package/empty_package`
+					});
 					return;
 				}
 				if (res.data.codeType === 1) {

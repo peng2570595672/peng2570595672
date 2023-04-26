@@ -297,6 +297,13 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "业务员端空发二维码",
+                    "pathName": "pages/empty_hair/empty_qrcode/empty_qrcode",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
