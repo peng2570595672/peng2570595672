@@ -42,9 +42,14 @@
                 </view>
             </view>
             <!-- 增值业务 展示的套餐下半部分 如果又权益和签约通通券则展示-->
-            <view class="lowerpart" wx:if="{{tools.dataLen(item.rightsPackageIds) || item.isSignTtCoupon}}">
+            <view class="lowerpart" wx:if="{{tools.dataLen(item.rightsPackageIds) || item.isSignTtCoupon || item.etcCardId === 2}}">
                 <view class="titleDetails">
-                    <view class="titles">
+<!--                    蒙通 etcCardId:2   先写个不存在的-->
+                    <view class="titles new-device" wx:if="{{item.etcCardId === 999}}">
+                        <view class="iconfont icon"></view>
+                        <view class="text">ETC设备（第二代）</view>
+                    </view>
+                    <view class="titles" wx:else>
                         <view class="iconfont {{item.isSignTtCoupon ? 'isTtIcon' : 'icon'}}"></view>
                         <view class="text">{{item.isSignTtCoupon ? 'ETC*通通券联名会员权益' : tools.limitNumber(equityListMap[index].packageName,17)}}</view>
                     </view>
@@ -62,6 +67,34 @@
                         <view class="signImg">
                             <view class="imageSize" wx:for="{{ttCouponImgList}}" wx:for-item="itemTt" wx:key="index">
                                 <image class="pictures" src="{{itemTt.img}}" />
+                            </view>
+                        </view>
+                    </view>
+                    <view wx:elif="{{item.etcCardId === 999}}" class="neimeng">
+                        <view class="describe-title">1.体积更小   2.抬杆速度更快   3.低耗电，寿命更长</view>
+                        <view class="describe-content">
+                            <view class="left">
+                                <view class="first">体积</view>
+                                <view>重量</view>
+                                <view>外观</view>
+                                <view>供电</view>
+                                <view>使用</view>
+                            </view>
+                            <view class="center">
+                                <image src="https://file.cyzl.com/g001/M01/D8/C2/oYYBAGRIiFWANws1AAANGrPSQ24559.png" mode="widthFix"></image>
+                                <view class="first">体积更小</view>
+                                <view>50g</view>
+                                <view>一体化设计</view>
+                                <view>太阳能+Type-C</view>
+                                <view>绑定微信<text>(无需新办卡)</text></view>
+                            </view>
+                            <view class="right">
+                                <image src="https://file.cyzl.com/g001/M01/D8/C5/oYYBAGRIjO6AVmfMAAANVK9hp9g137.png" mode="widthFix"></image>
+                                <view class="first">体积大</view>
+                                <view>98g</view>
+                                <view>需插ETC卡</view>
+                                <view>仅太阳能充电</view>
+                                <view>绑定银行卡扣款</view>
                             </view>
                         </view>
                     </view>
