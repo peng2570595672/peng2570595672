@@ -1,1 +1,5 @@
-
+<view class='index'>
+    <image class="image" src="/pages/default/assets/signed_successfully.png"/>
+    <view class="payText">支付成功</view>
+    <view class="btn" catchtap="btn">下一步</view>
+</view>

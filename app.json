@@ -329,7 +329,8 @@
 				"instructions_lnnk/index",
 				"instructions_ujds/index",
 				"empty_package/empty_package",
-				"empty_qrcode/empty_qrcode"
+				"empty_qrcode/empty_qrcode",
+				"write_base_information/write_base_information"
 			]
 		}
 	],

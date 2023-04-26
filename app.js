@@ -239,9 +239,8 @@ App({
 			util.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
-				if (res.data.shopProductId) {
+				if (res.data.isSalesmanEmpty) {
 					this.globalData.salesmanEmptyObj = res.data;
-					// util.go(`/pages/empty_hair/empty_package/empty_package?emptyPackageId=${res.data.shopProductId}`);
 					wx.reLaunch({
 						url: `/pages/empty_hair/empty_package/empty_package`
 					});

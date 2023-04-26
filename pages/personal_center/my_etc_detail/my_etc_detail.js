@@ -521,6 +521,9 @@ Page({
 			util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
 			return;
 		}
+		if (orderInfo.promoterType === 41 && orderInfo.vehPlates.length === 11) {	// 业务员空发
+			util.go(`/pages/empty_hair/write_base_information/write_base_information`);
+		}
 		wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'etc_detail_for_certificate_to_truck_package' : 'etc_detail_for_certificate_to_package');
 		util.go(`/pages/${path}/information_list/information_list`);
 	},

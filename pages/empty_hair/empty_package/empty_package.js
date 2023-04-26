@@ -1,8 +1,5 @@
-import {thirdContractSigning} from '../../../utils/utils';
-
 /**
- * @author 老刘
- * @desc 选择套餐
+ * 业务员空发套餐选择
  */
 const util = require('../../../utils/util.js');
 const app = getApp();
@@ -43,7 +40,6 @@ Page({
         isOnloadData: true
     },
     async onLoad (options) {
-        console.log(options);
         if (app.globalData.userInfo.accessToken) {
             // 根据套餐id查询套餐信息
             await this.getProduct();
@@ -85,7 +81,7 @@ Page({
 					app.globalData.mobilePhone = result.data.mobilePhone;
 				} else {
 					wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-					// util.go('/pages/login/login/login');
+					util.go('/pages/login/login/login');
 				}
 			},
 			fail: () => {
@@ -135,72 +131,6 @@ Page({
 		this.controllShopProductPosition(this.data.activeIndex);
 	},
 
-	async next () {
-		if (this.data.choiceIndex === -1) return;
-		if (!this.data.getAgreement) {
-			util.showToastNoIcon('请同意并勾选协议！');
-			return;
-		}
-		if (this.data.listOfPackages[this.data.choiceIndex].shopProductId === app.globalData.salesmanEmptyObj.shopProductId) {
-			this.emptySaveOrder();
-        }
-	},
-
-	// 支付
-	async marginPayment (pledgeType) {
-		if (this.data.isRequest) return;
-		this.setData({isRequest: true});
-		util.showLoading();
-		console.log(this.data.listOfPackages);
-		let params = {};
-		if (pledgeType === 4) {
-			// 押金模式
-			params = {
-				payVersion: 'v3',
-				tradeType: 1,
-				orderId: app.globalData.orderInfo.orderId,
-				openid: app.globalData.openId
-			};
-		} else {
-			// 普通模式
-			params = {
-				orderId: app.globalData.orderInfo.orderId
-			};
-		}
-		const result = await util.getDataFromServersV2('consumer/order/pledge-pay', params);
-		console.log(result);
-		if (!result) {
-			this.setData({isRequest: false});
-			return;
-		}
-		if (result.code === 0) {
-			let extraData = result.data.extraData;
-			wx.requestPayment({
-				nonceStr: extraData.nonceStr,
-				package: extraData.package,
-				paySign: extraData.paySign,
-				signType: extraData.signType,
-				timeStamp: extraData.timeStamp,
-				success: (res) => {
-					this.setData({isRequest: false});
-					if (res.errMsg === 'requestPayment:ok') {
-                        util.go(`/pages/empty_hair/empty_qrcode/empty_qrcode`);
-					} else {
-						util.showToastNoIcon('支付失败！');
-					}
-				},
-				fail: (res) => {
-					this.setData({isRequest: false});
-					if (res.errMsg !== 'requestPayment:fail cancel') {
-						util.showToastNoIcon('支付失败！');
-					}
-				}
-			});
-		} else {
-			this.setData({isRequest: false});
-			util.showToastNoIcon(result.message);
-		}
-	},
 	// ------------------------------------------------------------------------------------------------------------------
 	// 权益点击高亮，不用显示详情弹窗
 	detailsBtn (e) {
@@ -342,6 +272,21 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
+	// 下一步
+	async next () {
+		if (this.data.choiceIndex === -1) return;
+		if (!this.data.getAgreement) {
+			util.showToastNoIcon('请同意并勾选协议！');
+			return;
+		}
+		if (this.data.listOfPackages[this.data.choiceIndex].shopProductId === app.globalData.salesmanEmptyObj.shopProductId) {
+			if (app.globalData.userInfo.needBindingPhone !== 1) {
+				this.emptySaveOrder();
+			} else {
+				this.login();
+			}
+        }
+	},
 	// 提交订单
 	async emptySaveOrder () {
 		let that = this;
@@ -357,22 +302,25 @@ Page({
 		wx.uma.trackEvent('package_the_rights_and_interests_next');
 		that.setData({isRequest: false});
 		let params = {
-			emptyIssue: true,
-			mobilePhone: app.globalData.mobilePhone
-			// orderId: app.globalData.orderInfo.orderId, // 订单id
-			// shopId: this.data.orderInfo ? this.data.orderInfo.base.shopId : app.globalData.newPackagePageData.shopId, // 商户id
-			// dataType: '3', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
-			// dataComplete: 0, // 订单资料是否已完善 1-是，0-否
-			// shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
-			// rightsPackageId: this.data.listOfPackages[this.data.choiceIndex].rightsPackageIds ? this.data.listOfPackages[this.data.choiceIndex].rightsPackageIds[0] || '' : '',
-			// areaCode: this.data.orderInfo ? (this.data.orderInfo.product.areaCode || '0') : app.globalData.newPackagePageData.areaCode
+			emptyIssue: true,	// 标识 业务员空发
+			mobilePhone: app.globalData.mobilePhone,	// 手机号码
+			shopId: this.data.listOfPackages[this.data.choiceIndex].shopId, // 商户id
+			dataType: '3', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
+			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
+			shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,	// 套餐ID
+			rightsPackageId: this.data.listOfPackages[this.data.choiceIndex].rightsPackageIds ? this.data.listOfPackages[this.data.choiceIndex].rightsPackageIds[0] || '' : '',	// 权益包ID
+			areaCode: this.data.orderInfo ? (this.data.orderInfo.product.areaCode || '0') : app.globalData.newPackagePageData.areaCode,	// 区域编码
+			shopUserId: app.globalData.salesmanEmptyObj.shopUserId,	// 业务员用户ID
+			promoterId: app.globalData.salesmanEmptyObj.promoterId,	// 业务员推广ID
+			promoterType: 41 // 业务员推广类型（固定）
 		};
+		console.log('参数：',params);
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		console.log(result);
 		that.setData({isRequest: false});
 		if (!result) return;
 		if (result.code === 0) {
-			app.globalData.orderInfo.orderId = result.data.orderId;
+			app.globalData.orderInfo['orderId'] = result.data.orderId;
 			const res = await util.getDataFromServersV2('consumer/order/after-sale-record/addProtocolRecord', {
 				orderId: result.data.orderId // 订单id
 			});
@@ -382,6 +330,60 @@ Page({
 				await that.marginPayment(that.data.listOfPackages[that.data.choiceIndex].pledgeType);
 			}
 		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 支付
+	async marginPayment (pledgeType) {
+		if (this.data.isRequest) return;
+		this.setData({isRequest: true});
+		util.showLoading();
+		let params = {};
+		if (pledgeType === 4) {
+			// 押金模式
+			params = {
+				payVersion: 'v3',
+				tradeType: 1,
+				orderId: app.globalData.orderInfo.orderId,
+				openid: app.globalData.openId
+			};
+		} else {
+			// 普通模式
+			params = {
+				orderId: app.globalData.orderInfo.orderId
+			};
+		}
+		const result = await util.getDataFromServersV2('consumer/order/pledge-pay', params);
+		console.log(result);
+		if (!result) {
+			this.setData({isRequest: false});
+			return;
+		}
+		if (result.code === 0) {
+			let extraData = result.data.extraData;
+			wx.requestPayment({
+				nonceStr: extraData.nonceStr,
+				package: extraData.package,
+				paySign: extraData.paySign,
+				signType: extraData.signType,
+				timeStamp: extraData.timeStamp,
+				success: (res) => {
+					this.setData({isRequest: false});
+					if (res.errMsg === 'requestPayment:ok') {
+                        util.go(`/pages/empty_hair/empty_qrcode/empty_qrcode`);
+					} else {
+						util.showToastNoIcon('支付失败！');
+					}
+				},
+				fail: (res) => {
+					this.setData({isRequest: false});
+					if (res.errMsg !== 'requestPayment:fail cancel') {
+						util.showToastNoIcon('支付失败！');
+					}
+				}
+			});
+		} else {
+			this.setData({isRequest: false});
 			util.showToastNoIcon(result.message);
 		}
 	}
