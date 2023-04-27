@@ -274,6 +274,13 @@ Page({
 			util.showToastNoIcon('请同意并勾选协议！');
 			return;
 		}
+		if (this.data.orderId) {	// 如果已有订单直接拉起支付
+			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
+				this.data.equityListMap[this.data.activeIndex]?.payMoney) {
+				await this.marginPayment(this.data.listOfPackages[this.data.choiceIndex].pledgeType);
+				return;
+			}
+		}
 		if (this.data.listOfPackages[this.data.choiceIndex].shopProductId === app.globalData.salesmanEmptyObj.shopProductId) {
 			if (app.globalData.userInfo.needBindingPhone !== 1) {
 				this.emptySaveOrder();

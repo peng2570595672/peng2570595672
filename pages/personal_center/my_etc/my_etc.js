@@ -267,6 +267,10 @@ Page({
 	},
 	// 去支付
 	goPayment (orderInfo) {
+		if (orderInfo.promoterType === 41 && orderInfo.vehPlates.length === 11) {	// 业务员空发
+			util.go(`/pages/empty_hair/empty_package/empty_package?shopProductId=${orderInfo.shopProductId}`);
+			return;
+		}
 		const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
 		wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'my_etc_for_truck_package' : 'my_etc_for_package');
 		util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
