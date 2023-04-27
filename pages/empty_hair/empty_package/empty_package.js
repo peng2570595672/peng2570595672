@@ -40,6 +40,9 @@ Page({
         isOnloadData: true
     },
     async onLoad (options) {
+		this.setData({
+			shopProductId: options.shopProductId
+		});
         if (app.globalData.userInfo.accessToken) {
             // 根据套餐id查询套餐信息
             await this.getProduct();
@@ -255,7 +258,7 @@ Page({
 	// 根据套餐id获取套餐信息
 	async getProduct () {
 		const result = await util.getDataFromServersV2('consumer/system/get-product-by-id', {
-			shopProductId: app.globalData.salesmanEmptyObj.shopProductId
+			shopProductId: app.globalData.salesmanEmptyObj.shopProductId || this.data.shopProductId
 		});
 		if (!result) return;
 		if (result.code === 0) {
@@ -274,7 +277,7 @@ Page({
 			util.showToastNoIcon('请同意并勾选协议！');
 			return;
 		}
-		if (this.data.orderId) {	// 如果已有订单直接拉起支付
+		if (this.data.shopProductId) {	// 如果已有订单直接拉起支付
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
 				this.data.equityListMap[this.data.activeIndex]?.payMoney) {
 				await this.marginPayment(this.data.listOfPackages[this.data.choiceIndex].pledgeType);
