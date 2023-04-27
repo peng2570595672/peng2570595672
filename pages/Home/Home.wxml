@@ -12,7 +12,7 @@
     <view class="module immediately" wx:if="{{isShowHandle || userFailBillList.length || !orderInfo}}">
         <view class="vehicle-info">
             <view class="vehicle-info-box" animation="{{animationVehicleInfo}}">
-                <view>{{!passengerCarOrderInfo ? '使用微信支付的ETC' : (userFailBillList.length ? userFailBillList[0].vehPlate : passengerCarOrderInfo.vehPlates)}}</view>
+                <view>{{!passengerCarOrderInfo ? '使用微信支付的ETC' : (userFailBillList.length ? userFailBillList[0].vehPlate : tools.isPhone(passengerCarOrderInfo.vehPlates))}}</view>
                 <view class="sub-title">
                     <view wx:if="{{userFailBillList.length}}">{{userFailBillList[0].addTime}}</view>
                     <view wx:else>

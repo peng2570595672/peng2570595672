@@ -112,6 +112,19 @@ function phoneNumberHide (obj) {
   var obj = left + '****' + right
   return obj
 }
+// 判断车牌字段是否用手机号填充
+function isPhone(obj) {
+  if (!obj) { //判断是否为 空
+    return false
+  }
+  if (obj.length === 11 ) {
+    var left = obj.substring(0,3);
+    var right = obj.substring(7,12)
+    var obj = left + '****' + right
+    return obj
+  }
+  return obj
+}
 module.exports = {
   substring: substring,
   lowercaseToCapitalization: lowercaseToCapitalization,
@@ -123,5 +136,6 @@ module.exports = {
   limitNumber: limitNumber,
   addressFormat: addressFormat,
   onlineService: onlineService,
-  phoneNumberHide: phoneNumberHide
+  phoneNumberHide: phoneNumberHide,
+  isPhone: isPhone
 };

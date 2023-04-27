@@ -1,3 +1,4 @@
+<wxs src='../../../utils/util.wxs' module='tools' />
 <view class="my-etc">
     <view class="tab-choice" wx:if="{{!notAllCar && carList.length}}">
         <view data-index="1" class="{{activeIndex === 1 ? 'active' : ''}}" catchtap="onClickChoiceType">
@@ -13,7 +14,7 @@
 			<!--上部分开始-->
 			<view class="top">
 				<view class="left">
-					<view class="car-no">{{item.vehPlates}}</view>
+					<view class="car-no">{{tools.isPhone(item.vehPlates)}}</view>
 					<view class="channel">{{item.cardName ? item.cardName === '贵州黔通卡' ? '九州ETC' : item.cardName : ''}}</view>
 				</view>
                 <view class="right caution {{item.selfStatus === 7 || item.selfStatus === 8 ? 'failed' : ''}} {{item.selfStatus === 12 ? 'succeed' : ''}}">
