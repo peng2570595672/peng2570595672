@@ -79,6 +79,7 @@ Page({
 					app.globalData.openId = result.data.openId;
 					app.globalData.memberId = result.data.memberId;
 					app.globalData.mobilePhone = result.data.mobilePhone;
+					await this.getProduct();
 				} else {
 					wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
 					util.go('/pages/login/login/login');
@@ -263,11 +264,6 @@ Page({
 				listOfPackages: new Array(result.data)
 			});
 			this.getNodeHeight(this.data.listOfPackages.length);
-			// 未登录
-            // if (!app.globalData.userInfo?.accessToken) {
-            // 	wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-            // 	util.go('/pages/login/login/login');
-            // }
 		} else {
 			util.showToastNoIcon(result.message);
 		}

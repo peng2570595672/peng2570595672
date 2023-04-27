@@ -20,11 +20,11 @@ Page({
 		isOnlineDealWith: true, // 是否是线上办理
 		formData: {
 			currentCarNoColor: 0, // 0 蓝色 1 渐变绿 2黄色
-			region: [], // 省市区
+			region: ['广东省','广州市','海珠区'], // 省市区
 			regionCode: [], // 省份编码
-			userName: '', // 收货人姓名
+			userName: '张三', // 收货人姓名
 			telNumber: '', // 电话号码
-			detailInfo: '', // 收货地址详细信息
+			detailInfo: '新港中路397号', // 收货地址详细信息
 			operator: ''// 线上：用户点好；线下：经办人电话
 		}, // 提交数据
 		enterType: -1,// 进入小程序类型  23.搜一搜小程序独立办理链接A，24.搜一搜小程序独立办理链接B
@@ -100,10 +100,17 @@ Page({
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			orderType: this.data.isOnlineDealWith ? 11 : 12,
-			dataType: '1', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
+			dataType: '12', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			vehPlates: this.data.carNoStr, // 车牌号
-			vehColor: formData.currentCarNoColor === 1 ? 4 : 0 // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
+			vehColor: formData.currentCarNoColor === 1 ? 4 : 0, // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
+			receiveMan: formData.userName, // 收货人姓名 【dataType包含2】
+			receivePhone: app.globalData.mobilePhone, // 收货人手机号 【dataType包含2】
+			receiveProvince: formData.region[0], // 收货人省份 【dataType包含2】
+			receiveCity: formData.region[1], // 收货人城市 【dataType包含2】
+			receiveCounty: formData.region[2], // 收货人区县 【dataType包含2】
+			receiveAddress: formData.detailInfo, // 收货人详细地址 【dataType包含2】
+			notVerifyReceivePhone: true // true 时不需要验证码
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		if (!result) return;
