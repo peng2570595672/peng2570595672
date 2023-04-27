@@ -259,7 +259,6 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			console.log(result);
 			this.setData({
 				listOfPackages: new Array(result.data)
 			});

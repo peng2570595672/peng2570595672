@@ -542,8 +542,6 @@ Page({
 				this.initDadi();
 				if (!result) return;
 				if (result.code === 0) {
-					console.log('用户信息');
-					console.log(result.data);
 					result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data
 						.mobilePhone);
 					this.setData({
