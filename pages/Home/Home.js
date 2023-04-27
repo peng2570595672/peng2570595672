@@ -1072,7 +1072,7 @@ Page({
 		app.globalData.orderInfo.orderId = orderInfo.id;
 		app.globalData.processFlowVersion = orderInfo.flowVersion;
 		app.globalData.truckLicensePlate = orderInfo.vehPlates;
-		app.globalData.isCheckCarChargeType = orderInfo.obuCardType === 1 && (orderInfo.orderType === 11 && orderInfo.orderType === 71) && orderInfo.auditStatus === 0;
+		app.globalData.isCheckCarChargeType = orderInfo.obuCardType === 1 && (orderInfo.orderType === 11 || orderInfo.orderType === 71 || orderInfo.promoterType === 41) && orderInfo.auditStatus === 0;
 		if (orderInfo.orderType === 31 && orderInfo.status === 0) {
 			util.alert({
 				title: '提示',
