@@ -1429,6 +1429,7 @@ Page({
 		}
 		if (orderInfo.promoterType === 41 && orderInfo.vehPlates.length === 11) {	// 业务员空发
 			util.go(`/pages/empty_hair/write_base_information/write_base_information`);
+			return;
 		}
 		wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'index_for_certificate_to_truck_package'
 			: 'index_for_certificate_to_package');

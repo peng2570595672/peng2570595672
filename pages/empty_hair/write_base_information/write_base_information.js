@@ -1,6 +1,5 @@
 /**
- * @author 老刘
- * @desc 填写车牌和收货信息
+ * 业务员空发订单基础信息填写
  */
 const util = require('../../../utils/util.js');
 const app = getApp();
@@ -354,7 +353,5 @@ Page({
 	onUnload () {
 		// 统计点击事件
 		wx.uma.trackEvent('receiving_address_return');
-		// 清除会员券信息
-		app.globalData.membershipCoupon = {};
 	}
 });
