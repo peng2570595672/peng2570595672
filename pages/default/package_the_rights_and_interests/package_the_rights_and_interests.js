@@ -35,7 +35,13 @@ Page({
 		rightsAndInterestsList: [],// 加购权益列表
 		basicServiceList: [
 			{title: 'ETC设备与卡片', tips: '包邮', icos: 'service_of_etc'},
-			{title: '设备质保一年', icos: 'service_of_equipment'},
+			{title: '3年质保', icos: 'service_of_equipment'},
+			{title: '开具通行费发票', icos: 'service_of_invoice'},
+			{title: '高速通行9.5折起', icos: 'service_of_discount'}
+		],
+		basicServiceListNM: [
+			{title: 'ETC设备（第三代）', tips: '包邮', icos: 'service_of_etc'},
+			{title: '设备质保三年', icos: 'service_of_equipment'},
 			{title: '开具通行费发票', icos: 'service_of_invoice'},
 			{title: '高速通行9.5折', icos: 'service_of_discount'}
 		],
@@ -455,6 +461,9 @@ Page({
 	// 黔通用户协议
 	onClickGoQianTongAgreement () {
 		util.go('/pages/truck_handling/agreement_for_qiantong_to_charge/agreement');
+	},
+	onClickGoNMAgreement () {
+		return util.go('/pages/default/equity_agreement/equity_agreement?type=nm');
 	},
 	// 通通券协议
 	onClickGoTTQAgreement1 () {

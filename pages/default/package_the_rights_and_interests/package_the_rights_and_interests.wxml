@@ -35,9 +35,17 @@
                 </view>
                 <!-- 套餐描述 取后台配置展示，若无配置则不展示 -->
                 <view class="description" wx:if="{{tools.dataLen(basicServiceList) > 0}}">
-                    <view class="descriptionModule" wx:for="{{basicServiceList}}" wx:for-item="itemBase" wx:key="index1">
-                        <!-- <view class="ico {{itemBase.icos}}"></view> -->
-                        <view class="title">{{item.etcCardId === 1 && itemBase.title === '设备质保一年' ? '3年质保' : itemBase.title}}</view>
+                    <view wx:if="{{item.etcCardId === 2}}">
+                        <view class="descriptionModule" wx:for="{{basicServiceListNM}}" wx:for-item="itemBase" wx:key="index1">
+                            <!-- <view class="ico {{itemBase.icos}}"></view> -->
+                            <view class="title">{{itemBase.title}}</view>
+                        </view>
+                    </view>
+                    <view wx:else>
+                        <view class="descriptionModule" wx:for="{{basicServiceList}}" wx:for-item="itemBase" wx:key="index1">
+                            <!-- <view class="ico {{itemBase.icos}}"></view> -->
+                            <view class="title">{{itemBase.title}}</view>
+                        </view>
                     </view>
                 </view>
             </view>
@@ -45,9 +53,9 @@
             <view class="lowerpart" wx:if="{{tools.dataLen(item.rightsPackageIds) || item.isSignTtCoupon || item.etcCardId === 2}}">
                 <view class="titleDetails">
 <!--                    蒙通 etcCardId:2   先写个不存在的-->
-                    <view class="titles new-device" wx:if="{{item.etcCardId === 999}}">
+                    <view class="titles new-device" wx:if="{{item.etcCardId === 2}}">
                         <view class="iconfont icon"></view>
-                        <view class="text">ETC设备（第二代）</view>
+                        <view class="text">ETC设备（第三代）</view>
                     </view>
                     <view class="titles" wx:else>
                         <view class="iconfont {{item.isSignTtCoupon ? 'isTtIcon' : 'icon'}}"></view>
@@ -70,8 +78,8 @@
                             </view>
                         </view>
                     </view>
-                    <view wx:elif="{{item.etcCardId === 999}}" class="neimeng">
-                        <view class="describe-title">1.体积更小   2.抬杆速度更快   3.低耗电，寿命更长</view>
+                    <view wx:elif="{{item.etcCardId === 2}}" class="neimeng">
+<!--                        <view class="describe-title">1.体积更小   2.抬杆速度更快   3.低耗电，寿命更长</view>-->
                         <view class="describe-content">
                             <view class="left">
                                 <view class="first">体积</view>
@@ -81,7 +89,7 @@
                                 <view>使用</view>
                             </view>
                             <view class="center">
-                                <image src="https://file.cyzl.com/g001/M01/D8/C2/oYYBAGRIiFWANws1AAANGrPSQ24559.png" mode="widthFix"></image>
+                                <image src="https://file.cyzl.com/g001/M01/D9/CC/oYYBAGRLfeiAeY-AAAAaEpHNSzg250.png" mode="widthFix"></image>
                                 <view class="first">体积更小</view>
                                 <view>50g</view>
                                 <view>一体化设计</view>
@@ -121,6 +129,7 @@
                 <text class="agreementColor" catchtap="onClickGoTTQAgreement1" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon === 1}}">通通券会员服务协议、</text>
                 <text class="agreementColor" catchtap="onClickGoAgreementHandle">ETC+用户办理协议、</text>
                 <text class="agreementColor" catchtap="onClickGoQianTongAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 1}}">黔通卡ETC用户协议、</text>
+                <text class="agreementColor" catchtap="onClickGoNMAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 2}}">蒙通卡ETC用户协议、</text>
                 <text class="agreementColor" catchtap="onClickGoPrivacyHandle">用户隐私协议</text>
                 里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。
             </view>

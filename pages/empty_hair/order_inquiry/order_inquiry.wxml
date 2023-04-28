@@ -21,7 +21,7 @@
         <view class="circle {{isAgreement ? 'check-circle' : ''}}"></view>
         <view class="label">查看并同意</view>
         <view catchtap="handleProtocol">《ETC+用户协议》</view>
-        <view catchtap="handleQTProtocol">《黔通卡用户协议》</view>
+<!--        <view catchtap="handleQTProtocol">《黔通卡用户协议》</view>-->
         <view catchtap="handlePrivacy">《隐私政策》</view>
     </view>
     <view class="fill" />

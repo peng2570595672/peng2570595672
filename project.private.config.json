@@ -61,7 +61,7 @@
                 {
                     "name": "ETC详情",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1083487868195835904",
+                    "query": "orderId=1101520055709077504",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -302,6 +302,13 @@
                     "name": "业务员端空发二维码",
                     "pathName": "pages/empty_hair/empty_qrcode/empty_qrcode",
                     "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1098346314548121600",
                     "launchMode": "default",
                     "scene": null
                 }

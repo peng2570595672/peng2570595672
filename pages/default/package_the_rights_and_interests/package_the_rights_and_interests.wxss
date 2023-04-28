@@ -147,6 +147,11 @@
   margin-bottom: 36rpx;
   justify-content: space-between;
 }
+.package .module .upperPart .description > view {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
 .package .module .upperPart .description .descriptionModule {
   width: 242rpx;
   display: flex;
@@ -281,6 +286,7 @@
   font-weight: 400;
   color: #979797;
   line-height: 39rpx;
+  margin-top: 20rpx;
 }
 .package .module .lowerpart .detailsInfo .neimeng .describe-content > view {
   position: relative;
