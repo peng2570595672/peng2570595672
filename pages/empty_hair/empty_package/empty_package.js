@@ -278,28 +278,8 @@ Page({
 			return;
 		}
 		// 判断是否是 权益券额套餐模式 ，如果是再判断以前是否有过办理，如果有则弹窗提示，并且不执行后面流程
-		if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4) {
-			const result = await util.getDataFromServersV2('consumer/order/precharge/list',{
-				orderId: app.globalData.orderInfo.orderId // 订单id
-			});
-			if (!result) return;
-			if (result.code === 0) {
-				if (result.data.length >= 5) {
-					util.alert({
-						title: `提示`,
-						content: `该套餐目前暂只支持单人办理五台车辆`,
-						confirmColor: '#576B95',
-						cancelColor: '#000000',
-						cancelText: '我知道了',
-						confirm: () => {
-						},
-						cancel: async () => {
-						}
-					});
-					return;
-				}
-			} else {
-				util.showToastNoIcon(result.message);
+		if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4 && this.data.shopProductId) {
+			if (this.handlEquityLimit()) {
 				return;
 			}
 		}
@@ -354,10 +334,17 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			app.globalData.orderInfo['orderId'] = result.data.orderId;
+			// 添加协议记录
 			const res = await util.getDataFromServersV2('consumer/order/after-sale-record/addProtocolRecord', {
 				orderId: result.data.orderId // 订单id
 			});
 			if (!res) return;
+			// 判断是否是 权益券额套餐模式 ，如果是再判断以前是否有过办理，如果有则弹窗提示，并且不执行后面流程
+			if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4) {
+				if (this.handlEquityLimit()) {
+					return;
+				}
+			}
 			if (that.data.listOfPackages[that.data.choiceIndex]?.pledgePrice ||
 				that.data.equityListMap[that.data.activeIndex]?.payMoney) {
 				await that.marginPayment(that.data.listOfPackages[that.data.choiceIndex].pledgeType);
@@ -418,6 +405,34 @@ Page({
 		} else {
 			this.setData({isRequest: false});
 			util.showToastNoIcon(result.message);
+		}
+	},
+	// 办理权益套餐的限制
+	async handlEquityLimit () {
+		const result = await util.getDataFromServersV2('consumer/order/precharge/list',{
+			orderId: app.globalData.orderInfo.orderId // 订单id
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			if (result.data.length >= 5) {
+				util.alert({
+					title: `提示`,
+					content: `该套餐目前暂只支持单人办理五台车辆`,
+					confirmColor: '#576B95',
+					cancelColor: '#000000',
+					cancelText: '我知道了',
+					confirm: () => {
+					},
+					cancel: async () => {
+					}
+				});
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			util.showToastNoIcon(result.message);
+			return true;
 		}
 	}
 });
