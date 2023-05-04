@@ -277,13 +277,41 @@ Page({
 			util.showToastNoIcon('请同意并勾选协议！');
 			return;
 		}
-		if (this.data.shopProductId) {	// 如果已有订单直接拉起支付
+		// 判断是否是 权益券额套餐模式 ，如果是再判断以前是否有过办理，如果有则弹窗提示，并且不执行后面流程
+		if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4) {
+			const result = await util.getDataFromServersV2('consumer/order/precharge/list',{
+				orderId: app.globalData.orderInfo.orderId // 订单id
+			});
+			if (!result) return;
+			if (result.code === 0) {
+				if (result.data.length >= 5) {
+					util.alert({
+						title: `提示`,
+						content: `该套餐目前暂只支持单人办理五台车辆`,
+						confirmColor: '#576B95',
+						cancelColor: '#000000',
+						cancelText: '我知道了',
+						confirm: () => {
+						},
+						cancel: async () => {
+						}
+					});
+					return;
+				}
+			} else {
+				util.showToastNoIcon(result.message);
+				return;
+			}
+		}
+		// 如果已有订单直接拉起支付
+		if (this.data.shopProductId) {
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
 				this.data.equityListMap[this.data.activeIndex]?.payMoney) {
 				await this.marginPayment(this.data.listOfPackages[this.data.choiceIndex].pledgeType);
 				return;
 			}
 		}
+		// 判断是否从业务员端过来得空发套餐，是：执行保存订单
 		if (this.data.listOfPackages[this.data.choiceIndex].shopProductId === app.globalData.salesmanEmptyObj.shopProductId) {
 			if (app.globalData.userInfo.needBindingPhone !== 1) {
 				this.emptySaveOrder();
