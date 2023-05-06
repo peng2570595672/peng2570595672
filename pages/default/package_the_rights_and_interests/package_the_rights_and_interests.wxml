@@ -21,7 +21,7 @@
                     <!-- 套餐名称：取后台套餐名称 -->
                     <view class="title">{{tools.limitNumber(item.productName,18)}}</view>
                     <!-- 取后台支付金额，保留小数点后2位，若套餐支付金额为0时，前端价格展示为免费 -->
-                    <view class="money">
+                    <view class="money" wx:if="{{item.productType !== 6 && item.pledgeType !== 0}}">
                         <span wx:if="{{item.pledgePrice || equityListMap[index].payMoney}}" >
                             ￥{{tools.parseNum(item.pledgePrice + equityListMap[index].payMoney)/100}}
                         </span>
