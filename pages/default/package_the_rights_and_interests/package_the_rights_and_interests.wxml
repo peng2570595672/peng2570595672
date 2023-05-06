@@ -25,6 +25,7 @@
                         <span wx:if="{{item.pledgePrice || equityListMap[index].payMoney}}" >
                             ￥{{tools.parseNum(item.pledgePrice + equityListMap[index].payMoney)/100}}
                         </span>
+                        <!-- 空发套餐并且设备免费时，隐藏金额 -->
                         <span wx:else style="color: #0f0">{{item.productType === 6 && item.pledgeType === 0 ? '' : '免费'}}</span>
                     </view>
                 </view>

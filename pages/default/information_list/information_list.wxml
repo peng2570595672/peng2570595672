@@ -20,7 +20,7 @@
         <view wx:else class="icon {{orderInfo.isVehicle === 1 ? 'success' : ''}} iconfont"></view>
     </view>
     <view class="module moduleThree" wx:if="{{ orderInfo.obuCardType !== 1 }}">
-        <view class="left iconfont {{isHeadstockError ? 'error' : ''}}">车辆照片</view>
+        <view class="left iconfont {{isHeadstockError ? 'error' : ''}}">{{orderInfo.obuCardType === 2 ? '45度车头照' : '车辆照片'}}</view>
         <view wx:if="{{ orderDetails.orderType !== 61 && (isModifiedData || orderInfo.isHeadstock !== 1)}}" class="btn {{orderInfo.isHeadstock === 1  ? 'edit' : ''}}"
               catchtap="go" data-url="upload_other_photo">
             {{orderInfo.isHeadstock === 1 ? '修改' : '上传'}}
