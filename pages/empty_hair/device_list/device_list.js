@@ -58,7 +58,7 @@ Page({
 		}
 		if (item.vehPlate) {
 			app.globalData.orderInfo.orderId = item.orderId;
-			if (!item.isOwner) {
+			if (!item.isOwner && item.orderType === 71) {
 				util.go('/pages/default/package_the_rights_and_interests/package_the_rights_and_interests');
 				return;
 			}
