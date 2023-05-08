@@ -278,11 +278,11 @@ Page({
 			return;
 		}
 		// // 判断是否是 权益券额套餐模式 ，如果是再判断以前是否有过办理，如果有则弹窗提示，并且不执行后面流程
-		// if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4 && this.data.shopProductId) {
-		// 	if (this.handlEquityLimit()) {
-		// 		return;
-		// 	}
-		// }
+		if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4 && this.data.shopProductId) {
+			if (await this.handlEquityLimit()) {
+				return;
+			}
+		}
 		// 如果已有订单直接拉起支付
 		if (this.data.shopProductId) {
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
@@ -339,12 +339,12 @@ Page({
 				orderId: result.data.orderId // 订单id
 			});
 			if (!res) return;
-			// // 判断是否是 权益券额套餐模式 ，如果是再判断以前是否有过办理，如果有则弹窗提示，并且不执行后面流程
-			// if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4) {
-			// 	if (this.handlEquityLimit()) {
-			// 		return;
-			// 	}
-			// }
+			// // 判断是否是 权益券额套餐模式 ，如果是再判断以前是否有过办理（ > 5个），如果有则弹窗提示，并且不执行后面流程
+			if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4) {
+				if (await this.handlEquityLimit()) {
+					return;
+				}
+			}
 			if (that.data.listOfPackages[that.data.choiceIndex]?.pledgePrice ||
 				that.data.equityListMap[that.data.activeIndex]?.payMoney) {
 				await that.marginPayment(that.data.listOfPackages[that.data.choiceIndex].pledgeType);
