@@ -16,12 +16,12 @@ Page({
 		const slicingLength = 4;
 		app.globalData.emptyHairDeviceList.noActiveOrders.map((item, index) => {
 			let strEtcNo = [];
-			for (let i = 0; i < item.etcNo.length; i += slicingLength) {
+			for (let i = 0; i < item.etcNo?.length; i += slicingLength) {
 				strEtcNo.push(item.etcNo.slice(i,i + slicingLength));
 			}
 			item.newEtcNo = strEtcNo.join(' ');
 			let strObuNo = [];
-			for (let i = 0; i < item.obuNo.length; i += slicingLength) {
+			for (let i = 0; i < item.obuNo?.length; i += slicingLength) {
 				strObuNo.push(item.obuNo.slice(i,i + slicingLength));
 			}
 			item.newObuNo = strObuNo.join(' ');
@@ -58,6 +58,10 @@ Page({
 		}
 		if (item.vehPlate) {
 			app.globalData.orderInfo.orderId = item.orderId;
+			if (!item.isOwner) {
+				util.go('/pages/default/package_the_rights_and_interests/package_the_rights_and_interests');
+				return;
+			}
 			util.go('/pages/default/information_list/information_list');
 			return;
 		}
