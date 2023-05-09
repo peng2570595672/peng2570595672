@@ -106,7 +106,7 @@
         </view>
         <!-- 签约、支付、下一步 -->
         <view class="paySign" wx:else>
-            <view class="moneyPay {{isFade ? 'confirmPackage' : ''}}" wx:if="{{choiceIndex !== -1 && listOfPackages[activeIndex].pledgePrice || equityListMap[activeIndex].payMoney}}">
+            <view class="moneyPay {{isFade ? 'confirmPackage' : ''}}" wx:if="{{choiceIndex !== -1 && (listOfPackages[activeIndex].pledgePrice || equityListMap[activeIndex].payMoney)}}">
                 <view class="money" wx:if="{{isFade}}">
                     ￥<span class="mpneySpan">{{activeIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + equityListMap[activeIndex].payMoney)/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}
                 </span>

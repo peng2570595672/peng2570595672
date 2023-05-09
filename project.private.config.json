@@ -311,6 +311,13 @@
                     "query": "orderId=1098346314548121600",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/empty_hair/basic_information/basic_information",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

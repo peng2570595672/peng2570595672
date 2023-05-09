@@ -1417,9 +1417,7 @@ Page({
 				: 'index_for_continue_to_package');
 			if (app.globalData.newPackagePageData.type || orderInfo.isNewTrucks === 1) {
 				// 只有分对分套餐 || 只有总对总套餐
-				util.go(
-					`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`
-				);
+				util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`);
 			} else {
 				util.go(`/pages/${path}/choose_the_way_to_handle/choose_the_way_to_handle`);
 			}
@@ -1431,6 +1429,10 @@ Page({
 		}
 		if (orderInfo.promoterType === 41 && orderInfo.vehPlates.length === 11) {	// 业务员空发
 			util.go(`/pages/empty_hair/write_base_information/write_base_information`);
+			return;
+		}
+		if (orderInfo.orderType === 71 && orderInfo.vehPlates && orderInfo.isOwner) {	// 电商空发订单
+			util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
 			return;
 		}
 		wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'index_for_certificate_to_truck_package'

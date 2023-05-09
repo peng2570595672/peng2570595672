@@ -772,7 +772,6 @@ Page({
 		if (res.code === 0) {
 			util.hideLoading();
 			if (res.data.canSubmit === 1) {
-				console.log(this.data.citicBank);
 				if (this.data.citicBank) {
 					this.selectComponent('#popTipComp').show({
 						type: 'five',
@@ -784,10 +783,10 @@ Page({
 				}
 				this.next();
 			} else {
-				return util.showToastNoIcon(res.data.canSubmitMsg);
+				util.showToastNoIcon(res.data.canSubmitMsg);
 			}
 		} else {
-			util.showToastNoIcon(res.message)
+			util.showToastNoIcon(res.message);
 		}
 	},
 	// 弹窗 确认 回调

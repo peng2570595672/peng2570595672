@@ -60,11 +60,11 @@
 		<view>发行卡种</view>
 		<view>{{orderInfo.cardName === '贵州黔通卡' ? '九州ETC' : orderInfo.cardName }}</view>
 	</view>
-	<view class="item" wx:if="{{orderInfo.etcNo}}">
+	<view class="item" wx:if="{{orderInfo.orderType === 71 ? orderInfo.selfStatus === 12 ? orderInfo.etcNo : false : orderInfo.etcNo}}">
 		<view>发行卡号</view>
 		<view>{{orderInfo.etcNo}}</view>
 	</view>
-	<view class="item" wx:if="{{orderInfo.obuNo}}">
+	<view class="item" wx:if="{{orderInfo.orderType === 71 ? orderInfo.selfStatus === 12 ? orderInfo.obuNo : false : orderInfo.obuNo}}">
 		<view>设备（OBU）编号</view>
 		<view>{{orderInfo.obuNo}}</view>
 	</view>

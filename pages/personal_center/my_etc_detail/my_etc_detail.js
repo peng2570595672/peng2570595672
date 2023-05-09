@@ -529,6 +529,10 @@ Page({
 			util.go(`/pages/empty_hair/write_base_information/write_base_information`);
 			return;
 		}
+		if (orderInfo.orderType === 71 && orderInfo.vehPlates && orderInfo.isOwner) {	// 电商空发订单
+			util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
+			return;
+		}
 		wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'etc_detail_for_certificate_to_truck_package' : 'etc_detail_for_certificate_to_package');
 		util.go(`/pages/${path}/information_list/information_list`);
 	},

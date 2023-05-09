@@ -25,7 +25,8 @@
                         <span wx:if="{{item.pledgePrice || equityListMap[index].payMoney}}" >
                             ￥{{tools.parseNum(item.pledgePrice + equityListMap[index].payMoney)/100}}
                         </span>
-                        <span wx:else style="color: #0f0">免费</span>
+                        <!-- 空发套餐并且设备免费时，隐藏金额 -->
+                        <span wx:else style="color: #0f0">{{item.productType === 6 ? '' : '免费'}}</span>
                     </view>
                 </view>
                 <!-- 副标题：取后台套餐副标题（原套餐全称productLogo） -->
@@ -149,7 +150,7 @@
         </view>
         <!-- 签约、支付、下一步 -->
         <view class="paySign" wx:else>
-            <view class="moneyPay {{isFade ? 'confirmPackage' : ''}}" wx:if="{{choiceIndex !== -1 && listOfPackages[activeIndex].pledgePrice || equityListMap[activeIndex].payMoney}}">
+            <view class="moneyPay {{isFade ? 'confirmPackage' : ''}}" wx:if="{{choiceIndex !== -1 && (listOfPackages[activeIndex].pledgePrice || equityListMap[activeIndex].payMoney)}}">
                 <view class="money" wx:if="{{isFade}}">
                     ￥<span class="mpneySpan">{{activeIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + equityListMap[activeIndex].payMoney)/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}
                 </span>

@@ -181,12 +181,12 @@ Page({
 			} else if (list.length === 1) {
 				const slicingLength = 4;
 				let strEtcNo = [];
-				for (let i = 0; i < list[0].etcNo.length; i += slicingLength) {
+				for (let i = 0; i < list[0].etcNo?.length; i += slicingLength) {
 					strEtcNo.push(list[0].etcNo.slice(i,i + slicingLength));
 				}
 				list[0].newEtcNo = strEtcNo.join(' ');
 				let strObuNo = [];
-				for (let i = 0; i < list[0].obuNo.length; i += slicingLength) {
+				for (let i = 0; i < list[0].obuNo?.length; i += slicingLength) {
 					strObuNo.push(list[0].obuNo.slice(i,i + slicingLength));
 				}
 				list[0].newObuNo = strObuNo.join(' ');
@@ -196,6 +196,10 @@ Page({
 				}
 				if (list[0].vehPlate) {
 					app.globalData.orderInfo.orderId = list[0].orderId;
+					if (!list[0].isOwner && list[0].orderType === 71) {
+						util.go('/pages/default/package_the_rights_and_interests/package_the_rights_and_interests');
+						return;
+					}
 					util.go('/pages/default/information_list/information_list');
 					return;
 				}
