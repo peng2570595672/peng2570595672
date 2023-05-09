@@ -787,6 +787,7 @@ Page({
 				return util.showToastNoIcon(res.data.canSubmitMsg);
 			}
 		} else {
+			util.showToastNoIcon(res.message)
 		}
 	},
 	// 弹窗 确认 回调

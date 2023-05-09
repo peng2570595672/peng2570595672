@@ -132,8 +132,8 @@
                 },
                 {
                     "name": "",
-                    "pathName": "pages/default/shot_card/shot_card",
-                    "query": "type=4",
+                    "pathName": "CitiesServices/pages/CitiesServices/CitiesServices",
+                    "query": "",
                     "launchMode": "default",
                     "scene": null
                 },
