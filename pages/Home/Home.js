@@ -1431,8 +1431,8 @@ Page({
 			util.go(`/pages/empty_hair/write_base_information/write_base_information`);
 			return;
 		}
-		if (orderInfo.orderType === 71 && orderInfo.vehPlates && orderInfo.isOwner) {	// 电商空发订单
-			util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
+		if (orderInfo.orderType === 71 && orderInfo.vehPlates && !orderInfo.isOwner && orderInfo?.pledgeStatus !== 1) {	// 电商空发订单
+			util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?emptyHairOrder=true`);
 			return;
 		}
 		wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'index_for_certificate_to_truck_package'

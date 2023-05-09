@@ -134,14 +134,16 @@ Page({
 		getAgreement: false, // 是否接受协议
 		isPay: false, // 已选择通通券套餐&无需支付||已经支付
 		isTest: app.globalData.test,
-		citicBank: false	// 是否是中信银行联名套餐
+		citicBank: false,	// 是否是中信银行联名套餐
+		emptyHairOrder: false	// 为true表示是空发订单
 
 	},
 	async onLoad (options) {
 		console.log(options);
 		app.globalData.isTelemarketing = false;
 		this.setData({
-			contractStatus: +options.contractStatus
+			contractStatus: +options.contractStatus,
+			emptyHairOrder: options.emptyHairOrder === 'true'
 		});
 		if (!options.type) {
 			// 已选择套餐 && 未支付

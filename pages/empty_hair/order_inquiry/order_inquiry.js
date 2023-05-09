@@ -197,7 +197,7 @@ Page({
 				if (list[0].vehPlate) {
 					app.globalData.orderInfo.orderId = list[0].orderId;
 					if (!list[0].isOwner && list[0].orderType === 71) {
-						util.go('/pages/default/package_the_rights_and_interests/package_the_rights_and_interests');
+						util.go('/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?emptyHairOrder=true');
 						return;
 					}
 					util.go('/pages/default/information_list/information_list');

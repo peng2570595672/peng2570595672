@@ -786,6 +786,7 @@ Page({
 				util.showToastNoIcon(res.data.canSubmitMsg);
 			}
 		} else {
+			util.hideLoading();
 			util.showToastNoIcon(res.message);
 		}
 	},
