@@ -427,6 +427,9 @@ Page({
 			case 9:	// 山东 齐鲁通卡
 				util.go(`/pages/empty_hair/instructions_ujds/index?auditStatus=${this.data.info.auditStatus}`);
 				break;
+			case 2:	// 蒙通卡
+				util.go(`/pages/empty_hair/neimeng_installation_tutorial/neimeng_installation_tutorial?auditStatus=${this.data.info.auditStatus}`);
+				break;
 			default:	// 其他需要我们自己激活的省
 				util.go(`/pages/empty_hair/instructions/index?auditStatus=${this.data.info.auditStatus}`);
 		}

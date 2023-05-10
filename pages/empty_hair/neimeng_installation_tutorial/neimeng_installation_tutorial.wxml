@@ -1,0 +1,45 @@
+<view class="container">
+	<view class="logo">
+		<image src="/pages/empty_hair/assets/neimeng/step1.png" mode="widthFix"></image>
+	</view>
+	<view class="title">1.拭擦安装位置</view>
+	<view class="sub-title">
+		<view>请用湿纸巾将安装处进行擦拭，</view>
+		<view>再用干纸巾将水分擦干</view>
+	</view>
+	<view class="logo">
+		<image src="/pages/empty_hair/assets/neimeng/step2.png" mode="widthFix"></image>
+	</view>
+	<view class="title">2.将设备安装到指定位置</view>
+	<view class="sub-title">
+		<view>撕开设备背面的胶纸，将设备紧贴在车辆</view>
+		<view>后视镜正后方的挡风玻璃上</view>
+	</view>
+
+	<view class="logo">
+		<image src="/pages/empty_hair/assets/neimeng/step4.png" mode="widthFix"></image>
+	</view>
+	<view class="title">3.打开手机蓝牙</view>
+	<view class="sub-title">
+		<view>注意：ios用户请打开微信蓝牙授权，</view>
+		<view>操作路径为：设置- 隐私-蓝牙-开启微信授权</view>
+	</view>
+	<view class="logo">
+		<image src="/pages/empty_hair/assets/neimeng/step3.png" mode="widthFix"></image>
+	</view>
+	<view class="title">4.打开设备蓝牙</view>
+	<view class="sub-title">
+		<view>按两下设备上的按键打开设备蓝牙，</view>
+		<view>开启后设备将会响1声并长亮</view>
+	</view>
+
+
+	<view class="tips">
+		<view class="label">注意：</view>
+		<view>
+			<view>禁止将设备安装在非申办车辆上！</view>
+			<view>激活后请勿移动设备，否则无法正常使用！</view>
+		</view>
+	</view>
+	<view class="btn" catchtap="next">立即激活</view>
+</view>

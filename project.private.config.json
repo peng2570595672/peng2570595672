@@ -318,6 +318,34 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "/pages/empty_hair/instructions_gvvz/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/empty_hair/instructions/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/empty_hair/instructions_ujds/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "/pages/empty_hair/neimeng_installation_tutorial/neimeng_installation_tutorial",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
