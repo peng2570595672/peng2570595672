@@ -18,6 +18,7 @@ Page({
 	next () {
 		if (this.data.auditStatus !== 2) {
 			util.showToastNoIcon('审核通过后才能激活');
+			return;
 		}
 		// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
 		wx.navigateToMiniProgram({
