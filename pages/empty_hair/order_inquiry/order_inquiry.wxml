@@ -3,7 +3,7 @@
     <view class="input-wrapper">
         <view class="input-title">查询ETC订单</view>
         <view class="input-item">
-            <input type="number" placeholder="请输入手机号" placeholder-class="placeholder" value="{{formData.mobilePhone}}"
+            <input type="number" placeholder="收件人手机号" placeholder-class="placeholder" value="{{formData.mobilePhone}}"
                    bindinput="onInputChangedHandle" data-key="mobilePhone"
             />
         </view>
