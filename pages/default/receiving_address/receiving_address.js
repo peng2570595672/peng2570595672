@@ -118,6 +118,9 @@ Page({
 					app.globalData.openId = result.data.openId;
 					app.globalData.memberId = result.data.memberId;
 					app.globalData.mobilePhone = result.data.mobilePhone;
+					this.setData({
+						'formData.operator': result.data.mobilePhone
+					});
 					// 查询是否欠款
 					await util.getIsArrearage();
 				} else {
@@ -470,7 +473,9 @@ Page({
 					formData,
 					tip2: '',
 					tip3: '',
-					mobilePhoneIsOk: /^1[0-9]{10}$/.test(res.telNumber.substring(0, 11)),
+					mobilePhoneIsOk: /^1[0-9]{10}$/.test(res.telNumber.substring(0, 11))
+				});
+				this.setData({
 					available: this.validateAvailable(true)
 				});
 			},
