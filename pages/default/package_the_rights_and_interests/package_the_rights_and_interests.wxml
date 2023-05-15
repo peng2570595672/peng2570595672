@@ -56,7 +56,7 @@
 <!--                    蒙通 etcCardId:2   先写个不存在的-->
                     <view class="titles new-device" wx:if="{{item.etcCardId === 2}}">
                         <view class="iconfont icon"></view>
-                        <view class="text">ETC设备（第三代）</view>
+                        <view class="text">ETC设备（第五代）</view>
                     </view>
                     <view class="titles" wx:else>
                         <view class="iconfont {{item.isSignTtCoupon ? 'isTtIcon' : 'icon'}}"></view>
@@ -90,7 +90,7 @@
                                 <view>使用</view>
                             </view>
                             <view class="center">
-                                <image src="https://file.cyzl.com/g001/M01/D9/CC/oYYBAGRLfeiAeY-AAAAaEpHNSzg250.png" mode="widthFix"></image>
+                                <image src="https://file.cyzl.com/g001/M01/DD/DA/oYYBAGRh1xiAIxIXAAAxb5acyOk026.png" mode="widthFix"></image>
                                 <view class="first">体积更小</view>
                                 <view>50g</view>
                                 <view>一体化设计</view>
@@ -130,7 +130,7 @@
                 <text class="agreementColor" catchtap="onClickGoTTQAgreement1" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon === 1}}">通通券会员服务协议、</text>
                 <text class="agreementColor" catchtap="onClickGoAgreementHandle">ETC+用户办理协议、</text>
                 <text class="agreementColor" catchtap="onClickGoQianTongAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 1}}">黔通卡ETC用户协议、</text>
-                <text class="agreementColor" catchtap="onClickGoNMAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 2}}">蒙通卡ETC用户协议、</text>
+                <text class="agreementColor" catchtap="onClickGoNMAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 2}}">ETC服务协议、</text>
                 <text class="agreementColor" catchtap="onClickGoPrivacyHandle">用户隐私协议</text>
                 里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。
             </view>

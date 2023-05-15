@@ -33,6 +33,12 @@ Page({
 			{title: '开具通行费发票', icos: 'service_of_invoice'},
 			{title: '高速通行9.5折', icos: 'service_of_discount'}
 		],
+		basicServiceListNM: [
+			{title: 'ETC设备（第五代）', tips: '包邮', icos: 'service_of_etc'},
+			{title: '设备质保三年', icos: 'service_of_equipment'},
+			{title: '开具通行费发票', icos: 'service_of_invoice'},
+			{title: '高速通行9.5折', icos: 'service_of_discount'}
+		],
 		contractStatus: undefined,
 		isLoaded: false, // 是否加载数据完成
 		getAgreement: false, // 是否接受协议
@@ -108,6 +114,10 @@ Page({
 		} else {
 			util.go(`/pages/default/new_self_buy_equipmemnt_agreement/index`);
 		}
+	},
+	// ETC 服务协议
+	onClickGoNMAgreement () {
+		return util.go('/pages/default/equity_agreement/equity_agreement?type=nm');
 	},
 	// 黔通用户协议
 	onClickGoQianTongAgreement () {

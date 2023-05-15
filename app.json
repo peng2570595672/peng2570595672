@@ -49,7 +49,8 @@
 		"pages/default/margin_user_handling_agreement/margin_user_handling_agreement",
 		"pages/default/new_pay/new_pay",
 		"pages/default/citic_bank_sign/citic_bank_sign",
-		"pages/default/citicBank_processing_progress/citicBank_processing_progress"
+		"pages/default/citicBank_processing_progress/citicBank_processing_progress",
+		"pages/default/citic_bank_card_details/citic_bank_card_details"
 
 	],
 	"window": {

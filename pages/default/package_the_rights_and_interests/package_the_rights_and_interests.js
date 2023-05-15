@@ -40,7 +40,7 @@ Page({
 			{title: '高速通行9.5折起', icos: 'service_of_discount'}
 		],
 		basicServiceListNM: [
-			{title: 'ETC设备（第三代）', tips: '包邮', icos: 'service_of_etc'},
+			{title: 'ETC设备（第五代）', tips: '包邮', icos: 'service_of_etc'},
 			{title: '设备质保三年', icos: 'service_of_equipment'},
 			{title: '开具通行费发票', icos: 'service_of_invoice'},
 			{title: '高速通行9.5折', icos: 'service_of_discount'}

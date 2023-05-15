@@ -1,0 +1,5 @@
+<view class="index" style="background: {{'rgba(38, 144, 241, 1)'}}">
+    <view class="topImg">
+        <image class="image" src="https://file.cyzl.com/g001/M01/DD/D4/oYYBAGRhy8aAB_fOAAEgVJi7Jwk010.png" mode="widthFix" />
+    </view>
+</view>

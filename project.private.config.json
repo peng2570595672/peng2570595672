@@ -346,6 +346,27 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "中信介绍页",
+                    "pathName": "pages/default/citic_bank_card_details/citic_bank_card_details",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "ETC用户办理协议",
+                    "pathName": "pages/default/equity_agreement/equity_agreement",
+                    "query": "type=nm",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "选择套餐页（空发）",
+                    "pathName": "pages/empty_hair/empty_package/empty_package",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

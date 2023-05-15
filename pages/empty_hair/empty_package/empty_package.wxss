@@ -147,6 +147,11 @@
   margin-bottom: 36rpx;
   justify-content: space-between;
 }
+.package .module .upperPart .description > view {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
 .package .module .upperPart .description .descriptionModule {
   width: 242rpx;
   display: flex;
@@ -223,6 +228,12 @@
   line-height: 39rpx;
   margin-left: 10rpx;
 }
+.package .module .lowerpart .titleDetails .titles.new-device .icon {
+  margin-right: 36rpx;
+}
+.package .module .lowerpart .titleDetails .titles.new-device .icon::before {
+  color: #54b95c;
+}
 .package .module .lowerpart .titleDetails .details {
   color: #2a4f44;
   width: 60rpx;
@@ -256,6 +267,66 @@
 .package .module .lowerpart .detailsInfo .pictures {
   width: 212rpx;
   height: 160rpx;
+}
+.package .module .lowerpart .detailsInfo .neimeng .describe-title {
+  font-size: 24rpx;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #1e1e1e;
+  line-height: 39rpx;
+  margin: 20rpx 0;
+}
+.package .module .lowerpart .detailsInfo .neimeng .describe-content {
+  background: #fff;
+  display: flex;
+  border-radius: 16rpx 16rpx 16rpx 16rpx;
+  padding: 68rpx 32rpx 24rpx;
+  font-size: 24rpx;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #979797;
+  line-height: 39rpx;
+  margin-top: 20rpx;
+}
+.package .module .lowerpart .detailsInfo .neimeng .describe-content > view {
+  position: relative;
+}
+.package .module .lowerpart .detailsInfo .neimeng .describe-content > view .first {
+  padding-top: 62rpx;
+}
+.package .module .lowerpart .detailsInfo .neimeng .describe-content > view > view {
+  margin-bottom: 16rpx;
+  font-size: 20rpx;
+}
+.package .module .lowerpart .detailsInfo .neimeng .describe-content .left {
+  margin-right: 40rpx;
+}
+.package .module .lowerpart .detailsInfo .neimeng .describe-content .center {
+  width: 270rpx;
+  height: 354rpx;
+  padding-left: 38rpx;
+  background: linear-gradient(155deg, #ffeab7 0%, #e9ca7b 100%);
+  border-radius: 12rpx;
+  box-sizing: border-box;
+  font-family: PingFang SC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #503c0d;
+  margin-right: 50rpx;
+}
+.package .module .lowerpart .detailsInfo .neimeng .describe-content .center image {
+  position: absolute;
+  top: -52rpx;
+  left: 98rpx;
+  width: 132rpx;
+}
+.package .module .lowerpart .detailsInfo .neimeng .describe-content .center text {
+  font-size: 18rpx;
+}
+.package .module .lowerpart .detailsInfo .neimeng .describe-content .right image {
+  position: absolute;
+  top: -50rpx;
+  left: 0rpx;
+  width: 188rpx;
 }
 .package .moduleOne {
   margin-top: 38rpx;
@@ -430,12 +501,28 @@
   animation: fade_out 0.5s linear forwards;
   -webkit-animation: fade_out 0.5s linear forwards;
 }
+@-webkit-keyframes fade_in {
+  0% {
+    bottom: -330rpx;
+  }
+  100% {
+    bottom: 0;
+  }
+}
 @keyframes fade_in {
   0% {
     bottom: -330rpx;
   }
   100% {
     bottom: 0;
+  }
+}
+@-webkit-keyframes fade_out {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: -330rpx;
   }
 }
 @keyframes fade_out {
