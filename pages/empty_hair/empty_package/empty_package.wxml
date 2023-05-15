@@ -25,7 +25,8 @@
                         <span wx:if="{{item.pledgePrice || equityListMap[index].payMoney}}" >
                             ￥{{tools.parseNum(item.pledgePrice + equityListMap[index].payMoney)/100}}
                         </span>
-                        <span wx:else style="color: #0f0">免费</span>
+                        <!-- 空发套餐并且设备免费时，隐藏金额 -->
+                        <span wx:else style="color: #0f0">{{item.productType === 6 ? '' : '免费'}}</span>
                     </view>
                 </view>
                 <!-- 副标题：取后台套餐副标题（原套餐全称productLogo） -->
@@ -35,16 +36,29 @@
                 </view>
                 <!-- 套餐描述 取后台配置展示，若无配置则不展示 -->
                 <view class="description" wx:if="{{tools.dataLen(basicServiceList) > 0}}">
-                    <view class="descriptionModule" wx:for="{{basicServiceList}}" wx:for-item="itemBase" wx:key="index1">
-                        <!-- <view class="ico {{itemBase.icos}}"></view> -->
-                        <view class="title">{{item.etcCardId === 1 && itemBase.title === '设备质保一年' ? '3年质保' : itemBase.title}}</view>
+                    <view wx:if="{{item.etcCardId === 2}}">
+                        <view class="descriptionModule" wx:for="{{basicServiceListNM}}" wx:for-item="itemBase" wx:key="index1">
+                            <!-- <view class="ico {{itemBase.icos}}"></view> -->
+                            <view class="title">{{itemBase.title}}</view>
+                        </view>
+                    </view>
+                    <view wx:else>
+                        <view class="descriptionModule" wx:for="{{basicServiceList}}" wx:for-item="itemBase" wx:key="index1">
+                            <!-- <view class="ico {{itemBase.icos}}"></view> -->
+                            <view class="title">{{itemBase.title}}</view>
+                        </view>
                     </view>
                 </view>
             </view>
             <!-- 增值业务 展示的套餐下半部分 如果又权益和签约通通券则展示-->
-            <view class="lowerpart" wx:if="{{tools.dataLen(item.rightsPackageIds) || item.isSignTtCoupon}}">
+            <view class="lowerpart" wx:if="{{tools.dataLen(item.rightsPackageIds) || item.isSignTtCoupon || item.etcCardId === 2}}">
                 <view class="titleDetails">
-                    <view class="titles">
+<!--                    蒙通 etcCardId:2   先写个不存在的-->
+                    <view class="titles new-device" wx:if="{{item.etcCardId === 2}}">
+                        <view class="iconfont icon"></view>
+                        <view class="text">ETC设备（第五代）</view>
+                    </view>
+                    <view class="titles" wx:else>
                         <view class="iconfont {{item.isSignTtCoupon ? 'isTtIcon' : 'icon'}}"></view>
                         <view class="text">{{item.isSignTtCoupon ? 'ETC*通通券联名会员权益' : tools.limitNumber(equityListMap[index].packageName,17)}}</view>
                     </view>
@@ -62,6 +76,34 @@
                         <view class="signImg">
                             <view class="imageSize" wx:for="{{ttCouponImgList}}" wx:for-item="itemTt" wx:key="index">
                                 <image class="pictures" src="{{itemTt.img}}" />
+                            </view>
+                        </view>
+                    </view>
+                    <view wx:elif="{{item.etcCardId === 2}}" class="neimeng">
+<!--                        <view class="describe-title">1.体积更小   2.抬杆速度更快   3.低耗电，寿命更长</view>-->
+                        <view class="describe-content">
+                            <view class="left">
+                                <view class="first">体积</view>
+                                <view>重量</view>
+                                <view>外观</view>
+                                <view>供电</view>
+                                <view>使用</view>
+                            </view>
+                            <view class="center">
+                                <image src="https://file.cyzl.com/g001/M01/DD/DA/oYYBAGRh1xiAIxIXAAAxb5acyOk026.png" mode="widthFix"></image>
+                                <view class="first">体积更小</view>
+                                <view>50g</view>
+                                <view>一体化设计</view>
+                                <view>太阳能+Type-C</view>
+                                <view>绑定微信<text>(无需新办卡)</text></view>
+                            </view>
+                            <view class="right">
+                                <image src="https://file.cyzl.com/g001/M01/D8/C5/oYYBAGRIjO6AVmfMAAANVK9hp9g137.png" mode="widthFix"></image>
+                                <view class="first">体积大</view>
+                                <view>98g</view>
+                                <view>需插ETC卡</view>
+                                <view>仅太阳能充电</view>
+                                <view>绑定银行卡扣款</view>
                             </view>
                         </view>
                     </view>
@@ -84,9 +126,11 @@
             <view class="confirm iconfont {{getAgreement ? 'tick' : ''}}" catchtap="onClickAgreementHandle"></view>
             <view class="agreement">
                 当您勾选同意并选购套餐时，即代表您已阅读、理解并接受
+                <!-- <span class="agreementColor" catchtap="goAgreement">ETC+用户协议及黔通卡用户协议及隐私协议</span> -->
                 <text class="agreementColor" catchtap="onClickGoTTQAgreement1" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon === 1}}">通通券会员服务协议、</text>
                 <text class="agreementColor" catchtap="onClickGoAgreementHandle">ETC+用户办理协议、</text>
                 <text class="agreementColor" catchtap="onClickGoQianTongAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 1}}">黔通卡ETC用户协议、</text>
+                <text class="agreementColor" catchtap="onClickGoNMAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 2}}">ETC服务协议、</text>
                 <text class="agreementColor" catchtap="onClickGoPrivacyHandle">用户隐私协议</text>
                 里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。
             </view>
@@ -115,7 +159,7 @@
             </view>
             <view class="nextSign" wx:else>
                 <button class="btns {{choiceIndex === -1 || getAgreement ? 'payColor' : ''}}" catchtap="next" >
-                    {{isSalesmanOrder ? '去签约' : '下一步'}}
+                    {{isSalesmanOrder ? '去签约' : emptyHairOrder ? '确认套餐' :'下一步'}}
                 </button>
             </view>
         </view>

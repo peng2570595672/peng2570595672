@@ -48,7 +48,7 @@
         <!-- 占位 -->
         <view class="split"></view>
         <!-- 立即办理 {{isFade ? 'fadeIn' : 'fadeOut'}}-->
-        <view class="handleImmediately  ">
+        <view class="handleImmediately">
             <button catchtap="onClickHandle" >立即办理</button>
         </view>
     </view>

@@ -185,6 +185,9 @@
   font-size: 28rpx;
   color: #2fc8e0;
 }
+.index .module.five image {
+  width: 638rpx;
+}
 .index .module.five .left {
   display: inline-block;
   text-align: left;
