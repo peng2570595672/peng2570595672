@@ -61,7 +61,7 @@
                 {
                     "name": "ETC详情",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1101520055709077504",
+                    "query": "orderId=804026860739497984",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -315,6 +315,27 @@
                 {
                     "name": "",
                     "pathName": "pages/empty_hair/basic_information/basic_information",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/obu_activate/hunan/genvict/genvict",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/default/processing_progress/processing_progress",
+                    "query": "orderId=1038104740237414400",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/obu_activate/neimeng_choice/neimeng_choice",
                     "query": "",
                     "launchMode": "default",
                     "scene": null

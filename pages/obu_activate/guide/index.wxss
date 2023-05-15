@@ -1,0 +1,375 @@
+.root {
+  min-height: 100vh;
+  padding-bottom: 160rpx;
+}
+.root > .title {
+  margin-top: 40rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 30rpx;
+  height: 56rpx;
+  font-size: 40rpx;
+  font-weight: 500;
+}
+.root > .title:before {
+  margin-right: 10rpx;
+  content: '';
+  width: 10rpx;
+  height: 10rpx;
+  border: 6rpx solid #2fb565;
+  border-radius: 50%;
+}
+.root > .title > text {
+  margin-left: 12rpx;
+  font-size: 24rpx;
+  color: #7a7f83;
+  transform: translateY(8rpx);
+}
+.root .ul {
+  width: 440rpx;
+  margin: 0 auto;
+}
+.root .ul .li {
+  position: relative;
+  text-align: center;
+  opacity: 0;
+}
+.root .ul .li .canvas {
+  position: relative;
+  overflow: hidden;
+}
+.root .ul .li image {
+  display: block;
+}
+.root .ul .li[data-num="1"] .canvas {
+  margin: 50rpx 0;
+}
+.root .ul .li[data-num="1"] image[data-tag="obu_f"] {
+  position: relative;
+  z-index: 2;
+  width: 204rpx;
+  height: 148rpx;
+  margin: 0 auto;
+}
+.root .ul .li[data-num="1"] image[data-tag="card"] {
+  position: absolute;
+  z-index: 1;
+  width: 184rpx;
+  height: 112rpx;
+  top: 20rpx;
+  right: -184rpx;
+}
+.root .ul .li[data-num="2"] .canvas {
+  margin: 80rpx auto 40rpx;
+  width: 440rpx;
+  height: 260rpx;
+}
+.root .ul .li[data-num="2"] image[data-tag="car"] {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+.root .ul .li[data-num="2"] .wrap {
+  position: absolute;
+  z-index: 2;
+  top: 32rpx;
+  left: 220rpx;
+}
+.root .ul .li[data-num="2"] .inner {
+  position: absolute;
+  z-index: 1;
+  width: 118rpx;
+  height: 214rpx;
+  top: 0;
+  left: 0;
+}
+.root .ul .li[data-num="2"] image[data-tag="hand_r"] {
+  position: absolute;
+  z-index: 2;
+  width: 116rpx;
+  height: 180rpx;
+  right: 0;
+  bottom: 0;
+}
+.root .ul .li[data-num="2"] image[data-tag="cloth"] {
+  position: absolute;
+  z-index: 1;
+  width: 68rpx;
+  height: 72rpx;
+  top: 0;
+  left: 8rpx;
+}
+.root .ul .li[data-num="3"] {
+  position: relative;
+  width: 440rpx;
+  padding-top: 300rpx;
+  margin-top: 66rpx;
+}
+.root .ul .li[data-num="3"] .canvas[data-tag="3"] {
+  opacity: 0;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 440rpx;
+  height: 260rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.root .ul .li[data-num="3"] .canvas[data-tag="3"] image[data-tag="obu_b"] {
+  width: 260rpx;
+  height: 190rpx;
+}
+.root .ul .li[data-num="3"] .canvas[data-tag="3"] image[data-tag="coverage"] {
+  position: absolute;
+  z-index: 1;
+  width: 102rpx;
+  height: 96rpx;
+  top: 70rpx;
+  left: 206rpx;
+}
+.root .ul .li[data-num="3"] .canvas[data-tag="3"] image[data-tag="hand_tear"] {
+  position: absolute;
+  z-index: 2;
+  width: 196rpx;
+  height: 320rpx;
+  top: 14rpx;
+  left: 190rpx;
+}
+.root .ul .li[data-num="3"] .canvas[data-tag="4"] {
+  opacity: 0;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 440rpx;
+  height: 260rpx;
+}
+.root .ul .li[data-num="3"] .canvas[data-tag="4"] image[data-tag="car"] {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+.root .ul .li[data-num="3"] .canvas[data-tag="4"] image[data-tag="obu_card"] {
+  position: absolute;
+  z-index: 1;
+  width: 130rpx;
+  height: 78rpx;
+  top: 22rpx;
+  left: 270rpx;
+  top: 136rpx;
+  left: 212rpx;
+}
+.root .ul .li[data-num="3"] .canvas[data-tag="4"] .wrap {
+  position: absolute;
+  z-index: 2;
+  top: 22rpx;
+  left: 208rpx;
+  top: 136rpx;
+  left: 150rpx;
+  width: 230rpx;
+  height: 140rpx;
+}
+.root .ul .li[data-num="3"] .canvas[data-tag="4"] image[data-tag="hand_l"] {
+  position: absolute;
+  z-index: 1;
+  width: 100rpx;
+  height: 136rpx;
+  top: 14rpx;
+  left: 0;
+}
+.root .ul .li[data-num="3"] .canvas[data-tag="4"] image[data-tag="hand_r"] {
+  position: absolute;
+  z-index: 1;
+  width: 100rpx;
+  height: 136rpx;
+  top: 14rpx;
+  right: 0;
+}
+.root .ul .li.animate-obu {
+  animation: 0.4s slideDown 0s forwards ease-in;
+}
+.root .ul .li.animate-obu[data-num="1"] image[data-tag="card"] {
+  animation: 1s insertCard 0s forwards ease-in;
+}
+.root .ul .li.animate-obu[data-num="2"] .wrap {
+  animation: 2s scrub_horizontal 0s forwards cubic-bezier(0.5, 0, 0.5, 1);
+}
+.root .ul .li.animate-obu[data-num="2"] .inner {
+  animation: 2s scrub_vertical 0s forwards cubic-bezier(0.35, 0, 0.65, 1);
+}
+.root .ul .li.animate-obu[data-num="3"] .canvas[data-tag="3"] {
+  animation: 2s tag3 0s forwards linear;
+}
+.root .ul .li.animate-obu[data-num="3"] .canvas[data-tag="3"] image[data-tag="hand_tear"] {
+  animation: 2s tear_hand 0s forwards linear;
+}
+.root .ul .li.animate-obu[data-num="3"] .canvas[data-tag="3"] image[data-tag="coverage"] {
+  animation: 2s tear_coverage 0s forwards linear;
+}
+.root .ul .li.animate-obu[data-num="3"] .canvas[data-tag="4"] {
+  animation: 0.2s tag4 2.2s forwards linear;
+}
+.root .ul .li.animate-obu[data-num="3"] .canvas[data-tag="4"] .wrap {
+  animation: 2.5s move_hands 2.2s forwards ease-in;
+}
+.root .ul .li.animate-obu[data-num="3"] .canvas[data-tag="4"] image[data-tag="obu_card"] {
+  animation: 2.5s move_obu 2.2s forwards ease-in;
+}
+.root .ul .li .title {
+  color: #33333d;
+  font-size: 36rpx;
+}
+.root .ul .li .subtitle {
+  color: #66666d;
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+.root .prompt {
+  color: #ff563c;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  margin: 72rpx 0 40rpx;
+  padding: 0 100rpx;
+  text-align: center;
+}
+.root .next {
+  width: 630rpx;
+  height: 98rpx;
+  line-height: 98rpx;
+  border-radius: 49rpx;
+  font-size: 40rpx;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(45deg, #14ac69, #84d157);
+  margin: 0 auto;
+}
+.root .next:active {
+  opacity: 0.8;
+}
+.root .next.disabled {
+  opacity: 0.24;
+}
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    top: -40rpx;
+  }
+  100% {
+    opacity: 1;
+    top: 0;
+  }
+}
+@keyframes insertCard {
+  0% {
+    right: -184rpx;
+  }
+  100% {
+    right: 80rpx;
+  }
+}
+@keyframes scrub_horizontal {
+  0% {
+    left: 220rpx;
+  }
+  50% {
+    left: 300rpx;
+  }
+  100% {
+    left: 220rpx;
+  }
+}
+@keyframes scrub_vertical {
+  0% {
+    top: 0;
+  }
+  25% {
+    top: -14rpx;
+  }
+  50% {
+    top: 0;
+  }
+  75% {
+    top: -14rpx;
+  }
+  100% {
+    top: 0;
+  }
+}
+@keyframes tag3 {
+  0%, 90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes tag4 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes tear_hand {
+  0% {
+    top: 260rpx;
+    left: 0;
+  }
+  40% {
+    top: 14rpx;
+    left: 190rpx;
+  }
+  62.5% {
+    left: 220rpx;
+  }
+  80% {
+    top: -6rpx;
+  }
+  100% {
+    top: 14rpx;
+    left: 450rpx;
+  }
+}
+@keyframes tear_coverage {
+  0%, 40% {
+    left: 206rpx;
+  }
+  60% {
+    left: 236rpx;
+  }
+  80% {
+    left: 360rpx;
+  }
+  100% {
+    left: 460rpx;
+  }
+}
+@keyframes move_hands {
+  0% {
+    top: 136rpx;
+    left: 150rpx;
+  }
+  32%, 64% {
+    top: 22rpx;
+    left: 208rpx;
+  }
+  100% {
+    top: 250rpx;
+    left: 58rpx;
+  }
+}
+@keyframes move_obu {
+  0% {
+    top: 136rpx;
+    left: 212rpx;
+  }
+  32%, 100% {
+    top: 22rpx;
+    left: 270rpx;
+  }
+}

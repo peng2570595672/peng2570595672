@@ -1,0 +1,45 @@
+<view class="container">
+	<view class="title top-title">接下来准备激活</view>
+	<view class="sub-title top-sub-title">请打开手机蓝牙及设备蓝牙，连接本地OBU设备</view>
+	<view class="logo">
+		<image src="../images/instructions/neimeng/step4.png" mode="widthFix"></image>
+	</view>
+	<view class="title">1.打开手机蓝牙</view>
+	<view class="sub-title">
+		<view>注意：ios用户请打开微信蓝牙授权，</view>
+		<view>操作路径为：设置- 隐私-蓝牙-开启微信授权</view>
+	</view>
+	<view class="logo">
+		<image src="../images/instructions/neimeng/step3.png" mode="widthFix"></image>
+	</view>
+	<view class="title">2.打开设备蓝牙</view>
+	<view class="sub-title">
+		<view>按两下设备上的按键打开设备蓝牙，</view>
+		<view>开启后设备将会响1声并长亮</view>
+	</view>
+	<view class="tips">
+		<view class="label">注意：</view>
+		<view>
+			<view>全程保持车辆熄火状态，避免连接到车载蓝牙</view>
+			<view>保证您的网络正常；请勿退出小程序避免激活失败</view>
+		</view>
+	</view>
+	<view class="btn" catchtap="handleActivate">蓝牙已打开，下一步</view>
+</view>
+<view class="">
+	<view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}"></view>
+	<view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}" wx:if="{{mask}}">
+		<view class='dialog-container'>
+			<view class="wx-dialog-title">打开蓝牙</view>
+			<view class="wx-dialog-con">
+				<image src="../images/instructions/neimeng/tips.png" mode="widthFix"></image>
+				<view class="step1">打开手机蓝牙，才能搜索ETC设备蓝牙</view>
+				<view class="step2">ios用户请确保手机蓝牙授权微信，授权路径：通用设置-隐私-蓝牙</view>
+			</view>
+			<view class="fill"></view>
+			<view class="wx-dialog-btn">
+				<view class="confirm" bindtap='hide' data-select="ok">知道了</view>
+			</view>
+		</view>
+	</view>
+</view>

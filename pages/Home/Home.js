@@ -1312,15 +1312,7 @@ Page({
 		if (orderInfo.logisticsId !== 0) {
 			await this.confirmReceipt(orderInfo);
 		} else {
-			// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
-			wx.navigateToMiniProgram({
-				appId: 'wxdda17150b8e50bc4',
-				path: 'pages/index/index',
-				envVersion: 'release', // 目前联调为体验版
-				fail () {
-					util.showToastNoIcon('调起激活小程序失败, 请重试！');
-				}
-			});
+			this.handleActivate(orderInfo);
 		}
 	},
 	// 确认收货
@@ -1330,18 +1322,48 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
-			wx.navigateToMiniProgram({
-				appId: 'wxdda17150b8e50bc4',
-				path: 'pages/index/index',
-				envVersion: 'release', // 目前联调为体验版
-				fail () {
-					util.showToastNoIcon('调起激活小程序失败, 请重试！');
-				}
-			});
+			this.handleActivate(orderInfo);
 		} else {
 			util.showToastNoIcon(result.message);
 		}
+	},
+	handleActivate (obj) {
+		app.globalData.orderInfo.orderId = obj.orderId;
+		wx.setStorageSync('baseInfo', {
+			orderId: obj.orderId,
+			mobilePhone: app.globalData.userInfo.mobilePhone,
+			channel: obj.obuCardType,
+			qtLimit: '',// 青通卡激活所需,暂未写
+			serverId: obj.shopId,
+			carNoStr: obj.vehPlates,
+			obuStatus: obj.obuStatus
+		});
+		// ETC卡信息 1-贵州黔通卡 2-内蒙古蒙通卡 3-山东鲁通卡 4-青海青通卡 5-天津速通卡 6-陕西三秦通卡 7-广东粤通卡 8-辽宁辽通卡 9-齐鲁高速鲁通卡 10-湘通卡
+		if (obj.obuCardType === 10) {
+			util.go(`/pages/obu_activate/guide/index`);
+			return;
+		}
+		if (obj.obuCardType === 2) {
+			if (!this.data.choiceEquipment) {
+				this.setData({
+					choiceEquipment: this.selectComponent('#choiceEquipment')
+				});
+			}
+			this.data.choiceEquipment.switchDisplay(true);
+			return;
+		}
+		// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
+		wx.navigateToMiniProgram({
+			appId: 'wxdda17150b8e50bc4',
+			path: 'pages/index/index',
+			envVersion: 'release', // 目前联调为体验版
+			fail () {
+				util.showToastNoIcon('调起激活小程序失败, 请重试！');
+			}
+		});
+	},
+	onClickTranslucentHandle () {
+		this.data.choiceEquipment.switchDisplay(false);
 	},
 	// 修改资料
 	async onClickModifiedData (orderInfo, isChange) {

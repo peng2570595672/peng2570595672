@@ -1,0 +1,25 @@
+@import "../../template/second_issue_ui/second_issue_ui.styl"
+.force
+	position fixed
+	left 30rpx
+	right 30rpx
+	display flex
+	font-size 24rpx
+	color #999
+	bottom 140rpx
+	&.selected
+		&::before
+			background: linear-gradient(to bottom,$themeColor1,$themeColor2)
+	&::before
+		margin-top 7rpx
+		display flex
+		flex 0 0 24rpx
+		align-items center
+		justify-content center
+		width 24rpx
+		height 24rpx
+		margin-right 10rpx
+		content '\e604'
+		color #fff
+		background: #999
+		border-radius 50%

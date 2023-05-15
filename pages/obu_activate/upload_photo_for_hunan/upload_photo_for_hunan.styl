@@ -1,0 +1,111 @@
+//渐变主题色
+$themeColor1 = #84d157;
+$themeColor2 = #14ac69;
+.activate-obu
+	.photo-wrapper
+		margin 10rpx 30rpx 20rpx
+		.photo
+			overflow hidden
+			&:last-of-type
+				margin-top 20rpx
+			& > view
+				height 460rpx
+				background-color: #F6F7F8
+				border-radius 10rpx
+				& > view
+					position relative
+					width 100%
+					height 100%
+					&.show
+						&::before
+							position absolute
+							left 50%
+							top 50%
+							display flex
+							align-items center
+							justify-content center
+							width 96rpx
+							height 96rpx
+							transform translate(-50%, -50%)
+							content '\e6bb'
+							color #fff
+							font-size 56rpx
+							background: rgba(0, 0, 0, .2)
+							border-radius 50%
+					& > view
+						position absolute
+						left 0
+						top 0
+						right 0
+						bottom 0
+						font-size 28rpx
+						color $themeColor1
+						display flex
+						padding 0 30rpx
+						align-items center
+						justify-content center
+					& > image
+						width 100%
+						height 100%
+						border-radius 10rpx
+			& > text
+				display block
+				text-align center
+				margin-top -15rpx
+				font-size 26rpx
+				color #999
+
+	// .btn
+	// 	position fixed
+	// 	left 30rpx
+	// 	right 30rpx
+	// 	bottom 30rpx
+	// 	display flex
+	// 	align-items center
+	// 	justify-content center
+	// 	margin-top 39rpx
+	// 	height 90rpx
+	// 	font-size 32rpx
+	// 	color #fff
+	// 	background: #ccc
+	// 	border-radius 10rpx
+	// 	&.available
+	// 		box-shadow: 0 10rpx 50rpx 0 rgba(40, 164, 57, 0.2);
+	// 		background: linear-gradient(to bottom, $themeColor1, $themeColor2)
+	.next
+		position fixed
+		left 30rpx
+		right 30rpx
+		bottom 30rpx
+		display flex
+		align-items center
+		justify-content center
+		height 98rpx
+		line-height 98rpx
+		color #fff
+		font-size 32rpx
+		background linear-gradient(45deg, $themeColor2, $themeColor1)
+		border-radius 49rpx
+		&:active
+			opacity .8
+		&.disabled,
+		&:active.disabled
+			opacity 1
+			background #ccc
+	// .next
+	// 	width 630rpx
+	// 	height 98rpx
+	// 	line-height 98rpx
+	// 	border-radius 49rpx
+	// 	font-size 40rpx
+	// 	text-align center
+	// 	color #fff
+	// 	background linear-gradient(45deg, #14ac69, #84d157)
+	// 	margin 32rpx auto 40rpx
+	// 	&:active
+	// 		opacity .8
+	// 	&.disabled
+	// 		opacity .24
+	.press-canvas
+		position fixed
+		left -3000rpx

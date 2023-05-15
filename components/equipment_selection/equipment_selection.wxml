@@ -1,0 +1,20 @@
+<view class="list-of-packages animated {{wrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{mask}}">
+	<view class="list-of-packages-wrapper  animated {{wrapper ? 'slideInUp' : 'slideOutDown'}}" wx:if="{{mask}}" catchtap="onClickCatchHandle">
+		<view class="choice-bank-title">您的设备
+			<view class="iconfont" catchtap="onClickTranslucentHandle"></view>
+		</view>
+		<view class="list">
+			<view catchtap="handleDevice" class="item {{activeIndex ? 'active' : ''}}">
+				<view wx:if="{{activeIndex}}" class="choice iconfont"></view>
+				<view class="logo">
+					<image src="https://file.cyzl.com/g001/M01/DD/02/oYYBAGRd25yAePUUAAACak0wmzQ186.png" mode="heightFix"></image>
+				</view>
+				<view class="info">
+					<view class="name">铭创（无卡式）</view>
+					<view class="sub-title">质保3年/高速通行95折</view>
+				</view>
+			</view>
+		</view>
+		<view class="tips" catchtap="handleChoic">不是我的设备，重新选择</view>
+	</view>
+</view>

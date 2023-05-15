@@ -385,20 +385,41 @@ Page({
 			}, (res) => {
 				util.hideLoading();
 				if (res.code === 0) {
-					// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
-					wx.navigateToMiniProgram({
-						appId: 'wxdda17150b8e50bc4',
-						path: 'pages/index/index',
-						envVersion: 'release', // 目前联调为体验版
-						fail () {
-							util.showToastNoIcon('调起激活小程序失败, 请重试！');
-						}
-					});
+					this.handleActivate();
 				} else {
 					util.showToastNoIcon(res.message);
 				}
 			}, app.globalData.userInfo.accessToken);
 		}
+	},
+	handleActivate () {
+		app.globalData.orderInfo.orderId = this.data.orderId;
+		wx.setStorageSync('baseInfo', {
+			orderId: this.data.orderId,
+			mobilePhone: app.globalData.userInfo.mobilePhone,
+			channel: this.data.info.obuCardType,
+			qtLimit: '',// 青通卡激活所需,暂未写
+			serverId: this.data.info.shopId,
+			carNoStr: this.data.info.vehPlates,
+			obuStatus: this.data.info.obuStatus
+		});
+		// ETC卡信息 1-贵州黔通卡 2-内蒙古蒙通卡 3-山东鲁通卡 4-青海青通卡 5-天津速通卡 6-陕西三秦通卡 7-广东粤通卡 8-辽宁辽通卡 9-齐鲁高速鲁通卡 10-湘通卡
+		if (this.data.info.obuCardType === 10) {
+			util.go(`/pages/obu_activate/guide/index`);
+			return;
+		}
+		if (this.data.info.obuCardType === 2) {
+			return;
+		}
+		// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
+		wx.navigateToMiniProgram({
+			appId: 'wxdda17150b8e50bc4',
+			path: 'pages/index/index',
+			envVersion: 'release', // 目前联调为体验版
+			fail () {
+				util.showToastNoIcon('调起激活小程序失败, 请重试！');
+			}
+		});
 	},
 	// 复制银行卡号
 	onClickCopyBankCardNumber (e) {

@@ -1,0 +1,50 @@
+//渐变主题色
+$themeColor1 = #84d157;
+$themeColor2 = #14ac69;
+.second-issue-ui
+	& > image
+		margin 0 auto
+		display block
+		height 654rpx
+	.text-wrapper
+		margin-top 50rpx
+		& > view
+			text-align center
+			font-size 28rpx
+			&.info
+				color #333!important
+			&.ok
+				color $themeColor1!important
+			&:first-of-type
+				font-size 36rpx
+				font-weight bold
+			&.sub-title
+				margin-top 25rpx
+				& > text
+					&.succeed
+						color $themeColor1!important
+					&.failed
+						color #FA6C3E
+			&.msg
+				margin-top 6rpx
+				color #FA6C3E
+	.btns
+		position fixed
+		left 30rpx
+		right 30rpx
+		bottom 30rpx
+		display flex
+		align-items center
+		justify-content center
+		height 98rpx
+		line-height 98rpx
+		color #fff
+		font-size 32rpx
+		background linear-gradient(45deg, $themeColor2, $themeColor1)
+		border-radius 49rpx
+		&:active
+			opacity .8
+		&.not-use,
+		&:active.not-use
+			opacity 1
+			background #ccc
