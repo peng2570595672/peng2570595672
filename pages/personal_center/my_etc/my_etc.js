@@ -263,7 +263,7 @@ Page({
 		});
 		// ETC卡信息 1-贵州黔通卡 2-内蒙古蒙通卡 3-山东鲁通卡 4-青海青通卡 5-天津速通卡 6-陕西三秦通卡 7-广东粤通卡 8-辽宁辽通卡 9-齐鲁高速鲁通卡 10-湘通卡
 		if (obj.obuCardType === 10) {
-			util.go(`/pages/obu_activate/guide/index`);
+			util.go(`/pages/obu_activate/neimeng_choice/neimeng_choice?obuCardType=${obj.obuCardType}`);
 			return;
 		}
 		if (obj.obuCardType === 2) {

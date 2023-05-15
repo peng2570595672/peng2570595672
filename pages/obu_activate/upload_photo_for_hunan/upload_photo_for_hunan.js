@@ -159,34 +159,25 @@ Page({
 				clickEnabled: true
 			});
 			if (result.code === 0) {
-				wx.showActionSheet({
-					itemList: ['握奇', '聚力', '金溢', '中路未来'],
-					success: (result) => {
-						switch (result.tapIndex) {
-							case 0:
-								// 握奇
-								util.go('/pages/obu_activate/hunan/watchdata/watchdata');
-								break;
-							case 1:
-								// 聚利
-								util.go('/pages/obu_activate/hunan/juli/juli');
-								break;
-							case 2:
-								// 金溢
-								util.go('/pages/obu_activate/hunan/genvict/genvict');
-								break;
-							case 3:
-								// 中路未来
-								util.go('/pages/obu_activate/hunan/zhongluweilai/zhongluweilai');
-								break;
-						}
-					},
-					fail (result) {
-						if (result.errMsg !== 'showActionSheet:fail cancel') {
-							util.showToastNoIcon('请重试！');
-						}
-					}
-				});
+				const index = app.globalData.choiceDeviceIndex;
+				switch (index) {
+					case 0:
+						// 握奇
+						util.go('/pages/obu_activate/hunan/watchdata/watchdata');
+						break;
+					case 1:
+						// 聚利
+						util.go('/pages/obu_activate/hunan/juli/juli');
+						break;
+					case 2:
+						// 金溢
+						util.go('/pages/obu_activate/hunan/genvict/genvict');
+						break;
+					case 3:
+						// 中路未来
+						util.go('/pages/obu_activate/hunan/zhongluweilai/zhongluweilai');
+						break;
+				}
 			} else {
 				this.isOver(result.message);
 			}
