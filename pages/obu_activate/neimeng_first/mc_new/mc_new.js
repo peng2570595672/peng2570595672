@@ -313,7 +313,7 @@ Page({
 			Random: random,
 			orderId: app.globalData.orderInfo.orderId
 		};
-		let res = await util.getDataFromServersV2('consumer/etc/nmg/common/cardonline/online-to-active',params);
+		let res = await util.getDataFromServersV2('consumer/etc/nmg/gm/common/cardonline/online-to-active',params);
 		if (res.code === 0) {
 			if (res.data.FileData && res.data.Mac) {
 				this.writeDataToCardFor0016(res);
@@ -371,7 +371,7 @@ Page({
 			nextInterface: 2,
 			orderId: app.globalData.orderInfo.orderId
 		};
-		let res = await util.getDataFromServersV2('consumer/etc/nmg/common/cardonline/online-to-active',params);
+		let res = await util.getDataFromServersV2('consumer/etc/nmg/gm/common/cardonline/online-to-active',params);
 		if (res.code === 0) {
 			if (res.data.FileData && res.data.Mac) {
 				this.writeDataToCardFor0015(res);
@@ -409,7 +409,7 @@ Page({
 			CardType: this.data.cardType,
 			orderId: app.globalData.orderInfo.orderId
 		};
-		let res = await util.getDataFromServersV2('consumer/etc/nmg/common/cardonline/card-writing-success',params);
+		let res = await util.getDataFromServersV2('consumer/etc/nmg/gm/common/cardonline/card-writing-success',params);
 		if (res.code === 0) {
 			console.log('写0015数据正常结束');
 			// 下一步：更新obu车辆信息
@@ -449,7 +449,7 @@ Page({
 			nextInterface: 3,
 			orderId: app.globalData.orderInfo.orderId
 		};
-		let res = await util.getDataFromServersV2('consumer/etc/nmg/common/cardonline/online-to-active',params);
+		let res = await util.getDataFromServersV2('consumer/etc/nmg/gm/common/cardonline/online-to-active',params);
 		if (res.code === 0) {
 			if (res.data.FileData && res.data.Mac) {
 				this.writeDataToObuForCarInfo(res);
@@ -507,7 +507,7 @@ Page({
 			nextInterface: 4,
 			orderId: app.globalData.orderInfo.orderId
 		};
-		let res = await util.getDataFromServersV2('consumer/etc/nmg/common/cardonline/online-to-active',params);
+		let res = await util.getDataFromServersV2('consumer/etc/nmg/gm/common/cardonline/online-to-active',params);
 		if (res.code === 0) {
 			if (res.data.FileData && res.data.Mac) {
 				this.writeDataToObuForSysInfo(res);
@@ -543,7 +543,7 @@ Page({
 			SerialNumber: this.data.contractNumber,
 			orderId: app.globalData.orderInfo.orderId
 		};
-		let res = await util.getDataFromServersV2('consumer/etc/nmg/common/cardonline/obu-writing-success',params);
+		let res = await util.getDataFromServersV2('consumer/etc/nmg/gm/common/cardonline/obu-writing-success',params);
 		if (res.code === 0) {
 			wx.uma.trackEvent('activate_the_success');
 			this.setData({msg: '', activated: 1});
@@ -556,7 +556,7 @@ Page({
 		let params = {
 			orderId: app.globalData.orderInfo.orderId
 		};
-		let res = await util.getDataFromServersV2('consumer/etc/nmg/common/cardonline/current-step',params);
+		let res = await util.getDataFromServersV2('consumer/etc/nmg/gm/common/cardonline/current-step',params);
 		if (res.code === 104) {
 			this.get4BitRandomByPICCFor0016();
 		} else if (res.code === 0) {

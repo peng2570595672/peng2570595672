@@ -266,6 +266,12 @@ Page({
 			return;
 		}
 		if (obj.obuCardType === 2) {
+			if (!this.data.choiceEquipment) {
+				this.setData({
+					choiceEquipment: this.selectComponent('#choiceEquipment')
+				});
+			}
+			this.data.choiceEquipment.switchDisplay(true);
 			return;
 		}
 		// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）

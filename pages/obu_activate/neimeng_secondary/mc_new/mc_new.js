@@ -301,12 +301,11 @@ Page({
 		});
 	},
 	// 传递数据到服务器
-	requestServer (random) {
+	async requestServer (random) {
 		this.setData({msg: '请求中...'});
 		let obj = wx.getStorageSync('activate-info');
 		obj = JSON.parse(obj);
-		// util.getDataFromServer('consumer/etc/public/to-activate-obu', {
-		util.ajax(`${this.data.urlPrefix}/to-activate-obu`, {
+		const params = {
 			serialNumber: this.data.rand,
 			obuContent: this.data.carInfoFromOBU,
 			content: this.data.carInfoFromCard,
@@ -316,16 +315,14 @@ Page({
 			startTime: this.data.startTime,
 			expireTime: this.data.endTime,
 			vehPlate: obj.carNo
-		}, () => {
-			this.isOver('激活失败，请重试');
-		}, (res) => {
-			if (res.code === 0) {
-				// 激活obu
-				this.sendToActivate(res);
-			} else {
-				this.isOver(res.message);
-			}
-		});
+		};
+		let res = await util.getDataFromServersV2(`${this.data.urlPrefix}/to-activate-obu`,params);
+		if (res.code === 0) {
+			// 激活obu
+			this.sendToActivate(res);
+		} else {
+			this.isOver(res.message);
+		}
 	},
 	// 激活obu
 	sendToActivate (res) {
@@ -346,27 +343,23 @@ Page({
 		});
 	},
 	// 确认
-	requestServerForComfirm () {
+	async requestServerForComfirm () {
 		this.setData({msg: '确认中...'});
 		let obj = wx.getStorageSync('activate-info');
 		obj = JSON.parse(obj);
-		// util.getDataFromServer('consumer/etc/public/to-confirm-obu', {
-		util.ajax(`${this.data.urlPrefix}/to-confirm-obu`, {
+		const params = {
 			serialNumber: this.data.rand,
 			obuId: this.data.rand,
 			vehPlate: obj.carNo
-		}, () => {
-			this.isOver('激活失败，请重试');
-		}, (res) => {
-			if (res.code === 0) {
-				wx.uma.trackEvent('activate_the_success');
-				this.setData({msg: '', activated: 1});
-			} else {
-				this.isOver(res.message);
-			}
-		});
+		};
+		let res = await util.getDataFromServersV2(`${this.data.urlPrefix}/to-confirm-obu`,params);
+		if (res.code === 0) {
+			wx.uma.trackEvent('activate_the_success');
+			this.setData({msg: '', activated: 1});
+		} else {
+			this.isOver(res.message);
+		}
 	},
-
 	openBle (callback) {
 		wx.openBluetoothAdapter({
 			success (res) {

@@ -39,6 +39,7 @@ Page({
 			{title: '开具通行费发票', icos: 'service_of_invoice'},
 			{title: '高速通行9.5折', icos: 'service_of_discount'}
 		],
+		orderId: '',
 		contractStatus: undefined,
 		isLoaded: false, // 是否加载数据完成
 		getAgreement: false, // 是否接受协议
@@ -332,16 +333,18 @@ Page({
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,	// 套餐ID
 			rightsPackageId: this.data.listOfPackages[this.data.choiceIndex].rightsPackageIds ? this.data.listOfPackages[this.data.choiceIndex].rightsPackageIds[0] || '' : '',	// 权益包ID
-			areaCode: this.data.orderInfo ? (this.data.orderInfo.product.areaCode || '0') : app.globalData.newPackagePageData.areaCode,	// 区域编码
+			areaCode: '0',	// 区域编码
 			shopUserId: app.globalData.salesmanEmptyObj.shopUserId,	// 业务员用户ID
 			promoterId: app.globalData.salesmanEmptyObj.promoterId,	// 业务员推广ID
 			promoterType: 41, // 业务员推广类型（固定）
-			orderType: 71	// 订单类型（空发）
+			orderType: 71,	// 订单类型（空发）
+			orderId: this.data.orderId
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		that.setData({isRequest: false});
 		if (!result) return;
 		if (result.code === 0) {
+			this.setData({orderId: result.data.orderId});
 			app.globalData.orderInfo['orderId'] = result.data.orderId;
 			// 添加协议记录
 			const res = await util.getDataFromServersV2('consumer/order/after-sale-record/addProtocolRecord', {
