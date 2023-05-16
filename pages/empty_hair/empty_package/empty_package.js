@@ -335,7 +335,8 @@ Page({
 			areaCode: this.data.orderInfo ? (this.data.orderInfo.product.areaCode || '0') : app.globalData.newPackagePageData.areaCode,	// 区域编码
 			shopUserId: app.globalData.salesmanEmptyObj.shopUserId,	// 业务员用户ID
 			promoterId: app.globalData.salesmanEmptyObj.promoterId,	// 业务员推广ID
-			promoterType: 41 // 业务员推广类型（固定）
+			promoterType: 41, // 业务员推广类型（固定）
+			orderType: 71	// 订单类型（空发）
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		that.setData({isRequest: false});

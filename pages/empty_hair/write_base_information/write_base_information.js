@@ -98,7 +98,7 @@ Page({
 		let formData = this.data.formData; // 输入信息
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
-			orderType: this.data.isOnlineDealWith ? 11 : 12,
+			orderType: 71,	// 订单类型（空发）
 			dataType: '12', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			vehPlates: this.data.carNoStr, // 车牌号
