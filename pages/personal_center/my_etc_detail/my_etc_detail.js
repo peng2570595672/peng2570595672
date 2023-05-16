@@ -168,8 +168,6 @@ Page({
 	// 点击车辆信息
 	onClickVehicle () {
 		const orderInfo = this.data.orderInfo;
-		// this.onClickCctivate(orderInfo)
-		// return;
 		if (orderInfo.isNewTrucks === 1 && orderInfo.status !== 1) {
 			util.showToastNoIcon('货车办理系统升级中，暂时不可申办');
 			return;
