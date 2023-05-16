@@ -71,6 +71,8 @@ function show ({app, util, channel, serverId, qtLimit, carNoStr, obuStatus}) {
 		}
 	} else if (channel === 10) { // 湘通卡
 		wx.hideLoading();
+		console.log('555555')
+		console.log(app.globalData.orderInfo.orderId)
 		util.go('/pages/obu_activate/upload_photo_for_hunan/upload_photo_for_hunan');
 	} else {
 		wx.hideLoading();

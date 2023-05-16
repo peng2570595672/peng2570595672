@@ -14,6 +14,8 @@ Page({
 			backgroundColor: '#fff',
 			backgroundColorBottom: '#f6f7f8'
 		});
+		console.log('33333333')
+		console.log(app.globalData.orderInfo.orderId)
 		// this.setData({canvases: wx.createSelectorQuery().selectAll('.canvas')});
 		setTimeout(() => {
 			this.processQueue(1);

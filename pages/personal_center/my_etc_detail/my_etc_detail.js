@@ -566,9 +566,8 @@ Page({
 		this.data.choiceEquipment.switchDisplay(false);
 	},
 	handleActivate () {
-		app.globalData.orderInfo.orderId = this.data.orderId;
 		wx.setStorageSync('baseInfo', {
-			orderId: this.data.orderId,
+			orderId: app.globalData.orderInfo.orderId,
 			mobilePhone: app.globalData.userInfo.mobilePhone,
 			channel: this.data.orderInfo.obuCardType,
 			qtLimit: '',// 青通卡激活所需,暂未写

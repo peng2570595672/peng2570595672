@@ -11,9 +11,8 @@ Page({
 		});
 	},
 	onShow () {
-		// 从其他小程序返回
-		if (app.globalData.backFromMiniProgram) {
-		}
+		console.log('444444')
+		console.log(app.globalData.orderInfo.orderId)
 	},
 	// 下一步
 	next () {
