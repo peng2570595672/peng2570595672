@@ -1390,10 +1390,6 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
 	// 设置请求头
 	obj.header = header;
 	// 执行请求
-	console.log('请求地址')
-	console.log(obj.url)
-	console.log('入参')
-	console.log(obj.data)
 	return await new Promise((resolve, reject) => {
 		wx.request({
 			url: obj.url,
@@ -1401,8 +1397,6 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
 			data: obj.data,
 			header: obj.header,
 			success: (res) => {
-				console.log('返回参数')
-				console.log(res.data)
 				if (res && res.statusCode === 200) {
 					if (res.data.code === 115 || res.data.code === 117 || res.data.code === 118) { // 在别处登录了 重新自动登录一次
 						reAutoLoginV2(path, params, method);

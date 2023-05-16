@@ -18,8 +18,6 @@ Page({
 		isRequest: false
 	},
 	onLoad () {
-		console.log('666666')
-		console.log(app.globalData.orderInfo.orderId)
 		// 2984 7520
 		// app.globalData.orderInfo.orderId = '648127997961830400';
 		// 3382 7516

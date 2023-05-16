@@ -11,8 +11,6 @@ Page({
 		});
 	},
 	onShow () {
-		console.log('444444')
-		console.log(app.globalData.orderInfo.orderId)
 	},
 	// 下一步
 	next () {

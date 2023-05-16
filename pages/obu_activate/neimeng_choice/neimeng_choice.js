@@ -14,8 +14,6 @@ Page({
 		activeIndex: -1
 	},
 	onLoad (options) {
-		console.log('////')
-		console.log(app.globalData.orderInfo.orderId)
 		if (options.obuCardType) {
 			this.setData({
 				obuCardType: +options.obuCardType
