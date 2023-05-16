@@ -93,7 +93,6 @@
 			"root": "pages/personal_center",
 			"name": "pages/personal_center",
 			"pages": [
-				"index/index",
 				"choice_vehicle/choice_vehicle",
 				"transfer_page/transfer_page",
 				"equity_payment/equity_payment",
@@ -236,14 +235,6 @@
 			"name": "CitiesServices",
 			"pages": [
 				"pages/CitiesServices/CitiesServices"
-			]
-		},
-		{
-			"root": "pages/crowdsourcing",
-			"name": "pages/crowdsourcing",
-			"pages": [
-				"index/index",
-				"new_user/new_user"
 			]
 		},
 		{
