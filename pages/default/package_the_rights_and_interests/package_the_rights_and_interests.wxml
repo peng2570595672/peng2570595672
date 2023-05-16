@@ -53,7 +53,7 @@
             <!-- 增值业务 展示的套餐下半部分 如果又权益和签约通通券则展示-->
             <view class="lowerpart" wx:if="{{tools.dataLen(item.rightsPackageIds) || item.isSignTtCoupon || item.etcCardId === 2}}">
                 <view class="titleDetails">
-<!--                    蒙通 etcCardId:2   先写个不存在的-->
+                    <!-- 蒙通 etcCardId:2   先写个不存在的-->
                     <view class="titles new-device" wx:if="{{item.etcCardId === 2}}">
                         <view class="iconfont icon"></view>
                         <view class="text">ETC设备（第五代）</view>

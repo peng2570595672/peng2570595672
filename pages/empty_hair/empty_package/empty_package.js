@@ -337,9 +337,7 @@ Page({
 			promoterId: app.globalData.salesmanEmptyObj.promoterId,	// 业务员推广ID
 			promoterType: 41 // 业务员推广类型（固定）
 		};
-		console.log('参数：',params);
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
-		console.log(result);
 		that.setData({isRequest: false});
 		if (!result) return;
 		if (result.code === 0) {
@@ -384,7 +382,6 @@ Page({
 			};
 		}
 		const result = await util.getDataFromServersV2('consumer/order/pledge-pay', params);
-		console.log(result);
 		if (!result) {
 			this.setData({isRequest: false});
 			return;
