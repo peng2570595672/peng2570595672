@@ -61,7 +61,7 @@
                 {
                     "name": "ETC详情",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1101520055709077504",
+                    "query": "orderId=1107665398720892928",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -182,7 +182,7 @@
                 {
                     "name": "",
                     "pathName": "pages/default/processing_progress/processing_progress",
-                    "query": "orderId=1038104740237414400",
+                    "query": "orderId=1107968167667699712",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -321,50 +321,29 @@
                 },
                 {
                     "name": "",
-                    "pathName": "/pages/empty_hair/instructions_gvvz/index",
+                    "pathName": "pages/default/statement_of_interest/statement_of_interest",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
                 },
                 {
                     "name": "",
-                    "pathName": "pages/empty_hair/instructions/index",
+                    "pathName": "pages/default/processing_progress/processing_progress",
+                    "query": "orderId=1038104740237414400",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/obu_activate/neimeng_choice/neimeng_choice",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
                 },
                 {
                     "name": "",
-                    "pathName": "pages/empty_hair/instructions_ujds/index",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "/pages/empty_hair/neimeng_installation_tutorial/neimeng_installation_tutorial",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "中信介绍页",
-                    "pathName": "pages/default/citic_bank_card_details/citic_bank_card_details",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "ETC用户办理协议",
-                    "pathName": "pages/default/equity_agreement/equity_agreement",
-                    "query": "type=nm",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "选择套餐页（空发）",
-                    "pathName": "pages/empty_hair/empty_package/empty_package",
-                    "query": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1107665398720892928",
                     "launchMode": "default",
                     "scene": null
                 }
