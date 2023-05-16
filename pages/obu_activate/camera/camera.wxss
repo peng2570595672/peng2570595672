@@ -1,0 +1,54 @@
+page {
+	background: #191919;
+}
+
+.title {
+	margin-top: 50rpx;
+	font-size: 30rpx;
+	color: #fff;
+	text-align: center;
+}
+
+.camera {
+	display: block;
+	margin: 0 auto;
+	margin-top: 30rpx;
+	width: 680rpx;
+	height: 422rpx;
+	padding: 8rpx;
+	background: url("https://file.cyzl.com/g001/M00/00/68/CgAAD1zt-XGAVSMNAAAHq5O6ZEg484.png");
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	overflow: hidden;
+}
+.fullscreen {
+	width: 100vw;
+	height: 100vh;
+	padding: 0;
+	border: none;
+	margin-top: 0;
+	background: none;
+}
+.camera camera {
+	width: 100%;
+	height: 100%;
+}
+
+.tips {
+	margin-top: 33rpx;
+	color: #fff;
+	text-align: center;
+	font-size: 24rpx;
+}
+
+.take-photo {
+	position: fixed;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: 56rpx;
+	display: block;
+	width: 140rpx;
+	height: 140rpx;
+	z-index: 999999;
+}
+

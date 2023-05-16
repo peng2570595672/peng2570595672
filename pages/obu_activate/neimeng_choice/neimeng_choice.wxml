@@ -1,0 +1,17 @@
+<view class="container">
+	<view class="list-box">
+		<view class="title">选择ETC设备进行激活</view>
+		<view class="list">
+			<view wx:for="{{list}}" catchtap="handleDeviceType" data-index="{{index}}" wx:key="index" class="item {{activeIndex === index ? 'active' : ''}}">
+				<view wx:if="{{activeIndex === index}}" class="choice iconfont"></view>
+				<view class="logo">
+					<image src="{{item.img}}" mode="heightFix"></image>
+				</view>
+				<view class="info">
+					<view class="name">{{item.name}}</view>
+					<view class="sub-title">{{item.subTitle}}</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>

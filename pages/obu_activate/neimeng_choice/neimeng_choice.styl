@@ -1,0 +1,63 @@
+@import "../../../style/base.styl"
+.container
+	min-height 100vh
+	background #ECECEC
+	padding 32rpx 16rpx
+	box-sizing border-box
+	.list-box
+		background: #FFFFFF;
+		border-radius: 16rpx
+		padding 36rpx
+		.title
+			padding-top 28rpx
+			padding-bottom 8rpx
+			font-size: 32rpx;
+			font-family: PingFang SC-Semibold, PingFang SC;
+			font-weight: 600;
+			color: #33333D;
+		.list
+			.item
+				margin-top 20rpx
+				height: 158rpx;
+				display flex
+				align-items center
+				background: #F6F6F6;
+				border-radius: 8rpx;
+				border: 2rpx solid #F6F6F6;
+				.logo
+					width 172rpx
+					padding-left 36rpx
+					box-sizing border-box
+					image
+						height: 72rpx;
+				.info
+					font-size: 24rpx;
+					font-family: PingFang SC-Regular, PingFang SC;
+					font-weight: 400;
+					color: #66666E;
+					line-height: 36rpx;
+					.name
+						margin-bottom 16rpx
+						font-family: PingFang SC-Medium, PingFang SC;
+						font-weight: 500;
+						color: #33333D;
+						line-height: 36rpx;
+				&.active
+					border: 2rpx solid #E9CA7B;
+					position relative
+					overflow hidden
+					.choice
+						position absolute
+						left -2rpx
+						top -2rpx
+						width: 43rpx;
+						height: 32rpx;
+						display flex
+						align-items center
+						justify-content center
+						background: #E9CA7B;
+						border-bottom-right-radius: 8rpx
+						&:before
+							content '\e669'
+							color #333333
+							flex-shrink 16rpx

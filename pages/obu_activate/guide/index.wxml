@@ -1,0 +1,45 @@
+<view class="root">
+	<view class="title">请先安装ETC</view>
+	<view class="ul">
+		<view class="li {{animation_1 ? 'animate-obu' : ''}}" data-num="1">
+			<view class="canvas" data-tag="1">
+				<image data-tag="obu_f" src="../images/index/obu_f.png" />
+				<image data-tag="card" src="../images/index/card.png" />
+			</view>
+			<view class="title">1.插入卡片</view>
+			<view class="subtitle">将ETC卡插入OBU设备内</view>
+		</view>
+		<view class="li {{animation_2 ? 'animate-obu' : ''}}" data-num="2">
+			<view class="canvas" data-tag="2">
+				<image data-tag="car" src="../images/index/car.png" />
+				<view class="wrap">
+					<view class="inner">
+						<image data-tag="hand_r" src="../images/index/hand_r.png" />
+						<image data-tag="cloth" src="../images/index/coverage.png" />
+					</view>
+				</view>
+			</view>
+			<view class="title">2.拭擦安装位置</view>
+			<view class="subtitle">请使用湿纸巾将安装处进行擦拭，再用干纸巾将水分擦干</view>
+		</view>
+		<view class="li {{animation_3 ? 'animate-obu' : ''}}" data-num="3">
+			<view class="canvas" data-tag="3">
+				<image data-tag="obu_b" src="../images/index/obu_b.png" />
+				<image data-tag="coverage" src="../images/index/coverage.png" />
+				<image data-tag="hand_tear" src="../images/index/hand_tear.png" />
+			</view>
+			<view class="canvas" data-tag="4">
+				<image data-tag="car" src="../images/index/car.png" />
+				<image data-tag="obu_card" src="../images/index/obu_card.png" />
+				<view class="wrap">
+					<image data-tag="hand_l" src="../images/index/hand_l.png" />
+					<image data-tag="hand_r" src="../images/index/hand_r.png" />
+				</view>
+			</view>
+			<view class="title">3.将设备安装到指定位置</view>
+			<view class="subtitle">撕开设备背面的背胶薄膜，将设备粘贴到安装位置，请保持按压设备1分钟，避免粘贴不稳掉落</view>
+		</view>
+	</view>
+	<view class="prompt">*注意：安装成功后禁止将设备取下或移动，移动OBU将导致设备不可用</view>
+	<view class="next" catchtap="next">已安装，下一步</view>
+</view>

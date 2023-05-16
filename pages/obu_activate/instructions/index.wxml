@@ -1,0 +1,22 @@
+<view class="root">
+	<view class="title">接下来准备激活</view>
+	<view class="subtitle">请打开手机蓝牙及设备蓝牙，连接本地OBU设备</view>
+	<view class="ul">
+		<view class="li">
+			<view class="title">*请根据以下方式操作打开设备蓝牙</view>
+			<image src="https://file.cyzl.com/g001/M05/3E/B0/oYYBAF6QI66ANPK0AAUlGMAOH_o116.gif" data-tag="gif" />
+			<view class="desc">检查设备正面或侧面是否有按钮，若有则按下按钮启动蓝牙，启动成功设备显示“蓝牙打开”</view>
+			<view class="prompt">若设备没有按钮，请尝试方式二/方式三</view>
+		</view>
+		<view class="li">
+			<image src="https://file.cyzl.com/g001/M05/3E/B0/oYYBAF6QI_GAJBeUAAQWMR4EFhw240.gif" data-tag="gif" />
+			<view class="desc">快速插卡-拔卡重复2次，启动成功设备显示“蓝牙打开”</view>
+			<view class="prompt">若无法启动，请尝试方式三</view>
+		</view>
+		<view class="li">
+			<image src="https://file.cyzl.com/g001/M05/3E/B0/oYYBAF6QJAmAXrBgAAQBcNllgGQ731.gif" data-tag="gif" />
+			<view class="desc">将卡片插入设备后，快速把卡片往内推动2次，启动成功设备显示“蓝牙打开”</view>
+		</view>
+	</view>
+	<view class="next" catchtap="next">已开启蓝牙，下一步</view>
+</view>

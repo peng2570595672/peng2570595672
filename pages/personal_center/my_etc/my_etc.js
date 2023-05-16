@@ -233,14 +233,7 @@ Page({
 		wx.uma.trackEvent('my_etc_for_activation');
 		if (!obj.logisticsId) {
 			// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
-			wx.navigateToMiniProgram({
-				appId: 'wxdda17150b8e50bc4',
-				path: 'pages/index/index',
-				envVersion: 'release', // 目前联调为体验版
-				fail () {
-					util.showToastNoIcon('调起激活小程序失败, 请重试！');
-				}
-			});
+			this.handleActivate(obj);
 		} else {
 			await this.confirmReceipt(obj);
 		}
@@ -253,6 +246,26 @@ Page({
 		if (!result) return;
 		if (result.code) {
 			util.showToastNoIcon(result.message);
+			return;
+		}
+		this.handleActivate(obj);
+	},
+	handleActivate (obj) {
+		wx.setStorageSync('baseInfo', {
+			orderId: obj.id,
+			mobilePhone: app.globalData.userInfo.mobilePhone,
+			channel: obj.obuCardType,
+			qtLimit: '',// 青通卡激活所需,暂未写
+			serverId: obj.shopId,
+			carNoStr: obj.vehPlates,
+			obuStatus: obj.obuStatus
+		});
+		// ETC卡信息 1-贵州黔通卡 2-内蒙古蒙通卡 3-山东鲁通卡 4-青海青通卡 5-天津速通卡 6-陕西三秦通卡 7-广东粤通卡 8-辽宁辽通卡 9-齐鲁高速鲁通卡 10-湘通卡
+		if (obj.obuCardType === 10) {
+			util.go(`/pages/obu_activate/neimeng_choice/neimeng_choice?obuCardType=${obj.obuCardType}`);
+			return;
+		}
+		if (obj.obuCardType === 2) {
 			return;
 		}
 		// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）

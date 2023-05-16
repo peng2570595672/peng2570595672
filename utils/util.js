@@ -1705,6 +1705,12 @@ function fangDou (that,fn, time) {
 		}, time);
 	})();
 }
+// 激活后返回
+function returnMiniProgram () {
+	wx.reLaunch({
+		url: `/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${app.globalData.orderInfo.orderId}`
+	})
+}
 // 获取用户是否 ETC+Plus用户
 async function getUserIsVip() {
 	const result = await getDataFromServersV2('consumer/order/member/userType', {},'POST',false);
@@ -1721,6 +1727,7 @@ async function getUserIsVip() {
 }
 module.exports = {
 	setApp,
+	returnMiniProgram,
 	formatNumber,
 	addProtocolRecord,
 	queryProtocolRecord,

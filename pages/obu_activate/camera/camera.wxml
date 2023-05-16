@@ -1,0 +1,10 @@
+<view class="camera-container">
+  <cover-view class="title"  wx:if="{{type === '1' || type === '0' || type === '7' || type === '9'}}">
+   {{title}}
+  </cover-view>
+  <view class="camera {{!(type === '1' || type === '0' || type === '7' || type === '9' ) ? 'fullscreen': ''}}">
+    <camera device-position="back" flash="auto" binderror="error" wx:if="{{show}}"></camera>
+  </view>
+  <cover-view class="tips" wx:if="{{type === '1' || type === '0' || type === '7' || type === '9'}}">*请把证件放入上方框中，并拍摄清晰照片</cover-view>
+  <cover-image src="https://file.cyzl.com/g001/M00/00/68/CgAAJFzt-dKAe3yaAAANAF12gSs209.png" bindtap="takePhoto" class="take-photo"  wx:if="{{show}}"></cover-image>
+</view>

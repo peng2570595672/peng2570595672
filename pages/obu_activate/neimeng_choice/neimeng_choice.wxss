@@ -1,0 +1,72 @@
+.container {
+  min-height: 100vh;
+  background: #ececec;
+  padding: 32rpx 16rpx;
+  box-sizing: border-box;
+}
+.container .list-box {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 36rpx;
+}
+.container .list-box .title {
+  padding-top: 28rpx;
+  padding-bottom: 8rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #33333d;
+}
+.container .list-box .list .item {
+  margin-top: 20rpx;
+  height: 158rpx;
+  display: flex;
+  align-items: center;
+  background: #f6f6f6;
+  border-radius: 8rpx;
+  border: 2rpx solid #f6f6f6;
+}
+.container .list-box .list .item .logo {
+  width: 172rpx;
+  padding-left: 36rpx;
+  box-sizing: border-box;
+}
+.container .list-box .list .item .logo image {
+  height: 72rpx;
+}
+.container .list-box .list .item .info {
+  font-size: 24rpx;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #66666e;
+  line-height: 36rpx;
+}
+.container .list-box .list .item .info .name {
+  margin-bottom: 16rpx;
+  font-family: PingFang SC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #33333d;
+  line-height: 36rpx;
+}
+.container .list-box .list .item.active {
+  border: 2rpx solid #e9ca7b;
+  position: relative;
+  overflow: hidden;
+}
+.container .list-box .list .item.active .choice {
+  position: absolute;
+  left: -2rpx;
+  top: -2rpx;
+  width: 43rpx;
+  height: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e9ca7b;
+  border-bottom-right-radius: 8rpx;
+}
+.container .list-box .list .item.active .choice:before {
+  content: '\e669';
+  color: #333;
+  flex-shrink: 16rpx;
+}

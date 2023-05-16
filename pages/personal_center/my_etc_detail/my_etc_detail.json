@@ -5,6 +5,7 @@
 	"navigationBarTitleText": "ETC详情",
 	"usingComponents": {
 		"jinyixing-prompt": "/components/jinyixing_prompt/jinyixing_prompt",
-		"signing-prompt": "/components/signing_prompt/signing_prompt"
+		"signing-prompt": "/components/signing_prompt/signing_prompt",
+      "equipment_selection": "/components/equipment_selection/equipment_selection"
 	}
 }

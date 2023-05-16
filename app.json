@@ -334,6 +334,33 @@
 				"write_base_information/write_base_information",
 				"neimeng_installation_tutorial/neimeng_installation_tutorial"
 			]
+		},
+		{
+			"root": "pages/obu_activate",
+			"name": "pages/obu_activate",
+			"pages": [
+				"guide/index",
+				"instructions/index",
+				"neimeng_choice/neimeng_choice",
+				"neimeng_guide/neimeng_guide",
+				"neimeng_introduce/neimeng_introduce",
+				"upload_photo_for_hunan/upload_photo_for_hunan",
+				"camera/camera",
+				"hunan/genvict/genvict",
+				"hunan/juli/juli",
+				"hunan/watchdata/watchdata",
+				"hunan/zhongluweilai/zhongluweilai",
+				"neimeng_first/artc/artc",
+				"neimeng_first/mc/mc",
+				"neimeng_first/mc_new/mc_new",
+				"neimeng_first/wjone8/wjone8",
+				"neimeng_first/tendyron/tendyron",
+				"neimeng_secondary/artc/artc",
+				"neimeng_secondary/mc/mc",
+				"neimeng_secondary/mc_new/mc_new",
+				"neimeng_secondary/tendyron/tendyron",
+				"neimeng_secondary/wj_one8/wj_one8"
+			]
 		}
 	],
 	"functionalPages": {

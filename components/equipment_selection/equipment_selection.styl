@@ -1,0 +1,113 @@
+@import "../../style/base.styl";
+@import "../../style/animate.styl";
+@import "../../fonts/iconfont.styl";
+.iconfont {
+	font-family:"iconfont" !important;
+	font-size:16px;
+	font-style:normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.list-of-packages
+	position fixed
+	left 0
+	right 0
+	top 0
+	bottom 0
+	background: rgba(0,0,0, .5)
+	z-index 9999999999999
+	// 支付方式
+	.list-of-packages-wrapper
+		position fixed
+		left 0
+		right 0
+		bottom 0
+		display flex
+		flex-direction column
+		//min-height 768rpx
+		height 472rpx
+		padding-bottom 20rpx
+		background: #fff
+		box-sizing border-box
+		border-top-left-radius 32rpx
+		border-top-right-radius 32rpx
+		// 标题
+		.choice-bank-title
+			margin-top 20rpx
+			display flex
+			align-items center
+			justify-content center
+			font-size: 32rpx;
+			font-family: PingFang SC-Semibold, PingFang SC;
+			font-weight: 600;
+			color: #33333D;
+			line-height: 38rpx;
+			position relative
+			padding: 40rpx 0 60rpx;
+			.iconfont
+				&:after
+					position absolute
+					right 36rpx
+					top 36rpx
+					display block
+					content '\e63d'
+					font-size 28rpx
+					color #979797
+		// 内容容器
+		.list
+			margin 0 auto
+			.item
+				width 622rpx
+				margin-top 20rpx
+				height: 158rpx;
+				display flex
+				align-items center
+				background: #F6F6F6;
+				border-radius: 8rpx;
+				border: 2rpx solid #F6F6F6;
+				.logo
+					width 172rpx
+					padding-left 36rpx
+					box-sizing border-box
+					image
+						height: 72rpx;
+				.info
+					font-size: 24rpx;
+					font-family: PingFang SC-Regular, PingFang SC;
+					font-weight: 400;
+					color: #66666E;
+					line-height: 36rpx;
+					.name
+						margin-bottom 16rpx
+						font-family: PingFang SC-Medium, PingFang SC;
+						font-weight: 500;
+						color: #33333D;
+						line-height: 36rpx;
+				&.active
+					border: 2rpx solid #E9CA7B;
+					position relative
+					overflow hidden
+					.choice
+						position absolute
+						left -2rpx
+						top -2rpx
+						width: 43rpx;
+						height: 32rpx;
+						display flex
+						align-items center
+						justify-content center
+						background: #E9CA7B;
+						border-bottom-right-radius: 8rpx
+						&:before
+							content '\e669'
+							color #333333
+							flex-shrink 16rpx
+		.tips
+			display flex
+			align-items center
+			justify-content center
+			margin-top 40rpx
+			font-size: 28rpx;
+			font-family: PingFang SC-Regular, PingFang SC;
+			font-weight: 400;
+			color: #39812B;

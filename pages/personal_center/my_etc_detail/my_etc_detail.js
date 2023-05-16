@@ -545,15 +545,7 @@ Page({
 	async onClickCctivate () {
 		wx.uma.trackEvent('etc_detail_for_activation');
 		if (!this.data.orderInfo?.logisticsId) {
-			// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
-			wx.navigateToMiniProgram({
-				appId: 'wxdda17150b8e50bc4',
-				path: 'pages/index/index',
-				envVersion: 'release', // 目前联调为体验版
-				fail () {
-					util.showToastNoIcon('调起激活小程序失败, 请重试！');
-				}
-			});
+			this.handleActivate();
 		} else {
 			await this.confirmReceipt();
 		}
@@ -565,17 +557,46 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
-			wx.navigateToMiniProgram({
-				appId: 'wxdda17150b8e50bc4',
-				path: 'pages/index/index',
-				envVersion: 'release', // 目前联调为体验版
-				fail () {
-					util.showToastNoIcon('调起激活小程序失败, 请重试！');
-				}
-			});
+			this.handleActivate();
 		} else {
 			util.showToastNoIcon(result.message);
 		}
+	},
+	onClickTranslucentHandle () {
+		this.data.choiceEquipment.switchDisplay(false);
+	},
+	handleActivate () {
+		wx.setStorageSync('baseInfo', {
+			orderId: app.globalData.orderInfo.orderId,
+			mobilePhone: app.globalData.userInfo.mobilePhone,
+			channel: this.data.orderInfo.obuCardType,
+			qtLimit: '',// 青通卡激活所需,暂未写
+			serverId: this.data.orderInfo.shopId,
+			carNoStr: this.data.orderInfo.vehPlates,
+			obuStatus: this.data.orderInfo.obuStatus
+		});
+		// ETC卡信息 1-贵州黔通卡 2-内蒙古蒙通卡 3-山东鲁通卡 4-青海青通卡 5-天津速通卡 6-陕西三秦通卡 7-广东粤通卡 8-辽宁辽通卡 9-齐鲁高速鲁通卡 10-湘通卡
+		if (this.data.orderInfo.obuCardType === 10) {
+			util.go(`/pages/obu_activate/neimeng_choice/neimeng_choice?obuCardType=${this.data.orderInfo.obuCardType}`);
+			return;
+		}
+		if (this.data.orderInfo.obuCardType === 2) {
+			if (!this.data.choiceEquipment) {
+				this.setData({
+					choiceEquipment: this.selectComponent('#choiceEquipment')
+				});
+			}
+			this.data.choiceEquipment.switchDisplay(true);
+			return;
+		}
+		// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
+		wx.navigateToMiniProgram({
+			appId: 'wxdda17150b8e50bc4',
+			path: 'pages/index/index',
+			envVersion: 'release', // 目前联调为体验版
+			fail () {
+				util.showToastNoIcon('调起激活小程序失败, 请重试！');
+			}
+		});
 	}
 });

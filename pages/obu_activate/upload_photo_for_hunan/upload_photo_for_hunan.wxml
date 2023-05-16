@@ -1,0 +1,31 @@
+<view class="activate-obu">
+	<view class="photo-wrapper">
+		<view class="photo">
+			<view>
+				<view catchtap="selectionPic" class="iconfont {{!picText10 && !pic10 ?'show':''}}" data-type="10">
+					<image wx:if="{{pic10}}" src="{{pic10}}" mode="aspectFill"></image>
+					<view wx:if="{{picText10}}">{{picText10}}</view>
+				</view>
+			</view>
+			<text>
+				点击上传OBU车内照
+			</text>
+		</view>
+		<view class="photo">
+			<view>
+				<view catchtap="selectionPic" class="iconfont {{!picText11 && !pic11 ?'show':''}}" data-type="11">
+					<image wx:if="{{pic11}}" src="{{pic11}}" mode="aspectFill"></image>
+					<view wx:if="{{picText11}}">{{picText11}}</view>
+				</view>
+			</view>
+			<text>
+				点击上传OBU车外安装照片，带车牌号
+			</text>
+		</view>
+	</view>
+	<view catchtap="next" class="next {{clickEnabled ? '' : 'disabled'}}">下一步</view>
+	<canvas
+		canvas-id='pressCanvas'
+		class='press-canvas'
+		style='width: {{pictureWidth}}px; height: {{ pictureHeight}}px;' ></canvas>
+</view>
