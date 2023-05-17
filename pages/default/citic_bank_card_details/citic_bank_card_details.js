@@ -55,7 +55,8 @@ Page({
         bgColor: 'rgba(38, 144, 241, 1)',
         citicBank: false, // 是否有中信银行联名套餐的订单
 		transactScheduleData: undefined,	// 中信银行信用卡申请进度查询结果
-		showhandleOrView: false	// 中信银行信用卡 false 表示 ”查看信用卡办理进度“
+		showhandleOrView: false,	// 中信银行信用卡 false 表示 ”查看信用卡办理进度“
+		lastOrder: false	// 查看中信最近订单是否可用
     },
 
     /**
@@ -125,6 +126,7 @@ Page({
 				viewCiticBankList: flag,
 				isCiticBankPlatinum: flag[0].shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId	// 判断是不是白金卡套餐
 			});
+			app.globalData.orderInfo.orderId = flag[0].id;	// 最近的一单
 			const result = await util.getDataFromServersV2('consumer/order/zx/transact-schedule', {
 				orderId: flag[0].id
 			},'POST',false);
@@ -132,7 +134,12 @@ Page({
 			if (result.code === 0) {
 				this.setData({
 					transactScheduleData: result.data,
-					showhandleOrView: result.data[0].applyStatus === '111' || result.data[0].applyStatus === '112'
+					showhandleOrView: result.data[0].applyStatus === '111' || result.data[0].applyStatus === '112',
+					lastOrder: true
+				});
+			} else {
+				this.setData({
+					lastOrder: false
 				});
 			}
 		} else {
@@ -165,6 +172,13 @@ Page({
 		} else {	// 继续办理信用卡 - 跳转第三方
 			let url = this.data.isCiticBankPlatinum ? `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?sid=SJCSJHT01&paId=${this.data.viewCiticBankList[0].id}&partnerId=SJHT&pid=CS0840` : `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?pid=CS0207&sid=SJCSJHT01&paId=${this.data.viewCiticBankList[0].id}&partnerId=SJHT`;
 			util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
+		}
+	},
+	onClickHandle () {
+		if (this.data.viewCiticBankList && this.data.viewCiticBankList.length) {
+			util.go(`/pages/default/citic_bank_sign/citic_bank_sign`);
+		} else {
+			util.showToastNoIcon('暂无中信订单');
 		}
 	}
 

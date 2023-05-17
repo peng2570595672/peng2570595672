@@ -1,4 +1,5 @@
 .index {
+  padding-bottom: 50rpx;
   margin: 0;
   width: 100vw;
   min-height: 100vh;
@@ -153,6 +154,8 @@
   height: 244rpx;
   background: #fff;
   border-radius: 16rpx 16rpx 0px 0px;
+  position: fixed;
+  bottom: 0;
   opacity: 1;
   display: flex;
   align-items: center;
