@@ -207,6 +207,7 @@ Page({
 				this.setData({
 					citicBank: true
 				});
+				this.useComponents();
 			}
 			this.getNodeHeight(this.data.listOfPackages.length);
 		} else {
@@ -851,6 +852,9 @@ Page({
 				isCloseUpperPart1: true,
 				isCloseUpperPart2: false
 			});
+			if (this.data.citicBank) {
+				this.useComponents();
+			}
 		} else {
 			this.setData({
 				isCloseUpperPart: index,
@@ -935,6 +939,18 @@ Page({
 			selector: `.${flags}`,
 			scrollTop: that.data.nodeHeightList[that.data.activeIndex] - (that.data.nodeHeightList[0] + 4),
 			duration: 200
+		});
+	},
+	// 使用组件
+	useComponents () {
+		this.selectComponent('#cdPopup').show({
+			isBtnClose: false,
+			argObj: {
+				title: '办理说明',
+				text1: '1、 中信银行信用卡活动，非持卡人可支付保证金后申请中信银行信用卡指定卡板',
+				text2: '2、 成功办理中信银行信用卡的新客户即退还全额保证金，信用卡申请不通过，可取消订单退还保证金',
+				btnText: '我知道了'
+			}
 		});
 	}
 });

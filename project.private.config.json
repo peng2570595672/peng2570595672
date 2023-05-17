@@ -360,6 +360,13 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc/my_etc",
+                    "query": "test=undefined",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

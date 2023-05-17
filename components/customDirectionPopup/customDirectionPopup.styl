@@ -1,0 +1,198 @@
+
+
+.animated {
+    -webkit-animation-duration: .4s;
+    animation-duration: .4s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.fadeIn {
+    animation-name: fadeIn;
+    -webkit-animation-name: fadeIn;
+}
+
+@keyframes fadeIn {
+    from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.fadeOut {
+    animation-name: fadeOut;
+    -webkit-animation-name: fadeOut;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.slideUp {
+    animation-name: slideUp;
+    -webkit-animation-name: slideUp;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(500rpx);
+        -webkit-transform: translateY(500rpx);
+    }
+    to {
+        transform: translateY(0rpx);
+        -webkit-transform: translateY(0rpx);
+    }
+}
+
+@-webkit-keyframes slideUp {
+    from {
+        transform: translateY(500rpx);
+        -webkit-transform: translateY(500rpx);
+    }
+    to {
+        transform: translateY(0rpx);
+        -webkit-transform: translateY(0rpx);
+    }
+}
+
+.animatedSlide {
+    -webkit-animation-duration: .4s;
+	animation-duration: .4s;
+	-webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+
+}
+
+
+.glideDown {
+    animation-name: glideDown;
+    -webkit-animation-name: glideDown;
+}
+
+@keyframes glideDown {
+    from {
+        transform: translateY(0rpx);
+        -webkit-transform: translateY(0rpx);
+    }
+    to {
+        transform: translateY(500rpx);
+        -webkit-transform: translateY(500rpx);
+    }
+}
+
+@-webkit-keyframes glideDown {
+    from {
+        transform: translateY(0rpx);
+        -webkit-transform: translateY(0rpx);
+    }
+    to {
+        transform: translateY(500rpx);
+        -webkit-transform: translateY(500rpx);
+    }
+}
+@font-face
+    font-family 'iconfont' /* Project id 1514406 */
+    src url('//at.alicdn.com/t/font_1514406_r2ex32p9up.woff2?t=1651741878795') format('woff2'), url('//at.alicdn.com/t/font_1514406_r2ex32p9up.woff?t=1651741878795') format('woff'), url('//at.alicdn.com/t/font_1514406_r2ex32p9up.ttf?t=1651741878795') format('truetype')
+.iconfont
+    font-family 'iconfont' !important
+    font-size 16px
+    font-style normal
+    -webkit-font-smoothing antialiased
+    -moz-osx-font-smoothing grayscale
+.mask
+    z-index 100
+    width 100vw
+    height 100vh
+    position fixed
+    bottom 0
+    background rgba(0, 0, 0, 0.4)
+.make
+    z-index 101
+    width 100vw
+    height 500rpx
+    background #fff
+    border-radius 34rpx 34rpx 0 0
+    position fixed
+    bottom 0
+    padding-bottom 120rpx
+    .title
+        padding 30rpx 0
+        display flex
+        align-items center 
+        justify-content center
+        border-radius 34rpx 34rpx 0 0
+        position relative
+        font-size 32rpx
+        font-family PingFang SC-Semibold, PingFang SC
+        font-weight 600
+        color #33333D
+        margin-bottom 30rpx
+        .btnClose
+            display flex
+            align-items center
+            &:before
+                content '\e63d'
+                padding 10rpx 30rpx
+                position absolute
+                right 0rpx
+                font-size 40rpx
+                font-weight 500
+                color #979797
+    .module
+        margin 0rpx 28rpx
+        
+    .citicBank
+        margin 0rpx 66rpx
+        font-size 28rpx
+        font-family PingFang SC-Regular, PingFang SC
+        font-weight 400
+        color #33333E
+        line-height 44rpx
+        
+        .btn
+            width 348rpx
+            height 90rpx
+            text-align center
+            line-height 90rpx
+            background #2A4F44
+            box-shadow 0rpx 4rpx 2rpx 0rpx rgba(212,212,212,0.5)
+            border-radius 55rpx 55rpx 55rpx 55rpx
+            font-size 36rpx
+            font-family PingFang SC-Semibold, PingFang SC
+            font-weight 600
+            color #FFFFFF
+            position relative
+            left 50%
+            transform translateX(-50%)
+            margin-top 60rpx
