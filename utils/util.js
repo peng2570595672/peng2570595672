@@ -1357,7 +1357,9 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
 	if (!timestamp) {
 		timestamp = parseInt(new Date().getTime() / 1000);
 	}
-	if (app.globalData.userInfo?.memberId) params.memberId = app.globalData.userInfo.memberId;
+	if (app.globalData.userInfo?.memberId && !obj.url.includes('consumer/etc/nmg')) {
+		params.memberId = app.globalData.userInfo.memberId;
+	}
 	// POST请求
 	if (method === 'POST') {
 		// 设置签名
