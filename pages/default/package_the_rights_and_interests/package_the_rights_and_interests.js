@@ -151,13 +151,6 @@ Page({
 			return;
 		}
 		const packages = app.globalData.newPackagePageData;
-		if (packages.shopId === app.globalData.citicBankShopId) {	// 根据商户ID判断是不是中信银行联名套餐
-			let carp = app.globalData.myEtcList.filter(item => item.id === app.globalData.orderInfo.orderId);
-			this.setData({
-				citicBank: true,
-				activeIndex: app.globalData.newEnergy ? 1 : carp.length !== 0 && carp[0].vehPlates.length === 8 ? 1 : 0
-			});
-		}
 		this.setData({
 			listOfPackages: parseInt(options.type) === 1 ? packages.divideAndDivideList : packages.alwaysToAlwaysList
 		});
@@ -210,7 +203,7 @@ Page({
 				listOfPackages: [result.data]
 			});
 			// 中信银行
-			if (result.data.shopId === app.globalData.citicBankShopId) {
+			if (result.data.shopProductId === app.globalData.cictBankObj.citicBankshopProductId || result.data.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId) {
 				this.setData({
 					citicBank: true
 				});
@@ -658,10 +651,17 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			// 中信银行
-			if (this.data.citicBank) {
-				// 跳转保证金支付页
-				util.go(`/pages/default/new_pay/new_pay?pledgeType=${this.data.listOfPackages[this.data.choiceIndex].pledgeType}&money=${this.data.listOfPackages[this.data.choiceIndex].pledgePrice}&equityMoney=${this.data.equityListMap[this.data.activeIndex].payMoney}`);
-				return;
+			if (this.data.citicBank || params.shopProductId === app.globalData.cictBankObj.citicBankshopProductId || params.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId) {
+					this.selectComponent('#popTipComp').show({
+						type: 'five',
+						title: '活动细则',
+						btnCancel: '我再想想',
+						btnconfirm: '我知道了',
+						pledgeType: this.data.listOfPackages[this.data.choiceIndex].pledgeType,
+						money: this.data.listOfPackages[this.data.choiceIndex].pledgePrice,
+						equityMoney: this.data.equityListMap[this.data.activeIndex].payMoney
+					});
+					return;
 			}
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
 				this.data.equityListMap[this.data.activeIndex]?.payMoney) {
@@ -835,14 +835,16 @@ Page({
 	// 点击高亮
 	btnHeightLight (e) {
 		let that = this;
-		let isFade = e.currentTarget.dataset.index !== that.data.activeIndex;
+		let index = e.currentTarget.dataset.index;
+		let isFade = index !== that.data.activeIndex;
 		// 控制点击 套餐高亮
 		that.setData({
 			isFade,
-			activeIndex: isFade ? e.currentTarget.dataset.index : -1,
+			activeIndex: isFade ? index : -1,
 			getAgreement: false,
 			topProgressBar: isFade ? 2.4 : 2,
-			choiceIndex: isFade ? e.currentTarget.dataset.index : -1
+			choiceIndex: isFade ? index : -1,
+			citicBank: this.data.listOfPackages[index].shopProductId === app.globalData.cictBankObj.citicBankshopProductId || this.data.listOfPackages[index].shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId	// 判断是不是中信套餐
 		});
 		if (isFade) { // 当套餐高亮时，默认展开 详情
 			this.setData({
@@ -851,7 +853,7 @@ Page({
 			});
 		} else {
 			this.setData({
-				isCloseUpperPart: e.currentTarget.dataset.index,
+				isCloseUpperPart: index,
 				isCloseUpperPart1: false,
 				isCloseUpperPart2: false
 			});
@@ -860,7 +862,7 @@ Page({
 		if (!isFade) {
 			return false;
 		} else {
-			this.controllShopProductPosition(e.currentTarget.dataset.index);
+			this.controllShopProductPosition(index);
 		}
 	},
 	btnOpenOrOff (e) { // 展开和收起

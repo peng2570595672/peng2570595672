@@ -150,7 +150,7 @@ Page({
 				platformId: app.globalData.platformId
 			});
 			if (result1.code === 0) {
-				flag1 = result1.data.includes(item => item.packageId === app.globalData.citicBankRightId);
+				flag1 = result1.data.includes(item => item.packageId === app.globalData.cictBankObj.citicBankRightId);
 			} else {
 				util.showToastNoIcon(result1.message);
 			}
@@ -177,7 +177,7 @@ Page({
 					cancelText: '暂不考虑',
 					confirmText: '立即领取',
 					confirm: async () => {
-						util.go(`/pages/separate_interest_package/prefer_purchase/prefer_purchase?packageId=${app.globalData.citicBankRightId}&cictBank=true`);
+						util.go(`/pages/separate_interest_package/prefer_purchase/prefer_purchase?packageId=${app.globalData.cictBankObj.citicBankRightId}&cictBank=true`);
 						const counpon = await util.getDataFromServersV2('consumer/voucher/rights/recharge/zx/sendWxCoupon', {
 							orderId: app.globalData.orderInfo.orderId,
 							openId: app.globalData.openId

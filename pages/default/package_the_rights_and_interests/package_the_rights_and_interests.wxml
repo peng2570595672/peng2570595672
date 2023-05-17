@@ -164,4 +164,5 @@
             </view>
         </view>
     </view>
+    <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
 </view>

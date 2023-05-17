@@ -2,6 +2,7 @@
   "navigationBarTitleText": "选择套餐",
   "navigationBarBackgroundColor": "#ECECEC",
   "usingComponents": {
+		"popTipComp": "/components/popTipComp/popTipComp",
     "topProgressBar": "/components/topProgressBar/index",
     "addValueService": "/components/addValueService/addValueService"
   }

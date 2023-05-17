@@ -130,12 +130,12 @@ Page({
 				topProgressBar: orderInfo.isOwner && orderInfo.isVehicle ? 4 : orderInfo.isOwner || orderInfo.isVehicle ? 3.3 : 3
 			});
 			// 中信银行
-			if (orderInfo.shopId === app.globalData.citicBankShopId) {
+			if (orderInfo.shopProductId === app.globalData.cictBankObj.citicBankshopProductId || orderInfo.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId) {
 				this.setData({
 					citicBank: true,
 					isEtcContractId: false,
 					contractStatus: false,
-					isCiticBankPlatinum: res.orderInfo.shopProductId === app.globalData.citicBankShopshopProductId	// 判断是不是白金卡套餐
+					isCiticBankPlatinum: res.orderInfo.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId	// 判断是不是白金卡套餐
 				});
 			}
 			this.availableCheck();

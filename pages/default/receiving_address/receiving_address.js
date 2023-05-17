@@ -777,15 +777,6 @@ Page({
 		if (res.code === 0) {
 			util.hideLoading();
 			if (res.data.canSubmit === 1) {
-				if (this.data.citicBank) {
-					this.selectComponent('#popTipComp').show({
-						type: 'five',
-						title: '活动细则',
-						btnCancel: '我再想想',
-						btnconfirm: '我知道了'
-					});
-					return;
-				}
 				this.next();
 			} else {
 				util.showToastNoIcon(res.data.canSubmitMsg);
@@ -794,10 +785,6 @@ Page({
 			util.hideLoading();
 			util.showToastNoIcon(res.message);
 		}
-	},
-	// 弹窗 确认 回调
-	onHandle () {
-		this.next();
 	},
 	// 点击添加新能源
 	onClickNewPowerCarHandle (e) {

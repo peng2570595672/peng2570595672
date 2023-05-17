@@ -353,6 +353,13 @@
                     "query": "orderId=1101196259089190912",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/default/citic_bank_card_details/citic_bank_card_details",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
