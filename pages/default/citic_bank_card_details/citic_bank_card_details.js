@@ -126,7 +126,6 @@ Page({
 				viewCiticBankList: flag,
 				isCiticBankPlatinum: flag[0].shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId	// 判断是不是白金卡套餐
 			});
-			app.globalData.orderInfo.orderId = flag[0].id;	// 最近的一单
 			const result = await util.getDataFromServersV2('consumer/order/zx/transact-schedule', {
 				orderId: flag[0].id
 			},'POST',false);
@@ -176,6 +175,7 @@ Page({
 	},
 	onClickHandle () {
 		if (this.data.viewCiticBankList && this.data.viewCiticBankList.length) {
+			app.globalData.orderInfo.orderId = this.data.viewCiticBankList[0].id;	// 最近的一单
 			util.go(`/pages/default/citic_bank_sign/citic_bank_sign`);
 		} else {
 			util.showToastNoIcon('暂无中信订单');
