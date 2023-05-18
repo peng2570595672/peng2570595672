@@ -343,7 +343,7 @@ Page({
 		if (result.code === 0) {
 			if (result?.data) {
 				this.setData({
-					isCheckTwoPercent: Number(result.delta)
+					isCheckTwoPercent: Number(result.data)
 				});
 			}
 		} else {
