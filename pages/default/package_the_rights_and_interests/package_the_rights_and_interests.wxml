@@ -119,7 +119,7 @@
                 当您勾选同意并选购套餐时，即代表您已阅读、理解并接受
                 <!-- <span class="agreementColor" catchtap="goAgreement">ETC+用户协议及黔通卡用户协议及隐私协议</span> -->
                 <text class="agreementColor" catchtap="onClickGoTTQAgreement1" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon === 1}}">通通券会员服务协议、</text>
-                <text class="agreementColor" catchtap="onClickGoAgreementHandle">ETC+用户办理协议、</text>
+                <text class="agreementColor" catchtap="onClickGoAgreementHandle" wx:if="{{listOfPackages[choiceIndex].etcCardId !== 2}}">ETC+用户办理协议、</text>
                 <text class="agreementColor" catchtap="onClickGoQianTongAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 1}}">黔通卡ETC用户协议、</text>
                 <text class="agreementColor" catchtap="onClickGoNMAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 2}}">ETC服务协议、</text>
                 <text class="agreementColor" catchtap="onClickGoPrivacyHandle">用户隐私协议</text>

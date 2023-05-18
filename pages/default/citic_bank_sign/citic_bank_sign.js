@@ -106,6 +106,8 @@ Page({
 			});
 			if (!result) return;
 			if (result.code === 0) {
+				console.log('签约参数')
+				console.log(result)
 				let res = result.data.contract;
 				// 签约车主服务 2.0
 				app.globalData.isSignUpImmediately = true; // 返回时需要查询主库
