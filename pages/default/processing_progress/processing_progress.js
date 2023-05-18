@@ -409,6 +409,12 @@ Page({
 			return;
 		}
 		if (this.data.info.obuCardType === 2) {
+			if (!this.data.choiceEquipment) {
+				this.setData({
+					choiceEquipment: this.selectComponent('#choiceEquipment')
+				});
+			}
+			this.data.choiceEquipment.switchDisplay(true);
 			return;
 		}
 		// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
@@ -420,6 +426,9 @@ Page({
 				util.showToastNoIcon('调起激活小程序失败, 请重试！');
 			}
 		});
+	},
+	onClickTranslucentHandle () {
+		this.data.choiceEquipment.switchDisplay(false);
 	},
 	// 复制银行卡号
 	onClickCopyBankCardNumber (e) {

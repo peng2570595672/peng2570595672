@@ -44,6 +44,15 @@
   margin-bottom: 24rpx;
   justify-content: space-between;
   border-bottom: 2rpx solid #e7e7e7;
+  position: relative;
+}
+.index .module .iconNameSpot .new-icon {
+  position: absolute;
+  left: -18rpx;
+  width: 16rpx;
+  height: 16rpx;
+  background-color: #ff3c48;
+  border-radius: 50%;
 }
 .index .module .iconNameSpot .icon {
   width: 42rpx;

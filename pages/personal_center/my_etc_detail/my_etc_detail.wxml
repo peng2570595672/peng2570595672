@@ -83,6 +83,10 @@
 		<view>办理日期</view>
 		<view>{{orderInfo.addTime}}</view>
 	</view>
+    <view class="item" wx:if="{{orderInfo.logisticsId !== 0 && orderInfo.logisticsId !== -1 && orderInfo.obuStatus !== 1 && orderInfo.obuStatus !== 5}}">
+        <view>物流信息</view>
+        <view class="succeed" catchtap="handleProgress">查看进度</view>
+    </view>
 	<!--	信息结束-->
 	<view class="auto-fill"></view>
 	<!--	按钮开始-->

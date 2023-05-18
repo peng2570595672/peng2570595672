@@ -1283,6 +1283,12 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
 		app.globalData.isServiceProvidersPackage = false; // 该服务商没有套餐
 		getListOfPackages(orderInfo, regionCode, true);
 	}
+	result.data.map(item => {
+		try {
+			item.descriptionList = JSON.parse(item.description);
+		} catch (e) {
+		}
+	});
 	let list = result.data;
 	// 面对面活动过滤套餐
 	if (isFaceToFace) {

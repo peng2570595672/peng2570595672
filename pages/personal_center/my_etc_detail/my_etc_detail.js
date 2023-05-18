@@ -562,6 +562,13 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
+	handleProgress () {
+		const orderInfo = this.data.orderInfo;
+		app.globalData.orderInfo.orderId = orderInfo.id;
+		app.globalData.processFlowVersion = orderInfo.flowVersion;
+		app.globalData.truckLicensePlate = orderInfo.vehPlates;
+		this.onClickViewProcessingProgressHandle(orderInfo);
+	},
 	onClickTranslucentHandle () {
 		this.data.choiceEquipment.switchDisplay(false);
 	},

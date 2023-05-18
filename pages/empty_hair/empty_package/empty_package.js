@@ -273,6 +273,10 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
+			try {
+				result.data.descriptionList = JSON.parse(result.data.description);
+			} catch (e) {
+			}
 			this.setData({
 				listOfPackages: new Array(result.data)
 			});

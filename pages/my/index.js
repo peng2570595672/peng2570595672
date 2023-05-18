@@ -45,6 +45,7 @@ Page({
 		disclaimerDesc: app.globalData.disclaimerDesc,
 		initData: true,
 		interval: 0,
+		isCheckTwoPercent: 0,// 是否是百二某批数据标识
 		showCarousel: false,
 		carouselList: [],
 		cardList: [],
@@ -75,7 +76,7 @@ Page({
 		// --------------end------------
 		if (app.globalData.userInfo.accessToken) {
 			util.showLoading();
-			let requestList = [await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip(),await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
+			let requestList = [await this.getCheckTwoPercent(), await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip(),await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
 			util.customTabbar(this, 2);
 			util.getUserIsVip();
 			util.showLoading();
@@ -302,7 +303,7 @@ Page({
 						});
 						let requestList = [];
 						if (JSON.stringify(app.globalData.myEtcList) === '{}') {
-							requestList = [await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip()];
+							requestList = [await this.getCheckTwoPercent(), await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip()];
 						}
 						this.setData({
 							isVip: app.globalData.isVip,
@@ -333,6 +334,21 @@ Page({
 				util.showToastNoIcon('登录失败！');
 			}
 		});
+	},
+	// 获取是否是百二某批数据标识
+	async getCheckTwoPercent () {
+		const result = await util.getDataFromServersV2('consumer/order/check-two-percent', {
+			platformId: app.globalData.platformId
+		}, 'POST', false);
+		if (result.code === 0) {
+			if (result?.data) {
+				this.setData({
+					isCheckTwoPercent: Number(result.delta)
+				});
+			}
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	handleSwiperItem (e) {
 		console.log(e.currentTarget.dataset.index);
@@ -438,7 +454,7 @@ Page({
 			return;
 		}
 		wx.uma.trackEvent(urlObj[url]);
-		util.go(`/pages/personal_center/${url}/${url}`);
+		util.go(`/pages/personal_center/${url}/${url}?isCheckTwoPercent=${this.data.isCheckTwoPercent}`);
 	},
 	// 免责弹窗
 	popUp () {

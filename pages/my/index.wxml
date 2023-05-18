@@ -54,6 +54,7 @@
     <view class="module moduleFour">
         <view class="funcList" wx:for="{{funcList2}}" data-url="{{item.url}}" wx:key="index" bindtap="go" wx:if="{{item.show}}">
             <view class="funcListLeft">
+                <view wx:if="{{item.title === '相关协议' && isCheckTwoPercent}}" class="new-left"></view>
                 <view class="icon"><image class="iconImg {{item.url === 'tonTonQuan' ? 'isTon':''}}" src="{{item.img}}" /></view>
                 <view class="funcListText">{{item.title}}</view>
             </view>

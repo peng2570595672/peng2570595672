@@ -746,6 +746,10 @@ Page({
 			});
 			list.map(item => {
 				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
+				// 设备状态 0-待激活，1-已激活，2-已注销  3-开卡 4-发签 5预激活
+				if (item.obuStatus === 3 || item.obuStatus === 4) {
+					item['selfStatus'] = 11;
+				}
 				vehicleList.push(item.vehPlates);
 				wx.setStorageSync('cars', vehicleList.join('、'));
 				if (item.shopId === '692062170707394560') { // 大地商户
@@ -1100,7 +1104,7 @@ Page({
 			8: () => this.onClickViewProcessingProgressHandle(orderInfo), // 不可办理
 			9: () => this.onClickHighSpeedSigning(orderInfo), // 去签约
 			10: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
-			11: () => this.onClickCctivate(orderInfo), // 去激活
+			11: () => this.onClickViewProcessingProgressHandle(orderInfo), // 去激活
 			13: () => this.goBindingAccount(orderInfo), // 去开户
 			14: () => this.goRechargeAuthorization(orderInfo), // 去授权预充保证金
 			15: () => this.goRecharge(orderInfo), // 保证金预充失败 - 去预充

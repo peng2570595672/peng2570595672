@@ -3,7 +3,8 @@
 	"usingComponents": {
 		"jinyixing-prompt": "/components/jinyixing_prompt/jinyixing_prompt",
 		"signing-prompt": "/components/signing_prompt/signing_prompt",
-    "recharge-prompt": "/components/recharge_prompt/recharge_prompt",
-		"popup1": "/components/dialog1/dialog"
-	}
+		"recharge-prompt": "/components/recharge_prompt/recharge_prompt",
+		"popup1": "/components/dialog1/dialog",
+		"equipment_selection": "/components/equipment_selection/equipment_selection"
+    }
 }

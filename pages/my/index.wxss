@@ -211,6 +211,14 @@
 .my .moduleFour .funcList .funcListLeft .funcListText {
   margin-left: 8rpx;
 }
+.my .moduleFour .funcList .funcListLeft .new-left {
+  position: absolute;
+  left: -18rpx;
+  width: 16rpx;
+  height: 16rpx;
+  background-color: #ff3c48;
+  border-radius: 50%;
+}
 .my .moduleFour .funcList .funcListRight::before {
   display: inline-block;
   content: "\e661";

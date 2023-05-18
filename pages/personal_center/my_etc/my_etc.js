@@ -284,6 +284,9 @@ Page({
 			}
 		});
 	},
+	onClickTranslucentHandle () {
+		this.data.choiceEquipment.switchDisplay(false);
+	},
 	// 去支付
 	goPayment (orderInfo) {
 		if (orderInfo.promoterType === 41 && orderInfo.vehPlates.length === 11) {	// 业务员空发

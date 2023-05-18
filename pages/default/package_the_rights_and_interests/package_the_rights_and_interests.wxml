@@ -8,8 +8,8 @@
     <view class="package" wx:for="{{listOfPackages}}" wx:key="index">
         <view class="module moduleOne iconfont {{'module' + index}} {{index === activeIndex ? 'btnHighLight' : ''}}" data-index="{{index}}" catchtap="btnHeightLight">
             <!-- 活动标签 限制字符8个 -->
-            <view class="active {{index === activeIndex ? 'activeChange' : ''}}" wx:if="{{citicBank}}">
-                <text>{{tools.limitNumber('限时活动',8)}}</text>
+            <view class="active {{index === activeIndex ? 'activeChange' : ''}}" wx:if="{{item.activeTag}}">
+                <text>{{tools.limitNumber(item.activeTag,8)}}</text>
             </view>
             <!-- 默认展示的套餐上半部分 -->
             <view class="upperPart {{tools.dataLen(item.rightsPackageIds) > 0 || item.isSignTtCoupon ? '' : 'subUpperPart'}}">
@@ -35,17 +35,19 @@
                     <span class="planSpan">现金限时膨账权益商城100+权益任兑</span>
                 </view>
                 <!-- 套餐描述 取后台配置展示，若无配置则不展示 -->
-                <view class="description" wx:if="{{tools.dataLen(basicServiceList) > 0}}">
-                    <view wx:if="{{item.etcCardId === 2}}">
-                        <view class="descriptionModule" wx:for="{{basicServiceListNM}}" wx:for-item="itemBase" wx:key="index1">
+                <view class="subTitle">{{tools.limitNumber(item.fullName,15)}}</view>
+                <view class="titleExplain" wx:if="{{item.marketingTagType === 2 && item.marketingTag}}">
+                    <span class="planSpan">{{item.marketingTag}}</span>
+                </view>
+                <view class="imgExplain" wx:if="{{item.marketingTagType === 1 && item.marketingTag}}">
+                    <image src="{{item.marketingTag}}" mode="widthFix"></image>
+                </view>
+                <!-- 套餐描述 取后台配置展示，若无配置则不展示 -->
+                <view class="description" wx:if="{{item.descriptionList && item.descriptionList.length > 0}}">
+                    <view>
+                        <view class="descriptionModule" wx:for="{{item.descriptionList}}" wx:for-item="itemBase" wx:key="index1">
                             <!-- <view class="ico {{itemBase.icos}}"></view> -->
-                            <view class="title">{{itemBase.title}}</view>
-                        </view>
-                    </view>
-                    <view wx:else>
-                        <view class="descriptionModule" wx:for="{{basicServiceList}}" wx:for-item="itemBase" wx:key="index1">
-                            <!-- <view class="ico {{itemBase.icos}}"></view> -->
-                            <view class="title">{{itemBase.title}}</view>
+                            <view class="title">{{itemBase.value}}</view>
                         </view>
                     </view>
                 </view>
