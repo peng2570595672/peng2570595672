@@ -12,7 +12,7 @@
                 <text>{{tools.limitNumber(item.activeTag,8)}}</text>
             </view>
             <!-- 默认展示的套餐上半部分 -->
-            <view class="upperPart {{tools.dataLen(item.rightsPackageIds) > 0 || item.isSignTtCoupon ? '' : 'subUpperPart'}}">
+            <view class="upperPart {{tools.dataLen(item.rightsPackageIds) > 0 || item.isSignTtCoupon ? '' : 'subUpperPart'}}" style="background-image: url('{{item.bgImg}}')">
                 <!-- 背景logo -->
                 <view class="bgImg">
                     <image src="{{item.productLogo}}" />
