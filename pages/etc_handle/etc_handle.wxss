@@ -162,48 +162,6 @@
   left: 50%;
   transform: translateX(-50%);
 }
-.index .module.five {
-  height: auto;
-  color: #000;
-  background: #fff;
-  border-radius: 16rpx;
-  margin: 20rpx 28rpx 0rpx 28rpx;
-  padding: 28rpx 0;
-  text-align: center;
-}
-.index .module.five .titles {
-  height: 60rpx;
-  line-height: 60rpx;
-  font-size: 32rpx;
-  font-weight: 600;
-  color: #4d4d51;
-  position: relative;
-}
-.index .module.five .titles span {
-  position: absolute;
-  right: 28rpx;
-  font-size: 28rpx;
-  color: #2fc8e0;
-}
-.index .module.five image {
-  width: 638rpx;
-}
-.index .module.five .left {
-  display: inline-block;
-  text-align: left;
-}
-.index .module.five .btnCiti {
-  height: 100rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.index .module.five .btnCiti .btn1 {
-  color: #fff;
-  border-radius: 16rpx;
-  padding: 20rpx 30rpx;
-  background: #008000;
-}
 .index .split {
   height: 260rpx;
   overflow: hidden;

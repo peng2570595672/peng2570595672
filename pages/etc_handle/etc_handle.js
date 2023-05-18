@@ -52,20 +52,12 @@ Page({
 		imagesConfig: {
 			backgroundColor: '#2D5D4F',
 			marketingImgUrl: 'https://file.cyzl.com/g001/M01/D1/10/oYYBAGQiQxuAUiQdAABFf46DvQQ847.png'
-		},
-		citicBank: false, // 是否有中信银行联名套餐的订单
-		transactScheduleData: undefined,	// 中信银行信用卡申请进度查询结果
-		showhandleOrView: false,	// 中信银行信用卡 false 表示 ”查看信用卡办理进度“
-		firstCiticBank: false,	// 从中信银行过来
-		citicBankChannel: false	// true 表示从首页banner中信 跳过来
+		}
 	},
 	async onLoad (options) {
 		console.log(options);
 		this.getBackgroundConfiguration();
 		util.customTabbar(this, 1);
-		if (options.channel) {	// 渠道 === 100 为中信
-			this.setData({citicBankChannel: options.channel === '100'});
-		}
 	},
 	async onShow () {
 		// 查询是否欠款
@@ -73,7 +65,6 @@ Page({
 			await util.getIsArrearage();
 			await util.getUserIsVip();
 		}
-		this.viewCiticBankList();
 		this.setData({
 			show: true,
 			duration: 0,
@@ -202,68 +193,5 @@ Page({
 		wx.switchTab({
 			url: '/pages/Home/Home'
 		});
-	},
-	// 获取中信银行订单
-	async viewCiticBankList () {
-		let flag = [];
-		if (app.globalData.myEtcList.length > 0) {
-			flag = app.globalData.myEtcList.filter(item => item.shopId === app.globalData.citicBankShopId);
-		}
-		if (this.data.citicBankChannel) {	// 暂时以渠道为 100 来判断用户是从中信银行过来的
-			app.globalData.otherPlatformsServiceProvidersId = app.globalData.citicBankShopId;
-		} else {
-			app.globalData.otherPlatformsServiceProvidersId = undefined;
-		}
-		if (flag.length > 0) {
-			this.setData({
-				citicBank: true,
-				viewCiticBankList: flag,
-				isCiticBankPlatinum: flag[0].shopProductId === app.globalData.citicBankShopshopProductId	// 判断是不是白金卡套餐
-			});
-			const result = await util.getDataFromServersV2('consumer/order/zx/transact-schedule', {
-				orderId: flag[0].id
-			});
-			if (!result) return;
-			if (result.code === 0) {
-				this.setData({
-					isShowBtn: true,
-					transactScheduleData: result.data,
-					showhandleOrView: result.data[0].applyStatus === '111' || result.data[0].applyStatus === '112'
-				});
-			}
-		} else {
-			this.setData({
-				firstCiticBank: this.data.citicBankChannel,
-				isShowBtn: false
-			});
-		}
-	},
-	// 中信联名权益 查看
-	viewEquity (e) {
-		// 未登录
-		if (!app.globalData.userInfo?.accessToken) {
-			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-			util.go('/pages/login/login/login');
-			return;
-		}
-		let index = e.currentTarget.dataset.index;
-		let paId = this.data.viewCiticBankList && this.data.viewCiticBankList.length > 0 ? this.data.viewCiticBankList[0].id : 'HHXXXXX';
-		let url = index === '2' ? `https://creditcard.ecitic.com/h5/shenqing/iche/index.html?sid=SJCSJHT01&paId=${paId}&partnerId=SJHT` : `https://creditcard.ecitic.com/h5/shenqing/chezhu/index.html?sid=SJCSJHT01&paId=${paId}&partnerId=SJHT`;
-		util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
-	},
-	citicBankProgress () {
-		// 未登录
-		if (!app.globalData.userInfo?.accessToken) {
-			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-			util.go('/pages/login/login/login');
-			return;
-		}
-		if (!this.data.showhandleOrView) {	// 查看信用卡办理进度
-			util.go(`/pages/default/citicBank_processing_progress/citicBank_processing_progress?orderId=${this.data.viewCiticBankList[0].id}`);
-		} else {	// 继续办理信用卡 - 跳转第三方
-			let url = this.data.isCiticBankPlatinum ? `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?sid=SJCSJHT01&paId=${this.data.viewCiticBankList[0].id}&partnerId=SJHT&pid=CS0840` : `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?pid=CS0207&sid=SJCSJHT01&paId=${this.data.viewCiticBankList[0].id}&partnerId=SJHT`;
-			util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
-		}
 	}
-
 });

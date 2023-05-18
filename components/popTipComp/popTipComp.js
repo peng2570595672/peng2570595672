@@ -55,11 +55,9 @@ Component({
 		},
 		// 中信 办理提醒
 		citicBank () {
-			this.triggerEvent('onHandle');
-			this.setData({
-				mask: false,
-				wrapper: false
-			});
+			// 跳转保证金支付页
+			util.go(`/pages/default/new_pay/new_pay?pledgeType=${this.data.tipObj.pledgeType}&money=${this.data.tipObj.money}&equityMoney=${this.data.tipObj.equityMoney}`);
+			this.hide();
 		},
 		// 前去补缴
 		supplementaryPayment () {

@@ -1,0 +1,16 @@
+<!-- 滑动组件 层叠样式值 100/101-->
+<view>
+    <!-- 遮罩层 -->
+    <view class="mask animated {{mask ? 'fadeIn' : 'fadeOut'}}" wx:if="{{mask}}" catchtap="{{ isBtnClose ? 'hide' : ''}}"></view>
+    <!-- 表现层 -->
+    <view class="make animatedSlide {{mask ? 'slideUp' : 'glideDown'}}" wx:if="{{make}}">
+        <view class="title">{{argObj.title}}
+                <view class="iconfont btnClose" catchtap="hide"></view>
+        </view>
+        <view class="module citicBank" >
+            <view class="text">{{argObj.text1}}</view>
+            <view class="text">{{argObj.text2}}</view>
+            <view class="btn" catchtap="hide">{{argObj.btnText}}</view>
+        </view>
+    </view>
+</view>

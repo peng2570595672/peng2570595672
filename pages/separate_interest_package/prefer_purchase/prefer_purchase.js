@@ -74,7 +74,7 @@ Page({
 						app.globalData.openId = result.data.openId;
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
-						if (this.data.packageId === app.globalData.citicBankRightId) {
+						if (this.data.packageId === app.globalData.cictBankObj.citicBankRightId) {
 							// 中信银行
 							await this.getPackageRelation(this.data.packageId);
 							return;
@@ -135,7 +135,7 @@ Page({
 		util.go(`/pages/separate_interest_package/purchase_terms/purchase_terms`);
 	},
 	async onClickPay () {
-		if (this.data.packageId === app.globalData.citicBankRightId) {
+		if (this.data.packageId === app.globalData.cictBankObj.citicBankRightId) {
 			// 中信银行
 			await this.packagePayment();
 			return;
@@ -181,7 +181,7 @@ Page({
 			params.shopId = this.data.salesmanInfo.shopId;
 			if (this.data.salesmanInfo.orderId) params.orderId = this.data.salesmanInfo.orderId;
 		}
-		if (this.data.packageId === app.globalData.citicBankRightId) {
+		if (this.data.packageId === app.globalData.cictBankObj.citicBankRightId) {
 			params.orderId = app.globalData.orderInfo.orderId;
 		}
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/independent-rights-buy', params);
@@ -200,7 +200,7 @@ Page({
 				success: (res) => {
 					this.setData({isRequest: false});
 					if (res.errMsg === 'requestPayment:ok') {
-						if (this.data.packageId === app.globalData.citicBankRightId) {
+						if (this.data.packageId === app.globalData.cictBankObj.citicBankRightId) {
 							util.go(`/pages/separate_interest_package/citic_bank_pay_success/citic_bank_pay_success?orderId=${app.globalData.orderInfo.orderId}`);
 							return;
 						}
