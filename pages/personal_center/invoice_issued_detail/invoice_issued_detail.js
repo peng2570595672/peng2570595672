@@ -50,6 +50,9 @@ Page({
 				currentTab: e.target.dataset.current
 			});
 		}
+		this.setData({
+			available: !!this.validateAvailable()
+		});
 	},
 	// 输入框输入值
 	onInputChangedHandle (e) {
