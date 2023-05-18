@@ -104,7 +104,7 @@ Page({
 		});
 		if (isPassengerCarActivation) {
 			let carAgreementList = [
-				{id: 0,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement', isShow: isPassengerCarActivation},
+				{id: 0,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement', isShow: isPassengerCarActivation && !this.data.isCheckTwoPercent},
 				{id: 1,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?showNewAgreement=1', isShow: this.data.isCheckTwoPercent},
 				{id: 2,name: 'ETC用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=nm', isShow: isNm},
 				// {id: 1,name: '用户办理协议', update: 0, url: 'free_equipment_agreement/free_equipment_agreement', isShow: isQTNotAttribute},
