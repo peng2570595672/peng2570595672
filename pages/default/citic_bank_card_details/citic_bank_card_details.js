@@ -120,7 +120,7 @@ Page({
 		if (app.globalData.myEtcList.length > 0) {
 			flag = app.globalData.myEtcList.filter(item => item.shopProductId === app.globalData.cictBankObj.citicBankshopProductId || item.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId);
 		}
-		if (flag.length > 0) {
+		if (flag.length > 0 && flag[0].isOwner && flag[0].isVehicle) {
 			this.setData({
 				citicBank: true,
 				viewCiticBankList: flag,
@@ -142,7 +142,7 @@ Page({
 				});
 			}
 		} else {
-            util.showToastNoIcon('暂无中信订单');
+            util.showToastNoIcon('暂无中信订单或已有订单但资料未完善，请继续完善资料');
 		}
 	},
     // 中信联名权益 查看

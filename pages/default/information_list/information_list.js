@@ -95,6 +95,9 @@ Page({
 				contractStatus: result.data.contractStatus
 			});
 		} else {
+			if (this.data.citicBank) {
+				return;
+			}
 			util.showToastNoIcon(result.message);
 		}
 	},
@@ -331,8 +334,11 @@ Page({
 			app.globalData.isNeedReturnHome = true;
 			app.globalData.isCheckCarChargeType = this.data.orderInfo.obuCardType === 1 && (this.data.orderInfo.orderType === 11 || this.data.orderInfo.orderType === 71 || this.data.orderInfo.promoterType === 41) && !this.data.isModifiedData;
 			if (this.data.citicBank) {
-				// 中信银行在没收到设备时是不需要签约的
-				util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
+				if (this.data.citicBank) {
+					this.setData({
+						openSheet: true
+					});
+				}
 				return;
 			}
 			if (this.data.orderInfo.flowVersion === 2 || this.data.orderInfo.flowVersion === 3) {
@@ -355,11 +361,7 @@ Page({
 	// 中信银行的 提交 按钮
 	submitCiticBank () {
 		if (!this.data.available) return;
-		if (this.data.citicBank) {
-			this.setData({
-				openSheet: true
-			});
-		}
+		this.subscribe();
 	},
 	skip () {
 		let that = this;
@@ -374,7 +376,8 @@ Page({
 				that.setData({
 					openSheet: false
 				});
-				this.subscribe();
+				// 中信银行在没收到设备时是不需要签约的
+				util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
 			}
 		});
 	},
