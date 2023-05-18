@@ -29,12 +29,6 @@
                         <span wx:else style="color: #0f0">{{item.productType === 6 ? '' : '免费'}}</span>
                     </view>
                 </view>
-                <!-- 副标题：取后台套餐副标题（原套餐全称productLogo） -->
-                <view class="subTitle">{{tools.limitNumber(item.fullName,15)}}</view>
-                <view class="titleExplain" wx:if="{{item.pledgeType === 4}}">
-                    <span class="planSpan">现金限时膨账权益商城100+权益任兑</span>
-                </view>
-                <!-- 套餐描述 取后台配置展示，若无配置则不展示 -->
                 <view class="subTitle">{{tools.limitNumber(item.fullName,15)}}</view>
                 <view class="titleExplain" wx:if="{{item.marketingTagType === 2 && item.marketingTag}}">
                     <span class="planSpan">{{item.marketingTag}}</span>
