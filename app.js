@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-export const IS_TEST = true; // false为正式接口地址，true为测试接口地址
+export const IS_TEST = false; // false为正式接口地址，true为测试接口地址
 const util = require('./utils/util.js');
 const uma = require('./utils/umtrack-wx.js');
 App({
@@ -133,8 +133,8 @@ App({
 		handledByTelephone: undefined,	// 4.0办理人的电话
 		newEnergy: false,	// false 表示不是新能源车牌
 		cictBankObj: {	// 中信对象
-			citicBankshopProductId: IS_TEST ? '1108398050782486528' : '1098187047525031936',	// 中信银行套餐的金卡套餐ID 分别是测试环境下和正式环境下
-			citicBankShopshopProductId: IS_TEST ? '1108397635760300032' : '1098189669350776832',	// 中信银行里的白金套餐的套餐ID 分别是测试环境下和正式环境下
+			citicBankshopProductId: IS_TEST ? '1108398050782486528' : '1109116737144102912',	// 中信银行套餐的金卡套餐ID 分别是测试环境下和正式环境下
+			citicBankShopshopProductId: IS_TEST ? '1108397635760300032' : '1109116407530528768',	// 中信银行里的白金套餐的套餐ID 分别是测试环境下和正式环境下
 			citicBankRightId: IS_TEST ? '1092482405515665408' : '1098182289300922368'	// 中信银行签约后独立权益ID
 		},
 		salesmanEmptyObj: {}	// 业务员空发对象
