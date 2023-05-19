@@ -33,7 +33,7 @@ Page({
 		}
 		// 查询是否欠款
 		await util.getIsArrearage();
-		let [isPassengerCarActivation, isQTAttribute, isNotQTAttribute, isQTNotAttribute, isNotQTNotAttribute, isTTQAttribute, isServiceFeeType, isNm] = [false, false, false, false, false, false, false, false];
+		let [isPassengerCarActivation, isQTAttribute, isNotQTAttribute, isQTNotAttribute, isNotQTNotAttribute, isTTQAttribute, isServiceFeeType, isNm, isNotNm] = [false, false, false, false, false, false, false, false, false];
 		// 客车已激活  黔通自购  非黔通自购  黔通免费  非黔通免费  通通券
 		app.globalData.myEtcList.map(item => {
 			if ((item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 0) {
@@ -41,6 +41,8 @@ Page({
 				isPassengerCarActivation = true;
 				if (item.obuCardType === 2) {
 					isNm = true;
+				} else {
+					isNotNm = true;
 				}
 				if (item?.environmentAttribute === 2) {
 					// 免费
@@ -104,7 +106,7 @@ Page({
 		});
 		if (isPassengerCarActivation) {
 			let carAgreementList = [
-				{id: 0,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement', isShow: isPassengerCarActivation && !this.data.isCheckTwoPercent},
+				{id: 0,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement', isShow: (isNm && isNotNm && !this.data.isCheckTwoPercent) || (!isNm && isPassengerCarActivation && !this.data.isCheckTwoPercent)},
 				{id: 1,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?showNewAgreement=1', isShow: Boolean(this.data.isCheckTwoPercent)},
 				{id: 2,name: 'ETC用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=nm', isShow: isNm},
 				// {id: 1,name: '用户办理协议', update: 0, url: 'free_equipment_agreement/free_equipment_agreement', isShow: isQTNotAttribute},

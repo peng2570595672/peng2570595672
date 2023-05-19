@@ -153,9 +153,13 @@ Page({
 			});
 			// 普通流程
 			if (this.data.repairType === -1) {
-				this.getCardAndObuIssueStatus();
+				setTimeout(() => {
+					this.getCardAndObuIssueStatus();
+				}, 200);
 			} else {
-				this.getOrderInfo();
+				setTimeout(() => {
+					this.getOrderInfo();
+				}, 200);
 			}
 		} else {
 			this.mySetData({
@@ -208,7 +212,9 @@ Page({
 						selfType: 2
 					});
 				}
-				this.getOrderInfo();
+				setTimeout(() => {
+					this.getOrderInfo();
+				}, 200);
 			}
 		} else {
 			this.isOver(res.message);
@@ -229,10 +235,14 @@ Page({
 				this.mySetData({
 					type: this.data.selfType !== 0 ? this.data.selfType : parseInt(res.data.order_status) === 7 ? 1 : 0
 				});
-				this.startOnlineDistribution();
+				setTimeout(() => {
+					this.startOnlineDistribution();
+				}, 200);
 			} else if (parseInt(res.data.order_status) === 8 || parseInt(res.data.order_status) === 10) {
 				// 换卡 或者 换签
-				this.startOnlineDistribution();
+				setTimeout(() => {
+					this.startOnlineDistribution();
+				}, 200);
 			} else {
 				this.isOver('订单' + this.getStatus(res.data.order_status));
 			}
@@ -340,7 +350,9 @@ Page({
 			});
 			// 激活完成
 			if (this.data.currentStep === response.total_step) {
-				this.getCardAndObuIssueStatus(true);
+				setTimeout(() => {
+					this.getCardAndObuIssueStatus(true);
+				}, 200);
 				return;
 			}
 			this.getCmd();
@@ -406,7 +418,9 @@ Page({
 				index: this.data.index + 1
 			});
 			if (this.data.result.length === this.data.index) {
-				this.startOnlineDistribution();
+				setTimeout(() => {
+					this.startOnlineDistribution();
+				}, 200);
 				return;
 			}
 			let o = result[this.data.index];
@@ -447,7 +461,9 @@ Page({
 				index: this.data.index + 1
 			});
 			if (this.data.result.length === this.data.index) {
-				this.startOnlineDistribution();
+				setTimeout(() => {
+					this.startOnlineDistribution();
+				}, 200);
 				return;
 			}
 			let o = result[this.data.index];
