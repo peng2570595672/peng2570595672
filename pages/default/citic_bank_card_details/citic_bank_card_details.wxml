@@ -7,14 +7,14 @@
         <view class="head">为车主量身打造</view>
         <view class="title">
             <view class="title_name">中信标准车主卡—金卡</view>
-            <view class="title_view" catchtap="viewEquity">查看权益</view>
+            <view class="title_view" data-index='1' catchtap="viewEquity">查看权益</view>
         </view>
         <view class="img">
             <image class="img_2" src="https://file.cyzl.com/g001/M01/D1/EC/oYYBAGQmbyGAJQ4wAAOzK-HiEM0583.jpg" mode="widthFix" />
         </view>
         <view class="title">
             <view class="title_name">中信i车银联白金卡（冰川白）</view>
-            <view class="title_view" catchtap="viewEquity">查看权益</view>
+            <view class="title_view" data-index='2' catchtap="viewEquity">查看权益</view>
         </view>
         <view class="img">
             <image class="img_2" src="https://file.cyzl.com/g001/M01/D1/EC/oYYBAGQmbzqAMNy8AAJalSVjby0953.jpg" mode="widthFix" />
