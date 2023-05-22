@@ -72,7 +72,7 @@ Page({
 			await util.getIsArrearage();
             this.viewCiticBankList();
 		} else {
-            this.login();
+            // this.login();
         }
     },
     // 自动登录

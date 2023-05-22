@@ -298,19 +298,22 @@ Page({
 	// 跳转页面、小程序、第三方
 	goPath (e) {
 		// 未登录
-		if (!app.globalData.userInfo?.accessToken) {
-			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-			util.go('/pages/login/login/login');
-			return;
-		}
+		// if (!app.globalData.userInfo?.accessToken) {
+		// 	wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+		// 	util.go('/pages/login/login/login');
+		// 	return;
+		// }
 		let obj = e.currentTarget.dataset.information;
-		let appIdPath = obj.appId && obj.appId.length > 0;
+		console.log(obj)
+		let appIdPath = Boolean(obj.appId && obj.appId.length > 0);
 		let webPath = obj.jumpUrl.indexOf('https') !== -1;
 		let templateId = obj.templateId && obj.templateId[0] !== '';
 		if (obj.funcName === '权益商城') {
 			this.handleMall();
 			return;
 		}
+		console.log(appIdPath)
+		console.log(webPath)
 		if (!appIdPath && !webPath) {
 			// 小程序内部页面跳转
 			if (templateId) {
