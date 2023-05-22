@@ -72,12 +72,12 @@ Page({
 			await util.getIsArrearage();
             this.viewCiticBankList();
 		} else {
-            // this.login();
+            this.login();
         }
     },
     // 自动登录
 	login () {
-		util.showLoading();
+		// util.showLoading();
 		// 调用微信接口获取code
 		wx.login({
 			success: async (res) => {
@@ -147,25 +147,13 @@ Page({
 	},
     // 中信联名权益 查看
 	viewEquity (e) {
-		// 未登录
-		if (!app.globalData.userInfo?.accessToken) {
-			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-			util.go('/pages/login/login/login');
-			return;
-		}
 		let index = e.currentTarget.dataset.index;
 		let paId = this.data.viewCiticBankList && this.data.viewCiticBankList.length > 0 ? this.data.viewCiticBankList[0].id : 'HHXXXXX';
 		let url = index === '2' ? `https://creditcard.ecitic.com/h5/shenqing/iche/index.html?sid=SJCSJHT01&paId=${paId}&partnerId=SJHT` : `https://creditcard.ecitic.com/h5/shenqing/chezhu/index.html?sid=SJCSJHT01&paId=${paId}&partnerId=SJHT`;
 		util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
 	},
 
-    citicBankProgress () {
-		// 未登录
-		if (!app.globalData.userInfo?.accessToken) {
-			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-			util.go('/pages/login/login/login');
-			return;
-		}
+  citicBankProgress () {
 		if (!this.data.showhandleOrView) {	// 查看信用卡办理进度
 			util.go(`/pages/default/citicBank_processing_progress/citicBank_processing_progress?orderId=${this.data.viewCiticBankList[0].id}`);
 		} else {	// 继续办理信用卡 - 跳转第三方
