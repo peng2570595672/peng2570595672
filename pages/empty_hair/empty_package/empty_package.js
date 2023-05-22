@@ -91,7 +91,7 @@ Page({
 					app.globalData.mobilePhone = result.data.mobilePhone;
 					await this.getProduct();
 				} else {
-					wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+					wx.setStorageSync('login_info', JSON.stringify(result.data));
 					util.go('/pages/login/login/login');
 				}
 			},
