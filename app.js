@@ -128,7 +128,7 @@ App({
 			content: '您即将通过该链接跳转至第三方页面。在第三方页面中提交信息将由第三方按照其相关用户服务协议及隐私协议正常执行并负责，服务及责任均由第三方提供或承担，如有疑问请致电第三方客服电话。',
 			confirm: '我知道了'
 		},
-		isEquityRights: undefined,	//	权益券额套餐的用户： true表示是，false表示不是
+		isEquityRights: 0,	//	权益券额套餐的用户： true表示是，false表示不是
 		isVip: undefined,	// 收取综合服务费的用户：  true表示是，false表示不是
 		handledByTelephone: undefined,	// 4.0办理人的电话
 		newEnergy: false,	// false 表示不是新能源车牌

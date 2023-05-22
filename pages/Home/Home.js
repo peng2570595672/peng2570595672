@@ -254,7 +254,7 @@ Page({
 				let arr1 = item.visibleUser;
 				// item.isShow = arr1.length === 3 ? true : (arr1.indexOf(2) !== -1 && app.globalData.isVip) ? true : (arr1.indexOf(3) !== -1 && app.globalData.isEquityRights > 0) ? true : (arr1.indexOf(1) !== -1 && !app.globalData.isVip && app.globalData.isEquityRights === 0) ? true : false;
 				// 2% 暂时不判断
-				item.isShow = arr1.length === 3 ? true : (arr1.indexOf(3) !== -1 && app.globalData.isEquityRights > 0) ? true : (arr1.indexOf(1) !== -1 && app.globalData.isEquityRights === 0) ? true : false;
+				item.isShow = arr1.length === 3 ? true : (arr1.indexOf(3) !== -1 && app.globalData.isEquityRights > 0) ? true : (arr1.indexOf(1) !== -1 && Number(!!app.globalData.isEquityRights) === 0) ? true : false;
 			});
 			funcListOne.sort(this.compare('sort'));	// 排序
 
