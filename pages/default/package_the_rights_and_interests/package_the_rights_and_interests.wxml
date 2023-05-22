@@ -23,7 +23,8 @@
                     <!-- 取后台支付金额，保留小数点后2位，若套餐支付金额为0时，前端价格展示为免费 -->
                     <view class="money">
                         <span wx:if="{{item.pledgePrice || equityListMap[index].payMoney}}" >
-                            ￥{{tools.parseNum(item.pledgePrice + equityListMap[index].payMoney)/100}}
+                            <text wx:if="{{item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId}}" style="color: #2A4F44">免费</text>
+                            <text wx:else>￥{{tools.parseNum(item.pledgePrice + equityListMap[index].payMoney)/100}}</text>
                         </span>
                         <!-- 空发套餐并且设备免费时，隐藏金额 -->
                         <span wx:else style="color: #0f0">{{item.productType === 6 ? '' : '免费'}}</span>
@@ -76,7 +77,7 @@
                         </view>
                     </view>
                     <view wx:elif="{{item.etcCardId === 2}}" class="neimeng">
-<!--                        <view class="describe-title">1.体积更小   2.抬杆速度更快   3.低耗电，寿命更长</view>-->
+                        <!--<view class="describe-title">1.体积更小   2.抬杆速度更快   3.低耗电，寿命更长</view>-->
                         <view class="describe-content">
                             <view class="left">
                                 <view class="first">体积</view>

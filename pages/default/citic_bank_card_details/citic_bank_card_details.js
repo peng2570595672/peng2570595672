@@ -56,7 +56,7 @@ Page({
         citicBank: false, // 是否有中信银行联名套餐的订单
 		transactScheduleData: undefined,	// 中信银行信用卡申请进度查询结果
 		showhandleOrView: false,	// 中信银行信用卡 false 表示 ”查看信用卡办理进度“
-		lastOrder: false	// 查看中信最近订单是否可用
+		keepHandle: 1	//	控制底部悬浮按钮的文案展示
     },
 
     /**
@@ -119,11 +119,11 @@ Page({
 		let flag = [];
 		if (app.globalData.myEtcList.length > 0) {
 			flag = app.globalData.myEtcList.filter(item => item.shopProductId === app.globalData.cictBankObj.citicBankshopProductId || item.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId);
+			this.setData({viewCiticBankList: flag});
 		}
 		if (flag.length > 0 && flag[0].isOwner && flag[0].isVehicle) {
 			this.setData({
 				citicBank: true,
-				viewCiticBankList: flag,
 				isCiticBankPlatinum: flag[0].shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId	// 判断是不是白金卡套餐
 			});
 			const result = await util.getDataFromServersV2('consumer/order/zx/transact-schedule', {
@@ -133,16 +133,12 @@ Page({
 			if (result.code === 0) {
 				this.setData({
 					transactScheduleData: result.data,
-					showhandleOrView: result.data[0].applyStatus === '111' || result.data[0].applyStatus === '112',
-					lastOrder: true
-				});
-			} else {
-				this.setData({
-					lastOrder: false
+					showhandleOrView: result.data[0].applyStatus === '111' || result.data[0].applyStatus === '112'
 				});
 			}
 		} else {
             util.showToastNoIcon('暂无中信订单或已有订单但资料未完善，请继续完善资料');
+			if (!flag.length) { this.setData({keepHandle: 0}); }
 		}
 	},
     // 中信联名权益 查看
@@ -162,11 +158,18 @@ Page({
 		}
 	},
 	onClickHandle () {
-		if (this.data.viewCiticBankList && this.data.viewCiticBankList.length) {
-			app.globalData.orderInfo.orderId = this.data.viewCiticBankList[0].id;	// 最近的一单
-			util.go(`/pages/default/citic_bank_sign/citic_bank_sign`);
+		if (!this.data.keepHandle) {
+			// 立即办理：没有中信订单， 跳转到填写基础信息页
+			util.go('/pages/default/receiving_address/receiving_address');
 		} else {
-			util.showToastNoIcon('暂无中信订单');
+			app.globalData.orderInfo.orderId = this.data.viewCiticBankList[0].id;	// 最近的一单
+			if (this.data.viewCiticBankList[0].pledgeStatus === 0) {	// 去支付
+				util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests`);
+			} else if (this.data.viewCiticBankList[0].status === 0 || !this.data.viewCiticBankList[0].isOwner || !this.data.viewCiticBankList[0].isVehicle) {	// 去完善资料
+				util.go(`/pages/default/information_list/information_list`);
+			} else {	// 去签约
+				util.go(`/pages/default/citic_bank_sign/citic_bank_sign`);
+			}
 		}
 	}
 

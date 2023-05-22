@@ -19,7 +19,7 @@
         <view class="img">
             <image class="img_2" src="https://file.cyzl.com/g001/M01/D1/EC/oYYBAGQmbzqAMNy8AAJalSVjby0953.jpg" mode="widthFix" />
         </view>
-        <view class="btnCiti" wx:if="{{citicBank && lastOrder}}">
+        <view class="btnCiti" wx:if="{{citicBank}}">
             <span class="btn1" style="background: {{bgColor}}" catchtap="citicBankProgress" >{{showhandleOrView ? '继续办理信用卡':'查看信用卡办理进度'}}</span>
         </view>
     </view>
@@ -55,8 +55,8 @@
     </view>
 
     <!-- 占位 -->
-    <view class="split" wx:if="{{lastOrder}}"></view>
-    <view class="handleImmediately" wx:if="{{lastOrder}}">
-        <button catchtap="onClickHandle" style="background: {{bgColor}}">继续办理</button>
+    <view class="split"></view>
+    <view class="handleImmediately">
+        <button catchtap="onClickHandle" style="background: {{bgColor}}">{{keepHandle ? '继续办理' : '立即办理'}}</button>
     </view>
 </view>

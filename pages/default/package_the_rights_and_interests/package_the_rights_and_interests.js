@@ -135,7 +135,9 @@ Page({
 		isPay: false, // 已选择通通券套餐&无需支付||已经支付
 		isTest: app.globalData.test,
 		citicBank: false,	// 是否是中信银行联名套餐
-		emptyHairOrder: false	// 为true表示是空发订单
+		emptyHairOrder: false,	// 为true表示是空发订单
+		citicBankshopProductId: app.globalData.cictBankObj.citicBankshopProductId,	// 中信金卡套餐ID
+		citicBankShopshopProductId: app.globalData.cictBankObj.citicBankShopshopProductId	// 中信白金卡套餐ID
 
 	},
 	async onLoad (options) {
@@ -154,6 +156,7 @@ Page({
 		this.setData({
 			listOfPackages: parseInt(options.type) === 1 ? packages.divideAndDivideList : packages.alwaysToAlwaysList
 		});
+		await this.queryOrder();
 		// await this.getSwiperHeight();
 		// 获取 套餐模块的高度
 		this.getNodeHeight(this.data.listOfPackages.length);
@@ -655,8 +658,8 @@ Page({
 		this.setData({isRequest: false});
 		if (!result) return;
 		if (result.code === 0) {
-			// 中信银行
-			if (this.data.citicBank || params.shopProductId === app.globalData.cictBankObj.citicBankshopProductId || params.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId) {
+			// 中信银行 白金卡
+			if (params.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId) {
 					this.selectComponent('#popTipComp').show({
 						type: 'five',
 						title: '活动细则',
@@ -745,7 +748,6 @@ Page({
 		if (this.data.isRequest) return;
 		this.setData({isRequest: true});
 		util.showLoading();
-		console.log(this.data.listOfPackages);
 		let params = {};
 		if (pledgeType === 4) {
 			// 押金模式
@@ -956,5 +958,25 @@ Page({
 				btnText: '我知道了'
 			}
 		});
+	},
+
+	// 根据订单ID查询订单信息(针对中信套餐)
+	async queryOrder () {
+		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
+			orderId: app.globalData.orderInfo.orderId,
+			dataType: '1'
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			if (result.data.base.vehPlates.length === 7) {
+				let listOfPackages = this.data.listOfPackages.filter(item => item.shopProductId !== this.data.citicBankShopshopProductId);
+				this.setData({
+					listOfPackages
+				});
+			}
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	}
+
 });
