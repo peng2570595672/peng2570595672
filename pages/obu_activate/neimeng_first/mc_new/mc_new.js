@@ -180,7 +180,7 @@ Page({
 		let cosArr = [];
 		cosArr.push('00A40000023F00');
 		cosArr.push('00B081001B');
-		this.transCommand(1, cosArr, (code, res) => {
+		this.transCommand(1, cosArr, (code, res, err) => {
 			let info = res[1];
 			if (+code === 0) {
 				// 发行方标识
@@ -217,7 +217,7 @@ Page({
 				// 读取卡片表面号
 				this.cardSurfaceNumber();
 			} else {
-				this.isOver('读取系统信息失败');
+				this.isOver(err + ',读取系统信息失败');
 			}
 		});
 	},
@@ -227,7 +227,7 @@ Page({
 		cosArr.push('00A40000021001');
 		// cosArr.push('0020000003123456');	// 0020 0000 pin码位数 pin码
 		cosArr.push('00B095002B');
-		this.transCommand(0, cosArr, (code, res) => {
+		this.transCommand(0, cosArr, (code, res, err) => {
 			console.log('读取卡片信息：');
 			console.log(code);
 			console.log(res);
@@ -282,7 +282,7 @@ Page({
 				// 获取步骤信息
 				this.getCurrentStep();
 			} else {
-				this.isOver('读取卡片信息失败');
+				this.isOver(err + ',读取卡片信息失败');
 			}
 		});
 	},
@@ -331,11 +331,11 @@ Page({
 		let cosArr = [];
 		cosArr.push(cmd);
 		console.log('写卡（持卡人信息）指令：', cmd);
-		this.transCommand(0, cosArr, (code, res) => {
+		this.transCommand(0, cosArr, (code, res, err) => {
 			console.log('写卡（持卡人信息）返回：', res);
 			// 写卡
 			if (!/9000$/.test(res[0])) {
-				this.isOver('写卡（持卡人信息）失败');
+				this.isOver(err + ',写卡（持卡人信息）失败');
 				return;
 			}
 			// 下一步：更新卡发行信息
@@ -389,11 +389,11 @@ Page({
 		let cosArr = [];
 		cosArr.push(cmd);
 		console.log('写卡（卡发行信息）指令：', cmd);
-		this.transCommand(0, cosArr, (code, res) => {
+		this.transCommand(0, cosArr, (code, res, err) => {
 			console.log('写卡（卡发行信息）返回：', res);
 			// 写卡
 			if (!/9000$/.test(res[0])) {
-				this.isOver('写卡（卡发行信息）失败');
+				this.isOver(err + ',写卡（卡发行信息）失败');
 				return;
 			}
 			// 下一步：更新订单（卡发行）
@@ -524,11 +524,11 @@ Page({
 		let cmd = info.data.FileData + info.data.Mac;
 		let cosArr = [];
 		cosArr.push(cmd);
-		this.transCommand(1, cosArr, (code, res) => {
+		this.transCommand(1, cosArr, (code, res, err) => {
 			console.log('写obu（系统信息）返回：', res);
 			// 写obu
 			if (!/9000$/.test(res[0])) {
-				this.isOver('写obu（系统信息）失败');
+				this.isOver(err + ',写obu（系统信息）失败');
 				return;
 			}
 			// 下一步：更新订单（obu发行）
@@ -621,7 +621,7 @@ Page({
 			},
 			fail: res => {
 				console.error(arr, res);
-				callback(1, res.data || []);
+				callback(1, res.data || [], res.msg);
 			}
 		}, 15000);
 	},
