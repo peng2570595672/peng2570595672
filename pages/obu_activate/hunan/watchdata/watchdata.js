@@ -35,6 +35,7 @@ Page({
 		index: 0,
 		type: 0,
 		selfType: 0,
+		alertNum: 0,
 		oldCardNo: '',
 		oldObuNo: '',
 		repairType: -1 // 1换卡 2 换签 3换卡换签
@@ -98,6 +99,7 @@ Page({
 			index: 0,
 			type: 0,
 			selfType: 0,
+			alertNum: 0,
 			isUnload: 0
 		});
 		this.start();
@@ -196,7 +198,13 @@ Page({
 				});
 				const that = this;
 				wx.onBLEConnectionStateChange(function (res) {
-					if (that.data.ui.connectState !== 1 || that.data.ui.activated || that.data.isUnload) {
+					if (that.data.ui.activated || that.data.isUnload || res.connected) {
+						return;
+					}
+					that.setData({
+						alertNum: that.data.alertNum + 1
+					});
+					if (that.data.alertNum > 1) {
 						return;
 					}
 					util.alert({
@@ -205,6 +213,9 @@ Page({
 						confirmText: '重新连接',
 						showCancel: false,
 						confirm: () => {
+							that.setData({
+								alertNum: 0
+							});
 							that.handleRetry();
 						}
 					});

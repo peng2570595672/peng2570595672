@@ -24,6 +24,7 @@ Page({
 		errMsg: '',
 		msg: '',
 		activated: 0,
+		alertNum: 0,
 		isUnload: 0
 	},
 	onLoad () {
@@ -48,6 +49,7 @@ Page({
 			}
 		}, 15000);
 		this.setData({
+			alertNum: 0,
 			showLoading: 1,	// 是否显示搜索中
 			getListFailed: 0,	// 获取obu设备
 			deviceName: undefined,	// 设备名称
@@ -113,7 +115,13 @@ Page({
 							this.setData({msg: 'OBU连接成功'});
 							const that = this;
 							wx.onBLEConnectionStateChange(function (res) {
-								if (that.data.activated || that.data.isUnload) {
+								if (that.data.activated || that.data.isUnload || res.connected) {
+									return;
+								}
+								that.setData({
+									alertNum: that.data.alertNum + 1
+								});
+								if (that.data.alertNum > 1) {
 									return;
 								}
 								util.alert({
@@ -122,6 +130,9 @@ Page({
 									confirmText: '重新连接',
 									showCancel: false,
 									confirm: () => {
+										that.setData({
+											alertNum: 0
+										});
 										that.handleRetry();
 									}
 								});
