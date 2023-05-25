@@ -28,9 +28,11 @@ Page({
 		host: '',
 		errMsg: '',
 		msg: '',
-		activated: 0
+		activated: 0,
+		isUnload: 0
 	},
 	onLoad () {
+		wx.closeBluetoothAdapter();
 		// // TODO TEST CODE
 		// app.globalData.orderInfo.orderId = '638787874229059584';
 		this.start();
@@ -39,9 +41,11 @@ Page({
 		bleUtil.disConnect({
 			success: res => {
 				console.log(res);
+				wx.closeBluetoothAdapter();
 			},
 			fail: res => {
 				console.log(res);
+				wx.closeBluetoothAdapter();
 			}
 		}, 15000);
 		this.setData({
@@ -74,7 +78,6 @@ Page({
 		this.openBluetooth();
 		// 搜索倒计时
 		timer = setTimeout(() => {
-			wx.closeBluetoothAdapter();
 			this.setData({showLoading: 0, getListFailed: 1});
 			this.isOver();
 		}, 15000);
@@ -117,6 +120,21 @@ Page({
 								getListFailed: 0
 							});
 							this.setData({msg: 'OBU连接成功'});
+							const that = this;
+							wx.onBLEConnectionStateChange(function (res) {
+								if (that.data.activated || that.data.isUnload) {
+									return;
+								}
+								util.alert({
+									title: '蓝牙中断',
+									content: '检测到您的蓝牙链接中断\n请重新链接',
+									confirmText: '重新连接',
+									showCancel: false,
+									confirm: () => {
+										that.handleRetry();
+									}
+								});
+							});
 						},
 						fail: res => {
 							console.warn('连接 & 部署设备失败: ', res);
@@ -148,7 +166,11 @@ Page({
 		}
 	},
 	// 重置
-	isOver (errMsg) {
+	async isOver (errMsg) {
+		if (await util.handleBluetoothStatus()) {
+			this.handleRetry();
+			return;
+		}
 		this.setData({isActivating: 0});
 		errMsg && this.setData({errMsg});
 	},
@@ -627,6 +649,9 @@ Page({
 	},
 
 	onHide () {
-		wx.closeBluetoothAdapter();
+		// wx.closeBluetoothAdapter();
+	},
+	onUnload () {
+		this.setData({isUnload: 1});
 	}
 });
