@@ -1,0 +1,109 @@
+<wxs src='../../../utils/util.wxs' module='tools' />
+<view class="index">
+     <!-- 模块一   办理邮寄信息 -->
+    <view class="module moduleOne">
+        <view class="title">
+            <view class="titles">办理邮寄信息</view>
+        </view>
+        <view class="publicCode">
+            <view class="publicCodeLeft">收货人</view>
+            <view class="publicCoderight">
+                <input class="input" type="text" placeholder="输入收货人姓名" value="{{formData.userName}}" maxlength="{{size}}" data-name="userName"  placeholder-class="input-placeholder" bindinput="onInputChangedHandle" bindfocus="focus"/>
+                <view class="btns" catchtap="onClickAutoFillHandle">
+                    <span class="wChat iconfont" />
+                    <span class="text">选择微信地址</span>
+                </view>
+                <text class="errTip" wx:if="{{tip2}}">{{tip2}}</text>
+            </view>
+        </view>
+        <view class="publicCode">
+            <view class="publicCodeLeft">选择地区</view>
+            <view class="publicCoderight">
+                <picker class="input" mode="region" value="{{formData.region}}" bindchange="onPickerChangedHandle" catchtap="focus">
+                    <view wx:if="{{tools.addressFormat(formData.region)}}">{{tools.addressFormat(formData.region)}}</view>
+                    <span wx:else class="input-placeholder">选择收货 省-市-区</span>
+                </picker>
+                <view class="btns address iconfont" bindtap="onClickChooseLocationHandle"></view>
+            </view>
+        </view>
+        <view class="publicCode">
+            <view class="publicCodeLeft">详细地址</view>
+            <view class="publicCoderight">
+                <input class="input" type="text" placeholder="输出详细收货地址" value="{{formData.detailInfo}}" data-name="detailInfo" placeholder-class="input-placeholder"  bindinput="onInputChangedHandle" bindfocus="focus"/>
+            </view>
+        </view>
+        <view class="publicCode">
+            <view class="publicCodeLeft">手机号</view>
+            <view class="publicCoderight">
+                <input class="input" type="number" placeholder="输入收货手机号" value="{{formData.telNumber}}"  data-name="telNumber" placeholder-class="input-placeholder" maxlength="11"  bindinput="onInputChangedHandle" bindfocus="focus"/>
+                <text class="errTip" wx:if="{{tip3}}">{{tip3}}</text>
+            </view>
+        </view>
+    </view>
+    <!-- 模块二 剪卡凭证 -->
+    <view class="module moduleTwo">
+        <view class="title">
+            <view class="titles">剪卡凭证</view>
+            <text class="describe">请上传剪卡照片用于旧注销设各伎用</text>
+        </view>
+        <view class="publicCode">
+            <view class="publicCodeLeft">剪卡凭证</view>
+            <view class="publicCoderight">
+                <input class="input" type="text" placeholder="上传剪卡凭证（剪掉芯片）" value="{{sim}}" disabled/>
+                <view class="btns sim iconfont" bindtap="uploadPictures"></view>
+            </view>
+        </view>
+    </view>
+    <!-- 剪卡提示 -->
+    <view class="tip_1">剪卡后我们将进行注销，您在收到新设各前预计有7天左右无法正常使用高速 ETC通进</view>
+    <!-- 模块三 证件信息 -->
+    <view class="module moduleThree">
+        <view class="title">
+            <view class="titles">证件信息</view>
+        </view>
+        <view class="publicCode">
+            <view class="publicCodeLeft">身份证姓名</view>
+            <view class="publicCoderight">
+                <input class="input" type="text" value="{{paper.idName}}" disabled/>
+            </view>
+        </view>
+        <view class="publicCode">
+            <view class="publicCodeLeft">身份证号码</view>
+            <view class="publicCoderight">
+                <input class="input" type="text" value="{{paper.idNum}}" disabled/>
+            </view>
+        </view>
+        <view class="publicCode">
+            <view class="publicCodeLeft">办理手机号</view>
+            <view class="publicCoderight">
+                <input class="input" type="text" value="{{paper.handlePhone}}" disabled/>
+            </view>
+        </view>
+        <view class="publicCode">
+            <view class="publicCodeLeft">行驶证信息</view>
+            <view class="publicCoderight">
+                <input class="input" type="text" value="{{paper.licenseInformation}}" disabled/>
+            </view>
+        </view>
+        <view class="publicCode">
+            <view class="publicCodeLeft">车牌颜色</view>
+            <view class="publicCoderight" bindchange="onPersonsCapacityPickerChange">
+                <input class="input" type="text" value="{{paper.carPlateColor}}" disabled/>
+            </view>
+        </view>
+    </view>
+    <!-- 占位 -->
+    <view class="split" />
+    <!-- 底部悬浮按钮   立即办理 -->
+    <view class="floatButton">
+        <view class="handleImmediately {{available ? 'btn':''}}" catchtap="next">确定</view>
+    </view>
+    <!--	压缩图片开始-->
+	<canvas
+		canvas-id='pressCanvas'
+		class='press-canvas'
+		style='width: {{pictureWidth}}px; height: {{ pictureHeight}}px;' ></canvas>
+	<!--	压缩图片j结束-->
+     <!-- 拉起键盘 -->
+	<keyboard id="keyboard" index="{{currentIndex}}" show="{{showKeyboard}}" bind:valueChange="valueChange" myCar="{{carNo}}"></keyboard>
+</view>

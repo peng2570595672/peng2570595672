@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText": "上传办理证件",
+    "navigationBarBackgroundColor": "#ECECEC",
+    "usingComponents": {
+        "keyboard": "/components/keyboard/keyboard"
+    }
+}

@@ -1,41 +1,45 @@
 <!-- ETC4.0新增 -->
 <wxs src='../../utils/util.wxs' module='tools' />
 <view>
-    <view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}" catchtap="{{ tipObj.btnShadowHide ? 'hide' : ''}}"></view>
+    <view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}" data-title="{{tipObj.title}}" catchtap="{{ tipObj.btnShadowHide ? 'hide' : ''}}"></view>
     <view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}" wx:if="{{mask}}">
         <!-- 带标题 只有确定按钮 -->
         <view class="module moduleOne" wx:if="{{tipObj.type === 'one'}}">
             <view class="title">{{tipObj.title}}</view>
             <view class="contant">{{tools.limitNumber(tipObj.content,90)}}</view>
             <button class="btn" catchtap="hide">确定</button>
-            <view class="close iconfont" catchtap="hide"></view>
+            <view class="close iconfont" data-title="{{tipObj.title}}" catchtap="hide"></view>
         </view>
+
         <!-- 带标题 拥有取消和确定按钮 -->
         <view class="module moduleTwo" wx:if="{{tipObj.type === 'two'}}">
             <view class="title">{{tipObj.title}}</view>
             <view class="contant">{{tools.limitNumber(tipObj.content,90)}}</view>
             <view class="bottomBtn">
                 <view class="cancel" catchtap="hide">取消</view>
-                <view class="ok" catchtap="hide">确定</view>
+                <view class="ok" data-title="{{tipObj.title}}" catchtap="hide">确定</view>
             </view>
         </view>
+
         <!-- 欠费补缴  -->
         <view class="module moduleThree" wx:if="{{tipObj.type === 'three'}}">
             <view class="title">{{tipObj.title}}</view>
             <view class="contant">你已欠款 <span class="span"> {{tipObj.params.money / 100}} </span>元，将影响正常的高速通行</view>
             <view class="bottomBtn">
-                <view class="cancel" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
                 <view class="ok" catchtap="supplementaryPayment">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
             </view>
         </view>
+
         <!-- 恢复签约 -->
         <view class="module moduleFour" wx:if="{{tipObj.type === 'four'}}">
             <view class="title">{{tipObj.title}}</view>
             <view class="contant">{{tipObj.content}}</view>
             <button class="btn" catchtap="resumeSigning">{{tools.limitNumber(tipObj.btnconfirm,4)}}</button>
-            <view class="close iconfont" catchtap="hide"></view>
+            <view class="close iconfont" data-title="{{tipObj.title}}" catchtap="hide"></view>
         </view>
-        <!-- 带标题 拥有取消和确定按钮 -->
+
+        <!-- 中信活动规则 带标题 拥有取消和确定按钮 = -->
         <view class="module moduleTwo" wx:if="{{tipObj.type === 'five'}}">
             <view class="title">{{tipObj.title}}</view>
             <view class="contant">
@@ -47,8 +51,17 @@
                 <view >  2、中信I车银联白金卡（冰川白）：新客户免首年年费，刷卡（含取现）12次免次年年费，非新客户首年480元刚性收取，刷卡（含取现）12次免次年年费</view>
             </view>
             <view class="bottomBtn">
-                <view class="cancel" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
                 <view class="ok" data-ok='true' catchtap="citicBank">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
+            </view>
+        </view>
+
+        <!-- 设备升级 -->
+        <view class="moduleSix" wx:if="{{tipObj.type === 'six'}}">
+            <image class="image" src="{{tipObj.url}}" mode="widthFix"/>
+            <view class="btn" catchtap="deviceUpgrade"></view>
+            <view class="close" data-title="{{tipObj.title}}" catchtap="hide">
+                <image class="image" src="{{'https://file.cyzl.com/g001/M01/E0/7D/oYYBAGRscuOAIh4cAAAC8Jl08pY127.png'}}" mode="widthFix" />
             </view>
         </view>
     </view>

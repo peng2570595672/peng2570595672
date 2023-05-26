@@ -130,6 +130,22 @@ vendors = official
     font-style normal
     -webkit-font-smoothing antialiased
     -moz-osx-font-smoothing grayscale
+
+
+mixinsWidthHeight($width = 100%, $height = 100%)
+    width $width
+    height $height
+mixinsIconfont($content='',$size=16px,$color=#5EBE68)
+    content $content
+    font-size $size
+    color $color
+mixinsPositionPack($position=relative)
+    position $position
+    left 50%
+    transform translateX(-50%)
+textLineCenter($height)
+    text-align center
+    line-height $height
 .mask
     z-index 100
     width 100vw
@@ -140,7 +156,7 @@ vendors = official
 .make
     z-index 101
     width 100vw
-    height 500rpx
+    height auto
     background #fff
     border-radius 34rpx 34rpx 0 0
     position fixed
@@ -171,18 +187,8 @@ vendors = official
                 color #979797
     .module
         margin 0rpx 28rpx
-        
-    .citicBank
-        margin 0rpx 66rpx
-        font-size 28rpx
-        font-family PingFang SC-Regular, PingFang SC
-        font-weight 400
-        color #33333E
-        line-height 44rpx
-        
         .btn
-            width 348rpx
-            height 90rpx
+            mixinsWidthHeight(348rpx,90rpx)
             text-align center
             line-height 90rpx
             background #2A4F44
@@ -196,3 +202,182 @@ vendors = official
             left 50%
             transform translateX(-50%)
             margin-top 60rpx
+    // 中信
+    .citicBank
+        margin 0rpx 66rpx
+        font-size 28rpx
+        font-family PingFang SC-Regular, PingFang SC
+        font-weight 400
+        color #33333E
+        line-height 44rpx
+    // 设备升级
+    .deviceUpgrade
+        margin 0rpx 62rpx
+        font-family PingFang SC-Regular, PingFang SC
+        .carList
+            background #FFFFFF
+            border-radius 8rpx
+            border 2rpx solid #E9CA7B
+        .topCar
+            max-height 400rpx
+            overflow auto
+            .yes
+                &::before
+                    mixinsIconfont('\e669',20rpx,#333333)
+                    mixinsWidthHeight(43rpx,32rpx)
+                    textLineCenter(32rpx)
+                    border-bottom-left-radius 8rpx
+                    background: #E9CA7B;
+                    position absolute
+                    top -1rpx
+                    right 0
+            .no
+                border 2rpx solid #E9CA7B
+            .gray
+                // 置灰
+                filter grayscale(1)
+                &::before
+                    mixinsIconfont('暂不支持',20rpx,#333333)
+                    mixinsWidthHeight(130rpx,32rpx)
+                    textLineCenter(32rpx)
+                    background: #D8D8D8;
+                    border-bottom-left-radius 8rpx
+                    position absolute
+                    top -1rpx
+                    right 0
+            .carNumber
+                mixinsWidthHeight(622rpx,158rpx)
+                position relative
+                margin-bottom 20rpx
+                .head
+                    display flex
+                    align-items center
+                    mixinsWidthHeight(auto,36rpx)
+                    margin 36rpx 0rpx 16rpx 30rpx
+                    .icon
+                        mixinsWidthHeight(28rpx,32rpx)
+                        textLineCenter(32rpx)
+                        background #B3F995
+                        border 2rpx solid #00B48A
+                        font-size 13rpx
+                        margin-right 24rpx
+                    .numberplate
+                        font-size 32rpx
+                        font-family PingFang SC-Medium, PingFang SC
+                        font-weight 500
+                        color #33333D
+                .handlePhone
+                    margin-left 92rpx
+                    font-size 24rpx
+                    font-family PingFang SC-Regular, PingFang SC
+                    font-weight 400
+                    color #66666E
+        .package
+            mixinsWidthHeight(622rpx,auto)
+            .topDiv
+                mixinsWidthHeight(,104rpx)
+                display flex
+                align-items center
+                .h3
+                    margin 0rpx 18rpx 0rpx 30rpx
+                    display inline-block
+                    font-size 32rpx
+                    font-family PingFang SC-Semibold, PingFang SC
+                    font-weight 600
+                    color #1E1E1E
+                .text
+                    font-size 28rpx
+                    font-family PingFang SC-Regular, PingFang SC
+                    font-weight 400
+                    color #262626
+            .bottomDiv
+                background #F9F6EF
+                padding-bottom 30rpx
+                border-radius 0rpx 0rpx 10rpx 10rpx
+                .describe
+                    margin 0rpx 30rpx
+                    padding-top 10rpx
+                    font-size 22rpx
+                    font-family PingFang SC-Regular, PingFang SC
+                    font-weight 400
+                    color #262626
+                .passTicket
+                    margin 0rpx 30rpx
+                    display flex
+                    flex-wrap wrap
+                    justify-content space-between
+                    .sub
+                        margin-top 18rpx
+                        mixinsWidthHeight(258rpx,90rpx)
+                        background rgb(94,190,104)
+                        border-radius 8rpx
+                        position relative
+                        display flex
+                        &::before
+                            display block
+                            content ""
+                            mixinsWidthHeight(18rpx,11rpx)
+                            background #F9F6EF
+                            border-radius 0rpx 0rpx 10rpx 10rpx
+                            position absolute
+                            top 0rpx
+                            right 90.5rpx
+                        &::after
+                            display block
+                            content ""
+                            mixinsWidthHeight(18rpx,11rpx)
+                            background #F9F6EF
+                            border-radius 10rpx 10rpx 0rpx 0rpx
+                            position absolute
+                            bottom 0rpx
+                            right 90.5rpx
+                        .splitLine
+                            mixinsWidthHeight(0rpx,50rpx)
+                            opacity 0.2488
+                            border 1rpx dashed #FFFFFF
+                            position absolute
+                            top 50%
+                            right 96rpx
+                            transform translateY(-50%)
+                        .leftPass
+                            mixinsWidthHeight(159rpx,)
+                            text-align center
+                            color #FFFFFF
+                            .moneyNum
+                                margin-top 10rpx
+                                font-size 17rpx
+                                font-family Arial-BoldMT-Regular, Arial-BoldMT
+                                font-weight 400
+                                .money
+                                    font-size 34rpx
+                                    font-weight 400
+                            .textMoney
+                                margin-top -6rpx
+                                font-size 16rpx
+                                font-family PingFang SC-Regular, PingFang SC
+                                font-weight 400
+                        .rightPass
+                            mixinsWidthHeight(98rpx,)
+                            display flex
+                            align-items center
+                            justify-content center
+                            .num
+                                font-size 34rpx
+                                font-family ArialMT-Regular, ArialMT
+                                font-weight 400
+                                color #FFFFFF
+        .queryCar
+            mixinsWidthHeight(618rpx,36rpx)
+            font-size 28rpx
+            font-weight 400
+            color #39812B
+            line-height 36rpx
+            text-align center
+            margin 0rpx 0 46rpx 0
+        .btn
+            width 662rpx
+            background #ccc
+        .noBtn
+            background #ccc
+        .yesBtn
+            background #2A4F44

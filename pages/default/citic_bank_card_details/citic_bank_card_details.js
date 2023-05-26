@@ -137,7 +137,6 @@ Page({
 				});
 			}
 		} else {
-            util.showToastNoIcon('暂无中信订单或已有订单但资料未完善，请继续完善资料');
 			if (!flag.length) { this.setData({keepHandle: 0}); }
 		}
 	},

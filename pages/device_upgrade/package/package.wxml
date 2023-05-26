@@ -1,0 +1,52 @@
+<wxs src='../../../utils/util.wxs' module='tools' />
+<view class="index">
+    <!-- 顶部 滑块视图 -->
+    <view class="top">
+        <swiper class="swiper {{tools.dataLen(imgList) === 1 ? 'regular':''}}" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" 	circular interval="{{interval}}" duration="{{duration}}">
+            <block wx:for="{{imgList}}" wx:key="index">
+                <swiper-item class="swiperItem {{tools.dataLen(imgList) === 1 ? 'regular-item':''}}" catchtouchmove="{{tools.dataLen(imgList) === 1 ? 'catchtouchmove':''}}">
+                    <image class="image" src="{{item.imgUrl}}" mode="widthFix"/>
+                </swiper-item>
+            </block>
+        </swiper>
+        <view class="navbar" style="height: {{navbarHeight}}px">
+            
+            <view class="title" style="height: {{custom.height}}px;padding-top: {{custom.top}}px;line-height: {{custom.height}}px;"><view class="iconfont goBack" catchtap="goBack" />设备激活</view>
+        </view>
+    </view>
+    <!-- 模块 -->
+    <view class="module moduleOne">
+        <image class="image" src="{{'https://file.cyzl.com/g001/M01/E0/A4/oYYBAGRteryASYP0AADDFT_BD28500.png'}}" mode="widthFix"/>
+    </view>
+    <view class="module moduleTwo">
+        <image class="image" src="{{'https://file.cyzl.com/g001/M01/E0/A5/oYYBAGRte0KAJbmxAAAzPwoIAzU796.png'}}" mode="widthFix"/>
+    </view>
+    <view class="module moduleThree">
+        <image class="image" src="{{'https://file.cyzl.com/g001/M01/E0/A5/oYYBAGRte4KAE1_0AACx7Vak5Io062.png'}}" mode="widthFix"/>
+    </view>
+    <!-- 描述 -->
+    <view class="describe">
+        <view class="title">看看其他车主怎么说</view>
+        <view class="text" wx:for="{{describeList}}" wx:key="index">
+            <view class="head"><text class="name">{{item.name}}</text>{{item.addrAndYear}}</view>
+            <view class="content">{{item.content}}</view>
+        </view>
+    </view>
+    <!-- 优惠计时 -->
+    <view class=" favourable">
+        <view class="leftImg" />
+        <view class="textTime">
+            <text class="text">以旧换新限时优惠</text>
+            <!-- <text class="time">23</text> :
+            <text class="time">59</text> :
+            <text class="time">59</text> -->
+        </view>
+    </view>
+    <!-- 占位 -->
+    <view class="split" />
+    <view class="handleImmediately">
+        <button class="button" catchtap="onClickHandle">马上升级</button>
+    </view>
+    <!-- 自定义出入方向的弹窗 -->
+    <customDirectionPopup id="cdPopup" />
+</view>

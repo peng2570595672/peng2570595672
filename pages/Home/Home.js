@@ -304,7 +304,7 @@ Page({
 		// 	return;
 		// }
 		let obj = e.currentTarget.dataset.information;
-		console.log(obj)
+		console.log(obj);
 		let appIdPath = Boolean(obj.appId && obj.appId.length > 0);
 		let webPath = obj.jumpUrl.indexOf('https') !== -1;
 		let templateId = obj.templateId && obj.templateId[0] !== '';
@@ -312,8 +312,8 @@ Page({
 			this.handleMall();
 			return;
 		}
-		console.log(appIdPath)
-		console.log(webPath)
+		console.log(appIdPath);
+		console.log(webPath);
 		if (!appIdPath && !webPath) {
 			// 小程序内部页面跳转
 			if (templateId) {
@@ -747,6 +747,7 @@ Page({
 			this.setData({
 				isShowHandle: list.filter(item => item.obuStatus !== 1 && item.obuStatus !== 2 && item.obuStatus !== 5).length > 0
 			});
+			console.log('订单列表：',list);
 			list.map(item => {
 				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
 				// 设备状态 0-待激活，1-已激活，2-已注销  3-开卡 4-发签 5预激活
@@ -773,6 +774,15 @@ Page({
 						activationTruckOrder.push(item.obuCardType);
 						truckActivationOrderList.push(item.id);
 					}
+				}
+				// 已激活的蒙通卡 拉起弹窗
+				if ((item.obuStatus === 1 || item.obuStatus === 5) && item.obuCardType === 2 && !app.globalData.isShowDeviceUpgradePop) {
+					this.selectComponent('#popTipComp').show({
+						type: 'six',
+						title: '设备升级',
+						url: 'https://file.cyzl.com/g001/M01/E0/77/oYYBAGRsakaAdzCdAADVgiHZnGM391.png',
+						orderId: item.id
+					});
 				}
 			});
 			this.initDadi();

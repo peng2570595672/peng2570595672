@@ -952,6 +952,7 @@ Page({
 		this.selectComponent('#cdPopup').show({
 			isBtnClose: false,
 			argObj: {
+				type: 'cicit_bank',
 				title: '办理说明',
 				text1: '1、 中信银行信用卡活动，非持卡人可支付保证金后申请中信银行信用卡指定卡板',
 				text2: '2、 成功办理中信银行信用卡的新客户即退还全额保证金，信用卡申请不通过，可取消订单退还保证金',

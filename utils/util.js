@@ -349,23 +349,16 @@ function uploadFile(filePath, fail, success, complete, onProgressUpdate) {
 			'Content-Type': 'multipart/form-data'
 		},
 		success: (res) => {
-			console.log("成功");
-			console.log(res.data);
 			success && success(res.data);
 		},
 		fail: (res) => {
-			console.log(filePath);
-			console.log(res);
-			console.log("失败");
 			fail && fail(res);
 		},
 		complete: () => {
-			console.log("1");
 			complete && complete();
 		}
 	});
 	requestTask.onProgressUpdate((res) => {
-		console.log("你好111");
 		onProgressUpdate && onProgressUpdate(res);
 	});
 }

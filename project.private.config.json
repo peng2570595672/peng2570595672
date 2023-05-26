@@ -367,6 +367,20 @@
                     "query": "test=undefined",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "设备升级",
+                    "pathName": "pages/device_upgrade/package/package",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "设备升级办理证件页",
+                    "pathName": "pages/device_upgrade/fill_in_information/fill_in_information",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

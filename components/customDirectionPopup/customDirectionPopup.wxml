@@ -1,5 +1,6 @@
 <!-- 滑动组件 层叠样式值 100/101-->
-<view>
+<wxs src='../../utils/util.wxs' module='tools' />
+<view catchtouchmove="{{noSliding ? 'noSliding' : ''}}">
     <!-- 遮罩层 -->
     <view class="mask animated {{mask ? 'fadeIn' : 'fadeOut'}}" wx:if="{{mask}}" catchtap="{{ isBtnClose ? 'hide' : ''}}"></view>
     <!-- 表现层 -->
@@ -7,10 +8,49 @@
         <view class="title">{{argObj.title}}
                 <view class="iconfont btnClose" catchtap="hide"></view>
         </view>
-        <view class="module citicBank" >
+        <!-- 中信 -->
+        <view class="module citicBank" wx:if="{{argObj.type === 'cicit_bank'}}">
             <view class="text">{{argObj.text1}}</view>
             <view class="text">{{argObj.text2}}</view>
-            <view class="btn" catchtap="hide">{{argObj.btnText}}</view>
+            <view class="btn " catchtap="hide">{{argObj.btnText}}</view>
+        </view>
+        <!-- 设备升级 -->
+        <view class="module deviceUpgrade" wx:if="{{argObj.type === 'device_upgrade'}}">
+            <scroll-view scroll-y class="topCar" catchtouchmove=''>
+                <view wx:for="{{carList}}" wx:key="index" data-index="{{index}}" catchtap="selectFunc">
+                    <view class="iconfont carList carNumber {{tools.dataLen(carList) === 1 || index === selectedIndex ? 'yes' : item.obuCardType !== 2 ? 'gray' : 'no' }}">
+                        <view class="head">
+                            <view class="icon">NO</view>
+                            <view class="numberplate">{{item.vehPlates}}</view>
+                        </view>
+                        <view class="handlePhone">办理手机号：{{item.mobilePhone}}</view>
+                    </view>
+                </view>
+            </scroll-view>
+            <view class="queryCar" catchtap="queryCar" wx:if="{{!isHide}}">选择其他车辆升级</view>
+            <view class="carList package" wx:if="{{!isHide}}">
+                <view class="topDiv">
+                    <text class="h3">{{'升级礼包'}}</text>
+                    <text class="text">{{'激活即可获得120元路费补贴'}}</text>
+                </view>
+                <view class="bottomDiv">
+                    <view class="describe">{{'总价120元高速通行券每月可领一张；100元权益商城抵扣券一次性发放'}}</view>
+                    <view class="passTicket">
+                        <view class="sub" wx:for="{{passTicketList}}" wx:key="index">
+                            <view class="splitLine" />
+                            <view class="leftPass">
+                                <view class="moneyNum">¥<text class="money">{{item.money}}</text><text wx:if="{{item.isEquity}}"> 券额</text></view>
+                                <view class="textMoney">{{item.content}}</view>
+                            </view>
+                            <view class="rightPass">
+                                <view class="num">x{{item.num}}</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="btn yesBtn" wx:if="{{!isHide}}" catchtap="handle">{{argObj.btnText}}</view>
+            <view class="btn {{isBtn ? 'yesBtn' : 'noBtn'}}" wx:else catchtap="ok">{{ '确定'}}</view>
         </view>
     </view>
 </view>

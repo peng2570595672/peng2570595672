@@ -1,0 +1,9 @@
+{
+    "navigationBarTitleText": "设备升级",
+    "navigationBarBackgroundColor": "#2A5044",
+    "navigationBarTextStyle": "white",
+    "navigationStyle": "custom",
+    "usingComponents": {
+        "customDirectionPopup": "/components/customDirectionPopup/customDirectionPopup"
+    }
+}
