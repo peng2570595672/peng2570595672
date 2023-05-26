@@ -207,7 +207,20 @@ Page({
 			let type = parseInt(res.data.order_status) === 7 ? 1 : 0;
 			this.submit(type);
 		} else {
-			this.isOver(res.message);
+			wx.hideLoading();
+			this.setData({
+				clickEnabled: true
+			});
+			util.alert({
+				title: '提交失败',
+				content: res.message,
+				confirmText: '知道了',
+				showCancel: false,
+				confirm: () => {
+				},
+				cancel: () => {
+				}
+			});
 		}
 	},
 	isOver (msg) {

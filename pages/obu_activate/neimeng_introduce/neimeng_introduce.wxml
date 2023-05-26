@@ -14,7 +14,7 @@
 	</view>
 	<view class="title">2.打开设备蓝牙</view>
 	<view class="sub-title">
-		<view>按两下设备上的按键打开设备蓝牙，</view>
+		<view>按一下设备上的按键打开设备蓝牙，</view>
 		<view>开启后设备将会响1声并长亮</view>
 	</view>
 	<view class="tips">

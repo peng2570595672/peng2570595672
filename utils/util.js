@@ -4,6 +4,7 @@
  * @description 共用函数
  * @version 1.0
  */
+import {isOpenBluetooth} from './utils';
 const CryptoJS = require('./crypto-js.js');
 const QQMapWX = require('../libs/qqmap-wx-jssdk.min.js');
 let app = getApp();
@@ -1726,11 +1727,32 @@ async function getUserIsVip() {
 		showToastNoIcon(result.message);
 	}
 }
+async function handleBluetoothStatus () {
+	return new Promise(async (resolve, callback) => {
+		if (!await isOpenBluetooth()) {
+			alert({
+				title: '蓝牙中断',
+				content: '检测到您的蓝牙链接中断\n请重新链接',
+				confirmText: '重新连接',
+				showCancel: false,
+				confirm: () => {
+					resolve(true);
+				},
+				cancel: () => {
+					resolve(false);
+				}
+			});
+		} else {
+			return false;
+		}
+	});
+}
 module.exports = {
 	setApp,
 	returnMiniProgram,
 	formatNumber,
 	addProtocolRecord,
+	handleBluetoothStatus,
 	queryProtocolRecord,
 	getRpx,
 	getPx,

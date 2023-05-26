@@ -35,6 +35,7 @@ Page({
 		index: 0,
 		type: 0,
 		selfType: 0,
+		alertNum: 0,
 		oldCardNo: '',
 		oldObuNo: '',
 		repairType: -1 // 1换卡 2 换签 3换卡换签
@@ -54,6 +55,9 @@ Page({
 		});
 		// 8991 7518
 		// app.globalData.orderInfo.orderId = '656545578007658496';
+		this.start();
+	},
+	start () {
 		this.openBluetooth();
 		// 搜索倒计时
 		timer = setTimeout(() => {
@@ -63,6 +67,42 @@ Page({
 				getListFailed: true
 			});
 		}, 15000);
+	},
+	handleRetry () {
+		this.disonnectDevice();
+		this.setData({
+			ui: {
+				showLoading: true, // 是否显示搜索中
+				getListFailed: false, // 获取obu设备
+				deviceName: undefined, // 设备名称
+				connectState: -1, // 是否已连接 默认连接中 1 已连接 2 连接失败
+				isActivating: false, // 是否激活中
+				errMsg: '',
+				msg: '',
+				activated: false, // 是否已经激活
+				returnMiniProgram: 'returnMiniProgram',
+				clickHandle: 'retry',
+				cardNo: '',
+				obuNo: '',
+				isForce: false
+			},
+			host: '',
+			device: undefined,
+			cardNo: '', // 卡号
+			obuNo: '',// obu号
+			currentStep: -1,
+			resultInfo: '',
+			originValue: '',
+			apduFlag: '',
+			result: {},
+			res: [],
+			index: 0,
+			type: 0,
+			selfType: 0,
+			alertNum: 0,
+			isUnload: 0
+		});
+		this.start();
 	},
 	returnMiniProgram () {
 		util.returnMiniProgram();
@@ -155,6 +195,30 @@ Page({
 				this.mySetData({
 					connectState: 1,
 					getListFailed: false
+				});
+				const that = this;
+				wx.onBLEConnectionStateChange(function (res) {
+					if (that.data.ui.activated || that.data.isUnload || res.connected) {
+						return;
+					}
+					that.setData({
+						alertNum: that.data.alertNum + 1
+					});
+					if (that.data.alertNum > 1) {
+						return;
+					}
+					util.alert({
+						title: '蓝牙中断',
+						content: '检测到您的蓝牙链接中断\n请重新链接',
+						confirmText: '重新连接',
+						showCancel: false,
+						confirm: () => {
+							that.setData({
+								alertNum: 0
+							});
+							that.handleRetry();
+						}
+					});
 				});
 			},
 			fail: (res) => {

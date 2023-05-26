@@ -28,9 +28,12 @@ Page({
 		host: '',
 		errMsg: '',
 		msg: '',
-		activated: 0
+		activated: 0,
+		alertNum: 0,
+		isUnload: 0
 	},
 	onLoad () {
+		wx.closeBluetoothAdapter();
 		// // TODO TEST CODE
 		// app.globalData.orderInfo.orderId = '638787874229059584';
 		this.start();
@@ -39,12 +42,15 @@ Page({
 		bleUtil.disConnect({
 			success: res => {
 				console.log(res);
+				wx.closeBluetoothAdapter();
 			},
 			fail: res => {
 				console.log(res);
+				wx.closeBluetoothAdapter();
 			}
 		}, 15000);
 		this.setData({
+			alertNum: 0,
 			showLoading: 1,	// 是否显示搜索中
 			getListFailed: 0,	// 获取obu设备
 			deviceName: undefined,	// 设备名称
@@ -74,7 +80,6 @@ Page({
 		this.openBluetooth();
 		// 搜索倒计时
 		timer = setTimeout(() => {
-			wx.closeBluetoothAdapter();
 			this.setData({showLoading: 0, getListFailed: 1});
 			this.isOver();
 		}, 15000);
@@ -117,6 +122,30 @@ Page({
 								getListFailed: 0
 							});
 							this.setData({msg: 'OBU连接成功'});
+							const that = this;
+							wx.onBLEConnectionStateChange(function (res) {
+								if (that.data.activated || that.data.isUnload || res.connected) {
+									return;
+								}
+								that.setData({
+									alertNum: that.data.alertNum + 1
+								});
+								if (that.data.alertNum > 1) {
+									return;
+								}
+								util.alert({
+									title: '蓝牙中断',
+									content: '检测到您的蓝牙链接中断\n请重新链接',
+									confirmText: '重新连接',
+									showCancel: false,
+									confirm: () => {
+										that.setData({
+											alertNum: 0
+										});
+										that.handleRetry();
+									}
+								});
+							});
 						},
 						fail: res => {
 							console.warn('连接 & 部署设备失败: ', res);
@@ -148,7 +177,11 @@ Page({
 		}
 	},
 	// 重置
-	isOver (errMsg) {
+	async isOver (errMsg) {
+		if (await util.handleBluetoothStatus()) {
+			this.handleRetry();
+			return;
+		}
 		this.setData({isActivating: 0});
 		errMsg && this.setData({errMsg});
 	},
@@ -180,7 +213,7 @@ Page({
 		let cosArr = [];
 		cosArr.push('00A40000023F00');
 		cosArr.push('00B081001B');
-		this.transCommand(1, cosArr, (code, res) => {
+		this.transCommand(1, cosArr, (code, res, err) => {
 			let info = res[1];
 			if (+code === 0) {
 				// 发行方标识
@@ -217,7 +250,7 @@ Page({
 				// 读取卡片表面号
 				this.cardSurfaceNumber();
 			} else {
-				this.isOver('读取系统信息失败');
+				this.isOver(err + ',读取系统信息失败');
 			}
 		});
 	},
@@ -227,7 +260,7 @@ Page({
 		cosArr.push('00A40000021001');
 		// cosArr.push('0020000003123456');	// 0020 0000 pin码位数 pin码
 		cosArr.push('00B095002B');
-		this.transCommand(0, cosArr, (code, res) => {
+		this.transCommand(0, cosArr, (code, res, err) => {
 			console.log('读取卡片信息：');
 			console.log(code);
 			console.log(res);
@@ -282,7 +315,7 @@ Page({
 				// 获取步骤信息
 				this.getCurrentStep();
 			} else {
-				this.isOver('读取卡片信息失败');
+				this.isOver(err + ',读取卡片信息失败');
 			}
 		});
 	},
@@ -331,11 +364,11 @@ Page({
 		let cosArr = [];
 		cosArr.push(cmd);
 		console.log('写卡（持卡人信息）指令：', cmd);
-		this.transCommand(0, cosArr, (code, res) => {
+		this.transCommand(0, cosArr, (code, res, err) => {
 			console.log('写卡（持卡人信息）返回：', res);
 			// 写卡
 			if (!/9000$/.test(res[0])) {
-				this.isOver('写卡（持卡人信息）失败');
+				this.isOver(err + ',写卡（持卡人信息）失败');
 				return;
 			}
 			// 下一步：更新卡发行信息
@@ -389,11 +422,11 @@ Page({
 		let cosArr = [];
 		cosArr.push(cmd);
 		console.log('写卡（卡发行信息）指令：', cmd);
-		this.transCommand(0, cosArr, (code, res) => {
+		this.transCommand(0, cosArr, (code, res, err) => {
 			console.log('写卡（卡发行信息）返回：', res);
 			// 写卡
 			if (!/9000$/.test(res[0])) {
-				this.isOver('写卡（卡发行信息）失败');
+				this.isOver(err + ',写卡（卡发行信息）失败');
 				return;
 			}
 			// 下一步：更新订单（卡发行）
@@ -524,11 +557,11 @@ Page({
 		let cmd = info.data.FileData + info.data.Mac;
 		let cosArr = [];
 		cosArr.push(cmd);
-		this.transCommand(1, cosArr, (code, res) => {
+		this.transCommand(1, cosArr, (code, res, err) => {
 			console.log('写obu（系统信息）返回：', res);
 			// 写obu
 			if (!/9000$/.test(res[0])) {
-				this.isOver('写obu（系统信息）失败');
+				this.isOver(err + ',写obu（系统信息）失败');
 				return;
 			}
 			// 下一步：更新订单（obu发行）
@@ -621,12 +654,15 @@ Page({
 			},
 			fail: res => {
 				console.error(arr, res);
-				callback(1, res.data || []);
+				callback(1, res.data || [], res.msg);
 			}
 		}, 15000);
 	},
 
 	onHide () {
-		wx.closeBluetoothAdapter();
+		// wx.closeBluetoothAdapter();
+	},
+	onUnload () {
+		this.setData({isUnload: 1});
 	}
 });

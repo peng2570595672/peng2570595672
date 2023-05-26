@@ -23,9 +23,12 @@ Page({
 		carInfoFromOBU: undefined,	// 设备中的车辆信息 密文
 		errMsg: '',
 		msg: '',
-		activated: 0
+		activated: 0,
+		alertNum: 0,
+		isUnload: 0
 	},
 	onLoad () {
+		wx.closeBluetoothAdapter();
 		this.setData({
 			urlPrefix: 'consumer/etc/nmg/gm/common/cardonline'
 		});
@@ -37,13 +40,16 @@ Page({
 	handleRetry () {
 		bleUtil.disConnect({
 			success: res => {
+				wx.closeBluetoothAdapter();
 				console.log(res);
 			},
 			fail: res => {
+				wx.closeBluetoothAdapter();
 				console.log(res);
 			}
 		}, 15000);
 		this.setData({
+			alertNum: 0,
 			showLoading: 1,	// 是否显示搜索中
 			getListFailed: 0,	// 获取obu设备
 			deviceName: undefined,	// 设备名称
@@ -65,7 +71,6 @@ Page({
 		this.openBluetooth();
 		// 搜索倒计时
 		timer = setTimeout(() => {
-			wx.closeBluetoothAdapter();
 			this.setData({showLoading: 0, getListFailed: 1});
 			this.isOver();
 		}, 15000);
@@ -86,12 +91,12 @@ Page({
 			this.scanBle(device => {
 				if (+device === 1) return failed();
 				console.log('搜索到设备：', device);
-				clearTimeout(timer);
 				this.setData({
 					deviceName: device.name,
 					showLoading: 0,
 					getListFailed: 0
 				});
+				clearTimeout(timer);
 				connectBle(device);	// 连接 OBU 设备
 			});
 		};
@@ -108,6 +113,30 @@ Page({
 								getListFailed: 0
 							});
 							this.setData({msg: 'OBU连接成功'});
+							const that = this;
+							wx.onBLEConnectionStateChange(function (res) {
+								if (that.data.activated || that.data.isUnload || res.connected) {
+									return;
+								}
+								that.setData({
+									alertNum: that.data.alertNum + 1
+								});
+								if (that.data.alertNum > 1) {
+									return;
+								}
+								util.alert({
+									title: '蓝牙中断',
+									content: '检测到您的蓝牙链接中断\n请重新链接',
+									confirmText: '重新连接',
+									showCancel: false,
+									confirm: () => {
+										that.setData({
+											alertNum: 0
+										});
+										that.handleRetry();
+									}
+								});
+							});
 						},
 						fail: res => {
 							console.warn('连接 & 部署设备失败: ', res);
@@ -139,7 +168,11 @@ Page({
 		}
 	},
 	// 重置
-	isOver (errMsg) {
+	async isOver (errMsg) {
+		if (await util.handleBluetoothStatus()) {
+			this.handleRetry();
+			return;
+		}
 		this.setData({isActivating: 0});
 		errMsg && this.setData({errMsg});
 	},
@@ -158,7 +191,7 @@ Page({
 		let cosArr = [];
 		cosArr.push('00A40000023F00');
 		cosArr.push('00B081001B');
-		this.transCommand(1, cosArr, (code, res) => {
+		this.transCommand(1, cosArr, (code, res, err) => {
 			let info = res[1];
 			if (+code === 0) {
 				// 发行方标识
@@ -195,7 +228,7 @@ Page({
 				// 读取卡片表面号
 				this.cardSurfaceNumber();
 			} else {
-				this.isOver('读取系统信息失败');
+				this.isOver(err + ',读取系统信息失败');
 			}
 		});
 	},
@@ -205,7 +238,7 @@ Page({
 		cosArr.push('00A40000021001');
 		// cosArr.push('0020000003123456');	// 0020 0000 pin码位数 pin码
 		cosArr.push('00B095002B');
-		this.transCommand(0, cosArr, (code, res) => {
+		this.transCommand(0, cosArr, (code, res, err) => {
 			console.log('读取卡片信息：');
 			console.log(code);
 			console.log(res);
@@ -253,7 +286,7 @@ Page({
 				});
 				this.getRandomForReadCarInfoFromOBU();
 			} else {
-				this.isOver('读取卡片信息失败');
+				this.isOver(err + ',读取卡片信息失败');
 			}
 		});
 	},
@@ -274,10 +307,10 @@ Page({
 	getCarInfoFromObu (random) {
 		let cosArr = [];
 		cosArr.push(`00B400000A${random}000000004F00`);
-		this.transCommand(1, cosArr, (code, res) => {
+		this.transCommand(1, cosArr, (code, res, err) => {
 			console.log(res);
 			if (!/9000$/.test(res[0])) {
-				this.isOver('获取车辆密文信息失败');
+				this.isOver(err + ',获取车辆密文信息失败');
 				return;
 			}
 			let info = res[0];
@@ -331,11 +364,11 @@ Page({
 		let cosArr = [];
 		cosArr.push(cmd);
 		console.log('激活obu指令：', cmd);
-		this.transCommand(1, cosArr, (code, res) => {
+		this.transCommand(1, cosArr, (code, res, err) => {
 			console.log('激活obu返回：', res);
 			// 写卡
 			if (!/9000$/.test(res[0])) {
-				this.isOver('激活obu失败');
+				this.isOver(err + ',激活obu失败');
 				return;
 			}
 			// 调用确认接口
@@ -407,11 +440,14 @@ Page({
 			},
 			fail: res => {
 				console.error(arr, res);
-				callback(1, res.data || []);
+				callback(1, res.data || [], res.msg || '');
 			}
 		}, 15000);
 	},
 	onHide () {
-		wx.closeBluetoothAdapter();
+		// wx.closeBluetoothAdapter();
+	},
+	onUnload () {
+		this.setData({isUnload: 1});
 	}
 });
