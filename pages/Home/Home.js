@@ -330,10 +330,12 @@ Page({
 				this.initNoticeTodayMask(obj);
 				break;
 			case 2:
-				if (obj.popUpType === 1) {
+				if (obj.popUpType === 1 && !app.globalData.alertNotice.imgAlert) {
+					app.globalData.alertNotice.imgAlert = 1;
 					// 图片弹窗
 					this.selectComponent('#noticeImgDialog').show(obj);
-				} else {
+				} else if (obj.popUpType === 2 && !app.globalData.alertNotice.textAlert) {
+					app.globalData.alertNotice.textAlert = 1;
 					this.selectComponent('#noticeDialog').show(obj);
 				}
 				break;
