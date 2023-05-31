@@ -11,6 +11,8 @@
       "authorization-phone": "/components/authorization_phone/authorization_phone",
       "view-img": "/components/viewImg/viewImg",
       "popTipComp": "/components/popTipComp/popTipComp",
-      "equipment_selection": "/components/equipment_selection/equipment_selection"
+      "equipment_selection": "/components/equipment_selection/equipment_selection",
+      "noticeDialog": "/components/notice_dialog/notice_dialog",
+      "noticeImgDialog": "/components/notice_img_dialog/notice_img_dialog"
 	}
 }

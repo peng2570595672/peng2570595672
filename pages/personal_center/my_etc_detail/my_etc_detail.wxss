@@ -8,6 +8,9 @@
   width: 322rpx;
   height: 224rpx;
 }
+.my-etc-detail > image.new-device {
+  margin-bottom: 60rpx;
+}
 .my-etc-detail .border {
   margin-top: 6rpx;
   margin-bottom: 15rpx;
