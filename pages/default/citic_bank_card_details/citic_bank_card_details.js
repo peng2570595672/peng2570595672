@@ -56,7 +56,7 @@ Page({
         citicBank: false, // 是否有中信银行联名套餐的订单
 		transactScheduleData: undefined,	// 中信银行信用卡申请进度查询结果
 		showhandleOrView: false,	// 中信银行信用卡 false 表示 ”查看信用卡办理进度“
-		keepHandle: 1	//	控制底部悬浮按钮的文案展示
+		keepHandle: 0	//	控制底部悬浮按钮的文案展示
     },
 
     /**
@@ -121,6 +121,7 @@ Page({
 			flag = app.globalData.myEtcList.filter(item => item.shopProductId === app.globalData.cictBankObj.citicBankshopProductId || item.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId);
 			this.setData({viewCiticBankList: flag});
 		}
+		this.setData({keepHandle: flag.length});
 		if (flag.length > 0 && flag[0].isOwner && flag[0].isVehicle) {
 			this.setData({
 				citicBank: true,
@@ -136,8 +137,6 @@ Page({
 					showhandleOrView: result.data[0].applyStatus === '111' || result.data[0].applyStatus === '112'
 				});
 			}
-		} else {
-			if (!flag.length) { this.setData({keepHandle: 0}); }
 		}
 	},
     // 中信联名权益 查看
