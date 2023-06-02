@@ -163,6 +163,7 @@ Page({
 		this.setData({
 			date: new Date()
 		});
+		this.getConfiguration();
 		app.globalData.isTruckHandling = false;
 		app.globalData.isNeedReturnHome = false;
 		if (!app.globalData.userInfo.accessToken) {
@@ -269,6 +270,119 @@ Page({
 			});
 		}
 	},
+	// 获取公告配置的数据
+	async getConfiguration () {
+		let res = await util.getDataFromServersV2('consumer/member/common/pageConfig/query',{
+			configType: 3, // 配置类型(1:小程序首页配置;2:客车介绍页配置;3:首页公告配置;4:个人中心配置)
+			pagePath: 1, // 页面路径(1:小程序首页；2：客车介绍页；)
+			platformType: 4, // 小程序平台(1:ETC好车主;2:微ETC;4:ETC+)，对于多选情况，将值与对应枚举值做与运算，结果为1则包含该选项。
+			channel: 0, // 渠道(0:所有渠道;)
+			affectArea: '0' // 面向区域(0:全国)
+		});
+		if (!res) return;
+		if (res.code === 0) {
+			let list = res.data.contentConfig?.notifyConfig?.popUp;	// 数据
+			// 当前时间不在限定时间内，不往下执行
+			if (!util.isDuringDate(res.data.affectStartTime, res.data.affectEndTime)) {
+				// 获取的数据不符合是使用默认数据来展示
+				wx.removeStorageSync('alert-notice-text');
+				wx.removeStorageSync('alert-notice-img');
+				wx.removeStorageSync('alert-notice-today');
+				return;
+			}
+			// 记录修改时间,要是已经修改过了,先移除缓存,避免修改后不生效
+			let noticeEditTime = wx.getStorageSync('alert-notice-edit-time');
+			if (noticeEditTime && res.data.lastOpTime !== noticeEditTime) {
+				wx.removeStorageSync('alert-notice-text');
+				wx.removeStorageSync('alert-notice-img');
+				wx.removeStorageSync('alert-notice-today');
+			} else {
+				wx.setStorageSync('alert-notice-edit-time', res.data.lastOpTime);
+			}
+			// popUpType 1-图片  2-文字
+			// popUpRule 1-每日首次进入弹出一次 2-每次进入弹出一次 3-公告生效时间进入弹出一次
+			let newList = [];
+			list.map(item => {
+				if (util.isDuringDate(item.affectStartTime, item.affectEndTime)) {
+					newList.push(item);
+				}
+			});
+			if (newList.length) {
+				if (newList.length > 1) {
+					// 文字弹窗展示在最上层
+					const imgObj = newList.find(item => item.popUpType === 1);
+					const textObj = newList.find(item => item.popUpType === 2);
+					this.initNoticeMask(imgObj);
+					setTimeout(() => {
+						this.initNoticeMask(textObj);
+					}, 100);
+				} else {
+					const obj = newList[0];
+					this.initNoticeMask(obj);
+				}
+			}
+		}
+	},
+	initNoticeMask (obj) {
+		// popUpRule 1-每日首次进入弹出一次 2-每次进入弹出一次 3-公告生效时间进入弹出一次
+		switch (obj.popUpRule) {
+			case 1:
+				this.initNoticeTodayMask(obj);
+				break;
+			case 2:
+				if (obj.popUpType === 1 && !app.globalData.alertNotice.imgAlert) {
+					app.globalData.alertNotice.imgAlert = 1;
+					// 图片弹窗
+					this.selectComponent('#noticeImgDialog').show(obj);
+				} else if (obj.popUpType === 2 && !app.globalData.alertNotice.textAlert) {
+					app.globalData.alertNotice.textAlert = 1;
+					this.selectComponent('#noticeDialog').show(obj);
+				}
+				break;
+			case 3:
+				let noticeText = wx.getStorageSync('alert-notice-text');
+				let noticeImg = wx.getStorageSync('alert-notice-img');
+				if (obj.popUpType === 1 && !noticeImg) {
+					// 图片弹窗
+					wx.setStorageSync('alert-notice-img', 1);
+					this.selectComponent('#noticeImgDialog').show(obj);
+				} else if (obj.popUpType === 2 && !noticeText) {
+					wx.setStorageSync('alert-notice-text', 1);
+					this.selectComponent('#noticeDialog').show(obj);
+				}
+				break;
+		}
+	},
+	initNoticeTodayMask (obj) {
+		let time = new Date().toLocaleDateString();
+		let that = this;
+		// 首先获取是否执行过
+		wx.getStorage({
+			key: 'alert-notice-today',
+			success: function (res) {
+				// 成功的话 说明之前执行过，再判断时间是否是当天
+				if (res.data && res.data !== time) {
+					wx.setStorageSync('alert-notice-today', time);
+					if (obj.popUpType === 1) {
+						// 图片弹窗
+						that.selectComponent('#noticeImgDialog').show(obj);
+					} else {
+						that.selectComponent('#noticeDialog').show(obj);
+					}
+				}
+			},
+			fail: function (res) {
+				// 没有执行过的话 先存一下当前的执行时间
+				if (obj.popUpType === 1) {
+					// 图片弹窗
+					that.selectComponent('#noticeImgDialog').show(obj);
+				} else {
+					that.selectComponent('#noticeDialog').show(obj);
+				}
+				wx.setStorageSync('alert-notice-today', time);
+			}
+		});
+	},
 	// 排序
 	compare (prop) {
 		return function (obj1, obj2) {
@@ -294,6 +408,16 @@ Page({
 		this.setData({
 			Hei: swiperH + 'rpx' // 设置高度
 		});
+	},
+	onHandleNotice (info) {
+		const obj = {
+			currentTarget: {
+				dataset: {
+					information: info.detail
+				}
+			}
+		};
+		this.goPath(obj);
 	},
 	// 跳转页面、小程序、第三方
 	goPath (e) {

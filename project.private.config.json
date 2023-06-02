@@ -20,6 +20,7 @@
                     "name": "个人中心",
                     "pathName": "pages/personal_center/index/index",
                     "query": "",
+                    "launchMode": "default",
                     "scene": null
                 },
                 {
@@ -379,6 +380,27 @@
                     "name": "设备升级办理证件页",
                     "pathName": "pages/device_upgrade/fill_in_information/fill_in_information",
                     "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1101196259089190912",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1107665398720892928",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1101196259089190912",
                     "launchMode": "default",
                     "scene": null
                 },

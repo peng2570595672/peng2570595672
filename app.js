@@ -137,6 +137,10 @@ App({
 			citicBankShopshopProductId: IS_TEST ? '1108397635760300032' : '1109116407530528768',	// 中信银行里的白金套餐的套餐ID 分别是测试环境下和正式环境下
 			citicBankRightId: IS_TEST ? '1092482405515665408' : '1098182289300922368'	// 中信银行签约后独立权益ID
 		},
+		alertNotice: {
+			imgAlert: 0,
+			textAlert: 0
+		},// 公告弹窗次数
 		salesmanEmptyObj: {},	// 业务员空发对象
 		isShowDeviceUpgradePop: true,	// 控制首页设备升级弹窗的显示（每次进入都显示）
 		deviceUpgrade: {

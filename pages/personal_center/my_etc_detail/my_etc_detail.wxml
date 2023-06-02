@@ -1,7 +1,7 @@
 <wxs src='../../../utils/util.wxs' module='tools' />
 <view class="my-etc-detail animated fadeIn" wx:if="{{orderInfo}}">
 	<!--	设备图开始-->
-	<image src="/pages/personal_center/assets/etc_device.png"/>
+	<image class="{{orderInfo.obuCardType === 2 ? 'new-device' : ''}}" src="{{orderInfo.obuCardType === 2 ? 'https://file.cyzl.com/g001/M01/E2/02/oYYBAGR0WyeAXMD4AAAy7N6Wk7g633.png' : '/pages/personal_center/assets/etc_device.png'}}"/>
 	<!--	设备图结束-->
 	<!--	分割线开始-->
 	<view class="border"></view>

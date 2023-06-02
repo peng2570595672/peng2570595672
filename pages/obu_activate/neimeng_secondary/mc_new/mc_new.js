@@ -168,11 +168,7 @@ Page({
 		}
 	},
 	// 重置
-	async isOver (errMsg) {
-		if (await util.handleBluetoothStatus()) {
-			this.handleRetry();
-			return;
-		}
+	isOver (errMsg) {
 		this.setData({isActivating: 0});
 		errMsg && this.setData({errMsg});
 	},

@@ -1,0 +1,12 @@
+<wxs src='../../utils/util.wxs' module='tools' />
+<view>
+    <view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}"></view>
+    <view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}" wx:if="{{mask}}">
+        <view class="module">
+            <image class="image" src="{{tipObj.imgUrl}}" catchtap="handleNotice" mode="widthFix"/>
+            <view class="close" catchtap="hide">
+                <image class="image" src="{{'https://file.cyzl.com/g001/M01/E0/7D/oYYBAGRscuOAIh4cAAAC8Jl08pY127.png'}}" mode="widthFix" />
+            </view>
+        </view>
+    </view>
+</view>

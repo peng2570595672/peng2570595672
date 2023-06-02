@@ -1,0 +1,52 @@
+@import "animate.styl";
+.container
+	.mask
+		position fixed
+		top 0
+		right 0
+		bottom 0
+		left 0
+		background: rgba(0, 0, 0, .5)
+		z-index 100000000000
+		backdrop-filter: blur(30rpx)
+	.wrapper
+		position fixed
+		top 50%
+		left 0
+		right 0
+		width 694rpx
+		padding 48rpx
+		margin -359rpx auto 0
+		box-sizing border-box
+		background: #fff
+		border-radius 16rpx
+		z-index 100000000001
+		.alert-box
+			max-height 400rpx
+			overflow-y scroll
+			.alert-info
+				//text-align center
+				.wscnph,
+				.img
+					width 100%
+		.title
+			text-align center
+			font-size: 44rpx;
+			font-family: PingFang SC-Medium, PingFang SC;
+			font-weight: 500;
+			color: #1E1E1E;
+			line-height: 52rpx;
+			padding-bottom 34rpx
+		.btn
+			display flex
+			align-items center
+			justify-content center
+			width: 318rpx;
+			height: 106rpx;
+			background: #2A4F44;
+			font-size: 36rpx;
+			color #fff
+			font-family: PingFang SC-Regular, PingFang SC;
+			font-weight: 400;
+			border-radius 53rpx
+			margin 30rpx auto 0
