@@ -96,7 +96,7 @@ textLineCenter($height)
                     line-height 46rpx
                     padding 0 20rpx
                     border-radius 24rpx
-                    background #5EBE68
+                    background #2A4F44
                     display flex
                     .text
                         min-width 100rpx
@@ -124,7 +124,7 @@ textLineCenter($height)
                         display inline-block
                         content '\e64d'
                         font-size 40rpx
-                        color #5EBE68
+                        color #2A4F44
                 .sim
                     mixinsWidthHeight(45rpx,45rpx)
                     padding 0
@@ -133,11 +133,30 @@ textLineCenter($height)
                         display inline-block
                         content '\e65c'
                         font-size 40rpx
-                        color #5EBE68
-            &:nth-of-type(4) 
-                .publicCoderight 
-                    .input
-                        width 100%
+                        color #2A4F44
+                .updated
+                    mixinsWidthHeight(80rpx,60rpx)
+                    padding 0
+                    textLineCenter(60rpx)
+                    background-color #ffffff
+                    &::before
+                        display inline-block
+                        content '修改'
+                        font-size 28rpx
+                        font-family PingFang SC-Regular, PingFang SC
+                        font-weight 400
+                        color #F19C38
+                .getCode
+                    mixinsWidthHeight(150rpx,60rpx)
+                    padding 0
+                    font-size 28rpx
+                    background-color #ffffff
+                    font-family PingFang SC-Regular, PingFang SC
+                    font-weight 400
+                    color #F19C38
+                    textLineCenter(60rpx)
+                          
+                        
     .moduleOne
         mixinsWidthHeight(auto,auto)
     .moduleTwo
@@ -148,7 +167,6 @@ textLineCenter($height)
             font-family PingFang SC-Regular, PingFang SC
             font-weight 400
             color #1E1E1E
-            
     .tip_1
         margin 0rpx 0rpx 28rpx 52rpx
         mixinsWidthHeight(646rpx,68rpx)
@@ -158,14 +176,37 @@ textLineCenter($height)
         color #FA0000
         line-height 34rpx
     .moduleThree
-        mixinsWidthHeight(auto,532rpx)
+        mixinsWidthHeight(auto,auto)
+        .carPhone
+            height 100rpx
         .publicCodeLeft
             color #3D3D3D
             width 160rpx !important
+            overflow hidden
         .publicCoderight
             width 500rpx !important
-        .picker
-            width 400rpx
+            .phone
+                mixinsWidthHeight(380rpx,80rpx)
+                margin -20rpx 0 0 20rpx
+                display flex
+                overflow hidden
+                .marginImg
+                    margin-right 20rpx
+                    mixinsWidthHeight(140rpx,80rpx)
+                    .image
+                        mixinsWidthHeight(100%,100%)
+            .input
+                display block
+                width 380rpx
+            .inputCode
+                display block
+                width 300rpx
+                margin-left 20rpx
+                color #1E1E1E
+                font-size 28rpx
+                font-weight 600
+
+
      /* 占位 */
     .split
         mixinsWidthHeight(,280rpx)

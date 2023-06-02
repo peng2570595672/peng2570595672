@@ -97,7 +97,7 @@
   line-height: 46rpx;
   padding: 0 20rpx;
   border-radius: 24rpx;
-  background: #5ebe68;
+  background: #2a4f44;
   display: flex;
 }
 .index .module .publicCode .publicCoderight .btns .text {
@@ -130,7 +130,7 @@
   display: inline-block;
   content: '\e64d';
   font-size: 40rpx;
-  color: #5ebe68;
+  color: #2a4f44;
 }
 .index .module .publicCode .publicCoderight .sim {
   width: 45rpx;
@@ -142,10 +142,35 @@
   display: inline-block;
   content: '\e65c';
   font-size: 40rpx;
-  color: #5ebe68;
+  color: #2a4f44;
 }
-.index .module .publicCode:nth-of-type(4) .publicCoderight .input {
-  width: 100%;
+.index .module .publicCode .publicCoderight .updated {
+  width: 80rpx;
+  height: 60rpx;
+  padding: 0;
+  text-align: center;
+  line-height: 60rpx;
+  background-color: #fff;
+}
+.index .module .publicCode .publicCoderight .updated::before {
+  display: inline-block;
+  content: '修改';
+  font-size: 28rpx;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #f19c38;
+}
+.index .module .publicCode .publicCoderight .getCode {
+  width: 150rpx;
+  height: 60rpx;
+  padding: 0;
+  font-size: 28rpx;
+  background-color: #fff;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #f19c38;
+  text-align: center;
+  line-height: 60rpx;
 }
 .index .moduleOne {
   width: auto;
@@ -174,17 +199,46 @@
 }
 .index .moduleThree {
   width: auto;
-  height: 532rpx;
+  height: auto;
+}
+.index .moduleThree .carPhone {
+  height: 100rpx;
 }
 .index .moduleThree .publicCodeLeft {
   color: #3d3d3d;
   width: 160rpx !important;
+  overflow: hidden;
 }
 .index .moduleThree .publicCoderight {
   width: 500rpx !important;
 }
-.index .moduleThree .picker {
-  width: 400rpx;
+.index .moduleThree .publicCoderight .phone {
+  width: 380rpx;
+  height: 80rpx;
+  margin: -20rpx 0 0 20rpx;
+  display: flex;
+  overflow: hidden;
+}
+.index .moduleThree .publicCoderight .phone .marginImg {
+  margin-right: 20rpx;
+  width: 140rpx;
+  height: 80rpx;
+}
+.index .moduleThree .publicCoderight .phone .marginImg .image {
+  width: 100%;
+  height: 100%;
+}
+.index .moduleThree .publicCoderight .input {
+  display: block;
+  width: 380rpx;
+}
+.index .moduleThree .publicCoderight .inputCode {
+  display: block;
+  width: 300rpx;
+  margin-left: 20rpx;
+  color: #1e1e1e;
+  font-size: 28rpx;
+  font-weight: 600;
 }
 .index .split {
   width: 100%;

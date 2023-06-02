@@ -79,6 +79,20 @@ vendors = official
     font-style normal
     -webkit-font-smoothing antialiased
     -moz-osx-font-smoothing grayscale
+mixinsWidthHeight($width = 100%, $height = 100%)
+    width $width
+    height $height
+mixinsIconfont($content='',$size=16px,$color=#5EBE68)
+    content $content
+    font-size $size
+    color $color
+mixinsPositionPack($position=relative)
+    position $position
+    left 50%
+    transform translateX(-50%)
+textLineCenter($height)
+    text-align center
+    line-height $height
 .alert-for-not-finished
     position fixed
     left 0
@@ -229,3 +243,30 @@ vendors = official
             .image
                 width 100%
                 height 100%
+    // 查看图片
+    .moduleSeven
+        mixinsWidthHeight(694rpx, 450rpx)
+        border-radius 16rpx
+        margin-top -100rpx
+        position relative
+        .contant
+            mixinsWidthHeight(100%,100%)
+            border-radius 16rpx
+            overflow hidden
+            .image
+                mixinsWidthHeight(100%,100%)
+        .close
+            mixinsPositionPack(absolute)
+            mixinsWidthHeight(60rpx,60rpx)
+            bottom -120rpx
+            overflow hidden
+            border-radius 50%
+            border 5rpx solid #ffffff
+            &::before
+                mixinsWidthHeight(100%,100%)
+                display block
+                content '\e63d'
+                font-size 35rpx
+                color #FFFFFF
+                text-align center
+                line-height 60rpx

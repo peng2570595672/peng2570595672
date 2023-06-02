@@ -8,7 +8,7 @@
         <view class="publicCode">
             <view class="publicCodeLeft">收货人</view>
             <view class="publicCoderight">
-                <input class="input" type="text" placeholder="输入收货人姓名" value="{{formData.userName}}" maxlength="{{size}}" data-name="userName"  placeholder-class="input-placeholder" bindinput="onInputChangedHandle" bindfocus="focus"/>
+                <input class="input" type="text" placeholder="输入收货人姓名" value="{{formData.userName}}" maxlength="{{size}}" data-name="userName"  placeholder-class="input-placeholder" bindinput="onInputChangedHandle" />
                 <view class="btns" catchtap="onClickAutoFillHandle">
                     <span class="wChat iconfont" />
                     <span class="text">选择微信地址</span>
@@ -19,7 +19,7 @@
         <view class="publicCode">
             <view class="publicCodeLeft">选择地区</view>
             <view class="publicCoderight">
-                <picker class="input" mode="region" value="{{formData.region}}" bindchange="onPickerChangedHandle" catchtap="focus">
+                <picker class="input" mode="region" value="{{formData.region}}" bindchange="onPickerChangedHandle" >
                     <view wx:if="{{tools.addressFormat(formData.region)}}">{{tools.addressFormat(formData.region)}}</view>
                     <span wx:else class="input-placeholder">选择收货 省-市-区</span>
                 </picker>
@@ -29,13 +29,13 @@
         <view class="publicCode">
             <view class="publicCodeLeft">详细地址</view>
             <view class="publicCoderight">
-                <input class="input" type="text" placeholder="输出详细收货地址" value="{{formData.detailInfo}}" data-name="detailInfo" placeholder-class="input-placeholder"  bindinput="onInputChangedHandle" bindfocus="focus"/>
+                <input class="input" type="text" placeholder="输出详细收货地址" value="{{formData.detailInfo}}" data-name="detailInfo" placeholder-class="input-placeholder"  bindinput="onInputChangedHandle"/>
             </view>
         </view>
         <view class="publicCode">
             <view class="publicCodeLeft">手机号</view>
             <view class="publicCoderight">
-                <input class="input" type="number" placeholder="输入收货手机号" value="{{formData.telNumber}}"  data-name="telNumber" placeholder-class="input-placeholder" maxlength="11"  bindinput="onInputChangedHandle" bindfocus="focus"/>
+                <input class="input" type="number" placeholder="输入收货手机号" value="{{formData.telNumber}}"  data-name="telNumber" placeholder-class="input-placeholder" maxlength="11"  bindinput="onInputChangedHandle" />
                 <text class="errTip" wx:if="{{tip3}}">{{tip3}}</text>
             </view>
         </view>
@@ -65,30 +65,48 @@
             <view class="publicCodeLeft">身份证姓名</view>
             <view class="publicCoderight">
                 <input class="input" type="text" value="{{paper.idName}}" disabled/>
+                <view class="updated" data-name="idCard" bindtap="uploadInfo"></view>
             </view>
         </view>
         <view class="publicCode">
             <view class="publicCodeLeft">身份证号码</view>
             <view class="publicCoderight">
                 <input class="input" type="text" value="{{paper.idNum}}" disabled/>
+                <view class="updated" data-name="idCard" bindtap="uploadInfo"></view>
+            </view>
+        </view>
+        <view class="publicCode carPhone">
+            <view class="publicCodeLeft">车辆行驶证</view>
+            <view class="publicCoderight">
+                <view class="phone">
+                    <view class="marginImg" data-name="bigImg" data-url="{{paper.licenseInformation.licenseMainPage}}" catchtap="uploadInfo"><image class="image" src="{{paper.licenseInformation.licenseMainPage}}"/></view>
+                    <view class="marginImg" data-name="bigImg" data-url="{{paper.licenseInformation.licenseVicePage}}" catchtap="uploadInfo"><image class="image" src="{{paper.licenseInformation.licenseVicePage}}"/></view>
+                </view>
+                <view class="updated" data-name="license" bindtap="uploadInfo"></view>
+            </view>
+        </view>
+        <view class="publicCode carPhone">
+            <view class="publicCodeLeft">车辆照片</view>
+            <view class="publicCoderight" bindchange="onPersonsCapacityPickerChange">
+                <view class="phone">
+                    <view class="marginImg" data-name="bigImg" data-url="{{paper.carHeadPhone}}" catchtap="uploadInfo"><image class="image" src="{{paper.carHeadPhone}}"/></view>
+                </view>
+                <view class="updated" data-name="carHeadPhone" bindtap="uploadInfo"></view>
             </view>
         </view>
         <view class="publicCode">
             <view class="publicCodeLeft">办理手机号</view>
             <view class="publicCoderight">
-                <input class="input" type="text" value="{{paper.handlePhone}}" disabled/>
+                <input class="input" type="number" value="{{paper.handlePhone}}" placeholder="输入办理手机号" disabled="{{updatedPhone}}" data-name="handlePhone" placeholder-class="input-placeholder" maxlength="11"  bindinput="onInputChangedHandle"/>
+                <view class="updated" data-name="phone" bindtap="uploadInfo"></view>
+                <text class="errTip" wx:if="{{tip4}}">{{tip4}}</text>
             </view>
         </view>
-        <view class="publicCode">
-            <view class="publicCodeLeft">行驶证信息</view>
+        <view class="publicCode" wx:if="{{!updatedPhone}}">
+            <view class="publicCodeLeft">验证码</view>
             <view class="publicCoderight">
-                <input class="input" type="text" value="{{paper.licenseInformation}}" disabled/>
-            </view>
-        </view>
-        <view class="publicCode">
-            <view class="publicCodeLeft">车牌颜色</view>
-            <view class="publicCoderight" bindchange="onPersonsCapacityPickerChange">
-                <input class="input" type="text" value="{{paper.carPlateColor}}" disabled/>
+                <input class="inputCode" type="number" value="{{paper.code}}" placeholder="输入验证码" data-name="code" placeholder-class="input-placeholder"  bindinput="onInputChangedHandle"/>
+                <view class="getCode" bindtap="{{ isGetCode ? 'getCode' : ''}}">{{codeCopywriting}}</view>
             </view>
         </view>
     </view>
@@ -104,6 +122,5 @@
 		class='press-canvas'
 		style='width: {{pictureWidth}}px; height: {{ pictureHeight}}px;' ></canvas>
 	<!--	压缩图片j结束-->
-     <!-- 拉起键盘 -->
-	<keyboard id="keyboard" index="{{currentIndex}}" show="{{showKeyboard}}" bind:valueChange="valueChange" myCar="{{carNo}}"></keyboard>
+    <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
 </view>

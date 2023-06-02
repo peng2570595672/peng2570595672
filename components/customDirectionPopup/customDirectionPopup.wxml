@@ -49,7 +49,7 @@
                     </view>
                 </view>
             </view>
-            <view class="btn yesBtn" wx:if="{{!isHide}}" catchtap="handle">{{argObj.btnText}}</view>
+            <view class="btn yesBtn" wx:if="{{!isHide}}" catchtap="handle">{{payStatus ? payStatus === 1 ? '去支付' : '继续办理' : tools.parseNum(shopProductInfo.pledgePrice + equityListMap.payMoney)/100 + '元办理'}}</view>
             <view class="btn {{isBtn ? 'yesBtn' : 'noBtn'}}" wx:else catchtap="ok">{{ '确定'}}</view>
         </view>
     </view>

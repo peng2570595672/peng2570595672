@@ -15,11 +15,14 @@ Page({
         ],
         navbarHeight: app.globalData.navbarHeight, // 自定义导航栏的高度
         custom: app.globalData.capsule, //  自定义导航栏胶囊数据
-        orderId: '' // 订单ID
+        orderId: '', // 订单ID
+        pay: false // 是否去支付
     },
 
     onLoad (options) {
-        this.setData({orderId: options.orderId});
+        if (options?.orderId) {
+            this.setData({orderId: options.orderId});
+        }
     },
 
     onShow () {
@@ -43,7 +46,6 @@ Page({
 			argObj: {
                 type: 'device_upgrade',
 				title: '办理车牌号',
-				btnText: '158元办理',
                 orderId: this.data.orderId
 			}
 		});

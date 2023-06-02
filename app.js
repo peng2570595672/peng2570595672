@@ -138,7 +138,10 @@ App({
 			citicBankRightId: IS_TEST ? '1092482405515665408' : '1098182289300922368'	// 中信银行签约后独立权益ID
 		},
 		salesmanEmptyObj: {},	// 业务员空发对象
-		isShowDeviceUpgradePop: true	// 控制首页设备升级弹窗的显示（每次进入都显示）
+		isShowDeviceUpgradePop: true,	// 控制首页设备升级弹窗的显示（每次进入都显示）
+		deviceUpgrade: {
+			addTime: '2023/06/01 00:00:00'
+		}
 	},
 	onLaunch (options) {
 		// 统计逻辑结束

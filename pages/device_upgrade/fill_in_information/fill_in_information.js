@@ -4,8 +4,8 @@ const app = getApp();
 Page({
 
     data: {
-        orderId: '', // 新订单ID
-		related_order_id: '',	// 原订单ID
+		orderId: '',
+		newOrderInfo: {}, // 原订单数据（身份证、行驶证、车头照）
         formData: { // 基础信息
 			currentCarNoColor: 0, // 0 蓝色 1 渐变绿 2黄色
 			region: [], // 省市区
@@ -18,8 +18,13 @@ Page({
             idName: '', // 身份证姓名
             idNum: '', // 身份证号码
             handlePhone: '', // 办理手机号
-            licenseInformation: '', // 行驶证信息
-            carPlateColor: '' // 车牌颜色
+            licenseInformation: {
+				licenseMainPage: '',
+				licenseVicePage: ''
+			}, // 行驶证信息
+            carHeadPhone: '', // 车头照
+			code: '', // 验证码
+			simImg: ''	// 剪卡图片
         },
         sim: '', // 剪卡
          // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
@@ -27,24 +32,23 @@ Page({
         tip1: '',	// 经办人电话号码校验提示
 		tip2: '',	// 收件人姓名校验
 		tip3: '',	// 校验收件人电话号码提示
+		tip4: '', 	// 办理手机号校验提示
 		isName: true,	// 控制收货人名称是否合格
 		size: 30,
         available: false,	// 控制底部悬浮按钮的颜色变化
         pictureWidth: 0, // 压缩图片
 		pictureHeight: 0,
-		shopProductId: app.globalData.test ? '' : '',
-		shopProductInfo: {}	// 套餐信息
+		updatedPhone: true,	// 是否禁止修改办理手机号
+		codeCopywriting: '获取验证码',	// 衍生吗按钮文案
+		isGetCode: true,	// 是否可获取验证码
+		paperIsExpire: false	// false表示证件未过期
     },
 
     onLoad (options) {
-        if (options?.orderId) {
-            this.setData({related_order_id: options.orderId});
-            this.queryOrder(options.orderId);
-        }
+        if (options?.orderId) this.setData({orderId: options.orderId});
     },
-
     onShow () {
-
+		this.queryOrder(this.data.orderId);
     },
     // 根据订单ID查询订单信息
     async queryOrder (orderId) {
@@ -65,13 +69,22 @@ Page({
             let paper = this.data.paper;
             paper.idName = info.trueName;// 身份证姓名
             paper.idNum = info.idNumber;// 身份证号码
-            paper.handlePhone = res.receivePhone;// 办理手机号
-            paper.licenseInformation = orderInfo.vehPlates;// 行驶证信息
-            paper.carPlateColor = this.data.carPlateColorList[parseInt(orderInfo.vehColor)];// 车牌颜色
+            paper.handlePhone = result.data.orderCardInfo.cardMobilePhone;// 办理手机号
+            paper.licenseInformation.licenseMainPage = result.data.orderVehicleInfo?.licenseMainPage;
+            paper.licenseInformation.licenseVicePage = result.data.orderVehicleInfo?.licenseVicePage;
+            paper.carHeadPhone = result.data.orderHeadstockInfo?.fileUrl;
             this.setData({
                 formData,
-                paper
+                paper,
+				newOrderInfo: result.data,
+				available: this.validateAvailable()
             });
+			if (result.data.orderCardInfo.validDate.includes('长期')) return;
+			let timeInterval = result.data.orderCardInfo.validDate.split('-');
+			if (!util.isDuringDateIdCard(timeInterval[0], timeInterval[1])) {
+				this.setData({paperIsExpire: true});
+				util.showToastNoIcon('身份证已过期，请重新上传证件');
+			};
         } else {
             util.showToastNoIcon(result.message);
         }
@@ -113,9 +126,11 @@ Page({
             if (res) {
                 res = JSON.parse(res);
                 if (res.code === 0) { // 文件上传成功
+					console.log(res);
                     util.showToastNoIcon('文件上传成功');
                     this.setData({
-                        sim: '已上传'
+                        sim: '已上传',
+						'paper.simImg': res.data[0].fileUrl
                     });
                     this.fangDou('',500);
                 } else { // 文件上传失败
@@ -252,8 +267,7 @@ Page({
 		// 是否接受协议
 		let isOk = true;
 		let formData = this.data.formData;
-		// 校验经办人手机号码
-		// isOk = isOk && this.data.formData.operator && /^1[0-9]{10}$/.test(this.data.formData.operator);
+		let paper = this.data.paper;
 		// 校验姓名
 		isOk = isOk && formData.userName && formData.userName.length >= 1;
 		// 校验省市区
@@ -266,41 +280,61 @@ Page({
 		isOk = isOk && formData.telNumber && /^1[0-9]{10}$/.test(formData.telNumber);
         // 校验剪卡凭证是否上传
         isOk = isOk && this.data.sim === '已上传';
+		// 校验身份证姓名
+		isOk = isOk && paper.idName.length > 0;
+		// 校验身份证号码
+		isOk = isOk && paper.idNum.length > 0;
+		// 校验车辆照片
+		isOk = isOk && paper.carHeadPhone.length > 0;
+		// 校验办理手机号
+		isOk = isOk && paper.handlePhone && /^1[0-9]{10}$/.test(paper.handlePhone);
+		// 校验验证码
+		isOk = isOk && (!this.data.updatedPhone ? paper.code.length > 0 : true);
+		// 校验车辆行驶证
+		isOk = isOk && paper.licenseInformation.licenseMainPage.length > 0 && paper.licenseInformation.licenseVicePage.length > 0;
 		return isOk;
 	},
-
-    focus () {
-		// 拉起下面输入框键盘时关闭 输入车牌号键盘
-		this.selectComponent('#keyboard').hide();
+	// 确认前校验
+	confirmCheck () {
+		let formData = this.data.formData;
+		let paper = this.data.paper;
+		if (this.data.paperIsExpire) return util.showToastNoIcon('身份证已过期，请重新上传证件');
+		if (!this.data.sim) return util.showToastNoIcon('剪卡未上传');
+		if (!paper.idName) return util.showToastNoIcon('身份证姓名不能为空');
+		if (!paper.idNum) return util.showToastNoIcon('身份证号码不能为空');
+		if (!paper.carHeadPhone) return util.showToastNoIcon('车辆照片不能为空');
+		if (!paper.handlePhone) return util.showToastNoIcon('办理手机号不能为空');
+		if (!this.data.updatedPhone && !paper.code) return util.showToastNoIcon('验证码不能为空');
+		if (!paper.licenseInformation.licenseMainPage || !paper.licenseInformation.licenseVicePage) return util.showToastNoIcon('车辆行驶证不能为空');
 	},
     // 输入框输入值
 	onInputChangedHandle (e) {
+		if (e.detail.cursor === 0) this.setData({available: false});
 		let key = e.currentTarget.dataset.name;	//
 		let len = e.detail.cursor;	// 输入值的长度
 		let value = e.detail.value;
 		let formData = this.data.formData;
+		let paper = this.data.paper;
 		let tip1 = '';	// 办理人手机号提示
 		let tip2 = '';	// 收货姓名提示
 		let tip3 = '';	// 收获人手机号提示
+		let tip4 = '';	// 办理手机号提示
 		// 手机号 校验
-		if (key === 'telNumber' || key === 'operator') {
+		if (key === 'telNumber' || key === 'operator' || key === 'handlePhone') {
 			let value = e.detail.value;
 			let flag = /^1[1-9][0-9]{9}$/.test(value);
 			if (value.substring(0,1) !== '1' || value.substring(1,2) === '0') {
-				if (key === 'telNumber') {
-					this.setData({
-						'formData.telNumber': ''
-					});
-				} else {
-					this.setData({
-						'formData.operator': ''
-					});
-				}
+				if (key === 'telNumber') this.setData({'formData.telNumber': ''});
+				if (key === 'operator') this.setData({'formData.operator': ''});
+				if (key === 'handlePhone') this.setData({'paper.handlePhone': ''});
 				return util.showToastNoIcon('非法号码');
 			} else if (len < 11) {
 				tip1 = key === 'operator' ? '*手机号未满11位，请检查' : '';
 				tip3 = key === 'telNumber' ? '*手机号未满11位，请检查' : '';
+				tip4 = key === 'handlePhone' ? '*手机号未满11位，请检查' : '';
 			} else if (len === 11 && !flag) {
+				tip3 = key === 'telNumber' ? '非法号码' : '';
+				tip4 = key === 'handlePhone' ? '非法号码' : '';
 				util.showToastNoIcon('非法号码');
 			}
 		}
@@ -333,13 +367,74 @@ Page({
 			}
 		}
 		formData[key] = value;
+		paper[key] = value;
 		this.setData({
 			formData,
 			tip1,
 			tip2,
-			tip3
+			tip3,
+			tip4,
+			paper
 		});
 		this.fangDou('',500);
+	},
+	// 获取验证码
+	async getCode () {
+		if (this.data.tip4 > 0 || this.data.paper.handlePhone.length < 11) {
+			util.showToastNoIcon('号码有误，无法获取验证码');
+			return;
+		}
+		const result = await util.getDataFromServersV2('consumer/order/send-receive-phone-verification-code', {
+			receivePhone: this.data.paper.handlePhone + '' // 手机号
+		}, 'GET');
+		if (!result) return;
+		if (result.code === 0) {
+			this.setData({isGetCode: false});
+			let time = 60;
+			let clearTime = null;
+			clearTime = setInterval(() => {	// 启动定时
+				time--;
+				this.setData({codeCopywriting: `${time}重新获取`});
+				if (time === 0) {
+					clearInterval(clearTime);
+					this.setData({codeCopywriting: '获取验证码', isGetCode: true});
+				}
+			},1000);
+		} else {
+			this.setData({codeCopywriting: '获取验证码'});
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 修改
+	uploadInfo (e) {
+		console.log(e);
+		let key = e.currentTarget.dataset.name;
+		let imgUrl = e.currentTarget.dataset.url;
+		app.globalData.orderInfo.orderId = this.data.orderId;
+		switch (key) {
+			case 'phone':	// 修改（手机号）
+				this.setData({updatedPhone: false,'paper.handlePhone': '',available: false});
+				break;
+			case 'license':	// 修改（行驶证）
+				util.go(`/pages/default/information_validation/information_validation`);
+				break;
+			case 'carHeadPhone':	// 修改（车头照）
+				util.go(`/pages/default/upload_other_photo/upload_other_photo`);
+				break;
+			case 'idCard':	// 修改（身份证）
+				util.go(`/pages/default/upload_id_card/upload_id_card`);
+				break;
+			case 'bigImg':
+				this.selectComponent('#popTipComp').show({
+					type: 'seven',
+					title: '设备升级',
+					btnShadowHide: true,
+					url: imgUrl
+				});
+				break;
+			default:
+				break;
+		}
 	},
 	fangDou (fn, time) {
 		let that = this;
@@ -356,7 +451,28 @@ Page({
 	},
 	// 按钮“确定”
     async next () {
-        console.log('确定');
+        this.confirmCheck();
+		if (this.data.paperIsExpire) return;
+		let formData = this.data.formData;
+		let paper = this.data.paper;
+		console.log('参数：',paper);
+		let params = {
+			clipCardCert: paper.simImg,
+			dataType: '28', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
+			receiveMan: formData.userName, // 收货人姓名 【dataType包含2】
+			receivePhone: formData.telNumber, // 收货人手机号 【dataType包含2】
+			receiveProvince: formData.region[0], // 收货人省份 【dataType包含2】
+			receiveCity: formData.region[1], // 收货人城市 【dataType包含2】
+			receiveCounty: formData.region[2], // 收货人区县 【dataType包含2】
+			receiveAddress: formData.detailInfo, // 收货人详细地址 【dataType包含2】
+			areaCode: '0',	// 区域编码
+			ownerIdCardNumber: paper.idNum,
+			orderId: this.data.orderId,
+			cardMobilePhone: paper.handlePhone, // 车主实名手机号
+			cardPhoneCode: paper.code, // 手机号验证码
+			notVerifyCardPhone: this.data.updatedPhone // true 时不需要验证码
+		};
+		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
     }
 
 });

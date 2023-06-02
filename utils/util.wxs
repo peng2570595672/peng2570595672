@@ -125,6 +125,23 @@ function isPhone(obj) {
   }
   return obj
 }
+// @cyl 时间比较=》 fixedTime: 固定时间，flexibleTime: 灵活时间。 适用于：根据某个时间前后来判断订单是否为新
+function timeComparison(fixedTime,flexibleTime) {
+  if (!fixedTime || !flexibleTime) {
+    return
+  }
+  var reg = getRegExp("-", "g"); // 获取正则表达式，全局替换
+	fixedTime = fixedTime.slice(0, 19).replace(reg, '/');	//转换是为了iPhone
+	flexibleTime = flexibleTime.slice(0, 19).replace(reg, '/');
+	var time = getDate(fixedTime).getTime()
+	var newTime = getDate(flexibleTime).getTime()
+  console.log(time,newTime);
+	if (time <= newTime) {
+		return 1	//新订单
+	} else {
+		return 2	//旧订单
+	}
+};
 module.exports = {
   substring: substring,
   lowercaseToCapitalization: lowercaseToCapitalization,
@@ -137,5 +154,6 @@ module.exports = {
   addressFormat: addressFormat,
   onlineService: onlineService,
   phoneNumberHide: phoneNumberHide,
-  isPhone: isPhone
+  isPhone: isPhone,
+  timeComparison: timeComparison
 };

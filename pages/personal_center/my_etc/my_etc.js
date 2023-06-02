@@ -11,7 +11,8 @@ Page({
 		carList: undefined,
 		activeIndex: 1,
 		passengerCarList: [],// 客车
-		truckList: []// 货车
+		truckList: [],// 货车
+		deviceUpgrade: app.globalData.deviceUpgrade.addTime
 	},
 	async onShow () {
 		util.resetData();// 重置数据
@@ -100,6 +101,7 @@ Page({
 				truckList: truckList,
 				passengerCarList: passengerCarList
 			});
+			console.log(this.data.carList);
 			// 查询是否欠款
 			await util.getIsArrearage();
 		} else {
@@ -160,6 +162,7 @@ Page({
 			9: () => this.onClickHighSpeedSigning(orderInfo), // 去签约
 			10: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
 			11: () => this.onClickCctivate(orderInfo), // 去激活
+			12: () => this.onActive(orderInfo),	// 已激活
 			13: () => this.goBindingAccount(orderInfo), // 去开户
 			14: () => this.goRechargeAuthorization(orderInfo), // 去授权预充保证金
 			15: () => this.goRecharge(orderInfo), // 保证金预充失败 - 去预充
@@ -169,9 +172,16 @@ Page({
 			20: () => this.onClickVerification(orderInfo),
 			21: () => this.onClickSignBank(orderInfo),
 			22: () => this.onClickSignTongTongQuan(orderInfo),// 签约通通券代扣
-			23: () => this.goPayment(orderInfo)
+			23: () => this.goPayment(orderInfo),
+			24: () => this.goPayment(orderInfo), // 去支付
+			25: () => this.onClickContinueHandle(orderInfo) // 继续办理
 		};
 		fun[orderInfo.selfStatus].call();
+	},
+	onActive (orderInfo) {	// 已激活后的操作
+		if (orderInfo.obuCardType === 2 && util.timeComparison('2023/06/01 00:00:00', orderInfo.addTime) === 2) {
+			util.go(`/pages/device_upgrade/package/package?orderId=${orderInfo.id}`);
+		}
 	},
 	// 通通券签约
 	async onClickSignTongTongQuan () {
@@ -293,6 +303,10 @@ Page({
 			util.go(`/pages/empty_hair/empty_package/empty_package?shopProductId=${orderInfo.shopProductId}`);
 			return;
 		}
+		if (orderInfo.selfStatus === 24) {	// 设备升级
+			util.go(`/pages/device_upgrade/package/package?orderId=${orderInfo.id}`);
+			return;
+		}
 		const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
 		wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'my_etc_for_truck_package' : 'my_etc_for_package');
 		util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
@@ -321,6 +335,10 @@ Page({
 				return;
 			}
 			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?contractStatus=${orderInfo.contractStatus}&ttContractStatus=${orderInfo.ttContractStatus}`);
+			return;
+		}
+		if (orderInfo.selfStatus === 25) {	// 设备升级
+			util.go(`/pages/device_upgrade/fill_in_information/fill_in_information?orderId=${orderInfo.id}`);
 			return;
 		}
 		if (orderInfo.selfStatus === 2) {

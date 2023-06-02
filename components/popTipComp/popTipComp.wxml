@@ -1,6 +1,6 @@
 <!-- ETC4.0新增 -->
 <wxs src='../../utils/util.wxs' module='tools' />
-<view>
+<view catchtouchmove="{{noSliding ? 'noSliding' : ''}}">
     <view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}" data-title="{{tipObj.title}}" catchtap="{{ tipObj.btnShadowHide ? 'hide' : ''}}"></view>
     <view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}" wx:if="{{mask}}">
         <!-- 带标题 只有确定按钮 -->
@@ -63,6 +63,14 @@
             <view class="close" data-title="{{tipObj.title}}" catchtap="hide">
                 <image class="image" src="{{'https://file.cyzl.com/g001/M01/E0/7D/oYYBAGRscuOAIh4cAAAC8Jl08pY127.png'}}" mode="widthFix" />
             </view>
+        </view>
+
+        <!-- 查看图片 -->
+        <view class="moduleSeven" wx:if="{{tipObj.type === 'seven'}}">
+            <view class="contant">
+                <image class="image" src="{{tipObj.url}}" />
+            </view>
+            <view class="close iconfont" data-title="{{tipObj.title}}" catchtap="hide"></view>
         </view>
     </view>
 </view>

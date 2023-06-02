@@ -7,7 +7,7 @@ Page({
 	},
 
 	onLoad (options) {
-
+		app.globalData.isShowDeviceUpgradePop = false;
 	},
 
 	onShow () {
@@ -27,7 +27,6 @@ Page({
 				// console.log('微信信息：' ,result);
 				if (!result) return;
 				if (result.code === 0) {
-					app.globalData.isShowDeviceUpgradePop = false;
 					result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data.mobilePhone);
 					// 已经绑定了手机号
 					if (result.data.needBindingPhone !== 1) {

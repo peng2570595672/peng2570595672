@@ -734,6 +734,14 @@ function getTruckHandlingStatus(orderInfo) {
  *  获取订单办理状态 2.0
  */
 function getStatus(orderInfo) {
+	if (orderInfo.orderType === 81 && orderInfo.auditStatus === 0) {
+		if (orderInfo.pledgeStatus === 0) {// 设备升级 待支付
+			return 24
+		}
+		if (orderInfo.pledgeStatus === 1) { // 设备升级 已支付
+			return 25	
+		}
+	}
 	if (orderInfo.orderType === 61 && (orderInfo.auditStatus === 9 || orderInfo.auditStatus === 1)) {
 		return 8; // 电销模式审核不通过,不允许修改资料
 	}
@@ -917,6 +925,17 @@ function isDuringDate(beginDateStr, endDateStr) {
 	const beginDate = new Date(beginDateStr);
 	const endDate = new Date(endDateStr);
 	return curDate >= beginDate && curDate < endDate;
+}
+/**
+ *  获取当前日期是否属于某时间段,开始和结束都为闭区间（用于校验身份证的有效期）
+ */
+function isDuringDateIdCard(beginDateStr, endDateStr) {
+	const curDate = new Date();
+	beginDateStr = beginDateStr.slice(0, 19).replace(new RegExp('-', 'g'), '/');	//转换是为了iPhone
+	endDateStr = endDateStr.slice(0, 19).replace(new RegExp('-', 'g'), '/');
+	const beginDate = new Date(beginDateStr);
+	const endDate = new Date(endDateStr);
+	return curDate >= beginDate && curDate <= endDate;
 }
 /**
  *  获取当前日期是在某时间段
@@ -1251,7 +1270,6 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
 		params.shopId = app.globalData.miniProgramServiceProvidersId;
 	}
 	let result = await getDataFromServersV2('consumer/system/get-usable-product', params);
-	console.log("套餐",result);
 	if (!result) return '';
 	if (result.code) {
 		showToastNoIcon(result.message);
@@ -1767,6 +1785,7 @@ module.exports = {
 	showToastNoIcon,
 	isGreaterThanData,
 	isDuringDate,
+	isDuringDateIdCard,
 	isTimeQuantum,
 	uploadOcrFile,
 	uploadFile,

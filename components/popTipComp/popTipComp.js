@@ -25,7 +25,8 @@ Component({
 		tipObj: {},
 		mask: false,
 		wrapper: false,
-		paramsList: []
+		paramsList: [],
+		noSliding: false // 是否禁止底层页面滑动
 	},
 	methods: {
 		show (obj) {
@@ -38,11 +39,13 @@ Component({
 					mask: true,
 					wrapper: true,
 					tipObj: kkIndex !== -1 ? this.data.paramsList[kkIndex] : qyIndex !== -1 ? this.data.paramsList[qyIndex] : this.data.paramsList[0],
-					paramsList: this.data.paramsList
+					paramsList: this.data.paramsList,
+					noSliding: true
 				});
 				console.log('传参：',this.data.paramsList);
 			},400);
 		},
+		noSliding () {},
 		// 防抖
 		fangDou (fn, time) {
 			let that = this;
@@ -58,6 +61,7 @@ Component({
 		// 关闭弹窗
 		hide (e) {
 			app.globalData.isShowDeviceUpgradePop = true;
+
 			this.setData({
 				wrapper: false
 			});
@@ -75,6 +79,8 @@ Component({
 					} else {
 						this.setData({paramsList: []});
 					}
+				} else {
+					this.setData({paramsList: []});
 				}
 			}, 400);
 		},
@@ -110,7 +116,7 @@ Component({
 		// 设备升级
 		deviceUpgrade () {
 			this.fangDou(() => {
-				util.go(`/pages/device_upgrade/package/package?orderId=${this.data.tipObj.orderId}`);
+				util.go(`/pages/device_upgrade/package/package`);
 				this.hide(false);
 			},300);
 		}
