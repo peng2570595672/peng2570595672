@@ -734,13 +734,19 @@ function getTruckHandlingStatus(orderInfo) {
  *  获取订单办理状态 2.0
  */
 function getStatus(orderInfo) {
-	if (orderInfo.orderType === 81 && orderInfo.auditStatus === 0) {
+	console.log(orderInfo);
+	if (orderInfo.orderType === 81) {
 		if (orderInfo.pledgeStatus === 0) {// 设备升级 待支付
 			return 24
 		}
-		if (orderInfo.pledgeStatus === 1) { // 设备升级 已支付
+		if (orderInfo.status === 0 || orderInfo.auditStatus === 1) { // 设备升级  资料待完善  || 审核失败,可以修改资料
 			return 25	
 		}
+		if (orderInfo.auditStatus === 9) {
+			// 高速核验不通过
+			return 8;
+		}
+		return 10;
 	}
 	if (orderInfo.orderType === 61 && (orderInfo.auditStatus === 9 || orderInfo.auditStatus === 1)) {
 		return 8; // 电销模式审核不通过,不允许修改资料
@@ -930,6 +936,7 @@ function isDuringDate(beginDateStr, endDateStr) {
  *  获取当前日期是否属于某时间段,开始和结束都为闭区间（用于校验身份证的有效期）
  */
 function isDuringDateIdCard(beginDateStr, endDateStr) {
+	if (!beginDateStr || !endDateStr) return
 	const curDate = new Date();
 	beginDateStr = beginDateStr.slice(0, 19).replace(new RegExp('-', 'g'), '/');	//转换是为了iPhone
 	endDateStr = endDateStr.slice(0, 19).replace(new RegExp('-', 'g'), '/');

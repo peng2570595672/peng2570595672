@@ -20,7 +20,7 @@
                 <view wx:for="{{carList}}" wx:key="index" data-index="{{index}}" catchtap="selectFunc">
                     <view class="iconfont carList carNumber {{tools.dataLen(carList) === 1 || index === selectedIndex ? 'yes' : item.obuCardType !== 2 ? 'gray' : 'no' }}">
                         <view class="head">
-                            <view class="icon">NO</view>
+                            <view class="icon"><image class="image" src="https://file.cyzl.com/g001/M01/E2/EA/oYYBAGR5oG6AXRUxAAABjbd9qpk919.png" /></view>
                             <view class="numberplate">{{item.vehPlates}}</view>
                         </view>
                         <view class="handlePhone">办理手机号：{{item.mobilePhone}}</view>

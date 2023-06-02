@@ -10,7 +10,6 @@
             </block>
         </swiper>
         <view class="navbar" style="height: {{navbarHeight}}px">
-            
             <view class="title" style="height: {{custom.height}}px;padding-top: {{custom.top}}px;line-height: {{custom.height}}px;"><view class="iconfont goBack" catchtap="goBack" />设备激活</view>
         </view>
     </view>

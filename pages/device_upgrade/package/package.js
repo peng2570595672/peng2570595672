@@ -3,7 +3,7 @@ const app = getApp();
 Page({
     data: {
         imgList: [
-            {imgUrl: 'https://file.cyzl.com/g001/M01/E0/A2/oYYBAGRtd1uAeeKwAABVlWlRLx4251.png'}
+            {imgUrl: 'https://file.cyzl.com/g001/M01/E2/EA/oYYBAGR5oAiAL42TAAE0P4zE2TM889.png'}
         ],
         duration: 500,	// 轮播图时间间隔
 		interval: 5000,	// 轮播图切换时间

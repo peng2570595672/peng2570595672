@@ -455,6 +455,8 @@ Page({
 		if (this.data.paperIsExpire) return;
 		let formData = this.data.formData;
 		let paper = this.data.paper;
+		let orderCardInfo = this.data.newOrderInfo.orderCardInfo;
+		console.log(orderCardInfo);
 		console.log('参数：',paper);
 		let params = {
 			clipCardCert: paper.simImg,
@@ -466,13 +468,28 @@ Page({
 			receiveCounty: formData.region[2], // 收货人区县 【dataType包含2】
 			receiveAddress: formData.detailInfo, // 收货人详细地址 【dataType包含2】
 			areaCode: '0',	// 区域编码
-			ownerIdCardNumber: paper.idNum,
+			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
+			ownerIdCardNumber: orderCardInfo.idNumber,	// 身份证号码
+			ownerIdCardTrueName: orderCardInfo.trueName,	// 身份证姓名
+			ownerIdCardPositiveUri: orderCardInfo.positiveUrl,
+			ownerIdCardNegativeUrt: orderCardInfo.negativeUrl,
+			ownerIdCardSex: orderCardInfo.sex,	// 性别
+			ownerIdcardBirth: orderCardInfo.birth,	// 生日
+			ownerIdCardAddress: orderCardInfo.cardAddress,	// 居住地址
+			ownerIdCardAuthority: orderCardInfo.authority,
+			ownerIdCardValidDate: orderCardInfo.validDate,	// 有效期
 			orderId: this.data.orderId,
 			cardMobilePhone: paper.handlePhone, // 车主实名手机号
 			cardPhoneCode: paper.code, // 手机号验证码
 			notVerifyCardPhone: this.data.updatedPhone // true 时不需要验证码
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+		if (!result) return;
+		if (result.code === 0) {
+			util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${result.data.orderId}`);
+		} else {
+			util.showToastNoIcon(result.message);
+		}
     }
 
 });

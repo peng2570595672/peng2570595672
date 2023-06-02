@@ -178,7 +178,8 @@
   border: 2rpx solid #e9ca7b;
 }
 .make .deviceUpgrade .topCar .gray {
-  filter: grayscale(1);
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
 }
 .make .deviceUpgrade .topCar .gray::before {
   content: '暂不支持';
@@ -208,14 +209,16 @@
   margin: 36rpx 0rpx 16rpx 30rpx;
 }
 .make .deviceUpgrade .topCar .carNumber .head .icon {
-  width: 28rpx;
-  height: 32rpx;
+  width: 52rpx;
+  height: 36rpx;
   text-align: center;
   line-height: 32rpx;
-  background: #b3f995;
-  border: 2rpx solid #00b48a;
   font-size: 13rpx;
   margin-right: 24rpx;
+}
+.make .deviceUpgrade .topCar .carNumber .head .icon .image {
+  width: 100%;
+  height: 100%;
 }
 .make .deviceUpgrade .topCar .carNumber .head .numberplate {
   font-size: 32rpx;
