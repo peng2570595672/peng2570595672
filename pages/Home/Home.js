@@ -899,7 +899,7 @@ Page({
 					}
 				}
 				// 已激活的蒙通卡 并且2023年5月1号之前办理的订单 拉起弹窗
-				if ((item.obuStatus === 1 || item.obuStatus === 5) && item.obuCardType === 2 && !app.globalData.isShowDeviceUpgradePop && app.globalData.deviceUpgrade.addTime) {
+				if ((item.obuStatus === 1 || item.obuStatus === 5) && item.obuCardType === 2 && !app.globalData.isShowDeviceUpgradePop && util.timeComparison(app.globalData.deviceUpgrade.addTime, item.addTime) === 2) {
 					this.fangDou(() => {
 						this.selectComponent('#popTipComp').show({
 							type: 'six',
