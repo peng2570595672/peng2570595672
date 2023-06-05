@@ -29,6 +29,7 @@
                         {{passengerCarOrderInfo.selfStatus === 24 || passengerCarOrderInfo.selfStatus === 25 ? '操作两步即可完成办理' : ''}}
                        <!-- {{passengerCarOrderInfo.selfStatus === 12 ? userFailBillList.length ? userFailBillList[0].addTime : '暂无通行账单' : ''}} -->
                         {{passengerCarOrderInfo.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
+                        {{passengerCarOrderInfo.selfStatus === 26 ? '系统正在努力审核中' : ''}}
                     </view>
                 </view>
             </view>

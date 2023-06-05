@@ -734,7 +734,6 @@ function getTruckHandlingStatus(orderInfo) {
  *  获取订单办理状态 2.0
  */
 function getStatus(orderInfo) {
-	console.log(orderInfo);
 	if (orderInfo.orderType === 81) {
 		if (orderInfo.pledgeStatus === 0) {// 设备升级 待支付
 			return 24
@@ -746,7 +745,7 @@ function getStatus(orderInfo) {
 			// 高速核验不通过
 			return 8;
 		}
-		return 10;
+		return 26;
 	}
 	if (orderInfo.orderType === 61 && (orderInfo.auditStatus === 9 || orderInfo.auditStatus === 1)) {
 		return 8; // 电销模式审核不通过,不允许修改资料

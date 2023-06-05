@@ -1254,7 +1254,8 @@ Page({
 			22: () => this.onClickSignTongTongQuan(orderInfo), // 签约通通券代扣
 			23: () => this.goPayment(orderInfo),
 			24: () => this.goPayment(orderInfo), // 去支付
-			25: () => this.onClickContinueHandle(orderInfo) // 继续办理
+			25: () => this.onClickContinueHandle(orderInfo), // 继续办理
+			26: () => this.onClickViewProcessingProgressHandle(orderInfo) // 订单排队审核中 - 查看进度
 		};
 		fun[orderInfo.selfStatus].call();
 	},

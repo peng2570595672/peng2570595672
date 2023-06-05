@@ -72,5 +72,13 @@
             </view>
             <view class="close iconfont" data-title="{{tipObj.title}}" catchtap="hide"></view>
         </view>
+        
+        <!-- 带标题 只有一个按钮 -->
+        <view class="module moduleOne" wx:if="{{tipObj.type === 'eight'}}">
+            <view class="title">{{tipObj.title}}</view>
+            <view class="contant">{{tools.limitNumber(tipObj.content,90)}}</view>
+            <button class="btn" data-src="{{tipObj.src}}" catchtap="go">{{tipObj.btnconfirm}}</button>
+            <view class="close iconfont" data-title="{{tipObj.title}}" catchtap="hide"></view>
+        </view>
     </view>
 </view>

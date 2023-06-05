@@ -25,7 +25,8 @@ Page({
 		showCouponWrapper: false,
 		showCouponMask: false,
 		prechargeInfo: '',// 预充流程,预充信息
-		disclaimerDesc: app.globalData.disclaimerDesc
+		disclaimerDesc: app.globalData.disclaimerDesc,
+		contractStatus: ''
 	},
 	async onLoad (options) {
 		this.setData({
@@ -53,6 +54,10 @@ Page({
 			// 查询是否欠款
 			await util.getIsArrearage();
 		}
+	},
+	onShow () {
+		let deviceUpgrade = app.globalData.myEtcList.indexOf(item => item.id === this.data.orderId && item.orderType === 81);
+		if (deviceUpgrade !== -1) this.queryContract();
 	},
 	initCouponMask () {
 		let time = new Date().toLocaleDateString();
@@ -373,6 +378,31 @@ Page({
 	},
 	// 确认收货去激活
 	onClickCctivate () {
+		if (this.data.info.orderType === 81) {
+			// contractStatus; // 签约状态   签约状态 -1 签约失败 0发起签约 1已签约 2解约
+			if (this.data.contractStatus === 1) {
+				this.selectComponent('#popTipComp').show({
+					type: 'eight',
+					title: '重新签约',
+					content: '为了保证您正常通行，请先到微信车主服务解约后再重新签约',
+					btnconfirm: '知道了'
+				});
+				return;
+			}
+			if (this.data.contractStatus === 2) {
+				this.selectComponent('#popTipComp').show({
+					type: 'four',
+					title: '重新签约',
+					content: '检测到你已解除车主服务签约，将影响正常的高速通行',
+					btnCancel: '取消',
+					btnconfirm: '恢复签约',
+					params: {
+						orderInfo: app.globalData.myEtcList.filter(item => item.id === this.data.orderId)[0]
+					}
+				});
+				return;
+			}
+		}
 		if (this.data.info.shopId && this.data.info.shopId === '624263265781809152') {
 			// 津易行
 			this.selectComponent('#notJinYiXingPrompt').show();
@@ -390,6 +420,89 @@ Page({
 					util.showToastNoIcon(res.message);
 				}
 			}, app.globalData.userInfo.accessToken);
+		}
+	},
+	// 弹窗确认回调
+	onHandle (e) {
+		console.log(e.detail.orderInfo);
+		if (e.detail.orderInfo) {
+			// 恢复签约
+			app.globalData.orderInfo.orderId = e.detail.orderInfo.id;
+			wx.uma.trackEvent('index_for_dialog_signing');
+			this.restoreSign(e.detail.orderInfo);
+		}
+	},
+	// 恢复签约
+	async restoreSign (obj) {
+		const result = await util.getDataFromServersV2('consumer/order/query-contract', {
+			orderId: obj.id
+		});
+		console.log('3',result);
+		if (!result) return;
+		if (result.code === 0) {
+			app.globalData.signAContract = 1;
+			// 签约成功 userState: "NORMAL"
+			if (result.data.contractStatus !== 1) {
+				if (result.data.version === 'v3') {
+					// 3.0
+					if (result.data.contractId) {
+						wx.navigateToMiniProgram({
+							appId: 'wxbcad394b3d99dac9',
+							path: 'pages/etc/index',
+							extraData: {
+								contract_id: result.data.contractId
+							},
+							success () {},
+							fail () {
+								// 未成功跳转到签约小程序
+								util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
+							}
+						});
+					} else {
+						await this.weChatSign(obj);
+					}
+				} else {
+					await this.weChatSign(obj);
+				}
+			}
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 微信签约
+	async weChatSign (obj) {
+		let params = {
+			orderId: obj.id, // 订单id
+			clientOpenid: app.globalData.userInfo.openId,
+			clientMobilePhone: app.globalData.userInfo.mobilePhone,
+			needSignContract: true // 是否需要签约 true-是，false-否
+		};
+		if (obj.remark && obj.remark.indexOf('迁移订单数据') !== -1) {
+			// 1.0数据 立即签约 需标记资料已完善
+			params['upgradeToTwo'] = true; // 1.0数据转2.0
+			params['dataComplete'] = 1; // 资料已完善
+		}
+		if (obj.isNewTrucks === 1 && obj.status === 0) {
+			params['dataComplete'] = 1; // 资料已完善
+		}
+		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+		this.setData({
+			available: true,
+			isRequest: false
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			let res = result.data.contract;
+			// 签约车主服务 2.0
+			app.globalData.isSignUpImmediately = true; // 返回时需要查询主库
+			app.globalData.belongToPlatform = obj.platformId;
+			app.globalData.orderInfo.orderId = obj.id;
+			app.globalData.orderStatus = obj.selfStatus;
+			app.globalData.orderInfo.shopProductId = obj.shopProductId;
+			app.globalData.signAContract === -1;
+			util.weChatSigning(res);
+		} else {
+			util.showToastNoIcon(result.message);
 		}
 	},
 	handleActivate () {
@@ -474,6 +587,18 @@ Page({
 			wx.switchTab({
 				url: '/pages/Home/Home'
 			});
+		}
+	},
+	// 查询车主服务签约
+	async queryContract () {
+		const result = await util.getDataFromServersV2('consumer/order/query-contract', {
+			orderId: this.data.orderId
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			this.setData({ contractStatus: result.data.contractStatus });
+		} else {
+			util.showToastNoIcon(result.message);
 		}
 	}
 });

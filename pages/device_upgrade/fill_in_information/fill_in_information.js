@@ -468,7 +468,7 @@ Page({
 			receiveCounty: formData.region[2], // 收货人区县 【dataType包含2】
 			receiveAddress: formData.detailInfo, // 收货人详细地址 【dataType包含2】
 			areaCode: '0',	// 区域编码
-			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
+			dataComplete: 1, // 订单资料是否已完善 1-是，0-否
 			ownerIdCardNumber: orderCardInfo.idNumber,	// 身份证号码
 			ownerIdCardTrueName: orderCardInfo.trueName,	// 身份证姓名
 			ownerIdCardPositiveUri: orderCardInfo.positiveUrl,

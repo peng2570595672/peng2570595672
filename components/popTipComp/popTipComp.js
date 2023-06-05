@@ -87,11 +87,15 @@ Component({
 		// 小程序页面内部跳转	跳转 指定页面
 		go (e) {
 			let src = e.currentTarget.dataset.src;
-			util.go(src);
-			this.setData({
-				mask: false,
-				wrapper: false
-			});
+			if (src) {
+				util.go(src);
+				this.setData({
+					mask: false,
+					wrapper: false
+				});
+			} else {
+				this.hide(false);
+			}
 		},
 		// 中信 办理提醒
 		citicBank () {

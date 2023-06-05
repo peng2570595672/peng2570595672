@@ -76,7 +76,7 @@
 			<view class="content-title finished">高速签约</view>
 			<view class="content-des">{{info.hwContractStatus === 0 ? '等待完成高速支付签约' : info.hwContractStatus === 1 ? '已完成高速签约' : '已解约，请恢复签约'}}</view>
 		</view>
-		<view class="item {{info && info.logisticsId !== 0  && info.logisticsId !== -1 ? 'finished' : ''}}" wx:if="{{info.orderType === 11 && (info.logisticsId !== -1 || (info.logisticsId === -1 && info.flowVersion === 4))}}">
+		<view class="item {{info && info.logisticsId !== 0  && info.logisticsId !== -1 ? 'finished' : ''}}" wx:if="{{(info.orderType === 11 || info.orderType === 81) && (info.logisticsId !== -1 || (info.logisticsId === -1 && info.flowVersion === 4))}}">
 			<view class="content-title">快递配送</view>
 			<view class="content-des" wx:if="{{info.logisticsId === 0 || (info.logisticsId === -1 && info.flowVersion === 4)}}">发货后可查看实时物流信息</view>
 			<view class="content-des" wx:if="{{info.logisticsId !== 0 && info.logisticsId !== -1}}">已发货
@@ -152,4 +152,5 @@
     <recharge-prompt id="rechargePrompt" info="{{prechargeInfo}}"></recharge-prompt>
     <popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="popUp"></popup1>
     <equipment_selection id="choiceEquipment" bindonClickTranslucentHandle="onClickTranslucentHandle"></equipment_selection>
+    <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
 </view>
