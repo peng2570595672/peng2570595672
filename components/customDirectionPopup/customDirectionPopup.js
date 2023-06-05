@@ -164,8 +164,13 @@ Component({
             if (await this.getFailBill(this.data.carList[0].vehPlates,this.data.carList[0].obuCardType)) {
                 return;
             };
+
             let deviceOrder = app.globalData.myEtcList.filter(item => item.vehPlates === this.data.carList[0].vehPlates && item.orderType === 81);
             console.log(deviceOrder);
+            if (deviceOrder[0].pledgeStatus === 1) { // 继续办理
+                util.go(`/pages/device_upgrade/fill_in_information/fill_in_information?orderId=${deviceOrder[0].id}`);
+                return;
+            }
             // 判断是否是 权益券额套餐模式 ，如果是再判断以前是否有过办理，如果有则弹窗提示，并且不执行后面流程
             if (this.data.shopProductInfo.pledgeType === 4) {
                 if (await this.handlEquityLimit(deviceOrder[0]?.id || this.data.carList[0]?.id)) {
@@ -173,28 +178,22 @@ Component({
                 }
             }
             // 如果已有订单直接拉起支付或已支付跳转到下一个页面
-            if (deviceOrder?.length > 0 && (this.data.shopProductInfo.pledgePrice || this.data.equityListMap.payMoney)) {
-                if (deviceOrder[0].pledgeStatus === 0) {
-                    util.alert({
-                        title: `提示`,
-                        content: `升级需注销您的原设备，原设备将不能使用`,
-                        confirmColor: '#576B95',
-                        cancelColor: '#000000',
-                        cancelText: '取消办理',
-                        confirmText: '继续办理',
-                        showCancel: true,
-                        confirm: async () => {
-                            await this.marginPayment(deviceOrder[0].pledgeType,deviceOrder[0].id);
-                        },
-                        cancel: async () => {
-                        }
-                    });
-                    return;
-                }
-                if (deviceOrder[0].pledgeStatus === 1) {
-                    util.go(`/pages/device_upgrade/fill_in_information/fill_in_information?orderId=${deviceOrder[0].id}`);
-                    return;
-                }
+            if (deviceOrder?.length > 0 && (this.data.shopProductInfo.pledgePrice || this.data.equityListMap.payMoney) && deviceOrder[0].pledgeStatus === 0) {
+                util.alert({
+                    title: `提示`,
+                    content: `升级需注销您的原设备，原设备将不能使用`,
+                    confirmColor: '#576B95',
+                    cancelColor: '#000000',
+                    cancelText: '取消办理',
+                    confirmText: '继续办理',
+                    showCancel: true,
+                    confirm: async () => {
+                        await this.marginPayment(deviceOrder[0].pledgeType,deviceOrder[0].id);
+                    },
+                    cancel: async () => {
+                    }
+                });
+                return;
             }
             this.emptySaveOrder();
         },
