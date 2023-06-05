@@ -44,7 +44,7 @@
     <view class="module moduleTwo">
         <view class="title">
             <view class="titles">剪卡凭证</view>
-            <text class="describe">请上传剪卡照片用于旧注销设各伎用</text>
+            <text class="describe">请上传剪卡照片用于旧注销设备使用</text>
         </view>
         <view class="publicCode">
             <view class="publicCodeLeft">剪卡凭证</view>
@@ -55,7 +55,7 @@
         </view>
     </view>
     <!-- 剪卡提示 -->
-    <view class="tip_1">剪卡后我们将进行注销，您在收到新设各前预计有7天左右无法正常使用高速 ETC通进</view>
+    <view class="tip_1">剪卡后我们将进行注销，您在收到新设备前预计有7天左右无法正常使用高速ETC通道</view>
     <!-- 模块三 证件信息 -->
     <view class="module moduleThree">
         <view class="title">

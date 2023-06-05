@@ -31,9 +31,16 @@ Page({
     catchtouchmove () {},
     // 返回上一级页面
     goBack () {
-        wx.navigateBack({
-            delta: 1
-        });
+        let pageLen = getCurrentPages();
+        if (pageLen.length === 1) {
+            wx.reLaunch({
+                url: '/pages/my/index'
+              });
+        } else {
+            wx.navigateBack({
+                delta: 1
+            });
+        }
     },
     // 按钮：马上升级
     onClickHandle () {

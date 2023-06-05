@@ -42,7 +42,6 @@ Component({
 					paramsList: this.data.paramsList,
 					noSliding: true
 				});
-				console.log('传参：',this.data.paramsList);
 			},400);
 		},
 		noSliding () {},

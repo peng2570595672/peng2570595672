@@ -25,8 +25,7 @@ Page({
 		showCouponWrapper: false,
 		showCouponMask: false,
 		prechargeInfo: '',// 预充流程,预充信息
-		disclaimerDesc: app.globalData.disclaimerDesc,
-		contractStatus: ''
+		disclaimerDesc: app.globalData.disclaimerDesc
 	},
 	async onLoad (options) {
 		this.setData({
@@ -54,10 +53,6 @@ Page({
 			// 查询是否欠款
 			await util.getIsArrearage();
 		}
-	},
-	onShow () {
-		let deviceUpgrade = app.globalData.myEtcList.filter(item => item.id === this.data.orderId && item.orderType === 81);
-		if (deviceUpgrade?.length > 0) this.queryContract();
 	},
 	initCouponMask () {
 		let time = new Date().toLocaleDateString();
@@ -377,30 +372,29 @@ Page({
 		});
 	},
 	// 确认收货去激活
-	onClickCctivate () {
+	async onClickCctivate () {
 		if (this.data.info.orderType === 81) {
-			// contractStatus; // 签约状态   签约状态 -1 签约失败 0发起签约 1已签约 2解约
-			if (this.data.contractStatus === 1) {
-				this.selectComponent('#popTipComp').show({
-					type: 'eight',
-					title: '重新签约',
-					content: '为了保证您正常通行，请先到微信车主服务解约后再重新签约',
-					btnconfirm: '知道了'
-				});
-				return;
-			}
-			if (this.data.contractStatus === 0) {
-				this.selectComponent('#popTipComp').show({
-					type: 'four',
-					title: '重新签约',
-					content: '检测到你已解除车主服务签约，将影响正常的高速通行',
-					btnCancel: '取消',
-					btnconfirm: '恢复签约',
-					params: {
-						orderInfo: app.globalData.myEtcList.filter(item => item.id === this.data.orderId)[0]
-					}
-				});
-				return;
+			const result = await util.getDataFromServersV2('consumer/order/query-contract', { // 查询车主服务签约
+				orderId: this.data.orderId
+			});
+			if (!result) return;
+			if (result.code === 0) {
+				// contractStatus; // 签约状态   签约状态 -1 签约失败 0发起签约 1已签约 2解约
+				if (result.data.contractStatus === 0 && result.data.version === 'v2') {
+					this.selectComponent('#popTipComp').show({
+						type: 'four',
+						title: '重新签约',
+						content: '检测到你已解除车主服务签约，将影响正常的高速通行',
+						btnCancel: '取消',
+						btnconfirm: '恢复签约',
+						params: {
+							orderInfo: app.globalData.myEtcList.filter(item => item.id === this.data.orderId)[0]
+						}
+					});
+					return;
+				}
+			} else {
+				util.showToastNoIcon(result.message);
 			}
 		}
 		if (this.data.info.shopId && this.data.info.shopId === '624263265781809152') {
@@ -588,17 +582,6 @@ Page({
 				url: '/pages/Home/Home'
 			});
 		}
-	},
-	// 查询车主服务签约
-	async queryContract () {
-		const result = await util.getDataFromServersV2('consumer/order/query-contract', {
-			orderId: this.data.orderId
-		});
-		if (!result) return;
-		if (result.code === 0) {
-			this.setData({ contractStatus: result.data.contractStatus });
-		} else {
-			util.showToastNoIcon(result.message);
-		}
 	}
+
 });

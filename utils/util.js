@@ -744,7 +744,7 @@ function getStatus(orderInfo) {
 		if (orderInfo.status === 2) { // 小程序提交完资料
 			return 26;
 		}
-		if (orderInfo.auditStatus === 1) { // 小程序提交完资料
+		if (orderInfo.auditStatus === 1) { // 小程序提交完资料,审核失败
 			return 27;
 		}
 		if (orderInfo.auditStatus === 9) {
@@ -758,7 +758,7 @@ function getStatus(orderInfo) {
 		if (orderInfo.logisticsId !== 0 && orderInfo.obuStatus === 0) {
 			return 11; //  待激活
 		}
-		return 29;
+		return 29; //已激活 查看进度页
 	}
 	if (orderInfo.orderType === 61 && (orderInfo.auditStatus === 9 || orderInfo.auditStatus === 1)) {
 		return 8; // 电销模式审核不通过,不允许修改资料

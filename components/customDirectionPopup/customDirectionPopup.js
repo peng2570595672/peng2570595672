@@ -76,7 +76,7 @@ Component({
             this.setData({cardList: []});
             let list = app.globalData.myEtcList.filter(item => item.obuStatus === 1 || item.obuStatus === 5);
             for (let index = 0; index < list.length; index++) {
-                arr1.push(await this.getOrderInfo(list[index].id));
+                arr1.push(await this.getOrderInfo(list[index].id,list[index]?.contractVersion));
             }
             nmOrderList = arr1.filter(item => item.obuCardType === 2).map((item,index) => {
                 let rep = item.addTime.slice(0, 19).replace(new RegExp('-', 'g'), '/'); // 转换是为了iPhone
@@ -89,7 +89,8 @@ Component({
                     addTime: item.addTime,
                     sortTime: time,
                     vehColor: item.vehColor,
-                    orderType: item.orderType
+                    orderType: item.orderType,
+                    contractVersion: item.contractVersion
                 };
             });
             if (this.data.argObj?.orderId) { // 指定订单ID
@@ -110,14 +111,14 @@ Component({
         },
         selectFunc (e) { // 选中车辆
             let index = e.currentTarget.dataset.index;
-            if (this.data.carList[index].obuCardType !== 2) {
+            if (this.data.carList[index].obuCardType !== 2 || this.data.carList[index].contractVersion === 'v3') {
                 this.setData({selectedIndex: -1,isBtn: false});
                 return;
             }
             this.setData({selectedIndex: index,isBtn: true});
         },
         ok () { // 确认车牌号
-            if (!this.data.isBtn) {
+            if (!this.data.isBtn || this.data.carList[this.data.selectedIndex].contractVersion === 'v3') {
                 util.showToastNoIcon('此车牌暂不支持设备升级');
                 return;
             }
@@ -155,6 +156,10 @@ Component({
                 util.showToastNoIcon('提示该车牌已经是最新设备，无需重新办理');
                 return;
             }
+            if (this.data.carList[0].contractVersion === 'v3') {
+                util.showToastNoIcon('此车牌暂不支持设备升级');
+                return;
+            }
             // 判断此车牌是否欠费
             if (await this.getFailBill(this.data.carList[0].vehPlates,this.data.carList[0].obuCardType)) {
                 return;
@@ -170,7 +175,20 @@ Component({
             // 如果已有订单直接拉起支付或已支付跳转到下一个页面
             if (deviceOrder?.length > 0 && (this.data.shopProductInfo.pledgePrice || this.data.equityListMap.payMoney)) {
                 if (deviceOrder[0].pledgeStatus === 0) {
-                    await this.marginPayment(deviceOrder[0].pledgeType,deviceOrder[0].id);
+                    util.alert({
+                        title: `提示`,
+                        content: `升级需注销您的原设备，原设备将不能使用`,
+                        confirmColor: '#576B95',
+                        cancelColor: '#000000',
+                        cancelText: '取消办理',
+                        confirmText: '继续办理',
+                        showCancel: true,
+                        confirm: async () => {
+                            await this.marginPayment(deviceOrder[0].pledgeType,deviceOrder[0].id);
+                        },
+                        cancel: async () => {
+                        }
+                    });
                     return;
                 }
                 if (deviceOrder[0].pledgeStatus === 1) {
@@ -181,21 +199,22 @@ Component({
             this.emptySaveOrder();
         },
 
-        async getOrderInfo (orderId) { // 根据订单ID 查询订单
+        async getOrderInfo (orderId,version) { // 根据订单ID 查询订单
             const result = await util.getDataFromServersV2('consumer/order/order-detail-for-update', {
                 orderId: orderId
             },'post',false);
             if (!result) return;
             if (result.code === 0) {
-               return {
-                vehPlates: result.data.orderInfo?.vehPlates,
-                mobilePhone: result.data.orderReceive?.receivePhone || app.globalData.mobilePhone,
-                obuCardType: result.data.orderInfo?.obuCardType,
-                id: result.data.orderInfo?.id,
-                addTime: result.data.orderInfo.addTime,
-                vehColor: result.data.orderInfo?.vehColor,
-                orderType: result.data.orderInfo.orderType
-            };
+                return {
+                    vehPlates: result.data.orderInfo?.vehPlates,
+                    mobilePhone: result.data.orderReceive?.receivePhone || app.globalData.mobilePhone,
+                    obuCardType: result.data.orderInfo?.obuCardType,
+                    id: result.data.orderInfo?.id,
+                    addTime: result.data.orderInfo.addTime,
+                    vehColor: result.data.orderInfo?.vehColor,
+                    orderType: result.data.orderInfo.orderType,
+                    contractVersion: version || ''
+                };
             } else {
                 util.showToastNoIcon(result.message);
             }
@@ -359,7 +378,7 @@ Component({
             });
             if (!result) return;
             if (result.code === 0) {
-                if (result.data.length > 5) {
+                if (result.data.length >= 5) {
                     util.alert({
                         title: `提示`,
                         content: `该套餐目前暂只支持单人办理五台车辆`,

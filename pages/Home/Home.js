@@ -870,7 +870,6 @@ Page({
 			this.setData({
 				isShowHandle: list.filter(item => item.obuStatus !== 1 && item.obuStatus !== 2 && item.obuStatus !== 5).length > 0
 			});
-			console.log('订单列表：',list);
 			list.map(item => {
 				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
 				// 设备状态 0-待激活，1-已激活，2-已注销  3-开卡 4-发签 5预激活
@@ -1255,9 +1254,16 @@ Page({
 			23: () => this.goPayment(orderInfo),
 			24: () => this.goPayment(orderInfo), // 去支付
 			25: () => this.onClickContinueHandle(orderInfo), // 继续办理
-			26: () => this.onClickViewProcessingProgressHandle(orderInfo) // 订单排队审核中 - 查看进度
+			26: () => this.onClickViewProcessingProgressHandle(orderInfo), // 订单排队审核中 - 查看进度
+			27: () => this.onClickContinueHandle(orderInfo), // 修改资料
+			28: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
+			29: () => this.onOrderDetail(orderInfo) // 订单详情
 		};
 		fun[orderInfo.selfStatus].call();
+	},
+	// 订单详情
+	onOrderDetail (orderInfo) {
+		util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${orderInfo.id}`);
 	},
 	// 通通券签约
 	async onClickSignTongTongQuan () {
@@ -1575,7 +1581,7 @@ Page({
 			);
 			return;
 		}
-		if (orderInfo.selfStatus === 25) {	// 设备升级
+		if (orderInfo.selfStatus === 25 || orderInfo.selfStatus === 27) {	// 设备升级证件确认页
 			util.go(`/pages/device_upgrade/fill_in_information/fill_in_information?orderId=${orderInfo.id}`);
 			return;
 		}

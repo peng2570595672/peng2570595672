@@ -18,7 +18,7 @@
         <view class="module deviceUpgrade" wx:if="{{argObj.type === 'device_upgrade'}}">
             <scroll-view scroll-y class="topCar" catchtouchmove=''>
                 <view wx:for="{{carList}}" wx:key="index" data-index="{{index}}" catchtap="selectFunc">
-                    <view class="iconfont carList carNumber {{tools.dataLen(carList) === 1 || index === selectedIndex ? 'yes' : item.obuCardType !== 2 ? 'gray' : 'no' }}">
+                    <view class="iconfont carList carNumber {{tools.dataLen(carList) === 1 || index === selectedIndex ? item.contractVersion === 'v3' ? 'gray' : 'yes' : item.obuCardType !== 2 || item.contractVersion === 'v3' ? 'gray' : 'no' }}">
                         <view class="head">
                             <view class="icon"><image class="image" src="https://file.cyzl.com/g001/M01/E2/EA/oYYBAGR5oG6AXRUxAAABjbd9qpk919.png" /></view>
                             <view class="numberplate">{{item.vehPlates}}</view>
@@ -49,7 +49,7 @@
                     </view>
                 </view>
             </view>
-            <view class="btn yesBtn" wx:if="{{!isHide}}" catchtap="handle">{{payStatus ? payStatus === 1 ? '去支付' : '继续办理' : tools.parseNum(shopProductInfo.pledgePrice + equityListMap.payMoney)/100 + '元办理'}}</view>
+            <view class="btn {{carList[0].contractVersion ==='v3' ? 'noBtn' : 'yesBtn'}}" wx:if="{{!isHide}}" catchtap="handle">{{payStatus ? payStatus === 1 ? '去支付' : '继续办理' : tools.parseNum(shopProductInfo.pledgePrice + equityListMap.payMoney)/100 + '元办理'}}</view>
             <view class="btn {{isBtn ? 'yesBtn' : 'noBtn'}}" wx:else catchtap="ok">{{ '确定'}}</view>
         </view>
     </view>

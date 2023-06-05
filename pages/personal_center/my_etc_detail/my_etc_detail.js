@@ -222,9 +222,16 @@ Page({
 			23: () => this.goPayment(orderInfo),
 			24: () => this.goPayment(orderInfo), // 去支付
 			25: () => this.onClickContinueHandle(orderInfo), // 继续办理
-			26: () => this.onClickViewProcessingProgressHandle(orderInfo) // 订单排队审核中 - 查看进度
+			26: () => this.onClickViewProcessingProgressHandle(orderInfo), // 订单排队审核中 - 查看进度
+			27: () => this.onClickContinueHandle(orderInfo), // 修改资料
+			28: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
+			29: () => this.onOrderDetail(orderInfo) // 查看进度
 		};
 		fun[orderInfo.selfStatus].call();
+	},
+	// 订单详情
+	onOrderDetail (orderInfo) {
+		util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${orderInfo.id}`);
 	},
 	onActive (orderInfo) {	// 已激活后的操作
 		if (orderInfo.obuCardType === 2 && util.timeComparison('2023/06/01 00:00:00', orderInfo.addTime) === 2) {
@@ -559,8 +566,12 @@ Page({
 		util.go(`/pages/web/web/web?type=online_customer_service`);
 	},
 	// 去激活
-	async onClickCctivate () {
+	async onClickCctivate (obj) {
 		wx.uma.trackEvent('etc_detail_for_activation');
+		if (obj.orderType === 81) {
+			this.onClickViewProcessingProgressHandle(obj);
+			return;
+		}
 		if (!this.data.orderInfo?.logisticsId) {
 			this.handleActivate();
 		} else {
