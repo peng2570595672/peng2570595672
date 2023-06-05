@@ -414,7 +414,7 @@ Page({
 						};
 						if (!isHave) {
 							console.log(res.devices[i].localName);
-							if (/NM/.test(res.devices[i].name)) {
+							if (new RegExp('^NM.*$').test(res.devices[i].name)) {
 								list.push(res.devices[i]);
 								callback(res.devices[i]);
 							}
