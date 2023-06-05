@@ -56,8 +56,8 @@ Page({
 		}
 	},
 	onShow () {
-		let deviceUpgrade = app.globalData.myEtcList.indexOf(item => item.id === this.data.orderId && item.orderType === 81);
-		if (deviceUpgrade !== -1) this.queryContract();
+		let deviceUpgrade = app.globalData.myEtcList.filter(item => item.id === this.data.orderId && item.orderType === 81);
+		if (deviceUpgrade?.length > 0) this.queryContract();
 	},
 	initCouponMask () {
 		let time = new Date().toLocaleDateString();
@@ -389,7 +389,7 @@ Page({
 				});
 				return;
 			}
-			if (this.data.contractStatus === 2) {
+			if (this.data.contractStatus === 0) {
 				this.selectComponent('#popTipComp').show({
 					type: 'four',
 					title: '重新签约',
