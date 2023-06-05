@@ -736,16 +736,29 @@ function getTruckHandlingStatus(orderInfo) {
 function getStatus(orderInfo) {
 	if (orderInfo.orderType === 81) {
 		if (orderInfo.pledgeStatus === 0) {// 设备升级 待支付
-			return 24
+			return 24;
 		}
-		if (orderInfo.status === 0 || orderInfo.auditStatus === 1) { // 设备升级  资料待完善  || 审核失败,可以修改资料
-			return 25	
+		if (orderInfo.status === 0) { // 设备升级  资料待完善  || 审核失败,可以修改资料
+			return 25;
+		}
+		if (orderInfo.status === 2) { // 小程序提交完资料
+			return 26;
+		}
+		if (orderInfo.auditStatus === 1) { // 小程序提交完资料
+			return 27;
 		}
 		if (orderInfo.auditStatus === 9) {
 			// 高速核验不通过
 			return 8;
 		}
-		return 26;
+		if (orderInfo.auditStatus === 2 && orderInfo.logisticsId === 0) {
+			// 待发货
+			return 28;
+		}
+		if (orderInfo.logisticsId !== 0 && orderInfo.obuStatus === 0) {
+			return 11; //  待激活
+		}
+		return 29;
 	}
 	if (orderInfo.orderType === 61 && (orderInfo.auditStatus === 9 || orderInfo.auditStatus === 1)) {
 		return 8; // 电销模式审核不通过,不允许修改资料
