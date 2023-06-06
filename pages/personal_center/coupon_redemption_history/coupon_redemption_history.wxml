@@ -5,7 +5,8 @@
         <view class="item" wx:for="{{couponList}}" wx:key="index">
             <view class="coupon-info">
                 <view class="img">
-                    <image src="/pages/personal_center/assets/{{item.couponType === 1 ? 'passage_coupons' : 'parking_coupon'}}.png" mode="heightFix"></image>
+                    <image wx:if="{{item.packageCover}}" src="{{item.packageCover}}" mode="heightFix"></image>
+                    <image wx:else src="/pages/personal_center/assets/{{item.couponType === 1 ? 'passage_coupons' : 'parking_coupon'}}.png" mode="heightFix"></image>
                 </view>
                 <view class="name">
                     <view>{{item.couponName}}</view>
