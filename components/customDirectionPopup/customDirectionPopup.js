@@ -164,10 +164,13 @@ Component({
             if (await this.getFailBill(this.data.carList[0].vehPlates,this.data.carList[0].obuCardType)) {
                 return;
             };
-
             let deviceOrder = app.globalData.myEtcList.filter(item => item.vehPlates === this.data.carList[0].vehPlates && item.orderType === 81);
             console.log(deviceOrder);
-            if (deviceOrder[0].pledgeStatus === 1) { // 继续办理
+            if (deviceOrder[0]?.pledgeStatus === 1) { // 继续办理
+                if (deviceOrder[0]?.auditStatus !== 1 && deviceOrder[0]?.clipCardCert) {
+                    util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${deviceOrder[0].id}`);
+                    return;
+                }
                 util.go(`/pages/device_upgrade/fill_in_information/fill_in_information?orderId=${deviceOrder[0].id}`);
                 return;
             }
@@ -177,25 +180,25 @@ Component({
                     return;
                 }
             }
-            // 如果已有订单直接拉起支付或已支付跳转到下一个页面
-            if (deviceOrder?.length > 0 && (this.data.shopProductInfo.pledgePrice || this.data.equityListMap.payMoney) && deviceOrder[0].pledgeStatus === 0) {
-                util.alert({
-                    title: `提示`,
-                    content: `升级需注销您的原设备，原设备将不能使用`,
-                    confirmColor: '#576B95',
-                    cancelColor: '#000000',
-                    cancelText: '取消办理',
-                    confirmText: '继续办理',
-                    showCancel: true,
-                    confirm: async () => {
+            util.alert({
+                title: `提示`,
+                content: `升级需注销您的原设备，原设备将不能使用`,
+                confirmColor: '#576B95',
+                cancelColor: '#000000',
+                cancelText: '取消办理',
+                confirmText: '继续办理',
+                showCancel: true,
+                confirm: async () => {
+                    // 如果已有订单直接拉起支付或已支付跳转到下一个页面
+                    if (deviceOrder?.length > 0 && (this.data.shopProductInfo.pledgePrice || this.data.equityListMap.payMoney) && deviceOrder[0].pledgeStatus === 0) {
                         await this.marginPayment(deviceOrder[0].pledgeType,deviceOrder[0].id);
-                    },
-                    cancel: async () => {
+                        return;
                     }
-                });
-                return;
-            }
-            this.emptySaveOrder();
+                    this.emptySaveOrder();
+                },
+                cancel: async () => {
+                }
+            });
         },
 
         async getOrderInfo (orderId,version) { // 根据订单ID 查询订单
@@ -213,6 +216,7 @@ Component({
                     vehColor: result.data.orderInfo?.vehColor,
                     orderType: result.data.orderInfo.orderType,
                     contractVersion: version || ''
+                    // result.data.orderInfo?.vehPlates === '贵Z51491' ? 'v3' : version
                 };
             } else {
                 util.showToastNoIcon(result.message);
@@ -377,7 +381,7 @@ Component({
             });
             if (!result) return;
             if (result.code === 0) {
-                if (result.data.length >= 5) {
+                if (result.data.length >= 50) {
                     util.alert({
                         title: `提示`,
                         content: `该套餐目前暂只支持单人办理五台车辆`,
