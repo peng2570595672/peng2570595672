@@ -119,13 +119,14 @@
   align-items: center;
 }
 .index .favourable .leftImg {
-  margin: 0rpx 14rpx 0rpx 30rpx;
+  margin: -10rpx 14rpx 0rpx 30rpx;
   width: 38rpx;
   height: 44rpx;
   background: url("https://file.cyzl.com/g001/M01/E0/BE/oYYBAGRtqMeAUfE6AAAIks5nN7g899.png") center no-repeat;
   background-size: cover;
 }
 .index .favourable .textTime {
+  margin-top: -10rpx;
   font-size: 22rpx;
   font-family: PingFang SC-Medium, PingFang SC;
   font-weight: 500;
