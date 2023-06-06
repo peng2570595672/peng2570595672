@@ -167,10 +167,10 @@ Component({
             let deviceOrder = app.globalData.myEtcList.filter(item => item.vehPlates === this.data.carList[0].vehPlates && item.orderType === 81);
             console.log(deviceOrder);
             if (deviceOrder[0]?.pledgeStatus === 1) { // 继续办理
-                // if (deviceOrder[0]?.auditStatus !== 1 && deviceOrder[0]?.clipCardCert) {
-                //     util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${deviceOrder[0].id}`);
-                //     return;
-                // }
+                if (deviceOrder[0]?.auditStatus !== 1 && deviceOrder[0]?.clipCardCert) {
+                    util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${deviceOrder[0].id}`);
+                    return;
+                }
                 util.go(`/pages/device_upgrade/fill_in_information/fill_in_information?orderId=${deviceOrder[0].id}`);
                 return;
             }

@@ -144,7 +144,8 @@ App({
 		salesmanEmptyObj: {},	// 业务员空发对象
 		isShowDeviceUpgradePop: true,	// 控制首页设备升级弹窗的显示（每次进入都显示）
 		deviceUpgrade: {
-			addTime: '2023/06/01 00:00:00'
+			addTime: '2023/06/01 00:00:00',
+			shopProductId: IS_TEST ? '1112690526506721280' : ''
 		}
 	},
 	onLaunch (options) {
