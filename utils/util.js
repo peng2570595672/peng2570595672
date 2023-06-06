@@ -948,10 +948,10 @@ function isDuringDate(beginDateStr, endDateStr) {
  *  获取当前日期是否属于某时间段,开始和结束都为闭区间（用于校验身份证的有效期）
  */
 function isDuringDateIdCard(beginDateStr, endDateStr) {
-	if (!beginDateStr || !endDateStr) return
 	const curDate = new Date();
-	beginDateStr = beginDateStr.slice(0, 19).replace(new RegExp('-', 'g'), '/');	//转换是为了iPhone
-	endDateStr = endDateStr.slice(0, 19).replace(new RegExp('-', 'g'), '/');
+	beginDateStr = beginDateStr.replace('.', '/').replace('.', '/');	//转换是为了iPhone
+	endDateStr = endDateStr.replace('.', '/').replace('.', '/');
+	console.log(beginDateStr,endDateStr);
 	const beginDate = new Date(beginDateStr);
 	const endDate = new Date(endDateStr);
 	return curDate >= beginDate && curDate <= endDate;
