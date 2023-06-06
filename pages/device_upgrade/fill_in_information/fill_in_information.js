@@ -49,6 +49,7 @@ Page({
         if (options?.orderId) this.setData({orderId: options.orderId});
     },
     onShow () {
+		this.setData({paperIsExpire: false});
 		this.queryOrder(this.data.orderId);
     },
     // 根据订单ID查询订单信息
@@ -83,6 +84,9 @@ Page({
             });
 			if (result.data.orderCardInfo.validDate.includes('长期')) return;
 			let timeInterval = result.data.orderCardInfo.validDate.split('-');
+			console.log(timeInterval);
+			let str1 = timeInterval[0].replace('.','/');
+			let str2 = timeInterval[1].replace('.','/');
 			if (!util.isDuringDateIdCard(timeInterval[0], timeInterval[1])) {
 				this.setData({paperIsExpire: true});
 				util.showToastNoIcon('身份证已过期，请重新上传证件');
@@ -308,6 +312,7 @@ Page({
 		if (!paper.handlePhone) return util.showToastNoIcon('办理手机号不能为空');
 		if (!this.data.updatedPhone && !paper.code) return util.showToastNoIcon('验证码不能为空');
 		if (!paper.licenseInformation.licenseMainPage || !paper.licenseInformation.licenseVicePage) return util.showToastNoIcon('车辆行驶证不能为空');
+		return false;
 	},
     // 输入框输入值
 	onInputChangedHandle (e) {
@@ -409,24 +414,26 @@ Page({
 	},
 	// 修改
 	uploadInfo (e) {
-		console.log(e);
 		let key = e.currentTarget.dataset.name;
 		let imgUrl = e.currentTarget.dataset.url;
 		app.globalData.orderInfo.orderId = this.data.orderId;
 		let newOrderInfo = this.data.newOrderInfo;
 		let oldOrderInfo = this.data.oldOrderInfo;
+		let vehPlates = newOrderInfo.orderInfo?.vehPlates ? newOrderInfo.orderInfo?.vehPlates : oldOrderInfo.vehPlates;
+		let vehColor = newOrderInfo.orderInfo?.vehColor ? newOrderInfo.orderInfo?.vehColor : oldOrderInfo.vehColor;
+		let obuCardType = newOrderInfo.orderInfo?.obuCardType ? newOrderInfo.orderInfo?.obuCardType : oldOrderInfo.obuCardType;
 		switch (key) {
 			case 'phone':	// 修改（手机号）
 				this.setData({updatedPhone: false,'paper.handlePhone': '',available: false});
 				break;
 			case 'license':	// 修改（行驶证）
-				util.go(`/pages/default/information_validation/information_validation?vehPlates=${newOrderInfo.orderInfo?.vehPlates || oldOrderInfo.vehPlates}&vehColor=${newOrderInfo.orderInfo?.vehColor || oldOrderInfo.vehColor}&obuCardType=${newOrderInfo.orderInfo?.obuCardType || oldOrderInfo.obuCardType}`);
+				util.go(`/pages/default/information_validation/information_validation?vehPlates=${vehPlates}&vehColor=${vehColor}&obuCardType=${obuCardType}`);
 				break;
 			case 'carHeadPhone':	// 修改（车头照）
-				util.go(`/pages/default/upload_other_photo/upload_other_photo?vehPlates=${newOrderInfo.orderInfo?.vehPlates || oldOrderInfo.vehPlates}&vehColor=${newOrderInfo.orderInfo?.vehColor || oldOrderInfo.vehColor}&obuCardType=${newOrderInfo.orderInfo?.obuCardType || oldOrderInfo.obuCardType}`);
+				util.go(`/pages/default/upload_other_photo/upload_other_photo?vehPlates=${vehPlates}&vehColor=${vehColor}&obuCardType=${obuCardType}`);
 				break;
 			case 'idCard':	// 修改（身份证）
-				util.go(`/pages/default/upload_id_card/upload_id_card?vehPlates=${newOrderInfo.orderInfo?.vehPlates || oldOrderInfo.vehPlates}`);
+				util.go(`/pages/default/upload_id_card/upload_id_card?vehPlates=${vehPlates}`);
 				break;
 			case 'bigImg':
 				this.selectComponent('#popTipComp').show({
@@ -455,7 +462,7 @@ Page({
 	},
 	// 按钮“确定”
     async next () {
-        this.confirmCheck();
+        if (this.confirmCheck()) return;
 		if (this.data.paperIsExpire) return;
 		let formData = this.data.formData;
 		let paper = this.data.paper;
