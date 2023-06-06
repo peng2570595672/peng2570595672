@@ -5,7 +5,8 @@ Page({
 
     data: {
 		orderId: '',
-		newOrderInfo: {}, // 原订单数据（身份证、行驶证、车头照）
+		newOrderInfo: {}, // 新订单数据（身份证、行驶证、车头照）
+		oldOrderInfo: {},	// 原订单数据（身份证、行驶证、车头照）
         formData: { // 基础信息
 			currentCarNoColor: 0, // 0 蓝色 1 渐变绿 2黄色
 			region: [], // 省市区
@@ -77,6 +78,7 @@ Page({
                 formData,
                 paper,
 				newOrderInfo: result.data,
+				oldOrderInfo: app.globalData.myEtcList.filter(item => item.id === orderId)[0],
 				available: this.validateAvailable()
             });
 			if (result.data.orderCardInfo.validDate.includes('长期')) return;
@@ -411,18 +413,20 @@ Page({
 		let key = e.currentTarget.dataset.name;
 		let imgUrl = e.currentTarget.dataset.url;
 		app.globalData.orderInfo.orderId = this.data.orderId;
+		let newOrderInfo = this.data.newOrderInfo;
+		let oldOrderInfo = this.data.oldOrderInfo;
 		switch (key) {
 			case 'phone':	// 修改（手机号）
 				this.setData({updatedPhone: false,'paper.handlePhone': '',available: false});
 				break;
 			case 'license':	// 修改（行驶证）
-				util.go(`/pages/default/information_validation/information_validation`);
+				util.go(`/pages/default/information_validation/information_validation?vehPlates=${newOrderInfo.orderInfo?.vehPlates || oldOrderInfo.vehPlates}&vehColor=${newOrderInfo.orderInfo?.vehColor || oldOrderInfo.vehColor}&obuCardType=${newOrderInfo.orderInfo?.obuCardType || oldOrderInfo.obuCardType}`);
 				break;
 			case 'carHeadPhone':	// 修改（车头照）
-				util.go(`/pages/default/upload_other_photo/upload_other_photo`);
+				util.go(`/pages/default/upload_other_photo/upload_other_photo?vehPlates=${newOrderInfo.orderInfo?.vehPlates || oldOrderInfo.vehPlates}&vehColor=${newOrderInfo.orderInfo?.vehColor || oldOrderInfo.vehColor}&obuCardType=${newOrderInfo.orderInfo?.obuCardType || oldOrderInfo.obuCardType}`);
 				break;
 			case 'idCard':	// 修改（身份证）
-				util.go(`/pages/default/upload_id_card/upload_id_card`);
+				util.go(`/pages/default/upload_id_card/upload_id_card?vehPlates=${newOrderInfo.orderInfo?.vehPlates || oldOrderInfo.vehPlates}`);
 				break;
 			case 'bigImg':
 				this.selectComponent('#popTipComp').show({
