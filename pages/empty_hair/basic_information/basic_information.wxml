@@ -51,7 +51,7 @@
                 <input class="input" type="number" placeholder="请输入验证码" value="{{formData.cardPhoneCode}}" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" data-name="cardPhoneCode" maxlength="4" />
             </view>
         </view>
-        <view class="tipPhone" >这是当前微信绑定手机号，将用于开具通行费发票</view>
+        <view class="tipPhone" >用于开具通行发票和收货，请确保号码状态正常</view>
     </view>
     <!-- 模块三   办理邮寄信息 -->
     <view class="module moduleThree">
