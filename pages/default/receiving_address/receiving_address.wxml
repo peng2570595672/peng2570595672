@@ -41,12 +41,19 @@
         <view class="publicCode">
             <view class="publicCodeLeft">手机号码</view>
             <view class="publicCoderight">
-                <input class="input" type="number" placeholder="用于开具通行费发票" disabled="{{true}}" value="{{formData.operator}}" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" data-name="operator" maxlength="11" />
-                <!-- <button class="btns" open-type="getPhoneNumber" bindgetphonenumber="getWchatPhoneNumber">获取微信手机号</button> -->
-
+                <view class="input input-phone" catchtap="getWchatPhoneNumber" wx:if="{{loginInfo.needBindingPhone === 1}}">用于开具通行费发票</view>
+                <input class="input" wx:else type="number" placeholder="用于开具通行费发票" value="{{formData.cardMobilePhone}}" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" data-name="cardMobilePhone" maxlength="11" />
+                 <view class="get-phone" catchtap="getWchatPhoneNumber" wx:if="{{loginInfo.needBindingPhone === 1}}">获取微信手机号</view>
+                 <view class="get-phone" catchtap="sendCardPhoneCode" wx:if="{{formData.cardMobilePhone.length === 11 && loginInfo.mobilePhone !== formData.cardMobilePhone}}">{{identifyingCode}}</view>
             </view>
         </view>
-        <view class="tipPhone" >这是当前微信绑定手机号，将用于开具通行费发票</view>
+        <view class="publicCode" wx:if="{{formData.cardMobilePhone.length === 11 && loginInfo.mobilePhone !== formData.cardMobilePhone}}">
+            <view class="publicCodeLeft">验证码</view>
+            <view class="publicCoderight">
+                <input class="input" type="number" placeholder="请输入验证码" value="{{formData.cardPhoneCode}}" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" data-name="cardPhoneCode" maxlength="4" />
+            </view>
+        </view>
+        <view class="tipPhone" >用于开具通行发票和收货，请确保号码状态正常</view>
     </view>
     <!-- 模块三   办理邮寄信息 -->
     <view class="module moduleThree">
@@ -96,5 +103,5 @@
     </view>
     <!-- 拉起键盘 -->
 	<keyboard id="keyboard" index="{{currentIndex}}" show="{{showKeyboard}}" bind:valueChange="valueChange" myCar="{{carNo}}"></keyboard>
-    <authorization-phone bindPhoneInfo="onGetPhoneNumber" wx:if="{{loginInfo.needBindingPhone === 1}}"></authorization-phone>
+<!--    <authorization-phone bindPhoneInfo="onGetPhoneNumber" wx:if="{{loginInfo.needBindingPhone === 1}}"></authorization-phone>-->
 </view>

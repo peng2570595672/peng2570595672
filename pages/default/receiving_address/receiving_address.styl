@@ -18,7 +18,7 @@ mixinsWidthHeight($width=100%, $height=100%)
         mixinsWidthHeight(,60rpx)
     /* 公用模块 */
     .module
-        padding 0 37rpx 44rpx 37rpx
+        padding 0 32rpx 44rpx
         border-radius 16rpx
         background #FFFFFF
         margin 28rpx 28rpx 0 28rpx
@@ -100,7 +100,7 @@ mixinsWidthHeight($width=100%, $height=100%)
                 color #F19C38
         
     /* 公共模块 */
-    .module 
+    .module
         .tipPhone
             width 100%
             text-align right
@@ -124,7 +124,8 @@ mixinsWidthHeight($width=100%, $height=100%)
                 color #1E1E1E
                 text-align right
             .publicCoderight
-                mixinsWidthHeight(520rpx,66rpx)
+                //mixinsWidthHeight(520rpx,66rpx)
+                flex 1
                 display flex
                 align-items center
                 justify-content space-between
@@ -133,14 +134,15 @@ mixinsWidthHeight($width=100%, $height=100%)
                 .input
                     margin-left 20rpx
                     color #1E1E1E
-                    font-size 32rpx
+                    font-size 28rpx
                     font-weight 600
+                .input-phone,
                 .input-placeholder
-                    font-size 32rpx
+                    font-size 28rpx
                     font-weight 400
                     color rgba(0, 0, 0, 0.5)
-                    letter-spacing 3rpx
                     font-family PingFangSC-Regular, PingFang SC
+                .get-phone,
                 .btns
                     height 46rpx
                     color #fff
@@ -161,6 +163,10 @@ mixinsWidthHeight($width=100%, $height=100%)
                             content '\e6b1'
                             font-size 25rpx
                             color #f0f4f1
+                .get-phone
+                    width 162rpx
+                    justify-content center
+                    box-sizing border-box
                 .errTip
                     font-size 18rpx
                     font-weight 400
@@ -180,8 +186,8 @@ mixinsWidthHeight($width=100%, $height=100%)
                         content '\e64d'
                         font-size 30rpx
                         color #5EBE68
-            &:nth-of-type(4) 
-                .publicCoderight 
+            &:nth-of-type(4)
+                .publicCoderight
                     .input
                         width 100%
     /* 占位 */

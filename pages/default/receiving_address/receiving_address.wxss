@@ -23,7 +23,7 @@
   height: 60rpx;
 }
 .index .module {
-  padding: 0 37rpx 44rpx 37rpx;
+  padding: 0 32rpx 44rpx;
   border-radius: 16rpx;
   background: #fff;
   margin: 28rpx 28rpx 0 28rpx;
@@ -146,8 +146,7 @@
   text-align: right;
 }
 .index .module .publicCode .publicCoderight {
-  width: 520rpx;
-  height: 66rpx;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -157,16 +156,17 @@
 .index .module .publicCode .publicCoderight .input {
   margin-left: 20rpx;
   color: #1e1e1e;
-  font-size: 32rpx;
+  font-size: 28rpx;
   font-weight: 600;
 }
+.index .module .publicCode .publicCoderight .input-phone,
 .index .module .publicCode .publicCoderight .input-placeholder {
-  font-size: 32rpx;
+  font-size: 28rpx;
   font-weight: 400;
   color: rgba(0,0,0,0.5);
-  letter-spacing: 3rpx;
   font-family: PingFangSC-Regular, PingFang SC;
 }
+.index .module .publicCode .publicCoderight .get-phone,
 .index .module .publicCode .publicCoderight .btns {
   height: 46rpx;
   color: #fff;
@@ -179,15 +179,22 @@
   background: #5ebe68;
   display: flex;
 }
+.index .module .publicCode .publicCoderight .get-phone .text,
 .index .module .publicCode .publicCoderight .btns .text {
   min-width: 100rpx;
   display: block;
 }
+.index .module .publicCode .publicCoderight .get-phone .wChat::before,
 .index .module .publicCode .publicCoderight .btns .wChat::before {
   display: block;
   content: '\e6b1';
   font-size: 25rpx;
   color: #f0f4f1;
+}
+.index .module .publicCode .publicCoderight .get-phone {
+  width: 162rpx;
+  justify-content: center;
+  box-sizing: border-box;
 }
 .index .module .publicCode .publicCoderight .errTip {
   font-size: 18rpx;

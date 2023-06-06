@@ -256,7 +256,7 @@ Page({
 			ownerIdCardHaveChange: haveChange, // 车主身份证OCR结果是否被修改过，默认false，修改过传true 【dataType包含8}】
 			ownerIdCardValidDate: this.data.idCardBack.ocrObject.validDate,
 			ownerIdCardAddress: this.data.idCardFace.ocrObject.address,
-			cardMobilePhone: app.globalData.handledByTelephone || app.globalData.mobilePhone
+			// cardMobilePhone: app.globalData.handledByTelephone || app.globalData.mobilePhone
 			// cardMobilePhone: this.data.formData.cardMobilePhone, // 车主实名手机号
 			// cardPhoneCode: this.data.formData.verifyCode, // 手机号验证码
 			// notVerifyCardPhone: notVerifyCardPhone // true 时不需要验证码

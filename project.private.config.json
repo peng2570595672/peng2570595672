@@ -6,7 +6,8 @@
                 {
                     "name": "邮寄地址",
                     "pathName": "pages/default/receiving_address/receiving_address",
-                    "query": "shareId=1235556",
+                    "query": "",
+                    "launchMode": "default",
                     "scene": null
                 },
                 {
@@ -49,8 +50,9 @@
                 },
                 {
                     "name": "pages/personal_center/recharge-card-processing/recharge-card-processing",
-                    "pathName": "pages/personal_center/recharge-card-processing/recharge-card-processing",
+                    "pathName": "pages/separate_interest_package/index/index",
                     "query": "",
+                    "launchMode": "default",
                     "scene": null
                 },
                 {
@@ -169,7 +171,7 @@
                 {
                     "name": "",
                     "pathName": "pages/default/processing_progress/processing_progress",
-                    "query": "orderId=1038104740237414400",
+                    "query": "orderId=1101086168428056576",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -408,6 +410,20 @@
                     "name": "",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
                     "query": "orderId=1101196259089190912",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/default/citic_bank_card_details/citic_bank_card_details",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/coupon_redemption_centre/coupon_redemption_centre",
+                    "query": "isCheckTwoPercent=0",
                     "launchMode": "default",
                     "scene": null
                 }

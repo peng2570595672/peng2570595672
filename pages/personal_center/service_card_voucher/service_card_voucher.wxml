@@ -9,7 +9,7 @@
 		<view wx:for="{{list}}" wx:key="index" class="list-item" style="background: {{item.background}}">
 			<!--卡券左边部分开始-->
 			<view class="list-item-left" catchtap="go" data-model="{{item}}">
-				<view><image src="{{item.iconUrl}}"></image></view>
+				<view><image src="{{item.couponCover || item.iconUrl}}"></image></view>
 			</view>
 			<!--卡券左边部分结束-->
 			<!--卡券右边部分开始-->

@@ -4,6 +4,7 @@
  */
 const util = require('../../../utils/util.js');
 const app = getApp();
+let timer;
 Page({
 	data: {
 		topProgressBar: 1.0,	// 进度条展示的长度 ，再此页面的取值范围 [1,2),默认为1,保留一位小数
@@ -25,7 +26,8 @@ Page({
 			userName: '', // 收货人姓名
 			telNumber: '', // 电话号码
 			detailInfo: '', // 收货地址详细信息
-			operator: ''// 线上：用户点好；线下：经办人电话
+			cardPhoneCode: '',
+			cardMobilePhone: ''// 线上：用户点好；线下：经办人电话
 		}, // 提交数据
 		enterType: -1,// 进入小程序类型  23.搜一搜小程序独立办理链接A，24.搜一搜小程序独立办理链接B
 		productId: '',
@@ -36,6 +38,10 @@ Page({
 		tip3: '',	// 校验收件人电话号码提示
 		isName: true,	// 控制收货人名称是否合格
 		size: 30,
+		isNeedRefresh: true,// 是否需要刷新页面数据
+		identifyingCode: '获取验证码',
+		time: 59,// 倒计时
+		isGetIdentifyingCoding: false, // 获取验证码中
 		citicBank: false
 	},
 	async onLoad (options) {
@@ -76,21 +82,27 @@ Page({
 				formData
 			});
 		}
-		if (app.globalData.userInfo.accessToken) {
-			// 查询是否欠款
-			await util.getIsArrearage();
-		}
+		this.login();
 	},
 	async onShow () {
+		if (!this.data.isNeedRefresh) {
+			return;
+		}
+		this.setData({
+			isNeedRefresh: true
+		});
+		console.log(app.globalData.userInfo)
 		if (app.globalData.userInfo.accessToken) {
 			this.setData({
+				'formData.cardMobilePhone': app.globalData.mobilePhone,
+				'needBindingPhone.mobilePhone': app.globalData.mobilePhone,
+				'loginInfo.needBindingPhone': 0,
 				mobilePhoneMode: app.globalData.mobilePhoneMode
 			});
 		} else {
 			// 公众号进入需要登录
 			this.login();
 		}
-		this.getWchatPhoneNumber();
 	},
 
 	// 自动登录
@@ -119,7 +131,7 @@ Page({
 					app.globalData.memberId = result.data.memberId;
 					app.globalData.mobilePhone = result.data.mobilePhone;
 					this.setData({
-						'formData.operator': result.data.mobilePhone
+						'formData.cardMobilePhone': result.data.mobilePhone
 					});
 					// 查询是否欠款
 					await util.getIsArrearage();
@@ -133,6 +145,60 @@ Page({
 				util.showToastNoIcon('登录失败！');
 			}
 		});
+	},
+	// 发送短信验证码
+	async sendCardPhoneCode () {
+		if (this.data.isGetIdentifyingCoding) return;
+		// 如果在倒计时，直接不处理
+		if (!this.data.formData.cardMobilePhone) {
+			util.showToastNoIcon('请输入手机号');
+			return;
+		} else if (!/^1[0-9]{10}$/.test(this.data.formData.cardMobilePhone)) {
+			util.showToastNoIcon('手机号输入不合法');
+			return;
+		}
+		this.setData({
+			isGetIdentifyingCoding: true
+		});
+		util.showLoading({
+			title: '请求中...'
+		});
+		const result = await util.getDataFromServersV2('consumer/order/send-receive-phone-verification-code', {
+			receivePhone: this.data.formData.cardMobilePhone + '' // 手机号
+		}, 'GET');
+		if (!result) return;
+		if (result.code === 0) {
+			this.startTimer();
+		} else {
+			this.setData({
+				isGetIdentifyingCoding: false
+			});
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 倒计时
+	startTimer () {
+		// 设置状态
+		this.setData({
+			identifyingCode: `${this.data.time}s`
+		});
+		// 清倒计时
+		clearInterval(timer);
+		timer = setInterval(() => {
+			this.setData({time: --this.data.time});
+			if (this.data.time === 0) {
+				clearInterval(timer);
+				this.setData({
+					time: 59,
+					isGetIdentifyingCoding: false,
+					identifyingCode: '重新获取'
+				});
+			} else {
+				this.setData({
+					identifyingCode: `${this.data.time}s`
+				});
+			}
+		}, 1000);
 	},
 	// 下一步
 	async next () {
@@ -157,7 +223,11 @@ Page({
 			receiveCity: formData.region[1], // 收货人城市 【dataType包含2】
 			receiveCounty: formData.region[2], // 收货人区县 【dataType包含2】
 			receiveAddress: formData.detailInfo, // 收货人详细地址 【dataType包含2】
-			notVerifyReceivePhone: true // true 时不需要验证码
+			notVerifyReceivePhone: true, // true 时不需要验证码
+			notVerifyCardPhone: this.data.formData.cardMobilePhone === this.data.loginInfo.mobilePhone ? 'true' : 'false',
+			cardMobilePhone: formData.cardMobilePhone,
+			cardPhoneCode: formData.cardPhoneCode,
+			memberPhoneFlag: 1// 对办理人手机号调整
 		};
 		if (app.globalData.otherPlatformsServiceProvidersId) {
 			params['shopId'] = app.globalData.otherPlatformsServiceProvidersId;
@@ -267,7 +337,6 @@ Page({
 				params['areaCode'] = regionCode[0];
 			}
 		}
-
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		if (!result) return;
 		this.setData({
@@ -275,7 +344,7 @@ Page({
 			isRequest: false
 		});
 		if (result.code === 0) {
-			app.globalData.handledByTelephone = this.data.formData.operator;
+			app.globalData.handledByTelephone = this.data.formData.cardMobilePhone;
 			app.globalData.orderInfo.orderId = result.data.orderId; // 订单id
 			app.globalData.newEnergy = formData.currentCarNoColor === 1 ? true : false;
 			if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
@@ -461,6 +530,9 @@ Page({
 	onClickAutoFillHandle () {
 		// 统计点击事件
 		wx.uma.trackEvent('receiving_select_the_wechat_address');
+		this.setData({
+			isNeedRefresh: false
+		});
 		wx.chooseAddress({
 			success: (res) => {
 				console.log(res);
@@ -606,7 +678,9 @@ Page({
 			isOk = false;
 		}
 		// 校验经办人手机号码
-		isOk = isOk && this.data.formData.operator && /^1[0-9]{10}$/.test(this.data.formData.operator);
+		isOk = isOk && this.data.formData.cardMobilePhone && /^1[0-9]{10}$/.test(this.data.formData.cardMobilePhone);
+		// 校验经办人手机号码
+		isOk = isOk && ((this.data.formData.cardMobilePhone === this.data.loginInfo.mobilePhone) || (this.data.formData.cardMobilePhone !== this.data.loginInfo.mobilePhone && formData.cardPhoneCode.length === 4));
 		// 校验姓名
 		isOk = isOk && formData.userName && formData.userName.length >= 1;
 		// 校验省市区
@@ -626,19 +700,7 @@ Page({
 		this.selectComponent('#keyboard').hide();
 	},
 	getWchatPhoneNumber () {
-		if (app.globalData.userInfo.needBindingPhone !== 1) {	// 判断是否绑定过手机号
-			this.setData({
-				tip1: '',
-				'formData.operator': app.globalData.mobilePhone,
-				available: this.validateAvailable(true)
-			});
-		} else {
-			util.showToastNoIcon('手机号未绑定，马上跳转登录页登录');
-			setTimeout(() => {
-				wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-				// util.go('/pages/login/login/login');
-			},1500);
-		}
+		util.go('/pages/login/login/login');
 	},
 	async onGetPhoneNumber (e) {
 		// 允许授权
@@ -667,7 +729,7 @@ Page({
 				this.setData({
 					loginInfo,
 					tip1: '',
-					'formData.operator': app.globalData.mobilePhone,
+					'formData.cardMobilePhone': app.globalData.mobilePhone,
 					available: this.validateAvailable(true)
 				});
 				util.hideLoading();
@@ -687,7 +749,7 @@ Page({
 		let tip2 = '';	// 收货姓名提示
 		let tip3 = '';	// 收获人手机号提示
 		// 手机号 校验
-		if (key === 'telNumber' || key === 'operator') {
+		if (key === 'telNumber' || key === 'cardMobilePhone') {
 			let value = e.detail.value;
 			let flag = /^1[1-9][0-9]{9}$/.test(value);
 			if (value.substring(0,1) !== '1' || value.substring(1,2) === '0') {
@@ -697,16 +759,21 @@ Page({
 					});
 				} else {
 					this.setData({
-						'formData.operator': ''
+						'formData.cardMobilePhone': ''
 					});
 				}
 				return util.showToastNoIcon('非法号码');
 			} else if (len < 11) {
-				tip1 = key === 'operator' ? '*手机号未满11位，请检查' : '';
+				tip1 = key === 'cardMobilePhone' ? '*手机号未满11位，请检查' : '';
 				tip3 = key === 'telNumber' ? '*手机号未满11位，请检查' : '';
 			} else if (len === 11 && !flag) {
 				util.showToastNoIcon('非法号码');
 			}
+		}
+		if (key === 'cardPhoneCode' && e.detail.value.length > 4) { // 验证码
+			formData[key] = e.detail.value.substring(0, 4);
+		} else if (key === 'cardPhoneCode') {
+			formData[key] = e.detail.value;
 		}
 		// 收货人姓名 校验
 		if (key === 'userName') {
@@ -761,6 +828,10 @@ Page({
 	},
 	// 传车牌及车牌颜色校验是否已有黔通订单 三方接口
 	async validateCar () {
+		if (!app.globalData.userInfo.accessToken) {
+			util.go('/pages/login/login/login');
+			return;
+		}
 		this.setData({
 			available: this.validateAvailable(true)
 		});
@@ -809,7 +880,7 @@ Page({
 		if (this.data.formData.detailInfo) {
 			num += 1;
 		}
-		if (this.data.formData.operator) {
+		if (this.data.formData.cardMobilePhone) {
 			num += 1;
 		}
 		this.setData({
