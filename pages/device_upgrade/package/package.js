@@ -25,8 +25,8 @@ Page({
         }
     },
 
-    onShow () {
-
+    async onShow () {
+        await util.getIsArrearage();
     },
     catchtouchmove () {},
     // 返回上一级页面

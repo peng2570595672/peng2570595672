@@ -27,13 +27,13 @@ Page({
 			code: '', // 验证码
 			simImg: ''	// 剪卡图片
         },
-        sim: '', // 剪卡
-         // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
+        // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
         carPlateColorList: ['蓝牌','黄牌','黑牌','白牌','渐变绿牌','黄绿双拼牌','蓝白渐变'],
         tip1: '',	// 经办人电话号码校验提示
 		tip2: '',	// 收件人姓名校验
 		tip3: '',	// 校验收件人电话号码提示
 		tip4: '', 	// 办理手机号校验提示
+		tip5: '', 	// 详细地址校验
 		isName: true,	// 控制收货人名称是否合格
 		size: 30,
         available: false,	// 控制底部悬浮按钮的颜色变化
@@ -54,6 +54,8 @@ Page({
     },
     // 根据订单ID查询订单信息
     async queryOrder (orderId) {
+		let simImg = wx.getStorageSync('simImg');
+		console.log(simImg);
         const result = await util.getDataFromServersV2('consumer/order/order-detail-for-update', {
             orderId: orderId
         },'post',false);
@@ -61,8 +63,7 @@ Page({
         if (result.code === 0) {
             console.log(result.data);
             let res = result.data.orderReceive;
-            let info = result.data.memberCardInfo;
-            let orderInfo = result.data.orderInfo;
+            let info = result.data.orderCardInfo;
             let formData = this.data.formData;
             formData.userName = res.receiveMan; // 姓名
             formData.telNumber = res.receivePhone; // 电话
@@ -75,6 +76,7 @@ Page({
             paper.licenseInformation.licenseMainPage = result.data.orderVehicleInfo?.licenseMainPage;
             paper.licenseInformation.licenseVicePage = result.data.orderVehicleInfo?.licenseVicePage;
             paper.carHeadPhone = result.data.orderHeadstockInfo?.fileUrl;
+			paper.simImg = simImg ? simImg : result.data.clipCardCert;	// 剪卡图片
             this.setData({
                 formData,
                 paper,
@@ -84,9 +86,6 @@ Page({
             });
 			if (result.data.orderCardInfo.validDate.includes('长期')) return;
 			let timeInterval = result.data.orderCardInfo.validDate.split('-');
-			console.log(timeInterval);
-			let str1 = timeInterval[0].replace('.','/');
-			let str2 = timeInterval[1].replace('.','/');
 			if (!util.isDuringDateIdCard(timeInterval[0], timeInterval[1])) {
 				this.setData({paperIsExpire: true});
 				util.showToastNoIcon('身份证已过期，请重新上传证件');
@@ -135,9 +134,9 @@ Page({
 					console.log(res);
                     util.showToastNoIcon('文件上传成功');
                     this.setData({
-                        sim: '已上传',
 						'paper.simImg': res.data[0].fileUrl
                     });
+					wx.setStorageSync('simImg', res.data[0].fileUrl);
                     this.fangDou('',500);
                 } else { // 文件上传失败
                     util.showToastNoIcon(res.message);
@@ -285,33 +284,37 @@ Page({
 		// 检验手机号码
 		isOk = isOk && formData.telNumber && /^1[0-9]{10}$/.test(formData.telNumber);
         // 校验剪卡凭证是否上传
-        isOk = isOk && this.data.sim === '已上传';
+        isOk = isOk && this.data.paper.simImg;
 		// 校验身份证姓名
-		isOk = isOk && paper.idName.length > 0;
+		isOk = isOk && paper.idName && paper.idName.length > 0;
 		// 校验身份证号码
-		isOk = isOk && paper.idNum.length > 0;
+		isOk = isOk && paper.idNum && paper.idNum.length > 0;
 		// 校验车辆照片
-		isOk = isOk && paper.carHeadPhone.length > 0;
+		isOk = isOk && paper.carHeadPhone && paper.carHeadPhone.length > 0;
 		// 校验办理手机号
 		isOk = isOk && paper.handlePhone && /^1[0-9]{10}$/.test(paper.handlePhone);
 		// 校验验证码
 		isOk = isOk && (!this.data.updatedPhone ? paper.code.length > 0 : true);
 		// 校验车辆行驶证
-		isOk = isOk && paper.licenseInformation.licenseMainPage.length > 0 && paper.licenseInformation.licenseVicePage.length > 0;
+		isOk = isOk && paper.licenseInformation.licenseMainPage && paper.licenseInformation.licenseVicePage && paper.licenseInformation.licenseMainPage.length > 0 && paper.licenseInformation.licenseVicePage.length > 0;
 		return isOk;
 	},
 	// 确认前校验
 	confirmCheck () {
 		let formData = this.data.formData;
 		let paper = this.data.paper;
+		if (!(formData.userName && formData.userName.length >= 1)) return util.showToastNoIcon('收货人姓名有误');
+		if (!(formData.region && formData.region.length === 3 && formData.region[0] !== '省')) return util.showToastNoIcon('省市区有误');
+		if (!(formData.telNumber && /^1[0-9]{10}$/.test(formData.telNumber))) return util.showToastNoIcon('手机号有误');
+		if (!formData.detailInfo) return util.showToastNoIcon('详细地址不能为空');
+		if (!this.data.paper.simImg) return util.showToastNoIcon('剪卡未上传');
 		if (this.data.paperIsExpire) return util.showToastNoIcon('身份证已过期，请重新上传证件');
-		if (!this.data.sim) return util.showToastNoIcon('剪卡未上传');
 		if (!paper.idName) return util.showToastNoIcon('身份证姓名不能为空');
 		if (!paper.idNum) return util.showToastNoIcon('身份证号码不能为空');
+		if (!paper.licenseInformation.licenseMainPage || !paper.licenseInformation.licenseVicePage) return util.showToastNoIcon('车辆行驶证不能为空');
 		if (!paper.carHeadPhone) return util.showToastNoIcon('车辆照片不能为空');
 		if (!paper.handlePhone) return util.showToastNoIcon('办理手机号不能为空');
 		if (!this.data.updatedPhone && !paper.code) return util.showToastNoIcon('验证码不能为空');
-		if (!paper.licenseInformation.licenseMainPage || !paper.licenseInformation.licenseVicePage) return util.showToastNoIcon('车辆行驶证不能为空');
 		return false;
 	},
     // 输入框输入值
@@ -326,6 +329,7 @@ Page({
 		let tip2 = '';	// 收货姓名提示
 		let tip3 = '';	// 收获人手机号提示
 		let tip4 = '';	// 办理手机号提示
+		let tip5 = '';	// 详细地址提示
 		// 手机号 校验
 		if (key === 'telNumber' || key === 'operator' || key === 'handlePhone') {
 			let value = e.detail.value;
@@ -373,6 +377,8 @@ Page({
 				});
 			}
 		}
+		// 详细地址 校验
+		if (key === 'detailInfo') tip5 = len > 0 ? '' : '详细地址不能为空';
 		formData[key] = value;
 		paper[key] = value;
 		this.setData({
@@ -381,6 +387,7 @@ Page({
 			tip2,
 			tip3,
 			tip4,
+			tip5,
 			paper
 		});
 		this.fangDou('',500);
@@ -436,6 +443,7 @@ Page({
 				util.go(`/pages/default/upload_id_card/upload_id_card?vehPlates=${vehPlates}`);
 				break;
 			case 'bigImg':
+				if (!imgUrl) return util.showToastNoIcon('暂无图片信息');
 				this.selectComponent('#popTipComp').show({
 					type: 'seven',
 					title: '设备升级',
@@ -463,13 +471,14 @@ Page({
 	// 按钮“确定”
     async next () {
         if (this.confirmCheck()) return;
-		if (this.data.paperIsExpire) return;
+		if (this.data.paperIsExpire || !this.data.available) return;
 		let formData = this.data.formData;
 		let paper = this.data.paper;
 		let orderCardInfo = this.data.newOrderInfo.orderCardInfo;
 		console.log(orderCardInfo);
 		console.log('参数：',paper);
 		let params = {
+			orderConfirm: this.data.newOrderInfo.orderInfo.auditStatus !== 1 ? 1 : '',
 			clipCardCert: paper.simImg,
 			dataType: '28', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
 			receiveMan: formData.userName, // 收货人姓名 【dataType包含2】

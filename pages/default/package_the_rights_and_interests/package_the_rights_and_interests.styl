@@ -203,11 +203,11 @@ mixinsPositionPack($position=relative)
                             color #E9CA7B
                             line-height 39rpx
                             margin-left 10rpx
-                        &.new-device
-                            .icon
-                                margin-right 36rpx
-                                &::before
-                                    color: #54B95C;
+                        .greenIcon
+                            &::before
+                                mixinsWidthHeight(40rpx,40rpx)
+                                display block
+                                mixinsIconfont('\e6a1',24rpx,#54B95C)
                     .details
                         color #2A4F44
                         mixinsWidthHeight(60rpx,40rpx)
@@ -234,6 +234,13 @@ mixinsPositionPack($position=relative)
                             margin-top 20rpx
                             align-items center
                             justify-content space-between
+                        .cict
+                            font-size 24rpx;
+                            font-family PingFang SC-Regular, PingFang SC
+                            font-weight 400
+                            color #765026
+                            line-height 40rpx
+                            text-align justify
                     .pictures
                         mixinsWidthHeight(212rpx,160rpx)
                     .neimeng
@@ -288,6 +295,7 @@ mixinsPositionPack($position=relative)
                                     top -50rpx
                                     left 0rpx
                                     width 188rpx
+        
         .moduleOne
             margin-top 38rpx
         .btnHighLight
@@ -400,7 +408,7 @@ mixinsPositionPack($position=relative)
                         font-style oblique
                 .pay
                     mixinsWidthHeight(348rpx,90rpx)
-                    font-size 36Rpx
+                    font-size 36rpx
                     font-weight 600
                     color #FFFFFF
                     text-align center
@@ -408,6 +416,18 @@ mixinsPositionPack($position=relative)
                     border-radius 64rpx
                     background-color #ccc
                     box-shadow 0 4rpx 2rpx 0 rgba(212, 212, 212, 0.5)
+                .bail
+                    mixinsWidthHeight(450rpx,90rpx)
+                    position relative
+                    .titlea
+                        margin-top -10rpx
+                    .subTitlea
+                        mixinsWidthHeight(450rpx,90rpx)
+                        mixinsPositionPack(absolute)
+                        bottom -24rpx
+                        font-size 20rpx
+                        font-family PingFang SC-Regular, PingFang SC
+                        font-weight 400
             .payWidth
                 width 600rpx
         .paySign .moneyPay .payColor, .ttCounpon .payColor,.paySign .nextSign .payColor

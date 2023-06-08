@@ -237,10 +237,12 @@
   line-height: 39rpx;
   margin-left: 10rpx;
 }
-.package .module .lowerpart .titleDetails .titles.new-device .icon {
-  margin-right: 36rpx;
-}
-.package .module .lowerpart .titleDetails .titles.new-device .icon::before {
+.package .module .lowerpart .titleDetails .titles .greenIcon::before {
+  width: 40rpx;
+  height: 40rpx;
+  display: block;
+  content: '\e6a1';
+  font-size: 24rpx;
   color: #54b95c;
 }
 .package .module .lowerpart .titleDetails .details {
@@ -272,6 +274,14 @@
   margin-top: 20rpx;
   align-items: center;
   justify-content: space-between;
+}
+.package .module .lowerpart .detailsInfo .isSignTtCoupon .cict {
+  font-size: 24rpx;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #765026;
+  line-height: 40rpx;
+  text-align: justify;
 }
 .package .module .lowerpart .detailsInfo .pictures {
   width: 212rpx;
@@ -481,7 +491,7 @@
 .payAndAgreement .paySign .moneyPay .pay {
   width: 348rpx;
   height: 90rpx;
-  font-size: 36Rpx;
+  font-size: 36rpx;
   font-weight: 600;
   color: #fff;
   text-align: center;
@@ -489,6 +499,25 @@
   border-radius: 64rpx;
   background-color: #ccc;
   box-shadow: 0 4rpx 2rpx 0 rgba(212,212,212,0.5);
+}
+.payAndAgreement .paySign .moneyPay .bail {
+  width: 450rpx;
+  height: 90rpx;
+  position: relative;
+}
+.payAndAgreement .paySign .moneyPay .bail .titlea {
+  margin-top: -10rpx;
+}
+.payAndAgreement .paySign .moneyPay .bail .subTitlea {
+  width: 450rpx;
+  height: 90rpx;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -24rpx;
+  font-size: 20rpx;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
 }
 .payAndAgreement .paySign .payWidth {
   width: 600rpx;
@@ -510,12 +539,28 @@
   animation: fade_out 0.5s linear forwards;
   -webkit-animation: fade_out 0.5s linear forwards;
 }
+@-webkit-keyframes fade_in {
+  0% {
+    bottom: -330rpx;
+  }
+  100% {
+    bottom: 0;
+  }
+}
 @keyframes fade_in {
   0% {
     bottom: -330rpx;
   }
   100% {
     bottom: 0;
+  }
+}
+@-webkit-keyframes fade_out {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: -330rpx;
   }
 }
 @keyframes fade_out {

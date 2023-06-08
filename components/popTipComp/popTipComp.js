@@ -42,7 +42,7 @@ Component({
 					paramsList: this.data.paramsList,
 					noSliding: true
 				});
-			},400);
+			},300);
 		},
 		noSliding () {},
 		// 防抖
@@ -99,7 +99,7 @@ Component({
 		// 中信 办理提醒
 		citicBank () {
 			// 跳转保证金支付页
-			util.go(`/pages/default/new_pay/new_pay?pledgeType=${this.data.tipObj.pledgeType}&money=${this.data.tipObj.money}&equityMoney=${this.data.tipObj.equityMoney}`);
+			this.triggerEvent('confirmHandle','cictBank');
 			this.hide(false);
 		},
 		// 前去补缴

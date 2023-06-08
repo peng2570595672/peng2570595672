@@ -9,6 +9,7 @@ const app = getApp();
 Page({
 	data: {
 		bankList: [],
+		isRequest: false,
 		orderId: undefined,
 		dashedHeight: 0,
 		accountVerification: 0, //  0 没有核验id   1：核验成功，2-正在核验
@@ -25,7 +26,11 @@ Page({
 		showCouponWrapper: false,
 		showCouponMask: false,
 		prechargeInfo: '',// 预充流程,预充信息
-		disclaimerDesc: app.globalData.disclaimerDesc
+		disclaimerDesc: app.globalData.disclaimerDesc,
+		citicBankshopProductId: app.globalData.cictBankObj.citicBankshopProductId,	// 中信金卡套餐ID
+		citicBankShopshopProductId: app.globalData.cictBankObj.citicBankShopshopProductId,	// 中信白金卡套餐ID
+		cictBail: false	// 中信保证金
+
 	},
 	async onLoad (options) {
 		this.setData({
@@ -297,6 +302,7 @@ Page({
 					isSalesmanPrecharge: res.data.orderType === 31 && res.data.flowVersion === 4,
 					accountVerification: res.data.orderVerificationStatus,
 					bankCardInfo: app.globalData.bankCardInfo,
+					cictBail: (res.data.obuStatus === 1 || res.data.obuStatus === 5) && (res.data.shopProductId === this.data.citicBankshopProductId || res.data.shopProductId === this.data.citicBankShopshopProductId),
 					info: res.data
 				});
 				if (res.data.autoAuditStatus === 0 && res.data.auditStatus === 0) {
@@ -575,6 +581,56 @@ Page({
 		wx.switchTab({
 			url: '/pages/Home/Home'
 		});
+	},
+	// 保证金退回
+	async bailReturn () {
+		if (this.data.isRequest) return;
+		this.setData({isRequest: true});
+		const params = {
+			tradeType: 1,
+			packageId: app.globalData.cictBankObj.citicBankRightId,
+			openId: app.globalData.userInfo.openId,
+			orderId: this.data.orderId
+		};
+		// 业务员端
+		// if (this.data.shopUserInfo) {
+		// 	params.shopUserId = this.data.salesmanInfo.shopUserId;
+		// 	params.shopId = this.data.salesmanInfo.shopId;
+		// 	if (this.data.salesmanInfo.orderId) params.orderId = this.data.salesmanInfo.orderId;
+		// }
+
+		const result = await util.getDataFromServersV2('consumer/voucher/rights/independent-rights-buy', params);
+		if (!result) {
+			this.setData({isRequest: false});
+			return;
+		}
+		if (result.code === 0) {
+			let extraData = result.data.extraData;
+			wx.requestPayment({
+				nonceStr: extraData.nonceStr,
+				package: extraData.package,
+				paySign: extraData.paySign,
+				signType: extraData.signType,
+				timeStamp: extraData.timeStamp,
+				success: (res) => {
+					this.setData({isRequest: false});
+					if (res.errMsg === 'requestPayment:ok') {
+						util.go(`/pages/default/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${true}`);
+					} else {
+						util.go(`/pages/default/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${false}`);
+					}
+				},
+				fail: (res) => {
+					this.setData({isRequest: false});
+					if (res.errMsg !== 'requestPayment:fail cancel') {
+						util.go(`/pages/default/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${false}`);
+					}
+				}
+			});
+		} else {
+			this.setData({isRequest: false});
+			util.showToastNoIcon(result.message);
+		}
 	},
 	onUnload () {
 		if (this.data.type === 'main_process' || app.globalData.isNeedReturnHome) {

@@ -2,7 +2,8 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 		data: {
-			orderInfo: {}
+			orderInfo: {},
+			btnText: '签约代扣通行费'
 		},
 		async onLoad (options) {
 			app.globalData.signAContract = 3;
@@ -43,9 +44,11 @@ Page({
 					// 签约成功
 					console.log('签约成功');
 					await this.citicBankProcess();
+					this.setData({btnText: '签约成功'});
 					if (this.data.orderInfo.obuCardType === 1) {
 						await this.brandChargingModel();
 					}
+					// util.go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
 				}
 				this.setData({
 					contractStatus: result.data.contractStatus
@@ -106,8 +109,8 @@ Page({
 			});
 			if (!result) return;
 			if (result.code === 0) {
-				console.log('签约参数')
-				console.log(result)
+				console.log('签约参数');
+				console.log(result);
 				let res = result.data.contract;
 				// 签约车主服务 2.0
 				app.globalData.isSignUpImmediately = true; // 返回时需要查询主库
@@ -164,7 +167,7 @@ Page({
 			if (!result) return;
 			if (result.code === 0) {
 				console.log('中信银行信用卡申请进度',result);
-				flag = result.data.includes(item => item.applyStatus === '50' && item.newCustFlag === '1');
+				flag = result.data.includes(item => item.applyStatus === '50' || item.newCustFlag === '1');
 			} else {
 				util.showToastNoIcon(result.message);
 			}

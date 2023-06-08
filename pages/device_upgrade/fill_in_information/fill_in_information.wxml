@@ -30,6 +30,7 @@
             <view class="publicCodeLeft">详细地址</view>
             <view class="publicCoderight">
                 <input class="input" type="text" placeholder="输出详细收货地址" value="{{formData.detailInfo}}" data-name="detailInfo" placeholder-class="input-placeholder"  bindinput="onInputChangedHandle"/>
+                <text class="errTip" wx:if="{{tip5}}">{{tip5}}</text>
             </view>
         </view>
         <view class="publicCode">
@@ -46,11 +47,14 @@
             <view class="titles">剪卡凭证</view>
             <text class="describe">请上传剪卡照片用于旧注销设备使用</text>
         </view>
-        <view class="publicCode">
+        <view class="publicCode carPhone">
             <view class="publicCodeLeft">剪卡凭证</view>
             <view class="publicCoderight">
-                <input class="input" type="text" placeholder="上传剪卡凭证（剪掉芯片）" value="{{sim}}" disabled/>
-                <view class="btns sim iconfont" bindtap="uploadPictures"></view>
+                <view class="phone">
+                    <view class="marginImg" data-name="bigImg" wx:if="{{paper.simImg}}" data-url="{{paper.simImg}}" catchtap="uploadInfo"><image  class="image" src="{{paper.simImg}}"/></view>
+                    <view class="noImgText" wx:else>上传剪卡凭证（剪掉芯片）</view>
+                </view>
+                <view class="btn sim iconfont" bindtap="uploadPictures"></view>
             </view>
         </view>
     </view>
@@ -65,40 +69,40 @@
             <view class="publicCodeLeft">身份证姓名</view>
             <view class="publicCoderight">
                 <input class="input" type="text" value="{{paper.idName}}" disabled/>
-                <view class="updated" data-name="idCard" bindtap="uploadInfo"></view>
+                <view class="updated" data-name="idCard" catchtap="uploadInfo"></view>
             </view>
         </view>
         <view class="publicCode">
             <view class="publicCodeLeft">身份证号码</view>
             <view class="publicCoderight">
                 <input class="input" type="text" value="{{paper.idNum}}" disabled/>
-                <view class="updated" data-name="idCard" bindtap="uploadInfo"></view>
+                <view class="updated" data-name="idCard" catchtap="uploadInfo"></view>
             </view>
         </view>
         <view class="publicCode carPhone">
             <view class="publicCodeLeft">车辆行驶证</view>
             <view class="publicCoderight">
                 <view class="phone">
-                    <view class="marginImg" data-name="bigImg" data-url="{{paper.licenseInformation.licenseMainPage}}" catchtap="uploadInfo"><image class="image" src="{{paper.licenseInformation.licenseMainPage}}"/></view>
-                    <view class="marginImg" data-name="bigImg" data-url="{{paper.licenseInformation.licenseVicePage}}" catchtap="uploadInfo"><image class="image" src="{{paper.licenseInformation.licenseVicePage}}"/></view>
+                    <view class="marginImg" data-name="bigImg" data-url="{{paper.licenseInformation.licenseMainPage}}" catchtap="{{ paper.licenseInformation.licenseMainPage ? 'uploadInfo' : ''}}"><image class="image" src="{{paper.licenseInformation.licenseMainPage}}"/></view>
+                    <view class="marginImg" data-name="bigImg" data-url="{{paper.licenseInformation.licenseVicePage}}" catchtap="{{ paper.licenseInformation.licenseVicePage ? 'uploadInfo' : ''}}"><image class="image" src="{{paper.licenseInformation.licenseVicePage}}"/></view>
                 </view>
-                <view class="updated" data-name="license" bindtap="uploadInfo"></view>
+                <view class="updated" data-name="license" catchtap="uploadInfo"></view>
             </view>
         </view>
         <view class="publicCode carPhone">
             <view class="publicCodeLeft">车辆照片</view>
             <view class="publicCoderight" bindchange="onPersonsCapacityPickerChange">
                 <view class="phone">
-                    <view class="marginImg" data-name="bigImg" data-url="{{paper.carHeadPhone}}" catchtap="uploadInfo"><image class="image" src="{{paper.carHeadPhone}}"/></view>
+                    <view class="marginImg" data-name="bigImg" data-url="{{paper.carHeadPhone}}" catchtap="{{ paper.carHeadPhone ? 'uploadInfo' : ''}}"><image class="image" src="{{paper.carHeadPhone}}"/></view>
                 </view>
-                <view class="updated" data-name="carHeadPhone" bindtap="uploadInfo"></view>
+                <view class="updated" data-name="carHeadPhone" catchtap="uploadInfo"></view>
             </view>
         </view>
         <view class="publicCode">
             <view class="publicCodeLeft">办理手机号</view>
             <view class="publicCoderight">
                 <input class="input" type="number" value="{{paper.handlePhone}}" placeholder="输入办理手机号" disabled="{{updatedPhone}}" data-name="handlePhone" placeholder-class="input-placeholder" maxlength="11"  bindinput="onInputChangedHandle"/>
-                <view class="updated" data-name="phone" bindtap="uploadInfo"></view>
+                <view class="updated" data-name="phone" catchtap="uploadInfo"></view>
                 <text class="errTip" wx:if="{{tip4}}">{{tip4}}</text>
             </view>
         </view>
@@ -106,7 +110,7 @@
             <view class="publicCodeLeft">验证码</view>
             <view class="publicCoderight">
                 <input class="inputCode" type="number" value="{{paper.code}}" placeholder="输入验证码" data-name="code" placeholder-class="input-placeholder"  bindinput="onInputChangedHandle"/>
-                <view class="getCode" bindtap="{{ isGetCode ? 'getCode' : ''}}">{{codeCopywriting}}</view>
+                <view class="getCode" catchtap="{{ isGetCode ? 'getCode' : ''}}">{{codeCopywriting}}</view>
             </view>
         </view>
     </view>

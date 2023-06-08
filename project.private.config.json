@@ -426,6 +426,13 @@
                     "query": "isCheckTwoPercent=0",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "中信收银支付成功",
+                    "pathName": "pages/default/citic_bank_pay_res/citic_bank_pay_res",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

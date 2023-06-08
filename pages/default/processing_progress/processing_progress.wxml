@@ -87,10 +87,20 @@
 				<text class="copy" catchtap="copyLogisticsNo" data-no="{{info.logisticsNo}}">复制</text>
 			</view>
 		</view>
-		<view class="item {{info && (info.obuStatus !== 0 && info.obuStatus !== 5) ? 'finished' : ''}} {{!isSalesmanPrecharge ? 'last' : ''}}" wx:if="{{!isSalesmanPrecharge}}">
+        <view class="item {{info && (info.obuStatus !== 0 && info.obuStatus !== 5) ? 'finished' : ''}} {{!isSalesmanPrecharge ? 'last' : ''}}" wx:if="{{!isSalesmanPrecharge}}">
 			<view class="content-title">安装激活</view>
 			<view class="content-des">收货后可根据操作手册自主安装激活使用，请在使用过程中保证扣款渠道余额充足，以免产生扣费失败情况导致账户被拉黑</view>
 		</view>
+		<!-- <view class="item {{info && info.obuStatus !== 0 ? 'finished' : ''}}" wx:if="{{!isSalesmanPrecharge}}">
+			<view class="content-title">安装激活</view>
+			<view class="content-des" wx:if="{{info.obuStatus !== 1 && info.obuStatus !== 5}}">收货后可根据操作手册自主安装激活使用，请在使用过程中保证扣款渠道余额充足，以免产生扣费失败情况导致账户被拉黑</view>
+			<view class="content-des" wx:if="{{info.obuStatus === 1 || info.obuStatus === 5}}">已激活</view>
+		</view>
+        <view class="item " wx:if="{{info && cictBail}}">
+            <view class="content-title">保证金退回</view>
+			<view class="content-des" wx:if="{{info.refundStatus !== 5}}">信用卡套餐设备激活成功后用户需要手动将信用卡绑定微信支付后，完成手动认证购买套餐金额即可原路退还</view>
+			<view class="content-des" wx:else>保证金已退还</view>
+        </view> -->
         <view class="item {{prechargeInfo.prechargeFlag === 1 ? 'finished' : ''}} {{isSalesmanPrecharge ? 'last' : ''}}" wx:if="{{info.flowVersion === 4 && info.orderType === 31}}">
             <view class="content-title">预充值</view>
             <view wx:if="{{info.auditStatus === 2}}">
@@ -125,8 +135,11 @@
 	</view>
 	<!--	进度结束-->
 	<!--	按钮开始-->
-	<button class="btn" wx:if="{{info && info.logisticsId !== 0 && info.obuStatus !== 1 && ((info.flowVersion === 2 && info.hwContractStatus === 1) || (info.flowVersion === 1 && info.auditStatus === 2))}}" catchtap="onClickCctivate">{{info.orderType === 71 || info.promoterType === 41 || info.logisticsId === -1 ? '立即激活' : '确认收货并激活'}}</button>
+    <button class="btn" wx:if="{{info && info.logisticsId !== 0 && info.obuStatus !== 1 && ((info.flowVersion === 2 && info.hwContractStatus === 1) || (info.flowVersion === 1 && info.auditStatus === 2))}}" catchtap="onClickCctivate">{{info.orderType === 71 || info.promoterType === 41 || info.logisticsId === -1 ? '立即激活' : '确认收货并激活'}}</button>
+	<!-- <button class="btn" wx:if="{{info && info.logisticsId !== 0 && info.obuStatus !== 1 && info.obuStatus !== 5 && ((info.flowVersion === 2 && info.hwContractStatus === 1) || (info.flowVersion === 1 && info.auditStatus === 2))}}" catchtap="onClickCctivate">{{info.orderType === 71 || info.promoterType === 41 || info.logisticsId === -1 ? '立即激活' : '确认收货并激活'}}</button> -->
 	<button class="btn" wx:if="{{info && info.auditStatus === 2 && info.flowVersion === 2 && info.hwContractStatus !== 1}}" catchtap="signingExpress">签约高速支付渠道</button>
+	<!-- <button class="btn" wx:if="{{info && info.logisticsId !== 0 && cictBail && info.refundStatus !== 5}}" catchtap="bailReturn">已绑卡 发起保证金退回</button> -->
+
 	<!--	按钮结束-->
 	<view class="auto-fill"></view>
 

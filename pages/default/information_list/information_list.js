@@ -334,7 +334,7 @@ Page({
 			app.globalData.isNeedReturnHome = true;
 			app.globalData.isCheckCarChargeType = this.data.orderInfo.obuCardType === 1 && (this.data.orderInfo.orderType === 11 || this.data.orderInfo.orderType === 71 || this.data.orderInfo.promoterType === 41) && !this.data.isModifiedData;
 			if (this.data.citicBank) {
-				if (this.data.citicBank) {
+				if (this.data.citicBank) {	// 拉起中信弹窗
 					this.setData({
 						openSheet: true
 					});

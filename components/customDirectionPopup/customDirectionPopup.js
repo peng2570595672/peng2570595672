@@ -167,6 +167,10 @@ Component({
             let deviceOrder = app.globalData.myEtcList.filter(item => item.vehPlates === this.data.carList[0].vehPlates && item.orderType === 81);
             console.log(deviceOrder);
             if (deviceOrder[0]?.pledgeStatus === 1) { // 继续办理
+                if (deviceOrder[0].obuStatus === 1 || deviceOrder[0].obuStatus === 5) {
+                    util.showToastNoIcon('提示该车牌已经是最新设备，无需重新办理');
+                    return;
+                }
                 if (deviceOrder[0]?.auditStatus !== 1 && deviceOrder[0]?.clipCardCert) {
                     util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${deviceOrder[0].id}`);
                     return;
@@ -209,14 +213,13 @@ Component({
             if (result.code === 0) {
                 return {
                     vehPlates: result.data.orderInfo?.vehPlates,
-                    mobilePhone: result.data.orderReceive?.receivePhone || app.globalData.mobilePhone,
+                    mobilePhone: result.data.orderReceive?.receivePhone,
                     obuCardType: result.data.orderInfo?.obuCardType,
                     id: result.data.orderInfo?.id,
                     addTime: result.data.orderInfo.addTime,
                     vehColor: result.data.orderInfo?.vehColor,
                     orderType: result.data.orderInfo.orderType,
-                    contractVersion: version || ''
-                    // result.data.orderInfo?.vehPlates === '贵Z51491' ? 'v3' : version
+                    contractVersion: version ? version : ''
                 };
             } else {
                 util.showToastNoIcon(result.message);
@@ -358,6 +361,7 @@ Component({
                         this.setData({isRequest: false});
                         if (res.errMsg === 'requestPayment:ok') {
                             util.go(`/pages/device_upgrade/fill_in_information/fill_in_information?orderId=${orderId}`);
+                            this.hide();
                         } else {
                             util.showToastNoIcon('支付失败！');
                         }

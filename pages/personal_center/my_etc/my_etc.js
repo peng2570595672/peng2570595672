@@ -101,7 +101,6 @@ Page({
 				truckList: truckList,
 				passengerCarList: passengerCarList
 			});
-			console.log(this.data.carList);
 			// 查询是否欠款
 			await util.getIsArrearage();
 		} else {
@@ -178,13 +177,9 @@ Page({
 			26: () => this.onClickViewProcessingProgressHandle(orderInfo), // 订单排队审核中 - 查看进度
 			27: () => this.onClickContinueHandle(orderInfo), // 修改资料
 			28: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
-			29: () => this.onOrderDetail(orderInfo) // 订单详情
+			30: () => this.onClickViewProcessingProgressHandle(orderInfo) // 查看进度 - 保证金退回
 		};
 		fun[orderInfo.selfStatus].call();
-	},
-	// 订单详情
-	onOrderDetail (orderInfo) {
-		util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${orderInfo.id}`);
 	},
 	onActive (orderInfo) {	// 已激活后的操作
 		if (orderInfo.obuCardType === 2 && util.timeComparison('2023/06/01 00:00:00', orderInfo.addTime) === 2) {

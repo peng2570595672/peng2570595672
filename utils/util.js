@@ -741,24 +741,28 @@ function getStatus(orderInfo) {
 		if (orderInfo.status === 0) { // 设备升级  资料待完善  || 审核失败,可以修改资料
 			return 25;
 		}
-		if (orderInfo.status === 2) { // 小程序提交完资料
-			return 26;
+		if (orderInfo.status === 2 || orderInfo.status === 1) { // 小程序提交完资料 说明： -1 删除（取消办理），0-资料待完善，1-资料已完善 2-升级订单已确认
+			if (orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) {	// 待审核
+				return 6
+			}
+			if (orderInfo.auditStatus === 1) { // 小程序提交完资料,审核失败
+				return 27;
+			}
+			if (orderInfo.auditStatus === 9) {
+				// 高速核验不通过
+				return 8;
+			}
+			if (orderInfo.auditStatus === 2 && orderInfo.logisticsId === 0) {
+				// 待发货
+				return 28;
+			}
+			if (orderInfo.logisticsId !== 0 && orderInfo.obuStatus === 0) {
+				return 11; //  待激活
+			}
+			if (orderInfo.status === 2) {
+				return 26
+			}
 		}
-		if (orderInfo.auditStatus === 1) { // 小程序提交完资料,审核失败
-			return 27;
-		}
-		if (orderInfo.auditStatus === 9) {
-			// 高速核验不通过
-			return 8;
-		}
-		if (orderInfo.auditStatus === 2 && orderInfo.logisticsId === 0) {
-			// 待发货
-			return 28;
-		}
-		if (orderInfo.logisticsId !== 0 && orderInfo.obuStatus === 0) {
-			return 11; //  待激活
-		}
-		return 29; //已激活 查看进度页
 	}
 	if (orderInfo.orderType === 61 && (orderInfo.auditStatus === 9 || orderInfo.auditStatus === 1)) {
 		return 8; // 电销模式审核不通过,不允许修改资料
@@ -827,6 +831,9 @@ function getStatus(orderInfo) {
 		return 11; //  待激活
 	}
 	if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
+		// if ((orderInfo.shopProductId === app.globalData.cictBankObj.citicBankshopProductId || orderInfo.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId) && orderInfo.refundStatus !== 5) {
+		// 	return 30
+		// }
 		return 12; // 已激活
 	}
 	return 0;// 错误状态,未判断到
@@ -951,7 +958,7 @@ function isDuringDateIdCard(beginDateStr, endDateStr) {
 	const curDate = new Date();
 	beginDateStr = beginDateStr.replace('.', '/').replace('.', '/');	//转换是为了iPhone
 	endDateStr = endDateStr.replace('.', '/').replace('.', '/');
-	console.log(beginDateStr,endDateStr);
+	console.log('时间：',beginDateStr,endDateStr);
 	const beginDate = new Date(beginDateStr);
 	const endDate = new Date(endDateStr);
 	return curDate >= beginDate && curDate <= endDate;

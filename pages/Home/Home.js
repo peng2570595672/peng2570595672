@@ -1257,13 +1257,9 @@ Page({
 			26: () => this.onClickViewProcessingProgressHandle(orderInfo), // 订单排队审核中 - 查看进度
 			27: () => this.onClickContinueHandle(orderInfo), // 修改资料
 			28: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
-			29: () => this.onOrderDetail(orderInfo) // 订单详情
+			30: () => this.onClickViewProcessingProgressHandle(orderInfo) // 查看进度 - 保证金退回
 		};
 		fun[orderInfo.selfStatus].call();
-	},
-	// 订单详情
-	onOrderDetail (orderInfo) {
-		util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${orderInfo.id}`);
 	},
 	// 通通券签约
 	async onClickSignTongTongQuan () {

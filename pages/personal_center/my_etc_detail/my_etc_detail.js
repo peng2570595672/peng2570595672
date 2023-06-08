@@ -225,13 +225,9 @@ Page({
 			26: () => this.onClickViewProcessingProgressHandle(orderInfo), // 订单排队审核中 - 查看进度
 			27: () => this.onClickContinueHandle(orderInfo), // 修改资料
 			28: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
-			29: () => this.onOrderDetail(orderInfo) // 查看进度
+			30: () => this.onClickViewProcessingProgressHandle(orderInfo) // 查看进度 - 保证金退回
 		};
 		fun[orderInfo.selfStatus].call();
-	},
-	// 订单详情
-	onOrderDetail (orderInfo) {
-		util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${orderInfo.id}`);
 	},
 	onActive (orderInfo) {	// 已激活后的操作
 		if (orderInfo.obuCardType === 2 && util.timeComparison('2023/06/01 00:00:00', orderInfo.addTime) === 2) {
@@ -526,7 +522,7 @@ Page({
 			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?contractStatus=${orderInfo.contractStatus}&ttContractStatus=${orderInfo.ttContractStatus}`);
 			return;
 		}
-		if (orderInfo.selfStatus === 25) {	// 设备升级
+		if (orderInfo.selfStatus === 25 || orderInfo.selfStatus === 27) {	// 设备升级
 			util.go(`/pages/device_upgrade/fill_in_information/fill_in_information?orderId=${orderInfo.id}`);
 			return;
 		}

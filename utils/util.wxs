@@ -135,7 +135,6 @@ function timeComparison(fixedTime,flexibleTime) {
 	flexibleTime = flexibleTime.slice(0, 19).replace(reg, '/');
 	var time = getDate(fixedTime).getTime()
 	var newTime = getDate(flexibleTime).getTime()
-  console.log(time,newTime);
 	if (time <= newTime) {
 		return 1	//新订单
 	} else {

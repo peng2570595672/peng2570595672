@@ -607,7 +607,16 @@ Page({
 				return;
 			}
 		}
-
+		// 中信银行 白金卡
+		if (this.data.listOfPackages[this.data.choiceIndex].shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId) {
+			this.selectComponent('#popTipComp').show({
+				type: 'five',
+				title: '活动细则',
+				btnCancel: '我再想想',
+				btnconfirm: '我知道了'
+			});
+			return;
+		}
 		if (this.data.listOfPackages[this.data.choiceIndex].mustChoiceRightsPackage === 0 && this.data.rightsAndInterestsList.length) {
 			// 不必选权益 有权益包 未选中权益包
 			util.alert({
@@ -627,6 +636,17 @@ Page({
 			return;
 		}
 		await this.saveOrderInfo();
+	},
+	// popTipComp组件 触发事件函数
+	confirmHandle (e) {
+		let val = e.detail;
+		switch (val) {
+			case 'cictBank':
+				this.saveOrderInfo();
+				break;
+			default:
+				break;
+		}
 	},
 	// 提交订单
 	async saveOrderInfo () {
@@ -658,19 +678,6 @@ Page({
 		this.setData({isRequest: false});
 		if (!result) return;
 		if (result.code === 0) {
-			// 中信银行 白金卡
-			if (params.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId) {
-					this.selectComponent('#popTipComp').show({
-						type: 'five',
-						title: '活动细则',
-						btnCancel: '我再想想',
-						btnconfirm: '我知道了',
-						pledgeType: this.data.listOfPackages[this.data.choiceIndex].pledgeType,
-						money: this.data.listOfPackages[this.data.choiceIndex].pledgePrice,
-						equityMoney: this.data.equityListMap[this.data.activeIndex].payMoney
-					});
-					return;
-			}
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
 				this.data.equityListMap[this.data.activeIndex]?.payMoney) {
 				await this.marginPayment(this.data.listOfPackages[this.data.choiceIndex].pledgeType);
@@ -858,9 +865,6 @@ Page({
 				isCloseUpperPart1: true,
 				isCloseUpperPart2: false
 			});
-			if (this.data.citicBank) {
-				this.useComponents();
-			}
 		} else {
 			this.setData({
 				isCloseUpperPart: index,
@@ -947,20 +951,6 @@ Page({
 			duration: 200
 		});
 	},
-	// 使用组件
-	useComponents () {
-		this.selectComponent('#cdPopup').show({
-			isBtnClose: false,
-			argObj: {
-				type: 'cicit_bank',
-				title: '办理说明',
-				text1: '1、 中信银行信用卡活动，非持卡人可支付保证金后申请中信银行信用卡指定卡板',
-				text2: '2、 成功办理中信银行信用卡的新客户即退还全额保证金，信用卡申请不通过，可取消订单退还保证金',
-				btnText: '我知道了'
-			}
-		});
-	},
-
 	// 根据订单ID查询订单信息(针对中信套餐)
 	async queryOrder () {
 		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
