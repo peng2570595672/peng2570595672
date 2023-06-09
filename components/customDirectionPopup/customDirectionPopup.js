@@ -385,7 +385,7 @@ Component({
             });
             if (!result) return;
             if (result.code === 0) {
-                if (result.data.length >= 50) {
+                if (result.data.length >= 5) {
                     util.alert({
                         title: `提示`,
                         content: `该套餐目前暂只支持单人办理五台车辆`,
