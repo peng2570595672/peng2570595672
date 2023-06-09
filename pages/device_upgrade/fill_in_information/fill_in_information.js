@@ -83,7 +83,7 @@ Page({
 				paper.carHeadPhone = result.data.orderHeadstockInfo?.fileUrl;
 				paper.simImg = result.data?.clipCardCert ? result.data?.clipCardCert : simImg;	// 剪卡图片
 			} catch (error) {
-				util.showToastNoIcon(error);
+				console.log(error);
 			}
             this.setData({
                 formData,
