@@ -25,9 +25,9 @@ Component({
         isHide: false, // 是否隐藏
         selectedIndex: -1, // 选中模块的索引
         isBtn: false, // 顶部按钮是否点击
-        shopProductId: app.globalData.test ? '1112690526506721280' : '',
-        rightsPackageId: app.globalData.test ? '1112692002532630528' : '',
-        shopId: app.globalData.test ? '611607716116299776' : '',
+        shopProductId: app.globalData.deviceUpgrade.shopProductId,
+        rightsPackageId: app.globalData.deviceUpgrade.rightsPackageId,
+        shopId: app.globalData.deviceUpgrade.shopId,
 		shopProductInfo: {},	// 套餐信息
         equityListMap: {}, // 权益包信息
         orderList: [], // 存放符合设备升级条件的自定义订单列表
@@ -213,7 +213,7 @@ Component({
             if (result.code === 0) {
                 return {
                     vehPlates: result.data.orderInfo?.vehPlates,
-                    mobilePhone: result.data.orderReceive?.receivePhone,
+                    mobilePhone: result.data.orderCardInfo?.cardMobilePhone ? result.data.orderCardInfo?.cardMobilePhone : app.globalData.mobilePhone,
                     obuCardType: result.data.orderInfo?.obuCardType,
                     id: result.data.orderInfo?.id,
                     addTime: result.data.orderInfo.addTime,

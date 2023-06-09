@@ -831,9 +831,9 @@ function getStatus(orderInfo) {
 		return 11; //  待激活
 	}
 	if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
-		// if ((orderInfo.shopProductId === app.globalData.cictBankObj.citicBankshopProductId || orderInfo.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId) && orderInfo.refundStatus !== 5) {
-		// 	return 30
-		// }
+		if ((orderInfo.shopProductId === app.globalData.cictBankObj.citicBankshopProductId || orderInfo.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId) && orderInfo.refundStatus !== 5) {
+			return 30
+		}
 		return 12; // 已激活
 	}
 	return 0;// 错误状态,未判断到

@@ -182,7 +182,7 @@ Page({
 		fun[orderInfo.selfStatus].call();
 	},
 	onActive (orderInfo) {	// 已激活后的操作
-		if (orderInfo.obuCardType === 2 && util.timeComparison('2023/06/01 00:00:00', orderInfo.addTime) === 2) {
+		if (orderInfo.obuCardType === 2) {
 			util.go(`/pages/device_upgrade/package/package?orderId=${orderInfo.id}`);
 		}
 	},

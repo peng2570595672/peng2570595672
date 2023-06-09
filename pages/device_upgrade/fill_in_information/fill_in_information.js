@@ -9,7 +9,7 @@ Page({
 		oldOrderInfo: {},	// 原订单数据（身份证、行驶证、车头照）
         formData: { // 基础信息
 			currentCarNoColor: 0, // 0 蓝色 1 渐变绿 2黄色
-			region: [], // 省市区
+			region: ['','',''], // 省市区
 			regionCode: [], // 省份编码
 			userName: '', // 收货人姓名
 			telNumber: '', // 电话号码
@@ -65,18 +65,21 @@ Page({
             let res = result.data.orderReceive;
             let info = result.data.orderCardInfo;
             let formData = this.data.formData;
-            formData.userName = res.receiveMan; // 姓名
-            formData.telNumber = res.receivePhone; // 电话
-            formData.region = [res.receiveProvince, res.receiveCity, res.receiveCounty]; // 省市区
-            formData.detailInfo = res.receiveAddress; // 详细地址
+			let receiveProvince = res?.receiveProvince ? res?.receiveProvince : '';
+			let receiveCity = res?.receiveCity ? res?.receiveCity : '';
+			let receiveCounty = res?.receiveCounty ? res?.receiveCounty : '';
+            formData.userName = res?.receiveMan; // 姓名
+            formData.telNumber = res?.receivePhone; // 电话
+            formData.region = [receiveProvince, receiveCity, receiveCounty]; // 省市区
+            formData.detailInfo = res?.receiveAddress; // 详细地址
             let paper = this.data.paper;
-            paper.idName = info.trueName;// 身份证姓名
-            paper.idNum = info.idNumber;// 身份证号码
-            paper.handlePhone = result.data.orderCardInfo.cardMobilePhone;// 办理手机号
+            paper.idName = info?.trueName;// 身份证姓名
+            paper.idNum = info?.idNumber;// 身份证号码
+            paper.handlePhone = result.data.orderCardInfo?.cardMobilePhone;// 办理手机号
             paper.licenseInformation.licenseMainPage = result.data.orderVehicleInfo?.licenseMainPage;
             paper.licenseInformation.licenseVicePage = result.data.orderVehicleInfo?.licenseVicePage;
             paper.carHeadPhone = result.data.orderHeadstockInfo?.fileUrl;
-			paper.simImg = simImg ? simImg : result.data.clipCardCert;	// 剪卡图片
+			paper.simImg = result.data?.clipCardCert ? result.data?.clipCardCert : simImg;	// 剪卡图片
             this.setData({
                 formData,
                 paper,
@@ -491,8 +494,8 @@ Page({
 			dataComplete: 1, // 订单资料是否已完善 1-是，0-否
 			ownerIdCardNumber: orderCardInfo.idNumber,	// 身份证号码
 			ownerIdCardTrueName: orderCardInfo.trueName,	// 身份证姓名
-			ownerIdCardPositiveUri: orderCardInfo.positiveUrl,
-			ownerIdCardNegativeUrt: orderCardInfo.negativeUrl,
+			ownerIdCardPositiveUrl: orderCardInfo.positiveUrl,
+			ownerIdCardNegativeUrl: orderCardInfo.negativeUrl,
 			ownerIdCardSex: orderCardInfo.sex,	// 性别
 			ownerIdcardBirth: orderCardInfo.birth,	// 生日
 			ownerIdCardAddress: orderCardInfo.cardAddress,	// 居住地址
@@ -501,8 +504,10 @@ Page({
 			orderId: this.data.orderId,
 			cardMobilePhone: paper.handlePhone, // 车主实名手机号
 			cardPhoneCode: paper.code, // 手机号验证码
-			notVerifyCardPhone: this.data.updatedPhone // true 时不需要验证码
+			notVerifyReceivePhone: 'true',
+			notVerifyCardPhone: this.data.updatedPhone ? 'true' : 'false' // true 时不需要验证码
 		};
+		// console.log('参数：',params);
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		if (!result) return;
 		if (result.code === 0) {

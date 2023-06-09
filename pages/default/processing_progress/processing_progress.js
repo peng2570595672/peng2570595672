@@ -615,15 +615,31 @@ Page({
 				success: (res) => {
 					this.setData({isRequest: false});
 					if (res.errMsg === 'requestPayment:ok') {
-						util.go(`/pages/default/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${true}`);
+						util.showLoading();
+						util.getDataFromServer('consumer/order/transact-schedule', {
+							orderId: this.data.orderId
+						}, () => {
+							util.hideLoading();
+						}, (res) => {
+							if (res.code === 0) {
+								if (res.data.refundStatus === 5) {
+									util.go(`/pages/default/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${true}`);
+								} else {
+									util.go(`/pages/default/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${false}`);
+								}
+							} else {
+								util.hideLoading();
+								util.showToastNoIcon(res.message);
+							}
+						}, app.globalData.userInfo.accessToken, () => {});
 					} else {
-						util.go(`/pages/default/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${false}`);
+						util.showToastNoIcon('支付失败');
 					}
 				},
 				fail: (res) => {
 					this.setData({isRequest: false});
 					if (res.errMsg !== 'requestPayment:fail cancel') {
-						util.go(`/pages/default/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${false}`);
+						util.showToastNoIcon('支付失败');
 					}
 				}
 			});

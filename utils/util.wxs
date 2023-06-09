@@ -91,6 +91,9 @@ function addressFormat (obj) {
   }
   var address = obj[0]
   for (var index = 1; index < obj.length; index++) {
+    if (!obj[index] || obj[index] === '') {
+        return
+    }
     address += ' - ' + obj[index]
   }
   return address
