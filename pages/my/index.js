@@ -55,7 +55,6 @@ Page({
 	},
 
 	async onLoad (options) {
-		this.getBackgroundConfiguration();
 		app.globalData.orderInfo.orderId = '';
 		if (options.isMain) {
 			this.setData({
@@ -95,6 +94,7 @@ Page({
 				// 查询是否欠款
 				await util.getIsArrearage();
 			}
+			this.getBackgroundConfiguration();
 		} else {
 			// 公众号进入需要登录
 			this.login();
@@ -314,6 +314,7 @@ Page({
 						requestList = [requestList, await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
 						util.showLoading();
 						await Promise.all(requestList);
+						this.getBackgroundConfiguration();
 						util.hideLoading();
 						if (this.data.cardList.length > 1) {
 							this.setData({
