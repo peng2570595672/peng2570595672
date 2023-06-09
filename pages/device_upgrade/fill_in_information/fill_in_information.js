@@ -6,7 +6,7 @@ Page({
     data: {
 		orderId: '',
 		newOrderInfo: {}, // 新订单数据（身份证、行驶证、车头照）
-		oldOrderInfo: {},	// 原订单数据（订单列表里的数据）
+		orderDetail: {},	// 订单详情
         formData: { // 基础信息
 			currentCarNoColor: 0, // 0 蓝色 1 渐变绿 2黄色
 			region: ['','',''], // 省市区
@@ -51,6 +51,7 @@ Page({
     onShow () {
 		this.setData({paperIsExpire: false});
 		this.queryOrder(this.data.orderId);
+		this.getETCDetail();
     },
     // 根据订单ID查询订单信息
     async queryOrder (orderId) {
@@ -66,10 +67,9 @@ Page({
             let info = result.data.orderCardInfo;
             let formData = this.data.formData;
             let paper = this.data.paper;
-			let oldOrderInfo = app.globalData.myEtcList.filter(item => item.id === orderId)[0];	//
-			let receiveProvince = res?.receiveProvince ? res?.receiveProvince : '';
-			let receiveCity = res?.receiveCity ? res?.receiveCity : '';
-			let receiveCounty = res?.receiveCounty ? res?.receiveCounty : '';
+			let receiveProvince = res?.receiveProvince || '';
+			let receiveCity = res?.receiveCity || '';
+			let receiveCounty = res?.receiveCounty || '';
             formData.userName = res?.receiveMan; // 姓名
             formData.telNumber = res?.receivePhone; // 电话
             formData.region = [receiveProvince, receiveCity, receiveCounty]; // 省市区
@@ -84,7 +84,6 @@ Page({
             this.setData({
                 formData,
                 paper,
-				oldOrderInfo,
 				newOrderInfo: result.data,
 				available: this.validateAvailable()
             });
@@ -429,10 +428,10 @@ Page({
 		let imgUrl = e.currentTarget.dataset.url;
 		app.globalData.orderInfo.orderId = this.data.orderId;
 		let newOrderInfo = this.data.newOrderInfo;
-		let oldOrderInfo = this.data.oldOrderInfo;
-		let vehPlates = newOrderInfo.orderInfo?.vehPlates ? newOrderInfo.orderInfo?.vehPlates : oldOrderInfo.vehPlates;
-		let vehColor = newOrderInfo.orderInfo?.vehColor ? newOrderInfo.orderInfo?.vehColor : oldOrderInfo.vehColor;
-		let obuCardType = newOrderInfo.orderInfo?.obuCardType ? newOrderInfo.orderInfo?.obuCardType : oldOrderInfo.obuCardType;
+		let orderDetail = this.data.orderDetail;
+		let vehPlates = newOrderInfo.orderInfo?.vehPlates || orderDetail.vehPlates;
+		let vehColor = newOrderInfo.orderInfo?.vehColor || orderDetail.vehColor;
+		let obuCardType = newOrderInfo.orderInfo?.obuCardType || orderDetail.obuCardType;
 		switch (key) {
 			case 'phone':	// 修改（手机号）
 				this.setData({updatedPhone: false,'paper.handlePhone': '',available: false});
@@ -471,6 +470,18 @@ Page({
 				});
 			}, time);
 		})();
+	},
+	// 加载订单详情
+	async getETCDetail () {
+		const result = await util.getDataFromServersV2('consumer/order/order-detail', {
+			orderId: this.data.orderId
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			this.setData({orderDetail: result.data});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	// 按钮“确定”
     async next () {

@@ -144,7 +144,7 @@ App({
 		salesmanEmptyObj: {},	// 业务员空发对象
 		isShowDeviceUpgradePop: true,	// 控制首页设备升级弹窗的显示（每次进入都显示）
 		deviceUpgrade: {	// 蒙通卡设备升级
-			addTime: '2023/05/01 00:00:00',
+			addTime: '2023/07/01 00:00:00',
 			shopProductId: IS_TEST ? '1112690526506721280' : '1116024863294234624',
 			rightsPackageId: IS_TEST ? '1112692002532630528' : '1116023060582375424',
 			shopId: IS_TEST ? '611607716116299776' : '611607716116299776'

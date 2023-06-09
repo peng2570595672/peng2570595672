@@ -26,7 +26,7 @@ Page({
     },
 
     async onShow () {
-        await util.getIsArrearage();
+        this.getOrderList();
     },
     catchtouchmove () {},
     // 返回上一级页面
@@ -56,6 +56,14 @@ Page({
                 orderId: this.data.orderId
 			}
 		});
-	}
-
+	},
+    async getOrderList () {
+        const result = await util.getDataFromServersV2('consumer/order/my-etc-list', {openId: app.globalData.openId},'POST', false);
+        if (!result) return;
+        if (result.code === 0) {
+            app.globalData.myEtcList = result.data;
+        } else {
+            showToastNoIcon(result.message);
+        }
+    }
 });
