@@ -1,4 +1,23 @@
-
+.iconfont
+    font-family 'iconfont' !important
+    font-size 16px
+    font-style normal
+    -webkit-font-smoothing antialiased
+    -moz-osx-font-smoothing grayscale
+mixinsWidthHeight($width = 100%, $height = 100%)
+    width $width
+    height $height
+mixinsIconfont($content='',$size=16px,$color=#5EBE68)
+    content $content
+    font-size $size
+    color $color
+mixinsPositionPack($position=relative)
+    position $position
+    left 50%
+    transform translateX(-50%)
+textLineCenter($height)
+    text-align center
+    line-height $height
 .home
     margin 0
     padding 0
@@ -6,6 +25,25 @@
     min-height 100vh
     background-color #EBEDF0
     position relative
+    .bubbleBtn
+        mixinsWidthHeight(298rpx,60rpx)
+        textLineCenter(60rpx)
+        position fixed
+        top 190rpx
+        right 28rpx
+        color #FFC300
+        font-size 24rpx
+        font-weight 400
+        background rgba(255,255,255,0.22)
+        border-radius 12rpx 12rpx 12rpx 12rpx
+        font-family Source Han Sans CN-Regular, Source Han Sans CN
+        opacity: 1
+        z-index 100
+        &::after
+            display inline-block
+            margin-left 12rpx
+            mixinsIconfont('\e661',20rpx,#FFC300)
+            transform rotateZ(-90deg)
     /* 顶部 滑块视图 */
     .topSwiper
         width 100%

@@ -156,7 +156,8 @@ Page({
 		],	// 出行贴心服务
 		whetherToStay: false, // 用于控制显示弹窗时，最底层页面禁止不动
 		isEquityRights: app.globalData.isEquityRights,	// 是否是权益券额用户
-		isShowHandle: true	// 是否显示办理状态栏
+		isShowHandle: true,	// 是否显示办理状态栏
+		isBail: false	// 是否有保证金退回的订单（false: 没有，true: 有）
 	},
 	async onLoad (options) {
 		util.resetData();// 重置数据
@@ -876,6 +877,7 @@ Page({
 				if (item.obuStatus === 3 || item.obuStatus === 4) {
 					item['selfStatus'] = 11;
 				}
+				if (item.selfStatus === 30) this.setData({isBail: true});
 				vehicleList.push(item.vehPlates);
 				wx.setStorageSync('cars', vehicleList.join('、'));
 				if (item.shopId === '692062170707394560') { // 大地商户
@@ -1673,5 +1675,9 @@ Page({
 				util.showToastNoIcon(result.data?.message || '未获取到跳转地址');
 			}
 		}
+	},
+	// 跳转ETC订单列表页
+	goToMyEtc () {
+		util.go(`/pages/personal_center/my_etc/my_etc`);
 	}
 });

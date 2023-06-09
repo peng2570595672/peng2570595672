@@ -1,3 +1,10 @@
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 .home {
   margin: 0;
   padding: 0;
@@ -11,6 +18,31 @@
 /* 模块二 */
 /* 模块三 */
 /* 占位 */
+}
+.home .bubbleBtn {
+  width: 298rpx;
+  height: 60rpx;
+  text-align: center;
+  line-height: 60rpx;
+  position: fixed;
+  top: 190rpx;
+  right: 28rpx;
+  color: #ffc300;
+  font-size: 24rpx;
+  font-weight: 400;
+  background: rgba(255,255,255,0.22);
+  border-radius: 12rpx 12rpx 12rpx 12rpx;
+  font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+  opacity: 1;
+  z-index: 100;
+}
+.home .bubbleBtn::after {
+  display: inline-block;
+  margin-left: 12rpx;
+  content: '\e661';
+  font-size: 20rpx;
+  color: #ffc300;
+  transform: rotateZ(-90deg);
 }
 .home .topSwiper {
   width: 100%;
