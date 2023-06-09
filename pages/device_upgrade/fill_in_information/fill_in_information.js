@@ -6,7 +6,7 @@ Page({
     data: {
 		orderId: '',
 		newOrderInfo: {}, // 新订单数据（身份证、行驶证、车头照）
-		oldOrderInfo: {},	// 原订单数据（身份证、行驶证、车头照）
+		oldOrderInfo: {},	// 原订单数据（订单列表里的数据）
         formData: { // 基础信息
 			currentCarNoColor: 0, // 0 蓝色 1 渐变绿 2黄色
 			region: ['','',''], // 省市区
@@ -65,26 +65,31 @@ Page({
             let res = result.data.orderReceive;
             let info = result.data.orderCardInfo;
             let formData = this.data.formData;
+            let paper = this.data.paper;
+			let oldOrderInfo = app.globalData.myEtcList.filter(item => item.id === orderId)[0];	//
 			let receiveProvince = res?.receiveProvince ? res?.receiveProvince : '';
 			let receiveCity = res?.receiveCity ? res?.receiveCity : '';
 			let receiveCounty = res?.receiveCounty ? res?.receiveCounty : '';
-            formData.userName = res?.receiveMan; // 姓名
-            formData.telNumber = res?.receivePhone; // 电话
-            formData.region = [receiveProvince, receiveCity, receiveCounty]; // 省市区
-            formData.detailInfo = res?.receiveAddress; // 详细地址
-            let paper = this.data.paper;
-            paper.idName = info?.trueName;// 身份证姓名
-            paper.idNum = info?.idNumber;// 身份证号码
-            paper.handlePhone = result.data.orderCardInfo?.cardMobilePhone;// 办理手机号
-            paper.licenseInformation.licenseMainPage = result.data.orderVehicleInfo?.licenseMainPage;
-            paper.licenseInformation.licenseVicePage = result.data.orderVehicleInfo?.licenseVicePage;
-            paper.carHeadPhone = result.data.orderHeadstockInfo?.fileUrl;
-			paper.simImg = result.data?.clipCardCert ? result.data?.clipCardCert : simImg;	// 剪卡图片
+			try {
+				formData.userName = res?.receiveMan; // 姓名
+				formData.telNumber = res?.receivePhone; // 电话
+				formData.region = [receiveProvince, receiveCity, receiveCounty]; // 省市区
+				formData.detailInfo = res?.receiveAddress; // 详细地址
+				paper.idName = info?.trueName;// 身份证姓名
+				paper.idNum = info?.idNumber;// 身份证号码
+				paper.handlePhone = result.data.orderCardInfo?.cardMobilePhone;// 办理手机号
+				paper.licenseInformation.licenseMainPage = result.data.orderVehicleInfo?.licenseMainPage;
+				paper.licenseInformation.licenseVicePage = result.data.orderVehicleInfo?.licenseVicePage;
+				paper.carHeadPhone = result.data.orderHeadstockInfo?.fileUrl;
+				paper.simImg = result.data?.clipCardCert ? result.data?.clipCardCert : simImg;	// 剪卡图片
+			} catch (error) {
+				util.showToastNoIcon(error);
+			}
             this.setData({
                 formData,
                 paper,
+				oldOrderInfo,
 				newOrderInfo: result.data,
-				oldOrderInfo: app.globalData.myEtcList.filter(item => item.id === orderId)[0],
 				available: this.validateAvailable()
             });
 			if (result.data.orderCardInfo.validDate.includes('长期')) return;
@@ -478,8 +483,6 @@ Page({
 		let formData = this.data.formData;
 		let paper = this.data.paper;
 		let orderCardInfo = this.data.newOrderInfo.orderCardInfo;
-		console.log(orderCardInfo);
-		console.log('参数：',paper);
 		let params = {
 			orderConfirm: this.data.newOrderInfo.orderInfo.auditStatus !== 1 ? 1 : '',
 			clipCardCert: paper.simImg,
@@ -504,7 +507,7 @@ Page({
 			orderId: this.data.orderId,
 			cardMobilePhone: paper.handlePhone, // 车主实名手机号
 			cardPhoneCode: paper.code, // 手机号验证码
-			notVerifyReceivePhone: 'true',
+			notVerifyReceivePhone: 'true',	// dataType=2时传这个参数，说明不需要验证码
 			notVerifyCardPhone: this.data.updatedPhone ? 'true' : 'false' // true 时不需要验证码
 		};
 		// console.log('参数：',params);

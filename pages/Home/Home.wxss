@@ -24,7 +24,7 @@
   height: 60rpx;
   text-align: center;
   line-height: 60rpx;
-  position: fixed;
+  position: absolute;
   top: 190rpx;
   right: 28rpx;
   color: #ffc300;
