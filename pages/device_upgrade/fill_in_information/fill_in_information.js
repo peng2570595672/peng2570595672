@@ -70,21 +70,17 @@ Page({
 			let receiveProvince = res?.receiveProvince ? res?.receiveProvince : '';
 			let receiveCity = res?.receiveCity ? res?.receiveCity : '';
 			let receiveCounty = res?.receiveCounty ? res?.receiveCounty : '';
-			try {
-				formData.userName = res?.receiveMan; // 姓名
-				formData.telNumber = res?.receivePhone; // 电话
-				formData.region = [receiveProvince, receiveCity, receiveCounty]; // 省市区
-				formData.detailInfo = res?.receiveAddress; // 详细地址
-				paper.idName = info?.trueName;// 身份证姓名
-				paper.idNum = info?.idNumber;// 身份证号码
-				paper.handlePhone = result.data.orderCardInfo?.cardMobilePhone;// 办理手机号
-				paper.licenseInformation.licenseMainPage = result.data.orderVehicleInfo?.licenseMainPage;
-				paper.licenseInformation.licenseVicePage = result.data.orderVehicleInfo?.licenseVicePage;
-				paper.carHeadPhone = result.data.orderHeadstockInfo?.fileUrl;
-				paper.simImg = result.data?.clipCardCert ? result.data?.clipCardCert : simImg;	// 剪卡图片
-			} catch (error) {
-				console.log(error);
-			}
+            formData.userName = res?.receiveMan; // 姓名
+            formData.telNumber = res?.receivePhone; // 电话
+            formData.region = [receiveProvince, receiveCity, receiveCounty]; // 省市区
+            formData.detailInfo = res?.receiveAddress; // 详细地址
+            paper.idName = info?.trueName;// 身份证姓名
+            paper.idNum = info?.idNumber;// 身份证号码
+            paper.handlePhone = result.data.orderCardInfo?.cardMobilePhone;// 办理手机号
+            paper.licenseInformation.licenseMainPage = result.data.orderVehicleInfo?.licenseMainPage;
+            paper.licenseInformation.licenseVicePage = result.data.orderVehicleInfo?.licenseVicePage;
+            paper.carHeadPhone = result.data.orderHeadstockInfo?.fileUrl;
+			paper.simImg = result.data?.clipCardCert ? result.data?.clipCardCert : simImg;	// 剪卡图片
             this.setData({
                 formData,
                 paper,
