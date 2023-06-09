@@ -11,8 +11,7 @@ Page({
 		carList: undefined,
 		activeIndex: 1,
 		passengerCarList: [],// 客车
-		truckList: [],// 货车
-		deviceUpgrade: app.globalData.deviceUpgrade.addTime
+		truckList: []// 货车
 	},
 	async onShow () {
 		util.resetData();// 重置数据
@@ -86,6 +85,7 @@ Page({
 				vehicleList.push(item.vehPlates);
 				item['deductionMethod'] = initProductName(item);
 				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
+				item['deviceUpgrade'] = (item.obuStatus === 1 || item.obuStatus === 5) && item.obuCardType === 2 && util.timeComparison(app.globalData.deviceUpgrade.addTime, item.addTime) === 2 && item?.contractVersion !== 'v3';
 				wx.setStorageSync('cars', vehicleList.join('、'));
 			});
 			const truckList = result.data.filter(item => item.isNewTrucks === 1);
