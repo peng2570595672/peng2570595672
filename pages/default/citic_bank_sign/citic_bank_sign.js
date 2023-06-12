@@ -3,7 +3,6 @@ const app = getApp();
 Page({
 		data: {
 			orderInfo: {}
-			// btnText: '签约代扣通行费'
 		},
 		async onLoad (options) {
 			app.globalData.signAContract = 3;
@@ -44,7 +43,6 @@ Page({
 					// 签约成功
 					console.log('签约成功');
 					// await this.citicBankProcess();
-					// this.setData({btnText: '签约成功'});
 					if (this.data.orderInfo.obuCardType === 1) {
 						await this.brandChargingModel();
 					}

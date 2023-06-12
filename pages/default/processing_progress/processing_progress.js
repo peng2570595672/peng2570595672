@@ -59,6 +59,9 @@ Page({
 			await util.getIsArrearage();
 		}
 	},
+	onShow () {
+		if (this.data.cictBail) this.getProcessingProgress();
+	},
 	initCouponMask () {
 		let time = new Date().toLocaleDateString();
 		let that = this;
@@ -616,22 +619,7 @@ Page({
 					this.setData({isRequest: false});
 					if (res.errMsg === 'requestPayment:ok') {
 						util.showLoading();
-						util.getDataFromServer('consumer/order/transact-schedule', {
-							orderId: this.data.orderId
-						}, () => {
-							util.hideLoading();
-						}, (res) => {
-							if (res.code === 0) {
-								if (res.data.refundStatus === 5) {
-									util.go(`/pages/default/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${true}`);
-								} else {
-									util.go(`/pages/default/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${false}`);
-								}
-							} else {
-								util.hideLoading();
-								util.showToastNoIcon(res.message);
-							}
-						}, app.globalData.userInfo.accessToken, () => {});
+						this.getRefundStatus();
 					} else {
 						util.showToastNoIcon('支付失败');
 					}
@@ -647,6 +635,25 @@ Page({
 			this.setData({isRequest: false});
 			util.showToastNoIcon(result.message);
 		}
+	},
+	// 查询 refundStatus 状态
+	getRefundStatus () {
+		util.getDataFromServer('consumer/order/zx/orderRefundStatus', {
+			orderId: this.data.orderId
+		}, () => {
+			util.hideLoading();
+		}, (res) => {
+			if (res.code === 0) {
+				if (res.data.refundStatus === 5) {
+					util.go(`/pages/default/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${true}`);
+				} else {
+					util.go(`/pages/default/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${false}`);
+				}
+			} else {
+				util.hideLoading();
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {});
 	},
 	onUnload () {
 		if (this.data.type === 'main_process' || app.globalData.isNeedReturnHome) {
