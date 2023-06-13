@@ -5,11 +5,11 @@
         <view class="iconfont iconweizhangchaxun1"></view>
       </view>
       <view class="right">
-          <view>指导价 </view> 
+          <view>指导价 </view>
           <view class="prices">92# ¥{{todayCountryPrice/100}}/升</view>
       </view>
   </view>
-  <image class="advertising"  mode="widthFix"  src="https://file.cyzl.com/g001/M07/64/1C/oYYBAGFRbwyAAanzAAEigVQNvvI134.png"></image>
+  <image class="advertising"  mode="widthFix"  src="https://file.cyzl.com/g001/M00/64/1C/oYYBAGFRbwyAAanzAAEigVQNvvI134.png"></image>
  <view class="table">
    <view class="left"  catchtap="onGetUrl" data-url="/pages/ejiayou/order/order"><text class="iconfont icondingdan"></text>我的加油订单</view>
    <view class="right" catchtap="onGetUrl" data-url="/pages/ejiayou/ticket/ticket"><text class="iconfont iconkefu1"></text>我的加油券</view>
@@ -37,7 +37,7 @@
         </view>
         <view class="addstr">{{item.location}}</view>
         <view class="describe">
-            <view class="price">￥{{item.stationPrice/100}}</view> 
+            <view class="price">￥{{item.stationPrice/100}}</view>
             <view class="unit">/升/{{item.oilCode}}</view>
             <view class="del">¥{{item.countryPrice/100}}</view>
         </view>

@@ -6,7 +6,7 @@
             <image class="image" src="{{viewTc.img}}" />
         </view>
         <view class="iconfont close" catchtap="hide">
-            <!-- <image class="images" src="https://file.cyzl.com/g001/M07/B8/B1/oYYBAGPBCIOAb8YvAAACkMSVQNc153.png" /> -->
+            <!-- <image class="images" src="https://file.cyzl.com/g001/M00/B8/B1/oYYBAGPBCIOAb8YvAAACkMSVQNc153.png" /> -->
         </view>
 	</view>
 </view>

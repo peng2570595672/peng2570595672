@@ -11,7 +11,7 @@
 }
 .index .top .bg-image {
   height: 45vh;
-  background-image: url("https://file.cyzl.com/g001/M07/20/C1/oYYBAGBXGReAAL9iAAFY0ECq4wI874.png");
+  background-image: url("https://file.cyzl.com/g001/M00/20/C1/oYYBAGBXGReAAL9iAAFY0ECq4wI874.png");
   background-size: cover;
 }
 .index .top .back {

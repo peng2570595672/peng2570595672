@@ -3,7 +3,7 @@
 	<view class="camera-top">
         <camera class="camera" device-position="back" flash="auto" binderror="onCameraErrorHandle" wx:if="{{showInfo}}">
             <cover-view wx:if="{{!picUrl}}">
-                <cover-image wx:if="{{type === 101}}" class="border sample" src="https://file.cyzl.com/g001/M07/9C/9F/oYYBAGNSZVOAChwMAAC09LmrfkE409.png"></cover-image>
+                <cover-image wx:if="{{type === 101}}" class="border sample" src="https://file.cyzl.com/g001/M00/9C/9F/oYYBAGNSZVOAChwMAAC09LmrfkE409.png"></cover-image>
                 <cover-image wx:if="{{type === 102}}" class="border sample" src="/pages/default/assets/side_photo.png"></cover-image>
             </cover-view>
             <cover-image class="border" wx:else src="{{picUrl}}"></cover-image>
