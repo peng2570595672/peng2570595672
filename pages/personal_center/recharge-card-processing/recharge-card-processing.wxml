@@ -9,7 +9,7 @@
 	</view>
 	<view class="body" wx:if="{{voucherMsg}}">
 		<view class="coupon-img">
-			<image src="https://file.cyzl.com/g001/M05/1C/4B/oYYBAF7ZoLeATgXnAAIm9Moaui8111.png"></image></view>
+			<image src="https://file.cyzl.com/g001/M01/1C/4B/oYYBAF7ZoLeATgXnAAIm9Moaui8111.png"></image></view>
 		<view class="body-coupon">
 			<view class="coupon">
 				<view class="icon">￥</view>

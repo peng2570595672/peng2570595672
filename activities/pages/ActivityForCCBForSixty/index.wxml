@@ -1,8 +1,8 @@
 <view class="page">
 	<view class="content-container">
-		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/35/C7/oYYBAF5FG4yAOCedAAB6tHC8ssc769.png"></image>
-		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/35/C8/oYYBAF5FHI2AMoT8AABh6w-eTd0721.png"></image>
-		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/35/C8/oYYBAF5FHJuAP_qIAABU5RtM2Dw161.png"></image>
+		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M01/35/C7/oYYBAF5FG4yAOCedAAB6tHC8ssc769.png"></image>
+		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M01/35/C8/oYYBAF5FHI2AMoT8AABh6w-eTd0721.png"></image>
+		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M01/35/C8/oYYBAF5FHJuAP_qIAABU5RtM2Dw161.png"></image>
 		<view class="prompt-char">
 			<view class="rules" catchtap="rulesWinShow">活 动 规 则</view>
 		</view>

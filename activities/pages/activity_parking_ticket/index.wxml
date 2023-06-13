@@ -86,7 +86,7 @@
 <view class="alert-mask animated {{alertWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{alertMask}}">
 	<view class="wrapper animated {{alertWrapper ? 'zoomInOther' : 'zoomOutOther'}}">
 		<view class="success">
-			<image src="https://file.cyzl.com/g001/M05/1E/ED/oYYBAF7dn--AYoKvAAAPBi1_4ns403.png" mode="widthFix"></image>
+			<image src="https://file.cyzl.com/g001/M01/1E/ED/oYYBAF7dn--AYoKvAAAPBi1_4ns403.png" mode="widthFix"></image>
 		</view>
 		<view class="success-prompt">恭喜您领取成功</view>
 		<view class="coupon-details">
