@@ -3,6 +3,7 @@
   "usingComponents": {
     "cardSwiper":"../../components/card_swiper/index",
     "card":"./components/card/index",
-    "popup1": "/components/dialog1/dialog"
+    "popup1": "/components/dialog1/dialog",
+    "navbar": "/components/navbar/navbar"
   }
 }

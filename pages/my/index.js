@@ -74,6 +74,9 @@ Page({
 		});
 		// --------------end------------
 		if (app.globalData.userInfo.accessToken) {
+			this.setData({
+				mobilePhone: app.globalData.mobilePhone
+			});
 			util.showLoading();
 			let requestList = [await this.getCheckTwoPercent(), await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip(),await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
 			util.customTabbar(this, 2);
@@ -88,6 +91,7 @@ Page({
 				});
 			}
 			this.setData({
+				mobilePhone: app.globalData.mobilePhone,
 				isVip: app.globalData.isVip
 			});
 			if (JSON.stringify(app.globalData.myEtcList) !== '{}') {
@@ -325,7 +329,7 @@ Page({
 					} else {
 						util.hideLoading();
 						wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-						util.go('/pages/login/login/login');
+						// util.go('/pages/login/login/login');
 					}
 				} else {
 					util.hideLoading();
@@ -424,6 +428,11 @@ Page({
 	},
 	// 跳转
 	async go (e) {
+		// 未登录
+		if (!app.globalData.userInfo?.accessToken) {
+			util.go('/pages/login/login/login');
+			return;
+		}
 		let that = this;
 		let url = e.currentTarget.dataset['url'];
 		if (url === 'online_customer_service') {

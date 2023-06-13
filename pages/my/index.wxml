@@ -1,18 +1,20 @@
 <wxs src='../../utils/util.wxs' module='tools' />
+<navbar title="个人信息" background="transparent"></navbar>
 <view class="my {{isVip ? 'is' : 'no'}}">
     <!-- 顶部user信息 -->
     <view class="user">
         <view class="headPortrait {{isVip ? 'yellowU' : 'greenU'}}" catchtap="goUserInfo">
-            <image class="headImg" src="{{userInfo.avatarUrl}}" />
+            <image class="headImg" src="{{userInfo.avatarUrl || 'https://file.cyzl.com/g001/M01/C8/3F/oYYBAGP0VgGAQa01AAAG5Ng7rok991.svg'}}" />
         </view>
-        <view class="userInfo">
-            <view class="userName" catchtap="getUserProfile">{{userInfo.nickName }}</view>
+        <view class="userInfo" bindtap="go">
+            <view class="userName" catchtap="getUserProfile">{{userInfo.nickName || '登录' }}</view>
             <view class="mobilePhoneEquity">
-                <view class="ETCMobilePhone {{isVip ? 'yellowC' : 'greenC'}}">
+                <view class="ETCMobilePhone {{isVip ? 'yellowC' : 'greenC'}}" wx:if="{{mobilePhone}}">
                     {{isVip ? 'ETC+PLUS': 'ETC+'}}
                     <text class="textPhone">{{tools.phoneNumberHide(mobilePhone)}}</text>
                 </view>
-                <view class="iconfont viewEquity" data-url="description_of_equity" catchtap="go">查看权益</view>
+                <view class="ETCMobilePhone" wx:else>亲爱的游客，请先登录</view>
+                <view class="iconfont viewEquity" data-url="description_of_equity" bindtap="go">查看权益</view>
             </view>
         </view>
     </view>

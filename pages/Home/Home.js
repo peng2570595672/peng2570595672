@@ -423,11 +423,12 @@ Page({
 	// 跳转页面、小程序、第三方
 	goPath (e) {
 		// 未登录
-		// if (!app.globalData.userInfo?.accessToken) {
-		// 	wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-		// 	util.go('/pages/login/login/login');
-		// 	return;
-		// }
+		let type = +e.currentTarget.dataset.type;
+		if (!app.globalData.userInfo?.accessToken && type === 1) {
+			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+			util.go('/pages/login/login/login');
+			return;
+		}
 		let obj = e.currentTarget.dataset.information;
 		let appIdPath = Boolean(obj.appId && obj.appId.length > 0);
 		let webPath = obj.jumpUrl.indexOf('https') !== -1;
