@@ -1193,6 +1193,10 @@ Page({
 	},
 	// 点击车辆信息
 	onClickVehicle () {
+		if (!app.globalData.userInfo?.accessToken) {
+			util.go('/pages/login/login/login');
+			return;
+		}
 		console.log(this.data.activeIndex, '==============这里应是2===================');
 		const orderInfo = this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data.truckOrderInfo;
 		if (!orderInfo) {
