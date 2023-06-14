@@ -149,7 +149,7 @@
   border-radius: 12rpx;
   padding: 32rpx;
   box-sizing: border-box;
-  background-image: url("https://file.cyzl.com/g001/M07/34/B5/oYYBAGCGFPGAMsNIAAAKIgmvm54348.svg");
+  background-image: url("https://file.cyzl.com/g001/M00/34/B5/oYYBAGCGFPGAMsNIAAAKIgmvm54348.svg");
   background-size: 274rpx 134rpx;
   color: rgba(0,0,0,0.8);
   line-height: 48rpx;
@@ -168,7 +168,7 @@
   line-height: 26rpx;
 }
 .package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .other-service-item.other-service-first {
-  background-image: url("https://file.cyzl.com/g001/M07/34/B4/oYYBAGCGFHGANGvFAAASff6NJMs668.svg");
+  background-image: url("https://file.cyzl.com/g001/M00/34/B4/oYYBAGCGFHGANGvFAAASff6NJMs668.svg");
   margin-right: auto;
 }
 .package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .pay-tips {

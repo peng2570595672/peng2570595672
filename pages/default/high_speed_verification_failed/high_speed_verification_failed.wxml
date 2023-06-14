@@ -1,6 +1,6 @@
 <view class="high_speed_verification_failed">
 	<!--	图标开始-->
-	<image mode="widthFix" src="https://file.cyzl.com/g001/M05/3A/22/oYYBAF5wMN-AOBCGAAAeJzl9scw053.png"/>
+	<image mode="widthFix" src="https://file.cyzl.com/g001/M01/3A/22/oYYBAF5wMN-AOBCGAAAeJzl9scw053.png"/>
 	<!--	图标结束-->
 	<!--	文字描述开始-->
 	<view class="content">
@@ -10,6 +10,6 @@
 	<!--	文字描述结束-->
 	<view class="split"></view>
 	<!--	广告图开始-->
-	<!--<image class="ad" src="https://file.cyzl.com/g001/M05/04/00/oYYBAF4CzrCAKK9zAACuVWoDsXo412.png"></image>-->
+	<!--<image class="ad" src="https://file.cyzl.com/g001/M01/04/00/oYYBAF4CzrCAKK9zAACuVWoDsXo412.png"></image>-->
 	<!--	广告图结束-->
 </view>

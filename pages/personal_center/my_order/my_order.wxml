@@ -73,7 +73,7 @@
 </view>
 <!--没有账单开始-->
 <view class="empty" wx:if="{{successBillList.length === 0}}">
-	<image src="https://file.cyzl.com/g001/M05/37/3E/oYYBAF5YcpCAQTcCAAAXEOqiWpY099.jpg" mode="widthFix"></image>
+	<image src="https://file.cyzl.com/g001/M01/37/3E/oYYBAF5YcpCAQTcCAAAXEOqiWpY099.jpg" mode="widthFix"></image>
 	<view>你当前没有账单噢~</view>
 </view>
 <!--没有账单结束-->

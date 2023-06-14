@@ -37,7 +37,7 @@
 	<!--添加卡券结束-->
 	<!--没有卡券开始-->
 	<view class="empty" wx:if="{{list && list.length === 0}}">
-		<image src="https://file.cyzl.com/g001/M05/07/08/oYYBAF4DI1KAdQQAAABMmqEDnsc709.svg"></image>
+		<image src="https://file.cyzl.com/g001/M01/07/08/oYYBAF4DI1KAdQQAAABMmqEDnsc709.svg"></image>
 		<view>暂无电子券～</view>
 	</view>
 	<!--没有卡券结束-->

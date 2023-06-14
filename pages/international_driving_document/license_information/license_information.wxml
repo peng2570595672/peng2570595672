@@ -114,7 +114,7 @@
 		<view catchtap="close" class="alert-for-sample-content animated {{showSampleWrapper ? 'zoomInOther' : 'zoomOutOther'}}">
 			<view class="dialog-title">示例</view>
 			<view class="sample-content">
-				<image class="sample-image" mode="widthFix"  src="https://file.cyzl.com/g001/M07/45/A1/oYYBAGC0T4iAcb01AAE1L5uy0us323.png"></image>
+				<image class="sample-image" mode="widthFix"  src="https://file.cyzl.com/g001/M00/45/A1/oYYBAGC0T4iAcb01AAE1L5uy0us323.png"></image>
 			</view>
 			<view class="tips">请根据示例位置填写示意图</view>
 			<view class="cancel" bindtap='hide'>我知道了</view>

@@ -42,7 +42,7 @@
 }
 .international-index .content {
   min-height: 1800rpx;
-  background-image: url("https://file.cyzl.com/g001/M07/45/92/oYYBAGC0Oz6AD2W7AAJgIGtfT7Y295.png");
+  background-image: url("https://file.cyzl.com/g001/M00/45/92/oYYBAGC0Oz6AD2W7AAJgIGtfT7Y295.png");
   background-size: 100%;
   background-repeat: no-repeat;
 }

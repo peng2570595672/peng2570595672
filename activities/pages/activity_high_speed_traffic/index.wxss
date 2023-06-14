@@ -145,7 +145,7 @@
   height: 139rpx;
   -webkit-animation: scaleDraw 2s ease-in-out infinite;
   -webkit-backface-visibility: hidden;
-  background: url("https://file.cyzl.com/g001/M05/43/D0/oYYBAF6pVtuACT7RAABf_u0Ku-4489.png");
+  background: url("https://file.cyzl.com/g001/M01/43/D0/oYYBAF6pVtuACT7RAABf_u0Ku-4489.png");
   background-size: 100% 139rpx;
   border-radius: 69rpx;
 }

@@ -1,8 +1,8 @@
 <view class="page">
 	<view class="content-container">
-		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/35/C7/oYYBAF5FEtWAOQQiAABdi262Zbw915.png"></image>
-		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/35/C7/oYYBAF5FGXuAdYJFAABcN7AGHhU945.png"></image>
-		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M05/35/C7/oYYBAF5FEwGALv0eAABKUOGet5g399.png"></image>
+		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M01/35/C7/oYYBAF5FEtWAOQQiAABdi262Zbw915.png"></image>
+		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M01/35/C7/oYYBAF5FGXuAdYJFAABcN7AGHhU945.png"></image>
+		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M01/35/C7/oYYBAF5FEwGALv0eAABKUOGet5g399.png"></image>
 		<view class="prompt-char">
 			<!--<view class="prompt-content"><view>温馨提示：</view><view>如收货地址为东三省则发辽通卡，辽通卡无加油优惠；其他地区发行黔通昆仑ETC卡，川、黔两省享中国石油优惠0.15元/升，即将实现全国范围优惠。</view></view>-->
 			<view class="rules" catchtap="rulesWinShow">活 动 规 则</view>

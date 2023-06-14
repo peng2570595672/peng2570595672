@@ -1,9 +1,9 @@
 <view class="page {{newHeight ? 'big-screen' : ''}}">
 	<view class="content-container">
-		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M06/C8/04/oYYBAF-7f8aAEyWSAAFce5z5LN8515.png"></image>
-		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M06/C8/04/oYYBAF-7f-GAY4j0AAFtT_gmiy0105.png"></image>
-		<image class="activity-content-img bottom-img" wx:if="{{newHeight}}" style="height: 600rpx" bindload="onImageLoad" src="https://file.cyzl.com/g001/M06/C8/05/oYYBAF-7f_aASPMfAAAKLfxvH7U070.png"></image>
-		<image class="activity-content-img bottom-img" wx:else bindload="onImageLoad" mode="widthFix" src="https://file.cyzl.com/g001/M06/C8/05/oYYBAF-7f_aASPMfAAAKLfxvH7U070.png"></image>
+		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M01/C8/04/oYYBAF-7f8aAEyWSAAFce5z5LN8515.png"></image>
+		<image class="activity-content-img" mode="widthFix"  src="https://file.cyzl.com/g001/M01/C8/04/oYYBAF-7f-GAY4j0AAFtT_gmiy0105.png"></image>
+		<image class="activity-content-img bottom-img" wx:if="{{newHeight}}" style="height: 600rpx" bindload="onImageLoad" src="https://file.cyzl.com/g001/M01/C8/05/oYYBAF-7f_aASPMfAAAKLfxvH7U070.png"></image>
+		<image class="activity-content-img bottom-img" wx:else bindload="onImageLoad" mode="widthFix" src="https://file.cyzl.com/g001/M01/C8/05/oYYBAF-7f_aASPMfAAAKLfxvH7U070.png"></image>
 	</view>
 	<view class="content">
 		<view class="transact">

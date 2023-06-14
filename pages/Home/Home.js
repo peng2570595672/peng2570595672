@@ -51,15 +51,15 @@ Page({
 				statisticsEvent: 'index_moving_integral'
 			},
 			{
-				img: 'https://file.cyzl.com/g001/M07/83/64/oYYBAGJzZImAaHqlAAKimDHtunU897.png',
+				img: 'https://file.cyzl.com/g001/M00/83/64/oYYBAGJzZImAaHqlAAKimDHtunU897.png',
 				url: 'micro_high_speed',
 				isShow: !app.globalData.isContinentInsurance,
 				statisticsEvent: 'index_micro_high_speed'
 			},
-			// {img: 'https://file.cyzl.com/g001/M07/50/2F/oYYBAGDRSJaAIRy_AABmOVUonLQ097.png', url: 'xiaoepinpin', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_for_xiaoepinpin'},
-			// {img: 'https://file.cyzl.com/g001/M07/56/6F/oYYBAGDvmOmAKFdjAABX7h3eswc492.png', url: 'micro_insurance_hcz', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_micro_insurance_hcz'},
+			// {img: 'https://file.cyzl.com/g001/M00/50/2F/oYYBAGDRSJaAIRy_AABmOVUonLQ097.png', url: 'xiaoepinpin', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_for_xiaoepinpin'},
+			// {img: 'https://file.cyzl.com/g001/M00/56/6F/oYYBAGDvmOmAKFdjAABX7h3eswc492.png', url: 'micro_insurance_hcz', isShow: !app.globalData.isContinentInsurance, statisticsEvent: 'index_micro_insurance_hcz'},
 			{
-				img: 'https://file.cyzl.com/g001/M07/42/6E/oYYBAGCrThuACNFGAABtf6A3V68049.png',
+				img: 'https://file.cyzl.com/g001/M00/42/6E/oYYBAGCrThuACNFGAABtf6A3V68049.png',
 				url: '',
 				isShow: app.globalData.isContinentInsurance,
 				statisticsEvent: 'index_dadi'
@@ -423,11 +423,12 @@ Page({
 	// 跳转页面、小程序、第三方
 	goPath (e) {
 		// 未登录
-		// if (!app.globalData.userInfo?.accessToken) {
-		// 	wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-		// 	util.go('/pages/login/login/login');
-		// 	return;
-		// }
+		let type = +e.currentTarget.dataset.type;
+		if (!app.globalData.userInfo?.accessToken && type === 1) {
+			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+			util.go('/pages/login/login/login');
+			return;
+		}
 		let obj = e.currentTarget.dataset.information;
 		let appIdPath = Boolean(obj.appId && obj.appId.length > 0);
 		let webPath = obj.jumpUrl.indexOf('https') !== -1;
