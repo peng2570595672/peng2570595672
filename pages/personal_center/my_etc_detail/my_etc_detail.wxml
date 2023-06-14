@@ -105,7 +105,6 @@
             {{orderInfo.selfStatus === 16 || orderInfo.selfStatus === 20 || orderInfo.selfStatus === 21 ? '继续办理' : ''}}
             {{orderInfo.selfStatus === 17 ? '预充值' : ''}}
 			{{orderInfo.selfStatus === 30 ? '保证金退回' : ''}}
-			{{orderInfo.pledgeStatus}}
         </button>
 		<view class="btn-wrapper" wx:if="{{orderInfo.orderType === 11 || orderInfo.orderType === 81}}">
 			<view wx:if="{{!orderInfo.pledgeStatus || orderInfo.pledgeStatus === 0}}" catchtap="onClickCancelHandle" >取消办理</view>
