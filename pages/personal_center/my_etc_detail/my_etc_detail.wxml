@@ -105,9 +105,10 @@
             {{orderInfo.selfStatus === 16 || orderInfo.selfStatus === 20 || orderInfo.selfStatus === 21 ? '继续办理' : ''}}
             {{orderInfo.selfStatus === 17 ? '预充值' : ''}}
 			{{orderInfo.selfStatus === 30 ? '保证金退回' : ''}}
+			{{orderInfo.pledgeStatus}}
         </button>
 		<view class="btn-wrapper" wx:if="{{orderInfo.orderType === 11 || orderInfo.orderType === 81}}">
-			<view wx:if="{{orderInfo.pledgeStatus === 0}}" catchtap="onClickCancelHandle" >取消办理</view>
+			<view wx:if="{{!orderInfo.pledgeStatus || orderInfo.pledgeStatus === 0}}" catchtap="onClickCancelHandle" >取消办理</view>
 			<view wx:if="{{orderInfo.pledgeStatus === 1}}" catchtap="goOnlineServer">取消办理</view>
 		</view>
 		<!-- 如果是 权益券额套餐模式并且已支付成功时，隐藏 ”取消办理“按钮和替换 “ 客服中心”为“在线客服”-->
