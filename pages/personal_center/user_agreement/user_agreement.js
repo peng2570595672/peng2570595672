@@ -33,12 +33,44 @@ Page({
 		}
 		// 查询是否欠款
 		await util.getIsArrearage();
-		let [isPassengerCarActivation, isQTAttribute, isNotQTAttribute, isQTNotAttribute, isNotQTNotAttribute, isTTQAttribute, isServiceFeeType, isNm, isNotNm] = [false, false, false, false, false, false, false, false, false];
+		let [
+			isPassengerCarActivation,
+			isQTAttribute,
+			isNotQTAttribute,
+			isQTNotAttribute,
+			isNotQTNotAttribute,
+			isTTQAttribute,
+			isServiceFeeType,
+			isNm,
+			isNotNm,
+			isQTOnlineProcessing,
+			isQTNotOnlineProcessing,
+			isNMOnlineProcessing,
+			isNMNotOnlineProcessing,
+			oldProcessing
+		] = [false, false, false, false, false, false, false, false, false, false, false, false, false];
 		// 客车已激活  黔通自购  非黔通自购  黔通免费  非黔通免费  通通券
 		app.globalData.myEtcList.map(item => {
+			//  客车已激活
+			isPassengerCarActivation = true;
 			if ((item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 0) {
-				//  客车已激活
-				isPassengerCarActivation = true;
+				if (item.obuCardType === 1) {
+					if (item.orderType === 11 || (item.orderType === 71 && item.platformId === '500338116821778433')) {
+						// 邮寄
+						isQTOnlineProcessing = true;
+					} else {
+						isQTNotOnlineProcessing = true;
+					}
+				} else if (item.obuCardType === 2) {
+					if (item.orderType === 11 || (item.orderType === 71 && item.platformId === '500338116821778433') || item.orderType === 81) {
+						// 邮寄
+						isNMOnlineProcessing = true;
+					} else {
+						isNMNotOnlineProcessing = true;
+					}
+				} else {
+					oldProcessing = true;
+				}
 				if (item.obuCardType === 2) {
 					isNm = true;
 				} else {
@@ -106,9 +138,11 @@ Page({
 		});
 		if (isPassengerCarActivation) {
 			let carAgreementList = [
-				{id: 0,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement', isShow: (isNm && isNotNm && !this.data.isCheckTwoPercent) || (!isNm && isPassengerCarActivation && !this.data.isCheckTwoPercent)},
-				{id: 1,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?showNewAgreement=1', isShow: Boolean(this.data.isCheckTwoPercent)},
-				{id: 2,name: 'ETC用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=nm', isShow: isNm},
+				{id: 0,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement', isShow: oldProcessing},
+				{id: 1,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=QTnotFees', isShow: isQTOnlineProcessing, isNew: 1},
+				{id: 1,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=QT', isShow: isQTNotOnlineProcessing, isNew: 1},
+				{id: 1,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=MTnotFees', isShow: isNMOnlineProcessing, isNew: 1},
+				{id: 1,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=MT', isShow: isNMNotOnlineProcessing, isNew: 1},
 				// {id: 1,name: '用户办理协议', update: 0, url: 'free_equipment_agreement/free_equipment_agreement', isShow: isQTNotAttribute},
 				// {id: 2,name: '用户办理协议（权益设备）', update: 0, url: 'self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement', isShow: isTTQAttribute},
 				// {id: 3,name: '用户办理协议（付费设备）', update: 0, url: 'new_self_buy_equipmemnt_agreement/index', isShow: isQTAttribute},
