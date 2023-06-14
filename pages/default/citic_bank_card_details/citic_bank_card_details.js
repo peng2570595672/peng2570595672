@@ -156,6 +156,11 @@ Page({
 		}
 	},
 	onClickHandle () {
+		// 未登录
+		if (!app.globalData.userInfo.accessToken) {
+			util.go('/pages/login/login/login');
+			return;
+		}
 		if (!this.data.keepHandle) {
 			// 立即办理：没有中信订单， 跳转到填写基础信息页
 			util.go('/pages/default/receiving_address/receiving_address');

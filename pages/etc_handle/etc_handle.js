@@ -103,6 +103,11 @@ Page({
 		});
 	},
 	onClickHandle () {
+		// 未登录
+		if (!app.globalData.userInfo.accessToken) {
+			util.go('/pages/login/login/login');
+			return;
+		}
 		wx.uma.trackEvent('index_next');
 		util.go(`/pages/default/receiving_address/receiving_address?citicBank=${this.data.citicBankChannel}`);
 	},

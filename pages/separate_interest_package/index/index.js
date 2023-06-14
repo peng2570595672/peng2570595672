@@ -5,16 +5,21 @@ Page({
 		list: []
 	},
 	async onLoad () {
-		// 查询是否欠款
-		await util.getIsArrearage();
+		await this.getPackageList();
+		if (app.globalData.userInfo.accessToken) {
+			// 查询是否欠款
+			await util.getIsArrearage();
+		}
 	},
 	async onShow () {
 		if (!app.globalData.userInfo.accessToken) {
 			// 公众号进入需要登录
 			this.login();
-			return;
+		} else {
+			if (JSON.stringify(app.globalData.myEtcList) === '{}') {
+				this.getStatus();
+			}
 		}
-		await this.getPackageList();
 	},
 	// 自动登录
 	login () {
@@ -45,7 +50,7 @@ Page({
 						util.hideLoading();
 					} else {
 						wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-						util.go('/pages/login/login/login');
+						// util.go('/pages/login/login/login');
 						util.hideLoading();
 					}
 				} else {
@@ -71,12 +76,18 @@ Page({
 		}
 	},
 	onClickPay (e) {
+		// 未登录
+		if (!app.globalData.userInfo?.accessToken) {
+			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+			util.go('/pages/login/login/login');
+			return;
+		}
 		const item = this.data.list[+e.target.dataset.index];
 		util.go(`/pages/separate_interest_package/prefer_purchase/prefer_purchase?packageId=${item.packageId}`);
 	},
 	// 获取权益包列表
 	async getPackageList () {
-		const result = await util.getDataFromServersV2('consumer/voucher/rights/get-independent-rights-package-list');
+		const result = await util.getDataFromServersV2('consumer/voucher/rights/common/get-independent-rights-package-list');
 		if (!result) return;
 		if (result.code === 0) {
 			result.data.map(item => {
