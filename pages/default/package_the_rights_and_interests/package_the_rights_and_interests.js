@@ -434,7 +434,20 @@ Page({
 		const item = this.data.listOfPackages[this.data.choiceIndex];
 		if (item.etcCardId === 1) {
 			// serviceFeeType  是否收取权益服务费：0否，1是
-			return util.go('/pages/default/equity_agreement/equity_agreement');
+			if (item.deliveryType === 1 && (item.productType === 2 || item.productType === 3 || item.productType === 6)) {
+				return util.go('/pages/default/equity_agreement/equity_agreement?type=QTnotFees');	// 不含注消费
+			}
+			if (item.deliveryType === 3 && (item.productType === 1 || item.productType === 5 || item.productType === 6)) {
+				return util.go('/pages/default/equity_agreement/equity_agreement?type=QT');
+			}
+		}
+		if (item.etcCardId === 2) {
+			if (item.deliveryType === 1 && (item.productType === 2 || item.productType === 3 || item.productType === 6)) {
+				return util.go('/pages/default/equity_agreement/equity_agreement?type=MTnotFees');	// 不含注消费
+			}
+			if (item.deliveryType === 3 && (item.productType === 1 || item.productType === 5 || item.productType === 6)) {
+				return util.go('/pages/default/equity_agreement/equity_agreement?type=MT');
+			}
 		}
 		// 1-自购设备 2-免费设备 3-自购(其他)
 		if (item?.environmentAttribute === 2) {
@@ -465,9 +478,9 @@ Page({
 	onClickGoQianTongAgreement () {
 		util.go('/pages/truck_handling/agreement_for_qiantong_to_charge/agreement');
 	},
-	onClickGoNMAgreement () {
-		return util.go('/pages/default/equity_agreement/equity_agreement?type=nm');
-	},
+	// onClickGoNMAgreement () {
+	// 	return util.go('/pages/default/equity_agreement/equity_agreement?type=nm');
+	// },
 	// 通通券协议
 	onClickGoTTQAgreement1 () {
 		util.go('/pages/default/coupon_agreement/coupon_agreement');

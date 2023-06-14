@@ -106,11 +106,15 @@
             {{orderInfo.selfStatus === 17 ? '预充值' : ''}}
 			{{orderInfo.selfStatus === 30 ? '保证金退回' : ''}}
         </button>
-		<view class="btn-wrapper">
-			<!-- 如果是 权益券额套餐模式并且已支付成功时，隐藏 ”取消办理“按钮和替换 “ 客服中心”为“在线客服”-->
-			<view catchtap="onClickCancelHandle" wx:if="{{orderInfo.status === 1 && orderInfo.orderType !== 51 && (orderInfo.auditStatus === 1 || orderInfo.auditStatus === 9) && orderInfo.pledgeType !== 4}}">取消办理</view>
-			<view catchtap="goOnlineServer">{{orderInfo.pledgeType === 4 && pledgeStatus !== 0 ? '在线客服' : '客服中心'}}</view>
+		<view class="btn-wrapper" wx:if="{{orderInfo.orderType === 11 || orderInfo.orderType === 81}}">
+			<view wx:if="{{orderInfo.pledgeStatus === 0}}" catchtap="onClickCancelHandle" >取消办理</view>
+			<view wx:if="{{orderInfo.pledgeStatus === 1}}" catchtap="goOnlineServer">取消办理</view>
 		</view>
+		<!-- 如果是 权益券额套餐模式并且已支付成功时，隐藏 ”取消办理“按钮和替换 “ 客服中心”为“在线客服”-->
+		<!-- <view class="btn-wrapper" wx:else>
+			<view catchtap="onClickCancelHandle" wx:if="{{orderInfo.status === 1 && orderInfo.orderType !== 51 && (orderInfo.auditStatus === 1 || orderInfo.auditStatus === 9) && orderInfo.pledgeType !== 4}}">取消办理</view>
+			<view catchtap="goOnlineServer">{{orderInfo.pledgeType === 4 && orderInfo.pledgeStatus !== 0 ? '在线客服' : '客服中心'}}</view>
+		</view> -->
 	</view>
 	<!--	按钮结束-->
 	<!--去车主服务弹窗-->
