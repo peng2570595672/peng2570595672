@@ -425,7 +425,6 @@ Page({
 		// 未登录
 		let type = +e.currentTarget.dataset.type;
 		if (!app.globalData.userInfo?.accessToken && type === 1) {
-			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
 			util.go('/pages/login/login/login');
 			return;
 		}
@@ -530,7 +529,6 @@ Page({
 	onClickEntrance (e) {
 		// 未登录
 		if (!app.globalData.userInfo?.accessToken) {
-			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
 			util.go('/pages/login/login/login');
 			return;
 		}
@@ -611,7 +609,6 @@ Page({
 	onClickSwiper (e) {
 		// 未登录
 		if (!app.globalData.userInfo.accessToken) {
-			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
 			util.go('/pages/login/login/login');
 			return;
 		}
@@ -699,6 +696,7 @@ Page({
 							await this.getIsShowNotice();
 						}
 					} else {
+						wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
 						util.hideLoading();
 						this.selectComponent('#agreement-dialog').show();
 					}

@@ -64,7 +64,7 @@
                 {
                     "name": "ETC详情",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "",
+                    "query": "orderId=1115304777480146944",
                     "launchMode": "default",
                     "scene": null
                 },
