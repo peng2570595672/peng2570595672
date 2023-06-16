@@ -378,6 +378,10 @@ Page({
 			if (that.data.listOfPackages[that.data.choiceIndex]?.pledgePrice ||
 				that.data.equityListMap[that.data.activeIndex]?.payMoney) {
 				await that.marginPayment(that.data.listOfPackages[that.data.choiceIndex].pledgeType);
+			} else {
+				wx.switchTab({
+					url: '/pages/Home/Home'
+				});
 			}
 		} else {
 			util.showToastNoIcon(result.message);
