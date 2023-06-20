@@ -889,7 +889,6 @@ function goHome(unload) {
  */
 
 function resetData() {
-	app.globalData.otherPlatformsServiceProvidersId = undefined;
 	app.globalData.salesmanMerchant = undefined;
 	app.globalData.scanCodeToHandle = undefined;
 	app.globalData.isServiceProvidersPackage = true;
@@ -1328,7 +1327,7 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
 		}
 	});
 	let list = result.data;
-	list = list.filter(item => item.shopProductId !== app.globalData.deviceUpgrade.shopProductId);	//过滤掉蒙通卡设备升级套餐，不予以展示	
+	list = list.filter(item => item.shopProductId !== app.globalData.deviceUpgrade.shopProductId);	//过滤掉蒙通卡设备升级套餐，不予以展示
 	// 面对面活动过滤套餐
 	if (isFaceToFace) {
 		let faceToFaceList = [];

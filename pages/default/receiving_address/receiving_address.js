@@ -91,7 +91,7 @@ Page({
 		this.setData({
 			isNeedRefresh: true
 		});
-		console.log(app.globalData.userInfo)
+		console.log(app.globalData.userInfo);
 		if (app.globalData.userInfo.accessToken) {
 			this.setData({
 				'formData.cardMobilePhone': app.globalData.mobilePhone,
