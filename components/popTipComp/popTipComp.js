@@ -26,7 +26,8 @@ Component({
 		mask: false,
 		wrapper: false,
 		paramsList: [],
-		noSliding: false // 是否禁止底层页面滑动
+		noSliding: false, // 是否禁止底层页面滑动
+		getAgreement: true	// 默认选中协议
 	},
 	methods: {
 		show (obj) {
@@ -62,7 +63,8 @@ Component({
 			app.globalData.isShowDeviceUpgradePop = true;
 
 			this.setData({
-				wrapper: false
+				wrapper: false,
+				getAgreement: true
 			});
 			setTimeout(() => {
 				this.setData({
@@ -122,6 +124,25 @@ Component({
 				util.go(`/pages/device_upgrade/package/package`);
 				this.hide(false);
 			},300);
+		},
+		// 授权提醒
+		authorizeTip () {
+			if (!this.data.getAgreement) return util.showToastNoIcon('请先同意勾选协议');
+		},
+		// 协议选中控制
+		isSelectAgreement () {
+			this.setData({getAgreement: !this.data.getAgreement});
+		},
+		// 前去协议页
+		goAgreement (e) {
+			let type = e.currentTarget.dataset.type;
+			switch (type) {
+				case '1':
+					util.go(`/pages/default/privacy_agreement/privacy_agreement`);
+					break;
+				default:
+					break;
+			}
 		}
 
 	}
