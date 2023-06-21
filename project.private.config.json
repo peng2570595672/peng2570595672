@@ -433,6 +433,13 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/etc_handle/etc_handle",
+                    "query": "shopId=627104942791852032",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
