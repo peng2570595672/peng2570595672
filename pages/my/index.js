@@ -77,6 +77,10 @@ Page({
 			this.setData({
 				mobilePhone: app.globalData.mobilePhone
 			});
+			if (JSON.stringify(app.globalData.myEtcList) !== '{}') {
+				// 查询是否欠款
+				await util.getIsArrearage();
+			}
 			util.showLoading();
 			let requestList = [await this.getCheckTwoPercent(), await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip(),await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
 			util.customTabbar(this, 2);
@@ -94,10 +98,6 @@ Page({
 				mobilePhone: app.globalData.mobilePhone,
 				isVip: app.globalData.isVip
 			});
-			if (JSON.stringify(app.globalData.myEtcList) !== '{}') {
-				// 查询是否欠款
-				await util.getIsArrearage();
-			}
 			this.getBackgroundConfiguration();
 		} else {
 			// 公众号进入需要登录
