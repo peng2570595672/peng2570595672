@@ -27,7 +27,6 @@ Page({
 				title: '帮助中心',
 				url: 'help_center'
 			}
-
 		],
 		funcList2: [
 			{icon: '', title: '通通券',url: 'tonTonQuan',img: 'https://file.cyzl.com/g001/M01/CF/5F/oYYBAGQXvWyAcN7sAAC9paTs3nM581.png',show: false},

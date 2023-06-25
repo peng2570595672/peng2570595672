@@ -164,6 +164,20 @@ function dataIncludes(originalData,includesParams,type) {
   }
   return false
 }
+/**
+ * 
+ * @param param1 实参
+ * @param type 指定需求 1-通行权益金
+ * @returns 
+ */
+function numReplace(param1,type=1) {
+  if (!param1) return
+  if (type === 1) {
+    param1 = (param1 / 100) + '';
+    return param1.indexOf('-') !== -1 ? param1.replace('-','-￥') : '+￥' + param1
+  }
+
+}
 module.exports = {
   substring: substring,
   lowercaseToCapitalization: lowercaseToCapitalization,
@@ -178,5 +192,6 @@ module.exports = {
   phoneNumberHide: phoneNumberHide,
   isPhone: isPhone,
   timeComparison: timeComparison,
-  dataIncludes: dataIncludes
+  dataIncludes: dataIncludes,
+  numReplace: numReplace
 };
