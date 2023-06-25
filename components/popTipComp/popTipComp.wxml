@@ -80,5 +80,24 @@
             <button class="btn" data-src="{{tipObj.src}}" catchtap="go">{{tipObj.btnconfirm}}</button>
             <view class="close iconfont" data-title="{{tipObj.title}}" catchtap="hide"></view>
         </view>
+
+        <!-- 授权提醒 -->
+        <view class="module moduleTwo" wx:if="{{tipObj.type === 'nine'}}">
+            <view class="title">{{tipObj.title}}</view>
+            <view class="contant authorize">
+                <view >您即将通过该链接跳转至第三方页面。在第三方页面中提交信息将由第三方按照其相关用户服务协议及隐私协议正常执行并负责，服务及责任均由第三方提供或承担，如有疑问请致电第三方客服电话。</view>
+                <view class="contantSub1">第三方需要您授权以下信息：</view>
+                <view >手机号、车牌号、车架号、发动机号</view>
+                <view class="agreement" catchtap="isSelectAgreement">
+                    <text class="confirm">
+                        <text class="tick" wx:if="{{getAgreement}}"/>
+                    </text>阅读并同意 <text class="text1" data-type="1" catchtap="goAgreement">《用户隐私协议》</text>
+                </view>
+            </view>
+            <view class="bottomBtn">
+                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+                <view class="ok {{getAgreement ? '' : 'no'}}" data-ok='true' catchtap="authorizeTip">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
+            </view>
+        </view>
     </view>
 </view>

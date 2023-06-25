@@ -247,6 +247,15 @@
   color: #39a6f8;
   margin: 0 16rpx;
 }
+.processing_progress .pingAnNewCustomers {
+  margin: 0rpx 60rpx;
+  height: 200rpx;
+  margin-bottom: 40rpx;
+}
+.processing_progress .pingAnNewCustomers .image {
+  width: 100%;
+  height: 100%;
+}
 .processing_progress .detail_mask {
   position: fixed;
   left: 0;

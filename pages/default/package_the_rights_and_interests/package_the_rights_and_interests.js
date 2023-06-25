@@ -141,7 +141,6 @@ Page({
 
 	},
 	async onLoad (options) {
-		console.log(options);
 		app.globalData.isTelemarketing = false;
 		this.setData({
 			contractStatus: +options.contractStatus,

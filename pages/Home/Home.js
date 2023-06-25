@@ -157,7 +157,8 @@ Page({
 		whetherToStay: false, // 用于控制显示弹窗时，最底层页面禁止不动
 		isEquityRights: app.globalData.isEquityRights,	// 是否是权益券额用户
 		isShowHandle: true,	// 是否显示办理状态栏
-		isBail: false	// 是否有保证金退回的订单（false: 没有，true: 有）
+		isBail: false,	// 是否有保证金退回的订单（false: 没有，true: 有）
+		firstCar: []	// 存放车牌首位（针对平安绑客）
 	},
 	async onLoad (options) {
 		util.resetData();// 重置数据
@@ -259,9 +260,12 @@ Page({
 				item.isShow = arr1.length === 3 ? true : (arr1.indexOf(3) !== -1 && app.globalData.isEquityRights > 0) ? true : (arr1.indexOf(1) !== -1 && Number(!!app.globalData.isEquityRights) === 0) ? true : false;
 			});
 			funcListOne.sort(this.compare('sort'));	// 排序
-
 			// 出行贴心服务 模块
+			let isShowPingAn = this.data.firstCar.filter(item => app.globalData.myEtcList[0].vehPlates.includes(item));
 			let funcListTwo = data.outServiceFuncConfig.funcs.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime));
+			// let funcListTwo = data.outServiceFuncConfig.funcs.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime)).map(item1 => {
+			// 	return item1.jumpUrl.includes('/test') && isShowPingAn?.length === 0 ? undefined : item1;	// 平安绑客
+			// });
 			funcListTwo.sort(this.compare('sort'));	// 排序
 			this.setData({
 				interval,
@@ -436,8 +440,6 @@ Page({
 			this.handleMall();
 			return;
 		}
-		console.log(appIdPath);
-		console.log(webPath);
 		if (!appIdPath && !webPath) {
 			// 小程序内部页面跳转
 			if (templateId) {
@@ -454,12 +456,16 @@ Page({
 			util.go(`${obj.jumpUrl}`);
 			return;
 		}
+		// 授权提醒
+		// if (obj.jumpUrl.includes('test')) {
+		// 	this.selectComponent('#popTipComp').show({type: 'nine',title: '免责声明',btnCancel: '取消',btnconfirm: '同意授权'});
+		// 	return;
+		// }
 		// 免责弹窗声明
 		this.selectComponent('#dialog1').show({params: obj});
 	},
 	backFunc () {
 		let obj = this.selectComponent('#dialog1').noShow().params;
-		console.log(obj);
 		let appIdPath = obj.appId && obj.appId.length > 0;
 		let webPath = obj.jumpUrl.indexOf('https') !== -1;
 		if (appIdPath) {

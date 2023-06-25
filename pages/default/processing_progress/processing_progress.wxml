@@ -140,6 +140,9 @@
 
 	<!--	在线客服开始-->
 	<view class="bottom"><text catchtap="goHome">返回首页</text>|<text catchtap="goOnlineServer">在线客服</text>|<text catchtap="goInstallationTutorial">安装教程</text></view>
+    <!-- <view class="pingAnNewCustomers">
+        <image class="image" src="{{'https://file.cyzl.com/g001/M00/E7/0D/oYYBAGSRUJuAQ0wsAABKSVNiV0M757.png'}}" mode="widthFix"/>
+    </view> -->
 	<!--	在线客服结束-->
 	<!--展示通通券弹窗-->
 	<view catchtap="hide" class="coupon_mask animated {{showCouponWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{showCouponMask}}">
