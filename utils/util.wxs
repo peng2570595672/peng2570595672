@@ -144,6 +144,26 @@ function timeComparison(fixedTime,flexibleTime) {
 		return 2	//旧订单
 	}
 };
+/**
+ * 
+ * @param originalData 要查询的对象
+ * @param includesParams 所查询的参数
+ * @param type 指定需求 1-平安绑客
+ * @returns 
+ */
+function dataIncludes(originalData,includesParams,type) {
+  if (!originalData || !includesParams) {
+    return false
+  }
+  if (type === 1) {
+    for (var index = 0; index < includesParams.length; index++) {
+      if (originalData.indexOf(includesParams[index]) !== -1) {
+        return true
+      }
+    }
+  }
+  return false
+}
 module.exports = {
   substring: substring,
   lowercaseToCapitalization: lowercaseToCapitalization,
@@ -157,5 +177,6 @@ module.exports = {
   onlineService: onlineService,
   phoneNumberHide: phoneNumberHide,
   isPhone: isPhone,
-  timeComparison: timeComparison
+  timeComparison: timeComparison,
+  dataIncludes: dataIncludes
 };
