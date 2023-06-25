@@ -10,7 +10,7 @@
         <view class="btn">ETC电子账户</view>
     </view>
     <view class="bottom-info">
-        <view class="details" catchtap="handleDetails">查看账户充值及消费记录 <image src="https://file.cyzl.com/g001/M01/CA/3B/oYYBAGP8bOCAYjPiAAAE8VAwuT4072.svg"></image></view>
+        <view class="details" catchtap="handleDetails">查看账户明细 <image src="https://file.cyzl.com/g001/M01/CA/3B/oYYBAGP8bOCAYjPiAAAE8VAwuT4072.svg"></image></view>
         <view class="veh-info"> {{tools.isPhone(cardData.vehPlates)}}</view>
     </view>
 </view>
