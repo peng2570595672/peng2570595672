@@ -126,8 +126,21 @@ Component({
 			},300);
 		},
 		// 授权提醒
-		authorizeTip () {
+		async authorizeTip () {
+			// 测试环境这边已经提供机构1:inviteCode=fei321&activityType=1&source=24094&appid=132123    ||  机构2:inviteCode=789xjj&activityType=1&source=24091
+			// let institution1 = 'inviteCode=fei321&activityType=1&source=24094&appid=132123';	// 机构1
+			// let institution2 = 'inviteCode=789xjj&activityType=1&source=24091';	// 机构2
+			// let url = this.data.tipObj.url + '&' + institution2;
 			if (!this.data.getAgreement) return util.showToastNoIcon('请先同意勾选协议');
+			let res = await util.getDataFromServersV2('/consumer/order/pingan/get-bind-veh-url',{});
+			if (!res) return;
+			if (res.code === 0) {
+				// 跳转 h5
+				util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data)}`);
+				this.hide(false);
+			} else {
+				util.showToastNoIcon(res.message);
+			}
 		},
 		// 协议选中控制
 		isSelectAgreement () {
@@ -137,7 +150,7 @@ Component({
 		goAgreement (e) {
 			let type = e.currentTarget.dataset.type;
 			switch (type) {
-				case '1':
+				case '1':	// 隐私协议
 					util.go(`/pages/default/privacy_agreement/privacy_agreement`);
 					break;
 				default:

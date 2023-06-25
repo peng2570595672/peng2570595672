@@ -158,7 +158,7 @@ Page({
 		isEquityRights: app.globalData.isEquityRights,	// 是否是权益券额用户
 		isShowHandle: true,	// 是否显示办理状态栏
 		isBail: false,	// 是否有保证金退回的订单（false: 没有，true: 有）
-		firstCar: []	// 存放车牌首位（针对平安绑客）
+		firstCar: app.globalData.pingAnBindGuests	// 存放车牌首位（针对平安绑客）
 	},
 	async onLoad (options) {
 		util.resetData();// 重置数据
@@ -261,11 +261,11 @@ Page({
 			});
 			funcListOne.sort(this.compare('sort'));	// 排序
 			// 出行贴心服务 模块
+			// let funcListTwo = data.outServiceFuncConfig.funcs.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime));
 			let isShowPingAn = this.data.firstCar.filter(item => app.globalData.myEtcList[0].vehPlates.includes(item));
-			let funcListTwo = data.outServiceFuncConfig.funcs.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime));
-			// let funcListTwo = data.outServiceFuncConfig.funcs.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime)).map(item1 => {
-			// 	return item1.jumpUrl.includes('/test') && isShowPingAn?.length === 0 ? undefined : item1;	// 平安绑客
-			// });
+			let funcListTwo = data.outServiceFuncConfig.funcs.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime)).map(item1 => {
+				return item1.jumpUrl === '平安获客' && isShowPingAn?.length === 0 ? undefined : item1;	// 平安绑客
+			});
 			funcListTwo.sort(this.compare('sort'));	// 排序
 			this.setData({
 				interval,
@@ -440,6 +440,11 @@ Page({
 			this.handleMall();
 			return;
 		}
+		// 授权提醒
+		if (obj.jumpUrl === '平安获客') {
+			this.selectComponent('#popTipComp').show({type: 'nine',title: '免责声明',btnCancel: '取消',btnconfirm: '同意授权'});
+			return;
+		}
 		if (!appIdPath && !webPath) {
 			// 小程序内部页面跳转
 			if (templateId) {
@@ -456,11 +461,6 @@ Page({
 			util.go(`${obj.jumpUrl}`);
 			return;
 		}
-		// 授权提醒
-		// if (obj.jumpUrl.includes('test')) {
-		// 	this.selectComponent('#popTipComp').show({type: 'nine',title: '免责声明',btnCancel: '取消',btnconfirm: '同意授权'});
-		// 	return;
-		// }
 		// 免责弹窗声明
 		this.selectComponent('#dialog1').show({params: obj});
 	},

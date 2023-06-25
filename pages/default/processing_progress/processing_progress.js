@@ -29,8 +29,8 @@ Page({
 		disclaimerDesc: app.globalData.disclaimerDesc,
 		citicBankshopProductId: app.globalData.cictBankObj.citicBankshopProductId,	// 中信金卡套餐ID
 		citicBankShopshopProductId: app.globalData.cictBankObj.citicBankShopshopProductId,	// 中信白金卡套餐ID
-		cictBail: false	// 中信保证金
-
+		cictBail: false,	// 中信保证金
+		firstCar: app.globalData.pingAnBindGuests
 	},
 	async onLoad (options) {
 		this.setData({
@@ -654,6 +654,11 @@ Page({
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken, () => {});
+	},
+	// 跳转平安绑客
+	goPingAn () {
+		// 授权提醒
+		this.selectComponent('#popTipComp').show({type: 'nine',title: '免责声明',btnCancel: '取消',btnconfirm: '同意授权'});
 	},
 	onUnload () {
 		if (this.data.type === 'main_process' || app.globalData.isNeedReturnHome) {
