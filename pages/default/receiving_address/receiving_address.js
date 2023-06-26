@@ -887,6 +887,14 @@ Page({
 			topProgressBar: 1 + 0.15 * num
 		});
 	},
+	// 分享
+	onShareAppMessage () {
+		return {
+			title: 'ETC一键申办，无需储值，包邮到家',
+			imageUrl: 'https://file.cyzl.com/g001/M01/CB/5E/oYYBAGQAaeyASw5fAABJbg74uSk558.png',
+			path: '/pages/default/receiving_address/receiving_address'
+		};
+	},
 	onUnload () {
 		// 统计点击事件
 		wx.uma.trackEvent('receiving_address_return');

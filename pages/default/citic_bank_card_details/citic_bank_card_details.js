@@ -174,6 +174,13 @@ Page({
 				util.go(`/pages/default/citic_bank_sign/citic_bank_sign`);
 			}
 		}
-	}
-
+	},
+	// 分享
+	onShareAppMessage () {
+		return {
+			title: 'ETC中信联名套餐，0元办理，包邮到家！',
+			imageUrl: 'https://file.cyzl.com/g001/M01/E8/69/oYYBAGSY2x2AAJamAADnfYysC20088.png',
+			path: '/pages/default/citic_bank_card_details/citic_bank_card_details'
+		};
+	},
 });
