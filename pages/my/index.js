@@ -81,7 +81,7 @@ Page({
 				await util.getIsArrearage();
 			}
 			util.showLoading();
-			let requestList = [await this.getCheckTwoPercent(), await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip(),await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
+			let requestList = [await this.getCheckTwoPercent(), await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip(),await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords(), await this.getCurrentEquity()];
 			util.customTabbar(this, 2);
 			util.getUserIsVip();
 			util.showLoading();
@@ -275,6 +275,12 @@ Page({
 		console.log(result);
 		if (!result) return;
 		if (result.code) {
+			result.data.accountType = 5;
+			this.data.cardList.push(result.data);
+			this.setData({
+				cardList: this.data.cardList,
+				nextPageData: this.data.nextPageData
+			});
 			util.showToastNoIcon(result.message);
 		}
 	},
@@ -327,7 +333,7 @@ Page({
 							isVip: app.globalData.isVip,
 							myAccountList: app.globalData.myEtcList
 						});
-						requestList = [requestList, await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
+						requestList = [requestList, await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords(), await this.getCurrentEquity()];
 						util.showLoading();
 						await Promise.all(requestList);
 						this.getBackgroundConfiguration();
