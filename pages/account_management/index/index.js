@@ -6,6 +6,7 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		accountList: [],// accountType 1-权益账户  2-货车预充值 3-交行 4-工行 5-保证金
 		prechargeList: [],
 		etcList: [], // 预充流程且审核通过订单
 		bocomEtcList: [], // 交行二类户流程且审核通过订单
@@ -26,14 +27,13 @@ Page({
 				etcList,
 				bocomEtcList
 			});
-			await this.getCurrentEquity();
-			await this.getRightAccount();
-			bocomEtcList.map(async item => {
-				await this.getBocomOrderBankConfigInfo(item);
-			});
-			etcList.map(async item => {
-				await this.getQueryWallet(item);
-			});
+			// let requestList = [await this.getRightAccount(), await this.getCurrentEquity()];
+			let requestList = [await this.getAccountList(bocomEtcList, etcList)];
+			
+			await Promise.all(requestList);
+			
+			console.log('this.data.accountList')
+			console.log(this.data.accountList)
 		}
 	},
 	async onShow () {
@@ -58,7 +58,20 @@ Page({
 			this.data.bocomEtcList.map(async item => {
 				await this.getBocomOrderBankConfigInfo(item);
 			});
+			console.log(this.data.accountList)
 		}
+	},
+	async getAccountList (bocomEtcList, etcList) {
+		console.log('------')
+		await this.getCurrentEquity();
+		await this.getRightAccount();
+		bocomEtcList.map(async item => {
+			await this.getBocomOrderBankConfigInfo(item);
+		});
+		etcList.map(async item => {
+			await this.getQueryWallet(item);
+		});
+		console.log('===')
 	},
 	async getBocomOrderBankConfigInfo (orderInfo) {
 		// 获取订单银行配置信息
@@ -76,8 +89,11 @@ Page({
 			let list = this.data.bocomInfoList;
 			result.data.vehPlates = orderInfo.vehPlates;
 			result.data.accountNo = info.accountNo;
+			result.data.accountType = 3;
 			list.push(result.data);
+			this.data.accountList.push(result.data);
 			this.setData({
+				accountList: this.data.accountList,
 				bocomInfoList: list
 			});
 		}
@@ -90,7 +106,11 @@ Page({
 		if (result.code) {
 			util.showToastNoIcon(result.message);
 		} else {
+			result.data.map(item => {
+				item.accountType = 1;
+			});
 			this.setData({
+				accountList: this.data.accountList.concat(result.data),
 				equityList: result.data
 			});
 		}
@@ -158,30 +178,6 @@ Page({
 		}
 		util.go(`/pages/obu/add/add?type=${type}`);
 	},
-	// 获取订单信息
-	async getStatus () {
-		let params = {
-			openId: app.globalData.openId
-		};
-		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
-		if (result.code === 0) {
-			app.globalData.myEtcList = result.data;
-			const etcList = app.globalData.myEtcList.filter(item => item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
-			const bocomEtcList = app.globalData.myEtcList.filter(item => item.flowVersion === 7 && item.auditStatus === 2); // 是否有交行二类户 & 已审核通过订单
-			this.setData({
-				etcList,
-				bocomEtcList
-			});
-			bocomEtcList.map(async item => {
-				await this.getBocomOrderBankConfigInfo(item);
-			});
-			etcList.map(async item => {
-				await this.getQueryWallet(item);
-			});
-		} else {
-			util.showToastNoIcon(result.message);
-		}
-	},
 	// 预充模式-账户信息查询
 	async getQueryWallet (item) {
 		const result = await util.getDataFromServersV2('consumer/order/third/queryWallet', {
@@ -194,8 +190,11 @@ Page({
 		if (result.code === 0) {
 			result.data.vehPlates = item.vehPlates;
 			result.data.orderId = item.id;
+			result.data.accountType = 2;
 			this.data.prechargeList = this.data.prechargeList.concat(result.data);
+			this.data.accountList = this.data.accountList.concat(result.data);
 			this.setData({
+				accountList: this.data.accountList,
 				prechargeList: this.data.prechargeList
 			});
 		} else {
@@ -215,7 +214,12 @@ Page({
 			return;
 		}
 		if (result.data.length) {
+			result.data.map(item => {
+				item.accountType = 5;
+			});
+			this.data.accountList = this.data.accountList.concat(result.data);
 			this.setData({
+				accountList: this.data.accountList,
 				currentEquityList: result.data
 			});
 		}
