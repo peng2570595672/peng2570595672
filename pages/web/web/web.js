@@ -2,6 +2,7 @@ const app = getApp();
 const util = require('../../../utils/util.js');
 Page({
 	data: {
+		optionsObj: {},
 		url: ''
 	},
 	onLoad (options) {
@@ -44,8 +45,23 @@ Page({
 		} else {
 		}
 		this.setData({
+			optionsObj: options,
 			url: options.url ? decodeURIComponent(options.url) : encodeURI(url)
 		});
+	},
+	// 分享
+	onShareAppMessage (options) {
+		const path = `/pages/web/web/web?type=${this.data.optionsObj.type || ''}&url=${this.data.optionsObj.url || ''}`;
+		let title = 'ETC一键申办，无需储值，包邮到家';
+		let imageUrl = 'https://file.cyzl.com/g001/M01/CB/5E/oYYBAGQAaeyASw5fAABJbg74uSk558.png';
+		if (this.data.optionsObj.url && this.data.optionsObj.url.includes('jf_exchange')) {
+			title = 'ETC+放福利了，高速通行抵扣券限时领！';
+		}
+		return {
+			title: title,
+			imageUrl: imageUrl,
+			path: path
+		};
 	},
 	loadHandle () {
 		wx.setNavigationBarTitle({
