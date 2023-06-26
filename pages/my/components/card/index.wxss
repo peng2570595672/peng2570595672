@@ -11,6 +11,9 @@
 .vip-box {
   background-image: url("https://file.cyzl.com/g001/M01/CA/33/oYYBAGP8Y5uAcQ8DAAFK4NUMAP4876.jpg");
 }
+.current-equity {
+  background-image: url("https://file.cyzl.com/g001/M00/E8/70/oYYBAGSY-suAIl9gAAE9GO4WPbw166.png");
+}
 .top-info {
   display: flex;
   height: 50rpx;

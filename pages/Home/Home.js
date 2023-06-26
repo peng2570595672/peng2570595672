@@ -261,11 +261,7 @@ Page({
 			});
 			funcListOne.sort(this.compare('sort'));	// 排序
 			// 出行贴心服务 模块
-			// let funcListTwo = data.outServiceFuncConfig.funcs.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime));
-			let isShowPingAn = this.data.firstCar.filter(item => app.globalData.myEtcList[0].vehPlates.includes(item));
-			let funcListTwo = data.outServiceFuncConfig.funcs.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime)).map(item1 => {
-				return item1.jumpUrl === '平安获客' && isShowPingAn?.length === 0 ? undefined : item1;	// 平安绑客
-			});
+			let funcListTwo = data.outServiceFuncConfig.funcs.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime));
 			funcListTwo.sort(this.compare('sort'));	// 排序
 			this.setData({
 				interval,
@@ -873,7 +869,13 @@ Page({
 			];
 			// let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
 			app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
+			let isShowPingAn = this.data.firstCar.filter(item => list[0].vehPlates.includes(item));	// 平安获客
+			let funcListTwo = this.data.moduleTwoList.map(item1 => {
+				return item1.jumpUrl === '平安获客' && isShowPingAn?.length === 0 ? undefined : item1;	// 平安获客
+			});
+			funcListTwo.sort(this.compare('sort'));	// 排序
 			this.setData({
+				moduleTwoList: funcListTwo,
 				isShowHandle: list.filter(item => item.obuStatus !== 1 && item.obuStatus !== 2 && item.obuStatus !== 5).length > 0
 			});
 			list.map(item => {
