@@ -20,7 +20,7 @@ Page({
 		const timestamp = Date.parse(new Date());
 		const date = new Date(timestamp);
 		this.setData({
-			id: '1110507314663657472' || options.id,
+			id: options.id,
 			currentMonth: +util.formatTime(date).slice(5, 7),
 			beginDate: `${util.formatTime(date).slice(0, 8)}01`,
 			endDate: `${util.formatTime(date).slice(0, 10)}`

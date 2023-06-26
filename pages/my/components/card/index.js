@@ -48,7 +48,7 @@ Component({
 				};
 				util.go(`/pages/account_management/bocom_account_details/bocom_account_details`);
 			} else if (info.accountType === 5) {
-				util.go(`/pages/account_management/current_equity/current_equity?id=${'info.id'}`);
+				util.go(`/pages/account_management/current_equity/current_equity?id=${info.id}`);
 			}
 		}
 	}

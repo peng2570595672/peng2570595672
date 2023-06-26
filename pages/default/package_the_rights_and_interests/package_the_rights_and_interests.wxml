@@ -23,7 +23,8 @@
                     <!-- 取后台支付金额，保留小数点后2位，若套餐支付金额为0时，前端价格展示为免费 -->
                     <view class="money">
                         <span wx:if="{{item.pledgePrice || equityListMap[index].payMoney}}" >
-                            <text wx:if="{{item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId}}" style="color: #2A4F44">免费</text>
+                            <!-- 支付金额类型为 通行权益金时，文案为“免费” -->
+                            <text wx:if="{{item.pledgeType === 2}}" style="color: #2A4F44">免费</text>
                             <text wx:else>￥{{tools.parseNum(item.pledgePrice + equityListMap[index].payMoney)/100}}</text>
                         </span>
                         <!-- 空发套餐并且设备免费时，隐藏金额 -->
@@ -48,16 +49,20 @@
                 </view>
             </view>
             <!-- 增值业务 展示的套餐下半部分 如果又权益和签约通通券则展示-->
-            <view class="lowerpart" wx:if="{{tools.dataLen(item.rightsPackageIds) || item.isSignTtCoupon || item.etcCardId === 2 || item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId}}">
+            <view class="lowerpart" wx:if="{{tools.dataLen(item.rightsPackageIds) || item.isSignTtCoupon || item.etcCardId === 2 || item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId || item.pledgeType === 2}}">
                 <view class="titleDetails">
                     <!-- 蒙通 etcCardId:2   先写个不存在的-->
-                    <view class="titles" wx:if="{{item.etcCardId === 2}}">
+                    <view class="titles" wx:if="{{item.etcCardId === 2 && !tools.dataLen(item.rightsPackageIds)}}">
                         <view class="iconfont greenIcon"></view>
                         <view class="text">ETC设备（第五代）</view>
                     </view>
                     <view class="titles" wx:if="{{item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId}}">
                         <view class="iconfont greenIcon"></view>
                         <view class="text">中信信用卡套餐办理说明</view>
+                    </view>
+                    <view class="titles" wx:if="{{item.pledgeType === 2 && !tools.dataLen(item.rightsPackageIds) && item.etcCardId !== 2 && !(item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId)}}">
+                        <view class="iconfont greenIcon"></view>
+                        <view class="text">保证金套餐说明</view>
                     </view>
                     <view class="titles" wx:if="{{item.isSignTtCoupon}}">
                         <view class="iconfont isTtIcon"></view>
@@ -71,7 +76,7 @@
                         {{ index === activeIndex ? isCloseUpperPart1 ? '收起' : '详情' : isCloseUpperPart2 && index === isCloseUpperPart ? '收起' : '详情'}}
                     </view>
                 </view>
-                <!-- 套餐 展示模块 -->
+                <!-- 套餐 详情展示模块 -->
                 <view class="detailsInfo" wx:if="{{index === activeIndex ? isCloseUpperPart1 : isCloseUpperPart2 && index === isCloseUpperPart }}">
                     <!-- 券权益包 -->
                     <addValueService addValueService="{{item.rightsPackageIds}}" wx:if="{{tools.dataLen(item.rightsPackageIds)}}"></addValueService>
@@ -117,6 +122,11 @@
                         <view class="cict">1、 中信银行信用卡活动，非持卡人可支付保证金后申请中信银行信用卡指定卡板</view>
                         <view class="cict">2、 成功办理中信银行信用卡的新客户即退还全额保证金，信用卡申请不通过，可取消订单退还保证金</view>
                     </view>
+                    <view class="isSignTtCoupon" wx:if="{{item.pledgeType === 2 && !(item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId)}}">
+                        <view class="cict">1、通行保证金可用于抵扣通行费，微信免密代扣失败时，会先使用设备保证金进行垫付，直到微信扣费成功即可回充保证金</view>
+                        <view class="cict">2、通行保证金必须大于100元，才可用于通行抵扣</view>
+                        <view class="cict">3、通行激活后满36个月支持申请退还设备保证金</view>
+                    </view>
                 </view>
             </view>
         </view>
@@ -131,12 +141,9 @@
             <view class="confirm iconfont {{getAgreement ? 'tick' : ''}}" catchtap="onClickAgreementHandle"></view>
             <view class="agreement">
                 当您勾选同意并选购套餐时，即代表您已阅读、理解并接受
-                <!-- <span class="agreementColor" catchtap="goAgreement">ETC+用户协议及黔通卡用户协议及隐私协议</span> -->
                 <text class="agreementColor" catchtap="onClickGoTTQAgreement1" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon === 1}}">通通券会员服务协议、</text>
-                <!-- <text class="agreementColor" catchtap="onClickGoAgreementHandle" wx:if="{{listOfPackages[choiceIndex].etcCardId !== 2}}">ETC+用户办理协议、</text> -->
                 <text class="agreementColor" catchtap="onClickGoAgreementHandle">ETC用户办理协议、</text>
                 <text class="agreementColor" catchtap="onClickGoQianTongAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 1}}">黔通卡ETC用户协议、</text>
-                <!-- <text class="agreementColor" catchtap="onClickGoNMAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 2}}">ETC服务协议、</text> -->
                 <text class="agreementColor" catchtap="onClickGoPrivacyHandle">用户隐私协议</text>
                 里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。
             </view>
@@ -161,9 +168,11 @@
                     ￥<span class="mpneySpan">{{activeIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + equityListMap[activeIndex].payMoney)/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}
                 </span>
                 </view>
-                <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}} bail" data-isconfirm="{{getAgreement}}" wx:if="{{citicBank}}" catchtap="next">
-                    <view class="titlea">支付保证金</view>
-                    <view class="subTitlea">ETC激活后补贴生效，手动确认返还保证金</view>
+                <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}} bail" data-isconfirm="{{getAgreement}}" wx:if="{{listOfPackages[activeIndex].pledgeType === 2}}" catchtap="next">
+                    <view wx:if="{{citicBank}}">
+                        <view class="titlea">支付保证金</view>
+                        <view class="subTitlea">ETC激活后补贴生效，手动确认返还保证金</view></view>
+                    <view wx:else>支付通行权益金</view>
                 </view>
                 <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}}" data-isconfirm="{{getAgreement}}" wx:else catchtap="next">{{'去支付'}}</view>
             </view>

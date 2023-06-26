@@ -290,7 +290,6 @@ Page({
 			pageSize: 10
 		};
 		const result = await util.getDataFromServersV2('/consumer/member/depositAccount/pageList', params);
-		console.log(result);
 		if (!result) return;
 		if (result.code) {
 			util.showToastNoIcon(result.message);

@@ -110,5 +110,25 @@
             <view class="accountBind">账户绑定车牌:{{item.vehPlates}}</view>
         </view>
     </view>
+    <!-- @cyl 通行权益金 card -->
+    <view class="card margin" style="background: linear-gradient(315deg, #107172 0%, #158B8C 100%)" wx:for="{{currentEquityList}}" wx:key="index">
+        <view class="card-info">
+            <view class="left">
+                <view>当前账户剩余券额</view>
+                <view>
+                    <text class="money">{{tools.parseNum(item.depositAmount/100)}}</text>
+                    <text class="t2" bindtap="goCurrentEquity" data-id="{{ item.id }}">
+                        账户明细 >
+                    </text>
+                </view>
+            </view>
+            <view class="right1">
+                <view>ETC+通行权益金账户</view>
+            </view>
+        </view>
+        <view class="card-no">
+            <view class="accountBind">账户绑定车牌:{{item.vehPlates}}</view>
+        </view>
+    </view>
     <recharge-prompt id="rechargePrompt" info="{{prechargeInfo}}"></recharge-prompt>
 </view>

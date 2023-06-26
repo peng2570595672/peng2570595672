@@ -13,7 +13,8 @@ Page({
 		bocomInfo: {}, // 交行二类户信息
 		bocomInfoList: [], // 交行二类户信息
 		cardInfo: undefined,
-		equityList: []
+		equityList: [],
+		currentEquityList: [] // 通行权益金列表
 	},
 	async onLoad (options) {
 		if (!app.globalData.userInfo.accessToken) {
@@ -25,6 +26,7 @@ Page({
 				etcList,
 				bocomEtcList
 			});
+			await this.getCurrentEquity();
 			await this.getRightAccount();
 			bocomEtcList.map(async item => {
 				await this.getBocomOrderBankConfigInfo(item);
@@ -49,6 +51,7 @@ Page({
 				bocomInfoList: []
 			});
 			await this.getRightAccount();
+			await this.getCurrentEquity();
 			this.data.etcList.map(async item => {
 				await this.getQueryWallet(item);
 			});
@@ -199,6 +202,24 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
+	// 通行权益金查询
+	async getCurrentEquity () {
+		let params = {
+			page: this.data.page,
+			pageSize: 10
+		};
+		const result = await util.getDataFromServersV2('/consumer/member/depositAccount/pageList', params);
+		if (!result) return;
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+			return;
+		}
+		if (result.data.length) {
+			this.setData({
+				currentEquityList: result.data
+			});
+		}
+	},
 	// 获取办理进度
 	async getProcessingProgress (e) {
 		const id = e.currentTarget.dataset.id;
@@ -250,5 +271,10 @@ Page({
 	btnRecharge (e) {
 		const Id = e.currentTarget.dataset.id;
 		util.go(`/pages/account_management/margin_recharge_model/margin_recharge_model?Id=${Id}`);
+	},
+	// 通行权益金 账户明细页面
+	goCurrentEquity (e) {
+		const id = e.currentTarget.dataset.id;
+		util.go(`/pages/account_management/current_equity/current_equity?id=${id}`);
 	}
 });
