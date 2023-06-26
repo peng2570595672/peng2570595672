@@ -81,28 +81,30 @@ Page({
 				await util.getIsArrearage();
 			}
 			util.showLoading();
-			let requestList = [await this.getCheckTwoPercent(), await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip(),await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords(), await this.getCurrentEquity()];
+			let requestList = [await this.getCheckTwoPercent(), await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip(), await this.getCurrentEquity(),await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
 			util.customTabbar(this, 2);
 			util.getUserIsVip();
 			util.showLoading();
 			await Promise.all(requestList);
 			util.hideLoading();
-			if (this.data.cardList.length > 1) {
-				let list = app.globalData.myEtcList.filter(item => item.obuStatus === 1 || item.obuStatus === 5);
-				list = this.sortDataArray(list);
-				let vehList = [];
-				list.map(item => {
-					vehList.push(item.vehPlates);
-				});
-				this.data.cardList = this.sortVehList(this.data.cardList, vehList);
-				if (this.data.cardList.length > 3) {
-					this.data.cardList = this.data.cardList.slice(0,3);
-				}
-				this.setData({
-					cardList: this.data.cardList.concat(this.data.cardList),
-					nextPageData: this.data.cardList.concat(this.data.cardList)
-				});
-			}
+			// if (this.data.cardList.length > 1) {
+			// 	let list = app.globalData.myEtcList.filter(item => item.obuStatus === 1 || item.obuStatus === 5);
+			// 	list = this.sortDataArray(list);
+			// 	let vehList = [];
+			// 	list.map(item => {
+			// 		vehList.push(item.vehPlates);
+			// 	});
+			// 	console.log('this.data.cardList')
+			// 	console.log(this.data.cardList)
+			// 	this.data.cardList = this.sortVehList(this.data.cardList, vehList);
+			// 	if (this.data.cardList.length > 3) {
+			// 		this.data.cardList = this.data.cardList.slice(0,3);
+			// 	}
+			// 	this.setData({
+			// 		cardList: this.data.cardList.concat(this.data.cardList),
+			// 		nextPageData: this.data.cardList.concat(this.data.cardList)
+			// 	});
+			// }
 			this.setData({
 				mobilePhone: app.globalData.mobilePhone,
 				isVip: app.globalData.isVip
@@ -227,13 +229,43 @@ Page({
 			});
 			// 获取预充值的
 			const etcList = app.globalData.myEtcList.filter(item => item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
-			etcList.map(async (item, index) => {
-				this.getQueryWallet(item);
+			// 获取交行
+			const bocomEtcList = app.globalData.myEtcList.filter(item => item.flowVersion === 7 && item.auditStatus === 2); // 是否有交行二类户 & 已审核通过订单
+			if (etcList.length) {
+				etcList.map(async (item, index) => {
+					this.getQueryWallet(item, bocomEtcList);
+				});
+			} else if (bocomEtcList.length) {
+				bocomEtcList.map(async (item, index) => {
+					await this.getBocomOrderBankConfigInfo(item);
+				});
+			} else {
+				this.getAccountList();
+			}
+		}
+	},
+	getAccountList () {
+		if (this.data.cardList.length > 1) {
+			let list = app.globalData.myEtcList.filter(item => item.obuStatus === 1 || item.obuStatus === 5);
+			list = this.sortDataArray(list);
+			let vehList = [];
+			list.map(item => {
+				vehList.push(item.vehPlates);
+			});
+			console.log('this.data.cardList')
+			console.log(this.data.cardList)
+			this.data.cardList = this.sortVehList(this.data.cardList, vehList);
+			if (this.data.cardList.length > 3) {
+				this.data.cardList = this.data.cardList.slice(0,3);
+			}
+			this.setData({
+				cardList: this.data.cardList.concat(this.data.cardList),
+				nextPageData: this.data.cardList.concat(this.data.cardList)
 			});
 		}
 	},
 	// 预充模式-账户信息查询
-	async getQueryWallet (item) {
+	async getQueryWallet (item, bocomEtcList = []) {
 		const result = await util.getDataFromServersV2('consumer/order/third/queryWallet', {
 			orderId: item.id,
 			pageSize: 1
@@ -249,11 +281,13 @@ Page({
 				cardList: this.data.cardList,
 				nextPageData: this.data.nextPageData
 			});
-			// 获取交行
-			const bocomEtcList = app.globalData.myEtcList.filter(item => item.flowVersion === 7 && item.auditStatus === 2); // 是否有交行二类户 & 已审核通过订单
-			bocomEtcList.map(async (item, index) => {
-				await this.getBocomOrderBankConfigInfo(item, index === bocomEtcList.length - 1);
-			});
+			if (bocomEtcList.length) {
+				bocomEtcList.map(async (item, index) => {
+					await this.getBocomOrderBankConfigInfo(item, index === bocomEtcList.length - 1);
+				});
+			} else {
+				this.getAccountList();
+			}
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -281,6 +315,7 @@ Page({
 				cardList: this.data.cardList,
 				nextPageData: this.data.nextPageData
 			});
+			this.getAccountList();
 		}
 	},
 	// 通行权益金查询
