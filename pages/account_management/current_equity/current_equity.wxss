@@ -1,0 +1,184 @@
+.account-details > view {
+  padding-left: 32rpx;
+}
+.account-details .account-info {
+  padding: 64rpx 32rpx 0;
+}
+.account-details .account-info .account-info-title {
+  color: rgba(0,0,0,0.9);
+  font-size: 28rpx;
+  line-height: 39rpx;
+  display: flex;
+  align-items: center;
+}
+.account-details .account-info .account-info-title .iconTop {
+  margin-left: 10rpx;
+}
+.account-details .account-info .account-info-title .iconTop::after {
+  display: inline-block;
+  content: '\e650';
+  width: 30rpx;
+  height: 30rpx;
+  font-size: 28rpx;
+  color: #2fb565;
+}
+.account-details .account-info .balance {
+  display: flex;
+  height: 60rpx;
+  align-items: center;
+  padding: 32rpx 0 12rpx;
+  color: #2fb565;
+  font-size: 28rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+}
+.account-details .account-info .balance .price {
+  line-height: 57rpx;
+  font-size: 60rpx;
+}
+.account-details .account-info .balance .unit {
+  color: $fontColor3;
+  padding-left: 12rpx;
+  padding-right: 32rpx;
+}
+.account-details .account-info .balance .recharge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 114rpx;
+  height: 52rpx;
+  background: rgba(207,207,207,0.2);
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #00b85c;
+}
+.account-details .account-info .prompt {
+  padding: 32rpx 0;
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #ffc000;
+  line-height: 34rpx;
+}
+.account-details .account-info .prompt .normal {
+  color: rgba(0,0,0,0.2);
+}
+.account-details .account-info .prompt .arrears {
+  color: #ff3c48;
+}
+.account-details .account-info .prompt .arrears text {
+  color: #00a9ff;
+  padding-left: 8rpx;
+}
+.account-details .account-info .prompt span {
+  font-size: 22rpx;
+}
+.account-details .currentEquity {
+  width: 662rpx;
+  height: 134rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 28rpx;
+  margin-top: 24rpx;
+  background: linear-gradient(315deg, #107172 0%, #158b8c 100%);
+  box-shadow: 0rpx 4rpx 16rpx 0rpx rgba(0,0,0,0.1);
+  border-radius: 16rpx 16rpx 16rpx 16rpx;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  line-height: 28rpx;
+  opacity: 1;
+}
+.account-details .currentEquity .leftName {
+  margin-left: -4rpx;
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.9);
+}
+.account-details .currentEquity .leftName .attrValue {
+  font-size: 44rpx;
+  font-family: Arial Black-Regular, Arial Black;
+  font-weight: 900;
+  color: #fff;
+  margin-left: 10rpx;
+}
+.account-details .currentEquity .leftName .attrValue .subText {
+  font-size: 32rpx;
+  font-family: Arial Hebrew-Bold, Arial Hebrew;
+  font-weight: 700;
+}
+.account-details .currentEquity .rightVehPlates {
+  margin-right: 28rpx;
+  font-size: 28rpx;
+  color: #fff;
+}
+.account-details .split {
+  height: 20rpx;
+  background: #fafafa;
+}
+.account-details .account-list {
+  padding: 32rpx;
+}
+.account-details .account-list .list-title {
+  display: flex;
+  height: 34rpx;
+  align-items: center;
+  font-size: 34rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #000;
+  padding-bottom: 26rpx;
+}
+.account-details .account-list .list-title::before {
+  margin-right: 8rpx;
+  content: '';
+  width: 8rpx;
+  height: 44rpx;
+  background: #2fb565;
+}
+.account-details .account-list .list-title .title {
+  flex: 1;
+}
+.account-details .account-list .list-title .picker {
+  display: flex;
+  color: rgba(0,184,92,0.31);
+  font-size: 34rpx;
+}
+.account-details .account-list .list-title .picker::before {
+  content: '\e69c';
+  font-size: 32rpx;
+  margin-right: 12rpx;
+}
+.account-details .account-list .list-item {
+  border-bottom: 1rpx solid rgba(176,176,176,0.29);
+}
+.account-details .account-list .list-item > view {
+  color: $fontColor3;
+  font-size: 36rpx;
+  display: flex;
+}
+.account-details .account-list .list-item > view > view {
+  flex: 1;
+}
+.account-details .account-list .list-item > view > view:last-child {
+  text-align: right;
+}
+.account-details .account-list .list-item > view.first {
+  padding-top: 32rpx;
+  padding-bottom: 16rpx;
+}
+.account-details .account-list .list-item > view.first .type {
+  font-size: 28rpx;
+  color: #66666d;
+}
+.account-details .account-list .list-item > view.first .price {
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+}
+.account-details .account-list .list-item > view.last {
+  line-height: 50rpx;
+  padding-bottom: 12rpx;
+}
+.account-details .account-list .list-item > view.last .time {
+  font-size: 28rpx;
+}

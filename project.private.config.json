@@ -440,6 +440,13 @@
                     "query": "shopId=627104942791852032",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/account_management/deposit_account_details/deposit_account_details",
+                    "query": "id=1116767722869362688",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

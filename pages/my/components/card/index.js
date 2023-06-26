@@ -34,7 +34,7 @@ Component({
 		handleDetails () {
 			console.log(this.data.cardData);
 			const info = this.data.cardData;
-			// 1-权益账户   2-货车预充值 3-交行 4-工行
+			// 1-权益账户   2-货车预充值 3-交行 4-工行 5-通行权益金账户
 			if (info.accountType === 1) {
 				util.go(`/pages/account_management/deposit_account_details/deposit_account_details?id=${info.id}`);
 			} else if (info.accountType === 2) {
@@ -47,6 +47,8 @@ Component({
 					vehPlates: info.vehPlates || ''
 				};
 				util.go(`/pages/account_management/bocom_account_details/bocom_account_details`);
+			} else if (info.accountType === 5) {
+				util.go(`/pages/account_management/current_equity/current_equity?id=${'info.id'}`);
 			}
 		}
 	}
