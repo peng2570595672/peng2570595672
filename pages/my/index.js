@@ -88,6 +88,16 @@ Page({
 			await Promise.all(requestList);
 			util.hideLoading();
 			if (this.data.cardList.length > 1) {
+				let list = app.globalData.myEtcList.filter(item => item.obuStatus === 1 || item.obuStatus === 5);
+				list = this.sortDataArray(list);
+				let vehList = [];
+				list.map(item => {
+					vehList.push(item.vehPlates);
+				});
+				this.data.cardList = this.sortCityList(this.data.cardList, vehList);
+				if (this.data.cardList.length > 3) {
+					this.data.cardList = this.data.cardList.slice(0,3);
+				}
 				this.setData({
 					cardList: this.data.cardList.concat(this.data.cardList),
 					nextPageData: this.data.cardList.concat(this.data.cardList)
@@ -107,6 +117,22 @@ Page({
 			mobilePhone: app.globalData.mobilePhone,
 			screenHeight: wx.getSystemInfoSync().windowHeight,
 			isVip: app.globalData.isVip
+		});
+	},
+	// sortList 排序列表  referToList 参照排序列表
+	// 使用   array.sort（callback ） 来进行排序， 而排序的方法中 使用  参照数组中的  index 来进行大小比较
+	sortCityList (sortList, referToList) {
+		sortList.sort((a,b) => {
+			return referToList.indexOf(a.vehPlates) - referToList.indexOf(b.vehPlates);
+		});
+		return sortList;
+	},
+	sortDataArray (dataArray) {
+		return dataArray.sort(function (a, b) {
+			// 首次激活时间
+			if (b.dateLineActivation && a.dateLineActivation) {
+				return Date.parse(b.dateLineActivation.replace(/-/g, '/')) - Date.parse(a.dateLineActivation.replace(/-/g, '/'));
+			}
 		});
 	},
 	// 获取后台配置的数据
@@ -199,17 +225,15 @@ Page({
 				accountList: result.data,
 				nextPageData: result.data
 			});
-			if (result.data.length < 3) {
-				// 获取预充值的
-				const etcList = app.globalData.myEtcList.filter(item => item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
-				etcList.map(async (item, index) => {
-					this.getQueryWallet(item, index === etcList.length - 1);
-				});
-			}
+			// 获取预充值的
+			const etcList = app.globalData.myEtcList.filter(item => item.flowVersion === 4 && item.auditStatus === 2); // 是否有预充流程 & 已审核通过订单
+			etcList.map(async (item, index) => {
+				this.getQueryWallet(item);
+			});
 		}
 	},
 	// 预充模式-账户信息查询
-	async getQueryWallet (item, isRequestCompletion) {
+	async getQueryWallet (item) {
 		const result = await util.getDataFromServersV2('consumer/order/third/queryWallet', {
 			orderId: item.id,
 			pageSize: 1
@@ -217,29 +241,25 @@ Page({
 		console.log('货车数据：',result);
 		if (!result) return;
 		if (result.code === 0) {
-			if (this.data.cardList.length < 3) {
-				result.data.vehPlates = item.vehPlates;
-				result.data.orderId = item.id;
-				result.data.accountType = 2;
-				this.data.cardList = this.data.cardList.concat(result.data);
-				this.setData({
-					cardList: this.data.cardList,
-					nextPageData: this.data.nextPageData
-				});
-				if (isRequestCompletion && this.data.cardList.length < 3) {
-					// 获取交行
-					const bocomEtcList = app.globalData.myEtcList.filter(item => item.flowVersion === 7 && item.auditStatus === 2); // 是否有交行二类户 & 已审核通过订单
-					bocomEtcList.map(async (item, index) => {
-						await this.getBocomOrderBankConfigInfo(item, index === bocomEtcList.length - 1);
-					});
-				}
-			}
+			result.data.vehPlates = item.vehPlates;
+			result.data.orderId = item.id;
+			result.data.accountType = 2;
+			this.data.cardList = this.data.cardList.concat(result.data);
+			this.setData({
+				cardList: this.data.cardList,
+				nextPageData: this.data.nextPageData
+			});
+			// 获取交行
+			const bocomEtcList = app.globalData.myEtcList.filter(item => item.flowVersion === 7 && item.auditStatus === 2); // 是否有交行二类户 & 已审核通过订单
+			bocomEtcList.map(async (item, index) => {
+				await this.getBocomOrderBankConfigInfo(item, index === bocomEtcList.length - 1);
+			});
 		} else {
 			util.showToastNoIcon(result.message);
 		}
 	},
 	// 交行二类户查询
-	async getBocomOrderBankConfigInfo (orderInfo, isRequestCompletion) {
+	async getBocomOrderBankConfigInfo (orderInfo) {
 		// 获取订单银行配置信息
 		const result = await util.getDataFromServersV2('/consumer/member/bcm/queryBalance', {
 			orderId: orderInfo.id,
@@ -248,21 +268,19 @@ Page({
 		if (result.code) {
 			util.showToastNoIcon(result.message);
 		} else {
-			if (this.data.cardList.length < 3) {
-				let info;
-				if (app.globalData.memberStatusInfo?.accountList.length) {
-					info = app.globalData.memberStatusInfo.accountList.find(accountItem => accountItem.orderId === orderInfo.id);
-				}
-				result.data.vehPlates = orderInfo.vehPlates;
-				result.data.accountType = 3;
-				result.data.id = orderInfo.id;
-				result.data.accountNo = info.accountNo;
-				this.data.cardList.push(result.data);
-				this.setData({
-					cardList: this.data.cardList,
-					nextPageData: this.data.nextPageData
-				});
+			let info;
+			if (app.globalData.memberStatusInfo?.accountList.length) {
+				info = app.globalData.memberStatusInfo.accountList.find(accountItem => accountItem.orderId === orderInfo.id);
 			}
+			result.data.vehPlates = orderInfo.vehPlates;
+			result.data.accountType = 3;
+			result.data.id = orderInfo.id;
+			result.data.accountNo = info.accountNo;
+			this.data.cardList.push(result.data);
+			this.setData({
+				cardList: this.data.cardList,
+				nextPageData: this.data.nextPageData
+			});
 		}
 	},
 	// 通行权益金查询
