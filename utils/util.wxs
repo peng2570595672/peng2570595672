@@ -176,6 +176,10 @@ function numReplace(param1,type=1) {
     param1 = (param1 / 100) + '';
     return param1.indexOf('-') !== -1 ? param1.replace('-','-￥') : '+￥' + param1
   }
+  if (type === 2) {
+    param1 = param1 + ''
+    return param1.indexOf('-') !== -1
+  }
 
 }
 module.exports = {

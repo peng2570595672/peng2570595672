@@ -15,66 +15,6 @@ textLineCenter($height)
 .account-details
 	& > view
 		padding-left 32rpx
-	.account-info
-		padding 64rpx 32rpx 0
-		.account-info-title
-			color rgba(0, 0, 0, .9)
-			font-size 28rpx
-			line-height 39rpx
-			display flex
-			align-items center
-			.iconTop
-				margin-left 10rpx
-				&::after
-					display inline-block
-					content '\e650'
-					width 30rpx
-					height 30rpx
-					font-size 28rpx
-					color #2FB565
-		.balance
-			display flex
-			height 60rpx
-			align-items center
-			padding 32rpx 0 12rpx
-			color #2FB565
-			font-size 28rpx
-			font-family PingFangSC-Semibold, PingFang SC
-			font-weight 600
-			.price
-				line-height 57rpx
-				font-size 60rpx
-			.unit
-				color $fontColor3
-				padding-left 12rpx
-				padding-right 32rpx
-			.recharge
-				display flex
-				align-items center
-				justify-content center
-				width 114rpx;
-				height 52rpx;
-				background rgba(207,207,207, .2)
-				font-size 24rpx;
-				font-family PingFangSC-Regular, PingFang SC;
-				font-weight 400;
-				color #00B85C;
-		.prompt
-			padding 32rpx 0
-			font-size: 24rpx;
-			font-family: PingFangSC-Regular, PingFang SC;
-			font-weight: 400;
-			color: #FFC000;
-			line-height: 34rpx;
-			.normal
-				color rgba(0,0,0,.2)
-			.arrears
-				color #FF3C48;
-				text
-					color #00A9FF
-					padding-left 8rpx
-			span
-				font-size 22rpx;
 	.currentEquity
 		mixinsWidthHeight(662rpx,134rpx)
 		display flex
@@ -116,22 +56,22 @@ textLineCenter($height)
 			display flex
 			height 34rpx
 			align-items center
-			font-size 34rpx
-			font-family PingFangSC-Medium, PingFang SC;
-			font-weight 500
-			color #000
+			font-size 32rpx
+			font-family PingFangSC-Medium, PingFang SC
+			font-weight 400
+			color #3D3D3D
 			padding-bottom 26rpx
-			&::before
-				margin-right 8rpx
-				content ''
-				width 8rpx
-				height 44rpx
-				background #2FB565
+			// &::before
+			// 	margin-right 8rpx
+			// 	content ''
+			// 	width 8rpx
+			// 	height 44rpx
+			// 	background #2FB565
 			.title
 				flex 1
 			.picker
 				display flex
-				color rgba(0,184,92, .31)
+				color rgba(0,0,0,0.6)
 				font-size 34rpx
 				&::before
 					content '\e69c'
@@ -152,13 +92,22 @@ textLineCenter($height)
 					padding-bottom 16rpx
 					.type
 						font-size 28rpx
-						color #66666D
+						font-family PingFang SC-Regular, PingFang SC
+						font-weight 400
+						color #000000
 					.price
-						font-family PingFangSC-Medium, PingFang SC
-						font-weight 500
+						font-size 28rpx
+						font-family PingFang SC-Semibold, PingFang SC
+						font-weight 600
+						color #00000
+					.red
+						color #f00
 				&.last
 					line-height 50rpx
 					padding-bottom 12rpx
 					.time
-						font-size 28rpx
+						font-size 24rpx
+						font-family PingFang SC-Regular, PingFang SC
+						font-weight 400
+						color rgba(0,0,0,0.6)
 

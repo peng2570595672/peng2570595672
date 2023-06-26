@@ -265,6 +265,28 @@ Page({
 			}
 		}
 	},
+	// 通行权益金查询
+	async getCurrentEquity () {
+		let params = {
+			page: this.data.page,
+			pageSize: 10
+		};
+		const result = await util.getDataFromServersV2('/consumer/member/depositAccount/pageList', params);
+		console.log(result);
+		if (!result) return;
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+			return;
+		}
+		const index = result.data.findIndex(item => item.id === this.data.id);
+		let list = result.data[index].detailData.list || [];
+		console.log(list);
+		this.setData({
+			list: this.data.list.concat(list),
+			infoData: result.data[index]
+		});
+	},
+
 	// 获取加购权益包订单列表
 	async getRightsPackageBuyRecords () {
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/add-buy-record', {

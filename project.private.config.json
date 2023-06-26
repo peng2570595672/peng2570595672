@@ -447,6 +447,13 @@
                     "query": "id=1116767722869362688",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "通行权益金账户明细",
+                    "pathName": "pages/account_management/current_equity/current_equity",
+                    "query": "id=info.id",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
