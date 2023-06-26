@@ -275,13 +275,18 @@ Page({
 		console.log(result);
 		if (!result) return;
 		if (result.code) {
-			result.data.accountType = 5;
-			this.data.cardList.push(result.data);
+			util.showToastNoIcon(result.message);
+			return;
+		}
+		if (result.data.length) {
+			result.data.map(item => {
+				item.accountType = 5;
+			});
+			this.data.cardList = [...result.data, ...this.data.cardList];
 			this.setData({
 				cardList: this.data.cardList,
 				nextPageData: this.data.nextPageData
 			});
-			util.showToastNoIcon(result.message);
 		}
 	},
 	// 获取加购权益包订单列表
