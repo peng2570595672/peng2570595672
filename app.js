@@ -149,7 +149,7 @@ App({
 			rightsPackageId: IS_TEST ? '1112692002532630528' : '1116023060582375424',
 			shopId: IS_TEST ? '611607716116299776' : '611607716116299776'
 		},
-		pingAnBindGuests: ['豫','川']	// 平安绑客合作机构开头的车牌号
+		pingAnBindGuests: ['豫','川','粤']	// 平安绑客合作机构开头的车牌号
 	},
 	onLaunch (options) {
 		// 统计逻辑结束

@@ -26,6 +26,20 @@
   font-family: Arial-BoldItalicMT, Arial;
   font-weight: normal;
   color: #FFFFFF;
+  font-style: oblique;
+}
+.top-info .quota .currentEquity {
+  font-size: 48rpx;
+  font-family: Arial-BoldItalicMT-Regular, Arial-BoldItalicMT;
+  font-weight: 400;
+  color: #FFFFFF;
+}
+.top-info .quota .currentEquity .subText1 {
+  font-size: 24rpx;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FFFFFF;
+  font-style: normal;
 }
 .top-info .btn {
   width: 172rpx;

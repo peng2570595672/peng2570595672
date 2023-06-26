@@ -36,6 +36,8 @@ Component({
 			},'POST',false);
 			if (!result) return;
 			if (result.code === 0) {
+				// const trafficTicket = result.data.filter(item => item.couponType === 1 || item.couponType === 3);
+				// const parkingTicket = result.data.filter(item => item.couponType === 2 || item.couponType === 4);
 				const trafficTicket = result.data.filter(item => item.couponType === 1);
 				const parkingTicket = result.data.filter(item => item.couponType === 2);
 				let trafficTicketNum = 0;

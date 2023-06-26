@@ -94,7 +94,7 @@ Page({
 				list.map(item => {
 					vehList.push(item.vehPlates);
 				});
-				this.data.cardList = this.sortCityList(this.data.cardList, vehList);
+				this.data.cardList = this.sortVehList(this.data.cardList, vehList);
 				if (this.data.cardList.length > 3) {
 					this.data.cardList = this.data.cardList.slice(0,3);
 				}
@@ -121,7 +121,7 @@ Page({
 	},
 	// sortList 排序列表  referToList 参照排序列表
 	// 使用   array.sort（callback ） 来进行排序， 而排序的方法中 使用  参照数组中的  index 来进行大小比较
-	sortCityList (sortList, referToList) {
+	sortVehList (sortList, referToList) {
 		sortList.sort((a,b) => {
 			return referToList.indexOf(a.vehPlates) - referToList.indexOf(b.vehPlates);
 		});
@@ -362,6 +362,16 @@ Page({
 						this.getBackgroundConfiguration();
 						util.hideLoading();
 						if (this.data.cardList.length > 1) {
+							let list = app.globalData.myEtcList.filter(item => item.obuStatus === 1 || item.obuStatus === 5);
+							list = this.sortDataArray(list);
+							let vehList = [];
+							list.map(item => {
+								vehList.push(item.vehPlates);
+							});
+							this.data.cardList = this.sortVehList(this.data.cardList, vehList);
+							if (this.data.cardList.length > 3) {
+								this.data.cardList = this.data.cardList.slice(0,3);
+							}
 							this.setData({
 								cardList: this.data.cardList.concat(this.data.cardList),
 								nextPageData: this.data.cardList.concat(this.data.cardList)

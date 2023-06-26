@@ -76,7 +76,7 @@
                     <!-- 券权益包 -->
                     <addValueService addValueService="{{item.rightsPackageIds}}" wx:if="{{tools.dataLen(item.rightsPackageIds)}}"></addValueService>
                     <!-- 通通券 -->
-                    <view wx:elif="{{item.isSignTtCoupon}}" class="isSignTtCoupon">
+                    <view wx:if="{{item.isSignTtCoupon}}" class="isSignTtCoupon">
                         <view class="signTitle">通通券，涵盖出行+生活的优惠聚合平台</view>
                         <view class="signImg">
                             <view class="imageSize" wx:for="{{ttCouponImgList}}" wx:for-item="itemTt" wx:key="index">
@@ -85,7 +85,7 @@
                         </view>
                     </view>
                     <!-- 蒙通卡 -->
-                    <view wx:elif="{{item.etcCardId === 2}}" class="neimeng">
+                    <view wx:if="{{item.etcCardId === 2}}" class="neimeng">
                         <!--<view class="describe-title">1.体积更小   2.抬杆速度更快   3.低耗电，寿命更长</view>-->
                         <view class="describe-content">
                             <view class="left">
@@ -113,7 +113,7 @@
                             </view>
                         </view>
                     </view>
-                    <view wx:elif="{{item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId}}" class="isSignTtCoupon">
+                    <view wx:if="{{item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId}}" class="isSignTtCoupon">
                         <view class="cict">1、 中信银行信用卡活动，非持卡人可支付保证金后申请中信银行信用卡指定卡板</view>
                         <view class="cict">2、 成功办理中信银行信用卡的新客户即退还全额保证金，信用卡申请不通过，可取消订单退还保证金</view>
                     </view>
