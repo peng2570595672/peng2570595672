@@ -440,11 +440,6 @@ Page({
 	},
 	// 跳转
 	async go (e) {
-		// 未登录
-		if (!app.globalData.userInfo?.accessToken) {
-			util.go('/pages/login/login/login');
-			return;
-		}
 		let that = this;
 		let url = e.currentTarget.dataset['url'];
 		if (url === 'online_customer_service') {
@@ -452,6 +447,11 @@ Page({
 			this.fangDou(() => {
 				util.go(`/pages/web/web/web?type=${url}`);
 			},1000);
+			return;
+		}
+		// 未登录
+		if (!app.globalData.userInfo?.accessToken) {
+			util.go('/pages/login/login/login');
 			return;
 		}
 		if (url === 'life_service') {

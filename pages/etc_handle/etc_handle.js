@@ -152,11 +152,6 @@ Page({
 		util.go(`/pages/default/receiving_address/receiving_address?citicBank=${this.data.citicBankChannel}`);
 	},
 	goOnlineServer () {
-		// 未登录
-		if (!app.globalData.userInfo.accessToken) {
-			util.go('/pages/login/login/login');
-			return;
-		}
 		wx.uma.trackEvent('index_for_service');
 		util.go(`/pages/web/web/web?type=online_customer_service`);
 	},
