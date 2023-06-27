@@ -61,7 +61,6 @@ Component({
 		// 关闭弹窗
 		hide (e) {
 			app.globalData.isShowDeviceUpgradePop = true;
-
 			this.setData({
 				wrapper: false,
 				getAgreement: true
@@ -150,8 +149,8 @@ Component({
 		goAgreement (e) {
 			let type = e.currentTarget.dataset.type;
 			switch (type) {
-				case '1':	// 隐私协议
-					util.go(`/pages/default/privacy_agreement/privacy_agreement`);
+				case '1':	// 平安获客（平安 隐私协议）
+					util.go(`/pages/default/equity_agreement/equity_agreement?type=pAbindGuests`);
 					break;
 				default:
 					break;

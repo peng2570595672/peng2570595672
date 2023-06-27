@@ -6,7 +6,7 @@
     </view>
     <!-- 套餐模块 -->
     <view class="package" wx:for="{{listOfPackages}}" wx:key="index">
-        <view class="module moduleOne iconfont {{'module' + index}} {{index === activeIndex ? 'btnHighLight' : ''}}" data-index="{{index}}" catchtap="btnHeightLight">
+        <view class="module moduleOne iconfont {{'module' + index}} {{index === activeIndex ? 'btnHighLight' : ''}}" data-index="{{index}}" data-shopproductid="{{item.shopProductId}}" catchtap="btnHeightLight">
             <!-- 活动标签 限制字符8个 -->
             <view class="active {{index === activeIndex ? 'activeChange' : ''}}" wx:if="{{item.activeTag}}">
                 <text>{{tools.limitNumber(item.activeTag,8)}}</text>

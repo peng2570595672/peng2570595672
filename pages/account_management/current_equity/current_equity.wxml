@@ -21,13 +21,13 @@
         <view class="list-item" wx:for="{{list}}" wx:key="index">
             <view class="first">
                 <view class="type">
-                    <!-- 变更类型（0:办理开户；1:通行费抵扣；2:通行费争议退费 3.保证金回充-通行补扣 4.保证金回充-通行费补缴  5:退还保证金 6:注销 ） -->
+                    <!-- 变更类型（0:办理开户；1:通行费抵扣；2:通行费争议退费 3.奖励通行权益金-通行费补扣 4.奖励通行权益金-通行费补缴  5:退还通行权益金 6:注销 ） -->
                     {{ item.flowType === 0 ? '办理开户' : '' }}
                     {{ item.flowType === 1 ? '通行费抵扣' : ''  }}
                     {{ item.flowType === 2 ? '通行费争议退费' : ''  }}
-                    {{ item.flowType === 3 ? '保证金回充-通行补扣' : ''  }}
-                    {{ item.flowType === 4 ? '保证金回充-通行费补缴' : ''  }}
-                    {{ item.flowType === 5 ? '退还保证金' : ''  }}
+                    {{ item.flowType === 3 ? '奖励通行权益金-通行费补扣' : ''  }}
+                    {{ item.flowType === 4 ? '奖励通行权益金-通行费补缴' : ''  }}
+                    {{ item.flowType === 5 ? '退还通行权益金' : ''  }}
                     {{ item.flowType === 6 ? '注销' : ''  }}
                 </view>
                 <view class="price {{tools.numReplace(item.flowAmount,2) ? 'red' : ''}}">{{ tools.numReplace(item.flowAmount)}}</view>

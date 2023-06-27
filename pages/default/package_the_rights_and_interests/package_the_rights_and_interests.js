@@ -862,9 +862,11 @@ Page({
 	},
 	// 点击高亮
 	btnHeightLight (e) {
+		console.log(e);
 		let that = this;
 		let index = e.currentTarget.dataset.index;
 		let isFade = index !== that.data.activeIndex;
+		let shopProductId = e.currentTarget.dataset.shopproductid;
 		// 控制点击 套餐高亮
 		that.setData({
 			isFade,
@@ -876,7 +878,7 @@ Page({
 		});
 		if (isFade) { // 当套餐高亮时，默认展开 详情
 			this.setData({
-				isCloseUpperPart1: true,
+				isCloseUpperPart1: shopProductId === app.globalData.currentEquity.shopProductId ? false : true,
 				isCloseUpperPart2: false
 			});
 		} else {
