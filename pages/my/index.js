@@ -264,7 +264,7 @@ Page({
 			});
 			if (bocomEtcList.length) {
 				bocomEtcList.map(async (item, index) => {
-					await this.getBocomOrderBankConfigInfo(item, index === bocomEtcList.length - 1);
+					await this.getBocomOrderBankConfigInfo(item);
 				});
 			} else {
 				this.getAccountList();

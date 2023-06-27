@@ -7,15 +7,8 @@ const app = getApp();
 Page({
 	data: {
 		accountList: [],// accountType 1-权益账户  2-货车预充值 3-交行 4-工行 5-保证金
-		prechargeList: [],
 		etcList: [], // 预充流程且审核通过订单
-		bocomEtcList: [], // 交行二类户流程且审核通过订单
-		prechargeInfo: {},
-		bocomInfo: {}, // 交行二类户信息
-		bocomInfoList: [], // 交行二类户信息
-		cardInfo: undefined,
-		equityList: [],
-		currentEquityList: [] // 通行权益金列表
+		bocomEtcList: [] // 交行二类户流程且审核通过订单
 	},
 	async onLoad (options) {
 		if (!app.globalData.userInfo.accessToken) {
@@ -43,18 +36,12 @@ Page({
 		}
 	},
 	async onShow () {
-		// await util.getV2BankId();
-		// app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(0, 4) + ' *** *** ' + app.globalData.bankCardInfo.accountNo.substr(-4);
-		// this.setData({
-		// 	cardInfo: app.globalData.bankCardInfo
-		// });
 		await util.getMemberStatus();
 		const pages = getCurrentPages();
 		const currPage = pages[pages.length - 1];
 		if (currPage.__data__.isReload) {
 			this.setData({
-				prechargeList: [],
-				bocomInfoList: []
+				accountList: []
 			});
 			await this.getRightAccount();
 			await this.getCurrentEquity();
@@ -112,7 +99,6 @@ Page({
 			if (app.globalData.memberStatusInfo?.accountList.length) {
 				info = app.globalData.memberStatusInfo.accountList.find(accountItem => accountItem.orderId === orderInfo.id);
 			}
-			let list = this.data.bocomInfoList;
 			result.data.vehPlates = orderInfo.vehPlates;
 			result.data.accountNo = info.accountNo;
 			result.data.orderId = orderInfo.id;
@@ -120,8 +106,7 @@ Page({
 			list.push(result.data);
 			this.data.accountList.push(result.data);
 			this.setData({
-				accountList: this.data.accountList,
-				bocomInfoList: list
+				accountList: this.data.accountList
 			});
 			this.getAccountList();
 		}
@@ -139,8 +124,7 @@ Page({
 			});
 			this.data.accountList = [...this.data.accountList, ...result.data];
 			this.setData({
-				accountList: this.data.accountList,
-				equityList: result.data
+				accountList: this.data.accountList
 			});
 		}
 	},
@@ -220,11 +204,9 @@ Page({
 			result.data.vehPlates = item.vehPlates;
 			result.data.orderId = item.id;
 			result.data.accountType = 2;
-			this.data.prechargeList = this.data.prechargeList.concat(result.data);
 			this.data.accountList = this.data.accountList.concat(result.data);
 			this.setData({
-				accountList: this.data.accountList,
-				prechargeList: this.data.prechargeList
+				accountList: this.data.accountList
 			});
 			if (bocomEtcList.length) {
 				bocomEtcList.map(async (item, index) => {
@@ -255,8 +237,7 @@ Page({
 			});
 			this.data.accountList = [...this.data.accountList, ...result.data];
 			this.setData({
-				accountList: this.data.accountList,
-				currentEquityList: result.data
+				accountList: this.data.accountList
 			});
 		}
 	},
@@ -264,38 +245,6 @@ Page({
 	async getProcessingProgress (e) {
 		const id = e.currentTarget.dataset.id;
 		util.go(`/pages/account_management/pay_method/pay_method?orderId=${id}`);
-		// const result = await util.getDataFromServersV2('consumer/order/transact-schedule', {
-		// 	orderId: id
-		// });
-		// if (!result) return;
-		// await this.onClickRecharge(id, result.data);
-	},
-	async onClickRecharge (id, info) {
-		util.showLoading('正在获取充值账户信息....');
-		const result = await util.getDataFromServersV2('consumer/order/third/queryProcessInfo', {
-			orderId: id
-		});
-		util.hideLoading();
-		if (!result) return;
-		if (result.code === 0) {
-			if (!result.data.bankCardNum) {
-				setTimeout(() => {
-					wx.showToast({
-						title: '获取失败',
-						icon: 'none',
-						duration: 5000
-					});
-				}, 100);
-				return;
-			}
-			result.data.holdBalance = info.holdBalance;
-			this.setData({
-				prechargeInfo: result.data || {}
-			});
-			this.selectComponent('#rechargePrompt').show();
-		} else {
-			util.showToastNoIcon(result.message);
-		}
 	},
 	goAccountDetails (e) {
 		const id = e.currentTarget.dataset.id;
