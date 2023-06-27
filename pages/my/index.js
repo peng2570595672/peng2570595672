@@ -87,24 +87,6 @@ Page({
 			util.showLoading();
 			await Promise.all(requestList);
 			util.hideLoading();
-			// if (this.data.cardList.length > 1) {
-			// 	let list = app.globalData.myEtcList.filter(item => item.obuStatus === 1 || item.obuStatus === 5);
-			// 	list = this.sortDataArray(list);
-			// 	let vehList = [];
-			// 	list.map(item => {
-			// 		vehList.push(item.vehPlates);
-			// 	});
-			// 	console.log('this.data.cardList')
-			// 	console.log(this.data.cardList)
-			// 	this.data.cardList = this.sortVehList(this.data.cardList, vehList);
-			// 	if (this.data.cardList.length > 3) {
-			// 		this.data.cardList = this.data.cardList.slice(0,3);
-			// 	}
-			// 	this.setData({
-			// 		cardList: this.data.cardList.concat(this.data.cardList),
-			// 		nextPageData: this.data.cardList.concat(this.data.cardList)
-			// 	});
-			// }
 			this.setData({
 				mobilePhone: app.globalData.mobilePhone,
 				isVip: app.globalData.isVip
@@ -219,11 +201,12 @@ Page({
 				});
 			}
 			const index = this.data.carouselList.findIndex(item => item.isShow);
+			this.data.cardList = [...this.data.cardList, ...result.data];
 			this.setData({
 				showCarousel: index !== -1,
 				carouselList: this.data.carouselList,
 				isShowEquityImg: result.data?.length,
-				cardList: result.data,
+				cardList: this.data.cardList,
 				accountList: result.data,
 				nextPageData: result.data
 			});
@@ -252,8 +235,6 @@ Page({
 			list.map(item => {
 				vehList.push(item.vehPlates);
 			});
-			console.log('this.data.cardList')
-			console.log(this.data.cardList)
 			this.data.cardList = this.sortVehList(this.data.cardList, vehList);
 			if (this.data.cardList.length > 3) {
 				this.data.cardList = this.data.cardList.slice(0,3);
@@ -390,27 +371,11 @@ Page({
 							isVip: app.globalData.isVip,
 							myAccountList: app.globalData.myEtcList
 						});
-						requestList = [requestList, await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords(), await this.getCurrentEquity()];
+						requestList = [requestList, await this.getCurrentEquity(), await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
 						util.showLoading();
 						await Promise.all(requestList);
 						this.getBackgroundConfiguration();
 						util.hideLoading();
-						if (this.data.cardList.length > 1) {
-							let list = app.globalData.myEtcList.filter(item => item.obuStatus === 1 || item.obuStatus === 5);
-							list = this.sortDataArray(list);
-							let vehList = [];
-							list.map(item => {
-								vehList.push(item.vehPlates);
-							});
-							this.data.cardList = this.sortVehList(this.data.cardList, vehList);
-							if (this.data.cardList.length > 3) {
-								this.data.cardList = this.data.cardList.slice(0,3);
-							}
-							this.setData({
-								cardList: this.data.cardList.concat(this.data.cardList),
-								nextPageData: this.data.cardList.concat(this.data.cardList)
-							});
-						}
 					} else {
 						util.hideLoading();
 						wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
