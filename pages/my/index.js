@@ -252,8 +252,8 @@ Page({
 			list.map(item => {
 				vehList.push(item.vehPlates);
 			});
-			console.log('this.data.cardList')
-			console.log(this.data.cardList)
+			console.log('this.data.cardList');
+			console.log(this.data.cardList);
 			this.data.cardList = this.sortVehList(this.data.cardList, vehList);
 			if (this.data.cardList.length > 3) {
 				this.data.cardList = this.data.cardList.slice(0,3);
