@@ -103,7 +103,6 @@ Page({
 			result.data.accountNo = info.accountNo;
 			result.data.orderId = orderInfo.id;
 			result.data.accountType = 3;
-			list.push(result.data);
 			this.data.accountList.push(result.data);
 			this.setData({
 				accountList: this.data.accountList
