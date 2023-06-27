@@ -123,9 +123,9 @@
                         <view class="cict">2、 成功办理中信银行信用卡的新客户即退还全额保证金，信用卡申请不通过，可取消订单退还保证金</view>
                     </view>
                     <view class="isSignTtCoupon" wx:if="{{item.pledgeType === 2 && !(item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId)}}">
-                        <view class="cict">1、通行保证金可用于抵扣通行费，微信免密代扣失败时，会先使用设备保证金进行垫付，直到微信扣费成功即可回充保证金</view>
-                        <view class="cict">2、通行保证金必须大于100元，才可用于通行抵扣</view>
-                        <view class="cict">3、通行激活后满36个月支持申请退还设备保证金</view>
+                        <view class="cict">1、通行权益金可用于抵扣通行费，即微信代扣失败时，会代扣权益金进行垫付，后续微信扣费成功即可奖励通行权益金</view>
+                        <view class="cict">2、通行权益金须大于100元，才可用于通行费抵扣</view>
+                        <view class="cict">3、激活后通行满36个月奖励账户权益金同等余额的消费金（可提现、可抵扣通行费等）</view>
                     </view>
                 </view>
             </view>

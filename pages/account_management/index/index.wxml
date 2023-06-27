@@ -86,7 +86,7 @@
         </view>
 
         <!-- @cyl 通行权益金 card -->
-        <view class="card margin" style="background: linear-gradient(315deg, #107172 0%, #158B8C 100%)" wx:elif="{{item.accountType === 5}}">
+        <view class="card margin" style="background: linear-gradient(315deg, #50B566 0%, #52B565 99%)" wx:elif="{{item.accountType === 5}}">
             <view class="card-info">
                 <view class="left">
                     <view>通行权益金账户余额</view>
