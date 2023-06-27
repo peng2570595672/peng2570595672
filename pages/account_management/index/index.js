@@ -27,13 +27,19 @@ Page({
 				etcList,
 				bocomEtcList
 			});
-			// let requestList = [await this.getRightAccount(), await this.getCurrentEquity()];
-			let requestList = [await this.getAccountList(bocomEtcList, etcList)];
-			
+			let requestList = [await this.getRightAccount(), await this.getCurrentEquity()];
 			await Promise.all(requestList);
-			
-			console.log('this.data.accountList')
-			console.log(this.data.accountList)
+			if (this.data.etcList.length) {
+				this.data.etcList.map(async (item, index) => {
+					this.getQueryWallet(item, this.data.bocomEtcList);
+				});
+			} else if (this.data.bocomEtcList.length) {
+				this.data.bocomEtcList.map(async (item, index) => {
+					await this.getBocomOrderBankConfigInfo(item);
+				});
+			} else {
+				this.getAccountList();
+			}
 		}
 	},
 	async onShow () {
@@ -52,26 +58,46 @@ Page({
 			});
 			await this.getRightAccount();
 			await this.getCurrentEquity();
-			this.data.etcList.map(async item => {
-				await this.getQueryWallet(item);
-			});
-			this.data.bocomEtcList.map(async item => {
-				await this.getBocomOrderBankConfigInfo(item);
-			});
-			console.log(this.data.accountList)
+			if (this.data.etcList.length) {
+				this.data.etcList.map(async (item, index) => {
+					this.getQueryWallet(item, this.data.bocomEtcList);
+				});
+			} else if (this.data.bocomEtcList.length) {
+				this.data.bocomEtcList.map(async (item, index) => {
+					await this.getBocomOrderBankConfigInfo(item);
+				});
+			} else {
+				this.getAccountList();
+			}
 		}
 	},
-	async getAccountList (bocomEtcList, etcList) {
-		console.log('------')
-		await this.getCurrentEquity();
-		await this.getRightAccount();
-		bocomEtcList.map(async item => {
-			await this.getBocomOrderBankConfigInfo(item);
+	getAccountList () {
+		let list = app.globalData.myEtcList.filter(item => item.obuStatus === 1 || item.obuStatus === 5);
+		list = this.sortDataArray(list);
+		let vehList = [];
+		list.map(item => {
+			vehList.push(item.vehPlates);
 		});
-		etcList.map(async item => {
-			await this.getQueryWallet(item);
+		this.data.accountList = this.sortVehList(this.data.accountList, vehList);
+		this.setData({
+			accountList: this.data.accountList
 		});
-		console.log('===')
+	},
+	// sortList 排序列表  referToList 参照排序列表
+	// 使用   array.sort（callback ） 来进行排序， 而排序的方法中 使用  参照数组中的  index 来进行大小比较
+	sortVehList (sortList, referToList) {
+		sortList.sort((a,b) => {
+			return referToList.indexOf(a.vehPlates) - referToList.indexOf(b.vehPlates);
+		});
+		return sortList;
+	},
+	sortDataArray (dataArray) {
+		return dataArray.sort(function (a, b) {
+			// 首次激活时间
+			if (b.dateLineActivation && a.dateLineActivation) {
+				return Date.parse(b.dateLineActivation.replace(/-/g, '/')) - Date.parse(a.dateLineActivation.replace(/-/g, '/'));
+			}
+		});
 	},
 	async getBocomOrderBankConfigInfo (orderInfo) {
 		// 获取订单银行配置信息
@@ -89,6 +115,7 @@ Page({
 			let list = this.data.bocomInfoList;
 			result.data.vehPlates = orderInfo.vehPlates;
 			result.data.accountNo = info.accountNo;
+			result.data.orderId = orderInfo.id;
 			result.data.accountType = 3;
 			list.push(result.data);
 			this.data.accountList.push(result.data);
@@ -96,6 +123,7 @@ Page({
 				accountList: this.data.accountList,
 				bocomInfoList: list
 			});
+			this.getAccountList();
 		}
 	},
 	async getRightAccount () {
@@ -109,8 +137,9 @@ Page({
 			result.data.map(item => {
 				item.accountType = 1;
 			});
+			this.data.accountList = [...this.data.accountList, ...result.data];
 			this.setData({
-				accountList: this.data.accountList.concat(result.data),
+				accountList: this.data.accountList,
 				equityList: result.data
 			});
 		}
@@ -118,15 +147,15 @@ Page({
 	onClickAccountDetails (e) {
 		const type = +e.currentTarget.dataset.type;
 		const index = +e.currentTarget.dataset.index;
-		app.globalData.orderInfo.orderId = this.data.bocomEtcList[index].id;
+		app.globalData.orderInfo.orderId = this.data.accountList[index].orderId;
 		wx.uma.trackEvent('account_management_for_index_to_account_details');
 		if (type === 2) {
 			// 交行
 			app.globalData.accountChannelInfo = {
 				type: 2,
-				orderId: this.data.bocomEtcList[index].id,
-				money: this.data.bocomInfoList[index]?.total_amount || 0,
-				vehPlates: this.data.bocomInfoList[index]?.vehPlates || ''
+				orderId: this.data.accountList[index].orderId,
+				money: this.data.accountList[index]?.total_amount || 0,
+				vehPlates: this.data.accountList[index]?.vehPlates || ''
 			};
 			util.go(`/pages/account_management/bocom_account_details/bocom_account_details`);
 			return;
@@ -137,7 +166,7 @@ Page({
 	onClickBindBankCard (e) {
 		const type = +e.currentTarget.dataset.type;
 		const index = +e.currentTarget.dataset.index;
-		app.globalData.orderInfo.orderId = this.data.bocomEtcList[index].id;
+		app.globalData.orderInfo.orderId = this.data.accountList[index].orderId;
 		wx.uma.trackEvent('account_management_for_index_to_bind_bank_card');
 		if (type === 2) {
 			util.alert({
@@ -160,26 +189,26 @@ Page({
 	onClickPay (e) {
 		const type = +e.currentTarget.dataset.type;
 		const index = +e.currentTarget.dataset.index;
-		app.globalData.orderInfo.orderId = this.data.bocomEtcList[index].id;
+		app.globalData.orderInfo.orderId = this.data.accountList[index].orderId;
 		util.go(`/pages/account_management/account_recharge/account_recharge?type=${type}`);
 	},
 	// 圈存
 	onClickOBU (e) {
 		const type = +e.currentTarget.dataset.type;
 		const index = +e.currentTarget.dataset.index;
-		app.globalData.orderInfo.orderId = this.data.bocomEtcList[index].id;
+		app.globalData.orderInfo.orderId = this.data.accountList[index].orderId;
 		if (type === 2) {
 			app.globalData.accountChannelInfo = {
 				type: 2,
-				orderId: this.data.bocomEtcList[index].id,
-				money: this.data.bocomInfoList[index]?.total_amount || 0,
-				vehPlates: this.data.bocomInfoList[index]?.vehPlates || ''
+				orderId: this.data.accountList[index].orderId,
+				money: this.data.accountList[index]?.total_amount || 0,
+				vehPlates: this.data.accountList[index]?.vehPlates || ''
 			};
 		}
 		util.go(`/pages/obu/add/add?type=${type}`);
 	},
 	// 预充模式-账户信息查询
-	async getQueryWallet (item) {
+	async getQueryWallet (item, bocomEtcList) {
 		const result = await util.getDataFromServersV2('consumer/order/third/queryWallet', {
 			orderId: item.id,
 			pageSize: 1
@@ -197,6 +226,13 @@ Page({
 				accountList: this.data.accountList,
 				prechargeList: this.data.prechargeList
 			});
+			if (bocomEtcList.length) {
+				bocomEtcList.map(async (item, index) => {
+					await this.getBocomOrderBankConfigInfo(item);
+				});
+			} else {
+				this.getAccountList();
+			}
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -217,7 +253,7 @@ Page({
 			result.data.map(item => {
 				item.accountType = 5;
 			});
-			this.data.accountList = this.data.accountList.concat(result.data);
+			this.data.accountList = [...this.data.accountList, ...result.data];
 			this.setData({
 				accountList: this.data.accountList,
 				currentEquityList: result.data
@@ -269,7 +305,7 @@ Page({
 	// 押金模式的 账户明细页面
 	async goAccountDetailsMargin (e) {
 		const index = e.currentTarget.dataset.index;
-		util.go(`/pages/account_management/deposit_account_details/deposit_account_details?id=${this.data.equityList[index].id}`);
+		util.go(`/pages/account_management/deposit_account_details/deposit_account_details?id=${this.data.accountList[index].id}`);
 	},
 	// 押金模式的 充值页面
 	btnRecharge (e) {
