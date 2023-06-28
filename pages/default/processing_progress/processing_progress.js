@@ -308,6 +308,15 @@ Page({
 					cictBail: (res.data.obuStatus === 1 || res.data.obuStatus === 5) && (res.data.shopProductId === this.data.citicBankshopProductId || res.data.shopProductId === this.data.citicBankShopshopProductId),
 					info: res.data
 				});
+
+				if (res.data.auditStatus === 0) {
+					let isShowpAPop = wx.getStorageSync('isShowpAPop');
+					let isShowPingAn = this.data.firstCar.filter(item => res.data.vehPlates.includes(item));
+					if (isShowPingAn?.length !== 0 && !isShowpAPop) {
+						wx.setStorageSync('isShowpAPop',true);
+						this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '礼品领取',bgColor: 'rgba(42, 80, 68, 0.7)'});
+					}
+				}
 				if (res.data.autoAuditStatus === 0 && res.data.auditStatus === 0) {
 					if (that.data.number >= 5) {
 						util.hideLoading();

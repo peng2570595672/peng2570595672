@@ -305,15 +305,13 @@
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-  width: 350rpx;
-  height: 100rpx;
+  width: 400rpx;
+  height: 130rpx;
   border-radius: 50rpx;
-  background: #ec4357;
   text-align: center;
   line-height: 100rpx;
-  color: #fff;
-  font-size: 40rpx;
-  font-weight: 400;
+  background: url("https://file.cyzl.com/g001/M01/E9/1A/oYYBAGSblVeAalD7AAAcU3SzIA4040.png") center no-repeat;
+  background-size: cover;
 }
 .alert-for-not-finished-content .module1 .agreement {
   width: 100%;
