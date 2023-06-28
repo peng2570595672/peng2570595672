@@ -64,7 +64,7 @@
                         <view class="iconfont greenIcon"></view>
                         <view class="text">通行权益金套餐说明</view>
                     </view>
-                    <view class="titles" wx:if="{{item.isSignTtCoupon}}">
+                    <view class="titles" wx:if="{{item.isSignTtCoupon && !tools.dataLen(item.rightsPackageIds)}}">
                         <view class="iconfont isTtIcon"></view>
                         <view class="text">ETC*通通券联名会员权益</view>
                     </view>
