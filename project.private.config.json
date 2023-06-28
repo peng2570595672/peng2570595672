@@ -19,7 +19,7 @@
                 },
                 {
                     "name": "个人中心",
-                    "pathName": "pages/personal_center/index/index",
+                    "pathName": "pages/my/index",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
@@ -49,8 +49,8 @@
                     "scene": null
                 },
                 {
-                    "name": "pages/personal_center/recharge-card-processing/recharge-card-processing",
-                    "pathName": "pages/separate_interest_package/index/index",
+                    "name": "账户管理",
+                    "pathName": "pages/account_management/index/index",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
@@ -64,7 +64,7 @@
                 {
                     "name": "ETC详情",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1115304777480146944",
+                    "query": "orderId=1123179666459332608",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -149,8 +149,8 @@
                 },
                 {
                     "name": "",
-                    "pathName": "pages/truck_handling/agreement_for_qiantong_to_charge/agreement",
-                    "query": "",
+                    "pathName": "pages/etc_handle/etc_handle",
+                    "query": "shopId=1122918987926609920",
                     "launchMode": "default",
                     "scene": null
                 },
