@@ -65,7 +65,7 @@
                 <!-- 套餐 展示模块 -->
                 <view class="detailsInfo" wx:if="{{index === activeIndex ? isCloseUpperPart1 : isCloseUpperPart2 && index === isCloseUpperPart }}">
                     <!-- 券权益包 -->
-                    <addValueService addValueService="{{item.rightsPackageIds}}" wx:if="{{tools.dataLen(item.rightsPackageIds)}}"></addValueService>
+                    <addValueService sendMode="{{equityListMap[index].sendMode}}" addValueService="{{item.rightsPackageIds}}" wx:if="{{tools.dataLen(item.rightsPackageIds)}}"></addValueService>
                     <!-- 通通券 -->
                     <view wx:elif="{{item.isSignTtCoupon}}" class="isSignTtCoupon">
                         <view class="signTitle">通通券，涵盖出行+生活的优惠聚合平台</view>
