@@ -5,6 +5,10 @@ Component({
 		addValueService: {
 			type: Object,
 			value: {}
+		},
+		sendMode: {
+			type: Number,
+			value: 0
 		}
 	},
 	data: {

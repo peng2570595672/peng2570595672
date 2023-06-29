@@ -942,7 +942,8 @@ Page({
 					packageIds: packageIds
 				},'POST',false);
 				if (result.code === 0) {
-					let equityObj = {index: index, packageName: result.data[0].packageName,payMoney: result.data[0].payMoney,id: result.data[0].id};
+					let equityObj = result.data[0];
+					equityObj.index = index;
 					equityListMap.push(equityObj);
 				} else {
 					// 占位
