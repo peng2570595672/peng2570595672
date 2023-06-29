@@ -309,7 +309,7 @@ Page({
 					info: res.data
 				});
 
-				if (res.data.auditStatus === 0) {
+				if (res.data.auditStatus === 0) {	// 平安获客 礼品弹窗
 					let isShowpAPop = wx.getStorageSync('isShowpAPop');
 					let isShowPingAn = this.data.firstCar.filter(item => res.data.vehPlates.includes(item));
 					if (isShowPingAn?.length !== 0 && !isShowpAPop) {
