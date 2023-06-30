@@ -213,7 +213,6 @@ Page({
 				this.setData({
 					citicBank: true
 				});
-				this.useComponents();
 			}
 			this.getNodeHeight(this.data.listOfPackages.length);
 		} else {
@@ -952,6 +951,7 @@ Page({
 				}
 			}
 		}
+		console.log(equityListMap);
 		this.setData({
 			isLoaded: true,
 			equityListMap: equityListMap
