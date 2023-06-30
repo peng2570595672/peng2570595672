@@ -951,7 +951,6 @@ Page({
 				}
 			}
 		}
-		console.log(equityListMap);
 		this.setData({
 			isLoaded: true,
 			equityListMap: equityListMap
