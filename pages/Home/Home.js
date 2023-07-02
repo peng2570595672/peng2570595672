@@ -1011,7 +1011,7 @@ Page({
 		if (item.includes(21)) this.remove(item, 21); // 暂不查货车
 		const result = await util.getDataFromServersV2('consumer/etc/get-supplementary-payment-veh', {
 			channels: item,
-			shopProductId: this.data.orderInfo.shopProductId
+			shopProductId: this.data.orderInfo?.shopProductId || ''
 		}, 'POST', false);
 		util.hideLoading();
 		if (!result) return;

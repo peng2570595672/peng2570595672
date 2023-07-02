@@ -1139,7 +1139,7 @@ function getInsuranceOffer(orderId, wtagid) {
  */
 async function getMemberStatus() {
 	const result = await getDataFromServersV2('consumer/member/bcm/getMemberStatus', {}, 'POST', false);
-	app.globalData.memberStatusInfo = result.data;
+	app.globalData.memberStatusInfo = result?.data || {};
 }
 /**
  *  去微保好车主
