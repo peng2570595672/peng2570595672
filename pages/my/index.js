@@ -153,7 +153,7 @@ Page({
 					}
 				});
 			}
-			const index = this.data.carouselList.findIndex(item => item.isShow);
+			const index = bannerList.findIndex(item => item.isShow);
 			this.setData({
 				interval,
 				showCarousel: index !== -1,
