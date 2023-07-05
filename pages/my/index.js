@@ -146,9 +146,17 @@ Page({
 			bannerList.map(item => {
 				item.isShow = true;
 			});
+			if (!app.globalData.isEquityRights) {
+				bannerList.map((item, index) => {
+					if (item.jumpUrl === '权益商城') {
+						item.isShow = false;
+					}
+				});
+			}
+			const index = this.data.carouselList.findIndex(item => item.isShow);
 			this.setData({
 				interval,
-				showCarousel: bannerList.length > 0,
+				showCarousel: index !== -1,
 				carouselList: bannerList
 			});
 		}
