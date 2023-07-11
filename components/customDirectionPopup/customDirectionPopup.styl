@@ -1,124 +1,124 @@
 vendors = official
 
 .animated {
-    -webkit-animation-duration: .4s;
-    animation-duration: .4s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
+    -webkit-animation-duration: .4s
+    animation-duration: .4s
+    -webkit-animation-fill-mode: both
+    animation-fill-mode: both
 }
 
 .fadeIn {
-    animation-name: fadeIn;
-    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn
+    -webkit-animation-name: fadeIn
 }
 
 @keyframes fadeIn {
     from {
-		opacity: 0;
+		opacity: 0
 	}
 
 	to {
-		opacity: 1;
+		opacity: 1
 	}
 }
 
 @-webkit-keyframes fadeIn {
     from {
-        opacity: 0;
+        opacity: 0
     }
 
     to {
-        opacity: 1;
+        opacity: 1
     }
 }
 
 .fadeOut {
-    animation-name: fadeOut;
-    -webkit-animation-name: fadeOut;
+    animation-name: fadeOut
+    -webkit-animation-name: fadeOut
 }
 
 @keyframes fadeOut {
     from {
-        opacity: 1;
+        opacity: 1
     }
 
     to {
-        opacity: 0;
+        opacity: 0
     }
 }
 
 @-webkit-keyframes fadeOut {
     from {
-        opacity: 1;
+        opacity: 1
     }
 
     to {
-        opacity: 0;
+        opacity: 0
     }
 }
 
 .slideUp {
-    animation-name: slideUp;
-    -webkit-animation-name: slideUp;
+    animation-name: slideUp
+    -webkit-animation-name: slideUp
 }
 
 @keyframes slideUp {
     from {
-        transform: translateY(500rpx);
-        -webkit-transform: translateY(500rpx);
+        transform: translateY(500rpx)
+        -webkit-transform: translateY(500rpx)
     }
     to {
-        transform: translateY(0rpx);
-        -webkit-transform: translateY(0rpx);
+        transform: translateY(0rpx)
+        -webkit-transform: translateY(0rpx)
     }
 }
 
 @-webkit-keyframes slideUp {
     from {
-        transform: translateY(500rpx);
-        -webkit-transform: translateY(500rpx);
+        transform: translateY(500rpx)
+        -webkit-transform: translateY(500rpx)
     }
     to {
-        transform: translateY(0rpx);
-        -webkit-transform: translateY(0rpx);
+        transform: translateY(0rpx)
+        -webkit-transform: translateY(0rpx)
     }
 }
 
 .animatedSlide {
-    -webkit-animation-duration: .4s;
-	animation-duration: .4s;
-	-webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    -webkit-animation-timing-function: linear;
-    animation-timing-function: linear;
+    -webkit-animation-duration: .4s
+	animation-duration: .4s
+	-webkit-animation-fill-mode: both
+    animation-fill-mode: both
+    -webkit-animation-timing-function: linear
+    animation-timing-function: linear
 
 }
 
 
 .glideDown {
-    animation-name: glideDown;
-    -webkit-animation-name: glideDown;
+    animation-name: glideDown
+    -webkit-animation-name: glideDown
 }
 
 @keyframes glideDown {
     from {
-        transform: translateY(0rpx);
-        -webkit-transform: translateY(0rpx);
+        transform: translateY(0rpx)
+        -webkit-transform: translateY(0rpx)
     }
     to {
-        transform: translateY(500rpx);
-        -webkit-transform: translateY(500rpx);
+        transform: translateY(500rpx)
+        -webkit-transform: translateY(500rpx)
     }
 }
 
 @-webkit-keyframes glideDown {
     from {
-        transform: translateY(0rpx);
-        -webkit-transform: translateY(0rpx);
+        transform: translateY(0rpx)
+        -webkit-transform: translateY(0rpx)
     }
     to {
-        transform: translateY(500rpx);
-        -webkit-transform: translateY(500rpx);
+        transform: translateY(500rpx)
+        -webkit-transform: translateY(500rpx)
     }
 }
 @font-face
@@ -146,6 +146,10 @@ mixinsPositionPack($position=relative)
 textLineCenter($height)
     text-align center
     line-height $height
+flexModule($align=normal,$justify=normal)
+    display flex
+    align-items $align
+    justify-content $justify
 .mask
     z-index 100
     width 100vw
@@ -202,14 +206,6 @@ textLineCenter($height)
             left 50%
             transform translateX(-50%)
             margin-top 60rpx
-    // 中信
-    .citicBank
-        margin 0rpx 66rpx
-        font-size 28rpx
-        font-family PingFang SC-Regular, PingFang SC
-        font-weight 400
-        color #33333E
-        line-height 44rpx
     // 设备升级
     .deviceUpgrade
         margin 0rpx 62rpx
@@ -227,7 +223,7 @@ textLineCenter($height)
                     mixinsWidthHeight(43rpx,32rpx)
                     textLineCenter(32rpx)
                     border-bottom-left-radius 8rpx
-                    background: #E9CA7B;
+                    background: #E9CA7B
                     position absolute
                     top -1rpx
                     right 0
@@ -240,7 +236,7 @@ textLineCenter($height)
                     mixinsIconfont('暂不支持',20rpx,#333333)
                     mixinsWidthHeight(130rpx,32rpx)
                     textLineCenter(32rpx)
-                    background: #D8D8D8;
+                    background: #D8D8D8
                     border-bottom-left-radius 8rpx
                     position absolute
                     top -1rpx
@@ -381,3 +377,135 @@ textLineCenter($height)
             background #ccc
         .yesBtn
             background #2A4F44
+
+    
+    // 第五代设备
+    .newDevice
+        publicmodule1()
+            mixinsWidthHeight(,34rpx)
+            font-size 24rpx
+            font-family PingFangSC-Regular, PingFang SC
+            font-weight 400
+            line-height 34rpx
+            margin-bottom 32rpx
+        publicmodule2() 
+            display block
+            content ''
+            height 162rpx
+        publicmodule3()
+            position absolute
+            top 58rpx
+            margin-top 34rpx
+            mixinsWidthHeight(100%,160rpx)
+            z-index 10
+        .marginBox
+            flexModule(center,center)
+            background #F8F8F8
+            border-radius 24rpx
+            mixinsWidthHeight(694rpx,728rpx)
+            .innerBox
+                mixinsWidthHeight(654rpx,688rpx)
+                background #FFFFFF
+                border-radius 10rpx
+                flexModule(normal,space-between)
+                text-align center
+                .left
+                    position relative
+                    margin 0rpx 30rpx
+                    &::before
+                        display block
+                        mixinsWidthHeight(100%,330rpx)
+                        content ''
+                .center
+                    position relative
+                    mixinsWidthHeight(240rpx,)
+                    .subCenter
+                        margin-top 78rpx
+                        mixinsWidthHeight(240rpx,490rpx)
+                        background #F6F6F6
+                        border-radius 8rpx
+                        &::before
+                            publicmodule2()
+                .right
+                    position relative
+                    mixinsWidthHeight(240rpx,)
+                    margin-right 30rpx
+                    .subRight
+                        margin-top 78rpx
+                        mixinsWidthHeight(240rpx,490rpx)
+                        background linear-gradient(180deg, #F9E9B9 0%, #E4CB86 100%)
+                        border-radius 8rpx
+                        &::before
+                            publicmodule2()
+                .titleNew
+                    mixinsWidthHeight(224rpx,58rpx)
+                    background #E3E3E3
+                    border-radius 8rpx
+                    margin-top 32rpx
+                    font-size 24rpx
+                    font-family PingFangSC-Regular, PingFang SC
+                    font-weight 400
+                    color #333333
+                    textLineCenter(58rpx)
+                .imgNew
+                    publicmodule3()
+                    .image4
+                        mixinsWidthHeight(100%,100%)
+                .imgNew1
+                    publicmodule3()
+                    top 76rpx
+                    .image4
+                        mixinsWidthHeight(90%,90%)
+                .view
+                    publicmodule1()
+                    color #333333
+                .view1
+                    publicmodule1()
+                    color #4D3D17
+                    .text1
+                        font-size 18rpx
+    // 通通券
+    .signTtCoupon
+        text-align center
+        .subTitle
+            font-size 28rpx
+            font-family PingFangSC-Regular, PingFang SC
+            font-weight 400
+            color #333333
+        .imgTt
+            margin 50rpx 0rpx 40rpx 12rpx
+            mixinsWidthHeight(670rpx,234rpx)
+    // 权益商城
+    .giveEquityPackage
+        text-align justify
+        .subTitle
+            text-align center
+            font-size 28rpx
+            font-family PingFangSC-Regular, PingFang SC
+            font-weight 400
+            color #333333
+            line-height 44rpx
+            margin-bottom 30rpx
+        .pView
+            flexModule(normal,space-between)
+            flex-wrap wrap
+            .subView
+                margin-top 20rpx
+                mixinsWidthHeight(325rpx,116rpx)
+                background #FFF7EA
+                border-radius 16rpx
+                border 1rpx solid #FFDCB7
+                flexModule(center,normal)
+                .img
+                    mixinsWidthHeight(84rpx,84rpx)
+                    margin 0rpx 16rpx 0rpx 24rpx
+                .textGive
+                    font-size 26rpx
+                    font-family PingFangSC-Medium, PingFang SC
+                    font-weight 500
+                    color #9D3B00
+    .split
+        width 100vw
+    .image
+        mixinsWidthHeight()
+

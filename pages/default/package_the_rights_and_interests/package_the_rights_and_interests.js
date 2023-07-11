@@ -137,7 +137,8 @@ Page({
 		citicBank: false,	// 是否是中信银行联名套餐
 		emptyHairOrder: false,	// 为true表示是空发订单
 		citicBankshopProductId: app.globalData.cictBankObj.citicBankshopProductId,	// 中信金卡套餐ID
-		citicBankShopshopProductId: app.globalData.cictBankObj.citicBankShopshopProductId	// 中信白金卡套餐ID
+		citicBankShopshopProductId: app.globalData.cictBankObj.citicBankShopshopProductId,	// 中信白金卡套餐ID
+		wellBankShopProductId: app.globalData.cictBankObj.wellBankShopProductId	// 平安信用卡套餐ID
 
 	},
 	async onLoad (options) {
@@ -198,7 +199,6 @@ Page({
 			orderId: app.globalData.orderInfo.orderId,
 			needRightsPackageIds: true
 		});
-		console.log(result);
 		if (!result) return;
 		if (result.code === 0) {
 			try {
@@ -209,7 +209,7 @@ Page({
 				listOfPackages: [result.data]
 			});
 			// 中信银行
-			if (result.data.shopProductId === app.globalData.cictBankObj.citicBankshopProductId || result.data.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId) {
+			if (result.data.shopProductId === app.globalData.cictBankObj.citicBankshopProductId || result.data.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || result.data.shopProductId === app.globalData.cictBankObj.wellBankShopProductId) {
 				this.setData({
 					citicBank: true
 				});
@@ -861,7 +861,6 @@ Page({
 	},
 	// 点击高亮
 	btnHeightLight (e) {
-		console.log(e);
 		let that = this;
 		let index = e.currentTarget.dataset.index;
 		let isFade = index !== that.data.activeIndex;
@@ -873,7 +872,7 @@ Page({
 			getAgreement: false,
 			topProgressBar: isFade ? 2.4 : 2,
 			choiceIndex: isFade ? index : -1,
-			citicBank: this.data.listOfPackages[index].shopProductId === app.globalData.cictBankObj.citicBankshopProductId || this.data.listOfPackages[index].shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId	// 判断是不是中信套餐
+			citicBank: this.data.listOfPackages[index].shopProductId === app.globalData.cictBankObj.citicBankshopProductId || this.data.listOfPackages[index].shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || this.data.listOfPackages[index].shopProductId === app.globalData.cictBankObj.wellBankShopProductId	// 判断是不是中信套餐
 		});
 		if (isFade) { // 当套餐高亮时，默认展开 详情
 			this.setData({
@@ -924,37 +923,62 @@ Page({
 		let that = this;
 		let nodeHeightList = [];
 		let equityListMap = [];
-		for (let index = 0; index < num; index++) {
-			let allIndex = 'module' + index;
+		// let equityListMap = {
+		// 	defaultEquityList: [],	// 默认权益包列表
+		// 	addEquityList: []	// 加购权益包列表
+		// };
+		let currentIndex = 0;
+		for (currentIndex; currentIndex < num; currentIndex++) {
+			let allIndex = 'module' + currentIndex;
 			wx.createSelectorQuery().select(`.${allIndex}`).boundingClientRect(function (rect) {
 				nodeHeightList.push(rect.top);
 				that.setData({
 					nodeHeightList
 				});
 			}).exec();
-			const packageIds = this.data.listOfPackages[index].rightsPackageIds.length > 1 ? new Array(this.data.listOfPackages[index].rightsPackageIds[0]) : this.data.listOfPackages[index].rightsPackageIds;
-			if (!packageIds?.length) {
-				let equityObj = {index: index, packageName: '',payMoney: 0};
-				equityListMap.push(equityObj);
+			// 加购权益包
+			// const packageIds = this.data.listOfPackages[currentIndex].rightsPackageIds && this.data.listOfPackages[currentIndex]?.rightsPackageIds.length !== 0;
+			const packageIds = this.data.listOfPackages[currentIndex]?.rightsPackageIds.length > 0 ? new Array(this.data.listOfPackages[currentIndex]?.rightsPackageIds[0]) : this.data.listOfPackages[currentIndex]?.rightsPackageIds;
+			if (packageIds?.length === 0) {
+				equityListMap.push({index: currentIndex, packageName: '',payMoney: 0});
 			} else {
 				const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
 					packageIds: packageIds
 				},'POST',false);
 				if (result.code === 0) {
 					let equityObj = result.data[0];
-					equityObj.index = index;
+					equityObj.index = currentIndex;
 					equityListMap.push(equityObj);
+					// equityListMap.addEquityList.push({index: currentIndex,data: result.data});
 				} else {
 					// 占位
-					let equityObj = {index: index, packageName: '',payMoney: 0};
-					equityListMap.push(equityObj);
+					equityListMap.addEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
 				}
 			}
+			// 默认权益包
+			// const packageId = this.data.listOfPackages[currentIndex].rightsPackageId && this.data.listOfPackages[currentIndex].rightsPackageId !== 0;
+			// if (!packageId) {
+			// 	equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+			// } else {
+			// 	const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
+			// 		packageIds: new Array(this.data.listOfPackages[currentIndex].rightsPackageId)
+			// 	},'POST',false);
+			// 	if (result.code === 0) {
+			// 		result.data.map(item => {
+			// 			item.index = currentIndex;
+			// 			equityListMap.defaultEquityList.push(item);
+			// 		});
+			// 	} else {
+			// 		// 占位
+			// 		equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+			// 	}
+			// }
 		}
 		this.setData({
 			isLoaded: true,
 			equityListMap: equityListMap
 		});
+		console.log(this.data.isLoaded);
 		util.hideLoading();
 	},
 	// 控制 选中套餐 的位置
@@ -967,7 +991,7 @@ Page({
 			duration: 200
 		});
 	},
-	// 根据订单ID查询订单信息(针对中信套餐)
+	// 根据订单ID查询订单信息(针对中信套餐,根据车牌位数来决定是否展示 中信白金卡)
 	async queryOrder () {
 		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
@@ -983,6 +1007,69 @@ Page({
 			}
 		} else {
 			util.showToastNoIcon(result.message);
+		}
+	},
+	popDetail (e) {
+		let type = e.currentTarget.dataset.type;	// string
+		let index = e.currentTarget.dataset.index;	// number
+		switch (type) {
+			case '1':
+				this.selectComponent('#cdPopup').show({
+					isBtnClose: true,
+					argObj: {
+						type: 'new_device',
+						title: '第五代设备',
+						isSplit: index === this.data.activeIndex ? true : this.data.isFade
+					}
+				});
+				break;
+			case '2':
+				this.selectComponent('#cdPopup').show({
+					isBtnClose: true,
+					argObj: {
+						type: 'default_equity_package',
+						title: '加赠权益包',
+						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 30%,#FFFFFF 100%)',
+						isSplit: index === this.data.activeIndex ? true : this.data.isFade
+					}
+				});
+				break;
+			case '3':
+				this.selectComponent('#cdPopup').show({
+					isBtnClose: true,
+					argObj: {
+						type: 'give_equity_package',
+						title: '权益商城',
+						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 30%,#FFFFFF 100%)',
+						isSplit: index === this.data.activeIndex ? true : this.data.isFade
+					}
+				});
+				break;
+			case '4':
+				this.selectComponent('#cdPopup').show({
+					isBtnClose: true,
+					argObj: {
+						type: 'sign_tt_coupon',
+						title: '通通券',
+						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 30%,#FFFFFF 100%)',
+						isSplit: index === this.data.activeIndex ? true : this.data.isFade
+					}
+				});
+				break;
+			case '5':
+				this.selectComponent('#cdPopup').show({
+					isBtnClose: true,
+					argObj: {
+						type: 'add_equity_package',
+						title: '加购权益包',
+						isSplit: true,
+						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 30%,#FFFFFF 100%)',
+						rightsPackageIds: this.data.listOfPackages[this.data.activeIndex].rightsPackageIds
+					}
+				});
+				break;
+			default:
+				break;
 		}
 	}
 

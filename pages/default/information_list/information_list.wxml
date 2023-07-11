@@ -41,12 +41,12 @@
     <action-sheet hidden="{{!openSheet}}" class="actionSheet">
         <view class="top">
             <span class="skip" catchtap="skip">跳过</span>
-            <view class="head">办理中信银行信用卡</view>
+            <view class="head">{{isWellBank ? '办理平安银行信用卡' : '办理中信银行信用卡'}}</view>
             <view class="center">
-                <!-- <image class="image" src="https://file.cyzl.com/g001/M01/D1/DB/oYYBAGQmSU-AEOF7AAGjDU5oq3o346.jpg"/> -->
-                <image class="image" src="{{isCiticBankPlatinum ? 'https://file.cyzl.com/g001/M01/D1/EC/oYYBAGQmbzqAMNy8AAJalSVjby0953.jpg' : 'https://file.cyzl.com/g001/M01/D1/EC/oYYBAGQmbyGAJQ4wAAOzK-HiEM0583.jpg'}}"/>
+                <image class="image" wx:if="{{isWellBank}}" src="{{}}"/>
+                <image class="image" wx:else src="{{isCiticBankPlatinum ? 'https://file.cyzl.com/g001/M01/D1/EC/oYYBAGQmbzqAMNy8AAJalSVjby0953.jpg' : 'https://file.cyzl.com/g001/M01/D1/EC/oYYBAGQmbyGAJQ4wAAOzK-HiEM0583.jpg'}}"/>
             </view>
-            <view class="desub">点击跳转到中信银行信用卡办理</view>
+            <view class="desub">{{isWellBank ? '点击跳转到平安银行信用卡办理' : '点击跳转到中信银行信用卡办理'}}</view>
         </view>
         <action-sheet-cancel class="ok" catchtap="onclickhandel">立即办理</action-sheet-cancel>
     </action-sheet>

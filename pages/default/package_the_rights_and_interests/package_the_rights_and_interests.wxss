@@ -197,6 +197,28 @@
   font-size: 30rpx;
   color: #5ebe68;
 }
+.package .module .upperPart .addEquityInfo {
+  position: relative;
+  z-index: 100;
+  margin-top: 30rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  line-height: 40rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+}
+.package .module .upperPart .addEquityInfo .utilModlue {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20rpx;
+}
+.package .module .upperPart .addEquityInfo .utilModlue .name {
+  color: #e9ca7b;
+}
+.package .module .upperPart .addEquityInfo .utilModlue .detail {
+  font-weight: 400;
+  color: #00b85c;
+}
 .package .module .lowerpart {
   padding: 20rpx 28rpx 30rpx 28rpx;
   border-bottom-left-radius: 16rpx;
@@ -402,6 +424,47 @@
   height: 120rpx;
   line-height: 80rpx;
 }
+.addEquityPackage {
+  position: fixed;
+  bottom: 330rpx;
+  z-index: 10;
+  background-color: #fff5e0;
+  width: 100vw;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  animation: addEquityPackage 0.7s linear forwards;
+  -webkit-animation: addEquityPackage 0.7s linear forwards;
+}
+.addEquityPackage .imgOrName {
+  font-size: 24rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #c96d00;
+  display: flex;
+  align-items: center;
+}
+.addEquityPackage .imgOrName .img {
+  width: 90rpx;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.addEquityPackage .imgOrName .img .image {
+  width: 100%;
+  height: 100%;
+}
+.addEquityPackage .icon4 {
+  margin-right: 28rpx;
+  transform: rotate(-90deg);
+}
+.addEquityPackage .icon4::before {
+  content: '\e661';
+  font-size: 30rpx;
+  color: #c96d00;
+}
 /* 支付和协议说明 模块 */
 .payAndAgreement {
   width: 750rpx;
@@ -410,7 +473,7 @@
   box-shadow: 0 -20rpx 16rpx 0 rgba(152,168,151,0.11);
   position: fixed;
   bottom: 0;
-  z-index: 10;
+  z-index: 105;
 }
 .payAndAgreement .agreementConfirm {
   height: 84rpx;
@@ -539,12 +602,28 @@
   animation: fade_out 0.5s linear forwards;
   -webkit-animation: fade_out 0.5s linear forwards;
 }
+@-webkit-keyframes fade_in {
+  0% {
+    bottom: -330rpx;
+  }
+  100% {
+    bottom: 0;
+  }
+}
 @keyframes fade_in {
   0% {
     bottom: -330rpx;
   }
   100% {
     bottom: 0;
+  }
+}
+@-webkit-keyframes fade_out {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: -330rpx;
   }
 }
 @keyframes fade_out {
@@ -569,5 +648,27 @@
   }
   100% {
     bottom: -330rpx;
+  }
+}
+@-webkit-keyframes addEquityPackage {
+  0% {
+    opacity: 0;
+  }
+  71% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes addEquityPackage {
+  0% {
+    opacity: 0;
+  }
+  71% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

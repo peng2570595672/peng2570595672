@@ -29,8 +29,10 @@ Page({
 		disclaimerDesc: app.globalData.disclaimerDesc,
 		citicBankshopProductId: app.globalData.cictBankObj.citicBankshopProductId,	// 中信金卡套餐ID
 		citicBankShopshopProductId: app.globalData.cictBankObj.citicBankShopshopProductId,	// 中信白金卡套餐ID
+		wellBankShopProductId: app.globalData.cictBankObj.wellBankShopProductId,	// 平安信用卡套餐ID
 		cictBail: false,	// 中信保证金
-		firstCar: app.globalData.pingAnBindGuests
+		isWellBank: false, // 平安信用卡
+		firstCar: app.globalData.pingAnBindGuests	// 平安获客
 	},
 	async onLoad (options) {
 		this.setData({
@@ -306,6 +308,7 @@ Page({
 					accountVerification: res.data.orderVerificationStatus,
 					bankCardInfo: app.globalData.bankCardInfo,
 					cictBail: (res.data.obuStatus === 1 || res.data.obuStatus === 5) && (res.data.shopProductId === this.data.citicBankshopProductId || res.data.shopProductId === this.data.citicBankShopshopProductId),
+					isWellBank: res.data.shopProductId === this.data.wellBankShopProductId,
 					info: res.data
 				});
 

@@ -24,7 +24,7 @@
                     <view class="money">
                         <span wx:if="{{item.pledgePrice || equityListMap[index].payMoney}}" >
                             <!-- 支付金额类型为 通行权益金时，文案为“免费” -->
-                            <text wx:if="{{item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId || item.pledgeType === 5}}" style="color: #2A4F44">免费</text>
+                            <text wx:if="{{item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId || item.shopProductId === wellBankShopProductId || item.pledgeType === 5}}" style="color: #2A4F44">免费</text>
                             <text wx:else>￥{{tools.parseNum(item.pledgePrice + equityListMap[index].payMoney)/100}}</text>
                         </span>
                         <!-- 空发套餐并且设备免费时，隐藏金额 -->
@@ -42,14 +42,40 @@
                 <view class="description" wx:if="{{item.descriptionList && item.descriptionList.length > 0}}">
                     <view>
                         <view class="descriptionModule" wx:for="{{item.descriptionList}}" wx:for-item="itemBase" wx:key="index1">
-                            <!-- <view class="ico {{itemBase.icos}}"></view> -->
                             <view class="title">{{itemBase.value}}</view>
                         </view>
                     </view>
                 </view>
+                <!-- 套餐附加权益信息显示 -->
+                <view class="addEquityInfo" wx:if="{{false}}">
+                    <!-- 设备信息（新旧设备对比） -->
+                    <!-- <view class="utilModlue" wx:if="{{item.etcCardId === 2}}" > -->
+                    <view class="utilModlue" >
+                        <view class="name">{{'第五代设备信息'}}</view>
+                        <view class="detail" data-type="1" data-index="{{index}}" catchtap="popDetail">详情</view>
+                    </view>
+                    <!-- 默认权益包（加赠） -->
+                    <!-- <view class="utilModlue" wx:if="{{tools.dataLen(item.rightsPackageId)}}"> -->
+                    <view class="utilModlue">
+                        <view class="name">{{'默认权益包'}}</view>
+                        <view class="detail" data-type="2" data-index="{{index}}" catchtap="popDetail">详情</view>
+                    </view>
+                    <!-- （券额/权益包）权益商城 -->
+                    <!-- <view class="utilModlue" wx:if="{{item.pledgeType === 4}}"> -->
+                    <view class="utilModlue" >
+                        <view class="name">赠送{{item.couponAmount / 100}}元权益商城券额</view>
+                        <view class="detail" data-type="3" data-index="{{index}}" catchtap="popDetail">详情</view>
+                    </view>
+                    <!-- 通通券会员 -->
+                    <!-- <view class="utilModlue" wx:if="{{item.isSignTtCoupon}}"> -->
+                    <view class="utilModlue" >
+                        <view class="name">{{'ETC+通通券联名会员'}}</view>
+                        <view class="detail" data-type="4" data-index="{{index}}" catchtap="popDetail">详情</view>
+                    </view>
+                </view>
             </view>
             <!-- 增值业务 展示的套餐下半部分 如果又权益和签约通通券则展示-->
-            <view class="lowerpart" wx:if="{{tools.dataLen(item.rightsPackageIds) || item.isSignTtCoupon || item.etcCardId === 2 || item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId || item.pledgeType === 5}}">
+            <view class="lowerpart" wx:if="{{tools.dataLen(item.rightsPackageIds) || item.isSignTtCoupon || item.etcCardId === 2 || item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId || item.pledgeType === 5 || item.shopProductId === wellBankShopProductId}}">
                 <view class="titleDetails">
                     <!-- 蒙通 etcCardId:2   先写个不存在的-->
                     <view class="titles" wx:if="{{item.etcCardId === 2 && !tools.dataLen(item.rightsPackageIds)}}">
@@ -59,6 +85,10 @@
                     <view class="titles" wx:if="{{item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId}}">
                         <view class="iconfont greenIcon"></view>
                         <view class="text">中信信用卡套餐办理说明</view>
+                    </view>
+                    <view class="titles" wx:if="{{item.shopProductId === wellBankShopProductId}}">
+                        <view class="iconfont greenIcon"></view>
+                        <view class="text">平安信用卡套餐办理说明</view>
                     </view>
                     <view class="titles" wx:if="{{item.pledgeType === 5 && !tools.dataLen(item.rightsPackageIds) && item.etcCardId !== 2 && !(item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId)}}">
                         <view class="iconfont greenIcon"></view>
@@ -122,6 +152,10 @@
                         <view class="cict">1、 中信银行信用卡活动，非持卡人可支付保证金后申请中信银行信用卡指定卡板</view>
                         <view class="cict">2、 成功办理中信银行信用卡的新客户即退还全额保证金，信用卡申请不通过，可取消订单退还保证金</view>
                     </view>
+                    <view wx:if="{{item.shopProductId === wellBankShopProductId}}" class="isSignTtCoupon">
+                        <view class="cict">1、平安银行信用卡活动，非持卡人可支付保证金后申请平安银行信用卡指定卡板</view>
+                        <view class="cict">2、成功办理平安银行信用卡的新客户即退还全额保证金，信用卡申请不通过，可取消订单退还保证金</view>
+                    </view>
                     <view class="isSignTtCoupon" wx:if="{{item.pledgeType === 5 && !(item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId)}}">
                         <view class="cict">1、通行权益金可用于抵扣通行费，即微信代扣失败时，会代扣权益金进行垫付，后续微信扣费成功即可奖励通行权益金</view>
                         <view class="cict">2、通行权益金须大于100元，才可用于通行费抵扣</view>
@@ -132,11 +166,17 @@
         </view>
     </view>
     <!-- 占位 -->
-    <view class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}}" >
-
+    <view class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}}" ></view>
+    <!-- 加购的权益包 -->
+    <view class="addEquityPackage" wx:if="{{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) && isLoaded && false}}" data-type="5" catchtap="popDetail">
+        <view class="imgOrName">
+            <view class="img"><image class="image" src="{{'https://file.cyzl.com/g001/M02/ED/17/oYYBAGStEiOAZAb0AAAV9IqXKBM565.png'}}" mode="widthFix" /></view>
+            <text class="name">加购10元通行券X2+5元通行券X5+20元通行券X1</text>
+        </view>
+        <view class="iconfont icon4"></view>
     </view>
-    <!-- 支付和协议说明 模块 -->
-    <view class="payAndAgreement {{isFade ? 'fadeIn' : 'fadeOut'}}">
+<!-- 支付和协议说明 模块 -->
+    <view class="payAndAgreement {{isFade ? 'fadeIn' : 'fadeOut'}}" wx:if="{{isLoaded}}">
         <view class="agreementConfirm" bindtap="onClickAgreementHandle">
             <view class="confirm iconfont {{getAgreement ? 'tick' : ''}}" catchtap="onClickAgreementHandle"></view>
             <view class="agreement">
@@ -185,4 +225,5 @@
     </view>
     <popTipComp id="popTipComp" bind:confirmHandle="confirmHandle"></popTipComp>
     <!-- 自定义出入方向的弹窗 -->
+    <customDirectionPopup id="cdPopup" />
 </view>

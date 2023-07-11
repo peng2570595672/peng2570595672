@@ -35,8 +35,34 @@ Component({
         newOrderId: '', // 新订单ID
         isLoaded: false, // 是否加载完数据
         isRequest: false, // 是否请求中
-        payStatus: 0 // 0: 表示未生成升级订单，1: 生成升级订单但未支付，2: 生成升级订单已支付
+        payStatus: 0, // 0: 表示未生成升级订单，1: 生成升级订单但未支付，2: 生成升级订单已支付
         // ---end------------------
+        giveEquityPackage: [ // 加赠权益包列表
+            {
+                title: '洗车65折起',
+                img: 'https://file.cyzl.com/g001/M02/ED/30/oYYBAGStMHuABxnzAAAGoFnzlqA618.png'
+            },
+            {
+                title: '通行券75折起',
+                img: 'https://file.cyzl.com/g001/M02/ED/30/oYYBAGStMQuANUpwAAAE7u7s7Hs600.png'
+            },
+            {
+                title: '影音会员5折起',
+                img: 'https://file.cyzl.com/g001/M02/ED/31/oYYBAGStMTGAc8olAAAE-nSVpAI491.png'
+            },
+            {
+                title: '米面粮油65折',
+                img: 'https://file.cyzl.com/g001/M02/ED/31/oYYBAGStMUaAIVHlAAAGmyv_21k688.png'
+            },
+            {
+                title: '大牌商品优惠购',
+                img: 'https://file.cyzl.com/g001/M02/ED/31/oYYBAGStMV-AL4kAAAAFqpNPlh8474.png'
+            },
+            {
+                title: '车主商品优惠购',
+                img: 'https://file.cyzl.com/g001/M02/ED/31/oYYBAGStMXKANCRCAAAE1IPpLLg071.png'
+            }
+        ]
     },
 
     methods: {

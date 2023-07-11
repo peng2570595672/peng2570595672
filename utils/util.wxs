@@ -66,6 +66,7 @@ function formatterTimer(systimestamp, compareTime, countdownTime) {
 }
 // 数据长度
 function dataLen(obj) {
+  // console.log(obj);
   if (!obj) { //判断是否为 空
     return
   }

@@ -171,6 +171,26 @@ mixinsPositionPack($position=relative)
                         .service_of_discount
                             &::before
                                 mixinsIconfont('\e680',30rpx,#5EBE68)
+                // 套餐附加权益信息显示
+                .addEquityInfo
+                    position relative
+                    z-index 100
+                    margin-top 30rpx
+                    font-size 28rpx
+                    font-weight 500
+                    line-height 40rpx
+                    font-family PingFangSC-Medium, PingFang SC
+                    .utilModlue
+                        display flex
+                        align-items center
+                        justify-content space-between
+                        margin-top 20rpx
+                        .name
+                            color #E9CA7B
+                        .detail
+                            font-weight 400
+                            color #00B85C
+                    
             /* 套餐模块的下半部分 */
             .lowerpart
                 padding 20rpx 28rpx 30rpx 28rpx
@@ -235,7 +255,7 @@ mixinsPositionPack($position=relative)
                             align-items center
                             justify-content space-between
                         .cict
-                            font-size 24rpx;
+                            font-size 24rpx
                             font-family PingFang SC-Regular, PingFang SC
                             font-weight 400
                             color #765026
@@ -245,22 +265,22 @@ mixinsPositionPack($position=relative)
                         mixinsWidthHeight(212rpx,160rpx)
                     .neimeng
                         .describe-title
-                            font-size: 24rpx;
-                            font-family: PingFang SC-Regular, PingFang SC;
-                            font-weight: 400;
-                            color: #1E1E1E;
-                            line-height: 39rpx;
+                            font-size: 24rpx
+                            font-family: PingFang SC-Regular, PingFang SC
+                            font-weight: 400
+                            color: #1E1E1E
+                            line-height: 39rpx
                             margin 20rpx 0
                         .describe-content
-                            background: #FFFFFF;
+                            background: #FFFFFF
                             display flex
-                            border-radius: 16rpx 16rpx 16rpx 16rpx;
+                            border-radius: 16rpx 16rpx 16rpx 16rpx
                             padding 68rpx 32rpx 24rpx
-                            font-size: 24rpx;
-                            font-family: PingFang SC-Regular, PingFang SC;
-                            font-weight: 400;
-                            color: #979797;
-                            line-height: 39rpx;
+                            font-size: 24rpx
+                            font-family: PingFang SC-Regular, PingFang SC
+                            font-weight: 400
+                            color: #979797
+                            line-height: 39rpx
                             margin-top 20rpx
                             & > view
                                 position relative
@@ -272,15 +292,15 @@ mixinsPositionPack($position=relative)
                             .left
                                 margin-right 40rpx
                             .center
-                                width: 270rpx;
-                                height: 354rpx;
+                                width: 270rpx
+                                height: 354rpx
                                 padding-left 38rpx
-                                background: linear-gradient(155deg, #FFEAB7 0%, #E9CA7B 100%);
-                                border-radius: 12rpx;
+                                background: linear-gradient(155deg, #FFEAB7 0%, #E9CA7B 100%)
+                                border-radius: 12rpx
                                 box-sizing border-box
-                                font-family: PingFang SC-Medium, PingFang SC;
-                                font-weight: 500;
-                                color: #503C0D;
+                                font-family: PingFang SC-Medium, PingFang SC
+                                font-weight: 500
+                                color: #503C0D
                                 margin-right 50rpx
                                 image
                                     position absolute
@@ -338,14 +358,47 @@ mixinsPositionPack($position=relative)
     .littleSplit
         height 120rpx
         line-height 80rpx
+    // 加购的权益包
+    .addEquityPackage
+        position fixed
+        bottom 330rpx
+        z-index 10
+        background-color #FFF5E0
+        mixinsWidthHeight(100vw,90rpx)
+        display flex
+        align-items center
+        justify-content space-between
+        animation addEquityPackage 0.7s linear forwards
+        -webkit-animation addEquityPackage 0.7s linear forwards
+        .imgOrName
+            font-size 24rpx
+            font-family PingFangSC-Medium, PingFang SC
+            font-weight 500
+            color #C96D00
+            display flex
+            align-items center
+            .img
+                mixinsWidthHeight(90rpx,90rpx)
+                display flex
+                align-items center
+                justify-content center
+                .image
+                    mixinsWidthHeight(100%,100%)
+        .icon4
+            margin-right 28rpx
+            transform rotate(-90deg)
+            &::before
+                mixinsIconfont('\e661',30rpx,#C96D00)
+                
+
     /* 支付和协议说明 模块 */
     .payAndAgreement
         mixinsWidthHeight(750rpx,330rpx)
-        background #FBFBFB;
+        background #FBFBFB
         box-shadow 0 -20rpx 16rpx 0 rgba(152, 168, 151, 0.11)
         position fixed
         bottom 0
-        z-index 10
+        z-index 105
         .agreementConfirm
             height 84rpx
             display flex
@@ -432,7 +485,7 @@ mixinsPositionPack($position=relative)
                 width 600rpx
         .paySign .moneyPay .payColor, .ttCounpon .payColor,.paySign .nextSign .payColor
             background-color #2A4F44
-            box-shadow: 0rpx 4rpx 2rpx 0rpx rgba(212,212,212,0.5);
+            box-shadow: 0rpx 4rpx 2rpx 0rpx rgba(212,212,212,0.5)
     /* 动画 */
     .fadeIn
         position fixed
@@ -462,3 +515,10 @@ mixinsPositionPack($position=relative)
         bottom 0
     100%
         bottom -330rpx
+@keyframes addEquityPackage
+    0%
+        opacity 0
+    71%
+        opacity 0
+    100%
+        opacity 1

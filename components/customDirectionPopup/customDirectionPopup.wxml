@@ -4,15 +4,9 @@
     <!-- 遮罩层 -->
     <view class="mask animated {{mask ? 'fadeIn' : 'fadeOut'}}" wx:if="{{mask}}" catchtap="{{ isBtnClose ? 'hide' : ''}}"></view>
     <!-- 表现层 -->
-    <view class="make animatedSlide {{mask ? 'slideUp' : 'glideDown'}}" wx:if="{{make}}">
+    <view class="make animatedSlide {{mask ? 'slideUp' : 'glideDown'}}" style="background: {{argObj.bgColor}}" wx:if="{{make}}">
         <view class="title">{{argObj.title}}
-                <view class="iconfont btnClose" catchtap="hide"></view>
-        </view>
-        <!-- 中信 -->
-        <view class="module citicBank" wx:if="{{argObj.type === 'cicit_bank'}}">
-            <view class="text">{{argObj.text1}}</view>
-            <view class="text">{{argObj.text2}}</view>
-            <view class="btn " catchtap="hide">{{argObj.btnText}}</view>
+            <view class="iconfont btnClose" catchtap="hide"></view>
         </view>
         <!-- 设备升级 -->
         <view class="module deviceUpgrade" wx:if="{{argObj.type === 'device_upgrade'}}">
@@ -51,6 +45,75 @@
             </view>
             <view class="btn {{carList[0].contractVersion ==='v3' ? 'noBtn' : 'yesBtn'}}" wx:if="{{!isHide}}" catchtap="handle">{{payStatus ? payStatus === 1 ? '去支付' : '继续办理' : tools.parseNum(shopProductInfo.pledgePrice + equityListMap.payMoney)/100 + '元办理'}}</view>
             <view class="btn {{isBtn ? 'yesBtn' : 'noBtn'}}" wx:else catchtap="ok">{{ '确定'}}</view>
+        </view>
+        <!--                               套餐页                                   -->
+        <!-- 通通券 -->
+        <view class="module signTtCoupon" wx:if="{{argObj.type === 'sign_tt_coupon'}}">
+            <view class="subTitle">通通券涵盖了出行+生活的优惠聚合平台</view>
+            <view class="imgTt"><image class="image" src="https://file.cyzl.com/g001/M02/ED/1B/oYYBAGStFnaAGH_QAABF7O0YR-c052.png" mode="widthFix" /></view>
+            <!-- 占位 -->
+            <view class="split" style="height: 250rpx" wx:if="{{argObj.isSplit}}" />
+        </view>
+        <!-- 第五代设备 -->
+        <view class="module newDevice" wx:if="{{argObj.type === 'new_device'}}">
+            <view class="marginBox">
+                <view class="innerBox">
+                    <view class="left">
+                        <view class="view">体积</view>
+                        <view class="view">重量</view>
+                        <view class="view">外观</view>
+                        <view class="view">供电</view>
+                        <view class="view">使用</view>
+                    </view>
+                    <view class="center">
+                        <view class="titleNew">第一代设备</view>
+                        <view class="imgNew imgNew1"><image class="image4" src="https://file.cyzl.com/g001/M02/ED/04/oYYBAGSs-8qAcskDAAAeH2PvYlI769.png" mode="widthFix"/></view>
+                        <view class="subCenter">
+                            <view class="view1">体积大</view>
+                            <view class="view1">98g</view>
+                            <view class="view1">需插ETC卡</view>
+                            <view class="view1">仅太阳能充电</view>
+                            <view class="view1">绑定银行卡扣款</view>
+                        </view>
+                       
+                    </view>
+                    <view class="right">
+                        <view class="titleNew">第五代设备</view>
+                        <view class="imgNew"><image class="image4" src="https://file.cyzl.com/g001/M02/ED/04/oYYBAGSs-9yAShLMAAAjwuzuB9w048.png" mode="widthFix"/></view>
+                        <view class="subRight">
+                            <view class="view1">体积更小</view>
+                            <view class="view1">50g</view>
+                            <view class="view1">一体化设计</view>
+                            <view class="view1">太阳能+Type-C</view>
+                            <view class="view1">绑定微信<text class="text1">（无需新办卡）</text></view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <!-- 占位 -->
+            <view class="split" style="height: 250rpx" wx:if="{{argObj.isSplit}}" />
+        </view>
+        <!-- 默认权益包（加赠权益包） -->
+        <view class="module defaultEquityPackage" wx:if="{{argObj.type === 'default_equity_package'}}">
+            <!-- 占位 -->
+            <view class="split" style="height: 250rpx" wx:if="{{argObj.isSplit}}" />
+        </view>
+        <!-- 权益商城 -->
+        <view class="module giveEquityPackage" wx:if="{{argObj.type === 'give_equity_package'}}">
+            <view class="subTitle">办理套餐可获得相应的权益券额奖励，并可用于权益商城优惠购物</view>
+            <view class="pView">
+                <view class="subView" wx:for="{{giveEquityPackage}}" wx:key="*this">
+                    <view class="img"><image class="image" src="{{item.img}}" mode="widthFix" /></view>
+                    <view class="textGive">{{item.title}}</view>
+                </view>
+            </view>
+            <!-- 占位 -->
+            <view class="split" style="height: 250rpx" wx:if="{{argObj.isSplit}}" />
+        </view>
+        <!-- 加购权益包 -->
+        <view class="module addEquityPackage" wx:if="{{argObj.type === 'add_equity_package'}}">
+            <!-- 占位 -->
+            <view class="split" style="height: 250rpx" wx:if="{{argObj.isSplit}}" />
         </view>
     </view>
 </view>
