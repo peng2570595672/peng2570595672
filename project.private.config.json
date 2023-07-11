@@ -473,8 +473,8 @@
         }
     },
     "setting": {
-        "useIsolateContext": false,
         "urlCheck": true,
-        "compileHotReLoad": false
-    }
+        "compileHotReLoad": true
+    },
+    "projectname": "etc_plus_mini_2.0"
 }

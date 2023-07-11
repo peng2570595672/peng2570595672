@@ -978,7 +978,6 @@ Page({
 			isLoaded: true,
 			equityListMap: equityListMap
 		});
-		console.log(this.data.isLoaded);
 		util.hideLoading();
 	},
 	// 控制 选中套餐 的位置
