@@ -3,7 +3,7 @@
     <!-- 通行权益金账户 -->
     <view class="currentEquity">
         <view class="leftName">
-            <text class="attrName">当前通行权益金</text>
+            <text class="attrName">当前车主服务权益金</text>
             <text class="attrValue"><text class="subText">￥</text>{{infoData.depositAmount / 100}}</text>
         </view>
         <view class="rightVehPlates">{{infoData.vehPlates}}</view>
@@ -25,8 +25,8 @@
                     {{ item.flowType === 0 ? '办理开户' : '' }}
                     {{ item.flowType === 1 ? '通行费抵扣' : ''  }}
                     {{ item.flowType === 2 ? '通行费争议退费' : ''  }}
-                    {{ item.flowType === 3 ? '奖励通行权益金-通行费补扣' : ''  }}
-                    {{ item.flowType === 4 ? '奖励通行权益金-通行费补缴' : ''  }}
+                    {{ item.flowType === 3 ? '车主服务权益金奖励-通行费补扣' : ''  }}
+                    {{ item.flowType === 4 ? '车主服务权益金奖励-通行费补缴' : ''  }}
                     {{ item.flowType === 5 ? '退还通行权益金' : ''  }}
                     {{ item.flowType === 6 ? '注销' : ''  }}
                 </view>

@@ -163,7 +163,7 @@ Page({
 				switch (index) {
 					case 0:
 						// 握奇
-						util.go('/pages/obu_activate/hunan/watchdata/watchdata');
+						util.go('/pages/obu_activate/hunan/watchdata_plugn/watchdata_plugn');
 						break;
 					case 1:
 						// 聚利

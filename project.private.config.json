@@ -64,7 +64,7 @@
                 {
                     "name": "ETC详情",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1124692069475553280",
+                    "query": "orderId=839976237639536640",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -454,12 +454,27 @@
                     "query": "id=info.id",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1107665398720892928",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1125812532318441472",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
     },
     "setting": {
         "useIsolateContext": false,
-        "urlCheck": true
+        "urlCheck": true,
+        "compileHotReLoad": false
     }
 }

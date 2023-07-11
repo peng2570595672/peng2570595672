@@ -121,21 +121,21 @@ Page({
 								that.setData({
 									alertNum: that.data.alertNum + 1
 								});
-								if (that.data.alertNum > 1) {
-									return;
-								}
-								util.alert({
-									title: '蓝牙中断',
-									content: '检测到您的蓝牙链接中断\n请重新链接',
-									confirmText: '重新连接',
-									showCancel: false,
-									confirm: () => {
-										that.setData({
-											alertNum: 0
-										});
-										that.handleRetry();
-									}
-								});
+								// if (that.data.alertNum > 1) {
+								// 	return;
+								// }
+								// util.alert({
+								// 	title: '蓝牙中断',
+								// 	content: '检测到您的蓝牙链接中断\n请重新链接',
+								// 	confirmText: '重新连接',
+								// 	showCancel: false,
+								// 	confirm: () => {
+								// 		that.setData({
+								// 			alertNum: 0
+								// 		});
+								// 		that.handleRetry();
+								// 	}
+								// });
 							});
 						},
 						fail: res => {
