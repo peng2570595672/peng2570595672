@@ -8,7 +8,7 @@
         <view class="title">请选择一个账户进入商城进行消费吧</view>
         <view class="item" wx:for="{{equityList}}" wx:key="index">
             <view class="item-top">
-                <view class="label">权益券额</view>
+                <view class="label">商城权益金</view>
                 <view class="vehPlates">{{item.vehPlates}}</view>
             </view>
             <view class="item-bottom">

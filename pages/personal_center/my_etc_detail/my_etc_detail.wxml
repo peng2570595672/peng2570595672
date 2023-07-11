@@ -70,7 +70,7 @@
 		<view>{{orderInfo.obuNo}}</view>
 	</view>
     <view class="item" wx:if="{{orderInfo.pledgeMoney && orderInfo.pledgeType === 1}}">
-        <view>ETC服务费</view>
+        <view>金额</view>
         <view>
             {{orderInfo.pledgeMoney/100}}
             <text class="{{orderInfo.pledgeStatus === 1 ? 'have-paid' : 'non-payment'}}">（{{orderInfo.pledgeStatus === 1 ? '已' : '未'}}支付）</text>

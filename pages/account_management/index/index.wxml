@@ -17,7 +17,7 @@
                     </view>
                 </view>
                 <view class="right1">
-                    <view>ETC+权益账户</view>
+                    <view>ETC+商城权益金</view>
                 </view>
             </view>
             <!-- <view class="accont" wx:if="{{tools.parseNum(item.pledgeMoney/100) < 200 ? false : true}}">
@@ -89,7 +89,7 @@
         <view class="card margin" style="background: linear-gradient(315deg, #50B566 0%, #52B565 99%)" wx:elif="{{item.accountType === 5}}">
             <view class="card-info">
                 <view class="left">
-                    <view>通行权益金账户余额</view>
+                    <view>车主服务权益金余额</view>
                     <view>
                         <text class="money">{{tools.parseNum(item.depositAmount/100)}}</text>
                         <text class="t2" bindtap="goCurrentEquity" data-id="{{ item.id }}">
