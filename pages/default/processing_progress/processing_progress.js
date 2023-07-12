@@ -605,7 +605,8 @@ Page({
 			tradeType: 1,
 			packageId: app.globalData.cictBankObj.citicBankRightId,
 			openId: app.globalData.userInfo.openId,
-			orderId: this.data.orderId
+			orderId: this.data.orderId,
+			creditCardTag: this.data.isWellBank ? 2 : 1 // 信用卡标识：1.中信信用卡，2.平安信用卡
 		};
 		// 业务员端
 		// if (this.data.shopUserInfo) {
