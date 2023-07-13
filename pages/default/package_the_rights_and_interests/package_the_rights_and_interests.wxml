@@ -47,7 +47,7 @@
                     </view>
                 </view>
                 <!-- 套餐附加权益信息显示 -->
-                <view class="addEquityInfo" wx:if="{{false}}">
+                <view class="addEquityInfo" wx:if="{{false && isLoaded}}">
                     <!-- 设备信息（新旧设备对比） -->
                     <!-- <view class="utilModlue" wx:if="{{item.etcCardId === 2}}" > -->
                     <view class="utilModlue" >

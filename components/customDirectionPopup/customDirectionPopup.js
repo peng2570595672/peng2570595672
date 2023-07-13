@@ -80,7 +80,14 @@ Component({
                 this.getEquityInfo();
             };
             if (argObj.type === 'default_equity_package') {
-                this.getPackageRelation(argObj.defaultEquityId);
+                this.setData({couponList: []});
+                if (argObj.ids instanceof Array) {
+                    for (let index = 0; index < argObj.ids.length; index++) {
+                        this.getPackageRelation(argObj.ids[index]);
+                    }
+                } else {
+                    this.getPackageRelation(argObj.ids);
+                }
             }
             this.setData({
                 mask: true,
@@ -488,11 +495,15 @@ Component({
          */
         async getPackageRelation (id) {
 			const result = await util.getDataFromServersV2('consumer/voucher/rights/get-package-coupon-list-buy', {
-				packageId: id
-			},'POST',false);
+				packageId: id.toString()
+			},'POST',true);
 			if (!result) return;
 			if (result.code === 0) {
-                this.setData({couponList: result.data});
+                let couponList = this.data.couponList;
+                couponList.push(result.data);
+                couponList.push(result.data);
+                this.setData({couponList});
+                console.log(couponList);
 			} else {
 				util.showToastNoIcon(result.message);
 			}

@@ -1008,6 +1008,7 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
+	// 弹窗详情
 	popDetail (e) {
 		let type = e.currentTarget.dataset.type;	// string
 		let index = e.currentTarget.dataset.index;	// number
@@ -1030,9 +1031,8 @@ Page({
 						title: '加赠权益包',
 						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 30%,#FFFFFF 100%)',
 						isSplit: index === this.data.activeIndex ? true : this.data.isFade,
-						defaultEquityId: this.data.listOfPackages[index].rightsPackageId,
-						packageName: '20元停车券',
-						money: 20
+						ids: this.data.listOfPackages[index].rightsPackageIds,
+						equityPackageInfo: this.data.equityListMap[index]
 					}
 				});
 				break;

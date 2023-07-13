@@ -92,7 +92,7 @@
 			<view class="content-des" wx:if="{{info.obuStatus !== 1 && info.obuStatus !== 5}}">收货后可根据操作手册自主安装激活使用，请在使用过程中保证扣款渠道余额充足，以免产生扣费失败情况导致账户被拉黑</view>
 			<view class="content-des" wx:if="{{info.obuStatus === 1 || info.obuStatus === 5}}">已激活</view>
 		</view>
-        <view class="item " wx:if="{{info && cictBail}}">
+        <view class="item " wx:if="{{info && (cictBail || isWellBank)}}">
             <view class="content-title">保证金退回</view>
 			<view class="content-des" wx:if="{{info.refundStatus !== 5}}">信用卡套餐设备激活成功后用户需要手动将信用卡绑定微信支付后，完成手动认证购买套餐金额即可原路退还</view>
 			<view class="content-des" wx:else>保证金已退还</view>

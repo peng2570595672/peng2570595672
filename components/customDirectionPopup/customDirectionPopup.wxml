@@ -95,27 +95,48 @@
         </view>
         <!-- 默认权益包（加赠权益包） -->
         <view class="module defaultEquityPackage" wx:if="{{argObj.type === 'default_equity_package'}}">
-            <view class="content">
+            <view class="content" wx:for="{{couponList}}" wx:key="*this">
                 <view class="md1">
                     <view class="mdLeft">
-                        <view class="leftMoney">{{argObj.money}}<text class="text2">元</text></view>
+                        <view class="leftMoney">{{20}}<text class="text2">元</text></view>
                         <view class="iconfont leftDetail {{isExpand ? 'expand' : 'noExpand'}}" catchtap="isExpand">查看详情</view>
                     </view>
                     <view class="mdRight">
-                        <view class="rightTitle">{{argObj.packageName}}</view>
+                        <view class="rightTitle">{{'20元高速通行券'}}</view>
                         <view class="rightContent">
-                            <text wx:for="{{couponList}}" wx:key="*this">
-                                <text wx:if="{{item.couponType === 1}}">{{item.denomination / 100}}元高速通行券X{{item.couponCount}}</text>
-                                <text wx:if="{{item.couponType === 2}}">{{item.denomination / 100}}元停车券X{{item.couponCount}}</text>
-                                <text wx:if="{{item.couponType === 3}}">{{item.denomination / 100}}元加油券X{{item.couponCount}}</text>
-                                <text wx:if="{{item.couponType === 4}}">{{item.denomination / 100}}元充电券X{{item.couponCount}}</text>
-                                <text wx:if="{{item.couponType === 5}}">{{item.denomination / 100}}元洗车券X{{item.couponCount}}</text>
-                                <text wx:if="{{item.couponType === 6}}">{{item.denomination / 100}}元通用券X{{item.couponCount}}</text>
-                                <text wx:if="{{item.couponType === 7}}">{{item.denomination / 100}}元商品消费券X{{item.couponCount}}</text>
+                            <text wx:for="{{item}}" wx:for-item="item1" wx:for-index="index1">
+                                <text wx:if="{{item1.couponType === 1}}">{{item1.denomination / 100}}元高速通行券X{{item1.couponCount}}</text>
+                                <text wx:if="{{item1.couponType === 2}}">{{item1.denomination / 100}}元停车券X{{item1.couponCount}}</text>
+                                <text wx:if="{{item1.couponType === 3}}">{{item1.denomination / 100}}元加油券X{{item1.couponCount}}</text>
+                                <text wx:if="{{item1.couponType === 4}}">{{item1.denomination / 100}}元充电券X{{item1.couponCount}}</text>
+                                <text wx:if="{{item1.couponType === 5}}">{{item1.denomination / 100}}元洗车券X{{item1.couponCount}}</text>
+                                <text wx:if="{{item1.couponType === 6}}">{{item1.denomination / 100}}元通用券X{{item1.couponCount}}</text>
+                                <text wx:if="{{item1.couponType === 7}}">{{item1.denomination / 100}}元商品消费券X{{item1.couponCount}}</text>
                             </text>
                         </view>
                     </view>
                 </view>
+                <view class="detailInfo">
+                    <view class="subInfo {{index2 % 3 === 0 ? 'indentation' : ''}}" wx:for="{{item}}" wx:for-item="item2" wx:for-index="index2">
+                        <view class="topRight">×{{item2.couponCount}}张</view>
+                        <view class="money">￥<text class="text3">{{item2.denomination / 100}}</text></view>
+                        <view class="desc">满{{item2.consumptionThreshold / 100}}可用</view>
+                        <view class="couponType">{{'高速通行券'}}</view>
+                        <view class="validDay">领后{{item2.minDays}}天有效</view>
+                    </view>
+                    <view class="illustrate">
+                        <text wx:for="{{item}}" wx:for-item="item3" >
+                            <text wx:if="{{item3.couponType === 1}}">通行券每期最高可手动领{{item3.periodCount}}张，</text>
+                            <text wx:if="{{item3.couponType === 2}}">停车券每期最高可领{{item3.periodCount}}张，</text>
+                            <text wx:if="{{item3.couponType === 3}}">加油券每期最高可领{{item3.periodCount}}张，</text>
+                            <text wx:if="{{item3.couponType === 4}}">充电券每期最高可领{{item3.periodCount}}张，</text>
+                            <text wx:if="{{item3.couponType === 5}}">洗车券每期最高可领{{item3.periodCount}}张，</text>
+                            <text wx:if="{{item3.couponType === 6}}">通用券每期最高可领{{item3.periodCount}}张，</text>
+                            <text wx:if="{{item3.couponType === 7}}">商品消费券每期最高可领{{item3.periodCount}}张</text>
+                        </text>
+                    </view>
+                </view>
+               
             </view>
             <!-- 占位 -->
             <view class="split" style="height: 250rpx" wx:if="{{argObj.isSplit}}" />
