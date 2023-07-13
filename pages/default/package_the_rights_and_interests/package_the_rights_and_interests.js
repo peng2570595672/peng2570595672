@@ -1029,7 +1029,10 @@ Page({
 						type: 'default_equity_package',
 						title: '加赠权益包',
 						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 30%,#FFFFFF 100%)',
-						isSplit: index === this.data.activeIndex ? true : this.data.isFade
+						isSplit: index === this.data.activeIndex ? true : this.data.isFade,
+						defaultEquityId: this.data.listOfPackages[index].rightsPackageId,
+						packageName: '20元停车券',
+						money: 20
 					}
 				});
 				break;

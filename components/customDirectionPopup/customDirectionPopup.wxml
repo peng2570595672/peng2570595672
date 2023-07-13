@@ -95,6 +95,28 @@
         </view>
         <!-- 默认权益包（加赠权益包） -->
         <view class="module defaultEquityPackage" wx:if="{{argObj.type === 'default_equity_package'}}">
+            <view class="content">
+                <view class="md1">
+                    <view class="mdLeft">
+                        <view class="leftMoney">{{argObj.money}}<text class="text2">元</text></view>
+                        <view class="iconfont leftDetail {{isExpand ? 'expand' : 'noExpand'}}" catchtap="isExpand">查看详情</view>
+                    </view>
+                    <view class="mdRight">
+                        <view class="rightTitle">{{argObj.packageName}}</view>
+                        <view class="rightContent">
+                            <text wx:for="{{couponList}}" wx:key="*this">
+                                <text wx:if="{{item.couponType === 1}}">{{item.denomination / 100}}元高速通行券X{{item.couponCount}}</text>
+                                <text wx:if="{{item.couponType === 2}}">{{item.denomination / 100}}元停车券X{{item.couponCount}}</text>
+                                <text wx:if="{{item.couponType === 3}}">{{item.denomination / 100}}元加油券X{{item.couponCount}}</text>
+                                <text wx:if="{{item.couponType === 4}}">{{item.denomination / 100}}元充电券X{{item.couponCount}}</text>
+                                <text wx:if="{{item.couponType === 5}}">{{item.denomination / 100}}元洗车券X{{item.couponCount}}</text>
+                                <text wx:if="{{item.couponType === 6}}">{{item.denomination / 100}}元通用券X{{item.couponCount}}</text>
+                                <text wx:if="{{item.couponType === 7}}">{{item.denomination / 100}}元商品消费券X{{item.couponCount}}</text>
+                            </text>
+                        </view>
+                    </view>
+                </view>
+            </view>
             <!-- 占位 -->
             <view class="split" style="height: 250rpx" wx:if="{{argObj.isSplit}}" />
         </view>

@@ -37,6 +37,7 @@ Component({
         isRequest: false, // 是否请求中
         payStatus: 0, // 0: 表示未生成升级订单，1: 生成升级订单但未支付，2: 生成升级订单已支付
         // ---end------------------
+        // ==================================默认权益包或加赠权益包或加购权益包========================
         giveEquityPackage: [ // 加赠权益包列表
             {
                 title: '洗车65折起',
@@ -62,7 +63,10 @@ Component({
                 title: '车主商品优惠购',
                 img: 'https://file.cyzl.com/g001/M02/ED/31/oYYBAGStMXKANCRCAAAE1IPpLLg071.png'
             }
-        ]
+        ],
+        isExpand: false, // 是否展开详情 false - 表示不展开
+        couponList: [] // 券列表
+        // ==================================end =====================================================
     },
 
     methods: {
@@ -75,6 +79,9 @@ Component({
                 this.getProduct();
                 this.getEquityInfo();
             };
+            if (argObj.type === 'default_equity_package') {
+                this.getPackageRelation(argObj.defaultEquityId);
+            }
             this.setData({
                 mask: true,
                 make: true,
@@ -89,7 +96,7 @@ Component({
                 mask: false
             });
             setTimeout(() => {
-                that.setData({ make: false,isHide: false,isBtn: false,noSliding: false });
+                that.setData({ make: false,isHide: false,isBtn: false,noSliding: false,isExpand: false });
             }, 380);
         },
         noSliding () {},
@@ -459,8 +466,36 @@ Component({
                 util.showToastNoIcon(res.message);
                 return true;
             }
-        }
+        },
         // -------------------- 设备升级-end------------------------------------
 
+        // ------------------默认权益包（加赠）------------------------------
+        // 控制详情的展示与收缩
+        isExpand () {
+            this.setData({isExpand: !this.data.isExpand});
+        },
+        /**
+         * 券包详情
+         * couponType 劵类型  1-通行劵 2-停车卷 3-加油券 4-充电券 5-洗车券 6-通用券 7-商品消费券
+         * denomination 面额 单位: 分
+         * consumptionThreshold 消费门槛 单位: 分
+         * couponCount 券张数
+         * periodCount 每期能领数量
+         * minDays 领取后最小有效期
+         * minTime 当前组最早的
+         * @param {*} id // 权益包ID
+         * @returns
+         */
+        async getPackageRelation (id) {
+			const result = await util.getDataFromServersV2('consumer/voucher/rights/get-package-coupon-list-buy', {
+				packageId: id
+			},'POST',false);
+			if (!result) return;
+			if (result.code === 0) {
+                this.setData({couponList: result.data});
+			} else {
+				util.showToastNoIcon(result.message);
+			}
+		}
     }
 });
