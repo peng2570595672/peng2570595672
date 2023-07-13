@@ -485,41 +485,6 @@ Page({
 
 	// banner触摸移动返回
 	catchtouchmove () {},
-	// 点击banner
-	// testFunc () {
-	// 	// 未登录
-	// 	if (!app.globalData.userInfo?.accessToken) {
-	// 		wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-	// 		util.go('/pages/login/login/login');
-	// 		return;
-	// 	}
-	// 	wx.reLaunch({
-	// 		url: '/pages/etc_handle/etc_handle'
-	// 	});
-	// },
-	// 获取 “出行贴心服务” banner
-	// async getBanner () {
-	// 	let params = {
-	// 		platformId: app.globalData.platformId
-	// 	};
-	// 	const result = await util.getDataFromServersV2('consumer/system/common/get-activity-banner', params,'POST',false);
-	// 	if (result.code === 0) {
-	// 		let moduleTwoList = result.data.filter(item => (item.remark === 'moving_integral'));
-	// 		moduleTwoList.map(item => {
-	// 			if (item.remark === 'moving_integral') {
-	// 				item.url = item.remark;
-	// 				item.isShow = true;
-	// 				item.alwaysShow = true;
-	// 				item.imgUrl = 'https://file.cyzl.com/g001/M01/C9/52/oYYBAGP4mXiAVfbDAAAkI9pn5Nw707.png';
-	// 				item.statisticsEvent = 'index_moving_integral';
-	// 			}
-	// 		});
-	// 		this.setData({
-	// 			moduleTwoList
-	// 		});
-	// 	}
-	// },
-
 	// ---------------------------------end---------------------------
 	async getIsShowNotice () {
 		const result = await util.queryProtocolRecord(2);
@@ -870,8 +835,11 @@ Page({
 			// let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
 			app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
 			let isShowPingAn = this.data.firstCar.filter(item => list[0].vehPlates.includes(item));	// 平安获客
+			console.log(app.globalData.userInfo?.accessToken);
+			console.log(this.data.moduleTwoList);
+			console.log(isShowPingAn);
 			let funcListTwo = this.data.moduleTwoList.map(item1 => {
-				return item1.jumpUrl === '平安获客' && isShowPingAn?.length === 0 ? undefined : item1;	// 平安获客
+				return item1.jumpUrl === '平安获客' ? isShowPingAn?.length === 0 ? undefined : !app.globalData.userInfo?.accessToken ? undefined : item1 : item1;
 			});
 			funcListTwo.sort(this.compare('sort'));	// 排序
 			this.setData({
