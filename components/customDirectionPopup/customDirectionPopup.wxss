@@ -544,7 +544,7 @@
   color: #9d3b00;
 }
 .make .defaultEquityPackage {
-  height: 1000rpx;
+  max-height: 1000rpx;
   overflow-y: scroll;
 }
 .make .defaultEquityPackage .content {
@@ -560,6 +560,8 @@
   justify-content: space-between;
   color: #fdf7ec;
   font-family: PingFangSC-Medium, PingFang SC;
+  position: relative;
+  z-index: 100;
 }
 .make .defaultEquityPackage .content .md1 .mdLeft {
   width: 208rpx;
@@ -608,7 +610,7 @@
 .make .defaultEquityPackage .content .md1 .mdRight {
   width: 478rpx;
   height: 100%;
-  padding-left: 30rpx;
+  padding: 0 30rpx 0rpx 60rpx;
 }
 .make .defaultEquityPackage .content .md1 .mdRight .rightTitle {
   width: 100%;
@@ -633,6 +635,8 @@
   flex-wrap: wrap;
   background: #fff3e0;
   padding-bottom: 36rpx;
+  z-index: 1;
+  margin-top: -10rpx;
 }
 .make .defaultEquityPackage .content .detailInfo .subInfo {
   width: 192rpx;

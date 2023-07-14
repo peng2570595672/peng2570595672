@@ -922,11 +922,10 @@ Page({
 		});
 		let that = this;
 		let nodeHeightList = [];
-		let equityListMap = [];
-		// let equityListMap = {
-		// 	defaultEquityList: [],	// 默认权益包列表
-		// 	addEquityList: []	// 加购权益包列表
-		// };
+		let equityListMap = {
+			defaultEquityList: [],	// 默认权益包列表
+			addEquityList: []	// 加购权益包列表
+		};
 		let currentIndex = 0;
 		for (currentIndex; currentIndex < num; currentIndex++) {
 			let allIndex = 'module' + currentIndex;
@@ -937,43 +936,40 @@ Page({
 				});
 			}).exec();
 			// 加购权益包
-			// const packageIds = this.data.listOfPackages[currentIndex].rightsPackageIds && this.data.listOfPackages[currentIndex]?.rightsPackageIds.length !== 0;
-			const packageIds = this.data.listOfPackages[currentIndex]?.rightsPackageIds.length > 0 ? new Array(this.data.listOfPackages[currentIndex]?.rightsPackageIds[0]) : this.data.listOfPackages[currentIndex]?.rightsPackageIds;
-			if (packageIds?.length === 0) {
-				equityListMap.push({index: currentIndex, packageName: '',payMoney: 0});
+			const packageIds = this.data.listOfPackages[currentIndex].rightsPackageIds && this.data.listOfPackages[currentIndex]?.rightsPackageIds.length !== 0;
+			if (!packageIds) {
+				equityListMap.addEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
 			} else {
 				const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
-					packageIds: packageIds
+					packageIds: this.data.listOfPackages[currentIndex]?.rightsPackageIds
 				},'POST',false);
 				if (result.code === 0) {
-					let equityObj = result.data[0];
-					equityObj.index = currentIndex;
-					equityListMap.push(equityObj);
-					// equityListMap.addEquityList.push({index: currentIndex,data: result.data});
+					equityListMap.addEquityList.push({index: currentIndex,subData: result.data});
 				} else {
 					// 占位
 					equityListMap.addEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
 				}
 			}
 			// 默认权益包
-			// const packageId = this.data.listOfPackages[currentIndex].rightsPackageId && this.data.listOfPackages[currentIndex].rightsPackageId !== 0;
-			// if (!packageId) {
-			// 	equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
-			// } else {
-			// 	const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
-			// 		packageIds: new Array(this.data.listOfPackages[currentIndex].rightsPackageId)
-			// 	},'POST',false);
-			// 	if (result.code === 0) {
-			// 		result.data.map(item => {
-			// 			item.index = currentIndex;
-			// 			equityListMap.defaultEquityList.push(item);
-			// 		});
-			// 	} else {
-			// 		// 占位
-			// 		equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
-			// 	}
-			// }
+			const packageId = this.data.listOfPackages[currentIndex].rightsPackageId && this.data.listOfPackages[currentIndex].rightsPackageId !== 0;
+			if (!packageId) {
+				equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+			} else {
+				const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
+					packageIds: new Array(this.data.listOfPackages[currentIndex].rightsPackageId)
+				},'POST',false);
+				if (result.code === 0) {
+					result.data.map(item => {
+						item.index = currentIndex;
+						equityListMap.defaultEquityList.push(item);
+					});
+				} else {
+					// 占位
+					equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+				}
+			}
 		}
+		console.log(equityListMap);
 		this.setData({
 			isLoaded: true,
 			equityListMap: equityListMap
@@ -1031,8 +1027,7 @@ Page({
 						title: '加赠权益包',
 						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 30%,#FFFFFF 100%)',
 						isSplit: index === this.data.activeIndex ? true : this.data.isFade,
-						ids: this.data.listOfPackages[index].rightsPackageIds,
-						equityPackageInfo: this.data.equityListMap[index]
+						equityPackageInfo: this.data.equityListMap.defaultEquityList[index]
 					}
 				});
 				break;
@@ -1066,7 +1061,7 @@ Page({
 						title: '加购权益包',
 						isSplit: true,
 						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 30%,#FFFFFF 100%)',
-						rightsPackageIds: this.data.listOfPackages[this.data.activeIndex].rightsPackageIds
+						equityPackageInfo: this.data.equityListMap.addEquityList[index].subData
 					}
 				});
 				break;

@@ -505,7 +505,7 @@ flexModule($align=normal,$justify=normal)
                     font-weight 500
                     color #9D3B00
     .defaultEquityPackage
-        height 1000rpx
+        max-height 1000rpx
         overflow-y scroll
         .content
             margin-bottom 20rpx
@@ -516,6 +516,8 @@ flexModule($align=normal,$justify=normal)
                 flexModule(normal,space-between)
                 color #FDF7EC
                 font-family PingFangSC-Medium, PingFang SC
+                position relative
+                z-index 100
                 .mdLeft
                     mixinsWidthHeight(208rpx,)
                     .leftMoney
@@ -547,7 +549,7 @@ flexModule($align=normal,$justify=normal)
                                 transform rotate(180deg)
                 .mdRight
                     mixinsWidthHeight(478rpx,)
-                    padding-left 30rpx
+                    padding 0 30rpx 0rpx 60rpx
                     .rightTitle
                         mixinsWidthHeight(,48rpx)
                         line-height 48rpx
@@ -565,6 +567,8 @@ flexModule($align=normal,$justify=normal)
                 flex-wrap wrap
                 background rgba(255, 243, 224, 1)
                 padding-bottom 36rpx
+                z-index 1
+                margin-top -10rpx
                 .subInfo
                     mixinsWidthHeight(192rpx,206rpx)
                     margin 30rpx 18rpx 0 0

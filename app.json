@@ -367,12 +367,6 @@
     "functionalPages": {
         "independent": true
     },
-  "plugins": {
-    "obu-plugin": {
-      "version": "2.0.0",
-      "provider": "wx3065d5b05f433be9"
-    }
-  },
     "sitemapLocation": "sitemap.json",
     "permission": {
         "scope.userLocation": {

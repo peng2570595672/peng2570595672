@@ -65,7 +65,8 @@ Component({
             }
         ],
         isExpand: false, // 是否展开详情 false - 表示不展开
-        couponList: [] // 券列表
+        couponList: [], // 券列表
+        activeIndex: -1 // 选中权益包模块的索引
         // ==================================end =====================================================
     },
 
@@ -79,14 +80,19 @@ Component({
                 this.getProduct();
                 this.getEquityInfo();
             };
-            if (argObj.type === 'default_equity_package') {
+            if (argObj.type === 'default_equity_package' || argObj.type === 'add_equity_package') {
                 this.setData({couponList: []});
-                if (argObj.ids instanceof Array) {
-                    for (let index = 0; index < argObj.ids.length; index++) {
-                        this.getPackageRelation(argObj.ids[index]);
+                let couponList = [];
+                if (argObj.equityPackageInfo instanceof Array) {
+                    couponList = argObj.equityPackageInfo;
+                    this.setData({couponList});
+                    for (let index = 0; index < argObj.equityPackageInfo.length; index++) {
+                        this.getPackageRelation(argObj.equityPackageInfo[index].id,index);
                     }
                 } else {
-                    this.getPackageRelation(argObj.ids);
+                    couponList.push(argObj.equityPackageInfo);
+                    this.setData({couponList});
+                    this.getPackageRelation(argObj.equityPackageInfo.id,0);
                 }
             }
             this.setData({
@@ -478,8 +484,13 @@ Component({
 
         // ------------------默认权益包（加赠）------------------------------
         // 控制详情的展示与收缩
-        isExpand () {
-            this.setData({isExpand: !this.data.isExpand});
+        isExpand (e) {
+            let index = e.currentTarget.dataset.index;
+            let activeIndex = this.data.activeIndex;
+            this.setData({
+                activeIndex: index,
+                isExpand: index === activeIndex ? !this.data.isExpand : false
+            });
         },
         /**
          * 券包详情
@@ -493,15 +504,92 @@ Component({
          * @param {*} id // 权益包ID
          * @returns
          */
-        async getPackageRelation (id) {
+        async getPackageRelation (id,index) {
+            console.log(id,index,this.data.couponList);
 			const result = await util.getDataFromServersV2('consumer/voucher/rights/get-package-coupon-list-buy', {
-				packageId: id.toString()
+				packageId: id
 			},'POST',true);
 			if (!result) return;
 			if (result.code === 0) {
+                let test1 = {
+                    consumptionThreshold: 1001,
+                    couponCount: 20,
+                    couponType: 1,
+                    denomination: 1000,
+                    minDays: 20,
+                    minTime: '2023-06-02 17:38:49',
+                    periodCount: 2
+                };
+                let test3 = {
+                    consumptionThreshold: 1001,
+                    couponCount: 20,
+                    couponType: 3,
+                    denomination: 1000,
+                    minDays: 20,
+                    minTime: '2023-06-02 17:38:49',
+                    periodCount: 2
+                };
+                let test4 = {
+                    consumptionThreshold: 1001,
+                    couponCount: 20,
+                    couponType: 4,
+                    denomination: 1000,
+                    minDays: 20,
+                    minTime: '2023-06-02 17:38:49',
+                    periodCount: 2
+                };
+                let test5 = {
+                    consumptionThreshold: 1001,
+                    couponCount: 20,
+                    couponType: 5,
+                    denomination: 1000,
+                    minDays: 20,
+                    minTime: '2023-06-02 17:38:49',
+                    periodCount: 2
+                };
+                let test6 = {
+                    consumptionThreshold: 3001,
+                    couponCount: 30,
+                    couponType: 6,
+                    denomination: 3000,
+                    minDays: 20,
+                    minTime: '2023-06-02 17:38:49',
+                    periodCount: 4
+                };
+                let test7 = {
+                    consumptionThreshold: 1501,
+                    couponCount: 34,
+                    couponType: 7,
+                    denomination: 1500,
+                    minDays: 70,
+                    minTime: '2023-06-02 17:38:49',
+                    periodCount: 7
+                };
+                // result.data.push(result.data[0]);
+                // result.data.push(test1);
+                // result.data.push(test3);
+                // result.data.push(test4);
+                // result.data.push(test5);
+                // result.data.push(test6);
+                // result.data.push(test7);
                 let couponList = this.data.couponList;
-                couponList.push(result.data);
-                couponList.push(result.data);
+                let t1 = 0; let t2 = 0; let t3 = 0; let t4 = 0; let t5 = 0; let t6 = 0; let t7 = 0;
+                result.data.map(item => {
+                    if (item.couponType === 1) t1 += item.periodCount;
+                    if (item.couponType === 2) t2 += item.periodCount;
+                    if (item.couponType === 3) t3 += item.periodCount;
+                    if (item.couponType === 4) t4 += item.periodCount;
+                    if (item.couponType === 5) t5 += item.periodCount;
+                    if (item.couponType === 6) t6 += item.periodCount;
+                    if (item.couponType === 7) t7 += item.periodCount;
+                });
+                let count = [t1,t2,t3,t4,t5,t6,t7];
+                let count1 = [];
+                count.map((item,index) => {
+                    if (item > 0) count1.push({couponType: index + 1, count: item});
+                });
+                couponList[index].detailList = result.data;
+                couponList[index].countList = count1;
                 this.setData({couponList});
                 console.log(couponList);
 			} else {

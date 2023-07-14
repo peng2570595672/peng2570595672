@@ -47,7 +47,7 @@
                     </view>
                 </view>
                 <!-- 套餐附加权益信息显示 -->
-                <view class="addEquityInfo" wx:if="{{false && isLoaded}}">
+                <view class="addEquityInfo" wx:if="{{true && isLoaded}}">
                     <!-- 设备信息（新旧设备对比） -->
                     <!-- <view class="utilModlue" wx:if="{{item.etcCardId === 2}}" > -->
                     <view class="utilModlue" >
@@ -168,10 +168,10 @@
     <!-- 占位 -->
     <view class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}}" ></view>
     <!-- 加购的权益包 -->
-    <view class="addEquityPackage" wx:if="{{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) && isLoaded && false}}" data-type="5" catchtap="popDetail">
+    <view class="addEquityPackage" wx:if="{{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) && isLoaded && true}}" data-type="5" data-index='{{activeIndex}}' catchtap="popDetail">
         <view class="imgOrName">
             <view class="img"><image class="image" src="{{'https://file.cyzl.com/g001/M02/ED/17/oYYBAGStEiOAZAb0AAAV9IqXKBM565.png'}}" mode="widthFix" /></view>
-            <text class="name">加购10元通行券X2+5元通行券X5+20元通行券X1</text>
+            <text wx:for="{{equityListMap.addEquityList[activeIndex].subData}}" wx:for-item="item2" wx:key="index">{{item2.packageName}}{{index === tools.dataLen(equityListMap.addEquityList[activeIndex].subData) - 1 ? '' : '+'}}</text>
         </view>
         <view class="iconfont icon4"></view>
     </view>
