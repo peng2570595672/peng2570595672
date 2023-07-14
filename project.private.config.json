@@ -311,7 +311,7 @@
                 {
                     "name": "",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1098346314548121600",
+                    "query": "orderId=1129422148285632512",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -457,15 +457,15 @@
                 },
                 {
                     "name": "",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1107665398720892928",
+                    "pathName": "pages/Home/Home",
+                    "query": "",
                     "launchMode": "default",
                     "scene": null
                 },
                 {
                     "name": "",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1125812532318441472",
+                    "query": "orderId=1119260089593769984",
                     "launchMode": "default",
                     "scene": null
                 }
