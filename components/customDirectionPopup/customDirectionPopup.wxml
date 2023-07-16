@@ -93,10 +93,16 @@
             <!-- 占位 -->
             <view class="split" style="height: 250rpx" wx:if="{{argObj.isSplit}}" />
         </view>
-        <!-- 默认权益包（加赠权益包） -->
+        <!-- 默认权益包（加赠权益包） || 加购权益包 -->
         <view class="module defaultEquityPackage" wx:if="{{argObj.type === 'default_equity_package' || argObj.type === 'add_equity_package'}}">
-            <view class="content" wx:for="{{couponList}}" wx:key="*this">
-                <view class="md1">
+            <view class="topTttle" wx:if="{{argObj.mustEquity === 1}}">至少选择1个权益包</view>
+            <view class="content" 
+                wx:for="{{couponList}}" 
+                wx:key="*this">
+                <view class="iconfont md1 {{argObj.type === 'add_equity_package' ? index === choiceIndex ? isHeightLight ? 'isHighLight' : 'noHighLight' : 'noHighLight' : ''}}"
+                    data-index="{{index}}"
+                    catchtap="btnMd1"
+                    >
                     <view class="mdLeft">
                         <view class="leftMoney">{{item.payMoney / 100}}<text class="text2">元</text></view>
                         <view class="iconfont leftDetail {{ activeIndex === index ? isExpand ? 'expand': 'noExpand' : 'noExpand'}}" data-index="{{index}}" catchtap="isExpand">查看详情</view>
@@ -161,10 +167,6 @@
             <!-- 占位 -->
             <view class="split" style="height: 250rpx" wx:if="{{argObj.isSplit}}" />
         </view>
-        <!-- 加购权益包 -->
-        <view class="module addEquityPackage" wx:if="{{argObj.type === 'add_equity_package'}}">
-            <!-- 占位 -->
-            <view class="split" style="height: 250rpx" wx:if="{{argObj.isSplit}}" />
-        </view>
+       
     </view>
 </view>

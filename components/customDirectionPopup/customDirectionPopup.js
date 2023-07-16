@@ -66,7 +66,9 @@ Component({
         ],
         isExpand: false, // 是否展开详情 false - 表示不展开
         couponList: [], // 券列表
-        activeIndex: -1 // 选中权益包模块的索引
+        activeIndex: -1, // 选中权益包模块的索引(针对详情)
+        choiceIndex: -1, // 选中权益包模块的索引(针对模块高亮)
+        isHeightLight: false // 控制是否选中高亮
         // ==================================end =====================================================
     },
 
@@ -85,7 +87,7 @@ Component({
                 let couponList = [];
                 if (argObj.equityPackageInfo instanceof Array) {
                     couponList = argObj.equityPackageInfo;
-                    this.setData({couponList});
+                    this.setData({couponList,choiceIndex: argObj.aepIndex,isHeightLight: argObj.mustEquity === 1});
                     for (let index = 0; index < argObj.equityPackageInfo.length; index++) {
                         this.getPackageRelation(argObj.equityPackageInfo[index].id,index);
                     }
@@ -109,7 +111,7 @@ Component({
                 mask: false
             });
             setTimeout(() => {
-                that.setData({ make: false,isHide: false,isBtn: false,noSliding: false,isExpand: false });
+                that.setData({ make: false,isHide: false,isBtn: false,noSliding: false,isExpand: false,isHeightLight: false,activeIndex: -1,choiceIndex: -1 });
             }, 380);
         },
         noSliding () {},
@@ -487,10 +489,23 @@ Component({
         isExpand (e) {
             let index = e.currentTarget.dataset.index;
             let activeIndex = this.data.activeIndex;
+            let isFade = index !== activeIndex; // 当前索引与选中索引不相等时展开
             this.setData({
                 activeIndex: index,
-                isExpand: index === activeIndex ? !this.data.isExpand : false
+                isExpand: index === activeIndex ? !this.data.isExpand : isFade
             });
+        },
+        // 点击是否高亮
+        btnMd1 (e) {
+            let index = e.currentTarget.dataset.index;
+            let choiceIndex = this.data.choiceIndex;
+            let isChoice = choiceIndex !== index;
+            if (this.data.argObj.mustEquity === 1 && !isChoice) return;
+            this.setData({
+                choiceIndex: index,
+                isHeightLight: index === choiceIndex ? !this.data.isHeightLight : isChoice
+            });
+            this.triggerEvent('cDPopup',{choiceIndex: this.data.choiceIndex});
         },
         /**
          * 券包详情
@@ -596,5 +611,6 @@ Component({
 				util.showToastNoIcon(result.message);
 			}
 		}
+        // ------------------------------end----------------------------------------------
     }
 });

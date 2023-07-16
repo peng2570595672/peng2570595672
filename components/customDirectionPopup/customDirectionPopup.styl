@@ -505,10 +505,15 @@ flexModule($align=normal,$justify=normal)
                     font-weight 500
                     color #9D3B00
     .defaultEquityPackage
-        max-height 1000rpx
+        max-height 70vh
         overflow-y scroll
+        .topTttle
+            mixinsWidthHeight(,44rpx)
+            textLineCenter(44rpx)
+            margin 0rpx 0rpx 40rpx 0rpx
         .content
             margin-bottom 20rpx
+            position relative
             .md1
                 mixinsWidthHeight(,144rpx)
                 background url(https://file.cyzl.com/g001/M02/ED/84/oYYBAGSuVQyATDA_AAAuxBB836s809.png) no-repeat
@@ -628,6 +633,33 @@ flexModule($align=normal,$justify=normal)
                 font-weight 400
                 color #923B18
                 letter-spacing 3rpx
+        .isHighLight
+
+            &::before
+                display block
+                mixinsWidthHeight(42rpx,32rpx)
+                mixinsIconfont('\e67b',20rpx,#f00)
+                border-end-end-radius 14rpx
+                border-start-start-radius 14rpx
+                flexModule(center,center) 
+                position absolute
+                top 0rpx
+                left 0rpx
+                background #FFF3E0
+                z-index 100
+        .noHighLight
+             &::before
+                display block
+                mixinsWidthHeight(42rpx,32rpx)
+                mixinsIconfont('',20rpx,#0f0)
+                border-end-end-radius 14rpx
+                border-start-start-radius 14rpx
+                flexModule(center,center) 
+                position absolute
+                top 0rpx
+                left 0rpx
+                background #FFF3E0
+                z-index 100
     .split
         width 100vw
     .image

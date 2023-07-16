@@ -544,11 +544,19 @@
   color: #9d3b00;
 }
 .make .defaultEquityPackage {
-  max-height: 1000rpx;
+  max-height: 70vh;
   overflow-y: scroll;
+}
+.make .defaultEquityPackage .topTttle {
+  width: 100%;
+  height: 44rpx;
+  text-align: center;
+  line-height: 44rpx;
+  margin: 0rpx 0rpx 40rpx 0rpx;
 }
 .make .defaultEquityPackage .content {
   margin-bottom: 20rpx;
+  position: relative;
 }
 .make .defaultEquityPackage .content .md1 {
   width: 100%;
@@ -717,6 +725,42 @@
   font-weight: 400;
   color: #923b18;
   letter-spacing: 3rpx;
+}
+.make .defaultEquityPackage .isHighLight::before {
+  display: block;
+  width: 42rpx;
+  height: 32rpx;
+  content: '\e67b';
+  font-size: 20rpx;
+  color: #f00;
+  border-end-end-radius: 14rpx;
+  border-start-start-radius: 14rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0rpx;
+  left: 0rpx;
+  background: #fff3e0;
+  z-index: 100;
+}
+.make .defaultEquityPackage .noHighLight::before {
+  display: block;
+  width: 42rpx;
+  height: 32rpx;
+  content: '';
+  font-size: 20rpx;
+  color: #0f0;
+  border-end-end-radius: 14rpx;
+  border-start-start-radius: 14rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0rpx;
+  left: 0rpx;
+  background: #fff3e0;
+  z-index: 100;
 }
 .make .split {
   width: 100vw;
