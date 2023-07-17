@@ -926,7 +926,8 @@ Page({
 		});
 		let equityListMap = {
 			defaultEquityList: [],	// 默认权益包列表
-			addEquityList: []	// 加购权益包列表
+			addEquityList: [],	// 加购权益包列表
+			serviceEquityList: []	// 综合权益包
 		};
 		let currentIndex = 0;
 		for (currentIndex; currentIndex < num; currentIndex++) {
@@ -945,8 +946,31 @@ Page({
 					equityListMap.addEquityList.push({index: currentIndex, packageName: '',payMoney: 0,aepIndex: -1});
 				}
 			}
-			// 默认权益包(只能有一个)
-			const packageId = this.data.listOfPackages[currentIndex].rightsPackageId && this.data.listOfPackages[currentIndex].rightsPackageId !== 0;
+			// 默认权益包(只能有一个) + 2%综合服务费赠送的权益包
+			let defaultPackages = [];
+			let sevicePackages = this.data.listOfPackages[currentIndex].serviceFeePackageId;
+			if (sevicePackages) defaultPackages = sevicePackages.split(',');
+			if (defaultPackages.length === 0) {
+				equityListMap.serviceEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+			} else {
+				const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
+					packageIds: defaultPackages
+				},'POST',false);
+				if (result.code === 0) {
+					let packageName = '';
+					let payMoney = 0;
+					result.data.map((item,index) => {
+						packageName += item.packageName;
+						payMoney += item.payMoney;
+						packageName += index < result.data.length ? '+' : '';
+					});
+					equityListMap.serviceEquityList.push({index: currentIndex,subData: result.data,packageName: packageName,payMoney: payMoney});
+				} else {
+					// 占位
+					equityListMap.serviceEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+				}
+			}
+			let packageId = this.data.listOfPackages[currentIndex].rightsPackageId && this.data.listOfPackages[currentIndex].rightsPackageId !== 0;
 			if (!packageId) {
 				equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
 			} else {
@@ -954,7 +978,7 @@ Page({
 					packageIds: new Array(this.data.listOfPackages[currentIndex].rightsPackageId)
 				},'POST',false);
 				if (result.code === 0) {
-					equityListMap.defaultEquityList.push({index: currentIndex,subData: result.data[0]});
+					equityListMap.defaultEquityList.push({index: currentIndex,subData: result.data});
 				} else {
 					// 占位
 					equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
@@ -1016,6 +1040,8 @@ Page({
 	popDetail (e) {
 		let type = e.currentTarget.dataset.type;	// string
 		let index = e.currentTarget.dataset.index;	// number
+		let def = this.data.equityListMap.defaultEquityList[index];
+		let service = this.data.equityListMap.serviceEquityList[index];
 		switch (type) {
 			case '1':
 				this.selectComponent('#cdPopup').show({
@@ -1035,7 +1061,7 @@ Page({
 						title: '加赠权益包',
 						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 30%,#FFFFFF 100%)',
 						isSplit: index === this.data.activeIndex ? true : this.data.isFade,
-						equityPackageInfo: this.data.equityListMap.defaultEquityList[index].subData
+						equityPackageInfo: service.subData && service.subData.length > 0 ? service.subData.concat(def.subData) : def.subData
 					}
 				});
 				break;
@@ -1082,7 +1108,6 @@ Page({
 	// 弹窗组件
 	cDPopup (e) {
 		let choiceIndex = parseInt(e.detail.choiceIndex);
-		console.log(choiceIndex);
 		let equityListMap = this.data.equityListMap;
 		equityListMap.addEquityList[this.data.activeIndex].aepIndex = choiceIndex;
 		this.setData({equityListMap});

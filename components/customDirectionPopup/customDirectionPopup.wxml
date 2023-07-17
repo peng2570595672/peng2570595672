@@ -101,14 +101,14 @@
                 wx:key="*this">
                 <view class="iconfont md1 {{argObj.type === 'add_equity_package' ? index === choiceIndex ? isHeightLight ? 'isHighLight' : 'noHighLight' : 'noHighLight' : ''}}"
                     data-index="{{index}}"
-                    catchtap="btnMd1"
+                    catchtap="{{argObj.type === 'add_equity_package' ? 'btnMd1' : ''}}"
                     >
                     <view class="mdLeft">
                         <view class="leftMoney">{{item.payMoney / 100}}<text class="text2">元</text></view>
                         <view class="iconfont leftDetail {{ activeIndex === index ? isExpand ? 'expand': 'noExpand' : 'noExpand'}}" data-index="{{index}}" catchtap="isExpand">查看详情</view>
                     </view>
                     <view class="mdRight">
-                        <view class="rightTitle">{{item.packageName}}</view>
+                        <view class="rightTitle">{{tools.limitNumber(item.packageName,12)}}</view>
                         <view class="rightContent">
                             <text wx:for="{{item.detailList}}" wx:for-item="item1" wx:for-index="index1" wx:key="index1">
                                 <text wx:if="{{item1.couponType === 1 && index1 < 4}}">{{item1.denomination / 100}}元高速通行券X{{item1.couponCount}}{{index1 === tools.dataLen(item.detailList)-1 ? '' : index1 > 2 ? '...' : '、'}}</text>
@@ -126,7 +126,7 @@
                     <view class="subInfo {{index2 % 3 === 0 ? 'indentation' : ''}}" wx:for="{{item.detailList}}" wx:for-item="item2" wx:for-index="index2" wx:key="index2">
                         <view class="topRight">×{{item2.couponCount}}张</view>
                         <view class="money">￥<text class="text3">{{item2.denomination / 100}}</text></view>
-                        <view class="desc">满{{item2.consumptionThreshold / 100}}可用</view>
+                        <view class="desc">满{{item2.consumptionThreshold / 100}}元可用</view>
                         <view class="couponType">
                             <text wx:if="{{item2.couponType === 1}}">高速通行券</text>
                             <text wx:if="{{item2.couponType === 2}}">停车券</text>

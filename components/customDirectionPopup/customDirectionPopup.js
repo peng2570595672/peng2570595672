@@ -74,7 +74,6 @@ Component({
 
     methods: {
         show (obj) {
-            console.log(obj);
             let isBtnClose = obj.isBtnClose ? obj.isBtnClose : false;
             let argObj = obj.argObj || this.data.argObj;
             if (argObj.type === 'device_upgrade') {
@@ -85,16 +84,17 @@ Component({
             if (argObj.type === 'default_equity_package' || argObj.type === 'add_equity_package') {
                 this.setData({couponList: []});
                 let couponList = [];
-                if (argObj.equityPackageInfo instanceof Array) {
-                    couponList = argObj.equityPackageInfo;
+                couponList = argObj.equityPackageInfo;
+                if (argObj.type === 'add_equity_package') {
                     this.setData({couponList,choiceIndex: argObj.aepIndex,isHeightLight: argObj.mustEquity === 1});
                     for (let index = 0; index < argObj.equityPackageInfo.length; index++) {
                         this.getPackageRelation(argObj.equityPackageInfo[index].id,index);
                     }
                 } else {
-                    couponList.push(argObj.equityPackageInfo);
                     this.setData({couponList});
-                    this.getPackageRelation(argObj.equityPackageInfo.id,0);
+                    for (let index = 0; index < argObj.equityPackageInfo.length; index++) {
+                        this.getPackageRelation(argObj.equityPackageInfo[index].id,index);
+                    }
                 }
             }
             this.setData({
@@ -520,7 +520,6 @@ Component({
          * @returns
          */
         async getPackageRelation (id,index) {
-            console.log(id,index,this.data.couponList);
 			const result = await util.getDataFromServersV2('consumer/voucher/rights/get-package-coupon-list-buy', {
 				packageId: id
 			},'POST',true);
@@ -606,7 +605,7 @@ Component({
                 couponList[index].detailList = result.data;
                 couponList[index].countList = count1;
                 this.setData({couponList});
-                console.log(couponList);
+                // console.log(couponList);
 			} else {
 				util.showToastNoIcon(result.message);
 			}

@@ -49,18 +49,24 @@
                 <!-- 套餐附加权益信息显示 -->
                 <view class="addEquityInfo">
                     <!-- 设备信息（新旧设备对比） -->
-                    <view class="utilModlue" wx:if="{{item.etcCardId === 2}}" >
+                    <view class="utilModlue" wx:if="{{item.etcCardId === 2 && item.isShowDevice === 1}}" >
                         <view class="name">{{'第五代设备信息'}}</view>
                         <view class="detail" data-type="1" data-index="{{index}}" catchtap="popDetail">详情</view>
                     </view>
-                    <!-- 默认权益包（加赠） -->
-                    <view class="utilModlue" wx:if="{{tools.dataLen(item.rightsPackageId)}}">
-                        <view class="name">{{equityListMap.defaultEquityList[index].subData.packageName}}</view>
+                    <!-- 默认权益包（加赠）serviceFeeSendType: 综合服务费发放类型: 1.综合服务费券额，2.权益包 -->
+                    <view class="utilModlue" wx:if="{{tools.dataLen(item.rightsPackageId) || item.serviceFeeSendType === 2}}">
+                        <view class="name">
+                            <text wx:if="{{equityListMap.serviceEquityList[index].packageName}}">{{tools.limitNumber(equityListMap.serviceEquityList[index].packageName + '+' + equityListMap.defaultEquityList[index].subData[0].packageName,20)}}</text>
+                            <text wx:else>{{tools.limitNumber(equityListMap.defaultEquityList[index].subData[0].packageName,20)}}</text>
+                        </view>
                         <view class="detail" data-type="2" data-index="{{index}}" catchtap="popDetail">详情</view>
                     </view>
                     <!-- （券额/权益包）权益商城 -->
-                    <view class="utilModlue" wx:if="{{item.pledgeType === 4}}">
-                        <view class="name">赠送{{item.couponAmount / 100}}元权益商城券额</view>
+                    <view class="utilModlue" wx:if="{{item.pledgeType === 4 || item.serviceFeeSendType === 1}}">
+                        <view class="name">
+                            <text wx:if="{{item.couponAmount > 0}}">赠送{{item.couponAmount / 100}}元商城券额</text>
+                            <text wx:if="{{item.serviceFeeSendType === 1}}">{{item.couponAmount > 0 ? '+': '赠送'}}{{item.serviceFeeAmount / 100}}元/{{item.serviceFeeAmountSendRule === 1 ? '月' : item.serviceFeeAmountSendRule === 2 ? '季度' : '年'}}{{item.couponAmount > 0 ? tools.limitNumber('综合商城券额',6) : '综合商城券额'}}</text>
+                        </view>
                         <view class="detail" data-type="3" data-index="{{index}}" catchtap="popDetail">详情</view>
                     </view>
                     <!-- 通通券会员 -->

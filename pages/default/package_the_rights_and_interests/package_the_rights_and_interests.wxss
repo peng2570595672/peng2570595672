@@ -213,6 +213,9 @@
   margin-top: 20rpx;
 }
 .package .module .upperPart .addEquityInfo .utilModlue .name {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   color: #e9ca7b;
 }
 .package .module .upperPart .addEquityInfo .utilModlue .detail {
