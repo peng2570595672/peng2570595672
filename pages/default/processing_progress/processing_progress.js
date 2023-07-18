@@ -673,6 +673,17 @@ Page({
 		// 授权提醒
 		this.selectComponent('#popTipComp').show({type: 'nine',title: '免责声明',btnCancel: '取消',btnconfirm: '同意授权'});
 	},
+	// 继续办理平安信用卡入口
+	async goPinAnH5 () {
+		let res = await util.getDataFromServersV2('/consumer/order/pingan/get-apply-credit-card-url',{orderId: this.data.orderId});
+		if (!res) return;
+		if (res.code === 0) {
+			// 跳转 h5
+			util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data)}`);
+		} else {
+			util.showToastNoIcon(res.message);
+		}
+	},
 	onUnload () {
 		if (this.data.type === 'main_process' || app.globalData.isNeedReturnHome) {
 			wx.switchTab({
