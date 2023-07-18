@@ -95,7 +95,7 @@
         </view>
         <!-- 默认权益包（加赠权益包） || 加购权益包 -->
         <view class="module defaultEquityPackage" wx:if="{{argObj.type === 'default_equity_package' || argObj.type === 'add_equity_package'}}">
-            <view class="topTttle" wx:if="{{argObj.mustEquity === 1}}">至少选择1个权益包</view>
+            <view class="topTttle" wx:if="{{argObj.mustEquity === 1}}">请选择一个权益包</view>
             <view class="content" 
                 wx:for="{{couponList}}" 
                 wx:key="*this">
@@ -104,7 +104,7 @@
                     catchtap="{{argObj.type === 'add_equity_package' ? 'btnMd1' : ''}}"
                     >
                     <view class="mdLeft">
-                        <view class="leftMoney">{{item.payMoney / 100}}<text class="text2">元</text></view>
+                        <view class="leftMoney"><text class="text2">售价￥</text>{{item.payMoney / 100}}00</view>
                         <view class="iconfont leftDetail {{ activeIndex === index ? isExpand ? 'expand': 'noExpand' : 'noExpand'}}" data-index="{{index}}" catchtap="isExpand">查看详情</view>
                     </view>
                     <view class="mdRight">

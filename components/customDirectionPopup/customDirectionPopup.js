@@ -534,6 +534,15 @@ Component({
                     minTime: '2023-06-02 17:38:49',
                     periodCount: 2
                 };
+                let test2 = {
+                    consumptionThreshold: 2001,
+                    couponCount: 10,
+                    couponType: 2,
+                    denomination: 1000,
+                    minDays: 20,
+                    minTime: '2023-06-02 17:38:49',
+                    periodCount: 2
+                };
                 let test3 = {
                     consumptionThreshold: 1001,
                     couponCount: 20,
@@ -580,12 +589,14 @@ Component({
                     periodCount: 7
                 };
                 // result.data.push(result.data[0]);
-                // result.data.push(test1);
-                // result.data.push(test3);
-                // result.data.push(test4);
                 // result.data.push(test5);
                 // result.data.push(test6);
                 // result.data.push(test7);
+                // result.data.push(test1);
+                // result.data.push(test2);
+                // result.data.push(test3);
+                // result.data.push(test4);
+
                 let couponList = this.data.couponList;
                 let t1 = 0; let t2 = 0; let t3 = 0; let t4 = 0; let t5 = 0; let t6 = 0; let t7 = 0;
                 result.data.map(item => {
@@ -604,12 +615,27 @@ Component({
                 });
                 couponList[index].detailList = result.data;
                 couponList[index].countList = count1;
+                couponList[index].detailList.sort(this.reorder('couponType')); // 排序
                 this.setData({couponList});
-                // console.log(couponList);
+                console.log(couponList);
 			} else {
 				util.showToastNoIcon(result.message);
 			}
-		}
+		},
+        // 排序
+        reorder (prop) {
+            return function (obj1, obj2) {
+                const val1 = +obj1[prop];
+                const val2 = +obj2[prop];
+                if (val1 < val2) {
+                    return -1;
+                } else if (val1 > val2) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            };
+        }
         // ------------------------------end----------------------------------------------
     }
 });

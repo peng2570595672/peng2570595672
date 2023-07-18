@@ -958,13 +958,13 @@ Page({
 				},'POST',false);
 				if (result.code === 0) {
 					let packageName = '';
-					let payMoney = 0;
+					// let payMoney = 0;	// 综合服务权益包 金额
 					result.data.map((item,index) => {
 						packageName += item.packageName;
-						payMoney += item.payMoney;
+						// payMoney += item.payMoney;
 						packageName += index < result.data.length ? '+' : '';
 					});
-					equityListMap.serviceEquityList.push({index: currentIndex,subData: result.data,packageName: packageName,payMoney: payMoney});
+					equityListMap.serviceEquityList.push({index: currentIndex,subData: result.data,packageName: packageName,payMoney: 0});
 				} else {
 					// 占位
 					equityListMap.serviceEquityList.push({index: currentIndex, packageName: '',payMoney: 0});

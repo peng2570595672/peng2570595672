@@ -22,10 +22,10 @@
                     <view class="title">{{tools.limitNumber(item.productName,18)}}</view>
                     <!-- 取后台支付金额，保留小数点后2位，若套餐支付金额为0时，前端价格展示为免费 -->
                     <view class="money">
-                        <span wx:if="{{item.pledgePrice || equityListMap.addEquityList[index].subData[equityListMap.addEquityList[index].aepIndex].payMoney || (item.isSignTtCoupon === 1 ? item.ttCouponPayAmount : 0) || equityListMap.serviceEquityList[index].payMoney}}" >
+                        <span wx:if="{{item.pledgePrice || equityListMap.addEquityList[index].subData[equityListMap.addEquityList[index].aepIndex].payMoney || (item.isSignTtCoupon === 1 ? item.ttCouponPayAmount : 0)}}" >
                             <!-- 支付金额类型为 通行权益金时，文案为“免费” -->
                             <text wx:if="{{item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId || item.shopProductId === wellBankShopProductId || item.pledgeType === 5}}" style="color: #2A4F44">免费</text>
-                            <text wx:else>￥{{tools.parseNum(item.pledgePrice + (equityListMap.addEquityList[index].aepIndex !== -1 ? equityListMap.addEquityList[index].subData[equityListMap.addEquityList[index].aepIndex].payMoney : 0) + equityListMap.serviceEquityList[index].payMoney  + (item.isSignTtCoupon === 1 ? item.ttCouponPayAmount : 0))/100}}</text>
+                            <text wx:else>￥{{tools.parseNum(item.pledgePrice + (equityListMap.addEquityList[index].aepIndex !== -1 ? equityListMap.addEquityList[index].subData[equityListMap.addEquityList[index].aepIndex].payMoney : 0) + (item.isSignTtCoupon === 1 ? item.ttCouponPayAmount : 0))/100}}</text>
                         </span>
                         <!-- 空发套餐并且设备免费时，隐藏金额 -->
                         <span wx:else style="color: #0f0">{{item.productType === 6 ? '' : '免费'}}</span>
@@ -157,9 +157,9 @@
         </view>
         <!-- 签约、支付、下一步 -->
         <view class="paySign" wx:else>
-            <view class="moneyPay {{isFade ? 'confirmPackage' : ''}}" wx:if="{{choiceIndex !== -1 && (listOfPackages[activeIndex].pledgePrice || (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0) || equityListMap.serviceEquityList[activeIndex].payMoney)}}">
+            <view class="moneyPay {{isFade ? 'confirmPackage' : ''}}" wx:if="{{choiceIndex !== -1 && (listOfPackages[activeIndex].pledgePrice || (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))}}">
                 <view class="money" wx:if="{{isFade}}">
-                    ￥<span class="mpneySpan">{{activeIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + equityListMap.serviceEquityList[activeIndex].payMoney + (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}
+                    ￥<span class="mpneySpan">{{activeIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}
                 </span>
                 </view>
                 <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}} bail" data-isconfirm="{{getAgreement}}" wx:if="{{listOfPackages[activeIndex].pledgeType === 5 || citicBank}}" catchtap="next">
