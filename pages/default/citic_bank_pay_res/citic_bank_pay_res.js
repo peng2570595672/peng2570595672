@@ -7,9 +7,11 @@ Page({
     },
 
     onLoad (options) {
-        console.log(options);
         if (options?.cictBankPayStatus) {
-            this.setData({cictBankPayStatus: options.cictBankPayStatus === 'true'});
+            this.setData({
+                cictBankPayStatus: options.cictBankPayStatus === 'true',
+                text: options.isWellBank === 'true' ? '平安银行' : '中信银行'
+            });
         }
     },
 
