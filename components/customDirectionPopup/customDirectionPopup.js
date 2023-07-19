@@ -598,23 +598,23 @@ Component({
                 // result.data.push(test4);
 
                 let couponList = this.data.couponList;
-                let t1 = 0; let t2 = 0; let t3 = 0; let t4 = 0; let t5 = 0; let t6 = 0; let t7 = 0;
-                result.data.map(item => {
-                    if (item.couponType === 1) t1 += item.periodCount;
-                    if (item.couponType === 2) t2 += item.periodCount;
-                    if (item.couponType === 3) t3 += item.periodCount;
-                    if (item.couponType === 4) t4 += item.periodCount;
-                    if (item.couponType === 5) t5 += item.periodCount;
-                    if (item.couponType === 6) t6 += item.periodCount;
-                    if (item.couponType === 7) t7 += item.periodCount;
-                });
-                let count = [t1,t2,t3,t4,t5,t6,t7];
-                let count1 = [];
-                count.map((item,index) => {
-                    if (item > 0) count1.push({couponType: index + 1, count: item});
-                });
+                // let t1 = 0; let t2 = 0; let t3 = 0; let t4 = 0; let t5 = 0; let t6 = 0; let t7 = 0;
+                // result.data.map(item => {
+                //     if (item.couponType === 1) t1 += item.periodCount;
+                //     if (item.couponType === 2) t2 += item.periodCount;
+                //     if (item.couponType === 3) t3 += item.periodCount;
+                //     if (item.couponType === 4) t4 += item.periodCount;
+                //     if (item.couponType === 5) t5 += item.periodCount;
+                //     if (item.couponType === 6) t6 += item.periodCount;
+                //     if (item.couponType === 7) t7 += item.periodCount;
+                // });
+                // let count = [t1,t2,t3,t4,t5,t6,t7];
+                // let count1 = [];
+                // count.map((item,index) => {
+                //     if (item > 0) count1.push({couponType: index + 1, count: item});
+                // });
                 couponList[index].detailList = result.data;
-                couponList[index].countList = count1;
+                // couponList[index].countList = count1;
                 couponList[index].detailList.sort(this.reorder('couponType')); // 排序
                 this.setData({couponList});
                 console.log(couponList);

@@ -595,7 +595,7 @@ Page({
 			return;
 		}
 		if (this.data.listOfPackages[this.data.choiceIndex].mustChoiceRightsPackage === 1 && this.data.equityListMap.addEquityList[this.data.choiceIndex].aepIndex === -1) {
-			util.showToastNoIcon('请至少选择一个权益包');
+			util.showToastNoIcon('请选择一个权益包');
 			return;
 		}
 		if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4) {

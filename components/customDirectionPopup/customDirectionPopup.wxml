@@ -104,7 +104,7 @@
                     catchtap="{{argObj.type === 'add_equity_package' ? 'btnMd1' : ''}}"
                     >
                     <view class="mdLeft">
-                        <view class="leftMoney"><text class="text2">售价￥</text>{{item.payMoney / 100}}00</view>
+                        <view class="leftMoney"><text class="text2">售价￥</text>{{item.payMoney / 100}}</view>
                         <view class="iconfont leftDetail {{ activeIndex === index ? isExpand ? 'expand': 'noExpand' : 'noExpand'}}" data-index="{{index}}" catchtap="isExpand">查看详情</view>
                     </view>
                     <view class="mdRight">
@@ -139,14 +139,14 @@
                         <view class="validDay">领后{{item2.minDays}}天有效</view>
                     </view>
                     <view class="illustrate">
-                        <text wx:for="{{item.countList}}" wx:for-item="item3" wx:for-index="index3" wx:key="index3">
-                            <text wx:if="{{item3.couponType === 1}}">通行券每期最高可手动领{{item3.count}}张{{index3 === tools.dataLen(item.countList) - 1 ? '' : '，' }}</text>
-                            <text wx:if="{{item3.couponType === 2}}">停车券每期最高可领{{item3.count}}张{{index3 === tools.dataLen(item.countList) - 1 ? '' : '，' }}</text>
-                            <text wx:if="{{item3.couponType === 3}}">加油券每期最高可领{{item3.count}}张{{index3 === tools.dataLen(item.countList) - 1 ? '' : '，' }}</text>
-                            <text wx:if="{{item3.couponType === 4}}">充电券每期最高可领{{item3.count}}张{{index3 === tools.dataLen(item.countList) - 1 ? '' : '，' }}</text>
-                            <text wx:if="{{item3.couponType === 5}}">洗车券每期最高可领{{item3.count}}张{{index3 === tools.dataLen(item.countList) - 1 ? '' : '，' }}</text>
-                            <text wx:if="{{item3.couponType === 6}}">通用券每期最高可领{{item3.count}}张{{index3 === tools.dataLen(item.countList) - 1 ? '' : '，' }}</text>
-                            <text wx:if="{{item3.couponType === 7}}">商品消费券每期最高可领{{item3.count}}张{{index3 === tools.dataLen(item.countList) - 1 ? '' : '，' }}</text>
+                        <text wx:for="{{item.detailList}}" wx:for-item="item3" wx:for-index="index3" wx:key="index3">
+                            <text wx:if="{{item3.couponType === 1}}">{{item3.denomination / 100}}元通行券每期最高可{{item.sendMode === 1 ? '手动' : '自动'}}领{{item3.periodCount}}张{{index3 === tools.dataLen(item.detailList) - 1 ? '' : '，' }}</text>
+                            <text wx:if="{{item3.couponType === 2}}">{{item3.denomination / 100}}元停车券每期最高可{{item.sendMode === 1 ? '手动' : '自动'}}领{{item3.periodCount}}张{{index3 === tools.dataLen(item.detailList) - 1 ? '' : '，' }}</text>
+                            <text wx:if="{{item3.couponType === 3}}">{{item3.denomination / 100}}元加油券每期最高可{{item.sendMode === 1 ? '手动' : '自动'}}领{{item3.periodCount}}张{{index3 === tools.dataLen(item.detailList) - 1 ? '' : '，' }}</text>
+                            <text wx:if="{{item3.couponType === 4}}">{{item3.denomination / 100}}元充电券每期最高可{{item.sendMode === 1 ? '手动' : '自动'}}领{{item3.periodCount}}张{{index3 === tools.dataLen(item.detailList) - 1 ? '' : '，' }}</text>
+                            <text wx:if="{{item3.couponType === 5}}">{{item3.denomination / 100}}元洗车券每期最高可{{item.sendMode === 1 ? '手动' : '自动'}}领{{item3.periodCount}}张{{index3 === tools.dataLen(item.detailList) - 1 ? '' : '，' }}</text>
+                            <text wx:if="{{item3.couponType === 6}}">{{item3.denomination / 100}}元通用券每期最高可{{item.sendMode === 1 ? '手动' : '自动'}}领{{item3.periodCount}}张{{index3 === tools.dataLen(item.detailList) - 1 ? '' : '，' }}</text>
+                            <text wx:if="{{item3.couponType === 7}}">{{item3.denomination / 100}}元商品消费券每期最高可{{item.sendMode === 1 ? '手动' : '自动'}}领{{item3.periodCount}}张{{index3 === tools.dataLen(item.detailList) - 1 ? '' : '，' }}</text>
                         </text>
                     </view>
                 </view>

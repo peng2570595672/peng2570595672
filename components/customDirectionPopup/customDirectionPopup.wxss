@@ -584,8 +584,6 @@
   font-size: 48rpx;
   font-family: D-DIN-PRO-SemiBold, D-DIN-PRO;
   font-weight: 600;
-  background: #0f0;
-  overflow: hidden;
 }
 .make .defaultEquityPackage .content .md1 .mdLeft .leftMoney .text2 {
   font-size: 22rpx;
@@ -619,7 +617,7 @@
 .make .defaultEquityPackage .content .md1 .mdRight {
   width: 478rpx;
   height: 100%;
-  padding: 0 30rpx 0rpx 60rpx;
+  text-indent: 30rpx;
 }
 .make .defaultEquityPackage .content .md1 .mdRight .rightTitle {
   width: 100%;

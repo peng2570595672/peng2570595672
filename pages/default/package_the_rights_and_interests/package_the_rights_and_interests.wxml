@@ -82,14 +82,6 @@
                     <!-- <view class="titles" wx:if="{{item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId}}">
                         <view class="iconfont greenIcon"></view>
                         <view class="text">中信信用卡套餐办理说明</view>
-                    </view>
-                    <view class="titles" wx:if="{{item.shopProductId === wellBankShopProductId}}">
-                        <view class="iconfont greenIcon"></view>
-                        <view class="text">平安信用卡套餐办理说明</view>
-                    </view>
-                    <view class="titles" wx:if="{{item.pledgeType === 5 && !tools.dataLen(item.rightsPackageIds) && item.etcCardId !== 2 && !(item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId)}}">
-                        <view class="iconfont greenIcon"></view>
-                        <view class="text">通行权益金套餐说明</view>
                     </view> -->
                     <view class="titles" wx:if="{{item.productRecommend}}">
                         <view class="iconfont icon"></view>
@@ -106,15 +98,6 @@
                     <!-- <view wx:if="{{item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId}}" class="isSignTtCoupon">
                         <view class="cict">1、 中信银行信用卡活动，非持卡人可支付保证金后申请中信银行信用卡指定卡板</view>
                         <view class="cict">2、 成功办理中信银行信用卡的新客户即退还全额保证金，信用卡申请不通过，可取消订单退还保证金</view>
-                    </view>
-                    <view wx:if="{{item.shopProductId === wellBankShopProductId}}" class="isSignTtCoupon">
-                        <view class="cict">1、平安银行信用卡活动，非持卡人可支付保证金后申请平安银行信用卡指定卡板</view>
-                        <view class="cict">2、成功办理平安银行信用卡的新客户即退还全额保证金，信用卡申请不通过，可取消订单退还保证金</view>
-                    </view>
-                    <view class="isSignTtCoupon" wx:if="{{item.pledgeType === 5 && !(item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId)}}">
-                        <view class="cict">1、通行权益金可用于抵扣通行费，即微信代扣失败时，会代扣权益金进行垫付，后续微信扣费成功即可奖励通行权益金</view>
-                        <view class="cict">2、通行权益金须大于100元，才可用于通行费抵扣</view>
-                        <view class="cict">3、激活后通行满36个月奖励账户权益金同等余额的消费金（可提现、可抵扣通行费等）</view>
                     </view> -->
                 </view>
             </view>
