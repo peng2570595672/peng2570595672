@@ -31,7 +31,7 @@
                         <span wx:else style="color: #0f0">{{item.productType === 6 ? '' : '免费'}}</span>
                     </view>
                 </view>
-                <view class="subTitle">{{tools.limitNumber(item.fullName,15)}}</view>
+                <view class="subTitle">{{tools.limitNumber(item.fullName,20)}}</view>
                 <view class="titleExplain" wx:if="{{item.marketingTagType === 2 && item.marketingTag}}">
                     <span class="planSpan">{{item.marketingTag}}</span>
                 </view>
@@ -85,7 +85,7 @@
                     </view> -->
                     <view class="titles" wx:if="{{item.productRecommend}}">
                         <view class="iconfont icon"></view>
-                        <view class="text">{{tools.limitNumber(item.productRecommend,17)}}</view>
+                        <view class="text">{{tools.limitNumber(item.productRecommend,16)}}</view>
                     </view>
                     <view class="details" catchtap="btnOpenOrOff" data-index="{{[index,isCloseUpperPart,activeIndex]}}">
                         {{ index === activeIndex ? isCloseUpperPart1 ? '收起' : '详情' : isCloseUpperPart2 && index === isCloseUpperPart ? '收起' : '详情'}}
@@ -106,7 +106,7 @@
     <!-- 占位 -->
     <view class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}} {{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) ? 'isRPI' : ''}}" ></view>
     <!-- 加购的权益包 -->
-    <view class="addEquityPackage" wx:if="{{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) && isLoaded && true}}" data-type="5" data-index='{{activeIndex}}' catchtap="popDetail">
+    <view class="addEquityPackage" wx:if="{{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) && isLoaded}}" data-type="5" data-index='{{activeIndex}}' catchtap="popDetail">
         <view class="imgOrName">
             <view class="img"><image class="image" src="{{'https://file.cyzl.com/g001/M02/ED/17/oYYBAGStEiOAZAb0AAAV9IqXKBM565.png'}}" mode="widthFix" /></view>
             <text wx:for="{{equityListMap.addEquityList[activeIndex].subData}}" wx:for-item="item2" wx:key="index">{{item2.packageName}}{{index === tools.dataLen(equityListMap.addEquityList[activeIndex].subData) - 1 ? '' : '+'}}</text>
@@ -142,7 +142,7 @@
         <view class="paySign" wx:else>
             <view class="moneyPay {{isFade ? 'confirmPackage' : ''}}" wx:if="{{choiceIndex !== -1 && (listOfPackages[activeIndex].pledgePrice || (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))}}">
                 <view class="money" wx:if="{{isFade}}">
-                    ￥<span class="mpneySpan">{{activeIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}
+                    ￥<span class="mpneySpan">{{activeIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + tools.parseNum(listOfPackages[choiceIndex].ttCouponPayAmount) + (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}
                 </span>
                 </view>
                 <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}} bail" data-isconfirm="{{getAgreement}}" wx:if="{{listOfPackages[activeIndex].pledgeType === 5 || citicBank}}" catchtap="next">
