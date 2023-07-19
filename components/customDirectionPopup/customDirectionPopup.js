@@ -484,6 +484,10 @@ Component({
         },
         // -------------------- 设备升级-end------------------------------------
 
+        // 通通券
+        btnExpand () {
+            this.setData({isExpand: !this.data.isExpand});
+        },
         // ------------------默认权益包（加赠）------------------------------
         // 控制详情的展示与收缩
         isExpand (e) {
@@ -500,12 +504,12 @@ Component({
             let index = e.currentTarget.dataset.index;
             let choiceIndex = this.data.choiceIndex;
             let isChoice = choiceIndex !== index;
-            if (this.data.argObj.mustEquity === 1 && !isChoice) return;
+            // if (this.data.argObj.mustEquity === 1 && !isChoice) return;
             this.setData({
                 choiceIndex: index,
                 isHeightLight: index === choiceIndex ? !this.data.isHeightLight : isChoice
             });
-            this.triggerEvent('cDPopup',{choiceIndex: this.data.choiceIndex});
+            this.triggerEvent('cDPopup',{choiceIndex: this.data.isHeightLight ? this.data.choiceIndex : -1});
         },
         /**
          * 券包详情
@@ -525,69 +529,69 @@ Component({
 			},'POST',true);
 			if (!result) return;
 			if (result.code === 0) {
-                let test1 = {
-                    consumptionThreshold: 1001,
-                    couponCount: 20,
-                    couponType: 1,
-                    denomination: 1000,
-                    minDays: 20,
-                    minTime: '2023-06-02 17:38:49',
-                    periodCount: 2
-                };
-                let test2 = {
-                    consumptionThreshold: 2001,
-                    couponCount: 10,
-                    couponType: 2,
-                    denomination: 1000,
-                    minDays: 20,
-                    minTime: '2023-06-02 17:38:49',
-                    periodCount: 2
-                };
-                let test3 = {
-                    consumptionThreshold: 1001,
-                    couponCount: 20,
-                    couponType: 3,
-                    denomination: 1000,
-                    minDays: 20,
-                    minTime: '2023-06-02 17:38:49',
-                    periodCount: 2
-                };
-                let test4 = {
-                    consumptionThreshold: 1001,
-                    couponCount: 20,
-                    couponType: 4,
-                    denomination: 1000,
-                    minDays: 20,
-                    minTime: '2023-06-02 17:38:49',
-                    periodCount: 2
-                };
-                let test5 = {
-                    consumptionThreshold: 1001,
-                    couponCount: 20,
-                    couponType: 5,
-                    denomination: 1000,
-                    minDays: 20,
-                    minTime: '2023-06-02 17:38:49',
-                    periodCount: 2
-                };
-                let test6 = {
-                    consumptionThreshold: 3001,
-                    couponCount: 30,
-                    couponType: 6,
-                    denomination: 3000,
-                    minDays: 20,
-                    minTime: '2023-06-02 17:38:49',
-                    periodCount: 4
-                };
-                let test7 = {
-                    consumptionThreshold: 1501,
-                    couponCount: 34,
-                    couponType: 7,
-                    denomination: 1500,
-                    minDays: 70,
-                    minTime: '2023-06-02 17:38:49',
-                    periodCount: 7
-                };
+                // let test1 = {
+                //     consumptionThreshold: 1001,
+                //     couponCount: 20,
+                //     couponType: 1,
+                //     denomination: 1000,
+                //     minDays: 20,
+                //     minTime: '2023-06-02 17:38:49',
+                //     periodCount: 2
+                // };
+                // let test2 = {
+                //     consumptionThreshold: 2001,
+                //     couponCount: 10,
+                //     couponType: 2,
+                //     denomination: 1000,
+                //     minDays: 20,
+                //     minTime: '2023-06-02 17:38:49',
+                //     periodCount: 2
+                // };
+                // let test3 = {
+                //     consumptionThreshold: 1001,
+                //     couponCount: 20,
+                //     couponType: 3,
+                //     denomination: 1000,
+                //     minDays: 20,
+                //     minTime: '2023-06-02 17:38:49',
+                //     periodCount: 2
+                // };
+                // let test4 = {
+                //     consumptionThreshold: 1001,
+                //     couponCount: 20,
+                //     couponType: 4,
+                //     denomination: 1000,
+                //     minDays: 20,
+                //     minTime: '2023-06-02 17:38:49',
+                //     periodCount: 2
+                // };
+                // let test5 = {
+                //     consumptionThreshold: 1001,
+                //     couponCount: 20,
+                //     couponType: 5,
+                //     denomination: 1000,
+                //     minDays: 20,
+                //     minTime: '2023-06-02 17:38:49',
+                //     periodCount: 2
+                // };
+                // let test6 = {
+                //     consumptionThreshold: 3001,
+                //     couponCount: 30,
+                //     couponType: 6,
+                //     denomination: 3000,
+                //     minDays: 20,
+                //     minTime: '2023-06-02 17:38:49',
+                //     periodCount: 4
+                // };
+                // let test7 = {
+                //     consumptionThreshold: 1501,
+                //     couponCount: 34,
+                //     couponType: 7,
+                //     denomination: 1500,
+                //     minDays: 70,
+                //     minTime: '2023-06-02 17:38:49',
+                //     periodCount: 7
+                // };
                 // result.data.push(result.data[0]);
                 // result.data.push(test5);
                 // result.data.push(test6);
@@ -596,7 +600,7 @@ Component({
                 // result.data.push(test2);
                 // result.data.push(test3);
                 // result.data.push(test4);
-
+                if (result.data.length === 0) util.showToastNoIcon('没有券包');
                 let couponList = this.data.couponList;
                 // let t1 = 0; let t2 = 0; let t3 = 0; let t4 = 0; let t5 = 0; let t6 = 0; let t7 = 0;
                 // result.data.map(item => {

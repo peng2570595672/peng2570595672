@@ -22,10 +22,10 @@
                     <view class="title">{{tools.limitNumber(item.productName,18)}}</view>
                     <!-- 取后台支付金额，保留小数点后2位，若套餐支付金额为0时，前端价格展示为免费 -->
                     <view class="money">
-                        <span wx:if="{{item.pledgePrice || equityListMap.addEquityList[index].subData[equityListMap.addEquityList[index].aepIndex].payMoney || (item.isSignTtCoupon === 1 ? item.ttCouponPayAmount : 0)}}" >
+                        <span wx:if="{{item.pledgePrice}}" >
                             <!-- 支付金额类型为 通行权益金时，文案为“免费” -->
                             <text wx:if="{{item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId || item.shopProductId === wellBankShopProductId || item.pledgeType === 5}}" style="color: #2A4F44">免费</text>
-                            <text wx:else>￥{{tools.parseNum(item.pledgePrice + (equityListMap.addEquityList[index].aepIndex !== -1 ? equityListMap.addEquityList[index].subData[equityListMap.addEquityList[index].aepIndex].payMoney : 0) + (item.isSignTtCoupon === 1 ? item.ttCouponPayAmount : 0))/100}}</text>
+                            <text wx:else>￥{{tools.parseNum(item.pledgePrice)/100}}</text>
                         </span>
                         <!-- 空发套餐并且设备免费时，隐藏金额 -->
                         <span wx:else style="color: #0f0">{{item.productType === 6 ? '' : '免费'}}</span>
@@ -49,7 +49,7 @@
                 <!-- 套餐附加权益信息显示 -->
                 <view class="addEquityInfo">
                     <!-- 设备信息（新旧设备对比） -->
-                    <view class="utilModlue" wx:if="{{item.etcCardId === 2 && item.isShowDevice === 1}}" >
+                    <view class="utilModlue" wx:if="{{item.isShowDevice === 1}}" >
                         <view class="name">{{'第五代设备信息'}}</view>
                         <view class="detail" data-type="1" data-index="{{index}}" catchtap="popDetail">详情</view>
                     </view>
@@ -94,7 +94,6 @@
                 <!-- 套餐 详情展示模块 -->
                 <view class="detailsInfo" wx:if="{{index === activeIndex ? isCloseUpperPart1 : isCloseUpperPart2 && index === isCloseUpperPart }}">
                     <rich-text nodes="{{item.detail}}"></rich-text>
-
                     <!-- <view wx:if="{{item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId}}" class="isSignTtCoupon">
                         <view class="cict">1、 中信银行信用卡活动，非持卡人可支付保证金后申请中信银行信用卡指定卡板</view>
                         <view class="cict">2、 成功办理中信银行信用卡的新客户即退还全额保证金，信用卡申请不通过，可取消订单退还保证金</view>
@@ -105,6 +104,14 @@
     </view>
     <!-- 占位 -->
     <view class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}} {{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) ? 'isRPI' : ''}}" ></view>
+    <!-- 通通券-道路救援服务 -->
+    <!-- <view class="addEquityPackage" wx:if="{{listOfPackages[activeIndex].isSignTtCoupon === 1 && isLoaded}}" data-type="6" data-index='{{activeIndex}}' catchtap="popDetail">
+        <view class="imgOrName">
+            <view class="img"><image class="image" src="{{'https://file.cyzl.com/g001/M02/ED/17/oYYBAGStEiOAZAb0AAAV9IqXKBM565.png'}}" mode="widthFix" /></view>
+            <text >下单送500元道路救援服务</text>
+        </view>
+        <view class="iconfont icon4"></view>
+    </view> -->
     <!-- 加购的权益包 -->
     <view class="addEquityPackage" wx:if="{{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) && isLoaded}}" data-type="5" data-index='{{activeIndex}}' catchtap="popDetail">
         <view class="imgOrName">

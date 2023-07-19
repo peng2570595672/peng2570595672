@@ -940,7 +940,8 @@ Page({
 					packageIds: this.data.listOfPackages[currentIndex]?.rightsPackageIds
 				},'POST',false);
 				if (result.code === 0) {
-					equityListMap.addEquityList.push({index: currentIndex,subData: result.data,aepIndex: this.data.listOfPackages[currentIndex].mustChoiceRightsPackage === 1 ? 0 : -1});
+					// this.data.listOfPackages[currentIndex].mustChoiceRightsPackage === 1 ? 0 : -1
+					equityListMap.addEquityList.push({index: currentIndex,subData: result.data,aepIndex: -1});
 				} else {
 					// 占位
 					equityListMap.addEquityList.push({index: currentIndex, packageName: '',payMoney: 0,aepIndex: -1});
@@ -1098,6 +1099,17 @@ Page({
 						equityPackageInfo: this.data.equityListMap.addEquityList[index].subData,
 						mustEquity: this.data.listOfPackages[index].mustChoiceRightsPackage,
 						aepIndex: this.data.equityListMap.addEquityList[this.data.activeIndex].aepIndex
+					}
+				});
+				break;
+			case '6':
+				this.selectComponent('#cdPopup').show({
+					isBtnClose: true,
+					argObj: {
+						type: 'road_rescue',
+						title: '下单送500元道路救援服务',
+						isSplit: true,
+						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 40%,#FFFFFF 100%)'
 					}
 				});
 				break;
