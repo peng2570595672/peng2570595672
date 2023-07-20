@@ -835,9 +835,6 @@ Page({
 			// let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
 			app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
 			let isShowPingAn = this.data.firstCar.filter(item => list[0].vehPlates.includes(item));	// 平安获客
-			console.log(app.globalData.userInfo?.accessToken);
-			console.log(this.data.moduleTwoList);
-			console.log(isShowPingAn);
 			let funcListTwo = this.data.moduleTwoList.map(item1 => {
 				return item1.jumpUrl === '平安获客' ? isShowPingAn?.length === 0 ? undefined : !app.globalData.userInfo?.accessToken ? undefined : item1 : item1;
 			});

@@ -65,13 +65,15 @@ Component({
             }
         ],
         isExpand: false, // 是否展开详情 false - 表示不展开
-        couponList: [] // 券列表
+        couponList: [], // 券列表
+        activeIndex: -1, // 选中权益包模块的索引(针对详情)
+        choiceIndex: -1, // 选中权益包模块的索引(针对模块高亮)
+        isHeightLight: false // 控制是否选中高亮
         // ==================================end =====================================================
     },
 
     methods: {
         show (obj) {
-            console.log(obj);
             let isBtnClose = obj.isBtnClose ? obj.isBtnClose : false;
             let argObj = obj.argObj || this.data.argObj;
             if (argObj.type === 'device_upgrade') {
@@ -79,14 +81,20 @@ Component({
                 this.getProduct();
                 this.getEquityInfo();
             };
-            if (argObj.type === 'default_equity_package') {
+            if (argObj.type === 'default_equity_package' || argObj.type === 'add_equity_package') {
                 this.setData({couponList: []});
-                if (argObj.ids instanceof Array) {
-                    for (let index = 0; index < argObj.ids.length; index++) {
-                        this.getPackageRelation(argObj.ids[index]);
+                let couponList = [];
+                couponList = argObj.equityPackageInfo;
+                if (argObj.type === 'add_equity_package') {
+                    this.setData({couponList,choiceIndex: argObj.aepIndex,isHeightLight: argObj.mustEquity === 1});
+                    for (let index = 0; index < argObj.equityPackageInfo.length; index++) {
+                        this.getPackageRelation(argObj.equityPackageInfo[index].id,index);
                     }
                 } else {
-                    this.getPackageRelation(argObj.ids);
+                    this.setData({couponList});
+                    for (let index = 0; index < argObj.equityPackageInfo.length; index++) {
+                        this.getPackageRelation(argObj.equityPackageInfo[index].id,index);
+                    }
                 }
             }
             this.setData({
@@ -103,7 +111,7 @@ Component({
                 mask: false
             });
             setTimeout(() => {
-                that.setData({ make: false,isHide: false,isBtn: false,noSliding: false,isExpand: false });
+                that.setData({ make: false,isHide: false,isBtn: false,noSliding: false,isExpand: false,isHeightLight: false,activeIndex: -1,choiceIndex: -1 });
             }, 380);
         },
         noSliding () {},
@@ -476,10 +484,32 @@ Component({
         },
         // -------------------- 设备升级-end------------------------------------
 
+        // 通通券
+        btnExpand () {
+            this.setData({isExpand: !this.data.isExpand});
+        },
         // ------------------默认权益包（加赠）------------------------------
         // 控制详情的展示与收缩
-        isExpand () {
-            this.setData({isExpand: !this.data.isExpand});
+        isExpand (e) {
+            let index = e.currentTarget.dataset.index;
+            let activeIndex = this.data.activeIndex;
+            let isFade = index !== activeIndex; // 当前索引与选中索引不相等时展开
+            this.setData({
+                activeIndex: index,
+                isExpand: index === activeIndex ? !this.data.isExpand : isFade
+            });
+        },
+        // 点击是否高亮
+        btnMd1 (e) {
+            let index = e.currentTarget.dataset.index;
+            let choiceIndex = this.data.choiceIndex;
+            let isChoice = choiceIndex !== index;
+            // if (this.data.argObj.mustEquity === 1 && !isChoice) return;
+            this.setData({
+                choiceIndex: index,
+                isHeightLight: index === choiceIndex ? !this.data.isHeightLight : isChoice
+            });
+            this.triggerEvent('cDPopup',{choiceIndex: this.data.isHeightLight ? this.data.choiceIndex : -1});
         },
         /**
          * 券包详情
@@ -493,20 +523,123 @@ Component({
          * @param {*} id // 权益包ID
          * @returns
          */
-        async getPackageRelation (id) {
+        async getPackageRelation (id,index) {
 			const result = await util.getDataFromServersV2('consumer/voucher/rights/get-package-coupon-list-buy', {
-				packageId: id.toString()
+				packageId: id
 			},'POST',true);
 			if (!result) return;
 			if (result.code === 0) {
+                // let test1 = {
+                //     consumptionThreshold: 1001,
+                //     couponCount: 20,
+                //     couponType: 1,
+                //     denomination: 1000,
+                //     minDays: 20,
+                //     minTime: '2023-06-02 17:38:49',
+                //     periodCount: 2
+                // };
+                // let test2 = {
+                //     consumptionThreshold: 2001,
+                //     couponCount: 10,
+                //     couponType: 2,
+                //     denomination: 1000,
+                //     minDays: 20,
+                //     minTime: '2023-06-02 17:38:49',
+                //     periodCount: 2
+                // };
+                // let test3 = {
+                //     consumptionThreshold: 1001,
+                //     couponCount: 20,
+                //     couponType: 3,
+                //     denomination: 1000,
+                //     minDays: 20,
+                //     minTime: '2023-06-02 17:38:49',
+                //     periodCount: 2
+                // };
+                // let test4 = {
+                //     consumptionThreshold: 1001,
+                //     couponCount: 20,
+                //     couponType: 4,
+                //     denomination: 1000,
+                //     minDays: 20,
+                //     minTime: '2023-06-02 17:38:49',
+                //     periodCount: 2
+                // };
+                // let test5 = {
+                //     consumptionThreshold: 1001,
+                //     couponCount: 20,
+                //     couponType: 5,
+                //     denomination: 1000,
+                //     minDays: 20,
+                //     minTime: '2023-06-02 17:38:49',
+                //     periodCount: 2
+                // };
+                // let test6 = {
+                //     consumptionThreshold: 3001,
+                //     couponCount: 30,
+                //     couponType: 6,
+                //     denomination: 3000,
+                //     minDays: 20,
+                //     minTime: '2023-06-02 17:38:49',
+                //     periodCount: 4
+                // };
+                // let test7 = {
+                //     consumptionThreshold: 1501,
+                //     couponCount: 34,
+                //     couponType: 7,
+                //     denomination: 1500,
+                //     minDays: 70,
+                //     minTime: '2023-06-02 17:38:49',
+                //     periodCount: 7
+                // };
+                // result.data.push(result.data[0]);
+                // result.data.push(test5);
+                // result.data.push(test6);
+                // result.data.push(test7);
+                // result.data.push(test1);
+                // result.data.push(test2);
+                // result.data.push(test3);
+                // result.data.push(test4);
+                if (result.data.length === 0) util.showToastNoIcon('没有券包');
                 let couponList = this.data.couponList;
-                couponList.push(result.data);
-                couponList.push(result.data);
+                // let t1 = 0; let t2 = 0; let t3 = 0; let t4 = 0; let t5 = 0; let t6 = 0; let t7 = 0;
+                // result.data.map(item => {
+                //     if (item.couponType === 1) t1 += item.periodCount;
+                //     if (item.couponType === 2) t2 += item.periodCount;
+                //     if (item.couponType === 3) t3 += item.periodCount;
+                //     if (item.couponType === 4) t4 += item.periodCount;
+                //     if (item.couponType === 5) t5 += item.periodCount;
+                //     if (item.couponType === 6) t6 += item.periodCount;
+                //     if (item.couponType === 7) t7 += item.periodCount;
+                // });
+                // let count = [t1,t2,t3,t4,t5,t6,t7];
+                // let count1 = [];
+                // count.map((item,index) => {
+                //     if (item > 0) count1.push({couponType: index + 1, count: item});
+                // });
+                couponList[index].detailList = result.data;
+                // couponList[index].countList = count1;
+                couponList[index].detailList.sort(this.reorder('couponType')); // 排序
                 this.setData({couponList});
                 console.log(couponList);
 			} else {
 				util.showToastNoIcon(result.message);
 			}
-		}
+		},
+        // 排序
+        reorder (prop) {
+            return function (obj1, obj2) {
+                const val1 = +obj1[prop];
+                const val2 = +obj2[prop];
+                if (val1 < val2) {
+                    return -1;
+                } else if (val1 > val2) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            };
+        }
+        // ------------------------------end----------------------------------------------
     }
 });

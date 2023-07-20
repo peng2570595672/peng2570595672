@@ -150,13 +150,13 @@
 	<view catchtap="hide" class="coupon_mask animated {{showCouponWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{showCouponMask}}">
 		<view catchtap="close" class="detail_wrapper animated {{showCouponWrapper ? 'zoomInOther' : 'zoomOutOther'}}">
             <view class="mask-bg">
-                <image src="https://file.cyzl.com/g001/M00/8A/23/oYYBAGK4RauAY6mWAAAKXkGrLMw576.png" mode="widthFix"></image>
+                <image src="https://file.cyzl.com/g001/M02/8A/23/oYYBAGK4RauAY6mWAAAKXkGrLMw576.png" mode="widthFix"></image>
             </view>
             <view class="vip-bg">
-                <image src="https://file.cyzl.com/g001/M00/8A/23/oYYBAGK4RmqAUJl3AABR96YScio291.png" mode="widthFix"></image>
+                <image src="https://file.cyzl.com/g001/M01/8A/23/oYYBAGK4RmqAUJl3AABR96YScio291.png" mode="widthFix"></image>
             </view>
             <view class="mask-btn">
-                <image catchtap="handleCouponMini" src="https://file.cyzl.com/g001/M00/8A/23/oYYBAGK4RuiAXPVKAAB_STX0EkU988.png" mode="widthFix"></image>
+                <image catchtap="handleCouponMini" src="https://file.cyzl.com/g001/M01/8A/23/oYYBAGK4RuiAXPVKAAB_STX0EkU988.png" mode="widthFix"></image>
             </view>
 		</view>
 	</view>

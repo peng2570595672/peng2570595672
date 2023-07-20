@@ -181,8 +181,8 @@ function numReplace(param1,type=1) {
     param1 = param1 + ''
     return param1.indexOf('-') !== -1
   }
-
 }
+
 module.exports = {
   substring: substring,
   lowercaseToCapitalization: lowercaseToCapitalization,
