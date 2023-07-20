@@ -84,16 +84,17 @@ Component({
             if (argObj.type === 'default_equity_package' || argObj.type === 'add_equity_package') {
                 this.setData({couponList: []});
                 let couponList = [];
-                couponList = argObj.equityPackageInfo;
+                couponList = argObj.equityPackageInfo.filter(item => item);
+                console.log(couponList);
                 if (argObj.type === 'add_equity_package') {
                     this.setData({couponList,choiceIndex: argObj.aepIndex,isHeightLight: argObj.mustEquity === 1});
-                    for (let index = 0; index < argObj.equityPackageInfo.length; index++) {
-                        this.getPackageRelation(argObj.equityPackageInfo[index].id,index);
+                    for (let index = 0; index < couponList.length; index++) {
+                        this.getPackageRelation(couponList[index].id,index);
                     }
                 } else {
                     this.setData({couponList});
-                    for (let index = 0; index < argObj.equityPackageInfo.length; index++) {
-                        this.getPackageRelation(argObj.equityPackageInfo[index].id,index);
+                    for (let index = 0; index < couponList.length; index++) {
+                        this.getPackageRelation(couponList[index].id,index);
                     }
                 }
             }
@@ -529,99 +530,11 @@ Component({
 			},'POST',true);
 			if (!result) return;
 			if (result.code === 0) {
-                // let test1 = {
-                //     consumptionThreshold: 1001,
-                //     couponCount: 20,
-                //     couponType: 1,
-                //     denomination: 1000,
-                //     minDays: 20,
-                //     minTime: '2023-06-02 17:38:49',
-                //     periodCount: 2
-                // };
-                // let test2 = {
-                //     consumptionThreshold: 2001,
-                //     couponCount: 10,
-                //     couponType: 2,
-                //     denomination: 1000,
-                //     minDays: 20,
-                //     minTime: '2023-06-02 17:38:49',
-                //     periodCount: 2
-                // };
-                // let test3 = {
-                //     consumptionThreshold: 1001,
-                //     couponCount: 20,
-                //     couponType: 3,
-                //     denomination: 1000,
-                //     minDays: 20,
-                //     minTime: '2023-06-02 17:38:49',
-                //     periodCount: 2
-                // };
-                // let test4 = {
-                //     consumptionThreshold: 1001,
-                //     couponCount: 20,
-                //     couponType: 4,
-                //     denomination: 1000,
-                //     minDays: 20,
-                //     minTime: '2023-06-02 17:38:49',
-                //     periodCount: 2
-                // };
-                // let test5 = {
-                //     consumptionThreshold: 1001,
-                //     couponCount: 20,
-                //     couponType: 5,
-                //     denomination: 1000,
-                //     minDays: 20,
-                //     minTime: '2023-06-02 17:38:49',
-                //     periodCount: 2
-                // };
-                // let test6 = {
-                //     consumptionThreshold: 3001,
-                //     couponCount: 30,
-                //     couponType: 6,
-                //     denomination: 3000,
-                //     minDays: 20,
-                //     minTime: '2023-06-02 17:38:49',
-                //     periodCount: 4
-                // };
-                // let test7 = {
-                //     consumptionThreshold: 1501,
-                //     couponCount: 34,
-                //     couponType: 7,
-                //     denomination: 1500,
-                //     minDays: 70,
-                //     minTime: '2023-06-02 17:38:49',
-                //     periodCount: 7
-                // };
-                // result.data.push(result.data[0]);
-                // result.data.push(test5);
-                // result.data.push(test6);
-                // result.data.push(test7);
-                // result.data.push(test1);
-                // result.data.push(test2);
-                // result.data.push(test3);
-                // result.data.push(test4);
                 if (result.data.length === 0) util.showToastNoIcon('没有券包');
                 let couponList = this.data.couponList;
-                // let t1 = 0; let t2 = 0; let t3 = 0; let t4 = 0; let t5 = 0; let t6 = 0; let t7 = 0;
-                // result.data.map(item => {
-                //     if (item.couponType === 1) t1 += item.periodCount;
-                //     if (item.couponType === 2) t2 += item.periodCount;
-                //     if (item.couponType === 3) t3 += item.periodCount;
-                //     if (item.couponType === 4) t4 += item.periodCount;
-                //     if (item.couponType === 5) t5 += item.periodCount;
-                //     if (item.couponType === 6) t6 += item.periodCount;
-                //     if (item.couponType === 7) t7 += item.periodCount;
-                // });
-                // let count = [t1,t2,t3,t4,t5,t6,t7];
-                // let count1 = [];
-                // count.map((item,index) => {
-                //     if (item > 0) count1.push({couponType: index + 1, count: item});
-                // });
                 couponList[index].detailList = result.data;
-                // couponList[index].countList = count1;
                 couponList[index].detailList.sort(this.reorder('couponType')); // 排序
                 this.setData({couponList});
-                console.log(couponList);
 			} else {
 				util.showToastNoIcon(result.message);
 			}

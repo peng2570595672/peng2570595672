@@ -56,7 +56,7 @@
                     <!-- 默认权益包（加赠）serviceFeeSendType: 综合服务费发放类型: 1.综合服务费券额，2.权益包 -->
                     <view class="utilModlue" wx:if="{{tools.dataLen(item.rightsPackageId) || item.serviceFeeSendType === 2}}">
                         <view class="name">
-                            <text wx:if="{{equityListMap.serviceEquityList[index].packageName}}">{{tools.limitNumber(equityListMap.serviceEquityList[index].packageName + '+' + equityListMap.defaultEquityList[index].subData[0].packageName,20)}}</text>
+                            <text wx:if="{{equityListMap.serviceEquityList[index].packageName}}">{{tools.limitNumber(equityListMap.serviceEquityList[index].packageName,20)}}{{equityListMap.defaultEquityList[index].subData[0].packageName ? '+' + tools.limitNumber(equityListMap.defaultEquityList[index].subData[0].packageName,19 - tools.dataLen(equityListMap.serviceEquityList[index].packageName)) : '' }}</text>
                             <text wx:else>{{tools.limitNumber(equityListMap.defaultEquityList[index].subData[0].packageName,20)}}</text>
                         </view>
                         <view class="detail" data-type="2" data-index="{{index}}" catchtap="popDetail">详情</view>
