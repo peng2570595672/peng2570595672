@@ -271,13 +271,12 @@
   color: #54b95c;
 }
 .package .module .lowerpart .titleDetails .details {
-  color: #2a4f44;
+  color: #00b85c;
   width: 60rpx;
   height: 40rpx;
   font-size: 28rpx;
   font-weight: 400;
-  padding: 10rpx 20rpx;
-  margin-right: -10rpx;
+  padding: 10rpx 0rpx;
   font-family: PingFangSC-Regular, PingFang SC;
 }
 .package .module .lowerpart .detailsInfo .isSignTtCoupon {

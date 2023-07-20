@@ -44,7 +44,12 @@ Page({
 		isLoaded: false, // 是否加载数据完成
 		getAgreement: false, // 是否接受协议
 		isPay: false, // 已选择通通券套餐&无需支付||已经支付
-        isOnloadData: true
+        isOnloadData: true,
+		citicBank: false,	// 是否是中信银行联名套餐
+		emptyHairOrder: true,	// 为true表示是空发订单
+		citicBankshopProductId: app.globalData.cictBankObj.citicBankshopProductId,	// 中信金卡套餐ID
+		citicBankShopshopProductId: app.globalData.cictBankObj.citicBankShopshopProductId,	// 中信白金卡套餐ID
+		wellBankShopProductId: app.globalData.cictBankObj.wellBankShopProductId	// 平安信用卡套餐ID
     },
     async onLoad (options) {
 		this.setData({
@@ -226,7 +231,7 @@ Page({
 			});
 		}
 	},
-	// 获取节点的高度
+	// 获取权益包信息
 	async getNodeHeight (num) {
 		this.setData({
 			isLoaded: false
@@ -234,33 +239,70 @@ Page({
 		util.showLoading({
 			title: '加载中'
 		});
-		let that = this;
-		let nodeHeightList = [];
-		let equityListMap = [];
-		for (let index = 0; index < num; index++) {
-			let allIndex = 'module' + index;
-			wx.createSelectorQuery().select(`.${allIndex}`).boundingClientRect(function (rect) {
-				nodeHeightList.push(rect.top);
-				that.setData({
-					nodeHeightList
-				});
-			}).exec();
-			const packageIds = this.data.listOfPackages[index].rightsPackageIds && this.data.listOfPackages[index].rightsPackageIds.length > 1 ? new Array(this.data.listOfPackages[index].rightsPackageIds[0]) : this.data.listOfPackages[index].rightsPackageIds;
-			if (!packageIds?.length) {
-				let equityObj = {index: index, packageName: '',payMoney: 0};
-				equityListMap.push(equityObj);
+		let equityListMap = {
+			defaultEquityList: [],	// 默认权益包列表
+			addEquityList: [],	// 加购权益包列表
+			serviceEquityList: []	// 综合权益包
+		};
+		let currentIndex = 0;
+		for (currentIndex; currentIndex < num; currentIndex++) {
+			// 加购权益包
+			const packageIds = this.data.listOfPackages[currentIndex].rightsPackageIds && this.data.listOfPackages[currentIndex]?.rightsPackageIds.length !== 0;
+			if (!packageIds) {
+				equityListMap.addEquityList.push({index: currentIndex, packageName: '',payMoney: 0,aepIndex: -1});
 			} else {
 				const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
-					packageIds: packageIds
+					packageIds: this.data.listOfPackages[currentIndex]?.rightsPackageIds
 				},'POST',false);
 				if (result.code === 0) {
-					let equityObj = result.data[0];
-					equityObj.index = index;
-					equityListMap.push(equityObj);
+					// this.data.listOfPackages[currentIndex].mustChoiceRightsPackage === 1 ? 0 : -1
+					let packageName = '';
+					result.data.map((item,index) => {
+						packageName += item.packageName;
+						packageName += index < result.data.length - 1 ? '+' : '';
+					});
+					equityListMap.addEquityList.push({index: currentIndex,packageName: packageName,subData: result.data,aepIndex: -1});
 				} else {
 					// 占位
-					let equityObj = {index: index, packageName: '',payMoney: 0};
-					equityListMap.push(equityObj);
+					equityListMap.addEquityList.push({index: currentIndex, packageName: '',payMoney: 0,aepIndex: -1});
+				}
+			}
+			// 默认权益包(只能有一个) + 2%综合服务费赠送的权益包
+			let defaultPackages = [];
+			let sevicePackages = this.data.listOfPackages[currentIndex].serviceFeePackageId;
+			if (sevicePackages) defaultPackages = sevicePackages.split(',');
+			if (defaultPackages.length === 0) {
+				equityListMap.serviceEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+			} else {
+				const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
+					packageIds: defaultPackages
+				},'POST',false);
+				if (result.code === 0) {
+					let packageName = '';
+					// let payMoney = 0;	// 综合服务权益包 金额
+					result.data.map((item,index) => {
+						packageName += item.packageName;
+						// payMoney += item.payMoney;
+						packageName += index < result.data.length - 1 ? '+' : '';
+					});
+					equityListMap.serviceEquityList.push({index: currentIndex,subData: result.data,packageName: packageName,payMoney: 0});
+				} else {
+					// 占位
+					equityListMap.serviceEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+				}
+			}
+			let packageId = this.data.listOfPackages[currentIndex].rightsPackageId && this.data.listOfPackages[currentIndex].rightsPackageId !== 0;
+			if (!packageId) {
+				equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+			} else {
+				const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
+					packageIds: new Array(this.data.listOfPackages[currentIndex].rightsPackageId)
+				},'POST',false);
+				if (result.code === 0) {
+					equityListMap.defaultEquityList.push({index: currentIndex,subData: result.data});
+				} else {
+					// 占位
+					equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
 				}
 			}
 		}
@@ -268,6 +310,22 @@ Page({
 			isLoaded: true,
 			equityListMap: equityListMap
 		});
+		this.getHeight(num);
+	},
+	// 获取节点的高度
+	getHeight (num) {
+		let that = this;
+		let nodeHeightList = [];
+		let currentIndex = 0;
+		for (currentIndex; currentIndex < num; currentIndex++) {
+			let allIndex = 'module' + currentIndex;
+			wx.createSelectorQuery().select(`.${allIndex}`).boundingClientRect(function (rect) {
+				nodeHeightList.push(rect.top);
+				that.setData({
+					nodeHeightList
+				});
+			}).exec();
+		}
 		util.hideLoading();
 	},
 	// 控制 选中套餐 的位置
@@ -280,6 +338,94 @@ Page({
 			duration: 200
 		});
 	},
+	// 弹窗详情
+	popDetail (e) {
+		let type = e.currentTarget.dataset.type;	// string
+		let index = e.currentTarget.dataset.index;	// number
+		let def = this.data.equityListMap.defaultEquityList[index];
+		let service = this.data.equityListMap.serviceEquityList[index];
+		switch (type) {
+			case '1':
+				this.selectComponent('#cdPopup').show({
+					isBtnClose: true,
+					argObj: {
+						type: 'new_device',
+						title: '第五代设备',
+						isSplit: index === this.data.activeIndex ? true : this.data.isFade
+					}
+				});
+				break;
+			case '2':
+				this.selectComponent('#cdPopup').show({
+					isBtnClose: true,
+					argObj: {
+						type: 'default_equity_package',
+						title: '加赠权益包',
+						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 30%,#FFFFFF 100%)',
+						isSplit: index === this.data.activeIndex ? true : this.data.isFade,
+						equityPackageInfo: service.subData && service.subData.length > 0 ? service.subData.concat(def.subData) : def.subData
+					}
+				});
+				break;
+			case '3':
+				this.selectComponent('#cdPopup').show({
+					isBtnClose: true,
+					argObj: {
+						type: 'give_equity_package',
+						title: '权益商城',
+						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 30%,#FFFFFF 100%)',
+						isSplit: index === this.data.activeIndex ? true : this.data.isFade
+					}
+				});
+				break;
+			case '4':
+				this.selectComponent('#cdPopup').show({
+					isBtnClose: true,
+					argObj: {
+						type: 'sign_tt_coupon',
+						title: '通通券',
+						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 30%,#FFFFFF 100%)',
+						isSplit: index === this.data.activeIndex ? true : this.data.isFade
+					}
+				});
+				break;
+			case '5':
+				this.selectComponent('#cdPopup').show({
+					isBtnClose: true,
+					argObj: {
+						type: 'add_equity_package',
+						title: '加购权益包',
+						isSplit: true,
+						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 40%,#FFFFFF 100%)',
+						equityPackageInfo: this.data.equityListMap.addEquityList[index].subData,
+						mustEquity: this.data.listOfPackages[index].mustChoiceRightsPackage,
+						aepIndex: this.data.equityListMap.addEquityList[this.data.activeIndex].aepIndex
+					}
+				});
+				break;
+			case '6':
+				this.selectComponent('#cdPopup').show({
+					isBtnClose: true,
+					argObj: {
+						type: 'road_rescue',
+						title: '下单送500元道路救援服务',
+						isSplit: true,
+						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 40%,#FFFFFF 100%)'
+					}
+				});
+				break;
+			default:
+				break;
+		}
+	},
+	// 弹窗组件
+	cDPopup (e) {
+		let choiceIndex = parseInt(e.detail.choiceIndex);
+		let equityListMap = this.data.equityListMap;
+		equityListMap.addEquityList[this.data.activeIndex].aepIndex = choiceIndex;
+		this.setData({equityListMap});
+	},
+
 	// 根据套餐id获取套餐信息
 	async getProduct () {
 		const result = await util.getDataFromServersV2('consumer/system/get-product-by-id', {
@@ -291,9 +437,18 @@ Page({
 				result.data.descriptionList = JSON.parse(result.data.description);
 			} catch (e) {
 			}
-			this.setData({
-				listOfPackages: new Array(result.data)
+			let datas = new Array(result.data);
+			datas.map(item => {
+				item.rightsPackageIds = item.packageIds.split(',');
 			});
+			this.setData({
+				listOfPackages: datas
+			});
+			if (result.data.shopProductId === app.globalData.cictBankObj.citicBankshopProductId || result.data.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || result.data.shopProductId === app.globalData.cictBankObj.wellBankShopProductId) {
+				this.setData({
+					citicBank: true
+				});
+			}
 			this.getNodeHeight(this.data.listOfPackages.length);
 		} else {
 			util.showToastNoIcon(result.message);
@@ -304,6 +459,10 @@ Page({
 		if (this.data.choiceIndex === -1) return;
 		if (!this.data.getAgreement) {
 			util.showToastNoIcon('请同意并勾选协议！');
+			return;
+		}
+		if (this.data.listOfPackages[this.data.choiceIndex].mustChoiceRightsPackage === 1 && this.data.equityListMap.addEquityList[this.data.choiceIndex].aepIndex === -1) {
+			util.showToastNoIcon('请选择一个权益包');
 			return;
 		}
 		// // 判断是否是 权益券额套餐模式 ，如果是再判断以前是否有过办理，如果有则弹窗提示，并且不执行后面流程
@@ -343,6 +502,7 @@ Page({
 		}
 		wx.uma.trackEvent('package_the_rights_and_interests_next');
 		that.setData({isRequest: false});
+		let addEquity = this.data.equityListMap.addEquityList[this.data.choiceIndex];	// 加购权益包
 		let params = {
 			emptyIssue: true,	// 标识 业务员空发
 			mobilePhone: app.globalData.mobilePhone,	// 手机号码
@@ -351,7 +511,7 @@ Page({
 			dataType: '3', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,	// 套餐ID
-			rightsPackageId: this.data.listOfPackages[this.data.choiceIndex].rightsPackageIds ? this.data.listOfPackages[this.data.choiceIndex].rightsPackageIds[0] || '' : '',	// 权益包ID
+			rightsPackageId: addEquity.aepIndex !== -1 ? addEquity.subData[addEquity.aepIndex].id : '',	// 权益包ID
 			areaCode: '0',	// 区域编码
 			shopUserId: app.globalData.salesmanEmptyObj.shopUserId,	// 业务员用户ID
 			promoterId: app.globalData.salesmanEmptyObj.promoterId,	// 业务员推广ID
@@ -376,8 +536,7 @@ Page({
 					return;
 				}
 			}
-			if (that.data.listOfPackages[that.data.choiceIndex]?.pledgePrice ||
-				that.data.equityListMap[that.data.activeIndex]?.payMoney) {
+			if (that.data.listOfPackages[that.data.choiceIndex]?.pledgePrice || addEquity.aepIndex !== -1) {
 				await that.marginPayment(that.data.listOfPackages[that.data.choiceIndex].pledgeType);
 			} else {
 				wx.switchTab({

@@ -120,11 +120,10 @@
                 <view class="topTttle" wx:if="{{argObj.mustEquity === 1}}">请选择一个权益包</view>
                 <view class="content" 
                     wx:for="{{couponList}}" 
-                    wx:key="*this">
+                    wx:key="index">
                     <view class="iconfont md1 {{argObj.type === 'add_equity_package' ? index === choiceIndex ? isHeightLight ? 'isHighLight' : 'noHighLight' : 'noHighLight' : ''}}"
                         data-index="{{index}}"
-                        catchtap="{{argObj.type === 'add_equity_package' ? 'btnMd1' : ''}}"
-                        >
+                        catchtap="{{argObj.type === 'add_equity_package' ? 'btnMd1' : ''}}">
                         <view class="mdLeft">
                             <view class="leftMoney"><text class="text2">售价￥</text>{{item.payMoney / 100}}</view>
                             <view class="iconfont leftDetail {{ activeIndex === index ? isExpand ? 'expand': 'noExpand' : 'noExpand'}}" data-index="{{index}}" catchtap="isExpand">查看详情</view>

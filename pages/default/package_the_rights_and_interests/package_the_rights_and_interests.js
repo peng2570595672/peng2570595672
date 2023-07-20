@@ -941,7 +941,12 @@ Page({
 				},'POST',false);
 				if (result.code === 0) {
 					// this.data.listOfPackages[currentIndex].mustChoiceRightsPackage === 1 ? 0 : -1
-					equityListMap.addEquityList.push({index: currentIndex,subData: result.data,aepIndex: -1});
+					let packageName = '';
+					result.data.map((item,index) => {
+						packageName += item.packageName;
+						packageName += index < result.data.length - 1 ? '+' : '';
+					});
+					equityListMap.addEquityList.push({index: currentIndex,packageName: packageName,subData: result.data,aepIndex: -1});
 				} else {
 					// 占位
 					equityListMap.addEquityList.push({index: currentIndex, packageName: '',payMoney: 0,aepIndex: -1});
@@ -963,7 +968,7 @@ Page({
 					result.data.map((item,index) => {
 						packageName += item.packageName;
 						// payMoney += item.payMoney;
-						packageName += index < result.data.length ? '+' : '';
+						packageName += index < result.data.length - 1 ? '+' : '';
 					});
 					equityListMap.serviceEquityList.push({index: currentIndex,subData: result.data,packageName: packageName,payMoney: 0});
 				} else {
@@ -986,7 +991,6 @@ Page({
 				}
 			}
 		}
-		console.log(equityListMap);
 		this.setData({
 			isLoaded: true,
 			equityListMap: equityListMap

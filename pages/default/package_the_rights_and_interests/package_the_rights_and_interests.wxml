@@ -19,7 +19,7 @@
                 </view>
                 <view class="titleMOney">
                     <!-- 套餐名称：取后台套餐名称 -->
-                    <view class="title">{{tools.limitNumber(item.productName,18)}}</view>
+                    <view class="title">{{tools.limitNumber(item.productName,13)}}</view>
                     <!-- 取后台支付金额，保留小数点后2位，若套餐支付金额为0时，前端价格展示为免费 -->
                     <view class="money">
                         <span wx:if="{{item.pledgePrice}}" >
@@ -41,7 +41,7 @@
                 <!-- 套餐描述 取后台配置展示，若无配置则不展示 -->
                 <view class="description" wx:if="{{item.descriptionList && item.descriptionList.length > 0}}">
                     <view>
-                        <view class="descriptionModule" wx:for="{{item.descriptionList}}" wx:for-item="itemBase" wx:key="index1">
+                        <view class="descriptionModule" wx:for="{{item.descriptionList}}" wx:for-item="itemBase" wx:for-index="index1" wx:key="index1">
                             <view class="title">{{itemBase.value}}</view>
                         </view>
                     </view>
@@ -64,8 +64,8 @@
                     <!-- （券额/权益包）权益商城 -->
                     <view class="utilModlue" wx:if="{{item.pledgeType === 4 || item.serviceFeeSendType === 1}}">
                         <view class="name">
-                            <text wx:if="{{item.couponAmount > 0}}">赠送{{item.couponAmount / 100}}元商城券额</text>
-                            <text wx:if="{{item.serviceFeeSendType === 1}}">{{item.couponAmount > 0 ? '+': '赠送'}}{{item.serviceFeeAmount / 100}}元/{{item.serviceFeeAmountSendRule === 1 ? '月' : item.serviceFeeAmountSendRule === 2 ? '季度' : '年'}}{{item.couponAmount > 0 ? tools.limitNumber('综合商城券额',6) : '综合商城券额'}}</text>
+                            <text wx:if="{{item.serviceFeeSendType === 1}}">赠送{{item.serviceFeeAmount / 100}}元/{{item.serviceFeeAmountSendRule === 1 ? '月' : item.serviceFeeAmountSendRule === 2 ? '季度' : '年'}}综合商城券额</text>
+                            <text wx:if="{{item.couponAmount > 0 && item.pledgeType === 4}}">{{item.serviceFeeSendType === 1 ? '+': '赠送'}}{{item.couponAmount / 100}}{{item.serviceFeeSendType === 1 ? tools.limitNumber('元商城券额',3) : '元商城券额'}}</text>
                         </view>
                         <view class="detail" data-type="3" data-index="{{index}}" catchtap="popDetail">详情</view>
                     </view>
@@ -116,7 +116,7 @@
     <view class="addEquityPackage" wx:if="{{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) && isLoaded}}" data-type="5" data-index='{{activeIndex}}' catchtap="popDetail">
         <view class="imgOrName">
             <view class="img"><image class="image" src="{{'https://file.cyzl.com/g001/M02/ED/17/oYYBAGStEiOAZAb0AAAV9IqXKBM565.png'}}" mode="widthFix" /></view>
-            <text wx:for="{{equityListMap.addEquityList[activeIndex].subData}}" wx:for-item="item2" wx:key="index">{{item2.packageName}}{{index === tools.dataLen(equityListMap.addEquityList[activeIndex].subData) - 1 ? '' : '+'}}</text>
+            <text >{{tools.limitNumber(equityListMap.addEquityList[activeIndex].packageName,28)}}</text>
         </view>
         <view class="iconfont icon4"></view>
     </view>
