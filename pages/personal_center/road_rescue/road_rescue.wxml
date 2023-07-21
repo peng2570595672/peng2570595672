@@ -1,0 +1,35 @@
+<wxs src='../../../utils/util.wxs' module='tools' />
+<view class="index">
+    <!--  -->
+    <view class="module moduleOne" >
+        
+    </view>
+
+    <!-- 道路救援补贴领取提示  -->
+    <view class="module moduleTwo" >
+        <view class="title">
+            <view class="img1"><image class="image" src="https://file.cyzl.com/g001/M02/F4/1C/oYYBAGS6O-eAJLAhAAAEgc3Aa4w162.png" mode="widthFix" /></view>
+            <text class="text1">道路救援补贴领取提示</text>
+        </view>
+        <view class="content">
+            <view class="title">申领条件</view>
+            <view class="text2">
+                <text class="text3" wx:for="{{condition}}" wx:for-item="item1" wx:for-index="index1" wx:key="index1">{{item1}}</text>
+            </view>
+        </view>
+         <view class="content">
+             <view class="title">申领流程</view>
+            <view class="text2">
+                <text class="text3" wx:for="{{process}}" wx:for-item="item2" wx:for-index="index2" wx:key="index2">{{item2}}</text>
+            </view>
+         </view>
+         <view class="content">
+            <view class="title">申报材料</view>
+            <view class="text2">
+                <text class="text3" wx:for="{{material}}" wx:for-item="item3" wx:for-index="index3" wx:key="index1">{{item3}}</text>
+            </view>
+         </view>
+    </view>
+    <!-- 占位 -->
+    <view class="split" />
+</view>
