@@ -85,7 +85,6 @@ Component({
                 this.setData({couponList: []});
                 let couponList = [];
                 couponList = argObj.equityPackageInfo.filter(item => item);
-                console.log(couponList);
                 if (argObj.type === 'add_equity_package') {
                     this.setData({couponList,choiceIndex: argObj.aepIndex,isHeightLight: argObj.mustEquity === 1});
                     for (let index = 0; index < couponList.length; index++) {

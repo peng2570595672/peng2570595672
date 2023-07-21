@@ -439,7 +439,7 @@ Page({
 			}
 			let datas = new Array(result.data);
 			datas.map(item => {
-				item.rightsPackageIds = item.packageIds.split(',');
+				item.rightsPackageIds = item.packageIds && item.packageIds.length > 0 ? item.packageIds.split(',') : [];
 			});
 			this.setData({
 				listOfPackages: datas
