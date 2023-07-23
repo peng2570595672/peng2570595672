@@ -26,9 +26,60 @@
   box-shadow: 4rpx 4rpx 46rpx 0rpx rgba(125,132,158,0.1);
 }
 .index .moduleOne {
-  height: 200rpx;
+  height: 220rpx;
   border-radius: 32rpx;
-  background: #0f0;
+  font-family: PingFangSC-Medium, PingFang SC;
+}
+.index .moduleOne .upper {
+  width: 100%;
+  height: 120rpx;
+  border-bottom: 2rpx solid #f1f1f1;
+}
+.index .moduleOne .upper .attrVal {
+  padding-top: 24rpx;
+  width: 100%;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.index .moduleOne .upper .attrVal .attr {
+  font-size: 40rpx;
+  font-weight: 500;
+  color: #33333e;
+  line-height: 56rpx;
+}
+.index .moduleOne .upper .attrVal .val {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: #e9ca7b;
+  line-height: 40rpx;
+}
+.index .moduleOne .below .nameStatus {
+  margin-top: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.index .moduleOne .below .nameStatus .name {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: #99999d;
+  line-height: 44rpx;
+}
+.index .moduleOne .below .nameStatus .status {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: #31a479;
+  line-height: 40rpx;
+}
+.index .moduleOne .below .nameStatus .status::after {
+  margin-left: 10rpx;
+  display: inline-block;
+  content: "\e661";
+  font-size: 30rpx;
+  color: #31a479;
+  transform: rotateZ(-90deg);
 }
 .index .moduleTwo {
   height: auto;
@@ -75,6 +126,9 @@
 }
 .index .moduleTwo .content .text2 .text3 {
   display: block;
+}
+.index .moduleTwo > .content:last-child .text2 {
+  border-bottom: transparent;
 }
 .index .image {
   width: 100%;
