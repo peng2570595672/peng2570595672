@@ -171,7 +171,7 @@
                 {
                     "name": "",
                     "pathName": "pages/default/processing_progress/processing_progress",
-                    "query": "orderId=1101086168428056576",
+                    "query": "orderId=928321864005586944",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -359,8 +359,8 @@
                 },
                 {
                     "name": "",
-                    "pathName": "pages/default/citic_bank_card_details/citic_bank_card_details",
-                    "query": "",
+                    "pathName": "pages/personal_center/order_details/order_details",
+                    "query": "id=1131828439865626624&channel=1&month=7",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -471,7 +471,7 @@
                 },
                 {
                     "name": "",
-                    "pathName": "pages/account_management/index/index",
+                    "pathName": "pages/account_management/pay_method/pay_method",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
@@ -495,7 +495,7 @@
     },
     "setting": {
         "urlCheck": true,
-        "compileHotReLoad": true
+        "compileHotReLoad": false
     },
     "projectname": "etc_plus_mini_2.0"
 }
