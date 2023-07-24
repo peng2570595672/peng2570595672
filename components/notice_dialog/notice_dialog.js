@@ -1,3 +1,4 @@
+const util = require('../../utils/util.js');
 const app = getApp();
 Component({
 	options: {
@@ -39,6 +40,9 @@ Component({
 			// }, 1000);
 		},
 		hide (e,flag) {
+			if (this.data.dialogContent.alertType === 99) {
+				util.go(`/pages/account_management/pay_method/pay_method?orderId=${this.data.dialogContent.orderId}`);
+			}
 			this.setData({
 				wrapper: false
 			});
