@@ -138,8 +138,8 @@ Page({
 		emptyHairOrder: false,	// 为true表示是空发订单
 		citicBankshopProductId: app.globalData.cictBankObj.citicBankshopProductId,	// 中信金卡套餐ID
 		citicBankShopshopProductId: app.globalData.cictBankObj.citicBankShopshopProductId,	// 中信白金卡套餐ID
-		wellBankShopProductId: app.globalData.cictBankObj.wellBankShopProductId	// 平安信用卡套餐ID
-
+		wellBankShopProductId: app.globalData.cictBankObj.wellBankShopProductId,	// 平安信用卡套餐ID
+		roadRescueShopProductId: app.globalData.isTest ? '1049360146769125376' : ''	// 道路救援套餐ID
 	},
 	async onLoad (options) {
 		app.globalData.isTelemarketing = false;
@@ -1085,7 +1085,7 @@ Page({
 				this.selectComponent('#cdPopup').show({
 					isBtnClose: true,
 					argObj: {
-						type: 'sign_tt_coupon',
+						type: this.data.listOfPackages[index].shopProductId === this.data.roadRescueShopProductId ? 'road_rescue1' : 'sign_tt_coupon',
 						title: '通通券',
 						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 30%,#FFFFFF 100%)',
 						isSplit: index === this.data.activeIndex ? true : this.data.isFade

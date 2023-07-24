@@ -105,13 +105,13 @@
     <!-- 占位 -->
     <view class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}} {{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) ? 'isRPI' : ''}}" ></view>
     <!-- 通通券-道路救援服务 -->
-    <!-- <view class="addEquityPackage" wx:if="{{listOfPackages[activeIndex].isSignTtCoupon === 1 && isLoaded}}" data-type="6" data-index='{{activeIndex}}' catchtap="popDetail">
+    <view class="addEquityPackage" wx:if="{{listOfPackages[activeIndex].isSignTtCoupon === 1 && roadRescueShopProductId === listOfPackages[activeIndex].shopProductId && isLoaded}}" data-type="6" data-index='{{activeIndex}}' catchtap="popDetail">
         <view class="imgOrName">
             <view class="img"><image class="image" src="{{'https://file.cyzl.com/g001/M02/ED/17/oYYBAGStEiOAZAb0AAAV9IqXKBM565.png'}}" mode="widthFix" /></view>
             <text >下单送500元道路救援服务</text>
         </view>
         <view class="iconfont icon4"></view>
-    </view> -->
+    </view>
     <!-- 加购的权益包 -->
     <view class="addEquityPackage" wx:if="{{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) && isLoaded}}" data-type="5" data-index='{{activeIndex}}' catchtap="popDetail">
         <view class="imgOrName">

@@ -29,8 +29,8 @@ Page({
 			}
 		],
 		funcList2: [
-			{icon: '', title: '通通券',url: 'tonTonQuan',img: 'https://file.cyzl.com/g001/M01/CF/5F/oYYBAGQXvWyAcN7sAAC9paTs3nM581.png',show: false},
-			// {icon: '', title: '通通券1',url: 'tonTonQuan',img: 'https://file.cyzl.com/g001/M02/F4/17/oYYBAGS6ODaAfrQ2AAAE6mHX_tA643.png',show: true},
+			// {icon: '', title: '通通券',url: 'tonTonQuan',img: 'https://file.cyzl.com/g001/M01/CF/5F/oYYBAGQXvWyAcN7sAAC9paTs3nM581.png',show: false},
+			{icon: '', title: '通通券',url: 'tonTonQuan',img: 'https://file.cyzl.com/g001/M02/F4/17/oYYBAGS6ODaAfrQ2AAAE6mHX_tA643.png',show: false},
 			{icon: '',title: '在线客服',url: 'online_customer_service',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8O5WAfXwSAAAOCAtM_x0245.svg',show: true},
 			// {icon: '',title: '手机号管理',url: '',img: ''},   //本期先隐藏该项，暂不做功能
 			{icon: '',title: '发票助手',url: 'invoice_assistant',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8OrKABB0VAAAMgE_4pJ8510.svg',show: true},

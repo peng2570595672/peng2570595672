@@ -47,11 +47,11 @@
             <view class="btn {{isBtn ? 'yesBtn' : 'noBtn'}}" wx:else catchtap="ok">{{ '确定'}}</view>
         </view>
         <!--                               套餐页                                   -->
-        <!-- 通通券 -->
-        <view class="module signTtCoupon" wx:if="{{argObj.type === 'sign_tt_coupon' || argObj.type === 'road_rescue'}}">
+        <!-- 通通券 || 道路救援-->
+        <view class="module signTtCoupon" wx:if="{{argObj.type === 'sign_tt_coupon' || argObj.type === 'road_rescue' || argObj.type === 'road_rescue1'}}">
             <view class="subTitle" wx:if="{{argObj.type === 'sign_tt_coupon'}}">通通券涵盖了出行+生活的优惠聚合平台</view>
-            <!-- <view class="titleLeft" wx:if="{{argObj.type === 'sign_tt_coupon'}}">权益一</view>
-            <view class="ttClass" wx:if="{{argObj.type === 'sign_tt_coupon'}}">
+            <view class="titleLeft" wx:if="{{argObj.type === 'road_rescue1'}}">权益一</view>
+            <view class="ttClass" wx:if="{{argObj.type === 'road_rescue1'}}">
                 <view class="imgBg">
                     <view class="rLeft">
                         <view class="rLeftTop"><text class="text4">8.9</text>折</view>
@@ -67,9 +67,11 @@
                 </view>
                 <view class="detailText" wx:if="{{isExpand}}">办理该套餐用户可领N张通行折扣券，满10公里可用，支持叠加使用，具体抵扣金额会因不同路费标准不同略有浮动</view>
             </view>
-            <view class="titleLeft" wx:if="{{argObj.type === 'sign_tt_coupon'}}">权益二</view> -->
+            <view class="titleLeft" wx:if="{{argObj.type === 'road_rescue1'}}">权益二</view>
             <view class="imgTt">
-                <view class="ttCoupon" wx:if="{{argObj.type === 'sign_tt_coupon'}}"><image class="image" src="https://file.cyzl.com/g001/M02/ED/1B/oYYBAGStFnaAGH_QAABF7O0YR-c052.png" mode="widthFix" /></view>
+                <view class="ttCoupon" wx:if="{{argObj.type === 'sign_tt_coupon' || argObj.type === 'road_rescue1'}}">
+                    <image class="image" src="https://file.cyzl.com/g001/M02/ED/1B/oYYBAGStFnaAGH_QAABF7O0YR-c052.png" mode="widthFix" />
+                </view>
                 <!-- 道路救援 -->
                 <view class="roadRescue" wx:if="{{argObj.type === 'road_rescue'}}">
                     <view class="leftContent">
