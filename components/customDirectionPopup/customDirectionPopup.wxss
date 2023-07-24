@@ -170,7 +170,8 @@
   border: 2rpx solid #e9ca7b;
 }
 .make .deviceUpgrade .topCar .gray {
-  filter: grayscale(1);
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
 }
 .make .deviceUpgrade .topCar .gray::before {
   content: '暂不支持';
@@ -504,31 +505,32 @@
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
   color: #614329;
-  margin: 40rpx 0rpx 12rpx 12rpx;
+  margin: 40rpx 0rpx 0rpx 12rpx;
 }
-.make .signTtCoupon .roadRescue {
-  margin-left: 12rpx;
+.make .signTtCoupon .ttClass {
+  margin: 12rpx 0 0 12rpx;
   width: 668rpx;
   height: auto;
   background: #fff0d6;
   border-radius: 14rpx;
   border: 1rpx solid #ffdcb7;
 }
-.make .signTtCoupon .roadRescue .imgBg {
+.make .signTtCoupon .ttClass .imgBg {
   width: 100%;
   height: 144rpx;
   display: flex;
   align-items: normal;
   justify-content: space-between;
-  background: #0f0;
+  background: url("https://file.cyzl.com/g001/M02/F4/02/oYYBAGS6J2qAZicXAAAR6Y1cP1M132.png") no-repeat;
+  background-size: cover;
 }
-.make .signTtCoupon .roadRescue .imgBg .rLeft {
+.make .signTtCoupon .ttClass .imgBg .rLeft {
   width: 208rpx;
   height: 100%;
   text-align: center;
   font-family: PingFangSC-Medium, PingFang SC;
 }
-.make .signTtCoupon .roadRescue .imgBg .rLeft .rLeftTop {
+.make .signTtCoupon .ttClass .imgBg .rLeft .rLeftTop {
   margin-top: 22rpx;
   width: 100%;
   height: 60rpx;
@@ -536,13 +538,13 @@
   font-weight: 500;
   color: #9e692c;
 }
-.make .signTtCoupon .roadRescue .imgBg .rLeft .rLeftTop .text4 {
+.make .signTtCoupon .ttClass .imgBg .rLeft .rLeftTop .text4 {
   font-family: D-DIN-PRO-SemiBold, D-DIN-PRO;
   font-size: 56rpx;
   font-weight: 600;
   color: #52230d;
 }
-.make .signTtCoupon .roadRescue .imgBg .rLeft .rLeftBottom {
+.make .signTtCoupon .ttClass .imgBg .rLeft .rLeftBottom {
   width: 100%;
   height: 32rpx;
   font-size: 22rpx;
@@ -553,14 +555,14 @@
   align-items: center;
   justify-content: center;
 }
-.make .signTtCoupon .roadRescue .imgBg .rLeft .rLeftBottom.noExpand::after {
+.make .signTtCoupon .ttClass .imgBg .rLeft .rLeftBottom.noExpand::after {
   display: block;
   margin-left: 8rpx;
   content: '\e652';
   font-size: 20rpx;
   color: rgba(158,105,44,0.5);
 }
-.make .signTtCoupon .roadRescue .imgBg .rLeft .rLeftBottom.expand::after {
+.make .signTtCoupon .ttClass .imgBg .rLeft .rLeftBottom.expand::after {
   display: block;
   margin-left: 8rpx;
   content: '\e652';
@@ -568,27 +570,27 @@
   color: rgba(158,105,44,0.5);
   transform: rotate(180deg);
 }
-.make .signTtCoupon .roadRescue .imgBg .rReft {
+.make .signTtCoupon .ttClass .imgBg .rReft {
   width: 428rpx;
   height: 100%;
   font-family: PingFangSC-Medium, PingFang SC;
   text-align: left;
   color: #9e692c;
 }
-.make .signTtCoupon .roadRescue .imgBg .rReft .rRefttitle {
+.make .signTtCoupon .ttClass .imgBg .rReft .rRefttitle {
   width: 100%;
   height: 48rpx;
   margin-top: 24rpx;
   font-size: 34rpx;
   font-weight: 500;
 }
-.make .signTtCoupon .roadRescue .imgBg .rReft .rReftBottom {
+.make .signTtCoupon .ttClass .imgBg .rReft .rReftBottom {
   margin-top: 10rpx;
   height: 32rpx;
   font-size: 22rpx;
   font-weight: 400;
 }
-.make .signTtCoupon .roadRescue .detailText {
+.make .signTtCoupon .ttClass .detailText {
   margin: 20rpx;
   text-align: left;
   font-size: 20rpx;
@@ -599,8 +601,73 @@
 }
 .make .signTtCoupon .imgTt {
   margin: 12rpx;
+}
+.make .signTtCoupon .imgTt .ttCoupon {
   width: 670rpx;
   height: 234rpx;
+}
+.make .signTtCoupon .imgTt .roadRescue {
+  width: 670rpx;
+  height: 294rpx;
+  background: #fffbf4;
+  border-radius: 16rpx;
+  border: 1rpx solid #ffdcb7;
+  display: flex;
+  align-items: normal;
+  justify-content: normal;
+  font-family: PingFangSC-Regular, PingFang SC;
+}
+.make .signTtCoupon .imgTt .roadRescue .leftContent {
+  width: 178rpx;
+  height: 100%;
+}
+.make .signTtCoupon .imgTt .roadRescue .leftContent > .img {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 24rpx 22rpx 0rpx 28rpx;
+}
+.make .signTtCoupon .imgTt .roadRescue .rightContent {
+  width: 468rpx;
+  height: 100%;
+  text-align: left;
+}
+.make .signTtCoupon .imgTt .roadRescue .rightContent .roadRescueTitle {
+  margin-top: 36rpx;
+  width: 468rpx;
+  height: 44rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #7e5219;
+  line-height: 44rpx;
+}
+.make .signTtCoupon .imgTt .roadRescue .rightContent .radiusDiv {
+  margin-top: 10rpx;
+  width: 226rpx;
+  height: 44rpx;
+  background: rgba(233,202,123,0.2);
+  border-radius: 18rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.make .signTtCoupon .imgTt .roadRescue .rightContent .radiusDiv .img4 {
+  width: 16rpx;
+  height: 100%;
+  margin-right: 6rpx;
+}
+.make .signTtCoupon .imgTt .roadRescue .rightContent .radiusDiv .text5 {
+  font-size: 20rpx;
+  font-weight: 400;
+  color: #dc963b;
+}
+.make .signTtCoupon .imgTt .roadRescue .rightContent .textCon {
+  margin-top: 26rpx;
+}
+.make .signTtCoupon .imgTt .roadRescue .rightContent .textCon .text6 {
+  font-size: 24rpx;
+  font-weight: 400;
+  color: #7e5219;
+  line-height: 34rpx;
 }
 .make .giveEquityPackage {
   text-align: justify;

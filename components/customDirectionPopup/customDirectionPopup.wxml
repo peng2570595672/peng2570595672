@@ -49,9 +49,9 @@
         <!--                               套餐页                                   -->
         <!-- 通通券 -->
         <view class="module signTtCoupon" wx:if="{{argObj.type === 'sign_tt_coupon' || argObj.type === 'road_rescue'}}">
-            <view class="subTitle">通通券涵盖了出行+生活的优惠聚合平台</view>
+            <view class="subTitle" wx:if="{{argObj.type === 'sign_tt_coupon'}}">通通券涵盖了出行+生活的优惠聚合平台</view>
             <!-- <view class="titleLeft" wx:if="{{argObj.type === 'sign_tt_coupon'}}">权益一</view>
-            <view class="roadRescue" wx:if="{{argObj.type === 'sign_tt_coupon'}}">
+            <view class="ttClass" wx:if="{{argObj.type === 'sign_tt_coupon'}}">
                 <view class="imgBg">
                     <view class="rLeft">
                         <view class="rLeftTop"><text class="text4">8.9</text>折</view>
@@ -65,12 +65,28 @@
                         </view>
                     </view>
                 </view>
-                <view class="detailText" wx:if="{{isExpand}}">办理该套餐用户可领N张通行折扣券，满10公里可用，支持叠加用，具体抵扣金额会因不同路费标准不同略有浮动</view>
+                <view class="detailText" wx:if="{{isExpand}}">办理该套餐用户可领N张通行折扣券，满10公里可用，支持叠加使用，具体抵扣金额会因不同路费标准不同略有浮动</view>
             </view>
             <view class="titleLeft" wx:if="{{argObj.type === 'sign_tt_coupon'}}">权益二</view> -->
             <view class="imgTt">
-                <image wx:if="{{argObj.type === 'sign_tt_coupon'}}" class="image" src="https://file.cyzl.com/g001/M02/ED/1B/oYYBAGStFnaAGH_QAABF7O0YR-c052.png" mode="widthFix" />
-                <image wx:if="{{argObj.type === 'road_rescue'}}" class="image" src="" mode="widthFix" />
+                <view class="ttCoupon" wx:if="{{argObj.type === 'sign_tt_coupon'}}"><image class="image" src="https://file.cyzl.com/g001/M02/ED/1B/oYYBAGStFnaAGH_QAABF7O0YR-c052.png" mode="widthFix" /></view>
+                <!-- 道路救援 -->
+                <view class="roadRescue" wx:if="{{argObj.type === 'road_rescue'}}">
+                    <view class="leftContent">
+                        <view class="img"><image class="image" src="https://file.cyzl.com/g001/M02/F4/07/oYYBAGS6LKOAb1zaAAAO2cWrOJQ213.png" mode="widthFix" /></view>
+                    </view>
+                    <view class="rightContent">
+                        <view class="roadRescueTitle">500元道路救援服务</view>
+                        <view class="radiusDiv">
+                            <view class="img4"><image class="image" src="https://file.cyzl.com/g001/M02/F4/0C/oYYBAGS6MG2AWtRDAAABRXPNSmg475.png" mode="widthFix" /></view>
+                            <text class="text5">覆盖高速路段救援</text>
+                        </view>
+                        <view class="textCon">
+                            <text class="text6">1年内免费紧急非事故类城区接电、送油、换胎、拖车等服\n</text>
+                            <text class="text6">注：限{{'<'}}7座的个人车，有效期1年</text>
+                        </view>
+                    </view>
+                </view>
             </view>
             <!-- 占位 -->
             <view class="split" style="height: 250rpx" wx:if="{{argObj.isSplit}}" />
