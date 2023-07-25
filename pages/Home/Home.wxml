@@ -105,16 +105,13 @@
             </view>
         </view>
     </view>
-    <!-- 模块 营业网点 -->
-    <view class="custom-module" wx:if="{{tools.dataLen(moduleTwoList) > 0}}">
+    <!-- 模块4 营业网点 -->
+    <view class="custom-module">
         <view class="head">营业网点</view>
         <view class="module-main" catchtap="goPathBus">
             <view class="text-main">
                 <view class="title">ETC办理不迷路</view>
-                <view class="left-center">
-                    <text class="text-color">线下营业网点导航</text>
-                    <view class="arrow-style">></view>
-                </view>
+                <text class="iconfont text-color">线下营业网点导航</text>
             </view>
         </view>
     </view>

@@ -302,57 +302,50 @@ textLineCenter($height)
                                     height 100%
                     text
                         display block
-    /* 占位 */
-    .split
-        width 100%
-        height 200rpx
-        overflow hidden
-    .custom-module{
+    // 模块4
+    .custom-module
         height auto
         margin 32rpx 28rpx 0rpx 28rpx
         background-color transparent
         position relative
         top -100rpx
-        .module-main{
+        .module-main
             height 200rpx
             background-repeat no-repeat
             background-size cover
             background-image url("https://file.cyzl.com/g001/M02/F5/FB/oYYBAGS_dFmAFDZVAAIIZ4M49P8387.png")
-            .text-main{
+            .text-main
                 padding-left 40rpx
                 padding-top 46rpx
                 font-weight 500
                 font-size 28rpx
-
-                .title{
-                    color: #1E1E1E;
+                .title
+                    color: #1E1E1E
                     font-size 40rpx
                     line-height 56rpx
                     padding-bottom 10rpx
-                }
-                .text-color{
-                    color: rgba(30,30,30,0.54);
+                .text-color
+                    display flex
+                    align-items center
+                    color: rgba(30,30,30,0.54)
                     font-size 28rpx
-                }
-            }
-            .arrow-style{
-                color #fff
-                background #147E4A
-                width: 28rpx;
-                height: 28rpx;
-                line-height 28rpx
-                font-size 24rpx
-                border-radius: 14rpx;
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-                margin-left 10rpx
-            }
-        }
-
-
-    }
-    .left-center{
-        display: flex;
-        align-items: center;
-    }
+                    &::after
+                        display block
+                        content "\e661"
+                        font-size 20rpx
+                        color rgba(255, 249, 249, 1)
+                        transform rotateZ(-90deg)
+                        background #147E4A
+                        border-radius 14rpx
+                        mixinsWidthHeight(28rpx,28rpx)
+                        textLineCenter(28rpx)
+                        margin-left 10rpx
+                        
+    /* 占位 */
+    .split
+        width 100%
+        height 200rpx
+        overflow hidden
+    
+            
+    
