@@ -1,0 +1,25 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<view class="my-order">
+    <view bindtap="switchTab" class="fix-tab">
+    <view wx:for="{{tabStatus}}" wx:key="index"  data-current="{{item.province_name}}"  class="tab-item {{currentTab==item.province_name?'active':''}}">{{item.province_name}}</view>
+  </view>
+    <view class="list">
+     <view wx:for="{{listData}}" wx:key="index" class="list-item">
+        <view class="title">{{item.nodeName}}</view>
+         <view class="phone-view flex_dom">
+            <view wx:if="{{item.nodeUserPhone1}}" class="first-phone" data-phone="{{item.nodeUserPhone1}}" catchtap="customerService">
+              <image src="/pages/default/assets/phone1.png"></image>
+              <text>{{item.nodeUserPhone1}}</text>
+            </view>
+            <view wx:if="{{item.nodeUserPhone2}}" class="first-phone border-l-eee p-l-16r" data-phone="{{item.nodeUserPhone2}}" catchtap="customerService">
+              <image src="/pages/default/assets/phone2.png"></image>
+              <text>{{item.nodeUserPhone2}}</text>
+            </view>
+         </view>
+         <view class="location">
+             <image src="/pages/default/assets/location.png"></image>
+             <text class="p-l-5r flex_1">{{item.provinceName}}{{item.cityName}}{{item.nodeAddr}}</text>
+         </view>
+     </view>
+    </view>
+</view>

@@ -105,6 +105,20 @@
             </view>
         </view>
     </view>
+    <!-- 模块 营业网点 -->
+    <view class="custom-module" wx:if="{{tools.dataLen(moduleTwoList) > 0}}">
+        <view class="head">营业网点</view>
+        <view class="module-main" catchtap="goPathBus">
+            <view class="text-main">
+                <view class="title">ETC办理不迷路</view>
+                <view class="left-center">
+                    <text class="text-color">线下营业网点导航</text>
+                    <view class="arrow-style">></view>
+                </view>
+            </view>
+        </view>
+    </view>
+    
     <!-- 模块3 ETC使用Tips 一期不做，待二期补充-->
     <view class="moduleThree" wx:if="{{false}}">
         <view class="head">ETC使用Tips</view>

@@ -1,0 +1,91 @@
+page {
+  background: #f2f2f2;
+}
+.fix-tab {
+  background-color: #fff;
+  height: 88rpx;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
+  padding-left: 24rpx;
+}
+.fix-tab .tab-item {
+  display: inline-block;
+  text-align: center;
+  background-color: #f6f7f8;
+  height: 56rpx;
+  line-height: 56rpx;
+  border-radius: 30rpx;
+  margin-right: 20rpx;
+  color: #666;
+  font-size: 26rpx;
+  padding: 0 24rpx;
+  font-weight: 400;
+}
+.fix-tab .active {
+  position: relative;
+  background: rgba(20,126,74,0.1);
+  color: #147e4a;
+  font-weight: 500;
+}
+.list {
+  margin-top: 88rpx;
+  padding: 24rpx 28rpx;
+}
+.list .list-item {
+  background: #fff;
+  border-radius: 24rpx;
+  min-height: 204rpx;
+  padding: 30rpx;
+  box-sizing: border-box;
+  margin-bottom: 20rpx;
+}
+.list .list-item .title {
+  font-weight: 500;
+  color: #19222b;
+  font-size: 32rpx;
+}
+.list .list-item .phone-view {
+  font-size: 24rpx;
+  color: #333;
+  display: flex;
+  padding-top: 20rpx;
+}
+.list .list-item .phone-view .first-phone {
+  display: flex;
+  align-items: center;
+  padding-right: 16rpx;
+  line-height: 20rpx;
+}
+.list .list-item .phone-view .first-phone text {
+  color: #333;
+}
+.list .list-item .phone-view .first-phone image {
+  width: 24rpx;
+  height: 24rpx;
+  margin-right: 8rpx;
+}
+.list .list-item .location {
+  color: #878787;
+  padding-top: 20rpx;
+  font-size: 22rpx;
+  display: flex;
+  align-items: center;
+}
+.list .list-item .location image {
+  width: 28rpx;
+  height: 28rpx;
+}
+.border-l-eee {
+  border-left: 2rpx solid #666;
+}
+.p-l-16r {
+  padding-left: 16rpx;
+}
+.p-l-5r {
+  padding-left: 5rpx;
+}

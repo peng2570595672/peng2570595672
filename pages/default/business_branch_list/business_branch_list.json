@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "线下营业网点",
+  "usingComponents": {
+    "qrcode-prompt": "/components/qrcode_prompt/qrcode_prompt",
+    "verify-code": "/components/verify_code/verify_code"
+  }
+}

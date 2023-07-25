@@ -468,13 +468,28 @@
                     "query": "orderId=1119260089593769984",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "营业网点配置",
+                    "pathName": "pages/default/business_branch_list/business_branch_list",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/Home/Home",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
     },
     "setting": {
         "urlCheck": true,
-        "compileHotReLoad": true
+        "compileHotReLoad": false,
+        "useIsolateContext": false
     },
     "projectname": "etc_plus_mini_2.0"
 }

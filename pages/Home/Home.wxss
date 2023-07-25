@@ -344,3 +344,49 @@
   height: 200rpx;
   overflow: hidden;
 }
+.home .custom-module {
+  height: auto;
+  margin: 32rpx 28rpx 0rpx 28rpx;
+  background-color: transparent;
+  position: relative;
+  top: -100rpx;
+}
+.home .custom-module .module-main {
+  height: 200rpx;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("https://file.cyzl.com/g001/M02/F5/FB/oYYBAGS_dFmAFDZVAAIIZ4M49P8387.png");
+}
+.home .custom-module .module-main .text-main {
+  padding-left: 40rpx;
+  padding-top: 46rpx;
+  font-weight: 500;
+  font-size: 28rpx;
+}
+.home .custom-module .module-main .text-main .title {
+  color: #1e1e1e;
+  font-size: 40rpx;
+  line-height: 56rpx;
+  padding-bottom: 10rpx;
+}
+.home .custom-module .module-main .text-main .text-color {
+  color: rgba(30,30,30,0.54);
+  font-size: 28rpx;
+}
+.home .custom-module .module-main .arrow-style {
+  color: #fff;
+  background: #147e4a;
+  width: 28rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  font-size: 24rpx;
+  border-radius: 14rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: 10rpx;
+}
+.home .left-center {
+  display: flex;
+  align-items: center;
+}

@@ -460,6 +460,12 @@ Page({
 		// 免责弹窗声明
 		this.selectComponent('#dialog1').show({params: obj});
 	},
+
+	goPathBus(){
+		util.go('/pages/default/business_branch_list/business_branch_list');
+	},
+
+
 	backFunc () {
 		let obj = this.selectComponent('#dialog1').noShow().params;
 		let appIdPath = obj.appId && obj.appId.length > 0;

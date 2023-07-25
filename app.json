@@ -50,7 +50,8 @@
         "pages/default/citic_bank_sign/citic_bank_sign",
         "pages/default/citicBank_processing_progress/citicBank_processing_progress",
         "pages/default/citic_bank_card_details/citic_bank_card_details",
-        "pages/default/citic_bank_pay_res/citic_bank_pay_res"
+        "pages/default/citic_bank_pay_res/citic_bank_pay_res",
+        "pages/default/business_branch_list/business_branch_list"
 
     ],
     "window": {
