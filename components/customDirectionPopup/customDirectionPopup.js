@@ -504,7 +504,6 @@ Component({
             let index = e.currentTarget.dataset.index;
             let choiceIndex = this.data.choiceIndex;
             let isChoice = choiceIndex !== index;
-            // if (this.data.argObj.mustEquity === 1 && !isChoice) return;
             this.setData({
                 choiceIndex: index,
                 isHeightLight: index === choiceIndex ? !this.data.isHeightLight : isChoice

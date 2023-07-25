@@ -339,11 +339,6 @@
 .home .moduleThree .moduleThreeBox .directSeeding .rightView text {
   display: block;
 }
-.home .split {
-  width: 100%;
-  height: 200rpx;
-  overflow: hidden;
-}
 .home .custom-module {
   height: auto;
   margin: 32rpx 28rpx 0rpx 28rpx;
@@ -370,23 +365,27 @@
   padding-bottom: 10rpx;
 }
 .home .custom-module .module-main .text-main .text-color {
+  display: flex;
+  align-items: center;
   color: rgba(30,30,30,0.54);
   font-size: 28rpx;
 }
-.home .custom-module .module-main .arrow-style {
-  color: #fff;
+.home .custom-module .module-main .text-main .text-color::after {
+  display: block;
+  content: "\e661";
+  font-size: 20rpx;
+  color: #fff9f9;
+  transform: rotateZ(-90deg);
   background: #147e4a;
+  border-radius: 14rpx;
   width: 28rpx;
   height: 28rpx;
+  text-align: center;
   line-height: 28rpx;
-  font-size: 24rpx;
-  border-radius: 14rpx;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
   margin-left: 10rpx;
 }
-.home .left-center {
-  display: flex;
-  align-items: center;
+.home .split {
+  width: 100%;
+  height: 200rpx;
+  overflow: hidden;
 }
