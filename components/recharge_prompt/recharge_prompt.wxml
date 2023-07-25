@@ -5,7 +5,7 @@
                 <view class="first">请打开其他银行App或网银等渠道，从银行卡中转账到您的ETC账户中。</view>
                 <view class="info">
                     <view>收款人：{{info.bankCardAccount}}</view>
-                    <view>卡号：{{info.bankCardNum}} <text data-no="{{info.bankCardNum}}" catchtap="onClickCopyBankCardNumber">复制</text></view>
+                    <view>卡号：851902124310401{{info.bankCardNum}} <text data-no="851902124310401{{info.bankCardNum}}" catchtap="onClickCopyBankCardNumber">复制</text></view>
                     <view>开户行：{{info.bankName}}</view>
                 </view>
                 <!-- 办理进度弹窗-->

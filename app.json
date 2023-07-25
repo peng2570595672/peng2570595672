@@ -137,7 +137,8 @@
                 "description_of_equity/description_of_equity",
                 "invoice_assistant/invoice_assistant",
                 "invoicing_instructions/invoicing_instructions",
-                "order_triage/order_triage"
+                "order_triage/order_triage",
+                "road_rescue/road_rescue"
             ]
         },
         {
@@ -368,12 +369,12 @@
     "functionalPages": {
         "independent": true
     },
-  "plugins": {
-    "obu-plugin": {
-      "version": "2.0.0",
-      "provider": "wx3065d5b05f433be9"
-    }
-  },
+    "plugins": {
+      "obu-plugin": {
+        "version": "2.0.0",
+        "provider": "wx3065d5b05f433be9"
+      }
+    },
     "sitemapLocation": "sitemap.json",
     "permission": {
         "scope.userLocation": {

@@ -14,11 +14,15 @@
 			<!--卡券左边部分结束-->
 			<!--卡券右边部分开始-->
 			<view class="list-item-right">
-				<view class="card-voucher-name" catchtap="go" data-model="{{item}}">{{item.fullName}}</view>
+				<view class="card-voucher-name" catchtap="go" data-model="{{item}}">
+					<view class="fullName">{{item.fullName}}</view>
+					<!-- <view class="carWashVoucher" wx:if="{{item.status === 1 && item.couponType === 5}}" catchtap="">去使用</view> -->
+				</view>
 				<view class="card-voucher-requirements" catchtap="go" data-model="{{item}}">满{{item.minUseAmount ? item.minUseAmount/100 : 0}}元使用</view>
-				<!--<view class="line"></view>-->
+				<view class="line"></view>
 				<view class="period-of-validity {{item.status !== 1 ? 'date-right' : ''}}" catchtap="go" data-model="{{item}}">
-					<!--<text wx:if="{{item.status === 1}}">有效期：{{item.expireStartDate}}至{{item.expireEndDate}}</text>-->
+					<!-- 卡券状态 status 0-待激活 1-已激活 2-已使用  3-已锁定 8-已过期 9-已作废 -->
+					<text wx:if="{{item.status === 1}}">有效期：{{item.expireStartDate}}至{{item.expireEndDate}}</text>
 					<text wx:if="{{item.status === 2}}">使用日期：{{item.lastUseTime}}</text>
 					<text wx:if="{{item.status === 8}}">失效时间：{{item.expireEndDate}}</text>
 				</view>
@@ -103,4 +107,6 @@
 			<!--放入卡包结束-->
 		</view>
 	</view>
+	<!-- 占位 -->
+	<view class="split" />
 </view>

@@ -841,9 +841,6 @@ Page({
 			// let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
 			app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
 			let isShowPingAn = this.data.firstCar.filter(item => list[0].vehPlates.includes(item));	// 平安获客
-			console.log(app.globalData.userInfo?.accessToken);
-			console.log(this.data.moduleTwoList);
-			console.log(isShowPingAn);
 			let funcListTwo = this.data.moduleTwoList.map(item1 => {
 				return item1.jumpUrl === '平安获客' ? isShowPingAn?.length === 0 ? undefined : !app.globalData.userInfo?.accessToken ? undefined : item1 : item1;
 			});
@@ -854,6 +851,21 @@ Page({
 			});
 			list.map(item => {
 				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
+				if ((item.obuStatus === 1 || item.obuStatus === 5) && item.flowVersion === 4) {
+					// 货车预充值-易路通达
+					const isDuringDate = util.isDuringDate('2023/7/24', '2023/8/1');
+					if (isDuringDate) {
+						const obj = {
+							orderId: item.id,
+							alertType: 99,
+							btnName: '查看新账户',
+							popUpType: 2,
+							title: 'ETC充值银行账户更新提醒',
+							text: '因发行方更换ETC预充值收款账户，如您选择使用银行卡充值的方式，预充值时请更新为最新银行账户，避免您的ETC设备因充值失败导致无法正常通行，微信预充值方式仍可正常使用。',
+						};
+						this.initNoticeTodayMask(obj);
+					}
+				}
 				// 设备状态 0-待激活，1-已激活，2-已注销  3-开卡 4-发签 5预激活
 				if (item.obuStatus === 3 || item.obuStatus === 4) {
 					item['selfStatus'] = 11;

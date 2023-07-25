@@ -472,9 +472,128 @@ flexModule($align=normal,$justify=normal)
             font-family PingFangSC-Regular, PingFang SC
             font-weight 400
             color #333333
+        .titleLeft
+            height 44rpx
+            font-size 28rpx
+            text-align left
+            font-family PingFangSC-Medium, PingFang SC
+            font-weight 500
+            color #614329
+            margin 40rpx 0rpx 0rpx 12rpx
+        .ttClass
+            margin 12rpx 0 0 12rpx
+            mixinsWidthHeight(668rpx,auto)
+            background #FFF0D6
+            border-radius 14rpx
+            border 1rpx solid #FFDCB7
+            .imgBg
+                mixinsWidthHeight(,144rpx)
+                flexModule(normal,space-between)
+                background url(https://file.cyzl.com/g001/M02/F4/02/oYYBAGS6J2qAZicXAAAR6Y1cP1M132.png) no-repeat
+                background-size cover
+                .rLeft
+                    mixinsWidthHeight(208rpx,)
+                    text-align center
+                    font-family PingFangSC-Medium, PingFang SC
+                    .rLeftTop
+                        margin-top 22rpx
+                        mixinsWidthHeight(,60rpx)
+                        font-size 28rpx
+                        font-weight 500
+                        color #9E692C
+                        .text4
+                            font-family D-DIN-PRO-SemiBold, D-DIN-PRO
+                            font-size 56rpx
+                            font-weight 600
+                            color #52230D 
+                    .rLeftBottom
+                        mixinsWidthHeight(,32rpx)
+                        font-size 22rpx
+                        font-weight 400
+                        color rgba(158,105,44,0.5)
+                        margin-top 20rpx
+                        flexModule(center,center)
+                        &.noExpand
+                            &::after
+                                display block
+                                margin-left 8rpx
+                                mixinsIconfont('\e652',20rpx,rgba(158, 105, 44, 0.50))
+                        &.expand
+                            &::after
+                                display block
+                                margin-left 8rpx
+                                mixinsIconfont('\e652',20rpx,rgba(158, 105, 44, 0.50))
+                                transform rotate(180deg)
+                .rReft
+                    mixinsWidthHeight(428rpx,)
+                    // background rgb(73, 218, 44)
+                    font-family PingFangSC-Medium, PingFang SC
+                    text-align left 
+                    color #9E692C
+                    .rRefttitle
+                        mixinsWidthHeight(,48rpx)
+                        margin-top 24rpx
+                        font-size 34rpx
+                        font-weight 500
+                    .rReftBottom
+                        margin-top 10rpx
+                        height 32rpx
+                        font-size 22rpx
+                        font-weight 400
+            .detailText
+                margin 20rpx
+                text-align left
+                font-size 20rpx
+                font-family PingFangSC-Regular, PingFang SC
+                font-weight 400
+                color #9E692C
+                line-height 28rpx
         .imgTt
-            margin 50rpx 0rpx 40rpx 12rpx
-            mixinsWidthHeight(670rpx,234rpx)
+            margin 12rpx
+            .ttCoupon
+                mixinsWidthHeight(670rpx,234rpx)
+            .roadRescue
+                mixinsWidthHeight(670rpx,294rpx)
+                background #FFFBF4
+                border-radius 16rpx
+                border 1rpx solid #FFDCB7
+                flexModule(normal,normal)
+                font-family PingFangSC-Regular, PingFang SC
+                .leftContent
+                    mixinsWidthHeight(178rpx,)
+                    & > .img
+                        mixinsWidthHeight(128rpx,128rpx)
+                        margin 24rpx 22rpx 0rpx 28rpx
+                .rightContent
+                    mixinsWidthHeight(468rpx,)
+                    text-align left 
+                    .roadRescueTitle
+                        margin-top 36rpx
+                        mixinsWidthHeight(468rpx,44rpx)
+                        font-size 32rpx
+                        font-weight 600
+                        color #7E5219
+                        line-height 44rpx
+                    .radiusDiv
+                        margin-top 10rpx
+                        mixinsWidthHeight(226rpx,44rpx)
+                        background rgba(233, 202, 123, 0.2)
+                        border-radius 18rpx
+                        flexModule(center,center)
+                        .img4
+                            mixinsWidthHeight(16rpx,)
+                            margin-right 6rpx
+                        .text5
+                            font-size 20rpx
+                            font-weight 400
+                            color #DC963B
+                    .textCon
+                        margin-top 26rpx
+                        .text6
+                            font-size 24rpx
+                            font-weight 400
+                            color #7E5219
+                            line-height 34rpx
     // 权益商城
     .giveEquityPackage
         text-align justify
@@ -505,125 +624,161 @@ flexModule($align=normal,$justify=normal)
                     font-weight 500
                     color #9D3B00
     .defaultEquityPackage
-        height 1000rpx
-        overflow-y scroll
-        .content
-            margin-bottom 20rpx
-            .md1
-                mixinsWidthHeight(,144rpx)
-                background url(https://file.cyzl.com/g001/M02/ED/84/oYYBAGSuVQyATDA_AAAuxBB836s809.png) no-repeat
-                background-size cover
-                flexModule(normal,space-between)
-                color #FDF7EC
-                font-family PingFangSC-Medium, PingFang SC
-                .mdLeft
-                    mixinsWidthHeight(208rpx,)
-                    .leftMoney
-                        mixinsWidthHeight(,68rpx)
-                        margin-top 20rpx
-                        textLineCenter(68rpx)
-                        font-size 60rpx
-                        font-family D-DIN-PRO-SemiBold, D-DIN-PRO
-                        font-weight 600
-                        .text2
-                            margin-left 6rpx
-                            font-size 32rpx
-                            font-weight 500
-                    .leftDetail
-                        mixinsWidthHeight(,32rpx)
-                        textLineCenter(32rpx)
-                        font-size 22rpx
-                        font-weight 400
-                        flexModule(center,center)
-                        &.noExpand
-                            &::after
-                                margin-left 8rpx
-                                mixinsIconfont('\e652',20rpx,#FDF7EC)
-                        &.expand
-                            &::after
-                                display block
-                                margin-left 8rpx
-                                mixinsIconfont('\e652',20rpx,#FDF7EC)
-                                transform rotate(180deg)
-                .mdRight
-                    mixinsWidthHeight(478rpx,)
-                    padding-left 30rpx
-                    .rightTitle
-                        mixinsWidthHeight(,48rpx)
-                        line-height 48rpx
-                        margin-top 14rpx
-                        font-size 34rpx
-                        font-weight 500
-                    .rightContent
-                        mixinsWidthHeight(,64rpx)
-                        margin-top 6rpx
-                        font-size 22rpx
-                        font-weight 400
-                        line-height 32rpx
-            .detailInfo
-                flexModule(normal,normal)
-                flex-wrap wrap
-                background rgba(255, 243, 224, 1)
-                padding-bottom 36rpx
-                .subInfo
-                    mixinsWidthHeight(192rpx,206rpx)
-                    margin 30rpx 18rpx 0 0
-                    background url(https://file.cyzl.com/g001/M02/ED/CE/oYYBAGSvYviAPe3vAAAK5cs_ETc608.png) no-repeat
+        max-height 70vh
+        overflow auto
+        .topTttle
+            mixinsWidthHeight(,44rpx)
+            textLineCenter(44rpx)
+            margin 0rpx 0rpx 40rpx 0rpx
+        .equityShow
+            max-height 50vh
+            overflow auto
+            .content
+                margin-bottom 20rpx
+                position relative
+                .md1
+                    mixinsWidthHeight(100%,144rpx)
+                    background url(https://file.cyzl.com/g001/M02/ED/84/oYYBAGSuVQyATDA_AAAuxBB836s809.png) no-repeat
                     background-size cover
+                    flexModule(normal,space-between)
+                    color #FDF7EC
+                    font-family PingFangSC-Medium, PingFang SC
                     position relative
-                    font-family PingFangSC-Regular, PingFang SC
-                    font-weight 400
-                    .topRight
-                        mixinsWidthHeight(60rpx,28rpx)
-                        textLineCenter(28rpx)
-                        border-radius 0rpx 16rpx 0rpx 16rpx
-                        border 1rpx solid #EFD3A1
-                        position absolute
-                        top 0rpx
-                        right 6rpx
-                        font-size 20rpx
-                        color #975C2B
-                    .money
-                        mixinsWidthHeight(,44rpx)
-                        textLineCenter(44rpx)
-                        margin-top 36rpx
-                        font-size 24rpx
-                        font-family PingFangSC-Medium, PingFang SC
-                        font-weight 500
-                        color #FF5E1F
-                        .text3
-                            font-size 44rpx
+                    z-index 100
+                    .mdLeft
+                        mixinsWidthHeight(208rpx,)
+                        .leftMoney
+                            mixinsWidthHeight(100%,68rpx)
+                            margin-top 20rpx
+                            textLineCenter(68rpx)
+                            font-size 48rpx
                             font-family D-DIN-PRO-SemiBold, D-DIN-PRO
                             font-weight 600
-                    .desc
-                        mixinsWidthHeight(,32rpx)
-                        textLineCenter(32rpx)
-                        margin-top 4rpx
-                        font-size 22rpx
-                        color #975C2B
-                    .couponType
-                        mixinsWidthHeight(,36rpx)
-                        textLineCenter(36rpx)
-                        margin-top 18rpx
-                        font-size 26rpx
-                        color #FCEDCD
-                    .validDay
-                        mixinsWidthHeight(,20rpx)
-                        textLineCenter(20rpx)
-                        margin-top 4rpx
-                        font-size 20rpx
-                        color #FCEDCD
-                .indentation
-                    margin-left 40rpx
-            .illustrate
-                mixinsWidthHeight()
-                line-height 28rpx
-                margin 20rpx 40rpx 0rpx 40rpx
-                font-size 20rpx
-                font-family PingFangSC-Regular, PingFang SC
-                font-weight 400
-                color #923B18
-                letter-spacing 3rpx
+                            .text2
+                                font-size 22rpx
+                                font-weight 400
+                        .leftDetail
+                            mixinsWidthHeight(,32rpx)
+                            textLineCenter(32rpx)
+                            font-size 22rpx
+                            font-weight 400
+                            flexModule(center,center)
+                            &.noExpand
+                                &::after
+                                    margin-left 8rpx
+                                    mixinsIconfont('\e652',20rpx,#FDF7EC)
+                            &.expand
+                                &::after
+                                    display block
+                                    margin-left 8rpx
+                                    mixinsIconfont('\e652',20rpx,#FDF7EC)
+                                    transform rotate(180deg)
+                    .mdRight
+                        mixinsWidthHeight(448rpx,)
+                        .rightTitle
+                            mixinsWidthHeight(,48rpx)
+                            line-height 48rpx
+                            margin-top 14rpx
+                            font-size 34rpx
+                            font-weight 500
+                        .rightContent
+                            mixinsWidthHeight(,64rpx)
+                            margin-top 6rpx
+                            font-size 22rpx
+                            font-weight 400
+                            line-height 32rpx
+                .detailInfo
+                    flexModule(normal,normal)
+                    flex-wrap wrap
+                    background rgba(255, 243, 224, 1)
+                    padding-bottom 36rpx
+                    margin-top -10rpx
+                    .subInfo
+                        mixinsWidthHeight(192rpx,206rpx)
+                        margin 30rpx 18rpx 0 0
+                        background url(https://file.cyzl.com/g001/M02/ED/CE/oYYBAGSvYviAPe3vAAAK5cs_ETc608.png) no-repeat
+                        background-size cover
+                        position relative
+                        font-family PingFangSC-Regular, PingFang SC
+                        font-weight 400
+                        .topRight
+                            mixinsWidthHeight(60rpx,28rpx)
+                            textLineCenter(28rpx)
+                            border-radius 0rpx 16rpx 0rpx 16rpx
+                            border 1rpx solid #EFD3A1
+                            position absolute
+                            top 0rpx
+                            right 6rpx
+                            font-size 20rpx
+                            color #975C2B
+                        .money
+                            mixinsWidthHeight(,44rpx)
+                            textLineCenter(44rpx)
+                            margin-top 36rpx
+                            font-size 24rpx
+                            font-family PingFangSC-Medium, PingFang SC
+                            font-weight 500
+                            color #FF5E1F
+                            .text3
+                                font-size 44rpx
+                                font-family D-DIN-PRO-SemiBold, D-DIN-PRO
+                                font-weight 600
+                        .desc
+                            mixinsWidthHeight(,32rpx)
+                            textLineCenter(32rpx)
+                            margin-top 4rpx
+                            font-size 22rpx
+                            color #975C2B
+                        .couponType
+                            mixinsWidthHeight(,36rpx)
+                            textLineCenter(36rpx)
+                            margin-top 18rpx
+                            font-size 26rpx
+                            color #FCEDCD
+                        .validDay
+                            mixinsWidthHeight(,20rpx)
+                            textLineCenter(20rpx)
+                            margin-top 4rpx
+                            font-size 20rpx
+                            color #FCEDCD
+                    .indentation
+                        margin-left 40rpx
+                .illustrate
+                    mixinsWidthHeight()
+                    line-height 28rpx
+                    margin 20rpx 40rpx 0rpx 40rpx
+                    font-size 20rpx
+                    font-family PingFangSC-Regular, PingFang SC
+                    font-weight 400
+                    color #923B18
+                    letter-spacing 3rpx
+            .isHighLight
+
+                &::before
+                    display block
+                    mixinsWidthHeight(42rpx,32rpx)
+                    mixinsIconfont('\e67b',20rpx,#f00)
+                    border-end-end-radius 14rpx
+                    border-start-start-radius 14rpx
+                    flexModule(center,center) 
+                    position absolute
+                    top 0rpx
+                    left 0rpx
+                    background #FFF3E0
+                    z-index 100
+            .noHighLight
+                &::before
+                    display block
+                    mixinsWidthHeight(42rpx,32rpx)
+                    mixinsIconfont('',20rpx,#0f0)
+                    border-end-end-radius 14rpx
+                    border-start-start-radius 14rpx
+                    flexModule(center,center) 
+                    position absolute
+                    top 0rpx
+                    left 0rpx
+                    background #FFF3E0
+                    z-index 100
     .split
         width 100vw
     .image

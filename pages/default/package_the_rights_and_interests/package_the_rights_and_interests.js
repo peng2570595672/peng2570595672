@@ -138,8 +138,8 @@ Page({
 		emptyHairOrder: false,	// 为true表示是空发订单
 		citicBankshopProductId: app.globalData.cictBankObj.citicBankshopProductId,	// 中信金卡套餐ID
 		citicBankShopshopProductId: app.globalData.cictBankObj.citicBankShopshopProductId,	// 中信白金卡套餐ID
-		wellBankShopProductId: app.globalData.cictBankObj.wellBankShopProductId	// 平安信用卡套餐ID
-
+		wellBankShopProductId: app.globalData.cictBankObj.wellBankShopProductId,	// 平安信用卡套餐ID
+		roadRescueShopProductId: app.globalData.isTest ? '1049360146769125376' : ''	// 道路救援套餐ID
 	},
 	async onLoad (options) {
 		app.globalData.isTelemarketing = false;
@@ -594,6 +594,10 @@ Page({
 			util.showToastNoIcon('请同意并勾选协议！');
 			return;
 		}
+		if (this.data.listOfPackages[this.data.choiceIndex].mustChoiceRightsPackage === 1 && this.data.equityListMap.addEquityList[this.data.choiceIndex].aepIndex === -1) {
+			util.showToastNoIcon('请选择一个权益包');
+			return;
+		}
 		if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4) {
 			// 判断是否是 权益券额套餐模式 ，如果是再判断以前是否有过办理，如果有则弹窗提示，并且不执行后面流程
 			const result = await util.getDataFromServersV2('consumer/order/precharge/list',{
@@ -678,21 +682,21 @@ Page({
 		});
 		if (!res) return;
 		this.setData({isRequest: false});
+		let addEquity = this.data.equityListMap.addEquityList[this.data.choiceIndex];	// 加购权益包
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			shopId: this.data.orderInfo ? this.data.orderInfo.base.shopId : app.globalData.newPackagePageData.shopId, // 商户id
 			dataType: '3', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
-			rightsPackageId: this.data.listOfPackages[this.data.choiceIndex].rightsPackageIds[0] || '',
+			rightsPackageId: addEquity.aepIndex !== -1 ? addEquity.subData[addEquity.aepIndex].id : '',
 			areaCode: this.data.orderInfo ? (this.data.orderInfo.product.areaCode || '0') : app.globalData.newPackagePageData.areaCode
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		this.setData({isRequest: false});
 		if (!result) return;
 		if (result.code === 0) {
-			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
-				this.data.equityListMap[this.data.activeIndex]?.payMoney) {
+			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice || addEquity.aepIndex !== -1) {
 				await this.marginPayment(this.data.listOfPackages[this.data.choiceIndex].pledgeType);
 				return;
 			}
@@ -912,7 +916,7 @@ Page({
 			});
 		}
 	},
-	// 获取节点的高度
+	// 获取权益包信息
 	async getNodeHeight (num) {
 		this.setData({
 			isLoaded: false
@@ -920,13 +924,83 @@ Page({
 		util.showLoading({
 			title: '加载中'
 		});
+		let equityListMap = {
+			defaultEquityList: [],	// 默认权益包列表
+			addEquityList: [],	// 加购权益包列表
+			serviceEquityList: []	// 综合权益包
+		};
+		let currentIndex = 0;
+		for (currentIndex; currentIndex < num; currentIndex++) {
+			// 加购权益包
+			const packageIds = this.data.listOfPackages[currentIndex].rightsPackageIds && this.data.listOfPackages[currentIndex]?.rightsPackageIds.length !== 0;
+			if (!packageIds) {
+				equityListMap.addEquityList.push({index: currentIndex, packageName: '',payMoney: 0,aepIndex: -1});
+			} else {
+				const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
+					packageIds: this.data.listOfPackages[currentIndex]?.rightsPackageIds
+				},'POST',false);
+				if (result.code === 0) {
+					// this.data.listOfPackages[currentIndex].mustChoiceRightsPackage === 1 ? 0 : -1
+					let packageName = '';
+					result.data.map((item,index) => {
+						packageName += item.packageName;
+						packageName += index < result.data.length - 1 ? '+' : '';
+					});
+					equityListMap.addEquityList.push({index: currentIndex,packageName: packageName,subData: result.data,aepIndex: -1});
+				} else {
+					// 占位
+					equityListMap.addEquityList.push({index: currentIndex, packageName: '',payMoney: 0,aepIndex: -1});
+				}
+			}
+			// 默认权益包(只能有一个) + 2%综合服务费赠送的权益包
+			let defaultPackages = [];
+			let sevicePackages = this.data.listOfPackages[currentIndex].serviceFeePackageId;
+			if (sevicePackages) defaultPackages = sevicePackages.split(',');
+			if (defaultPackages.length === 0) {
+				equityListMap.serviceEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+			} else {
+				const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
+					packageIds: defaultPackages
+				},'POST',false);
+				if (result.code === 0) {
+					let packageName = '';
+					// let payMoney = 0;	// 综合服务权益包 金额
+					result.data.map((item,index) => {
+						packageName += item.packageName;
+						// payMoney += item.payMoney;
+						packageName += index < result.data.length - 1 ? '+' : '';
+					});
+					equityListMap.serviceEquityList.push({index: currentIndex,subData: result.data,packageName: packageName,payMoney: 0});
+				} else {
+					// 占位
+					equityListMap.serviceEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+				}
+			}
+			let packageId = this.data.listOfPackages[currentIndex].rightsPackageId && this.data.listOfPackages[currentIndex].rightsPackageId !== 0;
+			if (!packageId) {
+				equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+			} else {
+				const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
+					packageIds: new Array(this.data.listOfPackages[currentIndex].rightsPackageId)
+				},'POST',false);
+				if (result.code === 0) {
+					equityListMap.defaultEquityList.push({index: currentIndex,subData: result.data});
+				} else {
+					// 占位
+					equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+				}
+			}
+		}
+		this.setData({
+			isLoaded: true,
+			equityListMap: equityListMap
+		});
+		this.getHeight(num);
+	},
+	// 获取节点的高度
+	getHeight (num) {
 		let that = this;
 		let nodeHeightList = [];
-		let equityListMap = [];
-		// let equityListMap = {
-		// 	defaultEquityList: [],	// 默认权益包列表
-		// 	addEquityList: []	// 加购权益包列表
-		// };
 		let currentIndex = 0;
 		for (currentIndex; currentIndex < num; currentIndex++) {
 			let allIndex = 'module' + currentIndex;
@@ -936,48 +1010,7 @@ Page({
 					nodeHeightList
 				});
 			}).exec();
-			// 加购权益包
-			// const packageIds = this.data.listOfPackages[currentIndex].rightsPackageIds && this.data.listOfPackages[currentIndex]?.rightsPackageIds.length !== 0;
-			const packageIds = this.data.listOfPackages[currentIndex]?.rightsPackageIds.length > 0 ? new Array(this.data.listOfPackages[currentIndex]?.rightsPackageIds[0]) : this.data.listOfPackages[currentIndex]?.rightsPackageIds;
-			if (packageIds?.length === 0) {
-				equityListMap.push({index: currentIndex, packageName: '',payMoney: 0});
-			} else {
-				const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
-					packageIds: packageIds
-				},'POST',false);
-				if (result.code === 0) {
-					let equityObj = result.data[0];
-					equityObj.index = currentIndex;
-					equityListMap.push(equityObj);
-					// equityListMap.addEquityList.push({index: currentIndex,data: result.data});
-				} else {
-					// 占位
-					equityListMap.addEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
-				}
-			}
-			// 默认权益包
-			// const packageId = this.data.listOfPackages[currentIndex].rightsPackageId && this.data.listOfPackages[currentIndex].rightsPackageId !== 0;
-			// if (!packageId) {
-			// 	equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
-			// } else {
-			// 	const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
-			// 		packageIds: new Array(this.data.listOfPackages[currentIndex].rightsPackageId)
-			// 	},'POST',false);
-			// 	if (result.code === 0) {
-			// 		result.data.map(item => {
-			// 			item.index = currentIndex;
-			// 			equityListMap.defaultEquityList.push(item);
-			// 		});
-			// 	} else {
-			// 		// 占位
-			// 		equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
-			// 	}
-			// }
 		}
-		this.setData({
-			isLoaded: true,
-			equityListMap: equityListMap
-		});
 		util.hideLoading();
 	},
 	// 控制 选中套餐 的位置
@@ -1012,6 +1045,8 @@ Page({
 	popDetail (e) {
 		let type = e.currentTarget.dataset.type;	// string
 		let index = e.currentTarget.dataset.index;	// number
+		let def = this.data.equityListMap.defaultEquityList[index];
+		let service = this.data.equityListMap.serviceEquityList[index];
 		switch (type) {
 			case '1':
 				this.selectComponent('#cdPopup').show({
@@ -1031,8 +1066,7 @@ Page({
 						title: '加赠权益包',
 						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 30%,#FFFFFF 100%)',
 						isSplit: index === this.data.activeIndex ? true : this.data.isFade,
-						ids: this.data.listOfPackages[index].rightsPackageIds,
-						equityPackageInfo: this.data.equityListMap[index]
+						equityPackageInfo: service.subData && service.subData.length > 0 ? service.subData.concat(def.subData) : def.subData
 					}
 				});
 				break;
@@ -1051,7 +1085,7 @@ Page({
 				this.selectComponent('#cdPopup').show({
 					isBtnClose: true,
 					argObj: {
-						type: 'sign_tt_coupon',
+						type: this.data.listOfPackages[index].shopProductId === this.data.roadRescueShopProductId ? 'road_rescue1' : 'sign_tt_coupon',
 						title: '通通券',
 						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 30%,#FFFFFF 100%)',
 						isSplit: index === this.data.activeIndex ? true : this.data.isFade
@@ -1065,14 +1099,34 @@ Page({
 						type: 'add_equity_package',
 						title: '加购权益包',
 						isSplit: true,
-						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 30%,#FFFFFF 100%)',
-						rightsPackageIds: this.data.listOfPackages[this.data.activeIndex].rightsPackageIds
+						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 40%,#FFFFFF 100%)',
+						equityPackageInfo: this.data.equityListMap.addEquityList[index].subData,
+						mustEquity: this.data.listOfPackages[index].mustChoiceRightsPackage,
+						aepIndex: this.data.equityListMap.addEquityList[this.data.activeIndex].aepIndex
+					}
+				});
+				break;
+			case '6':
+				this.selectComponent('#cdPopup').show({
+					isBtnClose: true,
+					argObj: {
+						type: 'road_rescue',
+						title: '下单送500元道路救援服务',
+						isSplit: true,
+						bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 40%,#FFFFFF 100%)'
 					}
 				});
 				break;
 			default:
 				break;
 		}
+	},
+	// 弹窗组件
+	cDPopup (e) {
+		let choiceIndex = parseInt(e.detail.choiceIndex);
+		let equityListMap = this.data.equityListMap;
+		equityListMap.addEquityList[this.data.activeIndex].aepIndex = choiceIndex;
+		this.setData({equityListMap});
 	}
 
 });
