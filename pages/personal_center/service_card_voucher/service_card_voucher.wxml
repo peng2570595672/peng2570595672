@@ -1,4 +1,5 @@
 <view class="service-card-voucher">
+	<!-- 顶部选择券类型 -->
 	<!--顶部tab开始-->
 	<view class="swiper-tab">
 		<view wx:for="{{cardVoucherStatus}}" wx:key="index" class="tab-list {{currentTab=== index ? 'tab-show' : ''}}" data-current="{{index}}" bindtap="switchCardVoucherStatus">{{item.name}}</view>

@@ -461,10 +461,9 @@ Page({
 		this.selectComponent('#dialog1').show({params: obj});
 	},
 
-	goPathBus(){
+	goPathBus () {
 		util.go('/pages/default/business_branch_list/business_branch_list');
 	},
-
 
 	backFunc () {
 		let obj = this.selectComponent('#dialog1').noShow().params;
@@ -861,7 +860,7 @@ Page({
 							btnName: '查看新账户',
 							popUpType: 2,
 							title: 'ETC充值银行账户更新提醒',
-							text: '因发行方更换ETC预充值收款账户，如您选择使用银行卡充值的方式，预充值时请更新为最新银行账户，避免您的ETC设备因充值失败导致无法正常通行，微信预充值方式仍可正常使用。',
+							text: '因发行方更换ETC预充值收款账户，如您选择使用银行卡充值的方式，预充值时请更新为最新银行账户，避免您的ETC设备因充值失败导致无法正常通行，微信预充值方式仍可正常使用。'
 						};
 						this.initNoticeTodayMask(obj);
 					}

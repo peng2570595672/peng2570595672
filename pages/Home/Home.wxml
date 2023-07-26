@@ -106,7 +106,7 @@
         </view>
     </view>
     <!-- 模块4 营业网点 -->
-    <view class="custom-module" wx:if="{{false}}">
+    <view class="custom-module">
         <view class="head">营业网点</view>
         <view class="module-main" catchtap="goPathBus">
             <view class="text-main">
