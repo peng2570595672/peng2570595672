@@ -72,18 +72,24 @@ function dataLen(obj) {
   }
   return obj.length
 }
-// 限制展示的字符个数 ,arg1:表示展示的文本，arg2:限制的个数
-function limitNumber(obj,num) {
+// 限制展示的字符个数 ,arg1:表示展示的文本，arg2:限制的个数,arg3: 是否切割
+function limitNumber(obj,num,isSlice=false) {
   if (!obj) {
     return
   }
   var len = obj.length
-  if (len <= num) {
-    return obj
+  if (!isSlice) {
+    if (len <= num) {
+      return obj
+    } else {
+      var str = obj.substring(0,num) + '...'
+      return str
+    }
   } else {
-    var str = obj.substring(0,num) + '...'
+    var str = obj.substring(0,num)
     return str
   }
+  
 }
 // 省市区格式转换 省 - 市 - 区
 function addressFormat (obj) {

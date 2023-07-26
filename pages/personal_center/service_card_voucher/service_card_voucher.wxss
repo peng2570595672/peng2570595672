@@ -1,34 +1,87 @@
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 page {
   background: #fff;
   min-height: 100vh;
 }
 .service-card-voucher {
-  background: #fff;
+  background: #f9f9f9;
   min-height: 100vh;
 }
-.service-card-voucher .swiper-tab {
+.service-card-voucher .topCoupon {
+  width: 100vw;
+  height: 100rpx;
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
   z-index: 1;
+  background: #fff;
   text-align: center;
-  line-height: 92rpx;
+  line-height: 100rpx;
   display: flex;
-  background: #f9f9f9;
+  align-items: center;
+  justify-content: space-around;
+}
+.service-card-voucher .topCoupon .text1 {
+  height: 100%;
+  font-size: 32rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 400;
+  color: #000;
+  letter-spacing: 1px;
+  position: relative;
+}
+.service-card-voucher .topCoupon .greenC {
+  color: #4dbf7b;
+  font-weight: 500;
+}
+.service-card-voucher .topCoupon .greenC::before {
+  display: block;
+  content: '';
+  width: 48rpx;
+  height: 6rpx;
+  background: #00b85c;
+  border-radius: 4rpx;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 12rpx;
+}
+.service-card-voucher .swiper-tab {
+  width: 100vw;
+  height: 92rpx;
+  position: fixed;
+  top: 100rpx;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: #fff;
+  box-shadow: inset 0rpx 1rpx 0rpx 0rpx rgba(230,230,230,0.5);
 }
 .service-card-voucher .swiper-tab .tab-list {
-  flex: 3;
-  font-size: 32rpx;
-  color: #33333d;
+  width: 120rpx;
+  height: 44rpx;
+  text-align: center;
+  line-height: 44rpx;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #909090;
 }
 .service-card-voucher .swiper-tab .tab-show {
-  color: #2fb565;
-  font-weight: 600;
-  text-decoration-line: underline;
+  color: #fff;
+  background: #00b85c;
+  border-radius: 22rpx;
 }
 .service-card-voucher .list-box {
-  padding: 122rpx 30rpx 0;
+  padding: 224rpx 30rpx 0;
 }
 .service-card-voucher .list-item {
   position: relative;

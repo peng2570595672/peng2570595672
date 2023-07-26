@@ -25,7 +25,18 @@ Page({
 			{name: '已使用'},
 			{name: '已过期'}
 		],
-		list: []
+		list: [],
+		topCouponList: [
+			// couponType 劵类型  1-通行劵 2-停车卷 3-加油券 4-充电券 5-洗车券 6-通用券 7-商品消费券
+			{type: 1,name: '通行劵'},
+			// {type: 2,name: '停车卷'},
+			// {type: 3,name: '加油券'},
+			// {type: 4,name: '充电券'},
+			{type: 5,name: '洗车券'}
+			// {type: 6,name: '通用券'},
+			// {type: 7,name: '商品消费券'}
+		],
+		activeIndex: 0
 	},
 	async onLoad () {
 		// 查询是否欠款
@@ -35,7 +46,11 @@ Page({
 		this.setData({
 			list: []
 		});
-		this.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
+		if (this.data.activeIndex === 0) {
+			this.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
+		} else {
+			this.getCouponInfo(this.data.currentTab === 2 ? 0 : this.data.currentTab);
+		}
 	},
 	onPullDownRefresh () {
 		setTimeout(() => {
@@ -54,7 +69,11 @@ Page({
 			});
 			return;
 		}
-		this.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
+		if (this.data.activeIndex === 0) {
+			that.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
+		} else {
+			this.getCouponInfo(this.data.currentTab === 2 ? 0 : this.data.currentTab);
+		}
 	},
 	//  tab切换逻辑
 	switchCardVoucherStatus (e) {
@@ -67,7 +86,11 @@ Page({
 				currentTab: e.target.dataset.current,
 				page: 1
 			});
-			that.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
+			if (this.data.activeIndex === 0) {
+				that.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
+			} else {
+				this.getCouponInfo(this.data.currentTab === 2 ? 0 : this.data.currentTab);
+			}
 		}
 	},
 	// 获取卡券列表
@@ -221,7 +244,7 @@ Page({
 	// 查看详情
 	go (e) {
 		app.globalData.serviceCardVoucherDetails = e.currentTarget.dataset.model;
-		util.go(`/pages/personal_center/service_card_voucher_details/service_card_voucher_details`);
+		util.go(`/pages/personal_center/service_card_voucher_details/service_card_voucher_details?isTonXinQuan=${this.data.activeIndex === 0}`);
 	},
 	// 照相机扫码识别兑换码
 	getExchangeCodeFromScan () {
@@ -276,7 +299,82 @@ Page({
 					showAddCoupon: false,
 					showSuccessful: true
 				});
-				this.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
+				if (this.data.activeIndex === 0) {
+					that.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
+				} else {
+					this.getCouponInfo(this.data.currentTab === 2 ? 0 : this.data.currentTab);
+				}
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
+	// 顶部券类型的选择
+	changeCoupon (e) {
+		let index = e.currentTarget.dataset.index;
+		let type = e.currentTarget.dataset.type;
+		let flag = index === this.data.activeIndex;
+		this.setData({list: []});
+		if (!flag && type === 1) {
+			this.setData({activeIndex: index});
+			this.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
+		}
+		if (!flag && type === 5) {
+			this.setData({activeIndex: index,currentTab: this.data.currentTab === 2 ? 0 : this.data.currentTab});
+			this.getCouponInfo(this.data.currentTab);
+		}
+	},
+	// 获取券包信息
+	getCouponInfo (obj) {
+		util.showLoading();
+		let params = {
+			useState: obj,
+			couponType: this.data.topCouponList[this.data.activeIndex].type,
+			page: this.data.page,
+			pageSize: this.data.pageSize
+		};
+		util.getDataFromServer('consumer/voucher/get-third-coupon-page-list', params, () => {
+			util.showToastNoIcon('获取卡券列表失败！');
+		}, (res) => {
+			if (res.code === 0) {
+				this.setData({
+					list: this.data.list.concat(res.data.list),
+					totalPages: res.data.total
+				});
+				if (res.data.list.length > 0) {
+					let listHeight = wx.createSelectorQuery();
+					listHeight.select('.list-box').boundingClientRect();
+					listHeight.exec(res => {
+						this.setData({
+							listHeight: res[0].height
+						});
+					});
+				}
+				this.setData({
+					windowHeight: wx.getSystemInfoSync().windowHeight,
+					mobilePhone: app.globalData.userInfo.mobilePhone
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
+	// 跳转小兔详情
+	goXiaoTu (e) {
+		util.showLoading();
+		let item = e.currentTarget.dataset.item;
+		let params = {
+			recordId: item.recordId
+		};
+		util.getDataFromServer('consumer/voucher/xiaotu-washcar/auto-login', params, () => {
+			util.showToastNoIcon(res.message);
+		}, (res) => {
+			if (res.code === 0) {
+				util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data.url)}`);
 			} else {
 				util.showToastNoIcon(res.message);
 			}

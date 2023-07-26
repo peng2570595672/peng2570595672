@@ -1,32 +1,86 @@
 @import "../../../style/base.styl"
+.iconfont
+    font-family 'iconfont' !important
+    font-size 16px
+    font-style normal
+    -webkit-font-smoothing antialiased
+    -moz-osx-font-smoothing grayscale
+mixinsWidthHeight($width = 100%, $height = 100%)
+    width $width
+    height $height
+mixinsIconfont($content='',$size=16px,$color=#5EBE68)
+    content $content
+    font-size $size
+    color $color
+mixinsPositionPack($position=relative)
+    position $position
+    left 50%
+    transform translateX(-50%)
+textLineCenter($height)
+    text-align center
+    line-height $height
+flexModule($align=normal,$justify=normal)
+    display flex
+    align-items $align
+    justify-content $justify
 page
 	background #fff
 	min-height 100vh
 .service-card-voucher
-	background: #fff
+	background: rgba(249, 249, 249, 1)
 	min-height 100vh
-	// 顶部tab切换
-	.swiper-tab
+	.topCoupon
+		mixinsWidthHeight(100vw,100rpx)
 		position fixed
 		top 0
 		left 0
-		width 100%
 		z-index 1
-		text-align center
-		line-height 92rpx
-		display flex
-		background #F9F9F9
-		.tab-list
-			flex 3
+		background #fff
+		textLineCenter(100rpx)
+		flexModule(center,space-around)
+		.text1
+			height 100%
 			font-size 32rpx
-			color $fontColor3
+			font-family PingFangSC-Medium, PingFang SC
+			font-weight 400
+			color #000000
+			letter-spacing 1px
+			position relative
+		.greenC
+			color #4DBF7B
+			font-weight 500
+			&::before
+				display block
+				content ''
+				mixinsWidthHeight(48rpx,6rpx)
+				background #00B85C
+				border-radius 4rpx
+				mixinsPositionPack(absolute)
+				bottom 12rpx
+	// 顶部tab切换
+	.swiper-tab
+		mixinsWidthHeight(100vw,92rpx)
+		position fixed
+		top 100rpx
+		left 0
+		z-index 1
+		flexModule(center,space-around)
+		background #fff
+		box-shadow inset 0rpx 1rpx 0rpx 0rpx rgba(230,230,230,0.5)
+		.tab-list
+			mixinsWidthHeight(120rpx,44rpx)
+			textLineCenter(44rpx)
+			font-size 28rpx
+			font-family PingFangSC-Regular, PingFang SC
+			font-weight 400
+			color #909090
 		.tab-show
-			color #2FB565
-			font-weight 600
-			text-decoration-line underline
+			color #fff
+			background #00B85C
+			border-radius 22rpx
 	//通用券&抵扣券
 	.list-box
-		padding 122rpx 30rpx 0
+		padding 224rpx 30rpx 0
 	.list-item
 		position relative
 		display flex

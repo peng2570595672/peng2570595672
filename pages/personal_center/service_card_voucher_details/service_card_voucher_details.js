@@ -9,12 +9,14 @@ Page({
 		isCountDowning: false, // 是否处于倒计时中
 		mobilePhone: undefined,
 		isShowSwitchElaborate: false,
-		details: {}
+		details: {},
+		isTonXinQuan: true	// true表示通行券类型
 	},
-	async onLoad () {
+	async onLoad (options) {
 		this.setData({
 			details: app.globalData.serviceCardVoucherDetails,
-			mobilePhone: app.globalData.userInfo.mobilePhone
+			mobilePhone: app.globalData.userInfo.mobilePhone,
+			isTonXinQuan: options.isTonXinQuan === 'true'
 		});
 		if (this.data.details.couponUseCheckList && this.data.details.couponUseCheckList.length > 0) {
 			this.data.details.couponUseCheckList.map(item => {

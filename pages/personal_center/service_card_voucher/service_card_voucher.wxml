@@ -1,8 +1,14 @@
+<wxs src='../../../utils/util.wxs' module='tools' />
 <view class="service-card-voucher">
-	<!-- 顶部选择券类型 -->
+	<!-- 顶部券类型 -->
+	<view class="topCoupon">
+		<view class="text1 {{activeIndex === index1 ? 'greenC' : ''}}" wx:for="{{topCouponList}}" wx:for-item="item1" wx:for-index="index1" wx:key="index1" data-type="{{item1.type}}" data-index="{{index1}}" catchtap="changeCoupon">
+			{{item1.name}}
+		</view>
+	</view>
 	<!--顶部tab开始-->
 	<view class="swiper-tab">
-		<view wx:for="{{cardVoucherStatus}}" wx:key="index" class="tab-list {{currentTab=== index ? 'tab-show' : ''}}" data-current="{{index}}" bindtap="switchCardVoucherStatus">{{item.name}}</view>
+		<view wx:for="{{cardVoucherStatus}}" wx:key="index" class="tab-list {{currentTab=== index ? 'tab-show' : ''}}" data-current="{{index}}" bindtap="switchCardVoucherStatus" wx:if="{{activeIndex !== 0 ? item.name !== '已过期' : true }}">{{item.name}}</view>
 	</view>
 	<!--顶部tab结束-->
 	<!--卡券列表开始-->
@@ -16,15 +22,15 @@
 			<!--卡券右边部分开始-->
 			<view class="list-item-right">
 				<view class="card-voucher-name" catchtap="go" data-model="{{item}}">
-					<view class="fullName">{{item.fullName}}</view>
-					<!-- <view class="carWashVoucher" wx:if="{{item.status === 1 && item.couponType === 5}}" catchtap="">去使用</view> -->
+					<view class="fullName">{{item.fullName || item.couponName}}</view>
+					<view class="carWashVoucher" wx:if="{{activeIndex !== 0 && item.thirdPartyType === 4}}" data-item="{{item}}" catchtap="goXiaoTu">去使用</view>
 				</view>
-				<view class="card-voucher-requirements" catchtap="go" data-model="{{item}}">满{{item.minUseAmount ? item.minUseAmount/100 : 0}}元使用</view>
+				<view class="card-voucher-requirements" catchtap="go" data-model="{{item}}">满{{activeIndex === 0 ? item.minUseAmount ? item.minUseAmount/100 : 0 : item.consumptionThreshold/100}}元使用</view>
 				<view class="line"></view>
-				<view class="period-of-validity {{item.status !== 1 ? 'date-right' : ''}}" catchtap="go" data-model="{{item}}">
-					<!-- 卡券状态 status 0-待激活 1-已激活 2-已使用  3-已锁定 8-已过期 9-已作废 -->
-					<text wx:if="{{item.status === 1}}">有效期：{{item.expireStartDate}}至{{item.expireEndDate}}</text>
-					<text wx:if="{{item.status === 2}}">使用日期：{{item.lastUseTime}}</text>
+				<view class="period-of-validity {{item.status !== 1 ? item.useState === 0 || item.useState === 1 ? '' : 'date-right' : ''}}" catchtap="go" data-model="{{item}}">
+					<!-- 卡券状态 status 0-待激活 1-已激活 2-已使用  3-已锁定 8-已过期 9-已作废  useState: 使用状态 0-未使用 1-已使用-->
+					<text wx:if="{{item.status === 1 || item.useState === 0}}">有效期：{{item.expireStartDate || tools.limitNumber(item.useValidityStartTime,11,true)}}至{{item.expireEndDate || tools.limitNumber(item.useValidityEndTime,11,true)}}</text>
+					<text wx:if="{{item.status === 2 || item.useState === 1}}">使用日期：{{activeIndex === 0 ? item.lastUseTime : item.useTime}}</text>
 					<text wx:if="{{item.status === 8}}">失效时间：{{item.expireEndDate}}</text>
 				</view>
 				<view wx:if="{{item.status === 0}}" class="activate-now iconfont" catchtap="activateCoupon" data-id="{{item.id}}">立即激活</view>

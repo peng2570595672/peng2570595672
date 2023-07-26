@@ -1,12 +1,13 @@
+<wxs src='../../../utils/util.wxs' module='tools' />
 <view class="service_card_voucher_details" style="background-color: {{details.background}}">
 	<!--卡券开始-->
 	<view class="ticket-card">
 		<!--卡券顶部开始-->
 		<view class="ticket-top">
-			<view class="card-voucher-name">{{details.fullName}}</view>
-			<view class="card-voucher-requirements">满{{details.minUseAmount ? details.minUseAmount/100 : 0}}元使用</view>
+			<view class="card-voucher-name">{{isTonXinQuan ? details.fullName : details.couponName}}</view>
+			<view class="card-voucher-requirements">满{{isTonXinQuan ? details.minUseAmount ? details.minUseAmount/100 : 0 : details.consumptionThreshold/100}}元使用</view>
 			<!--<view class="period-of-validity">有效期：{{details.expireStartDate}}至{{details.expireEndDate}}</view>-->
-			<view class="period-of-validity" wx:if="{{details.status !== 0}}">有效期至：{{details.expireEndDate}}</view>
+			<view class="period-of-validity" wx:if="{{details.status !== 0}}">有效期至：{{consumptionThreshold ? details.expireEndDate : tools.limitNumber(details.useValidityEndTime,11,true)}}</view>
 			<view class="ticket-status {{details.status === 2 ? 'ticket-status-used' : ''}} {{details.status === 8 ? 'ticket-status-overdue' : ''}}  iconfont" style="color: {{details.background}}"></view>
 			<button catchtap="activateCoupon" wx:if="{{details.status === 0}}" class="activate-now" style="background-color: {{details.background}}">立即激活</button>
 			<button catchtap="goComboList" wx:if="{{details.sceneId === '694123576468447232'}}" class="activate-now" style="background-color: {{details.background}}">去使用</button>
@@ -24,10 +25,10 @@
 					<view>{{details.vehPlates}}</view>
 				</view>
 				<view class="entry">
-					<view>{{details.couponType === 1 ? '面额' : '折扣'}}</view>
+					<view>{{details.couponType === 1 || details.couponType === 5 ? '面额' : '折扣'}}</view>
 					<view>
-						{{details.couponType === 1 ? details.faceAmount/100 : details.discountValue}}
-						{{details.couponType === 1 ? '元' : '折'}}
+						{{details.couponType === 1 ? details.faceAmount/100 : details.discountValue || details.denomination/100}}
+						{{details.couponType === 1 || details.couponType === 5 ? '元' : '折'}}
 					</view>
 				</view>
 				<view class="entry" wx:if="{{details.totalDegree !== 1 && details.status === 1}}">
@@ -47,13 +48,13 @@
 					</view>
 				</view>
 			</view>
-			<view class="ticket-bottom-item" wx:if="{{details.ruleDesc}}">
+			<view class="ticket-bottom-item" wx:if="{{details.ruleDesc || details.instructions}}">
 				<view class="entry instructions {{isShowSwitchElaborate ? 'show-elaborate' : ''}}" catchtap="switchElaborate">
 					<view>使用说明</view>
 					<view><text class="iconfont elaborate"></text></view>
 				</view>
 			</view>
-			<view class="remark" wx:if="{{isShowSwitchElaborate}}">{{details.ruleDesc}}</view>
+			<view class="remark" wx:if="{{isShowSwitchElaborate}}">{{details.ruleDesc || details.instructions}}</view>
 		</view>
 		<!--卡券底部结束-->
 	</view>
