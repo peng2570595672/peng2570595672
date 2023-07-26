@@ -2,50 +2,50 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
-		tabStatus: [
-			{name: '已支付1',id: 1},{name: '未支付2',id: 2},{name: '未支付3',id: 3},
-			{name: '未支付4',id: 4},{name: '未支付5',id: 5},{name: '未支付6',id: 6},
-			{name: '未支付7',id: 7},{name: '未支付8',id: 8},{name: '未支付9',id: 9}
-		],
+		tabStatus: [],
 		currentTab: '贵州省',
 		page: 0,
-		nextpageFlag: false, // 是否向下翻页
+		nextPageFlag: false, // 是否向下翻页
 		listData: []
 	},
-	async onLoad () {
-		this.getListData();
+
+	onLoad () {
 		this.getProvinceData();
 	},
-	getProvinceData () {
-		util.getDataFromServer('consumer/system/sysBussinessNodeInfo/provinceList', {}, () => {}, (res) => {
-			if (res.code === 0) {
+	async getProvinceData () {
+		const result = await util.getDataFromServersV2('/consumer/system/sysBussinessNodeInfo/provinceList', {});
+		if (!result) return;
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+			return;
+		}
+		this.setData({
+			tabStatus: result.data
+		});
+		this.data.tabStatus.map(item => {
+			if (this.data.currentTab === item.province_name) {
 				this.setData({
-					tabStatus: res.data
+					currentTab: item.province_name
 				});
 			} else {
-				util.showToastNoIcon(res.message);
+				this.setData({
+					currentTab: this.data.tabStatus[0].province_name
+				});
 			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
 		});
+		this.getListData();
 	},
 	switchTab: function (e) {
-		if (this.data.currentTab === e.target.dataset.current) {
-			return false;
-		}
+		if (this.data.currentTab === e.target.dataset.current) return false;
 		this.setData({
 			currentTab: e.target.dataset.current
 		});
-
-		if (!this.data.currentTab) {
-			return false;
-		}
+		if (!this.data.currentTab) return false;
 		this.setData({
 			listData: [],
 			page: 0
 		});
 		this.getListData();
-
 	},
 	// 下拉刷新
 	async onPullDownRefresh () {
@@ -57,8 +57,7 @@ Page({
 	},
 	// 页面上拉触底事件的处理函数
 	async onReachBottom () {
-		if (!this.data.nextpageFlag) return;
-		await this.getListData();
+		if (this.data.nextPageFlag) await this.getListData();
 	},
 	async getListData () {
 		if (!this.data.page) this.data.page = 0;
@@ -81,9 +80,9 @@ Page({
 		this.setData({
 			listData: this.data.listData.concat(list)
 		});
-		if (this.data.listData.length >= result.data.total) {
+		if (this.data.listData.length <= result.data.total) {
 			this.setData({
-				nextpageFlag: true
+				nextPageFlag: true
 			});
 		}
 	},
