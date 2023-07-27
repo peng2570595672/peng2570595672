@@ -317,11 +317,11 @@ Page({
 		let type = e.currentTarget.dataset.type;
 		let flag = index === this.data.activeIndex;
 		if (!flag && type === 1) {
-			this.setData({activeIndex: index,list: []});
+			this.setData({activeIndex: index,list: [],page: 1});
 			this.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
 		}
 		if (!flag && type === 5) {
-			this.setData({activeIndex: index,list: [],currentTab: this.data.currentTab === 2 ? 0 : this.data.currentTab});
+			this.setData({activeIndex: index,list: [],page: 1,currentTab: this.data.currentTab === 2 ? 0 : this.data.currentTab});
 			this.getCouponInfo(this.data.currentTab);
 		}
 	},
