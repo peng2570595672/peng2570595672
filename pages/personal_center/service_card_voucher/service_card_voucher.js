@@ -70,7 +70,7 @@ Page({
 			return;
 		}
 		if (this.data.activeIndex === 0) {
-			that.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
+			this.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
 		} else {
 			this.getCouponInfo(this.data.currentTab === 2 ? 0 : this.data.currentTab);
 		}
@@ -300,7 +300,7 @@ Page({
 					showSuccessful: true
 				});
 				if (this.data.activeIndex === 0) {
-					that.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
+					this.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
 				} else {
 					this.getCouponInfo(this.data.currentTab === 2 ? 0 : this.data.currentTab);
 				}
