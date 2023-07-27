@@ -279,7 +279,7 @@ Page({
 				let isSignTtCoupon = parseInt(this.data.listOfPackages[this.data.choiceIndex].isSignTtCoupon);
 				let shopProductId = this.data.listOfPackages[this.data.choiceIndex].shopProductId;
 				let falgs = this.data.isTest ? shopProductId === '1053333932522610688' : shopProductId === '1060638877005914112';
-				if ((ttCouponPayAmount === 0 && isSignTtCoupon === 1 && falgs) || this.data.isSalesmanOrder) {
+				if (ttCouponPayAmount === 0 && isSignTtCoupon === 1 && falgs) {
 					this.submitOrder();
 				}
 			}
