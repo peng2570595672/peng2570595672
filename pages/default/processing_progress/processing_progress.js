@@ -522,9 +522,12 @@ Page({
 	},
 	async handleActivate (obj) {
 		app.globalData.orderInfo.orderId = this.data.orderId;
+		const result = await util.getDataFromServersV2('consumer/order/order-detail', {
+			orderId: this.data.orderId
+		});
 		let res = await util.getDataFromServersV2('consumer/order/common/get-member-by-carno',{
-			carNo: obj.vehPlates,
-			vehColor: obj.vehColor
+			carNo: result.data.vehPlates,
+			vehColor: result.data.vehColor
 		});
 		let qtLimit = '';
 		if (obj.obuCardType === 4) {

@@ -290,7 +290,7 @@
                 {
                     "name": "",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1071126438080557056",
+                    "query": "orderId=1131687779223212032",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -332,7 +332,7 @@
                 {
                     "name": "",
                     "pathName": "pages/default/processing_progress/processing_progress",
-                    "query": "orderId=1038104740237414400",
+                    "query": "orderId=1134263005421375488",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -346,7 +346,7 @@
                 {
                     "name": "",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1107665398720892928",
+                    "query": "orderId=1039136338022371328",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -489,13 +489,21 @@
                     "query": "test=undefined",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1101196259089190912",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
     },
     "setting": {
         "urlCheck": true,
-        "compileHotReLoad": true
+        "compileHotReLoad": false,
+        "useIsolateContext": false
     },
     "projectname": "etc_plus_mini_2.0"
 }

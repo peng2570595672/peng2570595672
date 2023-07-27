@@ -27,9 +27,12 @@ Page({
 			activeIndex: index
 		});
 		app.globalData.orderInfo.orderId = item.id;
+		const result = await util.getDataFromServersV2('consumer/order/order-detail', {
+			orderId: item.id
+		});
 		let res = await util.getDataFromServersV2('consumer/order/common/get-member-by-carno',{
-			carNo: item.vehPlates,
-			vehColor: item.vehColor
+			carNo: result.data.vehPlates,
+			vehColor: result.data.vehColor
 		});
 		const signed = +(res.data.contractStatus === 1) || res.data.etcContractId === -1;
 		if (!signed) {

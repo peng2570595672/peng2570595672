@@ -268,9 +268,12 @@ Page({
 		this.handleActivate(obj);
 	},
 	async handleActivate (obj) {
+		const result = await util.getDataFromServersV2('consumer/order/order-detail', {
+			orderId: obj.id
+		});
 		let res = await util.getDataFromServersV2('consumer/order/common/get-member-by-carno',{
-			carNo: obj.vehPlates,
-			vehColor: obj.vehColor
+			carNo: result.data.vehPlates,
+			vehColor: result.data.vehColor
 		});
 		let qtLimit = '';
 		if (obj.obuCardType === 4) {
