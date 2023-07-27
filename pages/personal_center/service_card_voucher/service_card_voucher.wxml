@@ -23,7 +23,7 @@
 			<view class="list-item-right">
 				<view class="card-voucher-name" catchtap="go" data-model="{{item}}">
 					<view class="fullName">{{item.fullName || item.couponName}}</view>
-					<view class="carWashVoucher" wx:if="{{activeIndex !== 0 && item.thirdPartyType === 4}}" data-item="{{item}}" catchtap="goXiaoTu">去使用</view>
+					<view class="carWashVoucher" wx:if="{{activeIndex !== 0 && item.thirdPartyType === 4 && item.useState === 0}}" data-item="{{item}}" catchtap="goXiaoTu">去使用</view>
 				</view>
 				<view class="card-voucher-requirements" catchtap="go" data-model="{{item}}">满{{activeIndex === 0 ? item.minUseAmount ? item.minUseAmount/100 : 0 : item.consumptionThreshold/100}}元使用</view>
 				<view class="line"></view>
@@ -37,7 +37,7 @@
 			</view>
 			<!--卡券右边部分结束-->
 			<!--图标开始-->
-			<view class="iconfont list-item-bg  {{item.status === 2 ? 'used' : ''}} {{item.status === 8 ? 'expired' : ''}}"></view>
+			<view class="iconfont list-item-bg  {{item.status === 2 || item.useState === 1 ? 'used' : ''}} {{item.status === 8 ? 'expired' : ''}}"></view>
 			<!--图标结束-->
 		</view>
 	</view>
