@@ -209,7 +209,7 @@ Page({
 			9: () => this.onClickHighSpeedSigning(orderInfo), // 去签约
 			10: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
 			11: () => this.onClickCctivate(orderInfo), // 去激活
-			12: () => this.onActive(orderInfo),	// 已激活
+			12: () => this.onClickCctivate(orderInfo),	// 已激活
 			13: () => this.goBindingAccount(orderInfo), // 去开户
 			14: () => this.goRechargeAuthorization(orderInfo), // 去授权预充保证金
 			15: () => this.goRecharge(orderInfo), // 保证金预充失败 - 去预充
@@ -569,7 +569,7 @@ Page({
 			return;
 		}
 		if (!this.data.orderInfo?.logisticsId) {
-			this.handleActivate();
+			this.handleActivate(this.data.orderInfo);
 		} else {
 			await this.confirmReceipt();
 		}
@@ -581,7 +581,7 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			this.handleActivate();
+			this.handleActivate(this.data.orderInfo);
 		} else {
 			util.showToastNoIcon(result.message);
 		}

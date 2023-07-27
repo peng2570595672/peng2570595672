@@ -430,7 +430,7 @@ Page({
 			}, (res) => {
 				util.hideLoading();
 				if (res.code === 0) {
-					this.handleActivate();
+					this.handleActivate(this.data.info);
 				} else {
 					util.showToastNoIcon(res.message);
 				}
