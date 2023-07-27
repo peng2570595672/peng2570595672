@@ -2,7 +2,7 @@
 * 湖南握奇
  */
 const util = require('../../../../utils/util.js');
-var obuSdk = require('../../../../libs/hunan_watchdata_sdk/WCDObuSdk.js');
+var obuSdk = require('../../libs/hunan_watchdata_sdk/WCDObuSdk.js');
 const app = getApp();
 let timer;
 Page({

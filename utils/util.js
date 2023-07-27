@@ -1790,6 +1790,20 @@ async function handleBluetoothStatus () {
 		}
 	});
 }
+// channel - 名称 字典
+let channelNameMap = {
+	1: '黔通卡',
+	2: '蒙通卡',
+	3: '鲁通卡',
+	4: '青通卡',
+	5: '速通卡',
+	6: '三秦通卡',
+	7: '粤通卡',
+	8: '辽通卡',
+	9: '齐鲁通卡',
+	10: '湘通卡',
+	11: '龙通卡',
+};
 module.exports = {
 	setApp,
 	returnMiniProgram,
@@ -1831,6 +1845,7 @@ module.exports = {
 	getTruckHandlingStatus,
 	getStatus,
 	subscribe,
+	channelNameMap,
 	getHandlingType,
 	getStatusFirstVersion,
 	goHome,

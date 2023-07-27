@@ -5,7 +5,7 @@
         <scroll-view scroll-y class="alert-box">
             <rich-text class="alert-info" nodes="{{dialogContent.text}}"></rich-text>
         </scroll-view>
-        <view class="btn" catchtap="hide">{{dialogContent.btnName || '我知道了'}}</view>
+        <view class="btn" catchtap="ok">{{dialogContent.btnName || '我知道了'}}</view>
         <view class="close" catchtap="hide">
             <image class="image" src="{{'https://file.cyzl.com/g001/M01/E0/7D/oYYBAGRscuOAIh4cAAAC8Jl08pY127.png'}}" mode="widthFix" />
         </view>

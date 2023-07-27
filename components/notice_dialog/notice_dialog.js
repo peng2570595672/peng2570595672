@@ -15,7 +15,36 @@ Component({
 	},
 	methods: {
 		ok (e) {
-			this.triggerEvent('onHandle');
+			if (this.data.dialogContent.alertType === 100) {
+				this.toSign();
+			}
+			if (this.data.dialogContent.alertType === 99) {
+				util.go(`/pages/account_management/pay_method/pay_method?orderId=${this.data.dialogContent.orderId}`);
+			}
+			this.hide();
+		},
+		// 去签约
+		toSign () {
+			let data = this.data.dialogContent.sysPlatform;
+			if (!data) return util.showToastNoIcon('无签约数据');
+			const path = `pages/personal_center/my_etc_detail/my_etc_detail?orderId=${app.globalData.orderInfo.orderId}`;
+			if (data.appId !== 'wxddb3eb32425e4a96') {
+				let params = {
+					appId: data.appId,
+					path: path,
+					extraData: {},
+					envVersion: 'release',
+					fail: () => {
+						util.showToastNoIcon('打开小程序失败');
+					}
+				};
+				wx.uma.trackEvent('index_contracted_vehicle_owner_service');
+				// TEST CODE
+				console.log('跳转目标签约小程序: ', params);
+				wx.navigateToMiniProgram(params);
+			} else {
+				util.go(`/${path}`);
+			}
 		},
 		show (info) {
 			if (info.text) {
@@ -40,9 +69,6 @@ Component({
 			// }, 1000);
 		},
 		hide (e,flag) {
-			if (this.data.dialogContent.alertType === 99) {
-				util.go(`/pages/account_management/pay_method/pay_method?orderId=${this.data.dialogContent.orderId}`);
-			}
 			this.setData({
 				wrapper: false
 			});

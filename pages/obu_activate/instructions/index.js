@@ -1,6 +1,6 @@
 const app = getApp();
 const util = require('../../../utils/util.js');
-const obuMenu = require('../../../utils/obuMenu.js');
+const obuMenu = require('../libs/obuMenu.js');
 Page({
 	data: {
 	},

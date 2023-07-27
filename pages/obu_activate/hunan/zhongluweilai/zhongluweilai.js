@@ -2,9 +2,9 @@
 * 湖南中路未来
  */
 const util = require('../../../../utils/util.js');
-const etcBleUtil = require('../../../../libs/hunan_zhongluweilai_sdk/etcBleUtil.js');
-const etcDataUtil = require('../../../../libs/hunan_zhongluweilai_sdk/etcDataUtil.js');
-const etcDataHandler = require('../../../../libs/hunan_zhongluweilai_sdk/etcDataHandler.js');
+const etcBleUtil = require('../../libs/hunan_zhongluweilai_sdk/etcBleUtil.js');
+const etcDataUtil = require('../../libs/hunan_zhongluweilai_sdk/etcDataUtil.js');
+const etcDataHandler = require('../../libs/hunan_zhongluweilai_sdk/etcDataHandler.js');
 const app = getApp();
 let timer;
 Page({

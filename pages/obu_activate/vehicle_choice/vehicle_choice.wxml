@@ -1,0 +1,56 @@
+<view class="container">
+	<view class="list-box">
+		<view class="title">选择车牌 <text>（审核通过的订单才可进行激活）</text></view>
+		<view class="list">
+			<view wx:for="{{list}}" catchtap="handleVehicle" data-index="{{index}}" wx:key="index" class="item {{activeIndex === index ? 'active' : ''}}">
+				<view wx:if="{{activeIndex === index}}" class="choice iconfont"></view>
+                <view class="tips" wx:if="{{item.auditStatus !== 2}}">审核通过后可激活</view>
+				<view class="logo">
+					<image src="../images/{{item.obuStatus === 1 || item.obuStatus === 5 ? 'activated' : 'to_be_activated'}}.png" mode="heightFix"></image>
+				</view>
+				<view class="info">
+					<view class="name">
+                        <view>{{item.vehPlates}}</view>
+                        <view class="status {{item.obuStatus === 1 || item.obuStatus === 5 ? 'activated' : ''}} {{item.obuStatus === 0 && item.auditStatus === 2 ? 'to_be_activated' : ''}}">
+                            <view wx:if="{{item.auditStatus === 2}}">
+                                {{item.obuStatus === 1 || item.obuStatus === 5 ? '已激活' : '待激活'}}
+                            </view>
+                            <view wx:else>
+                                {{item.selfStatus === 1 || item.selfStatus === 22 ? '已解约' : ''}}
+                                {{item.selfStatus === 2 || item.selfStatus === 4 || item.selfStatus === 14 || item.selfStatus === 23 ? '办理中' : ''}}
+                                {{item.selfStatus === 3 ? '待支付' : ''}}
+                                {{item.selfStatus === 5 || item.selfStatus === 21 ? '待签约' : ''}}
+                                {{item.selfStatus === 6 ? '待审核' : ''}}
+                                {{item.selfStatus === 7 ? '审核不通过' : ''}}
+                                {{item.selfStatus === 8 ? '审核不通过' : ''}}
+                                {{item.selfStatus === 9 ? (item.flowVersion === 2 ? '待签约高速' : (item.flowVersion === 7 ? '待开户' : '待签约银行')) : ''}}
+                                {{item.selfStatus === 10 || item.selfStatus === 17 ? '审核通过' : ''}}
+                                {{item.selfStatus === 11 ? '待激活' : ''}}
+                                {{item.selfStatus === 12 ? '已激活' : ''}}
+                                {{item.selfStatus === 13 || item.selfStatus === 19 || item.selfStatus === 20 ? '待开户' : ''}}
+                                {{item.selfStatus === 15 ? '待充保证金' : ''}}
+                                {{item.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
+                            </view>
+                        </view>
+                    </view>
+                    <!--// ETC卡信息 1-贵州黔通卡 2-内蒙古蒙通卡 3-山东鲁通卡 4-青海青通卡 5-天津速通卡 6-陕西三秦通卡 7-广东粤通卡 8-辽宁辽通卡 9-齐鲁高速鲁通卡 10-湘通卡-->
+					<view class="sub-title">
+                        {{item.obuCardType === 1 ? '黔通卡' : ''}}
+                        {{item.obuCardType === 2 ? '蒙通卡' : ''}}
+                        {{item.obuCardType === 3 ? '鲁通卡' : ''}}
+                        {{item.obuCardType === 4 ? '青通卡' : ''}}
+                        {{item.obuCardType === 5 ? '速通卡' : ''}}
+                        {{item.obuCardType === 6 ? '三秦通卡' : ''}}
+                        {{item.obuCardType === 7 ? '粤通卡' : ''}}
+                        {{item.obuCardType === 8 ? '辽通卡' : ''}}
+                        {{item.obuCardType === 9 ? '齐鲁通卡' : ''}}
+                        {{item.obuCardType === 10 ? '湘通卡' : ''}}
+                        {{item.obuCardType === 11 ? '龙通卡' : ''}}
+                    </view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
+<noticeDialog id="noticeDialog"></noticeDialog>
+<equipment_selection id="choiceEquipment" bindonClickTranslucentHandle="onClickTranslucentHandle"></equipment_selection>

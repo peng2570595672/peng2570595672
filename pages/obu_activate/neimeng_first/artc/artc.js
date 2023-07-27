@@ -2,9 +2,9 @@
 * 内蒙obu连接蓝牙激活
  */
 const util = require('../../../../utils/util.js');
-const bleUtil = require('../../../../libs/neimeng_artc_sdk/artcBleUtil.js');
-const dataUtil = require('../../../../libs/neimeng_artc_sdk/artcDataUtil.js');
-const dataHandler = require('../../../../libs/neimeng_artc_sdk/artcDataHandler.js');
+const bleUtil = require('../../libs/neimeng_artc_sdk/artcBleUtil.js');
+const dataUtil = require('../../libs/neimeng_artc_sdk/artcDataUtil.js');
+const dataHandler = require('../../libs/neimeng_artc_sdk/artcDataHandler.js');
 const app = getApp();
 let timer;
 Page({

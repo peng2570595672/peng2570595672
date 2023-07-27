@@ -262,7 +262,8 @@ Page({
 			funcListOne.sort(this.compare('sort'));	// 排序
 			// 出行贴心服务 模块
 			let funcListTwo = data.outServiceFuncConfig.funcs.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime));
-			funcListTwo.sort(this.compare('sort'));	// 排序
+			funcListTwo.sort(this.compare('sort'));	//
+			console.log(funcListOne)
 			this.setData({
 				interval,
 				imgList: bannerList,
@@ -429,6 +430,14 @@ Page({
 			return;
 		}
 		let obj = e.currentTarget.dataset.information;
+		if (obj.jumpUrl === 'activate') {
+			if (app.globalData.myEtcList.length) {
+				util.go('/pages/obu_activate/vehicle_choice/vehicle_choice');
+			} else {
+				util.go('/pages/obu_activate/vehicle_inquire/vehicle_inquire');
+			}
+			return;
+		}
 		let appIdPath = Boolean(obj.appId && obj.appId.length > 0);
 		let webPath = obj.jumpUrl.indexOf('https') !== -1;
 		let templateId = obj.templateId && obj.templateId[0] !== '';
