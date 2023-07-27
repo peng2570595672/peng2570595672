@@ -520,40 +520,51 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
-	handleActivate () {
+	async handleActivate (obj) {
 		app.globalData.orderInfo.orderId = this.data.orderId;
+		let res = await util.getDataFromServersV2('consumer/order/common/get-member-by-carno',{
+			carNo: obj.vehPlates,
+			vehColor: obj.vehColor
+		});
+		let qtLimit = '';
+		if (obj.obuCardType === 4) {
+			qtLimit = JSON.stringify(res.data.qtLimit);
+		}
 		wx.setStorageSync('baseInfo', {
-			orderId: this.data.orderId,
+			orderId: obj.id,
 			mobilePhone: app.globalData.userInfo.mobilePhone,
-			channel: this.data.info.obuCardType,
-			qtLimit: '',// 青通卡激活所需,暂未写
-			serverId: this.data.info.shopId,
-			carNoStr: this.data.info.vehPlates,
-			obuStatus: this.data.info.obuStatus
+			channel: obj.obuCardType,
+			qtLimit: qtLimit,// 青通卡激活所需
+			serverId: obj.shopId,
+			carNoStr: obj.vehPlates,
+			obuStatus: obj.obuStatus
 		});
-		// ETC卡信息 1-贵州黔通卡 2-内蒙古蒙通卡 3-山东鲁通卡 4-青海青通卡 5-天津速通卡 6-陕西三秦通卡 7-广东粤通卡 8-辽宁辽通卡 9-齐鲁高速鲁通卡 10-湘通卡
-		if (this.data.info.obuCardType === 10) {
-			util.go(`/pages/obu_activate/guide/index`);
-			return;
+		switch (obj.obuCardType) {
+			case 1:// 贵州 黔通卡
+			case 21:
+				util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${obj.auditStatus}`);
+				break;
+			case 2:// 内蒙 蒙通卡
+				if (!this.data.choiceEquipment) {
+					this.setData({
+						choiceEquipment: this.selectComponent('#choiceEquipment')
+					});
+				}
+				this.data.choiceEquipment.switchDisplay(true);
+				break;
+			case 3:	// 山东 鲁通卡
+			case 9:	// 山东 齐鲁通卡
+				util.go(`/pages/empty_hair/instructions_ujds/index?auditStatus=${obj.auditStatus}`);
+				break;
+			case 4:	// 青海 青通卡
+			case 5:// 天津 速通卡
+			case 10:// 湖南 湘通卡
+				util.go(`/pages/obu_activate/neimeng_choice/neimeng_choice?obuCardType=${obj.obuCardType}`);
+				break;
+			case 8:	// 辽宁 辽通卡
+				util.go(`/pages/empty_hair/instructions_lnnk/index?auditStatus=${obj.auditStatus}`);
+				break;
 		}
-		if (this.data.info.obuCardType === 2) {
-			if (!this.data.choiceEquipment) {
-				this.setData({
-					choiceEquipment: this.selectComponent('#choiceEquipment')
-				});
-			}
-			this.data.choiceEquipment.switchDisplay(true);
-			return;
-		}
-		// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
-		wx.navigateToMiniProgram({
-			appId: 'wxdda17150b8e50bc4',
-			path: 'pages/index/index',
-			envVersion: 'release', // 目前联调为体验版
-			fail () {
-				util.showToastNoIcon('调起激活小程序失败, 请重试！');
-			}
-		});
 	},
 	onClickTranslucentHandle () {
 		this.data.choiceEquipment.switchDisplay(false);

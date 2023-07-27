@@ -2,7 +2,7 @@
 * 内蒙obu连接蓝牙激活
  */
 const util = require('../../../../utils/util.js');
-const bleUtil = require('../../../../libs/neimeng_wjone8_sdk/wjBleAPI.js');
+const bleUtil = require('../../libs/neimeng_wjone8_sdk/wjBleAPI.js');
 
 const SUCCESS_CODE = '0';
 const FAILED_CODE = '1';

@@ -2,7 +2,7 @@
 * 内蒙obu连接蓝牙激活
  */
 const util = require('../../../../utils/util.js');
-const bleUtil = require('../../../../libs/neimeng_mc_sdk/BleUtil.js');
+const bleUtil = require('../../libs/neimeng_mc_sdk/BleUtil.js');
 
 const SUCCESS_CODE = '0';
 const FAILED_CODE = '1';
@@ -560,7 +560,7 @@ Page({
 						};
 						if (!isHave) {
 							console.log(res.devices[i].localName);
-							if (new RegExp('^NM.*$').test(res.devices[i].name)) {
+							if (/NM/.test(res.devices[i].name)) {
 								list.push(res.devices[i]);
 								callback(res.devices[i]);
 							}

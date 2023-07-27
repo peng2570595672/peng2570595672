@@ -495,7 +495,7 @@
     },
     "setting": {
         "urlCheck": true,
-        "compileHotReLoad": true
+        "compileHotReLoad": false
     },
     "projectname": "etc_plus_mini_2.0"
 }

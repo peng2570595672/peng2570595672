@@ -1,0 +1,10 @@
+{
+	"navigationBarTitleText": "ETC激活",
+	"navigationBarBackgroundColor": "#ECECEC",
+	"backgroundColor": "#ECECEC",
+  "usingComponents": {
+    "agreement-dialog": "/components/agreement_dialog/agreement_dialog",
+    "equipment_selection": "/components/equipment_selection/equipment_selection",
+    "noticeDialog": "/components/notice_dialog/notice_dialog"
+  }
+}

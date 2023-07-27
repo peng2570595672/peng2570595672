@@ -547,28 +547,12 @@
   animation: fade_out 0.5s linear forwards;
   -webkit-animation: fade_out 0.5s linear forwards;
 }
-@-webkit-keyframes fade_in {
-  0% {
-    bottom: -330rpx;
-  }
-  100% {
-    bottom: 0;
-  }
-}
 @keyframes fade_in {
   0% {
     bottom: -330rpx;
   }
   100% {
     bottom: 0;
-  }
-}
-@-webkit-keyframes fade_out {
-  0% {
-    bottom: 0;
-  }
-  100% {
-    bottom: -330rpx;
   }
 }
 @keyframes fade_out {
@@ -593,17 +577,6 @@
   }
   100% {
     bottom: -330rpx;
-  }
-}
-@-webkit-keyframes addEquityPackage {
-  0% {
-    opacity: 0;
-  }
-  71% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }
 @keyframes addEquityPackage {

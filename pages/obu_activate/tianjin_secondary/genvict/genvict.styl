@@ -1,0 +1,56 @@
+//渐变主题色
+$themeColor1 = #84d157;
+$themeColor2 = #14ac69;
+.install_step
+	& > image
+		position relative
+		left 12rpx
+		z-index 1
+		margin 0 auto
+		display block
+		height 654rpx
+	.text-wrapper
+		margin-top -108rpx
+		position relative
+		z-index 10
+		& > view
+			text-align center
+			font-size 28rpx
+			&.ok
+				color $themeColor1 !important
+			&.title
+				font-size 36rpx
+				font-weight bold
+			&.devName
+				margin-top 25rpx
+				& > text
+					&.succeed
+						color $themeColor1 !important
+					&.failed
+						color #fa6c3e
+			&.cardNum
+				margin-top 6rpx
+				color #fa6c3e
+			&.errMsg
+				margin-top 6rpx
+				color #f60
+	.btns
+		position fixed
+		left 30rpx
+		right 30rpx
+		bottom 30rpx
+		display flex
+		align-items center
+		justify-content center
+		height 98rpx
+		line-height 98rpx
+		color #fff
+		font-size 32rpx
+		background linear-gradient(45deg, $themeColor2, $themeColor1)
+		border-radius 49rpx
+		&:active
+			opacity .8
+		&.not-use,
+		&:active.not-use
+			opacity 1
+			background #ccc

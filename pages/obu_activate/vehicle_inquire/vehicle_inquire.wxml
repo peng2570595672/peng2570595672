@@ -1,0 +1,114 @@
+<view class="root">
+	<view class="title">车牌号</view>
+	<view class="car-no-wrapper">
+		<view class="{{currentIndex === 0 ? 'selected' : ''}}" data-index="0" catchtap="setCurrentCarNo">
+			<view>{{carNo[0]}}</view>
+			<view></view>
+		</view>
+		<view class="{{currentIndex === 1 ? 'selected' : ''}}" data-index="1" catchtap="setCurrentCarNo">
+			<view>{{carNo[1]}}</view>
+			<view></view>
+		</view>
+		<view class="{{currentIndex === 2 ? 'selected' : ''}}" data-index="2" catchtap="setCurrentCarNo">
+			<view>{{carNo[2]}}</view>
+			<view></view>
+		</view>
+		<view class="{{currentIndex === 3 ? 'selected' : ''}}" data-index="3" catchtap="setCurrentCarNo">
+			<view>{{carNo[3]}}</view>
+			<view></view>
+		</view>
+		<view class="{{currentIndex === 4 ? 'selected' : ''}}" data-index="4" catchtap="setCurrentCarNo">
+			<view>{{carNo[4]}}</view>
+			<view></view>
+		</view>
+		<view class="{{currentIndex === 5 ? 'selected' : ''}}" data-index="5" catchtap="setCurrentCarNo">
+			<view>{{carNo[5]}}</view>
+			<view></view>
+		</view>
+		<view class="{{currentIndex === 6 ? 'selected' : ''}}" data-index="6" catchtap="setCurrentCarNo">
+			<view>{{carNo[6]}}</view>
+			<view></view>
+		</view>
+		<view wx:if="{{currentIndex === 7 || carNo[7]}}" class="{{carNo[7] ? '' : 'animated'}} {{currentIndex === 7 ? 'selected' : ''}} {{currentIndex !== 7 ? 'fadeOut' :'fadeIn'}}" data-index="7" catchtap="setCurrentCarNo">
+			<view>{{carNo[7]}}</view>
+			<view></view>
+		</view>
+		<view wx:else class="none animated {{currentIndex === 7 ? 'fadeOut' : 'fadeIn'}}" data-index="7" catchtap="setCurrentCarNo">
+			<view class="iconfont"></view>
+			<view>新能源</view>
+		</view>
+	</view>
+	<view class="color-box">
+		<text class="color-title">选择车牌颜色</text>
+		<view class="color-container">
+			<view catchtap="changePlateColor" data-color="0" class="color-btn {{vehColor === 0 ? 'active' : ''}} blue">蓝色</view>
+			<view catchtap="changePlateColor" data-color="4" class="color-btn {{vehColor === 4 ? 'active' : ''}} green">绿色</view>
+			<view catchtap="changePlateColor" data-color="1" class="color-btn {{vehColor === 1 ? 'active' : ''}} yellow">黄色</view>
+			<view catchtap="changePlateColor" data-color="2" class="color-btn {{vehColor === 2 ? 'active' : ''}} black">黑色</view>
+			<view catchtap="changePlateColor" data-color="3" class="color-btn {{vehColor === 3 ? 'active' : ''}} white">白色</view>
+		</view>
+	</view>
+	<view class="prompt">*为保证顺利完成ETC激活，请准确填写车辆信息</view>
+	<view class="separate-line"></view>
+	<view wx:if="{{isRelease}}" style="position: fixed; z-index: 1; right: 410rpx; bottom: 4rpx; width: 2rpx; height: 2rpx; background: #f60;"></view>
+
+	<!-- <block wx:if="{{channelName}}">
+		<view class="bottom">
+			<view class="item">
+				<view>当前二发卡种</view>
+				<view>{{channelName}}</view>
+			</view>
+			<view class="item">
+				<view>车主</view>
+				<view>{{showPhone}}</view>
+			</view>
+			<view class="item get-code-item">
+				<input placeholder="点击输入验证码" type="number" value="{{code}}" maxlength="4" bindinput="codeValueChange" placeholder-class="placeholder-class"/>
+				<text class="get-code {{isGetIdentifyingCoding || !mobilePhone?'get-coding' : ''}}" catchtap="getCode">{{identifyingCode}}</text>
+			</view>
+
+		</view>
+	</block> -->
+	<!-- <block wx:if="{{!channelName}}">
+		<view class="empty">
+			<image mode="widthFix" src="/images/empty.png"/>
+			<view>无相关信息</view>
+			<view>请输入上方车牌号获取消息</view>
+		</view>
+	</block> -->
+	<!-- 协议 -->
+<!--	<view class="text-agreement iconfont {{getAgreement ? 'selected' : ''}} {{carNoStr.length < 7 ? 'disabled' : ''}}" bindtap="onClickAgreementHandle">-->
+<!--		我已阅读并同意-->
+<!--		<text catchtap="handleAgreement" data-type="1">《ETC+用户办理协议》</text>-->
+<!--		<text catchtap="handleAgreement" data-type="2">《ETC+隐私政策》</text>-->
+<!--	</view>-->
+	<view class="btn {{carNoStr.length < 7 ? 'disabled' : ''}}" catchtap="go">确定</view>
+	<view class="alert-mask animated {{alertWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{alertMask}}">
+		<view class="wrapper animated {{alertWrapper ? 'zoomIn' : 'zoomOut'}}">
+			<view class="close iconfont" catchtap="winHide"></view>
+			<view class="sub-title">车牌验证</view>
+			<view class="item">
+				<text class="label">设备卡种</text>
+				<text>{{channelName}}</text>
+			</view>
+			<view class="item" wx:if="{{signed}}">
+				<text class="label">关联手机号</text>
+				<text>{{showPhone}}</text>
+			</view>
+			<view class="item" wx:if="{{signed}}">
+				<text class="label">验证码</text>
+				<text class="placeholder" wx:if="{{alertFirstShow}}" catchtap="inputCode">输入验证码</text>
+				<input class="input" wx:else type="number" value="{{code}}" bindinput="codeValueChange" focus="{{inputCodeFocusing}}" placeholder-class="input-code-placeholder-class" placeholder="输入验证码" maxlength="4" />
+				<view class="get-code-char" catchtap="getCode">{{identifyingCode}}</view>
+			</view>
+			<view class="prompt-to-sign" wx:if="{{!signed}}">*您的设备需签约微信车主服务后方可激活</view>
+			<view class="next {{available ? '' : 'disabled'}}" catchtap="next" wx:if="{{signed}}">下一步</view>
+			<view class="sign" catchtap="toSign" wx:else>签约车主服务</view>
+		</view>
+	</view>
+    <noticeDialog id="noticeDialog"></noticeDialog>
+	<keyboard id="keyboard" index="{{currentIndex}}" show="{{showKeyboard}}" bind:valueChange="valueChange" myCar="{{carNo}}"></keyboard>
+	<equipment_selection id="choiceEquipment" bindonClickTranslucentHandle="onClickTranslucentHandle"></equipment_selection>
+	<high-speed-contract-signing id="notSigningPrompt" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></high-speed-contract-signing>
+	<agreement-dialog id='agreement-dialog' bind:cancelHandle="agreementHandle"></agreement-dialog>
+</view>

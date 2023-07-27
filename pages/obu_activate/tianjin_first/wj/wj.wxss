@@ -1,0 +1,64 @@
+.install_step > image {
+  position: relative;
+  left: 12rpx;
+  z-index: 1;
+  margin: 0 auto;
+  display: block;
+  height: 654rpx;
+}
+.install_step .text-wrapper {
+  margin-top: -108rpx;
+  position: relative;
+  z-index: 10;
+}
+.install_step .text-wrapper > view {
+  text-align: center;
+  font-size: 28rpx;
+}
+.install_step .text-wrapper > view.ok {
+  color: #84d157 !important;
+}
+.install_step .text-wrapper > view.title {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+.install_step .text-wrapper > view.devName {
+  margin-top: 25rpx;
+}
+.install_step .text-wrapper > view.devName > text.succeed {
+  color: #84d157 !important;
+}
+.install_step .text-wrapper > view.devName > text.failed {
+  color: #fa6c3e;
+}
+.install_step .text-wrapper > view.cardNum {
+  margin-top: 6rpx;
+  color: #fa6c3e;
+}
+.install_step .text-wrapper > view.errMsg {
+  margin-top: 6rpx;
+  color: #f60;
+}
+.install_step .btns {
+  position: fixed;
+  left: 30rpx;
+  right: 30rpx;
+  bottom: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 98rpx;
+  line-height: 98rpx;
+  color: #fff;
+  font-size: 32rpx;
+  background: linear-gradient(45deg, #14ac69, #84d157);
+  border-radius: 49rpx;
+}
+.install_step .btns:active {
+  opacity: 0.8;
+}
+.install_step .btns.not-use,
+.install_step .btns:active.not-use {
+  opacity: 1;
+  background: #ccc;
+}

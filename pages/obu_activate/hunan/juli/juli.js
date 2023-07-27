@@ -2,7 +2,7 @@
 * 湖南聚利
  */
 const util = require('../../../../utils/util.js');
-const JLObuSDK = require('../../../../libs/hunan_juli_sdk/JLObuSDK.js');
+const JLObuSDK = require('../../libs/hunan_juli_sdk/JLObuSDK.js');
 const app = getApp();
 Page({
 	data: {

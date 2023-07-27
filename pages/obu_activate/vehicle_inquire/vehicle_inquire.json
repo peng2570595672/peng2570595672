@@ -1,0 +1,10 @@
+{
+	"navigationBarTitleText": "",
+	"usingComponents": {
+		"keyboard": "/components/keyboard/keyboard",
+		"high-speed-contract-signing": "/components/high_speed_contract_signing/high_speed_contract_signing",
+		"agreement-dialog": "/components/agreement_dialog/agreement_dialog",
+		"equipment_selection": "/components/equipment_selection/equipment_selection",
+      "noticeDialog": "/components/notice_dialog/notice_dialog"
+    }
+}

@@ -2,7 +2,7 @@
 * 湖南握奇
  */
 const util = require('../../../../utils/util.js');
-const bleUtil = require('../../../../libs/tianjin_jy_sdk/GenvictBleUtil.js');
+const bleUtil = require('../../libs/tianjin_jy_sdk/GenvictBleUtil.js');
 const app = getApp();
 let timer;
 Page({

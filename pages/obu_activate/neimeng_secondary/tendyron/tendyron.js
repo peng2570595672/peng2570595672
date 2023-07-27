@@ -2,7 +2,7 @@
 * 内蒙obu连接蓝牙激活
  */
 const util = require('../../../../utils/util.js');
-const bleUtil = require('../../../../libs/neimeng_tendyron_sdk/TDRObuSDK.js');
+const bleUtil = require('../../libs/neimeng_tendyron_sdk/TDRObuSDK.js');
 
 const SUCCESS_CODE = '0';
 const FAILED_CODE = '1';
