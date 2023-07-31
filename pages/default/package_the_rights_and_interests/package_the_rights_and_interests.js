@@ -952,7 +952,7 @@ Page({
 					equityListMap.addEquityList.push({index: currentIndex, packageName: '',payMoney: 0,aepIndex: -1});
 				}
 			}
-			// 默认权益包(只能有一个) + 2%综合服务费赠送的权益包
+			// 默认权益包(只能有一个)
 			let defaultPackages = [];
 			let sevicePackages = this.data.listOfPackages[currentIndex].serviceFeePackageId;
 			if (sevicePackages) defaultPackages = sevicePackages.split(',');
@@ -976,6 +976,7 @@ Page({
 					equityListMap.serviceEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
 				}
 			}
+			// 2%综合服务费赠送的权益包
 			let packageId = this.data.listOfPackages[currentIndex].rightsPackageId && this.data.listOfPackages[currentIndex].rightsPackageId !== 0;
 			if (!packageId) {
 				equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});

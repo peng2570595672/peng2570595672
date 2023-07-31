@@ -5,10 +5,10 @@
 		<!--卡券顶部开始-->
 		<view class="ticket-top">
 			<view class="card-voucher-name">{{isTonXinQuan ? details.fullName : details.couponName}}</view>
-			<view class="card-voucher-requirements">满{{isTonXinQuan ? details.minUseAmount ? details.minUseAmount/100 : 0 : details.consumptionThreshold/100}}元使用</view>
+			<view class="card-voucher-requirements">满{{isTonXinQuan ? details.minUseAmount ? details.minUseAmount/100 : '无门槛' : details.consumptionThreshold > 0 ? details.consumptionThreshold/100 : '无门槛'}}元使用</view>
 			<!--<view class="period-of-validity">有效期：{{details.expireStartDate}}至{{details.expireEndDate}}</view>-->
 			<view class="period-of-validity" wx:if="{{details.status !== 0}}">有效期至：{{consumptionThreshold ? details.expireEndDate : tools.limitNumber(details.useValidityEndTime,11,true)}}</view>
-			<view class="ticket-status {{details.status === 2 ? 'ticket-status-used' : ''}} {{details.status === 8 ? 'ticket-status-overdue' : ''}}  iconfont" style="color: {{details.background}}"></view>
+			<view class="ticket-status {{details.status === 2 || details.useState === 1 ? 'ticket-status-used' : ''}} {{details.status === 8 ? 'ticket-status-overdue' : ''}}  iconfont" style="color: {{details.background}}"></view>
 			<button catchtap="activateCoupon" wx:if="{{details.status === 0}}" class="activate-now" style="background-color: {{details.background}}">立即激活</button>
 			<button catchtap="goComboList" wx:if="{{details.sceneId === '694123576468447232'}}" class="activate-now" style="background-color: {{details.background}}">去使用</button>
 		</view>
@@ -27,8 +27,8 @@
 				<view class="entry">
 					<view>{{details.couponType === 1 || details.couponType === 5 ? '面额' : '折扣'}}</view>
 					<view>
-						{{details.couponType === 1 ? details.faceAmount/100 : details.discountValue || details.denomination/100}}
-						{{details.couponType === 1 || details.couponType === 5 ? '元' : '折'}}
+						{{isTonXinQuan ? details.couponType === 1 ? details.faceAmount/100 : details.discountValue : details.denomination > 0 ? details.denomination/100 : '免费'}}
+						{{details.couponType === 1 || details.couponType === 5 ? !isTonXinQuan && details.denomination === 0 ? '' : '元' : '折'}}
 					</view>
 				</view>
 				<view class="entry" wx:if="{{details.totalDegree !== 1 && details.status === 1}}">

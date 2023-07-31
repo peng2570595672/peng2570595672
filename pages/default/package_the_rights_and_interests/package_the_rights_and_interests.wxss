@@ -213,12 +213,17 @@
   margin-top: 20rpx;
 }
 .package .module .upperPart .addEquityInfo .utilModlue .name {
+  width: 562rpx;
+  height: 100%;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   color: #e9ca7b;
+  text-align: justify;
 }
 .package .module .upperPart .addEquityInfo .utilModlue .detail {
+  width: 56rpx;
+  height: 100%;
   font-weight: 400;
   color: #00b85c;
 }
@@ -278,38 +283,6 @@
   font-weight: 400;
   padding: 10rpx 0rpx;
   font-family: PingFangSC-Regular, PingFang SC;
-}
-.package .module .lowerpart .detailsInfo .isSignTtCoupon {
-  width: 100%;
-  margin-top: 20rpx;
-  overflow: hidden;
-}
-.package .module .lowerpart .detailsInfo .isSignTtCoupon .signTitle {
-  height: 48rpx;
-  font-size: 24rpx;
-  font-family: PingFangSC-Semibold, PingFang SC;
-  font-weight: 600;
-  color: #1e1e1e;
-  line-height: 48rpx;
-}
-.package .module .lowerpart .detailsInfo .isSignTtCoupon .signImg {
-  display: flex;
-  height: 160rpx;
-  margin-top: 20rpx;
-  align-items: center;
-  justify-content: space-between;
-}
-.package .module .lowerpart .detailsInfo .isSignTtCoupon .cict {
-  font-size: 24rpx;
-  font-family: PingFang SC-Regular, PingFang SC;
-  font-weight: 400;
-  color: #765026;
-  line-height: 40rpx;
-  text-align: justify;
-}
-.package .module .lowerpart .detailsInfo .pictures {
-  width: 212rpx;
-  height: 160rpx;
 }
 .package .moduleOne {
   margin-top: 38rpx;
@@ -375,7 +348,7 @@
   z-index: 10;
   background-color: #fff5e0;
   width: 100vw;
-  height: 90rpx;
+  min-height: 90rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -383,12 +356,15 @@
   -webkit-animation: addEquityPackage 0.7s linear forwards;
 }
 .addEquityPackage .imgOrName {
+  width: 90vw;
+  height: 100%;
   font-size: 24rpx;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
   color: #c96d00;
   display: flex;
   align-items: center;
+  text-align: justify;
 }
 .addEquityPackage .imgOrName .img {
   width: 90rpx;
@@ -409,6 +385,9 @@
   content: '\e661';
   font-size: 30rpx;
   color: #c96d00;
+}
+.addTwo {
+  bottom: 420rpx;
 }
 /* 支付和协议说明 模块 */
 .payAndAgreement {
@@ -547,12 +526,28 @@
   animation: fade_out 0.5s linear forwards;
   -webkit-animation: fade_out 0.5s linear forwards;
 }
+@-webkit-keyframes fade_in {
+  0% {
+    bottom: -330rpx;
+  }
+  100% {
+    bottom: 0;
+  }
+}
 @keyframes fade_in {
   0% {
     bottom: -330rpx;
   }
   100% {
     bottom: 0;
+  }
+}
+@-webkit-keyframes fade_out {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: -330rpx;
   }
 }
 @keyframes fade_out {
@@ -577,6 +572,17 @@
   }
   100% {
     bottom: -330rpx;
+  }
+}
+@-webkit-keyframes addEquityPackage {
+  0% {
+    opacity: 0;
+  }
+  71% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 @keyframes addEquityPackage {

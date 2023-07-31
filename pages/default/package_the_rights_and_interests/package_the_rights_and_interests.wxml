@@ -56,16 +56,16 @@
                     <!-- 默认权益包（加赠）serviceFeeSendType: 综合服务费发放类型: 1.综合服务费券额，2.权益包 -->
                     <view class="utilModlue" wx:if="{{tools.dataLen(item.rightsPackageId) || item.serviceFeeSendType === 2}}">
                         <view class="name">
-                            <text wx:if="{{equityListMap.serviceEquityList[index].packageName}}">{{tools.limitNumber(equityListMap.serviceEquityList[index].packageName,20)}}{{equityListMap.defaultEquityList[index].subData[0].packageName ? '+' + tools.limitNumber(equityListMap.defaultEquityList[index].subData[0].packageName,19 - tools.dataLen(equityListMap.serviceEquityList[index].packageName)) : '' }}</text>
-                            <text wx:else>{{tools.limitNumber(equityListMap.defaultEquityList[index].subData[0].packageName,20)}}</text>
+                            <text wx:if="{{equityListMap.serviceEquityList[index].packageName}}">{{equityListMap.serviceEquityList[index].packageName + equityListMap.defaultEquityList[index].subData[0].packageName }}</text>
+                            <text wx:else>{{equityListMap.defaultEquityList[index].subData[0].packageName}}</text>
                         </view>
                         <view class="detail" data-type="2" data-index="{{index}}" catchtap="popDetail">详情</view>
                     </view>
                     <!-- （券额/权益包）权益商城 -->
                     <view class="utilModlue" wx:if="{{item.pledgeType === 4 || item.serviceFeeSendType === 1}}">
                         <view class="name">
-                            <text wx:if="{{item.serviceFeeSendType === 1}}">赠送{{item.serviceFeeAmount / 100}}元/{{item.serviceFeeAmountSendRule === 1 ? '月' : item.serviceFeeAmountSendRule === 2 ? '季度' : '年'}}综合商城券额</text>
-                            <text wx:if="{{item.couponAmount > 0 && item.pledgeType === 4}}">{{item.serviceFeeSendType === 1 ? '+': '赠送'}}{{item.couponAmount / 100}}{{item.serviceFeeSendType === 1 ? tools.limitNumber('元商城券额',3) : '元商城券额'}}</text>
+                            <text wx:if="{{item.serviceFeeSendType === 1}}">赠送{{item.serviceFeeAmount / 100}}元/{{item.serviceFeeAmountSendRule === 1 ? '月' : item.serviceFeeAmountSendRule === 2 ? '季度' : '年'}}综合商城券额{{item.couponAmount > 0 && item.pledgeType === 4 ? '+' + item.couponAmount / 100 + '元商城券额' : ''}}</text>
+                            <text wx:if="{{item.couponAmount > 0 && item.pledgeType === 4 && item.serviceFeeSendType !== 1}}">赠送{{item.couponAmount / 100}}元商城券额</text>
                         </view>
                         <view class="detail" data-type="3" data-index="{{index}}" catchtap="popDetail">详情</view>
                     </view>
@@ -79,10 +79,6 @@
             <!-- 增值业务 展示的套餐下半部分 如果又权益和签约通通券则展示-->
             <view class="lowerpart" wx:if="{{item.productRecommend || item.detail }}">
                 <view class="titleDetails">
-                    <!-- <view class="titles" wx:if="{{item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId}}">
-                        <view class="iconfont greenIcon"></view>
-                        <view class="text">中信信用卡套餐办理说明</view>
-                    </view> -->
                     <view class="titles" wx:if="{{item.productRecommend}}">
                         <view class="iconfont icon"></view>
                         <view class="text">{{tools.limitNumber(item.productRecommend,16)}}</view>
@@ -94,10 +90,6 @@
                 <!-- 套餐 详情展示模块 -->
                 <view class="detailsInfo" wx:if="{{index === activeIndex ? isCloseUpperPart1 : isCloseUpperPart2 && index === isCloseUpperPart }}">
                     <rich-text nodes="{{item.detail}}"></rich-text>
-                    <!-- <view wx:if="{{item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId}}" class="isSignTtCoupon">
-                        <view class="cict">1、 中信银行信用卡活动，非持卡人可支付保证金后申请中信银行信用卡指定卡板</view>
-                        <view class="cict">2、 成功办理中信银行信用卡的新客户即退还全额保证金，信用卡申请不通过，可取消订单退还保证金</view>
-                    </view> -->
                 </view>
             </view>
         </view>
@@ -113,14 +105,14 @@
         <view class="iconfont icon4"></view>
     </view>
     <!-- 加购的权益包 -->
-    <view class="addEquityPackage" wx:if="{{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) && isLoaded}}" data-type="5" data-index='{{activeIndex}}' catchtap="popDetail">
+    <view class="addEquityPackage {{roadRescueShopProductId === listOfPackages[activeIndex].shopProductId ? 'addTwo' : ''}}" wx:if="{{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) && isLoaded}}" data-type="5" data-index='{{activeIndex}}' catchtap="popDetail">
         <view class="imgOrName">
             <view class="img"><image class="image" src="{{'https://file.cyzl.com/g001/M02/ED/17/oYYBAGStEiOAZAb0AAAV9IqXKBM565.png'}}" mode="widthFix" /></view>
-            <text >{{tools.limitNumber(equityListMap.addEquityList[activeIndex].packageName,28)}}</text>
+            <text >{{equityListMap.addEquityList[activeIndex].packageName}}</text>
         </view>
         <view class="iconfont icon4"></view>
     </view>
-<!-- 支付和协议说明 模块 -->
+    <!-- 支付和协议说明 模块 -->
     <view class="payAndAgreement {{isFade ? 'fadeIn' : 'fadeOut'}}" wx:if="{{isLoaded}}">
         <view class="agreementConfirm" bindtap="onClickAgreementHandle">
             <view class="confirm iconfont {{getAgreement ? 'tick' : ''}}" catchtap="onClickAgreementHandle"></view>
@@ -149,7 +141,7 @@
         <view class="paySign" wx:else>
             <view class="moneyPay {{isFade ? 'confirmPackage' : ''}}" wx:if="{{choiceIndex !== -1 && (listOfPackages[activeIndex].pledgePrice || (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))}}">
                 <view class="money" wx:if="{{isFade}}">
-                    ￥<span class="mpneySpan">{{activeIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + (listOfPackages[choiceIndex].isSignTtCoupon === 1 ? listOfPackages[choiceIndex].ttCouponPayAmount : 0) + (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}
+                    ￥<span class="mpneySpan">{{activeIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}
                 </span>
                 </view>
                 <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}} bail" data-isconfirm="{{getAgreement}}" wx:if="{{listOfPackages[activeIndex].pledgeType === 5 || citicBank}}" catchtap="next">
@@ -158,7 +150,7 @@
                         <view class="subTitlea">ETC激活后补贴生效，手动确认返还保证金</view></view>
                     <view wx:else>支付通行权益金</view>
                 </view>
-                <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}}" data-isconfirm="{{getAgreement}}" wx:else catchtap="next">{{'去支付'}}</view>
+                <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}}" data-isconfirm="{{getAgreement}}" wx:else catchtap="next">{{'立即支付'}}</view>
             </view>
             <view class="nextSign" wx:else>
                 <button class="btns {{choiceIndex === -1 || getAgreement ? 'payColor' : ''}}" catchtap="next" >
