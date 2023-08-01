@@ -23,7 +23,7 @@
                     <!-- 取后台支付金额，保留小数点后2位，若套餐支付金额为0时，前端价格展示为免费 -->
                     <view class="money">
                         <span wx:if="{{item.pledgePrice}}" >
-                            <!-- 支付金额类型为 通行权益金时pledgeType=5，文案为“免费” -->
+                            <!-- 支付金额类型为 通行权益金时，文案为“免费” -->
                             <text wx:if="{{item.shopProductId === citicBankshopProductId || item.shopProductId === citicBankShopshopProductId || item.shopProductId === wellBankShopProductId || item.pledgeType === 5}}" style="color: #2A4F44">免费</text>
                             <text wx:else>￥{{tools.parseNum(item.pledgePrice)/100}}</text>
                         </span>
@@ -56,7 +56,7 @@
                     <!-- 默认权益包（加赠）serviceFeeSendType: 综合服务费发放类型: 1.综合服务费券额，2.权益包 -->
                     <view class="utilModlue" wx:if="{{tools.dataLen(item.rightsPackageId) || item.serviceFeeSendType === 2}}">
                         <view class="name">
-                            <text wx:if="{{equityListMap.serviceEquityList[index].packageName}}">{{equityListMap.serviceEquityList[index].packageName + equityListMap.defaultEquityList[index].subData[0].packageName }}</text>
+                            <text wx:if="{{equityListMap.defaultEquityList[index].subData[0].packageName}}">{{equityListMap.defaultEquityList[index].subData[0].packageName}}{{item.serviceFeePackageSendRule === 1 ? '+每月赠送' : item.serviceFeePackageSendRule === 2 ? '+每季赠送' : item.serviceFeePackageSendRule === 3 ? '+每年赠送' : item.serviceFeePackageSendRule === 4 ? '+' : ''}}{{tools.dataLen(equityListMap.serviceEquityList[index].subData) > 1 ? '{ ' + equityListMap.serviceEquityList[index].packageName + ' }' : equityListMap.serviceEquityList[index].packageName }}</text>
                             <text wx:else>{{equityListMap.defaultEquityList[index].subData[0].packageName}}</text>
                         </view>
                         <view class="detail" data-type="2" data-index="{{index}}" catchtap="popDetail">详情</view>
@@ -64,8 +64,8 @@
                     <!-- （券额/权益包）权益商城 -->
                     <view class="utilModlue" wx:if="{{item.pledgeType === 4 || item.serviceFeeSendType === 1}}">
                         <view class="name">
-                            <text wx:if="{{item.serviceFeeSendType === 1}}">赠送{{item.serviceFeeAmount / 100}}元/{{item.serviceFeeAmountSendRule === 1 ? '月' : item.serviceFeeAmountSendRule === 2 ? '季度' : '年'}}综合商城券额{{item.couponAmount > 0 && item.pledgeType === 4 ? '+' + item.couponAmount / 100 + '元商城券额' : ''}}</text>
-                            <text wx:if="{{item.couponAmount > 0 && item.pledgeType === 4 && item.serviceFeeSendType !== 1}}">赠送{{item.couponAmount / 100}}元商城券额</text>
+                            <text wx:if="{{item.couponAmount > 0 && item.pledgeType === 4}}">赠送{{item.couponAmount / 100 }}权益商城权益金{{item.serviceFeeSendType === 1 ? '+' + item.serviceFeeAmount / 100 + '元': ''}}{{item.serviceFeeAmountSendRule === 1 ? '/月' : item.serviceFeeAmountSendRule === 2 ? '/季' : item.serviceFeeAmountSendRule === 3 ? '/年' : ''}}综合商城权益金</text>
+                            <text wx:elif="{{item.serviceFeeSendType === 1}}">赠送{{item.serviceFeeAmount / 100}}元/{{item.serviceFeeAmountSendRule === 1 ? '月' : item.serviceFeeAmountSendRule === 2 ? '季度' : item.serviceFeeAmountSendRule === 3 ? '年' : ''}}综合商城权益金</text>
                         </view>
                         <view class="detail" data-type="3" data-index="{{index}}" catchtap="popDetail">详情</view>
                     </view>
@@ -144,15 +144,17 @@
                     ￥<span class="mpneySpan">{{activeIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}
                 </span>
                 </view>
-                <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}} bail" data-isconfirm="{{getAgreement}}" wx:if="{{listOfPackages[activeIndex].pledgeType === 5}}" catchtap="next">
-                  
-                    <view >支付通行权益金</view>
+                <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}} bail" data-isconfirm="{{getAgreement}}" wx:if="{{listOfPackages[activeIndex].pledgeType === 5 || citicBank}}" catchtap="next">
+                    <view wx:if="{{citicBank}}">
+                        <view class="titlea">支付保证金</view>
+                        <view class="subTitlea">ETC激活后补贴生效，手动确认返还保证金</view></view>
+                    <view wx:else>支付通行权益金</view>
                 </view>
                 <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}}" data-isconfirm="{{getAgreement}}" wx:else catchtap="next">{{'立即支付'}}</view>
             </view>
             <view class="nextSign" wx:else>
                 <button class="btns {{choiceIndex === -1 || getAgreement ? 'payColor' : ''}}" catchtap="next" >
-                    {{isSalesmanOrder ? '去签约' : emptyHairOrder ? '确认套餐' :'下一步'}}
+                    {{isSalesmanOrder ? '去签约' : '确认套餐'}}
                 </button>
             </view>
         </view>
