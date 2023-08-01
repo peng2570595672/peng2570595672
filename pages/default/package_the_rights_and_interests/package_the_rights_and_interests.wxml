@@ -64,8 +64,8 @@
                     <!-- （券额/权益包）权益商城 -->
                     <view class="utilModlue" wx:if="{{item.pledgeType === 4 || item.serviceFeeSendType === 1}}">
                         <view class="name">
-                            <text wx:if="{{item.serviceFeeSendType === 1}}">赠送{{item.serviceFeeAmount / 100}}元/{{item.serviceFeeAmountSendRule === 1 ? '月' : item.serviceFeeAmountSendRule === 2 ? '季度' : '年'}}综合商城券额{{item.couponAmount > 0 && item.pledgeType === 4 ? '+' + item.couponAmount / 100 + '元商城券额' : ''}}</text>
-                            <text wx:if="{{item.couponAmount > 0 && item.pledgeType === 4 && item.serviceFeeSendType !== 1}}">赠送{{item.couponAmount / 100}}元商城券额</text>
+                            <text wx:if="{{item.couponAmount > 0 && item.pledgeType === 4}}">赠送{{item.couponAmount > 0 && item.pledgeType === 4 ? item.couponAmount / 100 + '权益商城权益金' : ''}}{{item.serviceFeeSendType === 1 ? '+' + item.serviceFeeAmount / 100 + '元/': ''}}{{item.serviceFeeAmountSendRule === 1 ? '月' : item.serviceFeeAmountSendRule === 2 ? '季度' : item.serviceFeeAmountSendRule === 3 ? '年' : ''}}综合商城权益金</text>
+                            <text wx:if="{{item.serviceFeeSendType === 1 && (item.couponAmount === 0 || item.pledgeType !== 4)}}">赠送{{item.serviceFeeAmount / 100}}元/{{item.serviceFeeAmountSendRule === 1 ? '月' : item.serviceFeeAmountSendRule === 2 ? '季度' : item.serviceFeeAmountSendRule === 3 ? '年' : ''}}综合商城权益金</text>
                         </view>
                         <view class="detail" data-type="3" data-index="{{index}}" catchtap="popDetail">详情</view>
                     </view>
