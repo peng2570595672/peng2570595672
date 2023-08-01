@@ -175,7 +175,7 @@ Page({
 						break;
 					case 3:
 						// 中路未来
-						util.go('/pages/obu_activate/hunan/zhongluweilai/zhongluweilai');
+						util.go('/pages/obu_activate/hunan/juli/juli');
 						break;
 				}
 			} else {
