@@ -10,7 +10,7 @@
                 </view>
                 <view class="name">
                     <view>{{item.couponName}}</view>
-                    <view>满{{item.consumptionThreshold/100}}可用</view>
+                    <view>{{item.consumptionThreshold > 0 ? '满' + item.consumptionThreshold/100 + '可用' : '无门槛'}}</view>
                 </view>
                 <view class="receive">
                     <view class="already-received">已领{{item.alreadyGetNum}}张</view>

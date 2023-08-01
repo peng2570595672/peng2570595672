@@ -13,7 +13,7 @@
                 </view>
                 <view class="name">
                     <view>{{item.couponName}}</view>
-                    <view>满{{item.consumptionThreshold/100}}可用</view>
+                    <view>{{item.consumptionThreshold > 0 ? '满' + item.consumptionThreshold/100 + '可用' : '无门槛'}}</view>
                 </view>
                 <view class="receive">
                     <view class="{{item.isReceive === 1 ? 'already-received' : ''}}" catchtap="onClickReceive" data-index="{{index}}" data-item="{{item}}">{{item.isReceive === 1 ? '已' : ''}}领取</view>
