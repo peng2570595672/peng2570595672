@@ -86,7 +86,7 @@ Component({
                 let couponList = [];
                 couponList = argObj.equityPackageInfo.filter(item => item);
                 if (argObj.type === 'add_equity_package') {
-                    this.setData({couponList,choiceIndex: argObj.aepIndex,isHeightLight: argObj.mustEquity === 1});
+                    this.setData({couponList,choiceIndex: argObj.aepIndex,isHeightLight: argObj.mustEquity === 1 || argObj.aepIndex !== -1});
                     for (let index = 0; index < couponList.length; index++) {
                         this.getPackageRelation(couponList[index].id,index);
                     }

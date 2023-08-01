@@ -243,7 +243,11 @@ Page({
 	},
 	// 查看详情
 	go (e) {
-		app.globalData.serviceCardVoucherDetails = e.currentTarget.dataset.model;
+		let item = e.currentTarget.dataset.model;
+		if (this.data.activeIndex !== 0 && item.thirdPartyType === 4) {	// 小兔洗车卡券
+			item.background = '#50DC92';
+		}
+		app.globalData.serviceCardVoucherDetails = item;
 		util.go(`/pages/personal_center/service_card_voucher_details/service_card_voucher_details?isTonXinQuan=${this.data.activeIndex === 0}`);
 	},
 	// 照相机扫码识别兑换码

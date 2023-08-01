@@ -502,8 +502,7 @@
     },
     "setting": {
         "urlCheck": true,
-        "compileHotReLoad": false,
-        "useIsolateContext": false
+        "compileHotReLoad": true
     },
     "projectname": "etc_plus_mini_2.0"
 }
