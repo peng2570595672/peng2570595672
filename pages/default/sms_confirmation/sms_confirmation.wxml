@@ -1,5 +1,5 @@
 <view class="container">
-    <image class="img" src="https://file.cyzl.com/g001/M01/CF/99/oYYBAGQY9oOAK84NAACJn0fUYMM626.png" mode="widthFix"></image>
+    <image class="img" src="https://file.cyzl.com/g001/M02/FA/3F/oYYBAGTJsvCAftrxAACG4W9DGuU566.png" mode="widthFix"></image>
     <view class="sms-box">
         <view class="input-item phone">
             <view>
@@ -20,9 +20,9 @@
         <view class="notice">
             <view class="waring">注意！不可用于抵扣通行费也无奖励金返还</view>
             <view class="">
-                <view>200元获得300元权益券额</view>
-                <view>300元获得500元权益券额</view>
-                <view>本权益券额不包含高速通行费，请用户悉知</view>
+                <view>200元获得300元商城权益金</view>
+                <view>300元获得500元商城权益金</view>
+                <view>本商城权益金不包含高速通行费，请用户悉知</view>
             </view>
         </view>
     </view>

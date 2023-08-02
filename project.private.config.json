@@ -496,6 +496,13 @@
                     "query": "orderId=1101196259089190912",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/default/sms_confirmation/sms_confirmation",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
