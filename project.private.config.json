@@ -484,13 +484,6 @@
                     "scene": null
                 },
                 {
-                    "name": "道路救援订单",
-                    "pathName": "pages/personal_center/road_rescue/road_rescue",
-                    "query": "test=undefined",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
                     "name": "",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
                     "query": "orderId=1101196259089190912",
@@ -500,6 +493,13 @@
                 {
                     "name": "",
                     "pathName": "pages/default/sms_confirmation/sms_confirmation",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "道路救援订单",
+                    "pathName": "pages/road_rescue_orders/road_rescue/road_rescue",
                     "query": "",
                     "launchMode": "default",
                     "scene": null

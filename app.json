@@ -137,8 +137,7 @@
                 "description_of_equity/description_of_equity",
                 "invoice_assistant/invoice_assistant",
                 "invoicing_instructions/invoicing_instructions",
-                "order_triage/order_triage",
-                "road_rescue/road_rescue"
+                "order_triage/order_triage"
             ]
         },
         {
@@ -329,54 +328,62 @@
                 "neimeng_installation_tutorial/neimeng_installation_tutorial"
             ]
         },
-      {
-        "root": "pages/obu_activate",
-        "name": "pages/obu_activate",
-        "pages": [
-          "guide/index",
-          "instructions/index",
-          "neimeng_choice/neimeng_choice",
-          "neimeng_guide/neimeng_guide",
-          "neimeng_introduce/neimeng_introduce",
-          "upload_photo_for_hunan/upload_photo_for_hunan",
-          "camera/camera",
-          "vehicle_choice/vehicle_choice",
-          "vehicle_inquire/vehicle_inquire",
-          "hunan/genvict/genvict",
-          "hunan/juli/juli",
-          "hunan/watchdata/watchdata",
-          "hunan/watchdata_plugn/watchdata_plugn",
-          "hunan/zhongluweilai/zhongluweilai",
-          "neimeng_first/artc/artc",
-          "neimeng_first/mc/mc",
-          "neimeng_first/mc_new/mc_new",
-          "neimeng_first/wjone8/wjone8",
-          "neimeng_first/tendyron/tendyron",
-          "neimeng_secondary/artc/artc",
-          "neimeng_secondary/mc/mc",
-          "neimeng_secondary/mc_new/mc_new",
-          "neimeng_secondary/tendyron/tendyron",
-          "neimeng_secondary/wj_one8/wj_one8",
-          "qinghai/artc/artc",
-          "qinghai/genvict/genvict",
-          "qinghai/juli/juli",
-          "qinghai/wanji/wanji",
-          "tianjin_first/artc/artc",
-          "tianjin_first/genvict/genvict",
-          "tianjin_first/wj/wj",
-          "tianjin_first/wjone9/wjone9",
-          "tianjin_secondary/artc/artc",
-          "tianjin_secondary/genvict/genvict",
-          "tianjin_secondary/wj/wj",
-          "tianjin_secondary/wjone9/wjone9"
-        ]
-      },
+        {
+            "root": "pages/obu_activate",
+            "name": "pages/obu_activate",
+            "pages": [
+            "guide/index",
+            "instructions/index",
+            "neimeng_choice/neimeng_choice",
+            "neimeng_guide/neimeng_guide",
+            "neimeng_introduce/neimeng_introduce",
+            "upload_photo_for_hunan/upload_photo_for_hunan",
+            "camera/camera",
+            "vehicle_choice/vehicle_choice",
+            "vehicle_inquire/vehicle_inquire",
+            "hunan/genvict/genvict",
+            "hunan/juli/juli",
+            "hunan/watchdata/watchdata",
+            "hunan/watchdata_plugn/watchdata_plugn",
+            "hunan/zhongluweilai/zhongluweilai",
+            "neimeng_first/artc/artc",
+            "neimeng_first/mc/mc",
+            "neimeng_first/mc_new/mc_new",
+            "neimeng_first/wjone8/wjone8",
+            "neimeng_first/tendyron/tendyron",
+            "neimeng_secondary/artc/artc",
+            "neimeng_secondary/mc/mc",
+            "neimeng_secondary/mc_new/mc_new",
+            "neimeng_secondary/tendyron/tendyron",
+            "neimeng_secondary/wj_one8/wj_one8",
+            "qinghai/artc/artc",
+            "qinghai/genvict/genvict",
+            "qinghai/juli/juli",
+            "qinghai/wanji/wanji",
+            "tianjin_first/artc/artc",
+            "tianjin_first/genvict/genvict",
+            "tianjin_first/wj/wj",
+            "tianjin_first/wjone9/wjone9",
+            "tianjin_secondary/artc/artc",
+            "tianjin_secondary/genvict/genvict",
+            "tianjin_secondary/wj/wj",
+            "tianjin_secondary/wjone9/wjone9"
+            ]
+        },
         {
             "root": "pages/device_upgrade",
             "name": "pages/device_upgrade",
             "pages": [
                 "package/package",
                 "fill_in_information/fill_in_information"
+            ]
+        },
+        {
+            "root": "pages/road_rescue_orders",
+            "name": "pages/road_rescue_orders",
+            "pages": [
+                "road_rescue/road_rescue",
+                "road_rescue_detail/road_rescue_detail"
             ]
         }
     ],

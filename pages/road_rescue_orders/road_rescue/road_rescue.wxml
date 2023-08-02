@@ -1,0 +1,19 @@
+<wxs src='../../../utils/util.wxs' module='tools' />
+<view class="index">
+    <!-- 订单模块 -->
+    <view class="module moduleOne" wx:for="{{roadRescueList}}" wx:key="index">
+        <view class="upper">
+            <view class="attrVal">
+                <view class="attr">道路救援险</view>
+                <view class="val">{{'激活OBU 3天后生效'}}</view>
+            </view>
+        </view>
+        <view class="below">
+            <view class="nameStatus">
+                <view class="name">车牌号：{{item.vehPlates}}</view>
+                <view class="iconfont status" data-item="{{item}}" catchtap="btnLoad">{{'申请补贴'}}</view>
+            </view>
+        </view>
+    </view>
+
+</view>

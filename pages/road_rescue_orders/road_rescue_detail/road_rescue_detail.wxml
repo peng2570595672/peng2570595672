@@ -1,23 +1,25 @@
-<wxs src='../../../utils/util.wxs' module='tools' />
 <view class="index">
-    <!--  -->
-    <view class="module moduleOne" wx:for="{{roadRescueList}}" wx:key="index">
-        <view class="upper">
-            <view class="attrVal">
-                <view class="attr">道路救援服务</view>
-                <view class="val">激活OBU 3天后生效</view>
-            </view>
-        </view>
-        <view class="below">
-            <view class="nameStatus">
-                <view class="name">车牌号：{{item.vehPlates}}</view>
-                <view class="iconfont status" catchtap="btnLoad">申请补贴</view>
-            </view>
-        </view>
+    <!-- 订单模块 -->
+    <view class="module moduleOne" >
+        <view class="img2"><image class="image" src="https://file.cyzl.com/g001/M02/FA/A4/oYYBAGTKFEaAJL6iAAAchtsMSsM278.png" mode="widthFix" /></view>
+        <view class="text4">已成功领取高速道路救援服务</view>
+        <view class="text5">（保障将在{{2}}天后生效）</view>
     </view>
-
     <!-- 道路救援补贴领取提示  -->
     <view class="module moduleTwo" >
+        <view class="subModule">
+            <view class="subTop">高速道路救援<text class="text6">(有效期 2023.07.03-2024.07.02)</text></view>
+            <view class="subBottom">
+                <view class="left">
+                    <view class="money">￥<text class="text7">{{500}}</text></view>
+                    <view class="accumulate">累计最高</view>
+                </view>
+                <view class="right">
+                    <view class="name">{{roadRescueList.vehPlates}}</view>
+                    <view class="text8">在高速进行非事故救援时，呼叫拖车、接电、送水等服务</view>
+                </view>
+            </view>
+        </view>
         <view class="title">
             <view class="img1"><image class="image" src="https://file.cyzl.com/g001/M02/F4/1C/oYYBAGS6O-eAJLAhAAAEgc3Aa4w162.png" mode="widthFix" /></view>
             <text class="text1">道路救援补贴领取提示</text>
@@ -43,4 +45,8 @@
     </view>
     <!-- 占位 -->
     <view class="split" />
-</view>
+
+    <view class="btn">
+        <view class="btnInner">我要申请补贴</view>
+    </view>
+</view>>
