@@ -30,20 +30,25 @@
   margin: 20rpx 35rpx 0rpx 35rpx;
   border-radius: 16rpx;
 }
-.index .module .square {
+.index .module .name {
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: normal;
+}
+.index .module .name .square {
   width: 8rpx;
   height: 44rpx;
   background: #00b85c;
   margin-right: 10rpx;
 }
+.index .module .name .title {
+  font-size: 32rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+}
 .index .module1 {
   font-family: PingFangSC-Medium, PingFang SC;
-}
-.index .module1 .name {
-  height: 56rpx;
-  display: flex;
-  align-items: center;
-  justify-content: normal;
 }
 .index .module1 .name .licensePlate {
   font-size: 40rpx;
@@ -63,4 +68,46 @@
 }
 .index .module1 .subName .text2 {
   color: #f19c38;
+}
+.index .module2 {
+  margin-top: 56rpx;
+}
+.index .module2 .subMod1 {
+  margin-top: 18rpx;
+  width: 100%;
+  height: 100rpx;
+  border-radius: 16rpx;
+  background: #fff;
+  box-shadow: 4rpx 4rpx 46rpx 0rpx rgba(125,132,158,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: normal;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-size: 28rpx;
+  font-weight: 400;
+  color: #1e1e1e;
+}
+.index .module2 .subMod1 .text3 {
+  width: 112rpx;
+  margin-left: 30rpx;
+}
+.index .module2 .subMod1 .dateTime {
+  margin-left: 60rpx;
+  width: 448rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.index .module2 .subMod1 .dateTime .text4 {
+  color: #6f6f6f;
+}
+.index .module2 .subMod1 .dateTime::after {
+  display: inline-block;
+  content: "\e661";
+  font-size: 30rpx;
+  color: rgba(0,0,0,0.5);
+  transform: rotateZ(-90deg);
+}
+.index .module3 {
+  margin-top: 40rpx;
 }

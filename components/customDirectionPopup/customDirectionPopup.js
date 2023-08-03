@@ -1,5 +1,32 @@
 const util = require('../../utils/util.js');
 const app = getApp();
+
+const date = new Date();
+const years = [];
+const months = [];
+const days = [];
+const hours = [];
+const minutes = [];
+for (let i = 1990; i <= date.getFullYear(); i++) {
+    years.push(i);
+}
+
+for (let i = 1; i <= 12; i++) {
+    months.push(i);
+}
+
+for (let i = 1; i <= 31; i++) {
+    days.push(i);
+}
+
+for (let i = 0; i < 24; i++) {
+    hours.push(i);
+}
+
+for (let i = 0; i < 60; i++) {
+    minutes.push(i);
+}
+
 Component({
     lifetimes: {},
     properties: {
@@ -68,7 +95,23 @@ Component({
         couponList: [], // 券列表
         activeIndex: -1, // 选中权益包模块的索引(针对详情)
         choiceIndex: -1, // 选中权益包模块的索引(针对模块高亮)
-        isHeightLight: false // 控制是否选中高亮
+        isHeightLight: false, // 控制是否选中高亮
+        // ==================================end =====================================================
+        // ===============================选择时间====================================================
+        years,
+        months,
+        days,
+        hours,
+        minutes,
+        dataTime: {
+            year: date.getFullYear(),
+            month: 2,
+            day: 1,
+            hour: 2,
+            minute: 2
+        },
+        value: [9999, 1, 1, 0, 0],
+        isBtnDataTime: true // 是否可以点击按钮确认时间
         // ==================================end =====================================================
     },
 
@@ -484,7 +527,7 @@ Component({
         },
         // -------------------- 设备升级-end------------------------------------
 
-        // 通通券
+        // -------------------------------通通券-----------------------------------------
         btnExpand () {
             this.setData({isExpand: !this.data.isExpand});
         },
@@ -550,6 +593,37 @@ Component({
                     return 0;
                 }
             };
+        },
+        // ------------------------------end----------------------------------------------
+        // ------------------------------选择时间-----------------------------------------
+        bindChange (e) {
+            const val = e.detail.value;
+            this.setData({
+              'dataTime.year': this.data.years[val[0]],
+              'dataTime.month': this.data.months[val[1]],
+              'dataTime.day': this.data.days[val[2]],
+              'dataTime.hour': this.data.hours[val[3]],
+              'dataTime.minute': this.data.minutes[val[4]]
+            });
+        },
+        bindStart () {
+            this.setData({isBtnDataTime: false});
+        },
+        bindEnd () {
+            let that = this;
+            util.fangDou(that,() => {
+                that.setData({isBtnDataTime: true});
+            },500);
+        },
+        thisTime () {
+            let time = this.data.dataTime;
+            let month = time.month < 10 ? '0' + time.month : time.month;
+            let day = time.day < 10 ? '0' + time.day : time.day;
+            let hour = time.hour < 10 ? '0' + time.hour : time.hour;
+            let minute = time.minute < 10 ? '0' + time.minute : time.minute;
+            let dataTime = `${time.year}-${month}-${day} ${hour}:${minute}`;
+            this.triggerEvent('cDPopup',{dataTime: dataTime});
+            this.hide();
         }
         // ------------------------------end----------------------------------------------
     }

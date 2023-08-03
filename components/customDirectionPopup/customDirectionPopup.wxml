@@ -209,6 +209,25 @@
             <!-- 占位 -->
             <view class="split" style="height: 250rpx" wx:if="{{argObj.isSplit}}" />
         </view>
-       
+        <view class="module selectedTime" wx:if="{{argObj.type === 'selectedTime'}}">
+            <picker-view class="dateTime" indicator-style="height: 50px;background: rgba(142, 249, 93,0.1);color: #000" value="{{value}}" bindchange="bindChange" bindpickstart="bindStart" bindpickend="bindEnd">
+                <picker-view-column>
+                    <view wx:for="{{years}}" wx:key="index1" wx:for-index="index1" wx:for-item="item1" class="time">{{item1}}年</view>
+                </picker-view-column>
+                <picker-view-column>
+                    <view wx:for="{{months}}" wx:key="index2" wx:for-index="index2" wx:for-item="item2" class="time">{{item2}}月</view>
+                </picker-view-column>
+                <picker-view-column>
+                    <view wx:for="{{days}}" wx:key="index3" wx:for-index="index3" wx:for-item="item3" class="time">{{item3}}日</view>
+                </picker-view-column>
+                <picker-view-column>
+                    <view wx:for="{{hours}}" wx:key="index4" wx:for-index="index4" wx:for-item="item4" class="time">{{item4}}时</view>
+                </picker-view-column>
+                <picker-view-column>
+                    <view wx:for="{{minutes}}" wx:key="index5" wx:for-index="index5" wx:for-item="item5" class="time">{{item5}}分</view>
+                </picker-view-column>
+            </picker-view>
+            <button class="thisTime" disabled="{{!isBtnDataTime}}" catchtap="{{isBtnDataTime ? 'thisTime' : ''}}">确认</button>
+        </view>
     </view>
 </view>

@@ -307,7 +307,6 @@ Page({
 				}
                 let that = this;
                 util.fangDou(that, function () {
-                    console.log('哈哈哈');
                     that.next();
                 },300);
 			} else {

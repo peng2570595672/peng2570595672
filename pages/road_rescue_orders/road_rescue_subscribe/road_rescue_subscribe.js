@@ -3,7 +3,8 @@ const app = getApp();
 Page({
 
     data: {
-        roadRescueList: {} // 救援订单
+        roadRescueList: {}, // 救援订单
+        dateTime: ''
     },
 
     onLoad () {
@@ -19,6 +20,23 @@ Page({
 
     onShow () {
 
+    },
+
+    selectedTime () {
+        this.selectComponent('#cdPopup').show({
+            isBtnClose: true,
+            argObj: {
+                type: 'selectedTime',
+                title: '请选择呼叫救援时间'
+                // isSplit: index === this.data.activeIndex ? true : this.data.isFade
+            }
+        });
+    },
+    cDPopup (obj) {
+        console.log(obj);
+        this.setData({
+            dateTime: obj.detail.dataTime
+        });
     }
 
 });
