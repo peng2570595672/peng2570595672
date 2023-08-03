@@ -153,7 +153,7 @@ App({
 		currentEquity: {	// 通行权益金
 			shopProductId: IS_TEST ? '1122919688035115008' : ''	// 通行权益金套餐ID
 		},
-		pingAnBindGuests: ['豫','川'],	// 平安绑客合作机构开头的车牌号 '豫','川','粤','贵'
+		pingAnBindGuests: ['豫','川'],	// 平安绑客合作机构开头的车牌号 '豫','川'
 		isTest: IS_TEST
 	},
 	onLaunch (options) {

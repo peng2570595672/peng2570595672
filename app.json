@@ -383,7 +383,8 @@
             "name": "pages/road_rescue_orders",
             "pages": [
                 "road_rescue/road_rescue",
-                "road_rescue_detail/road_rescue_detail"
+                "road_rescue_detail/road_rescue_detail",
+                "road_rescue_subscribe/road_rescue_subscribe"
             ]
         }
     ],
