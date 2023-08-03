@@ -1,4 +1,7 @@
 {
     "navigationBarTitleText": "道路救援申请",
-    "usingComponents": {}
+    "navigationStyle": "custom",
+    "usingComponents": {
+        "nav-styl": "/components/navbar/navbar"
+    }
 }

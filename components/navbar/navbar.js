@@ -14,6 +14,10 @@ Component({
 			type: Boolean,
 			value: false
 		},
+		backPage: {
+			type: Boolean,
+			value: false
+		},
 		list: {
 			type: Array,
 			value: []
@@ -59,8 +63,9 @@ Component({
 		}
 	},
 	methods: {
-		handleGoToBack () {
-			goHome(false);
+		handleGoToBack (e) {
+			let back = e.currentTarget.dataset.back;
+			goHome(back);
 		}
 	}
 });

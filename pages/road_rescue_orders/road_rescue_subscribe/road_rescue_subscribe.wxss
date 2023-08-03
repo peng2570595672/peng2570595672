@@ -1,1 +1,66 @@
-/* pages/road_rescue_orders/road_rescue_subscribe/road_rescue_subscribe.wxss */
+@font-face {
+  font-family: 'iconfont' /* Project id 1514406 */;
+  src: url("//at.alicdn.com/t/font_1514406_r2ex32p9up.woff2?t=1651741878795") format('woff2'), url("//at.alicdn.com/t/font_1514406_r2ex32p9up.woff?t=1651741878795") format('woff'), url("//at.alicdn.com/t/font_1514406_r2ex32p9up.ttf?t=1651741878795") format('truetype');
+}
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.index {
+  width: 100vw;
+  min-height: 100vh;
+  position: relative;
+}
+.index::before {
+  z-index: -1;
+  position: absolute;
+  content: '';
+  display: block;
+  width: 750rpx;
+  height: 878rpx;
+  background: linear-gradient(2deg, rgba(255,249,236,0) 0%, #ffe8cc 100%);
+}
+.index .split1 {
+  height: 216rpx;
+}
+.index .module {
+  margin: 20rpx 35rpx 0rpx 35rpx;
+  border-radius: 16rpx;
+}
+.index .module .square {
+  width: 8rpx;
+  height: 44rpx;
+  background: #00b85c;
+  margin-right: 10rpx;
+}
+.index .module1 {
+  font-family: PingFangSC-Medium, PingFang SC;
+}
+.index .module1 .name {
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: normal;
+}
+.index .module1 .name .licensePlate {
+  font-size: 40rpx;
+  font-weight: 500;
+}
+.index .module1 .name .text1 {
+  margin-left: 24rpx;
+  font-size: 20rpx;
+  font-weight: 400;
+  color: rgba(30,30,30,0.5);
+}
+.index .module1 .subName {
+  margin: 8rpx 0 0 18rpx;
+  height: 56rpx;
+  font-size: 34rpx;
+  font-weight: 500;
+}
+.index .module1 .subName .text2 {
+  color: #f19c38;
+}

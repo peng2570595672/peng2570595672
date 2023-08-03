@@ -47,6 +47,6 @@
     <view class="split" />
 
     <view class="btn">
-        <view class="btnInner">我要申请补贴</view>
+        <view class="btnInner" catchtap="subcribe">我要申请补贴</view>
     </view>
 </view>>

@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-export const IS_TEST = true; // false为正式接口地址，true为测试接口地址
+export const IS_TEST = false; // false为正式接口地址，true为测试接口地址
 const util = require('./utils/util.js');
 const uma = require('./utils/umtrack-wx.js');
 App({
@@ -153,7 +153,7 @@ App({
 		currentEquity: {	// 通行权益金
 			shopProductId: IS_TEST ? '1122919688035115008' : ''	// 通行权益金套餐ID
 		},
-		pingAnBindGuests: ['豫','川'],	// 平安绑客合作机构开头的车牌号 '豫','川'
+		pingAnBindGuests: [],	// 平安绑客合作机构开头的车牌号 '豫','川'
 		isTest: IS_TEST
 	},
 	onLaunch (options) {

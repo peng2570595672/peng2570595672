@@ -1,4 +1,4 @@
-// pages/road_rescue_orders/road_rescue_detail/road_rescue_detail.js
+
 Page({
 
     data: {
@@ -28,7 +28,7 @@ Page({
         roadRescueList: {}
     },
 
-    onLoad (options) {
+    onLoad () {
         let that = this;
         const eventChannel = that.getOpenerEventChannel();
         eventChannel.on('roadRescueList', function (res) {
@@ -42,28 +42,14 @@ Page({
 
     },
 
-    onUnload () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage () {
-
+    // 跳转道路救援申请页
+    subcribe () {
+        let that = this;
+        wx.navigateTo({
+			url: `/pages/road_rescue_orders/road_rescue_subscribe/road_rescue_subscribe`,
+			success: function (res) {
+				res.eventChannel.emit('roadRescueList', { data: that.data.roadRescueList });
+			}
+		});
     }
 });

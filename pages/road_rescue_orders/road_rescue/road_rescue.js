@@ -89,8 +89,6 @@ Page({
 		// util.go(`/pages/web/web/web?type=online_customer_service`);
 		let url = 'road_rescue_detail';
 		let item = e.currentTarget.dataset.item;
-		// util.go(`/pages/road_rescue_orders/${url}/${url}?roadRescueList=${item}`);
-		wx.accessToken;
 		wx.navigateTo({
 			url: `/pages/road_rescue_orders/${url}/${url}`,
 			success: function (res) {

@@ -1,2 +1,15 @@
-<!--pages/road_rescue_orders/road_rescue_subscribe/road_rescue_subscribe.wxml-->
-<text>pages/road_rescue_orders/road_rescue_subscribe/road_rescue_subscribe.wxml</text>
+<view class="index">
+    <!-- 自定义顶部导航栏 -->
+    <nav-styl title="道路救援申请" isShowArrow="true" background="transparent" backPage="true"></nav-styl>
+    <!-- 占位 -->
+    <view class="split1" />
+    <view class="module module1">
+        <view class="name">
+            <view class="square"/>
+            <view class="licensePlate">{{'粤AHB2300'}}</view>
+            <view class="text1">(有效期 {{'2023.07.03'}}-{{'2024.07.02'}})</view>
+        </view>
+        <view class="subName">可申请高速道路救援补贴<text class="text2">500</text>元</view>
+    </view>
+    
+</view>
