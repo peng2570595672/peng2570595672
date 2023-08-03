@@ -210,7 +210,7 @@
             <view class="split" style="height: 250rpx" wx:if="{{argObj.isSplit}}" />
         </view>
         <view class="module selectedTime" wx:if="{{argObj.type === 'selectedTime'}}">
-            <picker-view class="dateTime" indicator-style="height: 50px;background: rgba(142, 249, 93,0.1);color: #000" value="{{value}}" bindchange="bindChange" bindpickstart="bindStart" bindpickend="bindEnd">
+            <picker-view class="dateTime" indicator-style="height: 50px;background: rgba(142, 249, 93,0.1);color: #000" value="{{timeVal}}" bindchange="bindChange" bindpickstart="bindStart" bindpickend="bindEnd">
                 <picker-view-column>
                     <view wx:for="{{years}}" wx:key="index1" wx:for-index="index1" wx:for-item="item1" class="time">{{item1}}年</view>
                 </picker-view-column>

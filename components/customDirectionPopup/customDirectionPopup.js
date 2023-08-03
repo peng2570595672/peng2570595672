@@ -110,7 +110,7 @@ Component({
             hour: 2,
             minute: 2
         },
-        value: [9999, 1, 1, 0, 0],
+        timeVal: [9999, 1, 1, 0, 0],
         isBtnDataTime: true // 是否可以点击按钮确认时间
         // ==================================end =====================================================
     },
@@ -138,6 +138,12 @@ Component({
                     for (let index = 0; index < couponList.length; index++) {
                         this.getPackageRelation(couponList[index].id,index);
                     }
+                }
+            }
+            if (argObj.type === 'selectedTime') {
+                let time = wx.getStorageSync('dataTime');
+                if (time) {
+                    this.setData({timeVal: time});
                 }
             }
             this.setData({
@@ -605,6 +611,7 @@ Component({
               'dataTime.hour': this.data.hours[val[3]],
               'dataTime.minute': this.data.minutes[val[4]]
             });
+            wx.setStorageSync('dataTime', val);
         },
         bindStart () {
             this.setData({isBtnDataTime: false});

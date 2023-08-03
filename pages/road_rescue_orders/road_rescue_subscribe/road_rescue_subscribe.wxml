@@ -16,9 +16,9 @@
             <view class="square"/>
             <view class="title">填写救援信息</view>
         </view>
-        <view class="subMod1">
+        <view class="subMod1" catchtap="selectedTime">
             <view class="text3">救援时间</view>
-            <view class="iconfont dateTime" catchtap="selectedTime">
+            <view class="iconfont dateTime" >
                 <text class="text4" wx:if="{{!dateTime}}">请选择呼叫救援时间</text>
                 <text wx:else>{{dateTime}}</text>
             </view>

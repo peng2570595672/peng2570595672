@@ -39,7 +39,7 @@ Page({
     },
 
     onShow () {
-
+        wx.removeStorageSync('dataTime');
     },
 
     // 跳转道路救援申请页

@@ -28,7 +28,6 @@ Page({
             argObj: {
                 type: 'selectedTime',
                 title: '请选择呼叫救援时间'
-                // isSplit: index === this.data.activeIndex ? true : this.data.isFade
             }
         });
     },
@@ -38,5 +37,4 @@ Page({
             dateTime: obj.detail.dataTime
         });
     }
-
 });
