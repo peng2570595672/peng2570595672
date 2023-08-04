@@ -1,8 +1,9 @@
 <view class="index">
     <!-- 自定义顶部导航栏 -->
-    <nav-styl title="道路救援申请" isShowArrow="true" background="transparent" backPage="true"></nav-styl>
+    <nav-styl title="道路救援申请" isShowArrow="true" background="transparent" backPage="true"/>
     <!-- 占位 -->
     <view class="split1" />
+    <!-- 有效期 -->
     <view class="module module1">
         <view class="name">
             <view class="square"/>
@@ -11,6 +12,7 @@
         </view>
         <view class="subName">可申请高速道路救援补贴<text class="text2">500</text>元</view>
     </view>
+    <!-- 填写救援信息 -->
     <view class="module module2">
         <view class="name">
             <view class="square"/>
@@ -23,12 +25,64 @@
                 <text wx:else>{{dateTime}}</text>
             </view>
         </view>
+        <view class="subMod2">
+            <view class="subImgs">
+                <view class="subImg" wx:for="{{imgList}}" wx:key="index">
+                    <view class="imgTitle">{{item.title1}}<text class="text5" data-url="{{item.exampleImgUrl}}" catchtap="exampleFunc">[示例]</text></view>
+                    <view class="uploadImg" data-index="{{index}}" catchtap="uploadFunc">
+                        <view class="example" wx:if="{{!item.uploadedUrl}}">
+                            <view class="iconfont icon1"></view>
+                            <text class="text6">{{item.desc}}</text>
+                        </view>
+                        <image wx:else class="image" src="{{item.uploadedUrl}}" mode="widthFix" />
+                    </view>
+                </view>
+            </view>
+        </view>
     </view>
+    <!-- 填写收款信息 -->
     <view class="module module3">
         <view class="name">
             <view class="square"/>
             <view class="title">填写收款信息</view>
         </view>
+        <view class="subMod3">
+            <view class="pub1">
+                <view class="attrName">姓名</view>
+                <view class="attrVal">
+                    <input type="text" class="input" value="{{collectionObj.name}}" placeholder-class="input-placeholder" disabled="{{true}}" placeholder="谋某"/>
+                </view>
+            </view>
+            <view class="pub1">
+                <view class="attrName">金额</view>
+                <view class="attrVal">
+                    <input type="digit" class="input" value="{{collectionObj.price}}" maxlength="6" placeholder-class="input-placeholder" placeholder="请输入500以内补贴金额"/>
+                </view>
+                <view class="price1">元</view>
+            </view>
+            <view class="pub1">
+                <view class="attrName">银行卡号</view>
+                <view class="attrVal">
+                    <input type="number" class="input" value="{{collectionObj.cardNum}}" maxlength="30" placeholder-class="input-placeholder" placeholder="6214835921201081"/>
+                </view>
+            </view>
+            <view class="pub1">
+                <view class="attrName">开户行</view>
+                <view class="attrVal">
+                    <input type="text" class="input" value="{{collectionObj.bank}}" maxlength="40" placeholder-class="input-placeholder" placeholder="请输入开户银行"/>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!-- 占位 -->
+    <view class="split2" />
+    <!-- 悬浮按钮 -->
+    <view class="btn">
+        <view class="agremment" catchtap="agreementFunc">
+            <view class="iconfont icon {{agreement ? 'yes' : 'no'}}"/>
+            <view class="text4">本人知悉并同意etc+将本人提交的补贴申请材料与救援津贴服务商共享，用于提供救援津贴参审核及给付服务。</view>
+        </view>
+        <view class="btnInner" catchtap="subcribe">立即提交</view>
     </view>
     <!-- 自定义出入方向的弹窗 -->
     <customDirectionPopup id="cdPopup" bind:cDPopup="cDPopup"/>
