@@ -68,8 +68,9 @@ Page({
 			if (result.data.length === 0) {
 				this.setData({roadRescueList: [
 					{vehPlates: '贵ZQ0101'},
-					{vehPlates: '贵ZQ0102'},
-					{vehPlates: '贵ZQ0103'}
+					{vehPlates: '贵ZQ01021'},
+					{vehPlates: '贵ZQ0103'},
+					{vehPlates: '贵ZQ0104'}
 				]});
 				return;
 			}
@@ -87,16 +88,27 @@ Page({
 		// }
         // wx.uma.trackEvent('index_for_service');
 		// util.go(`/pages/web/web/web?type=online_customer_service`);
-		let url = 'road_rescue_detail';
 		let item = e.currentTarget.dataset.item;
+		let url = item.vehPlates === '贵ZQ01021' || item.vehPlates === '贵ZQ0103' ? 'road_rescue_receive' : 'road_rescue_detail';
+		if (item.vehPlates === '贵ZQ0104') {
+			url = 'road_rescue_schedule';
+		}
 		wx.navigateTo({
 			url: `/pages/road_rescue_orders/${url}/${url}`,
 			success: function (res) {
-				switch (url) {
-					case 'road_rescue_detail':
+				switch (item.vehPlates) {
+					case '贵ZQ01021':
 						res.eventChannel.emit('roadRescueList', { data: item });
 						break;
-
+					case '贵ZQ0103':
+						res.eventChannel.emit('roadRescueList', { data: item });
+						break;
+					case '贵ZQ0101':
+						res.eventChannel.emit('roadRescueList', { data: item });
+						break;
+					case '贵ZQ0104':
+						res.eventChannel.emit('roadRescueList', { data: item });
+						break;
 					default:
 						break;
 				}

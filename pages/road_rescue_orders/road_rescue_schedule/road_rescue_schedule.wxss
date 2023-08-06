@@ -1,0 +1,186 @@
+@font-face {
+  font-family: 'iconfont' /* Project id 1514406 */;
+  src: url("//at.alicdn.com/t/font_1514406_r2ex32p9up.woff2?t=1651741878795") format('woff2'), url("//at.alicdn.com/t/font_1514406_r2ex32p9up.woff?t=1651741878795") format('woff'), url("//at.alicdn.com/t/font_1514406_r2ex32p9up.ttf?t=1651741878795") format('truetype');
+}
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.index {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+}
+.index::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 32rpx;
+}
+.index .module {
+  margin: 0rpx 50rpx;
+  border-radius: 16rpx;
+}
+.index .module .title {
+  width: 100%;
+  height: 56rpx;
+  font-size: 40rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #33333d;
+  display: flex;
+  align-items: center;
+  justify-content: normal;
+}
+.index .module .title::before {
+  display: block;
+  width: 22rpx;
+  height: 22rpx;
+  content: '\e604';
+  font-size: 25rpx;
+  color: #f9f9f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10rpx;
+  border-radius: 50%;
+  background: linear-gradient(48deg, #14ac69 0%, #84d157 100%);
+}
+.index .module .fontWeight {
+  font-weight: 500;
+}
+.index .module .subModule {
+  background: #fff;
+  box-shadow: 4rpx 12rpx 56rpx 0rpx rgba(102,102,109,0.19);
+  border-radius: 12rpx;
+}
+.index .top .text1 {
+  margin: 10rpx 0rpx 0rpx 40rpx;
+  display: block;
+  height: 80rpx;
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #66666d;
+  line-height: 40rpx;
+}
+.index .module1 {
+  margin-top: 40rpx;
+}
+.index .module1 .subModule1 {
+  margin-top: 10rpx;
+  height: auto;
+  padding-bottom: 40rpx;
+  font-weight: 400;
+  font-family: PingFangSC-Medium, PingFang SC;
+}
+.index .module1 .subModule1 .mode {
+  margin: 0rpx 30rpx;
+  padding-top: 40rpx;
+}
+.index .module1 .subModule1 .mode .head {
+  height: 48rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: normal;
+  position: relative;
+}
+.index .module1 .subModule1 .mode .showDashed::after {
+  content: '';
+  height: 120rpx;
+  display: block;
+  position: absolute;
+  top: 34rpx;
+  left: 6rpx;
+  border-left: 4rpx dashed #99999d;
+  z-index: 1;
+}
+.index .module1 .subModule1 .mode .success {
+  color: #15ad69;
+}
+.index .module1 .subModule1 .mode .success::before {
+  display: block;
+  content: '';
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  background: #20b068;
+  margin-right: 20rpx;
+  z-index: 100;
+}
+.index .module1 .subModule1 .mode .fail {
+  color: #51515a;
+}
+.index .module1 .subModule1 .mode .fail::before {
+  display: block;
+  content: '';
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  background: #51515a;
+  margin-right: 20rpx;
+  z-index: 100;
+}
+.index .module1 .subModule1 .mode .text2 {
+  margin: 10rpx 30rpx 0rpx 66rpx;
+  font-size: 24rpx;
+  color: #66666d;
+  text-align: justify;
+}
+.index .module1 .subModule1 .mode .btn {
+  margin-top: 24rpx;
+  width: 144rpx;
+  height: 44rpx;
+  text-align: center;
+  line-height: 44rpx;
+  background: #00a9ff;
+  box-shadow: 4rpx 4rpx 46rpx 0rpx rgba(125,132,158,0.1);
+  border-radius: 32rpx;
+  font-size: 24rpx;
+  color: #fff;
+}
+.index .module2 {
+  margin-top: 40rpx;
+}
+.index .module2 .subModule2 {
+  margin-top: 10rpx;
+  padding: 4rpx 0rpx 40rpx 0rpx;
+}
+.index .module2 .subModule2 .attrVal {
+  margin: 36rpx 40rpx 0rpx 40rpx;
+  height: 34rpx;
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #1e1e1e;
+  line-height: 34rpx;
+  display: flex;
+  align-items: center;
+  justify-content: normal;
+}
+.index .module2 .subModule2 .attrVal .attr {
+  width: 150rpx;
+}
+.index .module2 .subModule2 .attrVal .val {
+  margin-left: 50rpx;
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #6f6f6f;
+}
+.index .bottomBtn {
+  width: 100%;
+  height: 40rpx;
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #039eeb;
+  text-align: center;
+  line-height: 40rpx;
+  padding: 100rpx 0;
+}

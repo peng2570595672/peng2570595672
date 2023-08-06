@@ -1,0 +1,60 @@
+<wxs src='../../../utils/util.wxs' module='tools' />
+<view class="index">
+    <view class="module module1">
+        <view class="top">
+            <view class="name">500元道路救援服务</view>
+            <text class="text1">在高速进行非事故救援如：拖车、接电、送水\n等，最高可报销500元</text>
+        </view>
+        <view class="bottom">
+            <view class="vehPlates">
+                <view class="text2">车牌号</view>
+                <view class="pub1 blueCard1" wx:if="{{tools.dataLen(roadRescueList.vehPlates) === 7}}">蓝牌</view>
+                <view class="pub1 greenCard1" wx:if="{{tools.dataLen(roadRescueList.vehPlates) === 8}}">绿牌</view>
+            </view>
+            <!-- 车牌号的输入 -->
+            <view class="input">
+                <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}}" ><view>{{carNo[0]}}</view><view></view></view>
+                <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}}" ><view>{{carNo[1]}}</view><view></view></view>
+                <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}}" ><view>{{carNo[2]}}</view><view></view></view>
+                <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}}" ><view>{{carNo[3]}}</view><view></view></view>
+                <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}}" ><view>{{carNo[4]}}</view><view></view></view>
+                <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}}" ><view>{{carNo[5]}}</view><view></view></view>
+                <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}}" ><view>{{carNo[6]}}</view><view></view></view>
+                <view class="inputSub special {{tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} ">
+                    <view class="newEnergy" wx:if="{{tools.dataLen(carNoStr) < 8}}">
+                        <view class="iconfont {{currentIndex === 7 ? '' : 'ico'}}"></view><view class="text">{{currentIndex === 7 ? '' : '新能源'}}</view>
+                    </view>
+                    <view wx:else>
+                        <view>{{carNo[7]}}</view><view></view>
+                    </view>
+                </view>
+            </view>
+            <view class="attrVal">
+                <view class="attr">姓名</view>
+                <view class="val">{{'雨林'}}</view>
+            </view>
+            <view class="attrVal">
+                <view class="attr">身份证</view>
+                <view class="val">{{'523132199103268356'}}</view>
+            </view>
+            <view class="attrVal">
+                <view class="attr1 radio">车辆是否在本人名下</view>
+                <view class="val">
+                    <view class="pub2 {{isSelf1 ? 'select' : ''}}" data-index="1" catchtap="isSelf">是</view>
+                    <view class="pub2 {{isSelf2 ? 'select' : ''}}" data-index="2" catchtap="isSelf">否</view>
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <!-- 占位 -->
+    <view class="split2" />
+    <!-- 悬浮按钮 -->
+    <view class="btn">
+        <view class="agremment" bind:tap="agreementFunc">
+            <view class="iconfont icon {{agreement ? 'yes' : 'no'}}"/>
+            <view class="text4">我同意授权<text class="text5" catchtap="goAgreement">ETC+将我的车辆信息及姓名、身份证号等身份信息共享给腾讯微保</text>用于领取救援服务。</view>
+        </view>
+        <view class="btnInner" catchtap="handle">立即办理</view>
+    </view>
+</view>

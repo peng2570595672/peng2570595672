@@ -52,7 +52,6 @@
         "pages/default/citic_bank_card_details/citic_bank_card_details",
         "pages/default/citic_bank_pay_res/citic_bank_pay_res",
         "pages/default/business_branch_list/business_branch_list"
-
     ],
     "window": {
         "navigationBarBackgroundColor": "#FFFFFF",
@@ -332,42 +331,42 @@
             "root": "pages/obu_activate",
             "name": "pages/obu_activate",
             "pages": [
-            "guide/index",
-            "instructions/index",
-            "neimeng_choice/neimeng_choice",
-            "neimeng_guide/neimeng_guide",
-            "neimeng_introduce/neimeng_introduce",
-            "upload_photo_for_hunan/upload_photo_for_hunan",
-            "camera/camera",
-            "vehicle_choice/vehicle_choice",
-            "vehicle_inquire/vehicle_inquire",
-            "hunan/genvict/genvict",
-            "hunan/juli/juli",
-            "hunan/watchdata/watchdata",
-            "hunan/watchdata_plugn/watchdata_plugn",
-            "hunan/zhongluweilai/zhongluweilai",
-            "neimeng_first/artc/artc",
-            "neimeng_first/mc/mc",
-            "neimeng_first/mc_new/mc_new",
-            "neimeng_first/wjone8/wjone8",
-            "neimeng_first/tendyron/tendyron",
-            "neimeng_secondary/artc/artc",
-            "neimeng_secondary/mc/mc",
-            "neimeng_secondary/mc_new/mc_new",
-            "neimeng_secondary/tendyron/tendyron",
-            "neimeng_secondary/wj_one8/wj_one8",
-            "qinghai/artc/artc",
-            "qinghai/genvict/genvict",
-            "qinghai/juli/juli",
-            "qinghai/wanji/wanji",
-            "tianjin_first/artc/artc",
-            "tianjin_first/genvict/genvict",
-            "tianjin_first/wj/wj",
-            "tianjin_first/wjone9/wjone9",
-            "tianjin_secondary/artc/artc",
-            "tianjin_secondary/genvict/genvict",
-            "tianjin_secondary/wj/wj",
-            "tianjin_secondary/wjone9/wjone9"
+                "guide/index",
+                "instructions/index",
+                "neimeng_choice/neimeng_choice",
+                "neimeng_guide/neimeng_guide",
+                "neimeng_introduce/neimeng_introduce",
+                "upload_photo_for_hunan/upload_photo_for_hunan",
+                "camera/camera",
+                "vehicle_choice/vehicle_choice",
+                "vehicle_inquire/vehicle_inquire",
+                "hunan/genvict/genvict",
+                "hunan/juli/juli",
+                "hunan/watchdata/watchdata",
+                "hunan/watchdata_plugn/watchdata_plugn",
+                "hunan/zhongluweilai/zhongluweilai",
+                "neimeng_first/artc/artc",
+                "neimeng_first/mc/mc",
+                "neimeng_first/mc_new/mc_new",
+                "neimeng_first/wjone8/wjone8",
+                "neimeng_first/tendyron/tendyron",
+                "neimeng_secondary/artc/artc",
+                "neimeng_secondary/mc/mc",
+                "neimeng_secondary/mc_new/mc_new",
+                "neimeng_secondary/tendyron/tendyron",
+                "neimeng_secondary/wj_one8/wj_one8",
+                "qinghai/artc/artc",
+                "qinghai/genvict/genvict",
+                "qinghai/juli/juli",
+                "qinghai/wanji/wanji",
+                "tianjin_first/artc/artc",
+                "tianjin_first/genvict/genvict",
+                "tianjin_first/wj/wj",
+                "tianjin_first/wjone9/wjone9",
+                "tianjin_secondary/artc/artc",
+                "tianjin_secondary/genvict/genvict",
+                "tianjin_secondary/wj/wj",
+                "tianjin_secondary/wjone9/wjone9"
             ]
         },
         {
@@ -384,7 +383,9 @@
             "pages": [
                 "road_rescue/road_rescue",
                 "road_rescue_detail/road_rescue_detail",
-                "road_rescue_subscribe/road_rescue_subscribe"
+                "road_rescue_subscribe/road_rescue_subscribe",
+                "road_rescue_receive/road_rescue_receive",
+                "road_rescue_schedule/road_rescue_schedule"
             ]
         }
     ],
@@ -392,10 +393,10 @@
         "independent": true
     },
     "plugins": {
-      "obu-plugin": {
-        "version": "2.0.0",
-        "provider": "wx3065d5b05f433be9"
-      }
+        "obu-plugin": {
+            "version": "2.0.0",
+            "provider": "wx3065d5b05f433be9"
+        }
     },
     "sitemapLocation": "sitemap.json",
     "permission": {

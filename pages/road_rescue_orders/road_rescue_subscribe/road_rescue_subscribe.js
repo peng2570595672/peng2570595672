@@ -16,20 +16,20 @@ Page({
             {
                 title1: '车辆托起照片',
                 desc: '上传车辆托起照片\n请打日期和地址水印',
-                exampleImgUrl: '', // 示例图路径
-                uploadedUrl: '' // 已上传的图片路径
+                exampleImgUrl: '',
+                uploadedUrl: ''
             },
             {
                 title1: '高速救援发票照片',
                 desc: '上传高速救援发票照片\n请打日期和地址水印',
-                exampleImgUrl: '', // 示例图路径
-                uploadedUrl: '' // 已上传的图片路径
+                exampleImgUrl: '',
+                uploadedUrl: ''
             },
             {
                 title1: 'ETC通行记录照片',
                 desc: '上传ETC通行记录照片\n请打日期和地址水印',
-                exampleImgUrl: '', // 示例图路径
-                uploadedUrl: '' // 已上传的图片路径
+                exampleImgUrl: '',
+                uploadedUrl: ''
             }
         ],
         collectionObj: { // 收款对象
