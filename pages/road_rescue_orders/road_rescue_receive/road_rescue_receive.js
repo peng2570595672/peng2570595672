@@ -14,12 +14,14 @@ Page({
         let that = this;
         const eventChannel = that.getOpenerEventChannel();
         eventChannel.on('roadRescueList', function (res) {
+            let vehPlates = '' + res.data.vehPlates;
+            let carNoStr = vehPlates.split('');
             that.setData({
-                roadRescueList: res.data
+                roadRescueList: res.data,
+                carNoStr,
+                carNo: carNoStr
             });
         });
-        let carNoStr = that.data.roadRescueList.vehPlates.split('');
-        that.setData({carNoStr,carNo: carNoStr});
     },
 
     // 车辆是否在本人名下
