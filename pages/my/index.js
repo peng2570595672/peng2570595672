@@ -31,7 +31,7 @@ Page({
 		funcList2: [
 			// {icon: '', title: '通通券',url: 'tonTonQuan',img: 'https://file.cyzl.com/g001/M01/CF/5F/oYYBAGQXvWyAcN7sAAC9paTs3nM581.png',show: false},
 			{icon: '', title: '通通券',url: 'tonTonQuan',img: 'https://file.cyzl.com/g001/M02/F4/17/oYYBAGS6ODaAfrQ2AAAE6mHX_tA643.png',show: false},
-			{icon: '',title: '在线客服',url: 'online_customer_service',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8O5WAfXwSAAAOCAtM_x0245.svg',show: true},
+			{icon: '', title: '1V1专属客服',url: 'exclusive_service',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8O5WAfXwSAAAOCAtM_x0245.svg',show: true},
 			// {icon: '',title: '手机号管理',url: '',img: ''},   //本期先隐藏该项，暂不做功能
 			{icon: '',title: '发票助手',url: 'invoice_assistant',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8OrKABB0VAAAMgE_4pJ8510.svg',show: true},
 			{icon: '',title: '相关协议',url: 'user_agreement',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8OzyAWjMrAAAI3O0L414758.svg',show: true}
@@ -489,11 +489,16 @@ Page({
 	async go (e) {
 		let that = this;
 		let url = e.currentTarget.dataset['url'];
-		if (url === 'online_customer_service') {
-			// 统计点击进入在线客服
+		if (url === 'loadingService') {
+		// https://wpa1.qq.com/jjrmum8i?_type=wpa&qidian=true 新版在线客服链接（2023-8-7）
+		// 统计点击进入在线客服
 			this.fangDou(() => {
-				util.go(`/pages/web/web/web?type=${url}`);
+				util.go(`/pages/web/web/web?url=${encodeURIComponent('https://wpa1.qq.com/jjrmum8i?_type=wpa&qidian=true')}`);
 			},1000);
+			return;
+		}
+		if (url === 'exclusive_service') {
+			util.go(`/pages/personal_center/${url}/${url}`);
 			return;
 		}
 		// 未登录

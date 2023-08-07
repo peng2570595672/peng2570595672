@@ -7,6 +7,10 @@ mixinsWidthHeight($width=100%, $height=100%)
     font-style normal
     -webkit-font-smoothing antialiased
     -moz-osx-font-smoothing grayscale
+mixinsIconfont($content='',$size=16px,$color=#5EBE68)
+    content $content
+    font-size $size
+    color $color
 .no
     background linear-gradient(180deg, #BDE3D7 0%, #EBEDF0 30%, #EBEDF0 100%)
 .is
@@ -19,6 +23,7 @@ mixinsWidthHeight($width=100%, $height=100%)
     overflow-x hidden
     display flex
     flex-direction column
+    position relative
     /* 顶部user信息 */
     &::before
         mixinsWidthHeight(,192rpx)
@@ -176,6 +181,31 @@ mixinsWidthHeight($width=100%, $height=100%)
                     font-size 30rpx
                     color rgba(0, 0, 0, 0.5)
                     transform rotateZ(-90deg)
+    .keFu
+        mixinsWidthHeight(82rpx,166rpx)
+        background #FFFFFF
+        box-shadow 0rpx 4rpx 14rpx 0rpx rgba(0,0,0,0.12)
+        border-radius 42rpx
+        position fixed
+        right 28rpx
+        bottom 400rpx
+        z-index 100
+        text-align center
+        font-size 24rpx
+        font-family PingFangSC-Regular, PingFang SC
+        font-weight 400
+        color #147E4A
+        line-height 32rpx
+        text-shadow 0px 4px 14px rgba(0,0,0,0.12)
+        &::before
+            margin 24rpx 11rpx 12rpx 11rpx
+            display block
+            mixinsWidthHeight(60rpx,50rpx)
+            mixinsIconfont('\e658',50rpx,#FFC300)
+            content ''
+            mixinsWidthHeight(60rpx,50rpx)
+            background url(https://file.cyzl.com/g001/M02/FB/8E/oYYBAGTQm1aAAUdqAAAKUL5LdIs745.png) no-repeat
+            background-size cover
     /* 占位 */
     .split
         flex 1

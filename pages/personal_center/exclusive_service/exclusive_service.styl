@@ -1,0 +1,111 @@
+@font-face
+    font-family 'iconfont' /* Project id 1514406 */
+    src url('//at.alicdn.com/t/font_1514406_r2ex32p9up.woff2?t=1651741878795') format('woff2'), url('//at.alicdn.com/t/font_1514406_r2ex32p9up.woff?t=1651741878795') format('woff'), url('//at.alicdn.com/t/font_1514406_r2ex32p9up.ttf?t=1651741878795') format('truetype')
+.iconfont
+    font-family 'iconfont' !important
+    font-size 16px
+    font-style normal
+    -webkit-font-smoothing antialiased
+    -moz-osx-font-smoothing grayscale
+mixinsWidthHeight($width = 100%, $height = 100%)
+    width $width
+    height $height
+maxMixinsWidthHeight($width = 100%, $height = 100%)
+    width $width
+    min-height $height
+mixinsIconfont($content='',$size=16px,$color=#5EBE68)
+    content $content
+    font-size $size
+    color $color
+mixinsPositionPack($position=relative)
+    position $position
+    left 50%
+    transform translateX(-50%)
+textLineCenter($height)
+    text-align center
+    line-height $height
+flexModule($align=normal,$justify=normal)
+    display flex
+    align-items $align
+    justify-content $justify
+.index
+    maxMixinsWidthHeight(100vw,100vh)
+    position relative
+    overflow hidden
+    &::before
+        content ''
+        display block
+        background-color #147E4A
+        mixinsWidthHeight(,914rpx)
+        position absolute
+        z-index -1
+    .h3
+        padding-top 7vh
+        mixinsWidthHeight(,44rpx)
+        textLineCenter(44rpx)
+        font-size 44rpx
+        font-family PingFangSC-Medium, PingFang SC
+        font-weight 500
+        color #FFFFFF
+        position relative
+    .text1
+        margin-top 24rpx
+        mixinsWidthHeight(,88rpx)
+        textLineCenter(44rpx)
+        font-size 28rpx
+        font-family PingFangSC-Regular, PingFang SC
+        font-weight 400
+        color #FFFFFF
+    .picModle
+        margin 4vh 60rpx
+        mixinsWidthHeight(630rpx,838rpx)
+        background #FFFFFF
+        box-shadow 0rpx 6rpx 34rpx 0rpx rgba(0,0,0,0.07)
+        border-radius 26rpx
+        z-index 10
+        position relative
+        &::before
+            display block
+            content ''
+            mixinsWidthHeight(50rpx,200rpx)
+            background url(https://file.cyzl.com/g001/M02/FB/8D/oYYBAGTQmz6ANa2KAAAAkCiHX1Q398.png)
+            background-repeat repeat-x
+            background-size cover
+            position absolute
+            top 30rpx
+            left -55rpx
+        &::after
+            display block
+            content ''
+            mixinsWidthHeight(50rpx,200rpx)
+            background url(https://file.cyzl.com/g001/M02/FB/8D/oYYBAGTQmz6ANa2KAAAAkCiHX1Q398.png)
+            background-repeat repeat-x
+            background-size cover
+            position absolute
+            top 342rpx
+            right -55rpx
+        .img
+            padding-top 86rpx
+            margin 0 87rpx
+            mixinsWidthHeight(456rpx,456rpx)
+        .text2
+            margin-top 32rpx
+            mixinsWidthHeight(,44rpx)
+            textLineCenter(44rpx)
+            font-size 28rpx
+            font-family PingFangSC-Regular, PingFang SC
+            font-weight 400
+            color #666666
+        .img2
+            margin-top 50rpx
+            mixinsWidthHeight(88rpx,88rpx)
+            mixinsPositionPack()
+    .split
+        mixinsWidthHeight(750rpx,50rpx)
+        background rgb(255, 255, 255)
+        position absolute
+        top 889rpx
+        z-index -1
+        border-radius 750px / 50px
+    .image
+        mixinsWidthHeight()

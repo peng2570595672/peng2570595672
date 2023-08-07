@@ -1,0 +1,10 @@
+<view class="index">
+    <view class="h3">专属客服</view>
+    <view class="text1"><text >ETC设备申请、激活、使用、售后、投诉建议\n就找专属客服</text></view>
+    <view class="picModle">
+        <view class="img"><image class="image" src="https://file.cyzl.com/g001/M02/FB/86/oYYBAGTQkVSAaAiDAABfA1HjJzM563.png" show-menu-by-longpress mode="widthFix" /></view>
+        <view class="text2">截图保存或长按识别添加1V1客服</view>
+        <view class="img2"><image class="image" src="https://file.cyzl.com/g001/M02/FB/89/oYYBAGTQlYKAADIsAAAEZGGsnk8197.png" mode="widthFix" /></view>
+    </view>
+    <view class="split"></view>
+</view>

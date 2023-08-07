@@ -63,6 +63,8 @@
             <view class="funcListRight iconfont"></view>
         </view>
     </view>
+    <!-- 悬浮在线客服按钮 -->
+    <view class="iconfont keFu" data-url="loadingService" catchtap="go"><text >在线\n客服</text></view>
     <view class="auth"><text bindtap="handleAuth">授权管理</text></view>
     <!-- 占位 -->
     <view class="split"></view>

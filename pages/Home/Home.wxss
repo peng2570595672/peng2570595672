@@ -44,6 +44,33 @@
   color: #ffc300;
   transform: rotateZ(-90deg);
 }
+.home .keFu {
+  width: 82rpx;
+  height: 166rpx;
+  background: #fff;
+  box-shadow: 0rpx 4rpx 14rpx 0rpx rgba(0,0,0,0.12);
+  border-radius: 42rpx;
+  position: fixed;
+  right: 28rpx;
+  bottom: 400rpx;
+  z-index: 100;
+  text-align: center;
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #147e4a;
+  line-height: 32rpx;
+  text-shadow: 0px 4px 14px rgba(0,0,0,0.12);
+}
+.home .keFu::before {
+  margin: 24rpx 11rpx 12rpx 11rpx;
+  display: block;
+  content: '';
+  width: 60rpx;
+  height: 50rpx;
+  background: url("https://file.cyzl.com/g001/M02/FB/8E/oYYBAGTQm1aAAUdqAAAKUL5LdIs745.png") no-repeat;
+  background-size: cover;
+}
 .home .topSwiper {
   width: 100%;
   height: auto;

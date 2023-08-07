@@ -1,0 +1,121 @@
+@font-face {
+  font-family: 'iconfont' /* Project id 1514406 */;
+  src: url("//at.alicdn.com/t/font_1514406_r2ex32p9up.woff2?t=1651741878795") format('woff2'), url("//at.alicdn.com/t/font_1514406_r2ex32p9up.woff?t=1651741878795") format('woff'), url("//at.alicdn.com/t/font_1514406_r2ex32p9up.ttf?t=1651741878795") format('truetype');
+}
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.index {
+  width: 100vw;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+.index::before {
+  content: '';
+  display: block;
+  background-color: #147e4a;
+  width: 100%;
+  height: 914rpx;
+  position: absolute;
+  z-index: -1;
+}
+.index .h3 {
+  padding-top: 7vh;
+  width: 100%;
+  height: 44rpx;
+  text-align: center;
+  line-height: 44rpx;
+  font-size: 44rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #fff;
+  position: relative;
+}
+.index .text1 {
+  margin-top: 24rpx;
+  width: 100%;
+  height: 88rpx;
+  text-align: center;
+  line-height: 44rpx;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #fff;
+}
+.index .picModle {
+  margin: 4vh 60rpx;
+  width: 630rpx;
+  height: 838rpx;
+  background: #fff;
+  box-shadow: 0rpx 6rpx 34rpx 0rpx rgba(0,0,0,0.07);
+  border-radius: 26rpx;
+  z-index: 10;
+  position: relative;
+}
+.index .picModle::before {
+  display: block;
+  content: '';
+  width: 50rpx;
+  height: 200rpx;
+  background: url("https://file.cyzl.com/g001/M02/FB/8D/oYYBAGTQmz6ANa2KAAAAkCiHX1Q398.png");
+  background-repeat: repeat-x;
+  background-size: cover;
+  position: absolute;
+  top: 30rpx;
+  left: -55rpx;
+}
+.index .picModle::after {
+  display: block;
+  content: '';
+  width: 50rpx;
+  height: 200rpx;
+  background: url("https://file.cyzl.com/g001/M02/FB/8D/oYYBAGTQmz6ANa2KAAAAkCiHX1Q398.png");
+  background-repeat: repeat-x;
+  background-size: cover;
+  position: absolute;
+  top: 342rpx;
+  right: -55rpx;
+}
+.index .picModle .img {
+  padding-top: 86rpx;
+  margin: 0 87rpx;
+  width: 456rpx;
+  height: 456rpx;
+}
+.index .picModle .text2 {
+  margin-top: 32rpx;
+  width: 100%;
+  height: 44rpx;
+  text-align: center;
+  line-height: 44rpx;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #666;
+}
+.index .picModle .img2 {
+  margin-top: 50rpx;
+  width: 88rpx;
+  height: 88rpx;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.index .split {
+  width: 750rpx;
+  height: 50rpx;
+  background: #fff;
+  position: absolute;
+  top: 889rpx;
+  z-index: -1;
+  border-radius: 750px/50px;
+}
+.index .image {
+  width: 100%;
+  height: 100%;
+}

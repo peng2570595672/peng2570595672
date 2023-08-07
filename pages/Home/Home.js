@@ -263,7 +263,6 @@ Page({
 			// 出行贴心服务 模块
 			let funcListTwo = data.outServiceFuncConfig.funcs.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime));
 			funcListTwo.sort(this.compare('sort'));	//
-			console.log(funcListOne)
 			this.setData({
 				interval,
 				imgList: bannerList,
@@ -430,6 +429,12 @@ Page({
 			return;
 		}
 		let obj = e.currentTarget.dataset.information;
+		if (obj === 'loadingService') {
+			this.fangDou(() => {
+				util.go(`/pages/web/web/web?url=${encodeURIComponent('https://wpa1.qq.com/jjrmum8i?_type=wpa&qidian=true')}`);
+			},1000);
+			return;
+		}
 		if (obj.jumpUrl === 'activate') {
 			if (app.globalData.myEtcList.length) {
 				util.go('/pages/obu_activate/vehicle_choice/vehicle_choice');

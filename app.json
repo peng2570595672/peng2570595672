@@ -134,9 +134,10 @@
                 "order_questions/order_questions",
                 "personal_information/personal_information",
                 "description_of_equity/description_of_equity",
-                "invoice_assistant/invoice_assistant",
+                "invoice_assistant/invoice_assistant",  
                 "invoicing_instructions/invoicing_instructions",
-                "order_triage/order_triage"
+                "order_triage/order_triage",
+                "exclusive_service/exclusive_service"
             ]
         },
         {
