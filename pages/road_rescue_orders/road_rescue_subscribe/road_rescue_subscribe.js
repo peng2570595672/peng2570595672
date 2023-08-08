@@ -10,25 +10,25 @@ Page({
             {
                 title1: '高速故障照片',
                 desc: '上传高速故障照片\n请打日期和地址水印',
-                exampleImgUrl: '', // 示例图路径
+                exampleImgUrl: 'https://file.cyzl.com/g001/M02/FB/CB/oYYBAGTRrr2AStsFAAGHWiNb6A0948.png', // 示例图路径
                 uploadedUrl: '' // 已上传的图片路径
             },
             {
                 title1: '车辆托起照片',
                 desc: '上传车辆托起照片\n请打日期和地址水印',
-                exampleImgUrl: '',
+                exampleImgUrl: 'https://file.cyzl.com/g001/M02/FB/CB/oYYBAGTRrqKAL6RcAAGgsQu3WHM874.png',
                 uploadedUrl: ''
             },
             {
                 title1: '高速救援发票照片',
                 desc: '上传高速救援发票照片\n请打日期和地址水印',
-                exampleImgUrl: '',
+                exampleImgUrl: 'https://file.cyzl.com/g001/M02/FB/CB/oYYBAGTRrtqAUnNfAAA18BaN6vM766.png',
                 uploadedUrl: ''
             },
             {
                 title1: 'ETC通行记录照片',
                 desc: '上传ETC通行记录照片\n请打日期和地址水印',
-                exampleImgUrl: '',
+                exampleImgUrl: 'https://file.cyzl.com/g001/M02/FB/CB/oYYBAGTRruuARW3jAACKhsnadAM962.png',
                 uploadedUrl: ''
             }
         ],
@@ -130,7 +130,14 @@ Page({
 
     // 展示示例图
     exampleFunc (e) {
-        console.log('示例：',e);
+        let item = e.currentTarget.dataset.item;
+        this.selectComponent('#popTipComp').show({type: 'road_rescue',title: item.title1 + '示例',url: item.exampleImgUrl});
+    },
+
+    // 查看图片
+    showImg (e) {
+        let item = e.currentTarget.dataset.item;
+        this.selectComponent('#popTipComp').show({type: 'seven',title: item.title1,url: item.uploadedUrl,btnShadowHide: true});
     },
 
     // 立即提交

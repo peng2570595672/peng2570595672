@@ -348,3 +348,37 @@ textLineCenter($height)
                     mixinsWidthHeight(10rpx,10rpx)
                     border-radius 50%
                     background #fff
+    // 道路救援查看图片
+    .roadRescue
+        mixinsWidthHeight(454rpx, 608rpx)
+        border-radius 16rpx
+        mixinsPositionPack()
+        .contant
+            mixinsWidthHeight(100%,524rpx)
+            border-radius 16rpx 16rpx 0rpx 0rpx
+            overflow hidden
+            .image
+                mixinsWidthHeight(100%,100%)
+        .subTitle
+            mixinsWidthHeight(100%,84rpx)
+            border-radius 0rpx 0rpx 16rpx 16rpx
+            background #fff
+            font-size 28rpx
+            font-family PingFangSC-Regular, PingFang SC
+            font-weight 400
+            textLineCenter(84rpx)
+        .close
+            mixinsPositionPack(absolute)
+            mixinsWidthHeight(60rpx,60rpx)
+            bottom -120rpx
+            overflow hidden
+            border-radius 50%
+            border 5rpx solid #ffffff
+            &::before
+                mixinsWidthHeight(100%,100%)
+                display block
+                content '\e63d'
+                font-size 35rpx
+                color #FFFFFF
+                text-align center
+                line-height 60rpx

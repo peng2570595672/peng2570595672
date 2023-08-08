@@ -69,16 +69,42 @@ Page({
 				this.setData({roadRescueList: [
 					{
 						vehPlates: '贵ZQ0101',
-						isReceive: 0,
 						roadRescueStatus: 0,
-						applicationStatus: 0,
 						orderId: '3213231321313'
 					},
 					{
 						vehPlates: '贵ZQ0102',
-						isReceive: 1,
-						roadRescueStatus: 0,
-						applicationStatus: 0,
+						roadRescueStatus: 1,
+						orderId: '3213231321313'
+					},
+					{
+						vehPlates: '贵ZQ0103',
+						roadRescueStatus: 2,
+						orderId: '3213231321313'
+					},
+					{
+						vehPlates: '贵ZQ0104',
+						roadRescueStatus: 3,
+						orderId: '3213231321313'
+					},
+					{
+						vehPlates: '贵ZQ0105',
+						roadRescueStatus: 4,
+						orderId: '3213231321313'
+					},
+					{
+						vehPlates: '贵ZQ0106',
+						roadRescueStatus: 5,
+						orderId: '3213231321313'
+					},
+					{
+						vehPlates: '贵ZQ0107',
+						roadRescueStatus: 6,
+						orderId: '3213231321313'
+					},
+					{
+						vehPlates: '贵ZQ0108',
+						roadRescueStatus: 7,
 						orderId: '3213231321313'
 					}
 				]});

@@ -18,6 +18,10 @@ Component({
 			type: Boolean,
 			value: false
 		},
+		position: {
+			type: String,
+			value: 'fixed'
+		},
 		list: {
 			type: Array,
 			value: []

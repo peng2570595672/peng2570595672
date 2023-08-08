@@ -1,4 +1,4 @@
-<view class="navbar" style="background:{{background}};height:{{navbarHeight}}px">
+<view class="navbar" style="background:{{background}};height:{{navbarHeight}}px;position:{{position}};top:0;z-index:99">
     <view style="height:{{capsuleHeight}}px;top:{{capsuleTop}}px;" class="arrow-content">
         <view class="arrow" wx:if="{{isShowArrow}}" data-back="{{backPage}}" bindtap="handleGoToBack"></view>
     </view>

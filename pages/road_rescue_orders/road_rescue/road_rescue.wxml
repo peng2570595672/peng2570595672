@@ -5,15 +5,34 @@
         <view class="upper">
             <view class="attrVal">
                 <view class="attr">道路救援险</view>
-                <view class="val">{{'激活OBU 3天后生效'}}</view>
+                <view class="val">
+                    <!-- isReceive  是否领取(0:待领取;1:已领取;) roadRescueStatus订单状态(0:待发放;1:待领取；2:待生效;3:待申请;4:审核中;5:已通过;6:未通过;7:已过期)-->
+                    {{item.roadRescueStatus === 0 ? '待发放' : ''}}
+                    {{item.roadRescueStatus === 1 ? '待领取' : ''}}
+                    {{item.roadRescueStatus === 2 ? '待生效' : ''}}
+                    {{item.roadRescueStatus === 3 ? '待申请' : ''}}
+                    {{item.roadRescueStatus === 4 ? '审核中' : ''}}
+                    {{item.roadRescueStatus === 5 ? '已通过' : ''}}
+                    {{item.roadRescueStatus === 6 ? '未通过' : ''}}
+                    {{item.roadRescueStatus === 7 ? '已过期' : ''}}
+                </view>
             </view>
         </view>
         <view class="below">
             <view class="nameStatus">
                 <view class="name">车牌号：{{item.vehPlates}}</view>
-                <view class="iconfont status" data-item="{{item}}" catchtap="btnLoad">{{'申请补贴'}}</view>
+                <view class="iconfont status" data-item="{{item}}" wx:if="{{item.roadRescueStatus !== 0}}" catchtap="btnLoad">
+                    {{item.roadRescueStatus === 1 ? '立即领取' : ''}}
+                    {{item.roadRescueStatus === 2 ? '投保中' : ''}}
+                    {{item.roadRescueStatus === 3 ? '申请补贴' : ''}}
+                    {{item.roadRescueStatus === 4 ? '申请补贴' : ''}}
+                    {{item.roadRescueStatus === 5 ? '补贴¥' + 500.00 : ''}}
+                    {{item.roadRescueStatus === 6 ? '申请补贴' : ''}}
+                    {{item.roadRescueStatus === 7 ? '已过期' : ''}}
+                </view>
             </view>
         </view>
     </view>
-
+    <!-- 占位 -->
+    <view class="split" />
 </view>
