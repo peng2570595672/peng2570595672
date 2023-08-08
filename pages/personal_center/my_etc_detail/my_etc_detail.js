@@ -409,7 +409,7 @@ Page({
 			});
 			// ETC服务状态提醒
 			wx.requestSubscribeMessage({
-				tmplIds: ['Ip_IGdxPGXuEbjNMKcpLnEutsH7TJ4LMU2XCsEQhv-s'],
+				tmplIds: ['Tz71gtuo8XI6BCqb0L8yktgHtgG2OyRSYLffaPUdJU8'],
 				success: (res) => {
 					wx.hideLoading();
 					if (res.errMsg === 'requestSubscribeMessage:ok') {

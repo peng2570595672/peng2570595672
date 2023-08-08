@@ -230,7 +230,7 @@ Page({
 				title: '加载中...'
 			});
 			wx.requestSubscribeMessage({
-				tmplIds: ['aHsjeWaJ0RRU08Uc-OeLs2OyxLxBd_ta3zweXloC66U','K6gUmq_RSjfR1Hm_F8ORAzlpZZDVaDhuRDE6JoVvsuo', 'Ip_IGdxPGXuEbjNMKcpLnEutsH7TJ4LMU2XCsEQhv-s'],
+				tmplIds: ['aHsjeWaJ0RRU08Uc-OeLs2OyxLxBd_ta3zweXloC66U','K6gUmq_RSjfR1Hm_F8ORAzlpZZDVaDhuRDE6JoVvsuo', 'Tz71gtuo8XI6BCqb0L8yktgHtgG2OyRSYLffaPUdJU8'],
 				success: (res) => {
 					wx.hideLoading();
 					if (res.errMsg === 'requestSubscribeMessage:ok') {
