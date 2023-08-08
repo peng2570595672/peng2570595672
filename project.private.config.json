@@ -5,7 +5,7 @@
             "list": [
                 {
                     "name": "邮寄地址",
-                    "pathName": "pages/default/receiving_address/receiving_address",
+                    "pathName": "pages/truck_handling/truck_receiving_address/truck_receiving_address",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
@@ -177,7 +177,7 @@
                 },
                 {
                     "name": "",
-                    "pathName": "pages/personal_center/equity_mall/equity_mall",
+                    "pathName": "pages/account_management/bind_bank_card/bind_bank_card",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
