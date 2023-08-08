@@ -512,9 +512,23 @@
                     "scene": null
                 },
                 {
-                    "name": "1v1专属客服",
-                    "pathName": "pages/personal_center/exclusive_service/exclusive_service",
+                    "name": "湘通卡埃特斯",
+                    "pathName": "pages/obu_activate/hunan/artc/artc",
                     "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1138460248172924928",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=855470559478157312",
                     "launchMode": "default",
                     "scene": null
                 }
@@ -523,7 +537,7 @@
     },
     "setting": {
         "urlCheck": true,
-        "compileHotReLoad": true
+        "compileHotReLoad": false
     },
     "projectname": "etc_plus_mini_2.0"
 }
