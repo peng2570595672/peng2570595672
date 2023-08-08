@@ -68,41 +68,58 @@ Page({
 			if (result.data.length === 0) {
 				this.setData({roadRescueList: [
 					{
+						isReceive: null,
+						applicationStatus: null,
 						vehPlates: '贵ZQ0101',
 						roadRescueStatus: 0,
 						orderId: '3213231321313'
 					},
 					{
+						isReceive: 0,
+						applicationStatus: 0,
 						vehPlates: '贵ZQ0102',
 						roadRescueStatus: 1,
 						orderId: '3213231321313'
 					},
 					{
+						isReceive: 1,
+						applicationStatus: 0,
 						vehPlates: '贵ZQ0103',
 						roadRescueStatus: 2,
 						orderId: '3213231321313'
 					},
 					{
+						isReceive: 1,
+						applicationStatus: 0,
 						vehPlates: '贵ZQ0104',
 						roadRescueStatus: 3,
 						orderId: '3213231321313'
 					},
 					{
+						isReceive: 1,
+						applicationStatus: 4,
 						vehPlates: '贵ZQ0105',
 						roadRescueStatus: 4,
 						orderId: '3213231321313'
 					},
 					{
+						isReceive: 1,
+						applicationStatus: 5,
 						vehPlates: '贵ZQ0106',
 						roadRescueStatus: 5,
+						applicationMoney: 50000,
 						orderId: '3213231321313'
 					},
 					{
+						isReceive: 1,
+						applicationStatus: 6,
 						vehPlates: '贵ZQ0107',
 						roadRescueStatus: 6,
 						orderId: '3213231321313'
 					},
 					{
+						isReceive: null,
+						applicationStatus: null,
 						vehPlates: '贵ZQ0108',
 						roadRescueStatus: 7,
 						orderId: '3213231321313'
@@ -119,34 +136,19 @@ Page({
     // 点击“申请补贴” 跳转至 “在线客服”
     btnLoad (e) {
 		let item = e.currentTarget.dataset.item;
-		let url = item.vehPlates === '贵ZQ0102' ? 'road_rescue_receive' : 'road_rescue_detail';
-		if (item.vehPlates === '贵ZQ0104') {
+		let url = '';
+		if (item.roadRescueStatus === 1) {
+			url = 'road_rescue_receive';
+		} else if (item.roadRescueStatus === 2 || item.roadRescueStatus === 3 || item.roadRescueStatus === 7) {
+			url = 'road_rescue_detail';
+		} else if (item.roadRescueStatus === 4 || item.roadRescueStatus === 5 || item.roadRescueStatus === 6) {
 			url = 'road_rescue_schedule';
 		}
 		wx.navigateTo({
 			url: `/pages/road_rescue_orders/${url}/${url}`,
 			success: function (res) {
-				switch (item.vehPlates) {
-					case '贵ZQ0102':
-						res.eventChannel.emit('roadRescueList', { data: item });
-						break;
-					case '贵ZQ0103':
-						res.eventChannel.emit('roadRescueList', { data: item });
-						break;
-					case '贵ZQ0101':
-						res.eventChannel.emit('roadRescueList', { data: item });
-						break;
-					case '贵ZQ0104':
-						res.eventChannel.emit('roadRescueList', { data: item });
-						break;
-					default:
-						break;
-				}
+				res.eventChannel.emit('roadRescueList', { data: item });
 			}
 		});
-    },
-
-    onUnload () {
-
     }
 });

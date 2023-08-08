@@ -2,7 +2,7 @@
 <view class="index">
     <view class="module top">
         <view class="iconfont title">{{'贵ZQ0104'}}</view>
-        <text class="text1">申请补贴流水号：{{'366475868688797989'}}\n服务领取流水号：{{'1637488589979797899'}}</text>
+        <text class="text1">申请补贴流水号：{{applyInfo.applyNo}}\n服务领取流水号：{{applyInfo.roadRescueNo}}</text>
     </view>
     <view class="module module1">
         <view class="iconfont title fontWeight">申请补贴进度</view>
@@ -15,14 +15,15 @@
                 <view class="head success {{true ? 'showDashed' : ''}}">审核中</view>
                 <view class="text2">{{'预计3个工作日完成审核'}}</view>
             </view>
-            <view class="mode" wx:if="{{false}}">
-                <view class="head success {{true ? 'showDashed' : ''}}">完成</view>
-                <view class="text2">{{'申请发放至指定银行卡'}}</view>
+            <view class="mode" wx:if="{{applyInfo.applyStatus === 2 || applyInfo.applyStatus === 1 || applyInfo.applyStatus === 0}}">
+                <view class="head {{applyInfo.applyStatus === 2 ? 'success' : 'fail'}}">完成</view>
+                <view class="text2" wx:if="{{applyInfo.applyStatus === 2}}">将在7个工作日内发放至提交的银行卡，请注意查收</view>
+                <view class="text2" wx:else>未完成，还在审核中</view>
             </view>
-            <view class="mode">
-                <view class="head fail">审核未通过</view>
+            <view class="mode" wx:if="{{applyInfo.applyStatus === 3}}">
+                <view class="head success">审核未通过</view>
                 <view class="text2">{{'2023-07-02 12:00:00'}}</view>
-                <view class="text2">{{'未通过原因未通过原因未通过原因未通过原因未通过原因未通过原因'}}</view>
+                <view class="text2">{{applyInfo.remark}}</view>
                 <view class="text2 btn" bind:tap="goReceive">重新申请</view>
             </view>
         </view>
@@ -32,19 +33,19 @@
         <view class="subModule subModule2">
             <view class="attrVal">
                 <view class="attr">呼叫救援时间</view>
-                <view class="val">{{'2021-12-02 16:24:33'}}</view>
+                <view class="val">{{applyInfo.applyInfoObj.rescueTime}}</view>
             </view>
             <view class="attrVal">
                 <view class="attr">收款人姓名</view>
-                <view class="val">{{'雨林'}}</view>
+                <view class="val">{{applyInfo.applyInfoObj.receiveName}}</view>
             </view>
             <view class="attrVal">
                 <view class="attr">银行卡号</view>
-                <view class="val">{{'523132199103268356'}}</view>
+                <view class="val">{{applyInfo.applyInfoObj.bankNo}}</view>
             </view>
             <view class="attrVal">
                 <view class="attr">收款金额</view>
-                <view class="val">￥{{500}}</view>
+                <view class="val">￥{{applyInfo.applyInfoObj.rescueMoney}}</view>
             </view>
         </view>
     </view>
