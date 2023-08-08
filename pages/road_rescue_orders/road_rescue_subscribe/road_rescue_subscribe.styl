@@ -38,8 +38,6 @@ flexModule($align=normal,$justify=normal)
         display block
         mixinsWidthHeight(750rpx,878rpx)
         background linear-gradient(2deg, rgba(255,249,236,0) 0%, #FFE8CC 100%)
-    .split1
-        height 216rpx
     .module
         margin 20rpx 35rpx 0rpx 35rpx
         border-radius 16rpx
@@ -55,6 +53,7 @@ flexModule($align=normal,$justify=normal)
                 font-family PingFangSC-Medium, PingFang SC
                 font-weight 500
     .module1
+        margin-top 60rpx
         font-family PingFangSC-Medium, PingFang SC
         .name
             .licensePlate
@@ -129,7 +128,18 @@ flexModule($align=normal,$justify=normal)
                         mixinsWidthHeight(,194rpx)
                         background #FAFAFA
                         border-radius 16rpx
+                        position relative
                         overflow hidden
+                        .text7
+                            position absolute
+                            top 0rpx
+                            right 0rpx
+                            padding 10rpx
+                            font-size 22rpx
+                            font-family PingFangSC-Regular, PingFang SC
+                            font-weight 400
+                            color #f00
+                            text-shadow 0px -8px 30px rgba(223,223,223,0.36)
                         .image
                             mixinsWidthHeight(100%,194rpx)
                         .example

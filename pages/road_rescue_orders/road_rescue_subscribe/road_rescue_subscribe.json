@@ -3,6 +3,7 @@
     "navigationStyle": "custom",
     "usingComponents": {
         "nav-styl": "/components/navbar/navbar",
-        "customDirectionPopup": "/components/customDirectionPopup/customDirectionPopup"
+        "customDirectionPopup": "/components/customDirectionPopup/customDirectionPopup",
+        "popTipComp": "/components/popTipComp/popTipComp"
     }
 }

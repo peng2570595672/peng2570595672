@@ -23,9 +23,6 @@
   height: 878rpx;
   background: linear-gradient(2deg, rgba(255,249,236,0) 0%, #ffe8cc 100%);
 }
-.index .split1 {
-  height: 216rpx;
-}
 .index .module {
   margin: 20rpx 35rpx 0rpx 35rpx;
   border-radius: 16rpx;
@@ -48,6 +45,7 @@
   font-weight: 500;
 }
 .index .module1 {
+  margin-top: 60rpx;
   font-family: PingFangSC-Medium, PingFang SC;
 }
 .index .module1 .name .licensePlate {
@@ -147,7 +145,19 @@
   height: 194rpx;
   background: #fafafa;
   border-radius: 16rpx;
+  position: relative;
   overflow: hidden;
+}
+.index .module2 .subMod2 .subImgs .subImg .uploadImg .text7 {
+  position: absolute;
+  top: 0rpx;
+  right: 0rpx;
+  padding: 10rpx;
+  font-size: 22rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #f00;
+  text-shadow: 0px -8px 30px rgba(223,223,223,0.36);
 }
 .index .module2 .subMod2 .subImgs .subImg .uploadImg .image {
   width: 100%;

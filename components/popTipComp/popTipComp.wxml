@@ -115,5 +115,14 @@
             </view>
             <view class="btn" catchtap="authorizeTip"></view>
         </view>
+
+        <!-- 查看图片 -->
+        <view class="roadRescue" wx:if="{{tipObj.type === 'road_rescue'}}">
+            <view class="contant">
+                <image class="image" src="{{tipObj.url}}" />
+            </view>
+            <view class="subTitle">{{tipObj.title}}</view>
+            <view class="close iconfont" data-title="{{tipObj.title}}" catchtap="hide"></view>
+        </view>
     </view>
 </view>

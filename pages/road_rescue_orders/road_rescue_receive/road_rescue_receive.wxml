@@ -1,11 +1,14 @@
 <wxs src='../../../utils/util.wxs' module='tools' />
 <view class="index">
+    <view class="img1"><image class="image" src="https://file.cyzl.com/g001/M02/FB/BF/oYYBAGTRnyWAaKOqAAGOGBfk_c4257.png" mode="widthFix" /></view>
     <!-- 自定义顶部导航栏 -->
-    <nav-styl title="道路救援领取页" isShowArrow="true" background="transparent" backPage="true"/>
+    <nav-styl title="道路救援领取" isShowArrow="{{true}}" position="relative" background="transparent" backPage="{{false}}"/>
+    <view class="split1" />
     <view class="module module1">
         <view class="top">
             <view class="name">500元道路救援服务</view>
             <text class="text1">在高速进行非事故救援如：拖车、接电、送水\n等，最高可报销500元</text>
+            <view class="img2"><image class="image" src="https://file.cyzl.com/g001/M02/FB/C4/oYYBAGTRp2-AfjaYAAAZJshQQVY198.png" mode="widthFix" /></view>
         </view>
         <view class="bottom">
             <view class="vehPlates">
