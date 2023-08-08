@@ -216,7 +216,7 @@ Page({
 		}
 		util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}&obuCardType=${this.data.orderInfo.obuCardType}`);
 	},
-	// ETC申办审核结果通知、ETC发货提示
+	// ETC申办审核结果通知、ETC发货提示、ETC服务状态提醒
 	async subscribe () {
 		// if (this.data.orderInfo && this.data.orderInfo?.isOwner === 1 && this.data.orderInfo?.isVehicle === 1 && this.data.ownerIdCard?.ownerIdCardTrueName !== this.data.vehicle?.owner) {
 		// 	util.showToastNoIcon('身份证与行驶证必须为同一持有人');
@@ -230,7 +230,7 @@ Page({
 				title: '加载中...'
 			});
 			wx.requestSubscribeMessage({
-				tmplIds: ['aHsjeWaJ0RRU08Uc-OeLs2OyxLxBd_ta3zweXloC66U','K6gUmq_RSjfR1Hm_F8ORAzlpZZDVaDhuRDE6JoVvsuo'],
+				tmplIds: ['aHsjeWaJ0RRU08Uc-OeLs2OyxLxBd_ta3zweXloC66U','K6gUmq_RSjfR1Hm_F8ORAzlpZZDVaDhuRDE6JoVvsuo', 'rWHTLYmUdcuYw-wKU0QUyGv8dhgIl8z-Pa3HDdzuwbw'],
 				success: (res) => {
 					wx.hideLoading();
 					if (res.errMsg === 'requestSubscribeMessage:ok') {

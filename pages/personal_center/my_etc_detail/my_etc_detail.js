@@ -199,11 +199,11 @@ Page({
 			}
 		}
 		const fun = {
-			1: () => this.onClickBackToSign(orderInfo),// 恢复签约
+			1: () => this.subscribe(orderInfo),// 恢复签约
 			2: () => this.onClickContinueHandle(orderInfo),// 继续办理
 			3: () => this.goPayment(orderInfo), // 去支付
 			4: () => this.onClickContinueHandle(orderInfo), // 继续办理
-			5: () => this.onClickBackToSign(orderInfo), // 签约微信支付 - 去签约
+			5: () => this.subscribe(orderInfo), // 签约微信支付 - 去签约
 			6: () => this.onClickViewProcessingProgressHandle(orderInfo), // 订单排队审核中 - 查看进度
 			7: () => this.onClickModifiedData(orderInfo, true), // 修改资料 - 上传证件页
 			9: () => this.onClickHighSpeedSigning(orderInfo), // 去签约
@@ -397,6 +397,91 @@ Page({
 			}
 		} else {
 			util.showToastNoIcon(result.message);
+		}
+	},
+	// ETC申办审核结果通知、ETC发货提示
+	async subscribe (obj) {
+		// 判断版本，兼容处理
+		let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
+		if (result >= 0) {
+			util.showLoading({
+				title: '加载中...'
+			});
+			// ETC服务状态提醒
+			wx.requestSubscribeMessage({
+				tmplIds: ['rWHTLYmUdcuYw-wKU0QUyGv8dhgIl8z-Pa3HDdzuwbw'],
+				success: (res) => {
+					wx.hideLoading();
+					if (res.errMsg === 'requestSubscribeMessage:ok') {
+						let keys = Object.keys(res);
+						// 是否存在部分未允许的订阅消息
+						let isReject = false;
+						for (let key of keys) {
+							if (res[key] === 'reject') {
+								isReject = true;
+								break;
+							}
+						}
+						// 有未允许的订阅消息
+						if (isReject) {
+							util.alert({
+								content: '检查到当前订阅消息未授权接收，请授权',
+								showCancel: true,
+								confirmText: '授权',
+								confirm: () => {
+									wx.openSetting({
+										success: (res) => {
+										},
+										fail: () => {
+											util.showToastNoIcon('打开设置界面失败，请重试！');
+										}
+									});
+								},
+								cancel: () => { // 点击取消按钮
+									this.onClickBackToSign(obj);
+								}
+							});
+						} else {
+							this.onClickBackToSign(obj);
+						}
+					}
+				},
+				fail: (res) => {
+					wx.hideLoading();
+					// 不是点击的取消按钮
+					if (res.errMsg === 'requestSubscribeMessage:fail cancel') {
+						this.onClickBackToSign(obj);
+					} else {
+						util.alert({
+							content: '调起订阅消息失败，是否前往"设置" -> "订阅消息"进行订阅？',
+							showCancel: true,
+							confirmText: '打开设置',
+							confirm: () => {
+								wx.openSetting({
+									success: (res) => {
+									},
+									fail: () => {
+										util.showToastNoIcon('打开设置界面失败，请重试！');
+									}
+								});
+							},
+							cancel: () => {
+								this.onClickBackToSign(obj);
+							}
+						});
+					}
+				}
+			});
+		} else {
+			util.alert({
+				title: '微信更新提示',
+				content: '检测到当前微信版本过低，可能导致部分功能无法使用；可前往微信“我>设置>关于微信>版本更新”进行升级',
+				confirmText: '继续使用',
+				showCancel: true,
+				confirm: () => {
+					this.onClickBackToSign(obj);
+				}
+			});
 		}
 	},
 	// 恢复签约
