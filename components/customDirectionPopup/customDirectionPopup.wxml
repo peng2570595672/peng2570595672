@@ -5,7 +5,7 @@
     <view class="mask animated {{mask ? 'fadeIn' : 'fadeOut'}}" wx:if="{{mask}}" catchtap="{{ isBtnClose ? 'hide' : ''}}"></view>
     <!-- 表现层 -->
     <view class="make animatedSlide {{mask ? 'slideUp' : 'glideDown'}}" style="background: {{argObj.bgColor}}" wx:if="{{make}}">
-        <view class="title">{{argObj.title}}
+        <view class="title" wx:if="{{argObj.type !== 'selectedTime'}}">{{argObj.title}}
             <view class="iconfont btnClose" catchtap="hide"></view>
         </view>
         <!-- 设备升级 -->
@@ -210,7 +210,11 @@
             <view class="split" style="height: 250rpx" wx:if="{{argObj.isSplit}}" />
         </view>
         <view class="module selectedTime" wx:if="{{argObj.type === 'selectedTime'}}">
-            <picker-view class="dateTime" indicator-style="height: 50px;background: rgba(142, 249, 93,0.1);color: #000" value="{{timeVal}}" bindchange="bindChange" bindpickstart="bindStart" bindpickend="bindEnd">
+            <view class="cancelOk">
+                <view class="pub3 cancel" catchtap="hide">取消</view>
+                <view class="pub3 {{!isBtnDataTime ? 'cancel' : 'ok'}}" disabled="{{!isBtnDataTime}}" catchtap="{{isBtnDataTime ? 'thisTime' : ''}}">确认</view>
+            </view>
+            <picker-view class="dateTime" indicator-style="height: 50px;color: #000" value="{{timeVal}}" bindchange="bindChange" bindpickstart="bindStart" bindpickend="bindEnd">
                 <picker-view-column>
                     <view wx:for="{{years}}" wx:key="index1" wx:for-index="index1" wx:for-item="item1" class="time">{{item1}}年</view>
                 </picker-view-column>
@@ -227,7 +231,7 @@
                     <view wx:for="{{minutes}}" wx:key="index5" wx:for-index="index5" wx:for-item="item5" class="time">{{item5}}分</view>
                 </picker-view-column>
             </picker-view>
-            <button class="thisTime" disabled="{{!isBtnDataTime}}" catchtap="{{isBtnDataTime ? 'thisTime' : ''}}">确认</button>
+            <!-- <button class="thisTime" >确认</button> -->
         </view>
     </view>
 </view>

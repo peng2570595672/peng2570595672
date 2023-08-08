@@ -12,7 +12,8 @@
 .index {
   width: 100vw;
   min-height: 100vh;
-  background-color: #fff9ec;
+  background: url("https://file.cyzl.com/g001/M02/FB/BF/oYYBAGTRnyWAaKOqAAGOGBfk_c4257.png") no-repeat;
+  background-size: cover;
 }
 .index::before {
   content: '';

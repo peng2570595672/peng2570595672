@@ -89,8 +89,10 @@ flexModule($align=normal,$justify=normal)
             .subBottom
                 height 128rpx
                 margin 22rpx 24rpx 0rpx 24rpx
-                background linear-gradient(90deg, #FFF9EC 0%, #FFE8CC 100%)
+                background url(https://file.cyzl.com/g001/M02/FB/BD/oYYBAGTRm4-ANR0QAAAMTzOhxJo757.png) no-repeat
+                background-size cover
                 flexModule(center,space-between)
+                position relative
                 .left
                     mixinsWidthHeight(184rpx,)
                     .money
@@ -130,6 +132,11 @@ flexModule($align=normal,$justify=normal)
                         font-weight: 400
                         line-height 28rpx
                         text-align justify
+                .img3
+                    mixinsWidthHeight(162rpx,162rpx)
+                    position absolute
+                    right -30rpx
+                    top -100rpx
         .title
             margin-top 40rpx
             mixinsWidthHeight(,56rpx)

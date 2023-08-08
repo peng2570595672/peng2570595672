@@ -18,6 +18,7 @@
                     <view class="name">{{roadRescueList.vehPlates}}</view>
                     <view class="text8">在高速进行非事故救援时，呼叫拖车、接电、送水等服务</view>
                 </view>
+                <view class="img3"><image class="image" src="https://file.cyzl.com/g001/M02/FB/BD/oYYBAGTRnF6ASzExAAAjX5w2Uwk592.png" mode="widthFix" /></view>
             </view>
         </view>
         <view class="title">
