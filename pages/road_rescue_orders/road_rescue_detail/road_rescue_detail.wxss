@@ -93,10 +93,12 @@
 .index .moduleTwo .subModule .subBottom {
   height: 128rpx;
   margin: 22rpx 24rpx 0rpx 24rpx;
-  background: linear-gradient(90deg, #fff9ec 0%, #ffe8cc 100%);
+  background: url("https://file.cyzl.com/g001/M02/FB/BD/oYYBAGTRm4-ANR0QAAAMTzOhxJo757.png") no-repeat;
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 .index .moduleTwo .subModule .subBottom .left {
   width: 184rpx;
@@ -151,6 +153,13 @@
   font-weight: 400;
   line-height: 28rpx;
   text-align: justify;
+}
+.index .moduleTwo .subModule .subBottom .img3 {
+  width: 162rpx;
+  height: 162rpx;
+  position: absolute;
+  right: -30rpx;
+  top: -100rpx;
 }
 .index .moduleTwo .title {
   margin-top: 40rpx;

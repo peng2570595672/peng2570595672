@@ -929,23 +929,39 @@
   background: #fff3e0;
   z-index: 100;
 }
+.make .selectedTime .cancelOk {
+  width: 100%;
+  height: 100rpx;
+  text-align: center;
+  line-height: 100rpx;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2rpx solid rgba(229,229,229,0.8);
+}
+.make .selectedTime .cancelOk .pub3 {
+  height: 100%;
+  font-size: 28rpx;
+  padding: 0 10rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+}
+.make .selectedTime .cancelOk .cancel {
+  font-weight: 400;
+  color: #666;
+}
+.make .selectedTime .cancelOk .ok {
+  font-weight: 500;
+  color: #147e4a;
+}
 .make .selectedTime .dateTime {
   width: 100%;
-  height: 600rpx;
+  height: 450rpx;
   text-align: center;
   line-height: 50px;
 }
 .make .selectedTime .dateTime .time {
   width: 138.8rpx;
-}
-.make .selectedTime .thisTime {
-  width: 100%;
-  height: 100rpx;
-  text-align: center;
-  line-height: 100rpx;
-  background: #4bf2fe;
-  font-size: 36rpx;
-  font-weight: 600;
 }
 .make .split {
   width: 100vw;

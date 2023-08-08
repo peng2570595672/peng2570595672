@@ -1,5 +1,7 @@
 <wxs src='../../../utils/util.wxs' module='tools' />
 <view class="index">
+    <!-- 自定义顶部导航栏 -->
+    <nav-styl title="道路救援领取页" isShowArrow="true" background="transparent" backPage="true"/>
     <view class="module module1">
         <view class="top">
             <view class="name">500元道路救援服务</view>

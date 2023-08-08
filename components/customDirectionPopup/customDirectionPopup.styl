@@ -780,19 +780,29 @@ flexModule($align=normal,$justify=normal)
                     background #FFF3E0
                     z-index 100
     .selectedTime
+        .cancelOk
+            mixinsWidthHeight(,100rpx)
+            textLineCenter(100rpx)
+            overflow hidden
+            flexModule(center,space-between)
+            border-bottom 2rpx solid rgba(229, 229, 229, 0.8)
+            .pub3
+                height 100%
+                font-size 28rpx
+                padding 0 10rpx
+                font-family PingFangSC-Regular, PingFang SC
+            .cancel
+                font-weight 400
+                color #666666
+            .ok
+                font-weight 500
+                color #147E4A
         .dateTime
-            mixinsWidthHeight(,600rpx)
+            mixinsWidthHeight(,450rpx)
             text-align center
             line-height 50px
-            // background #f00
             .time
                 width 138.8rpx
-        .thisTime
-             mixinsWidthHeight(,100rpx)
-             textLineCenter(100rpx)
-             background rgb(75, 242, 254)
-             font-size 36rpx
-             font-weight 600
     .split
         width 100vw
     .image

@@ -1,5 +1,8 @@
 {
     "navigationBarTitleText": "道路救援领取页",
     "navigationBarBackgroundColor": "#179D5B",
-    "usingComponents": {}
+    "navigationStyle": "custom",
+    "usingComponents": {
+        "nav-styl": "/components/navbar/navbar"
+    }
 }
