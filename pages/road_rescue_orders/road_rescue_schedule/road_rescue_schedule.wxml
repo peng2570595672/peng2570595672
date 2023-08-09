@@ -9,7 +9,7 @@
         <view class="subModule subModule1">
             <view class="mode">
                 <view class="head success {{true ? 'showDashed' : ''}}">申请成功</view>
-                <view class="text2">{{'2023-07-02 12:00:00'}}</view>
+                <view class="text2">{{applyInfo.addTime}}</view>
             </view>
             <view class="mode">
                 <view class="head success {{true ? 'showDashed' : ''}}">审核中</view>
@@ -17,12 +17,13 @@
             </view>
             <view class="mode" wx:if="{{applyInfo.applyStatus === 2 || applyInfo.applyStatus === 1 || applyInfo.applyStatus === 0}}">
                 <view class="head {{applyInfo.applyStatus === 2 ? 'success' : 'fail'}}">完成</view>
+                <view class="text2">{{applyInfo.applyupdatTime}}</view>
                 <view class="text2" >将在7个工作日内发放至提交的银行卡，请注意查收</view>
                 <!-- <view class="text2" wx:else>未完成，还在审核中</view> -->
             </view>
             <view class="mode" wx:if="{{applyInfo.applyStatus === 3}}">
                 <view class="head success">审核未通过</view>
-                <view class="text2">{{'2023-07-02 12:00:00'}}</view>
+                <view class="text2">{{applyInfo.applyupdatTime}}</view>
                 <view class="text2">{{applyInfo.remark}}</view>
                 <view class="text2 btn" bind:tap="goReceive">重新申请</view>
             </view>

@@ -36,11 +36,11 @@
             </view>
             <view class="attrVal">
                 <view class="attr">姓名</view>
-                <view class="val">{{'雨林'}}</view>
+                <view class="val val1">{{roadRescueList.owner}}</view>
             </view>
             <view class="attrVal">
                 <view class="attr">身份证</view>
-                <view class="val">{{'523132199103268356'}}</view>
+                <view class="val val1">{{roadRescueList.idNumber}}</view>
             </view>
             <view class="attrVal">
                 <view class="attr1 radio">车辆是否在本人名下</view>
@@ -58,7 +58,7 @@
     <view class="btn">
         <view class="agremment" bind:tap="agreementFunc">
             <view class="iconfont icon {{agreement ? 'yes' : 'no'}}"/>
-            <view class="text4">我同意授权<text class="text5" catchtap="goAgreement">ETC+将我的车辆信息及姓名、身份证号等身份信息共享给腾讯微保</text>用于领取救援服务。</view>
+            <view class="text4">我同意授权<text class="text5">ETC+将我的车辆信息及姓名、身份证号等身份信息共享给腾讯微保</text>用于领取救援服务。</view>
         </view>
         <view class="btnInner" catchtap="handle">立即办理</view>
     </view>

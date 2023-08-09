@@ -29,38 +29,33 @@ Page({
         roadRescueList: {},
         isShow: false
     },
-
-    onLoad () {
-        let that = this;
-        const eventChannel = that.getOpenerEventChannel();
-        eventChannel.on('roadRescueList', function (res) {
-            let flag = res.data.roadRescueStatus;
-            that.setData({
-                roadRescueList: res.data,
-                isShow: flag === 0 || flag === 7 ? false : true
-            });
-        });
+    onLoad (options) {
+        this.getOrderInfo(options.orderId);
     },
 
     onShow () {
         wx.removeStorageSync('dataTime');
     },
 
+    async getOrderInfo (orderId) {
+        const result = await util.getDataFromServersV2('consumer/order/single-road-rescue', {orderId: orderId},'POST',true);
+		if (!result) return;
+		if (result.code === 0) {
+            let flag = result.data.roadRescueStatus;
+            this.setData({
+                roadRescueList: result.data,
+                isShow: flag === 0 || flag === 1 || flag === 2 || flag === 7 ? false : true
+            });
+        } else { util.showToastNoIcon(result.message); }
+    },
+
     // 跳转道路救援申请页
     subcribe (e) {
-        console.log(e);
-
-        let that = this;
         let status = e.currentTarget.dataset.status;
         let url = 'road_rescue_schedule';
-        if (status === 2) {
+        if (status === 3) {
             url = 'road_rescue_subscribe';
         }
-        wx.navigateTo({
-			url: `/pages/road_rescue_orders/${url}/${url}`,
-			success: function (res) {
-				res.eventChannel.emit('roadRescueList', { data: that.data.roadRescueList });
-			}
-		});
+        util.go(`/pages/road_rescue_orders/${url}/${url}?orderId=${this.data.roadRescueList.orderId}`);
     }
 });
