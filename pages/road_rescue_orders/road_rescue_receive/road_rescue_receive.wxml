@@ -36,11 +36,11 @@
             </view>
             <view class="attrVal">
                 <view class="attr">姓名</view>
-                <view class="val val1">{{roadRescueList.owner}}</view>
+                <view class="val val1">{{tools.strReplace(roadRescueList.owner,1,2,'*')}}</view>
             </view>
             <view class="attrVal">
                 <view class="attr">身份证</view>
-                <view class="val val1">{{roadRescueList.idNumber}}</view>
+                <view class="val val1">{{tools.strReplace(roadRescueList.idNumber,-1,-13,'*')}}</view>
             </view>
             <view class="attrVal">
                 <view class="attr1 radio">车辆是否在本人名下</view>

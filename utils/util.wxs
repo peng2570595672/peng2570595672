@@ -189,6 +189,33 @@ function numReplace(param1,type=1) {
   }
 }
 
+/**
+ * 字符串内容的替换
+ * @param obj 对象：字符串(被替换的对象)
+ * @param start 起始位
+ * @param end 结束位
+ * @param repObj 替换的对象
+ */
+function strReplace(obj,start,end,repObj) {
+  if (typeof obj !== 'string' || end > obj.length || !obj) {
+    return;
+  }
+  var str1 = ''
+  for (var index = 0; index < obj.length; index++) {
+    if (index >= start && index < end && start >= 0) {
+      str1 += repObj;
+      continue;
+    } else if (index > obj.length + end && index <= obj.length + start) {
+      str1 += repObj;
+      continue;
+    } else {
+      str1 += obj[index]
+    }
+    
+  }
+  return str1
+}
+
 module.exports = {
   substring: substring,
   lowercaseToCapitalization: lowercaseToCapitalization,
@@ -204,5 +231,6 @@ module.exports = {
   isPhone: isPhone,
   timeComparison: timeComparison,
   dataIncludes: dataIncludes,
-  numReplace: numReplace
+  numReplace: numReplace,
+  strReplace: strReplace
 };
