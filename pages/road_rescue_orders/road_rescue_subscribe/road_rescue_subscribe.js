@@ -33,28 +33,41 @@ Page({
             }
         ],
         collectionObj: { // 收款对象
-            name: '可乐',
+            name: '',
             price: '',
             cardNum: '',
             bank: ''
         }
     },
 
-    onLoad () {
-        let that = this;
-        const eventChannel = that.getOpenerEventChannel();
-        eventChannel.on('roadRescueList', function (res) {
-            that.setData({
-                roadRescueList: res.data
-            });
-        });
+    onLoad (options) {
+        this.getOrderInfo(options.orderId);
     },
 
     onShow () {
 
     },
+
+    async getOrderInfo (orderId) {
+        let subscribeInfo = wx.getStorageSync('subscribeInfo');
+        const result = await util.getDataFromServersV2('consumer/order/single-road-rescue', {orderId: orderId},'POST',true);
+		if (!result) return;
+		if (result.code === 0) {
+            this.setData({
+                roadRescueList: result.data,
+                'collectionObj.name': result.data.owner
+            });
+            if (result.data.orderId === subscribeInfo.orderId) {
+                this.setData({
+                    imgList: subscribeInfo.imgList,
+                    collectionObj: subscribeInfo.collectionObj,
+                    dateTime: subscribeInfo.times
+                });
+            }
+        } else { util.showToastNoIcon(result.message); }
+    },
+
     cDPopup (obj) {
-        console.log(obj);
         this.setData({
             dateTime: obj.detail.dataTime
         });
@@ -140,12 +153,72 @@ Page({
         this.selectComponent('#popTipComp').show({type: 'seven',title: item.title1,url: item.uploadedUrl,btnShadowHide: true});
     },
 
+    // 输入框
+    bindInput (e) {
+        let key = e.currentTarget.dataset.key;
+        let cursor = e.detail.cursor;
+        let value = e.detail.value;
+        switch (key) {
+            case 'price':
+                if (cursor <= 2 && value >= 0) {
+                    this.setData({'collectionObj.price': value});
+                } else {
+                    if (value <= 500 && value >= 0) {
+                        this.setData({'collectionObj.price': value});
+                    } else {
+                        this.setData({'collectionObj.price': ''});
+                        util.showToastNoIcon('超过限额，请重新输入');
+                    }
+                }
+                break;
+            case 'cardNum':
+                this.setData({'collectionObj.cardNum': value});
+                break;
+            case 'bank':
+                this.setData({'collectionObj.bank': value});
+                break;
+            default:
+                break;
+        }
+    },
     // 立即提交
-    subcribe () {
+    async subcribe () {
         if (!this.data.agreement) {
             return util.showToastNoIcon('请同意协议');
         }
-        // 订阅消息
-		util.subscribe('IL7teM6zMDMLY159JmPNSYKoT8RztRpxpEx6lgjuz_k', '/pages/road_rescue_orders/road_rescue_detail/road_rescue_detail');
+        if (!this.data.dateTime) {
+            return util.showToastNoIcon('请填写救援时间');
+        }
+        if (this.data.imgList.map(item => !item.uploadedUrl).includes(true)) {
+            return util.showToastNoIcon('请上传相关照片');
+        }
+        let collectionObj = this.data.collectionObj;
+        if (!collectionObj.name || !collectionObj.price || !collectionObj.cardNum || !collectionObj.bank) {
+            return util.showToastNoIcon('请完善收款信息');
+        }
+        wx.setStorageSync('subscribeInfo',{
+            orderId: this.data.roadRescueList.orderId,
+            times: this.data.dateTime,
+            imgList: this.data.imgList,
+            collectionObj: this.data.collectionObj
+        });
+        let params = {
+            orderId: this.data.roadRescueList.orderId,
+            rescueTime: this.data.dateTime,
+            vehFaultPic: this.data.imgList[0].uploadedUrl,// 高速故障图片
+            vehLiftPic: this.data.imgList[1].uploadedUrl,// 车牌托起图片
+            rescuePic: this.data.imgList[2].uploadedUrl,// 救援发票图片
+            passPid: this.data.imgList[3].uploadedUrl,// ETC通行记录图片
+            receiveName: collectionObj.name,// 收款人姓名
+            rescueMoney: collectionObj.price * 100,// 金额 单位分/
+            cardNo: collectionObj.cardNum,// 卡号
+            openAccountBank: collectionObj.bank // 开户行
+        };
+        const result = await util.getDataFromServersV2('consumer/order/apply/road-resue', params,'POST',true);
+		if (!result) return;
+		if (result.code === 0) {
+            // 订阅消息
+            util.subscribe('IL7teM6zMDMLY159JmPNSYKoT8RztRpxpEx6lgjuz_k', `/pages/road_rescue_orders/road_rescue_schedule/road_rescue_schedule?orderId=${this.data.roadRescueList.orderId}`);
+        } else { util.showToastNoIcon(result.message); }
     }
 });

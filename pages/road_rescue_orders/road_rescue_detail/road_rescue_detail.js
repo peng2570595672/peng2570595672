@@ -1,4 +1,5 @@
-
+const util = require('../../../utils/util.js');
+const app = getApp();
 Page({
 
     data: {
@@ -25,31 +26,36 @@ Page({
             '5、收款信息：姓名、金额、银行卡号、开户行 ',
             '6、阅读知悉文案：\n 本人知悉并同意etc+将本人提交的补贴申请材料与救援津贴服务商共享，用于提供救援津贴参审核及给付服务。'
         ],
-        roadRescueList: {}
+        roadRescueList: {},
+        isShow: false
     },
-
-    onLoad () {
-        let that = this;
-        const eventChannel = that.getOpenerEventChannel();
-        eventChannel.on('roadRescueList', function (res) {
-            that.setData({
-                roadRescueList: res.data
-            });
-        });
+    onLoad (options) {
+        this.getOrderInfo(options.orderId);
     },
 
     onShow () {
         wx.removeStorageSync('dataTime');
     },
 
+    async getOrderInfo (orderId) {
+        const result = await util.getDataFromServersV2('consumer/order/single-road-rescue', {orderId: orderId},'POST',true);
+		if (!result) return;
+		if (result.code === 0) {
+            let flag = result.data.roadRescueStatus;
+            this.setData({
+                roadRescueList: result.data,
+                isShow: flag === 0 || flag === 1 || flag === 2 || flag === 7 ? false : true
+            });
+        } else { util.showToastNoIcon(result.message); }
+    },
+
     // 跳转道路救援申请页
-    subcribe () {
-        let that = this;
-        wx.navigateTo({
-			url: `/pages/road_rescue_orders/road_rescue_subscribe/road_rescue_subscribe`,
-			success: function (res) {
-				res.eventChannel.emit('roadRescueList', { data: that.data.roadRescueList });
-			}
-		});
+    subcribe (e) {
+        let status = e.currentTarget.dataset.status;
+        let url = 'road_rescue_schedule';
+        if (status === 3) {
+            url = 'road_rescue_subscribe';
+        }
+        util.go(`/pages/road_rescue_orders/${url}/${url}?orderId=${this.data.roadRescueList.orderId}`);
     }
 });
