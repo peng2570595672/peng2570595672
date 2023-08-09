@@ -69,7 +69,8 @@
             <view class="pub1">
                 <view class="attrName">开户行</view>
                 <view class="attrVal">
-                    <input type="text" class="input" value="{{collectionObj.bank}}" maxlength="40" placeholder-class="input-placeholder" placeholder="请输入开户银行"/>
+                    {{collectionObj.bank}}
+                    <input type="text" class="input test" maxlength="40" placeholder-class="input-placeholder" placeholder="请输入开户银行"/>
                 </view>
             </view>
         </view>

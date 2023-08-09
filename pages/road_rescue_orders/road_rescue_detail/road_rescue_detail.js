@@ -1,4 +1,5 @@
-
+const util = require('../../../utils/util.js');
+const app = getApp();
 Page({
 
     data: {
@@ -25,15 +26,18 @@ Page({
             '5、收款信息：姓名、金额、银行卡号、开户行 ',
             '6、阅读知悉文案：\n 本人知悉并同意etc+将本人提交的补贴申请材料与救援津贴服务商共享，用于提供救援津贴参审核及给付服务。'
         ],
-        roadRescueList: {}
+        roadRescueList: {},
+        isShow: false
     },
 
     onLoad () {
         let that = this;
         const eventChannel = that.getOpenerEventChannel();
         eventChannel.on('roadRescueList', function (res) {
+            let flag = res.data.roadRescueStatus;
             that.setData({
-                roadRescueList: res.data
+                roadRescueList: res.data,
+                isShow: flag === 0 || flag === 7 ? false : true
             });
         });
     },
@@ -43,10 +47,17 @@ Page({
     },
 
     // 跳转道路救援申请页
-    subcribe () {
+    subcribe (e) {
+        console.log(e);
+
         let that = this;
+        let status = e.currentTarget.dataset.status;
+        let url = 'road_rescue_schedule';
+        if (status === 2) {
+            url = 'road_rescue_subscribe';
+        }
         wx.navigateTo({
-			url: `/pages/road_rescue_orders/road_rescue_subscribe/road_rescue_subscribe`,
+			url: `/pages/road_rescue_orders/${url}/${url}`,
 			success: function (res) {
 				res.eventChannel.emit('roadRescueList', { data: that.data.roadRescueList });
 			}

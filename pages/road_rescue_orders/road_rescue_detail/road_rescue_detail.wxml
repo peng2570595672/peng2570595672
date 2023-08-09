@@ -1,14 +1,16 @@
+<wxs src='../../../utils/util.wxs' module='tools' />
 <view class="index">
     <!-- 订单模块 -->
     <view class="module moduleOne" >
         <view class="img2"><image class="image" src="https://file.cyzl.com/g001/M02/FA/A4/oYYBAGTKFEaAJL6iAAAchtsMSsM278.png" mode="widthFix" /></view>
         <view class="text4">已成功领取高速道路救援服务</view>
-        <view class="text5">（保障将在{{2}}天后生效）</view>
+        <view class="text5">（保障将在{{3}}天后生效）</view>
+        <!-- <view class="text5">（保障将在{{3}}天后生效）</view> -->
     </view>
     <!-- 道路救援补贴领取提示  -->
     <view class="module moduleTwo" >
         <view class="subModule">
-            <view class="subTop">高速道路救援<text class="text6">(有效期 2023.07.03-2024.07.02)</text></view>
+            <view class="subTop">高速道路救援<text class="text6">( 有效期 {{tools.limitNumber(roadRescueList.receiveTime,11,true)}}- {{tools.limitNumber(roadRescueList.expirationTime,11,true)}})</text></view>
             <view class="subBottom">
                 <view class="left">
                     <view class="money">￥<text class="text7">{{500}}</text></view>
@@ -48,6 +50,15 @@
     <view class="split" />
 
     <view class="btn">
-        <view class="btnInner" catchtap="subcribe">我要申请补贴</view>
+        <view class="btnInner {{isShow ? 'yes' : 'no'}}" data-status="{{roadRescueList.roadRescueStatus}}" catchtap="{{isShow ? 'subcribe' : ''}}">
+            {{roadRescueList.roadRescueStatus === 0 ? '服务待生效' : ''}}
+            <!-- {{roadRescueList.roadRescueStatus === 1 ? '待领取' : ''}} -->
+            {{roadRescueList.roadRescueStatus === 2 ? '我要申请补贴' : ''}}
+            <!-- {{roadRescueList.roadRescueStatus === 3 ? '待申请' : ''}} -->
+            {{roadRescueList.roadRescueStatus === 4 ? '查看申请结果' : ''}}
+            {{roadRescueList.roadRescueStatus === 5 ? '查看申请结果' : ''}}
+            {{roadRescueList.roadRescueStatus === 6 ? '查看申请结果' : ''}}
+            {{roadRescueList.roadRescueStatus === 7 ? '服务已过期' : ''}}
+        </view>
     </view>
 </view>>

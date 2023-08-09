@@ -68,6 +68,8 @@ Page({
 			if (result.data.length === 0) {
 				this.setData({roadRescueList: [
 					{
+						receiveTime: '2023.07.03 12:12:12',// 领取时间
+						expirationTime: '2024.07.03 12:12:12',// 到期时间
 						isReceive: null,
 						applicationStatus: null,
 						vehPlates: '贵ZQ0101',
@@ -75,6 +77,8 @@ Page({
 						orderId: '3213231321313'
 					},
 					{
+						receiveTime: '2023.07.03 12:12:12',// 领取时间
+						expirationTime: '2024.07.03 12:12:12',// 到期时间
 						isReceive: 0,
 						applicationStatus: 0,
 						vehPlates: '贵ZQ0102',
@@ -82,6 +86,8 @@ Page({
 						orderId: '3213231321313'
 					},
 					{
+						receiveTime: '2023.07.03 12:12:12',// 领取时间
+						expirationTime: '2024.07.03 12:12:12',// 到期时间
 						isReceive: 1,
 						applicationStatus: 0,
 						vehPlates: '贵ZQ0103',
@@ -89,6 +95,8 @@ Page({
 						orderId: '3213231321313'
 					},
 					{
+						receiveTime: '2023.07.03 12:12:12',// 领取时间
+						expirationTime: '2024.07.03 12:12:12',// 到期时间
 						isReceive: 1,
 						applicationStatus: 0,
 						vehPlates: '贵ZQ0104',
@@ -96,6 +104,8 @@ Page({
 						orderId: '3213231321313'
 					},
 					{
+						receiveTime: '2023.07.03 12:12:12',// 领取时间
+						expirationTime: '2024.07.03 12:12:12',// 到期时间
 						isReceive: 1,
 						applicationStatus: 4,
 						vehPlates: '贵ZQ0105',
@@ -103,6 +113,8 @@ Page({
 						orderId: '3213231321313'
 					},
 					{
+						receiveTime: '2023.07.03 12:12:12',// 领取时间
+						expirationTime: '2024.07.03 12:12:12',// 到期时间
 						isReceive: 1,
 						applicationStatus: 5,
 						vehPlates: '贵ZQ0106',
@@ -111,6 +123,8 @@ Page({
 						orderId: '3213231321313'
 					},
 					{
+						receiveTime: '2023.07.03 12:12:12',// 领取时间
+						expirationTime: '2024.07.03 12:12:12',// 到期时间
 						isReceive: 1,
 						applicationStatus: 6,
 						vehPlates: '贵ZQ0107',
@@ -118,6 +132,8 @@ Page({
 						orderId: '3213231321313'
 					},
 					{
+						receiveTime: '2023.07.03 12:12:12',// 领取时间
+						expirationTime: '2024.07.03 12:12:12',// 到期时间
 						isReceive: null,
 						applicationStatus: null,
 						vehPlates: '贵ZQ0108',
@@ -145,7 +161,7 @@ Page({
 			url = 'road_rescue_schedule';
 		}
 		wx.navigateTo({
-			url: `/pages/road_rescue_orders/${url}/${url}`,
+			url: `/pages/road_rescue_orders/${url}/${url}?orderId=${item.orderId}`,
 			success: function (res) {
 				res.eventChannel.emit('roadRescueList', { data: item });
 			}

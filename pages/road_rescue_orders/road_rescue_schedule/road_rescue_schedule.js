@@ -2,11 +2,18 @@
 Page({
 
     data: {
+        roadRescueList: {}, // 订单信息
         applyInfo: {}
     },
 
     onLoad (options) {
-
+        let that = this;
+        const eventChannel = that.getOpenerEventChannel();
+        eventChannel.on('roadRescueList', function (res) {
+            that.setData({
+                roadRescueList: res.data
+            });
+        });
     },
 
     onShow () {
@@ -18,7 +25,7 @@ Page({
         let applyInfo = {
             applyNo: '432432432432',// 申请补贴流水号
             roadRescueNo: '657657657575',// 领取流水号
-            applyStatus: 2,// 申请补贴状态(0:待申请;1:审核中;2:已通过;3:未通过;)
+            applyStatus: 3,// 申请补贴状态(0:待申请;1:审核中;2:已通过;3:未通过;)
             applyUpdatTime: '2023-01-24 12:23:22',// 补贴状态更新时间
             remark: '信息有误',// 未通过原因
             receiveTime: '',// 补贴领取时间
@@ -30,7 +37,7 @@ Page({
             }
         };
         this.setData({applyInfo});
-        // const result = await util.getDataFromServersV2('consumer/order/road-rescue/schedule', {orderId: '2313213'},'POST',true);
+        // const result = await util.getDataFromServersV2('consumer/order/road-rescue/schedule', {orderId: this.data.roadRescueList.orderId},'POST',true);
 		// if (!result) return;
 		// if (result.code === 0) {
         //     console.log(result.data);
@@ -41,10 +48,6 @@ Page({
 
     // 道路救援申请请页
     goReceive () {
-
-    },
-
-    onUnload () {
 
     }
 });
