@@ -34,6 +34,8 @@ Page({
 			// url = `https://static.wesure.cn/app2/h5-mobile/home?companyId=ETC&outerUserId=${app.globalData.memberId}&wtagid=${wtagid}`;
 		} else if (options.type === 'online_customer_service') {
 			url = `https://wpa1.qq.com/jjrmum8i?_type=wpa&qidian=true`;
+		} else if (options.type === 'refund_customer_service') {
+			url = `https://wpa1.qq.com/y0Pmv6DV?_type=wpa&qidian=true`;
 		} else if (options.type === 'heaiche') {
 			url = `https://dhwap.mlocso.com/haccarwash/html/carwash.html?app=07200053&p=cwash_game&mobile=${app.globalData.activityUrl}`;
 			this.setData({
