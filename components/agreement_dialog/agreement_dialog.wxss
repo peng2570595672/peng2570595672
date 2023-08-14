@@ -119,7 +119,7 @@
   z-index: 10000;
 }
 .alert-for-not-finished-content {
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   top: 50%;

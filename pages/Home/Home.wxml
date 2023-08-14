@@ -102,7 +102,7 @@
     <view class="moduleTwo" wx:if="{{tools.dataLen(moduleTwoList) > 0}}">
         <view class="head">出行贴心服务</view>
         <view class="moduleTwoBox">
-            <view class="integral" wx:for="{{moduleTwoList}}" wx:key="index" catchtap="goPath" data-type="2" data-information="{{item}}">
+            <view class="integral" wx:for="{{moduleTwoList}}" wx:key="index" wx:if="{{item}}" catchtap="goPath" data-type="2" data-information="{{item}}">
                 <image src="{{item.imgUrl}}" />
             </view>
         </view>

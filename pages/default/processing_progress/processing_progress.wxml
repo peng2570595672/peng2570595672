@@ -142,7 +142,7 @@
 	<view class="auto-fill" wx:if="{{!tools.dataIncludes(info.vehPlates,firstCar,1)}}"></view>
 	<!--	在线客服开始-->
 	<view class="bottom"><text catchtap="goHome">返回首页</text>|<text catchtap="goOnlineServer">在线客服</text>|<text catchtap="goInstallationTutorial">安装教程</text></view>
-    <view class="pingAnNewCustomers" wx:if="{{tools.dataIncludes(info.vehPlates,firstCar,1)}}" catchtap="goPingAn">
+    <view class="pingAnNewCustomers" wx:if="{{tools.dataIncludes(info.vehPlates,firstCar,1) && !isPopPinAn}}" catchtap="goPingAn">
         <image class="image" src="{{'https://file.cyzl.com/g001/M00/E7/0D/oYYBAGSRUJuAQ0wsAABKSVNiV0M757.png'}}" mode="widthFix"/>
     </view>
 	<!--	在线客服结束-->

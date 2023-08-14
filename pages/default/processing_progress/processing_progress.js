@@ -32,7 +32,8 @@ Page({
 		wellBankShopProductId: app.globalData.cictBankObj.wellBankShopProductId,	// 平安信用卡套餐ID
 		cictBail: false,	// 中信保证金
 		isWellBank: false, // 平安信用卡
-		firstCar: app.globalData.pingAnBindGuests	// 平安获客
+		firstCar: app.globalData.pingAnBindGuests,	// 平安获客
+		isPopPinAn: false
 	},
 	async onLoad (options) {
 		this.setData({
@@ -312,14 +313,15 @@ Page({
 					info: res.data
 				});
 
-				if (res.data.auditStatus === 0) {	// 平安获客 礼品弹窗
-					let isShowpAPop = wx.getStorageSync('isShowpAPop');
-					let isShowPingAn = this.data.firstCar.filter(item => res.data.vehPlates.includes(item));
-					if (isShowPingAn?.length !== 0 && !isShowpAPop) {
-						wx.setStorageSync('isShowpAPop',true);
-						this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '礼品领取',bgColor: 'rgba(42, 80, 68, 0.7)'});
-					}
+				// 平安获客 礼品弹窗
+				let isShowpAPop = wx.getStorageSync('isShowpAPop');
+				let isShowPingAn = this.data.firstCar.filter(item => res.data.vehPlates.includes(item));
+				this.setData({isPopPinAn: isShowpAPop});
+				if (isShowPingAn?.length !== 0 && !isShowpAPop) {
+					wx.setStorageSync('isShowpAPop',true);
+					this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '礼品领取',bgColor: 'rgba(42, 80, 68, 0.7)'});
 				}
+
 				if (res.data.autoAuditStatus === 0 && res.data.auditStatus === 0) {
 					if (that.data.number >= 5) {
 						util.hideLoading();
@@ -686,7 +688,7 @@ Page({
 	// 跳转平安绑客
 	goPingAn () {
 		// 授权提醒
-		this.selectComponent('#popTipComp').show({type: 'nine',title: '免责声明',btnCancel: '取消',btnconfirm: '同意授权'});
+		this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '礼品领取',bgColor: 'rgba(42, 80, 68, 0.7)'});
 	},
 	// 继续办理平安信用卡入口
 	async goPinAnH5 () {
