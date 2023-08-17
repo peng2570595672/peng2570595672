@@ -158,7 +158,8 @@ Page({
 		isEquityRights: app.globalData.isEquityRights,	// 是否是权益券额用户
 		isShowHandle: true,	// 是否显示办理状态栏
 		isBail: false,	// 是否有保证金退回的订单（false: 没有，true: 有）
-		firstCar: app.globalData.pingAnBindGuests	// 存放车牌首位（针对平安绑客）
+		firstCar: app.globalData.pingAnBindGuests,	// 存放车牌首位（针对平安绑客）
+		PingAn: false	// 是否展示平安获客banner
 	},
 	async onLoad (options) {
 		util.resetData();// 重置数据
@@ -853,16 +854,14 @@ Page({
 			];
 			// let [vehicleList, activationOrder, activationTruckOrder] = [[], [], []];
 			app.globalData.ownerServiceArrearsList = list.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
-			let isShowPingAn = this.data.firstCar.filter(item => list[0].vehPlates.includes(item));	// 平安获客
-			let funcListTwo = this.data.moduleTwoList.map(item1 => {
-				return item1.jumpUrl === '平安获客' ? isShowPingAn?.length === 0 ? undefined : !app.globalData.userInfo?.accessToken ? undefined : item1 : item1;
-			});
-			funcListTwo.sort(this.compare('sort'));	// 排序
 			this.setData({
-				moduleTwoList: funcListTwo,
 				isShowHandle: list.filter(item => item.obuStatus !== 1 && item.obuStatus !== 2 && item.obuStatus !== 5).length > 0
 			});
 			list.map(item => {
+				let isShowPingAn = this.data.firstCar.filter(item1 => item.vehPlates.includes(item1));	// 平安获客
+				if (isShowPingAn.length > 0 && !this.data.PingAn) {
+					this.setData({PingAn: true});
+				}
 				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
 				if ((item.obuStatus === 1 || item.obuStatus === 5) && item.flowVersion === 4) {
 					// 货车预充值-易路通达
