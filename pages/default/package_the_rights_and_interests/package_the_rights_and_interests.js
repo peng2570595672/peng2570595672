@@ -434,13 +434,13 @@ Page({
 			// serviceFeeType  是否收取权益服务费：0否，1是
 			// productType: 套餐类型 1-业务员套餐 2-小程序套餐  3-H5套餐  4-后台办理套餐，5-APi办理  6-空发套餐
 			// deliveryType: 1-邮寄 2-线下取货 3-现场办理
-			const timeComparison = util.timeComparison('2020/8/23', this.data.orderInfo.base.addTime);
+			const timeComparison = util.timeComparison('2023/8/23', this.data.orderInfo.base.addTime);
 			// timeComparison 1-新订单 2-老订单
 			if (item.deliveryType === 1 && (item.productType === 2 || item.productType === 3 || item.productType === 6)) {
 				return util.go(`/pages/default/equity_agreement/equity_agreement?type=${timeComparison === 1 ? 'QTnotFeesNew' : 'QTnotFees'}`);	// 不含注消费
 			}
 			if (item.deliveryType === 3 && (item.productType === 1 || item.productType === 5 || item.productType === 6)) {
-				return util.go(`/pages/default/equity_agreement/equity_agreement?type=type=${timeComparison === 1 ? 'QTNew' : 'QT'}`);
+				return util.go(`/pages/default/equity_agreement/equity_agreement?type=${timeComparison === 1 ? 'QTNew' : 'QT'}`);
 			}
 		}
 		if (item.etcCardId === 2) {

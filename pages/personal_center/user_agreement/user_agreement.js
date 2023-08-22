@@ -56,7 +56,7 @@ Page({
 			isPassengerCarActivation = true;
 			if ((item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 0) {
 				if (item.obuCardType === 1) {
-					const timeComparison = util.timeComparison('2020/8/23', this.data.orderInfo.base.addTime);
+					const timeComparison = util.timeComparison('2023/8/23', item.addTime);
 					if (timeComparison === 1) {
 						// timeComparison 1-新订单 2-老订单
 						QTOrderStatus = QTOrderStatus > 1 ? 3 : 1;
