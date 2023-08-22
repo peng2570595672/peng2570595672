@@ -4,16 +4,23 @@
         "miniprogram": {
             "list": [
                 {
-                    "name": "邮寄地址",
-                    "pathName": "pages/truck_handling/truck_receiving_address/truck_receiving_address",
+                    "name": "我的ETC",
+                    "pathName": "pages/personal_center/my_etc/my_etc",
+                    "query": "shareId=123455",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/jump_web/jump_web",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
                 },
                 {
-                    "name": "我的ETC",
-                    "pathName": "pages/personal_center/my_etc/my_etc",
-                    "query": "shareId=123455",
+                    "name": "邮寄地址",
+                    "pathName": "pages/default/receiving_address/receiving_address",
+                    "query": "",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -64,7 +71,7 @@
                 {
                     "name": "ETC详情",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=839976237639536640",
+                    "query": "orderId=1123988651408101376",
                     "launchMode": "default",
                     "scene": null
                 },
