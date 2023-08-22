@@ -172,6 +172,10 @@ Page({
 	},
 	// 获取手机号
 	onGetPhoneNumber (e) {
+		if (e.detail.errno === 1400001) {
+			util.showToastNoIcon('开发方预存费用不足！');
+			return;
+		}
 		let type = e.currentTarget.dataset.type;
 		// 允许授权
 		if (e.detail.errMsg === 'getPhoneNumber:ok') {

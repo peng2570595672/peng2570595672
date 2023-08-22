@@ -50,7 +50,7 @@
 		      wx:if="{{showMobileMask}}">
 			<view class="title">登录方式</view>
 			<view class="mobile">
-				<button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">微信绑定手机登录</button>
+				<button open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">微信绑定手机登录</button>
 			</view>
 		</view>
 	</view>

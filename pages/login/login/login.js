@@ -17,6 +17,10 @@ Page({
 		}
 	},
 	onGetPhoneNumber (e) {
+		if (e.detail.errno === 1400001) {
+			util.showToastNoIcon('开发方预存费用不足！');
+			return;
+		}
 		// 允许授权
 		if (e.detail.errMsg === 'getPhoneNumber:ok') {
 			let encryptedData = e.detail.encryptedData;
