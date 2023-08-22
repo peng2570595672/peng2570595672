@@ -432,7 +432,7 @@ Page({
 		let obj = e.currentTarget.dataset.information;
 		if (obj === 'loadingService') {
 			this.fangDou(() => {
-				util.go(`/pages/web/web/web?url=${encodeURIComponent('https://wpa1.qq.com/KGKHqXld?_type=wpa&qidian=true')}`);
+				util.go(`/pages/web/web/web?url=${encodeURIComponent('https://wpa1.qq.com/jjrmum8i?_type=wpa&qidian=true')}`);
 			},1000);
 			return;
 		}
