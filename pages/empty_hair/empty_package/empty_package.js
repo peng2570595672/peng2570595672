@@ -59,6 +59,7 @@ Page({
         if (app.globalData.userInfo.accessToken) {
             // 根据套餐id查询套餐信息
             await this.getProduct();
+            await this.getOrderInfo();
         } else {
             this.setData({
                 isOnloadData: false
@@ -96,6 +97,7 @@ Page({
 					app.globalData.memberId = result.data.memberId;
 					app.globalData.mobilePhone = result.data.mobilePhone;
 					await this.getProduct();
+					await this.getOrderInfo();
 				} else {
 					wx.setStorageSync('login_info', JSON.stringify(result.data));
 					util.go('/pages/login/login/login');
@@ -107,17 +109,35 @@ Page({
 			}
 		});
 	},
-
+	async getOrderInfo () {
+		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
+			orderId: app.globalData.orderInfo.orderId,
+			dataType: '13'
+		});
+		console.log(result);
+		if (!result) return;
+		if (result.code === 0) {
+			this.setData({
+				orderInfo: result.data.base
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
 	// 查看办理协议
 	onClickGoAgreementHandle () {
 		const item = this.data.listOfPackages[this.data.choiceIndex];
 		if (item.etcCardId === 1) {
 			// serviceFeeType  是否收取权益服务费：0否，1是
+			// productType: 套餐类型 1-业务员套餐 2-小程序套餐  3-H5套餐  4-后台办理套餐，5-APi办理  6-空发套餐
+			// deliveryType: 1-邮寄 2-线下取货 3-现场办理
+			const timeComparison = util.timeComparison('2023/8/23', this.data.orderInfo.base.addTime);
+			// timeComparison 1-新订单 2-老订单
 			if (item.deliveryType === 1 && (item.productType === 2 || item.productType === 3 || item.productType === 6)) {
-				return util.go('/pages/default/equity_agreement/equity_agreement?type=QTnotFees');	// 不含注消费
+				return util.go(`/pages/default/equity_agreement/equity_agreement?type=${timeComparison === 1 ? 'QTnotFeesNew' : 'QTnotFees'}`);	// 不含注消费
 			}
 			if (item.deliveryType === 3 && (item.productType === 1 || item.productType === 5 || item.productType === 6)) {
-				return util.go('/pages/default/equity_agreement/equity_agreement?type=QT');
+				return util.go(`/pages/default/equity_agreement/equity_agreement?type=${timeComparison === 1 ? 'QTNew' : 'QT'}`);
 			}
 		}
 		if (item.etcCardId === 2) {
@@ -134,6 +154,24 @@ Page({
 		} else {
 			util.go(`/pages/default/new_self_buy_equipmemnt_agreement/index`);
 		}
+		// if (item.pledgeType === 4) {
+		// 	// ETC押金办理模式 协议
+		// 	return util.go('/pages/default/margin_user_handling_agreement/margin_user_handling_agreement');
+		// }
+		// // 1-自购设备 2-免费设备 3-自购(其他)
+		// if (item?.environmentAttribute === 2) {
+		// 	if (item.etcCardId === 1) {
+		// 		util.go(`/pages/default/free_equipment_agreement/free_equipment_agreement`);
+		// 	} else {
+		// 		util.go(`/pages/default/agreement/agreement`);
+		// 	}
+		// } else {
+		// 	if (item.isSignTtCoupon === 1) {
+		// 		util.go(`/pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement`);
+		// 	} else {
+		// 		util.go(`/pages/default/new_self_buy_equipmemnt_agreement/index`);
+		// 	}
+		// }
 	},
 	// ETC 服务协议
 	onClickGoNMAgreement () {

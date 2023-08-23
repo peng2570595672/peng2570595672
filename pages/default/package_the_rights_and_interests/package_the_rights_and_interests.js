@@ -147,9 +147,9 @@ Page({
 			contractStatus: +options.contractStatus,
 			emptyHairOrder: options.emptyHairOrder === 'true'
 		});
+		// !options.type 已选择套餐 && 未支付
+		await this.getOrderInfo(!options.type);
 		if (!options.type) {
-			// 已选择套餐 && 未支付
-			await this.getOrderInfo();
 			return;
 		}
 		const packages = app.globalData.newPackagePageData;
