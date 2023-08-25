@@ -161,7 +161,8 @@
     <agreement-dialog id='agreement-dialog'></agreement-dialog>
 <!--    <authorization-phone bindPhoneInfo="onGetPhoneNumber" wx:if="{{loginInfo.needBindingPhone === 1}}"></authorization-phone>-->
     <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
-    <noticeDialog id="noticeDialog"></noticeDialog>
+    <noticeDialog id="noticeDialog" bindConfirm="handleConfirm"></noticeDialog>
+    <noticeDialog id="noticeDialog1" bindConfirm="handleConfirm"></noticeDialog>
     <noticeImgDialog id="noticeImgDialog" bind:onHandle="onHandleNotice"></noticeImgDialog>
     <equipment_selection id="choiceEquipment" bindonClickTranslucentHandle="onClickTranslucentHandle"></equipment_selection>
 </view>

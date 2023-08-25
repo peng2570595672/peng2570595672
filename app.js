@@ -154,7 +154,8 @@ App({
 			shopProductId: IS_TEST ? '1122919688035115008' : ''	// 通行权益金套餐ID
 		},
 		pingAnBindGuests: ['云'],	// 平安绑客合作机构开头的车牌号 '豫','川'
-		isTest: IS_TEST
+		isTest: IS_TEST,
+		isAlertToSign: false
 	},
 	onLaunch (options) {
 		// 统计逻辑结束
@@ -388,7 +389,6 @@ App({
 		}, async (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
-				this.globalData.signAContract = 3;
 				this.globalData.isSalesmanOrder = false;
 				this.globalData.isTelemarketing = false;
 				// 签约成功 userState: "NORMAL"
@@ -405,6 +405,7 @@ App({
 						});
 						return;
 					}
+					this.globalData.signAContract = 3;
 					// 办理付费h5
 					if (this.globalData.otherEntrance.isPayH5Signing) {
 						this.globalData.otherEntrance.isPayH5Signing = false;

@@ -21,6 +21,10 @@ Component({
 			if (this.data.dialogContent.alertType === 99) {
 				util.go(`/pages/account_management/pay_method/pay_method?orderId=${this.data.dialogContent.orderId}`);
 			}
+			if (this.data.dialogContent.alertType === 101) {
+				// 签约
+				this.triggerEvent('Confirm', this.data.dialogContent);
+			}
 			this.hide();
 		},
 		// 去签约

@@ -4,6 +4,13 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1101086168428056576",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "我的ETC",
                     "pathName": "pages/personal_center/my_etc/my_etc",
                     "query": "shareId=123455",
