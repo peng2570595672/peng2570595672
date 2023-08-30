@@ -48,9 +48,9 @@
         </view>
     </view>
     <!-- 占位 -->
-    <view class="split" />
+    <view class="{{roadRescueList ? 'split' : 'noSplit'}}" />
 
-    <view class="btn">
+    <view class="btn" wx:if="{{roadRescueList}}">
         <view class="btnInner {{isShow ? 'yes' : 'no'}}" data-status="{{roadRescueList.roadRescueStatus}}" catchtap="{{isShow ? 'subcribe' : ''}}">
             {{roadRescueList.roadRescueStatus === 0 ? '服务待生效' : ''}}
             {{roadRescueList.roadRescueStatus === 1 ? '服务待生效' : ''}}
@@ -62,4 +62,4 @@
             {{roadRescueList.roadRescueStatus === 7 ? '服务已过期' : ''}}
         </view>
     </view>
-</view>>
+</view>

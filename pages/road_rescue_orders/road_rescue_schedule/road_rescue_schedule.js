@@ -3,12 +3,13 @@ const app = getApp();
 Page({
 
     data: {
-        applyInfo: {}, // 进度数据
-        orderId: ''
+        applyInfo: undefined, // 进度数据
+        orderId: '',
+        applyId: '' // 道路救援申请id
     },
 
     onLoad (options) {
-        this.setData({orderId: options.orderId});
+        this.setData({orderId: options.orderId,applyId: options.applyId});
     },
 
     onShow () {
@@ -31,7 +32,7 @@ Page({
         //         rescueMoney: 500 // 金额(分)
         //     }
         // };
-        const result = await util.getDataFromServersV2('consumer/order/road-rescue/schedule', {orderId: this.data.orderId},'POST',true);
+        const result = await util.getDataFromServersV2('consumer/order/road-rescue/schedule', {id: this.data.applyId},'POST',true);
 		if (!result) return;
 		if (result.code === 0) {
             this.setData({applyInfo: result.data});
@@ -42,6 +43,6 @@ Page({
 
     // 道路救援申请请页
     goReceive () {
-        util.go(`/pages/road_rescue_orders/road_rescue_subscribe/road_rescue_subscribe?orderId=${this.data.roadRescueList.orderId}`);
+        util.go(`/pages/road_rescue_orders/road_rescue_subscribe/road_rescue_subscribe?orderId=${this.data.orderId}`);
     }
 });

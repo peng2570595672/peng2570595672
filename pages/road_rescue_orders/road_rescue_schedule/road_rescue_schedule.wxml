@@ -8,11 +8,11 @@
         <view class="iconfont title fontWeight">申请补贴进度</view>
         <view class="subModule subModule1">
             <view class="mode">
-                <view class="head success {{true ? 'showDashed' : ''}}">申请成功</view>
+                <view class="head success {{applyInfo && applyInfo.applyStatus !== 0 ? 'showDashed' : 'fail'}}">申请成功</view>
                 <view class="text2">{{applyInfo.addTime}}</view>
             </view>
             <view class="mode">
-                <view class="head success {{true ? 'showDashed' : ''}}">审核中</view>
+                <view class="head {{applyInfo && applyInfo.applyStatus !== 0 ? 'showDashed success' : 'fail'}}">审核中</view>
                 <view class="text2">{{'预计3个工作日完成审核'}}</view>
             </view>
             <view class="mode" wx:if="{{applyInfo.applyStatus === 2 || applyInfo.applyStatus === 1 || applyInfo.applyStatus === 0}}">

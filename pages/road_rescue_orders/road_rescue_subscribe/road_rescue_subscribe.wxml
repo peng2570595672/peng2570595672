@@ -63,7 +63,7 @@
             <view class="pub1">
                 <view class="attrName">银行卡号</view>
                 <view class="attrVal pub2">
-                    <input type="number" class="input" value="{{collectionObj.cardNum}}" maxlength="30" placeholder-class="input-placeholder" data-key="cardNum" bindinput="bindInput" placeholder="6214835921201081"/>
+                    <input type="number" class="input" value="{{collectionObj.cardNum}}" maxlength="30" placeholder-class="input-placeholder" data-key="cardNum" bindinput="bindInput" placeholder="例：6214835921201081"/>
                 </view>
             </view>
             <view class="pub1">

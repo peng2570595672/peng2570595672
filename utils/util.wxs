@@ -159,10 +159,12 @@ function timeComparison(fixedTime,flexibleTime) {
  * @returns 
  */
 function dataIncludes(originalData,includesParams,type) {
+  console.log('哈哈哈',originalData,includesParams,type);
   if (!originalData || !includesParams) {
     return false
   }
   if (type === 1) {
+    console.log(originalData,includesParams,type);
     for (var index = 0; index < includesParams.length; index++) {
       if (originalData.indexOf(includesParams[index]) !== -1) {
         return true

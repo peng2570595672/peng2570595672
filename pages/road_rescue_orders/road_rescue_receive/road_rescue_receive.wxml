@@ -2,7 +2,7 @@
 <view class="index">
     <view class="img1"><image class="image" src="https://file.cyzl.com/g001/M02/FB/BF/oYYBAGTRnyWAaKOqAAGOGBfk_c4257.png" mode="widthFix" /></view>
     <!-- 自定义顶部导航栏 -->
-    <nav-styl title="道路救援领取" isShowArrow="{{true}}" position="relative" background="transparent" backPage="{{false}}"/>
+    <nav-styl title="道路救援领取" isShowArrow="{{true}}" position="relative" background="transparent" backPage="{{true}}"/>
     <view class="split1" />
     <view class="module module1">
         <view class="top">

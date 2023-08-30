@@ -308,6 +308,16 @@ textLineCenter($height)
     .module1
         width 524rpx
         mixinsPositionPack()
+        .pic
+            margin-left -42rpx
+            mixinsWidthHeight(610rpx,538rpx)
+            // background-color #0f0
+            display flex
+            justify-content center
+            align-items center
+            .image1
+                margin-top 100rpx
+                transform scale(2.3,2.3)
         .image
             mixinsWidthHeight(100%,100%)
         .close
@@ -315,14 +325,29 @@ textLineCenter($height)
             position absolute
             right 30rpx
             top 90rpx
-            .img1
-                mixinsWidthHeight(90%,90%)
+            background url(https://file.cyzl.com/g001/M01/E9/0E/oYYBAGSayoWATKEFAAADSYY4ag8694.png) center no-repeat
+            background-size 90%,90%
+        .close1
+            mixinsWidthHeight(60rpx,60rpx)
+            position absolute
+            bottom -100rpx
+            left 50%
+            transform translateX(-50%)
+            background url(https://file.cyzl.com/g001/M01/E9/0E/oYYBAGSayoWATKEFAAADSYY4ag8694.png) center no-repeat
+            background-size 90%,90%
         .btn
             mixinsPositionPack()
             mixinsWidthHeight(400rpx,130rpx)
             border-radius 50rpx
             textLineCenter(100rpx)
             background url('https://file.cyzl.com/g001/M01/E9/1A/oYYBAGSblVeAalD7AAAcU3SzIA4040.png') center no-repeat
+            background-size cover
+        .btn1
+            mixinsPositionPack()
+            mixinsWidthHeight(416rpx,90rpx)
+            border-radius 50rpx
+            textLineCenter(100rpx)
+            background url('https://file.cyzl.com/g001/M02/04/0A/oYYBAGTvK9mAOnLaAAAjY1FkEpg334.png') center no-repeat
             background-size cover
         .agreement
             mixinsWidthHeight(100%,48rpx)

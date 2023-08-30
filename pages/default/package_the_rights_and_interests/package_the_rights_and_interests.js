@@ -138,8 +138,7 @@ Page({
 		emptyHairOrder: false,	// 为true表示是空发订单
 		citicBankshopProductId: app.globalData.cictBankObj.citicBankshopProductId,	// 中信金卡套餐ID
 		citicBankShopshopProductId: app.globalData.cictBankObj.citicBankShopshopProductId,	// 中信白金卡套餐ID
-		wellBankShopProductId: app.globalData.cictBankObj.wellBankShopProductId,	// 平安信用卡套餐ID
-		roadRescueShopProductId: app.globalData.isTest ? '1049360146769125376' : ''	// 道路救援套餐ID
+		wellBankShopProductId: app.globalData.cictBankObj.wellBankShopProductId	// 平安信用卡套餐ID
 	},
 	async onLoad (options) {
 		app.globalData.isTelemarketing = false;

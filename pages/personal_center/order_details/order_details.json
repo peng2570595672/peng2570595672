@@ -6,7 +6,8 @@
 	"usingComponents": {
 		"popup": "/components/popup/popup",
 		"tips": "/components/tips/tips",
-		"popup1": "/components/dialog1/dialog"
+		"popup1": "/components/dialog1/dialog",
+		"popTipComp": "/components/popTipComp/popTipComp"
 		
 	}
 }

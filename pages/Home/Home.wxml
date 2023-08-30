@@ -5,7 +5,13 @@
     <!-- 顶部 滑块视图 -->
     <view class="topSwiper">
         <swiper class="swiperBox {{tools.dataLen(imgList) === 1 ? 'regular':''}}" style="height: {{Hei}};" autoplay circular interval="{{interval}}" duration="{{duration}}">
-            <swiper-item class="swiper-item {{tools.dataLen(imgList) === 1 ? 'regular-item':''}}" wx:for="{{imgList}}" wx:key="index" data-information="{{item}}" catchtap="goPath" catchtouchmove="{{tools.dataLen(imgList) === 1 ? 'catchtouchmove':''}}">
+            <swiper-item class="swiper-item {{tools.dataLen(imgList) === 1 ? 'regular-item':''}}" 
+                wx:for="{{imgList}}" 
+                wx:key="index" 
+                wx:if="{{item.jumpUrl === '平安获客' ? PingAn : true }}" 
+                data-information="{{item}}" 
+                catchtap="goPath" 
+                catchtouchmove="{{tools.dataLen(imgList) === 1 ? 'catchtouchmove':''}}">
                 <image class="topImg" src='{{item.imgUrl}}' mode="widthFix" bindload="imgH" alt="暂无图片"/>
             </swiper-item>
         </swiper>
@@ -102,7 +108,7 @@
     <view class="moduleTwo" wx:if="{{tools.dataLen(moduleTwoList) > 0}}">
         <view class="head">出行贴心服务</view>
         <view class="moduleTwoBox">
-            <view class="integral" wx:for="{{moduleTwoList}}" wx:key="index" wx:if="{{item.jumpUrl === '平安获客' ? PingAn : true }}" catchtap="goPath" data-type="2" data-information="{{item}}">
+            <view class="integral" wx:for="{{moduleTwoList}}" wx:key="index" catchtap="goPath" data-type="2" data-information="{{item}}">
                 <image src="{{item.imgUrl}}" />
             </view>
         </view>
