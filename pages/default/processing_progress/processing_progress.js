@@ -308,7 +308,12 @@ Page({
 					isSalesmanPrecharge: res.data.orderType === 31 && res.data.flowVersion === 4,
 					accountVerification: res.data.orderVerificationStatus,
 					bankCardInfo: app.globalData.bankCardInfo,
-					cictBail: (res.data.obuStatus === 1 || res.data.obuStatus === 5) && (res.data.shopProductId === this.data.citicBankshopProductId || res.data.shopProductId === this.data.citicBankShopshopProductId),
+					cictBail: (res.data.obuStatus === 1 || res.data.obuStatus === 5) &&
+						(
+							res.data.shopProductId === this.data.citicBankshopProductId ||
+							res.data.shopProductId === this.data.citicBankShopshopProductId ||
+							app.globalData.cictBankObj.citicProductId.includes(res.data.shopProductId)
+						),
 					isWellBank: res.data.shopProductId === this.data.wellBankShopProductId,
 					info: res.data
 				});
