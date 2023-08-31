@@ -50,5 +50,5 @@
             </view>
         </view>
     </view>
-    <view class="bottomBtn" bind:tap="goReceive">道路救援申请请页</view>
+    <view class="bottomBtn"><text bind:tap="goReceive">道路救援申请页</text> | <text bind:tap="goHome">返回首页</text></view>
 </view>
