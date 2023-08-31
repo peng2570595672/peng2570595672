@@ -51,8 +51,8 @@ Page({
     async getOrderInfo (orderId) {
         let subscribeInfo = wx.getStorageSync('subscribeInfo');
         const result = await util.getDataFromServersV2('consumer/order/single-road-rescue', {orderId: orderId},'POST',true);
-		if (!result) return;
-		if (result.code === 0) {
+        if (!result) return;
+        if (result.code === 0) {
             this.setData({
                 roadRescueList: result.data,
                 'collectionObj.name': result.data.owner
@@ -109,19 +109,19 @@ Page({
                 }
             },
             fail (res) {
-                util.showToastNoIcon('接口调用失败');
+                util.hideLoading();
             }
         });
     },
     // 上传图片(把图片上传服务器)
     uploadFunc1 (path,imgIndex) {
         // 上传文件
-		util.uploadFile(path[0], () => {
-			util.showToastNoIcon('上传失败！');
-		}, (res) => {
-			if (res) {
-				res = JSON.parse(res);
-				if (res.code === 0) { // 文件上传成功
+        util.uploadFile(path[0], () => {
+            util.showToastNoIcon('上传失败！');
+        }, (res) => {
+            if (res) {
+                res = JSON.parse(res);
+                if (res.code === 0) { // 文件上传成功
                     util.showToastNoIcon('上传成功');
                     let imgList = this.data.imgList.map((item,index) => {
                         if (index === imgIndex) {
@@ -130,15 +130,15 @@ Page({
                         return item;
                     });
                     this.setData({imgList});
-				} else { // 文件上传失败
-					util.showToastNoIcon(res.message);
-				}
-			} else { // 文件上传失败
-				util.showToastNoIcon('上传失败');
-			}
-		}, () => {
-			util.hideLoading();
-		});
+                } else { // 文件上传失败
+                    util.showToastNoIcon(res.message);
+                }
+            } else { // 文件上传失败
+                util.showToastNoIcon('上传失败');
+            }
+        }, () => {
+            util.hideLoading();
+        });
     },
 
     // 展示示例图
@@ -215,10 +215,10 @@ Page({
             openAccountBank: collectionObj.bank // 开户行
         };
         const result = await util.getDataFromServersV2('consumer/order/apply/road-resue', params,'POST',true);
-		if (!result) return;
-		if (result.code === 0) {
+        if (!result) return;
+        if (result.code === 0) {
             // 订阅消息
-            util.subscribe('IL7teM6zMDMLY159JmPNSYKoT8RztRpxpEx6lgjuz_k', `/pages/road_rescue_orders/road_rescue_schedule/road_rescue_schedule?orderId=${this.data.roadRescueList.orderId}`);
+            util.subscribe(['IL7teM6zMDMLY159JmPNSYKoT8RztRpxpEx6lgjuz_k'], `/pages/road_rescue_orders/road_rescue_schedule/road_rescue_schedule?orderId=${this.data.roadRescueList.orderId}&applyId=${result.data.applyId}`);
         } else { util.showToastNoIcon(result.message); }
     }
 });

@@ -69,7 +69,13 @@ Component({
 	methods: {
 		handleGoToBack (e) {
 			let back = e.currentTarget.dataset.back;
-			goHome(back);
+			if (back) {
+				wx.navigateBack({
+					delta: 1 // 默认值是1
+				});
+			} else {
+				goHome(back);
+			}
 		}
 	}
 });

@@ -26,7 +26,7 @@ Page({
             '5、收款信息：姓名、金额、银行卡号、开户行 ',
             '6、阅读知悉文案：\n 本人知悉并同意etc+将本人提交的补贴申请材料与救援津贴服务商共享，用于提供救援津贴参审核及给付服务。'
         ],
-        roadRescueList: {},
+        roadRescueList: undefined,
         isShow: false
     },
     onLoad (options) {
@@ -56,6 +56,6 @@ Page({
         if (status === 3) {
             url = 'road_rescue_subscribe';
         }
-        util.go(`/pages/road_rescue_orders/${url}/${url}?orderId=${this.data.roadRescueList.orderId}`);
+        util.go(`/pages/road_rescue_orders/${url}/${url}?orderId=${this.data.roadRescueList.orderId}&applyId=${this.data.roadRescueList.applyId}`);
     }
 });

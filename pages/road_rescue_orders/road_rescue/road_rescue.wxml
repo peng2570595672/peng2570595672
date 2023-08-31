@@ -33,6 +33,7 @@
             </view>
         </view>
     </view>
+    <view class="iconfont empty" wx:if="{{!roadRescueList}}">您当前没有道路救援订单</view>
     <!-- 占位 -->
     <view class="split" />
 </view>

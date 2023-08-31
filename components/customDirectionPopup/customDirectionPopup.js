@@ -26,7 +26,11 @@ for (let i = 0; i < 24; i++) {
 for (let i = 0; i < 60; i++) {
     minutes.push(i);
 }
-
+// year: date.getFullYear(),
+// month: date.getMonth() + 1,
+// day: date.getDay(),
+// hour: date.getHours(),
+            // minute: date.getMinutes()
 Component({
     lifetimes: {},
     properties: {
@@ -109,8 +113,9 @@ Component({
             day: 1,
             hour: 2,
             minute: 2
+
         },
-        timeVal: [9999, 1, 1, 0, 0],
+        timeVal: [date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes()],
         isBtnDataTime: true // 是否可以点击按钮确认时间
         // ==================================end =====================================================
     },
@@ -129,7 +134,14 @@ Component({
                 let couponList = [];
                 couponList = argObj.equityPackageInfo.filter(item => item);
                 if (argObj.type === 'add_equity_package') {
-                    this.setData({couponList,choiceIndex: argObj.aepIndex,isHeightLight: argObj.mustEquity === 1 || argObj.aepIndex !== -1});
+                    this.setData({
+                        couponList,
+                        choiceIndex: couponList.length === 1 && argObj.mustEquity === 1 ? 0 : argObj.aepIndex, // 如果是必须加购并且只有一个加购权益包时默认勾选
+                        isHeightLight: argObj.mustEquity === 1 || argObj.aepIndex !== -1
+                    });
+                    if (couponList.length === 1 && argObj.mustEquity === 1) {
+                        this.triggerEvent('cDPopup',{choiceIndex: this.data.isHeightLight ? this.data.choiceIndex : -1});
+                    }
                     for (let index = 0; index < couponList.length; index++) {
                         this.getPackageRelation(couponList[index].id,index);
                     }

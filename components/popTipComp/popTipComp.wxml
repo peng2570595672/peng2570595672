@@ -104,16 +104,22 @@
         </view>
 
         <!-- 平安获客 - 礼品领取  -->
-        <view class="module1" wx:if="{{tipObj.type === 'bingGuttes'}}">
+        <view class="module1" wx:if="{{tipObj.type === 'bingGuttes' || tipObj.type === 'bingGuttesBill'}}" catchtouchmove=''>
             <!-- this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '免责声明',btnCancel: '取消',btnconfirm: '同意授权',bgColor: 'rgba(42, 80, 68, 0.7)'}); -->
-            <view class="close" data-title="{{tipObj.title}}" catchtap="hide"><image class="img1" src="https://file.cyzl.com/g001/M01/E9/0E/oYYBAGSayoWATKEFAAADSYY4ag8694.png" mode="widthFix" /></view>
-            <view ><image class="image" src="https://file.cyzl.com/g001/M01/E9/0E/oYYBAGSayLqAUbkaAAF4_RMUuos437.png" mode="widthFix"/></view>
+            <view wx:if="{{tipObj.type === 'bingGuttes'}}" class="close" data-title="{{tipObj.title}}" catchtap="hide"></view>
+            <view class="{{tipObj.type === 'bingGuttesBill' ? 'pic' : ''}}">
+                <image wx:if="{{tipObj.type === 'bingGuttes'}}" class="image" src="https://file.cyzl.com/g001/M01/E9/0E/oYYBAGSayLqAUbkaAAF4_RMUuos437.png" mode="widthFix"/>
+                <image wx:else class="image1" src="https://file.cyzl.com/g001/M02/03/FF/oYYBAGTu_uaAI9fDAACjLXILp-I567.png" mode="widthFix"/>
+            </view>
             <view class="agreement" catchtap="isSelectAgreement">
                 <text class="confirm">
                     <text class="tick" wx:if="{{getAgreement}}"/>
                 </text>阅读并同意 <text class="text1" data-type="1" catchtap="goAgreement">《用户隐私协议》</text>
             </view>
-            <view class="btn" catchtap="authorizeTip"></view>
+            <view wx:if="{{tipObj.type === 'bingGuttes'}}" class="btn" catchtap="authorizeTip"></view>
+            <view wx:else class="btn1" catchtap="authorizeTip"></view>
+            <view wx:if="{{tipObj.type === 'bingGuttesBill'}}" class="close1" data-title="{{tipObj.title}}" catchtap="hide"></view>
+
         </view>
 
         <!-- 查看图片 -->

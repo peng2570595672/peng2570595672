@@ -80,6 +80,24 @@
   color: #31a479;
   transform: rotateZ(-90deg);
 }
+.index .empty {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: #99999d;
+  margin-top: 200rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: PingFangSC-Medium, PingFang SC;
+}
+.index .empty::before {
+  display: block;
+  content: "\e649";
+  font-size: 120rpx;
+  margin-bottom: 30rpx;
+  color: #99999d;
+}
 .index .image {
   width: 100%;
   height: 100%;

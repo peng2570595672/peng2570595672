@@ -83,7 +83,20 @@ flexModule($align=normal,$justify=normal)
                         font-size 30rpx
                         color rgba(49,164,121,1)
                         transform rotateZ(-90deg)
-
+    .empty
+        font-size 28rpx
+        font-weight 400
+        color #99999D
+        margin-top 200rpx
+        flexModule(center, center)
+        flex-direction column
+        font-family PingFangSC-Medium, PingFang SC
+        &::before
+            display block
+            content "\e649"
+            font-size 120rpx
+            margin-bottom 30rpx
+            color #99999D
     .image
         mixinsWidthHeight()
     .split

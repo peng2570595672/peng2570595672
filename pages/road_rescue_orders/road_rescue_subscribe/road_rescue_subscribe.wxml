@@ -6,7 +6,7 @@
     <view class="module module1">
         <view class="name">
             <view class="square"/>
-            <view class="licensePlate">{{roadRescueList.vehPlates || '贵AQ01010'}}</view>
+            <view class="licensePlate">{{roadRescueList.vehPlates}}</view>
             <view class="text1">(有效期 {{tools.limitNumber(roadRescueList.receiveTime,11,true)}}-{{tools.limitNumber(roadRescueList.expirationTime,11,true)}})</view>
         </view>
         <view class="subName">可申请高速道路救援补贴<text class="text2">500</text>元</view>
@@ -63,7 +63,7 @@
             <view class="pub1">
                 <view class="attrName">银行卡号</view>
                 <view class="attrVal pub2">
-                    <input type="number" class="input" value="{{collectionObj.cardNum}}" maxlength="30" placeholder-class="input-placeholder" data-key="cardNum" bindinput="bindInput" placeholder="6214835921201081"/>
+                    <input type="number" class="input" value="{{collectionObj.cardNum}}" maxlength="30" placeholder-class="input-placeholder" data-key="cardNum" bindinput="bindInput" placeholder="例：6214835921201081"/>
                 </view>
             </view>
             <view class="pub1">

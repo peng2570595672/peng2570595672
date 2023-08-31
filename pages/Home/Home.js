@@ -869,7 +869,7 @@ Page({
 					isAlertToSignObj = item;
 				}
 				let isShowPingAn = this.data.firstCar.filter(item1 => item.vehPlates.includes(item1));	// 平安获客
-				if (isShowPingAn.length > 0 && !this.data.PingAn) {
+				if (isShowPingAn.length > 0 && !this.data.PingAn && item.status === 1) {
 					this.setData({PingAn: true});
 				}
 				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);

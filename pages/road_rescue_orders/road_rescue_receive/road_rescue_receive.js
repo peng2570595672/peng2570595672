@@ -60,7 +60,7 @@ Page({
             owner: this.data.roadRescueList.owner,// 姓名
             idNumber: this.data.roadRescueList.idNumber,// 身份证
             isOwner: this.data.isOwner,// 是否本人名下(0:否;1:是;)
-            serveName: ''// 服务名称
+            serveName: '高速道路救援险'// 服务名称
         };
         const result = await util.getDataFromServersV2('consumer/order/receive/road-resue', params,'POST',true);
 		if (!result) return;

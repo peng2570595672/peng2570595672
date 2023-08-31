@@ -209,6 +209,7 @@
             <!-- 占位 -->
             <view class="split" style="height: 250rpx" wx:if="{{argObj.isSplit}}" />
         </view>
+        <!-- 选择时间 -->
         <view class="module selectedTime" wx:if="{{argObj.type === 'selectedTime'}}">
             <view class="cancelOk">
                 <view class="pub3 cancel" catchtap="hide">取消</view>

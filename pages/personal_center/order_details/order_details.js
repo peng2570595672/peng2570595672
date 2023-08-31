@@ -12,7 +12,8 @@ Page({
 		requestRefundInfoNum: 0,
 		requestBillNum: 0,
 		details: '',
-		disclaimerDesc: app.globalData.disclaimerDesc
+		disclaimerDesc: app.globalData.disclaimerDesc,
+		firstCar: app.globalData.pingAnBindGuests	// 平安获客
 	},
 	onLoad (options) {
 		app.globalData.splitDetails = undefined;
@@ -300,6 +301,11 @@ Page({
 			console.log(res);
 			this.getBillDetail();
 		}, app.globalData.userInfo.accessToken);
+	},
+	// 跳转平安绑客
+	goPingAn () {
+		// 授权提醒
+		this.selectComponent('#popTipComp').show({type: 'bingGuttesBill',title: '礼品领取',bgColor: 'rgba(0,0,0,0.65)'});
 	},
 	onUnload () {
 		app.globalData.billingDetails = undefined;
