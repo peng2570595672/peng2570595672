@@ -831,7 +831,12 @@ function getStatus(orderInfo) {
 		return 11; //  待激活
 	}
 	if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
-		if ((orderInfo.shopProductId === app.globalData.cictBankObj.citicBankshopProductId || orderInfo.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || orderInfo.shopProductId === app.globalData.cictBankObj.wellBankShopProductId) && orderInfo.refundStatus !== 5) {
+		if ((
+			orderInfo.shopProductId === app.globalData.cictBankObj.citicBankshopProductId ||
+			orderInfo.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId ||
+			orderInfo.shopProductId === app.globalData.cictBankObj.wellBankShopProductId ||
+			app.globalData.cictBankObj.citicProductId.includes(orderInfo.shopProductId)
+		) && orderInfo.refundStatus !== 5) {
 			return 30
 		}
 		return 12; // 已激活
