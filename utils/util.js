@@ -1047,6 +1047,7 @@ function subscribe(tmplIds, url) {
 				}
 			},
 			fail: (res) => {
+				console.log(res);
 				wx.hideLoading();
 				// 不是点击的取消按钮
 				if (res.errMsg === 'requestSubscribeMessage:fail cancel') {

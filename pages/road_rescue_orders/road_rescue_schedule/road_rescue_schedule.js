@@ -9,6 +9,7 @@ Page({
     },
 
     onLoad (options) {
+        console.log('参数2:',options);
         this.setData({orderId: options.orderId,applyId: options.applyId});
     },
 

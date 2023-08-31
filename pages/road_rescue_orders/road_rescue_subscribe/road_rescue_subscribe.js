@@ -109,7 +109,7 @@ Page({
                 }
             },
             fail (res) {
-                util.showToastNoIcon('接口调用失败');
+                // util.showToastNoIcon('接口调用失败');
             }
         });
     },
@@ -218,7 +218,7 @@ Page({
         if (!result) return;
         if (result.code === 0) {
             // 订阅消息
-            util.subscribe('IL7teM6zMDMLY159JmPNSYKoT8RztRpxpEx6lgjuz_k', `/pages/road_rescue_orders/road_rescue_schedule/road_rescue_schedule?orderId=${this.data.roadRescueList.orderId}`);
+            util.subscribe('IL7teM6zMDMLY159JmPNSYKoT8RztRpxpEx6lgjuz_k', `/pages/road_rescue_orders/road_rescue_schedule/road_rescue_schedule?orderId=${this.data.roadRescueList.orderId}&applyId=${result.data.applyId}`);
         } else { util.showToastNoIcon(result.message); }
     }
 });

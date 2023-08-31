@@ -56,6 +56,6 @@ Page({
         if (status === 3) {
             url = 'road_rescue_subscribe';
         }
-        util.go(`/pages/road_rescue_orders/${url}/${url}?orderId=${this.data.roadRescueList.orderId}`);
+        util.go(`/pages/road_rescue_orders/${url}/${url}?orderId=${this.data.roadRescueList.orderId}&applyId=${this.data.roadRescueList.applyId}`);
     }
 });

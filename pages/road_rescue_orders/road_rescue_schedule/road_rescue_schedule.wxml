@@ -1,7 +1,7 @@
 <wxs src='../../../utils/util.wxs' module='tools' />
 <view class="index">
     <view class="module top">
-        <view class="iconfont title">{{'贵ZQ0104'}}</view>
+        <view class="iconfont title">{{applyInfo.vehPlates}}</view>
         <text class="text1">申请补贴流水号：{{applyInfo.applyNo}}\n服务领取流水号：{{applyInfo.roadRescueNo}}</text>
     </view>
     <view class="module module1">
@@ -46,7 +46,7 @@
             </view>
             <view class="attrVal">
                 <view class="attr">收款金额</view>
-                <view class="val">￥{{applyInfo.applyInfoObj.rescueMoney}}</view>
+                <view class="val">￥{{applyInfo.applyInfoObj.rescueMoney / 100}}</view>
             </view>
         </view>
     </view>
