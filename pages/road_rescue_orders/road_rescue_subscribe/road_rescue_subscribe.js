@@ -109,7 +109,7 @@ Page({
                 }
             },
             fail (res) {
-                // util.showToastNoIcon('接口调用失败');
+                util.hideLoading();
             }
         });
     },

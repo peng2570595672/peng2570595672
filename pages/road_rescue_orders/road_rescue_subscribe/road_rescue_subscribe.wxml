@@ -6,7 +6,7 @@
     <view class="module module1">
         <view class="name">
             <view class="square"/>
-            <view class="licensePlate">{{roadRescueList.vehPlates || '贵AQ01010'}}</view>
+            <view class="licensePlate">{{roadRescueList.vehPlates}}</view>
             <view class="text1">(有效期 {{tools.limitNumber(roadRescueList.receiveTime,11,true)}}-{{tools.limitNumber(roadRescueList.expirationTime,11,true)}})</view>
         </view>
         <view class="subName">可申请高速道路救援补贴<text class="text2">500</text>元</view>
