@@ -835,7 +835,7 @@ function getStatus(orderInfo) {
 			orderInfo.shopProductId === app.globalData.cictBankObj.citicBankshopProductId ||
 			orderInfo.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId ||
 			orderInfo.shopProductId === app.globalData.cictBankObj.wellBankShopProductId ||
-			app.globalData.cictBankObj.citicProductId.includes(orderInfo.shopProductId)
+			(orderInfo.orderType === 31 && orderInfo.productName?.includes('中信') && orderInfo.pledgeType === 2)
 		) && orderInfo.refundStatus !== 5) {
 			return 30
 		}
