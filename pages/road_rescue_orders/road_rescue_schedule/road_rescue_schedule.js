@@ -45,5 +45,11 @@ Page({
     // 道路救援申请请页
     goReceive () {
         util.go(`/pages/road_rescue_orders/road_rescue_subscribe/road_rescue_subscribe?orderId=${this.data.orderId}`);
+    },
+    // 返回首页
+    goHome () {
+        wx.switchTab({
+            url: '/pages/Home/Home'
+        });
     }
 });

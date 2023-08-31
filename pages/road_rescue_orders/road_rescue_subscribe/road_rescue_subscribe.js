@@ -208,7 +208,7 @@ Page({
             vehFaultPic: this.data.imgList[0].uploadedUrl,// 高速故障图片
             vehLiftPic: this.data.imgList[1].uploadedUrl,// 车牌托起图片
             rescuePic: this.data.imgList[2].uploadedUrl,// 救援发票图片
-            passPid: this.data.imgList[3].uploadedUrl,// ETC通行记录图片
+            passPic: this.data.imgList[3].uploadedUrl,// ETC通行记录图片
             receiveName: collectionObj.name,// 收款人姓名
             rescueMoney: collectionObj.price * 100,// 金额 单位分/
             cardNo: collectionObj.cardNum,// 卡号
