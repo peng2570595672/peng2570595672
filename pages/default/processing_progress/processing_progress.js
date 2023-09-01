@@ -312,7 +312,7 @@ Page({
 						(
 							res.data.shopProductId === this.data.citicBankshopProductId ||
 							res.data.shopProductId === this.data.citicBankShopshopProductId ||
-							app.globalData.cictBankObj.citicProductId.includes(res.data.shopProductId)
+							(res.data.orderType === 31 && res.data.productName?.includes('中信') && res.data.pledgeType === 2)
 						),
 					isWellBank: res.data.shopProductId === this.data.wellBankShopProductId,
 					info: res.data
