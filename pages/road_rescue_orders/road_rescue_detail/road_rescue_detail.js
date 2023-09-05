@@ -39,8 +39,8 @@ Page({
 
     async getOrderInfo (orderId) {
         const result = await util.getDataFromServersV2('consumer/order/single-road-rescue', {orderId: orderId},'POST',true);
-		if (!result) return;
-		if (result.code === 0) {
+        if (!result) return;
+        if (result.code === 0) {
             let flag = result.data.roadRescueStatus;
             this.setData({
                 roadRescueList: result.data,
