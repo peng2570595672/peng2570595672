@@ -254,7 +254,6 @@ Page({
         const result = await util.getDataFromServersV2('consumer/order/apply/road-resue', params,'POST',true);
         if (!result) return;
         if (result.code === 0) {
-            console.log('提交结果：',result);
             // 订阅消息
             util.subscribe(['IL7teM6zMDMLY159JmPNSYKoT8RztRpxpEx6lgjuz_k'], `/pages/road_rescue_orders/road_rescue_schedule/road_rescue_schedule?orderId=${this.data.roadRescueList.orderId}&applyId=${result.data.applyId}`);
         } else { util.showToastNoIcon(result.message); }
