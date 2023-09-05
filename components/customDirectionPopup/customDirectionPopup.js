@@ -26,11 +26,7 @@ for (let i = 0; i < 24; i++) {
 for (let i = 0; i < 60; i++) {
     minutes.push(i);
 }
-// year: date.getFullYear(),
-// month: date.getMonth() + 1,
-// day: date.getDay(),
-// hour: date.getHours(),
-            // minute: date.getMinutes()
+
 Component({
     lifetimes: {},
     properties: {
@@ -109,13 +105,12 @@ Component({
         minutes,
         dataTime: {
             year: date.getFullYear(),
-            month: date.getMonth(),
+            month: date.getMonth() + 1,
             day: date.getDate(),
             hour: date.getHours(),
             minute: date.getMinutes()
-
         },
-        timeVal: [date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes()],
+        timeVal: [date.getFullYear(), date.getMonth(), date.getDate() - 1, date.getHours(), date.getMinutes()],
         isBtnDataTime: true // 是否可以点击按钮确认时间
         // ==================================end =====================================================
     },
@@ -153,9 +148,17 @@ Component({
                 }
             }
             if (argObj.type === 'selectedTime') {
+                console.log((new Date()).getDate());
                 let time = wx.getStorageSync('dataTime');
                 if (time) {
-                    this.setData({timeVal: time});
+                    this.setData({
+                        timeVal: time,
+                        'dataTime.year': this.data.years[time[0]],
+                        'dataTime.month': this.data.months[time[1]],
+                        'dataTime.day': this.data.days[time[2]],
+                        'dataTime.hour': this.data.hours[time[3]],
+                        'dataTime.minute': this.data.minutes[time[4]]
+                    });
                 }
             }
             this.setData({
@@ -636,7 +639,6 @@ Component({
         },
         thisTime () {
             let time = this.data.dataTime;
-            console.log(time);
             let month = time.month < 10 ? '0' + time.month : time.month;
             let day = time.day < 10 ? '0' + time.day : time.day;
             let hour = time.hour < 10 ? '0' + time.hour : time.hour;

@@ -127,7 +127,6 @@ Page({
                 src: path, // 图片路径
                 quality: app.globalData.quality, // 压缩质量
                 success: (res) => {
-                    console.log(res);
                     path = res.tempFilePath;
                 },
                 complete: () => {
@@ -221,6 +220,9 @@ Page({
         if (!this.data.agreement) {
             return util.showToastNoIcon('请同意协议');
         }
+        if (this.data.roadRescueList.roadRescueStatus === 4 || this.data.roadRescueList.roadRescueStatus === 5) {
+            return util.showToastNoIcon('订单正在审核中或者已通过');
+        }
         if (!this.data.dateTime) {
             return util.showToastNoIcon('请填写救援时间');
         }
@@ -252,6 +254,7 @@ Page({
         const result = await util.getDataFromServersV2('consumer/order/apply/road-resue', params,'POST',true);
         if (!result) return;
         if (result.code === 0) {
+            console.log('提交结果：',result);
             // 订阅消息
             util.subscribe(['IL7teM6zMDMLY159JmPNSYKoT8RztRpxpEx6lgjuz_k'], `/pages/road_rescue_orders/road_rescue_schedule/road_rescue_schedule?orderId=${this.data.roadRescueList.orderId}&applyId=${result.data.applyId}`);
         } else { util.showToastNoIcon(result.message); }

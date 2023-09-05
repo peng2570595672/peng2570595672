@@ -51,6 +51,6 @@
         </view>
     </view>
     <view class="bottomBtn">
-        </text><text bind:tap="goHome">返回首页</text>
+        <text bind:tap="goHome">返回首页</text>
     </view>
 </view>
