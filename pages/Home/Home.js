@@ -431,6 +431,10 @@ Page({
 			util.go('/pages/login/login/login');
 			return;
 		}
+		if (!app.globalData.userInfo?.accessToken && type !== 1) {
+			util.showToastNoIcon('请完成登录后重试:个人中心-点击头像登录');
+			return;
+		}
 		let obj = e.currentTarget.dataset.information;
 		if (obj === 'loadingService') {
 			this.fangDou(() => {
