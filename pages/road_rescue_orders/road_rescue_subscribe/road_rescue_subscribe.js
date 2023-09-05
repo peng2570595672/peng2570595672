@@ -1,4 +1,5 @@
 const util = require('../../../utils/util.js');
+const compressPicturesUtils = require('../../../utils/compress_pictures_utils.js');
 const app = getApp();
 Page({
 
@@ -32,6 +33,8 @@ Page({
                 uploadedUrl: ''
             }
         ],
+        pictureWidth: 0,
+        pictureHeight: 0,
         collectionObj: { // 收款对象
             name: '',
             price: '',
@@ -68,6 +71,7 @@ Page({
     },
 
     cDPopup (obj) {
+        console.log(obj);
         this.setData({
             dateTime: obj.detail.dataTime
         });
@@ -99,12 +103,13 @@ Page({
                 // tempFilePath可以作为img标签的src属性显示图片
                 if (res.errMsg === 'chooseImage:ok') {
                     const tempFilePaths = res.tempFilePaths;
-                    let imgFormat = ['jpg','png','jepg'];
-                    imgFormat.map(item => {
-                        if (tempFilePaths[0].includes(item,-1)) {
-                            that.uploadFunc1(tempFilePaths,imgIndex);
-                        }
-                    });
+                    that.progressPhoto(tempFilePaths,imgIndex);
+                    // let imgFormat = ['jpg','png','jepg'];
+                    // imgFormat.map(item => {
+                    //     if (tempFilePaths[0].includes(item,-1)) {
+                    //         that.progressPhoto(tempFilePaths,imgIndex);
+                    //     }
+                    // });
                     util.hideLoading();
                 }
             },
@@ -113,14 +118,44 @@ Page({
             }
         });
     },
+    // 处理图片
+    progressPhoto (path,imgIndex) {
+        console.log(path,imgIndex);
+        if (wx.canIUse('compressImage')) {
+            // 压缩图片
+            wx.compressImage({
+                src: path, // 图片路径
+                quality: app.globalData.quality, // 压缩质量
+                success: (res) => {
+                    console.log(res);
+                    path = res.tempFilePath;
+                },
+                complete: () => {
+                    this.getPictureInfo(path[0], imgIndex);
+                }
+            });
+        } else {
+            this.getPictureInfo(path[0], imgIndex);
+        }
+    },
+    getPictureInfo (path, imgIndex) {
+        compressPicturesUtils.processingPictures(this, path, 'pressCanvas', 640, (res) => {
+            if (res) { // 被处理
+                this.uploadFunc1(res, imgIndex);
+            } else { // 未被处理
+                this.uploadFunc1(path, imgIndex);
+            }
+        });
+    },
     // 上传图片(把图片上传服务器)
     uploadFunc1 (path,imgIndex) {
         // 上传文件
-        util.uploadFile(path[0], () => {
+        util.uploadFile(path, () => {
             util.showToastNoIcon('上传失败！');
         }, (res) => {
             if (res) {
                 res = JSON.parse(res);
+                console.log(res);
                 if (res.code === 0) { // 文件上传成功
                     util.showToastNoIcon('上传成功');
                     let imgList = this.data.imgList.map((item,index) => {

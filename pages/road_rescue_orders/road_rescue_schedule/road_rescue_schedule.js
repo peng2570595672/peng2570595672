@@ -9,7 +9,6 @@ Page({
     },
 
     onLoad (options) {
-        console.log('参数2:',options);
         this.setData({orderId: options.orderId,applyId: options.applyId});
     },
 
@@ -51,5 +50,24 @@ Page({
         wx.switchTab({
             url: '/pages/Home/Home'
         });
+    },
+    onUnload () {
+        // wx.redirectTo({
+        //     url: '/pages/road_rescue_orders/road_rescue/road_rescue'
+        // });
+        // let page = getCurrentPages();
+        // let flag = 0;
+        // page.map((item,index) => {
+        //     if (item.route === 'pages/road_rescue_orders/road_rescue/road_rescue') {
+        //         flag = index;
+        //     }
+        // });
+        // console.log(flag);
+        // let detail = page.length - 1 - flag;
+        // console.log(page);
+        // console.log(detail);
+        // wx.navigateBack({
+        //     delta: 0
+        // });
     }
 });

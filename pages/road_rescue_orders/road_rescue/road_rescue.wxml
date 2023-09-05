@@ -26,7 +26,7 @@
                     {{item.roadRescueStatus === 2 ? '投保中' : ''}}
                     {{item.roadRescueStatus === 3 ? '申请补贴' : ''}}
                     {{item.roadRescueStatus === 4 ? '申请补贴' : ''}}
-                    {{item.roadRescueStatus === 5 ? '补贴¥' + tools.parseNum(item.applicationMoney / 100) : ''}}
+                    {{item.roadRescueStatus === 5 ? '补贴¥' + tools.parseNum(item.rescueMoney / 100) : ''}}
                     {{item.roadRescueStatus === 6 ? '申请补贴' : ''}}
                     {{item.roadRescueStatus === 7 ? '已过期' : ''}}
                 </view>

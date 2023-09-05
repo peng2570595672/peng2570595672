@@ -109,10 +109,10 @@ Component({
         minutes,
         dataTime: {
             year: date.getFullYear(),
-            month: 2,
-            day: 1,
-            hour: 2,
-            minute: 2
+            month: date.getMonth(),
+            day: date.getDate(),
+            hour: date.getHours(),
+            minute: date.getMinutes()
 
         },
         timeVal: [date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes()],
@@ -636,6 +636,7 @@ Component({
         },
         thisTime () {
             let time = this.data.dataTime;
+            console.log(time);
             let month = time.month < 10 ? '0' + time.month : time.month;
             let day = time.day < 10 ? '0' + time.day : time.day;
             let hour = time.hour < 10 ? '0' + time.hour : time.hour;
