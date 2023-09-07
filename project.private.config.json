@@ -4,23 +4,9 @@
         "miniprogram": {
             "list": [
                 {
-                    "name": "",
-                    "pathName": "pages/default/processing_progress/processing_progress",
-                    "query": "orderId=1146843476525060096",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1138460248172924928",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
                     "name": "ETC详情",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1146843476525060096",
+                    "query": "orderId=1148205589550075904",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -28,6 +14,27 @@
                     "name": "我的ETC",
                     "pathName": "pages/personal_center/my_etc/my_etc",
                     "query": "shareId=123455",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/default/processing_progress/processing_progress",
+                    "query": "orderId=1146890708092063744",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1125812532318441472",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1138460248172924928",
                     "launchMode": "default",
                     "scene": null
                 },

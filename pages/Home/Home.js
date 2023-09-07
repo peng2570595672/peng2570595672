@@ -436,6 +436,15 @@ Page({
 			return;
 		}
 		let obj = e.currentTarget.dataset.information;
+		if (type === 2 && obj.jumpUrl.includes('activityId=21773709923897753')) {
+			// 众邦获客
+			const list = app.globalData.myEtcList.filter(item => item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5);
+			if (!list.length) {
+				util.showToastNoIcon('该活动仅支持ETC完成办理用户参与');
+				return;
+			}
+			obj.jumpUrl = `${obj.jumpUrl}${app.globalData.userInfo.mobilePhone}`;
+		}
 		if (obj === 'loadingService') {
 			this.fangDou(() => {
 				util.go(`/pages/web/web/web?url=${encodeURIComponent('https://wpa1.qq.com/jjrmum8i?_type=wpa&qidian=true')}`);
