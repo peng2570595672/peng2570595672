@@ -4,6 +4,13 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "activities/pages/activity_icbc_forty_five_theme/index",
+                    "pathName": "pages/default/equity_agreement/equity_agreement",
+                    "query": "type=QTTwoPercent",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "ETC详情",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
                     "query": "orderId=1151189183000219648",
@@ -92,12 +99,6 @@
                     "pathName": "pages/my/index",
                     "query": "",
                     "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "activities/pages/activity_icbc_forty_five_theme/index",
-                    "pathName": "activities/pages/activity_icbc_forty_five_theme/index",
-                    "query": "shareId=1235556",
                     "scene": null
                 },
                 {

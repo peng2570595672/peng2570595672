@@ -153,7 +153,7 @@ Page({
 				{id: 103,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=QT', isShow: isQTNotOnlineProcessing && (QTOrderStatus === 2 || QTOrderStatus === 3) && (QTTwoPercentStatus === 2 || QTTwoPercentStatus === 3), isNew: 1},
 				{id: 104,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=QTNew', isShow: isQTNotOnlineProcessing && (QTOrderStatus === 1 || QTOrderStatus === 3) && (QTTwoPercentStatus === 2 || QTTwoPercentStatus === 3), isNew: 1},
 				// 存在黔通百二转化订单
-				{id: 106,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=QTTwoPercent', isShow: QTOrderStatus && (QTTwoPercentStatus === 1 || QTTwoPercentStatus === 3), isNew: 1},
+				{id: 106,name: '用户服务协议', update: 0, url: 'equity_agreement/equity_agreement?type=QTTwoPercent', isShow: QTOrderStatus && (QTTwoPercentStatus === 1 || QTTwoPercentStatus === 3), isNew: 1},
 				{id: 105,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=MTnotFees', isShow: isNMOnlineProcessing, isNew: 1},
 				{id: 1,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=MT', isShow: isNMNotOnlineProcessing, isNew: 1},
 				// 存在黔通百二转化订单
