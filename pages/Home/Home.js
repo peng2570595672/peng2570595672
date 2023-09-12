@@ -185,6 +185,7 @@ Page({
 		await this.getBackgroundConfiguration();
 		if (app.globalData.userInfo.accessToken) {
 			util.showLoading();
+			await this.getJudgeTwoPercentStatus();
 			await util.getUserIsVip();
 			await util.getRightAccount();
 			this.initPageParams();
@@ -356,6 +357,26 @@ Page({
 				}
 				break;
 		}
+	},
+	initQTTwoPercentTodayMask () {
+		let time = new Date().toLocaleDateString();
+		let that = this;
+		// 首先获取是否执行过
+		wx.getStorage({
+			key: 'alert-qt-two-percent-today',
+			success (res) {
+				// 成功的话 说明之前执行过，再判断时间是否是当天
+				if (res.data && res.data !== time) {
+					wx.setStorageSync('alert-qt-two-percent-today', time);
+					that.selectComponent('#popTipComp1').show({type: 'qtTwoPercent',title: '协议续签提醒',btnCancel: '暂不同意',btnconfirm: '同意'});
+				}
+			},
+			fail (res) {
+				// 没有执行过的话 先存一下当前的执行时间
+				that.selectComponent('#popTipComp1').show({type: 'qtTwoPercent',title: '协议续签提醒',btnCancel: '暂不同意',btnconfirm: '同意'});
+				wx.setStorageSync('alert-qt-two-percent-today', time);
+			}
+		});
 	},
 	initNoticeTodayMask (obj) {
 		let time = new Date().toLocaleDateString();
@@ -680,6 +701,7 @@ Page({
 						app.globalData.openId = result.data.openId;
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
+						await this.getJudgeTwoPercentStatus();
 						await util.getUserIsVip();
 						await util.getRightAccount();
 						this.initPageParams();
@@ -748,6 +770,22 @@ Page({
 			app.globalData.salesmanScanCodeToHandleId = undefined; // 处理返回首页再次请求
 			if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 			await this.getStatus(true);
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 获取是否需要转化百二
+	async getJudgeTwoPercentStatus () {
+		const result = await util.getDataFromServersV2('consumer/order/judge-two-percent-status', {
+			platformId: app.globalData.platformId
+		}, 'POST', false);
+		if (!result) return;
+		console.log('获取是否需要转化百二数据');
+		console.log(result);
+		if (result.code === 0) {
+			if (result.data.signStatus) {
+				this.initQTTwoPercentTodayMask();
+			}
 		} else {
 			util.showToastNoIcon(result.message);
 		}

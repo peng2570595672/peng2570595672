@@ -34,7 +34,7 @@ Page({
 			{icon: '', title: '1V1专属客服',url: 'exclusive_service',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8O5WAfXwSAAAOCAtM_x0245.svg',show: true},
 			// {icon: '',title: '手机号管理',url: '',img: ''},   //本期先隐藏该项，暂不做功能
 			{icon: '',title: '发票助手',url: 'invoice_assistant',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8OrKABB0VAAAMgE_4pJ8510.svg',show: true},
-			{icon: '',title: '相关协议',url: 'user_agreement',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8OzyAWjMrAAAI3O0L414758.svg',show: true}
+			{icon: '',title: '相关协议',url: 'user_agreement',img: 'https://file.cyzl.com/g001/M02/05/C5/oYYBAGT-bQWAXl7LAAABr3MkHt4764.png',show: true}
 		],
 		myAccountList: [],
 		height: undefined, // 屏幕高度
@@ -45,7 +45,7 @@ Page({
 		disclaimerDesc: app.globalData.disclaimerDesc,
 		initData: true,
 		interval: 0,
-		isCheckTwoPercent: 0,// 是否是百二某批数据标识
+		isCheckTwoPercent: 0,// 是否有百二转化数据
 		showCarousel: false,
 		carouselList: [],
 		cardList: [],
@@ -82,7 +82,7 @@ Page({
 				await util.getIsArrearage();
 			}
 			util.showLoading();
-			let requestList = [await this.getCheckTwoPercent(), await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip(), await this.getCurrentEquity(),await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
+			let requestList = [await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip(), await this.getCurrentEquity(),await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
 			util.customTabbar(this, 2);
 			util.getUserIsVip();
 			util.showLoading();
@@ -171,10 +171,12 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			app.globalData.myEtcList = result.data;
+			const index = app.globalData.myEtcList.findIndex(item => item.transStatus === 2);
 			let flag = result.data.filter(item => item.isSignTtCoupon === 1 && item.pledgeStatus === 1 && item.status !== -1 && item.obuStatus !== 2);
 			// 展示通通券
 			this.setData({
 				myAccountList: app.globalData.myEtcList,
+				isCheckTwoPercent: index !== -1,
 				'funcList2[0].show': flag.length > 0
 			});
 		}
@@ -374,7 +376,7 @@ Page({
 						});
 						let requestList = [];
 						if (JSON.stringify(app.globalData.myEtcList) === '{}') {
-							requestList = [await this.getCheckTwoPercent(), await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip()];
+							requestList = [await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip()];
 						}
 						this.setData({
 							isVip: app.globalData.isVip,
@@ -400,21 +402,6 @@ Page({
 				util.showToastNoIcon('登录失败！');
 			}
 		});
-	},
-	// 获取是否是百二某批数据标识
-	async getCheckTwoPercent () {
-		const result = await util.getDataFromServersV2('consumer/order/check-two-percent', {
-			platformId: app.globalData.platformId
-		}, 'POST', false);
-		if (result.code === 0) {
-			if (result?.data) {
-				this.setData({
-					isCheckTwoPercent: Number(result.data)
-				});
-			}
-		} else {
-			util.showToastNoIcon(result.message);
-		}
 	},
 	handleSwiperItem (e) {
 		console.log(e.currentTarget.dataset.index);

@@ -83,6 +83,9 @@
   font-size: 32rpx;
   color: #f00;
 }
+.alert-for-not-finished-content .module .contant .protocol {
+  color: #39812b;
+}
 .alert-for-not-finished-content .module .btn {
   height: 106rpx;
   font-size: 36rpx;

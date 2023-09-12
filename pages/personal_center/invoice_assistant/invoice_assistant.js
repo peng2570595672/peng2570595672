@@ -5,7 +5,8 @@ Page({
 		listOne: [
 			{name: '开票说明',url: 'invoicing_instructions',icon: 'explain'},
 			{name: '通行费开票',url: 'toll',icon: 'toll'},
-			{name: '办理费开票',url: 'invoice_issued_list',icon: 'handlingFee'}
+			{name: '办理费开票',url: 'invoice_issued_list',icon: 'handlingFee'},
+			{name: '综合服务费发票',url: 'comprehensiveServiceFee',icon: 'handlingFee'}
 		],
 		disclaimerDesc: app.globalData.disclaimerDesc
 	},
@@ -25,6 +26,9 @@ Page({
 		if (url === 'toll') {
 			this.selectComponent('#dialog1').show('invoice');
 		}
+		if (url === 'comprehensiveServiceFee') {
+			this.selectComponent('#dialog1').show('comprehensiveServiceFee');
+		}
 	},
 	popUp (tes) {
 		console.log(tes);
@@ -32,6 +36,15 @@ Page({
 		console.log(str);
 		if (str === 'invoice') {
 			this.goMakeInvoice();
+		} else if (str === 'comprehensiveServiceFee') {
+			wx.navigateToMiniProgram({
+				appId: 'wx008c60533388527a',
+				extraData: {},
+				envVersion: 'release',
+				fail: () => {
+					util.showToastNoIcon('打开九州ETC小程序失败');
+				}
+			});
 		}
 	},
 	// 通行发票

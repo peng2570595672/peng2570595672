@@ -141,6 +141,24 @@ Component({
 				util.showToastNoIcon(res.message);
 			}
 		},
+		handleProtocol () {
+			util.go('/pages/default/equity_agreement/equity_agreement?type=QTTwoPercent');
+		},
+		handleFactoringAgreement () {
+			util.go('/pages/default/equity_agreement/equity_agreement?type=factoringAgreement');
+		},
+		// 同意协议修改2%存量用户签约状态
+		async handleTwoPercentSign () {
+			let res = await util.getDataFromServersV2('/consumer/order/sync-two-percent-sign-status',{
+				platformId: app.globalData.platformId
+			});
+			if (!res) return;
+			if (res.code === 0) {
+				this.hide(false);
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		},
 		// 协议选中控制
 		isSelectAgreement () {
 			this.setData({getAgreement: !this.data.getAgreement});

@@ -200,6 +200,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   width: 42rpx;
   height: 42rpx;
 }
@@ -216,9 +217,10 @@
 }
 .my .moduleFour .funcList .funcListLeft .new-left {
   position: absolute;
-  left: -18rpx;
-  width: 16rpx;
-  height: 16rpx;
+  right: 6rpx;
+  top: 6rpx;
+  width: 8rpx;
+  height: 8rpx;
   background-color: #ff3c48;
   border-radius: 50%;
 }

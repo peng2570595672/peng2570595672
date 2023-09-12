@@ -154,6 +154,7 @@
             <view class="payment-tips">当前账单已欠款，将影响你的正常通行，请尽快补缴</view>
         </view>
     </view>
+    <view class="iconfont keFu" catchtap="goPath" wx:if="{{details.poundageFlag}}"><text >账单疑问\n找客服</text></view>
     <!-- 底部补缴结束 -->
     <!-- 平安悬浮弹窗 -->
     <view class="pingAn" wx:if="{{tools.dataIncludes(details.vehPlate,firstCar,1)}}" catchtap="goPingAn">

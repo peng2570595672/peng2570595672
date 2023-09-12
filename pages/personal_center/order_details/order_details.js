@@ -60,6 +60,9 @@ Page({
 		}
 		console.log('账单详情top:', this.data.details);
 	},
+	goPath () {
+		util.go(`/pages/web/web/web?url=${encodeURIComponent('https://wpa1.qq.com/UDoer16d?_type=wpa&qidian=true')}`);
+	},
 	// 自动登录
 	login () {
 		util.showLoading();

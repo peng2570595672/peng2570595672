@@ -8,7 +8,6 @@ Page({
 		isThree: false,
 		isCharge: false,
 		isFree: false,
-		isCheckTwoPercent: 0,
 		carAgreementList: [],
 		truckAgreementList: [
 			{id: 0,name: '货车办理协议', update: 0},
@@ -26,11 +25,6 @@ Page({
 		]
 	},
 	async onLoad (options) {
-		if (options.isCheckTwoPercent) {
-			this.setData({
-				isCheckTwoPercent: +options.isCheckTwoPercent
-			});
-		}
 		// 查询是否欠款
 		await util.getIsArrearage();
 		let [
@@ -51,6 +45,7 @@ Page({
 		] = [false, false, false, false, false, false, false, false, false, false, false, false, false];
 		// 客车已激活  黔通自购  非黔通自购  黔通免费  非黔通免费  通通券
 		let QTOrderStatus = 0;// 1-新订单 2-老订单 3-新老订单都存在
+		let QTTwoPercentStatus = 0;// 1-已转化百二 2-未转化百二 3-已转化和未转化均存在
 		app.globalData.myEtcList.map(item => {
 			//  客车已激活
 			isPassengerCarActivation = true;
@@ -62,6 +57,12 @@ Page({
 						QTOrderStatus = QTOrderStatus > 1 ? 3 : 1;
 					} else {
 						QTOrderStatus = QTOrderStatus === 1 || QTOrderStatus === 3 ? 3 : 2;
+					}
+					if (item.transStatus === 2) {
+						// transStatus 2-百二订单转化成功
+						QTTwoPercentStatus = QTTwoPercentStatus > 1 ? 3 : 1;
+					} else {
+						QTTwoPercentStatus = QTTwoPercentStatus === 1 || QTTwoPercentStatus === 3 ? 3 : 2;
 					}
 					if (item.orderType === 11 || (item.orderType === 71 && item.platformId === '500338116821778433')) {
 						// 邮寄
@@ -147,12 +148,16 @@ Page({
 		if (isPassengerCarActivation) {
 			let carAgreementList = [
 				{id: 0,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement', isShow: oldProcessing},
-				{id: 101,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=QTnotFees', isShow: isQTOnlineProcessing && (QTOrderStatus === 2 || QTOrderStatus === 3), isNew: 1},
-				{id: 102,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=QTnotFeesNew', isShow: isQTOnlineProcessing && (QTOrderStatus === 1 || QTOrderStatus === 3), isNew: 1},
-				{id: 103,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=QT', isShow: isQTNotOnlineProcessing && (QTOrderStatus === 2 || QTOrderStatus === 3), isNew: 1},
-				{id: 104,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=QTNew', isShow: isQTNotOnlineProcessing && (QTOrderStatus === 1 || QTOrderStatus === 3), isNew: 1},
+				{id: 101,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=QTnotFees', isShow: isQTOnlineProcessing && (QTOrderStatus === 2 || QTOrderStatus === 3) && (QTTwoPercentStatus === 2 || QTTwoPercentStatus === 3), isNew: 1},
+				{id: 102,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=QTnotFeesNew', isShow: isQTOnlineProcessing && (QTOrderStatus === 1 || QTOrderStatus === 3) && (QTTwoPercentStatus === 2 || QTTwoPercentStatus === 3), isNew: 1},
+				{id: 103,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=QT', isShow: isQTNotOnlineProcessing && (QTOrderStatus === 2 || QTOrderStatus === 3) && (QTTwoPercentStatus === 2 || QTTwoPercentStatus === 3), isNew: 1},
+				{id: 104,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=QTNew', isShow: isQTNotOnlineProcessing && (QTOrderStatus === 1 || QTOrderStatus === 3) && (QTTwoPercentStatus === 2 || QTTwoPercentStatus === 3), isNew: 1},
+				// 存在黔通百二转化订单
+				{id: 106,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=QTTwoPercent', isShow: QTOrderStatus && (QTTwoPercentStatus === 1 || QTTwoPercentStatus === 3), isNew: 1},
 				{id: 105,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=MTnotFees', isShow: isNMOnlineProcessing, isNew: 1},
 				{id: 1,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=MT', isShow: isNMNotOnlineProcessing, isNew: 1},
+				// 存在黔通百二转化订单
+				{id: 2,name: 'ETC保理服务协议', update: 0, url: 'equity_agreement/equity_agreement?type=factoringAgreement', isShow: QTOrderStatus && (QTTwoPercentStatus === 1 || QTTwoPercentStatus === 3), isNew: 1},
 				// {id: 1,name: '用户办理协议', update: 0, url: 'free_equipment_agreement/free_equipment_agreement', isShow: isQTNotAttribute},
 				// {id: 2,name: '用户办理协议（权益设备）', update: 0, url: 'self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement', isShow: isTTQAttribute},
 				// {id: 3,name: '用户办理协议（付费设备）', update: 0, url: 'new_self_buy_equipmemnt_agreement/index', isShow: isQTAttribute},

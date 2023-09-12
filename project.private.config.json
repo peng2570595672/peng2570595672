@@ -4,9 +4,37 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "",
+                    "pathName": "pages/personal_center/order_details/order_details",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/invoice_assistant/invoice_assistant",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/Home/Home",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/road_rescue_orders/road_rescue_schedule/road_rescue_schedule",
+                    "query": "applyId=1149433960363724800&orderId=1148992417429852160",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "ETC详情",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1148205589550075904",
+                    "query": "orderId=1101196259089190912",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -28,13 +56,6 @@
                     "name": "",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
                     "query": "orderId=1125812532318441472",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1138460248172924928",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -303,13 +324,6 @@
                 },
                 {
                     "name": "",
-                    "pathName": "pages/empty_hair/basic_information/basic_information",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
                     "pathName": "pages/personal_center/choice_vehicle/choice_vehicle",
                     "query": "",
                     "launchMode": "default",
@@ -340,13 +354,6 @@
                     "name": "",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
                     "query": "orderId=1129422148285632512",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/empty_hair/basic_information/basic_information",
-                    "query": "",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -500,13 +507,6 @@
                 {
                     "name": "",
                     "pathName": "pages/account_management/pay_method/pay_method",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/personal_center/order_details/order_details",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
