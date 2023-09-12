@@ -122,7 +122,7 @@
                 <text class="agreementColor" catchtap="onClickGoAgreementHandle">ETC用户办理协议、</text>
                 <text class="agreementColor" catchtap="onClickGoQianTongAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 1}}">黔通卡ETC用户协议、</text>
                 <text class="agreementColor" catchtap="onClickGoPrivacyHandle">用户隐私协议</text>
-                里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。
+                里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。<text wx:if="{{listOfPackages[choiceIndex].etcCardId === 2}}">[发行方:内蒙古发行]</text>
             </view>
         </view>
         <!-- 按钮设置 -->

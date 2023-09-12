@@ -4,6 +4,20 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "ETC详情",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1151189183000219648",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/default/choose_bank_and_bind_veh/choose_bank_and_bind_veh",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "",
                     "pathName": "pages/personal_center/order_details/order_details",
                     "query": "",
@@ -28,13 +42,6 @@
                     "name": "",
                     "pathName": "pages/road_rescue_orders/road_rescue_schedule/road_rescue_schedule",
                     "query": "applyId=1149433960363724800&orderId=1148992417429852160",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "ETC详情",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1101196259089190912",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -543,13 +550,6 @@
                     "name": "湘通卡埃特斯",
                     "pathName": "pages/obu_activate/hunan/artc/artc",
                     "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1138460248172924928",
                     "launchMode": "default",
                     "scene": null
                 },
