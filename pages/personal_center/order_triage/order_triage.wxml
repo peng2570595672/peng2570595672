@@ -13,3 +13,4 @@
         <view class="typeName">道路救援订单</view>
     </view>
 </view>
+<privacy_popup></privacy_popup>

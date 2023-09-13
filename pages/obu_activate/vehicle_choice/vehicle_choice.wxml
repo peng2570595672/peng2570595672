@@ -54,3 +54,5 @@
 </view>
 <noticeDialog id="noticeDialog"></noticeDialog>
 <equipment_selection id="choiceEquipment" bindonClickTranslucentHandle="onClickTranslucentHandle"></equipment_selection>
+
+<privacy_popup></privacy_popup>

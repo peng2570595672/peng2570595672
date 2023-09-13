@@ -167,4 +167,5 @@
 
 <view class="p">若甲方注册电子银行后又办理注册银行卡卡片更换，与原注册卡相关的电子银行服务事项自动转至新卡，本协议继续有效。 </view>
 </view>
+<privacy_popup></privacy_popup>
 

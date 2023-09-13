@@ -29,3 +29,5 @@
 		class='press-canvas'
 		style='width: {{pictureWidth}}px; height: {{ pictureHeight}}px;' ></canvas>
 </view>
+
+<privacy_popup></privacy_popup>

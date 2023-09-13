@@ -23,7 +23,7 @@
             <view class="btnClose" catchtap="save">保存</view>
         </view>
     </view>
-    <page-container 
+    <page-container
         show="{{show}}"
         round="{{round}}"
         overlay="{{overlay}}"
@@ -35,3 +35,4 @@
         bindbeforeleave="onBeforeLeave">
     </page-container>
 </view>
+<privacy_popup></privacy_popup>

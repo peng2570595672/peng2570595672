@@ -11,3 +11,4 @@
 <!--  <button type="primary"  catchtap="shifang" class="but">释放资源</button>-->
 
 </view>
+<privacy_popup></privacy_popup>

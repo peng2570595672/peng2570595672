@@ -12,3 +12,5 @@
 	<text class="more-text">更多服务即将上线</text>
 	<view class="fill"></view>
 </view>
+
+<privacy_popup></privacy_popup>

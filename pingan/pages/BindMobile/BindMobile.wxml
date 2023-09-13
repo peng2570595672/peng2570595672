@@ -12,3 +12,5 @@
 	</view>
 	<!--	按钮结束-->
 </view>
+
+<privacy_popup></privacy_popup>

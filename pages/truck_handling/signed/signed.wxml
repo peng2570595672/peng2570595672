@@ -49,3 +49,5 @@
   <view type="primary" class="btn" disabled="{{isDisabled}}" catchtap="onSubmit"><view class="animate" wx:if="{{isRequest}}"></view>立即签约</view>
 
 </view>
+
+<privacy_popup></privacy_popup>

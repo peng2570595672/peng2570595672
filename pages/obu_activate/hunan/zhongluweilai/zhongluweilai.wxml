@@ -3,3 +3,5 @@
 		<template is="secondIssueUI" data="{{...ui}}"/>
 		<view class="force iconfont {{ui.isForce ? 'selected' : ''}}" wx:if="{{!ui.activated && !ui.showLoading && (ui.connectState !== -1 || ui.getListFailed)}}" catchtap="forceHandle">发行异常？勾选后强制完成本次发行，若非必要请不要勾选，勾选后将造成本次发行后ETC设备不可用。</view>
 </view>
+
+<privacy_popup></privacy_popup>

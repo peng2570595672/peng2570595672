@@ -13,3 +13,5 @@
   <view class="splitLine"></view>
   <button class="btnmarginRecharge" bindtap="weChatPay">充值激活</button>
 </view>
+
+<privacy_popup></privacy_popup>

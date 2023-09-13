@@ -80,3 +80,5 @@
     <!-- 拉起键盘 -->
 	<keyboard id="keyboard" index="{{currentIndex}}" show="{{showKeyboard}}" bind:valueChange="valueChange" myCar="{{carNo}}"></keyboard>
 </view>
+
+<privacy_popup></privacy_popup>

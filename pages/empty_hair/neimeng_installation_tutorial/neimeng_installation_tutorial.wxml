@@ -43,3 +43,4 @@
 	</view>
 	<view class="btn" catchtap="next">立即激活</view>
 </view>
+<privacy_popup></privacy_popup>

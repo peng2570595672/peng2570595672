@@ -8,3 +8,4 @@
     <view class="btn" catchtap="next" wx:else>{{contractStatus === 1 ? '你已签约免密代扣，提交审核' : '去签约代扣通行费'}}</view>
     <!--	操作部分结束-->
 </view>
+<privacy_popup></privacy_popup>

@@ -162,3 +162,5 @@
     </view>
     <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
 </view>
+
+<privacy_popup></privacy_popup>

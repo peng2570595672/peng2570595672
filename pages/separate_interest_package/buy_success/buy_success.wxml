@@ -14,3 +14,4 @@
         {{status === 2 ? '手动领取权益' : ''}}
     </view>
 </view>
+<privacy_popup></privacy_popup>

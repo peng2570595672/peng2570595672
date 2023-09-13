@@ -42,3 +42,4 @@
     ></bocom-certification>
     <!--	操作部分结束-->
 </view>
+<privacy_popup></privacy_popup>

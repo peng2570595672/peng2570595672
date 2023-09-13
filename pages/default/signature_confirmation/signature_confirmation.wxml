@@ -17,3 +17,5 @@
     </view>
 </view>
 <canvas canvas-id="pictorial" class="pictorial" style="width: {{winInfo.windowWidth*2}}px;height: {{winInfo.windowHeight*2}}px"  disable-scroll="true"></canvas>
+
+<privacy_popup></privacy_popup>

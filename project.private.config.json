@@ -4,6 +4,13 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "",
+                    "pathName": "pages/obu_activate/hunan/juli/juli",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "activities/pages/activity_icbc_forty_five_theme/index",
                     "pathName": "pages/default/equity_agreement/equity_agreement",
                     "query": "type=QTTwoPercent",
@@ -553,13 +560,6 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=855470559478157312",
-                    "launchMode": "default",
-                    "scene": null
                 }
             ]
         }
@@ -568,5 +568,6 @@
         "urlCheck": true,
         "compileHotReLoad": true
     },
-    "projectname": "etc_plus_mini_2.0"
+    "projectname": "etc_plus_mini_2.0",
+    "libVersion": "3.0.1"
 }

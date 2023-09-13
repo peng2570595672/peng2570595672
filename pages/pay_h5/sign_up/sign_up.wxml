@@ -31,3 +31,5 @@
 		<button wx:else open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">一键签约</button>
 	</view>
 </view>
+
+<privacy_popup></privacy_popup>

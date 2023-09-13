@@ -1,0 +1,11 @@
+<view wx:if="{{innerShow}}" class="privacy-popup-mask">
+    <view class="privacy-popup-dialog">
+        <view class="privacy-popup-btn-close iconfont" bindtap="handleDisagree"></view>
+        <view class="privacy-popup-title">{{title}}</view>
+        <view class="privacy-popup-content">{{desc1}}<text class="privacy-popup-protocol" bindtap="openPrivacyContract">{{urlTitle}}</text>{{desc2}}</view>
+       <view class="privacy-popup-btn-box">
+           <button class="privacy-popup-btn privacy-popup-btn-exit" bindtap="handleDisagree">退出</button>
+           <button open-type="agreePrivacyAuthorization" class="privacy-popup-btn privacy-popup-btn-confirm" bindagreeprivacyauthorization="handleAgree">同意并接受</button>
+       </view>
+    </view>
+  </view>

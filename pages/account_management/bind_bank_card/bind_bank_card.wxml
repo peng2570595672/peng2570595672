@@ -15,3 +15,4 @@
     <view class="fill"></view>
     <view class="btn" catchtap="onClickNewBinding" wx:if="{{!isSwitch}}">新增绑定</view>
 </view>
+<privacy_popup></privacy_popup>

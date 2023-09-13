@@ -45,3 +45,4 @@
     <view class="btn" catchtap="next">下一步</view>
     <!--	操作部分结束-->
 </view>
+<privacy_popup></privacy_popup>

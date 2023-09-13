@@ -109,3 +109,5 @@
     <text class="p">乙方：交通银行股份有限公司<text class="line"></text>分行（指甲方开立个人人民币结算账户的具体银行营业机构所属分行）</text>
     <view class="p weight border not-indentation">甲方已通读协议全部条款，乙方已应甲方的要求作了详细说明，甲方签署本协议时对所有内容无疑问和异议，理解协议条款尤其是带▲▲标记条款的含义及其法律后果。</view>
 </view>
+
+<privacy_popup></privacy_popup>

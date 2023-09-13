@@ -102,3 +102,4 @@
 </view>
 <view class="customer" catchtap="goOnlineServer">在线客服</view>
 </view>
+<privacy_popup></privacy_popup>

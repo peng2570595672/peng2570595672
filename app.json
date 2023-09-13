@@ -395,10 +395,14 @@
     },
     "plugins": {
         "obu-plugin": {
-            "version": "2.0.0",
+            "version": "2.1.1",
             "provider": "wx3065d5b05f433be9"
         }
     },
+  "usingComponents": {
+    "privacy_popup": "/components/privacy_popup/privacy_popup"
+  },
+  "__usePrivacyCheck__": true,
     "sitemapLocation": "sitemap.json",
     "permission": {
         "scope.userLocation": {

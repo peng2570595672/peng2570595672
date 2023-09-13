@@ -92,3 +92,5 @@
     </view>
     <!--常见问题结束-->
 </view>
+
+<privacy_popup></privacy_popup>

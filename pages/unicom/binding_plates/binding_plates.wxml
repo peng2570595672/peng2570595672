@@ -54,3 +54,5 @@
 	<!--	键盘-->
 	<keyboard id="keyboard" index="{{currentIndex}}" show="{{showKeyboard}}" bind:valueChange="valueChange" myCar="{{carNo}}"></keyboard>
 </div>
+
+<privacy_popup></privacy_popup>

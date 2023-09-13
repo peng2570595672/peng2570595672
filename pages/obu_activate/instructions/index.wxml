@@ -20,3 +20,4 @@
 	</view>
 	<view class="next" catchtap="next">已开启蓝牙，下一步</view>
 </view>
+<privacy_popup></privacy_popup>

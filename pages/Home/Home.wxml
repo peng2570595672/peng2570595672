@@ -173,3 +173,5 @@
     <noticeImgDialog id="noticeImgDialog" bind:onHandle="onHandleNotice"></noticeImgDialog>
     <equipment_selection id="choiceEquipment" bindonClickTranslucentHandle="onClickTranslucentHandle"></equipment_selection>
 </view>
+
+<privacy_popup></privacy_popup>

@@ -13,3 +13,5 @@
     <signing-prompt id="notSigningPrompt"></signing-prompt>
     <verify-code details="{{orderInfo}}" id="verifyCode"></verify-code>
 </view>
+
+<privacy_popup></privacy_popup>

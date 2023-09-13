@@ -18,3 +18,4 @@
 	</view>
 	<!--绑定手机号结束-->
 </view>
+<privacy_popup></privacy_popup>

@@ -4,3 +4,4 @@
     <view class="btn" catchtap="showToast">我知道了</view>
 </view>
 <view class="mask"></view>
+<privacy_popup></privacy_popup>

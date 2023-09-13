@@ -112,3 +112,5 @@
 	<high-speed-contract-signing id="notSigningPrompt" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></high-speed-contract-signing>
 	<agreement-dialog id='agreement-dialog' bind:cancelHandle="agreementHandle"></agreement-dialog>
 </view>
+
+<privacy_popup></privacy_popup>

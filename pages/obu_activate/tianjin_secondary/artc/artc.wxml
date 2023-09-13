@@ -11,3 +11,5 @@
 	<view class="btns {{isActivating ? 'not-use' : ''}}" catchtap="go" wx:if="{{!showLoading && (connectState !== -1 || getListFailed) && !activated}}"> {{connectState !== 1 && getListFailed ? '重试' : connectState === 1 ? '一键激活' : '找不到设备？重新搜索'}}</view>
 	<view class="btns" wx:if="{{activated}}" catchtap="returnMiniProgram">查看设备详情</view>
 </view>
+
+<privacy_popup></privacy_popup>

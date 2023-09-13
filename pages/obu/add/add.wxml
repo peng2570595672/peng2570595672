@@ -9,7 +9,8 @@
          <view>设备连接成功，开始写入圈存金额</view>
          <view>圈存成功</view>
       </view>
-      <button type="primary" class="but" catchtap="onSubmit">充值</button> 
+      <button type="primary" class="but" catchtap="onSubmit">充值</button>
    </view>
-  
+
 </view>
+<privacy_popup></privacy_popup>

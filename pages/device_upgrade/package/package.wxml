@@ -49,3 +49,4 @@
     <!-- 自定义出入方向的弹窗 -->
     <customDirectionPopup id="cdPopup" />
 </view>
+<privacy_popup></privacy_popup>

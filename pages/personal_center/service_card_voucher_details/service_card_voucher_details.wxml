@@ -86,3 +86,4 @@
 	</view>
 	<!--激活卡券弹窗结束-->
 </view>
+<privacy_popup></privacy_popup>

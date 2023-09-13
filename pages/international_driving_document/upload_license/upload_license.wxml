@@ -33,3 +33,4 @@
 	</view>
 	<view wx:if="{{drivingLicenseFace.fileUrl}}" class="btn" catchtap="next">下一步</view>
 </view>
+<privacy_popup></privacy_popup>

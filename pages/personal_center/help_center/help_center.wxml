@@ -64,3 +64,4 @@
 	<!--弹出详情结束-->
 	<view class="replace" catchtap="replace" wx:if="{{tabList.length > 0}}">换一批</view>
 </view>
+<privacy_popup></privacy_popup>

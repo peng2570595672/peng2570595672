@@ -106,3 +106,4 @@
 <!--	<button open-type="launchApp" app-parameter="{{item}}" binderror="launchAppError">返回APP</button>-->
 <!--<view class="aaaa">获取APP传的值:{{parameter}}</view>-->
 </view>
+<privacy_popup></privacy_popup>

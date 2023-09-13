@@ -36,3 +36,4 @@
     </view>
     <view class="error" style="padding-bottom: 100rpx;" wx:if="{{nextpageFlag}}">暂无更多数据~~</view>
 </view>
+<privacy_popup></privacy_popup>

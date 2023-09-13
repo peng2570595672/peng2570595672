@@ -1,4 +1,5 @@
-<view class="install_step">
+
+<privacy_popup></privacy_popup><view class="install_step">
 	<image src="../../images/bluetooth_obu.gif" mode="aspectFit" />
 	<view class="text-wrapper">
 		<view class="title">{{activated ? '设备激活成功' : '设备激活'}}</view>

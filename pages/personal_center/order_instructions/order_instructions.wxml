@@ -51,3 +51,5 @@
 	</view>
 	<!--我要申诉结束-->
 </view>
+
+<privacy_popup></privacy_popup>

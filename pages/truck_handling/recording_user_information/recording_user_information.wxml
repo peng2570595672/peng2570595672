@@ -29,3 +29,5 @@
         canvas-id='pressCanvas'
         class='press-canvas'
         style='width: {{pictureWidth}}px; height: {{pictureHeight}}px;' ></canvas>
+
+<privacy_popup></privacy_popup>

@@ -2,7 +2,7 @@
     <view class="topImg">
         <image class="image" src="https://file.cyzl.com/g001/M01/DD/D4/oYYBAGRhy8aAB_fOAAEgVJi7Jwk010.png" mode="widthFix" />
     </view>
-    
+
     <view class="module cict_bank">
         <view class="head">为车主量身打造</view>
         <view class="title">
@@ -60,3 +60,4 @@
         <button catchtap="onClickHandle" style="background: {{bgColor}}">{{keepHandle ? '继续办理' : '立即办理'}}</button>
     </view>
 </view>
+<privacy_popup></privacy_popup>

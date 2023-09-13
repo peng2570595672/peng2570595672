@@ -31,3 +31,4 @@
 	<canvas canvas-id="rotatingCanvas" style="width:{{imageWidth}}px;height:{{imageHeight}}px;position:absolute;top:200%" ></canvas>
 	<!--旋转图片 ios拍照问题结束-->
 </view>
+<privacy_popup></privacy_popup>

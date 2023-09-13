@@ -48,3 +48,5 @@
 	</view>
 	<!--弹出详情结束-->
 </view>
+
+<privacy_popup></privacy_popup>

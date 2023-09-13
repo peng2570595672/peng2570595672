@@ -5,3 +5,5 @@
 	<view class="tip">开票成功后会将电子发票自动发放至手机号或电子邮箱，请注意查收。</view>
 	<view class="btn" catchtap="btnCatchTap">返回首页</view>
 </view>
+
+<privacy_popup></privacy_popup>

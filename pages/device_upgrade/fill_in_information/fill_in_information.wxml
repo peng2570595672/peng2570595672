@@ -128,3 +128,4 @@
 	<!--	压缩图片j结束-->
     <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
 </view>
+<privacy_popup></privacy_popup>

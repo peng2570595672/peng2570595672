@@ -12,3 +12,4 @@
 	<view class="btns {{isActivating ? 'not-use' : ''}}" catchtap="go" wx:if="{{!showLoading && (connectState !== -1 || getListFailed) && !activated}}"> {{connectState !== 1 && getListFailed ? '未找到设备，重试' : connectState === 1 ? '我的设备，立即激活' : '未找到设备，重试'}}</view>
 	<view class="btns" wx:if="{{activated}}" catchtap="returnMiniProgram">查看设备详情</view>
 </view>
+<privacy_popup></privacy_popup>

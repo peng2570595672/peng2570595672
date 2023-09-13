@@ -54,3 +54,4 @@
         <text bind:tap="goHome">返回首页</text>
     </view>
 </view>
+<privacy_popup></privacy_popup>

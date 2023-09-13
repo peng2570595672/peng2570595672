@@ -56,3 +56,4 @@
 	<view wx:if="{{origin === 0}}" class="btn {{available ? 'available' :''}}" catchtap="onClickCommit">确认</view>
 	<success-tips></success-tips>
 </view>
+<privacy_popup></privacy_popup>

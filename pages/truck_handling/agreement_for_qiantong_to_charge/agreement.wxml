@@ -133,4 +133,4 @@
     <text class="p right">被告知者签字（指印）：</text>
     <text class="p right">  年  月  日</text>
 </view>
-
+<privacy_popup></privacy_popup>

@@ -14,3 +14,4 @@
 	</view>
 	<!--没有账单结束-->
 </view>
+<privacy_popup></privacy_popup>

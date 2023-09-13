@@ -8,3 +8,4 @@
     </view>
     <view class="split"></view>
 </view>
+<privacy_popup></privacy_popup>

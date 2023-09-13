@@ -1,0 +1,86 @@
+@font-face {
+  font-family: 'iconfont'; /* Project id 1514406 */
+  src: url("//at.alicdn.com/t/c/font_1514406_8blx0c7mll.woff2?t=1683858365059") format('woff2'), url("//at.alicdn.com/t/c/font_1514406_8blx0c7mll.woff?t=1683858365059") format('woff'), url("//at.alicdn.com/t/c/font_1514406_8blx0c7mll.ttf?t=1683858365059") format('truetype');
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.privacy-popup-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+}
+.privacy-popup-dialog {
+  position: fixed;
+  z-index: 10000000000000000;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0px 4rpx 16rpx 0rpx rgba(0,0,0,0.13);
+  border-radius: 24rpx 24rpx 0 0;
+  padding: 48rpx 40rpx 70rpx;
+  box-sizing: border-box;
+  font-family: PingFangSC-Thin, sans-serif;
+}
+.privacy-popup-dialog .privacy-popup-btn-close {
+  position: absolute;
+  right: 30rpx;
+  top: 28rpx;
+}
+.privacy-popup-dialog .privacy-popup-btn-close:before {
+  display: block;
+  content: '\e63d';
+  font-size: 30rpx;
+  color: #979797;
+}
+.privacy-popup-dialog .privacy-popup-title {
+  font-size: 38rpx;
+  font-weight: 500;
+  line-height: 46rpx;
+  color: #333;
+  margin-bottom: 46rpx;
+}
+.privacy-popup-dialog .privacy-popup-content {
+  font-size: 28rpx;
+  font-weight: normal;
+  line-height: 44rpx;
+  color: #666;
+}
+.privacy-popup-dialog .privacy-popup-content .privacy-popup-protocol {
+  color: #39812b;
+}
+.privacy-popup-dialog .privacy-popup-btn-box {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 108rpx;
+}
+.privacy-popup-dialog .privacy-popup-btn-box .privacy-popup-btn {
+  width: 324rpx;
+  height: 106rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  font-weight: 500;
+  border-radius: 53rpx;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+.privacy-popup-dialog .privacy-popup-btn-box .privacy-popup-btn.privacy-popup-btn-exit {
+  border: 2rpx solid #2a4f44;
+  color: #2a4f44;
+}
+.privacy-popup-dialog .privacy-popup-btn-box .privacy-popup-btn.privacy-popup-btn-confirm {
+  background: #2a4f44;
+  color: #fff;
+}

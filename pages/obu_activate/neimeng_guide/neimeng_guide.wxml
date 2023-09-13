@@ -24,3 +24,4 @@
 	</view>
 	<view class="btn" catchtap="handleGo">设备已安装，下一步</view>
 </view>
+<privacy_popup></privacy_popup>

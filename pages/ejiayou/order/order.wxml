@@ -10,7 +10,7 @@
             <view class="h4">{{item.payTime}}</view>
           </view>
           <view class="price">
-            <view class="pay-state">{{item.orderStareString}}</view> 
+            <view class="pay-state">{{item.orderStareString}}</view>
              <view class="pay-price">{{item.orderSum}}</view>
           </view>
         </view>
@@ -21,3 +21,4 @@
      </view>
   <view class="service">如有疑问，请联系易加油客服<text class="phone" catchtap="getPhone">4008396555</text></view>
 </view>
+<privacy_popup></privacy_popup>

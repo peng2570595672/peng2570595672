@@ -43,3 +43,4 @@
 	<view class="prompt">*注意：安装成功后禁止将设备取下或移动，移动OBU将导致设备不可用</view>
 	<view class="next" catchtap="next">已安装，下一步</view>
 </view>
+<privacy_popup></privacy_popup>

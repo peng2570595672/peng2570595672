@@ -107,3 +107,4 @@
     <view class="bottom" catchtap="goOnlineServer">在线客服</view>
     <discount-details id="discountDetails"></discount-details>
 </view>
+<privacy_popup></privacy_popup>

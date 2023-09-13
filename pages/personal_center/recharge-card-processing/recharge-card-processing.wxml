@@ -87,3 +87,4 @@
 	</view>
 	<!--购买提示结束-->
 </view>
+<privacy_popup></privacy_popup>

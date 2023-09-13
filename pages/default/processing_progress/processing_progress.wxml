@@ -167,3 +167,4 @@
     <equipment_selection id="choiceEquipment" bindonClickTranslucentHandle="onClickTranslucentHandle"></equipment_selection>
     <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
 </view>
+<privacy_popup></privacy_popup>

@@ -13,3 +13,5 @@
     </view>
     <!--基础权益列表结束-->
 </view>
+
+<privacy_popup></privacy_popup>

@@ -19,3 +19,5 @@
 	<!--	按钮结束-->
     <view class="tips">需签约银联快捷支付代扣通行费</view>
 </view>
+
+<privacy_popup></privacy_popup>

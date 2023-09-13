@@ -57,3 +57,4 @@
 	<text class="p">甲方（签名或签名加盖章）            乙方（印章）</text>
 	<text class="p">签署日：      年      月      日              签署日：      年    月   日</text>
 </view>
+<privacy_popup></privacy_popup>

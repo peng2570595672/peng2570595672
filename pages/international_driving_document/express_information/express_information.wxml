@@ -46,3 +46,5 @@
 	<view class="btn {{available && getAgreement ? 'available' : 'unavailable'}}" catchtap="next"><view class="animate" wx:if="{{isRequest}}"></view>支付12元</view>
 	<!--	按钮结束-->
 </view>
+
+<privacy_popup></privacy_popup>

@@ -8,3 +8,5 @@
     <view class="fill"></view>
     <view type="primary" class="btn" catchtap="onHandleUploadVideo">开始识别</view>
 </view>
+
+<privacy_popup></privacy_popup>

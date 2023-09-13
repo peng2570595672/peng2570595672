@@ -68,3 +68,4 @@
     <view class="btn {{available && getAgreement ? 'available' : 'unavailable'}}" catchtap="next"><view class="animate" wx:if="{{isRequest}}"></view>立刻开通II类账户</view>
     <!--	按钮结束-->
 </view>
+<privacy_popup></privacy_popup>

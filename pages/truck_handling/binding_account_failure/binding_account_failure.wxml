@@ -10,3 +10,5 @@
         {{code === 93006547 ? '该银行卡暂不支持该业务，请向发卡行或银联95516咨询' : ''}}
     </view>
 </view>
+
+<privacy_popup></privacy_popup>

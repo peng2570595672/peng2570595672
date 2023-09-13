@@ -86,3 +86,5 @@
         <!--	选择支付方式结束-->
 	</block>
 </view>
+
+<privacy_popup></privacy_popup>

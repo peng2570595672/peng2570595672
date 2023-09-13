@@ -63,3 +63,5 @@
     <!-- 组件 -->
     <viewProcedure id="viewProcedure" bind:onHandle="viewProcedure" data-value="false" viewTc="{{viewTc}}"></viewProcedure>
 </view>
+
+<privacy_popup></privacy_popup>

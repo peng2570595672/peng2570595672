@@ -6,3 +6,5 @@
         <view class="btn cancel" bindtap="handleCancel">取消</view>
     </view>
 </view>
+
+<privacy_popup></privacy_popup>

@@ -180,3 +180,4 @@
     <!-- 组件 提示 -->
     <popTipComp id="popTipComp" tipObj="{{tipObj}}"></popTipComp>
 </view>
+<privacy_popup></privacy_popup>

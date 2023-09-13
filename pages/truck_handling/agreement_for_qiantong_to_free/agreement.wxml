@@ -95,3 +95,5 @@
     <text class="p">乙方：</text>
     <text class="p">签署日期</text>
 </view>
+
+<privacy_popup></privacy_popup>

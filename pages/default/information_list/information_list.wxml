@@ -51,3 +51,4 @@
         <action-sheet-cancel class="ok" catchtap="onclickhandel">立即办理</action-sheet-cancel>
     </action-sheet>
 </view>
+<privacy_popup></privacy_popup>

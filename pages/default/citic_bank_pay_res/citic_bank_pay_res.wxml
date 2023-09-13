@@ -7,6 +7,7 @@
     </view>
     <view class="text" wx:if="{{cictBankPayStatus}}">保证金退还成功！</view>
     <view class="text" wx:else><text >保证金退还失败 \n 请使用{{text}}信用卡进行支付！</text></view>
-    
+
     <view class="btn" catchtap="returnPage">退出</view>
 </view>
+<privacy_popup></privacy_popup>

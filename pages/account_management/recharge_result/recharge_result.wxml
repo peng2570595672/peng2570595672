@@ -9,3 +9,5 @@
         <!--	操作部分结束-->
     </view>
 </view>
+
+<privacy_popup></privacy_popup>

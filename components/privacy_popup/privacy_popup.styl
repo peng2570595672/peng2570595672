@@ -1,0 +1,73 @@
+//字体图标
+@import "../../fonts/iconfont.styl";
+.iconfont {
+    font-family:"iconfont" !important;
+    font-size:16px;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.privacy-popup-mask
+    position fixed
+    left 0
+    right 0
+    top 0
+    bottom 0
+    background: rgba(0, 0, 0, .6)
+.privacy-popup-dialog
+    position: fixed;
+    z-index 9999999999999999
+    bottom 0
+    left 0
+    width 100%
+    background: #FFFFFF;
+    box-shadow: 0px 4rpx 16rpx 0rpx rgba(0, 0, 0, 0.13);
+    border-radius 24rpx 24rpx 0 0
+    padding 48rpx 40rpx 70rpx
+    box-sizing border-box
+    font-family: PingFangSC-Thin, sans-serif;
+    .privacy-popup-btn-close
+        position absolute
+        right 30rpx
+        top 28rpx
+        &:before
+            display block
+            content '\e63d'
+            font-size 30rpx
+            color #979797
+    .privacy-popup-title
+        font-size: 38rpx;
+        font-weight: 500;
+        line-height: 46rpx;
+        color: #333333;
+        margin-bottom 46rpx
+    .privacy-popup-content
+        font-size: 28rpx;
+        font-weight: normal;
+        line-height: 44rpx;
+        color: #666666
+        .privacy-popup-protocol
+            color: #39812B
+    .privacy-popup-btn-box
+        display flex
+        justify-content space-between
+        margin-top 108rpx
+        .privacy-popup-btn
+            width: 324rpx;
+            height: 106rpx;
+            display flex
+            align-items center
+            justify-content center
+            font-size: 32rpx;
+            font-weight: 500;
+            border-radius: 53rpx;
+            box-sizing: border-box;
+            margin 0
+            padding 0
+            background transparent
+            &.privacy-popup-btn-exit
+                border: 2rpx solid #2A4F44;
+                color: #2A4F44;
+            &.privacy-popup-btn-confirm
+                background: #2A4F44;
+                color #fff

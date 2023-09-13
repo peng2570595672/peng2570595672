@@ -22,3 +22,4 @@
     <verify-code details="{{orderInfo}}" id="verifyCode" bindonClickHandle="onClickHandle"></verify-code>
 </view>
 
+<privacy_popup></privacy_popup>

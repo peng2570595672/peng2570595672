@@ -5,3 +5,5 @@
 		<button catchtap="onClickGoHomeHandle">回到首页</button>
 	</view>
 </view>
+
+<privacy_popup></privacy_popup>

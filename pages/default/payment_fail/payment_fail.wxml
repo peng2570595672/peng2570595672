@@ -7,3 +7,4 @@
     <view class="btn" catchtap="deductByContractThird">重新发起扣款</view>
     <!--	操作部分结束-->
 </view>
+<privacy_popup></privacy_popup>

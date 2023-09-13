@@ -63,3 +63,4 @@
         <view class="btnInner" catchtap="handle">立即办理</view>
     </view>
 </view>
+<privacy_popup></privacy_popup>

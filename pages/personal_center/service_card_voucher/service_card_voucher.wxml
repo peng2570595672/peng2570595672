@@ -117,3 +117,5 @@
 	<!-- 占位 -->
 	<view class="split" />
 </view>
+
+<privacy_popup></privacy_popup>

@@ -79,3 +79,4 @@
 	<signing-prompt id="notSigningPrompt"></signing-prompt>
     <equipment_selection id="choiceEquipment" bindonClickTranslucentHandle="onClickTranslucentHandle"></equipment_selection>
 </view>
+<privacy_popup></privacy_popup>
