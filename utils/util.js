@@ -1318,7 +1318,7 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
 		}
 	}
 	if (result.data.length === 0) {
-		let arr = [1, 3, 4, 5, 6, 9, 12, 14, 17];// 推广类型
+		let arr = [1, 3, 4, 5, 6, 9, 12, 14, 17, 23, 24];// 推广类型
 		if (arr.includes(orderInfo?.promoterType) || orderInfo.shopId === app.globalData.miniProgramServiceProvidersId) {
 			showToastNoIcon('未查询到套餐，请联系工作人员处理！');
 			return;
