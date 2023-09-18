@@ -15,8 +15,11 @@ Page({
 		disclaimerDesc: app.globalData.disclaimerDesc,
 		firstCar: app.globalData.pingAnBindGuests	// 平安获客
 	},
-	onLoad (options) {
+	async onLoad (options) {
 		app.globalData.splitDetails = undefined;
+		if (!this.data.firstCar) {
+			this.setData({firstCar: await util.getBindGuests()});
+		}
 		if (app.globalData.billingDetails) {
 			this.setData({
 				details: app.globalData.billingDetails
@@ -38,7 +41,6 @@ Page({
 				this.getBillDetail();
 			}
 		}
-		console.log('账单详情top1:', this.data.details);
 	},
 	onShow () {
 		if (app.globalData.billingDetails) {

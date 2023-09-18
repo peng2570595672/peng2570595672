@@ -39,6 +39,9 @@ Page({
 		this.setData({
 			isContinentInsurance: app.globalData.isContinentInsurance || app.globalData.isPingAn
 		});
+		if (!this.data.firstCar) {
+			this.setData({firstCar: await util.getBindGuests()});
+		}
 		if (options.orderId) {
 			this.setData({
 				orderId: options.orderId
@@ -320,11 +323,13 @@ Page({
 
 				// 平安获客 礼品弹窗
 				let isShowpAPop = wx.getStorageSync('isShowpAPop');
-				let isShowPingAn = this.data.firstCar.filter(item => res.data.vehPlates.includes(item));
 				this.setData({isPopPinAn: isShowpAPop});
-				if (isShowPingAn?.length !== 0 && !isShowpAPop) {
-					wx.setStorageSync('isShowpAPop',true);
-					this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '礼品领取',bgColor: 'rgba(42, 80, 68, 0.7)'});
+				if (!isShowpAPop) {
+					let isShowPingAn = this.data.firstCar.vehKeys.includes(res.data.vehPlates.substring(0,1));
+					if (isShowPingAn && !this.data.firstCar.filterKeys.includes(res.data.vehPlates.substring(0,2))) {
+						wx.setStorageSync('isShowpAPop',true);
+						this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '礼品领取',bgColor: 'rgba(42, 80, 68, 0.7)'});
+					}
 				}
 
 				if (res.data.autoAuditStatus === 0 && res.data.auditStatus === 0) {

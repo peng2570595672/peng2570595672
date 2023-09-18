@@ -1810,6 +1810,18 @@ let channelNameMap = {
 	10: '湘通卡',
 	11: '龙通卡',
 };
+// 获取平安绑车车牌列表
+async function getBindGuests() {
+	const result = await getDataFromServersV2('consumer/order/pingan/get-bind-veh-keys', {},'POST',false);
+	console.log(result);
+	if (!result) return;
+	if (result.code === 0) {
+		app.globalData.pingAnBindGuests = result.data
+		return result.data
+	} else {
+		showToastNoIcon(result.message);
+	}
+};
 module.exports = {
 	setApp,
 	returnMiniProgram,
@@ -1869,5 +1881,6 @@ module.exports = {
 	customTabbar,
 	fangDou,
 	getRightAccount,
-	getUserIsVip
+	getUserIsVip,
+	getBindGuests
 };

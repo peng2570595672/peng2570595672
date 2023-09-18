@@ -163,8 +163,15 @@ function dataIncludes(originalData,includesParams,type) {
     return false
   }
   if (type === 1) {
-    for (var index = 0; index < includesParams.length; index++) {
-      if (originalData.indexOf(includesParams[index]) !== -1) {
+    var arr1 = includesParams.vehKeys.split(',');
+    var arr2 = includesParams.filterKeys.split(',');
+    for (var index = 0; index < arr1.length; index++) {
+      if (originalData.indexOf(arr1[index]) !== -1) {
+        for (var index2 = 0; index2 < arr2.length; index2++) {
+          if (originalData.substring(0,2) === arr2[index2]) {
+            return true
+          }
+        }
         return true
       }
     }

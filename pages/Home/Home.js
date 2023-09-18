@@ -159,7 +159,6 @@ Page({
         isEquityRights: app.globalData.isEquityRights,	// 是否是权益券额用户
         isShowHandle: true,	// 是否显示办理状态栏
         isBail: false,	// 是否有保证金退回的订单（false: 没有，true: 有）
-        firstCar: app.globalData.pingAnBindGuests,	// 存放车牌首位（针对平安绑客）
         PingAn: false	// 是否展示平安获客banner
     },
     async onLoad (options) {
@@ -175,6 +174,7 @@ Page({
         }
     },
     async onShow () {
+        util.getBindGuests();
         this.setData({isAlertToSignObj: ''});
         let pages = getCurrentPages();
         let currentPage = pages[pages.length - 1];
@@ -919,9 +919,11 @@ Page({
                 if (this.data.orderStr.includes(item.id) && !app.globalData.isAlertToSign) {
                     isAlertToSignObj = item;
                 }
-                let isShowPingAn = this.data.firstCar.filter(item1 => item.vehPlates.includes(item1));	// 平安获客
-                if (isShowPingAn.length > 0 && !this.data.PingAn && item.status === 1) {
-                    this.setData({PingAn: true});
+                if (!this.data.PingAn && app.globalData.pingAnBindGuests) {
+                    let isShowPingAn = app.globalData.pingAnBindGuests.vehKeys.includes(item.vehPlates.substring(0,1));	// 平安获客
+                    if (isShowPingAn && item.status === 1 && !app.globalData.pingAnBindGuests.filterKeys.includes(item.vehPlates.substring(0,2))) {
+                        this.setData({PingAn: true});
+                    }
                 }
                 item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
                 if ((item.obuStatus === 1 || item.obuStatus === 5) && item.flowVersion === 4) {
