@@ -361,6 +361,13 @@ Page({
     initQTTwoPercentTodayMask () {
         let time = new Date().toLocaleDateString();
         let that = this;
+        wx.setStorageSync('alert-qt-two-percent-today', 1);
+        let isAlert = wx.getStorageSync('alert-qt-two-percent-today');
+        if (!isAlert) {
+            wx.setStorageSync('alert-qt-two-percent-today', 1);
+            that.selectComponent('#popTipComp1').show({type: 'qtTwoPercent',title: '协议续签提醒',btnCancel: '暂不同意',btnconfirm: '同意'});
+        }
+        return;
         // 首先获取是否执行过
         wx.getStorage({
             key: 'alert-qt-two-percent-today',
