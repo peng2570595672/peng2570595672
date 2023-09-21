@@ -361,7 +361,6 @@ Page({
     initQTTwoPercentTodayMask () {
         let time = new Date().toLocaleDateString();
         let that = this;
-        wx.setStorageSync('alert-qt-two-percent-today', 1);
         let isAlert = wx.getStorageSync('alert-qt-two-percent-today');
         if (!isAlert) {
             wx.setStorageSync('alert-qt-two-percent-today', 1);
