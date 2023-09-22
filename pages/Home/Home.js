@@ -919,9 +919,9 @@ Page({
                 if (this.data.orderStr.includes(item.id) && !app.globalData.isAlertToSign) {
                     isAlertToSignObj = item;
                 }
+                // 平安获客
                 if (!this.data.PingAn && app.globalData.pingAnBindGuests) {
-                    let isShowPingAn = app.globalData.pingAnBindGuests.vehKeys.includes(item.vehPlates.substring(0,1));	// 平安获客
-                    if (isShowPingAn && item.status === 1 && !app.globalData.pingAnBindGuests.filterKeys.includes(item.vehPlates.substring(0,2))) {
+                    if (app.globalData.pingAnBindGuests.vehKeys === '*' || (app.globalData.pingAnBindGuests.vehKeys.includes(item.vehPlates.substring(0,1)) && item.status === 1 && !app.globalData.pingAnBindGuests.filterKeys.includes(item.vehPlates.substring(0,2)))) {
                         this.setData({PingAn: true});
                     }
                 }

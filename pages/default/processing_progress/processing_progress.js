@@ -32,8 +32,7 @@ Page({
 		wellBankShopProductId: app.globalData.cictBankObj.wellBankShopProductId,	// 平安信用卡套餐ID
 		cictBail: false,	// 中信保证金
 		isWellBank: false, // 平安信用卡
-		firstCar: app.globalData.pingAnBindGuests,	// 平安获客
-		isPopPinAn: false
+		firstCar: app.globalData.pingAnBindGuests	// 平安获客
 	},
 	async onLoad (options) {
 		this.setData({
@@ -323,10 +322,8 @@ Page({
 
 				// 平安获客 礼品弹窗
 				let isShowpAPop = wx.getStorageSync('isShowpAPop');
-				this.setData({isPopPinAn: isShowpAPop});
 				if (!isShowpAPop) {
-					let isShowPingAn = this.data.firstCar.vehKeys.includes(res.data.vehPlates.substring(0,1));
-					if (isShowPingAn && !this.data.firstCar.filterKeys.includes(res.data.vehPlates.substring(0,2))) {
+					if (this.data.firstCar.vehKeys === '*' || (this.data.firstCar.vehKeys.includes(res.data.vehPlates.substring(0,1)) && !this.data.firstCar.filterKeys.includes(res.data.vehPlates.substring(0,2)))) {
 						wx.setStorageSync('isShowpAPop',true);
 						this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '礼品领取',bgColor: 'rgba(42, 80, 68, 0.7)'});
 					}
