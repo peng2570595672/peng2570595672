@@ -19,7 +19,7 @@
         <!-- {{(details.totalMmout + details.serviceMoney + (details.passServiceMoney || 0) - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}} -->
         <view wx:if="{{details.deductStatus === 7}}">00.00</view>
         <view wx:else>
-            {{(details.totalMmout + details.serviceMoney + (details.poundage  || 0)  - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}}
+            {{(details.totalMmout + details.serviceMoney + (details.poundageFlag ? details.poundage || 0 : 0)  - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}}
         </view>
         <text wx:if="{{details.deductStatus === 2 || details.deductStatus === 10}}">扣款失败</text>
     </view>
@@ -34,7 +34,7 @@
             <view>¥{{(details.totalMmout || details.etcMoney)/100}}</view>
         </view>
         <!-- --------@cyl---------start ------------------ -->
-        <view wx:if="{{details.poundage}}">
+        <view wx:if="{{details.poundageFlag && details.poundage}}">
             <view>综合服务费（2%）</view>
             <view>¥{{details.poundage/100}}</view>
         </view>
