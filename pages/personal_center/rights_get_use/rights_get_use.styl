@@ -1,0 +1,230 @@
+@font-face {
+  font-family: 'iconfont';  /* Project id 1514406 */
+  src: url('//at.alicdn.com/t/c/font_1514406_oj1ui8ozjc.woff2?t=1696837654775') format('woff2'),
+       url('//at.alicdn.com/t/c/font_1514406_oj1ui8ozjc.woff?t=1696837654775') format('woff'),
+       url('//at.alicdn.com/t/c/font_1514406_oj1ui8ozjc.ttf?t=1696837654775') format('truetype');
+}
+.iconfont
+    font-family 'iconfont' !important
+    font-size 16px
+    font-style normal
+    -webkit-font-smoothing antialiased
+    -moz-osx-font-smoothing grayscale
+mixinsWidthHeight($width = 100%, $height = 100%)
+    width $width
+    height $height
+minWidthHeight($width = 100%, $height = 100%)
+    width $width
+    min-height $height
+mixinsIconfont($content='',$size=16px,$color=#5EBE68)
+    content $content
+    font-size $size
+    color $color
+mixinsPositionPack($position=relative)
+    position $position
+    left 50%
+    transform translateX(-50%)
+textLineCenter($height)
+    text-align center
+    line-height $height
+flexStyle($align = center, $justify = center)
+    display flex
+    align-items $align
+    justify-content $justify
+.index
+    minWidthHeight(100vw,100vh)
+    background #F5F5F5
+    &::after
+        display block
+        content ''
+        mixinsWidthHeight(100%,20rpx)
+    .module
+        padding 28rpx
+        margin 20rpx 28rpx
+        letter-spacing 0rpx
+        border-radius 16rpx
+        background-color #ffffff
+        font-family PingFangSC-Regular, PingFang SC
+        box-shadow 0 4rpx 2rpx 0 rgba(255, 255, 255, 0.5)
+    .title
+        font-size 36rpx
+        font-weight bold
+        flexStyle(top,center)
+        mixinsWidthHeight(100%,17.8vh)
+        background url(https://file.cyzl.com/g001/M02/0D/1E/oYYBAGUjaP2AQ-PZAAADFTJyRCw330.png) no-repeat
+        background-size 100% 100%
+        & > text
+            font-size 40rpx
+            font-weight 500
+            color #FFFFFF
+            margin-top 60rpx
+            line-height 52rpx
+            &::before
+                margin-right 16rpx
+                mixinsIconfont('\e6c1',20px,#fff)
+
+    .module1
+        margin-top -112rpx
+        height auto
+        .couponCode
+            font-size 28rpx
+            .text1
+                font-size 32rpx
+                font-weight 500
+                line-height 32rpx
+            .couponCodeNum
+                margin 50rpx 0
+                flexStyle(center,center)
+                .text2
+                    margin-right 20rpx
+                    font-size 32rpx
+                    font-weight 500
+                    line-height 32rpx
+                    text-align right
+                    color rgba(0, 0, 0, 0.9)
+                .copy
+                    font-size 24rpx
+                    line-height 24rpx
+                    text-align center
+                    color #FF8A00
+                    padding 6rpx 4rpx
+                    border-radius 8rpx
+                    box-sizing border-box
+                    border 1rpx solid #FF8A00
+        
+        .bgFlex
+            padding-bottom 30rpx
+            .text3
+                padding-top 20rpx
+                margin-top 20rpx
+                text-align center
+            .qrcode
+                margin-top 20rpx
+                mixinsPositionPack()
+                background rgb(228, 188, 188)
+                mixinsWidthHeight(300rpx,300rpx)
+                .expireLogout
+                    font-size 38rpx
+                    color #FFFFFF
+                    textLineCenter(210rpx)
+                    border-radius 50%
+                    position absolute
+                    top 50%
+                    left 50%
+                    transform translate(-50%,-50%)
+                    mixinsWidthHeight(70%,70%)
+                    background rgba(0, 0, 0, 0.7)
+                &.invalid
+                    opacity 0.3
+            .lifespan
+                margin-top 20rpx
+                font-size 22rpx
+                line-height 32rpx
+                color rgba(0, 0, 0, 0.6)
+                flexStyle(center,center)
+                .refresh
+                    margin-left 10rpx
+                    &::before
+                        mixinsIconfont('\e6bf',14px,#00B578)
+                .turn
+                    animation turns 0.5s linear infinite
+                    animation-direction reverse
+                    -webkit-animation-direction reverse
+        .text4
+            display block
+            text-align center
+            font-size 28rpx
+            line-height 42rpx
+            .subText4
+                color #00B85C
+        .lifespanUse
+            font-size 24rpx
+            margin-top 20rpx
+            line-height 32rpx
+            color rgba(0, 0, 0, 0.6)
+            flexStyle(center,center)
+            .lifespan
+                &::after
+                    content '|'
+                    font-size 18rpx
+                    margin-left 16rpx
+                    display inline-block
+            .text3
+                margin-left 16rpx
+    .module2
+        .topFunc
+            font-size 32rpx
+            font-weight 500
+            line-height 32rpx
+            text-align justify /* 浏览器可能不支持 */
+            letter-spacing 0rpx
+            color rgba(0, 0, 0, 0.9)
+            flexStyle(center,space-between)
+            & > view:last-child
+                font-size 24rpx
+                font-weight normal
+                line-height 24rpx
+                text-align right
+                letter-spacing 0rpx
+                color rgba(0, 0, 0, 0.8)
+                &::after
+                    margin-left 10rpx
+                    display inline-block
+                    transform rotate(-90deg)
+                    mixinsIconfont('\e652',11px,#4B576E)
+        .networkName
+            margin-top 20rpx
+            font-size 28rpx
+            font-weight 500
+            line-height 32rpx
+            text-align justify /* 浏览器可能不支持 */
+            letter-spacing 0rpx
+            color #000000
+        .addrNavPhone
+            margin-top 12rpx
+            flexStyle(center,space-between)
+            & > text
+                width 460rpx
+                font-size 24rpx
+                line-height 28rpx
+                color #333333
+                text-align justify
+                &::before
+                    height 100%
+                    margin-right 8rpx
+                    mixinsIconfont('\e64d',12px,#4B576E)
+            .navPhone
+                width 120rpx
+                flexStyle(center,space-between)
+                .nav
+                    &::before
+                        mixinsIconfont('\e6bc',18px,#4B576E)
+                .phone
+                    &::before
+                        mixinsIconfont('\e6bd',18px,#4B576E)
+
+@keyframes turns {
+    0% {
+        transform rotate(0deg)
+    }
+    50% {
+        transform rotate(180deg)
+    }
+    100% {
+        transform rotate(360deg)
+    }
+}
+@-webkit-keyframes turns {
+    0% {
+        transform rotate(0deg)
+        -webkit-transform rotate(0deg)
+    }
+    50% {
+        transform rotate(180deg)
+        -webkit-transform rotate(180deg)
+    }
+    100% {
+        transform rotate(360deg)
+        -webkit-transform rotate(360deg)
+    }
+}

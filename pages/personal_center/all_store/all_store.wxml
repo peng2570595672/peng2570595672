@@ -1,0 +1,19 @@
+<view class="index">
+    <view class="module1">
+        <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+        <view class="picker">
+        当前选择：{{region[0]}}，{{region[1]}}，{{region[2]}}
+        </view>
+  </picker>
+    </view>
+    <view class="module module2" wx:for="{{14}}" wx:key="*this">
+        <view class="networkName">网点名称</view>
+        <view class="addrNavPhone">
+            <text >这是网点地址，显示完整的地址信息</text>
+            <view class="navPhone">
+                <text class="iconfont nav" />
+                <text class="iconfont phone" />
+            </view>
+        </view>
+    </view>
+</view>

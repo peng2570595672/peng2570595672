@@ -118,14 +118,14 @@ Page({
 	async viewCiticBankList () {
 		let flag = [];
 		if (app.globalData.myEtcList.length > 0) {
-			flag = app.globalData.myEtcList.filter(item => item.shopProductId === app.globalData.cictBankObj.citicBankshopProductId || item.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId);
+			flag = app.globalData.myEtcList.filter(item => app.globalData.cictBankObj.citicBankshopProductIds.includes(item.shopProductId) && item.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId);
 			this.setData({viewCiticBankList: flag});
 		}
 		this.setData({keepHandle: flag.length});
 		if (flag.length > 0 && flag[0].isOwner && flag[0].isVehicle) {
 			this.setData({
 				citicBank: true,
-				isCiticBankPlatinum: flag[0].shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId	// 判断是不是白金卡套餐
+				isCiticBankPlatinum: flag[0].shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || flag[0].shopProductId === app.globalData.cictBankObj.cictBankNmPlatinumCard	// 判断是不是白金卡套餐
 			});
 			const result = await util.getDataFromServersV2('consumer/order/zx/transact-schedule', {
 				orderId: flag[0].id
@@ -182,5 +182,5 @@ Page({
 			imageUrl: 'https://file.cyzl.com/g001/M01/E8/69/oYYBAGSY2x2AAJamAADnfYysC20088.png',
 			path: '/pages/default/citic_bank_card_details/citic_bank_card_details'
 		};
-	},
+	}
 });

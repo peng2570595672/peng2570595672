@@ -1,0 +1,67 @@
+@font-face {
+  font-family: 'iconfont'; /* Project id 1514406 */
+  src: url("//at.alicdn.com/t/c/font_1514406_ama3lhhku3u.woff2?t=1696820516639") format('woff2'), url("//at.alicdn.com/t/c/font_1514406_ama3lhhku3u.woff?t=1696820516639") format('woff'), url("//at.alicdn.com/t/c/font_1514406_ama3lhhku3u.ttf?t=1696820516639") format('truetype');
+}
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.index {
+  width: 100vw;
+  min-height: 100vh;
+  background: #ededed;
+}
+.index::after {
+  display: block;
+  content: '';
+  width: 100%;
+  height: 20rpx;
+}
+.index .module {
+  padding: 28rpx;
+  margin: 20rpx 28rpx;
+  border-radius: 16rpx;
+  background-color: #fff;
+  font-family: PingFangSC-Regular, PingFang SC;
+  box-shadow: 0 4rpx 2rpx 0 rgba(255,255,255,0.5);
+}
+.index .module1 {
+  height: 100rpx;
+  background: rgba(0,0,0,0.4);
+}
+.index .module1 .picker {
+  width: 100%;
+  height: 100rpx;
+  background: #0f0;
+}
+.index .module2 .networkName {
+  margin-top: 0rpx;
+  font-size: 28rpx;
+  line-height: 50rpx;
+  font-weight: bold;
+}
+.index .module2 .addrNavPhone {
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.index .module2 .addrNavPhone .navPhone {
+  width: 120rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.index .module2 .addrNavPhone .navPhone .nav::before {
+  content: '\e6bc';
+  font-size: 18px;
+  color: #4b576e;
+}
+.index .module2 .addrNavPhone .navPhone .phone::before {
+  content: '\e6bd';
+  font-size: 18px;
+  color: #4b576e;
+}

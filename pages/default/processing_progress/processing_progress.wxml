@@ -1,39 +1,39 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="processing_progress">
-	<!--	车牌开始-->
-	<view class="title">{{info.vehPlates}}</view>
-	<!--	车牌结束-->
-	<!--	用户信息开始-->
-	<view class="user-info" wx:if="{{info.orderType !== 71 && info.promoterType !== 41}}">
-		<view wx:if="{{info.orderType !== 31}}">
-			<text>{{info.receiveMan}}</text>
-			<text>{{info.receivePhone}}</text>
-		</view>
-		<view wx:if="{{info.orderType === 31}}">
-			<text>{{info.shopUserTrueName}}</text>
-			<text>{{info.shopUserMobilePhone}}</text>
-		</view>
-		<view wx:if="{{info.orderType !== 31}}">
-			{{info.receiveProvince}}{{info.receiveCity}}{{info.receiveCounty}}{{info.receiveAddress}}
-		</view>
-		<view wx:if="{{info.orderType === 31}}">业务员线下办理</view>
-	</view>
-	<!--	用户信息结束-->
-	<!--	办理进度开始-->
-	<view class="title other-title">办理进度</view>
-	<!--	办理进度失败-->
-	<!--	进度开始-->
-	<view class="progress_wrapper" >
+    <!--	车牌开始-->
+    <view class="title">{{info.vehPlates}}</view>
+    <!--	车牌结束-->
+    <!--	用户信息开始-->
+    <view class="user-info" wx:if="{{info.orderType !== 71 && info.promoterType !== 41}}">
+        <view wx:if="{{info.orderType !== 31}}">
+            <text>{{info.receiveMan}}</text>
+            <text>{{info.receivePhone}}</text>
+        </view>
+        <view wx:if="{{info.orderType === 31}}">
+            <text>{{info.shopUserTrueName}}</text>
+            <text>{{info.shopUserMobilePhone}}</text>
+        </view>
+        <view wx:if="{{info.orderType !== 31}}">
+            {{info.receiveProvince}}{{info.receiveCity}}{{info.receiveCounty}}{{info.receiveAddress}}
+        </view>
+        <view wx:if="{{info.orderType === 31}}">业务员线下办理</view>
+    </view>
+    <!--	用户信息结束-->
+    <!--	办理进度开始-->
+    <view class="title other-title">办理进度</view>
+    <!--	办理进度失败-->
+    <!--	进度开始-->
+    <view class="progress_wrapper" >
 <!--		<view class="item finished" wx:if="{{accountVerification !== 0 && info.flowVersion === 1 && info.isNewTrucks !== 1}}">-->
 <!--			<view class="content-title finished">账户验证</view>-->
 <!--			<view class="content-des" wx:if="{{accountVerification === 2 || accountVerification === '2'}}">正在验证中....<text class="refresh iconfont" catchtap="refreshCheck">刷新结果</text></view>-->
 <!--			<view class="content-des" wx:else>{{accountVerification === 0 ? '审核通过' : '验证成功'}}</view>-->
 <!--		</view>-->
-		<view class="item {{info && info.auditStatus !== 0 ? 'finished' : ''}}" wx:if="{{info.auditStatus !== -1}}">
-			<view class="content-title">资料审核</view>
-			<view class="content-des iconfont {{info && (info.auditStatus === 1 || info.auditStatus === 9) ? 'error' : ''}}" wx:if="{{info && (info.auditStatus === 1 || info.auditStatus === 9)}}">审核不通过<text class="edit iconfont" catchtap="goEtcDetails">查看详情</text></view>
-			<view class="content-des" wx:else>{{info && info.auditStatus === 2 ? '审核通过' : '正在排队审核中，预计1-3个工作日内完成'}}</view>
-		</view>
+        <view class="item {{info && info.auditStatus !== 0 ? 'finished' : ''}}" wx:if="{{info.auditStatus !== -1}}">
+            <view class="content-title">资料审核</view>
+            <view class="content-des iconfont {{info && (info.auditStatus === 1 || info.auditStatus === 9) ? 'error' : ''}}" wx:if="{{info && (info.auditStatus === 1 || info.auditStatus === 9)}}">审核不通过<text class="edit iconfont" catchtap="goEtcDetails">查看详情</text></view>
+            <view class="content-des" wx:else>{{info && info.auditStatus === 2 ? '审核通过' : '正在排队审核中，预计1-3个工作日内完成'}}</view>
+        </view>
         <view class="item {{info && info.holdStatus === 1 ? 'finished' : ''}}" wx:if="{{info.isNewTrucks === 1 && info.flowVersion === 5}}">
             <view class="content-title">通行保证金预充</view>
             <view class="content-des" wx:if="{{info.auditStatus !== 2}}">待审核通过后系统将自动发起预充</view>
@@ -72,30 +72,30 @@
             </view>
             <view class="content-des" wx:else>等待审核通过，预充指定金额</view>
         </view>
-		<view class="item {{info && info.hwContractStatus !== 0 ? 'finished' : ''}}"  wx:if="{{info.flowVersion === 2}}">
-			<view class="content-title finished">高速签约</view>
-			<view class="content-des">{{info.hwContractStatus === 0 ? '等待完成高速支付签约' : info.hwContractStatus === 1 ? '已完成高速签约' : '已解约，请恢复签约'}}</view>
-		</view>
-		<view class="item {{info && info.logisticsId !== 0  && info.logisticsId !== -1 ? 'finished' : ''}}" wx:if="{{(info.orderType === 11 || info.orderType === 81) && (info.logisticsId !== -1 || (info.logisticsId === -1 && info.flowVersion === 4))}}">
-			<view class="content-title">快递配送</view>
-			<view class="content-des" wx:if="{{info.logisticsId === 0 || (info.logisticsId === -1 && info.flowVersion === 4)}}">发货后可查看实时物流信息</view>
-			<view class="content-des" wx:if="{{info.logisticsId !== 0 && info.logisticsId !== -1}}">已发货
-				<!--<text class="edit iconfont">查看实时物流</text>-->
-			</view>
-			<view class="content-des" wx:if="{{info.logisticsId !== 0 && info.logisticsId !== -1}}">发货公司:{{info.logisticsName}}</view>
-			<view class="content-des" wx:if="{{info.logisticsId !== 0 && info.logisticsId !== -1}}">快递单号:{{info.logisticsNo}}
-				<text class="copy" catchtap="copyLogisticsNo" data-no="{{info.logisticsNo}}">复制</text>
-			</view>
-		</view>
-		<view class="item {{info && info.obuStatus !== 0 ? 'finished' : ''}}" wx:if="{{!isSalesmanPrecharge}}">
-			<view class="content-title">安装激活</view>
-			<view class="content-des" wx:if="{{info.obuStatus !== 1 && info.obuStatus !== 5}}">收货后可根据操作手册自主安装激活使用，请在使用过程中保证扣款渠道余额充足，以免产生扣费失败情况导致账户被拉黑</view>
-			<view class="content-des" wx:if="{{info.obuStatus === 1 || info.obuStatus === 5}}">已激活</view>
-		</view>
+        <view class="item {{info && info.hwContractStatus !== 0 ? 'finished' : ''}}"  wx:if="{{info.flowVersion === 2}}">
+            <view class="content-title finished">高速签约</view>
+            <view class="content-des">{{info.hwContractStatus === 0 ? '等待完成高速支付签约' : info.hwContractStatus === 1 ? '已完成高速签约' : '已解约，请恢复签约'}}</view>
+        </view>
+        <view class="item {{info && info.logisticsId !== 0  && info.logisticsId !== -1 ? 'finished' : ''}}" wx:if="{{(info.orderType === 11 || info.orderType === 81) && (info.logisticsId !== -1 || (info.logisticsId === -1 && info.flowVersion === 4))}}">
+            <view class="content-title">快递配送</view>
+            <view class="content-des" wx:if="{{info.logisticsId === 0 || (info.logisticsId === -1 && info.flowVersion === 4)}}">发货后可查看实时物流信息</view>
+            <view class="content-des" wx:if="{{info.logisticsId !== 0 && info.logisticsId !== -1}}">已发货
+                <!--<text class="edit iconfont">查看实时物流</text>-->
+            </view>
+            <view class="content-des" wx:if="{{info.logisticsId !== 0 && info.logisticsId !== -1}}">发货公司:{{info.logisticsName}}</view>
+            <view class="content-des" wx:if="{{info.logisticsId !== 0 && info.logisticsId !== -1}}">快递单号:{{info.logisticsNo}}
+                <text class="copy" catchtap="copyLogisticsNo" data-no="{{info.logisticsNo}}">复制</text>
+            </view>
+        </view>
+        <view class="item {{info && info.obuStatus !== 0 ? 'finished' : ''}}" wx:if="{{!isSalesmanPrecharge}}">
+            <view class="content-title">安装激活</view>
+            <view class="content-des" wx:if="{{info.obuStatus !== 1 && info.obuStatus !== 5}}">收货后可根据操作手册自主安装激活使用，请在使用过程中保证扣款渠道余额充足，以免产生扣费失败情况导致账户被拉黑</view>
+            <view class="content-des" wx:if="{{info.obuStatus === 1 || info.obuStatus === 5}}">已激活</view>
+        </view>
         <view class="item " wx:if="{{info && (cictBail || isWellBank)}}">
             <view class="content-title">保证金退回</view>
-			<view class="content-des" wx:if="{{info.refundStatus !== 5}}">信用卡套餐设备激活成功后用户需要手动将信用卡绑定微信支付后，完成手动认证购买套餐金额即可原路退还</view>
-			<view class="content-des" wx:else>保证金已退还</view>
+            <view class="content-des" wx:if="{{info.refundStatus !== 5}}">信用卡套餐设备激活成功后用户需要手动将信用卡绑定微信支付后，完成手动认证购买套餐金额即可原路退还</view>
+            <view class="content-des" wx:else>保证金已退还</view>
         </view>
         <view class="item {{prechargeInfo.prechargeFlag === 1 ? 'finished' : ''}} {{isSalesmanPrecharge ? 'last' : ''}}" wx:if="{{info.flowVersion === 4 && info.orderType === 31}}">
             <view class="content-title">预充值</view>
@@ -128,27 +128,27 @@
             </view>
             <view class="content-des" wx:else>等待审核通过，预充指定金额</view>
         </view>
-	</view>
-	<!--	进度结束-->
-	<!--	按钮开始-->
-	<button class="btn" wx:if="{{info && info.logisticsId !== 0 && info.obuStatus !== 1 && info.obuStatus !== 5 && ((info.flowVersion === 2 && info.hwContractStatus === 1) || (info.flowVersion === 1 && info.auditStatus === 2))}}" catchtap="onClickCctivate">{{info.orderType === 71 || info.promoterType === 41 || info.logisticsId === -1 ? '立即激活' : '确认收货并激活'}}</button>
-	<button class="btn" wx:if="{{info && info.auditStatus === 2 && info.flowVersion === 2 && info.hwContractStatus !== 1}}" catchtap="signingExpress">签约高速支付渠道</button>
+    </view>
+    <!--	进度结束-->
+    <!--	按钮开始-->
+    <button class="btn" wx:if="{{info && info.logisticsId !== 0 && info.obuStatus !== 1 && info.obuStatus !== 5 && ((info.flowVersion === 2 && info.hwContractStatus === 1) || (info.flowVersion === 1 && info.auditStatus === 2))}}" catchtap="onClickCctivate">{{info.orderType === 71 || info.promoterType === 41 || info.logisticsId === -1 ? '立即激活' : '确认收货并激活'}}</button>
+    <button class="btn" wx:if="{{info && info.auditStatus === 2 && info.flowVersion === 2 && info.hwContractStatus !== 1}}" catchtap="signingExpress">签约高速支付渠道</button>
 
     <!-- 办理银行信用卡退款操作 -->
     <view class="bottom" style="margin-bottom: 0rpx" wx:if="{{info && info.logisticsId !== 0 && isWellBank && info.refundStatus !== 5}}" catchtap="goPinAnH5"><text>未办理信用卡？点击这里恢复办理→</text></view>
-	<button class="btn" wx:if="{{info && info.logisticsId !== 0 && (cictBail || isWellBank) && info.refundStatus !== 5}}" catchtap="bailReturn">已绑卡 发起保证金退回</button>
+    <button class="btn" wx:if="{{info && info.logisticsId !== 0 && (cictBail || isWellBank) && info.refundStatus !== 5}}" catchtap="bailReturn">已绑卡 发起保证金退回</button>
 
-	<!--	按钮结束-->
-	<view class="auto-fill" wx:if="{{!tools.dataIncludes(info.vehPlates,firstCar,1)}}"></view>
-	<!--	在线客服开始-->
-	<view class="bottom"><text catchtap="goHome">返回首页</text>|<text catchtap="goOnlineServer">在线客服</text>|<text catchtap="goInstallationTutorial">安装教程</text></view>
+    <!--	按钮结束-->
+    <view class="auto-fill" wx:if="{{!tools.dataIncludes(info.vehPlates,firstCar,1)}}"></view>
+    <!--	在线客服开始-->
+    <view class="bottom"><text catchtap="goHome">返回首页</text>|<text catchtap="goOnlineServer">在线客服</text>|<text catchtap="goInstallationTutorial">安装教程</text></view>
     <view class="pingAnNewCustomers" wx:if="{{tools.dataIncludes(info.vehPlates,firstCar,1)}}" catchtap="goPingAn">
         <image class="image" src="{{'https://file.cyzl.com/g001/M00/E7/0D/oYYBAGSRUJuAQ0wsAABKSVNiV0M757.png'}}" mode="widthFix"/>
     </view>
-	<!--	在线客服结束-->
-	<!--展示通通券弹窗-->
-	<view catchtap="hide" class="coupon_mask animated {{showCouponWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{showCouponMask}}">
-		<view catchtap="close" class="detail_wrapper animated {{showCouponWrapper ? 'zoomInOther' : 'zoomOutOther'}}">
+    <!--	在线客服结束-->
+    <!--展示通通券弹窗-->
+    <view catchtap="hide" class="coupon_mask animated {{showCouponWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{showCouponMask}}">
+        <view catchtap="close" class="detail_wrapper animated {{showCouponWrapper ? 'zoomInOther' : 'zoomOutOther'}}">
             <view class="mask-bg">
                 <image src="https://file.cyzl.com/g001/M02/8A/23/oYYBAGK4RauAY6mWAAAKXkGrLMw576.png" mode="widthFix"></image>
             </view>
@@ -158,10 +158,10 @@
             <view class="mask-btn">
                 <image catchtap="handleCouponMini" src="https://file.cyzl.com/g001/M01/8A/23/oYYBAGK4RuiAXPVKAAB_STX0EkU988.png" mode="widthFix"></image>
             </view>
-		</view>
-	</view>
-	<jinyixing-prompt id="notJinYiXingPrompt"></jinyixing-prompt>
-	<signing-prompt id="notSigningPrompt"></signing-prompt>
+        </view>
+    </view>
+    <jinyixing-prompt id="notJinYiXingPrompt"></jinyixing-prompt>
+    <signing-prompt id="notSigningPrompt"></signing-prompt>
     <recharge-prompt id="rechargePrompt" info="{{prechargeInfo}}"></recharge-prompt>
     <popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="popUp"></popup1>
     <equipment_selection id="choiceEquipment" bindonClickTranslucentHandle="onClickTranslucentHandle"></equipment_selection>

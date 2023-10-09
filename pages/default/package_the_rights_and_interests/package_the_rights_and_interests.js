@@ -136,9 +136,7 @@ Page({
 		isTest: app.globalData.test,
 		citicBank: false,	// 是否是中信银行联名套餐
 		emptyHairOrder: false,	// 为true表示是空发订单
-		citicBankshopProductId: app.globalData.cictBankObj.citicBankshopProductId,	// 中信金卡套餐ID
-		citicBankShopshopProductId: app.globalData.cictBankObj.citicBankShopshopProductId,	// 中信白金卡套餐ID
-		wellBankShopProductId: app.globalData.cictBankObj.wellBankShopProductId	// 平安信用卡套餐ID
+		citicBankshopProductIds: app.globalData.cictBankObj.citicBankshopProductIds	// 信用卡套餐集合
 	},
 	async onLoad (options) {
 		app.globalData.isTelemarketing = false;
@@ -208,7 +206,7 @@ Page({
 				listOfPackages: [result.data]
 			});
 			// 中信银行
-			if (result.data.shopProductId === app.globalData.cictBankObj.citicBankshopProductId || result.data.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || result.data.shopProductId === app.globalData.cictBankObj.wellBankShopProductId) {
+			if (this.data.citicBankshopProductIds.includes(result.data.shopProductId)) {
 				this.setData({
 					citicBank: true
 				});
@@ -626,7 +624,7 @@ Page({
 			}
 		}
 		// 中信银行 白金卡
-		if (this.data.listOfPackages[this.data.choiceIndex].shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId) {
+		if (this.data.listOfPackages[this.data.choiceIndex].shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || this.data.listOfPackages[this.data.choiceIndex].shopProductId === app.globalData.cictBankObj.cictBankNmPlatinumCard) {
 			this.selectComponent('#popTipComp').show({
 				type: 'five',
 				title: '活动细则',
@@ -877,7 +875,7 @@ Page({
 			getAgreement: false,
 			topProgressBar: isFade ? 2.4 : 2,
 			choiceIndex: isFade ? index : -1,
-			citicBank: this.data.listOfPackages[index].shopProductId === app.globalData.cictBankObj.citicBankshopProductId || this.data.listOfPackages[index].shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || this.data.listOfPackages[index].shopProductId === app.globalData.cictBankObj.wellBankShopProductId	// 判断是不是中信套餐
+			citicBank: this.data.citicBankshopProductIds.includes(this.data.listOfPackages[index].shopProductId)	// 判断是不是信用卡套餐
 		});
 		if (isFade) { // 当套餐高亮时，默认展开 详情
 			this.setData({
@@ -1034,7 +1032,7 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			if (result.data.base.vehPlates.length === 7) {
-				let listOfPackages = this.data.listOfPackages.filter(item => item.shopProductId !== this.data.citicBankShopshopProductId);
+				let listOfPackages = this.data.listOfPackages.filter(item => item.shopProductId !== app.globalData.cictBankObj.citicBankShopshopProductId && item.shopProductId !== app.globalData.cictBankObj.cictBankNmPlatinumCard);
 				this.setData({
 					listOfPackages
 				});

@@ -137,7 +137,9 @@
                 "invoice_assistant/invoice_assistant",
                 "invoicing_instructions/invoicing_instructions",
                 "order_triage/order_triage",
-                "exclusive_service/exclusive_service"
+                "exclusive_service/exclusive_service",
+                "rights_get_use/rights_get_use",
+                "all_store/all_store"
             ]
         },
         {

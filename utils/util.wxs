@@ -217,6 +217,45 @@ function strReplace(obj,start,end,repObj) {
   }
   return str1
 }
+/**
+ * 字符串数字的规范间隔
+ * @param params 源数据
+ * @param count 取几位
+ * @param type 类型
+ * @returns str 返回操作后的数据
+ */
+function specification(params,count=4,type='general') {
+  if (!params) {
+    return
+  }
+  if (type === 'general') {
+    var str = '';
+    for (var index = 0; index < params.length; index++) {
+      if ((index !== 0) && !((index + 1) % count)) {
+        str += params[index] + " "
+        continue
+      }
+      str += '' + params[index]
+    }
+    return str
+  }
+  
+}
+/**
+ * 查询一个字符串是否在一个数组里存在
+ * @param arr 源数组
+ * @param str 字符串
+ * @returns 真或假
+ */
+function equits(arr,str) {
+  if (!arr || !str) {
+    return false
+  }
+  if (arr.indexOf(str) !== -1) {
+    return true
+  }
+  return false
+}
 
 module.exports = {
   substring: substring,
@@ -234,5 +273,7 @@ module.exports = {
   timeComparison: timeComparison,
   dataIncludes: dataIncludes,
   numReplace: numReplace,
-  strReplace: strReplace
+  strReplace: strReplace,
+  specification: specification,
+  equits: equits
 };
