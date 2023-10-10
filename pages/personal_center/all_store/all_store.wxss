@@ -31,16 +31,18 @@
 .index .module1 {
   width: 100vw;
   height: 100rpx;
-  background: #fff;
 }
 .index .module1 .picker {
+  width: 100vw;
   height: 100rpx;
-  margin: 0rpx 28rpx;
   font-size: 28rpx;
-  letter-spacing: 2.14rpx;
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: space-around;
+  position: fixed;
+  top: 0rpx;
+  left: 0rpx;
 }
 .index .module2 .networkName {
   margin-top: 20rpx;

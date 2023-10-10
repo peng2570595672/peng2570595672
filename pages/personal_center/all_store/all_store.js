@@ -15,8 +15,17 @@ Page({
     },
     // 打电话
     phone (e) {
-        wx.makePhoneCall({
-            phoneNumber: e.currentTarget.dataset.phone
+        this.selectComponent('#popTipComp').show({
+            type: 'callPhone',
+            title: '拨打电话',
+            btnCancel: '取消',
+            btnconfirm: '拨打',
+            contant: e.currentTarget.dataset.phone,
+            callBack: () => {
+                wx.makePhoneCall({
+                    phoneNumber: e.currentTarget.dataset.phone
+                });
+            }
         });
     },
     // 打开地址导航

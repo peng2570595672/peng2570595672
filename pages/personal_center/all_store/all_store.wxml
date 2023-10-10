@@ -18,4 +18,5 @@
             </view>
         </view>
     </view>
+    <popTipComp id="popTipComp" />
 </view>

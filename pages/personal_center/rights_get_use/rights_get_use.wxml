@@ -10,7 +10,7 @@
             </view>
         </view>
         <view class="bgFlex">
-            <view class="qrcode {{100!==0 ? 'invalid' : ''}}">
+            <view class="qrcode {{ isRefresh ? 'invalid' : ''}}">
                 <view class="expireLogout">{{'已过期'}}</view>
             </view>
             <view class="lifespan">30分钟有效 <text class="iconfont refresh {{isRefresh ? 'turn' : ''}}" catchtap="refresh"/></view>
@@ -31,8 +31,9 @@
             <text class="iconfont">这是网点地址，显示完整的地址信息这是网点地址，显示完整的地址信息这是网点地址，显示完整的地址信息</text>
             <view class="navPhone">
                 <text class="iconfont nav" catchtap="nav"/>
-                <text class="iconfont phone" catchtap="phone"/>
+                <text class="iconfont phone" data-phone="{{'12345678912'}}" catchtap="phone"/>
             </view>
         </view>
     </view>
+    <popTipComp id="popTipComp" />
 </view>

@@ -47,15 +47,14 @@ flexStyle($align = center, $justify = center)
         box-shadow 0 4rpx 2rpx 0 rgba(255, 255, 255, 0.5)
     .module1
         mixinsWidthHeight(100vw,100rpx)
-        background #fff
         .picker
-            height 100rpx
-            margin  0rpx 28rpx
+            mixinsWidthHeight(100vw,100rpx)
             font-size: 28rpx;
-            letter-spacing: 2.14rpx;
+            background #fff
             flexStyle(center,space-around)
-            // .addr
-
+            position fixed
+            top 0rpx
+            left 0rpx
     .module2
         .networkName
             margin-top 20rpx

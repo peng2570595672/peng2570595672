@@ -173,6 +173,11 @@ Component({
 				default:
 					break;
 			}
+		},
+		// 拨打电话
+		callPhone () {
+			this.hide(false);
+			this.data.tipObj.callBack();
 		}
 
 	}

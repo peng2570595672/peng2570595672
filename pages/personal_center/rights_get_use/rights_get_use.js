@@ -16,9 +16,18 @@ Page({
         util.go(`/pages/personal_center/all_store/all_store`);
     },
     // 打电话
-    phone () {
-        wx.makePhoneCall({
-            phoneNumber: '1111111111'
+    phone (e) {
+        this.selectComponent('#popTipComp').show({
+            type: 'callPhone',
+            title: '拨打电话',
+            btnCancel: '取消',
+            btnconfirm: '拨打',
+            contant: e.currentTarget.dataset.phone,
+            callBack: () => {
+                wx.makePhoneCall({
+                    phoneNumber: e.currentTarget.dataset.phone
+                });
+            }
         });
     },
     // 刷新
