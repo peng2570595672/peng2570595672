@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'iconfont'; /* Project id 1514406 */
-  src: url("//at.alicdn.com/t/c/font_1514406_oj1ui8ozjc.woff2?t=1696837654775") format('woff2'), url("//at.alicdn.com/t/c/font_1514406_oj1ui8ozjc.woff?t=1696837654775") format('woff'), url("//at.alicdn.com/t/c/font_1514406_oj1ui8ozjc.ttf?t=1696837654775") format('truetype');
+  src: url("//at.alicdn.com/t/c/font_1514406_r9qjj5a9q1.woff2?t=1696902252008") format('woff2'), url("//at.alicdn.com/t/c/font_1514406_r9qjj5a9q1.woff?t=1696902252008") format('woff'), url("//at.alicdn.com/t/c/font_1514406_r9qjj5a9q1.ttf?t=1696902252008") format('truetype');
 }
 .iconfont {
   font-family: 'iconfont' !important;
@@ -29,15 +29,15 @@
   box-shadow: 0 4rpx 2rpx 0 rgba(255,255,255,0.5);
 }
 .index .module1 {
-  height: 100rpx;
-  background: rgba(0,0,0,0.4);
-}
-.index .module1 .picker {
-  font-size: 28rpx;
-  letter-spacing: 2.14rpx;
-  width: 100%;
+  width: 100vw;
   height: 100rpx;
   background: #fff;
+}
+.index .module1 .picker {
+  height: 100rpx;
+  margin: 0rpx 28rpx;
+  font-size: 28rpx;
+  letter-spacing: 2.14rpx;
   display: flex;
   align-items: center;
   justify-content: space-around;

@@ -27,6 +27,10 @@ Page({
             isRefresh: true
         });
     },
+    // 打开地址导航
+    nav () {
+        util.showToastNoIcon('功能正在维护中，敬请期待！');
+    },
     // 复制 “我的券码”
     copy () {
         wx.setClipboardData({

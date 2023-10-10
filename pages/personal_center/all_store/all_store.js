@@ -1,4 +1,5 @@
-// pages/personal_center/all_store/all_store.js
+const util = require('../../../utils/util.js');
+const app = getApp();
 Page({
 
     data: {
@@ -17,6 +18,10 @@ Page({
         wx.makePhoneCall({
             phoneNumber: e.currentTarget.dataset.phone
         });
+    },
+    // 打开地址导航
+    nav () {
+        util.showToastNoIcon('功能正在维护中，敬请期待！');
     },
     bindRegionChange (e) {
         console.log(e);

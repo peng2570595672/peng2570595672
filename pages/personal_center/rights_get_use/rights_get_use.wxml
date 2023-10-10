@@ -30,7 +30,7 @@
         <view class="addrNavPhone">
             <text class="iconfont">这是网点地址，显示完整的地址信息这是网点地址，显示完整的地址信息这是网点地址，显示完整的地址信息</text>
             <view class="navPhone">
-                <text class="iconfont nav" catchtap=""/>
+                <text class="iconfont nav" catchtap="nav"/>
                 <text class="iconfont phone" catchtap="phone"/>
             </view>
         </view>
