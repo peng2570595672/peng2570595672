@@ -114,7 +114,7 @@
                             <view class="view1">仅太阳能充电</view>
                             <view class="view1">绑定银行卡扣款</view>
                         </view>
-                       
+
                     </view>
                     <view class="right">
                         <view class="titleNew">第五代设备</view>
@@ -136,15 +136,15 @@
         <view class="module defaultEquityPackage" wx:if="{{argObj.type === 'default_equity_package' || argObj.type === 'add_equity_package'}}" >
              <scroll-view scroll-y class="equityShow" catchtouchmove=''>
                 <view class="topTttle" wx:if="{{argObj.mustEquity === 1}}">请选择一个权益包</view>
-                <view class="content" 
-                    wx:for="{{couponList}}" 
+                <view class="content"
+                    wx:for="{{couponList}}"
                     wx:key="index">
                     <view class="iconfont md1 {{argObj.type === 'add_equity_package' ? index === choiceIndex ? isHeightLight ? 'isHighLight' : 'noHighLight' : 'noHighLight' : ''}}"
                         data-index="{{index}}"
                         catchtap="{{argObj.type === 'add_equity_package' ? 'btnMd1' : ''}}">
-                        <view class="mdLeft">
+                        <view class="mdLeft {{item.payMoney < 0 ? 'mdLeft-box' : '' }}">
                             <view class="leftMoney" wx:if="{{item.payMoney > 0}}"><text class="text2">售价￥</text>{{item.payMoney / 100}}</view>
-                            <view class="leftMoney" wx:else>免费</view>
+<!--                            <view class="leftMoney" wx:else>免费</view>-->
                             <view class="iconfont leftDetail {{ activeIndex === index ? isExpand ? 'expand': 'noExpand' : 'noExpand'}}" data-index="{{index}}" catchtap="isExpand">查看详情</view>
                         </view>
                         <view class="mdRight">

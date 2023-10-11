@@ -783,6 +783,10 @@
   color: #fdf7ec;
   transform: rotate(180deg);
 }
+.make .defaultEquityPackage .equityShow .content .md1 .mdLeft.mdLeft-box {
+  display: flex;
+  align-items: center;
+}
 .make .defaultEquityPackage .equityShow .content .md1 .mdRight {
   width: 448rpx;
   height: 100%;
