@@ -1,0 +1,39 @@
+<wxs src='../../../utils/util.wxs' module='tools' />
+<view class="index">
+    <view class="title"><text class="iconfont">{{'可使用'}}</text></view>
+    <view class="module module1">
+        <view class="couponCode">
+            <view class="text1">我的券码</view>
+            <view class="couponCodeNum">
+                <text class="text2">{{tools.specification('123456789123456789')}}</text>
+                <text class="copy" bind:tap="copy">复制</text>
+            </view>
+        </view>
+        <view class="bgFlex">
+            <view class="qrcode {{ isRefresh ? 'invalid' : ''}}">
+                <view class="expireLogout">{{'已过期'}}</view>
+            </view>
+            <view class="lifespan">30分钟有效 <text class="iconfont refresh {{isRefresh ? 'turn' : ''}}" catchtap="refresh"/></view>
+        </view>
+        <text class="text4">请出示二维码给店铺人员扫码并\n告知使用“<text class="subText4">恒通门店</text>”进行核销</text>
+        <view class="lifespanUse">
+            <view class="lifespan">有效期至：{{"2023-12-15 19:00:00"}}</view>
+            <view class="text3">{{100 > 0 ? '满'+ 100.00 + '元可用' : '无门槛'}}</view>
+        </view>
+    </view>
+    <view class="module module2">
+        <view class="topFunc">
+            <view>适用门店</view>
+            <view class="iconfont" bind:tap="showAll">查看全部</view>
+        </view>
+        <view class="networkName">网点名称</view>
+        <view class="addrNavPhone">
+            <text class="iconfont">这是网点地址，显示完整的地址信息这是网点地址，显示完整的地址信息这是网点地址，显示完整的地址信息</text>
+            <view class="navPhone">
+                <text class="iconfont nav" catchtap="nav"/>
+                <text class="iconfont phone" data-phone="{{'12345678912'}}" catchtap="phone"/>
+            </view>
+        </view>
+    </view>
+    <popTipComp id="popTipComp" />
+</view>

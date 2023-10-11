@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "适用门店",
+    "usingComponents": {
+        "popTipComp": "/components/popTipComp/popTipComp"
+    }
+}

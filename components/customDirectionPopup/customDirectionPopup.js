@@ -529,7 +529,7 @@ Component({
                     let total = 0;
                     res.data.map(item => {
                         if (item.deductStatus === 2 || item.deductStatus === 10) {
-                            total += item.totalMmout + (item.serviceMoney || 0) + (item.poundage || 0) - (item.splitDeductedMoney || 0) - (item.deductServiceMoney || 0) - (item.refundMoney || 0) - (item.wxDiscountAmount || 0) - (item.discountMount || 0);
+                            total += item.totalMmout + (item.serviceMoney || 0) + (item.poundageFlag ? item.poundage || 0 : 0) - (item.splitDeductedMoney || 0) - (item.deductServiceMoney || 0) - (item.refundMoney || 0) - (item.wxDiscountAmount || 0) - (item.discountMount || 0);
                         }
                         if (item.passDeductStatus === 2 || item.passDeductStatus === 10) {
                             total += item.passServiceMoney || 0;

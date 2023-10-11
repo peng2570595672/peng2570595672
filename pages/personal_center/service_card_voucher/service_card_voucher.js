@@ -35,6 +35,7 @@ Page({
 			{type: 5,name: '洗车券'}
 			// {type: 6,name: '通用券'},
 			// {type: 7,name: '商品消费券'}
+			// {type: 8,name: '药店券'}
 		],
 		activeIndex: 0
 	},
@@ -88,8 +89,10 @@ Page({
 			});
 			if (this.data.activeIndex === 0) {
 				that.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
-			} else {
+			} else if (this.data.activeIndex === 1) {
 				this.getCouponInfo(this.data.currentTab === 2 ? 0 : this.data.currentTab);
+			} else {	// 药店券
+
 			}
 		}
 	},
@@ -327,6 +330,9 @@ Page({
 		if (!flag && type === 5) {
 			this.setData({activeIndex: index,list: [],page: 1,currentTab: this.data.currentTab === 2 ? 0 : this.data.currentTab});
 			this.getCouponInfo(this.data.currentTab);
+		}
+		if (!flag && type === 8) {	// 药店券
+			this.setData({activeIndex: index,list: [],page: 1,currentTab: 0});
 		}
 	},
 	// 获取券包信息

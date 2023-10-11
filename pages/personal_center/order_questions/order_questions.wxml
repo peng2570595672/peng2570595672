@@ -44,7 +44,7 @@
             <view class="line" wx:if="{{details.flowVersion === 1}}">
                 <view></view>
                 <view  wx:if="{{entrance && refundDetails && refundDetails.refundMoney > 0 && details.deductStatus === 7}}"><text>实扣金额</text>00.00</view>
-                <view  wx:elif="{{entrance && details.deductStatus !== 7}}"><text>实扣金额</text>{{(details.totalMmout + details.serviceMoney + (details.poundage || 0)  - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}}</view>
+                <view  wx:elif="{{entrance && details.deductStatus !== 7}}"><text>实扣金额</text>{{(details.totalMmout + details.serviceMoney + (details.poundageFlag ? details.poundage || 0 : 0)  - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}}</view>
                 <view  wx:elif="{{!entrance && details.passDeductStatus === 7}}"><text>实扣金额</text>00.00</view>
                 <view  wx:else><text>实扣金额</text>{{details.passServiceMoney/100}}</view>
             </view>

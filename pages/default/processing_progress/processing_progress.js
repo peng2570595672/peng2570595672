@@ -27,13 +27,10 @@ Page({
 		showCouponMask: false,
 		prechargeInfo: '',// 预充流程,预充信息
 		disclaimerDesc: app.globalData.disclaimerDesc,
-		citicBankshopProductId: app.globalData.cictBankObj.citicBankshopProductId,	// 中信金卡套餐ID
-		citicBankShopshopProductId: app.globalData.cictBankObj.citicBankShopshopProductId,	// 中信白金卡套餐ID
-		wellBankShopProductId: app.globalData.cictBankObj.wellBankShopProductId,	// 平安信用卡套餐ID
+		citicBankshopProductIds: app.globalData.cictBankObj.citicBankshopProductIds,	// 信用卡套餐集合
 		cictBail: false,	// 中信保证金
 		isWellBank: false, // 平安信用卡
-		firstCar: app.globalData.pingAnBindGuests,	// 平安获客
-		isPopPinAn: false
+		firstCar: app.globalData.pingAnBindGuests	// 平安获客
 	},
 	async onLoad (options) {
 		this.setData({
@@ -311,22 +308,19 @@ Page({
 					isSalesmanPrecharge: res.data.orderType === 31 && res.data.flowVersion === 4,
 					accountVerification: res.data.orderVerificationStatus,
 					bankCardInfo: app.globalData.bankCardInfo,
-					cictBail: (res.data.obuStatus === 1 || res.data.obuStatus === 5) &&
+					cictBail: (res.data.obuStatus === 1 || res.data.obuStatus === 5) && res.data.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId &&
 						(
-							res.data.shopProductId === this.data.citicBankshopProductId ||
-							res.data.shopProductId === this.data.citicBankShopshopProductId ||
+							this.data.citicBankshopProductIds.includes(res.data.shopProductId) ||
 							(res.data.orderType === 31 && res.data.productName?.includes('中信') && res.data.pledgeType === 2)
 						),
-					isWellBank: res.data.shopProductId === this.data.wellBankShopProductId,
+					isWellBank: res.data.shopProductId === app.globalData.cictBankObj.wellBankShopProductId,
 					info: res.data
 				});
 
 				// 平安获客 礼品弹窗
 				let isShowpAPop = wx.getStorageSync('isShowpAPop');
-				this.setData({isPopPinAn: isShowpAPop});
 				if (!isShowpAPop) {
-					let isShowPingAn = this.data.firstCar.vehKeys.includes(res.data.vehPlates.substring(0,1));
-					if (isShowPingAn && !this.data.firstCar.filterKeys.includes(res.data.vehPlates.substring(0,2))) {
+					if (this.data.firstCar.vehKeys === '*' || (this.data.firstCar.vehKeys.includes(res.data.vehPlates.substring(0,1)) && !this.data.firstCar.filterKeys.includes(res.data.vehPlates.substring(0,2)))) {
 						wx.setStorageSync('isShowpAPop',true);
 						this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '礼品领取',bgColor: 'rgba(42, 80, 68, 0.7)'});
 					}
@@ -629,7 +623,7 @@ Page({
 		this.setData({isRequest: true});
 		const params = {
 			tradeType: 1,
-			packageId: app.globalData.cictBankObj.citicBankRightId,
+			packageId: app.globalData.cictBankObj.citicBankRightId,	// 权益ID
 			openId: app.globalData.userInfo.openId,
 			orderId: this.data.orderId,
 			creditCardTag: this.data.isWellBank ? 2 : 1 // 信用卡标识：1.中信信用卡，2.平安信用卡

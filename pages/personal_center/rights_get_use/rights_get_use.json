@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "权益领取与使用",
+    "usingComponents": {
+        "popTipComp": "/components/popTipComp/popTipComp"
+    }
+}

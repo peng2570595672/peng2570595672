@@ -361,22 +361,11 @@ Page({
     initQTTwoPercentTodayMask () {
         let time = new Date().toLocaleDateString();
         let that = this;
-        // 首先获取是否执行过
-        wx.getStorage({
-            key: 'alert-qt-two-percent-today',
-            success (res) {
-                // 成功的话 说明之前执行过，再判断时间是否是当天
-                if (res.data && res.data !== time) {
-                    wx.setStorageSync('alert-qt-two-percent-today', time);
-                    that.selectComponent('#popTipComp1').show({type: 'qtTwoPercent',title: '协议续签提醒',btnCancel: '暂不同意',btnconfirm: '同意'});
-                }
-            },
-            fail (res) {
-                // 没有执行过的话 先存一下当前的执行时间
-                that.selectComponent('#popTipComp1').show({type: 'qtTwoPercent',title: '协议续签提醒',btnCancel: '暂不同意',btnconfirm: '同意'});
-                wx.setStorageSync('alert-qt-two-percent-today', time);
-            }
-        });
+        let isAlert = wx.getStorageSync('alert-qt-two-percent-today');
+        if (!isAlert) {
+            wx.setStorageSync('alert-qt-two-percent-today', 1);
+            that.selectComponent('#popTipComp1').show({type: 'qtTwoPercent',title: '协议续签提醒',btnCancel: '暂不同意',btnconfirm: '同意'});
+        }
     },
     initNoticeTodayMask (obj) {
         let time = new Date().toLocaleDateString();
@@ -919,9 +908,9 @@ Page({
                 if (this.data.orderStr.includes(item.id) && !app.globalData.isAlertToSign) {
                     isAlertToSignObj = item;
                 }
+                // 平安获客
                 if (!this.data.PingAn && app.globalData.pingAnBindGuests) {
-                    let isShowPingAn = app.globalData.pingAnBindGuests.vehKeys.includes(item.vehPlates.substring(0,1));	// 平安获客
-                    if (isShowPingAn && item.status === 1 && !app.globalData.pingAnBindGuests.filterKeys.includes(item.vehPlates.substring(0,2))) {
+                    if ((app.globalData.pingAnBindGuests.vehKeys === '*' && item.status === 1) || (app.globalData.pingAnBindGuests.vehKeys.includes(item.vehPlates.substring(0,1)) && item.status === 1 && !app.globalData.pingAnBindGuests.filterKeys.includes(item.vehPlates.substring(0,2)))) {
                         this.setData({PingAn: true});
                     }
                 }
@@ -1443,7 +1432,7 @@ Page({
         // 	util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
         // 	return;
         // }
-        if ((obj.shopProductId === app.globalData.cictBankObj.citicBankshopProductId || obj.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId) && !obj.contractStatus) {
+        if (obj.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId && app.globalData.cictBankObj.citicBankshopProductIds.includes(obj.shopProductId) && !obj.contractStatus) {
             util.go(`/pages/default/citic_bank_sign/citic_bank_sign`);
             return;
         }

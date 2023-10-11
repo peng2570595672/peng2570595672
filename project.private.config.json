@@ -560,6 +560,13 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "权益领取与使用",
+                    "pathName": "pages/personal_center/rights_get_use/rights_get_use",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

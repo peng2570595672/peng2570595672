@@ -47,9 +47,7 @@ Page({
         isOnloadData: true,
 		citicBank: false,	// 是否是中信银行联名套餐
 		emptyHairOrder: true,	// 为true表示是空发订单
-		citicBankshopProductId: app.globalData.cictBankObj.citicBankshopProductId,	// 中信金卡套餐ID
-		citicBankShopshopProductId: app.globalData.cictBankObj.citicBankShopshopProductId,	// 中信白金卡套餐ID
-		wellBankShopProductId: app.globalData.cictBankObj.wellBankShopProductId,	// 平安信用卡套餐ID
+		citicBankshopProductIds: app.globalData.cictBankObj.citicBankshopProductIds,	// 信用卡套餐集合
 		roadRescueShopProductId: app.globalData.isTest ? '1049360146769125376' : ''	// 道路救援套餐ID
     },
     async onLoad (options) {
@@ -483,7 +481,7 @@ Page({
 			this.setData({
 				listOfPackages: datas
 			});
-			if (result.data.shopProductId === app.globalData.cictBankObj.citicBankshopProductId || result.data.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || result.data.shopProductId === app.globalData.cictBankObj.wellBankShopProductId) {
+			if (this.data.citicBankshopProductIds.includes(result.data.shopProductId)) {
 				this.setData({
 					citicBank: true
 				});
@@ -509,6 +507,16 @@ Page({
 			if (await this.handlEquityLimit()) {
 				return;
 			}
+		}
+		// 中信银行 白金卡
+		if (this.data.listOfPackages[this.data.choiceIndex].shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || this.data.listOfPackages[this.data.choiceIndex].shopProductId === app.globalData.cictBankObj.cictBankNmPlatinumCard) {
+			this.selectComponent('#popTipComp').show({
+				type: 'five',
+				title: '活动细则',
+				btnCancel: '我再想想',
+				btnconfirm: '我知道了'
+			});
+			return;
 		}
 		// 如果已有订单直接拉起支付
 		if (this.data.shopProductId) {
