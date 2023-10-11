@@ -1,15 +1,42 @@
+import drawQrcode from '../../../utils/qrcode.js';
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 
     data: {
-        isRefresh: false
+        isRefresh: false,
+        isExpire: false,
+        isLogout: false,
+        endTime: 0, // 结束时间
+        qrUrl: 'https://file.cyzl.com/g001/M01/07/08/oYYBAF4DI1KAdQQAAABMmqEDnsc709.svg'
     },
     onLoad (options) {
 
     },
     onShow () {
         // this.getLocations();
+        if (this.data.endTime) {
+            this.expireLogout();
+        } else {
+            this.draws(false);
+        }
+    },
+    draws (obj) {
+        const $this = this;
+        let width = 300 / 750 * wx.getSystemInfoSync().windowWidth;
+        drawQrcode({
+            width: width,
+            height: width,
+            canvasId: 'canvas',
+            text: this.data.qrUrl,
+            _this: $this
+        });
+        $this.setData({
+            isExpire: false,
+            endTime: (new Date()).getTime() + 15 * 1000 // 以毫秒计算
+        });
+        $this.expireLogout();
+        if (obj) $this.setData({isRefresh: false});
     },
     // 查看全部
     showAll () {
@@ -35,6 +62,7 @@ Page({
         this.setData({
             isRefresh: true
         });
+        this.draws(true);
     },
     // 打开地址导航
     nav () {
@@ -86,6 +114,20 @@ Page({
                 }
             }
         });
+    },
+    // 二维码有效期
+    expireLogout () {
+        let spaceTime = this.data.endTime - (new Date()).getTime(); // 时间差(毫秒)
+        if (spaceTime > 0) {
+            setTimeout(() => {
+                this.setData({isExpire: true});
+            }, spaceTime);
+        } else {
+            this.setData({isExpire: true});
+        }
+    },
+    onUnload () {
+        console.log('dsadasd');
     }
 
 });
