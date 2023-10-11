@@ -24,11 +24,11 @@
                     <view class="money">
                         <span wx:if="{{item.pledgePrice}}" >
                             <!-- 支付金额类型为 通行权益金时，文案为“免费” -->
-                            <text wx:if="{{tools.equits(citicBankshopProductIds,item.shopProductId) || item.pledgeType === 5}}" style="color: #2A4F44">免费</text>
+                            <text wx:if="{{tools.equits(citicBankshopProductIds,item.shopProductId)}}" style="color: #2A4F44">免费</text>
                             <text wx:else>￥{{tools.parseNum(item.pledgePrice)/100}}</text>
                         </span>
                         <!-- 空发套餐并且设备免费时，隐藏金额 -->
-                        <span wx:else style="color: #0f0">{{item.productType === 6 ? '' : '免费'}}</span>
+                        <span wx:else style="color: #0f0"></span>
                     </view>
                 </view>
                 <view class="subTitle">{{tools.limitNumber(item.fullName,20)}}</view>
