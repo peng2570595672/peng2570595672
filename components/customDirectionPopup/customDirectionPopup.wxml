@@ -142,7 +142,7 @@
                     <view class="iconfont md1 {{argObj.type === 'add_equity_package' ? index === choiceIndex ? isHeightLight ? 'isHighLight' : 'noHighLight' : 'noHighLight' : ''}}"
                         data-index="{{index}}"
                         catchtap="{{argObj.type === 'add_equity_package' ? 'btnMd1' : ''}}">
-                        <view class="mdLeft {{item.payMoney < 0 ? 'mdLeft-box' : '' }}">
+                        <view class="mdLeft {{item.payMoney === 0 ? 'mdLeft-box' : '' }}">
                             <view class="leftMoney" wx:if="{{item.payMoney > 0}}"><text class="text2">售价￥</text>{{item.payMoney / 100}}</view>
 <!--                            <view class="leftMoney" wx:else>免费</view>-->
                             <view class="iconfont leftDetail {{ activeIndex === index ? isExpand ? 'expand': 'noExpand' : 'noExpand'}}" data-index="{{index}}" catchtap="isExpand">查看详情</view>
