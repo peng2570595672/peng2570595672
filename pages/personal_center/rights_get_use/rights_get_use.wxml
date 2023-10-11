@@ -10,9 +10,10 @@
             </view>
         </view>
         <view class="bgFlex">
-            <view class="qrcode {{ isRefresh || isExpireLogout ? 'invalid' : ''}}">
+            <view class="qrcode {{ isRefresh || isExpire || isLogout ? 'invalid' : ''}}">
                 <canvas style="width: 300rpx;height: 300rpx;" canvas-id="canvas"/>
-                <view class="expireLogout" wx:if="{{isExpireLogout}}">{{'已过期'}}</view>
+                <view class="expire" wx:if="{{isExpire}}">已过期</view>
+                <view class="logout" wx:if="{{isLogout}}">已注销</view>
                 <view class="loading" wx:if="{{isRefresh}}">加载中</view>
             </view>
             <view class="lifespan">30分钟有效 <text class="iconfont refresh {{isRefresh ? 'turn' : ''}}" catchtap="refresh"/></view>

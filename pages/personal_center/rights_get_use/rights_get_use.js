@@ -5,8 +5,9 @@ Page({
 
     data: {
         isRefresh: false,
-        isExpireLogout: false,
-        time: 0,
+        isExpire: false,
+        isLogout: false,
+        endTime: 0, // 结束时间
         qrUrl: 'https://file.cyzl.com/g001/M01/07/08/oYYBAF4DI1KAdQQAAABMmqEDnsc709.svg'
     },
     onLoad (options) {
@@ -14,7 +15,11 @@ Page({
     },
     onShow () {
         // this.getLocations();
-        this.draws(false);
+        if (this.data.endTime) {
+            this.expireLogout();
+        } else {
+            this.draws(false);
+        }
     },
     draws (obj) {
         const $this = this;
@@ -26,7 +31,10 @@ Page({
             text: this.data.qrUrl,
             _this: $this
         });
-        $this.setData({isExpireLogout: false});
+        $this.setData({
+            isExpire: false,
+            endTime: (new Date()).getTime() + 15 * 1000 // 以毫秒计算
+        });
         $this.expireLogout();
         if (obj) $this.setData({isRefresh: false});
     },
@@ -109,9 +117,14 @@ Page({
     },
     // 二维码有效期
     expireLogout () {
-        setTimeout(() => {
-            this.setData({isExpireLogout: true});
-        },5000);
+        let spaceTime = this.data.endTime - (new Date()).getTime(); // 时间差(毫秒)
+        if (spaceTime > 0) {
+            setTimeout(() => {
+                this.setData({isExpire: true});
+            }, spaceTime);
+        } else {
+            this.setData({isExpire: true});
+        }
     },
     onUnload () {
         console.log('dsadasd');
