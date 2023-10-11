@@ -8,6 +8,7 @@ Page({
         isExpire: false,
         isLogout: false,
         endTime: 0, // 结束时间
+        imgUrl: '', // canvas生成的二维码图片
         qrUrl: 'https://file.cyzl.com/g001/M01/07/08/oYYBAF4DI1KAdQQAAABMmqEDnsc709.svg'
     },
     onLoad (options) {
@@ -16,7 +17,7 @@ Page({
     onShow () {
         // this.getLocations();
         if (this.data.endTime) {
-            this.expireLogout();
+            this.expire();
         } else {
             this.draws(false);
         }
@@ -24,19 +25,35 @@ Page({
     draws (obj) {
         const $this = this;
         let width = 300 / 750 * wx.getSystemInfoSync().windowWidth;
-        drawQrcode({
-            width: width,
-            height: width,
-            canvasId: 'canvas',
-            text: this.data.qrUrl,
-            _this: $this
+        const query = wx.createSelectorQuery();
+        query.select('#canvas').fields({node: true,size: true}).exec(() => {
+            // 调用方法drawQrcode生成二维码
+            drawQrcode({
+                width: width,
+                height: width,
+                canvasId: 'canvas',
+                text: this.data.qrUrl,
+                _this: $this
+            });
+
+            // 获取临时路径
+            wx.canvasToTempFilePath({
+                canvasId: 'canvas',
+                success (res) {
+                    console.log(res.tempFilePath);
+                    $this.setData({
+                        isExpire: false,
+                        imgUrl: res.tempFilePath,
+                        endTime: (new Date()).getTime() + 15 * 1000 // 以毫秒计算
+                    });
+                    $this.expire();
+                    if (obj) $this.setData({isRefresh: false});
+                },
+                fail (res) {
+                    console.error(res);
+                }
+            });
         });
-        $this.setData({
-            isExpire: false,
-            endTime: (new Date()).getTime() + 15 * 1000 // 以毫秒计算
-        });
-        $this.expireLogout();
-        if (obj) $this.setData({isRefresh: false});
     },
     // 查看全部
     showAll () {
@@ -116,12 +133,15 @@ Page({
         });
     },
     // 二维码有效期
-    expireLogout () {
-        let spaceTime = this.data.endTime - (new Date()).getTime(); // 时间差(毫秒)
-        if (spaceTime > 0) {
+    expire () {
+        console.log('时间差：',this.data.endTime - (new Date()).getTime());
+        let time = null;
+        // let spaceTime = this.data.endTime - (new Date()).getTime(); // 时间差(毫秒)
+        if (this.data.endTime - (new Date()).getTime() > 0) {
             setTimeout(() => {
+                console.log('你好：',this.data.endTime - (new Date()).getTime());
                 this.setData({isExpire: true});
-            }, spaceTime);
+            }, this.data.endTime - (new Date()).getTime());
         } else {
             this.setData({isExpire: true});
         }

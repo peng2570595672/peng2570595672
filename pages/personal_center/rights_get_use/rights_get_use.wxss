@@ -98,56 +98,65 @@
   text-align: center;
 }
 .index .module1 .bgFlex .qrcode {
+  overflow: hidden;
   margin-top: 20rpx;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-  background: #e4bcbc;
   width: 300rpx;
   height: 300rpx;
+}
+.index .module1 .bgFlex .qrcode .canvas {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 3000rpx;
+}
+.index .module1 .bgFlex .qrcode .img1 {
+  width: 100%;
+  height: 100%;
 }
 .index .module1 .bgFlex .qrcode .expire {
   font-size: 38rpx;
   color: #fff;
   text-align: center;
-  line-height: 210rpx;
+  line-height: 180rpx;
   border-radius: 50%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 70%;
-  height: 70%;
-  background: rgba(0,0,0,0.9);
+  width: 60%;
+  height: 60%;
+  background: rgba(0,0,0,0.8);
 }
 .index .module1 .bgFlex .qrcode .logout {
   font-size: 38rpx;
   color: #fff;
   text-align: center;
-  line-height: 210rpx;
+  line-height: 180rpx;
   border-radius: 50%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 70%;
-  height: 70%;
-  background: rgba(0,0,0,0.9);
+  width: 60%;
+  height: 60%;
+  background: rgba(0,0,0,0.8);
 }
 .index .module1 .bgFlex .qrcode .loading {
   font-size: 38rpx;
   color: #fff;
   text-align: center;
-  line-height: 210rpx;
+  line-height: 180rpx;
   border-radius: 50%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 70%;
-  height: 70%;
-  background: rgba(0,0,0,0.9);
-  background: rgba(0,0,0,0.9);
+  width: 60%;
+  height: 60%;
+  background: rgba(0,0,0,0.8);
 }
 .index .module1 .bgFlex .qrcode.invalid {
   opacity: 0.3;

@@ -34,14 +34,14 @@ flexStyle($align = center, $justify = center)
 pub1()
     font-size 38rpx
     color #FFFFFF
-    textLineCenter(210rpx)
+    textLineCenter(180rpx)
     border-radius 50%
     position absolute
     top 50%
     left 50%
     transform translate(-50%,-50%)
-    mixinsWidthHeight(70%,70%)
-    background rgba(0, 0, 0, 0.9)
+    mixinsWidthHeight(60%,60%)
+    background rgba(0, 0, 0, 0.8)
 .index
     minWidthHeight(100vw,100vh)
     background #F5F5F5
@@ -110,17 +110,22 @@ pub1()
                 margin-top 20rpx
                 text-align center
             .qrcode
+                overflow hidden
                 margin-top 20rpx
                 mixinsPositionPack()
-                background rgb(228, 188, 188)
                 mixinsWidthHeight(300rpx,300rpx)
+                .canvas
+                    mixinsWidthHeight()
+                    position absolute
+                    left 3000rpx
+                .img1
+                    mixinsWidthHeight()
                 .expire
                     pub1()
                 .logout
                     pub1()
                 .loading
                     pub1()
-                    background rgba(0, 0, 0, 0.9)
                 &.invalid
                     opacity 0.3
             .lifespan
