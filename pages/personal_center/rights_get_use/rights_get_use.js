@@ -1,15 +1,34 @@
+import drawQrcode from '../../../utils/qrcode.js';
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 
     data: {
-        isRefresh: false
+        isRefresh: false,
+        isExpireLogout: false,
+        time: 0,
+        qrUrl: 'https://file.cyzl.com/g001/M01/07/08/oYYBAF4DI1KAdQQAAABMmqEDnsc709.svg'
     },
     onLoad (options) {
 
     },
     onShow () {
         // this.getLocations();
+        this.draws(false);
+    },
+    draws (obj) {
+        const $this = this;
+        let width = 300 / 750 * wx.getSystemInfoSync().windowWidth;
+        drawQrcode({
+            width: width,
+            height: width,
+            canvasId: 'canvas',
+            text: this.data.qrUrl,
+            _this: $this
+        });
+        $this.setData({isExpireLogout: false});
+        $this.expireLogout();
+        if (obj) $this.setData({isRefresh: false});
     },
     // 查看全部
     showAll () {
@@ -35,6 +54,7 @@ Page({
         this.setData({
             isRefresh: true
         });
+        this.draws(true);
     },
     // 打开地址导航
     nav () {
@@ -86,6 +106,15 @@ Page({
                 }
             }
         });
+    },
+    // 二维码有效期
+    expireLogout () {
+        setTimeout(() => {
+            this.setData({isExpireLogout: true});
+        },5000);
+    },
+    onUnload () {
+        console.log('dsadasd');
     }
 
 });
