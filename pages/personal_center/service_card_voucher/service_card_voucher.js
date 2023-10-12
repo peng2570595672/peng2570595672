@@ -32,10 +32,10 @@ Page({
 			// {type: 2,name: '停车卷'},
 			// {type: 3,name: '加油券'},
 			// {type: 4,name: '充电券'},
-			{type: 5,name: '洗车券'}
+			{type: 5,name: '洗车券'},
 			// {type: 6,name: '通用券'},
 			// {type: 7,name: '商品消费券'}
-			// {type: 8,name: '药店券'}
+			{type: 8,name: '药店券'}
 		],
 		activeIndex: 0
 	},
@@ -89,10 +89,10 @@ Page({
 			});
 			if (this.data.activeIndex === 0) {
 				that.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
-			} else if (this.data.activeIndex === 1) {
+			} else if (this.data.activeIndex === 1) {	// 小兔洗车券
 				this.getCouponInfo(this.data.currentTab === 2 ? 0 : this.data.currentTab);
 			} else {	// 药店券
-
+				this.getCouponInfo(this.data.currentTab);
 			}
 		}
 	},
@@ -333,6 +333,7 @@ Page({
 		}
 		if (!flag && type === 8) {	// 药店券
 			this.setData({activeIndex: index,list: [],page: 1,currentTab: 0});
+			this.getCouponInfo(this.data.currentTab);
 		}
 	},
 	// 获取券包信息
@@ -372,23 +373,27 @@ Page({
 			util.hideLoading();
 		});
 	},
-	// 跳转小兔详情
-	goXiaoTu (e) {
+	// 跳转小兔详情 || 药诊券权益领取与使用页
+	goUse (e) {
 		util.showLoading();
 		let item = e.currentTarget.dataset.item;
-		let params = {
-			recordId: item.recordId
-		};
-		util.getDataFromServer('consumer/voucher/xiaotu-washcar/auto-login', params, () => {
-			util.showToastNoIcon(res.message);
-		}, (res) => {
-			if (res.code === 0) {
-				util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data.url)}`);
-			} else {
+		if (item.thirdPartyType === 4) {	// 小兔洗车券
+			let params = {
+				recordId: item.recordId
+			};
+			util.getDataFromServer('consumer/voucher/xiaotu-washcar/auto-login', params, () => {
 				util.showToastNoIcon(res.message);
-			}
-		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
-		});
+			}, (res) => {
+				if (res.code === 0) {
+					util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data.url)}`);
+				} else {
+					util.showToastNoIcon(res.message);
+				}
+			}, app.globalData.userInfo.accessToken, () => {
+				util.hideLoading();
+			});
+		} else {
+
+		}
 	}
 });
