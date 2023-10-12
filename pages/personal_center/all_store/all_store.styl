@@ -46,7 +46,7 @@ flexStyle($align = center, $justify = center)
         font-family PingFangSC-Regular, PingFang SC
         box-shadow 0 4rpx 2rpx 0 rgba(255, 255, 255, 0.5)
     .module1
-        mixinsWidthHeight(100vw,100rpx)
+        mixinsWidthHeight(100vw,18rpx)
         .picker
             mixinsWidthHeight(100vw,100rpx)
             font-size: 28rpx;
@@ -56,33 +56,43 @@ flexStyle($align = center, $justify = center)
             top 0rpx
             left 0rpx
     .module2
-        .networkName
-            margin-top 20rpx
-            font-size 28rpx
-            font-weight 500
-            line-height 32rpx
-            text-align justify /* 浏览器可能不支持 */
-            letter-spacing 0rpx
-            color #000000
-        .addrNavPhone
-            margin-top 12rpx
-            flexStyle(center,space-between)
-            & > text
-                width 460rpx
-                font-size 24rpx
-                line-height 28rpx
-                color #333333
-                text-align justify
-                &::before
-                    height 100%
-                    margin-right 8rpx
-                    mixinsIconfont('\e64d',12px,#4B576E)
-            .navPhone
-                width 120rpx
+        flexStyle(center,space-between)
+        .leftImg
+            overflow hidden
+            border-radius 50%
+            flexStyle(center,center)
+            mixinsWidthHeight(80rpx,80rpx)
+            .image
+                mixinsWidthHeight()
+        .rightText
+            width 540rpx
+            .networkName
+                font-size 28rpx
+                font-weight 500
+                line-height 32rpx
+                text-align justify /* 浏览器可能不支持 */
+                letter-spacing 0rpx
+                color #000000
+            .addrNavPhone
+                margin-top 12rpx
                 flexStyle(center,space-between)
-                .nav
+                & > text
+                    width 380rpx
+                    font-size 24rpx
+                    line-height 28rpx
+                    color #333333
+                    text-align justify
+                    flexStyle(center,normal)
                     &::before
-                        mixinsIconfont('\e6bc',18px,#4B576E)
-                .phone
-                    &::before
-                        mixinsIconfont('\e6bd',18px,#4B576E)
+                        height 100%
+                        margin-right 8rpx
+                        mixinsIconfont('\e64d',12px,#4B576E)
+                .navPhone
+                    width 120rpx
+                    flexStyle(center,space-between)
+                    .nav
+                        &::before
+                            mixinsIconfont('\e6bc',18px,#4B576E)
+                    .phone
+                        &::before
+                            mixinsIconfont('\e6bd',18px,#4B576E)

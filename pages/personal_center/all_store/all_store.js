@@ -3,7 +3,8 @@ const app = getApp();
 Page({
 
     data: {
-        region: ['贵州省','遵义市','习水县']
+        region: ['贵州省','遵义市','习水县'],
+        storeList: []
     },
 
     onLoad (options) {
@@ -11,7 +12,31 @@ Page({
     },
 
     onShow () {
-
+        this.getStoreList();
+    },
+    // 商家自发券适用门店列表
+    getStoreList () {
+        util.showLoading();
+        let params = {
+            pageNum: 1,
+            pageSize: 10,
+            recordId: app.globalData.serviceCardVoucherDetails.recordId
+        };
+        util.getDataFromServer('consumer/voucher/merchantCouponShopList', params, () => {
+            util.showToastNoIcon(res.message);
+        }, (res) => {
+            if (res.code === 0) {
+                if (res.data.code === 200) {
+                    this.setData({storeList: res.data.data});
+                } else {
+                    util.showToastNoIcon(res.data.msg);
+                }
+            } else {
+                util.showToastNoIcon(res.message);
+            }
+        }, app.globalData.userInfo.accessToken, () => {
+            util.hideLoading();
+        });
     },
     // 打电话
     phone (e) {

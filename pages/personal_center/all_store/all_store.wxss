@@ -30,7 +30,7 @@
 }
 .index .module1 {
   width: 100vw;
-  height: 100rpx;
+  height: 18rpx;
 }
 .index .module1 .picker {
   width: 100vw;
@@ -44,8 +44,28 @@
   top: 0rpx;
   left: 0rpx;
 }
-.index .module2 .networkName {
-  margin-top: 20rpx;
+.index .module2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.index .module2 .leftImg {
+  overflow: hidden;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80rpx;
+  height: 80rpx;
+}
+.index .module2 .leftImg .image {
+  width: 100%;
+  height: 100%;
+}
+.index .module2 .rightText {
+  width: 540rpx;
+}
+.index .module2 .rightText .networkName {
   font-size: 28rpx;
   font-weight: 500;
   line-height: 32rpx;
@@ -53,38 +73,41 @@
   letter-spacing: 0rpx;
   color: #000;
 }
-.index .module2 .addrNavPhone {
+.index .module2 .rightText .addrNavPhone {
   margin-top: 12rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.index .module2 .addrNavPhone > text {
-  width: 460rpx;
+.index .module2 .rightText .addrNavPhone > text {
+  width: 380rpx;
   font-size: 24rpx;
   line-height: 28rpx;
   color: #333;
   text-align: justify;
+  display: flex;
+  align-items: center;
+  justify-content: normal;
 }
-.index .module2 .addrNavPhone > text::before {
+.index .module2 .rightText .addrNavPhone > text::before {
   height: 100%;
   margin-right: 8rpx;
   content: '\e64d';
   font-size: 12px;
   color: #4b576e;
 }
-.index .module2 .addrNavPhone .navPhone {
+.index .module2 .rightText .addrNavPhone .navPhone {
   width: 120rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.index .module2 .addrNavPhone .navPhone .nav::before {
+.index .module2 .rightText .addrNavPhone .navPhone .nav::before {
   content: '\e6bc';
   font-size: 18px;
   color: #4b576e;
 }
-.index .module2 .addrNavPhone .navPhone .phone::before {
+.index .module2 .rightText .addrNavPhone .navPhone .phone::before {
   content: '\e6bd';
   font-size: 18px;
   color: #4b576e;

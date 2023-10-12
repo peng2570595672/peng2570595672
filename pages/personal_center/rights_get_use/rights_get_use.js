@@ -9,52 +9,65 @@ Page({
         isLogout: false,
         endTime: 0, // 结束时间
         imgUrl: '', // canvas生成的二维码图片
-        qrUrl: 'https://file.cyzl.com/g001/M01/07/08/oYYBAF4DI1KAdQQAAABMmqEDnsc709.svg'
+        storeList: [],
+        couponInfo: {} // 券信息
     },
     onLoad (options) {
-
+        this.getStoreList();
+        this.setData({couponInfo: app.globalData.serviceCardVoucherDetails});
+        console.log(app.globalData.serviceCardVoucherDetails);
     },
     onShow () {
         // this.getLocations();
         if (this.data.endTime) {
             this.expire();
         } else {
-            this.draws(false);
+            this.getQrCodePath(false);
         }
     },
-    draws (obj) {
-        const $this = this;
-        let width = 300 / 750 * wx.getSystemInfoSync().windowWidth;
-        const query = wx.createSelectorQuery();
-        query.select('#canvas').fields({node: true,size: true}).exec(() => {
-            // 调用方法drawQrcode生成二维码
-            drawQrcode({
-                width: width,
-                height: width,
-                canvasId: 'canvas',
-                text: this.data.qrUrl,
-                _this: $this
-            });
-
-            // 获取临时路径
-            wx.canvasToTempFilePath({
-                canvasId: 'canvas',
-                success (res) {
-                    console.log(res.tempFilePath);
-                    $this.setData({
+    // 商家自发券门店核销二维码
+    getQrCodePath (obj) {
+        let params = {
+            recordId: app.globalData.serviceCardVoucherDetails.recordId
+        };
+        util.getDataFromServer('consumer/voucher/medicineDiagGetVerifyQrCode', params, () => {
+            util.showToastNoIcon(res.message);
+        }, (res) => {
+            if (res.code === 0) {
+                if (res.data.code === 200) {
+                    let datas = this.parseBase64(res.data.data.qrCode);
+                    this.setData({
                         isExpire: false,
-                        imgUrl: res.tempFilePath,
+                        imgUrl: datas.data,
+                        isLogout: res.data.data.useStatus === 2,
                         endTime: (new Date()).getTime() + 15 * 1000 // 以毫秒计算
                     });
-                    $this.expire();
-                    if (obj) $this.setData({isRefresh: false});
-                },
-                fail (res) {
-                    console.error(res);
+                    this.expire();
+                    if (obj) this.setData({isRefresh: false});
+                } else {
+                    util.showToastNoIcon(res.data.msg);
                 }
-            });
-        });
+            } else {
+                // if (res.message) {
+
+                // }
+                util.showToastNoIcon(res.message);
+            }
+        }, app.globalData.userInfo.accessToken, () => {});
     },
+    // 从base64编码中解析图片信息
+    parseBase64 (base64) {
+        let re = new RegExp('data:(?<type>.*?);base64,(?<data>.*)');
+        let res = re.exec(base64);
+        if (res) {
+            return {
+                type: res.groups.type,
+                ext: res.groups.type.split('/').slice(-1)[0],
+                data: res.groups.data
+            };
+        }
+    },
+
     // 查看全部
     showAll () {
         util.go(`/pages/personal_center/all_store/all_store`);
@@ -79,7 +92,7 @@ Page({
         this.setData({
             isRefresh: true
         });
-        this.draws(true);
+        this.getQrCodePath(true);
     },
     // 打开地址导航
     nav () {
@@ -134,17 +147,41 @@ Page({
     },
     // 二维码有效期
     expire () {
-        console.log('时间差：',this.data.endTime - (new Date()).getTime());
         let time = null;
-        // let spaceTime = this.data.endTime - (new Date()).getTime(); // 时间差(毫秒)
         if (this.data.endTime - (new Date()).getTime() > 0) {
-            setTimeout(() => {
-                console.log('你好：',this.data.endTime - (new Date()).getTime());
-                this.setData({isExpire: true});
+            time = setTimeout(() => {
+                // console.log('你好：',this.data.endTime - (new Date()).getTime());
+                if (this.data.endTime - (new Date()).getTime() < 0) {
+                    this.setData({isExpire: true});
+                }
             }, this.data.endTime - (new Date()).getTime());
         } else {
             this.setData({isExpire: true});
         }
+    },
+    // 商家自发券适用门店列表
+    getStoreList () {
+        util.showLoading();
+        let params = {
+            pageNum: 1,
+            pageSize: 1,
+            recordId: app.globalData.serviceCardVoucherDetails.recordId
+        };
+        util.getDataFromServer('consumer/voucher/merchantCouponShopList', params, () => {
+            util.showToastNoIcon(res.message);
+        }, (res) => {
+            if (res.code === 0) {
+                if (res.data.code === 200) {
+                    this.setData({storeList: res.data.data});
+                } else {
+                    util.showToastNoIcon(res.data.msg);
+                }
+            } else {
+                util.showToastNoIcon(res.message);
+            }
+        }, app.globalData.userInfo.accessToken, () => {
+            util.hideLoading();
+        });
     },
     onUnload () {
         console.log('dsadasd');

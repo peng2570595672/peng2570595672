@@ -5,24 +5,23 @@
         <view class="couponCode">
             <view class="text1">我的券码</view>
             <view class="couponCodeNum">
-                <text class="text2">{{tools.specification('123456789123456789')}}</text>
+                <text class="text2">{{tools.specification(couponInfo.couponId)}}</text>
                 <text class="copy" bind:tap="copy">复制</text>
             </view>
         </view>
         <view class="bgFlex">
             <view class="qrcode {{ isRefresh || isExpire || isLogout ? 'invalid' : ''}}">
-                <canvas class="canvas" canvas-id="canvas"/>
-                <image class="img1" src="{{imgUrl}}" mode="widthFix" />
+                <image class="img1" src="data:image/png;base64,{{imgUrl}}" mode="widthFix" />
                 <cover-view class="expire" wx:if="{{isExpire}}">已过期</cover-view>
-                <cover-view class="logout" wx:if="{{isLogout}}">已注销</cover-view>
+                <cover-view class="logout" wx:if="{{isLogout}}">已核销</cover-view>
                 <cover-view class="loading" wx:if="{{isRefresh}}">加载中</cover-view>
             </view>
             <view class="lifespan">30分钟有效 <text class="iconfont refresh {{isRefresh ? 'turn' : ''}}" catchtap="refresh"/></view>
         </view>
         <text class="text4">请出示二维码给店铺人员扫码并\n告知使用“<text class="subText4">恒通门店</text>”进行核销</text>
         <view class="lifespanUse">
-            <view class="lifespan">有效期至：{{"2023-12-15 19:00:00"}}</view>
-            <view class="text3">{{100 > 0 ? '满'+ 100.00 + '元可用' : '无门槛'}}</view>
+            <view class="lifespan">有效期至：{{couponInfo.useValidityEndTime}}</view>
+            <view class="text3">{{couponInfo.consumptionThreshold > 0 ? '满'+ couponInfo.consumptionThreshold / 100 + '元可用' : '无门槛'}}</view>
         </view>
     </view>
     <view class="module module2">
@@ -30,14 +29,20 @@
             <view>适用门店</view>
             <view class="iconfont" bind:tap="showAll">查看全部</view>
         </view>
-        <view class="networkName">网点名称</view>
-        <view class="addrNavPhone">
-            <text class="iconfont">这是网点地址，显示完整的地址信息这是网点地址，显示完整的地址信息这是网点地址，显示完整的地址信息</text>
-            <view class="navPhone">
-                <text class="iconfont nav" catchtap="nav"/>
-                <text class="iconfont phone" data-phone="{{'12345678912'}}" catchtap="phone"/>
+        <view class="subMode" wx:for="{{storeList}}" wx:key="*this">
+            <view class="leftImg"><image class="image" src="{{item.coverPicture}}"  mode="widthFix"/></view>
+            <view class="rightText">
+                <view class="networkName">{{item.shopName}}</view>
+                <view class="addrNavPhone">
+                    <text class="iconfont">{{item.address}}</text>
+                    <view class="navPhone">
+                        <text class="iconfont nav" catchtap="nav"/>
+                        <text class="iconfont phone" data-phone="{{item.legalPersonMobile}}" catchtap="phone"/>
+                    </view>
+                </view>
             </view>
         </view>
+        
     </view>
     <popTipComp id="popTipComp" />
 </view>
