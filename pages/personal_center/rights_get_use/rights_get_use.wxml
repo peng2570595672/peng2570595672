@@ -1,6 +1,9 @@
 <wxs src='../../../utils/util.wxs' module='tools' />
 <view class="index">
-    <view class="title"><text class="iconfont">{{'可使用'}}</text></view>
+    <view class="title"><text class="iconfont">
+        <text wx:if="{{isLogout}}">已核销</text>
+        <text wx:else>可使用</text>
+    </text></view>
     <view class="module module1">
         <view class="couponCode">
             <view class="text1">我的券码</view>
@@ -45,4 +48,5 @@
         
     </view>
     <popTipComp id="popTipComp" />
+    <privacy_popup></privacy_popup>
 </view>

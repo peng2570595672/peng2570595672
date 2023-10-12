@@ -32,10 +32,10 @@ Page({
 			// {type: 2,name: '停车卷'},
 			// {type: 3,name: '加油券'},
 			// {type: 4,name: '充电券'},
-			{type: 5,name: '洗车券'}
+			{type: 5,name: '洗车券'},
 			// {type: 6,name: '通用券'},
 			// {type: 7,name: '商品消费券'}
-			// {type: 8,name: '药店券'}
+			{type: 8,name: '药店券'}
 		],
 		activeIndex: 0
 	},

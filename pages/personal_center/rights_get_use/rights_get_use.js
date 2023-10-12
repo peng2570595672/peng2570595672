@@ -34,13 +34,21 @@ Page({
             util.showToastNoIcon(res.message);
         }, (res) => {
             if (res.code === 0) {
+                console.log(res.data.data.useState);
+
+                if (res.data.data.useState === 2) {
+                    this.setData({
+                        isLogout: true,
+                        isRefresh: false
+                    });
+                    return;
+                }
                 if (res.data.code === 200) {
                     let datas = this.parseBase64(res.data.data.qrCode);
                     this.setData({
                         isExpire: false,
                         imgUrl: datas.data,
-                        isLogout: res.data.data.useStatus === 2,
-                        endTime: (new Date()).getTime() + 15 * 1000 // 以毫秒计算
+                        endTime: (new Date()).getTime() + 30 * 60 * 1000 // 以毫秒计算
                     });
                     this.expire();
                     if (obj) this.setData({isRefresh: false});
@@ -48,9 +56,6 @@ Page({
                     util.showToastNoIcon(res.data.msg);
                 }
             } else {
-                // if (res.message) {
-
-                // }
                 util.showToastNoIcon(res.message);
             }
         }, app.globalData.userInfo.accessToken, () => {});
