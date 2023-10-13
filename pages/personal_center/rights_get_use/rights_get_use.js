@@ -158,6 +158,7 @@ Page({
                 // console.log('你好：',this.data.endTime - (new Date()).getTime());
                 if (this.data.endTime - (new Date()).getTime() < 0) {
                     this.setData({isExpire: true});
+                    clearTimeout(time);
                 }
             }, this.data.endTime - (new Date()).getTime());
         } else {

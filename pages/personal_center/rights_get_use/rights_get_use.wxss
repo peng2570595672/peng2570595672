@@ -240,7 +240,6 @@
 .index .module2 .subMode .leftImg {
   overflow: hidden;
   border-radius: 50%;
-  border: 1rpx solid #ccc;
   display: flex;
   align-items: center;
   justify-content: center;
