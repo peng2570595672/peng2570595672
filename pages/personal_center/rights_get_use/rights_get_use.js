@@ -104,8 +104,8 @@ Page({
         util.showToastNoIcon('功能正在维护中，敬请期待！');
         // let item = e.currentTarget.dataset.item;
         // wx.openLocation({
-        //     latitude: parseInt(item.latitude),
-        //     longitude: parseInt(item.longitude),
+        //     latitude: +item.latitude,
+        //     longitude: +item.longitude,
         //     scale: 18,
         //     name: item.brandName,
         //     address: item.address,
@@ -113,7 +113,7 @@ Page({
         //         console.log('成功：',res);
         //     },
         //     fail (res) {
-        //         console.log('失败：',res);
+        //         util.showToastNoIcon(errMsg);
         //     }
         // });
     },
