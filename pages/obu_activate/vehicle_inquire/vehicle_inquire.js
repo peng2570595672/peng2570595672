@@ -171,8 +171,6 @@ Page({
 	fetchOrder () {
 		let carNo = this.data.carNoStr;
 		let vehColor = this.data.vehColor;
-		util.showToastNoIcon('暂无有效订单！');
-		return;
 		util.showLoading();
 		// util.getDataFromServer('consumer-etc/h5/public/get-member-by-carno', {
 		util.getDataFromServer('consumer/order/common/get-member-by-carno', {
