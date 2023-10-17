@@ -1,5 +1,5 @@
 <wxs src='../../utils/util.wxs' module='tools' />
-<navbar title="个人信息" background="transparent"></navbar>
+<navbar title="个人信息" background="transparent" position="absolute"></navbar>
 <view class="my {{isVip ? 'is' : 'no'}}">
     <!-- 顶部user信息 -->
     <view class="user">
@@ -58,7 +58,7 @@
             <view class="funcListLeft">
                 <view class="icon">
                     <view wx:if="{{item.title === '相关协议' && isCheckTwoPercent}}" class="new-left"></view>
-                    <image class="iconImg {{item.url === 'tonTonQuan' ? 'isTon':''}}" src="{{item.img}}" />
+                    <image class="iconImg {{item.url === 'tonTonQuan' || item.url === 'set_up' ? 'isTon':''}}" src="{{item.img}}" />
                 </view>
                 <view class="funcListText">{{item.title}}</view>
             </view>

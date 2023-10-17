@@ -84,7 +84,7 @@ Page({
             title: '拨打电话',
             btnCancel: '取消',
             btnconfirm: '拨打',
-            contant: e.currentTarget.dataset.phone,
+            content: e.currentTarget.dataset.phone,
             callBack: () => {
                 wx.makePhoneCall({
                     phoneNumber: e.currentTarget.dataset.phone

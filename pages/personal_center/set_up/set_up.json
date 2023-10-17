@@ -1,6 +1,6 @@
 {
-    "navigationBarTitleText": "适用门店",
-    "onReachBottomDistance": 0,
+    "navigationBarTitleText": "设置",
+    "navigationBarBackgroundColor": "#EBEDF0",
     "usingComponents": {
         "popTipComp": "/components/popTipComp/popTipComp"
     }

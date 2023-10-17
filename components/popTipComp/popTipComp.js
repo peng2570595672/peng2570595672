@@ -126,10 +126,6 @@ Component({
 		},
 		// 授权提醒
 		async authorizeTip () {
-			// 测试环境这边已经提供机构1:inviteCode=fei321&activityType=1&source=24094&appid=132123    ||  机构2:inviteCode=789xjj&activityType=1&source=24091
-			// let institution1 = 'inviteCode=fei321&activityType=1&source=24094&appid=132123';	// 机构1
-			// let institution2 = 'inviteCode=789xjj&activityType=1&source=24091';	// 机构2
-			// let url = this.data.tipObj.url + '&' + institution2;
 			if (!this.data.getAgreement) return util.showToastNoIcon('请先同意勾选协议');
 			let res = await util.getDataFromServersV2('/consumer/order/pingan/get-bind-veh-url',{});
 			if (!res) return;
@@ -174,11 +170,18 @@ Component({
 					break;
 			}
 		},
-		// 拨打电话
-		callPhone () {
+		// 拨打电话 | 注销账号须知
+		pubFunc1 (e) {
 			this.hide(false);
-			this.data.tipObj.callBack();
+			switch (e.currentTarget.dataset.type) {
+				case 'callPhone':
+				case 'logOffTip':
+				case 'logOffTip2':
+					this.data.tipObj.callBack();
+					break;
+				default:
+					break;
+			}
 		}
-
 	}
 });

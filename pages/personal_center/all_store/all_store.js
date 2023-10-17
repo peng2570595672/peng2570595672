@@ -4,7 +4,9 @@ Page({
 
     data: {
         region: ['贵州省','遵义市','习水县'],
-        storeList: []
+        storeList: [],
+        pageNum: 1,
+        pageSize: 10
     },
 
     onLoad (options) {
@@ -18,8 +20,8 @@ Page({
     getStoreList () {
         util.showLoading();
         let params = {
-            pageNum: 1,
-            pageSize: 10,
+            pageNum: this.data.pageNum,
+            pageSize: this.data.pageSize,
             recordId: app.globalData.serviceCardVoucherDetails.recordId
         };
         util.getDataFromServer('consumer/voucher/merchantCouponShopList', params, () => {
@@ -27,7 +29,8 @@ Page({
         }, (res) => {
             if (res.code === 0) {
                 if (res.data.code === 200) {
-                    this.setData({storeList: res.data.data});
+                    let storeList = this.data.storeList.concat(res.data.data);
+                    this.setData({storeList});
                 } else {
                     util.showToastNoIcon(res.data.msg);
                 }
@@ -45,7 +48,7 @@ Page({
             title: '拨打电话',
             btnCancel: '取消',
             btnconfirm: '拨打',
-            contant: e.currentTarget.dataset.phone,
+            content: e.currentTarget.dataset.phone,
             callBack: () => {
                 wx.makePhoneCall({
                     phoneNumber: e.currentTarget.dataset.phone
@@ -57,9 +60,14 @@ Page({
     nav () {
         util.showToastNoIcon('功能正在维护中，敬请期待！');
     },
+    // 选择地区
     bindRegionChange (e) {
-        console.log(e);
         let regionInfo = e.detail;
         this.setData({region: regionInfo.value});
+    },
+    // 监听用户上拉触底事件
+    onReachBottom (e) {
+        this.setData({pageNum: ++this.data.pageNum});
+        this.getStoreList();
     }
 });

@@ -1,0 +1,64 @@
+.iconfont
+    font-family 'iconfont' !important
+    font-size 16px
+    font-style normal
+    -webkit-font-smoothing antialiased
+    -moz-osx-font-smoothing grayscale
+mixinsWidthHeight($width = 100%, $height = 100%)
+    width $width
+    height $height
+minWidthHeight($width = 100%, $height = 100%)
+    width $width
+    min-height $height
+mixinsIconfont($content='',$size=16px,$color=#5EBE68)
+    content $content
+    font-size $size
+    color $color
+mixinsPositionPack($position=relative)
+    position $position
+    left 50%
+    transform translateX(-50%)
+textLineCenter($height)
+    text-align center
+    line-height $height
+flexStyle($align = center, $justify = center)
+    display flex
+    align-items $align
+    justify-content $justify
+.index
+    minWidthHeight(100vw,100vh)
+    background #EBEDF0
+    &::before
+        display block
+        content ''
+        mixinsWidthHeight(100%,20rpx)
+    &::after
+        display block
+        content ''
+        mixinsWidthHeight(100%,20rpx)
+    .module
+        padding 28rpx
+        margin 20rpx 28rpx
+        border-radius 16rpx
+        background-color #ffffff
+        font-family PingFangSC-Regular, PingFang SC
+        box-shadow 0 4rpx 2rpx 0 rgba(255, 255, 255, 0.5)
+    .module1
+        margin-top 0rpx
+        padding-right 0rpx
+        font-size 24rpx
+        color #262626
+        letter-spacing 0.32rpx
+        .pub1
+            mixinsWidthHeight(100%,60rpx)
+            flexStyle(center,space-between)
+            border-bottom 1rpx solid #E0E0E0
+        .accountCancellation
+            margin-top 20rpx
+            & > text:last-child
+                display block
+                color #ffffff
+                margin-right 28rpx
+                padding 8rpx 34rpx
+                border-radius 30rpx
+                background #2A4F44
