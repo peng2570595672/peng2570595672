@@ -100,7 +100,7 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			util.showToastNoIcon(`${item.couponType === 1 ? '已领取至个人中心-优惠券' : '已领取至个人微信-卡包'}`);
+			util.showToastNoIcon(`${item.couponType === 1 || item.couponType === 5 || item.couponType === 7 || item.couponType === 8 ? '已领取至个人中心-优惠券' : '已领取至个人微信-卡包'}`);
 			this.data.couponList[index].isReceive = 1;
 			if (parseInt(this.data.couponList[index].surplusPeriodNum) > 0) this.data.couponList[index].surplusPeriodNum--;
 			this.setData({

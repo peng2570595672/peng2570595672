@@ -70,7 +70,7 @@
   font-weight: 400;
   color: #FFFFFF;
 }
-.bottom-info .details image{
+.bottom-info .details .image6{
   margin-left: 8rpx;
   width: 20rpx;
   height: 20rpx;

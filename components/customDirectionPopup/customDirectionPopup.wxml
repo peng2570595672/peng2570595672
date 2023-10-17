@@ -158,6 +158,7 @@
                                     <text wx:if="{{item1.couponType === 5 && index1 < 4}}">{{item1.denomination > 0 ? item1.denomination / 100 + '元' : '免费'}}洗车券X{{item1.couponCount}}{{index1 === tools.dataLen(item.detailList)-1 ? '' : index1 > 2 ? '...' : '、'}}</text>
                                     <text wx:if="{{item1.couponType === 6 && index1 < 4}}">{{item1.denomination > 0 ? item1.denomination / 100 + '元' : '免费'}}通用券X{{item1.couponCount}}{{index1 === tools.dataLen(item.detailList)-1 ? '' : index1 > 2 ? '...' : '、'}}</text>
                                     <text wx:if="{{item1.couponType === 7 && index1 < 4}}">{{item1.denomination > 0 ? item1.denomination / 100 + '元' : '免费'}}商品消费券X{{item1.couponCount}}{{index1 === tools.dataLen(item.detailList)-1 ? '' : index1 > 2 ? '...' : '、'}}</text>
+                                    <text wx:if="{{item1.couponType === 8 && index1 < 4}}">{{item1.denomination > 0 ? item1.denomination / 100 + '元' : '免费'}}药店券X{{item1.couponCount}}{{index1 === tools.dataLen(item.detailList)-1 ? '' : index1 > 2 ? '...' : '、'}}</text>
                                 </text>
                             </view>
                         </view>
@@ -177,6 +178,7 @@
                                 <text wx:if="{{item2.couponType === 5}}">洗车券</text>
                                 <text wx:if="{{item2.couponType === 6}}">通用券</text>
                                 <text wx:if="{{item2.couponType === 7}}">商品消费券</text>
+                                <text wx:if="{{item2.couponType === 8}}">药店券</text>
                             </view>
                             <view class="validDay">领后{{item2.minDays}}天有效</view>
                         </view>
@@ -189,6 +191,7 @@
                                 <text wx:if="{{item3.couponType === 5}}">{{item3.denomination > 0 ? item3.denomination / 100 + '元' : '免费' }}洗车券每期最高可{{item.sendMode === 1 ? '手动' : '自动'}}领{{item3.periodCount}}张{{index3 === tools.dataLen(item.detailList) - 1 ? '' : '，' }}</text>
                                 <text wx:if="{{item3.couponType === 6}}">{{item3.denomination > 0 ? item3.denomination / 100 + '元' : '免费' }}通用券每期最高可{{item.sendMode === 1 ? '手动' : '自动'}}领{{item3.periodCount}}张{{index3 === tools.dataLen(item.detailList) - 1 ? '' : '，' }}</text>
                                 <text wx:if="{{item3.couponType === 7}}">{{item3.denomination > 0 ? item3.denomination / 100 + '元' : '免费' }}商品消费券每期最高可{{item.sendMode === 1 ? '手动' : '自动'}}领{{item3.periodCount}}张{{index3 === tools.dataLen(item.detailList) - 1 ? '' : '，' }}</text>
+                                <text wx:if="{{item3.couponType === 8}}">{{item3.denomination > 0 ? item3.denomination / 100 + '元' : '免费' }}药店券每期最高可{{item.sendMode === 1 ? '手动' : '自动'}}领{{item3.periodCount}}张{{index3 === tools.dataLen(item.detailList) - 1 ? '' : '，' }}</text>
                             </text>
                         </view>
                     </view>

@@ -118,8 +118,9 @@ textLineCenter($height)
         background-color #fff
         position relative
     .moduleOne
-        margin-top -200rpx
+        // margin-top -200rpx
     .module
+        margin-top -200rpx
         .title
             height 60rpx
             font-size 44rpx
@@ -141,6 +142,12 @@ textLineCenter($height)
                 color #39812B
             &.sub1
                 text-align center
+            &.sub2
+                text-align justify
+                font-weight normal
+                line-height 46rpx
+                letter-spacing 0rpx
+                color #262626
         .btn
             height 106rpx
             font-size 36rpx
@@ -258,6 +265,8 @@ textLineCenter($height)
                 border 2rpx solid #2A4F44
                 &.subOk
                     width 289rpx
+        .close
+            bottom -120rpx
     // 设备升级
     .moduleSix
         width 100vw
@@ -416,3 +425,26 @@ textLineCenter($height)
                 color #FFFFFF
                 text-align center
                 line-height 60rpx
+    // 
+    .module2
+        .bottomBtn
+            width 100%
+            display flex
+            font-size 36rpx
+            font-weight 400
+            text-align center
+            justify-content center
+            font-family PingFangSC-Regular, PingFang SC
+            .ok
+                display block
+                width 100%
+                height 96rpx
+                color #FFFFFF
+                line-height 96rpx
+                border-radius 54rpx
+                background #2A4F44
+                border 2rpx solid #2A4F44
+                &.subOk
+                    width 390rpx
+        .close
+            bottom -120rpx

@@ -1,0 +1,14 @@
+<view class="index">
+    <view class="module module1">
+        <!-- 授权管理 -->
+        <view class="pub1 authorizeManager" bind:tap="handleAuth">授权管理</view>
+        <!-- 注销账号 -->
+        <view class="pub1 accountCancellation">
+            <text >注销账号</text>
+            <text catch:tap="logOff">注销</text>
+        </view>
+    </view>
+
+    <popTipComp id="popTipComp" />
+    <privacy_popup></privacy_popup>
+</view>

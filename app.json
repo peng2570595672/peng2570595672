@@ -139,7 +139,8 @@
                 "order_triage/order_triage",
                 "exclusive_service/exclusive_service",
                 "rights_get_use/rights_get_use",
-                "all_store/all_store"
+                "all_store/all_store",
+                "set_up/set_up"
             ]
         },
         {
@@ -401,10 +402,10 @@
             "provider": "wx3065d5b05f433be9"
         }
     },
-  "usingComponents": {
-    "privacy_popup": "/components/privacy_popup/privacy_popup"
-  },
-  "__usePrivacyCheck__": true,
+    "usingComponents": {
+        "privacy_popup": "/components/privacy_popup/privacy_popup"
+    },
+    "__usePrivacyCheck__": true,
     "sitemapLocation": "sitemap.json",
     "permission": {
         "scope.userLocation": {
