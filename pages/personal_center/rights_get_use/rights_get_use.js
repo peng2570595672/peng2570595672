@@ -34,8 +34,6 @@ Page({
             util.showToastNoIcon(res.message);
         }, (res) => {
             if (res.code === 0) {
-                console.log(res.data.data.useState);
-
                 if (res.data.data.useState === 2) {
                     this.setData({
                         isLogout: true,
@@ -113,7 +111,7 @@ Page({
         //         console.log('成功：',res);
         //     },
         //     fail (res) {
-        //         util.showToastNoIcon(errMsg);
+        //         util.showToastNoIcon(res.errMsg);
         //     }
         // });
     },

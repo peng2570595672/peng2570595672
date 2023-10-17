@@ -70,7 +70,7 @@ Page({
         //         console.log('成功：',res);
         //     },
         //     fail (res) {
-        //         util.showToastNoIcon(errMsg);
+        //         util.showToastNoIcon(res.errMsg);
         //     }
         // });
     },

@@ -85,8 +85,7 @@
     },
     "requiredPrivateInfos": [
         "chooseAddress",
-        "chooseLocation",
-        "getLocation"
+        "chooseLocation"
     ],
     "subpackages": [
         {
@@ -402,11 +401,11 @@
             "provider": "wx3065d5b05f433be9"
         }
     },
-  "usingComponents": {
-    "privacy_popup": "/components/privacy_popup/privacy_popup"
-  },
-  "__usePrivacyCheck__": true,
-    "sitemapLocation": "sitemap.json",
+    "usingComponents": {
+        "privacy_popup": "/components/privacy_popup/privacy_popup"
+    },
+    "__usePrivacyCheck__": true,
+        "sitemapLocation": "sitemap.json",
     "permission": {
         "scope.userLocation": {
             "desc": "你的位置信息将用于获取当前位置可办理套餐信息"
