@@ -39,7 +39,7 @@
                 <view class="addrNavPhone">
                     <text class="iconfont">{{item.address}}</text>
                     <view class="navPhone">
-                        <text class="iconfont nav" catchtap="nav"/>
+                        <text class="iconfont nav" data-item="{{item}}" catchtap="nav"/>
                         <text class="iconfont phone" data-phone="{{item.legalPersonMobile}}" catchtap="phone"/>
                     </view>
                 </view>

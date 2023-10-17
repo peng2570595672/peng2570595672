@@ -57,8 +57,22 @@ Page({
         });
     },
     // 打开地址导航
-    nav () {
+    nav (e) {
         util.showToastNoIcon('功能正在维护中，敬请期待！');
+        // let item = e.currentTarget.dataset.item;
+        // wx.openLocation({
+        //     latitude: parseInt(item.latitude),
+        //     longitude: parseInt(item.longitude),
+        //     scale: 18,
+        //     name: item.brandName,
+        //     address: item.address,
+        //     success (res) {
+        //         console.log('成功：',res);
+        //     },
+        //     fail (res) {
+        //         console.log('失败：',res);
+        //     }
+        // });
     },
     // 选择地区
     bindRegionChange (e) {
@@ -69,5 +83,6 @@ Page({
     onReachBottom (e) {
         this.setData({pageNum: ++this.data.pageNum});
         this.getStoreList();
-    }
+    },
+    onUnload () { this.setData({storeList: []}); }
 });

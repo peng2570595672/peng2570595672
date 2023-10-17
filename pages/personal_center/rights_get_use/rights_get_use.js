@@ -15,7 +15,7 @@ Page({
     onLoad (options) {
         this.getStoreList();
         this.setData({couponInfo: app.globalData.serviceCardVoucherDetails});
-        console.log(app.globalData.serviceCardVoucherDetails);
+        // console.log(app.globalData.serviceCardVoucherDetails);
     },
     onShow () {
         // this.getLocations();
@@ -100,8 +100,22 @@ Page({
         this.getQrCodePath(true);
     },
     // 打开地址导航
-    nav () {
+    nav (e) {
         util.showToastNoIcon('功能正在维护中，敬请期待！');
+        // let item = e.currentTarget.dataset.item;
+        // wx.openLocation({
+        //     latitude: parseInt(item.latitude),
+        //     longitude: parseInt(item.longitude),
+        //     scale: 18,
+        //     name: item.brandName,
+        //     address: item.address,
+        //     success (res) {
+        //         console.log('成功：',res);
+        //     },
+        //     fail (res) {
+        //         console.log('失败：',res);
+        //     }
+        // });
     },
     // 复制 “我的券码”
     copy () {
@@ -189,8 +203,6 @@ Page({
             util.hideLoading();
         });
     },
-    onUnload () {
-        console.log('dsadasd');
-    }
+    onUnload () {}
 
 });
