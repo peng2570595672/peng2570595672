@@ -34,8 +34,8 @@ Page({
 			{icon: '', title: '1V1专属客服',url: 'exclusive_service',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8O5WAfXwSAAAOCAtM_x0245.svg',show: true},
 			// {icon: '',title: '手机号管理',url: '',img: ''},   //本期先隐藏该项，暂不做功能
 			{icon: '',title: '发票助手',url: 'invoice_assistant',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8OrKABB0VAAAMgE_4pJ8510.svg',show: true},
-			{icon: '',title: '相关协议',url: 'user_agreement',img: 'https://file.cyzl.com/g001/M02/05/C5/oYYBAGT-bQWAXl7LAAABr3MkHt4764.png',show: true}
-			// {icon: '',title: '设置',url: 'set_up',img: 'https://file.cyzl.com/g001/M02/0F/A3/oYYBAGUsoMeALe1TAAACBGRL1Lk732.png',show: true}
+			{icon: '',title: '相关协议',url: 'user_agreement',img: 'https://file.cyzl.com/g001/M02/05/C5/oYYBAGT-bQWAXl7LAAABr3MkHt4764.png',show: true},
+			{icon: '',title: '设置',url: 'set_up',img: 'https://file.cyzl.com/g001/M02/0F/A3/oYYBAGUsoMeALe1TAAACBGRL1Lk732.png',show: true}
 		],
 		myAccountList: [],
 		height: undefined, // 屏幕高度
@@ -475,6 +475,12 @@ Page({
 	},
 	// 跳转
 	async go (e) {
+		// 未登录
+		if (!app.globalData.userInfo?.accessToken) {
+			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+			util.go('/pages/login/login/login');
+			return;
+		}
 		let that = this;
 		let url = e.currentTarget.dataset['url'];
 		if (url === 'loadingService') {
@@ -585,6 +591,12 @@ Page({
 	// ------------------------------------------------------------------------------------------------------
 	// 获取头像和昵称
 	getUserProfiles () {
+		// 未登录
+		if (!app.globalData.userInfo?.accessToken) {
+			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+			util.go('/pages/login/login/login');
+			return;
+		}
 		let personInformation = wx.getStorageSync('person_information');
 		let noVip = 'https://file.cyzl.com/g001/M01/C8/3F/oYYBAGP0VgGAQa01AAAG5Ng7rok991.svg';
 		let yesVip = 'https://file.cyzl.com/g001/M01/C8/3F/oYYBAGP0VdeAZ2uZAAAG57UJ39U085.svg';
@@ -611,6 +623,12 @@ Page({
 	},
 	// 前往个人信息
 	goUserInfo () {
+		// 未登录
+		if (!app.globalData.userInfo?.accessToken) {
+			wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+			util.go('/pages/login/login/login');
+			return;
+		}
 		let that = this;
 		util.go(`/pages/personal_center/personal_information/personal_information?isVip=${that.data.isVip}`);
 	},

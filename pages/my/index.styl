@@ -30,6 +30,10 @@ mixinsIconfont($content='',$size=16px,$color=#5EBE68)
         display block
         content ''
         overflow hidden
+    &::after
+        display block
+        content ''
+        mixinsWidthHeight(,100rpx)
     .user
         mixinsWidthHeight(,96rpx)
         display flex
@@ -208,17 +212,3 @@ mixinsIconfont($content='',$size=16px,$color=#5EBE68)
             mixinsWidthHeight(60rpx,50rpx)
             background url(https://file.cyzl.com/g001/M02/FB/8E/oYYBAGTQm1aAAUdqAAAKUL5LdIs745.png) no-repeat
             background-size cover
-    /* 占位 */
-    .split
-        flex 1
-    // 授权管理
-    .auth
-        text-align center
-        font-size 28rpx
-        font-family PingFangSC-Regular, PingFang SC
-        font-weight 400
-        color rgba(0,0,0,0.5)
-        line-height 40rpx
-        padding-top 32rpx
-        padding-bottom 90rpx
-

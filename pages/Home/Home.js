@@ -437,7 +437,7 @@ Page({
     goPath (e) {
         // 未登录
         let type = +e.currentTarget.dataset.type;
-        if (!app.globalData.userInfo?.accessToken && type === 1) {
+        if (!app.globalData.userInfo?.accessToken) {
             util.go('/pages/login/login/login');
             return;
         }
@@ -502,6 +502,11 @@ Page({
     },
 
     goPathBus () {
+        // 未登录
+        if (!app.globalData.userInfo.accessToken) {
+            util.go('/pages/login/login/login');
+            return;
+        }
         util.go('/pages/default/business_branch_list/business_branch_list');
     },
 

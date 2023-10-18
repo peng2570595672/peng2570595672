@@ -38,6 +38,7 @@
   letter-spacing: 0.32rpx;
 }
 .index .module1 .pub1 {
+  margin-top: 20rpx;
   width: 100%;
   height: 60rpx;
   display: flex;
@@ -45,10 +46,10 @@
   justify-content: space-between;
   border-bottom: 1rpx solid #e0e0e0;
 }
-.index .module1 .accountCancellation {
-  margin-top: 20rpx;
+.index .module1 .pub1.listOne0 {
+  margin-top: 0rpx;
 }
-.index .module1 .accountCancellation > text:last-child {
+.index .module1 .pub1 .accountCancellation {
   display: block;
   color: #fff;
   margin-right: 28rpx;

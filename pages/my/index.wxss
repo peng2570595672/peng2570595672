@@ -26,7 +26,6 @@
 /* 模块二 */
 /* 模块三 */
 /* 模块四 */
-/* 占位 */
 }
 .my::before {
   width: 100%;
@@ -34,6 +33,12 @@
   display: block;
   content: '';
   overflow: hidden;
+}
+.my::after {
+  display: block;
+  content: '';
+  width: 100%;
+  height: 100rpx;
 }
 .my .user {
   width: 100%;
@@ -262,17 +267,4 @@
   height: 50rpx;
   background: url("https://file.cyzl.com/g001/M02/FB/8E/oYYBAGTQm1aAAUdqAAAKUL5LdIs745.png") no-repeat;
   background-size: cover;
-}
-.my .split {
-  flex: 1;
-}
-.my .auth {
-  text-align: center;
-  font-size: 28rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  color: rgba(0,0,0,0.5);
-  line-height: 40rpx;
-  padding-top: 32rpx;
-  padding-bottom: 90rpx;
 }
