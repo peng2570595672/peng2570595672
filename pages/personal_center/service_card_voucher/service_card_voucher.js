@@ -45,7 +45,8 @@ Page({
 	},
 	onShow () {
 		this.setData({
-			list: []
+			list: [],
+			page: 1
 		});
 		if (this.data.activeIndex === 0) {
 			this.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
