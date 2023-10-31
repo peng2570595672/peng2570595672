@@ -132,6 +132,7 @@ Page({
 			try {
 				if (res) {
 					res = JSON.parse(res);
+					// res.data[0].ocrObject.plateNumber = '贵ZQ0101';
 					if (res.code === 0) { // 识别成功
 						app.globalData.handlingOCRType = 0;
 						try {
