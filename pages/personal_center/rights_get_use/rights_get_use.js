@@ -118,7 +118,7 @@ Page({
     // 复制 “我的券码”
     copy () {
         wx.setClipboardData({
-            data: 'data1234567890',
+            data: this.data.couponInfo.couponId,
             success (res) {
                 wx.getClipboardData({
                     success (res) {
