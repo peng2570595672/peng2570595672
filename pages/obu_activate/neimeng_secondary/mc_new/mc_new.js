@@ -170,6 +170,9 @@ Page({
 	// 重置
 	isOver (errMsg) {
 		this.setData({isActivating: 0});
+		if (errMsg && errMsg.includes('访问高速方返回为空')) {
+			errMsg = '激活页与当前设备不匹配，请检查';
+		}
 		errMsg && this.setData({errMsg});
 	},
 	// 激活
