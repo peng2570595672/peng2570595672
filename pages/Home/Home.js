@@ -174,7 +174,6 @@ Page({
         }
     },
     async onShow () {
-        util.getBindGuests();
         this.setData({isAlertToSignObj: ''});
         let pages = getCurrentPages();
         let currentPage = pages[pages.length - 1];
@@ -185,6 +184,7 @@ Page({
         await this.getBackgroundConfiguration();
         if (app.globalData.userInfo.accessToken) {
             util.showLoading();
+            util.getBindGuests();
             await this.getJudgeTwoPercentStatus();
             await util.getUserIsVip();
             await util.getRightAccount();
@@ -695,6 +695,7 @@ Page({
                         app.globalData.openId = result.data.openId;
                         app.globalData.memberId = result.data.memberId;
                         app.globalData.mobilePhone = result.data.mobilePhone;
+                        util.getBindGuests();
                         await this.getJudgeTwoPercentStatus();
                         await util.getUserIsVip();
                         await util.getRightAccount();
