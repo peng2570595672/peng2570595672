@@ -370,7 +370,8 @@
                 "tianjin_secondary/artc/artc",
                 "tianjin_secondary/genvict/genvict",
                 "tianjin_secondary/wj/wj",
-                "tianjin_secondary/wjone9/wjone9"
+                "tianjin_secondary/wjone9/wjone9",
+                "connect_bluetooth_for_hebeigenvict/connect_bluetooth_for_hebeigenvict"
             ]
         },
         {

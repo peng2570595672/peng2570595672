@@ -6,11 +6,14 @@ const obuMenu = require('../libs/obuMenu.js');
 Page({
 	data: {
 		wrapper: false,
-		mask: false
+		mask: false,
+		channel: undefined
 	},
 	onLoad () {
 	},
 	onShow () {
+		let baseInfo = wx.getStorageSync('baseInfo');
+		this.setData({channel: baseInfo.channel});
 	},
 	hide () {
 		this.setData({
@@ -32,6 +35,11 @@ Page({
 		// 	});
 		// 	return;
 		// }
+		// 河北交投
+		if (baseInfo.channel === 23) {
+			util.go('/pages/obu_activate/connect_bluetooth_for_hebeigenvict/connect_bluetooth_for_hebeigenvict');
+			return;
+		}
 		if (baseInfo.obuStatus === 1 || baseInfo.obuStatus === 5) {
 			// 已发行，前往二次激活页面
 			wx.setStorageSync('activate-info', JSON.stringify({

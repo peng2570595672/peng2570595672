@@ -14,12 +14,15 @@
 	</view>
 	<view class="title">2.打开设备蓝牙</view>
 	<view class="sub-title">
-		<view>按一下设备上的按键打开设备蓝牙，</view>
-		<view>开启后设备将会响1声并长亮</view>
+		<view wx:if="{{channel === 23}}">按2下设备上的按键打开设备蓝牙，开启后设备绿灯闪烁</view>
+		<view wx:else>
+			<view>按一下设备上的按键打开设备蓝牙，</view>
+			<view>开启后设备将会响1声并长亮</view>
+		</view>
 	</view>
 	<view class="tips">
 		<view class="label">注意：</view>
-		<view>
+		<view >
 			<view>全程保持车辆熄火状态，避免连接到车载蓝牙</view>
 			<view>保证您的网络正常；请勿退出小程序避免激活失败</view>
 		</view>

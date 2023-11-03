@@ -1,0 +1,15 @@
+<view class="install_step">
+    <image src="../images/bluetooth_obu_new.gif" mode="aspectFit" />
+    <view class="text-wrapper">
+        <view class="title">{{ui.activated ? '设备激活成功' : '设备激活'}}</view>
+        <view class="devName" wx:if="{{ui.getListFailed && !ui.deviceName}}">{{ui.getListFailed ? '请检查手机蓝牙是否开启或者点击重试' : '未发现蓝牙设备'}}</view>
+        <view class="devName" wx:elif="{{ui.showLoading}}">搜索设备中...</view>
+        <view class="devName" wx:else>设备：{{ui.deviceName}} - <text class="{{ui.connectState === 1 ? 'succeed': ''}} {{ui.connectState === 2 ? 'failed': ''}}">{{ui.connectState === -1 ? '连接中...' : ui.connectState === 1 ? '已连接' : ui.connectState === 2 ? '连接失败' : ''}}</text></view>
+        <view class="cardNum" wx:if="{{cardNo}}">卡号：{{cardNo}}</view>
+        <view class="{{ui.msg && !ui.errMsg ? 'ok' :  'errMsg'}}">{{ui.errMsg ? '错误信息：' + ui.errMsg : ui.msg ? ui.msg : ''}}</view>
+    </view>
+    <view class="retry" catchtap="handleRetry" wx:if="{{!ui.isActivating}}">{{ui.connectState !== 1 && ui.getListFailed ? '' : ui.connectState === 1 ? '不是我的,请重试' : ''}}</view>
+    <view class="btns {{ui.isActivating ? 'not-use' : ''}}" catchtap="retry" wx:if="{{!ui.showLoading && (ui.connectState !== -1 || ui.getListFailed) && !ui.activated}}"> {{ui.connectState !== 1 && ui.getListFailed ? '未找到设备，重试' : ui.connectState === 1 ? '我的设备，立即激活' : '未找到设备，重试'}}</view>
+    <view class="btns" wx:if="{{ui.activated}}" catchtap="returnMiniProgram">查看设备详情</view>
+</view>
+<privacy_popup></privacy_popup>

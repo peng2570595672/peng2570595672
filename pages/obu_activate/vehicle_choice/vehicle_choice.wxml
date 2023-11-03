@@ -1,15 +1,15 @@
 <view class="container">
-	<view class="list-box">
-		<view class="title">选择车牌 <text>（审核通过的订单才可进行激活）</text></view>
-		<view class="list">
-			<view wx:for="{{list}}" catchtap="handleVehicle" data-index="{{index}}" wx:key="index" class="item {{activeIndex === index ? 'active' : ''}}">
-				<view wx:if="{{activeIndex === index}}" class="choice iconfont"></view>
+    <view class="list-box">
+        <view class="title">选择车牌 <text>（审核通过的订单才可进行激活）</text></view>
+        <view class="list">
+            <view wx:for="{{list}}" catchtap="handleVehicle" data-index="{{index}}" wx:key="index" class="item {{activeIndex === index ? 'active' : ''}}">
+                <view wx:if="{{activeIndex === index}}" class="choice iconfont"></view>
                 <view class="tips" wx:if="{{item.auditStatus !== 2}}">审核通过后可激活</view>
-				<view class="logo">
-					<image src="../images/{{item.obuStatus === 1 || item.obuStatus === 5 ? 'activated' : 'to_be_activated'}}.png" mode="heightFix"></image>
-				</view>
-				<view class="info">
-					<view class="name">
+                <view class="logo">
+                    <image src="../images/{{item.obuStatus === 1 || item.obuStatus === 5 ? 'activated' : 'to_be_activated'}}.png" mode="heightFix"></image>
+                </view>
+                <view class="info">
+                    <view class="name">
                         <view>{{item.vehPlates}}</view>
                         <view class="status {{item.obuStatus === 1 || item.obuStatus === 5 ? 'activated' : ''}} {{item.obuStatus === 0 && item.auditStatus === 2 ? 'to_be_activated' : ''}}">
                             <view wx:if="{{item.auditStatus === 2}}">
@@ -33,8 +33,8 @@
                             </view>
                         </view>
                     </view>
-                    <!--// ETC卡信息 1-贵州黔通卡 2-内蒙古蒙通卡 3-山东鲁通卡 4-青海青通卡 5-天津速通卡 6-陕西三秦通卡 7-广东粤通卡 8-辽宁辽通卡 9-齐鲁高速鲁通卡 10-湘通卡-->
-					<view class="sub-title">
+                    <!--// ETC卡信息 1-贵州黔通卡 2-内蒙古蒙通卡 3-山东鲁通卡 4-青海青通卡 5-天津速通卡 6-陕西三秦通卡 7-广东粤通卡 8-辽宁辽通卡 9-齐鲁高速鲁通卡 10-湘通卡 23-河北交投-->
+                    <view class="sub-title">
                         {{item.obuCardType === 1 ? '黔通卡' : ''}}
                         {{item.obuCardType === 2 ? '蒙通卡' : ''}}
                         {{item.obuCardType === 3 ? '鲁通卡' : ''}}
@@ -46,11 +46,12 @@
                         {{item.obuCardType === 9 ? '齐鲁通卡' : ''}}
                         {{item.obuCardType === 10 ? '湘通卡' : ''}}
                         {{item.obuCardType === 11 ? '龙通卡' : ''}}
+                        {{item.obuCardType === 23 ? '河北交投' : ''}}
                     </view>
-				</view>
-			</view>
-		</view>
-	</view>
+                </view>
+            </view>
+        </view>
+    </view>
 </view>
 <noticeDialog id="noticeDialog"></noticeDialog>
 <equipment_selection id="choiceEquipment" bindonClickTranslucentHandle="onClickTranslucentHandle"></equipment_selection>
