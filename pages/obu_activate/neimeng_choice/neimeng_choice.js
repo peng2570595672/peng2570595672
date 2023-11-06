@@ -49,6 +49,9 @@ Page({
 						{name: '万集ONE9（插卡式）', subTitle: '质保3年/高速通行95折', img: '../images/etc.png'}
 					]
 				});
+			} else if (obuCardType === 23) {
+				// 河北交投 太行通
+				this.setData({list: [{name: '金溢（无卡式）', subTitle: '质保3年/高速通行95折', img: 'https://file.cyzl.com/g001/M01/DD/02/oYYBAGRd25yAePUUAAACak0wmzQ186.png'}]});
 			}
 		}
 	},
@@ -60,9 +63,9 @@ Page({
 			activeIndex: index
 		});
 		app.globalData.choiceDeviceIndex = index;
-		if (this.data.obuCardType !== 2) {
+		if (this.data.obuCardType !== 2 && this.data.obuCardType !== 23) {	// 插卡式
 			util.go('/pages/obu_activate/guide/index');
-		} else {
+		} else {	// 无卡式
 			util.go('/pages/obu_activate/neimeng_guide/neimeng_guide');
 		}
 	}
