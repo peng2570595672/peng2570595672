@@ -471,8 +471,10 @@ Page({
                     }
                 } else {
                     const list = ['0015', '0016', 'obu', '系统信息'];
+                    const list1 = ['进文件目录', '获取随机数', '执行写文件', '读取OBU设备已经写入的文件'];
                     const tips = list[fileType - 1];
-                    that.isOver(`${tips}-ESAM通道指令执行失败：{code:${res.code},data:${res.data}}`);
+                    const tips1 = list1[type - 1];
+                    that.isOver(`${tips}-ESAM通道指令"${tips1}"失败：{code:${res.code},data:${res.data}}`);
                 }
             });
         } else {
@@ -503,8 +505,10 @@ Page({
                     }
                 } else {
                     const list = ['0015', '0016', 'obu', '系统信息'];
+                    const list1 = ['进文件目录', '获取随机数', '执行写文件', '读取OBU设备已经写入的文件'];
                     const tips = list[fileType - 1];
-                    that.isOver(`${tips}-卡片通道指令执行失败：{code:${res.code},data:${res.data}}`);
+                    const tips1 = list1[type - 1];
+                    that.isOver(`${tips}-卡片通道指令"${tips1}"失败：{code:${res.code},data:${res.data}}`);
                 }
             });
         }
@@ -716,7 +720,6 @@ Page({
         this.setData({
             isUnload: 1
         });
-        console.log('哈哈哈哈哈哈');
         // this.disonnectDevice();
     }
 });
