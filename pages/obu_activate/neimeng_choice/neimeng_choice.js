@@ -62,6 +62,7 @@ Page({
 		this.setData({
 			activeIndex: index
 		});
+		wx.setStorageSync('installGuid', this.data.list[index].name);
 		app.globalData.choiceDeviceIndex = index;
 		if (this.data.obuCardType !== 2 && this.data.obuCardType !== 23) {	// 插卡式
 			util.go('/pages/obu_activate/guide/index');

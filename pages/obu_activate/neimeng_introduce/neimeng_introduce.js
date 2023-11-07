@@ -13,7 +13,11 @@ Page({
 	},
 	onShow () {
 		let baseInfo = wx.getStorageSync('baseInfo');
-		if (!baseInfo) return util.showToastNoIcon('用户信息丢失，请重新打开小程序');
+		let installGuid = wx.getStorageSync('installGuid');
+		if (!baseInfo || !installGuid) return util.showToastNoIcon('用户信息丢失，请重新打开小程序');
+
+		let endIndex = installGuid.indexOf('（') !== -1 ? installGuid.indexOf('（') : installGuid.indexOf('(');
+		wx.setNavigationBarTitle({title: `安装指引-${installGuid.substring(0,endIndex).trim()}`});
 		this.setData({baseInfo: baseInfo});
 	},
 	hide () {

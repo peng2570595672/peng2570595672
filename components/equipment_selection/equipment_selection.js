@@ -33,6 +33,7 @@ Component({
 			}
 		},
 		handleDevice () {
+			wx.setStorageSync('installGuid', this.data.channel === 23 ? '金溢（无卡式）' : '铭创（无卡式）');
 			util.go('/pages/obu_activate/neimeng_guide/neimeng_guide');
 			this.setData({
 				activeIndex: 1
