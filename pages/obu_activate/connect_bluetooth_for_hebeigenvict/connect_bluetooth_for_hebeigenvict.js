@@ -476,7 +476,7 @@ Page({
                     const list1 = ['进文件目录', '获取随机数', '执行写文件', '读取OBU设备已经写入的文件'];
                     const tips = list[fileType - 1];
                     const tips1 = list1[type - 1];
-                    that.isOver(`${tips}-ESAM通道指令"${tips1}"失败：{code:${res.code},data:${res.data}}`);
+                    that.isOver(`${tips}-ESAM通道指令"${tips1}"失败（检查蓝牙是否已断开）：{code:${res.code},data:${res.data}}`);
                 }
             });
         } else {
@@ -510,7 +510,7 @@ Page({
                     const list1 = ['进文件目录', '获取随机数', '执行写文件', '读取OBU设备已经写入的文件'];
                     const tips = list[fileType - 1];
                     const tips1 = list1[type - 1];
-                    that.isOver(`${tips}-卡片通道指令"${tips1}"失败：{code:${res.code},data:${res.data}}`);
+                    that.isOver(`${tips}-卡片通道指令"${tips1}"失败（检查蓝牙是否已断开）：{code:${res.code},data:${res.data}}`);
                 }
             });
         }
@@ -663,7 +663,7 @@ Page({
             obuNo: that.data.ui.obuNo,
             cardNo: that.data.ui.cardNo,
             orderNo: that.data.newOrderNo || app.globalData.orderInfo.orderId, // 订单号
-            orderId: app.globalData.orderId,
+            orderId: app.globalData.orderInfo.orderId,
             result: true // 是否写设备成功，true：写卡签成功；fasle：写卡签失败
         };
         let endUrl = 'writeDeviceResult';
