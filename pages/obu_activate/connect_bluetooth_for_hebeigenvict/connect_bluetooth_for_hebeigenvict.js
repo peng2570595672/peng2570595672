@@ -367,7 +367,7 @@ Page({
                 });
                 that.orderOnline(obuStatus);
             } else {
-                that.isOver(res.message);
+                that.isOver('【二次激活】' + res.message);
             }
         });
     },
@@ -391,7 +391,7 @@ Page({
                 that.setData({handleCount: 0});
             } else if (res.code === 105 && (obuStatus === 1 || obuStatus === 5)) {
                 if (++that.data.handleCount > 4) {
-                    that.isOver(res.message);
+                    that.isOver('【订单发行】' + res.message);
                     that.setData({handleCount: 0});
                     clearTimeout(that.data.timeout);
                     return;
@@ -400,7 +400,7 @@ Page({
                     that.orderOnline(obuStatus);
                 },5000);
             } else {
-                that.isOver(res.message);
+                that.isOver('【订单发行】' + res.message);
                 that.setData({handleCount: 0});
             }
         });
@@ -572,7 +572,7 @@ Page({
                     });
                 }
             } else {
-                that.isOver(res.message);
+                that.isOver(`【${fileType === 3 ? '车辆' : '系统'}写签】` + res.message);
             }
         });
     },
@@ -607,7 +607,7 @@ Page({
         };
         let endUrl = 'writeObuSysConfirm';
         util.getDataFromServer(`${that.data.urlPrefix}/${endUrl}`, params, () => {
-            that.isOver('写标签系统信息确认');
+            that.isOver('写标签系统信息确认失败');
         }, (res) => {
             if (res.code === 0) {
                 if (that.data.obuStatus === 1 || that.data.obuStatus === 5) { // 如果二次激活不用再执行写卡操作
@@ -616,7 +616,7 @@ Page({
                     that.pubFunc2(1,2); // 开始0016写卡
                 }
             } else {
-                that.isOver(res.message);
+                that.isOver('【写标签系统信息确认】' + res.message);
             }
         });
     },
@@ -648,7 +648,7 @@ Page({
                     });
                 }
             } else {
-                that.isOver(res.message);
+                that.isOver(`【${fileType === 1 ? '0015' : '0016'}写卡】` + res.message);
             }
         });
     },
@@ -676,7 +676,7 @@ Page({
                     msg: ''
                 });
             } else {
-                that.isOver(res.message);
+                that.isOver('【设备通知】' + res.message);
             }
         });
     },
