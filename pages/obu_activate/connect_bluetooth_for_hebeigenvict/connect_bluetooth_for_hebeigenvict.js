@@ -389,7 +389,7 @@ Page({
             if (res.code === 0) {
                 that.pubFunc2(1,3);
                 that.setData({handleCount: 0});
-            } else if (res.code === 105) {
+            } else if (res.code === 105 && (obuStatus === 1 || obuStatus === 5)) {
                 if (++that.data.handleCount > 4) {
                     that.isOver(res.message);
                     that.setData({handleCount: 0});
