@@ -341,6 +341,7 @@ Page({
                 if (baseInfo.obuStatus === 1 || baseInfo.obuStatus === 5) {
                     that.secondActive(baseInfo.obuStatus); // 二次激活
                 } else {
+                    that.setData({newOrderNo: ''});
                     that.orderOnline(baseInfo.obuStatus); // 第一次激活
                 }
             } else {
@@ -357,6 +358,7 @@ Page({
         let params = {
             orderId: app.globalData.orderInfo.orderId // 订单ID
         };
+        that.setData({newOrderNo: ''});
         let endUrl = 'secondActive';
         util.getDataFromServer(`${that.data.urlPrefix}/${endUrl}`, params, () => {
             that.isOver('二次激活失败');
