@@ -10,7 +10,7 @@
 					<image src="https://file.cyzl.com/g001/M01/DD/02/oYYBAGRd25yAePUUAAACak0wmzQ186.png" mode="heightFix"></image>
 				</view>
 				<view class="info">
-					<view class="name">铭创（无卡式）</view>
+					<view class="name">{{ channel === 23 ? '金溢' : '铭创'}}（无卡式）</view>
 					<view class="sub-title">质保3年/高速通行95折</view>
 				</view>
 			</view>

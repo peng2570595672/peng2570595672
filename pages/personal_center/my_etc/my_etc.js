@@ -294,6 +294,7 @@ Page({
 				util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${obj.auditStatus}`);
 				break;
 			case 2:// 内蒙 蒙通卡
+			case 23: // 河北交投
 				if (!this.data.choiceEquipment) {
 					this.setData({
 						choiceEquipment: this.selectComponent('#choiceEquipment')
