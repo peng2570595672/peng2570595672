@@ -5,6 +5,13 @@
             "list": [
                 {
                     "name": "",
+                    "pathName": "pages/default/equity_agreement/equity_agreement",
+                    "query": "type=MTnotFees",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
                     "pathName": "pages/obu_activate/hunan/juli/juli",
                     "query": "",
                     "launchMode": "default",
