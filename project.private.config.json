@@ -472,22 +472,8 @@
                 },
                 {
                     "name": "",
-                    "pathName": "pages/default/citic_bank_card_details/citic_bank_card_details",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
                     "pathName": "pages/personal_center/coupon_redemption_centre/coupon_redemption_centre",
                     "query": "isCheckTwoPercent=0",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "中信收银支付成功",
-                    "pathName": "pages/default/citic_bank_pay_res/citic_bank_pay_res",
-                    "query": "",
                     "launchMode": "default",
                     "scene": null
                 },

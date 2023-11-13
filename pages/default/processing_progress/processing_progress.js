@@ -679,9 +679,9 @@ Page({
 		}, (res) => {
 			if (res.code === 0) {
 				if (res.data.refundStatus === 5) {
-					util.go(`/pages/default/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${true}&isWellBank=${this.data.isWellBank}`);
+					util.go(`/pages/bank_card/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${true}&isWellBank=${this.data.isWellBank}`);
 				} else {
-					util.go(`/pages/default/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${false}&isWellBank=${this.data.isWellBank}`);
+					util.go(`/pages/bank_card/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${false}&isWellBank=${this.data.isWellBank}`);
 				}
 				util.hideLoading();
 			} else {

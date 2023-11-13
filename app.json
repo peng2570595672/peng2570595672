@@ -47,10 +47,6 @@
         "pages/default/sms_confirmation/sms_confirmation",
         "pages/default/statement_of_interest/statement_of_interest",
         "pages/default/margin_user_handling_agreement/margin_user_handling_agreement",
-        "pages/default/citic_bank_sign/citic_bank_sign",
-        "pages/default/citicBank_processing_progress/citicBank_processing_progress",
-        "pages/default/citic_bank_card_details/citic_bank_card_details",
-        "pages/default/citic_bank_pay_res/citic_bank_pay_res",
         "pages/default/business_branch_list/business_branch_list"
     ],
     "window": {
@@ -391,6 +387,16 @@
                 "road_rescue_subscribe/road_rescue_subscribe",
                 "road_rescue_receive/road_rescue_receive",
                 "road_rescue_schedule/road_rescue_schedule"
+            ]
+        },
+        {
+            "root": "pages/bank_card",
+            "name": "pages/bank_card",
+            "pages": [
+                "citic_bank_sign/citic_bank_sign",
+                "citicBank_processing_progress/citicBank_processing_progress",
+                "citic_bank_card_details/citic_bank_card_details",
+                "citic_bank_pay_res/citic_bank_pay_res"
             ]
         }
     ],

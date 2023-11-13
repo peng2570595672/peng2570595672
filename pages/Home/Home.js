@@ -1439,7 +1439,7 @@ Page({
         // 	return;
         // }
         if (obj.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId && app.globalData.cictBankObj.citicBankshopProductIds.includes(obj.shopProductId) && !obj.contractStatus) {
-            util.go(`/pages/default/citic_bank_sign/citic_bank_sign`);
+            util.go(`/pages/bank_card/citic_bank_sign/citic_bank_sign`);
             return;
         }
         if (obj.orderType === 31 && obj.auditStatus === 0 && obj.flowVersion !== 1) {
