@@ -560,6 +560,13 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/bank_card/minshen_bank_card_details/minshen_bank_card_details",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

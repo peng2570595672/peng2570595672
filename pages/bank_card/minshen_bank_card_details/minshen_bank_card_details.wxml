@@ -1,0 +1,64 @@
+<view class="index" style="background: {{bgColor}}">
+    <view class="topImg">
+        <image class="image" src="https://file.cyzl.com/g001/M02/16/B0/oYYBAGVR6gGAFrLqAAE-iz0oIDY356.jpg" mode="widthFix" />
+    </view>
+
+    <view class="module cict_bank">
+        <view class="head">为车主量身打造</view>
+        <view class="title">
+            <view class="title_name">民生标准车车卡（白金卡）</view>
+            <view class="title_view" data-index='1' catchtap="viewEquity">查看权益</view>
+        </view>
+        <view class="img">
+            <image class="img_2" src="https://file.cyzl.com/g001/M02/16/B1/oYYBAGVR6oSAUMctAACP5vfK5Kg358.jpg" mode="widthFix" />
+        </view>
+        <view class="title">
+            <view class="title_name">民生标准加油卡</view>
+            <view class="title_view" data-index='2' catchtap="viewEquity">查看权益</view>
+        </view>
+        <view class="img">
+            <image class="img_8" src="https://file.cyzl.com/g001/M02/16/BD/oYYBAGVSE0qAdizAAACFHZai8FA700.jpg" mode="widthFix" />
+            <image class="img_8" src="https://file.cyzl.com/g001/M02/16/BD/oYYBAGVSE-eAWgKGAACqkSkRed4921.jpg" mode="widthFix" />
+        </view>
+        <view class="btnCiti" wx:if="{{citicBank}}">
+            <span class="btn1" style="background: {{bgColor}}" catchtap="citicBankProgress" >{{showhandleOrView ? '继续办理信用卡':'查看信用卡办理进度'}}</span>
+        </view>
+    </view>
+
+    <view class="module current">
+        <view class="head">通行优势</view>
+        <text class="btn1">扣费灵活</text>
+        <view class="flex">
+            <view class="sub_flex" wx:for="{{chargingList}}" wx:key="index">
+                <image class="img_1" src="{{item.img}}" mode="widthFix" />
+                <text class="text_1">{{item.describe1}}</text>
+            </view>
+        </view>
+        <text class="btn1">一站式车主服务</text>
+        <view class="flex">
+            <view class="sub_flex" wx:for="{{carOwnerList}}" wx:key="index">
+                <image class="img_1" src="{{item.img}}" mode="widthFix" />
+                <text class="text_1">{{item.describe1}}</text>
+            </view>
+        </view>
+    </view>
+
+    <view class="module service">
+        <view class="head">售后保障</view>
+        <view class="head1">在线售后 无忧服务</view>
+        <view class="head2">7*24小时在线客服丨1v1专属服务管家</view>
+        <view class="flex">
+            <view class="sub_flex" wx:for="{{serviceList}}" wx:key="index">
+                <image class="img_1" src="{{item.img}}" mode="widthFix" />
+                <text class="text_2">{{item.describe1}}</text>
+            </view>
+        </view>
+    </view>
+
+    <!-- 占位 -->
+    <view class="split"></view>
+    <view class="handleImmediately">
+        <button catchtap="onClickHandle" style="background: {{bgColor}}">{{keepHandle ? '继续办理' : '立即办理'}}</button>
+    </view>
+</view>
+<privacy_popup></privacy_popup>
