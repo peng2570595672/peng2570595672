@@ -706,6 +706,10 @@ Page({
 			util.showToastNoIcon(res.message);
 		}
 	},
+	// 跳转到领券中心-领取洗车券
+	receiveVoucher () {
+		util.go(`/pages/personal_center/coupon_redemption_centre/coupon_redemption_centre`);
+	},
 	onUnload () {
 		if (this.data.type === 'main_process' || app.globalData.isNeedReturnHome) {
 			wx.switchTab({
