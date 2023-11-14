@@ -562,7 +562,7 @@
                     "scene": null
                 },
                 {
-                    "name": "",
+                    "name": "民生套餐活动页",
                     "pathName": "pages/bank_card/minshen_bank_card_details/minshen_bank_card_details",
                     "query": "",
                     "launchMode": "default",

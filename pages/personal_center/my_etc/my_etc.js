@@ -408,7 +408,7 @@ Page({
 		// 	util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
 		// 	return;
 		// }
-		if (obj.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId && app.globalData.cictBankObj.citicBankshopProductIds.includes(obj.shopProductId) && !obj.contractStatus) {
+		if (obj.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId && app.globalData.cictBankObj.citicBankshopProductIds.includes(obj.shopProductId) && obj.contractStatus !== 1) {
 			util.go(`/pages/bank_card/citic_bank_sign/citic_bank_sign`);
 			return;
 		}
