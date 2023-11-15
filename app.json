@@ -111,6 +111,7 @@
                 "invoice_issued_list/invoice_issued_list",
                 "invoice_issued_detail/invoice_issued_detail",
                 "success_tips/success_tips",
+                "user_agreement/user_agreement",
                 "basic_services/basic_services",
                 "the_owner_service/the_owner_service",
                 "characteristic_service/characteristic_service",
@@ -395,7 +396,6 @@
             "name": "pages/agreement_documents",
             "pages": [
                 "agreement/agreement",
-                "user_agreement/user_agreement",
                 "coupon_agreement/coupon_agreement",
                 "equity_agreement/equity_agreement",
                 "privacy_agreement/privacy_agreement",

@@ -217,7 +217,7 @@ Page({
 	carAgreementHandle (e) {
 		let item = e.currentTarget.dataset.item;
 		const path = item.url;
-		util.go(`/pages/${path.includes('qiantong') ? 'truck_handling' : 'default'}/${path}`);
+		util.go(`/pages/${path.includes('qiantong') ? 'truck_handling' : 'agreement_documents'}/${path}`);
 	},
 	// 货车协议
 	truckAgreementHandle (e) {
@@ -270,6 +270,6 @@ Page({
 	},
 	go (e) {
 		let url = e.currentTarget.dataset.url;
-		util.go(`/pages/default/${url}/${url}`);
+		util.go(`/pages/agreement_documents/${url}/${url}`);
 	}
 });
