@@ -238,7 +238,7 @@ Page({
 				break;
 			case 2:
 				// 隐私协议
-				util.go('/pages/default/privacy_agreement/privacy_agreement');
+				util.go('/pages/agreement_documents/privacy_agreement/privacy_agreement');
 				break;
 			case 3:
 				// 保理协议

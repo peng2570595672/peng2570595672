@@ -34,13 +34,13 @@ Page({
 		this.validateAvailable();
 	},
 	handleProtocol () {
-		util.go('/pages/default/equity_agreement/equity_agreement');
+		util.go('/pages/agreement_documents/equity_agreement/equity_agreement');
 	},
 	handleQTProtocol () {
 		util.go('/pages/truck_handling/agreement_for_qiantong_to_charge/agreement');
 	},
 	handlePrivacy () {
-		util.go('/pages/default/privacy_agreement/privacy_agreement');
+		util.go('/pages/agreement_documents/privacy_agreement/privacy_agreement');
 	},
 	// 倒计时
 	startTimer () {

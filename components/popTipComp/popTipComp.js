@@ -138,10 +138,10 @@ Component({
 			}
 		},
 		handleProtocol () {
-			util.go('/pages/default/equity_agreement/equity_agreement?type=QTTwoPercent');
+			util.go('/pages/agreement_documents/equity_agreement/equity_agreement?type=QTTwoPercent');
 		},
 		handleFactoringAgreement () {
-			util.go('/pages/default/equity_agreement/equity_agreement?type=factoringAgreement');
+			util.go('/pages/agreement_documents/equity_agreement/equity_agreement?type=factoringAgreement');
 		},
 		// 同意协议修改2%存量用户签约状态
 		async handleTwoPercentSign () {
@@ -164,7 +164,7 @@ Component({
 			let type = e.currentTarget.dataset.type;
 			switch (type) {
 				case '1':	// 平安获客（平安 隐私协议）
-					util.go(`/pages/default/equity_agreement/equity_agreement?type=pAbindGuests`);
+					util.go(`/pages/agreement_documents/equity_agreement/equity_agreement?type=pAbindGuests`);
 					break;
 				default:
 					break;

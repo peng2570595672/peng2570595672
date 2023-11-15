@@ -5,7 +5,7 @@
             "list": [
                 {
                     "name": "",
-                    "pathName": "pages/default/equity_agreement/equity_agreement",
+                    "pathName": "pages/agreement_documents/equity_agreement/equity_agreement",
                     "query": "type=MTnotFees",
                     "launchMode": "default",
                     "scene": null
@@ -19,7 +19,7 @@
                 },
                 {
                     "name": "activities/pages/activity_icbc_forty_five_theme/index",
-                    "pathName": "pages/default/equity_agreement/equity_agreement",
+                    "pathName": "pages/agreement_documents/equity_agreement/equity_agreement",
                     "query": "type=QTTwoPercent",
                     "launchMode": "default",
                     "scene": null

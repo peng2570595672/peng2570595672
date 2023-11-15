@@ -1,4 +1,4 @@
-// pages/default/margin_user_handling_agreement/margin_user_handling_agreement.js
+// pages/agreement_documents/margin_user_handling_agreement/margin_user_handling_agreement.js
 Page({
 
   /**

@@ -92,19 +92,19 @@ Component({
 		handleAgreement () {
 			console.log(type);
 			if (type === 1) {
-				util.go('/pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement');
+				util.go('/pages/agreement_documents/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement');
 			} else if (type === 2 || type === 3) {
 				util.go('/pages/truck_handling/agreement/agreement');
 			} else if (type === 4) {
-				util.go('/pages/default/free_equipment_agreement/free_equipment_agreement');
+				util.go('/pages/agreement_documents/free_equipment_agreement/free_equipment_agreement');
 			} else if (type === 5 || type === 8) {
-				util.go('/pages/default/agreement/agreement');
+				util.go('/pages/agreement_documents/agreement/agreement');
 			} else if (type === 6) {
-				util.go('/pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement');
+				util.go('/pages/agreement_documents/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement');
 			} else if (type === 7) {
-				util.go('/pages/default/new_self_buy_equipmemnt_agreement/index');
+				util.go('/pages/agreement_documents/new_self_buy_equipmemnt_agreement/index');
 			} else {
-				util.go('/pages/default/agreement/agreement');
+				util.go('/pages/agreement_documents/agreement/agreement');
 			}
 		},
 		handleQiantongAgreement () {
@@ -115,7 +115,7 @@ Component({
 			}
 		},
 		handlePrivacy () {
-			util.go('/pages/default/privacy_agreement/privacy_agreement');
+			util.go('/pages/agreement_documents/privacy_agreement/privacy_agreement');
 		}
 	}
 });

@@ -434,42 +434,42 @@ Page({
 			const timeComparison = util.timeComparison('2023/8/23', this.data.orderInfo.base.addTime);
 			// timeComparison 1-新订单 2-老订单
 			if (item.deliveryType === 1 && (item.productType === 2 || item.productType === 3 || item.productType === 6)) {
-				return util.go(`/pages/default/equity_agreement/equity_agreement?type=${timeComparison === 1 ? 'QTnotFeesNew' : 'QTnotFees'}`);	// 不含注消费
+				return util.go(`/pages/agreement_documents/equity_agreement/equity_agreement?type=${timeComparison === 1 ? 'QTnotFeesNew' : 'QTnotFees'}`);	// 不含注消费
 			}
 			if (item.deliveryType === 3 && (item.productType === 1 || item.productType === 5 || item.productType === 6)) {
-				return util.go(`/pages/default/equity_agreement/equity_agreement?type=${timeComparison === 1 ? 'QTNew' : 'QT'}`);
+				return util.go(`/pages/agreement_documents/equity_agreement/equity_agreement?type=${timeComparison === 1 ? 'QTNew' : 'QT'}`);
 			}
 		}
 		if (item.etcCardId === 2) {
 			if (item.deliveryType === 1 && (item.productType === 2 || item.productType === 3 || item.productType === 6)) {
-				return util.go('/pages/default/equity_agreement/equity_agreement?type=MTnotFees');	// 不含注消费
+				return util.go('/pages/agreement_documents/equity_agreement/equity_agreement?type=MTnotFees');	// 不含注消费
 			}
 			if (item.deliveryType === 3 && (item.productType === 1 || item.productType === 5 || item.productType === 6)) {
-				return util.go('/pages/default/equity_agreement/equity_agreement?type=MT');
+				return util.go('/pages/agreement_documents/equity_agreement/equity_agreement?type=MT');
 			}
 		}
 		// 1-自购设备 2-免费设备 3-自购(其他)
 		if (item?.environmentAttribute === 2) {
-			util.go(`/pages/default/agreement/agreement`);
+			util.go(`/pages/agreement_documents/agreement/agreement`);
 		} else {
-			util.go(`/pages/default/new_self_buy_equipmemnt_agreement/index`);
+			util.go(`/pages/agreement_documents/new_self_buy_equipmemnt_agreement/index`);
 		}
 		// if (item.pledgeType === 4) {
 		// 	// ETC押金办理模式 协议
-		// 	return util.go('/pages/default/margin_user_handling_agreement/margin_user_handling_agreement');
+		// 	return util.go('/pages/agreement_documents/margin_user_handling_agreement/margin_user_handling_agreement');
 		// }
 		// // 1-自购设备 2-免费设备 3-自购(其他)
 		// if (item?.environmentAttribute === 2) {
 		// 	if (item.etcCardId === 1) {
-		// 		util.go(`/pages/default/free_equipment_agreement/free_equipment_agreement`);
+		// 		util.go(`/pages/agreement_documents/free_equipment_agreement/free_equipment_agreement`);
 		// 	} else {
-		// 		util.go(`/pages/default/agreement/agreement`);
+		// 		util.go(`/pages/agreement_documents/agreement/agreement`);
 		// 	}
 		// } else {
 		// 	if (item.isSignTtCoupon === 1) {
-		// 		util.go(`/pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement`);
+		// 		util.go(`/pages/agreement_documents/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement`);
 		// 	} else {
-		// 		util.go(`/pages/default/new_self_buy_equipmemnt_agreement/index`);
+		// 		util.go(`/pages/agreement_documents/new_self_buy_equipmemnt_agreement/index`);
 		// 	}
 		// }
 	},
@@ -478,15 +478,15 @@ Page({
 		util.go('/pages/truck_handling/agreement_for_qiantong_to_charge/agreement');
 	},
 	// onClickGoNMAgreement () {
-	// 	return util.go('/pages/default/equity_agreement/equity_agreement?type=nm');
+	// 	return util.go('/pages/agreement_documents/equity_agreement/equity_agreement?type=nm');
 	// },
 	// 通通券协议
 	onClickGoTTQAgreement1 () {
-		util.go('/pages/default/coupon_agreement/coupon_agreement');
+		util.go('/pages/agreement_documents/coupon_agreement/coupon_agreement');
 	},
 	// 查看隐私协议
 	onClickGoPrivacyHandle () {
-		util.go('/pages/default/privacy_agreement/privacy_agreement');
+		util.go('/pages/agreement_documents/privacy_agreement/privacy_agreement');
 	},
 	// 是否接受协议   点击同意协议并且跳转指定套餐模块
 	onClickAgreementHandle () {
@@ -844,7 +844,7 @@ Page({
 	// 前去相关协议页面
 	goAgreement () {
 		console.log('前去相关协议');
-		util.go('/pages/personal_center/user_agreement/user_agreement');
+		util.go('/pages/agreement_documents/user_agreement/user_agreement');
 	},
 	// 权益点击高亮，不用显示详情弹窗
 	detailsBtn (e) {

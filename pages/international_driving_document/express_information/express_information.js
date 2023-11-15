@@ -310,6 +310,6 @@ Page({
 	},
 	// 查看办理协议
 	onClickGoAgreementHandle () {
-		util.go('/pages/default/agreement/agreement');
+		util.go('/pages/agreement_documents/agreement/agreement');
 	}
 });
