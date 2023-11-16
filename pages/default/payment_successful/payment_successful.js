@@ -3,18 +3,27 @@
  * @desc 信息确认
  */
 const util = require('../../../utils/util.js');
+const {handleJumpHunanMini} = require('../../../utils/utils');
 const app = getApp();
 Page({
 	data: {
 		orderInfo: {},
 		contractStatus: 0, // 1已签约
-		citicBank: false	// false 不是中信银行联名套餐
+		citicBank: false,	// false 不是中信银行联名套餐
+		isHunan: false	// false 不是湖南信科
 	},
 	async onLoad (options) {
 		console.log(options);
 		if (options.citicBank || options.citicBank === 'true') {
 			this.setData({
 				citicBank: true
+			});
+			return;
+		}
+		if (options.isHunan) {
+			// 湖南信科
+			this.setData({
+				isHunan: true
 			});
 			return;
 		}
@@ -53,6 +62,10 @@ Page({
 	},
 	// 微信签约
 	async next () {
+		if (this.data.isHunan) {
+			handleJumpHunanMini(app.globalData.orderInfo.orderId);
+			return;
+		}
 		if (this.data.isRequest) {
 			return;
 		} else {
