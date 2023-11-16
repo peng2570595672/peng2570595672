@@ -29,7 +29,7 @@ Page({
 
     },
     openHandle (url,title) {
-      console.log(url,title);
+      console.log('哈哈',url,title);
         let that = this;
         const fileExtName = '.pdf';
         const randfile = title + fileExtName;
