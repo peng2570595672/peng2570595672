@@ -696,7 +696,7 @@ Page({
                 }
             });
         } else { // 打开pdf
-            util.openPdf(item5.content,item5.title);
+            util.openPdf(item5.content,item5.category);
         }
     }
 });

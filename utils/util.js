@@ -1833,11 +1833,12 @@ async function getBindGuests() {
 /**
  * 打开 .pdf 文件
  * @param {*} url 网络文件的地址
- * @param {*} title 文件名
+ * @param {*} category 协议归类：1-办理协议 2-高速协议 3-隐私协议 4-保理协议 5-通用协议
  */
-function openPdf (url,title) {
+function openPdf (url,category) {
 	const fileExtName = '.pdf';
-	const randfile = title + fileExtName;
+	let name = ['办理协议', '高速协议', '隐私协议', '保理协议', '通用协议'];
+	const randfile = name[category - 1] + fileExtName;
 	const newPath = `${wx.env.USER_DATA_PATH}/${randfile}`; // 定义一个临时路径
 	deletContract(); // 将本地文件删除
 	wx.downloadFile({

@@ -1145,6 +1145,7 @@ Page({
      */
     goAgreementPage (e) {
         let item5 = e.currentTarget.dataset.item;
+        console.log(item5);
         if (item5.contentType === 1) {
             wx.navigateTo({
                 url: '/pages/agreement_documents/background_agreement/background_agreement',
@@ -1154,7 +1155,7 @@ Page({
                 }
             });
         } else { // 打开pdf
-            util.openPdf(item5.content,item5.title);
+            util.openPdf(item5.content,item5.category);
         }
     }
 
