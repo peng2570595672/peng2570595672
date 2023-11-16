@@ -330,7 +330,7 @@ App({
 			// 因微信场景值问题,故未用场景值判断
 			console.log('this.globalData.signAContract');
 			console.log(this.globalData.signAContract);
-			if (res.path === 'pages/default/citic_bank_sign/citic_bank_sign') {
+			if (res.path === 'pages/bank_card/citic_bank_sign/citic_bank_sign') {
 				return;
 			}
 			const {appId} = res.referrerInfo;

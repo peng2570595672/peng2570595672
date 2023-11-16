@@ -341,6 +341,7 @@ Page({
                 if (baseInfo.obuStatus === 1 || baseInfo.obuStatus === 5) {
                     that.secondActive(baseInfo.obuStatus); // 二次激活
                 } else {
+                    that.setData({newOrderNo: ''});
                     that.orderOnline(baseInfo.obuStatus); // 第一次激活
                 }
             } else {
@@ -357,6 +358,7 @@ Page({
         let params = {
             orderId: app.globalData.orderInfo.orderId // 订单ID
         };
+        that.setData({newOrderNo: ''});
         let endUrl = 'secondActive';
         util.getDataFromServer(`${that.data.urlPrefix}/${endUrl}`, params, () => {
             that.isOver('二次激活失败');
@@ -367,7 +369,7 @@ Page({
                 });
                 that.orderOnline(obuStatus);
             } else {
-                that.isOver(res.message);
+                that.isOver('【二次激活】' + res.message);
             }
         });
     },
@@ -389,9 +391,9 @@ Page({
             if (res.code === 0) {
                 that.pubFunc2(1,3);
                 that.setData({handleCount: 0});
-            } else if (res.code === 105) {
+            } else if (res.code === 105 && (obuStatus === 1 || obuStatus === 5)) {
                 if (++that.data.handleCount > 4) {
-                    that.isOver(res.message);
+                    that.isOver('【订单发行】' + res.message);
                     that.setData({handleCount: 0});
                     clearTimeout(that.data.timeout);
                     return;
@@ -400,7 +402,7 @@ Page({
                     that.orderOnline(obuStatus);
                 },5000);
             } else {
-                that.isOver(res.message);
+                that.isOver('【订单发行】' + res.message);
                 that.setData({handleCount: 0});
             }
         });
@@ -474,7 +476,7 @@ Page({
                     const list1 = ['进文件目录', '获取随机数', '执行写文件', '读取OBU设备已经写入的文件'];
                     const tips = list[fileType - 1];
                     const tips1 = list1[type - 1];
-                    that.isOver(`${tips}-ESAM通道指令"${tips1}"失败：{code:${res.code},data:${res.data}}`);
+                    that.isOver(`${tips}-ESAM通道指令"${tips1}"失败（检查蓝牙是否已断开）：{code:${res.code},data:${res.data}}`);
                 }
             });
         } else {
@@ -508,7 +510,7 @@ Page({
                     const list1 = ['进文件目录', '获取随机数', '执行写文件', '读取OBU设备已经写入的文件'];
                     const tips = list[fileType - 1];
                     const tips1 = list1[type - 1];
-                    that.isOver(`${tips}-卡片通道指令"${tips1}"失败：{code:${res.code},data:${res.data}}`);
+                    that.isOver(`${tips}-卡片通道指令"${tips1}"失败（检查蓝牙是否已断开）：{code:${res.code},data:${res.data}}`);
                 }
             });
         }
@@ -572,7 +574,7 @@ Page({
                     });
                 }
             } else {
-                that.isOver(res.message);
+                that.isOver(`【${fileType === 3 ? '车辆' : '系统'}写签】` + res.message);
             }
         });
     },
@@ -607,7 +609,7 @@ Page({
         };
         let endUrl = 'writeObuSysConfirm';
         util.getDataFromServer(`${that.data.urlPrefix}/${endUrl}`, params, () => {
-            that.isOver('写标签系统信息确认');
+            that.isOver('写标签系统信息确认失败');
         }, (res) => {
             if (res.code === 0) {
                 if (that.data.obuStatus === 1 || that.data.obuStatus === 5) { // 如果二次激活不用再执行写卡操作
@@ -616,7 +618,7 @@ Page({
                     that.pubFunc2(1,2); // 开始0016写卡
                 }
             } else {
-                that.isOver(res.message);
+                that.isOver('【写标签系统信息确认】' + res.message);
             }
         });
     },
@@ -648,7 +650,7 @@ Page({
                     });
                 }
             } else {
-                that.isOver(res.message);
+                that.isOver(`【${fileType === 1 ? '0015' : '0016'}写卡】` + res.message);
             }
         });
     },
@@ -661,7 +663,7 @@ Page({
             obuNo: that.data.ui.obuNo,
             cardNo: that.data.ui.cardNo,
             orderNo: that.data.newOrderNo || app.globalData.orderInfo.orderId, // 订单号
-            orderId: app.globalData.orderId,
+            orderId: app.globalData.orderInfo.orderId,
             result: true // 是否写设备成功，true：写卡签成功；fasle：写卡签失败
         };
         let endUrl = 'writeDeviceResult';
@@ -676,7 +678,7 @@ Page({
                     msg: ''
                 });
             } else {
-                that.isOver(res.message);
+                that.isOver('【设备通知】' + res.message);
             }
         });
     },

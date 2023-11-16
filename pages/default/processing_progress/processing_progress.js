@@ -554,6 +554,7 @@ Page({
 				util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${obj.auditStatus}`);
 				break;
 			case 2:// 内蒙 蒙通卡
+			case 23: // 河北交投
 				if (!this.data.choiceEquipment) {
 					this.setData({
 						choiceEquipment: this.selectComponent('#choiceEquipment')
@@ -678,9 +679,9 @@ Page({
 		}, (res) => {
 			if (res.code === 0) {
 				if (res.data.refundStatus === 5) {
-					util.go(`/pages/default/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${true}&isWellBank=${this.data.isWellBank}`);
+					util.go(`/pages/bank_card/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${true}&isWellBank=${this.data.isWellBank}`);
 				} else {
-					util.go(`/pages/default/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${false}&isWellBank=${this.data.isWellBank}`);
+					util.go(`/pages/bank_card/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${false}&isWellBank=${this.data.isWellBank}`);
 				}
 				util.hideLoading();
 			} else {
@@ -704,6 +705,10 @@ Page({
 		} else {
 			util.showToastNoIcon(res.message);
 		}
+	},
+	// 跳转到领券中心-领取洗车券
+	receiveVoucher () {
+		util.go(`/pages/personal_center/coupon_redemption_centre/coupon_redemption_centre`);
 	},
 	onUnload () {
 		if (this.data.type === 'main_process' || app.globalData.isNeedReturnHome) {

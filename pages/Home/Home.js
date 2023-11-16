@@ -1438,8 +1438,8 @@ Page({
         // 	util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
         // 	return;
         // }
-        if (obj.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId && app.globalData.cictBankObj.citicBankshopProductIds.includes(obj.shopProductId) && !obj.contractStatus) {
-            util.go(`/pages/default/citic_bank_sign/citic_bank_sign`);
+        if (obj.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId && app.globalData.cictBankObj.citicBankshopProductIds.includes(obj.shopProductId) && obj.contractStatus !== 1) {
+            util.go(`/pages/bank_card/citic_bank_sign/citic_bank_sign`);
             return;
         }
         if (obj.orderType === 31 && obj.auditStatus === 0 && obj.flowVersion !== 1) {
@@ -1772,6 +1772,9 @@ Page({
     },
     // 跳转ETC订单列表页
     goToMyEtc () {
-        util.go(`/pages/personal_center/my_etc/my_etc`);
+        // util.go(`/pages/personal_center/my_etc/my_etc`);
+        wx.switchTab({
+            url: `/pages/my/index`
+        });
     }
 });

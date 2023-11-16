@@ -5,8 +5,8 @@
         <!-- 支付失败 -->
         <image class="image" wx:else src="https://file.cyzl.com/g001/M01/E4/07/oYYBAGSBOVaAUdkDAAAW6-5hGws005.png" />
     </view>
-    <view class="text" wx:if="{{cictBankPayStatus}}">保证金退还成功！</view>
-    <view class="text" wx:else><text >保证金退还失败 \n 请使用{{text}}信用卡进行支付！</text></view>
+    <view class="text" wx:if="{{cictBankPayStatus}}">预购金退还成功！</view>
+    <view class="text" wx:else><text >预购金退还失败 \n 请使用{{text}}信用卡进行支付！</text></view>
 
     <view class="btn" catchtap="returnPage">退出</view>
 </view>

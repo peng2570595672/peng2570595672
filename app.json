@@ -10,8 +10,6 @@
         "pages/default/index/index",
         "pages/default/receiving_address/receiving_address",
         "pages/default/high_speed_verification_failed/high_speed_verification_failed",
-        "pages/default/agreement/agreement",
-        "pages/default/privacy_agreement/privacy_agreement",
         "pages/default/payment_successful/payment_successful",
         "pages/default/processing_progress/processing_progress",
         "pages/loading_page_for_wx/index",
@@ -31,26 +29,15 @@
         "pages/default/order_audit/order_audit",
         "pages/default/transition_page/transition_page",
         "pages/default/third_party_signing/third_party_signing",
-        "pages/default/coupon_and_etc_agreement/coupon_and_etc_agreement",
-        "pages/default/coupon_agreement/coupon_agreement",
         "pages/landing_page_for_ccb/index",
         "pages/pay/pay",
-        "pages/default/equity_agreement/equity_agreement",
-        "pages/default/new_self_buy_equipmemnt_agreement/index",
         "pages/default/payment_fail/payment_fail",
         "components/pass_the_discount/pass_the_discount",
         "components/follow_accont_prompt/follow_accont_prompt",
-        "pages/default/free_equipment_agreement/free_equipment_agreement",
-        "pages/default/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement",
         "pages/default/trucks/trucks",
         "pages/default/signature_confirmation/signature_confirmation",
         "pages/default/sms_confirmation/sms_confirmation",
         "pages/default/statement_of_interest/statement_of_interest",
-        "pages/default/margin_user_handling_agreement/margin_user_handling_agreement",
-        "pages/default/citic_bank_sign/citic_bank_sign",
-        "pages/default/citicBank_processing_progress/citicBank_processing_progress",
-        "pages/default/citic_bank_card_details/citic_bank_card_details",
-        "pages/default/citic_bank_pay_res/citic_bank_pay_res",
         "pages/default/business_branch_list/business_branch_list"
     ],
     "window": {
@@ -124,13 +111,13 @@
                 "invoice_issued_list/invoice_issued_list",
                 "invoice_issued_detail/invoice_issued_detail",
                 "success_tips/success_tips",
+                "user_agreement/user_agreement",
                 "basic_services/basic_services",
                 "the_owner_service/the_owner_service",
                 "characteristic_service/characteristic_service",
                 "coupon_redemption_centre/coupon_redemption_centre",
                 "coupon_redemption_history/coupon_redemption_history",
                 "service_purchase_record/service_purchase_record",
-                "user_agreement/user_agreement",
                 "order_questions/order_questions",
                 "personal_information/personal_information",
                 "description_of_equity/description_of_equity",
@@ -391,6 +378,33 @@
                 "road_rescue_subscribe/road_rescue_subscribe",
                 "road_rescue_receive/road_rescue_receive",
                 "road_rescue_schedule/road_rescue_schedule"
+            ]
+        },
+        {
+            "root": "pages/bank_card",
+            "name": "pages/bank_card",
+            "pages": [
+                "citic_bank_sign/citic_bank_sign",
+                "citicBank_processing_progress/citicBank_processing_progress",
+                "citic_bank_card_details/citic_bank_card_details",
+                "minshen_bank_card_details/minshen_bank_card_details",
+                "citic_bank_pay_res/citic_bank_pay_res"
+            ]
+        },
+        {
+            "root": "pages/agreement_documents",
+            "name": "pages/agreement_documents",
+            "pages": [
+                "agreement/agreement",
+                "coupon_agreement/coupon_agreement",
+                "equity_agreement/equity_agreement",
+                "privacy_agreement/privacy_agreement",
+                "new_self_buy_equipmemnt_agreement/index",
+                "background_agreement/background_agreement",
+                "free_equipment_agreement/free_equipment_agreement",
+                "coupon_and_etc_agreement/coupon_and_etc_agreement",
+                "self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement",
+                "margin_user_handling_agreement/margin_user_handling_agreement"
             ]
         }
     ],

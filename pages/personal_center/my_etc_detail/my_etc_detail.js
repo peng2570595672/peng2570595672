@@ -490,8 +490,8 @@ Page({
 		// 	util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
 		// 	return;
 		// }
-		if (obj.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId && app.globalData.cictBankObj.citicBankshopProductIds.includes(obj.shopProductId) && !obj.contractStatus) {
-			util.go(`/pages/default/citic_bank_sign/citic_bank_sign`);
+		if (obj.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId && app.globalData.cictBankObj.citicBankshopProductIds.includes(obj.shopProductId) && obj.contractStatus !== 1) {
+			util.go(`/pages/bank_card/citic_bank_sign/citic_bank_sign`);
 			return;
 		}
 		if (obj.orderType === 31 && obj.auditStatus === 0 && obj.flowVersion !== 1) {
@@ -704,6 +704,7 @@ Page({
 				util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${obj.auditStatus}`);
 				break;
 			case 2:// 内蒙 蒙通卡
+			case 23: // 河北交投
 				if (!this.data.choiceEquipment) {
 					this.setData({
 						choiceEquipment: this.selectComponent('#choiceEquipment')

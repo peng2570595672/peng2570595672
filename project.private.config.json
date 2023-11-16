@@ -5,6 +5,13 @@
             "list": [
                 {
                     "name": "",
+                    "pathName": "pages/agreement_documents/equity_agreement/equity_agreement",
+                    "query": "type=MTnotFees",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
                     "pathName": "pages/obu_activate/hunan/juli/juli",
                     "query": "",
                     "launchMode": "default",
@@ -12,7 +19,7 @@
                 },
                 {
                     "name": "activities/pages/activity_icbc_forty_five_theme/index",
-                    "pathName": "pages/default/equity_agreement/equity_agreement",
+                    "pathName": "pages/agreement_documents/equity_agreement/equity_agreement",
                     "query": "type=QTTwoPercent",
                     "launchMode": "default",
                     "scene": null
@@ -465,22 +472,8 @@
                 },
                 {
                     "name": "",
-                    "pathName": "pages/default/citic_bank_card_details/citic_bank_card_details",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
                     "pathName": "pages/personal_center/coupon_redemption_centre/coupon_redemption_centre",
                     "query": "isCheckTwoPercent=0",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "中信收银支付成功",
-                    "pathName": "pages/default/citic_bank_pay_res/citic_bank_pay_res",
-                    "query": "",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -567,12 +560,19 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "民生套餐活动页",
+                    "pathName": "pages/bank_card/minshen_bank_card_details/minshen_bank_card_details",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
     },
     "setting": {
-        "urlCheck": false,
+        "urlCheck": true,
         "compileHotReLoad": true
     },
     "projectname": "etc_plus_mini_2.0",
