@@ -130,7 +130,7 @@
                  当您勾选同意并选购套餐时，即代表您已阅读、理解并接受
                  {{tools.stringToArray(listOfPackages[choiceIndex].agreements)}}
                 <block wx:for="{{listOfPackages[choiceIndex].agreements}}" wx:for-item="item5" wx:for-index="index5" wx:key="index5">
-                    <text class="agreementColor" data-item="{{item5}}" catchtap="goAgreementPage">{{item5.name}}</text>
+                    <text class="agreementColor" data-item="{{item5}}" catchtap="goAgreementPage">{{item5.name}}{{listOfPackages[choiceIndex].agreements.length - 1 === index5 ? '' : '、' }}</text>
                 </block>
                 里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。
                 <text wx:if="{{listOfPackages[choiceIndex].etcCardId === 2}}">[发行方: 内蒙古发行]</text>

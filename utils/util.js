@@ -1820,6 +1820,57 @@ async function getBindGuests() {
 		showToastNoIcon(result.message);
 	}
 };
+/**
+ * 打开 .pdf 文件
+ * @param {*} url 网络文件的地址
+ * @param {*} title 文件名
+ */
+function openPdf (url,title) {
+	const fileExtName = '.pdf';
+	const randfile = title + fileExtName;
+	const newPath = `${wx.env.USER_DATA_PATH}/${randfile}`; // 定义一个临时路径
+	deletContract(); // 将本地文件删除
+	wx.downloadFile({
+		url: url, // 网络文件的地址
+		header: {
+			'content-type': 'application/pdf'
+		},
+		filePath: newPath,
+		success: function (res) {
+			const filePath = res.tempFilePath;
+			wx.openDocument({
+				filePath: newPath,
+				showMenu: true,
+				fileType: 'pdf',
+				success: function (res) {},
+				fail: function (res) {
+					showToastNoIcon(res)
+				}
+			});
+		},
+		fail: function (res) {
+			wx.hideLoading();
+			showToastNoIcon(res)
+		}
+	});
+};
+// 删除本地文件
+function deletContract () {
+	try {
+		let file = wx.getFileSystemManager();
+		file.readdir({
+			dirPath: `${wx.env.USER_DATA_PATH}`,
+			success: (res) => {
+				if (res.files.length > 2) {
+					file.unlink({
+						filePath: `${wx.env.USER_DATA_PATH}/${res.files[0]}`,
+						complete: (res) => {}
+					});
+				}
+			}
+		});
+	} catch (error) {showToastNoIcon(error)}
+}
 module.exports = {
 	setApp,
 	returnMiniProgram,
@@ -1880,5 +1931,6 @@ module.exports = {
 	fangDou,
 	getRightAccount,
 	getUserIsVip,
-	getBindGuests
+	getBindGuests,
+	openPdf
 };
