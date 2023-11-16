@@ -734,6 +734,16 @@ function getTruckHandlingStatus(orderInfo) {
  *  获取订单办理状态 2.0
  */
 function getStatus(orderInfo) {
+	if (orderInfo.obuCardType === 10 && +orderInfo.deviceType === 0) {
+		// 湖南信科
+		if (orderInfo.pledgeStatus === 0) {// 待支付
+			return 3;
+		}
+		if (orderInfo.obuStatus === 0) {// 已支付待激活
+			return 31;
+		}
+		return 32;
+	}
 	if (orderInfo.orderType === 81) {
 		if (orderInfo.pledgeStatus === 0) {// 设备升级 待支付
 			return 24;

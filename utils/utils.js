@@ -1,3 +1,5 @@
+import util from "./util";
+import {IS_TEST} from "../app";
 export function initProductName (orderInfo) {
 	// productProcess 套餐流程 1-微信 2-绑定银行 3-存量卡 4-三类户 5-信用卡
 	if (orderInfo.flowVersion === 4) return 'ETC货车账户'
@@ -198,4 +200,17 @@ export function compare (prop) {
 			return 0;
 		}
 	};
+}
+// 跳转到湖南高速ETC小程序
+export function handleJumpHunanMini (orderId) {
+	// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
+	const url = `/packageA/new-minelssure/routerGo/routerGo?processCode=SJHT&accessNo=${orderId}&promotionCode=88880123`;
+	wx.navigateToMiniProgram({
+		appId: 'wxf546f6c7ccd8fbfe',
+		path: `/pages/homePage/Index/Index?type=redirect&url=${encodeURIComponent(url)}`,
+		envVersion: IS_TEST ? 'trial' : 'release',
+		fail () {
+			showToastNoIcon('调起小程序失败, 请重试！');
+		}
+	});
 }

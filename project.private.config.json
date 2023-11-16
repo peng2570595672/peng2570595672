@@ -5,6 +5,13 @@
             "list": [
                 {
                     "name": "",
+                    "pathName": "pages/personal_center/my_etc/my_etc",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
                     "pathName": "pages/agreement_documents/equity_agreement/equity_agreement",
                     "query": "type=MTnotFees",
                     "launchMode": "default",
@@ -340,13 +347,6 @@
                 {
                     "name": "空发首页",
                     "pathName": "pages/empty_hair/order_inquiry/order_inquiry",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/personal_center/choice_vehicle/choice_vehicle",
                     "query": "",
                     "launchMode": "default",
                     "scene": null

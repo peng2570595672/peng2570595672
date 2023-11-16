@@ -803,6 +803,11 @@ Page({
                     this.setData({isRequest: false});
                     if (res.errMsg === 'requestPayment:ok') {
                         if (this.data.isSalesmanOrder) {
+                            if (this.data.listOfPackages[this.data.activeIndex].etcCardId === 10 && +this.data.listOfPackages[this.data.activeIndex].deviceType === 0) {
+                                // 湖南湘通卡 & 单片机   湖南信科
+                                util.go('/pages/default/payment_successful/payment_successful?isHunan=1');
+                                return;
+                            }
                             if (this.data.orderInfo.base?.flowVersion !== 1) {
                                 // 无需签约
                                 util.go('/pages/default/transition_page/transition_page');

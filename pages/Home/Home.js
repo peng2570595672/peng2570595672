@@ -1,5 +1,6 @@
 import {
-    thirdContractSigning
+    thirdContractSigning,
+    handleJumpHunanMini
 } from '../../utils/utils';
 
 /**
@@ -1353,7 +1354,8 @@ Page({
             26: () => this.onClickViewProcessingProgressHandle(orderInfo), // 订单排队审核中 - 查看进度
             27: () => this.onClickContinueHandle(orderInfo), // 修改资料
             28: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
-            30: () => this.onClickViewProcessingProgressHandle(orderInfo) // 查看进度 - 保证金退回
+            30: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度 - 保证金退回
+            31: () => handleJumpHunanMini(orderInfo.id) // 跳转到湖南高速ETC小程序 - 已支付待激活
         };
         fun[orderInfo.selfStatus].call();
     },
