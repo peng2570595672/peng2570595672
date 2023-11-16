@@ -1,2 +1,7 @@
-<!--pages/agreement_documents/background_agreement/background_agreement.wxml-->
-<text>pages/agreement_documents/background_agreement/background_agreement.wxml</text>
+<view class="protocol">
+    <view >
+        <rich-text nodes="{{agreementContent}}"></rich-text>
+    </view>
+</view>
+
+<privacy_popup></privacy_popup>
