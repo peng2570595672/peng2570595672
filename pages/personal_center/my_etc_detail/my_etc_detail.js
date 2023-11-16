@@ -30,7 +30,6 @@ Page({
 		if (!app.globalData.userInfo.accessToken) {
 			this.login();
 		} else {
-			// if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
 			await util.getMemberStatus();
 			await this.getETCDetail();
 		}
