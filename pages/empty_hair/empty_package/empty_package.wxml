@@ -128,7 +128,6 @@
             </view>
             <view class="agreement" wx:else >
                  当您勾选同意并选购套餐时，即代表您已阅读、理解并接受
-                 {{tools.stringToArray(listOfPackages[choiceIndex].agreements)}}
                 <block wx:for="{{listOfPackages[choiceIndex].agreements}}" wx:for-item="item5" wx:for-index="index5" wx:key="index5">
                     <text class="agreementColor" data-item="{{item5}}" catchtap="goAgreementPage">{{item5.name}}{{listOfPackages[choiceIndex].agreements.length - 1 === index5 ? '' : '、' }}</text>
                 </block>
