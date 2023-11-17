@@ -204,10 +204,11 @@ export function compare (prop) {
 // 跳转到湖南高速ETC小程序
 export function handleJumpHunanMini (orderId) {
 	// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
-	const url = `/packageA/new-minelssure/routerGo/routerGo?processCode=SJHT&accessNo=${orderId}&promotionCode=88880123`;
+	let url = encodeURIComponent(`/packageA/new-mineIssure/routerGo/routerGo?processCode=SJHT&accessNo=${orderId}&promotionCode=88880123`);
+	console.log(`/pages/homePage/Index/Index?type=redirect&url=${url}`);
 	wx.navigateToMiniProgram({
 		appId: 'wxf546f6c7ccd8fbfe',
-		path: `/pages/homePage/Index/Index?type=redirect&url=${encodeURIComponent(url)}`,
+		path: `/pages/homePage/Index/Index?type=redirect&url=${url}`,
 		envVersion: IS_TEST ? 'trial' : 'release',
 		fail () {
 			showToastNoIcon('调起小程序失败, 请重试！');
