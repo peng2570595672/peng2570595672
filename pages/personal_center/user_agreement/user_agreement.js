@@ -2,7 +2,6 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
-		isPassengerCarActivation: false,
 		isTruckActivation: false,
 		isBcoTruckActivation: false,
 		isThree: false,
@@ -28,13 +27,12 @@ Page({
 		// 查询是否欠款
 		await util.getIsArrearage();
 		let [
-			isPassengerCarActivation,
 			isQTAttribute,
 			isNotQTAttribute,
 			isQTNotAttribute,
 			isNotQTNotAttribute,
 			isTTQAttribute
-		] = [false, false, false, false, false, false];
+		] = [false, false, false, false, false];
 
 		let isTruckActivation = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 1); //  货车已激活
 		let isBcoTruckActivation = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 1 && item.flowVersion === 7); //  交行货车已激活
@@ -65,7 +63,6 @@ Page({
 			});
 		}
 		this.setData({
-			isPassengerCarActivation,
 			isObuCardType: isObuCardType,
 			isTruckActivation: isTruckActivation !== -1,
 			isBcoTruckActivation: isBcoTruckActivation !== -1,
@@ -80,17 +77,19 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/system/common/get-usable-agreements', {},'POST',false);
 		if (result.code === 0) {
 			let arr = [];
+			let carAgreementList = [];
 			let arr1 = [...new Set(result.data.map(item => { return item.name; }))];	// 去重
 			for (let index = 0; index < arr1.length; index++) {
 				let count = 1;
 				let arr2 = result.data.filter(item => { if (item.name === arr1[index]) { return item; } });
 				if (arr2.length > 1) {
-					arr2 = arr2.map(item => { item.name = item.name + '(' + count++ + ')'; return item; });
+					carAgreementList = carAgreementList.concat(arr2.map(item => { item.name = item.name + '(' + count++ + ')'; return item; }));
+					continue;
 				}
 				arr = arr.concat(arr2);
 			}
 			this.setData({
-				carAgreementList: arr
+				carAgreementList: carAgreementList.concat(arr)
 			});
 		} else {
 			util.showToastNoIcon(result.message);
