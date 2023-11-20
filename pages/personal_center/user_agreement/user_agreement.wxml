@@ -1,11 +1,11 @@
 
 <view class="index">
     <view class="split"></view>
-    <view class="module moduleOne" wx:if="{{isPassengerCarActivation}}">
+    <view class="module moduleOne">
         <view class="title">客车办理协议</view>
         <view class="iconNameSpot" wx:for="{{carAgreementList}}" wx:key="index" data-item="{{item}}" catchtap="carAgreementHandle">
             <view class="icon iconfont">
-                <view class="new-icon" wx:if="{{item.isNew}}"></view>
+                <view class="new-icon" wx:if="{{item.redDot}}"></view>
             </view>
             <view class="name">{{item.name}}</view>
             <view class="spot {{item.update === 1 ? 'shows' : ''}}"></view>
