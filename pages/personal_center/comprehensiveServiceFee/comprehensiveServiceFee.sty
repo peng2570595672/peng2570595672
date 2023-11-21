@@ -1,0 +1,67 @@
+.content
+  min-height 100vh
+	background #F6F6F6
+	.list-content
+		display flex
+		flex-direction column
+		padding 40rpx 34rpx
+		.item
+			height: 220rpx;
+			background: #FFFFFF;
+			margin-top 20rpx
+			padding-left 30rpx
+			padding-right 30rpx
+			box-shadow: 2rpx 2rpx 23rpx 0rpx rgba(126, 132, 156, 0.1);
+			border-radius: 32rpx;
+			.top
+				display flex
+				padding-top 24rpx
+				font-size: 40rpx;
+				font-family: PingFangSC-Medium, PingFang SC;
+				font-weight: 500;
+				.plate
+					color: #33333D;
+					flex 1
+				.amount
+					color: #1BA566;
+					justify-content flex-end
+			.middle
+				color #66666D
+				font-size 24rpx
+				padding-bottom 8rpx
+				border-bottom 1rpx solid #F1F1F1
+			.bottom
+				height 80rpx
+				display flex
+				align-items center
+				justify-content center
+				.left
+					flex 1
+					color #99999D
+					font-size 24rpx
+				.right
+					display flex
+					font-size 28rpx
+					color #66666D
+					&.green
+						color #1BA566
+				.arrow-icon::after
+					font-size 36rpx
+					display inline-block
+					text-align center
+					content '\e60e'
+					transform scaleX(-1)
+					color rgba(153,153,153,0.22)
+	.no-search
+		text-align center
+		height 100vh
+		image
+			width 320rpx
+			margin 242rpx 0 0rpx
+		view
+			color: #66666D;
+			line-height 44rpx
+			font-size 32rpx
+			font-weight 500
+
+
