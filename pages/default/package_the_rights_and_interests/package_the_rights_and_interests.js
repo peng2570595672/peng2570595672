@@ -936,10 +936,11 @@ Page({
         for (currentIndex; currentIndex < num; currentIndex++) {
             // 后台返回的协议，格式转换
             if (this.data.listOfPackages[currentIndex]?.agreements) {
-                this.setData({
-                    [`listOfPackages[${currentIndex}].agreements`]: JSON.parse(this.data.listOfPackages[currentIndex].agreements)
-                });
+                try {
+                    this.setData({[`listOfPackages[${currentIndex}].agreements`]: JSON.parse(this.data.listOfPackages[currentIndex].agreements)});
+                } catch (error) {}
             }
+            console.log(this.data.listOfPackages[currentIndex].agreements);
             // 加购权益包
             const packageIds = this.data.listOfPackages[currentIndex].rightsPackageIds && this.data.listOfPackages[currentIndex]?.rightsPackageIds.length !== 0;
             if (!packageIds) {
