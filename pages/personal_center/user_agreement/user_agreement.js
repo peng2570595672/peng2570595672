@@ -2,6 +2,7 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		isPassengerCarActivation: false,
 		isTruckActivation: false,
 		isBcoTruckActivation: false,
 		isThree: false,
@@ -27,16 +28,87 @@ Page({
 		// 查询是否欠款
 		await util.getIsArrearage();
 		let [
+			isPassengerCarActivation,
 			isQTAttribute,
 			isNotQTAttribute,
 			isQTNotAttribute,
 			isNotQTNotAttribute,
-			isTTQAttribute
-		] = [false, false, false, false, false];
-
+			isTTQAttribute,
+			isServiceFeeType,
+			isNm,
+			isNotNm,
+			isQTOnlineProcessing,
+			isQTNotOnlineProcessing,
+			isNMOnlineProcessing,
+			isNMNotOnlineProcessing,
+			oldProcessing
+		] = [false, false, false, false, false, false, false, false, false, false, false, false, false];
+		// 客车已激活  黔通自购  非黔通自购  黔通免费  非黔通免费  通通券
+		let QTOrderStatus = 0;// 1-新订单 2-老订单 3-新老订单都存在
+		let QTTwoPercentStatus = 0;// 1-已转化百二 2-未转化百二 3-已转化和未转化均存在
+		app.globalData.myEtcList.map(item => {
+			//  客车已激活
+			isPassengerCarActivation = true;
+			if ((item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 0) {
+				if (item.obuCardType === 1) {
+					const timeComparison = util.timeComparison('2023/8/23', item.addTime);
+					if (timeComparison === 1) {
+						// timeComparison 1-新订单 2-老订单
+						QTOrderStatus = QTOrderStatus > 1 ? 3 : 1;
+					} else {
+						QTOrderStatus = QTOrderStatus === 1 || QTOrderStatus === 3 ? 3 : 2;
+					}
+					if (item.transStatus === 2) {
+						// transStatus 2-百二订单转化成功
+						QTTwoPercentStatus = QTTwoPercentStatus > 1 ? 3 : 1;
+					} else {
+						QTTwoPercentStatus = QTTwoPercentStatus === 1 || QTTwoPercentStatus === 3 ? 3 : 2;
+					}
+					if (item.orderType === 11 || (item.orderType === 71 && item.platformId === '500338116821778433')) {
+						// 邮寄
+						isQTOnlineProcessing = true;
+					} else {
+						isQTNotOnlineProcessing = true;
+					}
+				} else if (item.obuCardType === 2) {
+					if (item.orderType === 11 || (item.orderType === 71 && item.platformId === '500338116821778433') || item.orderType === 81) {
+						// 邮寄
+						isNMOnlineProcessing = true;
+					} else {
+						isNMNotOnlineProcessing = true;
+					}
+				} else {
+					oldProcessing = true;
+				}
+				if (item.obuCardType === 2) {
+					isNm = true;
+				} else {
+					isNotNm = true;
+				}
+				if (item?.environmentAttribute === 2) {
+					// 免费
+					if (item.obuCardType === 1) {
+						isQTNotAttribute = true;
+					} else {
+						isNotQTNotAttribute = true;
+					}
+				} else {
+					if (item.isSignTtCoupon === 1) {
+						isTTQAttribute = true;
+					} else {
+						if (item.obuCardType === 1) {
+							isQTAttribute = true;
+						} else {
+							isNotQTAttribute = true;
+						}
+					}
+				}
+			}
+		});
 		let isTruckActivation = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 1); //  货车已激活
 		let isBcoTruckActivation = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 1 && item.flowVersion === 7); //  交行货车已激活
 		let isObuCardType = app.globalData.myEtcList.findIndex(item => (item.obuCardType === 1 || item.obuCardType === 21)); // 卡类型 (黔通 客车 & 易路通达货车)
+		let isShowCoupon = app.globalData.myEtcList.findIndex(item => (item.isSignTtCoupon === 1 && item.ttContractStatus !== 0)); // 通通券 存在签约或解约
 		console.log(isObuCardType,'==============================卡类型==========================================',isTruckActivation);
 		if (isObuCardType === -1) { // 其他卡
 			let truckAgreementList = [
@@ -63,6 +135,7 @@ Page({
 			});
 		}
 		this.setData({
+			isPassengerCarActivation,
 			isObuCardType: isObuCardType,
 			isTruckActivation: isTruckActivation !== -1,
 			isBcoTruckActivation: isBcoTruckActivation !== -1,
@@ -72,43 +145,79 @@ Page({
 			isTTQAttribute,
 			isNotQTNotAttribute
 		});
-	},
-	async onShow () {
-		const result = await util.getDataFromServersV2('consumer/system/common/get-usable-agreements', {},'POST',false);
-		if (result.code === 0) {
-			let arr = [];
-			let carAgreementList = [];
-			let arr1 = [...new Set(result.data.map(item => { return item.name; }))];	// 去重
-			for (let index = 0; index < arr1.length; index++) {
-				let count = 1;
-				let arr2 = result.data.filter(item => { if (item.name === arr1[index]) { return item; } });
-				if (arr2.length > 1) {
-					carAgreementList = carAgreementList.concat(arr2.map(item => { item.name = item.name + '(' + count++ + ')'; return item; }));
-					continue;
+		if (isPassengerCarActivation) {
+			let carAgreementList = [
+				{id: 0,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement', isShow: oldProcessing},
+				{id: 101,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=QTnotFees', isShow: isQTOnlineProcessing && (QTOrderStatus === 2 || QTOrderStatus === 3) && (QTTwoPercentStatus === 2 || QTTwoPercentStatus === 3), isNew: 1},
+				{id: 102,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=QTnotFeesNew', isShow: isQTOnlineProcessing && (QTOrderStatus === 1 || QTOrderStatus === 3) && (QTTwoPercentStatus === 2 || QTTwoPercentStatus === 3), isNew: 1},
+				{id: 103,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=QT', isShow: isQTNotOnlineProcessing && (QTOrderStatus === 2 || QTOrderStatus === 3) && (QTTwoPercentStatus === 2 || QTTwoPercentStatus === 3), isNew: 1},
+				{id: 104,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=QTNew', isShow: isQTNotOnlineProcessing && (QTOrderStatus === 1 || QTOrderStatus === 3) && (QTTwoPercentStatus === 2 || QTTwoPercentStatus === 3), isNew: 1},
+				// 存在黔通百二转化订单
+				{id: 106,name: '用户服务协议', update: 0, url: 'equity_agreement/equity_agreement?type=QTTwoPercent', isShow: QTOrderStatus && (QTTwoPercentStatus === 1 || QTTwoPercentStatus === 3), isNew: 1},
+				{id: 105,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=MTnotFees', isShow: isNMOnlineProcessing, isNew: 1},
+				{id: 1,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement?type=MT', isShow: isNMNotOnlineProcessing, isNew: 1},
+				// 存在黔通百二转化订单
+				{id: 2,name: 'ETC保理服务协议', update: 0, url: 'equity_agreement/equity_agreement?type=factoringAgreement', isShow: QTOrderStatus && (QTTwoPercentStatus === 1 || QTTwoPercentStatus === 3), isNew: 1},
+				// {id: 1,name: '用户办理协议', update: 0, url: 'free_equipment_agreement/free_equipment_agreement', isShow: isQTNotAttribute},
+				// {id: 2,name: '用户办理协议（权益设备）', update: 0, url: 'self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement', isShow: isTTQAttribute},
+				// {id: 3,name: '用户办理协议（付费设备）', update: 0, url: 'new_self_buy_equipmemnt_agreement/index', isShow: isQTAttribute},
+				// {id: 4,name: '用户办理协议', update: 0, url: 'equity_agreement/equity_agreement', isShow: isServiceFeeType},
+				{id: 5,name: '黔通卡ETC用户协议', update: 0, url: 'agreement_for_qiantong_to_free/agreement', isShow: isQTNotAttribute},
+				{id: 6,name: '黔通卡ETC用户协议', update: 0, url: 'agreement_for_qiantong_to_charge/agreement', isShow: isQTAttribute || isQTNotAttribute},
+				{id: 7,name: '隐私协议', update: 0, url: 'privacy_agreement/privacy_agreement', isShow: true}
+			];
+     console.log(carAgreementList,'=============================');
+     console.log(isObuCardType,'=============================');
+			// if (isObuCardType) { // 其他卡不是黔通
+			// 	carAgreementList = [
+			// 		{id: 0,name: '用户办理协议', update: 0, url: 'agreement/agreement', isShow: isCarActivation !== -1},
+			// 		// {id: 1,name: '用户办理协议', update: 0, url: 'free_equipment_agreement/free_equipment_agreement', isShow: isQTNotAttribute},
+			// 		{id: 5,name: '隐私协议', update: 0, url: 'privacy_agreement/privacy_agreement', isShow: true}
+			// 	];
+			// }
+			carAgreementList = carAgreementList.filter(item => item.isShow === true);
+
+			let arr = [
+				{name: '用户办理协议', count: 0},
+				{name: '黔通卡ETC用户协议', count: 0}
+			];
+			carAgreementList.forEach(item => {
+				const obj = arr.find(it => {
+					return it.name === item.name;
+				});
+				if (obj) {
+					obj.count++;
 				}
-				arr = arr.concat(arr2);
-			}
-			this.setData({
-				carAgreementList: carAgreementList.concat(arr)
 			});
-		} else {
-			util.showToastNoIcon(result.message);
+			carAgreementList = carAgreementList.map((item, index) => {
+				const obj = arr.find((it, i) => {
+					return it.name === item.name;
+				});
+				if ((obj?.name === item.name && item.name === '用户办理协议') && obj?.count > 1) {
+					item.name = item.name + '(' + (index + 1) + ')';
+				}
+				if ((obj?.name === item.name && item.name === '黔通卡ETC用户协议') && obj?.count > 1) {
+					item.name = item.name + '(' + (index + 1 - arr[0].count) + ')';
+				}
+				return item;
+			});
+			this.setData({
+				carAgreementList
+			});
+		}
+		if (isShowCoupon !== -1) {
+			const obj = {id: 9,name: '通通券会员服务协议', update: 0, url: 'coupon_agreement/coupon_agreement', isShow: true};
+			this.data.carAgreementList.push(obj);
+			this.setData({
+				carAgreementList: this.data.carAgreementList
+			});
 		}
 	},
 	// 客车协议
 	carAgreementHandle (e) {
 		let item = e.currentTarget.dataset.item;
-        if (item.contentType === 1) {
-            wx.navigateTo({
-                url: '/pages/agreement_documents/background_agreement/background_agreement',
-                success: function (res) {
-                    // 通过eventChannel向被打开页面传送数据
-                    res.eventChannel.emit('acceptDataFromOpenerPage', { data: item });
-                }
-            });
-        } else { // 打开pdf
-            util.openPdf(item.content,item.category);
-        }
+		const path = item.url;
+		util.go(`/pages/${path.includes('qiantong') ? 'truck_handling' : 'agreement_documents'}/${path}`);
 	},
 	// 货车协议
 	truckAgreementHandle (e) {
