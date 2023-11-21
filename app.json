@@ -127,7 +127,8 @@
                 "exclusive_service/exclusive_service",
                 "rights_get_use/rights_get_use",
                 "all_store/all_store",
-                "set_up/set_up"
+                "set_up/set_up",
+                "comprehensiveServiceFee/comprehensiveServiceFee"
             ]
         },
         {
