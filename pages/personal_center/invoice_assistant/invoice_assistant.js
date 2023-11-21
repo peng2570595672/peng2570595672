@@ -20,15 +20,15 @@ Page({
 	},
 	go (e) {
 		let url = e.currentTarget.dataset.url;
-		if (url === 'invoicing_instructions' || url === 'invoice_issued_list'||url === 'comprehensiveServiceFee') {
+		if (url === 'invoicing_instructions' || url === 'invoice_issued_list') {
 			return util.go(`/pages/personal_center/${url}/${url}`);
 		}
 		if (url === 'toll') {
 			this.selectComponent('#dialog1').show('invoice');
 		}
-		// if (url === 'comprehensiveServiceFee') {
-		// 	this.selectComponent('#dialog1').show('comprehensiveServiceFee');
-		// }
+		if (url === 'comprehensiveServiceFee') {
+			this.selectComponent('#dialog1').show('comprehensiveServiceFee');
+		}
 	},
 	popUp (tes) {
 		console.log(tes);
