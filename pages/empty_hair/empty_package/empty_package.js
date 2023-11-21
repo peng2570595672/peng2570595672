@@ -108,6 +108,7 @@ Page({
         });
     },
     async getOrderInfo () {
+        if (!app.globalData.orderInfo.orderId) return;
         const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
             orderId: app.globalData.orderInfo.orderId,
             dataType: '13'
@@ -129,7 +130,7 @@ Page({
             // serviceFeeType  是否收取权益服务费：0否，1是
             // productType: 套餐类型 1-业务员套餐 2-小程序套餐  3-H5套餐  4-后台办理套餐，5-APi办理  6-空发套餐
             // deliveryType: 1-邮寄 2-线下取货 3-现场办理
-            const timeComparison = util.timeComparison('2023/8/23', this.data.orderInfo.base.addTime);
+            const timeComparison = this.data.orderInfo?.base?.addTime ? util.timeComparison('2023/8/23', this.data.orderInfo?.base?.addTime) : 1;
             // timeComparison 1-新订单 2-老订单
             if (item.deliveryType === 1 && (item.productType === 2 || item.productType === 3 || item.productType === 6)) {
                 return util.go(`/pages/agreement_documents/equity_agreement/equity_agreement?type=${timeComparison === 1 ? 'QTnotFeesNew' : 'QTnotFees'}`);	// 不含注消费
