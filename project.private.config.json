@@ -573,7 +573,8 @@
     },
     "setting": {
         "urlCheck": true,
-        "compileHotReLoad": true
+        "compileHotReLoad": true,
+        "bigPackageSizeSupport": true
     },
     "projectname": "etc_plus_mini_2.0",
     "libVersion": "3.0.1"

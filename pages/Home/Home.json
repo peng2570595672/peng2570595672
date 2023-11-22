@@ -14,5 +14,6 @@
       "equipment_selection": "/components/equipment_selection/equipment_selection",
       "noticeDialog": "/components/notice_dialog/notice_dialog",
       "noticeImgDialog": "/components/notice_img_dialog/notice_img_dialog"
+      
 	}
 }

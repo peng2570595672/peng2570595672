@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "ETC+客服",
+    "usingComponents": {
+        "chat": "plugin://chatbot/chat"
+    }
+}

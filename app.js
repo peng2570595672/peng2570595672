@@ -317,6 +317,7 @@ App({
 	onShow (res) {
 		// 初始化数据
 		this.initData(res);
+		this.customerServicePlugin();
 		if (res.path === 'pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license' ||
 			res.path === 'pages/default/shot_bank_card/shot_bank_card' ||
 			res.path === 'pages/default/information_validation/information_validation' ||
@@ -460,6 +461,40 @@ App({
 		await util.getDataFromServersV2('consumer/etc/qtzl/checkCarChargeType', {
 			orderId: this.globalData.orderInfo.orderId
 		});
+	},
+	// 在线客服
+	customerServicePlugin () {
+		let plugin = requirePlugin('chatbot');
+		util.showLoading();
+		wx.login({
+            success: async (res) => {
+                const result = await util.getDataFromServersV2(
+                    'consumer/member/common/applet/code', {
+						platformId: this.globalData.platformId, // 平台id
+                        code: res.code // 从微信获取的code
+                    }, 'POST', false);
+                if (!result) return;
+                if (result.code === 0) {
+					console.log(result);
+					plugin.init({
+						appid: 'mDGnTJ7eVYkBhhTPrMQuioUnes1dVJ', // 微信对话开放平台中应用绑定小程序插件appid
+						openid: result.data.openId, // 小程序用户的openid，必填项
+						userHeader: '', // 用户头像,不传会弹出登录框
+						userName: '', // 用户昵称,不传会弹出登录框
+						anonymous: false, // 是否允许匿名用户登录，版本1.2.9后生效, 默认为false，设为true时，未传递userName、userHeader两个字段时将弹出登录框
+						success: (res) => { console.log(res); },// 非必填
+						fail: (error) => { console.log(error); }// 非必填
+					});
+                } else {
+                    util.hideLoading();
+                    util.showToastNoIcon(result.message);
+                }
+            },
+            fail: () => {
+                util.hideLoading();
+                util.showToastNoIcon('登录失败！');
+            }
+        });
 	}
 
 });
