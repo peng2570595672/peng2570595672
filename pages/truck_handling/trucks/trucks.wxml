@@ -1,6 +1,6 @@
 <view>
 <view class="top">
-  <image src="../assets/top.png" class="img"></image>
+  <image src="https://file.cyzl.com/g001/M02/19/67/oYYBAGVdpLeATmhLAAA5jZ6_Ypw530.png" class="img"></image>
   <view class="box">
       <view class="h3">货车专用ETC</view>
       <view class="exp">全国高速<text class="yellow">95</text>折起</view>
@@ -13,19 +13,19 @@
   <view class="h4">办理流程</view>
   <view class="step">
     <view>
-      <image src="../assets/huoche1.png" class="image"></image>
+      <image src="https://file.cyzl.com/g001/M02/19/67/oYYBAGVdpRGAK1aFAAABw-lXq7c023.png" class="image"></image>
       <view class="line">填写信息</view>
     </view>
     <view>
-      <image src="../assets/huoche6.png" class="image"></image>
+      <image src="https://file.cyzl.com/g001/M02/19/67/oYYBAGVdpSmAXqv8AAACKxIgOj8759.png" class="image"></image>
       <view class="line">预充通行费</view>
     </view>
     <view>
-      <image src="../assets/huoche2.png" class="image"></image>
+      <image src="https://file.cyzl.com/g001/M02/19/67/oYYBAGVdpUmAPGhCAAACPzNoNps334.png" class="image"></image>
       <view class="line">快递到家</view>
     </view>
     <view>
-      <image src="../assets/huoche3.png" class="image"></image>
+      <image src="https://file.cyzl.com/g001/M02/19/67/oYYBAGVdpVyAZdBTAAACQ_2Yino615.png" class="image"></image>
       <view>安装激活</view>
     </view>
   </view>
@@ -34,25 +34,25 @@
   <view class="step">
     <view>
       <view class="item">
-        <image src="../assets/huoche8.png" class="imgs sfz"></image>
+        <image src="https://file.cyzl.com/g001/M02/19/67/oYYBAGVdpYCAey5cAAAEzeUEePQ891.png" class="imgs sfz"></image>
       </view>
       <view>车主身份证</view>
     </view>
     <view>
       <view class="item">
-      <image src="../assets/huoche7.png" class="imgs sfz"></image>
+      <image src="https://file.cyzl.com/g001/M02/19/67/oYYBAGVdpZeAPL-9AAAD8rJhcBY524.png" class="imgs sfz"></image>
       </view>
       <view>行驶证</view>
     </view>
     <view>
       <view class="item">
-      <image src="../assets/huoche4.png" class="imgs ysz"></image>
+      <image src="https://file.cyzl.com/g001/M02/19/67/oYYBAGVdpaqAQqulAAADONz7zWk268.png" class="imgs ysz"></image>
     </view>
       <view>道路运输证<view class="minx">牵引车上传</view></view>
     </view>
     <view>
       <view class="item">
-      <image src="../assets/huoche5.png" class="imgs cc"></image>
+      <image src="https://file.cyzl.com/g001/M02/19/67/oYYBAGVdpbyANN60AAACiLSra1o965.png" class="imgs cc"></image>
       </view>
       <view>车辆照片</view>
     </view>

@@ -34,7 +34,7 @@
 				      class="rights-and-interests-item iconfont {{activeEquitiesIndex === index ? 'item-active' : ''}}"
 				      catchtap="showRightsAndInterests" data-index="{{index}}">
 					<view class="left">
-						<image src="/pages/default/assets/equities_of_coupons.png" mode="widthFix"></image>
+						<image src="https://file.cyzl.com/g001/M02/19/6C/oYYBAGVdr6WATFn3AAALw4iAySo173.svg" mode="widthFix"></image>
 					</view>
 					<view class="middle">
 						<view class="item-title">{{item.packageName}}</view>

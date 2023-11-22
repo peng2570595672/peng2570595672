@@ -26,7 +26,7 @@ Page({
 			{title: '生活服务享精彩', subTitle: '价值100元+'}
 		],
 		characteristicServiceList: [
-			{title: '中国石油特惠加油', ico: 'service_of_oil', logo: '/pages/default/assets/service_of_oil.svg'}
+			{title: '中国石油特惠加油', ico: 'service_of_oil', logo: 'https://file.cyzl.com/g001/M02/19/6A/oYYBAGVdqimAfsekAAANOgAA3Ug751.svg'}
 			// {title: '高速通行享2倍积分', ico: 'service_of_integral', logo: '/pages/default/assets/service_of_integral.svg'}
 		],
 		serviceList: [
@@ -66,23 +66,23 @@ Page({
 					{
 						title: '各大视频会员充值4.5折起',
 						logoList: [
-							'/pages/default/assets/life_of_tencent_video.svg',
-							'/pages/default/assets/life_of_aiqiyi.svg',
-							'/pages/default/assets/life_of_tudou.svg',
-							'/pages/default/assets/life_of_mangguo.svg'
+							'https://file.cyzl.com/g001/M02/19/6F/oYYBAGVdtMCATIsQAAAKRkHdarM591.svg',
+							'https://file.cyzl.com/g001/M02/19/6D/oYYBAGVdsESAPu6UAAAskKqRn0U979.svg',
+							'https://file.cyzl.com/g001/M02/19/6F/oYYBAGVds_6AWEIWAAAWVFq7sZc523.svg',
+							'https://file.cyzl.com/g001/M02/19/6F/oYYBAGVdtDSAIHogAAAQIMcMJJY418.svg'
 						]
 					},
 					{
 						title: '各大音频会员充值5折起',
 						logoList: [
-							'/pages/default/assets/life_of_qq_music.svg',
-							'/pages/default/assets/life_of_xmly.svg'
+							'https://file.cyzl.com/g001/M02/19/6D/oYYBAGVdsHKAQGG8AAAgefm1PGM764.svg',
+							'https://file.cyzl.com/g001/M02/19/6D/oYYBAGVdsAeANnetAABMyxbFcmc740.svg'
 						]
 					},
 					{
 						title: '大牌美食优惠持续上新',
 						logoList: [
-							'/pages/default/assets/life_of_elm.svg'
+							'https://file.cyzl.com/g001/M02/19/6F/oYYBAGVdtJiAXR7LAAAKt045law708.svg'
 						]
 					}
 				]
@@ -92,7 +92,7 @@ Page({
 				list: [
 					{
 						// ico: 'service_of_oil',
-						logo: '/pages/default/assets/service_of_oil.svg',
+						logo: 'https://file.cyzl.com/g001/M02/19/6A/oYYBAGVdqimAfsekAAANOgAA3Ug751.svg',
 						title: '中国石油特惠加油',
 						describe: `
 							ETC一卡双用：通行+加油

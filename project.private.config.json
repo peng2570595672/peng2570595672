@@ -5,6 +5,20 @@
             "list": [
                 {
                     "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1176251612268597248",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "ETC详情",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1174740748386439168",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
                     "pathName": "pages/personal_center/my_etc/my_etc",
                     "query": "",
                     "launchMode": "default",
@@ -32,15 +46,8 @@
                     "scene": null
                 },
                 {
-                    "name": "ETC详情",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1151189183000219648",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
                     "name": "",
-                    "pathName": "pages/default/choose_bank_and_bind_veh/choose_bank_and_bind_veh",
+                    "pathName": "pages/historical_pattern/choose_bank_and_bind_veh/choose_bank_and_bind_veh",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
@@ -84,13 +91,6 @@
                     "name": "",
                     "pathName": "pages/default/processing_progress/processing_progress",
                     "query": "orderId=1146890708092063744",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1125812532318441472",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -572,7 +572,7 @@
         }
     },
     "setting": {
-        "urlCheck": true,
+        "urlCheck": false,
         "compileHotReLoad": true,
         "bigPackageSizeSupport": true
     },

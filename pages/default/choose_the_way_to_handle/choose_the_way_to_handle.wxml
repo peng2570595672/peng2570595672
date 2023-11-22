@@ -4,7 +4,7 @@
     <view class="title">请选择以下一种方式办理</view>
     <!--扣款方式标题结束-->
     <view class="handle-the-way" catchtap="onClickPaymentWay" data-type="1" wx:if="{{listOfPackages.divideAndDivideList.length}}">
-        <image src="/pages/default/assets/wechat.svg"/>
+        <image src="https://file.cyzl.com/g001/M02/19/6B/oYYBAGVdq4mAbkYoAAAISPVamSI723.svg"/>
         <view class="name">
             <view class="top">微信支付</view>
             <view class="bottom">绑定微信支付代扣通行费</view>
@@ -12,7 +12,7 @@
         <view class="choice">点击选择</view>
     </view>
     <view class="handle-the-way" catchtap="onClickPaymentWay" data-type="2" wx:if="{{listOfPackages.alwaysToAlwaysList.length}}">
-        <image src="/pages/default/assets/bank.svg"/>
+        <image src="https://file.cyzl.com/g001/M02/19/71/oYYBAGVduBOAWHtKAAAF-RKyo1w160.svg"/>
         <view class="name">
             <view class="top">银行卡支付</view>
             <view class="bottom">绑定银行卡划扣通行费</view>

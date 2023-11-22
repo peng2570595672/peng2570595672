@@ -1,6 +1,6 @@
 <view class="characteristic_service">
 	<view class="item">
-		<image src="/pages/personal_center/assets/service_of_oil.svg" mode="widthFix"></image>
+		<image src="https://file.cyzl.com/g001/M02/19/6A/oYYBAGVdqimAfsekAAANOgAA3Ug751.svg" mode="widthFix"></image>
 		<view class="item-content">
 			<view>中国石油·加油优惠</view>
 			<view class="content-gray">ETC一卡双用：通行+加油</view>

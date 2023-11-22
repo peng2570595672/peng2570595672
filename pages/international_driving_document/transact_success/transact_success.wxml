@@ -1,7 +1,7 @@
 <view class="signed_successfully">
 	<view class="title">办理成功</view>
 	<!--	成功提示开始-->
-	<image src="/pages/default/assets/signed_successfully.png"/>
+	<image src="https://file.cyzl.com/g001/M02/19/6A/oYYBAGVdqp6AP_9GAAATfrodu2E153.png"/>
 	<view class="signed_title">办理成功</view>
 	<view class="tips">您已成功办理国际驾照翻译认证件，约三个工作日后完成制作。制作完成后将由租租车进行发货。</view>
 	<view class="order-btn" catchtap="onClickMyOrder">我的订单</view>

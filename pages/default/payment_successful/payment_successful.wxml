@@ -1,6 +1,6 @@
 <view class="signed_successfully">
     <!--	成功提示开始-->
-    <image src="/pages/default/assets/signed_successfully.png"/>
+    <image src="https://file.cyzl.com/g001/M02/19/6A/oYYBAGVdqp6AP_9GAAATfrodu2E153.png"/>
     <view class="signed_title">支付成功</view>
     <!--	成功提示结束-->
     <!--	操作部分开始-->

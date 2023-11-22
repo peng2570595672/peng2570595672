@@ -24,17 +24,13 @@
         "pages/default/upload_other_photo/upload_other_photo",
         "pages/default/shot_other_photo/shot_other_photo",
         "pages/default/shot_card/shot_card",
-        "pages/default/bind_withhold/bind_withhold",
         "pages/default/shot_bank_card/shot_bank_card",
-        "pages/default/order_audit/order_audit",
-        "pages/default/transition_page/transition_page",
         "pages/default/third_party_signing/third_party_signing",
         "pages/landing_page_for_ccb/index",
         "pages/pay/pay",
         "pages/default/payment_fail/payment_fail",
         "components/pass_the_discount/pass_the_discount",
         "components/follow_accont_prompt/follow_accont_prompt",
-        "pages/default/trucks/trucks",
         "pages/default/signature_confirmation/signature_confirmation",
         "pages/default/sms_confirmation/sms_confirmation",
         "pages/default/statement_of_interest/statement_of_interest",
@@ -191,6 +187,7 @@
                 "index/index",
                 "truck_receiving_address/truck_receiving_address",
                 "agreement/agreement",
+                "trucks/trucks",
                 "agreement_for_factoring/agreement",
                 "agreement_for_qiantong_to_charge/agreement",
                 "agreement_for_qiantong_to_free/agreement",
@@ -413,6 +410,17 @@
             "name": "pages/customer_service",
             "pages": [
                 "index/index"
+            ]
+        },
+        {
+            "root": "pages/historical_pattern",
+            "name": "pages/historical_pattern",
+            "pages": [
+                "select_contract_bank/select_contract_bank",
+                "order_audit/order_audit",
+                "choose_bank_and_bind_veh/choose_bank_and_bind_veh",
+                "bind_withhold/bind_withhold",
+                "transition_page/transition_page"
             ]
         }
     ],

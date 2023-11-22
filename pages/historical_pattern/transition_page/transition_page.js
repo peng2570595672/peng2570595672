@@ -49,7 +49,7 @@ Page({
 			} else if (stepNum === 2) {
 				await this.openAccountPersonal();
 			} else {
-				util.go(`/pages/default/choose_bank_and_bind_veh/choose_bank_and_bind_veh`);
+				util.go(`/pages/historical_pattern/choose_bank_and_bind_veh/choose_bank_and_bind_veh`);
 			}
 		} else if (result.code === 0) {
 			// 登录已过期
@@ -69,7 +69,7 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			util.go(`/pages/default/choose_bank_and_bind_veh/choose_bank_and_bind_veh`);
+			util.go(`/pages/historical_pattern/choose_bank_and_bind_veh/choose_bank_and_bind_veh`);
 		} else {
 			util.showToastNoIcon(result.message);
 		}

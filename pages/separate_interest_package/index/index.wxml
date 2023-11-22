@@ -3,9 +3,9 @@
     <view class="list">
         <view class="item" wx:for="{{list}}" wx:key="index">
             <view class="ico">
-                <image src="/pages/separate_interest_package/assets/passage_coupons.png" mode="heightFix" wx:if="{{item.couponType === 1}}"></image>
-                <image src="/pages/separate_interest_package/assets/parking_coupon.png" mode="heightFix" wx:elif="{{item.couponType === 2}}"></image>
-                <image src="/pages/separate_interest_package/assets/combination_coupon.png" mode="heightFix" wx:else></image>
+                <image src="https://file.cyzl.com/g001/M02/19/6B/oYYBAGVdrGOAXtXAAABCdI7KRyA803.png" mode="heightFix" wx:if="{{item.couponType === 1}}"></image>
+                <image src="https://file.cyzl.com/g001/M02/19/6C/oYYBAGVdreqAPtu_AABJsdlc7-8196.png" mode="heightFix" wx:elif="{{item.couponType === 2}}"></image>
+                <image src="https://file.cyzl.com/g001/M02/19/6C/oYYBAGVdrkWARmCuAABjqg4Uocg475.png" mode="heightFix" wx:else></image>
             </view>
             <view class="content">
                 <view class="title">{{item.packageName}}</view>

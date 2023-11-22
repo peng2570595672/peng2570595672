@@ -108,7 +108,7 @@ Page({
 				util.hideLoading();
 			});
 		} else {
-			util.go(`/pages/default/bind_withhold/bind_withhold?signChannelId=${signChannelId}&signType=${signType}&vehPlates=${this.data.vehPlates}&cardMobilePhone=${this.data.cardMobilePhone}`);
+			util.go(`/pages/historical_pattern/bind_withhold/bind_withhold?signChannelId=${signChannelId}&signType=${signType}&vehPlates=${this.data.vehPlates}&cardMobilePhone=${this.data.cardMobilePhone}`);
 		}
 	},
 	async onClickHandle () {

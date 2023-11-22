@@ -1,6 +1,6 @@
 <view class="signed_successfully">
     <!--	成功提示开始-->
-    <image src="/pages/default/assets/audit_failure.png" mode="widthFix"/>
+    <image src="https://file.cyzl.com/g001/M02/19/6B/oYYBAGVdq9iAFNcxAAATRAqx8iA414.png" mode="widthFix"/>
     <view class="signed_title">通通券首月扣费失败，请确保微信余额充足。</view>
     <!--	成功提示结束-->
     <!--	操作部分开始-->

@@ -15,7 +15,7 @@ Component({
 		handlingProcess: [
 			{icon: 'https://file.cyzl.com/g001/M01/C7/75/oYYBAGPraQeAd8VcAAANbmC6Sdo255.png' ,title: '车主身份证'},
 			{icon: 'https://file.cyzl.com/g001/M01/C7/A2/oYYBAGPs5VGAN4KUAAAf_5IXjB0976.png' ,title: '行驶证'}
-			// {icon: '/pages/default/assets/headstock.svg' ,title: '车头照'}
+			// {icon: 'https://file.cyzl.com/g001/M02/19/71/oYYBAGVduHeAPvygAAAPuz_4Kts400.svg' ,title: '车头照'}
 		],
 		processList: [{
 				title: '填写基础信息',

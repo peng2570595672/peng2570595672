@@ -71,7 +71,7 @@
                   catchtap="showRightsAndInterests" data-index="{{index}}">
                 <view class="label-img" wx:if="{{item.isMarketingLabel}}">{{item.marketingMsg}}</view>
                 <view class="left">
-                    <image src="/pages/default/assets/combination_coupon.png" mode="widthFix"></image>
+                    <image src="https://file.cyzl.com/g001/M02/19/6C/oYYBAGVdrkWARmCuAABjqg4Uocg475.png" mode="widthFix"></image>
                 </view>
                 <view class="middle">
                     <view class="item-title">{{item.packageName}}</view>

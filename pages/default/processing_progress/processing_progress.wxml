@@ -49,7 +49,7 @@
                         <view class="content-des">您的车辆已通过审核，需预存<text class="precharge">{{prechargeInfo.prechargeAmount/100}}</text>元。</view>
                         <!--                    线下订单 且 审核通过 且未完成首次预充  prompt-->
                         <view class="handle-the-way" catchtap="onClickPrechargeWay" data-type="1" wx:if="{{true}}">
-                            <image src="/pages/default/assets/wechat.svg"/>
+                            <image src="https://file.cyzl.com/g001/M02/19/6B/oYYBAGVdq4mAbkYoAAAISPVamSI723.svg"/>
                             <view class="name">
                                 <view class="top">在线充值</view>
                                 <view class="poundage">(手续费0.6%)</view>
@@ -57,7 +57,7 @@
                             <view class="choice">点击选择</view>
                         </view>
                         <view class="handle-the-way" catchtap="onClickPrechargeWay" data-type="2">
-                            <image src="/pages/default/assets/bank.svg"/>
+                            <image src="https://file.cyzl.com/g001/M02/19/71/oYYBAGVduBOAWHtKAAAF-RKyo1w160.svg"/>
                             <view class="name">
                                 <view class="top">银行转账</view>
                                 <view class="poundage">(手续费0.3%)</view>
@@ -105,7 +105,7 @@
                         <view class="content-des">您的车辆已通过审核，需预存<text class="precharge">{{prechargeInfo.prechargeAmount/100}}</text>元。</view>
                         <!--                    线下订单 且 审核通过 且未完成首次预充  prompt-->
                         <view class="handle-the-way" catchtap="onClickPrechargeWay" data-type="1" wx:if="{{true}}">
-                            <image src="/pages/default/assets/wechat.svg"/>
+                            <image src="https://file.cyzl.com/g001/M02/19/6B/oYYBAGVdq4mAbkYoAAAISPVamSI723.svg"/>
                             <view class="name">
                                 <view class="top">在线充值</view>
                                 <view class="poundage">(手续费0.6%)</view>
@@ -113,7 +113,7 @@
                             <view class="choice">点击选择</view>
                         </view>
                         <view class="handle-the-way" catchtap="onClickPrechargeWay" data-type="2">
-                            <image src="/pages/default/assets/bank.svg"/>
+                            <image src="https://file.cyzl.com/g001/M02/19/71/oYYBAGVduBOAWHtKAAAF-RKyo1w160.svg"/>
                             <view class="name">
                                 <view class="top">银行转账</view>
                                 <view class="poundage">(手续费0.3%)</view>

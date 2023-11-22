@@ -1,5 +1,5 @@
 <view class="signed_successfully">
-    <image mode="widthFix" src="/pages/default/assets/transition_bg.png"/>
+    <image mode="widthFix" src="https://file.cyzl.com/g001/M02/19/6A/oYYBAGVdqyaAW1cVAAAkLLnZaGU029.png"/>
     <view class="tips">即将登录验证车主信息以及签约银行卡代扣通行费</view>
     <view class="tips">请准备好相应的银行卡号信息</view>
     <!--	成功提示结束-->

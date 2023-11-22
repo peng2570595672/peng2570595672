@@ -343,7 +343,7 @@ Page({
 				return;
 			}
 			if (this.data.orderInfo.flowVersion === 2 || this.data.orderInfo.flowVersion === 3) {
-				util.go(`/pages/default/order_audit/order_audit`);
+				util.go(`/pages/historical_pattern/order_audit/order_audit`);
 				return;
 			}
 			if (this.data.contractStatus === 1 || this.data.isModifiedData) {

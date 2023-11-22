@@ -129,7 +129,7 @@ Component({
 					this.hide();
 					return;
 				}
-				util.go(`/pages/default/choose_bank_and_bind_veh/choose_bank_and_bind_veh`);
+				util.go(`/pages/historical_pattern/choose_bank_and_bind_veh/choose_bank_and_bind_veh`);
 			} else if (result.code === 105) {
 				this.setData({
 					certification: 0

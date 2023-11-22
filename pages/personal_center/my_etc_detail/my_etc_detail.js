@@ -257,7 +257,7 @@ Page({
 	},
 	// 选装-去绑定代扣
 	goBindingWithholding () {
-		util.go(`/pages/default/bind_withhold/bind_withhold?associatedVeh=1`);
+		util.go(`/pages/historical_pattern/bind_withhold/bind_withhold?associatedVeh=1`);
 	},
 	// 去高速签约
 	onClickHighSpeedSigning (orderInfo) {

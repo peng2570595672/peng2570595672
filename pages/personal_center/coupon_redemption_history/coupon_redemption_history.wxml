@@ -6,7 +6,8 @@
             <view class="coupon-info">
                 <view class="img">
                     <image wx:if="{{item.packageCover}}" src="{{item.packageCover}}" mode="heightFix"></image>
-                    <image wx:else src="/pages/personal_center/assets/{{item.couponType === 1 ? 'passage_coupons' : 'parking_coupon'}}.png" mode="heightFix"></image>
+                    <image wx:elif="{{item.couponType === 1}}" src="https://file.cyzl.com/g001/M02/19/6B/oYYBAGVdrGOAXtXAAABCdI7KRyA803.png" mode="heightFix"></image>
+                    <image wx:else src="https://file.cyzl.com/g001/M02/19/6C/oYYBAGVdreqAPtu_AABJsdlc7-8196.png" mode="heightFix"></image>
                 </view>
                 <view class="name">
                     <view>{{item.couponName}}</view>

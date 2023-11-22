@@ -72,7 +72,7 @@ Page({
 			this.setData({isRequest: true});
 		}
 		if (this.data.orderInfo.flowVersion !== 1) {
-			util.go('/pages/default/transition_page/transition_page');
+			util.go('/pages/historical_pattern/transition_page/transition_page');
 			return;
 		}
 		util.showLoading('加载中');

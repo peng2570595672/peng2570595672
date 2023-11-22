@@ -1,5 +1,5 @@
 <view class='index'>
-    <image class="image" src="/pages/default/assets/signed_successfully.png"/>
+    <image class="image" src="https://file.cyzl.com/g001/M02/19/6A/oYYBAGVdqp6AP_9GAAATfrodu2E153.png"/>
     <view class="payText">支付成功</view>
     <view class="btn" catchtap="btn">下一步</view>
 </view>

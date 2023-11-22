@@ -1293,7 +1293,7 @@ Page({
         if (!orderInfo) {
             app.globalData.orderInfo.orderId = '';
             wx.uma.trackEvent(this.data.activeIndex === 1 ? 'index_for_new_deal_with' : 'index_for_truck_new_deal_with');
-            const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address' : '/pages/default/trucks/trucks';
+            const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address' : '/pages/truck_handling/trucks/trucks';
             util.go(url);
             return;
         }
@@ -1383,7 +1383,7 @@ Page({
     },
     // 选装-去绑定代扣
     goBindingWithholding () {
-        util.go(`/pages/default/bind_withhold/bind_withhold?associatedVeh=1`);
+        util.go(`/pages/historical_pattern/bind_withhold/bind_withhold?associatedVeh=1`);
     },
     // 去高速签约
     onClickHighSpeedSigning (orderInfo) {
