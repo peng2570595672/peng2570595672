@@ -1,0 +1,59 @@
+<!--pages/personal_center/invoice_issued_detail/invoice_issued_detail.wxml-->
+<view class="content">
+	<view class="swiper-tab">
+		<view wx:for="{{invoiceTypes}}" wx:key="index" class="tab-list {{currentTab=== index || origin === 1 ? 'tab-show' : ''}}" data-current="{{index}}" bindtap="switchInvoiceType">{{item.name}}</view>
+	</view>
+	<view class="title">基本信息<text>向您发送电子发票</text></view>
+	<view class="input-wrapper">
+		<view class="input-item first">
+			<view>手机号</view>
+			<input type="number" disabled="{{disabled}}" placeholder="接收发票短信的手机号码" placeholder-class="placeholder" value="{{invoiceInfo.userPhone}}"
+			       bindinput="onInputChangedHandle" data-key="userPhone"/>
+		</view>
+		<view class="input-item">
+			<view>电子邮箱</view>
+			<input type="text" disabled="{{disabled}}" placeholder="接收电子发票的邮箱，没有可不填" placeholder-class="placeholder" value="{{invoiceInfo.userEmail}}"
+			       bindinput="onInputChangedHandle" data-key="userEmail"/>
+		</view>
+	</view>
+	<view class="title">基本信息</view>
+	<view class="input-wrapper">
+		<view class="input-item">
+			<view>发票抬头</view>
+			<input type="text" disabled="{{disabled}}" placeholder="请输入开票方名称" placeholder-class="placeholder" value="{{invoiceInfo.customerName}}"
+			       bindinput="onInputChangedHandle" data-key="customerName"/>
+		</view>
+	</view>
+	<view class="input-wrapper" wx:if="{{currentTab === 1}}">
+		<view class="input-item">
+			<view>税号</view>
+			<input type="text" disabled="{{disabled}}" placeholder="请输入纳税人识别号" placeholder-class="placeholder" value="{{invoiceInfo.taxNo}}"
+			       bindinput="onInputChangedHandle" data-key="taxNo"/>
+		</view>
+		<view class="input-item">
+			<view>地址</view>
+			<input placeholder="请输入开票方地址" placeholder-class="placeholder" value="{{invoiceInfo.addrees}}"
+			       bindinput="onInputChangedHandle" data-key="addrees"/>
+		</view>
+		<view class="input-item">
+			<view>电话</view>
+			<input placeholder="请输入开票方电话" placeholder-class="placeholder" value="{{invoiceInfo.addreesTel}}"
+			       bindinput="onInputChangedHandle" data-key="addreesTel"/>
+		</view>
+		<view class="input-item">
+			<view>开户行</view>
+			<input type="text" disabled="{{disabled}}" placeholder="请输入开票方开户银行" placeholder-class="placeholder" value="{{invoiceInfo.bank}}"
+			       bindinput="onInputChangedHandle" data-key="bank"/>
+		</view>
+		<view class="input-item">
+			<view>开户账号</view>
+			<input type="number" placeholder="请输入开票方开户银行账号" placeholder-class="placeholder" value="{{invoiceInfo.account}}"
+			       bindinput="onInputChangedHandle" data-key="account"/>
+		</view>
+	</view>
+    <view class="success" wx:if="{{origin === 1}}">-发票开具成功-</view>
+	<view class="fill"></view>
+	<view  class="btn {{available ? 'available' :''}}" catchtap="onClickCommit">确认</view>
+	<success-tips></success-tips>
+</view>
+<privacy_popup></privacy_popup>

@@ -124,7 +124,8 @@
                 "rights_get_use/rights_get_use",
                 "all_store/all_store",
                 "set_up/set_up",
-                "comprehensiveServiceFee/comprehensiveServiceFee"
+                "comprehensiveServiceFee/comprehensiveServiceFee",
+                "comprehensiveServiceFee_detail/comprehensiveServiceFee_detail"
             ]
         },
         {

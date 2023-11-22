@@ -1,0 +1,90 @@
+.content
+	min-height 100vh
+	background #F6F6F6
+	display flex
+	flex-direction column
+	.swiper-tab
+		margin-top 40rpx
+		text-align center
+		line-height 92rpx
+		display flex
+		justify-content space-between
+		padding-left 140rpx
+		padding-right 140rpx
+		.tab-list
+			font-size 36rpx
+			color #33333D
+		.tab-show
+			border-bottom 6rpx solid #1BA566;
+	// 标题
+	.title
+		margin-top 40rpx
+		margin-bottom 20rpx
+		display flex
+		align-items center
+		padding 0 30rpx
+		height 56rpx
+		font-size 40rpx
+		font-weight 500
+		&::before
+			margin-right 10rpx
+			content ''
+			width 10rpx
+			height 10rpx
+			border 6rpx solid #14AC69
+			border-radius 50%
+		& > text
+			align-items center
+			margin-left 12rpx
+			font-size 24rpx
+			color #7A7F83
+	// 输入开始
+	.input-wrapper
+		padding-left 60rpx
+		.input-item
+			display flex
+			height 80rpx
+			font-size 32rpx
+			align-items center
+			border-bottom 1rpx solid #E8E8E8
+			&.first
+				margin-top 30rpx
+			& > view
+				display flex
+				justify-content flex-end
+				min-width 130rpx
+				height 48rpx
+				color #99999D
+				transform translateY(16%)
+			& > input
+				display block
+				flex 1
+				margin-left 30rpx
+				height 48rpx
+				font-size 28rpx
+				color #33333D
+				transform translateY(16%)
+	.fill
+		flex 1
+	.btn
+		display flex
+		margin 200rpx 50rpx 100rpx 50rpx
+		align-items center
+		justify-content center
+		height 98rpx
+		font-size 40rpx
+		font-weight 500
+		color #fff
+		border-radius 50rpx
+		background: linear-gradient(45deg, #14AC69 0%, #84D157 100%);
+		box-shadow: 0rpx 8rpx 10rpx 0rpx rgba(132, 209, 87, 0.2);
+		opacity: 0.25;
+		&.available
+			opacity: 1;
+	.success
+		display flex
+		align-items center
+		justify-content center
+		font-size 48rpx
+		color #99999D
+		margin-top 40rpx

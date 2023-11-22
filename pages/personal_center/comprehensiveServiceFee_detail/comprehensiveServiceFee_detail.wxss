@@ -1,0 +1,104 @@
+.content {
+  min-height: 100vh;
+  background: #f6f6f6;
+  display: flex;
+  flex-direction: column;
+}
+.content .swiper-tab {
+  margin-top: 40rpx;
+  text-align: center;
+  line-height: 92rpx;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 140rpx;
+  padding-right: 140rpx;
+}
+.content .swiper-tab .tab-list {
+  font-size: 36rpx;
+  color: #33333d;
+}
+.content .swiper-tab .tab-show {
+  border-bottom: 6rpx solid #1ba566;
+}
+.content .title {
+  margin-top: 40rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 30rpx;
+  height: 56rpx;
+  font-size: 40rpx;
+  font-weight: 500;
+}
+.content .title::before {
+  margin-right: 10rpx;
+  content: '';
+  width: 10rpx;
+  height: 10rpx;
+  border: 6rpx solid #14ac69;
+  border-radius: 50%;
+}
+.content .title > text {
+  align-items: center;
+  margin-left: 12rpx;
+  font-size: 24rpx;
+  color: #7a7f83;
+}
+.content .input-wrapper {
+  padding-left: 60rpx;
+}
+.content .input-wrapper .input-item {
+  display: flex;
+  height: 80rpx;
+  font-size: 32rpx;
+  align-items: center;
+  border-bottom: 1rpx solid #e8e8e8;
+}
+.content .input-wrapper .input-item.first {
+  margin-top: 30rpx;
+}
+.content .input-wrapper .input-item > view {
+  display: flex;
+  justify-content: flex-end;
+  min-width: 130rpx;
+  height: 48rpx;
+  color: #99999d;
+  transform: translateY(16%);
+}
+.content .input-wrapper .input-item > input {
+  display: block;
+  flex: 1;
+  margin-left: 30rpx;
+  height: 48rpx;
+  font-size: 28rpx;
+  color: #33333d;
+  transform: translateY(16%);
+}
+.content .fill {
+  flex: 1;
+}
+.content .btn {
+  display: flex;
+  margin: 200rpx 50rpx 100rpx 50rpx;
+  align-items: center;
+  justify-content: center;
+  height: 98rpx;
+  font-size: 40rpx;
+  font-weight: 500;
+  color: #fff;
+  border-radius: 50rpx;
+  background: linear-gradient(45deg, #14ac69 0%, #84d157 100%);
+  box-shadow: 0rpx 8rpx 10rpx 0rpx rgba(132,209,87,0.2);
+  opacity: 0.25;
+}
+.content .btn.available {
+  opacity: 1;
+}
+.content .success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48rpx;
+  color: #99999d;
+  margin-top: 40rpx;
+}

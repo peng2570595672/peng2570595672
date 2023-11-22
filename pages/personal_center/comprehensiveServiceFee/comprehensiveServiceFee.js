@@ -10,9 +10,11 @@ Page({
       }
     ],
     currentTab: 0,
-    currentList: []
+    isHistory: 0, //0可开票 和1历史票据
+    currentList: [],
   },
   async onLoad() {
+
     // 查询是否欠款
     await util.getIsArrearage();
   },
@@ -21,9 +23,7 @@ Page({
   },
   // tab切换逻辑
   switchInvoiceType(e) {
-    // if (this.data.origin === 1) {
-    // 	return;
-    // }
+
     // let that = this;
     // if (this.data.currentTab === e.target.dataset.current) {
     // 	return false;
@@ -38,14 +38,16 @@ Page({
     // });
 
     this.setData({
-      currentTab: e.target.dataset.current
+      currentTab: e.target.dataset.current,
+      isHistory: e.target.dataset.current,
     });
     this.getList();
   },
   getList() {
     util.showLoading();
-    util.getDataFromServer('consumer/order/after-sale-record/orderInvoiceList', {
-      memberId: app.globalData.memberId
+    util.getDataFromServer('consumer/order/after-sale-record/service-fee-list', {
+      // memberId: app.globalData.memberId,
+      isHistory: this.data.isHistory + '',
     }, () => {
       util.showToastNoIcon('保存失败！');
     }, (res) => {
@@ -78,7 +80,7 @@ Page({
           info.orderId = orderId;
         }
         let infoStr = JSON.stringify(info);
-        util.go(`/pages/personal_center/invoice_issued_detail/invoice_issued_detail?origin=${origin}&infoStr=${infoStr}`);
+        util.go(`/pages/personal_center/comprehensiveServiceFee_detail/comprehensiveServiceFee_detail?origin=${origin}&infoStr=${infoStr}`);
       } else if (res.code === 1) {
         util.alert({
           title: '发票客服',
@@ -104,6 +106,15 @@ Page({
   onClickHandle(e) {
     let index = e.currentTarget.dataset.index;
     let info = this.data.currentList[index];
-    this.checkIsCanApply(info);
+    let infoStr = JSON.stringify(info);
+    if (info.invoiceStatus === 1) {
+      wx.redirectTo({
+        url: '/pages/personal_center/success_tips/success_tips'
+      });
+    } else {
+      util.go(`/pages/personal_center/comprehensiveServiceFee_detail/comprehensiveServiceFee_detail?origin=${this.data.isHistory}&infoStr=${infoStr}`)
+    }
+
+
   }
 });
