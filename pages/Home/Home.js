@@ -458,9 +458,10 @@ Page({
         }
         if (obj === 'loadingService') {
             util.go(`/pages/customer_service/index/index`);
-            // this.fangDou(() => {
-            //     util.go(`/pages/web/web/web?url=${encodeURIComponent('https://wpa1.qq.com/jjrmum8i?_type=wpa&qidian=true')}`);
-            // },1000);
+            this.fangDou(() => {
+                util.go(`/pages/customer_service/index/index`);
+                // util.go(`/pages/web/web/web?url=${encodeURIComponent('https://wpa1.qq.com/jjrmum8i?_type=wpa&qidian=true')}`);
+            },1000);
             return;
         }
         if (obj.jumpUrl === 'activate') {

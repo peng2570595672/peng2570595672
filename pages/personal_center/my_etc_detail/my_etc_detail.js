@@ -644,7 +644,8 @@ Page({
 	// 在线客服
 	goOnlineServer () {
 		wx.uma.trackEvent('etc_detail_for_server');
-		util.go(`/pages/web/web/web?type=refund_customer_service`);
+		util.go(`/pages/customer_service/index/index`);
+		// util.go(`/pages/web/web/web?type=refund_customer_service`);
 	},
 	// 去激活
 	async onClickCctivate (obj) {

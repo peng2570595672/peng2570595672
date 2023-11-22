@@ -487,7 +487,8 @@ Page({
 		// https://wpa1.qq.com/jjrmum8i?_type=wpa&qidian=true 新版在线客服链接（2023-8-7）
 		// 统计点击进入在线客服
 			this.fangDou(() => {
-				util.go(`/pages/web/web/web?url=${encodeURIComponent('https://wpa1.qq.com/jjrmum8i?_type=wpa&qidian=true')}`);
+				util.go(`/pages/customer_service/index/index`);
+				// util.go(`/pages/web/web/web?url=${encodeURIComponent('https://wpa1.qq.com/jjrmum8i?_type=wpa&qidian=true')}`);
 			},1000);
 			return;
 		}

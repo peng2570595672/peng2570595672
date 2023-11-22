@@ -382,7 +382,8 @@ Page({
 	},
 	// 在线客服
 	goOnlineServer () {
-		util.go(`/pages/web/web/web?type=online_customer_service`);
+		util.go(`/pages/customer_service/index/index`);
+		// util.go(`/pages/web/web/web?type=online_customer_service`);
 	},
 	// 复制快递单号
 	copyLogisticsNo (e) {
