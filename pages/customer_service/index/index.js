@@ -7,26 +7,26 @@ Page({
     },
 
     onLoad (options) {
-        let obj;
-        let pages = getCurrentPages();
-        let arr1 = pages[pages.length - 2].route.split('/');
-        let str1 = arr1[arr1.length - 1];
-        switch (str1) {
-            case 'Home':
-                obj = ['设备坏了'];
-                break;
-            case 'index':
-                obj = ['怎么办理ETC'];
-                break;
-            case 'processing_progress':
-                obj = ['怎么安装ETC'];
-                break;
-            case 'my_etc_detail':
-                obj = ['ETC设备有那些'];
-                break;
-            default:
-                break;
-        }
+        let obj = ['办理与发货','安装/激活','高速过闸','黑名单','通行费','退货/退款'];
+        // let pages = getCurrentPages();
+        // let arr1 = pages[pages.length - 2].route.split('/');
+        // let str1 = arr1[arr1.length - 1];
+        // switch (str1) {
+        //     case 'Home':
+        //         obj = ['设备坏了'];
+        //         break;
+        //     case 'index':
+        //         obj = ['怎么办理ETC'];
+        //         break;
+        //     case 'processing_progress':
+        //         obj = ['怎么安装ETC'];
+        //         break;
+        //     case 'my_etc_detail':
+        //         obj = ['ETC设备有那些'];
+        //         break;
+        //     default:
+        //         break;
+        // }
         this.customerServicePlugin(obj);
     },
     getQueryCallback (e) {
@@ -69,7 +69,7 @@ Page({
         console.log(obj);
         let plugin = requirePlugin('chatbot');
         plugin.init({
-            appid: 'mDGnTJ7eVYkBhhTPrMQuioUnes1dVJ', // 微信对话开放平台中应用绑定小程序插件appid
+            appid: 'MEj2s7PeweWhuUp29wsxXt2PckKhFw', // 微信对话开放平台中应用绑定小程序插件appid
             openid: app.globalData.openId, // 小程序用户的openid，必填项
             userHeader: '', // 用户头像,不传会弹出登录框
             userName: '', // 用户昵称,不传会弹出登录框

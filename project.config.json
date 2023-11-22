@@ -143,7 +143,6 @@
         "tabIndent": "auto",
         "tabSize": 4
     },
-    "libVersion": "2.30.3",
     "packOptions": {
         "ignore": [],
         "include": []

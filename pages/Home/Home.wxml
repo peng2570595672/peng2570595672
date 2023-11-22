@@ -159,7 +159,7 @@
         </view>
     </view>
     <!-- 悬浮在线客服按钮 -->
-    <view class="iconfont keFu" data-information="loadingService" catchtap="goPath"><text >在线\n客服</text></view>
+    <!-- <view class="iconfont keFu" data-information="loadingService" catchtap="goPath"><text >在线\n客服</text></view> -->
     <!-- 占位 -->
     <view class="split"></view>
     <!-- 弹窗 -->
