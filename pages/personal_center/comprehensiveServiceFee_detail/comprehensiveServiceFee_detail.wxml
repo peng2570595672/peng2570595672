@@ -51,6 +51,13 @@
 			       bindinput="onInputChangedHandle" data-key="account"/>
 		</view>
 	</view>
+  <view class="titleMoney">开票金额</view>
+  <view class="input-wrapper">
+    <view class="input-item">
+      <view>开票金额：</view>
+      <input value="{{'￥'+invoiceInfo.sumPoundage/100}}" disabled/>
+    </view>
+  </view>
     <view class="success" wx:if="{{origin === 1}}">-发票开具成功-</view>
 	<view class="fill"></view>
 	<view  class="btn {{available ? 'available' :''}}" catchtap="onClickCommit">确认</view>

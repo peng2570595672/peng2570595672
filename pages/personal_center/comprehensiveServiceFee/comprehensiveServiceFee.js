@@ -108,9 +108,7 @@ Page({
     let info = this.data.currentList[index];
     let infoStr = JSON.stringify(info);
     if (info.invoiceStatus === 1) {
-      wx.redirectTo({
-        url: '/pages/personal_center/success_tips/success_tips'
-      });
+      return
     } else {
       util.go(`/pages/personal_center/comprehensiveServiceFee_detail/comprehensiveServiceFee_detail?origin=${this.data.isHistory}&infoStr=${infoStr}`)
     }

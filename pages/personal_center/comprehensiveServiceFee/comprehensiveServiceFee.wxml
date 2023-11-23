@@ -15,7 +15,7 @@
             <text wx:if="{{item.invoiceStatus !== 1}}">当前可申请开票</text>
             <text wx:elif="{{item.invoiceStatus === 1}}">已开票成功，请查看手机短信或邮箱</text>   
           </view>
-          <view class="right {{(item.invoiceStatus !== 1 && item.invoiceStatus !== 2  && item.invoiceStatus !== 4) ? 'green' :'' }}">{{(item.invoiceStatus !== 1 ) ? '开票': '详情'}}</view>
+          <view class="right green " wx:if="{{item.invoiceStatus !== 1 }}">开票</view>
           <view class="arrow-icon iconfont"></view>
         </view>
       </view>
