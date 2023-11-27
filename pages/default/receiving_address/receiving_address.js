@@ -42,6 +42,7 @@ Page({
 		identifyingCode: '获取验证码',
 		time: 59,// 倒计时
 		isGetIdentifyingCoding: false, // 获取验证码中
+		activityType: 0, // 活动引流类型
 		citicBank: false
 	},
 	async onLoad (options) {
@@ -54,6 +55,14 @@ Page({
 			util.resetData();// 重置数据
 			// 高速通行公众号进入办理
 			app.globalData.isHighSpeedTraffic = options.shareId;
+		}
+		if (options.activityType) {
+			util.resetData();// 重置数据
+			// 活动引流
+			this.setData({
+				activityType: options.activityType
+			});
+			app.globalData.otherPlatformsServiceProvidersId = options.shopId;
 		}
 		if (options.enterType) {
 			this.setData({
@@ -82,7 +91,6 @@ Page({
 				formData
 			});
 		}
-		this.login();
 	},
 	async onShow () {
 		if (!this.data.isNeedRefresh) {
@@ -95,8 +103,7 @@ Page({
 		if (app.globalData.userInfo.accessToken) {
 			this.setData({
 				'formData.cardMobilePhone': app.globalData.mobilePhone,
-				'needBindingPhone.mobilePhone': app.globalData.mobilePhone,
-				'loginInfo.needBindingPhone': 0,
+				loginInfo: app.globalData.userInfo,
 				mobilePhoneMode: app.globalData.mobilePhoneMode
 			});
 		} else {
@@ -271,6 +278,11 @@ Page({
 		if (app.globalData.activitiesOfDrainage) {
 			params['promoterId'] = app.globalData.otherPlatformsServiceProvidersId;// 推广者ID标识
 			params['promoterType'] = 3; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
+		}
+		// 活动引流
+		if (this.data.activityType) {
+			params['promoterId'] = app.globalData.otherPlatformsServiceProvidersId;// 推广者ID标识
+			params['promoterType'] = this.data.activityType; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
 		}
 		// 公众号带服务商引流进入办理
 		if (app.globalData.officialChannel) {
