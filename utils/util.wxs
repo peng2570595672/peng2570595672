@@ -155,15 +155,13 @@ function timeComparison(fixedTime,flexibleTime) {
  * 
  * @param originalData 要查询的对象
  * @param includesParams 所查询的参数
- * @param type 指定需求 1-平安绑客
+ * @param type 指定需求 1-平安绑客 2-信用卡
  * @returns 
  */
 function dataIncludes(originalData,includesParams,type) {
   if (!originalData || !includesParams) {
     return false
   }
-  console.log('哈哈',originalData);
-  console.log('哈哈1',includesParams);
   if (type === 1) {
     if (includesParams.vehKeys === '*') {
       return true
@@ -173,8 +171,15 @@ function dataIncludes(originalData,includesParams,type) {
     var flag = (arr1.indexOf(originalData.substring(0,1)) !== -1) && (arr2.indexOf(originalData.substring(0,2)) === -1);
     return flag
   }
-  if (type === 2) {
-    console.log(originalData.indexOf(includesParams) !== -1);
+  if (type === 2) { //信用卡模式细节优化
+    if (originalData.indexOf(includesParams) !== -1) {
+      var pinAnArr1 = ['1126085154731728896','1129091866749968384'];
+      if (pinAnArr1.indexOf(includesParams) !== -1) {
+          return '平安'
+      } else {
+        return '中信'
+      }
+    }
   }
 }
 /**

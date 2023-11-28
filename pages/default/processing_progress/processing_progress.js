@@ -619,6 +619,21 @@ Page({
 			url: '/pages/Home/Home'
 		});
 	},
+	// 退还说明
+	returnIllustrate () {
+		this.selectComponent('#popTipComp').show({
+			type: 'returnEquityFunds',
+			title: '退还说明',
+			btnCancel: '我再想想',
+			btnconfirm: '继续退还',
+			shopProductId: this.data.info.shopProductId,
+			citicBankshopProductIds: app.globalData.cictBankObj.citicBankshopProductIds,
+			callBack: () => {
+				this.bailReturn();
+			}
+		});
+	},
+
 	// 保证金退回
 	async bailReturn () {
 		if (this.data.isRequest) return;

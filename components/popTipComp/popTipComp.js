@@ -182,6 +182,10 @@ Component({
 				default:
 					break;
 			}
+		},
+		returnEquityFunds () {
+			this.hide(false);
+			this.data.tipObj.callBack();
 		}
 	}
 });

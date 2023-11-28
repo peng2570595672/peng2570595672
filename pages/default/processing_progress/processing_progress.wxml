@@ -137,7 +137,7 @@
     <!-- 办理银行信用卡退款操作 -->
     <view class="bottom" style="margin-bottom: 0rpx" wx:if="{{info && info.logisticsId !== 0 && isWellBank && info.refundStatus !== 5}}" catchtap="goPinAnH5"><text>未办理信用卡？点击这里恢复办理→</text></view>
     <button class="btn" wx:if="{{info && info.logisticsId !== 0 && (cictBail || isWellBank) && (info.obuStatus === 1 || info.obuStatus === 5)}}" catchtap="receiveVoucher">领取通行券</button>
-    <button class="btn" wx:if="{{info && info.logisticsId !== 0 && (cictBail || isWellBank) && info.refundStatus !== 5}}" catchtap="bailReturn">已绑卡 退还预购金</button>
+    <button class="btn" wx:if="{{info && info.logisticsId !== 0 && (cictBail || isWellBank) && info.refundStatus !== 5}}" catchtap="returnIllustrate">已绑卡 退还权益金</button>
 
     <!--	按钮结束-->
     <view class="auto-fill" wx:if="{{!tools.dataIncludes(info.vehPlates,firstCar,1)}}"></view>
