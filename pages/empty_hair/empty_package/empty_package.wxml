@@ -158,8 +158,8 @@
                 </view>
                 <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}} bail" data-isconfirm="{{getAgreement}}" wx:if="{{listOfPackages[activeIndex].pledgeType === 5 || citicBank}}" catchtap="next">
                     <view wx:if="{{citicBank}}">
-                        <view class="titlea">ETC预付费用</view>
-                        <view class="subTitlea">ETC激活后补贴生效，手动确认返还预付费</view></view>
+                        <view class="titlea">立即办理</view>
+                        <view class="subTitlea">{{tools.dataIncludes(citicBankshopProductIds,listOfPackages[activeIndex].shopProductId, 2)}}新客办理成功后返99元</view>
                     <view wx:else>支付通行权益金</view>
                 </view>
                 <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}}" data-isconfirm="{{getAgreement}}" wx:else catchtap="next">{{'立即支付'}}</view>
