@@ -55,7 +55,7 @@
                     {{item.selfStatus === 15 ? '去预充' : ''}}
                     {{item.selfStatus === 16 || item.selfStatus === 20 || item.selfStatus === 21 ? '继续办理' : ''}}
                     {{item.selfStatus === 17 ? '预充值' : ''}}
-                    {{item.selfStatus === 30 ? '退还预购金' : ''}}
+                    {{item.selfStatus === 30 ? '退还权益金' : ''}}
                     {{item.selfStatus === 31 ? '签约激活' : ''}}
                 </view>
 			</view>

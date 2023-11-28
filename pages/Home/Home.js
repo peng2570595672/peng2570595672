@@ -1776,9 +1776,9 @@ Page({
     },
     // 跳转ETC订单列表页
     goToMyEtc () {
-        // util.go(`/pages/personal_center/my_etc/my_etc`);
-        wx.switchTab({
-            url: `/pages/my/index`
-        });
+        util.go(`/pages/personal_center/my_etc/my_etc`);
+        // wx.switchTab({
+        //     url: `/pages/my/index`
+        // });
     }
 });

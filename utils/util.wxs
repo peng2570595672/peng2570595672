@@ -162,6 +162,8 @@ function dataIncludes(originalData,includesParams,type) {
   if (!originalData || !includesParams) {
     return false
   }
+  console.log('哈哈',originalData);
+  console.log('哈哈1',includesParams);
   if (type === 1) {
     if (includesParams.vehKeys === '*') {
       return true
@@ -170,7 +172,9 @@ function dataIncludes(originalData,includesParams,type) {
     var arr2 = includesParams.filterKeys.split(',');
     var flag = (arr1.indexOf(originalData.substring(0,1)) !== -1) && (arr2.indexOf(originalData.substring(0,2)) === -1);
     return flag
-   
+  }
+  if (type === 2) {
+    console.log(originalData.indexOf(includesParams) !== -1);
   }
 }
 /**
@@ -256,7 +260,6 @@ function equits(arr,str) {
   }
   return false
 }
-
 module.exports = {
   substring: substring,
   lowercaseToCapitalization: lowercaseToCapitalization,
