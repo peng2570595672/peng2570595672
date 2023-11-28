@@ -1,7 +1,7 @@
 <wxs src='../../utils/util.wxs' module='tools' />
 <view class="home" style="background-color: {{'#EBEDF0'}}">
     <!-- 顶部气泡按钮 wx:if="{{isBail}}"-->
-    <view class="iconfont bubbleBtn" wx:if="{{isBail}}" catchtap="goToMyEtc">信用卡激活后可退还预购款</view>
+    <view class="iconfont bubbleBtn" wx:if="{{isBail}}" catchtap="goToMyEtc">退还权益金</view>
     <!-- 顶部 滑块视图 -->
     <view class="topSwiper">
         <swiper class="swiperBox {{tools.dataLen(imgList) === 1 ? 'regular':''}}" style="height: {{Hei}};" autoplay circular interval="{{interval}}" duration="{{duration}}">

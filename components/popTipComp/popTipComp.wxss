@@ -233,6 +233,14 @@
 .alert-for-not-finished-content .moduleThree .close {
   bottom: -120rpx;
 }
+.alert-for-not-finished-content .moduleThree .contant {
+  text-align: center;
+}
+.alert-for-not-finished-content .moduleThree .contant .subContant {
+  display: block;
+  margin-top: 20rpx;
+  font-size: 26rpx;
+}
 .alert-for-not-finished-content .moduleSix {
   width: 100vw;
   height: 670rpx;
@@ -473,6 +481,80 @@
 .alert-for-not-finished-content .module2 .close {
   bottom: -120rpx;
 }
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  to {
+    opacity: 0;
+  }
+}
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -492,7 +574,6 @@
 @keyframes zoomIn {
   from {
     opacity: 0;
-    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
     transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
   }
   50% {
@@ -505,46 +586,6 @@
   }
   50% {
     opacity: 0;
-    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
-    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
-  }
-  to {
-    opacity: 0;
-  }
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
-    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
-  }
-  50% {
-    opacity: 1;
-  }
-}
-@keyframes zoomOut {
-  from {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
     transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
   }
   to {

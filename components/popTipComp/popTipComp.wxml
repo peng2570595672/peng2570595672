@@ -165,5 +165,17 @@
             <view class="close iconfont" data-title="{{tipObj.title}}" catchtap="hide"></view>
         </view>
 
+        <!-- 退还金额说明 - 权益金 -->
+         <view class="module moduleThree" wx:if="{{tipObj.type === 'returnEquityFunds'}}">
+            <view class="title">{{tipObj.title}}</view>
+            <view class="contant">
+                <text>请确保您已成功办理信用卡且激活，并且是该银行新客户，请用新信用卡完成退还校验，否则退还将失败！\n</text>
+                <text class="subContant">新客户说明：指名下未曾持有任何{{tools.dataIncludes(tipObj.citicBankshopProductIds,tipObj.shopProductId, 2)}}信用卡，或仅有注销卡且注销时间距新卡申请日超过180自然日及以上客户</text>
+            </view>
+            <view class="bottomBtn">
+                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+                <view class="ok" catchtap="returnEquityFunds">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
+            </view>
+        </view>
     </view>
 </view>
