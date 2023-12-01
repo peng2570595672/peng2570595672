@@ -47,7 +47,7 @@ Page({
                 extraData: {},
                 envVersion: '',
                 fail () {
-                    showToastNoIcon('打开小程序失败, 请重试！');
+                    util.showToastNoIcon('打开小程序失败, 请重试！');
                 }
             });
         } else {
