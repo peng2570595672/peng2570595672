@@ -1363,6 +1363,10 @@ Page({
     },
 		async handleJumpHunanMini (orderId) {
 			const result = await util.getDataFromServersV2('consumer/order/order-pay-transaction-info', {orderId: orderId});
+			if (result.code) {
+				util.showToastNoIcon(result.message);
+				return;
+			}
 			handleJumpHunanMini(orderId, result.data.outTradeNo);
 		},
     // 通通券签约

@@ -184,6 +184,10 @@ Page({
 	},
 	async handleJumpHunanMini (orderId) {
 		const result = await util.getDataFromServersV2('consumer/order/order-pay-transaction-info', {orderId: orderId});
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+			return;
+		}
 		handleJumpHunanMini(orderId, result.data.outTradeNo);
 	},
 	onActive (orderInfo) {	// 已激活后的操作
