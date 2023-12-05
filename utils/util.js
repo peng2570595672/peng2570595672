@@ -1933,6 +1933,7 @@ module.exports = {
 	wxAnimation,
 	getDataFromServersV2,
 	getETCDetail,
+	getUuid,
 	updateOrderContractMappingBankAccountId,
 	queryContractForTruckHandling,
 	getV2BankId,

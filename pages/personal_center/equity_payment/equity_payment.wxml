@@ -4,7 +4,7 @@
     <view class="title">支付方式</view>
     <view class="pay-mode" catchtap="handlePay">
         <view class="img">
-            <image src="/pages/personal_center/assets/div" mode="widthFix"></image>
+            <image src="/pages/personal_center/assets/wechat.svg" mode="widthFix"></image>
         </view>
         <view class="content">
             <view class="sub-title">微信支付</view>
