@@ -81,7 +81,7 @@ Page({
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.signAContract = 3;
 		// 会员券进入,线下取货
-		if (app.globalData.membershipCoupon.id) {
+		if (app.globalData.membershipCoupon.id || options.isPost) {
 			let formData = this.data.formData;
 			formData.userName = '线下取货'; // 姓名
 			formData.detailInfo = '沙文镇科教街188号';
@@ -665,6 +665,9 @@ Page({
 		// 是否接受协议
 		let isOk = true;
 		let formData = this.data.formData;
+		if (!this.data.isOnlineDealWith) {
+			this.data.formData.telNumber = formData.cardMobilePhone;
+		}
 		// 验证车牌和车牌颜色
 		if (this.data.carNoStr.length === 7) { // 蓝牌或者黄牌
 			isOk = isOk && (formData.currentCarNoColor === 0 || formData.currentCarNoColor === 2);

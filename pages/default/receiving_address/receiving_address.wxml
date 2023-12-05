@@ -56,7 +56,7 @@
         <view class="tipPhone" >用于开具通行发票和收货，请确保号码状态正常</view>
     </view>
     <!-- 模块三   办理邮寄信息 -->
-    <view class="module moduleThree">
+    <view class="module moduleThree" wx:if="{{isOnlineDealWith}}">
         <view class="title">
             <view class="titles">办理邮寄信息</view>
         </view>
