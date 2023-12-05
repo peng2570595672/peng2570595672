@@ -20,7 +20,7 @@ Page({
 	},
 	go (e) {
 		let url = e.currentTarget.dataset.url;
-		if (url === 'invoicing_instructions' || url === 'invoice_issued_list'||url === 'comprehensiveServiceFee') {
+		if (url === 'invoicing_instructions' || url === 'invoice_issued_list' || url === 'comprehensiveServiceFee') {
 			return util.go(`/pages/personal_center/${url}/${url}`);
 		}
 		if (url === 'toll') {

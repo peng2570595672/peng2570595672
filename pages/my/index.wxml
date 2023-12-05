@@ -65,6 +65,8 @@
             <view class="funcListRight iconfont"></view>
         </view>
     </view>
+    <!-- 弹窗提示 -->
+    <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
     <!-- 悬浮在线客服按钮 -->
     <view class="iconfont keFu" data-url="loadingService" catchtap="go"><text >在线\n客服</text></view>
     <popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="popUp"></popup1>
