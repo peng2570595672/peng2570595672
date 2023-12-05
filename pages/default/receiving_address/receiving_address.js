@@ -444,7 +444,7 @@ Page({
 		// 设置数据
 		let formData = this.data.formData;
 		formData.currentCarNoColor = e.detail.carNo.join('').length === 8 ? 1 : 0;
-    	this.setData({
+		this.setData({
 			carNo: e.detail.carNo, // 车牌号数组
 			carNoStr: e.detail.carNo.join(''), // 车牌号字符串
 			currentIndex: e.detail.index, // 当前输入车牌号位置
