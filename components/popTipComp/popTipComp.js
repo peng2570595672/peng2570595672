@@ -183,7 +183,8 @@ Component({
 					break;
 			}
 		},
-		returnEquityFunds () {
+		// 回调共用方法
+		callBackPub () {
 			this.hide(false);
 			this.data.tipObj.callBack();
 		}

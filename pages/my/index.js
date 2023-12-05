@@ -52,7 +52,8 @@ Page({
 		cardList: [],
 		accountList: [],
 		isShowEquityImg: false,	// 是否显示权益商城banner
-		nextPageData: []
+		nextPageData: [],
+		agreementStatus: 0	// 协议是否变更的状态
 	},
 
 	async onLoad (options) {
@@ -83,7 +84,7 @@ Page({
 				await util.getIsArrearage();
 			}
 			util.showLoading();
-			let requestList = [await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip(), await this.getCurrentEquity(),await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
+			let requestList = [await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip(), await this.getCurrentEquity(),await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords(),await this.isShowAgreementTip()];
 			util.customTabbar(this, 2);
 			util.getUserIsVip();
 			util.showLoading();
@@ -383,7 +384,7 @@ Page({
 							isVip: app.globalData.isVip,
 							myAccountList: app.globalData.myEtcList
 						});
-						requestList = [requestList, await this.getCurrentEquity(), await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
+						requestList = [requestList, await this.getCurrentEquity(), await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords(),await this.isShowAgreementTip()];
 						util.showLoading();
 						await Promise.all(requestList);
 						this.getBackgroundConfiguration();
@@ -524,6 +525,18 @@ Page({
 			this.selectComponent('#dialog1').show('tonTonQuan');
 			return;
 		}
+		if (url === 'user_agreement' && this.data.agreementStatus) {	// 相关协议
+			this.selectComponent('#popTipComp').show({
+				type: 'oneBtn',
+				title: '更新提示',
+				content: '协议内容有更新，您可以通过相关协议列表点击查看详情',
+				btnconfirm: '同意并查看',
+				callBack: () => {
+					this.updateAgreementStatus(url);
+				}
+			});
+			return;
+		}
 		wx.uma.trackEvent(urlObj[url]);
 		util.go(`/pages/personal_center/${url}/${url}?isCheckTwoPercent=${this.data.isCheckTwoPercent}`);
 	},
@@ -652,5 +665,30 @@ Page({
 			imageUrl: 'https://file.cyzl.com/g001/M01/CB/5E/oYYBAGQAaeyASw5fAABJbg74uSk558.png',
 			path: '/pages/my/index'
 		};
+	},
+	// 获取协议弹窗所需的状态字段
+	async isShowAgreementTip () {
+		const result = await util.getDataFromServersV2('/consumer/system/common/get-agreement-status', {
+			platformId: app.globalData.platformId
+		}, 'POST', false);
+		if (!result) return;
+		if (result.code === 0) {
+			this.setData({agreementStatus: result.data.agreementStatus});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 修改协议状态
+	async updateAgreementStatus (url) {
+		const result = await util.getDataFromServersV2('/consumer/system/common/update-agreement-status', {
+			platformId: app.globalData.platformId
+		}, 'POST', false);
+		if (!result) return;
+		if (result.code === 0) {
+			// 前去相关协议页
+			util.go(`/pages/personal_center/${url}/${url}?isCheckTwoPercent=${this.data.isCheckTwoPercent}`);
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	}
 });

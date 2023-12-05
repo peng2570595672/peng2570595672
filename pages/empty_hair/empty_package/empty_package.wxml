@@ -116,8 +116,7 @@
     <view class="payAndAgreement {{isFade ? 'fadeIn' : 'fadeOut'}}" wx:if="{{isLoaded}}">
         <view class="agreementConfirm" bindtap="onClickAgreementHandle">
             <view class="confirm iconfont {{getAgreement ? 'tick' : ''}}" catchtap="onClickAgreementHandle"></view>
-            <!-- <view class="agreement" wx:if="{{!listOfPackages[choiceIndex].agreements}}"> -->
-            <view class="agreement">
+            <view class="agreement" wx:if="{{!listOfPackages[choiceIndex].agreements}}">
                 当您勾选同意并选购套餐时，即代表您已阅读、理解并接受
                 <text class="agreementColor" catchtap="onClickGoTTQAgreement1" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon === 1}}">通通券会员服务协议、</text>
                 <text class="agreementColor" catchtap="onClickGoAgreementHandle">ETC用户办理协议、</text>
@@ -125,17 +124,17 @@
                 <text class="agreementColor" catchtap="onClickGoPrivacyHandle">用户隐私协议</text>
                 里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。
                 <text wx:if="{{listOfPackages[choiceIndex].etcCardId === 2}}">[发行方: 内蒙古发行]</text>
-                <text wx:if="{{listOfPackages[choiceIndex].etcCardId === 23}}">[发行方: 河北交投发行]</text>
+                <!-- <text wx:if="{{listOfPackages[choiceIndex].etcCardId === 23}}">[发行方: 河北交投发行]</text> -->
             </view>
-            <!-- <view class="agreement" wx:else >
+            <view class="agreement" wx:else >
                  当您勾选同意并选购套餐时，即代表您已阅读、理解并接受
                 <block wx:for="{{listOfPackages[choiceIndex].agreements}}" wx:for-item="item5" wx:for-index="index5" wx:key="index5">
                     <text class="agreementColor" data-item="{{item5}}" catchtap="goAgreementPage">{{item5.name}}{{listOfPackages[choiceIndex].agreements.length - 1 === index5 ? '' : '、' }}</text>
                 </block>
                 里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。
                 <text wx:if="{{listOfPackages[choiceIndex].etcCardId === 2}}">[发行方: 内蒙古发行]</text>
-                <text wx:if="{{listOfPackages[choiceIndex].etcCardId === 23}}">[发行方: 河北交投发行]</text>
-            </view> -->
+                <!-- <text wx:if="{{listOfPackages[choiceIndex].etcCardId === 23}}">[发行方: 河北交投发行]</text> -->
+            </view>
         </view>
         <!-- 按钮设置 -->
         <!-- 通通券 -->
