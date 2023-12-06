@@ -20,17 +20,6 @@
 .content .swiper-tab .tab-show {
   border-bottom: 6rpx solid #1ba566;
 }
-.content .titleMoney{
-  margin-top: 40rpx;
-  margin-bottom: 20rpx;
-  margin-left: 30rpx;
-  display: flex;
-  align-items: center;
-  padding: 0 30rpx;
-  height: 56rpx;
-  font-size: 40rpx;
-  font-weight: 600;
-}
 .content .title {
   margin-top: 40rpx;
   margin-bottom: 20rpx;

@@ -233,6 +233,14 @@
 .alert-for-not-finished-content .moduleThree .close {
   bottom: -120rpx;
 }
+.alert-for-not-finished-content .moduleThree .contant {
+  text-align: center;
+}
+.alert-for-not-finished-content .moduleThree .contant .subContant {
+  display: block;
+  margin-top: 20rpx;
+  font-size: 26rpx;
+}
 .alert-for-not-finished-content .moduleSix {
   width: 100vw;
   height: 670rpx;

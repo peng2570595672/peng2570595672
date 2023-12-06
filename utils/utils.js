@@ -1,4 +1,3 @@
-import util from "./util";
 import {IS_TEST} from "../app";
 export function initProductName (orderInfo) {
 	// productProcess 套餐流程 1-微信 2-绑定银行 3-存量卡 4-三类户 5-信用卡
@@ -202,9 +201,9 @@ export function compare (prop) {
 	};
 }
 // 跳转到湖南高速ETC小程序
-export function handleJumpHunanMini (orderId) {
+export function handleJumpHunanMini (orderId, outTradeNo) {
 	// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
-	let url = encodeURIComponent(`/packageA/new-mineIssure/routerGo/routerGo?processCode=SJHT&accessNo=${orderId}&promotionCode=88880123`);
+	let url = encodeURIComponent(`/packageA/new-mineIssure/routerGo/routerGo?processCode=SJHT&accessNo=${orderId}&promotionCode=88880123&outTradeNo=${outTradeNo}`);
 	console.log(`/pages/homePage/Index/Index?type=redirect&url=${url}`);
 	wx.navigateToMiniProgram({
 		appId: 'wxf546f6c7ccd8fbfe',

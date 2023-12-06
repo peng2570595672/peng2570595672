@@ -182,6 +182,11 @@ Component({
 				default:
 					break;
 			}
+		},
+		// 回调共用方法
+		callBackPub () {
+			this.hide(false);
+			this.data.tipObj.callBack();
 		}
 	}
 });

@@ -125,7 +125,7 @@
                 <text class="agreementColor" catchtap="onClickGoPrivacyHandle">用户隐私协议</text>
                 里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。
                 <text wx:if="{{listOfPackages[choiceIndex].etcCardId === 2}}">[发行方: 内蒙古发行]</text>
-                <text wx:if="{{listOfPackages[choiceIndex].etcCardId === 23}}">[发行方: 河北交投发行]</text>
+                <!-- <text wx:if="{{listOfPackages[choiceIndex].etcCardId === 23}}">[发行方: 河北交投发行]</text> -->
             </view>
             <!-- <view class="agreement" wx:else >
                  当您勾选同意并选购套餐时，即代表您已阅读、理解并接受
@@ -134,7 +134,6 @@
                 </block>
                 里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。
                 <text wx:if="{{listOfPackages[choiceIndex].etcCardId === 2}}">[发行方: 内蒙古发行]</text>
-                <text wx:if="{{listOfPackages[choiceIndex].etcCardId === 23}}">[发行方: 河北交投发行]</text>
             </view> -->
         </view>
         <!-- 按钮设置 -->
@@ -158,8 +157,9 @@
                 </view>
                 <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}} bail" data-isconfirm="{{getAgreement}}" wx:if="{{listOfPackages[activeIndex].pledgeType === 5 || citicBank}}" catchtap="next">
                     <view wx:if="{{citicBank}}">
-                        <view class="titlea">ETC预付费用</view>
-                        <view class="subTitlea">ETC激活后补贴生效，手动确认返还预付费</view></view>
+                        <view class="titlea">立即办理</view>
+                        <view class="subTitlea">{{tools.dataIncludes(citicBankshopProductIds,listOfPackages[activeIndex].shopProductId, 2)}}新客办理成功后返99元</view>
+                    </view>
                     <view wx:else>支付通行权益金</view>
                 </view>
                 <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}}" data-isconfirm="{{getAgreement}}" wx:else catchtap="next">{{'立即支付'}}</view>

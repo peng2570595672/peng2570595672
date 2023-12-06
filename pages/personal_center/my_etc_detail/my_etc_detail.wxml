@@ -105,7 +105,7 @@
             {{orderInfo.selfStatus === 15 ? '去预充' : ''}}
             {{orderInfo.selfStatus === 16 || orderInfo.selfStatus === 20 || orderInfo.selfStatus === 21 ? '继续办理' : ''}}
             {{orderInfo.selfStatus === 17 ? '预充值' : ''}}
-			{{orderInfo.selfStatus === 30 ? '退还预购金' : ''}}
+			{{orderInfo.selfStatus === 30 ? '退还权益金' : ''}}
 			{{orderInfo.selfStatus === 31 ? '签约激活' : ''}}
         </button>
 		<view class="btn-wrapper" wx:if="{{orderInfo.orderType === 11 || orderInfo.orderType === 81}}">

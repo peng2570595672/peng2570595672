@@ -1357,10 +1357,18 @@ Page({
             27: () => this.onClickContinueHandle(orderInfo), // 修改资料
             28: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
             30: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度 - 保证金退回
-            31: () => handleJumpHunanMini(orderInfo.id) // 跳转到湖南高速ETC小程序 - 已支付待激活
+            31: () => this.handleJumpHunanMini(orderInfo.id) // 跳转到湖南高速ETC小程序 - 已支付待激活
         };
         fun[orderInfo.selfStatus].call();
     },
+		async handleJumpHunanMini (orderId) {
+			const result = await util.getDataFromServersV2('consumer/order/order-pay-transaction-info', {orderId: orderId});
+			if (result.code) {
+				util.showToastNoIcon(result.message);
+				return;
+			}
+			handleJumpHunanMini(orderId, result.data.outTradeNo);
+		},
     // 通通券签约
     async onClickSignTongTongQuan () {
         let params = {
@@ -1776,9 +1784,9 @@ Page({
     },
     // 跳转ETC订单列表页
     goToMyEtc () {
-        // util.go(`/pages/personal_center/my_etc/my_etc`);
-        wx.switchTab({
-            url: `/pages/my/index`
-        });
+        util.go(`/pages/personal_center/my_etc/my_etc`);
+        // wx.switchTab({
+        //     url: `/pages/my/index`
+        // });
     }
 });

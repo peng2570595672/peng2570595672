@@ -723,5 +723,10 @@ Page({
             isUnload: 1
         });
         // this.disonnectDevice();
+        if (this.data.ui.activated) {
+            wx.reLaunch({
+                url: '/pages/Home/Home'
+            });
+        }
     }
 });
