@@ -79,6 +79,7 @@ Page({
 			});
 		}
 		if (options.vehPlate) {
+			wx.hideHomeButton();
 			this.setData({
 				isDisableClick: true,
 				isNewPowerCar: options.vehPlate.length === 8,
