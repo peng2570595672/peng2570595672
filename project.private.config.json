@@ -6,7 +6,7 @@
                 {
                     "name": "4.0 填写基础信息页",
                     "pathName": "pages/default/receiving_address/receiving_address",
-                    "query": "activityType=3&shopId=1179101403111497728",
+                    "query": "activityType=3&isPost=1&shopId=1179101403111497728&vehPlate=辽A1BCD2D",
                     "launchMode": "default",
                     "scene": null
                 },

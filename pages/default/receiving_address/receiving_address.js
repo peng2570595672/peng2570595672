@@ -43,7 +43,8 @@ Page({
 		time: 59,// 倒计时
 		isGetIdentifyingCoding: false, // 获取验证码中
 		activityType: 0, // 活动引流类型
-		citicBank: false
+		citicBank: false,
+		isDisableClick: false // 是否禁止点击
 	},
 	async onLoad (options) {
 		app.globalData.orderInfo.orderId = '';
@@ -77,6 +78,15 @@ Page({
 				citicBank: options.citicBank === 'true'
 			});
 		}
+		if (options.vehPlate) {
+			this.setData({
+				isDisableClick: true,
+				isNewPowerCar: options.vehPlate.length === 8,
+				carNoStr: options.vehPlate,
+				carNo: options.vehPlate.split(''),
+				'formData.currentCarNoColor': options.vehPlate.length === 8 ? 1 : 0
+			});
+		}
 		app.globalData.firstVersionData = false; // 非1.0数据办理
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.signAContract = 3;
@@ -89,6 +99,11 @@ Page({
 			this.setData({
 				isOnlineDealWith: false,
 				formData
+			});
+		}
+		if (options.isPost && options.vehPlate) {
+			this.setData({
+				available: true
 			});
 		}
 	},
@@ -479,6 +494,7 @@ Page({
 	},
 	// 点击某一位输入车牌
 	setCurrentCarNo (e) {
+		if (this.data.isDisableClick) return;
 		let index = e.currentTarget.dataset['index'];
 		index = parseInt(index);
 		if (app.globalData.SDKVersion < '2.6.1') {
@@ -706,7 +722,7 @@ Page({
 		isOk = isOk && formData.detailInfo && formData.detailInfo.length >= 2;
 		// 检验手机号码
 		isOk = isOk && formData.telNumber && /^1[0-9]{10}$/.test(formData.telNumber);
-    this.controllTopTabBar();
+		this.controllTopTabBar();
 		return isOk;
 	},
 	// etc4.0：新增-拉起微信授权手机号
@@ -878,6 +894,7 @@ Page({
 	},
 	// 点击添加新能源
 	onClickNewPowerCarHandle (e) {
+		if (this.data.isDisableClick) return;
 		this.setData({
 			isNewPowerCar: true,
 			currentCarNoColor: 1
