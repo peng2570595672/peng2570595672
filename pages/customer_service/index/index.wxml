@@ -4,4 +4,6 @@
         bind:openWebview="openWebview"
         bind:openMiniProgram="openMiniProgram"
     />
+    
+    <button class="goPingjia"  bind:tap="goPingjia">立即办理</button>
 </view>
