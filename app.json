@@ -411,7 +411,13 @@
             "name": "pages/customer_service",
             "pages": [
                 "index/index"
-            ]
+            ],
+            "plugins": {
+                "chatbot": {
+                    "version": "1.3.11",
+                    "provider": "wx8c631f7e9f2465e1"
+                }
+            }
         },
         {
             "root": "pages/historical_pattern",
@@ -432,10 +438,6 @@
         "obu-plugin": {
             "version": "2.1.1",
             "provider": "wx3065d5b05f433be9"
-        },
-        "chatbot": {
-            "version": "1.3.11",
-            "provider": "wx8c631f7e9f2465e1"
         },
         "wxacommentplugin": {
           "version": "latest",
