@@ -4,6 +4,48 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "4.0 填写基础信息页",
+                    "pathName": "pages/default/receiving_address/receiving_address",
+                    "query": "activityType=3&isPost=1&shopId=1179101403111497728&vehPlate=辽A1BCD2D",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/pay/pay",
+                    "query": "pinanOrderId=3565648799399944192&orderId=1156317729767043072",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "ETC详情",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1176449131103653888",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/etc_handle/etc_handle",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "邮寄地址",
+                    "pathName": "pages/default/receiving_address/receiving_address",
+                    "query": "activityType=3&shopId=627104942791852032",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/set_up/set_up",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
                     "query": "orderId=1176251612268597248",
@@ -11,29 +53,8 @@
                     "scene": null
                 },
                 {
-                    "name": "ETC详情",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1174740748386439168",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
                     "name": "",
                     "pathName": "pages/personal_center/my_etc/my_etc",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/agreement_documents/equity_agreement/equity_agreement",
-                    "query": "type=MTnotFees",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/obu_activate/hunan/juli/juli",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
@@ -104,13 +125,6 @@
                 {
                     "name": "",
                     "pathName": "pages/personal_center/jump_web/jump_web",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "邮寄地址",
-                    "pathName": "pages/default/receiving_address/receiving_address",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
@@ -193,13 +207,6 @@
                 {
                     "name": "4.0 我的",
                     "pathName": "pages/my/index",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "4.0 填写基础信息页",
-                    "pathName": "pages/default/receiving_address/receiving_address",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
@@ -573,7 +580,7 @@
     },
     "setting": {
         "urlCheck": false,
-        "compileHotReLoad": true,
+        "compileHotReLoad": false,
         "bigPackageSizeSupport": true
     },
     "projectname": "etc_plus_mini_2.0",

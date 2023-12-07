@@ -42,7 +42,9 @@ Page({
 		identifyingCode: '获取验证码',
 		time: 59,// 倒计时
 		isGetIdentifyingCoding: false, // 获取验证码中
-		citicBank: false
+		activityType: 0, // 活动引流类型
+		citicBank: false,
+		isDisableClick: false // 是否禁止点击
 	},
 	async onLoad (options) {
 		app.globalData.orderInfo.orderId = '';
@@ -54,6 +56,14 @@ Page({
 			util.resetData();// 重置数据
 			// 高速通行公众号进入办理
 			app.globalData.isHighSpeedTraffic = options.shareId;
+		}
+		if (options.activityType) {
+			util.resetData();// 重置数据
+			// 活动引流
+			this.setData({
+				activityType: options.activityType
+			});
+			app.globalData.otherPlatformsServiceProvidersId = options.shopId;
 		}
 		if (options.enterType) {
 			this.setData({
@@ -68,11 +78,21 @@ Page({
 				citicBank: options.citicBank === 'true'
 			});
 		}
+		if (options.vehPlate) {
+			wx.hideHomeButton();
+			this.setData({
+				isDisableClick: true,
+				isNewPowerCar: options.vehPlate.length === 8,
+				carNoStr: options.vehPlate,
+				carNo: options.vehPlate.split(''),
+				'formData.currentCarNoColor': options.vehPlate.length === 8 ? 1 : 0
+			});
+		}
 		app.globalData.firstVersionData = false; // 非1.0数据办理
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.signAContract = 3;
 		// 会员券进入,线下取货
-		if (app.globalData.membershipCoupon.id) {
+		if (app.globalData.membershipCoupon.id || options.isPost) {
 			let formData = this.data.formData;
 			formData.userName = '线下取货'; // 姓名
 			formData.detailInfo = '沙文镇科教街188号';
@@ -82,7 +102,11 @@ Page({
 				formData
 			});
 		}
-		this.login();
+		if (options.isPost && options.vehPlate) {
+			this.setData({
+				available: true
+			});
+		}
 	},
 	async onShow () {
 		if (!this.data.isNeedRefresh) {
@@ -95,8 +119,7 @@ Page({
 		if (app.globalData.userInfo.accessToken) {
 			this.setData({
 				'formData.cardMobilePhone': app.globalData.mobilePhone,
-				'needBindingPhone.mobilePhone': app.globalData.mobilePhone,
-				'loginInfo.needBindingPhone': 0,
+				loginInfo: app.globalData.userInfo,
 				mobilePhoneMode: app.globalData.mobilePhoneMode
 			});
 		} else {
@@ -272,6 +295,11 @@ Page({
 			params['promoterId'] = app.globalData.otherPlatformsServiceProvidersId;// 推广者ID标识
 			params['promoterType'] = 3; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
 		}
+		// 活动引流
+		if (this.data.activityType) {
+			params['promoterId'] = app.globalData.otherPlatformsServiceProvidersId;// 推广者ID标识
+			params['promoterType'] = this.data.activityType; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
+		}
 		// 公众号带服务商引流进入办理
 		if (app.globalData.officialChannel) {
 			params['promoterId'] = app.globalData.otherPlatformsServiceProvidersId;// 推广者ID标识
@@ -432,7 +460,7 @@ Page({
 		// 设置数据
 		let formData = this.data.formData;
 		formData.currentCarNoColor = e.detail.carNo.join('').length === 8 ? 1 : 0;
-    	this.setData({
+		this.setData({
 			carNo: e.detail.carNo, // 车牌号数组
 			carNoStr: e.detail.carNo.join(''), // 车牌号字符串
 			currentIndex: e.detail.index, // 当前输入车牌号位置
@@ -467,6 +495,7 @@ Page({
 	},
 	// 点击某一位输入车牌
 	setCurrentCarNo (e) {
+		if (this.data.isDisableClick) return;
 		let index = e.currentTarget.dataset['index'];
 		index = parseInt(index);
 		if (app.globalData.SDKVersion < '2.6.1') {
@@ -653,6 +682,9 @@ Page({
 		// 是否接受协议
 		let isOk = true;
 		let formData = this.data.formData;
+		if (!this.data.isOnlineDealWith) {
+			this.data.formData.telNumber = formData.cardMobilePhone;
+		}
 		// 验证车牌和车牌颜色
 		if (this.data.carNoStr.length === 7) { // 蓝牌或者黄牌
 			isOk = isOk && (formData.currentCarNoColor === 0 || formData.currentCarNoColor === 2);
@@ -691,7 +723,7 @@ Page({
 		isOk = isOk && formData.detailInfo && formData.detailInfo.length >= 2;
 		// 检验手机号码
 		isOk = isOk && formData.telNumber && /^1[0-9]{10}$/.test(formData.telNumber);
-    this.controllTopTabBar();
+		this.controllTopTabBar();
 		return isOk;
 	},
 	// etc4.0：新增-拉起微信授权手机号
@@ -863,6 +895,7 @@ Page({
 	},
 	// 点击添加新能源
 	onClickNewPowerCarHandle (e) {
+		if (this.data.isDisableClick) return;
 		this.setData({
 			isNewPowerCar: true,
 			currentCarNoColor: 1

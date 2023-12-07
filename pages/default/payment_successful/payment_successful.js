@@ -63,7 +63,12 @@ Page({
 	// 微信签约
 	async next () {
 		if (this.data.isHunan) {
-			handleJumpHunanMini(app.globalData.orderInfo.orderId);
+			const result = await util.getDataFromServersV2('consumer/order/order-pay-transaction-info', {orderId: app.globalData.orderInfo.orderId});
+			if (result.code) {
+				util.showToastNoIcon(result.message);
+				return;
+			}
+			handleJumpHunanMini(app.globalData.orderInfo.orderId, result.data.outTradeNo);
 			return;
 		}
 		if (this.data.isRequest) {
