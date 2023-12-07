@@ -524,10 +524,10 @@ Page({
             this.selectComponent('#dialog1').show('tonTonQuan');
             return;
         }
-        // if (url === 'user_agreement') {	// 相关协议
-        //     this.isShowAgreementTip(url);
-        //     return;
-        // }
+        if (url === 'user_agreement') {	// 相关协议
+            this.isShowAgreementTip(url);
+            return;
+        }
         wx.uma.trackEvent(urlObj[url]);
         util.go(`/pages/personal_center/${url}/${url}?isCheckTwoPercent=${this.data.isCheckTwoPercent}`);
     },

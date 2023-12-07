@@ -612,7 +612,8 @@ Page({
 	},
 	// 选择当前地址
 	onClickChooseLocationHandle () {
-		// 统计点击事件
+		// util.getAddressInfoInfoGD('test');
+		// 统计点击事件;
 		wx.uma.trackEvent('receiving_select_the_address');
 		wx.chooseLocation({
 			success: (res) => {

@@ -7,6 +7,7 @@
 import {isOpenBluetooth} from './utils';
 const CryptoJS = require('./crypto-js.js');
 const QQMapWX = require('../libs/qqmap-wx-jssdk.min.js');
+const amapFile = require('./amap-wx.130.js')
 let app = getApp();
 
 function setApp(a) {
@@ -540,6 +541,17 @@ function getAddressInfo(lat, lng, success, fail, complete) {
 			complete && complete(res);
 		}
 	});
+}
+
+function getAddressInfoInfoGD(obj) {
+	console.log(obj);
+	console.log(amapFile);
+	let Amap = new amapFile.AMapWX({key: app.globalData.GDmapKey})
+	console.log('test',Amap);
+	Amap.getPoiAround({
+		success: (data) => {console.log('高德数据：',data);},
+		fail: (res) => {console.log(res);}
+	})
 }
 
 /**
@@ -1882,6 +1894,7 @@ function deletContract () {
 	} catch (error) {showToastNoIcon(error)}
 };
 
+
 module.exports = {
 	setApp,
 	returnMiniProgram,
@@ -1944,5 +1957,6 @@ module.exports = {
 	getRightAccount,
 	getUserIsVip,
 	getBindGuests,
-	openPdf
+	openPdf,
+	getAddressInfoInfoGD
 };

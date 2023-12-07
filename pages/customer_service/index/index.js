@@ -32,23 +32,23 @@ Page({
     getQueryCallback (e) {
         // console.log(e);
     },
-    //小程序内评价
-  goPingjia() {
-    let plugin = requirePlugin("wxacommentplugin");
-    plugin.openComment({
-      success: (res) => {
-        wx.showToast({
-          title: res,
-        })
-      },
-      fail: (res) => {
-        wx.showToast({
-          title: res,
-        })
-      },
+    // 小程序内评价
+    goPingjia () {
+        let plugin = requirePlugin('wxacommentplugin');
+        plugin.openComment({
+        success: (res) => {
+            wx.showToast({
+            title: res
+            });
+        },
+        fail: (res) => {
+            wx.showToast({
+            title: res
+            });
+        }
 
-    })
-  },
+        });
+    },
     // 点击机器人回答里的链接跳转 webview,需要开发者自己配置一个承载 webview 的页面,url 字段对应的小程序页面需要开发者自己创建开发者需要在小程序后台配置相应的域
     openWebview (e) {
         let url = e.detail.weburl;

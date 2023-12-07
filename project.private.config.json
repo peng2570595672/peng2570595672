@@ -574,13 +574,41 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "111",
+                    "pathName": "/pages/international_driving_document/express_information/express_information",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "112",
+                    "pathName": "/pages/device_upgrade/fill_in_information/fill_in_information",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "113",
+                    "pathName": "/pages/truck_handling/binding_account_bocom/binding_account_bocom",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "114",
+                    "pathName": "/pages/truck_handling/truck_receiving_address/truck_receiving_address",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
     },
     "setting": {
         "urlCheck": false,
-        "compileHotReLoad": false,
+        "compileHotReLoad": true,
         "bigPackageSizeSupport": true
     },
     "projectname": "etc_plus_mini_2.0",
