@@ -39,7 +39,7 @@
 			<!--下部分开始-->
 			<view class="bottom">
 				<view><text>扣款方式：{{item.deductionMethod}}</text></view>
-				<view class="{{item.selfStatus === 12 ? item.deviceUpgrade ? 'iconfont' : '' : 'iconfont'}}" data-index="{{index}}" catchtap="onClickVehicle">
+				<view class="{{item.selfStatus === 12 || item.selfStatus === 32 ? item.deviceUpgrade ? 'iconfont' : '' : 'iconfont'}}" data-index="{{index}}" catchtap="onClickVehicle">
                     {{item.selfStatus === 1 || item.selfStatus === 22 ? '恢复签约' : ''}}
                     {{item.selfStatus === 2 || item.selfStatus === 4 || item.selfStatus === 14 || item.selfStatus === 23 || item.selfStatus === 25 ? '继续办理' : ''}}
                     {{item.selfStatus === 3 || item.selfStatus === 24 ? '去支付' : ''}}
