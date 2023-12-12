@@ -13,7 +13,7 @@
                         <view>{{item.vehPlates}}</view>
                         <view class="status {{item.obuStatus === 1 || item.obuStatus === 5 ? 'activated' : ''}} {{item.obuStatus === 0 && item.auditStatus === 2 ? 'to_be_activated' : ''}}">
                             <view wx:if="{{item.auditStatus === 2}}">
-                                {{item.obuStatus === 1 || item.obuStatus === 5 ? '已激活' : '待激活'}}
+                                {{item.obuStatus === 1 || item.obuStatus === 5 ? '已激活' : item.selfStatus === 31 ? '签约激活' : '待激活'}}
                             </view>
                             <view wx:else>
                                 {{item.selfStatus === 1 || item.selfStatus === 22 ? '已解约' : ''}}
