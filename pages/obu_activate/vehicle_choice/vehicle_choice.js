@@ -19,8 +19,13 @@ Page({
 	async handleVehicle (e) {
 		const index = +e.currentTarget.dataset.index;
 		const item = this.data.list[index];
-		console.log(item);
 		if (item.obuCardType === 10 && +item.deviceType === 0) {	// 临时针对信科订单处理
+			if (item.selfStatus === 3) {
+				// app.globalData.orderInfo.orderId = item.id;
+				// util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests`);
+				util.showToastNoIcon('暂无审核通过的订单');
+				return;
+			}
 			util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${item.id}`);
 			return;
 		}
@@ -92,6 +97,9 @@ Page({
 				util.go(`/pages/empty_hair/instructions_lnnk/index?auditStatus=${item.auditStatus}`);
 				break;
 		}
+	},
+	goActive () {
+		util.go('/pages/obu_activate/vehicle_inquire/vehicle_inquire');
 	},
 	// 拦截点击非透明层空白处事件
 	onClickTranslucentHandle () {

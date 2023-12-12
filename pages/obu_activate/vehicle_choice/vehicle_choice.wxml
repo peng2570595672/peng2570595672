@@ -30,6 +30,7 @@
                                 {{item.selfStatus === 13 || item.selfStatus === 19 || item.selfStatus === 20 ? '待开户' : ''}}
                                 {{item.selfStatus === 15 ? '待充保证金' : ''}}
                                 {{item.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
+                                {{item.selfStatus === 31 ? '签约激活' : ''}}
                             </view>
                         </view>
                     </view>
@@ -51,6 +52,7 @@
                 </view>
             </view>
         </view>
+        <!-- <view class="othersDevice" catchtap="goActive">其它车辆设备进行激活</view> -->
     </view>
 </view>
 <noticeDialog id="noticeDialog"></noticeDialog>
