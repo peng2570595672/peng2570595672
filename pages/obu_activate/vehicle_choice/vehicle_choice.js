@@ -19,6 +19,11 @@ Page({
 	async handleVehicle (e) {
 		const index = +e.currentTarget.dataset.index;
 		const item = this.data.list[index];
+		console.log(item);
+		if (item.obuCardType === 10 && +item.deviceType === 0) {	// 临时针对信科订单处理
+			util.go(`/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${item.id}`);
+			return;
+		}
 		if (item.auditStatus !== 2) {
 			util.showToastNoIcon('暂无审核通过的订单');
 			return;
