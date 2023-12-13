@@ -38,9 +38,12 @@ Page({
   onHide() {
 
   },
+<<<<<<< HEAD
   goBack() {
     wx.navigateBack()
   },
+=======
+>>>>>>> 24dbc47a977a9be973edda3608928481e31f827b
   // 小程序内评价
   goPingjia() {
     let plugin = requirePlugin('wxacommentplugin');
@@ -57,11 +60,14 @@ Page({
         wx.showToast({
           title: res
         });
+<<<<<<< HEAD
       },
       complete:()=>{
         setTimeout(res=>{
           wx.navigateBack()
         },100)
+=======
+>>>>>>> 24dbc47a977a9be973edda3608928481e31f827b
       }
 
     });
