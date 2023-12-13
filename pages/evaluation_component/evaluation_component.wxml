@@ -1,0 +1,4 @@
+<!--pages/evaluation_component/evaluation_component.wxml-->
+
+<button class="goPingjia" bind:tap="goPingjia" wx:if="{{needeva=='1'}}">美言几句</button>
+<button class="iconfont" catchtap="goBack" wx:else="">美言已完成</button>
