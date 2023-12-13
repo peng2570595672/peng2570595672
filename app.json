@@ -34,7 +34,8 @@
         "pages/default/signature_confirmation/signature_confirmation",
         "pages/default/sms_confirmation/sms_confirmation",
         "pages/default/statement_of_interest/statement_of_interest",
-        "pages/default/business_branch_list/business_branch_list"
+        "pages/default/business_branch_list/business_branch_list",
+        "pages/evaluation_component/evaluation_component"
     ],
     "window": {
         "navigationBarBackgroundColor": "#FFFFFF",
@@ -440,8 +441,8 @@
             "provider": "wx3065d5b05f433be9"
         },
         "wxacommentplugin": {
-          "version": "latest",
-          "provider": "wx82e6ae1175f264fa" 
+            "version": "latest",
+            "provider": "wx82e6ae1175f264fa"
         }
     },
     "usingComponents": {
