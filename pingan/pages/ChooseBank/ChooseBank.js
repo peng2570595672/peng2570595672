@@ -107,7 +107,7 @@ Page({
 			return;
 		}
 		// 定位
-		this.getLocationInfo();
+		// this.getLocationInfo();
 	},
 	// 获取订单信息
 	getOrderInfo () {

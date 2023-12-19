@@ -12,6 +12,14 @@
   min-height: 100vh;
   background-color: #ececec;
 }
+.index .vehPlates {
+  font-size: 20rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-left: 50rpx;
+  z-index: 99;
+}
 .index .topSplit {
   width: 100%;
   height: 60rpx;
