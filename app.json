@@ -69,8 +69,8 @@
     },
     "requiredPrivateInfos": [
         "chooseAddress",
-        "chooseLocation",
-        "getLocation"
+        "chooseLocation"
+        
     ],
     "subpackages": [
         {

@@ -6,7 +6,7 @@
                 {
                     "name": "4.0 填写基础信息页",
                     "pathName": "pages/default/receiving_address/receiving_address",
-                    "query": "activityType=3&isPost=1&shopId=1179101403111497728&vehPlate=辽A1BCD2D",
+                    "query": "activityType=3&isPost=1&shopId=581171923325550592&vehPlate=辽A99999",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -591,5 +591,5 @@
         "bigPackageSizeSupport": true
     },
     "projectname": "etc_plus_mini_2.0",
-    "libVersion": "3.0.1"
+    "libVersion": "3.1.5"
 }

@@ -1,55 +1,52 @@
 <view class="index">
-    <!-- 顶部 进度条 组件 -->
-    <view class="topSplit">
-        <topProgressBar progressStage="{{topProgressBar}}" />
+  <!-- 顶部 进度条 组件 -->
+  <text class="{{vehPlates?'vehPlates':''}}" wx:if="vehPlates">正在申请 {{vehPlates}} 客车ETC</text>
+  <view class="topSplit">
+    <topProgressBar progressStage="{{topProgressBar}}" />
+  </view>
+  <view class="module moduleOne">
+    <view class="left iconfont {{isIdCardError ? 'error' : ''}}">车主身份证</view>
+    <view wx:if="{{ orderDetails.orderType !== 61 && ((isModifiedData && isIdCardError) || orderInfo.isOwner !== 1 ) }}" class="btn {{orderInfo.isOwner === 1 ? 'edit': ''}}" catchtap="go" data-url="upload_id_card">
+      {{orderInfo.isOwner === 1 ? '修改' : '上传'}}
     </view>
-    <view class="module moduleOne">
-        <view class="left iconfont {{isIdCardError ? 'error' : ''}}">车主身份证</view>
-        <view wx:if="{{ orderDetails.orderType !== 61 && ((isModifiedData && isIdCardError) || orderInfo.isOwner !== 1 ) }}" class="btn {{orderInfo.isOwner === 1 ? 'edit': ''}}"
-              catchtap="go" data-url="upload_id_card">
-            {{orderInfo.isOwner === 1 ? '修改' : '上传'}}
-        </view>
-        <view wx:else class="icon {{orderInfo.isOwner === 1 ? 'success' : ''}} iconfont"></view>
+    <view wx:else class="icon {{orderInfo.isOwner === 1 ? 'success' : ''}} iconfont"></view>
+  </view>
+  <view class="module moduleTwo">
+    <view class="left iconfont {{isDrivingLicenseError ? 'error' : ''}}">车辆行驶证</view>
+    <view wx:if="{{ orderDetails.orderType !== 61 && ((isModifiedData && isDrivingLicenseError) || orderInfo.isVehicle !== 1 )}}" class="btn {{orderInfo.isVehicle === 1 ? 'edit' : ''}}" catchtap="go" data-url="information_validation">
+      {{orderInfo.isVehicle === 1 ? '修改' : '上传'}}
     </view>
-    <view class="module moduleTwo">
-        <view class="left iconfont {{isDrivingLicenseError ? 'error' : ''}}">车辆行驶证</view>
-        <view wx:if="{{ orderDetails.orderType !== 61 && ((isModifiedData && isDrivingLicenseError) || orderInfo.isVehicle !== 1 )}}" class="btn {{orderInfo.isVehicle === 1 ? 'edit' : ''}}"
-              catchtap="go" data-url="information_validation">
-            {{orderInfo.isVehicle === 1 ? '修改' : '上传'}}
-        </view>
-        <view wx:else class="icon {{orderInfo.isVehicle === 1 ? 'success' : ''}} iconfont"></view>
+    <view wx:else class="icon {{orderInfo.isVehicle === 1 ? 'success' : ''}} iconfont"></view>
+  </view>
+  <view class="module moduleThree" wx:if="{{ orderInfo.obuCardType !== 1 }}">
+    <view class="left iconfont {{isHeadstockError ? 'error' : ''}}">车辆照片</view>
+    <view wx:if="{{ orderDetails.orderType !== 61 && ((isModifiedData && isHeadstockError) || orderInfo.isHeadstock !== 1)}}" class="btn {{orderInfo.isHeadstock === 1  ? 'edit' : ''}}" catchtap="go" data-url="upload_other_photo">
+      {{orderInfo.isHeadstock === 1 ? '修改' : '上传'}}
     </view>
-    <view class="module moduleThree" wx:if="{{ orderInfo.obuCardType !== 1 }}">
-        <view class="left iconfont {{isHeadstockError ? 'error' : ''}}">车辆照片</view>
-        <view wx:if="{{ orderDetails.orderType !== 61 && ((isModifiedData && isHeadstockError) || orderInfo.isHeadstock !== 1)}}" class="btn {{orderInfo.isHeadstock === 1  ? 'edit' : ''}}"
-              catchtap="go" data-url="upload_other_photo">
-            {{orderInfo.isHeadstock === 1 ? '修改' : '上传'}}
-        </view>
-        <view wx:else class="icon {{orderInfo.isHeadstock === 1 ? 'success' : ''}} iconfont"></view>
-    </view>
-    <view class="tips" wx:if="{{tips}}">{{tips}}</view>
+    <view wx:else class="icon {{orderInfo.isHeadstock === 1 ? 'success' : ''}} iconfont"></view>
+  </view>
+  <view class="tips" wx:if="{{tips}}">{{tips}}</view>
 
-    <view class="bottomBtn">
-        <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="submitCiticBank" wx:if="{{citicBank}}">
-            提交
-        </view>
-        <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="subscribe" wx:else>
-            {{isModifiedData ? '提交审核': contractStatus === 1 || !isEtcContractId ? '提交' : '签约代扣通行费'}}
-        </view>
+  <view class="bottomBtn">
+    <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="submitCiticBank" wx:if="{{citicBank}}">
+      提交
     </view>
-    <!-- 中信银行 拉起弹窗-->
-    <action-sheet hidden="{{!openSheet}}" class="actionSheet">
-        <view class="top">
-            <span class="skip" catchtap="skip">跳过</span>
-            <view class="head">{{isWellBank ? '办理平安银行信用卡' : '办理中信银行信用卡'}}</view>
-            <view class="center">
-                <image class="image" wx:if="{{isWellBank}}" src="{{'https://file.cyzl.com/g001/M02/ED/A3/oYYBAGSudaaAaCcuAACi5PtTMeI065.png'}}"/>
-                <!-- <image class="image" wx:elif="{{}}" src="{{'https://file.cyzl.com/g001/M03/29/FD/oYYBAGWI7aSAFiSGAAPQbnxOOwk962.png'}}"/> -->
-                <image class="image" wx:else src="{{isCiticBankPlatinum ? 'https://file.cyzl.com/g001/M01/D1/EC/oYYBAGQmbzqAMNy8AAJalSVjby0953.jpg' : 'https://file.cyzl.com/g001/M01/D1/EC/oYYBAGQmbyGAJQ4wAAOzK-HiEM0583.jpg'}}"/>
-            </view>
-            <view class="desub">{{isWellBank ? '点击跳转到平安银行信用卡办理' : '点击跳转到中信银行信用卡办理'}}</view>
-        </view>
-        <action-sheet-cancel class="ok" catchtap="onclickhandel">立即办理</action-sheet-cancel>
-    </action-sheet>
+    <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="subscribe" wx:else>
+      {{isModifiedData ? '提交审核': contractStatus === 1 || !isEtcContractId || !vehPlates? '提交' : '签约代扣通行费'}}
+    </view>
+  </view>
+  <!-- 中信银行 拉起弹窗-->
+  <action-sheet hidden="{{!openSheet}}" class="actionSheet">
+    <view class="top">
+      <span class="skip" catchtap="skip">跳过</span>
+      <view class="head">{{isWellBank ? '办理平安银行信用卡' : '办理中信银行信用卡'}}</view>
+      <view class="center">
+        <image class="image" wx:if="{{isWellBank}}" src="{{'https://file.cyzl.com/g001/M02/ED/A3/oYYBAGSudaaAaCcuAACi5PtTMeI065.png'}}" />
+        <image class="image" wx:else src="{{isCiticBankPlatinum ? 'https://file.cyzl.com/g001/M01/D1/EC/oYYBAGQmbzqAMNy8AAJalSVjby0953.jpg' : 'https://file.cyzl.com/g001/M01/D1/EC/oYYBAGQmbyGAJQ4wAAOzK-HiEM0583.jpg'}}" />
+      </view>
+      <view class="desub">{{isWellBank ? '点击跳转到平安银行信用卡办理' : '点击跳转到中信银行信用卡办理'}}</view>
+    </view>
+    <action-sheet-cancel class="ok" catchtap="onclickhandel">立即办理</action-sheet-cancel>
+  </action-sheet>
 </view>
 <privacy_popup></privacy_popup>

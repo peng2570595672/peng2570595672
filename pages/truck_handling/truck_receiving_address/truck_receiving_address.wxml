@@ -73,7 +73,7 @@
 				<view class="picker {{formData.region[0] !== '省' ? 'have-value' : ''}}" wx:if="{{formData.region.length === 1}}">{{formData.region[0]}}</view>
 				<view class="picker {{formData.region[0] !== '省' ? 'have-value' : ''}}" wx:else>{{formData.region[0]}} - {{formData.region[1]}} - {{formData.region[2]}}</view>
 			</picker>
-			<text class="iconfont" bindtap="onClickChooseLocationHandle"></text>
+			<!-- <text class="iconfont" bindtap="onClickChooseLocationHandle"></text> -->
 		</view>
 		<view class="input-item" wx:if="{{isOnlineDealWith}}">
 			<view>详细地址</view>

@@ -101,8 +101,16 @@ Page({
 				isOnlineDealWith: false,
 				formData
 			});
-		}
-		if (options.isPost && options.vehPlate) {
+    }
+    // 仅需要填写车牌号和身份证行驶证信息 平安空发激活
+    if(options.perfect==1){
+      this.setData({
+        perfect:options.perfect,
+        orderId:options.orderId
+      })
+      
+    }
+		if (options.isPost && options.vehPlate<11) {
 			this.setData({
 				available: true
 			});
@@ -225,6 +233,17 @@ Page({
 	},
 	// 下一步
 	async next () {
+    //空发平安激活 完善车牌号信息
+    if(this.data.perfect==1&&this.data.orderId){
+      let pingan_params = {
+        orderId:this.data.orderId,
+        vehPlates:this.data.carNoStr
+      }
+      const pingan_result = await util.getDataFromServersV2('consumer/order/save-veh-plates', pingan_params);
+      if(pingan_result.code!==0) return
+      util.go(`/pages/default/information_list/information_list?orderId=${this.data.orderId}&vehPlates=${this.data.carNoStr}`);
+      return 
+    }
 		// 统计点击事件
 		wx.uma.trackEvent('receiving_address_next');
 		this.setData({
@@ -411,7 +430,7 @@ Page({
 		} else if (result.code === 104 && result.message === '该车牌已存在订单') {
 			util.go(`/pages/default/high_speed_verification_failed/high_speed_verification_failed?carNo=${this.data.carNoStr}`);
 		} else {
-			util.showToastNoIcon(result.message);
+			util.showToastNoIcon(result.message+'66');
 		}
 	},
 	// 根据套餐id获取套餐信息
@@ -421,7 +440,8 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			await this.submitProduct();
+      return
+			this.submitProduct();
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -471,7 +491,8 @@ Page({
 		if (!this.data.isNewPowerCar && this.data.currentIndex === 7) {
 			this.setData({
 				showKeyboard: false,
-				currentIndex: -1
+        currentIndex: -1,
+        available:this.data.perfect==1?true:false, // perfect=1  仅填写车牌信息
 			});
 		}
 		// 兼容处理是否显示或者隐藏键盘
@@ -612,30 +633,42 @@ Page({
 	},
 	// 选择当前地址
 	onClickChooseLocationHandle () {
-		// util.getAddressInfoInfoGD('test');
+		
 		// 统计点击事件;
-		wx.uma.trackEvent('receiving_select_the_address');
+    wx.uma.trackEvent('receiving_select_the_address');
+    // wx.getLocation({
+    //   type: 'wgs84',//wgs84 返回 gps 坐标，
+    //   success:  (res) => {
+    //     console.log(res.latitude, res.longitude,'经纬度坐标。');
+        
+    //   },
+    //   fail: (res) => {
+    //     console.log('无法获取经纬度坐标。');
+    //     } 
+      
+    // });
 		wx.chooseLocation({
 			success: (res) => {
 				let address = res.address;
-				let name = res.name;
-				if (address) {
-					// 根据地理位置信息获取经纬度
-					util.getInfoByAddress(address, (res) => {
-						let result = res.result;
-						if (result) {
-							let location = result.location;
-							name = result.title + name;
-							// 根据经纬度信息 反查详细地址信息
-							this.getAddressInfo(location, name);
-							this.setData({
-								available: this.validateAvailable(true)
-							});
-						}
-					}, () => {
-						util.showToastNoIcon('获取地理位置信息失败！');
-					});
-				}
+        let name = res.name;
+        console.log('address',address);
+				// if (address) {
+				// 	// 根据地理位置信息获取经纬度
+				// 	util.getInfoByAddress(address, (res) => {
+				// 		let result = res.result;
+				// 		if (result) {
+				// 			let location = result.location;
+				// 			name = result.title + name;
+				// 			// 根据经纬度信息 反查详细地址信息
+				// 			this.getAddressInfo(location, name);
+				// 			this.setData({
+				// 				available: this.validateAvailable(true)
+				// 			});
+				// 		}
+				// 	}, () => {
+				// 		util.showToastNoIcon('获取地理位置信息失败！');
+				// 	});
+				// }
 			},
 			fail: (e) => {
 				// 选择地址未允许授权
@@ -709,7 +742,11 @@ Page({
 			}
 		} else {
 			isOk = false;
-		}
+    }
+    if(this.data.perfect) {
+      isOk = true
+      return 
+    }
 		// 校验经办人手机号码
 		isOk = isOk && this.data.formData.cardMobilePhone && /^1[0-9]{10}$/.test(this.data.formData.cardMobilePhone);
 		// 校验经办人手机号码
@@ -870,10 +907,11 @@ Page({
 			return;
 		}
 		this.setData({
-			available: this.validateAvailable(true)
+			available: this.data.perfect==1?true:this.validateAvailable(true) //perfect=1  仅填写车牌信息
 		});
 		util.showLoading();
 		if (!this.data.available || this.data.isRequest) {
+      console.log(this.data.isRequest,'666');
 			return util.showToastNoIcon('请填写相关信息');
 		}
 		let formData = this.data.formData; // 输入信息

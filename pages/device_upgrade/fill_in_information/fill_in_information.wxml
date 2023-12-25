@@ -23,7 +23,7 @@
                     <view wx:if="{{tools.addressFormat(formData.region)}}">{{tools.addressFormat(formData.region)}}</view>
                     <span wx:else class="input-placeholder">选择收货 省-市-区</span>
                 </picker>
-                <view class="btns address iconfont" bindtap="onClickChooseLocationHandle"></view>
+                <!-- <view class="btns address iconfont" bindtap="onClickChooseLocationHandle"></view> -->
             </view>
         </view>
         <view class="publicCode">
