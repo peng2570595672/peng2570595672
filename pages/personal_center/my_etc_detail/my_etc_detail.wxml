@@ -108,7 +108,7 @@
 			{{orderInfo.selfStatus === 30 ? '退还权益金' : ''}}
 			{{orderInfo.selfStatus === 31 || orderInfo.selfStatus === 32 ? '签约激活' : ''}}
         </button>
-		<view class="btn-wrapper" wx:if="{{orderInfo.orderType === 11 || orderInfo.orderType === 81}}">
+		<view class="btn-wrapper" wx:if="{{orderInfo.orderType === 11 || orderInfo.orderType === 81 || (orderInfo.orderType === 71&&orderInfo.promoterType === 44)}}">
 			<view wx:if="{{!orderInfo.pledgeStatus || orderInfo.pledgeStatus === 0}}" catchtap="onClickCancelHandle" >取消办理</view>
 			<view wx:if="{{orderInfo.pledgeStatus === 1}}" catchtap="goOnlineServer">取消办理</view>
 		</view>
