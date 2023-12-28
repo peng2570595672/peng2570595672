@@ -581,6 +581,13 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "民生详情",
+                    "pathName": "pages/bank_card/minshen_bank_card_details/minshen_bank_card_details",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

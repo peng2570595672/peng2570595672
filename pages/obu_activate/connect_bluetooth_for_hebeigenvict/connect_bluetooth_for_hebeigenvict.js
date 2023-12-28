@@ -570,7 +570,7 @@ Page({
                 } else {
                     that.setData({writeObuSysObj: res.data.DataOfResponseForWriteSystemInfo}); // 存放从发行方获取的系统信息
                     that.pubFunc2(3,fileType,res.data.DataOfResponseForWriteSystemInfo.cmdOfWriteSystemInfo,() => {
-                        that.getTamperStatus();
+                        that.getSysInfo();
                     });
                 }
             } else {
@@ -579,7 +579,22 @@ Page({
         });
     },
     /**
-     * 获取防拆状态
+     * 再次获取设备系统信息
+     */
+    getSysInfo () {
+        const that = this;
+        bleUtil.getSystemInfo(function (res) {
+            console.log('系统信息',res);
+            if (res.code === '0') {
+                that.setData({systemInfo: res.systemInfo});
+                that.getTamperStatus();
+            } else {
+                that.isOver(`读取系统信息失败 {code:${res.code},data:${res.data}}`);
+            }
+        });
+    },
+    /**
+     * 获取防拆状态 和 系统信息
      */
     getTamperStatus () {
         const that = this;

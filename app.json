@@ -70,7 +70,6 @@
     "requiredPrivateInfos": [
         "chooseAddress",
         "chooseLocation"
-        
     ],
     "subpackages": [
         {
