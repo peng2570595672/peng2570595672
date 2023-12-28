@@ -106,7 +106,8 @@ Page({
     if(options.perfect==1){
       this.setData({
         perfect:options.perfect,
-        orderId:options.orderId
+        orderId:options.orderId,
+        addCard:"完善车牌号"
       })
       
     }
