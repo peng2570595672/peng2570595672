@@ -183,7 +183,7 @@ Page({
 				util.showToastNoIcon(res.message);
 			} else {
 				let data = res.data;
-				
+
 				if (parseInt(data.flowVersion) === 1 && parseInt(data.auditStatus) !== 2) {
 					// 老流程  未审核通过
 					util.showToastNoIcon(`${this.data.carNoStr}没有审核通过的订单`);
@@ -214,7 +214,7 @@ Page({
 				});
 				// 设置渠道名称
         this.setChannelName();
-        
+
 				// 显示弹窗
 				if (!this.data.signed) {
           this.setData({sysPlatform: data.sysPlatform});
@@ -373,14 +373,13 @@ Page({
 			}
 		});
   },
-  	// 下一步
+  // 下一步
 	next () {
 		if (!this.data.available) return;
     // wx.uma.trackEvent('index_next');
 		this.getStatus();
 	},
 	getStatus () {
-    
     console.log('1111',app.globalData.orderInfo.orderId);
 		if (!app.globalData.orderInfo.orderId) return;
 		util.showLoading({title: '处理中'});
@@ -388,15 +387,15 @@ Page({
 		// util.ajax('consumer/order/common/active-get-status-by-order', {
 			// // TODO TEST CODE
 			// isNotSendCode: true,
-			orderId:app.globalData.orderInfo.orderId,
-			receivePhone:this.data.mobilePhone,
-			smsCode:this.data.code
+			orderId: app.globalData.orderInfo.orderId,
+			receivePhone: this.data.mobilePhone,
+			smsCode: this.data.code
 		}, () => {
 			util.showToastNoIcon('获取状态失败！');
 		}, (res) => {
 			let data = res.data;
 			if (res.code === 0) {
-				if (data.contractStatus !== 1 || data.etcContractId !==-1) return;
+				if (data.contractStatus !== 1 || data.etcContractId !== -1) return;
 				// 缓存数据
 				wx.setStorageSync('baseInfo', {
 					orderId: app.globalData.orderInfo.orderId,
@@ -436,7 +435,7 @@ Page({
 			} else {
 				util.showToastNoIcon(res.message);
 			}
-		}, () => {
+		}, '', () => {
 			wx.hideLoading();
 		});
 	},
