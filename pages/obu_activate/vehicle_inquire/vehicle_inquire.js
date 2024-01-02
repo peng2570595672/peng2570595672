@@ -268,7 +268,7 @@ Page({
             this.winShow();
             return;
           }
-          if (data.contractStatus) return;
+          if (data.contractStatus !== 1 && this.data.etcContractId !== -1) return;
           // 缓存数据
           wx.setStorageSync('baseInfo', {
             orderId: app.globalData.orderInfo.orderId,
