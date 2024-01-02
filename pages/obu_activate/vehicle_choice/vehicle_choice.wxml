@@ -52,7 +52,7 @@
                 </view>
             </view>
         </view>
-        <!-- <view class="othersDevice" catchtap="goActive">其它车辆设备进行激活</view> -->
+        <view class="othersDevice" catchtap="goActive">其它车辆设备进行激活</view>
     </view>
 </view>
 <noticeDialog id="noticeDialog"></noticeDialog>
