@@ -183,10 +183,7 @@ Page({
 				util.showToastNoIcon(res.message);
 			} else {
 				let data = res.data;
-				// if (data.mobilePhone !== app.globalData.mobilePhone) {
-				// 	util.showToastNoIcon('暂无有效订单！');
-				// 	return;
-				// }
+				
 				if (parseInt(data.flowVersion) === 1 && parseInt(data.auditStatus) !== 2) {
 					// 老流程  未审核通过
 					util.showToastNoIcon(`${this.data.carNoStr}没有审核通过的订单`);
@@ -216,10 +213,12 @@ Page({
 					channel: data.channel
 				});
 				// 设置渠道名称
-				this.setChannelName();
+        this.setChannelName();
+        
 				// 显示弹窗
 				if (!this.data.signed) {
-					this.setData({sysPlatform: data.sysPlatform});
+          this.setData({sysPlatform: data.sysPlatform});
+
 					this.selectComponent('#noticeDialog').show({
 						orderId: data.orderId,
 						alertType: 100,
@@ -230,8 +229,7 @@ Page({
 						text: '您还未完成车主服务签约，请先完成后再激活'
 					});
 					return;
-        }
-        
+				}
 				wx.setStorageSync('sysPlatform', data.sysPlatform);
 				if (/^1\d{10}$/.test(data.mobilePhone) && data.orderId && data.channel) {
 					// 青海
@@ -246,9 +244,12 @@ Page({
 						serverId: data.serverId,
 						mobilePhone: data.mobilePhone,
 						showPhone: data.mobilePhone.replace(/(\d{3})\d{4}(\d+)/, '$1****$2')
-					});
-          console.log('111');
-          // if (data.contractStatus !== 1) return;
+          });
+          if (data.mobilePhone !== app.globalData.mobilePhone) {
+            this.winShow();
+            return;
+          }
+					if (data.contractStatus) return;
 					// 缓存数据
 					wx.setStorageSync('baseInfo', {
 						orderId: app.globalData.orderInfo.orderId,
@@ -265,7 +266,6 @@ Page({
 							util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=2`);
 							break;
 						case 2:// 内蒙 蒙通卡
-						case 23:
 							if (!this.data.choiceEquipment) {
 								this.setData({
 									choiceEquipment: this.selectComponent('#choiceEquipment')
@@ -284,9 +284,7 @@ Page({
 							break;
 						case 8:	// 辽宁 辽通卡
 							util.go(`/pages/empty_hair/instructions_lnnk/index?auditStatus=2`);
-              break;
-            // default:	// 其他需要我们自己激活的省
-            // util.go('/pages/instructions/index');
+							break;
 					}
 				} else {
 					util.showToastNoIcon('未查询到有效订单，请检查！');
@@ -302,6 +300,144 @@ Page({
 			code: '',
 			alertMask: true,
 			alertWrapper: true
+		});
+  },
+  // 验证码
+	codeValueChange (e) {
+		let code = e.detail.value.replace(/\s/g, '');
+		this.setData({
+			code,
+			available: +/\d{4}/.test(code)
+		});
+	},
+  // 获取验证码
+	getCode () {
+		// 如果在倒计时，直接不处理
+		if (this.data.isGetIdentifyingCoding) {
+			return;
+		}
+		if (!this.data.mobilePhone) {
+			util.showToastNoIcon('未获取到手机号');
+			return;
+		} else if (!/^1[0-9]{10}$/.test(this.data.mobilePhone)) {
+			util.showToastNoIcon('手机号格式错误');
+			return;
+		}
+		// 设置状态
+		this.setData({
+			inputCodeFocusing: 1,
+			isGetIdentifyingCoding: true,
+			identifyingCode: `（${this.data.time}s）`
+		});
+
+		// 倒计时
+		if (timer) {
+			clearInterval(timer);
+		}
+		timer = setInterval(() => {
+			this.setData({
+				time: --this.data.time
+			});
+			if (this.data.time === 0) {
+				clearInterval(timer);
+				this.setData({
+					time: 59,
+					identifyingCode: '重新获取',
+					isGetIdentifyingCoding: false
+				});
+			} else {
+				this.setData({
+					identifyingCode: `（${this.data.time}s）`
+				});
+			}
+		}, 1000);
+		this.getIdentifyingCodeForServer();
+  },
+  getIdentifyingCodeForServer () {
+		wx.uma.trackEvent('index_get_code');
+		util.getDataFromServer('consumer/order/common/active-send-code', {
+			// platformId: '500338116821778434',	// API 1.0
+			platformId: '601416564406747136',	// API 2.0
+			receivePhone: this.data.mobilePhone
+		}, () => {
+			util.showToastNoIcon('获取验证码失败');
+		}, (res) => {
+			if (res.code) {
+				util.showToastNoIcon(res.message);
+			} else {
+				util.showToastNoIcon('发送成功');
+				this.setData({
+					// smsToken: res.data,
+					isGetCoded: true
+				});
+			}
+		});
+  },
+  	// 下一步
+	next () {
+		if (!this.data.available) return;
+    // wx.uma.trackEvent('index_next');
+		this.getStatus();
+	},
+	getStatus () {
+    
+    console.log('1111',app.globalData.orderInfo.orderId);
+		if (!app.globalData.orderInfo.orderId) return;
+		util.showLoading({title: '处理中'});
+		util.getDataFromServer('consumer/order/common/active-get-status-by-order', {
+		// util.ajax('consumer/order/common/active-get-status-by-order', {
+			// // TODO TEST CODE
+			// isNotSendCode: true,
+			orderId:app.globalData.orderInfo.orderId,
+			receivePhone:this.data.mobilePhone,
+			smsCode:this.data.code
+		}, () => {
+			util.showToastNoIcon('获取状态失败！');
+		}, (res) => {
+			let data = res.data;
+			if (res.code === 0) {
+				if (data.contractStatus !== 1 || data.etcContractId !==-1) return;
+				// 缓存数据
+				wx.setStorageSync('baseInfo', {
+					orderId: app.globalData.orderInfo.orderId,
+					mobilePhone: this.data.mobilePhone,
+					channel: this.data.channel,
+					serverId: this.data.serverId,
+					qtLimit: this.data.qtLimit,
+					carNoStr: this.data.carNoStr,
+					obuStatus: data.obuStatus
+				});
+				switch (this.data.channel) {
+          case 1:// 贵州 黔通卡
+          case 21:
+            util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=2`);
+            break;
+          case 2:// 内蒙 蒙通卡
+            if (!this.data.choiceEquipment) {
+              this.setData({
+                choiceEquipment: this.selectComponent('#choiceEquipment')
+              });
+            }
+            this.data.choiceEquipment.switchDisplay(true);
+            break;
+          case 3:	// 山东 鲁通卡
+          case 9:	// 山东 齐鲁通卡
+            util.go(`/pages/empty_hair/instructions_ujds/index?auditStatus=2`);
+            break;
+          case 4:	// 青海 青通卡
+          case 5:// 天津 速通卡
+          case 10:// 湖南 湘通卡
+            util.go(`/pages/obu_activate/neimeng_choice/neimeng_choice?obuCardType=${this.data.channel}`);
+            break;
+          case 8:	// 辽宁 辽通卡
+            util.go(`/pages/empty_hair/instructions_lnnk/index?auditStatus=2`);
+            break;
+        }
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, () => {
+			wx.hideLoading();
 		});
 	},
 	// 设置渠道名称
