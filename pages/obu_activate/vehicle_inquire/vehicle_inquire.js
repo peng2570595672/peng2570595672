@@ -465,6 +465,7 @@ Page({
       }
     }, '', () => {
       wx.hideLoading();
+      this.winHide();
     });
   },
   // 设置渠道名称
