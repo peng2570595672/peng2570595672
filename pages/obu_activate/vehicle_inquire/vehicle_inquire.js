@@ -31,7 +31,8 @@ Page({
 		isRelease: 0,	// TODO 用于测试显示当前环境是否为正式版环境
 		appid: '',
 		choiceEquipment: undefined,
-		getAgreement: true	// 是否接收协议
+		getAgreement: true,	// 是否接收协议
+		etcContractId: ''	// 是否接收协议
 	},
 	onLoad () {
 		// // TODO TEST CODE
@@ -210,7 +211,8 @@ Page({
 				app.globalData.orderInfo.orderId = data.orderId;
 				this.setData({
 					signed: +(data.contractStatus === 1) || data.etcContractId === -1,
-					channel: data.channel
+					channel: data.channel,
+					etcContractId: data.etcContractId
 				});
 				// 设置渠道名称
         this.setChannelName();
@@ -395,7 +397,7 @@ Page({
 		}, (res) => {
 			let data = res.data;
 			if (res.code === 0) {
-				if (data.contractStatus !== 1 || data.etcContractId !== -1) return;
+				if (data.contractStatus !== 1 || this.data.etcContractId !== -1) return;
 				// 缓存数据
 				wx.setStorageSync('baseInfo', {
 					orderId: app.globalData.orderInfo.orderId,
