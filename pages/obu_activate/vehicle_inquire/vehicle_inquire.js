@@ -439,14 +439,14 @@ Page({
           case 2: // 内蒙 蒙通卡
           case 23: // 河北交投卡
             if (!this.data.choiceEquipment) {
-              this.setData({
+              this.setData({ 
                 choiceEquipment: this.selectComponent('#choiceEquipment')
-              });
+              }); 
             }
             this.data.choiceEquipment.switchDisplay(true);
             break;
           case 3: // 山东 鲁通卡
-          case 9: // 山东 齐鲁通卡
+          case 9: //山东 齐鲁通卡
             util.go(`/pages/empty_hair/instructions_ujds/index?auditStatus=2`);
             break;
           case 4: // 青海 青通卡
