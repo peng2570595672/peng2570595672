@@ -263,6 +263,7 @@ Page({
 							util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=2`);
 							break;
 						case 2:// 内蒙 蒙通卡
+						case 23:
 							if (!this.data.choiceEquipment) {
 								this.setData({
 									choiceEquipment: this.selectComponent('#choiceEquipment')
@@ -281,7 +282,9 @@ Page({
 							break;
 						case 8:	// 辽宁 辽通卡
 							util.go(`/pages/empty_hair/instructions_lnnk/index?auditStatus=2`);
-							break;
+              break;
+            // default:	// 其他需要我们自己激活的省
+            // util.go('/pages/instructions/index');
 					}
 				} else {
 					util.showToastNoIcon('未查询到有效订单，请检查！');
