@@ -183,10 +183,10 @@ Page({
 				util.showToastNoIcon(res.message);
 			} else {
 				let data = res.data;
-				if (data.mobilePhone !== app.globalData.mobilePhone) {
-					util.showToastNoIcon('暂无有效订单！');
-					return;
-				}
+				// if (data.mobilePhone !== app.globalData.mobilePhone) {
+				// 	util.showToastNoIcon('暂无有效订单！');
+				// 	return;
+				// }
 				if (parseInt(data.flowVersion) === 1 && parseInt(data.auditStatus) !== 2) {
 					// 老流程  未审核通过
 					util.showToastNoIcon(`${this.data.carNoStr}没有审核通过的订单`);
@@ -230,7 +230,8 @@ Page({
 						text: '您还未完成车主服务签约，请先完成后再激活'
 					});
 					return;
-				}
+        }
+        
 				wx.setStorageSync('sysPlatform', data.sysPlatform);
 				if (/^1\d{10}$/.test(data.mobilePhone) && data.orderId && data.channel) {
 					// 青海
@@ -246,7 +247,8 @@ Page({
 						mobilePhone: data.mobilePhone,
 						showPhone: data.mobilePhone.replace(/(\d{3})\d{4}(\d+)/, '$1****$2')
 					});
-					if (data.contractStatus !== 1) return;
+          console.log('111');
+          // if (data.contractStatus !== 1) return;
 					// 缓存数据
 					wx.setStorageSync('baseInfo', {
 						orderId: app.globalData.orderInfo.orderId,
