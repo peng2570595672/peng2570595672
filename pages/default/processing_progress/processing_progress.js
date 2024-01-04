@@ -322,7 +322,12 @@ Page({
 				if (!isShowpAPop) {
 					if (this.data.firstCar.vehKeys === '*' || (this.data.firstCar.vehKeys.includes(res.data.vehPlates.substring(0,1)) && !this.data.firstCar.filterKeys.includes(res.data.vehPlates.substring(0,2)))) {
 						wx.setStorageSync('isShowpAPop',true);
-						this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '礼品领取',bgColor: 'rgba(42, 80, 68, 0.7)'});
+						// this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '礼品领取',bgColor: 'rgba(42, 80, 68, 0.7)'});
+						if (this.data.info?.vehPlates.includes('云')) {
+							this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)'});
+						} else if (util.isDuringDate('2024-01-03 00:00:00', '2024-02-01 00:00:00')) {
+							this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)'});
+						}
 					}
 				}
 

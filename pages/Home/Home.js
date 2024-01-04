@@ -942,7 +942,7 @@ Page({
                             this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)'});
                         }
                     }
-                    if (app.globalData.pingAnBindGuests.vehKeys === '*' && app.globalData.isShowOncepingAnBindGuestsPop === 0 && index === 0 && util.isDuringDate('2024-01-03 00:00:00', '2024-02-01 00:00:00')) {
+                    if (!item.vehPlates.includes('云') && app.globalData.pingAnBindGuests.vehKeys === '*' && app.globalData.isShowOncepingAnBindGuestsPop === 0 && index === 0 && util.isDuringDate('2024-01-03 00:00:00', '2024-02-01 00:00:00')) {
                         app.globalData.isShowOncepingAnBindGuestsPop = 1;
                         this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)'});
                     }

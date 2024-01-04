@@ -123,7 +123,7 @@
                 <image wx:if="{{tipObj.type === 'bingGuttes'}}" class="image" src="https://file.cyzl.com/g001/M01/E9/0E/oYYBAGSayLqAUbkaAAF4_RMUuos437.png" mode="widthFix"/>
                 <image wx:else class="image1" src="https://file.cyzl.com/g001/M02/03/FF/oYYBAGTu_uaAI9fDAACjLXILp-I567.png" mode="widthFix"/>
             </view>
-            <view wx:else>
+            <view wx:if="{{tipObj.type === 'newPop'}}">
                 <image wx:if="{{tipObj.title === '云'}}" class="image" src="https://file.cyzl.com/g001/M03/2F/C9/oYYBAGWVGfqAV4NFAADVPPt-hzs948.png" mode="widthFix"/>
                 <image wx:else class="image" src="https://file.cyzl.com/g001/M03/2F/C5/oYYBAGWVFI-ACXl-AAC6oO8MLag147.png" mode="widthFix"/>
             </view>
@@ -134,7 +134,7 @@
             </view>
             <view wx:if="{{tipObj.type === 'bingGuttes'}}" class="btn" catchtap="authorizeTip"></view>
             <view wx:if="{{tipObj.type === 'newPop'}}" class="btn2" catchtap="authorizeTip"></view>
-            <view wx:else class="btn1" catchtap="authorizeTip"></view>
+            <view wx:if="{{tipObj.type === 'bingGuttesBill'}}" class="btn1" catchtap="authorizeTip"></view>
             <view wx:if="{{tipObj.type === 'bingGuttesBill' || tipObj.type === 'newPop'}}" class="close1" data-title="{{tipObj.title}}" catchtap="hide"></view>
         </view>
 
