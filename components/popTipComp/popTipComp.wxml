@@ -84,6 +84,18 @@
             <view class="close iconfont" data-title="{{tipObj.title}}" catchtap="hide"></view>
         </view>
 
+        <!-- 黔通2%用户 - 协议续签提醒 -->
+            <view class="module moduleTwo" wx:if="{{tipObj.type === 'qtTwoPercent'}}">
+            <view class="title">{{tipObj.title}}</view>
+            <view class="contant">
+                <view>为充分维护您的合法权益，请您务必审慎阅读、充分理解协议中相关条款内容，特别是以粗体标注的部分。阅读协议的过程中，如果您不同意相关协议或其中任何条款约定，您应立即停使用小程序。你可阅读 <text class="protocol" bindtap="handleProtocol">《用户服务协议》</text>和<text class="protocol" bindtap="handleFactoringAgreement">《ETC保理服务协议》</text>了解详细信息。如你同意，请点击“同意”开始接受我们的服务。</view>
+            </view>
+            <view class="bottomBtn">
+                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+                <view class="ok {{getAgreement ? '' : 'no'}}" data-ok='true' catchtap="handleTwoPercentSign">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
+            </view>
+        </view>
+
         <!-- 平安获客 - 授权提醒 -->
         <view class="module moduleTwo" wx:if="{{tipObj.type === 'nine'}}">
             <view class="title">{{tipObj.title}}</view>
@@ -103,25 +115,17 @@
             </view>
         </view>
 
-        <!-- 黔通2%用户 - 协议续签提醒 -->
-            <view class="module moduleTwo" wx:if="{{tipObj.type === 'qtTwoPercent'}}">
-            <view class="title">{{tipObj.title}}</view>
-            <view class="contant">
-                <view>为充分维护您的合法权益，请您务必审慎阅读、充分理解协议中相关条款内容，特别是以粗体标注的部分。阅读协议的过程中，如果您不同意相关协议或其中任何条款约定，您应立即停使用小程序。你可阅读 <text class="protocol" bindtap="handleProtocol">《用户服务协议》</text>和<text class="protocol" bindtap="handleFactoringAgreement">《ETC保理服务协议》</text>了解详细信息。如你同意，请点击“同意”开始接受我们的服务。</view>
-            </view>
-            <view class="bottomBtn">
-                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
-                <view class="ok {{getAgreement ? '' : 'no'}}" data-ok='true' catchtap="handleTwoPercentSign">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
-            </view>
-        </view>
-
         <!-- 平安获客 - 礼品领取  -->
-        <view class="module1" wx:if="{{tipObj.type === 'bingGuttes' || tipObj.type === 'bingGuttesBill'}}" catchtouchmove=''>
+        <view class="module1 {{tipObj.type === 'newPop' ? 'subModule1' : ''}}" wx:if="{{tipObj.type === 'bingGuttes' || tipObj.type === 'bingGuttesBill' || tipObj.type === 'newPop'}}" catchtouchmove=''>
             <!-- this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '免责声明',btnCancel: '取消',btnconfirm: '同意授权',bgColor: 'rgba(42, 80, 68, 0.7)'}); -->
             <view wx:if="{{tipObj.type === 'bingGuttes'}}" class="close" data-title="{{tipObj.title}}" catchtap="hide"></view>
-            <view class="{{tipObj.type === 'bingGuttesBill' ? 'pic' : ''}}">
+            <view class="{{tipObj.type === 'bingGuttesBill' ? 'pic' : ''}}" wx:if="{{tipObj.type === 'bingGuttes' || tipObj.type === 'bingGuttesBill'}}">
                 <image wx:if="{{tipObj.type === 'bingGuttes'}}" class="image" src="https://file.cyzl.com/g001/M01/E9/0E/oYYBAGSayLqAUbkaAAF4_RMUuos437.png" mode="widthFix"/>
                 <image wx:else class="image1" src="https://file.cyzl.com/g001/M02/03/FF/oYYBAGTu_uaAI9fDAACjLXILp-I567.png" mode="widthFix"/>
+            </view>
+            <view wx:else>
+                <image wx:if="{{tipObj.title === '云'}}" class="image" src="https://file.cyzl.com/g001/M03/2F/C9/oYYBAGWVGfqAV4NFAADVPPt-hzs948.png" mode="widthFix"/>
+                <image wx:else class="image" src="https://file.cyzl.com/g001/M03/2F/C5/oYYBAGWVFI-ACXl-AAC6oO8MLag147.png" mode="widthFix"/>
             </view>
             <view class="agreement" catchtap="isSelectAgreement">
                 <text class="confirm">
@@ -129,9 +133,9 @@
                 </text>阅读并同意 <text class="text1" data-type="1" catchtap="goAgreement">《用户隐私协议》</text>
             </view>
             <view wx:if="{{tipObj.type === 'bingGuttes'}}" class="btn" catchtap="authorizeTip"></view>
+            <view wx:if="{{tipObj.type === 'newPop'}}" class="btn2" catchtap="authorizeTip"></view>
             <view wx:else class="btn1" catchtap="authorizeTip"></view>
-            <view wx:if="{{tipObj.type === 'bingGuttesBill'}}" class="close1" data-title="{{tipObj.title}}" catchtap="hide"></view>
-
+            <view wx:if="{{tipObj.type === 'bingGuttesBill' || tipObj.type === 'newPop'}}" class="close1" data-title="{{tipObj.title}}" catchtap="hide"></view>
         </view>
 
         <!-- 查看图片 -->

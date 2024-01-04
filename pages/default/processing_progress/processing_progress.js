@@ -709,7 +709,14 @@ Page({
 	// 跳转平安绑客
 	goPingAn () {
 		// 授权提醒
-		this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '礼品领取',bgColor: 'rgba(42, 80, 68, 0.7)'});
+		// this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '礼品领取',bgColor: 'rgba(42, 80, 68, 0.7)'});
+		if (this.data.info?.vehPlates.includes('云')) {
+			this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)'});
+			return;
+		}
+		if (util.isDuringDate('2024-01-03 00:00:00', '2024-02-01 00:00:00')) {
+			this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)'});
+		}
 	},
 	// 继续办理平安信用卡入口
 	async goPinAnH5 () {

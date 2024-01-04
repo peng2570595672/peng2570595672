@@ -317,6 +317,9 @@
   left: 50%;
   transform: translateX(-50%);
 }
+.alert-for-not-finished-content .module1.subModule1 {
+  width: 556rpx;
+}
 .alert-for-not-finished-content .module1 .pic {
   margin-left: -42rpx;
   width: 610rpx;
@@ -374,6 +377,18 @@
   text-align: center;
   line-height: 100rpx;
   background: url("https://file.cyzl.com/g001/M02/04/0A/oYYBAGTvK9mAOnLaAAAjY1FkEpg334.png") center no-repeat;
+  background-size: cover;
+}
+.alert-for-not-finished-content .module1 .btn2 {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 272rpx;
+  height: 76rpx;
+  border-radius: 598rpx;
+  text-align: center;
+  line-height: 72rpx;
+  background: url("https://file.cyzl.com/g001/M03/2F/D1/oYYBAGWVIxGAUtvjAAAJ8rPJwnU477.png") center no-repeat;
   background-size: cover;
 }
 .alert-for-not-finished-content .module1 .agreement {
@@ -481,6 +496,80 @@
 .alert-for-not-finished-content .module2 .close {
   bottom: -120rpx;
 }
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  to {
+    opacity: 0;
+  }
+}
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -500,7 +589,6 @@
 @keyframes zoomIn {
   from {
     opacity: 0;
-    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
     transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
   }
   50% {
@@ -513,46 +601,6 @@
   }
   50% {
     opacity: 0;
-    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
-    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
-  }
-  to {
-    opacity: 0;
-  }
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
-    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
-  }
-  50% {
-    opacity: 1;
-  }
-}
-@keyframes zoomOut {
-  from {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
     transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
   }
   to {
