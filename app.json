@@ -436,7 +436,7 @@
     },
     "plugins": {
         "obu-plugin": {
-            "version": "2.1.1",
+            "version": "3.1.0",
             "provider": "wx3065d5b05f433be9"
         },
         "wxacommentplugin": {
