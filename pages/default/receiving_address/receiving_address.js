@@ -926,11 +926,20 @@ Page({
 			if (res.data.canSubmit === 1) {
 				this.next();
 			} else {
-				util.showToastNoIcon(res.data.canSubmitMsg);
+        // 改为显示模态框
+        util.alert({
+          title:"检测到已有订单",
+          content: res.data.canSubmitMsg,
+          showCancel: false,
+          confirmText: '关闭',
+          confirm: () => {
+          },
+        });
+				// util.showToastNoIcon(res.data.canSubmitMsg); 改为显示模态框
 			}
 		} else {
 			util.hideLoading();
-			util.showToastNoIcon(res.message);
+			// util.showToastNoIcon(res.message);
 		}
 	},
 	// 点击添加新能源
