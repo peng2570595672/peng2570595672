@@ -440,7 +440,6 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-      return;
 			this.submitProduct();
 		} else {
 			util.showToastNoIcon(result.message);
