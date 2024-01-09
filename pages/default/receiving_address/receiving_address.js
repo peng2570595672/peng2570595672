@@ -111,7 +111,7 @@ Page({
       })
       
     }
-		if (options.isPost && options.vehPlate<11) {
+		if (options.isPost && options.vehPlate.length < 11) {
 			this.setData({
 				available: true
 			});
