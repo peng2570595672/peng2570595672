@@ -204,7 +204,7 @@ Page({
             this.setData({
                 listOfPackages: [result.data]
             });
-            // 中信银行
+            // 银行信用卡
             if (this.data.citicBankshopProductIds.includes(result.data.shopProductId)) {
                 this.setData({
                     citicBank: true
@@ -592,11 +592,13 @@ Page({
             util.showToastNoIcon('请同意并勾选协议！');
             return;
         }
-        if (this.data.listOfPackages[this.data.choiceIndex].mustChoiceRightsPackage === 1 && this.data.equityListMap.addEquityList[this.data.choiceIndex].aepIndex === -1) {
+        let obj1 = this.data.listOfPackages[this.data.choiceIndex];
+
+        if (obj1.mustChoiceRightsPackage === 1 && this.data.equityListMap.addEquityList[this.data.choiceIndex].aepIndex === -1) {
             util.showToastNoIcon('请选择一个权益包');
             return;
         }
-        if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4) {
+        if (obj1.pledgeType === 4) {
             // 判断是否是 权益券额套餐模式 ，如果是再判断以前是否有过办理，如果有则弹窗提示，并且不执行后面流程
             const result = await util.getDataFromServersV2('consumer/order/precharge/list',{
                 orderId: app.globalData.orderInfo.orderId // 订单id
@@ -622,17 +624,19 @@ Page({
                 return;
             }
         }
-        // 中信银行 白金卡
-        if (this.data.listOfPackages[this.data.choiceIndex].shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || this.data.listOfPackages[this.data.choiceIndex].shopProductId === app.globalData.cictBankObj.cictBankNmPlatinumCard) {
+        // 银行信用卡 细则提示弹窗
+        if (obj1.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || obj1.shopProductId === app.globalData.cictBankObj.cictBankNmPlatinumCard || obj1.shopProductId === app.globalData.cictBankObj.minshenBank) {
             this.selectComponent('#popTipComp').show({
                 type: 'five',
                 title: '活动细则',
                 btnCancel: '我再想想',
-                btnconfirm: '我知道了'
+                btnconfirm: '我知道了',
+                // subType 1-中信 2-平安 3-民生
+                subType: obj1.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId ? 1 : obj1.shopProductId === app.globalData.cictBankObj.cictBankNmPlatinumCard ? 2 : 3
             });
             return;
         }
-        if (this.data.listOfPackages[this.data.choiceIndex].mustChoiceRightsPackage === 0 && this.data.rightsAndInterestsList.length) {
+        if (obj1.mustChoiceRightsPackage === 0 && this.data.rightsAndInterestsList.length) {
             // 不必选权益 有权益包 未选中权益包
             util.alert({
                 title: `优惠提醒`,

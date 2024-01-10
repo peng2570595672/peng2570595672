@@ -7,22 +7,22 @@
         <view class="head">为车主量身打造</view>
         <view class="title">
             <view class="title_name">民生标准车车卡（白金卡）</view>
-            <view class="title_view" data-index='1' catchtap="viewEquity">查看权益</view>
+            <!-- <view class="title_view" data-index='1' catchtap="viewEquity">查看权益</view> -->
         </view>
         <view class="img">
             <image class="img_2" src="https://file.cyzl.com/g001/M02/16/B1/oYYBAGVR6oSAUMctAACP5vfK5Kg358.jpg" mode="widthFix" />
         </view>
         <view class="title">
             <view class="title_name">民生标准加油卡</view>
-            <view class="title_view" data-index='2' catchtap="viewEquity">查看权益</view>
+            <!-- <view class="title_view" data-index='2' catchtap="viewEquity">查看权益</view> -->
         </view>
         <view class="img">
             <image class="img_8" src="https://file.cyzl.com/g001/M02/16/BD/oYYBAGVSE0qAdizAAACFHZai8FA700.jpg" mode="widthFix" />
             <image class="img_8" src="https://file.cyzl.com/g001/M02/16/BD/oYYBAGVSE-eAWgKGAACqkSkRed4921.jpg" mode="widthFix" />
         </view>
-        <view class="btnCiti" wx:if="{{citicBank}}">
+        <!-- <view class="btnCiti" wx:if="{{true}}">
             <span class="btn1" style="background: {{bgColor}}" catchtap="citicBankProgress" >{{showhandleOrView ? '继续办理信用卡':'查看信用卡办理进度'}}</span>
-        </view>
+        </view> -->
     </view>
 
     <view class="module current">

@@ -35,7 +35,7 @@ Page({
 			{type: 5,name: '洗车券'},
 			// {type: 6,name: '通用券'},
 			// {type: 7,name: '商品消费券'}
-			{type: 8,name: '药店券'}
+			{type: 8,name: '停车券'}
 		],
 		activeIndex: 0
 	},

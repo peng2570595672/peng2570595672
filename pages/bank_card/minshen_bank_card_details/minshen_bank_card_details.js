@@ -118,7 +118,7 @@ Page({
     async viewCiticBankList () {
         let flag = [];
         if (app.globalData.myEtcList.length > 0) {
-            flag = app.globalData.myEtcList.filter(item => app.globalData.cictBankObj.citicBankshopProductIds.includes(item.shopProductId) && item.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId);
+            flag = app.globalData.myEtcList.filter(item => app.globalData.cictBankObj.minshenBank === item.shopProductId);
             this.setData({viewCiticBankList: flag});
         }
         this.setData({keepHandle: flag.length});
@@ -139,20 +139,20 @@ Page({
             }
         }
     },
-    // 权益 查看
-    viewEquity (e) {
-        let index = e.currentTarget.dataset.index;
-        util.go(`/pages/bank_card/minshen_publicize/minshen_publicize?type=${index}`);
-    },
+    // // 权益 查看
+    // viewEquity (e) {
+    //     let index = e.currentTarget.dataset.index;
+    //     util.go(`/pages/bank_card/minshen_publicize/minshen_publicize?type=${index}`);
+    // },
 
-  citicBankProgress () {
-        if (!this.data.showhandleOrView) {	// 查看信用卡办理进度
-            util.go(`/pages/bank_card/citicBank_processing_progress/citicBank_processing_progress?orderId=${this.data.viewCiticBankList[0].id}`);
-        } else {	// 继续办理信用卡 - 跳转第三方
-            let url = this.data.isCiticBankPlatinum ? `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?sid=SJCSJHT01&paId=${this.data.viewCiticBankList[0].id}&partnerId=SJHT&pid=CS0840` : `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?pid=CS0207&sid=SJCSJHT01&paId=${this.data.viewCiticBankList[0].id}&partnerId=SJHT`;
-            util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
-        }
-    },
+//   citicBankProgress () {
+//         if (!this.data.showhandleOrView) {	// 查看信用卡办理进度
+//             util.go(`/pages/bank_card/citicBank_processing_progress/citicBank_processing_progress?orderId=${this.data.viewCiticBankList[0].id}`);
+//         } else {	// 继续办理信用卡 - 跳转第三方
+//             let url = this.data.isCiticBankPlatinum ? `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?sid=SJCSJHT01&paId=${this.data.viewCiticBankList[0].id}&partnerId=SJHT&pid=CS0840` : `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?pid=CS0207&sid=SJCSJHT01&paId=${this.data.viewCiticBankList[0].id}&partnerId=SJHT`;
+//             util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
+//         }
+//     },
     onClickHandle () {
         // 未登录
         if (!app.globalData.userInfo.accessToken) {
@@ -176,7 +176,7 @@ Page({
     // 分享
     onShareAppMessage () {
         return {
-            title: 'ETC中信联名套餐，0元办理，包邮到家！',
+            title: 'ETC民生联名套餐，0元办理，包邮到家！',
             imageUrl: 'https://file.cyzl.com/g001/M01/E8/69/oYYBAGSY2x2AAJamAADnfYysC20088.png',
             path: '/pages/bank_card/citic_bank_card_details/citic_bank_card_details'
         };
