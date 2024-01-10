@@ -44,6 +44,7 @@ Page({
 		isGetIdentifyingCoding: false, // 获取验证码中
 		activityType: 0, // 活动引流类型
 		citicBank: false,
+		sharkOrderNo: '',// 鲨鱼零工渠道订单号
 		isDisableClick: false // 是否禁止点击
 	},
 	async onLoad (options) {
@@ -61,7 +62,8 @@ Page({
 			util.resetData();// 重置数据
 			// 活动引流
 			this.setData({
-				activityType: options.activityType
+				activityType: options.activityType,
+				sharkOrderNo: options.sharkOrderNo// 鲨鱼零工渠道订单号-activityType=45时存在
 			});
 			app.globalData.otherPlatformsServiceProvidersId = options.shopId;
 		}
@@ -110,7 +112,7 @@ Page({
         addCard: '完善车牌号'
       });
     }
-		if (options.isPost && options.vehPlate.length < 11) {
+		if (options.isPost && options.vehPlate?.length < 11) {
 			this.setData({
 				available: true
 			});
@@ -317,7 +319,10 @@ Page({
 		// 活动引流
 		if (this.data.activityType) {
 			params['promoterId'] = app.globalData.otherPlatformsServiceProvidersId;// 推广者ID标识
-			params['promoterType'] = this.data.activityType; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
+			params['promoterType'] = this.data.activityType; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入 45-鲨鱼零工渠道
+			if (this.data.activityType) {
+				params[`sharkOrderNo`] = this.data.sharkOrderNo;
+			}
 		}
 		// 公众号带服务商引流进入办理
 		if (app.globalData.officialChannel) {
