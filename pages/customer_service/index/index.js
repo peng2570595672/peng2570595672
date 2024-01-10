@@ -3,7 +3,7 @@ const app = getApp();
 Page({
 
     data: {
-      needeva:'1',
+      needeva: '1'
     },
 
     onLoad (options) {
@@ -32,7 +32,7 @@ Page({
     getQueryCallback (e) {
         // console.log(e);
     },
-    go(){
+    go () {
       util.go(`/pages/evaluation_component/evaluation_component?needeva=${this.data.needeva}`);
     },
     // 点击机器人回答里的链接跳转 webview,需要开发者自己配置一个承载 webview 的页面,url 字段对应的小程序页面需要开发者自己创建开发者需要在小程序后台配置相应的域
