@@ -159,7 +159,7 @@ Page({
         // 查询是否欠款
         await util.getIsArrearage();
         // 进入套餐页面 调用车牌限制接口
-        this.getLicensePlateRestrictions()
+        this.getLicensePlateRestrictions();
     },
     onShow (res) {
         if (app.globalData.signAContract === -1) {
@@ -170,10 +170,10 @@ Page({
             this.getOrderInfo(false);
         }
     },
-    onReady(res){
+    onReady (res) {
 
     },
-    async getLicensePlateRestrictions(){
+    async getLicensePlateRestrictions () {
       const result = await util.getDataFromServersV2('consumer/system/veh/limit', {
         shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
         vehPlates: this.data.vehPlates
@@ -181,7 +181,7 @@ Page({
       if (!result) return;
       if (result.code === 0) {
         console.log(result.data);
-        if(result.data.canHandle == 0) {
+        if (result.data.canHandle == 0) {
           util.alert({
             title: `套餐选择提醒`,
             content: `尊敬的用户，您选择的套餐不支持以${result.data.limitArea}地区车牌办理，请选择其他套餐或更改车牌信息`,
@@ -189,16 +189,15 @@ Page({
             cancelColor: '#000000',
             cancelText: '确定',
             confirm: () => {
-              
+
             },
             cancel: async () => {
             }
         });
           this.setData({
-            activeIndex:  -1,
-            choiceIndex: -1,
-          })
-          return 
+            activeIndex: -1,
+            choiceIndex: -1
+          });
         }
     } else {
         util.showToastNoIcon(result.message);
@@ -623,7 +622,7 @@ Page({
         }
     },
     async next () {
-        if (this.data.choiceIndex === -1) return
+        if (this.data.choiceIndex === -1) return;
         if (!this.data.getAgreement) {
             util.showToastNoIcon('请同意并勾选协议！');
             return;
@@ -1090,8 +1089,8 @@ Page({
             util.showToastNoIcon(result.message);
         }
         this.setData({
-          vehPlates: result.data.base.vehPlates,
-        })
+          vehPlates: result.data.base.vehPlates
+        });
     },
     // 弹窗详情
     popDetail (e) {
