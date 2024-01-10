@@ -16,9 +16,9 @@ Page({
     origin: 0, // 0 开票 1.查看详情
     invoiceType: 1, // 开票主体类型 1个人 2企业 必填
     invoiceInfo: {},
-    routePrams: null, //区分开票的类型
+    routePrams: null // 区分开票的类型
   },
-  async onLoad(options) {
+  async onLoad (options) {
     this.data.origin = parseInt(options.origin);
     let invoiceInfo = options.infoStr ? JSON.parse(options.infoStr) : {};
     if (this.data.origin === 0) {
@@ -38,12 +38,11 @@ Page({
     // 查询是否欠款
     await util.getIsArrearage();
   },
-  onShow() {
+  onShow () {
 
   },
   // tab切换逻辑
-  switchInvoiceType(e) {
- 
+  switchInvoiceType (e) {
     if (this.data.currentTab === e.target.dataset.current) {
       return false;
     } else {
@@ -57,7 +56,7 @@ Page({
     });
   },
   // 输入框输入值
-  onInputChangedHandle(e) {
+  onInputChangedHandle (e) {
     let key = e.currentTarget.dataset.key;
     let invoiceInfo = this.data.invoiceInfo;
     invoiceInfo[key] = e.detail.value;
@@ -68,7 +67,7 @@ Page({
       available: this.validateAvailable()
     });
   },
-  validateAvailable() {
+  validateAvailable () {
     let invoiceInfo = this.data.invoiceInfo;
     let isOk = true;
     // 检验手机号码
@@ -83,7 +82,7 @@ Page({
     }
     return isOk;
   },
-  onClickCommit() {
+  onClickCommit () {
     if (!this.data.available || this.data.isRequest) {
       return;
     }
@@ -98,21 +97,20 @@ Page({
     }
     this.saveInfo();
   },
-  saveInfo() {
+  saveInfo () {
     wx.uma.trackEvent('personal_center_for_make_invoice_to_confirm');
     this.setData({
       isRequest: true
     });
     util.showLoading();
-    //判断需要调用开票的类型 和接口
+    // 判断需要调用开票的类型 和接口
 
-    let paramsUrl = "consumer/order/after-sale-record/apply-service-fee-invoice" //综合费开票接口
+    let paramsUrl = 'consumer/order/after-sale-record/apply-service-fee-invoice'; // 综合费开票接口
 
-    
     util.getDataFromServer(paramsUrl, {
       ...this.data.invoiceInfo,
-      payMoney:this.data.invoiceInfo.sumPoundage,
-      
+      payMoney: this.data.invoiceInfo.sumPoundage
+
     }, () => {
       util.showToastNoIcon('保存失败！');
     }, (res) => {

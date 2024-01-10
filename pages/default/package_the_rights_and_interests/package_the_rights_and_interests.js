@@ -181,7 +181,7 @@ Page({
       if (!result) return;
       if (result.code === 0) {
         console.log(result.data);
-        if (result.data.canHandle == 0) {
+        if (result.data.canHandle === 0) {
           util.alert({
             title: `套餐选择提醒`,
             content: `尊敬的用户，您选择的套餐不支持以${result.data.limitArea}地区车牌办理，请选择其他套餐或更改车牌信息`,
