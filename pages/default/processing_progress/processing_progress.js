@@ -36,9 +36,6 @@ Page({
 		this.setData({
 			isContinentInsurance: app.globalData.isContinentInsurance || app.globalData.isPingAn
 		});
-		if (!this.data.firstCar) {
-			this.setData({firstCar: await util.getBindGuests()});
-		}
 		if (options.orderId) {
 			this.setData({
 				orderId: options.orderId
@@ -60,6 +57,9 @@ Page({
 			await this.getQueryProcessInfo();
 			// 查询是否欠款
 			await util.getIsArrearage();
+			if (!this.data.firstCar) {
+				this.setData({firstCar: await util.getBindGuests()});
+			}
 		}
 	},
 	onShow () {
@@ -117,6 +117,9 @@ Page({
 						await this.getQueryProcessInfo();
 						// 查询是否欠款
 						await util.getIsArrearage();
+						if (!this.data.firstCar) {
+							this.setData({firstCar: await util.getBindGuests()});
+						}
 					} else {
 						util.hideLoading();
 						util.showToastNoIcon(res.message);
