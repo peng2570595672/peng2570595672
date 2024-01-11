@@ -118,7 +118,7 @@ Page({
 	async viewCiticBankList () {
 		let flag = [];
 		if (app.globalData.myEtcList.length > 0) {
-			flag = app.globalData.myEtcList.filter(item => app.globalData.cictBankObj.citicBankshopProductIds.includes(item.shopProductId) && item.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId);
+			flag = app.globalData.myEtcList.filter(item => app.globalData.cictBankObj.citicBankshopProductIds.includes(item.shopProductId) && item.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId && app.globalData.cictBankObj.minshenBank !== item.shopProductId);
 			this.setData({viewCiticBankList: flag});
 		}
 		this.setData({keepHandle: flag.length});

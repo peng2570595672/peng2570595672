@@ -5,44 +5,44 @@ Page({
    * 页面的初始数据
    */
   data: {
-    needeva: null,
+    needeva: null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
+  onLoad (options) {
     this.setData({
       needeva: options.needeva
-    })
-    if (options.needeva == '1') this.goPingjia()
+    });
+    if (+options.needeva === 1) this.goPingjia();
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady() {
+  onReady () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
+  onShow () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide() {
+  onHide () {
 
   },
-  goBack() {
-    wx.navigateBack()
+  goBack () {
+    wx.navigateBack();
   },
   // 小程序内评价
-  goPingjia() {
+  goPingjia () {
     let plugin = requirePlugin('wxacommentplugin');
     plugin.openComment({
       success: (res) => {
@@ -50,18 +50,18 @@ Page({
           title: res
         });
         this.setData({
-          needeva: '2',
-        })
+          needeva: '2'
+        });
       },
       fail: (res) => {
         wx.showToast({
           title: res
         });
       },
-      complete:()=>{
-        setTimeout(res=>{
-          wx.navigateBack()
-        },100)
+      complete: () => {
+        setTimeout(res => {
+          wx.navigateBack();
+        },100);
       }
 
     });
@@ -70,28 +70,28 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload() {
+  onUnload () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh() {
+  onPullDownRefresh () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom() {
+  onReachBottom () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage() {
+  onShareAppMessage () {
 
   }
-})
+});
