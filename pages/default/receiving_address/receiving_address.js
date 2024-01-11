@@ -166,6 +166,10 @@ Page({
 					this.setData({
 						'formData.cardMobilePhone': result.data.mobilePhone
 					});
+					if (this.data.sharkOrderNo) {
+						// 鲨鱼灵工订单
+						this.getSelectOrderInfoByThirdNo();
+					}
 					// 查询是否欠款
 					await util.getIsArrearage();
 				} else {
@@ -178,6 +182,17 @@ Page({
 				util.showToastNoIcon('登录失败！');
 			}
 		});
+	},
+	// 获取鲨鱼灵工订单信息
+	async getSelectOrderInfoByThirdNo () {
+		const result = await util.getDataFromServersV2('consumer/order/selectOrderInfoByThirdNo', {
+			thirdNo: this.data.sharkOrderNo
+		});
+		if (result?.data?.status !== -1 && result?.data?.orderId) {
+			wx.reLaunch({
+				url: `/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${result.data.orderId}`
+			});
+		}
 	},
 	// 发送短信验证码
 	async sendCardPhoneCode () {
