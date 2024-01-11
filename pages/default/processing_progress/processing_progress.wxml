@@ -5,7 +5,7 @@
     <!--	车牌结束-->
     <!--	用户信息开始-->
     <view class="user-info" wx:if="{{info.orderType !== 71 && info.promoterType !== 41}}">
-        <view wx:if="{{info.orderType !== 31}}">
+        <view wx:if="{{info.orderType !== 31 && info.promoterType !== 45}}">
             <text>{{info.receiveMan}}</text>
             <text>{{info.receivePhone}}</text>
         </view>
@@ -13,7 +13,7 @@
             <text>{{info.shopUserTrueName}}</text>
             <text>{{info.shopUserMobilePhone}}</text>
         </view>
-        <view wx:if="{{info.orderType !== 31}}">
+        <view wx:if="{{info.orderType !== 31 && info.promoterType !== 45}}">
             {{info.receiveProvince}}{{info.receiveCity}}{{info.receiveCounty}}{{info.receiveAddress}}
         </view>
         <view wx:if="{{info.orderType === 31}}">业务员线下办理</view>
