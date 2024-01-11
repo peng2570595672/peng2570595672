@@ -1,5 +1,3 @@
-import {initProductName} from "../../../utils/utils";
-
 /**
  * @author 老刘
  * @desc 第三方小程序跳我方小程序支付
