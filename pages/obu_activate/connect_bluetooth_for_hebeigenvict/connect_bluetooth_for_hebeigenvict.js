@@ -340,6 +340,8 @@ Page({
                 that.setData({obuStatus: baseInfo.obuStatus});
                 if (baseInfo.obuStatus === 1 || baseInfo.obuStatus === 5) {
                     that.secondActive(baseInfo.obuStatus); // 二次激活
+                } else if (baseInfo.obuStatus === 1) {
+                    that.pubFunc2(1,3);
                 } else {
                     that.setData({newOrderNo: ''});
                     that.orderOnline(baseInfo.obuStatus); // 第一次激活
