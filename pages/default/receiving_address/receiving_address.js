@@ -127,6 +127,8 @@ Page({
 		});
 		console.log(app.globalData.userInfo);
 		if (app.globalData.userInfo.accessToken) {
+			// 鲨鱼灵工订单
+			this.getSelectOrderInfoByThirdNo();
 			this.setData({
 				'formData.cardMobilePhone': app.globalData.mobilePhone,
 				loginInfo: app.globalData.userInfo,
