@@ -53,13 +53,13 @@ Page({
 		if (!app.globalData.userInfo.accessToken) {
 			this.login();
 		} else {
+			if (!this.data.firstCar) {
+				this.setData({firstCar: await util.getBindGuests()});
+			}
 			this.getProcessingProgress();
 			await this.getQueryProcessInfo();
 			// 查询是否欠款
 			await util.getIsArrearage();
-			if (!this.data.firstCar) {
-				this.setData({firstCar: await util.getBindGuests()});
-			}
 		}
 	},
 	onShow () {
@@ -113,13 +113,13 @@ Page({
 						app.globalData.openId = res.data.openId;
 						app.globalData.memberId = res.data.memberId;
 						app.globalData.mobilePhone = res.data.mobilePhone;
+						if (!this.data.firstCar) {
+							this.setData({firstCar: await util.getBindGuests()});
+						}
 						await this.getProcessingProgress();
 						await this.getQueryProcessInfo();
 						// 查询是否欠款
 						await util.getIsArrearage();
-						if (!this.data.firstCar) {
-							this.setData({firstCar: await util.getBindGuests()});
-						}
 					} else {
 						util.hideLoading();
 						util.showToastNoIcon(res.message);
