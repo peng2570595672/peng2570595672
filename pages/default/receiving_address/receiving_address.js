@@ -127,13 +127,15 @@ Page({
 		});
 		console.log(app.globalData.userInfo);
 		if (app.globalData.userInfo.accessToken) {
-			// 鲨鱼灵工订单
-			this.getSelectOrderInfoByThirdNo();
 			this.setData({
 				'formData.cardMobilePhone': app.globalData.mobilePhone,
 				loginInfo: app.globalData.userInfo,
 				mobilePhoneMode: app.globalData.mobilePhoneMode
 			});
+			if (this.data.sharkOrderNo) {
+				// 鲨鱼灵工订单
+				this.getSelectOrderInfoByThirdNo();
+			}
 		} else {
 			// 公众号进入需要登录
 			this.login();
