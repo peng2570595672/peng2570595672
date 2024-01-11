@@ -1,0 +1,28 @@
+<view class="container">
+    <view class="price-info">
+        <view class="unit">¥</view>
+        <view class="price">{{orderInfo.pledgePrice}}</view>
+    </view>
+    <view class="order-info">
+        <view class="order-item">
+            <view>车牌号</view>
+            <view>{{orderInfo.vehPlates}}</view>
+        </view>
+        <view class="order-item line">
+            <view>车牌颜色</view>
+            <view>{{orderInfo.vehColor === 0 ? '蓝牌' : '绿牌'}}</view>
+        </view>
+        <view class="order-item">
+            <view>办理人手机号</view>
+            <view>{{orderInfo.phone}}</view>
+        </view>
+    </view>
+    <view class="fill"></view>
+    <view class="btn-wrapper">
+        <view class="btn" catchtap="handlePay" wx:if="{{isLogin}}">确认支付</view>
+        <button class="btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber" wx:else>确认支付</button>
+    </view>
+</view>
+
+
+<privacy_popup></privacy_popup>

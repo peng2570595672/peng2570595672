@@ -541,8 +541,8 @@ function getAddressInfo(lat, lng, success, fail, complete) {
 }
 /**
  * @author july_peng
- * @param 
- * 
+ * @param
+ *
  * @returns querykeywords、location、querytypes 字段于 1.1.0 版本新增。
  * @description 高德获取周边poi
  */
