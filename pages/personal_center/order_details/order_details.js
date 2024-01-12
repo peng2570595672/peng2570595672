@@ -13,10 +13,14 @@ Page({
 		requestBillNum: 0,
 		details: '',
 		disclaimerDesc: app.globalData.disclaimerDesc,
+		isQingHaiHighSpeed: false,// 是否是青海高速办理,需要隐藏平安绑车
 		firstCar: app.globalData.pingAnBindGuests	// 平安获客
 	},
 	async onLoad (options) {
 		app.globalData.splitDetails = undefined;
+		this.setData({
+			isQingHaiHighSpeed: app.globalData.isQingHaiHighSpeed
+		});
 		if (!this.data.firstCar) {
 			this.setData({firstCar: await util.getBindGuests()});
 		}

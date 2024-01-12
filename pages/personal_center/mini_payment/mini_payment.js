@@ -19,6 +19,7 @@ Page({
 			orderInfo
 		});
 		app.globalData.orderInfo.orderId = orderInfo.orderId;
+		app.globalData.isQingHaiHighSpeed = true;
 		this.login();
 	},
 	onShow () {

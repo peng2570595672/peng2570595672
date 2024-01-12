@@ -266,6 +266,7 @@ Page({
                 }
                 return;
             }
+            app.globalData.isQingHaiHighSpeed = result.data.product?.shopId === '1192062723268681728';
             this.setData({
                 isPay: result.data.product?.shopProductId && (result.data.base?.pledgeStatus === -1 || result.data.base?.pledgeStatus === 1),
                 isSalesmanOrder: result.data.base.orderType === 31,

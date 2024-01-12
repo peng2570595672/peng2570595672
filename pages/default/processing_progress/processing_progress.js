@@ -30,11 +30,13 @@ Page({
 		citicBankshopProductIds: app.globalData.cictBankObj.citicBankshopProductIds,	// 信用卡套餐集合
 		cictBail: false,	// 中信保证金
 		isWellBank: false, // 平安信用卡
+		isQingHaiHighSpeed: false, // 是否是青海办理进入
 		firstCar: app.globalData.pingAnBindGuests	// 平安获客
 	},
 	async onLoad (options) {
 		this.setData({
-			isContinentInsurance: app.globalData.isContinentInsurance || app.globalData.isPingAn
+			isContinentInsurance: app.globalData.isContinentInsurance || app.globalData.isPingAn,
+			isQingHaiHighSpeed: app.globalData.isQingHaiHighSpeed
 		});
 		if (options.orderId) {
 			this.setData({
@@ -322,7 +324,7 @@ Page({
 
 				// 平安获客 礼品弹窗
 				let isShowpAPop = wx.getStorageSync('isShowpAPop');
-				if (!isShowpAPop) {
+				if (!app.globalData.isQingHaiHighSpeed && !isShowpAPop) {
 					if (this.data.firstCar.vehKeys === '*' || (this.data.firstCar.vehKeys.includes(res.data.vehPlates.substring(0,1)) && !this.data.firstCar.filterKeys.includes(res.data.vehPlates.substring(0,2)))) {
 						wx.setStorageSync('isShowpAPop',true);
 						// this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '礼品领取',bgColor: 'rgba(42, 80, 68, 0.7)'});

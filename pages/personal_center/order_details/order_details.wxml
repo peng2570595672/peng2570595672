@@ -157,7 +157,7 @@
     <view class="iconfont keFu" catchtap="goPath" wx:if="{{details.poundageFlag}}"><text >账单疑问\n找客服</text></view>
     <!-- 底部补缴结束 -->
     <!-- 平安悬浮弹窗 -->
-    <view class="pingAn" wx:if="{{tools.dataIncludes(details.vehPlate,firstCar,1)}}" catchtap="goPingAn">
+    <view class="pingAn" wx:if="{{!isQingHaiHighSpeed && tools.dataIncludes(details.vehPlate,firstCar,1)}}" catchtap="goPingAn">
         <image class="image" src="https://file.cyzl.com/g001/M02/03/FE/oYYBAGTu-7aAXxs8AAAaNEZGk2w722.png" mode="widthFix" />
     </view>
     <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
