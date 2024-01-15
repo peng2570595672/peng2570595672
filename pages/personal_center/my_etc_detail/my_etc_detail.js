@@ -740,5 +740,14 @@ Page({
 				util.go(`/pages/empty_hair/instructions_lnnk/index?auditStatus=${obj.auditStatus}`);
 				break;
 		}
+	},
+	onUnload () {
+		if (app.globalData.isQingHaiHighSpeedOnlineProcessing) {
+			wx.navigateBackMiniProgram({
+				extraData: {},
+				success (res) { // 返回成功
+				}
+			});
+		}
 	}
 });
