@@ -67,7 +67,8 @@ Page({
 		console.log('账单详情top:', this.data.details);
 	},
 	goPath () {
-		util.go(`/pages/web/web/web?url=${encodeURIComponent('https://wpa1.qq.com/UDoer16d?_type=wpa&qidian=true')}`);
+		util.go(`/pages/web/web/web?url=${encodeURIComponent('https://baier.soboten.com/chat/h5/v6/index.html?sysnum=7d11a91e6a20414da4186004d03807fd&channelid=7')}`);
+		// util.go(`/pages/web/web/web?url=${encodeURIComponent('https://wpa1.qq.com/UDoer16d?_type=wpa&qidian=true')}`);
 	},
 	// 自动登录
 	login () {
