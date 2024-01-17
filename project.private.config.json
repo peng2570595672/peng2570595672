@@ -5,6 +5,48 @@
             "list": [
                 {
                     "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1126931299848818688",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1195395608089726976",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/choice_vehicle/choice_vehicle",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "办理进度页",
+                    "pathName": "pages/default/processing_progress/processing_progress",
+                    "query": "orderId=1101196259089190912",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/default/processing_progress/processing_progress",
+                    "query": "orderId=1146890708092063744",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "4.0 填写基础信息页",
+                    "pathName": "pages/default/receiving_address/receiving_address",
+                    "query": "activityType=3&isPost=1&shopId=1192515817349718016",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
                     "pathName": "pages/personal_center/mini_payment/mini_payment",
                     "query": "orderInfo=%7B%22productName%22%3A%22%E5%8D%95%E7%89%87%E9%BB%94%E9%80%9A-2%25%E6%9D%83%E7%9B%8A%E5%8C%85%2B%E6%9D%83%E7%9B%8A%E5%88%B8%E9%A2%9D%22%2C%22pledgePrice%22%3A%220.01%22%2C%22vehPlates%22%3A%22%E8%B4%B5Z3C56C%22%2C%22vehColor%22%3A0%2C%22phone%22%3A%2215519098118%22%2C%22orderId%22%3A%221174808212507987968%22%7D",
                     "launchMode": "default",
@@ -14,20 +56,6 @@
                     "name": "",
                     "pathName": "activities/htMiniPayment/miniPayment",
                     "query": "orderInfo=%7B%22productName%22%3A%22%E5%8D%95%E7%89%87%E9%BB%94%E9%80%9A-2%25%E6%9D%83%E7%9B%8A%E5%8C%85%2B%E6%9D%83%E7%9B%8A%E5%88%B8%E9%A2%9D%22%2C%22pledgePrice%22%3A%220.01%22%2C%22vehPlates%22%3A%22%E8%B4%B5Z3C56C%22%2C%22vehColor%22%3A0%2C%22phone%22%3A%2215519098118%22%7D",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "4.0 填写基础信息页",
-                    "pathName": "pages/default/receiving_address/receiving_address",
-                    "query": "activityType=45&isPost=1&shopId=1189147799537590272&sharkOrderNo=20240111135239",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "办理进度页",
-                    "pathName": "pages/default/processing_progress/processing_progress",
-                    "query": "orderId=1195016115776917504",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -49,13 +77,6 @@
                     "name": "",
                     "pathName": "pages/obu_activate/vehicle_inquire/vehicle_inquire",
                     "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1190243423223820288",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -133,20 +154,6 @@
                     "name": "我的ETC",
                     "pathName": "pages/personal_center/my_etc/my_etc",
                     "query": "shareId=123455",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/default/processing_progress/processing_progress",
-                    "query": "orderId=1146890708092063744",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1101086168428056576",
                     "launchMode": "default",
                     "scene": null
                 },

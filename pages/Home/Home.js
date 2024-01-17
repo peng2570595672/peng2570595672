@@ -445,6 +445,7 @@ Page({
     goPath (e) {
         // 未登录
         let type = +e.currentTarget.dataset.type;
+        console.log(' goPath ===> type ', e)
         if (!app.globalData.userInfo?.accessToken) {
             util.go('/pages/login/login/login');
             return;
@@ -464,9 +465,11 @@ Page({
             obj.jumpUrl = `${obj.jumpUrl}${app.globalData.userInfo.mobilePhone}`;
         }
         if (obj === 'loadingService') {
-            util.go(`/pages/customer_service/index/index`);
+            console.log('**********************')
+            // util.go(`/pages/customer_service/index/index`);
             this.fangDou(() => {
-                util.go(`/pages/customer_service/index/index`);
+                util.go(`/pages/web/web/web?url=${encodeURIComponent('https://xiaochengxu.soboten.com/chat/h5/v6/index.html?sysnum=7d11a91e6a20414da4186004d03807fd&channelid=5')}`);
+                // util.go(`/pages/customer_service/index/index`);
                 // util.go(`/pages/web/web/web?url=${encodeURIComponent('https://wpa1.qq.com/jjrmum8i?_type=wpa&qidian=true')}`);
             }, 1000);
             return;

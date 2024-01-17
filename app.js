@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-export const IS_TEST = true; // false为正式接口地址，true为测试接口地址
+export const IS_TEST = false; // false为正式接口地址，true为测试接口地址
 const util = require('./utils/util.js');
 const uma = require('./utils/umtrack-wx.js');
 App({
@@ -161,7 +161,9 @@ App({
 		pingAnBindGuests: undefined,	// 平安绑客合作机构开头的车牌号 '豫','川'
 		isShowOncepingAnBindGuestsPop: 0,
 		isTest: IS_TEST,
-		isAlertToSign: false
+		isAlertToSign: false,
+		isQingHaiHighSpeed: false,// 是否是青海高速办理,需要隐藏平安绑车
+		isQingHaiHighSpeedOnlineProcessing: false// 是否是青海高速线上办理
 	},
 	onLaunch (options) {
 		// 统计逻辑结束

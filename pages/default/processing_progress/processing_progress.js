@@ -744,6 +744,14 @@ Page({
 		util.go(`/pages/personal_center/coupon_redemption_centre/coupon_redemption_centre`);
 	},
 	onUnload () {
+		if (app.globalData.isQingHaiHighSpeedOnlineProcessing) {
+			wx.navigateBackMiniProgram({
+				extraData: {},
+				success (res) { // 返回成功
+				}
+			});
+			return;
+		}
 		if (this.data.type === 'main_process' || app.globalData.isNeedReturnHome) {
 			wx.switchTab({
 				url: '/pages/Home/Home'

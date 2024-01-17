@@ -20,6 +20,7 @@ Page({
 		});
 		app.globalData.orderInfo.orderId = orderInfo.orderId;
 		app.globalData.isQingHaiHighSpeed = true;
+		app.globalData.isQingHaiHighSpeedOnlineProcessing = true;
 		this.login();
 	},
 	onShow () {

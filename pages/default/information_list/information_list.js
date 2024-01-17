@@ -425,6 +425,14 @@ Page({
         }
     },
     onUnload () {
+        if (app.globalData.isQingHaiHighSpeedOnlineProcessing) {
+            wx.navigateBackMiniProgram({
+                extraData: {},
+                success (res) { // 返回成功
+                }
+            });
+            return;
+        }
         if (this.data.isReturn) {
             wx.switchTab({
                 url: '/pages/Home/Home'

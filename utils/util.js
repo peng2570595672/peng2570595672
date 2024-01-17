@@ -771,7 +771,7 @@ function getTruckHandlingStatus(orderInfo) {
  *  获取订单办理状态 2.0
  */
 function getStatus(orderInfo) {
-  if (orderInfo.obuCardType === 10 && +orderInfo.deviceType === 0) {
+  if (orderInfo.obuCardType === 10 && +orderInfo.orderExtCardType === 2) {
     // 湖南信科   deviceType设备类型 (1:插卡; 0:单片)
     if (orderInfo.pledgeStatus === 0) { // 待支付
       return 3;

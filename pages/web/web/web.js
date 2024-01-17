@@ -33,9 +33,11 @@ Page({
 			// url = `https://api.wesure.cn/app/carinsure-new/driving/home/index.html?companyId=SJHT&outerUserId=${app.globalData.memberId}&wtagid=104.210.3`;
 			// url = `https://static.wesure.cn/app2/h5-mobile/home?companyId=ETC&outerUserId=${app.globalData.memberId}&wtagid=${wtagid}`;
 		} else if (options.type === 'online_customer_service') {
-			url = `https://wpa1.qq.com/jjrmum8i?_type=wpa&qidian=true`;
+			url = 'https://xiaochengxu.soboten.com/chat/h5/v6/index.html?sysnum=7d11a91e6a20414da4186004d03807fd&channelid=5'
+			// url = `https://wpa1.qq.com/jjrmum8i?_type=wpa&qidian=true`;
 		} else if (options.type === 'refund_customer_service') {
-			url = `https://wpa1.qq.com/y0Pmv6DV?_type=wpa&qidian=true`;
+			url = 'https://tuikuan.soboten.com/chat/h5/v6/index.html?sysnum=7d11a91e6a20414da4186004d03807fd&channelid=4'
+			// url = `https://wpa1.qq.com/y0Pmv6DV?_type=wpa&qidian=true`;
 		} else if (options.type === 'heaiche') {
 			url = `https://dhwap.mlocso.com/haccarwash/html/carwash.html?app=07200053&p=cwash_game&mobile=${app.globalData.activityUrl}`;
 			this.setData({
