@@ -445,7 +445,7 @@ Page({
     goPath (e) {
         // 未登录
         let type = +e.currentTarget.dataset.type;
-        console.log(' goPath ===> type ', e)
+        console.log(' goPath ===> type ', e);
         if (!app.globalData.userInfo?.accessToken) {
             util.go('/pages/login/login/login');
             return;
@@ -465,7 +465,7 @@ Page({
             obj.jumpUrl = `${obj.jumpUrl}${app.globalData.userInfo.mobilePhone}`;
         }
         if (obj === 'loadingService') {
-            console.log('**********************')
+            console.log('**********************');
             // util.go(`/pages/customer_service/index/index`);
             this.fangDou(() => {
                 util.go(`/pages/web/web/web?url=${encodeURIComponent('https://xiaochengxu.soboten.com/chat/h5/v6/index.html?sysnum=7d11a91e6a20414da4186004d03807fd&channelid=5')}`);
@@ -1709,7 +1709,7 @@ Page({
         app.globalData.firstVersionData = false;
         const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
         // 签约前判断车牌号信息是否完整 ==>平安空发激活补充车牌证件信息
-        if (this.data.passengerCarOrderInfo.vehPlates.length > 8) {
+        if (this.data.passengerCarOrderInfo.vehPlates.length > 8 && app.globalData.isPingAn) {
             return util.go(`/pages/default/receiving_address/receiving_address?perfect=1&shopId=${orderInfo.shopId}&orderId=${orderInfo.id}`);
         }
 

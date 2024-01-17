@@ -648,9 +648,9 @@ Page({
 			return;
 		}
     wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'etc_detail_for_certificate_to_truck_package' : 'etc_detail_for_certificate_to_package');
-    
+
     // 签约前判断车牌号信息是否完整 ==>平安空发激活补充车牌证件信息
-    if (orderInfo.vehPlates.length > 8) {
+    if (orderInfo.vehPlates.length > 8 && app.globalData.isPingAn) {
       return util.go(`/pages/${path}/receiving_address/receiving_address?perfect=1&shopId=${orderInfo.shopId}&orderId=${orderInfo.id}`);
     }
 		util.go(`/pages/${path}/information_list/information_list`);
