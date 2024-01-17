@@ -1708,11 +1708,6 @@ Page({
         app.globalData.isModifiedData = false; // 非修改资料
         app.globalData.firstVersionData = false;
         const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
-        // 签约前判断车牌号信息是否完整 ==>平安空发激活补充车牌证件信息
-        if (this.data.passengerCarOrderInfo.vehPlates.length > 8 && app.globalData.isPingAn) {
-            return util.go(`/pages/default/receiving_address/receiving_address?perfect=1&shopId=${orderInfo.shopId}&orderId=${orderInfo.id}`);
-        }
-
         if (orderInfo.orderType === 31 && orderInfo.isSignTtCoupon === 1) {
             // 通通券套餐流程
             if (orderInfo.ttContractStatus === 1 && orderInfo.ttDeductStatus !== 1) {
@@ -1757,6 +1752,10 @@ Page({
         if (orderInfo.orderType === 71 && orderInfo.vehPlates && !orderInfo.isOwner && orderInfo?.pledgeStatus !== 1) { // 电商空发订单
             util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?emptyHairOrder=true`);
             return;
+        }
+        // 签约前判断车牌号信息是否完整 ==>平安空发激活补充车牌证件信息
+        if (this.data.passengerCarOrderInfo.vehPlates.length > 8) {
+            return util.go(`/pages/default/receiving_address/receiving_address?perfect=1&shopId=${orderInfo.shopId}&orderId=${orderInfo.id}`);
         }
         wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'index_for_certificate_to_truck_package'
             : 'index_for_certificate_to_package');
