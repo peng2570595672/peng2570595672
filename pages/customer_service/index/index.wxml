@@ -4,5 +4,5 @@
         bind:openWebview="openWebview"
         bind:openMiniProgram="openMiniProgram"
     />
-    <text class="goPingjia"  bind:tap="go">去评价</text>
+    <!-- <text class="goPingjia"  bind:tap="go">//用于测试 去评价</text>-->
 </view>
