@@ -1399,6 +1399,9 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
   const divideAndDivideList = list.filter(item => item.flowVersion === 1); // 分对分套餐
   const alwaysToAlwaysList = list.filter(item => item.flowVersion === 2 || item.flowVersion === 3); // 总对总套餐
   let type = !divideAndDivideList.length ? 2 : !alwaysToAlwaysList.length ? 1 : 0;
+	// if (params.orderType === 12) {
+	// 	await util.getFollowRequestLog({shopId: params.shopId, orderId: result.data.orderId, source: '邮寄页提交'});
+	// }
   app.globalData.newPackagePageData = {
     shopId: orderInfo.shopId || app.globalData.miniProgramServiceProvidersId, // 避免老流程没上传shopId
     listOfPackages: list,
@@ -1863,6 +1866,10 @@ async function getBindGuests() {
     showToastNoIcon(result.message);
   }
 };
+// 日志
+async function getFollowRequestLog(params) {
+  await getDataFromServersV2('consumer/order/followRequestLog', params, 'POST', false);
+}
 /**
  * 打开 .pdf 文件
  * @param {*} url 网络文件的地址
@@ -1949,6 +1956,7 @@ module.exports = {
   hideLoading,
   getDateDiff,
   mobilePhoneReplace,
+	getFollowRequestLog,
   encryptByDESModeEBC,
   decryptByDESModeEBC,
   compareVersion,

@@ -6,13 +6,13 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		navbarHeight: app.globalData.navbarHeight,
 		orderInfo: {},
 		pledgeType: 0,
 		isRequest: false,
 		isLogin: false
 	},
 	onLoad (options) {
-		wx.hideHomeButton();
 		let orderInfo = decodeURIComponent(options.orderInfo);
 		orderInfo = JSON.parse(orderInfo);
 		this.setData({

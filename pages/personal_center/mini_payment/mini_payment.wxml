@@ -1,4 +1,5 @@
-<view class="container">
+<navbar title="支付订单" isShowArrow="{{true}}" background="transparent" position="absolute"></navbar>
+<view class="container" style="padding-top: {{navbarHeight}}px">
     <view class="price-info">
         <view class="unit">¥</view>
         <view class="price">{{orderInfo.pledgePrice}}</view>

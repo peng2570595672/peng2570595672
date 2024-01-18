@@ -68,6 +68,14 @@ Component({
 	},
 	methods: {
 		handleGoToBack (e) {
+			if (app.globalData.isQingHaiHighSpeedOnlineProcessing) {
+				wx.navigateBackMiniProgram({
+					extraData: {},
+					success (res) { // 返回成功
+					}
+				});
+				return;
+			}
 			let back = e.currentTarget.dataset.back;
 			if (back) {
 				wx.navigateBack({
