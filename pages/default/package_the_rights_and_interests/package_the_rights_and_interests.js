@@ -734,6 +734,16 @@ Page({
         this.setData({isRequest: false});
         if (!result) return;
         if (result.code === 0) {
+            if (this.data.orderInfo?.base?.orderType === 12) {
+                await util.getFollowRequestLog({
+                    shopId: params.shopId,
+                    orderId: app.globalData.orderInfo?.orderId,
+                    source: '套餐页提交',
+                    orderShopId: this.data.orderInfo?.base?.shopId,
+                    packageShopId: this.data.listOfPackages[this.data.choiceIndex]?.shopId,
+                    productShopId: app.globalData.newPackagePageData?.shopId
+                });
+            }
             if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice || addEquity.aepIndex !== -1) {
                 await this.marginPayment(this.data.listOfPackages[this.data.choiceIndex].pledgeType);
                 return;

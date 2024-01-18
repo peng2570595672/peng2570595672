@@ -415,6 +415,9 @@ Page({
 			isRequest: false
 		});
 		if (result.code === 0) {
+			if (params.orderType === 12) {
+				await util.getFollowRequestLog({shopId: params.shopId, orderId: result.data.orderId, source: '邮寄页提交'});
+			}
 			app.globalData.handledByTelephone = this.data.formData.cardMobilePhone;
 			app.globalData.orderInfo.orderId = result.data.orderId; // 订单id
 			app.globalData.newEnergy = formData.currentCarNoColor === 1 ? true : false;
