@@ -38,7 +38,8 @@ Page({
         newOrderNo: '', // 二次激活返回的订单号
         handleCount: 0, // 执行次数
         timeout: undefined,
-        obuStatus: undefined
+        obuStatus: undefined,
+        onceUse: false // true 表示已调用一次，false 没调用
     },
     onLoad (options) {
         /*
@@ -690,19 +691,23 @@ Page({
             cardNo: that.data.ui.cardNo,
             orderNo: that.data.newOrderNo || app.globalData.orderInfo.orderId, // 订单号
             orderId: app.globalData.orderInfo.orderId,
-            result: obj // 是否写设备成功，true：写卡签成功；fasle：写卡签失败
+            result: obj ? true : 'false' // 是否写设备成功，true：写卡签成功；fasle：写卡签失败
         };
         let endUrl = 'writeDeviceResult';
         util.getDataFromServer(`${that.data.urlPrefix}/${endUrl}`, params, () => {
             that.isOver('通知失败');
         }, (res) => {
             if (res.code === 0) {
-                that.mySetData({
-                    isActivating: false,
-                    activated: 1,
-                    errMsg: '',
-                    msg: ''
-                });
+                if (obj) {
+                    that.mySetData({
+                        isActivating: false,
+                        activated: 1,
+                        errMsg: '',
+                        msg: ''
+                    });
+                } else {
+                    that.setData({onceUse: true});
+                }
             } else {
                 that.isOver('【设备通知】' + res.message);
             }
@@ -748,10 +753,9 @@ Page({
         this.setData({
             isUnload: 1
         });
-        if (!this.data.ui.activated) {
-            that.writeDeviceResult(false);
+        if (!this.data.onceUse && !this.data.ui.activated) {
+            this.writeDeviceResult(false);
         }
-        // this.disonnectDevice();
         if (this.data.ui.activated) {
             wx.reLaunch({
                 url: '/pages/Home/Home'
