@@ -1369,6 +1369,7 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
     getListOfPackages(orderInfo, regionCode, true);
   }
   result.data.map(item => {
+  	item.shopId = params.shopId;
     try {
       item.descriptionList = JSON.parse(item.description);
     } catch (e) {}

@@ -454,7 +454,7 @@ Page({
 		} else if (result.code === 104 && result.message === '该车牌已存在订单') {
 			util.go(`/pages/default/high_speed_verification_failed/high_speed_verification_failed?carNo=${this.data.carNoStr}`);
 		} else {
-			util.showToastNoIcon(result.message + '66');
+			util.showToastNoIcon(result.message);
 		}
 	},
 	// 根据套餐id获取套餐信息
