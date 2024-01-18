@@ -339,7 +339,7 @@ Page({
 		if (this.data.activityType) {
 			params['promoterId'] = app.globalData.otherPlatformsServiceProvidersId;// 推广者ID标识
 			params['promoterType'] = this.data.activityType; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入 45-鲨鱼零工渠道
-			if (this.data.activityType) {
+			if (this.data.sharkOrderNo) {
 				params[`sharkOrderNo`] = this.data.sharkOrderNo;
 			}
 		}
