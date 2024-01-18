@@ -29,13 +29,13 @@ Page({
 		topCouponList: [
 			// couponType 劵类型  1-通行劵 2-停车卷 3-加油券 4-充电券 5-洗车券 6-通用券 7-商品消费券
 			{type: 1,name: '通行劵'},
-			// {type: 2,name: '停车卷'},
+			{type: 2,name: '停车卷'},
 			// {type: 3,name: '加油券'},
 			// {type: 4,name: '充电券'},
 			{type: 5,name: '洗车券'},
 			// {type: 6,name: '通用券'},
 			// {type: 7,name: '商品消费券'}
-			{type: 8,name: '停车券'}
+			{type: 8,name: '药诊券'}
 		],
 		activeIndex: 0
 	},
@@ -79,6 +79,7 @@ Page({
 	},
 	//  tab切换逻辑
 	switchCardVoucherStatus (e) {
+		console.log('测试：',e);
 		let that = this;
 		if (this.data.currentTab === e.target.dataset.current) {
 			return false;
@@ -90,7 +91,9 @@ Page({
 			});
 			if (this.data.activeIndex === 0) {
 				that.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
-			} else if (this.data.activeIndex === 1) {	// 小兔洗车券
+			} else if (this.data.activeIndex === 1) {	// 停车券
+				this.getCouponInfo(this.data.currentTab);
+			} else if (this.data.activeIndex === 2) {	// 小兔洗车券
 				this.getCouponInfo(this.data.currentTab === 2 ? 0 : this.data.currentTab);
 			} else {	// 药店券
 				this.getCouponInfo(this.data.currentTab);
@@ -321,6 +324,7 @@ Page({
 	},
 	// 顶部券类型的选择
 	changeCoupon (e) {
+		console.log(e);
 		let index = e.currentTarget.dataset.index;
 		let type = e.currentTarget.dataset.type;
 		let flag = index === this.data.activeIndex;
@@ -328,8 +332,12 @@ Page({
 			this.setData({activeIndex: index,list: [],page: 1});
 			this.getCardVoucherList(this.data.checkEffective[this.data.currentTab]);
 		}
+		if (!flag && type === 2) {
+			this.setData({activeIndex: index,list: [],page: 1,currentTab: 0});
+			this.getCouponInfo(this.data.currentTab);
+		}
 		if (!flag && type === 5) {
-			this.setData({activeIndex: index,list: [],page: 1,currentTab: this.data.currentTab === 2 ? 0 : this.data.currentTab});
+			this.setData({activeIndex: index,list: [],page: 1,currentTab: 0});
 			this.getCouponInfo(this.data.currentTab);
 		}
 		if (!flag && type === 8) {	// 药店券
@@ -394,9 +402,11 @@ Page({
 			}, app.globalData.userInfo.accessToken, () => {
 				util.hideLoading();
 			});
-		} else {
+		} else if (item.thirdPartyType === 5) {	// 药诊券 || 停车券
 			app.globalData.serviceCardVoucherDetails = item;
 			util.go(`/pages/personal_center/rights_get_use/rights_get_use`);
+		} else {
+
 		}
 	}
 });

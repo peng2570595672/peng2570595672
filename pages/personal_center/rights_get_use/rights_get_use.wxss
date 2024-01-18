@@ -54,6 +54,9 @@
   font-size: 20px;
   color: #fff;
 }
+.index .title1 {
+  background: #33abcf;
+}
 .index .module1 {
   margin-top: -112rpx;
   height: auto;
@@ -65,9 +68,10 @@
   font-size: 32rpx;
   font-weight: 500;
   line-height: 32rpx;
+  margin-bottom: 50rpx;
 }
 .index .module1 .couponCode .couponCodeNum {
-  margin: 50rpx 0;
+  margin-top: 50rpx;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -92,6 +96,12 @@
 }
 .index .module1 .bgFlex {
   padding-bottom: 30rpx;
+}
+.index .module1 .bgFlex .text1 {
+  font-size: 32rpx;
+  font-weight: 500;
+  line-height: 32rpx;
+  margin: 50rpx 0;
 }
 .index .module1 .bgFlex .text3 {
   padding-top: 20rpx;
@@ -174,7 +184,8 @@
   color: #00b578;
 }
 .index .module1 .bgFlex .lifespan .turn {
-  animation: turns 0.5s linear infinite;
+  -webkit-animation: turns 0.5s linear infinite;
+          animation: turns 0.5s linear infinite;
   animation-direction: reverse;
   -webkit-animation-direction: reverse;
 }

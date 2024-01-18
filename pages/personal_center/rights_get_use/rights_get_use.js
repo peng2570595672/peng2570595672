@@ -22,7 +22,9 @@ Page({
         if (this.data.endTime) {
             this.expire();
         } else {
-            this.getQrCodePath(false);
+            if (this.data.couponInfo.couponType === 8 || app.globalData.serviceCardVoucherDetails.couponType === 8) {
+                this.getQrCodePath(false);
+            } else {}
         }
     },
     // 商家自发券门店核销二维码
