@@ -53,7 +53,7 @@ Page({
             }
         ],
         bgColor: 'rgba(167, 200, 248, 1)',
-        citicBank: false, // 是否有中信银行联名套餐的订单
+        minShenBank: false, // 是否有中信银行联名套餐的订单
         transactScheduleData: undefined,	// 中信银行信用卡申请进度查询结果
         showhandleOrView: false,	// 中信银行信用卡 false 表示 ”查看信用卡办理进度“
         keepHandle: 0	//	控制底部悬浮按钮的文案展示
@@ -121,23 +121,24 @@ Page({
             flag = app.globalData.myEtcList.filter(item => app.globalData.cictBankObj.minshenBank === item.shopProductId);
             this.setData({viewCiticBankList: flag});
         }
-        this.setData({keepHandle: flag.length});
-        if (flag.length > 0 && flag[0].isOwner && flag[0].isVehicle) {
-            this.setData({
-                citicBank: true,
-                isCiticBankPlatinum: flag[0].shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || flag[0].shopProductId === app.globalData.cictBankObj.cictBankNmPlatinumCard	// 判断是不是白金卡套餐
-            });
-            const result = await util.getDataFromServersV2('consumer/order/zx/transact-schedule', {
-                orderId: flag[0].id
-            },'POST',false);
-            if (!result) return;
-            if (result.code === 0) {
-                this.setData({
-                    transactScheduleData: result.data,
-                    showhandleOrView: result.data[0].applyStatus === '111' || result.data[0].applyStatus === '112'
-                });
-            }
-        }
+        this.setData({keepHandle: flag.length,showhandleOrView: true,minShenBank: true});
+
+        // if (flag.length > 0 && flag[0].isOwner && flag[0].isVehicle) {
+        //     this.setData({
+        //         citicBank: true,
+        //         isCiticBankPlatinum: flag[0].shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || flag[0].shopProductId === app.globalData.cictBankObj.cictBankNmPlatinumCard	// 判断是不是白金卡套餐
+        //     });
+        //     const result = await util.getDataFromServersV2('consumer/order/zx/transact-schedule', {
+        //         orderId: flag[0].id
+        //     },'POST',false);
+        //     if (!result) return;
+        //     if (result.code === 0) {
+        //         this.setData({
+        //             transactScheduleData: result.data,
+        //             showhandleOrView: result.data[0].applyStatus === '111' || result.data[0].applyStatus === '112'
+        //         });
+        //     }
+        // }
     },
     // // 权益 查看
     // viewEquity (e) {
@@ -145,14 +146,31 @@ Page({
     //     util.go(`/pages/bank_card/minshen_publicize/minshen_publicize?type=${index}`);
     // },
 
-//   citicBankProgress () {
-//         if (!this.data.showhandleOrView) {	// 查看信用卡办理进度
-//             util.go(`/pages/bank_card/citicBank_processing_progress/citicBank_processing_progress?orderId=${this.data.viewCiticBankList[0].id}`);
-//         } else {	// 继续办理信用卡 - 跳转第三方
-//             let url = this.data.isCiticBankPlatinum ? `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?sid=SJCSJHT01&paId=${this.data.viewCiticBankList[0].id}&partnerId=SJHT&pid=CS0840` : `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?pid=CS0207&sid=SJCSJHT01&paId=${this.data.viewCiticBankList[0].id}&partnerId=SJHT`;
-//             util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
-//         }
-//     },
+    async citicBankProgress () {
+        console.log(this.data.viewCiticBankList[0]);
+
+        let res = await util.getDataFromServersV2('consumer/order/apply/ms/bank-card', {
+            orderId: this.data.viewCiticBankList[0].id
+        });
+        if (!res) return;
+        if (res.code === 0) {
+            // console.log(`pages/home/sc-ws/sc-ws?params=${'https://' + encodeURIComponent(res.data.applyUrl.slice(8))}`);
+            wx.navigateToMiniProgram({
+                appId: 'wx8212297b23aff0ff',
+                path: `pages/home/sc-ws/sc-ws?params=${'https://' + encodeURIComponent(res.data.applyUrl.slice(8))}`,
+                envVersion: 'release',
+                success () {},
+                fail () {
+                    // 未成功跳转到签约小程序
+                    util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
+                }
+            });
+            // 跳转 h5
+            // util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data.applyUrl)}`);
+        } else {
+            util.showToastNoIcon(res.message);
+        }
+    },
     onClickHandle () {
         // 未登录
         if (!app.globalData.userInfo.accessToken) {
@@ -168,16 +186,16 @@ Page({
                 util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests`);
             } else if (this.data.viewCiticBankList[0].status === 0 || !this.data.viewCiticBankList[0].isOwner || !this.data.viewCiticBankList[0].isVehicle) {	// 去完善资料
                 util.go(`/pages/default/information_list/information_list`);
-            } else {	// 去签约
+            } else if (this.data.viewCiticBankList[0]?.contractStatus !== 1) { // 去签约
                 util.go(`/pages/bank_card/citic_bank_sign/citic_bank_sign`);
-            }
+            } else {}
         }
     },
     // 分享
     onShareAppMessage () {
         return {
             title: 'ETC民生联名套餐，0元办理，包邮到家！',
-            imageUrl: 'https://file.cyzl.com/g001/M01/E8/69/oYYBAGSY2x2AAJamAADnfYysC20088.png',
+            imageUrl: 'https://file.cyzl.com/g001/M02/23/74/oYYBAGV6WnuAPVJlAAGvJUktz58636.png',
             path: '/pages/bank_card/citic_bank_card_details/citic_bank_card_details'
         };
     }

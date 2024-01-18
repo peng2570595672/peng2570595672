@@ -886,6 +886,9 @@ function getStatus(orderInfo) {
     }
     return 12; // 已激活
   }
+  // if (orderInfo.status === 1 && orderInfo.obuStatus === 2) {  // 已注销
+  //   return 
+  // }
   return 0; // 错误状态,未判断到
 }
 /**

@@ -415,6 +415,27 @@ Page({
             } else {
                 util.showToastNoIcon(res.message);
             }
+        } else if (this.data.isMinShenBank) { // 民生银行
+            let res = await util.getDataFromServersV2('consumer/order/apply/ms/bank-card', {
+                orderId: app.globalData.orderInfo.orderId
+            });
+            if (!res) return;
+            if (res.code === 0) {
+                wx.navigateToMiniProgram({
+                    appId: 'wx8212297b23aff0ff',
+                    path: `pages/home/sc-ws/sc-ws?params=${'https://' + encodeURIComponent(res.data.applyUrl.slice(8))}`,
+                    envVersion: 'release',
+                    success () {},
+                    fail () {
+                        // 未成功跳转到签约小程序
+                        util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
+                    }
+                });
+                // 跳转 h5
+                // util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data.applyUrl)}`);
+            } else {
+                util.showToastNoIcon(res.message);
+            }
         } else { // 中信银行
             if (this.data.isCiticBankPlatinum) {
                 url = `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?sid=SJCSJHT01&paId=${this.data.orderDetails.orderId}&partnerId=SJHT&pid=CS0840`;

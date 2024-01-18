@@ -20,9 +20,9 @@
             <image class="img_8" src="https://file.cyzl.com/g001/M02/16/BD/oYYBAGVSE0qAdizAAACFHZai8FA700.jpg" mode="widthFix" />
             <image class="img_8" src="https://file.cyzl.com/g001/M02/16/BD/oYYBAGVSE-eAWgKGAACqkSkRed4921.jpg" mode="widthFix" />
         </view>
-        <!-- <view class="btnCiti" wx:if="{{true}}">
-            <span class="btn1" style="background: {{bgColor}}" catchtap="citicBankProgress" >{{showhandleOrView ? '继续办理信用卡':'查看信用卡办理进度'}}</span>
-        </view> -->
+        <view class="btnCiti" wx:if="{{minShenBank}}">
+            <span class="btn1" style="background: {{bgColor}}" catchtap="citicBankProgress" >{{showhandleOrView ? '信用卡办理入口':'查看信用卡办理进度'}}</span>
+        </view>
     </view>
 
     <view class="module current">
