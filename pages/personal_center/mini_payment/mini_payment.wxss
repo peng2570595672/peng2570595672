@@ -1,12 +1,12 @@
 .container {
   display: flex;
   flex-direction: column;
-  padding-top: 100rpx;
   box-sizing: border-box;
   background: #ececec;
   min-height: 100vh;
 }
 .container .price-info {
+  padding-top: 100rpx;
   display: flex;
   align-items: center;
   justify-content: center;

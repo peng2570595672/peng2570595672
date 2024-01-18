@@ -4,6 +4,48 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "4.0 填写基础信息页",
+                    "pathName": "pages/default/receiving_address/receiving_address",
+                    "query": "activityType=3&isPost=1&shopId=1179101403111497728",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1184265686482948096",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/default/information_validation/information_validation",
+                    "query": "vehPlates=%E8%B4%B5Z41045&vehColor=0&topProgressBar=3.3&obuCardType=2",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1174740748386439168",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1149709085193539584",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/arrears_bill/arrears_bill",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
                     "query": "orderId=1126931299848818688",
@@ -35,13 +77,6 @@
                     "name": "",
                     "pathName": "pages/default/processing_progress/processing_progress",
                     "query": "orderId=1146890708092063744",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "4.0 填写基础信息页",
-                    "pathName": "pages/default/receiving_address/receiving_address",
-                    "query": "activityType=3&isPost=1&shopId=1192515817349718016",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -621,7 +656,7 @@
         }
     },
     "setting": {
-        "urlCheck": false,
+        "urlCheck": true,
         "compileHotReLoad": true,
         "bigPackageSizeSupport": true
     },

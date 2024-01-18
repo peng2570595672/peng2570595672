@@ -484,11 +484,10 @@ Page({
         let that = this;
         let url = e.currentTarget.dataset['url'];
         if (url === 'loadingService') {
-        // https://wpa1.qq.com/jjrmum8i?_type=wpa&qidian=true 新版在线客服链接（2023-8-7）
         // 统计点击进入在线客服
             this.fangDou(() => {
-                util.go(`/pages/customer_service/index/index`);
-                // util.go(`/pages/web/web/web?url=${encodeURIComponent('https://wpa1.qq.com/jjrmum8i?_type=wpa&qidian=true')}`);
+                // util.go(`/pages/customer_service/index/index`);
+                util.go(`/pages/web/web/web?url=${encodeURIComponent('https://xiaochengxu.soboten.com/chat/h5/v6/index.html?sysnum=7d11a91e6a20414da4186004d03807fd&channelid=5&useWxjs=true')}`);
             },1000);
             return;
         }
