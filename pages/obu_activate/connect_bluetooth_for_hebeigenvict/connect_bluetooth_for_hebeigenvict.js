@@ -709,7 +709,9 @@ Page({
                     that.setData({onceUse: true});
                 }
             } else {
-                that.isOver('【设备通知】' + res.message);
+                if (obj) {
+                    that.isOver('【设备通知】' + res.message);
+                }
             }
         });
     },
