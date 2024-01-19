@@ -38,7 +38,8 @@ Page({
         newOrderNo: '', // 二次激活返回的订单号
         handleCount: 0, // 执行次数
         timeout: undefined,
-        obuStatus: undefined
+        obuStatus: undefined,
+        onceUse: false // true 表示已调用一次，false 没调用
     },
     onLoad (options) {
         /*
@@ -340,7 +341,7 @@ Page({
                 that.setData({obuStatus: baseInfo.obuStatus});
                 if (baseInfo.obuStatus === 1 || baseInfo.obuStatus === 5) {
                     that.secondActive(baseInfo.obuStatus); // 二次激活
-                } else if (baseInfo.obuStatus === 2) {
+                } else if (baseInfo.obuStatus === 2) { // 换卡换签
                     that.pubFunc2(1,3);
                 } else {
                     that.setData({newOrderNo: ''});
@@ -372,6 +373,7 @@ Page({
                 that.orderOnline(obuStatus);
             } else {
                 that.isOver('【二次激活】' + res.message);
+                that.writeDeviceResult(false);
             }
         });
     },
@@ -406,6 +408,7 @@ Page({
             } else {
                 that.isOver('【订单发行】' + res.message);
                 that.setData({handleCount: 0});
+                that.writeDeviceResult(false);
             }
         });
     },
@@ -479,6 +482,7 @@ Page({
                     const tips = list[fileType - 1];
                     const tips1 = list1[type - 1];
                     that.isOver(`${tips}-ESAM通道指令"${tips1}"失败（检查蓝牙是否已断开）：{code:${res.code},data:${res.data}}`);
+                    that.writeDeviceResult(false);
                 }
             });
         } else {
@@ -513,6 +517,7 @@ Page({
                     const tips = list[fileType - 1];
                     const tips1 = list1[type - 1];
                     that.isOver(`${tips}-卡片通道指令"${tips1}"失败（检查蓝牙是否已断开）：{code:${res.code},data:${res.data}}`);
+                    that.writeDeviceResult(false);
                 }
             });
         }
@@ -577,6 +582,7 @@ Page({
                 }
             } else {
                 that.isOver(`【${fileType === 3 ? '车辆' : '系统'}写签】` + res.message);
+                that.writeDeviceResult(false);
             }
         });
     },
@@ -592,6 +598,7 @@ Page({
                 that.getTamperStatus();
             } else {
                 that.isOver(`读取系统信息失败 {code:${res.code},data:${res.data}}`);
+                that.writeDeviceResult(false);
             }
         });
     },
@@ -606,6 +613,7 @@ Page({
               that.writeObuSysConfirm(res.temperStatus); // 写标签系统信息确认
             } else {
               message = '获取防拆状态失败：' + res.code;
+              that.writeDeviceResult(false);
             }
         });
     },
@@ -630,12 +638,13 @@ Page({
         }, (res) => {
             if (res.code === 0) {
                 if (that.data.obuStatus === 1 || that.data.obuStatus === 5) { // 如果二次激活不用再执行写卡操作
-                    that.writeDeviceResult(); // 写设备结果通知
+                    that.writeDeviceResult(true); // 写设备结果通知
                 } else {
                     that.pubFunc2(1,2); // 开始0016写卡
                 }
             } else {
                 that.isOver('【写标签系统信息确认】' + res.message);
+                that.writeDeviceResult(false);
             }
         });
     },
@@ -659,7 +668,7 @@ Page({
             if (res.code === 0) {
                 if (fileType === 1) {
                     that.pubFunc2(3,fileType,res.data.dataAndMAC,() => {
-                        that.writeDeviceResult();
+                        that.writeDeviceResult(true);
                     });
                 } else {
                     that.pubFunc2(3,fileType,res.data.dataAndMAC,() => {
@@ -668,34 +677,41 @@ Page({
                 }
             } else {
                 that.isOver(`【${fileType === 1 ? '0015' : '0016'}写卡】` + res.message);
+                that.writeDeviceResult(false);
             }
         });
     },
     /**
      * 写设备结果通知
      */
-    writeDeviceResult () {
+    writeDeviceResult (obj) {
         const that = this;
         let params = {
             obuNo: that.data.ui.obuNo,
             cardNo: that.data.ui.cardNo,
             orderNo: that.data.newOrderNo || app.globalData.orderInfo.orderId, // 订单号
             orderId: app.globalData.orderInfo.orderId,
-            result: true // 是否写设备成功，true：写卡签成功；fasle：写卡签失败
+            result: obj ? true : 'false' // 是否写设备成功，true：写卡签成功；fasle：写卡签失败
         };
         let endUrl = 'writeDeviceResult';
         util.getDataFromServer(`${that.data.urlPrefix}/${endUrl}`, params, () => {
             that.isOver('通知失败');
         }, (res) => {
             if (res.code === 0) {
-                that.mySetData({
-                    isActivating: false,
-                    activated: 1,
-                    errMsg: '',
-                    msg: ''
-                });
+                if (obj) {
+                    that.mySetData({
+                        isActivating: false,
+                        activated: 1,
+                        errMsg: '',
+                        msg: ''
+                    });
+                } else {
+                    that.setData({onceUse: true});
+                }
             } else {
-                that.isOver('【设备通知】' + res.message);
+                if (obj) {
+                    that.isOver('【设备通知】' + res.message);
+                }
             }
         });
     },
@@ -739,7 +755,9 @@ Page({
         this.setData({
             isUnload: 1
         });
-        // this.disonnectDevice();
+        if (!this.data.onceUse && !this.data.ui.activated) {
+            this.writeDeviceResult(false);
+        }
         if (this.data.ui.activated) {
             wx.reLaunch({
                 url: '/pages/Home/Home'
