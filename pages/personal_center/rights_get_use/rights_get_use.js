@@ -13,7 +13,9 @@ Page({
         couponInfo: {} // 券信息
     },
     onLoad (options) {
-        this.getStoreList();
+        if (app.globalData.serviceCardVoucherDetails.couponType === 8) {
+            this.getStoreList();
+        }
         this.setData({couponInfo: app.globalData.serviceCardVoucherDetails});
         // console.log(app.globalData.serviceCardVoucherDetails);
     },

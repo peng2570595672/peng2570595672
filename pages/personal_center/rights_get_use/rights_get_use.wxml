@@ -31,7 +31,7 @@
             <view class="text3">{{couponInfo.consumptionThreshold > 0 ? '满'+ couponInfo.consumptionThreshold / 100 + '元可用' : '无门槛'}}</view>
         </view>
     </view>
-    <view class="module module2">
+    <view class="module module2" wx:if="{{couponInfo.couponType === 8}}">
         <view class="topFunc">
             <view>适用门店</view>
             <view class="iconfont" bind:tap="showAll">查看全部</view>
@@ -49,7 +49,6 @@
                 </view>
             </view>
         </view>
-        
     </view>
     <popTipComp id="popTipComp" />
     <privacy_popup></privacy_popup>
