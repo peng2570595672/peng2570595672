@@ -313,7 +313,7 @@ Page({
                 });
                 that.readObuNoFromDevice();
             } else {
-                that.isOver(`读取卡片信息失败 {code:${res.code},data:${res.data}}`);
+                that.isOver(`读取卡片信息失败 {code:${res.code},data:${JSON.stringify(res)}}`);
             }
           });
     },
@@ -348,7 +348,7 @@ Page({
                     that.orderOnline(baseInfo.obuStatus); // 第一次激活
                 }
             } else {
-                that.isOver(`读取系统信息失败 {code:${res.code},data:${res.data}}`);
+                that.isOver(`读取系统信息失败 {code:${res.code},data:${JSON.stringify(res)}}`);
             }
         });
     },
@@ -591,13 +591,16 @@ Page({
      */
     getSysInfo () {
         const that = this;
+        this.mySetData({
+            msg: '正在读取OBU号...'
+        });
         bleUtil.getSystemInfo(function (res) {
             console.log('系统信息',res);
             if (res.code === '0') {
                 that.setData({systemInfo: res.systemInfo});
                 that.getTamperStatus();
             } else {
-                that.isOver(`读取系统信息失败 {code:${res.code},data:${res.data}}`);
+                that.isOver(`读取系统信息失败 {code:${res.code},data:${JSON.stringify(res)}}`);
                 that.writeDeviceResult(false);
             }
         });
@@ -610,10 +613,10 @@ Page({
         bleUtil.getTamperStatus(function (res) {
             console.log('获取防拆状态',res);
             if (res.code === '0') {
-              that.writeObuSysConfirm(res.temperStatus); // 写标签系统信息确认
+                that.writeObuSysConfirm(res.temperStatus); // 写标签系统信息确认
             } else {
-              message = '获取防拆状态失败：' + res.code;
-              that.writeDeviceResult(false);
+                that.isOver(`读取防拆状态失败 {code:${res.code},data:${JSON.stringify(res)}}`);
+                that.writeDeviceResult(false);
             }
         });
     },

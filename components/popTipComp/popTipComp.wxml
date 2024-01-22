@@ -63,11 +63,11 @@
             </view>
             <view class="contant" wx:else>
                 <view >一、活动限民生信用卡新客户(不包括已持民生信用卡主卡销卡后重新申请及核卡成功未激活的持卡人)参与。</view>
-                <view >二、办理民生信用卡不收取任何费用。</view>
-                <view >三、成功办理民生信用卡的新客户核卡30天内激活首刷即退还预付费用并发放100元权益商城券，信用卡申请不通过，可取消订单退还预付费用。</view>
-                <view >四、年费介绍：</view>
+                <view >二、办理民生信用卡不收取任何费用、成功办理民生信用卡的新客户核卡30天内激活首刷即退还权益金并发放100元权益商城券，信用卡申请不通过，可取消订单退还权益金.</view>
+                <view >三、年费介绍：</view>
                 <view >  1、金卡:主卡300元/年，附属卡150元/年首年免年费，当年消费满5笔免次年年费。</view>
-                <view >  2、标准白金卡: 主卡600元/年,附属卡300元/年。首年免年费，当年消费满18笔或满5万人民币，免次年年费。</view>
+                <view >  2、标准白金卡: 主卡600元/年附属卡300元/年。首年免年费，当年消费满18笔或满5万人民币，免次年年费。</view>
+                <view class="pronBtn" data-type="2" catchtap="goAgreement">详细细则请点击</view>
             </view>
             <view class="bottomBtn">
                 <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
