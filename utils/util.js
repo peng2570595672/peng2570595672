@@ -803,7 +803,7 @@ function getStatus(orderInfo) {
         // 待发货
         return 28;
       }
-      if (orderInfo.logisticsId !== 0 && orderInfo.obuStatus === 0) {
+      if (orderInfo.logisticsId !== 0 && orderInfo.obuStatus === 0||(orderInfo.status === 1 && orderInfo.obuStatus === 2 && orderInfo.obuCardType === 23)) {//补充河北交投卡换卡换签
         return 11; //  待激活
       }
       if (orderInfo.status === 2) {

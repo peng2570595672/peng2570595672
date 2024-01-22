@@ -85,6 +85,7 @@ Page({
 				vehicleList.push(item.vehPlates);
 				item['deductionMethod'] = initProductName(item);
 				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
+				console.log('util.getStatus(item)',util.getStatus(item),item);
 				item['deviceUpgrade'] = (item.obuStatus === 1 || item.obuStatus === 5) && item.obuCardType === 2 && util.timeComparison(app.globalData.deviceUpgrade.addTime, item.addTime) === 2 && item?.contractVersion !== 'v3';
 				wx.setStorageSync('cars', vehicleList.join('、'));
 			});
