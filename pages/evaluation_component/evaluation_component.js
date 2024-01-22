@@ -15,7 +15,7 @@ Page({
     this.setData({
       needeva: options.needeva
     });
-    if (+options.needeva === 1) this.goPingjia();
+    if (+options.needeva === '1') this.goPingjia();
   },
 
   /**
@@ -46,24 +46,21 @@ Page({
     let plugin = requirePlugin('wxacommentplugin');
     plugin.openComment({
       success: (res) => {
+        console.log(res);
         wx.showToast({
           title: res
         });
-        this.setData({
-          needeva: '2'
-        });
+        if (res.errCode === 0) {
+          this.setData({
+            needeva: '2'
+          });
+        }
       },
       fail: (res) => {
         wx.showToast({
           title: res
         });
-      },
-      complete: () => {
-        setTimeout(res => {
-          wx.navigateBack();
-        },100);
       }
-
     });
   },
 
