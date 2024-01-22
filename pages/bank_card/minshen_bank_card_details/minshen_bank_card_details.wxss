@@ -111,10 +111,15 @@
   align-items: center;
   justify-content: center;
 }
-.index .cict_bank .btnCiti .btn1 {
+.index .cict_bank .btnCiti .btn2 {
   color: #fff;
-  border-radius: 16rpx;
-  padding: 20rpx 30rpx;
+  width: 274rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  text-align: center;
+  line-height: 80rpx;
+  background: linear-gradient(180deg, #fcdc96 0%, #f8b85f 100%);
+  box-shadow: 0rpx 4rpx 8rpx 0rpx #cc7934;
 }
 .index .current {
   text-align: center;

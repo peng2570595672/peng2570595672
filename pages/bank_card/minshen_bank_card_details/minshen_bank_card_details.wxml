@@ -1,6 +1,6 @@
 <view class="index" style="background: {{bgColor}}">
     <view class="topImg">
-        <image class="image" src="https://file.cyzl.com/g001/M02/16/B0/oYYBAGVR6gGAFrLqAAE-iz0oIDY356.jpg" mode="widthFix" />
+        <image class="image" src="https://file.cyzl.com/g001/M03/37/26/oYYBAGWt0a2AWidZAAE7AX5sWVc696.png" mode="widthFix" />
     </view>
 
     <view class="module cict_bank">
@@ -21,7 +21,7 @@
             <image class="img_8" src="https://file.cyzl.com/g001/M02/16/BD/oYYBAGVSE-eAWgKGAACqkSkRed4921.jpg" mode="widthFix" />
         </view>
         <view class="btnCiti" wx:if="{{minShenBank}}">
-            <span class="btn1" style="background: {{bgColor}}" catchtap="citicBankProgress" >{{showhandleOrView ? '信用卡办理入口':'查看信用卡办理进度'}}</span>
+            <span class="btn2" catchtap="citicBankProgress" >信用卡办理入口</span>
         </view>
     </view>
 

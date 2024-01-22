@@ -55,7 +55,6 @@ Page({
         bgColor: 'rgba(167, 200, 248, 1)',
         minShenBank: false, // 是否有中信银行联名套餐的订单
         transactScheduleData: undefined,	// 中信银行信用卡申请进度查询结果
-        showhandleOrView: false,	// 中信银行信用卡 false 表示 ”查看信用卡办理进度“
         keepHandle: 0	//	控制底部悬浮按钮的文案展示
     },
 
@@ -121,24 +120,7 @@ Page({
             flag = app.globalData.myEtcList.filter(item => app.globalData.cictBankObj.minshenBank === item.shopProductId);
             this.setData({viewCiticBankList: flag});
         }
-        this.setData({keepHandle: flag.length,showhandleOrView: true,minShenBank: true});
-
-        // if (flag.length > 0 && flag[0].isOwner && flag[0].isVehicle) {
-        //     this.setData({
-        //         citicBank: true,
-        //         isCiticBankPlatinum: flag[0].shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || flag[0].shopProductId === app.globalData.cictBankObj.cictBankNmPlatinumCard	// 判断是不是白金卡套餐
-        //     });
-        //     const result = await util.getDataFromServersV2('consumer/order/zx/transact-schedule', {
-        //         orderId: flag[0].id
-        //     },'POST',false);
-        //     if (!result) return;
-        //     if (result.code === 0) {
-        //         this.setData({
-        //             transactScheduleData: result.data,
-        //             showhandleOrView: result.data[0].applyStatus === '111' || result.data[0].applyStatus === '112'
-        //         });
-        //     }
-        // }
+        this.setData({keepHandle: flag.length,minShenBank: flag.length});
     },
     // // 权益 查看
     // viewEquity (e) {

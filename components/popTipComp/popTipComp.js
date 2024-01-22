@@ -166,6 +166,9 @@ Component({
 				case '1':	// 平安获客（平安 隐私协议）
 					util.go(`/pages/agreement_documents/equity_agreement/equity_agreement?type=pAbindGuests`);
 					break;
+				case '2':	// 民生细则点击跳转
+					util.go(`/pages/agreement_documents/equity_agreement/equity_agreement?type=minShengbyLaws`);
+					break;
 				default:
 					break;
 			}
@@ -188,5 +191,6 @@ Component({
 			this.hide(false);
 			this.data.tipObj.callBack();
 		}
+
 	}
 });
