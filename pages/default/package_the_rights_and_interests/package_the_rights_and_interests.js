@@ -281,6 +281,10 @@ Page({
             if (initProduct) {
                 await this.getProductOrderInfo();
             }
+            await util.getFollowRequestLog({
+                orderInfo: JSON.stringify(result.data),
+                source: '查询订单信息'
+            });
         } else {
             util.showToastNoIcon(result.message);
         }

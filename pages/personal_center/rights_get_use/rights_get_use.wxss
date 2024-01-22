@@ -184,8 +184,7 @@
   color: #00b578;
 }
 .index .module1 .bgFlex .lifespan .turn {
-  -webkit-animation: turns 0.5s linear infinite;
-          animation: turns 0.5s linear infinite;
+  animation: turns 0.5s linear infinite;
   animation-direction: reverse;
   -webkit-animation-direction: reverse;
 }
