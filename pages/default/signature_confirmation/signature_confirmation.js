@@ -25,6 +25,7 @@ Page({
 		startY: 0, // 屏幕点y坐标
 		isNeedJump: true,
 		strokeNum: 0 ,// 笔画
+		isAgreement: false,
 		choiceIndex: -1
 
 	},
@@ -88,10 +89,22 @@ Page({
 			startY: 0
 		});
 	},
+	// 设置单选value
+  radioChange () {
+		console.log('111',this.data.isAgreement);
+    this.setData({
+      isAgreement: !this.data.isAgreement
+    });
+ },
 	// 提交签名
 	handleSubmitSign () {
 		if (this.data.strokeNum <= 1) {
 			util.showToastNoIcon('请重新签字！');
+			return;
+		}
+		console.log(this.data.isAgreement);
+		if (!this.data.isAgreement) {
+			util.showToastNoIcon('请勾选知晓套餐权益！');
 			return;
 		}
 		util.showLoading('加载中');

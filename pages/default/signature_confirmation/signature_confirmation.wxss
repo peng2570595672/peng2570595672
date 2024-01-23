@@ -120,7 +120,7 @@
   background-size: cover;
 }
 .container .canvas-box .tips {
-  text-align: center;
+  text-align: left;
   font-size: 24rpx;
   font-family: PingFang SC-Regular, PingFang SC;
   font-weight: 400;
@@ -155,12 +155,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #2a4f44;
+  background: rgba(255,255,255,0.01);
+  border: 2rpx solid #2a4f44;
   border-radius: 53rpx;
   opacity: 1;
   font-size: 32rpx;
   font-family: PingFang SC-Medium, PingFang SC;
   font-weight: 500;
+  color: #2a4f44;
+}
+.container .canvas-box .btn-container .showColor{
+  background: #2a4f44;
   color: #fff;
 }
 .pictorial {
