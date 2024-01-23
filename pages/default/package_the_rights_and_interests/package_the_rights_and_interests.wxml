@@ -167,6 +167,7 @@
                 <button class="btns {{choiceIndex === -1 || getAgreement ? 'payColor' : ''}}" catchtap="next" >
                     {{isSalesmanOrder ? '去签约' : '确认套餐'}}
                 </button>
+                
             </view>
         </view>
     </view>

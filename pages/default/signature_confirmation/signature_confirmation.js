@@ -1,4 +1,6 @@
-import {wxApi2Promise} from '../../../utils/utils';
+import {
+	wxApi2Promise
+} from '../../../utils/utils';
 
 /**
  * @author 老刘
@@ -8,31 +10,38 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 // 倒计时计时器
 let timer;
-let context;//
+let context; //
 Page({
 	data: {
 		identifyingCode: '获取验证码',
-		time: 59,// 倒计时
+		time: 59, // 倒计时
 		isGetIdentifyingCoding: false, // 获取验证码中
-		signType: 1,// 1-签字  2-验证码
+		signType: 1, // 1-签字  2-验证码
 		mobilePhone: '',
 		winInfo: {},
 		windowHeight: '',
 		beginDraw: false, // 开始绘画
-		startX: 0,// 屏幕点x坐标
+		startX: 0, // 屏幕点x坐标
 		startY: 0, // 屏幕点y坐标
 		isNeedJump: true,
-		strokeNum: 0 // 笔画
+		strokeNum: 0 ,// 笔画
+		isAgreement: false,
+		choiceIndex: -1
+
 	},
 	async onLoad (options) {
 		this.setData({
-			winInfo: app.globalData.screenWindowAttribute
+			winInfo: app.globalData.screenWindowAttribute,
+			choiceIndex: options.choiceIndex,
+			product_price: options.product_price
 		});
-			context = wx.createCanvasContext('canvas-id');
-			context.setLineWidth(4);// 设置线宽
-			context.setLineCap('round');// 设置线末端样式
-			context.setLineJoin('round');// 设置线条的结束交点样式
-			this.getETCDetail();
+		console.log('已经设置index',this.data.choiceIndex);
+		console.log('已经设置product_price',this.data.product_price);
+		context = wx.createCanvasContext('canvas-id');
+		context.setLineWidth(4); // 设置线宽
+		context.setLineCap('round'); // 设置线末端样式
+		context.setLineJoin('round'); // 设置线条的结束交点样式
+		this.getETCDetail();
 	},
 	async draw (signPath) {
 		// 内容位置参照wxss
@@ -65,7 +74,7 @@ Page({
 			destHeight: 4 * util.getPx(winInfo.windowHeight) * 4 * this.pixelRatio,
 			canvasId: 'pictorial'
 		}, this);
-		console.log(res)
+		console.log('绘制结束', res);
 		this.uploadFile(res.tempFilePath);
 	},
 	// 清除签名
@@ -80,10 +89,22 @@ Page({
 			startY: 0
 		});
 	},
+	// 设置单选value
+  radioChange () {
+		console.log('111',this.data.isAgreement);
+    this.setData({
+      isAgreement: !this.data.isAgreement
+    });
+ },
 	// 提交签名
 	handleSubmitSign () {
 		if (this.data.strokeNum <= 1) {
 			util.showToastNoIcon('请重新签字！');
+			return;
+		}
+		console.log(this.data.isAgreement);
+		if (!this.data.isAgreement) {
+			util.showToastNoIcon('请勾选知晓套餐权益！');
 			return;
 		}
 		util.showLoading('加载中');
@@ -123,15 +144,14 @@ Page({
 				util.hideLoading();
 				util.showToastNoIcon('上传失败');
 			}
-		}, () => {
-		});
+		}, () => {});
 	},
 	async saveSign (fileUrl) {
 		util.showLoading('加载中');
 		let params = {
 			signType: this.data.signType,
 			userSign: fileUrl,
-			orderId: app.globalData.orderInfo.orderId// 订单id
+			orderId: app.globalData.orderInfo.orderId // 订单id
 		};
 		console.log('保存签名信息');
 		console.log(params);
@@ -154,6 +174,18 @@ Page({
 			this.setData({
 				isNeedJump: false
 			});
+			if (this.data.choiceIndex !== -1) {
+				let page = getCurrentPages(); // 获取当前页面栈
+				let prevPage = page[page.length - 2]; // 代表的就是上一页的实例，相当于this
+				prevPage.data.listOfPackages[this.data.choiceIndex].okSign = true;
+				// prevPage.setData({
+				// 	listOfPackages:prevPage.data.listOfPackages
+				// });
+				wx.navigateBack({
+					delta: 1// 23456
+				});
+				return;
+			}
 			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests`);
 		} else {
 			util.showToastNoIcon(result.message);
@@ -179,7 +211,7 @@ Page({
 	async weChatSign (obj) {
 		util.showLoading('加载中');
 		let params = {
-			orderId: app.globalData.orderInfo.orderId,// 订单id
+			orderId: app.globalData.orderInfo.orderId, // 订单id
 			clientOpenid: app.globalData.userInfo.openId,
 			clientMobilePhone: app.globalData.userInfo.mobilePhone,
 			needSignContract: true // 是否需要签约 true-是，false-否
@@ -194,7 +226,7 @@ Page({
 			util.hideLoading();
 			let res = result.data.contract;
 			// 签约车主服务 2.0
-			app.globalData.isSignUpImmediately = true;// 返回时需要查询主库
+			app.globalData.isSignUpImmediately = true; // 返回时需要查询主库
 			app.globalData.belongToPlatform = obj.platformId;
 			app.globalData.orderInfo.orderId = obj.id;
 			app.globalData.contractStatus = obj.contractStatus;
@@ -224,8 +256,7 @@ Page({
 							extraData: {
 								contract_id: result.data.contractId
 							},
-							success () {
-							},
+							success () {},
 							fail (e) {
 								// 未成功跳转到签约小程序
 								util.showToastNoIcon('调起微信签约小程序失败, 请重试！');

@@ -1,3 +1,4 @@
+<wxs src='../../../utils/util.wxs' module='tools' />
 <view class="container">
     <image class="img" src="https://file.cyzl.com/g001/M02/FA/DC/oYYBAGTLDjmALadVAACI3rH4OBE333.png" mode="widthFix"></image>
     <view class="canvas-box">
@@ -9,10 +10,14 @@
         <canvas canvas-id="canvas-id" class="canvas-content" disable-scroll="true" bindtouchstart="touchStart"
                 bindtouchmove="touchMove" bindtouchend="touchEnd" binderror="canvasErrorBack" bindtouchcancel="touchEnd"
         ></canvas>
-        <view class="tips">签名即代表您已知晓本次消费购买的实际内容</view>
+        <radio-group bindtap="radioChange" class="btn-container">
+            <radio class="oksingIcon"  checked="{{isAgreement}}"/>
+            <view class="tips" wx:if="{{tools.parseNum(product_price)/100<=0}}">签名即代表您已知晓本次消费购买的实际内容</view>
+            <view class="tips" wx:else>勾选既代表您已知晓{{tools.parseNum(product_price)/100}}元档的套餐权益仅限ETC+在线商城购物优惠，不可用于通行费抵扣。</view>
+        </radio-group>
         <view class="btn-container">
             <view class="cancel" bindtap="handleCancel">我再看看</view>
-            <view class="btn" bindtap="handleSubmitSign">确认并提交</view>
+            <view class="btn {{strokeNum > 1 && isAgreement? 'showColor' : ''}}" bindtap="handleSubmitSign">确认并提交</view>
         </view>
     </view>
 </view>
