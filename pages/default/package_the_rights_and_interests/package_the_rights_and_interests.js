@@ -667,10 +667,10 @@ Page({
                 return;
             }
         }
-        console.log('此时的oksing',obj1.okSign);
+        console.log('此时的oksing',obj1);
         // 即将支付 判断是否签名
         if (!obj1.okSign) {
-            util.go(`/pages/default/signature_confirmation/signature_confirmation?choiceIndex=${this.data.choiceIndex}`);
+            util.go(`/pages/default/signature_confirmation/signature_confirmation?choiceIndex=${this.data.choiceIndex}&&product_price=${this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice}`);
             return;
         }
         // 银行信用卡 细则提示弹窗

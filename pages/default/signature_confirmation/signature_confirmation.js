@@ -26,13 +26,16 @@ Page({
 		isNeedJump: true,
 		strokeNum: 0 ,// 笔画
 		choiceIndex: -1
+
 	},
 	async onLoad (options) {
 		this.setData({
 			winInfo: app.globalData.screenWindowAttribute,
-			choiceIndex: options.choiceIndex
+			choiceIndex: options.choiceIndex,
+			product_price: options.product_price
 		});
 		console.log('已经设置index',this.data.choiceIndex);
+		console.log('已经设置product_price',this.data.product_price);
 		context = wx.createCanvasContext('canvas-id');
 		context.setLineWidth(4); // 设置线宽
 		context.setLineCap('round'); // 设置线末端样式
