@@ -6,6 +6,7 @@
     </view>
     <!-- 套餐模块 -->
     <view class="package" wx:for="{{listOfPackages}}" wx:key="index">
+    <text>{{item.okSign}}</text>
         <view class="module moduleOne iconfont {{'module' + index}} {{index === activeIndex ? 'btnHighLight' : ''}}" data-index="{{index}}" data-shopproductid="{{item.shopProductId}}" catchtap="btnHeightLight">
             <!-- 活动标签 限制字符8个 -->
             <view class="active {{index === activeIndex ? 'activeChange' : ''}}" wx:if="{{item.activeTag}}">
@@ -167,6 +168,7 @@
                 <button class="btns {{choiceIndex === -1 || getAgreement ? 'payColor' : ''}}" catchtap="next" >
                     {{isSalesmanOrder ? '去签约' : '确认套餐'}}
                 </button>
+                
             </view>
         </view>
     </view>

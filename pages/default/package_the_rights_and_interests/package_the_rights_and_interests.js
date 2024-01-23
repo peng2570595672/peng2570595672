@@ -152,6 +152,10 @@ Page({
         this.setData({
             listOfPackages: parseInt(options.type) === 1 ? packages.divideAndDivideList : packages.alwaysToAlwaysList
         });
+        this.data.listOfPackages.forEach(item => {
+            item.okSign = false;
+        });
+        console.log('00000',this.data.listOfPackages);
         await this.queryOrder();
         // await this.getSwiperHeight();
         // 获取 套餐模块的高度
@@ -633,7 +637,6 @@ Page({
             return;
         }
         let obj1 = this.data.listOfPackages[this.data.choiceIndex];
-
         if (obj1.mustChoiceRightsPackage === 1 && this.data.equityListMap.addEquityList[this.data.choiceIndex].aepIndex === -1) {
             util.showToastNoIcon('请选择一个权益包');
             return;
@@ -663,6 +666,12 @@ Page({
                 util.showToastNoIcon(result.message);
                 return;
             }
+        }
+        console.log('此时的oksing',obj1.okSign);
+        // 即将支付 判断是否签名
+        if (!obj1.okSign) {
+            util.go(`/pages/default/signature_confirmation/signature_confirmation?choiceIndex=${this.data.choiceIndex}`);
+            return;
         }
         // 银行信用卡 细则提示弹窗
         if (obj1.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || obj1.shopProductId === app.globalData.cictBankObj.cictBankNmPlatinumCard || obj1.shopProductId === app.globalData.cictBankObj.minshenBank) {

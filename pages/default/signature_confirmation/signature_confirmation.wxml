@@ -9,6 +9,7 @@
         <canvas canvas-id="canvas-id" class="canvas-content" disable-scroll="true" bindtouchstart="touchStart"
                 bindtouchmove="touchMove" bindtouchend="touchEnd" binderror="canvasErrorBack" bindtouchcancel="touchEnd"
         ></canvas>
+        <text class="oksingIcon"></text>
         <view class="tips">签名即代表您已知晓本次消费购买的实际内容</view>
         <view class="btn-container">
             <view class="cancel" bindtap="handleCancel">我再看看</view>
