@@ -170,7 +170,9 @@ Page({
                 util.go(`/pages/default/information_list/information_list`);
             } else if (this.data.viewCiticBankList[0]?.contractStatus !== 1) { // 去签约
                 util.go(`/pages/bank_card/citic_bank_sign/citic_bank_sign`);
-            } else {}
+            } else {
+                util.showToastNoIcon('订单已存在，该活动仅首次办理有效！');
+            }
         }
     },
     // 分享
