@@ -10,7 +10,7 @@
         <canvas canvas-id="canvas-id" class="canvas-content" disable-scroll="true" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" binderror="canvasErrorBack" bindtouchcancel="touchEnd"></canvas>
         <radio-group bindtap="radioChange" class="btn-radioChange" >
             <radio class="oksingIcon top"  checked="{{isAgreement}}"/>
-            <view class="tips" wx:if="{{tools.parseNum(product_price)/100>0}}">勾选既代表您已知晓{{tools.parseNum(product_price)/100}}元档的套餐权益仅限ETC+在线商城购物优惠，不可用于通行费抵扣。</view>
+            <view class="tips" wx:if="{{tools.parseNum(orderInfo.pledgeMoney)/100>0}}">勾选既代表您已知晓{{tools.parseNum(orderInfo.pledgeMoney)/100}}元档的套餐权益仅限ETC+在线商城购物优惠，不可用于通行费抵扣。</view>
             <view class="tips" wx:else>签名即代表您已知晓本次消费购买的实际内容</view>
         </radio-group>
         <view class="btn-container">
