@@ -3,7 +3,7 @@
 }
 .container {
   background-color: #2a4f44;
-  min-height: 100vh;
+  min-height: 120vh;
 }
 .container .img {
   width: 100%;
@@ -83,7 +83,7 @@
 }
 .container .canvas-box {
   width: 694rpx;
-  height: 838rpx;
+  height: 858rpx;
   background: #fff;
   border-radius: 16rpx;
   padding: 36rpx 0;
@@ -119,14 +119,26 @@
   background: url("https://file.cyzl.com/g001/M01/CF/9B/oYYBAGQZCSeASFK1AAAStaH6eaM004.png");
   background-size: cover;
 }
+.container .canvas-box .btn-radioChange{
+  padding: 0 36rpx;
+  justify-content: center;
+  display: flex;
+}
+.container .canvas-box .btn-radioChange .oksingIcon{
+  transform:scale(0.8);
+}
+.container .canvas-box .btn-radioChange .top{
+  margin-top: -6rpx;
+}
+
 .container .canvas-box .tips {
   text-align: left;
   font-size: 24rpx;
   font-family: PingFang SC-Regular, PingFang SC;
   font-weight: 400;
   color: rgba(30,30,30,0.5);
-  line-height: 28rpx;
-  margin-bottom: 42rpx;
+  line-height: 36rpx;
+  margin-bottom: 40rpx;
 }
 .container .canvas-box .btn-container {
   display: flex;
