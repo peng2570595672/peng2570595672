@@ -4,19 +4,19 @@ Page({
 
     data: {
         applyInfo: undefined, // 进度数据
-        orderId: '',
+        id: '', // roadId
         applyId: '' // 道路救援申请id
     },
 
     onLoad (options) {
-        this.setData({orderId: options.orderId,applyId: options.applyId});
+        this.setData({id: options.id,applyId: options.applyId});
     },
 
     onShow () {
         if (!app.globalData.userInfo.accessToken) {
             this.login();
         } else {
-            if (this.data.applyId) {
+            if (!this.data.applyId) {
                 this.getApplyInfo(this.data.applyId);
             } else {
                 this.getOrderInfo();
@@ -61,7 +61,7 @@ Page({
     },
     // 获取订单信息
     async getOrderInfo () {
-        const result = await util.getDataFromServersV2('consumer/order/single-road-rescue', {orderId: this.data.orderId},'POST',true);
+        const result = await util.getDataFromServersV2('consumer/order/single-road-rescue', {id: this.data.id},'POST',true);
         if (!result) return;
         if (result.code === 0) {
             this.getApplyInfo(result.data.applyId);
@@ -83,7 +83,7 @@ Page({
 
     // 道路救援申请请页
     goReceive () {
-        util.go(`/pages/road_rescue_orders/road_rescue_subscribe/road_rescue_subscribe?orderId=${this.data.orderId}`);
+        util.go(`/pages/road_rescue_orders/road_rescue_subscribe/road_rescue_subscribe?id=${this.data.id}`);
     },
     // 返回首页
     goHome () {

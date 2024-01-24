@@ -161,6 +161,6 @@ Page({
         } else if (item.roadRescueStatus === 4 || item.roadRescueStatus === 5 || item.roadRescueStatus === 6) {
             url = 'road_rescue_schedule';
         }
-        util.go(`/pages/road_rescue_orders/${url}/${url}?orderId=${item.orderId}&applyId=${item.applyId}`);
+        util.go(`/pages/road_rescue_orders/${url}/${url}?id=${item.roadId}&applyId=${item.applyId}`);
     }
 });

@@ -30,15 +30,15 @@ Page({
         isShow: false
     },
     onLoad (options) {
-        this.getOrderInfo(options.orderId);
+        this.getOrderInfo(options.id);
     },
 
     onShow () {
         wx.removeStorageSync('dataTime');
     },
 
-    async getOrderInfo (orderId) {
-        const result = await util.getDataFromServersV2('consumer/order/single-road-rescue', {orderId: orderId},'POST',true);
+    async getOrderInfo (id) {
+        const result = await util.getDataFromServersV2('consumer/order/single-road-rescue', {id: id},'POST',true);
         if (!result) return;
         if (result.code === 0) {
             let flag = result.data.roadRescueStatus;
@@ -56,6 +56,6 @@ Page({
         if (status === 3) {
             url = 'road_rescue_subscribe';
         }
-        util.go(`/pages/road_rescue_orders/${url}/${url}?orderId=${this.data.roadRescueList.orderId}&applyId=${this.data.roadRescueList.applyId}`);
+        util.go(`/pages/road_rescue_orders/${url}/${url}?id=${this.data.roadRescueList.roadId}&applyId=${this.data.roadRescueList.applyId}`);
     }
 });

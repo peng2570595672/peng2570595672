@@ -44,16 +44,16 @@ Page({
     },
 
     onLoad (options) {
-        this.getOrderInfo(options.orderId);
+        this.getOrderInfo(options.id);
     },
 
     onShow () {
 
     },
 
-    async getOrderInfo (orderId) {
+    async getOrderInfo (id) {
         let subscribeInfo = wx.getStorageSync('subscribeInfo');
-        const result = await util.getDataFromServersV2('consumer/order/single-road-rescue', {orderId: orderId},'POST',true);
+        const result = await util.getDataFromServersV2('consumer/order/single-road-rescue', {id: id},'POST',true);
         if (!result) return;
         if (result.code === 0) {
             this.setData({
@@ -240,7 +240,7 @@ Page({
             collectionObj: this.data.collectionObj
         });
         let params = {
-            orderId: this.data.roadRescueList.orderId,
+            orderId: this.data.roadRescueList.roadId,
             rescueTime: this.data.dateTime,
             vehFaultPic: this.data.imgList[0].uploadedUrl,// 高速故障图片
             vehLiftPic: this.data.imgList[1].uploadedUrl,// 车牌托起图片
@@ -255,7 +255,7 @@ Page({
         if (!result) return;
         if (result.code === 0) {
             // 订阅消息
-            util.subscribe(['IL7teM6zMDMLY159JmPNSYKoT8RztRpxpEx6lgjuz_k'], `/pages/road_rescue_orders/road_rescue_schedule/road_rescue_schedule?orderId=${this.data.roadRescueList.orderId}&applyId=${result.data.applyId}`);
+            util.subscribe(['IL7teM6zMDMLY159JmPNSYKoT8RztRpxpEx6lgjuz_k'], `/pages/road_rescue_orders/road_rescue_schedule/road_rescue_schedule?id=${this.data.roadRescueList.roadId}&applyId=${result.data.applyId}`);
         } else { util.showToastNoIcon(result.message); }
     }
 });
