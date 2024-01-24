@@ -25,18 +25,13 @@ Page({
 		startY: 0, // 屏幕点y坐标
 		isNeedJump: true,
 		strokeNum: 0 ,// 笔画
-		isAgreement: false,
-		choiceIndex: -1
+		isAgreement: false
 
 	},
 	async onLoad (options) {
 		this.setData({
 			winInfo: app.globalData.screenWindowAttribute,
-			choiceIndex: options.choiceIndex,
-			product_price: options.product_price
 		});
-		console.log('已经设置index',this.data.choiceIndex);
-		console.log('已经设置product_price',this.data.product_price);
 		context = wx.createCanvasContext('canvas-id');
 		context.setLineWidth(4); // 设置线宽
 		context.setLineCap('round'); // 设置线末端样式
@@ -174,18 +169,6 @@ Page({
 			this.setData({
 				isNeedJump: false
 			});
-			if (this.data.choiceIndex !== -1) {
-				let page = getCurrentPages(); // 获取当前页面栈
-				let prevPage = page[page.length - 2]; // 代表的就是上一页的实例，相当于this
-				prevPage.data.listOfPackages[this.data.choiceIndex].okSign = true;
-				// prevPage.setData({
-				// 	listOfPackages:prevPage.data.listOfPackages
-				// });
-				wx.navigateBack({
-					delta: 1// 23456
-				});
-				return;
-			}
 			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests`);
 		} else {
 			util.showToastNoIcon(result.message);

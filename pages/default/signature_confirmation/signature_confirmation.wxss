@@ -119,18 +119,6 @@
   background: url("https://file.cyzl.com/g001/M01/CF/9B/oYYBAGQZCSeASFK1AAAStaH6eaM004.png");
   background-size: cover;
 }
-.container .canvas-box .btn-radioChange{
-  padding: 0 36rpx;
-  justify-content: center;
-  display: flex;
-}
-.container .canvas-box .btn-radioChange .oksingIcon{
-  transform:scale(0.8);
-}
-.container .canvas-box .btn-radioChange .top{
-  margin-top: -6rpx;
-}
-
 .container .canvas-box .tips {
   text-align: left;
   font-size: 24rpx;
@@ -167,17 +155,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255,255,255,0.01);
-  border: 2rpx solid #2a4f44;
+  background: #2a4f44;
   border-radius: 53rpx;
   opacity: 1;
   font-size: 32rpx;
   font-family: PingFang SC-Medium, PingFang SC;
   font-weight: 500;
-  color: #2a4f44;
-}
-.container .canvas-box .btn-container .showColor{
-  background: #2a4f44;
   color: #fff;
 }
 .pictorial {
@@ -187,4 +170,15 @@
   width: 2240rpx;
   height: 3720rpx;
   z-index: 99999999999;
+}
+.container .canvas-box .btn-radioChange {
+  padding: 0 36rpx;
+  justify-content: center;
+  display: flex;
+}
+.container .canvas-box .btn-radioChange .oksingIcon {
+  transform: scale(0.8);
+}
+.container .canvas-box .btn-radioChange .top {
+  margin-top: -6rpx;
 }

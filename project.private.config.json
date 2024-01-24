@@ -4,6 +4,13 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "pages/default/signature_confirmation/signature_confirmation",
+                    "pathName": "pages/default/signature_confirmation/signature_confirmation",
+                    "query": "权益签名",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "4.0 填写基础信息页",
                     "pathName": "pages/default/receiving_address/receiving_address",
                     "query": "activityType=3&isPost=1&shopId=1179101403111497728",
