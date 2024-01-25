@@ -30,7 +30,7 @@ Page({
 	},
 	async onLoad (options) {
 		this.setData({
-			winInfo: app.globalData.screenWindowAttribute,
+			winInfo: app.globalData.screenWindowAttribute
 		});
 		context = wx.createCanvasContext('canvas-id');
 		context.setLineWidth(4); // 设置线宽
