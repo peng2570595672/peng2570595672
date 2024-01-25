@@ -78,6 +78,5 @@ Page({
                 'roadRescueList.idCard': e.detail.value
             });
         }
-        console.log(this.data.roadRescueList);
     }
 });
