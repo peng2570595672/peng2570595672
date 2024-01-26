@@ -26,11 +26,24 @@ Page({
 		listOfPackages: [],
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
-		orderInfo: undefined // 订单信息
+		orderInfo: undefined, // 订单信息
+
+		credentialType: 1, // 证件类型
+
+		credentialTypeMap: {
+			1: '身份证',
+			2: '外国人居住证',
+			3: '港澳居住证',
+			4: '台湾居住证',
+			5: '军官证'
+		}
 	},
 	onShow (options) {
 		wx.hideHomeButton();
-		// app.globalData.orderInfo.orderId = '754022503973654528';
+
+		app.globalData.orderInfo.orderId = '1195396932961308672';
+		let credentialType = 2;// 证件类型
+
 		app.globalData.isModifiedData = false; // 非修改资料
 		let result = wx.getLaunchOptionsSync();
 		let extra = result.referrerInfo.extraData;
@@ -43,13 +56,19 @@ Page({
 			app.globalData.orderInfo.orderId = extra.orderId;
 			app.globalData.signAContract = -1;
 			app.globalData.isJinYiXing = true;
+			// credentialType: 默认身份证 1: 身份证/或不传
+			credentialType = Number(extra.credentialType || 1);
 		}
+		app.globalData.orderInfo.credentialType = credentialType;
+		this.setData({ credentialType });
+
 		if (app.globalData.userInfo.accessToken) {
 			this.getOrderInfo();
 			this.getShopIdByOrderId();
 		} else {
 			this.login();
 		}
+
 		// 银行卡
 		let bankCardIdentifyResult = wx.getStorageSync('bank_card_identify_result');
 		if (bankCardIdentifyResult) {
@@ -62,32 +81,36 @@ Page({
 			});
 			wx.removeStorageSync('bank_card_identify_result');
 		}
-		// 身份证正面
-		let idCardFace = wx.getStorageSync('id_card_face');
-		if (idCardFace) {
-			idCardFace = JSON.parse(idCardFace);
-			this.setData({
-				isCache: true,// 记录是否有缓存
-				idCardFace: idCardFace.data[0],
-				userName: idCardFace.data[0].ocrObject.name,
-				idNumber: idCardFace.data[0].ocrObject.idNumber
-			});
-			this.setData({
-				available: this.validateAvailable()
-			});
-			wx.removeStorageSync('id_card_face');
-		}
-		// 身份证反面
-		let idCardBack = wx.getStorageSync('id_card_back');
-		if (idCardBack) {
-			idCardBack = JSON.parse(idCardBack);
-			this.setData({
-				idCardBack: idCardBack.data[0]
-			});
-			this.setData({
-				available: this.validateAvailable()
-			});
-			wx.removeStorageSync('id_card_back');
+
+		// 证件类型：身份证
+		if (this.data.credentialType === 1) {
+			// 身份证正面
+			let idCardFace = wx.getStorageSync('id_card_face');
+			if (idCardFace) {
+				idCardFace = JSON.parse(idCardFace);
+				this.setData({
+					isCache: true,// 记录是否有缓存
+					idCardFace: idCardFace.data[0],
+					userName: idCardFace.data[0].ocrObject.name,
+					idNumber: idCardFace.data[0].ocrObject.idNumber
+				});
+				this.setData({
+					available: this.validateAvailable()
+				});
+				wx.removeStorageSync('id_card_face');
+			}
+			// 身份证反面
+			let idCardBack = wx.getStorageSync('id_card_back');
+			if (idCardBack) {
+				idCardBack = JSON.parse(idCardBack);
+				this.setData({
+					idCardBack: idCardBack.data[0]
+				});
+				this.setData({
+					available: this.validateAvailable()
+				});
+				wx.removeStorageSync('id_card_back');
+			}
 		}
 	},
 	// 获取数据
@@ -176,6 +199,10 @@ Page({
 				this.setData({
 					shopId: res.data.shopId
 				});
+				if (this.data.credentialType !== 1) {
+					// 非身份证默认加载套餐
+					this.getListOfPackages(true);
+				}
 			} else {
 				util.showToastNoIcon(res.message);
 			}
@@ -227,8 +254,8 @@ Page({
 		});
 	},
 	// 获取套餐列表
-	getListOfPackages () {
-		util.showLoading();
+	getListOfPackages (hide) {
+		!hide && util.showLoading();
 		let params = {
 			areaCode: this.data.regionCode[0] || '',
 			productType: 2,
@@ -244,15 +271,27 @@ Page({
 					return;
 				}
 				let list = res.data;
+				let listOfPackages = list || [];
+				if (this.data.credentialType === 1) {
+					listOfPackages = list;
+				} else {
+					// 商户ID:624263265781809152，
+					// 套餐ID：699044967607300096；
+					listOfPackages = list.filter(val => val.shopProductId === '699044967607300096');
+					const item = listOfPackages.find(val => val.shopProductId === '699044967607300096');
+					this.onClickItemHandle(item);
+				}
 				this.setData({
-					listOfPackages: list
+					listOfPackages
 				});
-				this.choiceSetMeal();
+				if (this.data.credentialType === 1) {
+					this.choiceSetMeal();
+				}
 			} else {
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
+			!hide && util.hideLoading();
 		});
 	},
 	// 定位
@@ -317,15 +356,19 @@ Page({
 	},
 	// 具体支付方式
 	onClickItemHandle (e) {
+		const info = e.detail && e.detail.targetObj || e;
 		this.setData({
-			choiceObj: e.detail.targetObj
+			choiceObj: info
 		});
-		app.globalData.isHeadImg = e.detail.targetObj.isHeadImg === 1 ? true : false;
-		app.globalData.orderInfo.shopProductId = e.detail.targetObj.shopProductId;
+		app.globalData.isHeadImg = info.isHeadImg === 1 ? true : false;
+		app.globalData.orderInfo.shopProductId = info.shopProductId;
 		this.setData({
 			available: this.validateAvailable()
 		});
-		this.data.choiceSetMeal.switchDisplay(false);
+		this.data.choiceSetMeal?.switchDisplay(false);
+		// if (e.detail && e.detail.targetObj) {
+		// 	this.data.choiceSetMeal.switchDisplay(false);
+		// }
 	},
 	// 拍照 银行卡
 	onClickShotBankCardHandle (e) {
