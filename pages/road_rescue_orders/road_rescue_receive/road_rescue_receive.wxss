@@ -174,6 +174,10 @@
   width: 510rpx;
   overflow: hidden;
 }
+.index .module1 .bottom .attrVal .val1 .inp1 {
+  width: 100%;
+  height: 100%;
+}
 .index .module1 .bottom .attrVal:last-child {
   display: flex;
   align-items: center;

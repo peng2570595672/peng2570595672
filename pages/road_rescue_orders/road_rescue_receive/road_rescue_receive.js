@@ -13,11 +13,11 @@ Page({
     },
 
     onLoad (options) {
-        this.getOrderInfo(options.orderId);
+        this.getOrderInfo(options.id);
     },
 
-    async getOrderInfo (orderId) {
-        const result = await util.getDataFromServersV2('consumer/order/single-road-rescue', {orderId: orderId},'POST',true);
+    async getOrderInfo (id) {
+        const result = await util.getDataFromServersV2('consumer/order/single-road-rescue', {id: id},'POST',true);
 		if (!result) return;
 		if (result.code === 0) {
             let vehPlates = '' + result.data.vehPlates;
@@ -54,18 +54,29 @@ Page({
             return util.showToastNoIcon('车辆是否在本人名下必选');
         }
         let params = {
-            orderId: this.data.roadRescueList.orderId,// 订单id，
+            id: this.data.roadRescueList.roadId,// 订单id，
             vehPlates: this.data.roadRescueList.vehPlates,// 车牌号:
             vehColor: this.data.roadRescueList.vehPlateColor,// 车牌颜色,
-            owner: this.data.roadRescueList.owner,// 姓名
-            idNumber: this.data.roadRescueList.idNumber,// 身份证
+            owner: this.data.roadRescueList.owner || this.data.roadRescueList.name,// 姓名
+            idNumber: this.data.roadRescueList.idNumber || this.data.roadRescueList.idCard,// 身份证
             isOwner: this.data.isOwner,// 是否本人名下(0:否;1:是;)
             serveName: '高速道路救援险'// 服务名称
         };
         const result = await util.getDataFromServersV2('consumer/order/receive/road-resue', params,'POST',true);
 		if (!result) return;
 		if (result.code === 0) {
-            util.go(`/pages/road_rescue_orders/road_rescue_detail/road_rescue_detail?orderId=${this.data.roadRescueList.orderId}`);
+            util.go(`/pages/road_rescue_orders/road_rescue_detail/road_rescue_detail?id=${this.data.roadRescueList.roadId}`);
         } else { util.showToastNoIcon(result.message); }
+    },
+    bindinput (e) {
+        if (e.target.dataset.type === '1') { // 姓名
+            this.setData({
+                'roadRescueList.name': e.detail.value
+            });
+        } else { // 身份证
+            this.setData({
+                'roadRescueList.idCard': e.detail.value
+            });
+        }
     }
 });

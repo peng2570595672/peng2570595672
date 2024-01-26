@@ -318,7 +318,7 @@ Page({
 							this.data.citicBankshopProductIds.includes(res.data.shopProductId) ||
 							(res.data.orderType === 31 && res.data.productName?.includes('中信') && res.data.pledgeType === 2)
 						),
-					isWellBank: res.data.shopProductId === app.globalData.cictBankObj.wellBankShopProductId,
+					isWellBank: (res.data.obuStatus === 1 || res.data.obuStatus === 5) && res.data.shopProductId === app.globalData.cictBankObj.wellBankShopProductId,
 					info: res.data
 				});
 
@@ -653,7 +653,7 @@ Page({
 			packageId: app.globalData.cictBankObj.citicBankRightId,	// 权益ID
 			openId: app.globalData.userInfo.openId,
 			orderId: this.data.orderId,
-			creditCardTag: this.data.isWellBank ? 2 : 1 // 信用卡标识：1.中信信用卡，2.平安信用卡
+			creditCardTag: this.data.isWellBank ? 2 : app.globalData.cictBankObj.minshenBank.includes(this.data.info.shopProductId) ? 3 : 1 // 信用卡标识：1.中信信用卡，2.平安信用卡，3.民生信用卡
 		};
 		// 业务员端
 		// if (this.data.shopUserInfo) {
@@ -705,9 +705,9 @@ Page({
 		}, (res) => {
 			if (res.code === 0) {
 				if (res.data.refundStatus === 5) {
-					util.go(`/pages/bank_card/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${true}&isWellBank=${this.data.isWellBank}`);
+					util.go(`/pages/bank_card/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${true}&shopProductId=${this.data.info.shopProductId}`);
 				} else {
-					util.go(`/pages/bank_card/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${false}&isWellBank=${this.data.isWellBank}`);
+					util.go(`/pages/bank_card/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${false}&shopProductId=${this.data.info.shopProductId}`);
 				}
 				util.hideLoading();
 			} else {
