@@ -37,12 +37,12 @@
             <view class="attrVal">
                 <view class="attr">姓名</view>
                 <view class="val val1" wx:if="{{roadRescueList.owner}}">{{tools.strReplace(roadRescueList.owner,1,2,'*')}}</view>
-                <view class="val val1" wx:else><input class="inp1" type="text" placeholder="张三" data-type="1" bindinput="bindinput"/></view>
+                <view class="val val1" wx:else><input class="inp1" type="text" placeholder="请输入" data-type="1" bindinput="bindinput"/></view>
             </view>
             <view class="attrVal">
                 <view class="attr">身份证</view>
                 <view class="val val1" wx:if="{{roadRescueList.idNumber}}">{{tools.strReplace(roadRescueList.idNumber,-1,-13,'*')}}</view>
-                <view class="val val1" wx:else><input class="inp1" type="number" placeholder="5***************4" data-type="2" bindinput="bindinput"/></view>
+                <view class="val val1" wx:else><input class="inp1" type="number" placeholder="请输入" data-type="2" bindinput="bindinput"/></view>
             </view>
             <view class="attrVal">
                 <view class="attr1 radio">车辆是否在本人名下</view>

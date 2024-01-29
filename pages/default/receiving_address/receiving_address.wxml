@@ -7,7 +7,7 @@
   <!-- 模块一   办理车牌号 -->
   <view class="module moduleOne">
     <view class="title">
-      <view class="titles">{{perfect? addCard:"办理车牌号"}}</view>
+      <view class="titles">{{perfect? addCard : "办理车牌号"}}</view>
       <view class="colorBrand" wx:if="{{tools.dataLen(carNoStr) > 6}}" style="background:{{ tools.dataLen(carNoStr) === 7 ? '#276AD9' : '#5EBE68'}}">{{tools.dataLen(carNoStr) === 7 ? '蓝牌' : '绿牌'}}</view>
     </view>
     <!-- 车牌号的输入 -->
