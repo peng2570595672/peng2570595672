@@ -4,6 +4,13 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "我的订单列表",
+                    "pathName": "pages/personal_center/my_etc/my_etc",
+                    "query": "test=undefined",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "pages/default/signature_confirmation/signature_confirmation",
                     "pathName": "pages/default/signature_confirmation/signature_confirmation",
                     "query": "权益签名",
