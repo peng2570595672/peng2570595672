@@ -139,8 +139,8 @@ Page({
                 envVersion: 'release',
                 success () {},
                 fail () {
-                    // 未成功跳转到签约小程序
-                    util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
+                    // 拉起小程序失败
+                    util.showToastNoIcon('拉起小程序失败, 请重试！');
                 }
             });
             // 跳转 h5
