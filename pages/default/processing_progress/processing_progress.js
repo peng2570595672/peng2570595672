@@ -705,8 +705,13 @@ Page({
 				success: (res) => {
 					this.setData({isRequest: false});
 					if (res.errMsg === 'requestPayment:ok') {
-						util.showLoading();
-						this.getRefundStatus();
+						wx.showLoading({
+							mask: true,
+							title: '退款处理中...'
+						});
+						setTimeout(function () {
+							this.getRefundStatus();
+						}, 10000);
 					} else {
 						util.showToastNoIcon('支付失败');
 					}
@@ -728,7 +733,7 @@ Page({
 		util.getDataFromServer('consumer/order/zx/orderRefundStatus', {
 			orderId: this.data.orderId
 		}, () => {
-			util.hideLoading();
+			wx.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
 				if (res.data.refundStatus === 5) {
@@ -736,9 +741,9 @@ Page({
 				} else {
 					util.go(`/pages/bank_card/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${false}&shopProductId=${this.data.info.shopProductId}`);
 				}
-				util.hideLoading();
+				wx.hideLoading();
 			} else {
-				util.hideLoading();
+				wx.hideLoading();
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken, () => {});

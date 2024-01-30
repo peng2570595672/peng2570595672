@@ -122,11 +122,6 @@ Page({
         }
         this.setData({keepHandle: flag.length,minShenBank: flag.length});
     },
-    // // 权益 查看
-    // viewEquity (e) {
-    //     let index = e.currentTarget.dataset.index;
-    //     util.go(`/pages/bank_card/minshen_publicize/minshen_publicize?type=${index}`);
-    // },
 
     async citicBankProgress () {
         console.log(this.data.viewCiticBankList[0]);
@@ -134,6 +129,7 @@ Page({
         let res = await util.getDataFromServersV2('consumer/order/apply/ms/bank-card', {
             orderId: this.data.viewCiticBankList[0].id
         });
+        console.log('测试222',res);
         if (!res) return;
         if (res.code === 0) {
             // console.log(`pages/home/sc-ws/sc-ws?params=${'https://' + encodeURIComponent(res.data.applyUrl.slice(8))}`);
@@ -180,7 +176,7 @@ Page({
         return {
             title: 'ETC民生联名套餐，0元办理，包邮到家！',
             imageUrl: 'https://file.cyzl.com/g001/M02/23/74/oYYBAGV6WnuAPVJlAAGvJUktz58636.png',
-            path: '/pages/bank_card/citic_bank_card_details/citic_bank_card_details'
+            path: '/pages/bank_card/minshen_bank_card_details/minshen_bank_card_details'
         };
     }
 });
