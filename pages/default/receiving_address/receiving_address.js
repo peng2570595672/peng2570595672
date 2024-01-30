@@ -103,15 +103,15 @@ Page({
 				isOnlineDealWith: false,
 				formData
 			});
-    }
-    // 仅需要填写车牌号和身份证行驶证信息 平安空发激活
-    if (+options.perfect === 1) {
-      this.setData({
-        perfect: +options.perfect,
-        orderId: options.orderId,
-        addCard: '完善车牌号'
-      });
-    }
+		}
+		// 仅需要填写车牌号和身份证行驶证信息 平安空发激活
+		if (+options.perfect === 1) {
+		this.setData({
+			perfect: +options.perfect,
+			orderId: options.orderId,
+			addCard: '完善车牌号'
+		});
+		}
 		if (options.isPost && options.vehPlate?.length < 11) {
 			this.setData({
 				available: true
@@ -254,17 +254,17 @@ Page({
 	},
 	// 下一步
 	async next () {
-    // 空发平安激活 完善车牌号信息
-    if (this.data.perfect === 1 && this.data.orderId) {
-      let pinganParams = {
-        orderId: this.data.orderId,
-        vehPlates: this.data.carNoStr
-      };
-      const pinganResult = await util.getDataFromServersV2('consumer/order/save-veh-plates', pinganParams);
-      if (pinganResult.code !== 0) return;
-      util.go(`/pages/default/information_list/information_list?orderId=${this.data.orderId}&vehPlates=${this.data.carNoStr}`);
-      return;
-    }
+		// 空发平安激活 完善车牌号信息
+		if (this.data.perfect === 1 && this.data.orderId) {
+			let pinganParams = {
+				orderId: this.data.orderId,
+				vehPlates: this.data.carNoStr
+			};
+			const pinganResult = await util.getDataFromServersV2('consumer/order/save-veh-plates', pinganParams);
+			if (pinganResult.code !== 0) return;
+			util.go(`/pages/default/information_list/information_list?orderId=${this.data.orderId}&vehPlates=${this.data.carNoStr}`);
+			return;
+		}
 		// 统计点击事件
 		wx.uma.trackEvent('receiving_address_next');
 		this.setData({
@@ -936,7 +936,6 @@ Page({
 		});
 		util.showLoading();
 		if (!this.data.available || this.data.isRequest) {
-      console.log(this.data.isRequest,'666');
 			return util.showToastNoIcon('请填写相关信息');
 		}
 		let formData = this.data.formData; // 输入信息
@@ -950,16 +949,14 @@ Page({
 			if (res.data.canSubmit === 1) {
 				this.next();
 			} else {
-        // 改为显示模态框
-        util.alert({
-          title: '检测到已有订单',
-          content: res.data.canSubmitMsg,
-          showCancel: false,
-          confirmText: '关闭',
-          confirm: () => {
-          }
-        });
-				// util.showToastNoIcon(res.data.canSubmitMsg); 改为显示模态框
+				// 改为显示模态框
+				util.alert({
+					title: '检测到已有订单',
+					content: res.data.canSubmitMsg,
+					showCancel: false,
+					confirmText: '关闭',
+					confirm: () => {}
+				});
 			}
 		} else {
 			util.hideLoading();

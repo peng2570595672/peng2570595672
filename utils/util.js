@@ -874,7 +874,7 @@ function getStatus(orderInfo) {
   if (orderInfo.auditStatus === 2 && orderInfo.logisticsId !== 0 && orderInfo.deliveryRule === 1 && orderInfo.etcContractId !== -1 && !orderInfo.contractStatus) {
     return 5; // 审核通过,已发货或无需发货,待微信签约
   }
-  if (orderInfo.obuStatus === 0 || (orderInfo.status === 1 && orderInfo.obuStatus === 2 && orderInfo.obuCardType === 23) ){//补充河北交投换卡换签
+  if (orderInfo.obuStatus === 0 || (orderInfo.status === 1 && orderInfo.obuStatus === 2 && (orderInfo.obuCardType === 23 || orderInfo.obuCardType === 2)) ){//补充河北交投换卡换签
     return 11; //  待激活
   }
   if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {

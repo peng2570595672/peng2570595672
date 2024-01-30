@@ -62,6 +62,10 @@ Page({
             isOwner: this.data.isOwner,// 是否本人名下(0:否;1:是;)
             serveName: '高速道路救援险'// 服务名称
         };
+        if (!params.idNumber || !params.owner) {
+            util.showToastNoIcon('请填写相关信息，谢谢');
+            return;
+        }
         const result = await util.getDataFromServersV2('consumer/order/receive/road-resue', params,'POST',true);
 		if (!result) return;
 		if (result.code === 0) {

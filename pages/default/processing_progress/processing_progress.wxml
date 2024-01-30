@@ -93,9 +93,9 @@
             <view class="content-des" wx:if="{{info.obuStatus === 1 || info.obuStatus === 5}}">已激活</view>
         </view>
         <view class="item " wx:if="{{info && (cictBail || isWellBank)}}">
-            <view class="content-title">退还预购金</view>
-            <view class="content-des" wx:if="{{info.refundStatus !== 5}}">信用卡套餐设备激活成功后，用户需要手动将信用卡绑定微信支付后，完成手动认证即可退还预购金</view>
-            <view class="content-des" wx:else>预购金已退还</view>
+            <view class="content-title">退还权益金</view>
+            <view class="content-des" wx:if="{{info.refundStatus !== 5}}">信用卡套餐设备激活成功后，用户需要手动将信用卡绑定微信支付后，完成手动认证即可退还权益金</view>
+            <view class="content-des" wx:else>权益金已退还</view>
         </view>
         <view class="item {{prechargeInfo.prechargeFlag === 1 ? 'finished' : ''}} {{isSalesmanPrecharge ? 'last' : ''}}" wx:if="{{info.flowVersion === 4 && info.orderType === 31}}">
             <view class="content-title">预充值</view>

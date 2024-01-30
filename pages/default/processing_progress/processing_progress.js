@@ -630,18 +630,45 @@ Page({
 		});
 	},
 	// 退还说明
-	returnIllustrate () {
-		this.selectComponent('#popTipComp').show({
-			type: 'returnEquityFunds',
-			title: '退还说明',
-			btnCancel: '我再想想',
-			btnconfirm: '继续退还',
-			shopProductId: this.data.info.shopProductId,
-			citicBankshopProductIds: app.globalData.cictBankObj.citicBankshopProductIds,
-			callBack: () => {
-				this.bailReturn();
-			}
-		});
+	async returnIllustrate () {
+		let that = this;
+		if (app.globalData.cictBankObj.minshenBank.includes(this.data.info.shopProductId)) {
+			util.getDataFromServer('consumer/order/checkMsUserType', {
+				orderId: that.data.orderId
+			}, () => {
+				util.hideLoading();
+			}, (res) => {
+				if (res.code === 0) {
+					that.selectComponent('#popTipComp').show({
+						type: 'returnEquityFunds',
+						title: '退还说明',
+						btnCancel: '我再想想',
+						btnconfirm: '继续退还',
+						shopProductId: that.data.info.shopProductId,
+						citicBankshopProductIds: app.globalData.cictBankObj.citicBankshopProductIds,
+						callBack: () => {
+							that.bailReturn();
+						}
+					});
+					util.hideLoading();
+				} else {
+					util.hideLoading();
+					util.showToastNoIcon(res.message);
+				}
+			}, app.globalData.userInfo.accessToken, () => {});
+		} else {
+			that.selectComponent('#popTipComp').show({
+				type: 'returnEquityFunds',
+				title: '退还说明',
+				btnCancel: '我再想想',
+				btnconfirm: '继续退还',
+				shopProductId: that.data.info.shopProductId,
+				citicBankshopProductIds: app.globalData.cictBankObj.citicBankshopProductIds,
+				callBack: () => {
+					that.bailReturn();
+				}
+			});
+		}
 	},
 
 	// 保证金退回

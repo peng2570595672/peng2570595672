@@ -4,16 +4,16 @@
         "miniprogram": {
             "list": [
                 {
-                    "name": "高速救援",
-                    "pathName": "pingan/pages/ChooseBank/ChooseBank",
+                    "name": "单片",
+                    "pathName": "pages/obu_activate/neimeng_first/mc_new/mc_new",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
                 },
                 {
-                    "name": "pages/default/signature_confirmation/signature_confirmation",
-                    "pathName": "pages/default/signature_confirmation/signature_confirmation",
-                    "query": "权益签名",
+                    "name": "高速救援",
+                    "pathName": "pingan/pages/ChooseBank/ChooseBank",
+                    "query": "",
                     "launchMode": "default",
                     "scene": null
                 },

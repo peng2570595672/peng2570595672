@@ -345,6 +345,7 @@ Page({
 			Random: random,
 			orderId: app.globalData.orderInfo.orderId
 		};
+		await this.afterDeviceRegis();
 		let res = await util.getDataFromServersV2('consumer/etc/nmg/gm/common/cardonline/online-to-active',params);
 		if (res.code === 0) {
 			if (res.data.FileData && res.data.Mac) {
@@ -355,6 +356,27 @@ Page({
 		} else {
 			this.isOver(res.message);
 		}
+	},
+	afterDeviceRegis () {
+		return new Promise(async resolve => {
+			const baseInfo = wx.getStorageSync('baseInfo');
+			if (baseInfo.obuStatus === 2) {
+				const params = {
+					orderId: app.globalData.orderInfo.orderId, // 恒通订单号
+					FaceCardNum: this.data.cardId, // 新卡片表面号
+					PhyCardNum: this.data.idInfo, // 物理卡号
+					CardType: this.data.cardType, // 卡片类型
+					Version: this.data.cardVersion, // 卡片版本
+					SerialNumber: this.data.contractNumber, // 新合同序列号
+					ObuId: this.data.idInfo.toUpperCase(), // 物理号
+					Supplier: this.data.IssuerMarking, // 服务提供商/发行方标识
+					ContractType: this.data.protocolType, // 合同类型
+					ContractVersion: this.data.contractVersion // 合同版本
+				}
+				await util.getDataFromServersV2('consumer/etc/nmg/gm/common/cardonline/after-device-regis', params);
+			}
+			resolve()
+		})
 	},
 	// 写卡（持卡人信息）
 	writeDataToCardFor0016 (info) {
@@ -403,6 +425,7 @@ Page({
 			nextInterface: 2,
 			orderId: app.globalData.orderInfo.orderId
 		};
+		await this.afterDeviceRegis();
 		let res = await util.getDataFromServersV2('consumer/etc/nmg/gm/common/cardonline/online-to-active',params);
 		if (res.code === 0) {
 			if (res.data.FileData && res.data.Mac) {
@@ -481,6 +504,7 @@ Page({
 			nextInterface: 3,
 			orderId: app.globalData.orderInfo.orderId
 		};
+		await this.afterDeviceRegis();
 		let res = await util.getDataFromServersV2('consumer/etc/nmg/gm/common/cardonline/online-to-active',params);
 		if (res.code === 0) {
 			if (res.data.FileData && res.data.Mac) {
@@ -539,6 +563,7 @@ Page({
 			nextInterface: 4,
 			orderId: app.globalData.orderInfo.orderId
 		};
+		await this.afterDeviceRegis();
 		let res = await util.getDataFromServersV2('consumer/etc/nmg/gm/common/cardonline/online-to-active',params);
 		if (res.code === 0) {
 			if (res.data.FileData && res.data.Mac) {
