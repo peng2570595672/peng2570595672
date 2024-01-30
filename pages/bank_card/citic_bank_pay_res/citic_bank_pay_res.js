@@ -1,8 +1,9 @@
-// pages/default/citic_bank_pay_success/citic_bank_pay_success.js
+const util = require('../../../utils/util');
+const app = getApp();
 Page({
 
     data: {
-        cictBankPayStatus: true, // 中信权益包拉起收银台支付状态（true：支付成功，false：支付失败）
+        cictBankPayStatus: true, // 退款状态（true：成功，false：失败）
         citicBankshopProductIds: app.globalData.cictBankObj.citicBankshopProductIds,	// 信用卡套餐集合
         shopProductId: ''
     },
@@ -16,9 +17,7 @@ Page({
         }
     },
 
-    onShow () {
-
-    },
+    onShow () {},
     // 退出
     returnPage () {
         wx.navigateBack({
