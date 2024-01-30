@@ -17,9 +17,7 @@ Page({
         }
     },
 
-    onShow () {
-
-    },
+    onShow () {},
     // 退出
     returnPage () {
         wx.navigateBack({
