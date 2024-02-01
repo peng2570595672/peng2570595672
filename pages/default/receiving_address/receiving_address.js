@@ -412,6 +412,7 @@ Page({
 			}
 		}
 		if (this.data.productId) {
+			params['dataType'] = '123';
 			params['shopProductId'] = this.data.productId;
 		}
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
