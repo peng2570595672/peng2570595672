@@ -21,10 +21,10 @@ Page({
 			if (res.code === 0) {
 				let list = res.data;
 				// 通过shopProductId 隐藏部分开票的订单
-				// let index = list.findIndex(item => {
-				// 	return item.shopProductId === '1193862669248634880' || item.shopProductId === '1193860496800489472';
-				// });
-				// index !== -1 ? list.splice(index,1) : '';
+				let index = list.findIndex(item => {
+					return item.shopProductId === '1193862669248634880' || item.shopProductId === '1193860496800489472';
+				});
+				index !== -1 ? list.splice(index,1) : '';
 				this.setData({
 					currentList: list
 				});
