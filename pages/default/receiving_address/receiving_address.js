@@ -70,14 +70,18 @@ Page({
 		if (options.enterType) {
 			this.setData({
 				enterType: +options.enterType,
-				shopId: options.shopId,
-				rightsPackageId: options.rightsPackageId || ''
+				shopId: options.shopId
 			});
 		}
 		if (options.productId) {
 			this.setData({
 				productId: options.productId
 			});
+			if (options.rightsPackageId) {
+				this.setData({
+					rightsPackageId: options.rightsPackageId || ''
+				});
+			}
 		}
 		if (options.citicBank) {
 			this.setData({
@@ -407,13 +411,16 @@ Page({
 					regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
 				}
 				params['dataType'] = '123';
-				params['rightsPackageId'] = this.data.rightsPackageId;
 				params['areaCode'] = regionCode[0];
 			}
 		}
 		if (this.data.productId) {
 			params['dataType'] = '123';
 			params['shopProductId'] = this.data.productId;
+			params['areaCode'] = '0';
+			if (this.data.rightsPackageId) {
+				params['rightsPackageId'] = this.data.rightsPackageId;
+			}
 		}
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		if (!result) return;
