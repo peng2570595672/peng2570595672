@@ -71,7 +71,11 @@ Page({
 			this.setData({
 				enterType: +options.enterType,
 				shopId: options.shopId,
-				rightsPackageId: options.rightsPackageId || '',
+				rightsPackageId: options.rightsPackageId || ''
+			});
+		}
+		if (options.productId) {
+			this.setData({
 				productId: options.productId
 			});
 		}
@@ -403,10 +407,12 @@ Page({
 					regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
 				}
 				params['dataType'] = '123';
-				params['shopProductId'] = this.data.productId;
 				params['rightsPackageId'] = this.data.rightsPackageId;
 				params['areaCode'] = regionCode[0];
 			}
+		}
+		if (this.data.productId) {
+			params['shopProductId'] = this.data.productId;
 		}
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		if (!result) return;
