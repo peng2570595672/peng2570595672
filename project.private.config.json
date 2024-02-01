@@ -4,16 +4,16 @@
         "miniprogram": {
             "list": [
                 {
-                    "name": "我的订单列表",
-                    "pathName": "pages/personal_center/my_etc/my_etc",
-                    "query": "test=undefined",
+                    "name": "单片",
+                    "pathName": "pages/obu_activate/neimeng_first/mc_new/mc_new",
+                    "query": "",
                     "launchMode": "default",
                     "scene": null
                 },
                 {
-                    "name": "pages/default/signature_confirmation/signature_confirmation",
-                    "pathName": "pages/default/signature_confirmation/signature_confirmation",
-                    "query": "权益签名",
+                    "name": "高速救援",
+                    "pathName": "pingan/pages/ChooseBank/ChooseBank",
+                    "query": "",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -25,9 +25,9 @@
                     "scene": null
                 },
                 {
-                    "name": "",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1184265686482948096",
+                    "name": "4.0 填写基础信息页",
+                    "pathName": "pages/default/receiving_address/receiving_address",
+                    "query": "activityType=3&isPost=1&shopId=1179101403111497728",
                     "launchMode": "default",
                     "scene": null
                 },

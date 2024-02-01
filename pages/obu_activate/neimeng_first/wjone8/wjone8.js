@@ -567,6 +567,27 @@ Page({
 		// 	}
 		// });
 	},
+	async afterDeviceRegis () {
+		const params = {
+			nextInterface: 5,
+			orderId: app.globalData.orderInfo.orderId, // 恒通订单号
+			FaceCardNum: this.data.cardId, // 新卡片表面号
+			PhyCardNum: this.data.idInfo, // 物理卡号
+			CardType: this.data.cardType, // 卡片类型
+			Version: this.data.cardVersion, // 卡片版本
+			SerialNumber: this.data.contractNumber, // 新合同序列号
+			ObuId: this.data.idInfo.toUpperCase(), // 物理号
+			Supplier: this.data.IssuerMarking, // 服务提供商/发行方标识
+			ContractType: this.data.protocolType, // 合同类型
+			ContractVersion: this.data.contractVersion // 合同版本
+		};
+		let res = await util.getDataFromServersV2('consumer/etc/nmg/gm/common/cardonline/online-to-active',params);
+		if (res.code === 0) {
+			this.get4BitRandomByPICCFor0016();
+		} else {
+			this.isOver(res.message);
+		}
+	},
 	// 写obu（obu系统信息）
 	writeDataToObuForSysInfo (res) {
 		// 写入数据到obu
@@ -632,6 +653,7 @@ Page({
 				case 2: this.get4BitRandomByPICCFor0015(); break;
 				case 3: this.get4BitRandomByESAMForWriteCarInfo(); break;
 				case 4: this.get4BitRandomByESAMForWriteSysInfo(); break;
+				case 5: this.afterDeviceRegis(); break;
 				case 1:
 				default:
 					this.get4BitRandomByPICCFor0016(); break;
