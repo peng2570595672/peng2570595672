@@ -27,8 +27,8 @@ Page({
 		],
 		list: [],
 		topCouponList: [
-			// couponType 劵类型  1-通行劵 2-停车券 3-加油券 4-充电券 5-洗车券 6-通用券 7-商品消费券
-			{type: 1,name: '通行劵'},
+			// couponType 劵类型  1-通行券 2-停车券 3-加油券 4-充电券 5-洗车券 6-通用券 7-商品消费券
+			{type: 1,name: '通行券'},
 			{type: 2,name: '停车券'},
 			// {type: 3,name: '加油券'},
 			// {type: 4,name: '充电券'},
