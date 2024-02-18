@@ -167,7 +167,6 @@
 .container .canvas-box .btn-container .showColor {
   color: #fff;
   background: #2a4f44;
-  border: none;
 }
 .pictorial {
   position: fixed;

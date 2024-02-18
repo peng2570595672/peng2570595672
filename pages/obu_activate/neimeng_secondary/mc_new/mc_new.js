@@ -178,11 +178,11 @@ Page({
 	// 激活
 	activating () {
 		let obj = wx.getStorageSync('activate-info');
-		if (!obj) {
-			this.setData({isActivating: 0});
-			this.isOver('车辆信息不存在');
-			return;
-		}
+		// if (!obj) {
+		// 	this.setData({isActivating: 0});
+		// 	this.isOver('车辆信息不存在');
+		// 	return;
+		// }
 		this.getContractInfo();
 	},
 	// 读取合同信息
@@ -211,6 +211,11 @@ Page({
 				// 合同结束日期
 				let endTime = info.slice(44, 52);
 				console.log('合同结束日期：' + endTime);
+				if (endTime < util.getCurrentDate()[0]) {
+					// obu已过期
+					startTime = util.getCurrentDate()[0];
+					endTime = util.getCurrentDate()[1];
+				}
 				// 是否已激活
 				// 暂时没用到这个数据
 				let isActivating = info.slice(52, 54);

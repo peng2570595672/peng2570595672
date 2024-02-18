@@ -887,7 +887,7 @@ function getStatus(orderInfo) {
     return 12; // 已激活
   }
   // if (orderInfo.status === 1 && orderInfo.obuStatus === 2) {  // 已注销
-  //   return 
+  //   return
   // }
   return 0; // 错误状态,未判断到
 }
@@ -1926,6 +1926,18 @@ function deletContract() {
   }
 };
 
+function getCurrentDate () {
+	const currentDate = new Date();
+	// 提取年、月、日信息
+	const year = currentDate.getFullYear(); // 四位数表示年份
+	const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // 两位数表示月份，需要加上1
+	const day = currentDate.getDate().toString().padStart(2, '0'); // 两位数表示天数
+	// 构建当前日期字符串
+	const formattedCurrentDate = `${year}${month}${day}`;
+	const nextDate = `${year + 10}${month}${day}`;
+	// 判断指定日期是否在当前日期之前或者相同
+	return [formattedCurrentDate, nextDate]
+}
 
 module.exports = {
   setApp,
@@ -1935,6 +1947,7 @@ module.exports = {
   handleBluetoothStatus,
   queryProtocolRecord,
   getRpx,
+	getCurrentDate,
   getPx,
   getMemberStatus,
   goMicroInsuranceVehicleOwner,

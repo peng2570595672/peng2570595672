@@ -233,6 +233,11 @@ Page({
 				// 合同结束日期
 				let endTime = info.slice(44, 52);
 				console.log('合同结束日期：' + endTime);
+				if (endTime < util.getCurrentDate()[0]) {
+					// obu已过期
+					startTime = util.getCurrentDate()[0];
+					endTime = util.getCurrentDate()[1];
+				}
 				// 是否已激活
 				// 暂时没用到这个数据
 				let isActivating = info.slice(52, 54);

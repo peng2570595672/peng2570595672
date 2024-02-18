@@ -4,6 +4,48 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=857589075627216896",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/obu_activate/neimeng_secondary/mc_new/mc_new",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=804026860739497984",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "4.0 填写基础信息页",
+                    "pathName": "pages/default/receiving_address/receiving_address",
+                    "query": "activityType=45&shopId=1189147799537590272&isPost=1&productId=1200085206088818688&sharkOrderNo=12131131",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1149657726079471616",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "4.0 填写基础信息页",
+                    "pathName": "pages/default/receiving_address/receiving_address",
+                    "query": "activityType=3&isPost=1&shopId=1189873303945879552&productId=1195308716017590272",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "单片",
                     "pathName": "pages/obu_activate/neimeng_first/mc_new/mc_new",
                     "query": "",
@@ -14,20 +56,6 @@
                     "name": "高速救援",
                     "pathName": "pingan/pages/ChooseBank/ChooseBank",
                     "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "4.0 填写基础信息页",
-                    "pathName": "pages/default/receiving_address/receiving_address",
-                    "query": "activityType=3&isPost=1&shopId=1179101403111497728",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "4.0 填写基础信息页",
-                    "pathName": "pages/default/receiving_address/receiving_address",
-                    "query": "activityType=3&isPost=1&shopId=1179101403111497728",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -388,13 +416,6 @@
                 },
                 {
                     "name": "",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1083400882948673536",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
                     "pathName": "pages/Home/Home",
                     "query": "",
                     "launchMode": "default",
@@ -607,13 +628,6 @@
                     "name": "",
                     "pathName": "pages/account_management/pay_method/pay_method",
                     "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1101196259089190912",
                     "launchMode": "default",
                     "scene": null
                 },
