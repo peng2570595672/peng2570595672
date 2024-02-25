@@ -322,6 +322,10 @@ Page({
 		wx.uma.trackEvent('etc_detail_for_modified_data');
 		app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
 		app.globalData.isModifiedData = true; // 修改资料
+		// 9901 套餐 进入证件上传需要带标识
+		if (this.data.orderInfo?.shopProductId === '1210255905172496384') {
+			util.go('/pages/default/information_list/information_list?isModifiedData=true&pro9901=true');
+	}
 		util.go(`/pages/default/information_list/information_list?isModifiedData=true`);
 	},
 	// 取消订单
@@ -651,7 +655,11 @@ Page({
     // 签约前判断车牌号信息是否完整 ==>平安空发激活补充车牌证件信息
     if (orderInfo.vehPlates.length > 8) {
       return util.go(`/pages/${path}/receiving_address/receiving_address?perfect=1&shopId=${orderInfo.shopId}&orderId=${orderInfo.id}`);
-    }
+		}
+		// 9901 套餐 进入证件上传需要带标识
+		if (this.data.orderInfo?.shopProductId === '1210255905172496384') {
+			util.go(`/pages/${path}/information_list/information_list?pro9901=true`);
+	}
 		util.go(`/pages/${path}/information_list/information_list`);
 	},
 	// 在线客服

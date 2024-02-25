@@ -1,26 +1,58 @@
 <!--车主身份验证弹框-->
 <view class="verify_mask animated {{wrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{mask}}">
-	<view class="verify_wrapper animated {{wrapper ? 'zoomInOther' : 'zoomOutOther'}}" wx:if="{{mask}}">
-		<view class="authentication-title">车主身份验证</view>
-		<view class="input-wrapper">
-			<view class="input-item">
-				<view>手机号码</view>
-				<input type="number" disabled value="{{details.cardMobilePhone}}"/>
+	<view wx:if="{{!details.type}}">
+		<view class="verify_wrapper animated {{wrapper ? 'zoomInOther' : 'zoomOutOther'}}" wx:if="{{mask}}">
+			<view class="authentication-title">车主身份验证</view>
+			<view class="input-wrapper">
+				<view class="input-item">
+					<view>手机号码</view>
+					<input type="number" disabled value="{{details.cardMobilePhone}}" />
+				</view>
+				<view class="input-item">
+					<view>验证码</view>
+					<input type="number" placeholder="请输入验证码" placeholder-class="placeholder" value="{{verifyCode}}" bindinput="onInputChangedHandle" catchtap="empty" data-key="verifyCode" />
+					<text class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} {{details.cardMobilePhone && certification !==0 ? 'ok' : ''}}" catchtap="sendVerifyCode">{{identifyingCode}}</text>
+				</view>
 			</view>
-			<view class="input-item">
-				<view>验证码</view>
-				<input type="number" placeholder="请输入验证码" placeholder-class="placeholder" value="{{verifyCode}}"
-				       bindinput="onInputChangedHandle" catchtap="empty" data-key="verifyCode"
-				/>
-				<text class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} {{details.cardMobilePhone && certification !==0 ? 'ok' : ''}}" catchtap="sendVerifyCode">{{identifyingCode}}</text>
+			<view wx:if="{{ certification === 0}}" class="authentication-tips">*验证失败，请到[中国ETC小程序]完成实名认证后再进行验证</view>
+			<view wx:if="{{ certification !== 0}}" class="verify-button">
+				<button class="{{available ? 'available' : ''}}" catchtap="goVerify">验证</button>
+			</view>
+			<view wx:if="{{ certification === 0}}" class="verify-button">
+				<button catchtap="goCertification">前往实名</button>
 			</view>
 		</view>
-		<view wx:if="{{ certification === 0}}" class="authentication-tips">*验证失败，请到[中国ETC小程序]完成实名认证后再进行验证</view>
-		<view wx:if="{{ certification !== 0}}" class="verify-button">
-			<button class="{{available ? 'available' : ''}}" catchtap="goVerify">验证</button>
-		</view>
-		<view wx:if="{{ certification === 0}}" class="verify-button">
-			<button catchtap="goCertification">前往实名</button>
+	</view>
+	<!-- 9901 套餐新验证码样式 -->
+	<view wx:if="{{details.type && details.type === '9901' && !showMotal}}">
+		<view class="verify_wrapper s9901 animated {{wrapper ? 'zoomInOther' : 'zoomOutOther'}}" wx:if="{{mask}}">
+			<view class="authentication-title weight">{{showMotal === '3' ? '验证成功' : showMotal === '2' ? '输入有误' : '手机号验证'}}</view>
+			<!-- 未校验前展示内容 -->
+			<view class="input-wrapper" wx:if="{{details.type === '9901'}}"  >
+				<view class="input-item">
+					<view class="s9901">+86</view>
+					<input type="number" disabled value="{{details.cardMobilePhone}}" />
+					<text class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} {{details.cardMobilePhone && certification !==0 ? 'ok' : ''}}" catchtap="sendVerifyCode">{{identifyingCode}}</text>
+				</view>
+				<view class="input-item">
+					<view class="s9901">短信验证码</view>
+					<input type="number" placeholder="请填写短信验证码" placeholder-class="placeholder" value="{{verifyCode}}" bindinput="onInputChangedHandle" catchtap="empty" data-key="verifyCode" />
+				</view>
+			</view>
+			<view  class="verify-button ">
+				<button class="buttonBlue {{available ? 'available' : ''}}" catchtap="close">取消</button>
+				<button class="buttonBlue {{available ? 'available' : ''}}" catchtap="goVerify">提交</button>
+			</view>
+			<!-- 校验后展示内容 -->
+			<view class="input-wrapper" wx:if="{{showMotal === '2' || showMotal === '3'}}">
+					<view class="input-item centerText" wx:if="{{showMotal === '2'}}">您的验证码输入有误，请重新输入！</view>
+					<view class="input-item centerText" wx:if="{{showMotal === '3'}}">您的验证码校验通过，点击跳转办理！</view>
+			</view>
+			<view  class="verify-button" wx:if="{{showMotal}}">
+				<button class="buttonBlue {{available ? 'available' : ''}}" catchtap="close">取消</button>
+				<button class="buttonBlue {{available ? 'available' : ''}}" catchtap="goToVerify" wx:if="{{showMotal === '2'}}">重新验证</button>
+				<button class="buttonBlue {{available ? 'available' : ''}}" catchtap="goToVerify" wx:if="{{showMotal === '3'}}">立即办理</button>
+			</view>
 		</view>
 	</view>
 </view>

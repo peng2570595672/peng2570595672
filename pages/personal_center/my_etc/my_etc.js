@@ -2,7 +2,11 @@
  * @author 狂奔的蜗牛
  * @desc 我的ETC
  */
-import {handleJumpHunanMini, initProductName, thirdContractSigning} from '../../../utils/utils.js';
+import {
+	handleJumpHunanMini,
+	initProductName,
+	thirdContractSigning
+} from '../../../utils/utils.js';
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
@@ -10,11 +14,11 @@ Page({
 		notAllCar: false,
 		carList: undefined,
 		activeIndex: 1,
-		passengerCarList: [],// 客车
-		truckList: []// 货车
+		passengerCarList: [], // 客车
+		truckList: [] // 货车
 	},
 	async onShow () {
-		util.resetData();// 重置数据
+		util.resetData(); // 重置数据
 		app.globalData.isTruckHandling = false;
 		app.globalData.isNeedReturnHome = false;
 		if (app.globalData.userInfo.accessToken) {
@@ -74,7 +78,7 @@ Page({
 		};
 		if (app.globalData.isSignUpImmediately) {
 			app.globalData.isSignUpImmediately = false;
-			params['toMasterQuery'] = true;// 直接查询主库
+			params['toMasterQuery'] = true; // 直接查询主库
 		}
 		const result = await util.getDataFromServersV2('consumer/order/my-etc-list', params);
 		if (!result) return;
@@ -136,8 +140,7 @@ Page({
 				title: '提示',
 				content: '当前订单无法修改，请联系业务员或在线客服处理！',
 				confirmText: '我知道了',
-				confirm: () => {
-				}
+				confirm: () => {}
 			});
 			return;
 		}
@@ -150,8 +153,8 @@ Page({
 			}
 		}
 		const fun = {
-			1: () => this.onClickBackToSign(orderInfo),// 恢复签约
-			2: () => this.onClickContinueHandle(orderInfo),// 继续办理
+			1: () => this.onClickBackToSign(orderInfo), // 恢复签约
+			2: () => this.onClickContinueHandle(orderInfo), // 继续办理
 			3: () => this.goPayment(orderInfo), // 去支付
 			4: () => this.onClickContinueHandle(orderInfo), // 继续办理
 			5: () => this.onClickBackToSign(orderInfo), // 签约微信支付 - 去签约
@@ -161,7 +164,7 @@ Page({
 			9: () => this.onClickHighSpeedSigning(orderInfo), // 去签约
 			10: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
 			11: () => this.onClickCctivate(orderInfo), // 去激活
-			12: () => this.onActive(orderInfo),	// 已激活
+			12: () => this.onActive(orderInfo), // 已激活
 			13: () => this.goBindingAccount(orderInfo), // 去开户
 			14: () => this.goRechargeAuthorization(orderInfo), // 去授权预充保证金
 			15: () => this.goRecharge(orderInfo), // 保证金预充失败 - 去预充
@@ -170,7 +173,7 @@ Page({
 			19: () => this.onClickModifiedData(orderInfo, false),
 			20: () => this.onClickVerification(orderInfo),
 			21: () => this.onClickSignBank(orderInfo),
-			22: () => this.onClickSignTongTongQuan(orderInfo),// 签约通通券代扣
+			22: () => this.onClickSignTongTongQuan(orderInfo), // 签约通通券代扣
 			23: () => this.goPayment(orderInfo),
 			24: () => this.goPayment(orderInfo), // 去支付
 			25: () => this.onClickContinueHandle(orderInfo), // 继续办理
@@ -183,14 +186,16 @@ Page({
 		fun[orderInfo.selfStatus].call();
 	},
 	async handleJumpHunanMini (orderId) {
-		const result = await util.getDataFromServersV2('consumer/order/order-pay-transaction-info', {orderId: orderId});
+		const result = await util.getDataFromServersV2('consumer/order/order-pay-transaction-info', {
+			orderId: orderId
+		});
 		if (result.code) {
 			util.showToastNoIcon(result.message);
 			return;
 		}
 		handleJumpHunanMini(orderId, result.data.outTradeNo);
 	},
-	onActive (orderInfo) {	// 已激活后的操作
+	onActive (orderInfo) { // 已激活后的操作
 		if (orderInfo.obuCardType === 2) {
 			util.go(`/pages/device_upgrade/package/package?orderId=${orderInfo.id}`);
 		}
@@ -280,7 +285,7 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/order-detail', {
 			orderId: obj.id
 		});
-		let res = await util.getDataFromServersV2('consumer/order/common/get-member-by-carno',{
+		let res = await util.getDataFromServersV2('consumer/order/common/get-member-by-carno', {
 			carNo: result.data.vehPlates,
 			vehColor: result.data.vehColor
 		});
@@ -292,17 +297,17 @@ Page({
 			orderId: obj.id,
 			mobilePhone: app.globalData.userInfo.mobilePhone,
 			channel: obj.obuCardType,
-			qtLimit: qtLimit,// 青通卡激活所需
+			qtLimit: qtLimit, // 青通卡激活所需
 			serverId: obj.shopId,
 			carNoStr: obj.vehPlates,
 			obuStatus: obj.obuStatus
 		});
 		switch (obj.obuCardType) {
-			case 1:// 贵州 黔通卡
+			case 1: // 贵州 黔通卡
 			case 21:
 				util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${obj.auditStatus}`);
 				break;
-			case 2:// 内蒙 蒙通卡
+			case 2: // 内蒙 蒙通卡
 			case 23: // 河北交投
 				if (!this.data.choiceEquipment) {
 					this.setData({
@@ -311,16 +316,16 @@ Page({
 				}
 				this.data.choiceEquipment.switchDisplay(true);
 				break;
-			case 3:	// 山东 鲁通卡
-			case 9:	// 山东 齐鲁通卡
+			case 3: // 山东 鲁通卡
+			case 9: // 山东 齐鲁通卡
 				util.go(`/pages/empty_hair/instructions_ujds/index?auditStatus=${obj.auditStatus}`);
 				break;
-			case 4:	// 青海 青通卡
-			case 5:// 天津 速通卡
-			case 10:// 湖南 湘通卡
+			case 4: // 青海 青通卡
+			case 5: // 天津 速通卡
+			case 10: // 湖南 湘通卡
 				util.go(`/pages/obu_activate/neimeng_choice/neimeng_choice?obuCardType=${obj.obuCardType}`);
 				break;
-			case 8:	// 辽宁 辽通卡
+			case 8: // 辽宁 辽通卡
 				util.go(`/pages/empty_hair/instructions_lnnk/index?auditStatus=${obj.auditStatus}`);
 				break;
 		}
@@ -330,11 +335,11 @@ Page({
 	},
 	// 去支付
 	goPayment (orderInfo) {
-		if (orderInfo.promoterType === 41 && orderInfo.vehPlates.length === 11) {	// 业务员空发
+		if (orderInfo.promoterType === 41 && orderInfo.vehPlates.length === 11) { // 业务员空发
 			util.go(`/pages/empty_hair/empty_package/empty_package?shopProductId=${orderInfo.shopProductId}`);
 			return;
 		}
-		if (orderInfo.selfStatus === 24) {	// 设备升级
+		if (orderInfo.selfStatus === 24) { // 设备升级
 			util.go(`/pages/device_upgrade/package/package?orderId=${orderInfo.id}`);
 			return;
 		}
@@ -368,7 +373,7 @@ Page({
 			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?contractStatus=${orderInfo.contractStatus}&ttContractStatus=${orderInfo.ttContractStatus}`);
 			return;
 		}
-		if (orderInfo.selfStatus === 25 || orderInfo.selfStatus === 27) {	// 设备升级 证件确认页
+		if (orderInfo.selfStatus === 25 || orderInfo.selfStatus === 27) { // 设备升级 证件确认页
 			util.go(`/pages/device_upgrade/fill_in_information/fill_in_information?orderId=${orderInfo.id}`);
 			return;
 		}
@@ -392,15 +397,20 @@ Page({
 			util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
 			return;
 		}
-		if (orderInfo.promoterType === 41 && orderInfo.vehPlates.length === 11) {	// 业务员空发
+		if (orderInfo.promoterType === 41 && orderInfo.vehPlates.length === 11) { // 业务员空发
 			util.go(`/pages/empty_hair/write_base_information/write_base_information`);
 			return;
 		}
-		if (orderInfo.orderType === 71 && orderInfo.vehPlates && !orderInfo.isOwner && orderInfo?.pledgeStatus !== 1) {	// 电商空发订单
+		if (orderInfo.orderType === 71 && orderInfo.vehPlates && !orderInfo.isOwner && orderInfo?.pledgeStatus !== 1) { // 电商空发订单
 			util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?emptyHairOrder=true`);
 			return;
 		}
 		wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'my_etc_for_certificate_to_truck_package' : 'my_etc_for_certificate_to_package');
+		// 9901 套餐 进入证件上传需要带标识
+		if (app.globalData.orderInfo.shopProductId === '1210255905172496384') {
+			util.go(`/pages/${path}/information_list/information_list?pro9901=true`);
+		}
+		console.log('进入证件上传需要带标识');
 		util.go(`/pages/${path}/information_list/information_list`);
 	},
 	// 新增
@@ -465,8 +475,7 @@ Page({
 							extraData: {
 								contract_id: result.data.contractId
 							},
-							success () {
-							},
+							success () {},
 							fail (e) {
 								// 未成功跳转到签约小程序
 								util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
@@ -487,7 +496,7 @@ Page({
 	async weChatSign (obj) {
 		util.showLoading('加载中');
 		let params = {
-			orderId: obj.id,// 订单id
+			orderId: obj.id, // 订单id
 			clientOpenid: app.globalData.userInfo.openId,
 			clientMobilePhone: app.globalData.userInfo.mobilePhone,
 			needSignContract: true // 是否需要签约 true-是，false-否
@@ -510,7 +519,7 @@ Page({
 			util.hideLoading();
 			let res = result.data.contract;
 			// 签约车主服务 2.0
-			app.globalData.isSignUpImmediately = true;// 返回时需要查询主库
+			app.globalData.isSignUpImmediately = true; // 返回时需要查询主库
 			app.globalData.belongToPlatform = obj.platformId;
 			app.globalData.orderInfo.orderId = obj.id;
 			app.globalData.contractStatus = obj.contractStatus;
@@ -543,6 +552,11 @@ Page({
 		app.globalData.orderInfo.shopProductId = orderInfo.shopProductId;
 		app.globalData.isModifiedData = true; // 修改资料
 		app.globalData.firstVersionData = !!(orderInfo.remark && orderInfo.remark.indexOf('迁移订单数据') !== -1);
+		// 9901 套餐 进入证件上传需要带标识
+		console.log('入证件上传需要带标识',orderInfo);
+		if (app.globalData.orderInfo.shopProductId === '1210255905172496384') {
+			util.go('/pages/default/information_list/information_list?isModifiedData=true&pro9901=true');
+		}
 		util.go('/pages/default/information_list/information_list?isModifiedData=true');
 	},
 	// 取消订单

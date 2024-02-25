@@ -22,7 +22,7 @@
                     <view class="title">{{tools.limitNumber(item.productName,13)}}</view>
                     <!-- 取后台支付金额，保留小数点后2位，若套餐支付金额为0时，前端价格展示为免费 -->
                     <view class="money">
-                        <span wx:if="{{item.pledgePrice}}" >
+                        <span wx:if="{{item.pledgePrice}}">
                             <!-- 支付金额类型为 通行权益金时，文案为“免费” -->
                             <text wx:if="{{tools.equits(citicBankshopProductIds,item.shopProductId)}}" style="color: #2A4F44">免费</text>
                             <text wx:else>￥{{tools.parseNum(item.pledgePrice)/100}}</text>
@@ -49,7 +49,7 @@
                 <!-- 套餐附加权益信息显示 -->
                 <view class="addEquityInfo">
                     <!-- 设备信息（新旧设备对比） -->
-                    <view class="utilModlue" wx:if="{{item.isShowDevice === 1}}" >
+                    <view class="utilModlue" wx:if="{{item.isShowDevice === 1}}">
                         <view class="name">{{'第五代设备信息'}}</view>
                         <view class="detail" data-type="1" data-index="{{index}}" catchtap="popDetail">详情</view>
                     </view>
@@ -95,20 +95,24 @@
         </view>
     </view>
     <!-- 占位 -->
-    <view class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}} {{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) ? 'isRPI' : ''}}" ></view>
+    <view class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}} {{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) ? 'isRPI' : ''}}"></view>
     <!-- 通通券-道路救援服务 -->
     <view class="addEquityPackage" wx:if="{{listOfPackages[activeIndex].isRoadRescue  && isLoaded}}" data-type="6" data-index='{{activeIndex}}' catchtap="popDetail">
         <view class="imgOrName">
-            <view class="img"><image class="image" src="{{'https://file.cyzl.com/g001/M02/ED/17/oYYBAGStEiOAZAb0AAAV9IqXKBM565.png'}}" mode="widthFix" /></view>
-            <text >下单送500元道路救援服务</text>
+            <view class="img">
+                <image class="image" src="{{'https://file.cyzl.com/g001/M02/ED/17/oYYBAGStEiOAZAb0AAAV9IqXKBM565.png'}}" mode="widthFix" />
+            </view>
+            <text>下单送500元道路救援服务</text>
         </view>
         <view class="iconfont icon4"></view>
     </view>
     <!-- 加购的权益包 -->
     <view class="addEquityPackage {{listOfPackages[activeIndex].isRoadRescue ? 'addTwo' : ''}}" wx:if="{{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) && isLoaded}}" data-type="5" data-index='{{activeIndex}}' catchtap="popDetail">
         <view class="imgOrName">
-            <view class="img"><image class="image" src="{{'https://file.cyzl.com/g001/M02/ED/17/oYYBAGStEiOAZAb0AAAV9IqXKBM565.png'}}" mode="widthFix" /></view>
-            <text >{{equityListMap.addEquityList[activeIndex].packageName}}</text>
+            <view class="img">
+                <image class="image" src="{{'https://file.cyzl.com/g001/M02/ED/17/oYYBAGStEiOAZAb0AAAV9IqXKBM565.png'}}" mode="widthFix" />
+            </view>
+            <text>{{equityListMap.addEquityList[activeIndex].packageName}}</text>
         </view>
         <view class="iconfont icon4"></view>
     </view>
@@ -126,8 +130,8 @@
                 <text wx:if="{{listOfPackages[choiceIndex].etcCardId === 2}}">[发行方: 内蒙古发行]</text>
                 <!-- <text wx:if="{{listOfPackages[choiceIndex].etcCardId === 23}}">[发行方: 河北交投发行]</text> -->
             </view>
-            <view class="agreement" wx:else >
-                 当您勾选同意并选购套餐时，即代表您已阅读、理解并接受
+            <view class="agreement" wx:else>
+                当您勾选同意并选购套餐时，即代表您已阅读、理解并接受
                 <block wx:for="{{listOfPackages[choiceIndex].agreements}}" wx:for-item="item5" wx:for-index="index5" wx:key="index5">
                     <text class="agreementColor" data-item="{{item5}}" catchtap="goAgreementPage">{{item5.name}}{{listOfPackages[choiceIndex].agreements.length - 1 === index5 ? '' : '、' }}</text>
                 </block>
@@ -152,7 +156,7 @@
             <view class="moneyPay {{isFade ? 'confirmPackage' : ''}}" wx:if="{{choiceIndex !== -1 && (listOfPackages[activeIndex].pledgePrice || (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))}}">
                 <view class="money" wx:if="{{isFade}}">
                     ￥<span class="mpneySpan">{{activeIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}
-                </span>
+                    </span>
                 </view>
                 <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}} bail" data-isconfirm="{{getAgreement}}" wx:if="{{listOfPackages[activeIndex].pledgeType === 5 || citicBank}}" catchtap="next">
                     <view wx:if="{{citicBank}}">
@@ -164,15 +168,17 @@
                 <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}}" data-isconfirm="{{getAgreement}}" wx:else catchtap="next">{{'立即支付'}}</view>
             </view>
             <view class="nextSign" wx:else>
-                <button class="btns {{choiceIndex === -1 || getAgreement ? 'payColor' : ''}}" catchtap="next" >
+                <button class="btns {{choiceIndex === -1 || getAgreement ? 'payColor' : ''}}" catchtap="next">
                     {{isSalesmanOrder ? '去签约' : '确认套餐'}}
                 </button>
-                
+
             </view>
         </view>
     </view>
     <popTipComp id="popTipComp" bind:confirmHandle="confirmHandle"></popTipComp>
     <!-- 自定义出入方向的弹窗 -->
-    <customDirectionPopup id="cdPopup" bind:cDPopup="cDPopup"/>
+    <customDirectionPopup id="cdPopup" bind:cDPopup="cDPopup" />
+    <!-- 9901 弹框验证码 -->
+    <verify-code details="{{orderInfo9901}}" id="verifyCode" bindonClickHandle="onClickHandle9901" ></verify-code>
 </view>
 <privacy_popup></privacy_popup>

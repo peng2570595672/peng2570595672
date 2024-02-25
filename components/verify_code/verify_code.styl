@@ -6,17 +6,20 @@
 	right 0
 	bottom 0
 	background rgba(76, 76, 76, 0.8)
+	z-index 800
 	.verify_wrapper
 		display flex
 		flex-direction column
 		position absolute
 		left 56rpx
 		right 56rpx
-		top 50%
+		top 45%
 		transform translate(0, -50%)
 		background: #FFFFFF;
 		border-radius 16px;
-		z-index 2
+		z-index 26999
+	.s9901
+		border-radius: 0;
 		.authentication-title
 			margin-top 64rpx
 			font-size: 34rpx;
@@ -25,9 +28,13 @@
 			color: #000000;
 			line-height: 48rpx;
 			text-align center
+		.weight
+			font-weight: 650
 		// 输入开始
 		.input-wrapper
 			padding 0 32rpx
+			.centerText
+				justify-content center
 			.input-item
 				display flex
 				padding 32rpx 0rpx 10rpx
@@ -43,6 +50,9 @@
 				& > input
 					flex 1
 					text-align left
+				.s9901
+					font-weight: 500
+					color: black
 				// 获取验证码
 				.validate-code
 					flex 0 0 216rpx
@@ -93,7 +103,10 @@
 				color: #fff;
 				border-radius: 8rpx;
 				line-height 82rpx;
-				background #00B85C
-				opacity .6
+				background #00B85C	
+			.buttonBlue
+				background rgb(78, 149, 216)
+				border-radius: 40rpx
 				&.available
 					opacity 1
+		

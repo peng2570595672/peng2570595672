@@ -16,6 +16,7 @@ Page({
 
     },
     next () {
+        console.log('9901',this.data);
         util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.data.orderId}`);
     },
     onUnload () {

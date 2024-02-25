@@ -8,22 +8,22 @@ const app = getApp();
 let timer;
 Page({
 	data: {
-		topProgressBar: 3,	// 进度条展示的长度 ，再此页面的取值范围 [3,4),默认为3,保留一位小数
-		topProgressBar1: 0,	// 存放上个页面传来进度条长度
+		topProgressBar: 3, // 进度条展示的长度 ，再此页面的取值范围 [3,4),默认为3,保留一位小数
+		topProgressBar1: 0, // 存放上个页面传来进度条长度
 		vehPlates: undefined,
 		faceStatus: 1, // 1 未上传  4识别成功
 		backStatus: 1, // 1 未上传  4识别成功
 		available: false, // 按钮是否可点击
-		isRequest: false,// 是否请求中
-		idCardStatus: 0,// 实名认证标识  默认0
-		oldName: undefined,// 原始姓名
-		oldIdNumber: undefined,// 原始身份证
+		isRequest: false, // 是否请求中
+		idCardStatus: 0, // 实名认证标识  默认0
+		oldName: undefined, // 原始姓名
+		oldIdNumber: undefined, // 原始身份证
 		idCardFace: {
 			ocrObject: {}
-		},// 身份证正面
+		}, // 身份证正面
 		idCardBack: {
 			ocrObject: {}
-		},// 身份证反面
+		}, // 身份证反面
 		checkKeyWord: [],
 		sexArr: ['男', '女'],
 		sexIndex: -1,
@@ -39,7 +39,8 @@ Page({
 			vehPlates: options.vehPlates,
 			obuCardType: +options.obuCardType,
 			topProgressBar: parseFloat(options.topProgressBar),
-			topProgressBar1: parseFloat(options.topProgressBar)
+			topProgressBar1: parseFloat(options.topProgressBar),
+			is9901: options.is9901 // 9901 套餐标识
 		});
 		await this.getOrderInfo();
 		// 查询是否欠款
@@ -47,13 +48,42 @@ Page({
 	},
 	onShow () {
 		this.setData({
-			checkKeyWord: [
-				{key: 'name', show: false, isFace: true, label: '姓名'},
-				{key: 'sex', show: false, isFace: true, label: '性别'},
-				{key: 'birth', show: false, isFace: true, label: '出生日期'},
-				{key: 'address', show: false, isFace: true, label: '地址'},
-				{key: 'authority', show: false, isFace: false, label: '签发机关'},
-				{key: 'validDate', show: false, isFace: false, label: '有效期限'}
+			checkKeyWord: [{
+					key: 'name',
+					show: false,
+					isFace: true,
+					label: '姓名'
+				},
+				{
+					key: 'sex',
+					show: false,
+					isFace: true,
+					label: '性别'
+				},
+				{
+					key: 'birth',
+					show: false,
+					isFace: true,
+					label: '出生日期'
+				},
+				{
+					key: 'address',
+					show: false,
+					isFace: true,
+					label: '地址'
+				},
+				{
+					key: 'authority',
+					show: false,
+					isFace: false,
+					label: '签发机关'
+				},
+				{
+					key: 'validDate',
+					show: false,
+					isFace: false,
+					label: '有效期限'
+				}
 			]
 		});
 		let idCardFace = wx.getStorageSync('passenger-car-id-card-face');
@@ -128,8 +158,12 @@ Page({
 			// 获取实名信息
 			let temp = this.data.orderInfo?.ownerIdCard;
 			if (temp?.ownerIdCardTrueName) {
-				let idCardBack = {ocrObject: {}};
-				let idCardFace = {ocrObject: {}};
+				let idCardBack = {
+					ocrObject: {}
+				};
+				let idCardFace = {
+					ocrObject: {}
+				};
 				idCardFace.fileUrl = temp.ownerIdCardPositiveUrl;
 				idCardFace.ocrObject.name = temp.ownerIdCardTrueName;
 				idCardFace.ocrObject.idNumber = temp.ownerIdCardNumber;
@@ -234,18 +268,18 @@ Page({
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: '48', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
-			changeAuditStatus: 0,// 修改不计入待审核
+			changeAuditStatus: 0, // 修改不计入待审核
 			haveChange: haveChange, // 行驶证信息OCR结果有无修改过，默认false，修改过传true 【dataType包含4】
 			idCardStatus: this.data.idCardStatus,
 			idCardValidDate: this.data.idCardBack.ocrObject.validDate, // 有效期 格式为：2007.10.09-2027.10.09 【dataType包含4】
-			idCardAddress: this.data.idCardFace.ocrObject.address,// 地址 【dataType包含4】
-			idCardAuthority: this.data.idCardBack.ocrObject.authority,// 发证机关 【dataType包含4】
+			idCardAddress: this.data.idCardFace.ocrObject.address, // 地址 【dataType包含4】
+			idCardAuthority: this.data.idCardBack.ocrObject.authority, // 发证机关 【dataType包含4】
 			idCardTrueName: this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含4】
 			idCardBirth: this.data.idCardFace.ocrObject.birth, // 出生日期 【dataType包含4】
 			idCardSex: this.data.idCardFace.ocrObject.sex, // 实名认证性别 【dataType包含4】
 			idCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含4】
 			idCardPositiveUrl: this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含4】
-			idCardNegativeUrl: this.data.idCardBack.fileUrl,// 实名身份证反面地址 【dataType包含4】
+			idCardNegativeUrl: this.data.idCardBack.fileUrl, // 实名身份证反面地址 【dataType包含4】
 			ownerIdCardTrueName: this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含8】
 			ownerIdCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含8】
 			ownerIdCardPositiveUrl: this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含8】
@@ -255,7 +289,7 @@ Page({
 			ownerIdCardBirth: this.data.idCardFace.ocrObject.birth, // 出生日期 【dataType包含8】
 			ownerIdCardHaveChange: haveChange, // 车主身份证OCR结果是否被修改过，默认false，修改过传true 【dataType包含8}】
 			ownerIdCardValidDate: this.data.idCardBack.ocrObject.validDate,
-			ownerIdCardAddress: this.data.idCardFace.ocrObject.address,
+			ownerIdCardAddress: this.data.idCardFace.ocrObject.address
 			// cardMobilePhone: app.globalData.handledByTelephone || app.globalData.mobilePhone
 			// cardMobilePhone: this.data.formData.cardMobilePhone, // 车主实名手机号
 			// cardPhoneCode: this.data.formData.verifyCode, // 手机号验证码
@@ -267,11 +301,33 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			if (this.data.obuCardType === 1) {
+			// 9901 套餐上传证件后准备开户
+			const orderId = result.data.orderId;
+			if (this.data.is9901) {
+				console.log('is9901', orderId);
+				const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/openAccountPersonal', {
+					orderId
+				});
+				if (!result) return;
+				if (result.code === 0) {
+					console.log('开户成功');
+					const pages = getCurrentPages();
+					const prevPage = pages[pages.length - 2]; // 上一个页面
+					prevPage.setData({
+						isChangeIdCard: true // 重置状态
+					});
+					wx.navigateBack({
+						delta: 1
+					});
+				} else {
+					util.showToastNoIcon(result.message);
+				}
+			}
+			if (this.data.obuCardType === 2) {
 				this.userCarCheck(result.data);
 			} else {
 				const pages = getCurrentPages();
-				const prevPage = pages[pages.length - 2];// 上一个页面
+				const prevPage = pages[pages.length - 2]; // 上一个页面
 				prevPage.setData({
 					isChangeIdCard: true // 重置状态
 				});
@@ -304,7 +360,7 @@ Page({
 			idCardFace,
 			idCardBack
 		});
-		this.fangDou('',2000);
+		this.fangDou('', 2000);
 	},
 	fangDou (fn, time) {
 		let that = this;
@@ -334,7 +390,7 @@ Page({
 					if (result.data.info) {
 						let index = result.data.info.indexOf('【');
 						let lastIndex = result.data.info.lastIndexOf('】');
-						info = result.data.info.slice(index + 1,lastIndex);
+						info = result.data.info.slice(index + 1, lastIndex);
 					}
 					let content = info || result.data.rmsg;
 					if (content === '操作成功' && result.data?.data?.message) {
@@ -360,7 +416,7 @@ Page({
 				return;
 			}
 			const pages = getCurrentPages();
-			const prevPage = pages[pages.length - 2];// 上一个页面
+			const prevPage = pages[pages.length - 2]; // 上一个页面
 			prevPage.setData({
 				isChangeIdCard: true // 重置状态
 			});

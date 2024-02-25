@@ -39,6 +39,14 @@ Page({
                 isReturn: +options.type === 1
             });
         }
+        // 是否是9901 套餐 记录一下
+        console.log('9901',options);
+        if (options.pro9901) {
+            this.setData({
+                is9901: true
+            });
+            console.log('该订单属于9901套餐');
+        }
         // 空发平安激活 是否补充信息激活
         if (options.orderId && options.vehPlates) {
             this.setData({
@@ -223,7 +231,7 @@ Page({
         if (url === 'information_validation' && !this.data.orderInfo.isOwner) {
             return util.showToastNoIcon('请先上传身份证');
         }
-        util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}&obuCardType=${this.data.orderInfo.obuCardType}`);
+        util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}&obuCardType=${this.data.orderInfo.obuCardType}&is9901=${this.data.is9901 ? true : ''}`);
     },
     // ETC申办审核结果通知、ETC发货提示、ETC服务状态提醒
     async subscribe () {

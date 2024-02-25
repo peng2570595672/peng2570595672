@@ -4,6 +4,7 @@
   "usingComponents": {
 		"popTipComp": "/components/popTipComp/popTipComp",
     "topProgressBar": "/components/topProgressBar/index",
-    "customDirectionPopup": "/components/customDirectionPopup/customDirectionPopup"
+    "customDirectionPopup": "/components/customDirectionPopup/customDirectionPopup",
+    "verify-code": "/components/verify_code/verify_code"
   }
 }
