@@ -1226,7 +1226,16 @@ function weChatSigning(data) {
       extraData: data.extraData,
       fail() {
         showToastNoIcon('调起车主服务签约失败, 请重试！');
-      }
+      },
+      success(res) {
+        // 在这里编写打开小程序成功后的逻辑
+        alert({
+          content: res+'签约成功',
+          showCancel: true,
+          cancel: () => {
+          }
+        });
+      },
     });
   } else if (data.version === 'v2') { // 签约车主服务 2.0
     wx.navigateToMiniProgram({
@@ -1235,7 +1244,16 @@ function weChatSigning(data) {
       extraData: data.extraData,
       fail() {
         showToastNoIcon('调起车主服务签约失败, 请重试！');
-      }
+      },
+      success(res) {
+        // 在这里编写打开小程序成功后的逻辑
+        alert({
+          content: res+'签约成功',
+          showCancel: true,
+          cancel: () => {
+          }
+        });
+      },
     });
   } else { // 签约车主服务 3.0
     wx.openBusinessView({
@@ -1245,7 +1263,18 @@ function weChatSigning(data) {
       },
       fail(e) {
         console.log(e)
-      }
+      },
+      success(res) {
+        // 在这里编写打开小程序成功后的逻辑
+        alert({
+          content: res+'签约成功',
+          showCancel: true,
+          cancel: () => {
+          }
+        });
+        
+      },
+      
     })
   }
 }

@@ -8,7 +8,8 @@ Page({
 
     onLoad (options) {
         this.setData({
-            orderId: options.orderId
+            orderId: options.orderId,
+            is9901: options.pro9901
         });
     },
 
@@ -17,6 +18,9 @@ Page({
     },
     next () {
         console.log('9901',this.data);
+        if (is9901) {
+            // this.checkCar();
+        }
         util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.data.orderId}`);
     },
     onUnload () {
@@ -24,6 +28,18 @@ Page({
         wx.switchTab({
             url: '/pages/Home/Home'
         });
-	}
+    },
+    async checkCar () {
+        // 9901 车辆支付渠道关联
+        const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/carChannelRel', {
+            logisticsId: orderInfo.logisticsId
+        });
+        if (!result) return;
+        if (result.code === 0) {
+            this.handleActivate(orderInfo);
+        } else {
+            util.showToastNoIcon(result.message);
+        }
+    }
 
 });

@@ -319,6 +319,7 @@ Page({
 					wx.navigateBack({
 						delta: 1
 					});
+					return;
 				} else {
 					util.showToastNoIcon(result.message);
 				}

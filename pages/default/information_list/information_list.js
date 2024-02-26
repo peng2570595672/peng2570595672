@@ -365,8 +365,14 @@ Page({
                 util.go(`/pages/historical_pattern/order_audit/order_audit`);
                 return;
             }
+            if (this.data.is9901) {
+                console.log('签约成功了 要去指定页面');
+                util.go(`/pages/bank_card/citicBank_processing_progress/citicBank_processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
+                return;
+            }
             if (this.data.contractStatus === 1 || this.data.isModifiedData) {
                 //  已签约  或者 修改资料
+                console.log('签约成功了 要去查进度');
                 util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
                 return;
             }
@@ -377,6 +383,12 @@ Page({
         } else {
             util.showToastNoIcon(result.message);
         }
+    },
+    // 9901 套餐签约成 2.0 回调 跳转
+    weChatSigningOk () {
+        if (this.data.is9901) {
+			util.go(`/pages/bank_card/citicBank_processing_progress/citicBank_processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
+		}
     },
     // 中信银行的 提交 按钮
     submitCiticBank () {

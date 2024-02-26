@@ -51,7 +51,7 @@ Page({
 		baseInfo: {} // 订单的基础信息
 	},
 	async onLoad (options) {
-		console.log('options',options);
+		console.log('options', options);
 		this.setData({
 			vehColor: options.vehColor,
 			vehPlates: options.vehPlates,
@@ -343,21 +343,21 @@ Page({
 				} else {
 					util.showToastNoIcon(result2.message);
 				}
-			} else {
-				// this.setData({
-				// 	isOut: true
-				// });
-				// setTimeout(() => {
-				// 	const pages = getCurrentPages();
-				// 	const prevPage = pages[pages.length - 2]; // 上一个页面
-				// 	prevPage.setData({
-				// 		isChangeDrivingLicenseError: true // 重置状态
-				// 	});
-				// 	wx.navigateBack({
-				// 		delta: 1
-				// 	});
-				// }, 100);
+				// return;
 			}
+			this.setData({
+				isOut: true
+			});
+			setTimeout(() => {
+				const pages = getCurrentPages();
+				const prevPage = pages[pages.length - 2]; // 上一个页面
+				prevPage.setData({
+					isChangeDrivingLicenseError: true // 重置状态
+				});
+				wx.navigateBack({
+					delta: 1
+				});
+			}, 100);
 		} else {
 			util.showToastNoIcon(result.message);
 		}
