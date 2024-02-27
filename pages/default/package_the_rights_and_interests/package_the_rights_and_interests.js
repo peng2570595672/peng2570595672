@@ -153,6 +153,13 @@ Page({
         this.setData({
             listOfPackages: parseInt(options.type) === 1 ? packages.divideAndDivideList : packages.alwaysToAlwaysList
         });
+        // 新增9901 套餐需要展示
+        if (packages.List9901pro) {
+            this.setData({
+                listOfPackages: this.data.listOfPackages.concat(packages.List9901pro)
+            });
+        }
+
         await this.queryOrder();
         // await this.getSwiperHeight();
         // 获取 套餐模块的高度
@@ -205,10 +212,6 @@ Page({
             activeIndex: -1,
             choiceIndex: -1
           });
-        }
-        // 9901 套餐验证码
-        if (this.data.listOfPackages[this.data.choiceIndex].shopProductId === '1210255905172496384') {
-            this.selectComponent('#verifyCode').show();
         }
     } else {
         util.showToastNoIcon(result.message);
@@ -474,7 +477,7 @@ Page({
     onClickHandle () {
         this.data.viewRightsAndInterests.switchDisplay(false);
     },
-    onClickHandle9901 (options) {
+    async onClickHandle9901 (options) {
         console.log('options.details.type',options.detail.type);
         if (options.detail.type === '1') {
             // 验证码弹框取消的回调
@@ -484,7 +487,17 @@ Page({
               });
         } else if (options.detail.type === '2') {
             // 验证码弹框验证成功的回调
+            util.showToastNoIcon('查询接口校验正常 继续办理');
+            await this.saveOrderInfo();
             console.log('父组件收到 验证码弹框验证成功的回调');
+        } else if (options.detail.type === '3') {
+            this.setData({
+                activeIndex: -1,
+                choiceIndex: -1
+              });
+            // 验证码弹框验证失败的回调
+            util.showToastNoIcon(options.detail.content,2000);
+            console.log('父组件收到 验证码弹框验证失败的回调');
         }
     },
     // 查看办理协议
@@ -715,6 +728,11 @@ Page({
                     await this.saveOrderInfo();
                 }
             });
+            return;
+        }
+        // 9901 套餐验证码
+        if (this.data.listOfPackages[this.data.choiceIndex].shopProductId === '1210255905172496384') {
+            this.selectComponent('#verifyCode').show();
             return;
         }
         await this.saveOrderInfo();
@@ -1128,162 +1146,7 @@ Page({
             if (result.data.base.vehPlates.length === 7) {
                 let listOfPackages = this.data.listOfPackages.filter(item => item.shopProductId !== app.globalData.cictBankObj.citicBankShopshopProductId && item.shopProductId !== app.globalData.cictBankObj.cictBankNmPlatinumCard);
                 this.setData({
-                    listOfPackages: [{
-                        'addTime': '2024-02-22 16:04:53',
-                        'activeTag': '',
-                        'shopProductId': '1210255905172496384',
-                        'pledgePrice': 1,
-                        'productName': '黔通9901测试套餐',
-                        'etcCardId': 1,
-                        'thirdProductType': 0,
-                        'appointType': 3,
-                        'couponAmount': 0,
-                        'productProcess': 1,
-                        'isOwner': 0,
-                        'partnerMoneyType': 0,
-                        'fenCheck': 0,
-                        'bannerImg': '',
-                        'isShowFeatureService': 0,
-                        'payChannelId': '520366984433500160',
-                        'sysPlanPlanId': '1',
-                        'contractPlatformId': '500338116821778434',
-                        'serviceFeeType': 0,
-                        'deviceType': 0,
-                        'productLogo': 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58DfWAH6k9AAAbWZuJ_0M692.png',
-                        'vehType': 1,
-                        'serviceSysPlanId': 0,
-                        'bgImg': '',
-                        'guaranteeSysPlanId': 0,
-                        'bankAbbName': 'WECHA',
-                        'bankAccountType': 0,
-                        'deliveryRule': 0,
-                        'isCentralPurchase': 0,
-                        'isConcern': 0,
-                        'auditSubmitHw': 1,
-                        'sortOrder': 0,
-                        'spBankCode': '',
-                        'isSignWeixinDeduct': 1,
-                        'contractPlatformName': 'ETC+',
-                        'marketingTag': '1111',
-                        'detail': '',
-                        'partnerType': 0,
-                        'productRecommend': '',
-                        'checkBin': 0,
-                        'spClientPort': '',
-                        'description': '[{"value":""}]',
-                        'bankName': 'WECHA',
-                        'couponExpireDays': 0,
-                        'environmentAttribute': 1,
-                        'partnerProductType': 1,
-                        'deviceCoverImg': '',
-                        'depositAccountAmount': 0,
-                        'isShowDevice': 1,
-                        'isShowRightsDesc': 0,
-                        'pledgeType': 1,
-                        'scalpCheck': 1,
-                        'cardBin': '',
-                        'repairPayChannelId': 0,
-                        'clientPort': '0',
-                        'ttCouponPayAmount': 0,
-                        'isShowBanner': 0,
-                        'productType': 2,
-                        'rightsPackageId': 0,
-                        'isHeadImg': 0,
-                        'bankCode': '102',
-                        'isSignTtCoupon': 0,
-                        'deliveryType': 1,
-                        'bankCardType': 0,
-                        'fullName': '绑定微信支付 无需绑定银行卡',
-                        'mustChoiceRightsPackage': 0,
-                        'flowVersion': 8,
-                        'marketingTagType': 2,
-                        'vehPlateLimitStr': '',
-                        'isNeedSign': 1,
-                        'sysPlanId': '691761985546625024',
-                        'shopProductStatus': 1,
-                        'staffFocus': 1,
-                        'partnerMoney': 0,
-                        'vehPlateLimitType': 0,
-                        'rightsPackageIds': []
-                    }, {
-                        'addTime': '2023-12-25 14:33:03',
-                        'activeTag': '',
-                        'shopProductId': '1188851910218620928',
-                        'pledgePrice': 1,
-                        'productName': '民生银行测试套餐',
-                        'etcCardId': 2,
-                        'thirdProductType': 0,
-                        'appointType': 3,
-                        'couponAmount': 0,
-                        'productProcess': 1,
-                        'isOwner': 0,
-                        'partnerMoneyType': 0,
-                        'fenCheck': 0,
-                        'bannerImg': '',
-                        'isShowFeatureService': 0,
-                        'payChannelId': '520366984433500160',
-                        'sysPlanPlanId': '2',
-                        'contractPlatformId': '500338116821778434',
-                        'serviceFeeType': 0,
-                        'deviceType': 0,
-                        'isRoadRescue': 1,
-                        'productLogo': 'https://file.cyzl.com/g001/M05/3B/E5/oYYBAF58Dd-ARg21AAAbWZuJ_0M017.png',
-                        'vehType': 1,
-                        'serviceSysPlanId': 0,
-                        'bgImg': '',
-                        'guaranteeSysPlanId': 0,
-                        'bankAbbName': 'WECHA',
-                        'bankAccountType': 0,
-                        'deliveryRule': 0,
-                        'isCentralPurchase': 0,
-                        'isConcern': 0,
-                        'auditSubmitHw': 1,
-                        'sortOrder': 0,
-                        'spBankCode': '102',
-                        'isSignWeixinDeduct': 1,
-                        'contractPlatformName': 'ETC+',
-                        'marketingTag': '这是信用卡说明',
-                        'detail': '',
-                        'partnerType': 0,
-                        'productRecommend': '',
-                        'checkBin': 0,
-                        'spClientPort': '',
-                        'description': '[{"value":""}]',
-                        'bankName': '',
-                        'couponExpireDays': 0,
-                        'environmentAttribute': 1,
-                        'partnerProductType': 1,
-                        'deviceCoverImg': '',
-                        'depositAccountAmount': 0,
-                        'isShowDevice': 1,
-                        'isShowRightsDesc': 0,
-                        'pledgeType': 2,
-                        'scalpCheck': 1,
-                        'cardBin': '',
-                        'repairPayChannelId': 0,
-                        'clientPort': '0',
-                        'ttCouponPayAmount': 0,
-                        'isShowBanner': 0,
-                        'productType': 2,
-                        'rightsPackageId': '1146404068787232768',
-                        'isHeadImg': 1,
-                        'bankCode': '0',
-                        'isSignTtCoupon': 0,
-                        'deliveryType': 1,
-                        'bankCardType': 0,
-                        'fullName': '绑定微信支付 无需绑定银行卡',
-                        'mustChoiceRightsPackage': 0,
-                        'flowVersion': 1,
-                        'marketingTagType': 2,
-                        'vehPlateLimitStr': '',
-                        'isNeedSign': 1,
-                        'sysPlanId': '691771690813759488',
-                        'shopProductStatus': 1,
-                        'staffFocus': 1,
-                        'partnerMoney': 0,
-                        'vehPlateLimitType': 0,
-                        'rightsPackageIds': []
-                    }]
+                    listOfPackages
                 });
             }
         } else {

@@ -546,34 +546,48 @@ function getAddressInfo(lat, lng, success, fail, complete) {
  * @returns querykeywords、location、querytypes 字段于 1.1.0 版本新增。
  * @description 高德获取周边poi
  */
-function getAddressInfoInfoGD(location, info, ) {
-  console.log(amapFile);
-  let Amap = new amapFile.AMapWX({
-    key: app.globalData.GDmapKey
-  })
-  if (location) {
-    Amap.getPoiAround({
-      // querykeywords： 关键字。
-      // querytypes： 类型， 参考： POI分类表。
-      // location： 经纬度坐标。 为空时， 基于当前位置进行地址解析。 格式： '经度,纬度'
-      location:`${location.latitude},${location.longitude}`,
-
-      success: (data) => {
-        console.log('高德数据1：', data);
+function getAddressInfoGD(type, address, latLng, success, fail, complete) {
+  let amap = new GDMapWX.AMapWX({
+    key: app.globalData.GDmapKey // 必填
+  });
+  if (type === 1) { //获取周边的POI
+    amap.getPoiAround({
+      location: `${latLng}`,
+      success: function (res) {
+        success && success(res);
       },
-      fail: (res) => {
-        console.log('失败1', res);
+      fail: function (res) {
+        fail && fail(res);
+      },
+      complete: function (res) {
+        complete && complete(res);
       }
-    })
-  }
-  if (info) {
-    Amap.getRegeo({
-      location: '',
-      success: (location) => {
-        console.log('高德数据2：', location);
+    });
+  } else if (type === 2) { // 获取地址描述信息
+    amap.getRegeo({
+      location: `${latLng}`, // 经度在前，纬度在后
+      success: function (res) {
+        success && success(res);
       },
-      fail: (res) => {
-        console.log('失败2', res);
+      fail: function (res) {
+        fail && fail(res);
+      },
+      complete: function (res) {
+        complete && complete(res);
+      }
+    });
+  } else { // 根据地址获取数据
+    amap.getInputtips({
+      keywords: `${address}`,
+      // keywords: `贵州省安顺市镇宁县东大街三桥`,
+      success: function (res) {
+        success && success(res);
+      },
+      fail: function (res) {
+        fail && fail(res);
+      },
+      complete: function (res) {
+        complete && complete(res);
       }
     })
   }
@@ -874,7 +888,7 @@ function getStatus(orderInfo) {
   if (orderInfo.auditStatus === 2 && orderInfo.logisticsId !== 0 && orderInfo.deliveryRule === 1 && orderInfo.etcContractId !== -1 && !orderInfo.contractStatus) {
     return 5; // 审核通过,已发货或无需发货,待微信签约
   }
-  if (orderInfo.obuStatus === 0 || (orderInfo.status === 1 && orderInfo.obuStatus === 2 && (orderInfo.obuCardType === 23 || orderInfo.obuCardType === 2)) ){//补充河北交投换卡换签
+  if (orderInfo.obuStatus === 0 || (orderInfo.status === 1 && orderInfo.obuStatus === 2 && (orderInfo.obuCardType === 23 || orderInfo.obuCardType === 2))) { //补充河北交投换卡换签
     return 11; //  待激活
   }
   if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
@@ -1230,10 +1244,9 @@ function weChatSigning(data) {
       success(res) {
         // 在这里编写打开小程序成功后的逻辑
         alert({
-          content: res+'签约成功',
+          content: res + '签约成功',
           showCancel: true,
-          cancel: () => {
-          }
+          cancel: () => {}
         });
       },
     });
@@ -1248,10 +1261,9 @@ function weChatSigning(data) {
       success(res) {
         // 在这里编写打开小程序成功后的逻辑
         alert({
-          content: res+'签约成功',
+          content: res + '签约成功',
           showCancel: true,
-          cancel: () => {
-          }
+          cancel: () => {}
         });
       },
     });
@@ -1267,14 +1279,13 @@ function weChatSigning(data) {
       success(res) {
         // 在这里编写打开小程序成功后的逻辑
         alert({
-          content: res+'签约成功',
+          content: res + '签约成功',
           showCancel: true,
-          cancel: () => {
-          }
+          cancel: () => {}
         });
-        
+
       },
-      
+
     })
   }
 }
@@ -1401,7 +1412,7 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
     getListOfPackages(orderInfo, regionCode, true);
   }
   result.data.map(item => {
-  	item.shopId = params.shopId;
+    item.shopId = params.shopId;
     try {
       item.descriptionList = JSON.parse(item.description);
     } catch (e) {}
@@ -1428,6 +1439,7 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
     showToastNoIcon('未查询到套餐，请联系工作人员处理！');
     return;
   }
+  const List9901pro = list.filter(item => item.flowVersion === 8); // 9901 套餐
   const divideAndDivideList = list.filter(item => item.flowVersion === 1); // 分对分套餐
   const alwaysToAlwaysList = list.filter(item => item.flowVersion === 2 || item.flowVersion === 3); // 总对总套餐
   let type = !divideAndDivideList.length ? 2 : !alwaysToAlwaysList.length ? 1 : 0;
@@ -1437,9 +1449,15 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
     areaCode: '0',
     type,
     divideAndDivideList,
-    alwaysToAlwaysList
+    alwaysToAlwaysList,
+    List9901pro
   };
-	await getFollowRequestLog({shopId: app.globalData.newPackagePageData.shopId, paramsShopId: params.shopId, orderId: app.globalData.orderInfo?.orderId, source: '根据商户查询套餐'});
+  await getFollowRequestLog({
+    shopId: app.globalData.newPackagePageData.shopId,
+    paramsShopId: params.shopId,
+    orderId: app.globalData.orderInfo?.orderId,
+    source: '根据商户查询套餐'
+  });
   return result;
 }
 /**
@@ -1955,17 +1973,17 @@ function deletContract() {
   }
 };
 
-function getCurrentDate () {
-	const currentDate = new Date();
-	// 提取年、月、日信息
-	const year = currentDate.getFullYear(); // 四位数表示年份
-	const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // 两位数表示月份，需要加上1
-	const day = currentDate.getDate().toString().padStart(2, '0'); // 两位数表示天数
-	// 构建当前日期字符串
-	const formattedCurrentDate = `${year}${month}${day}`;
-	const nextDate = `${year + 10}${month}${day}`;
-	// 判断指定日期是否在当前日期之前或者相同
-	return [formattedCurrentDate, nextDate]
+function getCurrentDate() {
+  const currentDate = new Date();
+  // 提取年、月、日信息
+  const year = currentDate.getFullYear(); // 四位数表示年份
+  const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // 两位数表示月份，需要加上1
+  const day = currentDate.getDate().toString().padStart(2, '0'); // 两位数表示天数
+  // 构建当前日期字符串
+  const formattedCurrentDate = `${year}${month}${day}`;
+  const nextDate = `${year + 10}${month}${day}`;
+  // 判断指定日期是否在当前日期之前或者相同
+  return [formattedCurrentDate, nextDate]
 }
 
 module.exports = {
@@ -1976,7 +1994,7 @@ module.exports = {
   handleBluetoothStatus,
   queryProtocolRecord,
   getRpx,
-	getCurrentDate,
+  getCurrentDate,
   getPx,
   getMemberStatus,
   goMicroInsuranceVehicleOwner,
@@ -1999,7 +2017,7 @@ module.exports = {
   hideLoading,
   getDateDiff,
   mobilePhoneReplace,
-	getFollowRequestLog,
+  getFollowRequestLog,
   encryptByDESModeEBC,
   decryptByDESModeEBC,
   compareVersion,
@@ -2033,5 +2051,5 @@ module.exports = {
   getUserIsVip,
   getBindGuests,
   openPdf,
-  getAddressInfoInfoGD
+  getAddressInfoGD
 };

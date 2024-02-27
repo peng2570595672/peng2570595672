@@ -16,8 +16,8 @@ Component({
 		identifyingCode: '获取验证码',
 		time: 59, // 倒计时
 		isGetIdentifyingCoding: false, // 获取验证码中
-		verifyCode: '',// 验证码
-		showMotal: ''
+		verifyCode: '', // 验证码
+		showMotal: '-1'
 	},
 	methods: {
 		close (e) {
@@ -135,50 +135,72 @@ Component({
 			if (result.code === 0) {
 				if (this.data.details.type === '9901') { // 9901套餐 验证成功
 					console.log('9901套餐 验证成功');
-					// this.setData({
-					// 	showMotal: '3'
-					// });
-					this.setData({
-						wrapper: false
-					});
 					setTimeout(() => {
 						this.setData({
-							mask: false
+							showMotal: '3'
 						});
-					},200);
-					// 成功后立即办理查询
-					this.goToVerify();
+					}, 200);
+					// 成功后立即办理接口 查询
+					// this.goToVerify();
 					return;
 				}
 				util.go(`/pages/historical_pattern/choose_bank_and_bind_veh/choose_bank_and_bind_veh`);
 			} else if (result.code === 104) {
-				util.showToastNoIcon(result.message);
+				// 验证码有误
+				setTimeout(() => {
+					this.setData({
+						showMotal: '2'
+					});
+				}, 200);
+				// util.showToastNoIcon(result.message);
 			} else if (result.code === 105) {
-				this.setData({
-					certification: 0
-				});
+				// this.setData({
+				// 	certification: 0
+				// });
 			} else {
 				util.showToastNoIcon(result.message);
 			}
+		},
+		// 重新输入
+		restInput () {
+			this.setData({
+				showMotal: '-1'
+			});
 		},
 		// 立即办理
 		async goToVerify () {
 			util.showLoading({
 				title: '请求中...'
 			});
-			let url = 'consumer/activity/qtzl/xz/vehPlateIssueVerify'; // 外部是否传入新的登录验证码地址
+			let url = 'consumer/activity/qtzl/xz/vehPlateIssueVerify'; // 校验接口 是否可以继续办理
 			const result = await util.getDataFromServersV2(url, {
 				orderId: app.globalData.orderInfo.orderId
 			});
 			if (!result) return;
+			if (result) {
+				// 关闭弹框
+				setTimeout(() => {
+					this.setData({
+						wrapper: false
+					});
+					this.setData({
+						mask: false
+					});
+				}, 200);
+			}
 			if (result.code === 0) {
 				setTimeout(() => {
 					this.triggerEvent('onClickHandle', {
-							type: '2' // 发送给父组件 成功的回调
-						});
-				},500);
-			} else {
-				util.showToastNoIcon(result.message);
+						type: '2' // 发送给父组件 成功的回调
+					});
+				}, 500);
+			} else if (result.code === 104) {
+				setTimeout(() => {
+					this.triggerEvent('onClickHandle', {
+						type: '3', // 发送给父组件 失败的回调
+						content: result.message
+					});
+				}, 500);
 			}
 		}
 	},
