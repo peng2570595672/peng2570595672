@@ -546,34 +546,48 @@ function getAddressInfo(lat, lng, success, fail, complete) {
  * @returns querykeywords、location、querytypes 字段于 1.1.0 版本新增。
  * @description 高德获取周边poi
  */
-function getAddressInfoInfoGD(location, info, ) {
-  console.log(amapFile);
-  let Amap = new amapFile.AMapWX({
-    key: app.globalData.GDmapKey
-  })
-  if (location) {
-    Amap.getPoiAround({
-      // querykeywords： 关键字。
-      // querytypes： 类型， 参考： POI分类表。
-      // location： 经纬度坐标。 为空时， 基于当前位置进行地址解析。 格式： '经度,纬度'
-      location:`${location.latitude},${location.longitude}`,
-
-      success: (data) => {
-        console.log('高德数据1：', data);
+function getAddressInfoGD(type, address, latLng, success, fail, complete) {
+  let amap = new GDMapWX.AMapWX({
+    key: app.globalData.GDmapKey // 必填
+  });
+  if (type === 1) { //获取周边的POI
+    amap.getPoiAround({
+      location: `${latLng}`,
+      success: function (res) {
+        success && success(res);
       },
-      fail: (res) => {
-        console.log('失败1', res);
+      fail: function (res) {
+        fail && fail(res);
+      },
+      complete: function (res) {
+        complete && complete(res);
       }
-    })
-  }
-  if (info) {
-    Amap.getRegeo({
-      location: '',
-      success: (location) => {
-        console.log('高德数据2：', location);
+    });
+  } else if (type === 2) { // 获取地址描述信息
+    amap.getRegeo({
+      location: `${latLng}`, // 经度在前，纬度在后
+      success: function (res) {
+        success && success(res);
       },
-      fail: (res) => {
-        console.log('失败2', res);
+      fail: function (res) {
+        fail && fail(res);
+      },
+      complete: function (res) {
+        complete && complete(res);
+      }
+    });
+  } else { // 根据地址获取数据
+    amap.getInputtips({
+      keywords: `${address}`,
+      // keywords: `贵州省安顺市镇宁县东大街三桥`,
+      success: function (res) {
+        success && success(res);
+      },
+      fail: function (res) {
+        fail && fail(res);
+      },
+      complete: function (res) {
+        complete && complete(res);
       }
     })
   }
@@ -1300,7 +1314,7 @@ async function getLocationInfo(orderInfo) {
     wx.getLocation({
       type: 'wgs84',
       success: async (res) => {
-        getAddressInfo_GD(res.latitude, res.longitude, (res) => {
+        getAddressInfoGD(res.latitude, res.longitude, (res) => {
           wx.setStorageSync('location-info', JSON.stringify(res));
           let info = res.result.ad_info;
           let regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
@@ -2046,5 +2060,5 @@ module.exports = {
   getUserIsVip,
   getBindGuests,
   openPdf,
-  getAddressInfoInfoGD
+  getAddressInfoGD
 };
