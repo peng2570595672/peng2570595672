@@ -737,6 +737,7 @@ Page({
         this.setData({isRequest: false});
         if (!result) return;
         if (result.code === 0) {
+            util.getDatanexusAnalysis('PURCHASE');
             if (this.data.orderInfo?.base?.orderType === 12) {
                 await util.getFollowRequestLog({
                     shopId: params.shopId,
