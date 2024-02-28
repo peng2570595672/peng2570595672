@@ -35,7 +35,8 @@
         "pages/default/sms_confirmation/sms_confirmation",
         "pages/default/statement_of_interest/statement_of_interest",
         "pages/default/business_branch_list/business_branch_list",
-        "pages/evaluation_component/evaluation_component"
+        "pages/evaluation_component/evaluation_component",
+        "pages/default/escalation_process/escalation_process"
     ],
     "window": {
         "navigationBarBackgroundColor": "#FFFFFF",

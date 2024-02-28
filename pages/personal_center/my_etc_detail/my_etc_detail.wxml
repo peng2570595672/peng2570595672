@@ -31,7 +31,7 @@
             {{orderInfo.selfStatus === 9 ? (orderInfo.flowVersion === 2 ? '待签约高速' : (orderInfo.flowVersion === 7 ? '待开户' : '待签约银行')) : ''}}
             {{orderInfo.selfStatus === 10 || orderInfo.selfStatus === 17 || orderInfo.selfStatus === 28 ? '审核通过' : ''}}
             {{orderInfo.selfStatus === 11 ? '待激活' : ''}}
-            {{orderInfo.selfStatus === 12 || orderInfo.selfStatus === 30  || orderInfo.selfStatus === 32 ? '已激活' : ''}}
+            {{orderInfo.selfStatus === 12 || orderInfo.selfStatus === 30  || orderInfo.selfStatus === 32 || orderInfo.selfStatus === 33 ? '已激活' : ''}}
             {{orderInfo.selfStatus === 13 || orderInfo.selfStatus === 19 || orderInfo.selfStatus === 20 ? '待开户' : ''}}
             {{orderInfo.selfStatus === 15 ? '待充保证金' : ''}}
             {{orderInfo.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
@@ -100,7 +100,7 @@
             {{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 9 ? (orderInfo.flowVersion === 7 ? '继续办理' : '去签约') : ''}}
             {{orderInfo.selfStatus === 6 || orderInfo.selfStatus === 10 || orderInfo.selfStatus === 26 || orderInfo.selfStatus === 28 ? '查看进度' : ''}}
             {{orderInfo.selfStatus === 7 || orderInfo.selfStatus === 27 ? '修改资料' : ''}}
-            {{orderInfo.selfStatus === 11 || orderInfo.selfStatus === 12 ? '去激活' : ''}}
+            {{orderInfo.selfStatus === 11 || orderInfo.selfStatus === 12 || orderInfo.selfStatus === 33 ? '去激活' : ''}}
             {{orderInfo.selfStatus === 13 || orderInfo.selfStatus === 19 ? '去开户' : ''}}
             {{orderInfo.selfStatus === 15 ? '去预充' : ''}}
             {{orderInfo.selfStatus === 16 || orderInfo.selfStatus === 20 || orderInfo.selfStatus === 21 ? '继续办理' : ''}}
@@ -108,7 +108,7 @@
 			{{orderInfo.selfStatus === 30 ? '退还权益金' : ''}}
 			{{orderInfo.selfStatus === 31 || orderInfo.selfStatus === 32 ? '签约激活' : ''}}
         </button>
-		<view class="btn-wrapper" wx:if="{{orderInfo.orderType === 11 || orderInfo.orderType === 12 || orderInfo.orderType === 81 || (orderInfo.orderType === 71&&orderInfo.promoterType === 44)}}">
+		<view class="btn-wrapper" wx:if="{{orderInfo.orderType === 11 || orderInfo.orderType === 12 || orderInfo.orderType === 81 || (orderInfo.orderType === 71 && orderInfo.promoterType === 44)}}">
 			<view wx:if="{{!orderInfo.pledgeStatus || orderInfo.pledgeStatus === 0}}" catchtap="onClickCancelHandle" >取消办理</view>
 			<view wx:if="{{orderInfo.pledgeStatus === 1}}" catchtap="goOnlineServer">取消办理</view>
 		</view>

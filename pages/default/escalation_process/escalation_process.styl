@@ -1,0 +1,24 @@
+mixinsWidthHeight($width=100%, $height=100%)
+    width $width
+    height $height
+minHeight($width=100%, $height=100%)
+    width $width
+    min-height $height
+textCenter($height=30rpx)
+    text-align center
+    line-height $height
+.index
+    margin 0
+    padding 0
+    overflow hidden
+    background #2D5D4F
+    minHeight(100vw,100vh)
+    .module
+        width 686rpx
+        overflow hidden
+        margin 28rpx 32rpx
+        border-radius 24rpx
+        &:first-child
+            margin-top 24rpx
+        .image
+            mixinsWidthHeight()

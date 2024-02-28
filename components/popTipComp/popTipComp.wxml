@@ -61,13 +61,18 @@
                 <view >  1、中信标准车主卡-金卡:年费200元/年，卡片批核成功后，开卡当月刷卡消费或取现一次（不限金额）免首年年费，刷卡消费或取现五次（不限金额）免次年年费，以此类推</view>
                 <view >  2、中信I车银联白金卡（冰川白）：新客户免首年年费，刷卡（含取现）12次免次年年费，非新客户首年480元刚性收取，刷卡（含取现）12次免次年年费</view>
             </view>
-            <view class="contant" wx:else>
+            <view class="contant" wx:if="{{tipObj.subType === 3}}">
                 <view >一、活动限民生信用卡新客户(不包括已持民生信用卡主卡销卡后重新申请及核卡成功未激活的持卡人)参与。</view>
                 <view >二、办理民生信用卡不收取任何费用、成功办理民生信用卡的新客户核卡30天内激活首刷即退还权益金并发放100元通行权益包，信用卡申请不通过，可取消订单退还权益金.</view>
                 <view >三、年费介绍：</view>
                 <view >  1、金卡:主卡300元/年，附属卡150元/年首年免年费，当年消费满5笔免次年年费。</view>
                 <view >  2、标准白金卡: 主卡600元/年附属卡300元/年。首年免年费，当年消费满18笔或满5万人民币，免次年年费。</view>
                 <view class="pronBtn" data-type="2" catchtap="goAgreement">详细细则请点击</view>
+            </view>
+            <view class="contant" wx:else>
+                <view >一、活动限广发银行信用卡新客户参与，新客户指：名下未曾持有任何广发信用卡，或仅有注销卡且注销时间距新卡申请日超过180自然日及以上客户</view>
+                <view >二、办理广发银行信用卡不收取任何费用</view>
+                <view >三、成功办理广发银行信用卡的新客户即退还权益金并发放99元通行券，信用卡申请不通过，可取消订单退还权益金</view>
             </view>
             <view class="bottomBtn">
                 <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>

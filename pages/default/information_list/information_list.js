@@ -148,7 +148,8 @@ Page({
                     contractStatus: false,
                     isCiticBankPlatinum: res.orderInfo.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || res.orderInfo.shopProductId === app.globalData.cictBankObj.cictBankNmPlatinumCard, // 判断是不是白金卡套餐
                     isWellBank: orderInfo.shopProductId === app.globalData.cictBankObj.wellBankShopProductId, // 判断是否为平安信用卡套餐
-                    isMinShenBank: orderInfo.shopProductId === app.globalData.cictBankObj.minshenBank // 判断是否为民生银行卡套餐
+                    isMinShenBank: orderInfo.shopProductId === app.globalData.cictBankObj.minshenBank, // 判断是否为民生银行卡套餐
+                    isGuangFaBank: orderInfo.shopProductId === app.globalData.cictBankObj.guangfaBank // 判断是否为广发银行卡套餐
                 });
             }
             this.availableCheck();
@@ -393,6 +394,10 @@ Page({
             }
         });
     },
+    // 针对信用卡已申卡的直接跳过弹窗进入下一步
+    skipTips () {
+        util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
+    },
     async onclickhandel () {
         // 未登录
         if (!app.globalData.userInfo?.accessToken) {
@@ -436,6 +441,8 @@ Page({
             } else {
                 util.showToastNoIcon(res.message);
             }
+        } else if (this.data.isGuangFaBank) { // 广发银行
+
         } else { // 中信银行
             if (this.data.isCiticBankPlatinum) {
                 url = `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?sid=SJCSJHT01&paId=${this.data.orderDetails.orderId}&partnerId=SJHT&pid=CS0840`;
