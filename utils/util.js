@@ -546,34 +546,48 @@ function getAddressInfo(lat, lng, success, fail, complete) {
  * @returns querykeywords、location、querytypes 字段于 1.1.0 版本新增。
  * @description 高德获取周边poi
  */
-function getAddressInfoInfoGD(location, info, ) {
-  console.log(amapFile);
-  let Amap = new amapFile.AMapWX({
-    key: app.globalData.GDmapKey
-  })
-  if (location) {
-    Amap.getPoiAround({
-      // querykeywords： 关键字。
-      // querytypes： 类型， 参考： POI分类表。
-      // location： 经纬度坐标。 为空时， 基于当前位置进行地址解析。 格式： '经度,纬度'
-      location:`${location.latitude},${location.longitude}`,
-
-      success: (data) => {
-        console.log('高德数据1：', data);
+function getAddressInfoGD(type, address, latLng, success, fail, complete) {
+  let amap = new GDMapWX.AMapWX({
+    key: app.globalData.GDmapKey // 必填
+  });
+  if (type === 1) { //获取周边的POI
+    amap.getPoiAround({
+      location: `${latLng}`,
+      success: function (res) {
+        success && success(res);
       },
-      fail: (res) => {
-        console.log('失败1', res);
+      fail: function (res) {
+        fail && fail(res);
+      },
+      complete: function (res) {
+        complete && complete(res);
       }
-    })
-  }
-  if (info) {
-    Amap.getRegeo({
-      location: '',
-      success: (location) => {
-        console.log('高德数据2：', location);
+    });
+  } else if (type === 2) { // 获取地址描述信息
+    amap.getRegeo({
+      location: `${latLng}`, // 经度在前，纬度在后
+      success: function (res) {
+        success && success(res);
       },
-      fail: (res) => {
-        console.log('失败2', res);
+      fail: function (res) {
+        fail && fail(res);
+      },
+      complete: function (res) {
+        complete && complete(res);
+      }
+    });
+  } else { // 根据地址获取数据
+    amap.getInputtips({
+      keywords: `${address}`,
+      // keywords: `贵州省安顺市镇宁县东大街三桥`,
+      success: function (res) {
+        success && success(res);
+      },
+      fail: function (res) {
+        fail && fail(res);
+      },
+      complete: function (res) {
+        complete && complete(res);
       }
     })
   }
@@ -874,8 +888,9 @@ function getStatus(orderInfo) {
   if (orderInfo.auditStatus === 2 && orderInfo.logisticsId !== 0 && orderInfo.deliveryRule === 1 && orderInfo.etcContractId !== -1 && !orderInfo.contractStatus) {
     return 5; // 审核通过,已发货或无需发货,待微信签约
   }
-  if (orderInfo.obuStatus === 0 || (orderInfo.status === 1 && orderInfo.obuStatus === 2 && (orderInfo.obuCardType === 23 || orderInfo.obuCardType === 2)) ){//补充河北交投换卡换签
-    return 11; //  待激活
+  if (orderInfo.obuStatus === 0 || orderInfo.obuStatus === 3 || orderInfo.obuStatus === 4 || (orderInfo.status === 1 && orderInfo.obuStatus === 2 && (orderInfo.obuCardType === 23 || orderInfo.obuCardType === 2)) ){//补充河北交投换卡换签
+	  // OBU状态:默认0 0-待激活，1-已激活，2-已注销 3-开卡 4-发签 5预激活  (3和4:首次激活未完成)
+  	return 11; //  待激活
   }
   if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
     if ((app.globalData.cictBankObj.citicBankshopProductIds.includes(orderInfo.shopProductId) || (orderInfo.orderType === 31 && orderInfo.productName?.includes('中信') && orderInfo.pledgeType === 2)) && orderInfo.refundStatus !== 5) {
@@ -1299,7 +1314,7 @@ async function getLocationInfo(orderInfo) {
     wx.getLocation({
       type: 'wgs84',
       success: async (res) => {
-        getAddressInfo_GD(res.latitude, res.longitude, (res) => {
+        getAddressInfoGD(res.latitude, res.longitude, (res) => {
           wx.setStorageSync('location-info', JSON.stringify(res));
           let info = res.result.ad_info;
           let regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
@@ -1950,9 +1965,50 @@ function getCurrentDate () {
 	return [formattedCurrentDate, nextDate]
 }
 
+function getDatanexusAnalysis (actionType) {
+	let timestamp, nonceStr;
+	nonceStr = getUuid();
+	if (!timestamp) {
+		timestamp = parseInt(new Date().getTime() / 1000);
+	}
+	wx.request({
+		// https://datanexus.qq.com/doc/develop/guider/interface/action/dmp_actions_add
+		// https://developers.e.qq.com/docs/api/user_data/user_action/user_actions_add?version=1.3
+		url: `https://api.e.qq.com/v1.3/user_actions/add?access_token=e99dabed71962b695abc2769b1bd97e4&timestamp=${timestamp}&nonce=${nonceStr}`,
+		data: {
+			account_id: '35362489',
+			user_action_set_id: '1202153505',
+			'actions': [
+				{
+					'external_action_id': actionType,
+					'action_time': timestamp,
+					'action_type': actionType, // 下单  https://datanexus.qq.com/doc/develop/guider/interface/enum#action-type
+					'action_param': {
+						'claim_type': 0,// 归因方式  https://datanexus.qq.com/doc/develop/guider/interface/enum#claim-type
+						'consult_type': 'ONLINE_CONSULT'
+					},
+					'trace': {
+						'click_id': app.globalData.openId // 点击ID，user_id 与 click_id 二选一必填，广点通的click_id长度是20位数字+字母组合；微信的click_id长度是10-50，如wx0im5kwh44gh2yq，字段长度为 64 字节
+					},
+					'channel': 'TENCENT' // 行为渠道  https://datanexus.qq.com/doc/develop/guider/interface/enum#action-channel
+				}
+			]
+		},
+		method: 'POST',
+		header: {},
+		success (res) {
+			console.log(res);
+		},
+		fail (res) {
+			console.log(res);
+		}
+	});
+}
+
 module.exports = {
   setApp,
   returnMiniProgram,
+	getDatanexusAnalysis,
   formatNumber,
   addProtocolRecord,
   handleBluetoothStatus,
@@ -2015,5 +2071,5 @@ module.exports = {
   getUserIsVip,
   getBindGuests,
   openPdf,
-  getAddressInfoInfoGD
+  getAddressInfoGD
 };
