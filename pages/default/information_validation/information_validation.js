@@ -343,7 +343,7 @@ Page({
 				} else {
 					util.showToastNoIcon(result2.message);
 				}
-				// return;
+				return; // 提交行驶证失败 页面不跳转
 			}
 			this.setData({
 				isOut: true

@@ -32,7 +32,7 @@
       提交
     </view>
     <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="subscribe" wx:else>
-      {{isModifiedData ? '提交审核': contractStatus === 1 || !isEtcContractId || !vehPlates? '提交' : '签约代扣通行费'}}
+      {{isModifiedData ? '提交审核': contractStatus === 1 || !isEtcContractId || !vehPlates || is9901 ? '提交' : '签约代扣通行费'}}
     </view>
   </view>
   <!-- 中信银行 拉起弹窗-->

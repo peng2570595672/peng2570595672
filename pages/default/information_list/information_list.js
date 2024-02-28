@@ -40,7 +40,7 @@ Page({
             });
         }
         // 是否是9901 套餐 记录一下
-        console.log('9901',options);
+        console.log('9901', options);
         if (options.pro9901) {
             this.setData({
                 is9901: true
@@ -239,6 +239,10 @@ Page({
         // 	util.showToastNoIcon('身份证与行驶证必须为同一持有人');
         // 	return;
         // }
+        if (this.data.is9901) {
+            this.is9901_1();
+            return;
+        }
         if (!this.data.available) return;
         // 判断版本，兼容处理
         let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
@@ -320,6 +324,43 @@ Page({
             });
         }
     },
+    // is9901_1 接口
+    async is9901_1 () {
+        util.showLoading('加载中');
+        let orderId = app.globalData.orderInfo.orderId; // 订单id
+        const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/devicePreCheck', {
+            orderId,
+            obuId: '123',
+            cpuId: '3444'
+        });
+        this.setData({
+            isRequest: false
+        });
+        if (!result) return;
+        if (result.code === 0) {
+            util.showToastNoIcon(result.message);
+        } else {
+            this.is9901_2();
+            util.showToastNoIcon(result.message);
+        }
+    },
+    // is9901_2 接口
+    async is9901_2 () {
+        util.showLoading('加载中');
+        let orderId = app.globalData.orderInfo.orderId; // 订单id
+        const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/signChannel', {
+            orderId
+        });
+        this.setData({
+            isRequest: false
+        });
+        if (!result) return;
+        if (result.code === 0) {
+            util.showToastNoIcon(result.message);
+        } else {
+            util.showToastNoIcon(result.message);
+        }
+    },
     // 微信签约
     async onclickSign () {
         if (this.data.isRequest) {
@@ -387,8 +428,8 @@ Page({
     // 9901 套餐签约成 2.0 回调 跳转
     weChatSigningOk () {
         if (this.data.is9901) {
-			util.go(`/pages/bank_card/citicBank_processing_progress/citicBank_processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
-		}
+            util.go(`/pages/bank_card/citicBank_processing_progress/citicBank_processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
+        }
     },
     // 中信银行的 提交 按钮
     submitCiticBank () {
