@@ -9,7 +9,7 @@ import {
 } from './utils';
 const CryptoJS = require('./crypto-js.js');
 const QQMapWX = require('../libs/qqmap-wx-jssdk.min.js');
-const amapFile = require('./amap-wx.130.js')
+const GDMapWX = require('./amap-wx.130.js')
 let app = getApp();
 
 function setApp(a) {
