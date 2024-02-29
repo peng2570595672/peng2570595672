@@ -30,6 +30,7 @@ Page({
 		citicBankshopProductIds: app.globalData.cictBankObj.citicBankshopProductIds,	// 信用卡套餐集合
 		cictBail: false,	// 中信保证金
 		isWellBank: false, // 平安信用卡
+		isGuangFaBank: false,	// 广发信用卡
 		isQingHaiHighSpeed: false, // 是否是青海办理进入
 		firstCar: app.globalData.pingAnBindGuests	// 平安获客
 	},
@@ -313,19 +314,20 @@ Page({
 					isSalesmanPrecharge: res.data.orderType === 31 && res.data.flowVersion === 4,
 					accountVerification: res.data.orderVerificationStatus,
 					bankCardInfo: app.globalData.bankCardInfo,
-					cictBail: (res.data.obuStatus === 1 || res.data.obuStatus === 5) && res.data.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId &&
+					cictBail: (res.data.obuStatus === 1 || res.data.obuStatus === 5) && res.data.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId && res.data.shopProductId !== app.globalData.cictBankObj.guangfaBank &&
 						(
 							this.data.citicBankshopProductIds.includes(res.data.shopProductId) ||
 							(res.data.orderType === 31 && res.data.productName?.includes('中信') && res.data.pledgeType === 2)
 						),
 					isWellBank: (res.data.obuStatus === 1 || res.data.obuStatus === 5) && res.data.shopProductId === app.globalData.cictBankObj.wellBankShopProductId,
+					isGuangFaBank: (res.data.obuStatus === 1 || res.data.obuStatus === 5) && res.data.shopProductId === app.globalData.cictBankObj.guangfaBank,
 					info: res.data
 				});
 
 				// 平安获客 礼品弹窗
 				let isShowpAPop = wx.getStorageSync('isShowpAPop');
 				if (!app.globalData.isQingHaiHighSpeed && !isShowpAPop) {
-					if (this.data.firstCar.vehKeys === '*' || (this.data.firstCar.vehKeys.includes(res.data.vehPlates.substring(0,1)) && !this.data.firstCar.filterKeys.includes(res.data.vehPlates.substring(0,2)))) {
+					if (app.globalData.pingAnBindVehplates.includes(res.data.vehPlates) && (this.data.firstCar.vehKeys === '*' || (this.data.firstCar.vehKeys.includes(res.data.vehPlates.substring(0,1)) && !this.data.firstCar.filterKeys.includes(res.data.vehPlates.substring(0,2))))) {
 						wx.setStorageSync('isShowpAPop',true);
 						// this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '礼品领取',bgColor: 'rgba(42, 80, 68, 0.7)'});
 						if (this.data.info?.vehPlates.includes('云')) {

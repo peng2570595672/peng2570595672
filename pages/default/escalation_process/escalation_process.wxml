@@ -1,0 +1,6 @@
+<view class="index">
+    <view class="module"><image class="image" src="{{'https://file.cyzl.com/g001/M03/3F/C7/oYYBAGXW-1SAASp7AAAz7MkO6ZY083.png'}}" mode="widthFix"/></view>
+    <view class="module"><image class="image" src="{{'https://file.cyzl.com/g001/M03/3F/C7/oYYBAGXW-3-AX7ZtAAARzLhwXT0109.png'}}" mode="widthFix"/></view>
+    <view class="module"><image class="image" src="{{'https://file.cyzl.com/g001/M03/3F/C7/oYYBAGXW-5mAJjpUAAAlesXYCsw537.png'}}" mode="widthFix"/></view>
+    <view class="module"><image class="image" src="{{'https://file.cyzl.com/g001/M03/3F/C7/oYYBAGXW-6iAOrIKAABFCpQ5Jws767.png'}}" mode="widthFix"/></view>
+</view>

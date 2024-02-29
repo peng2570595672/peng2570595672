@@ -92,9 +92,9 @@
             <view class="content-des" wx:if="{{info.obuStatus !== 1 && info.obuStatus !== 5}}">收货后可根据操作手册自主安装激活使用，请在使用过程中保证扣款渠道余额充足，以免产生扣费失败情况导致账户被拉黑</view>
             <view class="content-des" wx:if="{{info.obuStatus === 1 || info.obuStatus === 5}}">已激活</view>
         </view>
-        <view class="item " wx:if="{{info && (cictBail || isWellBank)}}">
+        <view class="item " wx:if="{{info && (cictBail || isWellBank || isGuangFaBank)}}">
             <view class="content-title">退还权益金</view>
-            <view class="content-des" wx:if="{{info.refundStatus !== 5}}">信用卡套餐设备激活成功后，用户需要手动将信用卡绑定微信支付后，完成手动认证即可退还权益金</view>
+            <view class="content-des" wx:if="{{info.refundStatus !== 5}}">{{ isGuangFaBank ? '信用卡套餐设备激活成功后，用户需要确保信用卡已完成激活面签，完成信用卡激活后，即可退还权益金' : '信用卡套餐设备激活成功后，用户需在激活后的第二天，手动将信用卡绑定至微信支付并完成手动认证，即可退还权益金'}}</view>
             <view class="content-des" wx:else>权益金已退还</view>
         </view>
         <view class="item {{prechargeInfo.prechargeFlag === 1 ? 'finished' : ''}} {{isSalesmanPrecharge ? 'last' : ''}}" wx:if="{{info.flowVersion === 4 && info.orderType === 31}}">
@@ -136,7 +136,7 @@
 
     <!-- 办理银行信用卡退款操作 -->
     <view class="bottom" style="margin-bottom: 0rpx" wx:if="{{info && info.logisticsId !== 0 && isWellBank && info.refundStatus !== 5}}" catchtap="goPinAnH5"><text>未办理信用卡？点击这里恢复办理→</text></view>
-    <button class="btn" wx:if="{{info && info.logisticsId !== 0 && (cictBail || isWellBank) && (info.obuStatus === 1 || info.obuStatus === 5)}}" catchtap="receiveVoucher">领取通行券</button>
+    <button class="btn" wx:if="{{info && info.logisticsId !== 0 && (cictBail || isWellBank || isGuangFaBank) && (info.obuStatus === 1 || info.obuStatus === 5)}}" catchtap="receiveVoucher">领取通行券</button>
     <button class="btn" wx:if="{{info && info.logisticsId !== 0 && (cictBail || isWellBank) && info.refundStatus !== 5}}" catchtap="returnIllustrate">已绑卡 退还权益金</button>
 
     <!--	按钮结束-->

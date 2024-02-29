@@ -1,0 +1,21 @@
+.index {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #2d5d4f;
+  width: 100vw;
+  min-height: 100vh;
+}
+.index .module {
+  width: 686rpx;
+  overflow: hidden;
+  margin: 28rpx 32rpx;
+  border-radius: 24rpx;
+}
+.index .module:first-child {
+  margin-top: 24rpx;
+}
+.index .module .image {
+  width: 100%;
+  height: 100%;
+}

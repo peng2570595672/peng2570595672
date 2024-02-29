@@ -935,19 +935,15 @@ Page({
                     isAlertToSignObj = item;
                 }
                 // 平安获客 status -1 删除（取消办理），0-资料待完善，1-资料已完善 2-升级订单已确认
-                if (!app.globalData.isQingHaiHighSpeed && !this.data.PingAn && app.globalData.pingAnBindGuests && item.status === 1) {
+                if (app.globalData.pingAnBindVehplates.length > 0 && !app.globalData.isQingHaiHighSpeed && !this.data.PingAn && app.globalData.pingAnBindGuests && item.status === 1 && app.globalData.isShowOncepingAnBindGuestsPop === 0 && index === 0) {
                     if (app.globalData.pingAnBindGuests.vehKeys === '*' || (app.globalData.pingAnBindGuests.vehKeys.includes(item.vehPlates.substring(0, 1)) && !app.globalData.pingAnBindGuests.filterKeys.includes(item.vehPlates.substring(0, 2)))) {
-                        this.setData({
-                            PingAn: true
-                        });
-                        if (item.vehPlates.includes('云') && app.globalData.isShowOncepingAnBindGuestsPop === 0 && index === 0) {
-                            app.globalData.isShowOncepingAnBindGuestsPop = 1;
-                            this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)'});
-                        }
-                    }
-                    if (!item.vehPlates.includes('云') && app.globalData.pingAnBindGuests.vehKeys === '*' && app.globalData.isShowOncepingAnBindGuestsPop === 0 && index === 0) {
+                        this.setData({PingAn: true});
                         app.globalData.isShowOncepingAnBindGuestsPop = 1;
-                        this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)'});
+                        if (item.vehPlates.includes('云')) {
+                            this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)'});
+                        } else {
+                            this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)'});
+                        }
                     }
                 }
                 item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
@@ -1045,14 +1041,12 @@ Page({
             }
             const terminationOrder = passengerCarList.find(item => item.selfStatus === 1); // 查询客车第一条解约订单
             const terminationTruckOrder = truckList.find(item => item.selfStatus === 1); // 查询货车第一条解约订单
-            const isAllActivation = activationOrder.length === passengerCarList
-                .length; // 是否客车全是激活订单 - true: 展示账单单状态
-            const isAllActivationTruck = activationTruckOrder.length === truckList
-                .length; // 是否货车全是激活订单 - true: 展示账单单状态
+            const isAllActivation = activationOrder.length === passengerCarList.length; // 是否客车全是激活订单 - true: 展示账单单状态
+            const isAllActivationTruck = activationTruckOrder.length === truckList.length; // 是否货车全是激活订单 - true: 展示账单单状态
             activationOrder = [...new Set(activationOrder)];
             activationTruckOrder = [...new Set(activationTruckOrder)];
             // 是否全是激活订单  是 - 拉取第一条订单  否 - 过滤激活订单,拉取第一条
-            const passengerCarListNotActivation = isAllActivation ? passengerCarList[0] : passengerCarList.filter(item => item.selfStatus !== 12)[0];
+            const passengerCarListNotActivation = isAllActivation ? passengerCarList[0] : passengerCarList.filter(item => item.selfStatus !== 12 && item.selfStatus !== 33)[0];
             const passengerCarListNotTruckActivation = isAllActivationTruck ? truckList[0] : truckList.filter(item => item.selfStatus !== 12)[0];
             app.globalData.isArrearageData.trucksOrderList = truckActivationOrderList;
 

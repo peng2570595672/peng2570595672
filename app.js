@@ -1,6 +1,7 @@
 // 是否为测试 TODO
-export const IS_TEST = false; // false为正式接口地址，true为测试接口地址
+export const IS_TEST = true; // false为正式接口地址，true为测试接口地址
 const util = require('./utils/util.js');
+const definedData = require('./utils/dataStatement.js');
 const uma = require('./utils/umtrack-wx.js');
 App({
 	umengConfig: {
@@ -133,16 +134,7 @@ App({
 		isVip: undefined,	// 收取综合服务费的用户：  true表示是，false表示不是
 		handledByTelephone: undefined,	// 4.0办理人的电话
 		newEnergy: false,	// false 表示不是新能源车牌
-		cictBankObj: {	// 中信对象
-			citicBankshopProductId: IS_TEST ? '1108398050782486528' : '1109116737144102912',	// 中信银行套餐的金卡套餐ID 分别是测试环境下和正式环境下
-			citicBankShopshopProductId: IS_TEST ? '1108397635760300032' : '1109116407530528768',	// 中信银行里的白金套餐的套餐ID 分别是测试环境下和正式环境下
-			citicBankRightId: IS_TEST ? '1092482405515665408' : '1117833250457919488',	// 银行签约后独立权益ID
-			wellBankShopProductId: IS_TEST ? '1126085154731728896' : '1129091866749968384',	// 平安信用卡套餐ID
-			cictBankNmGoldCard: IS_TEST ? '1160975248860913664' : '1151475676992905216',	// 中信银行蒙通卡套餐的金卡套餐ID 分别是测试环境下和正式环境下
-			cictBankNmPlatinumCard: IS_TEST ? '1160975461608595456' : '1151526287054610432',	// 中信银行蒙通卡套餐的白金卡套餐ID 分别是测试环境下和正式环境下
-			minshenBank: IS_TEST ? '1188851910218620928' : '1199301561518923776',	// 民生银行 分别是测试环境下和正式环境下
-			citicBankshopProductIds: IS_TEST ? ['1108398050782486528','1108397635760300032','1160975248860913664','1160975461608595456','1126085154731728896','1188851910218620928'] : ['1109116737144102912','1109116407530528768','1151475676992905216','1151526287054610432','1129091866749968384','1199301561518923776']	// 套餐ID集合
-		},
+		cictBankObj: definedData.cictBankObj,	// 银行对象
 		alertNotice: {
 			imgAlert: 0,
 			textAlert: 0
@@ -159,6 +151,7 @@ App({
 			shopProductId: IS_TEST ? '1122919688035115008' : ''	// 通行权益金套餐ID
 		},
 		pingAnBindGuests: undefined,	// 平安绑客合作机构开头的车牌号 '豫','川'
+		pingAnBindVehplates: [],	// 满足平安侧行驶证三要素信息的车牌
 		isShowOncepingAnBindGuestsPop: 0,
 		isTest: IS_TEST,
 		isAlertToSign: false,

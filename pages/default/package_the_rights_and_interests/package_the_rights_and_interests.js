@@ -239,12 +239,6 @@ Page({
             this.setData({
                 listOfPackages: [result.data]
             });
-            // 银行信用卡
-            if (this.data.citicBankshopProductIds.includes(result.data.shopProductId)) {
-                this.setData({
-                    citicBank: true
-                });
-            }
             this.getNodeHeight(this.data.listOfPackages.length);
         } else {
             util.showToastNoIcon(result.message);
@@ -600,32 +594,32 @@ Page({
             util.showToastNoIcon(result.message);
         }
     },
-    // 轮播图滚动后回调
-    async currentChange (e) {
-        this.setData({
-            isSelected: false,
-            choiceIndex: -1,
-            activeEquitiesIndex: -1,
-            rightsAndInterestsList: [],
-            activeIndex: e.detail.current
-        });
-        if (this.data.listOfPackages[this.data.activeIndex]?.rightsPackageIds?.length) {
-            // 获取权益
-            await this.getList(this.data.listOfPackages[this.data.activeIndex]);
-        }
-    },
+    // // 轮播图滚动后回调
+    // async currentChange (e) {
+    //     this.setData({
+    //         isSelected: false,
+    //         choiceIndex: -1,
+    //         activeEquitiesIndex: -1,
+    //         rightsAndInterestsList: [],
+    //         activeIndex: e.detail.current
+    //     });
+    //     if (this.data.listOfPackages[this.data.activeIndex]?.rightsPackageIds?.length) {
+    //         // 获取权益
+    //         await this.getList(this.data.listOfPackages[this.data.activeIndex]);
+    //     }
+    // },
     // 点击轮播图
-    async onClickSwiper (e) {
-        let index = e.currentTarget.dataset['index'];
-        this.setData({
-            rightsAndInterestsList: [],
-            choiceIndex: index
-        });
-        if (this.data.listOfPackages[index]?.rightsPackageIds?.length) {
-            // 获取权益
-            await this.getList(this.data.listOfPackages[index]);
-        }
-    },
+    // async onClickSwiper (e) {
+    //     let index = e.currentTarget.dataset['index'];
+    //     this.setData({
+    //         rightsAndInterestsList: [],
+    //         choiceIndex: index
+    //     });
+    //     if (this.data.listOfPackages[index]?.rightsPackageIds?.length) {
+    //         // 获取权益
+    //         await this.getList(this.data.listOfPackages[index]);
+    //     }
+    // },
     async next () {
         if (this.data.choiceIndex === -1) return;
         if (!this.data.getAgreement) {
@@ -664,14 +658,27 @@ Page({
             }
         }
         // 银行信用卡 细则提示弹窗
-        if (obj1.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || obj1.shopProductId === app.globalData.cictBankObj.cictBankNmPlatinumCard || obj1.shopProductId === app.globalData.cictBankObj.minshenBank) {
+        if (obj1.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || obj1.shopProductId === app.globalData.cictBankObj.cictBankNmPlatinumCard || obj1.shopProductId === app.globalData.cictBankObj.minshenBank || obj1.shopProductId === app.globalData.cictBankObj.guangfaBank) {
+            // let subType = obj1.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId ? 1 : obj1.shopProductId === app.globalData.cictBankObj.cictBankNmPlatinumCard ? 2 : 3;
+            let subType = 0; // subType 1-中信 2-中信内蒙 3-民生 4-广发
+            switch (obj1.shopProductId) {
+                case app.globalData.cictBankObj.citicBankShopshopProductId:
+                    subType = 1; break;
+                case app.globalData.cictBankObj.cictBankNmPlatinumCard:
+                    subType = 2; break;
+                case app.globalData.cictBankObj.minshenBank:
+                    subType = 3; break;
+                case app.globalData.cictBankObj.guangfaBank:
+                    subType = 4; break;
+                default:
+                    break;
+            }
             this.selectComponent('#popTipComp').show({
                 type: 'five',
                 title: '活动细则',
                 btnCancel: '我再想想',
                 btnconfirm: '我知道了',
-                // subType 1-中信 2-平安 3-民生
-                subType: obj1.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId ? 1 : obj1.shopProductId === app.globalData.cictBankObj.cictBankNmPlatinumCard ? 2 : 3
+                subType: subType
             });
             return;
         }
@@ -932,8 +939,7 @@ Page({
             activeIndex: isFade ? index : -1,
             getAgreement: false,
             topProgressBar: isFade ? 2.4 : 2,
-            choiceIndex: isFade ? index : -1,
-            citicBank: this.data.citicBankshopProductIds.includes(this.data.listOfPackages[index].shopProductId)	// 判断是不是信用卡套餐
+            choiceIndex: isFade ? index : -1
         });
         if (isFade) { // 当套餐高亮时，默认展开 详情
             this.setData({
@@ -986,7 +992,8 @@ Page({
         let equityListMap = {
             defaultEquityList: [],	// 默认权益包列表
             addEquityList: [],	// 加购权益包列表
-            serviceEquityList: []	// 综合权益包
+            serviceEquityList: [],	// 综合权益包
+            bankList: [] // 信用卡套餐列表
         };
         let currentIndex = 0;
         for (currentIndex; currentIndex < num; currentIndex++) {
@@ -1055,6 +1062,13 @@ Page({
                     // 占位
                     equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
                 }
+            }
+            // 判断套餐是否为银行行用卡套餐
+            if (this.data.citicBankshopProductIds.includes(this.data.listOfPackages[currentIndex]?.shopProductId)) {
+                equityListMap.bankList.push({index: currentIndex,isBank: true});
+            } else {
+                // 占位
+                equityListMap.bankList.push({index: currentIndex,isBank: false});
             }
         }
         console.log(equityListMap);
