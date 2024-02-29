@@ -60,6 +60,7 @@ Page({
 		}
 		if (options.activityType) {
 			util.resetData();// 重置数据
+			wx.hideHomeButton();
 			// 活动引流
 			this.setData({
 				activityType: options.activityType,
@@ -953,6 +954,35 @@ Page({
 		if (!this.data.available || this.data.isRequest) {
 			return util.showToastNoIcon('请填写相关信息');
 		}
+		if (app.globalData.otherPlatformsServiceProvidersId === '1212436820283891712' || app.globalData.otherPlatformsServiceProvidersId === '841693649307312128') {
+			// 优行车服渠道
+			this.verifyCarnum();
+			return;
+		}
+		this.checkVehPlateExists();
+	},
+	verifyCarnum () {
+		const that = this;
+		wx.request({
+			url: `https://etc.linbohezi.cn/api/demo/verifyCarnum`,
+			data: {
+				carNum: this.data.carNoStr
+			},
+			method: 'GET',
+			header: {},
+			success (res) {
+				if (res.data.code === 200) {
+					that.checkVehPlateExists();
+				} else {
+					util.showToastNoIcon('该车牌暂不可办理，请联系优行服务');
+				}
+			},
+			fail (res) {
+				util.showToastNoIcon('校检接口调用失败,请联系优行服务');
+			}
+		});
+	},
+	async checkVehPlateExists () {
 		let formData = this.data.formData; // 输入信息
 		const res = await util.getDataFromServersV2('consumer/etc/qtzl/checkVehPlateExists', {
 			vehiclePlate: this.data.carNoStr,
