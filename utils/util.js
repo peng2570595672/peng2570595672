@@ -1880,7 +1880,7 @@ async function getBindGuests() {
     obj = result.data;
     const res = await getDataFromServersV2('consumer/order/displayAdvertisingVehplates', {}, 'POST', false);
     if (!res) return;
-    if (result.code === 0) {
+    if (res.code === 0) {
       obj.pingAnBindVehplates =  res.data.vehplates.join();
       app.globalData.pingAnBindGuests = obj
       return obj
