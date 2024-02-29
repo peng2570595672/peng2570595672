@@ -189,7 +189,8 @@ Page({
 			title: '退还结果',
 			btnCancel: '退出',
 			btnconfirm: '确认',
-			content: orderInfo.id ? '权益金退还成功' : '权益金退还失败\n请确保您的信用卡已激活且为新户!',
+			refundStatus: orderInfo.refundStatus,
+			content: orderInfo.refundStatus === 3 ? '权益金退还成功' : '权益金退还失败\n请确保您的信用卡已激活且为新户!',
 			bgColor: 'rgba(0,0,0, 0.6)'
 		});
 	},

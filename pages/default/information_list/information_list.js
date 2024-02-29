@@ -442,7 +442,15 @@ Page({
                 util.showToastNoIcon(res.message);
             }
         } else if (this.data.isGuangFaBank) { // 广发银行
-
+            let res = await util.getDataFromServersV2('consumer/order/apply/gf/bank-card', {
+                orderId: app.globalData.orderInfo.orderId
+            });
+            if (!res) return;
+            if (res.code === 0) {
+                util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data.applyUrl)}`);
+            } else {
+                util.showToastNoIcon(res.message);
+            }
         } else { // 中信银行
             if (this.data.isCiticBankPlatinum) {
                 url = `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?sid=SJCSJHT01&paId=${this.data.orderDetails.orderId}&partnerId=SJHT&pid=CS0840`;

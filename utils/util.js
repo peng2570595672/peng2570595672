@@ -1883,7 +1883,6 @@ async function getBindGuests() {
     if (result.code === 0) {
       obj.pingAnBindVehplates =  res.data.vehplates.join();
       app.globalData.pingAnBindGuests = obj
-      console.log(obj);
       return obj
     } else {
       showToastNoIcon(res.message);

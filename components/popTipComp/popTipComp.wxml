@@ -206,15 +206,15 @@
         <view class="module moduleThree" wx:if="{{tipObj.type === 'guangFaRefundStatus'}}">
             <view class="title">{{tipObj.title}}</view>
             <view class="contant">
-                <icon wx:if="{{tipObj.type === 'guangFaRefundStatus'}}" class="icon-box-img" style="display: block;" type="success" size="50" />
+                <icon wx:if="{{tipObj.refundStatus === 3}}" class="icon-box-img" style="display: block;" type="success" size="50" />
                 <icon wx:else class="icon-box-img" style="display: block;" type="warn" size="50" />
                 <text class="text2">{{tipObj.content}}</text>
-                <view wx:if="{{tipObj.type !== 'guangFaRefundStatus'}}" class="keepBank" catchtap="">信用卡办理失败?点击 "确认" 继续办理信用卡</view>
+                <view wx:if="{{tipObj.refundStatus !== 3}}" class="keepBank" catchtap="">信用卡办理失败?点击 "确认" 继续办理信用卡</view>
             </view>
-            <button class="btn" data-title="{{tipObj.title}}" catchtap="hide" wx:if="{{tipObj.type === 'guangFaRefundStatus'}}">{{tools.limitNumber(tipObj.btnconfirm,12)}}</button>
+            <button class="btn" wx:if="{{tipObj.refundStatus === 3}}" data-title="{{tipObj.title}}" catchtap="hide" >{{tools.limitNumber(tipObj.btnconfirm,12)}}</button>
             <view class="bottomBtn" wx:else>
                 <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
-                <view class="ok" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
+                <view class="ok" catchtap="guanFaFunc">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
             </view>
         </view>
         <!-- 带标题 只有一个按钮 -->

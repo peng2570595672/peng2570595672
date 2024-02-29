@@ -190,6 +190,19 @@ Component({
 		callBackPub () {
 			this.hide(false);
 			this.data.tipObj.callBack();
+		},
+		async guanFaFunc () {
+			let that = this;
+			let res = await util.getDataFromServersV2('consumer/order/apply/gf/bank-card', {
+                orderId: app.globalData.orderInfo.orderId
+            });
+            if (!res) return;
+            if (res.code === 0) {
+                util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data.applyUrl)}`);
+                that.hide(false);
+            } else {
+                util.showToastNoIcon(res.message);
+            }
 		}
 
 	}
