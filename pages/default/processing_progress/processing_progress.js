@@ -327,7 +327,7 @@ Page({
 				// 平安获客 礼品弹窗
 				let isShowpAPop = wx.getStorageSync('isShowpAPop');
 				if (!app.globalData.isQingHaiHighSpeed && !isShowpAPop) {
-					if (app.globalData.pingAnBindVehplates.includes(res.data.vehPlates) && (this.data.firstCar.vehKeys === '*' || (this.data.firstCar.vehKeys.includes(res.data.vehPlates.substring(0,1)) && !this.data.firstCar.filterKeys.includes(res.data.vehPlates.substring(0,2))))) {
+					if (this.data.firstCar.pingAnBindVehplates.includes(res.data.vehPlates) && (this.data.firstCar.vehKeys === '*' || (this.data.firstCar.vehKeys.includes(res.data.vehPlates.substring(0,1)) && !this.data.firstCar.filterKeys.includes(res.data.vehPlates.substring(0,2))))) {
 						wx.setStorageSync('isShowpAPop',true);
 						// this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '礼品领取',bgColor: 'rgba(42, 80, 68, 0.7)'});
 						if (this.data.info?.vehPlates.includes('云')) {
@@ -738,7 +738,7 @@ Page({
 			wx.hideLoading();
 		}, (res) => {
 			if (res.code === 0) {
-				if (res.data.refundStatus === 5) {
+				if (res.data.refundStatus === 3) {
 					util.go(`/pages/bank_card/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${true}&shopProductId=${this.data.info.shopProductId}`);
 				} else {
 					util.go(`/pages/bank_card/citic_bank_pay_res/citic_bank_pay_res?cictBankPayStatus=${false}&shopProductId=${this.data.info.shopProductId}`);

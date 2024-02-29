@@ -315,7 +315,12 @@ Page({
 	// 跳转平安绑客
 	goPingAn () {
 		// 授权提醒
-		this.selectComponent('#popTipComp').show({type: 'bingGuttesBill',title: '礼品领取',bgColor: 'rgba(0,0,0,0.65)'});
+		// this.selectComponent('#popTipComp').show({type: 'bingGuttesBill',title: '礼品领取',bgColor: 'rgba(0,0,0,0.65)'});
+		if (this.data.details?.vehPlates.includes('云')) {
+			this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)'});
+		} else {
+			this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)'});
+		}
 	},
 	onUnload () {
 		app.globalData.billingDetails = undefined;

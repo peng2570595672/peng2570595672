@@ -191,7 +191,7 @@
         </view>
 
         <!-- 退还金额说明 - 信用卡 -->
-         <view class="module moduleThree" wx:if="{{tipObj.type === 'returnEquityFunds'}}">
+        <view class="module moduleThree" wx:if="{{tipObj.type === 'returnEquityFunds'}}">
             <view class="title">{{tipObj.title}}</view>
             <view class="contant">
                 <text>请确保您已成功办理信用卡且激活，并且是该银行新客户，请用新信用卡完成退还校验，否则退还将失败！\n</text>
@@ -202,7 +202,21 @@
                 <view class="ok" catchtap="callBackPub">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
             </view>
         </view>
-
+        <!-- 广发信用卡套餐退还状态查询 -->
+        <view class="module moduleThree" wx:if="{{tipObj.type === 'guangFaRefundStatus'}}">
+            <view class="title">{{tipObj.title}}</view>
+            <view class="contant">
+                <icon wx:if="{{tipObj.type === 'guangFaRefundStatus'}}" class="icon-box-img" style="display: block;" type="success" size="50" />
+                <icon wx:else class="icon-box-img" style="display: block;" type="warn" size="50" />
+                <text class="text2">{{tipObj.content}}</text>
+                <view wx:if="{{tipObj.type !== 'guangFaRefundStatus'}}" class="keepBank" catchtap="">信用卡办理失败?点击 "确认" 继续办理信用卡</view>
+            </view>
+            <button class="btn" data-title="{{tipObj.title}}" catchtap="hide" wx:if="{{tipObj.type === 'guangFaRefundStatus'}}">{{tools.limitNumber(tipObj.btnconfirm,12)}}</button>
+            <view class="bottomBtn" wx:else>
+                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+                <view class="ok" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
+            </view>
+        </view>
         <!-- 带标题 只有一个按钮 -->
         <view class="module moduleOne" wx:if="{{tipObj.type === 'oneBtn'}}">
             <view class="title" wx:if="{{tipObj.title}}">{{tipObj.title}}</view>

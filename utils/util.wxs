@@ -163,12 +163,12 @@ function dataIncludes(originalData,includesParams,type) {
     return false
   }
   if (type === 1) {
-    if (includesParams.vehKeys === '*') {
+    if (includesParams.vehKeys === '*' && includesParams.pingAnBindVehplates.indexOf(originalData)) {
       return true
     }
     var arr1 = includesParams.vehKeys.split(',');
     var arr2 = includesParams.filterKeys.split(',');
-    var flag = (arr1.indexOf(originalData.substring(0,1)) !== -1) && (arr2.indexOf(originalData.substring(0,2)) === -1);
+    var flag = (arr1.indexOf(originalData.substring(0,1)) !== -1) && (arr2.indexOf(originalData.substring(0,2)) === -1) && includesParams.pingAnBindVehplates.indexOf(originalData) !== -1;
     return flag
   }
   if (type === 2) { //信用卡模式细节优化

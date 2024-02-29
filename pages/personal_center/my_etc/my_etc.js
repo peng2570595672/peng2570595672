@@ -178,9 +178,20 @@ Page({
 			27: () => this.onClickContinueHandle(orderInfo), // 修改资料
 			28: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
 			30: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度 - 保证金退回
-			31: () => this.handleJumpHunanMini(orderInfo.id) // 跳转到湖南高速ETC小程序 - 已支付待激活
+			31: () => this.handleJumpHunanMini(orderInfo.id), // 跳转到湖南高速ETC小程序 - 已支付待激活
+			33: () => this.showRefundStatus(orderInfo)	// 查看广发订单退款状态
 		};
 		fun[orderInfo.selfStatus].call();
+	},
+	showRefundStatus (orderInfo) {
+		this.selectComponent('#popTipComp').show({
+			type: 'guangFaRefundStatus',
+			title: '退还结果',
+			btnCancel: '退出',
+			btnconfirm: '确认',
+			content: orderInfo.id ? '权益金退还成功' : '权益金退还失败\n请确保您的信用卡已激活且为新户!',
+			bgColor: 'rgba(0,0,0, 0.6)'
+		});
 	},
 	async handleJumpHunanMini (orderId) {
 		const result = await util.getDataFromServersV2('consumer/order/order-pay-transaction-info', {orderId: orderId});

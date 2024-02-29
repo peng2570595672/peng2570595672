@@ -893,7 +893,7 @@ function getStatus(orderInfo) {
   	return 11; //  待激活
   }
   if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
-    if ((app.globalData.cictBankObj.citicBankshopProductIds.includes(orderInfo.shopProductId) || (orderInfo.orderType === 31 && orderInfo.productName?.includes('中信') && orderInfo.pledgeType === 2)) && orderInfo.refundStatus !== 5) {
+    if ((app.globalData.cictBankObj.citicBankshopProductIds.includes(orderInfo.shopProductId) || (orderInfo.orderType === 31 && orderInfo.productName?.includes('中信') && orderInfo.pledgeType === 2)) && orderInfo.refundStatus !== 3) {
       if (app.globalData.cictBankObj.guangfaBank === orderInfo.shopProductId) { // 广发订单
         return 33
       }
@@ -1873,26 +1873,25 @@ let channelNameMap = {
 };
 // 获取平安绑车车牌列表
 async function getBindGuests() {
+  let obj = undefined;
   const result = await getDataFromServersV2('consumer/order/pingan/get-bind-veh-keys', {}, 'POST', false);
-  
   if (!result) return;
   if (result.code === 0) {
-    app.globalData.pingAnBindGuests = result.data;
-    getBindVehplates();
-    return result.data;
+    obj = result.data;
+    const res = await getDataFromServersV2('consumer/order/displayAdvertisingVehplates', {}, 'POST', false);
+    if (!res) return;
+    if (result.code === 0) {
+      obj.pingAnBindVehplates =  res.data.vehplates.join();
+      app.globalData.pingAnBindGuests = obj
+      console.log(obj);
+      return obj
+    } else {
+      showToastNoIcon(res.message);
+    }
   } else {
     showToastNoIcon(result.message);
   }
 };
-async function getBindVehplates() {
-  const result = await getDataFromServersV2('consumer/order/displayAdvertisingVehplates', {}, 'POST', false);
-  if (!result) return;
-  if (result.code === 0) {
-    app.globalData.pingAnBindVehplates = result.data.vehplates;
-  } else {
-    showToastNoIcon(result.message);
-  }
-}
 // 日志
 async function getFollowRequestLog(params) {
   await getDataFromServersV2('consumer/order/followRequestLog', params, 'POST', false);
