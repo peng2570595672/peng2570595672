@@ -138,7 +138,9 @@
                 "prefer_purchase/prefer_purchase",
                 "buy_success/buy_success",
                 "associated_license_plate/associated_license_plate",
-                "citic_bank_pay_success/citic_bank_pay_success"
+                "citic_bank_pay_success/citic_bank_pay_success",
+                "sing_9901_success/sing_9901_success"
+
             ]
         },
         {
@@ -333,6 +335,7 @@
                 "vehicle_inquire/vehicle_inquire",
                 "hunan/genvict/genvict",
                 "hunan/juli/juli",
+                "hunan/pro9901/pro9901",
                 "hunan/watchdata/watchdata",
                 "hunan/watchdata_plugn/watchdata_plugn",
                 "hunan/zhongluweilai/zhongluweilai",

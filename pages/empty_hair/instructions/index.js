@@ -5,7 +5,8 @@ Page({
 	},
 	onLoad (options) {
 		this.setData({
-			auditStatus: +options.auditStatus
+			auditStatus: +options.auditStatus,
+			is9901: options.pro9901
 		});
 		wx.canIUse('setBackgroundColor') && wx.setBackgroundColor({
 			backgroundColor: '#fff',
@@ -13,10 +14,18 @@ Page({
 		});
 	},
 	onShow () {
+		if (this.data.is9901) {
+			console.log('9901套餐激活');
+		}
 	},
 	next () {
 		if (this.data.auditStatus !== 2) {
 			util.showToastNoIcon('审核通过后才能激活');
+			return;
+		}
+		// 9901 套餐跳转激活
+		if (this.data.is9901) {
+			util.go('/pages/obu_activate/hunan/pro9901/pro9901');
 			return;
 		}
 		wx.navigateToMiniProgram({

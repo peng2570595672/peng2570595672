@@ -239,8 +239,10 @@ Page({
         // 	util.showToastNoIcon('身份证与行驶证必须为同一持有人');
         // 	return;
         // }
-        if (this.data.is9901) {
+        if (this.data.is9901 && !this.data.canGoSign) {
+            // this.weChatSigningOk(); // 签约成功 跳转成功页面
             this.is9901_1();
+            // util.go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
             return;
         }
         if (!this.data.available) return;
@@ -324,7 +326,7 @@ Page({
             });
         }
     },
-    // is9901_1 接口
+    // is9901_1 接口 设备预检
     async is9901_1 () {
         util.showLoading('加载中');
         let orderId = app.globalData.orderInfo.orderId; // 订单id
@@ -338,26 +340,31 @@ Page({
         });
         if (!result) return;
         if (result.code === 0) {
+            this.is9901_2();
             util.showToastNoIcon(result.message);
         } else {
             this.is9901_2();
             util.showToastNoIcon(result.message);
         }
     },
-    // is9901_2 接口
+    // is9901_2 接口 签约
     async is9901_2 () {
         util.showLoading('加载中');
         let orderId = app.globalData.orderInfo.orderId; // 订单id
         const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/signChannel', {
-            orderId
+            orderId,
+            redirectUrl: `pages/separate_interest_package/citic_bank_pay_success/citic_bank_pay_success?orderId=${orderId}&is9901=true`
         });
         this.setData({
-            isRequest: false
+            isRequest: false,
+            canGoSign: true
         });
         if (!result) return;
         if (result.code === 0) {
             util.showToastNoIcon(result.message);
+            this.subscribe(); // 回到准备签约
         } else {
+            this.subscribe();
             util.showToastNoIcon(result.message);
         }
     },
@@ -408,7 +415,6 @@ Page({
             }
             if (this.data.is9901) {
                 console.log('签约成功了 要去指定页面');
-                util.go(`/pages/bank_card/citicBank_processing_progress/citicBank_processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
                 return;
             }
             if (this.data.contractStatus === 1 || this.data.isModifiedData) {
@@ -425,11 +431,9 @@ Page({
             util.showToastNoIcon(result.message);
         }
     },
-    // 9901 套餐签约成 2.0 回调 跳转
+    // 9901 套餐签约成功 2.0 回调 跳转
     weChatSigningOk () {
-        if (this.data.is9901) {
-            util.go(`/pages/bank_card/citicBank_processing_progress/citicBank_processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
-        }
+        util.go(`/pages/separate_interest_package/sing_9901_success/sing_9901_success?orderId=${app.globalData.orderInfo.orderId}&pro9901`);
     },
     // 中信银行的 提交 按钮
     submitCiticBank () {

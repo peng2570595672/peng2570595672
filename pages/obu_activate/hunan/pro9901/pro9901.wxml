@@ -1,0 +1,5 @@
+<import src="/pages/obu_activate/template/second_issue_ui/second_issue_ui.wxml"/>
+<view>
+	<template is="secondIssueUI" data="{{...ui}}"/>
+</view>
+<privacy_popup></privacy_popup>

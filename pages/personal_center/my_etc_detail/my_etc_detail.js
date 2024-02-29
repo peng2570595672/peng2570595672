@@ -657,7 +657,7 @@ Page({
       return util.go(`/pages/${path}/receiving_address/receiving_address?perfect=1&shopId=${orderInfo.shopId}&orderId=${orderInfo.id}`);
 		}
 		// 9901 套餐 进入证件上传需要带标识
-		if (this.data.orderInfo?.shopProductId === '1210255905172496384') {
+		if (orderInfo.shopProductId === '1210255905172496384') {
 			util.go(`/pages/${path}/information_list/information_list?pro9901=true`);
 	}
 		util.go(`/pages/${path}/information_list/information_list`);
@@ -720,6 +720,12 @@ Page({
 			carNoStr: obj.vehPlates,
 			obuStatus: obj.obuStatus
 		});
+		let is9901 = obj.shopProductId === '1210255905172496384' ? true : false; // 通过套餐id 判断是否9901 套餐
+		if (obj.obuCardType === 1 && is9901) {
+			util.go(`/pages/empty_hair/instructions/index?auditStatus=${obj.auditStatus}&pro9901=true`);
+			console.log('黔通卡 9901套餐');
+			return;
+		}
 		switch (obj.obuCardType) {
 			case 1:// 贵州 黔通卡
 			case 21:

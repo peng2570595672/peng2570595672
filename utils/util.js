@@ -1242,12 +1242,6 @@ function weChatSigning(data) {
         showToastNoIcon('调起车主服务签约失败, 请重试！');
       },
       success(res) {
-        // 在这里编写打开小程序成功后的逻辑
-        alert({
-          content: res + '签约成功',
-          showCancel: true,
-          cancel: () => {}
-        });
       },
     });
   } else if (data.version === 'v2') { // 签约车主服务 2.0
@@ -1260,11 +1254,6 @@ function weChatSigning(data) {
       },
       success(res) {
         // 在这里编写打开小程序成功后的逻辑
-        alert({
-          content: res + '签约成功',
-          showCancel: true,
-          cancel: () => {}
-        });
       },
     });
   } else { // 签约车主服务 3.0
@@ -1278,12 +1267,7 @@ function weChatSigning(data) {
       },
       success(res) {
         // 在这里编写打开小程序成功后的逻辑
-        alert({
-          content: res + '签约成功',
-          showCancel: true,
-          cancel: () => {}
-        });
-
+				showToastNoIcon('调起车主服务签约成功');
       },
 
     })

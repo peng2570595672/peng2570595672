@@ -1,4 +1,6 @@
-import {jumpCouponMini} from '../../../utils/utils';
+import {
+	jumpCouponMini
+} from '../../../utils/utils';
 
 /**
  * @author 狂奔的蜗牛
@@ -19,24 +21,25 @@ Page({
 		showDetailWrapper: false,
 		showDetailMask: false,
 		memberId: '',
-		rechargeId: '',// 预充保证金id
-		requestNum: 0,// 请求次数
+		rechargeId: '', // 预充保证金id
+		requestNum: 0, // 请求次数
 		weiBaoOrderId: '',
 		isSalesmanPrecharge: false,
 		showCouponWrapper: false,
 		showCouponMask: false,
-		prechargeInfo: '',// 预充流程,预充信息
+		prechargeInfo: '', // 预充流程,预充信息
 		disclaimerDesc: app.globalData.disclaimerDesc,
-		citicBankshopProductIds: app.globalData.cictBankObj.citicBankshopProductIds,	// 信用卡套餐集合
-		cictBail: false,	// 中信保证金
+		citicBankshopProductIds: app.globalData.cictBankObj.citicBankshopProductIds, // 信用卡套餐集合
+		cictBail: false, // 中信保证金
 		isWellBank: false, // 平安信用卡
 		isQingHaiHighSpeed: false, // 是否是青海办理进入
-		firstCar: app.globalData.pingAnBindGuests	// 平安获客
+		firstCar: app.globalData.pingAnBindGuests // 平安获客
 	},
 	async onLoad (options) {
 		this.setData({
 			isContinentInsurance: app.globalData.isContinentInsurance || app.globalData.isPingAn,
-			isQingHaiHighSpeed: app.globalData.isQingHaiHighSpeed
+			isQingHaiHighSpeed: app.globalData.isQingHaiHighSpeed,
+			is9901: options.pro9901
 		});
 		if (options.orderId) {
 			this.setData({
@@ -56,7 +59,9 @@ Page({
 			this.login();
 		} else {
 			if (!this.data.firstCar) {
-				this.setData({firstCar: await util.getBindGuests()});
+				this.setData({
+					firstCar: await util.getBindGuests()
+				});
 			}
 			this.getProcessingProgress();
 			await this.getQueryProcessInfo();
@@ -116,7 +121,9 @@ Page({
 						app.globalData.memberId = res.data.memberId;
 						app.globalData.mobilePhone = res.data.mobilePhone;
 						if (!this.data.firstCar) {
-							this.setData({firstCar: await util.getBindGuests()});
+							this.setData({
+								firstCar: await util.getBindGuests()
+							});
 						}
 						await this.getProcessingProgress();
 						await this.getQueryProcessInfo();
@@ -249,7 +256,7 @@ Page({
 			let date = new Date();
 			let mouth = date.getMonth() + 1;
 			let time = date.getFullYear() + '-' + util.formatNumber(mouth) + '-' + util.formatNumber(date.getDate());
-			if (this.data.info.contractTime && time === this.data.info.contractTime.substring(0,10)) {
+			if (this.data.info.contractTime && time === this.data.info.contractTime.substring(0, 10)) {
 				params['salesmanId'] = this.data.info.shopUserId;
 			}
 		}
@@ -325,13 +332,21 @@ Page({
 				// 平安获客 礼品弹窗
 				let isShowpAPop = wx.getStorageSync('isShowpAPop');
 				if (!app.globalData.isQingHaiHighSpeed && !isShowpAPop) {
-					if (this.data.firstCar.vehKeys === '*' || (this.data.firstCar.vehKeys.includes(res.data.vehPlates.substring(0,1)) && !this.data.firstCar.filterKeys.includes(res.data.vehPlates.substring(0,2)))) {
-						wx.setStorageSync('isShowpAPop',true);
+					if (this.data.firstCar.vehKeys === '*' || (this.data.firstCar.vehKeys.includes(res.data.vehPlates.substring(0, 1)) && !this.data.firstCar.filterKeys.includes(res.data.vehPlates.substring(0, 2)))) {
+						wx.setStorageSync('isShowpAPop', true);
 						// this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '礼品领取',bgColor: 'rgba(42, 80, 68, 0.7)'});
 						if (this.data.info?.vehPlates.includes('云')) {
-							this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)'});
+							this.selectComponent('#popTipComp').show({
+								type: 'newPop',
+								title: '云',
+								bgColor: 'rgba(0,0,0, 0.6)'
+							});
 						} else {
-							this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)'});
+							this.selectComponent('#popTipComp').show({
+								type: 'newPop',
+								title: '全国',
+								bgColor: 'rgba(0,0,0, 0.6)'
+							});
 						}
 					}
 				}
@@ -355,16 +370,14 @@ Page({
 				util.hideLoading();
 				util.showToastNoIcon(res.message);
 			}
-		}, app.globalData.userInfo.accessToken, () => {
-		});
+		}, app.globalData.userInfo.accessToken, () => {});
 	},
 	// 刷新1分钱核验
 	refreshCheck () {
 		util.showLoading();
 		util.getDataFromServer('consumer/order/order-verification-status-refresh', {
 			orderVerificationId: this.data.info.orderVerificationId
-		}, () => {
-		}, (res) => {
+		}, () => {}, (res) => {
 			if (res.code === 0) {
 				this.setData({
 					accountVerification: res.data.status,
@@ -469,7 +482,7 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/query-contract', {
 			orderId: obj.id
 		});
-		console.log('3',result);
+		console.log('3', result);
 		if (!result) return;
 		if (result.code === 0) {
 			app.globalData.signAContract = 1;
@@ -542,7 +555,7 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/order-detail', {
 			orderId: this.data.orderId
 		});
-		let res = await util.getDataFromServersV2('consumer/order/common/get-member-by-carno',{
+		let res = await util.getDataFromServersV2('consumer/order/common/get-member-by-carno', {
 			carNo: result.data.vehPlates,
 			vehColor: result.data.vehColor
 		});
@@ -554,17 +567,17 @@ Page({
 			orderId: obj.id,
 			mobilePhone: app.globalData.userInfo.mobilePhone,
 			channel: obj.obuCardType,
-			qtLimit: qtLimit,// 青通卡激活所需
+			qtLimit: qtLimit, // 青通卡激活所需
 			serverId: obj.shopId,
 			carNoStr: obj.vehPlates,
 			obuStatus: obj.obuStatus
 		});
 		switch (obj.obuCardType) {
-			case 1:// 贵州 黔通卡
+			case 1: // 贵州 黔通卡
 			case 21:
 				util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${obj.auditStatus}`);
 				break;
-			case 2:// 内蒙 蒙通卡
+			case 2: // 内蒙 蒙通卡
 			case 23: // 河北交投
 				if (!this.data.choiceEquipment) {
 					this.setData({
@@ -573,16 +586,16 @@ Page({
 				}
 				this.data.choiceEquipment.switchDisplay(true);
 				break;
-			case 3:	// 山东 鲁通卡
-			case 9:	// 山东 齐鲁通卡
+			case 3: // 山东 鲁通卡
+			case 9: // 山东 齐鲁通卡
 				util.go(`/pages/empty_hair/instructions_ujds/index?auditStatus=${obj.auditStatus}`);
 				break;
-			case 4:	// 青海 青通卡
-			case 5:// 天津 速通卡
-			case 10:// 湖南 湘通卡
+			case 4: // 青海 青通卡
+			case 5: // 天津 速通卡
+			case 10: // 湖南 湘通卡
 				util.go(`/pages/obu_activate/neimeng_choice/neimeng_choice?obuCardType=${obj.obuCardType}`);
 				break;
-			case 8:	// 辽宁 辽通卡
+			case 8: // 辽宁 辽通卡
 				util.go(`/pages/empty_hair/instructions_lnnk/index?auditStatus=${obj.auditStatus}`);
 				break;
 		}
@@ -606,21 +619,28 @@ Page({
 	},
 	goInstallationTutorial () {
 		let channel = this.data.info?.obuCardType;
+		// 通过套餐id 判断是否9901 套餐
+		let is9901 = this.data.info?.shopProductId === '1210255905172496384' ? true : false;
+		if (channel === 1 && is9901) { // 黔通卡 9901套餐
+			util.go(`/pages/empty_hair/instructions/index?auditStatus=${obj.auditStatus}&pro9901=true`);
+			console.log('黔通卡 9901套餐');
+			return;
+		}
 		switch (channel) {
-			case 1:	// 贵州 黔通卡
+			case 1: // 贵州 黔通卡
 				util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${this.data.info.auditStatus}`);
 				break;
-			case 8:	// 辽宁 辽通卡
+			case 8: // 辽宁 辽通卡
 				util.go(`/pages/empty_hair/instructions_lnnk/index?auditStatus=${this.data.info.auditStatus}`);
 				break;
-			case 3:	// 山东 鲁通卡
-			case 9:	// 山东 齐鲁通卡
+			case 3: // 山东 鲁通卡
+			case 9: // 山东 齐鲁通卡
 				util.go(`/pages/empty_hair/instructions_ujds/index?auditStatus=${this.data.info.auditStatus}`);
 				break;
-			case 2:	// 蒙通卡
+			case 2: // 蒙通卡
 				util.go(`/pages/empty_hair/neimeng_installation_tutorial/neimeng_installation_tutorial?auditStatus=${this.data.info.auditStatus}`);
 				break;
-			default:	// 其他需要我们自己激活的省
+			default: // 其他需要我们自己激活的省
 				util.go(`/pages/empty_hair/instructions/index?auditStatus=${this.data.info.auditStatus}`);
 		}
 	},
@@ -674,10 +694,12 @@ Page({
 	// 保证金退回
 	async bailReturn () {
 		if (this.data.isRequest) return;
-		this.setData({isRequest: true});
+		this.setData({
+			isRequest: true
+		});
 		const params = {
 			tradeType: 1,
-			packageId: app.globalData.cictBankObj.citicBankRightId,	// 权益ID
+			packageId: app.globalData.cictBankObj.citicBankRightId, // 权益ID
 			openId: app.globalData.userInfo.openId,
 			orderId: this.data.orderId,
 			creditCardTag: this.data.isWellBank ? 2 : app.globalData.cictBankObj.minshenBank.includes(this.data.info.shopProductId) ? 3 : 1 // 信用卡标识：1.中信信用卡，2.平安信用卡，3.民生信用卡
@@ -691,7 +713,9 @@ Page({
 
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/independent-rights-buy', params);
 		if (!result) {
-			this.setData({isRequest: false});
+			this.setData({
+				isRequest: false
+			});
 			return;
 		}
 		if (result.code === 0) {
@@ -703,7 +727,9 @@ Page({
 				signType: extraData.signType,
 				timeStamp: extraData.timeStamp,
 				success: (res) => {
-					this.setData({isRequest: false});
+					this.setData({
+						isRequest: false
+					});
 					if (res.errMsg === 'requestPayment:ok') {
 						wx.showLoading({
 							mask: true,
@@ -717,14 +743,18 @@ Page({
 					}
 				},
 				fail: (res) => {
-					this.setData({isRequest: false});
+					this.setData({
+						isRequest: false
+					});
 					if (res.errMsg !== 'requestPayment:fail cancel') {
 						util.showToastNoIcon('支付失败');
 					}
 				}
 			});
 		} else {
-			this.setData({isRequest: false});
+			this.setData({
+				isRequest: false
+			});
 			util.showToastNoIcon(result.message);
 		}
 	},
@@ -753,14 +783,24 @@ Page({
 		// 授权提醒
 		// this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '礼品领取',bgColor: 'rgba(42, 80, 68, 0.7)'});
 		if (this.data.info?.vehPlates.includes('云')) {
-			this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)'});
+			this.selectComponent('#popTipComp').show({
+				type: 'newPop',
+				title: '云',
+				bgColor: 'rgba(0,0,0, 0.6)'
+			});
 		} else {
-			this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)'});
+			this.selectComponent('#popTipComp').show({
+				type: 'newPop',
+				title: '全国',
+				bgColor: 'rgba(0,0,0, 0.6)'
+			});
 		}
 	},
 	// 继续办理平安信用卡入口
 	async goPinAnH5 () {
-		let res = await util.getDataFromServersV2('/consumer/order/pingan/get-apply-credit-card-url',{orderId: this.data.orderId});
+		let res = await util.getDataFromServersV2('/consumer/order/pingan/get-apply-credit-card-url', {
+			orderId: this.data.orderId
+		});
 		if (!res) return;
 		if (res.code === 0) {
 			// 跳转 h5
