@@ -1314,20 +1314,7 @@ Page({
             app.globalData.orderInfo.orderId = '';
             wx.uma.trackEvent(this.data.activeIndex === 1 ? 'index_for_new_deal_with' : 'index_for_truck_new_deal_with');
             const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address' : '/pages/truck_handling/trucks/trucks';
-            if (app.globalData.renewWhitelist.includes(app.globalData.mobilePhone) && !wx.getStorageSync('renewWhitelist')) {
-                let that = this;
-                that.selectComponent('#popTipComp').show({
-                    type: 'renewWhitelist',
-                    title: '协议续签提醒',
-                    btnCancel: '不同意',
-                    btnconfirm: '同意',
-                    callBack: () => {
-                        util.go(url);
-                    }
-                });
-            } else {
-                util.go(url);
-            }
+            util.go(url);
             return;
         }
         if (orderInfo.isNewTrucks === 1 && orderInfo.status !== 1) {
@@ -1825,5 +1812,44 @@ Page({
         // wx.switchTab({
         //     url: `/pages/my/index`
         // });
-    }
+    },
+    // 针对特定号码 作续签弹窗提示
+	renewWhitelistJudgement (e) {
+		console.log(e);
+		let that = this;
+		let renew = e.currentTarget.dataset.renew;
+		if (app.globalData.renewWhitelist.includes(app.globalData.mobilePhone) && !wx.getStorageSync('renewWhitelist')) {
+			that.selectComponent('#popTipComp').show({
+				type: 'renewWhitelist',
+				title: '协议续签提醒',
+				btnCancel: '不同意',
+				btnconfirm: '同意',
+				callBack: () => {
+					if (renew === '1') {
+                        that.goToMyEtc(e);
+					} else if (renew === '3') {
+                        that.onClickVehicle();
+					} else if (renew === '6') {
+                        that.goPathBus(e);
+                    } else if (renew === '7') {
+                        that.onClickBill(e);
+                    } else {
+                        that.goPath(e);
+					}
+				}
+			});
+		} else {
+			if (renew === '1') {
+                that.goToMyEtc(e);
+            } else if (renew === '3') {
+                that.onClickVehicle();
+            } else if (renew === '6') {
+                that.goPathBus(e);
+            } else if (renew === '7') {
+                that.onClickBill(e);
+            } else {
+                that.goPath(e);
+            }
+		}
+	}
 });

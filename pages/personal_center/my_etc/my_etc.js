@@ -107,6 +107,41 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
+	// 针对特定号码 作续签弹窗提示
+	renewWhitelistJudgement (e) {
+		console.log(e);
+		let that = this;
+		let renew = e.currentTarget.dataset.renew;
+		if (app.globalData.renewWhitelist.includes(app.globalData.mobilePhone) && !wx.getStorageSync('renewWhitelist')) {
+			that.selectComponent('#popTipComp').show({
+				type: 'renewWhitelist',
+				title: '协议续签提醒',
+				btnCancel: '不同意',
+				btnconfirm: '同意',
+				callBack: () => {
+					if (renew === '1') {
+						that.onClickGoETCDetailHandle(e);
+					} else if (renew === '2') {
+						that.onClickVehicle(e);
+					} else if (renew === '3') {
+						that.onClickAddNewHandle(e);
+					} else {
+						that.onClickChoiceType(e);
+					}
+				}
+			});
+		} else {
+			if (renew === '1') {
+				that.onClickGoETCDetailHandle(e);
+			} else if (renew === '2') {
+				that.onClickVehicle(e);
+			} else if (renew === '3') {
+				that.onClickAddNewHandle(e);
+			} else {
+				that.onClickChoiceType(e);
+			}
+		}
+	},
 	onClickChoiceType (e) {
 		let activeIndex = parseInt(e.currentTarget.dataset.index);
 		wx.uma.trackEvent(activeIndex === 1 ? 'my_etc_for_tab_to_passenger_car' : 'my_etc_for_tab_to_truck');
@@ -420,20 +455,7 @@ Page({
 		app.globalData.orderInfo.orderId = '';
 		wx.uma.trackEvent(this.data.activeIndex === 1 ? 'my_etc_for_new_deal_with' : 'my_etc_for_truck_new_deal_with');
 		const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address' : '/pages/truck_handling/truck_receiving_address/truck_receiving_address';
-		if (app.globalData.renewWhitelist.includes(app.globalData.mobilePhone) && !wx.getStorageSync('renewWhitelist')) {
-			let that = this;
-			that.selectComponent('#popTipComp').show({
-				type: 'renewWhitelist',
-				title: '协议续签提醒',
-				btnCancel: '不同意',
-				btnconfirm: '同意',
-				callBack: () => {
-					util.go(url);
-				}
-			});
-		} else {
-			util.go(url);
-		}
+		util.go(url);
 	},
 	// 恢复签约
 	async onClickBackToSign (obj) {

@@ -3,18 +3,18 @@
 <view class="my {{isVip ? 'is' : 'no'}}">
     <!-- 顶部user信息 -->
     <view class="user">
-        <view class="headPortrait {{isVip ? 'yellowU' : 'greenU'}}" catchtap="goUserInfo">
+        <view class="headPortrait {{isVip ? 'yellowU' : 'greenU'}}" data-renew="1" catchtap="renewWhitelistJudgement">
             <image class="headImg" src="{{userInfo.avatarUrl || 'https://file.cyzl.com/g001/M01/C8/3F/oYYBAGP0VgGAQa01AAAG5Ng7rok991.svg'}}" />
         </view>
-        <view class="userInfo" bindtap="go">
-            <view class="userName" catchtap="getUserProfile">{{userInfo.nickName || '登录' }}</view>
+        <view class="userInfo" data-renew="2" bindtap="renewWhitelistJudgement">
+            <view class="userName" data-renew="3" catchtap="renewWhitelistJudgement">{{userInfo.nickName || '登录' }}</view>
             <view class="mobilePhoneEquity">
                 <view class="ETCMobilePhone {{isVip ? 'yellowC' : 'greenC'}}" wx:if="{{mobilePhone}}">
                     {{isVip ? 'ETC+PLUS': 'ETC+'}}
                     <text class="textPhone">{{tools.phoneNumberHide(mobilePhone)}}</text>
                 </view>
                 <view class="ETCMobilePhone" wx:else>亲爱的游客，请先登录</view>
-                <view class="iconfont viewEquity" data-url="description_of_equity" bindtap="go">查看权益</view>
+                <view class="iconfont viewEquity" data-url="description_of_equity" data-renew="4" bindtap="renewWhitelistJudgement">查看权益</view>
             </view>
         </view>
     </view>
@@ -30,13 +30,14 @@
                 isCycle="{{!!nextPageData.length}}"
                 offsetY="{{16}}"
                 my_cards_panel="my-cardSwiper-panel"
-                bind:cardChange="cardChange"
+                data-renew="5"
+                bind:cardChange="renewWhitelistJudgement"
         >
         </cardSwiper>
     </view>
     <!-- 模块2 功能栏 -->
     <view class="module moduleTwo" style="margin-top: {{!cardList.length ? 20 : cardList.length === 1 ? 70: cardList.length * 10 + 30 }}rpx">
-        <view class="func" wx:for="{{funcList}}" wx:key="index" data-url="{{item.url}}" bindtap="go">
+        <view class="func" wx:for="{{funcList}}" wx:key="index" data-url="{{item.url}}" data-renew="6" bindtap="renewWhitelistJudgement">
             <view class="icon {{isVip ? 'yellowF' : 'greenF'}}">
                 <image class="iconImg" src="{{isVip ? item.iconVip : item.icon}}" />
             </view>
@@ -47,14 +48,14 @@
     <view class="module moduleThree" wx:if="{{showCarousel}}">
 <!--        <image class="image" src="https://file.cyzl.com/g001/M01/CA/B1/oYYBAGP9_VSAUb68AAB5WC1RcEA800.png" mode="widthFix" />-->
         <swiper class="swiperBox {{carouselList.length ? 'regular':''}}" autoplay circular interval="{{interval}}" duration="{{duration}}">
-            <swiper-item class="swiper-item {{carouselList.length === 1 ? 'regular-item':''}}" wx:for="{{carouselList}}" wx:if="{{item.isShow}}" bindtap="handleSwiperItem" wx:key="index" data-index="{{index}}">
+            <swiper-item class="swiper-item {{carouselList.length === 1 ? 'regular-item':''}}" wx:for="{{carouselList}}" wx:if="{{item.isShow}}" data-renew="7" bindtap="renewWhitelistJudgement" wx:key="index" data-index="{{index}}">
                 <image class="topImg" src='{{item.imgUrl}}' mode="widthFix" alt="暂无图片"/>
             </swiper-item>
         </swiper>
     </view>
     <!-- 模块4 功能列-->
     <view class="module moduleFour">
-        <view class="funcList" wx:for="{{funcList2}}" data-url="{{item.url}}" wx:key="index" bindtap="go" wx:if="{{item.show}}">
+        <view class="funcList" wx:for="{{funcList2}}" data-url="{{item.url}}" wx:key="index" data-renew="8" bindtap="renewWhitelistJudgement" wx:if="{{item.show}}">
             <view class="funcListLeft">
                 <view class="icon">
                     <view wx:if="{{item.title === '相关协议' && isCheckTwoPercent}}" class="new-left"></view>
@@ -68,7 +69,7 @@
     <!-- 弹窗提示 -->
     <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
     <!-- 悬浮在线客服按钮 -->
-    <view class="iconfont keFu" data-url="loadingService" catchtap="go"><text >在线\n客服</text></view>
+    <view class="iconfont keFu" data-url="loadingService" data-renew="9" catchtap="renewWhitelistJudgement"><text >在线\n客服</text></view>
     <popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="popUp"></popup1>
 </view>
 
