@@ -10,7 +10,7 @@ Page({
 	data: {
 		mask: false,
 		wrapper: false,
-		banks: ['icbc','abchina','boc','ccb','bankcomm','psbc'],
+		banks: ['icbc', 'abchina', 'boc', 'ccb', 'bankcomm', 'psbc'],
 		bankNameIndex: null, // 开户行：1-工行，2-农行，3-中行，4建行，5-交行，6-邮储 (接口上传：bankNameIndex+1)
 		bankNameArr: ['工商银行', '农业银行', '中国银行', '建设银行', '交通银行', '邮政储蓄'],
 		bankAbbreviation: ['ICBC', 'ABC', 'BOC', 'CCB', 'BCM', 'PSBC'],
@@ -61,7 +61,7 @@ Page({
 			wrapper: true
 		});
 	},
-	hide (e,flag) {
+	hide (e, flag) {
 		this.setData({
 			wrapper: false
 		});
@@ -133,6 +133,18 @@ Page({
 		if (e.detail.code && e.detail.code.length === 3) {
 			formData.regionCode = e.detail.code;
 		}
+		//  判断邮寄地址是否是北京
+		if (e.detail.code[0] === '110000') {
+			console.log('是北京地址');
+			util.alert({
+				title: '通知',
+				content: '尊敬的车主，您好！因北京部分地区快递投送管控，您的ETC设备可能会延迟发货，预计将于2024年3月14日恢复正常发货。给您带来的不便敬请谅解，如有疑问可在ETC+首页咨询在线客服。',
+				showCancel: false,
+				confirmText: '我知道了',
+				confirm: () => {
+				}
+			});
+		}
 		this.setData({
 			formData
 		});
@@ -149,7 +161,7 @@ Page({
 		// 清倒计时
 		clearInterval(timer);
 		timer = setInterval(() => {
-			this.setData({time: --this.data.time});
+			this.setData({ time: --this.data.time });
 			if (this.data.time === 0) {
 				clearInterval(timer);
 				this.setData({

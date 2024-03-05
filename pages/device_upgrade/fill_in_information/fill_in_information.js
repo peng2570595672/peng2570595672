@@ -3,154 +3,154 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 
-    data: {
+	data: {
 		orderId: '',
 		newOrderInfo: {}, // 新订单数据（身份证、行驶证、车头照）
 		orderDetail: {},	// 订单详情
-        formData: { // 基础信息
+		formData: { // 基础信息
 			currentCarNoColor: 0, // 0 蓝色 1 渐变绿 2黄色
-			region: ['','',''], // 省市区
+			region: ['', '', ''], // 省市区
 			regionCode: [], // 省份编码
 			userName: '', // 收货人姓名
 			telNumber: '', // 电话号码
 			detailInfo: '' // 收货地址详细信息
 		}, // 提交数据
-        paper: { // 证件信息
-            idName: '', // 身份证姓名
-            idNum: '', // 身份证号码
-            handlePhone: '', // 办理手机号
-            licenseInformation: {
+		paper: { // 证件信息
+			idName: '', // 身份证姓名
+			idNum: '', // 身份证号码
+			handlePhone: '', // 办理手机号
+			licenseInformation: {
 				licenseMainPage: '',
 				licenseVicePage: ''
 			}, // 行驶证信息
-            carHeadPhone: '', // 车头照
+			carHeadPhone: '', // 车头照
 			code: '', // 验证码
 			simImg: ''	// 剪卡图片
-        },
-        // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
-        carPlateColorList: ['蓝牌','黄牌','黑牌','白牌','渐变绿牌','黄绿双拼牌','蓝白渐变'],
-        tip1: '',	// 经办人电话号码校验提示
+		},
+		// 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
+		carPlateColorList: ['蓝牌', '黄牌', '黑牌', '白牌', '渐变绿牌', '黄绿双拼牌', '蓝白渐变'],
+		tip1: '',	// 经办人电话号码校验提示
 		tip2: '',	// 收件人姓名校验
 		tip3: '',	// 校验收件人电话号码提示
 		tip4: '', 	// 办理手机号校验提示
 		tip5: '', 	// 详细地址校验
 		isName: true,	// 控制收货人名称是否合格
 		size: 30,
-        available: false,	// 控制底部悬浮按钮的颜色变化
-        pictureWidth: 0, // 压缩图片
+		available: false,	// 控制底部悬浮按钮的颜色变化
+		pictureWidth: 0, // 压缩图片
 		pictureHeight: 0,
 		updatedPhone: true,	// 是否禁止修改办理手机号
 		codeCopywriting: '获取验证码',	// 衍生吗按钮文案
 		isGetCode: true,	// 是否可获取验证码
 		paperIsExpire: false	// false表示证件未过期
-    },
+	},
 
-    onLoad (options) {
-        if (options?.orderId) this.setData({orderId: options.orderId});
-    },
-    onShow () {
-		this.setData({paperIsExpire: false});
+	onLoad (options) {
+		if (options?.orderId) this.setData({ orderId: options.orderId });
+	},
+	onShow () {
+		this.setData({ paperIsExpire: false });
 		this.queryOrder(this.data.orderId);
 		this.getETCDetail();
-    },
-    // 根据订单ID查询订单信息
-    async queryOrder (orderId) {
+	},
+	// 根据订单ID查询订单信息
+	async queryOrder (orderId) {
 		let simImg = wx.getStorageSync('simImg');
 		console.log(simImg);
-        const result = await util.getDataFromServersV2('consumer/order/order-detail-for-update', {
-            orderId: orderId
-        },'post',false);
-        if (!result) return;
-        if (result.code === 0) {
-            console.log(result.data);
-            let res = result.data.orderReceive;
-            let info = result.data.orderCardInfo;
-            let formData = this.data.formData;
-            let paper = this.data.paper;
+		const result = await util.getDataFromServersV2('consumer/order/order-detail-for-update', {
+			orderId: orderId
+		}, 'post', false);
+		if (!result) return;
+		if (result.code === 0) {
+			console.log(result.data);
+			let res = result.data.orderReceive;
+			let info = result.data.orderCardInfo;
+			let formData = this.data.formData;
+			let paper = this.data.paper;
 			let receiveProvince = res?.receiveProvince || '';
 			let receiveCity = res?.receiveCity || '';
 			let receiveCounty = res?.receiveCounty || '';
-            formData.userName = res?.receiveMan; // 姓名
-            formData.telNumber = res?.receivePhone; // 电话
-            formData.region = [receiveProvince, receiveCity, receiveCounty]; // 省市区
-            formData.detailInfo = res?.receiveAddress; // 详细地址
-            paper.idName = info?.trueName;// 身份证姓名
-            paper.idNum = info?.idNumber;// 身份证号码
-            paper.handlePhone = result.data.orderCardInfo?.cardMobilePhone;// 办理手机号
-            paper.licenseInformation.licenseMainPage = result.data.orderVehicleInfo?.licenseMainPage;
-            paper.licenseInformation.licenseVicePage = result.data.orderVehicleInfo?.licenseVicePage;
-            paper.carHeadPhone = result.data.orderHeadstockInfo?.fileUrl;
+			formData.userName = res?.receiveMan; // 姓名
+			formData.telNumber = res?.receivePhone; // 电话
+			formData.region = [receiveProvince, receiveCity, receiveCounty]; // 省市区
+			formData.detailInfo = res?.receiveAddress; // 详细地址
+			paper.idName = info?.trueName;// 身份证姓名
+			paper.idNum = info?.idNumber;// 身份证号码
+			paper.handlePhone = result.data.orderCardInfo?.cardMobilePhone;// 办理手机号
+			paper.licenseInformation.licenseMainPage = result.data.orderVehicleInfo?.licenseMainPage;
+			paper.licenseInformation.licenseVicePage = result.data.orderVehicleInfo?.licenseVicePage;
+			paper.carHeadPhone = result.data.orderHeadstockInfo?.fileUrl;
 			paper.simImg = result.data?.clipCardCert ? result.data?.clipCardCert : simImg;	// 剪卡图片
-            this.setData({
-                formData,
-                paper,
+			this.setData({
+				formData,
+				paper,
 				newOrderInfo: result.data,
 				available: this.validateAvailable()
-            });
+			});
 			if (result.data.orderCardInfo.validDate.includes('长期')) return;
 			let timeInterval = result.data.orderCardInfo.validDate.split('-');
 			if (!util.isDuringDateIdCard(timeInterval[0], timeInterval[1])) {
-				this.setData({paperIsExpire: true});
+				this.setData({ paperIsExpire: true });
 				util.showToastNoIcon('身份证已过期，请重新上传证件');
 			};
-        } else {
-            util.showToastNoIcon(result.message);
-        }
-    },
-    // 上传剪卡凭证
-    uploadPictures () {
-        let that = this;
-        wx.chooseMedia({
-            count: 1,
-            mediaType: ['image'],
-            sourceType: ['album', 'camera'],
-            maxDuration: 30,
-            camera: 'back',
-            success (res) {
-                if (res.errMsg === 'chooseMedia:ok') {
-                    console.log(res);
-                    let path = res.tempFiles[0].tempFilePath;
-                    compressPicturesUtils.processingPictures(that, path, 'pressCanvas', 640, (res) => {
-                        if (res) { // 被处理
-                            that.upload(res);
-                        } else { // 未被处理
-                            that.upload(path);
-                        }
-                    });
-                }
-            },
-            fail: (res) => {
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 上传剪卡凭证
+	uploadPictures () {
+		let that = this;
+		wx.chooseMedia({
+			count: 1,
+			mediaType: ['image'],
+			sourceType: ['album', 'camera'],
+			maxDuration: 30,
+			camera: 'back',
+			success (res) {
+				if (res.errMsg === 'chooseMedia:ok') {
+					console.log(res);
+					let path = res.tempFiles[0].tempFilePath;
+					compressPicturesUtils.processingPictures(that, path, 'pressCanvas', 640, (res) => {
+						if (res) { // 被处理
+							that.upload(res);
+						} else { // 未被处理
+							that.upload(path);
+						}
+					});
+				}
+			},
+			fail: (res) => {
 				if (res.errMsg !== 'chooseImage:fail cancel') {
 					util.showToastNoIcon('选择图片失败！');
 				}
 			}
-        });
-    },
+		});
+	},
 	// 上传文件
-    upload (path) {
-        util.uploadFile(path, () => {
-            util.showToastNoIcon('文件上传失败');
-        }, (res) => {
-            if (res) {
-                res = JSON.parse(res);
-                if (res.code === 0) { // 文件上传成功
+	upload (path) {
+		util.uploadFile(path, () => {
+			util.showToastNoIcon('文件上传失败');
+		}, (res) => {
+			if (res) {
+				res = JSON.parse(res);
+				if (res.code === 0) { // 文件上传成功
 					console.log(res);
-                    util.showToastNoIcon('文件上传成功');
-                    this.setData({
+					util.showToastNoIcon('文件上传成功');
+					this.setData({
 						'paper.simImg': res.data[0].fileUrl
-                    });
+					});
 					wx.setStorageSync('simImg', res.data[0].fileUrl);
-                    this.fangDou('',500);
-                } else { // 文件上传失败
-                    util.showToastNoIcon(res.message);
-                }
-            } else { // 文件上传失败
-                util.showToastNoIcon('文件上传失败');
-            }
-        }, () => {});
-    },
+					this.fangDou('', 500);
+				} else { // 文件上传失败
+					util.showToastNoIcon(res.message);
+				}
+			} else { // 文件上传失败
+				util.showToastNoIcon('文件上传失败');
+			}
+		}, () => { });
+	},
 
-    // 省市区选择
+	// 省市区选择
 	onPickerChangedHandle (e) {
 		console.log(e);
 		let formData = this.data.formData;
@@ -158,13 +158,25 @@ Page({
 		if (e.detail.code && e.detail.code.length === 3) {
 			formData.regionCode = e.detail.code;
 		}
+		//  判断邮寄地址是否是北京
+		if (e.detail.code[0] === '110000') {
+			console.log('是北京地址');
+			util.alert({
+				title: '通知',
+				content: '尊敬的车主，您好！因北京部分地区快递投送管控，您的ETC设备可能会延迟发货，预计将于2024年3月14日恢复正常发货。给您带来的不便敬请谅解，如有疑问可在ETC+首页咨询在线客服。',
+				showCancel: false,
+				confirmText: '我知道了',
+				confirm: () => {
+				}
+			});
+		}
 		this.setData({
 			formData,
 			available: this.validateAvailable(true)
 		});
 	},
 
-    // 从微信选择地址
+	// 从微信选择地址
 	onClickAutoFillHandle () {
 		// 统计点击事件
 		wx.uma.trackEvent('receiving_select_the_wechat_address');
@@ -203,7 +215,7 @@ Page({
 			}
 		});
 	},
-    // 选择当前地址
+	// 选择当前地址
 	onClickChooseLocationHandle () {
 		// 统计点击事件
 		wx.uma.trackEvent('receiving_select_the_address');
@@ -270,7 +282,7 @@ Page({
 			util.showToastNoIcon('获取地理位置信息失败！');
 		});
 	},
-    // 校验字段是否满足
+	// 校验字段是否满足
 	validateAvailable (checkLicensePlate) {
 		// 是否接受协议
 		let isOk = true;
@@ -286,8 +298,8 @@ Page({
 		isOk = isOk && formData.detailInfo && formData.detailInfo.length >= 2;
 		// 检验手机号码
 		isOk = isOk && formData.telNumber && /^1[0-9]{10}$/.test(formData.telNumber);
-        // 校验剪卡凭证是否上传
-        isOk = isOk && this.data.paper.simImg;
+		// 校验剪卡凭证是否上传
+		isOk = isOk && this.data.paper.simImg;
 		// 校验身份证姓名
 		isOk = isOk && paper.idName && paper.idName.length > 0;
 		// 校验身份证号码
@@ -320,9 +332,9 @@ Page({
 		if (!this.data.updatedPhone && !paper.code) return util.showToastNoIcon('验证码不能为空');
 		return false;
 	},
-    // 输入框输入值
+	// 输入框输入值
 	onInputChangedHandle (e) {
-		if (e.detail.cursor === 0) this.setData({available: false});
+		if (e.detail.cursor === 0) this.setData({ available: false });
 		let key = e.currentTarget.dataset.name;	//
 		let len = e.detail.cursor;	// 输入值的长度
 		let value = e.detail.value;
@@ -337,10 +349,10 @@ Page({
 		if (key === 'telNumber' || key === 'operator' || key === 'handlePhone') {
 			let value = e.detail.value;
 			let flag = /^1[1-9][0-9]{9}$/.test(value);
-			if (value.substring(0,1) !== '1' || value.substring(1,2) === '0') {
-				if (key === 'telNumber') this.setData({'formData.telNumber': ''});
-				if (key === 'operator') this.setData({'formData.operator': ''});
-				if (key === 'handlePhone') this.setData({'paper.handlePhone': ''});
+			if (value.substring(0, 1) !== '1' || value.substring(1, 2) === '0') {
+				if (key === 'telNumber') this.setData({ 'formData.telNumber': '' });
+				if (key === 'operator') this.setData({ 'formData.operator': '' });
+				if (key === 'handlePhone') this.setData({ 'paper.handlePhone': '' });
 				return util.showToastNoIcon('非法号码');
 			} else if (len < 11) {
 				tip1 = key === 'operator' ? '*手机号未满11位，请检查' : '';
@@ -393,7 +405,7 @@ Page({
 			tip5,
 			paper
 		});
-		this.fangDou('',500);
+		this.fangDou('', 500);
 	},
 	// 获取验证码
 	async getCode () {
@@ -406,19 +418,19 @@ Page({
 		}, 'GET');
 		if (!result) return;
 		if (result.code === 0) {
-			this.setData({isGetCode: false});
+			this.setData({ isGetCode: false });
 			let time = 60;
 			let clearTime = null;
 			clearTime = setInterval(() => {	// 启动定时
 				time--;
-				this.setData({codeCopywriting: `${time}重新获取`});
+				this.setData({ codeCopywriting: `${time}重新获取` });
 				if (time === 0) {
 					clearInterval(clearTime);
-					this.setData({codeCopywriting: '获取验证码', isGetCode: true});
+					this.setData({ codeCopywriting: '获取验证码', isGetCode: true });
 				}
-			},1000);
+			}, 1000);
 		} else {
-			this.setData({codeCopywriting: '获取验证码'});
+			this.setData({ codeCopywriting: '获取验证码' });
 			util.showToastNoIcon(result.message);
 		}
 	},
@@ -434,7 +446,7 @@ Page({
 		let obuCardType = newOrderInfo.orderInfo?.obuCardType || orderDetail.obuCardType;
 		switch (key) {
 			case 'phone':	// 修改（手机号）
-				this.setData({updatedPhone: false,'paper.handlePhone': '',available: false});
+				this.setData({ updatedPhone: false, 'paper.handlePhone': '', available: false });
 				break;
 			case 'license':	// 修改（行驶证）
 				util.go(`/pages/default/information_validation/information_validation?vehPlates=${vehPlates}&vehColor=${vehColor}&obuCardType=${obuCardType}`);
@@ -478,14 +490,14 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			this.setData({orderDetail: result.data});
+			this.setData({ orderDetail: result.data });
 		} else {
 			util.showToastNoIcon(result.message);
 		}
 	},
 	// 按钮“确定”
-    async next () {
-        if (this.confirmCheck()) return;
+	async next () {
+		if (this.confirmCheck()) return;
 		if (this.data.paperIsExpire || !this.data.available) return;
 		let formData = this.data.formData;
 		let paper = this.data.paper;
@@ -525,6 +537,6 @@ Page({
 		} else {
 			util.showToastNoIcon(result.message);
 		}
-    }
+	}
 
 });
