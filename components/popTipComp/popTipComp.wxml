@@ -223,5 +223,16 @@
             <view class="contant">{{tools.limitNumber(tipObj.content,90)}}</view>
             <button class="btn" data-title="{{tipObj.title}}" wx:if="{{tipObj.btnconfirm}}" catchtap="callBackPub">{{tools.limitNumber(tipObj.btnconfirm,12)}}</button>
         </view>
+        <!-- 登录协议续签提醒功能 -->
+        <view class="module moduleThree" wx:if="{{tipObj.type === 'renewWhitelist'}}">
+            <view class="title">{{tipObj.title}}</view>
+            <view class="contant">
+                <view>为充分维护您的合法权益，请您务必审慎阅读、充分理解协议中相关条款内容，特别是以粗体标注的部分。阅读协议的过程中，如果您不同意相关协议或其中任何条款约定，您应立即停使用小程序。您可阅读 <text class="protocol" data-type="3" bindtap="goAgreement">《ETC+用户服务协议》</text>和<text class="protocol" data-type="4" bindtap="goAgreement">《用户隐私协议》</text>了解详细信息。如您同意，请点击“同意”开始接受我们的服务。</view>
+            </view>
+            <view class="bottomBtn" >
+                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+                <view class="ok" catchtap="renewWhitelist">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
+            </view>
+        </view>
     </view>
 </view>

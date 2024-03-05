@@ -148,8 +148,22 @@ Page({
 			util.go('/pages/login/login/login');
 			return;
 		}
-		wx.uma.trackEvent('index_next');
-		util.go(`/pages/default/receiving_address/receiving_address?citicBank=${this.data.citicBankChannel}`);
+		if (app.globalData.renewWhitelist.includes(app.globalData.mobilePhone) && !wx.getStorageSync('renewWhitelist')) {
+			let that = this;
+			that.selectComponent('#popTipComp').show({
+				type: 'renewWhitelist',
+				title: '协议续签提醒',
+				btnCancel: '不同意',
+				btnconfirm: '同意',
+				callBack: () => {
+					wx.uma.trackEvent('index_next');
+					util.go(`/pages/default/receiving_address/receiving_address?citicBank=${that.data.citicBankChannel}`);
+				}
+			});
+		} else {
+			wx.uma.trackEvent('index_next');
+			util.go(`/pages/default/receiving_address/receiving_address?citicBank=${this.data.citicBankChannel}`);
+		}
 	},
 	goOnlineServer () {
 		wx.uma.trackEvent('index_for_service');

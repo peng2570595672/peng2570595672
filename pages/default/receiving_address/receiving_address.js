@@ -950,16 +950,35 @@ Page({
 		this.setData({
 			available: this.data.perfect === 1 ? true : this.validateAvailable(true) // perfect=1  仅填写车牌信息
 		});
-		util.showLoading();
 		if (!this.data.available || this.data.isRequest) {
 			return util.showToastNoIcon('请填写相关信息');
 		}
-		if (app.globalData.otherPlatformsServiceProvidersId === '1212436820283891712' || app.globalData.otherPlatformsServiceProvidersId === '841693649307312128') {
-			// 优行车服渠道
-			this.verifyCarnum();
-			return;
+		if (app.globalData.renewWhitelist.includes(app.globalData.mobilePhone) && !wx.getStorageSync('renewWhitelist')) {
+			let that = this;
+			that.selectComponent('#popTipComp').show({
+				type: 'renewWhitelist',
+				title: '协议续签提醒',
+				btnCancel: '不同意',
+				btnconfirm: '同意',
+				callBack: () => {
+					util.showLoading();
+					if (app.globalData.otherPlatformsServiceProvidersId === '1212436820283891712' || app.globalData.otherPlatformsServiceProvidersId === '841693649307312128') {
+						// 优行车服渠道
+						that.verifyCarnum();
+						return;
+					}
+					that.checkVehPlateExists();
+				}
+			});
+		} else {
+			util.showLoading();
+			if (app.globalData.otherPlatformsServiceProvidersId === '1212436820283891712' || app.globalData.otherPlatformsServiceProvidersId === '841693649307312128') {
+				// 优行车服渠道
+				this.verifyCarnum();
+				return;
+			}
+			this.checkVehPlateExists();
 		}
-		this.checkVehPlateExists();
 	},
 	verifyCarnum () {
 		const that = this;

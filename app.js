@@ -156,7 +156,8 @@ App({
 		isTest: IS_TEST,
 		isAlertToSign: false,
 		isQingHaiHighSpeed: false,// 是否是青海高速办理,需要隐藏平安绑车
-		isQingHaiHighSpeedOnlineProcessing: false// 是否是青海高速线上办理
+		isQingHaiHighSpeedOnlineProcessing: false,	// 是否是青海高速线上办理
+		renewWhitelist: ['13368527179','18302531895','15185024319','17685020520','15870105857']	// 续签白名单
 	},
 	onLaunch (options) {
 		// 统计逻辑结束
