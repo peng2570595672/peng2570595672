@@ -192,26 +192,10 @@ Page({
             await util.getUserIsVip();
             await util.getRightAccount();
             this.initPageParams();
-            // if (app.globalData.isEquityRights) {
-            // 	this.data.moduleOneList.map(item => {
-            // 		item.isShow = item.title !== '在线客服';
-            // 	});
-            // 	this.setData({
-            // 		moduleOneList: this.data.moduleOneList
-            // 	});
-            // } else {
-            // 	this.data.moduleOneList.map(item => {
-            // 		item.isShow = item.title !== '权益商城';
-            // 	});
-            // 	this.setData({
-            // 		moduleOneList: this.data.moduleOneList
-            // 	});
-            // }
             util.getMemberStatus();
             if (app.globalData.salesmanScanCodeToHandleId) {
                 await this.bindOrder();
             } else {
-                // if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
                 await util.getMemberStatus();
                 await this.getStatus();
             }
@@ -226,7 +210,6 @@ Page({
             if (app.globalData.salesmanScanCodeToHandleId) {
                 await this.bindOrder();
             } else {
-                // if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
                 await util.getMemberStatus();
                 await this.getStatus();
                 await this.getIsShowNotice();
@@ -1778,7 +1761,6 @@ Page({
         util.go(`/pages/${path}/information_list/information_list`);
     },
     getMargin () {
-        // app.globalData.myEtcList[0].flowVersion = 2;
         let num = 0;
         app.globalData.myEtcList.map(item => {
             if (item.flowVersion === 2) {
