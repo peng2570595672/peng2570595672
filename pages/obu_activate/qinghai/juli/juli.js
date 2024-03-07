@@ -136,6 +136,7 @@ Page({
 			}
 			this.mySetData({
 				isActivating: true,
+				showLoading: false,
 				errMsg: '',
 				msg: ''
 			});
@@ -598,10 +599,10 @@ Page({
 				errMsg: '邮寄信息提交失败'
 			});
 		}, (res) => {
-			this.isOver();
 			if (res.code === 0) {
 				this.sendObuInfoToServer();
 			} else {
+				this.isOver();
 				this.mySetData({
 					errMsg: res.message
 				});
@@ -670,7 +671,7 @@ Page({
 			appID: this.data.serialNumber,
 			rand: this.data.random,
 			apdu: cmd,
-			fileType: 1
+			fileType: '01'
 		};
 		// this.getDataFromServer(this.data.host + 'qhzy/OBUPersonalize', params, () => {
 		util.getDataFromServer(this.data.urlPrefix + '/OBUPersonalize', params, () => {
@@ -769,7 +770,7 @@ Page({
 			appID: this.data.serialNumber,
 			rand: this.data.random,
 			apdu: cmd,
-			fileType: 2
+			fileType: '02'
 		};
 		// this.getDataFromServer(this.data.host + 'qhzy/OBUPersonalize', params, () => {
 		util.getDataFromServer(this.data.urlPrefix + '/OBUPersonalize', params, () => {
@@ -903,7 +904,7 @@ Page({
 			appID: this.data.faceCardNumber.substring(4),
 			rand: this.data.random,
 			apdu: cmd,
-			fileType: 2
+			fileType: '02'
 		};
 		// this.getDataFromServer(this.data.host + 'qhzy/CardPersonalize', params, () => {
 		util.getDataFromServer(this.data.urlPrefix + '/CardPersonalize', params, () => {
@@ -1002,7 +1003,7 @@ Page({
 			appID: this.data.faceCardNumber.substring(4),
 			rand: this.data.random,
 			apdu: cmd,
-			fileType: 1
+			fileType: '01'
 		};
 		// this.getDataFromServer(this.data.host + 'qhzy/CardPersonalize', params, () => {
 		util.getDataFromServer(this.data.urlPrefix + '/CardPersonalize', params, () => {
@@ -1054,7 +1055,7 @@ Page({
 			if (res.code === 0) {
 				// 0015写入成功确认
 				if (result === '00') {
-					this.get4BitRandomByESAMForActive();
+					this.get4BitRandomByESAMForActive(apdu);
 				} else {
 					this.isOver();
 					this.mySetData({
@@ -1070,7 +1071,7 @@ Page({
 		});
 	},
 	// 通过esam通道获取8位随机数 写入激活信息
-	get4BitRandomByESAMForActive () {
+	get4BitRandomByESAMForActive (apdu) {
 		this.mySetData({
 			msg: '数据写入中...'
 		});
@@ -1084,7 +1085,7 @@ Page({
 					random: random.toUpperCase()
 				});
 				console.log('8位随机数：' + random.toUpperCase());
-				this.requestDataForActive();
+				this.requestDataForActive(apdu);
 			} else {
 				this.isOver();
 				this.mySetData({
@@ -1097,8 +1098,10 @@ Page({
 		});
 	},
 	// 获取请求参数
-	requestDataForActive () {
+	requestDataForActive (apdu) {
 		let params = {
+			apdu: apdu,
+			cardID: this.data.faceCardNumber,
 			version: parseInt(this.data.version, 16) + '',
 			appID: this.data.serialNumber,
 			rand: this.data.random
@@ -1140,6 +1143,8 @@ Page({
 			msg: '激活确认中...'
 		});
 		let params = {
+			activeType: '1',// 激活方式	1-自行激活 2-网点激活
+			activeChannel: '2',// 激活渠道	1-APP,2-微信小程序,3-支付宝小程序 4- 线下网点渠道
 			orderId: app.globalData.orderInfo.orderId,
 			version: parseInt(this.data.version, 16) + '',
 			appID: this.data.serialNumber,
@@ -1190,8 +1195,9 @@ Page({
 				});
 			} else {
 				this.isOver();
+				const err = res.message.includes('保存OBU激活信息异常') ? `${res.message}，请等待几分钟后重试` : res.message;
 				this.mySetData({
-					errMsg: res.message
+					errMsg: err
 				});
 			}
 		});
