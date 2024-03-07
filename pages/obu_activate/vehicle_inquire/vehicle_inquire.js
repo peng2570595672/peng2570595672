@@ -34,7 +34,7 @@ Page({
     getAgreement: true, // 是否接收协议
     etcContractId: '' // 是否接收协议
   },
-  onLoad() {
+  onLoad () {
     // // TODO TEST CODE
     // app.globalData.plate = '湘Z00001';
 
@@ -59,16 +59,16 @@ Page({
     this.selectComponent('#agreement-dialog').show();
   },
   // 拦截点击非透明层空白处事件
-  onClickTranslucentHandle() {
+  onClickTranslucentHandle () {
     this.data.choiceEquipment.switchDisplay(false);
   },
   // 分享功能
-  onShareAppMessage() {
+  onShareAppMessage () {
     return {
       path: '/pages/Home/Home'
     };
   },
-  inputCode() {
+  inputCode () {
     this.setData({
       alertFirstShow: 0,
       inputCodeFocusing: 1
@@ -82,7 +82,7 @@ Page({
   // },
   // 打开弹窗
   // 关闭弹窗
-  winHide() {
+  winHide () {
     this.setData({
       isOpenAccounting: false,
       alertWrapper: false
@@ -94,7 +94,7 @@ Page({
     }, 400);
   },
   // 车牌输入回调
-  valueChange(e) {
+  valueChange (e) {
     if (app.globalData.SDKVersion < '2.6.1') {
       let keyboard = this.selectComponent('#keyboard');
       keyboard.indexMethod(e.detail.index, this.data.currentIndex);
@@ -153,7 +153,7 @@ Page({
       });
     }
   },
-  setCurrentCarNo(e) {
+  setCurrentCarNo (e) {
     let index = e.currentTarget.dataset['index'];
     index = parseInt(index);
     if (app.globalData.SDKVersion < '2.6.1') {
@@ -174,7 +174,7 @@ Page({
     }
   },
   // 确定按钮点击事件
-  go() {
+  go () {
     if (this.data.getAgreement) {
       if (!this.data.showKeyboard && /^[78]$/.test(this.data.carNoStr.length)) {
         wx.uma.trackEvent('index_confirm');
@@ -184,7 +184,7 @@ Page({
       util.showToastNoIcon('请同意并勾选协议！');
     }
   },
-  fetchOrder() {
+  fetchOrder () {
     let carNo = this.data.carNoStr;
     let vehColor = this.data.vehColor;
     util.showLoading();
@@ -316,7 +316,7 @@ Page({
       wx.hideLoading();
     });
   },
-  winShow() {
+  winShow () {
     this.setData({
       alertFirstShow: 1,
       code: '',
@@ -325,7 +325,7 @@ Page({
     });
   },
   // 验证码
-  codeValueChange(e) {
+  codeValueChange (e) {
     let code = e.detail.value.replace(/\s/g, '');
     this.setData({
       code,
@@ -333,7 +333,7 @@ Page({
     });
   },
   // 获取验证码
-  getCode() {
+  getCode () {
     // 如果在倒计时，直接不处理
     if (this.data.isGetIdentifyingCoding) {
       return;
@@ -375,7 +375,7 @@ Page({
     }, 1000);
     this.getIdentifyingCodeForServer();
   },
-  getIdentifyingCodeForServer() {
+  getIdentifyingCodeForServer () {
     wx.uma.trackEvent('index_get_code');
     util.getDataFromServer('consumer/order/common/active-send-code', {
       // platformId: '500338116821778434',	// API 1.0
@@ -396,13 +396,12 @@ Page({
     });
   },
   // 下一步
-  next() {
+  next () {
     if (!this.data.available) return;
     wx.uma.trackEvent('index_next');
     this.getStatus();
   },
-  getStatus() {
-
+  getStatus () {
     if (!app.globalData.orderInfo.orderId) return;
     util.showLoading({
       title: '处理中'
@@ -439,14 +438,14 @@ Page({
           case 2: // 内蒙 蒙通卡
           case 23: // 河北交投卡
             if (!this.data.choiceEquipment) {
-              this.setData({ 
+              this.setData({
                 choiceEquipment: this.selectComponent('#choiceEquipment')
-              }); 
+              });
             }
             this.data.choiceEquipment.switchDisplay(true);
             break;
           case 3: // 山东 鲁通卡
-          case 9: //山东 齐鲁通卡
+          case 9: // 山东 齐鲁通卡
             util.go(`/pages/empty_hair/instructions_ujds/index?auditStatus=2`);
             break;
           case 4: // 青海 青通卡
@@ -469,7 +468,7 @@ Page({
     });
   },
   // 设置渠道名称
-  setChannelName() {
+  setChannelName () {
     let channel = this.data.channel;
     let channelName = util.channelNameMap[channel] || '';
     this.setData({
@@ -477,7 +476,7 @@ Page({
     });
   },
   // 去签约
-  toSign() {
+  toSign () {
     let data = this.data.sysPlatform;
     if (!data) return util.showToastNoIcon('无签约数据');
     const path = `pages/personal_center/my_etc_detail/my_etc_detail?orderId=${app.globalData.orderInfo.orderId}`;
@@ -504,7 +503,7 @@ Page({
    * 切换车牌颜色
    * @param event
    */
-  changePlateColor(event) {
+  changePlateColor (event) {
     // 颜色不可选
     let color = +event.currentTarget.dataset['color'];
     if (color === 2) return;
@@ -537,13 +536,13 @@ Page({
   },
   // @cyl
   // 是否接受协议
-  onClickAgreementHandle() {
+  onClickAgreementHandle () {
     this.setData({
       getAgreement: !this.data.getAgreement
     });
   },
   // 协议内容
-  handleAgreement(e) {
+  handleAgreement (e) {
     const type = e.currentTarget.dataset.type;
     if (type === '1') {
       util.go('/pages/text_page/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement');
@@ -553,7 +552,7 @@ Page({
     }
   },
   // 组件 方法
-  agreementHandle(val) {
+  agreementHandle (val) {
     if (val.detail === 'ok') {
       this.setData({
         getAgreement: true

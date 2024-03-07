@@ -128,6 +128,7 @@ function getUuid() {
 async function getDataFromServer(path, params, fail, success, token = '', complete, method = 'POST') {
   // common || public 模块下的不需要 token
   if (!token && !path.includes('common') && !path.includes('public')) {
+  	console.log(path)
     showToastNoIcon('获取用户信息失败,请重新进入小程序!');
     return;
   }
@@ -1439,6 +1440,7 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
   // common || public 模块下的不需要 token
   const token = app.globalData.userInfo.accessToken;
   if (!token && !path.includes('common') && !path.includes('public')) {
+	  console.log(path)
     showToastNoIcon('获取用户信息失败,请重新进入小程序!');
     return;
   }
@@ -2002,10 +2004,130 @@ function getDatanexusAnalysis (actionType) {
 		}
 	});
 }
-
+/**
+ * 计算卡片有效期
+ * @param res 对象
+ * @returns {*}
+ */
+function calculationValidityPeriod (res) {
+	let currentTime = Date.now();
+	let time = new Date('2020/01/01');
+	let date = new Date();
+	let fullYear = date.getFullYear();
+	let month = date.getMonth() + 1;
+	month = month < 10 ? '0' + month : month;
+	let day = date.getDate();
+	day = day < 10 ? '0' + day : day;
+	//  写入卡片的时间都为当前时间
+	res.cardEnableTime = `${fullYear}-${month}-${day}`;
+	res.cardExpireTime = `${fullYear + 10}-${month}-${day}`;
+	// 写入obu时间
+	// 2020/01/01之后 或者非货车
+	// carType 11 12分别为蓝牌货车 黄牌货车
+	if (((res.carType === 11 || res.carType === 12) && currentTime >= time.getTime()) || (res.carType === 1 || res.carType === 2)) {
+		res.enableTime = `${fullYear}-${month}-${day}`;
+		res.expireTime = `${fullYear + 10}-${month}-${day}`;
+	} else {
+		// 启用时间为2020年一月一日
+		res.enableTime = '2020-01-01';
+		res.expireTime = '2030-01-01'
+	}
+	return res;
+}
+/**
+ *  校验二发订单数据合法性
+ * @param info
+ * let info = {
+			"enableTime": "2019-09-29",
+			"expireTime": "2029-09-29",
+			"plateNo": "晋JAM087",
+			"plateColor": 0,
+			"carType": 1,
+			"userName": "杨江",
+			"userIdNum": "141122198806220013",
+			"userIdType": "0",
+			"type": 1,
+			"outsideDimensions": "4671×1902×1697mm",
+			"engineNum": "J100045411111111",
+			"approvedCount": "5人"
+		}
+ * @returns {boolean}
+ */
+function validateOnlineDistribution(encodeToGb2312, info, self) {
+	let isOk = true;
+	let msg = '';
+	// 姓名是否为空
+	if (!info.userName) {
+		isOk = false;
+		msg = '姓名为空，请检查！';
+	} else { //姓名编码校验
+		try {
+			encodeToGb2312(info.userName);
+		} catch (e) {
+			// 姓名编码异常
+			isOk = false;
+			msg = '姓名编码转换出错，请检查！';
+		}
+	}
+	
+	// 车牌是否为空
+	if (!info.plateNo) {
+		isOk = false;
+		msg = '车牌为空，请检查！';
+	} else { // 车牌编码校验
+		try {
+			encodeToGb2312(info.plateNo);
+		} catch (e) {
+			// 车牌编码异常
+			isOk = false;
+			msg = '车牌编码转换出错，请检查！';
+		}
+	}
+	
+	// 轮廓尺寸校验
+	if (!info.outsideDimensions) {
+		isOk = false;
+		msg = '轮廓尺寸为空，请检查！';
+	} else {
+		let result = info.outsideDimensions.match(/\d{4}/ig);
+		if (result.length !== 3) {
+			isOk = false;
+			msg = '轮廓尺寸有误，请检查！';
+		}
+	}
+	if (!info.engineNum) {
+		isOk = false;
+		msg = '发动机引擎编号为空，请检查！';
+	} else {
+		// 发动机长度校验
+		if (info.engineNum.length > 16) {
+			isOk = false;
+			msg = '发动机引擎编号过长，请检查！';
+		}
+	}
+	if (!isOk) {
+		self.isOver();
+		showToastNoIcon(msg);
+	}
+	return isOk;
+}
+/**
+ * TODO 暂时没提供2.0接口
+ * 发送错误信息到服务器
+ * @param area 区域表示 如青海二发金溢
+ * @param cosArr 指令数组 如：['00A40000023F00', '0084000004']
+ * @param code 执行执行返回的code 如果没有 填-1
+ * @param result 指令执行的结果
+ */
+function sendException2Server(area, cosArr, code, result) {
+	return;
+}
 module.exports = {
   setApp,
   returnMiniProgram,
+	calculationValidityPeriod,
+	validateOnlineDistribution,
+	sendException2Server,
 	getDatanexusAnalysis,
   formatNumber,
   addProtocolRecord,
