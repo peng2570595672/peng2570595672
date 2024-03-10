@@ -1,6 +1,7 @@
 {
   "navigationStyle": "custom",
 	"usingComponents": {
-		"viewProcedure": "/components/viewProcedure/viewProcedure"
+		"viewProcedure": "/components/viewProcedure/viewProcedure",
+		"popTipComp": "/components/popTipComp/popTipComp"
 	}
 }

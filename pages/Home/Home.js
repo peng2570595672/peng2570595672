@@ -192,26 +192,10 @@ Page({
             await util.getUserIsVip();
             await util.getRightAccount();
             this.initPageParams();
-            // if (app.globalData.isEquityRights) {
-            // 	this.data.moduleOneList.map(item => {
-            // 		item.isShow = item.title !== '在线客服';
-            // 	});
-            // 	this.setData({
-            // 		moduleOneList: this.data.moduleOneList
-            // 	});
-            // } else {
-            // 	this.data.moduleOneList.map(item => {
-            // 		item.isShow = item.title !== '权益商城';
-            // 	});
-            // 	this.setData({
-            // 		moduleOneList: this.data.moduleOneList
-            // 	});
-            // }
             util.getMemberStatus();
             if (app.globalData.salesmanScanCodeToHandleId) {
                 await this.bindOrder();
             } else {
-                // if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
                 await util.getMemberStatus();
                 await this.getStatus();
             }
@@ -226,12 +210,20 @@ Page({
             if (app.globalData.salesmanScanCodeToHandleId) {
                 await this.bindOrder();
             } else {
-                // if (!app.globalData.bankCardInfo?.accountNo) await util.getV2BankId();
                 await util.getMemberStatus();
                 await this.getStatus();
                 await this.getIsShowNotice();
             }
             wx.removeStorageSync('login_info_final');
+        }
+        if (app.globalData.renewWhitelist.includes(app.globalData.mobilePhone) && !wx.getStorageSync('renewWhitelist')) {
+            let that = this;
+            that.selectComponent('#popTipComp').show({
+                type: 'renewWhitelist',
+                title: '协议续签提醒',
+                btnCancel: '不同意',
+                btnconfirm: '同意'
+            });
         }
     },
     // 获取后台配置的数据
@@ -935,19 +927,15 @@ Page({
                     isAlertToSignObj = item;
                 }
                 // 平安获客 status -1 删除（取消办理），0-资料待完善，1-资料已完善 2-升级订单已确认
-                if (!app.globalData.isQingHaiHighSpeed && !this.data.PingAn && app.globalData.pingAnBindGuests && item.status === 1) {
+                if (app.globalData.pingAnBindGuests?.pingAnBindVehplates.length > 0 && !app.globalData.isQingHaiHighSpeed && !this.data.PingAn && app.globalData.pingAnBindGuests && item.status === 1 && app.globalData.isShowOncepingAnBindGuestsPop === 0 && index === 0) {
                     if (app.globalData.pingAnBindGuests.vehKeys === '*' || (app.globalData.pingAnBindGuests.vehKeys.includes(item.vehPlates.substring(0, 1)) && !app.globalData.pingAnBindGuests.filterKeys.includes(item.vehPlates.substring(0, 2)))) {
-                        this.setData({
-                            PingAn: true
-                        });
-                        if (item.vehPlates.includes('云') && app.globalData.isShowOncepingAnBindGuestsPop === 0 && index === 0) {
-                            app.globalData.isShowOncepingAnBindGuestsPop = 1;
-                            this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)'});
-                        }
-                    }
-                    if (!item.vehPlates.includes('云') && app.globalData.pingAnBindGuests.vehKeys === '*' && app.globalData.isShowOncepingAnBindGuestsPop === 0 && index === 0) {
+                        this.setData({PingAn: true});
                         app.globalData.isShowOncepingAnBindGuestsPop = 1;
-                        this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)'});
+                        if (item.vehPlates.includes('云')) {
+                            this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)'});
+                        } else {
+                            this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)'});
+                        }
                     }
                 }
                 item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
@@ -1045,14 +1033,12 @@ Page({
             }
             const terminationOrder = passengerCarList.find(item => item.selfStatus === 1); // 查询客车第一条解约订单
             const terminationTruckOrder = truckList.find(item => item.selfStatus === 1); // 查询货车第一条解约订单
-            const isAllActivation = activationOrder.length === passengerCarList
-                .length; // 是否客车全是激活订单 - true: 展示账单单状态
-            const isAllActivationTruck = activationTruckOrder.length === truckList
-                .length; // 是否货车全是激活订单 - true: 展示账单单状态
+            const isAllActivation = activationOrder.length === passengerCarList.length; // 是否客车全是激活订单 - true: 展示账单单状态
+            const isAllActivationTruck = activationTruckOrder.length === truckList.length; // 是否货车全是激活订单 - true: 展示账单单状态
             activationOrder = [...new Set(activationOrder)];
             activationTruckOrder = [...new Set(activationTruckOrder)];
             // 是否全是激活订单  是 - 拉取第一条订单  否 - 过滤激活订单,拉取第一条
-            const passengerCarListNotActivation = isAllActivation ? passengerCarList[0] : passengerCarList.filter(item => item.selfStatus !== 12)[0];
+            const passengerCarListNotActivation = isAllActivation ? passengerCarList[0] : passengerCarList.filter(item => item.selfStatus !== 12 && item.selfStatus !== 33)[0];
             const passengerCarListNotTruckActivation = isAllActivationTruck ? truckList[0] : truckList.filter(item => item.selfStatus !== 12)[0];
             app.globalData.isArrearageData.trucksOrderList = truckActivationOrderList;
 
@@ -1342,7 +1328,7 @@ Page({
         app.globalData.orderInfo.orderId = orderInfo.id;
         app.globalData.processFlowVersion = orderInfo.flowVersion;
         app.globalData.truckLicensePlate = orderInfo.vehPlates;
-        app.globalData.isCheckCarChargeType = orderInfo.obuCardType === 1 && (orderInfo.orderType === 11 || orderInfo.orderType === 21 || orderInfo.orderType === 71 || orderInfo.promoterType === 41) && orderInfo.auditStatus === 0;
+        app.globalData.isCheckCarChargeType = orderInfo.obuCardType === 1 && (orderInfo.orderType === 11 || orderInfo.orderType === 12 || orderInfo.orderType === 21 || orderInfo.orderType === 71 || orderInfo.promoterType === 41) && orderInfo.auditStatus === 0;
         if (orderInfo.orderType === 31 && orderInfo.status === 0) {
             util.alert({
                 title: '提示',
@@ -1770,7 +1756,6 @@ Page({
         util.go(`/pages/${path}/information_list/information_list`);
     },
     getMargin () {
-        // app.globalData.myEtcList[0].flowVersion = 2;
         let num = 0;
         app.globalData.myEtcList.map(item => {
             if (item.flowVersion === 2) {
@@ -1835,5 +1820,44 @@ Page({
         // wx.switchTab({
         //     url: `/pages/my/index`
         // });
-    }
+    },
+    // 针对特定号码 作续签弹窗提示
+	renewWhitelistJudgement (e) {
+		console.log(e);
+		let that = this;
+		let renew = e.currentTarget.dataset.renew;
+		if (app.globalData.renewWhitelist.includes(app.globalData.mobilePhone) && !wx.getStorageSync('renewWhitelist')) {
+			that.selectComponent('#popTipComp').show({
+				type: 'renewWhitelist',
+				title: '协议续签提醒',
+				btnCancel: '不同意',
+				btnconfirm: '同意',
+				callBack: () => {
+					if (renew === '1') {
+                        that.goToMyEtc(e);
+					} else if (renew === '3') {
+                        that.onClickVehicle();
+					} else if (renew === '6') {
+                        that.goPathBus(e);
+                    } else if (renew === '7') {
+                        that.onClickBill(e);
+                    } else {
+                        that.goPath(e);
+					}
+				}
+			});
+		} else {
+			if (renew === '1') {
+                that.goToMyEtc(e);
+            } else if (renew === '3') {
+                that.onClickVehicle();
+            } else if (renew === '6') {
+                that.goPathBus(e);
+            } else if (renew === '7') {
+                that.onClickBill(e);
+            } else {
+                that.goPath(e);
+            }
+		}
+	}
 });

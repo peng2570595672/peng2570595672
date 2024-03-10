@@ -694,5 +694,44 @@ Page({
         } else {
             util.showToastNoIcon(result.message);
         }
-    }
+    },
+    // 针对特定号码 作续签弹窗提示
+	renewWhitelistJudgement (e) {
+		console.log(e);
+		let that = this;
+		let renew = e.currentTarget.dataset.renew;
+		if (app.globalData.renewWhitelist.includes(app.globalData.mobilePhone) && !wx.getStorageSync('renewWhitelist')) {
+			that.selectComponent('#popTipComp').show({
+				type: 'renewWhitelist',
+				title: '协议续签提醒',
+				btnCancel: '不同意',
+				btnconfirm: '同意',
+				callBack: () => {
+					if (renew === '1') {
+                        that.goUserInfo(e);
+					} else if (renew === '3') {
+                        that.getUserProfile();
+					} else if (renew === '5') {
+                        that.cardChange(e);
+                    } else if (renew === '7') {
+                        that.handleSwiperItem(e);
+                    } else {
+                        that.go(e);
+					}
+				}
+			});
+		} else {
+            if (renew === '1') {
+                that.goUserInfo(e);
+            } else if (renew === '3') {
+                that.getUserProfile();
+            } else if (renew === '5') {
+                that.cardChange(e);
+            } else if (renew === '7') {
+                that.handleSwiperItem(e);
+            } else {
+                that.go(e);
+            }
+		}
+	}
 });

@@ -2,7 +2,7 @@
 * 9901选装
  */
 const util = require('../../../../utils/util.js');
-const JLObuSDK = require('../../libs/hunan_juli_sdk/JLObuSDK.js');
+const JLObuSDK = require('../../libs/9901_juli_sdk/JLObuSDK.js');
 const app = getApp();
 Page({
 	data: {

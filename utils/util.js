@@ -128,6 +128,7 @@ function getUuid() {
 async function getDataFromServer(path, params, fail, success, token = '', complete, method = 'POST') {
   // common || public 模块下的不需要 token
   if (!token && !path.includes('common') && !path.includes('public')) {
+  	console.log(path)
     showToastNoIcon('获取用户信息失败,请重新进入小程序!');
     return;
   }
@@ -888,14 +889,15 @@ function getStatus(orderInfo) {
   if (orderInfo.auditStatus === 2 && orderInfo.logisticsId !== 0 && orderInfo.deliveryRule === 1 && orderInfo.etcContractId !== -1 && !orderInfo.contractStatus) {
     return 5; // 审核通过,已发货或无需发货,待微信签约
   }
-  if (orderInfo.obuStatus === 0 || (orderInfo.status === 1 && orderInfo.obuStatus === 2 && (orderInfo.obuCardType === 23 || orderInfo.obuCardType === 2))) { //补充河北交投换卡换签
-    return 11; //  待激活
+  if (orderInfo.obuStatus === 0 || orderInfo.obuStatus === 3 || orderInfo.obuStatus === 4 || (orderInfo.status === 1 && orderInfo.obuStatus === 2 && (orderInfo.obuCardType === 23 || orderInfo.obuCardType === 2)) ){//补充河北交投换卡换签
+	  // OBU状态:默认0 0-待激活，1-已激活，2-已注销 3-开卡 4-发签 5预激活  (3和4:首次激活未完成)
+  	return 11; //  待激活
   }
   if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
-    if ((
-        app.globalData.cictBankObj.citicBankshopProductIds.includes(orderInfo.shopProductId) ||
-        (orderInfo.orderType === 31 && orderInfo.productName?.includes('中信') && orderInfo.pledgeType === 2)
-      ) && orderInfo.refundStatus !== 5) {
+    if ((app.globalData.cictBankObj.citicBankshopProductIds.includes(orderInfo.shopProductId) || (orderInfo.orderType === 31 && orderInfo.productName?.includes('中信') && orderInfo.pledgeType === 2)) && orderInfo.refundStatus !== 3) {
+      if (app.globalData.cictBankObj.guangfaBank === orderInfo.shopProductId) { // 广发订单
+        return 33
+      }
       return 30
     }
     return 12; // 已激活
@@ -1323,7 +1325,7 @@ async function getLocationInfo(orderInfo) {
     wx.getLocation({
       type: 'wgs84',
       success: async (res) => {
-        getAddressInfo_GD(res.latitude, res.longitude, (res) => {
+        getAddressInfoGD(res.latitude, res.longitude, (res) => {
           wx.setStorageSync('location-info', JSON.stringify(res));
           let info = res.result.ad_info;
           let regionCode = [`${info.city_code.substring(3).substring(0, 2)}0000`, info.city_code.substring(3), info.adcode];
@@ -1455,6 +1457,7 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
   // common || public 模块下的不需要 token
   const token = app.globalData.userInfo.accessToken;
   if (!token && !path.includes('common') && !path.includes('public')) {
+	  console.log(path)
     showToastNoIcon('获取用户信息失败,请重新进入小程序!');
     return;
   }
@@ -1889,11 +1892,20 @@ let channelNameMap = {
 };
 // 获取平安绑车车牌列表
 async function getBindGuests() {
+  let obj = undefined;
   const result = await getDataFromServersV2('consumer/order/pingan/get-bind-veh-keys', {}, 'POST', false);
   if (!result) return;
   if (result.code === 0) {
-    app.globalData.pingAnBindGuests = result.data
-    return result.data
+    obj = result.data;
+    const res = await getDataFromServersV2('consumer/order/displayAdvertisingVehplates', {}, 'POST', false);
+    if (!res) return;
+    if (res.code === 0) {
+      obj.pingAnBindVehplates =  res.data.vehplates.join();
+      app.globalData.pingAnBindGuests = obj
+      return obj
+    } else {
+      showToastNoIcon(res.message);
+    }
   } else {
     showToastNoIcon(result.message);
   }
@@ -1970,9 +1982,170 @@ function getCurrentDate() {
   return [formattedCurrentDate, nextDate]
 }
 
+function getDatanexusAnalysis (actionType) {
+	let timestamp, nonceStr;
+	nonceStr = getUuid();
+	if (!timestamp) {
+		timestamp = parseInt(new Date().getTime() / 1000);
+	}
+	wx.request({
+		// https://datanexus.qq.com/doc/develop/guider/interface/action/dmp_actions_add
+		// https://developers.e.qq.com/docs/api/user_data/user_action/user_actions_add?version=1.3
+		url: `https://api.e.qq.com/v1.3/user_actions/add?access_token=e99dabed71962b695abc2769b1bd97e4&timestamp=${timestamp}&nonce=${nonceStr}`,
+		data: {
+			account_id: '35362489',
+			user_action_set_id: '1202153505',
+			'actions': [
+				{
+					'external_action_id': actionType,
+					'action_time': timestamp,
+					'action_type': actionType, // 下单  https://datanexus.qq.com/doc/develop/guider/interface/enum#action-type
+					'action_param': {
+						'claim_type': 0,// 归因方式  https://datanexus.qq.com/doc/develop/guider/interface/enum#claim-type
+						'consult_type': 'ONLINE_CONSULT'
+					},
+					'trace': {
+						'click_id': app.globalData.openId // 点击ID，user_id 与 click_id 二选一必填，广点通的click_id长度是20位数字+字母组合；微信的click_id长度是10-50，如wx0im5kwh44gh2yq，字段长度为 64 字节
+					},
+					'channel': 'TENCENT' // 行为渠道  https://datanexus.qq.com/doc/develop/guider/interface/enum#action-channel
+				}
+			]
+		},
+		method: 'POST',
+		header: {},
+		success (res) {
+			console.log(res);
+		},
+		fail (res) {
+			console.log(res);
+		}
+	});
+}
+/**
+ * 计算卡片有效期
+ * @param res 对象
+ * @returns {*}
+ */
+function calculationValidityPeriod (res) {
+	let currentTime = Date.now();
+	let time = new Date('2020/01/01');
+	let date = new Date();
+	let fullYear = date.getFullYear();
+	let month = date.getMonth() + 1;
+	month = month < 10 ? '0' + month : month;
+	let day = date.getDate();
+	day = day < 10 ? '0' + day : day;
+	//  写入卡片的时间都为当前时间
+	res.cardEnableTime = `${fullYear}-${month}-${day}`;
+	res.cardExpireTime = `${fullYear + 10}-${month}-${day}`;
+	// 写入obu时间
+	// 2020/01/01之后 或者非货车
+	// carType 11 12分别为蓝牌货车 黄牌货车
+	if (((res.carType === 11 || res.carType === 12) && currentTime >= time.getTime()) || (res.carType === 1 || res.carType === 2)) {
+		res.enableTime = `${fullYear}-${month}-${day}`;
+		res.expireTime = `${fullYear + 10}-${month}-${day}`;
+	} else {
+		// 启用时间为2020年一月一日
+		res.enableTime = '2020-01-01';
+		res.expireTime = '2030-01-01'
+	}
+	return res;
+}
+/**
+ *  校验二发订单数据合法性
+ * @param info
+ * let info = {
+			"enableTime": "2019-09-29",
+			"expireTime": "2029-09-29",
+			"plateNo": "晋JAM087",
+			"plateColor": 0,
+			"carType": 1,
+			"userName": "杨江",
+			"userIdNum": "141122198806220013",
+			"userIdType": "0",
+			"type": 1,
+			"outsideDimensions": "4671×1902×1697mm",
+			"engineNum": "J100045411111111",
+			"approvedCount": "5人"
+		}
+ * @returns {boolean}
+ */
+function validateOnlineDistribution(encodeToGb2312, info, self) {
+	let isOk = true;
+	let msg = '';
+	// 姓名是否为空
+	if (!info.userName) {
+		isOk = false;
+		msg = '姓名为空，请检查！';
+	} else { //姓名编码校验
+		try {
+			encodeToGb2312(info.userName);
+		} catch (e) {
+			// 姓名编码异常
+			isOk = false;
+			msg = '姓名编码转换出错，请检查！';
+		}
+	}
+	
+	// 车牌是否为空
+	if (!info.plateNo) {
+		isOk = false;
+		msg = '车牌为空，请检查！';
+	} else { // 车牌编码校验
+		try {
+			encodeToGb2312(info.plateNo);
+		} catch (e) {
+			// 车牌编码异常
+			isOk = false;
+			msg = '车牌编码转换出错，请检查！';
+		}
+	}
+	
+	// 轮廓尺寸校验
+	if (!info.outsideDimensions) {
+		isOk = false;
+		msg = '轮廓尺寸为空，请检查！';
+	} else {
+		let result = info.outsideDimensions.match(/\d{4}/ig);
+		if (result.length !== 3) {
+			isOk = false;
+			msg = '轮廓尺寸有误，请检查！';
+		}
+	}
+	if (!info.engineNum) {
+		isOk = false;
+		msg = '发动机引擎编号为空，请检查！';
+	} else {
+		// 发动机长度校验
+		if (info.engineNum.length > 16) {
+			isOk = false;
+			msg = '发动机引擎编号过长，请检查！';
+		}
+	}
+	if (!isOk) {
+		self.isOver();
+		showToastNoIcon(msg);
+	}
+	return isOk;
+}
+/**
+ * TODO 暂时没提供2.0接口
+ * 发送错误信息到服务器
+ * @param area 区域表示 如青海二发金溢
+ * @param cosArr 指令数组 如：['00A40000023F00', '0084000004']
+ * @param code 执行执行返回的code 如果没有 填-1
+ * @param result 指令执行的结果
+ */
+function sendException2Server(area, cosArr, code, result) {
+	return;
+}
 module.exports = {
   setApp,
   returnMiniProgram,
+	calculationValidityPeriod,
+	validateOnlineDistribution,
+	sendException2Server,
+	getDatanexusAnalysis,
   formatNumber,
   addProtocolRecord,
   handleBluetoothStatus,

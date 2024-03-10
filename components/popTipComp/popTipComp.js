@@ -169,6 +169,12 @@ Component({
 				case '2':	// 民生细则点击跳转
 					util.go(`/pages/agreement_documents/equity_agreement/equity_agreement?type=minShengbyLaws`);
 					break;
+				case '3':	// 协议续签 ETC+用户服务协议
+					util.go(`/pages/agreement_documents/equity_agreement/equity_agreement?type=renewWhitelistService`);
+					break;
+				case '4':	// 协议续签 用户隐私协议
+					util.go(`/pages/agreement_documents/equity_agreement/equity_agreement?type=renewWhitelistPrivacy`);
+					break;
 				default:
 					break;
 			}
@@ -190,6 +196,29 @@ Component({
 		callBackPub () {
 			this.hide(false);
 			this.data.tipObj.callBack();
+		},
+		// 广发 小程序跳转
+		async guanFaFunc () {
+			let that = this;
+			let res = await util.getDataFromServersV2('consumer/order/apply/gf/bank-card', {
+                orderId: app.globalData.orderInfo.orderId
+            });
+            if (!res) return;
+            if (res.code === 0) {
+                util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data.applyUrl)}`);
+                that.hide(false);
+            } else {
+                util.showToastNoIcon(res.message);
+            }
+		},
+		// 协议续签
+		renewWhitelist () {
+			this.hide(false);
+			wx.setStorageSync('renewWhitelist',true);
+			console.log(this.data.paramsList);
+			if (this.data.paramsList[0].callBack) {
+				this.data.paramsList[0].callBack();
+			}
 		}
 
 	}

@@ -101,6 +101,18 @@ Page({
 		this.setData({
 			available: this.validateAvailable()
 		});
+		//  判断邮寄地址是否是北京
+		if (e.detail.code[0] === '110000') {
+			console.log('是北京地址');
+			util.alert({
+				title: '通知',
+				content: '尊敬的车主，您好！因北京部分地区快递投送管控，您的ETC设备可能会延迟发货，预计将于2024年3月14日恢复正常发货。给您带来的不便敬请谅解，如有疑问可在ETC+首页咨询在线客服。',
+				showCancel: false,
+				confirmText: '我知道了',
+				confirm: () => {
+				}
+			});
+		}
 	},
 	// 选择当前地址
 	onClickChooseLocationHandle () {

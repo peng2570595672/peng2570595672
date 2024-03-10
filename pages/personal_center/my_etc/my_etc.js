@@ -111,6 +111,41 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
+	// 针对特定号码 作续签弹窗提示
+	renewWhitelistJudgement (e) {
+		console.log(e);
+		let that = this;
+		let renew = e.currentTarget.dataset.renew;
+		if (app.globalData.renewWhitelist.includes(app.globalData.mobilePhone) && !wx.getStorageSync('renewWhitelist')) {
+			that.selectComponent('#popTipComp').show({
+				type: 'renewWhitelist',
+				title: '协议续签提醒',
+				btnCancel: '不同意',
+				btnconfirm: '同意',
+				callBack: () => {
+					if (renew === '1') {
+						that.onClickGoETCDetailHandle(e);
+					} else if (renew === '2') {
+						that.onClickVehicle(e);
+					} else if (renew === '3') {
+						that.onClickAddNewHandle(e);
+					} else {
+						that.onClickChoiceType(e);
+					}
+				}
+			});
+		} else {
+			if (renew === '1') {
+				that.onClickGoETCDetailHandle(e);
+			} else if (renew === '2') {
+				that.onClickVehicle(e);
+			} else if (renew === '3') {
+				that.onClickAddNewHandle(e);
+			} else {
+				that.onClickChoiceType(e);
+			}
+		}
+	},
 	onClickChoiceType (e) {
 		let activeIndex = parseInt(e.currentTarget.dataset.index);
 		wx.uma.trackEvent(activeIndex === 1 ? 'my_etc_for_tab_to_passenger_car' : 'my_etc_for_tab_to_truck');
@@ -131,7 +166,7 @@ Page({
 			util.showToastNoIcon('请返回原渠道办理');
 			return;
 		}
-		app.globalData.isCheckCarChargeType = orderInfo.obuCardType === 1 && (orderInfo.orderType === 11 || orderInfo.orderType === 21 || orderInfo.orderType === 71 || orderInfo.promoterType === 41) && orderInfo.auditStatus === 0;
+		app.globalData.isCheckCarChargeType = orderInfo.obuCardType === 1 && (orderInfo.orderType === 11 || orderInfo.orderType === 12 || orderInfo.orderType === 21 || orderInfo.orderType === 71 || orderInfo.promoterType === 41) && orderInfo.auditStatus === 0;
 		app.globalData.processFlowVersion = orderInfo.flowVersion;
 		app.globalData.orderInfo.orderId = orderInfo.id;
 		app.globalData.truckLicensePlate = orderInfo.vehPlates;
@@ -181,9 +216,21 @@ Page({
 			27: () => this.onClickContinueHandle(orderInfo), // 修改资料
 			28: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
 			30: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度 - 保证金退回
-			31: () => this.handleJumpHunanMini(orderInfo.id) // 跳转到湖南高速ETC小程序 - 已支付待激活
+			31: () => this.handleJumpHunanMini(orderInfo.id), // 跳转到湖南高速ETC小程序 - 已支付待激活
+			33: () => this.showRefundStatus(orderInfo)	// 查看广发订单退款状态
 		};
 		fun[orderInfo.selfStatus].call();
+	},
+	showRefundStatus (orderInfo) {
+		this.selectComponent('#popTipComp').show({
+			type: 'guangFaRefundStatus',
+			title: '退还结果',
+			btnCancel: '退出',
+			btnconfirm: '确认',
+			refundStatus: orderInfo.refundStatus,
+			content: orderInfo.refundStatus === 3 ? '权益金退还成功' : '权益金退还失败\n请确保您的信用卡已激活且为新户!',
+			bgColor: 'rgba(0,0,0, 0.6)'
+		});
 	},
 	async handleJumpHunanMini (orderId) {
 		const result = await util.getDataFromServersV2('consumer/order/order-pay-transaction-info', {

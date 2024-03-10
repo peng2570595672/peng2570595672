@@ -1,6 +1,7 @@
 // 是否为测试 TODO
 export const IS_TEST = true; // false为正式接口地址，true为测试接口地址
 const util = require('./utils/util.js');
+const definedData = require('./utils/dataStatement.js');
 const uma = require('./utils/umtrack-wx.js');
 App({
 	umengConfig: {
@@ -23,7 +24,7 @@ App({
 		uploadOcrUrl: 'https://file.cyzl.com/file/upload-ocr', // 上传图片需要识别地址
 		uploadUrl: 'https://file.cyzl.com/file/upload', // 上传图片无需审核地址
 		plamKey: '123456', // 签名用到的key --- 二发
-		mapKey: '2PEBZ-EJKKX-V624T-Z4MH6-LVHUS-D6BNM', // 腾讯地图所使用key
+		// mapKey: '2PEBZ-EJKKX-V624T-Z4MH6-LVHUS-D6BNM', // 腾讯地图所使用key
 		GDmapKey: '12cce57d81b349ddebfb032d800059a0',	// 高德地图所使用key
 		platformId: '500338116821778434', // 平台id
 		miniProgramServiceProvidersId: '611607716116299776', // 主流程小程序服务商id 用于加载不同套餐
@@ -133,16 +134,7 @@ App({
 		isVip: undefined,	// 收取综合服务费的用户：  true表示是，false表示不是
 		handledByTelephone: undefined,	// 4.0办理人的电话
 		newEnergy: false,	// false 表示不是新能源车牌
-		cictBankObj: {	// 中信对象
-			citicBankshopProductId: IS_TEST ? '1108398050782486528' : '1109116737144102912',	// 中信银行套餐的金卡套餐ID 分别是测试环境下和正式环境下
-			citicBankShopshopProductId: IS_TEST ? '1108397635760300032' : '1109116407530528768',	// 中信银行里的白金套餐的套餐ID 分别是测试环境下和正式环境下
-			citicBankRightId: IS_TEST ? '1092482405515665408' : '1117833250457919488',	// 银行签约后独立权益ID
-			wellBankShopProductId: IS_TEST ? '1126085154731728896' : '1129091866749968384',	// 平安信用卡套餐ID
-			cictBankNmGoldCard: IS_TEST ? '1160975248860913664' : '1151475676992905216',	// 中信银行蒙通卡套餐的金卡套餐ID 分别是测试环境下和正式环境下
-			cictBankNmPlatinumCard: IS_TEST ? '1160975461608595456' : '1151526287054610432',	// 中信银行蒙通卡套餐的白金卡套餐ID 分别是测试环境下和正式环境下
-			minshenBank: IS_TEST ? '1188851910218620928' : '1199301561518923776',	// 民生银行 分别是测试环境下和正式环境下
-			citicBankshopProductIds: IS_TEST ? ['1108398050782486528','1108397635760300032','1160975248860913664','1160975461608595456','1126085154731728896','1188851910218620928'] : ['1109116737144102912','1109116407530528768','1151475676992905216','1151526287054610432','1129091866749968384','1199301561518923776']	// 套餐ID集合
-		},
+		cictBankObj: definedData.cictBankObj,	// 银行对象
 		alertNotice: {
 			imgAlert: 0,
 			textAlert: 0
@@ -159,11 +151,13 @@ App({
 			shopProductId: IS_TEST ? '1122919688035115008' : ''	// 通行权益金套餐ID
 		},
 		pingAnBindGuests: undefined,	// 平安绑客合作机构开头的车牌号 '豫','川'
+		pingAnBindVehplates: [],	// 满足平安侧行驶证三要素信息的车牌
 		isShowOncepingAnBindGuestsPop: 0,
 		isTest: IS_TEST,
 		isAlertToSign: false,
 		isQingHaiHighSpeed: false,// 是否是青海高速办理,需要隐藏平安绑车
-		isQingHaiHighSpeedOnlineProcessing: false// 是否是青海高速线上办理
+		isQingHaiHighSpeedOnlineProcessing: false,	// 是否是青海高速线上办理
+		renewWhitelist: ['13368527179','18302531895','15185024319','17685020520','15870105857']	// 续签白名单
 	},
 	onLaunch (options) {
 		// 统计逻辑结束

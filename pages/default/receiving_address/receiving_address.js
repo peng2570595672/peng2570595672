@@ -60,6 +60,7 @@ Page({
 		}
 		if (options.activityType) {
 			util.resetData();// 重置数据
+			wx.hideHomeButton();
 			// 活动引流
 			this.setData({
 				activityType: options.activityType,
@@ -429,6 +430,7 @@ Page({
 			isRequest: false
 		});
 		if (result.code === 0) {
+			util.getDatanexusAnalysis('COMPLETE_ORDER');
 			if (params.orderType === 12) {
 				await util.getFollowRequestLog({shopId: params.shopId, orderId: result.data.orderId, source: '邮寄页提交'});
 			}
@@ -665,6 +667,18 @@ Page({
 		formData.region = e.detail.value;
 		if (e.detail.code && e.detail.code.length === 3) {
 			formData.regionCode = e.detail.code;
+		}
+		//  判断邮寄地址是否是北京
+		if (e.detail.code[0] === '110000') {
+			console.log('是北京地址');
+			util.alert({
+				title: '通知',
+				content: '尊敬的车主，您好！因北京部分地区快递投送管控，您的ETC设备可能会延迟发货，预计将于2024年3月14日恢复正常发货。给您带来的不便敬请谅解，如有疑问可在ETC+首页咨询在线客服。',
+				showCancel: false,
+				confirmText: '我知道了',
+				confirm: () => {
+				}
+			});
 		}
 		this.setData({
 			formData,
@@ -946,10 +960,58 @@ Page({
 		this.setData({
 			available: this.data.perfect === 1 ? true : this.validateAvailable(true) // perfect=1  仅填写车牌信息
 		});
-		util.showLoading();
 		if (!this.data.available || this.data.isRequest) {
 			return util.showToastNoIcon('请填写相关信息');
 		}
+		if (app.globalData.renewWhitelist.includes(app.globalData.mobilePhone) && !wx.getStorageSync('renewWhitelist')) {
+			let that = this;
+			that.selectComponent('#popTipComp').show({
+				type: 'renewWhitelist',
+				title: '协议续签提醒',
+				btnCancel: '不同意',
+				btnconfirm: '同意',
+				callBack: () => {
+					util.showLoading();
+					if (app.globalData.otherPlatformsServiceProvidersId === '1212436820283891712' || app.globalData.otherPlatformsServiceProvidersId === '841693649307312128') {
+						// 优行车服渠道
+						that.verifyCarnum();
+						return;
+					}
+					that.checkVehPlateExists();
+				}
+			});
+		} else {
+			util.showLoading();
+			if (app.globalData.otherPlatformsServiceProvidersId === '1212436820283891712' || app.globalData.otherPlatformsServiceProvidersId === '841693649307312128') {
+				// 优行车服渠道
+				this.verifyCarnum();
+				return;
+			}
+			this.checkVehPlateExists();
+		}
+	},
+	verifyCarnum () {
+		const that = this;
+		wx.request({
+			url: `https://etc.linbohezi.cn/api/demo/verifyCarnum`,
+			data: {
+				carNum: this.data.carNoStr
+			},
+			method: 'GET',
+			header: {},
+			success (res) {
+				if (res.data.code === 200) {
+					that.checkVehPlateExists();
+				} else {
+					util.showToastNoIcon('该车牌暂不可办理，请联系优行服务');
+				}
+			},
+			fail (res) {
+				util.showToastNoIcon('校检接口调用失败,请联系优行服务');
+			}
+		});
+	},
+	async checkVehPlateExists () {
 		let formData = this.data.formData; // 输入信息
 		const res = await util.getDataFromServersV2('consumer/etc/qtzl/checkVehPlateExists', {
 			vehiclePlate: this.data.carNoStr,

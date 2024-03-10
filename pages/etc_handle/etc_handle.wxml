@@ -20,7 +20,7 @@
             <view class="answersQuestions" wx:for="{{testData}}" wx:for-index="index" wx:if="{{index < 3}}" wx:key="index">
                 <view class="questions">
                     <view class="questionsImg">
-                        <image src="https://file.cyzl.com/g001/M00/B5/7C/oYYBAGO9BUuAQSYeAAABmpSmZv4643.png" />
+                        <image src="https://file.cyzl.com/g001/M01/B5/7C/oYYBAGO9BUuAQSYeAAABmpSmZv4643.png" />
                     </view>
                     <view class="questionsTitle">{{item.title}}</view>
                 </view>
@@ -50,3 +50,4 @@
     <viewProcedure id="viewProcedure" bind:onHandle="viewProcedure" data-value="false" viewTc="{{viewTc}}"></viewProcedure>
 </view>
 <privacy_popup></privacy_popup>
+<popTipComp id="popTipComp"></popTipComp>

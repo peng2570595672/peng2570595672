@@ -686,6 +686,13 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "升级流程",
+                    "pathName": "pages/default/escalation_process/escalation_process",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

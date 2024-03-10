@@ -158,8 +158,8 @@
                     ￥<span class="mpneySpan">{{activeIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}
                     </span>
                 </view>
-                <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}} bail" data-isconfirm="{{getAgreement}}" wx:if="{{listOfPackages[activeIndex].pledgeType === 5 || citicBank}}" catchtap="next">
-                    <view wx:if="{{citicBank}}">
+                <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}} bail" data-isconfirm="{{getAgreement}}" wx:if="{{listOfPackages[activeIndex].pledgeType === 5 || equityListMap.bankList[activeIndex].isBank}}" catchtap="next">
+                    <view wx:if="{{equityListMap.bankList[activeIndex].isBank}}">
                         <view class="titlea">立即办理</view>
                         <view class="subTitlea">{{tools.dataIncludes(citicBankshopProductIds,listOfPackages[activeIndex].shopProductId, 2)}}新客办理成功后返99元</view>
                     </view>

@@ -175,7 +175,7 @@ Page({
 			util.showToastNoIcon('请返回原渠道办理');
 			return;
 		}
-		app.globalData.isCheckCarChargeType = orderInfo.obuCardType === 1 && (orderInfo.orderType === 11 || orderInfo.orderType === 21 || orderInfo.orderType === 71 || orderInfo.promoterType === 41) && orderInfo.auditStatus === 0;
+		app.globalData.isCheckCarChargeType = orderInfo.obuCardType === 1 && (orderInfo.orderType === 11 || orderInfo.orderType === 12 || orderInfo.orderType === 21 || orderInfo.orderType === 71 || orderInfo.promoterType === 41) && orderInfo.auditStatus === 0;
 		app.globalData.orderInfo.orderId = orderInfo.id;
 		app.globalData.processFlowVersion = orderInfo.flowVersion;
 		app.globalData.truckLicensePlate = orderInfo.vehPlates;
@@ -226,7 +226,8 @@ Page({
 			28: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
 			30: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度 - 保证金退回
 			31: () => this.handleJumpHunanMini(orderInfo.id,orderInfo.selfStatus), // 跳转到湖南高速ETC小程序 - 已支付待激活
-			32: () => this.handleJumpHunanMini(orderInfo.id,orderInfo.selfStatus) // 跳转到湖南高速ETC小程序 - 已支付待激活
+			32: () => this.handleJumpHunanMini(orderInfo.id,orderInfo.selfStatus), // 跳转到湖南高速ETC小程序 - 已支付待激活
+			33: () => this.onClickCctivate(orderInfo)	// 广发 - 已激活
 		};
 		fun[orderInfo.selfStatus].call();
 	},

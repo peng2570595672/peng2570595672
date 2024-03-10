@@ -156,7 +156,8 @@ Page({
                     contractStatus: false,
                     isCiticBankPlatinum: res.orderInfo.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || res.orderInfo.shopProductId === app.globalData.cictBankObj.cictBankNmPlatinumCard, // 判断是不是白金卡套餐
                     isWellBank: orderInfo.shopProductId === app.globalData.cictBankObj.wellBankShopProductId, // 判断是否为平安信用卡套餐
-                    isMinShenBank: orderInfo.shopProductId === app.globalData.cictBankObj.minshenBank // 判断是否为民生银行卡套餐
+                    isMinShenBank: orderInfo.shopProductId === app.globalData.cictBankObj.minshenBank, // 判断是否为民生银行卡套餐
+                    isGuangFaBank: orderInfo.shopProductId === app.globalData.cictBankObj.guangfaBank // 判断是否为广发银行卡套餐
                 });
             }
             this.availableCheck();
@@ -400,7 +401,7 @@ Page({
         if (!result) return;
         if (result.code === 0) {
             app.globalData.isNeedReturnHome = true;
-            app.globalData.isCheckCarChargeType = this.data.orderInfo.obuCardType === 1 && (this.data.orderInfo.orderType === 11 || this.data.orderInfo.orderType === 21 || this.data.orderInfo.orderType === 71 || this.data.orderInfo.promoterType === 41) && !this.data.isModifiedData;
+            app.globalData.isCheckCarChargeType = this.data.orderInfo.obuCardType === 1 && (this.data.orderInfo.orderType === 11 || this.data.orderInfo.orderType === 12 || this.data.orderInfo.orderType === 21 || this.data.orderInfo.orderType === 71 || this.data.orderInfo.promoterType === 41) && !this.data.isModifiedData;
             if (this.data.citicBank) {
                 if (this.data.citicBank) { // 拉起中信弹窗
                     this.setData({
@@ -458,6 +459,10 @@ Page({
             }
         });
     },
+    // 针对信用卡已申卡的直接跳过弹窗进入下一步
+    skipTips () {
+        util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
+    },
     async onclickhandel () {
         // 未登录
         if (!app.globalData.userInfo?.accessToken) {
@@ -498,6 +503,16 @@ Page({
                 });
                 // 跳转 h5
                 // util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data.applyUrl)}`);
+            } else {
+                util.showToastNoIcon(res.message);
+            }
+        } else if (this.data.isGuangFaBank) { // 广发银行
+            let res = await util.getDataFromServersV2('consumer/order/apply/gf/bank-card', {
+                orderId: app.globalData.orderInfo.orderId
+            });
+            if (!res) return;
+            if (res.code === 0) {
+                util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data.applyUrl)}`);
             } else {
                 util.showToastNoIcon(res.message);
             }
