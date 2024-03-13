@@ -39,6 +39,9 @@ Page({
                 isReturn: +options.type === 1
             });
         }
+        if (options.source) {
+            wx.hideHomeButton();
+        }
         // 空发平安激活 是否补充信息激活
         if (options.orderId && options.vehPlates) {
             this.setData({

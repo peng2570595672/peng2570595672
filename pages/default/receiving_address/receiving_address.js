@@ -1,3 +1,5 @@
+import {wxApi2Promise} from '../../../utils/utils';
+
 /**
  * @author 老刘
  * @desc 填写车牌和收货信息
@@ -45,12 +47,15 @@ Page({
 		activityType: 0, // 活动引流类型
 		citicBank: false,
 		sharkOrderNo: '',// 鲨鱼零工渠道订单号
+		openCode: '',// 第三方登录参数 (河南移动code,用作免登)
+		loginErr: '',// 登录异常
 		isDisableClick: false // 是否禁止点击
 	},
 	async onLoad (options) {
 		app.globalData.orderInfo.orderId = '';
 		console.log(options);
-		if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
+		console.log(Object.keys(options).length);
+		if ((app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) || Object.keys(options).length) {
 			wx.hideHomeButton();
 		}
 		if (options.shareId) {
@@ -58,9 +63,16 @@ Page({
 			// 高速通行公众号进入办理
 			app.globalData.isHighSpeedTraffic = options.shareId;
 		}
+		if (options.openCode && options.source === 'henanMobile') {
+			// 河南移动
+			this.setData({
+				openCode: options.openCode
+			});
+			app.globalData.otherPlatformsServiceProvidersId = options.shopId;
+			this.getOpenApiCodeLogin();
+		}
 		if (options.activityType) {
 			util.resetData();// 重置数据
-			wx.hideHomeButton();
 			// 活动引流
 			this.setData({
 				activityType: options.activityType,
@@ -90,7 +102,6 @@ Page({
 			});
 		}
 		if (options.vehPlate) {
-			wx.hideHomeButton();
 			this.setData({
 				isDisableClick: true,
 				isNewPowerCar: options.vehPlate.length === 8,
@@ -103,7 +114,7 @@ Page({
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.signAContract = 3;
 		// 会员券进入,线下取货
-		if (app.globalData.membershipCoupon.id || options.isPost) {
+		if (app.globalData.membershipCoupon.id || +options.isPost) {
 			let formData = this.data.formData;
 			formData.userName = '线下取货'; // 姓名
 			formData.detailInfo = '沙文镇科教街188号';
@@ -121,13 +132,14 @@ Page({
 			addCard: '完善车牌号'
 		});
 		}
-		if (options.isPost && options.vehPlate?.length < 11) {
+		if (+options.isPost && options.vehPlate?.length < 11) {
 			this.setData({
 				available: true
 			});
 		}
 	},
 	async onShow () {
+		let result = wx.getLaunchOptionsSync();
 		if (!this.data.isNeedRefresh) {
 			return;
 		}
@@ -146,8 +158,10 @@ Page({
 				this.getSelectOrderInfoByThirdNo();
 			}
 		} else {
-			// 公众号进入需要登录
-			this.login();
+			if (!result.query?.openCode) {
+				// 公众号进入需要登录
+				this.login();
+			}
 		}
 	},
 
@@ -205,6 +219,56 @@ Page({
 			wx.reLaunch({
 				url: `/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${result.data.orderId}`
 			});
+		}
+	},
+	// 河南移动进入
+	async getOpenApiCodeLogin () {
+		const result = await util.getDataFromServersV2('consumer/member/common/open-api-code-login', {
+			openCode: this.data.openCode,
+			platformId: app.globalData.platformId,
+			shopId: app.globalData.otherPlatformsServiceProvidersId
+		});
+		if (!result.code) {
+			result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data.mobilePhone);
+			this.setData({
+				loginInfo: result.data
+			});
+			app.globalData.userInfo = result.data;
+			app.globalData.openId = result.data.openId;
+			app.globalData.memberId = result.data.memberId;
+			app.globalData.mobilePhone = result.data.mobilePhone;
+			this.setData({
+				'formData.cardMobilePhone': result.data.mobilePhone
+			});
+			const res = await wxApi2Promise(wx.login, {}, this.data);
+			const bondRes = await util.getDataFromServersV2('consumer/member/bind-platform', {
+				code: res.code,
+				clear: 1,
+				platformId: app.globalData.platformId
+			});
+			app.globalData.openId = bondRes.data.openId;
+			const etcRes = await util.getDataFromServersV2('consumer/order/my-etc-list', {
+				shopId: app.globalData.otherPlatformsServiceProvidersId,
+				toMasterQuery: true
+			});
+			if (etcRes.data.length) {
+				const orderInfo = etcRes.data[0];
+				app.globalData.orderInfo.orderId = orderInfo.id; // 订单id
+				if (!orderInfo.status) {
+					wx.reLaunch({
+						url: '/pages/default/information_list/information_list?source=henanMobile'
+					});
+				} else {
+					wx.reLaunch({
+						url: '/pages/default/processing_progress/processing_progress?source=henanMobile'
+					});
+				}
+			}
+		} else {
+			this.setData({
+				loginErr: '登录异常，请返回移动办理页重新打开小程序'
+			});
+			util.showToastNoIcon('登录异常，请返回移动办理页重新打开小程序');
 		}
 	},
 	// 发送短信验证码
@@ -283,7 +347,7 @@ Page({
 		let formData = this.data.formData; // 输入信息
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
-			orderType: this.data.isOnlineDealWith ? 11 : 12,
+			orderType: this.data.isOnlineDealWith ? 11 : 21,
 			dataType: '12', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			vehPlates: this.data.carNoStr, // 车牌号
@@ -437,6 +501,12 @@ Page({
 			app.globalData.handledByTelephone = this.data.formData.cardMobilePhone;
 			app.globalData.orderInfo.orderId = result.data.orderId; // 订单id
 			app.globalData.newEnergy = formData.currentCarNoColor === 1 ? true : false;
+			if (this.data.openCode) {
+				wx.reLaunch({
+					url: '/pages/default/information_list/information_list?source=henanMobile'
+				});
+				return;
+			}
 			if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
 				await this.getProduct();
 			} else {
@@ -955,6 +1025,9 @@ Page({
 	},
 	// 传车牌及车牌颜色校验是否已有黔通订单 三方接口
 	async validateCar () {
+		if (this.data.openCode && this.data.loginErr) {
+			return util.showToastNoIcon(this.data.loginErr);
+		}
 		if (!app.globalData.userInfo.accessToken) {
 			util.go('/pages/login/login/login');
 			return;
@@ -965,6 +1038,23 @@ Page({
 		if (!this.data.available || this.data.isRequest) {
 			return util.showToastNoIcon('请填写相关信息');
 		}
+		if (this.data.openCode && this.data.isOnlineDealWith) {
+			let that = this;
+			that.selectComponent('#popTipComp').show({
+				type: 'ReceivingInformation',
+				title: '请确认收货信息',
+				content: that.data.formData,
+				btnCancel: '修改信息',
+				btnconfirm: '确认',
+				callBack: () => {
+					this.vehicleVerify();
+				}
+			});
+			return;
+		}
+		this.vehicleVerify();
+	},
+	vehicleVerify () {
 		if (app.globalData.renewWhitelist.includes(app.globalData.mobilePhone) && !wx.getStorageSync('renewWhitelist')) {
 			let that = this;
 			that.selectComponent('#popTipComp').show({

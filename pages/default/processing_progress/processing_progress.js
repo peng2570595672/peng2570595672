@@ -39,6 +39,9 @@ Page({
 			isContinentInsurance: app.globalData.isContinentInsurance || app.globalData.isPingAn,
 			isQingHaiHighSpeed: app.globalData.isQingHaiHighSpeed
 		});
+		if (options.source && options.source === 'henanMobile') {
+			wx.hideHomeButton();
+		}
 		if (options.orderId) {
 			this.setData({
 				orderId: options.orderId

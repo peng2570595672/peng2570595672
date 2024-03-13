@@ -234,5 +234,25 @@
                 <view class="ok" catchtap="renewWhitelist">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
             </view>
         </view>
+        <!-- 收货地址确认提醒 -->
+        <view class="module moduleThree receivingInformation" wx:if="{{tipObj.type === 'ReceivingInformation'}}">
+            <view class="title">{{tipObj.title}}</view>
+            <view class="from-container">
+                <view class="label">收货人</view>
+                <view class="val">{{tipObj.content.userName}}</view>
+            </view>
+            <view class="from-container">
+                <view class="label">手机号</view>
+                <view class="val">{{tipObj.content.telNumber}}</view>
+            </view>
+            <view class="from-container">
+                <view class="label">详细地址</view>
+                <view class="val">{{tipObj.content.region[0]}}{{tipObj.content.region[1]}}{{tipObj.content.region[2]}}{{tipObj.content.detailInfo}}</view>
+            </view>
+            <view class="bottomBtn" >
+                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+                <view class="ok" catchtap="renewWhitelist">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
+            </view>
+        </view>
     </view>
 </view>
