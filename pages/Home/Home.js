@@ -162,6 +162,10 @@ Page({
         isBail: false, // 是否有保证金退回的订单（false: 没有，true: 有）
         PingAn: false // 是否展示平安获客banner
     },
+    // qujihuo
+    qujihuo () {
+        util.go('/pages/obu_activate/hunan/pro9901/pro9901');
+    },
     async onLoad (options) {
         util.resetData(); // 重置数据
         this.setData({

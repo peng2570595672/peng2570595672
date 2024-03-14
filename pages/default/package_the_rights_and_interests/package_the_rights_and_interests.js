@@ -739,6 +739,9 @@ Page({
         }
         // 9901 套餐验证码
         if (this.data.listOfPackages[this.data.choiceIndex].shopProductId === '1210255905172496384') {
+            // this.setData({
+            //     is9901: true
+            // });
             this.selectComponent('#verifyCode').show();
             return;
         }
@@ -931,10 +934,13 @@ Page({
                             return;
                         }
                         // 9901模式套餐 支付成功
-                        console.log('9901模式套餐 支付成功,去支付成功页');
-                        util.go('/pages/default/payment_successful/payment_successful?pro9901=true');
+                        if (this.data.listOfPackages[this.data.choiceIndex].shopProductId === '1210255905172496384') {
+                            console.log('9901模式套餐 支付成功,去支付成功页');
+                            util.go('/pages/default/payment_successful/payment_successful?pro9901=true');
+                            return;
+                        }
                         // 去支付成功页
-                        // util.go('/pages/default/payment_successful/payment_successful');
+                        util.go('/pages/default/payment_successful/payment_successful');
                     } else {
                         util.showToastNoIcon('支付失败！');
                     }

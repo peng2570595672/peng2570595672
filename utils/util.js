@@ -104,6 +104,7 @@ function signature(params, path, token = '', timestamp, nonceStr) {
   sign += `nonceStr=${nonceStr}&`;
   // 拼接key
   sign += 'key=' + app.globalData.plamKey;
+  console.log('sign',sign);
   return md5Encrypt(sign);
 }
 

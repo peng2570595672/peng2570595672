@@ -301,7 +301,7 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			// 9901 套餐上传证件后准备开户
+			// 9901 套餐上传身份证件后开户
 			const orderId = result.data.orderId;
 			if (this.data.is9901) {
 				console.log('is9901', orderId);

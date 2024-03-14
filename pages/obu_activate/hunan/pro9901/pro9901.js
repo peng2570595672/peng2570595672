@@ -50,6 +50,7 @@ Page({
 		// 652144038597623808
 		// app.globalData.orderInfo.orderId = '648167250636832769';
 		this.scanDevice();
+		console.log('options',options);
 		if (options.type && parseInt(options.type) === 1) {
 			wx.setNavigationBarTitle({
 				title: '一键激活（中路未来）'
@@ -87,22 +88,29 @@ Page({
 	},
 	// 开启蓝牙
 	scanDevice () {
-		JLObuSDK.ScanDevice(null, (res) => {
+		this.setData({
+      devices: []
+    });
+		const that = this;
+		JLObuSDK.ScanDevice(null,30000, (res) => {
+			console.info('开启蓝牙扫描+scanDevice-Time out test:' + JSON.stringify(res));
 			if (res.data != null && res.code === 0) {
 				let obj = {};
 				for (let dev of res.data) {
-					obj['device_name'] = dev.device_name;
-					obj['device_no'] = dev.device_no;
-					this.mySetData({
-						deviceName: dev.device_name,
+					obj = dev;
+					that.mySetData({
+						deviceName: dev.name,
 						showLoading: false,
-						getListFailed: false
+						getListFailed: false,
+						devices: that.data.devices.concat(dev)
 					});
 					// 停止扫描设备
 					JLObuSDK.StopScanDevice(() => {
+						console.log('停止扫描设备');
 					});
 					// 连接设备
-					JLObuSDK.ConnectDevice(obj, (res) => {
+					JLObuSDK.connectDevice(obj, (res) => {
+						console.log('连接设备',res);
 							if (res.code === 0) {
 								this.mySetData({
 									connectState: 1,
@@ -128,6 +136,8 @@ Page({
 									errMsg: res.err_msg
 								});
 							}
+						},(err) => {
+							console.log('连接状态:' + JSON.stringify(err));
 						}
 					);
 					break;

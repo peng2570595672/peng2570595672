@@ -9,7 +9,7 @@ Page({
     onLoad (options) {
         this.setData({
             orderId: options.orderId,
-            is9901: options.pro9901
+            is9901: true
         });
     },
 
