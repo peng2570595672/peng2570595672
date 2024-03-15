@@ -42,6 +42,9 @@ Page({
 			isQingHaiHighSpeed: app.globalData.isQingHaiHighSpeed,
 			is9901: options.pro9901
 		});
+		if (options.source && options.source === 'henanMobile') {
+			wx.hideHomeButton();
+		}
 		if (options.orderId) {
 			this.setData({
 				orderId: options.orderId

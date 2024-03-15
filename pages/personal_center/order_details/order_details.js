@@ -21,9 +21,6 @@ Page({
 		this.setData({
 			isQingHaiHighSpeed: app.globalData.isQingHaiHighSpeed
 		});
-		if (!this.data.firstCar) {
-			this.setData({firstCar: await util.getBindGuests()});
-		}
 		if (app.globalData.billingDetails) {
 			this.setData({
 				details: app.globalData.billingDetails
@@ -42,11 +39,14 @@ Page({
 				});
 				this.login();
 			} else {
+				if (!this.data.firstCar) {
+					this.setData({firstCar: await util.getBindGuests()});
+				}
 				this.getBillDetail();
 			}
 		}
 	},
-	onShow () {
+	async onShow () {
 		if (app.globalData.billingDetails) {
 			this.setData({
 				details: app.globalData.billingDetails
@@ -82,7 +82,7 @@ Page({
 				}, () => {
 					util.hideLoading();
 					util.showToastNoIcon('登录失败！');
-				}, (res) => {
+				}, async (res) => {
 					if (res.code === 0) {
 						res.data['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
 						this.setData({
@@ -94,6 +94,9 @@ Page({
 							app.globalData.openId = res.data.openId;
 							app.globalData.memberId = res.data.memberId;
 							app.globalData.mobilePhone = res.data.mobilePhone;
+							if (!this.data.firstCar) {
+								this.setData({firstCar: await util.getBindGuests()});
+							}
 							// 查询最后一笔订单状态
 							this.getBillDetail();
 							this.getStatus();

@@ -39,6 +39,9 @@ Page({
                 isReturn: +options.type === 1
             });
         }
+        if (options.source) {
+            wx.hideHomeButton();
+        }
         // 是否是9901 套餐 记录一下
         console.log('9901', options);
         if (options.pro9901) {
