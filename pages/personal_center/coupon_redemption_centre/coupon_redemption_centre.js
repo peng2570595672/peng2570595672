@@ -16,10 +16,56 @@ Page({
 			text: '加载中...'
 		}
 	},
-	async onLoad () {
+	async onLoad (options) {
+		if (options.source) {
+			wx.hideHomeButton();
+			this.login();
+			return;
+		}
 		await this.getCouponCenterList();
 		// 查询是否欠款
 		await util.getIsArrearage();
+	},
+	// 自动登录
+	login () {
+		util.showLoading();
+		// 调用微信接口获取code
+		wx.login({
+			success: (res) => {
+				util.getDataFromServer('consumer/member/common/applet/code', {
+					platformId: app.globalData.platformId, // 平台id
+					code: res.code // 从微信获取的code
+				}, () => {
+					util.hideLoading();
+					util.showToastNoIcon('登录失败！');
+				}, async (res) => {
+					if (res.code === 0) {
+						util.hideLoading();
+						res.data['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
+						this.setData({
+							loginInfo: res.data
+						});
+						// 已经绑定了手机号
+						if (res.data.needBindingPhone !== 1) {
+							app.globalData.userInfo = res.data;
+							app.globalData.openId = res.data.openId;
+							app.globalData.memberId = res.data.memberId;
+							app.globalData.mobilePhone = res.data.mobilePhone;
+							await this.getCouponCenterList();
+						} else {
+							util.hideLoading();
+						}
+					} else {
+						util.hideLoading();
+						util.showToastNoIcon(res.message);
+					}
+				});
+			},
+			fail: () => {
+				util.hideLoading();
+				util.showToastNoIcon('登录失败！');
+			}
+		});
 	},
 	hideLoadingMore () {
 		this.setData({

@@ -4,7 +4,7 @@
     <view class="title">{{info.vehPlates}}</view>
     <!--	车牌结束-->
     <!--	用户信息开始-->
-    <view class="user-info" wx:if="{{info.orderType !== 71 && info.promoterType !== 41}}">
+    <view class="user-info" wx:if="{{info.orderType !== 12 &&info.orderType !== 21 && info.orderType !== 71 && info.promoterType !== 41}}">
         <view wx:if="{{info.orderType !== 31 && info.promoterType !== 45}}">
             <text>{{info.receiveMan}}</text>
             <text>{{info.receivePhone}}</text>
