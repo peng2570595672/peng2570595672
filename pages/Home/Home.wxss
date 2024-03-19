@@ -94,10 +94,10 @@
   height: 100%;
 }
 .home .topSwiper .regular {
-  pointer-eventsnone: none;
+  pointer-events: none;
 }
 .home .topSwiper .regular .regular-item {
-  pointer-eventsauto: auto;
+  pointer-events: auto;
 }
 .home .module {
   padding: 0rpx 28rpx;
@@ -105,7 +105,7 @@
   background: #fff;
   margin: 32rpx 28rpx 0rpx 28rpx;
   position: relative;
-  z-index: 2;
+  z-index: 2 !important;
   top: -100rpx;
 }
 .home .immediately {
@@ -251,10 +251,12 @@
   width: 334rpx;
   display: flex;
   overflow: hidden;
-  margin-bottom: 28rpx;
   align-items: center;
   border-radius: 16rpx;
   box-shadow: 0rpx 4rpx 8rpx 0rpx rgba(240,240,240,0.5);
+}
+.home .moduleTwo .moduleTwoBox .integral:nth-child(even) {
+  margin-bottom: 28rpx;
 }
 .home .moduleTwo .moduleTwoBox .integral image {
   width: 100%;
