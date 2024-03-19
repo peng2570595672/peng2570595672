@@ -13,7 +13,7 @@
                 data-renew="2"
                 catchtap="renewWhitelistJudgement"
                 catchtouchmove="{{tools.dataLen(imgList) === 1 ? 'catchtouchmove':''}}">
-                <image class="topImg" src='{{item.imgUrl}}' mode="widthFix" bindload="imgH" alt="暂无图片"/>
+                <image class="topImg" src='{{item.imgUrl}}' bindload="imgH" alt="暂无图片"/>
             </swiper-item>
         </swiper>
     </view>
