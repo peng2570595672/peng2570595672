@@ -251,7 +251,7 @@
             </view>
             <view class="bottomBtn" >
                 <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
-                <view class="ok" catchtap="renewWhitelist">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
+                <view class="ok" catchtap="callBackPub">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
             </view>
         </view>
     </view>

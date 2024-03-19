@@ -53,8 +53,6 @@ Page({
 	},
 	async onLoad (options) {
 		app.globalData.orderInfo.orderId = '';
-		console.log(options);
-		console.log(Object.keys(options).length);
 		if ((app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) || Object.keys(options).length) {
 			wx.hideHomeButton();
 		}
@@ -146,7 +144,6 @@ Page({
 		this.setData({
 			isNeedRefresh: true
 		});
-		console.log(app.globalData.userInfo);
 		if (app.globalData.userInfo.accessToken) {
 			this.setData({
 				'formData.cardMobilePhone': app.globalData.mobilePhone,
@@ -247,6 +244,7 @@ Page({
 				platformId: app.globalData.platformId
 			});
 			app.globalData.openId = bondRes.data.openId;
+			app.globalData.userInfo.openId = bondRes.data.openId;
 			const etcRes = await util.getDataFromServersV2('consumer/order/my-etc-list', {
 				shopId: app.globalData.otherPlatformsServiceProvidersId,
 				toMasterQuery: true
@@ -724,7 +722,7 @@ Page({
 							wx.openSetting();
 						}
 					});
-				} else if (e.errMsg !== 'chooseAddress:fail cancel') {
+				} else if (e.errMsg !== 'chooseAddress:fail cancel' && !e.errMsg.includes('chooseAddress:fail privacy')) {
 					util.showToastNoIcon('选择收货地址失败！');
 				}
 			}

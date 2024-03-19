@@ -64,6 +64,7 @@ Page({
 		util.customTabbar(this, 1);
 	},
 	async onShow () {
+		app.globalData.orderInfo.orderId = '';
 		// 查询是否欠款
 		if (app.globalData.userInfo.accessToken) {
 			await util.getIsArrearage();

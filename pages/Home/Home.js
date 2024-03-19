@@ -175,6 +175,7 @@ Page({
         }
     },
     async onShow () {
+        app.globalData.orderInfo.orderId = '';
         this.setData({
             isAlertToSignObj: ''
         });
