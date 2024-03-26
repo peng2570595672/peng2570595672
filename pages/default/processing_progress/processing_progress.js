@@ -330,7 +330,7 @@ Page({
 							(res.data.orderType === 31 && res.data.productName?.includes('中信') && res.data.pledgeType === 2)
 						),
 					isWellBank: (res.data.obuStatus === 1 || res.data.obuStatus === 5) && res.data.shopProductId === app.globalData.cictBankObj.wellBankShopProductId,
-					isGuangFaBank: (res.data.obuStatus === 1 || res.data.obuStatus === 5) && res.data.shopProductId === app.globalData.cictBankObj.guangfaBank,
+					isGuangFaBank: res.data.shopProductId === app.globalData.cictBankObj.guangfaBank,
 					info: res.data
 				});
 

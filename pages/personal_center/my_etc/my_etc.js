@@ -18,7 +18,8 @@ Page({
 		truckList: [] // 货车
 	},
 	async onShow () {
-		util.resetData(); // 重置数据
+		util.resetData();// 重置数据
+		app.globalData.orderInfo.orderId = '';
 		app.globalData.isTruckHandling = false;
 		app.globalData.isNeedReturnHome = false;
 		if (app.globalData.userInfo.accessToken) {

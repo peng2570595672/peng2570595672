@@ -25,14 +25,19 @@
     padding-top: 30rpx;
 }
 
-.tab-bar .tab-bar-item .coverImg {
+.tab-bar .tab-bar-item .pic {
     width: 54rpx;
     height: 54rpx;
     margin-bottom: 10rpx;
 }
 
+.tab-bar .tab-bar-item .pic .coverImg {
+    width: 100%;
+    height: 100%;
+}
+
 .tab-bar .tab-bar-item .titleBar {
-    font-size: 20rpx;
+    font-size: 24rpx;
     font-weight: 400;
     color: #66666E;
     line-height: 28rpx;
