@@ -1,0 +1,108 @@
+<wxs src='../../../utils/util.wxs' module='tools' />
+<view class="index">
+    <!-- 顶部 进度条 组件 -->
+    <view class="topSplit">
+        <view>
+            正在办理 {{vehPlates||'666'}}
+        </view>
+        <view>
+            结算方式
+        </view>
+    </view>
+    <!-- tab 选项框 -->
+    <view class="package_tab" >
+        <view class="package_tab_top">
+            <view wx:for="{{orderTabList}}" wx:key="index" class="item">
+                {{item.name}}
+                <view class="confirm iconfont {{index === activeIndex ? 'tick' : ''}}" data-index="{{index}}" catchtap="choosePackage"></view>
+            </view>
+        </view>
+        <view class="package_tab_bottom">
+            <view>当日通行，隔日还款，适直偶尔上高速人群</view>
+            <view>服务费:通行费*0.4%，最低10元1日(无通行不收费)</view>
+        </view>
+    </view>
+
+    <!-- 套餐模块 -->
+    <view class="package" wx:for="{{listOfPackages}}" wx:key="index">
+        <view class="module moduleOne  {{'module' + index}} {{index === activeIndex ? 'btnHighLight' : 'minheight'}}" data-index="{{index}}" data-shopproductid="{{item.shopProductId}}" catchtap="btnHeightLight">
+            <!-- 展示的套餐部分 -->
+            <view class="upperPart {{ item.productRecommend ? '' : 'subUpperPart'}}" >
+                <view class="titleMOney">
+                    <!-- 套餐名称：取后台套餐名称 -->
+                    <view class="title">货车日结卡</view>
+                    <!-- 取后台支付金额，保留小数点后2位，若套餐支付金额为0时，前端价格展示为免费 -->
+                    <view class="money">
+                        <span>
+                            <text style="color: red;text-decoration:line-through">￥199.00</text>
+                        </span>
+                        <!-- 空发套餐并且设备免费时，隐藏金额 -->
+                    </view>
+                </view>
+                <view class="subTitle">{{tools.limitNumber('当日结算，及时清账',9)}}</view>
+                <!-- 套餐描述 取后台配置展示，若无配置则不展示 -->
+                <view class="description" wx:if="{{item.descriptionList && item.descriptionList.length > 0}}">
+                    <view>
+                        <view class="descriptionModule" wx:for="{{item.descriptionList}}" wx:for-item="itemBase" wx:for-index="index1" wx:key="index1">
+                            <view class="title">{{itemBase.value}}</view>
+                        </view>
+                    </view>
+                </view>
+                <!-- 套餐附加权益信息显示 -->
+                <view class="addEquityInfo">
+                    <view class="intruduce">办理说明</view>
+                    <view class="intruduce2">服务费:通行费*0.4%，最低10元1日(无通行不收费)</view>
+                    <view class="intruduce2">根据计算，使用ETC的货车司机，预估可首 5000元/年</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!-- 占位 -->
+    <view class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}} {{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) ? 'isRPI' : ''}}" ></view>
+    <!-- 支付和协议说明 模块 -->
+    <view class="payAndAgreement {{isFade ? 'fadeIn' : 'fadeOut'}}" wx:if="{{isLoaded}}">
+        <view class="agreementConfirm" bindtap="onClickAgreementHandle">
+            <view class="confirm iconfont {{getAgreement ? 'tick' : ''}}" catchtap="onClickAgreementHandle"></view>
+            <view class="agreement" wx:if="{{!listOfPackages[choiceIndex].agreements}}">
+                当您勾选同意并选购套餐时，即代表您已阅读、理解并接受
+                <text class="agreementColor" catchtap="onClickGoTTQAgreement1" wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon === 1}}">通通券会员服务协议、</text>
+                <text class="agreementColor" catchtap="onClickGoAgreementHandle">ETC用户办理协议、</text>
+                <text class="agreementColor" catchtap="onClickGoQianTongAgreement" wx:if="{{listOfPackages[choiceIndex].etcCardId === 1}}">黔通卡ETC用户协议、</text>
+                <text class="agreementColor" catchtap="onClickGoPrivacyHandle">用户隐私协议</text>
+                里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。
+            </view>
+            <view class="agreement" wx:else >
+                 当您勾选同意并选购套餐时，即代表您已阅读、理解并接受
+                <block wx:for="{{listOfPackages[choiceIndex].agreements}}" wx:for-item="item5" wx:for-index="index5" wx:key="index5">
+                    <text class="agreementColor" data-item="{{item5}}" catchtap="goAgreementPage">{{item5.name}}{{listOfPackages[choiceIndex].agreements.length - 1 === index5 ? '' : '、' }}</text>
+                </block>
+                里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。
+            </view>
+        </view>
+        <!-- 签约、支付、下一步 -->
+        <view class="paySign">
+            <view class="moneyPay {{isFade ? 'confirmPackage' : ''}}" wx:if="{{choiceIndex !== -1 }}">
+                <view class="money">
+                    押金￥59
+                </view>
+                <view class="color_money">
+                    原价<span class="span_mon">599</span> 
+                </view>
+                
+                <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}}" data-isconfirm="{{getAgreement}}"  catchtap="next">
+                    <view>立即办理</view>
+                    <view class="back_money">设备激活后返还全部押金</view>
+                </view>  
+            </view>
+            <view class="nextSign" wx:else>
+                <button class="btns {{choiceIndex === -1 || getAgreement ? 'payColor' : ''}}" catchtap="next" >
+                    {{isSalesmanOrder ? '去签约' : '确认套餐'}}
+                </button>
+            </view>
+        </view>
+    </view>
+    <popTipComp id="popTipComp" bind:confirmHandle="confirmHandle"></popTipComp>
+    <!-- 自定义出入方向的弹窗 -->
+    <customDirectionPopup id="cdPopup" bind:cDPopup="cDPopup"/>
+</view>
+<privacy_popup></privacy_popup>

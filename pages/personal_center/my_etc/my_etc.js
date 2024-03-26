@@ -11,7 +11,8 @@ Page({
 		carList: undefined,
 		activeIndex: 1,
 		passengerCarList: [],// 客车
-		truckList: []// 货车
+		truckList: [],// 货车
+		showMoreStatus: false // 控制货车退款 显示
 	},
 	async onShow () {
 		util.resetData();// 重置数据
@@ -98,7 +99,8 @@ Page({
 				});
 			}
 			this.setData({
-				carList: this.data.activeIndex === 1 ? passengerCarList : truckList, // 初始化变量
+				// carList: this.data.activeIndex === 1 ? passengerCarList : truckList, // 初始化变量
+				carList: passengerCarList.concat(truckList), // 初始化变量
 				truckList: truckList,
 				passengerCarList: passengerCarList
 			});
@@ -150,6 +152,17 @@ Page({
 			activeIndex,
 			carList: activeIndex === 1 ? this.data.passengerCarList : this.data.truckList
 		});
+	},
+	// 显示货车退款 按钮
+	goMoreStatus (e) {
+		let status = e.currentTarget.dataset.status;
+		console.log(status);
+		if (+status === 0) {
+			console.log('12333');
+			this.setData({
+				showMoreStatus: !this.data.showMoreStatus
+			});
+		}
 	},
 	// 点击车辆信息
 	onClickVehicle (e) {

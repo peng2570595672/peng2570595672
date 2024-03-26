@@ -1009,6 +1009,10 @@ Page({
 			}, time);
 		})();
 	},
+	// 客车 办理跳转
+	goKCcar () {
+		util.go(`/pages/default/just_processing/just_processing`);
+	},
 	// 传车牌及车牌颜色校验是否已有黔通订单 三方接口
 	async validateCar () {
 		if (this.data.openCode && this.data.loginErr) {

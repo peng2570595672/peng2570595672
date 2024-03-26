@@ -10,13 +10,16 @@
     </view>
 	<!--	etc列表开始-->
 	<block wx:for="{{carList}}" wx:key="index">
-		<view class="item animated fadeIn" catchtap="renewWhitelistJudgement"  data-index="{{index}}" data-renew="1">
+		<view class="{{ showMoreStatus ? 'item animated fadeIn btm20':'item animated fadeIn'}}" catchtap="renewWhitelistJudgement"  data-index="{{index}}" data-renew="1">
 			<!--上部分开始-->
 			<view class="top">
 				<view class="left">
 					<view class="car-no">{{tools.isPhone(item.vehPlates)}}</view>
 					<view class="channel">{{item.cardName ? item.cardName === '贵州黔通卡' ? '九州ETC' : item.cardName : ''}}</view>
-				</view>
+                </view>
+                <view class="center">
+                    <view>ETC类型:客车{{passengerCarList.length}}</view>
+                </view>
                 <view class="right caution {{item.selfStatus === 7 || item.selfStatus === 8 ? 'failed' : ''}} {{item.selfStatus === 12 || item.selfStatus === 30 ? 'succeed' : ''}}">
                     {{item.selfStatus === 1 || item.selfStatus === 22 ? '已解约' : ''}}
                     {{item.selfStatus === 2 || item.selfStatus === 4 || item.selfStatus === 14 || item.selfStatus === 23 || item.selfStatus === 25 ? '办理中' : ''}}
@@ -58,7 +61,13 @@
                     {{item.selfStatus === 30 ? '退还权益金' : item.selfStatus === 33 ? '查看退还情况' : ''}}
                     {{item.selfStatus === 31 ? '签约激活' : ''}}
                 </view>
+                <!-- 货车已激活 退还押金 -->
+                <view wx:if="{{item.selfStatus === 6}}" class="{{'iconfont showMoreStatus'}}" catchtap="goMoreStatus" data-status="{{'0'}}" >{{'更多'}}</view>
 			</view>
+            <view  class="moreStatus" wx:if="{{showMoreStatus && item.selfStatus === 6}}">
+                <view class="more1" catchtap="goMoreStatus" data-status="{{'1'}}" >查看押金退还情况</view>
+                <view class="more2" catchtap="goMoreStatus" data-status="{{'2'}}" >重新签约</view>
+            </view>
 			<!--下部分结束-->
 		</view>
 	</block>
