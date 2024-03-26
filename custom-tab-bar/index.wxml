@@ -1,4 +1,3 @@
-<wxs src="/utils/util.wxs" module='tools' />
 <view wx:if="{{selected === index && selected !== 1 && index !== 1}}">
 	<view class="tab-bar" >
 		<view wx:for="{{list}}" wx:key="index" class="tab-bar-item" data-path="{{item.pagePath}}" data-index="{{index}}" hover-stop-propagation="true" bindtap="switchTab" >
