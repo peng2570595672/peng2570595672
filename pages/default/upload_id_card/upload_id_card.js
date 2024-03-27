@@ -334,7 +334,7 @@ Page({
 	onInputChangedHandle (e) {
 		let key = e.currentTarget.dataset.key;
 		let type = +e.currentTarget.dataset.type;
-		let flag = +e.currentTarget.dataset.flag;
+		let flag = +e.currentTarget.dataset?.flag;
 		let value = e.detail.value;
 		let idCardFace = this.data.idCardFace;
 		let idCardBack = this.data.idCardBack;
