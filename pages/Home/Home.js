@@ -107,6 +107,26 @@ Page({
         interval: 5000, // 轮播图切换时间
         Hei: 628, // banner默认高度
         HeiList: [], // banner 图片高度集合
+        moduleOneTypeList: [// 分类默认数据
+            {
+                appId: '',
+                funcDesc: '第五代新设备',
+                funcName: '小汽车办理',
+                imgUrl: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eRKAK0mDAAAg6lZHRZU754.jpg',
+                isShow: true,
+                jumpUrl: '/pages/etc_handle/etc_handle',
+                templateId: ['']
+            },
+            {
+                appId: '',
+                funcDesc: '限时免费办理',
+                funcName: '货车办理',
+                imgUrl: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eRKAK0mDAAAg6lZHRZU754.jpg',
+                isShow: true,
+                jumpUrl: '/pages/personal_center/my_order/my_order',
+                templateId: ['']
+            }
+        ],
         moduleOneList: [ // 默认数据
             { // 账单查询 通行发票 权益商城
                 appId: '',

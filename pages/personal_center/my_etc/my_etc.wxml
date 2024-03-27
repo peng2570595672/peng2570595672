@@ -18,7 +18,7 @@
 					<view class="channel">{{item.cardName ? item.cardName === '贵州黔通卡' ? '九州ETC' : item.cardName : ''}}</view>
                 </view>
                 <view class="center">
-                    <view>ETC类型:客车{{passengerCarList.length}}</view>
+                    <view>ETC类型:{{item.isNewTrucks===1?'货车':'客车'}}</view>
                 </view>
                 <view class="right caution {{item.selfStatus === 7 || item.selfStatus === 8 ? 'failed' : ''}} {{item.selfStatus === 12 || item.selfStatus === 30 ? 'succeed' : ''}}">
                     {{item.selfStatus === 1 || item.selfStatus === 22 ? '已解约' : ''}}
@@ -62,7 +62,7 @@
                     {{item.selfStatus === 31 ? '签约激活' : ''}}
                 </view>
                 <!-- 货车已激活 退还押金 -->
-                <view wx:if="{{item.selfStatus === 6}}" class="{{'iconfont showMoreStatus'}}" catchtap="goMoreStatus" data-status="{{'0'}}" >{{'更多'}}</view>
+                <view wx:if="{{item.isNewTrucks === 1}}" class="{{'iconfont showMoreStatus'}}" catchtap="goMoreStatus" data-status="{{'0'}}" >{{item.selfStatus+'更多'}}</view>
 			</view>
             <view  class="moreStatus" wx:if="{{showMoreStatus && item.selfStatus === 6}}">
                 <view class="more1" catchtap="goMoreStatus" data-status="{{'1'}}" >查看押金退还情况</view>

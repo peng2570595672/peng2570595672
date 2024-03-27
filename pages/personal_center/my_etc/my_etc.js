@@ -99,8 +99,7 @@ Page({
 				});
 			}
 			this.setData({
-				// carList: this.data.activeIndex === 1 ? passengerCarList : truckList, // 初始化变量
-				carList: passengerCarList.concat(truckList), // 初始化变量
+				carList: this.data.activeIndex === 1 ? passengerCarList : truckList, // 初始化变量
 				truckList: truckList,
 				passengerCarList: passengerCarList
 			});
