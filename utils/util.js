@@ -787,7 +787,7 @@ function getTruckHandlingStatus(orderInfo) {
  */
 function getStatus(orderInfo) {
   if (orderInfo.obuCardType === 10 && +orderInfo.orderExtCardType === 2) {
-    // 湖南信科   deviceType设备类型 (1:插卡; 0:单片)
+    // 湖南信科   deviceType设备类型 (1:插卡; 0:单片)  orderExtCardType 2代表信科
     if (orderInfo.pledgeStatus === 0) { // 待支付
       return 3;
     }

@@ -6,6 +6,11 @@ mixinsPositionCard($position=relative,$left=0,$top=0)
     left $left
     top $top
     transform translate(- $left,- $top)
+flexCenter($align=normal, $justify=normal) 
+    display flex
+    align-items $align
+    justify-content $justify
+
 .iconfont
     font-family 'iconfont' !important
     font-size 16px
@@ -17,11 +22,14 @@ mixinsPositionCard($position=relative,$left=0,$top=0)
     padding 0
     width 100vw
     min-height 100vh
-    overflow hidden
+    // overflow hidden
     background-color #fff
+    &::after
+        display block
+        content ''
+        mixinsWidthHeight(,260rpx)
 .changeBg
     background-color #ECECEC
-    // padding-bottom 244rpx
 .index
     /* 顶部组件占位 */
     .topSplit
@@ -46,8 +54,11 @@ mixinsPositionCard($position=relative,$left=0,$top=0)
         box-shadow 0 4rpx 2rpx 0 rgba(212, 212, 212, 0.5)
     /* 模块一 */
     .moduleOne
-        min-height 400rpx
+        min-height 100rpx
         padding 40rpx 0 20rpx 0
+
+        &.bg3
+            background-color #ECECEC
         .photo-wrapper
             display flex
             height 330rpx
@@ -91,6 +102,54 @@ mixinsPositionCard($position=relative,$left=0,$top=0)
                 background-color #ffffff
         .changeOne
             margin 20rpx 36rpx 0 36rpx
+        .titleBtn
+            mixinsWidthHeight()
+            flexCenter(center,space-between)
+            .button1
+                overflow hidden
+                padding 0rpx 7rpx
+                margin-right 36rpx
+                border-radius 25rpx
+                flexCenter(center,normal)
+                
+                mixinsWidthHeight(90rpx, 50rpx)
+                .round
+                    display block
+                    border-radius 50%
+                    mixinsWidthHeight(40rpx, 40rpx)
+                    background-color #fff
+                .is
+                    animation silder 0.5s linear forwards
+                    -webkit-animation silder 0.5s linear forwards
+                .no
+                    animation silder 0.5s linear forwards reverse
+                    -webkit-animation silder 0.5s linear forwards reverse
+                @keyframes silder {
+                    from { 
+                        margin-left: 0rpx
+                    }
+                    to { 
+                        margin-left: 50rpx
+                    }
+                }
+                @-webkit-keyframes silder {
+                    from { 
+                        margin-left: 0rpx
+                    }
+                    to { 
+                        margin-left: 50rpx
+                    }
+                }
+            .is1
+                background-color rgba(15, 206, 102, 1)
+            .no1
+                background-color rgba(221, 223, 230, 1)
+        .text1
+            display block
+            color #ccc
+            font-size 24rpx
+            padding 20rpx 36rpx
+           
     /* 模块二 信息显示 */
     .moduleTwo
         padding 40rpx 0 20rpx 0
@@ -121,6 +180,11 @@ mixinsPositionCard($position=relative,$left=0,$top=0)
                     font-family PingFangSC-Semibold, PingFang SC
                 .input-placeholder
                     color rgba(212, 212, 212, 0.7)
+    .module3
+        height 80rpx
+        background-color #ccc
+        
+    
     /* 底部悬浮按钮 */
     .bottomBtn
         display flex

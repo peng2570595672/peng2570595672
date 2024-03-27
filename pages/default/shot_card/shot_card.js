@@ -19,7 +19,8 @@ Page({
 		showInfo: true, // 用于判断拒绝授权后重新授权camera重新加载显示
 		compressionUrl: '',
 		requestNum: 0,// 身份证识别两次  行驶证识别三次
-		vehPlates: '' // 创建订单时上传的车牌号
+		vehPlates: '', // 创建订单时上传的车牌号
+		flag: undefined	// 是否为非车主身份证上传
 	},
 	onLoad (options) {
 		app.globalData.handlingOCRType = 0;
@@ -27,11 +28,13 @@ Page({
 		this.setData({
 			requestNum: 0,
 			type: parseInt(options.type),
-			vehPlates: options.vehPlates
+			vehPlates: options.vehPlates,
+			flag: parseInt(options?.flag) === 1
 		});
 		this.setData({
 			picPath: this.data.sampleImgList[this.data.type - 1],
 			title: this.data.titleList[this.data.type - 1]
+
 		});
 		// 设置ios滑动上下部分背景
 		wx.canIUse('setBackgroundColor') && wx.setBackgroundColor({
@@ -219,7 +222,11 @@ Page({
 										}
 									}
 								}
-								wx.setStorageSync('passenger-car-id-card-face', JSON.stringify(res.data[0]));
+								if (this.data.flag) {
+									wx.setStorageSync('passenger-car-id-card-face-not', JSON.stringify(res.data[0]));
+								} else {
+									wx.setStorageSync('passenger-car-id-card-face', JSON.stringify(res.data[0]));
+								}
 								wx.navigateBack({delta: 1});
 							} else if (type === 2) {
 								// 身份证反面
@@ -237,7 +244,11 @@ Page({
 								if (isGreaterThanData && !res.data[0].ocrObject.validDate.includes('长期')) {
 									return this.initPageAndToast(`证件已过期，请重新上传有效证件`, true);
 								}
-								wx.setStorageSync('passenger-car-id-card-back', JSON.stringify(res.data[0]));
+								if (this.data.flag) {
+									wx.setStorageSync('passenger-car-id-card-back-not', JSON.stringify(res.data[0]));
+								} else {
+									wx.setStorageSync('passenger-car-id-card-back', JSON.stringify(res.data[0]));
+								}
 								wx.navigateBack({delta: 1});
 							} else if (type === 3) {
 								// 行驶证正面

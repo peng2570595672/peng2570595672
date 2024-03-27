@@ -13,17 +13,27 @@ Page({
 		vehPlates: undefined,
 		faceStatus: 1, // 1 未上传  4识别成功
 		backStatus: 1, // 1 未上传  4识别成功
+		faceStatusNot: 1, // 1 未上传  4识别成功
+		backStatusNot: 1, // 1 未上传  4识别成功
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
 		idCardStatus: 0,// 实名认证标识  默认0
 		oldName: undefined,// 原始姓名
 		oldIdNumber: undefined,// 原始身份证
+		oldNameNot: undefined,// 非车主的原始姓名
+		oldIdNumberNot: undefined,// 非车主的原始身份证
 		idCardFace: {
 			ocrObject: {}
 		},// 身份证正面
 		idCardBack: {
 			ocrObject: {}
 		},// 身份证反面
+		idCardFaceNot: {
+			idCardFaceNot: {}
+		},// 非车主身份证正面
+		idCardBackNot: {
+			ocrObject: {}
+		},// 非车主身份证反面
 		checkKeyWord: [],
 		sexArr: ['男', '女'],
 		sexIndex: -1,
@@ -32,7 +42,9 @@ Page({
 			type: '',
 			title: '',
 			content: ''
-		}
+		},
+		switch1Checked: false,	// 是否需要上传办理人的身份证
+		isXinKe: false	// 是否为湖南信科订单
 	},
 	async onLoad (options) {
 		this.setData({
@@ -82,6 +94,34 @@ Page({
 				available: this.validateData(false)
 			});
 		}
+		// 非车主本人办理
+		let idCardFaceNot = wx.getStorageSync('passenger-car-id-card-face-not');
+		if (idCardFaceNot) {
+			idCardFaceNot = JSON.parse(idCardFaceNot);
+			this.setData({
+				oldNameNot: idCardFaceNot.ocrObject.name,
+				oldIdNumberNot: idCardFaceNot.ocrObject.idNumber,
+				faceStatusNot: 4,
+				idCardFaceNot
+			});
+			this.initIsShowInput(idCardFaceNot.ocrObject);
+			this.setData({
+				available: this.validateData(false)
+			});
+		}
+		let idCardBackNot = wx.getStorageSync('passenger-car-id-card-back-not');
+		if (idCardBackNot) {
+			idCardBackNot = JSON.parse(idCardBackNot);
+			this.setData({
+				backStatusNot: 4,
+				idCardBackNot
+			});
+			this.initIsShowInput(idCardBackNot.ocrObject);
+			this.setData({
+				available: this.validateData(false)
+			});
+		}
+
 		this.processBarSize();
 	},
 	// 选择性别
@@ -124,6 +164,7 @@ Page({
 			this.setData({
 				orderInfo: result.data,
 				idCardStatus: result.data.idCard.idCardStatus
+				// isXinKe: result.data.orderExtCardType === 2 && result.data.obuCardType === 10
 			});
 			// 获取实名信息
 			let temp = this.data.orderInfo?.ownerIdCard;
@@ -255,7 +296,7 @@ Page({
 			ownerIdCardBirth: this.data.idCardFace.ocrObject.birth, // 出生日期 【dataType包含8】
 			ownerIdCardHaveChange: haveChange, // 车主身份证OCR结果是否被修改过，默认false，修改过传true 【dataType包含8}】
 			ownerIdCardValidDate: this.data.idCardBack.ocrObject.validDate,
-			ownerIdCardAddress: this.data.idCardFace.ocrObject.address,
+			ownerIdCardAddress: this.data.idCardFace.ocrObject.address
 			// cardMobilePhone: app.globalData.handledByTelephone || app.globalData.mobilePhone
 			// cardMobilePhone: this.data.formData.cardMobilePhone, // 车主实名手机号
 			// cardPhoneCode: this.data.formData.verifyCode, // 手机号验证码
@@ -286,23 +327,37 @@ Page({
 	// 选择图片
 	selectionPic (e) {
 		let type = +e.currentTarget.dataset['type'];
-		util.go(`/pages/default/shot_card/shot_card?type=${type}`);
+		let flag = +e.currentTarget.dataset['flag'];
+		util.go(`/pages/default/shot_card/shot_card?type=${type}&flag=${flag}`);
 	},
 	// 输入框输入值做处理
 	onInputChangedHandle (e) {
 		let key = e.currentTarget.dataset.key;
 		let type = +e.currentTarget.dataset.type;
+		let flag = +e.currentTarget.dataset.flag;
 		let value = e.detail.value;
 		let idCardFace = this.data.idCardFace;
 		let idCardBack = this.data.idCardBack;
+		let idCardFaceNot = this.data.idCardFaceNot;
+		let idCardBackNot = this.data.idCardBackNot;
 		if (type === 1) {
-			idCardFace.ocrObject[key] = value;
+			if (flag === 1) {
+				idCardFaceNot.ocrObject[key] = value;
+			} else {
+				idCardFace.ocrObject[key] = value;
+			}
 		} else {
-			idCardBack.ocrObject[key] = value;
+			if (flag === 1) {
+				idCardBackNot.ocrObject[key] = value;
+			} else {
+				idCardBack.ocrObject[key] = value;
+			}
 		}
 		this.setData({
 			idCardFace,
-			idCardBack
+			idCardBack,
+			idCardFaceNot,
+			idCardBackNot
 		});
 		this.fangDou('',2000);
 	},
@@ -370,6 +425,9 @@ Page({
 		} else {
 			return util.showToastNoIcon(result.message);
 		}
+	},
+	switch1Change () {
+		this.setData({switch1Checked: !this.data.switch1Checked});
 	},
 	// 控制进度条的长短
 	processBarSize () {

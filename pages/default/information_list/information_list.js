@@ -224,6 +224,9 @@ Page({
         if (this.data.orderInfo.isOwner || this.data.orderInfo.isVehicle) {
             topProgressBar = 3.3;
         }
+        // if (url === 'upload_id_card' && this.data.orderInfo.orderExtCardType === 2 && orderInfo.obuCardType === 10) {
+        //     return util.showToastNoIcon('请先上传行驶证');
+        // }
         if (url === 'information_validation' && !this.data.orderInfo.isOwner) {
             return util.showToastNoIcon('请先上传身份证');
         }

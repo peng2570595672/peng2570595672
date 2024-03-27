@@ -686,6 +686,20 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "上传身份证页",
+                    "pathName": "pages/default/upload_id_card/upload_id_card",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "上传证件页",
+                    "pathName": "pages/default/information_list/information_list",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
