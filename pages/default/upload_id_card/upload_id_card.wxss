@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .iconfont {
   font-family: 'iconfont' !important;
   font-size: 16px;
@@ -155,14 +156,6 @@
     margin-left: 50rpx;
   }
 }
-@-webkit-keyframes silder {
-  from {
-    margin-left: 0rpx;
-  }
-  to {
-    margin-left: 50rpx;
-  }
-}
 @keyframes silder {
   from {
     margin-left: 0rpx;
@@ -172,10 +165,10 @@
   }
 }
 .index .moduleOne .titleBtn .is1 {
-  background-color: rgba(53,237,12,0.986);
+  background-color: #0fce66;
 }
 .index .moduleOne .titleBtn .no1 {
-  background-color: rgba(0,0,0,0.1);
+  background-color: #dddfe6;
 }
 .index .moduleOne .text1 {
   display: block;
@@ -250,14 +243,10 @@
 }
 .index .bottomBtn .available {
   background: #2a4f44;
-  -webkit-animation: btnFadeIn 0.3s;
-          animation: btnFadeIn 0.3s;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
+  animation: btnFadeIn 0.3s;
+  animation-fill-mode: forwards;
 }
 .index .bottomBtn .unavailable {
-  -webkit-animation: btnFadeOut 0.3s;
-          animation: btnFadeOut 0.3s;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
+  animation: btnFadeOut 0.3s;
+  animation-fill-mode: forwards;
 }
