@@ -249,16 +249,15 @@ Page({
 		});
 		let haveChange = true;
 		let haveChange4 = true;	// 信科办理
-		let isXinKe = this.data.isXinKe;
-		let switch1Checked = this.data.switch1Checked;
+		let isXinKe = this.data.isXinKe && this.data.switch1Checked;
 		if (this.data.oldName === this.data.idCardFace.ocrObject.name && this.data.oldIdNumber === this.data.idCardFace.ocrObject.idNumber) haveChange = false;
 		if (this.data.oldNameNot === this.data.idCardFaceNot.ocrObject?.name && this.data.oldIdNumberNot === this.data.idCardFaceNot.ocrObject?.idNumber) haveChange4 = false;
 		wx.uma.trackEvent('id_card_next');
 		// ocr返回的是 男女  接口是 1 2
 		if (this.data.idCardFace.ocrObject.sex === '男') this.data.idCardFace.ocrObject.sex = 1;
 		if (this.data.idCardFace.ocrObject.sex === '女') this.data.idCardFace.ocrObject.sex = 2;
-		if (isXinKe && switch1Checked && this.data.idCardFaceNot.ocrObject?.sex === '男') this.data.idCardFaceNot.ocrObject.sex = 1;
-		if (isXinKe && switch1Checked && this.data.idCardFaceNot.ocrObject?.sex === '女') this.data.idCardFaceNot.ocrObject.sex = 2;
+		if (isXinKe && this.data.idCardFaceNot.ocrObject?.sex === '男') this.data.idCardFaceNot.ocrObject.sex = 1;
+		if (isXinKe && this.data.idCardFaceNot.ocrObject?.sex === '女') this.data.idCardFaceNot.ocrObject.sex = 2;
 		// 手机号没有更改不需要重新获取验证码
 		// let notVerifyCardPhone = this.data.formData.cardMobilePhone === this.data.orderInfo.ownerIdCard.cardMobilePhone ? 'true' : 'false';
 		let params = {
@@ -266,18 +265,18 @@ Page({
 			dataType: '48', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			changeAuditStatus: 0,// 修改不计入待审核
-			haveChange: isXinKe && switch1Checked ? haveChange4 : haveChange, // 行驶证信息OCR结果有无修改过，默认false，修改过传true 【dataType包含4】
+			haveChange: isXinKe ? haveChange4 : haveChange, // 行驶证信息OCR结果有无修改过，默认false，修改过传true 【dataType包含4】
 			idCardStatus: this.data.idCardStatus,
 
-			idCardValidDate: isXinKe && switch1Checked ? this.data.idCardBackNot.ocrObject.validDate : this.data.idCardBack.ocrObject.validDate, // 有效期 格式为：2007.10.09-2027.10.09 【dataType包含4】
-			idCardAddress: isXinKe && switch1Checked ? this.data.idCardFaceNot.ocrObject.address : this.data.idCardFace.ocrObject.address,// 地址 【dataType包含4】
-			idCardAuthority: isXinKe && switch1Checked ? this.data.idCardBackNot.ocrObject.authority : this.data.idCardBack.ocrObject.authority,// 发证机关 【dataType包含4】
-			idCardTrueName: isXinKe && switch1Checked ? this.data.idCardFaceNot.ocrObject.name : this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含4】
-			idCardBirth: isXinKe && switch1Checked ? this.data.idCardFaceNot.ocrObject.birth : this.data.idCardFace.ocrObject.birth, // 出生日期 【dataType包含4】
-			idCardSex: isXinKe && switch1Checked ? this.data.idCardFaceNot.ocrObject.sex : this.data.idCardFace.ocrObject.sex, // 实名认证性别 【dataType包含4】
-			idCardNumber: isXinKe && switch1Checked ? this.data.idCardFaceNot.ocrObject.idCardNumber : this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含4】
-			idCardPositiveUrl: isXinKe && switch1Checked ? this.data.idCardFaceNot.ocrObject.fileUrl : this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含4】
-			idCardNegativeUrl: isXinKe && switch1Checked ? this.data.idCardBackNot.ocrObject.fileUrl : this.data.idCardBack.fileUrl,// 实名身份证反面地址 【dataType包含4】
+			idCardValidDate: isXinKe ? this.data.idCardBackNot.ocrObject.validDate : this.data.idCardBack.ocrObject.validDate, // 有效期 格式为：2007.10.09-2027.10.09 【dataType包含4】
+			idCardAddress: isXinKe ? this.data.idCardFaceNot.ocrObject.address : this.data.idCardFace.ocrObject.address,// 地址 【dataType包含4】
+			idCardAuthority: isXinKe ? this.data.idCardBackNot.ocrObject.authority : this.data.idCardBack.ocrObject.authority,// 发证机关 【dataType包含4】
+			idCardTrueName: isXinKe ? this.data.idCardFaceNot.ocrObject.name : this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含4】
+			idCardBirth: isXinKe ? this.data.idCardFaceNot.ocrObject.birth : this.data.idCardFace.ocrObject.birth, // 出生日期 【dataType包含4】
+			idCardSex: isXinKe ? this.data.idCardFaceNot.ocrObject.sex : this.data.idCardFace.ocrObject.sex, // 实名认证性别 【dataType包含4】
+			idCardNumber: isXinKe ? this.data.idCardFaceNot.ocrObject.idCardNumber : this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含4】
+			idCardPositiveUrl: isXinKe ? this.data.idCardFaceNot.ocrObject.fileUrl : this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含4】
+			idCardNegativeUrl: isXinKe ? this.data.idCardBackNot.ocrObject.fileUrl : this.data.idCardBack.fileUrl,// 实名身份证反面地址 【dataType包含4】
 
 			ownerIdCardTrueName: this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含8】
 			ownerIdCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含8】
