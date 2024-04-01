@@ -227,7 +227,8 @@ Page({
 			30: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度 - 保证金退回
 			31: () => this.handleJumpHunanMini(orderInfo.id,orderInfo.selfStatus), // 跳转到湖南高速ETC小程序 - 已支付待激活
 			32: () => this.handleJumpHunanMini(orderInfo.id,orderInfo.selfStatus), // 跳转到湖南高速ETC小程序 - 已支付待激活
-			33: () => this.onClickCctivate(orderInfo)	// 广发 - 已激活
+			33: () => this.onClickCctivate(orderInfo),	// 广发 - 已激活
+			34: () => this.onClickContinueHandle(orderInfo) // 继续办理
 		};
 		fun[orderInfo.selfStatus].call();
 	},

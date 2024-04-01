@@ -224,13 +224,14 @@ Page({
         if (this.data.orderInfo.isOwner || this.data.orderInfo.isVehicle) {
             topProgressBar = 3.3;
         }
-        // if (url === 'upload_id_card' && this.data.orderInfo.orderExtCardType === 2 && orderInfo.obuCardType === 10) {
-        //     return util.showToastNoIcon('请先上传行驶证');
-        // }
-        if (url === 'information_validation' && !this.data.orderInfo.isOwner) {
+        let isXinKe = this.data.orderDetails?.orderExtCardType === 2 && this.data.orderInfo.obuCardType === 10;
+        if (url === 'upload_id_card' && isXinKe) { // 湖南信科
+            return util.showToastNoIcon('请先上传行驶证');
+        }
+        if (url === 'information_validation' && !this.data.orderInfo.isOwner && !isXinKe) {
             return util.showToastNoIcon('请先上传身份证');
         }
-        util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}&obuCardType=${this.data.orderInfo.obuCardType}`);
+        util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}&obuCardType=${this.data.orderInfo.obuCardType}&isXinKe=${isXinKe}`);
     },
     // ETC申办审核结果通知、ETC发货提示、ETC服务状态提醒
     async subscribe () {

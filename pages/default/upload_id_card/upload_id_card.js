@@ -50,6 +50,7 @@ Page({
 		this.setData({
 			vehPlates: options.vehPlates,
 			obuCardType: +options.obuCardType,
+			isXinKe: JSON.parse(options?.isXinKe),
 			topProgressBar: parseFloat(options.topProgressBar),
 			topProgressBar1: parseFloat(options.topProgressBar)
 		});
@@ -79,7 +80,7 @@ Page({
 			});
 			this.initIsShowInput(idCardFace.ocrObject);
 			this.setData({
-				available: this.validateData(false)
+				available: this.validateData(false,1)
 			});
 		}
 		let idCardBack = wx.getStorageSync('passenger-car-id-card-back');
@@ -91,37 +92,12 @@ Page({
 			});
 			this.initIsShowInput(idCardBack.ocrObject);
 			this.setData({
-				available: this.validateData(false)
+				available: this.validateData(false,1)
 			});
 		}
-		// 非车主本人办理
-		let idCardFaceNot = wx.getStorageSync('passenger-car-id-card-face-not');
-		if (idCardFaceNot) {
-			idCardFaceNot = JSON.parse(idCardFaceNot);
-			this.setData({
-				oldNameNot: idCardFaceNot.ocrObject.name,
-				oldIdNumberNot: idCardFaceNot.ocrObject.idNumber,
-				faceStatusNot: 4,
-				idCardFaceNot
-			});
-			this.initIsShowInput(idCardFaceNot.ocrObject);
-			this.setData({
-				available: this.validateData(false)
-			});
+		if (this.data.isXinKe) {
+			this.notCar();
 		}
-		let idCardBackNot = wx.getStorageSync('passenger-car-id-card-back-not');
-		if (idCardBackNot) {
-			idCardBackNot = JSON.parse(idCardBackNot);
-			this.setData({
-				backStatusNot: 4,
-				idCardBackNot
-			});
-			this.initIsShowInput(idCardBackNot.ocrObject);
-			this.setData({
-				available: this.validateData(false)
-			});
-		}
-
 		this.processBarSize();
 	},
 	// 选择性别
@@ -150,7 +126,7 @@ Page({
 	validDatePickerChange (e) {
 		this.data.idCardBack.ocrObject.validDate = e.detail.value;
 		this.setData({
-			available: this.validateData(false)
+			available: this.validateData(false,1)
 		});
 	},
 	// 获取订单信息
@@ -164,7 +140,6 @@ Page({
 			this.setData({
 				orderInfo: result.data,
 				idCardStatus: result.data.idCard.idCardStatus
-				// isXinKe: result.data.orderExtCardType === 2 && result.data.obuCardType === 10
 			});
 			// 获取实名信息
 			let temp = this.data.orderInfo?.ownerIdCard;
@@ -194,7 +169,7 @@ Page({
 					faceStatus: 4
 				});
 				this.setData({
-					available: this.validateData(false)
+					available: this.validateData(false,1)
 				});
 				wx.setStorageSync('passenger-car-id-card-back', JSON.stringify(idCardBack));
 				wx.setStorageSync('passenger-car-id-card-face', JSON.stringify(idCardFace));
@@ -205,13 +180,19 @@ Page({
 		}
 	},
 	// 校验数据
-	validateData (isToast) {
-		if (this.data.faceStatus !== 4 || this.data.backStatus !== 4) {
+	validateData (isToast,type) {
+		// 车主身份信息
+		if ((type === 1) && (this.data.faceStatus !== 4 || this.data.backStatus !== 4)) {
 			if (isToast) util.showToastNoIcon('请上传身份证！');
 			return false;
 		}
+		// 湖南信科 办理身份信息
+		if ((type === 2) && this.data.isXinKe && this.data.switch1Checked && (this.data.faceStatusNot !== 4 || this.data.backStatusNot !== 4)) {
+			if (isToast) util.showToastNoIcon('请上传非车主身份证！');
+			return false;
+		}
 		// 校检正面
-		const idCardFace = this.data.idCardFace.ocrObject;
+		const idCardFace = type === 1 ? this.data.idCardFace.ocrObject : this.data.idCardFaceNot.ocrObject;
 		const ruleForm = {
 			name: '姓名',
 			sex: '性别',
@@ -224,20 +205,20 @@ Page({
 			if (key === 'idNumber' && idCardFace[key]) {
 				if (!reg.test(idCardFace[key])) {
 					if (isToast) {
-						util.showToastNoIcon(`身份证号码不合法`);
+						util.showToastNoIcon(`${type === 1 ? '' : '非车主'}身份证号码不合法`);
 					}
 					return false;
 				}
 			}
 			if (!idCardFace[key]) {
 				if (isToast) {
-					util.showToastNoIcon(`${ruleForm[key]}不能为空`);
+					util.showToastNoIcon(`${type === 1 ? '' : '非车主'}${ruleForm[key]}不能为空`);
 				}
 				return false;
 			}
 		}
 		// 校检背面
-		const idCardBack = this.data.idCardBack.ocrObject;
+		const idCardBack = type === 1 ? this.data.idCardBack.ocrObject : this.data.idCardBackNot.ocrObject;
 		const ruleBackForm = {
 			authority: '签发机关',
 			validDate: '有效期限'
@@ -245,7 +226,7 @@ Page({
 		for (let key in ruleBackForm) {
 			if (!idCardBack[key]) {
 				if (isToast) {
-					util.showToastNoIcon(`${ruleForm[key]}不能为空`);
+					util.showToastNoIcon(`${type === 1 ? '' : '非车主'}${ruleForm[key]}不能为空`);
 				}
 				return false;
 			}
@@ -254,7 +235,10 @@ Page({
 	},
 	// 下一步
 	async next () {
-		if (!this.validateData(true)) {
+		if (!this.validateData(true,1)) {
+			return;
+		}
+		if (this.data.isXinKe && this.data.switch1Checked && !this.validateData(true,2)) { // 信科办理人身份校验
 			return;
 		}
 		if (this.data.isRequest) {
@@ -264,29 +248,37 @@ Page({
 			isRequest: true
 		});
 		let haveChange = true;
+		let haveChange4 = true;	// 信科办理
+		let isXinKe = this.data.isXinKe;
+		let switch1Checked = this.data.switch1Checked;
 		if (this.data.oldName === this.data.idCardFace.ocrObject.name && this.data.oldIdNumber === this.data.idCardFace.ocrObject.idNumber) haveChange = false;
+		if (this.data.oldNameNot === this.data.idCardFaceNot.ocrObject?.name && this.data.oldIdNumberNot === this.data.idCardFaceNot.ocrObject?.idNumber) haveChange4 = false;
 		wx.uma.trackEvent('id_card_next');
 		// ocr返回的是 男女  接口是 1 2
 		if (this.data.idCardFace.ocrObject.sex === '男') this.data.idCardFace.ocrObject.sex = 1;
 		if (this.data.idCardFace.ocrObject.sex === '女') this.data.idCardFace.ocrObject.sex = 2;
+		if (isXinKe && switch1Checked && this.data.idCardFaceNot.ocrObject?.sex === '男') this.data.idCardFaceNot.ocrObject.sex = 1;
+		if (isXinKe && switch1Checked && this.data.idCardFaceNot.ocrObject?.sex === '女') this.data.idCardFaceNot.ocrObject.sex = 2;
 		// 手机号没有更改不需要重新获取验证码
 		// let notVerifyCardPhone = this.data.formData.cardMobilePhone === this.data.orderInfo.ownerIdCard.cardMobilePhone ? 'true' : 'false';
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
-			dataType: '48', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
+			dataType: '48', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			changeAuditStatus: 0,// 修改不计入待审核
-			haveChange: haveChange, // 行驶证信息OCR结果有无修改过，默认false，修改过传true 【dataType包含4】
+			haveChange: isXinKe && switch1Checked ? haveChange4 : haveChange, // 行驶证信息OCR结果有无修改过，默认false，修改过传true 【dataType包含4】
 			idCardStatus: this.data.idCardStatus,
-			idCardValidDate: this.data.idCardBack.ocrObject.validDate, // 有效期 格式为：2007.10.09-2027.10.09 【dataType包含4】
-			idCardAddress: this.data.idCardFace.ocrObject.address,// 地址 【dataType包含4】
-			idCardAuthority: this.data.idCardBack.ocrObject.authority,// 发证机关 【dataType包含4】
-			idCardTrueName: this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含4】
-			idCardBirth: this.data.idCardFace.ocrObject.birth, // 出生日期 【dataType包含4】
-			idCardSex: this.data.idCardFace.ocrObject.sex, // 实名认证性别 【dataType包含4】
-			idCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含4】
-			idCardPositiveUrl: this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含4】
-			idCardNegativeUrl: this.data.idCardBack.fileUrl,// 实名身份证反面地址 【dataType包含4】
+
+			idCardValidDate: isXinKe && switch1Checked ? this.data.idCardBackNot.ocrObject.validDate : this.data.idCardBack.ocrObject.validDate, // 有效期 格式为：2007.10.09-2027.10.09 【dataType包含4】
+			idCardAddress: isXinKe && switch1Checked ? this.data.idCardFaceNot.ocrObject.address : this.data.idCardFace.ocrObject.address,// 地址 【dataType包含4】
+			idCardAuthority: isXinKe && switch1Checked ? this.data.idCardBackNot.ocrObject.authority : this.data.idCardBack.ocrObject.authority,// 发证机关 【dataType包含4】
+			idCardTrueName: isXinKe && switch1Checked ? this.data.idCardFaceNot.ocrObject.name : this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含4】
+			idCardBirth: isXinKe && switch1Checked ? this.data.idCardFaceNot.ocrObject.birth : this.data.idCardFace.ocrObject.birth, // 出生日期 【dataType包含4】
+			idCardSex: isXinKe && switch1Checked ? this.data.idCardFaceNot.ocrObject.sex : this.data.idCardFace.ocrObject.sex, // 实名认证性别 【dataType包含4】
+			idCardNumber: isXinKe && switch1Checked ? this.data.idCardFaceNot.ocrObject.idCardNumber : this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含4】
+			idCardPositiveUrl: isXinKe && switch1Checked ? this.data.idCardFaceNot.ocrObject.fileUrl : this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含4】
+			idCardNegativeUrl: isXinKe && switch1Checked ? this.data.idCardBackNot.ocrObject.fileUrl : this.data.idCardBack.fileUrl,// 实名身份证反面地址 【dataType包含4】
+
 			ownerIdCardTrueName: this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含8】
 			ownerIdCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含8】
 			ownerIdCardPositiveUrl: this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含8】
@@ -295,8 +287,8 @@ Page({
 			ownerIdCardAuthority: this.data.idCardBack.ocrObject.authority, // 发证机关 【dataType包含8】
 			ownerIdCardBirth: this.data.idCardFace.ocrObject.birth, // 出生日期 【dataType包含8】
 			ownerIdCardHaveChange: haveChange, // 车主身份证OCR结果是否被修改过，默认false，修改过传true 【dataType包含8}】
-			ownerIdCardValidDate: this.data.idCardBack.ocrObject.validDate,
-			ownerIdCardAddress: this.data.idCardFace.ocrObject.address
+			ownerIdCardValidDate: this.data.idCardBack.ocrObject.validDate,	// 有效期 格式为：2007.10.09-2027.10.09 【dataType包含8】
+			ownerIdCardAddress: this.data.idCardFace.ocrObject.address // 地址 【dataType包含8】
 			// cardMobilePhone: app.globalData.handledByTelephone || app.globalData.mobilePhone
 			// cardMobilePhone: this.data.formData.cardMobilePhone, // 车主实名手机号
 			// cardPhoneCode: this.data.formData.verifyCode, // 手机号验证码
@@ -359,9 +351,9 @@ Page({
 			idCardFaceNot,
 			idCardBackNot
 		});
-		this.fangDou('',2000);
+		this.fangDou('',2000,flag);
 	},
-	fangDou (fn, time) {
+	fangDou (fn, time,flag) {
 		let that = this;
 		return (function () {
 			if (that.data.timeout) {
@@ -369,7 +361,7 @@ Page({
 			}
 			that.data.timeout = setTimeout(() => {
 				that.setData({
-					available: that.validateData(false)
+					available: flag === 1 ? that.validateData(false,2) : that.validateData(false,1)
 				});
 			}, time);
 		})();
@@ -427,7 +419,43 @@ Page({
 		}
 	},
 	switch1Change () {
-		this.setData({switch1Checked: !this.data.switch1Checked});
+		let switch1Checked = !this.data.switch1Checked;
+		console.log(!this.data.switch1Checked);
+		this.setData({
+			switch1Checked,
+			available: true
+		});
+	},
+	// 非车主本人办理的身份信息
+	notCar () {
+		console.log('哈哈哈哈');
+		// 非车主本人办理
+		let idCardFaceNot = wx.getStorageSync('passenger-car-id-card-face-not');
+		if (idCardFaceNot) {
+			idCardFaceNot = JSON.parse(idCardFaceNot);
+			this.setData({
+				oldNameNot: idCardFaceNot.ocrObject.name,
+				oldIdNumberNot: idCardFaceNot.ocrObject.idNumber,
+				faceStatusNot: 4,
+				idCardFaceNot
+			});
+			this.initIsShowInput(idCardFaceNot.ocrObject);
+			this.setData({
+				available: this.validateData(false,2)
+			});
+		}
+		let idCardBackNot = wx.getStorageSync('passenger-car-id-card-back-not');
+		if (idCardBackNot) {
+			idCardBackNot = JSON.parse(idCardBackNot);
+			this.setData({
+				backStatusNot: 4,
+				idCardBackNot
+			});
+			this.initIsShowInput(idCardBackNot.ocrObject);
+			this.setData({
+				available: this.validateData(false,2)
+			});
+		}
 	},
 	// 控制进度条的长短
 	processBarSize () {

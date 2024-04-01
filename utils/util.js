@@ -792,6 +792,9 @@ function getStatus(orderInfo) {
       return 3;
     }
     if (orderInfo.obuStatus === 0) { // 已支付待激活
+      if (orderInfo.status === 0) { // 资未完善
+        return 34;
+      }
       return 31;
     }
     return 32;

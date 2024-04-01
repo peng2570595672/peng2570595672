@@ -6,6 +6,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 .index {
   margin: 0;
   padding: 0;
@@ -45,6 +52,9 @@
   line-height: 48rpx;
   padding-left: 36rpx;
   font-family: PingFangSC-Semibold, PingFang SC;
+}
+.index .module .title2 {
+  margin-bottom: 20rpx;
 }
 .index .boxS {
   box-shadow: 0 4rpx 2rpx 0 rgba(212,212,212,0.5);
@@ -122,53 +132,37 @@
   align-items: center;
   justify-content: space-between;
 }
-.index .moduleOne .titleBtn .button1 {
-  overflow: hidden;
-  padding: 0rpx 7rpx;
-  margin-right: 36rpx;
-  border-radius: 25rpx;
+.index .moduleOne .titleBtn .radio {
+  display: block;
+  padding-right: 36rpx;
   display: flex;
   align-items: center;
   justify-content: normal;
-  width: 90rpx;
-  height: 50rpx;
+  font-size: 22rpx;
+  font-weight: normal;
+  text-align: justify;
+  letter-spacing: 0.4rpx;
+  color: #222;
 }
-.index .moduleOne .titleBtn .button1 .round {
-  display: block;
+.index .moduleOne .titleBtn .radio .confirm {
+  width: 26rpx;
+  height: 26rpx;
   border-radius: 50%;
-  width: 40rpx;
-  height: 40rpx;
-  background-color: #fff;
+  border: 2rpx solid #ccc;
+  margin-right: 8rpx;
 }
-.index .moduleOne .titleBtn .button1 .is {
-  animation: silder 0.5s linear forwards;
-  -webkit-animation: silder 0.5s linear forwards;
-}
-.index .moduleOne .titleBtn .button1 .no {
-  animation: silder 0.5s linear forwards reverse;
-  -webkit-animation: silder 0.5s linear forwards reverse;
-}
-@-webkit-keyframes silder {
-  from {
-    margin-left: 0rpx;
-  }
-  to {
-    margin-left: 50rpx;
-  }
-}
-@keyframes silder {
-  from {
-    margin-left: 0rpx;
-  }
-  to {
-    margin-left: 50rpx;
-  }
-}
-.index .moduleOne .titleBtn .is1 {
-  background-color: #0fce66;
-}
-.index .moduleOne .titleBtn .no1 {
-  background-color: #dddfe6;
+.index .moduleOne .titleBtn .radio .tick::before {
+  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28rpx;
+  height: 28rpx;
+  content: '\e669';
+  font-size: 16rpx;
+  color: #fff;
+  border-radius: 50%;
+  background-color: #2a4f44;
 }
 .index .moduleOne .text1 {
   display: block;
@@ -243,10 +237,14 @@
 }
 .index .bottomBtn .available {
   background: #2a4f44;
-  animation: btnFadeIn 0.3s;
-  animation-fill-mode: forwards;
+  -webkit-animation: btnFadeIn 0.3s;
+          animation: btnFadeIn 0.3s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
 }
 .index .bottomBtn .unavailable {
-  animation: btnFadeOut 0.3s;
-  animation-fill-mode: forwards;
+  -webkit-animation: btnFadeOut 0.3s;
+          animation: btnFadeOut 0.3s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
 }
