@@ -1,0 +1,8 @@
+{
+	"navigationBarTitleText": "填写基础信息",
+	"navigationBarBackgroundColor": "#ECECEC",
+	"usingComponents": {
+		"keyboard": "/components/keyboard/keyboard",
+		"topProgressBar": "/components/topProgressBar/index"
+	}
+}

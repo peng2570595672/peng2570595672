@@ -903,6 +903,83 @@ Page({
         util.hideLoading();
         if (!result) return;
         if (result.code === 0) {
+        	result.data = [{
+		        lastOpTime: "2024-04-01 14:46:53",
+		        orderType: 71,
+		        logisticsId: 0,
+		        pledgeStatus: -1,
+		        addTime: "2024-04-01 14:46:49",
+		        shopProductId: "1224308074871791616",
+		        rightsPackagePayMoney: 0,
+		        submitHwStatus: 0,
+		        productName: "蒙通卡",
+		        etcCardId: 2,
+		        sp_appid: "wxddb3eb32425e4a96",
+		        productProcess: 1,
+		        isOwner: 0,
+		        rightsPackageRefundMoney: null,
+		        planId: "2",
+		        id: "1224369382986092544",
+		        vehPlates: "18224621104",
+		        shopId: "1224307861486575616",
+		        memberAccountId: 0,
+		        isShowFeatureService: 0,
+		        payChannelId: "520366984433500160",
+		        transStatus: 0,
+		        memberId: "700752185801048064",
+		        contractPlatformId: "500338116821778434",
+		        serviceFeeType: 0,
+		        deviceType: "0",
+		        hwLoginStatus: 0,
+		        rightsPackageRefundStatus: 0,
+		        obuNo: "",
+		        etcContractId: 0,
+		        orderExtCardType: 0,
+		        isReceive: 1,
+		        refundMoney: null,
+		        etcNo: "",
+		        deliveryRule: 0,
+		        userSign: null,
+		        vehColor: 0,
+		        auditSubmitHw: 1,
+		        status: 0,
+		        promoterType: 2,
+		        cardName: "内蒙蒙通卡",
+		        isTransportLicense: 0,
+		        refundStatus: 0,
+		        remark: "",
+		        environmentAttribute: 1,
+		        mchKey: "871227love1122pangcupid198415eee",
+		        isShowRightsDesc: 0,
+		        carType: 0,
+		        thirdGeneralizeNo: null,
+		        pledgeType: 0,
+		        sysPlanIdD: "691771690813759488",
+		        clipCardCert: null,
+		        hwContractStatus: 0,
+		        obuStatus: 0,
+		        wxPlanId: 0,
+		        cardMobilePhone: "18224621104",
+		        shopProductContractPlatformId: "500338116821778434",
+		        isHeadstock: 0,
+		        verifyCode: null,
+		        mchId: "1500775611",
+		        obuCardType: 2,
+		        isSignTtCoupon: 0,
+		        protocolStatus: 1,
+		        fullName: "绑定微信支付 无需绑定银行卡",
+		        flowVersion: 1,
+		        platformId: "500338116821778434",
+		        subMchId: "1519034971",
+		        pledgeMoney: 0,
+		        sysPlanId: "691771690813759488",
+		        isNeedSign: 1,
+		        isVehicle: 0,
+		        appid: "wxf9d1cfd97732350e",
+		        auditStatus: 0,
+		        isCrop: 0,
+		        isNewTrucks: 0
+	        }]
             const list = this.sortDataArray(result.data);
             list.forEach(res => {
                 res.icbcv2 = icbcv2.data;
@@ -1737,13 +1814,13 @@ Page({
             util.go(`/pages/empty_hair/write_base_information/write_base_information`);
             return;
         }
+        // 签约前判断车牌号信息是否完整 ==>平安空发激活补充车牌证件信息  || 小程序新空发流程
+        if (orderInfo.vehPlates.length > 8 && orderInfo.shopProductId && orderInfo.pledgeStatus) {
+            return util.go(`/pages/default/receiving_address/receiving_address?perfect=1&shopId=${orderInfo.shopId}&orderId=${orderInfo.id}`);
+        }
         if (orderInfo.orderType === 71 && orderInfo.vehPlates && !orderInfo.isOwner && orderInfo?.pledgeStatus !== 1) { // 电商空发订单
             util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?emptyHairOrder=true`);
             return;
-        }
-        // 签约前判断车牌号信息是否完整 ==>平安空发激活补充车牌证件信息
-        if (this.data.passengerCarOrderInfo.vehPlates.length > 8) {
-            return util.go(`/pages/default/receiving_address/receiving_address?perfect=1&shopId=${orderInfo.shopId}&orderId=${orderInfo.id}`);
         }
         wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'index_for_certificate_to_truck_package'
             : 'index_for_certificate_to_package');

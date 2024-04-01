@@ -1388,7 +1388,7 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
       return;
     }
     app.globalData.isServiceProvidersPackage = false; // 该服务商没有套餐
-    getListOfPackages(orderInfo, regionCode, true);
+    // getListOfPackages(orderInfo, regionCode, true);
   }
   result.data.map(item => {
   	item.shopId = params.shopId;
