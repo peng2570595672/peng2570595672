@@ -768,6 +768,11 @@ Page({
                 await this.getSalesmanOrderProcess();
                 return;
             }
+            if (this.data.orderInfo?.base?.orderType === 71 && (this.data.orderInfo?.base?.promoterType === 47 || this.data.orderInfo?.base?.promoterType === 48)) {
+                // 新版小程序空发 无需支付
+                util.go('/pages/empty_hair/processing_progress/processing_progress');
+                return;
+            }
             util.go('/pages/default/information_list/information_list?type=1');
         } else {
             util.showToastNoIcon(result.message);
@@ -886,6 +891,11 @@ Page({
                         if (this.data.orderInfo?.base?.orderType === 61) {
                             // 电销模式
                             this.perfectOrder();
+                            return;
+                        }
+                        if (this.data.orderInfo?.base?.orderType === 71 && (this.data.orderInfo?.base?.promoterType === 47 || this.data.orderInfo?.base?.promoterType === 48)) {
+                            // 新版小程序空发
+                            util.go('/pages/empty_hair/processing_progress/processing_progress');
                             return;
                         }
                         util.go('/pages/default/information_list/information_list?type=1');
