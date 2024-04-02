@@ -141,7 +141,7 @@ Page({
 		getAgreement: false // 是否接受协议
 	},
 	async onLoad (options) {
-		app.globalData.orderInfo.isTruckHandle = true; // 货车套餐
+		// app.globalData.orderInfo.isTruckHandle = true; // 货车套餐
 		console.log('oorderInfo', app.globalData.orderInfo.isTruckHandle);
 		if (!options.type) {
 			// 已选择套餐 && 未支付

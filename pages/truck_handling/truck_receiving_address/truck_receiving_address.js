@@ -8,7 +8,7 @@ const app = getApp();
 let timer;
 Page({
 	data: {
-		topProgressBar: 1.5,	// 进度条展示的长度 ，再此页面的取值范围 [1,2),默认为1,保留一位小数
+		topProgressBar: 2,	// 进度条展示的长度 ，再此页面的取值范围 [1,2),默认为1,保留一位小数
 		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
 		showKeyboard: false, // 是否显示键盘
 		currentIndex: -1, // 当前选中的输入车牌位置
@@ -33,6 +33,7 @@ Page({
 		} // 提交数据
 	},
 	async onLoad () {
+		app.globalData.orderInfo.isTruckHandle = true; // 货车套餐
 		if (app.globalData.userInfo.accessToken) {
 			// 查询是否欠款
 			await util.getIsArrearage();

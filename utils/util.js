@@ -1357,6 +1357,7 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
     shopId: orderInfo.shopId || app.globalData.miniProgramServiceProvidersId
   };
   let isTruckHandle = app.globalData.orderInfo.isTruckHandle; // 是否是货车办理
+  console.log('当前获取货车办理套餐',isTruckHandle);
   if (isTruckHandle) {
     params.vehType = 2;
     params.shopId = app.globalData.miniProgramServiceProvidersId;
