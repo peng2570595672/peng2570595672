@@ -16,6 +16,7 @@ Page({
 			name: '月结',
 			value: 3
 		}],
+		activeTypeIndex: 0, // 控制结算方式类型 按钮
 		isSelected: false, // 是否选中当前权益包
 		isSalesmanOrder: false, // 是否是业务员端办理
 		isRequest: false, // 是否请求中
@@ -141,8 +142,8 @@ Page({
 		getAgreement: false // 是否接受协议
 	},
 	async onLoad (options) {
-		// app.globalData.orderInfo.isTruckHandle = true; // 货车套餐
-		console.log('oorderInfo', app.globalData.orderInfo.isTruckHandle);
+		console.log('oorderInfo', this.data.orderInfo?.base?.vehPlates, options.vehPlates);
+		app.globalData.orderInfo.isTruckHandle = true; // 货车套餐
 		if (!options.type) {
 			// 已选择套餐 && 未支付
 			await this.getOrderInfo();
@@ -158,6 +159,7 @@ Page({
 			return item.billingMethod === 1;
 		}); // 日结套餐
 		this.setData({
+			listOfPackages: this.data.listOfPackages,
 			filterList
 		});
 		console.log('56s4d6a', this.data.filterList);
@@ -187,16 +189,19 @@ Page({
 	},
 	// 选择结算分类套餐
 	choosePackage (e) {
+		if (!this.data.listOfPackages) {
+			return;
+		}
 		let index = e.currentTarget.dataset.index;
-		let filterList = this.data.listOfPackages.filter((item) => {
+		let filterList = this.data.listOfPackages.filter((item) => { // 从所有货车套餐中进行筛选
 			return item.billingMethod === index;
 		});
 		console.log(index, filterList);
 		this.setData({
 			filterList,
-			activeIndex: index - 1,
+			activeTypeIndex: index - 1,
 			choiceIndex: '-1',
-			billingMethod: index - 1
+			billingMethod: index - 1 // 当前选择的结算方式类型
 			// listOfPackages: filterList
 		});
 	},
@@ -208,7 +213,7 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			this.setData({
-				listOfPackages: [result.data]
+				filterList: [result.data] // 该订单已选套餐
 			});
 		} else {
 			util.showToastNoIcon(result.message);
@@ -390,7 +395,7 @@ Page({
 	},
 	async next () {
 		if (this.data.choiceIndex === -1) return;
-		if (this.data.listOfPackages[this.data.choiceIndex].mustChoiceRightsPackage === 1 && this.data.activeEquitiesIndex === -1) {
+		if (this.data.filterList[this.data.choiceIndex].mustChoiceRightsPackage === 1 && this.data.activeEquitiesIndex === -1) {
 			util.showToastNoIcon('套餐需加购权益包');
 			// 必须选择权益
 			return;
@@ -409,7 +414,7 @@ Page({
 			shopId: this.data.orderInfo ? this.data.orderInfo.base.shopId : app.globalData.newPackagePageData.shopId, // 商户id
 			dataType: '3', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
-			shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
+			shopProductId: this.data.filterList[this.data.choiceIndex].shopProductId,
 			rightsPackageId: this.data.rightsAndInterestsList[this.data.activeEquitiesIndex]?.id || '',
 			areaCode: this.data.orderInfo ? this.data.orderInfo.product.areaCode : app.globalData.newPackagePageData.areaCode,
 			billingMethod: this.data.billingMethod // 1 2 3  结算方式 日结 周jie月结
@@ -417,16 +422,16 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		if (!result) return;
 		if (result.code === 0) {
-			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice ||
+			if (this.data.filterList[this.data.choiceIndex]?.pledgePrice ||
 				this.data.rightsAndInterestsList[this.data.activeEquitiesIndex]?.payMoney) {
 				await this.marginPayment();
 				return;
 			}
-			if (this.data.isSalesmanOrder && this.data.listOfPackages[this.data.choiceIndex].flowVersion !== 7) {
+			if (this.data.isSalesmanOrder && this.data.filterList[this.data.choiceIndex].flowVersion !== 7) {
 				util.go('/pages/default/processing_progress/processing_progress?type=main_process');
 				return;
 			}
-			if (this.data.isSalesmanOrder && this.data.listOfPackages[this.data.choiceIndex].flowVersion === 7) {
+			if (this.data.isSalesmanOrder && this.data.filterList[this.data.choiceIndex].flowVersion === 7) {
 				let checkResults;
 				if (app.globalData.memberStatusInfo?.orderBankConfigList?.length) {
 					checkResults = app.globalData.memberStatusInfo.orderBankConfigList.find(item => item.orderId === app.globalData.orderInfo.orderId);

@@ -139,6 +139,7 @@ Page({
     },
     async onLoad (options) {
         app.globalData.isTelemarketing = false;
+        app.globalData.orderInfo.isTruckHandle = false; // 客车套餐
         this.setData({
             contractStatus: +options.contractStatus,
             emptyHairOrder: options.emptyHairOrder === 'true'

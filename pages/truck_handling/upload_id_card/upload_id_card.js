@@ -153,28 +153,28 @@ Page({
 			if (isToast) util.showToastNoIcon('部分信息识别失败,请重新上传身份证照片！');
 			return false;
 		}
-		if (!this.data.formData.cardMobilePhone) {
-			if (isToast) util.showToastNoIcon('手机号码不能为空！');
-			return false;
-		}
-		if (!/^1[0-9]{10}$/.test(this.data.formData.cardMobilePhone)) {
-			if (isToast) util.showToastNoIcon('手机号码格式不正确！');
-			return false;
-		}
+		// if (!this.data.formData.cardMobilePhone) {
+		// 	if (isToast) util.showToastNoIcon('手机号码不能为空！');
+		// 	return false;
+		// }
+		// if (!/^1[0-9]{10}$/.test(this.data.formData.cardMobilePhone)) {
+		// 	if (isToast) util.showToastNoIcon('手机号码格式不正确！');
+		// 	return false;
+		// }
 		// 手机号没有更改不需要重新获取验证码
-		if (this.data.formData.cardMobilePhone !== this.data.orderInfo.ownerIdCard.cardMobilePhone) {
-			this.setData({
-				isShowCodeInput: true
-			});
-			if (!this.data.formData.verifyCode) {
-				if (isToast) util.showToastNoIcon('验证码不能为空！');
-				return false;
-			}
-			if (!/^[0-9]{4}$/.test(this.data.formData.verifyCode)) {
-				if (isToast) util.showToastNoIcon('验证码格式不正确！');
-				return false;
-			}
-		}
+		// if (this.data.formData.cardMobilePhone !== this.data.orderInfo.ownerIdCard.cardMobilePhone) {
+		// 	this.setData({
+		// 		isShowCodeInput: true
+		// 	});
+		// 	if (!this.data.formData.verifyCode) {
+		// 		if (isToast) util.showToastNoIcon('验证码不能为空！');
+		// 		return false;
+		// 	}
+		// 	if (!/^[0-9]{4}$/.test(this.data.formData.verifyCode)) {
+		// 		if (isToast) util.showToastNoIcon('验证码格式不正确！');
+		// 		return false;
+		// 	}
+		// }
 		return true;
 	},
 	// 下一步
