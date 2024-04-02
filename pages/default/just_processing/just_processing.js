@@ -1,4 +1,5 @@
 import {thirdContractSigning} from '../../../utils/utils';
+import getListOfPackages from '../../../utils/util'
 
 /**
  * @author 老刘
@@ -8,7 +9,6 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
     data: {
-        topProgressBar: 2,	// 进度条展示的长度 ，再此页面的取值范围 [2,3),默认为2,保留一位小数
         isFade: true,
         orderTabList: [{
             name: '日结',
@@ -148,28 +148,25 @@ Page({
         citicBankshopProductIds: app.globalData.cictBankObj.citicBankshopProductIds	// 信用卡套餐集合
     },
     async onLoad (options) {
+        this.getListOfPackages();
+
         app.globalData.isTelemarketing = false;
         this.setData({
             contractStatus: +options.contractStatus,
             emptyHairOrder: options.emptyHairOrder === 'true'
         });
         // !options.type 已选择套餐 && 未支付
-        await this.getOrderInfo(!options.type);
-        if (!options.type) {
-            return;
-        }
+        // await this.getOrderInfo(!options.type);
         const packages = app.globalData.newPackagePageData;
-        this.setData({
-            listOfPackages: []
-        });
+
         // await this.queryOrder();
         // await this.getSwiperHeight();
         // 获取 套餐模块的高度
-        this.getNodeHeight(this.data.listOfPackages.length);
+        // this.getNodeHeight(this.data.listOfPackages.length);
         // 查询是否欠款
-        await util.getIsArrearage();
+        // await util.getIsArrearage();
         // 进入套餐页面 调用车牌限制接口
-        this.getLicensePlateRestrictions();
+        // this.getLicensePlateRestrictions();
     },
     onShow (res) {
         if (app.globalData.signAContract === -1) {
@@ -180,12 +177,40 @@ Page({
             this.getOrderInfo(false);
         }
     },
-    onReady (res) {
-
-    },
+    // 获取货车套餐列表
+	getListOfPackages () {
+		let params = {
+			areaCode: this.data.regionCode[0] || '',
+			productType: 2,
+			platformId: app.globalData.platformId,
+			shopId: app.globalData.otherPlatformsServiceProvidersId
+		};
+		util.getDataFromServer('consumer/system/get-usable-product', params, () => {
+			util.showToastNoIcon('获取套餐失败!');
+		}, (res) => {
+			if (res.code === 0) {
+				if (res.data.length === 0) {
+					util.showToastNoIcon('未查询到套餐，请联系工作人员处理！');
+					return;
+				}
+				let list = res.data;
+				let listOfPackages = list || [];
+				this.setData({
+					listOfPackages
+				});
+				if (this.data.credentialType === 1) {
+					this.choiceSetMeal();
+				}
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			!hide && util.hideLoading();
+		});
+	},
     async getLicensePlateRestrictions () {
       const result = await util.getDataFromServersV2('consumer/system/veh/limit', {
-        shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
+        // shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
         vehPlates: this.data.vehPlates
       });
       if (!result) return;
@@ -930,7 +955,7 @@ Page({
             this.controllShopProductPosition(index);
         }
         // 点击选择套餐 调用车牌限制接口
-        this.getLicensePlateRestrictions();
+        // this.getLicensePlateRestrictions();
     },
     btnOpenOrOff (e) { // 展开和收起
         let index = e.currentTarget.dataset.index[0];

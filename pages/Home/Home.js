@@ -101,6 +101,12 @@ Page({
                 imgUrl: 'https://file.cyzl.com/g001/M01/CF/DD/oYYBAGQav3SAZ33-AAAiNjMKTNI431.png',
                 jumpUrl: '/pages/etc_handle/etc_handle',
                 templateId: ['']
+            },
+            {
+                appId: '',
+                imgUrl: 'https://file.cyzl.com/g001/M03/4A/EA/oYYBAGYKbGCAF0t7AAAUVRZHFz8098.png',
+                jumpUrl: '/pages/etc_handle/etc_handle',
+                templateId: ['']
             }
         ],
         duration: 500, // 轮播图时间间隔
@@ -112,7 +118,8 @@ Page({
                 appId: '',
                 funcDesc: '第五代新设备',
                 funcName: '小汽车办理',
-                imgUrl: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eRKAK0mDAAAg6lZHRZU754.jpg',
+                imgUrl: 'https://file.cyzl.com/g001/M03/4A/EA/oYYBAGYKbGCAF0t7AAAUVRZHFz8098.png',
+                imgUrl1: 'https://file.cyzl.com/g001/M03/4A/FC/oYYBAGYKeziAdTX0AAASNT_iddM384.png',
                 isShow: true,
                 jumpUrl: '/pages/etc_handle/etc_handle',
                 templateId: ['']
@@ -121,9 +128,11 @@ Page({
                 appId: '',
                 funcDesc: '限时免费办理',
                 funcName: '货车办理',
-                imgUrl: 'https://file.cyzl.com/g001/M01/CA/43/oYYBAGP8eRKAK0mDAAAg6lZHRZU754.jpg',
+                imgUrl: 'https://file.cyzl.com/g001/M03/4A/EB/oYYBAGYKbOSAL7KWAAARAsZLlsw963.png',
+                imgUrl1: 'https://file.cyzl.com/g001/M03/4A/EB/oYYBAGYKbOSAL7KWAAARAsZLlsw963.png',
                 isShow: true,
-                jumpUrl: '/pages/personal_center/my_order/my_order',
+                jumpUrl: '/pages/truck_handling/truck_receiving_address/truck_receiving_address',
+                // jumpUrl: '/pages/personal_center/my_order/my_order',// 订单
                 templateId: ['']
             }
         ],
@@ -285,7 +294,7 @@ Page({
             funcListTwo.sort(this.compare('sort')); //
             this.setData({
                 interval,
-                imgList: bannerList,
+                imgList: bannerList.concat(this.data.imgList[1]),
                 moduleOneList: funcListOne,
                 moduleTwoList: funcListTwo
             });
@@ -1499,11 +1508,11 @@ Page({
             this.onClickHighSpeedSigning(obj);
             return;
         }
-        if (obj.isNewTrucks === 1) {
-            wx.uma.trackEvent('index_for_contract_management');
-            util.go(`/pages/truck_handling/contract_management/contract_management`);
-            return;
-        }
+        // if (obj.isNewTrucks === 1) {
+        //     wx.uma.trackEvent('index_for_contract_management'); // 取消多内容签约
+        //     util.go(`/pages/truck_handling/contract_management/contract_management`);
+        //     return;
+        // }
         app.globalData.isSecondSigning = false;
         app.globalData.isSecondSigningInformationPerfect = false;
         app.globalData.contractStatus = obj.contractStatus;

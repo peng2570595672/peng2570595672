@@ -676,10 +676,10 @@ function luhmCheck(bankno) {
  *  获取货车新流程订单办理状态 2.0
  */
 function getTruckHandlingStatus(orderInfo) {
-  if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0) {
-    // protocolStatus 0未签协议 1签了
-    return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
-  }
+  // if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0) {
+  //   // protocolStatus 0未签协议 1签了
+  //   return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
+  // }
   // flowVersion 流程版本，1-分对分，2-新版（总对总）,3-选装 4-预充值 5-保证金模式 6-圈存 7-交行二类户
   if (orderInfo.flowVersion === 5 && orderInfo.multiContractList.find(item => item.contractStatus === 2)) {
     return 1; // 货车解约 - 保证金模式
@@ -697,7 +697,7 @@ function getTruckHandlingStatus(orderInfo) {
 
 
   if (orderInfo.flowVersion === 6 && !app.globalData.bankCardInfo.accountNo) { // 开通II类户预充保证金 - 未开户
-    return 13;
+    // return 13;
   }
   console.log(orderInfo)
   if (orderInfo.flowVersion === 7) {
@@ -714,7 +714,6 @@ function getTruckHandlingStatus(orderInfo) {
     if (!info?.memberBankId) return 13; // 交行 开通II类户预充保证金 - 未开户
     if (!orderInfo.contractStatus) return 21; // 未签约银行
   }
-
   if (orderInfo.flowVersion === 6 && app.globalData.bankCardInfo.accountNo) { //有二类户-代扣通行费
     //contractStatus :-1 签约失败 0发起签约 1已签约 2解约
     //	app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(-4);
@@ -731,14 +730,11 @@ function getTruckHandlingStatus(orderInfo) {
       return 15;
     }
   }
-
-
-
-  if (orderInfo.flowVersion === 5 && orderInfo.multiContractList.filter(item => item.contractStatus === 1).length !== 3) {
+  if (orderInfo.flowVersion === 7 && orderInfo.multiContractList.filter(item => item.contractStatus === 1).length !== 3) {
     return 5; // 未完全签约 - 或存在解约
   }
   if (orderInfo.flowVersion === 5 && orderInfo.status === 0) {
-    return 14; // 办理中 未授权预充保证金
+    // return 14; // 办理中 未授权预充保证金
   }
   if (orderInfo.flowVersion === 4 && orderInfo.status === 0) {
     return 4; // 办理中 已上传证件 待完善
@@ -757,11 +753,11 @@ function getTruckHandlingStatus(orderInfo) {
     return 8; // 高速核验不通过
   }
   if (orderInfo.flowVersion === 5 && orderInfo.auditStatus === 2 && orderInfo.holdStatus === 0) {
-    return 15; // 未冻结保证金成功
+    // return 15; // 未冻结保证金成功
   }
   if (orderInfo.flowVersion === 4 && orderInfo.orderType !== 31 && orderInfo.auditStatus === 2 && orderInfo.prechargeFlag === 0) {
     // prechargeFlag 0未预充 1已预充
-    return 17; // 未预充金额
+    // return 17; // 未预充金额
   }
   if ((orderInfo.auditStatus === 2 || (orderInfo.auditStatus === 0 && orderInfo.orderType === 31)) && (orderInfo.flowVersion === 2 || orderInfo.flowVersion === 3) && orderInfo.hwContractStatus !== 1) {
     // hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
@@ -775,7 +771,7 @@ function getTruckHandlingStatus(orderInfo) {
   }
   if (orderInfo.flowVersion === 4 && orderInfo.orderType === 31 && orderInfo.auditStatus === 2 && orderInfo.prechargeFlag === 0) {
     // prechargeFlag 0未预充 1已预充
-    return 17; // 未预充金额
+    // return 17; // 未预充金额
   }
   if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
     return 12; // 已激活
@@ -1289,7 +1285,7 @@ function wxAnimation(delay, site, translate, opacity = 1) {
   return animation.export();
 }
 // 获取定位数据
-let isTruckHandle = false; // 是否是货车办理
+let isTruckHandle = true; // 是否是货车办理
 function initLocationInfo(orderInfo, isTruck = false) {
   isTruckHandle = isTruck;
   // 是否缓存了定位信息
@@ -1357,10 +1353,12 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
     platformId: app.globalData.platformId,
     shopId: orderInfo.shopId || app.globalData.miniProgramServiceProvidersId
   };
+  let isTruckHandle = app.globalData.orderInfo.isTruckHandle; // 是否是货车办理
   if (isTruckHandle) {
     params.vehType = 2;
     params.shopId = app.globalData.miniProgramServiceProvidersId;
   }
+  console.log('params',params);
   let result = await getDataFromServersV2('consumer/system/get-usable-product', params);
   if (!result) return '';
   if (result.code) {

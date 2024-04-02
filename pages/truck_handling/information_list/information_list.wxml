@@ -23,7 +23,7 @@
 		</view>
         <view class="fill"></view>
 		<view class="btn-sign {{available ? 'available' : 'unavailable'}}" catchtap="next">
-            <view class="animate" wx:if="{{isRequest}}"></view>下一步
+            <view class="animate" wx:if="{{isRequest}}"></view>签约代扣通讯费
         </view>
 	</view>
 </view>

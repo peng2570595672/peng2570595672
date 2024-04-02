@@ -77,6 +77,7 @@
 					color $fontColor
 		// 顶部结束
 		.bottom
+			position relative
 			display flex
 			padding-top 24rpx
 			padding-bottom 28rpx
@@ -95,24 +96,21 @@
 						font-size 32rpx
 						transform rotateZ(-180deg)
 		.moreStatus
-			width 40%
+			width 100%
 			display flex
 			flex-direction column
-			text-align right 
-			line-height 48rpx
-			justify-content flex-end
-			background-color #fff
-			border 1px solid #d6d3d3
-			border-radius: 15rpx
-			padding 15rpx
-			margin-left: 57%
-			font-size: 28rpx
-			z-index: 99100 !important
+			align-items flex-end
+			position absolute
+			left 0
+			bottom -60rpx
+			z-index 9901
 			view
+				background-color #fff
 				color black	
+				// border 1px solid #000
 				line-height 2
-	.btm20
-		margin-bottom: 120rpx !important
+				&:hover
+					border-bottom 1px solid #000
 	.auto-fill
 		flex 1
 	// 没有车

@@ -127,7 +127,6 @@ Page({
 			});
 			// 加载套餐
 			this.getListOfPackages();
-			return;
 		}
 		// 定位
 		// this.getLocationInfo();
@@ -334,7 +333,7 @@ Page({
 	},
 	// 选择银行
 	choiceSetMeal () {
-		console.log(this.data.regionCode)
+		console.log(this.data.regionCode);
 		if (this.data.listOfPackages.length === 0) {
 			this.getListOfPackages();
 			return;

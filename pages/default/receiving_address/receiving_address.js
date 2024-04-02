@@ -53,6 +53,9 @@ Page({
 	},
 	async onLoad (options) {
 		app.globalData.orderInfo.orderId = '';
+		// if (options.isTruckHandle) {
+		// 	app.globalData.orderInfo.isTruckHandle = options.isTruckHandle;
+		// }
 		if ((app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) || Object.keys(options).length) {
 			wx.hideHomeButton();
 		}
@@ -124,11 +127,11 @@ Page({
 		}
 		// 仅需要填写车牌号和身份证行驶证信息 平安空发激活
 		if (+options.perfect === 1) {
-		this.setData({
-			perfect: +options.perfect,
-			orderId: options.orderId,
-			addCard: '完善车牌号'
-		});
+			this.setData({
+				perfect: +options.perfect,
+				orderId: options.orderId,
+				addCard: '完善车牌号'
+			});
 		}
 		if (+options.isPost && options.vehPlate?.length < 11) {
 			this.setData({
@@ -485,6 +488,10 @@ Page({
 				params['rightsPackageId'] = this.data.rightsPackageId;
 			}
 		}
+		// if(){
+
+		// 	params['isNewTrucks'] = 1; // 货车
+		// }
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		if (!result) return;
 		this.setData({
@@ -1011,7 +1018,8 @@ Page({
 	},
 	// 客车 办理跳转
 	goKCcar () {
-		util.go(`/pages/default/just_processing/just_processing`);
+		// util.go(`/pages/default/just_processing/just_processing`);
+		util.go(`/pages/truck_handling/truck_receiving_address/truck_receiving_address`);
 	},
 	// 传车牌及车牌颜色校验是否已有黔通订单 三方接口
 	async validateCar () {

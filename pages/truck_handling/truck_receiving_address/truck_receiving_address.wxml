@@ -1,6 +1,10 @@
 <view class="receiving_address" bindtap="touchHandle">
+	<!-- 顶部 进度条 组件 -->
+  <view class="topSplit">
+    <topProgressBar progressStage="{{topProgressBar}}" />
+  </view>
 	<!--	车牌号标题开始-->
-	<view class="title">车牌号</view>
+	<view class="title">办理车牌号</view>
 	<!--	车牌号标题结束-->
 	<!--	车牌号开始-->
 	<view class="car-no-wrapper">
@@ -85,6 +89,11 @@
 			<view>手机号</view>
 			<input type="number" placeholder="请输入手机号" placeholder-class="placeholder" value="{{formData.telNumber}}"
 			       bindinput="onInputChangedHandle" data-key="telNumber"
+			/>
+		</view>
+		<view class="input-item">
+			<view>车轴数</view>
+			<input type="number" placeholder="请输入车轴数" placeholder-class="placeholder" value="{{formData.axleNum}}" maxlength="1" bindinput="onInputChangedHandle" data-key="axleNum"
 			/>
 		</view>
 	</view>

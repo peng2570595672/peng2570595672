@@ -46,7 +46,7 @@
 	</view>
 	<view class="item" wx:if="{{orderInfo.billingMethod && orderInfo.billingMethod!==0}}" >
 		<view>结算方式</view>
-		<view catchtap="onClickBank">{{orderInfo.billingMethod===1?'日结':orderInfo.billing_method===2?'周结':orderInfo.billingMethod===3?'月结':''}}</view>
+		<view catchtap="onClickBank">{{orderInfo.billingMethod === 1 ? '日结' : orderInfo.billingMethod === 2 ? '周结':orderInfo.billingMethod === 3 ?'月结':''}}</view>
 	</view>
 	<view class="split" wx:if="{{orderInfo.pledgeStatus !== -1 && orderInfo.pledgeType === 2}}"></view>
     <view class="item" wx:if="{{orderInfo.pledgeStatus !== -1 && orderInfo.pledgeType === 2}}">

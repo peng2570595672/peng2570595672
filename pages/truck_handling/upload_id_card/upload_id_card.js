@@ -179,9 +179,9 @@ Page({
 	},
 	// 下一步
 	async next () {
-		if (!this.validateData(true)) {
-			return;
-		}
+		// if (!this.validateData(true)) {
+		// 	return;
+		// }
 		if (this.data.isRequest) {
 			return;
 		}
@@ -224,7 +224,7 @@ Page({
 			ownerIdCardAddress: this.data.idCardFace.ocrObject.address,
 			cardMobilePhone: this.data.formData.cardMobilePhone, // 车主实名手机号
 			cardPhoneCode: this.data.formData.verifyCode, // 手机号验证码
-			notVerifyCardPhone: notVerifyCardPhone // true 时不需要验证码
+			notVerifyCardPhone: true // true 时不需要验证码
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		this.setData({

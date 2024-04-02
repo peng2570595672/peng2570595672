@@ -81,7 +81,7 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			let orderInfo = result.data;
-			orderInfo['selfStatus'] = orderInfo.isNewTrucks === 1 ? util.getTruckHandlingStatus(orderInfo) : util.getStatus(orderInfo);
+			orderInfo['selfStatus'] = orderInfo.isNewTrucks === 1 ? util.getTruckHandlingStatus(orderInfo) : util.getStatus(orderInfo); // 获取货车新流程订单办理状态 2.0
 			orderInfo['deductionMethod'] = initProductName(orderInfo);
 			console.log(orderInfo,'===========订单数据==================');
 
@@ -167,10 +167,10 @@ Page({
 	// 点击车辆信息
 	onClickVehicle () {
 		const orderInfo = this.data.orderInfo;
-		if (orderInfo.isNewTrucks === 1 && orderInfo.status !== 1) {
-			util.showToastNoIcon('货车办理系统升级中，暂时不可申办');
-			return;
-		}
+		// if (orderInfo.isNewTrucks === 1 && orderInfo.status !== 1) {
+		// 	util.showToastNoIcon('货车办理系统升级中，暂时不可申办');
+		// 	return;
+		// }
 		if (orderInfo.orderType === 51 && orderInfo.status !== 1) {
 			util.showToastNoIcon('请返回原渠道办理');
 			return;
@@ -417,6 +417,7 @@ Page({
 			util.showLoading({
 				title: '加载中...'
 			});
+			this.onClickBackToSign(obj);
 			// ETC服务状态提醒
 			wx.requestSubscribeMessage({
 				tmplIds: ['Tz71gtuo8XI6BCqb0L8yktgHtgG2OyRSYLffaPUdJU8'],
@@ -509,15 +510,16 @@ Page({
 			this.onClickHighSpeedSigning(obj);
 			return;
 		}
-		if (obj.isNewTrucks === 1) {
-			wx.uma.trackEvent('etc_detail_for_contract_management');
-			util.go(`/pages/truck_handling/contract_management/contract_management`);
-			return;
-		}
+		// if (obj.isNewTrucks === 1) { // 取消多次签约 直接微信签约
+			// wx.uma.trackEvent('etc_detail_for_contract_management');
+			// util.go(`/pages/truck_handling/contract_management/contract_management`);
+			// return;
+		// }
 		app.globalData.isSecondSigning = false;
 		app.globalData.isSecondSigningInformationPerfect = obj.status === 1;
 		if (obj.logisticsId !== 0 || obj.obuStatus === 5 || obj.obuStatus === 1) app.globalData.isSecondSigning = true;
 		// 新流程
+		console.log('obj.contractStatus',obj.contractStatus);
 		if (obj.contractStatus === 2) {
 			wx.uma.trackEvent('etc_detail_for_resume_signing');
 			// 恢复签约
@@ -582,6 +584,9 @@ Page({
 		if (this.data.orderInfo.isNewTrucks === 1 && this.data.orderInfo.status === 0) {
 			params['dataComplete'] = 1; // 资料已完善
 		}
+		if (this.data.orderInfo.isNewTrucks === 1) {
+			params['contractType'] = 1; // 货车直接签约 字段
+		}
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		this.setData({
 			available: true,
@@ -597,6 +602,7 @@ Page({
 			app.globalData.orderStatus = this.data.orderInfo.selfStatus;
 			app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
 			app.globalData.signAContract === -1;
+			console.log('resres',res);
 			util.weChatSigning(res);
 		} else {
 			util.showToastNoIcon(result.message);

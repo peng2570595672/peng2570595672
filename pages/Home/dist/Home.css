@@ -189,12 +189,13 @@
 }
 .home .moduleCar {
   display: flex;
-  min-height: 232rpx;
+  min-height: 272rpx;
   align-items: center;
   justify-content: space-around;
 }
 .home .moduleCar .moduleOneBox {
   width: 45%;
+  border: 1px solid #ffc0cb;
   box-sizing: border-box;
   font-family: PingFangSC-Regular, PingFang SC;
 }
@@ -219,16 +220,6 @@
   font-weight: 400;
   color: #000;
   text-align: left;
-}
-.home .moduleCar .moduleOneBox .btn_two {
-  width: 100%;
-  height: 30rpx;
-  font-size: 20rpx;
-  font-weight: 400;
-  color: #d2ba78;
-  margin-top: 4rpx;
-  text-align: left;
-  line-height: 30rpx;
 }
 .home .moduleOne {
   display: flex;

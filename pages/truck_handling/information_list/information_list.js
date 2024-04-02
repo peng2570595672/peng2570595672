@@ -218,7 +218,30 @@ Page({
 			const path = result.data?.accountNo ? 'contract_management' : 'binding_account';
 			util.go(`/pages/truck_handling/${path}/${path}`);
 		}
+		await this.weChatSign();
 	},
+	// 微信签约
+	async weChatSign () {
+		let params = {
+				orderId: app.globalData.orderInfo.orderId, // 订单id
+				clientOpenid: app.globalData.userInfo.openId,
+				clientMobilePhone: app.globalData.userInfo.mobilePhone,
+				needSignContract: true, // 是否需要签约 true-是，false-否
+				contractType: '1' // 签约类型：1-通行费，2-服务费，3-保证金
+		};
+		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+		if (!result) return;
+		if (result.code === 0) {
+				let res = result.data.contract;
+				// 签约车主服务 2.0
+				app.globalData.signAContract = -1;
+				app.globalData.belongToPlatform = app.globalData.platformId;
+				app.globalData.isNeedReturnHome = true;
+				util.weChatSigning(res);
+		} else {
+				util.showToastNoIcon(result.message);
+		}
+},
 	// 影像资料上送
 	async truckUploadImg () {
 		const result = await util.getDataFromServersV2('consumer/member/bcm/truckUploadImg', {
