@@ -219,9 +219,9 @@ Page({
             topProgressBar = 3.3;
         }
         let isXinKe = this.data.orderDetails?.orderExtCardType === 2 && this.data.orderInfo.obuCardType === 10;
-        if (url === 'upload_id_card' && isXinKe) { // 湖南信科
-            return util.showToastNoIcon('请先上传行驶证');
-        }
+        // if (url === 'upload_id_card' && isXinKe && this.data.orderInfo.isVehicle !== 1) { // 湖南信科
+        //     return util.showToastNoIcon('请先上传行驶证');
+        // }
         if (url === 'information_validation' && !this.data.orderInfo.isOwner && !isXinKe) {
             return util.showToastNoIcon('请先上传身份证');
         }
