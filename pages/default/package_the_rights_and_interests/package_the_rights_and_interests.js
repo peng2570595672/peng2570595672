@@ -138,6 +138,7 @@ Page({
         citicBankshopProductIds: app.globalData.cictBankObj.citicBankshopProductIds	// 信用卡套餐集合
     },
     async onLoad (options) {
+        if (!app.globalData.orderInfo.orderId) return;
         app.globalData.isTelemarketing = false;
         this.setData({
             contractStatus: +options.contractStatus,
@@ -162,6 +163,7 @@ Page({
         this.getLicensePlateRestrictions();
     },
     onShow (res) {
+        if (!app.globalData.orderInfo.orderId) return;
         if (app.globalData.signAContract === -1) {
             this.queryContract();
         }

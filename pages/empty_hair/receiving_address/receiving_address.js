@@ -42,9 +42,9 @@ Page({
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.signAContract = 3;
 		app.globalData.otherPlatformsServiceProvidersId = options.shopId;
-		this.login();
 	},
 	async onShow () {
+		this.login();
 	},
 	// 自动登录
 	login () {
@@ -89,6 +89,9 @@ Page({
 	handleChangeVeh () {
 		this.setData({
 			hasVeh: !this.data.hasVeh
+		});
+		this.setData({
+			available: this.validateAvailable(true)
 		});
 	},
 	// 从微信选择地址
@@ -420,6 +423,8 @@ Page({
 			} else {
 				isOk = false;
 			}
+		} else {
+			isOk = true;
 		}
 		// 校验经办人手机号码
 		isOk = isOk && formData.cardMobilePhone && /^1[0-9]{10}$/.test(formData.cardMobilePhone);
