@@ -2,6 +2,7 @@
  * @author 老刘
  * @desc 信息确认
  */
+import {handleJumpHunanMini} from '../../../utils/utils.js';
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
@@ -224,10 +225,14 @@ Page({
         if (this.data.orderInfo.isOwner || this.data.orderInfo.isVehicle) {
             topProgressBar = 3.3;
         }
-        if (url === 'information_validation' && !this.data.orderInfo.isOwner) {
+        let isXinKe = this.data.orderDetails?.orderExtCardType === 2 && this.data.orderInfo.obuCardType === 10;
+        if (url === 'upload_id_card' && isXinKe) { // 湖南信科
+            return util.showToastNoIcon('请先上传行驶证');
+        }
+        if (url === 'information_validation' && !this.data.orderInfo.isOwner && !isXinKe) {
             return util.showToastNoIcon('请先上传身份证');
         }
-        util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}&obuCardType=${this.data.orderInfo.obuCardType}`);
+        util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}&obuCardType=${this.data.orderInfo.obuCardType}&isXinKe=${isXinKe}`);
     },
     // ETC申办审核结果通知、ETC发货提示、ETC服务状态提醒
     async subscribe () {
@@ -378,6 +383,15 @@ Page({
     submitCiticBank () {
         if (!this.data.available) return;
         this.subscribe();
+    },
+    // 湖南信科 跳转信科小程序去签约
+    async submitIsXinKe () {
+        const result = await util.getDataFromServersV2('consumer/order/order-pay-transaction-info', {orderId: app.globalData.orderInfo.orderId});
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+			return;
+		}
+		handleJumpHunanMini(app.globalData.orderInfo.orderId, result.data.outTradeNo);
     },
     skip () {
         let that = this;

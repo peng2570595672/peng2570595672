@@ -317,6 +317,8 @@
                 "empty_package/empty_package",
                 "empty_qrcode/empty_qrcode",
                 "write_base_information/write_base_information",
+                "receiving_address/receiving_address",
+                "processing_progress/processing_progress",
                 "neimeng_installation_tutorial/neimeng_installation_tutorial"
             ]
         },

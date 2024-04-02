@@ -1,0 +1,47 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<view class="processing_progress" wx:if="{{info}}">
+    <!--	车牌开始-->
+    <view class="title">{{info.base.vehPlates}}</view>
+    <!--	车牌结束-->
+    <!--	用户信息开始-->
+    <view class="user-info">
+        <view>
+            <text>{{info.receive.receiveMan}}</text>
+            <text>{{info.receive.receivePhone}}</text>
+        </view>
+        <view>
+            {{info.receive.receiveProvince}}{{info.receive.receiveCity}}{{info.receive.receiveCounty}}{{info.receive.receiveAddress}}
+        </view>
+    </view>
+    <!--	用户信息结束-->
+    <!--	办理进度开始-->
+    <view class="title other-title">办理进度</view>
+    <!--	办理进度失败-->
+    <!--	进度开始-->
+    <view class="progress_wrapper">
+        <view class="item">
+            <view class="content-title">快递配送</view>
+            <view class="content-des">发货后可查看快递单号</view>
+        </view>
+        <view class="item">
+            <view class="content-title">资料录入</view>
+            <view class="content-des">录入车辆及车主信息</view>
+        </view>
+        <view class="item">
+            <view class="content-title">资料审核</view>
+            <view class="content-des">提交资料后审核，预计1-3天完成审核</view>
+        </view>
+        <view class="item">
+            <view class="content-title">安装激活</view>
+            <view class="content-des">请跟随设备附上的安装激活指引卡片自助完成激活使用</view>
+        </view>
+    </view>
+    <!--	进度结束-->
+    <view class="auto-fill" wx:if="{{!tools.dataIncludes(info.vehPlates,firstCar,1)}}"></view>
+    <!--	在线客服开始-->
+    <view class="bottom"><text catchtap="goHome">返回首页</text>|<text catchtap="goOnlineServer">在线客服</text>|<text catchtap="goInstallationTutorial">安装教程</text></view>
+    <view class="pingAnNewCustomers" wx:if="{{tools.dataIncludes(info.vehPlates,firstCar,1)}}" catchtap="goPingAn">
+        <image class="image" src="{{'https://file.cyzl.com/g001/M00/E7/0D/oYYBAGSRUJuAQ0wsAABKSVNiV0M757.png'}}" mode="widthFix"/>
+    </view>
+</view>
+<privacy_popup></privacy_popup>
