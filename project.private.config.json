@@ -5,8 +5,78 @@
             "list": [
                 {
                     "name": "",
+                    "pathName": "pages/empty_hair/receiving_address/receiving_address",
+                    "query": "shopId=1224307861486575616",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/default/receiving_address/receiving_address",
+                    "query": "orderId=123&perfect=1&shopId=1224307861486575616",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/empty_hair/processing_progress/processing_progress",
+                    "query": "orderId=1224321305927487488",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "ETC详情",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=857589075627216896",
+                    "query": "orderId=1101196259089190912",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/truck_handling/truck_receiving_address/truck_receiving_address",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "邮寄地址",
+                    "pathName": "pages/default/receiving_address/receiving_address",
+                    "query": "isPost=0&shopId=1214877114216488960&productId=1214891795110961152",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/truck_handling/upload_road_transport_certificate/upload_road_transport_certificate",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/truck_handling/information_validation/information_validation",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/order_details/order_details",
+                    "query": "id=1072901835328589824&channel=1&month=12",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/coupon_redemption_centre/coupon_redemption_centre",
+                    "query": "source=henanMobile",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1214218469478764544",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -20,7 +90,7 @@
                 {
                     "name": "",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=804026860739497984",
+                    "query": "orderId=857589075627216896",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -28,13 +98,6 @@
                     "name": "4.0 填写基础信息页",
                     "pathName": "pages/default/receiving_address/receiving_address",
                     "query": "activityType=45&shopId=1189147799537590272&isPost=1&productId=1200085206088818688&sharkOrderNo=12131131",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1149657726079471616",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -117,13 +180,6 @@
                 },
                 {
                     "name": "",
-                    "pathName": "pages/default/processing_progress/processing_progress",
-                    "query": "orderId=1146890708092063744",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
                     "pathName": "pages/personal_center/mini_payment/mini_payment",
                     "query": "orderInfo=%7B%22productName%22%3A%22%E5%8D%95%E7%89%87%E9%BB%94%E9%80%9A-2%25%E6%9D%83%E7%9B%8A%E5%8C%85%2B%E6%9D%83%E7%9B%8A%E5%88%B8%E9%A2%9D%22%2C%22pledgePrice%22%3A%220.01%22%2C%22vehPlates%22%3A%22%E8%B4%B5Z3C56C%22%2C%22vehColor%22%3A0%2C%22phone%22%3A%2215519098118%22%2C%22orderId%22%3A%221174808212507987968%22%7D",
                     "launchMode": "default",
@@ -140,13 +196,6 @@
                     "name": "",
                     "pathName": "pages/login/login/login",
                     "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "ETC详情",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1081238538558640128",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -168,13 +217,6 @@
                     "name": "",
                     "pathName": "pages/etc_handle/etc_handle",
                     "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "邮寄地址",
-                    "pathName": "pages/default/receiving_address/receiving_address",
-                    "query": "activityType=3&shopId=627104942791852032",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -221,23 +263,9 @@
                     "scene": null
                 },
                 {
-                    "name": "",
-                    "pathName": "pages/road_rescue_orders/road_rescue_schedule/road_rescue_schedule",
-                    "query": "applyId=1149433960363724800&orderId=1148992417429852160",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
                     "name": "我的ETC",
                     "pathName": "pages/personal_center/my_etc/my_etc",
                     "query": "shareId=123455",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/personal_center/jump_web/jump_web",
-                    "query": "",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -355,13 +383,6 @@
                     "name": "",
                     "pathName": "pages/etc_handle/etc_handle",
                     "query": "shopId=1122918987926609920",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/personal_center/equity_payment/equity_payment",
-                    "query": "params=%7B%22timeStamp%22%3A%221678194209%22%2C%22package%22%3A%22prepay_id%3Dwx07210329566475f39e361d4c22818e0000%22%2C%22paySign%22%3A%222D94D017D92A9B882C60E0A33BF0F480%22%2C%22appid%22%3A%22wxddb3eb32425e4a96%22%2C%22signType%22%3A%22MD5%22%2C%22nonceStr%22%3A%22ErVsuqpwweNCtWAb2Xw2f73QmJWoitN1%22%7D ",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -493,13 +514,6 @@
                 },
                 {
                     "name": "",
-                    "pathName": "pages/default/statement_of_interest/statement_of_interest",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
                     "pathName": "pages/default/processing_progress/processing_progress",
                     "query": "orderId=1134263005421375488",
                     "launchMode": "default",
@@ -565,13 +579,6 @@
                     "name": "",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
                     "query": "orderId=1107665398720892928",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1101196259089190912",
                     "launchMode": "default",
                     "scene": null
                 },
