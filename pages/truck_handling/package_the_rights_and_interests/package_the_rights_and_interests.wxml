@@ -92,9 +92,9 @@
                 <text catchtap="onClickGoAuthorizationHandle" wx:if="{{listOfPackages[activeIndex].flowVersion === 4}}">《个人征信授权书》</text>
             </view>
         </view>
-        <button class="btn {{(listOfPackages[activeIndex].mustChoiceRightsPackage === 1 && activeEquitiesIndex === -1) || !getAgreement || choiceIndex === -1 ? 'unavailable' : ''}}" catchtap="next"
-                wx:if="{{choiceIndex !== -1 && listOfPackages[activeIndex].pledgePrice || (activeEquitiesIndex !== -1 && rightsAndInterestsList[activeEquitiesIndex].payMoney)}}">
-            确认支付{{activeEquitiesIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + rightsAndInterestsList[activeEquitiesIndex].payMoney)/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}元
+        <button class="btn {{(filterList[activeIndex].mustChoiceRightsPackage === 1 && activeEquitiesIndex === -1) || !getAgreement || choiceIndex === -1 ? 'unavailable' : ''}}" catchtap="next"
+                wx:if="{{choiceIndex !== -1 && filterList[choiceIndex].pledgePrice || (activeEquitiesIndex !== -1 && rightsAndInterestsList[activeEquitiesIndex].payMoney)}}">
+            确认支付{{activeEquitiesIndex !== -1 ? tools.parseNum((filterList[choiceIndex].pledgePrice + rightsAndInterestsList[activeEquitiesIndex].payMoney)/100) : tools.parseNum(filterList[choiceIndex].pledgePrice/100)}}元
         </button>
         <button class="btn {{choiceIndex === -1 || !getAgreement ? 'unavailable' : ''}}" catchtap="next" wx:else>下一步</button>
     </view>

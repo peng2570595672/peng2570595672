@@ -105,7 +105,7 @@ Page({
             {
                 appId: '',
                 imgUrl: 'https://file.cyzl.com/g001/M03/4A/EA/oYYBAGYKbGCAF0t7AAAUVRZHFz8098.png',
-                jumpUrl: '/pages/etc_handle/etc_handle',
+                jumpUrl: '/pages/truck_handling/index/index',
                 templateId: ['']
             }
         ],
@@ -131,7 +131,8 @@ Page({
                 imgUrl: 'https://file.cyzl.com/g001/M03/4A/EB/oYYBAGYKbOSAL7KWAAARAsZLlsw963.png',
                 imgUrl1: 'https://file.cyzl.com/g001/M03/4A/EB/oYYBAGYKbOSAL7KWAAARAsZLlsw963.png',
                 isShow: true,
-                jumpUrl: '/pages/truck_handling/truck_receiving_address/truck_receiving_address',
+                // jumpUrl: '/pages/truck_handling/truck_receiving_address/truck_receiving_address',// 办理页
+                jumpUrl: '/pages/truck_handling/index/index',// 落地页
                 // jumpUrl: '/pages/personal_center/my_order/my_order',// 订单
                 templateId: ['']
             }

@@ -123,7 +123,6 @@
   <!-- 底部悬浮按钮   立即办理 -->
   <view class="floatButton">
     <view class="handleImmediately {{available ? 'btn':''}}" catchtap="validateCar">立即办理</view>
-    <view class="handleImmediately btn " catchtap="goKCcar">客车立即办理</view>
   </view>
   <popTipComp id="popTipComp"></popTipComp>
   <!-- 拉起键盘 -->
