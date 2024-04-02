@@ -576,6 +576,9 @@
 .payAndAgreement .paySign .confirmPackage {
   justify-content: space-between;
 }
+.payAndAgreement .paySign .moneyPay {
+  border: 1px solid #000;
+}
 .payAndAgreement .paySign .moneyPay .money {
   font-size: 44rpx;
   color: #000;
