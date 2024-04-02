@@ -2,6 +2,7 @@
  * @author 老刘
  * @desc 信息确认
  */
+import {handleJumpHunanMini} from '../../../utils/utils.js';
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
@@ -382,6 +383,15 @@ Page({
     submitCiticBank () {
         if (!this.data.available) return;
         this.subscribe();
+    },
+    // 湖南信科 跳转信科小程序去签约
+    async submitIsXinKe () {
+        const result = await util.getDataFromServersV2('consumer/order/order-pay-transaction-info', {orderId: app.globalData.orderInfo.orderId});
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+			return;
+		}
+		handleJumpHunanMini(app.globalData.orderInfo.orderId, result.data.outTradeNo);
     },
     skip () {
         let that = this;

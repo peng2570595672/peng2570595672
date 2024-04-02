@@ -28,9 +28,8 @@
   <view class="tips" wx:if="{{tips}}">{{tips}}</view>
 
   <view class="bottomBtn">
-    <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="submitCiticBank" wx:if="{{citicBank}}">
-      提交
-    </view>
+    <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="submitCiticBank" wx:if="{{citicBank}}">提交</view>
+    <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="submitIsXinKe" wx:if="{{orderDetails.orderExtCardType === 2 && orderInfo.obuCardType === 10}}">签约激活</view>
     <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="subscribe" wx:else>
       {{isModifiedData ? '提交审核': contractStatus === 1 || !isEtcContractId || !vehPlates? '提交' : '签约代扣通行费'}}
     </view>
