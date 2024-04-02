@@ -449,7 +449,7 @@ Page({
 		if (orderInfo.vehPlates.length > 8 && orderInfo.shopProductId && orderInfo.pledgeStatus) {
 			return util.go(`/pages/default/receiving_address/receiving_address?perfect=1&shopId=${orderInfo.shopId}&orderId=${orderInfo.id}`);
 		}
-		if (orderInfo.orderType === 71 && orderInfo.vehPlates && !orderInfo.isOwner && orderInfo?.pledgeStatus !== 1) {	// 电商空发订单
+		if (orderInfo.orderType === 71 && orderInfo.vehPlates && !orderInfo.isOwner && !orderInfo?.pledgeStatus) {	// 电商空发订单
 			util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?emptyHairOrder=true`);
 			return;
 		}

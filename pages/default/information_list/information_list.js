@@ -43,18 +43,11 @@ Page({
         if (options.source) {
             wx.hideHomeButton();
         }
-        // 空发平安激活 是否补充信息激活
-        if (options.orderId && options.vehPlates) {
-            this.setData({
-                vehPlates: options.vehPlates,
-                orderId: options.orderId
-            });
-            app.globalData.orderInfo.orderId = this.data.orderId;
-        }
         // 查询是否欠款
         await util.getIsArrearage();
     },
     async onShow () {
+        if (!app.globalData.orderInfo.orderId) return;
         const pages = getCurrentPages();
         const currPage = pages[pages.length - 1];
         console.log(currPage.__data__);
