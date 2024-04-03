@@ -50,7 +50,8 @@ Page({
 		this.setData({
 			vehPlates: options.vehPlates,
 			obuCardType: +options.obuCardType,
-			isXinKe: JSON.parse(options?.isXinKe),
+			// isXinKe: JSON.parse(options?.isXinKe),
+			isXinKe: false,
 			topProgressBar: parseFloat(options.topProgressBar),
 			topProgressBar1: parseFloat(options.topProgressBar)
 		});
@@ -229,6 +230,15 @@ Page({
 					util.showToastNoIcon(`${type === 1 ? '' : '非车主'}${ruleForm[key]}不能为空`);
 				}
 				return false;
+			}
+		}
+		if (this.data.isXinKe) {
+			let drivingLicenseFace = wx.getStorageSync('passenger-car-driving-license-face');
+			if (drivingLicenseFace) {
+				if (this.data.idCardFace.ocrObject.name !== drivingLicenseFace.ocrObject.owner) {
+					util.showToastNoIcon(`车辆所有人与身份证所有人不一致，请检查！`);
+					return false;
+				}
 			}
 		}
 		return true;

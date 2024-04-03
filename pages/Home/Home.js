@@ -206,7 +206,6 @@ Page({
         }
     },
     async onShow () {
-        app.globalData.orderInfo.orderId = '';
         this.setData({
             isAlertToSignObj: ''
         });
@@ -933,6 +932,7 @@ Page({
         // 订单展示优先级: 扣款失败账单>已解约状态>按最近时间顺序：办理状态or账单记录
         util.hideLoading();
         if (!result) return;
+        app.globalData.orderInfo.orderId = '';
         if (result.code === 0) {
             const list = this.sortDataArray(result.data);
             list.forEach(res => {

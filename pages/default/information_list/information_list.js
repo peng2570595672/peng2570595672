@@ -43,18 +43,11 @@ Page({
         if (options.source) {
             wx.hideHomeButton();
         }
-        // 空发平安激活 是否补充信息激活
-        if (options.orderId && options.vehPlates) {
-            this.setData({
-                vehPlates: options.vehPlates,
-                orderId: options.orderId
-            });
-            app.globalData.orderInfo.orderId = this.data.orderId;
-        }
         // 查询是否欠款
         await util.getIsArrearage();
     },
     async onShow () {
+        if (!app.globalData.orderInfo.orderId) return;
         const pages = getCurrentPages();
         const currPage = pages[pages.length - 1];
         console.log(currPage.__data__);
@@ -226,9 +219,9 @@ Page({
             topProgressBar = 3.3;
         }
         let isXinKe = this.data.orderDetails?.orderExtCardType === 2 && this.data.orderInfo.obuCardType === 10;
-        if (url === 'upload_id_card' && isXinKe) { // 湖南信科
-            return util.showToastNoIcon('请先上传行驶证');
-        }
+        // if (url === 'upload_id_card' && isXinKe && this.data.orderInfo.isVehicle !== 1) { // 湖南信科
+        //     return util.showToastNoIcon('请先上传行驶证');
+        // }
         if (url === 'information_validation' && !this.data.orderInfo.isOwner && !isXinKe) {
             return util.showToastNoIcon('请先上传身份证');
         }

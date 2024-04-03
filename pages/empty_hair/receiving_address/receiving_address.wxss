@@ -81,6 +81,7 @@
   font-size: 28rpx;
   border-radius: 50%;
   color: #2a4f44;
+  border: 0;
 }
 .index .moduleOne {
   margin-top: 42rpx;
