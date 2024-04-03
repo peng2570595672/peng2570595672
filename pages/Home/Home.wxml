@@ -93,16 +93,13 @@
         <button wx:else class="btn" data-renew="7" catchtap="onClickBill" animation="{{animationTransaction}}">
             立即补缴
         </button>
-        <view>
-            555
-        </view>
     </view>
     <!-- 新模块1 小汽车办理 货车办理 -->
     <view class="module moduleCar">
         <view class="moduleOneBox" wx:for="{{moduleOneTypeList}}" wx:if="{{item.isShow}}" wx:key="index" data-renew="3.5" catchtap="renewWhitelistJudgement" data-type="1" data-information="{{item}}">
             <view class="upperImg" >
                 <view class="img">
-                    <image src="{{item.imgUrl}}" />
+                    <image src="{{ truckList.length ? item.imgUrl1 : item.imgUrl}}" />
                 </view>
                 <view class="title">
                     <view class="funcName">

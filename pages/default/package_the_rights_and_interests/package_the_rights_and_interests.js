@@ -8,6 +8,16 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
     data: {
+        orderTabList: [{
+			name: '日结',
+			value: 1
+		}, {
+			name: '周结',
+			value: 2
+		}],
+        billingMethod: 1, // 多个套餐时候 默认展示日结
+        listOfPackagesTrucks: [], // 赛选后展示货车的套餐
+        activeTypeIndex: 0, // 控制结算方式类型 按钮
         topProgressBar: 2,	// 进度条展示的长度 ，再此页面的取值范围 [2,3),默认为2,保留一位小数
         isFade: true,
         activeIndex: 0,
@@ -139,10 +149,10 @@ Page({
     },
     async onLoad (options) {
         app.globalData.isTelemarketing = false;
-        app.globalData.orderInfo.isTruckHandle = false; // 客车套餐
         this.setData({
             contractStatus: +options.contractStatus,
-            emptyHairOrder: options.emptyHairOrder === 'true'
+            emptyHairOrder: options.emptyHairOrder === 'true',
+            isNewTrucks: +options.isNewTrucks
         });
         // !options.type 已选择套餐 && 未支付
         await this.getOrderInfo(!options.type);
@@ -240,6 +250,10 @@ Page({
             this.setData({
                 listOfPackages: [result.data]
             });
+            let billingMethod = this.data.listOfPackages[0]?.billingMethod;// 根据套餐查出第一个对应的结算方式
+            this.setData({
+                billingMethod // 已选套餐后不允许更改
+            });
             this.getNodeHeight(this.data.listOfPackages.length);
         } else {
             util.showToastNoIcon(result.message);
@@ -253,6 +267,11 @@ Page({
         console.log(result);
         if (!result) return;
         if (result.code === 0) {
+            let isNewTrucks = +result.data.base?.isNewTrucks;
+            // 拿到当前订单 货车还是客车类型
+            this.setData({
+                isNewTrucks
+            });
             if (isSearchPay) {
                 if (result.data.product?.ttDeductStatus === 0) {
                     util.go('/pages/default/payment_fail/payment_fail?type=main_process');
@@ -552,6 +571,21 @@ Page({
         });
         this.data.viewRightsService.switchDisplay(true);
     },
+    // 选择结算分类套餐
+	choosePackage (e) {
+		let index = e.currentTarget.dataset.index;
+		let listOfPackagesTrucks = this.data.listOfPackages.filter((item) => { // 从所有货车套餐中进行筛选
+			return item.billingMethod === index;
+		});
+		this.setData({
+			listOfPackagesTrucks,
+			activeTypeIndex: index - 1,
+			choiceIndex: '-1',
+			billingMethod: index - 1 // 当前选择的结算方式类型
+			// listOfPackages: filterList
+		});
+        console.log('this.data.listOfPackagesTrucks',index,this.data.listOfPackagesTrucks);
+	},
     // 获取权益列表
     async getList (obj) {
         if (!obj.rightsPackageIds?.length) return;
@@ -741,6 +775,9 @@ Page({
             rightsPackageId: addEquity.aepIndex !== -1 ? addEquity.subData[addEquity.aepIndex].id : '',
             areaCode: this.data.orderInfo ? (this.data.orderInfo.product.areaCode || '0') : app.globalData.newPackagePageData.areaCode
         };
+        if (this.data.isNewTrucks === 1) {
+            params['billingMethod'] = this.data.billingMethod; // 1 2 3  结算方式 日结 周jie月结
+        }
         const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
         this.setData({isRequest: false});
         if (!result) return;

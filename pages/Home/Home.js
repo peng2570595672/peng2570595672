@@ -99,13 +99,13 @@ Page({
             {
                 appId: '',
                 imgUrl: 'https://file.cyzl.com/g001/M01/CF/DD/oYYBAGQav3SAZ33-AAAiNjMKTNI431.png',
-                jumpUrl: '/pages/etc_handle/etc_handle',
+                jumpUrl: '/pages/etc_handle/etc_handle?isNewTrucks=0',
                 templateId: ['']
             },
             {
                 appId: '',
-                imgUrl: 'https://file.cyzl.com/g001/M03/4A/EA/oYYBAGYKbGCAF0t7AAAUVRZHFz8098.png',
-                jumpUrl: '/pages/truck_handling/index/index',
+                imgUrl: 'https://file.cyzl.com/g001/M03/4B/78/oYYBAGYLs2eAP1ohAAFJ9gHuj8c491.png',
+                jumpUrl: '/pages/etc_handle/etc_handle?isNewTrucks=1',
                 templateId: ['']
             }
         ],
@@ -121,7 +121,7 @@ Page({
                 imgUrl: 'https://file.cyzl.com/g001/M03/4A/EA/oYYBAGYKbGCAF0t7AAAUVRZHFz8098.png',
                 imgUrl1: 'https://file.cyzl.com/g001/M03/4A/FC/oYYBAGYKeziAdTX0AAASNT_iddM384.png',
                 isShow: true,
-                jumpUrl: '/pages/etc_handle/etc_handle',
+                jumpUrl: '/pages/etc_handle/etc_handle?isNewTrucks=0',
                 templateId: ['']
             },
             {
@@ -129,10 +129,11 @@ Page({
                 funcDesc: '限时免费办理',
                 funcName: '货车办理',
                 imgUrl: 'https://file.cyzl.com/g001/M03/4A/EB/oYYBAGYKbOSAL7KWAAARAsZLlsw963.png',
-                imgUrl1: 'https://file.cyzl.com/g001/M03/4A/EB/oYYBAGYKbOSAL7KWAAARAsZLlsw963.png',
+                imgUrl1: 'https://file.cyzl.com/g001/M03/4B/89/oYYBAGYLwHGASmipAAAQFbGEKxE075.png',
                 isShow: true,
                 // jumpUrl: '/pages/truck_handling/truck_receiving_address/truck_receiving_address',// 办理页
-                jumpUrl: '/pages/truck_handling/index/index',// 落地页
+                // jumpUrl: '/pages/truck_handling/index/index',// 落地页
+                jumpUrl: '/pages/etc_handle/etc_handle?isNewTrucks=1',// 公共落地页
                 // jumpUrl: '/pages/personal_center/my_order/my_order',// 订单
                 templateId: ['']
             }
@@ -295,7 +296,7 @@ Page({
             funcListTwo.sort(this.compare('sort')); //
             this.setData({
                 interval,
-                imgList: bannerList.concat(this.data.imgList[1]),
+                imgList: bannerList,
                 moduleOneList: funcListOne,
                 moduleTwoList: funcListTwo
             });
@@ -1010,6 +1011,7 @@ Page({
                 }
                 if (item.isNewTrucks === 1) {
                     truckList.push(item);
+                    console.log('truckOrderInfo',truckList);
                     if (item.obuStatus === 1 || item.obuStatus === 5) {
                         activationTruckOrder.push(item.obuCardType);
                         truckActivationOrderList.push(item.id);
@@ -1209,7 +1211,7 @@ Page({
         await this.getPaymentVeh(item, result.data.totalAmout, etcTrucksMoney);
     },
     // 查询最近一次账单
-    async getRecentlyTheBill (item, isTruck = false) {
+    async getRecentlyTheBill (item, isTruck) {
         const result = await util.getDataFromServersV2('consumer/etc/get-fail-bill', {
             channel: item
         }, 'POST', false);

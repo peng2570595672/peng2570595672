@@ -33,7 +33,6 @@ Page({
 		} // 提交数据
 	},
 	async onLoad () {
-		app.globalData.orderInfo.isTruckHandle = true; // 货车套餐
 		if (app.globalData.userInfo.accessToken) {
 			// 查询是否欠款
 			await util.getIsArrearage();

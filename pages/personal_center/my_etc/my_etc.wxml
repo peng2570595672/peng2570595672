@@ -10,7 +10,7 @@
     </view>
     <!--	etc列表开始-->
     <block wx:for="{{carList}}" wx:key="index">
-        <view class="{{ showMoreStatus ? 'item animated fadeIn btm20':'item animated fadeIn'}}"
+        <view class="item animated fadeIn"
             catchtap="renewWhitelistJudgement" data-index="{{index}}" data-renew="1">
             <!--上部分开始-->
             <view class="top">
@@ -69,13 +69,6 @@
                     {{item.selfStatus === 12 ? '更多' :''}}
                     {{item.selfStatus === 31 ? '签约激活' : ''}}
                 </view>
-                <!-- 货车已激活 退还押金 -->
-                <!-- <view wx:if="{{item.isNewTrucks === 1 }}" class="{{'iconfont showMoreStatus'}}" catchtap="goMoreStatus"
-                    data-status="{{'0'}}">{{item.selfStatus+'更多'}}</view> -->
-                    <view class="moreStatus" wx:if="{{item.selfStatus === 12 && item.showMoreStatus}}">
-                        <view class="more1" catchtap="goMoreStatus" data-status="1" data-selfStatus="{{item.selfStatus}}">查看押金退还情况</view>
-                        <view class="more2" catchtap="goMoreStatus" data-status="2" data-selfStatus="{{item.selfStatus}}">重新签约</view>
-                    </view>
             </view>
             <!--下部分结束-->
         </view>

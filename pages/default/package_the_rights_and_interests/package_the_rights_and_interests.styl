@@ -23,10 +23,68 @@ mixinsPositionPack($position=relative)
     padding 0
     width 100vw
     min-height 100vh
-    background-color #ECECEC
+    background-color #ececec
     /* 顶部组件占位 */
     .topSplit
         mixinsWidthHeight(,60rpx)
+/* tab 选择区域 */
+	.package_tab
+        margin 32rpx 0 0 0
+        width 694rpx
+        display flex
+        flex-direction: column
+        mixinsPositionPack()
+        font-size: 34rpx
+        background-color #fff
+        border-radius: 16rpx
+        .package_tab_top
+            display flex
+            justify-content space-between
+            align-items center
+            .intrudecu
+                width 30%
+                padding 0 30rpx
+                font-family: PingFang SC;
+                font-size: 30rpx;
+                font-weight: 500;
+            .right
+                width 50%
+                display flex
+                justify-content space-between
+                align-content center
+                margin-right 20rpx
+                .item
+                    width 150rpx
+                    display flex
+                    height 100rpx
+                    justify-content: center
+                    align-items: center
+                    font-size 26rpx
+                    .confirm
+                        mixinsWidthHeight(32rpx,32rpx)
+                        border-radius 50%
+                        background-color #fff
+                        border 1px solid #dddbdb
+                        margin: 0 15rpx
+                    .tick
+                        &::before
+                            display block
+                            mixinsWidthHeight(32rpx,32rpx)
+                            mixinsIconfont('\e669',22rpx,#FFFFFF)
+                            text-align center
+                            line-height 34rpx
+                            border-radius 50%
+                            background-color #2A4F44
+                            border 1px solid #2A4F44
+        .package_tab_bottom
+            width 90%
+            border-top 1px dashed  #D8D8D8
+            margin  0 auto
+            font-size: 22rpx
+            line-height 36rpx
+            padding: 34rpx 0rpx
+            .title
+                color #2A4F44
 /* 套餐模块 */
     .package
         .module

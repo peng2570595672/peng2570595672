@@ -8,39 +8,57 @@
   <view class="module moduleOne">
     <view class="title">
       <view class="titles">{{perfect? addCard : "办理车牌号"}}</view>
-      <view class="colorBrand" wx:if="{{tools.dataLen(carNoStr) > 6}}" style="background:{{ tools.dataLen(carNoStr) === 7 ? '#276AD9' : '#5EBE68'}}">{{tools.dataLen(carNoStr) === 7 ? '蓝牌' : '绿牌'}}</view>
+      <view class="colorBrand" wx:if="{{tools.dataLen(carNoStr) > 6}}"
+        style="background:{{ isNewTrucks === '1'? tools.getTruCorlor(formData.currentCarNoColorTruck) : tools.dataLen(carNoStr) === 7 ? '#276AD9' : '#5EBE68'}}">{{isNewTrucks === '1'? tools.getTruCorlor(formData.currentCarNoColorTruck,true):tools.dataLen(carNoStr) === 7 ?
+        '蓝牌' : '绿牌'}}</view>
     </view>
     <!-- 车牌号的输入 -->
     <view class="input">
-      <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 0 ? 'select' : ''}}" data-index="{{0}}" catchtap="setCurrentCarNo">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 0 ? 'select' : ''}}"
+        data-index="{{0}}" catchtap="setCurrentCarNo">
         <view>{{carNo[0]}}</view>
         <view></view>
       </view>
-      <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 1 ? 'select' : ''}}" data-index="{{1}}" catchtap="setCurrentCarNo">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 1 ? 'select' : ''}}"
+        data-index="{{1}}" catchtap="setCurrentCarNo">
         <view>{{carNo[1]}}</view>
         <view></view>
       </view>
-      <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 2 ? 'select' : ''}}" data-index="{{2}}" catchtap="setCurrentCarNo">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 2 ? 'select' : ''}}"
+        data-index="{{2}}" catchtap="setCurrentCarNo">
         <view>{{carNo[2]}}</view>
         <view></view>
       </view>
-      <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 3 ? 'select' : ''}}" data-index="{{3}}" catchtap="setCurrentCarNo">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 3 ? 'select' : ''}}"
+        data-index="{{3}}" catchtap="setCurrentCarNo">
         <view>{{carNo[3]}}</view>
         <view></view>
       </view>
-      <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 4 ? 'select' : ''}}" data-index="{{4}}" catchtap="setCurrentCarNo">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 4 ? 'select' : ''}}"
+        data-index="{{4}}" catchtap="setCurrentCarNo">
         <view>{{carNo[4]}}</view>
         <view></view>
       </view>
-      <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 5 ? 'select' : ''}}" data-index="{{5}}" catchtap="setCurrentCarNo">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 5 ? 'select' : ''}}"
+        data-index="{{5}}" catchtap="setCurrentCarNo">
         <view>{{carNo[5]}}</view>
         <view></view>
       </view>
-      <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 6 ? 'select' : ''}}" data-index="{{6}}" catchtap="setCurrentCarNo">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 6 ? 'select' : ''}}"
+        data-index="{{6}}" catchtap="setCurrentCarNo">
         <view>{{carNo[6]}}</view>
         <view></view>
       </view>
-      <view class="inputSub special {{tools.dataLen(carNoStr) === 8 ? 'greenCard noBorder': ''}} {{currentIndex === 7 ? 'select' : ''}}" data-index="{{7}}" catchtap="onClickNewPowerCarHandle">
+      <view
+        class="inputSub special {{tools.dataLen(carNoStr) === 8 ? 'greenCard noBorder': ''}} {{currentIndex === 7 ? 'select' : ''}}"
+        data-index="{{7}}" catchtap="onClickNewPowerCarHandle">
         <view class="newEnergy" wx:if="{{!isNewPowerCar || tools.dataLen(carNoStr) < 8}}">
           <view class="iconfont {{currentIndex === 7 ? '' : 'ico'}}"></view>
           <view class="text">{{currentIndex === 7 ? '' : '新能源'}}</view>
@@ -56,6 +74,20 @@
       <text>目前暂仅支持办理9座及以下的小型汽车，企业车辆、货车、出租车、专项作业车等暂不支持办理。</text>
     </view>
   </view>
+  <!-- 车牌颜色 -->
+  <view class="module" wx:if="{{!perfect && isNewTrucks === 1}}">
+    <view class="title">
+      <view class="titles">车牌颜色{{currentCarNoColorIndex}}</view>
+    </view>
+    <view class="publicCode">
+      <view class="carColor">
+        <view catchtap = "chooseColorTruck" data-value="{{1}}" class="item {{formData.currentCarNoColorTruck === 1 ? 'active':''}}" style="background-color: #FFD56A;">黄牌</view>
+        <view catchtap = "chooseColorTruck" data-value="{{0}}" class="item {{formData.currentCarNoColorTruck === 0 ? 'active':''}}" style="background-color: #48C5FF;">蓝牌</view>
+        <view catchtap = "chooseColorTruck" data-value="{{4}}" class="item {{formData.currentCarNoColorTruck === 4 ? 'active':''}}" style="background-color: #56C582;">渐变绿</view>
+        <view catchtap = "chooseColorTruck" data-value="{{5}}" class="item {{formData.currentCarNoColorTruck === 5 ? 'active':''}}" style="background: linear-gradient(to right, #FFD56A 50%, #56C582 50%);">黄绿牌</view>
+      </view>
+    </view>
+  </view>
   <!-- 模块二   办理人信息 -->
   <view class="module moduleTwo" wx:if="{{!perfect}}">
     <view class="title">
@@ -64,19 +96,44 @@
     <view class="publicCode">
       <view class="publicCodeLeft">手机号码</view>
       <view class="publicCoderight">
-        <view class="input input-phone" catchtap="getWchatPhoneNumber" wx:if="{{loginInfo.needBindingPhone === 1}}">用于开具通行费发票</view>
-        <input class="input" wx:else type="number" disabled="{{openCode}}" placeholder="用于开具通行费发票" value="{{formData.cardMobilePhone}}" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" data-name="cardMobilePhone" maxlength="11" />
-        <view class="get-phone" catchtap="getWchatPhoneNumber" wx:if="{{loginInfo.needBindingPhone === 1}}">获取微信手机号</view>
-        <view class="get-phone" catchtap="sendCardPhoneCode" wx:if="{{formData.cardMobilePhone.length === 11 && loginInfo.mobilePhone !== formData.cardMobilePhone}}">{{identifyingCode}}</view>
+        <view class="input input-phone" catchtap="getWchatPhoneNumber" wx:if="{{loginInfo.needBindingPhone === 1}}">
+          用于开具通行费发票</view>
+        <input class="input" wx:else type="number" disabled="{{openCode}}" placeholder="用于开具通行费发票"
+          value="{{formData.cardMobilePhone}}" placeholder-class="input-placeholder" bindinput="onInputChangedHandle"
+          data-name="cardMobilePhone" maxlength="11" />
+        <view class="get-phone" catchtap="getWchatPhoneNumber" wx:if="{{loginInfo.needBindingPhone === 1}}">获取微信手机号
+        </view>
+        <view class="get-phone" catchtap="sendCardPhoneCode"
+          wx:if="{{formData.cardMobilePhone.length === 11 && loginInfo.mobilePhone !== formData.cardMobilePhone}}">
+          {{identifyingCode}}</view>
       </view>
     </view>
-    <view class="publicCode" wx:if="{{formData.cardMobilePhone.length === 11 && loginInfo.mobilePhone !== formData.cardMobilePhone}}">
+    <view class="publicCode"
+      wx:if="{{formData.cardMobilePhone.length === 11 && loginInfo.mobilePhone !== formData.cardMobilePhone}}">
       <view class="publicCodeLeft">验证码</view>
       <view class="publicCoderight">
-        <input class="input" type="number" placeholder="请输入验证码" value="{{formData.cardPhoneCode}}" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" data-name="cardPhoneCode" maxlength="4" />
+        <input class="input" type="number" placeholder="请输入验证码" value="{{formData.cardPhoneCode}}"
+          placeholder-class="input-placeholder" bindinput="onInputChangedHandle" data-name="cardPhoneCode"
+          maxlength="4" />
       </view>
     </view>
     <view class="tipPhone">用于开具通行发票和收货，请确保号码状态正常</view>
+  </view>
+  <!-- 货车轴数 -->
+  <view class="module" wx:if="{{!perfect && isNewTrucks === 1}}">
+    <view class="title">
+      <view class="titles">货车车轴数</view>
+    </view>
+    <view class="publicCode">
+      <view class="publicCodeLeft">选择数量</view>
+      <view class="publicCoderight" catchtap="chooseAxleNum">
+        <view class="input"  value="{{formData.axleNum}}"
+            >
+            <view wx:if="{{formData.axleNum !== 0}}">{{formData.axleNum+'轴'}}</view>
+            <span wx:else class="input-placeholder">选择车轴数量</span>
+          </view>
+      </view>
+    </view>
   </view>
   <!-- 模块三   办理邮寄信息 -->
   <view class="module moduleThree" wx:if="{{isOnlineDealWith&&!perfect}}">
@@ -86,7 +143,9 @@
     <view class="publicCode">
       <view class="publicCodeLeft">收货人</view>
       <view class="publicCoderight">
-        <input class="input" type="text" placeholder="输入收货人姓名" value="{{formData.userName}}" maxlength="{{size}}" data-name="userName" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" bindfocus="focus" />
+        <input class="input" type="text" placeholder="输入收货人姓名" value="{{formData.userName}}" maxlength="{{size}}"
+          data-name="userName" placeholder-class="input-placeholder" bindinput="onInputChangedHandle"
+          bindfocus="focus" />
         <view class="btns" catchtap="onClickAutoFillHandle">
           <span class="wChat iconfont" />
           <span class="text">选择微信地址</span>
@@ -97,7 +156,8 @@
     <view class="publicCode">
       <view class="publicCodeLeft">选择地区</view>
       <view class="publicCoderight">
-        <picker class="input" mode="region" value="{{formData.region}}" bindchange="onPickerChangedHandle" catchtap="focus">
+        <picker class="input" mode="region" value="{{formData.region}}" bindchange="onPickerChangedHandle"
+          catchtap="focus">
           <view wx:if="{{tools.addressFormat(formData.region)}}">{{tools.addressFormat(formData.region)}}</view>
           <span wx:else class="input-placeholder">选择收货 省-市-区</span>
         </picker>
@@ -107,13 +167,15 @@
     <view class="publicCode">
       <view class="publicCodeLeft">详细地址</view>
       <view class="publicCoderight">
-        <input class="input" type="text" placeholder="输出详细收货地址" value="{{formData.detailInfo}}" data-name="detailInfo" placeholder-class="input-placeholder" bindinput="onInputChangedHandle" bindfocus="focus" />
+        <input class="input" type="text" placeholder="输出详细收货地址" value="{{formData.detailInfo}}" data-name="detailInfo"
+          placeholder-class="input-placeholder" bindinput="onInputChangedHandle" bindfocus="focus" />
       </view>
     </view>
     <view class="publicCode">
       <view class="publicCodeLeft">手机号</view>
       <view class="publicCoderight">
-        <input class="input" type="number" placeholder="输入收货手机号" value="{{formData.telNumber}}" data-name="telNumber" placeholder-class="input-placeholder" maxlength="11" bindinput="onInputChangedHandle" bindfocus="focus" />
+        <input class="input" type="number" placeholder="输入收货手机号" value="{{formData.telNumber}}" data-name="telNumber"
+          placeholder-class="input-placeholder" maxlength="11" bindinput="onInputChangedHandle" bindfocus="focus" />
         <text class="errTip" wx:if="{{tip3}}">{{tip3}}</text>
       </view>
     </view>
@@ -125,8 +187,12 @@
     <view class="handleImmediately {{available ? 'btn':''}}" catchtap="validateCar">立即办理</view>
   </view>
   <popTipComp id="popTipComp"></popTipComp>
+  <!-- 组件 -->
+  <viewIsTruck id="viewIsTruck" bind:onHandle="chooseAxleNum" data-value="false" viewTc="{{viewTc}}" bind:getAxleNum="getAxleNum">
+  </viewIsTruck>
   <!-- 拉起键盘 -->
-  <keyboard id="keyboard" index="{{currentIndex}}" show="{{showKeyboard}}" bind:valueChange="valueChange" myCar="{{carNo}}"></keyboard>
+  <keyboard id="keyboard" index="{{currentIndex}}" show="{{showKeyboard}}" bind:valueChange="valueChange"
+    myCar="{{carNo}}"></keyboard>
   <!--    <authorization-phone bindPhoneInfo="onGetPhoneNumber" wx:if="{{loginInfo.needBindingPhone === 1}}"></authorization-phone>-->
 </view>
 <privacy_popup></privacy_popup>

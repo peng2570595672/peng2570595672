@@ -15,8 +15,7 @@ Page({
 		carList: undefined,
 		activeIndex: 1,
 		passengerCarList: [], // 客车
-		truckList: [], // 货车
-		showMoreStatus: false // 控制货车退款 显示
+		truckList: [] // 货车
 	},
 	async onShow () {
 		util.resetData(); // 重置数据
@@ -91,7 +90,6 @@ Page({
 				vehicleList.push(item.vehPlates);
 				item['deductionMethod'] = initProductName(item);
 				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
-				item['showMoreStatus'] = false; // 控制激活后每个订单退款情况
 				item['deviceUpgrade'] = (item.obuStatus === 1 || item.obuStatus === 5) && item.obuCardType === 2 && util.timeComparison(app.globalData.deviceUpgrade.addTime, item.addTime) === 2 && item?.contractVersion !== 'v3';
 				wx.setStorageSync('cars', vehicleList.join('、'));
 			});
@@ -184,16 +182,8 @@ Page({
 	onClickVehicle (e) {
 		let index = e.currentTarget.dataset.index;
 		let orderInfo = this.data.carList[parseInt(index)];
-		// if (orderInfo.isNewTrucks === 1 && orderInfo.status !== 1) {
-		// 	util.showToastNoIcon('货车办理系统升级中，暂时不可申办');
-		// 	return;
-		// }
-		if (orderInfo.isNewTrucks === 1 && orderInfo.selfStatus === 12) { // 更多 退还押金 和查看
-			this.data.carList[index].showMoreStatus = !this.data.carList[index].showMoreStatus;
-			this.setData({
-				carList: this.data.carList
-			});
-			return;
+		if (orderInfo.isNewTrucks === 1 && orderInfo.status !== 1) {
+			// return;
 		}
 		if (orderInfo.orderType === 51 && orderInfo.status !== 1) {
 			util.showToastNoIcon('请返回原渠道办理');
@@ -424,7 +414,8 @@ Page({
 			util.go(`/pages/device_upgrade/package/package?orderId=${orderInfo.id}`);
 			return;
 		}
-		const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
+		// const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
+		const path = orderInfo.isNewTrucks === 1 ? 'default' : 'default';
 		wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'my_etc_for_truck_package' : 'my_etc_for_package');
 		util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
 	},
@@ -443,7 +434,10 @@ Page({
 	async onClickContinueHandle (orderInfo) {
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.firstVersionData = false;
-		const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
+		app.globalData.orderInfo.isNewTrucks = orderInfo.isNewTrucks;
+		console.log('app.globalData.orderInfo.isNewTrucks',app.globalData.orderInfo.isNewTrucks);
+		// const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
+		const path = orderInfo.isNewTrucks === 1 ? 'default' : 'default';
 		if (orderInfo.orderType === 31 && orderInfo.isSignTtCoupon === 1) {
 			// 通通券套餐流程
 			if (orderInfo.ttContractStatus === 1 && orderInfo.ttDeductStatus !== 1) {
@@ -451,7 +445,7 @@ Page({
 				util.go('/pages/default/payment_fail/payment_fail');
 				return;
 			}
-			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?contractStatus=${orderInfo.contractStatus}&ttContractStatus=${orderInfo.ttContractStatus}`);
+			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?contractStatus=${orderInfo.contractStatus}&ttContractStatus=${orderInfo.ttContractStatus}&isNewTrucks=${orderInfo.isNewTrucks}`);
 			return;
 		}
 		if (orderInfo.selfStatus === 25 || orderInfo.selfStatus === 27) { // 设备升级 证件确认页

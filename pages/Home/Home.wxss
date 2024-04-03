@@ -199,13 +199,14 @@
   font-family: PingFangSC-Regular, PingFang SC;
 }
 .home .moduleCar .moduleOneBox .upperImg {
+  background: #f8fcfb;
   display: flex;
   align-items: center;
 }
 .home .moduleCar .moduleOneBox .upperImg .img {
   width: 100rpx;
   height: 100rpx;
-  margin: 20rpx;
+  margin: 6rpx;
 }
 .home .moduleCar .moduleOneBox .upperImg .img image {
   display: block;

@@ -48,12 +48,12 @@
 		<view>结算方式</view>
 		<view catchtap="onClickBank">{{orderInfo.billingMethod === 1 ? '日结' : orderInfo.billingMethod === 2 ? '周结':orderInfo.billingMethod === 3 ?'月结':''}}</view>
 	</view>
-	<view class="split" wx:if="{{orderInfo.pledgeStatus !== -1 && orderInfo.pledgeType === 2}}"></view>
+	<!-- <view class="split" wx:if="{{orderInfo.pledgeStatus !== -1 && orderInfo.pledgeType === 2}}"></view>
     <view class="item" wx:if="{{orderInfo.pledgeStatus !== -1 && orderInfo.pledgeType === 2}}">
         <view>保证金</view>
         <view class="{{orderInfo.pledgeStatus === 0 ? 'equipment-cost' : ''}}">{{orderInfo.pledgeMoney/100}}元{{orderInfo.pledgeStatus === 0 ? '未' : '已'}}支付</view>
     </view>
-	<view class="split"></view>
+	<view class="split"></view> -->
 	<view class="item first" wx:if="{{orderInfo.shopUserTrueName}}">
 		<view>业务员姓名</view>
 		<view>{{orderInfo.shopUserTrueName}}</view>

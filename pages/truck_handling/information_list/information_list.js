@@ -14,6 +14,7 @@ Page({
 		isHeadstockError: false, // 是否车头照错误
 		isRoadTransportCertificateError: false, // 是否道路运输证错误
 		isModifiedData: false, // 是否是修改资料
+		isUploadImage: !!app.globalData.memberStatusInfo?.uploadImageStatus, // 是否上传交行影像资料 flowVersion-7
 		requestNum: 0
 	},
 	async onLoad (options) {

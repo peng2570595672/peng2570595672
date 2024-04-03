@@ -18,6 +18,78 @@
   width: 100%;
   height: 60rpx;
 }
+/* tab 选择区域 */
+.package_tab {
+  margin: 32rpx 0 0 0;
+  width: 694rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 34rpx;
+  background-color: #fff;
+  border-radius: 16rpx;
+}
+.package_tab .package_tab_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.package_tab .package_tab_top .intrudecu {
+  width: 30%;
+  padding: 0 30rpx;
+  font-family: PingFang SC;
+  font-size: 30rpx;
+  font-weight: 500;
+}
+.package_tab .package_tab_top .right {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  margin-right: 20rpx;
+}
+.package_tab .package_tab_top .right .item {
+  width: 150rpx;
+  display: flex;
+  height: 100rpx;
+  justify-content: center;
+  align-items: center;
+  font-size: 26rpx;
+}
+.package_tab .package_tab_top .right .item .confirm {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 1px solid #dddbdb;
+  margin: 0 15rpx;
+}
+.package_tab .package_tab_top .right .item .tick::before {
+  display: block;
+  width: 32rpx;
+  height: 32rpx;
+  content: '\e669';
+  font-size: 22rpx;
+  color: #fff;
+  text-align: center;
+  line-height: 34rpx;
+  border-radius: 50%;
+  background-color: #2a4f44;
+  border: 1px solid #2a4f44;
+}
+.package_tab .package_tab_bottom {
+  width: 90%;
+  border-top: 1px dashed #d8d8d8;
+  margin: 0 auto;
+  font-size: 22rpx;
+  line-height: 36rpx;
+  padding: 34rpx 0rpx;
+}
+.package_tab .package_tab_bottom .title {
+  color: #2a4f44;
+}
 /* 套餐模块 */
 .package .module {
   width: 694rpx;

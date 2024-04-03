@@ -143,7 +143,6 @@ Page({
 	},
 	async onLoad (options) {
 		console.log('oorderInfo', this.data.orderInfo?.base?.vehPlates, options.vehPlates);
-		app.globalData.orderInfo.isTruckHandle = true; // 货车套餐
 		if (!options.type) {
 			// 已选择套餐 && 未支付
 			await this.getOrderInfo();
