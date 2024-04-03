@@ -229,7 +229,7 @@ Page({
 	getMessage (vehPlates,time) {
 		let channel = [];
 		if (vehPlates === '全部车辆') {
-			let flowVersion = this.data.orderList.filter(item => item.flowVersion === 1); // 过滤总对总账单
+			let flowVersion = this.data.orderList.filter(item => item.flowVersion !== 2); // 过滤总对总账单
 			flowVersion.map((item) => {
 				channel.push(item.obuCardType);
 			});
