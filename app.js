@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-export const IS_TEST = false; // false为正式接口地址，true为测试接口地址
+export const IS_TEST = true; // false为正式接口地址，true为测试接口地址
 const util = require('./utils/util.js');
 const definedData = require('./utils/dataStatement.js');
 const uma = require('./utils/umtrack-wx.js');
@@ -361,6 +361,14 @@ App({
 				return;
 			}
 			this.getOrderInfo();
+		}
+		if (res && res.scene === 1038 && res.referrerInfo.appId === 'wxf546f6c7ccd8fbfe') {	// 湖南高速小程序返回时，默认返回首页
+			let time = setTimeout(() => {
+				clearTimeout(time);
+				wx.switchTab({
+					url: '/pages/Home/Home'
+				});
+			},1000);
 		}
 	},
 	async getOrderInfo () {

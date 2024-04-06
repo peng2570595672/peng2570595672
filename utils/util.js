@@ -788,11 +788,14 @@ function getTruckHandlingStatus(orderInfo) {
  */
 function getStatus(orderInfo) {
   if (orderInfo.obuCardType === 10 && +orderInfo.orderExtCardType === 2) {
-    // 湖南信科   deviceType设备类型 (1:插卡; 0:单片)
+    // 湖南信科   deviceType设备类型 (1:插卡; 0:单片)  orderExtCardType 2代表信科
     if (orderInfo.pledgeStatus === 0) { // 待支付
       return 3;
     }
     if (orderInfo.obuStatus === 0) { // 已支付待激活
+      if (orderInfo.status === 0) { // 资未完善
+        return 34;
+      }
       return 31;
     }
     return 32;
@@ -1396,7 +1399,7 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
       return;
     }
     app.globalData.isServiceProvidersPackage = false; // 该服务商没有套餐
-    getListOfPackages(orderInfo, regionCode, true);
+    // getListOfPackages(orderInfo, regionCode, true);
   }
   result.data.map(item => {
     item.shopId = params.shopId;

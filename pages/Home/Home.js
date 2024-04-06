@@ -179,7 +179,6 @@ Page({
         }
     },
     async onShow () {
-        app.globalData.orderInfo.orderId = '';
         this.setData({
             isAlertToSignObj: ''
         });
@@ -906,6 +905,7 @@ Page({
         // 订单展示优先级: 扣款失败账单>已解约状态>按最近时间顺序：办理状态or账单记录
         util.hideLoading();
         if (!result) return;
+        app.globalData.orderInfo.orderId = '';
         if (result.code === 0) {
             const list = this.sortDataArray(result.data);
             list.forEach(res => {
@@ -1380,7 +1380,8 @@ Page({
             27: () => this.onClickContinueHandle(orderInfo), // 修改资料
             28: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
             30: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度 - 保证金退回
-            31: () => this.handleJumpHunanMini(orderInfo.id) // 跳转到湖南高速ETC小程序 - 已支付待激活
+            31: () => this.handleJumpHunanMini(orderInfo.id), // 跳转到湖南高速ETC小程序 - 已支付待激活
+            34: () => this.onClickContinueHandle(orderInfo) // 继续办理
         };
         fun[orderInfo.selfStatus].call();
     },
@@ -1744,13 +1745,13 @@ Page({
             util.go(`/pages/empty_hair/write_base_information/write_base_information`);
             return;
         }
+        // 签约前判断车牌号信息是否完整 ==>平安空发激活补充车牌证件信息  || 小程序新空发流程
+        if (orderInfo.vehPlates.length > 8 && orderInfo.shopProductId && orderInfo.pledgeStatus) {
+            return util.go(`/pages/default/receiving_address/receiving_address?perfect=1&shopId=${orderInfo.shopId}&orderId=${orderInfo.id}`);
+        }
         if (orderInfo.orderType === 71 && orderInfo.vehPlates && !orderInfo.isOwner && orderInfo?.pledgeStatus !== 1) { // 电商空发订单
             util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?emptyHairOrder=true`);
             return;
-        }
-        // 签约前判断车牌号信息是否完整 ==>平安空发激活补充车牌证件信息
-        if (this.data.passengerCarOrderInfo.vehPlates.length > 8) {
-            return util.go(`/pages/default/receiving_address/receiving_address?perfect=1&shopId=${orderInfo.shopId}&orderId=${orderInfo.id}`);
         }
         wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'index_for_certificate_to_truck_package'
             : 'index_for_certificate_to_package');

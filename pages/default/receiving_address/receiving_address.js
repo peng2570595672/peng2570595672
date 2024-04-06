@@ -333,7 +333,8 @@ Page({
 			};
 			const pinganResult = await util.getDataFromServersV2('consumer/order/save-veh-plates', pinganParams);
 			if (pinganResult.code !== 0) return;
-			util.go(`/pages/default/information_list/information_list?orderId=${this.data.orderId}&vehPlates=${this.data.carNoStr}`);
+			app.globalData.orderInfo.orderId = this.data.orderId;
+			util.go(`/pages/default/information_list/information_list`);
 			return;
 		}
 		// 统计点击事件

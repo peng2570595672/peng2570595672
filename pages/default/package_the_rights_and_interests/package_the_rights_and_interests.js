@@ -138,7 +138,7 @@ Page({
         citicBankshopProductIds: app.globalData.cictBankObj.citicBankshopProductIds	// 信用卡套餐集合
     },
     async onLoad (options) {
-        console.log('options',options);
+        if (!app.globalData.orderInfo.orderId) return;
         app.globalData.isTelemarketing = false;
         this.setData({
             contractStatus: +options.contractStatus,
@@ -170,6 +170,7 @@ Page({
         this.getLicensePlateRestrictions();
     },
     onShow (res) {
+        if (!app.globalData.orderInfo.orderId) return;
         if (app.globalData.signAContract === -1) {
             this.queryContract();
         }
@@ -813,6 +814,11 @@ Page({
                 await this.getSalesmanOrderProcess();
                 return;
             }
+            if (this.data.orderInfo?.base?.orderType === 71 && (this.data.orderInfo?.base?.promoterType === 47 || this.data.orderInfo?.base?.promoterType === 48)) {
+                // 新版小程序空发 无需支付
+                util.go('/pages/empty_hair/processing_progress/processing_progress');
+                return;
+            }
             util.go('/pages/default/information_list/information_list?type=1');
         } else {
             util.showToastNoIcon(result.message);
@@ -933,14 +939,12 @@ Page({
                             this.perfectOrder();
                             return;
                         }
-                        // 9901模式套餐 支付成功
-                        if (this.data.listOfPackages[this.data.choiceIndex].shopProductId === '1210255905172496384') {
-                            console.log('9901模式套餐 支付成功,去支付成功页');
-                            util.go('/pages/default/payment_successful/payment_successful?pro9901=true');
+                        if (this.data.orderInfo?.base?.orderType === 71 && (this.data.orderInfo?.base?.promoterType === 47 || this.data.orderInfo?.base?.promoterType === 48)) {
+                            // 新版小程序空发
+                            util.go('/pages/empty_hair/processing_progress/processing_progress');
                             return;
                         }
-                        // 去支付成功页
-                        util.go('/pages/default/payment_successful/payment_successful');
+                        util.go('/pages/default/information_list/information_list?type=1');
                     } else {
                         util.showToastNoIcon('支付失败！');
                     }
