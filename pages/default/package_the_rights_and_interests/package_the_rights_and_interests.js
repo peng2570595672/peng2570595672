@@ -8,16 +8,6 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
     data: {
-        orderTabList: [{
-			name: '日结',
-			value: 1
-		}, {
-			name: '周结',
-			value: 2
-		}],
-        billingMethod: 1, // 多个套餐时候 默认展示日结
-        listOfPackagesTrucks: [], // 赛选后展示货车的套餐
-        activeTypeIndex: 0, // 控制结算方式类型 按钮
         topProgressBar: 2,	// 进度条展示的长度 ，再此页面的取值范围 [2,3),默认为2,保留一位小数
         isFade: true,
         activeIndex: 0,
@@ -152,8 +142,7 @@ Page({
         app.globalData.isTelemarketing = false;
         this.setData({
             contractStatus: +options.contractStatus,
-            emptyHairOrder: options.emptyHairOrder === 'true',
-            isNewTrucks: +options.isNewTrucks
+            emptyHairOrder: options.emptyHairOrder === 'true'
         });
         // !options.type 已选择套餐 && 未支付
         await this.getOrderInfo(!options.type);
@@ -252,10 +241,6 @@ Page({
             this.setData({
                 listOfPackages: [result.data]
             });
-            let billingMethod = this.data.listOfPackages[0]?.billingMethod;// 根据套餐查出第一个对应的结算方式
-            this.setData({
-                billingMethod // 已选套餐后不允许更改
-            });
             this.getNodeHeight(this.data.listOfPackages.length);
         } else {
             util.showToastNoIcon(result.message);
@@ -269,11 +254,6 @@ Page({
         console.log(result);
         if (!result) return;
         if (result.code === 0) {
-            let isNewTrucks = +result.data.base?.isNewTrucks;
-            // 拿到当前订单 货车还是客车类型
-            this.setData({
-                isNewTrucks
-            });
             if (isSearchPay) {
                 if (result.data.product?.ttDeductStatus === 0) {
                     util.go('/pages/default/payment_fail/payment_fail?type=main_process');
@@ -573,26 +553,6 @@ Page({
         });
         this.data.viewRightsService.switchDisplay(true);
     },
-    // 选择结算分类套餐
-	choosePackage (e) {
-        let index = e.currentTarget.dataset.index;
-        if (!this.data.CopylistOfPackages) { // 存一份获取到的所有套餐
-            this.setData({
-                CopylistOfPackages: [...this.data.listOfPackages]
-            });
-        }
-		let listOfPackagesTrucks = this.data.CopylistOfPackages.filter((item) => { // 从所有货车套餐中进行筛选
-			return item.billingMethod === index;
-        });
-        let activeIndex = listOfPackagesTrucks.length === 1 ? 0 : -1; // 只有一个货车套餐时选中第一个
-		this.setData({
-			listOfPackages: listOfPackagesTrucks,// 将筛选的套餐展示出来
-			activeTypeIndex: index - 1,
-			activeIndex, // 选中的重置
-			billingMethod: index // 当前选择的结算方式类型
-		});
-        console.log('this.data.listOfPackagesTrucks',index,this.data.choiceIndex);
-	},
     // 获取权益列表
     async getList (obj) {
         if (!obj.rightsPackageIds?.length) return;
@@ -782,9 +742,6 @@ Page({
             rightsPackageId: addEquity.aepIndex !== -1 ? addEquity.subData[addEquity.aepIndex].id : '',
             areaCode: this.data.orderInfo ? (this.data.orderInfo.product.areaCode || '0') : app.globalData.newPackagePageData.areaCode
         };
-        if (this.data.isNewTrucks === 1) {
-            params['billingMethod'] = this.data.billingMethod; // 1 2 3  结算方式 日结 周jie月结
-        }
         const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
         this.setData({isRequest: false});
         if (!result) return;
@@ -816,10 +773,6 @@ Page({
             if (this.data.orderInfo?.base?.orderType === 71 && (this.data.orderInfo?.base?.promoterType === 47 || this.data.orderInfo?.base?.promoterType === 48)) {
                 // 新版小程序空发 无需支付
                 util.go('/pages/empty_hair/processing_progress/processing_progress');
-                return;
-            }
-            if (this.data.orderInfo.isNewTrucks === 1) {
-                util.go('/pages/truck_handling/information_list/information_list');
                 return;
             }
             util.go('/pages/default/information_list/information_list?type=1');
@@ -945,10 +898,6 @@ Page({
                         if (this.data.orderInfo?.base?.orderType === 71 && (this.data.orderInfo?.base?.promoterType === 47 || this.data.orderInfo?.base?.promoterType === 48)) {
                             // 新版小程序空发
                             util.go('/pages/empty_hair/processing_progress/processing_progress');
-                            return;
-                        }
-                        if (this.data.orderInfo.isNewTrucks === 1) {
-                            util.go('/pages/truck_handling/information_list/information_list');
                             return;
                         }
                         util.go('/pages/default/information_list/information_list?type=1');
