@@ -1,148 +1,156 @@
 <wxs src='../../../utils/util.wxs' module='tools' />
-<view class="package-the-rights-and-interests">
-    <!-- 正在办理 -->
-    <view class="proging">
-        <view class="vehPlates">
-            正在办理 {{orderInfo.base.vehPlates||vehPlates}}货车ETC
+<view class="index">
+    <!-- 顶部 进度条 组件 -->
+    <view class="topSplit">
+        <view class="vehPlates" wx:if="{{isNewTrucks === 1}}"
+            style="height: 80rpx;line-height: 80rpx;padding-left: 40rpx; width: 100%;font-weight: bold;">
+            正在办理货车ETC {{orderInfo.base.vehPlates||vehPlates}}
         </view>
-        <view class="type">
-            结算方式
-        </view>
+        <topProgressBar wx:else progressStage="{{topProgressBar}}" />
     </view>
     <!-- tab 选项框 -->
-    <view class="package_tab">
+    <view class="package_tab" wx:if="{{isNewTrucks === 1}}">
         <view class="package_tab_top">
-            <view wx:for="{{orderTabList}}" wx:key="index" class="item">
-                {{item.name}}
-                <view class="confirm iconfont {{index === activeTypeIndex ? 'tick' : ''}}" data-index="{{item.value}}"
-                    catchtap="choosePackage"></view>
+            <view class="intrudecu">
+                结算方式
             </view>
+            <div class="right">
+                <view wx:for="{{orderTabList}}" wx:key="index" class="item">
+                    <view class="confirm iconfont {{index === activeTypeIndex ? 'tick' : ''}}"
+                        data-index="{{item.value}}" catchtap="choosePackage"></view>
+                    {{item.name}}
+                </view>
+            </div>
         </view>
         <view class="package_tab_bottom">
             <view class="title">当日通行，隔日还款，适直偶尔上高速人群</view>
             <view class="title">服务费:通行费*0.4%，最低10元1日(无通行不收费)</view>
         </view>
     </view>
-    <!--套餐选择开始-->
-    <!-- 货车套餐模块 -->
-    <view class="package_huoche" wx:for="{{filterList}}" wx:key="index">
-        <view class="module moduleOne  {{'module' + index}} {{index === choiceIndex ? 'btnHighLight' : 'minheight'}}"
-            data-index="{{index}}" data-shopproductid="{{item.shopProductId}}" catchtap="btnHeightLight">
-            <!-- 展示的套餐部分 -->
-            <view class="upperPart {{ item.productRecommend ? '' : 'subUpperPart'}}">
-                <view class="titleMOney">
-                    <!-- 套餐名称：取后台套餐名称 -->
-                    <view class="title">{{item.productName}}</view>
-                    <!-- 取后台支付金额，保留小数点后2位，若套餐支付金额为0时，前端价格展示为免费 -->
-                    <view class="money">
-                        <span>
-                            <text style="color: red;text-decoration:line-through">￥199.00</text>
-                        </span>
-                        <!-- 空发套餐并且设备免费时，隐藏金额 -->
-                    </view>
+    <!-- 货车展示的套餐  -->
+    <view wx:if="{{isNewTrucks === 1}}">
+        <view class="package" wx:for="{{listOfPackages}}" wx:key="index">
+            <view class="module moduleOne iconfont {{'module' + index}} {{index === activeIndex ? 'btnHighLight' : ''}}"
+                data-index="{{index}}" data-shopproductid="{{item.shopProductId}}" catchtap="btnHeightLight">
+                <!-- 活动标签 限制字符8个 -->
+                <view class="active {{index === activeIndex ? 'activeChange' : ''}}" wx:if="{{item.activeTag}}">
+                    <text>{{tools.limitNumber(item.activeTag,8)}}</text>
                 </view>
-                <view class="subTitle">{{item.billingMethod === 1 ? tools.limitNumber('当日结算，及时清账',9):item.billingMethod
-                    === 2 ? tools.limitNumber('每周结算，资金无压力',11):''}}</view>
-                <!-- 套餐描述 取后台配置展示，若无配置则不展示 -->
-                <view class="description" wx:if="{{item.descriptionList && item.descriptionList.length > 0}}">
-                    <view>
-                        <view class="descriptionModule" wx:for="{{item.descriptionList}}" wx:for-item="itemBase"
-                            wx:for-index="index1" wx:key="index1">
-                            <view class="title">{{itemBase.value}}</view>
+                <!-- 默认展示的套餐上半部分 -->
+                <view class="upperPart {{ item.productRecommend ? '' : 'subUpperPart'}}"
+                    style="background-image: url('{{item.bgImg}}')">
+                    <!-- 背景logo -->
+                    <view class="bgImg">
+                        <image src="{{item.productLogo}}" />
+                    </view>
+                    <view class="titleMOney">
+                        <!-- 套餐名称：取后台套餐名称 -->
+                        <view class="title">{{tools.limitNumber(item.productName,13)}}</view>
+                        <!-- 取后台支付金额，保留小数点后2位，若套餐支付金额为0时，前端价格展示为免费 -->
+                        <view class="money">
+                            <span wx:if="{{item.pledgePrice}}">
+                                <!-- <text wx:else>￥{{tools.parseNum(item.pledgePrice)/100}}</text> -->
+                                <text style="text-decoration: line-through;">￥{{tools.parseNum(199)}}</text>
+                            </span>
+                            <!-- 空发套餐并且设备免费时，隐藏金额 -->
+                            <span wx:else style="color: #0f0"></span>
+                        </view>
+                    </view>
+                    <view class="subTitle">{{tools.limitNumber(billingMethod === 1 ? '当日结算，及时清账':'每周结算，无资金压力',10)}}
+                    </view>
+                    <view class="titleExplain" wx:if="{{item.marketingTagType === 2 && item.marketingTag}}">
+                        <span class="planSpan">{{item.marketingTag}}</span>
+                    </view>
+                    <view class="imgExplain" wx:if="{{item.marketingTagType === 1 && item.marketingTag}}">
+                        <image src="{{item.marketingTag}}" mode="widthFix"></image>
+                    </view>
+                    <!-- 套餐描述 取后台配置展示，若无配置则不展示 -->
+                    <view class="description" wx:if="{{item.descriptionList && item.descriptionList.length > 0}}">
+                        <view>
+                            <view class="descriptionModule" wx:for="{{item.descriptionList}}" wx:for-item="itemBase"
+                                wx:for-index="index1" wx:key="index1">
+                                <view class="title">{{itemBase.value}}</view>
+                            </view>
                         </view>
                     </view>
                 </view>
-                <!-- 套餐附加权益信息显示 -->
-                <view class="addEquityInfo">
-                    <view class="intruduce">办理说明</view>
-                    <rich-text nodes="{{item.detail}}" class="intruduce2"></rich-text>
+                <!-- 增值业务 展示的套餐下半部分 如果又权益和签约通通券则展示-->
+                <view class="lowerpart" style="font-size: 23rpx; color: #979797; line-height: 36rpx;">
+                    <!-- 日结描述 -->
+                    <view wx:if="{{billingMethod === 1}}">
+                        <view>服务费：通行费*0.4%，最低10元/日（无通行不收费）</view>
+                        <view>根据计算，使用ETC的货车司机，预估可省 5000元/年</view>
+                    </view>
+                    <!-- 月结描述 -->
+                    <view wx:else>
+                        <view>服务费：10~15元/周（无通行不收费） </view>
+                        <view>根据计算，使用ETC的货车司机，预估可省 5000 元/年</view>
+                    </view>
                 </view>
             </view>
         </view>
     </view>
-    <!--权益选择开始-->
-    <view wx:if="{{rightsAndInterestsList.length}}"
-        class="rights-and-interests {{filterList.length === 1 ? 'my-only-equities' : ''}}">
-        <view class="rights-and-interests-header">推荐加购</view>
-        <view class="rights-and-interests-list">
-            <view wx:for="{{rightsAndInterestsList}}" wx:key="index"
-                class="rights-and-interests-item {{item.isMarketingLabel ? 'item-top' : ''}} iconfont {{activeEquitiesIndex === index ? 'item-active' : ''}}"
-                catchtap="showRightsAndInterests" data-index="{{index}}">
-                <view class="label-img" wx:if="{{item.isMarketingLabel}}">{{item.marketingMsg}}</view>
-                <view class="left">
-                    <image src="https://file.cyzl.com/g001/M02/19/6C/oYYBAGVdrkWARmCuAABjqg4Uocg475.png"
-                        mode="widthFix"></image>
-                </view>
-                <view class="middle">
-                    <view class="item-title">{{item.packageName}}</view>
-                    <view class="item-price">¥{{tools.parseNum(item.payMoney/100)}}</view>
-                </view>
-                <view class="right">
-                    <view class="item-detail">详情</view>
-                    <view class="select-item iconfont {{activeEquitiesIndex === index ? 'item-active' : ''}}"></view>
-                </view>
-            </view>
-        </view>
+    <!-- 占位 -->
+    <view
+        class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}} {{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) ? 'isRPI' : ''}}">
     </view>
-    <!--权益选择结束-->
-    <!--下一步开始-->
-    <view class="next">
-        <view
-            class="agreement iconfont {{getAgreement ? 'selected' : ''}} {{choiceIndex === -1 ? 'not-agreement' : ''}}"
-            bindtap="onClickAgreementHandle">
-            <view></view>
-            <view wx:if="{{choiceIndex !== -1}}">阅读并同意
-                <text catchtap="onClickGoAgreementHandle">《ETC+货车办理协议》</text>
-                <text catchtap="onClickGoQianTongAgreement">《黔通卡ETC用户协议》</text>
-                <text catchtap="onClickGoPrivacyHandle">《用户隐私协议》</text>
-                <text catchtap="onClickGoFactoring" wx:if="{{filterList[activeIndex].flowVersion === 4}}">《保理协议》</text>
-                <text catchtap="onClickGoAuthorizationHandle"
-                    wx:if="{{filterList[activeIndex].flowVersion === 4}}">《个人征信授权书》</text>
+    <!-- 通通券-道路救援服务 -->
+    <view class="addEquityPackage" wx:if="{{listOfPackages[activeIndex].isRoadRescue  && isLoaded}}" data-type="6"
+        data-index='{{activeIndex}}' catchtap="popDetail">
+        <view class="imgOrName">
+            <view class="img">
+                <image class="image" src="{{'https://file.cyzl.com/g001/M02/ED/17/oYYBAGStEiOAZAb0AAAV9IqXKBM565.png'}}"
+                    mode="widthFix" />
             </view>
+            <text>下单送500元道路救援服务</text>
         </view>
-        <button
-            class="btn {{(filterList[activeIndex].mustChoiceRightsPackage === 1 && activeEquitiesIndex === -1) || !getAgreement || choiceIndex === -1 ? 'unavailable' : ''}}"
-            catchtap="next"
-            wx:if="{{choiceIndex !== -1 && filterList[choiceIndex].pledgePrice || (activeEquitiesIndex !== -1 && rightsAndInterestsList[activeEquitiesIndex].payMoney)}}">
-            确认支付{{activeEquitiesIndex !== -1 ? tools.parseNum((filterList[choiceIndex].pledgePrice +
-            rightsAndInterestsList[activeEquitiesIndex].payMoney)/100) :
-            tools.parseNum(filterList[choiceIndex].pledgePrice/100)}}元
-        </button>
-        <button class="btn {{choiceIndex === -1 || !getAgreement ? 'unavailable' : ''}}" catchtap="next"
-            wx:else>下一步</button>
+        <view class="iconfont icon4"></view>
+    </view>
+    <!-- 加购的权益包 -->
+    <view class="addEquityPackage {{listOfPackages[activeIndex].isRoadRescue ? 'addTwo' : ''}}"
+        wx:if="{{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) && isLoaded}}" data-type="5"
+        data-index='{{activeIndex}}' catchtap="popDetail">
+        <view class="imgOrName">
+            <view class="img">
+                <image class="image" src="{{'https://file.cyzl.com/g001/M02/ED/17/oYYBAGStEiOAZAb0AAAV9IqXKBM565.png'}}"
+                    mode="widthFix" />
+            </view>
+            <text>{{equityListMap.addEquityList[activeIndex].packageName}}</text>
+        </view>
+        <view class="iconfont icon4"></view>
     </view>
     <!-- 支付和协议说明 模块 -->
-    <view class="payAndAgreement {{isFade ? 'fadeIn' : 'fadeOut'}}">
+    <view class="payAndAgreement {{isFade ? 'fadeIn' : 'fadeOut'}}" wx:if="{{isLoaded}}">
         <view class="agreementConfirm" bindtap="onClickAgreementHandle">
             <view class="confirm iconfont {{getAgreement ? 'tick' : ''}}" catchtap="onClickAgreementHandle"></view>
-            <view class="agreement" wx:if="{{!filterList[choiceIndex].agreements}}">
+            <view class="agreement" wx:if="{{!listOfPackages[choiceIndex].agreements}}">
                 当您勾选同意并选购套餐时，即代表您已阅读、理解并接受
                 <text class="agreementColor" catchtap="onClickGoTTQAgreement1"
-                    wx:if="{{filterList[choiceIndex].isSignTtCoupon === 1}}">通通券会员服务协议、</text>
+                    wx:if="{{listOfPackages[choiceIndex].isSignTtCoupon === 1}}">通通券会员服务协议、</text>
                 <text class="agreementColor" catchtap="onClickGoAgreementHandle">ETC用户办理协议、</text>
                 <text class="agreementColor" catchtap="onClickGoQianTongAgreement"
-                    wx:if="{{filterList[choiceIndex].etcCardId === 1}}">黔通卡ETC用户协议、</text>
+                    wx:if="{{listOfPackages[choiceIndex].etcCardId === 1}}">黔通卡ETC用户协议、</text>
                 <text class="agreementColor" catchtap="onClickGoPrivacyHandle">用户隐私协议</text>
                 里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。
             </view>
             <view class="agreement" wx:else>
                 当您勾选同意并选购套餐时，即代表您已阅读、理解并接受
-                <block wx:for="{{filterList[choiceIndex].agreements}}" wx:for-item="item5" wx:for-index="index5"
+                <block wx:for="{{listOfPackages[choiceIndex].agreements}}" wx:for-item="item5" wx:for-index="index5"
                     wx:key="index5">
                     <text class="agreementColor" data-item="{{item5}}"
-                        catchtap="goAgreementPage">{{item5.name}}{{filterList[choiceIndex].agreements.length - 1 ===
-                        index5 ? '' : '、' }}</text>
+                        catchtap="goAgreementPage">{{item5.name}}{{listOfPackages[choiceIndex].agreements.length - 1 === index5 ? '' : '、' }}</text>
                 </block>
                 里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。
+                <text wx:if="{{listOfPackages[choiceIndex].etcCardId === 2}}">[发行方: 内蒙古发行]</text>
             </view>
         </view>
         <!-- 按钮设置 -->
         <!-- 通通券 -->
         <view class="ttCounpon"
-            wx:if="{{ isSalesmanOrder && choiceIndex !== -1 && isPay && filterList.length && filterList[choiceIndex].isSignTtCoupon === 1 }}">
+            wx:if="{{ isSalesmanOrder && choiceIndex !== -1 && isPay && listOfPackages.length && listOfPackages[choiceIndex].isSignTtCoupon === 1 }}">
             <!-- 通用券套餐已支付或无需支付 -->
             <button class="btn {{getAgreement ? 'payColor' : ''}}" catchtap="handleSign"
-                wx:if="{{tools.parseNum(filterList[choiceIndex].ttCouponPayAmount) > 0}}">
+                wx:if="{{tools.parseNum(listOfPackages[choiceIndex].ttCouponPayAmount) > 0}}">
                 {{contractStatus === 1 ? '开通连续包月服务' : '签约代扣通行费'}}
             </button>
             <!-- 通通券金额 为0 时 执行微信签约 -->
@@ -152,29 +160,29 @@
         </view>
         <!-- 签约、支付、下一步 -->
         <view class="paySign" wx:else>
-            <view class="moneyPay {{isFade ? 'confirmPackage' : ''}}"
-                wx:if="{{choiceIndex !== -1 && (filterList[activeIndex].pledgePrice || (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))}}">
-                <view class="money" wx:if="{{isFade}}" style="font-weight: 400;">
-                    押金￥
-                    <span class="mpneySpan">{{activeEquitiesIndex !== -1 ?
-                        tools.parseNum((filterList[choiceIndex].pledgePrice +
-                        rightsAndInterestsList[activeEquitiesIndex].payMoney)/100) :
-                        tools.parseNum(filterList[choiceIndex].pledgePrice/100)}}
+            <view class="moneyPay {{isFade ? 'confirmPackage' : ''}}" style="margin-top: 60rpx;"
+                wx:if="{{choiceIndex !== -1 && (listOfPackages[activeIndex].pledgePrice || (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))}}">
+                <view class="money" style="font-size: 30rpx; width: 500rpx; font-weight: 400;font-style: normal;" wx:if="{{isFade}}">
+                    押金<span class="mpneySpan"
+                        style="font-size: 56rpx; font-weight: 600;">￥{{activeIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}
+                        <span style="font-size: 24rpx;color: #979797;text-decoration: line-through;">原价599</span>
                     </span>
-                    <view class="titDuce" style="font-size: 28rpx; font-weight: 400; margin-top: 10rpx;">
-                        设备激活后返回全部押金
-                    </view>
+                    <view style="font-size: 24rpx;">设备激活后返回全部押金</view>
                 </view>
                 <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}} bail"
                     data-isconfirm="{{getAgreement}}"
-                    wx:if="{{filterList[activeIndex].pledgeType === 5 || equityListMap.bankList[activeIndex].isBank}}"
+                    wx:if="{{listOfPackages[activeIndex].pledgeType === 5 || equityListMap.bankList[activeIndex].isBank}}"
                     catchtap="next">
-                    <view>
+                    <view wx:if="{{equityListMap.bankList[activeIndex].isBank}}">
                         <view class="titlea">立即办理</view>
+                        <view class="subTitlea">
+                            {{tools.dataIncludes(citicBankshopProductIds,listOfPackages[activeIndex].shopProductId, 2)}}新客办理成功后返99元
+                        </view>
                     </view>
+                    <view wx:else>支付通行权益金</view>
                 </view>
                 <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}}"
-                    data-isconfirm="{{getAgreement}}" wx:else catchtap="next">{{'立即办理'}}</view>
+                    data-isconfirm="{{getAgreement}}" wx:else catchtap="next">{{'立即支付'}}</view>
             </view>
             <view class="nextSign" wx:else>
                 <button class="btns {{choiceIndex === -1 || getAgreement ? 'payColor' : ''}}" catchtap="next">
@@ -184,5 +192,8 @@
             </view>
         </view>
     </view>
+    <!-- <popTipComp id="popTipComp" bind:confirmHandle="confirmHandle"></popTipComp> -->
+    <!-- 自定义出入方向的弹窗 -->
+    <customDirectionPopup id="cdPopup" bind:cDPopup="cDPopup" />
 </view>
 <privacy_popup></privacy_popup>

@@ -575,18 +575,23 @@ Page({
     },
     // 选择结算分类套餐
 	choosePackage (e) {
-		let index = e.currentTarget.dataset.index;
-		let listOfPackagesTrucks = this.data.listOfPackages.filter((item) => { // 从所有货车套餐中进行筛选
+        let index = e.currentTarget.dataset.index;
+        if (!this.data.CopylistOfPackages) { // 存一份获取到的所有套餐
+            this.setData({
+                CopylistOfPackages: [...this.data.listOfPackages]
+            });
+        }
+		let listOfPackagesTrucks = this.data.CopylistOfPackages.filter((item) => { // 从所有货车套餐中进行筛选
 			return item.billingMethod === index;
-		});
+        });
+        let activeIndex = listOfPackagesTrucks.length === 1 ? 0 : -1; // 只有一个货车套餐时选中第一个
 		this.setData({
-			listOfPackagesTrucks,
+			listOfPackages: listOfPackagesTrucks,// 将筛选的套餐展示出来
 			activeTypeIndex: index - 1,
-			choiceIndex: '-1',
-			billingMethod: index - 1 // 当前选择的结算方式类型
-			// listOfPackages: filterList
+			activeIndex, // 选中的重置
+			billingMethod: index // 当前选择的结算方式类型
 		});
-        console.log('this.data.listOfPackagesTrucks',index,this.data.listOfPackagesTrucks);
+        console.log('this.data.listOfPackagesTrucks',index,this.data.choiceIndex);
 	},
     // 获取权益列表
     async getList (obj) {
@@ -813,6 +818,10 @@ Page({
                 util.go('/pages/empty_hair/processing_progress/processing_progress');
                 return;
             }
+            if (this.data.orderInfo.isNewTrucks === 1) {
+                util.go('/pages/truck_handling/information_list/information_list');
+                return;
+            }
             util.go('/pages/default/information_list/information_list?type=1');
         } else {
             util.showToastNoIcon(result.message);
@@ -936,6 +945,10 @@ Page({
                         if (this.data.orderInfo?.base?.orderType === 71 && (this.data.orderInfo?.base?.promoterType === 47 || this.data.orderInfo?.base?.promoterType === 48)) {
                             // 新版小程序空发
                             util.go('/pages/empty_hair/processing_progress/processing_progress');
+                            return;
+                        }
+                        if (this.data.orderInfo.isNewTrucks === 1) {
+                            util.go('/pages/truck_handling/information_list/information_list');
                             return;
                         }
                         util.go('/pages/default/information_list/information_list?type=1');

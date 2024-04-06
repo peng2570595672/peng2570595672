@@ -38,7 +38,7 @@
     <view wx:if="{{faceStatus === 4 && backStatus === 4}}">
         <!--上传身份证部分结束-->
         <view class="title">核对信息</view>
-        <view class="sub-title">available</view>
+        <view class="sub-title">*请仔细核对以下信息，有误项可点击修改</view>
         <!--身份证号码&名字开始-->
         <view class="input-wrapper">
             <view class="input-item">
@@ -49,7 +49,7 @@
                 <view>身份证号</view>
                 <input value="{{idCardFace.ocrObject.idNumber}}" bindinput="onInputChangedHandle" data-key="idNumber" placeholder-class="placeholder-class" placeholder="请输入身份证号"/>
             </view>
-            <!-- <view class="input-item">
+            <view class="input-item">
                 <view>手机号</view>
                 <input type="number" placeholder="请输入手机号" placeholder-class="placeholder" value="{{formData.cardMobilePhone}}"
                        bindinput="onInputChangedHandle" data-key="cardMobilePhone"
@@ -61,11 +61,11 @@
                        bindinput="onInputChangedHandle" data-key="verifyCode"
                 />
                 <text class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} {{mobilePhoneIsOk ? 'ok' : ''}}" bindtap="sendVerifyCode">{{identifyingCode}}</text>
-            </view> -->
+            </view>
         </view>
         <!--身份证号码&名字结束-->
     </view>
     <view class="fill"></view>
-    <view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next">保存并提交</view>
+    <view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next">确认资料并保存</view>
 </view>
 <privacy_popup></privacy_popup>

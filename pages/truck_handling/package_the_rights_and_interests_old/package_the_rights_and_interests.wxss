@@ -1,0 +1,355 @@
+.package-the-rights-and-interests {
+  min-height: 100vh;
+  padding-bottom: 292rpx;
+  box-sizing: border-box;
+  background: #f6f6f6;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper {
+  padding-top: 30rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item {
+  width: 646rpx;
+  border-radius: 16rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box {
+  width: 646rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  margin: 0 20rpx;
+  padding: 48rpx 32rpx 32px;
+  box-sizing: border-box;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  z-index: 99999;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .package {
+  display: flex;
+  align-items: center;
+  height: 84rpx;
+  font-size: 44rpx;
+  padding-bottom: 30rpx;
+  color: rgba(0,0,0,0.9);
+  font-weight: 600;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .package image {
+  width: 70rpx;
+  height: 44rpx;
+  margin-right: 12rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .package .title-name {
+  flex: 1;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .package .title-name .title {
+  font-size: 34rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .package .title-name .sub-title {
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.3);
+  line-height: 34rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .package::after {
+  content: '\e64f';
+  font-size: 48rpx;
+  color: rgba(0,0,0,0.1);
+  margin-left: 22rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .package.active::after {
+  color: #07c160;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .related-service-title {
+  display: flex;
+  height: 44rpx;
+  align-items: center;
+  color: rgba(0,0,0,0.6);
+  font-size: 28rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .related-service-title .tips {
+  color: #ffc300;
+  font-size: 18rpx;
+  margin-top: -20rpx;
+  margin-left: 8rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .related-service-title::before {
+  margin-right: 8rpx;
+  content: '';
+  width: 8rpx;
+  height: 44rpx;
+  background: #2fb565;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 6rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list.feature-service {
+  margin-bottom: 32rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list > view {
+  margin-top: 32rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item {
+  width: 50%;
+  display: flex;
+  height: 40rpx;
+  align-items: center;
+  color: rgba(0,0,0,0.5);
+  font-size: 24rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item .logo {
+  display: flex;
+  height: 40rpx;
+  align-items: center;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item .logo::before {
+  font-size: 32rpx;
+  color: #2fb565;
+  margin-right: 8rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item .logo.service_of_etc::before {
+  content: '\e683';
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item .logo.service_of_equipment::before {
+  content: '\e67c';
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item .logo.service_of_invoice::before {
+  content: '\e685';
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item .logo.service_of_discount::before {
+  content: '\e67a';
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item .logo.service_of_oil::before {
+  color: #fa5151;
+  content: '\e680';
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item .logo.service_of_integral::before {
+  color: #ffc300;
+  font-size: 200rpx;
+  content: '\e690';
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item image {
+  width: 32rpx;
+  margin-right: 8rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item .tips {
+  color: #ffc300;
+  font-size: 18rpx;
+  margin-top: -20rpx;
+  margin-left: 8rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .basic-service-item.bank image {
+  width: 268rpx;
+  height: 78rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .other-service-item {
+  position: relative;
+  width: 274rpx;
+  height: 134rpx;
+  border-radius: 12rpx;
+  padding: 32rpx;
+  box-sizing: border-box;
+  background-image: url("https://file.cyzl.com/g001/M00/34/B5/oYYBAGCGFPGAMsNIAAAKIgmvm54348.svg");
+  background-size: 274rpx 134rpx;
+  color: rgba(0,0,0,0.8);
+  line-height: 48rpx;
+  font-size: 24rpx;
+  margin-bottom: 32rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .other-service-item image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 274rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .other-service-item > view:last-child {
+  color: #ffc300;
+  font-size: 18rpx;
+  line-height: 26rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .basic-service-list .other-service-item.other-service-first {
+  background-image: url("https://file.cyzl.com/g001/M00/34/B4/oYYBAGCGFHGANGvFAAASff6NJMs668.svg");
+  margin-right: auto;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper .my-swiper-item .my-swiper-item-box .pay-tips {
+  color: #ffc300;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  margin-top: 32rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper.my-only-swiper .my-swiper-item {
+  width: 686rpx;
+}
+.package-the-rights-and-interests .swiper-box .my-swiper.my-only-swiper .my-swiper-item .my-swiper-item-box {
+  width: 686rpx;
+}
+.package-the-rights-and-interests .rights-and-interests {
+  width: 686rpx;
+  margin: 48rpx 32rpx 44rpx 32rpx;
+  box-sizing: border-box;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-header {
+  display: flex;
+  height: 48rpx;
+  align-items: center;
+  font-size: 34rpx;
+  color: rgba(0,0,0,0.9);
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-header::before {
+  margin-right: 8rpx;
+  content: '';
+  width: 8rpx;
+  height: 44rpx;
+  background: #2fb565;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list {
+  margin-top: 32rpx;
+  position: relative;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 174rpx;
+  background: #fff;
+  margin-top: 12rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item.item-top {
+  margin-top: 32rpx !important;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .label-img {
+  position: absolute;
+  top: -18rpx;
+  z-index: 2;
+  width: 172rpx;
+  height: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(126deg, #ff007e 0%, #f7a400 100%);
+  border-radius: 16rpx 16rpx 16rpx 0rpx;
+  font-size: 18rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #fff;
+  text-shadow: 0rpx 4rpx 8rpx rgba(0,0,0,0.12);
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item::before,
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item::after {
+  position: absolute;
+  top: 50%;
+  display: inline-block;
+  width: 32rpx;
+  height: 32rpx;
+  content: '';
+  border-radius: 50%;
+  background-color: #f6f6f6;
+  transform: translateY(-50%);
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item::before {
+  left: -22rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item::after {
+  left: auto;
+  right: -22rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .left {
+  margin: 32rpx 54rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .left > image {
+  width: 144rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .middle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .middle .item-title {
+  color: #000;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  line-height: 40rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .middle .item-price {
+  margin-top: 12rpx;
+  color: #00b85c;
+  font-size: 34rpx;
+  line-height: 48rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .right {
+  margin-right: 70rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .right .item-detail {
+  font-size: 20rpx;
+  color: rgba(0,0,0,0.3);
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .right .select-item {
+  margin-top: 18rpx;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .right .select-item::after {
+  content: '\e64f';
+  font-size: 48rpx;
+  color: rgba(0,0,0,0.1);
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item .right .select-item.item-active::after {
+  color: #07c160;
+}
+.package-the-rights-and-interests .rights-and-interests .rights-and-interests-list .rights-and-interests-item:nth-child(odd) {
+  margin-top: 12rpx;
+}
+.package-the-rights-and-interests .rights-and-interests.my-only-equities {
+  width: 686rpx;
+  margin: 48rpx 32rpx 0;
+}
+.package-the-rights-and-interests .next {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 282rpx;
+  background: #fff;
+  z-index: 3;
+}
+.package-the-rights-and-interests .next .agreement {
+  display: flex;
+  margin: 32rpx 70rpx;
+  height: 48rpx;
+  font-size: 22rpx;
+  color: #99999d;
+}
+.package-the-rights-and-interests .next .agreement text {
+  color: #00bc58;
+}
+.package-the-rights-and-interests .next .agreement::before {
+  margin-right: 10rpx;
+  width: 28rpx;
+  height: 28rpx;
+  content: '\e6e4';
+  font-size: 28rpx;
+  color: #99999d;
+  border-radius: 50%;
+}
+.package-the-rights-and-interests .next .agreement.selected::before {
+  color: #00b85c;
+}
+.package-the-rights-and-interests .next .agreement.not-agreement::before {
+  content: '';
+}
+.package-the-rights-and-interests .next .btn {
+  width: 650rpx;
+  height: 96rpx;
+  line-height: 96rpx;
+  font-size: 36rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+  background: linear-gradient(132deg, #16ad69 0%, #82d057 100%);
+  border-radius: 48rpx;
+}
+.package-the-rights-and-interests .next .btn.unavailable {
+  opacity: 0.6;
+}

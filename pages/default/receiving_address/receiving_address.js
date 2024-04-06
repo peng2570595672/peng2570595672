@@ -578,12 +578,13 @@ Page({
 					promoterType: params.promoterType || '',
 					isNewTrucks: +this.data.isNewTrucks === 1 ? 1 : 0
 				};
+				const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default'; // 去到客车还是货车的套餐页
 				await util.initLocationInfo(orderInfo);
 				if (!app.globalData.newPackagePageData.listOfPackages?.length) return;// 没有套餐
 				console.log(app.globalData.newPackagePageData.type, '==============================');
 				if (app.globalData.newPackagePageData.type) {
 					// 只有分对分套餐 || 只有总对总套餐
-					util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?type=${params.shopProductId ? '' : app.globalData.newPackagePageData.type}`);
+					util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?type=${params.shopProductId ? '' : app.globalData.newPackagePageData.type}`);
 				} else {
 					util.go(`/pages/default/choose_the_way_to_handle/choose_the_way_to_handle`);
 				}
@@ -638,8 +639,10 @@ Page({
 			shopId: app.globalData.scanCodeToHandle.shopId
 		});
 		if (!result) return;
+		console.log('result.data.isNewTrucks',result.data.isNewTrucks);
+		const path = result.data.isNewTrucks === 1 ? 'truck_handling' : 'default';
 		if (result.code === 0) {
-			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests`);
+			util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
 		} else {
 			util.showToastNoIcon(result.message);
 		}

@@ -232,14 +232,27 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			const pages = getCurrentPages();
-			const prevPage = pages[pages.length - 2];// 上一个页面
-			prevPage.setData({
-				isChangeIdCard: true // 重置状态
-			});
-			wx.navigateBack({
-				delta: 1
-			});
+			// 校验货车身份证信息是否一致
+			let data = {
+				vehPlate: '贵AWH0001',
+				idNum: this.data.idCardFace.ocrObject.idNumber,
+				platesColor: '0'
+			};
+			const res1 = await util.getDataFromServersV2('consumer/order/checkIdCardAndVehPlate', data);
+			if (res1.code === 0) {
+				// 校验通过
+				const pages = getCurrentPages();
+				const prevPage = pages[pages.length - 2];// 上一个页面
+				prevPage.setData({
+					isChangeIdCard: true // 重置状态
+				});
+				wx.navigateBack({
+					delta: 1
+				});
+			} else {
+				// 开始倒计时 10s
+				util.showToastNoIcon(res1.message);
+			}
 		} else {
 			util.showToastNoIcon(result.message);
 		}

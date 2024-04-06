@@ -621,7 +621,7 @@ Page({
 				util.go('/pages/default/payment_fail/payment_fail');
 				return;
 			}
-			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?contractStatus=${orderInfo.contractStatus}&ttContractStatus=${orderInfo.ttContractStatus}`);
+			util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?contractStatus=${orderInfo.contractStatus}&ttContractStatus=${orderInfo.ttContractStatus}`);
 			return;
 		}
 		if (orderInfo.selfStatus === 25 || orderInfo.selfStatus === 27) {	// 设备升级
@@ -636,6 +636,7 @@ Page({
 				return;
 			}
 			if (app.globalData.newPackagePageData.type || orderInfo.isNewTrucks === 1) {
+				console.log('path',path);
 				// 只有分对分套餐 || 只有总对总套餐
 				util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`);
 			} else {

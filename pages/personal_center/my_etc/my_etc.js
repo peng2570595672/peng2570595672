@@ -414,8 +414,7 @@ Page({
 			util.go(`/pages/device_upgrade/package/package?orderId=${orderInfo.id}`);
 			return;
 		}
-		// const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
-		const path = orderInfo.isNewTrucks === 1 ? 'default' : 'default';
+		const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
 		wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'my_etc_for_truck_package' : 'my_etc_for_package');
 		util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
 	},
@@ -436,8 +435,7 @@ Page({
 		app.globalData.firstVersionData = false;
 		app.globalData.orderInfo.isNewTrucks = orderInfo.isNewTrucks;
 		console.log('app.globalData.orderInfo.isNewTrucks',app.globalData.orderInfo.isNewTrucks);
-		// const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
-		const path = orderInfo.isNewTrucks === 1 ? 'default' : 'default';
+		const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
 		if (orderInfo.orderType === 31 && orderInfo.isSignTtCoupon === 1) {
 			// 通通券套餐流程
 			if (orderInfo.ttContractStatus === 1 && orderInfo.ttDeductStatus !== 1) {

@@ -1,0 +1,113 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<view class="package-the-rights-and-interests">
+    <!--套餐选择开始-->
+    <view class="swiper-box">
+        <swiper
+                class="my-swiper {{listOfPackages.length === 1 ? 'my-only-swiper' : ''}}"
+                indicator-dots="{{false}}"
+                autoplay="{{false}}"
+                next-margin="{{listOfPackages.length !== 1 ? '62rpx' : '12rpx'}}"
+                previous-margin="12rpx"
+                bindchange="currentChange"
+                style="height: {{boxHeight[activeIndex]}}px;"
+                circular="{{true}}">
+            <swiper-item wx:for="{{listOfPackages}}" wx:key="index" class="my-swiper-item"
+                         catchtap="onClickSwiper" data-index="{{index}}">
+                <view class="my-swiper-item-box item-{{index}}">
+                    <view class="package iconfont {{choiceIndex === index ? 'active' : ''}}">
+                        <view>
+                            <image src="{{item.productLogo}}" mode="widthFix"></image>
+                        </view>
+                        <view class="title-name">
+                            <view class="title">{{item.productName}}</view>
+                            <view class="sub-title">{{item.fullName}}</view>
+                        </view>
+                        <view>¥{{tools.parseNum(item.pledgePrice/100)}}</view>
+                    </view>
+                    <view class="related-service-title">
+                        <view>基础服务</view>
+                        <view class="tips">价值158元</view>
+                    </view>
+                    <view class="basic-service-list">
+                        <view class="basic-service-item" wx:for="{{basicServiceList}}" wx:key="index">
+                            <view class="iconfont logo {{item.ico}}">{{item.title}}</view>
+                            <view class="tips">{{item.tips}}</view>
+                        </view>
+                        <view class="other-service-item other-service-first" catchtap="onClickCheckTheService" data-index="0">
+                            <view>车主服务享便捷</view>
+                            <view>价值168元</view>
+                        </view>
+                        <view class="other-service-item" wx:if="{{item.pledgePrice}}" catchtap="onClickCheckTheService" data-index="1">
+                            <view>生活服务享精彩</view>
+                            <view>价值100元+</view>
+                        </view>
+                    </view>
+                    <view class="related-service-title" wx:if="{{item.isShowFeatureService === 1}}">特色服务</view>
+                    <view class="basic-service-list feature-service" wx:if="{{item.isShowFeatureService === 1}}" catchtap="onClickCheckTheService" data-index="2">
+                        <view class="basic-service-item" wx:for="{{characteristicServiceList}}" wx:key="index">
+                            <image src="{{item.logo}}" mode="widthFix"></image>
+                            <view>{{item.title}}</view>
+                        </view>
+                    </view>
+                    <view class="related-service-title" wx:if="{{item.flowVersion === 2}}">支持绑定以下银行卡</view>
+                    <view class="basic-service-list" wx:if="{{item.flowVersion === 2}}">
+                        <view class="basic-service-item bank">
+                            <image src="https://file.cyzl.com/g001/M00/9C/9E/oYYBAGNSXL2AEzd8AAB4P105RRw464.svg" mode="widthFix"></image>
+                        </view>
+                    </view>
+                    <view class="pay-tips" wx:if="{{item.pledgePrice && item.flowVersion !== 4}}">注：付费产品支付成功且审核通过后，默认你已同意接受服务，不作申请退款。</view>
+                    <view class="pay-tips" wx:if="{{item.flowVersion === 4}}">注：办理货车产品根据车辆轴数在审核后需预充指定金额方可发货。</view>
+                </view>
+            </swiper-item>
+        </swiper>
+    </view>
+    <!--权益选择开始-->
+    <view wx:if="{{rightsAndInterestsList.length}}"
+          class="rights-and-interests {{listOfPackages.length === 1 ? 'my-only-equities' : ''}}">
+        <view class="rights-and-interests-header">推荐加购</view>
+        <view class="rights-and-interests-list">
+            <view wx:for="{{rightsAndInterestsList}}" wx:key="index"
+                  class="rights-and-interests-item {{item.isMarketingLabel ? 'item-top' : ''}} iconfont {{activeEquitiesIndex === index ? 'item-active' : ''}}"
+                  catchtap="showRightsAndInterests" data-index="{{index}}">
+                <view class="label-img" wx:if="{{item.isMarketingLabel}}">{{item.marketingMsg}}</view>
+                <view class="left">
+                    <image src="https://file.cyzl.com/g001/M02/19/6C/oYYBAGVdrkWARmCuAABjqg4Uocg475.png" mode="widthFix"></image>
+                </view>
+                <view class="middle">
+                    <view class="item-title">{{item.packageName}}</view>
+                    <view class="item-price">¥{{tools.parseNum(item.payMoney/100)}}</view>
+                </view>
+                <view class="right">
+                    <view class="item-detail">详情</view>
+                    <view class="select-item iconfont {{activeEquitiesIndex === index ? 'item-active' : ''}}"></view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!--权益选择结束-->
+    <!--下一步开始-->
+    <view class="next">
+        <view class="agreement iconfont {{getAgreement ? 'selected' : ''}} {{choiceIndex === -1 ? 'not-agreement' : ''}}" bindtap="onClickAgreementHandle">
+            <view></view>
+            <view wx:if="{{choiceIndex !== -1}}">阅读并同意
+                <text catchtap="onClickGoAgreementHandle">《ETC+货车办理协议》</text>
+                <text catchtap="onClickGoQianTongAgreement">《黔通卡ETC用户协议》</text>
+                <text catchtap="onClickGoPrivacyHandle">《用户隐私协议》</text>
+                <text catchtap="onClickGoFactoring" wx:if="{{listOfPackages[activeIndex].flowVersion === 4}}">《保理协议》</text>
+                <text catchtap="onClickGoAuthorizationHandle" wx:if="{{listOfPackages[activeIndex].flowVersion === 4}}">《个人征信授权书》</text>
+            </view>
+        </view>
+        <button class="btn {{(listOfPackages[activeIndex].mustChoiceRightsPackage === 1 && activeEquitiesIndex === -1) || !getAgreement || choiceIndex === -1 ? 'unavailable' : ''}}" catchtap="next"
+                wx:if="{{choiceIndex !== -1 && listOfPackages[activeIndex].pledgePrice || (activeEquitiesIndex !== -1 && rightsAndInterestsList[activeEquitiesIndex].payMoney)}}">
+            确认支付{{activeEquitiesIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + rightsAndInterestsList[activeEquitiesIndex].payMoney)/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}元
+        </button>
+        <button class="btn {{choiceIndex === -1 || !getAgreement ? 'unavailable' : ''}}" catchtap="next" wx:else>下一步</button>
+    </view>
+    <!--下一步结束-->
+    <!--查看权益详情开始-->
+    <rights_package id="showRightsPackage" bindonClickHandle="onClickHandle" bindonClickDetailsHandle="onClickDetailsHandle" isSelected="{{isSelected}}" details="{{rightsPackageDetails}}"></rights_package>
+    <!--查看权益详情结束-->
+    <related_service id="viewRightsService" bindonClickHandle="onClickClose" details="{{serviceList[showServiceIndex]}}" wx:if="{{showServiceIndex === 0 || showServiceIndex === 2}}"></related_service>
+    <life_service id="viewLifeService" bindonClickHandle="onClickClose" details="{{serviceList[1]}}" wx:if="{{showServiceIndex === 1}}"></life_service>
+</view>
+<privacy_popup></privacy_popup>
