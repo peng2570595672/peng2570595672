@@ -179,9 +179,9 @@ Page({
 	},
 	// 下一步
 	async next () {
-		// if (!this.validateData(true)) {
-		// 	return;
-		// }
+		if (!this.validateData(true)) {
+			return;
+		}
 		if (this.data.isRequest) {
 			return;
 		}
@@ -234,8 +234,8 @@ Page({
 		if (result.code === 0) {
 			// 校验货车身份证信息是否一致
 			let data = {
-				vehPlate: '贵AWH0001',
-				idNum: this.data.idCardFace.ocrObject.idNumber,
+				vehPlate: '贵By9883',
+				idNum: '520201197207080425',
 				platesColor: '0'
 			};
 			const res1 = await util.getDataFromServersV2('consumer/order/checkIdCardAndVehPlate', data);
