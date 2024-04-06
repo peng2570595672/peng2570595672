@@ -4,7 +4,7 @@
         <topProgressBar progressStage="{{topProgressBar}}" />
     </view>
     <!-- 模块一 上传照片 -->
-    <view class="module moduleOne {{(idCardFace.fileUrl || idCardBack.fileUrl || idCardFaceNot.fileUrl || idCardBackNot.fileUrl) ? (idCardFace.fileUrl || idCardBack.fileUrl ? 'boxS' : (switch1Checked && idCardFaceNot.fileUrl || idCardBackNot.fileUrl ? 'bg3' : '')) : ''}}">
+    <view class="module moduleOne {{(idCardFace.fileUrl || idCardBack.fileUrl || idCardFaceNot.fileUrl || idCardBackNot.fileUrl) ? (idCardFace.fileUrl || idCardBack.fileUrl ? 'boxS' : (switch1Checked && (idCardFaceNot.fileUrl || idCardBackNot.fileUrl) ? 'bg3' : '')) : ''}}">
         <view class="titleBtn" style="margin-bottom: {{isXinKe ? 20 : 0}}rpx">
             <view class="titles" wx:if="{{(idCardFace.fileUrl || idCardBack.fileUrl) || isXinKe}}">车主身份证</view>
             <view class="radio " catchtap="switch1Change" wx:if="{{isXinKe}}">
@@ -71,7 +71,7 @@
     <!-- 模块 非车主本人办理 -->
     <view class="module moduleOne {{(idCardFace.fileUrl || idCardBack.fileUrl || idCardFaceNot.fileUrl || idCardBackNot.fileUrl) ? switch1Checked ? (idCardFaceNot.fileUrl || idCardBackNot.fileUrl ? '' : 'bg3') : (idCardFace.fileUrl || idCardBack.fileUrl ? 'bg3' : '') : ''}}" wx:if="{{isXinKe && switch1Checked}}">
         <view class="titleBtn">
-            <view class="titles" >非车主本人办理</view>
+            <view class="titles" >办理人身份证</view>
         </view>
         <text class="text1">行驶证与办理人身份信息不符时请上传办理人身份证</text>
         <view class="photo-wrapper {{idCardFaceNot.fileUrl || idCardBackNot.fileUrl ? 'changeOne' : ''}}" wx:if="{{switch1Checked}}">

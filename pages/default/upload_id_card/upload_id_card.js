@@ -50,8 +50,7 @@ Page({
 		this.setData({
 			vehPlates: options.vehPlates,
 			obuCardType: +options.obuCardType,
-			// isXinKe: JSON.parse(options?.isXinKe),
-			isXinKe: false,
+			isXinKe: JSON.parse(options?.isXinKe),
 			topProgressBar: parseFloat(options.topProgressBar),
 			topProgressBar1: parseFloat(options.topProgressBar)
 		});
@@ -429,7 +428,26 @@ Page({
 	},
 	switch1Change () {
 		let switch1Checked = !this.data.switch1Checked;
-		console.log(!this.data.switch1Checked);
+		let idCardFace = wx.getStorageSync('passenger-car-id-card-face');	// 车主身份证 正
+		let idCardBack = wx.getStorageSync('passenger-car-id-card-back');	// 车主身份证 反
+		if (idCardFace && idCardBack && switch1Checked) {
+			this.setData({
+				faceStatus: 1, // 1 未上传  4识别成功
+				backStatus: 1, // 1 未上传  4识别成功
+				idCardFace: {
+					ocrObject: {}
+				},// 身份证正面
+				idCardBack: {
+					ocrObject: {}
+				}// 身份证反面
+			});
+			wx.removeStorageSync('passenger-car-id-card-face');
+			wx.removeStorageSync('passenger-car-id-card-back');
+			wx.setStorageSync('passenger-car-id-card-face-not',idCardFace);		// 把车主身份证缓存的信息存入办理人身份证信息里
+			wx.setStorageSync('passenger-car-id-card-back-not',idCardBack);		// 把车主身份证缓存的信息存入办理人身份证信息里
+			this.notCar();
+		}
+
 		this.setData({
 			switch1Checked,
 			available: true
@@ -437,7 +455,6 @@ Page({
 	},
 	// 非车主本人办理的身份信息
 	notCar () {
-		console.log('哈哈哈哈');
 		// 非车主本人办理
 		let idCardFaceNot = wx.getStorageSync('passenger-car-id-card-face-not');
 		if (idCardFaceNot) {

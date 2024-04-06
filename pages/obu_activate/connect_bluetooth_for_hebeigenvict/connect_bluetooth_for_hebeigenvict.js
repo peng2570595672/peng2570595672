@@ -730,7 +730,7 @@ Page({
     },
     // 断开设备连接
     disonnectDevice () {
-        obuSdk.disConnect({
+        bleUtil.disconnectBle({
             success: (res) => {
                 wx.closeBluetoothAdapter();
             },
