@@ -2,6 +2,7 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		topProgressBar: 3, // 进度条展示的长度 ，再此页面的取值范围 [3,4),默认为3,保留一位小数
 		contractStatus: 0,// 1已签约
 		orderInfo: undefined,
 		orderDetails: undefined,

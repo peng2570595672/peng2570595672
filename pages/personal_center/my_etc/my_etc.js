@@ -102,7 +102,7 @@ Page({
 				});
 			}
 			this.setData({
-				carList: this.data.activeIndex === 1 ? passengerCarList : truckList, // 初始化变量
+				carList: result.data, // 初始化变量
 				truckList: truckList,
 				passengerCarList: passengerCarList
 			});
@@ -142,6 +142,8 @@ Page({
 				that.onClickVehicle(e);
 			} else if (renew === '3') {
 				that.onClickAddNewHandle(e);
+			} else if (renew === '5') {	// 货车
+
 			} else {
 				that.onClickChoiceType(e);
 			}

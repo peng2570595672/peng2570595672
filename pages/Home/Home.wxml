@@ -20,7 +20,7 @@
     <!-- 办理模块 -->
     <view class="module immediately" wx:if="{{(isShowHandle || userFailBillList.length || !orderInfo) && (passengerCarOrderInfo.selfStatus !== 12 && passengerCarOrderInfo.selfStatus !== 33 && truckOrderInfo.selfStatus !== 12)}}">
         <view class="vehicle-info">
-            <view class="vehicle-info-box" animation="{{animationVehicleInfo}}">
+            <view class="vehicle-info-box" animation="{{animationVehicleInfo}}" wx:if="{{activeIndex === 1}}">
                 <view>{{!passengerCarOrderInfo ? '使用微信支付的ETC' : (userFailBillList.length ? userFailBillList[0].vehPlate : tools.isPhone(passengerCarOrderInfo.vehPlates))}}</view>
                 <view class="sub-title">
                     <view wx:if="{{userFailBillList.length}}">{{userFailBillList[0].addTime}}</view>
@@ -44,7 +44,7 @@
                     </view>
                 </view>
             </view>
-            <view class="vehicle-info-box vehicle-info-trucks-box" animation="{{animationVehicleInfoForTrucks}}">
+            <view class="vehicle-info-box" animation="{{animationVehicleInfoForTrucks}}" wx:else>
                 <view>{{!truckOrderInfo ? '使用微信支付的ETC' : truckOrderInfo.vehPlates}}</view>
                 <view class="sub-title">
                     <view wx:if="{{userFailBillList.length}}">{{userFailBillList[0].addTime}}</view>

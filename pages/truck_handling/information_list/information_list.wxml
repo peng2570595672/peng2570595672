@@ -1,9 +1,6 @@
-<view class="content">
+<!-- <view class="content">
 	<view class="content-list">
-		<!-- 顶部 进度条 组件 -->
-    <!-- <view class="topSplit">
-			<topProgressBar progressStage="{{topProgressBar}}" />
-		</view> -->
+
 		<view class="list-item">
             <view class="left iconfont {{orderInfo.isOwner === 1 ? 'success' : ''}} {{isIdCardError ? 'error' : ''}}">车主身份证</view>
 			<view class="btn {{orderInfo.isOwner === 1 ? 'edit': ''}}" catchtap="go" data-url="upload_id_card">{{orderInfo.isOwner === 1 ? '修改' : '上传'}}</view>
@@ -26,5 +23,47 @@
             <view class="animate" wx:if="{{isRequest}}"></view>签约代扣通讯费
         </view>
 	</view>
+</view> -->
+<view class="index">
+  <!-- 顶部 进度条 组件 -->
+  <text class="{{vehPlates?'vehPlates':''}}" wx:if="vehPlates">正在申请 {{vehPlates}} 客车ETC</text>
+  <view class="topSplit">
+    <topProgressBar progressStage="{{topProgressBar}}" />
+  </view>
+  <view class="module moduleOne">
+    <view class="left iconfont {{isIdCardError ? 'error' : ''}}">车主身份证</view>
+    <view wx:if="{{ orderDetails.orderType !== 61 && ((isModifiedData && isIdCardError) || orderInfo.isOwner !== 1 ) }}" class="btn {{orderInfo.isOwner === 1 ? 'edit': ''}}" catchtap="go" data-url="upload_id_card">
+      {{orderInfo.isOwner === 1 ? '修改' : '上传'}}
+    </view>
+    <view wx:else class="icon {{orderInfo.isOwner === 1 ? 'success' : ''}} iconfont"></view>
+  </view>
+  <view class="module moduleTwo">
+    <view class="left iconfont {{isDrivingLicenseError ? 'error' : ''}}">车辆行驶证</view>
+    <view wx:if="{{ orderDetails.orderType !== 61 && ((isModifiedData && isDrivingLicenseError) || orderInfo.isVehicle !== 1 )}}" class="btn {{orderInfo.isVehicle === 1 ? 'edit' : ''}}" catchtap="go" data-url="information_validation">
+      {{orderInfo.isVehicle === 1 ? '修改' : '上传'}}
+    </view>
+    <view wx:else class="icon {{orderInfo.isVehicle === 1 ? 'success' : ''}} iconfont"></view>
+  </view>
+  <view class="module moduleThree">
+    <view class="left iconfont {{isHeadstockError ? 'error' : ''}}">车辆照片</view>
+    <view wx:if="{{ orderDetails.orderType !== 61 && ((isModifiedData && isHeadstockError) || orderInfo.isHeadstock !== 1)}}" class="btn {{orderInfo.isHeadstock === 1  ? 'edit' : ''}}" catchtap="go" data-url="upload_other_photo">
+      {{orderInfo.isHeadstock === 1 ? '修改' : '上传'}}
+    </view>
+    <view wx:else class="icon {{orderInfo.isHeadstock === 1 ? 'success' : ''}} iconfont"></view>
+  </view>
+    <view class="module moduleThree">
+    <view class="left iconfont {{isHeadstockError ? 'error' : ''}}">道路运输通行证</view>
+    <view wx:if="{{ orderDetails.orderType !== 61 && ((isModifiedData && isHeadstockError) || orderInfo.isHeadstock !== 1)}}" class="btn {{orderInfo.isHeadstock === 1  ? 'edit' : ''}}" catchtap="go" data-url="upload_road_transport_certificate">
+      {{orderInfo.isHeadstock === 1 ? '修改' : '上传'}}
+    </view>
+    <view wx:else class="icon {{orderInfo.isHeadstock === 1 ? 'success' : ''}} iconfont"></view>
+  </view>
+  <view class="tips" wx:if="{{tips}}">{{tips}}</view>
+
+  <view class="bottomBtn">
+    <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="next">
+      {{'签约代扣通讯费'}}
+    </view>
+  </view>
 </view>
 <privacy_popup></privacy_popup>

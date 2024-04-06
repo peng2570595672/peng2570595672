@@ -1416,7 +1416,7 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
     showToastNoIcon('未查询到套餐，请联系工作人员处理！');
     return;
   }
-  const divideAndDivideList = list.filter(item => item.flowVersion === 1); // 分对分套餐
+  const divideAndDivideList = list.filter(item => item.flowVersion === 1 || item.flowVersion === 5); // 分对分套餐
   const alwaysToAlwaysList = list.filter(item => item.flowVersion === 2 || item.flowVersion === 3); // 总对总套餐
   let type = !divideAndDivideList.length ? 2 : !alwaysToAlwaysList.length ? 1 : 0;
   app.globalData.newPackagePageData = {

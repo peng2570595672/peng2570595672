@@ -191,7 +191,8 @@ Page({
         isEquityRights: app.globalData.isEquityRights, // 是否是权益券额用户
         isShowHandle: true, // 是否显示办理状态栏
         isBail: false, // 是否有保证金退回的订单（false: 没有，true: 有）
-        PingAn: false // 是否展示平安获客banner
+        PingAn: false, // 是否展示平安获客banner
+        isTrucks: false
     },
     async onLoad (options) {
         util.resetData(); // 重置数据
@@ -1085,9 +1086,13 @@ Page({
                 truckList,
                 passengerCarList,
                 isAllActivationTruck,
+                activeIndex: list[0].isNewTrucks === 1 ? 2 : 1,
                 truckOrderInfo: terminationTruckOrder || passengerCarListNotTruckActivation, // 解约订单 || 拉取第一条
                 passengerCarOrderInfo: terminationOrder || passengerCarListNotActivation // 解约订单 || 拉取第一条
             });
+            console.log('测试',list[0].isNewTrucks,this.data.isTrucks);
+            console.log('货车：',truckList);
+            console.log('货车1：',this.data.truckOrderInfo);
             app.globalData.truckLicensePlate = passengerCarListNotActivation ? passengerCarListNotActivation.vehPlates : ''; // 存货车出牌
             // 上一页返回时重置
             this.setData({
@@ -1350,10 +1355,10 @@ Page({
             util.go(url);
             return;
         }
-        if (orderInfo.isNewTrucks === 1 && orderInfo.status !== 1) {
-            util.showToastNoIcon('货车办理系统升级中，暂时不可申办');
-            return;
-        }
+        // if (orderInfo.isNewTrucks === 1 && orderInfo.status !== 1) {
+        //     util.showToastNoIcon('货车办理系统升级中，暂时不可申办');
+        //     return;
+        // }
         if (orderInfo.orderType === 51 && orderInfo.status !== 1) {
             util.showToastNoIcon('请返回原渠道办理');
             return;
@@ -1761,10 +1766,10 @@ Page({
             }
             return;
         }
-        if (orderInfo.isNewTrucks === 0 && util.getHandlingType(orderInfo)) {
-            util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
-            return;
-        }
+        // if (orderInfo.isNewTrucks === 0 && util.getHandlingType(orderInfo)) {
+        //     util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
+        //     return;
+        // }
         if (orderInfo.promoterType === 41 && orderInfo.vehPlates.length === 11) { // 业务员空发
             util.go(`/pages/empty_hair/write_base_information/write_base_information`);
             return;
@@ -1777,6 +1782,7 @@ Page({
             util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?emptyHairOrder=true`);
             return;
         }
+
         wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'index_for_certificate_to_truck_package'
             : 'index_for_certificate_to_package');
         util.go(`/pages/${path}/information_list/information_list`);
