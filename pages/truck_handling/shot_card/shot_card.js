@@ -21,6 +21,7 @@ Page({
 	onLoad (options) {
 		app.globalData.truckHandlingOCRType = 0;
 		// 当前拍照类型
+		console.log('options.type',options.type);
 		this.setData({
 			type: parseInt(options.type)
 		});
