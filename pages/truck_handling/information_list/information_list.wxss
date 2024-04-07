@@ -44,8 +44,9 @@
 }
 .index .module .success::after {
   content: '\e669';
-  font-size: 37rpx;
-  color: #07c160;
+  font-size: 47rpx;
+  font-weight: 600;
+  color: #272636;
 }
 .index .module .error::after {
   content: '\e66a';

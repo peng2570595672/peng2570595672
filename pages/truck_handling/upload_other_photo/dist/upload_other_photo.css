@@ -90,14 +90,10 @@
   background: linear-gradient(to right, $deepThemeColor, $shallowThemeColor);
 }
 .page .btn.available {
-  -webkit-animation: btnFadeIn 0.3s;
-          animation: btnFadeIn 0.3s;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
+  animation: btnFadeIn 0.3s;
+  animation-fill-mode: forwards;
 }
 .page .btn.unavailable {
-  -webkit-animation: btnFadeOut 0.3s;
-          animation: btnFadeOut 0.3s;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
+  animation: btnFadeOut 0.3s;
+  animation-fill-mode: forwards;
 }

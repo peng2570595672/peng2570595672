@@ -13,7 +13,6 @@ Page({
         billingMethod: 1, // 多个套餐时候 默认展示日结
         listOfPackagesTrucks: [], // 赛选后展示货车的套餐
         activeTypeIndex: 0, // 控制结算方式类型 按钮
-        topProgressBar: 2,	// 进度条展示的长度 ，再此页面的取值范围 [2,3),默认为2,保留一位小数
         isFade: true,
         activeIndex: 0,
         isCloseUpperPart: false, // 控制 详情是否显示
@@ -34,6 +33,7 @@ Page({
         isRequest: false,// 是否请求中
         orderInfo: undefined,// 订单信息
         listOfPackages: undefined,
+        CopylistOfPackages: undefined,
         choiceIndex: 0,// 当前选中套餐下标
         activeEquitiesIndex: -1,// 当前选中权益包
         rightsAndInterestsList: [],// 加购权益列表
@@ -82,8 +82,14 @@ Page({
             return;
         }
         const packages = app.globalData.newPackagePageData;
+        this.setData({ // 复制一份所有套餐
+            CopylistOfPackages: parseInt(options.type) === 1 ? packages.divideAndDivideList : packages.alwaysToAlwaysList
+        });
+        let listOfPackagesTrucks = this.data.CopylistOfPackages.filter((item) => { // 从复制的所有货车套餐中进行筛选 默认展示
+            return item.billingMethod === this.data.billingMethod;
+        });
         this.setData({
-            listOfPackages: parseInt(options.type) === 1 ? packages.divideAndDivideList : packages.alwaysToAlwaysList
+            listOfPackages: listOfPackagesTrucks
         });
         await this.queryOrder();
         // await this.getSwiperHeight();
@@ -103,9 +109,6 @@ Page({
             app.globalData.signTongTongQuanAContract = 0;
             this.getOrderInfo(false);
         }
-    },
-    onReady (res) {
-
     },
     async getLicensePlateRestrictions () {
       const result = await util.getDataFromServersV2('consumer/system/veh/limit', {
@@ -453,8 +456,7 @@ Page({
         }
         let getAgreement = !this.data.getAgreement;
         this.setData({
-            getAgreement,
-            topProgressBar: getAgreement ? 2.7 : 2.4
+            getAgreement
         });
         // 跳转指定套餐模块
         this.controllShopProductPosition(this.data.activeIndex);
@@ -819,8 +821,10 @@ Page({
     },
     // 点击高亮
     btnHeightLight (e) {
+        console.log(e.currentTarget.dataset.billingmethod);
         let that = this;
         let index = e.currentTarget.dataset.index;
+        let billingmethod = e.currentTarget.dataset.billingmethod;
         let isFade = index !== that.data.activeIndex;
         let shopProductId = e.currentTarget.dataset.shopproductid;
         // 控制点击 套餐高亮
@@ -828,8 +832,9 @@ Page({
             isFade,
             activeIndex: isFade ? index : -1,
             getAgreement: false,
-            topProgressBar: isFade ? 2.4 : 2,
-            choiceIndex: isFade ? index : -1
+            choiceIndex: isFade ? index : -1,
+            billingMethod: billingmethod,
+            activeTypeIndex: billingmethod === 1 ? 0 : 1
         });
         if (isFade) { // 当套餐高亮时，默认展开 详情
             this.setData({

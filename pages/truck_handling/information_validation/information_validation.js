@@ -11,6 +11,9 @@ Page({
 		drivingLicenseFace: {
 			ocrObject: {}
 		}, // 行驶证正面
+		personIndex: 0, // 选择框当前选中索引
+		oldPersonIndex: 0, // 选择框当前选中索引 原始数据,用于与新数据比对(秒审)
+		personsArr: [2, 3, 4, 5, 6, 7, 8, 9], // 核载人数选择框
 		drivingLicenseBack: {
 			ocrObject: {}
 		}, // 行驶证反面
@@ -106,6 +109,18 @@ Page({
 				});
 			}
 		}
+	},
+	// 选择人数
+	onPersonsCapacityPickerChange (e) {
+		this.setData({
+			personIndex: parseInt(e.detail.value)
+		});
+		let drivingLicenseBack = this.data.drivingLicenseBack;
+		drivingLicenseBack.ocrObject.personsCapacity = this.data.personsArr[this.data.personIndex];
+		this.setData({
+			drivingLicenseBack,
+			isInput: true
+		});
 	},
 	// 上传图片
 	uploadOcrFile (path) {

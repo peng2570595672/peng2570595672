@@ -6,7 +6,6 @@
             style="height: 80rpx;line-height: 80rpx;padding-left: 40rpx; width: 100%;font-weight: bold;">
             正在办理货车ETC {{orderInfo.base.vehPlates||vehPlates}}
         </view>
-        <topProgressBar wx:else progressStage="{{topProgressBar}}" />
     </view>
     <!-- tab 选项框 -->
     <view class="package_tab" wx:if="{{isNewTrucks === 1}}">
@@ -31,7 +30,7 @@
     <view wx:if="{{isNewTrucks === 1}}">
         <view class="package" wx:for="{{listOfPackages}}" wx:key="index">
             <view class="module moduleOne iconfont {{'module' + index}} {{index === activeIndex ? 'btnHighLight' : ''}}"
-                data-index="{{index}}" data-shopproductid="{{item.shopProductId}}" catchtap="btnHeightLight">
+                data-index="{{index}}" data-billingMethod="{{item.billingMethod}}" data-shopproductid="{{item.shopProductId}}" catchtap="btnHeightLight">
                 <!-- 活动标签 限制字符8个 -->
                 <view class="active {{index === activeIndex ? 'activeChange' : ''}}" wx:if="{{item.activeTag}}">
                     <text>{{tools.limitNumber(item.activeTag,8)}}</text>

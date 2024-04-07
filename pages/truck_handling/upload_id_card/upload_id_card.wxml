@@ -15,7 +15,7 @@
             <view class="photo {{idCardFace.fileUrl || idCardBack.fileUrl ? 'changeTwo' : ''}}" data-type="1" catchtap="selectionPic">
                 <view class="upload {{idCardFace.fileUrl || idCardBack.fileUrl ? 'changeThree' : ''}}">
                     <view class="img-box" wx:if="{{faceStatus !== 4}}">
-                        <image class="ico" src="/pages/default/assets/camera.svg"></image>
+                        <image class="ico" src="/pages/default/assets/tru_camera.svg"></image>
                     </view>
                     <image class="success" wx:else src="{{idCardFace.fileUrl}}"></image>
                 </view>
@@ -26,7 +26,7 @@
             <view class="photo {{idCardFace.fileUrl || idCardBack.fileUrl ? 'changeTwo' : ''}}" data-type="2" catchtap="selectionPic">
                 <view class="upload {{idCardFace.fileUrl || idCardBack.fileUrl ? 'changeThree' : ''}}">
                     <view class="img-box" wx:if="{{backStatus !== 4}}">
-                        <image class="ico" src="/pages/default/assets/camera.svg"></image>
+                        <image class="ico" src="/pages/default/assets/tru_camera.svg"></image>
                     </view>
                     <image class="success" wx:else src="{{idCardBack.fileUrl}}"></image>
                 </view>
@@ -78,7 +78,7 @@
             <view class="photo {{idCardFaceNot.fileUrl || idCardBackNot.fileUrl ? 'changeTwo' : ''}}" data-type="1" data-flag="1" catchtap="selectionPic">
                 <view class="upload {{idCardFaceNot.fileUrl || idCardBackNot.fileUrl ? 'changeThree' : ''}}">
                     <view class="img-box" wx:if="{{faceStatusNot !== 4}}">
-                        <image class="ico" src="/pages/default/assets/camera.svg"></image>
+                        <image class="ico" src="/pages/default/assets/tru_camera.svg"></image>
                     </view>
                     <image class="success" wx:else src="{{idCardFaceNot.fileUrl}}"></image>
                 </view>
@@ -89,7 +89,7 @@
             <view class="photo {{idCardFaceNot.fileUrl || idCardBackNot.fileUrl ? 'changeTwo' : ''}}" data-type="2" data-flag="1" catchtap="selectionPic">
                 <view class="upload {{idCardFaceNot.fileUrl || idCardBackNot.fileUrl ? 'changeThree' : ''}}">
                     <view class="img-box" wx:if="{{backStatusNot !== 4}}">
-                        <image class="ico" src="/pages/default/assets/camera.svg"></image>
+                        <image class="ico" src="/pages/default/assets/tru_camera.svg"></image>
                     </view>
                     <image class="success" wx:else src="{{idCardBackNot.fileUrl}}"></image>
                 </view>

@@ -13,7 +13,7 @@
                     <view
                         class="upload {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeThree' : ''}}">
                         <view class="img-box" wx:if="{{faceStatus !== 4}}">
-                            <image class="ico" src="/pages/default/assets/camera.svg"></image>
+                            <image class="ico" src="/pages/default/assets/tru_camera.svg"></image>
                         </view>
                         <image class="success" wx:else src="{{drivingLicenseFace.fileUrl}}"></image>
                     </view>
@@ -26,7 +26,7 @@
                     <view
                         class="upload {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeThree' : ''}}">
                         <view class="img-box" wx:if="{{backStatus !== 4}}">
-                            <image class="ico" src="/pages/default/assets/camera.svg"></image>
+                            <image class="ico" src="/pages/default/assets/tru_camera.svg"></image>
                         </view>
                         <image class="success" wx:else src="{{drivingLicenseBack.fileUrl}}"></image>
                     </view>
@@ -38,17 +38,9 @@
         <!-- 模块二 信息显示 -->
         <view class="module moduleTwo" wx:if="{{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl}}">
             <view class="titles">信息核对</view>
-            <view class="tips">*请仔细核对以下信息，有误项可点击修改</view>
+            <view class="tips">*仅支持行驶证所有人为个人的车辆办理 </view>
             <view class="keyValue">
-                <view class="attrName">车主姓名</view>
-                <view class="attrValue">
-                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.owner}}"
-                        bindinput="onInputChangedHandle" data-key="owner" data-type="3"
-                        placeholder-class="input-placeholder" placeholder="请输入车主姓名" />
-                </view>
-            </view>
-            <view class="keyValue">
-                <view class="attrName">车牌号</view>
+                <view class="attrName left">车牌号</view>
                 <view class="attrValue" bindtap="handleToast">
                     <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.numberPlates}}"
                         disabled="disabled" bindinput="onInputChangedHandle" data-key="numberPlates" data-type="3"
@@ -56,15 +48,24 @@
                 </view>
             </view>
             <view class="keyValue">
-                <view class="attrName">发动机号</view>
+                <view class="attrName left">所有人</view>
                 <view class="attrValue">
-                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.engineNo}}"
-                        bindinput="onInputChangedHandle" data-key="engineNo" data-type="3"
-                        placeholder-class="input-placeholder" placeholder="请输入发动机号" />
+                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.owner}}"
+                        bindinput="onInputChangedHandle" data-key="owner" data-type="3"
+                        placeholder-class="input-placeholder" placeholder="请输入车主姓名" />
                 </view>
             </view>
             <view class="keyValue">
-                <view class="attrName">车辆识别代号</view>
+                <view class="attrName left">车辆类型</view>
+                <view class="attrValue" bindtap="handleToast">
+                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.vehicleType}}"
+                        disabled="{{true}}" bindinput="onInputChangedHandle" data-key="vehicleType" data-type="3"
+                        placeholder-class="input-placeholder" placeholder="请输入车辆类型" />
+                </view>
+            </view>
+
+            <view class="keyValue">
+                <view class="attrName left">车辆识别代号VIN</view>
                 <view class="attrValue">
                     <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.vin}}"
                         bindinput="onInputChangedHandle" data-key="vin" data-type="3"
@@ -72,15 +73,34 @@
                 </view>
             </view>
             <view class="keyValue">
-                <view class="attrName">车辆类型</view>
-                <view class="attrValue" bindtap="handleToast">
-                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.vehicleType}}"
-                        disabled="{{true}}" bindinput="onInputChangedHandle" data-key="vehicleType" data-type="3"
-                        placeholder-class="input-placeholder" placeholder="请输入车辆类型" />
+                <view class="attrName left">核载人数</view>
+                <view class="attrValue">
+                    <picker class="input" bindchange="onPersonsCapacityPickerChange" value="{{personIndex}}"
+                        range="{{personsArr}}">
+                        <view>{{personsArr[personIndex]}}</view>
+                    </picker>
                 </view>
             </view>
             <view class="keyValue">
-                <view class="attrName">地址</view>
+                <view class="attrName left">车轴数</view>
+                <view class="attrValue">
+                    <picker bindchange="bindPersonsCarTypeChange" value="{{carType}}" range="{{carTypeArr}}"
+                        range-key="name">
+                        <view class="choice-axle iconfont">{{carType !== -1 ? carTypeArr[carType].name : '请真实选择车轴数'}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+            <!-- <view class="keyValue">
+                <view class="attrName left">发动机号</view>
+                <view class="attrValue">
+                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.engineNo}}"
+                        bindinput="onInputChangedHandle" data-key="engineNo" data-type="3"
+                        placeholder-class="input-placeholder" placeholder="请输入发动机号" />
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">地址</view>
                 <view class="attrValue">
                     <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.address}}"
                         bindinput="onInputChangedHandle" data-key="address" data-type="3"
@@ -88,7 +108,7 @@
                 </view>
             </view>
             <view class="keyValue">
-                <view class="attrName">使用性质</view>
+                <view class="attrName left">使用性质</view>
                 <view class="attrValue">
                     <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.useCharacter}}"
                         bindinput="onInputChangedHandle" data-key="useCharacter" data-type="3"
@@ -96,7 +116,7 @@
                 </view>
             </view>
             <view class="keyValue">
-                <view class="attrName">品牌型号</view>
+                <view class="attrName left">品牌型号</view>
                 <view class="attrValue">
                     <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.model}}"
                         bindinput="onInputChangedHandle" data-key="model" data-type="3"
@@ -104,7 +124,7 @@
                 </view>
             </view>
             <view class="keyValue">
-                <view class="attrName">注册日期</view>
+                <view class="attrName left">注册日期</view>
                 <view class="attrValue">
                     <picker mode="date" value="{{drivingLicenseFace.ocrObject.resgisterDate}}"
                         bindchange="resgisterDatePickerChange">
@@ -113,7 +133,7 @@
                 </view>
             </view>
             <view class="keyValue">
-                <view class="attrName">发证日期</view>
+                <view class="attrName left">发证日期</view>
                 <view class="attrValue">
                     <picker mode="date" value="{{drivingLicenseFace.ocrObject.issueDate}}"
                         bindchange="issueDatePickerChange">
@@ -122,7 +142,7 @@
                 </view>
             </view>
             <view class="keyValue">
-                <view class="attrName">档案编号</view>
+                <view class="attrName left">档案编号</view>
                 <view class="attrValue">
                     <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.fileNumber}}"
                         bindinput="onInputChangedHandle" data-key="fileNumber" data-type="4"
@@ -130,33 +150,17 @@
                 </view>
             </view>
             <view class="keyValue">
-                <view class="attrName">核载人数</view>
-                <view class="attrValue">
-                    <picker class="input" bindchange="onPersonsCapacityPickerChange" value="{{personIndex}}"
-                        range="{{personsArr}}">
-                        <view>{{personsArr[personIndex]}}人</view>
-                    </picker>
-                </view>
-            </view>
-            <view class="keyValue">
-                <view class="attrName">总质量</view>
+                <view class="attrName left">总质量</view>
                 <view class="attrValue">
                     <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.totalMass}}"
                         bindinput="onInputChangedHandle" data-key="totalMass" data-type="4"
                         placeholder-class="input-placeholder" placeholder="请输入总质量" />
                 </view>
-            </view>
+            </view> -->
             <view class="keyValue">
-                <view class="attrName">车轴数</view>
-                <picker bindchange="bindPersonsCarTypeChange" value="{{carType}}" range="{{carTypeArr}}"
-                    range-key="name">
-                    <view class="choice-axle iconfont">{{carType !== -1 ? carTypeArr[carType].name : '请真实选择车轴数'}}</view>
-                </picker>
-            </view>
-            <view class="keyValue">
-                <view class="attrName">车轮数</view>
+                <view class="attrName left">车轮数</view>
                 <view class="attrValue">
-                    
+
                     <input class="input" type="number" maxlength="2" placeholder="请输入车轮数量" value="{{wheelCountNo}}"
                         data-key="wheelCountNo" data-type="4" bindinput="onInputChangedHandle" />
                 </view>
@@ -170,7 +174,7 @@
                 <!--            </picker>-->
             </view>
             <view class="keyValue">
-                <view class="attrName">整备质量</view>
+                <view class="attrName left">整备质量</view>
                 <view class="attrValue">
                     <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.curbWeight}}"
                         bindinput="onInputChangedHandle" data-key="curbWeight" data-type="4"
@@ -178,7 +182,7 @@
                 </view>
             </view>
             <view class="keyValue">
-                <view class="attrName">核定载质量</view>
+                <view class="attrName left">核定载质量</view>
                 <view class="attrValue">
                     <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.loadQuality}}"
                         bindinput="onInputChangedHandle" data-key="loadQuality" data-type="4"
@@ -186,7 +190,7 @@
                 </view>
             </view>
             <view class="keyValue">
-                <view class="attrName">外廓尺寸</view>
+                <view class="attrName left">外廓尺寸</view>
                 <view class="attrValue">
                     <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.size}}"
                         bindinput="onInputChangedHandle" data-key="size" data-type="4"
@@ -194,7 +198,7 @@
                 </view>
             </view>
             <view class="keyValue">
-                <view class="attrName">准牵引总质量</view>
+                <view class="attrName left">准牵引总质量</view>
                 <view class="attrValue">
                     <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.tractionMass}}"
                         bindinput="onInputChangedHandle" data-key="tractionMass" data-type="4"
@@ -202,14 +206,14 @@
                 </view>
             </view>
             <view class="keyValue">
-                <view class="attrName">备注</view>
+                <view class="attrName left">备注</view>
                 <view class="attrValue">
                     <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.remark}}"
                         bindinput="onInputChangedHandle" data-key="remark" placeholder-class="input-placeholder" />
                 </view>
             </view>
             <view class="keyValue">
-                <view class="attrName">检验记录</view>
+                <view class="attrName left">检验记录</view>
                 <view class="attrValue">
                     <textarea class="textarea" auto-height="{{true}}" type="text"
                         value="{{drivingLicenseBack.ocrObject.recode}}" bindinput="onInputChangedHandle"

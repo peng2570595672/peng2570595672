@@ -97,35 +97,40 @@ mixinsPositionPack($position = relative)
     /* 模块二 信息显示 */
     .moduleTwo
         padding 40rpx 0 20rpx 0
+        color #666
         .tips
-            font-size 20rpx
+            font-size 25rpx
             font-weight 400
-            color #F19C38
+            color #666
             margin 10rpx 36rpx
             font-family PingFangSC-Regular, PingFang SC
         .keyValue
-            height 66rpx
+            height 86rpx
             display flex
             align-items center
-            justify-content space-between
+            justify-content space-around
             margin 0 36rpx 20rpx 36rpx
-            border-bottom 1px solid #E0E0E0
             font-family PingFangSC-Regular, PingFang SC
+            .left
+                width 120rpx
+                padding 2rpx
             .attrName
                 font-size 28rpx
-                font-weight 400
+                font-weight 550
+                text-align right 
                 color #1E1E1E
             .attrValue
+                width 70%
+                border-bottom 1px solid #E0E0E0
                 height 64rpx
                 display flex
                 align-items center
                 .input
                     display block
                     max-width 400rpx
-                    font-size 28rpx
-                    font-weight 600
-                    color #262626
-                    text-align right
+                    font-size 26rpx
+                    color #333
+                    text-align left
                     word-wrap break-word
                     font-family PingFangSC-Semibold, PingFang SC
                     opacity 0.9
