@@ -511,20 +511,14 @@ Page({
 			return;
 		}
 		if (obj.isNewTrucks === 1) { // 货车
-			// 	wx.uma.trackEvent('my_etc_for_contract_management');
-			// 	util.go(`/pages/truck_handling/contract_management/contract_management`);
-			// 	return;
-			// 2.0 立即签约
+			if (obj.orderType !== 31) {
+				// 货车签约
+				util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
+			}
 			wx.uma.trackEvent('my_etc_for_sign_contract');
 			app.globalData.isSalesmanOrder = obj.orderType === 31;
 			app.globalData.signAContract = -1;
-			await this.weChatSign(obj);
 		}
-		// if (obj.contractPlatformId === '500338116821778434') {
-		// 	// 签约ETC+
-		// 	util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
-		// 	return;
-		// }
 		app.globalData.isSecondSigning = false;
 		app.globalData.isSecondSigningInformationPerfect = obj.status === 1;
 		if (obj.logisticsId !== 0 || obj.obuStatus === 5 || obj.obuStatus === 1) app.globalData.isSecondSigning = true;

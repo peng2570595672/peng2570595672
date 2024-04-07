@@ -220,11 +220,10 @@ Page({
 			const path = result.data?.accountNo ? 'contract_management' : 'binding_account';
 			util.go(`/pages/truck_handling/${path}/${path}`);
 		}
-		if (this.data.orderInfo.isNewTrucks === 1 && this.data.orderInfo.contractPlatformId === '500338116821778436') {
-			// 货车签约ETC+
+		if (this.data.orderInfo.isNewTrucks === 1) {
+			// 货车签约
 			util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
         }
-		// await this.weChatSign();
 	},
 	// 微信签约
 	async weChatSign () {

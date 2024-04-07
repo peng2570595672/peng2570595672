@@ -113,7 +113,7 @@ Page({
         interval: 5000, // 轮播图切换时间
         Hei: 628, // banner默认高度
         HeiList: [], // banner 图片高度集合
-        moduleOneTypeList: [// 分类默认数据
+        moduleOneTypeList: [ // 分类默认数据
             {
                 appId: '',
                 funcDesc: '第五代新设备',
@@ -133,7 +133,7 @@ Page({
                 isShow: true,
                 // jumpUrl: '/pages/truck_handling/truck_receiving_address/truck_receiving_address',// 办理页
                 // jumpUrl: '/pages/truck_handling/index/index',// 落地页
-                jumpUrl: '/pages/etc_handle/etc_handle?isNewTrucks=1',// 公共落地页
+                jumpUrl: '/pages/etc_handle/etc_handle?isNewTrucks=1', // 公共落地页
                 // jumpUrl: '/pages/personal_center/my_order/my_order',// 订单
                 templateId: ['']
             }
@@ -955,19 +955,29 @@ Page({
                 isShowHandle: list.filter(item => item.obuStatus !== 1 && item.obuStatus !== 2 && item.obuStatus !== 5).length > 0
             });
             let isAlertToSignObj;
-            list.map((item,index) => {
+            list.map((item, index) => {
                 if (this.data.orderStr.includes(item.id) && !app.globalData.isAlertToSign) {
                     isAlertToSignObj = item;
                 }
                 // 平安获客 status -1 删除（取消办理），0-资料待完善，1-资料已完善 2-升级订单已确认
                 if (app.globalData.pingAnBindGuests?.pingAnBindVehplates.length > 0 && !app.globalData.isQingHaiHighSpeed && !this.data.PingAn && app.globalData.pingAnBindGuests && item.status === 1 && app.globalData.isShowOncepingAnBindGuestsPop === 0 && index === 0) {
                     if (app.globalData.pingAnBindGuests.vehKeys === '*' || (app.globalData.pingAnBindGuests.vehKeys.includes(item.vehPlates.substring(0, 1)) && !app.globalData.pingAnBindGuests.filterKeys.includes(item.vehPlates.substring(0, 2)))) {
-                        this.setData({PingAn: true});
+                        this.setData({
+                            PingAn: true
+                        });
                         app.globalData.isShowOncepingAnBindGuestsPop = 1;
                         if (item.vehPlates.includes('云')) {
-                            this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)'});
+                            this.selectComponent('#popTipComp').show({
+                                type: 'newPop',
+                                title: '云',
+                                bgColor: 'rgba(0,0,0, 0.6)'
+                            });
                         } else {
-                            this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)'});
+                            this.selectComponent('#popTipComp').show({
+                                type: 'newPop',
+                                title: '全国',
+                                bgColor: 'rgba(0,0,0, 0.6)'
+                            });
                         }
                     }
                 }
@@ -1012,7 +1022,7 @@ Page({
                 }
                 if (item.isNewTrucks === 1) {
                     truckList.push(item);
-                    console.log('truckOrderInfo',truckList);
+                    console.log('truckOrderInfo', truckList);
                     if (item.obuStatus === 1 || item.obuStatus === 5) {
                         activationTruckOrder.push(item.obuCardType);
                         truckActivationOrderList.push(item.id);
@@ -1090,9 +1100,9 @@ Page({
                 truckOrderInfo: terminationTruckOrder || passengerCarListNotTruckActivation, // 解约订单 || 拉取第一条
                 passengerCarOrderInfo: terminationOrder || passengerCarListNotActivation // 解约订单 || 拉取第一条
             });
-            console.log('测试',list[0].isNewTrucks,this.data.isTrucks);
-            console.log('货车：',truckList);
-            console.log('货车1：',this.data.truckOrderInfo);
+            console.log('测试', list[0].isNewTrucks, this.data.isTrucks);
+            console.log('货车：', truckList);
+            console.log('货车1：', this.data.truckOrderInfo);
             app.globalData.truckLicensePlate = passengerCarListNotActivation ? passengerCarListNotActivation.vehPlates : ''; // 存货车出牌
             // 上一页返回时重置
             this.setData({
@@ -1517,20 +1527,19 @@ Page({
             this.onClickHighSpeedSigning(obj);
             return;
         }
-        if (obj.isNewTrucks === 1 && obj.contractPlatformId === '500338116821778436') {
-            // wx.uma.trackEvent('index_for_contract_management'); // 取消多内容签约
-            // util.go(`/pages/truck_handling/contract_management/contract_management`);
-			// 货车签约ETC+
-			util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
-			return;
-        }
         app.globalData.isSecondSigning = false;
         app.globalData.isSecondSigningInformationPerfect = false;
         app.globalData.contractStatus = obj.contractStatus;
         if (obj.status === 1) app.globalData.isSecondSigningInformationPerfect = true;
         if (obj.logisticsId !== 0 || obj.obuStatus === 5 || obj.obuStatus === 1) {
-            app.globalData
-                .isSecondSigning = true;
+            app.globalData.isSecondSigning = true;
+        }
+        if (obj.isNewTrucks === 1) {
+            // wx.uma.trackEvent('index_for_contract_management'); // 取消多内容签约
+            // util.go(`/pages/truck_handling/contract_management/contract_management`);
+            // 货车签约
+            util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
+            return;
         }
         if (obj.contractStatus === 2) {
             app.globalData.orderInfo.orderId = obj.id;
@@ -1858,32 +1867,32 @@ Page({
         // });
     },
     // 针对特定号码 作续签弹窗提示
-	renewWhitelistJudgement (e) {
-		console.log(e);
-		let that = this;
-		let renew = e.currentTarget.dataset.renew;
-		if (app.globalData.renewWhitelist.includes(app.globalData.mobilePhone) && !wx.getStorageSync('renewWhitelist')) {
-			that.selectComponent('#popTipComp').show({
-				type: 'renewWhitelist',
-				title: '协议续签提醒',
-				btnCancel: '不同意',
-				btnconfirm: '同意',
-				callBack: () => {
-					if (renew === '1') {
+    renewWhitelistJudgement (e) {
+        console.log(e);
+        let that = this;
+        let renew = e.currentTarget.dataset.renew;
+        if (app.globalData.renewWhitelist.includes(app.globalData.mobilePhone) && !wx.getStorageSync('renewWhitelist')) {
+            that.selectComponent('#popTipComp').show({
+                type: 'renewWhitelist',
+                title: '协议续签提醒',
+                btnCancel: '不同意',
+                btnconfirm: '同意',
+                callBack: () => {
+                    if (renew === '1') {
                         that.goToMyEtc(e);
-					} else if (renew === '3') {
+                    } else if (renew === '3') {
                         that.onClickVehicle();
-					} else if (renew === '6') {
+                    } else if (renew === '6') {
                         that.goPathBus(e);
                     } else if (renew === '7') {
                         that.onClickBill(e);
                     } else {
                         that.goPath(e);
-					}
-				}
-			});
-		} else {
-			if (renew === '1') {
+                    }
+                }
+            });
+        } else {
+            if (renew === '1') {
                 that.goToMyEtc(e);
             } else if (renew === '3') {
                 that.onClickVehicle();
@@ -1894,6 +1903,6 @@ Page({
             } else {
                 that.goPath(e);
             }
-		}
-	}
+        }
+    }
 });

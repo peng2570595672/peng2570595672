@@ -418,7 +418,6 @@ Page({
 			util.showLoading({
 				title: '加载中...'
 			});
-			this.onClickBackToSign(obj);
 			// ETC服务状态提醒
 			wx.requestSubscribeMessage({
 				tmplIds: ['Tz71gtuo8XI6BCqb0L8yktgHtgG2OyRSYLffaPUdJU8'],
@@ -516,8 +515,8 @@ Page({
 		if (obj.logisticsId !== 0 || obj.obuStatus === 5 || obj.obuStatus === 1) app.globalData.isSecondSigning = true;
 		// 新流程
 		console.log('obj.contractStatus',obj.contractStatus);
-		if (obj.isNewTrucks === 1 && obj.contractPlatformId === '500338116821778436') {
-			// 货车签约ETC+
+		if (obj.isNewTrucks === 1) {
+			// 货车签约
 			util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
 			return;
         }
