@@ -1,0 +1,279 @@
+@import "../../../style/base.styl";
+.index
+	width 100%
+	background rgba(246,246,246,1);
+	margin 0
+	overflow-x hidden
+	//顶部
+	.top
+		width 100%
+		padding 40rpx
+		background: linear-gradient(180deg, #a0e38b 0%, rgba(132, 209, 87, 0) 100%);
+		.bg-image
+			height 45vh
+			background-image url("https://file.cyzl.com/g001/M00/20/C1/oYYBAGBXGReAAL9iAAFY0ECq4wI874.png")
+			background-size cover
+		.back
+			position absolute
+			left 20rpx
+			top 60rpx
+			&::before
+				content '\e60e'
+				color #000000
+				font-size 50rpx
+	//用户导航栏
+	.btn-content
+		display flex
+		flex-direction column
+		justify-content center
+		text-align center
+		width 610rpx
+		height 350rpx
+		margin 0 auto
+		margin-top -160rpx
+		padding 30rpx
+		padding-top 24rpx
+		padding-bottom 32rpx
+		z-index 111
+		border-radius 20rpx
+		background rgba(255,255,255,1)
+		.online-tips
+			color #33333E
+			font-size 48rpx
+			font-weight bold
+		.memo-content
+			margin-top 10rpx
+			margin-bottom 0rpx
+			color rgba(102, 102, 110, 1)
+			font-size 28rpx
+			&>text:nth-child(2)
+				color #F7B500
+		.btn
+			display flex
+			margin 26rpx 0
+			height 100rpx
+			align-items center
+			justify-content center
+			background: linear-gradient(90deg, rgba(0, 175, 98, 1) 0%, rgba(104, 211, 63, 1) 100%);
+			box-shadow: 0rpx 4rpx 5rpx 0rpx rgba(132, 209, 87, 0.2);
+			border-radius: 50rpx;
+			font-size: 40rpx;
+			font-family: PingFangSC-Medium, PingFang SC;
+			font-weight: 500;
+			color: #FFFFFF;
+		.discount-tips
+			margin-top 20rpx
+			color transparent
+			text-shadow #404040 0 0 1rpx
+			font-size 22rpx
+	.handle-desc
+		width 610rpx
+		margin 0 auto
+		margin-top 32rpx
+		background: #FFFFFF;
+		box-shadow: 2rpx 2rpx 23rpx 0rpx rgba(126, 132, 156, 0.1);
+		border-radius: 32rpx;
+		padding 30rpx
+		.equities-list
+			display flex
+			justify-content space-between
+			padding-top 34rpx
+			.item
+				position relative
+				width 290rpx
+				height 125rpx
+				display flex
+				align-items center
+				justify-content center
+				border: 2rpx solid rgba(212,237,206, .3);
+				.details
+					position absolute
+					display flex
+					justify-content center
+					align-items center
+					right 10rpx
+					top 10rpx
+					width: 56rpx;
+					height: 26rpx;
+					background: #00B15F;
+					border-radius: 13rpx;
+					font-size: 18rpx;
+					font-family: PingFangSC-Regular, PingFang SC;
+					font-weight: 400;
+					color: #FFFFFF;
+				image
+					width 48rpx
+					margin-right 20rpx
+		.process-title
+			display flex
+			align-items center
+			font-size 40rpx
+			height 50rpx
+			font-family: PingFangSC-Medium, PingFang SC
+			font-weight: Medium;
+			color: transparent;
+			text-shadow #33333E 0 0 3rpx
+			&::before
+				margin-right 10rpx
+				content ''
+				width 10rpx
+				height 10rpx
+				border 6rpx solid #14AC69
+				border-radius 50%
+		.material
+			margin-top 40rpx
+			margin-left 28rpx
+			font-size: 32rpx;
+			font-family: PingFangSC-Medium, PingFang SC;
+			font-weight: 500;
+			color: transparent;
+			text-shadow #15AD69 0 0 3rpx
+		.photo
+			display flex
+			margin-top 20rpx
+			background: #F9F9F9
+			border-radius: 20rpx;
+			padding 40rpx 30rpx
+			font-size: 24rpx;
+			font-family: PingFangSC-Medium, PingFang SC;
+			font-weight: 500;
+			color: rgba(102,102,110,.85)
+			text-align center
+			&>.photo-item:nth-child(1)
+				display flex
+				flex-direction column
+				justify-content center
+				align-items center
+				flex 1
+				.image
+					width 120rpx
+					height 72rpx
+				& > text
+					margin-top 8rpx
+				.memo
+					color rgba(102,102,109,0.85)
+					font-size: 12rpx;
+			&>.photo-item:nth-child(2)
+				display flex
+				flex-direction column
+				justify-content center
+				align-items center
+				flex 1
+				.image
+					width 124rpx
+					height 74rpx
+				& > text
+					margin-top 8rpx
+				.memo
+					color rgba(102,102,109,0.85)
+					font-size: 12rpx;
+			&>.photo-item:nth-child(3)
+				display flex
+				flex-direction column
+				justify-content center
+				align-items center
+				flex 1
+				.img-box
+					margin-top 40rpx
+					position relative
+					padding-bottom 10rpx
+					.img
+						width 124rpx
+						height 54rpx
+				& > text
+					margin-top 8rpx
+				.memo
+					color rgba(102,102,109,0.85)
+					font-size: 12rpx;
+			&>.photo-item:nth-child(4)
+				display flex
+				flex-direction column
+				justify-content center
+				align-items center
+				flex 1
+				.img-box
+					margin-top 20rpx
+					position relative
+					padding-bottom 10rpx
+					.img
+						width 74rpx
+						height 52rpx
+				& > text
+					margin-top 8rpx
+				.memo
+					color rgba(102,102,109,0.85)
+					font-size: 12rpx;
+		.process
+			display flex
+			margin-top 20rpx
+			border-radius: 20rpx;
+			padding 40rpx 30rpx
+			font-size: 24rpx;
+			font-family: PingFangSC-Medium, PingFang SC;
+			font-weight: 500;
+			color: rgba(102,102,110,.85)
+			text-align center
+			margin-bottom 60rpx
+			&>.photo-item:nth-child(odd)
+				display flex
+				flex-direction column
+				justify-content center
+				align-items center
+				width 100rpx
+				.image
+					width 52rpx
+				& > text
+					margin-top 16rpx
+				.memo
+					color rgba(102,102,109,0.85)
+					font-size: 12rpx;
+			&>.photo-item:nth-child(3)
+				width 140rpx
+			&>.line:nth-child(even)
+				display flex
+				justify-content center
+				width 48rpx
+				border-top 2rpx dashed #00B85C
+				margin-top 24rpx
+		.tab
+			margin-top 28rpx
+			width 558rpx
+			margin-left 26rpx
+			margin-bottom 20rpx
+			border: 1rpx solid rgba(151, 151, 151, 0.24)
+			&>.tab-item
+				display flex
+				color rgba(102,102,109,0.85)
+				height 59rpx
+				align-items center
+				border: none
+				font-size 20rpx;
+				justify-items center
+				border-bottom 1rpx solid #F3F3F3
+				& > view
+					display flex
+					height 59rpx
+					justify-content center
+					align-items center
+				& > view:first-child
+					width 154rpx
+					font-size 24rpx
+					font-family PingFangSC-Medium, PingFang SC
+					font-weight 500
+					color #33333E
+				& > view:nth-child(2)
+					width 400rpx
+					border-left 1rpx solid #F3F3F3
+					font-size 20rpx
+					font-family PingFangSC-Medium, PingFang SC
+					font-weight 500
+					color #FFC000
+			& > view.tab-item:last-child
+				border-bottom 0
+	.bottom
+		margin-top 40rpx
+		padding-bottom 80rpx
+		height 40rpx
+		text-align center
+		font-size 24rpx
+		color rgba(3,158,235,0.85)
