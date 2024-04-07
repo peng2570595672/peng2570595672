@@ -1,0 +1,23 @@
+<view class="binding_account">
+    <view class="title iconfont">你已成功开通II账户</view>
+    <view class="card" wx:if="{{type === 1}}">
+        <view class="name iconfont">
+            <text>中国工商银行</text>
+        </view>
+        <view class="card-no">{{bankCardInfo.accountNo}}</view>
+    </view>
+    <view class="card bocom" wx:else>
+        <view class="name">
+            <text>中国交通银行</text>
+        </view>
+        <view class="card-no">{{bankCardInfo.accountNo}}</view>
+    </view>
+	<!--	按钮开始-->
+	<view class="btn" catchtap="onclickSign">
+    <!-- <view class="animate" wx:if="{{isRequest}}"></view> -->
+    签约代扣通行费</view>
+	<!--	按钮结束-->
+    <view class="tips">需签约银联快捷支付代扣通行费</view>
+</view>
+
+<privacy_popup></privacy_popup>

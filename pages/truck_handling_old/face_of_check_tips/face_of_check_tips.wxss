@@ -1,0 +1,88 @@
+@keyframes btnFadeIn {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes btnFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.2;
+  }
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 98rpx 52rpx 108rpx;
+  box-sizing: border-box;
+  background: #f6f6f6;
+  min-height: 100vh;
+}
+.container .h3 {
+  font-size: 40rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #33333e;
+  line-height: 56rpx;
+  text-align: center;
+}
+.container .h4 {
+  font-size: 32rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #33333e;
+  line-height: 56rpx;
+  padding-top: 32rpx;
+}
+.container .logo {
+  text-align: center;
+  padding: 102rpx 0;
+}
+.container .logo .img {
+  width: 232rpx;
+  height: 232rpx;
+}
+.container .tips {
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #66666e;
+  line-height: 44rpx;
+  padding-bottom: 32rpx;
+}
+.container .tips::before {
+  content: '';
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  background: #00b85c;
+  margin-right: 16rpx;
+}
+.container .fill {
+  flex: 1;
+}
+.container .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 98rpx;
+  font-size: 40rpx;
+  font-weight: 500;
+  color: #fff;
+  border-radius: 49rpx;
+  background: linear-gradient(to right, #15ad69, #84d157);
+}
+.container .btn.available {
+  animation: btnFadeIn 0.3s;
+  animation-fill-mode: forwards;
+}
+.container .btn.unavailable {
+  animation: btnFadeOut 0.3s;
+  animation-fill-mode: forwards;
+}

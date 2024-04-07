@@ -239,7 +239,7 @@ Page({
 				platesColor: '0'
 			};
 			const res1 = await util.getDataFromServersV2('consumer/order/checkIdCardAndVehPlate', data);
-			if (res1.code === 0) {
+			if (res1.code !== 0) {
 				// 校验通过
 				const pages = getCurrentPages();
 				const prevPage = pages[pages.length - 2];// 上一个页面

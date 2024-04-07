@@ -1,0 +1,36 @@
+<view class="page">
+    <view class="title">请按要求上传证件</view>
+    <!--上传身份证部分开始-->
+    <view class="photo-wrapper">
+        <!--上传道路运输证开始-->
+        <view class="photo {{certificateStatus !== 1 ? 'not-border' : ''}}" data-type="12" catchtap="selectionPic">
+            <view class="not-upload" wx:if="{{certificateStatus !== 4}}">
+                <view class="img-box">
+                    <image class="img" src="/pages/truck_handling/assets/road_transport_certificate.png"></image>
+                    <image class="ico" wx:if="{{certificateStatus === 1}}" src="/pages/truck_handling/assets/icon_camera_white.png"></image>
+                </view>
+                <view>道路运输证</view>
+            </view>
+            <view class="identify" wx:if="{{certificateStatus === 2 || certificateStatus === 3}}">
+                <image class="refresh" src="/pages/truck_handling/assets/refresh.png"></image>
+                <view>{{certificateStatus === 2 ? '识别中…' : '重新拍摄'}}</view>
+            </view>
+            <image class="success" wx:if="{{certificateStatus === 4}}" src="{{transportationLicenseObj.fileUrl}}"></image>
+        </view>
+        <!--上传道路运输证结束-->
+    </view>
+    <view class="line"></view>
+    <view class="choice">
+        <view class="title">请勾选出道路运输证经莒范围</view>
+        <view class="sub-title">如上传为IC卡运输证,请联系办理机构核实经营范围</view>
+        <view class="choice-list">
+            <view wx:for="{{list}}" wx:key="index" class="list-item iconfont {{choiceActiveIndex === index ? 'active' : ''}}" data-index="{{index}}" catchtap="choiceTheType">
+                {{item.name}}
+            </view>
+        </view>
+    </view>
+    <view class="fill"></view>
+    <view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next">确认资料并保存</view>
+    <information-validation-prompt promptObject="{{promptObject}}" id="notFinishedOrder"></information-validation-prompt>
+</view>
+<privacy_popup></privacy_popup>

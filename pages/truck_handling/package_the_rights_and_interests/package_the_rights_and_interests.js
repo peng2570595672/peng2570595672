@@ -430,24 +430,6 @@ Page({
         } else {
             util.go(`/pages/agreement_documents/new_self_buy_equipmemnt_agreement/index`);
         }
-        // if (item.pledgeType === 4) {
-        // 	// ETC押金办理模式 协议
-        // 	return util.go('/pages/agreement_documents/margin_user_handling_agreement/margin_user_handling_agreement');
-        // }
-        // // 1-自购设备 2-免费设备 3-自购(其他)
-        // if (item?.environmentAttribute === 2) {
-        // 	if (item.etcCardId === 1) {
-        // 		util.go(`/pages/agreement_documents/free_equipment_agreement/free_equipment_agreement`);
-        // 	} else {
-        // 		util.go(`/pages/agreement_documents/agreement/agreement`);
-        // 	}
-        // } else {
-        // 	if (item.isSignTtCoupon === 1) {
-        // 		util.go(`/pages/agreement_documents/self_buy_equipmemnt_agreement/self_buy_equipmemnt_agreement`);
-        // 	} else {
-        // 		util.go(`/pages/agreement_documents/new_self_buy_equipmemnt_agreement/index`);
-        // 	}
-        // }
     },
     // 黔通用户协议
     onClickGoQianTongAgreement () {

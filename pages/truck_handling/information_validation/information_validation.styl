@@ -1,250 +1,176 @@
-@import "../../../style/base.styl";
-@import "../../../style/my_animate.styl";
-.information_validation
-	display flex
-	flex-direction column
-	min-height 100vh
-	background #F6F6F6
-	// 上传身份证
-	.photo-wrapper
-		display flex
-		justify-content space-between
-		padding 68rpx 80rpx 42rpx 60rpx
-		& > view:first-child
-			margin-right 30rpx
-		.photo
-			position relative
-			overflow hidden
-			width 290rpx
-			height 230rpx
-			border 4rpx dashed rgba(39, 178, 102, .53)
-			border-radius 20rpx
-			text-align center
-			.not-upload
-				padding 30rpx 0
-				font-size 28rpx
-				font-family PingFangSC-Regular, PingFang SC
-				font-weight 400
-				color $fontColor3
-				line-height 40px
-				.img-box
-					height 98rpx
-					position relative
-					.img
-						width 162rpx
-						height 98rpx
-					.ico
-						position absolute
-						left 0
-						right 0
-						top 0
-						bottom 0
-						margin auto
-						width 43rpx
-						height 36rpx
-			.identify
-				position absolute
-				z-index 1
-				top 0
-				left 0
-				width 100%
-				height 100%
-				background rgba(47, 181, 101, .64)
-				font-size 24rpx
-				color #fff
-				image
-					width 50rpx
-					height 50rpx
-					margin 70rpx 0 8rpx
-			.success
-				width 100%
-				height 100%
-			&.not-border
-				border 0
-	// 标题
-	.title
-		margin-top 40rpx
-		display flex
-		align-items center
-		padding 0 40rpx
-		height 56rpx
-		font-size 40rpx
-		font-weight 500
-		&::before
-			margin-right 24rpx
-			content ''
-			width 10rpx
-			height 10rpx
-			border 6rpx solid $fontColor
-			border-radius 50%
-	// 提示
-	.tips
-		margin-top 10rpx
-		display flex
-		align-items center
-		padding-left 80rpx
-		height 40rpx
-		font-size 24rpx
-		color $fontColor6
-	// 内容
-	.content-wrapper
-		margin 20rpx 40rpx 10rpx
-		min-height 352rpx
-		box-shadow:4rpx 12rpx 56rpx 0 rgba(102,102,109,0.19)
-		border-radius: 12px
-		background #fff
-		overflow hidden
-		.item
-			display flex
-			align-items center
-			padding 0 40rpx
-			font-size 32rpx
-			color $fontColor9
-			border-bottom 1rpx solid #F8F8F8
-			box-sizing border-box
-			& > view
-				padding-top 30rpx
-				padding-bottom 10rpx
-				flex .35
-			& > input,
-			& > picker,
-			& > textarea
-				padding-top 30rpx
-				padding-bottom 10rpx
-				flex .65
-				font-weight 400
-				line-height 48rpx
-				text-align right
-				color $fontColor6
-			& > textarea
-				line-height 0
-			.ownership-type
-				display flex
-				color $fontColor6
-				flex .65
-				justify-content right
-				& > view
-					flex 1
-					justify-content right
-					text-align right
-					margin-left 50rpx
-					&::before
-						content ''
-						display inline-block
-						width 20rpx
-						height 20rpx
-						border-radius 50%
-						background #C8C8C8
-						margin-right 10rpx
-					&.active
-						&::before
-							background linear-gradient(50deg, #14AC69 0%, #84D157 100%)
-				& > view:first-child
-					margin-left 20rpx
-			&.axle
-				display flex
-				border 0
-				.choice-axle
-					flex 1
-					display flex
-					align-items center
-					justify-content center
-					text-align center
-					background #F3F3F3
-					position relative
-					&::after
-						position absolute
-						right 20rpx
-						content '\e60e'
-						transform rotateZ(-90deg)
-				input
-					display flex
-					align-items center
-					justify-content center
-					text-align center
-		.parameter
-			display block
-			border 1rpx solid rgba(151,151,151,.34)
-			margin 10rpx 40rpx 42rpx
-			padding-right 20rpx
-			padding-left 24rpx
-			& > view:first-child
-				border-bottom 1rpx solid #EAEAEA
-			.parameter-item
-				display flex
-				height 98rpx
-				color $fontColor6
-				.parameter-title
-					flex .35
-					font-size 24rpx
-					line-height 34rpx
-					padding-top 24rpx
-				.parameter-detailed
-					display flex
-					flex .65
-					& > view
-						padding-top 14rpx
-						& > view:first-child
-							height 52rpx
-							display flex
-							align-items center
-							justify-content center
-							font-size 24rpx
-						& > view:last-child
-							font-size 12rpx
-							line-height 16rpx
-							padding-top 8rpx
-					& > view:nth-child(odd)
-						width 116rpx
-						text-align center
-						& > view:first-child
-							background #F3F3F3
-							font-family PingFangSC-Semibold, PingFang SC
-							font-weight 600
-					& > view:nth-child(even)
-						margin-left 2rpx
-						margin-right 5rpx
-		.split
-			margin 0 32rpx
-			border-bottom 1rpx dashed #979797
-	// 展开
-	.open
-		display flex
-		align-items center
-		padding-right 88rpx
-		height 48rpx
-		font-size 24rpx
-		color $blueColor
-		& > view
-			flex 1
-		& > text
-			display block
-			&::after
-				margin-left 6rpx
-				display inline-block
-				content '\e60e'
-				transition all .3s
-				transform rotateZ(-90deg)
-	// 自动填充
-	.auto-fill
-		flex 1
-	// 确认按钮
-	.btn
-		display flex
-		align-items center
-		justify-content center
-		margin 0 60rpx
-		margin-top 46rpx
-		margin-bottom 40rpx
-		height 98rpx
-		font-size 40rpx
-		font-weight 500
-		color #fff
-		border-radius 49rpx
-		background: linear-gradient(to right , $deepThemeColor, $shallowThemeColor)
-		&.available
-			animation btnFadeIn .3s
-			animation-fill-mode forwards
-		&.unavailable
-			animation btnFadeOut .3s
-			animation-fill-mode forwards
+mixinsWidthHeight($width = 100%, $height = 100%)
+    width $width
+    height $height
+mixinsPositionPack($position = relative)
+    position $position
+    left 50%
+    transform translateX(-50%)
+.iconfont
+    font-family 'iconfont' !important
+    font-size 16px
+    font-style normal
+    -webkit-font-smoothing antialiased
+    -moz-osx-font-smoothing grayscale
+.index
+    margin 0
+    padding 0
+    width 100vw
+    min-height 100vh
+    overflow hidden
+    background-color #fff
+.changeBg
+    background-color #ECECEC
+.index
+    /* 顶部组件占位 */
+    .topSplit
+        mixinsWidthHeight(,60rpx)
+    /* 公共模块 */
+    .module
+        width 694rpx
+        border-radius 16rpx
+        background-color #fff
+        margin 32rpx 0 0 0
+        font-family PingFangSC-Regular, PingFang SC
+        position relative
+        left 50%
+        transform translateX(-50%)
+        .titles
+            height 48rpx
+            font-size 32rpx
+            font-weight 600
+            color #000000
+            line-height 48rpx
+            padding-left 36rpx
+            font-family PingFangSC-Semibold, PingFang SC
+    .boxS
+        box-shadow 0 4rpx 2rpx 0 rgba(212, 212, 212, 0.5)
+    /* 模块一 */
+    .moduleOne
+        min-height 400rpx
+        padding 40rpx 0 20rpx 0
+        .photo-wrapper
+            display flex
+            height 330rpx
+            justify-content space-between
+            .photo
+                mixinsWidthHeight(326rpx, 330rpx)
+                text-align center
+                border-radius 16rpx
+                background #F6F6F6
+                .upload
+                    mixinsWidthHeight(90%, 192rpx)
+                    overflow hidden
+                    margin 22rpx 5%
+                    border-radius 8rpx
+                    background #FAFAFA
+                    .img-box
+                        mixinsWidthHeight()
+                        position relative
+                        .ico
+                            mixinsWidthHeight(56rpx, 49rpx)
+                            position absolute
+                            top 50%
+                            left 50%
+                            transform translate(-50%, -50%)
+                    .success
+                        mixinsWidthHeight()
+                .changeThree
+                    width 100%
+                    margin 22rpx 0
+                &:nth-of-type(1)
+                    .upload
+                        .img-box
+                            background url('https://file.cyzl.com/g001/M01/C7/A2/oYYBAGPs5VGAN4KUAAAf_5IXjB0976.png') center no-repeat // file.cyzl.com/g001/M01/C7/A2/oYYBAGPs5VGAN4KUAAAf_5IXjB0976.png') center no-repeat // file.cyzl.com/g001/M01/C7/A2/oYYBAGPs5VGAN4KUAAAf_5IXjB0976.png') center no-repeat // file.cyzl.com/g001/M01/C7/A2/oYYBAGPs5VGAN4KUAAAf_5IXjB0976.png') center no-repeat // file.cyzl.com/g001/M01/C7/A2/oYYBAGPs5VGAN4KUAAAf_5IXjB0976.png') center no-repeat // file.cyzl.com/g001/M01/C7/A2/oYYBAGPs5VGAN4KUAAAf_5IXjB0976.png') center no-repeat // file.cyzl.com/g001/M01/C7/A2/oYYBAGPs5VGAN4KUAAAf_5IXjB0976.png') center no-repeat // file.cyzl.com/g001/M01/C7/A2/oYYBAGPs5VGAN4KUAAAf_5IXjB0976.png') center no-repeat
+                            background-size 80% 80%
+                &:nth-of-type(2)
+                    .upload
+                        .img-box
+                            background url('https://file.cyzl.com/g001/M01/C7/A2/oYYBAGPs5YWAdC_FAAAXSu-w0ZM580.png') center no-repeat // file.cyzl.com/g001/M01/C7/A2/oYYBAGPs5YWAdC_FAAAXSu-w0ZM580.png') center no-repeat // file.cyzl.com/g001/M01/C7/A2/oYYBAGPs5YWAdC_FAAAXSu-w0ZM580.png') center no-repeat // file.cyzl.com/g001/M01/C7/A2/oYYBAGPs5YWAdC_FAAAXSu-w0ZM580.png') center no-repeat // file.cyzl.com/g001/M01/C7/A2/oYYBAGPs5YWAdC_FAAAXSu-w0ZM580.png') center no-repeat // file.cyzl.com/g001/M01/C7/A2/oYYBAGPs5YWAdC_FAAAXSu-w0ZM580.png') center no-repeat // file.cyzl.com/g001/M01/C7/A2/oYYBAGPs5YWAdC_FAAAXSu-w0ZM580.png') center no-repeat // file.cyzl.com/g001/M01/C7/A2/oYYBAGPs5YWAdC_FAAAXSu-w0ZM580.png') center no-repeat
+                            background-size 80% 80%
+                .cardText
+                    margin-top 40rpx
+            .changeTwo
+                width 300rpx
+                background-color #ffffff
+        .changeOne
+            margin 20rpx 36rpx 0 36rpx
+    /* 模块二 信息显示 */
+    .moduleTwo
+        padding 40rpx 0 20rpx 0
+        .tips
+            font-size 20rpx
+            font-weight 400
+            color #F19C38
+            margin 10rpx 36rpx
+            font-family PingFangSC-Regular, PingFang SC
+        .keyValue
+            height 66rpx
+            display flex
+            align-items center
+            justify-content space-between
+            margin 0 36rpx 20rpx 36rpx
+            border-bottom 1px solid #E0E0E0
+            font-family PingFangSC-Regular, PingFang SC
+            .attrName
+                font-size 28rpx
+                font-weight 400
+                color #1E1E1E
+            .attrValue
+                height 64rpx
+                display flex
+                align-items center
+                .input
+                    display block
+                    max-width 400rpx
+                    font-size 28rpx
+                    font-weight 600
+                    color #262626
+                    text-align right
+                    word-wrap break-word
+                    font-family PingFangSC-Semibold, PingFang SC
+                    opacity 0.9
+                .textarea
+                    display block
+                    max-width 400rpx
+                    height 100%
+                    font-size 28rpx
+                    font-weight 600
+                    color #262626
+                    text-align right
+                    font-family PingFangSC-Semibold, PingFang SC
+            .input-placeholder
+                color rgba(212, 212, 212, 0.7)
+    /* 占位 */
+    .split
+        width 100%
+        height 280rpx
+        overflow hidden
+    /* 底部悬浮按钮 */
+    .bottomBtn
+        display flex
+        mixinsWidthHeight(750rpx, 244rpx)
+        align-items center
+        background #FFFFFF
+        justify-content center
+        box-shadow 0 -8rpx 30rpx 0 rgba(223, 223, 223, 0.36)
+        border-radius 16rpx 16rpx 0 0
+        position fixed
+        bottom 0
+        .btnClose
+            mixinsWidthHeight(662rpx, 110rpx)
+            font-size 36rpx
+            font-weight 600
+            color #FFFFFF
+            text-align center
+            line-height 110rpx
+            border-radius 64rpx
+            background #C0C0C0
+            font-family PingFangSC-Semibold, PingFang SC
+            box-shadow 0 -8rpx 30rpx 0 rgba(223, 223, 223, 0.36), 0 4rpx 2rpx 0 rgba(212, 212, 212, 0.5)
+        .available
+            background: #2A4F44;
+            animation btnFadeIn 0.3s
+            animation-fill-mode forwards
+        .unavailable
+            animation btnFadeOut 0.3s
+            animation-fill-mode forwards

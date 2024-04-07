@@ -69,7 +69,7 @@
             </view>
             <view class="truck" wx:else>
                 <view class="sub" catchtap="renewWhitelistJudgement" data-renew="5">押金退款</view>
-                <view class="sub" catchtap="renewWhitelistJudgement" data-renew="5">继续办理</view>
+                <view class="sub" data-index="{{index}}" catchtap="renewWhitelistJudgement" data-renew="5">继续办理</view>
             </view>
             <!--下部分结束-->
         </view>

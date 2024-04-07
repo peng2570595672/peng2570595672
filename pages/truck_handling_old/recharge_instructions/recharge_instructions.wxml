@@ -1,0 +1,48 @@
+<wxs src='../../../utils/util.wxs' module='tools'/>
+<view class="recharge-instructions">
+    <view class="card">
+        <view class="title">授权预充通行保证金</view>
+        <view class="transfer">
+            <view>
+                <view>转出银行</view>
+                <view>{{bankList[0].bankName}}（{{tools.substring(bankList[0].accountNo, bankList[0].accountNo.length - 4, bankList[0].accountNo.length)}})</view>
+                <view class="tips">　</view>
+            </view>
+            <view class="iconfont arrow"></view>
+            <view>
+                <view>转入银行</view>
+                <view>工商银行（{{tools.substring(bankCardInfo.accountNo, bankCardInfo.accountNo.length - 4, bankCardInfo.accountNo.length)}})</view>
+                <view class="tips">ETC专用II类户</view>
+            </view>
+        </view>
+    </view>
+    <view class="instructions">
+        <view class="content">当您选择办理该款ETC货车产品时，默认你已同意开通工商银行II类账户并授权ETC+在资料审核通过后，根据申请的货车类型从您的II类账户绑定的银行卡中划扣指定金额预充至您的II类账户作为通行保证金之用；</view>
+        <view class="table">
+            <view class="tr">
+                <view class="th">货车车型</view>
+                <view class="th">需预充保证金</view>
+            </view>
+            <view class="tr">
+                <view class="td">一、二类货车</view>
+                <view class="td">500元</view>
+            </view>
+            <view class="tr">
+                <view class="td">三、四类货车</view>
+                <view class="td">1000元</view>
+            </view>
+            <view class="tr">
+                <view class="td">五、六类货车</view>
+                <view class="td">2000元</view>
+            </view>
+        </view>
+        <view class="content">请确保您的银行卡余额充足，若余额不足导致预充失败将无法完成ETC申办。</view>
+        <view class="content">通行保证金预充成功后，II类户所属银行将即时冻结该笔资金直至您不再使用本产品，经合法注销后资金将自动解冻</view>
+        <view class="content">当您在使用本产品通行高速后，产生欠款且逾期未缴，ETC+将从您的II类账户中划扣全额保证金作为欠款抵押，直至您的账户欠款费用清零，通行保证金将在1-2工作日内原路退回你的II类账户并重新冻结</view>
+        <view class="content">当你账户欠款逾期365天未缴，通行保证金将作为通行费罚息全额支付，不再退还（欠款仍需正常补缴）</view>
+    </view>
+    <!--	操作部分开始-->
+    <view class="btn" catchtap="next">下一步</view>
+    <!--	操作部分结束-->
+</view>
+<privacy_popup></privacy_popup>

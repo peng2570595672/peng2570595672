@@ -1,0 +1,30 @@
+<view class="content">
+	<view class="label">正在申请 {{vehPlates}} 货车ETC</view>
+	<view class="content-list">
+		<view class="list-title">
+			请按要求上传相关资料
+		</view>
+		<view class="list-item">
+            <view class="left iconfont {{orderInfo.isOwner === 1 ? 'success' : ''}} {{isIdCardError ? 'error' : ''}}">车主身份证</view>
+			<view class="btn {{orderInfo.isOwner === 1 ? 'edit': ''}}" catchtap="go" data-url="upload_id_card">{{orderInfo.isOwner === 1 ? '修改' : '上传'}}</view>
+		</view>
+		<view class="list-item">
+			<view class="left iconfont {{orderInfo.isVehicle === 1 ? 'success' : ''}} {{isDrivingLicenseError ? 'error' : ''}}">行驶证</view>
+			<view class="btn {{orderInfo.isVehicle === 1 ? 'edit' : ''}}"
+			      catchtap="go" data-url="information_validation">{{orderInfo.isVehicle === 1 ? '修改' : '上传'}}</view>
+		</view>
+		<view class="list-item">
+            <view class="left iconfont {{orderInfo.isHeadstock === 1 ? 'success' : ''}} {{isHeadstockError ? 'error' : ''}}">车辆照片</view>
+			<view class="btn {{orderInfo.isHeadstock === 1  ? 'edit' : ''}}" catchtap="go" data-url="upload_other_photo">{{orderInfo.isHeadstock === 1 ? '修改' : '上传'}}</view>
+		</view>
+		<view class="list-item" wx:if="{{orderInfo.isVehicle === 1 && vehicleInfo.isTraction === 1}}">
+            <view class="left iconfont {{orderInfo.isTransportLicense === 1 ? 'success' : ''}}  {{isRoadTransportCertificateError ? 'error' : ''}}">道路运输证</view>
+			<view class="btn {{orderInfo.isTransportLicense === 1 ? 'edit' : ''}}" catchtap="go" data-url="upload_road_transport_certificate">{{orderInfo.isTransportLicense === 1 ? '修改' : '上传'}}</view>
+		</view>
+        <view class="fill"></view>
+		<view class="btn-sign {{available ? 'available' : 'unavailable'}}" catchtap="next">
+            <view class="animate" wx:if="{{isRequest}}"></view>下一步
+        </view>
+	</view>
+</view>
+<privacy_popup></privacy_popup>
