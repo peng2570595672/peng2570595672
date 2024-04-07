@@ -234,6 +234,7 @@ Page({
 		if (this.data.isXinKe) {
 			let drivingLicenseFace = wx.getStorageSync('passenger-car-driving-license-face');
 			if (drivingLicenseFace) {
+				drivingLicenseFace = JSON.parse(drivingLicenseFace);
 				if (this.data.idCardFace.ocrObject.name !== drivingLicenseFace.ocrObject.owner) {
 					util.showToastNoIcon(`车辆所有人与身份证所有人不一致，请检查！`);
 					return false;
@@ -260,7 +261,7 @@ Page({
 		let haveChange4 = true;	// 信科办理
 		let isXinKe = this.data.isXinKe && this.data.switch1Checked;
 		if (this.data.oldName === this.data.idCardFace.ocrObject.name && this.data.oldIdNumber === this.data.idCardFace.ocrObject.idNumber) haveChange = false;
-		if (this.data.oldNameNot === this.data.idCardFaceNot.ocrObject?.name && this.data.oldIdNumberNot === this.data.idCardFaceNot.ocrObject?.idNumber) haveChange4 = false;
+		if (isXinKe && this.data.oldNameNot === this.data.idCardFaceNot?.ocrObject.name && this.data.oldIdNumberNot === this.data.idCardFaceNot?.ocrObject.idNumber) haveChange4 = false;
 		wx.uma.trackEvent('id_card_next');
 		// ocr返回的是 男女  接口是 1 2
 		if (this.data.idCardFace.ocrObject.sex === '男') this.data.idCardFace.ocrObject.sex = 1;
