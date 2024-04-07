@@ -143,7 +143,7 @@ Page({
 			} else if (renew === '3') {
 				that.onClickAddNewHandle(e);
 			} else if (renew === '5') {	// 货车
-
+				that.onClickVehicle(e);
 			} else {
 				that.onClickChoiceType(e);
 			}
@@ -183,6 +183,7 @@ Page({
 	// 点击车辆信息
 	onClickVehicle (e) {
 		let index = e.currentTarget.dataset.index;
+		console.log('index',index);
 		let orderInfo = this.data.carList[parseInt(index)];
 		if (orderInfo.isNewTrucks === 1 && orderInfo.status !== 1) {
 			// return;

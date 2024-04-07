@@ -34,13 +34,13 @@
             <view class="content-des iconfont {{info && (info.auditStatus === 1 || info.auditStatus === 9) ? 'error' : ''}}" wx:if="{{info && (info.auditStatus === 1 || info.auditStatus === 9)}}">审核不通过<text class="edit iconfont" catchtap="goEtcDetails">查看详情</text></view>
             <view class="content-des" wx:else>{{info && info.auditStatus === 2 ? '审核通过' : '正在排队审核中，预计1-3个工作日内完成'}}</view>
         </view>
-        <view class="item {{info && info.holdStatus === 1 ? 'finished' : ''}}" wx:if="{{info.isNewTrucks === 1 && info.flowVersion === 5}}">
+        <!-- <view class="item {{info && info.holdStatus === 1 ? 'finished' : ''}}" wx:if="{{info.isNewTrucks === 1 && info.flowVersion === 5}}">
             <view class="content-title">通行保证金预充</view>
             <view class="content-des" wx:if="{{info.auditStatus !== 2}}">待审核通过后系统将自动发起预充</view>
             <view class="content-des earnest-money" wx:if="{{info.auditStatus === 2 && info.holdStatus === 1}}">保证金<text class="money">{{info.holdBalance/100}}</text><text>预充成功</text>，资金已冻结在工商银行II类账户<text>({{tools.substring(bankCardInfo.accountNo, bankCardInfo.accountNo.length - 4, bankCardInfo.accountNo.length)}})</text>，可通过个人中心查看账户余额</view>
             <view class="content-des earnest-money" wx:if="{{info.auditStatus === 2 && info.holdStatus === 0 && requestNum !== 5}}">保证金<text class="money">{{info.holdBalance/100}}</text><text class="failure">预充失败</text>，请确认II类账户绑定银行余额是否充值，余额充值请重新发起<text catchtap="onClickPrecharge" class="precharge">预充</text>，或通过别的银行账户发起转账</view>
             <view class="content-des earnest-money" wx:if="{{info.auditStatus === 2 && info.holdStatus === 0 && requestNum === 5}}">保证金预充结果暂未获取，请稍后再试，<text catchtap="onClickRechargeResult" class="precharge">获取结果</text></view>
-        </view>
+        </view> -->
         <view class="item {{prechargeInfo.prechargeFlag === 1 ? 'finished' : ''}} {{isSalesmanPrecharge ? 'last' : ''}}" wx:if="{{info.flowVersion === 4 && info.orderType !== 31 && false}}">
             <view class="content-title">预充值</view>
             <view wx:if="{{info.auditStatus === 2}}">
