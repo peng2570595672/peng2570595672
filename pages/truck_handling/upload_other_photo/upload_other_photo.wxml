@@ -1,6 +1,8 @@
-<!-- <view class="page">
+<view class="page">
     <view class="title">请上传{{vehPlates}}的车辆照片</view>
+    <!--上传证件部分开始-->
     <view class="photo-wrapper">
+        <!--车头照开始-->
         <view class="photo {{faceStatus !== 1 ? 'not-border' : ''}}" data-type="101" catchtap="selectionPic">
             <view class="not-upload" wx:if="{{faceStatus !== 4}}">
                 <view class="img-box">
@@ -14,6 +16,8 @@
             </view>
             <image class="success" wx:if="{{faceStatus === 4}}" src="{{truckHeadstock.fileUrl}}"></image>
         </view>
+        <!--车头照结束-->
+        <!--补充角度照开始-->
         <view class="photo {{backStatus !== 1 ? 'not-border' : ''}}" data-type="102" catchtap="selectionPic">
             <view class="not-upload" wx:if="{{backStatus !== 4}}">
                 <view class="img-box">
@@ -27,33 +31,11 @@
             </view>
             <image class="success" wx:if="{{backStatus === 4}}" src="{{truckSidePhoto.fileUrl}}"></image>
         </view>
+        <!--补充角度照结束-->
     </view>
+<!--    <view class="prompt">补充正面车头照或侧面车身照有利于通过审核</view>-->
     <view class="fill"></view>
     <view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next">确认资料并保存</view>
     <information-validation-prompt promptObject="{{promptObject}}" id="notFinishedOrder"></information-validation-prompt>
-</view> -->
-<view class="page">
-    <view class="label">正在申请 {{vehPlates}} 货车ETC</view>
-    <view class="title">请按要求上传相关资料</view>
-    <!--上传证件部分开始-->
-    <view class="photo-wrapper">
-        <!--车头照开始-->
-        <view class="photo" data-type="101" catchtap="selectionPic">
-            <view class="upload">
-                <view class="img-box" wx:if="{{faceStatus !== 4}}">
-                    <image class="ico" wx:if="{{faceStatus === 1}}" src="/pages/default/assets/camera.svg"></image>
-                    <view class="identify" wx:if="{{faceStatus === 2 || faceStatus === 3}}">
-                        <image class="refresh" src="/pages/default/assets/refresh.png"></image>
-                        <view>{{faceStatus === 2 ? '识别中…' : '重新拍摄'}}</view>
-                    </view>
-                </view>
-                <image class="success" wx:else src="{{headstock.fileUrl}}"></image>
-            </view>
-            <view>车头照（含车头45°含车牌）</view>
-        </view>
-        <!--车头照结束-->
-    </view>
-    <view class="fill"></view>
-    <view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next" wx:if="{{faceStatus === 4}}">确认资料并保存</view>
 </view>
 <privacy_popup></privacy_popup>

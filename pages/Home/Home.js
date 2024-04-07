@@ -1548,7 +1548,6 @@ Page({
         const result = await util.getDataFromServersV2('consumer/order/query-contract', {
             orderId: obj.id
         });
-        console.log('3', result);
         if (!result) return;
         if (result.code === 0) {
             app.globalData.signAContract = 1;
@@ -1596,6 +1595,9 @@ Page({
         }
         if (obj.isNewTrucks === 1 && obj.status === 0) {
             params['dataComplete'] = 1; // 资料已完善
+        }
+        if (obj.isNewTrucks === 1) {
+            params['contractType'] = 1; // 货车直接签约 字段
         }
         const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
         this.setData({

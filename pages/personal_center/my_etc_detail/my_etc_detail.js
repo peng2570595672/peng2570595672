@@ -636,7 +636,6 @@ Page({
 				return;
 			}
 			if (app.globalData.newPackagePageData.type || orderInfo.isNewTrucks === 1) {
-				console.log('path',path);
 				// 只有分对分套餐 || 只有总对总套餐
 				util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`);
 			} else {
@@ -644,10 +643,10 @@ Page({
 			}
 			return;
 		}
-		if (orderInfo.isNewTrucks === 0 && util.getHandlingType(orderInfo)) {
-			util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
-			return;
-		}
+		// if (orderInfo.isNewTrucks === 0 && util.getHandlingType(orderInfo)) {
+		// 	util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
+		// 	return;
+		// }
 		if (orderInfo.promoterType === 41 && orderInfo.vehPlates.length === 11) {	// 业务员空发
 			util.go(`/pages/empty_hair/write_base_information/write_base_information`);
 			return;

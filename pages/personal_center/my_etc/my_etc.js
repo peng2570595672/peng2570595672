@@ -520,6 +520,11 @@ Page({
 			app.globalData.signAContract = -1;
 			await this.weChatSign(obj);
 		}
+		// if (obj.contractPlatformId === '500338116821778434') {
+		// 	// 签约ETC+
+		// 	util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
+		// 	return;
+		// }
 		app.globalData.isSecondSigning = false;
 		app.globalData.isSecondSigningInformationPerfect = obj.status === 1;
 		if (obj.logisticsId !== 0 || obj.obuStatus === 5 || obj.obuStatus === 1) app.globalData.isSecondSigning = true;
@@ -589,7 +594,9 @@ Page({
 		if (obj.isNewTrucks === 1 && obj.status === 0) {
 			params['dataComplete'] = 1; // 资料已完善
 		}
-		params['contractType'] = 1; //
+		if (obj.isNewTrucks === 1) {
+            params['contractType'] = 1; // 货车直接签约 字段
+        }
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		this.setData({
 			available: true,
