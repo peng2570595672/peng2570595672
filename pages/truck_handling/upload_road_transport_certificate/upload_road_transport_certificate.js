@@ -164,7 +164,7 @@ Page({
 		const type = app.globalData.truckHandlingOCRType;
 		this.setData({certificateStatus: 2});
 		// 上传并识别图片
-		console.log('path',path,type);
+		console.log('path',path);
 		util.uploadOcrFile(path, type, () => {
 			this.setData({certificateStatus: 3});
 		}, (res) => {

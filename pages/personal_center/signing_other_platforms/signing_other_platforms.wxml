@@ -1,0 +1,28 @@
+<view class="container">
+<!--    插件两步动作都只能在同一个按钮上操作,因此这里需要用一个假视野-->
+    <view class="sign-item" wx:if="{{isAuth}}">
+        <view class="left">
+            <view class="title">微信身份授权</view>
+            <view class="sub-title">签约微信车主服务，需您授权登录</view>
+        </view>
+        <view>1已授权</view>
+    </view>
+    <view class="sign-item" wx:if="{{!isAuth || !isSign}}">
+        <view class="left">
+            <view class="title">{{isAuth ? '车主服务签约' : '微信身份授权'}}</view>
+            <view class="sub-title">{{isAuth ? '签约微信车主服务，高速通行免密代扣' : '签约微信车主服务，需您授权登录'}}</view>
+        </view>
+        <view class="btn">
+            <contract-owner bind:getSigningStatus="getSigningStatus" bind:getAuthStatus="getAuthStatus" parameter="{{parameter}}"></contract-owner>
+        </view>
+    </view>
+    <view class="sign-item" wx:if="{{!isAuth || isSign}}">
+        <view class="left">
+            <view class="title">车主服务签约</view>
+            <view class="sub-title">签约微信车主服务，高速通行免密代扣</view>
+        </view>
+        <view class="btn" bindtap="handleSign">{{isSign ? '已签约' : '去签约'}}</view>
+    </view>
+<!--    <view class="complete {{isSign && isAuth ? 'complete-ok' : ''}}" bindtap="handleSuccess">完成</view>-->
+</view>
+<privacy_popup></privacy_popup>

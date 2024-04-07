@@ -1517,11 +1517,13 @@ Page({
             this.onClickHighSpeedSigning(obj);
             return;
         }
-        // if (obj.isNewTrucks === 1) {
-        //     wx.uma.trackEvent('index_for_contract_management'); // 取消多内容签约
-        //     util.go(`/pages/truck_handling/contract_management/contract_management`);
-        //     return;
-        // }
+        if (obj.isNewTrucks === 1 && obj.contractPlatformId === '500338116821778436') {
+            // wx.uma.trackEvent('index_for_contract_management'); // 取消多内容签约
+            // util.go(`/pages/truck_handling/contract_management/contract_management`);
+			// 货车签约ETC+
+			util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
+			return;
+        }
         app.globalData.isSecondSigning = false;
         app.globalData.isSecondSigningInformationPerfect = false;
         app.globalData.contractStatus = obj.contractStatus;

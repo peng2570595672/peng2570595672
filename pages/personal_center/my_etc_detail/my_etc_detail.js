@@ -511,16 +511,16 @@ Page({
 			this.onClickHighSpeedSigning(obj);
 			return;
 		}
-		// if (obj.isNewTrucks === 1) { // 取消多次签约 直接微信签约
-			// wx.uma.trackEvent('etc_detail_for_contract_management');
-			// util.go(`/pages/truck_handling/contract_management/contract_management`);
-			// return;
-		// }
 		app.globalData.isSecondSigning = false;
 		app.globalData.isSecondSigningInformationPerfect = obj.status === 1;
 		if (obj.logisticsId !== 0 || obj.obuStatus === 5 || obj.obuStatus === 1) app.globalData.isSecondSigning = true;
 		// 新流程
 		console.log('obj.contractStatus',obj.contractStatus);
+		if (obj.isNewTrucks === 1 && obj.contractPlatformId === '500338116821778436') {
+			// 货车签约ETC+
+			util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
+			return;
+        }
 		if (obj.contractStatus === 2) {
 			wx.uma.trackEvent('etc_detail_for_resume_signing');
 			// 恢复签约
