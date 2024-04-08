@@ -676,74 +676,19 @@ function luhmCheck(bankno) {
  *  获取货车新流程订单办理状态 2.0
  */
 function getTruckHandlingStatus(orderInfo) {
-  // if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0) {
-  //   // protocolStatus 0未签协议 1签了
-  //   return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
-  // }
-  // flowVersion 流程版本，1-分对分，2-新版（总对总）,3-选装 4-预充值 5-保证金模式 6-圈存 7-交行二类户
-  
-  if (orderInfo.flowVersion === 5 && orderInfo.multiContractList.find(item => item.contractStatus === 2)) {
-    return 1; // 货车解约 - 保证金模式
-  }
-  if (orderInfo.shopProductId === 0) {
+  if (!orderInfo.shopProductId) {
     return 2; // 办理中 未选套餐
   }
-  if (orderInfo.pledgeStatus === 0) {
+  if (!orderInfo.pledgeStatus) {
     // pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
     return 3; // 待支付
   }
-  if (orderInfo.isOwner === 0 || orderInfo.isVehicle === 0 || (orderInfo.isHeadstock === 0 && orderInfo.obuCardType !== 1) || (orderInfo.isTraction === 1 && orderInfo.isTransportLicense !== 1)) {
+  // if (orderInfo.isOwner === 0 || orderInfo.isVehicle === 0 || (orderInfo.isHeadstock === 0 && orderInfo.obuCardType !== 1) || (orderInfo.isTraction === 1 && orderInfo.isTransportLicense !== 1)) {
+  if (orderInfo.status === 0) {
     return 4; // 办理中 未上传证件
   }
-  if (orderInfo.status === 1 && orderInfo.contractStatus !== 1) {
+  if (orderInfo.contractStatus !== 1) {
     return 5
-  }
-
-  if (orderInfo.flowVersion === 6 && !app.globalData.bankCardInfo.accountNo) { // 开通II类户预充保证金 - 未开户
-    // return 13;
-  }
-  console.log(orderInfo)
-  if (orderInfo.flowVersion === 7) {
-    // 交行二类户流程
-    let info, checkResults;
-    if (app.globalData.memberStatusInfo?.accountList?.length) {
-      info = app.globalData.memberStatusInfo.accountList.find(item => item.orderId === orderInfo.id)
-    }
-    if (app.globalData.memberStatusInfo?.orderBankConfigList?.length) {
-      checkResults = app.globalData.memberStatusInfo.orderBankConfigList.find(item => item.orderId === orderInfo.id)
-    }
-    if (!checkResults?.uploadImageStatus) return 19; // 未影像资料上送
-    if (!checkResults?.isTencentVerify) return 20; // 未上送腾讯云活体人脸核身核验成功
-    if (!info?.memberBankId) return 13; // 交行 开通II类户预充保证金 - 未开户
-    if (!orderInfo.contractStatus) return 21; // 未签约银行
-  }
-  if (orderInfo.flowVersion === 6 && app.globalData.bankCardInfo.accountNo) { //有二类户-代扣通行费
-    //contractStatus :-1 签约失败 0发起签约 1已签约 2解约
-    //	app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(-4);
-    if (orderInfo.contractStatus == -1) { //通行费代扣签约成功
-      return 18;
-    }
-    if (orderInfo.contractStatus == 0) { //充值
-      return 15;
-    }
-    if (orderInfo.contractStatus == 1) { //小额免密签约成功
-      return 15;
-    }
-    if (orderInfo.contractStatus == 1 && orderInfo.serviceFeeContractStatus) { //小额免密签约成功
-      return 15;
-    }
-  }
-  if ((orderInfo.flowVersion === 5 || orderInfo.flowVersion === 7) && orderInfo.multiContractList.filter(item => item.contractStatus === 1).length !== 3) {
-    return 5; // 未完全签约 - 或存在解约
-  }
-  if (orderInfo.flowVersion === 5 && orderInfo.status === 0) {
-    // return 14; // 办理中 未授权预充保证金
-  }
-  if (orderInfo.flowVersion === 4 && orderInfo.status === 0) {
-    return 4; // 办理中 已上传证件 待完善
-  }
-  if (orderInfo.flowVersion === 4 && orderInfo.auditStatus === -1) {
-    return 6; // 我方无需审核,待第三方审核
   }
   if (orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) {
     // auditStatus: -1 无需审核   0 待审核   1 审核失败  2 审核通过  3 预审核通过  9 高速核验不通过
@@ -755,26 +700,11 @@ function getTruckHandlingStatus(orderInfo) {
   if (orderInfo.auditStatus === 9) {
     return 8; // 高速核验不通过
   }
-  if (orderInfo.flowVersion === 5 && orderInfo.auditStatus === 2 && orderInfo.holdStatus === 0) {
-    // return 15; // 未冻结保证金成功
-  }
-  if (orderInfo.flowVersion === 4 && orderInfo.orderType !== 31 && orderInfo.auditStatus === 2 && orderInfo.prechargeFlag === 0) {
-    // prechargeFlag 0未预充 1已预充
-    // return 17; // 未预充金额
-  }
-  if ((orderInfo.auditStatus === 2 || (orderInfo.auditStatus === 0 && orderInfo.orderType === 31)) && (orderInfo.flowVersion === 2 || orderInfo.flowVersion === 3) && orderInfo.hwContractStatus !== 1) {
-    // hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
-    return 9; // 审核通过,待签约高速
-  }
   if (orderInfo.auditStatus === 2 && orderInfo.logisticsId === 0) {
     return 10; // 审核通过,待发货
   }
   if (orderInfo.obuStatus === 0) {
     return 11; //  待激活
-  }
-  if (orderInfo.flowVersion === 4 && orderInfo.orderType === 31 && orderInfo.auditStatus === 2 && orderInfo.prechargeFlag === 0) {
-    // prechargeFlag 0未预充 1已预充
-    // return 17; // 未预充金额
   }
   if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
     return 12; // 已激活
