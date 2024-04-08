@@ -112,6 +112,9 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
+	async refundStatusEvent () { // 刷新状态
+		await this.getMyETCList();
+	},
 	// 针对特定号码 作续签弹窗提示
 	renewWhitelistJudgement (e) {
 		console.log(e);

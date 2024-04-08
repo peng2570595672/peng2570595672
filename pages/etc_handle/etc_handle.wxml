@@ -1,9 +1,5 @@
 <wxs src='../../utils/util.wxs' module='tools' />
 <view catchtouchmove="{{whetherToStay ? 'viewProcedure' : ''}}">
-    <view class="tabBox">
-        <view data-type="0" catchtap="showTab">小汽车办理</view>
-        <view data-type="1" catchtap="showTab">货车办理</view>
-    </view>
     <view class="index" style="background-color: {{imagesConfig.backgroundColor}}">
         <!-- 顶部返回按钮 -->
         <view class="iconfont topBack" catchtap="goBack">
@@ -53,9 +49,11 @@
             </view>
             <!-- 模块3 服务全程在线化 -->
             <view class="three">
-                <image class="images" mode="widthFix" style="transform: scale(0.93);" src="https://file.cyzl.com/g001/M03/4C/4D/oYYBAGYNLIOALx7mAAGeG6vuxf0589.png" />
+                <image class="images" mode="widthFix" style="transform: scale(0.93);"
+                    src="https://file.cyzl.com/g001/M03/4C/4D/oYYBAGYNLIOALx7mAAGeG6vuxf0589.png" />
                 <!-- 办理准备材料 -->
-                <image class="images" mode="widthFix" style="transform: scale(0.93);" src="https://file.cyzl.com/g001/M03/4C/4D/oYYBAGYNLSeABLzRAABOP0Qv9aI425.png" />
+                <image class="images" mode="widthFix" style="transform: scale(0.93);"
+                    src="https://file.cyzl.com/g001/M03/4C/4D/oYYBAGYNLSeABLzRAABOP0Qv9aI425.png" />
             </view>
             <!-- 模块4 车主热问热答 -->
             <view class="module four">
@@ -75,7 +73,13 @@
         <view class="split"></view>
         <!-- 立即办理 {{isFade ? 'fadeIn' : 'fadeOut'}}-->
         <view class="handleImmediately">
-            <button catchtap="onClickHandle">{{!isNewTrucks? '立即办理': '限时免费办理'}}</button>
+            <button catchtap="onClickHandle">{{isNewTrucks? '办理货车ETC': '小汽车ETC办理'}}</button>
+            <view wx:if="{{isNewTrucks === 1}}" class="image" >
+                <image class="images" mode="widthFix" style="width: 100%;height:100%;"
+                    src="https://file.cyzl.com/g001/M03/4E/98/oYYBAGYTqnaAEKv3AAAPMTFwDSc150.png" />
+            </view>
+            <view catchtap="showTab" data-type="{{isNewTrucks === 1?0:1}}">{{isNewTrucks? '小汽车ETC办理 >': '货车ETC办理 >'}}
+            </view>
         </view>
     </view>
 
