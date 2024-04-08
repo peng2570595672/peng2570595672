@@ -5,7 +5,7 @@
             <view class="title">微信身份授权</view>
             <view class="sub-title">签约微信车主服务，需您授权登录</view>
         </view>
-        <view>1已授权</view>
+        <view>已授权</view>
     </view>
     <view class="sign-item" wx:if="{{!isAuth || !isSign}}">
         <view class="left">
