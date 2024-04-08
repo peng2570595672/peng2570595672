@@ -329,6 +329,7 @@ Page({
 				this.setData({
 					allMoney: allMoney
 				});
+				console.log('账单数据：',this.data.successBillList);
 			} else {
 				util.showToastNoIcon(res.message);
 			}

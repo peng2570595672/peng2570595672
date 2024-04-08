@@ -14,11 +14,11 @@
 		<view>
             <view class="sortitem car-title-tab">
                 <view class="tab-item">
-                    <view class="{{vehicleType == '全部车辆' ? ' active ' : ' '}}" data-model='全部车辆' bindtap='choiceVehicleType'>全部车辆</view>
-                    <view class="{{vehicleType == '客车' ? ' active ' : ' '}}" wx:if="{{passengerCarList.length && truckList.length}}" data-model='客车' bindtap='choiceVehicleType'>客车</view>
-                    <view class="{{vehicleType == '货车' ? ' active ' : ' '}}" wx:if="{{passengerCarList.length && truckList.length}}" data-model='货车' bindtap='choiceVehicleType'>货车</view>
+                    <view class="default {{vehicleType == '全部车辆' ? ' active ' : ''}}" data-model='全部车辆' bindtap='choiceVehicleType'>全部车辆</view>
+                    <view class="default {{vehicleType == '客车' ? ' active ' : ''}}" wx:if="{{passengerCarList.length && truckList.length}}" data-model='客车' bindtap='choiceVehicleType'>客车</view>
+                    <view class="default {{vehicleType == '货车' ? ' active ' : ''}}" wx:if="{{passengerCarList.length && truckList.length}}" data-model='货车' bindtap='choiceVehicleType'>货车</view>
                 </view>
-                <view class="line"></view>
+                <!-- <view class="line"></view> -->
             </view>
 			<block wx:for="{{vehicleList}}" wx:key="unique" wx:if="{{vehicleType == '全部车辆'}}">
 				<view class="sortitem iconfont {{selected_filter_name == item ? ' icon-choice ' : ' '}}" data-model='{{item}}'  bindtap='selectFilterItem'><text data-model='{{item}}'> {{item}}</text><view class="line"></view></view>

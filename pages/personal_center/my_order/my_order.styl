@@ -1,4 +1,4 @@
-@import "../../../style/base.styl";
+// @import "../../../style/base.styl"
 page
 	min-height 100vh
 	background #fff
@@ -10,8 +10,9 @@ page
 		top 0
 		z-index 999
 		width 100%
-		height 112rpx
-		background #FBE5A8
+		height 72rpx
+		background #fff
+		font-size 24rpx
 		border-top 1rpx solid #F0F0F0
 		padding-left 32rpx
 		padding-right 38rpx
@@ -19,44 +20,46 @@ page
 		.notice-box
 			display flex
 			align-items center
-			height 112rpx
+			height 72rpx
 			color #FF563C
-			&>view:first-child
+			.text0
 				flex 9
-				font-size 28rpx
 				word-break break-all
-			&>view:last-child
-				flex 1
-				display flex
-				align-items center
-				height 112rpx
-				justify-content flex-end
-				&::before
-					content '•'
-					font-size 48rpx
-					line-height 112rpx
-				&::after
-					display inline-block
-					content '\e60e'
-					font-size 32rpx
-					font-weight bold
-					transform scaleX(-1)
-					color rgba(0, 0, 0, 0.3)
+			.text1
+				width 52px
+				height 20px
+				border-radius 451px
+				background #EEF6EF
+				font-family PingFang SC
+				font-weight normal
+				letter-spacing 0rpx
+				color #2A4F44
+				text-align center
+				line-height 36rpx
 	//通行总额
 	.total-cost
-		padding 20rpx 32rpx 18rpx
-		font-size 24rpx
-		color $fontColor9
+		padding 0 32rpx
+		margin-top -20rpx
+		font-size 28rpx
+		font-weight 500
+		color #3D3D3D
 		line-height 40rpx
-		border-bottom 32rpx solid #F9F9F9
-		&>view:first-child
-			color $fontColor6
-			font-weight 600
+		letter-spacing 0rpx
+		font-family PingFang SC
+		font-variation-settings "opsz" auto
+		.text2
+			margin-top 12rpx
+			font-size 22rpx
+			font-weight normal
+			line-height 32rpx
+			text-align justify 
+			color #999999
 	//订单列表
 	.order-list
 		.order-list-content
-			padding 34rpx 32rpx 28rpx
-			border-bottom 32rpx solid #F9F9F9
+			margin 0 32rpx
+			padding 28rpx 0
+			border-bottom 1rpx solid #E0E0E0
 			.operating-expenses
 				padding-top 44rpx
 			.order-list-top
@@ -107,6 +110,7 @@ page
 						content '\e651'
 						color $fontColor6
 						font-size 24rpx
+						margin 0 5rpx
 				& > view.refund
 					width 98rpx
 					height 28rpx
@@ -137,6 +141,12 @@ page
 					line-height 40rpx
 				.processing-time
 					text-align right
+				.text3
+					font-family PingFang SC
+					font-weight normal
+					line-height 32rpx
+					letter-spacing 0rpx
+					color #999999
 .is_owes
 	padding-top 208rpx
 .is_owner_ervice
