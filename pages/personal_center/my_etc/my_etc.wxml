@@ -16,10 +16,12 @@
             <view class="top">
                 <view class="left">
                     <view class="car-no">{{tools.isPhone(item.vehPlates)}}<text class="center">{{item.isNewTrucks===1?'货车':'客车'}}</text></view>
-                    <view class="channel">{{item.cardName ? item.cardName === '贵州黔通卡' ? '九州ETC' : item.cardName : ''}}
+                    <view class="channel" wx:if="{{item.isNewTrucks !== 1}}">{{item.cardName ? item.cardName === '贵州黔通卡' ? '九州ETC' : item.cardName : ''}}
+                    </view>
+                    <view class="channel" wx:if="{{item.isNewTrucks === 1 && item.deductionMethod}}" style="height: 60rpx;">扣费方式：{{item.deductionMethod}}
                     </view>
                 </view>
-                <view
+                <view wx:if="{{item.isNewTrucks !== 1}}"
                     class="right caution {{item.selfStatus === 7 || item.selfStatus === 8 ? 'failed' : ''}} {{item.selfStatus === 12 || item.selfStatus === 30 ? 'succeed' : ''}}">
                     {{item.selfStatus === 1 || item.selfStatus === 22 ? '已解约' : ''}}
                     {{item.selfStatus === 2 || item.selfStatus === 4 || item.selfStatus === 14 || item.selfStatus === 23 || item.selfStatus === 25 || item.selfStatus === 34 ? '办理中' : ''}}
@@ -38,6 +40,17 @@
                     {{item.selfStatus === 15 ? '待充保证金' : ''}}
                     {{item.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
                     {{item.selfStatus === 31 ? '待签约激活' : ''}}
+                </view>
+                <view wx:if="{{item.isNewTrucks === 1}}"
+                    class="right caution {{item.selfStatus === 7 || item.selfStatus === 8  ? 'failed' : ''}} {{item.selfStatus === 12  ? 'succeed' : ''}}">
+                    {{item.selfStatus === 5 ? '待签约' : '' }}
+                    {{item.selfStatus === 3 ? '待支付': '' }}
+                    {{item.selfStatus === 4 || item.selfStatus === 2 ? '办理中': '' }}
+                    {{item.selfStatus === 6  ? '待审核' : ''}}
+                    {{item.selfStatus === 8 || item.selfStatus === 7 ? '审核不通过' : ''}}
+                    {{item.selfStatus === 10 ? '待发货' : ''}}
+                    {{item.selfStatus === 12 ? '已激活' : ''}}
+                    {{item.selfStatus === 11 ? '待激活' : ''}}
                 </view>
             </view>
             <!--上部分结束-->
@@ -67,9 +80,19 @@
                     {{item.selfStatus === 31 ? '签约激活' : ''}}
                 </view>
             </view>
-            <view class="truck" wx:else>
-                <view class="sub" catchtap="renewWhitelistJudgement" data-renew="5">押金退款</view>
-                <view class="sub" data-index="{{index}}" catchtap="renewWhitelistJudgement" data-renew="5">继续办理</view>
+            <view class="truck" wx:if="{{item.isNewTrucks === 1}}">
+                <view class="sub" catchtap="refundStatusEvent" data-renew="5">
+                    {{item.refundStatus === 3 ? '押金已退款': '押金待退款' }}
+
+                </view>
+                <view class="sub" data-index="{{index}}" catchtap="renewWhitelistJudgement" data-renew="5">
+                    {{item.selfStatus === 5 ? '去签约' : '' }}
+                    {{item.selfStatus === 3 ? '去支付': '' }}
+                    {{item.selfStatus === 4 || item.selfStatus === 2 ? '继续办理': '' }}
+                    {{item.selfStatus === 6 || item.selfStatus === 8 ? '查看进度' : ''}}
+                    {{item.selfStatus === 12 ? '首次激活' : ''}}
+                
+                </view>
             </view>
             <!--下部分结束-->
         </view>

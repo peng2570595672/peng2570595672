@@ -23,7 +23,7 @@ Page({
 		isOnlineDealWith: true, // 是否是线上办理
 		viewTc: {},	// 用于存放弹窗数据
 		formData: {
-			currentCarNoColorTruck: 1, // 控制货车车牌颜色 moren
+			currentCarNoColorTruck: -1, // 控制货车车牌颜色
 			// 0,蓝色
 			// 1,黄色
 			// 2,黑色
@@ -936,6 +936,12 @@ Page({
 		isOk = isOk && formData.detailInfo && formData.detailInfo.length >= 2;
 		// 检验手机号码
 		isOk = isOk && formData.telNumber && /^1[0-9]{10}$/.test(formData.telNumber);
+		if (this.data.isNewTrucks) {
+			// 检验货车车轴数
+			isOk = isOk && formData.axleNum > 0;
+			// 检验货车颜色
+			isOk = isOk && formData.currentCarNoColorTruck !== -1;
+		}
 		this.controllTopTabBar();
 		return isOk;
 	},
