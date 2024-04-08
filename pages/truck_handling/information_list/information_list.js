@@ -15,7 +15,6 @@ Page({
 		isHeadstockError: false, // 是否车头照错误
 		isRoadTransportCertificateError: false, // 是否道路运输证错误
 		isModifiedData: false, // 是否是修改资料
-		isUploadImage: !!app.globalData.memberStatusInfo?.uploadImageStatus, // 是否上传交行影像资料 flowVersion-7
 		requestNum: 0
 	},
 	async onLoad (options) {
@@ -159,7 +158,7 @@ Page({
 	// 获取二类户号信息
 	async next () {
 		if (!this.data.available) return;
-		if (this.data.isModifiedData || this.data.orderInfo.flowVersion === 4) {
+		if (this.data.isModifiedData) {
 			if (this.data.isRequest) {
 				return;
 			} else {
@@ -182,81 +181,7 @@ Page({
 			util.go('/pages/default/processing_progress/processing_progress?type=main_process');
 			return;
 		}
-		if (this.data.orderInfo.flowVersion === 7) {
-			let checkResults;
-			if (app.globalData.memberStatusInfo?.orderBankConfigList?.length) {
-				checkResults = app.globalData.memberStatusInfo.orderBankConfigList.find(item => item.orderId === app.globalData.orderInfo.orderId);
-			}
-			if (!checkResults?.uploadImageStatus) {
-				// 未影像资料上送
-				await this.truckUploadImg();
-				return;
-			} else {
-				if (!checkResults?.isTencentVerify) {
-					// 未上送腾讯云活体人脸核身核验成功
-					util.go(`/pages/truck_handling/face_of_check_tips/face_of_check_tips`);
-					return;
-				}
-				let info;
-				if (app.globalData.memberStatusInfo?.accountList?.length) {
-					info = app.globalData.memberStatusInfo.accountList.find(item => item.orderId === app.globalData.orderInfo.orderId);
-				}
-				if (!info?.memberBankId) {
-					// 未开户
-					util.go(`/pages/truck_handling/binding_account_bocom/binding_account_bocom`);
-					return;
-				}
-				util.go('/pages/truck_handling/signed/signed');
-			}
-			return;
-		}
-		if (this.data.orderInfo.flowVersion === 6) { // 处理是否需要开二类户
-			const result = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
-			if (!result) return;
-			if (result.code) {
-				util.showToastNoIcon(result.message);
-				return;
-			}
-			const path = result.data?.accountNo ? 'contract_management' : 'binding_account';
-			util.go(`/pages/truck_handling/${path}/${path}`);
-		}
-		if (this.data.orderInfo.isNewTrucks === 1) {
-			// 货车签约
-			util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
-        }
-	},
-	// 微信签约
-	async weChatSign () {
-		let params = {
-				orderId: app.globalData.orderInfo.orderId, // 订单id
-				clientOpenid: app.globalData.userInfo.openId,
-				clientMobilePhone: app.globalData.userInfo.mobilePhone,
-				needSignContract: true, // 是否需要签约 true-是，false-否
-				contractType: '1' // 签约类型：1-通行费，2-服务费，3-保证金
-		};
-		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
-		if (!result) return;
-		if (result.code === 0) {
-				let res = result.data.contract;
-				// 签约车主服务 2.0
-				app.globalData.signAContract = -1;
-				app.globalData.belongToPlatform = app.globalData.platformId;
-				app.globalData.isNeedReturnHome = true;
-				util.weChatSigning(res);
-		} else {
-				util.showToastNoIcon(result.message);
-		}
-},
-	// 影像资料上送
-	async truckUploadImg () {
-		const result = await util.getDataFromServersV2('consumer/member/bcm/truckUploadImg', {
-			orderId: app.globalData.orderInfo.orderId// 订单id
-		});
-		if (!result) return;
-		if (result.code === 0) {
-			util.go(`/pages/truck_handling/face_of_check_tips/face_of_check_tips`);
-		} else {
-			util.showToastNoIcon(result.message);
-		}
+		// 货车签约
+		util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms?type=main');
 	}
 });

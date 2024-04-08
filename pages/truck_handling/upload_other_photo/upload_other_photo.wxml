@@ -13,7 +13,7 @@
                         <view>{{faceStatus === 2 ? '识别中…' : '重新拍摄'}}</view>
                     </view>
                 </view>
-                <image class="success" wx:else src="{{headstock.fileUrl}}"></image>
+                <image class="success" wx:else src="{{truckHeadstock.fileUrl}}"></image>
             </view>
             <view>车头照（含车头45°含车牌）</view>
         </view>
@@ -38,6 +38,6 @@
         </view>
         <!--车头照结束-->
     </view>
-    <view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next" wx:if="{{faceStatus === 4}}">确认资料并保存</view>
+    <view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next" wx:if="{{faceStatus === 4 && backStatus === 4}}">确认资料并保存</view>
 </view>
 <privacy_popup></privacy_popup>

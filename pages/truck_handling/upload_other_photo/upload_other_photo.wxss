@@ -1,9 +1,26 @@
+@keyframes btnFadeIn {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes btnFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.2;
+  }
+}
 .page {
-  height: 100vh;
+  min-height: 100vh;
   padding: 32rpx 32rpx;
   box-sizing: border-box;
   background: #fff;
   display: flex;
+  overflow: scroll;
   flex-direction: column;
 }
 .page .label {
@@ -87,17 +104,13 @@
   font-weight: 500;
   color: #fff;
   border-radius: 49rpx;
-  background: linear-gradient(to right, $deepThemeColor, $shallowThemeColor);
+  background: linear-gradient(to right, #15ad69, #84d157);
 }
 .page .btn.available {
-  -webkit-animation: btnFadeIn 0.3s;
-          animation: btnFadeIn 0.3s;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
+  animation: btnFadeIn 0.3s;
+  animation-fill-mode: forwards;
 }
 .page .btn.unavailable {
-  -webkit-animation: btnFadeOut 0.3s;
-          animation: btnFadeOut 0.3s;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
+  animation: btnFadeOut 0.3s;
+  animation-fill-mode: forwards;
 }

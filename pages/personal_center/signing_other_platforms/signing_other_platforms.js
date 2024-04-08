@@ -9,11 +9,13 @@ Page({
 	data: {
 		isAuth: false,
 		isSign: false,
+		isMainProcess: false,
 		parameter: {},
 		info: {}
 	},
-	async onLoad () {
+	async onLoad (options) {
 		this.setData({
+			isMainProcess: !!options.type,
 			parameter: {
 				mobilePhone: app.globalData.userInfo.mobilePhone,
 				orderId: app.globalData.orderInfo.orderId,
@@ -41,18 +43,18 @@ Page({
 		}
 	},
 	handleSuccess () {
-		if (!this.data.isAuth && !this.data.isSign) {
-			showToastNoIcon('您还未完成全部的操作哦');
-			return;
-		}
+		// if (!this.data.isAuth && !this.data.isSign) {
+		// 	showToastNoIcon('您还未完成全部的操作哦');
+		// 	return;
+		// }
 		wx.redirectTo({
-			url: '/pages/personal_center/sign_successful/sign_successful'
+			url: `/pages/personal_center/sign_successful/sign_successful?type=${this.data.isMainProcess ? 'main' : 'other'}`
 		});
 	},
 	getSigningStatus (res) {
 		console.log('签约成功');
 		wx.redirectTo({
-			url: '/pages/personal_center/sign_successful/sign_successful'
+			url: `/pages/personal_center/sign_successful/sign_successful?type=${this.data.isMainProcess ? 'main' : 'other'}`
 		});
 		this.setData({
 			isSign: true
