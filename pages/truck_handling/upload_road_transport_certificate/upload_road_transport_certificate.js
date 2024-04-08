@@ -21,7 +21,8 @@ Page({
 			{vehicleCustomerType: 28, name: '含“货物专用运输(集装箱)”+其他'},
 			{vehicleCustomerType: 27, name: '不含“货物专用运输(集装箱)”'}
 		],
-		vehPlates: undefined
+		vehPlates: undefined,
+		switch1Checked: 0
 	},
 	async onLoad (options) {
 		this.setData({
@@ -52,6 +53,9 @@ Page({
 				});
 			}
 		}
+		this.setData({
+			'transportationLicenseObj.fileUrl': true
+		});
 	},
 	// 获取订单信息
 	async getOrderInfo () {
@@ -223,6 +227,13 @@ Page({
 		});
 		this.setData({
 			available: this.validateData(false)
+		});
+	},
+	switch1Change (e) {
+		let switch1Checked = +e.currentTarget.dataset['type'];
+		this.setData({
+			switch1Checked
+			// available: true
 		});
 	}
 });
