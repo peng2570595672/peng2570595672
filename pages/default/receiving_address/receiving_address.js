@@ -82,7 +82,6 @@ Page({
 			whetherToStay: true
 		});
 		// 显示弹框
-		console.log('e',e.currentTarget,this.data.formData.axleNum);
 		this.selectComponent('#viewIsTruck').show();
 	},
 	// 选择货车颜色

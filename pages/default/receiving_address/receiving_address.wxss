@@ -149,8 +149,8 @@
   align-items: center;
   justify-content: center;
   border-radius: 16rpx;
-  width: 140rpx;
-  height: 76rpx;
+  width: 125rpx;
+  height: 72rpx;
 }
 .index .module .publicCode .carColor .active {
   position: relative;

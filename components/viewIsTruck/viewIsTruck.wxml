@@ -1,25 +1,23 @@
-<view>
+
 	<view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" bindtap="hide" wx:if="{{mask}}">
 	</view>
 	<view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}" wx:if="{{mask}}">
 		<!-- 热门问答 -->
-		<view class="communal moduleTwo" wx:if="{{viewTc.type === 'moduleTwo'}}">
+		<scroll-view class="communal" scroll-y="true" wx:if="{{viewTc.type === 'moduleTwo'}}">
 			<view class="title">货车车轴数</view>
 			<view class="module">
 				<view class="titles">
 					选择货车办理轴数
 				</view>
 				<view class="carColor">
-					<view class="item " catchtap = "chooseAxleNum" data-value="{{2}}">2轴</view>
-					<view class="item " catchtap = "chooseAxleNum" data-value="{{3}}">3轴</view>
-					<view class="item " catchtap = "chooseAxleNum" data-value="{{4}}">4轴</view>
-					<view class="item " catchtap = "chooseAxleNum" data-value="{{5}}">5轴</view>
+					<view class="item " catchtap="chooseAxleNum" data-value="{{2}}">2轴</view>
+					<view class="item " catchtap="chooseAxleNum" data-value="{{3}}">3轴</view>
+					<view class="item " catchtap="chooseAxleNum" data-value="{{4}}">4轴</view>
+					<view class="item " catchtap="chooseAxleNum" data-value="{{5}}">5轴</view>
 				</view>
-			</view>
-			<div class="img">
 				<image src="https://file.cyzl.com/g001/M03/4C/19/oYYBAGYM_bmAQiHhAAH6sohEKv8716.png" mode="widthFix"
-					style="transform: scale(1.1);"></image>
-			</div>
-		</view>
+					style="transform: scale(1.1);margin-top: 10rpx;display: block; width: 100%;height: 100%;">
+				</image>
+			</view>
+		</scroll-view>
 	</view>
-</view>

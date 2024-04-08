@@ -8,7 +8,7 @@
   margin: 40rpx 66rpx 30rpx;
 }
 .my-etc .tab-choice > view {
-  color: $fontColor6;
+  color: #66666d;
   font-size: 48rpx;
   line-height: 80rpx;
   font-family: PingFangSC-Semibold, PingFang SC;
@@ -21,7 +21,7 @@
   height: 12rpx;
 }
 .my-etc .tab-choice > view.active {
-  color: $fontColor3;
+  color: #33333d;
   font-size: 56rpx;
 }
 .my-etc .tab-choice > view.active .line {
@@ -66,11 +66,13 @@
   font-size: 22rpx;
   width: 68rpx;
   height: 36rpx;
-  line-height: 34rpx;
+  line-height: 32rpx;
   text-align: center;
   border-radius: 8rpx;
   box-sizing: border-box;
+  font-weight: 500;
   border: 1rpx solid #2a4f44;
+  color: #2a4f44;
 }
 .my-etc .item .top .left .channel {
   margin-top: -4rpx;
@@ -78,7 +80,7 @@
   align-items: center;
   margin-bottom: 10rpx;
   font-size: 24rpx;
-  color: $fontColor9;
+  color: #99999d;
 }
 .my-etc .item .top .right {
   margin-top: 8rpx;
@@ -89,10 +91,10 @@
   color: #f7b500;
 }
 .my-etc .item .top .right.failed {
-  color: $error;
+  color: #ff563c;
 }
 .my-etc .item .top .right.succeed {
-  color: $fontColor;
+  color: #2fb565;
 }
 .my-etc .item .bottom {
   position: relative;
@@ -103,7 +105,7 @@
 .my-etc .item .bottom > view {
   display: flex;
   height: 44rpx;
-  color: $fontColor9;
+  color: #99999d;
 }
 .my-etc .item .bottom > view:first-of-type {
   flex: 1;
@@ -179,7 +181,7 @@
   margin: 30vh 0 22rpx;
 }
 .my-etc .no-car view {
-  color: $fontColor6;
+  color: #66666d;
   line-height: 44rpx;
   font-size: 32rpx;
   font-weight: 500;
@@ -193,6 +195,6 @@
   font-size: 40rpx;
   font-weight: 500;
   color: #fff;
-  background: linear-gradient(to right, $deepThemeColor, $shallowThemeColor);
+  background: linear-gradient(to right, #15ad69, #84d157);
   border-radius: 49rpx;
 }

@@ -688,7 +688,7 @@ function getTruckHandlingStatus(orderInfo) {
     return 4; // 办理中 未上传证件
   }
   if (orderInfo.contractStatus !== 1) {
-    return 5
+    return 5 // 待签约
   }
   if (orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) {
     // auditStatus: -1 无需审核   0 待审核   1 审核失败  2 审核通过  3 预审核通过  9 高速核验不通过

@@ -9,7 +9,7 @@
     <view class="title">
       <view class="titles">{{perfect? addCard : "办理车牌号"}}</view>
       <view class="colorBrand" wx:if="{{tools.dataLen(carNoStr) > 6}}"
-        style="background:{{ isNewTrucks === '1'? tools.getTruCorlor(formData.currentCarNoColorTruck) : tools.dataLen(carNoStr) === 7 ? '#276AD9' : '#5EBE68'}}">{{isNewTrucks === '1'? tools.getTruCorlor(formData.currentCarNoColorTruck,true):tools.dataLen(carNoStr) === 7 ?
+        style="background:{{ isNewTrucks === 1? tools.getTruCorlor(formData.currentCarNoColorTruck) : tools.dataLen(carNoStr) === 7 ? '#276AD9' : '#5EBE68'}}">{{isNewTrucks === 1? tools.getTruCorlor(formData.currentCarNoColorTruck,true):tools.dataLen(carNoStr) === 7 ?
         '蓝牌' : '绿牌'}}</view>
     </view>
     <!-- 车牌号的输入 -->
@@ -81,10 +81,18 @@
     </view>
     <view class="publicCode">
       <view class="carColor">
-        <view catchtap = "chooseColorTruck" data-value="{{1}}" class="item {{formData.currentCarNoColorTruck === 1 ? 'active':''}}" style="background-color: #FFD56A;">黄牌</view>
-        <view catchtap = "chooseColorTruck" data-value="{{0}}" class="item {{formData.currentCarNoColorTruck === 0 ? 'active':''}}" style="background-color: #48C5FF;">蓝牌</view>
-        <view catchtap = "chooseColorTruck" data-value="{{4}}" class="item {{formData.currentCarNoColorTruck === 4 ? 'active':''}}" style="background-color: #56C582;">渐变绿</view>
-        <view catchtap = "chooseColorTruck" data-value="{{5}}" class="item {{formData.currentCarNoColorTruck === 5 ? 'active':''}}" style="background: linear-gradient(to right, #FFD56A 50%, #56C582 50%);">黄绿牌</view>
+        <view catchtap="chooseColorTruck" data-value="{{1}}"
+          class="item {{formData.currentCarNoColorTruck === 1 ? 'active':''}}" style="background-color: #FFD56A;">黄牌
+        </view>
+        <view catchtap="chooseColorTruck" data-value="{{0}}"
+          class="item {{formData.currentCarNoColorTruck === 0 ? 'active':''}}" style="background-color: #48C5FF;">蓝牌
+        </view>
+        <view catchtap="chooseColorTruck" data-value="{{4}}"
+          class="item {{formData.currentCarNoColorTruck === 4 ? 'active':''}}" style="background-color: #56C582;">渐变绿
+        </view>
+        <view catchtap="chooseColorTruck" data-value="{{5}}"
+          class="item {{formData.currentCarNoColorTruck === 5 ? 'active':''}}"
+          style="background: linear-gradient(to right, #FFD56A 40%, #56C582 40%);">黄绿牌</view>
       </view>
     </view>
   </view>
@@ -127,11 +135,10 @@
     <view class="publicCode">
       <view class="publicCodeLeft">选择数量</view>
       <view class="publicCoderight" catchtap="chooseAxleNum">
-        <view class="input"  value="{{formData.axleNum}}"
-            >
-            <view wx:if="{{formData.axleNum !== 0}}">{{formData.axleNum+'轴'}}</view>
-            <span wx:else class="input-placeholder">选择车轴数量</span>
-          </view>
+        <view class="input" value="{{formData.axleNum}}">
+          <view wx:if="{{formData.axleNum !== 0}}">{{formData.axleNum+'轴'}}</view>
+          <span wx:else class="input-placeholder">选择车轴数量</span>
+        </view>
       </view>
     </view>
   </view>
@@ -184,11 +191,13 @@
   <view class="split" />
   <!-- 底部悬浮按钮   立即办理 -->
   <view class="floatButton">
-    <view class="handleImmediately {{available ? 'btn':''}}" catchtap="validateCar">立即办理</view>
+    <view class="handleImmediately {{available ? 'btn':''}}" catchtap="validateCar">{{isNewTrucks === 1 ? '立即免费办理':'立即办理'}}
+    </view>
   </view>
   <popTipComp id="popTipComp"></popTipComp>
   <!-- 组件 -->
-  <viewIsTruck id="viewIsTruck" bind:onHandle="chooseAxleNum" data-value="false" viewTc="{{viewTc}}" bind:getAxleNum="getAxleNum">
+  <viewIsTruck id="viewIsTruck" bind:onHandle="chooseAxleNum" data-value="false" viewTc="{{viewTc}}"
+    bind:getAxleNum="getAxleNum">
   </viewIsTruck>
   <!-- 拉起键盘 -->
   <keyboard id="keyboard" index="{{currentIndex}}" show="{{showKeyboard}}" bind:valueChange="valueChange"
