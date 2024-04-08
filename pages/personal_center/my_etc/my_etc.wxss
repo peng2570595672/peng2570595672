@@ -44,7 +44,7 @@
 }
 .my-etc .item .top {
   display: flex;
-  height: 122rpx;
+  height: 130rpx;
   padding-top: 24rpx;
   border-bottom: 1rpx solid #f2f2f2;
   box-sizing: border-box;
@@ -149,6 +149,26 @@
   background: none;
   border: 1rpx solid #1ba566;
   color: #1ba566;
+}
+.my-etc .item .truck .sub_success {
+  width: 300rpx;
+  height: 64rpx;
+  border-radius: 338rpx;
+  background: #fffaf6;
+  text-align: center;
+  line-height: 64rpx;
+  font-family: PingFang SC;
+  font-size: 28rpx;
+  font-weight: normal;
+  letter-spacing: 0rpx;
+  background: #f9f9f9;
+  color: #2a4f44;
+}
+.my-etc .item .truck .subs {
+  width: 300rpx;
+  height: 64rpx;
+  border-radius: 338rpx;
+  background: #fff;
 }
 .my-etc .item .moreStatus {
   width: 100%;

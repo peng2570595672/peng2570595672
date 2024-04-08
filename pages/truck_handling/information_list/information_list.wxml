@@ -30,7 +30,7 @@
     </view>
     <view wx:else class="icon {{orderInfo.isHeadstock === 1 ? 'success' : ''}} iconfont"></view>
   </view>
-  <view class="module moduleThree" wx:if="{{orderInfo.isVehicle === 1 && vehicleInfo.isTraction === 1}}">
+  <view class="module moduleThree" >
     <view class="left iconfont {{isRoadTransportCertificateError ? 'error' : ''}}">道路运输通行证</view>
     <view
       wx:if="{{ (isModifiedData && isRoadTransportCertificateError) || orderInfo.isTransportLicense !== 1 }}"

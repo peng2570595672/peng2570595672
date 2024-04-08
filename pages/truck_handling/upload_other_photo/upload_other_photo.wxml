@@ -1,5 +1,5 @@
 <view class="page">
-    <view class="label">正在申请 {{vehPlates}} 货车ETC</view>
+    <view class="label">正在办理货车ETC {{vehPlates}} </view>
     <!--上传证件部分开始-->
     <view class="photo-wrapper">
         <!--车头照开始-->
@@ -15,7 +15,7 @@
                 </view>
                 <image class="success" wx:else src="{{truckHeadstock.fileUrl}}"></image>
             </view>
-            <view>车头照（含车头45°含车牌）</view>
+            <view style="font-weight: 550;">车头照（含车头45°含车牌）</view>
         </view>
         <!--车头照结束-->
     </view>
@@ -33,8 +33,8 @@
                 </view>
                 <image class="success" wx:else src="{{truckSidePhoto.fileUrl}}"></image>
             </view>
-            <view>补充角度照</view>
-            <view>补充正面车头照或侧面车身照有利于通过审核</view>
+            <view style="font-weight: 550;">补充角度照</view>
+            <view style="line-height: 60rpx;color: #666;">补充正面车头照或侧面车身照有利于通过审核</view>
         </view>
         <!--车头照结束-->
     </view>

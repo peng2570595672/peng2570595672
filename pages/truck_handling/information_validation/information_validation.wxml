@@ -91,6 +91,40 @@
                     </picker>
                 </view>
             </view>
+            <view class="keyValue">
+                <view class="attrName left">车轮数</view>
+                <view class="attrValue">
+
+                    <input class="input" type="number" maxlength="2" placeholder="请输入车轮数量" value="{{wheelCountNo}}"
+                        data-key="wheelCountNo" data-type="4" bindinput="onInputChangedHandle" />
+                </view>
+                <!--            <picker-->
+                <!--                    bindchange="bindPersonsWheelCountChange"-->
+                <!--                    value="{{wheelCount}}"-->
+                <!--                    range="{{wheelCountArr}}"-->
+                <!--                    range-key="name"-->
+                <!--            >-->
+                <!--                <view class="choice-axle iconfont">{{wheelCount !== -1 ? wheelCountArr[wheelCount].name : '请真实选择车轮个数'}}</view>-->
+                <!--            </picker>-->
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">注册日期</view>
+                <view class="attrValue">
+                    <picker mode="date" value="{{drivingLicenseFace.ocrObject.resgisterDate}}"
+                        bindchange="resgisterDatePickerChange">
+                        <view class="input">{{drivingLicenseFace.ocrObject.resgisterDate || '选择注册日期'}}</view>
+                    </picker>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">发证日期</view>
+                <view class="attrValue">
+                    <picker mode="date" value="{{drivingLicenseFace.ocrObject.issueDate}}"
+                        bindchange="issueDatePickerChange">
+                        <view class="input">{{drivingLicenseFace.ocrObject.issueDate || '选择发证日期'}}</view>
+                    </picker>
+                </view>
+            </view>
             <!-- <view class="keyValue">
                 <view class="attrName left">发动机号</view>
                 <view class="attrValue">
@@ -124,24 +158,6 @@
                 </view>
             </view>
             <view class="keyValue">
-                <view class="attrName left">注册日期</view>
-                <view class="attrValue">
-                    <picker mode="date" value="{{drivingLicenseFace.ocrObject.resgisterDate}}"
-                        bindchange="resgisterDatePickerChange">
-                        <view class="input">{{drivingLicenseFace.ocrObject.resgisterDate || '选择注册日期'}}</view>
-                    </picker>
-                </view>
-            </view>
-            <view class="keyValue">
-                <view class="attrName left">发证日期</view>
-                <view class="attrValue">
-                    <picker mode="date" value="{{drivingLicenseFace.ocrObject.issueDate}}"
-                        bindchange="issueDatePickerChange">
-                        <view class="input">{{drivingLicenseFace.ocrObject.issueDate || '选择发证日期'}}</view>
-                    </picker>
-                </view>
-            </view>
-            <view class="keyValue">
                 <view class="attrName left">档案编号</view>
                 <view class="attrValue">
                     <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.fileNumber}}"
@@ -157,23 +173,7 @@
                         placeholder-class="input-placeholder" placeholder="请输入总质量" />
                 </view>
             </view> -->
-            <view class="keyValue">
-                <view class="attrName left">车轮数</view>
-                <view class="attrValue">
-
-                    <input class="input" type="number" maxlength="2" placeholder="请输入车轮数量" value="{{wheelCountNo}}"
-                        data-key="wheelCountNo" data-type="4" bindinput="onInputChangedHandle" />
-                </view>
-                <!--            <picker-->
-                <!--                    bindchange="bindPersonsWheelCountChange"-->
-                <!--                    value="{{wheelCount}}"-->
-                <!--                    range="{{wheelCountArr}}"-->
-                <!--                    range-key="name"-->
-                <!--            >-->
-                <!--                <view class="choice-axle iconfont">{{wheelCount !== -1 ? wheelCountArr[wheelCount].name : '请真实选择车轮个数'}}</view>-->
-                <!--            </picker>-->
-            </view>
-            <view class="keyValue">
+            <!-- <view class="keyValue">
                 <view class="attrName left">整备质量</view>
                 <view class="attrValue">
                     <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.curbWeight}}"
@@ -188,16 +188,16 @@
                         bindinput="onInputChangedHandle" data-key="loadQuality" data-type="4"
                         placeholder-class="input-placeholder" />
                 </view>
-            </view>
-            <view class="keyValue">
+            </view> -->
+            <!-- <view class="keyValue">
                 <view class="attrName left">外廓尺寸</view>
                 <view class="attrValue">
                     <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.size}}"
                         bindinput="onInputChangedHandle" data-key="size" data-type="4"
                         placeholder-class="input-placeholder" placeholder="请输入外廓尺寸" />
                 </view>
-            </view>
-            <view class="keyValue">
+            </view> -->
+            <!-- <view class="keyValue">
                 <view class="attrName left">准牵引总质量</view>
                 <view class="attrValue">
                     <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.tractionMass}}"
@@ -219,9 +219,68 @@
                         value="{{drivingLicenseBack.ocrObject.recode}}" bindinput="onInputChangedHandle"
                         data-key="recode" data-type="4" placeholder-class="input-placeholder" placeholder="请输入检验记录" />
                 </view>
-            </view>
+            </view> -->
         </view>
         <!-- 占位 -->
+        <view class="module moduleTwo" wx:if="{{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl}}">
+            <view class="titles">详细信息</view>
+            <view class="keyValue">
+                <view style="width: 150rpx;font-weight: 550;">尺寸(mm)</view>
+                <view>
+                    <input class="input"
+                        style="width: 110rpx;height: 50rpx;text-align: center; border: 1px solid #F0F0F0; padding: 2rpx 5rpx;"
+                        type="text" bindinput="onInputChangedHandle" data-key="size" data-type="4"
+                        value="{{drivingLicenseBack.ocrObject.vehicleLength}}">
+                    </input>
+                    <view style="margin-left: 40rpx;padding: 10rpx 0;">长</view>
+                </view>
+                <view>
+                    <input class="input"
+                        style="width: 110rpx;height: 50rpx;text-align: center; border: 1px solid #F0F0F0; padding: 2rpx 5rpx;"
+                        type="text" bindinput="onInputChangedHandle" data-key="size" data-type="4"
+                        value="{{drivingLicenseBack.ocrObject.vehicleLength}}">
+                    </input>
+                    <view style="margin-left: 40rpx;padding: 10rpx 0;">宽</view>
+                </view>
+                <view>
+                    <input class="input"
+                        style="width: 110rpx;height: 50rpx;text-align: center; border: 1px solid #F0F0F0; padding: 2rpx 5rpx;"
+                        type="text" bindinput="onInputChangedHandle" data-key="size" data-type="4"
+                        value="{{drivingLicenseBack.ocrObject.vehicleLength}}">
+                    </input>
+                    <view style="margin-left: 40rpx;padding: 10rpx 0;">高</view>
+                </view>
+            </view>
+            <view class="fill" style="border-top: 1px solid #E0E0E0; width: 60%;margin-left: 32%;margin-bottom: 30rpx;">
+            </view>
+            <view class="keyValue">
+                <view style="width: 150rpx;font-weight: 550;">质量(kg)</view>
+                <view>
+                    <input class="input"
+                        style="width: 110rpx;height: 50rpx;text-align: center; border: 1px solid #F0F0F0; padding: 2rpx 5rpx;"
+                        type="text" bindinput="onInputChangedHandle" data-key="size" data-type="4"
+                        value="{{drivingLicenseBack.ocrObject.totalMass}}">
+                    </input>
+                    <view style="margin-left: 10rpx;padding: 10rpx 0;">总重量</view>
+                </view>
+                <view>
+                    <input class="input"
+                        style="width: 110rpx;height: 50rpx;text-align: center; border: 1px solid #F0F0F0; padding: 2rpx 5rpx;"
+                        type="text" bindinput="onInputChangedHandle" data-key="size" data-type="4"
+                        value="{{drivingLicenseBack.ocrObject.tractionMass}}">
+                    </input>
+                    <view style="margin-left: 10rpx;padding: 10rpx 0;">机身重量</view>
+                </view>
+                <view>
+                    <input class="input"
+                        style="width: 110rpx;height: 50rpx;text-align: center; border: 1px solid #F0F0F0; padding: 2rpx 5rpx;"
+                        type="text" bindinput="onInputChangedHandle" data-key="size" data-type="4"
+                        value="{{drivingLicenseBack.ocrObject.vehicleLength}}">
+                    </input>
+                    <view style="margin-left: 10rpx;padding: 10rpx 0;">货物重量</view>
+                </view>
+            </view>
+        </view>
         <view class="split"></view>
         <!-- 底部悬浮按钮 -->
         <view class="bottomBtn" wx:if="{{faceStatus === 4 && backStatus === 4}}">

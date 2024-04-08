@@ -121,6 +121,7 @@
     </view>
 
     <!-- 组件 提示 -->
-    <popTipComp id="popTipComp" tipObj="{{tipObj}}"></popTipComp>
+    <!-- <popTipComp id="popTipComp" tipObj="{{tipObj}}"></popTipComp> -->
+    <popTipComp id="popTipComp" bind:onHandle="onHandle" bind:cancelHandle="failedCancelHandle"></popTipComp>
 </view>
 <privacy_popup></privacy_popup>

@@ -99,8 +99,8 @@ Page({
 				});
 			}
 			if (temp?.ownerIdCardTrueName) {
-				let idCardBack = {ocrObject: {}};
-				let idCardFace = {ocrObject: {}};
+				let idCardBack = { ocrObject: {} };
+				let idCardFace = { ocrObject: {} };
 				idCardFace.fileUrl = temp.ownerIdCardPositiveUrl;
 				idCardFace.ocrObject.name = temp.ownerIdCardTrueName;
 				idCardFace.ocrObject.idNumber = temp.ownerIdCardNumber;
@@ -250,27 +250,37 @@ Page({
 					delta: 1
 				});
 			} else {
-				// 开始倒计时 10s
-				util.showToastNoIcon(res1.message);
+				let failEvent = true; // 展示
+				this.selectComponent('#popTipComp').show({
+					type: 'shenfenyanzhifail',
+					title: '车主身份不一致',
+					btnCancel: '确认',
+					refundStatus: failEvent,
+					content: failEvent ? '您上传的身份证与申办车牌不一致，请确认后重新上！' : '',
+					bgColor: 'rgba(0,0,0, 0.6)'
+				});
 			}
 		} else {
 			util.showToastNoIcon(result.message);
 		}
 	},
+	failedCancelHandle () { // 身份验证失败 回调
+		// 开始倒计时 10s
+	},
 	// 上传图片
 	uploadOcrFile (path) {
 		const type = app.globalData.truckHandlingOCRType;
 		if (type === 1) {
-			this.setData({faceStatus: 2});
+			this.setData({ faceStatus: 2 });
 		} else {
-			this.setData({backStatus: 2});
+			this.setData({ backStatus: 2 });
 		}
 		// 上传并识别图片
 		util.uploadOcrFile(path, type, () => {
 			if (type === 1) {
-				this.setData({faceStatus: 3});
+				this.setData({ faceStatus: 3 });
 			} else {
-				this.setData({backStatus: 3});
+				this.setData({ backStatus: 3 });
 			}
 			util.showToastNoIcon('文件服务器异常！');
 		}, (res) => {
@@ -310,31 +320,31 @@ Page({
 							});
 						} catch (e) {
 							if (type === 1) {
-								this.setData({faceStatus: 3});
+								this.setData({ faceStatus: 3 });
 							} else {
-								this.setData({backStatus: 3});
+								this.setData({ backStatus: 3 });
 							}
 						}
 					} else { // 识别失败
 						if (type === 1) {
-							this.setData({faceStatus: 3});
+							this.setData({ faceStatus: 3 });
 						} else {
-							this.setData({backStatus: 3});
+							this.setData({ backStatus: 3 });
 						}
 					}
 				} else { // 识别失败
 					if (type === 1) {
-						this.setData({faceStatus: 3});
+						this.setData({ faceStatus: 3 });
 					} else {
-						this.setData({backStatus: 3});
+						this.setData({ backStatus: 3 });
 					}
 					util.showToastNoIcon('识别失败');
 				}
 			} catch (e) {
 				if (type === 1) {
-					this.setData({faceStatus: 3});
+					this.setData({ faceStatus: 3 });
 				} else {
-					this.setData({backStatus: 3});
+					this.setData({ backStatus: 3 });
 				}
 				util.showToastNoIcon('文件服务器异常！');
 			}
@@ -362,10 +372,10 @@ Page({
 			formData[key] = e.detail.value.substring(0, 11);
 		} else if (key === 'verifyCode' && e.detail.value.length > 4) { // 验证码
 			formData[key] = e.detail.value.substring(0, 4);
-			this.setData({formData});
+			this.setData({ formData });
 		} else if (key === 'verifyCode' || key === 'cardMobilePhone') {
 			formData[key] = e.detail.value;
-			this.setData({formData});
+			this.setData({ formData });
 		} else {
 			this.setData({
 				[`idCardFace.ocrObject.${key}`]: e.detail.value
@@ -391,7 +401,7 @@ Page({
 		// 清倒计时
 		clearInterval(timer);
 		timer = setInterval(() => {
-			this.setData({time: --this.data.time});
+			this.setData({ time: --this.data.time });
 			if (this.data.time === 0) {
 				clearInterval(timer);
 				this.setData({
