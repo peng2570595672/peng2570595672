@@ -53,9 +53,6 @@ Page({
 				});
 			}
 		}
-		this.setData({
-			'transportationLicenseObj.fileUrl': true
-		});
 	},
 	// 获取订单信息
 	async getOrderInfo () {
