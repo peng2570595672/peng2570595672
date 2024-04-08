@@ -1,172 +1,172 @@
-
 // 字符串截取
 function substring(val, start, end) {
-  if (val.length == 0 || val == undefined) {
-    return;
-  }
-  return val.substring(start, end);
+    if (val == undefined || val.length == 0) {
+        return;
+    }
+    return val.substring(start, end);
 }
 // 字符串转数组
 function stringToArray(string, splitKeyword) {
-  return string.split(splitKeyword);
+    return string.split(splitKeyword);
 }
 // 数字小写转大写
 var cnum = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+
 function lowercaseToCapitalization(n) {
-  var s = '';
-  n = '' + n; // 数字转为字符串
-  for (var i = 0; i < n.length; i++) {
-    s += cnum[parseInt(n.charAt(i))];
-  }
-  if (s.length == 2) { // 两位数的时候
-    // 如果个位数是0的时候，令改成十
-    if (s.charAt(1) == cnum[0]) {
-      s = s.charAt(0) + cnum[10];
-      // 如果是一十改成十
-      if (s == cnum[1] + cnum[10]) {
-        s = cnum[10];
-      }
-    } else if (s.charAt(0) == cnum[1]) {
-      // 如果十位数是一的话改成十
-      s = cnum[10] + s.charAt(1);
+    var s = '';
+    n = '' + n; // 数字转为字符串
+    for (var i = 0; i < n.length; i++) {
+        s += cnum[parseInt(n.charAt(i))];
     }
-  }
-  return s;
+    if (s.length == 2) { // 两位数的时候
+        // 如果个位数是0的时候，令改成十
+        if (s.charAt(1) == cnum[0]) {
+            s = s.charAt(0) + cnum[10];
+            // 如果是一十改成十
+            if (s == cnum[1] + cnum[10]) {
+                s = cnum[10];
+            }
+        } else if (s.charAt(0) == cnum[1]) {
+            // 如果十位数是一的话改成十
+            s = cnum[10] + s.charAt(1);
+        }
+    }
+    return s;
 }
 // 保留两位小数
 function parseNum(val) {
-  return parseFloat(val || 0).toFixed(2);
+    return parseFloat(val || 0).toFixed(2);
 }
 // 取整
 function parseInt(val) {
-  return parseInt(val);
+    return parseInt(val);
 }
 // 倒计时函数
 function formatterTimer(systimestamp, compareTime, countdownTime) {
-  countdownTime = countdownTime || 0;
-  var reg = getRegExp("-", "g"); // 获取正则表达式，全局替换
-  compareTime = compareTime.replace(reg, '/'); // 时间格式转换
-  // 将字符串转换成时间格式
-  compareTime = getDate(compareTime).valueOf();
-  var result = {};
-  var nowTime = systimestamp / 1000;// 当前系统的时间戳
-  var futureTime = getDate(compareTime).getTime() / 1000 + countdownTime * 24 * 60 * 60; // 操作时间 + 倒计时时间
-  // 未来的时间减去现在的时间;
-  var resTime = futureTime - nowTime;
-  var date = Math.ceil(resTime / (24 * 60 * 60));
-  if (countdownTime !== 0) {
-    if (date === 0) {
-      date = 0;
+    countdownTime = countdownTime || 0;
+    var reg = getRegExp("-", "g"); // 获取正则表达式，全局替换
+    compareTime = compareTime.replace(reg, '/'); // 时间格式转换
+    // 将字符串转换成时间格式
+    compareTime = getDate(compareTime).valueOf();
+    var result = {};
+    var nowTime = systimestamp / 1000; // 当前系统的时间戳
+    var futureTime = getDate(compareTime).getTime() / 1000 + countdownTime * 24 * 60 * 60; // 操作时间 + 倒计时时间
+    // 未来的时间减去现在的时间;
+    var resTime = futureTime - nowTime;
+    var date = Math.ceil(resTime / (24 * 60 * 60));
+    if (countdownTime !== 0) {
+        if (date === 0) {
+            date = 0;
+        }
+        if (date >= countdownTime) {
+            date = countdownTime;
+        }
     }
-    if (date >= countdownTime) {
-      date = countdownTime;
-    }
-  }
-  return date > 0 ? date : 0;
+    return date > 0 ? date : 0;
 }
 // 数据长度
 function dataLen(obj) {
-  // console.log(obj);
-  if (!obj) { //判断是否为 空
-    return
-  }
-  return obj.length
+    // console.log(obj);
+    if (!obj) { //判断是否为 空
+        return
+    }
+    return obj.length
 }
 // 拿到货车的车牌颜色
 function getTruCorlor(str, type) {
-  if (type) { //传Type 就返回文字
-    var wenzi;
-    str === 1 ? wenzi = '黄牌' :
-      str === 0 ? wenzi = '蓝牌' :
-        str === 4 ? wenzi = '渐变绿' :
-          str === 5 ? wenzi = '黄绿牌' : ''
-    return wenzi;
-  }
-  var color;
-  str === 1 ? color = '#FFD56A' :
-    str === 0 ? color = '#48C5FF' :
-      str === 4 ? color = '#56C582' :
+    if (type) { //传Type 就返回文字
+        var wenzi;
+        str === 1 ? wenzi = '黄牌' :
+            str === 0 ? wenzi = '蓝牌' :
+            str === 4 ? wenzi = '渐变绿' :
+            str === 5 ? wenzi = '黄绿牌' : ''
+        return wenzi;
+    }
+    var color;
+    str === 1 ? color = '#FFD56A' :
+        str === 0 ? color = '#48C5FF' :
+        str === 4 ? color = '#56C582' :
         str === 5 ? color = 'linear-gradient(to right, #FFD56A 50%, #56C582 50%);' : ''
-  return color;
+    return color;
 }
 // 限制展示的字符个数 ,arg1:表示展示的文本，arg2:限制的个数,arg3: 是否切割
 function limitNumber(obj, num, isSlice = false) {
-  if (!obj) {
-    return
-  }
-  var len = obj.length
-  if (!isSlice) {
-    if (len <= num) {
-      return obj
-    } else {
-      var str = obj.substring(0, num) + '...'
-      return str
+    if (!obj) {
+        return
     }
-  } else {
-    var str = obj.substring(0, num)
-    return str
-  }
+    var len = obj.length
+    if (!isSlice) {
+        if (len <= num) {
+            return obj
+        } else {
+            var str = obj.substring(0, num) + '...'
+            return str
+        }
+    } else {
+        var str = obj.substring(0, num)
+        return str
+    }
 
 }
 // 省市区格式转换 省 - 市 - 区
 function addressFormat(obj) {
-  if (obj.length === 0) {
-    return
-  }
-  var address = obj[0]
-  for (var index = 1; index < obj.length; index++) {
-    if (!obj[index] || obj[index] === '') {
-      return
+    if (obj.length === 0) {
+        return
     }
-    address += ' - ' + obj[index]
-  }
-  return address
+    var address = obj[0]
+    for (var index = 1; index < obj.length; index++) {
+        if (!obj[index] || obj[index] === '') {
+            return
+        }
+        address += ' - ' + obj[index]
+    }
+    return address
 }
 // 判断在对象中是否有 指定的对象
 function onlineService(obj, twoPar) {
-  if (obj.indexOf(twoPar) !== -1) {
-    return false
-  }
-  return true
+    if (obj.indexOf(twoPar) !== -1) {
+        return false
+    }
+    return true
 }
 // 手机号展示部分隐藏
 function phoneNumberHide(obj) {
-  if (!obj) { //判断是否为 空
-    return false
-  }
-  var left = obj.substring(0, 3);
-  var right = obj.substring(7, 12)
-  var obj = left + '****' + right
-  return obj
-}
-// 判断车牌字段是否用手机号填充
-function isPhone(obj) {
-  if (!obj) { //判断是否为 空
-    return false
-  }
-  if (obj.length === 11) {
+    if (!obj) { //判断是否为 空
+        return false
+    }
     var left = obj.substring(0, 3);
     var right = obj.substring(7, 12)
     var obj = left + '****' + right
     return obj
-  }
-  return obj
+}
+// 判断车牌字段是否用手机号填充
+function isPhone(obj) {
+    if (!obj) { //判断是否为 空
+        return false
+    }
+    if (obj.length === 11) {
+        var left = obj.substring(0, 3);
+        var right = obj.substring(7, 12)
+        var obj = left + '****' + right
+        return obj
+    }
+    return obj
 }
 // @cyl 时间比较=》 fixedTime: 固定时间，flexibleTime: 灵活时间。 适用于：根据某个时间前后来判断订单是否为新
 function timeComparison(fixedTime, flexibleTime) {
-  if (!fixedTime || !flexibleTime) {
-    return
-  }
-  var reg = getRegExp("-", "g"); // 获取正则表达式，全局替换
-  fixedTime = fixedTime.slice(0, 19).replace(reg, '/');	//转换是为了iPhone
-  flexibleTime = flexibleTime.slice(0, 19).replace(reg, '/');
-  var time = getDate(fixedTime).getTime()
-  var newTime = getDate(flexibleTime).getTime()
-  if (time <= newTime) {
-    return 1	//新订单
-  } else {
-    return 2	//旧订单
-  }
+    if (!fixedTime || !flexibleTime) {
+        return
+    }
+    var reg = getRegExp("-", "g"); // 获取正则表达式，全局替换
+    fixedTime = fixedTime.slice(0, 19).replace(reg, '/'); //转换是为了iPhone
+    flexibleTime = flexibleTime.slice(0, 19).replace(reg, '/');
+    var time = getDate(fixedTime).getTime()
+    var newTime = getDate(flexibleTime).getTime()
+    if (time <= newTime) {
+        return 1 //新订单
+    } else {
+        return 2 //旧订单
+    }
 };
 /**
  * 
@@ -176,34 +176,34 @@ function timeComparison(fixedTime, flexibleTime) {
  * @returns 
  */
 function dataIncludes(originalData, includesParams, type) {
-  if (!originalData || !includesParams) {
-    return false
-  }
-  if (type === 1) {
-    if (includesParams.vehKeys === '*' && includesParams.pingAnBindVehplates.indexOf(originalData)) {
-      return true
+    if (!originalData || !includesParams) {
+        return false
     }
-    var arr1 = includesParams.vehKeys.split(',');
-    var arr2 = includesParams.filterKeys.split(',');
-    var flag = (arr1.indexOf(originalData.substring(0, 1)) !== -1) && (arr2.indexOf(originalData.substring(0, 2)) === -1) && includesParams.pingAnBindVehplates.indexOf(originalData) !== -1;
-    return flag
-  }
-  if (type === 2) { //信用卡模式细节优化
-    if (originalData.indexOf(includesParams) !== -1) {
-      var pinAnArr1 = ['1126085154731728896', '1129091866749968384'];
-      var minshenArr1 = ['1188851910218620928', '1199301561518923776']
-      var guangfaArr2 = ['1212340736891035648', '1220403044448608256']
-      if (pinAnArr1.indexOf(includesParams) !== -1) {
-        return '平安'
-      } else if (minshenArr1.indexOf(includesParams) !== -1) {
-        return '民生'
-      } else if (guangfaArr2.indexOf(includesParams) !== -1) {
-        return '广发'
-      } else {
-        return '中信'
-      }
+    if (type === 1) {
+        if (includesParams.vehKeys === '*' && includesParams.pingAnBindVehplates.indexOf(originalData)) {
+            return true
+        }
+        var arr1 = includesParams.vehKeys.split(',');
+        var arr2 = includesParams.filterKeys.split(',');
+        var flag = (arr1.indexOf(originalData.substring(0, 1)) !== -1) && (arr2.indexOf(originalData.substring(0, 2)) === -1) && includesParams.pingAnBindVehplates.indexOf(originalData) !== -1;
+        return flag
     }
-  }
+    if (type === 2) { //信用卡模式细节优化
+        if (originalData.indexOf(includesParams) !== -1) {
+            var pinAnArr1 = ['1126085154731728896', '1129091866749968384'];
+            var minshenArr1 = ['1188851910218620928', '1199301561518923776']
+            var guangfaArr2 = ['1212340736891035648', '1220403044448608256']
+            if (pinAnArr1.indexOf(includesParams) !== -1) {
+                return '平安'
+            } else if (minshenArr1.indexOf(includesParams) !== -1) {
+                return '民生'
+            } else if (guangfaArr2.indexOf(includesParams) !== -1) {
+                return '广发'
+            } else {
+                return '中信'
+            }
+        }
+    }
 }
 /**
  * 
@@ -212,15 +212,15 @@ function dataIncludes(originalData, includesParams, type) {
  * @returns 
  */
 function numReplace(param1, type = 1) {
-  if (!param1) return
-  if (type === 1) {
-    param1 = (param1 / 100) + '';
-    return param1.indexOf('-') !== -1 ? param1.replace('-', '-￥') : '+￥' + param1
-  }
-  if (type === 2) {
-    param1 = param1 + ''
-    return param1.indexOf('-') !== -1
-  }
+    if (!param1) return
+    if (type === 1) {
+        param1 = (param1 / 100) + '';
+        return param1.indexOf('-') !== -1 ? param1.replace('-', '-￥') : '+￥' + param1
+    }
+    if (type === 2) {
+        param1 = param1 + ''
+        return param1.indexOf('-') !== -1
+    }
 }
 
 /**
@@ -231,23 +231,23 @@ function numReplace(param1, type = 1) {
  * @param repObj 替换的对象
  */
 function strReplace(obj, start, end, repObj) {
-  if (typeof obj !== 'string' || end > obj.length || !obj) {
-    return;
-  }
-  var str1 = ''
-  for (var index = 0; index < obj.length; index++) {
-    if (index >= start && index < end && start >= 0) {
-      str1 += repObj;
-      continue;
-    } else if (index > obj.length + end && index <= obj.length + start) {
-      str1 += repObj;
-      continue;
-    } else {
-      str1 += obj[index]
+    if (typeof obj !== 'string' || end > obj.length || !obj) {
+        return;
     }
+    var str1 = ''
+    for (var index = 0; index < obj.length; index++) {
+        if (index >= start && index < end && start >= 0) {
+            str1 += repObj;
+            continue;
+        } else if (index > obj.length + end && index <= obj.length + start) {
+            str1 += repObj;
+            continue;
+        } else {
+            str1 += obj[index]
+        }
 
-  }
-  return str1
+    }
+    return str1
 }
 /**
  * 字符串数字的规范间隔
@@ -257,20 +257,20 @@ function strReplace(obj, start, end, repObj) {
  * @returns str 返回操作后的数据
  */
 function specification(params, count = 4, type = 'general') {
-  if (!params) {
-    return
-  }
-  if (type === 'general') {
-    var str = '';
-    for (var index = 0; index < params.length; index++) {
-      if ((index !== 0) && !((index + 1) % count)) {
-        str += params[index] + " "
-        continue
-      }
-      str += '' + params[index]
+    if (!params) {
+        return
     }
-    return str
-  }
+    if (type === 'general') {
+        var str = '';
+        for (var index = 0; index < params.length; index++) {
+            if ((index !== 0) && !((index + 1) % count)) {
+                str += params[index] + " "
+                continue
+            }
+            str += '' + params[index]
+        }
+        return str
+    }
 
 }
 /**
@@ -280,32 +280,32 @@ function specification(params, count = 4, type = 'general') {
  * @returns 真或假
  */
 function equits(arr, str) {
-  if (!arr || !str) {
+    if (!arr || !str) {
+        return false
+    }
+    if (arr.indexOf(str) !== -1) {
+        return true
+    }
     return false
-  }
-  if (arr.indexOf(str) !== -1) {
-    return true
-  }
-  return false
 }
 module.exports = {
-  substring: substring,
-  lowercaseToCapitalization: lowercaseToCapitalization,
-  stringToArray: stringToArray,
-  parseInt: parseInt,
-  parseNum: parseNum,
-  formatterTimer: formatterTimer,
-  dataLen: dataLen,
-  limitNumber: limitNumber,
-  addressFormat: addressFormat,
-  onlineService: onlineService,
-  phoneNumberHide: phoneNumberHide,
-  isPhone: isPhone,
-  timeComparison: timeComparison,
-  dataIncludes: dataIncludes,
-  numReplace: numReplace,
-  strReplace: strReplace,
-  specification: specification,
-  equits: equits,
-  getTruCorlor: getTruCorlor,
+    substring: substring,
+    lowercaseToCapitalization: lowercaseToCapitalization,
+    stringToArray: stringToArray,
+    parseInt: parseInt,
+    parseNum: parseNum,
+    formatterTimer: formatterTimer,
+    dataLen: dataLen,
+    limitNumber: limitNumber,
+    addressFormat: addressFormat,
+    onlineService: onlineService,
+    phoneNumberHide: phoneNumberHide,
+    isPhone: isPhone,
+    timeComparison: timeComparison,
+    dataIncludes: dataIncludes,
+    numReplace: numReplace,
+    strReplace: strReplace,
+    specification: specification,
+    equits: equits,
+    getTruCorlor: getTruCorlor,
 };

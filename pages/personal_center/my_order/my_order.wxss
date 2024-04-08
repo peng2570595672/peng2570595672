@@ -10,8 +10,9 @@ page {
   top: 0;
   z-index: 999;
   width: 100%;
-  height: 112rpx;
-  background: #fbe5a8;
+  height: 72rpx;
+  background: #fff;
+  font-size: 24rpx;
   border-top: 1rpx solid #f0f0f0;
   padding-left: 32rpx;
   padding-right: 38rpx;
@@ -20,48 +21,48 @@ page {
 .my_order .notice .notice-box {
   display: flex;
   align-items: center;
-  height: 112rpx;
+  height: 72rpx;
   color: #ff563c;
 }
-.my_order .notice .notice-box>view:first-child {
+.my_order .notice .notice-box .text0 {
   flex: 9;
-  font-size: 28rpx;
   word-break: break-all;
 }
-.my_order .notice .notice-box>view:last-child {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  height: 112rpx;
-  justify-content: flex-end;
-}
-.my_order .notice .notice-box>view:last-child::before {
-  content: '•';
-  font-size: 48rpx;
-  line-height: 112rpx;
-}
-.my_order .notice .notice-box>view:last-child::after {
-  display: inline-block;
-  content: '\e60e';
-  font-size: 32rpx;
-  font-weight: bold;
-  transform: scaleX(-1);
-  color: rgba(0,0,0,0.3);
+.my_order .notice .notice-box .text1 {
+  width: 52px;
+  height: 20px;
+  border-radius: 451px;
+  background: #eef6ef;
+  font-family: PingFang SC;
+  font-weight: normal;
+  letter-spacing: 0rpx;
+  color: #2a4f44;
+  text-align: center;
+  line-height: 36rpx;
 }
 .my_order .total-cost {
-  padding: 20rpx 32rpx 18rpx;
-  font-size: 24rpx;
-  color: #99999d;
+  padding: 0 32rpx;
+  margin-top: -20rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #3d3d3d;
   line-height: 40rpx;
-  border-bottom: 32rpx solid #f9f9f9;
+  letter-spacing: 0rpx;
+  font-family: PingFang SC;
+  font-variation-settings: "opsz" auto;
 }
-.my_order .total-cost>view:first-child {
-  color: #66666d;
-  font-weight: 600;
+.my_order .total-cost .text2 {
+  margin-top: 12rpx;
+  font-size: 22rpx;
+  font-weight: normal;
+  line-height: 32rpx;
+  text-align: justify;
+  color: #999;
 }
 .my_order .order-list .order-list-content {
-  padding: 34rpx 32rpx 28rpx;
-  border-bottom: 32rpx solid #f9f9f9;
+  margin: 0 32rpx;
+  padding: 28rpx 0;
+  border-bottom: 1rpx solid #e0e0e0;
 }
 .my_order .order-list .order-list-content .operating-expenses {
   padding-top: 44rpx;
@@ -75,7 +76,7 @@ page {
   flex: 6;
   font-size: 40rpx;
   font-weight: 500;
-  color: #33333d;
+  color: $fontColor3;
   display: flex;
   align-items: center;
 }
@@ -93,13 +94,13 @@ page {
   text-align: right;
 }
 .my_order .order-list .order-list-content .order-list-top .success-money {
-  color: #33333d;
+  color: $fontColor3;
 }
 .my_order .order-list .order-list-content .order-list-top .refund {
-  color: #99999d;
+  color: $fontColor9;
 }
 .my_order .order-list .order-list-content .order-list-top .poundage {
-  color: #99999d;
+  color: $fontColor9;
   font-weight: 400;
   font-size: 24rpx;
 }
@@ -114,7 +115,7 @@ page {
   align-items: center;
   font-size: 24rpx;
   line-height: 40rpx;
-  color: #66666d;
+  color: $fontColor6;
   padding: 10rpx 0;
 }
 .my_order .order-list .order-list-content .site > view:first-child {
@@ -122,8 +123,9 @@ page {
 }
 .my_order .order-list .order-list-content .site > view:first-child text::after {
   content: '\e651';
-  color: #66666d;
+  color: $fontColor6;
   font-size: 24rpx;
+  margin: 0 5rpx;
 }
 .my_order .order-list .order-list-content .site > view.refund {
   width: 98rpx;
@@ -145,7 +147,7 @@ page {
 .my_order .order-list .order-list-content .order-list-bottom {
   display: flex;
   font-size: 24rpx;
-  color: #99999d;
+  color: $fontColor9;
   line-height: 30rpx;
 }
 .my_order .order-list .order-list-content .order-list-bottom .accounting-time,
@@ -161,6 +163,13 @@ page {
 .my_order .order-list .order-list-content .order-list-bottom .processing-time {
   text-align: right;
 }
+.my_order .order-list .order-list-content .order-list-bottom .text3 {
+  font-family: PingFang SC;
+  font-weight: normal;
+  line-height: 32rpx;
+  letter-spacing: 0rpx;
+  color: #999;
+}
 .is_owes {
   padding-top: 208rpx;
 }
@@ -169,7 +178,7 @@ page {
 }
 .empty {
   text-align: center;
-  color: #66666d;
+  color: $fontColor6;
   font-size: 32rpx;
 }
 .empty image {
