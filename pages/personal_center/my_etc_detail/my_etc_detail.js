@@ -412,6 +412,11 @@ Page({
 	},
 	// ETC申办审核结果通知、ETC发货提示
 	async subscribe (obj) {
+		if (obj.isNewTrucks === 1) { // 货车
+			// 货车签约
+			util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
+			return;
+		}
 		// 判断版本，兼容处理
 		let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
 		if (result >= 0) {

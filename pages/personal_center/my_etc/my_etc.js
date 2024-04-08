@@ -511,13 +511,9 @@ Page({
 			return;
 		}
 		if (obj.isNewTrucks === 1) { // 货车
-			if (obj.orderType !== 31) {
-				// 货车签约
-				util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
-			}
-			wx.uma.trackEvent('my_etc_for_sign_contract');
-			app.globalData.isSalesmanOrder = obj.orderType === 31;
-			app.globalData.signAContract = -1;
+			// 货车签约
+			util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
+			return;
 		}
 		app.globalData.isSecondSigning = false;
 		app.globalData.isSecondSigningInformationPerfect = obj.status === 1;
@@ -605,11 +601,6 @@ Page({
 			app.globalData.orderStatus = obj.selfStatus;
 			app.globalData.orderInfo.shopProductId = obj.shopProductId;
 			app.globalData.signAContract === -1;
-			if (res.isNewTrucks === 1 && res.contractPlatformId === '500338116821778436') {
-				// 货车签约ETC+
-				util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
-				return;
-			}
 			util.weChatSigning(res);
 		} else {
 			util.showToastNoIcon(result.message);
