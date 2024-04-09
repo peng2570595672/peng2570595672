@@ -120,13 +120,13 @@
         <view class="line"></view>
     </view>
     <!-- 货车 -->
-    <view style="background: #ccc;" wx:else>
+    <view wx:else>
         <view class="module module1">
             <view class="subModle" wx:if="{{(details.etcMoney && details.etcMoney > 0) || (details.flowVersion === 2 && details.totalMmout > 0)}}">
                 <view>已扣金额</view>
                 <view>{{tools.parseNum((details.splitDeductedMoney + details.deductServiceMoney)/100)}}</view>
             </view>
-            <view class="subModle borderBottom" style="color: #FA5151;">
+            <view class="subModle borderBottom">
                 <view>待扣金额</view>
                 <view class="iconfont lateFees" catchtap="lateFees" data-flag="1">{{tools.parseNum((details.totalMmout + details.serviceMoney - details.splitDeductedMoney - details.deductServiceMoney)/100)}}</view>
             </view>
@@ -153,7 +153,7 @@
             </view>
             <view class="subModle">
                 <view>扣费类型</view>
-                <view style="color: #00A9FF;">[高速扣费]</view>
+                <view class="fontColor1">[高速扣费]</view>
             </view>
             <view class="subModle" wx:if="{{details.deductTime}}">
                 <view>扣费时间</view>

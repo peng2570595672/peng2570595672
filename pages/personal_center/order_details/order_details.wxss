@@ -27,7 +27,7 @@
   text-align: center;
   font-size: 76rpx;
   font-weight: 500;
-  color: $fontColor3;
+  color: #33333d;
   height: 156rpx;
   display: flex;
   justify-content: center;
@@ -70,17 +70,17 @@
 .order_details .deduction-details>view>view:first-child {
   flex: 1;
   height: 48rpx;
-  color: $fontColor6;
+  color: #66666d;
 }
 .order_details .deduction-details>view>view:first-child.deductions-money {
-  color: $fontColor3;
+  color: #33333d;
 }
 .order_details .deduction-details>view>view:last-child {
   flex: 1;
   text-align: right;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
-  color: $fontColor3;
+  color: #33333d;
 }
 .order_details .deduction-details>view>view:last-child.deductions {
   color: #f7b500;
@@ -151,7 +151,7 @@
   height: 204rpx;
   padding: 20rpx 0;
   font-size: 24rpx;
-  color: $fontColor6;
+  color: #66666d;
   text-align: center;
   background: #fff;
 }
@@ -199,8 +199,12 @@
   height: auto;
 }
 .order_details .module1 .borderBottom {
+  color: #fa5151;
   padding-bottom: 33rpx;
   border-bottom: 1rpx solid #eee;
+}
+.order_details .module1 .fontColor1 {
+  color: #00a9ff;
 }
 .order_details .module2 .text1 {
   font-size: 22rpx;
