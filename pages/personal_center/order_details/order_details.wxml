@@ -28,7 +28,7 @@
     <view class="text0">扣费金额</view>
     <!-- 扣费金额结束 -->
     <!-- 扣费详情开始 -->
-    <view wx:if="{{details.flowVersion === 5}}">
+    <view wx:if="{{details.flowVersion !== 5}}">
         <view class="deduction-details">
             <view wx:if="{{(details.etcMoney && details.etcMoney > 0) || (details.flowVersion === 2 && details.totalMmout > 0)}}">
                 <view>通行费（折后）</view>
