@@ -33,7 +33,7 @@
   <view class="module moduleThree" >
     <view class="left iconfont {{isRoadTransportCertificateError ? 'error' : ''}}">道路运输通行证</view>
     <view
-      wx:if="{{ (isModifiedData && isRoadTransportCertificateError) || orderInfo.isTransportLicense === 1 }}"
+      wx:if="{{ (isModifiedData && isRoadTransportCertificateError) || orderInfo.isTransportLicense !== 1 }}"
       class="btn {{orderInfo.isTransportLicense === 1  ? 'edit' : ''}}" catchtap="go"
       data-url="upload_road_transport_certificate">
       {{orderInfo.isTransportLicense === 1 ? '修改' : '上传'}}

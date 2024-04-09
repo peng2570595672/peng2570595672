@@ -188,6 +188,13 @@
   align-items: center;
   justify-content: space-around;
 }
+.index .handleImmediately .newTimeActive {
+  position: absolute;
+  top: 3rpx;
+  width: 100vw;
+  height: 75rpx;
+  background-color: #ffecbb;
+}
 .index .handleImmediately button {
   width: 662rpx;
   height: 120rpx;
@@ -198,8 +205,8 @@
   border-radius: 64rpx;
 }
 .index .handleImmediately .image {
-  width: 108rpx;
-  height: 40rpx;
+  width: 110rpx;
+  height: 44rpx;
   position: absolute;
   left: 480rpx;
   top: 120rpx;

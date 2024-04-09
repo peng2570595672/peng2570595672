@@ -73,6 +73,9 @@
         <view class="split"></view>
         <!-- 立即办理 {{isFade ? 'fadeIn' : 'fadeOut'}}-->
         <view class="handleImmediately">
+            <view class="newTimeActive">
+                123
+            </view>
             <button catchtap="onClickHandle">{{isNewTrucks? '办理货车ETC': '小汽车ETC办理'}}</button>
             <view wx:if="{{isNewTrucks === 1}}" class="image" >
                 <image class="images" mode="widthFix" style="width: 100%;height:100%;"
