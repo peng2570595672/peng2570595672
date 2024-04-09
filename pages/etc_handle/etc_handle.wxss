@@ -194,6 +194,27 @@
   width: 100vw;
   height: 75rpx;
   background-color: #ffecbb;
+  display: flex;
+  color: #ec602a;
+  font-weight: 500;
+}
+.index .handleImmediately .newTimeActive .countdown {
+  background-color: #ffecbb;
+  width: 44rpx;
+  height: 40rpx;
+  margin: 8rpx 30rpx 8rpx 24rpx;
+}
+.index .handleImmediately .newTimeActive span {
+  width: 42rpx;
+  text-align: center;
+  height: 38rpx;
+  line-height: 40rpx;
+  background: #ec602a;
+  padding: 5rpx;
+  margin: 0 10rpx;
+  color: #fff;
+  border-radius: 8rpx;
+  margin-top: 16rpx;
 }
 .index .handleImmediately button {
   width: 662rpx;
