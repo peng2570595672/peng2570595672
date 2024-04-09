@@ -277,6 +277,7 @@ Page({
 			changeAuditStatus: 0,// 修改不计入待审核
 			haveChange: isXinKe ? haveChange4 : haveChange, // 行驶证信息OCR结果有无修改过，默认false，修改过传true 【dataType包含4】
 			idCardStatus: this.data.idCardStatus,
+			needIdCard: isXinKe,
 
 			idCardValidDate: isXinKe ? this.data.idCardBackNot.ocrObject.validDate : this.data.idCardBack.ocrObject.validDate, // 有效期 格式为：2007.10.09-2027.10.09 【dataType包含4】
 			idCardAddress: isXinKe ? this.data.idCardFaceNot.ocrObject.address : this.data.idCardFace.ocrObject.address,// 地址 【dataType包含4】
