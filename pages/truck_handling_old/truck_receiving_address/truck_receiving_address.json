@@ -1,6 +1,0 @@
-{
-	"navigationBarTitleText": "填写信息",
-	"usingComponents": {
-		"keyboard": "/components/keyboard/keyboard"
-	}
-}
