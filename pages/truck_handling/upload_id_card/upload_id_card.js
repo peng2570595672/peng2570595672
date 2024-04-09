@@ -30,7 +30,10 @@ Page({
 		time: 59,// 倒计时
 		isGetIdentifyingCoding: false // 获取验证码中
 	},
-	async onLoad () {
+	async onLoad (options) {
+		this.setData({
+			options
+		});
 		await this.getOrderInfo();
 		// 查询是否欠款
 		await util.getIsArrearage();
@@ -89,6 +92,7 @@ Page({
 				orderInfo: result.data,
 				idCardStatus: result.data.idCard.idCardStatus
 			});
+			console.log('orderInfo', result.data);
 			// 获取车主身份信息
 			let temp = this.data.orderInfo.ownerIdCard;
 			if (this.data.orderInfo?.ownerIdCard?.cardMobilePhone) {
@@ -130,7 +134,7 @@ Page({
 		}
 	},
 	// 校验数据
-	validateData (isToast) {
+	async validateData (isToast) {
 		if (this.data.faceStatus !== 4 || this.data.backStatus !== 4) {
 			if (isToast) util.showToastNoIcon('请上传身份证！');
 			return false;
@@ -153,6 +157,7 @@ Page({
 			if (isToast) util.showToastNoIcon('部分信息识别失败,请重新上传身份证照片！');
 			return false;
 		}
+
 		// if (!this.data.formData.cardMobilePhone) {
 		// 	if (isToast) util.showToastNoIcon('手机号码不能为空！');
 		// 	return false;
@@ -177,6 +182,22 @@ Page({
 		// }
 		return true;
 	},
+	async fixUp () {
+		if (+this.data.options.flowVersion === 5) {
+			// 校验货车身份证信息是否一致
+			let data = {
+				vehPlate: this.data.orderInfo,
+				idNum: this.data.idCardFace.ocrObject.idNumber,
+				platesColor: this.data.options.vehColor
+			};
+			const res1 = await util.getDataFromServersV2('consumer/order/checkIdCardAndVehPlate', data);
+			if (res1.code === 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	},
 	// 下一步
 	async next () {
 		if (!this.validateData(true)) {
@@ -185,6 +206,19 @@ Page({
 		if (this.data.isRequest) {
 			return;
 		}
+		if (this.fixUp()) {
+			let isToast = true;
+			this.selectComponent('#popTipComp').show({
+				type: 'shenfenyanzhifail',
+				title: '车主身份不一致',
+				btnCancel: '确认',
+				refundStatus: isToast,
+				content: isToast ? '您上传的身份证与申办车牌不一致，请确认后重新上传！' : '',
+				bgColor: 'rgba(0,0,0, 0.6)'
+			});
+			return;
+		}
+
 		this.setData({
 			isRequest: true
 		});
@@ -232,34 +266,15 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			// 校验货车身份证信息是否一致
-			let data = {
-				vehPlate: '贵By9883',
-				idNum: '520201197207080425',
-				platesColor: '0'
-			};
-			const res1 = await util.getDataFromServersV2('consumer/order/checkIdCardAndVehPlate', data);
-			if (res1.code !== 0) {
-				// 校验通过
-				const pages = getCurrentPages();
-				const prevPage = pages[pages.length - 2];// 上一个页面
-				prevPage.setData({
-					isChangeIdCard: true // 重置状态
-				});
-				wx.navigateBack({
-					delta: 1
-				});
-			} else {
-				let failEvent = true; // 展示
-				this.selectComponent('#popTipComp').show({
-					type: 'shenfenyanzhifail',
-					title: '车主身份不一致',
-					btnCancel: '确认',
-					refundStatus: failEvent,
-					content: failEvent ? '您上传的身份证与申办车牌不一致，请确认后重新上！' : '',
-					bgColor: 'rgba(0,0,0, 0.6)'
-				});
-			}
+			// 校验通过
+			const pages = getCurrentPages();
+			const prevPage = pages[pages.length - 2];// 上一个页面
+			prevPage.setData({
+				isChangeIdCard: true // 重置状态
+			});
+			wx.navigateBack({
+				delta: 1
+			});
 		} else {
 			util.showToastNoIcon(result.message);
 		}

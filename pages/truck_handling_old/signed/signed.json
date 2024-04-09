@@ -1,6 +1,0 @@
-{
-	"navigationBarTitleText": "签约代扣",
-	"usingComponents": {
-      "numeric-keyboard": "/components/numeric_keyboard/numeric_keyboard"
-    }
-}

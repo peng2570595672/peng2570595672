@@ -92,8 +92,10 @@
                     {{item.selfStatus === 5 ? '去签约' : '' }}
                     {{item.selfStatus === 3 ? '去支付': '' }}
                     {{item.selfStatus === 4 || item.selfStatus === 2 ? '继续办理': '' }}
-                    {{item.selfStatus === 6 || item.selfStatus === 8 ? '查看进度' : ''}}
+                    {{item.selfStatus === 6 || item.selfStatus === 8 || item.selfStatus === 10 ? '查看进度' : ''}}
                     {{item.selfStatus === 12 ? '首次激活' : ''}}
+                    {{item.selfStatus === 7 ? '修改资料' : ''}}
+                    {{item.selfStatus === 11 ? '去激活' : ''}}
                 </view>
             </view>
             <!--下部分结束-->

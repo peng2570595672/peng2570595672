@@ -7,6 +7,11 @@ const util = require('../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		countdown: {
+			hours: 0,
+			minutes: 0,
+			seconds: 0
+		},
 		testData: [{
 			title: '哪些车辆支持办理ETC？',
 			contant: '支持9座及以下的小型汽车办理，货车办理通道暂未开通，敬请关注。'
@@ -83,6 +88,10 @@ Page({
 		this.login();
 		this.getBackgroundConfiguration();
 		util.customTabbar(this, 1);
+		this.updateCountdown();
+		setInterval(() => {
+			this.updateCountdown();
+		}, 1000);
 	},
 	async onShow () {
 		app.globalData.orderInfo.orderId = '';
@@ -97,6 +106,20 @@ Page({
 			position: 'center',
 			customStyle: 'overflow:auto !important;z-index:-10 !important;',
 			overlayStyle: 'overflow:auto !important;z-index:-10'
+		});
+	},
+	updateCountdown () {
+		const now = new Date();
+		const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0); // 下一天的凌晨
+		const timeLeft = endOfDay - now;
+		const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+		const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+		this.setData({
+			'countdown.hours': hours,
+			'countdown.minutes': minutes,
+			'countdown.seconds': seconds
 		});
 	},
 	// 自动登录
@@ -270,7 +293,7 @@ Page({
 			isNewTrucks,
 			imagesConfig
 		});
-		console.log('imagesConfig',this.data.imagesConfig);
+		console.log('imagesConfig', this.data.imagesConfig);
 	},
 	// 返回上一页
 	goBack () {
