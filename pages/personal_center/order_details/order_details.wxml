@@ -9,7 +9,7 @@
             当前账单金额过大，避免影响通行，系统已自动拆分账单并扣
             <text catchtap="goSplitList">查看拆分记录</text>
         </view>
-        <view wx:elif="{{details.deductStatus === 0}}">扣款失败有可能被列为黑名单，影响您的高速通行，请及时补缴!</view>
+        <view wx:elif="{{tools.parseNum((details.totalMmout + details.serviceMoney - details.splitDeductedMoney - details.deductServiceMoney)/100) > 0}}">扣款失败有可能被列为黑名单，影响您的高速通行，请及时补缴!</view>
         <view wx:else>请检查扣款账户余额是否充足或授信额度是否超上限</view>
     </view>
 </view>

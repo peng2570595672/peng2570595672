@@ -45,7 +45,6 @@ Page({
 				this.getBillDetail();
 			}
 		}
-		this.getBillRefundDetail();
 	},
 	async onShow () {
 		if (app.globalData.billingDetails) {
