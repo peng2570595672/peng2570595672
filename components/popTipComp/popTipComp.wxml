@@ -277,5 +277,12 @@
                 <view class="ok" catchtap="callBackPub">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
             </view>
         </view>
+        <!-- 带标题 有一个按钮 一个取消按钮 不限制内容多少-->
+        <view class="module moduleOne" wx:if="{{tipObj.type === 'publicModule'}}">
+            <view class="title">{{tipObj.title}}</view>
+            <view class="contant"><text>{{tipObj.content}}</text></view>
+            <button class="btn" data-title="{{tipObj.title}}" catchtap="hide">{{tipObj.btnconfirm}}</button>
+            <view class="close iconfont" data-title="{{tipObj.title}}" catchtap="hide"></view>
+        </view>
     </view>
 </view>

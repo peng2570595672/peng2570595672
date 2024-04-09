@@ -1,16 +1,41 @@
-@import "../../../style/base.styl";
+@charset "UTF-8"
+
+// 以下配置用于stylus编译后不添加前缀 如@-moz-keyframes 小程序会报错
+vendors = official
+mixinsWidthHeight($width = 100%, $height = 100%)
+    width $width
+    height $height
+mixinsPositionCard($position=relative,$left=0,$top=0)
+    position $position
+    left $left
+    top $top
+    transform translate(- $left,- $top)
+mixinsIconfont($content='',$size=16px,$color=#5EBE68)
+    content $content
+    font-size $size
+    color $color
+.iconfont
+    font-family 'iconfont' !important
+    font-size 16px
+    font-style normal
+    -webkit-font-smoothing antialiased
+    -moz-osx-font-smoothing grayscale
+flexCenter($align=normal, $justify=normal)
+    display flex
+    align-items $align
+    justify-content $justify
 .prompt
 	width 100%
 	& > view
 		view
 			width 100%
-			background rgba(255,86,60,.52)
+			background #FFF5F5
 			padding 16rpx 32rpx 16rpx 25rpx
 			text-align left
-			font-size 24rpx
+			font-size 22rpx
 			line-height 40rpx
 			box-sizing border-box
-			color rgba(244,244,244,1)
+			color #FA5151
 			text
 				text-decoration underline
 .order_details
@@ -19,24 +44,33 @@
 		text-align center
 		font-size 76rpx
 		font-weight 500
-		color $fontColor3
-		height 284rpx
+		color #33333D
+		height 156rpx
 		display flex
 		justify-content center
-		line-height 284rpx
+		line-height 156rpx
 		margin 0 32rpx
 		box-sizing border-box
-		background #fff
-		border-bottom 1rpx solid rgba(0, 0, 0, 0.1)
 		text
 			font-size 28rpx
 			color #FF563C
 			line-height 320rpx
 		&.buckling-failure
-			height 228rpx
-			line-height 228rpx
+			height 128rpx
+			line-height 128rpx
 			text
-				line-height 270rpx
+				line-height 170rpx
+	.text0
+		text-align center
+		font-family PingFang SC
+		font-size 28rpx
+		font-weight normal
+		line-height 48rpx
+		text-align center
+		letter-spacing 0rpx
+		color #66666E
+		padding-bottom 40rpx
+		// border-bottom 1rpx solid rgba(0, 0, 0, 0.1)
 	//扣费详情
 	.deduction-details
 		background #fff
@@ -48,24 +82,42 @@
 			&>view:first-child
 				flex 1
 				height 48rpx
-				color $fontColor6
+				color #66666D
 				&.deductions-money
-					color $fontColor3
+					color #33333D
 			&>view:last-child
 				flex 1
 				text-align right
 				font-family PingFangSC-Medium, PingFang SC
 				font-weight 500
-				color $fontColor3
+				color #33333D
 				&.deductions
 					color #F7B500
 				&.refund-success
-					color #27B266
+					color #00B85C
 			&.add-border
 				border-bottom 1rpx solid rgba(0, 0, 0, 0.1)
 				border-top 1rpx solid rgba(0, 0, 0, 0.1)
+			.lateFees
+				display flex
+				align-items center
+				&:after
+					content '\e650'
+					font-size 28rpx
+					margin-left 14rpx
+					color #666666
+
 		&>view:first-child
 			padding-top 32rpx
+		.text1
+			font-family PingFang SC
+			font-size 22rpx
+			font-weight normal
+			line-height 28rpx
+			text-align justify
+			letter-spacing 0rpx
+			display block
+			margin-top 20rpx
 		.consumption-type
 			padding 0
 			height 115rpx
@@ -99,40 +151,55 @@
 		height 204rpx
 		padding 20rpx 0
 		font-size 24rpx
-		color $fontColor6
+		color #66666D
 		text-align center
 		background #fff
-		border-top 1rpx solid rgba(0, 0, 0, 0.1)
 		button
 			width 84%
 			height 98rpx
 			line-height 98rpx
-			background linear-gradient(to right, $deepThemeColor, $shallowThemeColor)
-			box-shadow 0px 8rpx 10rpx 0px rgba(132,209,87,0.2)
+			background #2A4F44
+			box-shadow 0rpx 4px 2px 0rpx rgba(212, 212, 212, 0)
 			border-radius 50rpx
 			font-size 40rpx
 			color #FFFFFF
 		.payment-tips
 			padding-top 18rpx
-	// 微保活动
-	.micro-insurance
-		position fixed
-		bottom 25%
-		right 56rpx
-		image
-			width 140rpx
-		.close_button
-			width 49rpx
-			height 49rpx
-			line-height 49rpx
-			margin 20rpx auto
-			text-align center
-			border-radius 50%
-			background #D4D4D4
-			&::before
-				content '\e63d'
-				color #fff
-				font-size 30rpx
+	// new 货车
+	.module
+		padding 30rpx
+		font-size 28rpx
+		background #fff
+		font-weight normal
+		letter-spacing 0rpx
+		font-family PingFang SC
+		border-bottom 20rpx solid #eee
+		.subModle
+			color #666666
+			line-height 48rpx
+			margin-bottom 20rpx
+			flexCenter(center,space-between)
+			.lateFees
+				display flex
+				align-items center
+				&:after
+					content '\e650'
+					font-size 28rpx
+					margin-left 14rpx
+					color #66666E
+	.module1
+		height auto
+		.borderBottom
+			padding-bottom 33rpx
+			border-bottom 1rpx solid #eee
+	.module2
+		.text1
+			font-size 22rpx
+			line-height 28rpx
+			text-align justify
+			display block
+			margin-top 20rpx
+
 	.pingAn
 		width 106rpx
 		height 120rpx
@@ -143,11 +210,11 @@
 			width 200%
 			height 150%
 	.keFu
-		width: 90rpx;
-		height: 160rpx;
-		background: #FFFFFF;
-		box-shadow: 0rpx 4rpx 16rpx 0rpx rgba(0,0,0,0.2);
-		border-radius: 46rpx;
+		width: 90rpx
+		height: 160rpx
+		background: #FFFFFF
+		box-shadow: 0rpx 4rpx 16rpx 0rpx rgba(0,0,0,0.2)
+		border-radius: 46rpx
 		position fixed
 		right 28rpx
 		bottom 300rpx
