@@ -2125,6 +2125,26 @@ function validateOnlineDistribution(encodeToGb2312, info, self) {
 function sendException2Server(area, cosArr, code, result) {
 	return;
 }
+// 埋点
+async function buriedPoint (params,callBack) {
+  return
+  // let res = await getDataFromServersV2('consumer/system/sys-analysis-log/common/create', {
+  //   platformId: app.globalData.platformId,
+  //   shopId: params.shopId,
+  //   optionLabel: params.optionLabel, // ENTER进入 CLICK点击 EXIT退出 SHOW曝光
+  //   pagePath: params.pagePath,
+  //   btnName: params.btnName,
+  //   pageName: params.pageName,
+  //   relationId: params.relationId // 关联id
+  // }, 'POST', false);
+  // console.log('数据：',res);
+  // if (!res) return;
+  // if (res.code === 0) {
+  //   callBack(res.data)
+  // } else {
+  //   showToastNoIcon(res.message);
+  // }
+}
 module.exports = {
   setApp,
   returnMiniProgram,
@@ -2194,5 +2214,6 @@ module.exports = {
   getUserIsVip,
   getBindGuests,
   openPdf,
-  getAddressInfoGD
+  getAddressInfoGD,
+  buriedPoint
 };

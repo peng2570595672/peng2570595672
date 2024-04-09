@@ -318,14 +318,42 @@ Page({
 	// 跳转平安绑客
 	goPingAn () {
 		// 授权提醒
-		// this.selectComponent('#popTipComp').show({type: 'bingGuttesBill',title: '礼品领取',bgColor: 'rgba(0,0,0,0.65)'});
+		let params = {
+			shopId: this.data.details?.shopId,
+			pagePath: 'order_details',
+			btnName: '平安绑车弹窗',
+			pageName: '办理进度页'
+		};
 		if (this.data.details?.vehPlates.includes('云')) {
-			this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)'});
+			this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)',params});
 		} else {
-			this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)'});
+			this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)',params});
 		}
 	},
+	pinAnBuriedPoint () {
+		let params = {
+			shopId: this.data.details?.shopId,
+			optionLabel: 'ENTER',
+			pagePath: 'order_details',
+			btnName: '平安绑车banner',
+			pageName: '账单详情'
+		};
+		util.buriedPoint(params,(buriedPointData) => {
+			this.setData({relationId: buriedPointData.id});
+		});
+	},
 	onUnload () {
+		if (this.data.relationId) {
+			let params = {
+				shopId: this.data.details?.shopId,
+				optionLabel: 'EXIT',
+				pagePath: 'order_details',
+				btnName: '平安绑车banner',
+				pageName: '账单详情'
+			};
+			params.relationId = this.data.relationId;
+			util.buriedPoint(params);
+		}
 		app.globalData.billingDetails = undefined;
 	}
 });

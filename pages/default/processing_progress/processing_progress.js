@@ -327,20 +327,25 @@ Page({
 					info: res.data
 				});
 
-				// 平安获客 礼品弹窗
+				// 平安获客
 				let isShowpAPop = wx.getStorageSync('isShowpAPop');
 				if (!app.globalData.isQingHaiHighSpeed && !isShowpAPop) {
 					if (this.data.firstCar.pingAnBindVehplates.includes(res.data.vehPlates) && (this.data.firstCar.vehKeys === '*' || (this.data.firstCar.vehKeys.includes(res.data.vehPlates.substring(0,1)) && !this.data.firstCar.filterKeys.includes(res.data.vehPlates.substring(0,2))))) {
 						wx.setStorageSync('isShowpAPop',true);
+						let params = {
+							shopId: this.data.info.shopId,
+							pagePath: 'processing_progress',
+							btnName: '平安绑平安绑车弹窗车banner',
+							pageName: '办理进度页'
+						};
 						// this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '礼品领取',bgColor: 'rgba(42, 80, 68, 0.7)'});
 						if (this.data.info?.vehPlates.includes('云')) {
-							this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)'});
+							this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)',params});
 						} else {
-							this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)'});
+							this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)',params});
 						}
 					}
 				}
-
 				if (res.data.autoAuditStatus === 0 && res.data.auditStatus === 0) {
 					if (that.data.number >= 5) {
 						util.hideLoading();
@@ -461,7 +466,6 @@ Page({
 	},
 	// 弹窗确认回调
 	onHandle (e) {
-		console.log(e.detail.orderInfo);
 		if (e.detail.orderInfo) {
 			// 恢复签约
 			app.globalData.orderInfo.orderId = e.detail.orderInfo.id;
@@ -756,11 +760,16 @@ Page({
 	// 跳转平安绑客
 	goPingAn () {
 		// 授权提醒
-		// this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '礼品领取',bgColor: 'rgba(42, 80, 68, 0.7)'});
+		let params = {
+			shopId: this.data.info.shopId,
+			pagePath: 'processing_progress',
+			btnName: '平安绑车弹窗',
+			pageName: '办理进度页'
+		};
 		if (this.data.info?.vehPlates.includes('云')) {
-			this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)'});
+			this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)',params});
 		} else {
-			this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)'});
+			this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)',params});
 		}
 	},
 	// 继续办理平安信用卡入口
@@ -778,7 +787,32 @@ Page({
 	receiveVoucher () {
 		util.go(`/pages/personal_center/coupon_redemption_centre/coupon_redemption_centre`);
 	},
+	pinAnBuriedPoint () {
+		// 平安获客 礼品弹窗
+		let params = {
+			shopId: this.data.info.shopId,
+			optionLabel: 'ENTER',
+			pagePath: 'processing_progress',
+			btnName: '平安绑车banner',
+			pageName: '办理进度页'
+		};
+		console.log('参数：',params);
+		util.buriedPoint(params,(buriedPointData) => {
+			this.setData({relationId: buriedPointData.id});
+		});
+	},
 	onUnload () {
+		if (this.data.relationId) {
+			let params = {
+				shopId: this.data.info.shopId,
+				optionLabel: 'EXIT',
+				pagePath: 'processing_progress',
+				btnName: '平安绑车banner',
+				pageName: '办理进度页'
+			};
+			params.relationId = this.data.relationId;
+			util.buriedPoint(params);
+		}
 		if (app.globalData.isQingHaiHighSpeedOnlineProcessing) {
 			wx.navigateBackMiniProgram({
 				extraData: {},

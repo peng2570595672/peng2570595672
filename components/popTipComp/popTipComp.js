@@ -27,7 +27,8 @@ Component({
 		wrapper: false,
 		paramsList: [],
 		noSliding: false, // 是否禁止底层页面滑动
-		getAgreement: true	// 默认选中协议
+		getAgreement: true,	// 默认选中协议
+		relationId: ''
 	},
 	methods: {
 		show (obj) {
@@ -44,6 +45,13 @@ Component({
 					noSliding: true
 				});
 			},300);
+			if (this.data.paramsList[0].type === 'newPop') {	// 埋点
+				let params = this.data.paramsList.filter(item => item.type === 'newPop')[0].params;
+				params['optionLabel'] = 'ENTER';
+				util.buriedPoint(params,(buriedPointData) => {
+					this.setData({relationId: buriedPointData.id});
+				});
+			}
 		},
 		noSliding () {},
 		// 防抖
@@ -76,6 +84,13 @@ Component({
 					if (paramsList?.length !== 0) {
 						this.setData({paramsList});
 						this.show(paramsList[0]);
+						if (this.data.paramsList[0].type === 'newPop') {	// 埋点
+							let params = this.data.paramsList.filter(item => item.type === 'newPop')[0].params;
+							params.optionLabel = 'ENTER';
+							util.buriedPoint(params,(buriedPointData) => {
+								this.setData({relationId: buriedPointData.id});
+							});
+						}
 					} else {
 						this.setData({paramsList: []});
 					}
@@ -127,9 +142,14 @@ Component({
 		// 授权提醒
 		async authorizeTip () {
 			if (!this.data.getAgreement) return util.showToastNoIcon('请先同意勾选协议');
+			let that = this;
+			let params = that.data.paramsList.filter(item => item.type === 'newPop')[0].params;
 			let res = await util.getDataFromServersV2('/consumer/order/pingan/get-bind-veh-url',{});
 			if (!res) return;
 			if (res.code === 0) {
+				params['optionLabel'] = 'CLICK';
+				params['relationId'] = that.data.relationId;
+				util.buriedPoint(params);
 				// 跳转 h5
 				util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data)}`);
 				this.hide(false);

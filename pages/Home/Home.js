@@ -931,11 +931,17 @@ Page({
                 if (app.globalData.pingAnBindGuests?.pingAnBindVehplates.length > 0 && !app.globalData.isQingHaiHighSpeed && !this.data.PingAn && app.globalData.pingAnBindGuests && item.status === 1 && app.globalData.isShowOncepingAnBindGuestsPop === 0 && index === 0) {
                     if (app.globalData.pingAnBindGuests.vehKeys === '*' || (app.globalData.pingAnBindGuests.vehKeys.includes(item.vehPlates.substring(0, 1)) && !app.globalData.pingAnBindGuests.filterKeys.includes(item.vehPlates.substring(0, 2)))) {
                         this.setData({PingAn: true});
+                        let params = {
+                            shopId: item.shopId,
+                            pagePath: 'Home',
+                            btnName: '平安绑车弹窗',
+                            pageName: '首页'
+                        };
                         app.globalData.isShowOncepingAnBindGuestsPop = 1;
                         if (item.vehPlates.includes('云')) {
-                            this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)'});
+                            this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)',params});
                         } else {
-                            this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)'});
+                            this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)',params});
                         }
                     }
                 }

@@ -158,7 +158,7 @@
     <!-- 底部补缴结束 -->
     <!-- 平安悬浮弹窗 -->
     <view class="pingAn" wx:if="{{!isQingHaiHighSpeed && tools.dataIncludes(details.vehPlate,firstCar,1)}}" catchtap="goPingAn">
-        <image class="image" src="https://file.cyzl.com/g001/M02/03/FE/oYYBAGTu-7aAXxs8AAAaNEZGk2w722.png" mode="widthFix" />
+        <image class="image" src="https://file.cyzl.com/g001/M02/03/FE/oYYBAGTu-7aAXxs8AAAaNEZGk2w722.png" bindload="pinAnBuriedPoint" mode="widthFix" />
     </view>
     <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
 </view>

@@ -261,7 +261,7 @@ Page({
 		let haveChange4 = true;	// 信科办理
 		let isXinKe = this.data.isXinKe && this.data.switch1Checked;
 		if (this.data.oldName === this.data.idCardFace.ocrObject.name && this.data.oldIdNumber === this.data.idCardFace.ocrObject.idNumber) haveChange = false;
-		if (isXinKe && this.data.oldNameNot === this.data.idCardFaceNot?.ocrObject.name && this.data.oldIdNumberNot === this.data.idCardFaceNot?.ocrObject.idNumber) haveChange4 = false;
+		if (isXinKe && this.data.oldNameNot === this.data.idCardFaceNot.ocrObject?.name && this.data.oldIdNumberNot === this.data.idCardFaceNot.ocrObject?.idNumber) haveChange4 = false;
 		wx.uma.trackEvent('id_card_next');
 		// ocr返回的是 男女  接口是 1 2
 		if (this.data.idCardFace.ocrObject.sex === '男') this.data.idCardFace.ocrObject.sex = 1;
@@ -284,9 +284,9 @@ Page({
 			idCardTrueName: isXinKe ? this.data.idCardFaceNot.ocrObject.name : this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含4】
 			idCardBirth: isXinKe ? this.data.idCardFaceNot.ocrObject.birth : this.data.idCardFace.ocrObject.birth, // 出生日期 【dataType包含4】
 			idCardSex: isXinKe ? this.data.idCardFaceNot.ocrObject.sex : this.data.idCardFace.ocrObject.sex, // 实名认证性别 【dataType包含4】
-			idCardNumber: isXinKe ? this.data.idCardFaceNot.ocrObject.idCardNumber : this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含4】
-			idCardPositiveUrl: isXinKe ? this.data.idCardFaceNot.ocrObject.fileUrl : this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含4】
-			idCardNegativeUrl: isXinKe ? this.data.idCardBackNot.ocrObject.fileUrl : this.data.idCardBack.fileUrl,// 实名身份证反面地址 【dataType包含4】
+			idCardNumber: isXinKe ? this.data.idCardFaceNot.ocrObject.idNumber : this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含4】
+			idCardPositiveUrl: isXinKe ? this.data.idCardFaceNot.fileUrl : this.data.idCardFace.fileUrl, // 实名身份证正面地址 【dataType包含4】
+			idCardNegativeUrl: isXinKe ? this.data.idCardBackNot.fileUrl : this.data.idCardBack.fileUrl,// 实名身份证反面地址 【dataType包含4】
 
 			ownerIdCardTrueName: this.data.idCardFace.ocrObject.name, // 实名认证姓名 【dataType包含8】
 			ownerIdCardNumber: this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号 【dataType包含8】
