@@ -207,6 +207,7 @@ Page({
 			return;
 		}
 		if (this.fixUp()) {
+			let isToast = true;
 			this.selectComponent('#popTipComp').show({
 				type: 'shenfenyanzhifail',
 				title: '车主身份不一致',
