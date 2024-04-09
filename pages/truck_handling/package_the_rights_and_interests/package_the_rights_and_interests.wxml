@@ -23,7 +23,7 @@
         </view>
         <view class="package_tab_bottom">
             <view class="title">当日通行，隔日还款，适直偶尔上高速人群</view>
-            <view class="title">服务费:通行费*0.4%，最低10元1日(无通行不收费)</view>
+            <view class="title">服务费:通行费*0.4%，最低1元1日(无通行不收费)</view>
         </view>
     </view>
     <!-- 货车展示的套餐  -->

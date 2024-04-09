@@ -1741,7 +1741,6 @@ Page({
     },
     // 继续办理
     async onClickContinueHandle (orderInfo) {
-        console.log('1234577', orderInfo.selfStatus);
         // 统计点击事件
         app.globalData.isModifiedData = false; // 非修改资料
         app.globalData.firstVersionData = false;
