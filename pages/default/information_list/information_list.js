@@ -273,6 +273,7 @@ Page({
         if (!this.data.available) return;
         if (this.data.orderInfo.flowVersion === 8) {
             this.handleSaveOrder();
+            return;
         }
         // 判断版本，兼容处理
         let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
