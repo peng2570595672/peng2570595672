@@ -9,32 +9,36 @@ Page({
 		available: false
 	},
 	async onLoad (options) {
-
+		if (options.vehPlates) {
+			this.setData({
+				vehPlates
+			});
+		}
 	},
 	// is9901_Pre_inspection 接口 设备预检
-	async is9901_Pre_inspection (orderId) {
+	async is9901_Pre_inspection (params) {
 		util.showLoading('设备预检中');
 		const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/devicePreCheck', {
-			orderId,
-			cpuId: '0052232100025414',
-			obuId: '9901000300578396'
+			orderId: app.globalData.orderInfo.orderId,
+			cpuId: params.cpuId || '0052232100025414',
+			obuId: params.obuId || '9901000300578396'
 		});
 		this.setData({
 			isRequest: false
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			this.is9901_obtainingChannels(this.data.orderId);
+			this.is9901_obtainingChannels();
 		} else {
 			util.showToastNoIcon(result.message);
 		}
 		util.hideLoading();
 	},
 	// is9901_obtainingChannels 调用获取可签约渠道列表接口
-	async is9901_obtainingChannels (orderId) {
+	async is9901_obtainingChannels () {
 		util.showLoading('获取可签约渠道');
 		const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/getAccountChannelList', {
-			orderId,
+			orderId: app.globalData.orderInfo.orderId,
 			redirectUrl: `/pages/separate_interest_package/sing_9901_success/sing_9901_success`
 		});
 		this.setData({
@@ -48,7 +52,7 @@ Page({
 				this.setData({
 					signChannelId: arr[0].signChannelId
 				});
-				await this.is9901_signChannel(this.data.orderId, this.data.signChannelId, this.data.info.vehPlates);
+				await this.is9901_signChannel(this.data.signChannelId, this.data.vehPlates);
 			} else {
 				util.showToastNoIcon('暂无可签约渠道');
 			}
@@ -58,9 +62,9 @@ Page({
 		util.hideLoading();
 	},
 	// is9901_signChannel 接口 签约
-	async is9901_signChannel (orderId, signChannelId, vehPlates) {
+	async is9901_signChannel (signChannelId, vehPlates) {
 		const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/signChannel', {
-			orderId,
+			orderId: app.globalData.orderInfo.orderId,
 			signChannelId: signChannelId || '11',
 			redirectUrl: `/pages/separate_interest_package/sing_9901_success/sing_9901_success`
 		});
@@ -70,10 +74,8 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			const signUrl = result.data.signUrl;
-			app.globalData.orderInfo.signUrl_9901 = signUrl;
-			this.data.info.signUrl_9901 = signUrl;
 			this.setData({
-				info: this.data.info
+				signUrl
 			});
 			const path = `pages/sign/auth?msgId=${signUrl}&plateNumber=${vehPlates}&bizNotifyUrl='DEFAULT'`; // 跳转目标小程序的页面路径
 			const extraData = {
@@ -106,8 +108,15 @@ Page({
 
 	// 下一步
 	async next () {
-		if (this.data.available) {
-
+		if (this.data.isRequest) {
+            return;
+        } else {
+            this.setData({
+                isRequest: true
+            });
+        }
+		if (this.data.available()) {
+			this.is9901_Pre_inspection(this.data.formData);
 		}
 	},
 	// 上传图片
