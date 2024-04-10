@@ -17,7 +17,7 @@
             </swiper-item>
         </swiper>
     </view>
-    <view class="module" catchtap="qujihuo">9901jihuo</view>
+    <!-- <view class="module" catchtap="qujihuo">9901</view> -->
     <!-- 办理模块 -->
     <view class="module immediately" wx:if="{{(isShowHandle || userFailBillList.length || !orderInfo) && (passengerCarOrderInfo.selfStatus !== 12 && passengerCarOrderInfo.selfStatus !== 33 && truckOrderInfo.selfStatus !== 12)}}">
         <view class="vehicle-info">
@@ -70,7 +70,7 @@
             </view>
         </view>
         <view wx:if="{{!userFailBillList.length}}">
-            {{orderInfo.selfStatus}}
+            <!-- {{orderInfo.selfStatus}} -->
             <button wx:if="{{orderInfo.selfStatus !== 12}}" class="btn" data-renew="3" catchtap="renewWhitelistJudgement" animation="{{animationTransaction}}">
                 {{!orderInfo ? '新增办理' : ''}}
                 {{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 22 ? '恢复签约' : ''}}
