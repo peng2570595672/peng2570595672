@@ -104,7 +104,6 @@ function signature(params, path, token = '', timestamp, nonceStr) {
   sign += `nonceStr=${nonceStr}&`;
   // 拼接key
   sign += 'key=' + app.globalData.plamKey;
-  console.log('sign',sign);
   return md5Encrypt(sign);
 }
 
@@ -129,7 +128,6 @@ function getUuid() {
 async function getDataFromServer(path, params, fail, success, token = '', complete, method = 'POST') {
   // common || public 模块下的不需要 token
   if (!token && !path.includes('common') && !path.includes('public')) {
-  	console.log(path)
     showToastNoIcon('获取用户信息失败,请重新进入小程序!');
     return;
   }
@@ -700,7 +698,6 @@ function getTruckHandlingStatus(orderInfo) {
   if (orderInfo.flowVersion === 6 && !app.globalData.bankCardInfo.accountNo) { // 开通II类户预充保证金 - 未开户
     return 13;
   }
-  console.log(orderInfo)
   if (orderInfo.flowVersion === 7) {
     // 交行二类户流程
     let info, checkResults;
@@ -1461,7 +1458,6 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
   // common || public 模块下的不需要 token
   const token = app.globalData.userInfo.accessToken;
   if (!token && !path.includes('common') && !path.includes('public')) {
-	  console.log(path)
     showToastNoIcon('获取用户信息失败,请重新进入小程序!');
     return;
   }
