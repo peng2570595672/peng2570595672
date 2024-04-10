@@ -147,7 +147,7 @@
     <view class="pingAnNewCustomers" wx:if="{{tools.dataIncludes(info.vehPlates,firstCar,1) && !isQingHaiHighSpeed && info.flowVersion !== 8}}" catchtap="goPingAn">
         <image class="image" src="{{'https://file.cyzl.com/g001/M00/E7/0D/oYYBAGSRUJuAQ0wsAABKSVNiV0M757.png'}}" mode="widthFix"/>
     </view>
-    <button class="btn" wx:if="{{info.flowVersion === 8}}" catchtap="onClickCctivate"> 确认收货并激活 </button>
+    <button class="btn"  wx:if="{{info && info.logisticsId !== 0 && info.obuStatus !== 1 && info.obuStatus !== 5 && ((info.flowVersion === 2 && info.hwContractStatus === 1) || (info.flowVersion === 1 && info.auditStatus === 2) || (info.flowVersion === 8 && info.hwContractStatus === 0))}}" catchtap="onClickCctivate"> 确认收货并激活 </button>
     <!--	在线客服结束-->
     <!--展示通通券弹窗-->
     <view catchtap="hide" class="coupon_mask animated {{showCouponWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{showCouponMask}}">

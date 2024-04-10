@@ -351,12 +351,6 @@ Page({
 			carNoStr: obj.vehPlates,
 			obuStatus: obj.obuStatus
 		});
-		let is9901 = obj.shopProductId === 8 ? true : false; // 通过套餐id 判断是否9901 套餐
-		if (obj.obuCardType === 1 && is9901) {
-			util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${obj.auditStatus}`);
-			console.log('黔通卡 9901套餐');
-			return;
-		}
 		switch (obj.obuCardType) {
 			case 1: // 贵州 黔通卡
 			case 21:
@@ -492,6 +486,11 @@ Page({
 		if (obj.isNewTrucks === 1) {
 			wx.uma.trackEvent('my_etc_for_contract_management');
 			util.go(`/pages/truck_handling/contract_management/contract_management`);
+			return;
+		}
+		if (obj.flowVersion === 8) {
+			const data = await util.getSteps_9901(obj);
+			console.log(data);
 			return;
 		}
 		app.globalData.isSecondSigning = false;

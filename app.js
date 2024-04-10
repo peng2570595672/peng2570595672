@@ -109,10 +109,9 @@ App({
 		emptyHairDeviceList: [], // 空发设备列表
 		packagePageData: undefined, // 套餐页面数据
 		orderInfo: {
-			orderId: '',
-			cardMobilePhone: '',
-			mobile
+			orderId: ''
 		},
+		mobile: '', // 9901 手机订单号
 		truckHandlingOCRType: 0,// 货车办理选择ocr上传类型
 		handlingOCRType: 0,// 客车办理选择ocr上传类型
 		isTruckHandling: false,// 是否新流程-货车办理
@@ -328,13 +327,17 @@ App({
 			return;
 		}
 		if (res && res.scene === 1038 && res.referrerInfo.appId === 'wx008c60533388527a' && this.globalData.signAContract_9901 === -1) {
-			if (!this.globalData.orderInfo.cardMobilePhone || !this.globalData.orderInfo.mobile) {
+			if (!this.globalData.orderInfo.mobile) {
 				// util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
 				return wx.switchTab({
 					url: '/pages/Home/Home'
 				});
 			}
-			let data = await util.getSteps_9901(this.globalData.orderInfo);
+			let obj = {
+				orderId: this.globalData.orderInfo.orderId,
+				mobile: this.globalData.mobile
+			};
+			let data = await util.getSteps_9901(obj);
 			if (data.stepNum === 5) {
 				let signChannelId = data.signChannelId;
 				// 支付关联渠道
@@ -351,7 +354,7 @@ App({
 				} else {
 					return util.showToastNoIcon(result2.message);
 				}
-			} else { // 可能未签约成功
+			} else { // 支付关联渠道失败
 				return util.showToastNoIcon(result2.stepTips);
 			}
 			if (data.stepNum === 4) {

@@ -718,12 +718,6 @@ Page({
 			carNoStr: obj.vehPlates,
 			obuStatus: obj.obuStatus
 		});
-		let is9901 = obj.flowVersion === 8 ? true : false; // 通过套餐id 判断是否9901 套餐
-		if (obj.obuCardType === 1 && is9901) {
-			util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${obj.auditStatus}`);
-			console.log('黔通卡 9901套餐');
-			return;
-		}
 		switch (obj.obuCardType) {
 			case 1:// 贵州 黔通卡
 			case 21:

@@ -164,6 +164,9 @@ Page({
                         stepNum3: true
                     });
                 }
+                if (data.stepNum === 4) { // 去进度页 预检
+                    return util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
+                }
             }
             // 中信银行
             if (app.globalData.cictBankObj.citicBankshopProductIds.includes(orderInfo.shopProductId)) {
@@ -228,7 +231,7 @@ Page({
                     available: false
                 });
             }
-            return;
+            return util.showToastNoIcon('请先上完善正确个人证件信息');
         }
         if (this.data.orderInfo && this.data.orderInfo.isOwner === 1 && this.data.orderInfo.isVehicle === 1 && ((this.data.orderInfo.isHeadstock === 1 && this.data.orderInfo.obuCardType !== 1) || (this.data.orderInfo.obuCardType === 1))) {
             this.setData({
