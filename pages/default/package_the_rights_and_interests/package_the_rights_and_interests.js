@@ -739,7 +739,7 @@ Page({
             return;
         }
         // 9901 套餐验证码
-        if (this.data.listOfPackages[this.data.choiceIndex].flowVersion === 8) {
+        if (this.data.isSalesmanOrder && this.data.orderInfo.base?.flowVersion === 8) {
             this.selectComponent('#verifyCode').show();
             return;
         }
@@ -844,6 +844,10 @@ Page({
     },
     // 获取业务员端流程
     async getSalesmanOrderProcess () {
+        if (this.data.orderInfo.base?.flowVersion === 8) {
+            util.go(`/pages/default/processing_progress/processing_progress?type=main_process`);
+            return;
+        }
         if (this.data.orderInfo.base?.flowVersion === 1) {
             // 去签约
             await this.weChatSign();
@@ -912,6 +916,10 @@ Page({
                     this.setData({isRequest: false});
                     if (res.errMsg === 'requestPayment:ok') {
                         if (this.data.isSalesmanOrder) {
+                            if (this.data.orderInfo.base?.flowVersion === 8) {
+                                util.go(`/pages/default/processing_progress/processing_progress?type=main_process`);
+                                return;
+                            }
                             if (this.data.listOfPackages[this.data.activeIndex].etcCardId === 10 && +this.data.listOfPackages[this.data.activeIndex].deviceType === 0) {
                                 // 湖南湘通卡 & 单片机   湖南信科
                                 util.go('/pages/default/payment_successful/payment_successful?isHunan=1');

@@ -785,6 +785,9 @@ function getTruckHandlingStatus(orderInfo) {
  */
 function getStatus(orderInfo) {
 	if (orderInfo.flowVersion === 8 && orderInfo.status === 1) { // 9901模式
+		if (orderInfo.pledgeStatus === 0) {
+			return 3; // 待支付
+		}
 		if (orderInfo.logisticsId === 0) {
 			return 35; // 待发货,-继续办理
 		}
