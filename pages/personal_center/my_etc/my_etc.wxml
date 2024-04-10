@@ -33,6 +33,7 @@
                     {{item.selfStatus === 15 ? '待充保证金' : ''}}
                     {{item.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
                     {{item.selfStatus === 31 ? '待签约激活' : ''}}
+                    {{item.selfStatus === 35 ? '办理中' : ''}}
                 </view>
 			</view>
 			<!--上部分结束-->
@@ -57,6 +58,7 @@
                     {{item.selfStatus === 17 ? '预充值' : ''}}
                     {{item.selfStatus === 30 ? '退还权益金' : item.selfStatus === 33 ? '查看退还情况' : ''}}
                     {{item.selfStatus === 31 ? '签约激活' : ''}}
+                    {{item.selfStatus === 35 ? '继续办理' : ''}}
                 </view>
 			</view>
 			<!--下部分结束-->

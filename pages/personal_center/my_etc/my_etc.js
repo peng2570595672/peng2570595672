@@ -193,7 +193,7 @@ Page({
 			2: () => this.onClickContinueHandle(orderInfo), // 继续办理
 			3: () => this.goPayment(orderInfo), // 去支付
 			4: () => this.onClickContinueHandle(orderInfo), // 继续办理
-			5: () => this.onClickBackToSign(orderInfo), // 签约微信支付 - 去签约
+			5: () => orderInfo.flowVersion === 8 ? this.handle9901Step(orderInfo) : this.onClickBackToSign(orderInfo), // 签约微信支付 - 去签约
 			6: () => this.onClickViewProcessingProgressHandle(orderInfo), // 订单排队审核中 - 查看进度
 			7: () => this.onClickModifiedData(orderInfo, true), // 修改资料 - 上传证件页
 			8: () => this.onClickViewProcessingProgressHandle(orderInfo), // 不可办理
@@ -219,9 +219,21 @@ Page({
 			30: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度 - 保证金退回
 			31: () => this.handleJumpHunanMini(orderInfo.id), // 跳转到湖南高速ETC小程序 - 已支付待激活
 			33: () => this.showRefundStatus(orderInfo),	// 查看广发订单退款状态
-			34: () => this.onClickContinueHandle(orderInfo) // 继续办理
+			34: () => this.onClickContinueHandle(orderInfo), // 继续办理
+			35: () => this.handle9901Step(orderInfo) // 继续办理
 		};
 		fun[orderInfo.selfStatus].call();
+	},
+	async handle9901Step (orderInfo) {
+		let data = await util.getSteps_9901(orderInfo);
+		switch (data.stepNum) {
+			case 4: // 需要设备预检
+				util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderInfo.id}`);
+				break;
+			case 9: // 需要设备预检
+				util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${orderInfo.auditStatus}`);
+				break;
+		}
 	},
 	showRefundStatus (orderInfo) {
 		this.selectComponent('#popTipComp').show({
@@ -486,11 +498,6 @@ Page({
 		if (obj.isNewTrucks === 1) {
 			wx.uma.trackEvent('my_etc_for_contract_management');
 			util.go(`/pages/truck_handling/contract_management/contract_management`);
-			return;
-		}
-		if (obj.flowVersion === 8) {
-			const data = await util.getSteps_9901(obj);
-			console.log(data);
 			return;
 		}
 		app.globalData.isSecondSigning = false;

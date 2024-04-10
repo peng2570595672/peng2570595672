@@ -202,7 +202,7 @@ Page({
 			2: () => this.onClickContinueHandle(orderInfo),// 继续办理
 			3: () => this.goPayment(orderInfo), // 去支付
 			4: () => this.onClickContinueHandle(orderInfo), // 继续办理
-			5: () => this.subscribe(orderInfo), // 签约微信支付 - 去签约
+			5: () => orderInfo.flowVersion === 8 ? this.handle9901Step(orderInfo) : this.subscribe(orderInfo), // 签约微信支付 - 去签约
 			6: () => this.onClickViewProcessingProgressHandle(orderInfo), // 订单排队审核中 - 查看进度
 			7: () => this.onClickModifiedData(orderInfo, true), // 修改资料 - 上传证件页
 			9: () => this.onClickHighSpeedSigning(orderInfo), // 去签约
@@ -228,9 +228,21 @@ Page({
 			31: () => this.handleJumpHunanMini(orderInfo.id, orderInfo.selfStatus), // 跳转到湖南高速ETC小程序 - 已支付待激活
 			32: () => this.handleJumpHunanMini(orderInfo.id, orderInfo.selfStatus), // 跳转到湖南高速ETC小程序 - 已支付待激活
 			33: () => this.onClickCctivate(orderInfo),	// 广发 - 已激活
-			34: () => this.onClickContinueHandle(orderInfo) // 继续办理
+			34: () => this.onClickContinueHandle(orderInfo), // 继续办理
+			35: () => this.handle9901Step(orderInfo) // 继续办理
 		};
 		fun[orderInfo.selfStatus].call();
+	},
+	async handle9901Step (orderInfo) {
+		let data = await util.getSteps_9901(orderInfo);
+		switch (data.stepNum) {
+			case 4: // 需要设备预检
+				util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderInfo.id}`);
+				break;
+			case 9: // 需要设备预检
+				util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${orderInfo.auditStatus}`);
+				break;
+		}
 	},
 	async handleJumpHunanMini (orderId, selfStatus) {
 		const result = await util.getDataFromServersV2('consumer/order/order-pay-transaction-info', { orderId: orderId });

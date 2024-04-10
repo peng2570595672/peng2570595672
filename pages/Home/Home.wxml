@@ -65,6 +65,7 @@
                         {{truckOrderInfo.selfStatus === 15 ? '请充值' + truckOrderInfo.holdBalance / 100 + '元作为保证金' + '' : ''}}
                         {{truckOrderInfo.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
                         {{truckOrderInfo.selfStatus === 17 ? '请预充' + (truckOrderInfo.prechargeAmount || 0) / 100 + '元否则设备无法通行' + '' : ''}}
+                        {{orderInfo.selfStatus === 35 ? '办理中' : ''}}
                     </view>
                 </view>
             </view>
@@ -87,6 +88,7 @@
                 {{orderInfo.selfStatus === 18 ? '代扣通行费' : ''}}
                 {{orderInfo.selfStatus === 30 ? '权益金退回' : ''}}
                 {{orderInfo.selfStatus === 31 ? '签约激活' : ''}}
+                {{orderInfo.selfStatus === 35 ? '继续办理' : ''}}
             </button>
            <!-- <button wx:if="{{loginInfo.needBindingPhone === 1 && orderInfo.selfStatus !== 12 }}" class="btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber" animation="{{animationTransaction}}">
                {{!orderInfo ? '新增办理' : ''}}

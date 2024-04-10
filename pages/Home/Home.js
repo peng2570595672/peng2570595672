@@ -1380,7 +1380,7 @@ Page({
             2: () => this.onClickContinueHandle(orderInfo), // 继续办理
             3: () => this.goPayment(orderInfo), // 去支付
             4: () => this.onClickContinueHandle(orderInfo), // 继续办理
-            5: () => this.onClickBackToSign(orderInfo), // 签约微信支付 - 去签约
+            5: () => orderInfo.flowVersion === 8 ? this.handle9901Step(orderInfo) : this.onClickBackToSign(orderInfo), // 签约微信支付 - 去签约
             6: () => this.onClickViewProcessingProgressHandle(orderInfo), // 订单排队审核中 - 查看进度
             7: () => this.onClickModifiedData(orderInfo, true), // 修改资料 - 上传证件页
             8: () => this.onClickViewProcessingProgressHandle(orderInfo), // 不可办理
@@ -1405,7 +1405,8 @@ Page({
             28: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
             30: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度 - 保证金退回
             31: () => this.handleJumpHunanMini(orderInfo.id), // 跳转到湖南高速ETC小程序 - 已支付待激活
-            34: () => this.onClickContinueHandle(orderInfo) // 继续办理
+            34: () => this.onClickContinueHandle(orderInfo), // 继续办理
+            35: () => this.handle9901Step(orderInfo) // 继续办理
         };
         fun[orderInfo.selfStatus].call();
     },
@@ -1419,6 +1420,24 @@ Page({
         }
         handleJumpHunanMini(orderId, result.data.outTradeNo);
     },
+		async handle9901Step (orderInfo) {
+			let data = await util.getSteps_9901(orderInfo);
+			// ("stepNum", 0)("stepTips", "用户需登录")
+			// ("stepNum", 1)("stepTips", "需要车牌发行认证")
+			// ("stepNum", 2)("stepTips", "用户需开户")
+			// ("stepNum", 3)("stepTips", "需要行驶证认证")
+			// ("stepNum", 4)("stepTips", "需要设备预检")
+			// ("stepNum", 5)("stepTips", "需要支付渠道关联")
+			// ("stepNum", 9)("stepTips", "车辆已关联")
+			switch (data.stepNum) {
+				case 4: // 需要设备预检
+					util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderInfo.id}`);
+					break;
+				case 9: // 车辆已关联
+					util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${orderInfo.auditStatus}`);
+					break;
+			}
+		},
     // 通通券签约
     async onClickSignTongTongQuan () {
         let params = {
@@ -1511,35 +1530,6 @@ Page({
         if (obj.isNewTrucks === 1) {
             wx.uma.trackEvent('index_for_contract_management');
             util.go(`/pages/truck_handling/contract_management/contract_management`);
-            return;
-        }
-        if (obj.flowVersion === 8) { // 9901 签约模式
-            let data = await util.getSteps_9901(obj);
-            let orderId = obj.id;
-            console.log('查询9901签约步骤', obj);
-            if (data.stepNum === 4) {
-                await this.is9901_1(); // 连续调用三个接口 6.7.8 步骤
-            }
-            if (data.stepNum === 5) {
-                let signChannelId = data.signChannelId;
-                // 支付关联渠道
-                const result2 = await util.getDataFromServersV2('consumer/activity/qtzl/xz/carChannelRel', {
-                    orderId,
-                    signChannelId: signChannelId
-                });
-                console.log('res.referrerInfo.appId ', result2);
-                if (!result2) return;
-                if (result2.code === 0) {
-                    console.log('支付关联渠道成功');
-                    util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderId}`);
-                } else {
-                    return util.showToastNoIcon(result2.message);
-                }
-            }
-            if (data.stepNum === 9) {
-                util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderId}`);
-                return; // 当前办理完成状态
-            }
             return;
         }
         app.globalData.isSecondSigning = false;
@@ -1642,92 +1632,6 @@ Page({
         util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderInfo.id}`);
         if (orderInfo.flowVersion === 8) {
             util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderInfo.id}`);
-        }
-    },
-    // is9901_1 接口 设备预检
-    async is9901_1 () {
-        util.showLoading('设备预检中');
-        let orderId = app.globalData.orderInfo.orderId; // 订单id
-        const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/devicePreCheck', {
-            orderId,
-            cpuId: '0052232100025414',
-            obuId: '9901000300578396'
-        });
-        this.setData({
-            isRequest: false
-        });
-        if (!result) return;
-        if (result.code === 0) {
-            this.is9901_2();
-        } else {
-            util.showToastNoIcon(result.message);
-        }
-        util.hideLoading();
-    },
-    // is9901_2 调用获取可签约渠道列表接口
-    async is9901_2 () {
-        util.showLoading('获取可签约渠道');
-        let orderId = app.globalData.orderInfo.orderId; // 订单id
-        const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/getAccountChannelList', {
-            orderId,
-            redirectUrl: `/pages/separate_interest_package/sing_9901_success/sing_9901_success`
-        });
-        this.setData({
-            isRequest: false
-        });
-        if (!result) return;
-        if (result.code === 0) {
-            let arr = result.data.list.filter(item => item.channelId === '11');
-            if (arr.length > 0) {
-                app.globalData.orderInfo.signChannelId = arr[0].signChannelId;
-                this.is9901_3();
-            } else {
-                util.showToastNoIcon('暂无可签约渠道');
-            }
-        } else {
-            util.showToastNoIcon(result.message);
-        }
-        util.hideLoading();
-    },
-    // is9901_3 接口 签约
-    async is9901_3 () {
-        let orderId = app.globalData.orderInfo.orderId; // 订单id
-        const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/signChannel', {
-            orderId,
-            signChannelId: app.globalData.orderInfo.signChannelId || '11',
-            redirectUrl: `/pages/separate_interest_package/sing_9901_success/sing_9901_success`
-
-        });
-        this.setData({
-            isRequest: false
-        });
-        if (!result) return;
-        if (result.code === 0) {
-            const signUrl = result.data.signUrl;
-            app.globalData.orderInfo.signUrl_9901 = signUrl;
-            const path = `pages/sign/auth?msgId=${signUrl}&plateNumber=${this.data.vehPlates}&bizNotifyUrl='DEFAULT'`; // 跳转目标小程序的页面路径
-            const extraData = {
-                msgId: signUrl,
-                plateNumber: this.data.vehPlates,
-                bizNotifyUrl: 'DEFAULT'
-            };
-            // 跳转九州签约
-            wx.navigateToMiniProgram({
-                appId: 'wx008c60533388527a',
-                path,
-                extraData,
-                success (res) {
-                    // 打开成功
-                },
-                fail (e) {
-                    // 打开失败
-                    if (e.errMsg !== 'navigateToMiniProgram:fail cancel') {
-                        util.showToastNoIcon('打开签约小程序失败');
-                    }
-                }
-            });
-        } else {
-            util.showToastNoIcon(result.message);
         }
     },
     // 去激活
