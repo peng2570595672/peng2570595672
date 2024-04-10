@@ -1924,8 +1924,6 @@ async function getSteps_9901(orderInfo) {
 			  app.globalData.signAContract_9901 = 1;
 			  console.log('支付关联渠道成功');
 			  go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
-		  } else {
-			  return showToastNoIcon(result2.message);
 		  }
 	  }
     return result.data;
