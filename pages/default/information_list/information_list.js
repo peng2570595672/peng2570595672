@@ -233,10 +233,7 @@ Page({
         if (url === 'information_validation' && !this.data.orderInfo.isOwner && !isXinKe) {
             return util.showToastNoIcon('请先上传身份证');
         }
-        if (this.data.orderInfo.flowVersion === 8) {
-            util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}&obuCardType=${this.data.orderInfo.obuCardType}&isXinKe=${isXinKe}&pro9901=true`);
-        }
-        util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}&obuCardType=${this.data.orderInfo.obuCardType}&isXinKe=${isXinKe}`);
+        util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}&obuCardType=${this.data.orderInfo.obuCardType}&isXinKe=${isXinKe}&pro9901=${this.data.orderInfo.flowVersion === 8 ? '1' : ''}`);
     },
     // ETC申办审核结果通知、ETC发货提示、ETC服务状态提醒
     async subscribe () {
