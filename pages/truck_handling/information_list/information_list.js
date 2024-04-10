@@ -100,7 +100,6 @@ Page({
 		// 106 道路运输证  107 车辆侧身照  302 暂不支持企业用户  303 不支持车型  304 特殊情况  401 通用回复
 		let errNums = [];
 		let newArr = [];
-		info.errNums = '102;106'
 		if (info.errNums.length > 5) {
 			// 多个审核失败条件
 			errNums = info.errNums.split(';');
