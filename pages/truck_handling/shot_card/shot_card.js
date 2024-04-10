@@ -10,8 +10,8 @@ Page({
 		type: 0,// 1身份证正面  2身份证反面  3行驶证正面  4行驶证反面  5驾驶证正面  6驾驶证反面  7营业执照  8车牌号  9银行卡  10统一社会信用代码证书  11 道路运输证(阿里- 道路运输经营许可证) 12 道路运输证(华为- 道路运输证)
 		picPath: 'id_card_face', // 拍摄区域边框
 		title: '身份证原件照片(人像面) ', // 当前拍摄标题
-		titleList: ['身份证原件照片(人像面)', '身份证原件照片(国徽面)', '行驶证原件正页(含车辆类型) ', '行驶证原件副页(含车辆类型) ', '', '', '', '', '', '', '', '道路运输证'],
-		sampleImgList: ['id_card_face', 'id_card_back', 'driving_license_face', 'driving_license_back', '', '', '', '', '' , '', '', 'road_transport_certificate'], // 示例图片
+		titleList: ['身份证原件照片(人像面)', '身份证原件照片(国徽面)', '行驶证原件正页(含车辆类型) ', '行驶证原件副页(含车辆类型) ', '', '', '', '', '', '', '', '道路运输证', '', ''],
+		sampleImgList: ['id_card_face', 'id_card_back', 'driving_license_face', 'driving_license_back', '', '', '', '', '' , '', '', 'road_transport_certificate', '', ''], // 示例图片
 		picUrl: '', // 拍摄图片url
 		pictureWidth: 0, // 压缩图片
 		pictureHeight: 0,

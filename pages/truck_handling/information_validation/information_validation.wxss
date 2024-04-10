@@ -105,6 +105,12 @@
 .index .moduleOne .changeOne {
   margin: 20rpx 36rpx 0 36rpx;
 }
+.index .fill {
+  border-top: 1px solid #e0e0e0;
+  width: 60%;
+  margin-left: 32%;
+  margin-bottom: 30rpx;
+}
 .index .moduleTwo {
   padding: 40rpx 0 20rpx 0;
   color: #666;
@@ -123,6 +129,33 @@
   justify-content: space-around;
   margin: 0 36rpx 20rpx 36rpx;
   font-family: PingFangSC-Regular, PingFang SC;
+  position: relative;
+}
+.index .moduleTwo .keyValue .label {
+  width: 150rpx;
+  font-weight: 550;
+}
+.index .moduleTwo .keyValue .input-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+.index .moduleTwo .keyValue .input-info > view {
+  flex: 1;
+  text-align: center;
+}
+.index .moduleTwo .keyValue .input-info > view .input {
+  width: 110rpx;
+  height: 50rpx;
+  text-align: center;
+  border: 1px solid #f0f0f0;
+  padding: 2rpx 5rpx;
+  margin: auto;
+}
+.index .moduleTwo .keyValue .input-info > view .label-sub {
+  padding: 10rpx 0;
 }
 .index .moduleTwo .keyValue .left {
   width: 120rpx;
@@ -134,16 +167,32 @@
   text-align: right;
   color: #1e1e1e;
 }
+.index .moduleTwo .keyValue .upload-vin {
+  position: absolute;
+  right: 0;
+  width: 86rpx;
+  height: 46rpx;
+  border-radius: 4rpx;
+  background: #2a4f44;
+  font-size: 24rpx;
+  color: #fff;
+  font-weight: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .index .moduleTwo .keyValue .attrValue {
-  width: 70%;
+  flex: 1;
   border-bottom: 1px solid #e0e0e0;
   height: 64rpx;
   display: flex;
+  padding-left: 24rpx;
   align-items: center;
 }
 .index .moduleTwo .keyValue .attrValue .input {
   display: block;
   max-width: 400rpx;
+  min-width: 300rpx;
   font-size: 26rpx;
   color: #333;
   text-align: left;

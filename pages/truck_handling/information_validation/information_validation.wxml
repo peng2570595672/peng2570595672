@@ -43,7 +43,7 @@
                 <view class="attrName left">车牌号</view>
                 <view class="attrValue" bindtap="handleToast">
                     <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.numberPlates}}"
-                        disabled="disabled" bindinput="onInputChangedHandle" data-key="numberPlates" data-type="3"
+                        disabled bindinput="onInputChangedHandle" data-key="numberPlates" data-type="3"
                         placeholder-class="input-placeholder" placeholder="请输入车牌号" />
                 </view>
             </view>
@@ -55,14 +55,14 @@
                         placeholder-class="input-placeholder" placeholder="请输入车主姓名" />
                 </view>
             </view>
-            <view class="keyValue">
-                <view class="attrName left">车辆类型</view>
-                <view class="attrValue" bindtap="handleToast">
-                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.vehicleType}}"
-                        disabled="{{true}}" bindinput="onInputChangedHandle" data-key="vehicleType" data-type="3"
-                        placeholder-class="input-placeholder" placeholder="请输入车辆类型" />
-                </view>
-            </view>
+<!--            <view class="keyValue">-->
+<!--                <view class="attrName left">车辆类型</view>-->
+<!--                <view class="attrValue" bindtap="handleToast">-->
+<!--                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.vehicleType}}"-->
+<!--                        disabled="{{true}}" bindinput="onInputChangedHandle" data-key="vehicleType" data-type="3"-->
+<!--                        placeholder-class="input-placeholder" placeholder="请输入车辆类型" />-->
+<!--                </view>-->
+<!--            </view>-->
 
             <view class="keyValue">
                 <view class="attrName left">车辆识别代号VIN</view>
@@ -71,6 +71,7 @@
                         bindinput="onInputChangedHandle" data-key="vin" data-type="3"
                         placeholder-class="input-placeholder" placeholder="请输入车辆识别代号" />
                 </view>
+                <view class="upload-vin" bindtap="getCheckVin" wx:if="{{!checkVinInfo.c && !checkVinInfo.zzl && drivingLicenseFace.ocrObject.vin}}">上传</view>
             </view>
             <view class="keyValue">
                 <view class="attrName left">核载人数</view>
@@ -91,22 +92,14 @@
                     </picker>
                 </view>
             </view>
-            <view class="keyValue">
-                <view class="attrName left">车轮数</view>
-                <view class="attrValue">
+<!--            <view class="keyValue">-->
+<!--                <view class="attrName left">车轮数</view>-->
+<!--                <view class="attrValue">-->
 
-                    <input class="input" type="number" maxlength="2" placeholder="请输入车轮数量" value="{{wheelCountNo}}"
-                        data-key="wheelCountNo" data-type="4" bindinput="onInputChangedHandle" />
-                </view>
-                <!--            <picker-->
-                <!--                    bindchange="bindPersonsWheelCountChange"-->
-                <!--                    value="{{wheelCount}}"-->
-                <!--                    range="{{wheelCountArr}}"-->
-                <!--                    range-key="name"-->
-                <!--            >-->
-                <!--                <view class="choice-axle iconfont">{{wheelCount !== -1 ? wheelCountArr[wheelCount].name : '请真实选择车轮个数'}}</view>-->
-                <!--            </picker>-->
-            </view>
+<!--                    <input class="input" type="number" maxlength="2" placeholder="请输入车轮数量" value="{{wheelCountNo}}"-->
+<!--                        data-key="wheelCountNo" data-type="4" bindinput="onInputChangedHandle" />-->
+<!--                </view>-->
+<!--            </view>-->
             <view class="keyValue">
                 <view class="attrName left">注册日期</view>
                 <view class="attrValue">
@@ -125,159 +118,179 @@
                     </picker>
                 </view>
             </view>
-            <!-- <view class="keyValue">
-                <view class="attrName left">发动机号</view>
-                <view class="attrValue">
-                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.engineNo}}"
-                        bindinput="onInputChangedHandle" data-key="engineNo" data-type="3"
-                        placeholder-class="input-placeholder" placeholder="请输入发动机号" />
-                </view>
-            </view>
-            <view class="keyValue">
-                <view class="attrName left">地址</view>
-                <view class="attrValue">
-                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.address}}"
-                        bindinput="onInputChangedHandle" data-key="address" data-type="3"
-                        placeholder-class="input-placeholder" placeholder="请输入地址" />
-                </view>
-            </view>
-            <view class="keyValue">
-                <view class="attrName left">使用性质</view>
-                <view class="attrValue">
-                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.useCharacter}}"
-                        bindinput="onInputChangedHandle" data-key="useCharacter" data-type="3"
-                        placeholder-class="input-placeholder" placeholder="请输入使用性质" />
-                </view>
-            </view>
-            <view class="keyValue">
-                <view class="attrName left">品牌型号</view>
-                <view class="attrValue">
-                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.model}}"
-                        bindinput="onInputChangedHandle" data-key="model" data-type="3"
-                        placeholder-class="input-placeholder" placeholder="请输入品牌型号" />
-                </view>
-            </view>
-            <view class="keyValue">
-                <view class="attrName left">档案编号</view>
-                <view class="attrValue">
-                    <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.fileNumber}}"
-                        bindinput="onInputChangedHandle" data-key="fileNumber" data-type="4"
-                        placeholder-class="input-placeholder" placeholder="请输入档案编号" />
-                </view>
-            </view>
-            <view class="keyValue">
-                <view class="attrName left">总质量</view>
-                <view class="attrValue">
-                    <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.totalMass}}"
-                        bindinput="onInputChangedHandle" data-key="totalMass" data-type="4"
-                        placeholder-class="input-placeholder" placeholder="请输入总质量" />
-                </view>
-            </view> -->
-            <!-- <view class="keyValue">
-                <view class="attrName left">整备质量</view>
-                <view class="attrValue">
-                    <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.curbWeight}}"
-                        bindinput="onInputChangedHandle" data-key="curbWeight" data-type="4"
-                        placeholder-class="input-placeholder" placeholder="请输入整备质量" />
-                </view>
-            </view>
-            <view class="keyValue">
-                <view class="attrName left">核定载质量</view>
-                <view class="attrValue">
-                    <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.loadQuality}}"
-                        bindinput="onInputChangedHandle" data-key="loadQuality" data-type="4"
-                        placeholder-class="input-placeholder" />
-                </view>
-            </view> -->
-            <!-- <view class="keyValue">
-                <view class="attrName left">外廓尺寸</view>
-                <view class="attrValue">
-                    <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.size}}"
-                        bindinput="onInputChangedHandle" data-key="size" data-type="4"
-                        placeholder-class="input-placeholder" placeholder="请输入外廓尺寸" />
-                </view>
-            </view> -->
-            <!-- <view class="keyValue">
-                <view class="attrName left">准牵引总质量</view>
-                <view class="attrValue">
-                    <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.tractionMass}}"
-                        bindinput="onInputChangedHandle" data-key="tractionMass" data-type="4"
-                        placeholder-class="input-placeholder" />
-                </view>
-            </view>
-            <view class="keyValue">
-                <view class="attrName left">备注</view>
-                <view class="attrValue">
-                    <input class="input" type="text" value="{{drivingLicenseBack.ocrObject.remark}}"
-                        bindinput="onInputChangedHandle" data-key="remark" placeholder-class="input-placeholder" />
-                </view>
-            </view>
-            <view class="keyValue">
-                <view class="attrName left">检验记录</view>
-                <view class="attrValue">
-                    <textarea class="textarea" auto-height="{{true}}" type="text"
-                        value="{{drivingLicenseBack.ocrObject.recode}}" bindinput="onInputChangedHandle"
-                        data-key="recode" data-type="4" placeholder-class="input-placeholder" placeholder="请输入检验记录" />
-                </view>
-            </view> -->
         </view>
         <!-- 占位 -->
-        <view class="module moduleTwo" wx:if="{{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl}}">
+        <view class="module moduleTwo" wx:if="{{checkVinInfo.c || checkVinInfo.zzl}}">
             <view class="titles">详细信息</view>
             <view class="keyValue">
-                <view style="width: 150rpx;font-weight: 550;">尺寸(mm)</view>
-                <view>
-                    <input class="input"
-                        style="width: 110rpx;height: 50rpx;text-align: center; border: 1px solid #F0F0F0; padding: 2rpx 5rpx;"
-                        type="text" bindinput="onInputChangedHandle" data-key="size" data-type="4"
-                        value="{{drivingLicenseBack.ocrObject.vehicleLength}}">
-                    </input>
-                    <view style="margin-left: 40rpx;padding: 10rpx 0;">长</view>
-                </view>
-                <view>
-                    <input class="input"
-                        style="width: 110rpx;height: 50rpx;text-align: center; border: 1px solid #F0F0F0; padding: 2rpx 5rpx;"
-                        type="text" bindinput="onInputChangedHandle" data-key="size" data-type="4"
-                        value="{{drivingLicenseBack.ocrObject.vehicleLength}}">
-                    </input>
-                    <view style="margin-left: 40rpx;padding: 10rpx 0;">宽</view>
-                </view>
-                <view>
-                    <input class="input"
-                        style="width: 110rpx;height: 50rpx;text-align: center; border: 1px solid #F0F0F0; padding: 2rpx 5rpx;"
-                        type="text" bindinput="onInputChangedHandle" data-key="size" data-type="4"
-                        value="{{drivingLicenseBack.ocrObject.vehicleLength}}">
-                    </input>
-                    <view style="margin-left: 40rpx;padding: 10rpx 0;">高</view>
+                <view class="label">尺寸(mm)</view>
+                <view class="input-info">
+                    <view>
+                        <input class="input"
+                               type="text" bindinput="onInputChangedHandle" data-key="size" data-type="4"
+                               value="{{checkVinInfo.c || '--'}}">
+                        </input>
+                        <view class="label-sub">长</view>
+                    </view>
+                    <view>
+                        <input class="input"
+                               type="text" bindinput="onInputChangedHandle" data-key="size" data-type="4"
+                               value="{{checkVinInfo.k || '--'}}">
+                        </input>
+                        <view class="label-sub">宽</view>
+                    </view>
+                    <view>
+                        <input class="input"
+                               type="text" bindinput="onInputChangedHandle" data-key="size" data-type="4"
+                               value="{{checkVinInfo.g || '--'}}">
+                        </input>
+                        <view class="label-sub">高</view>
+                    </view>
                 </view>
             </view>
-            <view class="fill" style="border-top: 1px solid #E0E0E0; width: 60%;margin-left: 32%;margin-bottom: 30rpx;">
+            <view class="fill"></view>
+            <view class="keyValue">
+                <view class="label">质量(kg)</view>
+                <view class="input-info">
+                    <view>
+                        <input class="input" disabled
+                               value="{{checkVinInfo.zzl || '--'}}">
+                        </input>
+                        <view class="label-sub">总重量</view>
+                    </view>
+                    <view>
+                        <input class="input" disabled
+                               value="{{checkVinInfo.edzzl || '--'}}">
+                        </input>
+                        <view class="label-sub">核定载质量</view>
+                    </view>
+                    <view>
+                        <input class="input"
+                               disabled
+                               value="{{checkVinInfo.zqyzzl || '--'}}">
+                        </input>
+                        <view class="label-sub">准牵引总质量</view>
+                    </view>
+                </view>
             </view>
             <view class="keyValue">
-                <view style="width: 150rpx;font-weight: 550;">质量(kg)</view>
-                <view>
-                    <input class="input"
-                        style="width: 110rpx;height: 50rpx;text-align: center; border: 1px solid #F0F0F0; padding: 2rpx 5rpx;"
-                        type="text" bindinput="onInputChangedHandle" data-key="size" data-type="4"
-                        value="{{drivingLicenseBack.ocrObject.totalMass}}">
-                    </input>
-                    <view style="margin-left: 10rpx;padding: 10rpx 0;">总重量</view>
+                <view class="attrName left">品牌</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.pp || '--'}}"/>
                 </view>
-                <view>
-                    <input class="input"
-                        style="width: 110rpx;height: 50rpx;text-align: center; border: 1px solid #F0F0F0; padding: 2rpx 5rpx;"
-                        type="text" bindinput="onInputChangedHandle" data-key="size" data-type="4"
-                        value="{{drivingLicenseBack.ocrObject.tractionMass}}">
-                    </input>
-                    <view style="margin-left: 10rpx;padding: 10rpx 0;">机身重量</view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">货箱内部宽</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.hxnbk || '--'}}"/>
                 </view>
-                <view>
-                    <input class="input"
-                        style="width: 110rpx;height: 50rpx;text-align: center; border: 1px solid #F0F0F0; padding: 2rpx 5rpx;"
-                        type="text" bindinput="onInputChangedHandle" data-key="size" data-type="4"
-                        value="{{drivingLicenseBack.ocrObject.vehicleLength}}">
-                    </input>
-                    <view style="margin-left: 10rpx;padding: 10rpx 0;">货物重量</view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">货箱内部长</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.hxnbc || '--'}}"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">燃料种类</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.rlzl || '--'}}"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">车辆类型</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.cllx || '--'}}"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">发动机企业</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.fdjqy || '--'}}"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">发动机型号</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.fdjxh || '--'}}"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">排量</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.pl || '--'}}"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">马力</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.ml || '--'}}"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">车辆名称</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.clmc || '--'}}"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">车辆型号</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.clxh || '--'}}"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">轮胎数</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.lts || '--'}}"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">货箱内部高</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.hxnbg || '--'}}"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">排放水平</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.pfsp || '--'}}"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">驱动形式</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.qdxs || '--'}}"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">出厂年份</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.ccnf || '--'}}"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">制造日期</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.rq || '--'}}"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">续航里程</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.xhlc || '--'}}"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">电池厂商</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.dccs || '--'}}"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">电池类型</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.dclx || '--'}}"/>
                 </view>
             </view>
         </view>

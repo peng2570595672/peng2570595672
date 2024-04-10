@@ -94,6 +94,11 @@ mixinsPositionPack($position = relative)
                 background-color #ffffff
         .changeOne
             margin 20rpx 36rpx 0 36rpx
+    .fill
+        border-top: 1px solid #E0E0E0;
+        width: 60%;
+        margin-left: 32%;
+        margin-bottom: 30rpx;
     /* 模块二 信息显示 */
     .moduleTwo
         padding 40rpx 0 20rpx 0
@@ -111,23 +116,60 @@ mixinsPositionPack($position = relative)
             justify-content space-around
             margin 0 36rpx 20rpx 36rpx
             font-family PingFangSC-Regular, PingFang SC
+            position relative
+            .label
+                width: 150rpx;
+                font-weight: 550;
+            .input-info
+                flex 1
+                display flex
+                align-items center
+                text-align center
+                justify-content center
+                & > view
+                    flex 1
+                    text-align center
+                    .input
+                        width: 110rpx;
+                        height: 50rpx;
+                        text-align: center;
+                        border: 1px solid #F0F0F0;
+                        padding: 2rpx 5rpx;
+                        margin auto
+                    .label-sub
+                        padding: 10rpx 0;
             .left
                 width 120rpx
                 padding 2rpx
             .attrName
                 font-size 28rpx
                 font-weight 550
-                text-align right 
+                text-align right
                 color #1E1E1E
+            .upload-vin
+                position absolute
+                right 0
+                width: 86rpx;
+                height: 46rpx;
+                border-radius: 4rpx;
+                background: #2A4F44;
+                font-size: 24rpx;
+                color #fff
+                font-weight: normal;
+                display: flex;
+                align-items: center;
+                justify-content center
             .attrValue
-                width 70%
+                flex 1
                 border-bottom 1px solid #E0E0E0
                 height 64rpx
                 display flex
+                padding-left 24rpx
                 align-items center
                 .input
                     display block
                     max-width 400rpx
+                    min-width 300rpx
                     font-size 26rpx
                     color #333
                     text-align left

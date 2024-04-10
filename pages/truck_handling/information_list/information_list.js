@@ -100,6 +100,7 @@ Page({
 		// 106 道路运输证  107 车辆侧身照  302 暂不支持企业用户  303 不支持车型  304 特殊情况  401 通用回复
 		let errNums = [];
 		let newArr = [];
+		info.errNums = '102;106'
 		if (info.errNums.length > 5) {
 			// 多个审核失败条件
 			errNums = info.errNums.split(';');
@@ -153,35 +154,67 @@ Page({
 	// 跳转
 	go (e) {
 		let url = e.currentTarget.dataset['url'];
+		if (url === 'information_validation' && !this.data.orderInfo.isOwner) {
+			this.selectComponent('#popTipComp').show({
+				type: 'shenfenyanzhifail',
+				title: '注意',
+				btnCancel: '确认',
+				refundStatus: true,
+				content: '请先上传车主身份证',
+				bgColor: 'rgba(0,0,0, 0.6)'
+			});
+			return;
+		}
+		if (url === 'upload_road_transport_certificate' && !this.data.orderInfo.isVehicle) {
+			this.selectComponent('#popTipComp').show({
+				type: 'shenfenyanzhifail',
+				title: '注意',
+				btnCancel: '确认',
+				refundStatus: true,
+				content: '请先上传车辆行驶证',
+				bgColor: 'rgba(0,0,0, 0.6)'
+			});
+			return;
+		}
+		if (url === 'upload_other_photo' && (!this.data.orderInfo.isVehicle || (this.data.orderInfo.isVehicle === 1 && this.data.vehicleInfo.isTraction === 1 && !this.data.orderInfo.isTransportLicense))) {
+			this.selectComponent('#popTipComp').show({
+				type: 'shenfenyanzhifail',
+				title: '注意',
+				btnCancel: '确认',
+				refundStatus: true,
+				content: '请先上传道路运输证',
+				bgColor: 'rgba(0,0,0, 0.6)'
+			});
+			return;
+		}
 		util.go(`/pages/truck_handling/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&flowVersion=${this.data.orderInfo.flowVersion}`);
 	},
 	// 获取二类户号信息
 	async next () {
 		if (!this.data.available) return;
+		if (this.data.isRequest) {
+			return;
+		} else {
+			this.setData({isRequest: true});
+		}
+		wx.uma.trackEvent('truck_information_list_next');
+		util.showLoading('加载中');
+		let params = {
+			changeAuditStatus: true,
+			dataComplete: 1,// 资料已完善
+			orderId: app.globalData.orderInfo.orderId// 订单id
+		};
+		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+		this.setData({isRequest: false});
+		if (!result) return;
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+			return;
+		}
 		if (this.data.isModifiedData) {
-			if (this.data.isRequest) {
-				return;
-			} else {
-				this.setData({isRequest: true});
-			}
-			wx.uma.trackEvent('truck_information_list_next');
-			util.showLoading('加载中');
-			let params = {
-				dataComplete: 1,// 资料已完善
-				orderId: app.globalData.orderInfo.orderId,// 订单id
-				changeAuditStatus: true
-			};
-			const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
-			this.setData({isRequest: false});
-			if (!result) return;
-			if (result.code) {
-				util.showToastNoIcon(result.message);
-				return;
-			}
 			util.go('/pages/default/processing_progress/processing_progress?type=main_process');
 			return;
 		}
-		// 货车签约
 		util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms?type=main');
 	}
 });

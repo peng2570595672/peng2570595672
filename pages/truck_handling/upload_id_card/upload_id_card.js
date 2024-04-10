@@ -27,7 +27,7 @@ Page({
 			verifyCode: '' // 验证码
 		}, // 提交数据
 		identifyingCode: '获取验证码',
-		time: 59,// 倒计时
+		time: 9,// 倒计时
 		isGetIdentifyingCoding: false // 获取验证码中
 	},
 	async onLoad (options) {
@@ -157,68 +157,44 @@ Page({
 			if (isToast) util.showToastNoIcon('部分信息识别失败,请重新上传身份证照片！');
 			return false;
 		}
-
-		// if (!this.data.formData.cardMobilePhone) {
-		// 	if (isToast) util.showToastNoIcon('手机号码不能为空！');
-		// 	return false;
-		// }
-		// if (!/^1[0-9]{10}$/.test(this.data.formData.cardMobilePhone)) {
-		// 	if (isToast) util.showToastNoIcon('手机号码格式不正确！');
-		// 	return false;
-		// }
-		// 手机号没有更改不需要重新获取验证码
-		// if (this.data.formData.cardMobilePhone !== this.data.orderInfo.ownerIdCard.cardMobilePhone) {
-		// 	this.setData({
-		// 		isShowCodeInput: true
-		// 	});
-		// 	if (!this.data.formData.verifyCode) {
-		// 		if (isToast) util.showToastNoIcon('验证码不能为空！');
-		// 		return false;
-		// 	}
-		// 	if (!/^[0-9]{4}$/.test(this.data.formData.verifyCode)) {
-		// 		if (isToast) util.showToastNoIcon('验证码格式不正确！');
-		// 		return false;
-		// 	}
-		// }
 		return true;
 	},
-	async fixUp () {
-		if (+this.data.options.flowVersion === 5) {
-			// 校验货车身份证信息是否一致
-			let data = {
-				vehPlate: this.data.orderInfo,
-				idNum: this.data.idCardFace.ocrObject.idNumber,
-				platesColor: this.data.options.vehColor
-			};
-			const res1 = await util.getDataFromServersV2('consumer/order/checkIdCardAndVehPlate', data);
-			if (res1.code === 0) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-	},
-	// 下一步
-	async next () {
+	async handleSaveData () {
 		if (!this.validateData(true)) {
+			return;
+		}
+		if (this.data.isCountdown) {
+			util.showToastNoIcon(`请勿频繁提交，请${this.data.time}秒后再次尝试`);
+			// 请勿频繁提交，请X秒后再次尝试”
 			return;
 		}
 		if (this.data.isRequest) {
 			return;
 		}
-		if (this.fixUp()) {
-			let isToast = true;
+		this.next();
+		return;
+		// 校验货车身份证信息是否一致
+		let data = {
+			vehPlate: this.data.options.vehPlates,
+			idNum: this.data.idCardFace.ocrObject.idNumber,
+			platesColor: this.data.options.vehColor
+		};
+		const res = await util.getDataFromServersV2('consumer/order/checkIdCardAndVehPlate', data);
+		if (res.code === 0) {
+			this.next();
+		} else {
 			this.selectComponent('#popTipComp').show({
 				type: 'shenfenyanzhifail',
 				title: '车主身份不一致',
 				btnCancel: '确认',
-				refundStatus: isToast,
-				content: isToast ? '您上传的身份证与申办车牌不一致，请确认后重新上传！' : '',
+				refundStatus: true,
+				content: '您上传的身份证与申办车牌不一致，请确认后重新上传！',
 				bgColor: 'rgba(0,0,0, 0.6)'
 			});
-			return;
 		}
-
+	},
+	// 下一步
+	async next () {
 		this.setData({
 			isRequest: true
 		});
@@ -281,6 +257,7 @@ Page({
 	},
 	failedCancelHandle () { // 身份验证失败 回调
 		// 开始倒计时 10s
+		this.startTimer();
 	},
 	// 上传图片
 	uploadOcrFile (path) {
@@ -420,45 +397,15 @@ Page({
 			if (this.data.time === 0) {
 				clearInterval(timer);
 				this.setData({
-					time: 59,
-					isGetIdentifyingCoding: false,
-					identifyingCode: '重新获取'
+					time: 9,
+					isCountdown: false
 				});
 			} else {
 				this.setData({
+					isCountdown: true,
 					identifyingCode: `${this.data.time}s`
 				});
 			}
 		}, 1000);
-	},
-	// 发送短信验证码
-	async sendVerifyCode () {
-		if (this.data.isGetIdentifyingCoding) return;
-		// 如果在倒计时，直接不处理
-		if (!this.data.formData.cardMobilePhone) {
-			util.showToastNoIcon('请输入手机号');
-			return;
-		} else if (!/^1[0-9]{10}$/.test(this.data.formData.cardMobilePhone)) {
-			util.showToastNoIcon('手机号输入不合法');
-			return;
-		}
-		this.setData({
-			isGetIdentifyingCoding: true
-		});
-		util.showLoading({
-			title: '请求中...'
-		});
-		const result = await util.getDataFromServersV2('consumer/order/send-receive-phone-verification-code', {
-			receivePhone: this.data.formData.cardMobilePhone + '' // 手机号
-		}, 'GET');
-		if (!result) return;
-		if (result.code === 0) {
-			this.startTimer();
-		} else {
-			this.setData({
-				isGetIdentifyingCoding: false
-			});
-			util.showToastNoIcon(result.message);
-		}
 	}
 });

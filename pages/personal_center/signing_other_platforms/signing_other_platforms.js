@@ -53,6 +53,7 @@ Page({
 	},
 	getSigningStatus (res) {
 		console.log('签约成功');
+		app.globalData.userInfo = {};
 		wx.redirectTo({
 			url: `/pages/personal_center/sign_successful/sign_successful?type=${this.data.isMainProcess ? 'main' : 'other'}`
 		});

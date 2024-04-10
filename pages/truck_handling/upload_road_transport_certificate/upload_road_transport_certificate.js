@@ -10,6 +10,7 @@ Page({
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
 		choiceActiveIndex: -1,
+		vehColor: undefined,
 		promptObject: {
 			content: '运输证车牌与{前置录入车牌号}不一致，请重新上传',
 			isOk: true,
@@ -25,7 +26,8 @@ Page({
 	},
 	async onLoad (options) {
 		this.setData({
-			vehPlates: options.vehPlates
+			vehPlates: options.vehPlates,
+			vehColor: options.vehColor
 		});
 		await this.getOrderInfo();
 		// 查询是否欠款
@@ -185,6 +187,7 @@ Page({
 								});
 								return;
 							}
+							this.getCheckRoadTransportPermit();
 							this.setData({
 								certificateStatus: 4,
 								transportationLicenseObj: res.data[0]
@@ -209,6 +212,20 @@ Page({
 		}, () => {
 		});
 	},
+	async getCheckRoadTransportPermit () {
+		const result = await util.getDataFromServersV2('consumer/order/checkRoadTransportPermit', {
+			// vehPlate: '青G04240',
+			vehPlate: '冀DS6551',
+			platesColor: '0',
+			// vehPlate: this.data.vehPlates,
+			// platesColor: this.data.vehColor
+		});
+		if (!result.code) {
+
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
 	// 选择图片
 	selectionPic (e) {
 		let type = +e.currentTarget.dataset['type'];
@@ -217,7 +234,7 @@ Page({
 		util.go(`/pages/truck_handling/shot_card/shot_card?type=${type}&pathUrl=${this.data.transportationLicenseObj.fileUrl}`);
 	},
 	choiceTheType (e) {
-		let index = e.currentTarget.dataset['type'];
+		let index = +e.currentTarget.dataset['type'];
 		this.setData({
 			choiceActiveIndex: index
 		});

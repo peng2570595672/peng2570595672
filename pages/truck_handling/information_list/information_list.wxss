@@ -104,7 +104,7 @@
   box-shadow: 0rpx -8rpx 30rpx 0rpx rgba(223,223,223,0.36), 0rpx 4rpx 2rpx 0rpx rgba(212,212,212,0);
 }
 .index .bottomBtn .btnClose.available {
-  background: linear-gradient(45deg, #14ac69 0%, #84d157 100%);
+  background: #2a4f44;
   animation: btnFadeIn 0.3s;
   animation-fill-mode: forwards;
 }

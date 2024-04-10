@@ -21,6 +21,17 @@
     </view>
     <view wx:else class="icon {{orderInfo.isVehicle === 1 ? 'success' : ''}} iconfont"></view>
   </view>
+    <view class="module moduleThree">
+<!--    <view class="module moduleThree" wx:if="{{!orderInfo.isVehicle || (orderInfo.isVehicle === 1 && vehicleInfo.isTraction === 1)}}">-->
+        <view class="left iconfont {{isRoadTransportCertificateError ? 'error' : ''}}">道路运输通行证({{orderInfo.isVehicle ? '必填' : '选填'}})</view>
+        <view
+                wx:if="{{ (isModifiedData && isRoadTransportCertificateError) || orderInfo.isTransportLicense !== 1 }}"
+                class="btn {{orderInfo.isTransportLicense === 1  ? 'edit' : ''}}" catchtap="go"
+                data-url="upload_road_transport_certificate">
+            {{orderInfo.isTransportLicense === 1 ? '修改' : '上传'}}
+        </view>
+        <view wx:else class="icon {{orderInfo.isTransportLicense === 1 ? 'success' : ''}} iconfont"></view>
+    </view>
   <view class="module moduleThree">
     <view class="left iconfont {{isHeadstockError ? 'error' : ''}}">车辆照片</view>
     <view
@@ -30,22 +41,13 @@
     </view>
     <view wx:else class="icon {{orderInfo.isHeadstock === 1 ? 'success' : ''}} iconfont"></view>
   </view>
-  <view class="module moduleThree" >
-    <view class="left iconfont {{isRoadTransportCertificateError ? 'error' : ''}}">道路运输通行证</view>
-    <view
-      wx:if="{{ (isModifiedData && isRoadTransportCertificateError) || orderInfo.isTransportLicense !== 1 }}"
-      class="btn {{orderInfo.isTransportLicense === 1  ? 'edit' : ''}}" catchtap="go"
-      data-url="upload_road_transport_certificate">
-      {{orderInfo.isTransportLicense === 1 ? '修改' : '上传'}}
-    </view>
-    <view wx:else class="icon {{orderInfo.isTransportLicense === 1 ? 'success' : ''}} iconfont"></view>
-  </view>
   <view class="tips" wx:if="{{tips}}">{{tips}}</view>
 
   <view class="bottomBtn">
     <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="next">
-      {{'签约代扣通讯费'}}
+      {{isModifiedData ? '提交审核' : '签约代扣通讯费'}}
     </view>
   </view>
 </view>
+<popTipComp id="popTipComp" tipObj="{{tipObj}}"></popTipComp>
 <privacy_popup></privacy_popup>

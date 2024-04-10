@@ -100,7 +100,7 @@
 	<!--	输入结束-->
 	<view class="fill"></view>
 	<!--	按钮开始-->
-	<view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next"><view class="animate" wx:if="{{isRequest}}"></view>下一步</view>
+	<view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next"><view class="animate" wx:if="{{isRequest}}"></view>立即免费办理</view>
 	<!--	按钮结束-->
 	<!--	键盘-->
 	<keyboard id="keyboard" index="{{currentIndex}}" show="{{showKeyboard}}" bind:valueChange="valueChange" myCar="{{carNo}}"></keyboard>

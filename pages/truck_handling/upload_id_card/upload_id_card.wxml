@@ -115,7 +115,7 @@
     </view>
     <!-- 底部悬浮按钮 -->
     <view class="bottomBtn" wx:if="{{!isXinKe ? (faceStatus === 4 && backStatus === 4) : !switch1Checked ? (faceStatus === 4 && backStatus === 4) : (faceStatus === 4 && backStatus === 4 && faceStatusNot === 4 && backStatusNot === 4)}}">
-        <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="next">
+        <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="handleSaveData">
             确认资料并保存
         </view>
     </view>

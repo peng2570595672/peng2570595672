@@ -55,7 +55,7 @@
     <!-- 模块二 信息显示 -->
     <view class="module moduleTwo" wx:if="{{transportationLicenseObj.fileUrl}}">
         <view class="titles">请勾选出道路运输证经营范围</view>
-        <view class="text0">如上传为IC卡运输证，请联系办理机构核实经营范围</view>
+        <view class="text0">如上传为IC卡运输证，请联系办理机构核实经营范围{{choiceActiveIndex}}</view>
         <view class="subModle" catchtap="choiceTheType" data-type="0">
             <view class="left">仅有货物专用运输（集装箱）</view>
             <view class="confirm iconfont {{choiceActiveIndex === 0 ? 'tick' : ''}}"></view>

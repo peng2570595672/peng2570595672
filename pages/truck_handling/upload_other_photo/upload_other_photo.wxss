@@ -103,7 +103,7 @@
   font-weight: 500;
   color: #fff;
   border-radius: 49rpx;
-  background: linear-gradient(to right, #15ad69, #84d157);
+  background: #2a4f44;
 }
 .page .btn.available {
   animation: btnFadeIn 0.3s;
