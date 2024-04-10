@@ -463,6 +463,10 @@ Page({
 				util.go(`/pages/default/obucarquer/obucarquer?vehPlates=${this.data.info.vehPlates}`);
 				return;
 			}
+			if (data.stepNum === 9) {
+				util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${this.data.info.auditStatus}`);
+				return;
+			}
 			return;
 		}
 		if (this.data.info.shopId && this.data.info.shopId === '624263265781809152') {
