@@ -784,136 +784,129 @@ function getTruckHandlingStatus(orderInfo) {
  *  获取订单办理状态 2.0
  */
 function getStatus(orderInfo) {
-  if (orderInfo.obuCardType === 10 && +orderInfo.orderExtCardType === 2) {
-    // 湖南信科   deviceType设备类型 (1:插卡; 0:单片)  orderExtCardType 2代表信科
-    if (orderInfo.pledgeStatus === 0) { // 待支付
-      return 3;
-    }
-    if (orderInfo.obuStatus === 0) { // 已支付待激活
-      if (orderInfo.status === 0) { // 资未完善
-        return 34;
-      }
-      return 31;
-    }
-    return 32;
-  }
-  if (orderInfo.orderType === 81) {
-    if (orderInfo.pledgeStatus === 0) { // 设备升级 待支付
-      return 24;
-    }
-    if (orderInfo.status === 0) { // 设备升级  资料待完善  || 审核失败,可以修改资料
-      return 25;
-    }
-    if (orderInfo.status === 2 || orderInfo.status === 1) { // 小程序提交完资料 说明： -1 删除（取消办理），0-资料待完善，1-资料已完善 2-升级订单已确认
-      if (orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) { // 待审核
-        return 6
-      }
-      if (orderInfo.auditStatus === 1) { // 小程序提交完资料,审核失败
-        return 27;
-      }
-      if (orderInfo.auditStatus === 9) {
-        // 高速核验不通过
-        return 8;
-      }
-      if (orderInfo.auditStatus === 2 && orderInfo.logisticsId === 0) {
-        // 待发货
-        return 28;
-      }
-      if (orderInfo.logisticsId !== 0 && orderInfo.obuStatus === 0) {
-        return 11; //  待激活
-      }
-      if (orderInfo.status === 2) {
-        return 26
-      }
-    }
-  }
-  if (orderInfo.orderType === 61 && (orderInfo.auditStatus === 9 || orderInfo.auditStatus === 1)) {
-    return 8; // 电销模式审核不通过,不允许修改资料
-  }
-  if (orderInfo.orderType === 61 && orderInfo.status === 0) {
-    // 电销办理只让在套餐页完成剩余流程
-    if (orderInfo.pledgeStatus === 0) {
-      // pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
-      return 3; // 待支付
-    }
-    return 23;
-  }
-  // if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0 && orderInfo.isSignTtCoupon !== 1 && orderInfo.platformId !== '568113867222155288' && orderInfo.platformId !== '500338116821778436') {
-  // 	// 过滤好车主的
-  // 	// protocolStatus 0未签协议 1签了
-  // 	return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
-  // }
-  if (orderInfo.isNewTrucks === 0 && orderInfo.contractStatus !== 1 && orderInfo.status === 1 && orderInfo.pledgeStatus !== 0) {
-    if (orderInfo.hwContractStatus === 0 && orderInfo.flowVersion === 8) { // 9901 未签约成功
-      return 10
-    }
-    return 1; // 客车解约
-  }
-  if (orderInfo.status === 1 && orderInfo.isSignTtCoupon === 1 && orderInfo.ttContractStatus !== 1 && orderInfo.pledgeStatus !== 0 && orderInfo.ttCouponPayAmount > 0) {
-    // 通通券签约套餐 解约 洛阳工行 通通券金额为 0 时 返回 6 进入办理进度页
-    return 22;
-  }
-  if (orderInfo.shopProductId === 0) {
-    return 2; // 办理中 未选套餐
-  }
-  if (orderInfo.pledgeStatus === 0) {
-    // pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
-    return 3; // 待支付
-  }
-  if (orderInfo.status === 0) { // flowVersion === 8 9901 套餐
-    return 4; // 办理中 未上传证件
-  }
-  if (!orderInfo.contractStatus && orderInfo.deliveryRule === 0 && orderInfo.etcContractId !== -1) {
-    // deliveryRule 先签约后发货-0、先发货后签约-1    etcContractId -1 不需要签约微信
-    return 5; // 待微信签约
-  }
-  if (orderInfo.orderType === 31 && orderInfo.auditStatus === 0) {
-    return 6;
-  }
-  if ((orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) && orderInfo.flowVersion !== 8) {
-    // auditStatus: -1 无需审核   0 待审核   1 审核失败  2 审核通过  3 预审核通过  9 高速核验不通过
-    return 6; // 待审核 预审核通过(待审核)
-  }
-  if (orderInfo.auditStatus === 1) {
-    return 7; // 资料被拒绝 修改资料
-  }
-  if (orderInfo.auditStatus === 9) {
-    return 8; // 高速核验不通过
-  }
-
-  if ((orderInfo.auditStatus === 2 || (orderInfo.auditStatus === 0 && orderInfo.orderType === 31)) && (orderInfo.flowVersion === 2 || orderInfo.flowVersion === 3) && orderInfo.hwContractStatus === 0) {
-    // hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
-    return 9; // 审核通过,待签约高速
-  }
-  if (orderInfo.flowVersion === 3 && orderInfo.hwContractStatus !== 3) {
-    return 16; // 审核通过,待车辆关联签约支付渠道
-  }
-  if (orderInfo.auditStatus === 2 && orderInfo.logisticsId === 0) {
-    return 10; // 审核通过,待发货
-  }
-  if (orderInfo.auditStatus === 2 && orderInfo.logisticsId !== 0 && orderInfo.deliveryRule === 1 && orderInfo.etcContractId !== -1 && !orderInfo.contractStatus) {
-    return 5; // 审核通过,已发货或无需发货,待微信签约
-  }
-  if (orderInfo.obuStatus === 0 || orderInfo.obuStatus === 3 || orderInfo.obuStatus === 4 || (orderInfo.status === 1 && orderInfo.obuStatus === 2 && (orderInfo.obuCardType === 23 || orderInfo.obuCardType === 2))) {//补充河北交投换卡换签
-    // OBU状态:默认0 0-待激活，1-已激活，2-已注销 3-开卡 4-发签 5预激活  (3和4:首次激活未完成)
-    if (orderInfo.hwContractStatus === 0 && orderInfo.flowVersion === 8) { // 9901 未签约成功
-      return 5
-    }
-    return 11; //  待激活
-  }
-  if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
-    if ((app.globalData.cictBankObj.citicBankshopProductIds.includes(orderInfo.shopProductId) || (orderInfo.orderType === 31 && orderInfo.productName?.includes('中信') && orderInfo.pledgeType === 2)) && orderInfo.refundStatus !== 3) {
-      if (app.globalData.cictBankObj.guangfaBank === orderInfo.shopProductId) { // 广发订单
-        return 33
-      }
-      return 30
-    }
-    return 12; // 已激活
-  }
-  // if (orderInfo.status === 1 && orderInfo.obuStatus === 2) {  // 已注销
-  //   return
-  // }
-  return 0; // 错误状态,未判断到
+	if (orderInfo.obuCardType === 10 && +orderInfo.orderExtCardType === 2) {
+		// 湖南信科   deviceType设备类型 (1:插卡; 0:单片)  orderExtCardType 2代表信科
+		if (orderInfo.pledgeStatus === 0) { // 待支付
+			return 3;
+		}
+		if (orderInfo.obuStatus === 0) { // 已支付待激活
+			if (orderInfo.status === 0) { // 资未完善
+				return 34;
+			}
+			return 31;
+		}
+		return 32;
+	}
+	if (orderInfo.orderType === 81) {
+		if (orderInfo.pledgeStatus === 0) { // 设备升级 待支付
+			return 24;
+		}
+		if (orderInfo.status === 0) { // 设备升级  资料待完善  || 审核失败,可以修改资料
+			return 25;
+		}
+		if (orderInfo.status === 2 || orderInfo.status === 1) { // 小程序提交完资料 说明： -1 删除（取消办理），0-资料待完善，1-资料已完善 2-升级订单已确认
+			if (orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) { // 待审核
+				return 6
+			}
+			if (orderInfo.auditStatus === 1) { // 小程序提交完资料,审核失败
+				return 27;
+			}
+			if (orderInfo.auditStatus === 9) {
+				// 高速核验不通过
+				return 8;
+			}
+			if (orderInfo.auditStatus === 2 && orderInfo.logisticsId === 0) {
+				// 待发货
+				return 28;
+			}
+			if (orderInfo.logisticsId !== 0 && orderInfo.obuStatus === 0) {
+				return 11; //  待激活
+			}
+			if (orderInfo.status === 2) {
+				return 26
+			}
+		}
+	}
+	if (orderInfo.orderType === 61 && (orderInfo.auditStatus === 9 || orderInfo.auditStatus === 1)) {
+		return 8; // 电销模式审核不通过,不允许修改资料
+	}
+	if (orderInfo.orderType === 61 && orderInfo.status === 0) {
+		// 电销办理只让在套餐页完成剩余流程
+		if (orderInfo.pledgeStatus === 0) {
+			// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
+			return 3; // 待支付
+		}
+		return 23;
+	}
+	// if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0 && orderInfo.isSignTtCoupon !== 1 && orderInfo.platformId !== '568113867222155288' && orderInfo.platformId !== '500338116821778436') {
+	// 	// 过滤好车主的
+	// 	// protocolStatus 0未签协议 1签了
+	// 	return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
+	// }
+	if (orderInfo.isNewTrucks === 0 && orderInfo.contractStatus !== 1 && orderInfo.status === 1 && orderInfo.pledgeStatus !== 0) {
+		return 1; // 客车解约
+	}
+	if (orderInfo.status === 1 && orderInfo.isSignTtCoupon === 1 && orderInfo.ttContractStatus !== 1 && orderInfo.pledgeStatus !== 0 && orderInfo.ttCouponPayAmount > 0) {
+		// 通通券签约套餐 解约 洛阳工行 通通券金额为 0 时 返回 6 进入办理进度页
+		return 22;
+	}
+	if (orderInfo.shopProductId === 0) {
+		return 2; // 办理中 未选套餐
+	}
+	if (orderInfo.pledgeStatus === 0) {
+		// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
+		return 3; // 待支付
+	}
+	if (orderInfo.status === 0) {
+		return 4; // 办理中 未上传证件
+	}
+	if (!orderInfo.contractStatus && orderInfo.deliveryRule === 0 && orderInfo.etcContractId !== -1) {
+		// deliveryRule 先签约后发货-0、先发货后签约-1    etcContractId -1 不需要签约微信
+		return 5; // 待微信签约
+	}
+	if (orderInfo.orderType === 31 && orderInfo.auditStatus === 0) {
+		return 6;
+	}
+	if (orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) {
+		// auditStatus: -1 无需审核   0 待审核   1 审核失败  2 审核通过  3 预审核通过  9 高速核验不通过
+		return 6; // 待审核 预审核通过(待审核)
+	}
+	if (orderInfo.auditStatus === 1) {
+		return 7; // 资料被拒绝 修改资料
+	}
+	if (orderInfo.auditStatus === 9) {
+		return 8; // 高速核验不通过
+	}
+	if ((orderInfo.auditStatus === 2 || (orderInfo.auditStatus === 0 && orderInfo.orderType === 31)) && (orderInfo.flowVersion === 2 || orderInfo.flowVersion === 3) && orderInfo.hwContractStatus === 0) {
+		// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
+		return 9; // 审核通过,待签约高速
+	}
+	if (orderInfo.flowVersion === 3 && orderInfo.hwContractStatus !== 3) {
+		return 16; // 审核通过,待车辆关联签约支付渠道
+	}
+	if (orderInfo.auditStatus === 2 && orderInfo.logisticsId === 0) {
+		return 10; // 审核通过,待发货
+	}
+	if (orderInfo.auditStatus === 2 && orderInfo.logisticsId !== 0 && orderInfo.deliveryRule === 1 && orderInfo.etcContractId !== -1 && !orderInfo.contractStatus) {
+		return 5; // 审核通过,已发货或无需发货,待微信签约
+	}
+	if (orderInfo.obuStatus === 0 || orderInfo.obuStatus === 3 || orderInfo.obuStatus === 4 || (orderInfo.status === 1 && orderInfo.obuStatus === 2 && (orderInfo.obuCardType === 23 || orderInfo.obuCardType === 2)) ){//补充河北交投换卡换签
+		// OBU状态:默认0 0-待激活，1-已激活，2-已注销 3-开卡 4-发签 5预激活  (3和4:首次激活未完成)
+		return 11; //  待激活
+	}
+	if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
+		if ((app.globalData.cictBankObj.citicBankshopProductIds.includes(orderInfo.shopProductId) || (orderInfo.orderType === 31 && orderInfo.productName?.includes('中信') && orderInfo.pledgeType === 2)) && orderInfo.refundStatus !== 3) {
+			if (app.globalData.cictBankObj.guangfaBank === orderInfo.shopProductId) { // 广发订单
+				return 33
+			}
+			return 30
+		}
+		return 12; // 已激活
+	}
+	// if (orderInfo.status === 1 && orderInfo.obuStatus === 2) {  // 已注销
+	//   return
+	// }
+	return 0; // 错误状态,未判断到
 }
 /**
  *  获取订单办理状态 1.0
@@ -1902,7 +1895,7 @@ async function getSteps_9901(orderInfo) {
   showLoading('9901查询步骤', orderInfo);
   let params = {
     orderId: orderInfo.id || orderInfo.orderId, // 订单id
-    mobile: orderInfo.mobile
+    mobile: orderInfo.mobile || orderInfo.cardMobilePhone
   }
   const result = await getDataFromServersV2('consumer/activity/qtzl/xz/getSteps', params, 'POST', false);
   if (!result) return;
