@@ -24,19 +24,5 @@ Page({
         wx.switchTab({
             url: '/pages/Home/Home'
         });
-    },
-    async checkCar () {
-        // 9901 车辆支付渠道关联
-        const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/carChannelRel', {
-            logisticsId: orderInfo.logisticsId
-        });
-        if (!result) return;
-        if (result.code === 0) {
-            util.showToastNoIcon(result.message);
-            util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.data.orderId}`);
-        } else {
-            util.showToastNoIcon(result.message);
-        }
     }
-
 });
