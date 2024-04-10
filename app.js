@@ -76,6 +76,7 @@ App({
 		quality: 80,
 		isChannelPromotion: 0,// 渠道推广参数
 		signAContract: 3,// -1正常签约  1  解约重签  4 货车签约管理页签约
+		signAContract_9901: -1,// 9901 签约管理页签约
 		signTongTongQuanAContract: 0,// 0 未签约  1 去签约 2解约重签
 		userInfo: {},// 用户信息
 		navbarHeight: 0,
@@ -157,7 +158,7 @@ App({
 		isAlertToSign: false,
 		isQingHaiHighSpeed: false,// 是否是青海高速办理,需要隐藏平安绑车
 		isQingHaiHighSpeedOnlineProcessing: false,	// 是否是青海高速线上办理
-		renewWhitelist: ['13368527179','18302531895','15185024319','17685020520','15870105857']	// 续签白名单
+		renewWhitelist: ['13368527179', '18302531895', '15185024319', '17685020520', '15870105857']	// 续签白名单
 	},
 	onLaunch (options) {
 		// 统计逻辑结束
@@ -211,7 +212,7 @@ App({
 					this.globalData.salesmanScanCodeToHandleId = obj.orderId;
 				} else {
 					util.resetData();// 重置数据
-					let sceneKey,sceneValue;
+					let sceneKey, sceneValue;
 					for (let i in obj) {
 						sceneKey = i;
 						sceneValue = obj[i];
@@ -221,7 +222,7 @@ App({
 					} else if (sceneKey === 'BSCS') {
 						this.globalData.rechargeCode = sceneValue;
 					} else {
-						this.getPromoterInfo(sceneKey,sceneValue);
+						this.getPromoterInfo(sceneKey, sceneValue);
 					}
 				}
 			}
@@ -231,7 +232,7 @@ App({
 			// 1.0大地保险扫码/链接进入
 			this.globalData.isContinentInsurance = true;
 			let sceneValue = JSON.stringify(options.query);
-			this.getPromoterInfo('channelValue',sceneValue);
+			this.getPromoterInfo('channelValue', sceneValue);
 		}
 		if (options.query.officialChannelId) {
 			util.resetData();// 重置数据
@@ -246,11 +247,11 @@ App({
 			util.resetData();// 重置数据
 			// 2.0大地保险链接进入
 			this.globalData.isContinentInsurance = true;
-			this.getPromoterInfo('SGC',options.query.carInsurance);
+			this.getPromoterInfo('SGC', options.query.carInsurance);
 		}
 	},
 	// 根据扫描获取到的二维码信息获取推广参数
-	getPromoterInfo (sceneKey,sceneValue) {
+	getPromoterInfo (sceneKey, sceneValue) {
 		// 场景key，二维码scene的格式为sceneKey=sceneValue
 		// 可选值： shareId，tmpId，shareTmp，SGC，SUC
 		// 特殊情况：在大地的二维码中,格式为：{channelValue:xxx,serverInfoId:xxx},sceneKey为channelValue，sceneValue为：{channelValue:xxx,serverInfoId:xxx}JSON字符串
@@ -313,7 +314,7 @@ App({
 			}
 		});
 	},
-	onShow (res) {
+	async onShow (res) {
 		// 初始化数据
 		this.initData(res);
 		if (res.path === 'pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license' ||
@@ -324,6 +325,60 @@ App({
 			// 解决安卓平台上传行驶证自动返回上一页
 			return;
 		}
+		if (res && res.scene === 1038 && res.referrerInfo.appId === 'wx008c60533388527a' && this.globalData.signAContract_9901 === -1) {
+			let data = util.getSteps_9901(this.globalData.orderInfo);
+			if (data.stepNum === 5) {
+				let signChannelId = data.signChannelId;
+				// 支付关联渠道
+				const result2 = await util.getDataFromServersV2('consumer/activity/qtzl/xz/carChannelRel', {
+					orderId: this.globalData.orderInfo.orderId,
+					signChannelId: signChannelId
+				});
+				console.log('res.referrerInfo.appId ', result2);
+				if (!result2) return;
+				if (result2.code === 0) {
+					console.log('支付关联渠道成功');
+					util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
+				} else {
+					return util.showToastNoIcon(result2.message);
+				}
+			} else { // 可能未签约成功
+				return util.showToastNoIcon('第三方签约未完成');
+			}
+			// if (data.stepNum === 4) {
+			// 	console.log('orderId  开始获取9901渠道');
+			// 	const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/getSignedChannelList', {
+			// 		orderId: this.globalData.orderInfo.orderId
+			// 	});
+			// 	console.log('result', result);
+			// 	if (!result) return;
+			// 	if (result.code === 0) { // 查询签约渠道
+			// 		this.globalData.signAContract_9901 = 2;
+			// 		console.log('orderId  开始关联9901支付渠道',result.data);
+			// 		if (result.data.list?.length !== 0) { // 表示签约成功
+			// 			let signChannelId = result.data.list[0].channelId;
+			// 			// 支付关联渠道
+			// 			const result2 = await util.getDataFromServersV2('consumer/activity/qtzl/xz/carChannelRel', {
+			// 				orderId: this.globalData.orderInfo.orderId,
+			// 				signChannelId: signChannelId
+			// 			});
+			// 			console.log('res.referrerInfo.appId ', result2);
+			// 			console.log('orderId  开始关联9901支付渠道');
+			// 			if (!result2) return;
+			// 			if (result2.code === 0) {
+			// 				util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
+			// 			} else {
+			// 				return util.showToastNoIcon(result2.message);
+			// 			}
+			// 		} else { // 表示未签约未成功
+			// 			return util.showToastNoIcon(result.message);
+			// 		}
+			// 	} else {
+			// 		// 查询签约渠道失败
+			// 		return util.showToastNoIcon(result.message);
+			// 	}
+			// }
+		}
 		if ((res && res.referrerInfo && res.referrerInfo.appId && (res.referrerInfo.appId === 'wxbcad394b3d99dac9' || res.referrerInfo.appId === 'wxbd687630cd02ce1d')) ||
 			(res && res.scene === 1038)) { // 场景值1038：从被打开的小程序返回
 			// 因微信场景值问题,故未用场景值判断
@@ -332,7 +387,7 @@ App({
 			if (res.path === 'pages/bank_card/citic_bank_sign/citic_bank_sign') {
 				return;
 			}
-			const {appId} = res.referrerInfo;
+			const { appId } = res.referrerInfo;
 			if (this.globalData.signAContract === -1) {
 				// 车主服务签约
 				if (appId === 'wxbcad394b3d99dac9' || appId === 'wxbd687630cd02ce1d') {
@@ -368,7 +423,7 @@ App({
 				wx.switchTab({
 					url: '/pages/Home/Home'
 				});
-			},1000);
+			}, 1000);
 		}
 	},
 	async getOrderInfo () {

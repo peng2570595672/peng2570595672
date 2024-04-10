@@ -15,33 +15,33 @@ Page({
         isContinentInsurance: app.globalData.isContinentInsurance, // 是否是大地
         btnSwitch: false,
         entranceList: [{
-                title: '通行发票',
-                ico: 'invoice',
-                url: 'invoice',
-                isShow: true,
-                statisticsEvent: 'index_invoice'
-            },
-            {
-                title: '违章查询',
-                ico: 'violation-enquiry',
-                url: 'violation_enquiry',
-                isShow: !app.globalData.isContinentInsurance,
-                statisticsEvent: 'index_violation_enquiry'
-            },
-            {
-                title: 'ETC账单',
-                ico: 'my-order',
-                url: 'my_order',
-                isShow: app.globalData.isContinentInsurance,
-                statisticsEvent: 'index_my_order'
-            },
-            {
-                title: '个人中心',
-                ico: 'personal-center',
-                url: 'index',
-                isShow: true,
-                statisticsEvent: 'index_personal_center'
-            }
+            title: '通行发票',
+            ico: 'invoice',
+            url: 'invoice',
+            isShow: true,
+            statisticsEvent: 'index_invoice'
+        },
+        {
+            title: '违章查询',
+            ico: 'violation-enquiry',
+            url: 'violation_enquiry',
+            isShow: !app.globalData.isContinentInsurance,
+            statisticsEvent: 'index_violation_enquiry'
+        },
+        {
+            title: 'ETC账单',
+            ico: 'my-order',
+            url: 'my_order',
+            isShow: app.globalData.isContinentInsurance,
+            statisticsEvent: 'index_my_order'
+        },
+        {
+            title: '个人中心',
+            ico: 'personal-center',
+            url: 'index',
+            isShow: true,
+            statisticsEvent: 'index_personal_center'
+        }
         ],
         bannerList: [
             // @cyl
@@ -164,7 +164,25 @@ Page({
     },
     // qujihuo
     qujihuo () {
-        util.go('/pages/obu_activate/hunan/pro9901/pro9901');
+        util.go('/pages/separate_interest_package/sing_9901_success/sing_9901_success');
+        // util.go('/pages/obu_activate/hunan/pro9901/pro9901');
+        // wx.navigateToMiniProgram({
+        //     appId: 'wx008c60533388527a',
+        //     path: 'pages/sign/auth', // 跳转目标小程序的页面路径
+        //     extraData: {
+        //         msgId: signUrl,
+        //         plateNumber
+        //     },
+        //     success (res) {
+        //         // 打开成功
+        //     },
+        //     fail (e) {
+        //         // 打开失败
+        //         if (e.errMsg !== 'navigateToMiniProgram:fail cancel') {
+        //             util.showToastNoIcon('打开激活小程序失败');
+        //         }
+        //     }
+        // });
     },
     async onLoad (options) {
         util.resetData(); // 重置数据
@@ -177,6 +195,12 @@ Page({
         if (!app.globalData.userInfo.accessToken) {
             this.login();
         }
+        // const { referrerInfo } = wx.getLaunchOptionsSync();
+        // if (referrerInfo && referrerInfo.extraData) {
+        //     const extraData = referrerInfo.extraData;
+        //     // 在这里处理携带过来的参数
+        //     console.log('携带过来的参数：', extraData);
+        // }
     },
     async onShow () {
         this.setData({
@@ -550,7 +574,7 @@ Page({
     // -------------------end--------------
 
     // banner触摸移动返回
-    catchtouchmove () {},
+    catchtouchmove () { },
     // ---------------------------------end---------------------------
     async getIsShowNotice () {
         const result = await util.queryProtocolRecord(2);
@@ -673,7 +697,7 @@ Page({
         wx.navigateToMiniProgram({
             appId: 'wxf6f29613766abce4',
             path: 'pages/sub-packages/ug/pages/landing-pages/index?themeid=1076&channelid=1&skuid=4843521&&configid=60a78267536306017756bdd0&relatedSpuId=291058&adid=0617sjht_etc_xcx_5810_R',
-            success () {},
+            success () { },
             fail () {
                 // 未成功跳转到签约小程序
                 util.showToastNoIcon('调起小鹅拼拼小程序失败, 请重试！');
@@ -694,9 +718,9 @@ Page({
             success: async (res) => {
                 const result = await util.getDataFromServersV2(
                     'consumer/member/common/applet/code', {
-                        platformId: app.globalData.platformId, // 平台id
-                        code: res.code // 从微信获取的code
-                    }, 'POST', false);
+                    platformId: app.globalData.platformId, // 平台id
+                    code: res.code // 从微信获取的code
+                }, 'POST', false);
                 this.initDadi();
                 if (!result) return;
                 if (result.code === 0) {
@@ -927,19 +951,19 @@ Page({
                 isShowHandle: list.filter(item => item.obuStatus !== 1 && item.obuStatus !== 2 && item.obuStatus !== 5).length > 0
             });
             let isAlertToSignObj;
-            list.map((item,index) => {
+            list.map((item, index) => {
                 if (this.data.orderStr.includes(item.id) && !app.globalData.isAlertToSign) {
                     isAlertToSignObj = item;
                 }
                 // 平安获客 status -1 删除（取消办理），0-资料待完善，1-资料已完善 2-升级订单已确认
                 if (app.globalData.pingAnBindGuests?.pingAnBindVehplates.length > 0 && !app.globalData.isQingHaiHighSpeed && !this.data.PingAn && app.globalData.pingAnBindGuests && item.status === 1 && app.globalData.isShowOncepingAnBindGuestsPop === 0 && index === 0) {
                     if (app.globalData.pingAnBindGuests.vehKeys === '*' || (app.globalData.pingAnBindGuests.vehKeys.includes(item.vehPlates.substring(0, 1)) && !app.globalData.pingAnBindGuests.filterKeys.includes(item.vehPlates.substring(0, 2)))) {
-                        this.setData({PingAn: true});
+                        this.setData({ PingAn: true });
                         app.globalData.isShowOncepingAnBindGuestsPop = 1;
                         if (item.vehPlates.includes('云')) {
-                            this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)'});
+                            this.selectComponent('#popTipComp').show({ type: 'newPop', title: '云', bgColor: 'rgba(0,0,0, 0.6)' });
                         } else {
-                            this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)'});
+                            this.selectComponent('#popTipComp').show({ type: 'newPop', title: '全国', bgColor: 'rgba(0,0,0, 0.6)' });
                         }
                     }
                 }
@@ -1339,7 +1363,7 @@ Page({
                 title: '提示',
                 content: '当前订单无法修改，请联系业务员或在线客服处理！',
                 confirmText: '我知道了',
-                confirm: () => {}
+                confirm: () => { }
             });
             return;
         }
@@ -1489,13 +1513,21 @@ Page({
             util.go(`/pages/truck_handling/contract_management/contract_management`);
             return;
         }
+        if (obj.flowVersion === 8) { // 9901 签约模式
+            let data = await util.getSteps_9901(obj);
+            console.log('查询9901签约步骤成功',data.stepNum);
+            if (data.stepNum === 9) return; // 当前办理完成状态
+            if (data.stepNum === 4 || data.stepNum === 5) {
+                await this.is9901_1(); // 连续调用三个接口 6.7.8 步骤
+            }
+            return;
+        }
         app.globalData.isSecondSigning = false;
         app.globalData.isSecondSigningInformationPerfect = false;
         app.globalData.contractStatus = obj.contractStatus;
         if (obj.status === 1) app.globalData.isSecondSigningInformationPerfect = true;
         if (obj.logisticsId !== 0 || obj.obuStatus === 5 || obj.obuStatus === 1) {
-            app.globalData
-                .isSecondSigning = true;
+            app.globalData.isSecondSigning = true;
         }
         if (obj.contractStatus === 2) {
             app.globalData.orderInfo.orderId = obj.id;
@@ -1515,7 +1547,6 @@ Page({
         const result = await util.getDataFromServersV2('consumer/order/query-contract', {
             orderId: obj.id
         });
-        console.log('3', result);
         if (!result) return;
         if (result.code === 0) {
             app.globalData.signAContract = 1;
@@ -1530,7 +1561,7 @@ Page({
                             extraData: {
                                 contract_id: result.data.contractId
                             },
-                            success () {},
+                            success () { },
                             fail () {
                                 // 未成功跳转到签约小程序
                                 util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
@@ -1589,6 +1620,92 @@ Page({
         // 统计点击事件
         wx.uma.trackEvent('index_for_processing_progress');
         util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderInfo.id}`);
+    },
+    // is9901_1 接口 设备预检
+    async is9901_1 () {
+        util.showLoading('设备预检中');
+        let orderId = app.globalData.orderInfo.orderId; // 订单id
+        const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/devicePreCheck', {
+            orderId,
+            cpuId: '0052232100025417',
+            obuId: '9901000300578399'
+        });
+        this.setData({
+            isRequest: false
+        });
+        if (!result) return;
+        if (result.code === 0) {
+            this.is9901_2();
+        } else {
+            util.showToastNoIcon(result.message);
+        }
+        util.hideLoading();
+    },
+    // is9901_2 调用获取可签约渠道列表接口
+    async is9901_2 () {
+        util.showLoading('获取可签约渠道');
+        let orderId = app.globalData.orderInfo.orderId; // 订单id
+        const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/getAccountChannelList', {
+            orderId,
+            redirectUrl: `/pages/separate_interest_package/sing_9901_success/sing_9901_success`
+        });
+        this.setData({
+            isRequest: false
+        });
+        if (!result) return;
+        if (result.code === 0) {
+            let arr = result.data.list.filter(item => item.channelId === '11');
+            if (arr.length > 0) {
+                app.globalData.orderInfo.signChannelId = arr[0].signChannelId;
+                this.is9901_3();
+            } else {
+                util.showToastNoIcon('暂无可签约渠道');
+            }
+        } else {
+            util.showToastNoIcon(result.message);
+        }
+        util.hideLoading();
+    },
+    // is9901_3 接口 签约
+    async is9901_3 () {
+        let orderId = app.globalData.orderInfo.orderId; // 订单id
+        const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/signChannel', {
+            orderId,
+            signChannelId: app.globalData.orderInfo.signChannelId || '11',
+            redirectUrl: `/pages/separate_interest_package/sing_9901_success/sing_9901_success`
+
+        });
+        this.setData({
+            isRequest: false
+        });
+        if (!result) return;
+        if (result.code === 0) {
+            const signUrl = result.data.signUrl;
+            app.globalData.orderInfo.signUrl_9901 = signUrl;
+            const path = `pages/sign/auth?msgId=${signUrl}&plateNumber=${this.data.vehPlates}&bizNotifyUrl='DEFAULT'`; // 跳转目标小程序的页面路径
+            const extraData = {
+                msgId: signUrl,
+                plateNumber: this.data.vehPlates,
+                bizNotifyUrl: 'DEFAULT'
+            };
+            // 跳转九州签约
+            wx.navigateToMiniProgram({
+                appId: 'wx008c60533388527a',
+                path,
+                extraData,
+                success (res) {
+                    // 打开成功
+                },
+                fail (e) {
+                    // 打开失败
+                    if (e.errMsg !== 'navigateToMiniProgram:fail cancel') {
+                        util.showToastNoIcon('打开激活小程序失败');
+                    }
+                }
+            });
+        } else {
+            util.showToastNoIcon(result.message);
+        }
     },
     // 去激活
     async onClickCctivate (orderInfo) {
@@ -1828,32 +1945,32 @@ Page({
         // });
     },
     // 针对特定号码 作续签弹窗提示
-	renewWhitelistJudgement (e) {
-		console.log(e);
-		let that = this;
-		let renew = e.currentTarget.dataset.renew;
-		if (app.globalData.renewWhitelist.includes(app.globalData.mobilePhone) && !wx.getStorageSync('renewWhitelist')) {
-			that.selectComponent('#popTipComp').show({
-				type: 'renewWhitelist',
-				title: '协议续签提醒',
-				btnCancel: '不同意',
-				btnconfirm: '同意',
-				callBack: () => {
-					if (renew === '1') {
+    renewWhitelistJudgement (e) {
+        console.log(e);
+        let that = this;
+        let renew = e.currentTarget.dataset.renew;
+        if (app.globalData.renewWhitelist.includes(app.globalData.mobilePhone) && !wx.getStorageSync('renewWhitelist')) {
+            that.selectComponent('#popTipComp').show({
+                type: 'renewWhitelist',
+                title: '协议续签提醒',
+                btnCancel: '不同意',
+                btnconfirm: '同意',
+                callBack: () => {
+                    if (renew === '1') {
                         that.goToMyEtc(e);
-					} else if (renew === '3') {
+                    } else if (renew === '3') {
                         that.onClickVehicle();
-					} else if (renew === '6') {
+                    } else if (renew === '6') {
                         that.goPathBus(e);
                     } else if (renew === '7') {
                         that.onClickBill(e);
                     } else {
                         that.goPath(e);
-					}
-				}
-			});
-		} else {
-			if (renew === '1') {
+                    }
+                }
+            });
+        } else {
+            if (renew === '1') {
                 that.goToMyEtc(e);
             } else if (renew === '3') {
                 that.onClickVehicle();
@@ -1864,6 +1981,6 @@ Page({
             } else {
                 that.goPath(e);
             }
-		}
-	}
+        }
+    }
 });

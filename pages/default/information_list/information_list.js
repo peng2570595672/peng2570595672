@@ -2,7 +2,7 @@
  * @author 老刘
  * @desc 信息确认
  */
-import {handleJumpHunanMini} from '../../../utils/utils.js';
+import { handleJumpHunanMini } from '../../../utils/utils.js';
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
@@ -250,8 +250,8 @@ Page({
         // 	return;
         // }
         // 点击提交后 9901 套餐按序调接口
-        if (this.data.is9901 && !this.data.canGoSign) {
-            this.is9901_1();
+        if (this.data.is9901) {
+            await this.is9901_1();
             return;
         }
         if (!this.data.available) return;
@@ -283,7 +283,7 @@ Page({
                                 confirmText: '授权',
                                 confirm: () => {
                                     wx.openSetting({
-                                        success: (res) => {},
+                                        success: (res) => { },
                                         fail: () => {
                                             util.showToastNoIcon('打开设置界面失败，请重试！');
                                         }
@@ -310,7 +310,7 @@ Page({
                             confirmText: '打开设置',
                             confirm: () => {
                                 wx.openSetting({
-                                    success: (res) => {},
+                                    success: (res) => { },
                                     fail: () => {
                                         util.showToastNoIcon('打开设置界面失败，请重试！');
                                     }
@@ -337,32 +337,56 @@ Page({
     },
     // is9901_1 接口 设备预检
     async is9901_1 () {
-        util.showLoading('加载中');
+        util.showLoading('设备预检中');
         let orderId = app.globalData.orderInfo.orderId; // 订单id
         const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/devicePreCheck', {
             orderId,
-            cpuId: '000300000167',
-            obuId: '9901000300000167'
+            cpuId: '0052232100025417',
+            obuId: '9901000300578399'
         });
         this.setData({
             isRequest: false
         });
         if (!result) return;
         if (result.code === 0) {
-            // this.is9901_2();
-            this.subscribe();
+            this.is9901_2();
         } else {
             util.showToastNoIcon(result.message);
         }
+        util.hideLoading();
     },
-    // is9901_2 接口 签约
+    // is9901_2 调用获取可签约渠道列表接口
     async is9901_2 () {
-        util.showLoading('加载中');
+        util.showLoading('获取可签约渠道');
+        let orderId = app.globalData.orderInfo.orderId; // 订单id
+        const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/getAccountChannelList', {
+            orderId,
+            redirectUrl: `/pages/separate_interest_package/sing_9901_success/sing_9901_success`
+        });
+        this.setData({
+            isRequest: false
+        });
+        if (!result) return;
+        if (result.code === 0) {
+            let arr = result.data.list.filter(item => item.channelId === '11');
+            if (arr.length > 0) {
+                app.globalData.orderInfo.signChannelId = arr[0].signChannelId;
+                this.is9901_3();
+            } else {
+                util.showToastNoIcon('暂无可签约渠道');
+            }
+        } else {
+            util.showToastNoIcon(result.message);
+        }
+        util.hideLoading();
+    },
+    // is9901_3 接口 签约
+    async is9901_3 () {
         let orderId = app.globalData.orderInfo.orderId; // 订单id
         const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/signChannel', {
             orderId,
+            signChannelId: app.globalData.orderInfo.signChannelId || '11',
             redirectUrl: `/pages/separate_interest_package/sing_9901_success/sing_9901_success`
-            // redirectUrl: `https://${app.globalData.test ? 'etctest.cyzl.com/etc2-html' : 'etc.cyzl.com/wetc'}/bank_signing_the_callback/index.html`
 
         });
         this.setData({
@@ -370,11 +394,29 @@ Page({
         });
         if (!result) return;
         if (result.code === 0) {
-            this.setData({
-                canGoSign: true // canGoSign 表示 is9901_01，is9901_01 均通过
+            const signUrl = result.data.signUrl;
+            app.globalData.orderInfo.signUrl_9901 = signUrl;
+            const path = `pages/sign/auth?msgId=${signUrl}&plateNumber=${this.data.vehPlates}&bizNotifyUrl='DEFAULT'`; // 跳转目标小程序的页面路径
+            const extraData = {
+                msgId: signUrl,
+                plateNumber: this.data.vehPlates,
+                bizNotifyUrl: 'DEFAULT'
+            };
+            // 跳转九州签约
+            wx.navigateToMiniProgram({
+                appId: 'wx008c60533388527a',
+                path,
+                extraData,
+                success (res) {
+                    // 打开成功
+                },
+                fail (e) {
+                    // 打开失败
+                    if (e.errMsg !== 'navigateToMiniProgram:fail cancel') {
+                        util.showToastNoIcon('打开激活小程序失败');
+                    }
+                }
             });
-            util.showToastNoIcon(result.message);
-            this.subscribe(); // 回到准备签约
         } else {
             util.showToastNoIcon(result.message);
         }
@@ -450,12 +492,12 @@ Page({
     },
     // 湖南信科 跳转信科小程序去签约
     async submitIsXinKe () {
-        const result = await util.getDataFromServersV2('consumer/order/order-pay-transaction-info', {orderId: app.globalData.orderInfo.orderId});
-		if (result.code) {
-			util.showToastNoIcon(result.message);
-			return;
-		}
-		handleJumpHunanMini(app.globalData.orderInfo.orderId, result.data.outTradeNo);
+        const result = await util.getDataFromServersV2('consumer/order/order-pay-transaction-info', { orderId: app.globalData.orderInfo.orderId });
+        if (result.code) {
+            util.showToastNoIcon(result.message);
+            return;
+        }
+        handleJumpHunanMini(app.globalData.orderInfo.orderId, result.data.outTradeNo);
     },
     skip () {
         let that = this;
@@ -511,7 +553,7 @@ Page({
                     appId: 'wx8212297b23aff0ff',
                     path: `pages/home/sc-ws/sc-ws?params=${'https://' + encodeURIComponent(res.data.applyUrl.slice(8))}`,
                     envVersion: 'release',
-                    success () {},
+                    success () { },
                     fail () {
                         // 拉起小程序失败
                         util.showToastNoIcon('拉起小程序失败, 请重试！');

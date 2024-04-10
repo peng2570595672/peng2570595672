@@ -51,7 +51,6 @@ Page({
 		baseInfo: {} // 订单的基础信息
 	},
 	async onLoad (options) {
-		console.log('options', options);
 		this.setData({
 			vehColor: options.vehColor,
 			vehPlates: options.vehPlates,
@@ -319,8 +318,8 @@ Page({
 		if (result.code === 0) {
 			// 9901 套餐上传行驶证 证件后准备开户
 			const orderId = result.data.orderId;
-			if (this.data.is9901) {
-				console.log('is9901', orderId);
+			console.log('is9901', result);
+			if (!this.data.is9901) {
 				const result2 = await util.getDataFromServersV2('consumer/activity/qtzl/xz/drivingLicenseAuth', {
 					orderId
 				});
