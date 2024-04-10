@@ -1915,7 +1915,7 @@ async function getSteps_9901(orderInfo) {
 		  let signChannelId = result.data.signChannelId;
 		  // 支付关联渠道
 		  const result2 = await getDataFromServersV2('consumer/activity/qtzl/xz/carChannelRel', {
-			  orderId: app.globalData.orderInfo.orderId,
+			  orderId: params.orderId,
 			  signChannelId: signChannelId
 		  });
 		  console.log('res.referrerInfo.appId ', result2);
