@@ -325,6 +325,37 @@ Page({
 			this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)'});
 		}
 	},
+	lateFees (e) {
+		let content = '';
+		let flag = +e.currentTarget.dataset['flag'];
+		if (flag === 1) {
+			content = '因微信单日代扣金额上限为1500.00元，剩余部分将会在第二日0:00自动补扣。\n为避免影响您的实际通行，可提前手动完成补缴，结清账款。';
+		} else {
+			content = '滞纳金的计算将从通行费实际发生扣款失败的第7天开始，按照欠缴金额的0.05%每日计算滞纳金。\n计算示例：假设欠缴通行费用为1000元，且拖延了10天未补缴，则滞纳金计算如下：1000元 × 0.05% × 10天 = 5元。';
+		}
+		this.selectComponent('#popTipComp').show({
+			type: 'publicModule',
+			title: flag === 1 ? '待扣金额说明' : '滞纳金说明',
+			bgColor: 'rgba(0,0,0, 0.6)',
+			btnconfirm: '我知道了',
+			content: content
+		});
+	},
+	// 打电话
+    phone (e) {
+        this.selectComponent('#popTipComp').show({
+            type: 'callPhone',
+            title: '拨打电话',
+            btnCancel: '取消',
+            btnconfirm: '拨打',
+            content: e.currentTarget.dataset.phone,
+            callBack: () => {
+                wx.makePhoneCall({
+                    phoneNumber: e.currentTarget.dataset.phone
+                });
+            }
+        });
+    },
 	onUnload () {
 		app.globalData.billingDetails = undefined;
 	}

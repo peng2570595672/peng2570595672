@@ -1,15 +1,23 @@
+@charset "UTF-8";
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 .prompt {
   width: 100%;
 }
 .prompt > view view {
   width: 100%;
-  background: rgba(255,86,60,0.52);
+  background: #fff5f5;
   padding: 16rpx 32rpx 16rpx 25rpx;
   text-align: left;
-  font-size: 24rpx;
+  font-size: 22rpx;
   line-height: 40rpx;
   box-sizing: border-box;
-  color: #f4f4f4;
+  color: #fa5151;
 }
 .prompt > view view text {
   text-decoration: underline;
@@ -20,14 +28,12 @@
   font-size: 76rpx;
   font-weight: 500;
   color: #33333d;
-  height: 284rpx;
+  height: 156rpx;
   display: flex;
   justify-content: center;
-  line-height: 284rpx;
+  line-height: 156rpx;
   margin: 0 32rpx;
   box-sizing: border-box;
-  background: #fff;
-  border-bottom: 1rpx solid rgba(0,0,0,0.1);
 }
 .order_details .deduction-amount text {
   font-size: 28rpx;
@@ -35,11 +41,22 @@
   line-height: 320rpx;
 }
 .order_details .deduction-amount.buckling-failure {
-  height: 228rpx;
-  line-height: 228rpx;
+  height: 128rpx;
+  line-height: 128rpx;
 }
 .order_details .deduction-amount.buckling-failure text {
-  line-height: 270rpx;
+  line-height: 170rpx;
+}
+.order_details .text0 {
+  text-align: center;
+  font-family: PingFang SC;
+  font-size: 28rpx;
+  font-weight: normal;
+  line-height: 48rpx;
+  text-align: center;
+  letter-spacing: 0rpx;
+  color: #66666e;
+  padding-bottom: 40rpx;
 }
 .order_details .deduction-details {
   background: #fff;
@@ -69,7 +86,7 @@
   color: #f7b500;
 }
 .order_details .deduction-details>view>view:last-child.refund-success {
-  color: #27b266;
+  color: #00b85c;
 }
 .order_details .deduction-details>view.add-border {
   border-bottom: 1rpx solid rgba(0,0,0,0.1);
@@ -77,6 +94,16 @@
 }
 .order_details .deduction-details>view:first-child {
   padding-top: 32rpx;
+}
+.order_details .deduction-details .text1 {
+  font-family: PingFang SC;
+  font-size: 22rpx;
+  font-weight: normal;
+  line-height: 28rpx;
+  text-align: justify;
+  letter-spacing: 0rpx;
+  display: block;
+  margin-top: 20rpx;
 }
 .order_details .deduction-details .consumption-type {
   padding: 0;
@@ -106,6 +133,52 @@
   height: 32rpx;
   background: #eee;
 }
+.order_details .module {
+  padding: 30rpx;
+  font-size: 28rpx;
+  background: #fff;
+  font-weight: normal;
+  letter-spacing: 0rpx;
+  font-family: PingFang SC;
+  border-bottom: 20rpx solid #eee;
+}
+.order_details .module .subModle {
+  color: #666;
+  line-height: 48rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.order_details .module .subModle .lateFees {
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+}
+.order_details .module .subModle .lateFees:after {
+  content: '\e650';
+  font-size: 28rpx;
+  margin-left: 14rpx;
+  color: #66666e;
+}
+.order_details .module1 {
+  height: auto;
+}
+.order_details .module1 .borderBottom {
+  color: #fa5151;
+  padding-bottom: 33rpx;
+  border-bottom: 1rpx solid #eee;
+}
+.order_details .module1 .fontColor1 {
+  color: #00a9ff;
+}
+.order_details .module2 .text1 {
+  font-size: 22rpx;
+  line-height: 28rpx;
+  text-align: justify;
+  display: block;
+  margin-top: 20rpx;
+}
 .order_details .payment {
   position: fixed;
   left: 0;
@@ -117,42 +190,19 @@
   color: #66666d;
   text-align: center;
   background: #fff;
-  border-top: 1rpx solid rgba(0,0,0,0.1);
 }
 .order_details .payment button {
   width: 84%;
   height: 98rpx;
   line-height: 98rpx;
-  background: linear-gradient(to right, #15ad69, #84d157);
-  box-shadow: 0px 8rpx 10rpx 0px rgba(132,209,87,0.2);
+  background: #2a4f44;
+  box-shadow: 0rpx 4px 2px 0rpx rgba(212,212,212,0);
   border-radius: 50rpx;
   font-size: 40rpx;
   color: #fff;
 }
 .order_details .payment .payment-tips {
   padding-top: 18rpx;
-}
-.order_details .micro-insurance {
-  position: fixed;
-  bottom: 25%;
-  right: 56rpx;
-}
-.order_details .micro-insurance image {
-  width: 140rpx;
-}
-.order_details .micro-insurance .close_button {
-  width: 49rpx;
-  height: 49rpx;
-  line-height: 49rpx;
-  margin: 20rpx auto;
-  text-align: center;
-  border-radius: 50%;
-  background: #d4d4d4;
-}
-.order_details .micro-insurance .close_button::before {
-  content: '\e63d';
-  color: #fff;
-  font-size: 30rpx;
 }
 .order_details .pingAn {
   width: 106rpx;
