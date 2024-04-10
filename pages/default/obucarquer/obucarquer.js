@@ -4,8 +4,8 @@ Page({
 	data: {
 		compressionUrl: '',
 		formData: {
-			cpuId: '',
-			obuId: ''
+			cpuId: '0052232100025413',
+			obuId: '9901000300578395'
 		},
 		available: false
 	},
@@ -19,7 +19,7 @@ Page({
 	// is9901_Pre_inspection 接口 设备预检
 	async is9901_Pre_inspection (params) {
 		util.showLoading('设备预检中');
-		const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/devicePreCheck', {
+		const result = await util.getDataFromServersV2('consumer/etc/qtzl/xz/devicePreCheck', {
 			orderId: app.globalData.orderInfo.orderId,
 			cpuId: params.cpuId,
 			obuId: params.obuId
@@ -38,7 +38,7 @@ Page({
 	// is9901_obtainingChannels 调用获取可签约渠道列表接口
 	async is9901_obtainingChannels () {
 		util.showLoading('获取可签约渠道');
-		const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/getAccountChannelList', {
+		const result = await util.getDataFromServersV2('consumer/etc/qtzl/xz/getAccountChannelList', {
 			orderId: app.globalData.orderInfo.orderId,
 			redirectUrl: `/pages/separate_interest_package/sing_9901_success/sing_9901_success`
 		});
@@ -64,7 +64,7 @@ Page({
 	},
 	// is9901_signChannel 接口 签约
 	async is9901_signChannel (signChannelId, vehPlates) {
-		const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/signChannel', {
+		const result = await util.getDataFromServersV2('consumer/etc/qtzl/xz/signChannel', {
 			orderId: app.globalData.orderInfo.orderId,
 			signChannelId: signChannelId || '11',
 			redirectUrl: `/pages/separate_interest_package/sing_9901_success/sing_9901_success`
@@ -123,6 +123,8 @@ Page({
         }
 		if (this.data.available) {
 			this.is9901_Pre_inspection(this.data.formData);
+		} else {
+
 		}
 	},
 	// 选择图片
@@ -194,7 +196,19 @@ Page({
 		});
 	},
 	onInputChangedHandle (e) {
-		if (this.data.formData.obuId && this.data.formData.cpuId) {
+		// console.log(e.detail.value);
+		let index = e.currentTarget.dataset['index'];
+		let value = e.detail.value;
+		if (+index === 1) {
+			this.data.formData.obuId = value;
+		}
+		if (+index === 2) {
+			this.data.formData.cpuId = value;
+		}
+		this.setData({
+			formData: this.data.formData
+		});
+		if (this.data.formData.obuId.length > 8 && this.data.formData.cpuId.length > 8) {
 			this.setData({
 				available: true
 			});

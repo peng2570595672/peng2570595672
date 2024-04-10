@@ -172,7 +172,7 @@ Component({
 			util.showLoading({
 				title: '请求中...'
 			});
-			let url = 'consumer/activity/qtzl/xz/vehPlateIssueVerify'; // 校验接口 是否可以继续办理
+			let url = 'consumer/etc/qtzl/xz/vehPlateIssueVerify'; // 校验接口 是否可以继续办理
 			const result = await util.getDataFromServersV2(url, {
 				orderId: app.globalData.orderInfo.orderId
 			});

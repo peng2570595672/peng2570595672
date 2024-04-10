@@ -1910,14 +1910,14 @@ async function getSteps_9901(orderInfo) {
     orderId: orderInfo.id || orderInfo.orderId, // 订单id
     mobile: orderInfo.mobile || orderInfo.cardMobilePhone
   }
-  const result = await getDataFromServersV2('consumer/activity/qtzl/xz/getSteps', params, 'POST', false);
+  const result = await getDataFromServersV2('consumer/etc/qtzl/xz/getSteps', params, 'POST', false);
   if (!result) return;
   if (result.code === 0) {
     console.log('获取到应该办理步骤', result.data);
 	  if (result.data.stepNum === 5) {
 		  let signChannelId = result.data.signChannelId;
 		  // 支付关联渠道
-		  const result2 = await getDataFromServersV2('consumer/activity/qtzl/xz/carChannelRel', {
+		  const result2 = await getDataFromServersV2('consumer/etc/qtzl/xz/carChannelRel', {
 			  orderId: params.orderId,
 			  signChannelId: signChannelId
 		  });

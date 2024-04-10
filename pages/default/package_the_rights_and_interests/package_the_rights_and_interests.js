@@ -183,8 +183,8 @@ Page({
             orderInfo9901: {
                 cardMobilePhone: app.globalData.userInfo.mobilePhone,
                 type: '9901' ,// 控制显示新的弹框样式
-                sendUrl: 'consumer/activity/qtzl/xz/frontSendMsg', // 新的发送验证码接口
-                loginUrl: 'consumer/activity/qtzl/xz/loginSender' // 新的验证登录验证码接口
+                sendUrl: 'consumer/etc/qtzl/xz/frontSendMsg', // 新的发送验证码接口
+                loginUrl: 'consumer/etc/qtzl/xz/loginSender' // 新的验证登录验证码接口
             }
         });
     },

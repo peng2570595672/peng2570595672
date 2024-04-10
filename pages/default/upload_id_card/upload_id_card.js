@@ -346,7 +346,7 @@ Page({
 			const orderId = result.data.orderId;
 			console.log('9901 套餐上传身份证件后开户',this.data.is9901);
 			if (this.data.is9901) {
-				const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/openAccountPersonal', {
+				const result = await util.getDataFromServersV2('consumer/etc/qtzl/xz/openAccountPersonal', {
 					orderId
 				});
 				if (!result) return;
