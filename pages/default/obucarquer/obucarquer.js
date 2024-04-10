@@ -12,7 +12,7 @@ Page({
 	async onLoad (options) {
 		if (options.vehPlates) {
 			this.setData({
-				vehPlates
+				vehPlates: options.vehPlates
 			});
 		}
 	},
