@@ -461,9 +461,7 @@ Page({
 			if (data.stepNum === 4) {
 				util.go(`/pages/default/obucarquer/obucarquer?vehPlates=${this.data.info.vehPlates}`);
 				return;
-				// await this.is9901_Pre_inspection(obj.orderId);
 			}
-			// 点击提交后 9901 套餐按序调接口
 			return;
 		}
 		if (this.data.info.shopId && this.data.info.shopId === '624263265781809152') {

@@ -789,9 +789,9 @@ function getStatus(orderInfo) {
 			return 35; // 待发货,-继续办理
 		}
 		// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
-		if (!orderInfo.hwContractStatus) {
-			return 5;
-		}
+		// if (!orderInfo.hwContractStatus) {
+		// 	return 5;
+		// }
 		return 35; // 待发货,-继续办理
 	}
 	if (orderInfo.obuCardType === 10 && +orderInfo.orderExtCardType === 2) {
