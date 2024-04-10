@@ -1902,7 +1902,7 @@ async function getSteps_9901(orderInfo) {
   showLoading('9901查询步骤', orderInfo);
   let params = {
     orderId: orderInfo.id || orderInfo.orderId, // 订单id
-    mobile: orderInfo.mobile
+    mobile: orderInfo.mobile || orderInfo.cardMobilePhone
   }
   const result = await getDataFromServersV2('consumer/activity/qtzl/xz/getSteps', params, 'POST', false);
   if (!result) return;
