@@ -455,14 +455,15 @@ Page({
 		if (this.data.info.flowVersion === 8) {
 			let obj = {
 				orderId: app.globalData.orderInfo.orderId,
-				mobile: this.data.mobile
+				mobile: this.data.info.cardMobilePhone
 			};
 			const data = await util.getSteps_9901(obj);
 			if (data.stepNum === 4) {
-				await this.is9901_Pre_inspection(obj.orderId);
+				util.go(`/pages/default/obucarquer/obucarquer`);
+				return;
 			}
 			if (data.stepNum === 5) {
-				await this.is9901_signChannel(this.data.orderId,this.data.signChannelId,this.data.info.vehPlates);
+				await this.is9901_signChannel(this.data.orderId, this.data.signChannelId, this.data.info.vehPlates);
 			}
 			// 点击提交后 9901 套餐按序调接口
 			return;
@@ -523,7 +524,7 @@ Page({
 				this.setData({
 					signChannelId: arr[0].signChannelId
 				});
-				await this.is9901_signChannel(this.data.orderId,this.data.signChannelId,this.data.info.vehPlates);
+				await this.is9901_signChannel(this.data.orderId, this.data.signChannelId, this.data.info.vehPlates);
 			} else {
 				util.showToastNoIcon('暂无可签约渠道');
 			}
@@ -533,7 +534,7 @@ Page({
 		util.hideLoading();
 	},
 	// is9901_signChannel 接口 签约
-	async is9901_signChannel (orderId,signChannelId,vehPlates) {
+	async is9901_signChannel (orderId, signChannelId, vehPlates) {
 		const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/signChannel', {
 			orderId,
 			signChannelId: signChannelId || '11',
