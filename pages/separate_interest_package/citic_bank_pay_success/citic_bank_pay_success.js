@@ -17,11 +17,6 @@ Page({
 
     },
     next () {
-        console.log('9901',this.data);
-        if (is9901) {
-            // this.checkCar();
-            return;
-        }
         util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.data.orderId}`);
     },
     onUnload () {

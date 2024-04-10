@@ -43,14 +43,6 @@ Page({
         if (options.source) {
             wx.hideHomeButton();
         }
-        // 是否是9901 套餐 记录一下
-        console.log('9901', options);
-        if (options.pro9901) {
-            this.setData({
-                is9901: true
-            });
-            console.log('该订单属于9901套餐');
-        }
         // 空发平安激活 是否补充信息激活
         if (options.orderId && options.vehPlates) {
             this.setData({
@@ -241,7 +233,7 @@ Page({
         if (url === 'information_validation' && !this.data.orderInfo.isOwner && !isXinKe) {
             return util.showToastNoIcon('请先上传身份证');
         }
-        if (this.data.is9901) {
+        if (this.data.orderInfo.flowVersion === 8) {
             util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}&obuCardType=${this.data.orderInfo.obuCardType}&isXinKe=${isXinKe}&pro9901=true`);
         }
         util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}&obuCardType=${this.data.orderInfo.obuCardType}&isXinKe=${isXinKe}`);
@@ -252,11 +244,7 @@ Page({
         // 	util.showToastNoIcon('身份证与行驶证必须为同一持有人');
         // 	return;
         // }
-        // 点击提交后 9901 套餐按序调接口
-        if (this.data.is9901) {
-            await this.is9901_1();
-            return;
-        }
+
         if (!this.data.available) return;
         // 判断版本，兼容处理
         let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
@@ -338,92 +326,6 @@ Page({
             });
         };
     },
-    // is9901_1 接口 设备预检
-    async is9901_1 () {
-        util.showLoading('设备预检中');
-        let orderId = app.globalData.orderInfo.orderId; // 订单id
-        const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/devicePreCheck', {
-            orderId,
-            cpuId: '0052232100025414',
-            obuId: '9901000300578396'
-        });
-        this.setData({
-            isRequest: false
-        });
-        if (!result) return;
-        if (result.code === 0) {
-            this.is9901_2();
-        } else {
-            util.showToastNoIcon(result.message);
-        }
-        util.hideLoading();
-    },
-    // is9901_2 调用获取可签约渠道列表接口
-    async is9901_2 () {
-        util.showLoading('获取可签约渠道');
-        let orderId = app.globalData.orderInfo.orderId; // 订单id
-        const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/getAccountChannelList', {
-            orderId,
-            redirectUrl: `/pages/separate_interest_package/sing_9901_success/sing_9901_success`
-        });
-        this.setData({
-            isRequest: false
-        });
-        if (!result) return;
-        if (result.code === 0) {
-            let arr = result.data.list.filter(item => item.channelId === '11');
-            if (arr.length > 0) {
-                app.globalData.orderInfo.signChannelId = arr[0].signChannelId;
-                this.is9901_3();
-            } else {
-                util.showToastNoIcon('暂无可签约渠道');
-            }
-        } else {
-            util.showToastNoIcon(result.message);
-        }
-        util.hideLoading();
-    },
-    // is9901_3 接口 签约
-    async is9901_3 () {
-        let orderId = app.globalData.orderInfo.orderId; // 订单id
-        const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/signChannel', {
-            orderId,
-            signChannelId: app.globalData.orderInfo.signChannelId || '11',
-            redirectUrl: `/pages/separate_interest_package/sing_9901_success/sing_9901_success`
-
-        });
-        this.setData({
-            isRequest: false
-        });
-        if (!result) return;
-        if (result.code === 0) {
-            const signUrl = result.data.signUrl;
-            app.globalData.orderInfo.signUrl_9901 = signUrl;
-            const path = `pages/sign/auth?msgId=${signUrl}&plateNumber=${this.data.vehPlates}&bizNotifyUrl='DEFAULT'`; // 跳转目标小程序的页面路径
-            const extraData = {
-                msgId: signUrl,
-                plateNumber: this.data.vehPlates,
-                bizNotifyUrl: 'DEFAULT'
-            };
-            // 跳转九州签约
-            wx.navigateToMiniProgram({
-                appId: 'wx008c60533388527a',
-                path,
-                extraData,
-                success (res) {
-                    // 打开成功
-                },
-                fail (e) {
-                    // 打开失败
-                    if (e.errMsg !== 'navigateToMiniProgram:fail cancel') {
-                        util.showToastNoIcon('打开签约小程序失败');
-                    }
-                }
-            });
-        } else {
-            util.showToastNoIcon(result.message);
-        }
-    },
     // 微信签约
     async onclickSign () {
         if (this.data.isRequest) {
@@ -448,7 +350,6 @@ Page({
             delete params.clientMobilePhone;
             delete params.clientOpenid;
         }
-
         const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
         this.setData({
             isRequest: false
@@ -469,7 +370,7 @@ Page({
                 util.go(`/pages/historical_pattern/order_audit/order_audit`);
                 return;
             }
-            if (this.data.contractStatus === 1 || this.data.isModifiedData) {
+            if (this.data.contractStatus === 1 || this.data.isModifiedData || this.data.orderInfo.flowVersion === 8) {
                 console.log('签约成功了 要去查进度');
                 util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
                 return;

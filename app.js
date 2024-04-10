@@ -328,7 +328,7 @@ App({
 		}
 		if (res && res.scene === 1038 && res.referrerInfo.appId === 'wx008c60533388527a' && this.globalData.signAContract_9901 === -1) {
 			if (!this.globalData.orderInfo.cardMobilePhone) {
-				// util.go('/pages/default/information_list/information_list?isModifiedData=true&pro9901=true');
+				// util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
 				return wx.switchTab({
 					url: '/pages/Home/Home'
 				});
@@ -354,7 +354,7 @@ App({
 				return util.showToastNoIcon(result2.stepTips);
 			}
 			if (data.stepNum === 4) {
-				util.go('/pages/default/information_list/information_list?isModifiedData=true&pro9901=true');
+				util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
 			}
 		}
 		if ((res && res.referrerInfo && res.referrerInfo.appId && (res.referrerInfo.appId === 'wxbcad394b3d99dac9' || res.referrerInfo.appId === 'wxbd687630cd02ce1d')) ||

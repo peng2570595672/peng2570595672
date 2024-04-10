@@ -465,11 +465,6 @@ Page({
 			return;
 		}
 		wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'my_etc_for_certificate_to_truck_package' : 'my_etc_for_certificate_to_package');
-		// 9901 套餐 进入证件上传需要带标识
-		if (orderInfo.flowVersion === 8) {
-			util.go(`/pages/${path}/information_list/information_list?pro9901=true`);
-		}
-		console.log('进入证件上传需要带标识');
 		util.go(`/pages/${path}/information_list/information_list`);
 	},
 	// 新增
@@ -611,11 +606,6 @@ Page({
 		app.globalData.orderInfo.shopProductId = orderInfo.shopProductId;
 		app.globalData.isModifiedData = true; // 修改资料
 		app.globalData.firstVersionData = !!(orderInfo.remark && orderInfo.remark.indexOf('迁移订单数据') !== -1);
-		// 9901 套餐 进入证件上传需要带标识
-		console.log('入证件上传需要带标识',orderInfo);
-		if (orderInfo.flowVersion === 8) {
-			util.go('/pages/default/information_list/information_list?isModifiedData=true&pro9901=true');
-		}
 		util.go('/pages/default/information_list/information_list?isModifiedData=true');
 	},
 	// 取消订单

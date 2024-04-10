@@ -55,7 +55,6 @@ Page({
 			topProgressBar1: parseFloat(options.topProgressBar),
 			is9901: options.pro9901 // 9901 套餐标识
 		});
-		console.log(this.data.is9901,'9901 套餐标识');
 		await this.getOrderInfo();
 		// 查询是否欠款
 		await util.getIsArrearage();

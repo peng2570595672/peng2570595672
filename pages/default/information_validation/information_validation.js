@@ -56,7 +56,7 @@ Page({
 			vehPlates: options.vehPlates,
 			topProgressBar: parseFloat(options.topProgressBar),
 			topProgressBar1: parseFloat(options.topProgressBar),
-			is9901: options.is9901
+			is9901: options.pro9901
 		});
 		await this.getOrderInfo();
 		// 查询是否欠款
@@ -319,7 +319,7 @@ Page({
 			// 9901 套餐上传行驶证 证件后准备开户
 			const orderId = result.data.orderId;
 			console.log('is9901', result);
-			if (!this.data.is9901) {
+			if (this.data.is9901) {
 				const result2 = await util.getDataFromServersV2('consumer/activity/qtzl/xz/drivingLicenseAuth', {
 					orderId
 				});
@@ -342,21 +342,21 @@ Page({
 				} else {
 					util.showToastNoIcon(result2.message);
 				}
-				return; // 提交行驶证失败 页面不跳转
+			} else {
+				this.setData({
+					isOut: true
+				});
+				setTimeout(() => {
+					const pages = getCurrentPages();
+					const prevPage = pages[pages.length - 2]; // 上一个页面
+					prevPage.setData({
+						isChangeDrivingLicenseError: true // 重置状态
+					});
+					wx.navigateBack({
+						delta: 1
+					});
+				}, 100);
 			}
-			this.setData({
-				isOut: true
-			});
-			setTimeout(() => {
-				const pages = getCurrentPages();
-				const prevPage = pages[pages.length - 2]; // 上一个页面
-				prevPage.setData({
-					isChangeDrivingLicenseError: true // 重置状态
-				});
-				wx.navigateBack({
-					delta: 1
-				});
-			}, 100);
 		} else {
 			util.showToastNoIcon(result.message);
 		}

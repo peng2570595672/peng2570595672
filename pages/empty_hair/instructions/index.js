@@ -6,7 +6,7 @@ Page({
 	onLoad (options) {
 		this.setData({
 			auditStatus: +options.auditStatus,
-			is9901: options.pro9901
+
 		});
 		wx.canIUse('setBackgroundColor') && wx.setBackgroundColor({
 			backgroundColor: '#fff',
@@ -14,9 +14,7 @@ Page({
 		});
 	},
 	onShow () {
-		if (this.data.is9901) {
-			console.log('9901套餐激活');
-		}
+
 	},
 	next () {
 		if (this.data.auditStatus !== 2) {
@@ -24,17 +22,17 @@ Page({
 			return;
 		}
 		// 9901 套餐跳转激活
-		if (this.data.is9901) {
-			util.go('/pages/obu_activate/hunan/pro9901/pro9901');
-			return;
-		}
-		wx.navigateToMiniProgram({
-			appId: 'wxdda17150b8e50bc4',
-			path: 'pages/index/index',
-			envVersion: 'release', // 目前联调为体验版
-			fail () {
-				util.showToastNoIcon('调起激活小程序失败, 请重试！');
-			}
-		});
-	}
+	// 	if (this.data.is9901) {
+	// 		util.go('/pages/obu_activate/hunan/pro9901/pro9901');
+	// 		return;
+	// 	}
+	// 	wx.navigateToMiniProgram({
+	// 		appId: 'wxdda17150b8e50bc4',
+	// 		path: 'pages/index/index',
+	// 		envVersion: 'release', // 目前联调为体验版
+	// 		fail () {
+	// 			util.showToastNoIcon('调起激活小程序失败, 请重试！');
+	// 		}
+	// 	});
+	// }
 });

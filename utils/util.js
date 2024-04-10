@@ -844,6 +844,9 @@ function getStatus(orderInfo) {
   // 	return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
   // }
   if (orderInfo.isNewTrucks === 0 && orderInfo.contractStatus !== 1 && orderInfo.status === 1 && orderInfo.pledgeStatus !== 0) {
+    if (orderInfo.hwContractStatus === 0 && orderInfo.flowVersion === 8) { // 9901 未签约成功
+      return 10
+    }
     return 1; // 客车解约
   }
   if (orderInfo.status === 1 && orderInfo.isSignTtCoupon === 1 && orderInfo.ttContractStatus !== 1 && orderInfo.pledgeStatus !== 0 && orderInfo.ttCouponPayAmount > 0) {
@@ -886,9 +889,6 @@ function getStatus(orderInfo) {
     return 16; // 审核通过,待车辆关联签约支付渠道
   }
   if (orderInfo.auditStatus === 2 && orderInfo.logisticsId === 0) {
-    if (orderInfo.hwContractStatus === 0 && orderInfo.flowVersion === 8) { // 9901 未签约成功
-      return 5
-    }
     return 10; // 审核通过,待发货
   }
   if (orderInfo.auditStatus === 2 && orderInfo.logisticsId !== 0 && orderInfo.deliveryRule === 1 && orderInfo.etcContractId !== -1 && !orderInfo.contractStatus) {
