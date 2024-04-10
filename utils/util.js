@@ -1914,7 +1914,7 @@ async function getSteps_9901(orderInfo) {
 	  if (result.data.stepNum === 5) {
 		  let signChannelId = result.data.signChannelId;
 		  // 支付关联渠道
-		  const result2 = await util.getDataFromServersV2('consumer/activity/qtzl/xz/carChannelRel', {
+		  const result2 = await getDataFromServersV2('consumer/activity/qtzl/xz/carChannelRel', {
 			  orderId: app.globalData.orderInfo.orderId,
 			  signChannelId: signChannelId
 		  });
@@ -1928,7 +1928,7 @@ async function getSteps_9901(orderInfo) {
 			  return showToastNoIcon(result2.message);
 		  }
 	  }
-    return result.data
+    return result.data;
   } else {
     showToastNoIcon(result.message);
   }
