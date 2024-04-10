@@ -164,7 +164,7 @@ Page({
     },
     // qujihuo
     qujihuo () {
-        util.go('/pages/separate_interest_package/sing_9901_success/sing_9901_success');
+        // util.go('/pages/separate_interest_package/sing_9901_success/sing_9901_success');
         // util.go('/pages/obu_activate/hunan/pro9901/pro9901');
         // wx.navigateToMiniProgram({
         //     appId: 'wx008c60533388527a',
@@ -1515,10 +1515,30 @@ Page({
         }
         if (obj.flowVersion === 8) { // 9901 签约模式
             let data = await util.getSteps_9901(obj);
-            console.log('查询9901签约步骤成功',data.stepNum);
-            if (data.stepNum === 9) return; // 当前办理完成状态
-            if (data.stepNum === 4 || data.stepNum === 5) {
+            let orderId = obj.id;
+            console.log('查询9901签约步骤', obj);
+            if (data.stepNum === 4) {
                 await this.is9901_1(); // 连续调用三个接口 6.7.8 步骤
+            }
+            if (data.stepNum === 5) {
+                let signChannelId = data.signChannelId;
+                // 支付关联渠道
+                const result2 = await util.getDataFromServersV2('consumer/activity/qtzl/xz/carChannelRel', {
+                    orderId,
+                    signChannelId: signChannelId
+                });
+                console.log('res.referrerInfo.appId ', result2);
+                if (!result2) return;
+                if (result2.code === 0) {
+                    console.log('支付关联渠道成功');
+                    util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderId}`);
+                } else {
+                    return util.showToastNoIcon(result2.message);
+                }
+            }
+            if (data.stepNum === 9) {
+                util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderId}`);
+                return; // 当前办理完成状态
             }
             return;
         }
@@ -1620,6 +1640,9 @@ Page({
         // 统计点击事件
         wx.uma.trackEvent('index_for_processing_progress');
         util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderInfo.id}`);
+        if (orderInfo.flowVersion === 8) {
+            util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderInfo.id}`);
+        }
     },
     // is9901_1 接口 设备预检
     async is9901_1 () {
@@ -1627,8 +1650,8 @@ Page({
         let orderId = app.globalData.orderInfo.orderId; // 订单id
         const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/devicePreCheck', {
             orderId,
-            cpuId: '0052232100025417',
-            obuId: '9901000300578399'
+            cpuId: '0052232100025414',
+            obuId: '9901000300578396'
         });
         this.setData({
             isRequest: false
@@ -1699,7 +1722,7 @@ Page({
                 fail (e) {
                     // 打开失败
                     if (e.errMsg !== 'navigateToMiniProgram:fail cancel') {
-                        util.showToastNoIcon('打开激活小程序失败');
+                        util.showToastNoIcon('打开签约小程序失败');
                     }
                 }
             });
@@ -1786,8 +1809,7 @@ Page({
         app.globalData.orderInfo.shopProductId = orderInfo.shopProductId;
         app.globalData.isModifiedData = true; // 修改资料
         app.globalData.firstVersionData = !!(orderInfo.remark && orderInfo.remark.indexOf('迁移订单数据') !== -1);
-        // 9901 套餐 进入证件上传需要带标识
-        if (this.data.orderInfo?.shopProductId === '1210255905172496384') {
+        if (this.data.orderInfo?.flowVersion === 8) {
             util.go('/pages/default/information_list/information_list?isModifiedData=true&pro9901=true');
         }
         util.go('/pages/default/information_list/information_list?isModifiedData=true');
@@ -1873,7 +1895,7 @@ Page({
         wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'index_for_certificate_to_truck_package'
             : 'index_for_certificate_to_package');
         // 9901 套餐 进入证件上传需要带标识
-        if (this.data.orderInfo?.shopProductId === '1210255905172496384') {
+        if (this.data.orderInfo?.flowVersion === 8) {
             util.go(`/pages/${path}/information_list/information_list?pro9901=true`);
         }
         util.go(`/pages/${path}/information_list/information_list`);

@@ -797,9 +797,6 @@ function getStatus(orderInfo) {
     }
     return 32;
   }
-  // if(orderInfo.flowVersion === 8){ // 9901 流程签约
-
-  // }
   if (orderInfo.orderType === 81) {
     if (orderInfo.pledgeStatus === 0) { // 设备升级 待支付
       return 24;
@@ -846,7 +843,7 @@ function getStatus(orderInfo) {
   // 	// protocolStatus 0未签协议 1签了
   // 	return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
   // }
-  if (orderInfo.isNewTrucks === 0 && orderInfo.contractStatus !== 1 && orderInfo.status === 1 && orderInfo.pledgeStatus !== 0 ) {
+  if (orderInfo.isNewTrucks === 0 && orderInfo.contractStatus !== 1 && orderInfo.status === 1 && orderInfo.pledgeStatus !== 0) {
     return 1; // 客车解约
   }
   if (orderInfo.status === 1 && orderInfo.isSignTtCoupon === 1 && orderInfo.ttContractStatus !== 1 && orderInfo.pledgeStatus !== 0 && orderInfo.ttCouponPayAmount > 0) {
@@ -860,7 +857,7 @@ function getStatus(orderInfo) {
     // pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
     return 3; // 待支付
   }
-  if (orderInfo.status === 0 ) { // flowVersion === 8 9901 套餐
+  if (orderInfo.status === 0) { // flowVersion === 8 9901 套餐
     return 4; // 办理中 未上传证件
   }
   if (!orderInfo.contractStatus && orderInfo.deliveryRule === 0 && orderInfo.etcContractId !== -1) {
@@ -870,7 +867,7 @@ function getStatus(orderInfo) {
   if (orderInfo.orderType === 31 && orderInfo.auditStatus === 0) {
     return 6;
   }
-  if (orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) {
+  if ((orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) && orderInfo.flowVersion !== 8) {
     // auditStatus: -1 无需审核   0 待审核   1 审核失败  2 审核通过  3 预审核通过  9 高速核验不通过
     return 6; // 待审核 预审核通过(待审核)
   }
@@ -880,6 +877,7 @@ function getStatus(orderInfo) {
   if (orderInfo.auditStatus === 9) {
     return 8; // 高速核验不通过
   }
+
   if ((orderInfo.auditStatus === 2 || (orderInfo.auditStatus === 0 && orderInfo.orderType === 31)) && (orderInfo.flowVersion === 2 || orderInfo.flowVersion === 3) && orderInfo.hwContractStatus === 0) {
     // hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
     return 9; // 审核通过,待签约高速
@@ -888,6 +886,9 @@ function getStatus(orderInfo) {
     return 16; // 审核通过,待车辆关联签约支付渠道
   }
   if (orderInfo.auditStatus === 2 && orderInfo.logisticsId === 0) {
+    if (orderInfo.hwContractStatus === 0 && orderInfo.flowVersion === 8) { // 9901 未签约成功
+      return 5
+    }
     return 10; // 审核通过,待发货
   }
   if (orderInfo.auditStatus === 2 && orderInfo.logisticsId !== 0 && orderInfo.deliveryRule === 1 && orderInfo.etcContractId !== -1 && !orderInfo.contractStatus) {
@@ -895,6 +896,9 @@ function getStatus(orderInfo) {
   }
   if (orderInfo.obuStatus === 0 || orderInfo.obuStatus === 3 || orderInfo.obuStatus === 4 || (orderInfo.status === 1 && orderInfo.obuStatus === 2 && (orderInfo.obuCardType === 23 || orderInfo.obuCardType === 2))) {//补充河北交投换卡换签
     // OBU状态:默认0 0-待激活，1-已激活，2-已注销 3-开卡 4-发签 5预激活  (3和4:首次激活未完成)
+    if (orderInfo.hwContractStatus === 0 && orderInfo.flowVersion === 8) { // 9901 未签约成功
+      return 5
+    }
     return 11; //  待激活
   }
   if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
@@ -1893,9 +1897,9 @@ let channelNameMap = {
   10: '湘通卡',
   11: '龙通卡',
 };
-    // is9901 查询步骤
+// is9901 查询步骤
 async function getSteps_9901(orderInfo) {
-  showLoading('9901查询步骤',orderInfo);
+  showLoading('9901查询步骤', orderInfo);
   let params = {
     orderId: orderInfo.id || orderInfo.orderId, // 订单id
     mobile: orderInfo.cardMobilePhone
@@ -1903,7 +1907,7 @@ async function getSteps_9901(orderInfo) {
   const result = await getDataFromServersV2('consumer/activity/qtzl/xz/getSteps', params, 'POST', false);
   if (!result) return;
   if (result.code === 0) {
-    console.log('获取到应该办理步骤',result.data);
+    console.log('获取到应该办理步骤', result.data);
     return result.data
   } else {
     showToastNoIcon(result.message);

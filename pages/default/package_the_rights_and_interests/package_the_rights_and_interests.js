@@ -739,10 +739,7 @@ Page({
             return;
         }
         // 9901 套餐验证码
-        if (this.data.listOfPackages[this.data.choiceIndex].shopProductId === '1210255905172496384') {
-            // this.setData({
-            //     is9901: true
-            // });
+        if (this.data.listOfPackages[this.data.choiceIndex].flowVersion === 8) {
             this.selectComponent('#verifyCode').show();
             return;
         }

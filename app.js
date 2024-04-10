@@ -109,7 +109,8 @@ App({
 		emptyHairDeviceList: [], // 空发设备列表
 		packagePageData: undefined, // 套餐页面数据
 		orderInfo: {
-			orderId: ''
+			orderId: '',
+			cardMobilePhone: ''
 		},
 		truckHandlingOCRType: 0,// 货车办理选择ocr上传类型
 		handlingOCRType: 0,// 客车办理选择ocr上传类型
@@ -326,7 +327,13 @@ App({
 			return;
 		}
 		if (res && res.scene === 1038 && res.referrerInfo.appId === 'wx008c60533388527a' && this.globalData.signAContract_9901 === -1) {
-			let data = util.getSteps_9901(this.globalData.orderInfo);
+			if (!this.globalData.orderInfo.cardMobilePhone) {
+				// util.go('/pages/default/information_list/information_list?isModifiedData=true&pro9901=true');
+				return wx.switchTab({
+					url: '/pages/Home/Home'
+				});
+			}
+			let data = await util.getSteps_9901(this.globalData.orderInfo);
 			if (data.stepNum === 5) {
 				let signChannelId = data.signChannelId;
 				// 支付关联渠道
@@ -337,47 +344,18 @@ App({
 				console.log('res.referrerInfo.appId ', result2);
 				if (!result2) return;
 				if (result2.code === 0) {
+					this.globalData.signAContract_9901 = 1;
 					console.log('支付关联渠道成功');
 					util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
 				} else {
 					return util.showToastNoIcon(result2.message);
 				}
 			} else { // 可能未签约成功
-				return util.showToastNoIcon('第三方签约未完成');
+				return util.showToastNoIcon(result2.stepTips);
 			}
-			// if (data.stepNum === 4) {
-			// 	console.log('orderId  开始获取9901渠道');
-			// 	const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/getSignedChannelList', {
-			// 		orderId: this.globalData.orderInfo.orderId
-			// 	});
-			// 	console.log('result', result);
-			// 	if (!result) return;
-			// 	if (result.code === 0) { // 查询签约渠道
-			// 		this.globalData.signAContract_9901 = 2;
-			// 		console.log('orderId  开始关联9901支付渠道',result.data);
-			// 		if (result.data.list?.length !== 0) { // 表示签约成功
-			// 			let signChannelId = result.data.list[0].channelId;
-			// 			// 支付关联渠道
-			// 			const result2 = await util.getDataFromServersV2('consumer/activity/qtzl/xz/carChannelRel', {
-			// 				orderId: this.globalData.orderInfo.orderId,
-			// 				signChannelId: signChannelId
-			// 			});
-			// 			console.log('res.referrerInfo.appId ', result2);
-			// 			console.log('orderId  开始关联9901支付渠道');
-			// 			if (!result2) return;
-			// 			if (result2.code === 0) {
-			// 				util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
-			// 			} else {
-			// 				return util.showToastNoIcon(result2.message);
-			// 			}
-			// 		} else { // 表示未签约未成功
-			// 			return util.showToastNoIcon(result.message);
-			// 		}
-			// 	} else {
-			// 		// 查询签约渠道失败
-			// 		return util.showToastNoIcon(result.message);
-			// 	}
-			// }
+			if (data.stepNum === 4) {
+				util.go('/pages/default/information_list/information_list?isModifiedData=true&pro9901=true');
+			}
 		}
 		if ((res && res.referrerInfo && res.referrerInfo.appId && (res.referrerInfo.appId === 'wxbcad394b3d99dac9' || res.referrerInfo.appId === 'wxbd687630cd02ce1d')) ||
 			(res && res.scene === 1038)) { // 场景值1038：从被打开的小程序返回

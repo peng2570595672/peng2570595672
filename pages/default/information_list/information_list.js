@@ -241,6 +241,9 @@ Page({
         if (url === 'information_validation' && !this.data.orderInfo.isOwner && !isXinKe) {
             return util.showToastNoIcon('请先上传身份证');
         }
+        if (this.data.is9901) {
+            util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}&obuCardType=${this.data.orderInfo.obuCardType}&isXinKe=${isXinKe}&pro9901=true`);
+        }
         util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}&obuCardType=${this.data.orderInfo.obuCardType}&isXinKe=${isXinKe}`);
     },
     // ETC申办审核结果通知、ETC发货提示、ETC服务状态提醒
@@ -341,8 +344,8 @@ Page({
         let orderId = app.globalData.orderInfo.orderId; // 订单id
         const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/devicePreCheck', {
             orderId,
-            cpuId: '0052232100025417',
-            obuId: '9901000300578399'
+            cpuId: '0052232100025414',
+            obuId: '9901000300578396'
         });
         this.setData({
             isRequest: false
@@ -413,7 +416,7 @@ Page({
                 fail (e) {
                     // 打开失败
                     if (e.errMsg !== 'navigateToMiniProgram:fail cancel') {
-                        util.showToastNoIcon('打开激活小程序失败');
+                        util.showToastNoIcon('打开签约小程序失败');
                     }
                 }
             });
@@ -467,12 +470,6 @@ Page({
                 return;
             }
             if (this.data.contractStatus === 1 || this.data.isModifiedData) {
-                //  已签约  或者 修改资料
-                if (this.data.is9901) {
-                    console.log('已签约 && 9901 要去指定页面');
-                    util.go(`/pages/separate_interest_package/sing_9901_success/sing_9901_success?orderId=${app.globalData.orderInfo.orderId}&pro9901=true`);
-                    return;
-                }
                 console.log('签约成功了 要去查进度');
                 util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
                 return;

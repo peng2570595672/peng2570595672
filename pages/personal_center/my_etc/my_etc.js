@@ -351,9 +351,9 @@ Page({
 			carNoStr: obj.vehPlates,
 			obuStatus: obj.obuStatus
 		});
-		let is9901 = obj.shopProductId === '1210255905172496384' ? true : false; // 通过套餐id 判断是否9901 套餐
+		let is9901 = obj.shopProductId === 8 ? true : false; // 通过套餐id 判断是否9901 套餐
 		if (obj.obuCardType === 1 && is9901) {
-			util.go(`/pages/empty_hair/instructions/index?auditStatus=${obj.auditStatus}&pro9901=true`);
+			util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${obj.auditStatus}`);
 			console.log('黔通卡 9901套餐');
 			return;
 		}
@@ -466,7 +466,7 @@ Page({
 		}
 		wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'my_etc_for_certificate_to_truck_package' : 'my_etc_for_certificate_to_package');
 		// 9901 套餐 进入证件上传需要带标识
-		if (orderInfo.shopProductId === '1210255905172496384') {
+		if (orderInfo.flowVersion === 8) {
 			util.go(`/pages/${path}/information_list/information_list?pro9901=true`);
 		}
 		console.log('进入证件上传需要带标识');
@@ -613,7 +613,7 @@ Page({
 		app.globalData.firstVersionData = !!(orderInfo.remark && orderInfo.remark.indexOf('迁移订单数据') !== -1);
 		// 9901 套餐 进入证件上传需要带标识
 		console.log('入证件上传需要带标识',orderInfo);
-		if (orderInfo.shopProductId === '1210255905172496384') {
+		if (orderInfo.flowVersion === 8) {
 			util.go('/pages/default/information_list/information_list?isModifiedData=true&pro9901=true');
 		}
 		util.go('/pages/default/information_list/information_list?isModifiedData=true');

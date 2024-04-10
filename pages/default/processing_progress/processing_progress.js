@@ -625,9 +625,10 @@ Page({
 	goInstallationTutorial () {
 		let channel = this.data.info?.obuCardType;
 		// 通过套餐id 判断是否9901 套餐
-		let is9901 = this.data.info?.shopProductId === '1210255905172496384' ? true : false;
+		let is9901 = this.data.info?.flowVersion === 8 ? true : false;
+		console.log('is9901',is9901);
 		if (channel === 1 && is9901) { // 黔通卡 9901套餐
-			util.go(`/pages/empty_hair/instructions/index?auditStatus=${obj.auditStatus}&pro9901=true`);
+			util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${this.data.info.auditStatus}`);
 			console.log('黔通卡 9901套餐');
 			return;
 		}

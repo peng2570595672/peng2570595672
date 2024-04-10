@@ -53,8 +53,9 @@ Page({
 			isXinKe: JSON.parse(options?.isXinKe),
 			topProgressBar: parseFloat(options.topProgressBar),
 			topProgressBar1: parseFloat(options.topProgressBar),
-			is9901: options.is9901 // 9901 套餐标识
+			is9901: options.pro9901 // 9901 套餐标识
 		});
+		console.log(this.data.is9901,'9901 套餐标识');
 		await this.getOrderInfo();
 		// 查询是否欠款
 		await util.getIsArrearage();
@@ -344,6 +345,7 @@ Page({
 		if (result.code === 0) {
 			// 9901 套餐上传身份证件后开户
 			const orderId = result.data.orderId;
+			console.log('9901 套餐上传身份证件后开户',this.data.is9901);
 			if (this.data.is9901) {
 				const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/openAccountPersonal', {
 					orderId
@@ -359,22 +361,22 @@ Page({
 					wx.navigateBack({
 						delta: 1
 					});
-					return;
 				} else {
 					return util.showToastNoIcon(result.message);
 				}
-			}
-			if (this.data.obuCardType === 2) {
-				this.userCarCheck(result.data);
 			} else {
-				const pages = getCurrentPages();
-				const prevPage = pages[pages.length - 2]; // 上一个页面
-				prevPage.setData({
-					isChangeIdCard: true // 重置状态
-				});
-				wx.navigateBack({
-					delta: 1
-				});
+				if (this.data.obuCardType === 2) {
+					this.userCarCheck(result.data);
+				} else {
+					const pages = getCurrentPages();
+					const prevPage = pages[pages.length - 2]; // 上一个页面
+					prevPage.setData({
+						isChangeIdCard: true // 重置状态
+					});
+					wx.navigateBack({
+						delta: 1
+					});
+				}
 			}
 		} else {
 			util.showToastNoIcon(result.message);
