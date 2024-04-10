@@ -20,7 +20,7 @@
   z-index: 26999;
 }
 .verify_mask .s9901 {
-  border-radius: 0;
+  border-radius: 20rpx;
 }
 .verify_mask .s9901 .authentication-title {
   margin-top: 64rpx;
@@ -44,6 +44,7 @@
   display: flex;
   padding: 32rpx 0rpx 10rpx;
   font-size: 28rpx;
+  align-items: center;
   border-bottom: 1rpx solid #f4f4f4;
 }
 .verify_mask .s9901 .input-wrapper .input-item:last-of-type {
@@ -122,7 +123,7 @@
   background: #00b85c;
 }
 .verify_mask .s9901 .verify-button .buttonBlue {
-  background: #4e95d8;
+  background: #3991dd;
   border-radius: 40rpx;
 }
 .verify_mask .s9901 .verify-button .buttonBlue.available {
