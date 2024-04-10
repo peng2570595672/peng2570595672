@@ -128,6 +128,7 @@ Page({
             let vehPlates = res.vehPlates;
             let vehicle = result.data.vehicle;
             let ownerIdCard = result.data.ownerIdCard;
+            let mobile = ownerIdCard.cardMobilePhone;
             if (this.data.isModifiedData && res.orderAudit?.errNums?.length && this.data.requestNum === 0) {
                 // errNums
                 this.getErrorStatus(res.orderAudit);
@@ -142,9 +143,28 @@ Page({
                 orderDetails: res,
                 vehicleInfo: res.vehPlates,
                 vehPlates: vehPlates,
+                mobile,
                 tips: res.orderAudit ? res.orderAudit.remark : '',
                 topProgressBar: orderInfo.isOwner && orderInfo.isVehicle ? 4 : orderInfo.isOwner || orderInfo.isVehicle ? 3.3 : 3
             });
+            console.log('mobile', this.data.mobile);
+            if (this.data.orderInfo.flowVersion === 8) { // 9901
+                let obj = {
+                    mobile: this.data.mobile,
+                    orderId: app.globalData.orderInfo.orderId
+                };
+                const data = await util.getSteps_9901(obj);
+                if (data.stepNum === 2) { // 控制身份证 修改
+                    this.setData({
+                        stepNum2: true
+                    });
+                }
+                if (data.stepNum === 3) { // 控制行驶证 修改
+                    this.setData({
+                        stepNum3: true
+                    });
+                }
+            }
             // 中信银行
             if (app.globalData.cictBankObj.citicBankshopProductIds.includes(orderInfo.shopProductId)) {
                 this.setData({
@@ -202,6 +222,14 @@ Page({
         // 	});
         // 	return false;
         // }
+        if (this.data.orderInfo.flowVersion === 8) {
+            if (this.data.stepNum3 || this.data.stepNum2) { // 有一个证件待修改 都无法提交
+                this.setData({
+                    available: false
+                });
+            }
+            return;
+        }
         if (this.data.orderInfo && this.data.orderInfo.isOwner === 1 && this.data.orderInfo.isVehicle === 1 && ((this.data.orderInfo.isHeadstock === 1 && this.data.orderInfo.obuCardType !== 1) || (this.data.orderInfo.obuCardType === 1))) {
             this.setData({
                 available: true

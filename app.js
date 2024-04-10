@@ -110,7 +110,8 @@ App({
 		packagePageData: undefined, // 套餐页面数据
 		orderInfo: {
 			orderId: '',
-			cardMobilePhone: ''
+			cardMobilePhone: '',
+			mobile
 		},
 		truckHandlingOCRType: 0,// 货车办理选择ocr上传类型
 		handlingOCRType: 0,// 客车办理选择ocr上传类型
@@ -327,7 +328,7 @@ App({
 			return;
 		}
 		if (res && res.scene === 1038 && res.referrerInfo.appId === 'wx008c60533388527a' && this.globalData.signAContract_9901 === -1) {
-			if (!this.globalData.orderInfo.cardMobilePhone) {
+			if (!this.globalData.orderInfo.cardMobilePhone || this.globalData.orderInfo.mobile) {
 				// util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
 				return wx.switchTab({
 					url: '/pages/Home/Home'
