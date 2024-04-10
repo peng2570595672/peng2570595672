@@ -739,7 +739,7 @@ Page({
             return;
         }
         // 9901 套餐验证码
-        if (this.data.isSalesmanOrder && this.data.orderInfo.base?.flowVersion === 8) {
+        if (!this.data.isSalesmanOrder && this.data.orderInfo.base?.flowVersion === 8) {
             this.selectComponent('#verifyCode').show();
             return;
         }
