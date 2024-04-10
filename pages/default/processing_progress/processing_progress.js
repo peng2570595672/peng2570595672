@@ -53,6 +53,7 @@ Page({
 				orderId: app.globalData.orderInfo.orderId
 			});
 		}
+		app.globalData.orderInfo.orderId = this.data.orderId;
 		if (options.type) {
 			this.setData({
 				type: options.type

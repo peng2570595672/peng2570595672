@@ -2,9 +2,10 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		compressionUrl: '',
 		formData: {
-			cpuId: '0052232100025414',
-			obuId: '9901000300578396'
+			cpuId: '',
+			obuId: ''
 		},
 		available: false
 	},
@@ -20,8 +21,8 @@ Page({
 		util.showLoading('设备预检中');
 		const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/devicePreCheck', {
 			orderId: app.globalData.orderInfo.orderId,
-			cpuId: params.cpuId || '0052232100025414',
-			obuId: params.obuId || '9901000300578396'
+			cpuId: params.cpuId,
+			obuId: params.obuId
 		});
 		this.setData({
 			isRequest: false
@@ -103,7 +104,12 @@ Page({
 		}
 	},
 	onShow () {
-
+		const pages = getCurrentPages();
+		const currPage = pages[pages.length - 1];
+		console.log(currPage.__data__);
+		if (currPage.__data__.pathUrl) {
+			this.getPictureInfo(currPage.__data__.pathUrl);
+		}
 	},
 
 	// 下一步
@@ -115,16 +121,78 @@ Page({
                 isRequest: true
             });
         }
-		if (this.data.available()) {
+		if (this.data.available) {
 			this.is9901_Pre_inspection(this.data.formData);
 		}
 	},
-	// 上传图片
-	getEquipId (e) {
-		let index = e.currentTarget.dataset.index;
-		console.log(index);
+	// 选择图片
+	selectionPic () {
+		let type = '14';
+		wx.showActionSheet({
+			itemList: ['拍照', '相册选择'],
+			success: (res) => {
+				if (res.tapIndex === 0) {
+					let typeTip = '录入OBU和卡签号';
+					util.go(`/pages/default/camera/camera?type=${type}&title=${typeTip}`);
+				} else {
+					wx.chooseImage({
+						count: 1,
+						sizeType: ['original', 'compressed'],
+						sourceType: ['album'],
+						success: (res) => {
+							let path = res.tempFilePaths[0];
+							this.getPictureInfo(path);
+						},
+						fail: (res) => {
+							if (res.errMsg !== 'chooseImage:fail cancel') {
+								util.showToastNoIcon('选择图片失败！');
+							}
+						}
+					});
+				}
+			}
+		});
 	},
-
+	// 上传图片
+	getPictureInfo (path) {
+		util.showLoading({
+			title: '正在识别中'
+		});
+		const that = this;
+		// 上传并识别图片
+		util.uploadOcrFile(path, 14, () => {
+			util.showToastNoIcon('文件服务器异常！');
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			try {
+				if (res) {
+					res = JSON.parse(res);
+					if (res.code === 0) { // 识别成功
+						console.log(res.data);
+						try {
+							const info = res.data[0].ocrObject;
+							that.data.formData.cpuId = info.DetectedText0.split(':')[1];
+							that.data.formData.obuId = info.DetectedText1.split(':')[1];
+							that.setData({
+								formData: that.data.formData,
+								available: true
+							});
+						} catch (e) {
+							util.showToastNoIcon('OCR数据解析异常');
+						}
+					} else { // 识别失败
+						util.showToastNoIcon('OCR识别失败，请重新上传');
+					}
+				} else { // 识别失败
+					util.showToastNoIcon('OCR识别失败，请重新上传');
+				}
+			} catch (e) {
+				util.showToastNoIcon('文件服务器异常！');
+			}
+		}, () => {
+		});
+	},
 	onInputChangedHandle (e) {
 		if (this.data.formData.obuId && this.data.formData.cpuId) {
 			this.setData({

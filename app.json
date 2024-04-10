@@ -26,6 +26,7 @@
         "pages/default/shot_card/shot_card",
         "pages/default/shot_bank_card/shot_bank_card",
         "pages/default/obucarquer/obucarquer",
+        "pages/default/camera/camera",
         "pages/default/third_party_signing/third_party_signing",
         "pages/landing_page_for_ccb/index",
         "pages/pay/pay",
