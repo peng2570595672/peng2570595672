@@ -784,6 +784,16 @@ function getTruckHandlingStatus(orderInfo) {
  *  获取订单办理状态 2.0
  */
 function getStatus(orderInfo) {
+	if (orderInfo.flowVersion === 8 && orderInfo.status === 1) { // 9901模式
+		if (orderInfo.logisticsId === 0) {
+			return 35; // 待发货,-继续办理
+		}
+		// hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
+		if (!orderInfo.hwContractStatus) {
+			return 5;
+		}
+		return 35; // 待发货,-继续办理
+	}
 	if (orderInfo.obuCardType === 10 && +orderInfo.orderExtCardType === 2) {
 		// 湖南信科   deviceType设备类型 (1:插卡; 0:单片)  orderExtCardType 2代表信科
 		if (orderInfo.pledgeStatus === 0) { // 待支付
@@ -897,9 +907,9 @@ function getStatus(orderInfo) {
 	if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
 		if ((app.globalData.cictBankObj.citicBankshopProductIds.includes(orderInfo.shopProductId) || (orderInfo.orderType === 31 && orderInfo.productName?.includes('中信') && orderInfo.pledgeType === 2)) && orderInfo.refundStatus !== 3) {
 			if (app.globalData.cictBankObj.guangfaBank === orderInfo.shopProductId) { // 广发订单
-				return 33
+				return 33;
 			}
-			return 30
+			return 30;
 		}
 		return 12; // 已激活
 	}
@@ -1901,6 +1911,23 @@ async function getSteps_9901(orderInfo) {
   if (!result) return;
   if (result.code === 0) {
     console.log('获取到应该办理步骤', result.data);
+	  if (result.data.stepNum === 5) {
+		  let signChannelId = result.data.signChannelId;
+		  // 支付关联渠道
+		  const result2 = await util.getDataFromServersV2('consumer/activity/qtzl/xz/carChannelRel', {
+			  orderId: app.globalData.orderInfo.orderId,
+			  signChannelId: signChannelId
+		  });
+		  console.log('res.referrerInfo.appId ', result2);
+		  if (!result2) return;
+		  if (result2.code === 0) {
+			  app.globalData.signAContract_9901 = 1;
+			  console.log('支付关联渠道成功');
+			  go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
+		  } else {
+			  return showToastNoIcon(result2.message);
+		  }
+	  }
     return result.data
   } else {
     showToastNoIcon(result.message);

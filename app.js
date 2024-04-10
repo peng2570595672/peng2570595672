@@ -338,25 +338,6 @@ App({
 				mobile: this.globalData.mobile
 			};
 			let data = await util.getSteps_9901(obj);
-			if (data.stepNum === 5) {
-				let signChannelId = data.signChannelId;
-				// 支付关联渠道
-				const result2 = await util.getDataFromServersV2('consumer/activity/qtzl/xz/carChannelRel', {
-					orderId: this.globalData.orderInfo.orderId,
-					signChannelId: signChannelId
-				});
-				console.log('res.referrerInfo.appId ', result2);
-				if (!result2) return;
-				if (result2.code === 0) {
-					this.globalData.signAContract_9901 = 1;
-					console.log('支付关联渠道成功');
-					util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
-				} else {
-					return util.showToastNoIcon(result2.message);
-				}
-			} else { // 支付关联渠道失败
-				return util.showToastNoIcon(result2.stepTips);
-			}
 			if (data.stepNum === 4) {
 				util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
 			}
