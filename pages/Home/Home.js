@@ -1420,24 +1420,28 @@ Page({
         }
         handleJumpHunanMini(orderId, result.data.outTradeNo);
     },
-		async handle9901Step (orderInfo) {
-			let data = await util.getSteps_9901(orderInfo);
-			// ("stepNum", 0)("stepTips", "用户需登录")
-			// ("stepNum", 1)("stepTips", "需要车牌发行认证")
-			// ("stepNum", 2)("stepTips", "用户需开户")
-			// ("stepNum", 3)("stepTips", "需要行驶证认证")
-			// ("stepNum", 4)("stepTips", "需要设备预检")
-			// ("stepNum", 5)("stepTips", "需要支付渠道关联")
-			// ("stepNum", 9)("stepTips", "车辆已关联")
-			switch (data.stepNum) {
-				case 4: // 需要设备预检
-					util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderInfo.id}`);
-					break;
-				case 9: // 车辆已关联
-					util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${orderInfo.auditStatus}`);
-					break;
-			}
-		},
+    async handle9901Step (orderInfo) {
+        let data = await util.getSteps_9901(orderInfo);
+        // ("stepNum", 0)("stepTips", "用户需登录")
+        // ("stepNum", 1)("stepTips", "需要车牌发行认证")
+        // ("stepNum", 2)("stepTips", "用户需开户")
+        // ("stepNum", 3)("stepTips", "需要行驶证认证")
+        // ("stepNum", 4)("stepTips", "需要设备预检")
+        // ("stepNum", 5)("stepTips", "需要支付渠道关联")
+        // ("stepNum", 9)("stepTips", "车辆已关联")
+        switch (data.stepNum) {
+            case 2: // 行驶证认证
+            case 3: // 行驶证认证
+                util.go('/pages/default/information_list/information_list?isModifiedData=true');
+                break;
+            case 4: // 需要设备预检
+                util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderInfo.id}`);
+                break;
+            case 9: // 车辆已关联
+                util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${orderInfo.auditStatus}`);
+                break;
+        }
+    },
     // 通通券签约
     async onClickSignTongTongQuan () {
         let params = {
