@@ -6,10 +6,10 @@
                 <input type="number" placeholder="请输入卡签号码" value="{{formData.cpuId}}" bindinput="onInputChangedHandle"
                     maxlength="20" data-index="2" />
                 <image class="input-field" src="https://file.cyzl.com/g001/M03/50/38/oYYBAGYWe4yAVzxLAAAFA3hLFjk074.png"
-                   type="number" class="image-icon" catchtap="selectionPic" />
+                    class="image-icon" catchtap="selectionPic" />
             </view>
             <view class="cpuId">
-                <input    placeholder="请输入OBU号码" value="{{formData.obuId}}" maxlength="20"
+                <input type="number" placeholder="请输入OBU号码" value="{{formData.obuId}}" maxlength="20"
                     bindinput="onInputChangedHandle" data-index="1" />
                 <image class="input-field" src="https://file.cyzl.com/g001/M03/50/38/oYYBAGYWe4yAVzxLAAAFA3hLFjk074.png"
                     class="image-icon" catchtap="selectionPic" />
