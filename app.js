@@ -76,7 +76,6 @@ App({
 		quality: 80,
 		isChannelPromotion: 0,// 渠道推广参数
 		signAContract: 3,// -1正常签约  1  解约重签  4 货车签约管理页签约
-		signAContract_9901: -1,// 9901 签约管理页签约
 		signTongTongQuanAContract: 0,// 0 未签约  1 去签约 2解约重签
 		userInfo: {},// 用户信息
 		navbarHeight: 0,
@@ -326,13 +325,7 @@ App({
 			// 解决安卓平台上传行驶证自动返回上一页
 			return;
 		}
-		if (res && res.scene === 1038 && res.referrerInfo.appId === 'wx008c60533388527a' && this.globalData.signAContract_9901 === -1) {
-			if (!this.globalData.mobile) {
-				// util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
-				return wx.switchTab({
-					url: '/pages/Home/Home'
-				});
-			}
+		if (res && res.scene === 1038 && res.referrerInfo.appId === 'wx008c60533388527a' && this.globalData.mobile) {
 			let obj = {
 				orderId: this.globalData.orderInfo.orderId,
 				mobile: this.globalData.mobile
