@@ -460,6 +460,7 @@ Page({
 			};
 			const data = await util.getSteps_9901(obj);
 			if (data.stepNum === 4) {
+				app.globalData.mobile = this.data.info.cardMobilePhone;
 				util.go(`/pages/default/obucarquer/obucarquer?vehPlates=${this.data.info.vehPlates}`);
 				return;
 			}
