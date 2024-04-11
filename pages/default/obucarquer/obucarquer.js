@@ -4,8 +4,8 @@ Page({
 	data: {
 		compressionUrl: '',
 		formData: {
-			cpuId: '0052232100025413',
-			obuId: '9901000300578395'
+			cpuId: '',
+			obuId: ''
 		},
 		available: false
 	},

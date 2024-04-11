@@ -15,8 +15,7 @@ Page({
         vehicleInfo: undefined,
         isRequest: false,
         showSubmit_9901: false,
-        stepNum3: false,
-        stepNum2: false,
+        stepNum: false,
         available: false,
         isIdCardError: false, // 是否身份证错误
         isDrivingLicenseError: false, // 是否行驶证错误
@@ -159,24 +158,9 @@ Page({
                 const data = await util.getSteps_9901(obj);
                 if (data) {
                     this.setData({
-                        showSubmit_9901: true
+                        showSubmit_9901: true,// 9901显示为提交
+                        stepNum: data.stepNum
                     });
-                    if (data.stepNum === 2) { // 控制身份证 修改
-                        this.setData({
-                            stepNum2: true
-                        });
-                    }
-                    if (data.stepNum === 3) { // 控制行驶证 修改
-                        this.setData({
-                            stepNum3: true
-                        });
-                    }
-                    if (data.stepNum !== 3 && data.stepNum !== 4) { // 控制行驶证 修改
-                        this.setData({
-                            stepNum2: false,
-                            stepNum3: false
-                        });
-                    }
                 }
             }
             // 中信银行
@@ -237,7 +221,7 @@ Page({
         // 	return false;
         // }
         if (this.data.orderInfo.flowVersion === 8) {
-            if (this.data.stepNum3 === 3 || this.data.stepNum2 === 2) { // 有一个证件待修改 都无法提交
+            if (this.data.stepNum === 1 || this.data.stepNum === 3 || this.data.stepNum === 2) { // 有一个证件待修改 都无法提交
                 this.setData({
                     available: false
                 });

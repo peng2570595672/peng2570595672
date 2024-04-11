@@ -316,7 +316,7 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			// 9901 套餐上传行驶证 证件后准备开户
+			// 9901 套餐上传行驶证
 			const orderId = result.data.orderId;
 			if (this.data.is9901) {
 				const result2 = await util.getDataFromServersV2('consumer/etc/qtzl/xz/drivingLicenseAuth', {

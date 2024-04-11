@@ -71,7 +71,7 @@
             </view>
         </view>
         <view wx:if="{{!userFailBillList.length}}">
-            {{orderInfo.selfStatus}}
+            <!-- {{orderInfo.selfStatus}} -->
             <button wx:if="{{orderInfo.selfStatus !== 12}}" class="btn" data-renew="3" catchtap="renewWhitelistJudgement" animation="{{animationTransaction}}">
                 {{!orderInfo ? '新增办理' : ''}}
                 {{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 22 ? '恢复签约' : ''}}
