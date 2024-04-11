@@ -4,6 +4,13 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "ETC详情",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1227927646571073536",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "",
                     "pathName": "pages/default/obucarquer/obucarquer",
                     "query": "",
@@ -35,13 +42,6 @@
                     "name": "",
                     "pathName": "pages/empty_hair/processing_progress/processing_progress",
                     "query": "orderId=1224321305927487488",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "ETC详情",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1101196259089190912",
                     "launchMode": "default",
                     "scene": null
                 },

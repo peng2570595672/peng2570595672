@@ -3,6 +3,7 @@ const app = getApp();
 Page({
 	data: {
 		compressionUrl: '',
+		signUrl: '',
 		formData: {
 			cpuId: null,
 			obuId: null
@@ -14,6 +15,53 @@ Page({
 			this.setData({
 				vehPlates: options.vehPlates
 			});
+		}
+	},
+	onShow () {
+		const pages = getCurrentPages();
+		const currPage = pages[pages.length - 1];
+		console.log(currPage.__data__);
+		if (currPage.__data__.pathUrl) {
+			this.getPictureInfo(currPage.__data__.pathUrl);
+		}
+		if (app.globalData.signAContract === -1) {
+			this.handleGetSignInfo();
+		}
+	},
+	async handleGetSignInfo () {
+		const result = await util.getDataFromServersV2('consumer/etc/qtzl/xz/getSignedChannelList', {
+			orderId: app.globalData.orderInfo.orderId
+		});
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+			return;
+		}
+		if (!result.data.list?.length) {
+			util.showToastNoIcon('获取已签约渠道列表返回为空');
+			return;
+		}
+		const index = result.data.list.findIndex(item => item.signChannelId === this.data.signUrl);
+		if (index === -1) {
+			util.showToastNoIcon('获取已签约渠道列表返回为空!');
+			return;
+		}
+		let obj = {
+			orderId: app.globalData.orderInfo.orderId,
+			mobile: app.globalData.mobile
+		};
+		// 支付关联渠道
+		const result2 = await util.getDataFromServersV2('consumer/etc/qtzl/xz/carChannelRel', {
+			orderId: obj.orderId,
+			signChannelId: this.data.signUrl
+		});
+		if (!result2) return;
+		if (result2.code === 0) {
+			app.globalData.mobile = '';
+			app.globalData.signAContract = 3;
+			util.showToastNoIcon('签约已完成');
+			util.go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
+		} else {
+			util.showToastNoIcon(result2.message);
 		}
 	},
 	// is9901_Pre_inspection 接口 设备预检
@@ -84,6 +132,7 @@ Page({
 				plateNumber: vehPlates,
 				bizNotifyUrl: 'DEFAULT'
 			};
+			app.globalData.signAContract = -1;
 			// 跳转九州签约
 			wx.navigateToMiniProgram({
 				appId: 'wx008c60533388527a',
@@ -103,15 +152,6 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
-	onShow () {
-		const pages = getCurrentPages();
-		const currPage = pages[pages.length - 1];
-		console.log(currPage.__data__);
-		if (currPage.__data__.pathUrl) {
-			this.getPictureInfo(currPage.__data__.pathUrl);
-		}
-	},
-
 	// 下一步
 	async next () {
 		if (this.data.isRequest) {

@@ -320,20 +320,11 @@ App({
 		if (res.path === 'pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license' ||
 			res.path === 'pages/default/shot_bank_card/shot_bank_card' ||
 			res.path === 'pages/default/information_validation/information_validation' ||
+			res.path === 'pages/default/obucarquer/obucarquer' ||
 			res.path === 'pages/default/processing_progress/processing_progress'
 		) {
 			// 解决安卓平台上传行驶证自动返回上一页
 			return;
-		}
-		if (res && res.scene === 1038 && res.referrerInfo.appId === 'wx008c60533388527a' && this.globalData.mobile) {
-			let obj = {
-				orderId: this.globalData.orderInfo.orderId,
-				mobile: this.globalData.mobile
-			};
-			let data = await util.getSteps_9901(obj);
-			if (data.stepNum === 4) {
-				util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
-			}
 		}
 		if ((res && res.referrerInfo && res.referrerInfo.appId && (res.referrerInfo.appId === 'wxbcad394b3d99dac9' || res.referrerInfo.appId === 'wxbd687630cd02ce1d')) ||
 			(res && res.scene === 1038)) { // 场景值1038：从被打开的小程序返回
