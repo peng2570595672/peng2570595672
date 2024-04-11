@@ -2138,7 +2138,7 @@ async function buriedPoint (params,callBack) {
   }, 'POST', false);
   if (!res) return;
   if (res.code === 0) {
-    callBack && callBack(res);
+    callBack && callBack(res.data);
   } else {
     showToastNoIcon(res.message);
   }

@@ -796,7 +796,6 @@ Page({
 			btnName: '平安绑车banner',
 			pageName: '办理进度页'
 		};
-		console.log('参数：',params);
 		util.buriedPoint(params,(buriedPointData) => {
 			this.setData({relationId: buriedPointData.id});
 		});
