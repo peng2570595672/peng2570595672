@@ -221,7 +221,7 @@ Page({
         // 	return false;
         // }
         if (this.data.orderInfo.flowVersion === 8) {
-            if (this.data.stepNum === 1 || this.data.stepNum === 3 || this.data.stepNum === 2) { // 有一个证件待修改 都无法提交
+            if (this.data.stepNum === 3 || this.data.stepNum === 2) { // 有一个证件待修改 都无法提交
                 this.setData({
                     available: false
                 });

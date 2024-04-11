@@ -1430,7 +1430,6 @@ Page({
         // ("stepNum", 5)("stepTips", "需要支付渠道关联")
         // ("stepNum", 9)("stepTips", "车辆已关联")
         switch (data.stepNum) {
-            case 2: // 身份证认证
             case 3: // 行驶证认证
                 util.go('/pages/default/information_list/information_list?isModifiedData=true');
                 break;
