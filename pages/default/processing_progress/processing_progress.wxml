@@ -29,7 +29,7 @@
 <!--			<view class="content-des" wx:if="{{accountVerification === 2 || accountVerification === '2'}}">正在验证中....<text class="refresh iconfont" catchtap="refreshCheck">刷新结果</text></view>-->
 <!--			<view class="content-des" wx:else>{{accountVerification === 0 ? '审核通过' : '验证成功'}}</view>-->
 <!--		</view>-->
-        <view class="item {{info && info.auditStatus !== 0 ? 'finished' : ''}}" wx:if="{{info.auditStatus !== -1}}">
+        <view class="item {{info && info.auditStatus !== 0 ? 'finished' : ''}}" wx:if="{{info.auditStatus !== -1 && info.flowVersion !== 8}}">
             <view class="content-title">资料审核</view>
             <view class="content-des iconfont {{info && (info.auditStatus === 1 || info.auditStatus === 9) ? 'error' : ''}}" wx:if="{{info && (info.auditStatus === 1 || info.auditStatus === 9)}}">审核不通过<text class="edit iconfont" catchtap="goEtcDetails">查看详情</text></view>
             <view class="content-des" wx:else>{{info && info.auditStatus === 2 ? '审核通过' : '正在排队审核中，预计1-3个工作日内完成'}}</view>
