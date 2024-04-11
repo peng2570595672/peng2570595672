@@ -160,7 +160,8 @@ Page({
         isEquityRights: app.globalData.isEquityRights, // 是否是权益券额用户
         isShowHandle: true, // 是否显示办理状态栏
         isBail: false, // 是否有保证金退回的订单（false: 没有，true: 有）
-        PingAn: false // 是否展示平安获客banner
+        PingAn: false, // 是否展示平安获客banner,
+        vehPlatesList: [] // 联网中心存量用户切换为信科用户的车牌号列表
     },
     async onLoad (options) {
         util.resetData(); // 重置数据
@@ -945,6 +946,9 @@ Page({
                         }
                     }
                 }
+                // if (item.obuCardType === 10 && item.payChannelId) { // 判断联网中心存量用户切换为信科用户
+
+                // }
                 item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
                 if ((item.obuStatus === 1 || item.obuStatus === 5) && item.flowVersion === 4) {
                     // 货车预充值-易路通达
