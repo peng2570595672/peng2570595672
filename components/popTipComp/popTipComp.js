@@ -28,7 +28,8 @@ Component({
 		paramsList: [],
 		noSliding: false, // 是否禁止底层页面滑动
 		getAgreement: true,	// 默认选中协议
-		relationId: ''
+		relationId: '',
+		maidian: []
 	},
 	methods: {
 		show (obj) {
@@ -44,12 +45,18 @@ Component({
 					paramsList: this.data.paramsList,
 					noSliding: true
 				});
-			},300);
+				if (!kkIndex && !qyIndex) {
+					this.maiDian();
+				}
+			},500);
+		},
+		// 埋点
+		maiDian () {
 			if (this.data.paramsList[0].type === 'newPop') {	// 埋点
 				let params = this.data.paramsList.filter(item => item.type === 'newPop')[0].params;
 				params['optionLabel'] = 'ENTER';
 				util.buriedPoint(params,(buriedPointData) => {
-					this.setData({relationId: buriedPointData.id});
+					this.setData({relationId: buriedPointData?.id});
 				});
 			}
 		},
