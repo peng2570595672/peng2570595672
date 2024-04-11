@@ -30,7 +30,7 @@ Page({
     },
     async checkCar () {
         // 9901 车辆支付渠道关联
-        const result = await util.getDataFromServersV2('consumer/activity/qtzl/xz/carChannelRel', {
+        const result = await util.getDataFromServersV2('consumer/etc/qtzl/xz/carChannelRel', {
             logisticsId: orderInfo.logisticsId
         });
         if (!result) return;
