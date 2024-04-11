@@ -2136,10 +2136,9 @@ async function buriedPoint (params,callBack) {
     pageName: params.pageName,
     relationId: params.relationId // 关联id
   }, 'POST', false);
-  console.log('数据：',res);
   if (!res) return;
   if (res.code === 0) {
-    callBack(res.data)
+    callBack && callBack(res);
   } else {
     showToastNoIcon(res.message);
   }

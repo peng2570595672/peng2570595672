@@ -45,7 +45,7 @@ Component({
 					paramsList: this.data.paramsList,
 					noSliding: true
 				});
-				if (!kkIndex && !qyIndex) {
+				if (kkIndex === -1 && qyIndex === -1) {
 					this.maiDian();
 				}
 			},500);
@@ -91,13 +91,6 @@ Component({
 					if (paramsList?.length !== 0) {
 						this.setData({paramsList});
 						this.show(paramsList[0]);
-						if (this.data.paramsList[0].type === 'newPop') {	// 埋点
-							let params = this.data.paramsList.filter(item => item.type === 'newPop')[0].params;
-							params.optionLabel = 'ENTER';
-							util.buriedPoint(params,(buriedPointData) => {
-								this.setData({relationId: buriedPointData.id});
-							});
-						}
 					} else {
 						this.setData({paramsList: []});
 					}
