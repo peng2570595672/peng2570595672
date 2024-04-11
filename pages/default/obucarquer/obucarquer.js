@@ -4,8 +4,8 @@ Page({
 	data: {
 		compressionUrl: '',
 		formData: {
-			cpuId: '',
-			obuId: ''
+			cpuId: null,
+			obuId: null
 		},
 		available: false
 	},
@@ -115,12 +115,12 @@ Page({
 	// 下一步
 	async next () {
 		if (this.data.isRequest) {
-            return;
-        } else {
-            this.setData({
-                isRequest: true
-            });
-        }
+			return;
+		} else {
+			this.setData({
+				isRequest: true
+			});
+		}
 		if (this.data.available) {
 			this.is9901_Pre_inspection(this.data.formData);
 		} else {
@@ -198,17 +198,18 @@ Page({
 	onInputChangedHandle (e) {
 		// console.log(e.detail.value);
 		let index = e.currentTarget.dataset['index'];
-		let value = e.detail.value;
+		const value = e.detail.value.replace(/\D/g, '');
 		if (+index === 1) {
-			this.data.formData.obuId = value;
+			this.setData({
+				'formData.obuId': value
+			});
 		}
 		if (+index === 2) {
-			this.data.formData.cpuId = value;
+			this.setData({
+				'formData.cpuId': value
+			});
 		}
-		this.setData({
-			formData: this.data.formData
-		});
-		if (this.data.formData.obuId.length > 8 && this.data.formData.cpuId.length > 8) {
+		if (this.data.formData?.obuId?.length > 8 && this.data.formData?.cpuId?.length > 8) {
 			this.setData({
 				available: true
 			});
