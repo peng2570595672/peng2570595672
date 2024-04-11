@@ -220,8 +220,13 @@ Page({
         // 	});
         // 	return false;
         // }
-        if (this.data.orderInfo.flowVersion === 8) {
-            if (this.data.stepNum === 3 || this.data.stepNum === 2) { // 有一个证件待修改 都无法提交
+        if (this.data.orderInfo && this.data.orderInfo.isOwner === 1 && this.data.orderInfo.isVehicle === 1 && ((this.data.orderInfo.isHeadstock === 1 && this.data.orderInfo.obuCardType !== 1) || (this.data.orderInfo.obuCardType === 1))) {
+            this.setData({
+                available: true
+            });
+        }
+        if (this.data.isModifiedData) {
+            if (this.data.isIdCardError || this.data.isDrivingLicenseError || this.data.isHeadstockError || this.data.requestNum === 0) {
                 this.setData({
                     available: false
                 });
@@ -231,13 +236,8 @@ Page({
                 });
             }
         }
-        if (this.data.orderInfo && this.data.orderInfo.isOwner === 1 && this.data.orderInfo.isVehicle === 1 && ((this.data.orderInfo.isHeadstock === 1 && this.data.orderInfo.obuCardType !== 1) || (this.data.orderInfo.obuCardType === 1))) {
-            this.setData({
-                available: true
-            });
-        }
-        if (this.data.isModifiedData) {
-            if (this.data.isIdCardError || this.data.isDrivingLicenseError || this.data.isHeadstockError || this.data.requestNum === 0) {
+        if (this.data.orderInfo.flowVersion === 8) {
+            if (this.data.stepNum === 3 || this.data.stepNum === 2) { // 有一个证件待修改 都无法提交
                 this.setData({
                     available: false
                 });
@@ -259,7 +259,7 @@ Page({
         if (url === 'upload_id_card' && isXinKe && this.data.orderInfo.isVehicle !== 1) { // 湖南信科
             return util.showToastNoIcon('请先上传行驶证');
         }
-        if (url === 'information_validation' && !this.data.orderInfo.isOwner && !isXinKe) {
+        if (url === 'information_validation' && (!this.data.orderInfo.isOwner || (this.data.orderInfo.flowVersion === 8 && this.data.stepNum === 2)) && !isXinKe) {
             return util.showToastNoIcon('请先上传身份证');
         }
         util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}&obuCardType=${this.data.orderInfo.obuCardType}&isXinKe=${isXinKe}&pro9901=${this.data.orderInfo.flowVersion === 8 ? true : ''}`);
