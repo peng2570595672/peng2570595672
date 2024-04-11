@@ -174,8 +174,8 @@ Page({
 						console.log(res.data);
 						try {
 							const info = res.data[0].ocrObject;
-							that.data.formData.cpuId = info.DetectedText1.split(':')[1];
-							that.data.formData.obuId = info.DetectedText0.split(':')[1];
+							that.data.formData.cpuId = info.DetectedText0.split(':')[1];
+							that.data.formData.obuId = info.DetectedText1.split(':')[1];
 							that.setData({
 								formData: that.data.formData,
 								available: true
