@@ -42,24 +42,32 @@
   border-radius: 8rpx;
   background: #f6f6f6;
   margin: 20rpx 0;
+  justify-content: space-between;
+}
+.page .container .input .cpuId input {
+  width: 80%;
 }
 .page .container .input .cpuId .image-icon {
-  margin-left: 37%;
+  margin-right: 20rpx;
   width: 50rpx;
   height: 50rpx;
 }
 .page .container .input .obuId {
   display: flex;
   align-items: center;
-  padding-left: 30rpx;
   width: 611rpx;
+  padding-left: 30rpx;
   height: 88rpx;
   border-radius: 8rpx;
   background: #f6f6f6;
+  justify-content: space-between;
   margin-top: 30rpx;
 }
+.page .container .input .obuId input {
+  width: 80%;
+}
 .page .container .input .obuId .image-icon {
-  margin-left: 37%;
+  margin-right: 20rpx;
   width: 50rpx;
   height: 50rpx;
 }
