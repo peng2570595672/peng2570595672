@@ -156,7 +156,8 @@ Page({
         this.setData({
             listOfPackages: parseInt(options.type) === 1 ? packages.divideAndDivideList : packages.alwaysToAlwaysList
         });
-        // 新增9901 套餐需要展示
+        // 新增9901
+        // 若 packages 对象中存在 List9901pro 属性，则将其内容追加到当前组件 data 中的 listOfPackages 数组中。
         if (packages.List9901pro) {
             this.setData({
                 listOfPackages: this.data.listOfPackages.concat(packages.List9901pro)
@@ -467,27 +468,37 @@ Page({
     onClickHandle () {
         this.data.viewRightsAndInterests.switchDisplay(false);
     },
+    /**
+ * 处理与验证码弹框相关的点击事件。
+ *
+ * @async
+ * @param {Object} options - 事件参数对象，包含验证码弹框返回的详细信息。
+ */
     async onClickHandle9901 (options) {
-        console.log('options.details.type', options.detail.type);
-        if (options.detail.type === '1') {
-            // 验证码弹框取消的回调
-            this.setData({
-                activeIndex: -1,
-                choiceIndex: -1
-            });
-        } else if (options.detail.type === '2') {
-            // 验证码弹框验证成功的回调
-            util.showToastNoIcon('查询接口校验正常 继续办理');
-            await this.saveOrderInfo();
-            console.log('父组件收到 验证码弹框验证成功的回调');
-        } else if (options.detail.type === '3') {
-            this.setData({
-                activeIndex: -1,
-                choiceIndex: -1
-            });
-            // 验证码弹框验证失败的回调
-            util.showToastNoIcon(options.detail.content, 2000);
-            console.log('父组件收到 验证码弹框验证失败的回调');
+        switch (options.detail.type) {
+            case '1': // 验证码弹框取消的回调
+                this.setData({
+                    activeIndex: -1,
+                    choiceIndex: -1
+                });
+                break;
+
+            case '2': // 验证码弹框验证成功的回调
+                util.showToastNoIcon('查询接口校验正常 继续办理');
+                await this.saveOrderInfo();
+                console.log('父组件收到 验证码弹框验证成功的回调');
+                break;
+
+            case '3': // 验证码弹框验证失败的回调
+                this.setData({
+                    activeIndex: -1,
+                    choiceIndex: -1
+                });
+                util.showToastNoIcon(options.detail.content, 1000);
+                console.log('父组件收到 验证码弹框验证失败的回调');
+                break;
+            default:
+                break;
         }
     },
     // 查看办理协议
@@ -828,7 +839,7 @@ Page({
             this.setData({
                 orderInfo9901: {
                     cardMobilePhone,
-                    type: '9901' ,// 控制显示新的弹框样式
+                    type: '9901',// 控制显示新的弹框样式
                     sendUrl: 'consumer/etc/qtzl/xz/frontSendMsg', // 新的发送验证码接口
                     loginUrl: 'consumer/etc/qtzl/xz/loginSender' // 新的验证登录验证码接口
                 }

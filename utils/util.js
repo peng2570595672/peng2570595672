@@ -17,15 +17,25 @@ function setApp(a) {
 }
 
 //DES  ECB模式加密
+/**
+ * 使用DES算法（ECB模式、PKCS7填充）加密给定的消息。
+ *
+ * @param {string} message - 需要加密的明文消息。
+ * @returns {string} 加密后的密文，以字符串形式返回。
+ */
 function encryptByDESModeEBC(message) {
+  // 将应用全局数据中的plamKey转换为UTF-8编码的CryptoJS键对象
   let keyHex = CryptoJS.enc.Utf8.parse(app.globalData.plamKey);
+
+  // 使用DES算法（ECB模式、PKCS7填充）加密消息
   let encrypted = CryptoJS.DES.encrypt(message, keyHex, {
     mode: CryptoJS.mode.ECB,
     padding: CryptoJS.pad.Pkcs7
   });
+
+  // 返回加密后密文的ciphertext部分，以字符串形式
   return encrypted.ciphertext.toString();
 }
-
 
 //DES  ECB模式解密
 function decryptByDESModeEBC(ciphertext) {
@@ -119,95 +129,111 @@ function getUuid() {
     return v.toString(16);
   });
 }
+
 /**
- *  从网络获取数据
- * @param json 请求参数
- * @param success 成功后的回调g
- * @param fail 失败后的回调
+ * 异步从服务器获取数据。支持GET和POST方法，根据需要自动处理请求头中的sign、timestamp、nonceStr等字段，
+ * 并在必要时自动重新登录。适用于需要token认证的API请求。
+ *
+ * @param {string} path - 服务器API路径，如'/api/user/info'。
+ * @param {Object} params - 请求参数，对于POST方法，将作为请求体发送；对于GET方法，将拼接到URL中。
+ * @param {Function} fail - 失败回调，接收一个错误对象作为参数。
+ * @param {Function} success - 成功回调，接收响应数据对象作为参数。
+ * @param {string} [token=''] - 用户token，若为空且请求路径不属于'common'或'public'模块，将提示用户重新登录。
+ * @param {Function} [complete] - 请求完成回调，无论成功或失败均会被调用，无参数。
+ * @param {string} [method='POST'] - 请求方法，可选'GET'或'POST'，默认为'POST'。
  */
 async function getDataFromServer(path, params, fail, success, token = '', complete, method = 'POST') {
-  // common || public 模块下的不需要 token
+  // 如果没有提供token且请求路径不属于公共模块，则提示用户重新进入小程序并终止请求
   if (!token && !path.includes('common') && !path.includes('public')) {
     showToastNoIcon('获取用户信息失败,请重新进入小程序!');
     return;
   }
+
+  // 将请求方法转为大写
   method = method.toUpperCase();
-  // 对请求路径是否开头带/进行处理
+
+  // 为请求路径添加前缀斜杠（如果缺失）
   path = path.indexOf('/') === 0 ? path : `/${path}`;
-  // 封装请求对象
-  let obj = {
+
+  // 初始化请求对象
+  const requestObj = {
     url: app.globalData.host + path,
     method: method,
     success: (res) => {
-      if (res.data.code === 115 || res.data.code === 117 || res.data.code === 118) { // 在别处登录了 重新自动登录一次
+      // 处理响应数据中的特定错误码，触发重新登录
+      if ([115, 117, 118].includes(res.data.code)) {
         reAutoLogin(path, params, fail, success, token, complete, method);
       } else if (res.data.code === 444) {
-        // 请求已失效
+        // 请求已失效，更新全局时间状态并触发重新登录
         app.globalData.isSystemTime = false;
         app.globalData.systemTime = undefined;
         reAutoLogin(path, params, fail, success, token, complete, method);
       } else {
+        // 调用成功回调并传递响应数据
         success && success(res.data);
       }
     },
     fail: (res) => {
+      // 调用失败回调并传递错误对象
       fail && fail(res);
     },
     complete: (res) => {
+      // 调用完成回调
       complete && complete();
     }
   };
+
+  // 初始化请求头对象
   let header = {};
-  // timestamp 时间戳  nonceStr随机字符串 uuid
-  let timestamp, nonceStr;
-  nonceStr = getUuid();
+
+  // 生成timestamp、nonceStr和uuid
+  const nonceStr = getUuid();
+  let timestamp;
+
+  // 获取并设置timestamp
   if (app.globalData.isSystemTime) {
-    if (app.globalData.systemTime) {
-      timestamp = app.globalData.systemTime
-    } else {
-      timestamp = parseInt(new Date().getTime() / 1000);
-    }
+    timestamp = app.globalData.systemTime || parseInt(new Date().getTime() / 1000);
   } else {
-    await getSystemTime().then(res => {
-      timestamp = res;
-    });
+    timestamp = await getSystemTime();
   }
   if (!timestamp) {
     timestamp = parseInt(new Date().getTime() / 1000);
   }
-  // POST请求
+
+  // 根据请求方法构建请求体和签名
   if (method === 'POST') {
-    // 设置签名
+    // POST请求：设置签名和请求体
     header = {
       sign: getSignature(params, path, token, timestamp, nonceStr),
       timestamp: timestamp,
       nonceStr: nonceStr
     };
-    // 设置请求体
-    obj['data'] = params;
-  } else { // GET请求
-    // 拼接请求路径
-    let url = obj.url + '?';
-    for (let key of Object.keys(params)) {
-      url += `${key}=${params[key]}&`
+    requestObj.data = params;
+  } else {
+    // GET请求：拼接请求URL并设置签名
+    let url = requestObj.url + '?';
+    for (const key of Object.keys(params)) {
+      url += `${key}=${params[key]}&`;
     }
     url = url.substring(0, url.length - 1);
-    obj.url = url;
-    // 设置签名
+    requestObj.url = url;
     header = {
-      sign: getSignature({}, obj.url.replace(app.globalData.host, ''), token, timestamp, nonceStr),
+      sign: getSignature({}, url.replace(app.globalData.host, ''), token, timestamp, nonceStr),
       timestamp: timestamp,
       nonceStr: nonceStr
     };
   }
-  // 设置token
+
+  // 设置token（如有）
   if (token) {
     header.accessToken = token;
   }
-  // 设置请求头
-  obj.header = header;
-  // 执行请求
-  wx.request(obj);
+
+  // 将构建好的请求头添加到请求对象
+  requestObj.header = header;
+
+  // 发起请求
+  wx.request(requestObj);
 }
 
 /**
@@ -377,7 +403,12 @@ function isJsonString(str) {
   return false;
 }
 
-// 弹窗
+/**
+ *  显示一个弹窗，提供用户确认或取消操作。封装了`wx.showModal`方法，并允许自定义弹窗标题、内容、按钮文字、颜色及点击回调。
+ * @param params 请求参数
+ * @param path 路径
+ * @param token token
+ */
 function alert({
   title = '提示',
   content = '描述信息',
@@ -1904,34 +1935,38 @@ let channelNameMap = {
   11: '龙通卡',
 };
 // is9901 查询步骤
+const GET_STEPS_API = 'consumer/etc/qtzl/xz/getSteps';
+const CAR_CHANNEL_REL_API = 'consumer/etc/qtzl/xz/carChannelRel';
+const ERROR_MESSAGE_GET_STEPS_FAILED = '获取步骤信息失败';
+const ERROR_MESSAGE_GET_STEPS_ERROR = '获取步骤信息时发生错误';
+
 async function getSteps_9901(orderInfo) {
-  showLoading('9901查询步骤', orderInfo);
   let params = {
     orderId: orderInfo.id || orderInfo.orderId, // 订单id
     mobile: orderInfo.mobile || orderInfo.cardMobilePhone
   }
-  const result = await getDataFromServersV2('consumer/etc/qtzl/xz/getSteps', params, 'POST', false);
-  if (!result) return;
-  if (result.code === 0) {
-    console.log('获取到应该办理步骤', result.data);
+  try {
+    const result = await getDataFromServersV2(GET_STEPS_API, params, 'POST', false);
+    if (!result) {
+      return showToastNoIcon(ERROR_MESSAGE_GET_STEPS_FAILED);
+    }
     if (result.data.stepNum === 5) {
-      let signChannelId = result.data.signChannelId;
-      // 支付关联渠道
-      const result2 = await getDataFromServersV2('consumer/etc/qtzl/xz/carChannelRel', {
+      const signChannelId = result.data.signChannelId;
+      const result2 = await getDataFromServersV2(CAR_CHANNEL_REL_API, {
         orderId: params.orderId,
         signChannelId: signChannelId
       });
-      console.log('res.referrerInfo.appId ', result2);
-      if (!result2) return;
       if (result2.code === 0) {
         app.globalData.mobile = " ";
         showToastNoIcon('签约已完成');
-        go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
+        setTimeout(() => {
+          go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
+        }, 1000);
       }
     }
     return result.data;
-  } else {
-    showToastNoIcon(result.message);
+  } catch (error) {
+    return showToastNoIcon(ERROR_MESSAGE_GET_STEPS_ERROR,error);
   }
 };
 // 获取平安绑车车牌列表
