@@ -14,13 +14,14 @@ Component({
 		available: false,
 		certification: -1, // 是否实名 1实名 0未实名
 		identifyingCode: '获取验证码',
-		time: 59,// 倒计时
+		time: 59, // 倒计时
 		isGetIdentifyingCoding: false, // 获取验证码中
-		verifyCode: '' // 验证码
+		verifyCode: '', // 验证码
+		showMotal: '-1'
 	},
 	methods: {
 		close (e) {
-			this.hide(e,true);
+			this.hide(e, true);
 		},
 		show () {
 			this.setData({
@@ -28,7 +29,7 @@ Component({
 				wrapper: true
 			});
 		},
-		hide (e,flag) {
+		hide (e, flag) {
 			this.setData({
 				wrapper: false
 			});
@@ -36,7 +37,9 @@ Component({
 				this.setData({
 					mask: false
 				});
-				this.triggerEvent('onClickHandle', {});
+				this.triggerEvent('onClickHandle', {
+					type: '1' // 取消的回调
+				});
 			}, 400);
 		},
 		onInputChangedHandle (e) {
@@ -58,12 +61,15 @@ Component({
 		startTimer () {
 			// 设置状态
 			this.setData({
-				identifyingCode: `${this.data.time}s`
+				identifyingCode: `${this.data.time}s`,
+				verifyCode: '' // 清空验证码
 			});
 			// 清倒计时
 			clearInterval(timer);
 			timer = setInterval(() => {
-				this.setData({time: --this.data.time});
+				this.setData({
+					time: --this.data.time
+				});
 				if (this.data.time === 0) {
 					clearInterval(timer);
 					this.setData({
@@ -95,7 +101,8 @@ Component({
 			util.showLoading({
 				title: '请求中...'
 			});
-			const result = await util.getDataFromServersV2('consumer/etc/qtzl/frontSendMsg', {
+			let url = this.data.details.sendUrl ? this.data.details.sendUrl : 'consumer/etc/qtzl/frontSendMsg'; // 外部是否传入新的发送验证码地址
+			const result = await util.getDataFromServersV2(url, {
 				mobile: this.data.details.cardMobilePhone, // 手机号
 				type: 1 // type 登录类型	1-登录 2-车牌签约绑定 3-售后
 			});
@@ -118,24 +125,82 @@ Component({
 			util.showLoading({
 				title: '请求中...'
 			});
-			const result = await util.getDataFromServersV2('consumer/etc/qtzl/loginSender', {
+			let url = this.data.details.loginUrl ? this.data.details.loginUrl : 'consumer/etc/qtzl/loginSender'; // 外部是否传入新的登录验证码地址
+			const result = await util.getDataFromServersV2(url, {
 				mobile: this.data.details.cardMobilePhone, // 手机号
 				code: this.data.verifyCode,
 				orderId: app.globalData.orderInfo.orderId
 			});
 			if (!result) return;
 			if (result.code === 0) {
-				if (this.data.details.needCallback) {
-					this.hide();
+				if (this.data.details.type === '9901') { // 9901套餐 验证成功
+					console.log('9901套餐 验证成功');
+					setTimeout(() => {
+						this.setData({
+							showMotal: '3'
+						});
+					}, 200);
+					// 成功后立即办理接口 查询
+					// this.goToVerify();
 					return;
 				}
 				util.go(`/pages/historical_pattern/choose_bank_and_bind_veh/choose_bank_and_bind_veh`);
+			} else if (result.code === 104) {
+				// 验证码有误
+				setTimeout(() => {
+					this.setData({
+						showMotal: '2'
+					});
+				}, 200);
+				// util.showToastNoIcon(result.message);
 			} else if (result.code === 105) {
-				this.setData({
-					certification: 0
-				});
+				// this.setData({
+				// 	certification: 0
+				// });
 			} else {
 				util.showToastNoIcon(result.message);
+			}
+		},
+		// 重新输入
+		restInput () {
+			this.setData({
+				showMotal: '-1'
+			});
+		},
+		// 立即办理
+		async goToVerify () {
+			util.showLoading({
+				title: '请求中...'
+			});
+			let url = 'consumer/etc/qtzl/xz/vehPlateIssueVerify'; // 校验接口 是否可以继续办理
+			const result = await util.getDataFromServersV2(url, {
+				orderId: app.globalData.orderInfo.orderId
+			});
+			if (!result) return;
+			if (result) {
+				// 关闭弹框
+				setTimeout(() => {
+					this.setData({
+						wrapper: false
+					});
+					this.setData({
+						mask: false
+					});
+				}, 200);
+			}
+			if (result.code === 0) {
+				setTimeout(() => {
+					this.triggerEvent('onClickHandle', {
+						type: '2' // 发送给父组件 成功的回调
+					});
+				}, 500);
+			} else if (result.code === 104) {
+				setTimeout(() => {
+					this.triggerEvent('onClickHandle', {
+						type: '3', // 发送给父组件 失败的回调
+						content: result.message
+					});
+				}, 500);
 			}
 		}
 	},

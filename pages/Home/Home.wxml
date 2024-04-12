@@ -17,6 +17,7 @@
             </swiper-item>
         </swiper>
     </view>
+    <!-- <view class="module" catchtap="qujihuo">9901</view> -->
     <!-- 办理模块 -->
     <view class="module immediately" wx:if="{{(isShowHandle || userFailBillList.length || !orderInfo) && (passengerCarOrderInfo.selfStatus !== 12 && passengerCarOrderInfo.selfStatus !== 33 && truckOrderInfo.selfStatus !== 12)}}">
         <view class="vehicle-info">
@@ -64,11 +65,13 @@
                         {{truckOrderInfo.selfStatus === 15 ? '请充值' + truckOrderInfo.holdBalance / 100 + '元作为保证金' + '' : ''}}
                         {{truckOrderInfo.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
                         {{truckOrderInfo.selfStatus === 17 ? '请预充' + (truckOrderInfo.prechargeAmount || 0) / 100 + '元否则设备无法通行' + '' : ''}}
+                        {{orderInfo.selfStatus === 35 ? '办理中' : ''}}
                     </view>
                 </view>
             </view>
         </view>
         <view wx:if="{{!userFailBillList.length}}">
+            <!-- {{orderInfo.selfStatus}} -->
             <button wx:if="{{orderInfo.selfStatus !== 12}}" class="btn" data-renew="3" catchtap="renewWhitelistJudgement" animation="{{animationTransaction}}">
                 {{!orderInfo ? '新增办理' : ''}}
                 {{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 22 ? '恢复签约' : ''}}
@@ -85,6 +88,7 @@
                 {{orderInfo.selfStatus === 18 ? '代扣通行费' : ''}}
                 {{orderInfo.selfStatus === 30 ? '权益金退回' : ''}}
                 {{orderInfo.selfStatus === 31 ? '签约激活' : ''}}
+                {{orderInfo.selfStatus === 35 ? '继续办理' : ''}}
             </button>
            <!-- <button wx:if="{{loginInfo.needBindingPhone === 1 && orderInfo.selfStatus !== 12 }}" class="btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber" animation="{{animationTransaction}}">
                {{!orderInfo ? '新增办理' : ''}}

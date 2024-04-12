@@ -5,6 +5,7 @@
   right: 0;
   bottom: 0;
   background: rgba(76,76,76,0.8);
+  z-index: 800;
 }
 .verify_mask .verify_wrapper {
   display: flex;
@@ -12,13 +13,16 @@
   position: absolute;
   left: 56rpx;
   right: 56rpx;
-  top: 50%;
+  top: 45%;
   transform: translate(0, -50%);
   background: #fff;
   border-radius: 16px;
-  z-index: 2;
+  z-index: 26999;
 }
-.verify_mask .verify_wrapper .authentication-title {
+.verify_mask .s9901 {
+  border-radius: 20rpx;
+}
+.verify_mask .s9901 .authentication-title {
   margin-top: 64rpx;
   font-size: 34rpx;
   font-family: PingFangSC-Medium, PingFang SC;
@@ -27,29 +31,40 @@
   line-height: 48rpx;
   text-align: center;
 }
-.verify_mask .verify_wrapper .input-wrapper {
+.verify_mask .s9901 .weight {
+  font-weight: 650;
+}
+.verify_mask .s9901 .input-wrapper {
   padding: 0 32rpx;
 }
-.verify_mask .verify_wrapper .input-wrapper .input-item {
+.verify_mask .s9901 .input-wrapper .centerText {
+  justify-content: center;
+}
+.verify_mask .s9901 .input-wrapper .input-item {
   display: flex;
   padding: 32rpx 0rpx 10rpx;
   font-size: 28rpx;
+  align-items: center;
   border-bottom: 1rpx solid #f4f4f4;
 }
-.verify_mask .verify_wrapper .input-wrapper .input-item:last-of-type {
+.verify_mask .s9901 .input-wrapper .input-item:last-of-type {
   padding-top: 46rpx;
 }
-.verify_mask .verify_wrapper .input-wrapper .input-item > view {
+.verify_mask .s9901 .input-wrapper .input-item > view {
   text-align: left;
   width: 144rpx;
   color: rgba(0,0,0,0.5);
   box-sizing: border-box;
 }
-.verify_mask .verify_wrapper .input-wrapper .input-item > input {
+.verify_mask .s9901 .input-wrapper .input-item > input {
   flex: 1;
   text-align: left;
 }
-.verify_mask .verify_wrapper .input-wrapper .input-item .validate-code {
+.verify_mask .s9901 .input-wrapper .input-item .s9901 {
+  font-weight: 500;
+  color: #000;
+}
+.verify_mask .s9901 .input-wrapper .input-item .validate-code {
   flex: 0 0 216rpx;
   width: 216rpx;
   display: flex;
@@ -60,27 +75,27 @@
   color: #99999d;
   box-sizing: border-box;
 }
-.verify_mask .verify_wrapper .input-wrapper .input-item .validate-code.ok {
+.verify_mask .s9901 .input-wrapper .input-item .validate-code.ok {
   font-weight: 500;
   color: #2fb565;
 }
-.verify_mask .verify_wrapper .input-wrapper .input-item .validate-code.acquisition {
+.verify_mask .s9901 .input-wrapper .input-item .validate-code.acquisition {
   color: #2fb565;
   font-weight: 400 !important;
 }
-.verify_mask .verify_wrapper .code-img {
+.verify_mask .s9901 .code-img {
   width: 314rpx;
   height: 314rpx;
   background: #e7e7e7;
   border-radius: 2rpx;
   margin: 0 auto 64rpx;
 }
-.verify_mask .verify_wrapper .code-img > image {
+.verify_mask .s9901 .code-img > image {
   margin: 42rpx;
   width: 230rpx;
   height: 230rpx;
 }
-.verify_mask .verify_wrapper .authentication-tips {
+.verify_mask .s9901 .authentication-tips {
   text-align: center;
   margin: 32rpx;
   font-size: 28rpx;
@@ -89,13 +104,13 @@
   color: #ffc000;
   line-height: 40rpx;
 }
-.verify_mask .verify_wrapper .verify-button {
+.verify_mask .s9901 .verify-button {
   display: flex;
   justify-content: center;
   text-align: center;
   margin: 46rpx;
 }
-.verify_mask .verify_wrapper .verify-button > button {
+.verify_mask .s9901 .verify-button > button {
   width: 240rpx;
   height: 82rpx;
   text-align: center;
@@ -106,8 +121,11 @@
   border-radius: 8rpx;
   line-height: 82rpx;
   background: #00b85c;
-  opacity: 0.6;
 }
-.verify_mask .verify_wrapper .verify-button > button.available {
+.verify_mask .s9901 .verify-button .buttonBlue {
+  background: #3991dd;
+  border-radius: 40rpx;
+}
+.verify_mask .s9901 .verify-button .buttonBlue.available {
   opacity: 1;
 }

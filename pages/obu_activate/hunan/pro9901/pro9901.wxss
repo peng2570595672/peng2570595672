@@ -1,0 +1,58 @@
+.second-issue-ui > image {
+  margin: 0 auto;
+  display: block;
+  height: 654rpx;
+}
+.second-issue-ui .text-wrapper {
+  margin-top: 50rpx;
+}
+.second-issue-ui .text-wrapper > view {
+  text-align: center;
+  font-size: 28rpx;
+}
+.second-issue-ui .text-wrapper > view.info {
+  color: #333 !important;
+}
+.second-issue-ui .text-wrapper > view.ok {
+  color: #84d157 !important;
+}
+.second-issue-ui .text-wrapper > view:first-of-type {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+.second-issue-ui .text-wrapper > view.sub-title {
+  margin-top: 25rpx;
+}
+.second-issue-ui .text-wrapper > view.sub-title > text.succeed {
+  color: #84d157 !important;
+}
+.second-issue-ui .text-wrapper > view.sub-title > text.failed {
+  color: #fa6c3e;
+}
+.second-issue-ui .text-wrapper > view.msg {
+  margin-top: 6rpx;
+  color: #fa6c3e;
+}
+.second-issue-ui .btns {
+  position: fixed;
+  left: 30rpx;
+  right: 30rpx;
+  bottom: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 98rpx;
+  line-height: 98rpx;
+  color: #fff;
+  font-size: 32rpx;
+  background: linear-gradient(45deg, #14ac69, #84d157);
+  border-radius: 49rpx;
+}
+.second-issue-ui .btns:active {
+  opacity: 0.8;
+}
+.second-issue-ui .btns.not-use,
+.second-issue-ui .btns:active.not-use {
+  opacity: 1;
+  background: #ccc;
+}

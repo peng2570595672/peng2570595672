@@ -2,13 +2,15 @@
  * @author 老刘
  * @desc 信息确认
  */
-import {checkVehicleType} from '../../../utils/utils';
+import {
+	checkVehicleType
+} from '../../../utils/utils';
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
-		topProgressBar: 3,	// 进度条展示的长度 ，再此页面的取值范围 [3,4),默认为3,保留一位小数
-		topProgressBar1: 0,	// 存放上个页面传来进度条长度
+		topProgressBar: 3, // 进度条展示的长度 ，再此页面的取值范围 [3,4),默认为3,保留一位小数
+		topProgressBar1: 0, // 存放上个页面传来进度条长度
 		faceStatus: 1, // 1 未上传   4识别成功
 		backStatus: 1, // 1 未上传  4识别成功
 		personIndex: 0, // 选择框当前选中索引
@@ -23,14 +25,14 @@ Page({
 		vehPlates: undefined, // 邮寄地址提交的车牌号
 		vehColor: undefined, // 邮寄地址提交的车牌颜色
 		available: false, // 按钮是否可点击
-		isRequest: false,// 是否请求中
+		isRequest: false, // 是否请求中
 		oldDrivingLicenseFace: {
 			ocrObject: {}
 		}, // 行驶证正面 原始数据,用于与新数据比对(秒审)
 		oldDrivingLicenseBack: {
 			ocrObject: {}
 		}, // 行驶证反面 原始数据,用于与新数据比对(秒审)
-		tipObj: {// 提示弹窗组件的标题和内容
+		tipObj: { // 提示弹窗组件的标题和内容
 			type: 'two',
 			title: '提示',
 			content: '若此时返回上级页面则已上传图片将清空，请确认是否返回！'
@@ -41,19 +43,20 @@ Page({
 		position: 'center',
 		round: false,
 		overlay: true,
-		isOut: false,	// 用于控制子容器离开前的判断
+		isOut: false, // 用于控制子容器离开前的判断
 		isInput: false,
 		customStyle: 'overflow-y:auto !important;z-index:-1;',
 		overlayStyle: 'z-index:-2;',
 		// ----end-----
-		baseInfo: {}	// 订单的基础信息
+		baseInfo: {} // 订单的基础信息
 	},
 	async onLoad (options) {
 		this.setData({
 			vehColor: options.vehColor,
 			vehPlates: options.vehPlates,
 			topProgressBar: parseFloat(options.topProgressBar),
-			topProgressBar1: parseFloat(options.topProgressBar)
+			topProgressBar1: parseFloat(options.topProgressBar),
+			is9901: options.pro9901
 		});
 		await this.getOrderInfo();
 		// 查询是否欠款
@@ -253,10 +256,18 @@ Page({
 		let faceValue;
 		let oldFaceValue;
 		let haveChange = true;
-		for (let key in back) { backValue += back[key]; }
-		for (let key in oldBack) { oldBackValue += oldBack[key]; }
-		for (let key in face) { faceValue += face[key]; }
-		for (let key in oldFace) { oldFaceValue += oldFace[key]; }
+		for (let key in back) {
+			backValue += back[key];
+		}
+		for (let key in oldBack) {
+			oldBackValue += oldBack[key];
+		}
+		for (let key in face) {
+			faceValue += face[key];
+		}
+		for (let key in oldFace) {
+			oldFaceValue += oldFace[key];
+		}
 		if (backValue === oldBackValue && faceValue === oldFaceValue) {
 			haveChange = false;
 		}
@@ -268,7 +279,7 @@ Page({
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: '6',
-			changeAuditStatus: 0,// 修改不计入待审核
+			changeAuditStatus: 0, // 修改不计入待审核
 			vehicleInfo: {
 				carType: 1,
 				vehPlates: face.numberPlates,
@@ -294,7 +305,7 @@ Page({
 				size: back.size, // 外廓尺寸 【dataType包含6】
 				tractionMass: this.determineTheWeight(back.tractionMass), // 准牵引总质量 【dataType包含6】
 				recode: back.recode, // 检验记录 【dataType包含6】
-				remark: back.remark	// 备注
+				remark: back.remark // 备注
 			}
 
 		};
@@ -305,19 +316,46 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			this.setData({
-				isOut: true
-			});
-			setTimeout(() => {
-				const pages = getCurrentPages();
-				const prevPage = pages[pages.length - 2];// 上一个页面
-				prevPage.setData({
-					isChangeDrivingLicenseError: true // 重置状态
+			// 9901 套餐上传行驶证
+			const orderId = result.data.orderId;
+			if (this.data.is9901) {
+				const result2 = await util.getDataFromServersV2('consumer/etc/qtzl/xz/drivingLicenseAuth', {
+					orderId
 				});
-				wx.navigateBack({
-					delta: 1
+				if (!result2) return;
+				if (result2.code === 0) {
+					console.log('行驶证验证成功');
+					this.setData({
+						isOut: true
+					});
+					setTimeout(() => {
+						const pages = getCurrentPages();
+						const prevPage = pages[pages.length - 2]; // 上一个页面
+						prevPage.setData({
+							isChangeDrivingLicenseError: true // 重置状态
+						});
+						wx.navigateBack({
+							delta: 1
+						});
+					}, 100);
+				} else {
+					util.showToastNoIcon(result2.message);
+				}
+			} else {
+				this.setData({
+					isOut: true
 				});
-			}, 100);
+				setTimeout(() => {
+					const pages = getCurrentPages();
+					const prevPage = pages[pages.length - 2]; // 上一个页面
+					prevPage.setData({
+						isChangeDrivingLicenseError: true // 重置状态
+					});
+					wx.navigateBack({
+						delta: 1
+					});
+				}, 100);
+			}
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -440,7 +478,7 @@ Page({
 					wx.removeStorageSync('passenger-car-driving-license-face');
 					wx.removeStorageSync('passenger-car-driving-license-back');
 					const pages = getCurrentPages();
-					const prevPage = pages[pages.length - 2];// 上一个页面
+					const prevPage = pages[pages.length - 2]; // 上一个页面
 					prevPage.setData({
 						isChangeDrivingLicenseError: false // 重置状态
 					});
@@ -448,12 +486,11 @@ Page({
 						delta: 1
 					});
 				},
-				cancel: () => {
-				}
+				cancel: () => {}
 			});
 		} else {
 			const pages = getCurrentPages();
-			const prevPage = pages[pages.length - 2];// 上一个页面
+			const prevPage = pages[pages.length - 2]; // 上一个页面
 			prevPage.setData({
 				isChangeDrivingLicenseError: true // 重置状态
 			});

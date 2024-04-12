@@ -8,7 +8,8 @@ Page({
 
     onLoad (options) {
         this.setData({
-            orderId: options.orderId
+            orderId: options.orderId,
+            is9901: options.pro9901
         });
     },
 
@@ -23,6 +24,5 @@ Page({
         wx.switchTab({
             url: '/pages/Home/Home'
         });
-	}
-
+    }
 });
