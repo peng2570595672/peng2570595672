@@ -429,7 +429,8 @@ Page({
 	},
 	// 确认收货去激活
 	async onClickCctivate () {
-		if (this.data.info.orderType === 81) {
+		// flowVersion: 流程版本，1-老版，2-新版（总对总）,3-选装 4-预充值 5-保证金模式 6-圈存 7-交行货车二类户 8-9901选装
+		if (this.data.info.flowVersion === 1 || this.data.info.flowVersion === 5) {
 			const result = await util.getDataFromServersV2('consumer/order/query-contract', { // 查询车主服务签约
 				orderId: this.data.orderId
 			});

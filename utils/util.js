@@ -1577,6 +1577,7 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
             reAutoLoginV2(path, params, method);
             return;
           }
+          console.log(path + ';' + res.data.message)
           // console.log(res.data);
           resolve(res.data)
         } else {

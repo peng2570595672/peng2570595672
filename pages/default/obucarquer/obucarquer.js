@@ -18,6 +18,7 @@ Page({
 		}
 	},
 	onShow () {
+		if (!app.globalData.orderInfo.orderId) return;
 		const pages = getCurrentPages();
 		const currPage = pages[pages.length - 1];
 		console.log(currPage.__data__);
@@ -29,19 +30,23 @@ Page({
 		}
 	},
 	async handleGetSignInfo () {
+		util.showLoading('签约查询中');
 		const result = await util.getDataFromServersV2('consumer/etc/qtzl/xz/getSignedChannelList', {
 			orderId: app.globalData.orderInfo.orderId
 		});
 		if (result.code) {
+			util.hideLoading();
 			util.showToastNoIcon(result.message);
 			return;
 		}
 		if (!result.data.list?.length) {
+			util.hideLoading();
 			util.showToastNoIcon('获取已签约渠道列表返回为空');
 			return;
 		}
 		const index = result.data.list.findIndex(item => item.signChannelId === this.data.signUrl);
 		if (index === -1) {
+			util.hideLoading();
 			util.showToastNoIcon('获取已签约渠道列表返回为空!');
 			return;
 		}
@@ -54,12 +59,12 @@ Page({
 			orderId: obj.orderId,
 			signChannelId: this.data.signUrl
 		});
-		if (!result2) return;
+		util.hideLoading();
 		if (result2.code === 0) {
 			app.globalData.mobile = '';
 			app.globalData.signAContract = 3;
 			util.showToastNoIcon('签约已完成');
-			util.go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
+			util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
 		} else {
 			util.showToastNoIcon(result2.message);
 		}
