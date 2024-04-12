@@ -641,11 +641,6 @@ Page({
 	},
 	goInstallationTutorial () {
 		let channel = this.data.info?.obuCardType;
-		if (channel === 1 && this.data.info?.flowVersion === 8) { // 黔通卡 9901套餐
-			util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${this.data.info.auditStatus}`);
-			console.log('黔通卡 9901套餐');
-			return;
-		}
 		switch (channel) {
 			case 1: // 贵州 黔通卡
 				util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${this.data.info.auditStatus}`);
