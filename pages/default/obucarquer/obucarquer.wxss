@@ -42,24 +42,32 @@
   border-radius: 8rpx;
   background: #f6f6f6;
   margin: 20rpx 0;
+  justify-content: space-between;
+}
+.page .container .input .cpuId input {
+  width: 80%;
 }
 .page .container .input .cpuId .image-icon {
-  margin-left: 240rpx;
+  margin-right: 20rpx;
   width: 50rpx;
   height: 50rpx;
 }
 .page .container .input .obuId {
   display: flex;
   align-items: center;
-  padding-left: 30rpx;
   width: 611rpx;
+  padding-left: 30rpx;
   height: 88rpx;
   border-radius: 8rpx;
   background: #f6f6f6;
+  justify-content: space-between;
   margin-top: 30rpx;
 }
+.page .container .input .obuId input {
+  width: 80%;
+}
 .page .container .input .obuId .image-icon {
-  margin-left: 240rpx;
+  margin-right: 20rpx;
   width: 50rpx;
   height: 50rpx;
 }
@@ -76,13 +84,17 @@
   border-radius: 49rpx;
 }
 .page .btn.available {
-  animation: 0.3s;
+  -webkit-animation: 0.3s;
+          animation: 0.3s;
   background: #2a4f44;
-  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
 }
 .page .btn.unavailable {
-  animation: 0.3s;
+  -webkit-animation: 0.3s;
+          animation: 0.3s;
   background: #c0c0c0;
   box-shadow: 0px 2px 1px 0px rgba(212,212,212,0);
-  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
 }
