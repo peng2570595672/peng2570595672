@@ -182,14 +182,11 @@ async function getDataFromServer(path, params, fail, success, token = '', comple
       complete && complete();
     }
   };
-
   // 初始化请求头对象
   let header = {};
-
   // 生成timestamp、nonceStr和uuid
   const nonceStr = getUuid();
   let timestamp;
-
   // 获取并设置timestamp
   if (app.globalData.isSystemTime) {
     timestamp = app.globalData.systemTime || parseInt(new Date().getTime() / 1000);
@@ -199,7 +196,6 @@ async function getDataFromServer(path, params, fail, success, token = '', comple
   if (!timestamp) {
     timestamp = parseInt(new Date().getTime() / 1000);
   }
-
   // 根据请求方法构建请求体和签名
   if (method === 'POST') {
     // POST请求：设置签名和请求体
@@ -208,11 +204,11 @@ async function getDataFromServer(path, params, fail, success, token = '', comple
       timestamp: timestamp,
       nonceStr: nonceStr
     };
-    requestObj.data = params;
+    requestObj['data'] = params;
   } else {
     // GET请求：拼接请求URL并设置签名
     let url = requestObj.url + '?';
-    for (const key of Object.keys(params)) {
+    for (let key of Object.keys(params)) {
       url += `${key}=${params[key]}&`;
     }
     url = url.substring(0, url.length - 1);
@@ -223,15 +219,12 @@ async function getDataFromServer(path, params, fail, success, token = '', comple
       nonceStr: nonceStr
     };
   }
-
   // 设置token（如有）
   if (token) {
     header.accessToken = token;
   }
-
   // 将构建好的请求头添加到请求对象
   requestObj.header = header;
-
   // 发起请求
   wx.request(requestObj);
 }
@@ -1937,7 +1930,6 @@ let channelNameMap = {
 // is9901 查询步骤
 const GET_STEPS_API = 'consumer/etc/qtzl/xz/getSteps';
 const CAR_CHANNEL_REL_API = 'consumer/etc/qtzl/xz/carChannelRel';
-const ERROR_MESSAGE_GET_STEPS_FAILED = '获取步骤信息失败';
 const ERROR_MESSAGE_GET_STEPS_ERROR = '获取步骤信息时发生错误';
 
 async function getSteps_9901(orderInfo) {
@@ -1947,9 +1939,6 @@ async function getSteps_9901(orderInfo) {
   }
   try {
     const result = await getDataFromServersV2(GET_STEPS_API, params, 'POST', false);
-    if (!result) {
-      return showToastNoIcon(ERROR_MESSAGE_GET_STEPS_FAILED);
-    }
     if (result.data.stepNum === 5) {
       const signChannelId = result.data.signChannelId;
       const result2 = await getDataFromServersV2(CAR_CHANNEL_REL_API, {
@@ -1966,7 +1955,7 @@ async function getSteps_9901(orderInfo) {
     }
     return result.data;
   } catch (error) {
-    return showToastNoIcon(ERROR_MESSAGE_GET_STEPS_ERROR,error);
+    return showToastNoIcon(ERROR_MESSAGE_GET_STEPS_ERROR, error);
   }
 };
 // 获取平安绑车车牌列表
