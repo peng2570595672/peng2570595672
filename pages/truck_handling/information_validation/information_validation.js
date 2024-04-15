@@ -474,11 +474,11 @@ Page({
 			available: false
 		});
 		wx.uma.trackEvent('truck_information_validation_next');
-		if (this.checkVinInfo.cllx === '专用车' || this.checkVinInfo.cllx === '半挂牵引车' || this.checkVinInfo.cllx === '半挂车') {
+		const checkVinInfo = this.data.checkVinInfo;
+		if (checkVinInfo.cllx === '专用车' || checkVinInfo.cllx === '半挂牵引车' || checkVinInfo.cllx === '半挂车') {
 			// 是否需要上传道路运输证
 			this.setData({isTraction: 1});
 		}
-		const checkVinInfo = this.data.checkVinInfo;
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: '6',
