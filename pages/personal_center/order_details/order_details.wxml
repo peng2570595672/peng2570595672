@@ -126,7 +126,7 @@
                 <view>已扣金额</view>
                 <view>{{tools.parseNum((details.splitDeductedMoney + details.deductServiceMoney)/100)}}</view>
             </view>
-            <view class="subModle borderBottom">
+            <view class="subModle borderBottom" wx:if="{{details.totalMmout + details.serviceMoney - details.splitDeductedMoney - details.deductServiceMoney !== 0}}">
                 <view>待扣金额</view>
                 <view class="iconfont lateFees" catchtap="lateFees" data-flag="1">{{tools.parseNum((details.totalMmout + details.serviceMoney - details.splitDeductedMoney - details.deductServiceMoney)/100)}}</view>
             </view>
