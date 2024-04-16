@@ -746,39 +746,37 @@ Page({
 	onClickChooseLocationHandle () {
 		// 统计点击事件;
     wx.uma.trackEvent('receiving_select_the_address');
-    // wx.getLocation({
-    //   type: 'wgs84',//wgs84 返回 gps 坐标，
-    //   success:  (res) => {
-    //     console.log(res.latitude, res.longitude,'经纬度坐标。');
-
-    //   },
-    //   fail: (res) => {
-    //     console.log('无法获取经纬度坐标。');
-    //     }
-
-    // });
+    wx.getLocation({
+      type: 'wgs84',// wgs84 返回 gps 坐标，
+      success: (res) => {
+        console.log(res.latitude, res.longitude,'经纬度坐标。');
+      },
+      fail: (res) => {
+        console.log('无法获取经纬度坐标。');
+        }
+    });
 		wx.chooseLocation({
 			success: (res) => {
 				let address = res.address;
         let name = res.name;
         console.log('address',address);
-				// if (address) {
-				// 	// 根据地理位置信息获取经纬度
-				// 	util.getInfoByAddress(address, (res) => {
-				// 		let result = res.result;
-				// 		if (result) {
-				// 			let location = result.location;
-				// 			name = result.title + name;
-				// 			// 根据经纬度信息 反查详细地址信息
-				// 			this.getAddressInfo(location, name);
-				// 			this.setData({
-				// 				available: this.validateAvailable(true)
-				// 			});
-				// 		}
-				// 	}, () => {
-				// 		util.showToastNoIcon('获取地理位置信息失败！');
-				// 	});
-				// }
+				if (address) {
+					// 根据地理位置信息获取经纬度
+					util.getInfoByAddress(address, (res) => {
+						let result = res.result;
+						if (result) {
+							let location = result.location;
+							name = result.title + name;
+							// 根据经纬度信息 反查详细地址信息
+							this.getAddressInfo(location, name);
+							this.setData({
+								available: this.validateAvailable(true)
+							});
+						}
+					}, () => {
+						util.showToastNoIcon('获取地理位置信息失败！');
+					});
+				}
 			},
 			fail: (e) => {
 				// 选择地址未允许授权

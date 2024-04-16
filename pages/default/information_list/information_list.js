@@ -2,7 +2,7 @@
  * @author 老刘
  * @desc 信息确认
  */
-import {handleJumpHunanMini} from '../../../utils/utils.js';
+import { handleJumpHunanMini } from '../../../utils/utils.js';
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
@@ -14,6 +14,8 @@ Page({
         orderDetails: undefined,
         vehicleInfo: undefined,
         isRequest: false,
+        showSubmit_9901: false,
+        stepNum: false,
         available: false,
         isIdCardError: false, // 是否身份证错误
         isDrivingLicenseError: false, // 是否行驶证错误
@@ -42,6 +44,14 @@ Page({
         }
         if (options.source) {
             wx.hideHomeButton();
+        }
+        // 空发平安激活 是否补充信息激活
+        if (options.orderId && options.vehPlates) {
+            this.setData({
+                vehPlates: options.vehPlates,
+                orderId: options.orderId
+            });
+            app.globalData.orderInfo.orderId = this.data.orderId;
         }
         // 查询是否欠款
         await util.getIsArrearage();
@@ -120,6 +130,7 @@ Page({
             let vehPlates = res.vehPlates;
             let vehicle = result.data.vehicle;
             let ownerIdCard = result.data.ownerIdCard;
+            let mobile = ownerIdCard.cardMobilePhone;
             if (this.data.isModifiedData && res.orderAudit?.errNums?.length && this.data.requestNum === 0) {
                 // errNums
                 this.getErrorStatus(res.orderAudit);
@@ -134,9 +145,24 @@ Page({
                 orderDetails: res,
                 vehicleInfo: res.vehPlates,
                 vehPlates: vehPlates,
+                mobile,
                 tips: res.orderAudit ? res.orderAudit.remark : '',
                 topProgressBar: orderInfo.isOwner && orderInfo.isVehicle ? 4 : orderInfo.isOwner || orderInfo.isVehicle ? 3.3 : 3
             });
+            console.log('mobile', this.data.mobile);
+            if (this.data.orderInfo.flowVersion === 8) { // 9901
+                let obj = {
+                    mobile: this.data.mobile,
+                    orderId: app.globalData.orderInfo.orderId
+                };
+                const data = await util.getSteps_9901(obj);
+                if (data) {
+                    this.setData({
+                        showSubmit_9901: true,// 9901显示为提交
+                        stepNum: data.stepNum
+                    });
+                }
+            }
             // 中信银行
             if (app.globalData.cictBankObj.citicBankshopProductIds.includes(orderInfo.shopProductId)) {
                 this.setData({
@@ -189,7 +215,7 @@ Page({
         // if (this.data.orderInfo && this.data.orderInfo.isOwner === 1 && this.data.orderInfo.isVehicle === 1 && this.data.ownerIdCard?.ownerIdCardTrueName !== this.data.vehicle?.owner) {
         // 	util.showToastNoIcon('身份证与行驶证必须为同一持有人');
         // 	this.setData({
-        // 		available: false
+        //     available: false
         // 	});
         // 	return false;
         // }
@@ -200,6 +226,17 @@ Page({
         }
         if (this.data.isModifiedData) {
             if (this.data.isIdCardError || this.data.isDrivingLicenseError || this.data.isHeadstockError || this.data.requestNum === 0) {
+                this.setData({
+                    available: false
+                });
+            } else {
+                this.setData({
+                    available: true
+                });
+            }
+        }
+        if (this.data.orderInfo.flowVersion === 8) {
+            if (this.data.stepNum === 3 || this.data.stepNum === 2) { // 有一个证件待修改 都无法提交
                 this.setData({
                     available: false
                 });
@@ -221,10 +258,10 @@ Page({
         if (url === 'upload_id_card' && isXinKe && this.data.orderInfo.isVehicle !== 1) { // 湖南信科
             return util.showToastNoIcon('请先上传行驶证');
         }
-        if (url === 'information_validation' && !this.data.orderInfo.isOwner && !isXinKe) {
+        if (url === 'information_validation' && (!this.data.orderInfo.isOwner || (this.data.orderInfo.flowVersion === 8 && this.data.stepNum === 2)) && !isXinKe) {
             return util.showToastNoIcon('请先上传身份证');
         }
-        util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}&obuCardType=${this.data.orderInfo.obuCardType}&isXinKe=${isXinKe}`);
+        util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}&obuCardType=${this.data.orderInfo.obuCardType}&isXinKe=${isXinKe}&pro9901=${this.data.orderInfo.flowVersion === 8 ? true : ''}`);
     },
     // ETC申办审核结果通知、ETC发货提示、ETC服务状态提醒
     async subscribe () {
@@ -232,7 +269,12 @@ Page({
         // 	util.showToastNoIcon('身份证与行驶证必须为同一持有人');
         // 	return;
         // }
+
         if (!this.data.available) return;
+        if (this.data.orderInfo.flowVersion === 8) {
+            this.handleSaveOrder();
+            return;
+        }
         // 判断版本，兼容处理
         let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
         if (result >= 0) {
@@ -261,7 +303,7 @@ Page({
                                 confirmText: '授权',
                                 confirm: () => {
                                     wx.openSetting({
-                                        success: (res) => {},
+                                        success: (res) => { },
                                         fail: () => {
                                             util.showToastNoIcon('打开设置界面失败，请重试！');
                                         }
@@ -288,7 +330,7 @@ Page({
                             confirmText: '打开设置',
                             confirm: () => {
                                 wx.openSetting({
-                                    success: (res) => {},
+                                    success: (res) => { },
                                     fail: () => {
                                         util.showToastNoIcon('打开设置界面失败，请重试！');
                                     }
@@ -311,6 +353,21 @@ Page({
                     this.onclickSign();
                 }
             });
+        }
+    },
+    async handleSaveOrder () {
+        let params = {
+            dataComplete: 1, // 资料已完善
+            clientOpenid: app.globalData.userInfo.openId,
+            clientMobilePhone: app.globalData.userInfo.mobilePhone,
+            orderId: app.globalData.orderInfo.orderId, // 订单id
+            changeAuditStatus: true
+        };
+        const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+        if (result.code === 0) {
+            this.skipTips();
+        } else {
+            util.showToastNoIcon(result.message);
         }
     },
     // 微信签约
@@ -337,7 +394,6 @@ Page({
             delete params.clientMobilePhone;
             delete params.clientOpenid;
         }
-
         const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
         this.setData({
             isRequest: false
@@ -358,8 +414,7 @@ Page({
                 util.go(`/pages/historical_pattern/order_audit/order_audit`);
                 return;
             }
-            if (this.data.contractStatus === 1 || this.data.isModifiedData) {
-                //  已签约  或者 修改资料
+            if (this.data.contractStatus === 1 || this.data.isModifiedData || this.data.orderInfo.flowVersion === 8) {
                 util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
                 return;
             }
@@ -378,12 +433,12 @@ Page({
     },
     // 湖南信科 跳转信科小程序去签约
     async submitIsXinKe () {
-        const result = await util.getDataFromServersV2('consumer/order/order-pay-transaction-info', {orderId: app.globalData.orderInfo.orderId});
-		if (result.code) {
-			util.showToastNoIcon(result.message);
-			return;
-		}
-		handleJumpHunanMini(app.globalData.orderInfo.orderId, result.data.outTradeNo);
+        const result = await util.getDataFromServersV2('consumer/order/order-pay-transaction-info', { orderId: app.globalData.orderInfo.orderId });
+        if (result.code) {
+            util.showToastNoIcon(result.message);
+            return;
+        }
+        handleJumpHunanMini(app.globalData.orderInfo.orderId, result.data.outTradeNo);
     },
     skip () {
         let that = this;
@@ -439,7 +494,7 @@ Page({
                     appId: 'wx8212297b23aff0ff',
                     path: `pages/home/sc-ws/sc-ws?params=${'https://' + encodeURIComponent(res.data.applyUrl.slice(8))}`,
                     envVersion: 'release',
-                    success () {},
+                    success () { },
                     fail () {
                         // 拉起小程序失败
                         util.showToastNoIcon('拉起小程序失败, 请重试！');

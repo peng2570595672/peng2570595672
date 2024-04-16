@@ -1,0 +1,6 @@
+<view class="index">
+    <image src="/pages/separate_interest_package/assets/buy_success.png" mode="widthFix"/>
+    <view class="sign">签约成功</view>
+    <view class="btn" catchtap="next">查看ETC办理进度</view>
+</view>
+<privacy_popup></privacy_popup>

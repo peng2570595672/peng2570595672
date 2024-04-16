@@ -8,8 +8,8 @@ const app = getApp();
 let timer;
 Page({
 	data: {
-		topProgressBar: 3,	// 进度条展示的长度 ，再此页面的取值范围 [3,4),默认为3,保留一位小数
-		topProgressBar1: 0,	// 存放上个页面传来进度条长度
+		topProgressBar: 3, // 进度条展示的长度 ，再此页面的取值范围 [3,4),默认为3,保留一位小数
+		topProgressBar1: 0, // 存放上个页面传来进度条长度
 		vehPlates: undefined,
 		faceStatus: 1, // 1 未上传  4识别成功
 		backStatus: 1, // 1 未上传  4识别成功
@@ -24,7 +24,7 @@ Page({
 		oldIdNumberNot: undefined,// 非车主的原始身份证
 		idCardFace: {
 			ocrObject: {}
-		},// 身份证正面
+		}, // 身份证正面
 		idCardBack: {
 			ocrObject: {}
 		},// 身份证反面
@@ -52,7 +52,8 @@ Page({
 			obuCardType: +options.obuCardType,
 			isXinKe: JSON.parse(options?.isXinKe),
 			topProgressBar: parseFloat(options.topProgressBar),
-			topProgressBar1: parseFloat(options.topProgressBar)
+			topProgressBar1: parseFloat(options.topProgressBar),
+			is9901: options.pro9901 // 9901 套餐标识
 		});
 		await this.getOrderInfo();
 		// 查询是否欠款
@@ -60,13 +61,42 @@ Page({
 	},
 	onShow () {
 		this.setData({
-			checkKeyWord: [
-				{key: 'name', show: false, isFace: true, label: '姓名'},
-				{key: 'sex', show: false, isFace: true, label: '性别'},
-				{key: 'birth', show: false, isFace: true, label: '出生日期'},
-				{key: 'address', show: false, isFace: true, label: '地址'},
-				{key: 'authority', show: false, isFace: false, label: '签发机关'},
-				{key: 'validDate', show: false, isFace: false, label: '有效期限'}
+			checkKeyWord: [{
+				key: 'name',
+				show: false,
+				isFace: true,
+				label: '姓名'
+			},
+			{
+				key: 'sex',
+				show: false,
+				isFace: true,
+				label: '性别'
+			},
+			{
+				key: 'birth',
+				show: false,
+				isFace: true,
+				label: '出生日期'
+			},
+			{
+				key: 'address',
+				show: false,
+				isFace: true,
+				label: '地址'
+			},
+			{
+				key: 'authority',
+				show: false,
+				isFace: false,
+				label: '签发机关'
+			},
+			{
+				key: 'validDate',
+				show: false,
+				isFace: false,
+				label: '有效期限'
+			}
 			]
 		});
 		let idCardFace = wx.getStorageSync('passenger-car-id-card-face');
@@ -80,7 +110,7 @@ Page({
 			});
 			this.initIsShowInput(idCardFace.ocrObject);
 			this.setData({
-				available: this.validateData(false,1)
+				available: this.validateData(false, 1)
 			});
 		}
 		let idCardBack = wx.getStorageSync('passenger-car-id-card-back');
@@ -92,7 +122,7 @@ Page({
 			});
 			this.initIsShowInput(idCardBack.ocrObject);
 			this.setData({
-				available: this.validateData(false,1)
+				available: this.validateData(false, 1)
 			});
 		}
 		if (this.data.isXinKe) {
@@ -126,7 +156,7 @@ Page({
 	validDatePickerChange (e) {
 		this.data.idCardBack.ocrObject.validDate = e.detail.value;
 		this.setData({
-			available: this.validateData(false,1)
+			available: this.validateData(false, 1)
 		});
 	},
 	// 获取订单信息
@@ -144,8 +174,12 @@ Page({
 			// 获取实名信息
 			let temp = this.data.orderInfo?.ownerIdCard;
 			if (temp?.ownerIdCardTrueName) {
-				let idCardBack = {ocrObject: {}};
-				let idCardFace = {ocrObject: {}};
+				let idCardBack = {
+					ocrObject: {}
+				};
+				let idCardFace = {
+					ocrObject: {}
+				};
 				idCardFace.fileUrl = temp.ownerIdCardPositiveUrl;
 				idCardFace.ocrObject.name = temp.ownerIdCardTrueName;
 				idCardFace.ocrObject.idNumber = temp.ownerIdCardNumber;
@@ -169,7 +203,7 @@ Page({
 					faceStatus: 4
 				});
 				this.setData({
-					available: this.validateData(false,1)
+					available: this.validateData(false, 1)
 				});
 				wx.setStorageSync('passenger-car-id-card-back', JSON.stringify(idCardBack));
 				wx.setStorageSync('passenger-car-id-card-face', JSON.stringify(idCardFace));
@@ -180,7 +214,7 @@ Page({
 		}
 	},
 	// 校验数据
-	validateData (isToast,type) {
+	validateData (isToast, type) {
 		// 车主身份信息
 		if ((type === 1) && (this.data.faceStatus !== 4 || this.data.backStatus !== 4)) {
 			if (isToast) util.showToastNoIcon('请上传身份证！');
@@ -245,10 +279,10 @@ Page({
 	},
 	// 下一步
 	async next () {
-		if (!this.validateData(true,1)) {
+		if (!this.validateData(true, 1)) {
 			return;
 		}
-		if (this.data.isXinKe && this.data.switch1Checked && !this.validateData(true,2)) { // 信科办理人身份校验
+		if (this.data.isXinKe && this.data.switch1Checked && !this.validateData(true, 2)) { // 信科办理人身份校验
 			return;
 		}
 		if (this.data.isRequest) {
@@ -308,17 +342,45 @@ Page({
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			if (this.data.obuCardType === 1) {
-				this.userCarCheck(result.data);
+			// 9901 套餐上传身份证件后开户
+			const orderId = result.data.orderId;
+			console.log('9901 套餐上传身份证件后开户', this.data.is9901);
+			if (this.data.is9901) {
+				const result = await util.getDataFromServersV2('consumer/etc/qtzl/xz/openAccountPersonal', {
+					orderId
+				});
+				if (!result) return;
+				if (result.code === 0) {
+					console.log('开户成功');
+					const pages = getCurrentPages();
+					const prevPage = pages[pages.length - 2]; // 上一个页面
+					prevPage.setData({
+						isChangeIdCard: true // 重置状态
+					});
+					wx.navigateBack({
+						delta: 1
+					});
+				} else {
+					util.alert({
+						title: '',
+						content: result.message,
+						showCancel: false,
+						confirmText: '确定'
+					});
+				}
 			} else {
-				const pages = getCurrentPages();
-				const prevPage = pages[pages.length - 2];// 上一个页面
-				prevPage.setData({
-					isChangeIdCard: true // 重置状态
-				});
-				wx.navigateBack({
-					delta: 1
-				});
+				if (this.data.obuCardType === 2) {
+					this.userCarCheck(result.data);
+				} else {
+					const pages = getCurrentPages();
+					const prevPage = pages[pages.length - 2]; // 上一个页面
+					prevPage.setData({
+						isChangeIdCard: true // 重置状态
+					});
+					wx.navigateBack({
+						delta: 1
+					});
+				}
 			}
 		} else {
 			util.showToastNoIcon(result.message);
@@ -359,9 +421,9 @@ Page({
 			idCardFaceNot,
 			idCardBackNot
 		});
-		this.fangDou('',2000,flag);
+		this.fangDou('', 2000, flag);
 	},
-	fangDou (fn, time,flag) {
+	fangDou (fn, time, flag) {
 		let that = this;
 		return (function () {
 			if (that.data.timeout) {
@@ -369,7 +431,7 @@ Page({
 			}
 			that.data.timeout = setTimeout(() => {
 				that.setData({
-					available: flag === 1 ? that.validateData(false,2) : that.validateData(false,1)
+					available: flag === 1 ? that.validateData(false, 2) : that.validateData(false, 1)
 				});
 			}, time);
 		})();
@@ -389,7 +451,7 @@ Page({
 					if (result.data.info) {
 						let index = result.data.info.indexOf('【');
 						let lastIndex = result.data.info.lastIndexOf('】');
-						info = result.data.info.slice(index + 1,lastIndex);
+						info = result.data.info.slice(index + 1, lastIndex);
 					}
 					let content = info || result.data.rmsg;
 					if (content === '操作成功' && result.data?.data?.message) {
@@ -415,7 +477,7 @@ Page({
 				return;
 			}
 			const pages = getCurrentPages();
-			const prevPage = pages[pages.length - 2];// 上一个页面
+			const prevPage = pages[pages.length - 2]; // 上一个页面
 			prevPage.setData({
 				isChangeIdCard: true // 重置状态
 			});
@@ -443,8 +505,8 @@ Page({
 			});
 			wx.removeStorageSync('passenger-car-id-card-face');
 			wx.removeStorageSync('passenger-car-id-card-back');
-			wx.setStorageSync('passenger-car-id-card-face-not',idCardFace);		// 把车主身份证缓存的信息存入办理人身份证信息里
-			wx.setStorageSync('passenger-car-id-card-back-not',idCardBack);		// 把车主身份证缓存的信息存入办理人身份证信息里
+			wx.setStorageSync('passenger-car-id-card-face-not', idCardFace);		// 把车主身份证缓存的信息存入办理人身份证信息里
+			wx.setStorageSync('passenger-car-id-card-back-not', idCardBack);		// 把车主身份证缓存的信息存入办理人身份证信息里
 			this.notCar();
 		}
 
@@ -467,7 +529,7 @@ Page({
 			});
 			this.initIsShowInput(idCardFaceNot.ocrObject);
 			this.setData({
-				available: this.validateData(false,2)
+				available: this.validateData(false, 2)
 			});
 		}
 		let idCardBackNot = wx.getStorageSync('passenger-car-id-card-back-not');
@@ -479,7 +541,7 @@ Page({
 			});
 			this.initIsShowInput(idCardBackNot.ocrObject);
 			this.setData({
-				available: this.validateData(false,2)
+				available: this.validateData(false, 2)
 			});
 		}
 	},

@@ -1,4 +1,6 @@
-import {jumpCouponMini} from '../../../utils/utils';
+import {
+	jumpCouponMini
+} from '../../../utils/utils';
 
 /**
  * @author 狂奔的蜗牛
@@ -19,20 +21,20 @@ Page({
 		showDetailWrapper: false,
 		showDetailMask: false,
 		memberId: '',
-		rechargeId: '',// 预充保证金id
-		requestNum: 0,// 请求次数
+		rechargeId: '', // 预充保证金id
+		requestNum: 0, // 请求次数
 		weiBaoOrderId: '',
 		isSalesmanPrecharge: false,
 		showCouponWrapper: false,
 		showCouponMask: false,
-		prechargeInfo: '',// 预充流程,预充信息
+		prechargeInfo: '', // 预充流程,预充信息
 		disclaimerDesc: app.globalData.disclaimerDesc,
-		citicBankshopProductIds: app.globalData.cictBankObj.citicBankshopProductIds,	// 信用卡套餐集合
-		cictBail: false,	// 中信保证金
+		citicBankshopProductIds: app.globalData.cictBankObj.citicBankshopProductIds, // 信用卡套餐集合
+		cictBail: false, // 中信保证金
 		isWellBank: false, // 平安信用卡
 		isGuangFaBank: false,	// 广发信用卡
 		isQingHaiHighSpeed: false, // 是否是青海办理进入
-		firstCar: app.globalData.pingAnBindGuests	// 平安获客
+		firstCar: app.globalData.pingAnBindGuests // 平安获客
 	},
 	async onLoad (options) {
 		this.setData({
@@ -51,6 +53,7 @@ Page({
 				orderId: app.globalData.orderInfo.orderId
 			});
 		}
+		app.globalData.orderInfo.orderId = this.data.orderId;
 		if (options.type) {
 			this.setData({
 				type: options.type
@@ -60,7 +63,9 @@ Page({
 			this.login();
 		} else {
 			if (!this.data.firstCar) {
-				this.setData({firstCar: await util.getBindGuests()});
+				this.setData({
+					firstCar: await util.getBindGuests()
+				});
 			}
 			this.getProcessingProgress();
 			await this.getQueryProcessInfo();
@@ -120,7 +125,9 @@ Page({
 						app.globalData.memberId = res.data.memberId;
 						app.globalData.mobilePhone = res.data.mobilePhone;
 						if (!this.data.firstCar) {
-							this.setData({firstCar: await util.getBindGuests()});
+							this.setData({
+								firstCar: await util.getBindGuests()
+							});
 						}
 						await this.getProcessingProgress();
 						await this.getQueryProcessInfo();
@@ -253,7 +260,7 @@ Page({
 			let date = new Date();
 			let mouth = date.getMonth() + 1;
 			let time = date.getFullYear() + '-' + util.formatNumber(mouth) + '-' + util.formatNumber(date.getDate());
-			if (this.data.info.contractTime && time === this.data.info.contractTime.substring(0,10)) {
+			if (this.data.info.contractTime && time === this.data.info.contractTime.substring(0, 10)) {
 				params['salesmanId'] = this.data.info.shopUserId;
 			}
 		}
@@ -267,7 +274,7 @@ Page({
 		});
 	},
 	// 关闭详情
-	close () {},
+	close () { },
 	hide () {
 		this.setData({
 			showDetailWrapper: false,
@@ -365,16 +372,14 @@ Page({
 				util.hideLoading();
 				util.showToastNoIcon(res.message);
 			}
-		}, app.globalData.userInfo.accessToken, () => {
-		});
+		}, app.globalData.userInfo.accessToken, () => { });
 	},
 	// 刷新1分钱核验
 	refreshCheck () {
 		util.showLoading();
 		util.getDataFromServer('consumer/order/order-verification-status-refresh', {
 			orderVerificationId: this.data.info.orderVerificationId
-		}, () => {
-		}, (res) => {
+		}, () => { }, (res) => {
 			if (res.code === 0) {
 				this.setData({
 					accountVerification: res.data.status,
@@ -421,7 +426,8 @@ Page({
 	},
 	// 确认收货去激活
 	async onClickCctivate () {
-		if (this.data.info.orderType === 81) {
+		// flowVersion: 流程版本，1-老版，2-新版（总对总）,3-选装 4-预充值 5-保证金模式 6-圈存 7-交行货车二类户 8-9901选装
+		if (this.data.info.flowVersion === 1 || this.data.info.flowVersion === 5) {
 			const result = await util.getDataFromServersV2('consumer/order/query-contract', { // 查询车主服务签约
 				orderId: this.data.orderId
 			});
@@ -444,6 +450,23 @@ Page({
 			} else {
 				util.showToastNoIcon(result.message);
 			}
+		}
+		if (this.data.info.flowVersion === 8) {
+			let obj = {
+				orderId: app.globalData.orderInfo.orderId,
+				mobile: this.data.info.cardMobilePhone
+			};
+			const data = await util.getSteps_9901(obj);
+			if (data.stepNum === 4) {
+				app.globalData.mobile = this.data.info.cardMobilePhone;
+				util.go(`/pages/default/obucarquer/obucarquer?vehPlates=${this.data.info.vehPlates}`);
+				return;
+			}
+			if (data.stepNum === 9) {
+				util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${this.data.info.auditStatus}`);
+				return;
+			}
+			return;
 		}
 		if (this.data.info.shopId && this.data.info.shopId === '624263265781809152') {
 			// 津易行
@@ -478,7 +501,7 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/query-contract', {
 			orderId: obj.id
 		});
-		console.log('3',result);
+		console.log('3', result);
 		if (!result) return;
 		if (result.code === 0) {
 			app.globalData.signAContract = 1;
@@ -493,7 +516,7 @@ Page({
 							extraData: {
 								contract_id: result.data.contractId
 							},
-							success () {},
+							success () { },
 							fail () {
 								// 未成功跳转到签约小程序
 								util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
@@ -551,7 +574,7 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/order-detail', {
 			orderId: this.data.orderId
 		});
-		let res = await util.getDataFromServersV2('consumer/order/common/get-member-by-carno',{
+		let res = await util.getDataFromServersV2('consumer/order/common/get-member-by-carno', {
 			carNo: result.data.vehPlates,
 			vehColor: result.data.vehColor
 		});
@@ -563,17 +586,17 @@ Page({
 			orderId: obj.id,
 			mobilePhone: app.globalData.userInfo.mobilePhone,
 			channel: obj.obuCardType,
-			qtLimit: qtLimit,// 青通卡激活所需
+			qtLimit: qtLimit, // 青通卡激活所需
 			serverId: obj.shopId,
 			carNoStr: obj.vehPlates,
 			obuStatus: obj.obuStatus
 		});
 		switch (obj.obuCardType) {
-			case 1:// 贵州 黔通卡
+			case 1: // 贵州 黔通卡
 			case 21:
 				util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${obj.auditStatus}`);
 				break;
-			case 2:// 内蒙 蒙通卡
+			case 2: // 内蒙 蒙通卡
 			case 23: // 河北交投
 				if (!this.data.choiceEquipment) {
 					this.setData({
@@ -582,16 +605,16 @@ Page({
 				}
 				this.data.choiceEquipment.switchDisplay(true);
 				break;
-			case 3:	// 山东 鲁通卡
-			case 9:	// 山东 齐鲁通卡
+			case 3: // 山东 鲁通卡
+			case 9: // 山东 齐鲁通卡
 				util.go(`/pages/empty_hair/instructions_ujds/index?auditStatus=${obj.auditStatus}`);
 				break;
-			case 4:	// 青海 青通卡
-			case 5:// 天津 速通卡
-			case 10:// 湖南 湘通卡
+			case 4: // 青海 青通卡
+			case 5: // 天津 速通卡
+			case 10: // 湖南 湘通卡
 				util.go(`/pages/obu_activate/neimeng_choice/neimeng_choice?obuCardType=${obj.obuCardType}`);
 				break;
-			case 8:	// 辽宁 辽通卡
+			case 8: // 辽宁 辽通卡
 				util.go(`/pages/empty_hair/instructions_lnnk/index?auditStatus=${obj.auditStatus}`);
 				break;
 		}
@@ -616,20 +639,20 @@ Page({
 	goInstallationTutorial () {
 		let channel = this.data.info?.obuCardType;
 		switch (channel) {
-			case 1:	// 贵州 黔通卡
+			case 1: // 贵州 黔通卡
 				util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${this.data.info.auditStatus}`);
 				break;
-			case 8:	// 辽宁 辽通卡
+			case 8: // 辽宁 辽通卡
 				util.go(`/pages/empty_hair/instructions_lnnk/index?auditStatus=${this.data.info.auditStatus}`);
 				break;
-			case 3:	// 山东 鲁通卡
-			case 9:	// 山东 齐鲁通卡
+			case 3: // 山东 鲁通卡
+			case 9: // 山东 齐鲁通卡
 				util.go(`/pages/empty_hair/instructions_ujds/index?auditStatus=${this.data.info.auditStatus}`);
 				break;
-			case 2:	// 蒙通卡
+			case 2: // 蒙通卡
 				util.go(`/pages/empty_hair/neimeng_installation_tutorial/neimeng_installation_tutorial?auditStatus=${this.data.info.auditStatus}`);
 				break;
-			default:	// 其他需要我们自己激活的省
+			default: // 其他需要我们自己激活的省
 				util.go(`/pages/empty_hair/instructions/index?auditStatus=${this.data.info.auditStatus}`);
 		}
 	},
@@ -664,7 +687,7 @@ Page({
 					util.hideLoading();
 					util.showToastNoIcon(res.message);
 				}
-			}, app.globalData.userInfo.accessToken, () => {});
+			}, app.globalData.userInfo.accessToken, () => { });
 		} else {
 			that.selectComponent('#popTipComp').show({
 				type: 'returnEquityFunds',
@@ -683,10 +706,12 @@ Page({
 	// 保证金退回
 	async bailReturn () {
 		if (this.data.isRequest) return;
-		this.setData({isRequest: true});
+		this.setData({
+			isRequest: true
+		});
 		const params = {
 			tradeType: 1,
-			packageId: app.globalData.cictBankObj.citicBankRightId,	// 权益ID
+			packageId: app.globalData.cictBankObj.citicBankRightId, // 权益ID
 			openId: app.globalData.userInfo.openId,
 			orderId: this.data.orderId,
 			creditCardTag: this.data.isWellBank ? 2 : app.globalData.cictBankObj.minshenBank.includes(this.data.info.shopProductId) ? 3 : 1 // 信用卡标识：1.中信信用卡，2.平安信用卡，3.民生信用卡
@@ -700,7 +725,9 @@ Page({
 
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/independent-rights-buy', params);
 		if (!result) {
-			this.setData({isRequest: false});
+			this.setData({
+				isRequest: false
+			});
 			return;
 		}
 		if (result.code === 0) {
@@ -712,7 +739,9 @@ Page({
 				signType: extraData.signType,
 				timeStamp: extraData.timeStamp,
 				success: (res) => {
-					this.setData({isRequest: false});
+					this.setData({
+						isRequest: false
+					});
 					if (res.errMsg === 'requestPayment:ok') {
 						wx.showLoading({
 							mask: true,
@@ -726,14 +755,18 @@ Page({
 					}
 				},
 				fail: (res) => {
-					this.setData({isRequest: false});
+					this.setData({
+						isRequest: false
+					});
 					if (res.errMsg !== 'requestPayment:fail cancel') {
 						util.showToastNoIcon('支付失败');
 					}
 				}
 			});
 		} else {
-			this.setData({isRequest: false});
+			this.setData({
+				isRequest: false
+			});
 			util.showToastNoIcon(result.message);
 		}
 	},
@@ -755,7 +788,7 @@ Page({
 				wx.hideLoading();
 				util.showToastNoIcon(res.message);
 			}
-		}, app.globalData.userInfo.accessToken, () => {});
+		}, app.globalData.userInfo.accessToken, () => { });
 	},
 	// 跳转平安绑客
 	goPingAn () {
@@ -774,7 +807,9 @@ Page({
 	},
 	// 继续办理平安信用卡入口
 	async goPinAnH5 () {
-		let res = await util.getDataFromServersV2('/consumer/order/pingan/get-apply-credit-card-url',{orderId: this.data.orderId});
+		let res = await util.getDataFromServersV2('/consumer/order/pingan/get-apply-credit-card-url', {
+			orderId: this.data.orderId
+		});
 		if (!res) return;
 		if (res.code === 0) {
 			// 跳转 h5

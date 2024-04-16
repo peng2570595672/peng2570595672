@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-export const IS_TEST = false; // false为正式接口地址，true为测试接口地址
+export const IS_TEST = true; // false为正式接口地址，true为测试接口地址
 const util = require('./utils/util.js');
 const definedData = require('./utils/dataStatement.js');
 const uma = require('./utils/umtrack-wx.js');
@@ -110,6 +110,7 @@ App({
 		orderInfo: {
 			orderId: ''
 		},
+		mobile: '', // 9901 手机订单号
 		truckHandlingOCRType: 0,// 货车办理选择ocr上传类型
 		handlingOCRType: 0,// 客车办理选择ocr上传类型
 		isTruckHandling: false,// 是否新流程-货车办理
@@ -157,7 +158,7 @@ App({
 		isAlertToSign: false,
 		isQingHaiHighSpeed: false,// 是否是青海高速办理,需要隐藏平安绑车
 		isQingHaiHighSpeedOnlineProcessing: false,	// 是否是青海高速线上办理
-		renewWhitelist: ['13368527179','18302531895','15185024319','17685020520','15870105857']	// 续签白名单
+		renewWhitelist: ['13368527179', '18302531895', '15185024319', '17685020520', '15870105857']	// 续签白名单
 	},
 	onLaunch (options) {
 		// 统计逻辑结束
@@ -211,7 +212,7 @@ App({
 					this.globalData.salesmanScanCodeToHandleId = obj.orderId;
 				} else {
 					util.resetData();// 重置数据
-					let sceneKey,sceneValue;
+					let sceneKey, sceneValue;
 					for (let i in obj) {
 						sceneKey = i;
 						sceneValue = obj[i];
@@ -221,7 +222,7 @@ App({
 					} else if (sceneKey === 'BSCS') {
 						this.globalData.rechargeCode = sceneValue;
 					} else {
-						this.getPromoterInfo(sceneKey,sceneValue);
+						this.getPromoterInfo(sceneKey, sceneValue);
 					}
 				}
 			}
@@ -231,7 +232,7 @@ App({
 			// 1.0大地保险扫码/链接进入
 			this.globalData.isContinentInsurance = true;
 			let sceneValue = JSON.stringify(options.query);
-			this.getPromoterInfo('channelValue',sceneValue);
+			this.getPromoterInfo('channelValue', sceneValue);
 		}
 		if (options.query.officialChannelId) {
 			util.resetData();// 重置数据
@@ -246,11 +247,11 @@ App({
 			util.resetData();// 重置数据
 			// 2.0大地保险链接进入
 			this.globalData.isContinentInsurance = true;
-			this.getPromoterInfo('SGC',options.query.carInsurance);
+			this.getPromoterInfo('SGC', options.query.carInsurance);
 		}
 	},
 	// 根据扫描获取到的二维码信息获取推广参数
-	getPromoterInfo (sceneKey,sceneValue) {
+	getPromoterInfo (sceneKey, sceneValue) {
 		// 场景key，二维码scene的格式为sceneKey=sceneValue
 		// 可选值： shareId，tmpId，shareTmp，SGC，SUC
 		// 特殊情况：在大地的二维码中,格式为：{channelValue:xxx,serverInfoId:xxx},sceneKey为channelValue，sceneValue为：{channelValue:xxx,serverInfoId:xxx}JSON字符串
@@ -313,12 +314,13 @@ App({
 			}
 		});
 	},
-	onShow (res) {
+	async onShow (res) {
 		// 初始化数据
 		this.initData(res);
 		if (res.path === 'pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license' ||
 			res.path === 'pages/default/shot_bank_card/shot_bank_card' ||
 			res.path === 'pages/default/information_validation/information_validation' ||
+			res.path === 'pages/default/obucarquer/obucarquer' ||
 			res.path === 'pages/default/processing_progress/processing_progress'
 		) {
 			// 解决安卓平台上传行驶证自动返回上一页
@@ -332,7 +334,7 @@ App({
 			if (res.path === 'pages/bank_card/citic_bank_sign/citic_bank_sign') {
 				return;
 			}
-			const {appId} = res.referrerInfo;
+			const { appId } = res.referrerInfo;
 			if (this.globalData.signAContract === -1) {
 				// 车主服务签约
 				if (appId === 'wxbcad394b3d99dac9' || appId === 'wxbd687630cd02ce1d') {
@@ -368,7 +370,7 @@ App({
 				wx.switchTab({
 					url: '/pages/Home/Home'
 				});
-			},1000);
+			}, 1000);
 		}
 	},
 	async getOrderInfo () {

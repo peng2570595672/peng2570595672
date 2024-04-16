@@ -27,6 +27,13 @@ Page({
 			});
 			return;
 		}
+		if (options.pro9901) {
+			// 9901套餐
+			this.setData({
+				is9901: true
+			});
+			return;
+		}
 		await this.queryContract();
 		await this.getSchedule();
 		// 查询是否欠款
@@ -112,8 +119,14 @@ Page({
 		}
 	},
 	go () {
+		if (this.data.is9901) {
+		// 调用获取账户列表 有用户信息则跳过身份证录入环境
 		// 跳转上传证件页
-		util.go(`/pages/default/information_list/information_list`);
+		util.go(`/pages/default/information_list/information_list?pro9901=true`);
+		} else {
+			// 跳转上传证件页
+			util.go(`/pages/default/information_list/information_list`);
+		}
 	},
 	onUnload () {
 		wx.switchTab({

@@ -9,7 +9,7 @@ import {
 } from './utils';
 const CryptoJS = require('./crypto-js.js');
 const QQMapWX = require('../libs/qqmap-wx-jssdk.min.js');
-const amapFile = require('./amap-wx.130.js')
+const GDMapWX = require('./amap-wx.130.js')
 let app = getApp();
 
 function setApp(a) {
@@ -17,15 +17,25 @@ function setApp(a) {
 }
 
 //DES  ECB模式加密
+/**
+ * 使用DES算法（ECB模式、PKCS7填充）加密给定的消息。
+ *
+ * @param {string} message - 需要加密的明文消息。
+ * @returns {string} 加密后的密文，以字符串形式返回。
+ */
 function encryptByDESModeEBC(message) {
+  // 将应用全局数据中的plamKey转换为UTF-8编码的CryptoJS键对象
   let keyHex = CryptoJS.enc.Utf8.parse(app.globalData.plamKey);
+
+  // 使用DES算法（ECB模式、PKCS7填充）加密消息
   let encrypted = CryptoJS.DES.encrypt(message, keyHex, {
     mode: CryptoJS.mode.ECB,
     padding: CryptoJS.pad.Pkcs7
   });
+
+  // 返回加密后密文的ciphertext部分，以字符串形式
   return encrypted.ciphertext.toString();
 }
-
 
 //DES  ECB模式解密
 function decryptByDESModeEBC(ciphertext) {
@@ -41,12 +51,12 @@ function decryptByDESModeEBC(ciphertext) {
 }
 
 // md5 加密
-function md5Encrypt(message, ) {
+function md5Encrypt(message,) {
   return CryptoJS.MD5(message).toString();
 }
 
 // 签名
-function sign(obj, ) {
+function sign(obj,) {
   let str = 'cyzlBeiJ';
   for (let key in obj) {
     str += obj[key];
@@ -119,96 +129,104 @@ function getUuid() {
     return v.toString(16);
   });
 }
+
 /**
- *  从网络获取数据
- * @param json 请求参数
- * @param success 成功后的回调g
- * @param fail 失败后的回调
+ * 异步从服务器获取数据。支持GET和POST方法，根据需要自动处理请求头中的sign、timestamp、nonceStr等字段，
+ * 并在必要时自动重新登录。适用于需要token认证的API请求。
+ *
+ * @param {string} path - 服务器API路径，如'/api/user/info'。
+ * @param {Object} params - 请求参数，对于POST方法，将作为请求体发送；对于GET方法，将拼接到URL中。
+ * @param {Function} fail - 失败回调，接收一个错误对象作为参数。
+ * @param {Function} success - 成功回调，接收响应数据对象作为参数。
+ * @param {string} [token=''] - 用户token，若为空且请求路径不属于'common'或'public'模块，将提示用户重新登录。
+ * @param {Function} [complete] - 请求完成回调，无论成功或失败均会被调用，无参数。
+ * @param {string} [method='POST'] - 请求方法，可选'GET'或'POST'，默认为'POST'。
  */
 async function getDataFromServer(path, params, fail, success, token = '', complete, method = 'POST') {
-  // common || public 模块下的不需要 token
+  // 如果没有提供token且请求路径不属于公共模块，则提示用户重新进入小程序并终止请求
   if (!token && !path.includes('common') && !path.includes('public')) {
-  	console.log(path)
     showToastNoIcon('获取用户信息失败,请重新进入小程序!');
     return;
   }
+
+  // 将请求方法转为大写
   method = method.toUpperCase();
-  // 对请求路径是否开头带/进行处理
+
+  // 为请求路径添加前缀斜杠（如果缺失）
   path = path.indexOf('/') === 0 ? path : `/${path}`;
-  // 封装请求对象
-  let obj = {
+
+  // 初始化请求对象
+  const requestObj = {
     url: app.globalData.host + path,
     method: method,
     success: (res) => {
-      if (res.data.code === 115 || res.data.code === 117 || res.data.code === 118) { // 在别处登录了 重新自动登录一次
+      // 处理响应数据中的特定错误码，触发重新登录
+      if ([115, 117, 118].includes(res.data.code)) {
         reAutoLogin(path, params, fail, success, token, complete, method);
       } else if (res.data.code === 444) {
-        // 请求已失效
+        // 请求已失效，更新全局时间状态并触发重新登录
         app.globalData.isSystemTime = false;
         app.globalData.systemTime = undefined;
         reAutoLogin(path, params, fail, success, token, complete, method);
       } else {
+        // 调用成功回调并传递响应数据
         success && success(res.data);
       }
     },
     fail: (res) => {
+      // 调用失败回调并传递错误对象
       fail && fail(res);
     },
     complete: (res) => {
+      // 调用完成回调
       complete && complete();
     }
   };
+  // 初始化请求头对象
   let header = {};
-  // timestamp 时间戳  nonceStr随机字符串 uuid
-  let timestamp, nonceStr;
-  nonceStr = getUuid();
+  // 生成timestamp、nonceStr和uuid
+  const nonceStr = getUuid();
+  let timestamp;
+  // 获取并设置timestamp
   if (app.globalData.isSystemTime) {
-    if (app.globalData.systemTime) {
-      timestamp = app.globalData.systemTime
-    } else {
-      timestamp = parseInt(new Date().getTime() / 1000);
-    }
+    timestamp = app.globalData.systemTime || parseInt(new Date().getTime() / 1000);
   } else {
-    await getSystemTime().then(res => {
-      timestamp = res;
-    });
+    timestamp = await getSystemTime();
   }
   if (!timestamp) {
     timestamp = parseInt(new Date().getTime() / 1000);
   }
-  // POST请求
+  // 根据请求方法构建请求体和签名
   if (method === 'POST') {
-    // 设置签名
+    // POST请求：设置签名和请求体
     header = {
       sign: getSignature(params, path, token, timestamp, nonceStr),
       timestamp: timestamp,
       nonceStr: nonceStr
     };
-    // 设置请求体
-    obj['data'] = params;
-  } else { // GET请求
-    // 拼接请求路径
-    let url = obj.url + '?';
+    requestObj['data'] = params;
+  } else {
+    // GET请求：拼接请求URL并设置签名
+    let url = requestObj.url + '?';
     for (let key of Object.keys(params)) {
-      url += `${key}=${params[key]}&`
+      url += `${key}=${params[key]}&`;
     }
     url = url.substring(0, url.length - 1);
-    obj.url = url;
-    // 设置签名
+    requestObj.url = url;
     header = {
-      sign: getSignature({}, obj.url.replace(app.globalData.host, ''), token, timestamp, nonceStr),
+      sign: getSignature({}, url.replace(app.globalData.host, ''), token, timestamp, nonceStr),
       timestamp: timestamp,
       nonceStr: nonceStr
     };
   }
-  // 设置token
+  // 设置token（如有）
   if (token) {
     header.accessToken = token;
   }
-  // 设置请求头
-  obj.header = header;
-  // 执行请求
-  wx.request(obj);
+  // 将构建好的请求头添加到请求对象
+  requestObj.header = header;
+  // 发起请求
+  wx.request(requestObj);
 }
 
 /**
@@ -265,8 +283,8 @@ function getSystemTime() {
           showToastNoIcon('请求异常,请重新进入');
         }
       },
-      fail: (res) => {},
-      complete: (res) => {}
+      fail: (res) => { },
+      complete: (res) => { }
     };
     // 执行请求
     wx.request(obj);
@@ -378,7 +396,12 @@ function isJsonString(str) {
   return false;
 }
 
-// 弹窗
+/**
+ *  显示一个弹窗，提供用户确认或取消操作。封装了`wx.showModal`方法，并允许自定义弹窗标题、内容、按钮文字、颜色及点击回调。
+ * @param params 请求参数
+ * @param path 路径
+ * @param token token
+ */
 function alert({
   title = '提示',
   content = '描述信息',
@@ -387,8 +410,8 @@ function alert({
   cancelText = '取消',
   confirmColor = '#2FB565',
   cancelColor = '#99999D',
-  confirm = () => {},
-  cancel = () => {}
+  confirm = () => { },
+  cancel = () => { }
 } = {}) {
   wx.showModal({
     title: title,
@@ -509,7 +532,7 @@ function getInfoByAddress(address, success, fail) {
     fail: function (res) {
       fail && fail(res);
     },
-    complete: function (res) {}
+    complete: function (res) { }
   });
 }
 
@@ -699,7 +722,6 @@ function getTruckHandlingStatus(orderInfo) {
   if (orderInfo.flowVersion === 6 && !app.globalData.bankCardInfo.accountNo) { // 开通II类户预充保证金 - 未开户
     return 13;
   }
-  console.log(orderInfo)
   if (orderInfo.flowVersion === 7) {
     // 交行二类户流程
     let info, checkResults;
@@ -786,6 +808,19 @@ function getTruckHandlingStatus(orderInfo) {
  *  获取订单办理状态 2.0
  */
 function getStatus(orderInfo) {
+  if (orderInfo.flowVersion === 8 && orderInfo.status === 1) { // 9901模式
+    if (orderInfo.pledgeStatus === 0) {
+      return 3; // 待支付
+    }
+    if (orderInfo.logisticsId === 0) {
+      return 35; // 待发货,-继续办理
+    }
+    // hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
+    // if (!orderInfo.hwContractStatus) {
+    // 	return 5;
+    // }
+    return 35; // 待发货,-继续办理
+  }
   if (orderInfo.obuCardType === 10 && +orderInfo.orderExtCardType === 2) {
     // 湖南信科   deviceType设备类型 (1:插卡; 0:单片)  orderExtCardType 2代表信科
     if (orderInfo.pledgeStatus === 0) { // 待支付
@@ -892,16 +927,16 @@ function getStatus(orderInfo) {
   if (orderInfo.auditStatus === 2 && orderInfo.logisticsId !== 0 && orderInfo.deliveryRule === 1 && orderInfo.etcContractId !== -1 && !orderInfo.contractStatus) {
     return 5; // 审核通过,已发货或无需发货,待微信签约
   }
-  if (orderInfo.obuStatus === 0 || orderInfo.obuStatus === 3 || orderInfo.obuStatus === 4 || (orderInfo.status === 1 && orderInfo.obuStatus === 2 && (orderInfo.obuCardType === 23 || orderInfo.obuCardType === 2)) ){//补充河北交投换卡换签
-	  // OBU状态:默认0 0-待激活，1-已激活，2-已注销 3-开卡 4-发签 5预激活  (3和4:首次激活未完成)
-  	return 11; //  待激活
+  if (orderInfo.obuStatus === 0 || orderInfo.obuStatus === 3 || orderInfo.obuStatus === 4 || (orderInfo.status === 1 && orderInfo.obuStatus === 2 && (orderInfo.obuCardType === 23 || orderInfo.obuCardType === 2))) {//补充河北交投换卡换签
+    // OBU状态:默认0 0-待激活，1-已激活，2-已注销 3-开卡 4-发签 5预激活  (3和4:首次激活未完成)
+    return 11; //  待激活
   }
   if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
     if ((app.globalData.cictBankObj.citicBankshopProductIds.includes(orderInfo.shopProductId) || (orderInfo.orderType === 31 && orderInfo.productName?.includes('中信') && orderInfo.pledgeType === 2)) && orderInfo.refundStatus !== 3) {
       if (app.globalData.cictBankObj.guangfaBank === orderInfo.shopProductId) { // 广发订单
-        return 33
+        return 33;
       }
-      return 30
+      return 30;
     }
     return 12; // 已激活
   }
@@ -1088,7 +1123,7 @@ function subscribe(tmplIds, url) {
               confirmText: '授权',
               confirm: () => {
                 wx.openSetting({
-                  success: (res) => {},
+                  success: (res) => { },
                   fail: () => {
                     showToastNoIcon('打开设置界面失败，请重试！');
                   }
@@ -1137,7 +1172,7 @@ function subscribe(tmplIds, url) {
             confirmText: '打开设置',
             confirm: () => {
               wx.openSetting({
-                success: (res) => {},
+                success: (res) => { },
                 fail: () => {
                   showToastNoIcon('打开设置界面失败，请重试！');
                 }
@@ -1202,7 +1237,7 @@ function getInsuranceOffer(orderId, wtagid) {
     let url = `outerUserId=${memberId}&outerCarId=${orderId}&companyId=SJHT&configId=sjht&wtagid=${wtagid}`;
     let pageUrl = app.globalData.weiBoUrl + encodeURIComponent(url);
     openWeiBao(pageUrl);
-  }, app.globalData.userInfo.accessToken, () => {});
+  }, app.globalData.userInfo.accessToken, () => { });
 }
 /**
  *  获取用户状态-交行资料信息
@@ -1222,7 +1257,7 @@ function goMicroInsuranceVehicleOwner(params, wtagid) {
     openWeiBao(pageUrl);
   }, (res) => {
     openWeiBao(pageUrl);
-  }, app.globalData.userInfo.accessToken, () => {});
+  }, app.globalData.userInfo.accessToken, () => { });
 }
 
 function openWeiBao(pageUrl) {
@@ -1245,7 +1280,9 @@ function weChatSigning(data) {
       extraData: data.extraData,
       fail() {
         showToastNoIcon('调起车主服务签约失败, 请重试！');
-      }
+      },
+      success(res) {
+      },
     });
   } else if (data.version === 'v2') { // 签约车主服务 2.0
     wx.navigateToMiniProgram({
@@ -1254,7 +1291,10 @@ function weChatSigning(data) {
       extraData: data.extraData,
       fail() {
         showToastNoIcon('调起车主服务签约失败, 请重试！');
-      }
+      },
+      success(res) {
+        // 在这里编写打开小程序成功后的逻辑
+      },
     });
   } else { // 签约车主服务 3.0
     wx.openBusinessView({
@@ -1264,7 +1304,12 @@ function weChatSigning(data) {
       },
       fail(e) {
         console.log(e)
-      }
+      },
+      success(res) {
+        // 在这里编写打开小程序成功后的逻辑
+        showToastNoIcon('调起车主服务签约成功');
+      },
+
     })
   }
 }
@@ -1391,10 +1436,10 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
     // getListOfPackages(orderInfo, regionCode, true);
   }
   result.data.map(item => {
-  	item.shopId = params.shopId;
+    item.shopId = params.shopId;
     try {
       item.descriptionList = JSON.parse(item.description);
-    } catch (e) {}
+    } catch (e) { }
   });
   let list = result.data;
   list = list.filter(item => item.shopProductId !== app.globalData.deviceUpgrade.shopProductId); //过滤掉蒙通卡设备升级套餐，不予以展示
@@ -1418,6 +1463,7 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
     showToastNoIcon('未查询到套餐，请联系工作人员处理！');
     return;
   }
+  const List9901pro = list.filter(item => item.flowVersion === 8); // 9901 套餐
   const divideAndDivideList = list.filter(item => item.flowVersion === 1); // 分对分套餐
   const alwaysToAlwaysList = list.filter(item => item.flowVersion === 2 || item.flowVersion === 3); // 总对总套餐
   let type = !divideAndDivideList.length ? 2 : !alwaysToAlwaysList.length ? 1 : 0;
@@ -1427,9 +1473,15 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
     areaCode: '0',
     type,
     divideAndDivideList,
-    alwaysToAlwaysList
+    alwaysToAlwaysList,
+    List9901pro
   };
-	await getFollowRequestLog({shopId: app.globalData.newPackagePageData.shopId, paramsShopId: params.shopId, orderId: app.globalData.orderInfo?.orderId, source: '根据商户查询套餐'});
+  await getFollowRequestLog({
+    shopId: app.globalData.newPackagePageData.shopId,
+    paramsShopId: params.shopId,
+    orderId: app.globalData.orderInfo?.orderId,
+    source: '根据商户查询套餐'
+  });
   return result;
 }
 /**
@@ -1443,7 +1495,6 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
   // common || public 模块下的不需要 token
   const token = app.globalData.userInfo.accessToken;
   if (!token && !path.includes('common') && !path.includes('public')) {
-	  console.log(path)
     showToastNoIcon('获取用户信息失败,请重新进入小程序!');
     return;
   }
@@ -1526,6 +1577,7 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
             reAutoLoginV2(path, params, method);
             return;
           }
+          console.log(path + ';' + res.data.message)
           // console.log(res.data);
           resolve(res.data)
         } else {
@@ -1668,7 +1720,7 @@ async function getRightAccount() {
     page: 1,
     pageSize: 1
   }, 'POST', false);
-  if (result.code) {} else {
+  if (result.code) { } else {
     app.globalData.accountList = result.data;
     app.globalData.isEquityRights = result.data?.length;
   }
@@ -1876,6 +1928,37 @@ let channelNameMap = {
   10: '湘通卡',
   11: '龙通卡',
 };
+// is9901 查询步骤
+const GET_STEPS_API = 'consumer/etc/qtzl/xz/getSteps';
+const CAR_CHANNEL_REL_API = 'consumer/etc/qtzl/xz/carChannelRel';
+const ERROR_MESSAGE_GET_STEPS_ERROR = '获取步骤信息时发生错误';
+
+async function getSteps_9901(orderInfo) {
+  let params = {
+    orderId: orderInfo.id || orderInfo.orderId, // 订单id
+    mobile: orderInfo.mobile || orderInfo.cardMobilePhone
+  }
+  try {
+    const result = await getDataFromServersV2(GET_STEPS_API, params, 'POST', false);
+    if (result.data.stepNum === 5) {
+      const signChannelId = result.data.signChannelId;
+      const result2 = await getDataFromServersV2(CAR_CHANNEL_REL_API, {
+        orderId: params.orderId,
+        signChannelId: signChannelId
+      });
+      if (result2.code === 0) {
+        app.globalData.mobile = " ";
+        showToastNoIcon('签约已完成');
+        setTimeout(() => {
+          go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
+        }, 1000);
+      }
+    }
+    return result.data;
+  } catch (error) {
+    return showToastNoIcon(ERROR_MESSAGE_GET_STEPS_ERROR, error);
+  }
+};
 // 获取平安绑车车牌列表
 async function getBindGuests() {
   let obj = undefined;
@@ -1886,7 +1969,7 @@ async function getBindGuests() {
     const res = await getDataFromServersV2('consumer/order/displayAdvertisingVehplates', {}, 'POST', false);
     if (!res) return;
     if (res.code === 0) {
-      obj.pingAnBindVehplates =  res.data.vehplates.join();
+      obj.pingAnBindVehplates = res.data.vehplates.join();
       app.globalData.pingAnBindGuests = obj
       return obj
     } else {
@@ -1923,7 +2006,7 @@ function openPdf(url, category) {
         filePath: newPath,
         showMenu: true,
         fileType: 'pdf',
-        success: function (res) {},
+        success: function (res) { },
         fail: function (res) {
           showToastNoIcon(res)
         }
@@ -1945,7 +2028,7 @@ function deletContract() {
         if (res.files.length > 2) {
           file.unlink({
             filePath: `${wx.env.USER_DATA_PATH}/${res.files[0]}`,
-            complete: (res) => {}
+            complete: (res) => { }
           });
         }
       }
@@ -1955,164 +2038,164 @@ function deletContract() {
   }
 };
 
-function getCurrentDate () {
-	const currentDate = new Date();
-	// 提取年、月、日信息
-	const year = currentDate.getFullYear(); // 四位数表示年份
-	const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // 两位数表示月份，需要加上1
-	const day = currentDate.getDate().toString().padStart(2, '0'); // 两位数表示天数
-	// 构建当前日期字符串
-	const formattedCurrentDate = `${year}${month}${day}`;
-	const nextDate = `${year + 10}${month}${day}`;
-	// 判断指定日期是否在当前日期之前或者相同
-	return [formattedCurrentDate, nextDate]
+function getCurrentDate() {
+  const currentDate = new Date();
+  // 提取年、月、日信息
+  const year = currentDate.getFullYear(); // 四位数表示年份
+  const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // 两位数表示月份，需要加上1
+  const day = currentDate.getDate().toString().padStart(2, '0'); // 两位数表示天数
+  // 构建当前日期字符串
+  const formattedCurrentDate = `${year}${month}${day}`;
+  const nextDate = `${year + 10}${month}${day}`;
+  // 判断指定日期是否在当前日期之前或者相同
+  return [formattedCurrentDate, nextDate]
 }
 
-function getDatanexusAnalysis (actionType) {
-	let timestamp, nonceStr;
-	nonceStr = getUuid();
-	if (!timestamp) {
-		timestamp = parseInt(new Date().getTime() / 1000);
-	}
-	wx.request({
-		// https://datanexus.qq.com/doc/develop/guider/interface/action/dmp_actions_add
-		// https://developers.e.qq.com/docs/api/user_data/user_action/user_actions_add?version=1.3
-		url: `https://api.e.qq.com/v1.3/user_actions/add?access_token=e99dabed71962b695abc2769b1bd97e4&timestamp=${timestamp}&nonce=${nonceStr}`,
-		data: {
-			account_id: '35362489',
-			user_action_set_id: '1202153505',
-			'actions': [
-				{
-					'external_action_id': actionType,
-					'action_time': timestamp,
-					'action_type': actionType, // 下单  https://datanexus.qq.com/doc/develop/guider/interface/enum#action-type
-					'action_param': {
-						'claim_type': 0,// 归因方式  https://datanexus.qq.com/doc/develop/guider/interface/enum#claim-type
-						'consult_type': 'ONLINE_CONSULT'
-					},
-					'trace': {
-						'click_id': app.globalData.openId // 点击ID，user_id 与 click_id 二选一必填，广点通的click_id长度是20位数字+字母组合；微信的click_id长度是10-50，如wx0im5kwh44gh2yq，字段长度为 64 字节
-					},
-					'channel': 'TENCENT' // 行为渠道  https://datanexus.qq.com/doc/develop/guider/interface/enum#action-channel
-				}
-			]
-		},
-		method: 'POST',
-		header: {},
-		success (res) {
-			console.log(res);
-		},
-		fail (res) {
-			console.log(res);
-		}
-	});
+function getDatanexusAnalysis(actionType) {
+  let timestamp, nonceStr;
+  nonceStr = getUuid();
+  if (!timestamp) {
+    timestamp = parseInt(new Date().getTime() / 1000);
+  }
+  wx.request({
+    // https://datanexus.qq.com/doc/develop/guider/interface/action/dmp_actions_add
+    // https://developers.e.qq.com/docs/api/user_data/user_action/user_actions_add?version=1.3
+    url: `https://api.e.qq.com/v1.3/user_actions/add?access_token=e99dabed71962b695abc2769b1bd97e4&timestamp=${timestamp}&nonce=${nonceStr}`,
+    data: {
+      account_id: '35362489',
+      user_action_set_id: '1202153505',
+      'actions': [
+        {
+          'external_action_id': actionType,
+          'action_time': timestamp,
+          'action_type': actionType, // 下单  https://datanexus.qq.com/doc/develop/guider/interface/enum#action-type
+          'action_param': {
+            'claim_type': 0,// 归因方式  https://datanexus.qq.com/doc/develop/guider/interface/enum#claim-type
+            'consult_type': 'ONLINE_CONSULT'
+          },
+          'trace': {
+            'click_id': app.globalData.openId // 点击ID，user_id 与 click_id 二选一必填，广点通的click_id长度是20位数字+字母组合；微信的click_id长度是10-50，如wx0im5kwh44gh2yq，字段长度为 64 字节
+          },
+          'channel': 'TENCENT' // 行为渠道  https://datanexus.qq.com/doc/develop/guider/interface/enum#action-channel
+        }
+      ]
+    },
+    method: 'POST',
+    header: {},
+    success(res) {
+      console.log(res);
+    },
+    fail(res) {
+      console.log(res);
+    }
+  });
 }
 /**
  * 计算卡片有效期
  * @param res 对象
  * @returns {*}
  */
-function calculationValidityPeriod (res) {
-	let currentTime = Date.now();
-	let time = new Date('2020/01/01');
-	let date = new Date();
-	let fullYear = date.getFullYear();
-	let month = date.getMonth() + 1;
-	month = month < 10 ? '0' + month : month;
-	let day = date.getDate();
-	day = day < 10 ? '0' + day : day;
-	//  写入卡片的时间都为当前时间
-	res.cardEnableTime = `${fullYear}-${month}-${day}`;
-	res.cardExpireTime = `${fullYear + 10}-${month}-${day}`;
-	// 写入obu时间
-	// 2020/01/01之后 或者非货车
-	// carType 11 12分别为蓝牌货车 黄牌货车
-	if (((res.carType === 11 || res.carType === 12) && currentTime >= time.getTime()) || (res.carType === 1 || res.carType === 2)) {
-		res.enableTime = `${fullYear}-${month}-${day}`;
-		res.expireTime = `${fullYear + 10}-${month}-${day}`;
-	} else {
-		// 启用时间为2020年一月一日
-		res.enableTime = '2020-01-01';
-		res.expireTime = '2030-01-01'
-	}
-	return res;
+function calculationValidityPeriod(res) {
+  let currentTime = Date.now();
+  let time = new Date('2020/01/01');
+  let date = new Date();
+  let fullYear = date.getFullYear();
+  let month = date.getMonth() + 1;
+  month = month < 10 ? '0' + month : month;
+  let day = date.getDate();
+  day = day < 10 ? '0' + day : day;
+  //  写入卡片的时间都为当前时间
+  res.cardEnableTime = `${fullYear}-${month}-${day}`;
+  res.cardExpireTime = `${fullYear + 10}-${month}-${day}`;
+  // 写入obu时间
+  // 2020/01/01之后 或者非货车
+  // carType 11 12分别为蓝牌货车 黄牌货车
+  if (((res.carType === 11 || res.carType === 12) && currentTime >= time.getTime()) || (res.carType === 1 || res.carType === 2)) {
+    res.enableTime = `${fullYear}-${month}-${day}`;
+    res.expireTime = `${fullYear + 10}-${month}-${day}`;
+  } else {
+    // 启用时间为2020年一月一日
+    res.enableTime = '2020-01-01';
+    res.expireTime = '2030-01-01'
+  }
+  return res;
 }
 /**
  *  校验二发订单数据合法性
  * @param info
  * let info = {
-			"enableTime": "2019-09-29",
-			"expireTime": "2029-09-29",
-			"plateNo": "晋JAM087",
-			"plateColor": 0,
-			"carType": 1,
-			"userName": "杨江",
-			"userIdNum": "141122198806220013",
-			"userIdType": "0",
-			"type": 1,
-			"outsideDimensions": "4671×1902×1697mm",
-			"engineNum": "J100045411111111",
-			"approvedCount": "5人"
-		}
+      "enableTime": "2019-09-29",
+      "expireTime": "2029-09-29",
+      "plateNo": "晋JAM087",
+      "plateColor": 0,
+      "carType": 1,
+      "userName": "杨江",
+      "userIdNum": "141122198806220013",
+      "userIdType": "0",
+      "type": 1,
+      "outsideDimensions": "4671×1902×1697mm",
+      "engineNum": "J100045411111111",
+      "approvedCount": "5人"
+    }
  * @returns {boolean}
  */
 function validateOnlineDistribution(encodeToGb2312, info, self) {
-	let isOk = true;
-	let msg = '';
-	// 姓名是否为空
-	if (!info.userName) {
-		isOk = false;
-		msg = '姓名为空，请检查！';
-	} else { //姓名编码校验
-		try {
-			encodeToGb2312(info.userName);
-		} catch (e) {
-			// 姓名编码异常
-			isOk = false;
-			msg = '姓名编码转换出错，请检查！';
-		}
-	}
-	
-	// 车牌是否为空
-	if (!info.plateNo) {
-		isOk = false;
-		msg = '车牌为空，请检查！';
-	} else { // 车牌编码校验
-		try {
-			encodeToGb2312(info.plateNo);
-		} catch (e) {
-			// 车牌编码异常
-			isOk = false;
-			msg = '车牌编码转换出错，请检查！';
-		}
-	}
-	
-	// 轮廓尺寸校验
-	if (!info.outsideDimensions) {
-		isOk = false;
-		msg = '轮廓尺寸为空，请检查！';
-	} else {
-		let result = info.outsideDimensions.match(/\d{4}/ig);
-		if (result.length !== 3) {
-			isOk = false;
-			msg = '轮廓尺寸有误，请检查！';
-		}
-	}
-	if (!info.engineNum) {
-		isOk = false;
-		msg = '发动机引擎编号为空，请检查！';
-	} else {
-		// 发动机长度校验
-		if (info.engineNum.length > 16) {
-			isOk = false;
-			msg = '发动机引擎编号过长，请检查！';
-		}
-	}
-	if (!isOk) {
-		self.isOver();
-		showToastNoIcon(msg);
-	}
-	return isOk;
+  let isOk = true;
+  let msg = '';
+  // 姓名是否为空
+  if (!info.userName) {
+    isOk = false;
+    msg = '姓名为空，请检查！';
+  } else { //姓名编码校验
+    try {
+      encodeToGb2312(info.userName);
+    } catch (e) {
+      // 姓名编码异常
+      isOk = false;
+      msg = '姓名编码转换出错，请检查！';
+    }
+  }
+
+  // 车牌是否为空
+  if (!info.plateNo) {
+    isOk = false;
+    msg = '车牌为空，请检查！';
+  } else { // 车牌编码校验
+    try {
+      encodeToGb2312(info.plateNo);
+    } catch (e) {
+      // 车牌编码异常
+      isOk = false;
+      msg = '车牌编码转换出错，请检查！';
+    }
+  }
+
+  // 轮廓尺寸校验
+  if (!info.outsideDimensions) {
+    isOk = false;
+    msg = '轮廓尺寸为空，请检查！';
+  } else {
+    let result = info.outsideDimensions.match(/\d{4}/ig);
+    if (result.length !== 3) {
+      isOk = false;
+      msg = '轮廓尺寸有误，请检查！';
+    }
+  }
+  if (!info.engineNum) {
+    isOk = false;
+    msg = '发动机引擎编号为空，请检查！';
+  } else {
+    // 发动机长度校验
+    if (info.engineNum.length > 16) {
+      isOk = false;
+      msg = '发动机引擎编号过长，请检查！';
+    }
+  }
+  if (!isOk) {
+    self.isOver();
+    showToastNoIcon(msg);
+  }
+  return isOk;
 }
 /**
  * TODO 暂时没提供2.0接口
@@ -2123,7 +2206,7 @@ function validateOnlineDistribution(encodeToGb2312, info, self) {
  * @param result 指令执行的结果
  */
 function sendException2Server(area, cosArr, code, result) {
-	return;
+  return;
 }
 // 埋点
 async function buriedPoint (params,callBack) {
@@ -2146,16 +2229,16 @@ async function buriedPoint (params,callBack) {
 module.exports = {
   setApp,
   returnMiniProgram,
-	calculationValidityPeriod,
-	validateOnlineDistribution,
-	sendException2Server,
-	getDatanexusAnalysis,
+  calculationValidityPeriod,
+  validateOnlineDistribution,
+  sendException2Server,
+  getDatanexusAnalysis,
   formatNumber,
   addProtocolRecord,
   handleBluetoothStatus,
   queryProtocolRecord,
   getRpx,
-	getCurrentDate,
+  getCurrentDate,
   getPx,
   getMemberStatus,
   goMicroInsuranceVehicleOwner,
@@ -2178,7 +2261,7 @@ module.exports = {
   hideLoading,
   getDateDiff,
   mobilePhoneReplace,
-	getFollowRequestLog,
+  getFollowRequestLog,
   encryptByDESModeEBC,
   decryptByDESModeEBC,
   compareVersion,
@@ -2211,6 +2294,7 @@ module.exports = {
   getRightAccount,
   getUserIsVip,
   getBindGuests,
+  getSteps_9901,
   openPdf,
   getAddressInfoGD,
   buriedPoint

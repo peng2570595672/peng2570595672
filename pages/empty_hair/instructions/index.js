@@ -6,6 +6,7 @@ Page({
 	onLoad (options) {
 		this.setData({
 			auditStatus: +options.auditStatus
+
 		});
 		wx.canIUse('setBackgroundColor') && wx.setBackgroundColor({
 			backgroundColor: '#fff',
@@ -13,6 +14,7 @@ Page({
 		});
 	},
 	onShow () {
+
 	},
 	next () {
 		if (this.data.auditStatus !== 2) {

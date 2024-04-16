@@ -6,14 +6,14 @@
     </view>
     <view class="module moduleOne" wx:if="{{orderDetails.orderExtCardType !== 2 || orderInfo.obuCardType !== 10}}">
         <view class="left iconfont {{isIdCardError ? 'error' : ''}}">车主身份证</view>
-        <view wx:if="{{ orderDetails.orderType !== 61 && ((isModifiedData && isIdCardError) || orderInfo.isOwner !== 1 ) }}" class="btn {{orderInfo.isOwner === 1 ? 'edit': ''}}" catchtap="go" data-url="upload_id_card">
+        <view wx:if="{{ orderDetails.orderType !== 61 && ((isModifiedData && isIdCardError) || orderInfo.isOwner !== 1 || stepNum === 2 ) }}" class="btn {{orderInfo.isOwner === 1 ? 'edit': ''}}" catchtap="go" data-url="upload_id_card">
             {{orderInfo.isOwner === 1 ? '修改' : '上传'}}
         </view>
         <view wx:else class="icon {{orderInfo.isOwner === 1 ? 'success' : ''}} iconfont"></view>
     </view>
     <view class="module moduleTwo">
         <view class="left iconfont {{isDrivingLicenseError ? 'error' : ''}}">车辆行驶证</view>
-        <view wx:if="{{ orderDetails.orderType !== 61 && ((isModifiedData && isDrivingLicenseError) || orderInfo.isVehicle !== 1 )}}" class="btn {{orderInfo.isVehicle === 1 ? 'edit' : ''}}" catchtap="go" data-url="information_validation">
+        <view wx:if="{{ orderDetails.orderType !== 61 && ((isModifiedData && isDrivingLicenseError) || orderInfo.isVehicle !== 1 || stepNum === 3 )}}" class="btn {{orderInfo.isVehicle === 1 ? 'edit' : ''}}" catchtap="go" data-url="information_validation">
             {{orderInfo.isVehicle === 1 ? '修改' : '上传'}}
         </view>
         <view wx:else class="icon {{orderInfo.isVehicle === 1 ? 'success' : ''}} iconfont"></view>
@@ -42,7 +42,7 @@
             签约激活
         </view>
         <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="subscribe" wx:else>
-            {{isModifiedData ? '提交审核': contractStatus === 1 || !isEtcContractId || !vehPlates? '提交' : '签约代扣通行费'}}
+            {{isModifiedData ? '提交审核': contractStatus === 1 || !isEtcContractId || !vehPlates || showSubmit_9901 ? '提交' : '签约代扣通行费'}}
         </view>
     </view>
     <!-- 中信银行 拉起弹窗 -->

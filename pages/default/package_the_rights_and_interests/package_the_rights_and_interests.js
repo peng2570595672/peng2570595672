@@ -1,4 +1,4 @@
-import {thirdContractSigning} from '../../../utils/utils';
+import { thirdContractSigning } from '../../../utils/utils';
 
 /**
  * @author 老刘
@@ -18,9 +18,9 @@ Page({
         phoneType: 2,
         equityListMap: [],	// 权益列表集合
         ttCouponImgList: [	// 通通券图片展示
-            {img: 'https://file.cyzl.com/g001/M01/CA/91/oYYBAGP9r8KAadO3AAAhbDu7b-c635.png'},
-            {img: 'https://file.cyzl.com/g001/M01/CA/92/oYYBAGP9r9eAbYMrAAAfwNWjlCE671.png'},
-            {img: 'https://file.cyzl.com/g001/M01/CA/92/oYYBAGP9r-KAOszNAAAg2fHzpLY270.png'}
+            { img: 'https://file.cyzl.com/g001/M01/CA/91/oYYBAGP9r8KAadO3AAAhbDu7b-c635.png' },
+            { img: 'https://file.cyzl.com/g001/M01/CA/92/oYYBAGP9r9eAbYMrAAAfwNWjlCE671.png' },
+            { img: 'https://file.cyzl.com/g001/M01/CA/92/oYYBAGP9r-KAOszNAAAg2fHzpLY270.png' }
         ],
         // ------------------------------------------------------------------------------
         isContinentInsurance: app.globalData.isContinentInsurance,// 是否是大地
@@ -33,24 +33,27 @@ Page({
         activeEquitiesIndex: -1,// 当前选中权益包
         rightsAndInterestsList: [],// 加购权益列表
         basicServiceList: [
-            {title: 'ETC设备与卡片', tips: '包邮', icos: 'service_of_etc'},
-            {title: '3年质保', icos: 'service_of_equipment'},
-            {title: '开具通行费发票', icos: 'service_of_invoice'},
-            {title: '高速通行9.5折起', icos: 'service_of_discount'}
+            { title: 'ETC设备与卡片', tips: '包邮', icos: 'service_of_etc' },
+            { title: '3年质保', icos: 'service_of_equipment' },
+            { title: '开具通行费发票', icos: 'service_of_invoice' },
+            { title: '高速通行9.5折起', icos: 'service_of_discount' }
         ],
         basicServiceListNM: [
-            {title: 'ETC设备（第五代）', tips: '包邮', icos: 'service_of_etc'},
-            {title: '设备质保三年', icos: 'service_of_equipment'},
-            {title: '开具通行费发票', icos: 'service_of_invoice'},
-            {title: '高速通行9.5折', icos: 'service_of_discount'}
+            { title: 'ETC设备（第五代）', tips: '包邮', icos: 'service_of_etc' },
+            { title: '设备质保三年', icos: 'service_of_equipment' },
+            { title: '开具通行费发票', icos: 'service_of_invoice' },
+            { title: '高速通行9.5折', icos: 'service_of_discount' }
         ],
         otherServiceList: [
-            {title: '车主服务享便捷', subTitle: '价值168元'},
-            {title: '生活服务享精彩', subTitle: '价值100元+'}
+            { title: '车主服务享便捷', subTitle: '价值168元' },
+            { title: '生活服务享精彩', subTitle: '价值100元+' }
         ],
         characteristicServiceList: [
-            {title: '中国石油特惠加油', ico: 'service_of_oil', logo: 'https://file.cyzl.com/g001/M02/19/6A/oYYBAGVdqimAfsekAAANOgAA3Ug751.svg'}
+            { title: '中国石油特惠加油', ico: 'service_of_oil', logo: 'https://file.cyzl.com/g001/M02/19/6A/oYYBAGVdqimAfsekAAANOgAA3Ug751.svg' }
             // {title: '高速通行享2倍积分', ico: 'service_of_integral', logo: '/pages/default/assets/service_of_integral.svg'}
+        ],
+        deductByContractThird: [
+
         ],
         serviceList: [
             {
@@ -153,6 +156,14 @@ Page({
         this.setData({
             listOfPackages: parseInt(options.type) === 1 ? packages.divideAndDivideList : packages.alwaysToAlwaysList
         });
+        // 新增9901
+        // 若 packages 对象中存在 List9901pro 属性，则将其内容追加到当前组件 data 中的 listOfPackages 数组中。
+        if (packages.List9901pro) {
+            this.setData({
+                listOfPackages: this.data.listOfPackages.concat(packages.List9901pro)
+            });
+        }
+
         await this.queryOrder();
         // await this.getSwiperHeight();
         // 获取 套餐模块的高度
@@ -172,38 +183,35 @@ Page({
             this.getOrderInfo(false);
         }
     },
-    onReady (res) {
-
-    },
     async getLicensePlateRestrictions () {
-      const result = await util.getDataFromServersV2('consumer/system/veh/limit', {
-        shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
-        vehPlates: this.data.vehPlates
-      });
-      if (!result) return;
-      if (result.code === 0) {
-        console.log(result.data);
-        if (result.data.canHandle === 0) {
-          util.alert({
-            title: `套餐选择提醒`,
-            content: `尊敬的用户，您选择的套餐不支持以${result.data.limitArea}地区车牌办理，请选择其他套餐或更改车牌信息`,
-            confirmColor: '#576B95',
-            cancelColor: '#000000',
-            cancelText: '确定',
-            confirm: () => {
-
-            },
-            cancel: async () => {
-            }
+        const result = await util.getDataFromServersV2('consumer/system/veh/limit', {
+            shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
+            vehPlates: this.data.vehPlates
         });
-          this.setData({
-            activeIndex: -1,
-            choiceIndex: -1
-          });
+        if (!result) return;
+        if (result.code === 0) {
+            console.log(result.data);
+            if (result.data.canHandle === 0) {
+                util.alert({
+                    title: `套餐选择提醒`,
+                    content: `尊敬的用户，您选择的套餐不支持以${result.data.limitArea}地区车牌办理，请选择其他套餐或更改车牌信息`,
+                    confirmColor: '#576B95',
+                    cancelColor: '#000000',
+                    cancelText: '确定',
+                    confirm: () => {
+
+                    },
+                    cancel: async () => {
+                    }
+                });
+                this.setData({
+                    activeIndex: -1,
+                    choiceIndex: -1
+                });
+            }
+        } else {
+            util.showToastNoIcon(result.message);
         }
-    } else {
-        util.showToastNoIcon(result.message);
-    }
     },
     // async getSwiperHeight () {
     // 	let boxHeight = [];
@@ -262,6 +270,7 @@ Page({
                 }
                 return;
             }
+            console.log('result', result.data);
             app.globalData.isQingHaiHighSpeed = result.data.product?.shopId === '1192062723268681728';
             this.setData({
                 isPay: result.data.product?.shopProductId && (result.data.base?.pledgeStatus === -1 || result.data.base?.pledgeStatus === 1),
@@ -346,14 +355,14 @@ Page({
         if (this.data.isRequest) {
             return;
         } else {
-            this.setData({isRequest: true});
+            this.setData({ isRequest: true });
         }
         util.showLoading('加载中');
         let params = {
             orderId: app.globalData.orderInfo.orderId // 订单id
         };
         const result = await util.getDataFromServersV2('consumer/order/thirdContract', params);
-        this.setData({isRequest: false});
+        this.setData({ isRequest: false });
         if (!result) return;
         if (result.code === 0) {
             // 签约通通券代扣 1.0
@@ -375,7 +384,7 @@ Page({
         if (this.data.isRequest) {
             return;
         } else {
-            this.setData({isRequest: true});
+            this.setData({ isRequest: true });
         }
         util.showLoading('加载中');
         let params = {
@@ -385,7 +394,7 @@ Page({
             orderId: app.globalData.orderInfo.orderId
         };
         const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
-        this.setData({isRequest: false});
+        this.setData({ isRequest: false });
         if (!result) return;
         if (result.code === 0) {
             util.go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}&type=main_process`);
@@ -398,7 +407,7 @@ Page({
         if (this.data.isRequest) {
             return;
         } else {
-            this.setData({isRequest: true});
+            this.setData({ isRequest: true });
         }
         util.showLoading('加载中');
         let params = {
@@ -409,7 +418,7 @@ Page({
             needSignContract: true // 是否需要签约 true-是，false-否
         };
         const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
-        this.setData({isRequest: false});
+        this.setData({ isRequest: false });
         if (!result) return;
         if (result.code === 0) {
             let res = result.data.contract;
@@ -458,6 +467,39 @@ Page({
     },
     onClickHandle () {
         this.data.viewRightsAndInterests.switchDisplay(false);
+    },
+    /**
+ * 处理与验证码弹框相关的点击事件。
+ *
+ * @async
+ * @param {Object} options - 事件参数对象，包含验证码弹框返回的详细信息。
+ */
+    async onClickHandle9901 (options) {
+        switch (options.detail.type) {
+            case '1': // 验证码弹框取消的回调
+                this.setData({
+                    activeIndex: -1,
+                    choiceIndex: -1
+                });
+                break;
+
+            case '2': // 验证码弹框验证成功的回调
+                util.showToastNoIcon('查询接口校验正常 继续办理');
+                await this.saveOrderInfo();
+                console.log('父组件收到 验证码弹框验证成功的回调');
+                break;
+
+            case '3': // 验证码弹框验证失败的回调
+                this.setData({
+                    activeIndex: -1,
+                    choiceIndex: -1
+                });
+                util.showToastNoIcon(options.detail.content, 1000);
+                console.log('父组件收到 验证码弹框验证失败的回调');
+                break;
+            default:
+                break;
+        }
     },
     // 查看办理协议
     onClickGoAgreementHandle () {
@@ -635,7 +677,7 @@ Page({
         }
         if (obj1.pledgeType === 4) {
             // 判断是否是 权益券额套餐模式 ，如果是再判断以前是否有过办理，如果有则弹窗提示，并且不执行后面流程
-            const result = await util.getDataFromServersV2('consumer/order/precharge/list',{
+            const result = await util.getDataFromServersV2('consumer/order/precharge/list', {
                 orderId: app.globalData.orderInfo.orderId // 订单id
             });
             if (!result) return;
@@ -702,6 +744,12 @@ Page({
             });
             return;
         }
+        // 9901 套餐验证码
+        if (!this.data.isSalesmanOrder && this.data.listOfPackages[this.data.choiceIndex]?.flowVersion === 8) {
+            await this.getOrderDetail();
+            this.selectComponent('#verifyCode').show();
+            return;
+        }
         await this.saveOrderInfo();
     },
     // popTipComp组件 触发事件函数
@@ -724,14 +772,14 @@ Page({
         if (this.data.isRequest) {
             return;
         } else {
-            this.setData({isRequest: true});
+            this.setData({ isRequest: true });
         }
         wx.uma.trackEvent('package_the_rights_and_interests_next');
         const res = await util.getDataFromServersV2('consumer/order/after-sale-record/addProtocolRecord', {
             orderId: app.globalData.orderInfo.orderId // 订单id
         });
         if (!res) return;
-        this.setData({isRequest: false});
+        this.setData({ isRequest: false });
         let addEquity = this.data.equityListMap.addEquityList[this.data.choiceIndex];	// 加购权益包
         let params = {
             orderId: app.globalData.orderInfo.orderId, // 订单id
@@ -743,7 +791,7 @@ Page({
             areaCode: this.data.orderInfo ? (this.data.orderInfo.product.areaCode || '0') : app.globalData.newPackagePageData.areaCode
         };
         const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
-        this.setData({isRequest: false});
+        this.setData({ isRequest: false });
         if (!result) return;
         if (result.code === 0) {
             util.getDatanexusAnalysis('PURCHASE');
@@ -780,6 +828,26 @@ Page({
             util.showToastNoIcon(result.message);
         }
     },
+    async getOrderDetail () { // 根据订单ID 查询订单
+        const result = await util.getDataFromServersV2('consumer/order/order-detail', {
+            orderId: app.globalData.orderInfo.orderId // 订单id
+        });
+        if (!result) return;
+        if (result.code === 0) {
+            // 初始化验证码组件 弹框数据
+            let cardMobilePhone = result.data.cardMobilePhone;
+            this.setData({
+                orderInfo9901: {
+                    cardMobilePhone,
+                    type: '9901',// 控制显示新的弹框样式
+                    sendUrl: 'consumer/etc/qtzl/xz/frontSendMsg', // 新的发送验证码接口
+                    loginUrl: 'consumer/etc/qtzl/xz/loginSender' // 新的验证登录验证码接口
+                }
+            });
+        } else {
+            util.showToastNoIcon(result.message);
+        }
+    },
     async perfectOrder () {
         app.globalData.isTelemarketing = true;
         let params = {
@@ -803,6 +871,10 @@ Page({
     },
     // 获取业务员端流程
     async getSalesmanOrderProcess () {
+        if (this.data.orderInfo.base?.flowVersion === 8) {
+            util.go(`/pages/default/processing_progress/processing_progress?type=main_process`);
+            return;
+        }
         if (this.data.orderInfo.base?.flowVersion === 1) {
             // 去签约
             await this.weChatSign();
@@ -836,7 +908,7 @@ Page({
     // 支付
     async marginPayment (pledgeType) {
         if (this.data.isRequest) return;
-        this.setData({isRequest: true});
+        this.setData({ isRequest: true });
         util.showLoading();
         let params = {};
         if (pledgeType === 4) {
@@ -856,7 +928,7 @@ Page({
         const result = await util.getDataFromServersV2('consumer/order/pledge-pay', params);
         console.log(result);
         if (!result) {
-            this.setData({isRequest: false});
+            this.setData({ isRequest: false });
             return;
         }
         if (result.code === 0) {
@@ -868,9 +940,13 @@ Page({
                 signType: extraData.signType,
                 timeStamp: extraData.timeStamp,
                 success: (res) => {
-                    this.setData({isRequest: false});
+                    this.setData({ isRequest: false });
                     if (res.errMsg === 'requestPayment:ok') {
                         if (this.data.isSalesmanOrder) {
+                            if (this.data.orderInfo.base?.flowVersion === 8) {
+                                util.go(`/pages/default/processing_progress/processing_progress?type=main_process`);
+                                return;
+                            }
                             if (this.data.listOfPackages[this.data.activeIndex].etcCardId === 10 && +this.data.listOfPackages[this.data.activeIndex].deviceType === 0) {
                                 // 湖南湘通卡 & 单片机   湖南信科
                                 util.go('/pages/default/payment_successful/payment_successful?isHunan=1');
@@ -883,7 +959,7 @@ Page({
                             }
                             if (this.data.listOfPackages[this.data.choiceIndex].isSignTtCoupon === 1) {
                                 // 通通券套餐
-                                this.setData({isPay: true});
+                                this.setData({ isPay: true });
                                 return;
                             }
                             // 去支付成功页
@@ -906,14 +982,14 @@ Page({
                     }
                 },
                 fail: (res) => {
-                    this.setData({isRequest: false});
+                    this.setData({ isRequest: false });
                     if (res.errMsg !== 'requestPayment:fail cancel') {
                         util.showToastNoIcon('支付失败！');
                     }
                 }
             });
         } else {
-            this.setData({isRequest: false});
+            this.setData({ isRequest: false });
             util.showToastNoIcon(result.message);
         }
     },
@@ -1012,28 +1088,28 @@ Page({
             // 后台返回的协议，格式转换
             if (this.data.listOfPackages[currentIndex]?.agreements) {
                 try {
-                    this.setData({[`listOfPackages[${currentIndex}].agreements`]: JSON.parse(this.data.listOfPackages[currentIndex].agreements)});
-                } catch (error) {}
+                    this.setData({ [`listOfPackages[${currentIndex}].agreements`]: JSON.parse(this.data.listOfPackages[currentIndex].agreements) });
+                } catch (error) { }
             }
             // 加购权益包
             const packageIds = this.data.listOfPackages[currentIndex].rightsPackageIds && this.data.listOfPackages[currentIndex]?.rightsPackageIds.length !== 0;
             if (!packageIds) {
-                equityListMap.addEquityList.push({index: currentIndex, packageName: '',payMoney: 0,aepIndex: -1});
+                equityListMap.addEquityList.push({ index: currentIndex, packageName: '', payMoney: 0, aepIndex: -1 });
             } else {
                 const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
                     packageIds: this.data.listOfPackages[currentIndex]?.rightsPackageIds
-                },'POST',false);
+                }, 'POST', false);
                 if (result.code === 0) {
                     // this.data.listOfPackages[currentIndex].mustChoiceRightsPackage === 1 ? 0 : -1
                     let packageName = '';
-                    result.data.map((item,index) => {
+                    result.data.map((item, index) => {
                         packageName += item.packageName;
                         packageName += index < result.data.length - 1 ? '+' : '';
                     });
-                    equityListMap.addEquityList.push({index: currentIndex,packageName: packageName,subData: result.data,aepIndex: -1});
+                    equityListMap.addEquityList.push({ index: currentIndex, packageName: packageName, subData: result.data, aepIndex: -1 });
                 } else {
                     // 占位
-                    equityListMap.addEquityList.push({index: currentIndex, packageName: '',payMoney: 0,aepIndex: -1});
+                    equityListMap.addEquityList.push({ index: currentIndex, packageName: '', payMoney: 0, aepIndex: -1 });
                 }
             }
             // 默认权益包(只能有一个)
@@ -1041,46 +1117,46 @@ Page({
             let sevicePackages = this.data.listOfPackages[currentIndex].serviceFeePackageId;
             if (sevicePackages) defaultPackages = sevicePackages.split(',');
             if (defaultPackages.length === 0) {
-                equityListMap.serviceEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+                equityListMap.serviceEquityList.push({ index: currentIndex, packageName: '', payMoney: 0 });
             } else {
                 const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
                     packageIds: defaultPackages
-                },'POST',false);
+                }, 'POST', false);
                 if (result.code === 0) {
                     let packageName = '';
                     // let payMoney = 0;	// 综合服务权益包 金额
-                    result.data.map((item,index) => {
+                    result.data.map((item, index) => {
                         packageName += item.packageName;
                         // payMoney += item.payMoney;
                         packageName += index < result.data.length - 1 ? '+' : '';
                     });
-                    equityListMap.serviceEquityList.push({index: currentIndex,subData: result.data,packageName: packageName,payMoney: 0});
+                    equityListMap.serviceEquityList.push({ index: currentIndex, subData: result.data, packageName: packageName, payMoney: 0 });
                 } else {
                     // 占位
-                    equityListMap.serviceEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+                    equityListMap.serviceEquityList.push({ index: currentIndex, packageName: '', payMoney: 0 });
                 }
             }
             // 2%综合服务费赠送的权益包
             let packageId = this.data.listOfPackages[currentIndex].rightsPackageId && this.data.listOfPackages[currentIndex].rightsPackageId !== 0;
             if (!packageId) {
-                equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+                equityListMap.defaultEquityList.push({ index: currentIndex, packageName: '', payMoney: 0 });
             } else {
                 const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
                     packageIds: new Array(this.data.listOfPackages[currentIndex].rightsPackageId)
-                },'POST',false);
+                }, 'POST', false);
                 if (result.code === 0) {
-                    equityListMap.defaultEquityList.push({index: currentIndex,subData: result.data});
+                    equityListMap.defaultEquityList.push({ index: currentIndex, subData: result.data });
                 } else {
                     // 占位
-                    equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+                    equityListMap.defaultEquityList.push({ index: currentIndex, packageName: '', payMoney: 0 });
                 }
             }
             // 判断套餐是否为银行行用卡套餐
             if (this.data.citicBankshopProductIds.includes(this.data.listOfPackages[currentIndex]?.shopProductId)) {
-                equityListMap.bankList.push({index: currentIndex,isBank: true});
+                equityListMap.bankList.push({ index: currentIndex, isBank: true });
             } else {
                 // 占位
-                equityListMap.bankList.push({index: currentIndex,isBank: false});
+                equityListMap.bankList.push({ index: currentIndex, isBank: false });
             }
         }
         console.log(equityListMap);
@@ -1106,6 +1182,7 @@ Page({
         }
         util.hideLoading();
     },
+
     // 控制 选中套餐 的位置
     controllShopProductPosition (eIndex) {
         let flags = 'module' + eIndex;
@@ -1134,7 +1211,7 @@ Page({
             util.showToastNoIcon(result.message);
         }
         this.setData({
-          vehPlates: result.data.base.vehPlates
+            vehPlates: result.data.base.vehPlates
         });
     },
     // 弹窗详情
@@ -1224,7 +1301,7 @@ Page({
         let choiceIndex = parseInt(e.detail.choiceIndex);
         let equityListMap = this.data.equityListMap;
         equityListMap.addEquityList[this.data.activeIndex].aepIndex = choiceIndex;
-        this.setData({equityListMap});
+        this.setData({ equityListMap });
     },
     /**
      * 协议跳转
@@ -1242,7 +1319,7 @@ Page({
                 }
             });
         } else { // 打开pdf
-            util.openPdf(item5.content,item5.category);
+            util.openPdf(item5.content, item5.category);
         }
     }
 

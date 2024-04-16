@@ -2,7 +2,7 @@
  * @author 狂奔的蜗牛
  * @desc etc详情
  */
-import {handleJumpHunanMini, initProductName, thirdContractSigning} from '../../../utils/utils.js';
+import { handleJumpHunanMini, initProductName, thirdContractSigning } from '../../../utils/utils.js';
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
@@ -83,7 +83,7 @@ Page({
 			let orderInfo = result.data;
 			orderInfo['selfStatus'] = orderInfo.isNewTrucks === 1 ? util.getTruckHandlingStatus(orderInfo) : util.getStatus(orderInfo);
 			orderInfo['deductionMethod'] = initProductName(orderInfo);
-			console.log(orderInfo,'===========订单数据==================');
+			console.log(orderInfo, '===========订单数据==================');
 
 			this.setData({
 				orderInfo
@@ -140,7 +140,7 @@ Page({
 		}
 	},
 	// 关闭跳转车主服务弹窗
-	close () {},
+	close () { },
 	hide () {
 		this.setData({
 			showDetailWrapper: false
@@ -202,7 +202,7 @@ Page({
 			2: () => this.onClickContinueHandle(orderInfo),// 继续办理
 			3: () => this.goPayment(orderInfo), // 去支付
 			4: () => this.onClickContinueHandle(orderInfo), // 继续办理
-			5: () => this.subscribe(orderInfo), // 签约微信支付 - 去签约
+			5: () => orderInfo.flowVersion === 8 ? this.handle9901Step(orderInfo) : this.subscribe(orderInfo), // 签约微信支付 - 去签约
 			6: () => this.onClickViewProcessingProgressHandle(orderInfo), // 订单排队审核中 - 查看进度
 			7: () => this.onClickModifiedData(orderInfo, true), // 修改资料 - 上传证件页
 			9: () => this.onClickHighSpeedSigning(orderInfo), // 去签约
@@ -225,20 +225,32 @@ Page({
 			27: () => this.onClickContinueHandle(orderInfo), // 修改资料
 			28: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度
 			30: () => this.onClickViewProcessingProgressHandle(orderInfo), // 查看进度 - 保证金退回
-			31: () => this.handleJumpHunanMini(orderInfo.id,orderInfo.selfStatus), // 跳转到湖南高速ETC小程序 - 已支付待激活
-			32: () => this.handleJumpHunanMini(orderInfo.id,orderInfo.selfStatus), // 跳转到湖南高速ETC小程序 - 已支付待激活
+			31: () => this.handleJumpHunanMini(orderInfo.id, orderInfo.selfStatus), // 跳转到湖南高速ETC小程序 - 已支付待激活
+			32: () => this.handleJumpHunanMini(orderInfo.id, orderInfo.selfStatus), // 跳转到湖南高速ETC小程序 - 已支付待激活
 			33: () => this.onClickCctivate(orderInfo),	// 广发 - 已激活
-			34: () => this.onClickContinueHandle(orderInfo) // 继续办理
+			34: () => this.onClickContinueHandle(orderInfo), // 继续办理
+			35: () => this.handle9901Step(orderInfo) // 继续办理
 		};
 		fun[orderInfo.selfStatus].call();
 	},
-	async handleJumpHunanMini (orderId,selfStatus) {
-		const result = await util.getDataFromServersV2('consumer/order/order-pay-transaction-info', {orderId: orderId});
+	async handle9901Step (orderInfo) {
+		let data = await util.getSteps_9901(orderInfo);
+		switch (data.stepNum) {
+			case 4: // 需要设备预检
+				util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderInfo.id}`);
+				break;
+			case 9: // 需要设备预检
+				util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${orderInfo.auditStatus}`);
+				break;
+		}
+	},
+	async handleJumpHunanMini (orderId, selfStatus) {
+		const result = await util.getDataFromServersV2('consumer/order/order-pay-transaction-info', { orderId: orderId });
 		if (result.code) {
 			util.showToastNoIcon(result.message);
 			return;
 		}
-		handleJumpHunanMini(orderId, result.data.outTradeNo,selfStatus);
+		handleJumpHunanMini(orderId, result.data.outTradeNo, selfStatus);
 	},
 	onActive (orderInfo) {	// 已激活后的操作
 		if (orderInfo.obuCardType === 2 && util.timeComparison('2023/06/01 00:00:00', orderInfo.addTime) === 2) {
@@ -653,11 +665,11 @@ Page({
 			util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?emptyHairOrder=true`);
 			return;
 		}
-    wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'etc_detail_for_certificate_to_truck_package' : 'etc_detail_for_certificate_to_package');
-    // 签约前判断车牌号信息是否完整 ==>平安空发激活补充车牌证件信息
-    if (orderInfo.vehPlates.length > 8) {
-      return util.go(`/pages/${path}/receiving_address/receiving_address?perfect=1&shopId=${orderInfo.shopId}&orderId=${orderInfo.id}`);
-    }
+		wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'etc_detail_for_certificate_to_truck_package' : 'etc_detail_for_certificate_to_package');
+		// 签约前判断车牌号信息是否完整 ==>平安空发激活补充车牌证件信息
+		if (orderInfo.vehPlates.length > 8) {
+			return util.go(`/pages/${path}/receiving_address/receiving_address?perfect=1&shopId=${orderInfo.shopId}&orderId=${orderInfo.id}`);
+		}
 		util.go(`/pages/${path}/information_list/information_list`);
 	},
 	// 在线客服
@@ -701,7 +713,7 @@ Page({
 		this.data.choiceEquipment.switchDisplay(false);
 	},
 	async handleActivate (obj) {
-		let res = await util.getDataFromServersV2('consumer/order/common/get-member-by-carno',{
+		let res = await util.getDataFromServersV2('consumer/order/common/get-member-by-carno', {
 			carNo: obj.vehPlates,
 			vehColor: obj.vehColor
 		});

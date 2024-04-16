@@ -25,6 +25,8 @@
         "pages/default/shot_other_photo/shot_other_photo",
         "pages/default/shot_card/shot_card",
         "pages/default/shot_bank_card/shot_bank_card",
+        "pages/default/obucarquer/obucarquer",
+        "pages/default/camera/camera",
         "pages/default/third_party_signing/third_party_signing",
         "pages/landing_page_for_ccb/index",
         "pages/pay/pay",
@@ -139,7 +141,9 @@
                 "prefer_purchase/prefer_purchase",
                 "buy_success/buy_success",
                 "associated_license_plate/associated_license_plate",
-                "citic_bank_pay_success/citic_bank_pay_success"
+                "citic_bank_pay_success/citic_bank_pay_success",
+                "sing_9901_success/sing_9901_success"
+
             ]
         },
         {
@@ -336,6 +340,7 @@
                 "vehicle_inquire/vehicle_inquire",
                 "hunan/genvict/genvict",
                 "hunan/juli/juli",
+                "hunan/pro9901/pro9901",
                 "hunan/watchdata/watchdata",
                 "hunan/watchdata_plugn/watchdata_plugn",
                 "hunan/zhongluweilai/zhongluweilai",
