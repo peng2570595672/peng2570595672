@@ -476,10 +476,10 @@ Page({
 		for (let key in oldBack) { oldBackValue += oldBack[key]; }
 		for (let key in face) { faceValue += face[key]; }
 		for (let key in oldFace) { oldFaceValue += oldFace[key]; }
-		if (backValue === oldBackValue && faceValue === oldFaceValue) {
+		if (oldFace.vin === face.vin) {
 			haveChange = false;
 		}
-		// 提价数据
+		// 提交数据
 		this.setData({
 			isRequest: true,
 			available: false
