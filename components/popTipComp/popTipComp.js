@@ -28,8 +28,7 @@ Component({
 		paramsList: [],
 		noSliding: false, // 是否禁止底层页面滑动
 		getAgreement: true,	// 默认选中协议
-		relationId: '',
-		maidian: []
+		relationId: ''
 	},
 	methods: {
 		show (obj) {

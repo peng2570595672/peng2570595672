@@ -150,7 +150,7 @@
                         <view class="mdRight">
                             <view class="rightTitle">{{tools.limitNumber(item.packageName,12)}}</view>
                             <view class="rightContent">
-                                <text wx:for="{{item.detailList}}" wx:for-item="item1" wx:for-index="index1" wx:key="index1">
+                                <text class="{{argObj.isMinShen ? 'text7' : ''}}" wx:for="{{item.detailList}}" wx:for-item="item1" wx:for-index="index1" wx:key="index1" >
                                     <text wx:if="{{item1.couponType === 1 && index1 < 4}}">{{item1.denomination > 0 ? item1.denomination / 100 + '元' : '免费'}}高速通行券X{{item1.couponCount}}{{index1 === tools.dataLen(item.detailList)-1 ? '' : index1 > 2 ? '...' : '、'}}</text>
                                     <text wx:if="{{item1.couponType === 2 && index1 < 4}}">{{item1.denomination > 0 ? item1.denomination / 100 + '元' : '免费'}}停车券X{{item1.couponCount}}{{index1 === tools.dataLen(item.detailList)-1 ? '' : index1 > 2 ? '...' : '、'}}</text>
                                     <text wx:if="{{item1.couponType === 3 && index1 < 4}}">{{item1.denomination > 0 ? item1.denomination / 100 + '元' : '免费'}}加油券X{{item1.couponCount}}{{index1 === tools.dataLen(item.detailList)-1 ? '' : index1 > 2 ? '...' : '、'}}</text>
@@ -160,6 +160,7 @@
                                     <text wx:if="{{item1.couponType === 7 && index1 < 4}}">{{item1.denomination > 0 ? item1.denomination / 100 + '元' : '免费'}}商品消费券X{{item1.couponCount}}{{index1 === tools.dataLen(item.detailList)-1 ? '' : index1 > 2 ? '...' : '、'}}</text>
                                     <text wx:if="{{item1.couponType === 8 && index1 < 4}}">{{item1.denomination > 0 ? item1.denomination / 100 + '元' : '免费'}}药店券X{{item1.couponCount}}{{index1 === tools.dataLen(item.detailList)-1 ? '' : index1 > 2 ? '...' : '、'}}</text>
                                 </text>
+                                <text class="subMinShen" wx:if="{{argObj.isMinShen}}">注:参加本活动的用户不可同时享受民生信用卡其他新卡招募礼活动的礼品</text>
                             </view>
                         </view>
                     </view>

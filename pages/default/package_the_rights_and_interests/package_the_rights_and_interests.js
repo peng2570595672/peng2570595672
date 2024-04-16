@@ -1162,7 +1162,8 @@ Page({
                         title: '加赠权益包',
                         bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 30%,#FFFFFF 100%)',
                         isSplit: index === this.data.activeIndex ? true : this.data.isFade,
-                        equityPackageInfo: service.subData && service.subData.length > 0 ? service.subData.concat(def.subData) : def.subData
+                        equityPackageInfo: service.subData && service.subData.length > 0 ? service.subData.concat(def.subData) : def.subData,
+                        isMinShen: this.data.listOfPackages[index].shopProductId === '1199301561518923776' // 判断是否为民生套餐
                     }
                 });
                 break;
@@ -1198,7 +1199,8 @@ Page({
                         bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 40%,#FFFFFF 100%)',
                         equityPackageInfo: this.data.equityListMap.addEquityList[index].subData,
                         mustEquity: this.data.listOfPackages[index].mustChoiceRightsPackage,
-                        aepIndex: this.data.equityListMap.addEquityList[this.data.activeIndex].aepIndex
+                        aepIndex: this.data.equityListMap.addEquityList[this.data.activeIndex].aepIndex,
+                        isMinShen: this.data.listOfPackages[index].shopProductId === '1199301561518923776' // 判断是否为民生套餐
                     }
                 });
                 break;

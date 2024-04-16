@@ -488,7 +488,7 @@
   box-shadow: 0 4rpx 2rpx 0 rgba(212,212,212,0.5);
 }
 .payAndAgreement .paySign .moneyPay .bail {
-  width: 450rpx;
+  width: 430rpx;
   height: 90rpx;
   position: relative;
 }
