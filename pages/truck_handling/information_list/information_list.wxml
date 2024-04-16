@@ -21,8 +21,7 @@
     </view>
     <view wx:else class="icon {{orderInfo.isVehicle === 1 ? 'success' : ''}} iconfont"></view>
   </view>
-    <view class="module moduleThree">
-<!--    <view class="module moduleThree" wx:if="{{!orderInfo.isVehicle || (orderInfo.isVehicle === 1 && vehicleInfo.isTraction === 1)}}">-->
+  <view class="module moduleThree" wx:if="{{!orderInfo.isVehicle || (orderInfo.isVehicle === 1 && vehicleInfo.isTraction === 1)}}">
         <view class="left iconfont {{isRoadTransportCertificateError ? 'error' : ''}}">道路运输通行证({{orderInfo.isVehicle ? '必填' : '选填'}})</view>
         <view
                 wx:if="{{ (isModifiedData && isRoadTransportCertificateError) || orderInfo.isTransportLicense !== 1 }}"
@@ -45,7 +44,7 @@
 
   <view class="bottomBtn">
     <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="next">
-      {{isModifiedData ? '提交审核' : '签约代扣通讯费'}}
+      {{isModifiedData ? '提交审核' : '签约代扣通行费'}}
     </view>
   </view>
 </view>

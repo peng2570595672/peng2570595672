@@ -82,16 +82,16 @@
                     </picker>
                 </view>
             </view>
-            <view class="keyValue">
-                <view class="attrName left">车轴数</view>
-                <view class="attrValue">
-                    <picker bindchange="bindPersonsCarTypeChange" value="{{carType}}" range="{{carTypeArr}}"
-                        range-key="name">
-                        <view class="choice-axle iconfont">{{carType !== -1 ? carTypeArr[carType].name : '请真实选择车轴数'}}
-                        </view>
-                    </picker>
-                </view>
-            </view>
+<!--            <view class="keyValue">-->
+<!--                <view class="attrName left">车轴数</view>-->
+<!--                <view class="attrValue">-->
+<!--                    <picker bindchange="bindPersonsCarTypeChange" value="{{carType}}" range="{{carTypeArr}}"-->
+<!--                        range-key="name">-->
+<!--                        <view class="choice-axle iconfont">{{carType !== -1 ? carTypeArr[carType].name : '请真实选择车轴数'}}-->
+<!--                        </view>-->
+<!--                    </picker>-->
+<!--                </view>-->
+<!--            </view>-->
 <!--            <view class="keyValue">-->
 <!--                <view class="attrName left">车轮数</view>-->
 <!--                <view class="attrValue">-->
@@ -243,6 +243,12 @@
                 <view class="attrName left">轮胎数</view>
                 <view class="attrValue">
                     <input class="input" type="text" disabled value="{{checkVinInfo.lts || '--'}}"/>
+                </view>
+            </view>
+            <view class="keyValue">
+                <view class="attrName left">车轴数</view>
+                <view class="attrValue">
+                    <input class="input" type="text" disabled value="{{checkVinInfo.zs + '轴' || '--'}}"/>
                 </view>
             </view>
             <view class="keyValue">

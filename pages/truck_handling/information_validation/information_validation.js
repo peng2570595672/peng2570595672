@@ -50,6 +50,7 @@ Page({
 		carType: -1, // 车型
 		ownershipTypeIndex: 1, // 车辆归属
 		isTraction: 0, // 是否是牵引车 0 不是  1 是
+		carAxleNum: 0,
 		vehPlates: undefined, // 邮寄地址提交的车牌号
 		vehColor: undefined, // 邮寄地址提交的车牌颜色
 		promptObject: {
@@ -103,6 +104,7 @@ Page({
 				this.setData({
 					available: this.validateData(false)
 				});
+				this.getCheckVin();
 			}
 			let drivingLicenseBack = wx.getStorageSync('truck-driving-license-back');
 			if (drivingLicenseBack) {
@@ -262,10 +264,10 @@ Page({
 			return;
 		}
 		const result = await util.getDataFromServersV2('consumer/order/checkVin', {
-			vin: this.data.drivingLicenseFace.ocrObject.vin,
-			vehPlate: this.data.vehPlates,
-			platesColor: this.data.vehColor,
-			axleNum: this.data.carTypeArr[this.data.carType].id
+			vin: app.globalData.test ? 'LS4ASL2E3ME456738' : this.data.drivingLicenseFace.ocrObject.vin,
+			vehPlate: app.globalData.test ? '贵CS769P' : this.data.vehPlates,
+			platesColor: app.globalData.test ? '0' : this.data.vehColor,
+			axleNum: app.globalData.test ? '2' : this.data.carAxleNum
 		});
 		if (!result.code) {
 			let data = result.data;
@@ -275,12 +277,16 @@ Page({
 					checkVinInfo[key] = this.initVinIfo(data[key]);
 				}
 			}
-			this.setData({
-				checkVinInfo: checkVinInfo
-			});
+			if (this.data.carAxleNum !== +result.data.zs) {
+				util.showToastNoIcon(`车辆信息与${this.data.vehPlates}不一致，请重新上传`);
+				return;
+			}
 			if (data.checkCnt) {
 				util.showToastNoIcon(`今日剩余提交次数：${data.checkCnt}`);
 			}
+			this.setData({
+				checkVinInfo: checkVinInfo
+			});
 		} else {
 			this.startTimer();
 			util.showToastNoIcon(result.message);
@@ -355,10 +361,10 @@ Page({
 			if (isToast) util.showToastNoIcon('车辆核载人数不能为空！');
 			return false;
 		}
-		if (this.data.carType === -1) {
-			if (isToast) util.showToastNoIcon('请选择车轴数！');
-			return false;
-		}
+		// if (this.data.carType === -1) {
+		// 	if (isToast) util.showToastNoIcon('请选择车轴数！');
+		// 	return false;
+		// }
 		if (!this.data.checkVinInfo.c || !this.data.checkVinInfo.zzl) {
 			if (isToast) util.showToastNoIcon('vin码未正常识别，请重新上传行驶证或手动输入vin码！');
 			return false;
@@ -396,10 +402,15 @@ Page({
 	async getOrderInfo () {
 		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
-			dataType: '46'
+			dataType: '146'
 		});
 		if (!result) return;
 		if (result.code === 0) {
+			if (result.data.base) {
+				this.setData({
+					carAxleNum: result.data.base.axleNum || 2
+				});
+			}
 			if (result.data.vehicle) { // 是否有行驶证
 				const carType = this.data.carTypeArr.findIndex(item => item.id === result.data.vehicle.axleNum);
 				const wheelCount = this.data.wheelCountArr.findIndex(item => item.id === result.data.vehicle.wheelCount);
@@ -475,10 +486,7 @@ Page({
 		});
 		wx.uma.trackEvent('truck_information_validation_next');
 		const checkVinInfo = this.data.checkVinInfo;
-		if (checkVinInfo.cllx === '专用车' || checkVinInfo.cllx === '半挂牵引车' || checkVinInfo.cllx === '半挂车') {
-			// 是否需要上传道路运输证
-			this.setData({isTraction: 1});
-		}
+		this.setData({isTraction: checkVinInfo.cllx === '专用车' || checkVinInfo.cllx === '半挂牵引车' || checkVinInfo.cllx === '半挂车' ? 1 : 0});
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: '6',
@@ -509,7 +517,7 @@ Page({
 				tractionMass: this.initVinIfo(checkVinInfo.zqyzzl), // 准牵引总质量 【dataType包含6】
 				recode: back.recode, // 检验记录 【dataType包含6】
 				vehicleCategory: 0, // 收费车型(后台选) 一型客车 1,二型客车 2,三型客车 3,四型客车 4,一型货车 11,二型货车 12,三型货车 13,四型货车 14,五型货车 15,六型货车 16
-				axleNum: this.data.carTypeArr[this.data.carType].id, // 轴数
+				axleNum: this.data.carAxleNum, // 轴数
 				// wheelCount: this.data.wheelCountArr[this.data.wheelCount].id, // 车轮
 				wheelCount: this.initVinIfo(checkVinInfo.lts), // 车轮
 				isTraction: this.data.isTraction // 是否牵引车

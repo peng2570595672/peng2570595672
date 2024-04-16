@@ -171,6 +171,10 @@ Page({
 		if (this.data.isRequest) {
 			return;
 		}
+		if (app.globalData.test) {
+			this.next();
+			return;
+		}
 		// 校验货车身份证信息是否一致
 		let data = {
 			vehPlate: this.data.options.vehPlates,

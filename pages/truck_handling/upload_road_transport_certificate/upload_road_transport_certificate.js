@@ -104,7 +104,10 @@ Page({
 			if (isToast) util.showToastNoIcon('请勾选道路运输证经莒范围！');
 			return false;
 		}
-		return this.data.checkRoadTransportPermitInfo.certificateExpireDate;
+		if (!app.globalData.test) {
+			return this.data.checkRoadTransportPermitInfo.certificateExpireDate;
+		}
+		return true;
 	},
 	// 下一步
 	async next () {
@@ -188,7 +191,9 @@ Page({
 								});
 								return;
 							}
-							this.getCheckRoadTransportPermit();
+							if (!app.globalData.test) {
+								this.getCheckRoadTransportPermit();
+							}
 							this.setData({
 								certificateStatus: 4,
 								transportationLicenseObj: res.data[0]

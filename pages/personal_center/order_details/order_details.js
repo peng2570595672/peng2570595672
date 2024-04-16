@@ -215,7 +215,6 @@ Page({
 			console.log('账单详情：', res);
 			util.hideLoading();
 			if (res.code === 0) {
-				res.data.flowVersion = 1;
 				this.setData({
 					details: res.data
 				});

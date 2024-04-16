@@ -190,11 +190,12 @@
 }
 .index .handleImmediately .newTimeActive {
   position: absolute;
-  top: 3rpx;
+  top: -70rpx;
   width: 100vw;
   height: 75rpx;
   background-color: #ffecbb;
   display: flex;
+  align-items: center;
   color: #ec602a;
   font-weight: 500;
 }
@@ -214,26 +215,25 @@
   margin: 0 10rpx;
   color: #fff;
   border-radius: 8rpx;
-  margin-top: 16rpx;
 }
-.index .handleImmediately button {
+.index .handleImmediately .btns {
   width: 662rpx;
   height: 120rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #fff;
-  line-height: 120rpx;
+  font-size: 36rpx;
   background: #2a4f44;
   box-shadow: 0rpx 4rpx 2rpx 0rpx rgba(212,212,212,0.5);
   border-radius: 64rpx;
 }
-.index .handleImmediately .image {
+.index .handleImmediately .images {
   width: 110rpx;
   height: 44rpx;
-  position: absolute;
-  left: 480rpx;
-  top: 120rpx;
-  background: #2a4f44;
+  margin-left: 12rpx;
 }
-.index .handleImmediately view {
+.index .handleImmediately .last-tips {
   width: 662rpx;
   height: 70rpx;
   color: #2a4f44;

@@ -1,3 +1,4 @@
+const util = require('../../utils/util.js');
 Component({
 	options: {
 		multipleSlots: true // 在组件定义时的选项中启用多slot支持
@@ -65,8 +66,12 @@ Component({
 			}, 400);
 		},
 		chooseAxleNum (e) {
-			let Num = e.currentTarget.dataset.value;
+			let Num = +e.currentTarget.dataset.value;
 			console.log(Num);
+			if (Num === 5) {
+				util.showToastNoIcon('暂不支持5轴货车办理ETC');
+				return;
+			}
 			this.triggerEvent('getAxleNum',Num);
 			this.hide(e);
 		},

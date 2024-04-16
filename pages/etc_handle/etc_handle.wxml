@@ -83,12 +83,11 @@
                 <span>{{countdown.minutes}}</span>:
                 <span>{{countdown.seconds}}</span>
             </view>
-            <button catchtap="onClickHandle">{{isNewTrucks? '办理货车ETC': '小汽车ETC办理'}}</button>
-            <view wx:if="{{isNewTrucks === 1}}" class="image">
-                <image class="images" mode="widthFix" style="width: 100%;height:100%;"
-                    src="https://file.cyzl.com/g001/M03/4E/98/oYYBAGYTqnaAEKv3AAAPMTFwDSc150.png" />
+            <view class="btns" catchtap="onClickHandle">{{isNewTrucks? '办理货车ETC': '小汽车ETC办理'}}
+                <image wx:if="{{isNewTrucks === 1}}" class="images" mode="widthFix"
+                       src="https://file.cyzl.com/g001/M03/4E/98/oYYBAGYTqnaAEKv3AAAPMTFwDSc150.png" />
             </view>
-            <view catchtap="showTab" data-type="{{isNewTrucks === 1?0:1}}">{{isNewTrucks? '小汽车ETC办理 >': '货车ETC办理 >'}}
+            <view class="last-tips" catchtap="showTab" data-type="{{isNewTrucks === 1?0:1}}">{{isNewTrucks? '小汽车ETC办理 >': '货车ETC办理 >'}}
             </view>
         </view>
     </view>

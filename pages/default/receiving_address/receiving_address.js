@@ -91,7 +91,9 @@ Page({
 		this.setData({
 			formData: this.data.formData
 		});
-		console.log(this.data.formData.currentCarNoColorTruck);
+		this.setData({
+			available: this.validateAvailable()
+		});
 	},
 	// 拿到货车回调
 	getAxleNum (num) {
@@ -100,6 +102,9 @@ Page({
 		console.log('赋值',this.data.formData.axleNum);
 		this.setData({
 			formData: this.data.formData
+		});
+		this.setData({
+			available: this.validateAvailable()
 		});
 	},
 	async onLoad (options) {

@@ -45,7 +45,7 @@
                 </view>
             </view>
             <view class="vehicle-info-box" animation="{{animationVehicleInfoForTrucks}}" wx:else>
-                <view>{{!truckOrderInfo ? '使用微信支付的ETC' : truckOrderInfo.vehPlates}}</view>
+                <view>{{!truckOrderInfo ? '使用微信支付的ETC' : (userFailBillList.length ? userFailBillList[0].vehPlate : tools.isPhone(truckOrderInfo.vehPlates))}}</view>
                 <view class="sub-title">
                     <view wx:if="{{userFailBillList.length}}">{{userFailBillList[0].addTime}}</view>
                     <view wx:else>
