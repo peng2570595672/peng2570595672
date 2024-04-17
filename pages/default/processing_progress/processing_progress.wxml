@@ -35,7 +35,7 @@
             <view class="content-des" wx:else>{{info && info.auditStatus === 2 ? '审核通过' : '正在排队审核中，预计1-3个工作日内完成'}}</view>
         </view>
         <!-- 河南移动线下办理订单 -->
-        <view class="item {{info && info.auditStatus === 2 ? 'finished' : ''}}" wx:if="{{info.orderType === 21 && (info.shopId === '1214877114216488960' || '1214873729308827648')}}">
+        <view class="item {{info && info.auditStatus === 2 ? 'finished' : ''}}" wx:if="{{info.orderType === 21 && (info.shopId === '1214877114216488960' || info.shopId === '1214873729308827648')}}">
             <view class="content-title">线下领取</view>
             <view class="content-des">请到附近移动掌上营业厅领取ETC设备</view>
         </view>
