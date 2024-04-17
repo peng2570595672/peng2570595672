@@ -120,10 +120,6 @@ Component({
 		// 前去补缴
 		supplementaryPayment () {
 			this.hide(false);
-			if (this.data.tipObj.params.isTruck) {
-				util.go(`/pages/account_management/precharge_account_details/precharge_account_details?Id=${app.globalData.isArrearageData.trucksOrderList[0]}`);
-				return;
-			}
 			util.go('/pages/personal_center/arrears_bill/arrears_bill');
 		},
 		// 恢复签约
