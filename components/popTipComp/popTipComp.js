@@ -205,6 +205,7 @@ Component({
 				case 'callPhone':
 				case 'logOffTip':
 				case 'logOffTip2':
+				case 'xinKeUseer':
 					this.data.tipObj.callBack();
 					break;
 				default:
@@ -234,7 +235,6 @@ Component({
 		renewWhitelist () {
 			this.hide(false);
 			wx.setStorageSync('renewWhitelist',true);
-			console.log(this.data.paramsList);
 			if (this.data.paramsList[0].callBack) {
 				this.data.paramsList[0].callBack();
 			}

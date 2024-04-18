@@ -704,7 +704,7 @@ function getTruckHandlingStatus(orderInfo) {
     return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
   }
   // flowVersion 流程版本，1-分对分，2-新版（总对总）,3-选装 4-预充值 5-保证金模式 6-圈存 7-交行二类户
-  if (orderInfo.flowVersion === 5 && orderInfo.multiContractList.find(item => item.contractStatus === 2)) {
+  if (orderInfo.flowVersion === 5 && orderInfo.multiContractList?.find(item => item.contractStatus === 2)) {
     return 1; // 货车解约 - 保证金模式
   }
   if (orderInfo.shopProductId === 0) {
@@ -1577,7 +1577,7 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
             reAutoLoginV2(path, params, method);
             return;
           }
-          console.log(path + ';' + res.data.message)
+          // console.log(path + ';' + res.data.message)
           // console.log(res.data);
           resolve(res.data)
         } else {

@@ -180,12 +180,14 @@
             <view class="close iconfont" wx:if="{{tipObj.type === 'logOffTip2'}}" data-title="{{tipObj.title}}" catchtap="hide"></view>
         </view>
 
-        <!-- 注销提醒-->
-        <view class="module module2" wx:if="{{tipObj.type === 'logOffTip1'}}">
+        <!-- 注销提醒 信科联网-->
+        <view class="module module2" wx:if="{{tipObj.type === 'logOffTip1' || tipObj.type === 'xinKeUseer'}}">
             <view class="title">{{tipObj.title}}</view>
-            <view class="contant sub2">{{tipObj.content}}</view>
+            <view class="contant sub2">
+                <text >{{ tipObj.type === 'xinKeUseer' ? tipObj.content : tipObj.content}}</text>
+            </view>
             <view class="bottomBtn">
-                <view class="ok subOk" data-type="{{tipObj.type}}" catchtap="pubFunc1">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
+                <view class="ok subOk" data-type="{{tipObj.type}}" catchtap="pubFunc1">{{tools.limitNumber(tipObj.btnconfirm,tipObj.type === 'xinKeUseer' ? 6 : 4)}}</view>
             </view>
             <view class="close iconfont" data-title="{{tipObj.title}}" catchtap="hide"></view>
         </view>
