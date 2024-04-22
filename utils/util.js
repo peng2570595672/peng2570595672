@@ -756,7 +756,7 @@ function getTruckHandlingStatus(orderInfo) {
 
 
 
-  if (orderInfo.flowVersion === 5 && orderInfo.multiContractList.filter(item => item.contractStatus === 1).length !== 3) {
+  if (orderInfo.flowVersion === 5 && orderInfo.multiContractList?.filter(item => item.contractStatus === 1).length !== 3) {
     return 5; // 未完全签约 - 或存在解约
   }
   if (orderInfo.flowVersion === 5 && orderInfo.status === 0) {
