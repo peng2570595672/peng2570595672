@@ -84,6 +84,22 @@ Page({
 				shopId: options.shopId
 			});
 		}
+		if (options.promoterId) {
+			this.setData({
+				promoterId: options.promoterId
+			});
+		}
+		if (options.shopProductd) {
+			this.setData({
+				productId: options.shopProductd
+			});
+		}
+		if (options.shopId) {
+			this.setData({
+				shopId: options.shopId
+			});
+			app.globalData.otherPlatformsServiceProvidersId = options.shopId;
+		}
 		if (options.productId) {
 			this.setData({
 				productId: options.productId
@@ -400,6 +416,10 @@ Page({
 			if (app.globalData.isToMicroInsurancePromote) {
 				params['promoterId'] = app.globalData.otherPlatformsServiceProvidersId;// 推广者ID标识
 				params['promoterType'] = 17; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
+			}
+			if (this.data.promoterId) {
+				params['promoterId'] = this.data.promoterId;
+				params['promoterType'] = 2;
 			}
 		}
 		// 活动引流
