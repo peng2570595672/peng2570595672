@@ -93,8 +93,10 @@ Page({
         if (!result) return;
         if (result.code === 0) {
             this.setData({
-                fenCheck: result.data.fenCheck === 1
+                fenCheck: result.data.fenCheck === 1,
+                isVerifyHeadshotVeh: result.data.isVerifyHeadshotVeh === 1
             });
+            wx.setStorageSync('isVerifyHeadshotVeh', JSON.stringify(result.data.isVerifyHeadshotVeh === 1));
         } else {
             util.showToastNoIcon(result.message);
         }
@@ -251,7 +253,7 @@ Page({
     go (e) {
         let topProgressBar = 3;
         let url = e.currentTarget.dataset['url'];
-        if (this.data.orderInfo.isOwner || this.data.orderInfo.isVehicle) {
+        if (this.data.orderInfo?.isOwner || this.data.orderInfo?.isVehicle) {
             topProgressBar = 3.3;
         }
         let isXinKe = this.data.orderDetails?.orderExtCardType === 2 && this.data.orderInfo.obuCardType === 10;
