@@ -289,7 +289,7 @@ Page({
 		// 	return;
 		// }
 		wx.uma.trackEvent('etc_detail_for_order_audit');
-		util.go(`/pages/default/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}`);
+		util.go(`/pages/historical_pattern/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}`);
 	},
 	// 去开户
 	goBindingAccount (orderInfo) {
