@@ -93,10 +93,8 @@ Page({
         if (!result) return;
         if (result.code === 0) {
             this.setData({
-                fenCheck: result.data.fenCheck === 1,
-                isVerifyHeadshotVeh: result.data.isVerifyHeadshotVeh === 1
+                fenCheck: result.data.fenCheck === 1
             });
-            wx.setStorageSync('isVerifyHeadshotVeh', JSON.stringify(result.data.isVerifyHeadshotVeh === 1));
         } else {
             util.showToastNoIcon(result.message);
         }
