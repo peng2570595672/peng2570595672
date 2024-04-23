@@ -9,6 +9,7 @@ Page({
 		faceStatus: 1, // 1 未上传  2 识别中  3 识别失败  4识别成功
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
+		isVerifyHeadshotVeh: true, // 是否校验车头照车牌 0-否 1-是
 		headstock: {
 			ocrObject: {}
 		},// 车头照
@@ -50,9 +51,11 @@ Page({
 			if (isToast) util.showToastNoIcon('请上传车头照！');
 			return false;
 		}
-		if (this.data.headstock.ocrObject.plateNumber !== this.data.vehPlates) {
-			if (isToast) util.showToastNoIcon(`当前车头照识别的车牌号与${this.data.vehPlates}不一致，请重新上传`);
-			return;
+		if (this.data.isVerifyHeadshotVeh) {
+			if (this.data.headstock.ocrObject.plateNumber !== this.data.vehPlates) {
+				if (isToast) util.showToastNoIcon(`当前车头照识别的车牌号与${this.data.vehPlates}不一致，请重新上传`);
+				return;
+			}
 		}
 		return true;
 	},
@@ -76,10 +79,23 @@ Page({
 					available: this.validateData(false)
 				});
 			}
+			this.getProductOrderInfo();
 		} else {
 			util.showToastNoIcon(result.message);
 		}
 	},
+	// 根据订单id获取套餐信息
+	async getProductOrderInfo () {
+        const result = await util.getDataFromServersV2('consumer/order/get-product-by-order-id', {
+            orderId: app.globalData.orderInfo.orderId
+        });
+        if (!result) return;
+        if (result.code === 0) {
+            this.setData({
+                isVerifyHeadshotVeh: result.data.isVerifyHeadshotVeh === 1
+            });
+        }
+    },
 	// 下一步
 	async next () {
 		if (!this.validateData(true)) {
@@ -136,12 +152,14 @@ Page({
 					if (res.code === 0) { // 识别成功
 						app.globalData.handlingOCRType = 0;
 						try {
-							if (res.data[0].ocrObject.plateNumber !== this.data.vehPlates) {
-								this.setData({
-									faceStatus: 3
-								});
-								util.showToastNoIcon(`请上传与${this.data.vehPlates}一致的车头照片`);
-								return;
+							if (this.data.isVerifyHeadshotVeh) { // 是否校验车头照车牌 0-否 1-是
+								if (res.data[0].ocrObject.plateNumber !== this.data.vehPlates) {
+									this.setData({
+										faceStatus: 3
+									});
+									util.showToastNoIcon(`请上传与${this.data.vehPlates}一致的车头照片`);
+									return;
+								}
 							}
 							this.setData({
 								faceStatus: 4,

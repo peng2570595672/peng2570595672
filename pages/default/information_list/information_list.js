@@ -251,7 +251,7 @@ Page({
     go (e) {
         let topProgressBar = 3;
         let url = e.currentTarget.dataset['url'];
-        if (this.data.orderInfo.isOwner || this.data.orderInfo.isVehicle) {
+        if (this.data.orderInfo?.isOwner || this.data.orderInfo?.isVehicle) {
             topProgressBar = 3.3;
         }
         let isXinKe = this.data.orderDetails?.orderExtCardType === 2 && this.data.orderInfo.obuCardType === 10;
