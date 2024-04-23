@@ -1000,20 +1000,20 @@ Page({
                         isBail: true
                     });
                 }
-                // if (this.data.isXinKeControl && item?.transXkStatus === 1) { // 判断联网中心存量用户切换为信科用户 transXkStatus :   0- 不弹窗，1.弹窗
-                //     carList.push(item.vehPlates);
-                //     this.fangDou(() => {
-                //         this.selectComponent('#popTipComp').show({
-                //             type: 'xinKeUseer',
-                //             title: '提示',
-                //             content: `因ETC微信免密代扣渠道更新，您车牌${carList}需解约后重新签约，5月31日前未完成签约，将影响车辆ETC的使用及通行，完成后套餐权益不变可正常使用。解约路径:关注【微信车主服务】公众号-车主服务-我的车牌-删除后-进入ETC+小程序-恢复签约。若有疑问，也可拨打客服电话：4006680996。`,
-                //             btnconfirm: '查看操作详情',
-                //             callBack: () => {
-                //                 util.go('/pages/default/escalation_process/escalation_process');
-                //             }
-                //         });
-                //     }, 500);
-                // }
+                if (this.data.isXinKeControl && item?.transXkStatus === 1) { // 判断联网中心存量用户切换为信科用户 transXkStatus :   0- 不弹窗，1.弹窗
+                    carList.push(item.vehPlates);
+                    this.fangDou(() => {
+                        this.selectComponent('#popTipComp').show({
+                            type: 'xinKeUseer',
+                            title: '提示',
+                            content: `因ETC微信免密代扣渠道更新，您车牌${carList}需解约后重新签约，5月31日前未完成签约，将影响车辆ETC的使用及通行，完成后套餐权益不变可正常使用。解约路径:关注【微信车主服务】公众号-车主服务-我的车牌-删除后-进入ETC+小程序-恢复签约。若有疑问，也可拨打客服电话：4006680996。`,
+                            btnconfirm: '查看操作详情',
+                            callBack: () => {
+                                util.go('/pages/default/escalation_process/escalation_process');
+                            }
+                        });
+                    }, 500);
+                }
                 vehicleList.push(item.vehPlates);
                 wx.setStorageSync('cars', vehicleList.join('、'));
                 if (item.shopId === '692062170707394560') { // 大地商户
