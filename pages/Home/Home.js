@@ -277,13 +277,8 @@ Page({
             // 首页 banner 轮播图 模块
             let interval = data.rotationChartConfig.interval * 1000; // 轮播图间隔时间
             let bannerList = data.rotationChartConfig.rotationCharts.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime)); // 过滤掉当前时间不在规定时间内的数据，得到合格的数据
-            if (!app.globalData?.need_filterBannerList || !this.data.need_filterBannerList) { // 默认不展示 筛选
-                bannerList = bannerList.filter(item => {
-                    return item.appId !== 'wxfd9fbd2b4e45c38f';
-                });
-            }
+            app.globalData?.need_filterBannerList ? '' : bannerList = bannerList.filter(item => item.appId !== 'wxfd9fbd2b4e45c38f');
             bannerList.sort(this.compare('sort')); // 排序
-
             // 账单、权益、发票、在线 模块
             let funcListOne = data.importantFuncConfig.funcs.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime));
             // visibleUser: 1-普通用户 2-ETC+PLUS用户(百二权益用户) 3-权益券额用户 组合判断,如[1,2,3]->表示全部可见

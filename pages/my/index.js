@@ -148,12 +148,7 @@ Page({
             let bannerList = data.rotationChartConfig.rotationCharts.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime));	// 过滤掉当前时间不在规定时间内的数据，得到合格的数据
             let deviceUpgrade = app.globalData.myEtcList.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.obuCardType === 2 && util.timeComparison(app.globalData.deviceUpgrade.addTime, item.addTime) === 2 && item?.contractVersion !== 'v3');
             if (deviceUpgrade.length === 0) bannerList = bannerList.filter(item => !item.jumpUrl.includes('device_upgrade'));
-            if (!app.globalData?.need_filterBannerList || !this.data.need_filterBannerList) { // 默认不展示 筛选
-                bannerList = bannerList.filter(item => {
-                    return item.appId !== 'wxfd9fbd2b4e45c38f';
-                });
-            }
-            console.log(bannerList);
+            app.globalData?.need_filterBannerList ? '' : bannerList = bannerList.filter(item => item.appId !== 'wxfd9fbd2b4e45c38f');
             bannerList.sort(compare('sort'));	// 排序
             bannerList.map(item => {
                 item.isShow = true;
