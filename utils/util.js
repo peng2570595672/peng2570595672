@@ -1885,6 +1885,11 @@ async function getUserIsVip() {
   const result = await getDataFromServersV2('consumer/order/member/userType', {}, 'POST', false);
   if (!result) return;
   if (result.code === 0) {
+    if (result.data.showCzd > 0) {
+      app.globalData.need_filterBannerList = false;
+    } else {
+      app.globalData.need_filterBannerList = true;
+    }
     if (result.data.userType === 2) {
       app.globalData.isVip = true
     } else {
@@ -2209,7 +2214,7 @@ function sendException2Server(area, cosArr, code, result) {
   return;
 }
 // 埋点
-async function buriedPoint (params,callBack) {
+async function buriedPoint(params, callBack) {
   let res = await getDataFromServersV2('consumer/system/sys-analysis-log/common/create', {
     platformId: app.globalData.platformId,
     shopId: params.shopId,
