@@ -89,7 +89,6 @@ Page({
             util.showLoading();
             let requestList = [await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip(), await this.getCurrentEquity(), await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
             util.customTabbar(this, 2);
-            util.getUserIsVip();
             util.showLoading();
             await Promise.all(requestList);
             util.hideLoading();
