@@ -4,7 +4,7 @@ const util = require('../../utils/util.js');
 const app = getApp();
 Page({
     data: {
-        need_filterBannerList: app.globalData.need_filterBannerList, // 是否需要筛选 轮播图 默认是
+        need_filterBannerList: true, // 是否需要筛选 轮播图 默认是
         testImg: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',	// 测试所用的图片和icon
         funcList: [
             {
@@ -148,7 +148,7 @@ Page({
             let bannerList = data.rotationChartConfig.rotationCharts.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime));	// 过滤掉当前时间不在规定时间内的数据，得到合格的数据
             let deviceUpgrade = app.globalData.myEtcList.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.obuCardType === 2 && util.timeComparison(app.globalData.deviceUpgrade.addTime, item.addTime) === 2 && item?.contractVersion !== 'v3');
             if (deviceUpgrade.length === 0) bannerList = bannerList.filter(item => !item.jumpUrl.includes('device_upgrade'));
-            if (!this.data.need_filterBannerList) { // 默认不展示 筛选
+            if (!app.globalData?.need_filterBannerList || !this.data.need_filterBannerList) { // 默认不展示 筛选
                 bannerList = bannerList.filter(item => {
                     return item.appId !== 'wxfd9fbd2b4e45c38f';
                 });
