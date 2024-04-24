@@ -248,7 +248,7 @@ Page({
 			ContractType: this.data.protocolType, // 合同类型
 			ContractVersion: this.data.contractVersion // 合同版本
 		};
-		let res = await util.getDataFromServersV2('consumer/etc/nmg/gm/common/cardonline/online-to-active',params);
+		let res = await util.getDataFromServersV2('consumer/etc/nmg/common/cardonline/online-to-active',params);
 		if (res.code === 0) {
 			this.get4BitRandomByPICCFor0016();
 		} else {
