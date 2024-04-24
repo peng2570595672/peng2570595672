@@ -214,7 +214,6 @@ Page({
             app.globalData.isChannelPromotion = +currentPage.options?.channel;
         }
         util.customTabbar(this, 0);
-        await this.getBackgroundConfiguration();
         if (app.globalData.userInfo.accessToken) {
             util.showLoading();
             util.getBindGuests();
@@ -230,7 +229,7 @@ Page({
                 await this.getStatus();
             }
         }
-
+		await this.getBackgroundConfiguration();
         // 登录页返回
         let loginInfoFinal = wx.getStorageSync('login_info_final');
         if (loginInfoFinal) {
