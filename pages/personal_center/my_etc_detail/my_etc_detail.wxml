@@ -112,7 +112,7 @@
         </button>
 		<view class="btn-wrapper" wx:if="{{orderInfo.orderType === 11 || orderInfo.orderType === 12 || orderInfo.orderType === 81 || (orderInfo.orderType === 71 && orderInfo.promoterType === 44)}}">
 			<view wx:if="{{!orderInfo.pledgeStatus || orderInfo.pledgeStatus === 0}}" catchtap="onClickCancelHandle" >取消办理</view>
-			<view wx:if="{{orderInfo.pledgeStatus === 1}}" catchtap="goOnlineServer">取消办理</view>
+			<view wx:if="{{(orderInfo.pledgeStatus === 1 && orderInfo.flowVersion !== 8) || (orderInfo.flowVersion === 8 && !orderInfo.hwContractStatus)}}" catchtap="goOnlineServer">取消办理</view>
 		</view>
 		<!-- 如果是 权益券额套餐模式并且已支付成功时，隐藏 ”取消办理“按钮和替换 “ 客服中心”为“在线客服”-->
 		<!-- <view class="btn-wrapper" wx:else>
