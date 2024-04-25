@@ -95,7 +95,7 @@
         </view>
     </view>
     <!-- 占位 -->
-    <view class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}} {{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) ? 'isRPI' : ''}}"></view>
+    <view class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}} {{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) ? 'isRPI' : ''}} {{listOfPackages[activeIndex].isRoadRescue ? 'split1' : ''}}"></view>
     <!-- 通通券-道路救援服务 -->
     <view class="addEquityPackage" wx:if="{{listOfPackages[activeIndex].isRoadRescue  && isLoaded}}" data-type="6" data-index='{{activeIndex}}' catchtap="popDetail">
         <view class="imgOrName">
