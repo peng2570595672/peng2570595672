@@ -110,7 +110,7 @@ Page({
     async getLicensePlateRestrictions () {
       const result = await util.getDataFromServersV2('consumer/system/veh/limit', {
         shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
-        vehPlates: this.data.vehPlates
+        vehPlates: this.data.vehPlates || this.data.orderInfo.base.vehPlates
       });
       if (!result) return;
       if (result.code === 0) {
