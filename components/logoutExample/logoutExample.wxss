@@ -1,0 +1,103 @@
+@font-face {
+  font-family: 'iconfont'; /* Project id 1514406 */
+  src: url("//at.alicdn.com/t/c/font_1514406_8blx0c7mll.woff2?t=1683858365059") format('woff2'), url("//at.alicdn.com/t/c/font_1514406_8blx0c7mll.woff?t=1683858365059") format('woff'), url("//at.alicdn.com/t/c/font_1514406_8blx0c7mll.ttf?t=1683858365059") format('truetype');
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.logoutExampleMask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 10000000000000000;
+}
+.logoutExampleDialog {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0px 4rpx 16rpx 0rpx rgba(0,0,0,0.13);
+  border-radius: 24rpx 24rpx 0 0;
+  padding: 42rpx 40rpx 70rpx;
+  box-sizing: border-box;
+  font-family: PingFangSC-Thin, sans-serif;
+}
+.logoutExampleDialog .logoutExampleBtnClose {
+  position: absolute;
+  right: 30rpx;
+  top: 28rpx;
+}
+.logoutExampleDialog .logoutExampleBtnClose:before {
+  display: block;
+  content: '\e63d';
+  font-size: 30rpx;
+  color: #979797;
+}
+.logoutExampleDialog .logoutExampleTitle {
+  font-size: 34rpx;
+  font-weight: 600;
+  line-height: 40rpx;
+  color: #333;
+  text-align: center;
+  margin-bottom: 24rpx;
+}
+.logoutExampleDialog .logoutExampleContent {
+  font-size: 28rpx;
+  font-weight: normal;
+  line-height: 44rpx;
+  color: #222;
+  text-align: center;
+  margin-bottom: 72rpx;
+}
+.logoutExampleDialog .logoutExampleContainer {
+  text-align: center;
+  font-size: 24rpx;
+  font-weight: normal;
+  line-height: 40rpx;
+  color: #666;
+}
+.logoutExampleDialog .logoutExampleContainer .item .imgInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logoutExampleDialog .logoutExampleContainer .item .imgInfo .first .logoutExampleImg {
+  width: 132rpx;
+}
+.logoutExampleDialog .logoutExampleContainer .item .imgInfo .second .logoutExampleImg {
+  width: 36rpx;
+}
+.logoutExampleDialog .logoutExampleContainer .item .imgInfo .third .logoutExampleImg {
+  width: 288rpx;
+}
+.logoutExampleDialog .logoutExampleContainer .item .imgInfo.imgInfoLast {
+  justify-content: space-between;
+}
+.logoutExampleDialog .logoutExampleContainer .item .imgInfo.imgInfoLast .fourth,
+.logoutExampleDialog .logoutExampleContainer .item .imgInfo.imgInfoLast .fifth {
+  padding-top: 92rpx;
+  padding-bottom: 120rpx;
+  text-align: center;
+}
+.logoutExampleDialog .logoutExampleContainer .item .imgInfo.imgInfoLast .fourth .logoutExampleImg,
+.logoutExampleDialog .logoutExampleContainer .item .imgInfo.imgInfoLast .fifth .logoutExampleImg {
+  width: 320rpx;
+}
+.logoutExampleDialog .logoutExampleContainer .item .tips {
+  margin-left: 180rpx;
+  margin-top: 16rpx;
+}
+.logoutExampleDialog .logoutExampleContainer .next {
+  margin-top: 40rpx;
+}
+.logoutExampleDialog .logoutExampleContainer .next .logoutExampleImg {
+  width: 320rpx;
+}

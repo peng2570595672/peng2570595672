@@ -132,6 +132,16 @@
                 "comprehensiveServiceFee_detail/comprehensiveServiceFee_detail"
             ]
         },
+      {
+        "root": "pages/after_sales",
+        "name": "pages/after_sales",
+        "pages": [
+          "index/index",
+          "work_order/work_order",
+          "device_logout/device_logout",
+          "work_order_info/work_order_info"
+        ]
+      },
         {
             "root": "pages/separate_interest_package",
             "name": "pages/separate_interest_package",

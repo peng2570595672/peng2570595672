@@ -38,6 +38,7 @@
         <view class="item {{info && info.auditStatus === 2 ? 'finished' : ''}}" wx:if="{{info.orderType === 21 && (info.shopId === '1214877114216488960' || info.shopId === '1214873729308827648')}}">
             <view class="content-title">线下领取</view>
             <view class="content-des">请到附近移动营业厅领取ETC设备</view>
+            <view catchtap="handleServiceHall" class="content-des"><text class="precharge">查看附近营业厅</text></view>
         </view>
         <view class="item {{info && info.holdStatus === 1 ? 'finished' : ''}}" wx:if="{{info.isNewTrucks === 1 && info.flowVersion === 5}}">
             <view class="content-title">通行保证金预充</view>

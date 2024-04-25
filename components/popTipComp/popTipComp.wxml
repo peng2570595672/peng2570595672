@@ -158,7 +158,15 @@
             <view wx:if="{{tipObj.type === 'bingGuttesBill'}}" class="btn1" catchtap="authorizeTip"></view>
             <view wx:if="{{tipObj.type === 'bingGuttesBill' || tipObj.type === 'newPop'}}" class="close1" data-title="{{tipObj.title}}" catchtap="hide"></view>
         </view>
-
+        <!-- 注销欠费提示  -->
+        <view class="module moduleThree moduleTenth" wx:if="{{tipObj.type === 'tenth'}}">
+            <view class="title">{{tipObj.title}}</view>
+            <view class="contant">{{tipObj.content}}</view>
+            <view class="bottomBtn">
+                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+                <view class="ok" catchtap="handleConfirm">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
+            </view>
+        </view>
         <!-- 查看图片 -->
         <view class="roadRescue" wx:if="{{tipObj.type === 'road_rescue'}}">
             <view class="contant">

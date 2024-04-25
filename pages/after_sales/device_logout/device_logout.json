@@ -1,0 +1,10 @@
+{
+	"navigationBarTitleText": "设备注销",
+	"navigationBarBackgroundColor": "#ffffff",
+	"backgroundColor": "#ffffff",
+	"navigationBarTextStyle": "black",
+    "usingComponents": {
+        "popTipComp": "/components/popTipComp/popTipComp",
+        "logoutExample": "/components/logoutExample/logoutExample"
+    }
+}

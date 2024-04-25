@@ -1,0 +1,253 @@
+@keyframes btnFadeIn {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes btnFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.2;
+  }
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 24rpx 24rpx 230rpx;
+  overflow: scroll;
+  background: #f7f7f7;
+}
+.container .inputContainer {
+  border-radius: 24rpx;
+  background: #fff;
+  padding: 30rpx;
+}
+.container .inputContainer .title {
+  font-size: 36rpx;
+  font-weight: 500;
+  line-height: 56rpx;
+  color: #33333d;
+  padding-bottom: 16rpx;
+}
+.container .inputContainer .inputItem {
+  height: 110rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #ededed;
+}
+.container .inputContainer .inputItem .label {
+  width: 210rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+.container .inputContainer .inputItem .label::before {
+  content: '*';
+  font-size: 24rpx;
+  font-weight: normal;
+  color: #f00;
+}
+.container .inputContainer .inputItem .val {
+  flex: 1;
+  font-family: PingFang SC;
+  font-size: 28rpx;
+  font-weight: normal;
+}
+.container .inputContainer .inputItem .val .selectInfo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.container .inputContainer .inputItem .val .selectInfo::after {
+  position: absolute;
+  right: 0;
+  font-size: 24rpx;
+  content: '\e652';
+  color: #666;
+}
+.container .inputContainer .inputItem .val .textarea {
+  width: 100%;
+  height: 100rpx;
+}
+.container .inputContainer .inputItem .val .input-placeholder {
+  color: #999;
+}
+.container .inputContainer .inputItem .val.blueColor {
+  color: #276ad9;
+}
+.container .inputContainer .inputItem .val.yellowColor {
+  color: #ff8f1f;
+}
+.container .inputContainer .inputItem .val.blackColor {
+  color: #222;
+}
+.container .inputContainer .inputItem .val.whiteColor {
+  color: #222;
+  opacity: 0.5;
+}
+.container .inputContainer .inputItem .val.greenColor {
+  color: #5ebe68;
+}
+.container .inputContainer .reasonItem {
+  padding: 32rpx 0;
+  align-items: flex-start;
+}
+.container .inputContainer .reasonItem .val .textarea {
+  height: 90rpx;
+}
+.container .inputContainer .uploadContainer {
+  border-bottom: 1rpx solid #ededed;
+}
+.container .inputContainer .uploadContainer .inputItem {
+  border-bottom: 0;
+}
+.container .inputContainer .uploadContainer .uploadBox .subTips {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  font-weight: normal;
+  line-height: 28rpx;
+  color: #666;
+}
+.container .inputContainer .uploadContainer .uploadBox .subTips .example {
+  color: #00b578;
+  margin-left: 14rpx;
+}
+.container .inputContainer .uploadContainer .uploadBox .uploadImg {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 32rpx 0 60rpx;
+}
+.container .inputContainer .uploadContainer .uploadBox .uploadImg .uploaderItem,
+.container .inputContainer .uploadContainer .uploadBox .uploadImg .addImg {
+  width: 190rpx;
+  height: 190rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 24rpx;
+  position: relative;
+  box-sizing: border-box;
+}
+.container .inputContainer .uploadContainer .uploadBox .uploadImg .uploaderItem .img,
+.container .inputContainer .uploadContainer .uploadBox .uploadImg .addImg .img {
+  width: 190rpx;
+  height: 190rpx;
+  border-radius: 24rpx;
+}
+.container .inputContainer .uploadContainer .uploadBox .uploadImg .uploaderItem .deleteImg,
+.container .inputContainer .uploadContainer .uploadBox .uploadImg .addImg .deleteImg {
+  position: absolute;
+  top: -5rpx;
+  right: -5rpx;
+  z-index: 10;
+  width: 35rpx;
+  height: 35rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fa5151;
+  border-radius: 50%;
+}
+.container .inputContainer .uploadContainer .uploadBox .uploadImg .uploaderItem .deleteImg .line,
+.container .inputContainer .uploadContainer .uploadBox .uploadImg .addImg .deleteImg .line {
+  background: #fff;
+  width: 25rpx;
+  height: 5rpx;
+  border-radius: 2.5rpx;
+}
+.container .inputContainer .uploadContainer .uploadBox .uploadImg .addImg {
+  border: 1rpx solid #e2e2e2;
+  font-family: PingFang SC;
+  font-size: 24rpx;
+  font-weight: normal;
+  color: #666;
+}
+.container .inputContainer .uploadContainer .uploadBox .uploadImg.equipmentImg .uploaderItem,
+.container .inputContainer .uploadContainer .uploadBox .uploadImg.equipmentImg .addImg {
+  width: 145.5rpx;
+  height: 145.5rpx;
+  margin-right: 20rpx;
+}
+.container .inputContainer .uploadContainer .uploadBox .uploadImg.equipmentImg .uploaderItem .img,
+.container .inputContainer .uploadContainer .uploadBox .uploadImg.equipmentImg .addImg .img {
+  width: 145.5rpx;
+  height: 145.5rpx;
+}
+.container .inputContainer .uploadContainer .uploadBox .uploadImg.equipmentImg :nth-child(4n) {
+  margin-right: 0;
+}
+.container .inputContainer .uploadContainer .uploadBox .uploadImg.equipmentImg :nth-child(n+5):nth-child(-n+8) {
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+.container .inputContainer .uploadContainer .uploadBox .uploadImg.uploadImgOther :nth-child(n+5):nth-child(-n+8) {
+  margin-bottom: 0rpx;
+}
+.container .inputContainer .deliveryAddress .subTitle {
+  font-family: PingFang SC;
+  font-size: 24rpx;
+  color: #999;
+  line-height: 28rpx;
+  padding: 40rpx 0 16rpx;
+}
+.container .inputContainer .deliveryAddress .deliveryInfo {
+  border-radius: 16rpx;
+  background: #f7f7f7;
+  line-height: 36rpx;
+  font-size: 24rpx;
+  padding: 24rpx;
+  color: #999;
+}
+.container .inputContainer .deliveryAddress .deliveryInfo .userInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14rpx;
+}
+.container .inputContainer .deliveryAddress .deliveryInfo .userInfo .userName {
+  color: #222;
+}
+.container .inputContainer .deliveryAddress .deliveryInfo .userInfo .userName text {
+  margin-left: 20rpx;
+}
+.container .btn-wrapper {
+  position: fixed;
+  height: 230rpx;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  z-index: 100;
+  justify-content: center;
+  border-radius: 16rpx 16rpx 0rpx 0rpx;
+  padding: 24rpx 44rpx;
+  box-sizing: border-box;
+  background: #fff;
+}
+.container .btn-wrapper .btn {
+  flex: 1;
+  height: 110rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 55rpx;
+  background: #2a4f44;
+  box-shadow: 0rpx 4rpx 2rpx 0rpx rgba(212,212,212,0);
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #fff;
+}
+.container .btn-wrapper .btn.available {
+  animation: btnFadeIn 0.3s;
+  animation-fill-mode: forwards;
+}
+.container .btn-wrapper .btn.unavailable {
+  animation: btnFadeOut 0.3s;
+  animation-fill-mode: forwards;
+}

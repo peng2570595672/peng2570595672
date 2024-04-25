@@ -1,0 +1,102 @@
+<view class="container">
+    <view class="inputContainer">
+        <view class="title">设备注销</view>
+        <view class="inputItem">
+            <view class="label">注销车牌</view>
+            <view class="val">
+                <picker class="input" bindchange="handleSelectChange" data-type="vehPlates" value="{{carIndex}}"
+                        range="{{carList}}" range-key="vehPlates">
+                    <view class="selectInfo iconfont {{carIndex === -1 ? 'input-placeholder' : ''}}">
+                        {{carIndex === -1 ? '请选择车牌' : carList[carIndex].vehPlates}}
+                    </view>
+                </picker>
+            </view>
+        </view>
+        <view class="inputItem" wx:if="{{carIndex !== -1}}">
+            <view class="label">车牌颜色</view>
+            <view class="val {{carList[carIndex].vehColor === 0 ? 'blueColor' : ''}} {{carList[carIndex].vehColor === 1 ? 'yellowColor' : ''}} {{carList[carIndex].vehColor === 2 ? 'blackColor' : ''}} {{carList[carIndex].vehColor === 3 ? 'whiteColor' : ''}} {{carList[carIndex].vehColor === 4 ? 'greenColor' : ''}}">
+                {{carList[carIndex].vehColor === 0 ? '蓝牌' : ''}}
+                {{carList[carIndex].vehColor === 1 ? '黄牌' : ''}}
+                {{carList[carIndex].vehColor === 2 ? '黑牌' : ''}}
+                {{carList[carIndex].vehColor === 3 ? '白牌' : ''}}
+                {{carList[carIndex].vehColor === 4 ? '绿牌' : ''}}
+            </view>
+        </view>
+        <view class="inputItem reasonItem">
+            <view class="label">注销原因</view>
+            <view class="val">
+                <textarea class="textarea" placeholder='请输入注销原因' value="{{formData.reason}}" data-key="reason"
+                          placeholder-class="input-placeholder" maxlength="100" bindinput="onInputChangedHandle">
+                </textarea>
+            </view>
+        </view>
+        <view class="inputItem">
+            <view class="label">设备类型</view>
+            <view class="val">
+                <picker class="input" bindchange="handleSelectChange" data-type="deviceType" value="{{deviceTypeIndex}}"
+                        range="{{deviceTypeList}}" range-key="label">
+                    <view class="selectInfo iconfont {{deviceTypeIndex === -1 ? 'input-placeholder' : ''}}">
+                        {{deviceTypeIndex === -1 ? '请选择注销设备类型' : deviceTypeList[deviceTypeIndex].label}}
+                    </view>
+                </picker>
+            </view>
+        </view>
+        <view class="uploadContainer" wx:if="{{deviceTypeIndex !== -1}}">
+            <view class="inputItem">
+                <view class="label">上传图片</view>
+            </view>
+            <view class="uploadBox">
+                <view class="subTips" wx:if="{{deviceTypeIndex}}">
+                    <view>请上传清晰的剪卡图片</view>
+                    <view class="example" bindtap="handleExample" data-type="1">查看示例</view>
+                </view>
+                <view class="uploadImg" wx:if="{{deviceTypeIndex}}">
+                    <view class='uploaderItem' wx:if="{{cutCardImg}}">
+                        <view bindtap='handleDeleteCutCardImg' class="deleteImg">
+                           <view class="line"></view>
+                        </view>
+                        <image class="img" src='{{cutCardImg}}'></image>
+                    </view>
+                    <view class="addImg" wx:else data-type="1" bindtap='handleUpload'>上传剪卡图</view>
+                </view>
+                <view class="subTips">
+                    <view>请上传设备图片需含有ETC设备编号</view>
+                    <view class="example" bindtap="handleExample" data-type="2">查看示例</view>
+                </view>
+                <view class="uploadImg equipmentImg {{uploaderList.length < 8 ? 'uploadImgOther' : ''}}">
+                    <view class='uploaderItem' wx:for="{{uploaderList}}" wx:key="index">
+                        <view bindtap='handleDeleteImg' data-index="{{index}}" class="deleteImg">
+                            <view class="line"></view>
+                        </view>
+                        <image class="img" data-index="{{index}}" src='{{item}}'></image>
+                    </view>
+                    <view class="addImg" wx:if="{{uploaderList.length < 9}}" data-type="2" bindtap='handleUpload'>上传设备图</view>
+                </view>
+            </view>
+        </view>
+        <view class="inputItem">
+            <view class="label">快递单号</view>
+            <view class="val">
+                <input class="input" type="text" value="{{formData.logisticsNo}}"
+                       bindinput="onInputChangedHandle" data-key="logisticsNo"
+                       placeholder-class="input-placeholder" placeholder="请输入快递单号" />
+            </view>
+        </view>
+        <view class="deliveryAddress">
+            <view class="subTitle">请将需要注销的设备邮寄至以下地址</view>
+            <view class="deliveryInfo">
+                <view class="userInfo">
+                    <view class="userName">吴女士 <text>13877876123</text></view>
+                    <view class="postcode">511800</view>
+                </view>
+                <view class="address">贵州省贵阳市贵阳国家高新技术产业开发区中关村贵阳科技园核心区南园科教街188号</view>
+            </view>
+        </view>
+    </view>
+    <view class="btn-wrapper">
+        <view bindtap="handleSubmit" class="btn {{available ? 'available' : 'unavailable'}}">提交工单</view>
+    </view>
+</view>
+<popTipComp id="popTipComp"></popTipComp>
+<logoutExample id="logoutExample"></logoutExample>
+<privacy_popup></privacy_popup>

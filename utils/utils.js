@@ -1,4 +1,5 @@
 import {IS_TEST} from "../app";
+
 export function initProductName (orderInfo) {
 	// productProcess 套餐流程 1-微信 2-绑定银行 3-存量卡 4-三类户 5-信用卡
 	if (orderInfo.flowVersion === 4) return 'ETC货车账户'
@@ -213,4 +214,17 @@ export function handleJumpHunanMini (orderId, outTradeNo,selfStatus) {
 			showToastNoIcon('调起小程序失败, 请重试！');
 		}
 	});
+}
+// 获取移动营业厅地址
+export function getServiceHall (shopId) {
+	let url = '';
+	switch (shopId) {
+		case '1214877114216488960':// 河南移动测试商户
+		case '1214873729308827648':// 河南移动生产商户
+			url = `https://hsh${IS_TEST ? '-pre' : ''}.cyzl.com/henan_cloud/index.html#/meng-dian-daohang?brandId=${IS_TEST ? '1178718844162678784' : '1219605507881312256'}`;
+			break;
+		default:
+			break;
+	}
+	return url;
 }

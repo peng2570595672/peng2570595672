@@ -1,0 +1,89 @@
+@import "../../../style/base.styl";
+@import "../../../style/my_animate.styl";
+.container
+    display flex
+    flex-direction column
+    min-height 100vh
+    background #F7F7F7
+    overflow scroll
+    .tabContainer
+        display flex
+        align-items center
+        justify-content space-between
+        background #ffffff
+        padding 12rpx 40rpx 0
+        .tabItem
+            height 100rpx
+            display flex
+            align-items center
+            font-size: 32rpx;
+            font-weight: normal;
+            position relative
+            .line
+                position absolute
+                bottom 12rpx
+                left 0
+                right 0
+                width 70%
+                height: 6rpx;
+                border-radius: 3rpx;
+                background: #fff;
+                margin auto
+            &.active
+                .line
+                    background #5EBE68;
+    .listContainer
+        padding 24rpx 36rpx 0
+        .listItem
+            display flex
+            align-items center
+            justify-content space-between
+            margin-bottom 20rpx
+            height: 116rpx;
+            padding 0 30rpx
+            border-radius: 24rpx;
+            background: #FFFFFF
+            box-shadow: 4rpx 4rpx 46rpx 0rpx rgba(126, 132, 156, 0.1);
+            .listItemText
+                display flex
+                align-items center
+                font-size: 36rpx;
+                font-weight: 500;
+                color: #33333D;
+                .vehColor
+                    font-size: 24rpx;
+                    font-weight: normal;
+                    margin-left 20rpx
+                    &.blueColor
+                        color #276AD9
+                    &.yellowColor
+                        color #FF8F1F
+                    &.blackColor
+                        color #222222
+                    &.whiteColor
+                        color #222222
+                        opacity .5
+                    &.greenColor
+                        color #5EBE68
+            .listItemStatus
+                font-size: 28rpx;
+                font-weight: normal;
+                color: #666666;
+                &.auditIng // 审核中
+                    color #5EBE68
+                &.auditFailure // 审核失败
+                    color #F19C38
+                &.proceedWith // 待注销 || 待支付
+                    color #FA5151
+        .empty
+            text-align center
+            padding-top 30vh
+            .img
+                width 149rpx
+            .tips
+                font-size: 28rpx;
+                font-weight: normal;
+                line-height: 39.2rpx;
+                color: #000000;
+                opacity .5
+                margin-top 24rpx

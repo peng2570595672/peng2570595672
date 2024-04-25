@@ -1,0 +1,62 @@
+<view class="container {{afterSaleInfo.status === 4 || afterSaleInfo.status === 5 ? 'notBtn' : '' }}">
+    <view class="inputContainer">
+        <view class="inputItem">
+            <view class="label">注销车牌</view>
+            <view class="val">{{afterSaleInfo.vehPlates}}</view>
+        </view>
+        <view class="inputItem">
+            <view class="label">车牌颜色</view>
+            <view class="val {{afterSaleInfo.platesColor === 0 ? 'blueColor' : ''}} {{afterSaleInfo.platesColor === 1 ? 'yellowColor' : ''}} {{afterSaleInfo.platesColor === 2 ? 'blackColor' : ''}} {{afterSaleInfo.platesColor === 3 ? 'whiteColor' : ''}} {{afterSaleInfo.platesColor === 4 ? 'greenColor' : ''}}">
+                {{afterSaleInfo.platesColor === 0 ? '蓝牌' : ''}}
+                {{afterSaleInfo.platesColor === 1 ? '黄牌' : ''}}
+                {{afterSaleInfo.platesColor === 2 ? '黑牌' : ''}}
+                {{afterSaleInfo.platesColor === 3 ? '白牌' : ''}}
+                {{afterSaleInfo.platesColor === 4 ? '绿牌' : ''}}
+            </view>
+        </view>
+        <view class="inputItem">
+            <view class="label">售后类型</view>
+            <view class="val">{{afterSaleInfo.orderType === 1 ? '设备注销' : ''}}</view>
+        </view>
+        <view class="inputItem">
+            <view class="label">创建时间</view>
+            <view class="val">{{afterSaleInfo.addTime}}</view>
+        </view>
+        <view class="inputItem" wx:if="{{afterSaleInfo.completeTime}}">
+            <view class="label">完成时间</view>
+            <view class="val">{{afterSaleInfo.completeTime}}</view>
+        </view>
+        <view class="inputItem">
+            <view class="label">工单状态</view>
+            <view class="val {{afterSaleInfo.status === 0 ? 'auditIng' : ''}} {{afterSaleInfo.status === 1 ? 'auditFail' : ''}} {{afterSaleInfo.status === 4 ? 'cancelled' : ''}}">
+                {{afterSaleInfo.status === 0 ? '审核中' : ''}}
+                {{afterSaleInfo.status === 1 ? '审核不通过' : ''}}
+                {{afterSaleInfo.status === 2 ? '待支付' : ''}}
+                {{afterSaleInfo.status === 3 ? '待注销' : ''}}
+                {{afterSaleInfo.status === 4 ? '已注销' : ''}}
+                {{afterSaleInfo.status === 5 ? '已关闭' : ''}}
+            </view>
+        </view>
+        <view class="inputItem reasonItem" wx:if="{{afterSaleInfo.status !== 0 && afterSaleInfo.status !== 4 && afterSaleInfo.auditRemark}}">
+            <view class="label">审核说明</view>
+            <view class="val">{{afterSaleInfo.auditRemark}}</view>
+        </view>
+        <view class="inputItem reasonItem">
+            <view class="label">注销原因</view>
+            <view class="val">{{afterSaleInfo.reason}}</view>
+        </view>
+        <view class="imgList">
+            <image class="img" wx:if="{{afterSaleInfo.cutCardImg}}" src="{{afterSaleInfo.cutCardImg}}" mode="widthFix" />
+            <image class="img" wx:for="{{afterSaleInfo.deviceImgList}}" wx:key="index" src="{{item}}" mode="widthFix" />
+        </view>
+    </view>
+    <view class="btn-wrapper">
+        <view wx:if="{{afterSaleInfo.status === 0 || afterSaleInfo.status === 3}}" bindtap="handleUrgentProcessing" class="btn available">催办</view>
+        <view wx:elif="{{afterSaleInfo.status === 1}}" bindtap="handleApply" class="btn available">重新申请</view>
+        <view wx:elif="{{afterSaleInfo.status === 2}}" bindtap="handlePayOrder" class="btn available">支付</view>
+        <view class="cancel" wx:if="{{afterSaleInfo.status === 0 || afterSaleInfo.status === 2}}" bindtap="handleCancel">取消办理</view>
+    </view>
+</view>
+<popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
+<logoutExample id="logoutExample"></logoutExample>
+<privacy_popup></privacy_popup>

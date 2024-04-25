@@ -127,6 +127,14 @@ Component({
 			this.triggerEvent('onHandle',this.data.tipObj.params);
 			this.hide(false);
 		},
+		handleConfirm () {
+			this.hide(false);
+			if (this.data.tipObj.params.type === 1) {
+				util.go(`/pages/personal_center/payment/payment`);
+			} else {
+				this.triggerEvent('onHandle');
+			}
+		},
 		// 设备升级
 		deviceUpgrade () {
 			this.fangDou(() => {

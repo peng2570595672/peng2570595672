@@ -1,0 +1,105 @@
+@import "../../../style/base.styl";
+@import "../../../style/my_animate.styl";
+.container
+    display flex
+    flex-direction column
+    min-height 100vh
+    padding-bottom 200rpx
+    overflow scroll
+    background #FFF
+    &.notBtn
+        padding-bottom 0
+    .inputContainer
+        padding 30rpx
+        .inputItem
+            height 110rpx
+            display flex
+            align-items center
+            border-bottom: 1rpx solid #EDEDED;
+            .label
+                width 210rpx
+                font-size 28rpx
+                color: #333333;
+            .val
+                flex 1
+                font-family: PingFang SC;
+                font-size: 28rpx;
+                font-weight: normal;
+                .selectInfo
+                    width 100%
+                    display flex
+                    align-items center
+                    position relative
+                .input-placeholder
+                    color: #999999;
+                &.blueColor
+                    color #276AD9
+                &.yellowColor
+                    color #FF8F1F
+                &.blackColor
+                    color #222222
+                &.whiteColor
+                    color #222222
+                    opacity .5
+                &.greenColor
+                    color #5EBE68
+                &.auditIng
+                    color #FF8F1F
+                &.auditFail
+                    color #FA5151
+                &.cancelled
+                    color #00B578
+        .reasonItem
+            padding 32rpx 0
+            height auto
+            align-items flex-start
+    .imgList
+        display flex
+        flex-wrap wrap
+        padding-top 34rpx
+        .img
+            width: 157.5rpx;
+            height: 157.5rpx;
+            margin-right 20rpx
+            &:nth-child(4n)
+                margin-right 0
+            &:nth-child(n+5):nth-child(-n+10)
+                // 范围 选择第5个到第10个
+                margin-top 20rpx
+                margin-bottom 20rpx
+    .btn-wrapper
+        position fixed
+        min-height 230rpx
+        width 100%
+        left 0
+        bottom 0
+        z-index 100
+        border-radius: 16rpx 16rpx 0rpx 0rpx;
+        padding 24rpx 44rpx
+        box-sizing border-box
+        background: #FFFFFF;
+        text-align center
+        .cancel
+            margin-top 30rpx
+            font-size: 28rpx;
+            font-weight: normal;
+            line-height: 28rpx;
+            color: #222222;
+        .btn
+            flex 1
+            height: 110rpx;
+            display flex
+            align-items center
+            justify-content center
+            border-radius: 55rpx;
+            background: #2A4F44
+            box-shadow: 0rpx 4rpx 2rpx 0rpx rgba(212, 212, 212, 0);
+            font-size: 36rpx;
+            font-weight: 600;
+            color: #FFFFFF;
+            &.available
+                animation btnFadeIn .3s
+                animation-fill-mode forwards
+            &.unavailable
+                animation btnFadeOut .3s
+                animation-fill-mode forwards

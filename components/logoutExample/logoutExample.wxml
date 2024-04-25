@@ -1,0 +1,47 @@
+<view wx:if="{{innerShow}}" class="logoutExampleMask">
+    <view class="logoutExampleDialog">
+        <view class="logoutExampleBtnClose iconfont" bindtap="handleClose"></view>
+        <view class="logoutExampleTitle">示例图</view>
+        <view class="logoutExampleContent">
+            {{type === 1 ? '请拍照上传剪卡图及设备图，设备图需含ETC卡编号' : '请拍照上传设备图需含有ETC卡编号'}}
+        </view>
+        <view class="logoutExampleContainer" wx:if="{{type === 1}}">
+            <view class="item">
+                <view class="imgInfo">
+                    <view class="first">
+                        <image class="logoutExampleImg" src="https://file.cyzl.com/g001/M03/55/05/oYYBAGYfkf2AGTa1AAAOHPl8pAE481.png" mode="widthFix"></image>
+                    </view>
+                    <view class="second">
+                        <image class="logoutExampleImg" src="https://file.cyzl.com/g001/M03/55/05/oYYBAGYfkiKASqVJAAABKIrIPWs352.png" mode="widthFix"></image>
+                    </view>
+                    <view class="third">
+                        <image class="logoutExampleImg" src="https://file.cyzl.com/g001/M03/55/05/oYYBAGYfkjSAdC3YAAAnaIL342A050.png" mode="widthFix"></image>
+                    </view>
+                </view>
+                <view class="tips">请上传剪卡图</view>
+            </view>
+            <view class="item">
+                <view class="imgInfo imgInfoLast">
+                    <view class="fourth">
+                        <image class="logoutExampleImg" src="https://file.cyzl.com/g001/M03/55/0B/oYYBAGYflSyARVmqAAAjm-Y-oAk894.png" mode="widthFix"></image>
+                        <view>请上传图片需含有ETC卡编号</view>
+                    </view>
+                    <view class="fifth">
+                        <image class="logoutExampleImg" src="https://file.cyzl.com/g001/M03/55/0B/oYYBAGYflT2AOJ2MAAAfvpU2ECI675.png" mode="widthFix"></image>
+                        <view>请上传设备正面图</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+         <view class="logoutExampleContainer" wx:if="{{type === 2}}">
+            <view class="next">
+                <image class="logoutExampleImg" src="https://file.cyzl.com/g001/M03/55/0C/oYYBAGYfleaADK07AAAgmgllnZM447.png" mode="widthFix"></image>
+                <view>请上传图片需含有ETC卡编号</view>
+            </view>
+            <view class="next">
+                <image class="logoutExampleImg" src="https://file.cyzl.com/g001/M03/55/0C/oYYBAGYflfaASvURAAAgt1Hsm5A202.png" mode="widthFix"></image>
+                <view>请上传设备正面图</view>
+            </view>
+        </view>
+    </view>
+</view>
