@@ -86,10 +86,10 @@
             <view class="subTitle">请将需要注销的设备邮寄至以下地址</view>
             <view class="deliveryInfo">
                 <view class="userInfo">
-                    <view class="userName">吴女士 <text>13877876123</text></view>
-                    <view class="postcode">511800</view>
+                    <view class="userName">运营部 <text>15519168692</text></view>
+                    <view class="postcode">550000</view>
                 </view>
-                <view class="address">贵州省贵阳市贵阳国家高新技术产业开发区中关村贵阳科技园核心区南园科教街188号</view>
+                <view class="address">贵州省贵阳市白云区科教街188号世纪恒通科技股份有限公司运营部</view>
             </view>
         </view>
     </view>
