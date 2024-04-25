@@ -2,7 +2,8 @@
  * @author 狂奔的蜗牛
  * @desc etc详情
  */
-import { handleJumpHunanMini, initProductName, thirdContractSigning } from '../../../utils/utils.js';
+import {handleJumpHunanMini, initProductName, thirdContractSigning} from '../../../utils/utils.js';
+
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
@@ -234,6 +235,10 @@ Page({
 		fun[orderInfo.selfStatus].call();
 	},
 	async handle9901Step (orderInfo) {
+		if (orderInfo.selfStatus === 5) {
+			util.go(`/pages/bank_card/citic_bank_sign/citic_bank_sign?flowVersion=8`);
+			return;
+		}
 		let data = await util.getSteps_9901(orderInfo);
 		switch (data.stepNum) {
 			case 4: // 需要设备预检

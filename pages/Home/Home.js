@@ -1,7 +1,4 @@
-import {
-    thirdContractSigning,
-    handleJumpHunanMini
-} from '../../utils/utils';
+import {handleJumpHunanMini, thirdContractSigning} from '../../utils/utils';
 
 /**
  * @author 狂奔的蜗牛
@@ -1443,6 +1440,10 @@ Page({
         handleJumpHunanMini(orderId, result.data.outTradeNo);
     },
     async handle9901Step (orderInfo) {
+        if (orderInfo.selfStatus === 5) {
+            util.go(`/pages/bank_card/citic_bank_sign/citic_bank_sign?flowVersion=8`);
+            return;
+        }
         let data = await util.getSteps_9901(orderInfo);
         // ("stepNum", 0)("stepTips", "用户需登录")
         // ("stepNum", 1)("stepTips", "需要车牌发行认证")

@@ -1,0 +1,36 @@
+<view class="container">
+    <view class="tabContainer">
+        <view bindtap="handleTabItem" wx:for="{{tabList}}" wx:key="index" data-index="{{index}}" class="tabItem {{tabIndex === index ? 'active' : ''}}">
+            <view class="tabItemText">{{item.name}}</view>
+            <view class="line"></view>
+        </view>
+    </view>
+    <view class="listContainer">
+        <view class="listItem" wx:for="{{list}}" wx:key="index" data-index="{{index}}" bindtap="handleListItem">
+            <view class="listItemText">
+                <view>{{item.vehPlates}}</view>
+                <view class="vehColor {{item.platesColor === 0 ? 'blueColor' : ''}} {{item.platesColor === 1 ? 'yellowColor' : ''}} {{item.platesColor === 2 ? 'blackColor' : ''}} {{item.platesColor === 3 ? 'whiteColor' : ''}} {{item.platesColor === 4 ? 'greenColor' : ''}}">
+                    {{item.platesColor === 0 ? '蓝牌' : ''}}
+                    {{item.platesColor === 1 ? '黄牌' : ''}}
+                    {{item.platesColor === 2 ? '黑牌' : ''}}
+                    {{item.platesColor === 3 ? '白牌' : ''}}
+                    {{item.platesColor === 4 ? '绿牌' : ''}}
+                </view>
+            </view>
+            <view class="listItemStatus {{item.status === 0 ? 'auditIng' : ''}} {{item.status === 1 ? 'auditFailure' : ''}} {{item.status === 2 || item.status === 3 ? 'proceedWith' : ''}}">
+                {{item.status === 0 ? '审核中' : ''}}
+                {{item.status === 1 ? '审核不通过' : ''}}
+                {{item.status === 2 ? '待支付' : ''}}
+                {{item.status === 3 ? '待注销' : ''}}
+                {{item.status === 4 ? '已注销' : ''}}
+                {{item.status === 5 ? '已关闭' : ''}}
+            </view>
+        </view>
+        <view class="empty" wx:if="{{!list.length}}">
+            <image class="img" src="https://file.cyzl.com/g001/M03/55/78/oYYBAGYgj3yAZTO9AAAJNNvahtg984.png" mode="widthFix"></image>
+            <view class="tips">暂无售后工单</view>
+        </view>
+    </view>
+</view>
+
+<privacy_popup></privacy_popup>

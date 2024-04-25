@@ -1,0 +1,9 @@
+<view class="container">
+    <view wx:for="{{jumpList}}" data-index="{{index}}" wx:key="index" bindtap="goPath" class="funcList">
+        <view class="funcListLeft">
+            <view class="funcListText iconfont">{{item.title}}</view>
+        </view>
+    </view>
+</view>
+
+<privacy_popup></privacy_popup>

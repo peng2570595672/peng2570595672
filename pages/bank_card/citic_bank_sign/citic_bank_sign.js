@@ -2,9 +2,15 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 		data: {
+			flowVersion: 0,
 			orderInfo: {}
 		},
 		async onLoad (options) {
+			if (options.flowVersion) {
+				this.setData({
+					flowVersion: +options.flowVersion
+				});
+			}
 			app.globalData.signAContract = 3;
 			await this.getETCDetail();
 		},
@@ -130,6 +136,18 @@ Page({
 			});
 		},
 		async handleSign () {
+			if (this.data.flowVersion === 8) {
+				// 9901恢复签约
+				wx.navigateToMiniProgram({
+					appId: 'wx008c60533388527a',
+					extraData: {},
+					envVersion: 'release',
+					fail: () => {
+						util.showToastNoIcon('打开九州ETC小程序失败');
+					}
+				});
+				return;
+			}
 			const obj = this.data.orderInfo;
 			if (obj.contractStatus === 2) {
 				await this.restoreSign(obj);

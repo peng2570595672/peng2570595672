@@ -1,0 +1,123 @@
+@keyframes btnFadeIn {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes btnFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.2;
+  }
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f7f7f7;
+  overflow: scroll;
+}
+.container .tabContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  padding: 12rpx 40rpx 0;
+}
+.container .tabContainer .tabItem {
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+  font-weight: normal;
+  position: relative;
+}
+.container .tabContainer .tabItem .line {
+  position: absolute;
+  bottom: 12rpx;
+  left: 0;
+  right: 0;
+  width: 70%;
+  height: 6rpx;
+  border-radius: 3rpx;
+  background: #fff;
+  margin: auto;
+}
+.container .tabContainer .tabItem.active .line {
+  background: #5ebe68;
+}
+.container .listContainer {
+  padding: 24rpx 36rpx 0;
+}
+.container .listContainer .listItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+  height: 116rpx;
+  padding: 0 30rpx;
+  border-radius: 24rpx;
+  background: #fff;
+  box-shadow: 4rpx 4rpx 46rpx 0rpx rgba(126,132,156,0.1);
+}
+.container .listContainer .listItem .listItemText {
+  display: flex;
+  align-items: center;
+  font-size: 36rpx;
+  font-weight: 500;
+  color: #33333d;
+}
+.container .listContainer .listItem .listItemText .vehColor {
+  font-size: 24rpx;
+  font-weight: normal;
+  margin-left: 20rpx;
+}
+.container .listContainer .listItem .listItemText .vehColor.blueColor {
+  color: #276ad9;
+}
+.container .listContainer .listItem .listItemText .vehColor.yellowColor {
+  color: #ff8f1f;
+}
+.container .listContainer .listItem .listItemText .vehColor.blackColor {
+  color: #222;
+}
+.container .listContainer .listItem .listItemText .vehColor.whiteColor {
+  color: #222;
+  opacity: 0.5;
+}
+.container .listContainer .listItem .listItemText .vehColor.greenColor {
+  color: #5ebe68;
+}
+.container .listContainer .listItem .listItemStatus {
+  font-size: 28rpx;
+  font-weight: normal;
+  color: #666;
+}
+.container .listContainer .listItem .listItemStatus.auditIng {
+  color: #5ebe68;
+}
+.container .listContainer .listItem .listItemStatus.auditFailure {
+  color: #f19c38;
+}
+.container .listContainer .listItem .listItemStatus.proceedWith {
+  color: #fa5151;
+}
+.container .listContainer .empty {
+  text-align: center;
+  padding-top: 30vh;
+}
+.container .listContainer .empty .img {
+  width: 149rpx;
+}
+.container .listContainer .empty .tips {
+  font-size: 28rpx;
+  font-weight: normal;
+  line-height: 39.2rpx;
+  color: #000;
+  opacity: 0.5;
+  margin-top: 24rpx;
+}

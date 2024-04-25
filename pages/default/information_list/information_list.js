@@ -2,7 +2,8 @@
  * @author 老刘
  * @desc 信息确认
  */
-import { handleJumpHunanMini } from '../../../utils/utils.js';
+import {handleJumpHunanMini} from '../../../utils/utils.js';
+
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
@@ -361,7 +362,8 @@ Page({
             clientOpenid: app.globalData.userInfo.openId,
             clientMobilePhone: app.globalData.userInfo.mobilePhone,
             orderId: app.globalData.orderInfo.orderId, // 订单id
-            changeAuditStatus: true
+            changeAuditStatus: true,
+            needSignContract: true
         };
         const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
         if (result.code === 0) {

@@ -1,0 +1,144 @@
+@keyframes btnFadeIn {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes btnFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.2;
+  }
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-bottom: 200rpx;
+  overflow: scroll;
+  background: #fff;
+}
+.container.notBtn {
+  padding-bottom: 0;
+}
+.container .inputContainer {
+  padding: 30rpx;
+}
+.container .inputContainer .inputItem {
+  height: 110rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #ededed;
+}
+.container .inputContainer .inputItem .label {
+  width: 210rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+.container .inputContainer .inputItem .val {
+  flex: 1;
+  font-family: PingFang SC;
+  font-size: 28rpx;
+  font-weight: normal;
+}
+.container .inputContainer .inputItem .val .selectInfo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.container .inputContainer .inputItem .val .input-placeholder {
+  color: #999;
+}
+.container .inputContainer .inputItem .val.blueColor {
+  color: #276ad9;
+}
+.container .inputContainer .inputItem .val.yellowColor {
+  color: #ff8f1f;
+}
+.container .inputContainer .inputItem .val.blackColor {
+  color: #222;
+}
+.container .inputContainer .inputItem .val.whiteColor {
+  color: #222;
+  opacity: 0.5;
+}
+.container .inputContainer .inputItem .val.greenColor {
+  color: #5ebe68;
+}
+.container .inputContainer .inputItem .val.auditIng {
+  color: #ff8f1f;
+}
+.container .inputContainer .inputItem .val.auditFail {
+  color: #fa5151;
+}
+.container .inputContainer .inputItem .val.cancelled {
+  color: #00b578;
+}
+.container .inputContainer .reasonItem {
+  padding: 32rpx 0;
+  height: auto;
+  align-items: flex-start;
+}
+.container .imgList {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 34rpx;
+}
+.container .imgList .img {
+  width: 157.5rpx;
+  height: 157.5rpx;
+  margin-right: 20rpx;
+}
+.container .imgList .img:nth-child(4n) {
+  margin-right: 0;
+}
+.container .imgList .img:nth-child(n+5):nth-child(-n+10) {
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+.container .btn-wrapper {
+  position: fixed;
+  min-height: 230rpx;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  border-radius: 16rpx 16rpx 0rpx 0rpx;
+  padding: 24rpx 44rpx;
+  box-sizing: border-box;
+  background: #fff;
+  text-align: center;
+}
+.container .btn-wrapper .cancel {
+  margin-top: 30rpx;
+  font-size: 28rpx;
+  font-weight: normal;
+  line-height: 28rpx;
+  color: #222;
+}
+.container .btn-wrapper .btn {
+  flex: 1;
+  height: 110rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 55rpx;
+  background: #2a4f44;
+  box-shadow: 0rpx 4rpx 2rpx 0rpx rgba(212,212,212,0);
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #fff;
+}
+.container .btn-wrapper .btn.available {
+  animation: btnFadeIn 0.3s;
+  animation-fill-mode: forwards;
+}
+.container .btn-wrapper .btn.unavailable {
+  animation: btnFadeOut 0.3s;
+  animation-fill-mode: forwards;
+}

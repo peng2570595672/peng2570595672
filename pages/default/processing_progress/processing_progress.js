@@ -1,6 +1,4 @@
-import {
-	jumpCouponMini
-} from '../../../utils/utils';
+import {getServiceHall, jumpCouponMini} from '../../../utils/utils';
 
 /**
  * @author 狂奔的蜗牛
@@ -789,6 +787,10 @@ Page({
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken, () => { });
+	},
+	handleServiceHall () {
+		const url = getServiceHall(this.data.info.shopId);
+		util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
 	},
 	// 跳转平安绑客
 	goPingAn () {
