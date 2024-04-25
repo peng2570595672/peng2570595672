@@ -35,16 +35,16 @@
 }
 .index .one {
   width: 100%;
-  height: 802rpx;
-  padding-bottom: 150rpx;
+  height: auto;
 }
 .index .one .image {
   width: 100%;
   height: 100%;
 }
 .index .one .withholding {
-  width: 100%;
+  width: 694rpx;
   margin-top: -103rpx;
+  margin-left: 28rpx;
   position: relative;
   z-index: 2;
 }

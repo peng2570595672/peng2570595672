@@ -7,7 +7,7 @@
         <!-- 模块1 支持微信多种代扣方式 -->
         <view class="one">
             <image class="image" src="{{imagesConfig.marketingImgUrl}}" mode="widthFix" />
-            <image class="withholding" src="https://file.cyzl.com/g001/M01/D1/0F/oYYBAGQiQRCAcboXAAA5_qeQgZI022.png" mode="widthFix"></image>
+            <image class="withholding" src="https://file.cyzl.com/g001/M03/5C/F1/oYYBAGYqENWAX-7AAAAnPxaB6b8520.png" mode="widthFix"></image>
         </view>
         <!-- 模块3 一站式车主服务 -->
         <view class="three">
