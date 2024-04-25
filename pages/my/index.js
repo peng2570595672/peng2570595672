@@ -1,26 +1,30 @@
 // pages/my/index.js
-import {compare, compareDate, jumpCouponMini} from '../../utils/utils.js';
+import { compare, compareDate, jumpCouponMini } from '../../utils/utils.js';
 const util = require('../../utils/util.js');
 const app = getApp();
 Page({
     data: {
+        need_filterBannerList: true, // 是否需要筛选 轮播图 默认是
         testImg: 'https://file.cyzl.com/g001/M00/B7/CF/oYYBAGO_qS-ASZFtAABBq9PjXMc834.png',	// 测试所用的图片和icon
         funcList: [
             {
                 icon: 'https://file.cyzl.com/g001/M01/C9/1D/oYYBAGP4OlOADWQKAAWyyaAG1H4541.svg',
                 iconVip: 'https://file.cyzl.com/g001/M01/CA/15/oYYBAGP8PBKAcu-ZAAWzoBj0ITE404.svg',
                 title: '我的订单',
-                url: 'order_triage'},
+                url: 'order_triage'
+            },
             {
                 icon: 'https://file.cyzl.com/g001/M01/C9/1D/oYYBAGP4OiaAdN9gAAWMTPzu62k488.svg',
                 iconVip: 'https://file.cyzl.com/g001/M01/CA/15/oYYBAGP8PC2ALTVSAAWM7dN3bB8663.svg',
                 title: '通行流水',
-                url: 'my_order'},
+                url: 'my_order'
+            },
             {
                 icon: 'https://file.cyzl.com/g001/M01/C9/1D/oYYBAGP4OaGAJ-ImAAWmhyqdgxo977.svg',
                 iconVip: 'https://file.cyzl.com/g001/M01/CA/15/oYYBAGP8PEGAFTPWAAWnPpy3j-o653.svg',
                 title: '领券中心',
-                url: 'coupon_redemption_centre'},
+                url: 'coupon_redemption_centre'
+            },
             {
                 icon: 'https://file.cyzl.com/g001/M01/C9/1D/oYYBAGP4OnaANbE3AAWZBnVW83M524.svg',
                 iconVip: 'https://file.cyzl.com/g001/M01/CA/15/oYYBAGP8PFCAQBrdAAWZ9FCgDIw288.svg',
@@ -30,12 +34,12 @@ Page({
         ],
         funcList2: [
             // {icon: '', title: '通通券',url: 'tonTonQuan',img: 'https://file.cyzl.com/g001/M01/CF/5F/oYYBAGQXvWyAcN7sAAC9paTs3nM581.png',show: false},
-            {icon: '', title: '通通券',url: 'tonTonQuan',img: 'https://file.cyzl.com/g001/M02/F4/17/oYYBAGS6ODaAfrQ2AAAE6mHX_tA643.png',show: false},
-            {icon: '', title: '1V1专属客服',url: 'exclusive_service',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8O5WAfXwSAAAOCAtM_x0245.svg',show: true},
+            { icon: '', title: '通通券', url: 'tonTonQuan', img: 'https://file.cyzl.com/g001/M02/F4/17/oYYBAGS6ODaAfrQ2AAAE6mHX_tA643.png', show: false },
+            { icon: '', title: '1V1专属客服', url: 'exclusive_service', img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8O5WAfXwSAAAOCAtM_x0245.svg', show: true },
             // {icon: '',title: '手机号管理',url: '',img: ''},   //本期先隐藏该项，暂不做功能
-            {icon: '',title: '发票助手',url: 'invoice_assistant',img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8OrKABB0VAAAMgE_4pJ8510.svg',show: true},
-            {icon: '',title: '相关协议',url: 'user_agreement',img: 'https://file.cyzl.com/g001/M02/05/C5/oYYBAGT-bQWAXl7LAAABr3MkHt4764.png',show: true},
-            {icon: '',title: '设置',url: 'set_up',img: 'https://file.cyzl.com/g001/M02/0F/A3/oYYBAGUsoMeALe1TAAACBGRL1Lk732.png',show: true}
+            { icon: '', title: '发票助手', url: 'invoice_assistant', img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8OrKABB0VAAAMgE_4pJ8510.svg', show: true },
+            { icon: '', title: '相关协议', url: 'user_agreement', img: 'https://file.cyzl.com/g001/M02/05/C5/oYYBAGT-bQWAXl7LAAABr3MkHt4764.png', show: true },
+            { icon: '', title: '设置', url: 'set_up', img: 'https://file.cyzl.com/g001/M02/0F/A3/oYYBAGUsoMeALe1TAAACBGRL1Lk732.png', show: true }
         ],
         myAccountList: [],
         height: undefined, // 屏幕高度
@@ -83,9 +87,8 @@ Page({
                 await util.getIsArrearage();
             }
             util.showLoading();
-            let requestList = [await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip(), await this.getCurrentEquity(),await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
+            let requestList = [await this.getUserProfiles(), await this.conditionalDisplay(), await util.getUserIsVip(), await this.getCurrentEquity(), await this.getRightAccount(), await util.getMemberStatus(), await this.getRightsPackageBuyRecords()];
             util.customTabbar(this, 2);
-            util.getUserIsVip();
             util.showLoading();
             await Promise.all(requestList);
             util.hideLoading();
@@ -108,7 +111,7 @@ Page({
     // sortList 排序列表  referToList 参照排序列表
     // 使用   array.sort（callback ） 来进行排序， 而排序的方法中 使用  参照数组中的  index 来进行大小比较
     sortVehList (sortList, referToList) {
-        sortList.sort((a,b) => {
+        sortList.sort((a, b) => {
             return referToList.indexOf(a.vehPlates) - referToList.indexOf(b.vehPlates);
         });
         return sortList;
@@ -123,7 +126,7 @@ Page({
     },
     // 获取后台配置的数据
     async getBackgroundConfiguration () {
-        let res = await util.getDataFromServersV2('consumer/member/common/pageConfig/query',{
+        let res = await util.getDataFromServersV2('consumer/member/common/pageConfig/query', {
             configType: 4, // 配置类型(1:小程序首页配置;2:客车介绍页配置;3:首页公告配置;4:个人中心配置)
             pagePath: 4, // 页面路径(1:小程序首页；2：客车介绍页；)
             platformType: 4, // 小程序平台(1:ETC好车主;2:微ETC;4:ETC+)，对于多选情况，将值与对应枚举值做与运算，结果为1则包含该选项。
@@ -144,6 +147,7 @@ Page({
             let bannerList = data.rotationChartConfig.rotationCharts.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime));	// 过滤掉当前时间不在规定时间内的数据，得到合格的数据
             let deviceUpgrade = app.globalData.myEtcList.filter(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.obuCardType === 2 && util.timeComparison(app.globalData.deviceUpgrade.addTime, item.addTime) === 2 && item?.contractVersion !== 'v3');
             if (deviceUpgrade.length === 0) bannerList = bannerList.filter(item => !item.jumpUrl.includes('device_upgrade'));
+            app.globalData?.need_filterBannerList ? '' : bannerList = bannerList.filter(item => item.appId !== 'wxfd9fbd2b4e45c38f');
             bannerList.sort(compare('sort'));	// 排序
             bannerList.map(item => {
                 item.isShow = true;
@@ -249,7 +253,7 @@ Page({
             });
             this.data.cardList = this.sortVehList(this.data.cardList, vehList);
             if (this.data.cardList.length > 3) {
-                this.data.cardList = this.data.cardList.slice(0,3);
+                this.data.cardList = this.data.cardList.slice(0, 3);
             }
             this.setData({
                 cardList: this.data.cardList.concat(this.data.cardList),
@@ -263,7 +267,7 @@ Page({
             orderId: item.id,
             pageSize: 1
         }, 'POST', false);
-        console.log('货车数据：',result);
+        console.log('货车数据：', result);
         if (!result) return;
         if (result.code === 0) {
             result.data.vehPlates = item.vehPlates;
@@ -408,6 +412,7 @@ Page({
         console.log(e.currentTarget.dataset.index);
         const index = +e.currentTarget.dataset.index;
         const item = this.data.carouselList[index];
+        console.log(item);
         if (item.jumpUrl === '权益商城') {
             this.handleMall();
             return;
@@ -425,6 +430,13 @@ Page({
             util.go(`${item.jumpUrl}`);
         }
         if (appIdPath) {
+            if (item.appId === 'wxfd9fbd2b4e45c38f') { // 跳转平安贷款
+                // 免责弹窗声明
+                this.selectComponent('#dialog1').show({
+                    params: item
+                });
+                return;
+            }
             // 跳转到另一个小程序
             wx.navigateToMiniProgram({
                 appId: item.appId,
@@ -467,7 +479,7 @@ Page({
     },
     handleAuth () {
         wx.openSetting({
-            success: () => {},
+            success: () => { },
             fail: () => {
                 util.showToastNoIcon('打开设置界面失败，请重试！');
             }
@@ -484,11 +496,11 @@ Page({
         let that = this;
         let url = e.currentTarget.dataset['url'];
         if (url === 'loadingService') {
-        // 统计点击进入在线客服
+            // 统计点击进入在线客服
             this.fangDou(() => {
                 // util.go(`/pages/customer_service/index/index`);
                 util.go(`/pages/web/web/web?url=${encodeURIComponent('https://xiaochengxu.soboten.com/chat/h5/v6/index.html?sysnum=7d11a91e6a20414da4186004d03807fd&channelid=5&useWxjs=true')}`);
-            },1000);
+            }, 1000);
             return;
         }
         if (url === 'exclusive_service') {
@@ -532,6 +544,7 @@ Page({
     },
     // 免责弹窗
     popUp () {
+        let obj = this.selectComponent('#dialog1').noShow().params;
         // 未登录
         if (!app.globalData.userInfo?.accessToken) {
             wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
@@ -541,6 +554,17 @@ Page({
         let url = this.selectComponent('#dialog1').noShow();
         if (url === 'tonTonQuan') {	// 跳转通通券
             jumpCouponMini();
+        }
+        if (obj.appId === 'wxfd9fbd2b4e45c38f') {	// 跳转平安贷款
+            // 跳转到另一个小程序
+            wx.navigateToMiniProgram({
+                appId: obj.appId,
+                path: obj.jumpUrl,
+                envVersion: 'release',
+                fail () {
+                    util.showToastNoIcon('调起小程序失败, 请重试！');
+                }
+            });
         }
     },
     onClickAccountManagement () {
@@ -696,31 +720,31 @@ Page({
         }
     },
     // 针对特定号码 作续签弹窗提示
-	renewWhitelistJudgement (e) {
-		console.log(e);
-		let that = this;
-		let renew = e.currentTarget.dataset.renew;
-		if (app.globalData.renewWhitelist.includes(app.globalData.mobilePhone) && !wx.getStorageSync('renewWhitelist')) {
-			that.selectComponent('#popTipComp').show({
-				type: 'renewWhitelist',
-				title: '协议续签提醒',
-				btnCancel: '不同意',
-				btnconfirm: '同意',
-				callBack: () => {
-					if (renew === '1') {
+    renewWhitelistJudgement (e) {
+        console.log(e);
+        let that = this;
+        let renew = e.currentTarget.dataset.renew;
+        if (app.globalData.renewWhitelist.includes(app.globalData.mobilePhone) && !wx.getStorageSync('renewWhitelist')) {
+            that.selectComponent('#popTipComp').show({
+                type: 'renewWhitelist',
+                title: '协议续签提醒',
+                btnCancel: '不同意',
+                btnconfirm: '同意',
+                callBack: () => {
+                    if (renew === '1') {
                         that.goUserInfo(e);
-					} else if (renew === '3') {
+                    } else if (renew === '3') {
                         that.getUserProfile();
-					} else if (renew === '5') {
+                    } else if (renew === '5') {
                         that.cardChange(e);
                     } else if (renew === '7') {
                         that.handleSwiperItem(e);
                     } else {
                         that.go(e);
-					}
-				}
-			});
-		} else {
+                    }
+                }
+            });
+        } else {
             if (renew === '1') {
                 that.goUserInfo(e);
             } else if (renew === '3') {
@@ -732,6 +756,6 @@ Page({
             } else {
                 that.go(e);
             }
-		}
-	}
+        }
+    }
 });
