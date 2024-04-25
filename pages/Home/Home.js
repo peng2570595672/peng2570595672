@@ -1395,7 +1395,7 @@ Page({
             }
         }
         const fun = {
-            1: () => this.onClickBackToSign(orderInfo), // 恢复签约
+            1: () => orderInfo.flowVersion === 8 ? this.handle9901Step(orderInfo) : this.onClickBackToSign(orderInfo), // 恢复签约
             2: () => this.onClickContinueHandle(orderInfo), // 继续办理
             3: () => this.goPayment(orderInfo), // 去支付
             4: () => this.onClickContinueHandle(orderInfo), // 继续办理
@@ -1440,7 +1440,7 @@ Page({
         handleJumpHunanMini(orderId, result.data.outTradeNo);
     },
     async handle9901Step (orderInfo) {
-        if (orderInfo.selfStatus === 5) {
+        if (orderInfo.selfStatus === 1) {
             util.go(`/pages/bank_card/citic_bank_sign/citic_bank_sign?flowVersion=8`);
             return;
         }

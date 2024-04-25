@@ -817,7 +817,7 @@ function getStatus(orderInfo) {
     // hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
     if (orderInfo.contractStatus !== 1 && orderInfo.hwContractStatus) {
     	// 9901解约
-    	return 5;
+    	return 1;
     }
     return 35; // 待发货,-继续办理
   }
@@ -1577,8 +1577,8 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
             reAutoLoginV2(path, params, method);
             return;
           }
-          // console.log(path + ';' + res.data.message)
-          // console.log(res.data);
+          console.log(path + ';' + res.data.message)
+          console.log(res.data);
           resolve(res.data)
         } else {
           reject(res)

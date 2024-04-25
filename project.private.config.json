@@ -6,7 +6,77 @@
                 {
                     "name": "ETC详情",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1227927646571073536",
+                    "query": "orderId=1233155417559797760",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "办理进度页",
+                    "pathName": "pages/default/processing_progress/processing_progress",
+                    "query": "orderId=1233155417559797760",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/default/upload_id_card/upload_id_card",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/default/receiving_address/receiving_address",
+                    "query": "shopId=123&shopProductd=456&promoterId=666",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/truck_handling/contract_management/contract_management",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "邮寄地址",
+                    "pathName": "pages/default/receiving_address/receiving_address",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/default/upload_id_card/upload_id_card",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/default/processing_progress/processing_progress",
+                    "query": "orderId=1228478938297143296",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/order_details/order_details",
+                    "query": "id=1219679801604837398&channel=21&month=3",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/default/receiving_address/receiving_address",
+                    "query": "citicBank=undefined&isNewTrucks=1",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/etc_handle/etc_handle",
+                    "query": "isNewTrucks=0",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -28,13 +98,6 @@
                     "name": "套餐选择页面",
                     "pathName": "pages/default/package_the_rights_and_interests/package_the_rights_and_interests",
                     "query": "type=1",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/default/receiving_address/receiving_address",
-                    "query": "orderId=123&perfect=1&shopId=1224307861486575616",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -186,13 +249,6 @@
                     "scene": null
                 },
                 {
-                    "name": "办理进度页",
-                    "pathName": "pages/default/processing_progress/processing_progress",
-                    "query": "orderId=1101196259089190912",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
                     "name": "",
                     "pathName": "pages/personal_center/mini_payment/mini_payment",
                     "query": "orderInfo=%7B%22productName%22%3A%22%E5%8D%95%E7%89%87%E9%BB%94%E9%80%9A-2%25%E6%9D%83%E7%9B%8A%E5%8C%85%2B%E6%9D%83%E7%9B%8A%E5%88%B8%E9%A2%9D%22%2C%22pledgePrice%22%3A%220.01%22%2C%22vehPlates%22%3A%22%E8%B4%B5Z3C56C%22%2C%22vehColor%22%3A0%2C%22phone%22%3A%2215519098118%22%2C%22orderId%22%3A%221174808212507987968%22%7D",
@@ -235,37 +291,9 @@
                     "scene": null
                 },
                 {
-                    "name": "",
-                    "pathName": "pages/personal_center/my_etc/my_etc",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
                     "name": "activities/pages/activity_icbc_forty_five_theme/index",
                     "pathName": "pages/agreement_documents/equity_agreement/equity_agreement",
                     "query": "type=QTTwoPercent",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/historical_pattern/choose_bank_and_bind_veh/choose_bank_and_bind_veh",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/personal_center/order_details/order_details",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/personal_center/invoice_assistant/invoice_assistant",
-                    "query": "",
                     "launchMode": "default",
                     "scene": null
                 },

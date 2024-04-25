@@ -64,7 +64,9 @@ Page({
 			app.globalData.mobile = '';
 			app.globalData.signAContract = 3;
 			util.showToastNoIcon('签约已完成');
-			util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
+			wx.switchTab({
+				url: '/pages/Home/Home'
+			});
 		} else {
 			util.showToastNoIcon(result2.message);
 		}
