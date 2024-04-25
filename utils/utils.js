@@ -221,7 +221,11 @@ export function getServiceHall (shopId) {
 	switch (shopId) {
 		case '1214877114216488960':// 河南移动测试商户
 		case '1214873729308827648':// 河南移动生产商户
-			url = `https://hsh${IS_TEST ? '-pre' : ''}.cyzl.com/henan_cloud/index.html#/meng-dian-daohang?brandId=${IS_TEST ? '1178718844162678784' : '1219605507881312256'}`;
+			if (IS_TEST) {
+				url = `https://hsh${IS_TEST ? '-pre' : ''}.cyzl.com/henan_cloud/index.html#/meng-dian-daohang?brandId=${IS_TEST ? '1178718844162678784' : '1219605507881312256'}`;
+			} else {
+				url = `https://hsh.cyzl.com/mendian_daohang/index.html#/index?brandId=1219605507881312256`;
+			}
 			break;
 		default:
 			break;
