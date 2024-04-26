@@ -1,5 +1,3 @@
-import {thirdContractSigning} from '../../../utils/utils';
-
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
@@ -8,7 +6,6 @@ Page({
             {name: '日结', value: 1},
             {name: '周结', value: 2}
 				],
-        billingMethod: 1, // 多个套餐时候 默认展示日结
         listOfPackagesTrucks: [], // 赛选后展示货车的套餐
         activeTypeIndex: 0, // 控制结算方式类型 按钮
         isFade: true,
@@ -17,16 +14,7 @@ Page({
         isCloseUpperPart1: false, // 控制 详情是否显示
         isCloseUpperPart2: false, // 控制 详情是否显示
         nodeHeightList: [], // 存储节点距离top 集合
-        phoneType: 2,
         equityListMap: [],	// 权益列表集合
-        ttCouponImgList: [	// 通通券图片展示
-            {img: 'https://file.cyzl.com/g001/M01/CA/91/oYYBAGP9r8KAadO3AAAhbDu7b-c635.png'},
-            {img: 'https://file.cyzl.com/g001/M01/CA/92/oYYBAGP9r9eAbYMrAAAfwNWjlCE671.png'},
-            {img: 'https://file.cyzl.com/g001/M01/CA/92/oYYBAGP9r-KAOszNAAAg2fHzpLY270.png'}
-        ],
-        // ------------------------------------------------------------------------------
-        isContinentInsurance: app.globalData.isContinentInsurance,// 是否是大地
-        isSelected: false,// 是否选中当前权益包
         isSalesmanOrder: false,// 是否是业务员端办理
         isRequest: false,// 是否请求中
         orderInfo: undefined,// 订单信息
@@ -35,44 +23,13 @@ Page({
         choiceIndex: 0,// 当前选中套餐下标
         activeEquitiesIndex: -1,// 当前选中权益包
         rightsAndInterestsList: [],// 加购权益列表
-        basicServiceList: [
-            {title: 'ETC设备与卡片', tips: '包邮', icos: 'service_of_etc'},
-            {title: '3年质保', icos: 'service_of_equipment'},
-            {title: '开具通行费发票', icos: 'service_of_invoice'},
-            {title: '高速通行9.5折起', icos: 'service_of_discount'}
-        ],
-        basicServiceListNM: [
-            {title: 'ETC设备（第五代）', tips: '包邮', icos: 'service_of_etc'},
-            {title: '设备质保三年', icos: 'service_of_equipment'},
-            {title: '开具通行费发票', icos: 'service_of_invoice'},
-            {title: '高速通行9.5折', icos: 'service_of_discount'}
-        ],
-        otherServiceList: [
-            {title: '车主服务享便捷', subTitle: '价值168元'},
-            {title: '生活服务享精彩', subTitle: '价值100元+'}
-        ],
-        characteristicServiceList: [
-            {title: '中国石油特惠加油', ico: 'service_of_oil', logo: 'https://file.cyzl.com/g001/M02/19/6A/oYYBAGVdqimAfsekAAANOgAA3Ug751.svg'}
-            // {title: '高速通行享2倍积分', ico: 'service_of_integral', logo: '/pages/default/assets/service_of_integral.svg'}
-        ],
-        showServiceIndex: -1,
         rightsPackageDetails: undefined,
-        contractStatus: undefined,
         isLoaded: false, // 是否加载数据完成
-        getAgreement: false, // 是否接受协议
-        isPay: false, // 已选择通通券套餐&无需支付||已经支付
-        isTest: app.globalData.test,
-        citicBank: false,	// 是否是中信银行联名套餐
-        emptyHairOrder: false,	// 为true表示是空发订单
-        citicBankshopProductIds: app.globalData.cictBankObj.citicBankshopProductIds	// 信用卡套餐集合
+        getAgreement: false // 是否接受协议
     },
     async onLoad (options) {
         if (!app.globalData.orderInfo.orderId) return;
         app.globalData.isTelemarketing = false;
-        this.setData({
-            contractStatus: +options.contractStatus,
-            emptyHairOrder: options.emptyHairOrder === 'true'
-        });
         // !options.type 已选择套餐 && 未支付
         await this.getOrderInfo(!options.type);
         if (!options.type) {
@@ -83,13 +40,11 @@ Page({
             CopylistOfPackages: parseInt(options.type) === 1 ? packages.divideAndDivideList : packages.alwaysToAlwaysList
         });
         let listOfPackagesTrucks = this.data.CopylistOfPackages.filter((item) => { // 从复制的所有货车套餐中进行筛选 默认展示
-            return item.billingMethod === this.data.billingMethod;
+            return item.billingMethod === 1;
         });
         this.setData({
             listOfPackages: listOfPackagesTrucks
         });
-        await this.queryOrder();
-        // await this.getSwiperHeight();
         // 获取 套餐模块的高度
         this.getNodeHeight(this.data.listOfPackages.length);
         // 查询是否欠款
@@ -98,14 +53,6 @@ Page({
         this.getLicensePlateRestrictions();
     },
     onShow (res) {
-        if (!app.globalData.orderInfo.orderId) return;
-        if (app.globalData.signAContract === -1) {
-            this.queryContract();
-        }
-        if (app.globalData.signTongTongQuanAContract === 1) {
-            app.globalData.signTongTongQuanAContract = 0;
-            this.getOrderInfo(false);
-        }
     },
     async getLicensePlateRestrictions () {
       const result = await util.getDataFromServersV2('consumer/system/veh/limit', {
@@ -114,7 +61,6 @@ Page({
       });
       if (!result) return;
       if (result.code === 0) {
-        console.log(result.data);
         if (result.data.canHandle === 0) {
           util.alert({
             title: `套餐选择提醒`,
@@ -137,27 +83,6 @@ Page({
         util.showToastNoIcon(result.message);
     }
     },
-    // async getSwiperHeight () {
-    // 	let boxHeight = [];
-    // 	const that = this;
-    // 	that.data.listOfPackages.map((item, index) => {
-    // 		let height = wx.createSelectorQuery();
-    // 		height.select(`.item-${index}`).boundingClientRect();
-    // 		height.exec(res => {
-    // 			boxHeight.push(res[0].height);
-    // 			if (boxHeight.length === that.data.listOfPackages.length) {
-    // 				that.setData({
-    // 					boxHeight
-    // 				});
-    // 			}
-    // 		});
-    // 	});
-    // 	if (that.data.listOfPackages[0]?.rightsPackageIds?.length) {
-    // 		console.log(that.data.listOfPackages[0]);
-    // 		// 获取权益
-    // 		await that.getList(that.data.listOfPackages[0]);
-    // 	}
-    // },
     // 获取 套餐信息
     async getProductOrderInfo () {
         const result = await util.getDataFromServersV2('consumer/order/get-product-by-order-id', {
@@ -170,12 +95,10 @@ Page({
                 result.data.descriptionList = JSON.parse(result.data.description);
             } catch (e) {
             }
+            const orderTabList = this.data.orderTabList.filter(item => item.value === result.data.billingMethod);
             this.setData({
+                orderTabList,
                 listOfPackages: [result.data]
-            });
-            let billingMethod = this.data.listOfPackages[0]?.billingMethod;// 根据套餐查出第一个对应的结算方式
-            this.setData({
-                billingMethod // 已选套餐后不允许更改
             });
             this.getNodeHeight(this.data.listOfPackages.length);
         } else {
@@ -187,29 +110,12 @@ Page({
             orderId: app.globalData.orderInfo.orderId,
             dataType: '13'
         });
-        console.log(result);
         if (!result) return;
         if (result.code === 0) {
-            if (isSearchPay) {
-                if (result.data.product?.ttDeductStatus === 0) {
-                    util.go('/pages/default/payment_fail/payment_fail?type=main_process');
-                } else {
-                    this.submitOrder();
-                }
-                return;
-            }
-            app.globalData.isQingHaiHighSpeed = result.data.product?.shopId === '1192062723268681728';
             this.setData({
-                isPay: result.data.product?.shopProductId && (result.data.base?.pledgeStatus === -1 || result.data.base?.pledgeStatus === 1),
                 isSalesmanOrder: result.data.base.orderType === 31,
                 orderInfo: result.data
             });
-            if (result.data.product?.ttContractStatus === 1 && result.data.product?.ttDeductStatus !== 1) {
-                // 签约通通券1有 0未   通通券扣款情况1有 0未  2失败
-                // 发起扣款
-                util.showToastNoIcon('签约成功');
-                await this.deductByContractThird();
-            }
             if (initProduct) {
                 await this.getProductOrderInfo();
             }
@@ -217,91 +123,6 @@ Page({
                 orderInfo: JSON.stringify(result.data),
                 source: '查询订单信息'
             });
-        } else {
-            util.showToastNoIcon(result.message);
-        }
-    },
-    // 发起通通券扣款
-    async deductByContractThird () {
-        const result = await util.getDataFromServersV2('consumer/order/deductByContractThird', {
-            orderId: app.globalData.orderInfo.orderId
-        });
-        if (!result) return;
-        if (result.code === 0) {
-            this.getOrderInfo(false, true);
-        } else {
-            util.showToastNoIcon(result.message);
-        }
-    },
-    // 查询车主服务签约
-    async queryContract () {
-        const result = await util.getDataFromServersV2('consumer/order/query-contract', {
-            orderId: app.globalData.orderInfo.orderId
-        });
-        if (!result) return;
-        if (result.code === 0) {
-            app.globalData.signAContract = 3;
-            if (result.data.contractStatus === 1) {
-                util.showToastNoIcon('签约成功');
-                let ttCouponPayAmount = parseInt(this.data.listOfPackages[this.data.choiceIndex].ttCouponPayAmount);
-                let isSignTtCoupon = parseInt(this.data.listOfPackages[this.data.choiceIndex].isSignTtCoupon);
-                let shopProductId = this.data.listOfPackages[this.data.choiceIndex].shopProductId;
-                let falgs = this.data.isTest ? shopProductId === '1053333932522610688' : shopProductId === '1060638877005914112';
-                if (ttCouponPayAmount === 0 && isSignTtCoupon === 1 && falgs) {
-                    this.submitOrder();
-                }
-            }
-            this.setData({
-                contractStatus: result.data.contractStatus
-            });
-        } else {
-            util.showToastNoIcon(result.message);
-        }
-    },
-    async handleSign () {
-        if (!this.data.getAgreement) {
-            util.showToastNoIcon('请同意并勾选协议！');
-            return;
-        }
-        if (this.data.contractStatus === 1) {
-            // 签约通通券代扣
-            await this.signThirdContract();
-            return;
-        }
-        await this.signWeChat();
-    },
-    // 通通券金额为 0 时，调用此接口
-    toWeChatSign () {
-        if (!this.data.getAgreement) {
-            util.showToastNoIcon('请同意并勾选协议！');
-            return;
-        }
-        this.weChatSign();
-    },
-    async signThirdContract () {
-        if (this.data.isRequest) {
-            return;
-        } else {
-            this.setData({isRequest: true});
-        }
-        util.showLoading('加载中');
-        let params = {
-            orderId: app.globalData.orderInfo.orderId // 订单id
-        };
-        const result = await util.getDataFromServersV2('consumer/order/thirdContract', params);
-        this.setData({isRequest: false});
-        if (!result) return;
-        if (result.code === 0) {
-            // 签约通通券代扣 1.0
-            app.globalData.signTongTongQuanAContract = 1;
-            thirdContractSigning(result.data);
-        } else if (result.code === 300) {
-            // 已签约
-            app.globalData.signAContract = 3;
-            this.setData({
-                contractStatus: 1
-            });
-            await this.deductByContractThird();
         } else {
             util.showToastNoIcon(result.message);
         }
@@ -358,89 +179,6 @@ Page({
             util.showToastNoIcon(result.message);
         }
     },
-    // 选择权益
-    onClickDetailsHandle (e) {
-        this.setData({
-            isSelected: false,
-            activeEquitiesIndex: e.detail.isSelected ? -1 : this.data.rightsPackageDetails.index
-        });
-        if (this.data.listOfPackages[this.data.choiceIndex]?.mustChoiceRightsPackage === 1) {
-            const index = this.data.rightsAndInterestsList.findIndex(item => item.id === this.data.listOfPackages[0]?.rightsPackageIds[0]);
-            if (index !== -1 && this.data.choiceIndex !== -1) {
-                this.setData({
-                    activeEquitiesIndex: index
-                });
-            }
-        }
-        this.data.viewRightsAndInterests.switchDisplay(false);
-    },
-    // 查看权益详情
-    showRightsAndInterests (e) {
-        if (this.data.isSalesmanOrder) return;
-        let index = e.currentTarget.dataset['index'];
-        let rightsPackageDetails = this.data.rightsAndInterestsList[index];
-        rightsPackageDetails.index = index;
-        const isSelected = this.data.activeEquitiesIndex === index;
-        this.setData({
-            isSelected,
-            viewRightsAndInterests: this.selectComponent('#showRightsPackage'),
-            rightsPackageDetails
-        });
-        this.data.viewRightsAndInterests.switchDisplay(true);
-    },
-    onClickClose () {
-        this.data.viewRightsService?.switchDisplay(false);
-        this.data.viewLifeService?.switchDisplay(false);
-    },
-    onClickHandle () {
-        this.data.viewRightsAndInterests.switchDisplay(false);
-    },
-    // 查看办理协议
-    onClickGoAgreementHandle () {
-        const item = this.data.listOfPackages[this.data.choiceIndex];
-        if (item.etcCardId === 1) {
-            // serviceFeeType  是否收取权益服务费：0否，1是
-            // productType: 套餐类型 1-业务员套餐 2-小程序套餐  3-H5套餐  4-后台办理套餐，5-APi办理  6-空发套餐
-            // deliveryType: 1-邮寄 2-线下取货 3-现场办理
-            const timeComparison = util.timeComparison('2023/8/23', this.data.orderInfo.base.addTime);
-            // timeComparison 1-新订单 2-老订单
-            if (item.deliveryType === 1 && (item.productType === 2 || item.productType === 3 || item.productType === 6)) {
-                return util.go(`/pages/agreement_documents/equity_agreement/equity_agreement?type=${timeComparison === 1 ? 'QTnotFeesNew' : 'QTnotFees'}`);	// 不含注消费
-            }
-            if (item.deliveryType === 3 && (item.productType === 1 || item.productType === 5 || item.productType === 6)) {
-                return util.go(`/pages/agreement_documents/equity_agreement/equity_agreement?type=${timeComparison === 1 ? 'QTNew' : 'QT'}`);
-            }
-        }
-        if (item.etcCardId === 2) {
-            if (item.deliveryType === 1 && (item.productType === 2 || item.productType === 3 || item.productType === 6)) {
-                return util.go('/pages/agreement_documents/equity_agreement/equity_agreement?type=MTnotFees');	// 不含注消费
-            }
-            if (item.deliveryType === 3 && (item.productType === 1 || item.productType === 5 || item.productType === 6)) {
-                return util.go('/pages/agreement_documents/equity_agreement/equity_agreement?type=MT');
-            }
-        }
-        // 1-自购设备 2-免费设备 3-自购(其他)
-        if (item?.environmentAttribute === 2) {
-            util.go(`/pages/agreement_documents/agreement/agreement`);
-        } else {
-            util.go(`/pages/agreement_documents/new_self_buy_equipmemnt_agreement/index`);
-        }
-    },
-    // 黔通用户协议
-    onClickGoQianTongAgreement () {
-        util.go('/pages/truck_handling/agreement_for_qiantong_to_charge/agreement');
-    },
-    // onClickGoNMAgreement () {
-    // 	return util.go('/pages/agreement_documents/equity_agreement/equity_agreement?type=nm');
-    // },
-    // 通通券协议
-    onClickGoTTQAgreement1 () {
-        util.go('/pages/agreement_documents/coupon_agreement/coupon_agreement');
-    },
-    // 查看隐私协议
-    onClickGoPrivacyHandle () {
-        util.go('/pages/agreement_documents/privacy_agreement/privacy_agreement');
-    },
     // 是否接受协议   点击同意协议并且跳转指定套餐模块
     onClickAgreementHandle () {
         if (this.data.activeIndex === -1) {
@@ -453,25 +191,9 @@ Page({
         // 跳转指定套餐模块
         this.controllShopProductPosition(this.data.activeIndex);
     },
-    onClickCheckTheService (e) {
-        this.setData({
-            showServiceIndex: parseInt(e.currentTarget.dataset.index)
-        });
-        if (this.data.showServiceIndex === 2) return;
-        if (this.data.showServiceIndex === 1) {
-            this.setData({
-                viewLifeService: this.selectComponent('#viewLifeService')
-            });
-            this.data.viewLifeService.switchDisplay(true);
-            return;
-        }
-        this.setData({
-            viewRightsService: this.selectComponent('#viewRightsService')
-        });
-        this.data.viewRightsService.switchDisplay(true);
-    },
     // 选择结算分类套餐
 	choosePackage (e) {
+        if (this.data.orderTabList.length === 1) return;
         let index = e.currentTarget.dataset.index;
         if (!this.data.CopylistOfPackages) { // 存一份获取到的所有套餐
             this.setData({
@@ -485,10 +207,8 @@ Page({
 		this.setData({
 			listOfPackages: listOfPackagesTrucks,// 将筛选的套餐展示出来
 			activeTypeIndex: index - 1,
-			activeIndex, // 选中的重置
-			billingMethod: index // 当前选择的结算方式类型
+			activeIndex // 选中的重置
 		});
-        console.log('this.data.listOfPackagesTrucks',index,this.data.choiceIndex);
 	},
     // 获取权益列表
     async getList (obj) {
@@ -496,7 +216,6 @@ Page({
         const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
             packageIds: obj.rightsPackageIds
         });
-        console.log(result);
         if (!result) return;
         if (result.code === 0) {
             this.setData({
@@ -572,17 +291,6 @@ Page({
         }
         await this.saveOrderInfo();
     },
-    // popTipComp组件 触发事件函数
-    confirmHandle (e) {
-        let val = e.detail;
-        switch (val) {
-            case 'cictBank':
-                this.saveOrderInfo();
-                break;
-            default:
-                break;
-        }
-    },
     // 提交订单
     async saveOrderInfo () {
         if (!this.data.isLoaded) {
@@ -602,7 +310,6 @@ Page({
         this.setData({isRequest: false});
         let addEquity = this.data.equityListMap.addEquityList[this.data.choiceIndex];	// 加购权益包
         let params = {
-            billingMethod: this.data.billingMethod, // 1 2 3  结算方式 日结 周jie月结
             orderId: app.globalData.orderInfo.orderId, // 订单id
             shopId: this.data.orderInfo?.base?.shopId || this.data.listOfPackages[this.data.choiceIndex].shopId || app.globalData.newPackagePageData.shopId, // 商户id
             dataType: '3', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
@@ -616,32 +323,12 @@ Page({
         if (!result) return;
         if (result.code === 0) {
             util.getDatanexusAnalysis('PURCHASE');
-            if (this.data.orderInfo?.base?.orderType === 12) {
-                await util.getFollowRequestLog({
-                    shopId: params.shopId,
-                    orderId: app.globalData.orderInfo?.orderId,
-                    source: '套餐页提交',
-                    orderShopId: this.data.orderInfo?.base?.shopId,
-                    packageShopId: this.data.listOfPackages[this.data.choiceIndex]?.shopId,
-                    productShopId: app.globalData.newPackagePageData?.shopId
-                });
-            }
             if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice || addEquity.aepIndex !== -1) {
                 await this.marginPayment(this.data.listOfPackages[this.data.choiceIndex].pledgeType);
                 return;
             }
-            if (this.data.orderInfo?.base?.orderType === 61) {
-                // 电销&无需支付
-                await this.perfectOrder();
-                return;
-            }
             if (this.data.isSalesmanOrder) {
-                await this.getSalesmanOrderProcess();
-                return;
-            }
-            if (this.data.orderInfo?.base?.orderType === 71 && (this.data.orderInfo?.base?.promoterType === 47 || this.data.orderInfo?.base?.promoterType === 48)) {
-                // 新版小程序空发 无需支付
-                util.go('/pages/empty_hair/processing_progress/processing_progress');
+                util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms?type=main');
                 return;
             }
             util.go(`/pages/truck_handling/information_list/information_list?type=1`);
@@ -668,17 +355,6 @@ Page({
             util.weChatSigning(res);
         } else {
             util.showToastNoIcon(result.message);
-        }
-    },
-    // 获取业务员端流程
-    async getSalesmanOrderProcess () {
-        if (this.data.orderInfo.base?.flowVersion === 1) {
-            // 去签约
-            await this.weChatSign();
-        }
-        if (this.data.orderInfo.base?.flowVersion === 2 || this.data.orderInfo.base?.flowVersion === 3) {
-            // 去银行签约
-            util.go('/pages/historical_pattern/transition_page/transition_page');
         }
     },
     // 微信签约
@@ -723,7 +399,6 @@ Page({
             };
         }
         const result = await util.getDataFromServersV2('consumer/order/pledge-pay', params);
-        console.log(result);
         if (!result) {
             this.setData({isRequest: false});
             return;
@@ -740,33 +415,7 @@ Page({
                     this.setData({isRequest: false});
                     if (res.errMsg === 'requestPayment:ok') {
                         if (this.data.isSalesmanOrder) {
-                            if (this.data.listOfPackages[this.data.activeIndex].etcCardId === 10 && +this.data.listOfPackages[this.data.activeIndex].deviceType === 0) {
-                                // 湖南湘通卡 & 单片机   湖南信科
-                                util.go('/pages/default/payment_successful/payment_successful?isHunan=1');
-                                return;
-                            }
-                            if (this.data.orderInfo.base?.flowVersion !== 1) {
-                                // 无需签约
-                                util.go('/pages/historical_pattern/transition_page/transition_page');
-                                return;
-                            }
-                            if (this.data.listOfPackages[this.data.choiceIndex].isSignTtCoupon === 1) {
-                                // 通通券套餐
-                                this.setData({isPay: true});
-                                return;
-                            }
-                            // 去支付成功页
-                            util.go('/pages/default/payment_successful/payment_successful');
-                            return;
-                        }
-                        if (this.data.orderInfo?.base?.orderType === 61) {
-                            // 电销模式
-                            this.perfectOrder();
-                            return;
-                        }
-                        if (this.data.orderInfo?.base?.orderType === 71 && (this.data.orderInfo?.base?.promoterType === 47 || this.data.orderInfo?.base?.promoterType === 48)) {
-                            // 新版小程序空发
-                            util.go('/pages/empty_hair/processing_progress/processing_progress');
+                            util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms?type=main');
                             return;
                         }
                         util.go(`/pages/truck_handling/information_list/information_list?type=1`);
@@ -786,12 +435,6 @@ Page({
             util.showToastNoIcon(result.message);
         }
     },
-    // ------------------------------------------------------------------------------------------------------------------
-    // 前去相关协议页面
-    goAgreement () {
-        console.log('前去相关协议');
-        util.go('/pages/agreement_documents/user_agreement/user_agreement');
-    },
     // 权益点击高亮，不用显示详情弹窗
     detailsBtn (e) {
         if (this.data.listOfPackages[this.data.activeIndex]?.mustChoiceRightsPackage === 1) {
@@ -810,7 +453,7 @@ Page({
     },
     // 点击高亮
     btnHeightLight (e) {
-        console.log(e.currentTarget.dataset.billingmethod);
+        if (this.data.orderTabList.length === 1) return;
         let that = this;
         let index = e.currentTarget.dataset.index;
         let billingmethod = e.currentTarget.dataset.billingmethod;
@@ -822,7 +465,6 @@ Page({
             activeIndex: isFade ? index : -1,
             getAgreement: false,
             choiceIndex: isFade ? index : -1,
-            billingMethod: billingmethod,
             activeTypeIndex: billingmethod === 1 ? 0 : 1
         });
         if (isFade) { // 当套餐高亮时，默认展开 详情
@@ -947,15 +589,9 @@ Page({
                     equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
                 }
             }
-            // 判断套餐是否为银行行用卡套餐
-            if (this.data.citicBankshopProductIds.includes(this.data.listOfPackages[currentIndex]?.shopProductId)) {
-                equityListMap.bankList.push({index: currentIndex,isBank: true});
-            } else {
-                // 占位
-                equityListMap.bankList.push({index: currentIndex,isBank: false});
-            }
+            // 占位
+            equityListMap.bankList.push({index: currentIndex,isBank: false});
         }
-        console.log(equityListMap);
         this.setData({
             isLoaded: true,
             equityListMap: equityListMap
@@ -988,27 +624,7 @@ Page({
             duration: 200
         });
     },
-    // 根据订单ID查询订单信息(针对中信套餐,根据车牌位数来决定是否展示 中信白金卡)
-    async queryOrder () {
-        const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
-            orderId: app.globalData.orderInfo.orderId,
-            dataType: '1'
-        });
-        if (!result) return;
-        if (result.code === 0) {
-            if (result.data.base.vehPlates.length === 7) {
-                let listOfPackages = this.data.listOfPackages.filter(item => item.shopProductId !== app.globalData.cictBankObj.citicBankShopshopProductId && item.shopProductId !== app.globalData.cictBankObj.cictBankNmPlatinumCard);
-                this.setData({
-                    listOfPackages
-                });
-            }
-        } else {
-            util.showToastNoIcon(result.message);
-        }
-        this.setData({
-          vehPlates: result.data.base.vehPlates
-        });
-    },
+
     // 弹窗详情
     popDetail (e) {
         let type = e.currentTarget.dataset.type;	// string
@@ -1102,7 +718,6 @@ Page({
      */
     goAgreementPage (e) {
         let item5 = e.currentTarget.dataset.item;
-        console.log(item5);
         if (item5.contentType === 1) {
             wx.navigateTo({
                 url: '/pages/agreement_documents/background_agreement/background_agreement',
@@ -1115,5 +730,4 @@ Page({
             util.openPdf(item5.content,item5.category);
         }
     }
-
 });
