@@ -17,7 +17,12 @@ Page({
 		/**
 		* 生命周期函数--监听页面显示
 		*/
-		onShow () {
+		async onShow () {
+			if (this.data.flowVersion === 8) {
+				await util.getDataFromServersV2('consumer/order/query-contract', { // 查询车主服务签约
+					orderId: app.globalData.orderInfo.orderId
+				});
+			}
 			if (app.globalData.signAContract === -1) {
 				this.queryContract();
 			}

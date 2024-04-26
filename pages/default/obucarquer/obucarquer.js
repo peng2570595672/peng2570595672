@@ -17,7 +17,7 @@ Page({
 			});
 		}
 	},
-	onShow () {
+	async onShow () {
 		if (!app.globalData.orderInfo.orderId) return;
 		const pages = getCurrentPages();
 		const currPage = pages[pages.length - 1];
@@ -26,6 +26,9 @@ Page({
 			this.getPictureInfo(currPage.__data__.pathUrl);
 		}
 		if (app.globalData.signAContract === -1) {
+			await util.getDataFromServersV2('consumer/order/query-contract', { // 查询车主服务签约
+				orderId: app.globalData.orderInfo.orderId
+			});
 			this.handleGetSignInfo();
 		}
 	},
