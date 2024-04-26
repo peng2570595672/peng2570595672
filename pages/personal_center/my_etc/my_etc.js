@@ -2,11 +2,8 @@
  * @author 狂奔的蜗牛
  * @desc 我的ETC
  */
-import {
-	handleJumpHunanMini,
-	initProductName,
-	thirdContractSigning
-} from '../../../utils/utils.js';
+import {handleJumpHunanMini, initProductName, thirdContractSigning} from '../../../utils/utils.js';
+
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
@@ -449,7 +446,7 @@ Page({
 				util.go('/pages/default/payment_fail/payment_fail');
 				return;
 			}
-			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?contractStatus=${orderInfo.contractStatus}&ttContractStatus=${orderInfo.ttContractStatus}&isNewTrucks=${orderInfo.isNewTrucks}`);
+			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?contractStatus=${orderInfo.contractStatus}&ttContractStatus=${orderInfo.ttContractStatus}`);
 			return;
 		}
 		if (orderInfo.selfStatus === 25 || orderInfo.selfStatus === 27) { // 设备升级 证件确认页

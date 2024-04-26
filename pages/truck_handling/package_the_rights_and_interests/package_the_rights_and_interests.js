@@ -71,8 +71,7 @@ Page({
         app.globalData.isTelemarketing = false;
         this.setData({
             contractStatus: +options.contractStatus,
-            emptyHairOrder: options.emptyHairOrder === 'true',
-            isNewTrucks: +options.isNewTrucks
+            emptyHairOrder: options.emptyHairOrder === 'true'
         });
         // !options.type 已选择套餐 && 未支付
         await this.getOrderInfo(!options.type);
@@ -191,11 +190,6 @@ Page({
         console.log(result);
         if (!result) return;
         if (result.code === 0) {
-            let isNewTrucks = +result.data.base?.isNewTrucks;
-            // 拿到当前订单 货车还是客车类型
-            this.setData({
-                isNewTrucks
-            });
             if (isSearchPay) {
                 if (result.data.product?.ttDeductStatus === 0) {
                     util.go('/pages/default/payment_fail/payment_fail?type=main_process');
@@ -608,6 +602,7 @@ Page({
         this.setData({isRequest: false});
         let addEquity = this.data.equityListMap.addEquityList[this.data.choiceIndex];	// 加购权益包
         let params = {
+            billingMethod: this.data.billingMethod, // 1 2 3  结算方式 日结 周jie月结
             orderId: app.globalData.orderInfo.orderId, // 订单id
             shopId: this.data.orderInfo?.base?.shopId || this.data.listOfPackages[this.data.choiceIndex].shopId || app.globalData.newPackagePageData.shopId, // 商户id
             dataType: '3', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
@@ -616,15 +611,11 @@ Page({
             rightsPackageId: addEquity.aepIndex !== -1 ? addEquity.subData[addEquity.aepIndex].id : '',
             areaCode: this.data.orderInfo ? (this.data.orderInfo.product.areaCode || '0') : app.globalData.newPackagePageData.areaCode
         };
-        if (this.data.isNewTrucks === 1) {
-            params['billingMethod'] = this.data.billingMethod; // 1 2 3  结算方式 日结 周jie月结
-        }
         const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
         this.setData({isRequest: false});
         if (!result) return;
         if (result.code === 0) {
             util.getDatanexusAnalysis('PURCHASE');
-            const path = this.data.orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
             if (this.data.orderInfo?.base?.orderType === 12) {
                 await util.getFollowRequestLog({
                     shopId: params.shopId,
