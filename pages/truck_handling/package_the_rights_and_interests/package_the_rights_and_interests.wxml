@@ -2,13 +2,13 @@
 <view class="index">
     <!-- 顶部 进度条 组件 -->
     <view class="topSplit">
-        <view class="vehPlates" wx:if="{{isNewTrucks === 1}}"
+        <view class="vehPlates"
             style="height: 80rpx;line-height: 80rpx;padding-left: 40rpx; width: 100%;font-weight: bold;">
             正在办理货车ETC {{orderInfo.base.vehPlates||vehPlates}}
         </view>
     </view>
     <!-- tab 选项框 -->
-    <view class="package_tab" wx:if="{{isNewTrucks === 1}}">
+    <view class="package_tab">
         <view class="package_tab_top">
             <view class="intrudecu">
                 结算方式
@@ -27,7 +27,7 @@
         </view>
     </view>
     <!-- 货车展示的套餐  -->
-    <view wx:if="{{isNewTrucks === 1}}">
+    <view>
         <view class="package" wx:for="{{listOfPackages}}" wx:key="index">
             <view class="module moduleOne iconfont {{'module' + index}} {{index === activeIndex ? 'btnHighLight' : ''}}"
                 data-index="{{index}}" data-billingMethod="{{item.billingMethod}}" data-shopproductid="{{item.shopProductId}}" catchtap="btnHeightLight">
