@@ -1,11 +1,12 @@
 import {thirdContractSigning} from '../../../utils/utils';
+
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
     data: {
         orderTabList: [
-            {name: '日结', value: 1}
-            // {name: '周结', value: 2}
+            {name: '日结', value: 1},
+            {name: '周结', value: 2}
 				],
         billingMethod: 1, // 多个套餐时候 默认展示日结
         listOfPackagesTrucks: [], // 赛选后展示货车的套餐
