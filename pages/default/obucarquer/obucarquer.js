@@ -9,6 +9,7 @@ Page({
 			obuId: null
 		},
 		available: false,
+		isRequestNum: 0,// 防止签约中断返回
 		isSigningFail: false // 是否存在高速签约失败,默认未失败
 	},
 	async onLoad (options) {
@@ -36,6 +37,9 @@ Page({
 		util.showLoading('签约查询中');
 		const result = await util.getDataFromServersV2('consumer/order/query-contract', {
 			orderId: app.globalData.orderInfo.orderId
+		});
+		this.setData({
+			isRequestNum: this.data.isRequestNum + 1
 		});
 		if (result.code === 0) {
 			if (result.data.contractStatus === 1 && result.data.userState === 'NORMAL') {
@@ -185,7 +189,7 @@ Page({
 	},
 	// 下一步
 	async next () {
-		if (this.data.isSigningFail) {
+		if (this.data.isSigningFail && this.data.isRequestNum < 2) {
 			// 获取高速签约失败
 			this.handleQueryContract();
 			return;
@@ -194,6 +198,7 @@ Page({
 			return;
 		} else {
 			this.setData({
+				isRequestNum: 0,
 				isRequest: true
 			});
 		}
