@@ -1522,6 +1522,11 @@ Page({
             util.go(`/pages/bank_card/citic_bank_sign/citic_bank_sign`);
             return;
         }
+        if (obj.isNewTrucks === 1) {
+            // 货车签约
+            util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
+            return;
+        }
         if (obj.orderType === 31 && obj.auditStatus === 0 && obj.flowVersion !== 1) {
             this.onClickHighSpeedSigning(obj);
             return;
@@ -1532,13 +1537,6 @@ Page({
         if (obj.status === 1) app.globalData.isSecondSigningInformationPerfect = true;
         if (obj.logisticsId !== 0 || obj.obuStatus === 5 || obj.obuStatus === 1) {
             app.globalData.isSecondSigning = true;
-        }
-        if (obj.isNewTrucks === 1) {
-            // wx.uma.trackEvent('index_for_contract_management'); // 取消多内容签约
-            // util.go(`/pages/truck_handling/contract_management/contract_management`);
-            // 货车签约
-            util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
-            return;
         }
         if (obj.contractStatus === 2) {
             app.globalData.orderInfo.orderId = obj.id;
