@@ -3,8 +3,8 @@ const app = getApp();
 Page({
     data: {
         orderTabList: [
-            {name: '日结', value: 1},
-            {name: '周结', value: 2}
+            {name: '日结', billingMethod: 1},
+            {name: '周结', billingMethod: 2}
 				],
         listOfPackagesTrucks: [], // 赛选后展示货车的套餐
         activeTypeIndex: 0, // 控制结算方式类型 按钮
@@ -39,7 +39,7 @@ Page({
         this.setData({ // 复制一份所有套餐
             CopylistOfPackages: parseInt(options.type) === 1 ? packages.divideAndDivideList : packages.alwaysToAlwaysList
         });
-        let listOfPackagesTrucks = this.data.CopylistOfPackages.filter((item) => { // 从复制的所有货车套餐中进行筛选 默认展示
+        let listOfPackagesTrucks = this.data.CopylistOfPackages.filter((item) => { // 从复制的所有货车套餐中进行筛选 默认展示日结
             return item.billingMethod === 1;
         });
         this.setData({
@@ -95,9 +95,11 @@ Page({
                 result.data.descriptionList = JSON.parse(result.data.description);
             } catch (e) {
             }
-            const orderTabList = this.data.orderTabList.filter(item => item.value === result.data.billingMethod);
+            const orderTabList = this.data.orderTabList.filter(item => item.billingMethod === result.data.billingMethod);
+            let activeTypeIndex = orderTabList[0].billingMethod - 1;
             this.setData({
                 orderTabList,
+                activeTypeIndex,
                 listOfPackages: [result.data]
             });
             this.getNodeHeight(this.data.listOfPackages.length);

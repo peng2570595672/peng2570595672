@@ -1022,7 +1022,6 @@ Page({
                 }
                 if (item.isNewTrucks === 1) {
                     truckList.push(item);
-                    console.log('truckOrderInfo', truckList);
                     if (item.obuStatus === 1 || item.obuStatus === 5) {
                         activationTruckOrder.push(item.obuCardType);
                         truckActivationOrderList.push(item.id);

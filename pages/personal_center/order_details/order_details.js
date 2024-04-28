@@ -4,6 +4,7 @@ Page({
 	data: {
 		mask: false,
 		wrapper: false,
+		line_open: true, // 展开和收起
 		isContinentInsurance: app.globalData.isContinentInsurance || app.globalData.isPingAn,
 		isServiceNotificationEntry: false, // 是否是服务通知进入
 		isRequest: false, // 是否请求
@@ -25,6 +26,7 @@ Page({
 			this.setData({
 				details: app.globalData.billingDetails
 			});
+			console.log('app.globalData.billingDetails', app.globalData.billingDetails);
 		} else {
 			if (options.id) {
 				this.setData({
@@ -40,7 +42,7 @@ Page({
 				this.login();
 			} else {
 				if (!this.data.firstCar) {
-					this.setData({firstCar: await util.getBindGuests()});
+					this.setData({ firstCar: await util.getBindGuests() });
 				}
 				this.getBillDetail();
 			}
@@ -95,7 +97,7 @@ Page({
 							app.globalData.memberId = res.data.memberId;
 							app.globalData.mobilePhone = res.data.mobilePhone;
 							if (!this.data.firstCar) {
-								this.setData({firstCar: await util.getBindGuests()});
+								this.setData({ firstCar: await util.getBindGuests() });
 							}
 							// 查询最后一笔订单状态
 							this.getBillDetail();
@@ -180,6 +182,28 @@ Page({
 			util.hideLoading();
 		});
 	},
+	// 查询获取周结合并流水
+	getWeeksToCombineAndFlow () {
+		util.showLoading();
+		let params = {
+			detailId: this.data.details.id
+		};
+		util.getDataFromServer('consumer/etc/get-merge-bills', params, () => {
+			util.showToastNoIcon('获取周结合并流水失败');
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0 && res.data) {
+				this.setData({
+					'details.weekList': res.data
+				});
+				console.log(this.data.details.weekList);
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
 	// 查看拆分列表
 	goSplitList () {
 		app.globalData.splitDetails = this.data.details;
@@ -215,6 +239,11 @@ Page({
 			console.log('账单详情：', res);
 			util.hideLoading();
 			if (res.code === 0) {
+				let { mergeId, deductType } = res.data;
+				if (mergeId === 0 && deductType === 2) {
+					// 周结合并流水账单
+					this.getWeeksToCombineAndFlow();
+				}
 				this.setData({
 					details: res.data
 				});
@@ -228,6 +257,12 @@ Page({
 			}
 		}, app.globalData.userInfo.accessToken, () => {
 			util.hideLoading();
+		});
+	},
+	openVe (e) {
+		console.log(this.data.line_open);
+		this.setData({
+			line_open: !this.data.line_open
 		});
 	},
 	// 去补缴
@@ -319,9 +354,9 @@ Page({
 		// 授权提醒
 		// this.selectComponent('#popTipComp').show({type: 'bingGuttesBill',title: '礼品领取',bgColor: 'rgba(0,0,0,0.65)'});
 		if (this.data.details?.vehPlates.includes('云')) {
-			this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)'});
+			this.selectComponent('#popTipComp').show({ type: 'newPop', title: '云', bgColor: 'rgba(0,0,0, 0.6)' });
 		} else {
-			this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)'});
+			this.selectComponent('#popTipComp').show({ type: 'newPop', title: '全国', bgColor: 'rgba(0,0,0, 0.6)' });
 		}
 	},
 	lateFees (e) {
@@ -341,20 +376,20 @@ Page({
 		});
 	},
 	// 打电话
-    phone (e) {
-        this.selectComponent('#popTipComp').show({
-            type: 'callPhone',
-            title: '拨打电话',
-            btnCancel: '取消',
-            btnconfirm: '拨打',
-            content: e.currentTarget.dataset.phone,
-            callBack: () => {
-                wx.makePhoneCall({
-                    phoneNumber: e.currentTarget.dataset.phone
-                });
-            }
-        });
-    },
+	phone (e) {
+		this.selectComponent('#popTipComp').show({
+			type: 'callPhone',
+			title: '拨打电话',
+			btnCancel: '取消',
+			btnconfirm: '拨打',
+			content: e.currentTarget.dataset.phone,
+			callBack: () => {
+				wx.makePhoneCall({
+					phoneNumber: e.currentTarget.dataset.phone
+				});
+			}
+		});
+	},
 	onUnload () {
 		app.globalData.billingDetails = undefined;
 	}

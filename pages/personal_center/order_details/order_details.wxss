@@ -110,6 +110,50 @@
   height: 115rpx;
   line-height: 115rpx;
 }
+.order_details .deduction-details-truck {
+  background: #fff;
+  padding: 0 32rpx 32rpx;
+  position: relative;
+}
+.order_details .deduction-details-truck .first {
+  display: flex;
+  font-size: 28rpx;
+  padding-top: 26rpx;
+}
+.order_details .deduction-details-truck .first>view {
+  flex: 1;
+  height: 48rpx;
+  margin: 20rpx 0;
+  color: #66666d;
+}
+.order_details .deduction-details-truck .first>view .color_text {
+  display: inline;
+  color: #039eeb;
+  padding: 0 10rpx;
+}
+.order_details .deduction-details-truck .line_text {
+  display: flex;
+  font-size: 28rpx;
+  padding: 5rpx 0;
+  flex-direction: column;
+  border-top: 1px solid #e1dcdc;
+}
+.order_details .deduction-details-truck .line_text>view {
+  display: flex;
+  font-size: 28rpx;
+  padding: 26rpx 0;
+  justify-content: space-between;
+}
+.order_details .deduction-details-truck .turnOroff {
+  position: absolute;
+  bottom: -10%;
+  left: 40%;
+  color: #039eeb;
+  height: 60rpx;
+}
+.order_details .active_hide {
+  height: 160rpx !important;
+}
 .order_details .doubt {
   height: 98rpx;
   display: flex;

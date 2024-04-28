@@ -15,15 +15,15 @@
             </view>
             <div class="right">
                 <view wx:for="{{orderTabList}}" wx:key="index" class="item">
-                    <view class="confirm iconfont {{index === activeTypeIndex ? 'tick' : ''}}"
-                        data-index="{{item.value}}" catchtap="choosePackage"></view>
+                    <view class="confirm iconfont {{item.billingMethod === activeTypeIndex+1 ? 'tick' : ''}}"
+                        data-index="{{item.billingMethod}}" catchtap="choosePackage"></view>
                     {{item.name}}
                 </view>
             </div>
         </view>
         <view class="package_tab_bottom">
-            <view class="title">当日通行，隔日还款，适直偶尔上高速人群</view>
-            <view class="title">服务费:通行费*0.4%，最低1元1日(无通行不收费)</view>
+            <view class="title">{{activeTypeIndex === 0 ? '当日通行，隔日还款，适直偶尔上高速人群' : '每周一上午10:00结算上周通行费，适直经常跑高速人群'}}</view>
+            <view class="title">{{activeTypeIndex === 0 ? '服务费:通行费*0.4%，最低1元1日(无通行不收费)':'服务费:10~15元/同(无通行不收费)'}}</view>
         </view>
     </view>
     <!-- 货车展示的套餐  -->
@@ -49,7 +49,7 @@
                         <view class="money">
                             <span wx:if="{{item.pledgePrice}}">
                                 <!-- <text wx:else>￥{{tools.parseNum(item.pledgePrice)/100}}</text> -->
-                                <text style="text-decoration: line-through;">￥{{tools.parseNum(199)}}</text>
+                                <text style="text-decoration: line-through;">￥{{tools.parseNum(299)}}</text>
                             </span>
                             <!-- 空发套餐并且设备免费时，隐藏金额 -->
                             <span wx:else style="color: #0f0"></span>
@@ -77,7 +77,7 @@
                 <view class="lowerpart" style="font-size: 23rpx; color: #979797; line-height: 36rpx;">
                     <!-- 日结描述 -->
                     <view wx:if="{{item.billingMethod === 1}}">
-                        <view>服务费：通行费*0.4%，最低10元/日（无通行不收费）</view>
+                        <view>服务费：通行费*0.4%，最低1元/日（无通行不收费）</view>
                         <view>根据计算，使用ETC的货车司机，预估可省 5000元/年</view>
                     </view>
                     <!-- 月结描述 -->
@@ -129,7 +129,7 @@
                 <view class="money" style="font-size: 30rpx; width: 500rpx; font-weight: 400;font-style: normal;" wx:if="{{isFade}}">
                     押金<span class="mpneySpan"
                         style="font-size: 56rpx; font-weight: 600;">￥{{activeIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}
-                        <span style="font-size: 24rpx;color: #979797;text-decoration: line-through;">原价599</span>
+                        <span style="font-size: 24rpx;color: #979797;text-decoration: line-through;">原价299</span>
                     </span>
                     <view style="font-size: 24rpx;">设备激活后返回全部押金</view>
                 </view>

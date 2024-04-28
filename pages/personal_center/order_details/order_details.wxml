@@ -185,8 +185,42 @@
             <text class="text1">如您有任何疑间，可通过 <text style="color: #00A9FF;" data-phone="4001096138" catchtap="phone">4001096138</text> 进行查询和咨询，我们将竭诚为您服务</text>
         </view>
     </view>
+    <!-- 货车 合并流水详情开始 -->
+    <view class="deduction-details-truck {{line_open ? 'active_hide': ''}}" wx:if="{{ details.mergeId === 0 && details.deductType===2 && details.weekList.length>0}}"> 
+        <!-- 判断周结合并流水账单，用mergeId = 0 并且 deductType = 2来判断 -->
+        <view class="first">
+            <view>车牌号码</view>
+            <view>{{details.vehPlate}}</view>
+            <view>共<view class="color_text">{{  details.weekList.length  }}</view>两条通行记录</view>
+        </view>
+        <view class="line_text" wx:for="{{details.weekList}}" wx:key="index" wx:if="{{!line_open}}">
+            <view>
+                <view>入站时间</view>
+                <view>{{tools.substring(item.inOpTime,0,16)}}</view>
+            </view>
+            <view>
+                <view>入站口</view>
+                <view>{{item.inStationName}}</view>
+            </view>
+            <view>
+                <view>出站时间</view>
+                <view>
+                    {{item.opTime ? tools.substring(item.opTime,0,16) : tools.substring(item.outOpTime,0,16)}}
+                </view>
+            </view>
+            <view>
+                <view>出站口</view>
+                <view>{{item.stationName ? item.stationName : item.outStationName}}</view>
+            </view>
+            <view>
+                <view>通行费</view>
+                <view>{{tools.parseNum(item.etcMoney)/100 }}</view>
+            </view>
+        </view>
+        <view class="turnOroff" catchtap="openVe">{{line_open ? '查看通行记录':'收起扣费记录↑'}}</view>
+    </view>
     <!-- 车辆详情开始 -->
-    <view class="deduction-details">
+    <view class="deduction-details" wx:else>
         <view>
             <view>车牌号码</view>
             <view>{{details.vehPlate}}</view>
@@ -214,6 +248,7 @@
             <view>{{details.stationName ? details.stationName : details.outStationName}}</view>
         </view>
     </view>
+    
     <!-- 车辆详情结束 -->
     <!-- 底部补缴开始 -->
     <view class="payment" wx:if="{{(details.deductStatus === 2 || details.deductStatus === 10) && details.flowVersion !== 4}}">
