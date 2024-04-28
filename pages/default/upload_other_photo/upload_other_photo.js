@@ -149,7 +149,7 @@ Page({
 		// 上传文件
 		util.uploadFile(path, () => {
 			this.setData({faceStatus: 3});
-			util.showToastNoIcon('上传补充角度照失败！');
+			util.showToastNoIcon('上传车头照失败！');
 		}, (res) => {
 			if (res) {
 				res = JSON.parse(res);
