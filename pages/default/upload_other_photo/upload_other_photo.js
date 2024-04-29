@@ -28,7 +28,13 @@ Page({
 		let path = wx.getStorageSync('passenger-car-101');
 		if (path) {
 			wx.removeStorageSync('passenger-car-101');
-			if (app.globalData.handlingOCRType) this.uploadOcrFile(path);
+			if (app.globalData.handlingOCRType) {
+				if (this.data.isVerifyHeadshotVeh) {
+					this.uploadOcrFile(path);
+				} else {
+					this.uploadFile(path);
+				}
+			}
 		}
 		if (!app.globalData.handlingOCRType) {
 			// 没通过上传
@@ -92,7 +98,7 @@ Page({
         if (!result) return;
         if (result.code === 0) {
             this.setData({
-                isVerifyHeadshotVeh: result.data.isVerifyHeadshotVeh === 1
+                isVerifyHeadshotVeh: result.data.isVerifyHeadshotVeh
             });
         }
     },
@@ -137,6 +143,36 @@ Page({
 		} else {
 			util.showToastNoIcon(result.message);
 		}
+	},
+	uploadFile (path) {
+		this.setData({faceStatus: 2});
+		// 上传文件
+		util.uploadFile(path, () => {
+			this.setData({faceStatus: 3});
+			util.showToastNoIcon('上传车头照失败！');
+		}, (res) => {
+			if (res) {
+				res = JSON.parse(res);
+				if (res.code === 0) { // 文件上传成功
+					this.setData({
+						faceStatus: 4,
+						headstock: res.data[0]
+					});
+					this.setData({
+						available: this.validateData(false)
+					});
+					wx.setStorageSync('passenger-car-headstock', JSON.stringify(res.data[0]));
+				} else { // 文件上传失败
+					this.setData({faceStatus: 3});
+					util.showToastNoIcon(res.message);
+				}
+			} else { // 文件上传失败
+				this.setData({faceStatus: 3});
+				util.showToastNoIcon('上传车头照失败');
+			}
+		}, () => {
+			util.hideLoading();
+		});
 	},
 	// 上传图片
 	uploadOcrFile (path) {

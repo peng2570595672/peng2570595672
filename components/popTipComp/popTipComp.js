@@ -130,7 +130,7 @@ Component({
 		handleConfirm () {
 			this.hide(false);
 			if (this.data.tipObj.params.type === 1) {
-				util.go(`/pages/personal_center/payment/payment`);
+				util.go('/pages/personal_center/arrears_bill/arrears_bill');
 			} else {
 				this.triggerEvent('onHandle');
 			}

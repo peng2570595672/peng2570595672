@@ -369,7 +369,7 @@ Page({
 					});
 				}
 			} else {
-				if (this.data.obuCardType === 2) {
+				if (this.data.obuCardType === 1) {
 					this.userCarCheck(result.data);
 				} else {
 					const pages = getCurrentPages();

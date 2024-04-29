@@ -17,7 +17,26 @@ Page({
 		/**
 		* 生命周期函数--监听页面显示
 		*/
-		onShow () {
+		async onShow () {
+			if (this.data.flowVersion === 8) {
+				util.showLoading('签约查询中');
+				const result = await util.getDataFromServersV2('consumer/order/query-contract', { // 查询车主服务签约
+					orderId: app.globalData.orderInfo.orderId
+				});
+				util.hideLoading();
+				if (result.code === 0) {
+					if (result.data.contractStatus === 1) {
+						// 签约成功
+						wx.navigateBack({
+							delta: 1
+						});
+					} else {
+						util.showToastNoIcon('签约失败,请重试');
+					}
+				} else {
+					util.showToastNoIcon(result.message);
+				}
+			}
 			if (app.globalData.signAContract === -1) {
 				this.queryContract();
 			}

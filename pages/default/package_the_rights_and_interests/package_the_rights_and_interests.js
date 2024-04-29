@@ -1,4 +1,4 @@
-import { thirdContractSigning } from '../../../utils/utils';
+import {thirdContractSigning} from '../../../utils/utils';
 
 /**
  * @author 老刘
@@ -790,6 +790,12 @@ Page({
             rightsPackageId: addEquity.aepIndex !== -1 ? addEquity.subData[addEquity.aepIndex].id : '',
             areaCode: this.data.orderInfo ? (this.data.orderInfo.product.areaCode || '0') : app.globalData.newPackagePageData.areaCode
         };
+        if (this.data.isSalesmanOrder && this.data.orderInfo.base?.flowVersion === 8) {
+            params.clientOpenid = app.globalData.userInfo.openId;
+            params.clientMobilePhone = app.globalData.userInfo.mobilePhone;
+            params.changeAuditStatus = true;
+            params.needSignContract = true;
+        }
         const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
         this.setData({ isRequest: false });
         if (!result) return;

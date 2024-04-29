@@ -317,6 +317,6 @@ Page({
 	// 查看示例
 	handleExample (e) {
 		let type = +e.currentTarget.dataset.type;
-		this.selectComponent('#logoutExample').show({type: type});
+		this.selectComponent('#logoutExample').show({type: this.data.deviceTypeIndex ? 1 : 2});
 	}
 });
