@@ -4,6 +4,7 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		image_cardIndex: 0, // 第一个设备
 		carNoStr: '', // 车牌字符串
 		carNo: ['', '', '', '', '', '', '', ''], // 车牌对应的数组
 		carNoStr_new: '', // 车牌字符串
@@ -25,23 +26,29 @@ Page({
 		}, // 提交数据
 		isDisableClick: false // 是否禁止点击
 	},
-	onLoad (options) {
+	onLoad(options) {
 
 	},
-	onReady () {
+	onReady() {
 
 	},
-	onShow () {
+	onShow() {
 
 	},
-	onHide () {
+	onHide() {
 
 	},
-	onUnload () {
+	onUnload() {
 
+	},
+	setCurrentCarData(e) {
+		let image_cardIndex = +e.currentTarget.dataset.index;
+		this.setData({
+			image_cardIndex
+		})
 	},
 	// 点击添加新能源
-	onClickNewPowerCarHandle (e) {
+	onClickNewPowerCarHandle(e) {
 		if (this.data.isDisableClick) return;
 		this.setData({
 			isNewPowerCar: true
@@ -49,14 +56,14 @@ Page({
 		this.setCurrentCarNo(e);
 	},
 	// 点击添加新能源
-	onClickNewPowerCarHandle_new (e) {
+	onClickNewPowerCarHandle_new(e) {
 		if (this.data.isDisableClick) return;
 		this.setData({
 			isNewPowerCar: true
 		});
 		this.setCurrentCarNo_new(e);
 	},
-	async validateCar () {
+	async validateCar() {
 		console.log('2');
 		if (!this.validateAvailable(true)) {
 			return;
@@ -69,7 +76,7 @@ Page({
 		});
 	},
 	// 校验字段是否满足
-	validateAvailable (checkLicensePlate) {
+	validateAvailable(checkLicensePlate) {
 		let isOk = true;
 		let formData = this.data.formData;
 		// 验证车牌和车牌颜色
@@ -101,7 +108,7 @@ Page({
 		return isOk;
 	},
 	// 定义一个更新键盘状态和数据的辅助函数
-	updateKeyboardAndData (e) {
+	updateKeyboardAndData(e) {
 		const is_new = e.currentTarget.dataset['is_new'];
 		const keyboardId = is_new ? '#keyboard_new' : '#keyboard';
 		const carNoKey = is_new ? 'carNo_new' : 'carNo';
@@ -147,34 +154,65 @@ Page({
 	},
 
 	// 共享的处理逻辑
-	handleKeyboardInteraction (e, keyboardId, currentIndexState) {
+	handleKeyboardInteraction(e, keyboardId, currentIndexState) {
 		if (this.data.isDisableClick) return;
 
 		const index = parseInt(e.currentTarget.dataset.index);
-
+		console.log('11');
 		if (app.globalData.SDKVersion < '2.6.1') {
 			const keyboard = this.selectComponent(`#${keyboardId}`);
 			keyboard.indexMethod(index, this.data[currentIndexState]);
-			keyboard.showMethod(this.data[`showKeyboard_${keyboardId.slice(-4)}`]);
 		}
-
+		
 		this.setData({
 			[currentIndexState]: index,
-			[`showKeyboard_${keyboardId.slice(-4)}`]: true
+			showKeyboard: true
 		});
+		if (app.globalData.SDKVersion < '2.6.1') {
+			const keyboard = this.selectComponent(`#${keyboardId}`);
+			keyboard.showMethod(this.data[`showKeyboard_${keyboardId.slice(-4)}`]);
+		}
 	},
 
 	// 点击某一位输入车牌
-	setCurrentCarNo (e) {
-		handleKeyboardInteraction(e, 'keyboard', 'currentIndex');
+	setCurrentCarNo(e) {
+		if (this.data.isDisableClick) return;
+		let index = e.currentTarget.dataset['index'];
+		index = parseInt(index);
+		if (app.globalData.SDKVersion < '2.6.1') {
+			let keyboard = this.selectComponent('#keyboard');
+			keyboard.indexMethod(index, this.data.currentIndex);
+		}
+		this.setData({
+			currentIndex: index,
+			showKeyboard: true
+		});
+		if (app.globalData.SDKVersion < '2.6.1') {
+			let keyboard = this.selectComponent('#keyboard');
+			keyboard.showMethod(this.data.showKeyboard);
+		}
 	},
 
 	// 点击某一位输入车牌（新）
-	setCurrentCarNo_new (e) {
-		handleKeyboardInteraction(e, 'keyboard_new', 'currentIndex_new');
+	setCurrentCarNo_new(e) {
+		if (this.data.isDisableClick) return;
+		let index = e.currentTarget.dataset['index'];
+		index = parseInt(index);
+		if (app.globalData.SDKVersion < '2.6.1') {
+			let keyboard_new = this.selectComponent('#keyboard_new');
+			keyboard_new.indexMethod(index, this.data.currentIndex_new);
+		}
+		this.setData({
+			currentIndex_new: index,
+			showKeyboard_new: true
+		});
+		if (app.globalData.SDKVersion < '2.6.1') {
+			let keyboard_new = this.selectComponent('#keyboard_new');
+			keyboard_new.showMethod(this.data.showKeyboard_new);
+		}
 	},
 	// 显示键盘时，点击其他区域关闭键盘
-	touchHandle (e) {
+	touchHandle(e) {
 		if (this.data.showKeyboard) {
 			this.setData({
 				showKeyboard: false
@@ -183,7 +221,7 @@ Page({
 			keyboard.showMethod(false);
 		}
 	},
-	onShareAppMessage () {
+	onShareAppMessage() {
 		return {
 			title: ''
 		};

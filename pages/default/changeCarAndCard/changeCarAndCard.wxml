@@ -1,15 +1,21 @@
 <wxs src='../../../utils/util.wxs' module='tools' />
 <view class="index">
-     <!-- 模块一   办理车牌号 -->
+  <!-- 模块一   办理车牌号 -->
   <view class="module moduleOne">
     <view class="title">
       <view class="titles">选择设备类型</view>
       <view class="card_car">
-        <view class="image_pic active">
-            <image class="image_card" src="https://file.cyzl.com/g001/M01/CB/5E/oYYBAGQAaeyASw5fAABJbg74uSk558.png"  mode="widthFix" ></image>
+        <view class="image_pic {{image_cardIndex === 0 ? 'active' :''}}" data-index="{{0}}"
+          catchtap="setCurrentCarData">
+          <image class="image_card1" src="https://file.cyzl.com/g001/M01/CB/5E/oYYBAGQAaeyASw5fAABJbg74uSk558.png"
+            mode="widthFix"></image>
+          <view class="text"> 无卡式ETC</view>
         </view>
-        <view class="image_pic">
-            <image class="image_card" src="https://file.cyzl.com/g001/M01/CB/5E/oYYBAGQAaeyASw5fAABJbg74uSk558.png"  mode="widthFix" ></image>
+        <view class="image_pic {{image_cardIndex === 1 ? 'active' :''}}" data-index="{{1}}"
+          catchtap="setCurrentCarData">
+          <image class="image_card2" src="https://file.cyzl.com/g001/M01/CB/5E/oYYBAGQAaeyASw5fAABJbg74uSk558.png"
+            mode="widthFix"></image>
+          <view class="text">有卡式ETC</view>
         </view>
       </view>
     </view>
@@ -19,35 +25,51 @@
     </view>
     <!-- 车牌号的输入 -->
     <view class="input">
-      <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 0 ? 'select' : ''}}" data-index="{{0}}" catchtap="setCurrentCarNo">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 0 ? 'select' : ''}}"
+        data-index="{{0}}" catchtap="setCurrentCarNo">
         <view>{{carNo[0]}}</view>
         <view></view>
       </view>
-      <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 1 ? 'select' : ''}}" data-index="{{1}}" catchtap="setCurrentCarNo">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 1 ? 'select' : ''}}"
+        data-index="{{1}}" catchtap="setCurrentCarNo">
         <view>{{carNo[1]}}</view>
         <view></view>
       </view>
-      <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 2 ? 'select' : ''}}" data-index="{{2}}" catchtap="setCurrentCarNo">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 2 ? 'select' : ''}}"
+        data-index="{{2}}" catchtap="setCurrentCarNo">
         <view>{{carNo[2]}}</view>
         <view></view>
       </view>
-      <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 3 ? 'select' : ''}}" data-index="{{3}}" catchtap="setCurrentCarNo">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 3 ? 'select' : ''}}"
+        data-index="{{3}}" catchtap="setCurrentCarNo">
         <view>{{carNo[3]}}</view>
         <view></view>
       </view>
-      <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 4 ? 'select' : ''}}" data-index="{{4}}" catchtap="setCurrentCarNo">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 4 ? 'select' : ''}}"
+        data-index="{{4}}" catchtap="setCurrentCarNo">
         <view>{{carNo[4]}}</view>
         <view></view>
       </view>
-      <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 5 ? 'select' : ''}}" data-index="{{5}}" catchtap="setCurrentCarNo">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 5 ? 'select' : ''}}"
+        data-index="{{5}}" catchtap="setCurrentCarNo">
         <view>{{carNo[5]}}</view>
         <view></view>
       </view>
-      <view class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 6 ? 'select' : ''}}" data-index="{{6}}" catchtap="setCurrentCarNo">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr) === 7 ? 'blueCard': tools.dataLen(carNoStr) === 8 ? 'greenCard': ''}} {{currentIndex === 6 ? 'select' : ''}}"
+        data-index="{{6}}" catchtap="setCurrentCarNo">
         <view>{{carNo[6]}}</view>
         <view></view>
       </view>
-      <view class="inputSub special {{tools.dataLen(carNoStr) === 8 ? 'greenCard noBorder': ''}} {{currentIndex === 7 ? 'select' : ''}}" data-index="{{7}}" catchtap="onClickNewPowerCarHandle">
+      <view
+        class="inputSub special {{tools.dataLen(carNoStr) === 8 ? 'greenCard noBorder': ''}} {{currentIndex === 7 ? 'select' : ''}}"
+        data-index="{{7}}" catchtap="onClickNewPowerCarHandle">
         <view class="newEnergy" wx:if="{{!isNewPowerCar || tools.dataLen(carNoStr) < 8}}">
           <view class="iconfont {{currentIndex === 7 ? '' : 'ico'}}"></view>
           <view class="text">{{currentIndex === 7 ? '' : '新能源'}}</view>
@@ -59,8 +81,8 @@
       </view>
     </view>
     <!-- 更换为 -->
-    <view class="changeCarText" >
-        更换为
+    <view class="changeCarText">
+      更换为
     </view>
     <view class="title">
       <view class="titles">新车牌号</view>
@@ -68,35 +90,51 @@
     </view>
     <!-- 车牌号的输入 -->
     <view class="input">
-      <view class="inputSub {{tools.dataLen(carNoStr_new) === 7 ? 'blueCard': tools.dataLen(carNoStr_new) === 8 ? 'greenCard': ''}} {{currentIndex_new === 0 ? 'select' : ''}}" data-index="{{0}}" catchtap="setCurrentCarNo_new">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr_new) === 7 ? 'blueCard': tools.dataLen(carNoStr_new) === 8 ? 'greenCard': ''}} {{currentIndex_new === 0 ? 'select' : ''}}"
+        data-index="{{0}}" catchtap="setCurrentCarNo_new">
         <view>{{carNo_new[0]}}</view>
         <view></view>
       </view>
-      <view class="inputSub {{tools.dataLen(carNoStr_new) === 7 ? 'blueCard': tools.dataLen(carNoStr_new) === 8 ? 'greenCard': ''}} {{currentIndex_new === 1 ? 'select' : ''}}" data-index="{{1}}" catchtap="setCurrentCarNo_new">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr_new) === 7 ? 'blueCard': tools.dataLen(carNoStr_new) === 8 ? 'greenCard': ''}} {{currentIndex_new === 1 ? 'select' : ''}}"
+        data-index="{{1}}" catchtap="setCurrentCarNo_new">
         <view>{{carNo_new[1]}}</view>
         <view></view>
       </view>
-      <view class="inputSub {{tools.dataLen(carNoStr_new) === 7 ? 'blueCard': tools.dataLen(carNoStr_new) === 8 ? 'greenCard': ''}} {{currentIndex_new === 2 ? 'select' : ''}}" data-index="{{2}}" catchtap="setCurrentCarNo_new">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr_new) === 7 ? 'blueCard': tools.dataLen(carNoStr_new) === 8 ? 'greenCard': ''}} {{currentIndex_new === 2 ? 'select' : ''}}"
+        data-index="{{2}}" catchtap="setCurrentCarNo_new">
         <view>{{carNo_new[2]}}</view>
         <view></view>
       </view>
-      <view class="inputSub {{tools.dataLen(carNoStr_new) === 7 ? 'blueCard': tools.dataLen(carNoStr_new) === 8 ? 'greenCard': ''}} {{currentIndex_new === 3 ? 'select' : ''}}" data-index="{{3}}" catchtap="setCurrentCarNo_new">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr_new) === 7 ? 'blueCard': tools.dataLen(carNoStr_new) === 8 ? 'greenCard': ''}} {{currentIndex_new === 3 ? 'select' : ''}}"
+        data-index="{{3}}" catchtap="setCurrentCarNo_new">
         <view>{{carNo_new[3]}}</view>
         <view></view>
       </view>
-      <view class="inputSub {{tools.dataLen(carNoStr_new) === 7 ? 'blueCard': tools.dataLen(carNoStr_new) === 8 ? 'greenCard': ''}} {{currentIndex_new === 4 ? 'select' : ''}}" data-index="{{4}}" catchtap="setCurrentCarNo_new">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr_new) === 7 ? 'blueCard': tools.dataLen(carNoStr_new) === 8 ? 'greenCard': ''}} {{currentIndex_new === 4 ? 'select' : ''}}"
+        data-index="{{4}}" catchtap="setCurrentCarNo_new">
         <view>{{carNo_new[4]}}</view>
         <view></view>
       </view>
-      <view class="inputSub {{tools.dataLen(carNoStr_new) === 7 ? 'blueCard': tools.dataLen(carNoStr_new) === 8 ? 'greenCard': ''}} {{currentIndex_new === 5 ? 'select' : ''}}" data-index="{{5}}" catchtap="setCurrentCarNo_new">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr_new) === 7 ? 'blueCard': tools.dataLen(carNoStr_new) === 8 ? 'greenCard': ''}} {{currentIndex_new === 5 ? 'select' : ''}}"
+        data-index="{{5}}" catchtap="setCurrentCarNo_new">
         <view>{{carNo_new[5]}}</view>
         <view></view>
       </view>
-      <view class="inputSub {{tools.dataLen(carNoStr_new) === 7 ? 'blueCard': tools.dataLen(carNoStr_new) === 8 ? 'greenCard': ''}} {{currentIndex_new === 6 ? 'select' : ''}}" data-index="{{6}}" catchtap="setCurrentCarNo_new">
+      <view
+        class="inputSub {{tools.dataLen(carNoStr_new) === 7 ? 'blueCard': tools.dataLen(carNoStr_new) === 8 ? 'greenCard': ''}} {{currentIndex_new === 6 ? 'select' : ''}}"
+        data-index="{{6}}" catchtap="setCurrentCarNo_new">
         <view>{{carNo_new[6]}}</view>
         <view></view>
       </view>
-      <view class="inputSub special {{tools.dataLen(carNoStr_new) === 8 ? 'greenCard noBorder': ''}} {{currentIndex_new === 7 ? 'select' : ''}}" data-index="{{7}}" catchtap="onClickNewPowerCarHandle_new">
+      <view
+        class="inputSub special {{tools.dataLen(carNoStr_new) === 8 ? 'greenCard noBorder': ''}} {{currentIndex_new === 7 ? 'select' : ''}}"
+        data-index="{{7}}" catchtap="onClickNewPowerCarHandle_new">
         <view class="newEnergy" wx:if="{{!isNewPowerCar || tools.dataLen(carNoStr_new) < 8}}">
           <view class="iconfont {{currentIndex_new === 7 ? '' : 'ico'}}"></view>
           <view class="text">{{currentIndex_new === 7 ? '' : '新能源'}}</view>
@@ -116,7 +154,9 @@
   </view>
   <popTipComp id="popTipComp"></popTipComp>
   <!-- 拉起键盘 -->
-  <keyboard id="keyboard" index="{{currentIndex}}" show="{{showKeyboard}}" bind:valueChange="updateKeyboardAndData" myCar="{{carNo}}" data-is_new="{{false}}"></keyboard>
-  <keyboard id="keyboard_new" index="{{currentIndex_new}}" show="{{showKeyboard_new}}" bind:valueChange="updateKeyboardAndData" myCar="{{carNo_new}}" data-is_new="{{true}}"></keyboard>
+  <keyboard id="keyboard" index="{{currentIndex}}" show="{{showKeyboard}}" bind:valueChange="updateKeyboardAndData"
+    myCar="{{carNo}}" data-is_new="{{false}}"></keyboard>
+  <keyboard id="keyboard_new" index="{{currentIndex_new}}" show="{{showKeyboard_new}}"
+    bind:valueChange="updateKeyboardAndData" myCar="{{carNo_new}}" data-is_new="{{true}}"></keyboard>
 </view>
 <privacy_popup></privacy_popup>
