@@ -158,7 +158,7 @@
   padding: 10rpx 0;
 }
 .index .moduleTwo .keyValue .left {
-  width: 120rpx;
+  width: 130rpx;
   padding: 2rpx;
 }
 .index .moduleTwo .keyValue .attrName {
