@@ -26,6 +26,11 @@ Page({
 			this.setData({
 				details: app.globalData.billingDetails
 			});
+			let { mergeId, deductType } = this.data.details;
+			if (mergeId === 0 && deductType === 2) {
+				// 周结合并流水账单
+				this.getWeeksToCombineAndFlow();
+			}
 			console.log('app.globalData.billingDetails', app.globalData.billingDetails);
 		} else {
 			if (options.id) {

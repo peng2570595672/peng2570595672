@@ -42,7 +42,7 @@ page {
 }
 .my_order .total-cost {
   padding: 0 32rpx;
-  margin-top: -20rpx;
+  margin-top: 20rpx;
   font-size: 28rpx;
   font-weight: 500;
   color: #3d3d3d;
@@ -76,7 +76,7 @@ page {
   flex: 6;
   font-size: 40rpx;
   font-weight: 500;
-  color: #33333d;
+  color: $fontColor3;
   display: flex;
   align-items: center;
 }
@@ -94,13 +94,13 @@ page {
   text-align: right;
 }
 .my_order .order-list .order-list-content .order-list-top .success-money {
-  color: #33333d;
+  color: $fontColor3;
 }
 .my_order .order-list .order-list-content .order-list-top .refund {
-  color: #99999d;
+  color: $fontColor9;
 }
 .my_order .order-list .order-list-content .order-list-top .poundage {
-  color: #99999d;
+  color: $fontColor9;
   font-weight: 400;
   font-size: 24rpx;
 }
@@ -115,7 +115,7 @@ page {
   align-items: center;
   font-size: 24rpx;
   line-height: 40rpx;
-  color: #66666d;
+  color: $fontColor6;
   padding: 10rpx 0;
 }
 .my_order .order-list .order-list-content .site > view:first-child {
@@ -123,7 +123,7 @@ page {
 }
 .my_order .order-list .order-list-content .site > view:first-child text::after {
   content: '\e651';
-  color: #66666d;
+  color: $fontColor6;
   font-size: 24rpx;
   margin: 0 5rpx;
 }
@@ -147,7 +147,7 @@ page {
 .my_order .order-list .order-list-content .order-list-bottom {
   display: flex;
   font-size: 24rpx;
-  color: #99999d;
+  color: $fontColor9;
   line-height: 30rpx;
 }
 .my_order .order-list .order-list-content .order-list-bottom .accounting-time,
@@ -178,7 +178,7 @@ page {
 }
 .empty {
   text-align: center;
-  color: #66666d;
+  color: $fontColor6;
   font-size: 32rpx;
 }
 .empty image {
