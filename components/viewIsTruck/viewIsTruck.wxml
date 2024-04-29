@@ -13,7 +13,7 @@
 					<view class="item " catchtap="chooseAxleNum" data-value="{{2}}">2轴</view>
 					<view class="item " catchtap="chooseAxleNum" data-value="{{3}}">3轴</view>
 					<view class="item " catchtap="chooseAxleNum" data-value="{{4}}">4轴</view>
-					<view class="item " catchtap="chooseAxleNum" data-value="{{5}}">5轴</view>
+					<view class="item last" catchtap="chooseAxleNum" data-value="{{5}}">5轴</view>
 				</view>
 				<image src="https://file.cyzl.com/g001/M03/4C/19/oYYBAGYM_bmAQiHhAAH6sohEKv8716.png" mode="widthFix"
 					style="transform: scale(1.1);margin-top: 10rpx;display: block; width: 100%;height: 100%;">
