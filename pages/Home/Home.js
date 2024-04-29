@@ -1,7 +1,4 @@
-import {
-    thirdContractSigning,
-    handleJumpHunanMini
-} from '../../utils/utils';
+import {handleJumpHunanMini, thirdContractSigning} from '../../utils/utils';
 
 /**
  * @author 狂奔的蜗牛
@@ -1201,7 +1198,6 @@ Page({
     async getArrearageTheBill (item) {
         let etcTrucksMoney = 0;
         if (item.includes(21)) {
-            this.remove(item, 21); // 暂不查货车
             const info = await util.getDataFromServersV2('consumer/etc/judge-detail-channels-truck', {
                 orderNos: this.data.truckActivationOrderList
             }, 'POST', false);
