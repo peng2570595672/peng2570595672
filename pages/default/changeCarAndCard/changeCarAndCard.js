@@ -1,14 +1,19 @@
-import {wxApi2Promise} from '../../../utils/utils';
+/* eslint-disable camelcase */
+import { wxApi2Promise } from '../../../utils/utils';
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
-  data: {
-    carNoStr: '', // 车牌字符串
+	data: {
+		carNoStr: '', // 车牌字符串
 		carNo: ['', '', '', '', '', '', '', ''], // 车牌对应的数组
-    mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
+		carNoStr_new: '', // 车牌字符串
+		carNo_new: ['', '', '', '', '', '', '', ''], // 车牌对应的数组
+		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
 		showKeyboard: false, // 是否显示键盘
 		currentIndex: -1, // 当前选中的输入车牌位置
-    formData: {
+		showKeyboard_new: false, // 是否显示键盘
+		currentIndex_new: -1, // 当前选中的输入车牌位置
+		formData: {
 			currentCarNoColor: 0, // 0 蓝色 1 渐变绿 2黄色
 			region: [], // 省市区
 			regionCode: [], // 省份编码
@@ -18,119 +23,157 @@ Page({
 			cardPhoneCode: '',
 			cardMobilePhone: ''// 线上：用户点好；线下：经办人电话
 		}, // 提交数据
-    isDisableClick: false // 是否禁止点击
-  },
-  onLoad (options) {
+		isDisableClick: false // 是否禁止点击
+	},
+	onLoad (options) {
 
-  },
-  onReady () {
+	},
+	onReady () {
 
-  },
-  onShow () {
+	},
+	onShow () {
 
-  },
-  onHide () {
+	},
+	onHide () {
 
-  },
-  onUnload () {
+	},
+	onUnload () {
 
-  },
-  // 校验字段是否满足
+	},
+	// 点击添加新能源
+	onClickNewPowerCarHandle (e) {
+		if (this.data.isDisableClick) return;
+		this.setData({
+			isNewPowerCar: true
+		});
+		this.setCurrentCarNo(e);
+	},
+	// 点击添加新能源
+	onClickNewPowerCarHandle_new (e) {
+		if (this.data.isDisableClick) return;
+		this.setData({
+			isNewPowerCar: true
+		});
+		this.setCurrentCarNo_new(e);
+	},
+	async validateCar () {
+		console.log('2');
+		if (!this.validateAvailable(true)) {
+			return;
+		}
+		this.selectComponent('#popTipComp').show({
+			type: 'eight',
+			title: '提交审核提醒',
+			content: '您的车牌更换申请已提交，系统将在3~5个工作日内完成处理，届时将通知您更换结果，请留意通知消息!',
+			btnconfirm: '我知道了'
+		});
+	},
+	// 校验字段是否满足
 	validateAvailable (checkLicensePlate) {
-		// 是否接受协议
 		let isOk = true;
 		let formData = this.data.formData;
 		// 验证车牌和车牌颜色
-		if (this.data.carNoStr.length === 7) { // 蓝牌或者黄牌
-			isOk = isOk && (formData.currentCarNoColor === 0 || formData.currentCarNoColor === 2);
+		if (this.data.carNoStr.length === 7 || this.data.carNoStr_new.length === 7) { // 蓝牌或者黄牌
+			// isOk = isOk && (formData.currentCarNoColor === 0 || formData.currentCarNoColor === 2);
 			// 进行正则匹配
 			if (isOk) {
 				let creg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}$/;
-				isOk = creg.test(this.data.carNoStr);
+				isOk = creg.test(this.data.carNoStr) && creg.test(this.data.carNoStr_new);
 				if (checkLicensePlate && !isOk) {
 					util.showToastNoIcon('车牌输入不合法，请检查重填');
+					return false;
 				}
 			}
-		} else if (this.data.carNoStr.length === 8) {
-			isOk = isOk && formData.currentCarNoColor === 1;
+		} else if (this.data.carNoStr.length === 8 || this.data.carNoStr_new.length === 8) {
+			// isOk = isOk && formData.currentCarNoColor === 1;
 			// 进行正则匹配
 			if (isOk) {
 				let xreg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{6}$/;
-				isOk = xreg.test(this.data.carNoStr);
+				isOk = xreg.test(this.data.carNoStr) && xreg.test(this.data.carNoStr_new);
 				if (checkLicensePlate && !isOk) {
 					util.showToastNoIcon('车牌输入不合法，请检查重填');
+					return false;
 				}
 			}
 		} else {
 			isOk = false;
-    }
+		}
 		return isOk;
 	},
-  // 车牌输入回调
-	valueChange (e) {
+	// 定义一个更新键盘状态和数据的辅助函数
+	updateKeyboardAndData (e) {
+		const is_new = e.currentTarget.dataset['is_new'];
+		const keyboardId = is_new ? '#keyboard_new' : '#keyboard';
+		const carNoKey = is_new ? 'carNo_new' : 'carNo';
+		const carNoStrKey = is_new ? 'carNoStr_new' : 'carNoStr';
+		const currentIndexKey = is_new ? 'currentIndex_new' : 'currentIndex';
+		const showKeyboardKey = is_new ? 'showKeyboard_new' : 'showKeyboard';
+		console.log(carNoKey, e.detail);
+
 		// 兼容处理
 		if (app.globalData.SDKVersion < '2.6.1') {
-			let keyboard = this.selectComponent('#keyboard');
-			keyboard.indexMethod(e.detail.index, this.data.currentIndex);
+			let keyboard = this.selectComponent(keyboardId);
+			keyboard.indexMethod(e.detail.index, this.data[currentIndexKey]);
+			keyboard.showMethod(this.data[showKeyboardKey]);
 		}
+
 		// 设置数据
 		let formData = this.data.formData;
-		formData.currentCarNoColor = e.detail.carNo.join('').length === 8 ? 1 : 0;
 		this.setData({
-			carNo: e.detail.carNo, // 车牌号数组
-			carNoStr: e.detail.carNo.join(''), // 车牌号字符串
-			currentIndex: e.detail.index, // 当前输入车牌号位置
-			showKeyboard: e.detail.show, // 是否显示键盘
-			formData
+			[carNoKey]: e.detail.carNo, // 车牌号数组
+			[carNoStrKey]: e.detail.carNo.join(''), // 车牌号字符串
+			[currentIndexKey]: e.detail.index, // 当前输入车牌号位置
+			[showKeyboardKey]: e.detail.show // 是否显示键盘
 		});
-		// 不是新能源 输入车牌最后一位隐藏键盘
-		if (!this.data.isNewPowerCar && this.data.currentIndex === 7) {
+
+		// 不是新能源且输入到最后一位隐藏键盘
+		if (!this.data.isNewPowerCar && this.data[currentIndexKey] === 7) {
 			this.setData({
-				showKeyboard: false,
-        currentIndex: -1
+				[showKeyboardKey]: false,
+				[currentIndexKey]: -1
 			});
 		}
-		// 兼容处理是否显示或者隐藏键盘
-		if (app.globalData.SDKVersion < '2.6.1') {
-			let keyboard = this.selectComponent('#keyboard');
-			keyboard.showMethod(this.data.showKeyboard);
-		}
-		// 键盘关闭
-		if (!this.data.showKeyboard) {
-			let checkLicensePlate = false;
-			if (e.detail.carNo.join('').length >= 7) {
-				checkLicensePlate = true;
-			}
+
+		// 键盘关闭时的逻辑
+		if (!this.data[showKeyboardKey]) {
+			let checkLicensePlate = e.detail.carNo.join('').length >= 7;
 			this.setData({
-				currentIndex: -1
+				[currentIndexKey]: -1
 			});
 			this.setData({
 				available: this.validateAvailable(checkLicensePlate)
 			});
 		}
 	},
-  // 点击某一位输入车牌
-	setCurrentCarNo (e) {
+
+	// 共享的处理逻辑
+	handleKeyboardInteraction (e, keyboardId, currentIndexState) {
 		if (this.data.isDisableClick) return;
-		let index = e.currentTarget.dataset['index'];
-		index = parseInt(index);
+
+		const index = parseInt(e.currentTarget.dataset.index);
+
 		if (app.globalData.SDKVersion < '2.6.1') {
-			let keyboard = this.selectComponent('#keyboard');
-			keyboard.indexMethod(index, this.data.currentIndex);
+			const keyboard = this.selectComponent(`#${keyboardId}`);
+			keyboard.indexMethod(index, this.data[currentIndexState]);
+			keyboard.showMethod(this.data[`showKeyboard_${keyboardId.slice(-4)}`]);
 		}
+
 		this.setData({
-			currentIndex: index
+			[currentIndexState]: index,
+			[`showKeyboard_${keyboardId.slice(-4)}`]: true
 		});
-		this.setData({
-			showKeyboard: true
-		});
-		if (app.globalData.SDKVersion < '2.6.1') {
-			let keyboard = this.selectComponent('#keyboard');
-			keyboard.showMethod(this.data.showKeyboard);
-		}
-		// }
 	},
-  // 显示键盘时，点击其他区域关闭键盘
+
+	// 点击某一位输入车牌
+	setCurrentCarNo (e) {
+		handleKeyboardInteraction(e, 'keyboard', 'currentIndex');
+	},
+
+	// 点击某一位输入车牌（新）
+	setCurrentCarNo_new (e) {
+		handleKeyboardInteraction(e, 'keyboard_new', 'currentIndex_new');
+	},
+	// 显示键盘时，点击其他区域关闭键盘
 	touchHandle (e) {
 		if (this.data.showKeyboard) {
 			this.setData({
@@ -140,9 +183,9 @@ Page({
 			keyboard.showMethod(false);
 		}
 	},
-  onShareAppMessage () {
-    return {
-      title: ''
-    };
-  }
+	onShareAppMessage () {
+		return {
+			title: ''
+		};
+	}
 });
