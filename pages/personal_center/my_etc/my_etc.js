@@ -506,13 +506,13 @@ Page({
 			util.go(`/pages/bank_card/citic_bank_sign/citic_bank_sign`);
 			return;
 		}
-		if (obj.orderType === 31 && obj.auditStatus === 0 && obj.flowVersion !== 1) {
-			this.onClickHighSpeedSigning(obj);
-			return;
-		}
 		if (obj.isNewTrucks === 1) { // 货车
 			// 货车签约
 			util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
+			return;
+		}
+		if (obj.orderType === 31 && obj.auditStatus === 0 && obj.flowVersion !== 1) {
+			this.onClickHighSpeedSigning(obj);
 			return;
 		}
 		app.globalData.isSecondSigning = false;
