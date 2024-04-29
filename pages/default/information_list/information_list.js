@@ -271,7 +271,7 @@ Page({
         // 	return;
         // }
 
-        // if (!this.data.available) return;
+        if (!this.data.available) return;
         if (this.data.orderInfo.flowVersion === 8) {
             this.handleSaveOrder();
             return;

@@ -34,10 +34,10 @@ Page({
 	},
 	// 签约查询
 	async handleQueryContract () {
-		util.showLoading('签约查询中');
+		util.showLoading('签约查询中...');
 		const result = await util.getDataFromServersV2('consumer/order/query-contract', {
 			orderId: app.globalData.orderInfo.orderId
-		});
+		}, 'POST', false);
 		this.setData({
 			isRequestNum: this.data.isRequestNum + 1
 		});
@@ -49,11 +49,11 @@ Page({
 				this.setData({
 					isSigningFail: true
 				});
-				util.showToastNoIcon('同步高速签约状态失败,请重试');
+				util.showToastNoIcon('同步高速签约状态失败,请重试', 3000);
 			}
 		} else {
 			util.hideLoading();
-			util.showToastNoIcon(result.message);
+			util.showToastNoIcon(result.message, 3000);
 		}
 	},
 	// 获取已签约渠道列表
@@ -61,21 +61,21 @@ Page({
 		util.showLoading('签约查询中');
 		const result = await util.getDataFromServersV2('consumer/etc/qtzl/xz/getSignedChannelList', {
 			orderId: app.globalData.orderInfo.orderId
-		});
+		},'POST', false);
 		if (result.code) {
 			util.hideLoading();
-			util.showToastNoIcon(result.message);
+			util.showToastNoIcon(result.message, 3000);
 			return;
 		}
 		if (!result.data.list?.length) {
 			util.hideLoading();
-			util.showToastNoIcon('获取已签约渠道列表返回为空');
+			util.showToastNoIcon('获取已签约渠道列表返回为空', 3000);
 			return;
 		}
 		const index = result.data.list.findIndex(item => item.signChannelId === this.data.signUrl);
 		if (index === -1) {
 			util.hideLoading();
-			util.showToastNoIcon('获取已签约渠道列表返回为空!');
+			util.showToastNoIcon('获取已签约渠道列表返回为空!', 3000);
 			return;
 		}
 		let obj = {
@@ -86,17 +86,17 @@ Page({
 		const result2 = await util.getDataFromServersV2('consumer/etc/qtzl/xz/carChannelRel', {
 			orderId: obj.orderId,
 			signChannelId: this.data.signUrl
-		});
+		}, 'POST', false);
 		util.hideLoading();
 		if (result2.code === 0) {
 			app.globalData.mobile = '';
 			app.globalData.signAContract = 3;
-			util.showToastNoIcon('签约已完成');
+			util.showToastNoIcon('签约已完成', 3000);
 			wx.switchTab({
 				url: '/pages/Home/Home'
 			});
 		} else {
-			util.showToastNoIcon(result2.message);
+			util.showToastNoIcon(result2.message, 3000);
 		}
 	},
 	// is9901_Pre_inspection 接口 设备预检
