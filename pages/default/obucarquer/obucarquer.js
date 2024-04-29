@@ -8,9 +8,12 @@ Page({
 			cpuId: null,
 			obuId: null
 		},
-		available: false
+		available: false,
+		isRequestNum: 0,// 防止签约中断返回
+		isSigningFail: false // 是否存在高速签约失败,默认未失败
 	},
 	async onLoad (options) {
+		app.globalData.signAContract = 3;
 		if (options.vehPlates) {
 			this.setData({
 				vehPlates: options.vehPlates
@@ -26,12 +29,34 @@ Page({
 			this.getPictureInfo(currPage.__data__.pathUrl);
 		}
 		if (app.globalData.signAContract === -1) {
-			await util.getDataFromServersV2('consumer/order/query-contract', { // 查询车主服务签约
-				orderId: app.globalData.orderInfo.orderId
-			});
-			this.handleGetSignInfo();
+			this.handleQueryContract();
 		}
 	},
+	// 签约查询
+	async handleQueryContract () {
+		util.showLoading('签约查询中');
+		const result = await util.getDataFromServersV2('consumer/order/query-contract', {
+			orderId: app.globalData.orderInfo.orderId
+		});
+		this.setData({
+			isRequestNum: this.data.isRequestNum + 1
+		});
+		if (result.code === 0) {
+			if (result.data.contractStatus === 1 && result.data.userState === 'NORMAL') {
+				this.handleGetSignInfo();
+			} else {
+				util.hideLoading();
+				this.setData({
+					isSigningFail: true
+				});
+				util.showToastNoIcon('同步高速签约状态失败,请重试');
+			}
+		} else {
+			util.hideLoading();
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 获取已签约渠道列表
 	async handleGetSignInfo () {
 		util.showLoading('签约查询中');
 		const result = await util.getDataFromServersV2('consumer/etc/qtzl/xz/getSignedChannelList', {
@@ -164,10 +189,16 @@ Page({
 	},
 	// 下一步
 	async next () {
+		if (this.data.isSigningFail && this.data.isRequestNum < 2) {
+			// 获取高速签约失败
+			this.handleQueryContract();
+			return;
+		}
 		if (this.data.isRequest) {
 			return;
 		} else {
 			this.setData({
+				isRequestNum: 0,
 				isRequest: true
 			});
 		}
