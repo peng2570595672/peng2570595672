@@ -73,7 +73,13 @@ Page({
 			type: 'eight',
 			title: '提交审核提醒',
 			content: '您的车牌更换申请已提交，系统将在3~5个工作日内完成处理，届时将通知您更换结果，请留意通知消息!',
-			btnconfirm: '我知道了'
+			btnconfirm: '我知道了',
+			callBack: (res) => {
+				console.log('123');
+				wx.switchTab({
+					url: '/pages/Home/Home'
+				});
+			}
 		});
 		// util.alert({
 		// 	title: '车牌号提交审核确认提醒',

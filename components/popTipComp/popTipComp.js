@@ -110,6 +110,9 @@ Component({
 			} else {
 				this.hide(false);
 			}
+			if (this.data.tipObj.title === '提交审核提醒') {
+				this.data.tipObj.callBack();
+			}
 		},
 		// 中信 办理提醒
 		citicBank () {
