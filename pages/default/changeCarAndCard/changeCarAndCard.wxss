@@ -11,23 +11,22 @@
   width: 100vw;
   min-height: 100vh;
   background-color: #ececec;
+  margin-top: -48rpx;
   padding-top: 30rpx;
+  padding-bottom: 200rpx;
 /* 公用模块 */
 /* 模块一   办理车牌号 */
-/* 公共模块 */
-/* 占位 */
 /* 底部悬浮按钮 */
 }
 .index .module {
   padding: 0 32rpx 44rpx;
   border-radius: 16rpx;
   background: #fff;
-  margin: 28rpx 28rpx 0 28rpx;
+  margin: 48rpx 28rpx 0 28rpx;
   box-shadow: 0 4rpx 2rpx 0 rgba(212,212,212,0.5);
 }
 .index .module .title {
   display: flex;
-  padding-top: 40rpx;
   align-items: flex-start;
   flex-direction: column;
   font-family: PingFangSC-Semibold, PingFang SC;
@@ -36,21 +35,20 @@
   font-size: 32rpx;
   font-weight: 600;
   color: #1e1e1e;
-  line-height: 84rpx;
+  line-height: 104rpx;
 }
 .index .module .title .card_car {
   display: flex;
-  padding: 3rpx;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
 }
-.index .module .title .card_car .active {
-  border: 2px solid #5ebe68;
-}
 .index .module .title .card_car .image_pic {
-  width: 45%;
+  width: 35%;
+  margin: 10rpx 20rpx;
   border-radius: 10rpx;
-  padding: 5rpx;
+}
+.index .module .title .card_car .image_pic:nth-of-type(1) {
+  margin-top: 25rpx;
 }
 .index .module .title .card_car .image_pic image {
   width: 100%;
@@ -70,6 +68,9 @@
   background-color: #9bd390;
   border-radius: 40rpx;
 }
+.index .module .title .card_car .active {
+  border: 2rpx dashed #666;
+}
 .index .module .title .colorBrand {
   width: 96rpx;
   height: 36rpx;
@@ -81,14 +82,10 @@
   margin-left: 20rpx;
   border-radius: 4rpx;
 }
-.index .moduleOne {
-  margin-top: 42rpx;
-}
 .index .moduleOne .input {
   height: 80rpx;
   display: flex;
   color: #1e1e1e;
-  margin-top: 18rpx;
   justify-content: space-between;
 }
 .index .moduleOne .input .inputSub {
@@ -100,15 +97,14 @@
   text-align: center;
   line-height: 72rpx;
   border-radius: 16rpx;
-  background: #f7f7f7;
-  border: 2rpx solid #f7f7f7;
-  font-family: PingFangSC-Regular, PingFang SC;
+  background: #e8e8e8;
+  font-family: '苹方-简';
 }
 .index .moduleOne .input .inputSub .newEnergy {
   font-size: 12rpx;
   font-weight: 600;
   color: #5ebe68;
-  font-family: PingFangSC-Semibold, PingFang SC;
+  font-family: '苹方-简';
 }
 .index .moduleOne .input .inputSub .newEnergy .ico::before {
   display: block;
@@ -122,9 +118,12 @@
 .index .moduleOne .input .inputSub .newEnergy .text {
   margin-top: -40rpx;
 }
+.index .moduleOne .input .select {
+  border: 2rpx solid #5ebe68 !important;
+}
 .index .moduleOne .input .special {
   background-color: #fff;
-  border: 2rpx dashed #f19c38;
+  border: 1rpx dashed #f19c38;
 }
 .index .moduleOne .input .special .select {
   border: 2rpx solid #5ebe68 !important;
@@ -139,127 +138,21 @@
   border: 2rpx solid #ecfff4;
 }
 .index .moduleOne .changeCarText {
-  font-size: 34rpx;
-  margin-top: 30rpx;
-  height: 100rpx;
-  line-height: 100rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1e1e1e;
+  line-height: 84rpx;
+  margin-top: 34rpx;
+  height: 70rpx;
   text-align: center;
 }
 .index .moduleOne .moduleOneTip {
-  font-size: 24rpx;
+  font-size: 20rpx;
   font-weight: 400;
   color: #1e1e1e;
-  line-height: 34rpx;
-  margin-top: 26rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-}
-.index .moduleOne .moduleOneTip .tipsOne {
-  color: #f19c38;
-}
-.index .module .tipPhone {
-  width: 100%;
-  text-align: right;
-  font-size: 24rpx;
-  font-weight: 400;
-  color: #1e1e1e;
-  line-height: 34rpx;
-  margin-top: 16rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-}
-.index .module .publicCode {
-  height: 75rpx;
-  display: flex;
-  margin-top: 18rpx;
-  align-items: center;
-  justify-content: space-between;
-  font-family: PingFangSC-Regular, PingFang SC;
-}
-.index .module .publicCode .publicCodeLeft {
-  width: 140rpx;
-  font-size: 32rpx;
-  font-weight: 400;
-  color: #1e1e1e;
-  text-align: right;
-}
-.index .module .publicCode .publicCoderight {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 2rpx solid #e0e0e0;
-  position: relative;
-}
-.index .module .publicCode .publicCoderight .input {
-  margin-left: 20rpx;
-  color: #1e1e1e;
-  font-size: 28rpx;
-  font-weight: 600;
-}
-.index .module .publicCode .publicCoderight .input-phone,
-.index .module .publicCode .publicCoderight .input-placeholder {
-  font-size: 28rpx;
-  font-weight: 400;
-  color: rgba(0,0,0,0.5);
-  font-family: PingFangSC-Regular, PingFang SC;
-}
-.index .module .publicCode .publicCoderight .get-phone,
-.index .module .publicCode .publicCoderight .btns {
-  height: 46rpx;
-  color: #fff;
-  font-size: 16rpx;
-  font-weight: 400;
-  text-align: center;
-  line-height: 46rpx;
-  padding: 0 20rpx;
-  border-radius: 24rpx;
-  background: #5ebe68;
-  display: flex;
-}
-.index .module .publicCode .publicCoderight .get-phone .text,
-.index .module .publicCode .publicCoderight .btns .text {
-  min-width: 100rpx;
-  display: block;
-}
-.index .module .publicCode .publicCoderight .get-phone .wChat::before,
-.index .module .publicCode .publicCoderight .btns .wChat::before {
-  display: block;
-  content: '\e6b1';
-  font-size: 25rpx;
-  color: #f0f4f1;
-}
-.index .module .publicCode .publicCoderight .get-phone {
-  width: 162rpx;
-  justify-content: center;
-  box-sizing: border-box;
-}
-.index .module .publicCode .publicCoderight .errTip {
-  font-size: 18rpx;
-  font-weight: 400;
-  color: #f19c38;
   line-height: 26rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-  position: absolute;
-  left: 0;
-  bottom: -30rpx;
-}
-.index .module .publicCode .publicCoderight .address {
-  width: 45rpx;
-  height: 45rpx;
-  padding: 0;
-  background-color: #fff;
-}
-.index .module .publicCode .publicCoderight .address::before {
-  display: inline-block;
-  content: '\e64d';
-  font-size: 30rpx;
-  color: #5ebe68;
-}
-.index .module .publicCode:nth-of-type(4) .publicCoderight .input {
-  width: 100%;
-}
-.index .split {
-  width: 100%;
-  height: 280rpx;
+  margin-top: 45rpx;
+  font-family: '苹方-简';
 }
 .index .floatButton {
   width: 100%;
@@ -268,11 +161,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 16px 16px 0 0;
+  border-radius: 16rpx 16rpx 0 0;
   box-shadow: 0 -8px 30px 0 rgba(223,223,223,0.36);
   position: fixed;
   bottom: 0;
   z-index: 100;
+  background: #fff;
 }
 .index .floatButton .handleImmediately {
   width: 662rpx;
@@ -283,7 +177,7 @@
   line-height: 110rpx;
   background: #c0c0c0;
   border-radius: 64rpx;
-  font-family: PingFangSC-Semibold, PingFang SC;
+  font-family: '苹方-简';
   text-shadow: 0 -8rpx 30rpx rgba(223,223,223,0.36);
   box-shadow: 0 -8rpx 30rpx 0 rgba(223,223,223,0.36), 0 4rpx 2rpx 0 rgba(212,212,212,0);
 }

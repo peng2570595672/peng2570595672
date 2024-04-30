@@ -4,6 +4,13 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "123",
+                    "pathName": "pages/default/changeCarAndCard/changeCarAndCard",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "pages/personal_center/recharge-card-processing/recharge-card-processing",
                     "pathName": "pages/default/processing_progress/processing_progress",
                     "query": "orderId=812269679287472128",
@@ -97,5 +104,8 @@
                 }
             ]
         }
+    },
+    "setting": {
+        "compileHotReLoad": true
     }
 }
