@@ -155,7 +155,7 @@
             <!-- 分割 -->
             <view class="subModle" wx:if="{{details.etcMoney && details.etcMoney > 0}}">
                 <view>应付金额</view>
-                <view>{{details.etcMoney/100}}</view>
+                <view>{{(details.etcMoney + details.serviceMoney)/100}}</view>
             </view>
             <view class="subModle" wx:if="{{details.totalMmout > 0}}">
                 <view>高速通行费</view>
