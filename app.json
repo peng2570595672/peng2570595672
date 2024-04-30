@@ -3,7 +3,7 @@
     "pages": [
         "pages/startUpPages/index",
         "pages/Home/Home",
-        "pages/etc_handle/etc_handle",
+        "pages/etc_handle/etc_handle", 
         "pages/membershipCertificate/membershipCertificate",
         "pages/my/index",
         "pages/active_tips/active_tips",
@@ -84,6 +84,8 @@
                 "transfer_page/transfer_page",
                 "mini_payment/mini_payment",
                 "equity_payment/equity_payment",
+				"signing_other_platforms/signing_other_platforms",
+				"sign_successful/sign_successful",
                 "my_etc/my_etc",
                 "equity_mall/equity_mall",
                 "my_etc_detail/my_etc_detail",
@@ -462,6 +464,10 @@
         "wxacommentplugin": {
             "version": "latest",
             "provider": "wx82e6ae1175f264fa"
+        },
+		"contract-owner": {
+            "version": "latest",
+            "provider": "wx8a6f6da0e47175da"
         }
     },
     "usingComponents": {

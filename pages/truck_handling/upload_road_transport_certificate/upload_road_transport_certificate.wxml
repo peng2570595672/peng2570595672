@@ -1,36 +1,47 @@
-<view class="page">
-    <view class="title">请按要求上传证件</view>
-    <!--上传身份证部分开始-->
-    <view class="photo-wrapper">
-        <!--上传道路运输证开始-->
-        <view class="photo {{certificateStatus !== 1 ? 'not-border' : ''}}" data-type="12" catchtap="selectionPic">
-            <view class="not-upload" wx:if="{{certificateStatus !== 4}}">
-                <view class="img-box">
-                    <image class="img" src="/pages/truck_handling/assets/road_transport_certificate.png"></image>
-                    <image class="ico" wx:if="{{certificateStatus === 1}}" src="/pages/truck_handling/assets/icon_camera_white.png"></image>
+<view class="index {{transportationLicenseObj.fileUrl ? 'changeBg' : ''}}">
+    <!-- 顶部 进度条 组件 -->
+    <view class="topSplit" wx:if="{{transportationLicenseObj.fileUrl}}">
+        <!-- <topProgressBar progressStage="{{topProgressBar}}" /> -->
+    </view>
+    <!-- 模块一 上传照片 -->
+    <view class="module moduleOne {{transportationLicenseObj.fileUrl ? 'boxS' : ''}}">
+        <view class="titles" wx:if="{{transportationLicenseObj.fileUrl }}">道路运输证</view>
+        <view class="photo-wrapper {{transportationLicenseObj.fileUrl  ? 'changeOne' : ''}}">
+            <view class="photo {{transportationLicenseObj.fileUrl  ? 'changeTwo' : ''}}" data-type="12" catchtap="selectionPic">
+                <view class="upload {{transportationLicenseObj.fileUrl ? 'changeThree' : ''}}">
+                    <view class="img-box" wx:if="{{certificateStatus !== 4}}">
+                        <image class="ico" src="/pages/truck_handling/assets/road_transport_certificate.png"></image>
+                    </view>
+                    <image class="success" wx:else src="{{transportationLicenseObj.fileUrl}}"></image>
                 </view>
-                <view>道路运输证</view>
+                <view class="cardText">上传道路运输证</view>
             </view>
-            <view class="identify" wx:if="{{certificateStatus === 2 || certificateStatus === 3}}">
-                <image class="refresh" src="/pages/truck_handling/assets/refresh.png"></image>
-                <view>{{certificateStatus === 2 ? '识别中…' : '重新拍摄'}}</view>
-            </view>
-            <image class="success" wx:if="{{certificateStatus === 4}}" src="{{transportationLicenseObj.fileUrl}}"></image>
-        </view>
-        <!--上传道路运输证结束-->
-    </view>
-    <view class="line"></view>
-    <view class="choice">
-        <view class="title">请勾选出道路运输证经莒范围</view>
-        <view class="sub-title">如上传为IC卡运输证,请联系办理机构核实经营范围</view>
-        <view class="choice-list">
-            <view wx:for="{{list}}" wx:key="index" class="list-item iconfont {{choiceActiveIndex === index ? 'active' : ''}}" data-index="{{index}}" catchtap="choiceTheType">
-                {{item.name}}
-            </view>
+            <!--上传身份证正面结束-->
         </view>
     </view>
-    <view class="fill"></view>
-    <view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next">确认资料并保存</view>
-    <information-validation-prompt promptObject="{{promptObject}}" id="notFinishedOrder"></information-validation-prompt>
+    <!-- 模块二 信息显示 -->
+    <view class="module moduleTwo" wx:if="{{transportationLicenseObj.fileUrl}}">
+        <view class="titles">请勾选出道路运输证经营范围</view>
+        <view class="text0">如上传为IC卡运输证，请联系办理机构核实经营范围{{choiceActiveIndex}}</view>
+        <view class="subModle" catchtap="choiceTheType" data-type="0">
+            <view class="left">仅有货物专用运输（集装箱）</view>
+            <view class="confirm iconfont {{choiceActiveIndex === 0 ? 'tick' : ''}}"></view>
+        </view>
+        <view class="subModle" catchtap="choiceTheType" data-type="1">
+            <view class="left">含货物专用运输(集装箱）+其他</view>
+            <view class="confirm iconfont {{choiceActiveIndex === 1 ? 'tick' : ''}}"></view>
+        </view>
+        <view class="subModle" catchtap="choiceTheType" data-type="2">
+            <view class="left">不含货物专用运输（集装箱）</view>
+            <view class="confirm iconfont {{choiceActiveIndex === 2 ? 'tick' : ''}}"></view>
+        </view>
+    </view>
+
+    <!-- 底部悬浮按钮 -->
+    <view class="bottomBtn" wx:if="{{certificateStatus === 4}}">
+        <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="next">
+            确认资料并保存
+        </view>
+    </view>
 </view>
 <privacy_popup></privacy_popup>

@@ -227,6 +227,29 @@
                 <view class="ok" catchtap="guanFaFunc">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
             </view>
         </view>
+        <!-- 货车押金退还状态查询 -->
+        <view class="module moduleThree" wx:if="{{tipObj.type === 'huocheYajinStatus'}}">
+            <view class="title">{{tipObj.title}}</view>
+            <view class="contant">
+                <icon wx:if="{{tipObj.refundStatus === 12}}" class="icon-box-img" style="display: block; margin-bottom: 50rpx;" type="success" size="70" />
+                <icon wx:else class="icon-box-img" style="display: block;" type="warn" size="70" />
+                <text class="text2" style="font-weight: 600;">{{tipObj.content}}</text>
+            </view>
+            <view class="bottomBtn">
+                <view  style="display: block; margin: 0 auto; text-align: center; padding: 12rpx 28rpx;border-radius: 5rpx; background-color: #15ad69;color: #fff; font-size: 26rpx;" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+            </view>
+        </view>
+        <!-- 身份证验证失败 -->
+        <view class="module moduleThree" wx:if="{{tipObj.type === 'shenfenyanzhifail'}}">
+            <view class="title" style="font-size: 38rpx;font-weight: 500;">{{tipObj.title}}</view>
+            <view class="contant">
+                <icon  class="icon-box-img" style="display: block; margin-bottom: 50rpx;" type="warn" size="70" />
+                <text class="text2" style="font-weight: 600;width: 400rpx;margin: 0 auto;">{{tipObj.content}}</text>
+            </view>
+            <view class="bottomBtn">
+                <view  style="display: block; margin: 0 auto; text-align: center; width: 100rpx ;padding: 20rpx 20rpx;border-radius: 5rpx; background-color: #15ad69;color: #fff; font-size: 26rpx;" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+            </view>
+        </view>
         <!-- 带标题 只有一个按钮 -->
         <view class="module moduleOne" wx:if="{{tipObj.type === 'oneBtn'}}">
             <view class="title" wx:if="{{tipObj.title}}">{{tipObj.title}}</view>
@@ -263,6 +286,13 @@
                 <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
                 <view class="ok" catchtap="callBackPub">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
             </view>
+        </view>
+        <!-- 带标题 有一个按钮 一个取消按钮 不限制内容多少-->
+        <view class="module moduleOne" wx:if="{{tipObj.type === 'publicModule'}}">
+            <view class="title">{{tipObj.title}}</view>
+            <view class="contant"><text>{{tipObj.content}}</text></view>
+            <button class="btn" data-title="{{tipObj.title}}" catchtap="hide">{{tipObj.btnconfirm}}</button>
+            <view class="close iconfont" data-title="{{tipObj.title}}" catchtap="hide"></view>
         </view>
     </view>
 </view>

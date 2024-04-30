@@ -22,11 +22,12 @@
 				font-size 56rpx
 				.line
 					background #2FB565
+	
 	.item
 		margin 0 34rpx
 		margin-top 20rpx
 		padding 0 24rpx
-		height 220rpx
+		height auto
 		box-shadow 4rpx 4rpx 46rpx 0 rgba(126,132,156,0.1)
 		border-radius 32rpx
 		background #fff
@@ -37,7 +38,7 @@
 		// 顶部开始
 		.top
 			display flex
-			height 122rpx
+			height 130rpx
 			padding-top 24rpx
 			border-bottom 1rpx solid #F2F2F2
 			box-sizing border-box
@@ -50,6 +51,19 @@
 					height 56rpx
 					font-size 40rpx
 					font-weight 500
+					.center
+						margin-left 12rpx
+						font-weight 500
+						font-size 22rpx
+						width 68rpx
+						height 36rpx
+						line-height 32rpx
+						text-align center
+						border-radius 8rpx
+						box-sizing border-box
+						font-weight 500
+						border 1rpx solid #2A4F44
+						color #2A4F44
 				.channel
 					margin-top -4rpx
 					display flex
@@ -57,6 +71,7 @@
 					margin-bottom 10rpx
 					font-size 24rpx
 					color $fontColor9
+			
 			.right
 				margin-top 8rpx
 				padding-right 12rpx
@@ -69,6 +84,7 @@
 					color $fontColor
 		// 顶部结束
 		.bottom
+			position relative
 			display flex
 			padding-top 24rpx
 			padding-bottom 28rpx
@@ -86,6 +102,66 @@
 						content '\e60e'
 						font-size 32rpx
 						transform rotateZ(-180deg)
+		.truck
+			position relative
+			display flex
+			padding-top 24rpx
+			padding-bottom 30rpx
+			align-items center
+			justify-content flex-end
+			.sub
+				width 300rpx
+				height 64rpx
+				border-radius 338rpx
+				background #FFFAF6
+				text-align center
+				line-height 64rpx
+				font-family PingFang SC
+				font-size 28rpx
+				font-weight normal
+				letter-spacing 0rpx
+				&:first-child
+					color #FF8F1F
+				&:last-child
+					width 298rpx
+					height 62rpx
+					background none
+					border 1rpx solid #1BA566
+					color #1BA566
+			.sub_success
+				width 300rpx
+				height 64rpx
+				border-radius 338rpx
+				background #FFFAF6
+				text-align center
+				line-height 64rpx
+				font-family PingFang SC
+				font-size 28rpx
+				font-weight normal
+				letter-spacing 0rpx
+				background #F9F9F9
+				color #2A4F44
+			.subs
+				width 300rpx
+				height 64rpx
+				border-radius 338rpx
+				background #fff
+		.moreStatus
+			width 100%
+			display flex
+			flex-direction column
+			align-items flex-end
+			position absolute
+			left 0
+			bottom -60rpx
+			z-index 9901
+			view
+				background-color #fff
+				color black
+				// border 1px solid #000
+				line-height 2
+				&:hover
+					border-bottom 1px solid #000
 	.auto-fill
 		flex 1
 	// 没有车

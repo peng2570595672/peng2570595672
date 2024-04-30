@@ -40,14 +40,14 @@
             <view class="content-des">请到附近移动营业厅领取ETC设备</view>
             <view catchtap="handleServiceHall" class="content-des"><text class="precharge">查看附近营业厅</text></view>
         </view>
-        <view class="item {{info && info.holdStatus === 1 ? 'finished' : ''}}" wx:if="{{info.isNewTrucks === 1 && info.flowVersion === 5}}">
+        <!-- <view class="item {{info && info.holdStatus === 1 ? 'finished' : ''}}" wx:if="{{info.isNewTrucks === 1 && info.flowVersion === 5}}">
             <view class="content-title">通行保证金预充</view>
             <view class="content-des" wx:if="{{info.auditStatus !== 2}}">待审核通过后系统将自动发起预充</view>
             <view class="content-des earnest-money" wx:if="{{info.auditStatus === 2 && info.holdStatus === 1}}">保证金<text class="money">{{info.holdBalance/100}}</text><text>预充成功</text>，资金已冻结在工商银行II类账户<text>({{tools.substring(bankCardInfo.accountNo, bankCardInfo.accountNo.length - 4, bankCardInfo.accountNo.length)}})</text>，可通过个人中心查看账户余额</view>
             <view class="content-des earnest-money" wx:if="{{info.auditStatus === 2 && info.holdStatus === 0 && requestNum !== 5}}">保证金<text class="money">{{info.holdBalance/100}}</text><text class="failure">预充失败</text>，请确认II类账户绑定银行余额是否充值，余额充值请重新发起<text catchtap="onClickPrecharge" class="precharge">预充</text>，或通过别的银行账户发起转账</view>
             <view class="content-des earnest-money" wx:if="{{info.auditStatus === 2 && info.holdStatus === 0 && requestNum === 5}}">保证金预充结果暂未获取，请稍后再试，<text catchtap="onClickRechargeResult" class="precharge">获取结果</text></view>
-        </view>
-        <view class="item {{prechargeInfo.prechargeFlag === 1 ? 'finished' : ''}} {{isSalesmanPrecharge ? 'last' : ''}}" wx:if="{{info.flowVersion === 4 && info.orderType !== 31}}">
+        </view> -->
+        <view class="item {{prechargeInfo.prechargeFlag === 1 ? 'finished' : ''}} {{isSalesmanPrecharge ? 'last' : ''}}" wx:if="{{info.flowVersion === 4 && info.orderType !== 31 && false}}">
             <view class="content-title">预充值</view>
             <view wx:if="{{info.auditStatus === 2}}">
                 <view wx:if="{{prechargeInfo.prechargeFlag === 0}}">
@@ -137,7 +137,7 @@
     </view>
     <!--	进度结束-->
     <!--	按钮开始-->
-    <button class="btn" wx:if="{{info && info.logisticsId !== 0 && info.obuStatus !== 1 && info.obuStatus !== 5 && ((info.flowVersion === 2 && info.hwContractStatus === 1) || (info.flowVersion === 1 && info.auditStatus === 2) )}}" catchtap="onClickCctivate">{{info.orderType === 71 || info.promoterType === 41 || info.logisticsId === -1 ? '立即激活' : '确认收货并激活'}}</button>
+    <button class="btn" wx:if="{{info && info.logisticsId !== 0 && info.obuStatus !== 1 && info.obuStatus !== 5 && ((info.flowVersion === 2 && info.hwContractStatus === 1) || ((info.flowVersion === 1 || info.flowVersion === 5) && info.auditStatus === 2))}}" catchtap="onClickCctivate">{{info.orderType === 71 || info.promoterType === 41 || info.logisticsId === -1 ? '立即激活' : '确认收货并激活'}}</button>
     <button class="btn" wx:if="{{info && info.auditStatus === 2 && info.flowVersion === 2 && info.hwContractStatus !== 1}}" catchtap="signingExpress">签约高速支付渠道</button>
 
     <!-- 办理银行信用卡退款操作 -->

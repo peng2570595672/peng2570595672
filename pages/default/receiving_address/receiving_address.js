@@ -21,7 +21,20 @@ Page({
 		isNewPowerCar: false, // 是否为新能源
 		showToast: false, // 是否验证码错误
 		isOnlineDealWith: true, // 是否是线上办理
+		viewTc: {},	// 用于存放弹窗数据
 		formData: {
+			currentCarNoColorTruck: -1, // 控制货车车牌颜色
+			// 0,蓝色
+			// 1,黄色
+			// 2,黑色
+			// 3,白色
+			// 4,渐变绿色
+			// 5,黄绿双拼色
+			// 6,蓝白渐变色
+			// 7,临时牌照
+			// 9,未确定
+			// 11,绿色
+			// 12,红色
 			currentCarNoColor: 0, // 0 蓝色 1 渐变绿 2黄色
 			region: [], // 省市区
 			regionCode: [], // 省份编码
@@ -29,6 +42,7 @@ Page({
 			telNumber: '', // 电话号码
 			detailInfo: '', // 收货地址详细信息
 			cardPhoneCode: '',
+			axleNum: 0 ,// 车轴数量
 			cardMobilePhone: ''// 线上：用户点好；线下：经办人电话
 		}, // 提交数据
 		enterType: -1,// 进入小程序类型  23.搜一搜小程序独立办理链接A，24.搜一搜小程序独立办理链接B
@@ -51,10 +65,54 @@ Page({
 		loginErr: '',// 登录异常
 		isDisableClick: false // 是否禁止点击
 	},
+	chooseAxleNum (e) {
+		if (e.currentTarget.id === 'viewIsTruck') return;
+		let data = [
+			{
+				title: '可以代他人办理吗？',
+				contant: '为保障个人信息及扣费安全，本司暂不支持代办模式，邮寄信息可非本人接收，但开具通行费手机号、个人身份证、行驶证必须为同一持有人。'
+			}
+
+		];
+		this.setData({
+			viewTc: {
+				type: 'moduleTwo',
+				data
+			},
+			whetherToStay: true
+		});
+		// 显示弹框
+		this.selectComponent('#viewIsTruck').show();
+	},
+	// 选择货车颜色
+	chooseColorTruck (e) {
+		this.data.formData.currentCarNoColorTruck = e.currentTarget.dataset.value;
+		this.setData({
+			formData: this.data.formData
+		});
+		this.setData({
+			available: this.validateAvailable()
+		});
+	},
+	// 拿到货车回调
+	getAxleNum (num) {
+		this.data.formData.axleNum = num.detail;
+		this.setData({
+			formData: this.data.formData
+		});
+		this.setData({
+			available: this.validateAvailable()
+		});
+	},
 	async onLoad (options) {
 		app.globalData.orderInfo.orderId = '';
 		if ((app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) || Object.keys(options).length) {
 			wx.hideHomeButton();
+		}
+		if (options.isNewTrucks) { // 0 s是小汽车 1 展示货车
+			this.setData({
+				isNewTrucks: +options.isNewTrucks
+			});
 		}
 		if (options.shareId) {
 			util.resetData();// 重置数据
@@ -140,11 +198,11 @@ Page({
 		}
 		// 仅需要填写车牌号和身份证行驶证信息 平安空发激活
 		if (+options.perfect === 1) {
-		this.setData({
-			perfect: +options.perfect,
-			orderId: options.orderId,
-			addCard: '完善车牌号'
-		});
+			this.setData({
+				perfect: +options.perfect,
+				orderId: options.orderId,
+				addCard: '完善车牌号'
+			});
 		}
 		if (+options.isPost && options.vehPlate?.length < 11) {
 			this.setData({
@@ -324,7 +382,7 @@ Page({
 		// 清倒计时
 		clearInterval(timer);
 		timer = setInterval(() => {
-			this.setData({time: --this.data.time});
+			this.setData({ time: --this.data.time });
 			if (this.data.time === 0) {
 				clearInterval(timer);
 				this.setData({
@@ -511,6 +569,11 @@ Page({
 				params['rightsPackageId'] = this.data.rightsPackageId;
 			}
 		}
+		if (+this.data.isNewTrucks === 1) {
+			params['isNewTrucks'] = 1; // 货车
+			params['axleNum'] = this.data.formData.axleNum; // 货车车轴数量
+			params['vehColor'] = this.data.formData.currentCarNoColorTruck; // 货车颜色
+		}
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		if (!result) return;
 		this.setData({
@@ -520,7 +583,7 @@ Page({
 		if (result.code === 0) {
 			util.getDatanexusAnalysis('COMPLETE_ORDER');
 			if (params.orderType === 12) {
-				await util.getFollowRequestLog({shopId: params.shopId, orderId: result.data.orderId, source: '邮寄页提交'});
+				await util.getFollowRequestLog({ shopId: params.shopId, orderId: result.data.orderId, source: '邮寄页提交' });
 			}
 			app.globalData.handledByTelephone = this.data.formData.cardMobilePhone;
 			app.globalData.orderInfo.orderId = result.data.orderId; // 订单id
@@ -536,16 +599,18 @@ Page({
 			} else {
 				// 选择套餐页面
 				let orderInfo = {
-					shopId: params.shopId,
+					shopId: params.shopId ,
 					thirdGeneralizeNo: params.thirdGeneralizeNo || '',
-					promoterType: params.promoterType || ''
+					promoterType: params.promoterType || '',
+					isNewTrucks: +this.data.isNewTrucks === 1 ? 1 : 0
 				};
+				const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default'; // 去到客车还是货车的套餐页
 				await util.initLocationInfo(orderInfo);
 				if (!app.globalData.newPackagePageData.listOfPackages?.length) return;// 没有套餐
-				console.log(app.globalData.newPackagePageData.type,'==============================');
+				console.log(app.globalData.newPackagePageData.type, '==============================');
 				if (app.globalData.newPackagePageData.type) {
 					// 只有分对分套餐 || 只有总对总套餐
-					util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?type=${params.shopProductId ? '' : app.globalData.newPackagePageData.type}`);
+					util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?type=${params.shopProductId ? '' : app.globalData.newPackagePageData.type}`);
 				} else {
 					util.go(`/pages/default/choose_the_way_to_handle/choose_the_way_to_handle`);
 				}
@@ -600,8 +665,9 @@ Page({
 			shopId: app.globalData.scanCodeToHandle.shopId
 		});
 		if (!result) return;
+		const path = result.data.isNewTrucks === 1 ? 'truck_handling' : 'default';
 		if (result.code === 0) {
-			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests`);
+			util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
 		} else {
 			util.showToastNoIcon(result.message);
 		}
@@ -627,8 +693,8 @@ Page({
 		if (!this.data.isNewPowerCar && this.data.currentIndex === 7) {
 			this.setData({
 				showKeyboard: false,
-        currentIndex: -1,
-        available: this.data.perfect === 1 ? true : false // perfect=1  仅填写车牌信息
+				currentIndex: -1,
+				available: this.data.perfect === 1 ? true : false // perfect=1  仅填写车牌信息
 			});
 		}
 		// 兼容处理是否显示或者隐藏键盘
@@ -767,60 +833,6 @@ Page({
 			available: this.validateAvailable(true)
 		});
 	},
-	// 选择当前地址
-	onClickChooseLocationHandle () {
-		// 统计点击事件;
-    wx.uma.trackEvent('receiving_select_the_address');
-    wx.getLocation({
-      type: 'wgs84',// wgs84 返回 gps 坐标，
-      success: (res) => {
-        console.log(res.latitude, res.longitude,'经纬度坐标。');
-      },
-      fail: (res) => {
-        console.log('无法获取经纬度坐标。');
-        }
-    });
-		wx.chooseLocation({
-			success: (res) => {
-				let address = res.address;
-        let name = res.name;
-        console.log('address',address);
-				if (address) {
-					// 根据地理位置信息获取经纬度
-					util.getInfoByAddress(address, (res) => {
-						let result = res.result;
-						if (result) {
-							let location = result.location;
-							name = result.title + name;
-							// 根据经纬度信息 反查详细地址信息
-							this.getAddressInfo(location, name);
-							this.setData({
-								available: this.validateAvailable(true)
-							});
-						}
-					}, () => {
-						util.showToastNoIcon('获取地理位置信息失败！');
-					});
-				}
-			},
-			fail: (e) => {
-				// 选择地址未允许授权
-				if (e.errMsg === 'chooseLocation:fail auth deny' || e.errMsg === 'getLocation:fail authorize no response') {
-					util.alert({
-						title: '提示',
-						content: '由于您拒绝了获取您的地理位置授权，导致无法正常获取地理位置信息，是否重新授权？',
-						showCancel: true,
-						confirmText: '重新授权',
-						confirm: () => {
-							wx.openSetting();
-						}
-					});
-				} else if (e.errMsg !== 'chooseLocation:fail cancel') {
-					util.showToastNoIcon('获取地理位置信息失败！');
-				}
-			}
-		});
-	},
 	//  根据经纬度信息查地址
 	getAddressInfo (location, name) {
 		util.getAddressInfo(location.lat, location.lng, (res) => {
@@ -875,11 +887,11 @@ Page({
 			}
 		} else {
 			isOk = false;
-    }
-    if (this.data.perfect) {
-      isOk = true;
-      return;
-    }
+		}
+		if (this.data.perfect) {
+			isOk = true;
+			return;
+		}
 		// 校验经办人手机号码
 		isOk = isOk && this.data.formData.cardMobilePhone && /^1[0-9]{10}$/.test(this.data.formData.cardMobilePhone);
 		// 校验经办人手机号码
@@ -894,6 +906,12 @@ Page({
 		isOk = isOk && formData.detailInfo && formData.detailInfo.length >= 2;
 		// 检验手机号码
 		isOk = isOk && formData.telNumber && /^1[0-9]{10}$/.test(formData.telNumber);
+		if (this.data.isNewTrucks) {
+			// 检验货车车轴数
+			isOk = isOk && formData.axleNum > 0;
+			// 检验货车颜色
+			isOk = isOk && formData.currentCarNoColorTruck !== -1;
+		}
 		this.controllTopTabBar();
 		return isOk;
 	},
@@ -959,7 +977,7 @@ Page({
 		if (key === 'telNumber' || key === 'cardMobilePhone') {
 			let value = e.detail.value;
 			let flag = /^1[1-9][0-9]{9}$/.test(value);
-			if (value.substring(0,1) !== '1' || value.substring(1,2) === '0') {
+			if (value.substring(0, 1) !== '1' || value.substring(1, 2) === '0') {
 				if (key === 'telNumber') {
 					this.setData({
 						'formData.telNumber': ''
@@ -1017,7 +1035,7 @@ Page({
 			tip2,
 			tip3
 		});
-		this.fangDou('',500);
+		this.fangDou('', 500);
 		this.controllTopTabBar();
 	},
 	fangDou (fn, time) {
@@ -1131,7 +1149,7 @@ Page({
 					content: res.data.canSubmitMsg,
 					showCancel: false,
 					confirmText: '关闭',
-					confirm: () => {}
+					confirm: () => { }
 				});
 			}
 		} else {

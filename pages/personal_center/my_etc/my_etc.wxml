@@ -1,23 +1,30 @@
 <wxs src='../../../utils/util.wxs' module='tools' />
 <view class="my-etc">
-    <view class="tab-choice" wx:if="{{!notAllCar && carList.length}}">
+    <!-- <view class="tab-choice" wx:if="{{!notAllCar && carList.length}}">
         <view data-index="1" class="{{activeIndex === 1 ? 'active' : ''}}" data-renew='4' catchtap="onClickChoiceType">
             客车<view class="line"></view>
         </view>
         <view data-index="2" class="{{activeIndex === 2 ? 'active' : ''}}" data-renew='4' catchtap="onClickChoiceType">
             货车<view class="line"></view>
         </view>
-    </view>
-	<!--	etc列表开始-->
-	<block wx:for="{{carList}}" wx:key="index">
-		<view class="item animated fadeIn" catchtap="renewWhitelistJudgement"  data-index="{{index}}" data-renew="1">
-			<!--上部分开始-->
-			<view class="top">
-				<view class="left">
-					<view class="car-no">{{tools.isPhone(item.vehPlates)}}</view>
-					<view class="channel">{{item.cardName ? item.cardName === '贵州黔通卡' ? '九州ETC' : item.cardName : ''}}</view>
-				</view>
-                <view class="right caution {{item.selfStatus === 7 || item.selfStatus === 8 ? 'failed' : ''}} {{item.selfStatus === 12 || item.selfStatus === 30 ? 'succeed' : ''}}">
+    </view> -->
+    <!--	etc列表开始-->
+    <block wx:for="{{carList}}" wx:key="index">
+        <view class="item animated fadeIn" catchtap="renewWhitelistJudgement" data-index="{{index}}" data-renew="1">
+            <!--上部分开始-->
+            <view class="top">
+                <view class="left">
+                    <view class="car-no">{{tools.isPhone(item.vehPlates)}}<text
+                            class="center">{{item.isNewTrucks===1?'货车':'客车'}}</text></view>
+                    <view class="channel" wx:if="{{item.isNewTrucks !== 1}}">
+                        {{item.cardName ? item.cardName === '贵州黔通卡' ? '九州ETC' : item.cardName : ''}}
+                    </view>
+                    <view class="channel" wx:if="{{item.isNewTrucks === 1 && item.deductionMethod}}"
+                        style="height: 60rpx;">扣费方式：{{item.deductionMethod}}
+                    </view>
+                </view>
+                <view wx:if="{{item.isNewTrucks !== 1}}"
+                    class="right caution {{item.selfStatus === 7 || item.selfStatus === 8 ? 'failed' : ''}} {{item.selfStatus === 12 || item.selfStatus === 30 ? 'succeed' : ''}}">
                     {{item.selfStatus === 1 || item.selfStatus === 22 ? '已解约' : ''}}
                     {{item.selfStatus === 2 || item.selfStatus === 4 || item.selfStatus === 14 || item.selfStatus === 23 || item.selfStatus === 25 || item.selfStatus === 34 ? '办理中' : ''}}
                     {{item.selfStatus === 3 || item.selfStatus === 24 ? '待支付' : ''}}
@@ -25,22 +32,37 @@
                     {{item.selfStatus === 6 ? '待审核' : ''}}
                     {{item.selfStatus === 7 || item.selfStatus === 27 ? '审核不通过' : ''}}
                     {{item.selfStatus === 8 ? '审核不通过' : ''}}
-                    {{item.selfStatus === 9 ? (item.flowVersion === 2 ? '待签约高速' : (item.flowVersion === 7 ? '待开户' : '待签约银行')) : ''}}
+                    {{item.selfStatus === 9 ? (item.flowVersion === 2 ? '待签约高速' : (item.flowVersion === 7 ? '待开户' :
+                    '待签约银行')) : ''}}
                     {{item.selfStatus === 10 || item.selfStatus === 17 || item.selfStatus === 28 ? '审核通过' : ''}}
                     {{item.selfStatus === 11 || item.selfStatus === 26 ? '待激活' : ''}}
-                    {{item.selfStatus === 12 || item.selfStatus === 30 || item.selfStatus === 32 || item.selfStatus === 33 ? '已激活' : ''}}
+                    {{item.selfStatus === 12 || item.selfStatus === 30 || item.selfStatus === 32 || item.selfStatus ===
+                    33 ? '已激活' : ''}}
                     {{item.selfStatus === 13 || item.selfStatus === 19 || item.selfStatus === 20 ? '待开户' : ''}}
                     {{item.selfStatus === 15 ? '待充保证金' : ''}}
                     {{item.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
                     {{item.selfStatus === 31 ? '待签约激活' : ''}}
                     {{item.selfStatus === 35 ? '办理中' : ''}}
                 </view>
-			</view>
-			<!--上部分结束-->
-			<!--下部分开始-->
-			<view class="bottom">
-				<view><text>扣款方式：{{item.deductionMethod}}</text></view>
-				<view class="{{item.selfStatus === 12 || item.selfStatus === 32 ? item.deviceUpgrade ? 'iconfont' : '' : 'iconfont'}}" data-index="{{index}}" data-renew="2" catchtap="renewWhitelistJudgement">
+                <view wx:if="{{item.isNewTrucks === 1}}"
+                    class="right caution {{item.selfStatus === 7 || item.selfStatus === 8  ? 'failed' : ''}} {{item.selfStatus === 12  ? 'succeed' : ''}}">
+                    {{item.selfStatus === 5 ? '待签约' : '' }}
+                    {{item.selfStatus === 3 ? '待支付': '' }}
+                    {{item.selfStatus === 4 || item.selfStatus === 2 ? '办理中': '' }}
+                    {{item.selfStatus === 6  ? '待审核' : ''}}
+                    {{item.selfStatus === 8 || item.selfStatus === 7 ? '审核不通过' : ''}}
+                    {{item.selfStatus === 10 ? '待发货' : ''}}
+                    {{item.selfStatus === 12 ? '已激活' : ''}}
+                    {{item.selfStatus === 11 ? '待激活' : ''}}
+                </view>
+            </view>
+            <!--上部分结束-->
+            <!--下部分开始-->
+            <view class="bottom" wx:if="{{item.isNewTrucks !== 1}}">
+                <view><text>扣款方式：{{item.deductionMethod}}</text></view>
+                <view
+                    class="{{item.selfStatus === 12 || item.selfStatus === 32 ? item.deviceUpgrade || item.selfStatus === 12 ? 'iconfont' : '' : 'iconfont'}}"
+                    data-index="{{index}}" data-renew="2" catchtap="renewWhitelistJudgement">
                     {{item.selfStatus === 1 || item.selfStatus === 22 ? '恢复签约' : ''}}
                     {{item.selfStatus === 2 || item.selfStatus === 4 || item.selfStatus === 14 || item.selfStatus === 23 || item.selfStatus === 25 || item.selfStatus === 34 ? '继续办理' : ''}}
                     {{item.selfStatus === 3 || item.selfStatus === 24 ? '去支付' : ''}}
@@ -60,28 +82,39 @@
                     {{item.selfStatus === 31 ? '签约激活' : ''}}
                     {{item.selfStatus === 35 ? '继续办理' : ''}}
                 </view>
-			</view>
-			<!--下部分结束-->
-		</view>
-	</block>
-	<!--	etc列表结束-->
-	<!--	没有车辆开始-->
-	<view class="no-car" wx:if="{{carList.length === 0}}">
-		<image src="/pages/personal_center/assets/no_car.jpg" mode="widthFix"></image>
-		<view>您还没有办理ETC~</view>
-	</view>
-	<!--	没有车辆结束-->
-	<!--	高度填充开始-->
-	<view class="auto-fill"></view>
-	<!--	高度填充结束-->
-	<!--	新增办理开始-->
-	<view class="btn" data-renew="3" catchtap="renewWhitelistJudgement" wx:if="{{activeIndex === 1}}">新增办理</view>
-	<!--	新增办理结束-->
-	<!--	津易行弹窗提示-->
-	<jinyixing-prompt id="notJinYiXingPrompt"></jinyixing-prompt>
-	<!--	激活弹窗提示-->
-	<signing-prompt id="notSigningPrompt"></signing-prompt>
+            </view>
+            <view class="truck" wx:if="{{item.isNewTrucks === 1}}">
+                <view class="{{item.selfStatus === 12 && item.flowVersion === 5 ? 'sub' : item.refundStatus === 3 ? 'sub_success' :'subs'}}" catchtap="refundStatusEvent" data-renew="5" wx:if="{{item.selfStatus === 12 && item.flowVersion === 5 }}">
+                    {{item.refundStatus === 3 ? '押金已退款': '押金待退款' }}
+                </view>
+                <view class="sub" wx:if="{{item.selfStatus !== 12}}" data-index="{{index}}" catchtap="renewWhitelistJudgement" data-renew="5">
+                    {{item.selfStatus === 5 ? '去签约' : '' }}
+                    {{item.selfStatus === 3 ? '去支付': '' }}
+                    {{item.selfStatus === 4 || item.selfStatus === 2 ? '继续办理': '' }}
+                    {{item.selfStatus === 6 || item.selfStatus === 8 || item.selfStatus === 10 ? '查看进度' : ''}}
+                    {{item.selfStatus === 7 ? '修改资料' : ''}}
+                    {{item.selfStatus === 11 ? '去激活' : ''}}
+                </view>
+            </view>
+            <!--下部分结束-->
+        </view>
+    </block>
+    <!--	etc列表结束-->
+    <!--	没有车辆开始-->
+    <view class="no-car" wx:if="{{carList.length === 0}}">
+        <image src="/pages/personal_center/assets/no_car.jpg" mode="widthFix"></image>
+        <view>您还没有办理ETC~</view>
+    </view>
+    <!--	没有车辆结束-->
+    <!--	高度填充开始-->
+    <view class="auto-fill"></view>
+    <!--	高度填充结束-->
+    <!--	津易行弹窗提示-->
+    <jinyixing-prompt id="notJinYiXingPrompt"></jinyixing-prompt>
+    <!--	激活弹窗提示-->
+    <signing-prompt id="notSigningPrompt"></signing-prompt>
     <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
-    <equipment_selection id="choiceEquipment" bindonClickTranslucentHandle="onClickTranslucentHandle"></equipment_selection>
+    <equipment_selection id="choiceEquipment" bindonClickTranslucentHandle="onClickTranslucentHandle">
+    </equipment_selection>
 </view>
 <privacy_popup></privacy_popup>

@@ -138,6 +138,34 @@
   justify-content: space-between;
   font-family: PingFangSC-Regular, PingFang SC;
 }
+.index .module .publicCode .carColor {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.index .module .publicCode .carColor .item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16rpx;
+  width: 125rpx;
+  height: 72rpx;
+}
+.index .module .publicCode .carColor .active {
+  position: relative;
+}
+.index .module .publicCode .carColor .active::after {
+  content: "";
+  position: absolute;
+  z-index: 999;
+  top: -8rpx;
+  right: -8rpx;
+  width: 40rpx;
+  height: 40rpx;
+  background-image: url("https://file.cyzl.com/g001/M03/4B/D1/oYYBAGYMxDCABtsPAAAErMTfGCE350.png");
+  background-size: 100% 100%;
+}
 .index .module .publicCode .publicCodeLeft {
   width: 140rpx;
   font-size: 32rpx;

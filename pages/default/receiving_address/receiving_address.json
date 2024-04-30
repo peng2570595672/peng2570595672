@@ -3,8 +3,9 @@
 	"navigationBarBackgroundColor": "#ECECEC",
 	"usingComponents": {
 		"keyboard": "/components/keyboard/keyboard",
-      	"authorization-phone": "/components/authorization_phone/authorization_phone",
+		"authorization-phone": "/components/authorization_phone/authorization_phone",
 		"topProgressBar": "/components/topProgressBar/index",
-		"popTipComp": "/components/popTipComp/popTipComp"
+		"popTipComp": "/components/popTipComp/popTipComp",
+		"viewIsTruck": "/components/viewIsTruck/viewIsTruck"
 	}
 }

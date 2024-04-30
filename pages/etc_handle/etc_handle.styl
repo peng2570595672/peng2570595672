@@ -1,3 +1,4 @@
+@import "../../style/base.styl"
 .index
     padding 0
     margin 0
@@ -21,6 +22,7 @@
         .goBanckImg
             width 50%
             height 50%
+    
     /* 顶部banner */
     .topBanner
         width 100%
@@ -114,6 +116,13 @@
                     margin-left 8rpx
                     line-height 40rpx
                     text-align justify
+                .age_address
+                    width 616rpx
+                    line-height 48rpx
+                    margin-left -520rpx
+                    font-size 22rpx
+                    font-weight 400
+                    color #FFFFFF
             .answer
                 height auto
                 opacity 0.8
@@ -145,20 +154,63 @@
     /* 底部按钮“立即办理” */
     .handleImmediately
         width 100vw
-        height 244rpx
+        height 274rpx
         background #FFFFFF
         border-radius 16rpx 16rpx 0px 0px
         position fixed
+        z-index 999999
         bottom 0
         opacity 1
         display flex
+        flex-direction column
         align-items center
-        justify-content center
-        button
+        justify-content space-around
+        .newTimeActive
+            position absolute
+            top -70rpx
+            width 100vw
+            height 75rpx
+            background-color #FFECBB
+            display flex
+            align-items center
+            color #EC602A
+            font-weight 500
+            .countdown
+                background-color #FFECBB
+                width 44rpx
+                height 40rpx
+                margin 8rpx 30rpx 8rpx 24rpx
+            span
+                width 42rpx
+                text-align center
+                height 38rpx
+                line-height 40rpx
+                background: #EC602A;
+                padding 5rpx
+                margin 0 10rpx
+                color #fff
+                border-radius 8rpx
+        .btns
             width 662rpx
-            height 110rpx
+            height 120rpx
+            display flex
+            align-items center
+            justify-content center
             color #FFFFFF
-            line-height 110rpx
+            font-size 36rpx
             background #2A4F44
             box-shadow 0rpx 4rpx 2rpx 0rpx rgba(212, 212, 212, 0.5)
             border-radius 64rpx
+	        .images
+	            width 110rpx
+	            height 44rpx
+	            margin-left 12rpx
+        .last-tips
+            width 662rpx
+            height 70rpx
+            color #2A4F44
+            line-height 70rpx
+            margin-top -50rpx
+            text-align center
+            background #FFFFFF
+

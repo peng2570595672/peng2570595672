@@ -237,10 +237,14 @@
 }
 .index .bottomBtn .available {
   background: #2a4f44;
-  animation: btnFadeIn 0.3s;
-  animation-fill-mode: forwards;
+  -webkit-animation: btnFadeIn 0.3s;
+          animation: btnFadeIn 0.3s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
 }
 .index .bottomBtn .unavailable {
-  animation: btnFadeOut 0.3s;
-  animation-fill-mode: forwards;
+  -webkit-animation: btnFadeOut 0.3s;
+          animation: btnFadeOut 0.3s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
 }

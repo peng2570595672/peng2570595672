@@ -15,7 +15,7 @@ Page({
 		truckList: [] // 货车
 	},
 	async onShow () {
-		util.resetData();// 重置数据
+		util.resetData(); // 重置数据
 		app.globalData.orderInfo.orderId = '';
 		app.globalData.isTruckHandling = false;
 		app.globalData.isNeedReturnHome = false;
@@ -99,7 +99,7 @@ Page({
 				});
 			}
 			this.setData({
-				carList: this.data.activeIndex === 1 ? passengerCarList : truckList, // 初始化变量
+				carList: result.data, // 初始化变量
 				truckList: truckList,
 				passengerCarList: passengerCarList
 			});
@@ -109,9 +109,11 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
+	async refundStatusEvent () { // 刷新状态
+		await this.getMyETCList();
+	},
 	// 针对特定号码 作续签弹窗提示
 	renewWhitelistJudgement (e) {
-		console.log(e);
 		let that = this;
 		let renew = e.currentTarget.dataset.renew;
 		if (app.globalData.renewWhitelist.includes(app.globalData.mobilePhone) && !wx.getStorageSync('renewWhitelist')) {
@@ -139,6 +141,8 @@ Page({
 				that.onClickVehicle(e);
 			} else if (renew === '3') {
 				that.onClickAddNewHandle(e);
+			} else if (renew === '5') {	// 货车
+				that.onClickVehicle(e);
 			} else {
 				that.onClickChoiceType(e);
 			}
@@ -152,13 +156,34 @@ Page({
 			carList: activeIndex === 1 ? this.data.passengerCarList : this.data.truckList
 		});
 	},
+	// 显示货车退款 按钮
+	goMoreStatus (e) {
+		let status = e.currentTarget.dataset.status; // 1查看退款  2 签约
+		let refundStatus = e.currentTarget.dataset.selfstatus;
+		if (status === '1') {
+			this.selectComponent('#popTipComp').show({
+				type: 'huocheYajinStatus',
+				title: '查看押金退还情况',
+				btnCancel: '退出',
+				refundStatus: refundStatus,
+				content: refundStatus === 12 ? '押金退还成功，请查看退款情况！' : '押金退还失败，请联系在线客服',
+				bgColor: 'rgba(0,0,0, 0.6)'
+			});
+		} else {
+			util.alert({
+				title: `签约提示`,
+				content: '该车牌已经完成签约',
+				showCancel: false,
+				confirmText: '我知道了'
+			});
+		}
+	},
 	// 点击车辆信息
 	onClickVehicle (e) {
 		let index = e.currentTarget.dataset.index;
 		let orderInfo = this.data.carList[parseInt(index)];
 		if (orderInfo.isNewTrucks === 1 && orderInfo.status !== 1) {
-			util.showToastNoIcon('货车办理系统升级中，暂时不可申办');
-			return;
+			// return;
 		}
 		if (orderInfo.orderType === 51 && orderInfo.status !== 1) {
 			util.showToastNoIcon('请返回原渠道办理');
@@ -424,6 +449,7 @@ Page({
 	async onClickContinueHandle (orderInfo) {
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.firstVersionData = false;
+		app.globalData.orderInfo.isNewTrucks = orderInfo.isNewTrucks;
 		const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
 		if (orderInfo.orderType === 31 && orderInfo.isSignTtCoupon === 1) {
 			// 通通券套餐流程
@@ -492,13 +518,13 @@ Page({
 			util.go(`/pages/bank_card/citic_bank_sign/citic_bank_sign`);
 			return;
 		}
-		if (obj.orderType === 31 && obj.auditStatus === 0 && obj.flowVersion !== 1) {
-			this.onClickHighSpeedSigning(obj);
+		if (obj.isNewTrucks === 1) { // 货车
+			// 货车签约
+			util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
 			return;
 		}
-		if (obj.isNewTrucks === 1) {
-			wx.uma.trackEvent('my_etc_for_contract_management');
-			util.go(`/pages/truck_handling/contract_management/contract_management`);
+		if (obj.orderType === 31 && obj.auditStatus === 0 && obj.flowVersion !== 1) {
+			this.onClickHighSpeedSigning(obj);
 			return;
 		}
 		app.globalData.isSecondSigning = false;

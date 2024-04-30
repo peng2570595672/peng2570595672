@@ -25,7 +25,8 @@ Page({
 		isSalesmanPrecharge: false,
 		showCouponWrapper: false,
 		showCouponMask: false,
-		prechargeInfo: '', // 预充流程,预充信息
+		isNewTrucks: false,
+		prechargeInfo: '',// 预充流程,预充信息
 		disclaimerDesc: app.globalData.disclaimerDesc,
 		citicBankshopProductIds: app.globalData.cictBankObj.citicBankshopProductIds, // 信用卡套餐集合
 		cictBail: false, // 中信保证金
@@ -55,6 +56,11 @@ Page({
 		if (options.type) {
 			this.setData({
 				type: options.type
+			});
+		}
+		if (options.type) {
+			this.setData({
+				isNewTrucks: options.isNewTrucks
 			});
 		}
 		if (!app.globalData.userInfo.accessToken) {

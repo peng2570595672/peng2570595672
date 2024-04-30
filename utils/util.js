@@ -698,108 +698,140 @@ function luhmCheck(bankno) {
  *  获取货车新流程订单办理状态 2.0
  */
 function getTruckHandlingStatus(orderInfo) {
-  if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0) {
-    // protocolStatus 0未签协议 1签了
-    return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
+	if (!orderInfo.shopProductId) {
+		return 2; // 办理中 未选套餐
+	}
+	// 新货车流程
+  if (orderInfo.flowVersion === 5) {
+	  if (!orderInfo.pledgeStatus) {
+		  // pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
+		  return 3; // 待支付
+	  }
+	  // if (orderInfo.isOwner === 0 || orderInfo.isVehicle === 0 || (orderInfo.isHeadstock === 0 && orderInfo.obuCardType !== 1) || (orderInfo.isTraction === 1 && orderInfo.isTransportLicense !== 1)) {
+	  if (orderInfo.status === 0) {
+		  return 4; // 办理中 未上传证件
+	  }
+	  if (orderInfo.contractStatus !== 1) {
+		  return 5; // 待签约
+	  }
+	  if (orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) {
+		  // auditStatus: -1 无需审核   0 待审核   1 审核失败  2 审核通过  3 预审核通过  9 高速核验不通过
+		  return 6; // 待审核 预审核通过(待审核)
+	  }
+	  if (orderInfo.auditStatus === 1) {
+		  return 7; // 资料被拒绝 修改资料
+	  }
+	  if (orderInfo.auditStatus === 9) {
+		  return 8; // 高速核验不通过
+	  }
+	  if (orderInfo.auditStatus === 2 && orderInfo.logisticsId === 0) {
+		  return 10; // 审核通过,待发货
+	  }
+	  if (orderInfo.obuStatus === 0) {
+		  return 11; //  待激活
+	  }
+	  if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
+		  return 12; // 已激活
+	  }
   }
-  // flowVersion 流程版本，1-分对分，2-新版（总对总）,3-选装 4-预充值 5-保证金模式 6-圈存 7-交行二类户
-  if (orderInfo.flowVersion === 5 && orderInfo.multiContractList?.find(item => item.contractStatus === 2)) {
-    return 1; // 货车解约 - 保证金模式
-  }
-  if (orderInfo.shopProductId === 0) {
-    return 2; // 办理中 未选套餐
-  }
-  if (orderInfo.pledgeStatus === 0) {
-    // pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
-    return 3; // 待支付
-  }
-  if (orderInfo.isOwner === 0 || orderInfo.isVehicle === 0 || (orderInfo.isHeadstock === 0 && orderInfo.obuCardType !== 1) || (orderInfo.isTraction === 1 && orderInfo.isTransportLicense !== 1)) {
-    return 4; // 办理中 未上传证件
-  }
-
-
-  if (orderInfo.flowVersion === 6 && !app.globalData.bankCardInfo.accountNo) { // 开通II类户预充保证金 - 未开户
-    return 13;
-  }
-  if (orderInfo.flowVersion === 7) {
-    // 交行二类户流程
-    let info, checkResults;
-    if (app.globalData.memberStatusInfo?.accountList?.length) {
-      info = app.globalData.memberStatusInfo.accountList.find(item => item.orderId === orderInfo.id)
-    }
-    if (app.globalData.memberStatusInfo?.orderBankConfigList?.length) {
-      checkResults = app.globalData.memberStatusInfo.orderBankConfigList.find(item => item.orderId === orderInfo.id)
-    }
-    if (!checkResults?.uploadImageStatus) return 19; // 未影像资料上送
-    if (!checkResults?.isTencentVerify) return 20; // 未上送腾讯云活体人脸核身核验成功
-    if (!info?.memberBankId) return 13; // 交行 开通II类户预充保证金 - 未开户
-    if (!orderInfo.contractStatus) return 21; // 未签约银行
-  }
-
-  if (orderInfo.flowVersion === 6 && app.globalData.bankCardInfo.accountNo) { //有二类户-代扣通行费
-    //contractStatus :-1 签约失败 0发起签约 1已签约 2解约
-    //	app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(-4);
-    if (orderInfo.contractStatus == -1) { //通行费代扣签约成功
-      return 18;
-    }
-    if (orderInfo.contractStatus == 0) { //充值
-      return 15;
-    }
-    if (orderInfo.contractStatus == 1) { //小额免密签约成功
-      return 15;
-    }
-    if (orderInfo.contractStatus == 1 && orderInfo.serviceFeeContractStatus) { //小额免密签约成功
-      return 15;
-    }
-  }
-
-
-
-  if (orderInfo.flowVersion === 5 && orderInfo.multiContractList?.filter(item => item.contractStatus === 1).length !== 3) {
-    return 5; // 未完全签约 - 或存在解约
-  }
-  if (orderInfo.flowVersion === 5 && orderInfo.status === 0) {
-    return 14; // 办理中 未授权预充保证金
-  }
-  if (orderInfo.flowVersion === 4 && orderInfo.status === 0) {
-    return 4; // 办理中 已上传证件 待完善
-  }
-  if (orderInfo.flowVersion === 4 && orderInfo.auditStatus === -1) {
-    return 6; // 我方无需审核,待第三方审核
-  }
-  if (orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) {
-    // auditStatus: -1 无需审核   0 待审核   1 审核失败  2 审核通过  3 预审核通过  9 高速核验不通过
-    return 6; // 待审核 预审核通过(待审核)
-  }
-  if (orderInfo.auditStatus === 1) {
-    return 7; // 资料被拒绝 修改资料
-  }
-  if (orderInfo.auditStatus === 9) {
-    return 8; // 高速核验不通过
-  }
-  if (orderInfo.flowVersion === 5 && orderInfo.auditStatus === 2 && orderInfo.holdStatus === 0) {
-    return 15; // 未冻结保证金成功
-  }
-  if (orderInfo.flowVersion === 4 && orderInfo.orderType !== 31 && orderInfo.auditStatus === 2 && orderInfo.prechargeFlag === 0) {
-    // prechargeFlag 0未预充 1已预充
-    return 17; // 未预充金额
-  }
-  if ((orderInfo.auditStatus === 2 || (orderInfo.auditStatus === 0 && orderInfo.orderType === 31)) && (orderInfo.flowVersion === 2 || orderInfo.flowVersion === 3) && orderInfo.hwContractStatus !== 1) {
-    // hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
-    return 9; // 审核通过,待签约高速
-  }
-  if (orderInfo.auditStatus === 2 && orderInfo.logisticsId === 0) {
-    return 10; // 审核通过,待发货
-  }
-  if (orderInfo.obuStatus === 0) {
-    return 11; //  待激活
-  }
-  if (orderInfo.flowVersion === 4 && orderInfo.orderType === 31 && orderInfo.auditStatus === 2 && orderInfo.prechargeFlag === 0) {
-    // prechargeFlag 0未预充 1已预充
-    return 17; // 未预充金额
-  }
-  if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
-    return 12; // 已激活
+  // 老货车流程
+  else {
+	  if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0) {
+		  // protocolStatus 0未签协议 1签了
+		  return orderInfo.pledgeStatus === 0 ? 3 : orderInfo.etcContractId === -1 ? 9 : 5;
+	  }
+	  // flowVersion 流程版本，1-分对分，2-新版（总对总）,3-选装 4-预充值 5-保证金模式 6-圈存 7-交行二类户
+	  if (orderInfo.flowVersion === 5 && orderInfo.multiContractList.find(item => item.contractStatus === 2)) {
+		  return 1; // 货车解约 - 保证金模式
+	  }
+	  if (orderInfo.shopProductId === 0) {
+		  return 2;// 办理中 未选套餐
+	  }
+	  if (orderInfo.pledgeStatus === 0) {
+		  // pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
+		  return 3;// 待支付
+	  }
+	  if (orderInfo.isOwner === 0 || orderInfo.isVehicle === 0 || (orderInfo.isHeadstock === 0 && orderInfo.obuCardType !== 1) || (orderInfo.isTraction === 1 && orderInfo.isTransportLicense !== 1)) {
+		  return 4; // 办理中 未上传证件
+	  }
+	
+	
+	  if (orderInfo.flowVersion === 6 && !app.globalData.bankCardInfo.accountNo) {// 开通II类户预充保证金 - 未开户
+		  return 13;
+	  }
+	  if (orderInfo.flowVersion === 7) {
+		  // 交行二类户流程
+		  let info, checkResults;
+		  if (app.globalData.memberStatusInfo?.accountList?.length) {
+			  info = app.globalData.memberStatusInfo.accountList.find(item => item.orderId === orderInfo.id)
+		  }
+		  if (app.globalData.memberStatusInfo?.orderBankConfigList?.length) {
+			  checkResults = app.globalData.memberStatusInfo.orderBankConfigList.find(item => item.orderId === orderInfo.id)
+		  }
+		  if (!checkResults?.uploadImageStatus) return 19;// 未影像资料上送
+		  if (!checkResults?.isTencentVerify) return 20;// 未上送腾讯云活体人脸核身核验成功
+		  if (!info?.memberBankId) return 13;// 交行 开通II类户预充保证金 - 未开户
+		  if (!orderInfo.contractStatus) return 21;// 未签约银行
+	  }
+	  if (orderInfo.flowVersion === 6 && app.globalData.bankCardInfo.accountNo) { //有二类户-代扣通行费
+		  //contractStatus :-1 签约失败 0发起签约 1已签约 2解约
+		  //	app.globalData.bankCardInfo.accountNo = app.globalData.bankCardInfo.accountNo.substr(-4);
+		  if (orderInfo.contractStatus == -1) { //通行费代扣签约成功
+			  return 18;
+		  }
+		  if (orderInfo.contractStatus == 0) { //充值
+			  return 15;
+		  }
+		  if (orderInfo.contractStatus == 1) {//小额免密签约成功
+			  return 15;
+		  }
+		  if (orderInfo.contractStatus == 1 && orderInfo.serviceFeeContractStatus) { //小额免密签约成功
+			  return 15;
+		  }
+	  }
+	  if (orderInfo.flowVersion === 5 && orderInfo.multiContractList.filter(item => item.contractStatus === 1).length !== 3) {
+		  return 5; // 未完全签约 - 或存在解约
+	  }
+	  if (orderInfo.flowVersion === 5 && orderInfo.status === 0) {
+		  return 14; // 办理中 未授权预充保证金
+	  }
+	  if (orderInfo.flowVersion === 4 && orderInfo.status === 0) {
+		  return 4; // 办理中 已上传证件 待完善
+	  }
+	  if (orderInfo.flowVersion === 4 && orderInfo.auditStatus === -1) {
+		  return 6; // 我方无需审核,待第三方审核
+	  }
+	  if (orderInfo.auditStatus === 0 || orderInfo.auditStatus === 3) {
+		  // auditStatus: -1 无需审核   0 待审核   1 审核失败  2 审核通过  3 预审核通过  9 高速核验不通过
+		  return 6;// 待审核 预审核通过(待审核)
+	  }
+	  if (orderInfo.auditStatus === 1) {
+		  return 7; // 资料被拒绝 修改资料
+	  }
+	  if (orderInfo.auditStatus === 9) {
+		  return 8; // 高速核验不通过
+	  }
+	  if (orderInfo.flowVersion === 5 && orderInfo.auditStatus === 2 && orderInfo.holdStatus === 0) {
+		  return 15;// 未冻结保证金成功
+	  }
+	  if (orderInfo.flowVersion === 4 && orderInfo.orderType !== 31 && orderInfo.auditStatus === 2 && orderInfo.prechargeFlag === 0) {
+		  // prechargeFlag 0未预充 1已预充
+		  return 17;// 未预充金额
+	  }
+	  if ((orderInfo.auditStatus === 2 || (orderInfo.auditStatus === 0 && orderInfo.orderType === 31)) && (orderInfo.flowVersion === 2 || orderInfo.flowVersion === 3) && orderInfo.hwContractStatus !== 1) {
+		  // hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
+		  return 9; // 审核通过,待签约高速
+	  }
+	  if (orderInfo.auditStatus === 2 && orderInfo.logisticsId === 0) {
+		  return 10; // 审核通过,待发货
+	  }
+	  if (orderInfo.flowVersion === 4 && orderInfo.orderType === 31 && orderInfo.auditStatus === 2 && orderInfo.prechargeFlag === 0) {
+		  // prechargeFlag 0未预充 1已预充
+		  return 17;// 未预充金额
+	  }
+	  if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
+		  return 12; // 已激活
+	  }
   }
   return 0; // 错误状态,未判断到
 }
@@ -1064,7 +1096,6 @@ function isDuringDateIdCard(beginDateStr, endDateStr) {
   const curDate = new Date();
   beginDateStr = beginDateStr.replace('.', '/').replace('.', '/'); //转换是为了iPhone
   endDateStr = endDateStr.replace('.', '/').replace('.', '/');
-  console.log('时间：', beginDateStr, endDateStr);
   const beginDate = new Date(beginDateStr);
   const endDate = new Date(endDateStr);
   return curDate >= beginDate && curDate <= endDate;
@@ -1337,7 +1368,7 @@ function wxAnimation(delay, site, translate, opacity = 1) {
   return animation.export();
 }
 // 获取定位数据
-let isTruckHandle = false; // 是否是货车办理
+let isTruckHandle = true; // 是否是货车办理
 function initLocationInfo(orderInfo, isTruck = false) {
   isTruckHandle = isTruck;
   // 是否缓存了定位信息
@@ -1405,7 +1436,7 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
     platformId: app.globalData.platformId,
     shopId: orderInfo.shopId || app.globalData.miniProgramServiceProvidersId
   };
-  if (isTruckHandle) {
+  if ( +orderInfo.isNewTrucks === 1 || +app.globalData.orderInfo.isNewTrucks === 1) {// 是否是货车办理
     params.vehType = 2;
     params.shopId = app.globalData.miniProgramServiceProvidersId;
   }
@@ -1464,7 +1495,7 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
     return;
   }
   const List9901pro = list.filter(item => item.flowVersion === 8); // 9901 套餐
-  const divideAndDivideList = list.filter(item => item.flowVersion === 1); // 分对分套餐
+  const divideAndDivideList = list.filter(item => item.flowVersion === 1 || item.flowVersion === 5); // 分对分套餐
   const alwaysToAlwaysList = list.filter(item => item.flowVersion === 2 || item.flowVersion === 3); // 总对总套餐
   let type = !divideAndDivideList.length ? 2 : !alwaysToAlwaysList.length ? 1 : 0;
   app.globalData.newPackagePageData = {
@@ -1577,8 +1608,6 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
             reAutoLoginV2(path, params, method);
             return;
           }
-          // console.log(path + ';' + res.data.message)
-          // console.log(res.data);
           resolve(res.data)
         } else {
           reject(res)
@@ -1654,7 +1683,6 @@ async function updateOrderContractMappingBankAccountId(info, bankCardInfo) {
     id: info.id,
     bankAccountId: bankCardInfo.bankAccountId,
   });
-  console.log(result);
   if (!result) return;
   let isOk = false;
   if (result.code === 0) {
@@ -1760,11 +1788,11 @@ async function getObuCardType() {
   let trucksOrder = [];
   app.globalData.myEtcList.map(item => {
     if (item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5) {
-      if (item.obuCardType !== 21) {
-        obuCardType.push(item.obuCardType);
-      } else {
-        trucksOrder.push(item.id);
-      }
+	    obuCardType.push(item.obuCardType);
+	    if (item.obuCardType === 21 && item.flowVersion === 4) {
+	    	// 易路通达账单
+		    trucksOrder.push(item.id);
+	    }
     }
   }); // 1 已激活  2 恢复订单  5 预激活
   app.globalData.isArrearageData.trucksOrderList = trucksOrder;

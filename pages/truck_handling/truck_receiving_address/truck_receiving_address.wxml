@@ -1,6 +1,10 @@
 <view class="receiving_address" bindtap="touchHandle">
+	<!-- 顶部 进度条 组件 -->
+  <view class="topSplit">
+    <topProgressBar progressStage="{{topProgressBar}}" />
+  </view>
 	<!--	车牌号标题开始-->
-	<view class="title">车牌号</view>
+	<view class="title">办理车牌号</view>
 	<!--	车牌号标题结束-->
 	<!--	车牌号开始-->
 	<view class="car-no-wrapper">
@@ -87,11 +91,16 @@
 			       bindinput="onInputChangedHandle" data-key="telNumber"
 			/>
 		</view>
+		<view class="input-item">
+			<view>车轴数</view>
+			<input type="number" placeholder="请输入车轴数" placeholder-class="placeholder" value="{{formData.axleNum}}" maxlength="1" bindinput="onInputChangedHandle" data-key="axleNum"
+			/>
+		</view>
 	</view>
 	<!--	输入结束-->
 	<view class="fill"></view>
 	<!--	按钮开始-->
-	<view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next"><view class="animate" wx:if="{{isRequest}}"></view>下一步</view>
+	<view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next"><view class="animate" wx:if="{{isRequest}}"></view>立即免费办理</view>
 	<!--	按钮结束-->
 	<!--	键盘-->
 	<keyboard id="keyboard" index="{{currentIndex}}" show="{{showKeyboard}}" bind:valueChange="valueChange" myCar="{{carNo}}"></keyboard>

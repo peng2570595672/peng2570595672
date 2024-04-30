@@ -82,7 +82,7 @@ Page({
 		if (!result) return;
 		if (result.code === 0) {
 			let orderInfo = result.data;
-			orderInfo['selfStatus'] = orderInfo.isNewTrucks === 1 ? util.getTruckHandlingStatus(orderInfo) : util.getStatus(orderInfo);
+			orderInfo['selfStatus'] = orderInfo.isNewTrucks === 1 ? util.getTruckHandlingStatus(orderInfo) : util.getStatus(orderInfo); // 获取货车新流程订单办理状态 2.0
 			orderInfo['deductionMethod'] = initProductName(orderInfo);
 			console.log(orderInfo, '===========订单数据==================');
 
@@ -168,10 +168,10 @@ Page({
 	// 点击车辆信息
 	onClickVehicle () {
 		const orderInfo = this.data.orderInfo;
-		if (orderInfo.isNewTrucks === 1 && orderInfo.status !== 1) {
-			util.showToastNoIcon('货车办理系统升级中，暂时不可申办');
-			return;
-		}
+		// if (orderInfo.isNewTrucks === 1 && orderInfo.status !== 1) {
+		// 	util.showToastNoIcon('货车办理系统升级中，暂时不可申办');
+		// 	return;
+		// }
 		if (orderInfo.orderType === 51 && orderInfo.status !== 1) {
 			util.showToastNoIcon('请返回原渠道办理');
 			return;
@@ -429,6 +429,11 @@ Page({
 	},
 	// ETC申办审核结果通知、ETC发货提示
 	async subscribe (obj) {
+		if (obj.isNewTrucks === 1) { // 货车
+			// 货车签约
+			util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
+			return;
+		}
 		// 判断版本，兼容处理
 		let result = util.compareVersion(app.globalData.SDKVersion, '2.8.2');
 		if (result >= 0) {
@@ -527,15 +532,16 @@ Page({
 			this.onClickHighSpeedSigning(obj);
 			return;
 		}
-		if (obj.isNewTrucks === 1) {
-			wx.uma.trackEvent('etc_detail_for_contract_management');
-			util.go(`/pages/truck_handling/contract_management/contract_management`);
-			return;
-		}
 		app.globalData.isSecondSigning = false;
 		app.globalData.isSecondSigningInformationPerfect = obj.status === 1;
 		if (obj.logisticsId !== 0 || obj.obuStatus === 5 || obj.obuStatus === 1) app.globalData.isSecondSigning = true;
 		// 新流程
+		console.log('obj.contractStatus',obj.contractStatus);
+		if (obj.isNewTrucks === 1) {
+			// 货车签约
+			util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
+			return;
+        }
 		if (obj.contractStatus === 2) {
 			wx.uma.trackEvent('etc_detail_for_resume_signing');
 			// 恢复签约
@@ -600,6 +606,9 @@ Page({
 		if (this.data.orderInfo.isNewTrucks === 1 && this.data.orderInfo.status === 0) {
 			params['dataComplete'] = 1; // 资料已完善
 		}
+		if (this.data.orderInfo.isNewTrucks === 1) {
+			params['contractType'] = 1; // 货车直接签约 字段
+		}
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		this.setData({
 			available: true,
@@ -615,6 +624,7 @@ Page({
 			app.globalData.orderStatus = this.data.orderInfo.selfStatus;
 			app.globalData.orderInfo.shopProductId = this.data.orderInfo.shopProductId;
 			app.globalData.signAContract === -1;
+			console.log('resres',res);
 			util.weChatSigning(res);
 		} else {
 			util.showToastNoIcon(result.message);
@@ -632,7 +642,7 @@ Page({
 				util.go('/pages/default/payment_fail/payment_fail');
 				return;
 			}
-			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?contractStatus=${orderInfo.contractStatus}&ttContractStatus=${orderInfo.ttContractStatus}`);
+			util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?contractStatus=${orderInfo.contractStatus}&ttContractStatus=${orderInfo.ttContractStatus}`);
 			return;
 		}
 		if (orderInfo.selfStatus === 25 || orderInfo.selfStatus === 27) {	// 设备升级
@@ -654,10 +664,10 @@ Page({
 			}
 			return;
 		}
-		if (orderInfo.isNewTrucks === 0 && util.getHandlingType(orderInfo)) {
-			util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
-			return;
-		}
+		// if (orderInfo.isNewTrucks === 0 && util.getHandlingType(orderInfo)) {
+		// 	util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
+		// 	return;
+		// }
 		if (orderInfo.promoterType === 41 && orderInfo.vehPlates.length === 11) {	// 业务员空发
 			util.go(`/pages/empty_hair/write_base_information/write_base_information`);
 			return;

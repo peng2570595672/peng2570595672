@@ -9,114 +9,245 @@
             当前账单金额过大，避免影响通行，系统已自动拆分账单并扣
             <text catchtap="goSplitList">查看拆分记录</text>
         </view>
+        <view wx:elif="{{tools.parseNum((details.totalMmout + details.serviceMoney - details.splitDeductedMoney - details.deductServiceMoney)/100) > 0}}">扣款失败有可能被列为黑名单，影响您的高速通行，请及时补缴!</view>
         <view wx:else>请检查扣款账户余额是否充足或授信额度是否超上限</view>
     </view>
 </view>
 <!-- 提示结束 -->
 <view class="order_details {{details.deductStatus === 2 || details.deductStatus === 10 ? 'is-arrears': ''}}">
     <!-- 扣费金额开始 -->
-    <view class="deduction-amount {{details.deductStatus === 2 || details.deductStatus === 10 ? 'buckling-failure' : ''}}" wx:if="{{details.flowVersion === 1}}">
+    <view class="deduction-amount {{details.deductStatus === 2 || details.deductStatus === 10 ? 'buckling-failure' : ''}}" wx:if="{{details.flowVersion === 1 || details.flowVersion === 5}}">
         <!-- {{(details.totalMmout + details.serviceMoney + (details.passServiceMoney || 0) - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}} -->
         <view wx:if="{{details.deductStatus === 7}}">00.00</view>
         <view wx:else>
-            {{(details.totalMmout + details.serviceMoney + (details.poundageFlag ? details.poundage || 0 : 0)  - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}}
+            {{(details.totalMmout + details.serviceMoney + (details.poundageFlag ? details.poundage || 0 : 0) - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}}
         </view>
         <text wx:if="{{details.deductStatus === 2 || details.deductStatus === 10}}">扣款失败</text>
     </view>
-    <view class="deduction-amount" wx:else>{{details.etcMoney/100}}</view>
+    <view class="deduction-amount" wx:else>{{details.etcMoney ? details.etcMoney/100 : ''}}</view>
+    <view class="text0">扣费金额</view>
     <!-- 扣费金额结束 -->
     <!-- 扣费详情开始 -->
-    <view class="deduction-details">
-        <view wx:if="{{(details.etcMoney && details.etcMoney > 0) || (details.flowVersion === 2 && details.totalMmout > 0)}}">
-            <view>通行费（折后）</view>
-            <!-- <view wx:if="{{details.flowVersion === 2}}">¥{{details.totalMmout/100}}</view> -->
-            <!-- <view wx:else>¥{{details.etcMoney/100}}</view> -->
-            <view>¥{{(details.totalMmout || details.etcMoney)/100}}</view>
+    <view wx:if="{{details.flowVersion !== 5}}">
+        <view class="deduction-details">
+            <view wx:if="{{(details.etcMoney && details.etcMoney > 0) || (details.flowVersion === 2 && details.totalMmout > 0)}}">
+                <view>通行费（折后）</view>
+                <!-- <view wx:if="{{details.flowVersion === 2}}">¥{{details.totalMmout/100}}</view> -->
+                <!-- <view wx:else>¥{{details.etcMoney/100}}</view> -->
+                <view>¥{{(details.totalMmout || details.etcMoney)/100}}</view>
+            </view>
+            <!-- --------@cyl---------start ------------------ -->
+            <view wx:if="{{details.poundageFlag && details.poundage}}">
+                <view>综合服务费（2%）</view>
+                <view>¥{{details.poundage/100}}</view>
+            </view>
+            <!-- -----------------end ------------------ -->
+            <view wx:if="{{details.serviceMoney}}">
+                <view>延期服务费</view>
+                <!-- <view wx:if="{{details.flowVersion === 2}}">¥{{details.totalMmout/100}}</view> -->
+                <!-- <view wx:else>¥{{details.etcMoney/100}}</view> -->
+                <view>¥{{details.serviceMoney/100}}</view>
+            </view>
+            <view wx:if="{{details.wxDiscountAmount && details.wxDiscountAmount > 0}}">
+                <view>微信支付优惠</view>
+                <view>{{-details.wxDiscountAmount/100}}</view>
+            </view>
+            <view wx:if="{{details.discountMount && details.discountMount > 0}}">
+                <view>平台优惠券抵扣</view>
+                <view>-{{details.discountMount/100}}</view>
+            </view>
         </view>
-        <!-- --------@cyl---------start ------------------ -->
-        <view wx:if="{{details.poundageFlag && details.poundage}}">
-            <view>综合服务费（2%）</view>
-            <view>¥{{details.poundage/100}}</view>
+        <view class="doubt iconfont {{refundDetails && refundDetails.refundMoney > 0 ? 'not-border-bottom' : ''}}" catchtap="goOrderQuestions">
+            费用疑问
         </view>
-        <!-- -----------------end ------------------ -->
-        <view wx:if="{{details.serviceMoney}}">
-            <view>延期服务费</view>
-            <!-- <view wx:if="{{details.flowVersion === 2}}">¥{{details.totalMmout/100}}</view> -->
-            <!-- <view wx:else>¥{{details.etcMoney/100}}</view> -->
-            <view>¥{{details.serviceMoney/100}}</view>
+        <view class="line" wx:if="{{refundDetails && refundDetails.refundMoney > 0}}"></view>
+        <view class="deduction-details" wx:if="{{refundDetails && refundDetails.refundMoney > 0 && details.deductStatus !== 7}}">
+            <view>
+                <view>退款金额</view>
+                <view class="deductions">已扣减</view>
+            </view>
+            <view>
+                <view class="deductions-money">¥{{refundDetails.refundMoney/100}}</view>
+                <view></view>
+            </view>
         </view>
-        <view wx:if="{{details.wxDiscountAmount && details.wxDiscountAmount > 0}}">
-            <view>微信支付优惠</view>
-            <view>{{-details.wxDiscountAmount/100}}</view>
+        <view class="deduction-details" wx:if="{{refundDetails && refundDetails.refundMoney > 0 && details.deductStatus === 7}}">
+            <view>
+                <view>退款金额</view>
+                <view>¥{{refundDetails.refundMoney/100}}</view>
+            </view>
+            <view>
+                <view>{{tools.substring(refundDetails.refundDt,0,16)}}</view>
+                <view class="refund-success">退款成功</view>
+            </view>
         </view>
-        <view wx:if="{{details.discountMount && details.discountMount > 0}}">
-            <view>平台优惠券抵扣</view>
-            <view>-{{details.discountMount/100}}</view>
-        </view>
-    </view>
-    <view class="doubt iconfont {{refundDetails && refundDetails.refundMoney > 0 ? 'not-border-bottom' : ''}}" catchtap="goOrderQuestions">
-        费用疑问
-    </view>
-    <view class="line" wx:if="{{refundDetails && refundDetails.refundMoney > 0}}"></view>
-    <view class="deduction-details" wx:if="{{refundDetails && refundDetails.refundMoney > 0 && details.deductStatus !== 7}}">
-        <view>
-            <view>退款金额</view>
-            <view class="deductions">已扣减</view>
-        </view>
-        <view>
-            <view class="deductions-money">¥{{refundDetails.refundMoney/100}}</view>
-            <view></view>
-        </view>
-    </view>
-    <view class="deduction-details" wx:if="{{refundDetails && refundDetails.refundMoney > 0 && details.deductStatus === 7}}">
-        <view>
-            <view>退款金额</view>
-            <view>¥{{refundDetails.refundMoney/100}}</view>
-        </view>
-        <view>
-            <view>{{tools.substring(refundDetails.refundDt,0,16)}}</view>
-            <view class="refund-success">退款成功</view>
-        </view>
-    </view>
-    <view class="line" wx:if="{{refundDetails && refundDetails.refundMoney > 0}}"></view>
-    <view class="deduction-details">
-        <view class="consumption-type">
-            <view>消费类型</view>
-            <view>高速通行</view>
-        </view>
-        <view class="consumption-type {{refundDetails && refundDetails.refundMoney > 0 ? 'add-border' : ''}}">
-            <view>扣款方式</view>
-            <view wx:if="{{details.flowVersion !== 4}}">
-                <view wx:if="{{details.flowVersion !== 1}}">
-                    {{details.flowVersion === 2 || details.flowVersion === 3 ? '银行卡扣款' : 'ETC货车账户支付'}}
+        <view class="line" wx:if="{{refundDetails && refundDetails.refundMoney > 0}}"></view>
+        <view class="deduction-details">
+            <view class="consumption-type">
+                <view>消费类型</view>
+                <view>高速通行</view>
+            </view>
+            <view class="consumption-type {{refundDetails && refundDetails.refundMoney > 0 ? 'add-border' : ''}}">
+                <view>扣款方式</view>
+                <view wx:if="{{details.flowVersion !== 4}}">
+                    <view wx:if="{{details.flowVersion !== 1}}">
+                        {{details.flowVersion === 2 || details.flowVersion === 3 ? '银行卡扣款' : 'ETC货车账户支付'}}
+                    </view>
+                    <view wx:else>
+                        {{contractMode.ctPass.contractVersion === 1 || contractMode.ctPass.contractVersion === 2 ? '微信零钱支付' : '' }}
+                        {{contractMode.ctPass.contractVersion === 3 ? contractMode.ctPass.bankNameAccount || '微信指定银行卡' : '' }}
+                    </view>
                 </view>
-                <view wx:else>
-                    {{contractMode.ctPass.contractVersion === 1 || contractMode.ctPass.contractVersion === 2 ? '微信零钱支付' : '' }}
-                    {{contractMode.ctPass.contractVersion === 3 ? contractMode.ctPass.bankNameAccount || '微信指定银行卡' : '' }}
+                <view wx:else>ETC货车账户</view>
+            </view>
+            <view wx:if="{{details.deductTime}}">
+                <view>扣款时间</view>
+                <view>{{tools.substring(details.deductTime,0,16)}}</view>
+            </view>
+            <view wx:if="{{details.addTime}}">
+                <view>出账时间</view>
+                <view>{{tools.substring(details.addTime,0,16)}}</view>
+            </view>
+            <view wx:if="{{refundDetails.refundDt}}">
+                <view>退款时间</view>
+                <view>{{tools.substring(refundDetails.refundDt,0,16)}}</view>
+            </view>
+            <view wx:if="{{details.id}}">
+                <view>账单流水号</view>
+                <view>{{details.id}}</view>
+            </view>
+        </view>
+        <view class="line"></view>
+    </view>
+    <!-- 货车 -->
+    <view wx:else>
+        <view class="module module1">
+            <view wx:if="{{details.splitState === 0 && (details.deductStatus === 1 || details.deductStatus === 11 || details.deductStatus === 12 || details.deductStatus === 13)}}">
+                <view class="subModle">
+                    <view>已扣金额</view>
+                    <view>{{tools.parseNum((details.etcMoney + details.serviceMoney - (details.refundMoney || 0) - (details.wxDiscountAmount || 0) - (details.discountMount || 0))/100)}}</view>
+                </view>
+                <view class="subModle borderBottom" >
+                    <view>待扣金额</view>
+                    <view class="iconfont lateFees" catchtap="lateFees" data-flag="1">{{0}}</view>
                 </view>
             </view>
-            <view wx:else>ETC货车账户</view>
+            <view wx:if="{{details.splitState === 0 && (details.deductStatus !== 1 && details.deductStatus !== 11 && details.deductStatus !== 12 && details.deductStatus !== 13)}}">
+                <view class="subModle">
+                    <view>已扣金额</view>
+                    <view>{{0}}</view>
+                </view>
+                <view class="subModle borderBottom" >
+                    <view>待扣金额</view>
+                    <view class="iconfont lateFees" catchtap="lateFees" data-flag="1">{{tools.parseNum((details.etcMoney + details.serviceMoney - details.refundMoney)/100)}}</view>
+                </view>
+            </view>
+            <view wx:if="{{details.splitState === 1}}">
+                <view class="subModle">
+                    <view>已扣金额</view>
+                    <view>{{details.splitDeductedMoney/100}}</view>
+                </view>
+                <view class="subModle borderBottom" >
+                    <view>待扣金额</view>
+                    <view class="iconfont lateFees" catchtap="lateFees" data-flag="1">{{tools.parseNum((details.etcMoney + details.serviceMoney - details.splitDeductedMoney - details.refundMoney)/100)}}</view>
+                </view>
+            </view>
+            <!-- 分割 -->
+            <view class="subModle" wx:if="{{details.etcMoney && details.etcMoney > 0}}">
+                <view>应付金额</view>
+                <view>{{(details.etcMoney + details.serviceMoney)/100}}</view>
+            </view>
+            <view class="subModle" wx:if="{{details.totalMmout > 0}}">
+                <view>高速通行费</view>
+                <view>{{details.totalMmout/100}}</view>
+            </view>
+
+            <view class="subModle" wx:if="{{details.poundageFlag && details.poundage}}">
+                <view>通行服务费</view>
+                <view>{{details.poundage/100}}</view>
+            </view>
+            <view class="subModle" wx:if="{{details.discountMount && details.discountMount > 0}}">
+                <view>通行折扣券减免</view>
+                <view>-{{details.discountMount/100}}</view>
+            </view>
+            <view class="subModle" wx:if="{{details.wxDiscountAmount && details.wxDiscountAmount > 0}}">
+                <view>微信减免</view>
+                <view>{{-details.wxDiscountAmount/100}}</view>
+            </view>
+            <view class="subModle" wx:if="{{details.serviceMoney}}">
+                <view class="iconfont lateFees" catchtap="lateFees">滞纳金</view>
+                <view>{{details.serviceMoney/100}}</view>
+            </view>
+            <view class="subModle">
+                <view>扣费类型</view>
+                <view class="fontColor1">[高速扣费]</view>
+            </view>
+            <view class="subModle" wx:if="{{details.deductTime}}">
+                <view>扣费时间</view>
+                <view>{{tools.substring(details.deductTime,0,16)}}</view>
+            </view>
+            <view class="subModle" wx:if="{{details.addTime}}">
+                <view>出账时间</view>
+                <view>{{tools.substring(details.addTime,0,16)}}</view>
+            </view>
+            <view class="subModle" wx:if="{{(details.etcMoney && details.etcMoney > 0) || (details.flowVersion === 2 && details.totalMmout > 0)}}">
+                <view>扣费方式</view>
+                <view>微信扣费</view>
+            </view>
         </view>
-        <view wx:if="{{details.deductTime}}">
-            <view>扣款时间</view>
-            <view>{{tools.substring(details.deductTime,0,16)}}</view>
-        </view>
-        <view wx:if="{{details.addTime}}">
-            <view>出账时间</view>
-            <view>{{tools.substring(details.addTime,0,16)}}</view>
-        </view>
-        <view wx:if="{{refundDetails.refundDt}}">
-            <view>退款时间</view>
-            <view>{{tools.substring(refundDetails.refundDt,0,16)}}</view>
-        </view>
-        <view wx:if="{{details.id}}">
-            <view>账单流水号</view>
-            <view>{{details.id}}</view>
+        <!-- 退款 -->
+        <view class="module module2" wx:if="{{refundDetails && refundDetails.refundMoney > 0 && details.deductStatus === 7}}">
+            <view class="subModle">
+                <view>退款金额</view>
+                <view>¥{{refundDetails.refundMoney/100}}</view>
+            </view>
+            <view class="subModle">
+                <view>退款时间</view>
+                <view>{{tools.substring(refundDetails.refundDt,0,16)}}</view>
+            </view>
+            <view class="subModle">
+                <view>退款状态</view>
+                <view style="color: #00B85C;">退款成功</view>
+            </view>
+            <text class="text1">如您有任何疑间，可通过 <text style="color: #00A9FF;" data-phone="4001096138" catchtap="phone">4001096138</text> 进行查询和咨询，我们将竭诚为您服务</text>
         </view>
     </view>
-    <view class="line"></view>
+    <!-- 货车 合并流水详情开始 -->
+    <view class="deduction-details-truck {{line_open ? 'active_hide': ''}}" wx:if="{{ details.mergeId === 0 && details.deductType===2 && details.weekList.length>0}}"> 
+        <!-- 判断周结合并流水账单，用mergeId = 0 并且 deductType = 2来判断 -->
+        <view class="first">
+            <view>车牌号码</view>
+            <view>{{details.vehPlate}}</view>
+            <view>共<view class="color_text">{{  details.weekList.length  }}</view>两条通行记录</view>
+        </view>
+        <view class="line_text" wx:for="{{details.weekList}}" wx:key="index" wx:if="{{!line_open}}">
+            <view>
+                <view>入站时间</view>
+                <view>{{tools.substring(item.inOpTime,0,16)}}</view>
+            </view>
+            <view>
+                <view>入站口</view>
+                <view>{{item.inStationName}}</view>
+            </view>
+            <view>
+                <view>出站时间</view>
+                <view>
+                    {{item.opTime ? tools.substring(item.opTime,0,16) : tools.substring(item.outOpTime,0,16)}}
+                </view>
+            </view>
+            <view>
+                <view>出站口</view>
+                <view>{{item.stationName ? item.stationName : item.outStationName}}</view>
+            </view>
+            <view>
+                <view>通行费</view>
+                <view>{{tools.parseNum(item.etcMoney)/100 }}</view>
+            </view>
+        </view>
+        <view class="turnOroff" catchtap="openVe">{{line_open ? '查看通行记录':'收起扣费记录↑'}}</view>
+    </view>
     <!-- 车辆详情开始 -->
-    <view class="deduction-details">
+    <view class="deduction-details" wx:else>
         <view>
             <view>车牌号码</view>
             <view>{{details.vehPlate}}</view>
@@ -144,6 +275,7 @@
             <view>{{details.stationName ? details.stationName : details.outStationName}}</view>
         </view>
     </view>
+    
     <!-- 车辆详情结束 -->
     <!-- 底部补缴开始 -->
     <view class="payment" wx:if="{{(details.deductStatus === 2 || details.deductStatus === 10) && details.flowVersion !== 4}}">

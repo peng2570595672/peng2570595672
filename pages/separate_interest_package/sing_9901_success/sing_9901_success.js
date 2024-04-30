@@ -18,7 +18,6 @@ Page({
     },
     next () {
         if (this.data.is9901) {
-            console.log('9901',this.data);
             this.checkCar(); // 2.4.4 支付渠道关联接口
         }
     },

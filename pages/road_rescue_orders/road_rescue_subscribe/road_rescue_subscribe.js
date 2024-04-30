@@ -120,7 +120,6 @@ Page({
     },
     // 处理图片
     progressPhoto (path,imgIndex) {
-        console.log(path,imgIndex);
         if (wx.canIUse('compressImage')) {
             // 压缩图片
             wx.compressImage({

@@ -2,6 +2,7 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		topProgressBar: 3, // 进度条展示的长度 ，再此页面的取值范围 [3,4),默认为3,保留一位小数
 		contractStatus: 0,// 1已签约
 		orderInfo: undefined,
 		orderDetails: undefined,
@@ -152,83 +153,67 @@ Page({
 	// 跳转
 	go (e) {
 		let url = e.currentTarget.dataset['url'];
+		if (url === 'information_validation' && !this.data.orderInfo.isOwner) {
+			this.selectComponent('#popTipComp').show({
+				type: 'shenfenyanzhifail',
+				title: '注意',
+				btnCancel: '确认',
+				refundStatus: true,
+				content: '请先上传车主身份证',
+				bgColor: 'rgba(0,0,0, 0.6)'
+			});
+			return;
+		}
+		if (url === 'upload_road_transport_certificate' && !this.data.orderInfo.isVehicle) {
+			this.selectComponent('#popTipComp').show({
+				type: 'shenfenyanzhifail',
+				title: '注意',
+				btnCancel: '确认',
+				refundStatus: true,
+				content: '请先上传车辆行驶证',
+				bgColor: 'rgba(0,0,0, 0.6)'
+			});
+			return;
+		}
+		if (url === 'upload_other_photo' && (!this.data.orderInfo.isVehicle || (this.data.orderInfo.isVehicle === 1 && this.data.vehicleInfo.isTraction === 1 && !this.data.orderInfo.isTransportLicense))) {
+			this.selectComponent('#popTipComp').show({
+				type: 'shenfenyanzhifail',
+				title: '注意',
+				btnCancel: '确认',
+				refundStatus: true,
+				content: '请先上传道路运输证',
+				bgColor: 'rgba(0,0,0, 0.6)'
+			});
+			return;
+		}
 		util.go(`/pages/truck_handling/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&flowVersion=${this.data.orderInfo.flowVersion}`);
 	},
 	// 获取二类户号信息
 	async next () {
 		if (!this.data.available) return;
-		if (this.data.isModifiedData || this.data.orderInfo.flowVersion === 4) {
-			if (this.data.isRequest) {
-				return;
-			} else {
-				this.setData({isRequest: true});
-			}
-			wx.uma.trackEvent('truck_information_list_next');
-			util.showLoading('加载中');
-			let params = {
-				dataComplete: 1,// 资料已完善
-				orderId: app.globalData.orderInfo.orderId,// 订单id
-				changeAuditStatus: true
-			};
-			const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
-			this.setData({isRequest: false});
-			if (!result) return;
-			if (result.code) {
-				util.showToastNoIcon(result.message);
-				return;
-			}
+		if (this.data.isRequest) {
+			return;
+		} else {
+			this.setData({isRequest: true});
+		}
+		wx.uma.trackEvent('truck_information_list_next');
+		util.showLoading('加载中');
+		let params = {
+			changeAuditStatus: true,
+			dataComplete: 1,// 资料已完善
+			orderId: app.globalData.orderInfo.orderId// 订单id
+		};
+		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
+		this.setData({isRequest: false});
+		if (!result) return;
+		if (result.code) {
+			util.showToastNoIcon(result.message);
+			return;
+		}
+		if (this.data.isModifiedData) {
 			util.go('/pages/default/processing_progress/processing_progress?type=main_process');
 			return;
 		}
-		if (this.data.orderInfo.flowVersion === 7) {
-			let checkResults;
-			if (app.globalData.memberStatusInfo?.orderBankConfigList?.length) {
-				checkResults = app.globalData.memberStatusInfo.orderBankConfigList.find(item => item.orderId === app.globalData.orderInfo.orderId);
-			}
-			if (!checkResults?.uploadImageStatus) {
-				// 未影像资料上送
-				await this.truckUploadImg();
-				return;
-			} else {
-				if (!checkResults?.isTencentVerify) {
-					// 未上送腾讯云活体人脸核身核验成功
-					util.go(`/pages/truck_handling/face_of_check_tips/face_of_check_tips`);
-					return;
-				}
-				let info;
-				if (app.globalData.memberStatusInfo?.accountList?.length) {
-					info = app.globalData.memberStatusInfo.accountList.find(item => item.orderId === app.globalData.orderInfo.orderId);
-				}
-				if (!info?.memberBankId) {
-					// 未开户
-					util.go(`/pages/truck_handling/binding_account_bocom/binding_account_bocom`);
-					return;
-				}
-				util.go('/pages/truck_handling/signed/signed');
-			}
-			return;
-		}
-		if (this.data.orderInfo.flowVersion === 6) { // 处理是否需要开二类户
-			const result = await util.getDataFromServersV2('consumer/member/icbcv2/getV2BankId');
-			if (!result) return;
-			if (result.code) {
-				util.showToastNoIcon(result.message);
-				return;
-			}
-			const path = result.data?.accountNo ? 'contract_management' : 'binding_account';
-			util.go(`/pages/truck_handling/${path}/${path}`);
-		}
-	},
-	// 影像资料上送
-	async truckUploadImg () {
-		const result = await util.getDataFromServersV2('consumer/member/bcm/truckUploadImg', {
-			orderId: app.globalData.orderInfo.orderId// 订单id
-		});
-		if (!result) return;
-		if (result.code === 0) {
-			util.go(`/pages/truck_handling/face_of_check_tips/face_of_check_tips`);
-		} else {
-			util.showToastNoIcon(result.message);
-		}
+		util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms?type=main');
 	}
 });

@@ -1,0 +1,10 @@
+<view class="signed_successfully">
+    <!--	成功提示开始-->
+    <image src="/pages/default/assets/signed_successfully.png"/>
+    <view class="signed_title">签约成功</view>
+    <!--	成功提示结束-->
+    <!--	操作部分开始-->
+    <view class="btn" catchtap="btnCatchTap">{{isMainProcess ? '查看进度' : '返回首页'}}</view>
+    <!--	操作部分结束-->
+</view>
+<privacy_popup></privacy_popup>

@@ -1,71 +1,127 @@
-<view class="page">
-    <view class="title">请按要求上传证件</view>
-    <!--上传身份证部分开始-->
-    <view class="photo-wrapper">
-        <!--上传身份证正面开始-->
-        <view class="photo {{faceStatus !== 1 ? 'not-border' : ''}}" data-type="1" catchtap="selectionPic">
-            <view class="not-upload" wx:if="{{faceStatus !== 4}}">
-                <view class="img-box">
-                    <image class="img" src="/pages/truck_handling/assets/id_card_face_bg.png"></image>
-                    <image class="ico" wx:if="{{faceStatus === 1}}" src="/pages/truck_handling/assets/icon_camera_white.png"></image>
-                </view>
-                <view>身份证（人像面）</view>
+<view class="index {{idCardFace.fileUrl || idCardBack.fileUrl || idCardFaceNot.fileUrl || idCardBackNot.fileUrl ? (switch1Checked && (idCardFaceNot.fileUrl || idCardBackNot.fileUrl) ? 'changeBg' : (idCardFace.fileUrl || idCardBack.fileUrl ? 'changeBg' : '')) : ''}}">
+    <!-- 顶部 进度条 组件 -->
+    <view class="topSplit" wx:if="{{idCardFace.fileUrl || idCardBack.fileUrl || idCardFaceNot.fileUrl || idCardBackNot.fileUrl  ? (switch1Checked && (idCardFaceNot.fileUrl || idCardBackNot.fileUrl) ? true : (idCardFace.fileUrl || idCardBack.fileUrl) ? true : false) : false}}">
+        <topProgressBar progressStage="{{topProgressBar}}" />
+    </view>
+    <!-- 模块一 上传照片 -->
+    <view class="module moduleOne {{(idCardFace.fileUrl || idCardBack.fileUrl || idCardFaceNot.fileUrl || idCardBackNot.fileUrl) ? (idCardFace.fileUrl || idCardBack.fileUrl ? 'boxS' : (switch1Checked && idCardFaceNot.fileUrl || idCardBackNot.fileUrl ? 'bg3' : '')) : ''}}">
+        <view class="titleBtn" style="margin-bottom: {{isXinKe ? 20 : 0}}rpx">
+            <view class="titles" wx:if="{{(idCardFace.fileUrl || idCardBack.fileUrl) || isXinKe}}">车主身份证</view>
+            <view class="radio " catchtap="switch1Change" wx:if="{{isXinKe}}">
+                <view class="confirm iconfont {{switch1Checked ? 'tick' : ''}}"></view>非车主本人办理
             </view>
-            <view class="identify" wx:if="{{faceStatus === 2 || faceStatus === 3}}">
-                <image class="refresh" src="/pages/truck_handling/assets/refresh.png"></image>
-                <view>{{faceStatus === 2 ? '识别中…' : '重新拍摄'}}</view>
-            </view>
-            <image class="success" wx:if="{{faceStatus === 4}}" src="{{idCardFace.fileUrl}}"></image>
         </view>
-        <!--上传身份证正面结束-->
-        <!--上传身份证背面开始-->
-        <view class="photo {{backStatus !== 1 ? 'not-border' : ''}}" data-type="2" catchtap="selectionPic">
-            <view class="not-upload" wx:if="{{backStatus !== 4}}">
-                <view class="img-box">
-                    <image class="img" src="/pages/truck_handling/assets/id_card_back_bg.png"></image>
-                    <image class="ico" wx:if="{{backStatus === 1}}" src="/pages/truck_handling/assets/icon_camera_white.png"></image>
+        <view class="photo-wrapper {{idCardFace.fileUrl || idCardBack.fileUrl ? 'changeOne' : ''}}">
+            <view class="photo {{idCardFace.fileUrl || idCardBack.fileUrl ? 'changeTwo' : ''}}" data-type="1" catchtap="selectionPic">
+                <view class="upload {{idCardFace.fileUrl || idCardBack.fileUrl ? 'changeThree' : ''}}">
+                    <view class="img-box" wx:if="{{faceStatus !== 4}}">
+                        <image class="ico" src="/pages/default/assets/tru_camera.svg"></image>
+                    </view>
+                    <image class="success" wx:else src="{{idCardFace.fileUrl}}"></image>
                 </view>
-                <view>身份证（国徽面）</view>
+                <view class="cardText">身份证（人像面）</view>
             </view>
-            <view class="identify" wx:if="{{backStatus === 2 || backStatus === 3}}">
-                <image class="refresh" src="/pages/truck_handling/assets/refresh.png"></image>
-                <view>{{backStatus === 2 ? '识别中…' : '重新拍摄'}}</view>
+            <!--上传身份证正面结束-->
+            <!--上传身份证背面开始-->
+            <view class="photo {{idCardFace.fileUrl || idCardBack.fileUrl ? 'changeTwo' : ''}}" data-type="2" catchtap="selectionPic">
+                <view class="upload {{idCardFace.fileUrl || idCardBack.fileUrl ? 'changeThree' : ''}}">
+                    <view class="img-box" wx:if="{{backStatus !== 4}}">
+                        <image class="ico" src="/pages/default/assets/tru_camera.svg"></image>
+                    </view>
+                    <image class="success" wx:else src="{{idCardBack.fileUrl}}"></image>
+                </view>
+                <view class="cardText">身份证（国徽面）</view>
             </view>
-            <image class="success" wx:if="{{backStatus === 4}}" src="{{idCardBack.fileUrl}}"></image>
-        </view>
         <!--上传身份证背面结束-->
+        </view>
     </view>
-    <view wx:if="{{faceStatus === 4 && backStatus === 4}}">
-        <!--上传身份证部分结束-->
-        <view class="title">核对信息</view>
-        <view class="sub-title">*请仔细核对以下信息，有误项可点击修改</view>
-        <!--身份证号码&名字开始-->
-        <view class="input-wrapper">
-            <view class="input-item">
-                <view>车主姓名</view>
-                <input value="{{idCardFace.ocrObject.name}}" bindinput="onInputChangedHandle" data-key="name" placeholder-class="placeholder-class" placeholder="请输入车主姓名"/>
-            </view>
-            <view class="input-item">
-                <view>身份证号</view>
-                <input value="{{idCardFace.ocrObject.idNumber}}" bindinput="onInputChangedHandle" data-key="idNumber" placeholder-class="placeholder-class" placeholder="请输入身份证号"/>
-            </view>
-            <view class="input-item">
-                <view>手机号</view>
-                <input type="number" placeholder="请输入手机号" placeholder-class="placeholder" value="{{formData.cardMobilePhone}}"
-                       bindinput="onInputChangedHandle" data-key="cardMobilePhone"
-                />
-            </view>
-            <view class="input-item" wx:if="{{isShowCodeInput}}">
-                <view>验证码</view>
-                <input type="number" placeholder="输入短信验证码" placeholder-class="placeholder" value="{{formData.verifyCode}}"
-                       bindinput="onInputChangedHandle" data-key="verifyCode"
-                />
-                <text class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} {{mobilePhoneIsOk ? 'ok' : ''}}" bindtap="sendVerifyCode">{{identifyingCode}}</text>
+    <!-- 模块二 信息显示 -->
+    <view class="module moduleTwo" wx:if="{{idCardFace.fileUrl || idCardBack.fileUrl}}">
+        <view class="titles">信息核对</view>
+        <view class="keyValue">
+            <view class="attrName">车主姓名</view>
+            <view class="attrValue">
+                <input class="input" type="text" value="{{idCardFace.ocrObject.name}}" bindinput="onInputChangedHandle" data-key="name" placeholder-class="input-placeholder" data-type="1" placeholder="请输入车主姓名"/>
             </view>
         </view>
-        <!--身份证号码&名字结束-->
+        <view class="keyValue">
+            <view class="attrName">身份证号</view>
+            <view class="attrValue">
+                <input class="input" type="idcard" value="{{idCardFace.ocrObject.idNumber}}" bindinput="onInputChangedHandle" data-key="idNumber" placeholder-class="input-placeholder" data-type="1" placeholder="请输入身份证号"/>
+            </view>
+        </view>
+        <view class="keyValue" wx:for="{{checkKeyWord}}" wx:key="index" wx:if="{{item.show}}">
+            <view class="attrName">{{item.label}}</view>
+            <view class="attrValue" wx:if="{{item.key === 'sex'}}">
+                <picker class="input" bindchange="onSexCapacityPickerChange" value="{{sexIndex}}" range="{{sexArr}}">
+                    <view>{{sexIndex === -1 ? '请选择性别' : sexArr[sexIndex]}}</view>
+                </picker>
+            </view>
+            <view class="attrValue" wx:elif="{{item.key === 'validDate'}}">
+                <picker class="input" mode="date" value="{{idCardBack.ocrObject.validDate}}" bindchange="validDatePickerChange">
+                    <view class="input">{{idCardBack.ocrObject.validDate || '请选择有效期限'}}</view>
+                </picker>
+            </view>
+            <view class="attrValue" wx:else>
+                <input class="input" type="text" value="{{item.isFace ? idCardFace.ocrObject[item.key] : idCardBack.ocrObject[item.key]}}" bindinput="onInputChangedHandle" data-key="{{item.key}}" data-type="{{item.isFace ? 1 : 2}}" placeholder-class="input-placeholder" placeholder="请输入{{item.label}}"/>
+            </view>
+        </view>
     </view>
-    <view class="fill"></view>
-    <view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next">确认资料并保存</view>
+
+    <!-- 模块 非车主本人办理 -->
+    <view class="module moduleOne {{(idCardFace.fileUrl || idCardBack.fileUrl || idCardFaceNot.fileUrl || idCardBackNot.fileUrl) ? switch1Checked ? (idCardFaceNot.fileUrl || idCardBackNot.fileUrl ? '' : 'bg3') : (idCardFace.fileUrl || idCardBack.fileUrl ? 'bg3' : '') : ''}}" wx:if="{{isXinKe && switch1Checked}}">
+        <view class="titleBtn">
+            <view class="titles" >非车主本人办理</view>
+        </view>
+        <text class="text1">行驶证与办理人身份信息不符时请上传办理人身份证</text>
+        <view class="photo-wrapper {{idCardFaceNot.fileUrl || idCardBackNot.fileUrl ? 'changeOne' : ''}}" wx:if="{{switch1Checked}}">
+            <view class="photo {{idCardFaceNot.fileUrl || idCardBackNot.fileUrl ? 'changeTwo' : ''}}" data-type="1" data-flag="1" catchtap="selectionPic">
+                <view class="upload {{idCardFaceNot.fileUrl || idCardBackNot.fileUrl ? 'changeThree' : ''}}">
+                    <view class="img-box" wx:if="{{faceStatusNot !== 4}}">
+                        <image class="ico" src="/pages/default/assets/tru_camera.svg"></image>
+                    </view>
+                    <image class="success" wx:else src="{{idCardFaceNot.fileUrl}}"></image>
+                </view>
+                <view class="cardText">身份证（人像面）</view>
+            </view>
+            <!--上传身份证正面结束-->
+            <!--上传身份证背面开始-->
+            <view class="photo {{idCardFaceNot.fileUrl || idCardBackNot.fileUrl ? 'changeTwo' : ''}}" data-type="2" data-flag="1" catchtap="selectionPic">
+                <view class="upload {{idCardFaceNot.fileUrl || idCardBackNot.fileUrl ? 'changeThree' : ''}}">
+                    <view class="img-box" wx:if="{{backStatusNot !== 4}}">
+                        <image class="ico" src="/pages/default/assets/tru_camera.svg"></image>
+                    </view>
+                    <image class="success" wx:else src="{{idCardBackNot.fileUrl}}"></image>
+                </view>
+                <view class="cardText">身份证（国徽面）</view>
+            </view>
+        <!--上传身份证背面结束-->
+        </view>
+    </view>
+    <view class="module moduleTwo" wx:if="{{(idCardFaceNot.fileUrl || idCardBackNot.fileUrl) && switch1Checked}}">
+        <view class="titles">信息核对</view>
+        <view class="keyValue">
+            <view class="attrName">车主姓名</view>
+            <view class="attrValue">
+                <input class="input" type="text" value="{{idCardFaceNot.ocrObject.name}}" bindinput="onInputChangedHandle" data-key="name" data-flag="1" placeholder-class="input-placeholder" data-type="1" placeholder="请输入车主姓名"/>
+            </view>
+        </view>
+        <view class="keyValue">
+            <view class="attrName">身份证号</view>
+            <view class="attrValue">
+                <input class="input" type="idcard" value="{{idCardFaceNot.ocrObject.idNumber}}" bindinput="onInputChangedHandle" data-key="idNumber" data-flag="1" placeholder-class="input-placeholder" data-type="1" placeholder="请输入身份证号"/>
+            </view>
+        </view>
+    </view>
+    <!-- 底部悬浮按钮 -->
+    <view class="bottomBtn" wx:if="{{!isXinKe ? (faceStatus === 4 && backStatus === 4) : !switch1Checked ? (faceStatus === 4 && backStatus === 4) : (faceStatus === 4 && backStatus === 4 && faceStatusNot === 4 && backStatusNot === 4)}}">
+        <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="handleSaveData">
+            确认资料并保存
+        </view>
+    </view>
+
+    <!-- 组件 提示 -->
+    <!-- <popTipComp id="popTipComp" tipObj="{{tipObj}}"></popTipComp> -->
+    <popTipComp id="popTipComp" bind:onHandle="onHandle" bind:cancelHandle="failedCancelHandle"></popTipComp>
 </view>
 <privacy_popup></privacy_popup>

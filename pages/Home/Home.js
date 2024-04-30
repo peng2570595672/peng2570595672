@@ -97,7 +97,13 @@ Page({
             {
                 appId: '',
                 imgUrl: 'https://file.cyzl.com/g001/M01/CF/DD/oYYBAGQav3SAZ33-AAAiNjMKTNI431.png',
-                jumpUrl: '/pages/etc_handle/etc_handle',
+                jumpUrl: '/pages/etc_handle/etc_handle?isNewTrucks=0',
+                templateId: ['']
+            },
+            {
+                appId: '',
+                imgUrl: 'https://file.cyzl.com/g001/M03/4B/78/oYYBAGYLs2eAP1ohAAFJ9gHuj8c491.png',
+                jumpUrl: '/pages/etc_handle/etc_handle?isNewTrucks=1',
                 templateId: ['']
             }
         ],
@@ -105,6 +111,31 @@ Page({
         interval: 5000, // 轮播图切换时间
         Hei: 628, // banner默认高度
         HeiList: [], // banner 图片高度集合
+        moduleOneTypeList: [ // 分类默认数据
+            {
+                appId: '',
+                funcDesc: '第五代新设备',
+                funcName: '小汽车办理',
+                imgUrl: 'https://file.cyzl.com/g001/M03/4A/EA/oYYBAGYKbGCAF0t7AAAUVRZHFz8098.png',
+                imgUrl1: 'https://file.cyzl.com/g001/M03/4A/FC/oYYBAGYKeziAdTX0AAASNT_iddM384.png',
+                isShow: true,
+                jumpUrl: '/pages/etc_handle/etc_handle?isNewTrucks=0',
+                templateId: ['']
+            },
+            {
+                appId: '',
+                funcDesc: '限时免费办理',
+                funcName: '货车办理',
+                imgUrl: 'https://file.cyzl.com/g001/M03/4A/EB/oYYBAGYKbOSAL7KWAAARAsZLlsw963.png',
+                imgUrl1: 'https://file.cyzl.com/g001/M03/4B/89/oYYBAGYLwHGASmipAAAQFbGEKxE075.png',
+                isShow: true,
+                // jumpUrl: '/pages/truck_handling/truck_receiving_address/truck_receiving_address',// 办理页
+                // jumpUrl: '/pages/truck_handling/index/index',// 落地页
+                jumpUrl: '/pages/etc_handle/etc_handle?isNewTrucks=1', // 公共落地页
+                // jumpUrl: '/pages/personal_center/my_order/my_order',// 订单
+                templateId: ['']
+            }
+        ],
         moduleOneList: [ // 默认数据
             { // 账单查询 通行发票 权益商城
                 appId: '',
@@ -161,28 +192,6 @@ Page({
         PingAn: false, // 是否展示平安获客banner,
         isXinKeControl: true, // 联网中心存量用户切换为信科用户的弹窗开关配置
         adDoc: 0
-    },
-    // qujihuo
-    qujihuo () {
-        // util.go('/pages/separate_interest_package/sing_9901_success/sing_9901_success');
-        // util.go('/pages/obu_activate/hunan/pro9901/pro9901');
-        // wx.navigateToMiniProgram({
-        //     appId: 'wx008c60533388527a',
-        //     path: 'pages/sign/auth', // 跳转目标小程序的页面路径
-        //     extraData: {
-        //         msgId: signUrl,
-        //         plateNumber
-        //     },
-        //     success (res) {
-        //         // 打开成功
-        //     },
-        //     fail (e) {
-        //         // 打开失败
-        //         if (e.errMsg !== 'navigateToMiniProgram:fail cancel') {
-        //             util.showToastNoIcon('打开激活小程序失败');
-        //         }
-        //     }
-        // });
     },
     async onLoad (options) {
         util.resetData(); // 重置数据
@@ -464,7 +473,6 @@ Page({
     goPath (e) {
         // 未登录
         let type = +e.currentTarget.dataset.type;
-        console.log(' goPath ===> type ', e);
         if (!app.globalData.userInfo?.accessToken) {
             util.go('/pages/login/login/login');
             return;
@@ -484,7 +492,6 @@ Page({
             obj.jumpUrl = `${obj.jumpUrl}${app.globalData.userInfo.mobilePhone}`;
         }
         if (obj === 'loadingService') {
-            console.log('**********************');
             // util.go(`/pages/customer_service/index/index`);
             this.fangDou(() => {
                 util.go(`/pages/web/web/web?url=${encodeURIComponent('https://xiaochengxu.soboten.com/chat/h5/v6/index.html?sysnum=7d11a91e6a20414da4186004d03807fd&channelid=5&useWxjs=true')}`);
@@ -612,7 +619,6 @@ Page({
         if (url === 'index') {
             // 统计点击进入个人中心事件
         }
-        console.log(url);
         // if (url === 'my_order') {
         // 	// 统计点击进入我的ETC账单
         // 	util.go(`/pages/personal_center/${url}/${url}`);
@@ -814,8 +820,6 @@ Page({
             platformId: app.globalData.platformId
         }, 'POST', false);
         if (!result) return;
-        console.log('获取是否需要转化百二数据');
-        console.log(result);
         if (result.code === 0) {
             if (result.data.signStatus) {
                 this.initQTTwoPercentTodayMask();
@@ -1051,7 +1055,6 @@ Page({
                 if (result.code) {
                     util.showToastNoIcon(result.message);
                 } else {
-                    console.log(result);
                     const isAlert = result.data.version === 'v3' && result.data.contractStatus === 1;
                     if (!isAlert) {
                         app.globalData.isAlertToSign = true;
@@ -1101,6 +1104,7 @@ Page({
                 truckList,
                 passengerCarList,
                 isAllActivationTruck,
+                activeIndex: list[0].isNewTrucks === 1 ? 2 : 1,
                 truckOrderInfo: terminationTruckOrder || passengerCarListNotTruckActivation, // 解约订单 || 拉取第一条
                 passengerCarOrderInfo: terminationOrder || passengerCarListNotActivation // 解约订单 || 拉取第一条
             });
@@ -1203,7 +1207,6 @@ Page({
     async getArrearageTheBill (item) {
         let etcTrucksMoney = 0;
         if (item.includes(21)) {
-            this.remove(item, 21); // 暂不查货车
             const info = await util.getDataFromServersV2('consumer/etc/judge-detail-channels-truck', {
                 orderNos: this.data.truckActivationOrderList
             }, 'POST', false);
@@ -1227,7 +1230,7 @@ Page({
         await this.getPaymentVeh(item, result.data.totalAmout, etcTrucksMoney);
     },
     // 查询最近一次账单
-    async getRecentlyTheBill (item, isTruck = false) {
+    async getRecentlyTheBill (item, isTruck) {
         const result = await util.getDataFromServersV2('consumer/etc/get-fail-bill', {
             channel: item
         }, 'POST', false);
@@ -1357,7 +1360,6 @@ Page({
             util.go('/pages/login/login/login');
             return;
         }
-        console.log(this.data.activeIndex, '==============这里应是2===================');
         const orderInfo = this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data.truckOrderInfo;
         if (!orderInfo) {
             app.globalData.orderInfo.orderId = '';
@@ -1366,10 +1368,10 @@ Page({
             util.go(url);
             return;
         }
-        if (orderInfo.isNewTrucks === 1 && orderInfo.status !== 1) {
-            util.showToastNoIcon('货车办理系统升级中，暂时不可申办');
-            return;
-        }
+        // if (orderInfo.isNewTrucks === 1 && orderInfo.status !== 1) {
+        //     util.showToastNoIcon('货车办理系统升级中，暂时不可申办');
+        //     return;
+        // }
         if (orderInfo.orderType === 51 && orderInfo.status !== 1) {
             util.showToastNoIcon('请返回原渠道办理');
             return;
@@ -1550,13 +1552,13 @@ Page({
             util.go(`/pages/bank_card/citic_bank_sign/citic_bank_sign`);
             return;
         }
-        if (obj.orderType === 31 && obj.auditStatus === 0 && obj.flowVersion !== 1) {
-            this.onClickHighSpeedSigning(obj);
+        if (obj.isNewTrucks === 1) {
+            // 货车签约
+            util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
             return;
         }
-        if (obj.isNewTrucks === 1) {
-            wx.uma.trackEvent('index_for_contract_management');
-            util.go(`/pages/truck_handling/contract_management/contract_management`);
+        if (obj.orderType === 31 && obj.auditStatus === 0 && obj.flowVersion !== 1) {
+            this.onClickHighSpeedSigning(obj);
             return;
         }
         app.globalData.isSecondSigning = false;
@@ -1631,6 +1633,9 @@ Page({
         }
         if (obj.isNewTrucks === 1 && obj.status === 0) {
             params['dataComplete'] = 1; // 资料已完善
+        }
+        if (obj.isNewTrucks === 1) {
+            params['contractType'] = 1; // 货车直接签约 字段
         }
         const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
         this.setData({
@@ -1766,7 +1771,6 @@ Page({
     },
     // 继续办理
     async onClickContinueHandle (orderInfo) {
-        console.log('1234577', orderInfo.selfStatus);
         // 统计点击事件
         app.globalData.isModifiedData = false; // 非修改资料
         app.globalData.firstVersionData = false;
@@ -1804,10 +1808,10 @@ Page({
             }
             return;
         }
-        if (orderInfo.isNewTrucks === 0 && util.getHandlingType(orderInfo)) {
-            util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
-            return;
-        }
+        // if (orderInfo.isNewTrucks === 0 && util.getHandlingType(orderInfo)) {
+        //     util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
+        //     return;
+        // }
         if (orderInfo.promoterType === 41 && orderInfo.vehPlates.length === 11) { // 业务员空发
             util.go(`/pages/empty_hair/write_base_information/write_base_information`);
             return;
@@ -1820,6 +1824,7 @@ Page({
             util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?emptyHairOrder=true`);
             return;
         }
+
         wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'index_for_certificate_to_truck_package'
             : 'index_for_certificate_to_package');
         util.go(`/pages/${path}/information_list/information_list`);
@@ -1834,7 +1839,6 @@ Page({
         return num;
     },
     popUp (tes) {
-        console.log(tes);
         let str = this.selectComponent('#dialog1').noShow();
         if (str === 'violation_enquiry') {
             this.onClickViolationEnquiry();
@@ -1872,7 +1876,6 @@ Page({
         const result = await util.getDataFromServersV2('/consumer/order/walfare/noPassLogin', {
             accountId: item.id
         });
-        console.log(result);
         if (result.code) {
             util.showToastNoIcon(result.message);
         } else {
@@ -1933,5 +1936,4 @@ Page({
             }
         }
     }
-
 });

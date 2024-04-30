@@ -136,7 +136,6 @@ Page({
             affectArea: '0', // 面向区域(0:全国)
             channel: '0'
         });
-        // console.log('个人中心后台数据：',res);
         if (!res) return;
         if (res.code === 0) {
             let data = res.data.contentConfig;	// 数据
@@ -270,7 +269,6 @@ Page({
             orderId: item.id,
             pageSize: 1
         }, 'POST', false);
-        console.log('货车数据：', result);
         if (!result) return;
         if (result.code === 0) {
             result.data.vehPlates = item.vehPlates;
@@ -412,10 +410,8 @@ Page({
         });
     },
     handleSwiperItem (e) {
-        console.log(e.currentTarget.dataset.index);
         const index = +e.currentTarget.dataset.index;
         const item = this.data.carouselList[index];
-        console.log(item);
         if (item.jumpUrl === '权益商城') {
             this.handleMall();
             return;
@@ -469,7 +465,6 @@ Page({
         const result = await util.getDataFromServersV2('/consumer/order/walfare/noPassLogin', {
             accountId: item.id
         });
-        console.log(result);
         if (result.code) {
             util.showToastNoIcon(result.message);
         } else {

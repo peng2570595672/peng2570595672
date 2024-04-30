@@ -4,6 +4,7 @@ Page({
 	data: {
 		mask: false,
 		wrapper: false,
+		line_open: true, // 展开和收起
 		isContinentInsurance: app.globalData.isContinentInsurance || app.globalData.isPingAn,
 		isServiceNotificationEntry: false, // 是否是服务通知进入
 		isRequest: false, // 是否请求
@@ -25,6 +26,11 @@ Page({
 			this.setData({
 				details: app.globalData.billingDetails
 			});
+			let { mergeId, deductType } = this.data.details;
+			if (mergeId === 0 && deductType === 2) {
+				// 周结合并流水账单
+				this.getWeeksToCombineAndFlow();
+			}
 		} else {
 			if (options.id) {
 				this.setData({
@@ -40,7 +46,7 @@ Page({
 				this.login();
 			} else {
 				if (!this.data.firstCar) {
-					this.setData({firstCar: await util.getBindGuests()});
+					this.setData({ firstCar: await util.getBindGuests() });
 				}
 				this.getBillDetail();
 			}
@@ -64,7 +70,6 @@ Page({
 				details: app.globalData.splitDetails
 			});
 		}
-		console.log('账单详情top:', this.data.details);
 	},
 	goPath () {
 		util.go(`/pages/web/web/web?url=${encodeURIComponent('https://baier.soboten.com/chat/h5/v6/index.html?sysnum=7d11a91e6a20414da4186004d03807fd&channelid=7&useWxjs=true')}`);
@@ -95,7 +100,7 @@ Page({
 							app.globalData.memberId = res.data.memberId;
 							app.globalData.mobilePhone = res.data.mobilePhone;
 							if (!this.data.firstCar) {
-								this.setData({firstCar: await util.getBindGuests()});
+								this.setData({ firstCar: await util.getBindGuests() });
 							}
 							// 查询最后一笔订单状态
 							this.getBillDetail();
@@ -180,6 +185,27 @@ Page({
 			util.hideLoading();
 		});
 	},
+	// 查询获取周结合并流水
+	getWeeksToCombineAndFlow () {
+		util.showLoading();
+		let params = {
+			detailId: this.data.details.id
+		};
+		util.getDataFromServer('consumer/etc/get-merge-bills', params, () => {
+			util.showToastNoIcon('获取周结合并流水失败');
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0 && res.data) {
+				this.setData({
+					'details.weekList': res.data
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
 	// 查看拆分列表
 	goSplitList () {
 		app.globalData.splitDetails = this.data.details;
@@ -212,10 +238,13 @@ Page({
 		util.getDataFromServer('consumer/etc/get-bill-by-id', params, () => {
 			util.showToastNoIcon('获取账单详情失败！');
 		}, (res) => {
-			console.log('账单详情：', res);
 			util.hideLoading();
 			if (res.code === 0) {
-				res.data.flowVersion = 1;
+				let { mergeId, deductType } = res.data;
+				if (mergeId === 0 && deductType === 2) {
+					// 周结合并流水账单
+					this.getWeeksToCombineAndFlow();
+				}
 				this.setData({
 					details: res.data
 				});
@@ -229,6 +258,11 @@ Page({
 			}
 		}, app.globalData.userInfo.accessToken, () => {
 			util.hideLoading();
+		});
+	},
+	openVe (e) {
+		this.setData({
+			line_open: !this.data.line_open
 		});
 	},
 	// 去补缴
@@ -329,6 +363,37 @@ Page({
 		} else {
 			this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)',params});
 		}
+	},
+	lateFees (e) {
+		let content = '';
+		let flag = +e.currentTarget.dataset['flag'];
+		if (flag === 1) {
+			content = '因微信单日代扣金额上限为5000.00元，剩余部分将会在第二日0:00自动补扣。\n为避免影响您的实际通行，可提前手动完成补缴，结清账款。';
+		} else {
+			content = '滞纳金的计算将从通行费实际发生扣款失败的第7天开始，按照欠缴金额的0.05%每日计算滞纳金。\n计算示例：假设欠缴通行费用为1000元，且拖延了10天未补缴，则滞纳金计算如下：1000元 × 0.05% × 10天 = 5元。';
+		}
+		this.selectComponent('#popTipComp').show({
+			type: 'publicModule',
+			title: flag === 1 ? '待扣金额说明' : '滞纳金说明',
+			bgColor: 'rgba(0,0,0, 0.6)',
+			btnconfirm: '我知道了',
+			content: content
+		});
+	},
+	// 打电话
+	phone (e) {
+		this.selectComponent('#popTipComp').show({
+			type: 'callPhone',
+			title: '拨打电话',
+			btnCancel: '取消',
+			btnconfirm: '拨打',
+			content: e.currentTarget.dataset.phone,
+			callBack: () => {
+				wx.makePhoneCall({
+					phoneNumber: e.currentTarget.dataset.phone
+				});
+			}
+		});
 	},
 	pinAnBuriedPoint () {
 		let params = {

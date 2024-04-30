@@ -44,7 +44,6 @@ Page({
 			contractType: this.data.contractType,
 			immediately: true
 		});
-		console.log(result);
 		if (!result) return;
 		if (result.code) {
 			util.showToastNoIcon(result.message);
@@ -55,7 +54,7 @@ Page({
 		if (result.data.contractStatus === 1) {
 			await this.getETCDetail();
 		} else {
-			util.showToastNoIcon('未签约成功！');
+			util.showToastNoIcon('未签约成功656！');
 		}
 	},
 	// 加载订单详情

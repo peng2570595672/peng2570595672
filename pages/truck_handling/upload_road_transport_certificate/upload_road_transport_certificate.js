@@ -10,6 +10,8 @@ Page({
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
 		choiceActiveIndex: -1,
+		vehColor: undefined,
+		checkRoadTransportPermitInfo: {},
 		promptObject: {
 			content: '运输证车牌与{前置录入车牌号}不一致，请重新上传',
 			isOk: true,
@@ -25,7 +27,8 @@ Page({
 	},
 	async onLoad (options) {
 		this.setData({
-			vehPlates: options.vehPlates
+			vehPlates: options.vehPlates,
+			vehColor: options.vehColor
 		});
 		await this.getOrderInfo();
 		// 查询是否欠款
@@ -101,6 +104,9 @@ Page({
 			if (isToast) util.showToastNoIcon('请勾选道路运输证经莒范围！');
 			return false;
 		}
+		if (!app.globalData.test) {
+			return this.data.checkRoadTransportPermitInfo.certificateExpireDate;
+		}
 		return true;
 	},
 	// 下一步
@@ -164,6 +170,7 @@ Page({
 		const type = app.globalData.truckHandlingOCRType;
 		this.setData({certificateStatus: 2});
 		// 上传并识别图片
+		console.log('path',path);
 		util.uploadOcrFile(path, type, () => {
 			this.setData({certificateStatus: 3});
 		}, (res) => {
@@ -183,6 +190,9 @@ Page({
 									available: false
 								});
 								return;
+							}
+							if (!app.globalData.test) {
+								this.getCheckRoadTransportPermit();
 							}
 							this.setData({
 								certificateStatus: 4,
@@ -208,6 +218,30 @@ Page({
 		}, () => {
 		});
 	},
+	async getCheckRoadTransportPermit () {
+		const result = await util.getDataFromServersV2('consumer/order/checkRoadTransportPermit', {
+			vehPlate: this.data.vehPlates,
+			platesColor: this.data.vehColor
+		});
+		this.setData({
+			checkRoadTransportPermitInfo: {}
+		});
+		if (!result.code) {
+			if (util.getCurrentDate()[0] > result.data.certificateExpireDate) {
+				util.showToastNoIcon('当前道路运输证已过有效期');
+				return;
+			}
+			if (result.data.businessStateCode !== '10') {
+				util.showToastNoIcon('当前车辆营运状态异常');
+				return;
+			}
+			this.setData({
+				checkRoadTransportPermitInfo: result.data
+			});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
 	// 选择图片
 	selectionPic (e) {
 		let type = +e.currentTarget.dataset['type'];
@@ -216,7 +250,7 @@ Page({
 		util.go(`/pages/truck_handling/shot_card/shot_card?type=${type}&pathUrl=${this.data.transportationLicenseObj.fileUrl}`);
 	},
 	choiceTheType (e) {
-		let index = e.currentTarget.dataset.index;
+		let index = +e.currentTarget.dataset['type'];
 		this.setData({
 			choiceActiveIndex: index
 		});
@@ -224,4 +258,5 @@ Page({
 			available: this.validateData(false)
 		});
 	}
+
 });

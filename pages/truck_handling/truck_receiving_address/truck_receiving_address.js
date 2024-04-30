@@ -8,6 +8,7 @@ const app = getApp();
 let timer;
 Page({
 	data: {
+		topProgressBar: 2,	// 进度条展示的长度 ，再此页面的取值范围 [1,2),默认为1,保留一位小数
 		mobilePhoneMode: 0, // 0 适配iphone 678系列 1 iphone x 2 1080 3 最新全面屏
 		showKeyboard: false, // 是否显示键盘
 		currentIndex: -1, // 当前选中的输入车牌位置
@@ -27,7 +28,8 @@ Page({
 			regionCode: [], // 省份编码
 			userName: '', // 收货人姓名
 			telNumber: '', // 电话号码
-			detailInfo: '' // 收货地址详细信息
+			detailInfo: '', // 收货地址详细信息
+			axleNum: 0 // 车轴数量
 		} // 提交数据
 	},
 	async onLoad () {
@@ -84,6 +86,7 @@ Page({
 	},
 	// 下一步
 	async next () {
+		console.log('this.data.formData',this.data.formData.axleNum);
 		this.setData({
 			available: this.validateAvailable(true)
 		});
@@ -101,6 +104,7 @@ Page({
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			orderType: this.data.isOnlineDealWith ? 11 : 12,
 			dataType: '12', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:获取实名信息，5:获取银行卡信息
+			axleNum: formData.axleNum, // 车轴数
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			vehPlates: this.data.carNoStr, // 车牌号
 			// vehColor: formData.currentCarNoColor === 1 ? 4 : formData.currentCarNoColor === 2 ? 1 : 0, // 车牌颜色 0-蓝色 1-黄色 2-黑色 3-白色 4-渐变绿色 5-黄绿双拼色 6-蓝白渐变色 【dataType包含1】
@@ -130,7 +134,7 @@ Page({
 			app.globalData.orderInfo.orderId = result.data.orderId; // 订单id
 			await util.initLocationInfo(orderInfo, true);
 			if (!app.globalData.newPackagePageData.listOfPackages?.length) return;// 没有套餐
-			util.go(`/pages/truck_handling/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}`);
+			util.go(`/pages/truck_handling/package_the_rights_and_interests/package_the_rights_and_interests?type=${app.globalData.newPackagePageData.type}&&vehPlates=${this.data.carNoStr}`);
 		} else if (result.code === 301) { // 已存在当前车牌未完成订单
 			util.alert({
 				content: '该车牌订单已存在，请前往“首页>我的ETC”页面查看。',

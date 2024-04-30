@@ -7,18 +7,35 @@ const util = require('../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		countdown: {
+			hours: 0,
+			minutes: 0,
+			seconds: 0
+		},
 		testData: [{
-				title: '哪些车辆支持办理ETC？',
-				contant: '支持9座及以下的小型汽车办理，货车办理通道暂未开通，敬请关注。'
-			},
-			{
-				title: '办理你们的ETC是否支持全国通行？通行全国高速都是95折',
-				contant: '是的。目前全国高速已实现联网，ETC设备通行均可享受通行费95折的普惠政策，如部分省份高速或路段还有其他优惠可叠加同享。'
-			},
-			{
-				title: '已经办理过ETC还能再办吗？',
-				contant: '根据交通部规定一个车牌号只能办理一个ETC设备，如您的车牌已办理过，需要先注销原有ETC，可联系在线客服咨询如何注销'
-			}
+			title: '哪些车辆支持办理ETC？',
+			contant: '支持9座及以下的小型汽车办理，货车办理通道暂未开通，敬请关注。'
+		},
+		{
+			title: '办理你们的ETC是否支持全国通行？通行全国高速都是95折',
+			contant: '是的。目前全国高速已实现联网，ETC设备通行均可享受通行费95折的普惠政策，如部分省份高速或路段还有其他优惠可叠加同享。'
+		},
+		{
+			title: '已经办理过ETC还能再办吗？',
+			contant: '根据交通部规定一个车牌号只能办理一个ETC设备，如您的车牌已办理过，需要先注销原有ETC，可联系在线客服咨询如何注销'
+		}
+		],
+		testData3: [{
+			name: 'S**u',
+			age: '车龄1年',
+			address: '来自佛山',
+			contant: '安装激活后，高速走ETC通道，反应灵敏很好用， 以后再也不用排队交过路费了，还要赞ETC助手， 办理真的快速，不到三天，如果去指定地方办这个又是排队又是安装激活，浪费不少时间'
+		}, {
+			name: '王*胜',
+			age: '车龄10年',
+			address: '来自深圳',
+			contant: '办理真的快速，不到三天，如果去指定地方办这个又是排队又是安装激活'
+		}
 		],
 		testData2: [
 			{
@@ -50,18 +67,30 @@ Page({
 		customStyle: 'overflow:auto !important;z-index:-10 !important;',
 		overlayStyle: 'overflow:auto !important;z-index:-10',
 		imagesConfig: {
-			backgroundColor: '#2D5D4F',
+			backgroundColor: '#2A4F44',
 			marketingImgUrl: 'https://file.cyzl.com/g001/M01/D1/10/oYYBAGQiQxuAUiQdAABFf46DvQQ847.png'
 		}
+
 	},
 	async onLoad (options) {
-		console.log(options);
 		if (options.shopId) {
 			app.globalData.otherPlatformsServiceProvidersId = options.shopId;
 		}
+		let imagesConfig = {
+			backgroundColor: +options.isNewTrucks === 1 ? '#46976D' : '#2A4F44',
+			marketingImgUrl: +options.isNewTrucks === 1 ? 'https://file.cyzl.com/g001/M03/4B/D0/oYYBAGYMw8WAHxi0AAFLKwLny9Q434.png' : 'https://file.cyzl.com/g001/M01/D1/10/oYYBAGQiQxuAUiQdAABFf46DvQQ847.png'
+		};
+		this.setData({
+			isNewTrucks: +options.isNewTrucks,// 0 s是小汽车 1 展示货车
+			imagesConfig
+		});
 		this.login();
 		this.getBackgroundConfiguration();
 		util.customTabbar(this, 1);
+		this.updateCountdown();
+		setInterval(() => {
+			this.updateCountdown();
+		}, 1000);
 	},
 	async onShow () {
 		app.globalData.orderInfo.orderId = '';
@@ -78,6 +107,20 @@ Page({
 			overlayStyle: 'overflow:auto !important;z-index:-10'
 		});
 	},
+	updateCountdown () {
+		const now = new Date();
+		const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0); // 下一天的凌晨
+		const timeLeft = endOfDay - now;
+		const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+		const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+		this.setData({
+			'countdown.hours': hours,
+			'countdown.minutes': minutes,
+			'countdown.seconds': seconds
+		});
+	},
 	// 自动登录
 	login () {
 		util.showLoading();
@@ -86,9 +129,9 @@ Page({
 			success: async (res) => {
 				const result = await util.getDataFromServersV2(
 					'consumer/member/common/applet/code', {
-						platformId: app.globalData.platformId, // 平台id
-						code: res.code // 从微信获取的code
-					}, 'POST', false);
+					platformId: app.globalData.platformId, // 平台id
+					code: res.code // 从微信获取的code
+				}, 'POST', false);
 				if (!result) return;
 				if (result.code === 0) {
 					result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data
@@ -116,14 +159,13 @@ Page({
 	},
 	// 获取后台配置的数据
 	async getBackgroundConfiguration () {
-		let res = await util.getDataFromServersV2('consumer/member/common/pageConfig/query',{
+		let res = await util.getDataFromServersV2('consumer/member/common/pageConfig/query', {
 			configType: 2, // 配置类型(1:小程序首页配置;2:客车介绍页配置;3:首页公告配置;4:个人中心配置)
 			pagePath: 2, // 页面路径(1:小程序首页；2：客车介绍页；)
 			platformType: 4, // 小程序平台(1:ETC好车主;2:微ETC;4:ETC+)，对于多选情况，将值与对应枚举值做与运算，结果为1则包含该选项。
 			affectArea: '0', // 面向区域(0:全国)
 			channel: '0'
 		});
-		console.log('后台数据：',res);
 		if (!res) return;
 		if (res.code === 0) {
 			let data = res.data.contentConfig;	// 数据
@@ -158,21 +200,17 @@ Page({
 				btnconfirm: '同意',
 				callBack: () => {
 					wx.uma.trackEvent('index_next');
-					util.go(`/pages/default/receiving_address/receiving_address?citicBank=${that.data.citicBankChannel}`);
+					util.go(`/pages/default/receiving_address/receiving_address?citicBank=${that.data.citicBankChannel}&isNewTrucks=${that.data.isNewTrucks}`);
 				}
 			});
 		} else {
 			wx.uma.trackEvent('index_next');
-			util.go(`/pages/default/receiving_address/receiving_address?citicBank=${this.data.citicBankChannel}`);
+			util.go(`/pages/default/receiving_address/receiving_address?citicBank=${this.data.citicBankChannel}&isNewTrucks=${this.data.isNewTrucks}`);
 		}
 	},
 	goOnlineServer () {
 		wx.uma.trackEvent('index_for_service');
 		util.go(`/pages/web/web/web?type=online_customer_service`);
-	},
-	goTruck () {
-		// 去办理货车ETC
-		util.go(`/pages/truck_handling/index/index`);
 	},
 	// 监听页面滚动
 	onPageScroll (e) {
@@ -221,7 +259,7 @@ Page({
 			this.selectComponent('#viewProcedure').show();
 		} else {
 			if (value) {
-			// 关闭弹窗 解除底层“禁止”状态
+				// 关闭弹窗 解除底层“禁止”状态
 				this.setData({
 					whetherToStay: false
 				});
@@ -242,6 +280,17 @@ Page({
 			imageUrl: 'https://file.cyzl.com/g001/M01/CB/5E/oYYBAGQAaeyASw5fAABJbg74uSk558.png',
 			path: '/pages/etc_handle/etc_handle'
 		};
+	},
+	showTab (e) {
+		let isNewTrucks = +e.currentTarget.dataset['type'];
+		let imagesConfig = {
+			backgroundColor: isNewTrucks === 1 ? '#46976D' : '#2A4F44',
+			marketingImgUrl: isNewTrucks === 1 ? 'https://file.cyzl.com/g001/M03/4B/D0/oYYBAGYMw8WAHxi0AAFLKwLny9Q434.png' : 'https://file.cyzl.com/g001/M01/D1/10/oYYBAGQiQxuAUiQdAABFf46DvQQ847.png'
+		};
+		this.setData({
+			isNewTrucks,
+			imagesConfig
+		});
 	},
 	// 返回上一页
 	goBack () {

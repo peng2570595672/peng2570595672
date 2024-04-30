@@ -2,7 +2,8 @@
  * @author 老刘
  * @desc 开通II类户
  */
-import { professionInfo } from './professionInfo';
+import {professionInfo} from './professionInfo';
+
 const util = require('../../../utils/util.js');
 const app = getApp();
 // 倒计时计时器
@@ -66,8 +67,6 @@ Page({
 		}
 	},
 	onChangedHandle (e) {
-		console.log(e);
-		console.log(this.data.professionArr);
 		const arr = e.detail.value;
 		if (arr[1] === -1 && this.data.professionArr[1].length) {
 			return;

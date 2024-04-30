@@ -429,7 +429,6 @@ Page({
           carNoStr: this.data.carNoStr,
           obuStatus: data.obuStatus
         });
-        console.log('1111', app.globalData.orderInfo.orderId);
         switch (this.data.channel) {
           case 1: // 贵州 黔通卡
           case 21:

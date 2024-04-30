@@ -1,6 +1,7 @@
 {
-	"navigationBarTitleText": "填写信息",
+	"navigationBarTitleText": "填写基础信息",
 	"usingComponents": {
-		"keyboard": "/components/keyboard/keyboard"
+		"keyboard": "/components/keyboard/keyboard",
+		"topProgressBar": "/components/topProgressBar/index"
 	}
 }

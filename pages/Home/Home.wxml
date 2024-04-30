@@ -21,7 +21,7 @@
     <!-- 办理模块 -->
     <view class="module immediately" wx:if="{{(isShowHandle || userFailBillList.length || !orderInfo) && (passengerCarOrderInfo.selfStatus !== 12 && passengerCarOrderInfo.selfStatus !== 33 && truckOrderInfo.selfStatus !== 12)}}">
         <view class="vehicle-info">
-            <view class="vehicle-info-box" animation="{{animationVehicleInfo}}">
+            <view class="vehicle-info-box" animation="{{animationVehicleInfo}}" wx:if="{{activeIndex === 1}}">
                 <view>{{!passengerCarOrderInfo ? '使用微信支付的ETC' : (userFailBillList.length ? userFailBillList[0].vehPlate : tools.isPhone(passengerCarOrderInfo.vehPlates))}}</view>
                 <view class="sub-title">
                     <view wx:if="{{userFailBillList.length}}">{{userFailBillList[0].addTime}}</view>
@@ -45,8 +45,8 @@
                     </view>
                 </view>
             </view>
-            <view class="vehicle-info-box vehicle-info-trucks-box" animation="{{animationVehicleInfoForTrucks}}">
-                <view>{{!truckOrderInfo ? '使用微信支付的ETC' : truckOrderInfo.vehPlates}}</view>
+            <view class="vehicle-info-box" animation="{{animationVehicleInfoForTrucks}}" wx:else>
+                <view>{{!truckOrderInfo ? '使用微信支付的ETC' : (userFailBillList.length ? userFailBillList[0].vehPlate : tools.isPhone(truckOrderInfo.vehPlates))}}</view>
                 <view class="sub-title">
                     <view wx:if="{{userFailBillList.length}}">{{userFailBillList[0].addTime}}</view>
                     <view wx:else>
@@ -100,10 +100,10 @@
     </view>
     <!-- 广告banner indicator-dots -->
     <view class="module moduleFour" wx:if="{{false}}">
-        <swiper class="swiper" 
-            autoplay 
-            circular 
-            interval="{{interval}}" 
+        <swiper class="swiper"
+            autoplay
+            circular
+            interval="{{interval}}"
             duration="{{duration}}"
             bindchange="adBanner">
             <swiper-item class="swiper-item"
@@ -117,6 +117,22 @@
         </swiper>
         <view class="dots">
             <view class="subDoc {{adDoc === index ? 'active' : ''}}" wx:for="{{3}}" wx:for-index="index" wx:key="index" ></view>
+        </view>
+    </view>
+    <!-- 新模块1 小汽车办理 货车办理 -->
+    <view class="module moduleCar">
+        <view class="moduleOneBox" wx:for="{{moduleOneTypeList}}" wx:if="{{item.isShow}}" wx:key="index" data-renew="3.5" catchtap="renewWhitelistJudgement" data-type="1" data-information="{{item}}">
+            <view class="upperImg" >
+                <view class="img">
+                    <image src="{{ truckList.length ? item.imgUrl1 : item.imgUrl}}" />
+                </view>
+                <view class="title">
+                    <view class="funcName">
+                        {{item.funcName}}
+                    </view>
+                    <view class="btn_two" style="color: {{item.fontColor}};background: {{item.bgColor}};">{{item.funcDesc}}</view>
+                </view>
+            </view>
         </view>
     </view>
     <!-- 模块1 账单查询 通行发票 权益商城 -->

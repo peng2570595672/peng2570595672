@@ -8,7 +8,6 @@ Page({
 		lifeServiceRecordId: ''
 	},
 	onLoad (options) {
-		console.log(options);
 		if (options.lifeServiceRecordId) {
 			// 权益商城h5
 			this.setData({
@@ -78,7 +77,6 @@ Page({
 				this.setData({
 					isRequest: false
 				});
-				console.log(res);
 				if (res.errMsg === 'requestPayment:ok') {
 					let url = `https://${app.globalData.test ? 'etctest' : 'etc'}.cyzl.com/${app.globalData.test ? 'etc2-html' : 'wetc'}/equity_mall/index.html#/pay_success?auth=${app.globalData.userInfo.accessToken}`;
 					util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
@@ -91,7 +89,6 @@ Page({
 				this.setData({
 					isRequest: false
 				});
-				console.log(res);
 				if (res.errMsg !== 'requestPayment:fail cancel') {
 					util.showToastNoIcon('支付失败！');
 				} else {

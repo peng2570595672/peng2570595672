@@ -127,7 +127,6 @@ Page({
 			});
 			// 加载套餐
 			this.getListOfPackages();
-			return;
 		}
 		// 定位
 		// this.getLocationInfo();
@@ -334,7 +333,6 @@ Page({
 	},
 	// 选择银行
 	choiceSetMeal () {
-		console.log(this.data.regionCode)
 		if (this.data.listOfPackages.length === 0) {
 			this.getListOfPackages();
 			return;
@@ -523,7 +521,6 @@ Page({
 			params['bankAccountType'] = 1; // 账户类型 1-一类户 2-二类户 3-三类户 【dataType包含5】允许值: 1, 2, 3
 			params['bankCardType'] = this.data.bankCardIdentifyResult.ocrObject.cardType === '借记卡' ? 1 : 2; // 银行卡种 1-借记卡 2-贷记卡 【dataType包含5】允许值: 1, 2;
 		}
-		console.log(params);
 		util.getDataFromServer('consumer/order/save-order-info', params, () => {
 			util.showToastNoIcon('提交数据失败！');
 		}, (res) => {
@@ -570,7 +567,6 @@ Page({
 		let isOk = this.data.choiceObj ? true : false;
 		// 银行卡验证
 		if (isOk && this.data.choiceObj.productProcess === 5) {
-			console.log(1);
 			isOk = isOk && this.data.bankCardIdentifyResult.fileUrl;
 			isOk = isOk && this.data.bankCardIdentifyResult.ocrObject.cardNo && util.luhmCheck(this.data.bankCardIdentifyResult.ocrObject.cardNo);
 		}

@@ -1,6 +1,6 @@
-<wxs src='../../utils/util.wxs' module='tools'/>
+<wxs src='../../utils/util.wxs' module='tools' />
 <view catchtouchmove="{{whetherToStay ? 'viewProcedure' : ''}}">
-    <view class="index" style="background-color: {{imagesConfig.backgroundColor}}" >
+    <view class="index" style="background-color: {{imagesConfig.backgroundColor}}">
         <!-- 顶部返回按钮 -->
         <view class="iconfont topBack" catchtap="goBack"><image class="goBanckImg" src="{{'https://file.cyzl.com/g001/M01/CA/1D/oYYBAGP8SGqAa4UOAAAFNvmKtp4507.svg'}}" /></view>
         <!-- 顶部banner 背景颜色和图片是动态的 -->
@@ -9,45 +9,85 @@
             <image class="image" src="{{imagesConfig.marketingImgUrl}}" mode="widthFix" />
             <image class="withholding" src="https://file.cyzl.com/g001/M03/5C/F1/oYYBAGYqENWAX-7AAAAnPxaB6b8520.png" mode="widthFix"></image>
         </view>
-        <!-- 模块3 一站式车主服务 -->
-        <view class="three">
-            <view class="buttomText twoButtom" catchtap="viewProcedure" data-pop="moduleOne">查看具体办理步骤</view>
-            <image class="images" src="https://file.cyzl.com/g001/M01/D6/10/oYYBAGQ9CtGAWTanAACKna76zm8143.png" />
-        </view>
-        <!-- 模块4 车主热问热答 -->
-        <view class="module four">
-            <view class="title textLeft">车主热问热答</view>
-            <view class="answersQuestions" wx:for="{{testData}}" wx:for-index="index" wx:if="{{index < 3}}" wx:key="index">
-                <view class="questions">
-                    <view class="questionsImg">
-                        <image src="https://file.cyzl.com/g001/M01/B5/7C/oYYBAGO9BUuAQSYeAAABmpSmZv4643.png" />
-                    </view>
-                    <view class="questionsTitle">{{item.title}}</view>
-                </view>
-                <view class="answer" wx:if="{{tools.onlineService(item.contant,'在线客服')}}">{{item.contant}}</view>
-                <view class="answer" wx:else>根据交通部规定一个车牌号只能办理一个ETC设备，如您的车牌已办理过，需要先注销原有ETC，可联系<span class="onlineSpan" bindtap="goOnlineServer">在线客服</span>咨询如何注销</view>
+        <view wx:if="{{isNewTrucks !== 1}}">
+            <!-- 顶部banner 背景颜色和图片是动态的 -->
+            <!-- 模块3 一站式车主服务 -->
+            <view class="three">
+                <view class="buttomText twoButtom" catchtap="viewProcedure" data-pop="moduleOne">查看具体办理步骤</view>
+                <image class="images" src="https://file.cyzl.com/g001/M01/D6/10/oYYBAGQ9CtGAWTanAACKna76zm8143.png" />
             </view>
-            <view class="moreQuestions" catchtap="viewProcedure" data-pop="moduleTwo" wx:if="{{tools.dataLen(testData) < 3 ? false : true}}">更多热问热答</view>
+            <!-- 模块4 车主热问热答 -->
+            <view class="module four">
+                <view class="title textLeft">车主热问热答</view>
+                <view class="answersQuestions" wx:for="{{testData}}" wx:for-index="index" wx:if="{{index < 3}}"
+                    wx:key="index">
+                    <view class="questions">
+                        <view class="questionsImg">
+                            <image src="https://file.cyzl.com/g001/M01/B5/7C/oYYBAGO9BUuAQSYeAAABmpSmZv4643.png" />
+                        </view>
+                        <view class="questionsTitle">{{item.title}}</view>
+                    </view>
+                    <view class="answer" wx:if="{{tools.onlineService(item.contant,'在线客服')}}">{{item.contant}}</view>
+                    <view class="answer" wx:else>根据交通部规定一个车牌号只能办理一个ETC设备，如您的车牌已办理过，需要先注销原有ETC，可联系<span
+                            class="onlineSpan" bindtap="goOnlineServer">在线客服</span>咨询如何注销</view>
+                </view>
+                <view class="moreQuestions" catchtap="viewProcedure" data-pop="moduleTwo"
+                    wx:if="{{tools.dataLen(testData) < 3 ? false : true}}">更多热问热答</view>
+            </view>
         </view>
+        <view wx:else>
+            <!-- // 货车内容 -->
+            <!-- 模块3 服务全程在线化 -->
+            <view class="three">
+                <image class="images" mode="widthFix" style="transform: scale(0.93);"
+                    src="https://file.cyzl.com/g001/M03/4C/4D/oYYBAGYNLIOALx7mAAGeG6vuxf0589.png" />
+                <!-- 办理准备材料 -->
+                <image class="images" mode="widthFix" style="transform: scale(0.93);"
+                    src="https://file.cyzl.com/g001/M03/4C/4D/oYYBAGYNLSeABLzRAABOP0Qv9aI425.png" />
+            </view>
+            <!-- 模块4 车主热问热答 -->
+            <view class="module four">
+                <view class="title textLeft" style="margin-left: 24rpx;font-size: 40rpx;">看看其他车主怎么说</view>
+                <view class="answersQuestions" wx:for="{{testData3}}" wx:for-index="index" wx:if="{{index < 3}}"
+                    wx:key="index">
+                    <view class="questions">
+                        <view class="questionsTitle" style="margin-left: 4rpx;">{{item.name}}</view>
+                        <view class="age_address"> {{item.address}} | {{item.age}}</view>
+                    </view>
+                    <view class="answer" style="margin-left: 4rpx;">{{item.contant}}</view>
+                </view>
+            </view>
+        </view>
+
         <!-- 占位 -->
         <view class="split"></view>
         <!-- 立即办理 {{isFade ? 'fadeIn' : 'fadeOut'}}-->
         <view class="handleImmediately">
-            <button catchtap="onClickHandle" >立即办理</button>
+            <view class="newTimeActive" wx:if="{{isNewTrucks === 1}}">
+                <view class="countdown">
+                    <image mode="widthFix" style="width: 100%;height:100%;"
+                        src="https://file.cyzl.com/g001/M03/4E/D1/oYYBAGYUl8uAT2TtAAAMsUyVKuc502.png" />
+                </view>
+                以旧换新限时优惠
+                <span>{{countdown.hours}}</span>:
+                <span>{{countdown.minutes}}</span>:
+                <span>{{countdown.seconds}}</span>
+            </view>
+            <view class="btns" catchtap="onClickHandle">{{isNewTrucks? '办理货车ETC': '小汽车ETC办理'}}
+                <image wx:if="{{isNewTrucks === 1}}" class="images" mode="widthFix"
+                       src="https://file.cyzl.com/g001/M03/4E/98/oYYBAGYTqnaAEKv3AAAPMTFwDSc150.png" />
+            </view>
+            <view class="last-tips" catchtap="showTab" data-type="{{isNewTrucks === 1?0:1}}">{{isNewTrucks? '小汽车ETC办理 >': '货车ETC办理 >'}}
+            </view>
         </view>
     </view>
 
-    <page-container
-        show="{{show}}"
-        duration="{{duration}}"
-        position="{{position}}"
-        custom-style="{{customStyle}}"
-        overlay-style="{{overlayStyle}}"
-        close-on-slide-down="{{true}}"
-        bindbeforeleave="goBack">
+    <page-container show="{{show}}" duration="{{duration}}" position="{{position}}" custom-style="{{customStyle}}"
+        overlay-style="{{overlayStyle}}" close-on-slide-down="{{true}}" bindbeforeleave="goBack">
     </page-container>
     <!-- 组件 -->
-    <viewProcedure id="viewProcedure" bind:onHandle="viewProcedure" data-value="false" viewTc="{{viewTc}}"></viewProcedure>
+    <viewProcedure id="viewProcedure" bind:onHandle="viewProcedure" data-value="false" viewTc="{{viewTc}}">
+    </viewProcedure>
 </view>
 <privacy_popup></privacy_popup>
 <popTipComp id="popTipComp"></popTipComp>

@@ -173,7 +173,6 @@ Page({
 	// 去使用
 	goComboList (e) {
 		let model = this.data.details;
-		console.log(model);
 		app.globalData.membershipCoupon = model;
 		app.globalData.otherPlatformsServiceProvidersId = model.shopId;
 		app.globalData.orderInfo.orderId = '';

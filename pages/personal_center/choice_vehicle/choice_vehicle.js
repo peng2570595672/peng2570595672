@@ -78,7 +78,6 @@ Page({
 		const result = await util.getDataFromServersV2('/consumer/order/walfare/noPassLogin', {
 			accountId: item.id
 		});
-		console.log(result);
 		if (result.code) {
 			util.showToastNoIcon(result.message);
 		} else {

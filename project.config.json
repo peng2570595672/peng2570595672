@@ -147,5 +147,7 @@
     "packOptions": {
         "ignore": [],
         "include": []
-    }
+    },
+    "projectname": "etc_plus_mini_2.0",
+    "libVersion": "3.3.5"
 }

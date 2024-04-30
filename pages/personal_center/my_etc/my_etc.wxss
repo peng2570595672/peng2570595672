@@ -31,7 +31,7 @@
   margin: 0 34rpx;
   margin-top: 20rpx;
   padding: 0 24rpx;
-  height: 220rpx;
+  height: auto;
   box-shadow: 4rpx 4rpx 46rpx 0 rgba(126,132,156,0.1);
   border-radius: 32rpx;
   background: #fff;
@@ -44,7 +44,7 @@
 }
 .my-etc .item .top {
   display: flex;
-  height: 122rpx;
+  height: 130rpx;
   padding-top: 24rpx;
   border-bottom: 1rpx solid #f2f2f2;
   box-sizing: border-box;
@@ -59,6 +59,20 @@
   height: 56rpx;
   font-size: 40rpx;
   font-weight: 500;
+}
+.my-etc .item .top .left .car-no .center {
+  margin-left: 12rpx;
+  font-weight: 500;
+  font-size: 22rpx;
+  width: 68rpx;
+  height: 36rpx;
+  line-height: 32rpx;
+  text-align: center;
+  border-radius: 8rpx;
+  box-sizing: border-box;
+  font-weight: 500;
+  border: 1rpx solid #2a4f44;
+  color: #2a4f44;
 }
 .my-etc .item .top .left .channel {
   margin-top: -4rpx;
@@ -83,6 +97,7 @@
   color: #2fb565;
 }
 .my-etc .item .bottom {
+  position: relative;
   display: flex;
   padding-top: 24rpx;
   padding-bottom: 28rpx;
@@ -104,6 +119,74 @@
   content: '\e60e';
   font-size: 32rpx;
   transform: rotateZ(-180deg);
+}
+.my-etc .item .truck {
+  position: relative;
+  display: flex;
+  padding-top: 24rpx;
+  padding-bottom: 30rpx;
+  align-items: center;
+  justify-content: flex-end;
+}
+.my-etc .item .truck .sub {
+  width: 300rpx;
+  height: 64rpx;
+  border-radius: 338rpx;
+  background: #fffaf6;
+  text-align: center;
+  line-height: 64rpx;
+  font-family: PingFang SC;
+  font-size: 28rpx;
+  font-weight: normal;
+  letter-spacing: 0rpx;
+}
+.my-etc .item .truck .sub:first-child {
+  color: #ff8f1f;
+}
+.my-etc .item .truck .sub:last-child {
+  width: 298rpx;
+  height: 62rpx;
+  background: none;
+  border: 1rpx solid #1ba566;
+  color: #1ba566;
+}
+.my-etc .item .truck .sub_success {
+  width: 300rpx;
+  height: 64rpx;
+  border-radius: 338rpx;
+  background: #fffaf6;
+  text-align: center;
+  line-height: 64rpx;
+  font-family: PingFang SC;
+  font-size: 28rpx;
+  font-weight: normal;
+  letter-spacing: 0rpx;
+  background: #f9f9f9;
+  color: #2a4f44;
+}
+.my-etc .item .truck .subs {
+  width: 300rpx;
+  height: 64rpx;
+  border-radius: 338rpx;
+  background: #fff;
+}
+.my-etc .item .moreStatus {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: absolute;
+  left: 0;
+  bottom: -60rpx;
+  z-index: 9901;
+}
+.my-etc .item .moreStatus view {
+  background-color: #fff;
+  color: #000;
+  line-height: 2;
+}
+.my-etc .item .moreStatus view:hover {
+  border-bottom: 1px solid #000;
 }
 .my-etc .auto-fill {
   flex: 1;

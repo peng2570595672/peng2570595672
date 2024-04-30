@@ -69,7 +69,6 @@ Page({
      * @param {*} obj 快捷输入信息列表
      */
     customerServicePlugin (obj) {
-        console.log(obj);
         let plugin = requirePlugin('chatbot');
         plugin.init({
             appid: 'MEj2s7PeweWhuUp29wsxXt2PckKhFw', // 微信对话开放平台中应用绑定小程序插件appid

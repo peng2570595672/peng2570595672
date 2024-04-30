@@ -228,7 +228,6 @@ Page({
 		}, 400);
 	},
 	directionsClick (e) {
-		console.log(e);
 		this.setData({
 			alertMask: true,
 			alertWrapper: true

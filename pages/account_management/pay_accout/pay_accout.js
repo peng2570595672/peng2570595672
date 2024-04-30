@@ -40,11 +40,10 @@ Page({
 			});
 		}, 400);
   },
-  	// 输入框输入值
+	// 输入框输入值
 	onInputChangedHandle (e) {
 		let key = e.currentTarget.dataset.key;
 		let formData = this.data.formData;
-		console.log(key,'-------------------------');
 		// 手机号
 		if (key === 'telNumber') {
 			this.setData({

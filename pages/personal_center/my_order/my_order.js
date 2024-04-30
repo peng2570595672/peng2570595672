@@ -175,7 +175,6 @@ Page({
 		let obuStatusList;
 		// obuStatusList = res.data.filter(item => item.obuStatus === 1); // 正式数据
 		obuStatusList = app.globalData.myEtcList.filter(item => item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5); // 1 已激活  2 恢复订单  5 预激活
-		console.log(app.globalData.myEtcList);
 		if (obuStatusList.length > 0) {
 			// 需要过滤未激活的套餐
 			this.setData({
@@ -274,7 +273,7 @@ Page({
 		channel = this.data.orderList.filter(item => item.vehPlates === vehPlates);
 		let url;
 		let type = '';
-		if (channel[0].flowVersion !== 1) {
+		if (channel[0].flowVersion !== 1 && channel[0].flowVersion !== 5) {
 			url = 'consumer/etc/hw-details';
 			const typeObj = {
 				1: 2,
@@ -282,6 +281,8 @@ Page({
 				3: 3,
 				4: 4
 			};
+			// flowVersion 流程版本，1-分对分，2-新版（总对总）,3-选装 4-预充值 5-保证金模式 6-圈存 7-交行二类户
+			// type 1总对总 2直连(分对分) 3选装 4预充值
 			type = typeObj[`${channel[0].flowVersion}`] || 2;
 		} else {
 			url = 'consumer/etc/get-bill';
@@ -298,12 +299,12 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
-				let data = channel[0].flowVersion !== 1 ? res.data.passRecords : res.data;
+				let data = channel[0].flowVersion !== 1 && channel[0].flowVersion !== 5 ? res.data.passRecords : res.data;
 				data.map((item) => {
-					if (channel[0].flowVersion !== 1) {
+					if (channel[0].flowVersion !== 1 && channel[0].flowVersion !== 5) {
 						item.flowVersion = channel[0].flowVersion;
 					} else {
-						item.flowVersion = 1;
+						item.flowVersion = channel[0].flowVersion;
 						item.productName = channel[0].productName;
 						item.passId = item.id;
 					}
@@ -343,10 +344,8 @@ Page({
 		let model = e.currentTarget.dataset.model;
 		let index = e.currentTarget.dataset.index;
 		app.globalData.billingDetails = model;
-		console.log(model);
 		// @cyl   条件：1. 订单为黔通卡类型(1); 2. 订单为新增; 3. 订单为所有的客车类型
 		let test = (new Array(model)).findIndex(item => ((item.etcCardId === 1 && util.timeComparison(item.addTime,'2022-11-11 00:00:00') === 1) || (item.carType === 1 || item.carType === 2 || item.carType === 3 || item.carType === 4)));
-		console.log(test);
 		if (parseInt(index) === 2) {
 			// 通行手续费
 			util.go(`/pages/personal_center/passing_charges_details/passing_charges_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);

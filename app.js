@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-export const IS_TEST = true; // false为正式接口地址，true为测试接口地址
+export const IS_TEST = false; // false为正式接口地址，true为测试接口地址
 const util = require('./utils/util.js');
 const definedData = require('./utils/dataStatement.js');
 const uma = require('./utils/umtrack-wx.js');
@@ -321,7 +321,8 @@ App({
 			res.path === 'pages/default/shot_bank_card/shot_bank_card' ||
 			res.path === 'pages/default/information_validation/information_validation' ||
 			res.path === 'pages/default/obucarquer/obucarquer' ||
-			res.path === 'pages/default/processing_progress/processing_progress'
+			res.path === 'pages/default/processing_progress/processing_progress' ||
+			res.path === 'pages/personal_center/signing_other_platforms/signing_other_platforms'
 		) {
 			// 解决安卓平台上传行驶证自动返回上一页
 			return;
@@ -329,8 +330,6 @@ App({
 		if ((res && res.referrerInfo && res.referrerInfo.appId && (res.referrerInfo.appId === 'wxbcad394b3d99dac9' || res.referrerInfo.appId === 'wxbd687630cd02ce1d')) ||
 			(res && res.scene === 1038)) { // 场景值1038：从被打开的小程序返回
 			// 因微信场景值问题,故未用场景值判断
-			console.log('this.globalData.signAContract');
-			console.log(this.globalData.signAContract);
 			if (res.path === 'pages/bank_card/citic_bank_sign/citic_bank_sign') {
 				return;
 			}
@@ -405,8 +404,6 @@ App({
 				this.globalData.isTelemarketing = false;
 				// 签约成功 userState: "NORMAL"
 				if (res.data.contractStatus === 1 && res.data.userState === 'NORMAL') {
-					console.log('this.globalData.isCheckCarChargeType');
-					console.log(this.globalData.isCheckCarChargeType);
 					if (this.globalData.isCheckCarChargeType) {
 						await this.brandChargingModel();
 					}
@@ -456,7 +453,7 @@ App({
 						util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
 					}
 				} else {
-					util.showToastNoIcon('未签约成功！');
+					util.showToastNoIcon('未签约成功987！');
 				}
 			} else {
 				util.showToastNoIcon(res.message);

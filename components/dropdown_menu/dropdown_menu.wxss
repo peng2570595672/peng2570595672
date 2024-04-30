@@ -49,10 +49,10 @@
 	background: #E6E6E6
 }
 .is_owes{
-	top: 112rpx;
+	top: 72rpx;
 }
 .is_owner_ervice{
-	top: 112rpx;
+	top: 72rpx;
 }
 .nav-child {
     display: flex;
@@ -282,33 +282,55 @@
 	line-height: 98rpx;
 	padding-left: 36rpx;
 	justify-content: space-between;
+	font-family: PingFang SC	;
+	font-weight: normal;
+	letter-spacing: 0.32rpx;
+	opacity: 0.6296;
+	color: #1E1E1E;
 }
 .car-title-tab .tab-item {
     display: flex;
     height: 98rpx;
+	font-size: 24rpx;
+	font-weight: 500;
+	color: #FFFFFF;
+	text-align: center;
     align-items: center;
+	letter-spacing: 0rpx;
+	font-family: PingFang SC;
+	font-variation-settings: "opsz" auto;
 }
-.car-title-tab .tab-item > view {
-    padding: 0 20rpx;
-    height: 60rpx;
-    line-height: 60rpx;
-    text-align: center;
-    border-radius: 30rpx;
-    margin-right: 30rpx;
+.car-title-tab .tab-item .default {
+	width: 152rpx;
+	height: 64rpx;
+	color: #000;
+	text-align: center;
+	line-height: 64rpx;
+	margin-right: 20rpx;
+	border-radius: 353px;
+	background: #F1F1F1;
 }
 .car-title-tab .tab-item .active {
-    font-size: 32rpx;
-    background:linear-gradient(90deg,rgba(22,173,105,1) 0%,rgba(144,213,107,1) 100%);
-    border-radius:30rpx;
+	width: 152rpx;
+	height: 64rpx;
     color: #fff;
+    text-align: center;
+	line-height: 64rpx;
+	margin-right: 20rpx;
+	border-radius: 353px;
+    background:linear-gradient(90deg,rgba(22,173,105,1) 0%,rgba(144,213,107,1) 100%);
 }
 .sortitem .line{
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	width: 100%;
-	height: 2rpx;
-	background: linear-gradient(to right, #fff, #E9E9EA,#fff);
+	width: 686rpx;
+	height: 1rpx;
+	margin-left: 32rpx;
+	background: #E0E0E0
+}
+.sortitem:last-child .line{
+	background: transparent;
 }
 .forbidden-choose{
 	color: #ccc;
@@ -356,7 +378,7 @@
 	top: 86rpx;
 }
 .is_owe .mask-box,.is_owe .z-height{
-	top: 206rpx;
+	top: 158rpx;
 }
 .z-height>view{
 	background: #fff;

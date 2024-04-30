@@ -46,7 +46,6 @@ Page({
 	},
 	callHotLine (e) {
 		let model = e.currentTarget.dataset.model;
-		console.log(model);
 		wx.makePhoneCall({
 			phoneNumber: model // 此号码并非真实电话号码，仅用于测试
 		});

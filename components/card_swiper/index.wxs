@@ -98,9 +98,6 @@ function touchstart(e,ownerInstance){
   cardListIndex = dataset.cardListIndex;
   cardIndex = dataset.cardIndex
 	cardsLength = dataset.cardsLength;
-	console.log(JSON.stringify(e));
-	console.log(cardIndex);
-	console.log(cardListIndex);
 	if (cardsLength === 1) {
 		return;
 	}

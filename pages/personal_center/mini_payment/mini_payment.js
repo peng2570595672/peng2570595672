@@ -103,7 +103,6 @@ Page({
 			};
 		}
 		const result = await util.getDataFromServersV2('consumer/order/pledge-pay', params);
-		console.log(result);
 		if (!result) {
 			this.setData({isRequest: false});
 			return;

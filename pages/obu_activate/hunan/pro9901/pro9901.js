@@ -50,7 +50,6 @@ Page({
 		// 652144038597623808
 		// app.globalData.orderInfo.orderId = '648167250636832769';
 		this.scanDevice();
-		console.log('options',options);
 		if (options.type && parseInt(options.type) === 1) {
 			wx.setNavigationBarTitle({
 				title: '一键激活（中路未来）'

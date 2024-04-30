@@ -1,5 +1,8 @@
 {
   "navigationBarTitleText": "上传身份证",
   "navigationBarBackgroundColor": "#F6F6F6",
-  "navigationBarTextStyle": "black"
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+		"popTipComp": "/components/popTipComp/popTipComp"
+	}
 }

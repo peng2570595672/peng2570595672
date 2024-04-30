@@ -13,7 +13,6 @@ Page({
 		isHunan: false	// false 不是湖南信科
 	},
 	async onLoad (options) {
-		console.log(options);
 		if (options.citicBank || options.citicBank === 'true') {
 			this.setData({
 				citicBank: true

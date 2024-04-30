@@ -9,7 +9,6 @@
  * @param obuStatus 是否已激活（东旭说可以把这个字段当做已二发来用
  */
 function show ({app, util, channel, serverId, qtLimit, carNoStr, obuStatus}) {
-	console.log(channel)
 	if (channel === 1) { // 黔通
 		// TODO 已经在前面拦截了，不会走到这里
 		wx.hideLoading();
