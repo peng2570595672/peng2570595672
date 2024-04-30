@@ -132,7 +132,7 @@
                     <view class="iconfont lateFees" catchtap="lateFees" data-flag="1">{{0}}</view>
                 </view>
             </view>
-            <view wx:if="{{details.splitState === 0 && (details.deductStatus !== 1 || details.deductStatus !== 11 || details.deductStatus !== 12 || details.deductStatus !== 13)}}">
+            <view wx:if="{{details.splitState === 0 && (details.deductStatus !== 1 && details.deductStatus !== 11 && details.deductStatus !== 12 && details.deductStatus !== 13)}}">
                 <view class="subModle">
                     <view>已扣金额</view>
                     <view>{{0}}</view>
@@ -153,10 +153,15 @@
                 </view>
             </view>
             <!-- 分割 -->
-            <view class="subModle" wx:if="{{(details.etcMoney && details.etcMoney > 0) || (details.flowVersion === 2 && details.totalMmout > 0)}}">
+            <view class="subModle" wx:if="{{details.etcMoney && details.etcMoney > 0}}">
                 <view>应付金额</view>
-                <view>¥{{(details.totalMmout || details.etcMoney)/100}}</view>
+                <view>¥{{details.etcMoney/100}}</view>
             </view>
+            <view class="subModle" wx:if="{{details.totalMmout > 0}}">
+                <view>高速通行费</view>
+                <view>¥{{details.totalMmout/100}}</view>
+            </view>
+
             <view class="subModle" wx:if="{{details.poundageFlag && details.poundage}}">
                 <view>通行服务费</view>
                 <view>¥{{details.poundage/100}}</view>
