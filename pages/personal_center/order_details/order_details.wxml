@@ -145,7 +145,7 @@
             <view wx:if="{{details.splitState === 1}}">
                 <view class="subModle">
                     <view>已扣金额</view>
-                    <view>{{details.splitDeductedMoney}}</view>
+                    <view>{{details.splitDeductedMoney/100}}</view>
                 </view>
                 <view class="subModle borderBottom" >
                     <view>待扣金额</view>
