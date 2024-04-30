@@ -159,7 +159,8 @@ Page({
         isShowHandle: true, // 是否显示办理状态栏
         isBail: false, // 是否有保证金退回的订单（false: 没有，true: 有）
         PingAn: false, // 是否展示平安获客banner,
-        isXinKeControl: true // 联网中心存量用户切换为信科用户的弹窗开关配置
+        isXinKeControl: true, // 联网中心存量用户切换为信科用户的弹窗开关配置
+        adDoc: 0
     },
     // qujihuo
     qujihuo () {
@@ -1889,6 +1890,10 @@ Page({
         //     url: `/pages/my/index`
         // });
     },
+    // 广告轮播图滑动时触发
+    adBanner (e) {
+        this.setData({adDoc: e.detail.current});
+    },
     // 针对特定号码 作续签弹窗提示
     renewWhitelistJudgement (e) {
         console.log(e);
@@ -1928,4 +1933,5 @@ Page({
             }
         }
     }
+
 });

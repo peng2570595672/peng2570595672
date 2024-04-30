@@ -1,3 +1,4 @@
+vendors = official
 .iconfont
     font-family 'iconfont' !important
     font-size 16px
@@ -326,6 +327,39 @@ textLineCenter($height)
                                     height 100%
                     text
                         display block
+    .moduleFour
+        padding 0
+        margin 32rpx 28rpx 0rpx 28rpx
+        font-family PingFangSC-Medium, PingFang SC
+        position relative
+        height 166rpx
+        overflow hidden
+        .swiper
+            mixinsWidthHeight(100%,100%)
+            .swiper-item
+                mixinsWidthHeight(100%,100%)
+                .image
+                    mixinsWidthHeight(100%,100%)
+        .dots
+            mixinsWidthHeight(120rpx,20rpx)
+            mixinsPositionPack(absolute)
+            top 130rpx
+            display flex
+            justify-content space-between
+            .subDoc
+                transition 0.3s
+                -webkit-transition 0.3s
+                mixinsWidthHeight(20rpx,20rpx)
+                border-radius 50%
+                background #eee
+                animation testDoc 0.2 linear reverse
+                &.active
+                    transition 0.3s
+                    -webkit-transition 0.3s
+                    mixinsWidthHeight(55rpx,20rpx)
+                    border-radius 10rpx
+                    background rgba(0, 0, 0, 0.7)
+            
     // 模块4
     .custom-module
         height auto
