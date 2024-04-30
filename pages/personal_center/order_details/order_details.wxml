@@ -20,7 +20,7 @@
         <!-- {{(details.totalMmout + details.serviceMoney + (details.passServiceMoney || 0) - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}} -->
         <view wx:if="{{details.deductStatus === 7}}">00.00</view>
         <view wx:else>
-            {{(details.totalMmout + details.serviceMoney + (details.poundageFlag ? details.poundage || 0 : 0)  - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}}
+            {{(details.totalMmout + details.serviceMoney + (details.poundageFlag ? details.poundage || 0 : 0) - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}}
         </view>
         <text wx:if="{{details.deductStatus === 2 || details.deductStatus === 10}}">扣款失败</text>
     </view>
@@ -125,7 +125,7 @@
             <view wx:if="{{details.splitState === 0 && (details.deductStatus === 1 || details.deductStatus === 11 || details.deductStatus === 12 || details.deductStatus === 13)}}">
                 <view class="subModle">
                     <view>已扣金额</view>
-                    <view>{{tools.parseNum((details.etcMoney + details.serviceMoney - details.refundMoney)/100)}}</view>
+                    <view>{{tools.parseNum((details.etcMoney + details.serviceMoney - (details.refundMoney || 0) - (details.wxDiscountAmount || 0) - (details.discountMount || 0))/100)}}</view>
                 </view>
                 <view class="subModle borderBottom" >
                     <view>待扣金额</view>
@@ -155,16 +155,16 @@
             <!-- 分割 -->
             <view class="subModle" wx:if="{{details.etcMoney && details.etcMoney > 0}}">
                 <view>应付金额</view>
-                <view>¥{{details.etcMoney/100}}</view>
+                <view>{{details.etcMoney/100}}</view>
             </view>
             <view class="subModle" wx:if="{{details.totalMmout > 0}}">
                 <view>高速通行费</view>
-                <view>¥{{details.totalMmout/100}}</view>
+                <view>{{details.totalMmout/100}}</view>
             </view>
 
             <view class="subModle" wx:if="{{details.poundageFlag && details.poundage}}">
                 <view>通行服务费</view>
-                <view>¥{{details.poundage/100}}</view>
+                <view>{{details.poundage/100}}</view>
             </view>
             <view class="subModle" wx:if="{{details.discountMount && details.discountMount > 0}}">
                 <view>通行折扣券减免</view>
@@ -176,7 +176,7 @@
             </view>
             <view class="subModle" wx:if="{{details.serviceMoney}}">
                 <view class="iconfont lateFees" catchtap="lateFees">滞纳金</view>
-                <view>¥{{details.serviceMoney/100}}</view>
+                <view>{{details.serviceMoney/100}}</view>
             </view>
             <view class="subModle">
                 <view>扣费类型</view>
