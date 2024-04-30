@@ -102,7 +102,7 @@
             <view class="title">{{tipObj.title}}</view>
             <view class="contant">{{tools.limitNumber(tipObj.content,90)}}</view>
             <button class="btn" data-src="{{tipObj.src}}" catchtap="go">{{tipObj.btnconfirm}}</button>
-            <view class="close iconfont" data-title="{{tipObj.title}}" catchtap="hide"></view>
+            <view class="close iconfont" data-title="{{tipObj.title}}" catchtap="hide" wx:if="{{tipObj.title !== '提交审核提醒'}}"></view>
         </view>
 
         <!-- 黔通2%用户 - 协议续签提醒 -->
