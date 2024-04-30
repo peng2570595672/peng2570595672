@@ -44,13 +44,13 @@
   justify-content: space-between;
   width: 100%;
 }
+.index .module .title .card_car .active {
+  border: 2px solid #5ebe68;
+}
 .index .module .title .card_car .image_pic {
   width: 45%;
   border-radius: 10rpx;
   padding: 5rpx;
-}
-.index .module .title .card_car .image_pic.active {
-  border: 3px solid #5ebe68;
 }
 .index .module .title .card_car .image_pic image {
   width: 100%;
@@ -58,13 +58,17 @@
   display: block;
 }
 .index .module .title .card_car .image_pic .text {
-  margin-top: -20rpx;
+  margin: 0 auto;
   text-align: center;
-  width: 100%;
+  margin-top: -40rpx;
+  width: 210rpx;
+  font-family: '苹方-简';
   height: 56rpx;
+  font-size: 30rpx;
+  color: #fff;
   line-height: 56rpx;
-  background-color: #fff;
-  border-radius: 20rpx;
+  background-color: #9bd390;
+  border-radius: 40rpx;
 }
 .index .module .title .colorBrand {
   width: 96rpx;

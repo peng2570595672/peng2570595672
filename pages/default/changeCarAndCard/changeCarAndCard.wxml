@@ -5,17 +5,17 @@
     <view class="title">
       <view class="titles">选择设备类型</view>
       <view class="card_car">
-        <view class="image_pic {{image_cardIndex === 0 ? 'active' :''}}" data-index="{{0}}"
+        <view class="image_pic {{imageCardIndex === 0 ? 'active' :''}}" data-index="{{0}}"
           catchtap="setCurrentCarData">
-          <image class="image_card1" src="https://file.cyzl.com/g001/M01/CB/5E/oYYBAGQAaeyASw5fAABJbg74uSk558.png"
+          <image class="image_card1" src="https://file.cyzl.com/g001/M03/60/C9/oYYBAGYvUFaAFaoFAAAamvvIkC0755.png"
             mode="widthFix"></image>
-          <view class="text"> 无卡式ETC</view>
+          <view class="text"> 插卡式ETC</view>
         </view>
-        <view class="image_pic {{image_cardIndex === 1 ? 'active' :''}}" data-index="{{1}}"
+        <view class="image_pic {{imageCardIndex === 1 ? 'active' :''}}" data-index="{{1}}"
           catchtap="setCurrentCarData">
-          <image class="image_card2" src="https://file.cyzl.com/g001/M01/CB/5E/oYYBAGQAaeyASw5fAABJbg74uSk558.png"
+          <image class="image_card2" src="https://file.cyzl.com/g001/M03/60/C9/oYYBAGYvUFaAFaoFAAAamvvIkC0755.png"
             mode="widthFix"></image>
-          <view class="text">有卡式ETC</view>
+          <view class="text">无卡式ETC</view>
         </view>
       </view>
     </view>
