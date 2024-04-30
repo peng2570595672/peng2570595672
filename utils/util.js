@@ -4,9 +4,8 @@
  * @description 共用函数
  * @version 1.0
  */
-import {
-  isOpenBluetooth
-} from './utils';
+import {isOpenBluetooth} from './utils';
+
 const CryptoJS = require('./crypto-js.js');
 const QQMapWX = require('../libs/qqmap-wx-jssdk.min.js');
 const amapFile = require('./amap-wx.130.js')
@@ -1746,11 +1745,11 @@ async function getObuCardType() {
   let trucksOrder = [];
   app.globalData.myEtcList.map(item => {
     if (item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5) {
-      if (item.obuCardType !== 21) {
-        obuCardType.push(item.obuCardType);
-      } else {
-        trucksOrder.push(item.id);
-      }
+	    obuCardType.push(item.obuCardType);
+	    if (item.obuCardType === 21 && item.flowVersion === 4) {
+	    	// 易路通达账单
+		    trucksOrder.push(item.id);
+	    }
     }
   }); // 1 已激活  2 恢复订单  5 预激活
   app.globalData.isArrearageData.trucksOrderList = trucksOrder;

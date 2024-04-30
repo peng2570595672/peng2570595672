@@ -166,15 +166,15 @@ Page({
 									});
 									return;
 								}
-								// if (faceObj.ocrObject.numberPlates !== this.data.vehPlates) {
-								// 	this.setData({
-								// 		faceStatus: 3,
-								// 		available: false,
-								// 		[`promptObject.content`]: `行驶证与${this.data.vehPlates}不一致`
-								// 	});
-								// 	this.selectComponent('#notFinishedOrder').show();
-								// 	return;
-								// }
+								if (faceObj.ocrObject.numberPlates !== this.data.vehPlates) {
+									this.setData({
+										faceStatus: 3,
+										available: false,
+										[`promptObject.content`]: `行驶证与${this.data.vehPlates}不一致`
+									});
+									this.selectComponent('#notFinishedOrder').show();
+									return;
+								}
 								// if (!this.checkVehicleType(faceObj.ocrObject.vehicleType)) {
 								// 	util.showToastNoIcon('车辆类型不符，请检查无误重新上传！');
 								// 	this.setData({
@@ -345,10 +345,10 @@ Page({
 			if (isToast) util.showToastNoIcon('车牌号不能为空！');
 			return false;
 		}
-		// if (this.data.drivingLicenseFace.ocrObject.numberPlates !== this.data.vehPlates) {
-		// 	if (isToast) util.showToastNoIcon(`行驶证与${this.data.vehPlates}不一致`);
-		// 	return false;
-		// }
+		if (this.data.drivingLicenseFace.ocrObject.numberPlates !== this.data.vehPlates) {
+			if (isToast) util.showToastNoIcon(`行驶证与${this.data.vehPlates}不一致`);
+			return false;
+		}
 		if (!this.data.drivingLicenseFace.ocrObject.owner) {
 			if (isToast) util.showToastNoIcon('车辆所有人不能为空！');
 			return false;
