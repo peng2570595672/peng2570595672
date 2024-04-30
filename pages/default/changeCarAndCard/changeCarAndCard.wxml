@@ -5,20 +5,20 @@
     <view class="title">
       <view class="titles">选择设备类型</view>
       <view class="card_car">
-        <view class="image_pic {{imageCardIndex === 0 ? 'active' :''}}" data-index="{{0}}"
-          catchtap="setCurrentCarData">
+        <view class="image_pic {{imageCardIndex === 0 ? 'active' :''}}" data-index="{{0}}" catchtap="setCurrentCarData">
           <image class="image_card1" src="https://file.cyzl.com/g001/M03/60/C9/oYYBAGYvUFaAFaoFAAAamvvIkC0755.png"
             mode="widthFix"></image>
           <view class="text"> 插卡式ETC</view>
         </view>
-        <view class="image_pic {{imageCardIndex === 1 ? 'active' :''}}" data-index="{{1}}"
-          catchtap="setCurrentCarData">
+        <view class="image_pic {{imageCardIndex === 1 ? 'active' :''}}" data-index="{{1}}" catchtap="setCurrentCarData">
           <image class="image_card2" src="https://file.cyzl.com/g001/M03/60/C9/oYYBAGYvUFaAFaoFAAAamvvIkC0755.png"
             mode="widthFix"></image>
           <view class="text">无卡式ETC</view>
         </view>
       </view>
     </view>
+  </view>
+  <view class="module moduleOne">
     <view class="title">
       <view class="titles">旧车牌号</view>
       <!-- <view class="colorBrand" wx:if="{{tools.dataLen(carNoStr) > 6}}" style="background:{{ tools.dataLen(carNoStr) === 7 ? '#276AD9' : '#5EBE68'}}">{{tools.dataLen(carNoStr) === 7 ? '蓝牌' : '绿牌'}}</view> -->
