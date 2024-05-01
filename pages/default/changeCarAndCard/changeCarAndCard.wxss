@@ -41,11 +41,13 @@
   display: flex;
   justify-content: space-around;
   width: 100%;
+  box-sizing: border-box;
 }
 .index .module .title .card_car .image_pic {
   width: 35%;
   margin: 10rpx 20rpx;
   border-radius: 10rpx;
+  border: 2rpx dashed #fff;
 }
 .index .module .title .card_car .image_pic:nth-of-type(1) {
   margin-top: 25rpx;
