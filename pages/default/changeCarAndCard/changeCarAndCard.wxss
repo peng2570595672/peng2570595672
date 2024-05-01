@@ -41,7 +41,6 @@
   display: flex;
   justify-content: space-around;
   width: 100%;
-  box-sizing: border-box;
 }
 .index .module .title .card_car .image_pic {
   width: 35%;
