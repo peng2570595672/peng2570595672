@@ -190,9 +190,9 @@
 }
 .index .handleImmediately .newTimeActive {
   position: absolute;
-  top: -70rpx;
+  top: -52rpx;
   width: 100vw;
-  height: 75rpx;
+  height: 65rpx;
   background-color: #ffecbb;
   display: flex;
   align-items: center;

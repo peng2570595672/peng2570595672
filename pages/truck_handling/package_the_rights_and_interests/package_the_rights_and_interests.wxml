@@ -13,13 +13,13 @@
             <view class="intrudecu">
                 结算方式
             </view>
-            <div class="right">
+            <view class="right">
                 <view wx:for="{{orderTabList}}" wx:key="index" class="item">
                     <view class="confirm iconfont {{item.billingMethod === activeTypeIndex+1 ? 'tick' : ''}}"
                         data-index="{{item.billingMethod}}" catchtap="choosePackage"></view>
                     {{item.name}}
                 </view>
-            </div>
+            </view>
         </view>
         <view class="package_tab_bottom">
             <view class="title">{{activeTypeIndex === 0 ? '当日通行，隔日还款，适直偶尔上高速人群' : '每周一上午10:00结算上周通行费，适宜经常跑高速人群'}}</view>
