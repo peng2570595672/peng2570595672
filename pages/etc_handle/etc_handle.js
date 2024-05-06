@@ -76,16 +76,8 @@ Page({
 		if (options.shopId) {
 			app.globalData.otherPlatformsServiceProvidersId = options.shopId;
 		}
-		let imagesConfig = {
-			backgroundColor: +options.isNewTrucks === 1 ? '#46976D' : '#2A4F44',
-			marketingImgUrl: +options.isNewTrucks === 1 ? 'https://file.cyzl.com/g001/M03/4B/D0/oYYBAGYMw8WAHxi0AAFLKwLny9Q434.png' : 'https://file.cyzl.com/g001/M01/D1/10/oYYBAGQiQxuAUiQdAABFf46DvQQ847.png'
-		};
-		this.setData({
-			isNewTrucks: +options.isNewTrucks,// 0 s是小汽车 1 展示货车
-			imagesConfig
-		});
 		this.login();
-		this.getBackgroundConfiguration();
+		this.getBackgroundConfiguration(options);
 		util.customTabbar(this, 1);
 		this.updateCountdown();
 		setInterval(() => {
@@ -158,7 +150,7 @@ Page({
 		});
 	},
 	// 获取后台配置的数据
-	async getBackgroundConfiguration () {
+	async getBackgroundConfiguration (options) {
 		let res = await util.getDataFromServersV2('consumer/member/common/pageConfig/query', {
 			configType: 2, // 配置类型(1:小程序首页配置;2:客车介绍页配置;3:首页公告配置;4:个人中心配置)
 			pagePath: 2, // 页面路径(1:小程序首页；2：客车介绍页；)
@@ -174,8 +166,13 @@ Page({
 				// 获取的数据不符合是使用默认数据来展示
 				return;
 			}
-			this.setData({
-				imagesConfig: data.imagesConfig
+			let imagesConfig = {
+				backgroundColor: '#46976D',
+				marketingImgUrl: 'https://file.cyzl.com/g001/M03/4B/D0/oYYBAGYMw8WAHxi0AAFLKwLny9Q434.png'
+			};
+			this.setData({ // 如果是货车 配置暂时写死
+				imagesConfig: options.isNewTrucks ? imagesConfig : data.imagesConfig,
+				isNewTrucks: +options.isNewTrucks
 			});
 		}
 	},
