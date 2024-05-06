@@ -46,7 +46,7 @@
                     src="https://file.cyzl.com/g001/M03/4C/4D/oYYBAGYNLSeABLzRAABOP0Qv9aI425.png" />
             </view>
             <!-- 模块4 车主热问热答 -->
-            <view class="module four" style="margin-bottom: 30rpx;">
+            <view class="module four">
                 <view class="title textLeft" style="margin-left: 24rpx;font-size: 40rpx;">看看其他车主怎么说</view>
                 <view class="answersQuestions" wx:for="{{testData3}}" wx:for-index="index" wx:if="{{index < 3}}"
                     wx:key="index">

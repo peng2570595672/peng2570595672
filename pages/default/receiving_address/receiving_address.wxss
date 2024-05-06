@@ -158,7 +158,7 @@
 .index .module .publicCode .carColor .active::after {
   content: "";
   position: absolute;
-  z-index: 999;
+  z-index: 9;
   top: -8rpx;
   right: -8rpx;
   width: 40rpx;

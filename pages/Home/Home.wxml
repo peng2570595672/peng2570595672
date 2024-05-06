@@ -103,7 +103,11 @@
         <view class="moduleOneBox" wx:for="{{moduleOneTypeList}}" wx:if="{{item.isShow}}" wx:key="index" data-renew="3.5" catchtap="renewWhitelistJudgement" data-type="1" data-information="{{item}}">
             <view class="upperImg" >
                 <view class="img">
-                    <image src="{{ truckList.length ? item.imgUrl1 : item.imgUrl}}" />
+                    <image src="{{ truckList.length ? item.imgUrl1 : item.imgUrl}}" />  
+                    <!-- 货车办理 并且没有办理订单 -->
+                    <view class="img_newpro" wx:if="{{item.funcName === '货车办理' && !truckList.length}}">
+                        <image class="new_imgUrl1" mode="widthFix"  src="https://file.cyzl.com/g001/M03/64/37/oYYBAGY4VuGAWUkFAAAIWeTbJ7c938.png"></image>
+                    </view>
                 </view>
                 <view class="title">
                     <view class="funcName">
