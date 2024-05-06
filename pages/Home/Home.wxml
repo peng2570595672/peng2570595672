@@ -98,6 +98,22 @@
             立即补缴
         </button>
     </view>
+    <!-- 新模块1 小汽车办理 货车办理 -->
+    <view class="module moduleCar">
+        <view class="moduleOneBox" wx:for="{{moduleOneTypeList}}" wx:if="{{item.isShow}}" wx:key="index" data-renew="3.5" catchtap="renewWhitelistJudgement" data-type="1" data-information="{{item}}">
+            <view class="upperImg" >
+                <view class="img">
+                    <image src="{{ truckList.length ? item.imgUrl1 : item.imgUrl}}" />
+                </view>
+                <view class="title">
+                    <view class="funcName">
+                        {{item.funcName}}
+                    </view>
+                    <view class="btn_two" style="color: {{item.fontColor}};background: {{item.bgColor}};">{{item.funcDesc}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
     <!-- 广告banner indicator-dots -->
     <view class="module moduleFour" wx:if="{{false}}">
         <swiper class="swiper"
@@ -117,22 +133,6 @@
         </swiper>
         <view class="dots">
             <view class="subDoc {{adDoc === index ? 'active' : ''}}" wx:for="{{3}}" wx:for-index="index" wx:key="index" ></view>
-        </view>
-    </view>
-    <!-- 新模块1 小汽车办理 货车办理 -->
-    <view class="module moduleCar">
-        <view class="moduleOneBox" wx:for="{{moduleOneTypeList}}" wx:if="{{item.isShow}}" wx:key="index" data-renew="3.5" catchtap="renewWhitelistJudgement" data-type="1" data-information="{{item}}">
-            <view class="upperImg" >
-                <view class="img">
-                    <image src="{{ truckList.length ? item.imgUrl1 : item.imgUrl}}" />
-                </view>
-                <view class="title">
-                    <view class="funcName">
-                        {{item.funcName}}
-                    </view>
-                    <view class="btn_two" style="color: {{item.fontColor}};background: {{item.bgColor}};">{{item.funcDesc}}</view>
-                </view>
-            </view>
         </view>
     </view>
     <!-- 模块1 账单查询 通行发票 权益商城 -->
