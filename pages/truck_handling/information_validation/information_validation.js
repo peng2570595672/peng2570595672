@@ -369,10 +369,10 @@ Page({
 			if (isToast) util.showToastNoIcon('vin码未正常识别，请重新上传行驶证或手动输入vin码！');
 			return false;
 		}
-		if (this.data.trueName !== this.data.drivingLicenseFace.ocrObject.owner) {
-			if (isToast) util.showToastNoIcon('行驶证及身份证必须为同一持有人');
-			return false;
-		}
+		// if (this.data.trueName !== this.data.drivingLicenseFace.ocrObject.owner) {
+		// 	if (isToast) util.showToastNoIcon('行驶证及身份证必须为同一持有人');
+		// 	return false;
+		// }
 		return true;
 	},
 	// 选择图片
