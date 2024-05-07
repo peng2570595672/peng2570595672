@@ -150,11 +150,11 @@
     <!--	在线客服开始-->
     <view class="bottom" wx:if="{{!isQingHaiHighSpeed }}"><text catchtap="goHome">返回首页</text>|<text catchtap="goOnlineServer">在线客服</text>{{info.flowVersion !== 8 ? '|' : ''}}<text catchtap="goInstallationTutorial" wx:if="{{info.flowVersion !== 8}}">安装教程</text></view>
     <view class="bottom" wx:else><text catchtap="goOnlineServer">在线客服</text></view>
-    <!-- <view class="pingAnNewCustomers" wx:if="{{tools.dataIncludes(info.vehPlates,firstCar,1) && !isQingHaiHighSpeed}}" catchtap="goPingAn">
+    <view class="pingAnNewCustomers" wx:if="{{tools.dataIncludes(info.vehPlates,firstCar,1) && !isQingHaiHighSpeed || true}}" catchtap="goPingAn">
         <image class="image" src="{{'https://file.cyzl.com/g001/M00/E7/0D/oYYBAGSRUJuAQ0wsAABKSVNiV0M757.png'}}" bindload="pinAnBuriedPoint" mode="widthFix"/>
-    </view> -->
-    <!-- 广告banner indicator-dots -->
-    <view class="moduleFour" wx:if="{{tools.dataLen(moduleFourList) > 0}}">
+    </view>
+    <!-- 广告banner indicator-dots tools.dataLen(moduleFourList) > 0-->
+    <view class="moduleFour" wx:if="{{false}}">
         <swiper class="swiper" autoplay circular
             interval="{{interval1}}"
             duration="{{duration1}}"

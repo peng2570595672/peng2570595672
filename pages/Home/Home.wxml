@@ -118,8 +118,8 @@
             </view>
         </view>
     </view>
-    <!-- 广告banner indicator-dots -->
-    <view class="module moduleFour" wx:if="{{tools.dataLen(moduleFourList) > 0}}">
+    <!-- 广告banner indicator-dots tools.dataLen(moduleFourList) > 0 -->
+    <view class="module moduleFour" wx:if="{{false}}">
         <swiper class="swiper"
             autoplay
             circular

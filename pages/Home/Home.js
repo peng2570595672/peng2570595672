@@ -1109,7 +1109,7 @@ Page({
                 truckList,
                 passengerCarList,
                 isAllActivationTruck,
-                activeIndex: list[0].isNewTrucks === 1 ? 2 : 1,
+                activeIndex: list[0]?.isNewTrucks === 1 ? 2 : 1,
                 truckOrderInfo: terminationTruckOrder || passengerCarListNotTruckActivation, // 解约订单 || 拉取第一条
                 passengerCarOrderInfo: terminationOrder || passengerCarListNotActivation // 解约订单 || 拉取第一条
             });
