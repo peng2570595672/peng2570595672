@@ -17,7 +17,6 @@
             </swiper-item>
         </swiper>
     </view>
-    <!-- <view class="module" catchtap="qujihuo">9901</view> -->
     <!-- 办理模块 -->
     <view class="module immediately" wx:if="{{(isShowHandle || userFailBillList.length || !orderInfo) && (passengerCarOrderInfo.selfStatus !== 12 && passengerCarOrderInfo.selfStatus !== 33 && truckOrderInfo.selfStatus !== 12)}}">
         <view class="vehicle-info">

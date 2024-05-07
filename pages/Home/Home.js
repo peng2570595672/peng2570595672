@@ -1659,9 +1659,6 @@ Page({
         // 统计点击事件
         wx.uma.trackEvent('index_for_processing_progress');
         util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderInfo.id}`);
-        if (orderInfo.flowVersion === 8) {
-            util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderInfo.id}`);
-        }
     },
     // 去激活
     async onClickCctivate (orderInfo) {
