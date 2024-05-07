@@ -4,6 +4,13 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "空发填写页",
+                    "pathName": "pages/empty_hair/receiving_address/receiving_address",
+                    "query": "shopId=1224307861486575616",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "123",
                     "pathName": "pages/default/changeCarAndCard/changeCarAndCard",
                     "query": "",
@@ -106,6 +113,9 @@
         }
     },
     "setting": {
-        "compileHotReLoad": true
-    }
+        "compileHotReLoad": false,
+        "preloadBackgroundData": false,
+        "bigPackageSizeSupport": true
+    },
+    "libVersion": "3.4.3"
 }
