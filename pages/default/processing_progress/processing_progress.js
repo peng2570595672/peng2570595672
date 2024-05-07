@@ -33,7 +33,12 @@ Page({
 		isWellBank: false, // 平安信用卡
 		isGuangFaBank: false,	// 广发信用卡
 		isQingHaiHighSpeed: false, // 是否是青海办理进入
-		firstCar: app.globalData.pingAnBindGuests // 平安获客
+		firstCar: app.globalData.pingAnBindGuests, // 平安获客
+		duration1: 500, // 轮播图时间间隔
+		interval1: 5000, // 轮播图切换时间
+		moduleFourList: [],	// 广告banner列表
+		isShowPinAn: false,
+		adDoc: 0	// 轮播图指示点
 	},
 	async onLoad (options) {
 		this.setData({
@@ -73,12 +78,124 @@ Page({
 			}
 			this.getProcessingProgress();
 			await this.getQueryProcessInfo();
+			this.getBackgroundConfiguration();
 			// 查询是否欠款
 			await util.getIsArrearage();
 		}
 	},
 	onShow () {
 		if (this.data.cictBail) this.getProcessingProgress();
+	},
+	// 获取后台配置的数据
+	async getBackgroundConfiguration () {
+		let res = await util.getDataFromServersV2('consumer/member/common/pageConfig/query', {
+			configType: 6, // 配置类型(1:小程序首页配置;2:客车介绍页配置;3:首页公告配置;4:个人中心配置)
+			pagePath: 6, // 页面路径(1:小程序首页；2：客车介绍页；)
+			platformType: 4, // 小程序平台(1:ETC好车主;2:微ETC;4:ETC+)，对于多选情况，将值与对应枚举值做与运算，结果为1则包含该选项。
+			channel: `${app.globalData.isChannelPromotion}`, // 渠道(0:所有渠道;)
+			affectArea: '0' // 面向区域(0:全国)
+		});
+		// console.log('后台数据：',res);
+		if (!res) return;
+		if (res.code === 0) {
+			let data = res.data.contentConfig; // 数据
+			// 当前时间不在限定时间内，不往下执行
+			if (!util.isDuringDate(res.data.affectStartTime, res.data.affectEndTime)) return;// 获取的数据不符合是使用默认数据来展示
+			// 首页 banner 轮播图 模块
+			let interval1 = data.middleRotationChartConfig?.interval ? data.middleRotationChartConfig?.interval * 1000 : 5000;// 广告banner轮播图间隔时间,默认5000ms
+			let funcFourList = data.middleRotationChartConfig.rotationCharts.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime)); // 中部广告banner列表
+			if (funcFourList && funcFourList.length > 0) funcFourList.sort(this.compare('sort')); // 排序
+			funcFourList = funcFourList.filter(item => {
+				if (item.jumpUrl === '平安获客' && this.data.isShowPinAn) {
+					this.pinAnBuriedPoint();	// 埋点
+					return item;
+				} else if (item.jumpUrl !== '平安获客') {
+					return item;
+				}
+			});
+			this.setData({
+				interval1,
+				moduleFourList: funcFourList
+			});
+		}
+	},
+	// 排序
+	compare (prop) {
+		return function (obj1, obj2) {
+			const val1 = +obj1[prop];
+			const val2 = +obj2[prop];
+			if (val1 < val2) {
+				return -1;
+			} else if (val1 > val2) {
+				return 1;
+			} else {
+				return 0;
+			}
+		};
+	},
+	// 跳转页面、小程序、第三方
+	goPath (e) {
+		// 未登录
+		let type = +e.currentTarget.dataset.type;
+		if (!app.globalData.userInfo?.accessToken) {
+			util.go('/pages/login/login/login');
+			return;
+		}
+		let obj = e.currentTarget.dataset.information;
+		let appIdPath = Boolean(obj.appId && obj.appId.length > 0);
+		let webPath = obj.jumpUrl.indexOf('https') !== -1;
+		// 授权提醒
+		if (obj.jumpUrl === '平安获客') {
+			this.goPingAn();// 埋点，跳转小程序
+			return;
+		}
+		if (!appIdPath && !webPath) {
+			util.go(`${obj.jumpUrl}`);
+			return;
+		}
+		// 免责弹窗声明
+		this.selectComponent('#dialog1').show({
+			params: obj
+		});
+	},
+	// 免责声明
+	// popUp () {
+	// 	let str = this.selectComponent('#dialog1').noShow();
+	// 	if (str === 'allCoupon') {
+	// 		jumpCouponMini();
+	// 	}
+	// },
+	backFunc () {
+		let obj = this.selectComponent('#dialog1').noShow();
+		if (obj === 'allCoupon') {
+			jumpCouponMini();
+		}
+		obj = obj.params;
+		let appIdPath = obj.appId && obj.appId.length > 0;
+		let webPath = obj.jumpUrl.indexOf('https') !== -1;
+		if (appIdPath) {
+			// 跳转到另一个小程序
+			wx.navigateToMiniProgram({
+				appId: obj.appId,
+				path: obj.jumpUrl,
+				envVersion: 'release',
+				fail () {
+					util.showToastNoIcon('调起小程序失败, 请重试！');
+				}
+			});
+			return;
+		}
+		if (webPath) {
+			// 跳转 h5
+			util.go(`/pages/web/web/web?url=${encodeURIComponent(obj.jumpUrl)}`);
+		}
+	},
+	// 广告轮播图滑动时触发
+    adBanner (e) {
+        this.setData({adDoc: e.detail.current});
+    },
+	handleCouponMini () {
+		this.selectComponent('#dialog1').show('allCoupon');
 	},
 	initCouponMask () {
 		let time = new Date().toLocaleDateString();
@@ -135,6 +252,7 @@ Page({
 						}
 						await this.getProcessingProgress();
 						await this.getQueryProcessInfo();
+						this.getBackgroundConfiguration();
 						// 查询是否欠款
 						await util.getIsArrearage();
 					} else {
@@ -291,17 +409,7 @@ Page({
 			});
 		}, 400);
 	},
-	handleCouponMini () {
-		this.selectComponent('#dialog1').show('allCoupon');
-		// jumpCouponMini();
-	},
-	// 免责声明
-	popUp () {
-		let str = this.selectComponent('#dialog1').noShow();
-		if (str === 'allCoupon') {
-			jumpCouponMini();
-		}
-	},
+
 	// 签约高速弹窗
 	signingExpress () {
 		this.selectComponent('#notSigningPrompt').show();
@@ -340,8 +448,11 @@ Page({
 
 				// 平安获客
 				let isShowpAPop = wx.getStorageSync('isShowpAPop');
-				if (!app.globalData.isQingHaiHighSpeed && !isShowpAPop) {
+				if (!app.globalData.isQingHaiHighSpeed) {
+					this.setData({isShowPinAn: false});
 					if (this.data.firstCar.pingAnBindVehplates.includes(res.data.vehPlates) && (this.data.firstCar.vehKeys === '*' || (this.data.firstCar.vehKeys.includes(res.data.vehPlates.substring(0,1)) && !this.data.firstCar.filterKeys.includes(res.data.vehPlates.substring(0,2))))) {
+						this.setData({isShowPinAn: true});
+						if (isShowpAPop) return;
 						wx.setStorageSync('isShowpAPop',true);
 						let params = {
 							shopId: this.data.info.shopId,

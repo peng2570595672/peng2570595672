@@ -129,10 +129,7 @@ Page({
                 imgUrl: 'https://file.cyzl.com/g001/M03/4A/EB/oYYBAGYKbOSAL7KWAAARAsZLlsw963.png',
                 imgUrl1: 'https://file.cyzl.com/g001/M03/4B/89/oYYBAGYLwHGASmipAAAQFbGEKxE075.png',
                 isShow: true,
-                // jumpUrl: '/pages/truck_handling/truck_receiving_address/truck_receiving_address',// 办理页
-                // jumpUrl: '/pages/truck_handling/index/index',// 落地页
                 jumpUrl: '/pages/etc_handle/etc_handle?isNewTrucks=1', // 公共落地页
-                // jumpUrl: '/pages/personal_center/my_order/my_order',// 订单
                 templateId: ['']
             }
         ],
@@ -185,6 +182,9 @@ Page({
                 templateId: ['']
             }
         ], // 出行贴心服务
+        duration1: 500, // 轮播图时间间隔
+        interval1: 5000, // 轮播图切换时间
+        moduleFourList: [], // 广告banner列表
         whetherToStay: false, // 用于控制显示弹窗时，最底层页面禁止不动
         isEquityRights: app.globalData.isEquityRights, // 是否是权益券额用户
         isShowHandle: true, // 是否显示办理状态栏
@@ -224,6 +224,7 @@ Page({
         if (app.globalData.userInfo.accessToken) {
             util.showLoading();
             util.getBindGuests();
+            await this.getBackgroundConfiguration();
             await this.getJudgeTwoPercentStatus();
             await util.getUserIsVip();
             await util.getRightAccount();
@@ -236,7 +237,6 @@ Page({
                 await this.getStatus();
             }
         }
-		await this.getBackgroundConfiguration();
         // 登录页返回
         let loginInfoFinal = wx.getStorageSync('login_info_final');
         if (loginInfoFinal) {
@@ -282,6 +282,7 @@ Page({
             }
             // 首页 banner 轮播图 模块
             let interval = data.rotationChartConfig.interval * 1000; // 轮播图间隔时间
+            let interval1 = data.middleRotationChartConfig?.interval ? data.middleRotationChartConfig?.interval * 1000 : 5000;// 广告banner轮播图间隔时间,默认5000ms
             let bannerList = data.rotationChartConfig.rotationCharts.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime)); // 过滤掉当前时间不在规定时间内的数据，得到合格的数据
             app.globalData?.need_filterBannerList ? '' : bannerList = bannerList.filter(item => item.appId !== 'wxfd9fbd2b4e45c38f');
             bannerList.sort(this.compare('sort')); // 排序
@@ -297,12 +298,16 @@ Page({
             funcListOne.sort(this.compare('sort')); // 排序
             // 出行贴心服务 模块
             let funcListTwo = data.outServiceFuncConfig.funcs.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime));
-            funcListTwo.sort(this.compare('sort')); //
+            funcListTwo.sort(this.compare('sort')); // 排序
+            let funcFourList = data.middleRotationChartConfig?.rotationCharts.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime)); // 中部广告banner列表
+            if (funcFourList && funcFourList.length > 0) funcFourList.sort(this.compare('sort')); // 排序
             this.setData({
                 interval,
+                interval1,
                 imgList: bannerList,
                 moduleOneList: funcListOne,
-                moduleTwoList: funcListTwo
+                moduleTwoList: funcListTwo,
+                moduleFourList: funcFourList
             });
         }
     },
