@@ -436,19 +436,20 @@
 }
 .home .moduleFour .dots {
   width: 120rpx;
-  height: 20rpx;
+  height: 8rpx;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 130rpx;
+  bottom: 8rpx;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 .home .moduleFour .dots .subDoc {
   transition: 0.3s;
   -webkit-transition: 0.3s;
-  width: 20rpx;
-  height: 20rpx;
+  margin-right: 6rpx;
+  width: 8rpx;
+  height: 8rpx;
   border-radius: 50%;
   background: #eee;
   animation: testDoc 0.2 linear reverse;
@@ -456,8 +457,8 @@
 .home .moduleFour .dots .subDoc.active {
   transition: 0.3s;
   -webkit-transition: 0.3s;
-  width: 55rpx;
-  height: 20rpx;
+  width: 18rpx;
+  height: 8rpx;
   border-radius: 10rpx;
   background: rgba(0,0,0,0.7);
 }
