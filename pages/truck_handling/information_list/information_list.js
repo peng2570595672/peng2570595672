@@ -143,12 +143,12 @@ Page({
 				available: false
 			});
 		}
-		if (this.data.vehicleInfo && this.data.ownerIdCard && this.data.vehicleInfo.owner !== this.data.ownerIdCard.ownerIdCardTrueName) {
-			util.showToastNoIcon('行驶证及身份证必须为同一持有人');
-			this.setData({
-				available: false
-			});
-		}
+		// if (this.data.vehicleInfo && this.data.ownerIdCard && this.data.vehicleInfo.owner !== this.data.ownerIdCard.ownerIdCardTrueName) {
+		// 	util.showToastNoIcon('行驶证及身份证必须为同一持有人');
+		// 	this.setData({
+		// 		available: false
+		// 	});
+		// }
 	},
 	// 跳转
 	go (e) {
