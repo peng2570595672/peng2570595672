@@ -118,24 +118,25 @@
         </view>
     </view>
     <!-- 广告banner indicator-dots -->
-    <view class="module moduleFour" wx:if="{{false}}">
+    <view class="module moduleFour" wx:if="{{tools.dataLen(moduleFourList) > 0}}">
         <swiper class="swiper"
             autoplay
             circular
-            interval="{{interval}}"
-            duration="{{duration}}"
+            interval="{{interval1}}"
+            duration="{{duration1}}"
             bindchange="adBanner">
             <swiper-item class="swiper-item"
-                wx:for="{{[1,2,3]}}"
+                wx:for="{{moduleFourList}}"
                 wx:for-index="index1"
                 wx:key="index1"
+                data-information="{{item}}"
                 data-renew="8"
-                >
-                <image class="image" src="{{item}}"/>
+                catchtap="renewWhitelistJudgement">
+                <image class="image" src="{{item.imgUrl}}"/>
             </swiper-item>
         </swiper>
-        <view class="dots">
-            <view class="subDoc {{adDoc === index ? 'active' : ''}}" wx:for="{{3}}" wx:for-index="index" wx:key="index" ></view>
+        <view class="dots" wx:if="{{tools.dataLen(moduleFourList) > 1}}">
+            <view class="subDoc {{adDoc === index ? 'active' : ''}}" wx:for="{{moduleFourList}}" wx:for-index="index" wx:key="index"></view>
         </view>
     </view>
     <!-- 模块1 账单查询 通行发票 权益商城 -->

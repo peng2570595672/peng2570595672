@@ -84,7 +84,7 @@
                 </view>
             </view>
             <view class="truck" wx:if="{{item.isNewTrucks === 1}}">
-                <view class="{{item.selfStatus === 12 && item.flowVersion === 5 ? 'sub' : item.refundStatus === 3 ? 'sub_success' :'subs'}}" catchtap="refundStatusEvent" data-renew="5" wx:if="{{item.selfStatus === 12 && item.flowVersion === 5 }}">
+                <view class="{{item.selfStatus === 12 && item.flowVersion === 5 ? 'sub' : item.refundStatus === 3 ? 'sub_success' :'subs'}}" catchtap="refundStatusEvent" data-index="{{index}}" data-renew="5" wx:if="{{item.selfStatus === 12 && item.flowVersion === 5 }}">
                     {{item.refundStatus === 3 ? '押金已退款': '押金待退款' }}
                 </view>
                 <view class="sub" wx:if="{{item.selfStatus !== 12}}" data-index="{{index}}" catchtap="renewWhitelistJudgement" data-renew="5">

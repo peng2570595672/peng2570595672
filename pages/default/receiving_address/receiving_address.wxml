@@ -69,9 +69,10 @@
         </view>
       </view>
     </view>
-    <view class="moduleOneTip">
-      <text class="tipsOne">已办理ETC车辆需先注销原ETC卡签才能重办，</text>
-      <text>目前暂仅支持办理9座及以下的小型汽车，企业车辆、货车、出租车、专项作业车等暂不支持办理。</text>
+    <view class="moduleOneTip" wx:if="{{isNewTrucks === 1}}">适用于1-6类货车、牵引车、专项作业车办理</view>
+    <view class="moduleOneTip" wx:else>
+        <text class="tipsOne">已办理ETC车辆需先注销原ETC卡签才能重办，</text>
+        <text>目前暂仅支持办理9座及以下的小型汽车，企业车辆、货车、出租车、专项作业车等暂不支持办理。</text>
     </view>
   </view>
   <!-- 车牌颜色 -->

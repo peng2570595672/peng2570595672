@@ -67,10 +67,6 @@ Component({
 		},
 		chooseAxleNum (e) {
 			let Num = +e.currentTarget.dataset.value;
-			if (Num === 5) {
-				util.showToastNoIcon('暂不支持5轴货车办理ETC');
-				return;
-			}
 			this.triggerEvent('getAxleNum',Num);
 			this.hide(e);
 		},
