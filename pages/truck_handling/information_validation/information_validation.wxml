@@ -72,6 +72,7 @@
                         placeholder-class="input-placeholder" placeholder="请输入车辆识别代号" />
                 </view>
                 <view class="upload-vin" bindtap="getCheckVin" wx:if="{{!checkVinInfo.c && !checkVinInfo.zzl && drivingLicenseFace.ocrObject.vin}}">上传</view>
+                <view class="errTips" wx:if="{{drivingLicenseFace.ocrObject.vin && !checkVinInfo.c}}">vin码校验失败，请确认信息后重新上传</view>
             </view>
             <view class="keyValue">
                 <view class="attrName left">核载人数</view>

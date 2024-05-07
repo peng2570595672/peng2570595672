@@ -211,9 +211,6 @@
   height: 76rpx;
   font-weight: 500;
 }
-.alert-for-not-finished-content .communal .module .carColor .last {
-  background: #F0F0F0;
-}
 
 .alert-for-not-finished-content .moduleOne .topImg {
   padding: 20rpx 10rpx;

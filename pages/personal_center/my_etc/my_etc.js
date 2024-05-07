@@ -109,7 +109,10 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
-	async refundStatusEvent () { // 刷新状态
+	async refundStatusEvent (e) { // 刷新状态
+		let index = +e.currentTarget.dataset.index;
+		let orderInfo = this.data.carList[index];
+		if (orderInfo.refundStatus === 3) return;
 		await this.getMyETCList();
 	},
 	// 针对特定号码 作续签弹窗提示
@@ -182,9 +185,6 @@ Page({
 	onClickVehicle (e) {
 		let index = e.currentTarget.dataset.index;
 		let orderInfo = this.data.carList[parseInt(index)];
-		if (orderInfo.isNewTrucks === 1 && orderInfo.status !== 1) {
-			// return;
-		}
 		if (orderInfo.orderType === 51 && orderInfo.status !== 1) {
 			util.showToastNoIcon('请返回原渠道办理');
 			return;

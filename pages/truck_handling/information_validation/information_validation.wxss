@@ -181,6 +181,13 @@
   align-items: center;
   justify-content: center;
 }
+.index .moduleTwo .keyValue .errTips {
+  position: absolute;
+  bottom: -30rpx;
+  left: 140rpx;
+  font-size: 24rpx;
+  color: #ff563c;
+}
 .index .moduleTwo .keyValue .attrValue {
   flex: 1;
   border-bottom: 1px solid #e0e0e0;
