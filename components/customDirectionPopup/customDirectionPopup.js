@@ -587,7 +587,7 @@ Component({
          * @returns
          */
         async getPackageRelation (id,index) {
-			const result = await util.getDataFromServersV2('consumer/voucher/rights/get-package-coupon-list-buy', {
+			const result = await util.getDataFromServersV2('consumer/voucher/rights/common/get-package-coupon-list-buy', {
 				packageId: id
 			},'POST',true);
 			if (!result) return;
