@@ -78,7 +78,7 @@ Page({
 			}
 			this.getProcessingProgress();
 			await this.getQueryProcessInfo();
-			// this.getBackgroundConfiguration();
+			this.getBackgroundConfiguration();
 			// 查询是否欠款
 			await util.getIsArrearage();
 		}
@@ -252,7 +252,7 @@ Page({
 						}
 						await this.getProcessingProgress();
 						await this.getQueryProcessInfo();
-						// this.getBackgroundConfiguration();
+						this.getBackgroundConfiguration();
 						// 查询是否欠款
 						await util.getIsArrearage();
 					} else {
