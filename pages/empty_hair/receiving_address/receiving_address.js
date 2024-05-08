@@ -72,6 +72,37 @@ Page({
 	onClickGoPrivacyHandle () {
 		util.go('/pages/agreement_documents/privacy_agreement/privacy_agreement');
 	},
+	// 查看办理协议
+	onClickGoAgreementHandle () {
+		const item = this.data.listOfPackages[this.data.choiceIndex];
+		if (item.etcCardId === 1) {
+			// serviceFeeType  是否收取权益服务费：0否，1是
+			// productType: 套餐类型 1-业务员套餐 2-小程序套餐  3-H5套餐  4-后台办理套餐，5-APi办理  6-空发套餐
+			// deliveryType: 1-邮寄 2-线下取货 3-现场办理
+			const timeComparison = util.timeComparison('2023/8/23', this.data.orderInfo.base.addTime);
+			// timeComparison 1-新订单 2-老订单
+			if (item.deliveryType === 1 && (item.productType === 2 || item.productType === 3 || item.productType === 6)) {
+				return util.go(`/pages/agreement_documents/equity_agreement/equity_agreement?type=${timeComparison === 1 ? 'QTnotFeesNew' : 'QTnotFees'}`);	// 不含注消费
+			}
+			if (item.deliveryType === 3 && (item.productType === 1 || item.productType === 5 || item.productType === 6)) {
+				return util.go(`/pages/agreement_documents/equity_agreement/equity_agreement?type=${timeComparison === 1 ? 'QTNew' : 'QT'}`);
+			}
+		}
+		if (item.etcCardId === 2) {
+			if (item.deliveryType === 1 && (item.productType === 2 || item.productType === 3 || item.productType === 6)) {
+				return util.go('/pages/agreement_documents/equity_agreement/equity_agreement?type=MTnotFees');	// 不含注消费
+			}
+			if (item.deliveryType === 3 && (item.productType === 1 || item.productType === 5 || item.productType === 6)) {
+				return util.go('/pages/agreement_documents/equity_agreement/equity_agreement?type=MT');
+			}
+		}
+		// 1-自购设备 2-免费设备 3-自购(其他)
+		if (item?.environmentAttribute === 2) {
+			util.go(`/pages/agreement_documents/agreement/agreement`);
+		} else {
+			util.go(`/pages/agreement_documents/new_self_buy_equipmemnt_agreement/index`);
+		}
+	},
 	// 是否接受协议   点击同意协议并且跳转指定套餐模块
 	onClickAgreementHandle () {
 		let getAgreement = !this.data.getAgreement;
@@ -198,7 +229,7 @@ Page({
 				const result = await util.getDataFromServersV2('consumer/voucher/rights/common/get-packages-by-package-ids', {
 					packageIds: new Array(this.data.listOfPackages[currentIndex]?.rightsPackageId)
 				}, 'POST', false);
-				console.log('result',result);
+				console.log('result', result);
 				if (result.code === 0) {
 					equityListMap.defaultEquityList.push({ index: currentIndex, subData: result.data });
 				} else {
@@ -982,7 +1013,7 @@ Page({
 		let addEquity = this.data.equityListMap.addEquityList[this.data.choiceIndex];	// 加购权益包
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
-			shopId: this.data.listOfPackages[this.data.choiceIndex].shopId || app.globalData.newPackagePageData.shopId, // 商户id
+			shopId: this.data.listOfPackages[this.data.choiceIndex].shopId || app.globalData.otherPlatformsServiceProvidersId, // 商户id
 			dataType: '3', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
