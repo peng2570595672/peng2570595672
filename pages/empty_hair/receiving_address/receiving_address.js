@@ -55,6 +55,7 @@ Page({
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.signAContract = 3;
 		app.globalData.otherPlatformsServiceProvidersId = options.shopId;
+		await this.getListOfPackages();
 	},
 	async onShow () {
 		this.login();
@@ -94,13 +95,12 @@ Page({
 		util.showLoading();
 		let params = {
 			needRightsPackageIds: true,
-			areaCode: '',
 			productType: 2,
 			vehType: 1,
 			platformId: app.globalData.platformId,
 			shopId: app.globalData.otherPlatformsServiceProvidersId
 		};
-		util.getDataFromServer('consumer/system/get-usable-product', params, () => {
+		util.getDataFromServer('consumer/system/common/get-usable-product', params, () => {
 			util.showToastNoIcon('获取套餐失败!');
 		}, (res) => {
 			if (res.code === 0) {
@@ -108,9 +108,8 @@ Page({
 					util.showToastNoIcon('未查询到套餐，请联系工作人员处理！');
 					return;
 				}
-				let list = res.data;
-				let listOfPackages = list.slice(0, 1) || [];
-				console.log('listOfPackages', listOfPackages);
+				let listOfPackages = res.data;
+				listOfPackages = listOfPackages.length === 1 ? listOfPackages : listOfPackages.slice(0, 1) || []; // 展示一个套餐
 				this.setData({
 					listOfPackages
 				});
@@ -119,7 +118,7 @@ Page({
 			} else {
 				util.showToastNoIcon(res.message);
 			}
-		}, app.globalData.userInfo.accessToken, () => {
+		}, '', () => {
 			util.hideLoading();
 		});
 	},
@@ -150,7 +149,7 @@ Page({
 			if (!packageIds) {
 				equityListMap.addEquityList.push({ index: currentIndex, packageName: '', payMoney: 0, aepIndex: -1 });
 			} else {
-				const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
+				const result = await util.getDataFromServersV2('consumer/voucher/rights/common/get-packages-by-package-ids', {
 					packageIds: this.data.listOfPackages[currentIndex]?.rightsPackageIds
 				}, 'POST', false);
 				if (result.code === 0) {
@@ -173,9 +172,10 @@ Page({
 			if (defaultPackages.length === 0) {
 				equityListMap.serviceEquityList.push({ index: currentIndex, packageName: '', payMoney: 0 });
 			} else {
-				const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
+				const result = await util.getDataFromServersV2('consumer/voucher/rights/common/get-packages-by-package-ids', {
 					packageIds: defaultPackages
 				}, 'POST', false);
+
 				if (result.code === 0) {
 					let packageName = '';
 					// let payMoney = 0;	// 综合服务权益包 金额
@@ -195,9 +195,10 @@ Page({
 			if (!packageId) {
 				equityListMap.defaultEquityList.push({ index: currentIndex, packageName: '', payMoney: 0 });
 			} else {
-				const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
+				const result = await util.getDataFromServersV2('consumer/voucher/rights/common/get-packages-by-package-ids', {
 					packageIds: new Array(this.data.listOfPackages[currentIndex]?.rightsPackageId)
 				}, 'POST', false);
+				console.log('result',result);
 				if (result.code === 0) {
 					equityListMap.defaultEquityList.push({ index: currentIndex, subData: result.data });
 				} else {
@@ -213,7 +214,6 @@ Page({
 				equityListMap.bankList.push({ index: currentIndex, isBank: false });
 			}
 		}
-		console.log('equityListMap', equityListMap);
 		this.setData({
 			isLoaded: true,
 			equityListMap: equityListMap
@@ -349,7 +349,6 @@ Page({
 					this.setData({
 						'formData.cardMobilePhone': result.data.mobilePhone
 					});
-					this.getListOfPackages();
 				} else {
 					wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
 					// util.go('/pages/login/login/login');
@@ -619,29 +618,6 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
-	// 提交订单
-	async submitOrder () {
-		if (this.data.isRequest) {
-			return;
-		} else {
-			this.setData({ isRequest: true });
-		}
-		util.showLoading('加载中');
-		let params = {
-			dataComplete: 1,// 资料已完善
-			clientOpenid: app.globalData.userInfo.openId,
-			clientMobilePhone: app.globalData.userInfo.mobilePhone,
-			orderId: app.globalData.orderInfo.orderId
-		};
-		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
-		this.setData({ isRequest: false });
-		if (!result) return;
-		if (result.code === 0) {
-			util.go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}&type=main_process`);
-		} else {
-			util.showToastNoIcon(result.message);
-		}
-	},
 	// 下一步
 	async next () {
 		this.setData({
@@ -650,6 +626,7 @@ Page({
 		});
 		let formData = this.data.formData; // 输入信息
 		let params = {
+			orderId: app.globalData.orderInfo.orderId || '',
 			orderType: '71',
 			promoterType: '48',// 47-平安h5空发  48-小程序空发
 			shopId: app.globalData.otherPlatformsServiceProvidersId,
@@ -756,26 +733,24 @@ Page({
 			}
 			// 绑定套餐 保存订单
 			await this.saveOrderInfo();
-			// if (!app.globalData.newPackagePageData.listOfPackages?.length) return;// 没有套餐
-			// util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?type=${params.shopProductId ? '' : app.globalData.newPackagePageData.type}`);
 		} else if (result.code === 301) { // 已存在当前车牌未完成订单
 			// if (result.data.shopProductId === '0') { // 已经绑定了套餐 去订单列表支付
-			// 	util.alert({
-			// 		content: '该车牌订单已存在，请前往“首页>我的ETC”页面查看。',
-			// 		showCancel: true,
-			// 		confirmText: '去查看',
-			// 		confirm: () => {
-			// 			// 订单id
-			// 			app.globalData.orderInfo.orderId = ''; // 订单id
-			// 			util.go(`/pages/personal_center/my_etc/my_etc`);
-			// 		},
-			// 		cancel: () => {
-			// 			app.globalData.orderInfo.orderId = '';
-			// 		}
-			// 	});
+			util.alert({
+				content: '该车牌订单已存在，请前往“首页>我的ETC”页面查看。',
+				showCancel: true,
+				confirmText: '去查看',
+				confirm: () => {
+					// 订单id
+					app.globalData.orderInfo.orderId = ''; // 订单id
+					util.go(`/pages/personal_center/my_etc/my_etc`);
+				},
+				cancel: () => {
+					app.globalData.orderInfo.orderId = '';
+				}
+			});
 			// }
 			// 绑定套餐 保存订单
-			await this.saveOrderInfo();
+			// await this.saveOrderInfo();
 		} else if (result.code === 104 && result.message === '该车牌已存在订单') {
 			util.go(`/pages/default/high_speed_verification_failed/high_speed_verification_failed?carNo=${this.data.carNoStr}`);
 		} else {
@@ -1007,37 +982,23 @@ Page({
 		let addEquity = this.data.equityListMap.addEquityList[this.data.choiceIndex];	// 加购权益包
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
-			shopId: this.data.orderInfo?.base?.shopId || this.data.listOfPackages[this.data.choiceIndex].shopId || app.globalData.newPackagePageData.shopId, // 商户id
+			shopId: this.data.listOfPackages[this.data.choiceIndex].shopId || app.globalData.newPackagePageData.shopId, // 商户id
 			dataType: '3', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
 			rightsPackageId: addEquity.aepIndex !== -1 ? addEquity.subData[addEquity.aepIndex].id : '',
-			areaCode: this.data.orderInfo ? (this.data.orderInfo?.product?.areaCode || '0') : app.globalData.newPackagePageData?.areaCode
+			areaCode: app.globalData.newPackagePageData?.areaCode || '0'
 		};
-		if (this.data.isSalesmanOrder && this.data.orderInfo.base?.flowVersion === 8) {
-			params.clientOpenid = app.globalData.userInfo.openId;
-			params.clientMobilePhone = app.globalData.userInfo.mobilePhone;
-			params.changeAuditStatus = true;
-			params.needSignContract = true;
-		}
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		this.setData({ isRequest: false });
 		if (!result) return;
 		if (result.code === 0) {
-			util.getDatanexusAnalysis('PURCHASE');
-			if (this.data.orderInfo?.base?.orderType === 12) {
-				await util.getFollowRequestLog({
-					shopId: params.shopId,
-					orderId: app.globalData.orderInfo?.orderId,
-					source: '套餐页提交',
-					orderShopId: this.data.orderInfo?.base?.shopId,
-					packageShopId: this.data.listOfPackages[this.data.choiceIndex]?.shopId,
-					productShopId: app.globalData.newPackagePageData?.shopId
-				});
-			}
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice || addEquity.aepIndex !== -1) {
 				await this.marginPayment(this.data.listOfPackages[this.data.choiceIndex].pledgeType);
+				return;
 			}
+			// 新版小程序空发 无需支付
+			util.go('/pages/empty_hair/processing_progress/processing_progress');
 		} else {
 			util.showToastNoIcon(result.message);
 		}

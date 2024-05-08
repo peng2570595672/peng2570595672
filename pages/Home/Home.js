@@ -129,7 +129,7 @@ Page({
                 imgUrl: 'https://file.cyzl.com/g001/M03/4A/EB/oYYBAGYKbOSAL7KWAAARAsZLlsw963.png',
                 imgUrl1: 'https://file.cyzl.com/g001/M03/4B/89/oYYBAGYLwHGASmipAAAQFbGEKxE075.png',
                 isShow: true,
-                jumpUrl: '/pages/etc_handle/etc_handle?isNewTrucks=1', // 公共落地页
+                jumpUrl: '/pages/etc_handle/etc_handle?isNewTrucks=1',
                 templateId: ['']
             }
         ],

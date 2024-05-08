@@ -171,7 +171,16 @@ Page({
 				marketingImgUrl: 'https://file.cyzl.com/g001/M03/4B/D0/oYYBAGYMw8WAHxi0AAFLKwLny9Q434.png'
 			};
 			this.setData({ // 如果是货车 配置暂时写死
-				imagesConfig: options.isNewTrucks ? imagesConfig : data.imagesConfig,
+				imagesConfig: +options.isNewTrucks === 1 ? imagesConfig : data.imagesConfig,
+				isNewTrucks: +options.isNewTrucks
+			});
+		} else {
+			let imagesConfig = {
+				backgroundColor: +options.isNewTrucks === 1 ? '#46976D' : '#2A4F44',
+				marketingImgUrl: +options.isNewTrucks === 1 ? 'https://file.cyzl.com/g001/M03/4B/D0/oYYBAGYMw8WAHxi0AAFLKwLny9Q434.png' : 'https://file.cyzl.com/g001/M01/D1/10/oYYBAGQiQxuAUiQdAABFf46DvQQ847.png'
+			};
+			this.setData({ // 如果是货车 配置暂时写死
+				imagesConfig,
 				isNewTrucks: +options.isNewTrucks
 			});
 		}

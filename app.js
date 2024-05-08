@@ -453,7 +453,7 @@ App({
 						util.go(`/pages/default/processing_progress/processing_progress?orderId=${this.globalData.orderInfo.orderId}`);
 					}
 				} else {
-					util.showToastNoIcon('未签约成功987！');
+					util.showToastNoIcon(res.message);
 				}
 			} else {
 				util.showToastNoIcon(res.message);
