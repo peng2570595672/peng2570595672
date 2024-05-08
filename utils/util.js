@@ -143,7 +143,6 @@ function getUuid() {
  */
 async function getDataFromServer(path, params, fail, success, token = '', complete, method = 'POST') {
   // 如果没有提供token且请求路径不属于公共模块，则提示用户重新进入小程序并终止请求
-  console.log(path,'path1');
   if (!token && !path.includes('common') && !path.includes('public')) {
     showToastNoIcon('获取用户信息失败,请重新进入小程序!');
     return;
@@ -1526,7 +1525,6 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
   if (isLoading) showLoading();
   // common || public 模块下的不需要 token
   const token = app.globalData.userInfo.accessToken;
-  console.log(path,'path');
   if (!token && !path.includes('common') && !path.includes('public')) {
     showToastNoIcon('获取用户信息失败,请重新进入小程序!');
     return;
