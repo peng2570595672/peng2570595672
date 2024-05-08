@@ -451,7 +451,7 @@
   width: 8rpx;
   height: 8rpx;
   border-radius: 50%;
-  background: #eee;
+  background: rgba(255,255,255,0.5);
   animation: testDoc 0.2 linear reverse;
 }
 .home .moduleFour .dots .subDoc.active {
@@ -460,7 +460,7 @@
   width: 18rpx;
   height: 8rpx;
   border-radius: 10rpx;
-  background: rgba(0,0,0,0.7);
+  background: rgba(255,255,255,0.9);
 }
 .home .custom-module {
   height: auto;

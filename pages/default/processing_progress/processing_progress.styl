@@ -299,6 +299,7 @@ mixinsPositionPack($position=relative)
             height 100%
     .moduleFour
         padding 0
+        border-radius 16rpx
         margin 28rpx 28rpx 40rpx 28rpx
         font-family PingFangSC-Medium, PingFang SC
         position relative
@@ -323,14 +324,14 @@ mixinsPositionPack($position=relative)
                 margin-right 6rpx
                 mixinsWidthHeight(8rpx,8rpx)
                 border-radius 50%
-                background #eee
+                background rgba(255, 255, 255, 0.5)
                 animation testDoc 0.2 linear reverse
                 &.active
                     transition 0.3s
                     -webkit-transition 0.3s
                     mixinsWidthHeight(18rpx,8rpx)
                     border-radius 10rpx
-                    background rgba(0, 0, 0, 0.7)
+                    background rgba(255, 255, 255, 0.9)
     //通通券弹框
     .coupon_mask
         position fixed
