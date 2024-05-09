@@ -2,6 +2,8 @@ const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
 	data: {
+		// couponType 劵类型  1-通行劵 2-停车卷 3-加油券 4-充电券 5-洗车券 6-通用券 7-商品消费券
+		// packageCouponChoose: 1-视频券多选一
 		totalPages: '',// 总页数
 		page: 1,// 当前页
 		pageSize: 100,// 每页多少条数据 后端两张表,导致分页小出问题
@@ -20,11 +22,17 @@ Page({
 		if (options.source) {
 			wx.hideHomeButton();
 			this.login();
-			return;
 		}
-		await this.getCouponCenterList();
-		// 查询是否欠款
-		await util.getIsArrearage();
+	},
+	async onShow () {
+		this.setData({
+			couponList: []
+		});
+		if (app.globalData.userInfo.accessToken) {
+			await this.getCouponCenterList();
+			// 查询是否欠款
+			await util.getIsArrearage();
+		}
 	},
 	// 自动登录
 	login () {
@@ -120,6 +128,11 @@ Page({
 		this.hideAnim(isLoadingMore);
 		if (!result) return;
 		if (result.code === 0) {
+			result.data.list.map(item => {
+				if (item.couponType === 6 || item.packageCouponChoose === 1) {
+					item.isExpired = util.isGreaterThanData(item.validityEndTime);
+				}
+			});
 			this.setData({
 				couponList: this.data.couponList.concat(result.data.list),
 				totalPages: result.data.total
@@ -140,6 +153,13 @@ Page({
 	async onClickReceive (e) {
 		let item = e.currentTarget.dataset.item;
 		let index = e.currentTarget.dataset.index;
+		console.log(item);
+		if (item.couponType === 6 && item.packageCouponChoose === 1) {
+			// 视频券多选一
+			if (item.isReceive === 1 || item.isExpired) return;// 已兑换 || 已过期
+			util.go(`${item.chooseJumpUrl}?recordId=${item.collectionRecordId}`);
+			return;
+		}
 		if (item.isReceive === 1) return;
 		const result = await util.getDataFromServersV2('consumer/voucher/rights/active-by-couponId', {
 			couponId: item.collectionRecordId

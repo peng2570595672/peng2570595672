@@ -60,12 +60,12 @@
 .coupon .list .item .coupon-info .name {
   flex: 1;
 }
-.coupon .list .item .coupon-info .name :first-child {
+.coupon .list .item .coupon-info .name .couponName {
   font-size: 28rpx;
   color: #000;
   line-height: 40rpx;
 }
-.coupon .list .item .coupon-info .name :last-child {
+.coupon .list .item .coupon-info .name .couponLabel {
   font-size: 24rpx;
   color: rgba(0,0,0,0.5);
   line-height: 34rpx;
@@ -75,7 +75,7 @@
   margin-right: 48rpx;
   text-align: center;
 }
-.coupon .list .item .coupon-info .receive :first-child {
+.coupon .list .item .coupon-info .receive .btn {
   width: 114rpx;
   height: 52rpx;
   display: flex;
@@ -86,10 +86,10 @@
   background: #00b85c;
   border-radius: 4rpx;
 }
-.coupon .list .item .coupon-info .receive :first-child.already-received {
+.coupon .list .item .coupon-info .receive .btn.already-received {
   background: #cfcfcf;
 }
-.coupon .list .item .coupon-info .receive :last-child {
+.coupon .list .item .coupon-info .receive .period {
   font-size: 20rpx;
   color: rgba(0,0,0,0.3);
   line-height: 28rpx;

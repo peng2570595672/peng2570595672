@@ -308,7 +308,7 @@ Page({
 			if (this.data.time === 0) {
 				clearInterval(timer);
 				this.setData({
-					time: 9,
+					time: 15,
 					isCountdown: false
 				});
 			} else {

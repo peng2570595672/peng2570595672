@@ -9,22 +9,28 @@
             <view class="coupon-info {{index === 0 ? 'coupon-info-bg' : ''}}">
                 <view class="img">
                     <image wx:if="{{item.packageCover}}" src="{{item.packageCover}}" mode="heightFix"></image>
-                    <image wx:elif="{{item.couponType === 1}}" src="https://file.cyzl.com/g001/M02/19/6B/oYYBAGVdrGOAXtXAAABCdI7KRyA803.png" mode="heightFix"></image>
+                    <image wx:elif="{{item.couponType === 1 || (item.couponType === 6 && item.packageCouponChoose === 1)}}" src="https://file.cyzl.com/g001/M02/19/6B/oYYBAGVdrGOAXtXAAABCdI7KRyA803.png" mode="heightFix"></image>
                     <image wx:else src="https://file.cyzl.com/g001/M02/19/6C/oYYBAGVdreqAPtu_AABJsdlc7-8196.png" mode="heightFix"></image>
                 </view>
                 <view class="name">
-                    <view>{{item.couponName}}</view>
-                    <view>{{item.consumptionThreshold > 0 ? '满' + item.consumptionThreshold/100 + '可用' : '无门槛'}}</view>
+                    <view class="couponName">{{item.couponType === 6 && item.packageCouponChoose === 1 ? item.packageName : item.couponName}}</view>
+                    <view class="couponLabel" wx:if="{{item.couponType !== 6 && item.packageCouponChoose !== 1}}">{{item.consumptionThreshold > 0 ? '满' + item.consumptionThreshold/100 + '可用' : '无门槛'}}</view>
                 </view>
                 <view class="receive">
-                    <view class="{{item.isReceive === 1 ? 'already-received' : ''}}" catchtap="onClickReceive" data-index="{{index}}" data-item="{{item}}">{{item.isReceive === 1 ? '已' : ''}}领取</view>
-                    <view>剩余期数：{{item.surplusPeriodNum}}</view>
+                    <view class="btn {{item.isReceive === 1 || item.isReceive === 2 || (item.couponType === 6 && item.packageCouponChoose === 1 && item.isExpired) ? 'already-received' : ''}}" catchtap="onClickReceive" data-index="{{index}}" data-item="{{item}}">
+                        <text wx:if="{{item.couponType === 6 && item.packageCouponChoose === 1}}">{{item.isExpired ? '已过期' : (item.isReceive === 1 || item.isReceive === 2 ? '已兑换' : '兑换')}}</text>
+                        <text wx:else>{{item.isReceive === 1 ? '已' : ''}}领取</text>
+                    </view>
+                    <view class="period" wx:if="{{item.couponType !== 6 && item.packageCouponChoose !== 1}}">剩余期数：{{item.surplusPeriodNum}}</view>
                 </view>
             </view>
             <view class="coupon-bottom">
-                <view>{{item.couponType === 1 ? '绑定车牌：' + item.vehPlates : ''}}</view>
-                <view wx:if="{{item.nextPeriodTime}}">下期开放时间 {{item.nextPeriodTime}}</view>
-                <view wx:else>截止领取日期 {{item.validityEndTime}}</view>
+                <view>{{item.couponType === 1 || (item.couponType === 6 && item.packageCouponChoose === 1) ? '绑定车牌：' + item.vehPlates : ''}}</view>
+                <view wx:if="{{item.couponType === 6 && item.packageCouponChoose === 1}}">领取有效期至 {{item.validityEndTime}}</view>
+                <view wx:else>
+                    <view wx:if="{{item.nextPeriodTime}}">下期开放时间 {{item.nextPeriodTime}}</view>
+                    <view wx:else>截止领取日期 {{item.validityEndTime}}</view>
+                </view>
             </view>
         </view>
         <!--加载更多动画开始-->
