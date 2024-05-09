@@ -12,6 +12,7 @@ page {
 .service-card-voucher {
   background: #f9f9f9;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 .service-card-voucher .topCoupon {
   width: 100vw;
@@ -206,11 +207,7 @@ page {
   position: static;
 }
 .service-card-voucher .empty {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 40%;
-  margin: -120rpx auto 0;
+  margin: 35vh auto 0;
   text-align: center;
   color: #66666d;
   font-size: 32rpx;

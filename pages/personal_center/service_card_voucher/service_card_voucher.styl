@@ -29,6 +29,7 @@ page
 .service-card-voucher
 	background: rgba(249, 249, 249, 1)
 	min-height 100vh
+	overflow-x hidden
 	.topCoupon
 		mixinsWidthHeight(100vw,100rpx)
 		position fixed
@@ -191,11 +192,7 @@ page
 		position static
 	// 没有卡券
 	.empty
-		position fixed
-		left 0
-		right 0
-		top 40%
-		margin -120rpx auto 0
+		margin 35vh auto 0
 		text-align center
 		color $fontColor6
 		font-size 32rpx

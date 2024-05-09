@@ -21,7 +21,7 @@
             </view>
         </view>
         <view class="package_tab_bottom">
-            <view class="title">{{activeTypeIndex === 0 ? '当日通行，隔日还款，适直偶尔上高速人群' : '每周一上午10:00结算上周通行费，适宜经常跑高速人群'}}</view>
+            <view class="title">{{activeTypeIndex === 0 ? '当日通行，隔日还款，适宜偶尔上高速人群' : '每周一上午10:00结算上周通行费，适宜经常跑高速人群'}}</view>
             <view class="title">{{activeTypeIndex === 0 ? '服务费:通行费*0.4%，最低1元1日(无通行不收费)':'服务费:10~15元/周(无通行不收费)'}}</view>
         </view>
     </view>
