@@ -245,6 +245,21 @@ Component({
 			if (this.data.paramsList[0].callBack) {
 				this.data.paramsList[0].callBack();
 			}
+		},
+		// AI回访打电话
+		async aiReturn () {
+			const res = await util.getDataFromServersV2('consumer/system/aiReturnVisits/callBack', {
+				orderId: this.data.paramsList[0].params.orderId
+			});
+			if (!res) return;
+			if (res.code === 1) {
+				this.data.paramsList[0].callBack();
+			} else if (res.code === 0) {
+				// 拨打成功，接听电话
+				util.showToastNoIcon('拨打成功，请确认后重试提交');
+			} else {
+				util.showToastNoIcon(res.message);
+			}
 		}
 
 	}

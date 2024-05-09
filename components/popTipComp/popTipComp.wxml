@@ -294,5 +294,12 @@
             <button class="btn" data-title="{{tipObj.title}}" catchtap="hide">{{tipObj.btnconfirm}}</button>
             <view class="close iconfont" data-title="{{tipObj.title}}" catchtap="hide"></view>
         </view>
+        <!-- 带标题 一个按钮 一个醒目icon -->
+        <view class="module moduleOne" wx:if="{{tipObj.type === 'aiReturn'}}">
+            <view class="icon"><icon class="icon-small" type="warn" size="80" color="#FF9700"></icon></view>
+            <view class="title" wx:if="{{tipObj.title}}">{{tipObj.title}}</view>
+            <view class="contant">{{tools.limitNumber(tipObj.content,90)}}</view>
+            <button class="btn" data-title="{{tipObj.title}}" wx:if="{{tipObj.btnconfirm}}" catchtap="aiReturn">{{tools.limitNumber(tipObj.btnconfirm,12)}}</button>
+        </view>
     </view>
 </view>
