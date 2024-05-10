@@ -7,5 +7,7 @@
     <view class="btn" catchtap="go" wx:if="{{citicBank || is9901}}">继续办理</view>
     <view class="btn" catchtap="next" wx:else>{{contractStatus === 1 ? '你已签约免密代扣，提交审核' : '去签约代扣通行费'}}</view>
     <!--	操作部分结束-->
+
+    <popTipComp id="popTipComp"></popTipComp>
 </view>
 <privacy_popup></privacy_popup>

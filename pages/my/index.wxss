@@ -175,9 +175,9 @@
 .my .moduleThree .swiperBox {
   width: 694rpx;
 }
-.my .moduleThree image {
-  width: 694rpx;
-  height: 270rpx;
+.my .moduleThree .topImg {
+  width: 100%;
+  height: 100%;
 }
 .my .moduleFour {
   min-height: 294rpx;

@@ -426,7 +426,13 @@ Page({
             app.globalData.signAContract = -1;
             app.globalData.belongToPlatform = app.globalData.platformId;
             app.globalData.isNeedReturnHome = false;
-            util.weChatSigning(res);
+            if (this.data.orderInfo?.base?.orderType === 31 && this.data.listOfPackages[this.data.choiceIndex]?.isCallBack) {
+                util.aiReturn(this,'#popTipComp',app.globalData.orderInfo.orderId,() => {
+                    util.weChatSigning(res);
+                });
+            } else {
+                util.weChatSigning(res);
+            }
         } else {
             util.showToastNoIcon(result.message);
         }
@@ -906,7 +912,13 @@ Page({
             app.globalData.signAContract = -1;
             app.globalData.belongToPlatform = app.globalData.platformId;
             app.globalData.isNeedReturnHome = true;
-            util.weChatSigning(res);
+            if (this.data.orderInfo?.base?.orderType === 31 && this.data.listOfPackages[this.data.choiceIndex]?.isCallBack) {
+                util.aiReturn(this,'#popTipComp',app.globalData.orderInfo.orderId,() => {
+                    util.weChatSigning(res);
+                });
+            } else {
+                util.weChatSigning(res);
+            }
         } else {
             util.showToastNoIcon(result.message);
         }
@@ -1328,5 +1340,4 @@ Page({
             util.openPdf(item5.content, item5.category);
         }
     }
-
 });

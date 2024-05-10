@@ -1075,19 +1075,6 @@ Page({
                 }
             }
             this.initDadi();
-            const isWaitActivation = passengerCarList.find(item => item.logisticsId === 0); // 待发货
-            const isDuringDate = util.isDuringDate('2023/3/9', '2023/3/16');
-            const isAlertPrompt = wx.getStorageSync('is-alert-prompt20230309');
-            if ((isWaitActivation || !list.length) && isDuringDate && !isAlertPrompt) {
-                wx.setStorageSync('is-alert-prompt20230309', true);
-                util.alert({
-                    title: `提示`,
-                    content: '尊敬的ETC用户：' + '\r\n' + '感谢您办理我司ETC，受ETC发货地快递管控影响，自3月9日至3月15日期间在线申办的订单，设备将统一在3月16日后陆续发货，由此给您带来的不便，敬请谅解！',
-                    showCancel: false,
-                    cancelText: '取消',
-                    confirmText: '我知道了'
-                });
-            }
             const terminationOrder = passengerCarList.find(item => item.selfStatus === 1); // 查询客车第一条解约订单
             const terminationTruckOrder = truckList.find(item => item.selfStatus === 1); // 查询货车第一条解约订单
             const isAllActivation = activationOrder.length === passengerCarList.length; // 是否客车全是激活订单 - true: 展示账单单状态
@@ -1504,9 +1491,7 @@ Page({
         // 	return;
         // }
         wx.uma.trackEvent('index_for_order_audit');
-        util.go(
-            `/pages/default/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}`
-        );
+        util.go(`/pages/default/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}`);
     },
     // 去预充
     goRecharge (orderInfo) {
@@ -1588,6 +1573,7 @@ Page({
     },
     // 恢复签约
     async restoreSign (obj) {
+        let that = this;
         const result = await util.getDataFromServersV2('consumer/order/query-contract', {
             orderId: obj.id
         });
@@ -1599,23 +1585,18 @@ Page({
                 if (result.data.version === 'v3') {
                     // 3.0
                     if (result.data.contractId) {
-                        wx.navigateToMiniProgram({
-                            appId: 'wxbcad394b3d99dac9',
-                            path: 'pages/etc/index',
-                            extraData: {
-                                contract_id: result.data.contractId
-                            },
-                            success () { },
-                            fail () {
-                                // 未成功跳转到签约小程序
-                                util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
-                            }
-                        });
+                        if (obj?.isCallBack && (obj.orderType === 31 || obj.orderType === 51)) { // AI回访
+                            util.aiReturn(this,'#popTipComp',obj.id,() => {
+                                util.citicBankSign(result.data.contractId);
+                            });
+                        } else {
+                            util.citicBankSign(result.data.contractId);
+                        }
                     } else {
-                        await this.weChatSign(obj);
+                        await that.weChatSign(obj);
                     }
                 } else {
-                    await this.weChatSign(obj);
+                    await that.weChatSign(obj);
                 }
             }
         } else {
@@ -1657,7 +1638,13 @@ Page({
             app.globalData.orderStatus = obj.selfStatus;
             app.globalData.orderInfo.shopProductId = obj.shopProductId;
             app.globalData.signAContract === -1;
-            util.weChatSigning(res);
+            if (obj?.isCallBack && (obj.orderType === 31 || obj.orderType === 51)) { // AI回访
+                util.aiReturn(this,'#popTipComp',app.globalData.orderInfo.orderId,() => {
+                    util.weChatSigning(res);
+                });
+            } else {
+                util.weChatSigning(res);
+            }
         } else {
             util.showToastNoIcon(result.message);
         }

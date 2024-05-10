@@ -140,9 +140,11 @@
 			</view>
 		</view>
 	</view>
+	<popTipComp id="popTipComp"></popTipComp>
 	<!--去车主服务弹窗结束-->
 	<jinyixing-prompt id="notJinYiXingPrompt"></jinyixing-prompt>
 	<signing-prompt id="notSigningPrompt"></signing-prompt>
+	
     <equipment_selection id="choiceEquipment" bindonClickTranslucentHandle="onClickTranslucentHandle"></equipment_selection>
 </view>
 <privacy_popup></privacy_popup>

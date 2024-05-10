@@ -112,7 +112,13 @@ Page({
 			app.globalData.signAContract = -1;
 			app.globalData.belongToPlatform = app.globalData.platformId;
 			app.globalData.isNeedReturnHome = true;
-			util.weChatSigning(res);
+			if (this.data.orderInfo?.isCallBack && (this.data.orderInfo?.orderType === 31 || this.data.orderInfo?.orderType === 51)) {
+                util.aiReturn(this,'#popTipComp',app.globalData.orderInfo.orderId,() => {
+                    util.weChatSigning(res);
+                });
+            } else {
+                util.weChatSigning(res);
+            }
 		} else {
 			util.showToastNoIcon(result.message);
 		}

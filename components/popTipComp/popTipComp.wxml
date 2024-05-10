@@ -298,7 +298,10 @@
         <view class="module moduleOne" wx:if="{{tipObj.type === 'aiReturn'}}">
             <view class="icon"><icon class="icon-small" type="warn" size="80" color="#FF9700"></icon></view>
             <view class="title" wx:if="{{tipObj.title}}">{{tipObj.title}}</view>
-            <view class="contant">{{tools.limitNumber(tipObj.content,90)}}</view>
+            <view class="contant">
+                <text >{{tools.limitNumber(tipObj.content,90)}}</text>
+                <text class="redTip" wx:if="{{tipObj.params.firstFlag}}">回访结束后请等候5秒再签约</text>
+            </view>
             <button class="btn" data-title="{{tipObj.title}}" wx:if="{{tipObj.btnconfirm}}" catchtap="aiReturn">{{tools.limitNumber(tipObj.btnconfirm,12)}}</button>
         </view>
     </view>
