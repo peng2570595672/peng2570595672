@@ -1,14 +1,14 @@
-import {IS_TEST} from "../app";
+import { IS_TEST } from "../app";
 
-export function initProductName (orderInfo) {
+export function initProductName(orderInfo) {
 	// productProcess 套餐流程 1-微信 2-绑定银行 3-存量卡 4-三类户 5-信用卡
 	if (orderInfo.flowVersion === 4) return 'ETC货车账户'
 	if (orderInfo.productProcess === 1) return '微信支付'
 	return orderInfo.productName || '';
 }
-export function checkVehicleType (vehicleType) {
+export function checkVehicleType(vehicleType) {
 	let flag;
-	const vehicleList = ['中型普通客车','小型专用客车', '小型轿车', '小型普通客车', '小型面包车', '小型旅居车', '小型客车',
+	const vehicleList = ['中型普通客车', '小型专用客车', '小型轿车', '小型普通客车', '小型面包车', '小型旅居车', '小型客车',
 		'微型越野客车', '微型普通客车', '微型轿车', '轻型客车', '普通客车', '大型轿车', '小型越野客车', '轿车'];
 	for (let name of vehicleList) {
 		if (vehicleType === name) {
@@ -23,7 +23,7 @@ export function thirdContractSigning(data) {
 		appId: 'wxbd687630cd02ce1d',
 		path: 'pages/index/index',
 		extraData: data,
-		fail () {
+		fail() {
 			showToastNoIcon('调起通通券签约失败, 请重试！');
 		}
 	});
@@ -33,33 +33,33 @@ export function jumpCouponMini() {
 	wx.navigateToMiniProgram({
 		appId: 'wx7e5d0f72c61b0c17',
 		path: 'pages/index/index',
-		fail () {
+		fail() {
 			showToastNoIcon('跳转通通券小程序失败, 请重试！');
 		}
 	});
 }
 // 比较两个日期
-export function compareDate (date1, date2) {
-	date1 = date1.slice(0, 16).replace(new RegExp('-','g'), '/');
-	date2 = date2.slice(0, 16).replace(new RegExp('-','g'), '/');
+export function compareDate(date1, date2) {
+	date1 = date1.slice(0, 16).replace(new RegExp('-', 'g'), '/');
+	date2 = date2.slice(0, 16).replace(new RegExp('-', 'g'), '/');
 	const newDate1 = new Date(date1);
 	const newDate2 = new Date(date2);
 	return newDate1 < newDate2;
 }
 // 弹窗
 export function alert({
-						  title = '提示',
-						  content = '描述信息',
-						  showCancel = false,
-						  confirmText = '我知道了',
-						  cancelText = '取消',
-						  confirmColor = '#576B95',
-						  cancelColor = '#99999D',
-						  confirm = () => {
-						  },
-						  cancel = () => {
-						  }
-					  } = {}) {
+	title = '提示',
+	content = '描述信息',
+	showCancel = false,
+	confirmText = '我知道了',
+	cancelText = '取消',
+	confirmColor = '#576B95',
+	cancelColor = '#99999D',
+	confirm = () => {
+	},
+	cancel = () => {
+	}
+} = {}) {
 	wx.showModal({
 		title: title,
 		content: content,
@@ -91,7 +91,7 @@ export function wxApi2Promise(target, params = {}, ...args) {
 		params['fail'] = (error) => {
 			reject(error);
 		};
-		target(params,...args);
+		target(params, ...args);
 	});
 }
 /**
@@ -119,7 +119,7 @@ export function wxApiPromise(target, scope = '', ...args) {
 			});
 			reject(error);
 		};
-		target(params,...args);
+		target(params, ...args);
 	});
 }
 /**
@@ -162,7 +162,7 @@ export function showToastNoIcon(content) {
 	}, 100);
 }
 // 判断是否开启蓝牙
-export function isOpenBluetooth () {
+export function isOpenBluetooth() {
 	return new Promise(function (resolve) {
 		wx.openBluetoothAdapter({
 			success: () => {
@@ -175,7 +175,7 @@ export function isOpenBluetooth () {
 	})
 }
 // 将url路径转成json a=1&=2 => {a: 1,b: 2}
-export function path2json (scene) {
+export function path2json(scene) {
 	let arr = scene.split('&');
 	let obj = {};
 	let temp;
@@ -188,7 +188,7 @@ export function path2json (scene) {
 	return obj;
 }
 // 排序
-export function compare (prop) {
+export function compare(prop) {
 	return function (obj1, obj2) {
 		const val1 = +obj1[prop];
 		const val2 = +obj2[prop];
@@ -202,7 +202,7 @@ export function compare (prop) {
 	};
 }
 // 跳转到湖南高速ETC小程序
-export function handleJumpHunanMini (orderId, outTradeNo,selfStatus) {
+export function handleJumpHunanMini(orderId, outTradeNo, selfStatus) {
 	// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
 	let url = selfStatus === 32 ? encodeURIComponent(`/pages/homePage/Service/Service`) : encodeURIComponent(`/packageA/new-mineIssure/routerGo/routerGo?processCode=SJHT&accessNo=${orderId}&promotionCode=88880123&outTradeNo=${outTradeNo}`);
 	console.log(`/pages/homePage/Index/Index?type=redirect&url=${url}`);
@@ -210,13 +210,13 @@ export function handleJumpHunanMini (orderId, outTradeNo,selfStatus) {
 		appId: 'wxf546f6c7ccd8fbfe',
 		path: `/pages/homePage/Index/Index?type=redirect&url=${url}`,
 		envVersion: IS_TEST ? 'trial' : 'release',
-		fail () {
+		fail() {
 			showToastNoIcon('调起小程序失败, 请重试！');
 		}
 	});
 }
 // 获取移动营业厅地址
-export function getServiceHall (shopId) {
+export function getServiceHall(shopId) {
 	let url = '';
 	switch (shopId) {
 		case '1214877114216488960':// 河南移动测试商户

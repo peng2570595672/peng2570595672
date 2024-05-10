@@ -13,39 +13,41 @@ Component({
 	data: {
 		mask: false,
 		wrapper: false,
-		handlingProcess: [
-			{icon: 'https://file.cyzl.com/g001/M01/C7/75/oYYBAGPraQeAd8VcAAANbmC6Sdo255.png' ,title: '车主身份证'},
-			{icon: 'https://file.cyzl.com/g001/M01/C7/A2/oYYBAGPs5VGAN4KUAAAf_5IXjB0976.png' ,title: '行驶证'}
-			// {icon: 'https://file.cyzl.com/g001/M02/19/71/oYYBAGVduHeAPvygAAAPuz_4Kts400.svg' ,title: '车头照'}
-		],
-		processList: [{
-				title: '填写基础信息',
-				content: '填写车牌和收货信息。'
-			},
-			{
-				title: '选择办理方式',
-				content: '多种办理方式按需选择'
-			},
-			{
-				title: '上传证件及签约免密代扣',
-				content: '按要求上传对应证件，然后完成通行费代扣签约。'
-			},
-			{
-				title: '高速审核通过，包邮送货到家',
-				content: ''
-			},
-			{
-				title: '自助安装激活',
-				content: '收到设备后按指引激活ETC，先通行后付费，通行后费用将通过微信代扣。'
-			}
-		],
 		isShow: false
 	},
 	methods: {
+		generateValidLuhnChecksum (length) {
+			let sum = 0;
+			let double = false;
+			let number = '';
+
+			for (let i = 1; i <= length - 2; i++) {
+				number += Math.floor(Math.random() * 10).toString();
+
+				if (double) {
+					let digit = parseInt(number.charAt(i - 1));
+					digit *= 2;
+					if (digit > 9) {
+						digit -= 9;
+					}
+					sum += digit;
+				} else {
+					sum += parseInt(number.charAt(i - 1));
+				}
+
+				double = !double;
+			}
+
+			const checkDigit = 10 - (sum % 10);
+			return `${number}${checkDigit}`;
+		},
 		ok (e) {
 			this.hide(e, true);
 		},
 		show () {
+			// 调用你的luhmCheck函数
+			console.log('19位银行卡号校验结果',util.luhmCheck('6228481198890115877'));
+			// console.log(`19位银行卡号校验结果: ${util.luhmCheck('6228481198890115877')}`);
 			let height = wx.getSystemInfoSync().screenHeight / wx.getSystemInfoSync().screenWidth;
 			console.log();
 			this.setData({
@@ -67,7 +69,7 @@ Component({
 		},
 		chooseAxleNum (e) {
 			let Num = +e.currentTarget.dataset.value;
-			this.triggerEvent('getAxleNum',Num);
+			this.triggerEvent('getAxleNum', Num);
 			this.hide(e);
 		},
 		btnMovingIntegral (e) {
@@ -78,7 +80,7 @@ Component({
 				this.setData({
 					mask: false
 				});
-				this.triggerEvent('btnMovingIntegral',e);
+				this.triggerEvent('btnMovingIntegral', e);
 			}, 400);
 		}
 	}
