@@ -49,7 +49,7 @@
 <!--        <image class="image" src="https://file.cyzl.com/g001/M01/CA/B1/oYYBAGP9_VSAUb68AAB5WC1RcEA800.png" mode="widthFix" />-->
         <swiper class="swiperBox {{carouselList.length ? 'regular':''}}" autoplay circular interval="{{interval}}" duration="{{duration}}">
             <swiper-item class="swiper-item {{carouselList.length === 1 ? 'regular-item':''}}" wx:for="{{carouselList}}" wx:if="{{item.isShow}}" data-renew="7" bindtap="renewWhitelistJudgement" wx:key="index" data-index="{{index}}">
-                <image class="topImg" src='{{item.imgUrl}}' mode="widthFix" alt="暂无图片"/>
+                <image class="topImg" src='{{item.imgUrl}}' alt="暂无图片"/>
             </swiper-item>
         </swiper>
     </view>

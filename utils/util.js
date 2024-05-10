@@ -2255,6 +2255,106 @@ async function buriedPoint(params, callBack) {
     showToastNoIcon(res.message);
   }
 }
+/**
+ * AI智能客服回访
+ * @param {*} that this
+ * @param {*} compId 组件ID
+ * @param {*} orderId 订单ID
+ * @param {*} callBack 回调
+ * @returns 
+ */
+async function aiReturn (that,compId,orderId,callBack) {
+    let params = {
+      orderId: orderId // 订单id
+    };
+    const result = await getDataFromServersV2('consumer/system/aiReturnVisits/selectIsAllAgree', params);
+    // if (!result) return;
+    if (result.code === 1) {
+      callBack && callBack();
+    } else if (result.code === 0) {
+        that.selectComponent(compId).show({
+          type: 'aiReturn',
+          title: '警示',
+          content: `需要拨打回访电话，请接听电话后确认订单信息`,
+          btnconfirm: '确定',
+          params: {
+              firstFlag: true,
+              orderId: orderId
+          },
+          callBack: () => {
+            callBack && callBack();
+          }
+        });
+    } else {
+        if (result.code === 104 && result.message.includes('再次拨打')) {
+          that.selectComponent(compId).show({
+            type: 'aiReturn',
+            title: '警示',
+            content: result.message,
+            btnconfirm: '再次拨打',
+            params: {
+              firstFlag: false,
+                orderId: orderId
+            },
+            callBack: () => {
+              callBack && callBack();
+            }
+          });
+        } else {
+          showToastNoIcon(result.message);
+        }
+    }
+};
+/**
+ * 中信银行单独签约
+ * @param {*} contractId 
+ */
+function citicBankSign(contractId) {
+  wx.navigateToMiniProgram({
+    appId: 'wxbcad394b3d99dac9',
+    path: 'pages/etc/index',
+    extraData: {
+      contract_id: contractId
+    },
+    success () {},
+    fail () {
+      // 未成功跳转到签约小程序
+      showToastNoIcon('调起微信签约小程序失败, 请重试！');
+    }
+  });
+}
+/**
+ * 定时任务：活动时间倒计时
+ * @param {*} type: number 1-初始时间;2-剩余时间;3-最终时间
+ * @param {*} obj: number | string 可以是初始时间（格式：'2024-03-12 16:00:00'）、剩余时间（格式：'07:30:45'）、最终时间（格式：'2024-03-12 16:00:00'）
+ * @param {*} callback 回调函数 
+ */
+function scheduledTasks(type, obj, callback,index) {
+  let timestamp = undefined; //最终时间戳
+  if (type === 1) {
+      timestamp = Date.parse(new Date(obj).toString()) + 24 * 3600000;
+  } else if (type === 2) {
+      let timeRemaining = !obj ? ['0','0','0'] : obj.split(':')
+      timestamp = (new Date()).getTime() + timeRemaining[0] * 3600000 + timeRemaining[1] * 60000 + timeRemaining[2] * 1000;
+  } else {
+      timestamp = Date.parse(new Date(obj).toString());
+  }
+  let inerval = setInterval(() => {
+      let date = new Date();
+      let timeStr = date.getTime(); //时间戳（毫秒）
+      let timeDifference = timestamp - timeStr
+      if (timeDifference <= 0) {
+          callback('-',index)
+          clearTimeout(inerval)
+      } else {
+          let hours = parseInt(timeDifference / 3600000);
+          let minute = parseInt(timeDifference % 3600000 / 60000);
+          let second = parseInt(timeDifference % 3600000 % 60000 / 1000);
+          let time = (hours < 10 ? '0' + hours : hours) + ':' + (minute < 10 ? '0' + minute : minute) + ':' + (second < 10 ? '0' + second : second)
+          callback(time,index)
+      }
+  }, 1000)
+};
 module.exports = {
   setApp,
   returnMiniProgram,
@@ -2326,5 +2426,8 @@ module.exports = {
   getSteps_9901,
   openPdf,
   getAddressInfoGD,
-  buriedPoint
+  buriedPoint,
+  aiReturn,
+  citicBankSign,
+  scheduledTasks
 };

@@ -556,18 +556,13 @@ Page({
 			if (result.data.contractStatus !== 1) {
 				if (result.data.version === 'v3') {
 					if (result.data.contractId) {
-						wx.navigateToMiniProgram({
-							appId: 'wxbcad394b3d99dac9',
-							path: 'pages/etc/index',
-							extraData: {
-								contract_id: result.data.contractId
-							},
-							success () {},
-							fail (e) {
-								// 未成功跳转到签约小程序
-								util.showToastNoIcon('调起微信签约小程序失败, 请重试！');
-							}
-						});
+						if (obj?.isCallBack && (obj.orderType === 31 || obj.orderType === 51)) { // AI回访
+							util.aiReturn(this,'#popTipComp',obj.id,() => {
+								util.citicBankSign(result.data.contractId);
+							});
+						} else {
+							util.citicBankSign(result.data.contractId);
+						}
 					} else {
 						await this.weChatSign(obj);
 					}
@@ -613,7 +608,13 @@ Page({
 			app.globalData.orderStatus = obj.selfStatus;
 			app.globalData.orderInfo.shopProductId = obj.shopProductId;
 			app.globalData.signAContract === -1;
-			util.weChatSigning(res);
+			if (obj?.isCallBack && (obj.orderType === 31 || obj.orderType === 51)) { // AI回访
+				util.aiReturn(this,'#popTipComp',app.globalData.orderInfo.orderId,() => {
+					util.weChatSigning(res);
+				});
+			} else {
+				util.weChatSigning(res);
+			}
 		} else {
 			util.showToastNoIcon(result.message);
 		}

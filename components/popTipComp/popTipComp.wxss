@@ -106,6 +106,14 @@
   margin-top: 16rpx;
   color: #39a6f8;
 }
+.alert-for-not-finished-content .module .contant .redTip {
+  display: block;
+  width: 100%;
+  font-size: 24rpx;
+  text-align: center;
+  color: #ff563c;
+  margin-top: 15rpx;
+}
 .alert-for-not-finished-content .module .btn {
   height: 106rpx;
   font-size: 36rpx;
