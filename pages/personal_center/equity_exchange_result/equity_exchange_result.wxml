@@ -1,0 +1,11 @@
+<view class="container">
+    <image wx:if="{{exchangeInfo.code === 0}}" src="/pages/default/assets/signed_successfully.png"/>
+    <image wx:else src="/pages/default/assets/high_speed_verification_failed.png"/>
+    <view class="title">{{exchangeInfo.code ? '兑换失败' : '兑换成功'}}</view>
+    <view class="tips" wx:if="{{exchangeInfo.code}}">{{exchangeInfo.message}}</view>
+    <view class="btn-wrapper">
+        <view class="btn" catchtap="handleReturnHome">返回首页</view>
+        <view wx:if="{{exchangeInfo.code !== 0}}" class="btn reexchange" catchtap="handleReexchange">重新兑换</view>
+    </view>
+</view>
+<privacy_popup></privacy_popup>

@@ -21,7 +21,7 @@
             </view>
         </view>
         <view class="package_tab_bottom">
-            <view class="title">{{activeTypeIndex === 0 ? '当日通行，隔日还款，适直偶尔上高速人群' : '每周一上午10:00结算上周通行费，适宜经常跑高速人群'}}</view>
+            <view class="title">{{activeTypeIndex === 0 ? '当日通行，隔日还款，适宜偶尔上高速人群' : '每周一上午10:00结算上周通行费，适宜经常跑高速人群'}}</view>
             <view class="title">{{activeTypeIndex === 0 ? '服务费:通行费*0.4%，最低1元1日(无通行不收费)':'服务费:10~15元/周(无通行不收费)'}}</view>
         </view>
     </view>
@@ -46,7 +46,7 @@
                         <view class="title">{{tools.limitNumber(item.productName,13)}}</view>
                         <!-- 取后台支付金额，保留小数点后2位，若套餐支付金额为0时，前端价格展示为免费 -->
                         <view class="money">
-                            <span wx:if="{{item.pledgePrice}}">
+                            <span wx:if="{{item.pledgePrice && !isSalesmanOrder}}">
                                 <!-- <text wx:else>￥{{tools.parseNum(item.pledgePrice)/100}}</text> -->
                                 <text style="text-decoration: line-through;">￥{{tools.parseNum(299)}}</text>
                             </span>
@@ -126,11 +126,11 @@
             <view class="moneyPay {{isFade ? 'confirmPackage' : ''}}" style="margin-top: 60rpx;"
                 wx:if="{{choiceIndex !== -1 && (listOfPackages[activeIndex].pledgePrice || (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))}}">
                 <view class="money" style="font-size: 30rpx; width: 500rpx; font-weight: 400;font-style: normal;" wx:if="{{isFade}}">
-                    押金<span class="mpneySpan"
+                    <text wx:if="{{!isSalesmanOrder}}">押金</text><span class="mpneySpan"
                         style="font-size: 56rpx; font-weight: 600;">￥{{activeIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}
-                        <span style="font-size: 24rpx;color: #979797;text-decoration: line-through;">原价299</span>
+                        <span style="font-size: 24rpx;color: #979797;text-decoration: line-through;" wx:if="{{!isSalesmanOrder}}">原价299</span>
                     </span>
-                    <view style="font-size: 24rpx;">设备激活后返回全部押金</view>
+                    <view wx:if="{{!isSalesmanOrder}}" style="font-size: 24rpx;">设备激活后返回全部押金</view>
                 </view>
                 <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}}"
                     data-isconfirm="{{getAgreement}}" catchtap="next">{{'立即支付'}}</view>

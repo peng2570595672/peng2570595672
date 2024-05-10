@@ -1,0 +1,48 @@
+<view class="container">
+    <view class="equity-container">
+        <view class="title">权益兑换<text>(3选1）</text></view>
+        <view class="video-list">
+            <view class="video-item" wx:for="{{couponList}}" wx:key="index">
+                <view class="logo">
+                    <image wx:if="{{item.basicCouponId === '1237369420618145792'}}" src="https://file.cyzl.com/g001/M03/66/57/oYYBAGY68XuAE8hRAAALQ9YZH7k420.png" mode="widthFix"></image>
+                    <image wx:if="{{item.basicCouponId === '1237369545474187264'}}" src="https://file.cyzl.com/g001/M03/66/57/oYYBAGY68V6AdZxbAAAH-QXi2Yk149.png" mode="widthFix"></image>
+                    <image wx:if="{{item.basicCouponId === '1237369668400848896'}}" src="https://file.cyzl.com/g001/M03/66/57/oYYBAGY68aSAGwiKAAAKmltIR2c333.png" mode="widthFix"></image>
+                </view>
+                <view class="item-title">{{item.couponName}}</view>
+                <view class="item-btn {{item.isReceive ? 'converted' : ''}}" bindtap="handleExchange" data-index="{{index}}">{{item.isReceive === 1 ? '已兑换' : '立即兑换'}}</view>
+            </view>
+        </view>
+        <view class="introduce">
+            <view class="introduce-title">商品介绍</view>
+            <view class="introduce-content">
+                <view class="info">商品名称:视频VIP会员周卡</view>
+                <view class="info">商品选择：视频VIP周卡三选一（腾讯、优酷、爱奇艺）</view>
+                <view class="info">适用平台:手机、电脑、平板、电视</view>
+                <view class="info">商品介绍:实际商品权益以视频官方规定为准，建议登录官方平台进行查看</view>
+            </view>
+            <view class="introduce-title">兑换说明</view>
+            <view class="introduce-content">
+                <view class="info">①仅限于购买及激活设备后，用户领取使用。</view>
+                <view class="info">②请仔细核对填写兑换的手机号码，暂不支持第三方账号兑换(兑换前请核对号码，切勿填错手机号，如因个人原因导致兑换错误，责任将由您自行承担)。</view>
+                <view class="info">③兑换成功后，请登录对应视频APP查看您的会员状态和有效期。</view>
+                <view class="info">④自激活之日起，兑换有效期为7天，请在有效期内兑换，过期即失效。</view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="alert-box animated {{wrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{mask}}">
+    <view class="alert-wrapper  animated {{wrapper ? 'slideInUp' : 'slideOutDown'}}" wx:if="{{mask}}">
+        <view class="alert-close iconfont" bindtap="handleClose"></view>
+        <view class="alert-title">充值账号</view>
+        <view class="alert-content">
+            <view class="alert-input">
+                <input type="number" value="{{mobilePhone}}" maxlength="11" placeholder="请输入手机号" bindinput="onInputChangedHandle" />
+            </view>
+            <view class="tips">*请确认输入的账号准确有效，一经兑换不支持退回重新兑换</view>
+            <view class="alert-btn" bindtap="handleSubmit">确定兑换</view>
+        </view>
+    </view>
+</view>
+
+
+<privacy_popup></privacy_popup>

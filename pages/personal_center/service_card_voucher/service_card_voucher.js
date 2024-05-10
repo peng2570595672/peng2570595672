@@ -33,9 +33,9 @@ Page({
 			// {type: 3,name: '加油券'},
 			// {type: 4,name: '充电券'},
 			{type: 5,name: '洗车券'},
-			// {type: 6,name: '通用券'},
 			// {type: 7,name: '商品消费券'}
-			{type: 8,name: '药诊券'}
+			{type: 8,name: '药诊券'},
+			{type: 6,name: '通用券'}
 		],
 		activeIndex: 0
 	},
@@ -336,11 +336,7 @@ Page({
 			this.setData({activeIndex: index,list: [],page: 1,currentTab: 0});
 			this.getCouponInfo(this.data.currentTab);
 		}
-		if (!flag && type === 5) {
-			this.setData({activeIndex: index,list: [],page: 1,currentTab: 0});
-			this.getCouponInfo(this.data.currentTab);
-		}
-		if (!flag && type === 8) {	// 药店券
+		if (!flag && (type === 5 || type === 6 || type === 8)) {
 			this.setData({activeIndex: index,list: [],page: 1,currentTab: 0});
 			this.getCouponInfo(this.data.currentTab);
 		}

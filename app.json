@@ -3,7 +3,7 @@
     "pages": [
         "pages/startUpPages/index",
         "pages/Home/Home",
-        "pages/etc_handle/etc_handle", 
+        "pages/etc_handle/etc_handle",
         "pages/membershipCertificate/membershipCertificate",
         "pages/my/index",
         "pages/active_tips/active_tips",
@@ -132,6 +132,8 @@
                 "all_store/all_store",
                 "set_up/set_up",
                 "comprehensiveServiceFee/comprehensiveServiceFee",
+                "my_video_equity/my_video_equity",
+                "equity_exchange_result/equity_exchange_result",
                 "comprehensiveServiceFee_detail/comprehensiveServiceFee_detail"
             ]
         },

@@ -702,7 +702,7 @@ function getTruckHandlingStatus(orderInfo) {
 		return 2; // 办理中 未选套餐
 	}
 	// 新货车流程
-  if (orderInfo.flowVersion === 5) {
+  if (orderInfo.flowVersion === 5 || orderInfo.flowVersion === 1) {
 	  if (!orderInfo.pledgeStatus) {
 		  // pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
 		  return 3; // 待支付
@@ -1075,6 +1075,7 @@ function getHandlingType(orderInfo) {
  */
 function isGreaterThanData(dateStr) {
   const curDate = new Date();
+	dateStr = dateStr.replace(new RegExp('-', 'g'), '/'); //转换是为了iPhone
   const dateTimestamp = new Date(dateStr);
   return curDate >= dateTimestamp;
 }

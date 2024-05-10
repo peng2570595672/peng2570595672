@@ -334,9 +334,9 @@
                     data-isconfirm="{{available && getAgreement}}" wx:else catchtap="validateCar">{{'立即支付'}}</view>
             </view>
             <view class="nextSign" wx:else>
-                <button class="btns {{choiceIndex === -1 && available && getAgreement ?  'payColor' : ''}}"
+                <button class="btns {{choiceIndex !== -1 && available && getAgreement ?  'payColor' : ''}}"
                     catchtap="validateCar">
-                    {{isSalesmanOrder ? '去签约' : '确认套餐'}}
+                    确认套餐
                 </button>
             </view>
         </view>
