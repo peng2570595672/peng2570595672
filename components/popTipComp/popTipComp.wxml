@@ -296,7 +296,10 @@
         </view>
         <!-- 带标题 一个按钮 一个醒目icon -->
         <view class="module moduleOne" wx:if="{{tipObj.type === 'aiReturn'}}">
-            <view class="icon"><icon class="icon-small" type="warn" size="80" color="#FF9700"></icon></view>
+            <view class="icon">
+                <icon class="icon-small" type="warn" size="80" color="#FF9700"></icon>
+                <icon class="icon-small cancel" type="cancel" size="23" data-title="{{tipObj.title}}" catchtap="hide"></icon>
+            </view>
             <view class="title" wx:if="{{tipObj.title}}">{{tipObj.title}}</view>
             <view class="contant">
                 <text >{{tools.limitNumber(tipObj.content,90)}}</text>

@@ -113,7 +113,7 @@
         }
     },
     "setting": {
-        "compileHotReLoad": false,
+        "compileHotReLoad": true,
         "preloadBackgroundData": false,
         "bigPackageSizeSupport": true
     },
