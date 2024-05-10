@@ -4,9 +4,9 @@
         <view class="video-list">
             <view class="video-item" wx:for="{{couponList}}" wx:key="index">
                 <view class="logo">
-                    <image wx:if="{{item.basicCouponId === '1237369420618145792'}}" src="https://file.cyzl.com/g001/M03/66/57/oYYBAGY68XuAE8hRAAALQ9YZH7k420.png" mode="widthFix"></image>
-                    <image wx:if="{{item.basicCouponId === '1237369545474187264'}}" src="https://file.cyzl.com/g001/M03/66/57/oYYBAGY68V6AdZxbAAAH-QXi2Yk149.png" mode="widthFix"></image>
-                    <image wx:if="{{item.basicCouponId === '1237369668400848896'}}" src="https://file.cyzl.com/g001/M03/66/57/oYYBAGY68aSAGwiKAAAKmltIR2c333.png" mode="widthFix"></image>
+                    <image wx:if="{{item.basicCouponId === '1237369420618145792' || item.basicCouponId === '1238439895646085120'}}" src="https://file.cyzl.com/g001/M03/66/57/oYYBAGY68XuAE8hRAAALQ9YZH7k420.png" mode="widthFix"></image>
+                    <image wx:if="{{item.basicCouponId === '1237369545474187264' || item.basicCouponId === '1238439612299878400'}}" src="https://file.cyzl.com/g001/M03/66/57/oYYBAGY68V6AdZxbAAAH-QXi2Yk149.png" mode="widthFix"></image>
+                    <image wx:if="{{item.basicCouponId === '1237369668400848896' || item.basicCouponId === '1237369668400848896'}}" src="https://file.cyzl.com/g001/M03/66/57/oYYBAGY68aSAGwiKAAAKmltIR2c333.png" mode="widthFix"></image>
                 </view>
                 <view class="item-title">{{item.couponName}}</view>
                 <view class="item-btn {{item.isReceive ? 'converted' : ''}}" bindtap="handleExchange" data-index="{{index}}">{{item.isReceive === 1 ? '已兑换' : '立即兑换'}}</view>
