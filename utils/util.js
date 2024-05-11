@@ -4,7 +4,7 @@
  * @description 共用函数
  * @version 1.0
  */
-import {isOpenBluetooth} from './utils';
+import { isOpenBluetooth } from './utils';
 
 const CryptoJS = require('./crypto-js.js');
 const QQMapWX = require('../libs/qqmap-wx-jssdk.min.js');
@@ -450,35 +450,32 @@ function hideLoading() {
 
 // 根据日期计算汉字
 function getDateDiff(dateTimeStamp) {
-  let result = '';
-  let minute = 1000 * 60;
-  let hour = minute * 60;
-  let day = hour * 24;
-  let halfamonth = day * 15;
-  let month = day * 30;
-  let now = new Date().getTime();
-  let diffValue = now - dateTimeStamp;
+  const minute = 1000 * 60;
+  const hour = minute * 60;
+  const day = hour * 24;
+  const halfAMonth = day * 15;
+  const month = day * 30;
+  const now = new Date().getTime();
+  const diffValue = now - dateTimeStamp;
+
   if (diffValue < 0) {
     return;
   }
-  let monthC = diffValue / month;
-  let weekC = diffValue / (7 * day);
-  let dayC = diffValue / day;
-  let hourC = diffValue / hour;
-  let minC = diffValue / minute;
-  if (monthC >= 1) {
-    result = "" + parseInt(monthC) + "月前";
-  } else if (weekC >= 1) {
-    result = "" + parseInt(weekC) + "周前";
-  } else if (dayC >= 1) {
-    result = "" + parseInt(dayC) + "天前";
-  } else if (hourC >= 1) {
-    result = "" + parseInt(hourC) + "小时前";
-  } else if (minC >= 1) {
-    result = "" + parseInt(minC) + "分钟前";
-  } else
-    result = "刚刚";
-  return result;
+
+  const monthC = diffValue / month;
+  const weekC = diffValue / (7 * day);
+  const dayC = diffValue / day;
+  const hourC = diffValue / hour;
+  const minC = diffValue / minute;
+
+  return (
+    monthC >= 1 ? `${Math.floor(monthC)}个月前` :
+      weekC >= 1 ? `${Math.floor(weekC)}周前` :
+        dayC >= 1 ? `${Math.floor(dayC)}天前` :
+          hourC >= 1 ? `${Math.floor(hourC)}小时前` :
+            minC >= 1 ? `${Math.floor(minC)}分钟前` :
+              "刚刚"
+  );
 }
 
 // 将号码中间四位替换为*
@@ -694,6 +691,8 @@ function luhmCheck(bankno) {
 
   return lastNum === luhm;
 }
+
+
 /**
  *  获取货车新流程订单办理状态 2.0
  */
@@ -848,8 +847,8 @@ function getStatus(orderInfo) {
     }
     // hwContractStatus 高速签约状态，0-未签约，1-已签约  2-解约
     if (orderInfo.contractStatus !== 1 && orderInfo.hwContractStatus) {
-    	// 9901解约
-    	return 1;
+      // 9901解约
+      return 1;
     }
     return 35; // 待发货,-继续办理
   }
@@ -1075,7 +1074,7 @@ function getHandlingType(orderInfo) {
  */
 function isGreaterThanData(dateStr) {
   const curDate = new Date();
-	dateStr = dateStr.replace(new RegExp('-', 'g'), '/'); //转换是为了iPhone
+  dateStr = dateStr.replace(new RegExp('-', 'g'), '/'); //转换是为了iPhone
   const dateTimestamp = new Date(dateStr);
   return curDate >= dateTimestamp;
 }
@@ -1437,7 +1436,7 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
     platformId: app.globalData.platformId,
     shopId: orderInfo.shopId || app.globalData.miniProgramServiceProvidersId
   };
-  if ( +orderInfo.isNewTrucks === 1 || +app.globalData.orderInfo.isNewTrucks === 1) {// 是否是货车办理
+  if (+orderInfo.isNewTrucks === 1 || +app.globalData.orderInfo.isNewTrucks === 1) {// 是否是货车办理
     params.vehType = 2;
     params.shopId = app.globalData.miniProgramServiceProvidersId;
   }
@@ -1789,11 +1788,11 @@ async function getObuCardType() {
   let trucksOrder = [];
   app.globalData.myEtcList.map(item => {
     if (item.obuStatus === 1 || item.obuStatus === 2 || item.obuStatus === 5) {
-	    obuCardType.push(item.obuCardType);
-	    if (item.obuCardType === 21 && item.flowVersion === 4) {
-	    	// 易路通达账单
-		    trucksOrder.push(item.id);
-	    }
+      obuCardType.push(item.obuCardType);
+      if (item.obuCardType === 21 && item.flowVersion === 4) {
+        // 易路通达账单
+        trucksOrder.push(item.id);
+      }
     }
   }); // 1 已激活  2 恢复订单  5 预激活
   app.globalData.isArrearageData.trucksOrderList = trucksOrder;
@@ -2264,47 +2263,47 @@ async function buriedPoint(params, callBack) {
  * @param {*} callBack 回调
  * @returns 
  */
-async function aiReturn (that,compId,orderId,callBack) {
-    let params = {
-      orderId: orderId // 订单id
-    };
-    const result = await getDataFromServersV2('consumer/system/aiReturnVisits/selectIsAllAgree', params);
-    // if (!result) return;
-    if (result.code === 1) {
-      callBack && callBack();
-    } else if (result.code === 0) {
-        that.selectComponent(compId).show({
-          type: 'aiReturn',
-          title: '警示',
-          content: `需要拨打回访电话，请接听电话后确认订单信息`,
-          btnconfirm: '确定',
-          params: {
-              firstFlag: true,
-              orderId: orderId
-          },
-          callBack: () => {
-            callBack && callBack();
-          }
-        });
-    } else {
-        if (result.code === 104 && result.message.includes('再次拨打')) {
-          that.selectComponent(compId).show({
-            type: 'aiReturn',
-            title: '警示',
-            content: result.message,
-            btnconfirm: '再次拨打',
-            params: {
-              firstFlag: false,
-                orderId: orderId
-            },
-            callBack: () => {
-              callBack && callBack();
-            }
-          });
-        } else {
-          showToastNoIcon(result.message);
+async function aiReturn(that, compId, orderId, callBack) {
+  let params = {
+    orderId: orderId // 订单id
+  };
+  const result = await getDataFromServersV2('consumer/system/aiReturnVisits/selectIsAllAgree', params);
+  // if (!result) return;
+  if (result.code === 1) {
+    callBack && callBack();
+  } else if (result.code === 0) {
+    that.selectComponent(compId).show({
+      type: 'aiReturn',
+      title: '警示',
+      content: `需要拨打回访电话，请接听电话后确认订单信息`,
+      btnconfirm: '确定',
+      params: {
+        firstFlag: true,
+        orderId: orderId
+      },
+      callBack: () => {
+        callBack && callBack();
+      }
+    });
+  } else {
+    if (result.code === 104 && result.message.includes('再次拨打')) {
+      that.selectComponent(compId).show({
+        type: 'aiReturn',
+        title: '警示',
+        content: result.message,
+        btnconfirm: '再次拨打',
+        params: {
+          firstFlag: false,
+          orderId: orderId
+        },
+        callBack: () => {
+          callBack && callBack();
         }
+      });
+    } else {
+      showToastNoIcon(result.message);
     }
+  }
 };
 /**
  * 中信银行单独签约
@@ -2317,8 +2316,8 @@ function citicBankSign(contractId) {
     extraData: {
       contract_id: contractId
     },
-    success () {},
-    fail () {
+    success() { },
+    fail() {
       // 未成功跳转到签约小程序
       showToastNoIcon('调起微信签约小程序失败, 请重试！');
     }
@@ -2330,30 +2329,30 @@ function citicBankSign(contractId) {
  * @param {*} obj: number | string 可以是初始时间（格式：'2024-03-12 16:00:00'）、剩余时间（格式：'07:30:45'）、最终时间（格式：'2024-03-12 16:00:00'）
  * @param {*} callback 回调函数 
  */
-function scheduledTasks(type, obj, callback,index) {
+function scheduledTasks(type, obj, callback, index) {
   let timestamp = undefined; //最终时间戳
   if (type === 1) {
-      timestamp = Date.parse(new Date(obj).toString()) + 24 * 3600000;
+    timestamp = Date.parse(new Date(obj).toString()) + 24 * 3600000;
   } else if (type === 2) {
-      let timeRemaining = !obj ? ['0','0','0'] : obj.split(':')
-      timestamp = (new Date()).getTime() + timeRemaining[0] * 3600000 + timeRemaining[1] * 60000 + timeRemaining[2] * 1000;
+    let timeRemaining = !obj ? ['0', '0', '0'] : obj.split(':')
+    timestamp = (new Date()).getTime() + timeRemaining[0] * 3600000 + timeRemaining[1] * 60000 + timeRemaining[2] * 1000;
   } else {
-      timestamp = Date.parse(new Date(obj).toString());
+    timestamp = Date.parse(new Date(obj).toString());
   }
   let inerval = setInterval(() => {
-      let date = new Date();
-      let timeStr = date.getTime(); //时间戳（毫秒）
-      let timeDifference = timestamp - timeStr
-      if (timeDifference <= 0) {
-          callback('-',index)
-          clearTimeout(inerval)
-      } else {
-          let hours = parseInt(timeDifference / 3600000);
-          let minute = parseInt(timeDifference % 3600000 / 60000);
-          let second = parseInt(timeDifference % 3600000 % 60000 / 1000);
-          let time = (hours < 10 ? '0' + hours : hours) + ':' + (minute < 10 ? '0' + minute : minute) + ':' + (second < 10 ? '0' + second : second)
-          callback(time,index)
-      }
+    let date = new Date();
+    let timeStr = date.getTime(); //时间戳（毫秒）
+    let timeDifference = timestamp - timeStr
+    if (timeDifference <= 0) {
+      callback('-', index)
+      clearTimeout(inerval)
+    } else {
+      let hours = parseInt(timeDifference / 3600000);
+      let minute = parseInt(timeDifference % 3600000 / 60000);
+      let second = parseInt(timeDifference % 3600000 % 60000 / 1000);
+      let time = (hours < 10 ? '0' + hours : hours) + ':' + (minute < 10 ? '0' + minute : minute) + ':' + (second < 10 ? '0' + second : second)
+      callback(time, index)
+    }
   }, 1000)
 };
 module.exports = {

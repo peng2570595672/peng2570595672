@@ -3,14 +3,16 @@
  * @desc 信息确认
  */
 const util = require('../../../utils/util.js');
-const {handleJumpHunanMini} = require('../../../utils/utils');
+const {
+	handleJumpHunanMini
+} = require('../../../utils/utils');
 const app = getApp();
 Page({
 	data: {
 		orderInfo: {},
 		contractStatus: 0, // 1已签约
-		citicBank: false,	// false 不是中信银行联名套餐
-		isHunan: false	// false 不是湖南信科
+		citicBank: false, // false 不是中信银行联名套餐
+		isHunan: false // false 不是湖南信科
 	},
 	async onLoad (options) {
 		if (options.citicBank || options.citicBank === 'true') {
@@ -69,7 +71,9 @@ Page({
 	// 微信签约
 	async next () {
 		if (this.data.isHunan) {
-			const result = await util.getDataFromServersV2('consumer/order/order-pay-transaction-info', {orderId: app.globalData.orderInfo.orderId});
+			const result = await util.getDataFromServersV2('consumer/order/order-pay-transaction-info', {
+				orderId: app.globalData.orderInfo.orderId
+			});
 			if (result.code) {
 				util.showToastNoIcon(result.message);
 				return;
@@ -80,7 +84,9 @@ Page({
 		if (this.data.isRequest) {
 			return;
 		} else {
-			this.setData({isRequest: true});
+			this.setData({
+				isRequest: true
+			});
 		}
 		if (this.data.orderInfo.flowVersion !== 1) {
 			util.go('/pages/historical_pattern/transition_page/transition_page');
@@ -88,8 +94,8 @@ Page({
 		}
 		util.showLoading('加载中');
 		let params = {
-			dataComplete: 1,// 已完善资料,进入待审核
-			orderId: app.globalData.orderInfo.orderId,// 订单id
+			dataComplete: 1, // 已完善资料,进入待审核
+			orderId: app.globalData.orderInfo.orderId, // 订单id
 			clientOpenid: app.globalData.userInfo.openId,
 			clientMobilePhone: app.globalData.userInfo.mobilePhone,
 			needSignContract: true // 是否需要签约 true-是，false-否
@@ -99,7 +105,9 @@ Page({
 		}
 		wx.uma.trackEvent('payment_successful_next');
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
-		this.setData({isRequest: false});
+		this.setData({
+			isRequest: false
+		});
 		if (!result) return;
 		if (result.code === 0) {
 			if (this.data.contractStatus === 1) {
@@ -113,21 +121,21 @@ Page({
 			app.globalData.belongToPlatform = app.globalData.platformId;
 			app.globalData.isNeedReturnHome = true;
 			if (this.data.orderInfo?.isCallBack && (this.data.orderInfo?.orderType === 31 || this.data.orderInfo?.orderType === 51)) {
-                util.aiReturn(this,'#popTipComp',app.globalData.orderInfo.orderId,() => {
-                    util.weChatSigning(res);
-                });
-            } else {
-                util.weChatSigning(res);
-            }
+				util.aiReturn(this, '#popTipComp', app.globalData.orderInfo.orderId, () => {
+					util.weChatSigning(res);
+				});
+			} else {
+				util.weChatSigning(res);
+			}
 		} else {
 			util.showToastNoIcon(result.message);
 		}
 	},
 	go () {
 		if (this.data.is9901) {
-		// 调用获取账户列表 有用户信息则跳过身份证录入环境
-		// 跳转上传证件页
-		util.go(`/pages/default/information_list/information_list?pro9901=true`);
+			// 调用获取账户列表 有用户信息则跳过身份证录入环境
+			// 跳转上传证件页
+			util.go(`/pages/default/information_list/information_list?pro9901=true`);
 		} else {
 			// 跳转上传证件页
 			util.go(`/pages/default/information_list/information_list`);

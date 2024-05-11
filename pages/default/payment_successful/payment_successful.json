@@ -3,6 +3,6 @@
   "navigationBarBackgroundColor": "#FFFFFF",
   "navigationBarTextStyle": "black",
   "usingComponents": {
-		"popTipComp": "/components/popTipComp/popTipComp"
+    "popTipComp": "/components/popTipComp/popTipComp"
   }
 }
