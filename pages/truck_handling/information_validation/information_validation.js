@@ -277,6 +277,10 @@ Page({
 					checkVinInfo[key] = this.initVinIfo(data[key]);
 				}
 			}
+			if (result.data.cllx.includes('客车')) {
+				util.showToastNoIcon(`仅支持货车办理`);
+				return;
+			}
 			if (this.data.carAxleNum !== +result.data.zs) {
 				util.showToastNoIcon(`车辆信息与${this.data.vehPlates}不一致，请重新上传`);
 				return;
