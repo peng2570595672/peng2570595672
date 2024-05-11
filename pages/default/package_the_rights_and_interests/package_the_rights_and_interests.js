@@ -1219,6 +1219,9 @@ Page({
         });
         if (!result) return;
         if (result.code === 0) {
+            this.setData({
+                vehPlates: result.data.base.vehPlates
+            });
             if (result.data.base.vehPlates.length === 7) {
                 let listOfPackages = this.data.listOfPackages.filter(item => item.shopProductId !== app.globalData.cictBankObj.citicBankShopshopProductId && item.shopProductId !== app.globalData.cictBankObj.cictBankNmPlatinumCard);
                 this.setData({
@@ -1228,9 +1231,6 @@ Page({
         } else {
             util.showToastNoIcon(result.message);
         }
-        this.setData({
-            vehPlates: result.data.base.vehPlates
-        });
     },
     // 弹窗详情
     popDetail (e) {
