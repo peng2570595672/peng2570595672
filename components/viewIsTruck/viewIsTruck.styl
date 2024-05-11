@@ -1,7 +1,8 @@
 // Global variables
 $animation-duration = 0.4s
 $animation-fill-mode = both
-
+// 以下配置用于stylus编译后不添加前缀 如@-moz-keyframes 小程序会报错
+vendors = official
 // Animation mixin
 animation(name)
   -webkit-animation-name name
