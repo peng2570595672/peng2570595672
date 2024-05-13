@@ -543,9 +543,8 @@ Page({
         }
         if (url === 'changeCarAndCard') {	// 跳转换车换牌
             // 判断有无已经激活的蒙通卡
-            console.log(this.data.nmOrderList.length);
-            !this.data.nmOrderList.length ? util.go(`/pages/default/${url}/${url}`) : util.showToastNoIcon('该功能仅限内蒙高速卡种使用');
-            return;
+            return util.go(`/pages/default/${url}/${url}`);
+            // this.data.nmOrderList.length ? util.go(`/pages/default/changeCardIntruduce/changeCardIntruduce`) : util.showToastNoIcon('该功能仅限内蒙高速卡种使用');
         }
         if (url === 'tonTonQuan') {	// 跳转通通券
             this.selectComponent('#dialog1').show('tonTonQuan');
