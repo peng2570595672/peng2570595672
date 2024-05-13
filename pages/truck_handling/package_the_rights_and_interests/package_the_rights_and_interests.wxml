@@ -16,7 +16,9 @@
                 <view wx:for="{{orderTabList}}" wx:key="index" class="item">
                     <view class="confirm iconfont {{item.billingMethod === activeTypeIndex+1 ? 'tick' : ''}}"
                         data-index="{{item.billingMethod}}" catchtap="choosePackage"></view>
-                    {{item.name}}
+                    <view data-index="{{item.billingMethod}}" catchtap="choosePackage">
+                        {{item.name}}
+                    </view>
                 </view>
             </view>
         </view>
