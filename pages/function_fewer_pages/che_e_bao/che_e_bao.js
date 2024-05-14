@@ -12,7 +12,7 @@ Page({
     },
     btnFunc () {
         this.selectComponent('#cdPopup').show({
-            isBtnClose: true,
+            isBtnClose: false,
             argObj: {
                 type: 'cheEBao',
                 title: '办理产品',
