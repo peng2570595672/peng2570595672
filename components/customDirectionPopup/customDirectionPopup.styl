@@ -1,90 +1,90 @@
 vendors = official
 
-.animated {
+.animated 
     -webkit-animation-duration: .4s
     animation-duration: .4s
     -webkit-animation-fill-mode: both
     animation-fill-mode: both
-}
 
-.fadeIn {
+
+.fadeIn 
     animation-name: fadeIn
     -webkit-animation-name: fadeIn
-}
 
-@keyframes fadeIn {
-    from {
+
+@keyframes fadeIn 
+    from 
         opacity: 0
-    }
+    
 
-    to {
+    to 
         opacity: 1
-    }
-}
+    
 
-@-webkit-keyframes fadeIn {
-    from {
+
+@-webkit-keyframes fadeIn 
+    from 
         opacity: 0
-    }
+    
 
-    to {
+    to 
         opacity: 1
-    }
-}
+    
 
-.fadeOut {
+
+.fadeOut 
     animation-name: fadeOut
     -webkit-animation-name: fadeOut
-}
 
-@keyframes fadeOut {
-    from {
+
+@keyframes fadeOut 
+    from 
         opacity: 1
-    }
+    
 
-    to {
+    to 
         opacity: 0
-    }
-}
+    
 
-@-webkit-keyframes fadeOut {
-    from {
+
+@-webkit-keyframes fadeOut 
+    from 
         opacity: 1
-    }
+    
 
-    to {
+    to 
         opacity: 0
-    }
-}
+    
 
-.slideUp {
+
+.slideUp 
     animation-name: slideUp
     -webkit-animation-name: slideUp
-}
 
-@keyframes slideUp {
-    from {
+
+@keyframes slideUp 
+    from 
         transform: translateY(500rpx)
         -webkit-transform: translateY(500rpx)
-    }
-    to {
+    
+    to 
         transform: translateY(0rpx)
         -webkit-transform: translateY(0rpx)
-    }
-}
+    
 
-@-webkit-keyframes slideUp {
-    from {
+
+@-webkit-keyframes slideUp 
+    from 
         transform: translateY(500rpx)
         -webkit-transform: translateY(500rpx)
-    }
-    to {
+    
+    to 
         transform: translateY(0rpx)
         -webkit-transform: translateY(0rpx)
-    }
-}
+    
 
-.animatedSlide {
+
+.animatedSlide 
     -webkit-animation-duration: .4s
     animation-duration: .4s
     -webkit-animation-fill-mode: both
@@ -92,35 +92,35 @@ vendors = official
     -webkit-animation-timing-function: linear
     animation-timing-function: linear
 
-}
 
 
-.glideDown {
+
+.glideDown 
     animation-name: glideDown
     -webkit-animation-name: glideDown
-}
 
-@keyframes glideDown {
-    from {
+
+@keyframes glideDown 
+    from 
         transform: translateY(0rpx)
         -webkit-transform: translateY(0rpx)
-    }
-    to {
+    
+    to 
         transform: translateY(500rpx)
         -webkit-transform: translateY(500rpx)
-    }
-}
+    
 
-@-webkit-keyframes glideDown {
-    from {
+
+@-webkit-keyframes glideDown 
+    from 
         transform: translateY(0rpx)
         -webkit-transform: translateY(0rpx)
-    }
-    to {
+    
+    to 
         transform: translateY(500rpx)
         -webkit-transform: translateY(500rpx)
-    }
-}
+    
+
 @font-face
     font-family 'iconfont' /* Project id 1514406 */
     src url('//at.alicdn.com/t/font_1514406_r2ex32p9up.woff2?t=1651741878795') format('woff2'), url('//at.alicdn.com/t/font_1514406_r2ex32p9up.woff?t=1651741878795') format('woff'), url('//at.alicdn.com/t/font_1514406_r2ex32p9up.ttf?t=1651741878795') format('truetype')
@@ -820,6 +820,48 @@ flexModule($align=normal,$justify=normal)
             line-height 50px
             .time
                 width 138.8rpx
+    .cheEBao
+        min-height 300rpx
+        padding: 0 36rpx;
+        .publicInp 
+            // background #0f0
+            height 84rpx
+            flexModule(center, space-between)
+            border-bottom 1rpx solid #E0E0E0
+            .attr 
+                width 100rpx
+                color #3D3D3D
+                font-size 28rpx
+                font-weight 600
+                text-align right
+                letter-spacing 0.38rpx
+            .value 
+                mixinsWidthHeight(520rpx, 100%)
+                &>input 
+                    font-size 28rpx
+                    font-weight 600
+                    color #343837
+                    margin-left 24rpx
+                    mixinsWidthHeight(440rpx, 100%)
+                    letter-spacing 0.32rpx
+                    flexModule(center, normal)
+                .placeholder 
+                    font-weight normal
+                    color #999999
+            .captcha
+                flexModule(center, space-between)
+                .code-input 
+                    mixinsWidthHeight(240rpx, 100%)
+                .get-code 
+                    color #2A4F44
+                    padding-left 10rpx
+                    border-left 1rpx solid #E0E0E0
+        .btn
+            mixinsWidthHeight(632rpx, 100%)
+        .noBtn
+            background #ccc
+        .yesBtn
+            background #2A4F44
     .split
         width 100vw
     .image

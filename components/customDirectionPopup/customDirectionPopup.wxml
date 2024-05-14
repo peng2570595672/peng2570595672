@@ -238,5 +238,19 @@
             </picker-view>
             <!-- <button class="thisTime" >确认</button> -->
         </view>
+        <view class="module cheEBao" wx:if="{{argObj.type === 'cheEBao'}}">
+            <view class="publicInp">
+                <view class="attr">手机号</view>
+                <view class="value"><input type="number" placeholder="请输入手机号" placeholder-class="placeholder" value="{{argObj.wxPhone}}" disabled/></view>
+            </view>
+            <view class="publicInp">
+                <view class="attr">验证码</view>
+                <view class="value captcha">
+                    <input type="text" class="code-input" placeholder="请输入验证码" maxlength="6" placeholder-class="placeholder" confirm-type="done" value="{{code}}" bindinput="codeValueChange"/>
+                    <view class="get-code" catchtap="getCode">{{identifyingCode}}</view>
+                </view>
+            </view>
+            <view class="btn {{isBtn ? 'yesBtn' : 'noBtn'}}" catchtap="cheEBaoHandle">{{argObj.btnText}}</view>
+        </view>
     </view>
 </view>
