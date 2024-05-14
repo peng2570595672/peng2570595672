@@ -78,13 +78,12 @@
   width: 32rpx;
   height: 32rpx;
   content: '\e669';
-  font-size: 22rpx;
+  font-size: 28rpx;
   color: #fff;
   text-align: center;
-  line-height: 34rpx;
+  line-height: 30rpx;
   border-radius: 50%;
   background-color: #2a4f44;
-  border: 1px solid #2a4f44;
 }
 .package_tab .package_tab_bottom {
   width: 90%;
@@ -605,12 +604,28 @@
   animation: fade_out 0.5s linear forwards;
   -webkit-animation: fade_out 0.5s linear forwards;
 }
+@-webkit-keyframes fade_in {
+  0% {
+    bottom: -330rpx;
+  }
+  100% {
+    bottom: 0;
+  }
+}
 @keyframes fade_in {
   0% {
     bottom: -330rpx;
   }
   100% {
     bottom: 0;
+  }
+}
+@-webkit-keyframes fade_out {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: -330rpx;
   }
 }
 @keyframes fade_out {
@@ -635,6 +650,17 @@
   }
   100% {
     bottom: -330rpx;
+  }
+}
+@-webkit-keyframes addEquityPackage {
+  0% {
+    opacity: 0;
+  }
+  71% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 @keyframes addEquityPackage {
