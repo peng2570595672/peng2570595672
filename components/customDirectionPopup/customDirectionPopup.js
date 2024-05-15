@@ -55,7 +55,7 @@ Component({
         shopProductId: app.globalData.deviceUpgrade.shopProductId,
         rightsPackageId: app.globalData.deviceUpgrade.rightsPackageId,
         shopId: app.globalData.deviceUpgrade.shopId,
-		shopProductInfo: {},	// 套餐信息
+        shopProductInfo: {},	// 套餐信息
         equityListMap: {}, // 权益包信息
         orderList: [], // 存放符合设备升级条件的自定义订单列表
         relatedOrderId: '', // 原订单ID
@@ -111,8 +111,14 @@ Component({
             minute: date.getMinutes()
         },
         timeVal: [date.getFullYear(), date.getMonth(), date.getDate() - 1, date.getHours(), date.getMinutes()],
-        isBtnDataTime: true // 是否可以点击按钮确认时间
+        isBtnDataTime: true, // 是否可以点击按钮确认时间
         // ==================================end =====================================================
+        // ===============================车e宝====================================================
+        identifyingCode: '获取验证码', // 倒计时提示文本
+        code: '', // 验证码
+        timer: undefined, // 计时器
+        time: 0 // 倒计时计数
+        // ==================================end ==================================================
     },
 
     methods: {
@@ -587,20 +593,20 @@ Component({
          * @returns
          */
         async getPackageRelation (id,index) {
-			const result = await util.getDataFromServersV2('consumer/voucher/rights/common/get-package-coupon-list-buy', {
-				packageId: id
-			},'POST',true);
-			if (!result) return;
-			if (result.code === 0) {
+            const result = await util.getDataFromServersV2('consumer/voucher/rights/common/get-package-coupon-list-buy', {
+                packageId: id
+            },'POST',true);
+            if (!result) return;
+            if (result.code === 0) {
                 if (result.data.length === 0) util.showToastNoIcon('没有券包');
                 let couponList = this.data.couponList;
                 couponList[index].detailList = result.data;
                 couponList[index].detailList.sort(this.reorder('couponType')); // 排序
                 this.setData({couponList});
-			} else {
-				util.showToastNoIcon(result.message);
-			}
-		},
+            } else {
+                util.showToastNoIcon(result.message);
+            }
+        },
         // 排序
         reorder (prop) {
             return function (obj1, obj2) {
@@ -645,6 +651,68 @@ Component({
             let minute = time.minute < 10 ? '0' + time.minute : time.minute;
             let dataTime = `${time.year}-${month}-${day} ${hour}:${minute}`;
             this.triggerEvent('cDPopup',{dataTime: dataTime});
+            this.hide();
+        },
+        // ------------------------------end----------------------------------------------
+        // ----------------------------车e宝----------------------------------------------
+        setTimer () { // 设置倒计时
+            if (this.data.timer) {
+                clearInterval(this.data.timer);
+                this.setData({timer: undefined});
+            }
+            this.data.time = 60;
+            this.data.timer = setInterval(() => {
+                if (this.data.time === 0) {
+                    clearInterval(this.data.timer);
+                    this.setData({
+                        timer: undefined,
+                        identifyingCode: '获取验证码'
+                    });
+                } else {
+                    this.setData({
+                        time: this.data.time - 1,
+                        identifyingCode: this.data.time + '秒'
+                    });
+                }
+            }, 1000);
+        },
+        // 获取验证码
+        async getCode () {
+            this.setTimer();
+            if (!this.data.argObj.wxPhone || this.data.argObj.wxPhone.length === 0) {
+                util.showToastNoIcon('手机号不能为空!');
+                return false;
+            }
+            util.showLoading({title: '获取中...'});
+            const result = await util.getDataFromServersV2('', {
+                mobilePhone: this.data.argObj.wxPhone
+            },'POST',true);
+            if (!result) return;
+            if (result.code === 0) {
+                wx.hideLoading();
+                this.setTimer();
+            } else {
+                wx.hideLoading();
+                util.showToastNoIcon(result.message);
+            }
+        },
+        // 手机验证码输入
+        codeValueChange (e) {
+            let code = e.detail.value.trim();
+            if (code.length >= 4) {
+                this.setData({
+                    code,
+                    isBtn: true
+                });
+            } else {
+                this.setData({
+                    code,
+                    isBtn: false
+                });
+            }
+        },
+        // 确定办理
+        cheEBaoHandle () {
             this.hide();
         }
         // ------------------------------end----------------------------------------------

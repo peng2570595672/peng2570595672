@@ -63,7 +63,8 @@ Page({
 		sharkOrderNo: '',// 鲨鱼零工渠道订单号
 		openCode: '',// 第三方登录参数 (河南移动code,用作免登)
 		loginErr: '',// 登录异常
-		isDisableClick: false // 是否禁止点击
+		isDisableClick: false, // 是否禁止点击
+		isMobileTransact: false // 是否是移动办理
 	},
 	chooseAxleNum (e) {
 		if (e.currentTarget.id === 'viewIsTruck') return;
@@ -122,10 +123,17 @@ Page({
 		if (options.openCode && options.source === 'henanMobile') {
 			// 河南移动
 			this.setData({
+				isMobileTransact: true,
 				openCode: options.openCode
 			});
 			app.globalData.otherPlatformsServiceProvidersId = options.shopId;
 			this.getOpenApiCodeLogin();
+		}
+		// 移动办理
+		if (options.isMobile) {
+			this.setData({
+				isMobileTransact: true
+			});
 		}
 		if (options.activityType) {
 			util.resetData();// 重置数据
@@ -268,6 +276,9 @@ Page({
 						// 鲨鱼灵工订单
 						this.getSelectOrderInfoByThirdNo();
 					}
+					if (this.data.isMobileTransact && !this.data.openCode) {
+						this.getMobileOrderInfo();
+					}
 					// 查询是否欠款
 					await util.getIsArrearage();
 				} else {
@@ -319,28 +330,31 @@ Page({
 			});
 			app.globalData.openId = bondRes.data.openId;
 			app.globalData.userInfo.openId = bondRes.data.openId;
-			const etcRes = await util.getDataFromServersV2('consumer/order/my-etc-list', {
-				shopId: app.globalData.otherPlatformsServiceProvidersId,
-				toMasterQuery: true
-			});
-			if (etcRes.data.length) {
-				const orderInfo = etcRes.data[0];
-				app.globalData.orderInfo.orderId = orderInfo.id; // 订单id
-				if (!orderInfo.status) {
-					wx.reLaunch({
-						url: '/pages/default/information_list/information_list?source=henanMobile'
-					});
-				} else {
-					wx.reLaunch({
-						url: '/pages/default/processing_progress/processing_progress?source=henanMobile'
-					});
-				}
-			}
+			this.getMobileOrderInfo();
 		} else {
 			this.setData({
 				loginErr: '登录异常，请返回移动办理页重新打开小程序'
 			});
 			util.showToastNoIcon('登录异常，请返回移动办理页重新打开小程序');
+		}
+	},
+	async getMobileOrderInfo () {
+		const etcRes = await util.getDataFromServersV2('consumer/order/my-etc-list', {
+			shopId: app.globalData.otherPlatformsServiceProvidersId,
+			toMasterQuery: true
+		});
+		if (etcRes.data.length) {
+			const orderInfo = etcRes.data[0];
+			app.globalData.orderInfo.orderId = orderInfo.id; // 订单id
+			if (!orderInfo.status) {
+				wx.reLaunch({
+					url: '/pages/default/information_list/information_list?source=henanMobile'
+				});
+			} else {
+				wx.reLaunch({
+					url: '/pages/default/processing_progress/processing_progress?source=henanMobile'
+				});
+			}
 		}
 	},
 	// 发送短信验证码
@@ -539,7 +553,7 @@ Page({
 			params['promoterType'] = 25; // 推广类型 0-平台引流 1-用户引流 2-渠道引流 3-活动引流 4-业务员推广  6:微信推广  默认为0  5  扫小程序码进入
 		}
 		// 惠生活移动推广
-		if (app.globalData.openCode) {
+		if (app.globalData.openCode || this.data.isMobileTransact) {
 			params['promoterId'] = app.globalData.otherPlatformsServiceProvidersId || 0;// 49-惠生活移动
 			params['promoterType'] = 49; // 49-惠生活移动
 		}
@@ -588,7 +602,7 @@ Page({
 			app.globalData.handledByTelephone = this.data.formData.cardMobilePhone;
 			app.globalData.orderInfo.orderId = result.data.orderId; // 订单id
 			app.globalData.newEnergy = formData.currentCarNoColor === 1 ? true : false;
-			if (this.data.openCode) {
+			if (this.data.openCode || this.data.isMobileTransact) {
 				wx.reLaunch({
 					url: '/pages/default/information_list/information_list?source=henanMobile'
 				});

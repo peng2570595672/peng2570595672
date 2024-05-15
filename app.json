@@ -457,6 +457,13 @@
                 "bind_withhold/bind_withhold",
                 "transition_page/transition_page"
             ]
+        },
+        {
+            "root": "pages/function_fewer_pages",
+            "name": "pages/function_fewer_pages",
+            "pages": [
+                "che_e_bao/che_e_bao"
+            ]
         }
     ],
     "functionalPages": {
