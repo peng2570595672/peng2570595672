@@ -16,13 +16,15 @@
                 <view wx:for="{{orderTabList}}" wx:key="index" class="item">
                     <view class="confirm iconfont {{item.billingMethod === activeTypeIndex+1 ? 'tick' : ''}}"
                         data-index="{{item.billingMethod}}" catchtap="choosePackage"></view>
-                    {{item.name}}
+                    <view data-index="{{item.billingMethod}}" catchtap="choosePackage">
+                        {{item.name}}
+                    </view>
                 </view>
             </view>
         </view>
         <view class="package_tab_bottom">
             <view class="title">{{activeTypeIndex === 0 ? '当日通行，隔日还款，适宜偶尔上高速人群' : '每周一上午10:00结算上周通行费，适宜经常跑高速人群'}}</view>
-            <view class="title">{{activeTypeIndex === 0 ? '服务费:通行费*0.4%，最低1元1日(无通行不收费)':'服务费:10~15元/周(无通行不收费)'}}</view>
+            <view class="title">{{activeTypeIndex === 0 ? '服务费:通行费*0.5%，最低1元1日(无通行不收费)':'服务费:15元/周(无通行不收费)'}}</view>
         </view>
     </view>
     <!-- 货车展示的套餐  -->
@@ -76,12 +78,12 @@
                 <view class="lowerpart" style="font-size: 23rpx; color: #979797; line-height: 36rpx;">
                     <!-- 日结描述 -->
                     <view wx:if="{{item.billingMethod === 1}}">
-                        <view>服务费：通行费*0.4%，最低1元/日（无通行不收费）</view>
+                        <view>服务费：通行费*0.5%，最低1元/日（无通行不收费）</view>
                         <view>根据计算，使用ETC的货车司机，预估可省 5000元/年</view>
                     </view>
                     <!-- 月结描述 -->
                     <view wx:else>
-                        <view>服务费：10~15元/周（无通行不收费） </view>
+                        <view>服务费：15元/周（无通行不收费） </view>
                         <view>根据计算，使用ETC的货车司机，预估可省 5000 元/年</view>
                     </view>
                 </view>

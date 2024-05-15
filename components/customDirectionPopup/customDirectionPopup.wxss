@@ -170,7 +170,8 @@
   border: 2rpx solid #e9ca7b;
 }
 .make .deviceUpgrade .topCar .gray {
-  filter: grayscale(1);
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
 }
 .make .deviceUpgrade .topCar .gray::before {
   content: '暂不支持';
@@ -982,6 +983,69 @@
 }
 .make .selectedTime .dateTime .time {
   width: 138.8rpx;
+}
+.make .cheEBao {
+  min-height: 300rpx;
+  padding: 0 36rpx;
+}
+.make .cheEBao .publicInp {
+  height: 84rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1rpx solid #e0e0e0;
+}
+.make .cheEBao .publicInp .attr {
+  width: 100rpx;
+  color: #3d3d3d;
+  font-size: 28rpx;
+  font-weight: 600;
+  text-align: right;
+  letter-spacing: 0.38rpx;
+}
+.make .cheEBao .publicInp .value {
+  width: 520rpx;
+  height: 100%;
+}
+.make .cheEBao .publicInp .value>input {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #343837;
+  margin-left: 24rpx;
+  width: 440rpx;
+  height: 100%;
+  letter-spacing: 0.32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: normal;
+}
+.make .cheEBao .publicInp .value .placeholder {
+  font-weight: normal;
+  color: #999;
+}
+.make .cheEBao .publicInp .captcha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.make .cheEBao .publicInp .captcha .code-input {
+  width: 240rpx;
+  height: 100%;
+}
+.make .cheEBao .publicInp .captcha .get-code {
+  color: #2a4f44;
+  padding-left: 10rpx;
+  border-left: 1rpx solid #e0e0e0;
+}
+.make .cheEBao .btn {
+  width: 632rpx;
+  height: 100%;
+}
+.make .cheEBao .noBtn {
+  background: #ccc;
+}
+.make .cheEBao .yesBtn {
+  background: #2a4f44;
 }
 .make .split {
   width: 100vw;

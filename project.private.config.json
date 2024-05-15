@@ -108,6 +108,13 @@
                     "pathName": "pages/truck_handling/information_list/information_list",
                     "query": "",
                     "scene": null
+                },
+                {
+                    "name": "车e宝",
+                    "pathName": "pages/function_fewer_pages/che_e_bao/che_e_bao",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

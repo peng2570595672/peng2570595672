@@ -465,7 +465,7 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  color: #e9ca7b;
+  color: #ff8f1f;
   text-align: justify;
 }
 .index .package .module1 .upperPart .addEquityInfo .utilModlue .detail {
@@ -530,6 +530,26 @@
   font-weight: 400;
   padding: 10rpx 0rpx;
   font-family: PingFangSC-Regular, PingFang SC;
+}
+.index .package .btnHighLight {
+  border: 4rpx solid #e9ca7b;
+}
+.index .package .btnHighLight::before {
+  width: 42.6rpx;
+  height: 32rpx;
+  display: block;
+  content: '\e669';
+  font-size: 20rpx;
+  color: #fff;
+  text-align: center;
+  line-height: 32rpx;
+  background-color: #e9ca7b;
+  border-top-left-radius: 16rpx;
+  border-bottom-right-radius: 16rpx;
+  position: absolute;
+  top: -4rpx;
+  left: -4rpx;
+  z-index: 10;
 }
 .index .splitText {
   text-align: center;

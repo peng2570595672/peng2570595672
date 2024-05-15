@@ -1,0 +1,13 @@
+<view class="index">
+    <view class="module module1">
+        <view class="title">平台协议</view>
+    </view>
+    <view class="floatButton">
+        <view class="handleImmediately {{available ? 'btn':''}}" catchtap="btnFunc">
+            {{isNewTrucks !== 1 ? '办理产品':'确定办理'}}
+        </view>
+    </view>
+     <!-- 自定义出入方向的弹窗 -->
+    <customDirectionPopup id="cdPopup" />
+</view>
+<privacy_popup></privacy_popup>
