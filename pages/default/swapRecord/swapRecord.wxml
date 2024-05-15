@@ -1,0 +1,14 @@
+<!--pages/default/swapRecord/swapRecord.wxml-->
+<view class="page">
+    <text>历史订单</text>
+    <view class="component-custom-nav" wx:for="{{listOfHistoricalList}}" wx:key="index">
+        <view>
+            {{item.orderTime}}
+        </view>
+        <button class="btn" >记录1</button>
+        <button class="btn" catchtap="goTerminationAndReSigning" data-info="{{item}}">去签约</button>
+    </view>
+    <view class="floatButton">
+        <view class="handleImmediately " catchtap="goBack">返回</view>
+    </view>
+</view>

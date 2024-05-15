@@ -1,0 +1,4 @@
+<!--pages/default/terminationAndReSigning/terminationAndReSigning.wxml-->
+<text>pages/default/terminationAndReSigning/terminationAndReSigning.wxml</text>
+<button class="btn" catchtap="weChatSign">去签约</button>
+<popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>

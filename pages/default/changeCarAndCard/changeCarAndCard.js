@@ -26,7 +26,9 @@ Page({
 			cardMobilePhone: ''// 线上：用户点好；线下：经办人电话
 		}, // 提交数据
 		isDisableClick: false, // 是否禁止点击
-		available: false
+		available: false,
+		showOtherCarNo: true,//  展示其他可选车牌号
+		getAgreement: false// 是否接受协议
 	},
 	onLoad (options) {
 
@@ -65,30 +67,33 @@ Page({
 		});
 		this.setCurrentCarNo_new(e);
 	},
+	// 是否接受协议   点击同意协议并且跳转指定套餐模块
+    onClickAgreementHandle () {
+        let getAgreement = !this.data.getAgreement;
+        this.setData({
+            getAgreement
+        });
+    },
 	validateCar () {
-		if (!this.data.available) {
-			return;
-		}
-		this.selectComponent('#popTipComp').show({
-			type: 'eight',
-			title: '提交审核提醒',
-			content: '您的车牌更换申请已提交，系统将在3~5个工作日内完成处理，届时将通知您更换结果，请留意通知消息!',
-			btnconfirm: '我知道了',
-			callBack: (res) => {
-				console.log('123');
-				wx.switchTab({
-					url: '/pages/Home/Home'
-				});
-			}
-		});
-		// util.alert({
-		// 	title: '车牌号提交审核确认提醒',
-		// 	content: '请再次确认您的新旧车牌号！',
-		// 	confirmText: '确认',
-		// 	cancelText: '取消',
-		// 	confirm: () => {
-		// 	}
-		// });
+		// if (!this.data.available) {
+		// 	return;
+		// }
+		// 判断是否存在未完成的换牌申请
+        // this.selectComponent('#popTipComp').show({
+        //     type: 'shenfenyanzhifail',
+        //     title: '提示',
+        //     btnCancel: '好的',
+        //     refundStatus: true,
+        //     content: '新车牌存在历史订单，无法重复办理!!',
+        //     bgColor: 'rgba(0,0,0, 0.6)'
+        // });
+		app.globalData.orderInfo.orderId = this.data.orderId || '1239514002741006336';
+		util.go(`/pages/default/information_validation/information_validation?vehPlates=${this.data.carNoStr_new}&vehColor=4&obuCardType=2`);
+	},
+	setOtherCarNo () {
+		// 历史办理页
+        let url = 'optionalOldLicensePlateList';
+        util.go(`/pages/default/${url}/${url}`);
 	},
 	// 校验字段是否满足
 	validateAvailable (checkLicensePlate,carNoType) {
@@ -102,11 +107,6 @@ Page({
 			if (isOk) {
 				let creg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}$/;
 				isOk = creg.test(this.data[carNoType]);
-				if (checkLicensePlate && isOk) {
-					this.setData({
-						[carNoType + 'flag']: true
-					});
-				}
 				if (checkLicensePlate && !isOk) {
 					util.showToastNoIcon('车牌输入不合法，请检查重填');
 				}
@@ -127,9 +127,6 @@ Page({
 				}
 			}
 		} else {
-			isOk = false;
-		}
-		if (!this.data.carNoStrflag || !this.data.carNoStr_newflag) {
 			isOk = false;
 		}
 		return isOk;

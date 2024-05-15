@@ -1,0 +1,8 @@
+{
+
+    "navigationBarTitleText": "换车换牌",
+	"navigationBarBackgroundColor": "#ECECEC",
+    "usingComponents": {
+        "popTipComp": "/components/popTipComp/popTipComp"
+    }
+  }
