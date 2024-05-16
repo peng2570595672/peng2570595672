@@ -27,11 +27,11 @@ Page({
 		}, // 提交数据
 		isDisableClick: false, // 是否禁止点击
 		available: false,
-		showOtherCarNo: true,//  展示其他可选车牌号
-		getAgreement: false// 是否接受协议
+		getAgreement: false,// 是否接受协议
+		nmOrderList: []
 	},
-	onLoad (options) {
-
+	async onLoad (options) {
+		await this.IsAnActivationOrder();
 	},
 	onReady () {
 
@@ -90,6 +90,20 @@ Page({
 		app.globalData.orderInfo.orderId = this.data.orderId || '1239514002741006336';
 		util.go(`/pages/default/information_validation/information_validation?vehPlates=${this.data.carNoStr_new}&vehColor=4&obuCardType=2`);
 	},
+	// 是否存在多个已激活订单
+    async IsAnActivationOrder () {
+        const result = await util.getDataFromServersV2('consumer/order/order-veh-plates-change/getNmgActOrder', {
+        });
+        if (!result) return;
+        if (result.code === 0 && result.data) {
+            this.setData({
+                // 保存已激活订单 至少有一条
+                nmOrderList: result.data
+            });
+        } else {
+            util.showToastNoIcon(result.message);
+        }
+    },
 	setOtherCarNo () {
 		// 历史办理页
         let url = 'optionalOldLicensePlateList';

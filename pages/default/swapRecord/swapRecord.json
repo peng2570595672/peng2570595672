@@ -1,5 +1,5 @@
 {
-	"navigationBarTitleText": "换车换牌",
+	"navigationBarTitleText": "换牌记录",
 	"navigationBarBackgroundColor": "#ECECEC",
 	"usingComponents": {
 		"keyboard": "/components/keyboard/keyboard",

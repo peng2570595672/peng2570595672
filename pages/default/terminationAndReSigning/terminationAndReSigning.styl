@@ -1,0 +1,54 @@
+mixinsWidthHeight($width=100%, $height=100%)
+    width $width
+    height $height
+.page
+    margin 28rpx
+    .title
+        mixinsWidthHeight(, 200rpx)
+        display flex
+        flex-direction column
+        align-items flex-start
+        justify-content center
+        .text
+            font-size 46rpx
+            font-weight 600
+            line-height 48rpx
+    button
+        mixinsWidthHeight(450rpx, 100rpx)
+        background-color pink
+        border 1px solid #000
+        line-height 100rpx
+        position fixed
+        color white
+        bottom 60rpx
+        border-radius 60rpx
+        left 20%
+    .module
+        mixinsWidthHeight(, 250rpx)
+        border-radius 20rpx
+        // background-color #dccaca
+        margin-bottom 30rpx
+        .topTitle
+            display flex
+            justify-content space-between
+            align-items center
+            padding 30rpx 20rpx
+            .text
+                width 60%
+                display flex
+                flex-direction column
+                view:first-child
+                    line-height  80rpx
+                    font-weight 550
+                    font-size  34rpx
+                view:last-child
+                    line-height 60rpx
+            .weChatSign
+                mixinsWidthHeight(180rpx, 100rpx)
+                text-align center
+                line-height 100rpx
+                border-radius 50rpx
+                background-color skyblue
+                color white
+
+

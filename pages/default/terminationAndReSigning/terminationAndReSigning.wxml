@@ -1,4 +1,28 @@
 <!--pages/default/terminationAndReSigning/terminationAndReSigning.wxml-->
-<text>pages/default/terminationAndReSigning/terminationAndReSigning.wxml</text>
-<button class="btn" catchtap="weChatSign">去签约</button>
-<popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
+<view class="page">
+    <view class="title">
+        <view class="text">只需最后2步</view>
+        <view class="text">完成更换车牌</view>
+    </view>
+    <view class="module">
+        <view class="topTitle">
+            <view class="text">
+                <view>解除旧车牌微信授权</view>
+                <view>签署新新车牌服务，需要解除旧车牌绑定</view>
+            </view>
+            <view class="weChatSign" catchtap="weChatSign">去解约</view>
+        </view>
+    </view>
+    <view class="module">
+        <view class="topTitle">
+            <view class="text">
+                <view>签约新车牌微信授权</view>
+                <view>新车牌签约微信后可免密代扣</view>
+            </view>
+            <view class="weChatSign" catchtap="weChatSign">去签约</view>
+        </view>
+    </view>
+    <button class="finish" catchtap="weChatSign">完成</button>
+    <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
+</view>
+<privacy_popup></privacy_popup>

@@ -10,7 +10,7 @@
       <view class="oldCarno">
         贵Z122f3
       </view>
-      <view class="otherCarno" catchtap="setOtherCarNo" wx:if="showOtherCarNo">
+      <view class="otherCarno" catchtap="setOtherCarNo" wx:if="{{nmOrderList.length>1}}">
         选中其他车牌
       </view>
     </view>

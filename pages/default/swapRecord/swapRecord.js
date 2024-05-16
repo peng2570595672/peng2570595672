@@ -8,16 +8,6 @@ Page({
      */
     data: {
         listOfHistoricalList: [
-            {
-                orderId: '1237446731189194752', // 订单号
-                orderTime: '2020-01-01 12:00:00', // 订单时间
-                orderStatus: '已完成', // 订单状态
-                orderType: '换新', // 订单类型
-                orderPrice: '100.00', // 订单价格
-                orderDetail: '苹果XR换新', // 订单详情
-                orderImage: 'https://img.alicdn.com/imgen/tfs/TB1iG4vhQSWQ3.jpg'// 订单图片
-
-            }
         ] // 历史订单列表
     },
 
@@ -25,16 +15,15 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad (options) {
-
+        app.globalData.orderInfo.orderId = '1237446731189194752';
+        this.getAListOfExchangeRecords();
     },
     // 解约重签
     async goTerminationAndReSigning (targe) {
         app.globalData.orderInfo.orderId = targe.currentTarget.dataset.info.orderId;
         console.log(app.globalData.orderInfo);
-        // 历史办理页
         let url = 'terminationAndReSigning';
-        await this.getOrderInfo();
-        // util.go(`/pages/default/${url}/${url}`);
+        util.go(`/pages/default/${url}/${url}`);
     },
     /**
      * 生命周期函数--监听页面初次渲染完成
@@ -48,39 +37,40 @@ Page({
             delta: 1
         });
     },
-    // 获取换牌申请记录
-    async getOrderInfo () {
-        const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
-            orderId: app.globalData.orderInfo.orderId,
-            dataType: '3'
+    // 获取换牌申请记录列表
+    async getAListOfExchangeRecords () {
+        // this.setData(
+        //     {
+        //         listOfHistoricalList: [
+        //             {
+        //                 orderId: '1237446731189194752', // 订单号
+        //                 orderTime: '2020-01-01 12:00:00', // 订单时间
+        //                 orderStatus: '已完成', // 订单状态
+        //                 orderType: '换新', // 订单类型
+        //                 orderPrice: '100.00', // 订单价格
+        //                 orderDetail: '苹果XR换新', // 订单详情
+        //                 orderImage: 'https://img.alicdn.com/imgen/tfs/TB1iG4vhQSWQ3.jpg'// 订单图片
+
+        //             },
+        //             {
+        //                 orderId: '12374467312239194752', // 订单号
+        //                 orderTime: '2020-02-01 12:00:00', // 订单时间
+        //                 orderStatus: '已完成', // 订单状态
+        //                 orderType: '换新', // 订单类型
+        //                 orderPrice: '100.00', // 订单价格
+        //                 orderDetail: '苹果XR换新', // 订单详情
+        //                 orderImage: 'https://img.alicdn.com/imgen/tfs/TB1iG4vhQSWQ3.jpg'// 订单图片
+        //             }
+        //         ]
+        //     }
+        // );
+        const result = await util.getDataFromServersV2('consumer/order/order-veh-plates-change/getList', {
         });
         if (!result) return;
         if (result.code === 0) {
-            this.setData(
-                {
-                    listOfHistoricalList: [
-                        {
-                            orderId: '1237446731189194752', // 订单号
-                            orderTime: '2020-01-01 12:00:00', // 订单时间
-                            orderStatus: '已完成', // 订单状态
-                            orderType: '换新', // 订单类型
-                            orderPrice: '100.00', // 订单价格
-                            orderDetail: '苹果XR换新', // 订单详情
-                            orderImage: 'https://img.alicdn.com/imgen/tfs/TB1iG4vhQSWQ3.jpg'// 订单图片
-
-                        },
-                        {
-                            orderId: '12374467312239194752', // 订单号
-                            orderTime: '2020-02-01 12:00:00', // 订单时间
-                            orderStatus: '已完成', // 订单状态
-                            orderType: '换新', // 订单类型
-                            orderPrice: '100.00', // 订单价格
-                            orderDetail: '苹果XR换新', // 订单详情
-                            orderImage: 'https://img.alicdn.com/imgen/tfs/TB1iG4vhQSWQ3.jpg'// 订单图片
-                        }
-                    ]
-                }
-            );
+            this.setData({
+                listOfHistoricalList: result.data
+            });
         } else {
             util.showToastNoIcon(result.message);
         }
