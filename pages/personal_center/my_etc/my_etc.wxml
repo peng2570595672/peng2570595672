@@ -35,7 +35,7 @@
                     {{item.selfStatus === 9 ? (item.flowVersion === 2 ? '待签约高速' : (item.flowVersion === 7 ? '待开户' :
                     '待签约银行')) : ''}}
                     {{item.selfStatus === 10 || item.selfStatus === 17 || item.selfStatus === 28 ? '审核通过' : ''}}
-                    {{item.selfStatus === 11 || item.selfStatus === 26 ? '待激活' : ''}}
+                    {{item.selfStatus === 11 || item.selfStatus === 26 || item.selfStatus === 36 ? '待激活' : ''}}
                     {{item.selfStatus === 12 || item.selfStatus === 30 || item.selfStatus === 32 || item.selfStatus ===
                     33 ? '已激活' : ''}}
                     {{item.selfStatus === 13 || item.selfStatus === 19 || item.selfStatus === 20 ? '待开户' : ''}}
@@ -81,6 +81,7 @@
                     {{item.selfStatus === 30 ? '退还权益金' : item.selfStatus === 33 ? '查看退还情况' : ''}}
                     {{item.selfStatus === 31 ? '签约激活' : ''}}
                     {{item.selfStatus === 35 ? '继续办理' : ''}}
+                    {{item.selfStatus === 36 ? '办理产品并激活' : ''}}
                 </view>
             </view>
             <view class="truck" wx:if="{{item.isNewTrucks === 1}}">

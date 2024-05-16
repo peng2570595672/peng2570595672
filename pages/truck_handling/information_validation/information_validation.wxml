@@ -55,14 +55,14 @@
                         placeholder-class="input-placeholder" placeholder="请输入车主姓名" />
                 </view>
             </view>
-<!--            <view class="keyValue">-->
-<!--                <view class="attrName left">车辆类型</view>-->
-<!--                <view class="attrValue" bindtap="handleToast">-->
-<!--                    <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.vehicleType}}"-->
-<!--                        disabled="{{true}}" bindinput="onInputChangedHandle" data-key="vehicleType" data-type="3"-->
-<!--                        placeholder-class="input-placeholder" placeholder="请输入车辆类型" />-->
-<!--                </view>-->
-<!--            </view>-->
+           <view class="keyValue">
+               <view class="attrName left">车辆类型</view>
+               <view class="attrValue" bindtap="handleToast">
+                   <input class="input" type="text" value="{{checkVinInfo.cllx}}"
+                       disabled="{{Modifiable}}" bindinput="onInputChangedHandle" data-key="vehicleType" data-type="3"
+                       placeholder-class="input-placeholder" placeholder="{{Modifiable ? 'vin码上传后自动填充' : '请输入车辆类型'}}" />
+               </view>
+           </view>
 
             <view class="keyValue">
                 <view class="attrName left">车辆识别代号VIN</view>
@@ -72,7 +72,8 @@
                         placeholder-class="input-placeholder" placeholder="请输入车辆识别代号" />
                 </view>
                 <view class="upload-vin" bindtap="getCheckVin" wx:if="{{!checkVinInfo.c && !checkVinInfo.zzl && drivingLicenseFace.ocrObject.vin}}">上传</view>
-                <view class="errTips" wx:if="{{drivingLicenseFace.ocrObject.vin && !checkVinInfo.c}}">vin码校验失败，请确认信息后重新上传</view>
+                <view class="errTips" wx:if="{{drivingLicenseFace.ocrObject.vin && !checkVinInfo.c && !available}}">vin码校验失败，请确认信息后重新上传</view>
+                <view class="errTips" wx:if="{{drivingLicenseFace.ocrObject.vin && !available && !Modifiable}}">校验失败，请手动填写车轮数</view>
             </view>
             <view class="keyValue">
                 <view class="attrName left">核载人数</view>
@@ -93,14 +94,13 @@
 <!--                    </picker>-->
 <!--                </view>-->
 <!--            </view>-->
-<!--            <view class="keyValue">-->
-<!--                <view class="attrName left">车轮数</view>-->
-<!--                <view class="attrValue">-->
-
-<!--                    <input class="input" type="number" maxlength="2" placeholder="请输入车轮数量" value="{{wheelCountNo}}"-->
-<!--                        data-key="wheelCountNo" data-type="4" bindinput="onInputChangedHandle" />-->
-<!--                </view>-->
-<!--            </view>-->
+           <view class="keyValue">
+               <view class="attrName left">车轮数</view>
+               <view class="attrValue">
+                   <input class="input" type="number" maxlength="2" placeholder="{{Modifiable ? 'vin码上传后自动填充' : '请输入车轮数'}}" disabled="{{Modifiable}}" value="{{checkVinInfo.lts}}"
+                       data-key="wheelCountNo" data-type="4" bindinput="onInputChangedHandle" />
+               </view>
+           </view>
             <view class="keyValue">
                 <view class="attrName left">注册日期</view>
                 <view class="attrValue">

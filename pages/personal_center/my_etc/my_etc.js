@@ -242,9 +242,13 @@ Page({
 			31: () => this.handleJumpHunanMini(orderInfo.id), // 跳转到湖南高速ETC小程序 - 已支付待激活
 			33: () => this.showRefundStatus(orderInfo),	// 查看广发订单退款状态
 			34: () => this.onClickContinueHandle(orderInfo), // 继续办理
-			35: () => this.handle9901Step(orderInfo) // 继续办理
+			35: () => this.handle9901Step(orderInfo), // 继续办理
+			36: () => this.goCheEBaoPage(orderInfo) // 跳转到车E宝领取页
 		};
 		fun[orderInfo.selfStatus].call();
+	},
+	goCheEBaoPage (orderInfo) {
+		util.go(`/pages/function_fewer_pages/che_e_bao/che_e_bao?orderId=${orderInfo.id}`);
 	},
 	async handle9901Step (orderInfo) {
 		if (orderInfo.selfStatus === 1) {
