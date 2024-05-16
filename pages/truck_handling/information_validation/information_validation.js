@@ -269,10 +269,10 @@ Page({
 			return;
 		}
 		const result = await util.getDataFromServersV2('consumer/order/checkVin', {
-			vin: this.data.drivingLicenseFace.ocrObject.vin,
-			vehPlate: this.data.vehPlates,
-			platesColor: this.data.vehColor,
-			axleNum: this.data.carAxleNum
+			vin: app.globalData.test ? 'LS4ASL2E3ME456738' : this.data.drivingLicenseFace.ocrObject.vin,
+            vehPlate: app.globalData.test ? '贵CS769P' : this.data.vehPlates,
+            platesColor: app.globalData.test ? '0' : this.data.vehColor,
+            axleNum: app.globalData.test ? '2' : this.data.carAxleNum
 		});
 		if (!result.code) {
 			let data = result.data;
