@@ -1,68 +1,74 @@
-// pages/default/optionalOldLicensePlateList/optionalOldLicensePlateList.js
-const util = require('../../../utils/util.js');
 const app = getApp();
+const util = require('../../../utils/util');
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
-
+        nmOrderList: []
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad (options) {
-
+    onLoad () {
+        this.IsAnActivationOrder();
     },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
     onShow () {
-
     },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide () {
-
+    // 是否存在多个已激活订单
+    async IsAnActivationOrder () {
+        const result = await util.getDataFromServersV2('consumer/order/order-veh-plates-change/getNmgActOrder', {
+        });
+        if (!result) return;
+        if (result.code === 0 && result.data) {
+            this.setData({
+                // 保存已激活订单 至少有一条
+                nmOrderList: result.data
+            });
+        } else {
+            util.showToastNoIcon(result.message);
+        }
     },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload () {
-
+    //  校验蒙通卡订单
+    async getAMontonkaOrder (oldVehPlates, newVehPlates) {
+        // 参数：不传检验是否有未完成的换牌申请，
+        // oldVehPlates-旧车牌，传了校验是否该车牌有欠费，
+        // newVehPlates-传了校验新车牌是否可用
+        let params = {};
+        if (oldVehPlates) {
+            params.oldVehPlates = oldVehPlates;
+        }
+        if (newVehPlates) {
+            params.newVehPlates = newVehPlates;
+        }
+        const result = await util.getDataFromServersV2('consumer/order/order-veh-plates-change/verify', params);
+        if (!result) return;
+        if (result.code === 0) {
+            if (result.data.verify && this.data.nmOrderList[this.data.activeIndex].vehPlates) {
+                app.globalData.chooseOrderList = [this.data.nmOrderList[this.data.activeIndex]];
+                // 不存在欠费 跳转
+                util.go(`/pages/default/changeCarAndCard/changeCarAndCard`);
+            } else {
+                // 有欠费订单 中断办理
+                this.selectComponent('#popTipComp').show({
+                    type: 'shenfenyanzhifail',
+                    title: '提示',
+                    btnCancel: '好的',
+                    refundStatus: true,
+                    content: result.message,
+                    bgColor: 'rgba(0,0,0, 0.6)'
+                });
+            }
+        } else {
+            this.selectComponent('#popTipComp').show({
+                type: 'shenfenyanzhifail',
+                title: '提示',
+                btnCancel: '好的',
+                refundStatus: true,
+                content: result.message,
+                bgColor: 'rgba(0,0,0, 0.6)'
+            });
+        }
     },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage () {
-
+    async handleVehicle (e) {
+        const index = +e.currentTarget.dataset.index;
+        this.setData({
+            activeIndex: index
+        });
+        this.getAMontonkaOrder(this.data.nmOrderList[index].vehPlates);
     }
 });
