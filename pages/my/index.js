@@ -74,12 +74,12 @@ Page({
         this.setData({
             isVip: app.globalData.isVip
         });
-        let nmOrderList = app.globalData?.myEtcList?.filter(item => item.obuCardType === 2 && (item.obuStatus === 1 || item.obuStatus === 5));
-        if (nmOrderList) {
-            this.setData({
-                nmOrderList
-            });
-        }
+        // let nmOrderList = app.globalData?.myEtcList?.filter(item => item.obuCardType === 2 && (item.obuStatus === 1 || item.obuStatus === 5));
+        // if (nmOrderList) {
+        //     this.setData({
+        //         nmOrderList
+        //     });
+        // }
     },
     async onShow () {
         // 4.0
@@ -544,10 +544,10 @@ Page({
         }
         if (url === 'changeCarAndCard') {	// 跳转换车换牌
             // 判断有无已经激活的蒙通卡
-            await this.getAMontonkaOrder();
-            // return util.go(`/pages/default/${url}/${url}`);
-            this.data.nmgOrderCnt > 0 ? util.go(`/pages/default/changeCardIntruduce/changeCardIntruduce`) : util.showToastNoIcon('该功能仅限内蒙高速卡种使用');
-            return;
+            return util.go(`/pages/default/${url}/${url}`);
+            // await this.getAMontonkaOrder();
+            // this.data.nmgOrderCnt > 0 ? util.go(`/pages/default/changeCardIntruduce/changeCardIntruduce`) : util.showToastNoIcon('该功能仅限内蒙高速卡种使用');
+            // return;
         }
         if (url === 'tonTonQuan') {	// 跳转通通券
             this.selectComponent('#dialog1').show('tonTonQuan');
