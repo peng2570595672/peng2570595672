@@ -11,34 +11,34 @@
 		<view>车牌号码</view>
 		<view>{{tools.isPhone(orderInfo.vehPlates)}}</view>
 	</view>
-    <view class="item">
-        <view>ETC类型</view>
-        <view>{{orderInfo.isNewTrucks === 1 ? '货车' : '客车'}}ETC</view>
-    </view>
+	<view class="item">
+		<view>ETC类型</view>
+		<view>{{orderInfo.isNewTrucks === 1 ? '货车' : '客车'}}ETC</view>
+	</view>
 	<view class="item" wx:if="{{orderInfo.receiveMan}}">
 		<view>车辆所属人</view>
 		<view>{{orderInfo.receiveMan && orderInfo.receiveMan !== '0' ? orderInfo.receiveMan : orderInfo.trueName}}</view>
 	</view>
 	<view class="item">
 		<view>订单状态</view>
-        <view class="caution {{orderInfo.selfStatus === 7 || orderInfo.selfStatus === 8 ? 'failed' : ''}} {{orderInfo.selfStatus === 12 ? 'succeed' : ''}}">
-            {{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 22 ? '已解约' : ''}}
-            {{orderInfo.selfStatus === 2 || orderInfo.selfStatus === 4 || orderInfo.selfStatus === 14 || orderInfo.selfStatus === 23 || orderInfo.selfStatus === 25 || orderInfo.selfStatus === 34 ? '办理中' : ''}}
-            {{orderInfo.selfStatus === 3 || orderInfo.selfStatus === 24 ? '待支付' : ''}}
-            {{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 21 ? '待签约' : ''}}
-            {{orderInfo.selfStatus === 6 ? '待审核' : ''}}
-            {{orderInfo.selfStatus === 7 || orderInfo.selfStatus === 8 || orderInfo.selfStatus === 27 ? '审核不通过' : ''}}
-            {{orderInfo.selfStatus === 9 ? (orderInfo.flowVersion === 2 ? '待签约高速' : (orderInfo.flowVersion === 7 ? '待开户' : '待签约银行')) : ''}}
-            {{orderInfo.selfStatus === 10 || orderInfo.selfStatus === 17 || orderInfo.selfStatus === 28 ? '审核通过' : ''}}
-            {{orderInfo.selfStatus === 11 ? '待激活' : ''}}
-            {{orderInfo.selfStatus === 12 || orderInfo.selfStatus === 30  || orderInfo.selfStatus === 32 || orderInfo.selfStatus === 33 ? '已激活' : ''}}
-            {{orderInfo.selfStatus === 13 || orderInfo.selfStatus === 19 || orderInfo.selfStatus === 20 ? '待开户' : ''}}
-            {{orderInfo.selfStatus === 15 ? '待充保证金' : ''}}
-            {{orderInfo.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
+		<view class="caution {{orderInfo.selfStatus === 7 || orderInfo.selfStatus === 8 ? 'failed' : ''}} {{orderInfo.selfStatus === 12 ? 'succeed' : ''}}">
+			{{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 22 ? '已解约' : ''}}
+			{{orderInfo.selfStatus === 2 || orderInfo.selfStatus === 4 || orderInfo.selfStatus === 14 || orderInfo.selfStatus === 23 || orderInfo.selfStatus === 25 || orderInfo.selfStatus === 34 ? '办理中' : ''}}
+			{{orderInfo.selfStatus === 3 || orderInfo.selfStatus === 24 ? '待支付' : ''}}
+			{{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 21 ? '待签约' : ''}}
+			{{orderInfo.selfStatus === 6 ? '待审核' : ''}}
+			{{orderInfo.selfStatus === 7 || orderInfo.selfStatus === 8 || orderInfo.selfStatus === 27 ? '审核不通过' : ''}}
+			{{orderInfo.selfStatus === 9 ? (orderInfo.flowVersion === 2 ? '待签约高速' : (orderInfo.flowVersion === 7 ? '待开户' : '待签约银行')) : ''}}
+			{{orderInfo.selfStatus === 10 || orderInfo.selfStatus === 17 || orderInfo.selfStatus === 28 ? '审核通过' : ''}}
+			{{orderInfo.selfStatus === 11 || orderInfo.selfStatus === 36 ? '待激活' : ''}}
+			{{orderInfo.selfStatus === 12 || orderInfo.selfStatus === 30  || orderInfo.selfStatus === 32 || orderInfo.selfStatus === 33 ? '已激活' : ''}}
+			{{orderInfo.selfStatus === 13 || orderInfo.selfStatus === 19 || orderInfo.selfStatus === 20 ? '待开户' : ''}}
+			{{orderInfo.selfStatus === 15 ? '待充保证金' : ''}}
+			{{orderInfo.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
 			{{orderInfo.selfStatus === 26 ? '待审核' : ''}}
 			{{orderInfo.selfStatus === 31 ? '待签约激活' : ''}}
-            {{orderInfo.selfStatus === 35 ? '办理中' : ''}}
-        </view>
+			{{orderInfo.selfStatus === 35 ? '办理中' : ''}}
+		</view>
 	</view>
 	<view class="des" wx:if="{{orderInfo.selfStatus === 7 || orderInfo.selfStatus === 8}}">{{orderInfo.auditRemark}}</view>
 	<view class="item {{orderInfo.contractVersion === 'v3' ? 'iconfont' : ''}}">
@@ -50,10 +50,10 @@
 		<view catchtap="onClickBank">{{orderInfo.billingMethod === 1 ? '日结' : orderInfo.billingMethod === 2 ? '周结':orderInfo.billingMethod === 3 ?'月结':''}}</view>
 	</view>
 	<!-- <view class="split" wx:if="{{orderInfo.pledgeStatus !== -1 && orderInfo.pledgeType === 2}}"></view>
-    <view class="item" wx:if="{{orderInfo.pledgeStatus !== -1 && orderInfo.pledgeType === 2}}">
-        <view>保证金</view>
-        <view class="{{orderInfo.pledgeStatus === 0 ? 'equipment-cost' : ''}}">{{orderInfo.pledgeMoney/100}}元{{orderInfo.pledgeStatus === 0 ? '未' : '已'}}支付</view>
-    </view>
+	<view class="item" wx:if="{{orderInfo.pledgeStatus !== -1 && orderInfo.pledgeType === 2}}">
+		<view>保证金</view>
+		<view class="{{orderInfo.pledgeStatus === 0 ? 'equipment-cost' : ''}}">{{orderInfo.pledgeMoney/100}}元{{orderInfo.pledgeStatus === 0 ? '未' : '已'}}支付</view>
+	</view>
 	<view class="split"></view> -->
 	<view class="item first" wx:if="{{orderInfo.shopUserTrueName}}">
 		<view>业务员姓名</view>
@@ -75,45 +75,46 @@
 		<view>设备（OBU）编号</view>
 		<view>{{orderInfo.obuNo}}</view>
 	</view>
-    <view class="item" wx:if="{{orderInfo.pledgeMoney && orderInfo.pledgeType === 1}}">
-        <view>金额</view>
-        <view>
-            {{orderInfo.pledgeMoney/100}}
-            <text class="{{orderInfo.pledgeStatus === 1 ? 'have-paid' : 'non-payment'}}">（{{orderInfo.pledgeStatus === 1 ? '已' : '未'}}支付）</text>
-        </view>
-    </view>
-    <view class="item" wx:if="{{orderInfo.productName}}">
-        <view>办理套餐</view>
-        <view>{{orderInfo.productName}}</view>
-    </view>
+	<view class="item" wx:if="{{orderInfo.pledgeMoney && orderInfo.pledgeType === 1}}">
+		<view>金额</view>
+		<view>
+			{{orderInfo.pledgeMoney/100}}
+			<text class="{{orderInfo.pledgeStatus === 1 ? 'have-paid' : 'non-payment'}}">（{{orderInfo.pledgeStatus === 1 ? '已' : '未'}}支付）</text>
+		</view>
+	</view>
+	<view class="item" wx:if="{{orderInfo.productName}}">
+		<view>办理套餐</view>
+		<view>{{orderInfo.productName}}</view>
+	</view>
 	<view class="item">
 		<view>办理日期</view>
 		<view>{{orderInfo.addTime}}</view>
 	</view>
-    <view class="item" wx:if="{{orderInfo.logisticsId !== 0 && orderInfo.logisticsId !== -1 && orderInfo.obuStatus !== 1 && orderInfo.obuStatus !== 5}}">
-        <view>物流信息</view>
-        <view class="succeed" catchtap="handleProgress">查看进度</view>
-    </view>
+	<view class="item" wx:if="{{orderInfo.logisticsId !== 0 && orderInfo.logisticsId !== -1 && orderInfo.obuStatus !== 1 && orderInfo.obuStatus !== 5}}">
+		<view>物流信息</view>
+		<view class="succeed" catchtap="handleProgress">查看进度</view>
+	</view>
 	<!--	信息结束-->
 	<view class="auto-fill"></view>
 	<!--	按钮开始-->
 	<view class="btns">
 		<button class="btn" catchtap="onClickVehicle" wx:if="{{orderInfo.selfStatus !== 8 && (orderInfo.flowVersion !== 4 || (orderInfo.flowVersion === 4 && orderInfo.selfStatus !== 7))}}">
-            {{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 22 ? '恢复签约' : ''}}
-            {{orderInfo.selfStatus === 2 || orderInfo.selfStatus === 4 || orderInfo.selfStatus === 14 || orderInfo.selfStatus === 23 || orderInfo.selfStatus === 25 || orderInfo.selfStatus === 34 ? '继续办理' : ''}}
-            {{orderInfo.selfStatus === 3 || orderInfo.selfStatus === 24 ? '去支付' : ''}}
-            {{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 9 ? (orderInfo.flowVersion === 7 ? '继续办理' : '去签约') : ''}}
-            {{orderInfo.selfStatus === 6 || orderInfo.selfStatus === 10 || orderInfo.selfStatus === 26 || orderInfo.selfStatus === 28 ? '查看进度' : ''}}
-            {{orderInfo.selfStatus === 7 || orderInfo.selfStatus === 27 ? '修改资料' : ''}}
-            {{orderInfo.selfStatus === 11 || orderInfo.selfStatus === 12 || orderInfo.selfStatus === 33 ? '去激活' : ''}}
-            {{orderInfo.selfStatus === 13 || orderInfo.selfStatus === 19 ? '去开户' : ''}}
-            {{orderInfo.selfStatus === 15 ? '去预充' : ''}}
-            {{orderInfo.selfStatus === 16 || orderInfo.selfStatus === 20 || orderInfo.selfStatus === 21 ? '继续办理' : ''}}
-            {{orderInfo.selfStatus === 17 ? '预充值' : ''}}
+			{{orderInfo.selfStatus === 1 || orderInfo.selfStatus === 22 ? '恢复签约' : ''}}
+			{{orderInfo.selfStatus === 2 || orderInfo.selfStatus === 4 || orderInfo.selfStatus === 14 || orderInfo.selfStatus === 23 || orderInfo.selfStatus === 25 || orderInfo.selfStatus === 34 ? '继续办理' : ''}}
+			{{orderInfo.selfStatus === 3 || orderInfo.selfStatus === 24 ? '去支付' : ''}}
+			{{orderInfo.selfStatus === 5 || orderInfo.selfStatus === 9 ? (orderInfo.flowVersion === 7 ? '继续办理' : '去签约') : ''}}
+			{{orderInfo.selfStatus === 6 || orderInfo.selfStatus === 10 || orderInfo.selfStatus === 26 || orderInfo.selfStatus === 28 ? '查看进度' : ''}}
+			{{orderInfo.selfStatus === 7 || orderInfo.selfStatus === 27 ? '修改资料' : ''}}
+			{{orderInfo.selfStatus === 11 || orderInfo.selfStatus === 12 || orderInfo.selfStatus === 33 ? '去激活' : ''}}
+			{{orderInfo.selfStatus === 13 || orderInfo.selfStatus === 19 ? '去开户' : ''}}
+			{{orderInfo.selfStatus === 15 ? '去预充' : ''}}
+			{{orderInfo.selfStatus === 16 || orderInfo.selfStatus === 20 || orderInfo.selfStatus === 21 ? '继续办理' : ''}}
+			{{orderInfo.selfStatus === 17 ? '预充值' : ''}}
 			{{orderInfo.selfStatus === 30 ? '退还权益金' : ''}}
 			{{orderInfo.selfStatus === 31 || orderInfo.selfStatus === 32 ? '签约激活' : ''}}
 			{{orderInfo.selfStatus === 35 ? '继续办理' : ''}}
-        </button>
+			{{orderInfo.selfStatus === 36 ? '办理产品并激活' : ''}}
+		</button>
 		<view class="btn-wrapper" wx:if="{{orderInfo.orderType === 11 || orderInfo.orderType === 12 || orderInfo.orderType === 81 || (orderInfo.orderType === 71 && orderInfo.promoterType === 44)}}">
 			<view wx:if="{{!orderInfo.pledgeStatus || orderInfo.pledgeStatus === 0}}" catchtap="onClickCancelHandle" >取消办理</view>
 			<view wx:if="{{(orderInfo.pledgeStatus === 1 && orderInfo.flowVersion !== 8) || (orderInfo.flowVersion === 8 && !orderInfo.hwContractStatus)}}" catchtap="goOnlineServer">取消办理</view>
@@ -145,6 +146,6 @@
 	<jinyixing-prompt id="notJinYiXingPrompt"></jinyixing-prompt>
 	<signing-prompt id="notSigningPrompt"></signing-prompt>
 	
-    <equipment_selection id="choiceEquipment" bindonClickTranslucentHandle="onClickTranslucentHandle"></equipment_selection>
+	<equipment_selection id="choiceEquipment" bindonClickTranslucentHandle="onClickTranslucentHandle"></equipment_selection>
 </view>
 <privacy_popup></privacy_popup>
