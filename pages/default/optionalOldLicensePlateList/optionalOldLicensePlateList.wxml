@@ -1,2 +1,29 @@
-<!--pages/default/optionalOldLicensePlateList/optionalOldLicensePlateList.wxml-->
-<text>pages/default/optionalOldLicensePlateList/optionalOldLicensePlateList.wxml</text>
+<view class="container">
+    <view class="list-box">
+        <view class="title">请选择您要更换的旧车牌
+             <!-- <text>（审核通过的订单才可进行激活）</text> -->
+            </view>
+        <view class="list">
+            <view wx:for="{{nmOrderList}}" catchtap="handleVehicle" data-index="{{index}}" wx:key="index" class="item {{activeIndex === index ? 'active' : ''}}">
+                <!-- <view wx:if="{{activeIndex === index}}" class="choice iconfont"></view> -->
+                <!-- <view class="tips" wx:if="{{item.auditStatus !== 2}}">审核通过后可激活</view> -->
+                <view class="logo">
+                    <image src="../images/to_be_activated.png" mode="heightFix"></image>
+                </view>
+                <view class="info">
+                    <view class="name">
+                        <view>{{item.vehPlates}}</view>
+                        <view class="status">
+                            选择更换
+                        </view>
+                    </view>
+                    <view class="sub-title">
+                        {{item.addTime}}
+                    </view>
+                </view>
+            </view>
+        </view>
+        <!-- <view class="othersDevice" catchtap="goActive">其它车辆设备进行激活</view> -->
+    </view>
+</view>
+<privacy_popup></privacy_popup>

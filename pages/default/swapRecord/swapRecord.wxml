@@ -1,13 +1,19 @@
 <!--pages/default/swapRecord/swapRecord.wxml-->
 <view class="page">
     <text>历史订单</text>
-    <view class="component-custom-nav" wx:for="{{listOfHistoricalList}}" wx:key="index">
-        <view>
-            申请提交时间 {{item.orderTime}}
+    <view wx:if="{{listOfHistoricalList.length}}">
+        <view class="component-custom-nav" wx:for="{{listOfHistoricalList}}" wx:key="index">
+            <view>
+                申请提交时间 {{item.orderTime}}
+            </view>
+            <view>旧的{{item.oldVehPlates}}</view>
+            <view>新的{{item.newVehPlates}}</view>
+            <button class="btn" catchtap="goTerminationAndReSigning"
+                data-info="{{item}}">{{item.contractStatus}}</button>
         </view>
-        <view  >旧的{{item.oldVehPlates}}</view>
-        <view  >新的{{item.newVehPlates}}</view>
-        <button class="btn" catchtap="goTerminationAndReSigning" data-info="{{item}}">{{item.contractStatus}}</button>
+    </view>
+    <view wx:else>
+        暂无记录
     </view>
     <view class="floatButton">
         <view class="handleImmediately " catchtap="goBack">返回</view>

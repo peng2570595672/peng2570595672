@@ -39,38 +39,19 @@ Page({
     },
     // 获取换牌申请记录列表
     async getAListOfExchangeRecords () {
-        // this.setData(
-        //     {
-        //         listOfHistoricalList: [
-        //             {
-        //                 orderId: '1237446731189194752', // 订单号
-        //                 orderTime: '2020-01-01 12:00:00', // 订单时间
-        //                 orderStatus: '已完成', // 订单状态
-        //                 orderType: '换新', // 订单类型
-        //                 orderPrice: '100.00', // 订单价格
-        //                 orderDetail: '苹果XR换新', // 订单详情
-        //                 orderImage: 'https://img.alicdn.com/imgen/tfs/TB1iG4vhQSWQ3.jpg'// 订单图片
-
-        //             },
-        //             {
-        //                 orderId: '12374467312239194752', // 订单号
-        //                 orderTime: '2020-02-01 12:00:00', // 订单时间
-        //                 orderStatus: '已完成', // 订单状态
-        //                 orderType: '换新', // 订单类型
-        //                 orderPrice: '100.00', // 订单价格
-        //                 orderDetail: '苹果XR换新', // 订单详情
-        //                 orderImage: 'https://img.alicdn.com/imgen/tfs/TB1iG4vhQSWQ3.jpg'// 订单图片
-        //             }
-        //         ]
-        //     }
-        // );
         const result = await util.getDataFromServersV2('consumer/order/order-veh-plates-change/getList', {
         });
         if (!result) return;
         if (result.code === 0) {
-            this.setData({
-                listOfHistoricalList: result.data
-            });
+            if (result.data) {
+                this.setData({
+                    listOfHistoricalList: result.data
+                });
+            } else {
+                this.setData({
+                    listOfHistoricalList: []
+                });
+            }
         } else {
             util.showToastNoIcon(result.message);
         }

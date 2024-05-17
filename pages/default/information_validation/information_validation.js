@@ -51,13 +51,18 @@ Page({
 		baseInfo: {} // 订单的基础信息
 	},
 	async onLoad (options) {
+		console.log(options);
 		this.setData({
 			vehColor: options.vehColor,
 			vehPlates: options.vehPlates,
 			topProgressBar: parseFloat(options.topProgressBar),
 			topProgressBar1: parseFloat(options.topProgressBar),
-			is9901: options.pro9901
+			is9901: options.pro9901,
+			applyOrder: options.applyOrder // 是否换车牌的订单
 		});
+		if (options.applyOrder) {
+			return;
+		}
 		await this.getOrderInfo();
 		// 查询是否欠款
 		await util.getIsArrearage();
@@ -241,8 +246,14 @@ Page({
 		if (!this.validateData(true) || this.data.isRequest) {
 			return;
 		}
+		if (this.data.applyOrder) {
+			// 该订单属于 更换车牌订单
+			console.log('更换车牌订单');
+			this.changeApplyOrder();
+			return;
+		}
 		wx.uma.trackEvent('information_validation_next');
-		this.confirmHandle();
+		// this.confirmHandle();
 	},
 	async confirmHandle () {
 		// 比对车牌颜色和车牌位数是否一致   新老数据做对比,判断是否进行秒审
@@ -360,6 +371,44 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
+	// 申请更换车牌号提交
+	async changeApplyOrder () {
+		let face = this.data.drivingLicenseFace.ocrObject;
+		let params = {
+			orderId: app.globalData.orderInfo.orderId,
+			newVehPlates: face.numberPlates,
+			newVehColor: this.data.vehColor,
+			newLicenseMainPage: this.data.drivingLicenseFace.fileUrl, // 主页地址 【dataType包含6】
+			newLicenseVicePage: this.data.drivingLicenseBack.fileUrl,
+			newIssueDate: face.issueDate,
+			vin: face.vin,
+			engineNo: face.engineNo,
+			registerDate: face.resgisterDate // resgisterDate
+		};
+		console.log(params);
+		const result = await util.getDataFromServersV2('consumer/order/order-veh-plates-change/apply', params);
+		if (!result) return;
+		if (result.code === 0) {
+			this.selectComponent('#popTipComp').show({
+				type: 'shenfenyanzhifail',
+				title: '提示',
+				btnCancel: '退出',
+				refundStatus: false,
+				content: result.message,
+				bgColor: 'rgba(0,0,0, 0.6)'
+			});
+		} else {
+			this.selectComponent('#popTipComp').show({
+				type: 'shenfenyanzhifail',
+				title: '提示',
+				btnCancel: '退出',
+				refundStatus: true,
+				content: result.message,
+				bgColor: 'rgba(0,0,0, 0.6)'
+			});
+		}
+	},
+
 	determineTheWeight (info) {
 		if (!info) return '--';
 		if (info.includes('kg') || info.includes('--')) return info;
@@ -486,7 +535,7 @@ Page({
 						delta: 1
 					});
 				},
-				cancel: () => {}
+				cancel: () => { }
 			});
 		} else {
 			const pages = getCurrentPages();
