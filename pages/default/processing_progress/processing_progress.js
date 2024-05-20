@@ -38,7 +38,8 @@ Page({
 		interval1: 5000, // 轮播图切换时间
 		moduleFourList: [],	// 广告banner列表
 		isShowPinAn: false,
-		adDoc: 0	// 轮播图指示点
+		adDoc: 0,	// 轮播图指示点
+		lnmShopIds: app.globalData.shopIdList.lnmShopIdsAbove	// // 辽宁移动商户ID
 	},
 	async onLoad (options) {
 		this.setData({
@@ -565,6 +566,11 @@ Page({
 			} else {
 				util.showToastNoIcon(result.message);
 			}
+		}
+		if (this.data.info.orderType === 71 && this.data.lnmShopIds.includes(this.data.info.shopId)) {	// 辽宁移动线上
+			let obj = this.data.info;
+			app.globalData.orderInfo.orderId = this.data.orderId;
+			util.go(`/pages/function_fewer_pages/che_e_bao/che_e_bao?obuCardType=${obj.obuCardType}&shopId=${obj.shopId}&vehPlates=${obj.vehPlates}&obuStatus=${obj.obuStatus}`);
 		}
 		if (this.data.info.flowVersion === 8) {
 			let obj = {

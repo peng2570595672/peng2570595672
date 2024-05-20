@@ -679,24 +679,23 @@ Component({
         },
         // 获取验证码
         async getCode () {
-            this.setTimer();
             if (!this.data.argObj.wxPhone || this.data.argObj.wxPhone.length === 0) {
                 util.showToastNoIcon('手机号不能为空!');
-                return false;
+                return;
             }
             util.showLoading({title: '获取中...'});
-            // const result = await util.getDataFromServersV2('/consumer/voucher/rights/recharge/hsh/car-protect-sendNote', {
-            //     mobilePhone: this.data.argObj.wxPhone
-            // },'POST',true);
-            // if (!result) return;
-            // if (result.code === 0) {
-            //     wx.hideLoading();
-            //     this.setData({key: result.data.key});
-            //     this.setTimer();
-            // } else {
-            //     wx.hideLoading();
-            //     util.showToastNoIcon(result.message);
-            // }
+            const result = await util.getDataFromServersV2('/consumer/voucher/rights/recharge/hsh/car-protect-sendNote', {
+                mobilePhone: this.data.argObj.wxPhone
+            },'POST',true);
+            if (!result) return;
+            if (result.code === 0) {
+                wx.hideLoading();
+                this.setData({key: result.data.key});
+                this.setTimer();
+            } else {
+                wx.hideLoading();
+                util.showToastNoIcon(result.message);
+            }
         },
         // 手机验证码输入
         codeValueChange (e) {

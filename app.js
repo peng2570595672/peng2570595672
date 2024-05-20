@@ -158,7 +158,11 @@ App({
 		isAlertToSign: false,
 		isQingHaiHighSpeed: false,// 是否是青海高速办理,需要隐藏平安绑车
 		isQingHaiHighSpeedOnlineProcessing: false,	// 是否是青海高速线上办理
-		renewWhitelist: ['13368527179', '18302531895', '15185024319', '17685020520', '15870105857']	// 续签白名单
+		renewWhitelist: ['13368527179', '18302531895', '15185024319', '17685020520', '15870105857'],	// 续签白名单
+		shopIdList: {	// 商户ID集合
+			lnmShopIdsAbove: ['1239594660693811200','1237451403885551616'],	// 辽宁移动线上商户ID（正式||测试）
+			lnmShopIdsUnder: ['1239632630251528192','1237451403885551616']	// 辽宁移动线下商户ID（正式||测试）
+		}
 	},
 	onLaunch (options) {
 		// 统计逻辑结束
