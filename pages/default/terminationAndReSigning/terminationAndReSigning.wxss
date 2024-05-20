@@ -1,0 +1,62 @@
+.page {
+  margin: 28rpx;
+}
+.page .title {
+  width: 100%;
+  height: 200rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.page .title .text {
+  font-size: 46rpx;
+  font-weight: 600;
+  line-height: 48rpx;
+}
+.page button {
+  width: 450rpx;
+  height: 100rpx;
+  background-color: #ffc0cb;
+  border: 1px solid #000;
+  line-height: 100rpx;
+  position: fixed;
+  color: #fff;
+  bottom: 60rpx;
+  border-radius: 60rpx;
+  left: 20%;
+}
+.page .module {
+  width: 100%;
+  height: 250rpx;
+  border-radius: 20rpx;
+  margin-bottom: 30rpx;
+}
+.page .module .topTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 20rpx;
+}
+.page .module .topTitle .text {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+.page .module .topTitle .text view:first-child {
+  line-height: 80rpx;
+  font-weight: 550;
+  font-size: 34rpx;
+}
+.page .module .topTitle .text view:last-child {
+  line-height: 60rpx;
+}
+.page .module .topTitle .weChatSign {
+  width: 180rpx;
+  height: 100rpx;
+  text-align: center;
+  line-height: 100rpx;
+  border-radius: 50rpx;
+  background-color: #87ceeb;
+  color: #fff;
+}

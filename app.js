@@ -52,6 +52,7 @@ App({
 			isPayH5Signing: false,// 是否是付费h5签约
 			isUnicom: false// 是否是联通归属转化
 		},
+		chooseOrderList: [], // 重新选中的内蒙古激活订单
 		isSystemTime: false,// 是否是通过接口获取过系统时间
 		isSalesmanOrder: false,// 是否是业务员审核订单
 		officialChannel: false,// 是否是公众号渠道引流

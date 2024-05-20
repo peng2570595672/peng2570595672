@@ -1,0 +1,10 @@
+{
+	"navigationBarTitleText": "换车换牌",
+	"navigationBarBackgroundColor": "#ECECEC",
+	"usingComponents": {
+		"keyboard": "/components/keyboard/keyboard",
+		"authorization-phone": "/components/authorization_phone/authorization_phone",
+		"topProgressBar": "/components/topProgressBar/index",
+		"popTipComp": "/components/popTipComp/popTipComp"
+	}
+}

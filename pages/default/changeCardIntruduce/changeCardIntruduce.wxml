@@ -1,0 +1,9 @@
+<view class="page">
+    <view class="component-custom-nav">
+        <button class="btn" catchtap="viewHistory">申请记录</button>
+    </view>
+    <view class="floatButton">
+        <view class="handleImmediately {{available ? 'btn':''}}" catchtap="validateCar">我要换新车牌</view>
+    </view>
+    <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
+</view>

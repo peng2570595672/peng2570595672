@@ -1,12 +1,13 @@
 <view >
     <view class="index {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeBg' : ''}}">
         <!-- 顶部 进度条 组件 -->
-        <view class="topSplit" wx:if="{{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl}}">
+        <view class="topSplit" wx:if="{{(drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl) && !applyOrder}}">
             <topProgressBar progressStage="{{topProgressBar}}" />
         </view>
         <!-- 模块一 上传照片 -->
         <view class="module moduleOne {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'boxS' : ''}}">
-            <view class="titles" wx:if="{{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl}}">车辆行驶证</view>
+            <view wx:if="{{applyOrder}}" class="applyOrder">请上传新车牌行驶证证件</view>
+            <view class="titles" wx:if="{{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl}}">{{applyOrder ? '请上传新车牌行驶证':'车辆行驶证'}}</view>
             <view class="photo-wrapper {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeOne' : ''}}">
                 <view class="photo {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeTwo' : ''}}" data-type="3" catchtap="selectionPic">
                     <view class="upload {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeThree' : ''}}">
@@ -34,7 +35,7 @@
         <!-- 模块二 信息显示 -->
         <view class="module moduleTwo" wx:if="{{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl}}">
             <view class="titles">信息核对</view>
-            <view class="tips">*请仔细核对以下信息，有误项可点击修改</view>
+            <view class="tips">{{applyOrder ? '*仅支持行驶证所有人为个人的车辆办理':'*请仔细核对以下信息，有误项可点击修改'}}</view>
             <view class="keyValue">
                 <view class="attrName">车主姓名</view>
                 <view class="attrValue">
@@ -178,6 +179,7 @@
         bindbeforeleave="onBeforeLeave">
     </page-container>
     <!-- 组件 提示 -->
-    <popTipComp id="popTipComp" tipObj="{{tipObj}}"></popTipComp>
+    <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
+    <!-- <popTipComp id="popTipComp" tipObj="{{tipObj}}"></popTipComp> -->
 </view>
 <privacy_popup></privacy_popup>
