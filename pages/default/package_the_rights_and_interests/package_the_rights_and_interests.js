@@ -139,7 +139,7 @@ Page({
         citicBank: false,	// 是否是中信银行联名套餐
         emptyHairOrder: false,	// 为true表示是空发订单
         citicBankshopProductIds: app.globalData.cictBankObj.citicBankshopProductIds,	// 信用卡套餐集合
-        shopIdList: app.globalData.shopIdList.lnmShopIdsUnder // 辽宁线下商户ID列表
+        lnmProductUnder: app.globalData.productList.lnmProductUnder // 辽宁线下商户ID列表
     },
     async onLoad (options) {
         if (!app.globalData.orderInfo.orderId) return;
@@ -324,7 +324,7 @@ Page({
                 if (ttCouponPayAmount === 0 && isSignTtCoupon === 1 && falgs) {
                     this.submitOrder();
                 }
-                if (this.data.isSalesmanOrder && this.data.shopIdList.includes(this.data.listOfPackages[this.data.choiceIndex].shopId)) { // 辽宁移动
+                if (this.data.isSalesmanOrder && this.data.lnmProductUnder.includes(this.data.listOfPackages[this.data.choiceIndex].shopProductId)) { // 辽宁移动
                     this.submitOrder();
                 }
             }

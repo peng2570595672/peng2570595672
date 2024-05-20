@@ -1,0 +1,11 @@
+<view class="index">
+    <view class="module module1">
+        <image class="img1" src="https://file.cyzl.com/g001/M02/19/6A/oYYBAGVdqp6AP_9GAAATfrodu2E153.png"/>
+    </view>
+    <view class="tip">请继续完成信用卡办理</view>
+    <view class="floatButton">
+        <view class="handleImmediately btn" catchtap="btnFunc">继续办理</view>
+    </view>
+    <popTipComp id="popTipComp"></popTipComp>
+</view>
+<privacy_popup></privacy_popup>

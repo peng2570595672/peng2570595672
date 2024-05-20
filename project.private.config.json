@@ -115,6 +115,13 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "去申卡",
+                    "pathName": "pages/bank_card/go_to_shenka/go_to_shenka",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
