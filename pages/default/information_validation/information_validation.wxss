@@ -5,6 +5,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+image {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
 .index {
   margin: 0;
   padding: 0;
@@ -29,6 +34,20 @@
   position: relative;
   left: 50%;
   transform: translateX(-50%);
+}
+.index .module .component {
+  margin-top: -20rpx;
+  display: flex;
+}
+.index .module .component .top-div {
+  width: 24rpx;
+  height: 22rpx;
+  margin: 15rpx;
+}
+.index .module .component .applyOrder {
+  margin-bottom: 30rpx;
+  color: #333;
+  font-size: 40rpx;
 }
 .index .module .titles {
   height: 48rpx;
@@ -190,10 +209,14 @@
 }
 .index .bottomBtn .available {
   background: #2a4f44;
-  animation: btnFadeIn 0.3s;
-  animation-fill-mode: forwards;
+  -webkit-animation: btnFadeIn 0.3s;
+          animation: btnFadeIn 0.3s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
 }
 .index .bottomBtn .unavailable {
-  animation: btnFadeOut 0.3s;
-  animation-fill-mode: forwards;
+  -webkit-animation: btnFadeOut 0.3s;
+          animation: btnFadeOut 0.3s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
 }

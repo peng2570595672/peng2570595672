@@ -6,8 +6,15 @@
         </view>
         <!-- 模块一 上传照片 -->
         <view class="module moduleOne {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'boxS' : ''}}">
-            <view wx:if="{{applyOrder}}" class="applyOrder">请上传新车牌行驶证证件</view>
-            <view class="titles" wx:if="{{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl}}">{{applyOrder ? '请上传新车牌行驶证':'车辆行驶证'}}</view>
+            <!-- 更新 新车牌号展示 -->
+            <view class="component"  wx:if="{{!(drivingLicenseFace.fileUrl && drivingLicenseBack.fileUrl) && applyOrder}}">
+                <view class="top-div">
+                    <image class="image" src="https://file.cyzl.com/g001/M03/6E/D2/oYYBAGZHCDyAQB3EAAAZwlJrfP0601.svg"
+                        mode="widthFix"></image>
+                </view>
+                <view class="applyOrder">请上传新车牌行驶证证件</view>
+            </view>
+            <view class="titles" wx:if="{{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl}}">车辆行驶证</view>
             <view class="photo-wrapper {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeOne' : ''}}">
                 <view class="photo {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeTwo' : ''}}" data-type="3" catchtap="selectionPic">
                     <view class="upload {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeThree' : ''}}">
@@ -162,7 +169,7 @@
         <!-- 底部悬浮按钮 -->
         <view class="bottomBtn" wx:if="{{faceStatus === 4 && backStatus === 4}}">
             <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="onClickConfirmHandle">
-                确认资料并保存
+                {{applyOrder ? '下一步':'确认资料并保存'}}
             </view>
         </view>
     </view>
@@ -179,7 +186,7 @@
         bindbeforeleave="onBeforeLeave">
     </page-container>
     <!-- 组件 提示 -->
-    <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
+    <popTipComp id="popTipComp" bind:cancelHandle="cancelHandle"></popTipComp>
     <!-- <popTipComp id="popTipComp" tipObj="{{tipObj}}"></popTipComp> -->
 </view>
 <privacy_popup></privacy_popup>

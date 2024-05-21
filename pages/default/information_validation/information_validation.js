@@ -246,14 +246,20 @@ Page({
 		if (!this.validateData(true) || this.data.isRequest) {
 			return;
 		}
-		// if (this.data.applyOrder) {
-		// 	// 该订单属于 更换车牌订单
-		// 	console.log('更换车牌订单');
-		// 	this.changeApplyOrder();
-		// 	return;
-		// }
+		if (this.data.applyOrder) {
+			// 该订单属于 更换车牌订单
+			this.changeApplyOrder();
+			return;
+		}
 		wx.uma.trackEvent('information_validation_next');
 		this.confirmHandle();
+	},
+	// 弹框回调
+	cancelHandle () {
+		if (app.globalData.successfullyReplace) {
+			// 返回换牌介绍页
+			util.go(`/pages/default/changeCardIntruduce/changeCardIntruduce`);
+		}
 	},
 	async confirmHandle () {
 		// 比对车牌颜色和车牌位数是否一致   新老数据做对比,判断是否进行秒审
@@ -389,12 +395,13 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/order-veh-plates-change/apply', params);
 		if (!result) return;
 		if (result.code === 0) {
+			app.globalData.successfullyReplace = true;// 更还车牌申请提交成功标识 控制返回介绍页
 			this.selectComponent('#popTipComp').show({
 				type: 'shenfenyanzhifail',
 				title: '提示',
 				btnCancel: '退出',
 				refundStatus: false,
-				content: result.message,
+				content: '提交成功，请等候系统审核！',
 				bgColor: 'rgba(0,0,0, 0.6)'
 			});
 		} else {

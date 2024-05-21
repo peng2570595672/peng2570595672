@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-export const IS_TEST = false; // false为正式接口地址，true为测试接口地址
+export const IS_TEST = true; // false为正式接口地址，true为测试接口地址
 const util = require('./utils/util.js');
 const definedData = require('./utils/dataStatement.js');
 const uma = require('./utils/umtrack-wx.js');
@@ -37,6 +37,7 @@ App({
 		isWeChatSudoku: false, // 从微信九宫格进入(微信--生活缴费--ETC办理)
 		isContinentInsurance: false, // 是否是大地保险 用来屏蔽微保
 		isToastAgreement: true,
+		finishReContract: false, // 是否完成重签约
 		isPingAn: false, // 是否是平安 用来屏蔽微保
 		isJinYiXing: false, // 是否是津易行办理
 		belongToPlatform: '500338116821778434', // 套餐所属平台id,用于判断流程
@@ -45,6 +46,7 @@ App({
 		isSignUpImmediately: false,// 是否是首页或我的ETC列表点击立即签约,是则需要直接查主库
 		isHighSpeedTraffic: undefined,// 是否是高速通行公众号进入办理
 		isHighSpeedTrafficActivity: false,// 是否是高速通行活动进入办理
+		successfullyReplace: false ,// 控制更换车牌申请成功标识
 		systemTime: undefined,// 系统时间
 		isSecondSigning: false,// 是否二次签约
 		isSecondSigningInformationPerfect: false,// 是否二次签约-资料完善
@@ -339,6 +341,10 @@ App({
 			(res && res.scene === 1038)) { // 场景值1038：从被打开的小程序返回
 			// 因微信场景值问题,故未用场景值判断
 			if (res.path === 'pages/bank_card/citic_bank_sign/citic_bank_sign') {
+				return;
+			}
+			if (res.path === 'pages/default/terminationAndReSigning/terminationAndReSigning') {
+				this.globalData.finishReContract = true; // 并无法真实拿到重签成功结果
 				return;
 			}
 			const { appId } = res.referrerInfo;

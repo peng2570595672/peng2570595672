@@ -4,10 +4,8 @@ Page({
     data: {
         nmOrderList: []
     },
-    onLoad () {
-        this.IsAnActivationOrder();
-    },
-    onShow () {
+    async onLoad () {
+        await this.IsAnActivationOrder();
     },
     // 是否存在多个已激活订单
     async IsAnActivationOrder () {

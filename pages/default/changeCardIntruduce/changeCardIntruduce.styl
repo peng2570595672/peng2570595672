@@ -7,7 +7,46 @@ mixinsWidthHeight($width=100%, $height=100%)
     font-style normal
     -webkit-font-smoothing antialiased
     -moz-osx-font-smoothing grayscale
+image
+    width 100% 
+    height 100%
+    display block
 .page
+    .container
+        margin 30rpx 28rpx
+        background-color #fff
+        .component
+            display flex
+            .top-div
+                mixinsWidthHeight(24rpx,22rpx)
+                margin 15rpx 
+            .intru
+                font-size 40rpx
+                font-weight 400
+        .text
+            display flex
+            flex-direction column
+            padding-left 44rpx
+            margin 20rpx 0
+            text
+                font-size 28rpx 
+                line-height 60rpx
+        .pic
+            // mixinsWidthHeight(,380rpx)
+        .applicationRecords
+            color #2A4F44
+            mixinsWidthHeight(300rpx,68rpx)
+            text-align center
+            line-height 68rpx
+            margin 0 auto
+            margin-top 80rpx
+            border-radius: 12rpx;
+            border 2rpx solid #2A4F44
+    .fill-line
+        height 16rpx
+        background-color #ececec
+    .bottom
+        padding-bottom 300rpx
     /* 底部悬浮按钮 */
     .floatButton
         mixinsWidthHeight(,204rpx)

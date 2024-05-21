@@ -8,19 +8,21 @@ Page({
      */
     data: {
         available: true,
+        listOfHistoricalList: [], // 申请记录
         nmOrderList: [] // 存放蒙通卡已激活订单
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad (options) {
+    async onLoad (options) {
         // let nmOrderList = app.globalData?.myEtcList?.filter(item => item.obuCardType === 2 && (item.obuStatus === 1 || item.obuStatus === 5));
         // if (nmOrderList) {
         //     this.setData({
         //         nmOrderList
         //     });
         // }
+        await this.getAListOfExchangeRecords();
     },
     async validateCar () {
         // 判断是否存在未完成的换牌申请
@@ -74,6 +76,21 @@ Page({
                 content: result.message,
                 bgColor: 'rgba(0,0,0, 0.6)'
             });
+        } else {
+            util.showToastNoIcon(result.message);
+        }
+    },
+    // 获取换牌申请记录列表
+    async getAListOfExchangeRecords () {
+        const result = await util.getDataFromServersV2('consumer/order/order-veh-plates-change/getList', {
+        });
+        if (!result) return;
+        if (result.code === 0) {
+            if (result.data) {
+                this.setData({
+                    listOfHistoricalList: result.data
+                });
+            }
         } else {
             util.showToastNoIcon(result.message);
         }

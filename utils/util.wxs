@@ -221,7 +221,22 @@ function numReplace(param1, type = 1) {
         return param1.indexOf('-') !== -1
     }
 }
-
+function getStatusDescription_NM(status) {
+    switch (status) {
+        case 0:
+            return '待审核';
+        case 1:
+            return '审核不通过';
+        case 2:
+            return '处理中';
+        case 3:
+            return '处理完成待签约';
+        case 4:
+            return '处理完成';
+        default:
+            return '未知状态';
+    }
+}
 /**
  * 字符串内容的替换
  * @param obj 对象：字符串(被替换的对象)
@@ -307,4 +322,5 @@ module.exports = {
     specification: specification,
     equits: equits,
     getTruCorlor: getTruCorlor,
+    getStatusDescription_NM: getStatusDescription_NM,
 };
