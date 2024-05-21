@@ -186,7 +186,6 @@
         bindbeforeleave="onBeforeLeave">
     </page-container>
     <!-- 组件 提示 -->
-    <popTipComp id="popTipComp" bind:cancelHandle="cancelHandle"></popTipComp>
-    <!-- <popTipComp id="popTipComp" tipObj="{{tipObj}}"></popTipComp> -->
+    <popTipComp id="popTipComp" bind:cancelHandle="cancelHandle" tipObj="{{tipObj}}"></popTipComp>
 </view>
 <privacy_popup></privacy_popup>
