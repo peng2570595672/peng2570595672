@@ -37,6 +37,7 @@ image {
   line-height: 60rpx;
 }
 .page .container .applicationRecords {
+  color: #2a4f44;
   width: 300rpx;
   height: 68rpx;
   text-align: center;

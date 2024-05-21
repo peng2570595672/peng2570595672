@@ -48,6 +48,10 @@ Page({
             });
             return;
         }
+        if (this.data.finishReContract) {
+            // 已经提交过重新签约接口
+            return;
+        }
         const result = await util.getDataFromServersV2('consumer/order/order-veh-plates-change/updateVehInfo', {
             id: this.data.id
         });

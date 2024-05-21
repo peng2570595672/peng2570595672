@@ -401,7 +401,7 @@ Page({
 				title: '提示',
 				btnCancel: '退出',
 				refundStatus: false,
-				content: result.message,
+				content: '提交成功，请等候系统审核！',
 				bgColor: 'rgba(0,0,0, 0.6)'
 			});
 		} else {

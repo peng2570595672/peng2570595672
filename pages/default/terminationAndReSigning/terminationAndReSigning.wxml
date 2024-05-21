@@ -27,7 +27,7 @@
                 <view>签约新车牌微信授权</view>
                 <view>新车牌签约微信后可免密代扣</view>
             </view>
-            <view class="weChatSign grey" catchtap="weChatSignBefore">{{finishReContract ? '已签约':'去签约'}}</view>
+            <view class="weChatSign {{ !finishReContract ? 'grey' :''}}" catchtap="weChatSignBefore">{{finishReContract ? '已签约':'去签约'}}</view>
         </view>
     </view>
     <view class="floatButton">
