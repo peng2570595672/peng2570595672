@@ -246,14 +246,14 @@ Page({
 		if (!this.validateData(true) || this.data.isRequest) {
 			return;
 		}
-		if (this.data.applyOrder) {
-			// 该订单属于 更换车牌订单
-			console.log('更换车牌订单');
-			this.changeApplyOrder();
-			return;
-		}
+		// if (this.data.applyOrder) {
+		// 	// 该订单属于 更换车牌订单
+		// 	console.log('更换车牌订单');
+		// 	this.changeApplyOrder();
+		// 	return;
+		// }
 		wx.uma.trackEvent('information_validation_next');
-		// this.confirmHandle();
+		this.confirmHandle();
 	},
 	async confirmHandle () {
 		// 比对车牌颜色和车牌位数是否一致   新老数据做对比,判断是否进行秒审
