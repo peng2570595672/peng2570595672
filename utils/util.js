@@ -960,7 +960,7 @@ function getStatus(orderInfo) {
   }
   if (orderInfo.obuStatus === 0 || orderInfo.obuStatus === 3 || orderInfo.obuStatus === 4 || (orderInfo.status === 1 && orderInfo.obuStatus === 2 && (orderInfo.obuCardType === 23 || orderInfo.obuCardType === 2))) {//补充河北交投换卡换签
     // OBU状态:默认0 0-待激活，1-已激活，2-已注销 3-开卡 4-发签 5预激活  (3和4:首次激活未完成)
-    // if (orderInfo.shopId === '1239594660693811200') {  //辽宁移动
+    // if (orderInfo.orderType === 71 && app.globalData.shopIdList.lnmShopIdsAbove.includes(orderInfo.shopId)) {  //辽宁移动线上电商
     //   return 36;
     // }
     return 11; //  待激活

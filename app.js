@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-export const IS_TEST = true; // false为正式接口地址，true为测试接口地址
+export const IS_TEST = false; // false为正式接口地址，true为测试接口地址
 const util = require('./utils/util.js');
 const definedData = require('./utils/dataStatement.js');
 const uma = require('./utils/umtrack-wx.js');
@@ -161,7 +161,14 @@ App({
 		isAlertToSign: false,
 		isQingHaiHighSpeed: false,// 是否是青海高速办理,需要隐藏平安绑车
 		isQingHaiHighSpeedOnlineProcessing: false,	// 是否是青海高速线上办理
-		renewWhitelist: ['13368527179', '18302531895', '15185024319', '17685020520', '15870105857']	// 续签白名单
+		renewWhitelist: ['13368527179', '18302531895', '15185024319', '17685020520', '15870105857'],	// 续签白名单
+		shopIdList: {	// 商户ID集合
+			lnmShopIdsAbove: ['1239594660693811200','1237451403885551616'],	// 辽宁移动线上商户ID（正式||测试）
+			lnmShopIdsUnder: ['1239632630251528192','1237451403885551616']	// 辽宁移动线下商户ID（正式||测试）
+		},
+		productList: { // 套擦ID集合
+			lnmProductUnder: ['1242146560803479552','1242146449448902656','1242146345254002688','1240318299865751552'] // 辽宁移动线下
+		}
 	},
 	onLaunch (options) {
 		// 统计逻辑结束

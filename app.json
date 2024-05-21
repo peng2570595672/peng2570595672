@@ -415,7 +415,8 @@
                 "citicBank_processing_progress/citicBank_processing_progress",
                 "citic_bank_card_details/citic_bank_card_details",
                 "minshen_bank_card_details/minshen_bank_card_details",
-                "citic_bank_pay_res/citic_bank_pay_res"
+                "citic_bank_pay_res/citic_bank_pay_res",
+                "go_to_shenka/go_to_shenka"
             ]
         },
         {

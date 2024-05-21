@@ -144,7 +144,7 @@
     </view>
   </view>
   <!-- 模块三   办理邮寄信息 -->
-  <view class="module moduleThree" wx:if="{{isOnlineDealWith&&!perfect}}">
+  <view class="module moduleThree" wx:if="{{isOnlineDealWith && !perfect}}">
     <view class="title">
       <view class="titles">办理邮寄信息</view>
     </view>
