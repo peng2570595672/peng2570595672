@@ -1,3 +1,108 @@
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+image {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.page {
+  padding-bottom: 300rpx;
+/* 底部悬浮按钮 */
+}
+.page .container {
+  margin: 30rpx 38rpx;
+  background-color: #fff;
+}
+.page .container .component {
+  display: flex;
+}
+.page .container .component .top-div {
+  width: 24rpx;
+  height: 22rpx;
+  margin: 15rpx;
+}
+.page .container .component .intru {
+  font-size: 40rpx;
+  font-weight: 400;
+}
+.page .container .component-custom .addTime {
+  font-size: 24rpx;
+  line-height: 44rpx;
+}
+.page .container .component-custom .carNo {
+  padding: 20rpx 0;
+  line-height: 88rpx;
+  justify-content: space-between;
+  font-size: 40rpx;
+  display: flex;
+  border-bottom: 1rpx solid #a8a6a6;
+}
+.page .container .component-custom .carNo .pic {
+  width: 48rpx;
+  height: 48rpx;
+  margin-top: 20rpx;
+  border: 4rpx dashed #efefef;
+}
+.page .container .component-custom .result {
+  display: flex;
+  font-size: 26rpx;
+  margin-top: 15rpx;
+  margin-bottom: 30rpx;
+  line-height: 80rpx;
+  justify-content: space-between;
+  padding: 10rpx 0;
+}
+.page .container .component-custom .result .bootom {
+  text-align: right;
+}
+.page .container .component-custom .result .bootom .color_font {
+  color: #3d3d3d;
+}
+.page .container .component-custom .result .bootom .finish {
+  color: #008000;
+}
+.page .container .component-custom .result .bootom .fail {
+  color: #ff6300;
+}
+.page .container .component-custom .result .bootom .btn {
+  color: #fff;
+  text-align: center;
+  width: 175rpx;
+  height: 54rpx;
+  line-height: 54rpx;
+  border-radius: 26rpx;
+  background: #2a4f44;
+}
+.page .container .text {
+  display: flex;
+  flex-direction: column;
+  padding-left: 44rpx;
+  margin: 20rpx 0;
+}
+.page .container .text text {
+  font-size: 28rpx;
+  line-height: 60rpx;
+}
+.page .container .applicationRecords {
+  width: 300rpx;
+  height: 68rpx;
+  text-align: center;
+  line-height: 68rpx;
+  margin: 0 auto;
+  margin-top: 80rpx;
+  border-radius: 12rpx;
+  border: 2rpx solid #2a4f44;
+}
+.page .fill-line {
+  margin: 30rpx -38rpx;
+  height: 16rpx;
+  background-color: #ececec;
+}
 .page .floatButton {
   width: 100%;
   height: 204rpx;

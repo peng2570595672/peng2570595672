@@ -14,16 +14,15 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad (options) {
-        app.globalData.orderInfo.orderId = '1237446731189194752';
-        this.getAListOfExchangeRecords();
+    async onLoad (options) {
+        await this.getAListOfExchangeRecords();
     },
     // 解约重签
     async goTerminationAndReSigning (targe) {
+         // 该条订单状态为3 的时候才去解约重签
         app.globalData.orderInfo.orderId = targe.currentTarget.dataset.info.orderId;
-        console.log(app.globalData.orderInfo);
-        let url = 'terminationAndReSigning';
-        util.go(`/pages/default/${url}/${url}`);
+        console.log(app.globalData.orderInfo,targe.currentTarget.dataset.info.id);
+        util.go(`/pages/default/terminationAndReSigning/terminationAndReSigning?id=${targe.currentTarget.dataset.info.id}`);
     },
     /**
      * 生命周期函数--监听页面初次渲染完成
@@ -46,10 +45,6 @@ Page({
             if (result.data) {
                 this.setData({
                     listOfHistoricalList: result.data
-                });
-            } else {
-                this.setData({
-                    listOfHistoricalList: []
                 });
             }
         } else {

@@ -11,6 +11,10 @@ mixinsPositionPack($position = relative)
     font-style normal
     -webkit-font-smoothing antialiased
     -moz-osx-font-smoothing grayscale
+image
+    width 100% 
+    height 100%
+    display block
 .index
     margin 0
     padding 0
@@ -34,6 +38,16 @@ mixinsPositionPack($position = relative)
         position relative
         left 50%
         transform translateX(-50%)
+        .component
+            margin-top -20rpx
+            display flex
+            .top-div
+                mixinsWidthHeight(24rpx,22rpx)
+                margin 15rpx 
+            .applyOrder
+                margin-bottom 30rpx
+                color #333
+                font-size 40rpx
         .titles
             height 48rpx
             font-size 32rpx

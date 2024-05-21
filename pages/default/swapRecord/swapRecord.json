@@ -1,6 +1,6 @@
 {
 	"navigationBarTitleText": "换牌记录",
-	"navigationBarBackgroundColor": "#ECECEC",
+	"navigationBarBackgroundColor": "#ffffff",
 	"usingComponents": {
 		"keyboard": "/components/keyboard/keyboard",
 		"authorization-phone": "/components/authorization_phone/authorization_phone",
