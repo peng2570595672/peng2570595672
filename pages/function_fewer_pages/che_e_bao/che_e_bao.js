@@ -122,7 +122,8 @@ Page({
         util.showLoading({title: '查询中,请稍等...'});
         let that = this;
         const result = await util.getDataFromServersV2('/consumer/voucher/rights/recharge/hsh/car-protect-queryOrderActivity', {
-            activityId: that.data.activityId
+            activityId: that.data.activityId,
+            orderId: this.data.orderId
         },'POST',true);
         if (!result) return;
         if (result.code === 0) {
