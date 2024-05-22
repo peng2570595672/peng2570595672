@@ -1,67 +1,69 @@
 const util = require('../../../utils/util.js');
 const app = getApp();
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
-
+        card_bank: 0 // 银行枚举值
     },
 
-    /**
-     * 生命周期函数--监听页面加载
-     */
     onLoad (options) {
-
+        this.setData({
+            card_bank: +options.cardBank
+        });
     },
 
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
     onShow () {
 
     },
 
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage () {
-
+    async next () {
+        if (this.data.card_bank === 1) { // 中信银行
+            if (this.data.isCiticBankPlatinum) {
+                url = `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?sid=SJCSJHT01&paId=${app.globalData.orderInfo.orderId}&partnerId=SJHT&pid=CS0840`;
+            } else {
+                url = `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?pid=CS0207&sid=SJCSJHT01&paId=${app.globalData.orderInfo.orderId}&partnerId=SJHT`;
+            }
+            util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
+        } else if (this.data.card_bank === 2) { // 民生银行
+            let res = await util.getDataFromServersV2('consumer/order/apply/ms/bank-card', {
+                orderId: app.globalData.orderInfo.orderId
+            });
+            if (!res) return;
+            if (res.code === 0) {
+                wx.navigateToMiniProgram({
+                    appId: 'wx8212297b23aff0ff',
+                    path: `pages/home/sc-ws/sc-ws?params=${'https://' + encodeURIComponent(res.data.applyUrl.slice(8))}`,
+                    envVersion: 'release',
+                    success () { },
+                    fail () {
+                        // 拉起小程序失败
+                        util.showToastNoIcon('拉起小程序失败, 请重试！');
+                    }
+                });
+            } else {
+                util.showToastNoIcon(res.message);
+            }
+        } else if (this.data.card_bank === 3) { // 广发银行
+            let res = await util.getDataFromServersV2('consumer/order/apply/gf/bank-card', {
+                orderId: app.globalData.orderInfo.orderId
+            });
+            if (!res) return;
+            if (res.code === 0) {
+                util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data.applyUrl)}`);
+            } else {
+                util.showToastNoIcon(res.message);
+            }
+        } else if (this.data.card_bank === 4) { // 平安银行
+            // let res = await util.getDataFromServersV2('/consumer/order/pingan/get-apply-credit-card-url', {
+            //     orderId: app.globalData.orderInfo.orderId
+            // });
+            // if (!res) return;
+            // if (res.code === 0) {
+            //     // 跳转 h5
+            //     util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data)}`);
+            // } else {
+            //     util.showToastNoIcon(res.message);
+            // }
+        }
     }
+
 });

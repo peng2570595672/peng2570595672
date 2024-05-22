@@ -12,7 +12,8 @@ Page({
 		orderInfo: {},
 		contractStatus: 0, // 1已签约
 		citicBank: false, // false 不是中信银行联名套餐
-		isHunan: false // false 不是湖南信科
+		isHunan: false, // false 不是湖南信科
+		cardBank: 0
 	},
 	async onLoad (options) {
 		if (options.citicBank || options.citicBank === 'true') {
@@ -34,6 +35,11 @@ Page({
 				is9901: true
 			});
 			return;
+		}
+		if (options.cardBank) {
+			this.setData({
+				cardBank: +options.cardBank
+			});
 		}
 		await this.queryContract();
 		await this.getSchedule();
@@ -90,6 +96,10 @@ Page({
 		}
 		if (this.data.orderInfo.flowVersion !== 1) {
 			util.go('/pages/historical_pattern/transition_page/transition_page');
+			return;
+		}
+		if (this.data.cardBank) {	// new 信用卡流程
+			util.go(`/pages/bank_card/go_to_shenka/go_to_shenka?cardBank=${this.data.cardBank}`);
 			return;
 		}
 		util.showLoading('加载中');
