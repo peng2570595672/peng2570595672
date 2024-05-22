@@ -557,7 +557,11 @@ Page({
         }
         wx.uma.trackEvent('package_the_rights_and_interests_next');
         that.setData({isRequest: false});
+        let rightsPackageIdArray = [];
         let addEquity = this.data.equityListMap.addEquityList[this.data.choiceIndex];	// 加购权益包
+        if (addEquity.aepIndex !== -1) { // 加购数组
+            rightsPackageIdArray.push(addEquity.subData[addEquity.aepIndex].id);
+        }
         let params = {
             emptyIssue: true,	// 标识 业务员空发
             mobilePhone: app.globalData.mobilePhone,	// 手机号码
@@ -566,7 +570,8 @@ Page({
             dataType: '3', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
             dataComplete: 0, // 订单资料是否已完善 1-是，0-否
             shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,	// 套餐ID
-            rightsPackageId: addEquity.aepIndex !== -1 ? addEquity.subData[addEquity.aepIndex].id : '',	// 权益包ID
+            rightsPackageId: this.data.listOfPackages[this.data.choiceIndex].rightsPackageId, // 默认权益包
+            rightsPackageIdArray: rightsPackageIdArray, // 加购权益包
             areaCode: '0',	// 区域编码
             shopUserId: app.globalData.salesmanEmptyObj.shopUserId,	// 业务员用户ID
             promoterId: app.globalData.salesmanEmptyObj.promoterId,	// 业务员推广ID
