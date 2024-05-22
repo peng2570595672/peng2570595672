@@ -5,9 +5,9 @@
     <view class="tip">请继续完成信用卡办理</view>
     <view class="floatButton" wx:if="{{card_bank}}">
         <view class="handleImmediately btn" catchtap="btnFunc">
-            <text wx:if="{{card_bank === 1}}">去申请中信银行信用卡</text>
-            <text wx:elif="{{card_bank === 2}}">去申请民生银行信用卡</text>
-            <text wx:elif="{{card_bank === 3}}">去申请广发银行中信信用卡</text>
+            <text wx:if="{{card_bank === 1 || card_bank === 2}}">去申请中信银行信用卡</text>
+            <text wx:elif="{{card_bank === 3}}">去申请民生银行信用卡</text>
+            <text wx:elif="{{card_bank === 4 || card_bank === 5}}">去申请广发银行信用卡</text>
         </view>
     </view>
     <popTipComp id="popTipComp"></popTipComp>

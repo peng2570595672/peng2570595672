@@ -16,14 +16,14 @@ Page({
     },
 
     async next () {
-        if (this.data.card_bank === 1) { // 中信银行
-            if (this.data.isCiticBankPlatinum) {
+        if (this.data.card_bank === 1 || this.data.card_bank === 2) { // 中信银行
+            if (this.data.card_bank === 2) {
                 url = `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?sid=SJCSJHT01&paId=${app.globalData.orderInfo.orderId}&partnerId=SJHT&pid=CS0840`;
             } else {
                 url = `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?pid=CS0207&sid=SJCSJHT01&paId=${app.globalData.orderInfo.orderId}&partnerId=SJHT`;
             }
             util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
-        } else if (this.data.card_bank === 2) { // 民生银行
+        } else if (this.data.card_bank === 3) { // 民生银行
             let res = await util.getDataFromServersV2('consumer/order/apply/ms/bank-card', {
                 orderId: app.globalData.orderInfo.orderId
             });
@@ -42,7 +42,7 @@ Page({
             } else {
                 util.showToastNoIcon(res.message);
             }
-        } else if (this.data.card_bank === 3) { // 广发银行
+        } else if (this.data.card_bank === 4 || this.data.card_bank === 5) { // 广发银行
             let res = await util.getDataFromServersV2('consumer/order/apply/gf/bank-card', {
                 orderId: app.globalData.orderInfo.orderId
             });
@@ -52,17 +52,6 @@ Page({
             } else {
                 util.showToastNoIcon(res.message);
             }
-        } else if (this.data.card_bank === 4) { // 平安银行
-            // let res = await util.getDataFromServersV2('/consumer/order/pingan/get-apply-credit-card-url', {
-            //     orderId: app.globalData.orderInfo.orderId
-            // });
-            // if (!res) return;
-            // if (res.code === 0) {
-            //     // 跳转 h5
-            //     util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data)}`);
-            // } else {
-            //     util.showToastNoIcon(res.message);
-            // }
         }
     }
 
