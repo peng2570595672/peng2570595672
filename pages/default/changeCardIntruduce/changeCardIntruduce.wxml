@@ -21,9 +21,25 @@
             </view>
             <view class="intru" catchtap="viewHistory">换牌步骤</view>
         </view>
-        <view class="pic">
+        <!-- <view class="pic">
             <image class="image" src="https://file.cyzl.com/g001/M03/6F/AE/oYYBAGZKsFSABIlNAAFQGiFT6jg723.png"
                 mode="widthFix" style="transform: scale(0.95);"></image>
+        </view> -->
+        <view class="info">
+            <view class="tet">
+                准备新车资料
+            </view>
+            <view class="idcard">
+                <image class="image" src="https://file.cyzl.com/g001/M03/70/C9/oYYBAGZNSN-AJNzeAAC7KuHEG18544.png"
+                    mode="widthFix"></image>
+            </view>
+            <view class="messsage">
+                <view class="name">提交申请资料等待审核</view>
+                <view class="name">解除原有车牌微信车主签约代扣服务</view>
+                <view class="name">签订新车牌微信车主签约代扣服务</view>
+                <view class="name">完成换牌！</view>
+            </view>
+            <view class="line"></view>
         </view>
         <view class="applicationRecords" catchtap="viewHistory" wx:if="{{listOfHistoricalList.length}}">申请记录</view>
     </view>
