@@ -209,7 +209,7 @@ Page({
 				this.setData({
 					imageList: [...new Set(this.data.imageList.concat(item))]
 				});
-				if (this.data.imageList.length === this.data.uploaderList.length) {
+				if (this.data.imageList.length >= this.data.uploaderList.length) {
 					if (this.data.deviceTypeIndex === 0 || (this.data.deviceTypeIndex && this.data.cutCardImg.includes('https'))) {
 						// 单片式 || (插卡式&&剪卡图)
 						this.handleApply();
@@ -223,12 +223,6 @@ Page({
 				this.uploadImgFile(item);
 			}
 		}
-		this.data.uploaderList.map((item) => {
-			if (item.includes('https')) {
-			} else {
-				this.uploadImgFile(item);
-			}
-		});
 	},
 	// 上传图片
 	uploadImgFile (imgPath, type = 2) {
@@ -284,7 +278,7 @@ Page({
 			devType: this.data.deviceTypeIndex,
 			orderType: 1, // 1-注销
 			cutCardImg: this.data.deviceTypeIndex ? this.data.cutCardImg : '',
-			deviceImg: this.data.imageList,
+			deviceImg: this.data.imageList.slice(0, 9),
 			logisticsNo: this.data.formData.logisticsNo
 		}, 'POST', true);
 		if (result.code === 0) {
