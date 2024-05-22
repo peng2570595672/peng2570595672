@@ -797,7 +797,8 @@ Page({
             dataType: '3', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
             dataComplete: 0, // 订单资料是否已完善 1-是，0-否
             shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
-            rightsPackageId: addEquity.aepIndex !== -1 ? addEquity.subData[addEquity.aepIndex].id : '',
+            rightsPackageId: addEquity.aepIndex !== -1 ? addEquity.subData[addEquity.aepIndex].id : '', // 默认权益包
+            rightsPackageIdArray: [], // 加购权益包
             areaCode: this.data.orderInfo ? (this.data.orderInfo.product.areaCode || '0') : app.globalData.newPackagePageData.areaCode
         };
         if (this.data.isSalesmanOrder && this.data.orderInfo.base?.flowVersion === 8) {
@@ -971,7 +972,7 @@ Page({
                             }
                             if (this.data.listOfPackages[this.data.activeIndex].etcCardId === 10 && +this.data.listOfPackages[this.data.activeIndex].deviceType === 0) {
                                 // 湖南湘通卡 & 单片机   湖南信科
-                                util.go('/pages/default/payment_successful/payment_successful?isHunan=1');
+                                util.go(`/pages/default/payment_successful/payment_successful?isHunan=1`);
                                 return;
                             }
                             if (this.data.orderInfo.base?.flowVersion !== 1) {
@@ -985,7 +986,7 @@ Page({
                                 return;
                             }
                             // 去支付成功页
-                            util.go('/pages/default/payment_successful/payment_successful');
+                            util.go(`/pages/default/payment_successful/payment_successful?cardBank=${this.data.listOfPackages[this.data.activeIndex].cardBank}`);
                             return;
                         }
                         if (this.data.orderInfo?.base?.orderType === 61) {
@@ -1134,7 +1135,7 @@ Page({
                     equityListMap.addEquityList.push({ index: currentIndex, packageName: '', payMoney: 0, aepIndex: -1 });
                 }
             }
-            // 默认权益包(只能有一个)
+            // 2%综合服务费赠送权益包(只能有一个)
             let defaultPackages = [];
             let sevicePackages = this.data.listOfPackages[currentIndex].serviceFeePackageId;
             if (sevicePackages) defaultPackages = sevicePackages.split(',');
@@ -1144,6 +1145,7 @@ Page({
                 const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
                     packageIds: defaultPackages
                 }, 'POST', false);
+                console.log('ddddd',result);
                 if (result.code === 0) {
                     let packageName = '';
                     // let payMoney = 0;	// 综合服务权益包 金额
@@ -1158,7 +1160,7 @@ Page({
                     equityListMap.serviceEquityList.push({ index: currentIndex, packageName: '', payMoney: 0 });
                 }
             }
-            // 2%综合服务费赠送的权益包
+            // 默认赠送的权益包
             let packageId = this.data.listOfPackages[currentIndex].rightsPackageId && this.data.listOfPackages[currentIndex].rightsPackageId !== 0;
             if (!packageId) {
                 equityListMap.defaultEquityList.push({ index: currentIndex, packageName: '', payMoney: 0 });
@@ -1166,6 +1168,7 @@ Page({
                 const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
                     packageIds: new Array(this.data.listOfPackages[currentIndex].rightsPackageId)
                 }, 'POST', false);
+                console.log('默认权益包：',result);
                 if (result.code === 0) {
                     equityListMap.defaultEquityList.push({ index: currentIndex, subData: result.data });
                 } else {

@@ -567,11 +567,11 @@ Page({
 				util.showToastNoIcon(result.message);
 			}
 		}
-		// if (this.data.info.orderType === 71 && this.data.lnmShopIds.includes(this.data.info.shopId)) {	// 辽宁移动线上
-		// 	let obj = this.data.info;
-		// 	app.globalData.orderInfo.orderId = this.data.orderId;
-		// 	util.go(`/pages/function_fewer_pages/che_e_bao/che_e_bao?obuCardType=${obj.obuCardType}&shopId=${obj.shopId}&vehPlates=${obj.vehPlates}&obuStatus=${obj.obuStatus}`);
-		// }
+		if (this.data.info.orderType === 71 && this.data.lnmShopIds.includes(this.data.info.shopId)) {	// 辽宁移动线上
+			let obj = this.data.info;
+			app.globalData.orderInfo.orderId = this.data.orderId;
+			util.go(`/pages/function_fewer_pages/che_e_bao/che_e_bao?obuCardType=${obj.obuCardType}&shopId=${obj.shopId}&vehPlates=${obj.vehPlates}&obuStatus=${obj.obuStatus}`);
+		}
 		if (this.data.info.flowVersion === 8) {
 			let obj = {
 				orderId: app.globalData.orderInfo.orderId,

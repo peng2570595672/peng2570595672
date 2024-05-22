@@ -516,6 +516,10 @@ Page({
 		// 	util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
 		// 	return;
 		// }
+		if (obj?.cardBank && obj?.creditCardStatus === -1) {	// new 信用卡流程
+			util.go(`/pages/bank_card/go_to_shenka/go_to_shenka?cardBank=${obj.cardBank}`);
+			return;
+		}
 		if (obj.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId && app.globalData.cictBankObj.citicBankshopProductIds.includes(obj.shopProductId) && obj.contractStatus !== 1) {
 			util.go(`/pages/bank_card/citic_bank_sign/citic_bank_sign`);
 			return;
@@ -533,7 +537,7 @@ Page({
 			// 货车签约
 			util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
 			return;
-        }
+		}
 		if (obj.contractStatus === 2) {
 			wx.uma.trackEvent('etc_detail_for_resume_signing');
 			// 恢复签约

@@ -3,8 +3,12 @@
         <image class="img1" src="https://file.cyzl.com/g001/M02/19/6A/oYYBAGVdqp6AP_9GAAATfrodu2E153.png"/>
     </view>
     <view class="tip">请继续完成信用卡办理</view>
-    <view class="floatButton">
-        <view class="handleImmediately btn" catchtap="btnFunc">继续办理</view>
+    <view class="floatButton" wx:if="{{card_bank}}">
+        <view class="handleImmediately btn" catchtap="btnFunc">
+            <text wx:if="{{card_bank === 1}}">去申请中信银行信用卡</text>
+            <text wx:elif="{{card_bank === 2}}">去申请民生银行信用卡</text>
+            <text wx:elif="{{card_bank === 3}}">去申请广发银行中信信用卡</text>
+        </view>
     </view>
     <popTipComp id="popTipComp"></popTipComp>
 </view>
