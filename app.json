@@ -17,6 +17,10 @@
         "pages/loading_page_for_bank/index",
         "pages/default/wechat_sudoku/wechat_sudoku",
         "pages/default/changeCarAndCard/changeCarAndCard",
+        "pages/default/changeCardIntruduce/changeCardIntruduce",
+        "pages/default/swapRecord/swapRecord",
+        "pages/default/optionalOldLicensePlateList/optionalOldLicensePlateList",
+        "pages/default/terminationAndReSigning/terminationAndReSigning",
         "pages/default/package_the_rights_and_interests/package_the_rights_and_interests",
         "pages/default/choose_the_way_to_handle/choose_the_way_to_handle",
         "pages/default/information_list/information_list",
@@ -359,6 +363,8 @@
                 "hunan/watchdata/watchdata",
                 "hunan/watchdata_plugn/watchdata_plugn",
                 "hunan/zhongluweilai/zhongluweilai",
+                "hunan/mc_new/mc_new",
+                "hunan/connect_bluetooth_for_hunanmc_new/connect_bluetooth_for_hunanmc_new",
                 "neimeng_first/artc/artc",
                 "neimeng_first/mc/mc",
                 "neimeng_first/mc_new/mc_new",
@@ -411,7 +417,8 @@
                 "citicBank_processing_progress/citicBank_processing_progress",
                 "citic_bank_card_details/citic_bank_card_details",
                 "minshen_bank_card_details/minshen_bank_card_details",
-                "citic_bank_pay_res/citic_bank_pay_res"
+                "citic_bank_pay_res/citic_bank_pay_res",
+                "go_to_shenka/go_to_shenka"
             ]
         },
         {

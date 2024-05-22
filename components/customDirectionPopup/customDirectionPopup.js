@@ -117,7 +117,8 @@ Component({
         identifyingCode: '获取验证码', // 倒计时提示文本
         code: '', // 验证码
         timer: undefined, // 计时器
-        time: 0 // 倒计时计数
+        time: 0, // 倒计时计数
+        key: undefined
         // ==================================end ==================================================
     },
 
@@ -678,18 +679,18 @@ Component({
         },
         // 获取验证码
         async getCode () {
-            this.setTimer();
             if (!this.data.argObj.wxPhone || this.data.argObj.wxPhone.length === 0) {
                 util.showToastNoIcon('手机号不能为空!');
-                return false;
+                return;
             }
             util.showLoading({title: '获取中...'});
-            const result = await util.getDataFromServersV2('', {
+            const result = await util.getDataFromServersV2('/consumer/voucher/rights/recharge/hsh/car-protect-sendNote', {
                 mobilePhone: this.data.argObj.wxPhone
             },'POST',true);
             if (!result) return;
             if (result.code === 0) {
                 wx.hideLoading();
+                this.setData({key: result.data.key});
                 this.setTimer();
             } else {
                 wx.hideLoading();
@@ -714,6 +715,7 @@ Component({
         // 确定办理
         cheEBaoHandle () {
             this.hide();
+            this.data.argObj.callback(this.data.code,this.data.key);
         }
         // ------------------------------end----------------------------------------------
     }

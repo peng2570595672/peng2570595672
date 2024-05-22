@@ -960,6 +960,9 @@ function getStatus(orderInfo) {
   }
   if (orderInfo.obuStatus === 0 || orderInfo.obuStatus === 3 || orderInfo.obuStatus === 4 || (orderInfo.status === 1 && orderInfo.obuStatus === 2 && (orderInfo.obuCardType === 23 || orderInfo.obuCardType === 2))) {//补充河北交投换卡换签
     // OBU状态:默认0 0-待激活，1-已激活，2-已注销 3-开卡 4-发签 5预激活  (3和4:首次激活未完成)
+    if (orderInfo.orderType === 71 && app.globalData.shopIdList.lnmShopIdsAbove.includes(orderInfo.shopId)) {  //辽宁移动线上电商
+      return 36;
+    }
     return 11; //  待激活
   }
   if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
@@ -2295,6 +2298,20 @@ async function aiReturn(that, compId, orderId, callBack) {
         params: {
           firstFlag: false,
           orderId: orderId
+        },
+        callBack: () => {
+          callBack && callBack();
+        }
+      });
+    } else if (result.code === 3) {
+      that.selectComponent(compId).show({
+        type: 'aiReturn',
+        title: '警示',
+        aiFlag: true, //跳过
+        content: `尊敬的车主用户您好，由于电话回访可能被手机系统防骚扰拦截，已为您自动通过验证， 请继续下一步办理流程，谢谢`,
+        btnconfirm: '已知晓，继续办理',
+        params: {
+          firstFlag: false
         },
         callBack: () => {
           callBack && callBack();

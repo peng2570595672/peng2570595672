@@ -1033,9 +1033,16 @@
   height: 100%;
 }
 .make .cheEBao .publicInp .captcha .get-code {
-  color: #2a4f44;
-  padding-left: 10rpx;
-  border-left: 1rpx solid #e0e0e0;
+  width: 162rpx;
+  height: 46rpx;
+  border-radius: 11.5px;
+  background: #5ebe68;
+  color: #fff;
+  font-size: 22rpx;
+  font-weight: normal;
+  text-align: center;
+  text-align: center;
+  line-height: 46rpx;
 }
 .make .cheEBao .btn {
   width: 632rpx;

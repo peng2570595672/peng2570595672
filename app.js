@@ -37,6 +37,7 @@ App({
 		isWeChatSudoku: false, // 从微信九宫格进入(微信--生活缴费--ETC办理)
 		isContinentInsurance: false, // 是否是大地保险 用来屏蔽微保
 		isToastAgreement: true,
+		finishReContract: false, // 是否完成重签约
 		isPingAn: false, // 是否是平安 用来屏蔽微保
 		isJinYiXing: false, // 是否是津易行办理
 		belongToPlatform: '500338116821778434', // 套餐所属平台id,用于判断流程
@@ -45,6 +46,7 @@ App({
 		isSignUpImmediately: false,// 是否是首页或我的ETC列表点击立即签约,是则需要直接查主库
 		isHighSpeedTraffic: undefined,// 是否是高速通行公众号进入办理
 		isHighSpeedTrafficActivity: false,// 是否是高速通行活动进入办理
+		successfullyReplace: false ,// 控制更换车牌申请成功标识
 		systemTime: undefined,// 系统时间
 		isSecondSigning: false,// 是否二次签约
 		isSecondSigningInformationPerfect: false,// 是否二次签约-资料完善
@@ -52,6 +54,7 @@ App({
 			isPayH5Signing: false,// 是否是付费h5签约
 			isUnicom: false// 是否是联通归属转化
 		},
+		chooseOrderList: [], // 重新选中的内蒙古激活订单
 		isSystemTime: false,// 是否是通过接口获取过系统时间
 		isSalesmanOrder: false,// 是否是业务员审核订单
 		officialChannel: false,// 是否是公众号渠道引流
@@ -158,7 +161,14 @@ App({
 		isAlertToSign: false,
 		isQingHaiHighSpeed: false,// 是否是青海高速办理,需要隐藏平安绑车
 		isQingHaiHighSpeedOnlineProcessing: false,	// 是否是青海高速线上办理
-		renewWhitelist: ['13368527179', '18302531895', '15185024319', '17685020520', '15870105857']	// 续签白名单
+		renewWhitelist: ['13368527179', '18302531895', '15185024319', '17685020520', '15870105857'],	// 续签白名单
+		shopIdList: {	// 商户ID集合
+			lnmShopIdsAbove: ['1239594660693811200','1237451403885551616'],	// 辽宁移动线上商户ID（正式||测试）
+			lnmShopIdsUnder: ['1239632630251528192','1237451403885551616']	// 辽宁移动线下商户ID（正式||测试）
+		},
+		productList: { // 套擦ID集合
+			lnmProductUnder: ['1242146560803479552','1242146449448902656','1242146345254002688','1240318299865751552'] // 辽宁移动线下
+		}
 	},
 	onLaunch (options) {
 		// 统计逻辑结束
@@ -331,6 +341,10 @@ App({
 			(res && res.scene === 1038)) { // 场景值1038：从被打开的小程序返回
 			// 因微信场景值问题,故未用场景值判断
 			if (res.path === 'pages/bank_card/citic_bank_sign/citic_bank_sign') {
+				return;
+			}
+			if (res.path === 'pages/default/terminationAndReSigning/terminationAndReSigning') {
+				this.globalData.finishReContract = true; // 并无法真实拿到重签成功结果
 				return;
 			}
 			const { appId } = res.referrerInfo;

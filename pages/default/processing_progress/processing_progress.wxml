@@ -137,7 +137,9 @@
     </view>
     <!--	进度结束-->
     <!--	按钮开始-->
-    <button class="btn" wx:if="{{info && info.logisticsId !== 0 && info.obuStatus !== 1 && info.obuStatus !== 5 && ((info.flowVersion === 2 && info.hwContractStatus === 1) || ((info.flowVersion === 1 || info.flowVersion === 5) && info.auditStatus === 2))}}" catchtap="onClickCctivate">{{info.orderType === 71 || info.promoterType === 41 || info.logisticsId === -1 ? '立即激活' : '确认收货并激活'}}</button>
+    <button class="btn" wx:if="{{info && info.logisticsId !== 0 && info.obuStatus !== 1 && info.obuStatus !== 5 && ((info.flowVersion === 2 && info.hwContractStatus === 1) || ((info.flowVersion === 1 || info.flowVersion === 5) && info.auditStatus === 2))}}" catchtap="onClickCctivate">
+        {{info.orderType === 71 || info.promoterType === 41 || info.logisticsId === -1 ? (tools.equits(lnmShopIds,item.shopId) && info.orderType === 71 ? '办理产品并激活' : '立即激活') : '确认收货并激活'}}
+    </button>
     <button class="btn" wx:if="{{info && info.auditStatus === 2 && info.flowVersion === 2 && info.hwContractStatus !== 1}}" catchtap="signingExpress">签约高速支付渠道</button>
 
     <!-- 办理银行信用卡退款操作 -->
@@ -150,9 +152,6 @@
     <!--	在线客服开始-->
     <view class="bottom" wx:if="{{!isQingHaiHighSpeed }}"><text catchtap="goHome">返回首页</text>|<text catchtap="goOnlineServer">在线客服</text>{{info.flowVersion !== 8 ? '|' : ''}}<text catchtap="goInstallationTutorial" wx:if="{{info.flowVersion !== 8}}">安装教程</text></view>
     <view class="bottom" wx:else><text catchtap="goOnlineServer">在线客服</text></view>
-    <!-- <view class="pingAnNewCustomers" wx:if="{{tools.dataIncludes(info.vehPlates,firstCar,1) && !isQingHaiHighSpeed || true}}" catchtap="goPingAn">
-        <image class="image" src="{{'https://file.cyzl.com/g001/M00/E7/0D/oYYBAGSRUJuAQ0wsAABKSVNiV0M757.png'}}" bindload="pinAnBuriedPoint" mode="widthFix"/>
-    </view> -->
     <!-- 广告banner indicator-dots -->
     <view class="moduleFour" wx:if="{{tools.dataLen(moduleFourList) > 0}}">
         <swiper class="swiper" autoplay circular

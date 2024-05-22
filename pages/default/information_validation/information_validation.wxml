@@ -1,11 +1,19 @@
 <view >
     <view class="index {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeBg' : ''}}">
         <!-- 顶部 进度条 组件 -->
-        <view class="topSplit" wx:if="{{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl}}">
+        <view class="topSplit" wx:if="{{(drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl) && !applyOrder}}">
             <topProgressBar progressStage="{{topProgressBar}}" />
         </view>
         <!-- 模块一 上传照片 -->
         <view class="module moduleOne {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'boxS' : ''}}">
+            <!-- 更新 新车牌号展示 -->
+            <view class="component"  wx:if="{{!(drivingLicenseFace.fileUrl && drivingLicenseBack.fileUrl) && applyOrder}}">
+                <view class="top-div">
+                    <image class="image" src="https://file.cyzl.com/g001/M03/6E/D2/oYYBAGZHCDyAQB3EAAAZwlJrfP0601.svg"
+                        mode="widthFix"></image>
+                </view>
+                <view class="applyOrder">请上传新车牌行驶证证件</view>
+            </view>
             <view class="titles" wx:if="{{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl}}">车辆行驶证</view>
             <view class="photo-wrapper {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeOne' : ''}}">
                 <view class="photo {{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl ? 'changeTwo' : ''}}" data-type="3" catchtap="selectionPic">
@@ -34,7 +42,7 @@
         <!-- 模块二 信息显示 -->
         <view class="module moduleTwo" wx:if="{{drivingLicenseFace.fileUrl || drivingLicenseBack.fileUrl}}">
             <view class="titles">信息核对</view>
-            <view class="tips">*请仔细核对以下信息，有误项可点击修改</view>
+            <view class="tips">{{applyOrder ? '*仅支持行驶证所有人为个人的车辆办理':'*请仔细核对以下信息，有误项可点击修改'}}</view>
             <view class="keyValue">
                 <view class="attrName">车主姓名</view>
                 <view class="attrValue">
@@ -161,7 +169,7 @@
         <!-- 底部悬浮按钮 -->
         <view class="bottomBtn" wx:if="{{faceStatus === 4 && backStatus === 4}}">
             <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="onClickConfirmHandle">
-                确认资料并保存
+                {{applyOrder ? '下一步':'确认资料并保存'}}
             </view>
         </view>
     </view>
@@ -178,6 +186,6 @@
         bindbeforeleave="onBeforeLeave">
     </page-container>
     <!-- 组件 提示 -->
-    <popTipComp id="popTipComp" tipObj="{{tipObj}}"></popTipComp>
+    <popTipComp id="popTipComp" bind:cancelHandle="cancelHandle" tipObj="{{tipObj}}"></popTipComp>
 </view>
 <privacy_popup></privacy_popup>

@@ -1,0 +1,34 @@
+<view class="page">
+    <view class="container">
+        <view class="component">
+            <view class="top-div">
+                <image class="image" src="https://file.cyzl.com/g001/M03/6E/D2/oYYBAGZHCDyAQB3EAAAZwlJrfP0601.svg"
+                    mode="widthFix"></image>
+            </view>
+            <view class="intru" catchtap="viewHistory">换牌说明</view>
+        </view>
+        <view class="text">
+            <text>当您更换新车牌，想保留旧的ETC设备时</text>
+            <text>可申请更换新车牌</text>
+        </view>
+    </view>
+    <view class="fill-line"></view>
+    <view class="container bottom">
+        <view class="component">
+            <view class="top-div">
+                <image class="image" src="https://file.cyzl.com/g001/M03/6E/D2/oYYBAGZHCDyAQB3EAAAZwlJrfP0601.svg"
+                    mode="widthFix" ></image>
+            </view>
+            <view class="intru" catchtap="viewHistory">换牌步骤</view>
+        </view>
+        <view class="pic">
+            <image class="image" src="https://file.cyzl.com/g001/M03/6F/AE/oYYBAGZKsFSABIlNAAFQGiFT6jg723.png"
+                mode="widthFix" style="transform: scale(0.95);"></image>
+        </view>
+        <view class="applicationRecords" catchtap="viewHistory" wx:if="{{listOfHistoricalList.length}}">申请记录</view>
+    </view>
+    <view class="floatButton">
+        <view class="handleImmediately {{available ? 'btn':''}}" catchtap="validateCar">我要换新车牌</view>
+    </view>
+    <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
+</view>

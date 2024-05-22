@@ -46,6 +46,7 @@ Page({
         ],
         myAccountList: [],
         nmOrderList: [], // 存放蒙通卡已激活订单
+        nmgOrderCnt: 0,
         height: undefined, // 屏幕高度
         userInfo: undefined, // 用户信息
         mobilePhoneSystem: false,
@@ -73,12 +74,12 @@ Page({
         this.setData({
             isVip: app.globalData.isVip
         });
-        let nmOrderList = app.globalData?.myEtcList?.filter(item => item.obuCardType === 2 && (item.obuStatus === 1 || item.obuStatus === 5));
-        if (nmOrderList) {
-            this.setData({
-                nmOrderList
-            });
-        }
+        // let nmOrderList = app.globalData?.myEtcList?.filter(item => item.obuCardType === 2 && (item.obuStatus === 1 || item.obuStatus === 5));
+        // if (nmOrderList) {
+        //     this.setData({
+        //         nmOrderList
+        //     });
+        // }
     },
     async onShow () {
         // 4.0
@@ -544,7 +545,9 @@ Page({
         if (url === 'changeCarAndCard') {	// 跳转换车换牌
             // 判断有无已经激活的蒙通卡
             return util.go(`/pages/default/${url}/${url}`);
-            // this.data.nmOrderList.length ? util.go(`/pages/default/changeCardIntruduce/changeCardIntruduce`) : util.showToastNoIcon('该功能仅限内蒙高速卡种使用');
+            // await this.getAMontonkaOrder();
+            // this.data.nmgOrderCnt > 0 ? util.go(`/pages/default/changeCardIntruduce/changeCardIntruduce`) : util.showToastNoIcon('该功能仅限内蒙高速卡种使用');
+            // return;
         }
         if (url === 'tonTonQuan') {	// 跳转通通券
             this.selectComponent('#dialog1').show('tonTonQuan');
@@ -618,6 +621,19 @@ Page({
                 }
             }
         });
+    },
+    //  获取蒙通卡订单
+    async getAMontonkaOrder () {
+        const result = await util.getDataFromServersV2('consumer/order/order-veh-plates-change/hNmgOrder', {
+        });
+        if (!result) return;
+        if (result.code === 0) {
+            this.setData({
+                nmgOrderCnt: result.data.nmgOrderCnt // 蒙通订单数量
+            });
+        } else {
+            util.showToastNoIcon(result.message);
+        }
     },
     // 监听返回按钮
     onClickBackHandle () {

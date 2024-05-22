@@ -61,7 +61,8 @@ Page({
 		checkVinInfo: {},// vin码返回数据
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
-		isShowTextarea: true// 是否显示textarea
+		isShowTextarea: true,// 是否显示textarea
+		Modifiable: true // 是否可修改
 	},
 	async onLoad (options) {
 		this.setData({
@@ -263,14 +264,19 @@ Page({
 			util.showToastNoIcon(`请勿频繁提交，请${this.data.time}秒后再次尝试`);
 			return;
 		}
+		if (!this.data.drivingLicenseFace.ocrObject.vin || this.data.faceStatus !== 4 || this.data.backStatus !== 4) {
+			util.showToastNoIcon('请先上传行驶证');
+			return;
+		}
 		const result = await util.getDataFromServersV2('consumer/order/checkVin', {
 			vin: app.globalData.test ? 'LS4ASL2E3ME456738' : this.data.drivingLicenseFace.ocrObject.vin,
-			vehPlate: app.globalData.test ? '贵CS769P' : this.data.vehPlates,
-			platesColor: app.globalData.test ? '0' : this.data.vehColor,
-			axleNum: app.globalData.test ? '2' : this.data.carAxleNum
+            vehPlate: app.globalData.test ? '贵CS769P' : this.data.vehPlates,
+            platesColor: app.globalData.test ? '0' : this.data.vehColor,
+            axleNum: app.globalData.test ? '2' : this.data.carAxleNum
 		});
 		if (!result.code) {
 			let data = result.data;
+			console.log('checkVinInfo:',data);
 			let checkVinInfo = {};
 			for (let key in data) {
 				if (data.hasOwnProperty(key)) {
@@ -292,6 +298,44 @@ Page({
 				checkVinInfo: checkVinInfo
 			});
 		} else {
+			if (result.code === 1099) {
+				let faceObj = this.data.drivingLicenseFace.ocrObject;
+				let backObj = this.data.drivingLicenseBack.ocrObject;
+				let checkVinInfo = {
+					c: backObj.vehicleLength || '--', // 长
+					k: backObj.vehicleWidth || '--', // 宽
+					g: backObj.vehicleWidth || '--', // 高
+					zzl: backObj.totalMass || '--', // 总质量
+					edzzl: backObj.loadQuality || '--', // 机身重量
+					zqyzzl: backObj.tractionMass || '--', // 货物重量
+					zbzl: backObj.curbWeight || '--',// 整备质量
+					pp: faceObj.model || '--', // 品牌
+					fdjxh: faceObj.engineNo || '--',// 发动机型号
+					cllx: faceObj.vehicleType || '--',// 车辆类型
+					lts: backObj.wheelCount || '--',// 轮胎数
+					hxnbk: '--',// 货箱内部宽
+					hxnbc: '--', // 货箱内部长
+					rlzl: '--',// 燃料种类
+					fdjqy: '--',// 发动机企业
+					pl: '--',// 排量
+					ml: '--',// 马力
+					clmc: '--',// 发动机型号
+					clxh: '--',// 车辆型号
+					hxnbg: '--',// 货箱内部高
+					pfsp: '--',// 排放水平
+					qdxs: '--',// 驱动形式
+					ccnf: '--',// 出厂年份
+					rq: '--',// 制造日期
+					xhlc: '--',// 续航里程
+					dccs: '--',// 电池厂商
+					dclx: '--'// dclx
+				};
+				this.setData({
+					Modifiable: false,
+					checkVinInfo
+				});
+				return;
+			}
 			this.startTimer();
 			util.showToastNoIcon(result.message);
 			this.setData({
@@ -480,7 +524,7 @@ Page({
 		for (let key in oldBack) { oldBackValue += oldBack[key]; }
 		for (let key in face) { faceValue += face[key]; }
 		for (let key in oldFace) { oldFaceValue += oldFace[key]; }
-		if (oldFace.vin === face.vin) {
+		if (oldFace.vin === face.vin && this.data.Modifiable) {
 			haveChange = false;
 		}
 		// 提交数据
@@ -558,6 +602,7 @@ Page({
 		let value = e.detail.value.trim();
 		let drivingLicenseFace = this.data.drivingLicenseFace;
 		let drivingLicenseBack = this.data.drivingLicenseBack;
+		let checkVinInfo = this.data.checkVinInfo;
 		// 行驶证正面
 		if (parseInt(type) === 3) {
 			drivingLicenseFace.ocrObject[key] = value;
@@ -574,11 +619,16 @@ Page({
 			drivingLicenseBack.ocrObject[key] = value;
 		}
 		if (key === 'wheelCountNo') {
+			checkVinInfo.lts = value;
 			this.setData({
 				wheelCountNo: value
 			});
 		}
+		if (key === 'vehicleType') {
+			checkVinInfo.cllx = value;
+		}
 		this.setData({
+			checkVinInfo,
 			drivingLicenseFace,
 			drivingLicenseBack
 		});

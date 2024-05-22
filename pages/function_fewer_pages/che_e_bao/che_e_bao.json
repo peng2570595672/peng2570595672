@@ -1,9 +1,10 @@
 {
     "navigationBarTitleText": "车e宝",
-    "navigationBarBackgroundColor": "#ECECEC",
-    "backgroundColor": "#ECECEC",
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#ffffff",
     "navigationBarTextStyle": "black",
     "usingComponents": {
-        "customDirectionPopup": "/components/customDirectionPopup/customDirectionPopup"
+        "customDirectionPopup": "/components/customDirectionPopup/customDirectionPopup",
+        "equipment_selection": "/components/equipment_selection/equipment_selection"
     }
 }

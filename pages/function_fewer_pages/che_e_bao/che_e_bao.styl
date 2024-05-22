@@ -28,7 +28,7 @@ flexModule($align=normal,$justify=normal)
     padding 0
     width 100vw
     min-height 100vh
-    background-color #ECECEC
+    background-color #fff
     &::after
         display block
         content ''
@@ -40,31 +40,55 @@ flexModule($align=normal,$justify=normal)
         // background #0f0
     /* 公共模块 */
     .module
-        width 658rpx
-        margin-top 28rpx
-        border-radius 16rpx
-        background-color #fff
-        padding 28rpx 0rpx 28rpx 36rpx
+        padding 28rpx
+        letter-spacing: 0rpx;
         font-family PingFangSC-Regular, PingFang SC
-        box-shadow 0px 4rpx 2rpx 0rpx rgba(212, 212, 212, 0.5)
-        position relative
-        left 50%
-        transform translateX(-50%)
         .title
-            font-size 32rpx
+            font-size 40rpx
             font-weight 600
             color #1E1E1E
             font-family PingFangSC-Semibold, PingFang SC
     .module1
-        height 500rpx
+        mixinsWidthHeight(,50rpx)
+        line-height 50rpx
+        flexModule(center,normal)
+        border-bottom 16rpx solid #ECECEC
+        .icon1
+            mixinsWidthHeight(22rpx,22rpx)
+            border-radius 50%
+            margin-right 47rpx
+            flexModule(center,center)
+            background linear-gradient(48deg, #14AC69 0%, #84D157 207%)
+            &:before
+                display block
+                content ''
+                background #fff
+                border-radius 50%
+                mixinsWidthHeight(10rpx,10rpx)
+    .module2
+        text-align justify
+        .subTitle
+            font-size 22rpx
+            font-weight 500
+            line-height 34rpx
+            letter-spacing 0rpx
+            font-variation-settings "opsz" auto
+            color rgba(0, 0, 0, 0.6)
+        .text
+            font-size 24rpx
+            font-weight normal
+            line-height 40rpx
+            letter-spacing 0rpx
+            color #66666D
+            padding-bottom 28rpx
     /* 底部悬浮按钮 */
     .floatButton
-        mixinsWidthHeight(,200rpx)
+        mixinsWidthHeight(,248rpx)
         opacity 1
-        background #ECECEC
+        background #fff
         flexModule(center,center)
         border-radius 16px 16px 0 0
-        // box-shadow 0 -8px 30px 0 rgba(223, 223, 223, 0.36)
+        box-shadow 0 -8px 30px 0 rgba(223, 223, 223, 0.36)
         position fixed
         bottom 0
         z-index 100

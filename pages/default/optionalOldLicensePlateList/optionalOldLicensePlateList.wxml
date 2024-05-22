@@ -1,0 +1,19 @@
+<view class="container">
+    <view class="component">
+        <view class="top-div">
+            <image class="image" src="https://file.cyzl.com/g001/M03/6E/D2/oYYBAGZHCDyAQB3EAAAZwlJrfP0601.svg"
+                mode="widthFix"></image>
+        </view>
+        <view class="intru" catchtap="viewHistory">请选择您要更换的旧车牌</view>
+    </view>
+    <view class="module">
+        <view class="topTitle" wx:for="{{nmOrderList}}" catchtap="handleVehicle" data-index="{{index}}" wx:key="index">
+            <view class="text">
+                <view>{{item.vehPlates}}</view>
+                <view>办理时间: {{item.addTime}}</view>
+            </view>
+            <view class="weChatSign" catchtap="handleVehicle" data-index="{{index}}">选择更换</view>
+        </view>
+    </view>
+</view>
+<privacy_popup></privacy_popup>
