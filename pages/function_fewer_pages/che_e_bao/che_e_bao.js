@@ -14,8 +14,8 @@ Page({
     },
     onLoad (options) {
         this.setData({
-            wxPhone: app.globalData.mobilePhone || '15870105857',
-            orderId: app.globalData.orderInfo.orderId || '1238143164733198336',
+            wxPhone: app.globalData.mobilePhone,
+            orderId: app.globalData.orderInfo.orderId,
             obuCardType: options.obuCardType,
             shopId: options.shopId,
             vehPlates: options.vehPlates,
@@ -101,7 +101,7 @@ Page({
     async activeHandleApi (code,key) {
         util.showLoading({title: '办理中...'});
         const result = await util.getDataFromServersV2('/consumer/voucher/rights/recharge/hsh/car-protect-sendOrderActivity', {
-            mobilePhone: '15870105857',
+            mobilePhone: this.data.wxPhone,
             orderId: this.data.orderId,
             key: key,
             code: code
@@ -113,6 +113,7 @@ Page({
             wx.hideLoading();
         } else {
             wx.hideLoading();
+            that.setData({status: 1,available: true});
             util.showToastNoIcon(result.message);
         }
     },
