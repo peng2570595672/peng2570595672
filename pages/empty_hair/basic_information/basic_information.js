@@ -27,7 +27,8 @@ Page({
 		}, // 提交数据
 		identifyingCode: '获取验证码',
 		time: 59,// 倒计时
-		isGetIdentifyingCoding: false // 获取验证码中
+		isGetIdentifyingCoding: false, // 获取验证码中
+		isMobilePhone: false	// 是否禁止修改登录的手机号
 	},
 	async onLoad (options) {
 		this.setData({
@@ -41,6 +42,9 @@ Page({
 				carNoStr: this.data.orderInfo.vehPlate,
 				carNo: this.data.orderInfo.vehPlate.split('')
 			});
+		}
+		if (this.data.orderInfo.orderType === 71 && app.globalData.shopIdList.lnmShopIdsAbove.includes(this.data.orderInfo.shopId)) {
+			this.setData({isMobilePhone: true});
 		}
 		app.globalData.orderInfo.orderId = this.data.orderInfo.orderId;
 		app.globalData.firstVersionData = false; // 非1.0数据办理

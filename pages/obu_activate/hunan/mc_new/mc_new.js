@@ -357,7 +357,7 @@ Page({
 			vehiclePlate,
 			vehiclePlateColor
 		};
-		let res = await util.getDataFromServersV2(`${this.data.urlPrefix}/writeEtcSuccess`,params);
+		let res = await util.getDataFromServersV2(`${this.data.urlPrefix}/active`,params);
 		if (!res) {
 			this.isOver('激活失败，请重试');
 			return;
@@ -412,7 +412,7 @@ Page({
 			obuId: this.data.rand,
 			vehPlate: obj.carNo
 		};
-		let res = await util.getDataFromServersV2(`${this.data.urlPrefix}/writeEtcSuccess`,params);
+		let res = await util.getDataFromServersV2(`${this.data.urlPrefix}/to-confirm-obu`,params);
 		if (!res) {
 			this.isOver('激活失败，请重试');
 			return;
