@@ -27,6 +27,7 @@ Page({
 						{name: '聚利（插卡式）', deviceType: 0,subTitle: '质保3年/高速通行95折', img: '../images/etc.png'},
 						{name: '金溢（插卡式）', deviceType: 0,subTitle: '质保3年/高速通行95折', img: '../images/etc.png'},
 						{name: '中路未来（插卡式）', deviceType: 0,subTitle: '质保3年/高速通行95折', img: '../images/etc.png'}
+						// {name: '铭创（无卡式）', deviceType: 1,subTitle: '质保3年/高速通行95折', img: 'https://file.cyzl.com/g001/M01/DD/02/oYYBAGRd25yAePUUAAACak0wmzQ186.png'}
 					]
 				});
 			} else if (obuCardType === 4) {
