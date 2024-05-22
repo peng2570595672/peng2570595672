@@ -113,7 +113,7 @@ Page({
             wx.hideLoading();
         } else {
             wx.hideLoading();
-            that.setData({status: 1,available: true});
+            this.setData({status: 1,available: true});
             util.showToastNoIcon(result.message);
         }
     },
