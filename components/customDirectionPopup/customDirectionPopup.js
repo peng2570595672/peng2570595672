@@ -715,11 +715,7 @@ Component({
         // 确定办理
         cheEBaoHandle () {
             this.hide();
-            if (this.data.argObj.callback) {
-                this.data.argObj.callback(this.data.code,this.data.key);
-            } else {
-                util.showToastNoIcon('回调失败！');
-            }
+            this.data.argObj.callback(this.data.code,this.data.key);
         }
         // ------------------------------end----------------------------------------------
     }
