@@ -108,6 +108,20 @@ mixinsIconfont($content='',$size=16px,$color=#5EBE68)
             .oldCarno
                 font-weight bold
                 font-size 44rpx
+                .point
+                    position relative
+                    display flex
+                    // border 1px solid #000
+                    // display inline-block
+                    padding-right .5ch
+                    &::before
+                        content: '\2022' /* 使用Unicode字符 \2022 作为间隔点 */
+                        position: absolute
+                        color: #000
+                        top 0
+                        left: 30% 
+                    .one
+                        margin-right 35rpx
             .otherCarno
                 color #5EBE68
                 text-decoration underline

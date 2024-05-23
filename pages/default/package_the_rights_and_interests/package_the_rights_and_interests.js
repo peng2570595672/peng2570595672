@@ -264,7 +264,6 @@ Page({
             orderId: app.globalData.orderInfo.orderId,
             dataType: '13'
         });
-        console.log(result);
         if (!result) return;
         if (result.code === 0) {
             if (isSearchPay) {
@@ -615,7 +614,6 @@ Page({
         const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
             packageIds: obj.rightsPackageIds
         });
-        console.log(result);
         if (!result) return;
         if (result.code === 0) {
             this.setData({
@@ -805,7 +803,6 @@ Page({
             dataType: '3', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
             dataComplete: 0, // 订单资料是否已完善 1-是，0-否
             shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
-            rightsPackageId: this.data.listOfPackages[this.data.choiceIndex].rightsPackageId, // 默认权益包
             rightsPackageIdArray: rightsPackageIdArray, // 加购权益包
             areaCode: this.data.orderInfo ? (this.data.orderInfo.product.areaCode || '0') : app.globalData.newPackagePageData.areaCode
         };
@@ -956,7 +953,6 @@ Page({
             };
         }
         const result = await util.getDataFromServersV2('consumer/order/pledge-pay', params);
-        console.log(result);
         if (!result) {
             this.setData({ isRequest: false });
             return;
@@ -1031,7 +1027,6 @@ Page({
     // ------------------------------------------------------------------------------------------------------------------
     // 前去相关协议页面
     goAgreement () {
-        console.log('前去相关协议');
         util.go('/pages/agreement_documents/user_agreement/user_agreement');
     },
     // 权益点击高亮，不用显示详情弹窗
@@ -1157,7 +1152,6 @@ Page({
                 const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
                     packageIds: defaultPackages
                 }, 'POST', false);
-                console.log('ddddd',result);
                 if (result.code === 0) {
                     let packageName = '';
                     // let payMoney = 0;	// 综合服务权益包 金额
@@ -1180,7 +1174,6 @@ Page({
                 const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
                     packageIds: new Array(this.data.listOfPackages[currentIndex].rightsPackageId)
                 }, 'POST', false);
-                console.log('默认权益包：',result);
                 if (result.code === 0) {
                     equityListMap.defaultEquityList.push({ index: currentIndex, subData: result.data });
                 } else {
@@ -1196,7 +1189,6 @@ Page({
                 equityListMap.bankList.push({ index: currentIndex, isBank: false });
             }
         }
-        console.log(equityListMap);
         this.setData({
             isLoaded: true,
             equityListMap: equityListMap
@@ -1346,7 +1338,6 @@ Page({
      */
     goAgreementPage (e) {
         let item5 = e.currentTarget.dataset.item;
-        console.log(item5);
         if (item5.contentType === 1) {
             wx.navigateTo({
                 url: '/pages/agreement_documents/background_agreement/background_agreement',

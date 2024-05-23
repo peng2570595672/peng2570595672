@@ -48,6 +48,23 @@ image {
   margin-top: 20rpx;
   border: 4rpx dashed #efefef;
 }
+.page .container .component-custom .carNo .point {
+  position: relative;
+  display: flex;
+  color: #1e1e1e;
+  font-size: 40rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+}
+.page .container .component-custom .carNo .point::before {
+  content: '\2022' /* 使用Unicode字符 \2022 作为间隔点 */;
+  position: absolute;
+  color: #000;
+  top: 0;
+  left: 27%;
+}
+.page .container .component-custom .carNo .point .one {
+  margin-right: 20rpx;
+}
 .page .container .component-custom .result {
   display: flex;
   font-size: 26rpx;

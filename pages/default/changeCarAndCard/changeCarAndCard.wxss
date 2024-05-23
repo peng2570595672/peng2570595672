@@ -120,6 +120,21 @@
   font-weight: bold;
   font-size: 44rpx;
 }
+.index .moduleOne .input .oldCarno .point {
+  position: relative;
+  display: flex;
+  padding-right: 0.5ch;
+}
+.index .moduleOne .input .oldCarno .point::before {
+  content: '\2022' /* 使用Unicode字符 \2022 作为间隔点 */;
+  position: absolute;
+  color: #000;
+  top: 0;
+  left: 30%;
+}
+.index .moduleOne .input .oldCarno .point .one {
+  margin-right: 35rpx;
+}
 .index .moduleOne .input .otherCarno {
   color: #5ebe68;
   text-decoration: underline;
