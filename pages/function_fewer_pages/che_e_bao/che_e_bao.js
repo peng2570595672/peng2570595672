@@ -137,7 +137,7 @@ Page({
                 if (flag) {
                     this.queryApi(true);
                 } else {
-                    util.showToastNoIcon();
+                    util.showToastNoIcon('存在该订单，该订单办理中 ');
                 }
             } else if (result.data.status === 2) {
                 that.setData({status: 2,available: false});
