@@ -247,8 +247,12 @@ Page({
                 result.data.descriptionList = JSON.parse(result.data.description);
             } catch (e) {
             }
+            let data = result.data;
+            if (this.data.orderInfo.base.orderType === 31) {
+                data['rightsPackageIds'] = this.data.orderInfo.base?.packageIdList;
+            }
             this.setData({
-                listOfPackages: [result.data]
+                listOfPackages: [data]
             });
             this.getNodeHeight(this.data.listOfPackages.length);
         } else {
