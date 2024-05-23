@@ -17,12 +17,28 @@
                 申请提交时间 {{item.addTime}}
             </view>
             <view class="carNo">
-                <view class="old">{{item.oldVehPlates}}</view>
+                <view class="old point">
+                    <view class="one">
+                        {{tools.capturePlate(item.oldVehPlates,0,2)}}
+                    </view>
+                    <view>
+                        {{tools.capturePlate(item.oldVehPlates,2,item.oldVehPlates.length)}}
+                    </view>
+                </view>
+                <!-- <view class="old">{{item.oldVehPlates}}</view> -->
                 <view class="pic">
                     <image class="image" src="https://file.cyzl.com/g001/M03/60/F6/oYYBAGYvaKuAEhgmAAARwA987bc560.svg"
                         mode="widthFix"></image>
                 </view>
-                <view class="new">{{item.newVehPlates}}</view>
+                <view class="new point">
+                    <view class="one">
+                        {{tools.capturePlate(item.newVehPlates,0,2)}}
+                    </view>
+                    <view>
+                        {{tools.capturePlate(item.newVehPlates,2,item.newVehPlates.length)}}
+                    </view>
+                </view>
+                <!-- <view class="new">{{item.newVehPlates}}</view> -->
             </view>
             <view class="result">
                 <view class="top">

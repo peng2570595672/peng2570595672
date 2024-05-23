@@ -8,10 +8,17 @@
     <!-- 车牌号的输入 -->
     <view class="input">
       <view class="oldCarno">
-        {{chooseOrderList[0].vehPlates || nmOrderList[0].vehPlates}}
+        <view class="point">
+          <view class="one">
+            {{tools.capturePlate(chooseOrderList[0].vehPlates,0,2) || tools.capturePlate(nmOrderList[0].vehPlates,0,2)}}
+          </view>
+          <view>
+            {{tools.capturePlate(chooseOrderList[0].vehPlates,2,chooseOrderList[0].vehPlates.length) || tools.capturePlate(nmOrderList[0].vehPlates,2,nmOrderList[0].vehPlates.length)}}
+          </view>
+        </view>
       </view>
       <view class="otherCarno" catchtap="setOtherCarNo" wx:if="{{nmOrderList.length>0}}">
-        选中其他车牌
+        选择其他车牌
       </view>
     </view>
     <view class="title">

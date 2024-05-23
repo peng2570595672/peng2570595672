@@ -71,6 +71,12 @@ function dataLen(obj) {
     }
     return obj.length
 }
+// 截取车牌指定长度
+function capturePlate(str,start,end) {
+    if (typeof str === 'string' && start >= 0 && end <= str.length) {
+        return str.slice(start, end);
+    } 
+}
 // 拿到货车的车牌颜色
 function getTruCorlor(str, type) {
     if (type) { //传Type 就返回文字
@@ -330,6 +336,7 @@ module.exports = {
     strReplace: strReplace,
     specification: specification,
     equits: equits,
+    capturePlate: capturePlate,
     getTruCorlor: getTruCorlor,
     getStatusDescription_NM: getStatusDescription_NM,
 };

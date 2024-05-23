@@ -59,8 +59,8 @@ Page({
         if (!this.data.getAgreement) {
             return;
         }
-        // 判断是否存在未完成的换牌申请
-        this.getAMontonkaOrder('',this.data.carNoStr);
+        // 判断是否存在欠费 并且新车牌是否可用
+        this.getAMontonkaOrder(this.data.chooseOrderList[0]?.vehPlates || this.data.nmOrderList[0]?.vehPlates,this.data.carNoStr);
     },
     // 是否存在多个已激活订单
     async IsAnActivationOrder () {
@@ -126,8 +126,7 @@ Page({
         if (result.code === 0) {
             // 查询并判断是否多个已经激活的蒙通卡
             if (result.data.verify) {
-                // 不存在 历史订单
-                console.log('不存在历史订单');
+                // 不存在 历史订单 没有欠费 新车牌可用 校验均通过
                 app.globalData.orderInfo.orderId = this.data.chooseOrderList[0]?.orderId || this.data.nmOrderList[0]?.orderId;
                 util.go(`/pages/default/information_validation/information_validation?vehPlates=${this.data.carNoStr}&vehColor=${this.data.chooseOrderList[0]?.vehColor || this.data.nmOrderList[0]?.vehColor}&obuCardType=2&applyOrder=true`);
             } else {

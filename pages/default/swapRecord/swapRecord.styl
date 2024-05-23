@@ -40,6 +40,21 @@ image
                     mixinsWidthHeight(48rpx,48rpx)
                     margin-top 20rpx
                     border 4rpx dashed #efefef
+                .point
+                    position relative
+                    display flex
+                    color #1E1E1E
+                    font-size  40rpx
+                    font-family PingFangSC-Regular,PingFang SC
+                    &::before
+                        content: '\2022' /* 使用Unicode字符 \2022 作为间隔点 */
+                        position: absolute
+                        // font-size: 1em
+                        color: #000
+                        top 0
+                        left: 27% 
+                    .one
+                        margin-right 20rpx
             .result
                 display flex
                 font-size 26rpx

@@ -1,3 +1,4 @@
+<wxs src='../../../utils/util.wxs' module='tools' />
 <view class="container">
     <view class="component">
         <view class="top-div">
@@ -9,11 +10,19 @@
     <view class="module">
         <view class="topTitle" wx:for="{{nmOrderList}}" catchtap="handleVehicle" data-index="{{index}}" wx:key="index">
             <view class="text">
-                <view>{{item.vehPlates}}</view>
-                <view>办理时间: {{item.addTime}}</view>
+                <view class="point">
+                    <view class="one">
+                        {{tools.capturePlate(item.vehPlates,0,2)}}
+                    </view>
+                    <view>
+                        {{tools.capturePlate(item.vehPlates,2,item.vehPlates.length)}}
+                    </view>
+                </view>
+                <view class="time">办理时间: {{item.addTime}}</view>
             </view>
             <view class="weChatSign" catchtap="handleVehicle" data-index="{{index}}">选择更换</view>
         </view>
     </view>
 </view>
+<popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
 <privacy_popup></privacy_popup>

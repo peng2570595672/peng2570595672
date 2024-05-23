@@ -44,17 +44,30 @@ image {
   align-items: flex-start;
   font-family: PingFangSC-Regular, PingFang SC;
 }
-.container .module .topTitle .text view:first-child {
-  line-height: 80rpx;
+.container .module .topTitle .text .point {
+  line-height: 60rpx;
+  position: relative;
   font-weight: 600;
+  display: flex;
   color: #1e1e1e;
   font-size: 48rpx;
   font-family: PingFangSC-Regular, PingFang SC;
 }
-.container .module .topTitle .text view:last-child {
+.container .module .topTitle .text .point::before {
+  content: '\2022' /* 使用Unicode字符 \2022 作为间隔点 */;
+  position: absolute;
+  color: #000;
+  top: 0;
+  left: 30%;
+}
+.container .module .topTitle .text .point .one {
+  margin-right: 35rpx;
+}
+.container .module .topTitle .text .time {
   color: #666;
   font-size: 24rpx;
   line-height: 60rpx;
+  margin-top: 10rpx;
 }
 .container .module .topTitle .weChatSign {
   width: 160rpx;

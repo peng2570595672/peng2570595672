@@ -52,12 +52,14 @@ Page({
                 });
             }
         } else {
-            this.selectComponent('#popTipComp').show({
+            console.log(result,'baocuo');
+             // 有欠费订单 中断办理
+             this.selectComponent('#popTipComp').show({
                 type: 'shenfenyanzhifail',
                 title: '提示',
                 btnCancel: '好的',
                 refundStatus: true,
-                content: result.message,
+                content: result.message || '该订单暂无法选择，请联系技术解决',
                 bgColor: 'rgba(0,0,0, 0.6)'
             });
         }
@@ -67,6 +69,6 @@ Page({
         this.setData({
             activeIndex: index
         });
-        this.getAMontonkaOrder(this.data.nmOrderList[index].vehPlates);
+        this.getAMontonkaOrder(this.data.nmOrderList[index].vehPlates,'');
     }
 });

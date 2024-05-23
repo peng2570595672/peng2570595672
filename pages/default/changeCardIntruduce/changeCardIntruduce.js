@@ -8,6 +8,7 @@ Page({
      */
     data: {
         available: true,
+        once: true, // 接口开关
         listOfHistoricalList: [], // 申请记录
         nmOrderList: [] // 存放蒙通卡已激活订单
     },
@@ -26,6 +27,7 @@ Page({
     },
     async validateCar () {
         // 判断是否存在未完成的换牌申请
+        await this.IsAnActivationOrder();// 查询已激活订单数量
         await this.getAMontonkaOrder();
     },
     viewHistory () {
@@ -48,24 +50,26 @@ Page({
         const result = await util.getDataFromServersV2('consumer/order/order-veh-plates-change/verify', params);
         if (!result) return;
         if (result.code === 0) {
-            // 查询并判断是否多个已经激活的蒙通卡
-            if (this.data.nmOrderList.length === 0) {
-                await this.IsAnActivationOrder(); // 该页面只会查询一次 nmOrderList 至少有一条才能继续
-            } else {
-                if (result.data.verify) {
-                    // 不存在欠费 跳转
-                    util.go(`/pages/default/changeCarAndCard/changeCarAndCard?multipleOrders=${JSON.stringify(result.data)}`);
-                } else {
-                    // 有欠费订单 中断办理
-                    this.selectComponent('#popTipComp').show({
-                        type: 'shenfenyanzhifail',
-                        title: '提示',
-                        btnCancel: '好的',
-                        refundStatus: true,
-                        content: result.message,
-                        bgColor: 'rgba(0,0,0, 0.6)'
+            if (result.data.verify) {
+                if (this.data.nmOrderList.length === 1 && this.data.once) {
+                    // 查询该车牌是否欠费
+                    this.setData({
+                        once: false // 一条订单差欠费 控制只查一次 // 防止递归
                     });
+                    await this.getAMontonkaOrder(this.data.nmOrderList[0].vehPlates,'');
+                } else {
+                    util.go(`/pages/default/changeCarAndCard/changeCarAndCard`);
                 }
+            } else {
+                // 有欠费订单 中断办理
+                this.selectComponent('#popTipComp').show({
+                    type: 'shenfenyanzhifail',
+                    title: '提示',
+                    btnCancel: '好的',
+                    refundStatus: true,
+                    content: result.message,
+                    bgColor: 'rgba(0,0,0, 0.6)'
+                });
             }
         } else if (result.code === 104) {
             this.selectComponent('#popTipComp').show({
@@ -105,13 +109,6 @@ Page({
                 // 保存已激活订单 至少有一条
                 nmOrderList: result.data
             });
-            if (result.data.length === 1) {
-                // 查询该车牌是否欠费
-                await this.getAMontonkaOrder(result.data[0].vehPlates);
-                return;
-            }
-            // 多条订单
-            util.go(`/pages/default/changeCarAndCard/changeCarAndCard?multipleOrders=${JSON.stringify(result.data)}`);
         } else {
             util.showToastNoIcon(result.message);
         }
@@ -127,7 +124,9 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow () {
-
+        this.setData({
+            once: true // 一条订单差欠费 控制只查一次 // 防止递归
+        });
     },
 
     /**
