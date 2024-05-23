@@ -985,7 +985,7 @@ Page({
                             }
                             if (this.data.orderInfo.base?.flowVersion !== 1) {
                                 if (this.data.orderInfo.base?.flowVersion === 9 || this.data.listOfPackages[this.data.activeIndex].cardBank) {	// new 信用卡流程
-                                    let cardBank = this.data.listOfPackages[this.data.activeIndex].cardBank || this.data.orderInfo.base.cardBank;
+                                    let cardBank = this.data.listOfPackages[this.data.activeIndex]?.cardBank || this.data.orderInfo.base?.cardBank;
                                     util.go(`/pages/bank_card/go_to_shenka/go_to_shenka?cardBank=${cardBank}`);
                                     return;
                                 }
@@ -999,7 +999,7 @@ Page({
                                 return;
                             }
                             // 去支付成功页
-                            util.go(`/pages/default/payment_successful/payment_successful?cardBank=${this.data.listOfPackages[this.data.activeIndex].cardBank}`);
+                            util.go(`/pages/default/payment_successful/payment_successful`);
                             return;
                         }
                         if (this.data.orderInfo?.base?.orderType === 61) {
