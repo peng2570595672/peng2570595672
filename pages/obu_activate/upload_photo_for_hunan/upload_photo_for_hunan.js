@@ -45,7 +45,7 @@ Page({
 	async uploadOrderForObu (DeviceListNo) {
 		this.setData({msg: '更新订单中...'});
 		const res = await util.getDataFromServersV2('/consumer/etc/hunan/v2/common/getObuOrderId', {
-			orderId: app.globalData.orderId
+			orderId: app.globalData.orderInfo.orderId
 		});
 		if (res.code === 0) {
 			if (res.data.obuOrderId) {

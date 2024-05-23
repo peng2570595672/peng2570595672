@@ -323,7 +323,7 @@ Page({
 		// obj = JSON.parse(obj);
 		const {vehiclePlate, vehiclePlateColor} = app.globalData.vehInfo;
 		// util.ajax(`${this.data.urlPrefix}/active`, {
-		// 	orderId: app.globalData.orderId,
+		// 	orderId: app.globalData.orderInfo.orderId,
 		// 	serialNumber: this.data.rand,
 		// 	faceCardNum: this.data.faceCardNum.substring(4),
 		// 	contractVersion: this.data.version,
@@ -345,7 +345,7 @@ Page({
 		// 	}
 		// });
 		let params = {
-			orderId: app.globalData.orderId,
+			orderId: app.globalData.orderInfo.orderId,
 			serialNumber: this.data.rand,
 			faceCardNum: this.data.faceCardNum.substring(4),
 			contractVersion: this.data.version,

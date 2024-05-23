@@ -137,7 +137,7 @@ Page({
                 if (flag) {
                     this.queryApi(true);
                 } else {
-                    util.showToastNoIcon('存在该订单，该订单办理中');
+                    util.showToastNoIcon();
                 }
             } else if (result.data.status === 2) {
                 that.setData({status: 2,available: false});
@@ -146,9 +146,6 @@ Page({
                 } else {
                     util.showToastNoIcon('查询失败，稍后重试');
                 }
-            } else if (result.data.status === 3) {
-                util.showToastNoIcon('存在该订单但该订单办理失败');
-                that.setData({status: 1,available: true});
             } else {
                 that.setData({status: 1,available: true});
                 if (flag) {

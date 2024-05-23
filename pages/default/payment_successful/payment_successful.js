@@ -95,11 +95,12 @@ Page({
 			});
 		}
 		if (this.data.orderInfo.flowVersion !== 1) {
+			if (this.data.orderInfo.flowVersion === 9 || this.data.cardBank) {	// new 信用卡流程
+				let cardBank = this.data.cardBank || this.data.orderInfo.cardBank;
+				util.go(`/pages/bank_card/go_to_shenka/go_to_shenka?cardBank=${cardBank}`);
+				return;
+			}
 			util.go('/pages/historical_pattern/transition_page/transition_page');
-			return;
-		}
-		if (this.data.cardBank) {	// new 信用卡流程
-			util.go(`/pages/bank_card/go_to_shenka/go_to_shenka?cardBank=${this.data.cardBank}`);
 			return;
 		}
 		util.showLoading('加载中');

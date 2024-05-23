@@ -429,7 +429,7 @@ Page({
 			msg: fileType === 1 ? '获取卡片0015信息中...' : '获取卡片0016信息中...'
 		});
 		let params = {
-			orderId: app.globalData.newOrderId || app.globalData.orderId,
+			orderId: app.globalData.newOrderId || app.globalData.orderInfo.orderId,
 			faceCardNum: this.data.ui.cardNo.substring(4),
 			cardType: this.data.cardType,
 			version: this.data.version,
@@ -497,7 +497,7 @@ Page({
 			msg: '写卡中...'
 		});
 		let params = {
-			orderId: app.globalData.newOrderId || app.globalData.orderId,
+			orderId: app.globalData.newOrderId || app.globalData.orderInfo.orderId,
 			faceCardNum: this.data.ui.cardNo.substring(4)
 		};
 		// util.ajax(`${this.data.urlPrefix}/writeEtcSuccess`, params, () => {
@@ -530,7 +530,7 @@ Page({
 			msg: fileType === 3 ? '获取车辆信息中...' : '获取系统信息中...'
 		});
 		let params = {
-			orderId: app.globalData.newOrderId || app.globalData.orderId,
+			orderId: app.globalData.newOrderId || app.globalData.orderInfo.orderId,
 			contractVersion: this.data.contractVersion,
 			serialNumber: this.data.serialNumber,
 			contractType: this.data.contractType,
@@ -567,7 +567,7 @@ Page({
 			msg: '激活中...'
 		});
 		let params = {
-			orderId: app.globalData.newOrderId || app.globalData.orderId,
+			orderId: app.globalData.newOrderId || app.globalData.orderInfo.orderId,
 			faceCardNum: this.data.ui.cardNo.substring(4),
 			serialNumber: this.data.serialNumber
 		};
