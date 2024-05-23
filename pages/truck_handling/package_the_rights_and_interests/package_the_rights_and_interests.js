@@ -324,7 +324,6 @@ Page({
         this.setData({isRequest: false});
         if (!result) return;
         if (result.code === 0) {
-            util.getDatanexusAnalysis('PURCHASE');
             if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice || addEquity.aepIndex !== -1) {
                 await this.marginPayment(this.data.listOfPackages[this.data.choiceIndex].pledgeType);
                 return;

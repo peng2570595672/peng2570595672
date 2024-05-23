@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-export const IS_TEST = true; // false为正式接口地址，true为测试接口地址
+export const IS_TEST = false; // false为正式接口地址，true为测试接口地址
 const util = require('./utils/util.js');
 const definedData = require('./utils/dataStatement.js');
 const uma = require('./utils/umtrack-wx.js');
@@ -167,7 +167,8 @@ App({
 		},
 		productList: { // 套擦ID集合
 			lnmProductUnder: ['1242146560803479552','1242146449448902656','1242146345254002688','1240318299865751552'] // 辽宁移动线下
-		}
+		},
+		advertisementClickId: '' // 广告点击ID
 	},
 	onLaunch (options) {
 		// 统计逻辑结束
@@ -211,6 +212,14 @@ App({
 	// 初始化数据
 	initData (options) {
 		console.log(options);
+		if (options.scene === 1084 && options.path === 'pages/empty_hair/receiving_address/receiving_address' && (options.query.gz_gdt || options.query.gdt_vid)) {
+			this.globalData.advertisementClickId = options.query.gz_gdt || options.query.gdt_vid || '';
+			// 朋友圈广告原生页进入
+			wx.reLaunch({
+				url: `/pages/empty_hair/receiving_address/receiving_address?shopId=${options.query.shopId}`
+			});
+			return;
+		}
 		// 扫码 长按识别 相册选取进入拿到分享二维码人的id
 		if (options.scene === 1047 || options.scene === 1048 || options.scene === 1049 || options.scene === 1017) {
 			let obj = this.path2json(decodeURIComponent(options.query.scene));

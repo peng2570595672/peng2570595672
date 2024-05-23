@@ -51,6 +51,7 @@ Page({
 		isGetIdentifyingCoding: false // 获取验证码中
 	},
 	async onLoad (options) {
+		wx.hideHomeButton();
 		app.globalData.firstVersionData = false; // 非1.0数据办理
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.signAContract = 3;
@@ -632,6 +633,14 @@ Page({
 				success: (res) => {
 					this.setData({ isRequest: false });
 					if (res.errMsg === 'requestPayment:ok') {
+						try {
+							if (app.globalData.advertisementClickId) {
+								const price = this.data.activeIndex !== -1 ? (this.data.listOfPackages[this.data.activeIndex].pledgePrice + (this.data.equityListMap.addEquityList[this.data.activeIndex].aepIndex !== -1 ? this.data.equityListMap.addEquityList[this.data.activeIndex].subData[this.data.equityListMap.addEquityList[this.data.activeIndex].aepIndex].payMoney : 0) / 100) : this.data.listOfPackages[this.data.activeIndex].pledgePrice / 100;
+								util.getDatanexusAnalysis('COMPLETE_ORDER', price);
+							}
+						} catch (e) {
+							console.log(e);
+						}
 						util.go('/pages/empty_hair/processing_progress/processing_progress');
 					} else {
 						util.showToastNoIcon('支付失败！');

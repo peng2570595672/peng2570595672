@@ -4,7 +4,7 @@
  * @description 共用函数
  * @version 1.0
  */
-import { isOpenBluetooth } from './utils';
+import {isOpenBluetooth} from './utils';
 
 const CryptoJS = require('./crypto-js.js');
 const QQMapWX = require('../libs/qqmap-wx-jssdk.min.js');
@@ -2083,7 +2083,7 @@ function getCurrentDate() {
   return [formattedCurrentDate, nextDate]
 }
 
-function getDatanexusAnalysis(actionType) {
+function getDatanexusAnalysis(actionType, price) {
   let timestamp, nonceStr;
   nonceStr = getUuid();
   if (!timestamp) {
@@ -2103,10 +2103,15 @@ function getDatanexusAnalysis(actionType) {
           'action_type': actionType, // 下单  https://datanexus.qq.com/doc/develop/guider/interface/enum#action-type
           'action_param': {
             'claim_type': 0,// 归因方式  https://datanexus.qq.com/doc/develop/guider/interface/enum#claim-type
+            'value': price || 0,
             'consult_type': 'ONLINE_CONSULT'
           },
+	        'user_id': {
+		        'wechat_openid': app.globalData.openId, // 微信的openid
+		        'wechat_app_id': 'wxddb3eb32425e4a96'
+	        },
           'trace': {
-            'click_id': app.globalData.openId // 点击ID，user_id 与 click_id 二选一必填，广点通的click_id长度是20位数字+字母组合；微信的click_id长度是10-50，如wx0im5kwh44gh2yq，字段长度为 64 字节
+            'click_id': app.globalData.advertisementClickId // 点击ID，user_id 与 click_id 二选一必填，广点通的click_id长度是20位数字+字母组合；微信的click_id长度是10-50，如wx0im5kwh44gh2yq，字段长度为 64 字节
           },
           'channel': 'TENCENT' // 行为渠道  https://datanexus.qq.com/doc/develop/guider/interface/enum#action-channel
         }
@@ -2264,7 +2269,7 @@ async function buriedPoint(params, callBack) {
  * @param {*} compId 组件ID
  * @param {*} orderId 订单ID
  * @param {*} callBack 回调
- * @returns 
+ * @returns
  */
 async function aiReturn(that, compId, orderId, callBack) {
   let params = {
@@ -2324,7 +2329,7 @@ async function aiReturn(that, compId, orderId, callBack) {
 };
 /**
  * 中信银行单独签约
- * @param {*} contractId 
+ * @param {*} contractId
  */
 function citicBankSign(contractId) {
   wx.navigateToMiniProgram({
@@ -2344,7 +2349,7 @@ function citicBankSign(contractId) {
  * 定时任务：活动时间倒计时
  * @param {*} type: number 1-初始时间;2-剩余时间;3-最终时间
  * @param {*} obj: number | string 可以是初始时间（格式：'2024-03-12 16:00:00'）、剩余时间（格式：'07:30:45'）、最终时间（格式：'2024-03-12 16:00:00'）
- * @param {*} callback 回调函数 
+ * @param {*} callback 回调函数
  */
 function scheduledTasks(type, obj, callback, index) {
   let timestamp = undefined; //最终时间戳
