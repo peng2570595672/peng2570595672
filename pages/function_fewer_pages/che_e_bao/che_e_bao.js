@@ -21,9 +21,10 @@ Page({
             vehPlates: options.vehPlates,
             obuStatus: options.obuStatus
         });
+        this.queryApi();
     },
     onShow () {
-        this.queryApi();
+
     },
     async btnFunc () {
         let that = this;
