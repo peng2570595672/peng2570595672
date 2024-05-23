@@ -595,7 +595,6 @@ Page({
 			isRequest: false
 		});
 		if (result.code === 0) {
-			util.getDatanexusAnalysis('COMPLETE_ORDER');
 			if (params.orderType === 12) {
 				await util.getFollowRequestLog({ shopId: params.shopId, orderId: result.data.orderId, source: '邮寄页提交' });
 			}
