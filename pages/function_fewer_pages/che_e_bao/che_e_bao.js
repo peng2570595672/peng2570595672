@@ -12,8 +12,6 @@ Page({
         auditStatus: undefined,
         vehPlates: '',
         obuStatus: undefined
-        // code: undefined,
-        // key: undefined
     },
     onLoad (options) {
         this.setData({
@@ -101,8 +99,6 @@ Page({
                     that.setData({
                         status: 2,
                         available: false
-                        // code: code,
-                        // key: key
                     });
                     await that.activeHandleApi(code,key);
                 }
