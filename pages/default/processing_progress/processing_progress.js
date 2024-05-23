@@ -96,7 +96,6 @@ Page({
 			channel: `${app.globalData.isChannelPromotion}`, // 渠道(0:所有渠道;)
 			affectArea: '0' // 面向区域(0:全国)
 		});
-		// console.log('后台数据：',res);
 		if (!res) return;
 		if (res.code === 0) {
 			let data = res.data.contentConfig; // 数据
@@ -446,7 +445,6 @@ Page({
 					isGuangFaBank: res.data.shopProductId === app.globalData.cictBankObj.guangfaBank,
 					info: res.data
 				});
-				console.log('办理进度：',this.data.info);
 				// 平安获客
 				let isShowpAPop = wx.getStorageSync('isShowpAPop');
 				if (!app.globalData.isQingHaiHighSpeed) {

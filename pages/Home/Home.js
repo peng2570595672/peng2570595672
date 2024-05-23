@@ -271,7 +271,6 @@ Page({
             channel: `${app.globalData.isChannelPromotion}`, // 渠道(0:所有渠道;)
             affectArea: '0' // 面向区域(0:全国)
         });
-        // console.log('后台数据：',res);
         if (!res) return;
         if (res.code === 0) {
             let data = res.data.contentConfig; // 数据
@@ -1896,7 +1895,6 @@ Page({
     },
     // 针对特定号码 作续签弹窗提示
     renewWhitelistJudgement (e) {
-        console.log(e);
         let that = this;
         let renew = e.currentTarget.dataset.renew;
         if (app.globalData.renewWhitelist.includes(app.globalData.mobilePhone) && !wx.getStorageSync('renewWhitelist')) {

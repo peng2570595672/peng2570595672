@@ -264,7 +264,6 @@ Page({
             orderId: app.globalData.orderInfo.orderId,
             dataType: '13'
         });
-        console.log(result);
         if (!result) return;
         if (result.code === 0) {
             if (isSearchPay) {
@@ -615,7 +614,6 @@ Page({
         const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
             packageIds: obj.rightsPackageIds
         });
-        console.log(result);
         if (!result) return;
         if (result.code === 0) {
             this.setData({
@@ -957,7 +955,6 @@ Page({
             };
         }
         const result = await util.getDataFromServersV2('consumer/order/pledge-pay', params);
-        console.log(result);
         if (!result) {
             this.setData({ isRequest: false });
             return;
@@ -1032,7 +1029,6 @@ Page({
     // ------------------------------------------------------------------------------------------------------------------
     // 前去相关协议页面
     goAgreement () {
-        console.log('前去相关协议');
         util.go('/pages/agreement_documents/user_agreement/user_agreement');
     },
     // 权益点击高亮，不用显示详情弹窗
@@ -1158,7 +1154,6 @@ Page({
                 const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
                     packageIds: defaultPackages
                 }, 'POST', false);
-                console.log('ddddd',result);
                 if (result.code === 0) {
                     let packageName = '';
                     // let payMoney = 0;	// 综合服务权益包 金额
@@ -1181,7 +1176,6 @@ Page({
                 const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
                     packageIds: new Array(this.data.listOfPackages[currentIndex].rightsPackageId)
                 }, 'POST', false);
-                console.log('默认权益包：',result);
                 if (result.code === 0) {
                     equityListMap.defaultEquityList.push({ index: currentIndex, subData: result.data });
                 } else {
@@ -1197,7 +1191,6 @@ Page({
                 equityListMap.bankList.push({ index: currentIndex, isBank: false });
             }
         }
-        console.log(equityListMap);
         this.setData({
             isLoaded: true,
             equityListMap: equityListMap
@@ -1347,7 +1340,6 @@ Page({
      */
     goAgreementPage (e) {
         let item5 = e.currentTarget.dataset.item;
-        console.log(item5);
         if (item5.contentType === 1) {
             wx.navigateTo({
                 url: '/pages/agreement_documents/background_agreement/background_agreement',
