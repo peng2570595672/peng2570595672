@@ -44,22 +44,22 @@ Page({
 			return;
 		}
 		// 湖南
-		if (this.data.baseInfo.channel === 10) {
-			if (this.data.baseInfo.obuStatus === 1 || this.data.baseInfo.obuStatus === 5) {
-				util.go('/pages/obu_activate/hunan/mc_new/mc_new');	// 二次激活
-			} else {	// 首次激活
-				const res = await util.getDataFromServersV2('/consumer/etc/hunan/v2/common/getObuOrderId', {
-					orderId: this.data.baseInfo.orderId
-				});
-				if (res.code === 0) {
-					if (res.data.obuOrderId) {
-						app.globalData.newOrderId = res.data.obuOrderId;
-					}
-				} else {}
-				util.go('/pages/obu_activate/hunan/connect_bluetooth_for_hunanmc_new/connect_bluetooth_for_hunanmc_new');
-			}
-			return;
-		}
+		// if (this.data.baseInfo.channel === 10) {
+		// 	if (this.data.baseInfo.obuStatus === 1 || this.data.baseInfo.obuStatus === 5) {
+		// 		util.go('/pages/obu_activate/hunan/mc_new/mc_new');	// 二次激活
+		// 	} else {	// 首次激活
+		// 		const res = await util.getDataFromServersV2('/consumer/etc/hunan/v2/common/getObuOrderId', {
+		// 			orderId: this.data.baseInfo.orderId
+		// 		});
+		// 		if (res.code === 0) {
+		// 			if (res.data.obuOrderId) {
+		// 				app.globalData.newOrderId = res.data.obuOrderId;
+		// 			}
+		// 		} else {}
+		// 		util.go('/pages/obu_activate/hunan/connect_bluetooth_for_hunanmc_new/connect_bluetooth_for_hunanmc_new');
+		// 	}
+		// 	return;
+		// }
 		if (this.data.baseInfo.obuStatus === 1 || this.data.baseInfo.obuStatus === 5) {
 			// 已发行，前往二次激活页面
 			wx.setStorageSync('activate-info', JSON.stringify({
