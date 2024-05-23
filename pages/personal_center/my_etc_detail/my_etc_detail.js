@@ -524,7 +524,7 @@ Page({
 			util.go(`/pages/bank_card/citic_bank_sign/citic_bank_sign`);
 			return;
 		}
-		if (obj.orderType === 31 && obj.auditStatus === 0 && obj.flowVersion !== 1) {
+		if (obj.orderType === 31 && obj.auditStatus === 0 && obj.flowVersion === 2) {
 			this.onClickHighSpeedSigning(obj);
 			return;
 		}

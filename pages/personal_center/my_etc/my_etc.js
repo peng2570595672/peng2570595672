@@ -323,7 +323,7 @@ Page({
 		// 	return;
 		// }
 		wx.uma.trackEvent('my_etc_for_order_audit');
-		util.go(`/pages/default/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}`);
+		util.go(`/pages/historical_pattern/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}/${orderInfo.orderType === 31 ? 'transition_page' : 'order_audit'}`);
 	},
 	// 去开户
 	goBindingAccount (orderInfo) {
@@ -531,7 +531,7 @@ Page({
 			util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
 			return;
 		}
-		if (obj.orderType === 31 && obj.auditStatus === 0 && obj.flowVersion !== 1) {
+		if (obj.orderType === 31 && obj.auditStatus === 0 && obj.flowVersion === 2) {
 			this.onClickHighSpeedSigning(obj);
 			return;
 		}
