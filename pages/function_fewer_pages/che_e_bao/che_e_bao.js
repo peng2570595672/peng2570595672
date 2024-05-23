@@ -21,7 +21,7 @@ Page({
             vehPlates: options.vehPlates,
             obuStatus: options.obuStatus
         });
-        this.queryApi();
+        this.queryApi(false);
     },
     onShow () {
 
@@ -43,7 +43,7 @@ Page({
                 }
             });
         } else if (that.data.status === 2) {
-            this.queryApi();
+            this.queryApi(false);
         } else { // 去激活
             app.globalData.orderInfo.orderId = this.data.orderId;
             const result = await util.getDataFromServersV2('consumer/order/order-detail', {
@@ -110,7 +110,7 @@ Page({
         if (!result) return;
         if (result.code === 0) {
             this.setData({activityId: result.data.activityId});
-            this.queryApi();
+            this.queryApi(true);
             wx.hideLoading();
         } else {
             wx.hideLoading();
@@ -119,7 +119,7 @@ Page({
         }
     },
     // 查询接口
-    async queryApi () {
+    async queryApi (flag) {
         util.showLoading({title: '查询中,请稍等...'});
         let that = this;
         const result = await util.getDataFromServersV2('/consumer/voucher/rights/recharge/hsh/car-protect-queryOrderActivity', {
@@ -134,16 +134,28 @@ Page({
                 that.setData({status: 3,available: true});
             } else if (result.data.status === 1) {
                 that.setData({status: 2,available: false});
-                util.showToastNoIcon('存在该订单，该订单办理中');
+                if (flag) {
+                    this.queryApi(true);
+                } else {
+                    util.showToastNoIcon('存在该订单，该订单办理中');
+                }
             } else if (result.data.status === 2) {
                 that.setData({status: 2,available: false});
-                util.showToastNoIcon('查询失败，稍后重试');
+                if (flag) {
+                    this.queryApi(true);
+                } else {
+                    util.showToastNoIcon('查询失败，稍后重试');
+                }
             } else if (result.data.status === 3) {
                 util.showToastNoIcon('存在该订单但该订单办理失败');
                 that.setData({status: 1,available: true});
             } else {
-                util.showToastNoIcon('不存在该订单');
                 that.setData({status: 1,available: true});
+                if (flag) {
+                    this.queryApi(true);
+                } else {
+                    util.showToastNoIcon('不存在该订单');
+                }
             }
         } else {
             wx.hideLoading();
