@@ -1425,7 +1425,7 @@ Page({
         fun[orderInfo.selfStatus].call();
     },
     goCheEBaoPage (orderInfo) {
-        util.go(`/pages/function_fewer_pages/che_e_bao/che_e_bao?obuCardType=${orderInfo.obuCardType}&shopId=${orderInfo.shopId}&vehPlates=${orderInfo.vehPlates}&obuStatus=${orderInfo.obuStatus}`);
+        util.go(`/pages/function_fewer_pages/che_e_bao/che_e_bao?obuCardType=${orderInfo.obuCardType}&shopId=${orderInfo.shopId}&vehPlates=${orderInfo.vehPlates}&obuStatus=${orderInfo.obuStatus}&auditStatus=${orderInfo.auditStatus}`);
     },
     async handleJumpHunanMini (orderId) {
         const result = await util.getDataFromServersV2('consumer/order/order-pay-transaction-info', {

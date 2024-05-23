@@ -9,19 +9,21 @@ Page({
         activityId: '', // 活动ID
         wxPhone: '',
         obuCardType: undefined,
+        auditStatus: undefined,
         vehPlates: '',
-        obuStatus: undefined,
-        code: undefined,
-        key: undefined
+        obuStatus: undefined
+        // code: undefined,
+        // key: undefined
     },
     onLoad (options) {
         this.setData({
             wxPhone: app.globalData.mobilePhone,
             orderId: app.globalData.orderInfo.orderId,
-            obuCardType: options.obuCardType,
+            obuCardType: +options.obuCardType,
             shopId: options.shopId,
             vehPlates: options.vehPlates,
-            obuStatus: options.obuStatus
+            obuStatus: options.obuStatus,
+            auditStatus: options.auditStatus
         });
         // this.queryApi(1);
     },
@@ -31,25 +33,7 @@ Page({
     async btnFunc () {
         let that = this;
         if (that.data.status === 1) {
-            that.selectComponent('#cdPopup').show({
-                isBtnClose: false,
-                argObj: {
-                    type: 'cheEBao',
-                    title: '办理产品',
-                    wxPhone: this.data.wxPhone,
-                    btnText: '确定办理',
-                    callback: async (code,key) => {
-                        that.setData({
-                            status: 2,
-                            available: false,
-                            code: code,
-                            key: key
-                        });
-                        await this.queryApi(3);
-                        // await that.activeHandleApi(code,key);
-                    }
-                }
-            });
+            await this.queryApi(3);
         } else if (that.data.status === 2) {
             this.queryApi(1);
         } else { // 去激活
@@ -62,7 +46,7 @@ Page({
                 vehColor: result.data.vehColor
             });
             let qtLimit = '';
-            if (obj.obuCardType === 4) {
+            if (this.data.obuCardType === 4) {
                 qtLimit = JSON.stringify(res.data.qtLimit);
             }
             wx.setStorageSync('baseInfo', {
@@ -74,10 +58,10 @@ Page({
                 carNoStr: this.data.vehPlates,
                 obuStatus: this.data.obuStatus
             });
-            switch (obj.obuCardType) {
+            switch (this.data.obuCardType) {
                 case 1: // 贵州 黔通卡
                 case 21:
-                    util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${obj.auditStatus}`);
+                    util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${this.data.auditStatus}`);
                     break;
                 case 2: // 内蒙 蒙通卡
                 case 23: // 河北交投
@@ -86,22 +70,44 @@ Page({
                             choiceEquipment: this.selectComponent('#choiceEquipment')
                         });
                     }
-                    this.data.choiceEquipment.switchDisplay(true);
+                    this.selectComponent('#choiceEquipment').switchDisplay(true);
                     break;
                 case 3: // 山东 鲁通卡
                 case 9: // 山东 齐鲁通卡
-                    util.go(`/pages/empty_hair/instructions_ujds/index?auditStatus=${obj.auditStatus}`);
+                    util.go(`/pages/empty_hair/instructions_ujds/index?auditStatus=${this.data.auditStatus}`);
                     break;
                 case 4: // 青海 青通卡
                 case 5: // 天津 速通卡
                 case 10: // 湖南 湘通卡
-                    util.go(`/pages/obu_activate/neimeng_choice/neimeng_choice?obuCardType=${obj.obuCardType}`);
+                    util.go(`/pages/obu_activate/neimeng_choice/neimeng_choice?obuCardType=${this.data.obuCardType}`);
                     break;
                 case 8: // 辽宁 辽通卡
-                    util.go(`/pages/empty_hair/instructions_lnnk/index?auditStatus=${obj.auditStatus}`);
+                    util.go(`/pages/empty_hair/instructions_lnnk/index?auditStatus=${this.data.auditStatus}`);
                     break;
             }
         }
+    },
+    // 拉起弹窗
+    pop () {
+        let that = this;
+        that.selectComponent('#cdPopup').show({
+            isBtnClose: false,
+            argObj: {
+                type: 'cheEBao',
+                title: '办理产品',
+                wxPhone: this.data.wxPhone,
+                btnText: '确定办理',
+                callback: async (code,key) => {
+                    that.setData({
+                        status: 2,
+                        available: false
+                        // code: code,
+                        // key: key
+                    });
+                    await that.activeHandleApi(code,key);
+                }
+            }
+        });
     },
     onClickTranslucentHandle () {
         this.data.choiceEquipment.switchDisplay(false);
@@ -143,36 +149,37 @@ Page({
             } else if (result.data.status === 1) {
                 that.setData({status: 2,available: false});
                 if (flag === 2) {
-                    this.queryApi(2);
-                } else if (flag === 3) {
-                    await that.activeHandleApi(this.data.code,this.data.key);
+                    that.queryApi(2);
                 } else {
-                    util.showToastNoIcon('存在该订单，该订单办理中 ');
+                    util.showToastNoIcon('存在该订单，该订单办理中');
                 }
             } else if (result.data.status === 2) {
                 that.setData({status: 2,available: false});
                 if (flag === 2) {
-                    this.queryApi(2);
+                    that.queryApi(2);
                 } else if (flag === 3) {
-                    await that.activeHandleApi(this.data.code,this.data.key);
+                    that.pop(); // 拉起弹窗
                 } else {
                     util.showToastNoIcon('查询失败，稍后重试');
                 }
             } else {
                 that.setData({status: 1,available: true});
                 if (flag === 2) {
-                    this.queryApi(2);
+                    that.queryApi(2);
                 } else if (flag === 3) {
-                    await that.activeHandleApi(this.data.code,this.data.key);
+                    that.pop(); // 拉起弹窗
                 } else {
                     util.showToastNoIcon('不存在该订单');
                 }
             }
         } else {
             wx.hideLoading();
-            that.setData({status: 1,available: true});
             if (flag === 3) {
-                await that.activeHandleApi(this.data.code,this.data.key);
+                that.pop(); // 拉起弹窗
+                return;
+            }
+            if (flag === 2) {
+                that.queryApi(2);
             }
             util.showToastNoIcon(result.message);
         }
