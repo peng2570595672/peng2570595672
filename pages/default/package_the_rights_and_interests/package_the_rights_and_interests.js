@@ -984,6 +984,11 @@ Page({
                                 return;
                             }
                             if (this.data.orderInfo.base?.flowVersion !== 1) {
+                                if (this.data.orderInfo.base?.flowVersion === 9 || this.data.listOfPackages[this.data.activeIndex].cardBank) {	// new 信用卡流程
+                                    let cardBank = this.data.listOfPackages[this.data.activeIndex].cardBank || this.data.orderInfo.base.cardBank;
+                                    util.go(`/pages/bank_card/go_to_shenka/go_to_shenka?cardBank=${cardBank}`);
+                                    return;
+                                }
                                 // 无需签约
                                 util.go('/pages/historical_pattern/transition_page/transition_page');
                                 return;
