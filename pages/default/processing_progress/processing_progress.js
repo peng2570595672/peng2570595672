@@ -446,7 +446,7 @@ Page({
 					isGuangFaBank: res.data.shopProductId === app.globalData.cictBankObj.guangfaBank,
 					info: res.data
 				});
-
+				console.log('办理进度：',this.data.info);
 				// 平安获客
 				let isShowpAPop = wx.getStorageSync('isShowpAPop');
 				if (!app.globalData.isQingHaiHighSpeed) {
@@ -571,6 +571,7 @@ Page({
 			let obj = this.data.info;
 			app.globalData.orderInfo.orderId = this.data.orderId;
 			util.go(`/pages/function_fewer_pages/che_e_bao/che_e_bao?obuCardType=${obj.obuCardType}&shopId=${obj.shopId}&vehPlates=${obj.vehPlates}&obuStatus=${obj.obuStatus}`);
+			return;
 		}
 		if (this.data.info.flowVersion === 8) {
 			let obj = {
