@@ -258,7 +258,9 @@ Page({
 	cancelHandle () {
 		if (app.globalData.successfullyReplace) {
 			// 返回换牌介绍页
-			util.go(`/pages/default/changeCardIntruduce/changeCardIntruduce`);
+			wx.redirectTo({
+				url: `/pages/default/changeCardIntruduce/changeCardIntruduce`
+			});
 		}
 	},
 	async confirmHandle () {
@@ -524,6 +526,13 @@ Page({
 		// 	return;
 		// }
 		if (!this.data.isOut && (this.data.drivingLicenseFace.fileUrl || this.data.drivingLicenseBack.fileUrl)) {
+			if (this.data.applyOrder) {
+				// 返回换牌介绍页
+				wx.redirectTo({
+					url: `/pages/default/changeCardIntruduce/changeCardIntruduce`
+				});
+				return;
+			}
 			util.alert({
 				content: '若此时返回上级页面则已上传图片将清空，请确认是否返回',
 				showCancel: true,

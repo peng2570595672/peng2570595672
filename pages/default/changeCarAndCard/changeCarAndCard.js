@@ -56,6 +56,9 @@ Page({
         if (!this.data.available) {
             return;
         }
+        if (!this.data.getAgreement) {
+            return;
+        }
         // 判断是否存在未完成的换牌申请
         this.getAMontonkaOrder('',this.data.carNoStr);
     },

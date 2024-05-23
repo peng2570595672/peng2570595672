@@ -21,7 +21,6 @@ Page({
     async goTerminationAndReSigning (targe) {
          // 该条订单状态为3 的时候才去解约重签
         app.globalData.orderInfo.orderId = targe.currentTarget.dataset.info.orderId;
-        console.log(app.globalData.orderInfo,targe.currentTarget.dataset.info.id);
         util.go(`/pages/default/terminationAndReSigning/terminationAndReSigning?id=${targe.currentTarget.dataset.info.id}`);
     },
     /**
@@ -32,9 +31,9 @@ Page({
     },
     // 返回上一页
     goBack () {
-        wx.navigateBack({
-            delta: 1
-        });
+        wx.switchTab({
+			url: '/pages/my/index'
+		});
     },
     // 获取换牌申请记录列表
     async getAListOfExchangeRecords () {

@@ -18,6 +18,7 @@ Page({
                 id: options.id
             });
         }
+        console.log('查询新旧订单签约状态');
         this.queryContract();
     },
 
@@ -25,8 +26,7 @@ Page({
      * 旧车牌的解约
      */
     goAndCancelTheContract () {
-        if (this.data.contractStatus === 1) {
-            console.log(11);
+        if (this.data.oldVehContractStatus !== 2 && this.data.oldVehContractStatus !== 0) { // 当前未解约
             util.alert({
                 title: `温馨提示`,
                 content: '请使用微信搜索微信车主服务公众号，选择车主服务，选择需要解约的车牌并完成解约',
@@ -37,30 +37,18 @@ Page({
     },
     // 新车牌签约之前
     async weChatSignBefore () {
-        if (this.data.contractStatus === 1) {
-            this.selectComponent('#popTipComp').show({
-                type: 'shenfenyanzhifail',
-                title: '提示',
-                btnCancel: '好的',
-                refundStatus: true,
-                content: '请先完成旧车牌解约!',
-                bgColor: 'rgba(0,0,0, 0.6)'
-            });
-            return;
-        }
-        if (this.data.finishReContract) {
-            // 已经提交过重新签约接口
-            return;
-        }
-        const result = await util.getDataFromServersV2('consumer/order/order-veh-plates-change/updateVehInfo', {
-            id: this.data.id
-        });
-        if (!result) return;
-        if (result.code === 0) {
+        if (this.data.oldVehContractStatus === 2 || this.data.oldVehContractStatus === 0) {
             this.weChatSign();
-        } else {
-            util.showToastNoIcon(result.message);
+            return;
         }
+        this.selectComponent('#popTipComp').show({
+            type: 'shenfenyanzhifail',
+            title: '提示',
+            btnCancel: '好的',
+            refundStatus: true,
+            content: '请先完成旧车牌解约!',
+            bgColor: 'rgba(0,0,0, 0.6)'
+        });
     },
     // 微信签约
     async weChatSign () {
@@ -82,16 +70,19 @@ Page({
             util.showToastNoIcon(result.message);
         }
     },
-    // 查询车主服务签约
+    // 查询车主新旧车牌订单服务签约
     async queryContract () {
-        const result = await util.getDataFromServersV2('consumer/order/query-contract', {
-            orderId: app.globalData.orderInfo.orderId
+        const result = await util.getDataFromServersV2('consumer/order/order-veh-plates-change/queryApplyContract', {
+            id: this.data.id
         });
         if (!result) return;
         if (result.code === 0) {
             app.globalData.signAContract = 3;
+            const {oldVehContractStatus,orderId,id,newVehContractStatus} = result.data;
             this.setData({
-                contractStatus: result.data.contractStatus // 0 解约状态 ， 1 签约状态
+                oldVehContractStatus, // 1 签约状态 ， 0 未签约， 2 解约状态
+                newVehContractStatus, // 1 签约状态， 0 未签约， 2 解约状态
+                finishReContract: newVehContractStatus === 1 // 是否完成签约
             });
         } else {
             util.showToastNoIcon(result.message);
@@ -102,16 +93,15 @@ Page({
      */
     finish () {
         if (this.data.finishReContract) {
-            util.go(`/pages/default/swapRecord/swapRecord`);
+            wx.reLaunch({
+                url: '/pages/default/swapRecord/swapRecord'
+              });
         }
     },
     /**
      * 生命周期函数--监听页面出现
      */
     onShow () {
-        this.setData({
-            finishReContract: app.globalData.finishReContract
-        });
     },
 
     /**

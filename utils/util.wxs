@@ -221,7 +221,8 @@ function numReplace(param1, type = 1) {
         return param1.indexOf('-') !== -1
     }
 }
-function getStatusDescription_NM(status) {
+function getStatusDescription_NM(status,newContractStatus) {
+    
     switch (status) {
         case 0:
             return '待审核';
@@ -230,9 +231,17 @@ function getStatusDescription_NM(status) {
         case 2:
             return '处理中';
         case 3:
-            return '处理完成待签约';
+            if (newContractStatus === 1) {
+                return '处理完成';
+            } else {
+                return '处理完成待签约';
+            }
         case 4:
-            return '处理完成';
+            if (newContractStatus === 1) {
+                return '处理完成';
+            } else {
+                return '处理完成待签约';
+            }
         default:
             return '未知状态';
     }
