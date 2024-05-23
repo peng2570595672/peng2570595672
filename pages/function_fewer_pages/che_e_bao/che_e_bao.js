@@ -11,7 +11,8 @@ Page({
         obuCardType: undefined,
         auditStatus: undefined,
         vehPlates: '',
-        obuStatus: undefined
+        obuStatus: undefined,
+        count: 0 // 查询次数
     },
     onLoad (options) {
         this.setData({
@@ -130,6 +131,12 @@ Page({
     },
     // 查询接口 flag: 1-查询一次，2-查询多次，3-查询一次并调用一次"活动办理接口"
     async queryApi (flag) {
+        if (flag === 2) {
+            if (this.data.count >= 5) return;
+            this.setData({
+                count: ++this.data.count
+            });
+        }
         util.showLoading();
         let that = this;
         const result = await util.getDataFromServersV2('/consumer/voucher/rights/recharge/hsh/car-protect-queryOrderActivity', {
@@ -172,6 +179,7 @@ Page({
             wx.hideLoading();
             if (flag === 3) {
                 that.pop(); // 拉起弹窗
+                util.showToastNoIcon(result.message);
                 return;
             }
             if (flag === 2) {
