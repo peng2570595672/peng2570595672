@@ -120,7 +120,7 @@ Page({
     },
     // 查询接口
     async queryApi (flag) {
-        util.showLoading({title: '查询中,请稍等...'});
+        util.showLoading();
         let that = this;
         const result = await util.getDataFromServersV2('/consumer/voucher/rights/recharge/hsh/car-protect-queryOrderActivity', {
             activityId: that.data.activityId,
