@@ -23,7 +23,7 @@ Page({
         });
     },
     onShow () {
-
+        this.queryApi();
     },
     async btnFunc () {
         let that = this;
