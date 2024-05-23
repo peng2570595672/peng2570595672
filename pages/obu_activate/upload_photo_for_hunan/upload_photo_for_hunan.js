@@ -211,83 +211,83 @@ Page({
 	},
 	// 下一步
 	async next () {
-		wx.showActionSheet({
-			// , '铭创'
-			itemList: ['握奇', '聚力', '金溢', '中路未来'],
-			success: (res) => {
-				switch (res.tapIndex) {
-					case 0:
-						// 握奇
-						wx.uma.trackEvent('choice_hunan_woqi');
-						util.go('/pages/obu_activate/hunan/watchdata_plugn/watchdata_plugn');
-						break;
-					case 1:
-						// 聚利
-						wx.uma.trackEvent('choice_hunan_juli');
-						util.go('/pages/obu_activate/hunan/juli/juli');
-						break;
-					case 2:
-						// 金溢
-						wx.uma.trackEvent('choice_hunan_jinyi');
-						util.go('/pages/obu_activate/hunan/genvict/genvict');
-						break;
-					case 3:
-						// 中路未来 - 使用聚利
-						wx.uma.trackEvent('choice_hunan_zlwl');
-						// util.go('/online_distribution/pages/connect_bluetooth_for_hunanzhongluweilai/connect_bluetooth_for_hunanzhongluweilai');
-						util.go('/pages/obu_activate/hunan/juli/juli');
-						break;
-					// case 4:
-					// 	if (this.data.isSouci) {
-					// 		util.go('/pages/obu_activate/connect_bluetooth_for_hunanmc_new/connect_bluetooth_for_hunanmc_new');
-					// 	} else {
-					// 		util.go('/pages/obu_activate/hunan/mc_new/mc_new');
-					// 	}
-					// 	break;
-				}
-			},
-			fail (res) {
-				if (res.errMsg !== 'showActionSheet:fail cancel') {
-					util.showToastNoIcon('请重试！');
-				}
-			}
-		});
-
-		// if (!this.data.clickEnabled) {
-		// 	return;
-		// }
-		// this.setData({
-		// 	clickEnabled: false
-		// });
-		// wx.uma.trackEvent('hunan_upload_pictures_next');
-		// util.showLoading({
-		// 	title: '提交中...'
-		// });
-		// // 查询订单是否为二次激活
-		// let params = {
-		// 	currentUserId: app.globalData.memberId,
-		// 	orderId: app.globalData.orderInfo.orderId
-		// };
-		// let res = await util.getDataFromServersV2('consumer/etc/hunan/common/hunanissueOrderQuery',params);
-		// if (res.code === 0) {
-		// 	let type = parseInt(res.data.order_status) === 7 ? 1 : 0;
-		// 	this.submit(type);
-		// } else {
-		// 	wx.hideLoading();
-		// 	this.setData({
-		// 		clickEnabled: true
-		// 	});
-		// 	util.alert({
-		// 		title: '提交失败',
-		// 		content: res.message,
-		// 		confirmText: '知道了',
-		// 		showCancel: false,
-		// 		confirm: () => {
-		// 		},
-		// 		cancel: () => {
+		// wx.showActionSheet({
+		// 	// , '铭创'
+		// 	itemList: ['握奇', '聚力', '金溢', '中路未来'],
+		// 	success: (res) => {
+		// 		switch (res.tapIndex) {
+		// 			case 0:
+		// 				// 握奇
+		// 				wx.uma.trackEvent('choice_hunan_woqi');
+		// 				util.go('/pages/obu_activate/hunan/watchdata_plugn/watchdata_plugn');
+		// 				break;
+		// 			case 1:
+		// 				// 聚利
+		// 				wx.uma.trackEvent('choice_hunan_juli');
+		// 				util.go('/pages/obu_activate/hunan/juli/juli');
+		// 				break;
+		// 			case 2:
+		// 				// 金溢
+		// 				wx.uma.trackEvent('choice_hunan_jinyi');
+		// 				util.go('/pages/obu_activate/hunan/genvict/genvict');
+		// 				break;
+		// 			case 3:
+		// 				// 中路未来 - 使用聚利
+		// 				wx.uma.trackEvent('choice_hunan_zlwl');
+		// 				// util.go('/online_distribution/pages/connect_bluetooth_for_hunanzhongluweilai/connect_bluetooth_for_hunanzhongluweilai');
+		// 				util.go('/pages/obu_activate/hunan/juli/juli');
+		// 				break;
+		// 			// case 4:
+		// 			// 	if (this.data.isSouci) {
+		// 			// 		util.go('/pages/obu_activate/connect_bluetooth_for_hunanmc_new/connect_bluetooth_for_hunanmc_new');
+		// 			// 	} else {
+		// 			// 		util.go('/pages/obu_activate/hunan/mc_new/mc_new');
+		// 			// 	}
+		// 			// 	break;
 		// 		}
-		// 	});
-		// }
+		// 	},
+		// 	fail (res) {
+		// 		if (res.errMsg !== 'showActionSheet:fail cancel') {
+		// 			util.showToastNoIcon('请重试！');
+		// 		}
+		// 	}
+		// });
+
+		if (!this.data.clickEnabled) {
+			return;
+		}
+		this.setData({
+			clickEnabled: false
+		});
+		wx.uma.trackEvent('hunan_upload_pictures_next');
+		util.showLoading({
+			title: '提交中...'
+		});
+		// 查询订单是否为二次激活
+		let params = {
+			currentUserId: app.globalData.memberId,
+			orderId: app.globalData.orderInfo.orderId
+		};
+		let res = await util.getDataFromServersV2('consumer/etc/hunan/common/hunanissueOrderQuery',params);
+		if (res.code === 0) {
+			let type = parseInt(res.data.order_status) === 7 ? 1 : 0;
+			this.submit(type);
+		} else {
+			wx.hideLoading();
+			this.setData({
+				clickEnabled: true
+			});
+			util.alert({
+				title: '提交失败',
+				content: res.message,
+				confirmText: '知道了',
+				showCancel: false,
+				confirm: () => {
+				},
+				cancel: () => {
+				}
+			});
+		}
 	},
 	isOver (msg) {
 		wx.hideLoading();

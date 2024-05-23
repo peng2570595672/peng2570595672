@@ -10,7 +10,9 @@ Page({
         wxPhone: '',
         obuCardType: undefined,
         vehPlates: '',
-        obuStatus: undefined
+        obuStatus: undefined,
+        code: undefined,
+        key: undefined
     },
     onLoad (options) {
         this.setData({
@@ -21,7 +23,7 @@ Page({
             vehPlates: options.vehPlates,
             obuStatus: options.obuStatus
         });
-        this.queryApi(false);
+        // this.queryApi(1);
     },
     onShow () {
 
@@ -37,13 +39,19 @@ Page({
                     wxPhone: this.data.wxPhone,
                     btnText: '确定办理',
                     callback: async (code,key) => {
-                        that.setData({status: 2,available: false});
-                        await that.activeHandleApi(code,key);
+                        that.setData({
+                            status: 2,
+                            available: false,
+                            code: code,
+                            key: key
+                        });
+                        await this.queryApi(3);
+                        // await that.activeHandleApi(code,key);
                     }
                 }
             });
         } else if (that.data.status === 2) {
-            this.queryApi(false);
+            this.queryApi(1);
         } else { // 去激活
             app.globalData.orderInfo.orderId = this.data.orderId;
             const result = await util.getDataFromServersV2('consumer/order/order-detail', {
@@ -110,7 +118,7 @@ Page({
         if (!result) return;
         if (result.code === 0) {
             this.setData({activityId: result.data.activityId});
-            this.queryApi(true);
+            this.queryApi(2);
             wx.hideLoading();
         } else {
             wx.hideLoading();
@@ -118,7 +126,7 @@ Page({
             util.showToastNoIcon(result.message);
         }
     },
-    // 查询接口
+    // 查询接口 flag: 1-查询一次，2-查询多次，3-查询一次并调用一次"活动办理接口"
     async queryApi (flag) {
         util.showLoading();
         let that = this;
@@ -134,22 +142,28 @@ Page({
                 that.setData({status: 3,available: true});
             } else if (result.data.status === 1) {
                 that.setData({status: 2,available: false});
-                if (flag) {
-                    this.queryApi(true);
+                if (flag === 2) {
+                    this.queryApi(2);
+                } else if (flag === 3) {
+                    await that.activeHandleApi(this.data.code,this.data.key);
                 } else {
-                    util.showToastNoIcon();
+                    util.showToastNoIcon('存在该订单，该订单办理中 ');
                 }
             } else if (result.data.status === 2) {
                 that.setData({status: 2,available: false});
-                if (flag) {
-                    this.queryApi(true);
+                if (flag === 2) {
+                    this.queryApi(2);
+                } else if (flag === 3) {
+                    await that.activeHandleApi(this.data.code,this.data.key);
                 } else {
                     util.showToastNoIcon('查询失败，稍后重试');
                 }
             } else {
                 that.setData({status: 1,available: true});
-                if (flag) {
-                    this.queryApi(true);
+                if (flag === 2) {
+                    this.queryApi(2);
+                } else if (flag === 3) {
+                    await that.activeHandleApi(this.data.code,this.data.key);
                 } else {
                     util.showToastNoIcon('不存在该订单');
                 }
@@ -157,6 +171,9 @@ Page({
         } else {
             wx.hideLoading();
             that.setData({status: 1,available: true});
+            if (flag === 3) {
+                await that.activeHandleApi(this.data.code,this.data.key);
+            }
             util.showToastNoIcon(result.message);
         }
     },
