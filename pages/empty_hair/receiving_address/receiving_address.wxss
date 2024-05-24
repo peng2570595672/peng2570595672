@@ -653,10 +653,10 @@
   height: 100%;
   text-align: justify;
 }
-.index .payAndAgreement .agreementConfirm .agreement #agreementColor {
+.index .payAndAgreement .agreementConfirm .agreement .agreementColor {
   color: #5ebe68;
 }
-.index .payAndAgreement .agreementConfirm .agreement #agreementColor .agreeSpan {
+.index .payAndAgreement .agreementConfirm .agreement .agreementColor .agreeSpan {
   color: #000;
 }
 .index .payAndAgreement .paySign .moneyPay,

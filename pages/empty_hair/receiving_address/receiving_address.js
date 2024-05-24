@@ -10,7 +10,7 @@ Page({
 		choiceIndex: 0,// 当前选中套餐下标
 		activeIndex: 0,
 		isFade: true,
-		isLoaded: true,
+		isLoaded: false,
 		getAgreement: false, // 是否接受协议
 		isSalesmanOrder: false,// 是否是业务员端办理
 		equityListMap: [],	// 权益列表集合
@@ -444,6 +444,7 @@ Page({
 		});
 	},
 	goAgreementPage (e) {
+		console.log('hahahh',e);
         let item5 = e.currentTarget.dataset.item;
         if (item5.contentType === 1) {
             wx.navigateTo({
