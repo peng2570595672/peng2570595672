@@ -283,7 +283,7 @@
         <view class="iconfont icon4"></view>
     </view>
     <!-- 支付和协议说明 模块 -->
-    <view class="payAndAgreement {{isFade ? 'fadeIn' : 'fadeOut'}}" wx:if="{{isLoaded && !showKeyboard}}">
+    <view class="payAndAgreement" wx:if="{{isLoaded && !showKeyboard}}">
         <view class="agreementConfirm" bindtap="onClickAgreementHandle">
             <view class="confirm iconfont {{getAgreement ? 'tick' : ''}}" catchtap="onClickAgreementHandle"></view>
             <view class="agreement" wx:if="{{!listOfPackages[choiceIndex].agreements}}">
@@ -296,7 +296,7 @@
                 <text class="agreementColor" catchtap="onClickGoPrivacyHandle">用户隐私协议</text>
                 里的相关规定 ; 若您不认可、不接受上述内容。请勿支付并退出该页面即可。
                 <text wx:if="{{listOfPackages[choiceIndex].etcCardId === 2}}">[发行方: 内蒙古发行]</text>
-                <!-- <text wx:if="{{listOfPackages[choiceIndex].etcCardId === 23}}">[发行方: 河北交投发行]</text> -->
+                 <text wx:if="{{listOfPackages[choiceIndex].etcCardId === 23}}">[发行方: 河北交投发行]</text>
             </view>
             <view class="agreement" wx:else>
                 当您勾选同意并选购套餐时，即代表您已阅读、理解并接受

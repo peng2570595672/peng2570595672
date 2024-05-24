@@ -140,8 +140,7 @@ Page({
 					util.showToastNoIcon('未查询到套餐，请联系工作人员处理！');
 					return;
 				}
-				let listOfPackages = res.data;
-				listOfPackages = listOfPackages.length === 1 ? listOfPackages : listOfPackages.slice(0, 1) || []; // 展示一个套餐
+				let listOfPackages = [res.data[0]];
 				this.setData({
 					listOfPackages
 				});

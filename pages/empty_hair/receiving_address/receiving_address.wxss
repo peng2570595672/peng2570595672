@@ -8,11 +8,11 @@
 }
 .index {
   margin: 0;
-  padding: 0;
+  padding: 30rpx 0 0;
   width: 100vw;
   min-height: 100vh;
+  box-sizing: border-box;
   background-color: #ececec;
-  margin-top: -30rpx;
 /* 顶部组件占位 */
 /* 公用模块 */
 /* 模块一   办理车牌号 */
@@ -28,7 +28,7 @@
   padding: 0 37rpx 44rpx 37rpx;
   border-radius: 16rpx;
   background: #fff;
-  margin: 28rpx 28rpx 0 28rpx;
+  margin: 0 28rpx;
   box-shadow: 0 4rpx 2rpx 0 rgba(212,212,212,0.5);
 }
 .index .module .title {
@@ -155,9 +155,6 @@
 }
 .index .moduleOne .moduleOneTip .tipsOne {
   color: #f19c38;
-}
-.index .module {
-  margin-top: 30rpx;
 }
 .index .module .tipPhone {
   width: 100%;
