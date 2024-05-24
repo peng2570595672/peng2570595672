@@ -393,8 +393,15 @@ Page({
 			engineNo: face.engineNo,
 			registerDate: face.resgisterDate // resgisterDate
 		};
-		console.log(params);
+		this.setData({
+			isRequest: true,
+			available: false
+		});
 		const result = await util.getDataFromServersV2('consumer/order/order-veh-plates-change/apply', params);
+		this.setData({
+			isRequest: false,
+			available: true
+		});
 		if (!result) return;
 		if (result.code === 0) {
 			app.globalData.successfullyReplace = true;// 更还车牌申请提交成功标识 控制返回介绍页

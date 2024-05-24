@@ -122,13 +122,6 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/empty_hair/order_inquiry/order_inquiry",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
                 }
             ]
         }
