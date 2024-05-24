@@ -1441,7 +1441,6 @@ async function getListOfPackages(orderInfo, regionCode, notList) {
   };
   if (+orderInfo.isNewTrucks === 1 || +app.globalData.orderInfo.isNewTrucks === 1) {// 是否是货车办理
     params.vehType = 2;
-    params.shopId = app.globalData.miniProgramServiceProvidersId;
   }
   let result = await getDataFromServersV2('consumer/system/get-usable-product', params);
   if (!result) return '';
@@ -2083,7 +2082,7 @@ function getCurrentDate() {
   return [formattedCurrentDate, nextDate]
 }
 
-function getDatanexusAnalysis(actionType, price) {
+function getDatanexusAnalysis(actionType, price = 0) {
   let timestamp, nonceStr;
   nonceStr = getUuid();
   if (!timestamp) {

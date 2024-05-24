@@ -212,6 +212,10 @@ App({
 	// 初始化数据
 	initData (options) {
 		console.log(options);
+		if (options.scene === 1084 && (options.query.gz_gdt || options.query.gdt_vid)) {
+			// 朋友圈广告原生页进入
+			this.globalData.advertisementClickId = options.query.gz_gdt || options.query.gdt_vid || '';
+		}
 		// 扫码 长按识别 相册选取进入拿到分享二维码人的id
 		if (options.scene === 1047 || options.scene === 1048 || options.scene === 1049 || options.scene === 1017) {
 			let obj = this.path2json(decodeURIComponent(options.query.scene));
