@@ -85,9 +85,6 @@
   color: #2a4f44;
   border: 0;
 }
-.index .moduleOne {
-  margin-top: 42rpx;
-}
 .index .moduleOne .input {
   height: 80rpx;
   display: flex;
@@ -155,6 +152,9 @@
 }
 .index .moduleOne .moduleOneTip .tipsOne {
   color: #f19c38;
+}
+.index .module {
+  margin: 42rpx;
 }
 .index .module .tipPhone {
   width: 100%;
@@ -653,10 +653,10 @@
   height: 100%;
   text-align: justify;
 }
-.index .payAndAgreement .agreementConfirm .agreement .agreementColor {
+.index .payAndAgreement .agreementConfirm .agreement #agreementColor {
   color: #5ebe68;
 }
-.index .payAndAgreement .agreementConfirm .agreement .agreementColor .agreeSpan {
+.index .payAndAgreement .agreementConfirm .agreement #agreementColor .agreeSpan {
   color: #000;
 }
 .index .payAndAgreement .paySign .moneyPay,
