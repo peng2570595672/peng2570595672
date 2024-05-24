@@ -2082,7 +2082,7 @@ function getCurrentDate() {
   return [formattedCurrentDate, nextDate]
 }
 
-function getDatanexusAnalysis(actionType, price) {
+function getDatanexusAnalysis(actionType, price = 0) {
   let timestamp, nonceStr;
   nonceStr = getUuid();
   if (!timestamp) {
