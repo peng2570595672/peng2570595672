@@ -283,7 +283,7 @@
         <view class="iconfont icon4"></view>
     </view>
     <!-- 支付和协议说明 模块 -->
-    <view class="payAndAgreement {{isFade ? 'fadeIn' : 'fadeOut'}}" wx:if="{{isLoaded && !showKeyboard}}">
+    <view class="payAndAgreement" wx:if="{{isLoaded && !showKeyboard}}">
         <view class="agreementConfirm" bindtap="onClickAgreementHandle">
             <view class="confirm iconfont {{getAgreement ? 'tick' : ''}}" catchtap="onClickAgreementHandle"></view>
             <view class="agreement" wx:if="{{!listOfPackages[choiceIndex].agreements}}">

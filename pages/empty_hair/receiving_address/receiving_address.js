@@ -52,6 +52,7 @@ Page({
 	},
 	async onLoad (options) {
 		wx.hideHomeButton();
+		app.globalData.advertisementClickId = options.gz_gdt || options.gdt_vid || '';
 		app.globalData.firstVersionData = false; // 非1.0数据办理
 		app.globalData.isModifiedData = false; // 非修改资料
 		app.globalData.signAContract = 3;
