@@ -441,6 +441,20 @@ Page({
 			}
 		});
 	},
+	goAgreementPage (e) {
+        let item5 = e.currentTarget.dataset.item;
+        if (item5.contentType === 1) {
+            wx.navigateTo({
+                url: '/pages/agreement_documents/background_agreement/background_agreement',
+                success: function (res) {
+                    // 通过eventChannel向被打开页面传送数据
+                    res.eventChannel.emit('acceptDataFromOpenerPage', { data: item5 });
+                }
+            });
+        } else { // 打开pdf
+            util.openPdf(item5.content, item5.category);
+        }
+    },
 	// 省市区选择
 	onPickerChangedHandle (e) {
 		console.log(e);

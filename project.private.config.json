@@ -6,9 +6,13 @@
                 {
                     "name": "空发填写页",
                     "pathName": "pages/empty_hair/receiving_address/receiving_address",
-                    "query": "shopId=1224307861486575616",
+                    "query": "shopId=1072188767418851328",
                     "launchMode": "default",
-                    "scene": null
+                    "scene": null,
+                    "partialCompile": {
+                        "enabled": true,
+                        "pages": []
+                    }
                 },
                 {
                     "name": "123",
