@@ -51,6 +51,7 @@ Page({
 		isGetIdentifyingCoding: false // 获取验证码中
 	},
 	async onLoad (options) {
+		console.log(options);
 		wx.hideHomeButton();
 		app.globalData.advertisementClickId = options.gz_gdt || options.gdt_vid || '';
 		app.globalData.firstVersionData = false; // 非1.0数据办理
