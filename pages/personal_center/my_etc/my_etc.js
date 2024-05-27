@@ -434,6 +434,10 @@ Page({
 			util.go(`/pages/device_upgrade/package/package?orderId=${orderInfo.id}`);
 			return;
 		}
+		if (orderInfo.selfStatus === 3 && app.globalData.productList.lnmProductUnder.includes(orderInfo.shopProductId)) { // 辽宁移动线下办理
+			util.go(`/pages/function_fewer_pages/che_e_bao/che_e_bao?flag=1`);
+			return;
+		}
 		const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default';
 		wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'my_etc_for_truck_package' : 'my_etc_for_package');
 		util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);

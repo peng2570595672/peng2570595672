@@ -15,6 +15,11 @@
             <text class="validate-code {{!isGetIdentifyingCoding ? '' : 'acquisition'}} {{mobilePhoneIsOk ? 'ok' : ''}}" bindtap="sendVerifyCode">{{identifyingCode}}</text>
         </view>
         <view class="tips">{{verifyCodeTips}}</view>
+        <!-- <view class="input-item">
+            <input type="number" placeholder="粘贴/输入电商订单号" placeholder-class="placeholder" value="{{formData.eCommerceOrderId}}"
+                   bindinput="onInputChangedHandle" data-key="eCommerceOrderId" maxlength="25"
+            />
+        </view> -->
     </view>
     <view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="handleBind">绑定并激活</view>
     <view class="protocol" catchtap="handleCheckAgreement">

@@ -10,6 +10,7 @@ Page({
         wxPhone: '',
         obuCardType: undefined,
         auditStatus: undefined,
+        flag: false,
         vehPlates: '',
         obuStatus: undefined,
         count: 0 // 查询次数
@@ -22,19 +23,27 @@ Page({
             shopId: options.shopId,
             vehPlates: options.vehPlates,
             obuStatus: options.obuStatus,
-            auditStatus: options.auditStatus
+            auditStatus: options.auditStatus,
+            flag: options?.flag ? true : false
         });
         // this.queryApi(1);
     },
     onShow () {
 
     },
+    // testInput (e) {
+    //     this.setData({
+    //         wxPhone: e.detail.value.substring(0, 11)
+    //     });
+    // },
     async btnFunc () {
         let that = this;
         if (that.data.status === 1) {
             await this.queryApi(3);
         } else if (that.data.status === 2) {
             this.queryApi(1);
+        } else if (that.data.status === 4) { // 辽宁移动线下--去支付
+            util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests`);
         } else { // 去激活
             app.globalData.orderInfo.orderId = this.data.orderId;
             const result = await util.getDataFromServersV2('consumer/order/order-detail', {
@@ -148,7 +157,7 @@ Page({
             wx.hideLoading();
             if (!result.data.status) {
                 util.showToastNoIcon('存在该订单，且该订单办理成功');
-                that.setData({status: 3,available: true});
+                that.setData({status: this.data.flag ? 4 : 3,available: true});
             } else if (result.data.status === 1) {
                 that.setData({status: 2,available: false});
                 if (flag === 2) {
