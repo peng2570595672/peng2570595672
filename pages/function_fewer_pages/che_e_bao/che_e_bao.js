@@ -103,6 +103,7 @@ Page({
             argObj: {
                 type: 'cheEBao',
                 title: '办理产品',
+                orderId: this.data.orderId,
                 wxPhone: this.data.wxPhone,
                 btnText: '确定办理',
                 callback: async (code,key) => {

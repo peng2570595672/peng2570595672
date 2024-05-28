@@ -685,7 +685,8 @@ Component({
             }
             util.showLoading({title: '获取中...'});
             const result = await util.getDataFromServersV2('/consumer/voucher/rights/recharge/hsh/car-protect-sendNote', {
-                mobilePhone: this.data.argObj.wxPhone
+                mobilePhone: this.data.argObj.wxPhone,
+                orderId: this.data.argObj.orderId
             },'POST',true);
             if (!result) return;
             if (result.code === 0) {
@@ -702,13 +703,11 @@ Component({
             let code = e.detail.value.trim();
             if (code.length >= 4) {
                 this.setData({
-                    code,
-                    isBtn: true
+                    code
                 });
             } else {
                 this.setData({
-                    code,
-                    isBtn: false
+                    code
                 });
             }
         },
