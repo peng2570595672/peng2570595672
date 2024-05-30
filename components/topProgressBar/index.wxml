@@ -1,4 +1,4 @@
-<view class="top">
+<view class="top" style="background-color: {{progressColor}};">
     <view class="innerBox">
         <view class="stage" style="background-color:{{mmm > 1 || mmm === 1 ? '#5EBE68': ''}}">1</view>
         <view class="bar">

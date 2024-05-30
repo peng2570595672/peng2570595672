@@ -1,0 +1,129 @@
+@font-face {
+  font-family: 'iconfont' /* Project id 1514406 */;
+  src: url("//at.alicdn.com/t/font_1514406_r2ex32p9up.woff2?t=1651741878795") format('woff2'), url("//at.alicdn.com/t/font_1514406_r2ex32p9up.woff?t=1651741878795") format('woff'), url("//at.alicdn.com/t/font_1514406_r2ex32p9up.ttf?t=1651741878795") format('truetype');
+}
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+image {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.index {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #ececec;
+}
+.index .activity-content-img {
+  position: relative;
+}
+.index .activity-content-img .pseudoClass {
+  display: block;
+  position: absolute;
+  bottom: 30rpx;
+  left: 25rpx;
+  width: 150rpx;
+  height: 40rpx;
+  background-color: rgba(0,0,0,0.4);
+  text-align: center;
+  line-height: 40rpx;
+  font-size: 20rpx;
+  color: #fff;
+  border-radius: 26rpx;
+}
+.index .textTitle {
+  margin: 30rpx 25rpx;
+  line-height: 44rpx;
+  font-weight: 600;
+  color: #1e1e1e;
+  font-size: 32rpx;
+}
+.index .module {
+  margin: 30rpx 25rpx;
+  padding: 20rpx 30rpx;
+  border-radius: 16rpx;
+  box-shadow: 4rpx 4rpx 46rpx 0rpx rgba(125,132,158,0.1);
+}
+.index .moduleOne {
+  background-color: #fff;
+  border-radius: 16rpx;
+  font-family: PingFang SC;
+}
+.index .moduleOne .upper {
+  border-bottom: 1rpx solid #f3f0f0;
+}
+.index .moduleOne .upper .attrVal {
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 36rpx;
+}
+.index .moduleOne .upper .attrVal .attr {
+  width: 170rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  color: #fff;
+  font-size: 24rpx;
+  text-align: center;
+  background-color: #2a4f44;
+  border-radius: 32rpx;
+}
+.index .moduleOne .upper .attrVal .status {
+  font-weight: normal;
+  color: #5ebe68;
+}
+.index .moduleOne .upper .attrVal .val {
+  font-size: 28rpx;
+  font-weight: 400;
+  line-height: 40rpx;
+}
+.index .moduleOne .below {
+  margin-top: 30rpx;
+}
+.index .moduleOne .below .nameStatus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 60rpx;
+  padding-right: 5rpx;
+}
+.index .moduleOne .below .nameStatus .attr {
+  color: #666;
+}
+.index .moduleOne .below .nameStatus .val {
+  color: #000;
+}
+.index .empty {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: #99999d;
+  margin-top: 200rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: PingFangSC-Medium, PingFang SC;
+}
+.index .empty::before {
+  display: block;
+  content: "\e649";
+  font-size: 120rpx;
+  margin-bottom: 30rpx;
+  color: #99999d;
+}
+.index .image {
+  width: 100%;
+  height: 100%;
+}
+.index .split {
+  width: 100%;
+  height: 108rpx;
+}

@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "签约确认页",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "popTipComp": "/components/popTipComp/popTipComp",
+    "topProgressBar": "/components/topProgressBar/index"
+  }
+}

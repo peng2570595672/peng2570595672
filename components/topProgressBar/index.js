@@ -11,6 +11,10 @@ Component({
 				oldVal = parseInt(oldVal * 100);
 				this.dataChange(newVal,oldVal);
 			}
+		},
+		progressColor: {
+			type: String,
+			value: '#ECECEC'
 		}
 	},
 

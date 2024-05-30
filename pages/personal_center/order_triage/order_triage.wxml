@@ -1,16 +1,10 @@
 <view class="index">
     <view class="splitTop"></view>
-    <!-- 模块一 ETC办理订单 -->
-    <view class="module moduleOne" data-url="my_etc" catchtap="go">
-        <view class="typeName">ETC办理订单</view>
-    </view>
-    <!-- 模块二 权益包购买订单 -->
-    <view class="module moduleTwo" data-url="service_purchase_record" catchtap="go">
-        <view class="typeName">权益包购买订单</view>
-    </view>
-    <!-- 模块三 道路救援订单 -->
-    <view class="module moduleTwo" data-url="road_rescue" catchtap="go">
-        <view class="typeName">道路救援订单</view>
-    </view>
+    <!-- 定义模块数据 -->
+    <block wx:for="{{modules}}" wx:key="index">
+        <view class="module {{item.moduleClass}}" data-url="{{item.url}}" catchtap="handleModuleTap">
+            <view class="typeName">{{item.typeName}}</view>
+        </view>
+    </block>
 </view>
 <privacy_popup></privacy_popup>

@@ -1,0 +1,115 @@
+@font-face
+    font-family 'iconfont' /* Project id 1514406 */
+    src url('//at.alicdn.com/t/font_1514406_r2ex32p9up.woff2?t=1651741878795') format('woff2'), url('//at.alicdn.com/t/font_1514406_r2ex32p9up.woff?t=1651741878795') format('woff'), url('//at.alicdn.com/t/font_1514406_r2ex32p9up.ttf?t=1651741878795') format('truetype')
+.iconfont
+    font-family 'iconfont' !important
+    font-size 16px
+    font-style normal
+    -webkit-font-smoothing antialiased
+    -moz-osx-font-smoothing grayscale
+mixinsWidthHeight($width = 100%, $height = 100%)
+    width $width
+    height $height
+maxMixinsWidthHeight($width = 100%, $height = 100%)
+    width $width
+    min-height $height
+mixinsIconfont($content='',$size=16px,$color=#5EBE68)
+    content $content
+    font-size $size
+    color $color
+mixinsPositionPack($position=relative)
+    position $position
+    left 50%
+    transform translateX(-50%)
+textLineCenter($height)
+    text-align center
+    line-height $height
+flexModule($align=normal,$justify=normal)
+    display flex
+    align-items $align
+    justify-content $justify
+.index
+    maxMixinsWidthHeight(100vw,100vh)
+    background-color #ECECEC
+    &::before
+        content ''
+        display block
+        mixinsWidthHeight(,24rpx)
+    .module
+        margin 30rpx 25rpx 
+        padding 20rpx 30rpx
+        border-radius 16rpx
+        box-shadow 4rpx 4rpx 46rpx 0rpx rgba(125,132,158,0.1)
+    .moduleOne
+        background-color #fff
+        border-radius 16rpx
+        font-family PingFangSC-Medium, PingFang SC
+        // margin 20rpx autu
+        .upper
+            border-bottom 1rpx solid #f3f0f0
+            .textOrder
+                line-height 60rpx
+                height 90rpx
+                flexModule(center,space-between)
+                .attr
+                    color #666666
+                .val
+                    color #000000
+            .attrVal
+                // background #3a8ee1
+                mixinsWidthHeight(,56rpx)
+                line-height 60rpx
+                flexModule(center,space-between)
+                position relative
+                .attr
+                    font-size 36rpx
+                    font-weight 600
+                    color #1e1e1e
+                    line-height 56rpx
+                .status
+                    position absolute
+                    bottom 0
+                    right 0
+                    font-size 26rpx
+                    font-weight normal
+                    color #5EBE68
+                    line-height 26rpx
+                    &::after
+                        // margin-left 10rpx
+                        display inline-block
+                        content "\e661"
+                        color blue
+                        font-size 26rpx
+                        color #5EBE68
+                        transform rotateZ(-90deg)
+                .val
+                    font-size 28rpx
+                    font-weight 400
+                    line-height 40rpx
+        .below
+            .nameStatus
+                flexModule(center,space-between)
+                line-height 60rpx
+                padding-right 5rpx
+                .attr
+                    color #666666
+                .val
+                    color #000000
+    .empty
+        font-size 28rpx
+        font-weight 400
+        color #99999D
+        margin-top 200rpx
+        flexModule(center, center)
+        flex-direction column
+        font-family PingFangSC-Medium, PingFang SC
+        &::before
+            display block
+            content "\e649"
+            font-size 120rpx
+            margin-bottom 30rpx
+            color #99999D
+    .image
+        mixinsWidthHeight()
+    .split
+        mixinsWidthHeight(,108rpx)

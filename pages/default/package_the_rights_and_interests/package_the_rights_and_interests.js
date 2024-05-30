@@ -1,4 +1,4 @@
-import {thirdContractSigning} from '../../../utils/utils';
+import { thirdContractSigning } from '../../../utils/utils';
 
 /**
  * @author 老刘
@@ -434,7 +434,7 @@ Page({
             app.globalData.belongToPlatform = app.globalData.platformId;
             app.globalData.isNeedReturnHome = false;
             if (this.data.orderInfo?.base?.orderType === 31 && this.data.listOfPackages[this.data.choiceIndex]?.isCallBack) {
-                util.aiReturn(this,'#popTipComp',app.globalData.orderInfo.orderId,() => {
+                util.aiReturn(this, '#popTipComp', app.globalData.orderInfo.orderId, () => {
                     util.weChatSigning(res);
                 });
             } else {
@@ -762,7 +762,33 @@ Page({
             this.selectComponent('#verifyCode').show();
             return;
         }
+        // // 多签流程
+        // if (this.data.listOfPackages[this.data.choiceIndex]?.productProcess === 9) {
+        //     console.log('多签流程',this.data.listOfPackages[this.data.choiceIndex]?.agreements);
+        //     if (this.data.readDone) { // 已完成阅读直接支付
+        //         await this.saveOrderInfo();
+        //         return;
+        //     }
+        //     this.setData({ // 隐藏底部支付协议展示
+        //         isLoaded: false
+        //     });
+        //     this.selectComponent('#popTipComp').showCountdownPopupBox({
+        //         btnShadowHide: true,
+        //         btnCancel: '不同意办理',
+        //         title: this.data.listOfPackages[this.data.choiceIndex]?.agreements[0].name,
+        //         btnconfirm: '请认真阅读协议内容，并划至底部',
+        //         type: 'countdownPopUpBox',
+        //         content: this.data.listOfPackages[this.data.choiceIndex]?.agreements[0].content
+        //         // Text: '弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需，弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需，弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需'
+        //     });
+        //     return;
+        // }
         await this.saveOrderInfo();
+    },
+    cancelHandle (e) {
+        this.setData({
+            isLoaded: true
+        });
     },
     // popTipComp组件 触发事件函数
     confirmHandle (e) {
@@ -771,9 +797,19 @@ Page({
             case 'cictBank':
                 this.saveOrderInfo();
                 break;
+            case 'readDone':
+                this.readDone();
+                break;
             default:
                 break;
         }
+    },
+    readDone () { // 阅读完成
+        this.setData({
+            isLoaded: true,
+            readDone: true
+        });
+        this.saveOrderInfo();
     },
     // 提交订单
     async saveOrderInfo () {
@@ -826,6 +862,12 @@ Page({
                     productShopId: app.globalData.newPackagePageData?.shopId
                 });
             }
+            // if (this.data.listOfPackages[this.data.choiceIndex]?.productProcess === 9) {
+            //     console.log('多发流程 无需支付');
+            //     // 去签约确认页面
+            //     util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
+            //     return;
+            // }
             if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice || addEquity.aepIndex !== -1) {
                 await this.marginPayment(this.data.listOfPackages[this.data.choiceIndex].pledgeType);
                 return;
@@ -922,7 +964,7 @@ Page({
             app.globalData.belongToPlatform = app.globalData.platformId;
             app.globalData.isNeedReturnHome = true;
             if (this.data.orderInfo?.base?.orderType === 31 && this.data.listOfPackages[this.data.choiceIndex]?.isCallBack) {
-                util.aiReturn(this,'#popTipComp',app.globalData.orderInfo.orderId,() => {
+                util.aiReturn(this, '#popTipComp', app.globalData.orderInfo.orderId, () => {
                     util.weChatSigning(res);
                 });
             } else {

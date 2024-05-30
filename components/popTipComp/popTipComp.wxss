@@ -221,6 +221,80 @@
   border-radius: 50%;
   background: linear-gradient(27deg, #14ac69 0%, #84d157 100%);
 }
+.alert-for-not-finished-content .countdownPopUpBox {
+  margin-top: 40rpx;
+}
+.alert-for-not-finished-content .countdownPopUpBox .title {
+  color: #1e1e1e;
+  font-weight: 500;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.alert-for-not-finished-content .countdownPopUpBox .custom-scrollbar {
+  margin-bottom: 30rpx;
+}
+.alert-for-not-finished-content .countdownPopUpBox .custom-scrollbar .content {
+  border: 1px solid #000;
+  width: 100%;
+  height: 600rpx;
+  box-sizing: border-box;
+  padding: 20rpx;
+  font-size: 28rpx;
+}
+.alert-for-not-finished-content .countdownPopUpBox .custom-scrollbar .content .bottomHet {
+  background-color: #fff;
+}
+.alert-for-not-finished-content .countdownPopUpBox .bottomBtn {
+  display: flex;
+  flex-direction: column;
+  font-size: 36rpx;
+  font-weight: 400;
+  text-align: center;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  font-size: 34rpx;
+  position: relative;
+  font-family: PingFangSC-Regular, PingFang SC;
+}
+.alert-for-not-finished-content .countdownPopUpBox .bottomBtn ::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: 0;
+  width: 100%;
+  height: 35%;
+  background-image: linear-gradient(to bottom, transparent, #fff);
+}
+.alert-for-not-finished-content .countdownPopUpBox .bottomBtn .cancel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 106rpx;
+  color: #3e3e3e;
+  border-radius: 16rpx;
+  background-color: #fff;
+}
+.alert-for-not-finished-content .countdownPopUpBox .bottomBtn .ok {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 106rpx;
+  color: #fff;
+  border-radius: 53rpx;
+  background-color: #c0c0c0;
+}
+.alert-for-not-finished-content .countdownPopUpBox .bottomBtn .ok .countdownText {
+  font-size: 28rpx;
+  line-height: 44rpx;
+}
+.alert-for-not-finished-content .countdownPopUpBox .bottomBtn .highlighted {
+  color: #fff;
+  background: #2a4f44;
+}
 .alert-for-not-finished-content .moduleThree .bottomBtn {
   width: 100%;
   display: flex;
@@ -558,6 +632,80 @@
 .alert-for-not-finished-content .module2 .close {
   bottom: -120rpx;
 }
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  to {
+    opacity: 0;
+  }
+}
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -577,7 +725,6 @@
 @keyframes zoomIn {
   from {
     opacity: 0;
-    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
     transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
   }
   50% {
@@ -590,46 +737,6 @@
   }
   50% {
     opacity: 0;
-    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
-    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
-  }
-  to {
-    opacity: 0;
-  }
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
-    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
-  }
-  50% {
-    opacity: 1;
-  }
-}
-@keyframes zoomOut {
-  from {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
     transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
   }
   to {

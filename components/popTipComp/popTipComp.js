@@ -26,6 +26,7 @@ Component({
 		mask: false,
 		wrapper: false,
 		paramsList: [],
+		bottomingOut: false, // 触底提示
 		noSliding: false, // 是否禁止底层页面滑动
 		getAgreement: true,	// 默认选中协议
 		relationId: ''
@@ -47,19 +48,74 @@ Component({
 				if (kkIndex === -1 && qyIndex === -1) {
 					this.maiDian();
 				}
-			},500);
+			}, 500);
 		},
 		// 埋点
 		maiDian () {
 			if (this.data.paramsList[0].type === 'newPop') {	// 埋点
 				let params = this.data.paramsList.filter(item => item.type === 'newPop')[0].params;
 				params['optionLabel'] = 'ENTER';
-				util.buriedPoint(params,(buriedPointData) => {
-					this.setData({relationId: buriedPointData?.id});
+				util.buriedPoint(params, (buriedPointData) => {
+					this.setData({ relationId: buriedPointData?.id });
 				});
 			}
 		},
-		noSliding () {},
+		showCountdownPopupBox (tipObj) {
+			this.data.paramsList.push(tipObj);
+			this.setData({
+				mask: true,
+				wrapper: true,
+				paramsList: this.data.paramsList,
+				tipObj,
+				noSliding: true,
+				countdownText: `${tipObj.time || 10} 秒后自动关闭`,
+				duration: parseInt(tipObj.time) || 10 // 如果time未提供，默认10秒
+			});
+			console.log(this.data.tipObj, 'show');
+			this.startCountdown();
+		},
+		onScrolltolower () { // 滑动触底
+			if (!this.data.duration) {
+				this.setData({
+					'tipObj.showConfirmButton': true,
+					'tipObj.btnconfirm': '我已知晓协议内容，同意继续办理'
+				});
+			}
+			this.setData({
+				bottomingOut: true
+			});
+		},
+		startCountdown () {
+			let countdown = this.data.duration;
+			this.data.intervalId = setInterval(() => {
+				countdown--;
+				console.log('倒计时结束',this.data.bottomingOut);
+				if (countdown <= 0) {
+					console.log('倒计时结束',this.data.bottomingOut);
+					if (this.data.bottomingOut) { // 触底显示按钮
+						this.setData({
+							'tipObj.showConfirmButton': true,
+							'tipObj.btnconfirm': '我已知晓协议内容，同意继续办理'
+						});
+					}
+					this.setData({
+						duration: 0,
+						countdownText: ``
+					});
+					clearInterval(this.data.intervalId);
+				} else {
+					this.setData({
+						countdownText: `(${countdown} 秒倒计时)`
+					});
+				}
+			}, 1000);
+		},
+		onConfirm () {
+			if (!this.data.tipObj.showConfirmButton) return;
+			this.triggerEvent('confirmHandle', 'readDone');// 阅读完成
+			this.hide(false);
+		},
+		noSliding () { },
 		// 防抖
 		fangDou (fn, time) {
 			let that = this;
@@ -83,18 +139,21 @@ Component({
 				this.setData({
 					mask: false
 				});
+				if (this.data.intervalId) {
+					clearInterval(this.data.intervalId);
+				}
 				this.triggerEvent('cancelHandle');
 				if (e) {	// 判断点击此方法关闭
 					let title = e.currentTarget.dataset.title;
 					let paramsList = this.data.paramsList.filter(item => item.title !== title);
 					if (paramsList?.length !== 0) {
-						this.setData({paramsList});
+						this.setData({ paramsList });
 						this.show(paramsList[0]);
 					} else {
-						this.setData({paramsList: []});
+						this.setData({ paramsList: [] });
 					}
 				} else {
-					this.setData({paramsList: []});
+					this.setData({ paramsList: [] });
 				}
 			}, 400);
 		},
@@ -117,7 +176,7 @@ Component({
 		// 中信 办理提醒
 		citicBank () {
 			// 跳转保证金支付页
-			this.triggerEvent('confirmHandle','cictBank');
+			this.triggerEvent('confirmHandle', 'cictBank');
 			this.hide(false);
 		},
 		// 前去补缴
@@ -127,7 +186,7 @@ Component({
 		},
 		// 恢复签约
 		resumeSigning () {
-			this.triggerEvent('onHandle',this.data.tipObj.params);
+			this.triggerEvent('onHandle', this.data.tipObj.params);
 			this.hide(false);
 		},
 		handleConfirm () {
@@ -143,14 +202,14 @@ Component({
 			this.fangDou(() => {
 				util.go(`/pages/device_upgrade/package/package`);
 				this.hide(false);
-			},300);
+			}, 300);
 		},
 		// 授权提醒
 		async authorizeTip () {
 			if (!this.data.getAgreement) return util.showToastNoIcon('请先同意勾选协议');
 			let that = this;
 			let params = that.data.paramsList.filter(item => item.type === 'newPop')[0].params;
-			let res = await util.getDataFromServersV2('/consumer/order/pingan/get-bind-veh-url',{});
+			let res = await util.getDataFromServersV2('/consumer/order/pingan/get-bind-veh-url', {});
 			if (!res) return;
 			if (res.code === 0) {
 				params['optionLabel'] = 'CLICK';
@@ -171,7 +230,7 @@ Component({
 		},
 		// 同意协议修改2%存量用户签约状态
 		async handleTwoPercentSign () {
-			let res = await util.getDataFromServersV2('/consumer/order/sync-two-percent-sign-status',{
+			let res = await util.getDataFromServersV2('/consumer/order/sync-two-percent-sign-status', {
 				platformId: app.globalData.platformId
 			});
 			if (!res) return;
@@ -183,7 +242,7 @@ Component({
 		},
 		// 协议选中控制
 		isSelectAgreement () {
-			this.setData({getAgreement: !this.data.getAgreement});
+			this.setData({ getAgreement: !this.data.getAgreement });
 		},
 		// 前去协议页
 		goAgreement (e) {
@@ -228,20 +287,20 @@ Component({
 		async guanFaFunc () {
 			let that = this;
 			let res = await util.getDataFromServersV2('consumer/order/apply/gf/bank-card', {
-                orderId: app.globalData.orderInfo.orderId
-            });
-            if (!res) return;
-            if (res.code === 0) {
-                util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data.applyUrl)}`);
-                that.hide(false);
-            } else {
-                util.showToastNoIcon(res.message);
-            }
+				orderId: app.globalData.orderInfo.orderId
+			});
+			if (!res) return;
+			if (res.code === 0) {
+				util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data.applyUrl)}`);
+				that.hide(false);
+			} else {
+				util.showToastNoIcon(res.message);
+			}
 		},
 		// 协议续签
 		renewWhitelist () {
 			this.hide(false);
-			wx.setStorageSync('renewWhitelist',true);
+			wx.setStorageSync('renewWhitelist', true);
 			if (this.data.paramsList[0].callBack) {
 				this.data.paramsList[0].callBack();
 			}

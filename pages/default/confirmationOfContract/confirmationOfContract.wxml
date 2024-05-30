@@ -1,0 +1,40 @@
+<view class="signed_successfully">
+    <!-- 顶部 进度条 组件 -->
+    <view class="topSplit">
+        <topProgressBar progressStage="{{topProgressBar}}" progressColor="{{progressColor}}" />
+    </view>
+    <!--	成功提示开始-->
+    <image src="https://file.cyzl.com/g001/M03/74/6F/oYYBAGZYNmaAYY2kAAAdi5N3xlQ829.png" mode="widthFix"
+        class="imgChange" />
+    <view class="signed_title size">支付成功</view>
+    <!--	成功提示结束-->
+    <!--	操作部分开始-->
+    <view class="text">请继续完成以下代扣签约，完成订单办理</view>
+    <view  class="box">
+        <view class="btn_te" >
+            <text>
+                通行费代扣签约
+            </text>
+            <view class="anniu {{contractStatus !== 1 ? 'sure' : ''}}" catchtap="next">
+                去签约
+            </view>
+        </view>
+        <view class="btn_te" catchtap="next_jcx">
+            <text class="tet">
+                驾乘险微信免密代扣签约
+            </text>
+            <view class="anniu {{contractStatus_jcx !== 1 ? 'sure' : ''}}" catchtap="next">
+                去签约
+            </view>
+        </view>
+    </view>
+    <!--	操作部分结束-->
+    <!-- 底部悬浮按钮   立即办理 -->
+    <view class="floatButton">
+        <view class="handleImmediately {{contractStatus === 1 && contractStatus_jcx === 1 ? 'sure':''}}"
+            catchtap="validateCar">{{'签约完成，查看办理进度'}}
+        </view>
+    </view>
+    <popTipComp id="popTipComp"></popTipComp>
+</view>
+<privacy_popup></privacy_popup>

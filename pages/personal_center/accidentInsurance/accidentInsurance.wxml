@@ -1,0 +1,52 @@
+<wxs src='../../../utils/util.wxs' module='tools' />
+<view class="index">
+    <!-- 图片展示 -->
+    <view class="activity-content-img">
+        <view class="pseudoClass"  bindtap="openFullScreenImage" data-src="https://file.cyzl.com/g001/M03/74/5D/oYYBAGZYHliAeOAPAANHTQ7Mxd8021.png">点击查看大图</view>
+        <image  mode="widthFix" 
+            src="https://file.cyzl.com/g001/M03/74/60/oYYBAGZYI7yATbgwAAECL_t3M08089.png"></image>
+    </view>
+    <!-- 订单模块 -->
+    <view class="textTitle">保障记录</view>
+    <view class="module moduleOne" wx:for="{{roadRescueList}}" wx:key="index">
+        <view class="upper">
+            <view class="attrVal">
+                <view class="status" data-item="{{item}}" catchtap="btnLoad">
+                    {{item.roadRescueStatus === '1' ? '立即领取' : '申请中'}}
+                </view>
+                <view class="attr">申请理赔</view>
+            </view>
+        </view>
+        <view class="below">
+            <view class="nameStatus">
+                <!-- <rich-text class="name" nodes="{{item.text}}" />  -->
+                <view class="attr">驾乘意外身故</view>
+                <view class="val">
+                    {{item.orderNum}}
+                </view>
+            </view>
+            <view class="nameStatus">
+                <view class="attr">驾乘意外医疗</view>
+                <view class="val">
+                    {{item.orderNum}}
+                </view>
+            </view>
+            <view class="nameStatus">
+                <view class="attr">住院津贴</view>
+                <view class="val">
+                    {{item.orderNum}}
+                </view>
+            </view>
+            <view class="nameStatus">
+                <view class="attr">免赔300元后</view>
+                <view class="val">
+                    {{item.orderNum}}
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="iconfont empty">您当前没有道路救援订单</view>
+    <!-- 占位 -->
+    <view class="split" />
+</view>
+<privacy_popup></privacy_popup>
