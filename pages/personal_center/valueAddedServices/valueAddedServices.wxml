@@ -1,50 +1,27 @@
 <wxs src='../../../utils/util.wxs' module='tools' />
 <view class="index">
     <!-- 订单模块 -->
-    <view class="module moduleOne" wx:for="{{roadRescueList}}" wx:key="index">
-        <view class="upper">
-            <view class="attrVal">
-                <view class="attr">{{item.orderName}}</view>
-                <view class="iconfont status" data-item="{{item}}"  catchtap="btnLoad">
-                    {{item.roadRescueStatus === '1' ? '立即领取' : '申请中'}}
+    <view wx:if="{{isShow}}">
+        <view class="module moduleOne" wx:key="index" wx:for="{{roadRescueList}}" wx:key="index">
+            <view class="upper">
+                <view class="attrVal">
+                    <view class="attr">{{item.title}}</view>
+                    <view class="status iconfont" data-status="{{item.status}}" catchtap="btnLoad">{{item.status}}</view>
+                </view>
+                <view class="policyInfo">
+                    <view class="label">保单编号</view>
+                    <view class="value">{{item.policyNumber}}</view>
                 </view>
             </view>
-            <view class="textOrder">
-                <view class="attr">保单编号</view>
-                <view class="val">
-                    {{item.orderNum}}
-                </view>
-            </view>
-        </view>
-        <view class="below">
-            <view class="nameStatus">
-                <!-- <rich-text class="name" nodes="{{item.text}}" />  -->
-                <view class="attr">驾乘意外身故</view>
-                <view class="val">
-                    {{item.orderNum}}
-                </view>
-            </view>
-            <view class="nameStatus">
-                <view class="attr">驾乘意外医疗</view>
-                <view class="val">
-                    {{item.orderNum}}
-                </view>
-            </view>
-            <view class="nameStatus">
-                <view class="attr">住院津贴</view>
-                <view class="val">
-                    {{item.orderNum}}
-                </view>
-            </view>
-            <view class="nameStatus">
-                <view class="attr">免赔300元后</view>
-                <view class="val">
-                    {{item.orderNum}}
+            <view class="below">
+                <view class="coverageItem" wx:for="{{item.coverages}}" wx:key="key">
+                    <view class="label">{{item.label}}</view>
+                    <view class="value">{{item.value}}</view>
                 </view>
             </view>
         </view>
     </view>
-    <view class="iconfont empty">您当前没有道路救援订单</view>
+    <view class="iconfont empty" wx:else>当前暂无增值服务</view>
     <!-- 占位 -->
     <view class="split" />
 </view>

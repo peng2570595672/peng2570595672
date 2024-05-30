@@ -3,12 +3,11 @@
     <!-- 图片展示 -->
     <view class="activity-content-img">
         <view class="pseudoClass" bindtap="openFullScreenImage"
-            data-src="https://file.cyzl.com/g001/M03/74/5D/oYYBAGZYHliAeOAPAANHTQ7Mxd8021.png">点击查看大图</view>
-        <image mode="widthFix" src="https://file.cyzl.com/g001/M03/74/60/oYYBAGZYI7yATbgwAAECL_t3M08089.png"></image>
+            data-src="https://file.cyzl.com/g001/M03/74/8F/oYYBAGZYbliAJpCIAAJ86hnNVlQ418.png">点击查看大图</view>
+        <image mode="widthFix" src="https://file.cyzl.com/g001/M03/74/8F/oYYBAGZYbh-AbG3PAAEpzkrYWc8172.png"></image>
     </view>
     <!-- 订单模块 -->
-    <view class="textTitle" wx:if="{{roadRescueList.length}}">保障记录</view>
-    <view wx:if="{{roadRescueList.length}}">
+    <view wx:if="{{!roadRescueList.length}}">
         <view class="module moduleOne" wx:for="{{roadRescueList}}" wx:key="index">
             <view class="upper">
                 <view class="attrVal">

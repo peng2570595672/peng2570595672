@@ -6,31 +6,32 @@ Page({
      * 页面的初始数据
      */
     data: {
+        isShow: true, // 判断有无配置增值服务
         sourceOfServiceProvider: '1', // 服务商来源，举值:星星朗、天安保险，
         roadRescueList: [
             {
-                orderName: '驾乘意外险',
-                isShow: true,
-                status: 1,
-                text: `
-                驾乘意外身故 20万/座驾 <br/>
-                乘意外医疗 2万/座<br/>
-                住院津贴 50元/天<br/>
-                免赔300元后 90%赔付`,
-                orderNum: 'BRE321313'
+              title: '驾乘意外险',
+              status: 1,
+              policyNumber: '1234567890123',
+              coverages: [
+                { label: '驾乘意外身故', value: '20万/座' },
+                { label: '驾乘意外医疗', value: '2万/座' },
+                { label: '住院津贴', value: '50万/座' },
+                { label: '免赔300元后', value: '90%赔付' }
+              ]
             },
             {
-                orderName: '道路救援补贴',
-                isShow: true,
-                status: 2,
-                text: `
-                驾乘意外身故残疾 30万/座驾<br/>
-                乘意外医疗 3万/座<br/>
-                住院津贴 100元/天<br/>
-                免赔50元后 90%赔付`,
-                orderNum: 'B87g1313'
+              title: '道路救援',
+              status: 2,
+              policyNumber: '12332497890123',
+              coverages: [
+                { label: '7座及以下家庭自用私家车', value: '全年' },
+                { label: '提供非道路交通事故', value: '救援3次' },
+                { label: '每次救援费用不超过500元', value: '全年' },
+                { label: '累计救援服务费用1500元', value: '-' }
+              ]
             }
-        ]
+          ]
     },
 
     /**
@@ -41,9 +42,8 @@ Page({
     },
     // 点击“申请补贴” 跳转至 “在线客服”
     btnLoad (e) {
-        let item = e.currentTarget.dataset.item;
-        console.log('item',item);
-        util.go(`/pages/personal_center/accidentInsurance/accidentInsurance`);
+        let url = e.currentTarget.dataset.status === 1 ? 'accidentInsurance' : 'roadRelief';
+        util.go(`/pages/personal_center/${url}/${url}`);
     },
     /**
      * 生命周期函数--监听页面初次渲染完成
@@ -51,7 +51,25 @@ Page({
     onReady () {
 
     },
-
+    // 获取订单信息
+    getOrderInformation () {
+        util.showLoading();
+        let params = {
+            openId: app.globalData.openId
+        };
+        util.getDataFromServer('consumer/order/my-etc-list', params, () => {
+            util.hideLoading();
+        }, (res) => {
+            util.hideLoading();
+            if (res.code === 0) {
+                this.setData({
+                    roadRescueList: res.data.list
+                });
+            } else {
+                util.showToastNoIcon(res.message);
+            }
+        }, app.globalData.userInfo.accessToken);
+    },
     /**
      * 生命周期函数--监听页面显示
      */

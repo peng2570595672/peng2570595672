@@ -102,6 +102,7 @@
                 "membership_coupon/membership_coupon",
                 "valueAddedServices/valueAddedServices",
                 "accidentInsurance/accidentInsurance",
+                "roadRelief/roadRelief",
                 "cancel_order_succeed/cancel_order_succeed",
                 "order_details/order_details",
                 "order_instructions/order_instructions",
