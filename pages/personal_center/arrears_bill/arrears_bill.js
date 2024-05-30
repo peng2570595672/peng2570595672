@@ -7,6 +7,7 @@ Page({
 		enterSource: 0,// 是否是好车主
 		orderList: [],
 		vehicleList: [],
+		derateList: [],// 滞纳金减免数据列表(已排序)
 		failBillList: []
 	},
 	onShow () {
@@ -33,6 +34,7 @@ Page({
 			}
 			this.setData({
 				failBillList: [],
+				derateList: [],
 				orderList: obuStatusList
 			});
 			if (this.data.orderList.length === 1) {
@@ -160,24 +162,37 @@ Page({
 			if (res.code === 0) {
 				let total = 0;
 				let order = {};
+				let derateList = [];
 				res.data.map(item => {
 					const obj = app.globalData.myEtcList.find(item => item.vehPlates);
 					item.flowVersion = obj.flowVersion;
 					order.vehPlates = item.vehPlate;
+					item.etcPayMoney = item.totalMmout + (item.serviceMoney || 0) - (item.splitDeductedMoney || 0) - (item.deductServiceMoney || 0) - (item.refundMoney || 0) - (item.wxDiscountAmount || 0) - (item.discountMount || 0);
 					if (item.deductStatus === 2 || item.deductStatus === 10) {
-						total += item.totalMmout + (item.serviceMoney || 0) - (item.splitDeductedMoney || 0) - (item.deductServiceMoney || 0) - (item.refundMoney || 0) - (item.wxDiscountAmount || 0) - (item.discountMount || 0);
+						total += item.etcPayMoney;
 					}
 					if (item.passDeductStatus === 2 || item.passDeductStatus === 10) {
 						total += item.passServiceMoney || 0;
 					}
 					if (item.poundageFlag) { // 是否收取服务费
 						total += item.poundage || 0;
+						item.etcPayMoney += item.poundage || 0;
+					}
+					if (item.deductPoundage?.serviceMoney) { // 滞纳金减免金额
+						item.deductPoundage.serviceMoney = +item.deductPoundage.serviceMoney;
+						total -= item.deductPoundage.serviceMoney;
+						const date = new Date(item.deductPoundage.timestamp);
+						item.deductPoundage.times = util.formatTime(date);
+						derateList = derateList.concat(item.deductPoundage);
 					}
 				});
+				derateList.sort((a, b) => a.timestamp - b.timestamp);
 				order.total = total;
 				order.list = res.data;
 				this.data.failBillList.push(order);
+				this.data.derateList = this.data.derateList.concat(derateList);
 				this.setData({
+					derateList: this.data.derateList,
 					failBillList: this.data.failBillList
 				});
 				// let flag = this.data.failBillList.filter(item => (item.list.length > 0));
@@ -273,8 +288,10 @@ Page({
 						if (res.errMsg === 'requestPayment:ok') {
 							app.globalData.isArrearageData.isPayment = true;
 							this.setData({	// 清空原有的失败账单，再次用来存储最新的失败账单
-								failBillList: []
+								failBillList: [],
+								derateList: []
 							});
+							// this.removeDeductBill(idList);
 							this.getBillQuery(id);
 						} else {
 							util.showToastNoIcon('支付失败！');
@@ -312,6 +329,12 @@ Page({
 			this.data.vehicleList.map((item) => {
 				this.getFailBill(item);
 			});
+		}, app.globalData.userInfo.accessToken);
+	},
+	// 补缴成功后移除该减免账单
+	removeDeductBill (ids) {
+		util.getDataFromServer('consumer/etc/remove-deduct-bill', {ids}, () => {
+		}, () => {
 		}, app.globalData.userInfo.accessToken);
 	}
 });

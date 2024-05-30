@@ -89,7 +89,7 @@
                 </view>
                 <!-- 套餐 详情展示模块 -->
                 <view class="detailsInfo" wx:if="{{index === activeIndex ? isCloseUpperPart1 : isCloseUpperPart2 && index === isCloseUpperPart }}">
-                    <rich-text nodes="{{item.detail}}"></rich-text>
+                    <rich-text class="richText" nodes="{{item.detail}}"></rich-text>
                 </view>
             </view>
         </view>

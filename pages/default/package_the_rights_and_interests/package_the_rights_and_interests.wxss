@@ -284,6 +284,17 @@
   padding: 10rpx 0rpx;
   font-family: PingFangSC-Regular, PingFang SC;
 }
+.package .module .lowerpart .detailsInfo {
+  width: 100%;
+}
+.package .module .lowerpart .detailsInfo .richText {
+  width: 100%;
+}
+.package .module .lowerpart .detailsInfo .richText .wscnph,
+.package .module .lowerpart .detailsInfo .richText .image,
+.package .module .lowerpart .detailsInfo .richText .img {
+  width: 100%;
+}
 .package .moduleOne {
   margin-top: 38rpx;
 }

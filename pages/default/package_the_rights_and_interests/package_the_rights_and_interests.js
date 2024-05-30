@@ -164,7 +164,9 @@ Page({
                 listOfPackages: this.data.listOfPackages.concat(packages.List9901pro)
             });
         }
-
+        this.data.listOfPackages.map((item) => {
+            item.detail = item.detail.replace(/<img([\s\w"-=\/\.:;]+)/ig, '<img$1 class="img"');
+        });
         await this.queryOrder();
         // await this.getSwiperHeight();
         // 获取 套餐模块的高度
@@ -245,6 +247,7 @@ Page({
         if (result.code === 0) {
             try {
                 result.data.descriptionList = JSON.parse(result.data.description);
+                result.data.detail = result.data.detail.replace(/<img([\s\w"-=\/\.:;]+)/ig, '<img$1 class="img"');
             } catch (e) {
             }
             let data = result.data;
