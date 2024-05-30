@@ -154,7 +154,7 @@
   color: #f19c38;
 }
 .index .module {
-  margin: 42rpx;
+  margin: 20rpx 28rpx;
 }
 .index .module .tipPhone {
   width: 100%;
@@ -263,6 +263,7 @@
 .index .package {
   background-color: transparent;
   padding-bottom: 0 !important;
+  margin-top: 0rpx;
 }
 .index .package .module1 {
   width: 694rpx;

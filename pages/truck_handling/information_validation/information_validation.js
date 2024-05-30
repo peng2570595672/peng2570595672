@@ -534,7 +534,8 @@ Page({
 		});
 		wx.uma.trackEvent('truck_information_validation_next');
 		const checkVinInfo = this.data.checkVinInfo;
-		this.setData({isTraction: checkVinInfo.cllx === '专用车' || checkVinInfo.cllx === '半挂牵引车' || checkVinInfo.cllx === '半挂车' ? 1 : 0});
+		// this.setData({isTraction: checkVinInfo.cllx === '专用车' || checkVinInfo.cllx === '半挂牵引车' || checkVinInfo.cllx === '半挂车' ? 1 : 0});
+		this.setData({isTraction: face.vehicleType.includes('牵引') || face.vehicleType.includes('专用车') || face.vehicleType.includes('挂') ? 1 : 0});
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			dataType: '6',
