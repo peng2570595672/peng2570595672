@@ -126,6 +126,13 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "空发绑定激活页面",
+                    "pathName": "pages/empty_hair/order_inquiry/order_inquiry",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

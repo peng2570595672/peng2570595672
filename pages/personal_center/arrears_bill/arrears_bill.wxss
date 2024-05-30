@@ -87,6 +87,12 @@ page {
   border: 1rpx solid rgba(247,181,0,0.13);
   margin-left: 10rpx;
 }
+.my_order .order-list .bill-list .order-list-content .site > view.original-price {
+  margin-left: 10rpx;
+  font-size: 36rpx;
+  text-decoration: line-through;
+  color: #99999d;
+}
 .my_order .order-list .bill-list .order-list-content .order-list-bottom {
   display: flex;
   font-size: 24rpx;

@@ -1,21 +1,21 @@
 <view class="index">
     <view class="module module1">
         <view class="icon1"></view>
-        <view class="title"><text >车E宝\n0元</text></view>
+        <view class="title"><text >车E宝\n{{flag ? '' : '0元'}}</text></view>
     </view>
     <view class="module module2">
-        <view class="subTitle">【客户范围】</view>
+        <!-- <input type="number" class="code-input" placeholder="请输入手机号" maxlength="11" placeholder-class="placeholder" value="{{wxPhone}}" bindinput="testInput" /> -->
+        <view class="subTitle">【客户范围】 </view>
         <view class="text">全国客户</view>
         <view class="subTitle">【产品说明】</view>
-        <view class="text"><text >1.0元/年，产品办理立即生效，有效期一年，到期自动失效。退订次月失效，可通过"爱车服务"企业微信进行退订。产品退订后无法领取权益。
-            2.产品办理成功后可领取加油、打车等权益，权益每月自行领取。
-            3.关注"辽宁移动权益超市"微信公众号，回复“车E宝”进入领取专区领取。
-            4.每月客户可领取当期权益，过期不支持补领、补发。
-            5.具体权益内容、领取说明及使用方法以领取页实时展示为准。</text></view>
+        <view class="text">
+            <text wx:if="{{!flag}}">{{'1.0元/年，产品办理立即生效，有效期一年，到期自动失效。退订次月失效，可通过"爱车服务"企业微信进行退订。产品退订后无法领取权益。\n2.产品办理成功后可领取加油、打车等权益，权益每月自行领取。\n3.关注"辽宁移动权益超市"微信公众号，回复“车E宝”进入领取专区领取。\n4.每月客户可领取当期权益，过期不支持补领、补发。\n5.具体权益内容、领取说明及使用方法以领取页实时展示为准。'}}</text>
+            <text wx:else> {{'1.资费299元/年，产品办理立即生效，有效期一年，到期自动失效。\n2.退订次月失效，可通过“爱车服务”企业微信进行退订。\n3.产品办理成功后可享500元商城权益。'}}</text>
+        </view>
     </view>
     <view class="floatButton">
         <view class="handleImmediately {{available ? 'btn':''}}" catchtap="btnFunc">
-            {{status === 1 ? '办理产品' : status === 2 ? '办理中' : '立即激活'}}
+            {{status === 1 ? '办理产品' : status === 2 ? '办理中' : status === 3 ? '立即激活' : '下一步'}}
         </view>
     </view>
      <!-- 自定义出入方向的弹窗 -->

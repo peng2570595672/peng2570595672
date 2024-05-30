@@ -91,11 +91,9 @@
         </view>
     </view>
     <!-- 占位 -->
-    <view
-        class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}} {{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) ? 'isRPI' : ''}}">
-    </view>
+    <view class="split {{ isFade ? (activeIndex > tools.dataLen(listOfPackages)-3? 'bigSplit' : '') : 'littleSplit'}} {{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) ? 'isRPI' : ''}}"></view>
     <!-- 加购的权益包 -->
-    <view class="addEquityPackage {{listOfPackages[activeIndex].isRoadRescue ? 'addTwo' : ''}}"
+    <view class="addEquityPackage"
         wx:if="{{tools.dataLen(listOfPackages[activeIndex].rightsPackageIds) && isLoaded}}" data-type="5"
         data-index='{{activeIndex}}' catchtap="popDetail">
         <view class="imgOrName">

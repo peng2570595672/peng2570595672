@@ -58,9 +58,9 @@
            <view class="keyValue">
                <view class="attrName left">车辆类型</view>
                <view class="attrValue" bindtap="handleToast">
-                   <input class="input" type="text" value="{{checkVinInfo.cllx}}"
-                       disabled="{{Modifiable}}" bindinput="onInputChangedHandle" data-key="vehicleType" data-type="3"
-                       placeholder-class="input-placeholder" placeholder="{{Modifiable ? 'vin码上传后自动填充' : '请输入车辆类型'}}" />
+                   <input class="input" type="text" value="{{drivingLicenseFace.ocrObject.vehicleType}}"
+                       disabled bindinput="onInputChangedHandle" data-key="vehicleType" data-type="3"
+                       placeholder-class="input-placeholder" placeholder="请输入车辆类型" />
                </view>
            </view>
 

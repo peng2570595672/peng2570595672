@@ -252,7 +252,7 @@
                     <input type="text" placeholder="请输入验证码" maxlength="6" placeholder-class="placeholder" confirm-type="done" value="{{code}}" bindinput="codeValueChange"/>
                 </view>
             </view>
-            <view class="btn {{isBtn ? 'yesBtn' : 'noBtn'}}" catchtap="cheEBaoHandle">{{argObj.btnText}}</view>
+            <view class="btn {{code.length > 5 ? 'yesBtn' : 'noBtn'}}" catchtap="cheEBaoHandle">{{argObj.btnText}}</view>
         </view>
     </view>
 </view>

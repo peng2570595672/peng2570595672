@@ -444,19 +444,19 @@ Page({
 	},
 	goAgreementPage (e) {
 		console.log('hahahh',e);
-        let item5 = e.currentTarget.dataset.item;
-        if (item5.contentType === 1) {
-            wx.navigateTo({
-                url: '/pages/agreement_documents/background_agreement/background_agreement',
-                success: function (res) {
-                    // 通过eventChannel向被打开页面传送数据
-                    res.eventChannel.emit('acceptDataFromOpenerPage', { data: item5 });
-                }
-            });
-        } else { // 打开pdf
-            util.openPdf(item5.content, item5.category);
-        }
-    },
+		let item5 = e.currentTarget.dataset.item;
+		if (item5.contentType === 1) {
+			wx.navigateTo({
+				url: '/pages/agreement_documents/background_agreement/background_agreement',
+				success: function (res) {
+					// 通过eventChannel向被打开页面传送数据
+					res.eventChannel.emit('acceptDataFromOpenerPage', { data: item5 });
+				}
+			});
+		} else { // 打开pdf
+			util.openPdf(item5.content, item5.category);
+		}
+	},
 	// 省市区选择
 	onPickerChangedHandle (e) {
 		console.log(e);
@@ -1034,14 +1034,18 @@ Page({
 		});
 		if (!res) return;
 		this.setData({ isRequest: false });
+		let rightsPackageIdArray = [];
 		let addEquity = this.data.equityListMap.addEquityList[this.data.choiceIndex];	// 加购权益包
+		if (addEquity.aepIndex !== -1) { // 加购数组
+			rightsPackageIdArray.push(addEquity.subData[addEquity.aepIndex].id);
+		}
 		let params = {
 			orderId: app.globalData.orderInfo.orderId, // 订单id
 			shopId: this.data.listOfPackages[this.data.choiceIndex].shopId || app.globalData.otherPlatformsServiceProvidersId, // 商户id
 			dataType: '3', // 需要提交的数据类型(可多选) 1:订单主表信息（车牌号，颜色）, 2:收货地址, 3:选择套餐信息（id）, 4:微信实名信息，5:获取银行卡信息，6:行驶证信息，7:车头照，8:车主身份证信息, 9-营业执照
 			dataComplete: 0, // 订单资料是否已完善 1-是，0-否
 			shopProductId: this.data.listOfPackages[this.data.choiceIndex].shopProductId,
-			rightsPackageId: addEquity.aepIndex !== -1 ? addEquity.subData[addEquity.aepIndex].id : '',
+			rightsPackageIdArray: rightsPackageIdArray, // 加购权益包
 			areaCode: app.globalData.newPackagePageData?.areaCode || '0'
 		};
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);

@@ -1,7 +1,8 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
 <!--提示开始-->
 <view class="prompt">
-	<view>持续欠款将按日产生违约金，且影响高速通行，请尽快补缴</view>
+	<view wx:if="{{!derateList.length}}">持续欠款将按日产生违约金，且影响高速通行，请尽快补缴</view>
+	<view wx:else>已限时减免违约金{{tools.parseNum((derateList[0].serviceMoney)/100)}}元，限时减免将于{{derateList[0].times}}失效，请尽快完成补缴</view>
 </view>
 <!--提示结束-->
 <view class="my_order">
@@ -22,12 +23,13 @@
 						<view class="license-plate">{{item.vehPlate}}<text>[高速扣费]</text></view>
 						<view class="fail-money">
 							<!--{{tools.parseNum((item.etcMoney + item.serviceMoney  - (item.splitDeductedMoney || 0))/100)}}-->
-							{{(item.totalMmout + item.serviceMoney + (item.poundageFlag ? item.poundage || 0 : 0)  - (item.wxDiscountAmount || 0) - (item.discountMount || 0) - (item.refundMoney || 0) - (item.splitDeductedMoney || 0))/100}}
+                            {{tools.parseNum((item.etcPayMoney - ((item.deductPoundage && item.deductPoundage.serviceMoney) ? item.deductPoundage.serviceMoney : 0))/100)}}
 						</view>
 					</view>
 					<view class="site">
 						<view>{{item.inStationName}}<text class="iconfont"></text>{{item.stationName ? item.stationName : item.outStationName}}</view>
 						<view class="spilt-deductions" wx:if="{{item.splitState && item.splitState === 1}}">拆分扣款</view>
+						<view class="original-price" wx:if="{{item.deductPoundage && item.deductPoundage.serviceMoney}}">{{tools.parseNum((item.etcPayMoney)/100)}}</view>
 					</view>
 					<view class="order-list-bottom">
 						<view class="accounting-time">出账时间：{{tools.substring(item.addTime,0,16)}}</view>

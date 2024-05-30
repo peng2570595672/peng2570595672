@@ -11,8 +11,10 @@ Page({
 		loginInfo: {},
 		mobilePhoneTips: '',
 		verifyCodeTips: '',
+		sourceOrderIdTips: '',
 		formData: {
 			mobilePhone: '',
+			sourceOrderId: '',
 			verifyCode: ''
 		}, // 提交数据
 		identifyingCode: '获取验证码',
@@ -140,9 +142,11 @@ Page({
 		isOk = isOk && /^1[0-9]{10}$/.test(formData.mobilePhone);
 		isOk = isOk && formData.verifyCode && formData.verifyCode.length === 6;
 		isOk = isOk && this.data.isAgreement;
+		isOk = isOk && formData.sourceOrderId;
 		this.setData({
 			mobilePhoneTips: key === 'mobilePhone' ? /^1[0-9]{10}$/.test(formData.mobilePhone) ? '' : '*手机号不正确' : '',
 			verifyCodeTips: key === 'verifyCode' ? formData.verifyCode.length === 6 ? '' : '*验证码不正确' : '',
+			sourceOrderIdTips: key === 'sourceOrderId' ? !formData.sourceOrderId ? '' : '*电商订单号不能为空' : '',
 			available: isOk
 		});
 	},
