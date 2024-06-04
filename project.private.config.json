@@ -4,6 +4,55 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_order/my_order",
+                    "query": "isCheckTwoPercent=false",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/order_details/order_details",
+                    "query": "id=1243263895643099149&channel=1&month=202405",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "activities/pages/activity_icbc_forty_five_theme/index",
+                    "pathName": "pingan/pages/ChooseBank/ChooseBank",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/after_sales/index/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/personal_center/arrears_bill/arrears_bill",
+                    "query": "source=qinghai",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "pages/Home/Home",
+                    "pathName": "pages/account_management/account_details/account_details",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "空发绑定激活页面",
+                    "pathName": "pages/empty_hair/order_inquiry/order_inquiry",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "空发填写页",
                     "pathName": "pages/empty_hair/receiving_address/receiving_address",
                     "query": "shopId=1072188767418851328",
@@ -48,12 +97,6 @@
                     "scene": null
                 },
                 {
-                    "name": "activities/pages/activity_icbc_forty_five_theme/index",
-                    "pathName": "activities/pages/activity_icbc_forty_five_theme/index",
-                    "query": "shareId=1235556",
-                    "scene": null
-                },
-                {
                     "name": "城市服务",
                     "pathName": "CitiesServices/pages/CitiesServices/CitiesServices",
                     "query": "",
@@ -90,12 +133,6 @@
                     "scene": null
                 },
                 {
-                    "name": "pages/Home/Home",
-                    "pathName": "pages/Home/Home",
-                    "query": "officialChannelId=645937022279614464",
-                    "scene": null
-                },
-                {
                     "name": "货车",
                     "pathName": "pages/truck_handling/index/index",
                     "query": "",
@@ -123,13 +160,6 @@
                 {
                     "name": "去申卡",
                     "pathName": "pages/bank_card/go_to_shenka/go_to_shenka",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "空发绑定激活页面",
-                    "pathName": "pages/empty_hair/order_inquiry/order_inquiry",
                     "query": "",
                     "launchMode": "default",
                     "scene": null

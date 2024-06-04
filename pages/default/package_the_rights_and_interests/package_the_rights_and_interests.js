@@ -1,4 +1,4 @@
-import { thirdContractSigning } from '../../../utils/utils';
+import {thirdContractSigning} from '../../../utils/utils';
 
 /**
  * @author 老刘
@@ -258,6 +258,9 @@ Page({
                 listOfPackages: [data]
             });
             this.getNodeHeight(this.data.listOfPackages.length);
+            // 已绑定的套餐,自动展开详情
+            const info = {currentTarget: {dataset: {index: [0, false, 0]}}};
+            this.btnOpenOrOff(info);
         } else {
             util.showToastNoIcon(result.message);
         }

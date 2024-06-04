@@ -191,10 +191,10 @@ Page({
 			if (isToast) util.showToastNoIcon('请上传ETC设备图片！');
 			return false;
 		}
-		if (!this.data.formData.logisticsNo) {
-			if (isToast) util.showToastNoIcon('请输入快递单号！');
-			return false;
-		}
+		// if (!this.data.formData.logisticsNo) {
+		// 	if (isToast) util.showToastNoIcon('请输入快递单号！');
+		// 	return false;
+		// }
 		return true;
 	},
 	// 提交
