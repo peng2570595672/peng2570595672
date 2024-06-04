@@ -200,7 +200,7 @@ Page({
 				}
 				if (list[0].vehPlate) {
 					app.globalData.orderInfo.orderId = list[0].orderId;
-					if (!list[0].isOwner && list[0].orderType === 71 && list[0].payStatus !== -1) {
+					if (!list[0].isOwner && list[0].orderType === 71) {	// && list[0].payStatus !== -1
 						util.go('/pages/default/package_the_rights_and_interests/package_the_rights_and_interests?emptyHairOrder=true');
 						return;
 					}

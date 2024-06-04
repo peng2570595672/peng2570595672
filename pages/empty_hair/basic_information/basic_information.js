@@ -132,10 +132,10 @@ Page({
 		});
 		if (result.code === 0) {
 			app.globalData.handledByTelephone = this.data.mobilePhone;
-			if (this.data.orderInfo.orderType === 71 && this.data.orderInfo.payStatus === -1) {	// 电商空发无需支付时，不用进入套餐选择页
-				util.go('/pages/default/information_list/information_list');
-				return;
-			}
+			// if (this.data.orderInfo.orderType === 71 && this.data.orderInfo.payStatus === -1) {	// 电商空发无需支付时，不用进入套餐选择页
+			// 	util.go('/pages/default/information_list/information_list');
+			// 	return;
+			// }
 			util.go('/pages/default/package_the_rights_and_interests/package_the_rights_and_interests');
 		} else {
 			util.showToastNoIcon(result.message);
