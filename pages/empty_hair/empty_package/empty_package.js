@@ -510,7 +510,7 @@ Page({
             util.showToastNoIcon('请选择一个权益包');
             return;
         }
-        // // 判断是否是 权益券额套餐模式 ，如果是再判断以前是否有过办理，如果有则弹窗提示，并且不执行后面流程
+        // // 判断是否是 商城权益金套餐模式 ，如果是再判断以前是否有过办理，如果有则弹窗提示，并且不执行后面流程
         if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4 && this.data.shopProductId) {
             if (await this.handlEquityLimit()) {
                 return;
@@ -589,7 +589,7 @@ Page({
                 orderId: result.data.orderId // 订单id
             });
             if (!res) return;
-            // // 判断是否是 权益券额套餐模式 ，如果是再判断以前是否有过办理（ > 5个），如果有则弹窗提示，并且不执行后面流程
+            // // 判断是否是 商城权益金套餐模式 ，如果是再判断以前是否有过办理（ > 5个），如果有则弹窗提示，并且不执行后面流程
             if (this.data.listOfPackages[this.data.choiceIndex].pledgeType === 4) {
                 if (await this.handlEquityLimit()) {
                     return;

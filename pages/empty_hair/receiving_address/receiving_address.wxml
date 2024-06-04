@@ -55,7 +55,7 @@
                         <view class="name">{{'第五代设备信息'}}</view>
                         <view class="detail" data-type="1" data-index="{{index}}" catchtap="popDetail">详情</view>
                     </view>
-                    <!-- 默认权益包（加赠）serviceFeeSendType: 综合服务费发放类型: 1.综合服务费券额，2.权益包 -->
+                    <!-- 默认权益包（加赠）serviceFeeSendType: 综合服务费发放类型: 1.综合服务费商城权益金，2.权益包 -->
                     <view class="utilModlue"
                         wx:if="{{tools.dataLen(item.rightsPackageId) || (item.serviceFeeType === 1 && item.serviceFeeSendType === 2)}}">
                         <view class="name">
@@ -66,7 +66,7 @@
                         </view>
                         <view class="detail" data-type="2" data-index="{{index}}" catchtap="popDetail">详情</view>
                     </view>
-                    <!-- （券额/权益包）权益商城 -->
+                    <!-- （商城权益金/权益包）权益商城 -->
                     <view class="utilModlue"
                         wx:if="{{(item.couponAmount > 0 && item.pledgeType === 4) || (item.serviceFeeType === 1 && item.serviceFeeSendType === 1 && item.serviceFeeAmount > 0)}}">
                         <view class="name">

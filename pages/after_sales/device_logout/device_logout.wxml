@@ -60,8 +60,8 @@
                     <view class="addImg" wx:else data-type="1" bindtap='handleUpload'>上传剪卡图</view>
                 </view>
                 <view class="subTips">
-                    <view>请上传设备图片需含有ETC设备编号</view>
-                    <view class="example" bindtap="handleExample" data-type="2">查看示例</view>
+                    <view>注销前请先销毁设备，并上传销毁的设备图片</view>
+<!--                    <view class="example" bindtap="handleExample" data-type="2">查看示例</view>-->
                 </view>
                 <view class="uploadImg equipmentImg {{uploaderList.length < 8 ? 'uploadImgOther' : ''}}">
                     <view class='uploaderItem' wx:for="{{uploaderList}}" wx:key="index">
@@ -74,7 +74,7 @@
                 </view>
             </view>
         </view>
-        <view class="inputItem">
+        <view class="inputItem" wx:if="{{false}}">
             <view class="label">快递单号</view>
             <view class="val">
                 <input class="input" type="text" value="{{formData.logisticsNo}}"
@@ -82,7 +82,7 @@
                        placeholder-class="input-placeholder" placeholder="请输入快递单号" />
             </view>
         </view>
-        <view class="deliveryAddress">
+        <view class="deliveryAddress" wx:if="{{false}}">
             <view class="subTitle">请将需要注销的设备邮寄至以下地址</view>
             <view class="deliveryInfo">
                 <view class="userInfo">

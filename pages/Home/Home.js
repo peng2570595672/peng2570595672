@@ -186,7 +186,7 @@ Page({
         interval1: 5000, // 轮播图切换时间
         moduleFourList: [], // 广告banner列表
         whetherToStay: false, // 用于控制显示弹窗时，最底层页面禁止不动
-        isEquityRights: app.globalData.isEquityRights, // 是否是权益券额用户
+        isEquityRights: app.globalData.isEquityRights, // 是否是商城权益金用户
         isShowHandle: true, // 是否显示办理状态栏
         isBail: false, // 是否有保证金退回的订单（false: 没有，true: 有）
         PingAn: false, // 是否展示平安获客banner,
@@ -287,7 +287,7 @@ Page({
             bannerList.sort(this.compare('sort')); // 排序
             // 账单、权益、发票、在线 模块
             let funcListOne = data.importantFuncConfig.funcs.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime));
-            // visibleUser: 1-普通用户 2-ETC+PLUS用户(百二权益用户) 3-权益券额用户 组合判断,如[1,2,3]->表示全部可见
+            // visibleUser: 1-普通用户 2-ETC+PLUS用户(百二权益用户) 3-商城权益金用户 组合判断,如[1,2,3]->表示全部可见
             funcListOne.map(item => {
                 let arr1 = item.visibleUser;
                 // item.isShow = arr1.length === 3 ? true : (arr1.indexOf(2) !== -1 && app.globalData.isVip) ? true : (arr1.indexOf(3) !== -1 && app.globalData.isEquityRights > 0) ? true : (arr1.indexOf(1) !== -1 && !app.globalData.isVip && app.globalData.isEquityRights === 0) ? true : false;
@@ -1012,7 +1012,7 @@ Page({
                         this.selectComponent('#popTipComp').show({
                             type: 'xinKeUseer',
                             title: '提示',
-                            content: `因ETC微信免密代扣渠道更新，您车牌${carList}需解约后重新签约，5月31日前未完成签约，将影响车辆ETC的使用及通行，完成后套餐权益不变可正常使用。解约路径:关注【微信车主服务】公众号-车主服务-我的车牌-删除后-进入ETC+小程序-恢复签约。若有疑问，也可拨打客服电话：4006680996。`,
+                            content: `因ETC微信免密代扣渠道更新，您车牌${carList}需解约后重新签约，因超时未签约将影响车辆ETC的使用及通行。需恢复正常请按以下流程操作:关注【微信车主服务】公众号-车主服务-我的车牌-删除后-进入ETC+小程序-恢复签约。若有疑问，也可拨打客服电话：4006680996。`,
                             btnconfirm: '查看操作详情',
                             callBack: () => {
                                 util.go('/pages/default/escalation_process/escalation_process');

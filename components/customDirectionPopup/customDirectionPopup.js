@@ -43,7 +43,7 @@ Component({
         noSliding: false, // 是否禁止底层页面滑动
 
         // 设备激活 ---start ---
-        passTicketList: [ // money: 金额/券额, num： 数量, isEquity：是否是券额
+        passTicketList: [ // money: 金额/商城权益金, num： 数量, isEquity：是否是商城权益金
             {money: 10,num: 12,isEquity: false,content: '满40元可用'},
             {money: 100,num: 1,isEquity: true,content: '权益商城抵扣券'}
         ],
@@ -296,7 +296,7 @@ Component({
                 util.go(`/pages/device_upgrade/fill_in_information/fill_in_information?orderId=${deviceOrder[0].id}`);
                 return;
             }
-            // 判断是否是 权益券额套餐模式 ，如果是再判断以前是否有过办理，如果有则弹窗提示，并且不执行后面流程
+            // 判断是否是 商城权益金套餐模式 ，如果是再判断以前是否有过办理，如果有则弹窗提示，并且不执行后面流程
             if (this.data.shopProductInfo.pledgeType === 4) {
                 if (await this.handlEquityLimit(deviceOrder[0]?.id || this.data.carList[0]?.id)) {
                     return;
@@ -428,7 +428,7 @@ Component({
                     orderId: result.data.orderId // 订单id
                 });
                 if (!res) return;
-                // // 判断是否是 权益券额套餐模式 ，如果是再判断以前是否有过办理（ > 5个），如果有则弹窗提示，并且不执行后面流程
+                // // 判断是否是 商城权益金套餐模式 ，如果是再判断以前是否有过办理（ > 5个），如果有则弹窗提示，并且不执行后面流程
                 if (this.data.carList[0].pledgeType === 4) {
                     if (await this.handlEquityLimit(result.data.orderId)) {
                         return;

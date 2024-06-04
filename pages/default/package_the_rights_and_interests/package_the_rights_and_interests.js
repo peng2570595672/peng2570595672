@@ -1,4 +1,4 @@
-import { thirdContractSigning } from '../../../utils/utils';
+import {thirdContractSigning} from '../../../utils/utils';
 
 /**
  * @author 老刘
@@ -258,6 +258,9 @@ Page({
                 listOfPackages: [data]
             });
             this.getNodeHeight(this.data.listOfPackages.length);
+            // 已绑定的套餐,自动展开详情
+            const info = {currentTarget: {dataset: {index: [0, false, 0]}}};
+            this.btnOpenOrOff(info);
         } else {
             util.showToastNoIcon(result.message);
         }
@@ -691,7 +694,7 @@ Page({
             return;
         }
         if (obj1.pledgeType === 4) {
-            // 判断是否是 权益券额套餐模式 ，如果是再判断以前是否有过办理，如果有则弹窗提示，并且不执行后面流程
+            // 判断是否是 商城权益金套餐模式 ，如果是再判断以前是否有过办理，如果有则弹窗提示，并且不执行后面流程
             const result = await util.getDataFromServersV2('consumer/order/precharge/list', {
                 orderId: app.globalData.orderInfo.orderId // 订单id
             });
