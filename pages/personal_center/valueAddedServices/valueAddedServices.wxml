@@ -2,19 +2,21 @@
 <view class="index">
     <!-- 订单模块 -->
     <view wx:if="{{isShow}}">
-        <view class="module moduleOne" wx:key="index" wx:for="{{roadRescueList}}" wx:key="index">
+        <view class="module moduleOne" wx:for="{{roadRescueList1}}" wx:key="index">
             <view class="upper">
                 <view class="attrVal">
                     <view class="attr">{{item.title}}</view>
-                    <view class="status iconfont" data-status="{{item.status}}" catchtap="btnLoad">{{item.status}}</view>
+                    <view class="status iconfont" data-status="{{item.status}}"  data-url="{{item.url}}" catchtap="btnLoad">
+                        {{item.status === 1 ? '保障中' : '申请中'}}
+                    </view>
                 </view>
                 <view class="policyInfo">
-                    <view class="label">保单编号</view>
+                    <view class="label">{{item.name}}</view>
                     <view class="value">{{item.policyNumber}}</view>
                 </view>
             </view>
             <view class="below">
-                <view class="coverageItem" wx:for="{{item.coverages}}" wx:key="key">
+                <view class="coverageItem" wx:for="{{item.coverages}}" wx:key="index">
                     <view class="label">{{item.label}}</view>
                     <view class="value">{{item.value}}</view>
                 </view>

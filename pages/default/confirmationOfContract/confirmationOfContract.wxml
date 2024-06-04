@@ -15,16 +15,16 @@
             <text>
                 通行费代扣签约
             </text>
-            <view class="anniu {{contractStatus !== 1 ? 'sure' : ''}}" catchtap="next">
-                去签约
+            <view class="anniu {{contractStatus !== 1 ? 'sure' : ''}}" catchtap="next" data-type="{{1}}">
+                {{contractStatus !== 1 ? '去签约' : '已签约'}}
             </view>
         </view>
         <view class="btn_te" catchtap="next_jcx">
             <text class="tet">
                 驾乘险微信免密代扣签约
             </text>
-            <view class="anniu {{contractStatus_jcx !== 1 ? 'sure' : ''}}" catchtap="next">
-                去签约
+            <view class="anniu {{contractStatus_jcx !== 1 ? 'sure' : ''}}" catchtap="next" data-type="{{2}}">
+                {{contractStatus_jcx !== 1 ? '去签约' : '已签约'}}
             </view>
         </view>
     </view>

@@ -11,12 +11,12 @@ Page({
                 roadRescueStatus: '1',
                 details: [
                     {
-                        label: '驾乘意外身故',
+                        label: '保障时间',
                         time: '2024-05-20 14:10:32',
                         highway: '2024-05-20 14:10:32'
                     },
                     {
-                        label: '驾乘意外医疗',
+                        label: '通行路段',
                         time: '广深高速',
                         highway: '贵州高速'
                     },
@@ -35,27 +35,22 @@ Page({
                 roadRescueStatus: '1',
                 details: [
                     {
-                        label: '驾乘意外身故',
+                        label: '保障时间',
                         time: '2024-05-20 14:10:32',
                         highway: '2024-05-20 14:10:32'
                     },
                     {
-                        label: '驾乘意外医疗',
+                        label: '通行路段',
                         time: '广深高速',
                         highway: '贵州高速'
                     },
                     {
-                        label: '住院津贴',
-                        time: '1000元/天',
-                        highway: ''
-                    },
-                    {
-                        label: '免赔300元后',
+                        label: '权益服务费',
                         time: '',
                         highway: '90%赔付'
                     },
                     {
-                        label: '增值服务',
+                        label: '计算方式',
                         time: '',
                         highway: '免费拖车100公里'
                     }
@@ -87,11 +82,19 @@ Page({
         let item = e.currentTarget.dataset.item;
         console.log('item', item);
     },
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady () {
-
+    cancelHandle () {
+        console.log('拨号弹框的回调');
+    },
+    next () {
+        this.selectComponent('#popTipComp').show({ // 提示弹窗组件的标题和内容
+            type: 'accidentInsurance',
+            imgSrc: 'https://file.cyzl.com/g001/M03/74/60/oYYBAGZYI7yATbgwAAECL_t3M08089.png', // 展示图
+            viewImgSrc: 'https://file.cyzl.com/g001/M03/74/5D/oYYBAGZYHliAeOAPAANHTQ7Mxd8021.png',// 放大预览图
+            title: '驾乘意外险',
+            btncancel: '关闭',
+            btnconfirm: '拨打保险电话',
+            content: '系统将为您呼叫驾乘意外险保障服务商的电话请根据服务商的坐席电话指引，完成理赔流程，确认呼叫请点击下方【拨打理赔电话】。'
+        });
     },
 
     /**

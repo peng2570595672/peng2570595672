@@ -542,6 +542,12 @@ Page({
 			util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
 			return;
 		}
+		// 多签，模式 确认页面
+		if (obj.productProcess === 9) {
+			// 去签约确认页面
+			util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
+			return;
+		}
 		if (obj.contractStatus === 2) {
 			wx.uma.trackEvent('etc_detail_for_resume_signing');
 			// 恢复签约
@@ -684,6 +690,12 @@ Page({
 		// 签约前判断车牌号信息是否完整 ==>平安空发激活补充车牌证件信息
 		if (orderInfo.vehPlates.length > 8) {
 			return util.go(`/pages/${path}/receiving_address/receiving_address?perfect=1&shopId=${orderInfo.shopId}&orderId=${orderInfo.id}`);
+		}
+		// 多签，模式 确认页面
+		if (orderInfo.productProcess === 9) { // 设备升级
+			// 去签约确认页面
+			util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
+			return;
 		}
 		util.go(`/pages/${path}/information_list/information_list`);
 	},

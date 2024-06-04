@@ -153,6 +153,36 @@
   text-align: center;
   line-height: 70rpx;
 }
+.alert-for-not-finished-content .moduleTwo .title {
+  line-height: 60rpx;
+  height: 60rpx;
+  font-size: 44rpx;
+}
+.alert-for-not-finished-content .moduleTwo .activity-content-img {
+  position: relative;
+}
+.alert-for-not-finished-content .moduleTwo .activity-content-img .pseudoClass {
+  display: block;
+  position: absolute;
+  bottom: 30rpx;
+  left: 25rpx;
+  width: 150rpx;
+  height: 40rpx;
+  background-color: rgba(0,0,0,0.4);
+  text-align: center;
+  line-height: 40rpx;
+  font-size: 20rpx;
+  color: #fff;
+  border-radius: 26rpx;
+}
+.alert-for-not-finished-content .moduleTwo .activity-content-img image {
+  display: block;
+  margin: 20rpx auto;
+}
+.alert-for-not-finished-content .moduleTwo .contant {
+  line-height: 46rpx;
+  font-size: 28rpx;
+}
 .alert-for-not-finished-content .moduleTwo .bottomBtn {
   display: flex;
   font-size: 36rpx;
@@ -263,7 +293,7 @@
   top: -30%;
   left: 0;
   width: 100%;
-  height: 35%;
+  height: 40%;
   background-image: linear-gradient(to bottom, transparent, #fff);
 }
 .alert-for-not-finished-content .countdownPopUpBox .bottomBtn .cancel {
@@ -632,28 +662,12 @@
 .alert-for-not-finished-content .module2 .close {
   bottom: -120rpx;
 }
-@-webkit-keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
 @keyframes fadeIn {
   from {
     opacity: 0;
   }
   to {
     opacity: 1;
-  }
-}
-@-webkit-keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
   }
 }
 @keyframes fadeOut {
@@ -664,34 +678,14 @@
     opacity: 0;
   }
 }
-@-webkit-keyframes zoomIn {
-  from {
-    opacity: 0;
-    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
-  }
-  50% {
-    opacity: 1;
-  }
-}
 @keyframes zoomIn {
   from {
     opacity: 0;
+    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
     transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
   }
   50% {
     opacity: 1;
-  }
-}
-@-webkit-keyframes zoomOut {
-  from {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
-  }
-  to {
-    opacity: 0;
   }
 }
 @keyframes zoomOut {
@@ -700,6 +694,7 @@
   }
   50% {
     opacity: 0;
+    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
     transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
   }
   to {
@@ -725,6 +720,7 @@
 @keyframes zoomIn {
   from {
     opacity: 0;
+    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
     transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
   }
   50% {
@@ -737,6 +733,7 @@
   }
   50% {
     opacity: 0;
+    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
     transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
   }
   to {
