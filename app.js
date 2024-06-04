@@ -335,7 +335,9 @@ App({
 			res.path === 'pages/default/information_validation/information_validation' ||
 			res.path === 'pages/default/obucarquer/obucarquer' ||
 			res.path === 'pages/default/processing_progress/processing_progress' ||
-			res.path === 'pages/personal_center/signing_other_platforms/signing_other_platforms'
+			res.path === 'pages/personal_center/signing_other_platforms/signing_other_platforms' ||
+			res.path === 'pages/default/confirmationOfContract/confirmationOfContract'
+
 		) {
 			// 解决安卓平台上传行驶证自动返回上一页
 			return;

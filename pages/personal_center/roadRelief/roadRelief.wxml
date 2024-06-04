@@ -4,31 +4,45 @@
     <view class="activity-content-img">
         <view class="pseudoClass" bindtap="openFullScreenImage"
             data-src="https://file.cyzl.com/g001/M03/74/8F/oYYBAGZYbliAJpCIAAJ86hnNVlQ418.png">点击查看大图</view>
-        <image mode="widthFix" src="https://file.cyzl.com/g001/M03/74/8F/oYYBAGZYbh-AbG3PAAEpzkrYWc8172.png"></image>
+        <image mode="widthFix" src="https://file.cyzl.com/g001/M03/74/8F/oYYBAGZYbliAJpCIAAJ86hnNVlQ418.png"></image>
     </view>
-    <!-- 订单模块 -->
-    <view wx:if="{{!roadRescueList.length}}">
-        <view class="module moduleOne" wx:for="{{roadRescueList}}" wx:key="index">
-            <view class="upper">
-                <view class="attrVal">
-                    <view class="status" data-item="{{item}}" catchtap="btnLoad">
-                        {{item.roadRescueStatus === '1' ? '立即领取' : '申请中'}}
-                    </view>
-                    <view class="attr">申请理赔</view>
-                </view>
-            </view>
-            <view class="below">
-                <view class="nameStatus" wx:for="{{item.details}}" wx:key="index">
-                    <view class="attr">{{item.label}}</view>
-                    <view class="val">
-                        <view>{{item.time}}</view>
-                        <view>{{item.highway}}</view>
-                    </view>
-                </view>
-            </view>
+    <!-- 申领条件 -->
+    <view class="module">
+        <view class="upper">
+            申领条件
+        </view>
+        <view class="content">
+            <view class="item">1.拨打12122电话，联系高速道路救援客服施救;</view>
+            <view class="item">2.确保人身安全前提下，收集事故现场图片，及拖车收据/发示;</view>
+            <view class="item">3.根捉保喷方的客服电话指引，完成数援补贴由领。(保陪方联系方式:宋涛1398362945、冯丹13996224038)</view>
         </view>
     </view>
-    <view class="iconfont empty" wx:else>您当前没有道路救援订单</view>
+    <!-- 申领流程 -->
+    <view class="module">
+        <view class="upper">
+            申领流程
+        </view>
+        <view class="content">
+            <view class="item">
+                1、领取人驾驶或乘坐ETC绑定车牌号的7座及以下的家庭自用类型车辆时，因车辆自身机械或电子系统故障导致的非事故道路救援，或因驾驶员错误导致的非事故道路救援(如缺少燃油或车辆电力导致车辆无法正常行驶、爆胎等)，可申请救援服务补贴报销;
+            </view>
+            <view class="item">2、全年提供非事故道路救援服务3次，每次救援费用不超过500元，全年累计教援服务费用1500元。</view>
+        </view>
+    </view>
+    <!-- 申报材料 -->
+    <view class="module lastNth">
+        <view class="upper">
+            申报材料
+        </view>
+        <view class="content">
+            <view class="item">1.车辆故障现场照片(车辆的前后左右角度拍照);</view>
+            <view class="item">2.故障现场拖起照片、拖车收据/发票。</view>
+        </view>
+    </view>
+    <view class="floatButton">
+        <view class="handleImmediately" catchtap="validateCar">拨打报案电话</view>
+    </view>
+    <!-- <view class="iconfont empty" wx:else>您当前没有道路救援订单</view> -->
     <!-- 占位 -->
     <view class="split" />
 </view>

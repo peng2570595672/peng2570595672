@@ -110,6 +110,10 @@
   height: 115rpx;
   line-height: 115rpx;
 }
+.order_details .deduction-details .line {
+  margin: 0 -32rpx -32rpx;
+  height: 8rpx;
+}
 .order_details .deduction-details-truck {
   background: #fff;
   padding: 0 32rpx 32rpx;

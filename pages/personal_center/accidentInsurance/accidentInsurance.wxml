@@ -15,15 +15,15 @@
                     <view class="status" data-item="{{item}}" catchtap="btnLoad">
                         {{item.roadRescueStatus === '1' ? '立即领取' : '申请中'}}
                     </view>
-                    <view class="attr">申请理赔</view>
+                    <view class="attr" catchtap = "next">申请理赔</view>
                 </view>
             </view>
             <view class="below">
                 <view class="nameStatus" wx:for="{{item.details}}" wx:key="index">
                     <view class="attr">{{item.label}}</view>
                     <view class="val">
-                        <view>{{item.time}}</view>
-                        <view>{{item.highway}}</view>
+                        <view wx:if="{{item.time}}">{{item.time}}至{{item.highway}}</view>
+                        <view wx:else>{{item.highway}}</view>
                     </view>
                 </view>
             </view>
@@ -33,4 +33,6 @@
     <!-- 占位 -->
     <view class="split" />
 </view>
+<!-- 组件 提示 -->
+<popTipComp id="popTipComp" bind:cancelHandle="cancelHandle" tipObj="{{tipObj}}"></popTipComp>
 <privacy_popup></privacy_popup>

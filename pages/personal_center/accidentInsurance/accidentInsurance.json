@@ -1,5 +1,7 @@
 {
     "navigationBarTitleText": "驾乘意外险",
 	"navigationBarBackgroundColor": "#ffffff",
-    "usingComponents": {}
+    "usingComponents": {
+        "popTipComp": "/components/popTipComp/popTipComp"
+    }
 }

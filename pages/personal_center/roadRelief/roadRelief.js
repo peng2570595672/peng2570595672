@@ -87,11 +87,16 @@ Page({
         let item = e.currentTarget.dataset.item;
         console.log('item', item);
     },
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady () {
-
+    validateCar () {
+        wx.makePhoneCall({
+            phoneNumber: '1234567890', // 需要拨打的电话号码
+            success () {
+                // 拉起拨打成功后的回调
+            },
+            fail () {
+                // 拉起拨打失败的回调
+            }
+        });
     },
 
     /**

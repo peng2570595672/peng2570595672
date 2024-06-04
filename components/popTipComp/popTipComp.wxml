@@ -1,9 +1,8 @@
 <!-- ETC4.0新增 -->
 <wxs src='../../utils/util.wxs' module='tools' />
 <view catchtouchmove="{{noSliding ? 'noSliding' : ''}}">
-    <view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}"
-        wx:if="{{mask}}" data-title="{{tipObj.title}}"
-        catchtap="{{ tipObj.btnShadowHide ? 'hide' : ''}}"
+    <view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}"
+        data-title="{{tipObj.title}}" catchtap="{{ tipObj.btnShadowHide ? 'hide' : ''}}"
         style="background: {{tipObj.bgColor}}"></view>
     <view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}" wx:if="{{mask}}">
         <!-- 带标题 只有确定按钮 -->
@@ -23,13 +22,30 @@
                 <view class="ok" data-title="{{tipObj.title}}" catchtap="hide">确定</view>
             </view>
         </view>
+        <!-- 带标题 放大预览 拥有取消和确定按钮 -->
+        <view class="module moduleTwo" wx:if="{{tipObj.type === 'accidentInsurance'}}">
+            <view class="title">{{tipObj.title}}</view>
+            <!-- 图片展示 -->
+            <view class="activity-content-img">
+                <view class="pseudoClass" bindtap="openFullScreenImage"
+                    data-src="{{tipObj.viewImgSrc}}">点击查看大图</view>
+                <image mode="widthFix" src="{{tipObj.imgSrc}}">
+                </image>
+            </view>
+            <view class="contant">{{tools.limitNumber(tipObj.content,90)}}</view>
+            <view class="bottomBtn">
+                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tipObj.btncancel}}</view>
+                <view class="ok" data-title="{{tipObj.title}}" catchtap="onConfirm">{{tipObj.btnconfirm}}</view>
+            </view>
+        </view>
 
         <!-- 欠费补缴  -->
         <view class="module moduleThree" wx:if="{{tipObj.type === 'three'}}">
             <view class="title">{{tipObj.title}}</view>
             <view class="contant">你已欠款 <span class="span"> {{tipObj.params.money / 100}} </span>元，将影响正常的高速通行</view>
             <view class="bottomBtn">
-                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">
+                    {{tools.limitNumber(tipObj.btnCancel,4)}}</view>
                 <view class="ok" catchtap="supplementaryPayment">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
             </view>
         </view>
@@ -46,46 +62,48 @@
         <view class="module moduleTwo" wx:if="{{tipObj.type === 'five'}}">
             <view class="title">{{tipObj.title}}</view>
             <view class="contant" wx:if="{{tipObj.subType === 1}}">
-                <view >一、活动限中信银行信用卡新客户参与，新客户指：名下未曾持有任何中信信用卡，或仅有注销卡且注销时间距新卡申请日超过180自然日及以上客户</view>
-                <view >二、办理中信银行信用卡不收取任何费用</view>
-                <view >三、成功办理中信银行信用卡的新客户即退还全额权益金并发放100元通行券，信用卡申请不通过，可取消订单退还权益金</view>
-                <view >四、年费介绍：</view>
-                <view >  1、中信标准车主卡-金卡:年费200元/年，卡片批核成功后，开卡当月刷卡消费或取现一次（不限金额）免首年年费，刷卡消费或取现五次（不限金额）免次年年费，以此类推</view>
-                <view >  2、中信I车银联白金卡（冰川白）：新客户免首年年费，刷卡（含取现）12次免次年年费，非新客户首年480元刚性收取，刷卡（含取现）12次免次年年费</view>
+                <view>一、活动限中信银行信用卡新客户参与，新客户指：名下未曾持有任何中信信用卡，或仅有注销卡且注销时间距新卡申请日超过180自然日及以上客户</view>
+                <view>二、办理中信银行信用卡不收取任何费用</view>
+                <view>三、成功办理中信银行信用卡的新客户即退还全额权益金并发放100元通行券，信用卡申请不通过，可取消订单退还权益金</view>
+                <view>四、年费介绍：</view>
+                <view> 1、中信标准车主卡-金卡:年费200元/年，卡片批核成功后，开卡当月刷卡消费或取现一次（不限金额）免首年年费，刷卡消费或取现五次（不限金额）免次年年费，以此类推</view>
+                <view> 2、中信I车银联白金卡（冰川白）：新客户免首年年费，刷卡（含取现）12次免次年年费，非新客户首年480元刚性收取，刷卡（含取现）12次免次年年费</view>
             </view>
             <view class="contant" wx:elif="{{tipObj.subType === 2}}">
-                <view >一、活动限中信银行信用卡新客户参与，新客户指：名下未曾持有任何中信信用卡，或仅有注销卡且注销时间距新卡申请日超过180自然日及以上客户</view>
-                <view >二、办理中信银行信用卡不收取任何费用</view>
-                <view >三、成功办理中信银行信用卡的新客户即退还全额权益金并发放100元通行券，信用卡申请不通过，可取消订单退还权益金</view>
-                <view >四、年费介绍：</view>
-                <view >  1、中信标准车主卡-金卡:年费200元/年，卡片批核成功后，开卡当月刷卡消费或取现一次（不限金额）免首年年费，刷卡消费或取现五次（不限金额）免次年年费，以此类推</view>
-                <view >  2、中信I车银联白金卡（冰川白）：新客户免首年年费，刷卡（含取现）12次免次年年费，非新客户首年480元刚性收取，刷卡（含取现）12次免次年年费</view>
+                <view>一、活动限中信银行信用卡新客户参与，新客户指：名下未曾持有任何中信信用卡，或仅有注销卡且注销时间距新卡申请日超过180自然日及以上客户</view>
+                <view>二、办理中信银行信用卡不收取任何费用</view>
+                <view>三、成功办理中信银行信用卡的新客户即退还全额权益金并发放100元通行券，信用卡申请不通过，可取消订单退还权益金</view>
+                <view>四、年费介绍：</view>
+                <view> 1、中信标准车主卡-金卡:年费200元/年，卡片批核成功后，开卡当月刷卡消费或取现一次（不限金额）免首年年费，刷卡消费或取现五次（不限金额）免次年年费，以此类推</view>
+                <view> 2、中信I车银联白金卡（冰川白）：新客户免首年年费，刷卡（含取现）12次免次年年费，非新客户首年480元刚性收取，刷卡（含取现）12次免次年年费</view>
             </view>
             <view class="contant" wx:if="{{tipObj.subType === 3}}">
-                <view >一、活动限民生信用卡新客户(不包括已持民生信用卡主卡销卡后重新申请及核卡成功未激活的持卡人)参与。</view>
-                <view >二、办理民生信用卡不收取任何费用、成功办理民生信用卡的新客户核卡30天内激活首刷即退还权益金并发放100元通行权益包，信用卡申请不通过，可取消订单退还权益金.</view>
-                <view >三、年费介绍：</view>
-                <view >  1、金卡:主卡300元/年，附属卡150元/年首年免年费，当年消费满5笔免次年年费。</view>
-                <view >  2、标准白金卡: 主卡600元/年附属卡300元/年。首年免年费，当年消费满18笔或满5万人民币，免次年年费。</view>
+                <view>一、活动限民生信用卡新客户(不包括已持民生信用卡主卡销卡后重新申请及核卡成功未激活的持卡人)参与。</view>
+                <view>二、办理民生信用卡不收取任何费用、成功办理民生信用卡的新客户核卡30天内激活首刷即退还权益金并发放100元通行权益包，信用卡申请不通过，可取消订单退还权益金.</view>
+                <view>三、年费介绍：</view>
+                <view> 1、金卡:主卡300元/年，附属卡150元/年首年免年费，当年消费满5笔免次年年费。</view>
+                <view> 2、标准白金卡: 主卡600元/年附属卡300元/年。首年免年费，当年消费满18笔或满5万人民币，免次年年费。</view>
                 <view class="pronBtn" data-type="2" catchtap="goAgreement">详细细则请点击</view>
             </view>
             <view class="contant" wx:else>
-                <view >一、活动限广发银行信用卡新客户参与，新客户指：名下未曾持有任何广发信用卡，或仅有注销卡且注销时间距新卡申请日超过180自然日及以上客户</view>
-                <view >二、办理广发银行信用卡不收取任何费用</view>
-                <view >三、成功办理广发银行信用卡的新客户即退还权益金并发放99元通行券，信用卡申请不通过，可取消订单退还权益金</view>
+                <view>一、活动限广发银行信用卡新客户参与，新客户指：名下未曾持有任何广发信用卡，或仅有注销卡且注销时间距新卡申请日超过180自然日及以上客户</view>
+                <view>二、办理广发银行信用卡不收取任何费用</view>
+                <view>三、成功办理广发银行信用卡的新客户即退还权益金并发放99元通行券，信用卡申请不通过，可取消订单退还权益金</view>
             </view>
             <view class="bottomBtn">
-                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">
+                    {{tools.limitNumber(tipObj.btnCancel,4)}}</view>
                 <view class="ok" data-ok='true' catchtap="citicBank">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
             </view>
         </view>
 
         <!-- 设备升级 -->
         <view class="moduleSix" wx:if="{{tipObj.type === 'six'}}">
-            <image class="image" src="{{tipObj.url}}" mode="widthFix"/>
+            <image class="image" src="{{tipObj.url}}" mode="widthFix" />
             <view class="btn" catchtap="deviceUpgrade"></view>
             <view class="close" data-title="{{tipObj.title}}" catchtap="hide">
-                <image class="image" src="{{'https://file.cyzl.com/g001/M01/E0/7D/oYYBAGRscuOAIh4cAAAC8Jl08pY127.png'}}" mode="widthFix" />
+                <image class="image" src="{{'https://file.cyzl.com/g001/M01/E0/7D/oYYBAGRscuOAIh4cAAAC8Jl08pY127.png'}}"
+                    mode="widthFix" />
             </view>
         </view>
 
@@ -102,18 +120,23 @@
             <view class="title">{{tipObj.title}}</view>
             <view class="contant">{{tools.limitNumber(tipObj.content,90)}}</view>
             <button class="btn" data-src="{{tipObj.src}}" catchtap="go">{{tipObj.btnconfirm}}</button>
-            <view class="close iconfont" data-title="{{tipObj.title}}" catchtap="hide" wx:if="{{tipObj.title !== '提交审核提醒'}}"></view>
+            <view class="close iconfont" data-title="{{tipObj.title}}" catchtap="hide"
+                wx:if="{{tipObj.title !== '提交审核提醒'}}"></view>
         </view>
 
         <!-- 黔通2%用户 - 协议续签提醒 -->
-            <view class="module moduleTwo" wx:if="{{tipObj.type === 'qtTwoPercent'}}">
+        <view class="module moduleTwo" wx:if="{{tipObj.type === 'qtTwoPercent'}}">
             <view class="title">{{tipObj.title}}</view>
             <view class="contant">
-                <view>为充分维护您的合法权益，请您务必审慎阅读、充分理解协议中相关条款内容，特别是以粗体标注的部分。阅读协议的过程中，如果您不同意相关协议或其中任何条款约定，您应立即停使用小程序。你可阅读 <text class="protocol" bindtap="handleProtocol">《用户服务协议》</text>和<text class="protocol" bindtap="handleFactoringAgreement">《ETC保理服务协议》</text>了解详细信息。如你同意，请点击“同意”开始接受我们的服务。</view>
+                <view>为充分维护您的合法权益，请您务必审慎阅读、充分理解协议中相关条款内容，特别是以粗体标注的部分。阅读协议的过程中，如果您不同意相关协议或其中任何条款约定，您应立即停使用小程序。你可阅读 <text
+                        class="protocol" bindtap="handleProtocol">《用户服务协议》</text>和<text class="protocol"
+                        bindtap="handleFactoringAgreement">《ETC保理服务协议》</text>了解详细信息。如你同意，请点击“同意”开始接受我们的服务。</view>
             </view>
             <view class="bottomBtn">
-                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
-                <view class="ok {{getAgreement ? '' : 'no'}}" data-ok='true' catchtap="handleTwoPercentSign">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
+                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">
+                    {{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+                <view class="ok {{getAgreement ? '' : 'no'}}" data-ok='true' catchtap="handleTwoPercentSign">
+                    {{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
             </view>
         </view>
 
@@ -121,49 +144,61 @@
         <view class="module moduleTwo" wx:if="{{tipObj.type === 'nine'}}">
             <view class="title">{{tipObj.title}}</view>
             <view class="contant authorize">
-                <view >您即将通过该链接跳转至第三方页面。在第三方页面中提交信息将由第三方按照其相关用户服务协议及隐私协议正常执行并负责，服务及责任均由第三方提供或承担，如有疑问请致电第三方客服电话。</view>
+                <view>您即将通过该链接跳转至第三方页面。在第三方页面中提交信息将由第三方按照其相关用户服务协议及隐私协议正常执行并负责，服务及责任均由第三方提供或承担，如有疑问请致电第三方客服电话。</view>
                 <view class="contantSub1">第三方需要您授权以下信息：</view>
-                <view >手机号、车牌号、车架号、发动机号</view>
+                <view>手机号、车牌号、车架号、发动机号</view>
                 <view class="agreement" catchtap="isSelectAgreement">
                     <text class="confirm">
-                        <text class="tick" wx:if="{{getAgreement}}"/>
+                        <text class="tick" wx:if="{{getAgreement}}" />
                     </text>阅读并同意 <text class="text1" data-type="1" catchtap="goAgreement">《用户隐私协议》</text>
                 </view>
             </view>
             <view class="bottomBtn">
-                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
-                <view class="ok {{getAgreement ? '' : 'no'}}" data-ok='true' catchtap="authorizeTip">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
+                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">
+                    {{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+                <view class="ok {{getAgreement ? '' : 'no'}}" data-ok='true' catchtap="authorizeTip">
+                    {{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
             </view>
         </view>
 
         <!-- 平安获客 - 礼品领取  -->
-        <view class="module1 {{tipObj.type === 'newPop' ? 'subModule1' : ''}}" wx:if="{{tipObj.type === 'bingGuttes' || tipObj.type === 'bingGuttesBill' || tipObj.type === 'newPop'}}" catchtouchmove=''>
+        <view class="module1 {{tipObj.type === 'newPop' ? 'subModule1' : ''}}"
+            wx:if="{{tipObj.type === 'bingGuttes' || tipObj.type === 'bingGuttesBill' || tipObj.type === 'newPop'}}"
+            catchtouchmove=''>
             <!-- this.selectComponent('#popTipComp').show({type: 'bingGuttes',title: '免责声明',btnCancel: '取消',btnconfirm: '同意授权',bgColor: 'rgba(42, 80, 68, 0.7)'}); -->
-            <view wx:if="{{tipObj.type === 'bingGuttes'}}" class="close" data-title="{{tipObj.title}}" catchtap="hide"></view>
-            <view class="{{tipObj.type === 'bingGuttesBill' ? 'pic' : ''}}" wx:if="{{tipObj.type === 'bingGuttes' || tipObj.type === 'bingGuttesBill'}}">
-                <image wx:if="{{tipObj.type === 'bingGuttes'}}" class="image" src="https://file.cyzl.com/g001/M01/E9/0E/oYYBAGSayLqAUbkaAAF4_RMUuos437.png" mode="widthFix"/>
-                <image wx:else class="image1" src="https://file.cyzl.com/g001/M02/03/FF/oYYBAGTu_uaAI9fDAACjLXILp-I567.png" mode="widthFix"/>
+            <view wx:if="{{tipObj.type === 'bingGuttes'}}" class="close" data-title="{{tipObj.title}}" catchtap="hide">
+            </view>
+            <view class="{{tipObj.type === 'bingGuttesBill' ? 'pic' : ''}}"
+                wx:if="{{tipObj.type === 'bingGuttes' || tipObj.type === 'bingGuttesBill'}}">
+                <image wx:if="{{tipObj.type === 'bingGuttes'}}" class="image"
+                    src="https://file.cyzl.com/g001/M01/E9/0E/oYYBAGSayLqAUbkaAAF4_RMUuos437.png" mode="widthFix" />
+                <image wx:else class="image1"
+                    src="https://file.cyzl.com/g001/M02/03/FF/oYYBAGTu_uaAI9fDAACjLXILp-I567.png" mode="widthFix" />
             </view>
             <view wx:if="{{tipObj.type === 'newPop'}}">
-                <image wx:if="{{tipObj.title === '云'}}" class="image" src="https://file.cyzl.com/g001/M03/2F/C9/oYYBAGWVGfqAV4NFAADVPPt-hzs948.png" mode="widthFix"/>
-                <image wx:else class="image" src="https://file.cyzl.com/g001/M03/2F/C5/oYYBAGWVFI-ACXl-AAC6oO8MLag147.png" mode="widthFix"/>
+                <image wx:if="{{tipObj.title === '云'}}" class="image"
+                    src="https://file.cyzl.com/g001/M03/2F/C9/oYYBAGWVGfqAV4NFAADVPPt-hzs948.png" mode="widthFix" />
+                <image wx:else class="image"
+                    src="https://file.cyzl.com/g001/M03/2F/C5/oYYBAGWVFI-ACXl-AAC6oO8MLag147.png" mode="widthFix" />
             </view>
             <view class="agreement" catchtap="isSelectAgreement">
                 <text class="confirm">
-                    <text class="tick" wx:if="{{getAgreement}}"/>
+                    <text class="tick" wx:if="{{getAgreement}}" />
                 </text>阅读并同意 <text class="text1" data-type="1" catchtap="goAgreement">《用户隐私协议》</text>
             </view>
             <view wx:if="{{tipObj.type === 'bingGuttes'}}" class="btn" catchtap="authorizeTip"></view>
             <view wx:if="{{tipObj.type === 'newPop'}}" class="btn2" catchtap="authorizeTip"></view>
             <view wx:if="{{tipObj.type === 'bingGuttesBill'}}" class="btn1" catchtap="authorizeTip"></view>
-            <view wx:if="{{tipObj.type === 'bingGuttesBill' || tipObj.type === 'newPop'}}" class="close1" data-title="{{tipObj.title}}" catchtap="hide"></view>
+            <view wx:if="{{tipObj.type === 'bingGuttesBill' || tipObj.type === 'newPop'}}" class="close1"
+                data-title="{{tipObj.title}}" catchtap="hide"></view>
         </view>
         <!-- 注销欠费提示  -->
         <view class="module moduleThree moduleTenth" wx:if="{{tipObj.type === 'tenth'}}">
             <view class="title">{{tipObj.title}}</view>
             <view class="contant">{{tipObj.content}}</view>
             <view class="bottomBtn">
-                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">
+                    {{tools.limitNumber(tipObj.btnCancel,4)}}</view>
                 <view class="ok" catchtap="handleConfirm">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
             </view>
         </view>
@@ -177,25 +212,32 @@
         </view>
 
         <!-- 拨打电话 | 注销账号须知-->
-        <view class="module moduleThree" wx:if="{{tipObj.type === 'callPhone' || tipObj.type === 'logOffTip' || tipObj.type === 'logOffTip2'}}">
+        <view class="module moduleThree"
+            wx:if="{{tipObj.type === 'callPhone' || tipObj.type === 'logOffTip' || tipObj.type === 'logOffTip2'}}">
             <view class="title">{{tipObj.title}}</view>
             <view class="contant {{tipObj.type === 'callPhone' ? 'sub1' : 'sub2'}} ">{{tipObj.content}}</view>
             <view class="contant sub2" wx:if="{{tipObj.type === 'logOffTip'}}">{{tipObj.content1}}</view>
             <view class="bottomBtn">
-                <view class="cancel subCancel" data-title="{{tipObj.title}}" data-type="{{tipObj.type}}" catchtap="{{tipObj.type === 'logOffTip2' ? 'pubFunc1' : 'hide'}}">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
-                <view class="ok subOk" data-type="{{tipObj.type}}" data-title="{{tipObj.title}}" catchtap="{{tipObj.type === 'logOffTip2' ? 'hide' : 'pubFunc1'}}">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
+                <view class="cancel subCancel" data-title="{{tipObj.title}}" data-type="{{tipObj.type}}"
+                    catchtap="{{tipObj.type === 'logOffTip2' ? 'pubFunc1' : 'hide'}}">
+                    {{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+                <view class="ok subOk" data-type="{{tipObj.type}}" data-title="{{tipObj.title}}"
+                    catchtap="{{tipObj.type === 'logOffTip2' ? 'hide' : 'pubFunc1'}}">
+                    {{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
             </view>
-            <view class="close iconfont" wx:if="{{tipObj.type === 'logOffTip2'}}" data-title="{{tipObj.title}}" catchtap="hide"></view>
+            <view class="close iconfont" wx:if="{{tipObj.type === 'logOffTip2'}}" data-title="{{tipObj.title}}"
+                catchtap="hide"></view>
         </view>
 
         <!-- 注销提醒 信科联网-->
         <view class="module module2" wx:if="{{tipObj.type === 'logOffTip1' || tipObj.type === 'xinKeUseer'}}">
             <view class="title">{{tipObj.title}}</view>
             <view class="contant sub2">
-                <text >{{ tipObj.type === 'xinKeUseer' ? tipObj.content : tipObj.content}}</text>
+                <text>{{ tipObj.type === 'xinKeUseer' ? tipObj.content : tipObj.content}}</text>
             </view>
             <view class="bottomBtn">
-                <view class="ok subOk" data-type="{{tipObj.type}}" catchtap="pubFunc1">{{tools.limitNumber(tipObj.btnconfirm,tipObj.type === 'xinKeUseer' ? 6 : 4)}}</view>
+                <view class="ok subOk" data-type="{{tipObj.type}}" catchtap="pubFunc1">
+                    {{tools.limitNumber(tipObj.btnconfirm,tipObj.type === 'xinKeUseer' ? 6 : 4)}}</view>
             </view>
             <view class="close iconfont" data-title="{{tipObj.title}}" catchtap="hide"></view>
         </view>
@@ -205,10 +247,12 @@
             <view class="title">{{tipObj.title}}</view>
             <view class="contant">
                 <text>请确保您已成功办理信用卡且激活，并且是该银行新客户，请用新信用卡完成退还校验，否则退还将失败！\n</text>
-                <text class="subContant">新客户说明：指名下未曾持有任何{{tools.dataIncludes(tipObj.citicBankshopProductIds,tipObj.shopProductId, 2)}}信用卡，或仅有注销卡且注销时间距新卡申请日超过180自然日及以上客户</text>
+                <text
+                    class="subContant">新客户说明：指名下未曾持有任何{{tools.dataIncludes(tipObj.citicBankshopProductIds,tipObj.shopProductId, 2)}}信用卡，或仅有注销卡且注销时间距新卡申请日超过180自然日及以上客户</text>
             </view>
             <view class="bottomBtn">
-                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">
+                    {{tools.limitNumber(tipObj.btnCancel,4)}}</view>
                 <view class="ok" catchtap="callBackPub">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
             </view>
         </view>
@@ -216,14 +260,17 @@
         <view class="module moduleThree" wx:if="{{tipObj.type === 'guangFaRefundStatus'}}">
             <view class="title">{{tipObj.title}}</view>
             <view class="contant">
-                <icon wx:if="{{tipObj.refundStatus === 3}}" class="icon-box-img" style="display: block;" type="success" size="50" />
+                <icon wx:if="{{tipObj.refundStatus === 3}}" class="icon-box-img" style="display: block;" type="success"
+                    size="50" />
                 <icon wx:else class="icon-box-img" style="display: block;" type="warn" size="50" />
                 <text class="text2">{{tipObj.content}}</text>
                 <view wx:if="{{tipObj.refundStatus !== 3}}" class="keepBank" catchtap="">信用卡办理失败?点击 "确认" 继续办理信用卡</view>
             </view>
-            <button class="btn" wx:if="{{tipObj.refundStatus === 3}}" data-title="{{tipObj.title}}" catchtap="hide" >{{tools.limitNumber(tipObj.btnconfirm,12)}}</button>
+            <button class="btn" wx:if="{{tipObj.refundStatus === 3}}" data-title="{{tipObj.title}}"
+                catchtap="hide">{{tools.limitNumber(tipObj.btnconfirm,12)}}</button>
             <view class="bottomBtn" wx:else>
-                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">
+                    {{tools.limitNumber(tipObj.btnCancel,4)}}</view>
                 <view class="ok" catchtap="guanFaFunc">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
             </view>
         </view>
@@ -231,12 +278,15 @@
         <view class="module moduleThree" wx:if="{{tipObj.type === 'huocheYajinStatus'}}">
             <view class="title">{{tipObj.title}}</view>
             <view class="contant">
-                <icon wx:if="{{tipObj.refundStatus === 12}}" class="icon-box-img" style="display: block; margin-bottom: 50rpx;" type="success" size="70" />
+                <icon wx:if="{{tipObj.refundStatus === 12}}" class="icon-box-img"
+                    style="display: block; margin-bottom: 50rpx;" type="success" size="70" />
                 <icon wx:else class="icon-box-img" style="display: block;" type="warn" size="70" />
                 <text class="text2" style="font-weight: 600;">{{tipObj.content}}</text>
             </view>
             <view class="bottomBtn">
-                <view  style="display: block; margin: 0 auto; text-align: center; padding: 12rpx 28rpx;border-radius: 5rpx; background-color: #15ad69;color: #fff; font-size: 26rpx;" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+                <view
+                    style="display: block; margin: 0 auto; text-align: center; padding: 12rpx 28rpx;border-radius: 5rpx; background-color: #15ad69;color: #fff; font-size: 26rpx;"
+                    data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
             </view>
         </view>
         <!-- 倒计时弹框 -->
@@ -250,42 +300,51 @@
                 </view>
             </scroll-view>
             <view class="bottomBtn">
-                <view class="ok  {{tipObj.showConfirmButton ? 'highlighted' : ''}}"  catchtap="onConfirm">
+                <view class="ok  {{tipObj.showConfirmButton ? 'highlighted' : ''}}" catchtap="onConfirm">
                     <view>{{tipObj.btnconfirm}}</view>
                     <view class="countdownText" wx:if="{{countdownText}}">{{countdownText}}</view>
                 </view>
-                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">
+                <view class="cancel" wx:if="{{tipObj.btnCancel}}" data-title="{{tipObj.title}}" catchtap="hide">
                     {{tipObj.btnCancel}}
                 </view>
             </view>
             <!-- <view bindtap="onConfirm" class="submit {{tipObj.showConfirmButton ? 'highlighted' : ''}}">确认</view> -->
         </view>
-        
+
         <!-- 身份证验证失败 -->
         <view class="module moduleThree" wx:if="{{tipObj.type === 'shenfenyanzhifail'}}">
             <view class="title" style="font-size: 38rpx;font-weight: 500;">{{tipObj.title}}</view>
             <view class="contant">
-                <icon  class="icon-box-img" style="display: block; margin-bottom: 50rpx;" type="{{tipObj.refundStatus ? 'warn' : 'success'}}" size="70" />
+                <icon class="icon-box-img" style="display: block; margin-bottom: 50rpx;"
+                    type="{{tipObj.refundStatus ? 'warn' : 'success'}}" size="70" />
                 <text class="text2" style="font-weight: 600;width: 400rpx;margin: 0 auto;">{{tipObj.content}}</text>
             </view>
             <view class="bottomBtn">
-                <view  style="display: block; margin: 0 auto; text-align: center; width: 100rpx ;padding: 20rpx 20rpx;border-radius: 5rpx; background-color: #15ad69;color: #fff; font-size: 26rpx;" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+                <view
+                    style="display: block; margin: 0 auto; text-align: center; width: 100rpx ;padding: 20rpx 20rpx;border-radius: 5rpx; background-color: #15ad69;color: #fff; font-size: 26rpx;"
+                    data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
             </view>
         </view>
         <!-- 带标题 只有一个按钮 -->
         <view class="module moduleOne" wx:if="{{tipObj.type === 'oneBtn'}}">
             <view class="title" wx:if="{{tipObj.title}}">{{tipObj.title}}</view>
             <view class="contant">{{tools.limitNumber(tipObj.content,90)}}</view>
-            <button class="btn" data-title="{{tipObj.title}}" wx:if="{{tipObj.btnconfirm}}" catchtap="callBackPub">{{tools.limitNumber(tipObj.btnconfirm,12)}}</button>
+            <button class="btn" data-title="{{tipObj.title}}" wx:if="{{tipObj.btnconfirm}}"
+                catchtap="callBackPub">{{tools.limitNumber(tipObj.btnconfirm,12)}}</button>
         </view>
         <!-- 登录协议续签提醒功能 -->
         <view class="module moduleThree" wx:if="{{tipObj.type === 'renewWhitelist'}}">
             <view class="title">{{tipObj.title}}</view>
             <view class="contant">
-                <view>再次与您确认，为充分维护您的合法权益，请您务必审慎阅读、充分理解协议中相关条款内容，特别是以粗体标注的部分。阅读协议的过程中，如果您不同意相关协议或其中任何条款约定，您应立即停使用小程序。您可阅读 <text class="protocol" data-type="3" bindtap="goAgreement">《ETC+用户服务协议》</text>和<text class="protocol" data-type="4" bindtap="goAgreement">《用户隐私协议》</text>了解详细信息。如您同意，请点击“同意”开始接受我们的服务。如有疑问，您可致电客服电话：4006680996</view>
+                <view>再次与您确认，为充分维护您的合法权益，请您务必审慎阅读、充分理解协议中相关条款内容，特别是以粗体标注的部分。阅读协议的过程中，如果您不同意相关协议或其中任何条款约定，您应立即停使用小程序。您可阅读
+                    <text class="protocol" data-type="3" bindtap="goAgreement">《ETC+用户服务协议》</text>和<text
+                        class="protocol" data-type="4"
+                        bindtap="goAgreement">《用户隐私协议》</text>了解详细信息。如您同意，请点击“同意”开始接受我们的服务。如有疑问，您可致电客服电话：4006680996
+                </view>
             </view>
-            <view class="bottomBtn" >
-                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+            <view class="bottomBtn">
+                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">
+                    {{tools.limitNumber(tipObj.btnCancel,4)}}</view>
                 <view class="ok" catchtap="renewWhitelist">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
             </view>
         </view>
@@ -302,10 +361,13 @@
             </view>
             <view class="from-container">
                 <view class="label">详细地址</view>
-                <view class="val">{{tipObj.content.region[0]}}{{tipObj.content.region[1]}}{{tipObj.content.region[2]}}{{tipObj.content.detailInfo}}</view>
+                <view class="val">
+                    {{tipObj.content.region[0]}}{{tipObj.content.region[1]}}{{tipObj.content.region[2]}}{{tipObj.content.detailInfo}}
+                </view>
             </view>
-            <view class="bottomBtn" >
-                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">{{tools.limitNumber(tipObj.btnCancel,4)}}</view>
+            <view class="bottomBtn">
+                <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">
+                    {{tools.limitNumber(tipObj.btnCancel,4)}}</view>
                 <view class="ok" catchtap="callBackPub">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
             </view>
         </view>
@@ -320,14 +382,16 @@
         <view class="module moduleOne" wx:if="{{tipObj.type === 'aiReturn'}}">
             <view class="icon">
                 <icon class="icon-small" type="warn" size="80" color="#FF9700"></icon>
-                <icon class="icon-small cancel" type="cancel" size="23" data-title="{{tipObj.title}}" catchtap="hide"></icon>
+                <icon class="icon-small cancel" type="cancel" size="23" data-title="{{tipObj.title}}" catchtap="hide">
+                </icon>
             </view>
             <view class="title" wx:if="{{tipObj.title}}">{{tipObj.title}}</view>
             <view class="contant">
-                <text >{{tools.limitNumber(tipObj.content,90)}}</text>
+                <text>{{tools.limitNumber(tipObj.content,90)}}</text>
                 <text class="redTip" wx:if="{{tipObj.params.firstFlag}}">回访结束后请等候5秒再签约</text>
             </view>
-            <button class="btn" data-title="{{tipObj.title}}" wx:if="{{tipObj.btnconfirm}}" catchtap="aiReturn">{{tools.limitNumber(tipObj.btnconfirm,12)}}</button>
+            <button class="btn" data-title="{{tipObj.title}}" wx:if="{{tipObj.btnconfirm}}"
+                catchtap="aiReturn">{{tools.limitNumber(tipObj.btnconfirm,12)}}</button>
         </view>
     </view>
 </view>

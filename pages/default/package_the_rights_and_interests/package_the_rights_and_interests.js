@@ -768,27 +768,33 @@ Page({
             this.selectComponent('#verifyCode').show();
             return;
         }
-        // // 多签流程
-        // if (this.data.listOfPackages[this.data.choiceIndex]?.productProcess === 9) {
-        //     console.log('多签流程',this.data.listOfPackages[this.data.choiceIndex]?.agreements);
-        //     if (this.data.readDone) { // 已完成阅读直接支付
-        //         await this.saveOrderInfo();
-        //         return;
-        //     }
-        //     this.setData({ // 隐藏底部支付协议展示
-        //         isLoaded: false
-        //     });
-        //     this.selectComponent('#popTipComp').showCountdownPopupBox({
-        //         btnShadowHide: true,
-        //         btnCancel: '不同意办理',
-        //         title: this.data.listOfPackages[this.data.choiceIndex]?.agreements[0].name,
-        //         btnconfirm: '请认真阅读协议内容，并划至底部',
-        //         type: 'countdownPopUpBox',
-        //         content: this.data.listOfPackages[this.data.choiceIndex]?.agreements[0].content
-        //         // Text: '弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需，弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需，弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需弹框内容区域，这里可以根据需要放置权益包等信息弹框内容区这里可以根据需要放置权益包等信息弹框内容区域，这里可以根据需'
-        //     });
-        //     return;
-        // }
+        // 协议判断
+        if (obj1?.agreements && obj1?.agreements.length > 0) { // 配置了协议
+            const popUpBoxProtocol = obj1?.agreements.find(item => {
+                return item.popPrompt === 1 && item.popOccasion === 1; // 找到协议中 需要弹框提示的办理页
+            });
+            console.log('popUpBoxProtocol',obj1?.agreements,popUpBoxProtocol);
+            let readDone = wx.getStorageSync('agreements_readDone');// 是否阅读完成
+            if (popUpBoxProtocol) {
+                if (this.data.readDone) { // 已完成阅读直接支付
+                    await this.saveOrderInfo();
+                    return;
+                }
+                this.setData({ // 隐藏底部支付协议展示
+                    isLoaded: false
+                });
+                this.selectComponent('#popTipComp').showCountdownPopupBox({
+                    btnShadowHide: true,
+                    btnCancel: '不同意办理',
+                    title: popUpBoxProtocol.name,
+                    btnconfirm: '请认真阅读协议内容，并划至底部',
+                    type: 'countdownPopUpBox',
+                    delayTime: parseInt(popUpBoxProtocol.popTime) * 5,
+                    content: popUpBoxProtocol.content
+                });
+                return;
+            }
+        }
         await this.saveOrderInfo();
     },
     cancelHandle (e) {
@@ -815,6 +821,7 @@ Page({
             isLoaded: true,
             readDone: true
         });
+        wx.setStorageSync('agreements_readDone', JSON.stringify(true));
         this.saveOrderInfo();
     },
     // 提交订单
@@ -868,12 +875,6 @@ Page({
                     productShopId: app.globalData.newPackagePageData?.shopId
                 });
             }
-            // if (this.data.listOfPackages[this.data.choiceIndex]?.productProcess === 9) {
-            //     console.log('多发流程 无需支付');
-            //     // 去签约确认页面
-            //     util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
-            //     return;
-            // }
             if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice || addEquity.aepIndex !== -1) {
                 await this.marginPayment(this.data.listOfPackages[this.data.choiceIndex].pledgeType);
                 return;
@@ -885,6 +886,12 @@ Page({
             }
             if (this.data.isSalesmanOrder) {
                 await this.getSalesmanOrderProcess();
+                return;
+            }
+            if (this.data.listOfPackages[this.data.choiceIndex]?.productProcess === 9) { // 多签流程 确认页面 不区分业务员办理
+                console.log('多签流程');
+                // 去签约确认页面
+                util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
                 return;
             }
             if (this.data.orderInfo?.base?.orderType === 71 && (this.data.orderInfo?.base?.promoterType === 47 || this.data.orderInfo?.base?.promoterType === 48)) {
@@ -1016,6 +1023,12 @@ Page({
                 success: (res) => {
                     this.setData({ isRequest: false });
                     if (res.errMsg === 'requestPayment:ok') {
+                        if (this.data.listOfPackages[this.data.choiceIndex]?.productProcess === 9) { // 多签流程 确认页面 不区分业务员办理
+                            console.log('多签流程');
+                            // 去签约确认页面
+                            util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
+                            return;
+                        }
                         if (this.data.isSalesmanOrder) {
                             if (this.data.orderInfo.base?.flowVersion === 8) {
                                 util.go(`/pages/default/processing_progress/processing_progress?type=main_process`);

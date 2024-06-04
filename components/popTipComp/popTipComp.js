@@ -68,8 +68,8 @@ Component({
 				paramsList: this.data.paramsList,
 				tipObj,
 				noSliding: true,
-				countdownText: `${tipObj.time || 10} 秒后自动关闭`,
-				duration: parseInt(tipObj.time) || 10 // 如果time未提供，默认10秒
+				countdownText: `${tipObj.time} 秒后自动关闭`,
+				duration: parseInt(tipObj.delayTime) // 如果time未提供，默认10秒
 			});
 			console.log(this.data.tipObj, 'show');
 			this.startCountdown();
@@ -89,9 +89,9 @@ Component({
 			let countdown = this.data.duration;
 			this.data.intervalId = setInterval(() => {
 				countdown--;
-				console.log('倒计时结束',this.data.bottomingOut);
+				console.log('倒计时结束', this.data.bottomingOut);
 				if (countdown <= 0) {
-					console.log('倒计时结束',this.data.bottomingOut);
+					console.log('倒计时结束', this.data.bottomingOut);
 					if (this.data.bottomingOut) { // 触底显示按钮
 						this.setData({
 							'tipObj.showConfirmButton': true,
@@ -111,9 +111,38 @@ Component({
 			}, 1000);
 		},
 		onConfirm () {
-			if (!this.data.tipObj.showConfirmButton) return;
-			this.triggerEvent('confirmHandle', 'readDone');// 阅读完成
-			this.hide(false);
+			if (this.data.tipObj.type === 'accidentInsurance') {
+				this.hide(false);
+				const that = this;
+				wx.makePhoneCall({
+					phoneNumber: '1234567890', // 需要拨打的电话号码
+					success () {
+						// 拉起拨打成功后的回调
+						that.triggerEvent('confirmHandle', true); // 拨打成功
+					},
+					fail () {
+						// 拉起拨打失败的回调
+						that.triggerEvent('confirmHandle', false); // 拨打成功
+						console.log('拨打电话失败');
+					}
+				});
+			}
+			if (this.data.tipObj.type === 'countdownPopUpBox') {
+				if (!this.data.tipObj.showConfirmButton) return;
+				this.triggerEvent('confirmHandle', 'readDone');// 阅读完成
+				this.hide(false);
+			}
+		},
+		openFullScreenImage (e) {
+			const current = e.currentTarget.dataset.src; // 获取当前点击图片的URL
+			const urls = [current];// 多张时可以滑动预览
+			wx.previewImage({
+				current,
+				urls,
+				fail: (err) => {
+					console.error('打开图片失败:', err);
+				}
+			});
 		},
 		noSliding () { },
 		// 防抖

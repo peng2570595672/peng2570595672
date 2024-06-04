@@ -505,6 +505,12 @@ Page({
 			util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?emptyHairOrder=true`);
 			return;
 		}
+		// 多签，模式 确认页面
+		if (orderInfo.productProcess === 9) { // 设备升级
+			// 去签约确认页面
+			util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
+			return;
+		}
 		wx.uma.trackEvent(orderInfo.isNewTrucks === 1 ? 'my_etc_for_certificate_to_truck_package' : 'my_etc_for_certificate_to_package');
 		util.go(`/pages/${path}/information_list/information_list`);
 	},
@@ -533,6 +539,12 @@ Page({
 		if (obj.isNewTrucks === 1) { // 货车
 			// 货车签约
 			util.go('/pages/personal_center/signing_other_platforms/signing_other_platforms');
+			return;
+		}
+		// 多签，模式 确认页面
+		if (obj.productProcess === 9) {
+			// 去签约确认页面
+			util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
 			return;
 		}
 		if (obj.orderType === 31 && obj.auditStatus === 0 && obj.flowVersion === 2) {

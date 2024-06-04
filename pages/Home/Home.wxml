@@ -214,7 +214,7 @@
     <popup1 id='dialog1' dialogContent="{{disclaimerDesc}}" bind:onHandle1="backFunc"></popup1>
     <agreement-dialog id='agreement-dialog'></agreement-dialog>
 <!--    <authorization-phone bindPhoneInfo="onGetPhoneNumber" wx:if="{{loginInfo.needBindingPhone === 1}}"></authorization-phone>-->
-    <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
+    <popTipComp id="popTipComp" bind:onHandle="onHandle" bind:confirmHandle="confirmHandle"></popTipComp>
     <popTipComp id="popTipComp1" bind:onHandle="onHandle"></popTipComp>
     <noticeDialog id="noticeDialog" bindConfirm="handleConfirm"></noticeDialog>
     <noticeDialog id="noticeDialog1" bindConfirm="handleConfirm"></noticeDialog>

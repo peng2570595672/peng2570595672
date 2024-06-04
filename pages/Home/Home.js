@@ -1104,6 +1104,7 @@ Page({
             this.setData({
                 orderInfo: this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data.truckOrderInfo
             });
+            // await this.getProductOrderInfo(); // 套餐协议弹框暂时注释
             if (this.data.orderInfo?.selfStatus === 17) {
                 await this.getQueryProcessInfo(this.data.orderInfo.id);
             }
@@ -1727,6 +1728,49 @@ Page({
                 util.showToastNoIcon('调起激活小程序失败, 请重试！');
             }
         });
+    },
+    // 获取 套餐信息
+    async getProductOrderInfo () {
+        const result = await util.getDataFromServersV2('consumer/order/get-product-by-order-id', {
+            orderId: this.data.orderInfo.id,
+            needRightsPackageIds: true
+        });
+        if (!result) return;
+        if (result.code === 0) {
+            let data = result.data;
+            console.log('popUpBoxProtocol',data.agreements.title);
+            const popUpBoxProtocol = JSON.parse(data.agreements)?.find(item => {
+                return item.popPrompt === 1 && item.popOccasion === 2; // 找到协议中 需要弹框提示的 首页
+            });
+            let readDone = wx.getStorageSync('agreements_readDone');// 是否阅读完成
+            if (popUpBoxProtocol && !readDone) {
+                console.log(' 首页协议弹框提示',popUpBoxProtocol);
+                this.selectComponent('#popTipComp').showCountdownPopupBox({
+                    btnShadowHide: false,// 控制点击阴影部分是否关闭弹窗
+                    // btnCancel: '不同意办理',
+                    title: popUpBoxProtocol.name,
+                    btnconfirm: '请认真阅读协议内容，并划至底部',
+                    type: 'countdownPopUpBox',
+                    delayTime: parseInt(popUpBoxProtocol.popTime) * 5,
+                    content: popUpBoxProtocol.content
+                });
+            }
+        } else {
+            util.showToastNoIcon(result.message);
+        }
+    },
+    confirmHandle (e) {
+        let val = e.detail;
+        switch (val) {
+            case 'readDone':
+                this.readDone();
+                break;
+            default:
+                break;
+        }
+    },
+    readDone () { // 阅读完成
+        wx.setStorageSync('agreements_readDone', JSON.stringify(true));
     },
     onClickTranslucentHandle () {
         this.data.choiceEquipment.switchDisplay(false);
