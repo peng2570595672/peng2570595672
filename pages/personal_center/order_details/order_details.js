@@ -13,6 +13,7 @@ Page({
 		requestRefundInfoNum: 0,
 		requestBillNum: 0,
 		details: '',
+		deratePrice: 0,
 		disclaimerDesc: app.globalData.disclaimerDesc,
 		isQingHaiHighSpeed: false,// 是否是青海高速办理,需要隐藏平安绑车
 		firstCar: app.globalData.pingAnBindGuests	// 平安获客
@@ -22,54 +23,48 @@ Page({
 		this.setData({
 			isQingHaiHighSpeed: app.globalData.isQingHaiHighSpeed
 		});
-		if (app.globalData.billingDetails) {
+		if (options.id) {
 			this.setData({
-				details: app.globalData.billingDetails
+				details: options
 			});
-			let { mergeId, deductType } = this.data.details;
-			if (mergeId === 0 && deductType === 2) {
-				// 周结合并流水账单
-				this.getWeeksToCombineAndFlow();
-			}
+		}
+		if (!app.globalData.userInfo.accessToken) {
+			// 公众号模板推送/服务通知进入
+			wx.uma.trackEvent('order_details_for_notice');
+			this.setData({
+				isServiceNotificationEntry: true
+			});
+			this.login();
 		} else {
-			if (options.id) {
-				this.setData({
-					details: options
-				});
+			if (!this.data.firstCar) {
+				this.setData({ firstCar: await util.getBindGuests() });
 			}
-			if (!app.globalData.userInfo.accessToken) {
-				// 公众号模板推送/服务通知进入
-				wx.uma.trackEvent('order_details_for_notice');
-				this.setData({
-					isServiceNotificationEntry: true
-				});
-				this.login();
-			} else {
-				if (!this.data.firstCar) {
-					this.setData({ firstCar: await util.getBindGuests() });
-				}
-				this.getBillDetail();
-			}
+			this.getBillDetail();
 		}
 	},
 	async onShow () {
-		if (app.globalData.billingDetails) {
-			this.setData({
-				details: app.globalData.billingDetails
-			});
-			this.getContractMode();
+		if (!app.globalData.userInfo.accessToken) {
+			this.login();
 		} else {
-			if (!app.globalData.userInfo.accessToken) {
-				this.login();
-			} else {
-				this.getBillDetail();
-			}
+			this.getBillDetail();
 		}
 		if (app.globalData.splitDetails) {
 			this.setData({
 				details: app.globalData.splitDetails
 			});
+			this.getDeratePrice();
 		}
+	},
+	getDeratePrice () {
+		// 获取滞纳金减免金额
+		const info = this.data.details;
+		let deratePrice = info.totalMmout + (info.serviceMoney || 0) - (info.splitDeductedMoney || 0) - (info.refundMoney || 0);
+		if (info?.deductPoundage?.timestamp && info?.deductPoundage?.serviceMoney) {
+			deratePrice = deratePrice - info.deductPoundage.serviceMoney;
+		}
+		this.setData({
+			deratePrice
+		});
 	},
 	goPath () {
 		util.go(`/pages/web/web/web?url=${encodeURIComponent('https://baier.soboten.com/chat/h5/v6/index.html?sysnum=7d11a91e6a20414da4186004d03807fd&channelid=7&useWxjs=true')}`);
@@ -248,6 +243,7 @@ Page({
 				this.setData({
 					details: res.data
 				});
+				this.getDeratePrice();
 				if (this.data.requestRefundInfoNum > 0) return;
 				this.setData({
 					requestRefundInfoNum: 1

@@ -48,7 +48,7 @@
                 </view>
                 <view class="subModle borderBottom" >
                     <view>待扣金额</view>
-                    <view class="iconfont lateFees" catchtap="lateFees" data-flag="1">{{tools.parseNum((details.etcMoney + details.serviceMoney - details.refundMoney)/100)}}</view>
+                    <view class="iconfont lateFees" catchtap="lateFees" data-flag="1">{{tools.parseNum((deratePrice)/100)}}</view>
                 </view>
             </view>
             <view wx:if="{{details.splitState === 1}}">
@@ -58,7 +58,7 @@
                 </view>
                 <view class="subModle borderBottom" >
                     <view>待扣金额</view>
-                    <view class="iconfont lateFees" catchtap="lateFees" data-flag="1">{{tools.parseNum((details.etcMoney + details.serviceMoney - details.splitDeductedMoney - details.refundMoney)/100)}}</view>
+                    <view class="iconfont lateFees" catchtap="lateFees" data-flag="1">{{tools.parseNum((deratePrice)/100)}}</view>
                 </view>
             </view>
             <!-- 分割 -->
@@ -85,7 +85,7 @@
             </view>
             <view class="subModle" wx:if="{{details.serviceMoney}}">
                 <view class="iconfont lateFees" catchtap="lateFees">滞纳金</view>
-                <view>{{details.serviceMoney/100}}</view>
+                <view>{{ (details.deductPoundage.details && info.deductPoundage.serviceMoney) ? 0 : details.serviceMoney/100}}</view>
             </view>
             <view class="subModle">
                 <view>扣费类型</view>
@@ -139,7 +139,7 @@
                 <view>延期服务费</view>
                 <!-- <view wx:if="{{details.flowVersion === 2}}">¥{{details.totalMmout/100}}</view> -->
                 <!-- <view wx:else>¥{{details.etcMoney/100}}</view> -->
-                <view>¥{{details.serviceMoney/100}}</view>
+                <view>¥{{(details.deductPoundage.details && info.deductPoundage.serviceMoney) ? 0 : details.serviceMoney/100}}</view>
             </view>
             <view wx:if="{{details.wxDiscountAmount && details.wxDiscountAmount > 0}}">
                 <view>微信支付优惠</view>

@@ -301,6 +301,7 @@ Page({
 			if (res.code === 0) {
 				let data = channel[0].flowVersion !== 1 && channel[0].flowVersion !== 5 ? res.data.passRecords : res.data;
 				data.map((item) => {
+					item.channel = channel[0].obuCardType;
 					if (channel[0].flowVersion !== 1 && channel[0].flowVersion !== 5) {
 						item.flowVersion = channel[0].flowVersion;
 					} else {
@@ -371,12 +372,12 @@ Page({
 					util.go('/pages/personal_center/split_bill/split_bill');
 				},
 				cancel: () => {
-					util.go(`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
+					util.go(`/pages/personal_center/order_details/order_details?id=${model.id || model.passId}&channel=${model.channel}&month=${model.month || this.data.chooseTime}`);
 				}
 			});
 			return;
 		}
-		util.go(`/pages/personal_center/order_details/order_details?id=${model.id}&channel=${model.channel}&month=${model.month}`);
+		util.go(`/pages/personal_center/order_details/order_details?id=${model.id || model.passId}&channel=${model.channel}&month=${model.month || this.data.chooseTime}`);
 	},
 	// 下拉选择
 	selectedItem (e) {
