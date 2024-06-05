@@ -8,6 +8,7 @@ Page({
 		isQinghai: 0,// 是否是青海进入
 		orderList: [],
 		vehicleList: [],
+		deratePrice: 0,// 滞纳金减免金额
 		dateList: [],// 滞纳金减免数据列表(已排序)
 		failBillList: []
 	},
@@ -48,6 +49,7 @@ Page({
 			this.setData({
 				failBillList: [],
 				dateList: [],
+				deratePrice: 0,
 				orderList: obuStatusList
 			});
 			if (this.data.orderList.length === 1) {
@@ -194,6 +196,7 @@ Page({
 						}
 						if (item.deductPoundage?.serviceMoney && item.deductPoundage?.timestamp) { // 滞纳金减免金额
 							item.deductPoundage.serviceMoney = +item.deductPoundage.serviceMoney;
+							this.data.deratePrice += item.deductPoundage.serviceMoney;
 							total -= item.deductPoundage.serviceMoney;
 							const date = new Date(item.deductPoundage.timestamp);
 							item.deductPoundage.times = util.formatTime(date);
@@ -207,6 +210,7 @@ Page({
 					this.data.failBillList.push(order);
 				}
 				this.setData({
+					deratePrice: this.data.deratePrice,
 					dateList: this.data.dateList,
 					failBillList: this.data.failBillList
 				});
@@ -304,7 +308,8 @@ Page({
 							app.globalData.isArrearageData.isPayment = true;
 							this.setData({	// 清空原有的失败账单，再次用来存储最新的失败账单
 								failBillList: [],
-								dateList: []
+								dateList: [],
+								deratePrice: 0
 							});
 							this.getBillQuery(id);
 						} else {

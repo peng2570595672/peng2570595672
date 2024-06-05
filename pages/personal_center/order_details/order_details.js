@@ -235,6 +235,8 @@ Page({
 		}, (res) => {
 			util.hideLoading();
 			if (res.code === 0) {
+				console.log('获取账单详情');
+				console.log(res.data);
 				let { mergeId, deductType } = res.data;
 				if (mergeId === 0 && deductType === 2) {
 					// 周结合并流水账单
