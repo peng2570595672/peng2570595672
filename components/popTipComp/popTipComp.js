@@ -237,12 +237,12 @@ Component({
 		async authorizeTip () {
 			if (!this.data.getAgreement) return util.showToastNoIcon('请先同意勾选协议');
 			let that = this;
-			let params = that.data.paramsList.filter(item => item.type === 'newPop')[0].params;
+			let params = that.data.paramsList.filter(item => item.type === 'newPop' || item.type === 'nine')[0].params;
 			let res = await util.getDataFromServersV2('/consumer/order/pingan/get-bind-veh-url', {});
 			if (!res) return;
 			if (res.code === 0) {
 				params['optionLabel'] = 'CLICK';
-				params['relationId'] = that.data.relationId;
+				params['relationId'] = that.data.paramsList[0].type === 'nine' ? '' : that.data.relationId;
 				util.buriedPoint(params);
 				// 跳转 h5
 				util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data)}`);

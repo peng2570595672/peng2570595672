@@ -1,13 +1,13 @@
 <wxs src='../../../utils/util.wxs' module='tools'/>
 <view class="container">
-    <view class="title">当前券额：{{tools.parseNum(rechargeInfo && rechargeInfo.account ? (rechargeInfo.account.balance) / 100 : 0)}}</view>
+    <view class="title">当前商城权益金：{{tools.parseNum(rechargeInfo && rechargeInfo.account ? (rechargeInfo.account.balance) / 100 : 0)}}</view>
     <view class="list">
         <view class="item first-item" catchtap="handleMall">
             <view class="img">
                 <image src="/pages/personal_center/assets/virtual_mall.png" mode="widthFix"></image>
             </view>
             <view class="item-title">虚拟商城</view>
-            <view class="item-sub-title">使用券额+现金优</view>
+            <view class="item-sub-title">使用商城权益金+现金优</view>
             <view class="item-sub-title">惠充值</view>
         </view>
         <view class="item last-item" catchtap="handleTTQMini">
@@ -15,7 +15,7 @@
                 <image src="/pages/personal_center/assets/duty_free_mall.png" mode="widthFix"></image>
             </view>
             <view class="item-title">免稅商城</view>
-            <view class="item-sub-title">消耗31.8券额开通</view>
+            <view class="item-sub-title">消耗31.8商城权益金开通</view>
             <view class="item-sub-title">免税商品折扣</view>
         </view>
     </view>

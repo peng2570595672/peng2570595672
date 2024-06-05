@@ -7,7 +7,7 @@
         <view class="card margin" wx:if="{{item.accountType === 1}}" wx:key="index">
             <view class="card-info">
                 <view class="left">
-                    <view>当前账户剩余券额</view>
+                    <view>当前账户剩余商城权益金</view>
                     <view>
                         <text class="money">{{tools.parseNum(item.balance)}}</text>
                         <text class="t2" bindtap="goAccountDetailsMargin" data-index="{{ index }}">

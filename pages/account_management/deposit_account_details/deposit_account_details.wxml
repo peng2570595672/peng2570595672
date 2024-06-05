@@ -1,6 +1,6 @@
 <view class="account-details">
     <view class="account-info">
-        <view class="account-info-title">当前账户剩余券额<span class="iconfont iconTop"  bindtap="btnIcon"></span></view>
+        <view class="account-info-title">当前账户剩余商城权益金<span class="iconfont iconTop"  bindtap="btnIcon"></span></view>
         <view class="balance">
             <view class="price">{{Wallet}}</view>
 <!--            <view class="unit">元</view>-->
@@ -25,7 +25,7 @@
                 <view class="type">
                     {{ item.remark }}
                 </view>
-                <view class="price">{{item.transType === 2 ? '-' : '+'}}{{item.transValue/100}}券额</view>
+                <view class="price">{{item.transType === 2 ? '-' : '+'}}{{item.transValue/100}}商城权益金</view>
             </view>
             <view class="last">
                 <view></view>
