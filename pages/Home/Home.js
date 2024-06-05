@@ -525,7 +525,13 @@ Page({
                 type: 'nine',
                 title: '免责声明',
                 btnCancel: '取消',
-                btnconfirm: '同意授权'
+                btnconfirm: '同意授权',
+                params: {
+                    shopId: app.globalData.myEtcList[0].shopId,
+                    pagePath: 'Home',
+                    btnName: '平安绑车免责声明弹窗',
+                    pageName: '首页'
+                }
             });
             return;
         }
@@ -964,20 +970,22 @@ Page({
                     isAlertToSignObj = item;
                 }
                 // 平安获客 status -1 删除（取消办理），0-资料待完善，1-资料已完善 2-升级订单已确认
-                if (app.globalData.pingAnBindGuests?.pingAnBindVehplates.length > 0 && !app.globalData.isQingHaiHighSpeed && !this.data.PingAn && app.globalData.pingAnBindGuests && item.status === 1 && app.globalData.isShowOncepingAnBindGuestsPop === 0 && index === 0) {
+                if (app.globalData.pingAnBindGuests?.pingAnBindVehplates.length > 0 && !app.globalData.isQingHaiHighSpeed && app.globalData.pingAnBindGuests && item.status === 1 && index === 0) {
                     if (app.globalData.pingAnBindGuests.vehKeys === '*' || (app.globalData.pingAnBindGuests.vehKeys.includes(item.vehPlates.substring(0, 1)) && !app.globalData.pingAnBindGuests.filterKeys.includes(item.vehPlates.substring(0, 2)))) {
                         this.setData({ PingAn: true });
-                        let params = {
-                            shopId: item.shopId,
-                            pagePath: 'Home',
-                            btnName: '平安绑车弹窗',
-                            pageName: '首页'
-                        };
-                        app.globalData.isShowOncepingAnBindGuestsPop = 1;
-                        if (item.vehPlates.includes('云')) {
-                            this.selectComponent('#popTipComp').show({ type: 'newPop', title: '云', bgColor: 'rgba(0,0,0, 0.6)', params });
-                        } else {
-                            this.selectComponent('#popTipComp').show({ type: 'newPop', title: '全国', bgColor: 'rgba(0,0,0, 0.6)', params });
+                        if (app.globalData.isShowOncepingAnBindGuestsPop === 0) { // 打开小程序后只调用一次
+                            let params = {
+                                shopId: item.shopId,
+                                pagePath: 'Home',
+                                btnName: '平安绑车弹窗',
+                                pageName: '首页'
+                            };
+                            app.globalData.isShowOncepingAnBindGuestsPop = 1;
+                            if (item.vehPlates.includes('云')) {
+                                this.selectComponent('#popTipComp').show({ type: 'newPop', title: '云', bgColor: 'rgba(0,0,0, 0.6)', params });
+                            } else {
+                                this.selectComponent('#popTipComp').show({ type: 'newPop', title: '全国', bgColor: 'rgba(0,0,0, 0.6)', params });
+                            }
                         }
                     }
                 }

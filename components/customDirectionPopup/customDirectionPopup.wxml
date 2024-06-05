@@ -33,7 +33,7 @@
                         <view class="sub" wx:for="{{passTicketList}}" wx:key="index">
                             <view class="splitLine" />
                             <view class="leftPass">
-                                <view class="moneyNum">¥<text class="money">{{item.money}}</text><text wx:if="{{item.isEquity}}"> 券额</text></view>
+                                <view class="moneyNum">¥<text class="money">{{item.money}}</text><text wx:if="{{item.isEquity}}"> 商城权益金</text></view>
                                 <view class="textMoney">{{item.content}}</view>
                             </view>
                             <view class="rightPass">
@@ -203,7 +203,7 @@
         </view>
         <!-- 权益商城 -->
         <view class="module giveEquityPackage" wx:if="{{argObj.type === 'give_equity_package'}}">
-            <view class="subTitle">办理套餐可获得相应的权益券额奖励，并可用于权益商城优惠购物</view>
+            <view class="subTitle">办理套餐可获得相应的商城权益金奖励，并可用于权益商城优惠购物</view>
             <view class="pView">
                 <view class="subView" wx:for="{{giveEquityPackage}}" wx:key="*this">
                     <view class="img"><image class="image" src="{{item.img}}" mode="widthFix" /></view>
