@@ -2,7 +2,7 @@
 <!--提示开始-->
 <view class="prompt" wx:if="{{failBillList.length}}">
 	<view wx:if="{{!dateList.length}}">持续欠款将按日产生违约金，且影响高速通行，请尽快补缴</view>
-	<view wx:else>已限时减免违约金{{tools.parseNum((dateList[0].serviceMoney)/100)}}元，限时减免将于{{dateList[0].times}}失效，请尽快完成补缴</view>
+	<view wx:else>已限时减免违约金{{tools.parseNum((deratePrice)/100)}}元，限时减免将于{{dateList[0].times}}失效，请尽快完成补缴</view>
 </view>
 <!--提示结束-->
 <view class="my_order">
