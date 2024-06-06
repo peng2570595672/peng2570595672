@@ -2091,10 +2091,10 @@ function getDatanexusAnalysis(actionType, price = 0) {
   wx.request({
     // https://datanexus.qq.com/doc/develop/guider/interface/action/dmp_actions_add
     // https://developers.e.qq.com/docs/api/user_data/user_action/user_actions_add?version=1.3
-    url: `https://api.e.qq.com/v1.3/user_actions/add?access_token=e99dabed71962b695abc2769b1bd97e4&timestamp=${timestamp}&nonce=${nonceStr}`,
+    url: `https://api.e.qq.com/v1.3/user_actions/add?access_token=66898d98c3d92598bdbd48e069035899&timestamp=${timestamp}&nonce=${nonceStr}`,
     data: {
-      account_id: '35362489',
-      user_action_set_id: '1202153505',
+      account_id: '43973952',
+      user_action_set_id: '1203471363',
       'actions': [
         {
           'external_action_id': actionType,
