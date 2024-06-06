@@ -155,7 +155,6 @@ Page({
 		console.log(model);
 		app.globalData.membershipCoupon = model;
 		app.globalData.otherPlatformsServiceProvidersId = model.shopId;
-		app.globalData.orderInfo.orderId = '';
 		util.go('/pages/default/receiving_address/receiving_address');
 	}
 });

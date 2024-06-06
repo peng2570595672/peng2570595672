@@ -805,7 +805,6 @@ Page({
     // 点击tab栏下的办理
     onClickTransaction () {
         if (this.data.activeIndex !== 1) return;
-        app.globalData.orderInfo.orderId = '';
         wx.uma.trackEvent(this.data.activeIndex === 1 ? 'index_for_passenger_car_entrance'
             : 'index_for_truck_entrance');
         util.go(`/pages/${this.data.activeIndex === 1 ? 'default' : 'truck_handling'}/index/index?isMain=true`);
@@ -1361,7 +1360,6 @@ Page({
         }
         const orderInfo = this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data.truckOrderInfo;
         if (!orderInfo) {
-            app.globalData.orderInfo.orderId = '';
             wx.uma.trackEvent(this.data.activeIndex === 1 ? 'index_for_new_deal_with' : 'index_for_truck_new_deal_with');
             const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address' : '/pages/truck_handling/trucks/trucks';
             util.go(url);

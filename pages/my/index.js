@@ -1,5 +1,5 @@
 // pages/my/index.js
-import { compare, jumpCouponMini } from '../../utils/utils.js';
+import {compare, jumpCouponMini} from '../../utils/utils.js';
 
 const util = require('../../utils/util.js');
 const app = getApp();
@@ -65,7 +65,6 @@ Page({
     },
 
     async onLoad (options) {
-        app.globalData.orderInfo.orderId = '';
         if (options.isMain) {
             this.setData({
                 isMain: options.isMain
