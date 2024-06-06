@@ -1872,6 +1872,7 @@ function alertPayment(etcMoney, isTruck) {
 }
 // @cyl 时间比较=》 fixedTime: 固定时间，flexibleTime: 灵活时间。 适用于：根据某个时间前后来判断订单是否为新
 function timeComparison(fixedTime, flexibleTime) {
+  if (!fixedTime || !flexibleTime) return;
   fixedTime = fixedTime.slice(0, 19).replace(new RegExp('-', 'g'), '/'); //转换是为了iPhone
   flexibleTime = flexibleTime.slice(0, 19).replace(new RegExp('-', 'g'), '/');
   let time = (new Date(fixedTime)).getTime()
