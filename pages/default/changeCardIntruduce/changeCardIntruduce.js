@@ -82,6 +82,10 @@ Page({
     },
     //  校验蒙通卡订单
     async getAMontonkaOrder (oldVehPlates, newVehPlates) {
+        if (!this.data.nmOrderList.length) {
+            util.showToastNoIcon('该功能仅限内蒙高速卡种使用');
+            return;
+        }
         // 参数：不传检验是否有未完成的换牌申请，
         // oldVehPlates-旧车牌，传了校验是否该车牌有欠费，
         // newVehPlates-传了校验新车牌是否可用
