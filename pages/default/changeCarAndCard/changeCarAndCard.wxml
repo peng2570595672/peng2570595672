@@ -17,7 +17,7 @@
           </view>
         </view>
       </view>
-      <view class="otherCarno" catchtap="setOtherCarNo" wx:if="{{nmOrderList.length>0}}">
+      <view class="otherCarno" catchtap="setOtherCarNo" wx:if="{{nmOrderList.length>1}}">
         选择其他车牌
       </view>
     </view>
