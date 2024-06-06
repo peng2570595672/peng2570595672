@@ -92,10 +92,15 @@ Page({
      * 返回
      */
     finish () {
+        this.selectComponent('#popTipComp').show({
+            type: 'shenfenyanzhifail',
+            title: '提示',
+            btnCancel: '好的',
+            refundStatus: true,
+            content: '请使用微信搜索“内蒙古etc服务”小程序，注册登录后点击卡签重写功能，并按照指引完成ETC设备重写，完成后可在本小程序换牌记录处查看换牌是否成功!如有不解之处，请联系客服4006680996处理!!',
+            bgColor: 'rgba(0,0,0, 0.6)'
+        });
         if (this.data.finishReContract) {
-            wx.reLaunch({
-                url: '/pages/default/swapRecord/swapRecord'
-              });
         }
     },
     /**
@@ -104,11 +109,10 @@ Page({
     onShow () {
     },
 
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload () {
-
+    cancelHandle () {
+        wx.reLaunch({
+            url: '/pages/default/swapRecord/swapRecord'
+          });
     },
 
     /**

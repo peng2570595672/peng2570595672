@@ -68,7 +68,7 @@ Component({
 				paramsList: this.data.paramsList,
 				tipObj,
 				noSliding: true,
-				countdownText: `${tipObj.time} 秒后自动关闭`,
+				countdownText: `${tipObj.delayTime} 秒后自动关闭`,
 				duration: parseInt(tipObj.delayTime) // 如果time未提供，默认10秒
 			});
 			console.log(this.data.tipObj, 'show');

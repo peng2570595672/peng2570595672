@@ -34,6 +34,15 @@ Page({
                     { label: '每次救援费用不超过500元', value: '全年' },
                     { label: '累计救援服务费用1500元', value: '-' }
                 ]
+            },
+            {
+                title: '道路救援订单',
+                status: 2,
+                // policyNumber: '12332497890123',
+                url: 'road_rescue_orders',
+                coverages: [
+                    { label: '其他道路救援权益', value: '待开发' }
+                ]
             }
         ],
         roadRescueList1: [

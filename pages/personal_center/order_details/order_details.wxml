@@ -213,8 +213,8 @@
         <view class="line"></view>
     </view>
     <!-- 权益服务费 -->
-    <!-- 判断权益服务费流水用mergeId = 0 并且 deductType = 2来判断 -->
-    <!-- <view class="deduction-details" wx:if="{{ details.mergeId === 0 && details.deductType===2 && details.weekList.length>0}}">
+    <!-- 判断权益服务费流水用 orderExtCardType = 5来判断 -->
+    <view class="deduction-details" wx:if="{{ details.orderExtCardType === 5 && details.weekList.length>0}}">
         <view>
             <view>权益服务费</view>
             <view>{{details.vehPlate}}</view>
@@ -246,7 +246,7 @@
             <view>{{details.stationName ? details.stationName : details.outStationName}}</view>
         </view>
         <view class="line"></view>
-    </view> -->
+    </view>
     <!-- 货车 合并流水详情开始 -->
     <view class="deduction-details-truck {{line_open ? 'active_hide': ''}}" wx:if="{{ details.mergeId === 0 && details.deductType===2 && details.weekList.length>0}}">
         <!-- 判断周结合并流水账单，用mergeId = 0 并且 deductType = 2来判断 -->

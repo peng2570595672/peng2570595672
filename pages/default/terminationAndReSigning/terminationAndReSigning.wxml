@@ -33,6 +33,6 @@
     <view class="floatButton">
         <view class="handleImmediately {{finishReContract || newVehContractStatus === 1 ? 'finish' : ''}}" catchtap="finish">完成</view>
     </view>
-    <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
+    <popTipComp id="popTipComp" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></popTipComp>
 </view>
 <privacy_popup></privacy_popup>
