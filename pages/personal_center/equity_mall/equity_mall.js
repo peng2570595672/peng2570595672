@@ -9,7 +9,7 @@ Page({
 	async onShow () {
 		await this.getAccount();
 	},
-	// 获取用户权益券额
+	// 获取用户商城权益金
 	async getAccount () {
 		const result = await util.getDataFromServersV2('consumer/member/member/rights/account', {platformId: app.globalData.platformId});
 		if (result.code === 0) {
@@ -35,7 +35,7 @@ Page({
 		if (total >= 3180 && !this.data.isOpeningInterest) {
 			util.alert({
 				title: '',
-				content: '首次进入默认将扣减31.8券额兑换中免折扣优惠',
+				content: '首次进入默认将扣减31.8商城权益金兑换中免折扣优惠',
 				showCancel: true,
 				cancelText: '我不愿意',
 				confirmText: '好的',
@@ -70,7 +70,7 @@ Page({
 		if ((total < 3180 && !this.data.isOpeningInterest) || !this.data.rechargeInfo?.account?.id) {
 			util.alert({
 				title: '',
-				content: '当前权益券额不足以开通免税商品折扣，继续进入商城将以非折扣价购买商品',
+				content: '当前商城权益金不足以开通免税商品折扣，继续进入商城将以非折扣价购买商品',
 				showCancel: true,
 				confirmText: '继续进入',
 				confirm: () => {

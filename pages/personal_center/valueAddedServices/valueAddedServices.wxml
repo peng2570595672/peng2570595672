@@ -11,7 +11,7 @@
                     </view>
                 </view>
                 <view class="policyInfo">
-                    <view class="label">{{item.name}}</view>
+                    <view class="label">{{item.orderName}}</view>
                     <view class="value">{{item.policyNumber}}</view>
                 </view>
             </view>
