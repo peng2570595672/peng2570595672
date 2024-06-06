@@ -84,6 +84,7 @@ Page({
 			app.globalData.myEtcList = result.data;
 			let vehicleList = [];
 			result.data.map((item) => {
+				console.log('item,',item);
 				vehicleList.push(item.vehPlates);
 				item['deductionMethod'] = initProductName(item);
 				item['selfStatus'] = item.isNewTrucks === 1 ? util.getTruckHandlingStatus(item) : util.getStatus(item);
@@ -506,7 +507,7 @@ Page({
 			return;
 		}
 		// 多签，模式 确认页面
-		if (orderInfo.productProcess === 9) { // 设备升级
+		if (orderInfo.productProcess === 9) {
 			// 去签约确认页面
 			util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
 			return;

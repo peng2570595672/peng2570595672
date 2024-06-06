@@ -906,6 +906,19 @@ function getStatus(orderInfo) {
     }
     return 23;
   }
+  if (orderInfo.productProcess === 9) { 
+    // 多签流程 orderExtCardType 表示权益服务费这种订单,
+    console.log('多签流程',orderInfo);
+    if (orderInfo.orderExtCardType === 5 && orderInfo.isNewTrucks === 0 && orderInfo.transContractStatus === 2 || orderInfo.serviceContractStatus === 2 && orderInfo.status === 1 && orderInfo.pledgeStatus !== 0) {
+      return 1; // 有一个或者多个解约(恢复签约)
+    }
+    if (orderInfo.orderExtCardType === 5 && orderInfo.isNewTrucks === 0 && orderInfo.transContractStatus !== 1 && orderInfo.serviceContractStatus !== 1 && orderInfo.status === 1 && orderInfo.pledgeStatus !== 0) {
+      return 5; // 多签 均没有签约(去签约)
+    }
+    if (orderInfo.orderExtCardType === 5 && orderInfo.transContractStatus === 1 && orderInfo.serviceContractStatus === 1) {
+      return 6; // 多签 均签约 (查看进度)
+    }
+  }
   // if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0 && orderInfo.isSignTtCoupon !== 1 && orderInfo.platformId !== '568113867222155288' && orderInfo.platformId !== '500338116821778436') {
   // 	// 过滤好车主的
   // 	// protocolStatus 0未签协议 1签了
@@ -1872,6 +1885,7 @@ function alertPayment(etcMoney, isTruck) {
 }
 // @cyl 时间比较=》 fixedTime: 固定时间，flexibleTime: 灵活时间。 适用于：根据某个时间前后来判断订单是否为新
 function timeComparison(fixedTime, flexibleTime) {
+  if (!fixedTime || !flexibleTime) return;
   fixedTime = fixedTime.slice(0, 19).replace(new RegExp('-', 'g'), '/'); //转换是为了iPhone
   flexibleTime = flexibleTime.slice(0, 19).replace(new RegExp('-', 'g'), '/');
   let time = (new Date(fixedTime)).getTime()

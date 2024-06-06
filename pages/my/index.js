@@ -39,7 +39,7 @@ Page({
             { icon: '', title: '1V1专属客服', url: 'exclusive_service', img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8O5WAfXwSAAAOCAtM_x0245.svg', show: true },
             // {icon: '',title: '手机号管理',url: '',img: ''},   //本期先隐藏该项，暂不做功能
             { icon: '', title: '发票助手', url: 'invoice_assistant', img: 'https://file.cyzl.com/g001/M01/CA/14/oYYBAGP8OrKABB0VAAAMgE_4pJ8510.svg', show: true },
-            { icon: '', title: '换车换牌', url: 'changeCarAndCard', img: 'https://file.cyzl.com/g001/M03/60/F6/oYYBAGYvaKuAEhgmAAARwA987bc560.svg', show: true },
+            { icon: '', title: '换车换牌', url: 'changeCardIntruduce', img: 'https://file.cyzl.com/g001/M03/60/F6/oYYBAGYvaKuAEhgmAAARwA987bc560.svg', show: true },
             { icon: '', title: '售后服务', url: 'after_sales', img: 'https://file.cyzl.com/g001/M03/5B/ED/oYYBAGYov0aAB1QMAAACvUrnq1s341.png', show: true },
             { icon: '', title: '相关协议', url: 'user_agreement', img: 'https://file.cyzl.com/g001/M02/05/C5/oYYBAGT-bQWAXl7LAAABr3MkHt4764.png', show: true },
             { icon: '', title: '设置', url: 'set_up', img: 'https://file.cyzl.com/g001/M02/0F/A3/oYYBAGUsoMeALe1TAAACBGRL1Lk732.png', show: true }
@@ -74,12 +74,6 @@ Page({
         this.setData({
             isVip: app.globalData.isVip
         });
-        // let nmOrderList = app.globalData?.myEtcList?.filter(item => item.obuCardType === 2 && (item.obuStatus === 1 || item.obuStatus === 5));
-        // if (nmOrderList) {
-        //     this.setData({
-        //         nmOrderList
-        //     });
-        // }
     },
     async onShow () {
         // 4.0
@@ -542,12 +536,12 @@ Page({
             util.go(`/pages/personal_center/${url}/${url}?isVip=${that.data.isVip}`);
             return;
         }
-        if (url === 'changeCarAndCard') {	// 跳转换车换牌
+        if (url === 'changeCardIntruduce') {	// 跳转换车换牌
             // 判断有无已经激活的蒙通卡
-            return util.go(`/pages/default/${url}/${url}`);
-            // await this.getAMontonkaOrder();
-            // this.data.nmgOrderCnt > 0 ? util.go(`/pages/default/changeCardIntruduce/changeCardIntruduce`) : util.showToastNoIcon('该功能仅限内蒙高速卡种使用');
-            // return;
+            // return util.go(`/pages/default/${url}/${url}`);
+            await this.getAMontonkaOrder();
+            this.data.nmgOrderCnt > 0 ? util.go(`/pages/default/changeCardIntruduce/changeCardIntruduce`) : util.showToastNoIcon('该功能仅限内蒙高速卡种使用');
+            return;
         }
         if (url === 'tonTonQuan') {	// 跳转通通券
             this.selectComponent('#dialog1').show('tonTonQuan');

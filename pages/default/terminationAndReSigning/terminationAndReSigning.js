@@ -78,11 +78,11 @@ Page({
         if (!result) return;
         if (result.code === 0) {
             app.globalData.signAContract = 3;
-            const {oldVehContractStatus,orderId,id,newVehContractStatus} = result.data;
+            const {oldVehContractStatus,newVehContractStatus} = result.data;
             this.setData({
                 oldVehContractStatus, // 1 签约状态 ， 0 未签约， 2 解约状态
                 newVehContractStatus, // 1 签约状态， 0 未签约， 2 解约状态
-                finishReContract: newVehContractStatus === 1 // 是否完成签约
+                finishReContract: newVehContractStatus === 1 && (oldVehContractStatus === 2 || oldVehContractStatus === 0) // 是否完成签约
             });
         } else {
             util.showToastNoIcon(result.message);
@@ -93,9 +93,15 @@ Page({
      */
     finish () {
         if (this.data.finishReContract) {
-            wx.reLaunch({
-                url: '/pages/default/swapRecord/swapRecord'
-              });
+            this.selectComponent('#popTipComp').show({
+                type: 'oneBtn',
+                title: '提示',
+                btnconfirm: '好的',
+                content: '请使用微信搜索“内蒙古etc服务”小程序，注册登录后点击卡签重写功能，并按照指引完成ETC设备重写，完成后可在本小程序换牌记录处查看换牌是否成功!如有不解之处，请联系客服4006680996处理!!',
+                callBack: () => {
+                    this.cancelHandle();
+                }
+            });
         }
     },
     /**
@@ -104,11 +110,10 @@ Page({
     onShow () {
     },
 
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload () {
-
+    cancelHandle () {
+        wx.reLaunch({
+            url: '/pages/default/changeCardIntruduce/changeCardIntruduce'
+          });
     },
 
     /**

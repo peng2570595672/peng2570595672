@@ -1554,13 +1554,12 @@ Page({
         // 	util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
         // 	return;
         // }
-        // if (obj.productProcess === 9) {
-        //     console.log(obj,'多签签约,去签约确认页面');
-        //     util.go('/pages/personal_center/arrears_bill/arrears_bill');
-        //     // 去签约确认页面
-        //     // util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
-        //     return;
-        // }
+        // 多签，模式 确认页面
+		if (obj.productProcess === 9) {
+			// 去签约确认页面
+			util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
+			return;
+		}
         if (obj?.cardBank && obj?.creditCardStatus === -1) { // new 信用卡流程
             util.go(`/pages/bank_card/go_to_shenka/go_to_shenka?cardBank=${obj.cardBank}`);
             return;
