@@ -23,7 +23,52 @@ Page({
         //         nmOrderList
         //     });
         // }
-        await this.getAListOfExchangeRecords();
+        if (!app.globalData.userInfo.accessToken) {
+            this.login();
+        } else {
+            await this.getAListOfExchangeRecords();
+        }
+    },
+    // 自动登录
+    login () {
+        util.showLoading();
+        // 调用微信接口获取code
+        wx.login({
+            success: (res) => {
+                util.getDataFromServer('consumer/member/common/applet/code', {
+                    platformId: app.globalData.platformId, // 平台id
+                    code: res.code // 从微信获取的code
+                }, () => {
+                    util.hideLoading();
+                    util.showToastNoIcon('登录失败！');
+                }, async (res) => {
+                    if (res.code === 0) {
+                        util.hideLoading();
+                        res.data['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
+                        this.setData({
+                            loginInfo: res.data
+                        });
+                        // 已经绑定了手机号
+                        if (res.data.needBindingPhone !== 1) {
+                            app.globalData.userInfo = res.data;
+                            app.globalData.openId = res.data.openId;
+                            app.globalData.memberId = res.data.memberId;
+                            app.globalData.mobilePhone = res.data.mobilePhone;
+                        } else {
+                            util.hideLoading();
+                        }
+                        await this.getAListOfExchangeRecords();
+                    } else {
+                        util.hideLoading();
+                        util.showToastNoIcon(res.message);
+                    }
+                });
+            },
+            fail: () => {
+                util.hideLoading();
+                util.showToastNoIcon('登录失败！');
+            }
+        });
     },
     async validateCar () {
         // 判断是否存在未完成的换牌申请
@@ -36,7 +81,7 @@ Page({
         util.go(`/pages/default/${url}/${url}`);
     },
     //  校验蒙通卡订单
-    async getAMontonkaOrder (oldVehPlates,newVehPlates) {
+    async getAMontonkaOrder (oldVehPlates, newVehPlates) {
         // 参数：不传检验是否有未完成的换牌申请，
         // oldVehPlates-旧车牌，传了校验是否该车牌有欠费，
         // newVehPlates-传了校验新车牌是否可用
@@ -56,7 +101,7 @@ Page({
                     this.setData({
                         once: false // 一条订单差欠费 控制只查一次 // 防止递归
                     });
-                    await this.getAMontonkaOrder(this.data.nmOrderList[0].vehPlates,'');
+                    await this.getAMontonkaOrder(this.data.nmOrderList[0].vehPlates, '');
                 } else {
                     util.go(`/pages/default/changeCarAndCard/changeCarAndCard`);
                 }

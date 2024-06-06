@@ -128,8 +128,8 @@
 .index .moduleOne .input .oldCarno .point::before {
   content: '\2022' /* 使用Unicode字符 \2022 作为间隔点 */;
   position: absolute;
-  font-weight: 400;
   color: #000;
+  font-weight: 400;
   top: 0;
   left: 30%;
 }
