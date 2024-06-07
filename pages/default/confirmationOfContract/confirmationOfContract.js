@@ -84,10 +84,6 @@ Page({
 			severalContract: 1,// 标识多签模式
 			needSignContract: true // 是否需要签约 true-是，false-否
 		};
-
-		if (this.data.contractStatus === 1) {
-			delete params.needSignContract;
-		}
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		this.setData({
 			isRequest: false
