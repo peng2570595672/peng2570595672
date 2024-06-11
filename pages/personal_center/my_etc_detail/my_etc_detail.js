@@ -318,6 +318,16 @@ Page({
 	},
 	// 去支付
 	goPayment (orderInfo) {
+		if (orderInfo.flowVersion === 9 && orderInfo?.cardBank && orderInfo?.creditCardStatus !== 2) { // new 信用卡流程
+			if (orderInfo?.creditCardStatus === -1) { // creditCardStatus -1 : 未进件 ，0 :  进件中，1：进件成功，2：审批成功，3：审批失败
+				util.go(`/pages/bank_card/go_to_shenka/go_to_shenka?cardBank=${orderInfo.cardBank}`);
+			} else if (orderInfo?.creditCardStatus === 0 || orderInfo?.creditCardStatus === 1) {
+				util.showToastNoIcon('信用卡还未审核通过，请耐心等待！');
+			} else if (orderInfo?.creditCardStatus === 3) {
+				util.showToastNoIcon('信用卡审核未通过，联系ETC工作人员取消订单！');
+			}
+			return;
+		}
 		if (orderInfo.promoterType === 41 && orderInfo.vehPlates.length === 11) {	// 业务员空发
 			util.go(`/pages/empty_hair/empty_package/empty_package?shopProductId=${orderInfo.shopProductId}`);
 			return;
@@ -520,10 +530,6 @@ Page({
 		// 	util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
 		// 	return;
 		// }
-		if (obj?.cardBank && obj?.creditCardStatus === -1) {	// new 信用卡流程
-			util.go(`/pages/bank_card/go_to_shenka/go_to_shenka?cardBank=${obj.cardBank}`);
-			return;
-		}
 		if (obj.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId && app.globalData.cictBankObj.citicBankshopProductIds.includes(obj.shopProductId) && obj.contractStatus !== 1) {
 			util.go(`/pages/bank_card/citic_bank_sign/citic_bank_sign`);
 			return;

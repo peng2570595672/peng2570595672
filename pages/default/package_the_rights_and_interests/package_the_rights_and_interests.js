@@ -280,7 +280,6 @@ Page({
                 }
                 return;
             }
-            console.log('result', result.data);
             app.globalData.isQingHaiHighSpeed = result.data.product?.shopId === '1192062723268681728';
             this.setData({
                 isPay: result.data.product?.shopProductId && (result.data.base?.pledgeStatus === -1 || result.data.base?.pledgeStatus === 1),
@@ -1040,11 +1039,6 @@ Page({
                                 return;
                             }
                             if (this.data.orderInfo.base?.flowVersion !== 1) {
-                                if (this.data.orderInfo.base?.flowVersion === 9 || this.data.listOfPackages[this.data.activeIndex].cardBank) {	// new 信用卡流程
-                                    let cardBank = this.data.listOfPackages[this.data.activeIndex]?.cardBank || this.data.orderInfo.base?.cardBank;
-                                    util.go(`/pages/bank_card/go_to_shenka/go_to_shenka?cardBank=${cardBank}`);
-                                    return;
-                                }
                                 // 无需签约
                                 util.go('/pages/historical_pattern/transition_page/transition_page');
                                 return;
@@ -1176,28 +1170,29 @@ Page({
         };
         let currentIndex = 0;
         for (currentIndex; currentIndex < num; currentIndex++) {
+            let shopProduct = this.data.listOfPackages[currentIndex]; // 单个套餐
             // 后台返回的协议，格式转换
-            if (this.data.listOfPackages[currentIndex]?.agreements) {
+            if (shopProduct?.agreements) {
                 try {
-                    this.setData({ [`listOfPackages[${currentIndex}].agreements`]: JSON.parse(this.data.listOfPackages[currentIndex].agreements) });
+                    this.setData({ [`listOfPackages[${currentIndex}].agreements`]: JSON.parse(shopProduct.agreements) });
                 } catch (error) { }
             }
             // 加购权益包
-            const packageIds = this.data.listOfPackages[currentIndex].rightsPackageIds && this.data.listOfPackages[currentIndex]?.rightsPackageIds.length !== 0;
+            const packageIds = shopProduct.rightsPackageIds && shopProduct?.rightsPackageIds.length !== 0;
             if (!packageIds) {
                 equityListMap.addEquityList.push({ index: currentIndex, packageName: '', payMoney: 0, aepIndex: -1 });
             } else {
                 const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
-                    packageIds: this.data.listOfPackages[currentIndex]?.rightsPackageIds
+                    packageIds: shopProduct?.rightsPackageIds
                 }, 'POST', false);
                 if (result.code === 0) {
-                    // this.data.listOfPackages[currentIndex].mustChoiceRightsPackage === 1 ? 0 : -1
                     let packageName = '';
+                    let aepIndex = shopProduct?.rightsPackageIds.length === 1 && (shopProduct.mustChoiceRightsPackage === 1 || shopProduct.orderType === 31) ? 0 : -1;
                     result.data.map((item, index) => {
                         packageName += item.packageName;
                         packageName += index < result.data.length - 1 ? '+' : '';
                     });
-                    equityListMap.addEquityList.push({ index: currentIndex, packageName: packageName, subData: result.data, aepIndex: -1 });
+                    equityListMap.addEquityList.push({ index: currentIndex, packageName: packageName, subData: result.data, aepIndex: aepIndex });
                 } else {
                     // 占位
                     equityListMap.addEquityList.push({ index: currentIndex, packageName: '', payMoney: 0, aepIndex: -1 });
@@ -1205,7 +1200,7 @@ Page({
             }
             // 2%综合服务费赠送权益包(只能有一个)
             let defaultPackages = [];
-            let sevicePackages = this.data.listOfPackages[currentIndex].serviceFeePackageId;
+            let sevicePackages = shopProduct.serviceFeePackageId;
             if (sevicePackages) defaultPackages = sevicePackages.split(',');
             if (defaultPackages.length === 0) {
                 equityListMap.serviceEquityList.push({ index: currentIndex, packageName: '', payMoney: 0 });
@@ -1228,12 +1223,12 @@ Page({
                 }
             }
             // 默认赠送的权益包
-            let packageId = this.data.listOfPackages[currentIndex].rightsPackageId && this.data.listOfPackages[currentIndex].rightsPackageId !== 0;
+            let packageId = shopProduct.rightsPackageId && shopProduct.rightsPackageId !== 0;
             if (!packageId) {
                 equityListMap.defaultEquityList.push({ index: currentIndex, packageName: '', payMoney: 0 });
             } else {
                 const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
-                    packageIds: new Array(this.data.listOfPackages[currentIndex].rightsPackageId)
+                    packageIds: new Array(shopProduct.rightsPackageId)
                 }, 'POST', false);
                 if (result.code === 0) {
                     equityListMap.defaultEquityList.push({ index: currentIndex, subData: result.data });
@@ -1243,7 +1238,7 @@ Page({
                 }
             }
             // 判断套餐是否为银行行用卡套餐
-            if (this.data.citicBankshopProductIds.includes(this.data.listOfPackages[currentIndex]?.shopProductId)) {
+            if (this.data.citicBankshopProductIds.includes(shopProduct?.shopProductId)) {
                 equityListMap.bankList.push({ index: currentIndex, isBank: true });
             } else {
                 // 占位

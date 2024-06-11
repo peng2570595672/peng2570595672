@@ -17,7 +17,7 @@ Page({
 
     async next () {
         if (this.data.card_bank === 1 || this.data.card_bank === 2) { // 中信银行
-            if (this.data.card_bank === 2) {
+            if (this.data.card_bank === 2) { // 白金卡
                 url = `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?sid=SJCSJHT01&paId=${app.globalData.orderInfo.orderId}&partnerId=SJHT&pid=CS0840`;
             } else {
                 url = `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?pid=CS0207&sid=SJCSJHT01&paId=${app.globalData.orderInfo.orderId}&partnerId=SJHT`;
@@ -53,6 +53,11 @@ Page({
                 util.showToastNoIcon(res.message);
             }
         }
+    },
+    goBack () { // 返回上一页
+        wx.navigateBack({
+            delta: 1 // 默认值是1
+        });
     }
 
 });

@@ -1,9 +1,20 @@
 <view class="index">
     <view class="module module1">
-        <image class="img1" src="https://file.cyzl.com/g001/M02/19/6A/oYYBAGVdqp6AP_9GAAATfrodu2E153.png"/>
+        <image class="img1" wx:if="{{card_bank === 1}}" src="https://file.cyzl.com/g001/M01/D1/EC/oYYBAGQmbyGAJQ4wAAOzK-HiEM0583.jpg"/>
+        <image class="img1" wx:elif="{{card_bank === 2}}" src="https://file.cyzl.com/g001/M01/D1/EC/oYYBAGQmbzqAMNy8AAJalSVjby0953.jpg"/>
+        <image class="img1" wx:elif="{{card_bank === 3}}" src="https://file.cyzl.com/g001/M02/16/B1/oYYBAGVR6oSAUMctAACP5vfK5Kg358.jpg"/>
+        <image class="img1" wx:elif="{{card_bank === 4 || card_bank === 5}}" src="https://file.cyzl.com/g001/M03/40/C4/oYYBAGXdmvyAA8hEAACkQMOLmQo771.jpg"/>
     </view>
-    <view class="tip">请继续完成信用卡办理</view>
+    <view class="module module2">
+        <text class="text1" wx:if="{{card_bank === 4 || card_bank === 5}}">{{"一、限广发银行信用卡新客户参与，新客户指:名下未曾持有任何广发信用卡，或仅有注销卡且注销时间距新卡申请日超过180自然日及以上客户；\n二、成功办理且激活广发银行信用卡的新客户可获取价值200元的通行券包，通行券自动发放至ETC+小程序 - 我的 - 领券中心，用户可每月领取2次10元面额的通行券。"}}</text>
+    </view>
+    <view class="module module3">
+        <text class="text2" wx:if="{{card_bank}}">请先完成信用卡申办流程，才能继续办理ETC</text>
+        <text class="text2" wx:if="{{card_bank}}">若信用卡申请失败，可以联系ETC办理人员取消ETC办理订单，终止ETC办理</text>
+        <!-- <text class="text2" wx:if="{{!card_bank}}">请返回重新进入</text> -->
+    </view>
     <view class="floatButton" wx:if="{{card_bank}}">
+        <view class="handleImmediately grey" catchtap="goBack">我再想想</view>
         <view class="handleImmediately btn" catchtap="next">
             <text wx:if="{{card_bank === 1 || card_bank === 2}}">去申请中信银行信用卡</text>
             <text wx:elif="{{card_bank === 3}}">去申请民生银行信用卡</text>

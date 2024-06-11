@@ -25,9 +25,9 @@
                 </view>
                 <view wx:if="{{item.isNewTrucks !== 1}}"
                     class="right caution {{item.selfStatus === 7 || item.selfStatus === 8 ? 'failed' : ''}} {{item.selfStatus === 12 || item.selfStatus === 30 ? 'succeed' : ''}}">
-                    {{item.selfStatus === 1 || item.selfStatus === 22 ? (item.flowVersion === 9 && item.creditCardStatus === -1 ? '待申请信用卡' : '已解约') : ''}}
+                    {{item.selfStatus === 1 || item.selfStatus === 22 ? '已解约' : ''}}
                     {{item.selfStatus === 2 || item.selfStatus === 4 || item.selfStatus === 14 || item.selfStatus === 23 || item.selfStatus === 25 || item.selfStatus === 34 ? '办理中' : ''}}
-                    {{item.selfStatus === 3 || item.selfStatus === 24 ? '待支付' : ''}}
+                    {{item.selfStatus === 3 || item.selfStatus === 24 ? (item.flowVersion === 9 && item.creditCardStatus === -1 ? '待申请信用卡' : '待支付') : ''}}
                     {{item.selfStatus === 5 || item.selfStatus === 21 ? '待签约' : ''}}
                     {{item.selfStatus === 6 ? '待审核' : ''}}
                     {{item.selfStatus === 7 || item.selfStatus === 27 ? '审核不通过' : ''}}
@@ -63,9 +63,9 @@
                 <view
                     class="{{item.selfStatus === 12 || item.selfStatus === 32 ? item.deviceUpgrade || item.selfStatus === 12 ? 'iconfont' : '' : 'iconfont'}}"
                     data-index="{{index}}" data-renew="2" catchtap="renewWhitelistJudgement">
-                    {{item.selfStatus === 1 || item.selfStatus === 22 ? (item.flowVersion === 9 && item.creditCardStatus === -1 ? '申请信用卡' : '恢复签约') : ''}}
+                    {{item.selfStatus === 1 || item.selfStatus === 22 ? '恢复签约' : ''}}
                     {{item.selfStatus === 2 || item.selfStatus === 4 || item.selfStatus === 14 || item.selfStatus === 23 || item.selfStatus === 25 || item.selfStatus === 34 ? '继续办理' : ''}}
-                    {{item.selfStatus === 3 || item.selfStatus === 24 ? '去支付' : ''}}
+                    {{item.selfStatus === 3 || item.selfStatus === 24 ? (item.flowVersion === 9 && item.creditCardStatus === -1 ? '申请信用卡' : '去支付') : ''}}
                     {{item.selfStatus === 5 || item.selfStatus === 9 ? (item.flowVersion === 7 ? '继续办理' : '去签约') : ''}}
                     {{item.selfStatus === 6 ? '查看进度' : ''}}
                     {{(item.selfStatus === 7 && item.flowVersion !== 4) || item.selfStatus === 27 ? '修改资料' : ''}}
