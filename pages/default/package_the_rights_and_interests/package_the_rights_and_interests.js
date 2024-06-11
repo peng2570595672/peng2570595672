@@ -1038,7 +1038,7 @@ Page({
                                 util.go(`/pages/default/payment_successful/payment_successful?isHunan=1`);
                                 return;
                             }
-                            if (this.data.orderInfo.base?.flowVersion !== 1) {
+                            if (this.data.orderInfo.base?.flowVersion === 2) {
                                 // 无需签约
                                 util.go('/pages/historical_pattern/transition_page/transition_page');
                                 return;
