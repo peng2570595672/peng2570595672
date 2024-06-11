@@ -906,6 +906,19 @@ function getStatus(orderInfo) {
     }
     return 23;
   }
+  if (orderInfo.productProcess === 9) { 
+    // 多签流程 orderExtCardType 表示权益服务费这种订单,
+    console.log('多签流程',orderInfo);
+    if (orderInfo.orderExtCardType === 5 && orderInfo.isNewTrucks === 0 && orderInfo.transContractStatus === 2 || orderInfo.serviceContractStatus === 2 && orderInfo.status === 1 && orderInfo.pledgeStatus !== 0) {
+      return 1; // 有一个或者多个解约(恢复签约)
+    }
+    if (orderInfo.orderExtCardType === 5 && orderInfo.isNewTrucks === 0 && orderInfo.transContractStatus !== 1 && orderInfo.serviceContractStatus !== 1 && orderInfo.status === 1 && orderInfo.pledgeStatus !== 0) {
+      return 5; // 多签 均没有签约(去签约)
+    }
+    if (orderInfo.orderExtCardType === 5 && orderInfo.transContractStatus === 1 && orderInfo.serviceContractStatus === 1) {
+      return 6; // 多签 均签约 (查看进度)
+    }
+  }
   // if (orderInfo.orderType === 31 && orderInfo.protocolStatus === 0 && orderInfo.isSignTtCoupon !== 1 && orderInfo.platformId !== '568113867222155288' && orderInfo.platformId !== '500338116821778436') {
   // 	// 过滤好车主的
   // 	// protocolStatus 0未签协议 1签了
@@ -2092,10 +2105,10 @@ function getDatanexusAnalysis(actionType, price = 0) {
   wx.request({
     // https://datanexus.qq.com/doc/develop/guider/interface/action/dmp_actions_add
     // https://developers.e.qq.com/docs/api/user_data/user_action/user_actions_add?version=1.3
-    url: `https://api.e.qq.com/v1.3/user_actions/add?access_token=e99dabed71962b695abc2769b1bd97e4&timestamp=${timestamp}&nonce=${nonceStr}`,
+    url: `https://api.e.qq.com/v1.3/user_actions/add?access_token=66898d98c3d92598bdbd48e069035899&timestamp=${timestamp}&nonce=${nonceStr}`,
     data: {
-      account_id: '35362489',
-      user_action_set_id: '1202153505',
+      account_id: '43973952',
+      user_action_set_id: '1203471363',
       'actions': [
         {
           'external_action_id': actionType,

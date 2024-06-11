@@ -2,7 +2,7 @@
 <view class="index">
     <!-- 订单模块 -->
     <view wx:if="{{isShow}}">
-        <view class="module moduleOne" wx:for="{{roadRescueList1}}" wx:key="index">
+        <view class="module moduleOne" wx:for="{{roadRescueList}}" wx:key="index">
             <view class="upper">
                 <view class="attrVal">
                     <view class="attr">{{item.title}}</view>
@@ -11,7 +11,7 @@
                     </view>
                 </view>
                 <view class="policyInfo">
-                    <view class="label">{{item.name}}</view>
+                    <view class="label">{{item.orderName}}</view>
                     <view class="value">{{item.policyNumber}}</view>
                 </view>
             </view>

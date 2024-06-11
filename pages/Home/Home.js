@@ -805,7 +805,6 @@ Page({
     // 点击tab栏下的办理
     onClickTransaction () {
         if (this.data.activeIndex !== 1) return;
-        app.globalData.orderInfo.orderId = '';
         wx.uma.trackEvent(this.data.activeIndex === 1 ? 'index_for_passenger_car_entrance'
             : 'index_for_truck_entrance');
         util.go(`/pages/${this.data.activeIndex === 1 ? 'default' : 'truck_handling'}/index/index?isMain=true`);
@@ -942,7 +941,6 @@ Page({
         // 订单展示优先级: 扣款失败账单>已解约状态>按最近时间顺序：办理状态or账单记录
         util.hideLoading();
         if (!result) return;
-        app.globalData.orderInfo.orderId = '';
         if (result.code === 0) {
             const list = this.sortDataArray(result.data);
             list.forEach(res => {
@@ -1362,7 +1360,6 @@ Page({
         }
         const orderInfo = this.data.activeIndex === 1 ? this.data.passengerCarOrderInfo : this.data.truckOrderInfo;
         if (!orderInfo) {
-            app.globalData.orderInfo.orderId = '';
             wx.uma.trackEvent(this.data.activeIndex === 1 ? 'index_for_new_deal_with' : 'index_for_truck_new_deal_with');
             const url = this.data.activeIndex === 1 ? '/pages/default/receiving_address/receiving_address' : '/pages/truck_handling/trucks/trucks';
             util.go(url);
@@ -1564,13 +1561,16 @@ Page({
         // 	util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests`);
         // 	return;
         // }
-        // if (obj.productProcess === 9) {
-        //     console.log(obj,'多签签约,去签约确认页面');
-        //     util.go('/pages/personal_center/arrears_bill/arrears_bill');
-        //     // 去签约确认页面
-        //     // util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
-        //     return;
-        // }
+        // 多签，模式 确认页面
+		if (obj.productProcess === 9) {
+			// 去签约确认页面
+			util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
+			return;
+		}
+        if (obj?.cardBank && obj?.creditCardStatus === -1) { // new 信用卡流程
+            util.go(`/pages/bank_card/go_to_shenka/go_to_shenka?cardBank=${obj.cardBank}`);
+            return;
+        }
         if (obj.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId && app.globalData.cictBankObj.citicBankshopProductIds.includes(obj.shopProductId) && obj.contractStatus !== 1) {
             util.go(`/pages/bank_card/citic_bank_sign/citic_bank_sign`);
             return;

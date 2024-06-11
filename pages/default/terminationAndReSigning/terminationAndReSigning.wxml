@@ -18,7 +18,7 @@
                 <view>解除旧车牌微信授权</view>
                 <view>签署新车牌服务，需要解除旧车牌绑定</view>
             </view>
-            <view class="weChatSign {{ oldVehContractStatus === 0 || oldVehContractStatus === 2 ?'':'grey'}}" catchtap="goAndCancelTheContract">{{oldVehContractStatus === 2 ||oldVehContractStatus === 0 ? '已解约':'去解约'}}</view>
+            <view class="weChatSign {{ oldVehContractStatus === 0 || oldVehContractStatus === 2 ?'':'grey'}}" catchtap="goAndCancelTheContract">{{oldVehContractStatus === 2 || oldVehContractStatus === 0 ? '已解约':'去解约'}}</view>
         </view>
     </view>
     <view class="module">
@@ -31,8 +31,8 @@
         </view>
     </view>
     <view class="floatButton">
-        <view class="handleImmediately {{finishReContract || newVehContractStatus === 1 ? 'finish' : ''}}" catchtap="finish">完成</view>
+        <view class="handleImmediately {{finishReContract ? 'finish' : ''}}" catchtap="finish">完成</view>
     </view>
-    <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
+    <popTipComp id="popTipComp" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></popTipComp>
 </view>
 <privacy_popup></privacy_popup>
