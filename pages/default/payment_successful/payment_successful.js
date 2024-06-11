@@ -94,7 +94,7 @@ Page({
 				isRequest: true
 			});
 		}
-		if (this.data.orderInfo.flowVersion !== 1) {
+		if (this.data.orderInfo.flowVersion !== 1 && this.data.orderInfo.flowVersion !== 9) {
 			util.go('/pages/historical_pattern/transition_page/transition_page');
 			return;
 		}
