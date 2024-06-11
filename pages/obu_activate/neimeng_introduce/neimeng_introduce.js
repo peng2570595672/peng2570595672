@@ -10,6 +10,12 @@ Page({
 		baseInfo: undefined
 	},
 	onLoad () {
+		if (app.globalData.obuActive_upDate) {
+			this.setData({
+				obuActive_upDate: app.globalData.obuActive_upDate // 是否属于重写激活
+			});
+			wx.setNavigationBarTitle({title: `更新设备信息`});
+		}
 	},
 	onShow () {
 		let baseInfo = wx.getStorageSync('baseInfo');

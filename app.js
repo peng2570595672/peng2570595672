@@ -37,6 +37,7 @@ App({
 		isWeChatSudoku: false, // 从微信九宫格进入(微信--生活缴费--ETC办理)
 		isContinentInsurance: false, // 是否是大地保险 用来屏蔽微保
 		isToastAgreement: true,
+		obuActive_upDate: false, // 是否内蒙重写激活订单
 		isPingAn: false, // 是否是平安 用来屏蔽微保
 		isJinYiXing: false, // 是否是津易行办理
 		belongToPlatform: '500338116821778434', // 套餐所属平台id,用于判断流程
