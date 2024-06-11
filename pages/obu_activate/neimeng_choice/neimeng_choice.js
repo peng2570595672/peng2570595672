@@ -10,10 +10,17 @@ Page({
 			// {name: '万集 OBU', subTitle: '质保3年/高速通行95折', img: '/images/etc.png'},
 			{name: '铭创（插卡式）', deviceType: 0,subTitle: '质保3年/高速通行95折', img: '../images/etc.png'}
 		],
+		obuActive_upDate: false,
 		obuCardType: 2,// 默认蒙通卡
 		activeIndex: -1
 	},
 	onLoad (options) {
+		if (options.obuActive_upDate) {
+			app.globalData.obuActive_upDate = options.obuActive_upDate;
+			this.setData({
+				obuActive_upDate: options.obuActive_upDate // 是否属于重写激活
+			});
+		}
 		if (options.obuCardType) {
 			const obuCardType = +options.obuCardType;
 			this.setData({
@@ -66,8 +73,16 @@ Page({
 		wx.setStorageSync('installGuid', this.data.list[index].name);
 		app.globalData.choiceDeviceIndex = index;
 		if (!this.data.list[index].deviceType) {	// 插卡式
+			if (app.globalData.obuActive_upDate) { // obuActive_upDate 重写激活 直接跳到激活页
+				util.go('/pages/obu_activate/instructions/index');
+				return;
+			}
 			util.go('/pages/obu_activate/guide/index');
 		} else {	// 无卡式
+			if (app.globalData.obuActive_upDate) { // obuActive_upDate 重写激活 直接跳到激活页
+				util.go('/pages/obu_activate/neimeng_introduce/neimeng_introduce');
+				return;
+			}
 			util.go('/pages/obu_activate/neimeng_guide/neimeng_guide');
 		}
 	}
