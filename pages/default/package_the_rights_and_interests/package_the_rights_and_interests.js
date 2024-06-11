@@ -1358,6 +1358,7 @@ Page({
                         type: 'add_equity_package',
                         title: '加购权益包',
                         isSplit: true,
+                        isSalesmanOrder: this.data.isSalesmanOrder,
                         bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 40%,#FFFFFF 100%)',
                         equityPackageInfo: this.data.equityListMap.addEquityList[index].subData,
                         mustEquity: this.data.listOfPackages[index].mustChoiceRightsPackage,

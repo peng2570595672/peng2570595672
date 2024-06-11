@@ -572,6 +572,9 @@ Component({
         },
         // 点击是否高亮
         btnMd1 (e) {
+            if (this.data.argObj?.isSalesmanOrder && this.data.argObj?.aepIndex !== -1) {
+                return;
+            }
             let index = e.currentTarget.dataset.index;
             let choiceIndex = this.data.choiceIndex;
             let isChoice = choiceIndex !== index;

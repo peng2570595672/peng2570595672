@@ -540,70 +540,71 @@ Page({
         };
         let currentIndex = 0;
         for (currentIndex; currentIndex < num; currentIndex++) {
+            let shopProduct = this.data.listOfPackages[currentIndex]; // 单个套餐
             // 后台返回的协议，格式转换
-            if (this.data.listOfPackages[currentIndex]?.agreements) {
+            if (shopProduct?.agreements) {
                 try {
-                    this.setData({[`listOfPackages[${currentIndex}].agreements`]: JSON.parse(this.data.listOfPackages[currentIndex].agreements)});
-                } catch (error) {}
+                    this.setData({ [`listOfPackages[${currentIndex}].agreements`]: JSON.parse(shopProduct.agreements) });
+                } catch (error) { }
             }
             // 加购权益包
-            const packageIds = this.data.listOfPackages[currentIndex].rightsPackageIds && this.data.listOfPackages[currentIndex]?.rightsPackageIds.length !== 0;
+            const packageIds = shopProduct.rightsPackageIds && shopProduct?.rightsPackageIds.length !== 0;
             if (!packageIds) {
-                equityListMap.addEquityList.push({index: currentIndex, packageName: '',payMoney: 0,aepIndex: -1});
+                equityListMap.addEquityList.push({ index: currentIndex, packageName: '', payMoney: 0, aepIndex: -1 });
             } else {
                 const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
-                    packageIds: this.data.listOfPackages[currentIndex]?.rightsPackageIds
-                },'POST',false);
+                    packageIds: shopProduct?.rightsPackageIds
+                }, 'POST', false);
                 if (result.code === 0) {
-                    // this.data.listOfPackages[currentIndex].mustChoiceRightsPackage === 1 ? 0 : -1
                     let packageName = '';
-                    result.data.map((item,index) => {
+                    let aepIndex = shopProduct?.rightsPackageIds.length === 1 && (shopProduct.mustChoiceRightsPackage === 1 || shopProduct.orderType === 31) ? 0 : -1;
+                    result.data.map((item, index) => {
                         packageName += item.packageName;
                         packageName += index < result.data.length - 1 ? '+' : '';
                     });
-                    equityListMap.addEquityList.push({index: currentIndex,packageName: packageName,subData: result.data,aepIndex: -1});
+                    equityListMap.addEquityList.push({ index: currentIndex, packageName: packageName, subData: result.data, aepIndex: aepIndex });
                 } else {
                     // 占位
-                    equityListMap.addEquityList.push({index: currentIndex, packageName: '',payMoney: 0,aepIndex: -1});
+                    equityListMap.addEquityList.push({ index: currentIndex, packageName: '', payMoney: 0, aepIndex: -1 });
                 }
             }
-            // 默认权益包(只能有一个)
+            // 2%综合服务费赠送权益包(只能有一个)
             let defaultPackages = [];
-            let sevicePackages = this.data.listOfPackages[currentIndex].serviceFeePackageId;
+            let sevicePackages = shopProduct.serviceFeePackageId;
             if (sevicePackages) defaultPackages = sevicePackages.split(',');
             if (defaultPackages.length === 0) {
-                equityListMap.serviceEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+                equityListMap.serviceEquityList.push({ index: currentIndex, packageName: '', payMoney: 0 });
             } else {
                 const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
                     packageIds: defaultPackages
-                },'POST',false);
+                }, 'POST', false);
                 if (result.code === 0) {
                     let packageName = '';
                     // let payMoney = 0;	// 综合服务权益包 金额
-                    result.data.map((item,index) => {
+                    result.data.map((item, index) => {
                         packageName += item.packageName;
                         // payMoney += item.payMoney;
                         packageName += index < result.data.length - 1 ? '+' : '';
                     });
-                    equityListMap.serviceEquityList.push({index: currentIndex,subData: result.data,packageName: packageName,payMoney: 0});
+                    equityListMap.serviceEquityList.push({ index: currentIndex, subData: result.data, packageName: packageName, payMoney: 0 });
                 } else {
                     // 占位
-                    equityListMap.serviceEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+                    equityListMap.serviceEquityList.push({ index: currentIndex, packageName: '', payMoney: 0 });
                 }
             }
-            // 2%综合服务费赠送的权益包
-            let packageId = this.data.listOfPackages[currentIndex].rightsPackageId && this.data.listOfPackages[currentIndex].rightsPackageId !== 0;
+            // 默认赠送的权益包
+            let packageId = shopProduct.rightsPackageId && shopProduct.rightsPackageId !== 0;
             if (!packageId) {
-                equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+                equityListMap.defaultEquityList.push({ index: currentIndex, packageName: '', payMoney: 0 });
             } else {
                 const result = await util.getDataFromServersV2('consumer/voucher/rights/get-packages-by-package-ids', {
-                    packageIds: new Array(this.data.listOfPackages[currentIndex].rightsPackageId)
-                },'POST',false);
+                    packageIds: new Array(shopProduct.rightsPackageId)
+                }, 'POST', false);
                 if (result.code === 0) {
-                    equityListMap.defaultEquityList.push({index: currentIndex,subData: result.data});
+                    equityListMap.defaultEquityList.push({ index: currentIndex, subData: result.data });
                 } else {
                     // 占位
-                    equityListMap.defaultEquityList.push({index: currentIndex, packageName: '',payMoney: 0});
+                    equityListMap.defaultEquityList.push({ index: currentIndex, packageName: '', payMoney: 0 });
                 }
             }
             // 占位
@@ -700,6 +701,7 @@ Page({
                         type: 'add_equity_package',
                         title: '加购权益包',
                         isSplit: true,
+                        isSalesmanOrder: this.data.isSalesmanOrder,
                         bgColor: 'linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 40%,#FFFFFF 100%)',
                         equityPackageInfo: this.data.equityListMap.addEquityList[index].subData,
                         mustEquity: this.data.listOfPackages[index].mustChoiceRightsPackage,
