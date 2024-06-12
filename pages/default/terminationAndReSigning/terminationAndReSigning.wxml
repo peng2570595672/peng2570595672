@@ -12,9 +12,9 @@
             <view>完成更换车牌</view>
         </view>
         <view catchtap="refresh" class="refresh" wx:if="{{newUpDataStatus !== 5}}">
+            <image class="refresh_image" src="https://file.cyzl.com/g001/M03/7A/4A/oYYBAGZpD8CAFh2ZAAAEW8-SBhI089.svg"
+            mode="widthFix"></image>
             刷新状态
-            <image class="refresh_image" src="https://file.cyzl.com/g001/M03/6E/D2/oYYBAGZHCDyAQB3EAAAZwlJrfP0601.svg"
-                mode="widthFix"></image>
         </view>
     </view>
     <view class="module">

@@ -42,9 +42,10 @@ image {
   position: absolute;
   border-radius: 12rpx;
   padding: 10rpx 20rpx;
-  background-color: #5ceb54;
-  right: 0%;
-  bottom: 1%;
+  right: 0;
+  top: 80%;
+  color: #2a4f44;
+  font-size: 24rpx;
 }
 .page .refresh .refresh_image {
   width: 30rpx;

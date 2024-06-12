@@ -23,7 +23,7 @@ Page({
 		if (!baseInfo || !installGuid) return util.showToastNoIcon('用户信息丢失，请重新打开小程序');
 
 		let endIndex = installGuid.indexOf('（') !== -1 ? installGuid.indexOf('（') : installGuid.indexOf('(');
-		wx.setNavigationBarTitle({title: `安装指引-${installGuid.substring(0,endIndex).trim()}`});
+		app.globalData.obuActive_upDate ? wx.setNavigationBarTitle({title: 'ETC开关'}) : wx.setNavigationBarTitle({title: `安装指引-${installGuid.substring(0,endIndex).trim()}`});
 		this.setData({baseInfo: baseInfo});
 	},
 	hide () {
