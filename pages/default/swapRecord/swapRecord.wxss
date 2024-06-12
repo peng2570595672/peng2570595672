@@ -15,7 +15,7 @@ image {
 /* 底部悬浮按钮 */
 }
 .page .container {
-  margin: 30rpx 38rpx;
+  margin: 30rpx 28rpx;
   background-color: #fff;
 }
 .page .container .component {
@@ -69,8 +69,6 @@ image {
 .page .container .component-custom .result {
   display: flex;
   font-size: 26rpx;
-  margin-top: 15rpx;
-  margin-bottom: 30rpx;
   line-height: 80rpx;
   justify-content: space-between;
   padding: 10rpx 0;

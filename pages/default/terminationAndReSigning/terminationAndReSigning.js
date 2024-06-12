@@ -7,6 +7,10 @@ Page({
      * 页面的初始数据
      */
     data: {
+        oldVehContractStatus: '',
+        newVehContractStatus: '',
+        newUpDataStatus: '',
+        finishReContract: false // 是否已完成
     },
 
     /**
@@ -18,7 +22,6 @@ Page({
                 id: options.id
             });
         }
-        console.log('查询新旧订单签约状态');
         this.queryContract();
     },
 
@@ -26,13 +29,16 @@ Page({
      * 旧车牌的解约
      */
     goAndCancelTheContract () {
-        if (this.data.oldVehContractStatus !== 2 && this.data.oldVehContractStatus !== 0) { // 当前未解约
-            util.alert({
-                title: `温馨提示`,
-                content: '请使用微信搜索微信车主服务公众号，选择车主服务，选择需要解约的车牌并完成解约',
-                showCancel: false,
-                confirmText: '我知道了'
-            });
+        this.selectComponent('#popTipComp').show({
+            type: 'oneBtn',
+            title: '温馨提示',
+            btnconfirm: '我知道了',
+            content: '请使用微信搜索微信车主服务公众号，选择车主服务，选择需要解约的车牌并完成解约',
+            center: true,
+            callBack: () => {
+            }
+        });
+        if (this.data.oldVehContractStatus !== 2 && this.data.oldVehContractStatus !== 0) { // 当前旧车牌待解约
         }
     },
     // 新车牌签约之前
@@ -42,12 +48,13 @@ Page({
             return;
         }
         this.selectComponent('#popTipComp').show({
-            type: 'shenfenyanzhifail',
+            type: 'oneBtn',
             title: '提示',
-            btnCancel: '好的',
-            refundStatus: true,
-            content: '请先完成旧车牌解约!',
-            bgColor: 'rgba(0,0,0, 0.6)'
+            btnconfirm: '好的',
+            content: '请先完成旧车牌解约操作',
+            center: true,
+            callBack: () => {
+            }
         });
     },
     // 微信签约
@@ -78,12 +85,14 @@ Page({
         if (!result) return;
         if (result.code === 0) {
             app.globalData.signAContract = 3;
-            const {oldVehContractStatus,newVehContractStatus} = result.data;
+            const {oldVehContractStatus,newVehContractStatus,status} = result.data;
             this.setData({
                 oldVehContractStatus, // 1 签约状态 ， 0 未签约， 2 解约状态
                 newVehContractStatus, // 1 签约状态， 0 未签约， 2 解约状态
-                finishReContract: newVehContractStatus === 1 && (oldVehContractStatus === 2 || oldVehContractStatus === 0) // 是否完成签约
+                newUpDataStatus: status,
+                finishReContract: newVehContractStatus === 1 && (oldVehContractStatus === 2 || oldVehContractStatus === 0) && status === 5
             });
+            util.showToastNoIcon('车牌信息已刷新');
         } else {
             util.showToastNoIcon(result.message);
         }
@@ -93,47 +102,49 @@ Page({
      */
     finish () {
         if (this.data.finishReContract) {
-            this.selectComponent('#popTipComp').show({
-                type: 'oneBtn',
-                title: '提示',
-                btnconfirm: '好的',
-                content: '请使用微信搜索“内蒙古etc服务”小程序，注册登录后点击卡签重写功能，并按照指引完成ETC设备重写，完成后可在本小程序换牌记录处查看换牌是否成功!如有不解之处，请联系客服4006680996处理!!',
-                callBack: () => {
-                    this.cancelHandle();
-                }
-            });
+            this.backPage('swapRecord'); // 返回指定页面
+            // this.selectComponent('#popTipComp').show({
+            //     type: 'oneBtn',
+            //     title: '提示',
+            //     btnconfirm: '好的',
+            //     content: '请使用微信搜索“内蒙古etc服务”小程序，注册登录后点击卡签重写功能，并按照指引完成ETC设备重写，完成后可在本小程序换牌记录处查看换牌是否成功!如有不解之处，请联系客服4006680996处理!!',
+            //     callBack: () => {
+            //         this.backPage('changeCardIntruduce');
+            //     }
+            // });
         }
     },
     /**
      * 生命周期函数--监听页面出现
      */
     onShow () {
+        if (app.globalData.signAContract === -1) {
+            this.queryContract();
+        }
     },
-
-    cancelHandle () {
+    refresh () { // 回调较慢情况 刷新按钮
+        this.queryContract();
+    },
+    backPage (url) {
         wx.reLaunch({
-            url: '/pages/default/changeCardIntruduce/changeCardIntruduce'
+            url: `/pages/default/${url}/${url}`
           });
     },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage () {
-
+    goUpDate () {
+        if (this.data.newVehContractStatus !== 1 && this.data.newUpDataStatus !== 5) {
+            this.selectComponent('#popTipComp').show({
+                type: 'oneBtn',
+                title: '温馨提示',
+                btnconfirm: '我知道了',
+                content: '请先完成新车牌的签约操作',
+                center: true,
+                callBack: () => {
+                       // 按钮回调
+                }
+            });
+            return;
+        }
+        // 重写激活 设备选择页
+        util.go('/pages/obu_activate/neimeng_choice/neimeng_choice?obuActive_upDate=true'); // 重写激活引导
     }
 });
