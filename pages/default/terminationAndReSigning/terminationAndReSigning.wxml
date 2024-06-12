@@ -6,10 +6,15 @@
                 mode="widthFix"></image>
         </view>
         <view class="text">
-            <view >
-                只需最后2步
+            <view>
+                只需最后3步
             </view>
             <view>完成更换车牌</view>
+        </view>
+        <view catchtap="refresh" class="refresh" wx:if="{{newUpDataStatus !== 5}}">
+            刷新状态
+            <image class="refresh_image" src="https://file.cyzl.com/g001/M03/6E/D2/oYYBAGZHCDyAQB3EAAAZwlJrfP0601.svg"
+                mode="widthFix"></image>
         </view>
     </view>
     <view class="module">
@@ -18,21 +23,37 @@
                 <view>解除旧车牌微信授权</view>
                 <view>签署新车牌服务，需要解除旧车牌绑定</view>
             </view>
-            <view class="weChatSign {{ oldVehContractStatus === 0 || oldVehContractStatus === 2 ?'':'grey'}}" catchtap="goAndCancelTheContract">{{oldVehContractStatus === 2 || oldVehContractStatus === 0 ? '已解约':'去解约'}}</view>
+            <view class="weChatSign {{ oldVehContractStatus === 0 || oldVehContractStatus === 2 ? '':'grey'}}"
+                catchtap="goAndCancelTheContract">
+                {{oldVehContractStatus === 2 || oldVehContractStatus === 0 ? '已解约':'去解约'}}</view>
+        </view>
+    </view>
+    <view class="module btm_20">
+        <view class="topTitle ">
+            <view class="text">
+                <view>签约新车牌微信授权</view>
+                <view>新车牌签约微信后可免密代扣</view>
+            </view>
+            <view class="weChatSign {{ newVehContractStatus !== 1 ? 'grey' :''}}" catchtap="weChatSignBefore">
+                {{newVehContractStatus === 1 ? '已签约':'去签约'}}</view>
+        </view>
+        <view wx:if="{{newVehContractStatus !== 1}}" class="statusText">
+            微信官方有10分钟~3小时延迟，请刷新状态
         </view>
     </view>
     <view class="module">
         <view class="topTitle">
             <view class="text">
-                <view>签约新车牌微信授权</view>
-                <view>新车牌签约微信后可免密代扣</view>
+                <view>更新设备信息</view>
+                <view>更新车辆设备信息,更新后可正常使用</view>
             </view>
-            <view class="weChatSign {{ newVehContractStatus === 0 || newVehContractStatus === 2 ? 'grey' :''}}" catchtap="weChatSignBefore">{{newVehContractStatus === 1 ? '已签约':'去签约'}}</view>
+            <view class="weChatSign {{ newUpDataStatus !== 5 ? 'grey' :''}}" catchtap="goUpDate">
+                {{ newUpDataStatus === 5 ? '已更新':'去更新'}}</view>
         </view>
     </view>
     <view class="floatButton">
         <view class="handleImmediately {{finishReContract ? 'finish' : ''}}" catchtap="finish">完成</view>
     </view>
-    <popTipComp id="popTipComp" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle"></popTipComp>
+    <popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
 </view>
 <privacy_popup></privacy_popup>

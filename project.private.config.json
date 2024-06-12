@@ -4,6 +4,13 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "更新设备信息",
+                    "pathName": "pages/default/terminationAndReSigning/terminationAndReSigning",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "广告推广",
                     "pathName": "pages/empty_hair/receiving_address/receiving_address",
                     "query": "gdt_vid=wx0zfrgrnaycypve&shopId=1072188767418851328",
