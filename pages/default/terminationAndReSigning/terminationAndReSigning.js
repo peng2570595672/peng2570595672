@@ -139,7 +139,6 @@ Page({
                 content: '请先完成新车牌的签约操作',
                 center: true,
                 callBack: () => {
-                       // 按钮回调
                 }
             });
             return;
