@@ -200,7 +200,7 @@ Page({
 		if (this.data.connectState === 1) {
 			if (this.data.isActivating) return;
 			this.setData({
-				isActivating: 1,
+				isActivating: 0,
 				errMsg: '',
 				msg: '正在执行中...',
 				queryAntennacmd: this.data.antennaStatus ? this.data.antennaStatus === -1 ? 4 : 3 : 1
@@ -256,13 +256,11 @@ Page({
 					let antennaStatus = this.data.antennaStatus;
 					antennaStatus = /c701/i.test(res.data) ? 1 : 0;
 					this.setData({
-						isActivating: 0,
 						msg: '',
 						antennaStatus
 					});
 				} else {
 					this.setData({
-						isActivating: 0,
 						errMsg: res.msg
 					});
 				}
@@ -270,10 +268,10 @@ Page({
 			fail: res => {
 				console.log('错误',res);
 				if (res.code === 2002) {
-					this.setData({errMsg: '系统繁忙，请稍后再试',isActivating: 0});
+					this.setData({errMsg: '系统繁忙，请稍后再试'});
 					return;
 				}
-				this.setData({errMsg: res.msg,isActivating: 0});
+				this.setData({errMsg: res.msg});
 			}
 		},15000);
 	},
