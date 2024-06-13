@@ -199,7 +199,7 @@
             <view class="bottomBtn">
                 <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">
                     {{tools.limitNumber(tipObj.btnCancel,4)}}</view>
-                <view class="ok" catchtap="handleConfirm">{{tools.limitNumber(tipObj.btnconfirm,4)}}</view>
+                <view class="ok" catchtap="handleConfirm">{{tools.limitNumber(tipObj.btnconfirm,6)}}</view>
             </view>
         </view>
         <!-- 查看图片 -->

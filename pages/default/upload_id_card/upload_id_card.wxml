@@ -5,9 +5,9 @@
     </view>
     <!-- 模块一 上传照片 -->
     <view class="module moduleOne {{(idCardFace.fileUrl || idCardBack.fileUrl || idCardFaceNot.fileUrl || idCardBackNot.fileUrl) ? (idCardFace.fileUrl || idCardBack.fileUrl ? 'boxS' : (switch1Checked && (idCardFaceNot.fileUrl || idCardBackNot.fileUrl) ? 'bg3' : '')) : ''}}">
-        <view class="titleBtn" style="margin-bottom: {{isXinKe ? 20 : 0}}rpx">
-            <view class="titles" wx:if="{{(idCardFace.fileUrl || idCardBack.fileUrl) || isXinKe}}">车主身份证</view>
-            <view class="radio " catchtap="switch1Change" wx:if="{{isXinKe}}">
+        <view class="titleBtn" style="margin-bottom: {{isXinKe || is9901 ? 20 : 0}}rpx">
+            <view class="titles" wx:if="{{(idCardFace.fileUrl || idCardBack.fileUrl) || isXinKe || is9901}}">车主身份证</view>
+            <view class="radio " catchtap="switch1Change" wx:if="{{isXinKe || is9901}}">
                 <view class="confirm iconfont {{switch1Checked ? 'tick' : ''}}"></view>非车主本人办理
             </view>
         </view>
@@ -69,7 +69,7 @@
     </view>
 
     <!-- 模块 非车主本人办理 -->
-    <view class="module moduleOne {{(idCardFace.fileUrl || idCardBack.fileUrl || idCardFaceNot.fileUrl || idCardBackNot.fileUrl) ? switch1Checked ? (idCardFaceNot.fileUrl || idCardBackNot.fileUrl ? '' : 'bg3') : (idCardFace.fileUrl || idCardBack.fileUrl ? 'bg3' : '') : ''}}" wx:if="{{isXinKe && switch1Checked}}">
+    <view class="module moduleOne {{(idCardFace.fileUrl || idCardBack.fileUrl || idCardFaceNot.fileUrl || idCardBackNot.fileUrl) ? switch1Checked ? (idCardFaceNot.fileUrl || idCardBackNot.fileUrl ? '' : 'bg3') : (idCardFace.fileUrl || idCardBack.fileUrl ? 'bg3' : '') : ''}}" wx:if="{{(isXinKe || is9901) && switch1Checked}}">
         <view class="titleBtn">
             <view class="titles" >办理人身份证</view>
         </view>
@@ -114,7 +114,7 @@
         </view>
     </view>
     <!-- 底部悬浮按钮 -->
-    <view class="bottomBtn" wx:if="{{!isXinKe ? (faceStatus === 4 && backStatus === 4) : !switch1Checked ? (faceStatus === 4 && backStatus === 4) : (faceStatus === 4 && backStatus === 4 && faceStatusNot === 4 && backStatusNot === 4)}}">
+    <view class="bottomBtn" wx:if="{{(!isXinKe && !is9901) ? (faceStatus === 4 && backStatus === 4) : !switch1Checked ? (faceStatus === 4 && backStatus === 4) : (faceStatus === 4 && backStatus === 4 && faceStatusNot === 4 && backStatusNot === 4)}}">
         <view class="btnClose {{available ? 'available' : 'unavailable'}}" catchtap="next">
             确认资料并保存
         </view>

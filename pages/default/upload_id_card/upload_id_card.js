@@ -50,7 +50,7 @@ Page({
 		this.setData({
 			vehPlates: options.vehPlates,
 			obuCardType: +options.obuCardType,
-			isXinKe: JSON.parse(options?.isXinKe),
+			isXinKe: options?.isXinKe,
 			topProgressBar: parseFloat(options.topProgressBar),
 			topProgressBar1: parseFloat(options.topProgressBar),
 			is9901: options.pro9901 // 9901 套餐标识
@@ -125,7 +125,7 @@ Page({
 				available: this.validateData(false, 1)
 			});
 		}
-		if (this.data.isXinKe) {
+		if (this.data.isXinKe || this.data.is9901) {
 			this.notCar();
 		}
 		this.processBarSize();
@@ -221,7 +221,7 @@ Page({
 			return false;
 		}
 		// 湖南信科 办理身份信息
-		if ((type === 2) && this.data.isXinKe && this.data.switch1Checked && (this.data.faceStatusNot !== 4 || this.data.backStatusNot !== 4)) {
+		if ((type === 2) && (this.data.isXinKe || this.data.is9901) && this.data.switch1Checked && (this.data.faceStatusNot !== 4 || this.data.backStatusNot !== 4)) {
 			if (isToast) util.showToastNoIcon('请上传非车主身份证！');
 			return false;
 		}
@@ -282,7 +282,7 @@ Page({
 		if (!this.validateData(true, 1)) {
 			return;
 		}
-		if (this.data.isXinKe && this.data.switch1Checked && !this.validateData(true, 2)) { // 信科办理人身份校验
+		if ((this.data.isXinKe || this.data.is9901) && this.data.switch1Checked && !this.validateData(true, 2)) { // 信科办理人身份校验
 			return;
 		}
 		if (this.data.isRequest) {
@@ -293,7 +293,7 @@ Page({
 		});
 		let haveChange = true;
 		let haveChange4 = true;	// 信科办理
-		let isXinKe = this.data.isXinKe && this.data.switch1Checked;
+		let isXinKe = (this.data.isXinKe || this.data.is9901) && this.data.switch1Checked;
 		if (this.data.oldName === this.data.idCardFace.ocrObject.name && this.data.oldIdNumber === this.data.idCardFace.ocrObject.idNumber) haveChange = false;
 		if (isXinKe && this.data.oldNameNot === this.data.idCardFaceNot.ocrObject?.name && this.data.oldIdNumberNot === this.data.idCardFaceNot.ocrObject?.idNumber) haveChange4 = false;
 		wx.uma.trackEvent('id_card_next');

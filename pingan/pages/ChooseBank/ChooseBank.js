@@ -29,7 +29,7 @@ Page({
 		orderInfo: undefined, // 订单信息
 
 		credentialType: 1, // 证件类型
-
+		operationType: 0, // 0.默认，1营运 2非营运
 		credentialTypeMap: {
 			1: '身份证',
 			2: '外国人居住证',
@@ -41,7 +41,7 @@ Page({
 	onShow (options) {
 		wx.hideHomeButton();
 
-		// app.globalData.orderInfo.orderId = '1195396932961308672';
+		// app.globalData.orderInfo.orderId = '754022503973654528';
 		let credentialType = 1;// 证件类型
 
 		app.globalData.isModifiedData = false; // 非修改资料
@@ -136,11 +136,13 @@ Page({
 		util.showLoading();
 		util.getDataFromServer('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
-			dataType: '345'
+			needAllInfo: true,
+			dataType: '1345'
 		}, () => {
 		}, (res) => {
 			if (res.code === 0) {
 				this.setData({
+					operationType: res.data.base?.operationType,
 					orderInfo: res.data
 				});
 				// 获取实名信息
@@ -279,6 +281,13 @@ Page({
 					listOfPackages = list.filter(val => val.shopProductId === '699044967607300096');
 					const item = listOfPackages.find(val => val.shopProductId === '699044967607300096');
 					this.onClickItemHandle(item);
+				}
+				if (this.data.operationType === 1) {
+					listOfPackages = list.filter(val => val.shopProductId === '1248659091931799552');
+				}
+				if (!listOfPackages.length) {
+					util.showToastNoIcon('套餐查询为空,请联系客服');
+					return;
 				}
 				this.setData({
 					listOfPackages

@@ -65,5 +65,7 @@
         <action-sheet-cancel class="ok" catchtap="onclickhandel">立即办理</action-sheet-cancel>
         <action-sheet-cancel class="ok" catchtap="skipTips">我已申卡，继续办理</action-sheet-cancel>
     </action-sheet>
+    <!-- 组件 提示 -->
+    <popTipComp id="popTipComp" bind:onHandle="onHandle" bind:cancelHandle="cancelHandle" tipObj="{{tipObj}}"></popTipComp>
 </view>
 <privacy_popup></privacy_popup>

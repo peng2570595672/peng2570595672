@@ -1453,14 +1453,15 @@ Page({
 		// ("stepNum", 1)("stepTips", "需要车牌发行认证")
 		// ("stepNum", 2)("stepTips", "用户需开户")
 		// ("stepNum", 3)("stepTips", "需要行驶证认证")
-		// ("stepNum", 4)("stepTips", "需要设备预检")
-		// ("stepNum", 5)("stepTips", "需要支付渠道关联")
+		// ("stepNum", 4)("stepTips", "车主身份证上传")
+		// ("stepNum", 5)("stepTips", "需要设备预检")
+		// ("stepNum", 6)("stepTips", "需要支付渠道关联")
 		// ("stepNum", 9)("stepTips", "车辆已关联")
 		switch (data.stepNum) {
 			case 3: // 行驶证认证
 				util.go('/pages/default/information_list/information_list?isModifiedData=true');
 				break;
-			case 4: // 需要设备预检
+			case 5: // 需要设备预检
 				util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderInfo.id}`);
 				break;
 			case 9: // 车辆已关联

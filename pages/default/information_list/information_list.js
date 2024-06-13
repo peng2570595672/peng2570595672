@@ -262,7 +262,7 @@ Page({
         if (url === 'information_validation' && (!this.data.orderInfo.isOwner || (this.data.orderInfo.flowVersion === 8 && this.data.stepNum === 2)) && !isXinKe) {
             return util.showToastNoIcon('请先上传身份证');
         }
-        util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}&obuCardType=${this.data.orderInfo.obuCardType}&isXinKe=${isXinKe}&pro9901=${this.data.orderInfo.flowVersion === 8 ? true : ''}`);
+        util.go(`/pages/default/${url}/${url}?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=${topProgressBar}&obuCardType=${this.data.orderInfo.obuCardType}&isXinKe=${isXinKe || ''}&pro9901=${this.data.orderInfo.flowVersion === 8 ? true : ''}`);
     },
     // ETC申办审核结果通知、ETC发货提示、ETC服务状态提醒
     async subscribe () {
@@ -270,10 +270,31 @@ Page({
         // 	util.showToastNoIcon('身份证与行驶证必须为同一持有人');
         // 	return;
         // }
-
         if (!this.data.available) return;
         if (this.data.orderInfo.flowVersion === 8) {
-            this.handleSaveOrder();
+            const res = await util.getDataFromServersV2('consumer/etc/qtzl/xz/uploadOwnerIdentInfo', {
+                orderId: app.globalData.orderInfo.orderId
+            });
+            if (res.code === 0) {
+                util.showToastNoIcon('提交成功');
+                this.handleSaveOrder();
+                return;
+            } else {
+                // 黔通提示:上传的车主名称与行驶证所有人不匹配
+                if (res.message?.includes('上传的车主名称与行驶证所有人不匹配')) {
+                    this.selectComponent('#popTipComp').show({
+                        type: 'tenth',
+                        title: '办理信息不一致',
+                        content: '您所上传的身份证信息与车主本人不一致，请补充上传车主本人的身份证后，重新提交!',
+                        btnCancel: '取消',
+                        btnconfirm: '补充车主信息',
+                        btnShadowHide: true,
+                        params: {}
+                    });
+                    return;
+                }
+                util.showToastNoIcon(res.message);
+            }
             return;
         }
         // 判断版本，兼容处理
@@ -355,6 +376,9 @@ Page({
                 }
             });
         }
+    },
+    onHandle () {
+        util.go(`/pages/default/upload_id_card/upload_id_card?vehPlates=${this.data.orderInfo.vehPlates}&vehColor=${this.data.orderInfo.vehColor}&topProgressBar=3.3&obuCardType=${this.data.orderInfo.obuCardType}&pro9901=${this.data.orderInfo.flowVersion === 8 ? true : ''}`);
     },
     async handleSaveOrder () {
         let params = {

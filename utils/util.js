@@ -906,8 +906,8 @@ function getStatus(orderInfo) {
     }
     return 23;
   }
-  if (orderInfo.productProcess === 9) { 
-    // 多签流程 
+  if (orderInfo.productProcess === 9) {
+    // 多签流程
     if (orderInfo.isNewTrucks === 0 && orderInfo.transContractStatus === 2 || orderInfo.serviceContractStatus === 2 && orderInfo.status === 1 && orderInfo.pledgeStatus !== 0) {
       return 1; // 有一个或者多个解约(恢复签约)
     }
@@ -1611,6 +1611,8 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
       data: obj.data,
       header: obj.header,
       success: (res) => {
+      	console.log(path);
+      	console.log(res.data);
         if (res && res.statusCode === 200) {
           if (res.data.code === 115 || res.data.code === 117 || res.data.code === 118) { // 在别处登录了 重新自动登录一次
             reAutoLoginV2(path, params, method);
@@ -1975,6 +1977,7 @@ let channelNameMap = {
 // is9901 查询步骤
 const GET_STEPS_API = 'consumer/etc/qtzl/xz/getSteps';
 const CAR_CHANNEL_REL_API = 'consumer/etc/qtzl/xz/carChannelRel';
+const uploadOwnerIdentInfo = 'consumer/etc/qtzl/xz/uploadOwnerIdentInfo';
 const ERROR_MESSAGE_GET_STEPS_ERROR = '获取步骤信息时发生错误';
 
 async function getSteps_9901(orderInfo) {
@@ -1984,7 +1987,7 @@ async function getSteps_9901(orderInfo) {
   }
   try {
     const result = await getDataFromServersV2(GET_STEPS_API, params, 'POST', false);
-    if (result.data.stepNum === 5) {
+    if (result.data.stepNum === 6) {
       const signChannelId = result.data.signChannelId;
       const result2 = await getDataFromServersV2(CAR_CHANNEL_REL_API, {
         orderId: params.orderId,
@@ -1997,6 +2000,14 @@ async function getSteps_9901(orderInfo) {
           go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
         }, 1000);
       }
+    }
+    if (result.data.stepNum === 4) {
+	    const result3 = await getDataFromServersV2(uploadOwnerIdentInfo, {
+		    orderId: params.orderId
+	    });
+	    if (result3.code === 0) {
+		    return await getSteps_9901(orderInfo);
+	    }
     }
     return result.data;
   } catch (error) {

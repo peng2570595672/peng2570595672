@@ -577,7 +577,7 @@ Page({
 				mobile: this.data.info.cardMobilePhone
 			};
 			const data = await util.getSteps_9901(obj);
-			if (data.stepNum === 4) {
+			if (data.stepNum === 5) {
 				app.globalData.mobile = this.data.info.cardMobilePhone;
 				util.go(`/pages/default/obucarquer/obucarquer?vehPlates=${this.data.info.vehPlates}`);
 				return;
