@@ -1,0 +1,135 @@
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.index {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #fff;
+/* 公共模块 */
+/* 底部悬浮按钮 */
+}
+.index::before {
+  display: block;
+  content: '';
+  height: 0.01rpx;
+  background-color: #fff;
+}
+.index::after {
+  display: block;
+  content: '';
+  height: 56rpx;
+}
+.index .module {
+  margin: 28rpx;
+  padding: 28rpx;
+  border-radius: 16rpx;
+  background-color: #fff;
+  letter-spacing: 0.38rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  box-shadow: 0px 4rpx 2rpx 0rpx rgba(212,212,212,0.5);
+}
+.index .module .title {
+  font-size: 34rpx;
+  color: #33333d;
+  display: flex;
+  align-items: center;
+  justify-content: normal;
+}
+.index .module .title::before {
+  display: block;
+  content: '';
+  border-radius: 50%;
+  margin-right: 10rpx;
+  border: 6rpx solid #54b95c;
+  width: 10rpx;
+  height: 10rpx;
+}
+.index .module .subTitle {
+  font-size: 24rpx;
+  font-weight: normal;
+  margin-top: 20rpx;
+  letter-spacing: 0.32rpx;
+  font-variation-settings: "opsz" auto;
+  color: #262626;
+}
+.index .module1 {
+  height: auto;
+  padding: 40rpx 0rpx;
+  background: transparent;
+  box-shadow: none;
+}
+.index .module2 {
+  height: auto;
+  padding: 0;
+}
+.index .module2 .inputPic {
+  text-align: left;
+  font-size: 28rpx;
+  color: #343837;
+  position: relative;
+  border-radius: 8px;
+  font-weight: normal;
+  background: #eee;
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+  justify-content: normal;
+}
+.index .module2 .inputPic .lableName {
+  margin-left: 32rpx;
+  width: 148rpx;
+  height: auto;
+}
+.index .module2 .inputPic .input {
+  display: inline-block;
+  width: 310rpx;
+  height: auto;
+}
+.index .module2 .inputPic .btnName {
+  color: #f19c38;
+  position: absolute;
+  right: 32rpx;
+}
+.index .image {
+  width: 100%;
+  height: 100%;
+}
+.index .floatButton {
+  width: 100%;
+  height: 170rpx;
+  background: #fff;
+  padding: 28rpx 0;
+  border-radius: 16rpx 16rpx 0rpx 0rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  z-index: 100;
+}
+.index .floatButton .handleImmediately {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  border-radius: 64rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  text-shadow: 0 -8rpx 30rpx rgba(223,223,223,0.36);
+  box-shadow: 0 -8rpx 30rpx 0 rgba(223,223,223,0.36), 0 4rpx 2rpx 0 rgba(212,212,212,0);
+}
+.index .floatButton .btn {
+  margin-right: 28rpx;
+  background: #2a4f44;
+  width: 662rpx;
+  height: 110rpx;
+}

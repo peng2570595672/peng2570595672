@@ -1,0 +1,18 @@
+<view class="index">
+	<view class="module module1">
+		<view class="title">请选择您要办理的ETC类型</view>
+		<view class="subTitle">1车1卡，请先确认您的车辆未绑定ETC设备</view>
+	</view>
+	<view class="module module2 iconfont" data-type="1" catchtap="go" wx:if="{{isNewTrucks}}">
+		<view class="subMod2">
+			<view class="pic"><image class="image" src="{{'https://file.cyzl.com/g001/M03/7B/39/oYYBAGZql-GAYQzjAAAE4wOQJOg868.png'}}" mode="widthFix" /></view>
+			<text class="text1">我要办理货车ETC</text>
+		</view>
+	</view>
+	<view class="module module3 iconfont" data-type="0" catchtap="go" wx:else>
+		<view class="subMod2">
+			<view class="pic"><image class="image" src="{{'https://file.cyzl.com/g001/M03/7B/39/oYYBAGZql_yAQ2qZAAAFAhrDG9w470.png'}}" mode="widthFix" /></view>
+			<text class="text1">我要办理客车ETC</text>
+		</view>
+	</view>
+</view>

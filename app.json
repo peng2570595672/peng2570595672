@@ -348,7 +348,9 @@
                 "write_base_information/write_base_information",
                 "receiving_address/receiving_address",
                 "processing_progress/processing_progress",
-                "neimeng_installation_tutorial/neimeng_installation_tutorial"
+                "neimeng_installation_tutorial/neimeng_installation_tutorial",
+                "new_module/select_etc_handle_type/select_etc_handle_type",
+                "new_module/input_obu_card_number/input_obu_card_number"
             ]
         },
         {

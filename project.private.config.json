@@ -177,6 +177,13 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "新空发流程",
+                    "pathName": "pages/empty_hair/new_module/select_etc_handle_type/select_etc_handle_type",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

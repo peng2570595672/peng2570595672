@@ -1,0 +1,16 @@
+<view class="index">
+	<view class="module module1">
+		<view class="title">请使用相机拍摄设备背面号码</view>
+	</view>
+	<view class="module module2">
+		<view class="inputPic">
+			<view class="lableName">OBU号码</view>
+			<input class="input" value="{{obuNumber}}" bindinput="inputCode" data-type="1" placeholder="请输入" placeholder-style="color: #999999;"/>
+			<view class="btnName" catchtap="chooseImage" data-type="1">{{obuNumber ? '重新识别' : '拍照识别'}}</view>
+		</view>
+	</view>
+	
+	 <view class="floatButton">
+		<view class="handleImmediately {{'btn'}}" catchtap="next">下一步</view>
+	</view>
+</view>
