@@ -1997,6 +1997,8 @@ async function getSteps_9901(orderInfo) {
         setTimeout(() => {
           go(`/pages/default/processing_progress/processing_progress?orderId=${app.globalData.orderInfo.orderId}`);
         }, 1000);
+      } else {
+	      showToastNoIcon(result2.message);
       }
     }
     if (result.data.stepNum === 4) {
