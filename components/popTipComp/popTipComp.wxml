@@ -328,7 +328,7 @@
         <!-- 带标题 只有一个按钮 -->
         <view class="module moduleOne" wx:if="{{tipObj.type === 'oneBtn'}}">
             <view class="title" wx:if="{{tipObj.title}}">{{tipObj.title}}</view>
-            <view class="contant">{{tools.limitNumber(tipObj.content,150)}}</view>
+            <view class="contant {{tipObj.center ? 'centerText' : ''}}">{{tools.limitNumber(tipObj.content,150)}}</view>
             <button class="btn" data-title="{{tipObj.title}}" wx:if="{{tipObj.btnconfirm}}"
                 catchtap="callBackPub">{{tools.limitNumber(tipObj.btnconfirm,12)}}</button>
         </view>

@@ -20,6 +20,7 @@ Page({
 			this.setData({
 				obuActive_upDate: options.obuActive_upDate // 是否属于重写激活
 			});
+			wx.setNavigationBarTitle({title: '设备更新'});
 		}
 		if (options.obuCardType) {
 			const obuCardType = +options.obuCardType;
