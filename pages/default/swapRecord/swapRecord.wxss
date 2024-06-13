@@ -15,7 +15,7 @@ image {
 /* 底部悬浮按钮 */
 }
 .page .container {
-  margin: 30rpx 28rpx;
+  margin: 30rpx 38rpx;
   background-color: #fff;
 }
 .page .container .component {
@@ -61,7 +61,7 @@ image {
   font-weight: 400;
   color: #000;
   top: 0;
-  left: 27%;
+  left: 30%;
 }
 .page .container .component-custom .carNo .point .one {
   margin-right: 20rpx;
@@ -69,6 +69,8 @@ image {
 .page .container .component-custom .result {
   display: flex;
   font-size: 26rpx;
+  margin-top: 15rpx;
+  margin-bottom: 30rpx;
   line-height: 80rpx;
   justify-content: space-between;
   padding: 10rpx 0;

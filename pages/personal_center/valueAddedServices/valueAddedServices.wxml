@@ -1,24 +1,30 @@
 <wxs src='../../../utils/util.wxs' module='tools' />
 <view class="index">
     <!-- 订单模块 -->
-    <view wx:if="{{isShow}}">
-        <view class="module moduleOne" wx:for="{{roadRescueList}}" wx:key="index">
-            <view class="upper">
-                <view class="attrVal">
-                    <view class="attr">{{item.title}}</view>
-                    <view class="status iconfont" data-status="{{item.status}}"  data-url="{{item.url}}" catchtap="btnLoad">
-                        {{item.status === 1 ? '保障中' : '申请中'}}
+    <view wx:if="{{roadRescueList && roadRescueList.length}}">
+        <view  wx:for="{{roadRescueList}}" wx:key="index">
+            <view class="module moduleOne" wx:if="{{item.show}}">
+                <view class="upper">
+                    <view class="attrVal">
+                        <view class="attr">{{item.title}}</view>
+                        <view class="status iconfont" data-status="{{item.insuranceStatus}}"  data-url="{{item.url}}" catchtap="btnLoad">
+                            {{item.insuranceStatus === 0 ? '保障申请中' : ''}}
+                            {{item.insuranceStatus === 1 ? '保障中' : ''}}
+                            {{item.insuranceStatus === 2 ? '申请失败' : ''}}
+                            {{item.insuranceStatus === 3 ? '保障失效' : ''}}
+                            <!-- 投保状态:0.保障申请中，1.保障中（代表申请成功），2.保障失败，3.失效 -->
+                        </view>
+                    </view>
+                    <view class="policyInfo" wx:if="{{item.policyNumber}}">
+                        <view class="label">{{item.orderName}}</view>
+                        <view class="value">{{item.policyNumber}}</view>
                     </view>
                 </view>
-                <view class="policyInfo">
-                    <view class="label">{{item.orderName}}</view>
-                    <view class="value">{{item.policyNumber}}</view>
-                </view>
-            </view>
-            <view class="below">
-                <view class="coverageItem" wx:for="{{item.coverages}}" wx:key="index">
-                    <view class="label">{{item.label}}</view>
-                    <view class="value">{{item.value}}</view>
+                <view class="below">
+                    <view class="coverageItem" wx:for="{{item.coverages}}" wx:key="index">
+                        <view class="label">{{item.label}}</view>
+                        <view class="value">{{item.value}}</view>
+                    </view>
                 </view>
             </view>
         </view>

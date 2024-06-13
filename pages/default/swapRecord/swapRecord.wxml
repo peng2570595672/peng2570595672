@@ -46,8 +46,8 @@
                 </view>
                 <view class="bootom">
                     <view class="color_font {{item.status === 4  ? 'finish': item.status === 1 ? 'fail': ''}}">{{tools.getStatusDescription_NM(item.status,item.newContractStatus)}}</view>
-                    <view class="btn" catchtap="goTerminationAndReSigning" wx:if="{{item.status === 3 || item.status === 4 || (item.status === 5 && item.newContractStatus !== 1)}}"
-                        data-info="{{item}}">{{item.status === 3 || item.status === 5 ? '去签约' : '去更新'}}</view>
+                    <view class="btn" catchtap="goTerminationAndReSigning" wx:if="{{item.status === 3 || (item.status === 4 && item.newContractStatus !== 1)}}"
+                        data-info="{{item}}">去签约</view>
                 </view>
             </view>
         </view>

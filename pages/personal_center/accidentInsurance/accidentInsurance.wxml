@@ -15,7 +15,7 @@
                     <view class="status" data-item="{{item}}" catchtap="btnLoad">
                         {{item.roadRescueStatus === '1' ? '立即领取' : '申请中'}}
                     </view>
-                    <view class="attr" catchtap = "next">申请理赔</view>
+                    <view class="attr">申请理赔</view>
                 </view>
             </view>
             <view class="below">
