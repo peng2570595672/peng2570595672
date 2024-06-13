@@ -23,8 +23,7 @@
 	<view class="tips">
 		<view class="label">注意：</view>
 		<view >
-			<view>全程保持车辆熄火状态，避免连接到车载蓝牙</view>
-			<view>保证您的网络正常；请勿退出小程序避免激活失败</view>
+			<view>操作过程中请勿关闭手机和设备蓝牙</view>
 		</view>
 	</view>
 	<view class="btn" catchtap="handleActivate">{{obuActive_upDate ? '设备蓝牙已打开，立即搜索' :'蓝牙已打开，下一步'}}</view>
