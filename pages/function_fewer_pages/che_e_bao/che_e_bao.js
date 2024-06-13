@@ -13,7 +13,8 @@ Page({
         flag: false,
         vehPlates: '',
         obuStatus: undefined,
-        count: 0 // 查询次数
+        count: 0, // 查询次数
+        productInfo: undefined // 套餐详情
     },
     onLoad (options) {
         this.setData({
@@ -27,15 +28,31 @@ Page({
             flag: options?.flag ? true : false
         });
         // this.queryApi(1);
+        if (this.data.flag) { // 线下
+            this.getProductOrderInfo();
+        }
     },
     onShow () {
 
     },
-    // testInput (e) {
-    //     this.setData({
-    //         wxPhone: e.detail.value.substring(0, 11)
-    //     });
-    // },
+    // 根据订单id获取套餐信息
+	getProductOrderInfo () {
+		util.showLoading();
+		util.getDataFromServer('consumer/order/get-product-by-order-id', {
+			orderId: this.data.orderId
+		}, () => {
+		}, (res) => {
+			if (res.code === 0) {
+				this.setData({
+					productInfo: res.data
+				});
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+		});
+	},
     async btnFunc () {
         let that = this;
         if (that.data.status === 1) {

@@ -1,0 +1,19 @@
+<view class="index">
+	<view class="module module1">
+		<view class="title">选择ETC设备</view>
+		<view class="subTitle">选择需要关闭的ETC设备</view>
+		<view class="list">
+			<view wx:for="{{list}}" catchtap="handleDeviceType" data-index="{{index}}" wx:key="index" class="item {{activeIndex === index ? 'active' : ''}}">
+				<view wx:if="{{activeIndex === index}}" class="choice iconfont"></view>
+				<view class="logo">
+					<image src="{{item.img}}" mode="heightFix"></image>
+				</view>
+				<view class="info">
+					<view class="name">{{item.name}}</view>
+					<view class="sub-title">{{item.subTitle}}</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
+<privacy_popup></privacy_popup>

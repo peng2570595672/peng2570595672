@@ -1,0 +1,77 @@
+.install_step > image {
+  position: relative;
+  left: 12rpx;
+  z-index: 1;
+  margin: 240rpx auto 88rpx;
+  display: block;
+  height: 208rpx;
+}
+.install_step .text-wrapper {
+  position: relative;
+  z-index: 10;
+}
+.install_step .text-wrapper > view {
+  text-align: center;
+  font-size: 28rpx;
+}
+.install_step .text-wrapper > view.ok {
+  color: #84d157 !important;
+}
+.install_step .text-wrapper > view.title {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+.install_step .text-wrapper > view.devName {
+  margin-top: 25rpx;
+}
+.install_step .text-wrapper > view.devName > text.succeed {
+  color: #84d157 !important;
+}
+.install_step .text-wrapper > view.devName > text.failed {
+  color: #fa6c3e;
+}
+.install_step .text-wrapper > view.cardNum {
+  margin-top: 6rpx;
+  color: #fa6c3e;
+}
+.install_step .text-wrapper > view.errMsg {
+  margin-top: 6rpx;
+  color: #f60;
+}
+.install_step .btns {
+  position: fixed;
+  left: 30rpx;
+  right: 30rpx;
+  bottom: 140rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 98rpx;
+  line-height: 98rpx;
+  color: #fff;
+  font-size: 32rpx;
+  background: #2a4f44;
+  border-radius: 49rpx;
+}
+.install_step .btns:active {
+  opacity: 0.8;
+}
+.install_step .btns.not-use,
+.install_step .btns:active.not-use {
+  opacity: 1;
+  background: #ccc;
+}
+.install_step .btns.red {
+  background: #fa5151;
+}
+.install_step .retry {
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  bottom: 290rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #39812b;
+  line-height: 36rpx;
+}

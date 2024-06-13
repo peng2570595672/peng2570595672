@@ -163,6 +163,20 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "售后服务",
+                    "pathName": "pages/after_sales/index/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "ETC开关",
+                    "pathName": "pages/after_sales/device_switch_peocess/option_switch/option_switch",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

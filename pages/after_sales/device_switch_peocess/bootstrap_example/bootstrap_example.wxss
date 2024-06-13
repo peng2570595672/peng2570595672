@@ -1,0 +1,149 @@
+.container {
+  min-height: 100vh;
+  padding: 62rpx 44rpx;
+  text-align: center;
+  box-sizing: border-box;
+  background: #fff;
+}
+.container .logo {
+  padding-bottom: 30rpx;
+}
+.container .logo image {
+  width: 588rpx;
+}
+.container .title {
+  font-size: 32rpx;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #262626;
+  line-height: 34rpx;
+}
+.container .title.top-title {
+  display: flex;
+  align-items: center;
+  padding: 0 5rpx;
+  height: 56rpx;
+  font-size: 40rpx;
+  font-weight: 500;
+}
+.container .title.top-title:before {
+  margin-right: 10rpx;
+  content: '';
+  width: 10rpx;
+  height: 10rpx;
+  border: 6rpx solid #54b95c;
+  border-radius: 50%;
+}
+.container .sub-title {
+  font-size: 24rpx;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #979797;
+  line-height: 36rpx;
+  margin-top: 14rpx;
+  margin-bottom: 80rpx;
+}
+.container .sub-title.top-sub-title {
+  text-align: left;
+  margin-left: 30rpx;
+}
+.container .tips {
+  display: flex;
+  align-items: flex-start;
+  text-align: left;
+  font-size: 24rpx;
+  padding-left: 62rpx;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #ec602a;
+  line-height: 36rpx;
+}
+.container .btn {
+  height: 110rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #2a4f44;
+  box-shadow: 0rpx 4rpx 2rpx 0rpx rgba(212,212,212,0.5);
+  border-radius: 55rpx 55rpx 55rpx 55rpx;
+  font-size: 36rpx;
+  font-family: PingFang SC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #fff;
+  margin-top: 40rpx;
+}
+.alert-for-not-finished {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 10000;
+}
+.alert-for-not-finished-content {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 694rpx;
+  height: 752rpx;
+  text-align: justify;
+  background: #fff;
+  box-shadow: 4rpx 12rpx 56rpx 0px rgba(102,102,109,0.19);
+  border-radius: 16rpx;
+  margin: auto;
+  z-index: 100002;
+}
+.alert-for-not-finished-content .dialog-container .wx-dialog-title {
+  text-align: center;
+  font-size: 44rpx;
+  font-family: PingFang SC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #1e1e1e;
+  line-height: 52rpx;
+  padding: 48rpx 0 34rpx;
+}
+.alert-for-not-finished-content .dialog-container .wx-dialog-con {
+  padding: 0 48rpx;
+  text-align: center;
+  font-size: 32rpx;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #262626;
+  line-height: 54rpx;
+}
+.alert-for-not-finished-content .dialog-container .wx-dialog-con image {
+  width: 590rpx;
+  height: 234rpx;
+  margin-bottom: 24rpx;
+}
+.alert-for-not-finished-content .dialog-container .wx-dialog-con .step1 {
+  margin-bottom: 8rpx;
+}
+.alert-for-not-finished-content .dialog-container .wx-dialog-con .step2 {
+  color: #979797;
+}
+.alert-for-not-finished-content .dialog-container .fill {
+  flex: 1;
+}
+.alert-for-not-finished-content .dialog-container .wx-dialog-btn {
+  display: flex;
+  justify-content: center;
+  padding-top: 40rpx;
+  padding-bottom: 48rpx;
+}
+.alert-for-not-finished-content .dialog-container .wx-dialog-btn .confirm {
+  width: 318rpx;
+  height: 106rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #2a4f44;
+  border-radius: 53rpx 53rpx 53rpx 53rpx;
+  font-size: 36rpx;
+  font-family: PingFang SC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #fff;
+}

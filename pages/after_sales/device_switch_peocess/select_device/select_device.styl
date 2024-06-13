@@ -1,0 +1,95 @@
+.iconfont
+	font-family "iconfont" !important
+	font-size 16px
+	font-style normal
+	-webkit-font-smoothing antialiased
+	-moz-osx-font-smoothing grayscale
+
+.index
+	margin 0
+	padding 0
+	width 100vw
+	min-height 100vh
+	background-color #ECECEC
+	&::before
+		display block
+		content ''
+		height 0.01rpx
+		background-color #ECECEC
+	&::after
+		display block
+		content ''
+		height 56rpx
+	/* 公共模块 */
+	.module
+		width 622rpx
+		margin-top 28rpx
+		border-radius 16rpx
+		background-color #fff
+		letter-spacing 0.38rpx
+		font-family PingFangSC-Regular, PingFang SC
+		box-shadow 0px 4rpx 2rpx 0rpx rgba(212, 212, 212, 0.5)
+		position relative
+		left 50%
+		transform translateX(-50%)
+		.title
+			font-size 32rpx
+			font-weight 600
+			color #1E1E1E
+			font-family PingFangSC-Semibold, PingFang SC
+		.subTitle
+			font-size 24rpx
+			font-weight normal
+			margin-top 20rpx
+			font-variation-settings "opsz" auto
+			color #33333D
+	.module1
+		height auto
+		padding 40rpx 36rpx
+		.list
+			.item
+				margin-top 20rpx
+				height 158rpx
+				display flex
+				align-items center
+				background #F6F6F6
+				border-radius 8rpx
+				border 2rpx solid #F6F6F6
+				.logo
+					width 172rpx
+					padding-left 36rpx
+					box-sizing border-box
+					image
+						height 72rpx
+				.info
+					font-size 24rpx
+					font-family PingFang SC-Regular, PingFang SC
+					font-weight 400
+					color #66666E
+					line-height 36rpx
+					.name
+						margin-bottom 16rpx
+						font-family PingFang SC-Medium, PingFang SC
+						font-weight 500
+						color #33333D
+						line-height 36rpx
+				&.active
+					border 2rpx solid #E9CA7B
+					position relative
+					overflow hidden
+					.choice
+						position absolute
+						left -2rpx
+						top -2rpx
+						width 43rpx
+						height 32rpx
+						display flex
+						align-items center
+						justify-content center
+						background #E9CA7B
+						border-bottom-right-radius 8rpx
+						&:before
+							content '\e669'
+							color #333333
+							flex-shrink 16rpx
+		
