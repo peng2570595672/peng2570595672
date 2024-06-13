@@ -70,11 +70,6 @@
                 <view>高速通行费</view>
                 <view>{{details.totalMmout/100}}</view>
             </view>
-
-            <view class="subModle" wx:if="{{details.poundageFlag && details.poundage}}">
-                <view>通行服务费</view>
-                <view>{{details.poundage/100}}</view>
-            </view>
             <view class="subModle" wx:if="{{details.poundageFlag && details.poundage}}">
                 <view>通行服务费</view>
                 <view>{{details.poundage/100}}</view>
@@ -225,7 +220,7 @@
     <!-- <view class="deduction-details" wx:if="{{ details.orderInsurance === 1 }}">
         <view>
             <view>权益服务费</view>
-            <view>{{details.vehPlate}}</view>
+            <view>{{'￥'+details.insPoundage/100}}</view>
         </view>
         <view>
             <view>消费类型</view>
