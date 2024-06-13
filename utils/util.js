@@ -1611,8 +1611,6 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
       data: obj.data,
       header: obj.header,
       success: (res) => {
-      	console.log(path);
-      	console.log(res.data);
         if (res && res.statusCode === 200) {
           if (res.data.code === 115 || res.data.code === 117 || res.data.code === 118) { // 在别处登录了 重新自动登录一次
             reAutoLoginV2(path, params, method);
