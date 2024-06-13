@@ -85,6 +85,9 @@
 .order_details .deduction-details>view>view:last-child.deductions {
   color: #f7b500;
 }
+.order_details .deduction-details>view>view:last-child.red_color {
+  color: #fa5151;
+}
 .order_details .deduction-details>view>view:last-child.refund-success {
   color: #00b85c;
 }
@@ -208,6 +211,9 @@
   font-size: 28rpx;
   margin-left: 14rpx;
   color: #66666e;
+}
+.order_details .module .red_color {
+  color: #fa5151;
 }
 .order_details .module1 {
   height: auto;

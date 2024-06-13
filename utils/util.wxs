@@ -238,21 +238,15 @@ function getStatusDescription_NM(status,newContractStatus) {
             return '处理中';
         case 3:
             if (newContractStatus === 1) {
-                return '审核完成';
+                return '处理完成';
             } else {
-                return '审核完成待签约';
+                return '处理完成待签约';
             }
         case 4:
             if (newContractStatus === 1) {
-                return '换牌成功待更新';
+                return '处理完成';
             } else {
-                return '换牌成功待签约';
-            }
-        case 5:
-            if (newContractStatus === 1) {
-                return '处理成功';
-            } else {
-                return '审核完成待签约';
+                return '处理完成待签约';
             }
         default:
             return '未知状态';
