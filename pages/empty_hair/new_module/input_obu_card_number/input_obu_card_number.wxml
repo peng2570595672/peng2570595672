@@ -4,13 +4,16 @@
 	</view>
 	<view class="module module2">
 		<view class="inputPic">
-			<view class="lableName">OBU号码</view>
-			<input class="input" value="{{obuNumber}}" bindinput="inputCode" data-type="1" placeholder="请输入" placeholder-style="color: #999999;"/>
-			<view class="btnName" catchtap="chooseImage" data-type="1">{{obuNumber ? '重新识别' : '拍照识别'}}</view>
+			<view class="lableName">OBU号码 <input class="input" value="{{obuNumber}}" bindinput="inputCode" placeholder="请输入" placeholder-style="color: #999999;"/></view>
+			<view class="iconfont btnName" catchtap="chooseImage"></view>
 		</view>
 	</view>
-	
-	 <view class="floatButton">
-		<view class="handleImmediately {{'btn'}}" catchtap="next">下一步</view>
+	<view class="module module3">
+		<view class="title1">示例图</view>
+		<view class="subTitle">OBU号一般在设备侧边</view>
+		<view class="pic"><image class="image" src="https://file.cyzl.com/g001/M03/7B/9F/oYYBAGZrnQ2AK-KNAABYIbTO9Gc368.png" mode="widthFix" /></view>
+	</view>
+	<view class="floatButton">
+		<view class="handleImmediately {{available ? 'btn' : 'grey'}}" catchtap="next">下一步</view>
 	</view>
 </view>

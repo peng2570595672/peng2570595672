@@ -64,9 +64,9 @@ flexModule($align=normal,$justify=normal)
 			letter-spacing 0.32rpx
 			font-variation-settings "opsz" auto
 			color #262626
-	.module1
+	.module1,.module3
 		height auto
-		padding 40rpx 0rpx
+		padding 40rpx 20rpx
 		background transparent
 		box-shadow none
 	.module2
@@ -75,31 +75,43 @@ flexModule($align=normal,$justify=normal)
 		.inputPic
 			text-align left
 			font-size 28rpx
-			color #343837
+			color #333333
 			position relative
 			border-radius 8px
 			font-weight normal
 			background #EEEEEE
 			height 96rpx
-			flexModule(center, normal)
+			flexModule(center, space-between)
 			.lableName
 				margin-left 32rpx
-				mixinsWidthHeight(148rpx, auto)
+				flexModule(center, normal)
 			.input
+				color #222222
+				margin-left 22rpx
 				display inline-block
-				mixinsWidthHeight(310rpx, auto)
+				mixinsWidthHeight(400rpx, auto)
 			.btnName 
-				color #F19C38
-				position absolute
-				right 32rpx
-	.image
-		mixinsWidthHeight()
+				margin-right 28rpx
+				&::before
+					mixinsIconfont('\e65c',32rpx,#272636)
+	.module3
+		.title1
+			font-size 34rpx
+			font-weight 600
+			letter-spacing 0rpx
+			color #333333
+		.pic
+			margin-top 20rpx
+			border-radius 8px
+			mixinsWidthHeight(320rpx,204rpx)
+			background #0f0
 	/* 底部悬浮按钮 */
 	.floatButton
 		mixinsWidthHeight(100%,170rpx)
 		background #fff
 		padding 28rpx 0
 		border-radius 16rpx 16rpx 0rpx 0rpx
+		box-shadow: 0rpx -8rpx 30rpx 0rpx rgba(223, 223, 223, 0.3622)
 		flexModule(center,center)
 		position fixed
 		bottom 0
@@ -112,10 +124,14 @@ flexModule($align=normal,$justify=normal)
 			flexModule(center,center)
 			flex-wrap wrap
 			border-radius 64rpx
+			letter-spacing 0.42rpx
+			mixinsWidthHeight(662rpx,110rpx)
 			font-family PingFangSC-Semibold, PingFang SC
 			text-shadow 0 -8rpx 30rpx rgba(223, 223, 223, 0.36)
 			box-shadow 0 -8rpx 30rpx 0 rgba(223, 223, 223, 0.36), 0 4rpx 2rpx 0 rgba(212, 212, 212, 0)
 		.btn
-			margin-right 28rpx
 			background #2A4F44
-			mixinsWidthHeight(662rpx,110rpx)
+		.grey
+			background #C0C0C0
+	.image
+		mixinsWidthHeight()
