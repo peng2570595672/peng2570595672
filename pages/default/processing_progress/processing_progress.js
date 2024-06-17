@@ -39,7 +39,7 @@ Page({
 		moduleFourList: [],	// 广告banner列表
 		isShowPinAn: false,
 		adDoc: 0,	// 轮播图指示点
-		lnmShopIds: app.globalData.shopIdList.lnmShopIdsAbove	// // 辽宁移动商户ID
+		lnmShopIds: app.globalData.shopIdList.lnmShopIdsAbove	// 辽宁移动商户ID
 	},
 	async onLoad (options) {
 		this.setData({
