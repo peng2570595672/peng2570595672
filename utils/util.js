@@ -935,6 +935,9 @@ function getStatus(orderInfo) {
   }
   if (orderInfo.pledgeStatus === 0) {
     // pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
+    if (orderInfo.flowVersion === 9 && orderInfo.orderType === 31 && orderInfo?.creditCardStatus === -1) {
+        return 37;  //线下待申请信用卡
+    }
     return 3; // 待支付
   }
   if (orderInfo.status === 0) {
