@@ -43,6 +43,9 @@ Page({
     },
     // 新车牌签约之前
     async weChatSignBefore () {
+        if (this.data.newVehContractStatus === 1) { // 新车牌已经签约
+            return;
+        }
         if (this.data.oldVehContractStatus === 2 || this.data.oldVehContractStatus === 0) {
             this.weChatSign();
             return;
@@ -129,6 +132,7 @@ Page({
         });
     },
     goUpDate () {
+        if (this.data.this.data.newUpDataStatus === 5) return; // 已经更新
         if (this.data.newVehContractStatus !== 1 && this.data.newUpDataStatus !== 5) {
             this.selectComponent('#popTipComp').show({
                 type: 'oneBtn',
