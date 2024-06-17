@@ -3,5 +3,6 @@
 	"navigationBarBackgroundColor": "#ffffff",
     "usingComponents": {
         "popTipComp": "/components/popTipComp/popTipComp"
-    }
+    },
+    "enablePullDownRefresh": true
 }

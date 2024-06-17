@@ -1,3 +1,5 @@
+const util = require('../../../utils/util.js');
+
 // pages/personal_center/valueAddedServices/valueAddedServices.js
 Page({
 
@@ -144,5 +146,16 @@ Page({
             btnconfirm: '拨打保险电话',
             content: '系统将为您呼叫驾乘意外险保障服务商的电话请根据服务商的坐席电话指引，完成理赔流程，确认呼叫请点击下方【拨打理赔电话】。'
         });
+    },
+    /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+    onPullDownRefresh () {
+        util.showLoading('加载中');
+        // 示例：模拟异步刷新数据
+       setTimeout(() => {
+        // 数据刷新完成后，调用 wx.stopPullDownRefresh 停止刷新动画
+        wx.stopPullDownRefresh();
+      }, 1000); // 假设数据刷新需要1秒
     }
 });
