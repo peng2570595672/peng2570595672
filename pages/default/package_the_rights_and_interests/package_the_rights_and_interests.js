@@ -164,6 +164,12 @@ Page({
                 listOfPackages: this.data.listOfPackages.concat(packages.List9901pro)
             });
         }
+        // 广发套餐
+        if (packages.creditCardBank) {
+            this.setData({
+                listOfPackages: this.data.listOfPackages.concat(packages.creditCardBank)
+            });
+        }
         this.data.listOfPackages.map((item) => {
             item.detail = item.detail.replace(/<img([\s\w"-=\/\.:;]+)/ig, '<img$1 class="img"');
         });
