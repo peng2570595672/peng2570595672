@@ -72,10 +72,10 @@ function dataLen(obj) {
     return obj.length
 }
 // 截取车牌指定长度
-function capturePlate(str,start,end) {
+function capturePlate(str, start, end) {
     if (typeof str === 'string' && start >= 0 && end <= str.length) {
         return str.slice(start, end);
-    } 
+    }
 }
 // 拿到货车的车牌颜色
 function getTruCorlor(str, type) {
@@ -83,15 +83,15 @@ function getTruCorlor(str, type) {
         var wenzi;
         str === 1 ? wenzi = '黄牌' :
             str === 0 ? wenzi = '蓝牌' :
-            str === 4 ? wenzi = '渐变绿' :
-            str === 5 ? wenzi = '黄绿牌' : ''
+                str === 4 ? wenzi = '渐变绿' :
+                    str === 5 ? wenzi = '黄绿牌' : ''
         return wenzi;
     }
     var color;
     str === 1 ? color = '#FFD56A' :
         str === 0 ? color = '#48C5FF' :
-        str === 4 ? color = '#56C582' :
-        str === 5 ? color = 'linear-gradient(to right, #FFD56A 50%, #56C582 50%);' : ''
+            str === 4 ? color = '#56C582' :
+                str === 5 ? color = 'linear-gradient(to right, #FFD56A 50%, #56C582 50%);' : ''
     return color;
 }
 // 限制展示的字符个数 ,arg1:表示展示的文本，arg2:限制的个数,arg3: 是否切割
@@ -227,8 +227,7 @@ function numReplace(param1, type = 1) {
         return param1.indexOf('-') !== -1
     }
 }
-function getStatusDescription_NM(status,newContractStatus) {
-    
+function getStatusDescription_NM(status, newContractStatus) {
     switch (status) {
         case 0:
             return '待审核';
@@ -238,15 +237,21 @@ function getStatusDescription_NM(status,newContractStatus) {
             return '处理中';
         case 3:
             if (newContractStatus === 1) {
-                return '处理完成';
+                return '审核完成';
             } else {
-                return '处理完成待签约';
+                return '审核完成待签约';
             }
         case 4:
             if (newContractStatus === 1) {
-                return '处理完成';
+                return '换牌成功待更新';
             } else {
-                return '处理完成待签约';
+                return '换牌成功待签约';
+            }
+        case 5:
+            if (newContractStatus === 1) {
+                return '处理成功';
+            } else {
+                return '审核完成待签约';
             }
         default:
             return '未知状态';
