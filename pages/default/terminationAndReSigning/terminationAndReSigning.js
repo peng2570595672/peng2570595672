@@ -29,16 +29,16 @@ Page({
      * 旧车牌的解约
      */
     goAndCancelTheContract () {
-        this.selectComponent('#popTipComp').show({
-            type: 'oneBtn',
-            title: '温馨提示',
-            btnconfirm: '我知道了',
-            content: '请使用微信搜索微信车主服务公众号，选择车主服务，选择需要解约的车牌并完成解约',
-            center: true,
-            callBack: () => {
-            }
-        });
         if (this.data.oldVehContractStatus !== 2 && this.data.oldVehContractStatus !== 0) { // 当前旧车牌待解约
+            this.selectComponent('#popTipComp').show({
+                type: 'oneBtn',
+                title: '温馨提示',
+                btnconfirm: '我知道了',
+                content: '请使用微信搜索微信车主服务公众号，选择车主服务，选择需要解约的车牌并完成解约',
+                center: true,
+                callBack: () => {
+                }
+            });
         }
     },
     // 新车牌签约之前
@@ -85,7 +85,7 @@ Page({
         if (!result) return;
         if (result.code === 0) {
             app.globalData.signAContract = 3;
-            const {oldVehContractStatus,newVehContractStatus,status} = result.data;
+            const { oldVehContractStatus, newVehContractStatus, status } = result.data;
             this.setData({
                 oldVehContractStatus, // 1 签约状态 ， 0 未签约， 2 解约状态
                 newVehContractStatus, // 1 签约状态， 0 未签约， 2 解约状态
@@ -118,9 +118,7 @@ Page({
      * 生命周期函数--监听页面出现
      */
     onShow () {
-        if (app.globalData.signAContract === -1) {
-            this.queryContract();
-        }
+        this.queryContract();
     },
     refresh () { // 回调较慢情况 刷新按钮
         this.queryContract();
@@ -128,7 +126,7 @@ Page({
     backPage (url) {
         wx.reLaunch({
             url: `/pages/default/${url}/${url}`
-          });
+        });
     },
     goUpDate () {
         if (this.data.newVehContractStatus !== 1 && this.data.newUpDataStatus !== 5) {
