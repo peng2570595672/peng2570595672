@@ -41,7 +41,7 @@ Page({
 	onShow (options) {
 		wx.hideHomeButton();
 
-		// app.globalData.orderInfo.orderId = '754022503973654528';
+		app.globalData.orderInfo.orderId = '754022503973654528';
 		let credentialType = 1;// 证件类型
 
 		app.globalData.isModifiedData = false; // 非修改资料
@@ -284,6 +284,8 @@ Page({
 				}
 				if (this.data.operationType === 1) {
 					listOfPackages = list.filter(val => val.shopProductId === '1248659091931799552');
+				} else {
+					listOfPackages = list.filter(val => val.shopProductId !== '1248659091931799552');
 				}
 				if (!listOfPackages.length) {
 					util.showToastNoIcon('套餐查询为空,请联系客服');
