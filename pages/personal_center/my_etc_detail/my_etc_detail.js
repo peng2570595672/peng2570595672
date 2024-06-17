@@ -318,7 +318,7 @@ Page({
 	},
 	// 去支付
 	goPayment (orderInfo) {
-		if (orderInfo.flowVersion === 9 && orderInfo?.cardBank && orderInfo?.creditCardStatus !== 2) { // new 信用卡流程
+		if (orderInfo.orderType === 31 && orderInfo.flowVersion === 9 && orderInfo?.cardBank && orderInfo?.creditCardStatus !== 2) { // new 信用卡流程
 			if (orderInfo?.creditCardStatus === -1) { // creditCardStatus -1 : 未进件 ，0 :  进件中，1：进件成功，2：审批成功，3：审批失败
 				util.go(`/pages/bank_card/go_to_shenka/go_to_shenka?cardBank=${orderInfo.cardBank}`);
 			} else if (orderInfo?.creditCardStatus === 0 || orderInfo?.creditCardStatus === 1) {
