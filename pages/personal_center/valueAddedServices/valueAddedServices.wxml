@@ -7,7 +7,7 @@
                 <view class="upper">
                     <view class="attrVal">
                         <view class="attr">{{item.title}}</view>
-                        <view class="status iconfont" data-status="{{item.insuranceStatus}}"  data-url="{{item.url}}" catchtap="btnLoad">
+                        <view class="status iconfont" data-item="{{item}}"  catchtap="btnLoad">
                             {{item.insuranceStatus === 0 ? '保障申请中' : ''}}
                             {{item.insuranceStatus === 1 ? '保障中' : ''}}
                             {{item.insuranceStatus === 2 ? '申请失败' : ''}}

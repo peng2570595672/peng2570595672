@@ -80,6 +80,9 @@ image {
   font-weight: normal;
   color: #5ebe68;
 }
+.index .moduleOne .upper .attrVal .red {
+  color: #f00;
+}
 .index .moduleOne .upper .attrVal .val {
   font-size: 28rpx;
   font-weight: 400;

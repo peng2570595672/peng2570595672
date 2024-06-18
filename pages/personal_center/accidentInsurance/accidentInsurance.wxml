@@ -12,18 +12,53 @@
         <view class="module moduleOne" wx:for="{{roadRescueList}}" wx:key="index">
             <view class="upper">
                 <view class="attrVal">
-                    <view class="status" data-item="{{item}}" catchtap="btnLoad">
-                        {{item.roadRescueStatus === '1' ? '立即领取' : '申请中'}}
+                    <view class="status {{item.deductStatus === 2 ? 'red' : ''}}" data-item="{{item}}" catchtap="btnLoad">
+                        {{item.deductStatus === 1 ? '扣款成功' : ''}}
+                        {{item.deductStatus === 2 ? '扣款失败' : ''}}
+                        {{item.deductStatus === 6 ? '退款中' : ''}}
+                        {{item.deductStatus === 7 ? '已退款' : ''}}
+                        {{item.deductStatus === 9 ? '补扣中' : ''}}
+                        {{item.deductStatus === 10 ? '补缴中' : ''}}
+                        {{item.deductStatus === 11 ? '补缴成功' : ''}}
+                        {{item.deductStatus === 12 ? '补扣成功' : ''}}
+
                     </view>
-                    <view class="attr">申请理赔</view>
+                    <view class="attr" data-item="{{item}}"  catchtap="btnLoad">
+                        {{item.status === 1 ||item.status === 2 || item.status === 5 ? '申请理赔' : ''}}
+                        {{item.status === 3 ? '受理中' : ''}}
+                        {{item.status === 4 ? '已理赔' : ''}}
+                    </view>
                 </view>
             </view>
             <view class="below">
-                <view class="nameStatus" wx:for="{{item.details}}" wx:key="index">
-                    <view class="attr">{{item.label}}</view>
+                <view class="nameStatus">
+                    <view class="attr">保障时间</view>
                     <view class="val">
-                        <view wx:if="{{item.time}}">{{item.time}}至{{item.highway}}</view>
-                        <view wx:else>{{item.highway}}</view>
+                        <view >{{item.inOpTime}}至{{item.opTime}}</view>
+                    </view>
+                </view>
+                <view class="nameStatus">
+                    <view class="attr">通行路段</view>
+                    <view class="val">
+                        <view >{{item.inStationName}}至{{item.stationName}}</view>
+                    </view>
+                </view>
+                <view class="nameStatus">
+                    <view class="attr">权益服务费</view>
+                    <view class="val">
+                        <view >{{item.poundage/100}}</view>
+                    </view>
+                </view>
+                <view class="nameStatus">
+                    <view class="attr">计算方式</view>
+                    <view class="val">
+                        <view >{{'通行费*' + item.rate + '%'}}</view>
+                    </view>
+                </view>
+                <view class="nameStatus">
+                    <view class="attr">保障记录编号</view>
+                    <view class="val">
+                        <view >{{item.id}}</view>
                     </view>
                 </view>
             </view>

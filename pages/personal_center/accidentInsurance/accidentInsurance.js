@@ -1,5 +1,5 @@
 const util = require('../../../utils/util.js');
-
+const app = getApp();
 // pages/personal_center/valueAddedServices/valueAddedServices.js
 Page({
 
@@ -7,114 +7,40 @@ Page({
      * 页面的初始数据
      */
     data: {
-        sourceOfServiceProvider: '1', // 服务商来源，举值:星星朗、天安保险，
         roadRescueList: [
-            {
-                roadRescueStatus: '1',
-                details: [
-                    {
-                        label: '保障时间',
-                        time: '2024-05-20 14:10:32',
-                        highway: '2024-05-20 14:10:32'
-                    },
-                    {
-                        label: '通行路段',
-                        time: '广深高速',
-                        highway: '贵州高速'
-                    },
-                    {
-                        label: '权益服务费',
-                        time: '',
-                        highway: '580元'
-                    },
-                    {
-                        label: '计算方式',
-                        time: '',
-                        highway: '通行费*6%'
-                    }
-                ]
-            }, {
-                roadRescueStatus: '1',
-                details: [
-                    {
-                        label: '保障时间',
-                        time: '2024-05-20 14:10:32',
-                        highway: '2024-05-20 14:10:32'
-                    },
-                    {
-                        label: '通行路段',
-                        time: '广深高速',
-                        highway: '贵州高速'
-                    },
-                    {
-                        label: '权益服务费',
-                        time: '',
-                        highway: '90%赔付'
-                    },
-                    {
-                        label: '计算方式',
-                        time: '',
-                        highway: '免费拖车100公里'
-                    }
-                ]
-            }, {
-                roadRescueStatus: '1',
-                details: [
-                    {
-                        label: '保障时间',
-                        time: '2024-05-20 14:10:32',
-                        highway: '2024-05-20 14:10:32'
-                    },
-                    {
-                        label: '通行路段',
-                        time: '广深高速',
-                        highway: '贵州高速'
-                    },
-                    {
-                        label: '权益服务费',
-                        time: '',
-                        highway: '90%赔付'
-                    },
-                    {
-                        label: '计算方式',
-                        time: '',
-                        highway: '免费拖车100公里'
-                    }
-                ]
-            }, {
-                roadRescueStatus: '1',
-                details: [
-                    {
-                        label: '保障时间',
-                        time: '2024-05-20 14:10:32',
-                        highway: '2024-05-20 14:10:32'
-                    },
-                    {
-                        label: '通行路段',
-                        time: '广深高速',
-                        highway: '贵州高速'
-                    },
-                    {
-                        label: '权益服务费',
-                        time: '',
-                        highway: '90%赔付'
-                    },
-                    {
-                        label: '计算方式',
-                        time: '',
-                        highway: '免费拖车100公里'
-                    }
-                ]
-            }
             // 更多道路救援项目...
         ]
     },
-
+    // 获取保障记录
+    async getStoreList () {
+        // util.showLoading();
+        let params = {
+            insuranceNo: this.data.insuranceNo
+        };
+        await util.getDataFromServer('consumer/etc/getInsuranceList', params, () => {
+            util.showToastNoIcon(res.message);
+        }, (res) => {
+            if (res.code === 0) {
+                let storeList = res.data;
+                this.setData({
+                    roadRescueList: storeList
+                });
+                console.log('storeList', storeList);
+            } else {
+                util.showToastNoIcon(res.message);
+            }
+        }, app.globalData.userInfo.accessToken, () => {
+            util.hideLoading();
+        });
+    },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad (options) {
-
+        this.setData({
+            insuranceNo: options.insuranceNo
+        });
+        this.getStoreList();
     },
     openFullScreenImage (e) {
         const current = e.currentTarget.dataset.src; // 获取当前点击图片的URL
@@ -129,8 +55,23 @@ Page({
     },
     // 申请理赔入口
     btnLoad (e) {
-        let item = e.currentTarget.dataset.item;
-        console.log('item', item);
+        let status = e.currentTarget.dataset.item.status;
+        switch (status) {
+            case 1:	// 跳转拨号入口
+                // this.next();
+                break;
+            case 2:
+                util.showToastNoIcon('该笔保障欠费中，请完成补缴后保障服务商才能受案并最终理赔',5000);
+                break;
+            case 3:
+                util.showToastNoIcon('该笔保障理赔受理中，请耐心等待或咨询保障服务商客服',5000);
+                break;
+            case 5:
+                util.showToastNoIcon('当前保单已失效，不可申请理赔',5000);
+                break;
+            default:
+                break;
+        }
     },
     cancelHandle () {
         console.log('拨号弹框的回调');
@@ -150,12 +91,8 @@ Page({
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
-    onPullDownRefresh () {
-        util.showLoading('加载中');
-        // 示例：模拟异步刷新数据
-       setTimeout(() => {
-        // 数据刷新完成后，调用 wx.stopPullDownRefresh 停止刷新动画
-        wx.stopPullDownRefresh();
-      }, 1000); // 假设数据刷新需要1秒
+    // 监听用户上拉触底事件
+    onReachBottom (e) {
+        util.showToastNoIcon('只能展示最近半年的保障记录');
     }
 });

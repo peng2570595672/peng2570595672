@@ -1739,8 +1739,6 @@ async function queryContractForTruckHandling() {
     // 签约成功 userState: "NORMAL"
     if (result.data.contractStatus === 1) {
       isOk = true;
-    } else {
-      showToastNoIcon('未签约成功！');
     }
   } else {
     showToastNoIcon(result.message);
