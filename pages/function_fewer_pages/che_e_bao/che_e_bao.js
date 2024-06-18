@@ -204,11 +204,11 @@ Page({
             }
         } else {
             wx.hideLoading();
-            util.showToastNoIcon(result.message);
             if (this.data.paramFlag && (result.message.includes('重复订购') || result.message.includes('重复办理'))) {
                 that.setData({status: 4,available: true});
                 return;
             }
+            util.showToastNoIcon(result.message);
             if (flag === 3) {
                 that.pop(); // 拉起弹窗
                 return;
