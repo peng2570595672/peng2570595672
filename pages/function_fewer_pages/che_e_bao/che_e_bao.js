@@ -10,7 +10,7 @@ Page({
         wxPhone: '',
         obuCardType: undefined,
         auditStatus: undefined,
-        flag: false,
+        paramFlag: false, // true 线下； false 线上
         vehPlates: '',
         obuStatus: undefined,
         count: 0, // 查询次数
@@ -25,10 +25,10 @@ Page({
             vehPlates: options.vehPlates,
             obuStatus: options.obuStatus,
             auditStatus: options.auditStatus,
-            flag: options?.flag ? true : false
+            paramFlag: options?.flag ? true : false
         });
         // this.queryApi(1);
-        if (this.data.flag) { // 线下
+        if (this.data.paramFlag) { // 线下
             this.getProductOrderInfo();
         }
     },
@@ -175,7 +175,7 @@ Page({
             wx.hideLoading();
             if (!result.data.status) {
                 util.showToastNoIcon('存在该订单，且该订单办理成功');
-                that.setData({status: this.data.flag ? 4 : 3,available: true});
+                that.setData({status: this.data.paramFlag ? 4 : 3,available: true});
             } else if (result.data.status === 1) {
                 that.setData({status: 2,available: false});
                 if (flag === 2) {
@@ -204,15 +204,18 @@ Page({
             }
         } else {
             wx.hideLoading();
+            util.showToastNoIcon(result.message);
+            if (this.data.paramFlag && (result.message.includes('重复订购') || result.message.includes('重复办理'))) {
+                that.setData({status: 4,available: true});
+                return;
+            }
             if (flag === 3) {
                 that.pop(); // 拉起弹窗
-                util.showToastNoIcon(result.message);
                 return;
             }
             if (flag === 2) {
                 that.queryApi(2);
             }
-            util.showToastNoIcon(result.message);
         }
     },
     onUnload () {
