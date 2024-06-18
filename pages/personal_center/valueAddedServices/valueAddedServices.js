@@ -1,6 +1,5 @@
 // pages/personal_center/valueAddedServices/valueAddedServices.js
 const util = require('../../../utils/util.js');
-const { showToastNoIcon } = require('../../../utils/utils.js');
 Page({
 
     /**
@@ -18,23 +17,24 @@ Page({
     },
     // 跳转对应增值服务
     btnLoad (e) {
-        let url = e.currentTarget.dataset.url;
-        let insuranceStatus = e.currentTarget.dataset.status;
+        const item = e.currentTarget.dataset.item;
+        const {url,insuranceStatus,policyNumber} = item;
         if (url === 'road_rescue_orders') {
             // 旧流程 道路救援 跳转
             util.go(`/pages/road_rescue_orders/road_rescue/road_rescue`);
-        } else {
+        };
+        if (url === 'roadRelief') {
              // 新流程
             if (insuranceStatus === 0 || insuranceStatus === 2) {
                 // 保障申请中 //申请失败
                 return;
             }
-            if (insuranceStatus === 3 && url === 'roadRelief') {
+            if (insuranceStatus === 3) {
                 // 道路救援 保单失效
                 util.showToastNoIcon('当前保单已失效',5000);
                 return;
             }
-            util.go(`/pages/personal_center/${url}/${url}`);
+            util.go(`/pages/personal_center/${url}/${url}?insuranceNo=${policyNumber}`);
         }
     },
     /**
@@ -50,7 +50,6 @@ Page({
         if (result.code === 0) {
             if (result?.data.length) {
                 let roadRescueRules = result?.data[0];
-                console.log(roadRescueRules, 'getOrderInformation');
                 const { orderId, insuranceNo, insuranceType, insuranceStatus, roadRescue, roadRescueService } = roadRescueRules;
                 let roadRescueList = [
                     {
@@ -88,8 +87,8 @@ Page({
                     }, {
                         title: '道路救援',
                         orderId,
-                        // orderName: '保单编号',
-                        // policyNumber: '-',
+                        orderName: roadRescueService === 2 ? '保单编号' : '',
+                        policyNumber: roadRescueService === 2 ? insuranceNo : '',
                         insuranceStatus,
                         roadRescueService,
                         roadRescue,
