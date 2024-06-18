@@ -37,7 +37,10 @@ App({
 		isWeChatSudoku: false, // 从微信九宫格进入(微信--生活缴费--ETC办理)
 		isContinentInsurance: false, // 是否是大地保险 用来屏蔽微保
 		isToastAgreement: true,
-		obuActive_upDate: false, // 是否内蒙重写激活订单
+		obuActiveUpDateInfo: {
+			id: '',
+			isUpDate: false
+		}, // 是否内蒙重写激活订单
 		isPingAn: false, // 是否是平安 用来屏蔽微保
 		isJinYiXing: false, // 是否是津易行办理
 		belongToPlatform: '500338116821778434', // 套餐所属平台id,用于判断流程
@@ -210,6 +213,12 @@ App({
 	// 初始化数据
 	initData (options) {
 		console.log(options);
+		const extraData = options?.referrerInfo?.extraData;
+		console.log('extraData')
+		console.log(extraData)
+		if (extraData?.orderId && options.path.includes('ChooseBank')) {
+			this.globalData.orderInfo.orderId = extraData.orderId;
+		}
 		if (options.scene === 1084 && (options.query.gz_gdt || options.query.gdt_vid)) {
 			// 朋友圈广告原生页进入
 			this.globalData.advertisementClickId = options.query.gz_gdt || options.query.gdt_vid || '';
@@ -327,6 +336,8 @@ App({
 		});
 	},
 	async onShow (res) {
+		console.log('app onShow');
+		console.log(res);
 		// 初始化数据
 		this.initData(res);
 		if (res.path === 'pages/default/photo_recognition_of_driving_license/photo_recognition_of_driving_license' ||

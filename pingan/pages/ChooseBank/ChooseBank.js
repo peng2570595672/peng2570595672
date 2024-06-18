@@ -41,19 +41,19 @@ Page({
 	onShow (options) {
 		wx.hideHomeButton();
 
-		// app.globalData.orderInfo.orderId = '754022503973654528';
+		app.globalData.orderInfo.orderId = '754022503973654528';
 		let credentialType = 1;// 证件类型
 
 		app.globalData.isModifiedData = false; // 非修改资料
 		let result = wx.getLaunchOptionsSync();
 		let extra = result.referrerInfo.extraData;
-		if (extra) {
+		if (app.globalData.orderInfo.orderId) {
 			let from = extra.from;
 			let mobilePhone = extra.mobilePhone;
 			from && this.setData({
 				from
 			});
-			app.globalData.orderInfo.orderId = extra.orderId;
+			app.globalData.orderInfo.orderId = app.globalData.orderInfo.orderId || extra.orderId;
 			app.globalData.signAContract = -1;
 			app.globalData.isJinYiXing = true;
 			// credentialType: 默认身份证 1: 身份证/或不传
@@ -283,9 +283,9 @@ Page({
 					this.onClickItemHandle(item);
 				}
 				if (this.data.operationType === 1) {
-					listOfPackages = list.filter(val => val.shopProductId === '1248659091931799552');
+					listOfPackages = list.filter(val => val.shopProductId === '699044967607300096' || val.shopProductId === '1248659091931799552');
 				} else {
-					listOfPackages = list.filter(val => val.shopProductId !== '1248659091931799552');
+					listOfPackages = list.filter(val => val.shopProductId !== '699044967607300096' && val.shopProductId !== '1248659091931799552');
 				}
 				if (!listOfPackages.length) {
 					util.showToastNoIcon('套餐查询为空,请联系客服');
