@@ -41,7 +41,7 @@ Page({
 	onShow (options) {
 		wx.hideHomeButton();
 
-		app.globalData.orderInfo.orderId = '754022503973654528';
+		// app.globalData.orderInfo.orderId = '754022503973654528';
 		let credentialType = 1;// 证件类型
 
 		app.globalData.isModifiedData = false; // 非修改资料
