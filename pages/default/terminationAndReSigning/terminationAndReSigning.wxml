@@ -28,7 +28,7 @@
                 {{oldVehContractStatus === 2 || oldVehContractStatus === 0 ? '已解约':'去解约'}}</view>
         </view>
     </view>
-    <view class="module btm_20">
+    <view class="module {{newVehContractStatus !== 1 ? 'btm_20' : ''}}">
         <view class="topTitle ">
             <view class="text">
                 <view>签约新车牌微信授权</view>

@@ -53,8 +53,6 @@ Page({
 		// 签约成功 userState: "NORMAL"
 		if (result.data.contractStatus === 1) {
 			await this.getETCDetail();
-		} else {
-			util.showToastNoIcon('未签约成功656！');
 		}
 	},
 	// 加载订单详情
