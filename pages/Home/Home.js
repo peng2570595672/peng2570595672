@@ -1342,9 +1342,14 @@ Page({
 	},
 	// 弹窗确认回调
 	onHandle (e) {
+		const orderInfo = e.detail.orderInfo;
 		if (e.detail.orderInfo) {
 			// 恢复签约
 			app.globalData.orderInfo.orderId = e.detail.orderInfo.id;
+			if (orderInfo.flowVersion === 8 && orderInfo.selfStatus === 1) {
+				util.go(`/pages/bank_card/citic_bank_sign/citic_bank_sign?flowVersion=8`);
+				return;
+			}
 			wx.uma.trackEvent('index_for_dialog_signing');
 			this.onClickBackToSign(e.detail.orderInfo);
 			return;
