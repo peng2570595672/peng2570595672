@@ -132,7 +132,7 @@ Page({
         });
     },
     goUpDate () {
-        if (this.data.this.data.newUpDataStatus === 5) return; // 已经更新
+        if (this.data.newUpDataStatus === 5) return; // 已经更新
         if (this.data.newVehContractStatus !== 1 && this.data.newUpDataStatus !== 5) {
             this.selectComponent('#popTipComp').show({
                 type: 'oneBtn',
