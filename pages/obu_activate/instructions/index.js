@@ -9,9 +9,9 @@ Page({
 			backgroundColor: '#fff',
 			backgroundColorBottom: '#f6f7f8'
 		});
-		if (app.globalData.obuActive_upDate) {
+		if (app.globalData.obuActiveUpDateInfo.isUpDate) {
 			this.setData({
-				obuActive_upDate: app.globalData.obuActive_upDate // 是否属于重写激活
+				obuActive_upDate: app.globalData.obuActiveUpDateInfo.isUpDate // 是否属于重写激活
 			});
 			wx.setNavigationBarTitle({title: `更新设备信息`});
 		}

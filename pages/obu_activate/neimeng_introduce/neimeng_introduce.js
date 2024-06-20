@@ -10,9 +10,9 @@ Page({
 		baseInfo: undefined
 	},
 	onLoad () {
-		if (app.globalData.obuActive_upDate) {
+		if (app.globalData.obuActiveUpDateInfo.isUpDate) {
 			this.setData({
-				obuActive_upDate: app.globalData.obuActive_upDate // 是否属于重写激活
+				obuActive_upDate: app.globalData.obuActiveUpDateInfo.isUpDate // 是否属于重写激活
 			});
 			wx.setNavigationBarTitle({title: `更新设备信息`});
 		}
@@ -23,7 +23,7 @@ Page({
 		if ((!baseInfo || !installGuid) && !app.globalData.obuActiveUpDateInfo.isUpDate) return util.showToastNoIcon('用户信息丢失，请重新打开小程序');
 
 		let endIndex = installGuid.indexOf('（') !== -1 ? installGuid.indexOf('（') : installGuid.indexOf('(');
-		app.globalData.obuActive_upDate ? wx.setNavigationBarTitle({title: 'ETC开关'}) : wx.setNavigationBarTitle({title: `安装指引-${installGuid.substring(0,endIndex).trim()}`});
+		app.globalData.obuActiveUpDateInfo.isUpDate ? wx.setNavigationBarTitle({title: 'ETC开关'}) : wx.setNavigationBarTitle({title: `安装指引-${installGuid.substring(0,endIndex).trim()}`});
 		this.setData({baseInfo: baseInfo});
 	},
 	hide () {
