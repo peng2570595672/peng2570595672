@@ -141,7 +141,7 @@ Page({
 		}, (res) => {
 			if (res.code === 0) {
 				this.setData({
-					operationType: 2 || res.data.base?.operationType,
+					operationType: res.data.base?.operationType,
 					orderInfo: res.data
 				});
 				// 获取实名信息
