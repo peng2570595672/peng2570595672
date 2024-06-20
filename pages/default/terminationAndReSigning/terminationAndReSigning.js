@@ -132,7 +132,7 @@ Page({
         });
     },
     goUpDate () {
-        if (this.data.this.data.newUpDataStatus === 5) return; // 已经更新
+        if (this.data.newUpDataStatus === 5) return; // 已经更新
         if (this.data.newVehContractStatus !== 1 && this.data.newUpDataStatus !== 5) {
             this.selectComponent('#popTipComp').show({
                 type: 'oneBtn',
@@ -145,7 +145,8 @@ Page({
             });
             return;
         }
+        app.globalData.obuActiveUpDateInfo.id = this.data.id;
         // 重写激活 设备选择页
-        util.go('/pages/obu_activate/neimeng_choice/neimeng_choice?obuActive_upDate=true'); // 重写激活引导
+        util.go('/pages/obu_activate/neimeng_choice/neimeng_choice?obuActive_upDate=1'); // 重写激活引导
     }
 });

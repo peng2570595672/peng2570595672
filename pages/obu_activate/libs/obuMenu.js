@@ -9,7 +9,6 @@
  * @param obuStatus 是否已激活（东旭说可以把这个字段当做已二发来用
  */
 function show ({app, util, channel, serverId, qtLimit, carNoStr, obuStatus}) {
-	console.log(channel)
 	if (channel === 1) { // 黔通
 		// TODO 已经在前面拦截了，不会走到这里
 		wx.hideLoading();
@@ -23,50 +22,72 @@ function show ({app, util, channel, serverId, qtLimit, carNoStr, obuStatus}) {
 				}
 			}
 		});
-	} else if (channel === 2) { // 内蒙
+	} else if (channel === 2 || app.globalData.obuActiveUpDateInfo.isUpDate) { // 内蒙
 		const index = app.globalData.choiceDeviceIndex - 1;
-		if (obuStatus === 1 || obuStatus === 5) {
-			// 已发行，前往二次激活页面
-			wx.setStorageSync('activate-info', JSON.stringify({
-				carNo: carNoStr
-			}));
+		if (app.globalData.obuActiveUpDateInfo.isUpDate) {
+			// 换车换牌-重写设备
 			switch (index) {
 				case 0:
 					// 埃特斯
-					util.go('/pages/obu_activate/neimeng_secondary/artc/artc');
+					util.go('/pages/obu_activate/nm_change_license_plate/artc/artc');
 					break;
 				case 1:
 					// 天地融
-					util.go('/pages/obu_activate/neimeng_secondary/tendyron/tendyron');
+					util.go('/pages/obu_activate/nm_change_license_plate/tendyron/tendyron');
 					break;
 				case 2:
 					// 铭创
-					util.go('/pages/obu_activate/neimeng_secondary/mc/mc');
-					break;
-				// case 2:
-				// 	// 万集
-				// 	util.go('/activate_obu/neimeng/wj_one8/wj_one8');
-				// 	break;
-			}
-		} else {
-			// 未发行，继续二发流程
-			switch (index) {
-				case 0:
-					// 埃特斯
-					util.go('/pages/obu_activate/neimeng_first/artc/artc');
-					break;
-				case 1:
-					// 天地融
-					util.go('/pages/obu_activate/neimeng_first/tendyron/tendyron');
-					break;
-				case 2:
-					// 铭创
-					util.go('/pages/obu_activate/neimeng_first/mc/mc');
+					util.go('/pages/obu_activate/nm_change_license_plate/mc/mc');
 					break;
 				// case 2:
 				// 	// 万集
 				// 	util.go('/online_distribution/pages/connect_bluetooth_for_neimengwjone8/connect_bluetooth_for_neimengwjone8');
 				// 	break;
+			}
+		} else {
+			if (obuStatus === 1 || obuStatus === 5) {
+				// 已发行，前往二次激活页面
+				wx.setStorageSync('activate-info', JSON.stringify({
+					carNo: carNoStr
+				}));
+				switch (index) {
+					case 0:
+						// 埃特斯
+						util.go('/pages/obu_activate/neimeng_secondary/artc/artc');
+						break;
+					case 1:
+						// 天地融
+						util.go('/pages/obu_activate/neimeng_secondary/tendyron/tendyron');
+						break;
+					case 2:
+						// 铭创
+						util.go('/pages/obu_activate/neimeng_secondary/mc/mc');
+						break;
+					// case 2:
+					// 	// 万集
+					// 	util.go('/activate_obu/neimeng/wj_one8/wj_one8');
+					// 	break;
+				}
+			} else {
+				// 未发行，继续二发流程
+				switch (index) {
+					case 0:
+						// 埃特斯
+						util.go('/pages/obu_activate/neimeng_first/artc/artc');
+						break;
+					case 1:
+						// 天地融
+						util.go('/pages/obu_activate/neimeng_first/tendyron/tendyron');
+						break;
+					case 2:
+						// 铭创
+						util.go('/pages/obu_activate/neimeng_first/mc/mc');
+						break;
+					// case 2:
+					// 	// 万集
+					// 	util.go('/online_distribution/pages/connect_bluetooth_for_neimengwjone8/connect_bluetooth_for_neimengwjone8');
+					// 	break;
+				}
 			}
 		}
 	} else if (channel === 4) { // 青海
