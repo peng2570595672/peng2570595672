@@ -4,25 +4,64 @@
         "miniprogram": {
             "list": [
                 {
-                    "name": "广告推广",
-                    "pathName": "pages/empty_hair/receiving_address/receiving_address",
-                    "query": "gdt_vid=wx0zfrgrnaycypve&shopId=1072188767418851328",
+                    "name": "邮寄地址",
+                    "pathName": "pages/default/receiving_address/receiving_address",
+                    "query": "activityType=45&shopId=1189147799537590272&userId=oNI2c4lvk8ZOKLLA38MDM5uOrAfD6BiZCWEaX1psiIu7SqzfKUf9+Z0EJk5IgkwO&isPost=1&productId=1200085206088818688",
                     "launchMode": "default",
-                    "scene": 1084
+                    "scene": null
                 },
                 {
-                    "name": "activities/pages/activity_icbc_forty_five_theme/index",
+                    "name": "",
+                    "pathName": "pages/default/processing_progress/processing_progress",
+                    "query": "orderId=1252928735389159424",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "ETC详情",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1252587221140115456",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "特微",
                     "pathName": "pingan/pages/ChooseBank/ChooseBank",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": 1037,
+                    "referrerInfo": {
+                        "appId": "wxddb3eb32425e4a96",
+                        "extraData": "{\"orderId\":12322}"
+                    }
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/default/index/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "换车换牌",
+                    "pathName": "pages/default/changeCardIntruduce/changeCardIntruduce",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
                 },
                 {
                     "name": "",
-                    "pathName": "pages/obu_activate/neimeng_secondary/mc_new/mc_new",
+                    "pathName": "pages/after_sales/index/index",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "广告推广",
+                    "pathName": "pages/empty_hair/receiving_address/receiving_address",
+                    "query": "gdt_vid=wx0zfrgrnaycypve&shopId=1072188767418851328",
+                    "launchMode": "default",
+                    "scene": 1084
                 },
                 {
                     "name": "",
@@ -85,12 +124,6 @@
                     "scene": null
                 },
                 {
-                    "name": "邮寄地址",
-                    "pathName": "pages/default/receiving_address/receiving_address",
-                    "query": "shareId=1235556",
-                    "scene": null
-                },
-                {
                     "name": "我的ETC",
                     "pathName": "pages/personal_center/my_etc/my_etc",
                     "query": "shareId=123455",
@@ -118,12 +151,6 @@
                     "name": "会员券",
                     "pathName": "pages/personal_center/membership_coupon/membership_coupon",
                     "query": "orderId=710126117226287104",
-                    "scene": null
-                },
-                {
-                    "name": "ETC详情",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=750442877963735040",
                     "scene": null
                 },
                 {
@@ -189,7 +216,7 @@
         }
     },
     "setting": {
-        "compileHotReLoad": true,
+        "compileHotReLoad": false,
         "preloadBackgroundData": false,
         "bigPackageSizeSupport": true
     },

@@ -40,14 +40,13 @@ Page({
 	},
 	onShow (options) {
 		wx.hideHomeButton();
-
-		app.globalData.orderInfo.orderId = '754022503973654528';
+		// app.globalData.orderInfo.orderId = '700463176101138432';
 		let credentialType = 1;// 证件类型
 
 		app.globalData.isModifiedData = false; // 非修改资料
 		let result = wx.getLaunchOptionsSync();
 		let extra = result.referrerInfo.extraData;
-		if (app.globalData.orderInfo.orderId) {
+		if (app.globalData.orderInfo.orderId || extra?.orderId) {
 			let from = extra.from;
 			let mobilePhone = extra.mobilePhone;
 			from && this.setData({

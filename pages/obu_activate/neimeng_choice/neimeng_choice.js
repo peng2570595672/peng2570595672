@@ -15,8 +15,8 @@ Page({
 		activeIndex: -1
 	},
 	onLoad (options) {
+		app.globalData.obuActiveUpDateInfo.isUpDate = +options.obuActive_upDate === 1;
 		if (options.obuActive_upDate) {
-			app.globalData.obuActive_upDate = options.obuActive_upDate;
 			this.setData({
 				obuActive_upDate: options.obuActive_upDate // 是否属于重写激活
 			});

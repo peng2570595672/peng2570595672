@@ -1,0 +1,153 @@
+//渐变主题色
+$themeColor1 = #84d157;
+$themeColor2 = #14ac69;
+.install_step
+	padding 0 50rpx
+	& > image
+		position relative
+		left 12rpx
+		z-index 1
+		margin 240rpx auto 88rpx
+		display block
+		height 208rpx
+	.text-wrapper
+		position relative
+		z-index 10
+		& > view
+			text-align center
+			font-size 28rpx
+			&.ok
+				color $themeColor1 !important
+			&.title
+				font-size 36rpx
+				font-weight bold
+			&.tips
+				font-size: 28rpx;
+				font-weight: normal;
+				line-height: 44rpx;
+				color: #F19C38;
+				text-align left
+				padding-top 58rpx
+				&.tips-last
+					text-align center
+			&.devName
+				margin-top 25rpx
+				& > text
+					&.succeed
+						color #69E2AC
+					&.failed
+						color #FA5151
+			&.cardNum
+				margin-top 6rpx
+				color #FA5151
+			&.errMsg
+				margin-top 6rpx
+				color #FA5151
+	.btns
+		position fixed
+		left 30rpx
+		right 30rpx
+		bottom 140rpx
+		display flex
+		align-items center
+		justify-content center
+		height 98rpx
+		line-height 98rpx
+		color #fff
+		font-size 32rpx
+		background #2A4F44
+		border-radius 49rpx
+		&:active
+			opacity .8
+		&.not-use,
+		&:active.not-use
+			opacity 1
+			background #ccc
+		&.btn-fail
+			background #FA5151
+	.retry
+		position fixed
+		width 100%
+		text-align center
+		bottom 290rpx
+		font-size: 28rpx;
+		font-family: PingFang SC-Regular, PingFang SC;
+		font-weight: 400;
+		color: #39812B;
+		line-height: 36rpx;
+
+.alert-for-not-finished
+	position: fixed
+	left: 0
+	right: 0
+	top: 0
+	bottom: 0
+	background: rgba(0, 0, 0, 0.6)
+	z-index: 10000
+.alert-for-not-finished-content
+	position fixed
+	left 0
+	right 0
+	top 0
+	bottom 0
+	width 694rpx
+	height 482rpx
+	text-align justify
+	background rgba(255,255,255,1)
+	box-shadow 4rpx 12rpx 56rpx 0px rgba(102,102,109,0.19)
+	border-radius 16rpx
+	margin auto
+	z-index 100002
+	.dialog-container
+		.wx-dialog-title
+			text-align center
+			font-size: 44rpx;
+			font-family: PingFang SC-Medium, PingFang SC;
+			font-weight: 500;
+			color: #1E1E1E;
+			line-height: 52rpx;
+			padding 48rpx 0 34rpx
+		.wx-dialog-con
+			padding 0 48rpx
+			text-align center
+			font-size: 32rpx;
+			font-family: PingFang SC-Regular, PingFang SC;
+			font-weight: 400;
+			color: #262626;
+			line-height: 54rpx;
+			image
+				width 590rpx
+				height 234rpx
+				margin-bottom 24rpx
+			.step1
+				margin-bottom 8rpx
+			.step2
+				color #979797
+		.fill
+			flex 1
+		.wx-dialog-btn
+			display flex
+			justify-content center
+			padding-top 40rpx
+			padding-bottom 48rpx
+			.confirm
+				width: 318rpx;
+				height: 106rpx;
+				display flex
+				align-items center
+				justify-content center
+				background: #2A4F44;
+				border-radius: 53rpx 53rpx 53rpx 53rpx;
+				font-size: 36rpx;
+				font-family: PingFang SC-Regular, PingFang SC;
+				font-weight: 400;
+				color: #FFFFFF;
+		.close
+			display flex
+			color $fontColor6
+			font-size 16rpx
+			padding 30rpx 0 50rpx
+			&::after
+				flex 1
+				content '\e603'
+				text-align right
