@@ -87,7 +87,8 @@
                 {
                     "name": "邮寄地址",
                     "pathName": "pages/default/receiving_address/receiving_address",
-                    "query": "shareId=1235556",
+                    "query": "productId=1251135573647695872",
+                    "launchMode": "default",
                     "scene": null
                 },
                 {
@@ -191,7 +192,8 @@
     "setting": {
         "compileHotReLoad": true,
         "preloadBackgroundData": false,
-        "bigPackageSizeSupport": true
+        "bigPackageSizeSupport": true,
+        "urlCheck": false
     },
     "libVersion": "3.4.3"
 }

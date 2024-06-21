@@ -236,6 +236,7 @@ Page({
 				// 鲨鱼灵工订单
 				this.getSelectOrderInfoByThirdNo();
 			}
+			this.getProduct(1);
 		} else {
 			if (!result.query?.openCode) {
 				// 公众号进入需要登录
@@ -272,6 +273,7 @@ Page({
 					this.setData({
 						'formData.cardMobilePhone': result.data.mobilePhone
 					});
+					this.getProduct(1);
 					if (this.data.sharkOrderNo) {
 						// 鲨鱼灵工订单
 						this.getSelectOrderInfoByThirdNo();
@@ -608,7 +610,7 @@ Page({
 				return;
 			}
 			if (app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) {
-				await this.getProduct();
+				await this.getProduct(2);
 			} else {
 				// 选择套餐页面
 				let orderInfo = {
@@ -622,6 +624,10 @@ Page({
 				if (!app.globalData.newPackagePageData.listOfPackages?.length) return;// 没有套餐
 				console.log(app.globalData.newPackagePageData.type, '==============================');
 				if (app.globalData.newPackagePageData.type) {
+					if (this.data.shopProductInfo?.cmType || app.globalData.productList.lnmProductUnder.includes(this.data.shopProductInfo.shopProductId)) {	// 辽宁移动
+						util.go(`/pages/function_fewer_pages/che_e_bao/che_e_bao?flag=1`);
+						return;
+					}
 					// 只有分对分套餐 || 只有总对总套餐
 					util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?type=${params.shopProductId ? '' : app.globalData.newPackagePageData.type}`);
 				} else {
@@ -649,13 +655,17 @@ Page({
 		}
 	},
 	// 根据套餐id获取套餐信息
-	async getProduct () {
+	async getProduct (flag) {
 		const result = await util.getDataFromServersV2('consumer/system/get-product-by-id', {
-			shopProductId: app.globalData.scanCodeToHandle.productId
+			shopProductId: app.globalData.scanCodeToHandle?.productId || this.data.productId
 		});
 		if (!result) return;
 		if (result.code === 0) {
-			this.submitProduct();
+			if (flag === 1) {
+				this.setData({shopProductInfo: result.data});
+			} else {
+				this.submitProduct();
+			}
 		} else {
 			util.showToastNoIcon(result.message);
 		}

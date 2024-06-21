@@ -114,7 +114,6 @@
   border-radius: 8px;
   width: 320rpx;
   height: 204rpx;
-  background: #0f0;
 }
 .index .floatButton {
   width: 100%;

@@ -705,7 +705,7 @@ Page({
             });
             if (!result) return;
             if (result.code === 0) {
-                if (result.data.length >= 5) {
+                if (result.data.length >= 50) {
                     util.alert({
                         title: `提示`,
                         content: `该套餐目前暂只支持单人办理五台车辆`,
@@ -768,11 +768,11 @@ Page({
             return;
         }
         // 9901 套餐验证码
-        if (!this.data.isSalesmanOrder && this.data.listOfPackages[this.data.choiceIndex]?.flowVersion === 8) {
-            await this.getOrderDetail();
-            this.selectComponent('#verifyCode').show();
-            return;
-        }
+        // if (!this.data.isSalesmanOrder && this.data.listOfPackages[this.data.choiceIndex]?.flowVersion === 8) {
+        //     await this.getOrderDetail();
+        //     this.selectComponent('#verifyCode').show();
+        //     return;
+        // }
         // 协议判断
         if (obj1?.agreements && obj1?.agreements.length > 0) { // 配置了协议
             const popUpBoxProtocol = obj1?.agreements.find(item => {
@@ -879,6 +879,10 @@ Page({
                     packageShopId: this.data.listOfPackages[this.data.choiceIndex]?.shopId,
                     productShopId: app.globalData.newPackagePageData?.shopId
                 });
+            }
+            if (this.data.listOfPackages[this.data.choiceIndex]?.cmType) { // 辽宁移动 支付
+                this.liaoNingMovePay();
+                return;
             }
             if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice || addEquity.aepIndex !== -1) {
                 await this.marginPayment(this.data.listOfPackages[this.data.choiceIndex].pledgeType);
@@ -1412,5 +1416,108 @@ Page({
         } else { // 打开pdf
             util.openPdf(item5.content, item5.category);
         }
+    },
+    // 辽宁移动支付
+    async liaoNingMovePay () {
+        let that = this;
+        util.showLoading();
+        let res = await util.getDataFromServersV2('consumer/order/lnH5Pay', {
+            orderId: app.globalData.orderInfo.orderId
+        });
+        if (!res) return;
+        if (res.code === 0) {
+            wx.request({
+                url: `${res.data.h5PayUrl}`, // 仅为示例，并非真实的接口地址
+                header: {'content-type': 'application/json'}, // 默认值
+                method: 'POST',
+                async success (res) {
+                  let callbacks = JSON.parse([res.data.substring(9,res.data.length - 1)]);
+                    let result = await util.getDataFromServersV2('consumer/order/public/getLnPayParam', {
+                        respData: callbacks.RespData,
+                        respInfo: callbacks.RespInfo,
+                        sign: callbacks.Sign
+                    });
+                    if (!result) return;
+                    if (result.code === 0) {
+                        wx.hideLoading();
+                        that.liaoNingMovepay1(result.data.response.respInfo.payUrl);
+                    } else {
+                        wx.hideLoading();
+                        util.showToastNoIcon(result.message);
+                    }
+                },
+                fail (res) {
+                    wx.hideLoading();
+                    console.log(res);
+                }
+              });
+        } else {
+            wx.hideLoading();
+            util.showToastNoIcon(res.message);
+        }
+    },
+    // 辽宁移动支付 - 拉起支付弹窗
+    liaoNingMovepay1 (payData) {
+        wx.requestPayment({
+            timeStamp: payData.timeStamp,
+            nonceStr: payData.nonceStr,
+            package: payData.package,
+            signType: payData.signType,
+            paySign: payData.paySign,
+            success: (res) => {
+                this.setData({ isRequest: false });
+                if (res.errMsg === 'requestPayment:ok') {
+                    if (this.data.listOfPackages[this.data.choiceIndex]?.productProcess === 9) { // 多签流程 确认页面 不区分业务员办理
+                        console.log('多签流程');
+                        // 去签约确认页面
+                        util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
+                        return;
+                    }
+                    if (this.data.isSalesmanOrder) {
+                        if (this.data.orderInfo.base?.flowVersion === 8) {
+                            util.go(`/pages/default/processing_progress/processing_progress?type=main_process`);
+                            return;
+                        }
+                        if (this.data.listOfPackages[this.data.activeIndex].etcCardId === 10 && +this.data.listOfPackages[this.data.activeIndex].deviceType === 0) {
+                            // 湖南湘通卡 & 单片机   湖南信科
+                            util.go(`/pages/default/payment_successful/payment_successful?isHunan=1`);
+                            return;
+                        }
+                        if (this.data.orderInfo.base?.flowVersion === 2) {
+                            // 无需签约
+                            util.go('/pages/historical_pattern/transition_page/transition_page');
+                            return;
+                        }
+                        if (this.data.listOfPackages[this.data.choiceIndex].isSignTtCoupon === 1) {
+                            // 通通券套餐
+                            this.setData({ isPay: true });
+                            return;
+                        }
+                        // 去支付成功页
+                        util.go(`/pages/default/payment_successful/payment_successful`);
+                        return;
+                    }
+                    if (this.data.orderInfo?.base?.orderType === 61) {
+                        // 电销模式
+                        this.perfectOrder();
+                        return;
+                    }
+                    if (this.data.orderInfo?.base?.orderType === 71 && (this.data.orderInfo?.base?.promoterType === 47 || this.data.orderInfo?.base?.promoterType === 48)) {
+                        // 新版小程序空发
+                        util.go('/pages/empty_hair/processing_progress/processing_progress');
+                        return;
+                    }
+                    util.go('/pages/default/information_list/information_list?type=1');
+                } else {
+                    util.showToastNoIcon('支付失败！');
+                }
+            },
+            fail: (res) => {
+                this.setData({ isRequest: false });
+                if (res.errMsg !== 'requestPayment:fail cancel') {
+                    util.showToastNoIcon('支付失败！');
+                }
+            }
+          });
     }
 });

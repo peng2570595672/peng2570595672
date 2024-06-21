@@ -18,8 +18,10 @@ Page({
     },
 
     inputCode (e) {
-        console.log(e);
-        this.setData({obuNumber: e.detail.value.trim()});
+        this.setData({
+            obuNumber: e.detail.value.trim(),
+            available: e.detail.value.trim().length > 0
+        });
     },
 
     // 拍照或选择图片
@@ -88,9 +90,20 @@ Page({
         }, () => {}, (res) => {});
     },
 
-    next () {
+    async next () {
         if (!this.data.available) return;
-        console.log();
+        let result = await util.getDataFromServersV2('salesman/order/check-obu-no', {
+            obuNo: this.data.obuNumber,
+            mobilePhone: app.globalData.mobilePhone
+        });
+        if (!result) return;
+        if (result.code === 0) {
+            wx.hideLoading();
+            that.liaoNingMovepay1(result.data.response.respInfo.payUrl);
+        } else {
+            wx.hideLoading();
+            util.showToastNoIcon(result.message);
+        }
     },
 
     onUnload () {

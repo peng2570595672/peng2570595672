@@ -1554,7 +1554,7 @@ Page({
 			util.go(`/pages/device_upgrade/package/package?orderId=${orderInfo.id}`);
 			return;
 		}
-		if (orderInfo.selfStatus === 3 && app.globalData.productList.lnmProductUnder.includes(orderInfo.shopProductId)) { // 辽宁移动线下办理
+		if (orderInfo.selfStatus === 3 && (orderInfo?.orderExtCardType === 5 || app.globalData.productList.lnmProductUnder.includes(orderInfo.shopProductId))) { // 辽宁移动线下办理
 			util.go(`/pages/function_fewer_pages/che_e_bao/che_e_bao?flag=1`);
 			return;
 		}
