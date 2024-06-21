@@ -15,8 +15,8 @@ Page({
 		activeIndex: -1
 	},
 	onLoad (options) {
+		app.globalData.obuActiveUpDateInfo.isUpDate = +options.obuActive_upDate === 1;
 		if (options.obuActive_upDate) {
-			app.globalData.obuActive_upDate = options.obuActive_upDate;
 			this.setData({
 				obuActive_upDate: options.obuActive_upDate // 是否属于重写激活
 			});
@@ -74,13 +74,13 @@ Page({
 		wx.setStorageSync('installGuid', this.data.list[index].name);
 		app.globalData.choiceDeviceIndex = index;
 		if (!this.data.list[index].deviceType) {	// 插卡式
-			if (app.globalData.obuActive_upDate) { // obuActive_upDate 重写激活 直接跳到激活页
+			if (app.globalData.obuActiveUpDateInfo.isUpDate) { // obuActive_upDate 重写激活 直接跳到激活页
 				util.go('/pages/obu_activate/instructions/index');
 				return;
 			}
 			util.go('/pages/obu_activate/guide/index');
 		} else {	// 无卡式
-			if (app.globalData.obuActive_upDate) { // obuActive_upDate 重写激活 直接跳到激活页
+			if (app.globalData.obuActiveUpDateInfo.isUpDate) { // obuActive_upDate 重写激活 直接跳到激活页
 				util.go('/pages/obu_activate/neimeng_introduce/neimeng_introduce');
 				return;
 			}

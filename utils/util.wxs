@@ -251,7 +251,7 @@ function getStatusDescription_NM(status, newContractStatus) {
             if (newContractStatus === 1) {
                 return '处理成功';
             } else {
-                return '审核完成待签约';
+                return '更新完成待签约';
             }
         default:
             return '未知状态';

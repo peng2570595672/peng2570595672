@@ -1,0 +1,41 @@
+<view class="install_step">
+	<image src="../../images/bluetooth_obu_new.gif" mode="aspectFit" />
+	<view class="text-wrapper">
+        <view class="title">
+            {{ activateStep === 1 ? '搜索设备中...' : '' }}
+            {{ activateStep === 2 || activateStep === 3 || activateStep === 7 || activateStep === 8 ? '搜索设备' : '' }}
+            {{ activateStep === 4 || activateStep === 5 ? '设备更新中' : '' }}
+            {{ activateStep === 6 ? '设备已更新' : '' }}
+        </view>
+        <view class="devName" wx:if="{{activateStep === 1 || activateStep === 2}}">
+            {{ activateStep === 1 || activateStep === 2 ? '搜索过程中请勿关闭小程序' : ''}}
+        </view>
+        <view class="devName" wx:if="{{activateStep >= 3}}">设备：{{deviceName}} - <text class="{{activateStep === 3 ? 'succeed': ''}} {{activateStep === 9 ? 'failed': ''}}">{{activateStep >= 3 && activateStep !== 9 ? '已连接' : activateStep === 9 ? '连接失败' : ''}}</text></view>
+        <view class="tips" wx:if="{{activateStep === 1 || activateStep === 2 || activateStep === 3}}">注意：保证您的网络正常且请勿退出小程序避免更新失效，更新成功后请勿挪动OBU设备，否则将导致设备失效。</view>
+        <view class="tips tips-last" wx:if="{{activateStep === 4 || activateStep === 5}}">设备更新中，大约需要60s，请勿关闭小程序</view>
+	</view>
+	<view class="btns {{ activateStep === 5 ? 'btn-fail' : '' }}" catchtap="go" wx:if="{{activateStep !== 4}}">
+        {{ activateStep === 1 ? '蓝牙连接中...' : '' }}
+        {{ activateStep === 2 ? '未找到设备，请重试' : '' }}
+        {{ activateStep === 3 ? '我的设备，立即更新' : '' }}
+        {{ activateStep === 5 ? '更新失败，重试' : '' }}
+        {{ activateStep === 6 ? '更新成功，返回' : '' }}
+        {{ activateStep === 7 ? '设备连接失败，重新连接' : '' }}
+        {{ activateStep === 8 ? '蓝牙中断，重新连接' : '' }}
+    </view>
+</view>
+<view class="alert-for-not-finished animated {{wrapper ? 'fadeIn': 'fadeOut'}}" wx:if="{{mask}}"></view>
+<view class="alert-for-not-finished-content animated {{wrapper ? 'zoomIn': 'zoomOut'}}" wx:if="{{mask}}">
+    <view class='dialog-container'>
+        <view class="wx-dialog-title">{{activateStep === 2 ? '蓝牙断开' : '蓝牙中断'}}</view>
+        <view class="wx-dialog-con">
+            <view class="step2" wx:if="{{activateStep === 2}}">由于您长时间未操作蓝牙，蓝牙连接已断开，请重新连接</view>
+            <view class="step2" wx:else>由于您长时间未操作蓝牙，蓝牙连接已断开，请重新连接</view>
+        </view>
+        <view class="fill"></view>
+        <view class="wx-dialog-btn">
+            <view class="confirm" bindtap='hide' data-select="ok">重新连接</view>
+        </view>
+    </view>
+</view>
+<privacy_popup></privacy_popup>

@@ -129,6 +129,14 @@ Page({
 			app.globalData.otherPlatformsServiceProvidersId = options.shopId;
 			this.getOpenApiCodeLogin();
 		}
+		if (options.userId) {
+			// 山西移动
+			this.setData({
+				isMobileTransact: true
+			});
+			app.globalData.otherPlatformsServiceProvidersId = options.shopId;
+			this.getGrantCode(options.userId);
+		}
 		// 移动办理
 		if (options.isMobile) {
 			this.setData({
@@ -303,6 +311,18 @@ Page({
 			wx.reLaunch({
 				url: `/pages/personal_center/my_etc_detail/my_etc_detail?orderId=${result.data.orderId}`
 			});
+		}
+	},
+	async getGrantCode (userId) {
+		const result = await util.getDataFromServersV2('consumer/member/common/grant-code', {
+			mobilePhone: userId,
+			shopId: app.globalData.otherPlatformsServiceProvidersId
+		});
+		if (!result.code) {
+			this.setData({
+				openCode: result.data.openCode
+			});
+			this.getOpenApiCodeLogin();
 		}
 	},
 	// 河南移动进入
