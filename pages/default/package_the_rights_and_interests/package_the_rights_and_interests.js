@@ -705,7 +705,7 @@ Page({
             });
             if (!result) return;
             if (result.code === 0) {
-                if (result.data.length >= 50) {
+                if (result.data.length >= 5) {
                     util.alert({
                         title: `提示`,
                         content: `该套餐目前暂只支持单人办理五台车辆`,
@@ -768,11 +768,11 @@ Page({
             return;
         }
         // 9901 套餐验证码
-        // if (!this.data.isSalesmanOrder && this.data.listOfPackages[this.data.choiceIndex]?.flowVersion === 8) {
-        //     await this.getOrderDetail();
-        //     this.selectComponent('#verifyCode').show();
-        //     return;
-        // }
+        if (!this.data.isSalesmanOrder && this.data.listOfPackages[this.data.choiceIndex]?.flowVersion === 8) {
+            await this.getOrderDetail();
+            this.selectComponent('#verifyCode').show();
+            return;
+        }
         // 协议判断
         if (obj1?.agreements && obj1?.agreements.length > 0) { // 配置了协议
             const popUpBoxProtocol = obj1?.agreements.find(item => {
