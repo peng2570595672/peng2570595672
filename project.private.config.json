@@ -4,23 +4,30 @@
         "miniprogram": {
             "list": [
                 {
-                    "name": "邮寄地址",
-                    "pathName": "pages/default/receiving_address/receiving_address",
-                    "query": "activityType=45&shopId=1189147799537590272&userId=oNI2c4lvk8ZOKLLA38MDM5uOrAfD6BiZCWEaX1psiIu7SqzfKUf9+Z0EJk5IgkwO&isPost=1&productId=1200085206088818688",
+                    "name": "ETC详情",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1252309802757009408",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "邮寄地址",
+                    "pathName": "pages/default/receiving_address/receiving_address",
+                    "query": "shopId=1228780979798679552&productId=1231909392101285888&userId=iql0EX1LotwsAiz7ygIgVKoEsUg5VHXO2Eo6HQlwgR8mzSdjgwuNqTTmvjIzAVcH",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "我的ETC",
+                    "pathName": "pages/personal_center/my_etc/my_etc",
+                    "query": "gdt_vid=wx0zfrgrnaycypve&shopId=1072188767418851328",
+                    "launchMode": "default",
+                    "scene": 1084
                 },
                 {
                     "name": "",
                     "pathName": "pages/default/processing_progress/processing_progress",
-                    "query": "orderId=1252928735389159424",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "ETC详情",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1252587221140115456",
+                    "query": "orderId=1254063597458952192",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -121,12 +128,6 @@
                     "pathName": "pages/my/index",
                     "query": "",
                     "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "我的ETC",
-                    "pathName": "pages/personal_center/my_etc/my_etc",
-                    "query": "shareId=123455",
                     "scene": null
                 },
                 {

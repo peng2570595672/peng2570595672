@@ -148,7 +148,9 @@ Page({
         if (!result) return;
         if (result.code === 0) {
             this.setData({activityId: result.data.activityId});
-            this.queryApi(2);
+            setTimeout(() => {
+                this.queryApi(2);
+            }, 1000);
             wx.hideLoading();
         } else {
             wx.hideLoading();
@@ -172,49 +174,63 @@ Page({
         },'POST',true);
         if (!result) return;
         if (result.code === 0) {
-            wx.hideLoading();
             if (!result.data.status) {
+                wx.hideLoading();
                 util.showToastNoIcon('存在该订单，且该订单办理成功');
                 that.setData({status: this.data.paramFlag ? 4 : 3,available: true});
             } else if (result.data.status === 1) {
                 that.setData({status: 2,available: false});
                 if (flag === 2) {
-                    that.queryApi(2);
+                    setTimeout(() => {
+                        that.queryApi(2);
+                    }, 1000);
                 } else {
+                    wx.hideLoading();
                     util.showToastNoIcon('存在该订单，该订单办理中');
                 }
             } else if (result.data.status === 2) {
                 that.setData({status: 2,available: false});
                 if (flag === 2) {
-                    that.queryApi(2);
+                    setTimeout(() => {
+                        that.queryApi(2);
+                    }, 1000);
                 } else if (flag === 3) {
+                    wx.hideLoading();
                     that.pop(); // 拉起弹窗
                 } else {
+                    wx.hideLoading();
                     util.showToastNoIcon('查询失败，稍后重试');
                 }
             } else {
                 that.setData({status: 1,available: true});
                 if (flag === 2) {
-                    that.queryApi(2);
+                    setTimeout(() => {
+                        that.queryApi(2);
+                    }, 1000);
                 } else if (flag === 3) {
+                    wx.hideLoading();
                     that.pop(); // 拉起弹窗
                 } else {
+                    wx.hideLoading();
                     util.showToastNoIcon('不存在该订单');
                 }
             }
         } else {
-            wx.hideLoading();
             if (this.data.paramFlag && (result.message.includes('重复订购') || result.message.includes('重复办理'))) {
+                wx.hideLoading();
                 that.setData({status: 4,available: true});
                 return;
             }
             util.showToastNoIcon(result.message);
             if (flag === 3) {
+                wx.hideLoading();
                 that.pop(); // 拉起弹窗
                 return;
             }
             if (flag === 2) {
-                that.queryApi(2);
+                setTimeout(() => {
+                    that.queryApi(2);
+                }, 1000);
             }
         }
     },

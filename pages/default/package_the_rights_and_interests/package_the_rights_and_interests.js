@@ -1032,6 +1032,10 @@ Page({
                 success: (res) => {
                     this.setData({ isRequest: false });
                     if (res.errMsg === 'requestPayment:ok') {
+                        if (app.globalData.advertisementClickId) {
+                            const price = this.data.activeIndex !== -1 ? (this.data.listOfPackages[this.data.activeIndex].pledgePrice + (this.data.equityListMap.addEquityList[this.data.activeIndex].aepIndex !== -1 ? this.data.equityListMap.addEquityList[this.data.activeIndex].subData[this.data.equityListMap.addEquityList[this.data.activeIndex].aepIndex].payMoney : 0) / 100) : this.data.listOfPackages[this.data.activeIndex].pledgePrice / 100;
+                            util.getDatanexusAnalysis('COMPLETE_ORDER', price / 100);
+                        }
                         if (this.data.listOfPackages[this.data.choiceIndex]?.productProcess === 9) { // 多签流程 确认页面 不区分业务员办理
                             console.log('多签流程');
                             // 去签约确认页面

@@ -644,7 +644,7 @@ Page({
 				if (!app.globalData.newPackagePageData.listOfPackages?.length) return;// 没有套餐
 				console.log(app.globalData.newPackagePageData.type, '==============================');
 				if (app.globalData.newPackagePageData.type) {
-					if (this.data.shopProductInfo?.cmType || app.globalData.productList.lnmProductUnder.includes(this.data.shopProductInfo.shopProductId)) {	// 辽宁移动
+					if (this.data.shopProductInfo?.shopProductId && (this.data.shopProductInfo?.cmType || app.globalData.productList.lnmProductUnder.includes(this.data.shopProductInfo.shopProductId))) {	// 辽宁移动
 						util.go(`/pages/function_fewer_pages/che_e_bao/che_e_bao?flag=1`);
 						return;
 					}
@@ -676,6 +676,7 @@ Page({
 	},
 	// 根据套餐id获取套餐信息
 	async getProduct (flag) {
+		if (!app.globalData.scanCodeToHandle?.productId && !this.data.productId) return;
 		const result = await util.getDataFromServersV2('consumer/system/get-product-by-id', {
 			shopProductId: app.globalData.scanCodeToHandle?.productId || this.data.productId
 		});
