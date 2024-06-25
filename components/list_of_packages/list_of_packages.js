@@ -6,6 +6,10 @@ Component({
 			type: Number,
 			value: 0
 		},
+		operationType: {
+			type: Number,
+			value: 0
+		},
 		listOfPackages: {
 			type: Array,
 			value: []

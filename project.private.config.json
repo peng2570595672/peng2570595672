@@ -11,6 +11,24 @@
                     "scene": null
                 },
                 {
+                    "name": "特微",
+                    "pathName": "pingan/pages/ChooseBank/ChooseBank",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": 1037,
+                    "referrerInfo": {
+                        "appId": "wxddb3eb32425e4a96",
+                        "extraData": "{\"orderId\":\"700463176101138432\"}"
+                    }
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/default/processing_progress/processing_progress",
+                    "query": "orderId=1252309802757009408",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "邮寄地址",
                     "pathName": "pages/default/receiving_address/receiving_address",
                     "query": "shopId=1228780979798679552&productId=1231909392101285888&userId=iql0EX1LotwsAiz7ygIgVKoEsUg5VHXO2Eo6HQlwgR8mzSdjgwuNqTTmvjIzAVcH",
@@ -23,24 +41,6 @@
                     "query": "gdt_vid=wx0zfrgrnaycypve&shopId=1072188767418851328",
                     "launchMode": "default",
                     "scene": 1084
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/default/processing_progress/processing_progress",
-                    "query": "orderId=1254063597458952192",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "特微",
-                    "pathName": "pingan/pages/ChooseBank/ChooseBank",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": 1037,
-                    "referrerInfo": {
-                        "appId": "wxddb3eb32425e4a96",
-                        "extraData": "{\"orderId\":12322}"
-                    }
                 },
                 {
                     "name": "",
