@@ -143,11 +143,10 @@
         "tabIndent": "auto",
         "tabSize": 4
     },
-    "appid": "wxddb3eb32425e4a96",
     "packOptions": {
         "ignore": [],
         "include": []
     },
-    "projectname": "etc_plus_mini_2.0",
-    "libVersion": "3.3.5"
+    "appid": "wxddb3eb32425e4a96",
+    "projectname": "etc_plus_mini_2.0"
 }

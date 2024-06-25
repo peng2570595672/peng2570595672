@@ -982,7 +982,7 @@ function getStatus(orderInfo) {
   }
   if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) {
     if ((app.globalData.cictBankObj.citicBankshopProductIds.includes(orderInfo.shopProductId) || (orderInfo.orderType === 31 && orderInfo.productName?.includes('中信') && orderInfo.pledgeType === 2)) && orderInfo.refundStatus !== 3) {
-      if (app.globalData.cictBankObj.guangfaBank === orderInfo.shopProductId) { // 广发订单
+      if (app.globalData.cictBankObj.guangfaBank.includes(orderInfo.shopProductId)) { // 广发订单
         return 33;
       }
       return 30;

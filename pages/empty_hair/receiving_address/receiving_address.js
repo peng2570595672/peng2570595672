@@ -744,7 +744,7 @@ Page({
 				}
 			}
 			// 银行信用卡 细则提示弹窗
-			if (obj1.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || obj1.shopProductId === app.globalData.cictBankObj.cictBankNmPlatinumCard || obj1.shopProductId === app.globalData.cictBankObj.minshenBank || obj1.shopProductId === app.globalData.cictBankObj.guangfaBank) {
+			if (obj1.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || obj1.shopProductId === app.globalData.cictBankObj.cictBankNmPlatinumCard || obj1.shopProductId === app.globalData.cictBankObj.minshenBank || app.globalData.cictBankObj.guangfaBank.includes(obj1.shopProductId)) {
 				// let subType = obj1.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId ? 1 : obj1.shopProductId === app.globalData.cictBankObj.cictBankNmPlatinumCard ? 2 : 3;
 				let subType = 0; // subType 1-中信 2-中信内蒙 3-民生 4-广发
 				switch (obj1.shopProductId) {
@@ -754,10 +754,11 @@ Page({
 						subType = 2; break;
 					case app.globalData.cictBankObj.minshenBank:
 						subType = 3; break;
-					case app.globalData.cictBankObj.guangfaBank:
-						subType = 4; break;
 					default:
 						break;
+				}
+				if (app.globalData.cictBankObj.guangfaBank.includes(obj1.shopProductId)) {
+					subType = 4;
 				}
 				this.selectComponent('#popTipComp').show({
 					type: 'five',

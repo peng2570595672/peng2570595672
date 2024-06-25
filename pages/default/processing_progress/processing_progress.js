@@ -447,13 +447,13 @@ Page({
 					isSalesmanPrecharge: res.data.orderType === 31 && res.data.flowVersion === 4,
 					accountVerification: res.data.orderVerificationStatus,
 					bankCardInfo: app.globalData.bankCardInfo,
-					cictBail: (res.data.obuStatus === 1 || res.data.obuStatus === 5) && res.data.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId && res.data.shopProductId !== app.globalData.cictBankObj.guangfaBank &&
+					cictBail: (res.data.obuStatus === 1 || res.data.obuStatus === 5) && res.data.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId && !app.globalData.cictBankObj.guangfaBank.includes(res.data.shopProductId) &&
 						(
 							this.data.citicBankshopProductIds.includes(res.data.shopProductId) ||
 							(res.data.orderType === 31 && res.data.productName?.includes('中信') && res.data.pledgeType === 2)
 						),
 					isWellBank: (res.data.obuStatus === 1 || res.data.obuStatus === 5) && res.data.shopProductId === app.globalData.cictBankObj.wellBankShopProductId,
-					isGuangFaBank: res.data.shopProductId === app.globalData.cictBankObj.guangfaBank,
+					isGuangFaBank: app.globalData.cictBankObj.guangfaBank.includes(res.data.shopProductId),
 					info: res.data
 				});
 				// 平安获客
