@@ -291,12 +291,22 @@ Page({
 			vehPlates: this.data.details.vehPlate, // 车牌号
 			payAmount: this.data.details.totalMmout + (this.data.details.poundageFlag ? this.data.details.poundage || 0 : 0) + this.data.details.serviceMoney - this.data.details.splitDeductedMoney - (this.data.details.discountMount || 0) - this.data.details.deductServiceMoney // 补缴金额
 		};
-		util.getDataFromServer('consumer/order/bill-pay', params, () => {
+		let url = 'consumer/order/bill-pay';
+		// insDeductStatus 权益服务费扣款失败 deductStatus // 通行费扣款成功 orderInsurance 权益服务账单
+		// let equityPayment = this.data.details.orderInsurance === 1 && (this.data.details.passDeductStatus !== 2 || this.data.details.passDeductStatus !== 10) && this.data.details.insDeductStatus === 2;
+		// if (equityPayment) {
+		// 	params.insPayAmount = this.data.details.insPoundage; // 多签模式服务费分开缴纳 缴纳服务费
+		// 	// url = 'consumer/order/bill-pay-poundage';
+		// 	this.setData({
+		// 		equityPayment
+		// 	});
+		// }
+		util.getDataFromServer(url, params, () => {
 			util.showToastNoIcon('获取支付参数失败！');
 		}, (res) => {
 			if (res.code === 0) {
-				let extraData = res.data.extraData;
-				let id = res.data.id;
+				let extraData = this.data.equityPayment ? res.data.insExtraData : res.data.extraData;
+				let id = this.data.equityPayment ? res.data.insId : res.data.id;
 				wx.requestPayment({
 					nonceStr: extraData.nonceStr,
 					package: extraData.package,
