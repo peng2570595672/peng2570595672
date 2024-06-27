@@ -197,7 +197,7 @@ function dataIncludes(originalData, includesParams, type) {
         if (originalData.indexOf(includesParams) !== -1) {
             var pinAnArr1 = ['1126085154731728896', '1129091866749968384'];
             var minshenArr1 = ['1188851910218620928', '1199301561518923776']
-            var guangfaArr2 = ['1212340736891035648', '1220403044448608256']
+            var guangfaArr2 = ['1212340736891035648', '1220403044448608256', '1253794933780389888']
             if (pinAnArr1.indexOf(includesParams) !== -1) {
                 return '平安'
             } else if (minshenArr1.indexOf(includesParams) !== -1) {

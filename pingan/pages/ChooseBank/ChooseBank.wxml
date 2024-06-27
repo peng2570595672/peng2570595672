@@ -81,7 +81,7 @@
 		<!--	按钮结束-->
 
         <!--	选择支付方式开始-->
-        <list_of_packages id="choiceSetMeal" regionCode="{{regionCode}}" listOfPackages="{{listOfPackages}}" bindonClickTranslucentHandle="onClickTranslucentHandle"
+        <list_of_packages id="choiceSetMeal" regionCode="{{regionCode}}" operationType="{{operationType}}" listOfPackages="{{listOfPackages}}" bindonClickTranslucentHandle="onClickTranslucentHandle"
                           bindonClickItemHandle="onClickItemHandle"></list_of_packages>
         <!--	选择支付方式结束-->
 	</block>

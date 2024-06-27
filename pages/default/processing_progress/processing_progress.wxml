@@ -171,8 +171,8 @@
             <view class="subDoc {{adDoc === index ? 'active' : ''}}" wx:for="{{moduleFourList}}" wx:for-index="index" wx:key="index"></view>
         </view>
     </view>
-    <button class="btn"  wx:if="{{info && info.logisticsId !== 0 && info.flowVersion === 8 && info.hwContractStatus === 0}}" catchtap="onClickCctivate">{{info.logisticsId === -1 ? '签约激活' : '确认收货并签约激活'}}</button>
-    <button class="btn"  wx:if="{{info && info.logisticsId !== 0 && info.flowVersion === 8 && (info.hwContractStatus === 3 || info.hwContractStatus === 1)}}" catchtap="onClickCctivate">去激活</button>
+    <button class="btn"  wx:if="{{info && info.logisticsId !== 0 && info.flowVersion === 8 && !isNeedActive}}" catchtap="onClickCctivate">{{info.logisticsId === -1 ? '签约激活' : '确认收货并签约激活'}}</button>
+    <button class="btn"  wx:if="{{info && info.logisticsId !== 0 && info.flowVersion === 8 && isNeedActive}}" catchtap="onClickCctivate">前往激活</button>
     <!--	在线客服结束-->
     <!--展示通通券弹窗-->
     <view catchtap="hide" class="coupon_mask animated {{showCouponWrapper ? 'fadeIn' : 'fadeOut'}}" wx:if="{{showCouponMask}}">

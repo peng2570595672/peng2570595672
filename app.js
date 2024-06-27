@@ -214,8 +214,6 @@ App({
 	initData (options) {
 		console.log(options);
 		const extraData = options?.referrerInfo?.extraData;
-		console.log('extraData');
-		console.log(extraData);
 		if (extraData?.orderId && options.path.includes('ChooseBank')) {
 			this.globalData.orderInfo.orderId = extraData.orderId;
 		}

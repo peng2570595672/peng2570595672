@@ -38,6 +38,7 @@ Page({
 		interval1: 5000, // 轮播图切换时间
 		moduleFourList: [],	// 广告banner列表
 		isShowPinAn: false,
+		isNeedActive: false, // 是否需要激活-9901
 		adDoc: 0,	// 轮播图指示点
 		lnmShopIds: app.globalData.shopIdList.lnmShopIdsAbove	// 辽宁移动商户ID
 	},
@@ -422,7 +423,7 @@ Page({
 			orderId: this.data.orderId
 		}, () => {
 			util.hideLoading();
-		}, (res) => {
+		}, async (res) => {
 			if (res.code === 0) {
 				if (res.data?.isSignTtCoupon === 1) {
 					this.initCouponMask();
@@ -432,17 +433,27 @@ Page({
 					wx.uma.trackEvent('truck_for_processing_progress');
 				}
 				if (res.data.flowVersion === 4 && res.data.auditStatus === -1) res.data.auditStatus = 0;
+				if (res.data.flowVersion === 8) {
+					let obj = {
+						orderId: this.data.orderId,
+						mobile: res.data.cardMobilePhone
+					};
+					const result = await util.getSteps_9901(obj);
+					that.setData({
+						isNeedActive: result.stepNum === 9
+					});
+				}
 				this.setData({
 					isSalesmanPrecharge: res.data.orderType === 31 && res.data.flowVersion === 4,
 					accountVerification: res.data.orderVerificationStatus,
 					bankCardInfo: app.globalData.bankCardInfo,
-					cictBail: (res.data.obuStatus === 1 || res.data.obuStatus === 5) && res.data.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId && res.data.shopProductId !== app.globalData.cictBankObj.guangfaBank &&
+					cictBail: (res.data.obuStatus === 1 || res.data.obuStatus === 5) && res.data.shopProductId !== app.globalData.cictBankObj.wellBankShopProductId && !app.globalData.cictBankObj.guangfaBank.includes(res.data.shopProductId) &&
 						(
 							this.data.citicBankshopProductIds.includes(res.data.shopProductId) ||
 							(res.data.orderType === 31 && res.data.productName?.includes('中信') && res.data.pledgeType === 2)
 						),
 					isWellBank: (res.data.obuStatus === 1 || res.data.obuStatus === 5) && res.data.shopProductId === app.globalData.cictBankObj.wellBankShopProductId,
-					isGuangFaBank: res.data.shopProductId === app.globalData.cictBankObj.guangfaBank,
+					isGuangFaBank: app.globalData.cictBankObj.guangfaBank.includes(res.data.shopProductId),
 					info: res.data
 				});
 				// 平安获客
@@ -540,6 +551,18 @@ Page({
 	},
 	// 确认收货去激活
 	async onClickCctivate () {
+		if (this.data.isNeedActive) {
+			wx.navigateToMiniProgram({
+				appId: 'wx22e84d3d44639821',
+				path: 'pagesB/personal/my-car/my-car',
+				extraData: {},
+				envVersion: '',
+				fail () {
+					util.showToastNoIcon('打开小程序失败, 请重试！');
+				}
+			});
+			return;
+		}
 		// flowVersion: 流程版本，1-老版，2-新版（总对总）,3-选装 4-预充值 5-保证金模式 6-圈存 7-交行货车二类户 8-9901选装
 		if (this.data.info.flowVersion === 1 || this.data.info.flowVersion === 5) {
 			const result = await util.getDataFromServersV2('consumer/order/query-contract', { // 查询车主服务签约

@@ -1482,7 +1482,7 @@ Page({
 				util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderInfo.id}`);
 				break;
 			case 9: // 车辆已关联
-				util.go(`/pages/empty_hair/instructions_gvvz/index?auditStatus=${orderInfo.auditStatus}`);
+				util.go(`/pages/default/processing_progress/processing_progress?orderId=${orderInfo.id}`);
 				break;
 		}
 	},

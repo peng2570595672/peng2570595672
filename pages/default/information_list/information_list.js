@@ -173,7 +173,7 @@ Page({
                     isCiticBankPlatinum: res.orderInfo.shopProductId === app.globalData.cictBankObj.citicBankShopshopProductId || res.orderInfo.shopProductId === app.globalData.cictBankObj.cictBankNmPlatinumCard, // 判断是不是白金卡套餐
                     isWellBank: orderInfo.shopProductId === app.globalData.cictBankObj.wellBankShopProductId, // 判断是否为平安信用卡套餐
                     isMinShenBank: orderInfo.shopProductId === app.globalData.cictBankObj.minshenBank, // 判断是否为民生银行卡套餐
-                    isGuangFaBank: orderInfo.shopProductId === app.globalData.cictBankObj.guangfaBank // 判断是否为广发银行卡套餐
+                    isGuangFaBank: app.globalData.cictBankObj.guangfaBank.includes(orderInfo.shopProductId) // 判断是否为广发银行卡套餐
                 });
             }
             this.availableCheck();
