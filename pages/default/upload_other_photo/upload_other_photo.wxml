@@ -22,4 +22,5 @@
     <view class="fill"></view>
     <view class="btn {{available ? 'available' : 'unavailable'}}" catchtap="next" wx:if="{{faceStatus === 4}}">确认资料并保存</view>
 </view>
+<information-validation-prompt promptObject="{{promptObject}}" id="notFinishedOrder"></information-validation-prompt>
 <privacy_popup></privacy_popup>

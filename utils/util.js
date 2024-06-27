@@ -1617,6 +1617,8 @@ async function getDataFromServersV2(path, params = {}, method = 'POST', isLoadin
       data: obj.data,
       header: obj.header,
       success: (res) => {
+      	console.log(obj.url);
+      	console.log(res.data);
         if (res && res.statusCode === 200) {
           if (res.data.code === 115 || res.data.code === 117 || res.data.code === 118) { // 在别处登录了 重新自动登录一次
             reAutoLoginV2(path, params, method);
@@ -2116,6 +2118,7 @@ function getDatanexusAnalysis(actionType, price = 0) {
   if (!timestamp) {
     timestamp = parseInt(new Date().getTime() / 1000);
   }
+  console.log('腾讯广告推广');
   wx.request({
     // https://datanexus.qq.com/doc/develop/guider/interface/action/dmp_actions_add
     // https://developers.e.qq.com/docs/api/user_data/user_action/user_actions_add?version=1.3
@@ -2123,9 +2126,11 @@ function getDatanexusAnalysis(actionType, price = 0) {
     data: {
       account_id: '35362489',
       user_action_set_id: '1202153505',
+	    // user action set id, outer actiond 和action_type
       'actions': [
         {
           'external_action_id': actionType,
+          'outer_action_id': app.globalData.orderInfo?.orderId,
           'action_time': timestamp,
           'action_type': actionType, // 下单  https://datanexus.qq.com/doc/develop/guider/interface/enum#action-type
           'action_param': {

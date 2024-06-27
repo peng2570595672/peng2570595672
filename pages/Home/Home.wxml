@@ -25,7 +25,7 @@
                 <view class="sub-title">
                     <view wx:if="{{userFailBillList.length}}">{{userFailBillList[0].addTime}}</view>
                     <view wx:else>
-                        {{passengerCarOrderInfo.selfStatus === 1 || passengerCarOrderInfo.selfStatus === 22 ? '无法正常划扣通行费' : ''}}
+                        {{passengerCarOrderInfo.selfStatus === 1 || passengerCarOrderInfo.selfStatus === 22 || passengerCarOrderInfo.selfStatus === 31 ? '无法正常划扣通行费' : ''}}
                         {{passengerCarOrderInfo.selfStatus === 2 || passengerCarOrderInfo.selfStatus === 4 || passengerCarOrderInfo.selfStatus === 23 ? '还差几步即可完成申办' : ''}}
                         {{passengerCarOrderInfo.selfStatus === 3 ? '当前订单未完成支付' : ''}}
                         {{passengerCarOrderInfo.selfStatus === 5 ? '签约微信支付，免密代扣' : ''}}
@@ -41,6 +41,7 @@
                         {{passengerCarOrderInfo.selfStatus === 26 ? '系统正在努力审核中' : ''}}
                         {{passengerCarOrderInfo.selfStatus === 27 ? '资料有误请重新上传' : ''}}
                         {{passengerCarOrderInfo.selfStatus === 28 ? 'ETC设备正努力奔向你' : ''}}
+                        {{orderInfo.selfStatus === 35 ? '办理中' : ''}}
                         {{passengerCarOrderInfo.selfStatus === 37 ? '待申请信用卡' : ''}}
                     </view>
                 </view>
@@ -50,7 +51,7 @@
                 <view class="sub-title">
                     <view wx:if="{{userFailBillList.length}}">{{userFailBillList[0].addTime}}</view>
                     <view wx:else>
-                        {{truckOrderInfo.selfStatus === 1 || passengerCarOrderInfo.selfStatus === 22 || passengerCarOrderInfo.selfStatus === 31 ? '无法正常划扣通行费' : ''}}
+                        {{truckOrderInfo.selfStatus === 1 ? '无法正常划扣通行费' : ''}}
                         {{truckOrderInfo.selfStatus === 2 || truckOrderInfo.selfStatus === 4 || truckOrderInfo.selfStatus === 14 ? '还差几步即可完成申办' : ''}}
                         {{truckOrderInfo.selfStatus === 3 ? '当前订单未完成支付' : ''}}
                         {{truckOrderInfo.selfStatus === 5 ? '签约微信支付，免密代扣' : ''}}
@@ -65,7 +66,6 @@
                         {{truckOrderInfo.selfStatus === 15 ? '请充值' + truckOrderInfo.holdBalance / 100 + '元作为保证金' + '' : ''}}
                         {{truckOrderInfo.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
                         {{truckOrderInfo.selfStatus === 17 ? '请预充' + (truckOrderInfo.prechargeAmount || 0) / 100 + '元否则设备无法通行' + '' : ''}}
-                        {{orderInfo.selfStatus === 35 ? '办理中' : ''}}
                     </view>
                 </view>
             </view>
@@ -105,7 +105,7 @@
         <view class="moduleOneBox" wx:for="{{moduleOneTypeList}}" wx:if="{{item.isShow}}" wx:key="index" data-renew="3.5" catchtap="renewWhitelistJudgement" data-type="1" data-information="{{item}}">
             <view class="upperImg" >
                 <view class="img">
-                    <image src="{{ truckList.length ? item.imgUrl1 : item.imgUrl}}" />  
+                    <image src="{{ truckList.length ? item.imgUrl1 : item.imgUrl}}" />
                     <!-- 货车办理 并且没有办理订单 -->
                     <view class="img_newpro" wx:if="{{item.funcName === '货车办理' && !truckList.length}}">
                         <image class="new_imgUrl1" mode="widthFix"  src="https://file.cyzl.com/g001/M03/64/37/oYYBAGY4VuGAWUkFAAAIWeTbJ7c938.png"></image>

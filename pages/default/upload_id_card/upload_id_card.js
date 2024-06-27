@@ -347,7 +347,9 @@ Page({
 			console.log('9901 套餐上传身份证件后开户', this.data.is9901);
 			if (this.data.is9901) {
 				const result = await util.getDataFromServersV2('consumer/etc/qtzl/xz/openAccountPersonal', {
-					orderId
+					orderId,
+					// true:代办，false:本人办理
+					isOwner: this.data.switch1Checked ? 'true' : 'false'
 				});
 				if (!result) return;
 				if (result.code === 0) {
@@ -439,7 +441,11 @@ Page({
 	// 用户信息查询 + 车牌唯一性校验
 	async userCarCheck (obj) {
 		const result = await util.getDataFromServersV2('consumer/etc/qtzl/queryUserAndCheckPlate', {
-			orderId: obj.orderId
+			userIdName: this.data.switch1Checked ? this.data.idCardFaceNot.ocrObject.name : this.data.idCardFace.ocrObject.name, // 实名认证姓名
+			userIdNum: this.data.switch1Checked ? this.data.idCardFaceNot.ocrObject.idNumber : this.data.idCardFace.ocrObject.idNumber, // 实名认证身份证号
+			orderId: obj.orderId,
+			// 0-本人，1.代办
+			isOwner: Number(this.data.switch1Checked)
 		});
 		if (!result) return;
 		if (result.code === 0) {

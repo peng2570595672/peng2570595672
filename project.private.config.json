@@ -6,7 +6,28 @@
                 {
                     "name": "ETC详情",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=1252309802757009408",
+                    "query": "orderId=813457259233423360",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/truck_handling/upload_road_transport_certificate/upload_road_transport_certificate",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/default/processing_progress/processing_progress",
+                    "query": "orderId=1252988190688546816",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "邮寄地址",
+                    "pathName": "pages/default/receiving_address/receiving_address",
+                    "query": "shopId=1125475241185902592&productId=1244651899092213760",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -22,32 +43,11 @@
                     }
                 },
                 {
-                    "name": "",
-                    "pathName": "pages/default/processing_progress/processing_progress",
-                    "query": "orderId=1252309802757009408",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "邮寄地址",
-                    "pathName": "pages/default/receiving_address/receiving_address",
-                    "query": "shopId=1228780979798679552&productId=1231909392101285888&userId=iql0EX1LotwsAiz7ygIgVKoEsUg5VHXO2Eo6HQlwgR8mzSdjgwuNqTTmvjIzAVcH",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
                     "name": "我的ETC",
                     "pathName": "pages/personal_center/my_etc/my_etc",
                     "query": "gdt_vid=wx0zfrgrnaycypve&shopId=1072188767418851328",
                     "launchMode": "default",
                     "scene": 1084
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/default/index/index",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
                 },
                 {
                     "name": "换车换牌",
@@ -220,7 +220,7 @@
         "compileHotReLoad": false,
         "preloadBackgroundData": false,
         "bigPackageSizeSupport": true,
-        "urlCheck": false
+        "urlCheck": true
     },
     "libVersion": "3.4.3"
 }
