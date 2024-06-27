@@ -1,5 +1,5 @@
 // 是否为测试 TODO
-export const IS_TEST = false; // false为正式接口地址，true为测试接口地址
+export const IS_TEST = true; // false为正式接口地址，true为测试接口地址
 const util = require('./utils/util.js');
 const definedData = require('./utils/dataStatement.js');
 const uma = require('./utils/umtrack-wx.js');
@@ -214,8 +214,8 @@ App({
 	initData (options) {
 		console.log(options);
 		const extraData = options?.referrerInfo?.extraData;
-		console.log('extraData')
-		console.log(extraData)
+		console.log('extraData');
+		console.log(extraData);
 		if (extraData?.orderId && options.path.includes('ChooseBank')) {
 			this.globalData.orderInfo.orderId = extraData.orderId;
 		}

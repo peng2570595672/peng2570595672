@@ -289,9 +289,16 @@ Page({
 				[this.data.details.id]: 1
 			}, //  {"账单id1"：1或者2或者3，"账单id2"：1或者2或者3} 1：通行费补缴  2：通行费手续费补缴  3：1+2补缴
 			vehPlates: this.data.details.vehPlate, // 车牌号
+			insPayAmount: 0 ,
 			payAmount: this.data.details.totalMmout + (this.data.details.poundageFlag ? this.data.details.poundage || 0 : 0) + this.data.details.serviceMoney - this.data.details.splitDeductedMoney - (this.data.details.discountMount || 0) - this.data.details.deductServiceMoney // 补缴金额
 		};
-		util.getDataFromServer('consumer/order/bill-pay', params, () => {
+		let url = 'consumer/order/bill-pay';
+		if (this.data.details.insDeductStatus === 2 && this.data.details.deductStatus !== 2) { // insDeductStatus 权益服务费扣款失败 deductStatus // 通行费扣款成功
+			params.insPayAmount = this.data.details.insPoundage; // 多签模式服务费分开缴纳 缴纳服务费
+			params.payAmount = 0; // 多签模式服务费分开缴纳 缴纳服务费
+			url = 'consumer/order/bill-pay-poundage';
+		}
+		util.getDataFromServer(url, params, () => {
 			util.showToastNoIcon('获取支付参数失败！');
 		}, (res) => {
 			if (res.code === 0) {
