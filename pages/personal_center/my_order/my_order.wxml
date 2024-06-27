@@ -31,10 +31,10 @@
                 <view class="order-list-top" wx:if="{{item.flowVersion === 1 || item.flowVersion === 5}}">
                     <view class="license-plate">{{item.vehPlate}}<text>[高速扣费]</text></view>
                     <view class="success-money" wx:if="{{item.deductStatus === 1 || item.deductStatus === 11 || item.deductStatus === 12 || item.flowVersion !== 1 || item.flowVersion !== 5}}">
-                        {{(item.totalMmout + item.serviceMoney + (item.poundageFlag ? item.poundage || 0 : 0)  - (item.wxDiscountAmount || 0) - (item.discountMount || 0) - (item.refundMoney || 0))/100}}
+                        {{(item.totalMmout + item.serviceMoney + (item.insPoundage || 0) + (item.poundageFlag ? item.poundage || 0 : 0)  - (item.wxDiscountAmount || 0) - (item.discountMount || 0) - (item.refundMoney || 0))/100}}
                     </view>
                     <view class="fail-money {{item.deductStatus === 7 ? 'refund' : ''}}" wx:else>
-                        {{(item.totalMmout + (item.serviceMoney || 0) + (item.poundageFlag ? item.poundage || 0 : 0) - (item.wxDiscountAmount || 0) - (item.discountMount || 0) - (item.refundMoney || 0))/100}}
+                        {{(item.totalMmout + (item.serviceMoney || 0) + (item.insPoundage || 0 ) + (item.poundageFlag ? item.poundage || 0 : 0) - (item.wxDiscountAmount || 0) - (item.discountMount || 0) - (item.refundMoney || 0))/100}}
                     </view>
                 </view>
                 <view wx:else class="order-list-top">
