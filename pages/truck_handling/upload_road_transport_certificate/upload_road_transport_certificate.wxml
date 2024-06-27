@@ -44,4 +44,5 @@
         </view>
     </view>
 </view>
+<information-validation-prompt promptObject="{{promptObject}}" id="notFinishedOrder"></information-validation-prompt>
 <privacy_popup></privacy_popup>
