@@ -200,22 +200,38 @@ Page({
     // 选择结算分类套餐
 	choosePackage (e) {
         if (this.data.orderTabList.length === 1) return;
-        let index = e.currentTarget.dataset.index;
+        let index = +e.currentTarget.dataset.index;
         if (!this.data.CopylistOfPackages) { // 存一份获取到的所有套餐
             this.setData({
                 CopylistOfPackages: [...this.data.listOfPackages]
             });
         }
-		let listOfPackagesTrucks = this.data.CopylistOfPackages.filter((item) => { // 从所有货车套餐中进行筛选
-			return item.billingMethod === index;
+        const listOfPackagesTrucks = this.data.CopylistOfPackages.filter((item) => { // 从所有货车套餐中进行筛选
+            return item.billingMethod === index;
         });
         let activeIndex = listOfPackagesTrucks.length === 1 ? 0 : -1; // 只有一个货车套餐时选中第一个
-		this.setData({
-			listOfPackages: listOfPackagesTrucks,// 将筛选的套餐展示出来
-			activeTypeIndex: index - 1,
-			activeIndex // 选中的重置
-		});
-	},
+        // 后台返回的协议，格式转换
+        if (listOfPackagesTrucks?.length > 0) {
+            listOfPackagesTrucks.forEach(item => {
+                try {
+                    console.log('Before:', typeof item.agreements);
+                    item.agreements = JSON.parse(item.agreements);
+                    console.log('After:', typeof item.agreements);
+                } catch (error) {
+                    // 处理错误，例如设置默认值或者记录日志等
+                    console.error(`Error parsing agreements for an item: ${error.message}`);
+                    // item.agreements = []; // 假设错误时你想赋予一个默认空数组
+                }
+            });
+        }
+        this.setData({
+            listOfPackages: listOfPackagesTrucks || [],
+            // 将筛选的套餐展示出来
+            activeTypeIndex: index - 1,
+            activeIndex,// 选中的重置
+            isFade: activeIndex === -1 ? false : true
+        });
+    },
     // 获取权益列表
     async getList (obj) {
         if (!obj.rightsPackageIds?.length) return;
