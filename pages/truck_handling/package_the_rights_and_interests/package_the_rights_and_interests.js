@@ -229,6 +229,7 @@ Page({
             // 将筛选的套餐展示出来
             activeTypeIndex: index - 1,
             activeIndex,// 选中的重置
+            choiceIndex: activeIndex,
             isFade: activeIndex === -1 ? false : true
         });
     },
