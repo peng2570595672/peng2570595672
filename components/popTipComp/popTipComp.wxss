@@ -381,6 +381,78 @@
   display: block;
   margin-top: 10rpx;
 }
+.alert-for-not-finished-content .coupons .contant {
+  font-size: 22rpx;
+  color: rgba(0,0,0,0.6);
+  text-align: left;
+}
+.alert-for-not-finished-content .coupons .couponAmount {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.alert-for-not-finished-content .coupons .couponAmount .pic {
+  width: 100%;
+  height: 238rpx;
+  position: relative;
+}
+.alert-for-not-finished-content .coupons .couponAmount .pic .price {
+  color: #e8113d;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 13%;
+  top: 20%;
+}
+.alert-for-not-finished-content .coupons .couponAmount .pic .price .big {
+  font-family: D-DIN-PRO;
+  font-size: 44rpx;
+}
+.alert-for-not-finished-content .coupons .couponAmount .pic .des {
+  position: absolute;
+  left: 14%;
+  top: 51%;
+  font-size: 16rpx;
+  color: #fff;
+}
+.alert-for-not-finished-content .coupons .couponAmount .pic .couponInformation {
+  font-size: 20rpx;
+  width: 70%;
+  position: absolute;
+  left: 30%;
+  top: 10%;
+  line-height: 40rpx;
+  padding: 20rpx 30rpx;
+  box-sizing: border-box;
+  color: rgba(0,0,0,0.5);
+}
+.alert-for-not-finished-content .coupons .couponAmount .pic .couponInformation .line1 {
+  font-size: 26rpx;
+  font-weight: 500;
+  display: flex;
+  color: #000;
+  font-famil: PingFang SC;
+}
+.alert-for-not-finished-content .coupons .couponAmount .pic .couponInformation .line1 .num {
+  font-size: 20rpx;
+  position: absolute;
+  left: 40%;
+  top: 15%;
+  text-align: center;
+  width: 52rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  border-radius: 16rpx 16rpx 0 0;
+  background: linear-gradient(294deg, #ff6200 10%, #ff8c00 100%);
+  color: #fff;
+}
+.alert-for-not-finished-content .coupons .couponAmount .pic .licensePlate {
+  position: absolute;
+  display: flex;
+  left: 10%;
+  bottom: 10%;
+  font-size: 20rpx;
+}
 .alert-for-not-finished-content .receivingInformation .title {
   padding-bottom: 56rpx;
 }
@@ -664,6 +736,80 @@
 .alert-for-not-finished-content .module2 .close {
   bottom: -120rpx;
 }
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
+  }
+  to {
+    opacity: 0;
+  }
+}
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -683,7 +829,6 @@
 @keyframes zoomIn {
   from {
     opacity: 0;
-    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
     transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
   }
   50% {
@@ -696,46 +841,6 @@
   }
   50% {
     opacity: 0;
-    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
-    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
-  }
-  to {
-    opacity: 0;
-  }
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
-    transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
-  }
-  50% {
-    opacity: 1;
-  }
-}
-@keyframes zoomOut {
-  from {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-    -webkit-transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
     transform: translateY(-50%) scale3d(0.3, 0.3, 0.3);
   }
   to {

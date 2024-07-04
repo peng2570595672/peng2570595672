@@ -4,6 +4,13 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "pages/personal_center/quotaLandingPage/quotaLandingPage",
+                    "pathName": "pages/personal_center/quotaLandingPage/quotaLandingPage",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "ETC详情",
                     "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
                     "query": "orderId=813457259233423360",

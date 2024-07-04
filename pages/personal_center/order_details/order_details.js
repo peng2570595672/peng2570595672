@@ -293,18 +293,20 @@ Page({
 		};
 		let url = 'consumer/order/bill-pay';
 		// insDeductStatus 权益服务费扣款失败 deductStatus // 通行费扣款成功 orderInsurance 权益服务账单
-		// let equityPayment = this.data.details.orderInsurance === 1 && (this.data.details.passDeductStatus !== 2 || this.data.details.passDeductStatus !== 10) && this.data.details.insDeductStatus === 2;
-		// if (equityPayment) {
-		// 	params.insPayAmount = this.data.details.insPoundage; // 多签模式服务费分开缴纳 缴纳服务费
-		// 	// url = 'consumer/order/bill-pay-poundage';
-		// 	this.setData({
-		// 		equityPayment
-		// 	});
-		// }
+		let equityPayment = this.data.details.orderInsurance === 1 && (this.data.details.deductStatus !== 2 && this.data.details.deductStatus !== 10) && (this.data.details.insDeductStatus === 2 || this.data.details.insDeductStatus === 10);
+		if (equityPayment) {
+			params.insPayAmount = this.data.details.insPoundage;
+			// delete params.payAmount;
+			url = 'consumer/order/bill-pay-poundage';
+			this.setData({
+				equityPayment
+			});
+		}
 		util.getDataFromServer(url, params, () => {
 			util.showToastNoIcon('获取支付参数失败！');
 		}, (res) => {
 			if (res.code === 0) {
+				// 返回拉取支付参数 取通行费or服务费
 				let extraData = this.data.equityPayment ? res.data.insExtraData : res.data.extraData;
 				let id = this.data.equityPayment ? res.data.insId : res.data.id;
 				wx.requestPayment({

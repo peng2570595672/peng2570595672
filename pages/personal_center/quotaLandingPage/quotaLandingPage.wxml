@@ -1,0 +1,76 @@
+<wxs src='../../../utils/util.wxs' module='tools' />
+<view class="index">
+
+    <!-- 模块1  -->
+    <view class="one">
+        <image class="withholding" src="https://file.cyzl.com/g001/M03/87/D7/oYYBAGaE_iyAKnwUAAH5YbhiPsg423.png"
+            mode="widthFix"></image>
+        <view class="rules-box">
+            <view class="rules" catchtap="rules">活动规则</view>
+            <view class="eventAwards" catchtap="eventAwards">活动奖動</view>
+        </view>
+    </view>
+    <!-- 模块2  -->
+    <view class="two">
+        <view class="images">
+            <!-- 高速路费补贴包 -->
+            <view class="title">
+                <image class="pic" mode="widthFix"
+                    src="https://file.cyzl.com/g001/M03/88/2D/oYYBAGaF9mqAQeEQAAANDDGIU8Q218.png" />
+                <view class="hight_text">
+                    <view style="color: #FF6300;">
+                        25元
+                    </view>
+                    <view class="des">
+                        高速路费补贴包
+                    </view>
+                </view>
+            </view>
+            <!-- 券额 -->
+            <view class="couponAmount">
+                <view class="pic">
+                    <view class="num">x2</view>
+                    <view class="des">无门槛</view>
+                    <view class="price" style="left: 32%;">
+                        <view>
+                            ￥
+                        </view>
+                        <view class="big"> 5</view>
+                    </view>
+                    <image  mode="widthFix"
+                        src="https://file.cyzl.com/g001/M03/88/34/oYYBAGaGAHyANMyIAAAms88FKaE478.png" />
+                </view>
+                <view class="pic">
+                    <view class="num">x1</view>
+                    <view class="des">无门槛</view>
+                    <view class="price">
+                        <view>
+                            ￥
+                        </view>
+                        <view class="big">15</view>
+                    </view>
+                    <image  mode="widthFix"
+                        src="https://file.cyzl.com/g001/M03/88/34/oYYBAGaGAHyANMyIAAAms88FKaE478.png" />
+                </view>
+            </view>
+            <!-- 描述 -->
+            <view class="description">本活动由ETC+合作伙伴提供及赞助，ETC+将在获得您的同意后跳转第三方活动参与贝面。</view>
+            <view class="eventAwards" catchtap="onClickCommit">立即测额</view>
+        </view>
+        <!--  券额图片-->
+        <!-- <image class="images" mode="widthFix"
+            src="https://file.cyzl.com/g001/M03/87/C9/oYYBAGaE8tuAPXUZAAEBrGcKKQo985.png" /> -->
+        <!-- 办理准备材料 -->
+        <image class="images" mode="widthFix"
+            src="https://file.cyzl.com/g001/M03/87/CA/oYYBAGaE86SAW9cXAAA9Zm7vIuI167.png" />
+        <image class="images" mode="widthFix"
+            src="https://file.cyzl.com/g001/M03/87/CA/oYYBAGaE8-uAER_qAACR1cmZJic912.png" />
+        <!-- 占位 -->
+        <view class="split"></view>
+
+    </view>
+</view>
+
+<privacy_popup></privacy_popup>
+<popTipComp id="popTipComp" bind:confirmHandle="confirmHandle" bind:cancelHandle="cancelHandle"
+    bind:onHandle="onHandle"></popTipComp>
