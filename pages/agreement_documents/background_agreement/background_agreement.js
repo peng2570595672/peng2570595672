@@ -11,9 +11,8 @@ Page({
             let res = data.data;
             console.log(res);
             // category 协议归类：1-办理协议 2-高速协议 3-隐私协议 4-保理协议 5-通用协议
-            let name = ['办理协议', '高速协议', '隐私协议', '保理协议', '通用协议'];
             wx.setNavigationBarTitle({
-                title: name[res.category - 1]
+                title: res.name
             });
             if (res.contentType === 1) { // 富文本
                 that.setData({
