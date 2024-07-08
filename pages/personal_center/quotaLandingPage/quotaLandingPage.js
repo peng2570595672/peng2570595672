@@ -16,7 +16,7 @@ Page({
     },
 
     onClickCommit (e) {
-         this.selectComponent('#popTipComp').show({
+        this.selectComponent('#popTipComp').show({
             type: 'tenth',
             title: '温馨提示',
             content: '您已测过额度，重新测额不再发放通行券，是否继续前往测额',
@@ -29,7 +29,6 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow () {
-
     },
 
     rules () {
@@ -90,6 +89,14 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage () {
-
+        // 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
+        wx.openEmbeddedMiniProgram({
+            appId: 'wx06a561655ab8f5b2',
+            path: 'pages/base/redirect/index?routeKey=PC01_REDIRECT&autoRoute=CHECKILLEGAL&outsource=souyisou&wtagid=116.115.10',
+            envVersion: 'release',
+            fail () {
+                util.showToastNoIcon('调起小程序失败, 请重试！');
+            }
+        });
     }
 });

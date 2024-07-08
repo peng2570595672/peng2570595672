@@ -4,7 +4,6 @@
         "pages/startUpPages/index",
         "pages/Home/Home",
         "pages/etc_handle/etc_handle",
-        "pages/etc_handle/quotaLandingPage",
         "pages/membershipCertificate/membershipCertificate",
         "pages/my/index",
         "pages/active_tips/active_tips",
