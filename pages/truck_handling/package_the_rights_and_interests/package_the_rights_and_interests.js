@@ -443,7 +443,7 @@ Page({
                         try {
                             if (app.globalData.advertisementClickId) {
                               const price = this.data.activeIndex !== -1 ? (this.data.listOfPackages[this.data.activeIndex].pledgePrice + (this.data.equityListMap.addEquityList[this.data.activeIndex].aepIndex !== -1 ? this.data.equityListMap.addEquityList[this.data.activeIndex].subData[this.data.equityListMap.addEquityList[this.data.activeIndex].aepIndex].payMoney : 0) / 100) : this.data.listOfPackages[this.data.activeIndex].pledgePrice / 100;
-                              util.getDatanexusAnalysis('COMPLETE_ORDER', price / 100);
+                              util.getDatanexusAnalysis('COMPLETE_ORDER', price / 100, 1);
                             }
                         } catch (e) {
                             console.log(e);
