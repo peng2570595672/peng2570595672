@@ -10,7 +10,7 @@
             <view class="title">{{tipObj.title}}</view>
             <view class="contant">{{tools.limitNumber(tipObj.content,90)}}</view>
             <button class="btn" catchtap="hide">确定</button>
-            <view class="close iconfont" data-title="{{tipObj.title}}" catchtap="hide"></view>
+            <view wx:if="{{!tipObj.NoIcon}}" class="close iconfont" data-title="{{tipObj.title}}" catchtap="hide"></view>
         </view>
 
         <!-- 带标题 拥有取消和确定按钮 -->
@@ -194,8 +194,14 @@
         <!-- 注销欠费提示  -->
         <view class="module moduleThree moduleTenth" wx:if="{{tipObj.type === 'tenth'}}">
             <view class="title">{{tipObj.title}}</view>
-            <view class="contant">
+            <view class="contant {{tipObj.content2 ? 'left' : '' }}">
                 {{tipObj.content}}
+            </view>
+            <view class="contant left" wx:if="{{tipObj.content2}}">
+                {{tipObj.content2}}
+            </view>
+            <view class="contant left ftwt" wx:if="{{tipObj.LicensePlate}}">
+                {{tipObj.LicensePlate}}
             </view>
             <view class="bottomBtn">
                 <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">
@@ -207,8 +213,8 @@
         <!-- 券额 -->
         <view class="module moduleThree coupons" wx:if="{{tipObj.type === 'coupons'}}">
             <view class="title">{{tipObj.title}}</view>
-            <view class="couponAmount">
-                <view class="pic">
+            <view class="couponAmount" >
+                <view class="pic" wx:for="{{tipObj.coupons}}" wx:key="index">
                     <image mode="widthFix"
                     src="https://file.cyzl.com/g001/M03/88/40/oYYBAGaGC6KAIRDPAAAwjMmhehI310.png" />
                     <view class="des">通行券</view>
@@ -216,7 +222,7 @@
                         <view>
                             ￥
                         </view>
-                        <view class="big"> 5</view>
+                        <view class="big"> {{item.lines}}</view>
                     </view>
                     <!-- 时间和券信息描述 -->
                     <view class="couponInformation">
@@ -224,54 +230,23 @@
                             <view>
                                 5元通行券
                             </view>
-                            <view class="num">2张</view>
+                            <view class="num">{{item.number+'张'}}</view>
                         </view>
                         <view class="line2">
                             无门槛使用
                         </view>
                         <view class="line3">
-                            有效期:10:00-12:00至17:00-12:00:00
+                            有效期:{{item.startTime}}至{{item.endTime}}
                         </view>
                     </view>
                     
                     <view class="licensePlate">
                         限 
-                        <view style="font-weight: bold;">粤A2S812</view>
+                        <view style="font-weight: bold;">{{item.LicensePlate}}</view>
                          车牌使用
                     </view>
                 </view>
-                <view class="pic">
-                    <image mode="widthFix"
-                    src="https://file.cyzl.com/g001/M03/88/40/oYYBAGaGC6KAIRDPAAAwjMmhehI310.png" />
-                    <view class="des">通行券</view>
-                    <view class="price" style="left: 12%;">
-                        <view>
-                            ￥
-                        </view>
-                        <view class="big">15</view>
-                    </view>
-                    <!-- 时间和券信息描述 -->
-                    <view class="couponInformation">
-                        <view class="line1">
-                            <view>
-                                15元通行券
-                            </view>
-                            <view class="num">1张</view>
-                        </view>
-                        <view class="line2">
-                            无门槛使用
-                        </view>
-                        <view class="line3">
-                            有效期:10:00-12:00至17:00-12:00:00
-                        </view>
-                    </view>
-                    
-                    <view class="licensePlate">
-                        限 
-                        <view style="font-weight: bold;">粤A2S812</view>
-                         车牌使用
-                    </view>
-                </view>
+                
             </view>
             <view class="contant">
                 {{tipObj.content}}
@@ -281,6 +256,16 @@
                 <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">
                     {{tools.limitNumber(tipObj.btnCancel,4)}}</view>
                 <view class="ok" catchtap="handleConfirm">{{tools.limitNumber(tipObj.btnconfirm,6)}}</view>
+            </view>
+        </view>
+        <!-- 暂未参与--券额 -->
+        <view class="module moduleThree coupons" wx:if="{{tipObj.type === 'no-coupons'}}">
+            <view class="title">{{tipObj.title}}</view>
+            <view class="contant" style="text-align: center;">
+                {{tipObj.content}}
+            </view>
+            <view class="bottomBtn">
+                <view class="ok"  style="margin: 0 auto;" catchtap="hide">{{tools.limitNumber(tipObj.btnconfirm,6)}}</view>
             </view>
         </view>
         <!-- 查看图片 -->

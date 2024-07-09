@@ -185,6 +185,10 @@ Component({
 				if (this.data.intervalId) {
 					clearInterval(this.data.intervalId);
 				}
+				if (this.data.tipObj.type === 'one' && this.data.tipObj.NoIcon) {
+					this.setData({ paramsList: [] });
+					return;
+				}
 				this.triggerEvent('cancelHandle');
 				if (e) {	// 判断点击此方法关闭
 					let title = e.currentTarget.dataset.title;

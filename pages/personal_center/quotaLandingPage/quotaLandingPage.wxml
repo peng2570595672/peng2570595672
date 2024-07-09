@@ -28,28 +28,30 @@
             </view>
             <!-- 券额 -->
             <view class="couponAmount">
+                 <!-- 券额1 -->
                 <view class="pic">
-                    <view class="num">x2</view>
+                    <view class="num">{{'x'+number_1}}</view>
                     <view class="des">无门槛</view>
                     <view class="price" style="left: 32%;">
                         <view>
                             ￥
                         </view>
-                        <view class="big"> 5</view>
+                        <view class="big"> {{lines_1}}</view>
                     </view>
-                    <image  mode="widthFix"
+                    <image mode="widthFix"
                         src="https://file.cyzl.com/g001/M03/88/34/oYYBAGaGAHyANMyIAAAms88FKaE478.png" />
                 </view>
+                 <!-- 券额2 -->
                 <view class="pic">
-                    <view class="num">x1</view>
+                    <view class="num">{{'x'+number_2}}</view>
                     <view class="des">无门槛</view>
                     <view class="price">
                         <view>
                             ￥
                         </view>
-                        <view class="big">15</view>
+                        <view class="big">{{lines_2}}</view>
                     </view>
-                    <image  mode="widthFix"
+                    <image mode="widthFix"
                         src="https://file.cyzl.com/g001/M03/88/34/oYYBAGaGAHyANMyIAAAms88FKaE478.png" />
                 </view>
             </view>
@@ -72,5 +74,4 @@
 </view>
 
 <privacy_popup></privacy_popup>
-<popTipComp id="popTipComp" bind:confirmHandle="confirmHandle" bind:cancelHandle="cancelHandle"
-    bind:onHandle="onHandle"></popTipComp>
+<popTipComp id="popTipComp" bind:cancelHandle="cancelHandle" bind:onHandle="onHandle"></popTipComp>
