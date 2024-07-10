@@ -442,7 +442,7 @@
 .alert-for-not-finished-content .coupons .couponAmount .pic .couponInformation .line1 .num {
   font-size: 20rpx;
   position: absolute;
-  left: 40%;
+  left: 50%;
   top: 15%;
   text-align: center;
   width: 52rpx;

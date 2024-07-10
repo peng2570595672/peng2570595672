@@ -1,32 +1,40 @@
 // pages/personal_center/quotaLandingPage/quotaLandingPage.js
 const util = require('../../../utils/util.js');
 const app = getApp();
-Page({
 
+Page({
     /**
      * 页面的初始数据
      */
     data: {
-        carList: [],
-        messageL: '',
-        lines_1: '5',
-        number_1: '2',
-        lines_2: '15',
-        number_2: '1'
+        carList: [], // 存储可测额的车牌列表
+        message: '', // 记录参与活动后提示词
+        lines_1: '5', // 第一种券额
+        number_1: '2', // 第一种券的数量
+        lines_2: '15', // 第二种券额
+        number_2: '1', // 第二种券的数量
+        couponIds: '1259868120753905664,1259868736523870208' // 创建卡券批次Id
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad (options) {
+        // 初始化时检查是否可测额以及指定车牌
         this.whetherItIsMeasurable();
+        // 获取已发放奖励列表
+        this.checkTheCouponDetails();
     },
-    // 立即测额
+
+    /**
+     * 立即测额按钮点击事件
+     */
     onClickCommit (e) {
         const content = '一、您即将通过该链接跳转至第三方页面，在第三方页面中提交信息将由第三方按照其相关用户服务协议及隐私协议正常执行并负责，服务及责任均由第三方提供或承担，如有疑问请致电第三方客服电话';
         const content2 = '二、仅支持以下车牌测额成功后返券';
         if (this.data.carList.length > 0 && this.data.LicensePlate) {
             const LicensePlate = this.data.LicensePlate;
+            // 显示提示框
             this.selectComponent('#popTipComp').show({
                 type: 'tenth',
                 title: '温馨提示',
@@ -37,6 +45,7 @@ Page({
                 btnconfirm: '继续测额'
             });
         } else {
+            // 提示刷新页面
             util.showToastNoIcon(this.data.message || '请刷新后重新进入该页面!', 3000);
         }
     },
@@ -45,17 +54,17 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow () {
+        // 页面显示时的逻辑
     },
-    // 检查是否可测额 以及指定车牌
+
+    /**
+     * 检查是否可测额以及指定车牌
+     */
     async whetherItIsMeasurable () {
-        const result = await util.getDataFromServersV2('consumer/order/check-pa-evaluate-result', {
-        });
+        const result = await util.getDataFromServersV2('consumer/order/check-pa-evaluate-result', {});
         if (!result) return;
         if (result.code === 0 && result.data) {
-            const LicensePlate = [];
-            result.data.forEach(item => {
-                LicensePlate.push(item.vehPlates);
-            });
+            const LicensePlate = result.data.map(item => item.vehPlates); // 提取车牌号
             this.setData({
                 carList: result.data,
                 LicensePlate
@@ -68,11 +77,15 @@ Page({
         }
     },
 
+    /**
+     * 显示活动规则
+     */
     rules () {
-        let popUpBoxProtocol = {
+        const popUpBoxProtocol = {
             name: '活动规则',
             content: '1、本活动由车主贷全程策划及赞助，ETC+仅提供技术跳转及奖励发放，且本活动仅支持在{小程序平台}签约代扣通行费的车辆使用。 2、当点击【立即测额】后，在获得您的授权同意下 ETC+将协助跳转到活动参与小程序页面，并以加密形式同步您的基础信息及车辆信息至活动平台，以便您更快捷完成测额流程。 3、通行券奖励仅绑定首次在车主贷平台认证且测额成功车牌信息。 4、活动奖励以单个用户的首台测额成功的车辆进行发放。活动奖励以通行券组合包形式发放，内含 5 元高速通行券 2 张和 15 元高速通行券 1 张，总价值 25 元用户可在【个人中心-服务券】中查看。'
         };
+        // 显示规则弹窗
         this.selectComponent('#popTipComp').showCountdownPopupBox({
             btnShadowHide: true,
             title: popUpBoxProtocol.name,
@@ -81,11 +94,26 @@ Page({
             content: popUpBoxProtocol.content
         });
     },
-    // 有卡券
+
+    /**
+     * 根据couponId分组卡券
+     */
     thereAreCoupons () {
-        const that = this;
-        const LicensePlate = that.data.LicensePlate || [];
-        // 卡券额度待完善---可配置
+        let list = this.data.valueList;
+        // 使用reduce函数对数组中的对象按couponId进行分组
+        let groupedCoupons = list.reduce((accumulator, currentValue) => {
+            if (!accumulator[currentValue.couponId]) {
+                accumulator[currentValue.couponId] = [];
+            }
+            accumulator[currentValue.couponId].push(currentValue);
+            return accumulator;
+        }, {});
+
+        // 转换为数组形式
+        let coupons = Object.values(groupedCoupons);
+
+        console.log(coupons);
+        // 显示卡券奖励
         this.selectComponent('#popTipComp').show({
             type: 'coupons',
             title: '查看奖励',
@@ -93,22 +121,13 @@ Page({
             btnCancel: '关闭',
             btnconfirm: '前往我的卡券',
             pic: true,
-            coupons: [{
-                lines: '5',
-                number: '2',
-                startTime: '2021-01-01',
-                endTime: '2021-12-01',
-                LicensePlate
-            },{
-                lines: '15',
-                number: '1',
-                startTime: '2022-01-01',
-                endTime: '2022-08-01',
-                LicensePlate
-            }]
+            coupons
         });
     },
-    // 没有卡券
+
+    /**
+     * 没有卡券时的处理
+     */
     thereAreNoCoupons () {
         this.selectComponent('#popTipComp').show({
             NoIcon: true,
@@ -118,46 +137,85 @@ Page({
         });
     },
 
+    /**
+     * 判断有无获取卡券奖励
+     */
     async eventAwards () {
-        // 判断有无获取卡券奖励
-        const result = await util.getDataFromServersV2('consumer/order/check-pa-evaluate-result', {
-        });
-        if (!result) return;
-        if (result.code === 0 && result.data) {
+        if (this.data.valueList && this.data.valueList.length > 0) {
             // 已经参与
             this.thereAreCoupons();
-            // 暂未参与
-            // this.thereAreNoCoupons();
         } else {
-            util.showToastNoIcon(result.message, 3000);
+            // 暂未参与
+            this.thereAreNoCoupons();
         }
     },
+
+    /**
+     * 获取已发放奖励列表接口
+     */
     async checkTheCouponDetails () {
-        // 查看券额详情配置
-        const result = await util.getDataFromServersV2('consumer/order/check-pa-evaluate-result', {
-        });
+        let params = {
+            page: '1',
+            pageSize: '10',
+            couponIds: this.data.couponIds
+        };
+        // 请求券额详情
+        const result = await util.getDataFromServersV2('consumer/voucher/get-coupon-page-list', params);
         if (!result) return;
         if (result.code === 0 && result.data) {
-            console.log('33');
+            this.setData({
+                valueList: result.data.list // 设置奖励列表
+            });
         } else {
             util.showToastNoIcon(result.message, 3000);
         }
     },
-    onHandle (e) {
-        // 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
+
+    /**
+     * 处理按钮点击事件
+     */
+    onHandle () {
+        if ((this.data.valueList && this.data.valueList.length > 0) && !this.data.carList.length) {
+            // 已获取奖励，跳转到卡券页面
+            util.go(`/pages/personal_center/service_card_voucher/service_card_voucher`);
+        } else {
+            // 参与测额度活动，打开另一个小程序
+            wx.openEmbeddedMiniProgram({
+                appId: 'wx096541bb8eb5f6c6',
+                path: 'czdv2/basic/basic?source=hlwjrb0666&outerSource=qrwm-qt0080',
+                envVersion: 'release',
+                fail () {
+                    util.showToastNoIcon('调起小程序失败, 请重试！');
+                }
+            });
+        }
+    },
+
+    /**
+     * 取消处理按钮事件
+     */
+    cancelHandle (e) {
+        console.log('取消操作');
+    },
+    /**
+     * 取消处理按钮事件
+     */
+    testRef (e) {
+        // 参与测额度活动，打开另一个小程序
         wx.openEmbeddedMiniProgram({
-            appId: 'wx06a561655ab8f5b2',
-            path: 'pages/base/redirect/index?routeKey=PC01_REDIRECT&autoRoute=CHECKILLEGAL&outsource=souyisou&wtagid=116.115.10',
+            appId: 'wx096541bb8eb5f6c6',
+            path: 'czdv2/basic/basic?source=hlwjrb0666&outerSource=qrwm-qt0080',
             envVersion: 'release',
             fail () {
                 util.showToastNoIcon('调起小程序失败, 请重试！');
             }
         });
     },
-    cancelHandle (e) {
-        console.log('00');
-    },
+
+    /**
+     * 确认处理按钮事件
+     */
     confirmHandle (e) {
-        console.log('11', e);
+        console.log('确认操作', e);
     }
 });

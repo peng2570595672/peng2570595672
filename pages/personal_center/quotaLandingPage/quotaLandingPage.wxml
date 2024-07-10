@@ -6,6 +6,7 @@
         <image class="withholding" src="https://file.cyzl.com/g001/M03/87/D7/oYYBAGaE_iyAKnwUAAH5YbhiPsg423.png"
             mode="widthFix"></image>
         <view class="rules-box">
+            <view class="rules" catchtap="testRef">测试跳转</view>
             <view class="rules" catchtap="rules">活动规则</view>
             <view class="eventAwards" catchtap="eventAwards">活动奖動</view>
         </view>

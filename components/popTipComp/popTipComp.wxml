@@ -206,7 +206,7 @@
             <view class="bottomBtn">
                 <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">
                     {{tools.limitNumber(tipObj.btnCancel,4)}}</view>
-                <view class="ok" catchtap="handleConfirm">{{tools.limitNumber(tipObj.btnconfirm,6)}}</view>
+                <view class="ok" catchtap="handleConfirm" data-title="tenth">{{tools.limitNumber(tipObj.btnconfirm,6)}}</view>
             </view>
         </view>
 
@@ -222,27 +222,27 @@
                         <view>
                             ￥
                         </view>
-                        <view class="big"> {{item.lines}}</view>
+                        <view class="big"> {{item[index].faceAmount/100}}</view>
                     </view>
                     <!-- 时间和券信息描述 -->
                     <view class="couponInformation">
                         <view class="line1">
                             <view>
-                                5元通行券
+                                {{item[index].fullName}}
                             </view>
-                            <view class="num">{{item.number+'张'}}</view>
+                            <view class="num">{{item.length+'张'}}</view>
                         </view>
                         <view class="line2">
                             无门槛使用
                         </view>
                         <view class="line3">
-                            有效期:{{item.startTime}}至{{item.endTime}}
+                            有效期:{{item[index].expireStartDate}}至{{item[index].expireEndDate}}
                         </view>
                     </view>
                     
                     <view class="licensePlate">
                         限 
-                        <view style="font-weight: bold;">{{item.LicensePlate}}</view>
+                        <view style="font-weight: bold;">{{item[index].vehPlates}}</view>
                          车牌使用
                     </view>
                 </view>
@@ -255,7 +255,7 @@
             <view class="bottomBtn">
                 <view class="cancel" data-title="{{tipObj.title}}" catchtap="hide">
                     {{tools.limitNumber(tipObj.btnCancel,4)}}</view>
-                <view class="ok" catchtap="handleConfirm">{{tools.limitNumber(tipObj.btnconfirm,6)}}</view>
+                <view class="ok" catchtap="handleConfirm" data-title="coupons">{{tools.limitNumber(tipObj.btnconfirm,6)}}</view>
             </view>
         </view>
         <!-- 暂未参与--券额 -->
