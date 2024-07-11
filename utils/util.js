@@ -2120,20 +2120,24 @@ function getCurrentDate() {
   return [formattedCurrentDate, nextDate]
 }
 
-function getDatanexusAnalysis(actionType, price = 0) {
+function getDatanexusAnalysis(actionType, price = 0, type = 0) {
   let timestamp, nonceStr;
   nonceStr = getUuid();
   if (!timestamp) {
     timestamp = parseInt(new Date().getTime() / 1000);
   }
+  const accountList = [
+	  {account_id: '35362489', user_action_set_id: '1202153505', access_token: 'e99dabed71962b695abc2769b1bd97e4'},
+	  {account_id: '43973952', user_action_set_id: '1203471363', access_token: '66898d98c3d92598bdbd48e069035899'},
+  ];
   console.log('腾讯广告推广');
   wx.request({
     // https://datanexus.qq.com/doc/develop/guider/interface/action/dmp_actions_add
     // https://developers.e.qq.com/docs/api/user_data/user_action/user_actions_add?version=1.3
-    url: `https://api.e.qq.com/v1.3/user_actions/add?access_token=e99dabed71962b695abc2769b1bd97e4&timestamp=${timestamp}&nonce=${nonceStr}`,
+    url: `https://api.e.qq.com/v1.3/user_actions/add?access_token=${accountList[type].access_token}&timestamp=${timestamp}&nonce=${nonceStr}`,
     data: {
-      account_id: '35362489',
-      user_action_set_id: '1202153505',
+      account_id: accountList[type].account_id,
+      user_action_set_id: accountList[type].user_action_set_id,
 	    // user action set id, outer actiond 和action_type
       'actions': [
         {

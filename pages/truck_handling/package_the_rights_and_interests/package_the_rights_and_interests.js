@@ -229,6 +229,7 @@ Page({
             // 将筛选的套餐展示出来
             activeTypeIndex: index - 1,
             activeIndex,// 选中的重置
+            choiceIndex: activeIndex,
             isFade: activeIndex === -1 ? false : true
         });
     },
@@ -442,7 +443,7 @@ Page({
                         try {
                             if (app.globalData.advertisementClickId) {
                               const price = this.data.activeIndex !== -1 ? (this.data.listOfPackages[this.data.activeIndex].pledgePrice + (this.data.equityListMap.addEquityList[this.data.activeIndex].aepIndex !== -1 ? this.data.equityListMap.addEquityList[this.data.activeIndex].subData[this.data.equityListMap.addEquityList[this.data.activeIndex].aepIndex].payMoney : 0) / 100) : this.data.listOfPackages[this.data.activeIndex].pledgePrice / 100;
-                              util.getDatanexusAnalysis('COMPLETE_ORDER', price / 100);
+                              util.getDatanexusAnalysis('COMPLETE_ORDER', price / 100, 1);
                             }
                         } catch (e) {
                             console.log(e);

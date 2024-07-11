@@ -1035,7 +1035,7 @@ Page({
                     if (res.errMsg === 'requestPayment:ok') {
                         if (app.globalData.advertisementClickId) {
                             const price = this.data.activeIndex !== -1 ? (this.data.listOfPackages[this.data.activeIndex].pledgePrice + (this.data.equityListMap.addEquityList[this.data.activeIndex].aepIndex !== -1 ? this.data.equityListMap.addEquityList[this.data.activeIndex].subData[this.data.equityListMap.addEquityList[this.data.activeIndex].aepIndex].payMoney : 0) / 100) : this.data.listOfPackages[this.data.activeIndex].pledgePrice / 100;
-                            util.getDatanexusAnalysis('COMPLETE_ORDER', price / 100);
+                            util.getDatanexusAnalysis('COMPLETE_ORDER', price);
                         }
                         if (this.data.listOfPackages[this.data.choiceIndex]?.productProcess === 9) { // 多签流程 确认页面 不区分业务员办理
                             console.log('多签流程');
@@ -1043,6 +1043,12 @@ Page({
                             util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
                             return;
                         }
+                        // if (this.data.listOfPackages[this.data.activeIndex].etcCardId === 2) {
+                        //     // 5201 线上办理流程
+                        //     console.log('5201 线上办理流程');
+                        //     // util.go(`/pages/default/payment_successful/payment_successful?isHunan=1`);
+                        //     return;
+                        // }
                         if (this.data.isSalesmanOrder) {
                             if (this.data.orderInfo.base?.flowVersion === 8) {
                                 util.go(`/pages/default/processing_progress/processing_progress?type=main_process`);
@@ -1478,6 +1484,12 @@ Page({
                         util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
                         return;
                     }
+                    // if (this.data.listOfPackages[this.data.activeIndex].deviceType !== 99) {
+                    //     // 5201 线上办理流程
+                    //     console.log('辽宁---5201 线上办理流程');
+                    //     // util.go(`/pages/default/payment_successful/payment_successful?isHunan=1`);
+                    //     return;
+                    // }
                     if (this.data.isSalesmanOrder) {
                         if (this.data.orderInfo.base?.flowVersion === 8) {
                             util.go(`/pages/default/processing_progress/processing_progress?type=main_process`);
