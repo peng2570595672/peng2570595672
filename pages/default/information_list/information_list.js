@@ -428,6 +428,10 @@ Page({
         if (result.code === 0) {
             app.globalData.isNeedReturnHome = true;
             app.globalData.isCheckCarChargeType = this.data.orderInfo.obuCardType === 1 && (this.data.orderInfo.orderType === 11 || this.data.orderInfo.orderType === 12 || this.data.orderInfo.orderType === 21 || this.data.orderInfo.orderType === 71 || this.data.orderInfo.promoterType === 41) && !this.data.isModifiedData;
+            if (this.data.orderDetails?.isBindVeh && !this.data.orderDetails?.vehBindStatus) { // 平安绑车
+                this.goPingAn(result.data.contract);
+                return;
+            }
             if (this.data.citicBank) {
                 if (this.data.citicBank) { // 拉起中信弹窗
                     this.setData({
@@ -548,6 +552,54 @@ Page({
                 url = `https://cs.creditcard.ecitic.com/citiccard/cardshopcloud/standardcard-h5/index.html?pid=CS0207&sid=SJCSJHT01&paId=${this.data.orderDetails.orderId}&partnerId=SJHT`;
             }
             util.go(`/pages/web/web/web?url=${encodeURIComponent(url)}`);
+        }
+    },
+    async goPingAn (contract) {
+        const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
+            orderId: app.globalData.orderInfo.orderId,
+            dataType: '168',
+            needAllInfo: true
+        });
+        if (!result) return;
+        if (result.code === 0) {
+            let res = result.data.base;
+            let orderInfo = res;
+            let timeing = (new Date()).getTime();
+            let timeFlag = orderInfo.dataCompleteTime.replace(new RegExp('-', 'g'), '/');
+            let dataComplete = (new Date(timeFlag)).getTime();
+            if (timeing - dataComplete < 120000) {	// 当前时间超过资料完善时间2分钟时，跳过绑车，进入签约
+                let res = await util.getDataFromServersV2('/consumer/order/pingan/get-bind-veh-url', {});	// 获取平安绑车h5链接地址
+                if (!res) return;
+                if (res.code === 0) {
+                    // 跳转 h5
+                    util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data)}`);
+                } else {
+                    util.showToastNoIcon(res.message);
+                }
+            } else {
+                if (this.data.citicBank) {
+                    if (this.data.citicBank) { // 拉起中信弹窗
+                        this.setData({
+                            openSheet: true
+                        });
+                    }
+                    return;
+                }
+                if (this.data.orderInfo.flowVersion === 2 || this.data.orderInfo.flowVersion === 3) {
+                    util.go(`/pages/historical_pattern/order_audit/order_audit`);
+                    return;
+                }
+                if (this.data.contractStatus === 1 || this.data.isModifiedData || this.data.orderInfo.flowVersion === 8) {
+                    util.go(`/pages/default/processing_progress/processing_progress?type=main_process&orderId=${app.globalData.orderInfo.orderId}`);
+                    return;
+                }
+                app.globalData.signAContract = -1;
+                app.globalData.belongToPlatform = app.globalData.platformId;
+                let res = contract;
+                util.weChatSigning(res);
+            }
+        } else {
+            util.showToastNoIcon(result.message);
         }
     },
     onUnload () {

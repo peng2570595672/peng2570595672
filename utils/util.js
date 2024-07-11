@@ -838,6 +838,14 @@ function getTruckHandlingStatus(orderInfo) {
  *  获取订单办理状态 2.0
  */
 function getStatus(orderInfo) {
+  if ((orderInfo.status === 1 || orderInfo.orderType === 31 ||orderInfo.orderType === 51) && orderInfo.pledgeStatus !== 0 && orderInfo?.isBindVeh && !orderInfo?.vehBindStatus && orderInfo.contractStatus !== 1) {  // 平安获客绑车 isBindVeh 是否 签约前强制绑车 vehBindStatus  是否绑车
+    let timeing = (new Date()).getTime();
+    let timeFlag = orderInfo.dataCompleteTime.replace(new RegExp('-', 'g'), '/');
+    let dataComplete = (new Date(timeFlag)).getTime();
+    if (timeing - dataComplete < 120000) {
+      return 38
+    }
+  }
   if (orderInfo.flowVersion === 8 && orderInfo.status === 1) { // 9901模式
     if (orderInfo.pledgeStatus === 0) {
       return 3; // 待支付

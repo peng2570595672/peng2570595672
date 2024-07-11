@@ -92,18 +92,29 @@ Page({
 
     async next () {
         if (!this.data.available) return;
-        let result = await util.getDataFromServersV2('salesman/order/check-obu-no', {
+        this.setData({
+			isRequest: true
+		});
+        util.getDataFromServer('consumer/order/check-obu-no', {
             obuNo: this.data.obuNumber,
             mobilePhone: app.globalData.mobilePhone
-        });
-        if (!result) return;
-        if (result.code === 0) {
-            wx.hideLoading();
-            that.liaoNingMovepay1(result.data.response.respInfo.payUrl);
-        } else {
-            wx.hideLoading();
-            util.showToastNoIcon(result.message);
-        }
+		}, () => {
+			util.showToastNoIcon('查询失败！');
+		}, (res) => {
+			if (res.code === 0) {
+                console.log('哈哈哈');
+			} else {
+				this.setData({
+					isRequest: false
+				});
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken, () => {
+			util.hideLoading();
+			this.setData({
+				isRequest: false
+			});
+		});
     },
 
     onUnload () {

@@ -209,7 +209,14 @@
                 {
                     "name": "新空发流程",
                     "pathName": "pages/empty_hair/new_module/select_etc_handle_type/select_etc_handle_type",
-                    "query": "",
+                    "query": "isNewTrucks=0",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "发票开具",
+                    "pathName": "pages/personal_center/invoice_issued_detail/invoice_issued_detail",
+                    "query": "origin=0&infoStr=%7B%22orderId%22%3A%221182490190648840192%22%7D",
                     "launchMode": "default",
                     "scene": null
                 }
@@ -217,7 +224,7 @@
         }
     },
     "setting": {
-        "compileHotReLoad": false,
+        "compileHotReLoad": true,
         "preloadBackgroundData": false,
         "bigPackageSizeSupport": true,
         "urlCheck": true

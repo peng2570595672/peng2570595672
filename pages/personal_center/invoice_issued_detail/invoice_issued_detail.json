@@ -3,5 +3,8 @@
 	"backgroundColor": "#FFFFFF",
 	"enablePullDownRefresh": false,
 	"navigationBarTextStyle": "black",
-	"navigationBarTitleText": "发票开具"
+	"navigationBarTitleText": "发票开具",
+	"usingComponents": {
+		"popTipComp": "/components/popTipComp/popTipComp"
+	}
 }

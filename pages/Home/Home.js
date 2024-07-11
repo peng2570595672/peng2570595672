@@ -968,7 +968,7 @@ Page({
 					isAlertToSignObj = item;
 				}
 				// 平安获客 status -1 删除（取消办理），0-资料待完善，1-资料已完善 2-升级订单已确认
-				if (app.globalData.pingAnBindGuests?.pingAnBindVehplates.length > 0 && !app.globalData.isQingHaiHighSpeed && app.globalData.pingAnBindGuests && item.status === 1 && index === 0) {
+				if (app.globalData.pingAnBindGuests?.pingAnBindVehplates.length > 0 && !app.globalData.isQingHaiHighSpeed && app.globalData.pingAnBindGuests && item.status === 1 && index === 0 && !item.isBindVeh) {
 					if (app.globalData.pingAnBindGuests.vehKeys === '*' || (app.globalData.pingAnBindGuests.vehKeys.includes(item.vehPlates.substring(0, 1)) && !app.globalData.pingAnBindGuests.filterKeys.includes(item.vehPlates.substring(0, 2)))) {
 						this.setData({ PingAn: true });
 						if (app.globalData.isShowOncepingAnBindGuestsPop === 0) { // 打开小程序后只调用一次
@@ -1432,9 +1432,20 @@ Page({
 			34: () => this.onClickContinueHandle(orderInfo), // 继续办理
 			35: () => this.handle9901Step(orderInfo), // 继续办理
 			36: () => this.goCheEBaoPage(orderInfo), // 跳转到车E宝领取页
-			37: () => this.goShenKa(orderInfo) // 跳转到信用卡申请过渡页
+			37: () => this.goShenKa(orderInfo), // 跳转到信用卡申请过渡页
+			38: () => this.goPingAn()	// 跳转平安获客绑车
 		};
 		fun[orderInfo.selfStatus].call();
+	},
+	async goPingAn () {	// 跳转平安获客绑车
+		let res = await util.getDataFromServersV2('/consumer/order/pingan/get-bind-veh-url', {});	// 获取平安绑车h5链接地址
+		if (!res) return;
+		if (res.code === 0) {
+			// 跳转 h5
+			util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data)}`);
+		} else {
+			util.showToastNoIcon(res.message);
+		}
 	},
 	goCheEBaoPage (orderInfo) {	// 车E宝
 		util.go(`/pages/function_fewer_pages/che_e_bao/che_e_bao?obuCardType=${orderInfo.obuCardType}&shopId=${orderInfo.shopId}&vehPlates=${orderInfo.vehPlates}&obuStatus=${orderInfo.obuStatus}&auditStatus=${orderInfo.auditStatus}`);

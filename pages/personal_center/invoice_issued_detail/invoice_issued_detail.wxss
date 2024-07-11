@@ -45,7 +45,7 @@
   color: #7a7f83;
 }
 .content .input-wrapper {
-  padding-left: 60rpx;
+  padding-left: 28rpx;
 }
 .content .input-wrapper .input-item {
   display: flex;
@@ -60,9 +60,10 @@
 .content .input-wrapper .input-item > view {
   display: flex;
   justify-content: flex-end;
-  min-width: 130rpx;
+  min-width: 190rpx;
   height: 48rpx;
   color: #99999d;
+  text-align: right;
   transform: translateY(16%);
 }
 .content .input-wrapper .input-item > input {

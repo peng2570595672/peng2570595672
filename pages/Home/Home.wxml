@@ -26,7 +26,7 @@
                     <view wx:if="{{userFailBillList.length}}">{{userFailBillList[0].addTime}}</view>
                     <view wx:else>
                         {{passengerCarOrderInfo.selfStatus === 1 || passengerCarOrderInfo.selfStatus === 22 || passengerCarOrderInfo.selfStatus === 31 ? '无法正常划扣通行费' : ''}}
-                        {{passengerCarOrderInfo.selfStatus === 2 || passengerCarOrderInfo.selfStatus === 4 || passengerCarOrderInfo.selfStatus === 23 ? '还差几步即可完成申办' : ''}}
+                        {{passengerCarOrderInfo.selfStatus === 2 || passengerCarOrderInfo.selfStatus === 4 || passengerCarOrderInfo.selfStatus === 23 || passengerCarOrderInfo.selfStatus === 38 ? '还差几步即可完成申办' : ''}}
                         {{passengerCarOrderInfo.selfStatus === 3 ? '当前订单未完成支付' : ''}}
                         {{passengerCarOrderInfo.selfStatus === 5 ? '签约微信支付，免密代扣' : ''}}
                         {{passengerCarOrderInfo.selfStatus === 6 ? '订单排队审核中' : ''}}
@@ -91,6 +91,7 @@
                 {{orderInfo.selfStatus === 35 ? '继续办理' : ''}}
                 {{orderInfo.selfStatus === 36 ? '办理产品并激活' : ''}}
                 {{orderInfo.selfStatus === 37 ? '申请信用卡' : ''}}
+                {{orderInfo.selfStatus === 38 ? '去绑车' : ''}}
             </button>
            <!-- <button wx:if="{{loginInfo.needBindingPhone === 1 && orderInfo.selfStatus !== 12 }}" class="btn" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber" animation="{{animationTransaction}}">
                {{!orderInfo ? '新增办理' : ''}}

@@ -4,7 +4,8 @@
     <view class="signed_title">支付成功</view>
     <!--	成功提示结束-->
     <!--	操作部分开始-->
-    <view class="btn" catchtap="go" wx:if="{{citicBank || is9901}}">继续办理</view>
+    <view class="btn" catchtap="go" wx:if="{{(citicBank || is9901) && !orderInfo.isBindVeh}}">继续办理</view>
+    <view class="btn" catchtap="goPingAn" wx:elif="{{orderInfo.isBindVeh}}">去绑车</view>
     <view class="btn" catchtap="next" wx:else>{{contractStatus === 1 ? '你已签约免密代扣，提交审核' : '去签约代扣通行费'}}</view>
     <!--	操作部分结束-->
 

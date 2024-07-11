@@ -28,22 +28,29 @@ Component({
 		paramsList: [],
 		bottomingOut: false, // 触底提示
 		noSliding: false, // 是否禁止底层页面滑动
-		getAgreement: true,	// 默认选中协议
-		relationId: ''
+		getAgreement: true, // 默认选中协议
+		relationId: '',
+		// 发票
+		identifyingCode: '获取验证码', // 倒计时提示文本
+		code: '', // 验证码
+		timer: undefined, // 计时器
+		time: 0 // 倒计时计数
+		// ----end----
 	},
 	methods: {
 		show (obj) {
 			this.data.paramsList.push(obj);
 			this.fangDou(() => {
 				// 扣款失败 > 恢复签约 > 普通
-				let kkIndex = this.data.paramsList.findIndex(item => item.title === '请尽快补缴欠款');	// 扣款失败
-				let qyIndex = this.data.paramsList.findIndex(item => item.title === '无法正常扣款');	// 恢复签约
+				let kkIndex = this.data.paramsList.findIndex(item => item.title === '请尽快补缴欠款'); // 扣款失败
+				let qyIndex = this.data.paramsList.findIndex(item => item.title === '无法正常扣款'); // 恢复签约
 				this.setData({
 					mask: true,
 					wrapper: true,
 					tipObj: kkIndex !== -1 ? this.data.paramsList[kkIndex] : qyIndex !== -1 ? this.data.paramsList[qyIndex] : this.data.paramsList[0],
 					paramsList: this.data.paramsList,
-					noSliding: true
+					noSliding: true,
+					code: ''
 				});
 				if (kkIndex === -1 && qyIndex === -1) {
 					this.maiDian();
@@ -52,11 +59,13 @@ Component({
 		},
 		// 埋点
 		maiDian () {
-			if (this.data.paramsList[0].type === 'newPop') {	// 埋点
+			if (this.data.paramsList[0].type === 'newPop') { // 埋点
 				let params = this.data.paramsList.filter(item => item.type === 'newPop')[0].params;
 				params['optionLabel'] = 'ENTER';
 				util.buriedPoint(params, (buriedPointData) => {
-					this.setData({ relationId: buriedPointData?.id });
+					this.setData({
+						relationId: buriedPointData?.id
+					});
 				});
 			}
 		},
@@ -129,13 +138,13 @@ Component({
 			}
 			if (this.data.tipObj.type === 'countdownPopUpBox') {
 				if (!this.data.tipObj.showConfirmButton) return;
-				this.triggerEvent('confirmHandle', 'readDone');// 阅读完成
+				this.triggerEvent('confirmHandle', 'readDone'); // 阅读完成
 				this.hide(false);
 			}
 		},
 		openFullScreenImage (e) {
 			const current = e.currentTarget.dataset.src; // 获取当前点击图片的URL
-			const urls = [current];// 多张时可以滑动预览
+			const urls = [current]; // 多张时可以滑动预览
 			wx.previewImage({
 				current,
 				urls,
@@ -144,7 +153,7 @@ Component({
 				}
 			});
 		},
-		noSliding () { },
+		noSliding () {},
 		// 防抖
 		fangDou (fn, time) {
 			let that = this;
@@ -172,17 +181,23 @@ Component({
 					clearInterval(this.data.intervalId);
 				}
 				this.triggerEvent('cancelHandle');
-				if (e) {	// 判断点击此方法关闭
+				if (e) { // 判断点击此方法关闭
 					let title = e.currentTarget.dataset.title;
 					let paramsList = this.data.paramsList.filter(item => item.title !== title);
 					if (paramsList?.length !== 0) {
-						this.setData({ paramsList });
+						this.setData({
+							paramsList
+						});
 						this.show(paramsList[0]);
 					} else {
-						this.setData({ paramsList: [] });
+						this.setData({
+							paramsList: []
+						});
 					}
 				} else {
-					this.setData({ paramsList: [] });
+					this.setData({
+						paramsList: []
+					});
 				}
 			}, 400);
 		},
@@ -271,22 +286,24 @@ Component({
 		},
 		// 协议选中控制
 		isSelectAgreement () {
-			this.setData({ getAgreement: !this.data.getAgreement });
+			this.setData({
+				getAgreement: !this.data.getAgreement
+			});
 		},
 		// 前去协议页
 		goAgreement (e) {
 			let type = e.currentTarget.dataset.type;
 			switch (type) {
-				case '1':	// 平安获客（平安 隐私协议）
+				case '1': // 平安获客（平安 隐私协议）
 					util.go(`/pages/agreement_documents/equity_agreement/equity_agreement?type=pAbindGuests`);
 					break;
-				case '2':	// 民生细则点击跳转
+				case '2': // 民生细则点击跳转
 					util.go(`/pages/agreement_documents/equity_agreement/equity_agreement?type=minShengbyLaws`);
 					break;
-				case '3':	// 协议续签 ETC+用户服务协议
+				case '3': // 协议续签 ETC+用户服务协议
 					util.go(`/pages/agreement_documents/equity_agreement/equity_agreement?type=renewWhitelistService`);
 					break;
-				case '4':	// 协议续签 用户隐私协议
+				case '4': // 协议续签 用户隐私协议
 					util.go(`/pages/agreement_documents/equity_agreement/equity_agreement?type=renewWhitelistPrivacy`);
 					break;
 				default:
@@ -336,7 +353,7 @@ Component({
 		},
 		// AI回访打电话
 		async aiReturn () {
-			if (this.data.tipObj?.aiFlag) {	// 跳过
+			if (this.data.tipObj?.aiFlag) { // 跳过
 				this.data.paramsList[0].callBack();
 			} else {
 				const res = await util.getDataFromServersV2('consumer/system/aiReturnVisits/callBack', {
@@ -353,7 +370,100 @@ Component({
 					util.showToastNoIcon(res.message);
 				}
 			}
+		},
+		// -----------------------------发票------------------------------------
+		setTimer () { // 设置倒计时
+			if (this.data.timer) {
+				clearInterval(this.data.timer);
+				this.setData({
+					timer: undefined
+				});
+			}
+			this.data.time = 60;
+			this.data.timer = setInterval(() => {
+				if (this.data.time === 0) {
+					clearInterval(this.data.timer);
+					this.setData({
+						timer: undefined,
+						identifyingCode: '获取验证码'
+					});
+				} else {
+					this.setData({
+						time: this.data.time - 1,
+						identifyingCode: this.data.time + '秒'
+					});
+				}
+			}, 1000);
+		},
+		// 获取验证码
+		async getCode () {
+			if (!this.data.tipObj.content.phoneNumber || this.data.tipObj.content.phoneNumber.length === 0) {
+				util.showToastNoIcon('手机号不能为空!');
+				return;
+			}
+			util.showLoading({
+				title: '获取中...'
+			});
+			wx.hideLoading();
+			const result = await util.getDataFromServersV2('/consumer/order/after-sale-record/send-sms', {
+				receivePhone: this.data.tipObj.content.phoneNumber
+			}, 'POST', true);
+			if (!result) return;
+			if (result.code === 0) {
+				wx.hideLoading();
+				this.setData({code: ''});
+				this.setTimer();
+			} else {
+				wx.hideLoading();
+				util.showToastNoIcon(result.message);
+			}
+		},
+		// 手机验证码输入
+		codeValueChange (e) {
+			let code = e.detail.value.trim();
+			if (code.length >= 4) {
+				this.setData({
+					code
+				});
+			} else {
+				this.setData({
+					code
+				});
+			}
+		},
+		callBackInvoice () {
+			let that = this;
+			if (!that.data.code) return;
+			that.setData({
+				isRequest: true
+			});
+			util.showLoading({
+				title: '验证码校验中...'
+			});
+			// 校验验证码是否合法
+			util.getDataFromServer('consumer/order/after-sale-record/check-sms', {
+				receivePhone: that.data.tipObj.content.phoneNumber,
+				code: this.data.code
+			}, () => {
+				util.showToastNoIcon('校验验证码失败！');
+			}, (res) => {
+				if (res.code === 0) {
+					util.hideLoading();
+					that.data.tipObj.callBack();
+				} else {
+					util.hideLoading();
+					that.setData({
+						isRequest: false
+					});
+					util.showToastNoIcon(res.message);
+				}
+			}, app.globalData.userInfo.accessToken, () => {
+				that.setData({
+					isRequest: false
+				});
+			});
 		}
+		// -----------------------------end------------------------------------
 
 	}
 });

@@ -26,7 +26,7 @@
                 <view wx:if="{{item.isNewTrucks !== 1}}"
                     class="right caution {{item.selfStatus === 7 || item.selfStatus === 8 ? 'failed' : ''}} {{item.selfStatus === 12 || item.selfStatus === 30 ? 'succeed' : ''}}">
                     {{item.selfStatus === 1 || item.selfStatus === 22 ? '已解约' : ''}}
-                    {{item.selfStatus === 2 || item.selfStatus === 4 || item.selfStatus === 14 || item.selfStatus === 23 || item.selfStatus === 25 || item.selfStatus === 34 ? '办理中' : ''}}
+                    {{item.selfStatus === 2 || item.selfStatus === 4 || item.selfStatus === 14 || item.selfStatus === 23 || item.selfStatus === 25 || item.selfStatus === 34 || item.selfStatus === 38 ? '办理中' : ''}}
                     {{item.selfStatus === 3 || item.selfStatus === 24 ? '待支付' : ''}}
                     {{item.selfStatus === 5 || item.selfStatus === 21 ? '待签约' : ''}}
                     {{item.selfStatus === 6 ? '待审核' : ''}}
@@ -84,6 +84,7 @@
                     {{item.selfStatus === 35 ? '继续办理' : ''}}
                     {{item.selfStatus === 36 ? '办理产品并激活' : ''}}
                     {{item.selfStatus === 37 ? '申请信用卡' : ''}}
+                    {{item.selfStatus === 38 ? '去绑车' : ''}}
                 </view>
             </view>
             <view class="truck" wx:if="{{item.isNewTrucks === 1}}">

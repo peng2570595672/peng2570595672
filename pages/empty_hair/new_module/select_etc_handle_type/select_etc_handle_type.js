@@ -7,13 +7,16 @@ Page({
 	},
 
 	onLoad (options) {
-		if (!app.globalData.userInfo.accessToken) {
-			this.login();
-		}
+		console.log(options);
+		this.setData({
+			isNewTrucks: +options.isNewTrucks
+		});
 	},
 
 	onShow () {
-
+		if (!app.globalData.userInfo.accessToken) {
+			this.login();
+		}
 	},
 
 	// 自动登录

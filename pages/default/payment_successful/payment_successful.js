@@ -147,6 +147,29 @@ Page({
 			util.go(`/pages/default/information_list/information_list`);
 		}
 	},
+	// 跳转平安获客h5
+	async goPingAn () {
+		let orderInfo = this.data.orderInfo;
+		if (!orderInfo.vehBindStatus) { // 未绑车
+			let timeing = (new Date()).getTime();
+			let timeFlag = orderInfo.dataCompleteTime.replace(new RegExp('-', 'g'), '/');
+			let dataComplete = (new Date(timeFlag)).getTime();
+			if (timeing - dataComplete > 120000) {	// 当前时间超过资料完善时间2分钟时，跳过绑车，进入签约
+				await this.next();
+			}
+			if (orderInfo.orderType === 51) {	// api
+				util.showToastNoIcon('当前用户未绑车，请先绑车');
+			}
+			let res = await util.getDataFromServersV2('/consumer/order/pingan/get-bind-veh-url', {});	// 获取平安绑车h5链接地址
+			if (!res) return;
+			if (res.code === 0) {
+				// 跳转 h5
+				util.go(`/pages/web/web/web?url=${encodeURIComponent(res.data)}`);
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}
+	},
 	onUnload () {
 		wx.switchTab({
 			url: '/pages/Home/Home'

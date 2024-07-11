@@ -3,15 +3,15 @@ const app = getApp();
 Page({
 	data: {
 		invoiceTypes: [
-			{name: '个人开票'},
-			{name: '公司开票'}
+			{name: '公司开票'},
+			{name: '个人开票'}
 		],
 		currentTab: 0,
 		available: false, // 按钮是否可点击
 		isRequest: false,// 是否请求中
 		disabled: false,
 		origin: 0, // 0 开票 1.查看详情
-		invoiceType: 1, // 开票主体类型 1个人 2企业 必填
+		invoiceType: 2, // 开票主体类型 1个人 2企业 必填
 		invoiceInfo: {}
 	},
 	async onLoad (options) {
@@ -19,7 +19,7 @@ Page({
 		let invoiceInfo = options.infoStr ? JSON.parse(options.infoStr) : {};
 		if (this.data.origin === 0) {
 			invoiceInfo.userPhone = app.globalData.mobilePhone;
-			invoiceInfo.invoiceType = 1;
+			invoiceInfo.invoiceType = 2;
 		} else {
 			const index = invoiceInfo.invoiceType === 2 ? 0 : 1;
 			this.data.invoiceTypes.splice(index,1);
@@ -29,7 +29,7 @@ Page({
 			origin: this.data.origin,
 			invoiceInfo: invoiceInfo,
 			disabled: this.data.origin === 1,
-			currentTab: invoiceInfo.invoiceType === 2 ? 1 : 0
+			currentTab: invoiceInfo.invoiceType === 2 ? 0 : 1
 		});
 		// 查询是否欠款
 		await util.getIsArrearage();
@@ -45,7 +45,7 @@ Page({
 		if (this.data.currentTab === e.target.dataset.current) {
 			return false;
 		} else {
-			this.data.invoiceInfo.invoiceType = e.target.dataset.current + 1;
+			this.data.invoiceInfo.invoiceType = e.target.dataset.current === 0 ? 2 : 1;
 			that.setData({
 				currentTab: e.target.dataset.current
 			});
@@ -94,16 +94,35 @@ Page({
 			util.showToastNoIcon('税号格式不正确！');
 			return false;
 		}
-		this.saveInfo();
+		this.invoiceTip();
+	},
+	// 发票确认提示弹窗
+	invoiceTip () {
+		let that = this;
+		that.selectComponent('#popTipComp').show({
+			type: 'invoiceTip',
+			title: '重要提示',
+			btnCancel: '我再想想',
+			btnconfirm: '确认开票',
+			content: {
+				text: `当前正在开具${that.data.currentTab === 1 ? '个人开票' : '公司发票'}，一经开票，不允许作废重开，请仔细核对开票信息是否正确！`,
+				phoneNumber: that.data.invoiceInfo.userPhone
+			},
+			callBack: () => {
+				that.saveInfo();
+			}
+		});
 	},
 	saveInfo () {
 		wx.uma.trackEvent('personal_center_for_make_invoice_to_confirm');
 		this.setData({
 			isRequest: true
 		});
-		util.showLoading();
+		util.showLoading({
+			title: `开票中请稍等...`
+		});
 		let invoiceInfo = this.data.invoiceInfo;
-		util.getDataFromServer('consumer/order/after-sale-record/applyInvoice', {
+		let params = {
 			orderId: invoiceInfo.orderId,
 			invoiceType: invoiceInfo.invoiceType,
 			userPhone: invoiceInfo.userPhone,
@@ -114,21 +133,32 @@ Page({
 			addreesTel: invoiceInfo.addreesTel,
 			bank: invoiceInfo.bank,
 			account: invoiceInfo.account
-		}, () => {
+		};
+		if (invoiceInfo.invoiceType === 1) {
+			params = {
+				orderId: invoiceInfo.orderId,
+				userPhone: invoiceInfo.userPhone,
+				userEmail: invoiceInfo.userEmail,
+				invoiceType: invoiceInfo.invoiceType,
+				customerName: invoiceInfo.customerName
+			};
+		}
+		util.getDataFromServer('consumer/order/after-sale-record/applyInvoice', params, () => {
 			util.showToastNoIcon('保存失败！');
 		}, (res) => {
 			if (res.code === 0) {
+				util.hideLoading();
 				wx.redirectTo({
 					url: '/pages/personal_center/success_tips/success_tips'
 				});
 			} else {
+				util.hideLoading();
 				this.setData({
 					isRequest: false
 				});
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken, () => {
-			util.hideLoading();
 			this.setData({
 				isRequest: false
 			});

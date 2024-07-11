@@ -458,7 +458,7 @@ Page({
 				});
 				// 平安获客
 				let isShowpAPop = wx.getStorageSync('isShowpAPop');
-				if (!app.globalData.isQingHaiHighSpeed) {
+				if (!app.globalData.isQingHaiHighSpeed && !res.data?.isBindVeh) {	// 不是青海订单 && 签约前强制绑车未开
 					this.setData({isShowPinAn: false});
 					if (this.data.firstCar.pingAnBindVehplates.includes(res.data.vehPlates) && (this.data.firstCar.vehKeys === '*' || (this.data.firstCar.vehKeys.includes(res.data.vehPlates.substring(0,1)) && !this.data.firstCar.filterKeys.includes(res.data.vehPlates.substring(0,2))))) {
 						this.setData({isShowPinAn: true});
