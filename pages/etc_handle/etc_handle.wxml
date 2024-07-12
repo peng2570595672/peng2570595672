@@ -68,7 +68,7 @@
                     <image mode="widthFix" style="width: 100%;height:100%;"
                         src="https://file.cyzl.com/g001/M03/4E/D1/oYYBAGYUl8uAT2TtAAAMsUyVKuc502.png" />
                 </view>
-                以旧换新限时优惠
+                货车限时办理
                 <span>{{countdown.hours}}</span>:
                 <span>{{countdown.minutes}}</span>:
                 <span>{{countdown.seconds}}</span>
