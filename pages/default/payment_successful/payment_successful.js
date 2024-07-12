@@ -160,7 +160,9 @@ Page({
 			if (orderInfo.orderType === 51) {	// api
 				util.showToastNoIcon('当前用户未绑车，请先绑车');
 			}
-			let res = await util.getDataFromServersV2('/consumer/order/pingan/get-bind-veh-url', {});	// 获取平安绑车h5链接地址
+			let res = await util.getDataFromServersV2('/consumer/order/pingan/get-bind-veh-url', {
+				orderId: app.globalData.orderInfo.orderId
+			});	// 获取平安绑车h5链接地址
 			if (!res) return;
 			if (res.code === 0) {
 				// 跳转 h5
