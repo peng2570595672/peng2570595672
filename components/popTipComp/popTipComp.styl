@@ -354,6 +354,11 @@ textLineCenter($height)
             text-align left !important
         .ftwt
             font-weight 600
+    .moduleTenth
+        .left
+            text-align left !important
+        .ftwt
+            font-weight 600
     /* 欠费补缴 */
     .moduleThree
         .bottomBtn
@@ -430,6 +435,70 @@ textLineCenter($height)
                         color #84D157
                         text-align center
                         border-left 1rpx solid #84D157
+        // 卡券显示
+    .coupons
+        .contant
+            font-size 22rpx
+            color rgba(0, 0, 0, 0.6);
+            text-align left
+        .couponAmount
+            width 100%
+            display flex
+            flex-direction column
+            .pic
+                width 100%
+                height 238rpx
+                position relative
+                .price
+                    color #E8113D
+                    display flex
+                    align-items center
+                    position absolute
+                    left 13%
+                    top 20%
+                    .big
+                        font-family D-DIN-PRO
+                        font-size 44rpx
+                .des
+                    position absolute
+                    left 14%
+                    top 51%
+                    font-size 16rpx
+                    color #FFFFFF
+                .couponInformation
+                    font-size 20rpx
+                    width 70%
+                    position absolute
+                    left 30%
+                    top 10%
+                    line-height 40rpx
+                    padding 20rpx 30rpx
+                    box-sizing border-box
+                    color rgba(0, 0, 0, 0.5);
+                    .line1
+                        font-size 26rpx
+                        font-weight 500
+                        display flex
+                        color #000
+                        font-famil PingFang SC
+                        .num
+                            font-size 20rpx
+                            position absolute
+                            left 50%
+                            top 15%
+                            text-align center
+                            width: 52rpx;
+                            height: 30rpx;
+                            line-height 30rpx;
+                            border-radius 16rpx 16rpx 0 0
+                            background linear-gradient(294deg, #FF6200 10%, #FF8C00 100%);
+                            color #FFFFFF
+                .licensePlate
+                    position absolute
+                    display flex
+                    left 10%
+                    bottom  10%
+                    font-size 20rpx
                             
     /* 收货地址确认提醒 */
     .receivingInformation
