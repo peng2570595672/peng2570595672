@@ -19,13 +19,66 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad (options) {
-        // 初始化时检查是否可测额以及指定车牌
-        this.whetherItIsMeasurable();
-        // 获取已发放奖励列表
-        this.checkTheCouponDetails();
+    async onLoad (options) {
+        // 页面显示时的逻辑
+        if (!app.globalData.userInfo.accessToken) {
+            this.login();
+        } else {
+            // 初始化时检查是否可测额以及指定车牌
+            await this.whetherItIsMeasurable();
+            // 获取已发放奖励列表
+            await this.checkTheCouponDetails();
+        }
     },
-
+    /**
+ * 生命周期函数--监听页面显示
+ */
+    onShow () {
+    },
+    // 自动登录
+    login () {
+        util.showLoading();
+        // 调用微信接口获取code
+        wx.login({
+            success: (res) => {
+                util.getDataFromServer('consumer/member/common/applet/code', {
+                    platformId: app.globalData.platformId, // 平台id
+                    code: res.code // 从微信获取的code
+                }, () => {
+                    util.hideLoading();
+                    util.showToastNoIcon('登录失败！');
+                }, async (res) => {
+                    if (res.code === 0) {
+                        util.hideLoading();
+                        res.data['showMobilePhone'] = util.mobilePhoneReplace(res.data.mobilePhone);
+                        this.setData({
+                            loginInfo: res.data
+                        });
+                        // 已经绑定了手机号
+                        if (res.data.needBindingPhone !== 1) {
+                            app.globalData.userInfo = res.data;
+                            app.globalData.openId = res.data.openId;
+                            app.globalData.memberId = res.data.memberId;
+                            app.globalData.mobilePhone = res.data.mobilePhone;
+                        } else {
+                            util.hideLoading();
+                        }
+                        // 初始化时检查是否可测额以及指定车牌
+                        await this.whetherItIsMeasurable();
+                        // 获取已发放奖励列表
+                        await this.checkTheCouponDetails();
+                    } else {
+                        util.hideLoading();
+                        util.showToastNoIcon(res.message);
+                    }
+                });
+            },
+            fail: () => {
+                util.hideLoading();
+                util.showToastNoIcon('登录失败！');
+            }
+        });
+    },
     /**
      * 立即测额按钮点击事件
      */
@@ -50,50 +103,6 @@ Page({
         }
     },
 
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow () {
-        // 页面显示时的逻辑
-        if (!app.globalData.userInfo.accessToken) {
-            this.login();
-        }
-    },
-    // 自动登录
-    login () {
-        // util.showLoading();
-        // 调用微信接口获取code
-        wx.login({
-            success: async (res) => {
-                const result = await util.getDataFromServersV2('consumer/member/common/applet/code', {
-                    platformId: app.globalData.platformId, // 平台id
-                    code: res.code // 从微信获取的code
-                },'POST',false);
-                if (!result) return;
-                if (result.code) {
-                    util.showToastNoIcon(result.message);
-                    return;
-                }
-                result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data.mobilePhone);
-                this.setData({
-                    loginInfo: result.data
-                });
-                // 已经绑定了手机号
-                if (result.data.needBindingPhone !== 1) {
-                    app.globalData.userInfo = result.data;
-                    app.globalData.openId = result.data.openId;
-                    app.globalData.memberId = result.data.memberId;
-                    app.globalData.mobilePhone = result.data.mobilePhone;
-                } else {
-                    wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-                }
-            },
-            fail: () => {
-                util.hideLoading();
-                util.showToastNoIcon('登录失败！');
-            }
-        });
-    },
     /**
      * 检查是否可测额以及指定车牌
      */
