@@ -519,6 +519,10 @@ Page({
 			this.handleMall();
 			return;
 		}
+		if (obj.jumpUrl === '平安测额') {
+			util.go('/pages/personal_center/quotaLandingPage/quotaLandingPage');
+			return;
+		}
 		// 授权提醒
 		if (obj.jumpUrl === '平安获客') {
 			this.selectComponent('#popTipComp').show({

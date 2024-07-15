@@ -83,8 +83,18 @@ Component({
 			console.log(this.data.tipObj, 'show');
 			this.startCountdown();
 		},
+		noCountdownRequired (tipObj) {
+			this.data.paramsList.push(tipObj);
+			this.setData({
+				mask: true,
+				wrapper: true,
+				paramsList: this.data.paramsList,
+				tipObj,
+				noSliding: true
+			});
+		},
 		onScrolltolower () { // 滑动触底
-			if (!this.data.duration) {
+			if (!this.data.duration && this.data.tipObj.type === 'countdownPopUpBox') {
 				this.setData({
 					'tipObj.showConfirmButton': true,
 					'tipObj.btnconfirm': '我已知晓协议内容，同意继续办理'
@@ -141,6 +151,10 @@ Component({
 				this.triggerEvent('confirmHandle', 'readDone'); // 阅读完成
 				this.hide(false);
 			}
+			if (this.data.tipObj.type === 'noCountdownRequired') {
+				this.triggerEvent('confirmHandle'); // 关闭
+				this.hide(false);
+			}
 		},
 		openFullScreenImage (e) {
 			const current = e.currentTarget.dataset.src; // 获取当前点击图片的URL
@@ -179,6 +193,10 @@ Component({
 				});
 				if (this.data.intervalId) {
 					clearInterval(this.data.intervalId);
+				}
+				if (this.data.tipObj.type === 'one' && this.data.tipObj.NoIcon) {
+					this.setData({ paramsList: [] });
+					return;
 				}
 				this.triggerEvent('cancelHandle');
 				if (e) { // 判断点击此方法关闭
@@ -235,7 +253,7 @@ Component({
 		},
 		handleConfirm () {
 			this.hide(false);
-			if (this.data.tipObj.params.type === 1) {
+			if (this.data.tipObj?.params?.type === 1) {
 				util.go('/pages/personal_center/arrears_bill/arrears_bill');
 			} else {
 				this.triggerEvent('onHandle');

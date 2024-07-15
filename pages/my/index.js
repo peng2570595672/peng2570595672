@@ -417,6 +417,10 @@ Page({
             this.handleMall();
             return;
         }
+        if (item.jumpUrl === '平安测额') {
+            util.go('/pages/personal_center/quotaLandingPage/quotaLandingPage');
+            return;
+        }
         let appIdPath = item.appId && item.appId.length > 0;
         let webPath = item.jumpUrl.indexOf('https') !== -1;
         if (!appIdPath && !webPath) {

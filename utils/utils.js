@@ -152,12 +152,12 @@ export function getSetting() {
  *  弹出吐司提示 不带icon
  * @param content 提示内容
  */
-export function showToastNoIcon(content) {
+export function showToastNoIcon(content,duration) {
 	setTimeout(() => {
 		wx.showToast({
 			title: content,
 			icon: 'none',
-			duration: 2000
+			duration: duration?duration:2000
 		});
 	}, 100);
 }
