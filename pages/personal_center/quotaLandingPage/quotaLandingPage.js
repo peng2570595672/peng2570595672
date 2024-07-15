@@ -60,13 +60,14 @@ Page({
                             app.globalData.openId = res.data.openId;
                             app.globalData.memberId = res.data.memberId;
                             app.globalData.mobilePhone = res.data.mobilePhone;
+                            // 初始化时检查是否可测额以及指定车牌
+                            await this.whetherItIsMeasurable();
+                            // 获取已发放奖励列表
+                            await this.checkTheCouponDetails();
                         } else {
+                            util.go('/pages/login/login/login');
                             util.hideLoading();
                         }
-                        // 初始化时检查是否可测额以及指定车牌
-                        await this.whetherItIsMeasurable();
-                        // 获取已发放奖励列表
-                        await this.checkTheCouponDetails();
                     } else {
                         util.hideLoading();
                         util.showToastNoIcon(res.message);
