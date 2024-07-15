@@ -293,15 +293,15 @@ Page({
 		};
 		let url = 'consumer/order/bill-pay';
 		// insDeductStatus 权益服务费扣款失败 deductStatus // 通行费扣款成功 orderInsurance 权益服务账单
-		let equityPayment = this.data.details.orderInsurance === 1 && (this.data.details.deductStatus !== 2 && this.data.details.deductStatus !== 10) && (this.data.details.insDeductStatus === 2 || this.data.details.insDeductStatus === 10);
-		if (equityPayment) {
-			params.insPayAmount = this.data.details.insPoundage;
-			// delete params.payAmount;
-			url = 'consumer/order/bill-pay-poundage';
-			this.setData({
-				equityPayment
-			});
-		}
+		// let equityPayment = this.data.details.orderInsurance === 1 && (this.data.details.deductStatus !== 2 && this.data.details.deductStatus !== 10) && (this.data.details.insDeductStatus === 2 || this.data.details.insDeductStatus === 10);
+		// if (equityPayment) {
+		// 	params.insPayAmount = this.data.details.insPoundage;
+		// 	// delete params.payAmount;
+		// 	url = 'consumer/order/bill-pay-poundage';
+		// 	this.setData({
+		// 		equityPayment
+		// 	});
+		// }
 		util.getDataFromServer(url, params, () => {
 			util.showToastNoIcon('获取支付参数失败！');
 		}, (res) => {

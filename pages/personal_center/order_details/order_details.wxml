@@ -102,11 +102,11 @@
                 <view>扣费类型</view>
                 <view class="fontColor1">[高速扣费]</view>
             </view>
-            <view class="subModle" wx:if="{{details.orderInsurance === 1}}">
+            <!-- <view class="subModle" wx:if="{{details.orderInsurance === 1}}">
                 <view>扣款状态</view>
                 <view class="{{details.deductStatus === 2 ? 'red_color' :''}}">
                     {{details.deductStatus === 2 ? '扣款失败' : '扣款成功'}}</view>
-            </view>
+            </view> -->
             <view class="subModle" wx:if="{{details.deductTime}}">
                 <view>扣费时间</view>
                 <view>{{tools.substring(details.deductTime,0,16)}}</view>
@@ -239,7 +239,7 @@
     </view>
     <!-- 权益服务费 -->
     <!-- 判断权益服务费流水用 orderInsurance = 1来判断 -->
-    <view class="deduction-details" wx:if="{{ details.orderInsurance === 1 }}">
+    <!-- <view class="deduction-details" wx:if="{{ details.orderInsurance === 1 }}">
         <view>
             <view>权益服务费</view>
             <view>{{'￥'+details.insPoundage/100}}</view>
@@ -281,7 +281,7 @@
                 {{details.insDeductStatus === 2 ? '扣款失败' : '扣款成功'}}</view>
         </view>
         <view class="line"></view>
-    </view>
+    </view> -->
     <!-- 货车 合并流水详情开始 -->
     <view class="deduction-details-truck {{line_open ? 'active_hide': ''}}"
         wx:if="{{ details.mergeId === 0 && details.deductType===2 && details.weekList.length>0}}">
