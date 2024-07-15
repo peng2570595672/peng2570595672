@@ -379,10 +379,10 @@
         <!-- 不需倒计时 文本可下滑 -->
         <view wx:if="{{ tipObj.type === 'noCountdownRequired'}}" class="module countdownPopUpBox">
             <view class="title">{{tipObj.title}}</view>
-            <scroll-view class="custom-scrollbar" scroll-y="true" bindscrolltolower="onScrolltolower">
-                <view class="content" id="content">
-                    <view class="bottomHet" wx:if="{{tipObj.content}}" style="line-height: 1.5;">{{tipObj.content}}
-                    </view>
+            <scroll-view class="custom-scrollbar" scroll-y="true">
+                <view class="contentText" style="height: 650rpx;">
+                    <text wx:if="{{tipObj.content}}" style="line-height: 1.7;">{{tipObj.content}}
+                    </text>
                 </view>
             </scroll-view>
             <view class="bottomBtn">

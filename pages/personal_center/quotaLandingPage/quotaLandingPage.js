@@ -65,8 +65,9 @@ Page({
                             // 获取已发放奖励列表
                             await this.checkTheCouponDetails();
                         } else {
-                            util.go('/pages/login/login/login');
-                            util.hideLoading();
+                            wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+							util.go('/pages/login/login/login');
+							util.hideLoading();
                         }
                     } else {
                         util.hideLoading();
@@ -130,7 +131,8 @@ Page({
     rules () {
         const popUpBoxProtocol = {
             name: '活动规则',
-            content: '1、本活动由车主贷全程策划及赞助，ETC+仅提供技术跳转及奖励发放，且本活动仅支持在ETC+签约代扣通行费的车辆使用。 2、当点击【立即测额】后，在获得您的授权同意下 ETC+将协助跳转到活动参与小程序页面，并以加密形式同步您的基础信息及车辆信息至活动平台，以便您更快捷完成测额流程。 3、通行券奖励仅绑定首次在车主贷平台认证且测额成功车牌信息。 4、活动奖励以单个用户的首台测额成功的车辆进行发放。活动奖励以通行券组合包形式发放，内含 5 元高速通行券 2 张和 15 元高速通行券 1 张，总价值 25 元用户可在【个人中心-服务券】中查看。'
+            content:
+            '1、本活动由车主贷全程策划及赞助，ETC+仅提供技术跳转及奖励发放，且本活动仅支持在ETC+签约代扣通行费的车辆使用。\n2、当点击【立即测额】后，在获得您的授权同意下 ETC+将协助跳转到活动参与小程序页面，并以加密形式同步您的基础信息及车辆信息至活动平台，以便您更快捷完成测额流程。\n3、通行券奖励仅绑定首次在车主贷平台认证且测额成功车牌信息。\n4、活动奖励以单个用户的首台测额成功的车辆进行发放。活动奖励以通行券组合包形式发放，内含 5 元高速通行券 2 张和 15 元高速通行券 1 张，总价值 25 元用户可在【个人中心-服务券】中查看。'
         };
         // 显示规则弹窗
         this.selectComponent('#popTipComp').showCountdownPopupBox({
