@@ -55,8 +55,45 @@ Page({
      */
     onShow () {
         // 页面显示时的逻辑
+        if (!app.globalData.userInfo.accessToken) {
+            this.login();
+        }
     },
-
+    // 自动登录
+    login () {
+        // util.showLoading();
+        // 调用微信接口获取code
+        wx.login({
+            success: async (res) => {
+                const result = await util.getDataFromServersV2('consumer/member/common/applet/code', {
+                    platformId: app.globalData.platformId, // 平台id
+                    code: res.code // 从微信获取的code
+                },'POST',false);
+                if (!result) return;
+                if (result.code) {
+                    util.showToastNoIcon(result.message);
+                    return;
+                }
+                result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data.mobilePhone);
+                this.setData({
+                    loginInfo: result.data
+                });
+                // 已经绑定了手机号
+                if (result.data.needBindingPhone !== 1) {
+                    app.globalData.userInfo = result.data;
+                    app.globalData.openId = result.data.openId;
+                    app.globalData.memberId = result.data.memberId;
+                    app.globalData.mobilePhone = result.data.mobilePhone;
+                } else {
+                    wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
+                }
+            },
+            fail: () => {
+                util.hideLoading();
+                util.showToastNoIcon('登录失败！');
+            }
+        });
+    },
     /**
      * 检查是否可测额以及指定车牌
      */
