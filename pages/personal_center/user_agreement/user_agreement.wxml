@@ -1,7 +1,7 @@
 <view class="index">
     <view class="split"></view>
     <view class="module moduleOne" wx:if="{{carAgreementList.length}}">
-        <view class="title">客车办理协议</view>
+        <view class="title">办理协议</view>
         <view class="iconNameSpot" wx:for="{{carAgreementList}}" wx:key="index" data-item="{{item}}" catchtap="carAgreementHandle">
             <view class="icon iconfont">
                 <view class="new-icon" wx:if="{{item.redDot}}"></view>
@@ -9,15 +9,20 @@
             <view class="name">{{item.name}}</view>
             <view class="spot {{item.update === 1 ? 'shows' : ''}}"></view>
         </view>
-    </view>
-    <view class="module moduleTwo" wx:if="{{isTruckActivation}}">
-        <view class="title">货车办理协议</view>
-        <view class="iconNameSpot" wx:for="{{truckAgreementList}}" wx:key="index" data-index="{{item}}" catchtap="truckAgreementHandle">
+        <view wx:if="isTruckActivation" class="iconNameSpot" wx:for="{{truckAgreementList}}" wx:key="index" data-index="{{item}}" catchtap="truckAgreementHandle">
             <view class="icon iconfont"></view>
             <view class="name">{{item.name}}</view>
             <view class="spot {{item.update === 1 ? 'shows' : ''}}"></view>
         </view>
     </view>
+<!--    <view class="module moduleTwo" wx:if="{{isTruckActivation}}">-->
+<!--        <view class="title">货车办理协议</view>-->
+<!--        <view class="iconNameSpot" wx:for="{{truckAgreementList}}" wx:key="index" data-index="{{item}}" catchtap="truckAgreementHandle">-->
+<!--            <view class="icon iconfont"></view>-->
+<!--            <view class="name">{{item.name}}</view>-->
+<!--            <view class="spot {{item.update === 1 ? 'shows' : ''}}"></view>-->
+<!--        </view>-->
+<!--    </view>-->
     <view class="module moduleThree">
         <view class="title">平台协议</view>
         <view class="iconNameSpot" wx:for="{{listThree}}" wx:key="index" data-url="{{item.url}}" catchtap="go">

@@ -33,9 +33,9 @@ Page({
 			isNotQTNotAttribute,
 			isTTQAttribute
 		] = [false, false, false, false, false];
-
-		let isTruckActivation = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 1); //  货车已激活
-		let isBcoTruckActivation = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 1 && item.flowVersion === 7); //  交行货车已激活
+		// 历史货车订单才展示
+		let isTruckActivation = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 1 && util.timeComparison('2024/01/01', item.addTime) === 2); //  货车已激活
+		let isBcoTruckActivation = app.globalData.myEtcList.findIndex(item => (item.obuStatus === 1 || item.obuStatus === 5) && item.isNewTrucks === 1 && item.flowVersion === 7 && util.timeComparison('2024/01/01', item.addTime) === 2); //  交行货车已激活
 		let isObuCardType = app.globalData.myEtcList.findIndex(item => (item.obuCardType === 1 || item.obuCardType === 21)); // 卡类型 (黔通 客车 & 易路通达货车)
 		console.log(isObuCardType,'==============================卡类型==========================================',isTruckActivation);
 		if (isObuCardType === -1) { // 其他卡
