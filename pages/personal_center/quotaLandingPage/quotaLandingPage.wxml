@@ -8,7 +8,7 @@
         <view class="rules-box">
             <!-- <view class="rules" catchtap="testRef">测试跳转</view> -->
             <view class="rules" catchtap="rules">活动规则</view>
-            <view class="eventAwards" catchtap="eventAwards">活动奖動</view>
+            <view class="eventAwards" catchtap="eventAwards">活动奖励</view>
         </view>
     </view>
     <!-- 模块2  -->
