@@ -101,7 +101,7 @@ Page({
 			});
 		} else {
 			// 提示刷新页面
-			util.showToastNoIcon(this.data.message || '请刷新后重新进入该页面!', 3000);
+			util.showToastNoIcon(this.data.message || '请刷新后重新进入该页面!', this.data.deTime);
 		}
 	},
 
@@ -118,8 +118,17 @@ Page({
 				LicensePlate
 			});
 		} else {
+			let message = result.message;
+			let deTime = 3000; // 默认三秒弹框
+
+			switch (result.code) {
+				case 5003:
+					deTime = 5000;
+					break;
+			}
 			this.setData({
-				message: result.message
+				message: message,
+				deTime
 			});
 			// util.showToastNoIcon(result.message, 3000);
 		}
