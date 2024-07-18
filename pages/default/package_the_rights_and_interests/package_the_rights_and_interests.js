@@ -1054,12 +1054,12 @@ Page({
 							util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
 							return;
 						}
-						if (this.data.listOfPackages[this.data.activeIndex].etcCardId === 10 && +this.data.listOfPackages[this.data.activeIndex].deviceType === 0) {
-							// 湖南湘通卡 & 单片机   湖南信科 // 新流程
-							// 去往湖南高速办理;
-							this.handleJumpHunanMini(app.globalData.orderInfo.orderId);
-							return;
-						}
+						// if (this.data.listOfPackages[this.data.activeIndex].etcCardId === 10 && +this.data.listOfPackages[this.data.activeIndex].deviceType === 0) {
+						// 	// 湖南湘通卡 & 单片机   湖南信科 // 新流程
+						// 	// 去往湖南高速办理;
+						// 	this.handleJumpHunanMini(app.globalData.orderInfo.orderId);
+						// 	return;
+						// }
 						if (this.data.isSalesmanOrder) {
 							if (this.data.orderInfo.base?.flowVersion === 8) {
 								util.go(`/pages/default/processing_progress/processing_progress?type=main_process`);

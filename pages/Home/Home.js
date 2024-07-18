@@ -1475,8 +1475,7 @@ Page({
 			util.showToastNoIcon(result.message);
 			return;
 		}
-		// 18 对方首页
-		handleJumpHunanMini(orderId, result.data.outTradeNo,18);
+		handleJumpHunanMini(orderId, result.data.outTradeNo);
 	},
 	async handle9901Step (orderInfo) {
 		if (orderInfo.selfStatus === 1) {
@@ -1895,11 +1894,11 @@ Page({
 			}
 			return;
 		}
-		if (orderInfo.etcCardId === 10 && +orderInfo.deviceType === 0) {
-			// 去往湖南高速办理
-			this.handleJumpHunanMini(app.globalData.orderInfo.orderId);
-			return;
-		}
+		// if (orderInfo.etcCardId === 10 && +orderInfo.deviceType === 0) {
+		// 	// 去往湖南高速办理
+		// 	this.handleJumpHunanMini(app.globalData.orderInfo.orderId);
+		// 	return;
+		// }
 		if (orderInfo.promoterType === 41 && orderInfo.vehPlates.length === 11) { // 业务员空发
 			util.go(`/pages/empty_hair/write_base_information/write_base_information`);
 			return;
