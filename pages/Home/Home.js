@@ -519,7 +519,7 @@ Page({
 			this.handleMall();
 			return;
 		}
-		if (obj.jumpUrl === '平安测额') {
+		if (obj.jumpUrl === '平安测额' || obj.jumpUrl === '/pages/personal_center/quotaLandingPage/quotaLandingPage') {
 			util.go('/pages/personal_center/quotaLandingPage/quotaLandingPage');
 			return;
 		}
