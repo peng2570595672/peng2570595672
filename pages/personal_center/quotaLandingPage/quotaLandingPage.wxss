@@ -121,7 +121,7 @@ image {
   right: 25%;
   top: 60%;
   position: absolute;
-  width: 360rpx;
+  min-width: 360rpx;
   height: 84rpx;
   line-height: 84rpx;
   border-radius: 55rpx;
@@ -129,6 +129,10 @@ image {
   font-size: 36rpx;
   background: linear-gradient(133deg, #ffe6b5 -34%, #ffbd00 97%);
   color: #a21d01;
+}
+.index .two .images .over {
+  background: #dddad9;
+  color: #fff;
 }
 .index .two .images .description {
   position: absolute;
@@ -231,4 +235,23 @@ image {
 .index .split {
   height: 60rpx;
   overflow: hidden;
+}
+.index .popup {
+  position: fixed;
+  left: 0;
+  top: -80rpx;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.index .popup .popup-content {
+  background-color: rgba(0,0,0,0.6);
+  max-width: 50%;
+  max-height: 120rpx;
+  line-height: 2;
+  color: #fff;
+  padding: 20rpx;
+  border-radius: 16rpx;
 }

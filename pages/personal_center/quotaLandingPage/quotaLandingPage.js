@@ -7,7 +7,9 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
+		showPopup: false,
 		carList: [], // 存储可测额的车牌列表
+		showText: '立即测额',
 		message: '', // 记录参与活动后提示词
 		lines_1: '5', // 第一种券额
 		number_1: '2', // 第一种券的数量
@@ -85,6 +87,14 @@ Page({
 	 * 立即测额按钮点击事件
 	 */
 	onClickCommit (e) {
+		if (this.data.verifyCode === 5001) {
+			this.thereAreCoupons();
+			return;
+		};
+		if (this.data.verifyCode === 5004) { // 长文本特殊处理
+			this.showToastWithLongText(this.data.deTime);
+			return;
+		};
 		const content = '一、您即将通过该链接跳转至第三方页面，在第三方页面中提交信息将由第三方按照其相关用户服务协议及隐私协议正常执行并负责，服务及责任均由第三方提供或承担，如有疑问请致电第三方客服电话';
 		const content2 = '二、仅支持以下车牌测额成功后返券';
 		if (this.data.carList.length > 0 && this.data.LicensePlate) {
@@ -104,7 +114,21 @@ Page({
 			util.showToastNoIcon(this.data.message || '请刷新后重新进入该页面!', this.data.deTime);
 		}
 	},
-
+	showToastWithLongText (time = 3000) {
+		this.setData({
+			showPopup: true
+		});
+		setTimeout(() => {
+			this.setData({
+				showPopup: false
+			});
+		}, time);
+	},
+	closePopup () {
+		this.setData({
+			showPopup: false
+		});
+	},
 	/**
 	 * 检查是否可测额以及指定车牌
 	 */
@@ -120,20 +144,52 @@ Page({
 		} else {
 			let message = result.message;
 			let deTime = 3000; // 默认三秒弹框
-
+			this.setData({
+				verifyCode: result.code
+			});
 			switch (result.code) {
-				case 5003:
+				case 5004:
 					deTime = 5000;
+					this.setData({
+						deTime,
+						message
+					});
+					// this.showToastWithLongText(deTime);
+					return;
+				case 5001:
+				// case isSuccessMessage(message):
+					this.setData({
+						deTime,
+						message,
+						showText: '测额成功，查看奖励'
+					});
+					// this.showToastWithLongText(deTime);
+					return;
+				case 5002:
+					this.setData({
+						deTime,
+						message,
+						showText: '测额失败'
+					});
+					// this.showToastWithLongText(deTime);
+					break;
+				case 5003:
+					this.setData({
+						deTime,
+						message
+					});
+					// this.showToastWithLongText(deTime);
+					break;
+				default:
+					// 处理其他情况
+					this.setData({
+						deTime,
+						message
+					});
 					break;
 			}
-			this.setData({
-				message: message,
-				deTime
-			});
-			// util.showToastNoIcon(result.message, 3000);
 		}
 	},
-
 	/**
 	 * 显示活动规则
 	 */
@@ -231,14 +287,14 @@ Page({
 	/**
 	 * 处理按钮点击事件
 	 */
-	onHandle () {
-		if ((this.data.valueList && this.data.valueList.length > 0) && !this.data.carList.length) {
+	onHandle (e) {
+		if (this.data.verifyCode === 5001) { // 活动参与成功，查看奖励
 			// 已获取奖励，跳转到卡券页面
 			util.go(`/pages/personal_center/service_card_voucher/service_card_voucher`);
 		} else {
 			// 参与测额度活动，打开另一个小程序
 			wx.openEmbeddedMiniProgram({
-				appId: 'wx096541bb8eb5f6c6',
+				appId: app.globalData.test ? 'wx096541bb8eb5f6c6' : 'wxfd9fbd2b4e45c38f',
 				path: 'czdv2/basic/basic?source=hlwjrb0666&outerSource=qrwm-qt0080',
 				envVersion: 'release',
 				fail () {
