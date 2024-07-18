@@ -206,8 +206,18 @@ export function handleJumpHunanMini(orderId, outTradeNo, selfStatus) {
 	// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
 	// /myPackage/service/newMineIssure/router/router?processCode=SJHT&promotionCode=推广码&accessNo=外部订单号&outTradeNo=微信支付单号
 	// let url = selfStatus === 32 ? encodeURIComponent(`/pages/homePage/Service/Service`) : encodeURIComponent(`/packageA/new-mineIssure/routerGo/routerGo?processCode=SJHT&accessNo=${orderId}&promotionCode=88880123&outTradeNo=${outTradeNo}`);
-	let url = selfStatus === 32 ? `/pages/service/index/index` : `/myPackage/service/newMineIssure/router/router?processCode=SJHT&promotionCode=88880123&accessNo=${orderId}&outTradeNo=${outTradeNo}`;
-	console.log(`/pages/homePage/Index/Index?type=redirect&url=${url}`);
+	let url;
+	switch (selfStatus) {
+		case 18:
+			url =`/pages/home/index/index` ;
+			break;
+		case 32:
+			url =`/pages/service/index/index` ;
+			break;
+		default:
+			url = `/myPackage/service/newMineIssure/router/router?processCode=SJHT&promotionCode=88880123&accessNo=${orderId}&outTradeNo=${outTradeNo}`
+		}
+	console.log(url);
 	wx.navigateToMiniProgram({
 		appId: 'wxf546f6c7ccd8fbfe',
 		path: `${url}`,
