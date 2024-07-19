@@ -380,9 +380,26 @@
         <view wx:if="{{ tipObj.type === 'noCountdownRequired'}}" class="module countdownPopUpBox">
             <view class="title">{{tipObj.title}}</view>
             <scroll-view class="custom-scrollbar" scroll-y="true">
-                <view class="contentText" style="height: 650rpx;">
-                    <text wx:if="{{tipObj.content}}" style="line-height: 1.7;">{{tipObj.content}}
-                    </text>
+                <view class="contentText" style="height: 600rpx;">
+                    <view class="contant" wx:if="{{tipObj.content}}" style="line-height: 1.7;">
+                        <view>1、本次活动仅限在ETC+已办理ETC，且ETC还在使用的车牌进行参与。</view>
+                        <view>2、车主用户前往“掌上车贷小程序”流程走到额度申请成功即可完成测额。</view>
+                        <view>3、本活动由车主贷全程策划及赞助，ETC+仅提供技术跳转及奖励发放，且本活动仅支持在ETC+签约代扣通行费的车辆使用。</view>
+                        <view>4、当点击【立即测额】后，在获得您的授权同意下 ETC+将协助跳转到活动参与小程序页面，并以加密形式同步您的基础信息及车辆信息至活动平台，以便您更快捷完成测额流程。</view>
+                        <view>5、通行券奖励仅绑定首次在车主贷平台认证且测额成功车牌信息，若用户资质不符合贷款产品要求，可能出现测额失败的情况。</view>
+                        <view>注： 测额时需查询客户征信信息。</view>
+                        <view>6、活动奖励以单个用户的首台测额成功的车辆进行发放。活动奖励以通行券组合包形式发放，内含 5 元高速通行券 2 张和 15 元高速通行券 1 张，总价值 25 元用户可在【个人中心-服务券】中查看。</view>
+                        <view>7、通行券使用规则不设消费门槛，自发放之日起60天内有效。在您通行高速产生扣费账单时优先按最先过期的券进行自动抵扣，通行券不设找零，不支持兑现，逾期自动失效，不作补发。</view>
+                        <view>8、活动奖励名额 2000 名，每个用户活动期间最大可领取1次测额奖励，重测或换车测均不重复发放奖励。满额活动自动下架，先到先得。</view>
+                        <view class="questions_one" style="margin: 30rpx 0;">
+                            <text>问题1:什么是“车主贷”?</text>
+                            <view>答:客户将自有车辆产权抵押给银行，直接获取贷款，贷款资金可用于正常消费和经营用途的贷款产品。抵押之后车辆仍归套户自行使用。</view>
+                        </view>
+                        <view class="questions_one" style="margin: 30rpx 0;">
+                            <text>问题2:申请车主贷需要提交哪些资料?</text>
+                            <view>答:客户线上申请中，只需填写申请人手机号、身份证信息、银行卡信息和车辆行驶证。</view>
+                        </view>
+                    </view>
                 </view>
             </scroll-view>
             <view class="bottomBtn">

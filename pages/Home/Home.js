@@ -519,7 +519,7 @@ Page({
 			this.handleMall();
 			return;
 		}
-		if (obj.jumpUrl === '平安测额') {
+		if (obj.jumpUrl === '平安测额' || obj.jumpUrl === '/pages/personal_center/quotaLandingPage/quotaLandingPage') {
 			util.go('/pages/personal_center/quotaLandingPage/quotaLandingPage');
 			return;
 		}
@@ -1893,9 +1893,10 @@ Page({
 			}
 			return;
 		}
-		// if (orderInfo.isNewTrucks === 0 && util.getHandlingType(orderInfo)) {
-		//     util.showToastNoIcon('功能升级中,暂不支持货车/企业车辆办理');
-		//     return;
+		// if (orderInfo.etcCardId === 10 && +orderInfo.deviceType === 0) {
+		// 	// 去往湖南高速办理
+		// 	this.handleJumpHunanMini(app.globalData.orderInfo.orderId);
+		// 	return;
 		// }
 		if (orderInfo.promoterType === 41 && orderInfo.vehPlates.length === 11) { // 业务员空发
 			util.go(`/pages/empty_hair/write_base_information/write_base_information`);

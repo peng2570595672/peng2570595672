@@ -8,7 +8,7 @@
         <view class="rules-box">
             <!-- <view class="rules" catchtap="testRef">测试跳转</view> -->
             <view class="rules" catchtap="rules">活动规则</view>
-            <view class="eventAwards" catchtap="eventAwards">活动奖動</view>
+            <view class="eventAwards" catchtap="eventAwards">活动奖励</view>
         </view>
     </view>
     <!-- 模块2  -->
@@ -29,7 +29,7 @@
             </view>
             <!-- 券额 -->
             <view class="couponAmount">
-                 <!-- 券额1 -->
+                <!-- 券额1 -->
                 <view class="pic">
                     <view class="num">{{'x'+number_1}}</view>
                     <view class="des">无门槛</view>
@@ -42,7 +42,7 @@
                     <image mode="widthFix"
                         src="https://file.cyzl.com/g001/M03/88/34/oYYBAGaGAHyANMyIAAAms88FKaE478.png" />
                 </view>
-                 <!-- 券额2 -->
+                <!-- 券额2 -->
                 <view class="pic">
                     <view class="num">{{'x'+number_2}}</view>
                     <view class="des">无门槛</view>
@@ -58,7 +58,7 @@
             </view>
             <!-- 描述 -->
             <view class="description">本活动由ETC+合作伙伴提供及赞助，ETC+将在获得您的同意后跳转第三方活动参与贝面。</view>
-            <view class="eventAwards" catchtap="onClickCommit">立即测额</view>
+            <view class="eventAwards {{ verifyCode === 5001 ||  verifyCode === 5002 ? 'over' : ''}}" catchtap="onClickCommit">{{showText}}</view>
         </view>
         <!--  券额图片-->
         <!-- <image class="images" mode="widthFix"
@@ -70,7 +70,12 @@
             src="https://file.cyzl.com/g001/M03/87/CA/oYYBAGaE8-uAER_qAACR1cmZJic912.png" />
         <!-- 占位 -->
         <view class="split"></view>
-
+        <view class="popup" wx:if="{{showPopup}}">
+            <view class="popup-content">
+                {{message}}
+                <!-- <button bindtap="closePopup">关闭</button> -->
+            </view>
+        </view>
     </view>
 </view>
 
