@@ -743,8 +743,7 @@ Page({
 				this.initDadi();
 				if (!result) return;
 				if (result.code === 0) {
-					result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data
-						.mobilePhone);
+					result.data['showMobilePhone'] = util.mobilePhoneReplace(result.data.mobilePhone);
 					this.setData({
 						loginInfo: result.data
 					});
