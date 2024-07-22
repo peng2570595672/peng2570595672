@@ -301,7 +301,7 @@ Page({
 	 * 处理按钮点击事件
 	 */
 	onHandle (e) {
-		if (this.data.verifyCode === 5001) { // 活动参与成功，查看奖励
+		if (this.data.verifyCode === 5001 || (this.data.valueList.length && this.data.valueList.length > 0)) { // 活动参与成功，查看奖励
 			// 已获取奖励，跳转到卡券页面
 			util.go(`/pages/personal_center/service_card_voucher/service_card_voucher`);
 		} else {
