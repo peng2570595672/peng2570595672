@@ -4,7 +4,7 @@
     <view class="iconfont bubbleBtn" wx:if="{{isBail}}" data-renew="1" catchtap="renewWhitelistJudgement">退还权益金</view>
     <!-- 顶部 滑块视图 -->
     <view class="topSwiper">
-        <swiper class="swiperBox {{tools.dataLen(imgList) === 1 ? 'regular':''}}" style="height: {{Hei}};" autoplay circular interval="{{interval}}" duration="{{duration}}">
+        <swiper class="swiperBox {{tools.dataLen(imgList) === 1 ? 'regular':''}}" style="height: {{Hei}};" autoplay circular interval="{{interval}}" duration="{{duration}}" bindchange="{{shouldBindChange ? 'swiperChange' : ''}}">
             <swiper-item class="swiper-item {{tools.dataLen(imgList) === 1 ? 'regular-item':''}}"
                 wx:for="{{imgList}}"
                 wx:key="index"

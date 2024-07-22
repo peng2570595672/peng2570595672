@@ -1,10 +1,10 @@
 <view class="container">
-    <image src="https://file.cyzl.com/g001/M02/FA/DC/oYYBAGTLDfaAUSFMAACdcjzWNSI617.png" class="img" mode="widthFix"></image>
-    <image src="https://file.cyzl.com/g001/M02/FA/DC/oYYBAGTLDhCAHgMnAAD3NrxMXag061.png" class="img" mode="widthFix"></image>
+    <image src="https://file.cyzl.com/g001/M03/97/D9/oYYBAGadzBKAKL_PAACO9d7CUD4708.png" class="img" mode="widthFix"></image>
+    <image src="https://file.cyzl.com/g001/M03/97/D9/oYYBAGadzC6AfuplAADLPLqrvb0438.png" class="img" mode="widthFix"></image>
     <view class="btn-container">
         <view>
             <!--            <view class="btn-tips">如您已清晰以上内容，请确认</view>-->
-            <view class="btn" bindtap="handleConfirm">{{isNeedSign === 1 ? '前往确认' : '我已确认'}}</view>
+            <view class="btn" bindtap="handleConfirm">{{isNeedSign === 1 ? '签字确认' : '我已确认'}}</view>
         </view>
     </view>
 </view>

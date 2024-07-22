@@ -1,5 +1,5 @@
 <view class="container">
-    <image class="img" src="https://file.cyzl.com/g001/M02/FA/DC/oYYBAGTLDjmALadVAACI3rH4OBE333.png" mode="widthFix"></image>
+    <image class="img" src="https://file.cyzl.com/g001/M03/97/DB/oYYBAGadzQ2AJoSoAABGCNx6KtY351.png" mode="widthFix"></image>
     <view class="sms-box">
         <view class="input-item phone">
             <view>
@@ -16,14 +16,15 @@
             />
             <text class="validate-code" bindtap="sendVerifyCode">{{identifyingCode}}</text>
         </view>
-<!--        <view class="sign-tips" bindtap="handleSignStatus">使用手动签字确认</view>-->
+       <!-- <view class="sign-tips" bindtap="handleSignStatus">未收到验证码？使用手动签字确认</view> -->
         <view class="notice">
-            <view class="waring">注意！不可用于抵扣通行费也无奖励金返还</view>
+            <view class="tip1">为避免不良引导，特此声明：支付金额不能抵扣通行费，请用户悉知</view>
+            <!-- <view class="waring">注意！不可用于抵扣通行费也无奖励金返还</view>
             <view class="">
                 <view>200元获得300元商城权益金</view>
                 <view>300元获得500元商城权益金</view>
                 <view>本商城权益金不包含高速通行费，请用户悉知</view>
-            </view>
+            </view> -->
         </view>
     </view>
 </view>
