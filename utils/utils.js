@@ -202,14 +202,14 @@ export function compare(prop) {
 	};
 }
 // 跳转到湖南高速ETC小程序
-export function handleJumpHunanMini(orderId, outTradeNo, selfStatus) {
+export function handleJumpHunanMini(orderId, outTradeNo, selfStatus,encodeParam) {
 	// 打开的小程序版本， develop（开发版），trial（体验版），release（正式版）
 	// /myPackage/service/newMineIssure/router/router?processCode=SJHT&promotionCode=推广码&accessNo=外部订单号&outTradeNo=微信支付单号
 	// let url = selfStatus === 32 ? encodeURIComponent(`/pages/homePage/Service/Service`) : encodeURIComponent(`/packageA/new-mineIssure/routerGo/routerGo?processCode=SJHT&accessNo=${orderId}&promotionCode=88880123&outTradeNo=${outTradeNo}`);
 	let url;
 	switch (selfStatus) {
 		case 18:
-			url =`/pages/home/index/index` ;
+			url =`/myPackage/service/newMineIssure/router/router?processCode=NEWSJHTONLINE&promotionCode=推广码&accessNo=外部订单号&encodeParam=${encodeParam}` ;
 			break;
 		case 32:
 			url =`/pages/service/index/index` ;
@@ -220,7 +220,7 @@ export function handleJumpHunanMini(orderId, outTradeNo, selfStatus) {
 	console.log(url);
 	wx.navigateToMiniProgram({
 		appId: 'wxf546f6c7ccd8fbfe',
-		path: `${url}`,
+		path: encodeURIComponent(url),
 		envVersion: IS_TEST ? 'trial' : 'release',
 		fail() {
 			showToastNoIcon('调起小程序失败, 请重试！');

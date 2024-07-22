@@ -1894,9 +1894,16 @@ Page({
 			}
 			return;
 		}
-		if (orderInfo.etcCardId === 10 && +orderInfo.deviceType === 0) {
+		if (orderInfo.etcCardId === 10 && +orderInfo.orderExtCardType === 2) {
+			const encodeParam = {
+				productName: '产品名称',
+				modelName: '规格名称',
+				receiveName: '收货人',
+				receiveAddress: '收货地址',
+				receiveTel: '收货手机号'
+			};
 			// 去往湖南高速办理
-			this.handleJumpHunanMini(app.globalData.orderInfo.orderId);
+			this.handleJumpHunanMini(app.globalData.orderInfo.orderId,18,encodeParam); // 18 携带新的跳转参数
 			return;
 		}
 		if (orderInfo.promoterType === 41 && orderInfo.vehPlates.length === 11) { // 业务员空发

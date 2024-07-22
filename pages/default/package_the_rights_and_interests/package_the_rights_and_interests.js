@@ -1054,10 +1054,13 @@ Page({
 							util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
 							return;
 						}
-						if (this.data.listOfPackages[this.data.activeIndex].etcCardId === 10 && +this.data.listOfPackages[this.data.activeIndex].deviceType === 0) {
+						if (this.data.listOfPackages[this.data.activeIndex].etcCardId === 10 && +this.data.listOfPackages[this.data.activeIndex].orderExtCardType === 2) {
 							// 湖南湘通卡 & 单片机   湖南信科 // 新流程
+							let encodeParam = {
+
+							};
 							// 去往湖南高速办理;
-							this.handleJumpHunanMini(app.globalData.orderInfo.orderId);
+							this.handleJumpHunanMini(app.globalData.orderInfo.orderId,18,encodeParam);
 							return;
 						}
 						if (this.data.isSalesmanOrder) {
@@ -1495,12 +1498,15 @@ Page({
 						util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
 						return;
 					}
-					// if (this.data.listOfPackages[this.data.activeIndex].deviceType !== 99) {
-					//     // 5201 线上办理流程
-					//     console.log('辽宁---5201 线上办理流程');
-					//     // util.go(`/pages/default/payment_successful/payment_successful?isHunan=1`);
-					//     return;
-					// }
+					if (this.data.listOfPackages[this.data.activeIndex].etcCardId === 10 && +this.data.listOfPackages[this.data.activeIndex].orderExtCardType === 2) {
+						// 湖南湘通卡 & 单片机   湖南信科 // 新流程
+						// 去往湖南高速办理;
+						let encodeParam = {
+
+						};
+						// this.handleJumpHunanMini(app.globalData.orderInfo.orderId,18,encodeParam);
+						return;
+					}
 					if (this.data.isSalesmanOrder) {
 						if (this.data.orderInfo.base?.flowVersion === 8) {
 							util.go(`/pages/default/processing_progress/processing_progress?type=main_process`);
