@@ -226,6 +226,13 @@
                     "query": "origin=0&infoStr=%7B%22orderId%22%3A%221182490190648840192%22%7D",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "权益确认-1",
+                    "pathName": "pages/default/statement_of_interest/statement_of_interest",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

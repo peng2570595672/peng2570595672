@@ -73,8 +73,15 @@
   line-height: 44rpx;
   margin-top: 84rpx;
 }
+.container .sms-box .notice .tip1 {
+  font-weight: normal;
+  line-height: 44rpx;
+  text-align: justify /* 浏览器可能不支持 */;
+  letter-spacing: 0em;
+  color: #e4cb86;
+}
 .container .sms-box .notice .waring {
-  margin-bottom: 14rpx;
+  margin: 14rpx 0;
 }
 .container .canvas-box {
   width: 694rpx;

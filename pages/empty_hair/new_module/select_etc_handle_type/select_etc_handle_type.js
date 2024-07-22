@@ -3,7 +3,7 @@ const util = require('../../../../utils/util.js');
 Page({
 
 	data: {
-		isNewTrucks: 1	// 0：客车; 1：货车
+		isNewTrucks: undefined	// 0：客车; 1：货车
 	},
 
 	onLoad (options) {
@@ -46,7 +46,7 @@ Page({
 					app.globalData.mobilePhone = result.data.mobilePhone;
 				} else {
 					wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
-					// util.go('/pages/login/login/login');
+					util.go('/pages/login/login/login');
 				}
 			},
 			fail: () => {
@@ -58,8 +58,7 @@ Page({
 	// 跳转
 	go (e) {
 		let type = +e.currentTarget.dataset['type'];
-		// let url = type ? '' : '';
-		util.go(`/pages/empty_hair/new_module/input_obu_card_number/input_obu_card_number`);
+		util.go(`/pages/empty_hair/new_module/input_obu_card_number/input_obu_card_number?isNewTrucks=${this.data.isNewTrucks}`);
 	},
 
 	onUnload () {
