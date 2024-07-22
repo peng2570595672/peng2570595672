@@ -83,10 +83,23 @@ Page({
 			}
 		});
 	},
+	useBriedPoint () {
+		let params = {
+			shopId: app.globalData.miniProgramServiceProvidersId,
+			optionLabel: 'CLICK', // ENTER进入 CLICK点击 EXIT退出 SHOW曝光
+			pagePath: 'quotaLandingPage',
+			btnName: '平安测额活动',
+			pageName: '平安测额活动页'
+		};
+		util.buriedPoint(params, data => {
+			console.log('埋点操作', data);
+		});
+	},
 	/**
 	 * 立即测额按钮点击事件
 	 */
 	onClickCommit (e) {
+		this.useBriedPoint();
 		if (this.data.verifyCode === 5001) {
 			this.thereAreCoupons();
 			return;
@@ -157,7 +170,7 @@ Page({
 					// this.showToastWithLongText(deTime);
 					return;
 				case 5001:
-				// case isSuccessMessage(message):
+					// case isSuccessMessage(message):
 					this.setData({
 						deTime,
 						message,
