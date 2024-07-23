@@ -301,7 +301,6 @@ Page({
 					'orderInfo.receive.productName': this.data.listOfPackages[this.data.activeIndex]?.productName
 				});
 				if (dataType === 12) { // 保存线上线下字段
-					console.log('保存线上线下字段.data',result.data);
 					this.setData({
 						receive_orderType: result.data.base?.orderType
 					});
@@ -1089,7 +1088,7 @@ Page({
 								receiveName: this.data.orderInfo.receive?.receiveMan,
 								receiveAddress: this.data.orderInfo.receive?.receiveAddress,
 								receiveTel: this.data.orderInfo.receive?.receivePhone,
-								orderType: this.data.orderInfo.receive_orderType // 区分线上线下
+								orderType: this.data.receive_orderType // 区分线上线下
 							};
 							console.log('去往湖南高速办理',encodeParam);
 							// 去往湖南高速办理;
@@ -1539,7 +1538,7 @@ Page({
 							receiveName: this.data.orderInfo.receive?.receiveMan,
 							receiveAddress: this.data.orderInfo.receive?.receiveAddress,
 							receiveTel: this.data.orderInfo.receive?.receivePhone,
-							orderType: this.data.orderInfo.receive_orderType // 区分线上线下
+							orderType: this.data.receive_orderType // 区分线上线下
 						};
 						console.log('去往湖南高速办理',encodeParam);
 						// 去往湖南高速办理;
