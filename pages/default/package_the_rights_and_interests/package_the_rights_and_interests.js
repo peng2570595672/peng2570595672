@@ -245,7 +245,7 @@ Page({
 	// 	}
 	// },
 	// 获取 套餐信息
-	async getProductOrderInfo () {
+	async getProductOrderInfo (update) {
 		const result = await util.getDataFromServersV2('consumer/order/get-product-by-order-id', {
 			orderId: app.globalData.orderInfo.orderId,
 			needRightsPackageIds: true
@@ -258,8 +258,15 @@ Page({
 			} catch (e) {
 			}
 			let data = result.data;
-			if (this.data.orderInfo.base.orderType === 31) {
+			if (this.data.orderInfo.base?.orderType === 31) {
 				data['rightsPackageIds'] = this.data.orderInfo.base?.packageIdList;
+			}
+			if (update) {
+				// 当是湖南信科新流程时 仅更新请求回来数据
+				this.setData({
+					listOfPackages: [data]
+				});
+				return;
 			}
 			this.setData({
 				listOfPackages: [data]
@@ -272,10 +279,10 @@ Page({
 			util.showToastNoIcon(result.message);
 		}
 	},
-	async getOrderInfo (initProduct = true, isSearchPay = false) {
+	async getOrderInfo (initProduct = true, isSearchPay = false,dataType = '13',update) {
 		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
 			orderId: app.globalData.orderInfo.orderId,
-			dataType: '13'
+			dataType
 		});
 		if (!result) return;
 		if (result.code === 0) {
@@ -284,6 +291,24 @@ Page({
 					util.go('/pages/default/payment_fail/payment_fail?type=main_process');
 				} else {
 					this.submitOrder();
+				}
+				return;
+			}
+			if (update) {
+				// 当是湖南信科新流程时 仅更新请求回来数据
+				this.setData({
+					orderInfo: result.data,
+					'orderInfo.receive.productName': this.data.listOfPackages[this.data.activeIndex]?.productName
+				});
+				if (dataType === 12) { // 保存线上线下字段
+					console.log('保存线上线下字段.data',result.data);
+					this.setData({
+						receive_orderType: result.data.base?.orderType
+					});
+				}
+				if (initProduct) {
+					// 继续更新具体订单信息
+					await this.getProductOrderInfo(update);
 				}
 				return;
 			}
@@ -1041,9 +1066,10 @@ Page({
 				paySign: extraData.paySign,
 				signType: extraData.signType,
 				timeStamp: extraData.timeStamp,
-				success: (res) => {
+				success: async (res) => {
 					this.setData({ isRequest: false });
 					if (res.errMsg === 'requestPayment:ok') {
+						await this.getOrderInfo(false,null,12,true);// 更新订单数据
 						if (app.globalData.advertisementClickId) {
 							const price = this.data.activeIndex !== -1 ? (this.data.listOfPackages[this.data.activeIndex].pledgePrice + (this.data.equityListMap.addEquityList[this.data.activeIndex].aepIndex !== -1 ? this.data.equityListMap.addEquityList[this.data.activeIndex].subData[this.data.equityListMap.addEquityList[this.data.activeIndex].aepIndex].payMoney : 0) / 100) : this.data.listOfPackages[this.data.activeIndex].pledgePrice / 100;
 							util.getDatanexusAnalysis('COMPLETE_ORDER', price);
@@ -1054,13 +1080,20 @@ Page({
 							util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
 							return;
 						}
-						if (this.data.listOfPackages[this.data.activeIndex].etcCardId === 10 && +this.data.listOfPackages[this.data.activeIndex].orderExtCardType === 2) {
+						if (this.data.listOfPackages[this.data.activeIndex].etcCardId === 10 && this.data.orderInfo.base?.orderExtCardType === 2) {
+							await this.getOrderInfo(true,null,2,true);// 更新订单数据
 							// 湖南湘通卡 & 单片机   湖南信科 // 新流程
 							let encodeParam = {
-
+								productName: this.data.orderInfo.receive?.productName,
+								modelName: '黑色',
+								receiveName: this.data.orderInfo.receive?.receiveMan,
+								receiveAddress: this.data.orderInfo.receive?.receiveAddress,
+								receiveTel: this.data.orderInfo.receive?.receivePhone,
+								orderType: this.data.orderInfo.receive_orderType // 区分线上线下
 							};
+							console.log('去往湖南高速办理',encodeParam);
 							// 去往湖南高速办理;
-							this.handleJumpHunanMini(app.globalData.orderInfo.orderId,18,encodeParam);
+							handleJumpHunanMini(app.globalData.orderInfo.orderId,null,18,encodeParam);
 							return;
 						}
 						if (this.data.isSalesmanOrder) {
@@ -1095,9 +1128,8 @@ Page({
 						if (this.data.orderInfo?.base?.orderType === 71 && (this.data.orderInfo?.base?.promoterType === 47 || this.data.orderInfo?.base?.promoterType === 48)) {
 							// 新版小程序空发
 							util.go('/pages/empty_hair/processing_progress/processing_progress');
-							return;
 						}
-						util.go('/pages/default/information_list/information_list?type=1');
+						// util.go('/pages/default/information_list/information_list?type=1');
 					} else {
 						util.showToastNoIcon('支付失败！');
 					}
@@ -1489,7 +1521,7 @@ Page({
 			package: payData.package,
 			signType: payData.signType,
 			paySign: payData.paySign,
-			success: (res) => {
+			success: async (res) => {
 				this.setData({ isRequest: false });
 				if (res.errMsg === 'requestPayment:ok') {
 					if (this.data.listOfPackages[this.data.choiceIndex]?.productProcess === 9) { // 多签流程 确认页面 不区分业务员办理
@@ -1498,13 +1530,20 @@ Page({
 						util.go(`/pages/default/confirmationOfContract/confirmationOfContract?multiple=true`);
 						return;
 					}
-					if (this.data.listOfPackages[this.data.activeIndex].etcCardId === 10 && +this.data.listOfPackages[this.data.activeIndex].orderExtCardType === 2) {
+					if (this.data.listOfPackages[this.data.activeIndex].etcCardId === 10 && this.data.orderInfo.base?.orderExtCardType === 2) {
+						await this.getOrderInfo(true,null,2,true);// 更新订单数据
 						// 湖南湘通卡 & 单片机   湖南信科 // 新流程
-						// 去往湖南高速办理;
 						let encodeParam = {
-
+							productName: this.data.orderInfo.receive?.productName,
+							modelName: '黑色',
+							receiveName: this.data.orderInfo.receive?.receiveMan,
+							receiveAddress: this.data.orderInfo.receive?.receiveAddress,
+							receiveTel: this.data.orderInfo.receive?.receivePhone,
+							orderType: this.data.orderInfo.receive_orderType // 区分线上线下
 						};
-						// this.handleJumpHunanMini(app.globalData.orderInfo.orderId,18,encodeParam);
+						console.log('去往湖南高速办理',encodeParam);
+						// 去往湖南高速办理;
+						handleJumpHunanMini(app.globalData.orderInfo.orderId,null,18,encodeParam);
 						return;
 					}
 					if (this.data.isSalesmanOrder) {

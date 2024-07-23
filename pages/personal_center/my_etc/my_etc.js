@@ -188,6 +188,22 @@ Page({
 			util.showToastNoIcon('请返回原渠道办理');
 			return;
 		}
+		if (orderInfo.etcCardId === 10 && orderInfo.orderExtCardType === 2) {
+			console.log('encodeParam,orderInfo',orderInfo);
+			// 湖南湘通卡 & 单片机   湖南信科 // 新流程
+			const encodeParam = {
+				productName: orderInfo.productName,
+				modelName: '黑色',
+				receiveName: orderInfo.receiveName,
+				receiveAddress: orderInfo.receiveAddress,
+				receiveTel: orderInfo.receiveMobile,
+				orderType: orderInfo.orderType
+			};
+			console.log('encodeParam',encodeParam);
+			// 去往湖南高速办理
+			handleJumpHunanMini(app.globalData.orderInfo.orderId,null,18,encodeParam); // 18 携带新的跳转参数
+			return;
+		}
 		app.globalData.isCheckCarChargeType = orderInfo.obuCardType === 1 && (orderInfo.orderType === 11 || orderInfo.orderType === 12 || orderInfo.orderType === 21 || orderInfo.orderType === 71 || orderInfo.promoterType === 41) && orderInfo.auditStatus === 0;
 		app.globalData.processFlowVersion = orderInfo.flowVersion;
 		app.globalData.orderInfo.orderId = orderInfo.id;

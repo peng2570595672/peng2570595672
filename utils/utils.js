@@ -209,7 +209,27 @@ export function handleJumpHunanMini(orderId, outTradeNo, selfStatus,encodeParam)
 	let url;
 	switch (selfStatus) {
 		case 18:
-			url =`/myPackage/service/newMineIssure/router/router?processCode=NEWSJHTONLINE&promotionCode=推广码&accessNo=外部订单号&encodeParam=${encodeParam}` ;
+			const {productName,modelName,receiveName,receiveAddress,receiveTel,orderType} = encodeParam;
+			let extraParam = {
+				productName,
+				modelName,
+				receiveName,
+				receiveAddress,
+				receiveTel,
+			}
+			if (orderType === 11) { //11 邮寄 31 业务员端
+				url =`/myPackage/service/newMineIssure/router/router?processCode=NEWSJHTONLINE&promotionCode=88880123&accessNo=${orderId}&extraParam=${JSON.stringify(extraParam)}`;
+			}
+			if (orderType === 31) { //11 邮寄 31 业务员端
+				url =`/myPackage/service/newMineIssure/router/router?processCode=NEWSJHTONLINE&promotionCode=88880123&accessNo=${orderId}&encodeParam=${
+					encodeURIComponent(
+					`{
+					productName:${productName},
+					modelName:${modelName},
+					}`
+					)
+				}`;
+			}
 			break;
 		case 32:
 			url =`/pages/service/index/index` ;
@@ -217,12 +237,14 @@ export function handleJumpHunanMini(orderId, outTradeNo, selfStatus,encodeParam)
 		default:
 			url = `/myPackage/service/newMineIssure/router/router?processCode=SJHT&promotionCode=88880123&accessNo=${orderId}&outTradeNo=${outTradeNo}`
 		}
-	console.log(url);
+	console.log('encodeParam',encodeParam);
+	console.log('实际传入url',url);
 	wx.navigateToMiniProgram({
 		appId: 'wxf546f6c7ccd8fbfe',
-		path: encodeURIComponent(url),
+		path: `${url}`,
 		envVersion: IS_TEST ? 'trial' : 'release',
 		fail() {
+			console.log(selfStatus);
 			showToastNoIcon('调起小程序失败, 请重试！');
 		}
 	});
