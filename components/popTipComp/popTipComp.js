@@ -94,10 +94,16 @@ Component({
 			});
 		},
 		onScrolltolower () { // 滑动触底
+			console.log('哈哈哈哈');
 			if (!this.data.duration && this.data.tipObj.type === 'countdownPopUpBox') {
 				this.setData({
 					'tipObj.showConfirmButton': true,
 					'tipObj.btnconfirm': '我已知晓协议内容，同意继续办理'
+				});
+			}
+			if (this.data.tipObj.type === 'handleTip') {
+				this.setData({
+					'tipObj.showConfirmButton': true
 				});
 			}
 			this.setData({
@@ -111,10 +117,15 @@ Component({
 				console.log('倒计时结束', this.data.bottomingOut);
 				if (countdown <= 0) {
 					console.log('倒计时结束', this.data.bottomingOut);
-					if (this.data.bottomingOut) { // 触底显示按钮
+					if (this.data.bottomingOut && this.data.tipObj.type === 'countdownPopUpBox') { // 触底显示按钮
 						this.setData({
 							'tipObj.showConfirmButton': true,
 							'tipObj.btnconfirm': '我已知晓协议内容，同意继续办理'
+						});
+					}
+					if (this.data.tipObj.type === 'handleTip') {
+						this.setData({
+							'tipObj.showConfirmButton': true
 						});
 					}
 					this.setData({
@@ -124,7 +135,7 @@ Component({
 					clearInterval(this.data.intervalId);
 				} else {
 					this.setData({
-						countdownText: `(${countdown} 秒倒计时)`
+						countdownText: this.data.tipObj.type === 'countdownPopUpBox' ? `(${countdown} 秒倒计时)` : `(${countdown} 秒)`
 					});
 				}
 			}, 1000);
@@ -153,6 +164,11 @@ Component({
 			}
 			if (this.data.tipObj.type === 'noCountdownRequired') {
 				this.triggerEvent('confirmHandle'); // 关闭
+				this.hide(false);
+			}
+			if (this.data.tipObj.type === 'handleTip') {	// 办理提醒
+				if (!this.data.tipObj.showConfirmButton) return;
+				this.data.paramsList[0].callBack('dddd');
 				this.hide(false);
 			}
 		},

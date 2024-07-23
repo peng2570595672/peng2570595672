@@ -2417,7 +2417,8 @@ function scheduledTasks(type, obj, callback, index) {
       let minute = parseInt(timeDifference % 3600000 / 60000);
       let second = parseInt(timeDifference % 3600000 % 60000 / 1000);
       let time = (hours < 10 ? '0' + hours : hours) + ':' + (minute < 10 ? '0' + minute : minute) + ':' + (second < 10 ? '0' + second : second)
-      callback(time, index)
+      let miao = parseInt(timeDifference / 1000)
+      callback(time, index, miao)
     }
   }, 1000)
 };
