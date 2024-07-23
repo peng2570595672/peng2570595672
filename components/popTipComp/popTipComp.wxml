@@ -356,19 +356,21 @@
             </view>
         </view>
         <!-- 倒计时弹框 -->
-        <view wx:if="{{ tipObj.type === 'countdownPopUpBox'}}" class="module countdownPopUpBox">
+        <view wx:if="{{ tipObj.type === 'countdownPopUpBox' || tipObj.type === 'handleTip'}}" class="module countdownPopUpBox">
             <view class="title">{{tipObj.title}}</view>
             <scroll-view class="custom-scrollbar" scroll-y="true" bindscrolltolower="onScrolltolower">
                 <view class="content" id="content">
                     <!-- 弹框内容区域 -->
                     <view class="bottomHet" wx:if="{{tipObj.Text}}">{{tipObj.Text}}</view>
                     <rich-text nodes="{{tipObj.content}}"></rich-text>
+                    <view class="trans"></view>
                 </view>
             </scroll-view>
+            
             <view class="bottomBtn">
                 <view class="ok  {{tipObj.showConfirmButton ? 'highlighted' : ''}}" catchtap="onConfirm">
-                    <view>{{tipObj.btnconfirm}}</view>
-                    <view class="countdownText" wx:if="{{countdownText}}">{{countdownText}}</view>
+                    <view>{{tipObj.btnconfirm}}<text wx:if="{{tipObj.type === 'handleTip'}}">{{countdownText}}</text></view>
+                    <view class="countdownText" wx:if="{{countdownText && tipObj.type === 'countdownPopUpBox'}}">{{countdownText}}</view>
                 </view>
                 <view class="cancel" wx:if="{{tipObj.btnCancel}}" data-title="{{tipObj.title}}" catchtap="hide">
                     {{tipObj.btnCancel}}
