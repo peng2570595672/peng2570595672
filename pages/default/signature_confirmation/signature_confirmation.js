@@ -169,7 +169,11 @@ Page({
 			this.setData({
 				isNeedJump: false
 			});
-			util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests`);
+			if (this.data.orderInfo.isNewTrucks) {
+				util.go(`/pages/truck_handling/package_the_rights_and_interests/package_the_rights_and_interests`);
+			} else {
+				util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests`);
+			}
 		} else {
 			util.showToastNoIcon(result.message);
 		}
