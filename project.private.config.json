@@ -4,6 +4,34 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "",
+                    "pathName": "pages/personal_center/my_order/my_order",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/truck_handling/shot_card/shot_card",
+                    "query": "type=11&pathUrl=https%3A%2F%2Ffile.cyzl.com%2Fg001%2FM03%2F4F%2F1A%2FoYYBAGYU1vqAelUQAASeyQXL2o0651.jpg",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "ETC详情",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1263436725544292352",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "123",
+                    "pathName": "pages/personal_center/quotaLandingPage/quotaLandingPage",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "pages/personal_center/quotaLandingPage/quotaLandingPage",
                     "pathName": "pages/personal_center/quotaLandingPage/quotaLandingPage",
                     "query": "",
@@ -11,16 +39,16 @@
                     "scene": null
                 },
                 {
-                    "name": "ETC详情",
-                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
-                    "query": "orderId=813457259233423360",
+                    "name": "",
+                    "pathName": "pages/Home/Home",
+                    "query": "",
                     "launchMode": "default",
                     "scene": null
                 },
                 {
-                    "name": "",
-                    "pathName": "pages/truck_handling/upload_road_transport_certificate/upload_road_transport_certificate",
-                    "query": "",
+                    "name": "邮寄地址",
+                    "pathName": "pages/default/receiving_address/receiving_address",
+                    "query": "activityType=45&shopId=1189147799537590272&sharkOrderNo=120240618100348501049&isPost=1&productId=1251135573647695872",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -28,13 +56,6 @@
                     "name": "",
                     "pathName": "pages/default/processing_progress/processing_progress",
                     "query": "orderId=1252988190688546816",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "邮寄地址",
-                    "pathName": "pages/default/receiving_address/receiving_address",
-                    "query": "shopId=1125475241185902592&productId=1244651899092213760",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -122,13 +143,6 @@
                         "enabled": true,
                         "pages": []
                     }
-                },
-                {
-                    "name": "123",
-                    "pathName": "pages/default/changeCarAndCard/changeCarAndCard",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
                 },
                 {
                     "name": "个人中心",
