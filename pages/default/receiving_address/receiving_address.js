@@ -118,7 +118,7 @@ Page({
 		}
 		if (options.isNeedPay) {
 			this.setData({
-				isNeedPay: options.isNeedPay
+				isNeedPay: +options.isNeedPay
 			});
 		}
 		if (options.shareId) {
