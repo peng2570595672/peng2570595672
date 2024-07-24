@@ -1995,7 +1995,7 @@ Page({
 	useBriedPoint () {
 		let params = {
 			shopId: app.globalData.miniProgramServiceProvidersId,
-			optionLabel: 'SHOW', // ENTER进入 CLICK点击 EXIT退出 SHOW曝光
+			optionLabel: 'ENTER', // ENTER进入 CLICK点击 EXIT退出 SHOW曝光
 			pagePath: 'quotaLandingPage',
 			btnName: '平安测额活动',
 			pageName: '首页'
