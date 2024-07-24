@@ -13,6 +13,7 @@ Page({
 	async onLoad (options) {
 		this.setData({
 			isNeedSign: +options.isNeedSign,
+			etcCardId: +options.etcCardId, // 10 湖南信科 湘通卡
 			orderType: +options.orderType
 		});
 		this.getETCDetail();

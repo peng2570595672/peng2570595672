@@ -168,22 +168,6 @@ Page({
 	// 点击车辆信息
 	onClickVehicle () {
 		const orderInfo = this.data.orderInfo;
-		if (orderInfo.etcCardId === 10 && orderInfo.orderExtCardType === 2) {
-			console.log('encodeParam,orderInfo',orderInfo);
-			// 湖南湘通卡 & 单片机   湖南信科 // 新流程
-			const encodeParam = {
-				productName: orderInfo.productName,
-				modelName: '黑色',
-				receiveName: orderInfo.receiveName,
-				receiveAddress: orderInfo.receiveAddress,
-				receiveTel: orderInfo.receiveMobile,
-				orderType: orderInfo.orderType
-			};
-			console.log('encodeParam',encodeParam);
-			// 去往湖南高速办理
-			handleJumpHunanMini(app.globalData.orderInfo.orderId,null,18,encodeParam); // 18 携带新的跳转参数
-			return;
-		}
 		if (orderInfo.orderType === 51 && orderInfo.status !== 1) {
 			util.showToastNoIcon('请返回原渠道办理');
 			return;
@@ -200,6 +184,23 @@ Page({
 				confirm: () => {
 				}
 			});
+			return;
+		}
+		if (orderInfo.etcCardId === 10 && orderInfo.orderExtCardType === 2 && (orderInfo.pledgeStatus === 1 || orderInfo.pledgeStatus === -1)) {
+			// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
+			console.log('encodeParam,orderInfo',orderInfo);
+			// 湖南湘通卡 & 单片机   湖南信科 // 新流程
+			const encodeParam = {
+				productName: orderInfo.productName,
+				modelName: '黑色',
+				receiveName: orderInfo.receiveName,
+				receiveAddress: orderInfo.receiveAddress,
+				receiveTel: orderInfo.receiveMobile,
+				orderType: orderInfo.orderType
+			};
+			console.log('encodeParam',encodeParam);
+			// 去往湖南高速办理
+			handleJumpHunanMini(app.globalData.orderInfo.orderId,null,18,encodeParam); // 18 携带新的跳转参数
 			return;
 		}
 		if ((orderInfo.orderType === 31 && orderInfo.pledgeStatus === 0) || (orderInfo.orderType === 51 && orderInfo.contractStatus !== 1)) {

@@ -1,7 +1,7 @@
 import {
 	wxApi2Promise
 } from '../../../utils/utils';
-
+import {handleJumpHunanMini} from '../../../utils/utils.js';
 /**
  * @author 老刘
  * @desc 签字确认-真机调试不能绘制
@@ -24,7 +24,7 @@ Page({
 		startX: 0, // 屏幕点x坐标
 		startY: 0, // 屏幕点y坐标
 		isNeedJump: true,
-		strokeNum: 0 ,// 笔画
+		strokeNum: 0,// 笔画
 		isAgreement: false
 
 	},
@@ -85,12 +85,12 @@ Page({
 		});
 	},
 	// 设置单选value
-  radioChange () {
-		console.log('111',this.data.isAgreement);
-    this.setData({
-      isAgreement: !this.data.isAgreement
-    });
- },
+	radioChange () {
+		console.log('111', this.data.isAgreement);
+		this.setData({
+			isAgreement: !this.data.isAgreement
+		});
+	},
 	// 提交签名
 	handleSubmitSign () {
 		if (this.data.strokeNum <= 1) {
@@ -139,7 +139,7 @@ Page({
 				util.hideLoading();
 				util.showToastNoIcon('上传失败');
 			}
-		}, () => {});
+		}, () => { });
 	},
 	async saveSign (fileUrl) {
 		util.showLoading('加载中');
@@ -148,12 +148,16 @@ Page({
 			userSign: fileUrl,
 			orderId: app.globalData.orderInfo.orderId // 订单id
 		};
-		console.log('保存签名信息');
-		console.log(params);
+		console.log('保存签名信息',params);
 		const result = await util.getDataFromServersV2('consumer/order/user/sign', params);
 		if (!result) return;
 		if (result.code === 0) {
 			const obj = this.data.orderInfo;
+			console.log('obj',obj);
+			if (obj.pledgeType || obj.addEquity?.aepIndex !== -1) {
+				await this.marginPayment(obj.pledgeType);
+				return;
+			}
 			if (obj.orderType === 51) {
 				if (obj.contractStatus === 2) {
 					app.globalData.orderInfo.orderId = obj.id;
@@ -173,6 +177,127 @@ Page({
 				util.go(`/pages/truck_handling/package_the_rights_and_interests/package_the_rights_and_interests`);
 			} else {
 				util.go(`/pages/default/package_the_rights_and_interests/package_the_rights_and_interests`);
+			}
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 支付
+	async marginPayment (pledgeType) {
+		if (this.data.isRequest) return;
+		this.setData({ isRequest: true });
+		util.showLoading();
+		let params = {};
+		if (pledgeType === 4) {
+			// 押金模式
+			params = {
+				payVersion: 'v3',
+				tradeType: 1,
+				orderId: app.globalData.orderInfo.orderId,
+				openid: app.globalData.openId
+			};
+		} else {
+			// 普通模式
+			params = {
+				orderId: app.globalData.orderInfo.orderId
+			};
+		}
+		const result = await util.getDataFromServersV2('consumer/order/pledge-pay', params);
+		if (!result) {
+			this.setData({ isRequest: false });
+			return;
+		}
+		if (result.code === 0) {
+			let extraData = result.data.extraData;
+			wx.requestPayment({
+				nonceStr: extraData.nonceStr,
+				package: extraData.package,
+				paySign: extraData.paySign,
+				signType: extraData.signType,
+				timeStamp: extraData.timeStamp,
+				success: async (res) => {
+					this.setData({ isRequest: false });
+					if (res.errMsg === 'requestPayment:ok') {
+						await this.getOrderInfo(false, 12, true);// 更新订单数据
+						console.log('支付成功',this.data.listOfPackages[this.data.activeIndex],this.data.etcCardId);
+						const { etcCardId, orderExtCardType } = this.data.listOfPackages[this.data.activeIndex];
+						if ((etcCardId === 10 && orderExtCardType === 2) || this.data.etcCardId === 10) {
+							await this.getOrderInfo(true, 2, true);// 更新订单数据
+							// 湖南湘通卡 & 单片机   湖南信科 // 新流程
+							let encodeParam = {
+								productName: this.data.orderInfo.receive?.productName,
+								modelName: '黑色',
+								receiveName: this.data.orderInfo.receive?.receiveMan,
+								receiveAddress: this.data.orderInfo.receive?.receiveAddress,
+								receiveTel: this.data.orderInfo.receive?.receivePhone,
+								orderType: this.data.receive_orderType // 区分线上线下
+							};
+							console.log('支付后前往湖南高速小程序', encodeParam);
+							// 去往湖南高速办理;
+							handleJumpHunanMini(app.globalData.orderInfo.orderId, null, 18, encodeParam);
+						}
+					} else {
+						util.showToastNoIcon('支付失败！');
+					}
+				},
+				fail: (res) => {
+					this.setData({ isRequest: false });
+					if (res.errMsg !== 'requestPayment:fail cancel') {
+						util.showToastNoIcon('支付失败！');
+					}
+				}
+			});
+		} else {
+			this.setData({ isRequest: false });
+			util.showToastNoIcon(result.message);
+		}
+	},
+	// 获取 套餐信息
+	async getProductOrderInfo (update) {
+		const result = await util.getDataFromServersV2('consumer/order/get-product-by-order-id', {
+			orderId: app.globalData.orderInfo.orderId,
+			needRightsPackageIds: true
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			let data = result.data;
+			if (this.data.orderInfo.base?.orderType === 31) {
+				data['rightsPackageIds'] = this.data.orderInfo.base?.packageIdList;
+			}
+			if (update) {
+				// 当是湖南信科新流程时 仅更新请求回来数据
+				this.setData({
+					listOfPackages: [data]
+				});
+			}
+		} else {
+			util.showToastNoIcon(result.message);
+		}
+	},
+	async getOrderInfo (initProduct = true, dataType = '13', update) {
+		// initProduct 控制是否初始化具体套餐信息
+		// dataType 控制获取内容
+		const result = await util.getDataFromServersV2('consumer/order/get-order-info', {
+			orderId: app.globalData.orderInfo.orderId,
+			dataType
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			if (update) {
+				// 当是湖南信科新流程时 仅更新请求回来数据
+				this.setData({
+					orderInfo: result.data,
+					'orderInfo.receive.productName': this.data.listOfPackages[this.data.activeIndex]?.productName
+				});
+				if (dataType === 12) { // 保存线上线下字段
+					this.setData({
+						receive_orderType: result.data.base?.orderType
+					});
+				}
+				if (initProduct) {
+					// 继续更新具体订单信息
+					await this.getProductOrderInfo(update);
+				}
 			}
 		} else {
 			util.showToastNoIcon(result.message);
@@ -243,7 +368,7 @@ Page({
 							extraData: {
 								contract_id: result.data.contractId
 							},
-							success () {},
+							success () { },
 							fail (e) {
 								// 未成功跳转到签约小程序
 								util.showToastNoIcon('调起微信签约小程序失败, 请重试！');

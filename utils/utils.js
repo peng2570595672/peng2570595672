@@ -210,25 +210,22 @@ export function handleJumpHunanMini(orderId, outTradeNo, selfStatus,encodeParam)
 	switch (selfStatus) {
 		case 18:
 			const {productName,modelName,receiveName,receiveAddress,receiveTel,orderType} = encodeParam;
-			let extraParam = {
-				productName,
-				modelName,
-				receiveName,
-				receiveAddress,
-				receiveTel,
-			}
 			if (orderType === 11) { //11 邮寄 31 业务员端
+				let extraParam = {
+					productName,
+					modelName,
+					receiveName,
+					receiveAddress,
+					receiveTel,
+				}
 				url =`/myPackage/service/newMineIssure/router/router?processCode=NEWSJHTONLINE&promotionCode=88880123&accessNo=${orderId}&extraParam=${JSON.stringify(extraParam)}`;
 			}
 			if (orderType === 31) { //11 邮寄 31 业务员端
-				url =`/myPackage/service/newMineIssure/router/router?processCode=NEWSJHTONLINE&promotionCode=88880123&accessNo=${orderId}&encodeParam=${
-					encodeURIComponent(
-					`{
-					productName:${productName},
-					modelName:${modelName},
-					}`
-					)
-				}`;
+				let extraParam = {
+					productName,
+					modelName,
+				}
+				url =`/myPackage/service/newMineIssure/router/router?processCode=NEWSJHTONLINE&promotionCode=88880123&accessNo=${orderId}&encodeParam=${JSON.stringify(extraParam)}`;
 			}
 			break;
 		case 32:
@@ -244,7 +241,6 @@ export function handleJumpHunanMini(orderId, outTradeNo, selfStatus,encodeParam)
 		path: `${url}`,
 		envVersion: IS_TEST ? 'trial' : 'release',
 		fail() {
-			console.log(selfStatus);
 			showToastNoIcon('调起小程序失败, 请重试！');
 		}
 	});

@@ -200,7 +200,8 @@ Page({
 			util.showToastNoIcon('请返回原渠道办理');
 			return;
 		}
-		if (orderInfo.etcCardId === 10 && orderInfo.orderExtCardType === 2) {
+		if (orderInfo.etcCardId === 10 && orderInfo.orderExtCardType === 2 && (orderInfo.pledgeStatus === 1 || orderInfo.pledgeStatus === -1)) {
+			// pledgeStatus 状态，-1 无需支付 0-待支付，1-已支付，2-退款中，3-退款成功，4-退款失败
 			console.log('encodeParam,orderInfo',orderInfo);
 			// 湖南湘通卡 & 单片机   湖南信科 // 新流程
 			const encodeParam = {
