@@ -64,7 +64,8 @@ Page({
 		openCode: '',// 第三方登录参数 (河南移动code,用作免登)
 		loginErr: '',// 登录异常
 		isDisableClick: false, // 是否禁止点击
-		isMobileTransact: false // 是否是移动办理
+		isMobileTransact: false, // 是否是移动办理
+		isNeedPay: 0 // 是否需要支付-针对移动办理
 	},
 	chooseAxleNum (e) {
 		if (e.currentTarget.id === 'viewIsTruck') return;
@@ -113,6 +114,11 @@ Page({
 		if (options.isNewTrucks) { // 0 s是小汽车 1 展示货车
 			this.setData({
 				isNewTrucks: +options.isNewTrucks
+			});
+		}
+		if (options.isNeedPay) {
+			this.setData({
+				isNeedPay: +options.isNeedPay
 			});
 		}
 		if (options.shareId) {
@@ -625,7 +631,7 @@ Page({
 			app.globalData.handledByTelephone = this.data.formData.cardMobilePhone;
 			app.globalData.orderInfo.orderId = result.data.orderId; // 订单id
 			app.globalData.newEnergy = formData.currentCarNoColor === 1 ? true : false;
-			if (this.data.openCode || this.data.isMobileTransact) {
+			if ((this.data.openCode || this.data.isMobileTransact) && !this.data.isNeedPay) {
 				wx.reLaunch({
 					url: '/pages/default/information_list/information_list?source=henanMobile'
 				});

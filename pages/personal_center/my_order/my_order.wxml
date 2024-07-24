@@ -29,7 +29,7 @@
 		<view class="order-list-content"  wx:for="{{successBillList}}" wx:key="index">
 			<view catchtap="goDetails" data-model="{{item}}" data-index="1">
                 <view class="order-list-top" wx:if="{{item.flowVersion === 1 || item.flowVersion === 5}}">
-                    <view class="license-plate">{{item.vehPlate}}<text>[高速扣费]</text></view>
+                    <view class="license-plate">{{item.vehPlate}}<text>[{{item.eexitType === 5 ? '通行服务费' : '高速通行费'}}]	</text></view>
                     <view class="success-money" wx:if="{{item.deductStatus === 1 || item.deductStatus === 11 || item.deductStatus === 12 || item.flowVersion !== 1 || item.flowVersion !== 5}}">
                         {{(item.totalMmout + item.serviceMoney + (item.insPoundage || 0) + (item.poundageFlag ? item.poundage || 0 : 0)  - (item.wxDiscountAmount || 0) - (item.discountMount || 0) - (item.refundMoney || 0))/100}}
                     </view>
@@ -38,7 +38,7 @@
                     </view>
                 </view>
                 <view wx:else class="order-list-top">
-                    <view class="license-plate">{{item.vehPlate}}<text>[高速扣费]</text></view>
+                    <view class="license-plate">{{item.vehPlate}}<text>[{{item.eexitType === 5 ? '通行服务费' : '高速通行费'}}]	</text></view>
                     <view class="success-money">{{item.etcMoney/100}}</view>
                 </view>
 				<view class="site">

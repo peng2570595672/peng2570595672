@@ -20,7 +20,7 @@
 			<view class="order-list-content"  wx:for="{{item.list}}" wx:key="index">
 				<view catchtap="goDetails" data-model="{{item}}" data-index="1" wx:if="{{item.deductStatus === 2 || item.deductStatus === 10}}">
 					<view class="order-list-top">
-						<view class="license-plate">{{item.vehPlate}}<text>[高速扣费]</text></view>
+						<view class="license-plate">{{item.vehPlate}}<text>[{{item.eexitType === 5 ? '通行服务费' : '高速通行费'}}]	</text></view>
 						<view class="fail-money">
 							<!--{{tools.parseNum((item.etcMoney + item.serviceMoney  - (item.splitDeductedMoney || 0))/100)}}-->
                             {{tools.parseNum((item.etcPayMoney - ((item.deductPoundage && item.deductPoundage.serviceMoney && item.deductPoundage.timestamp) ? item.deductPoundage.serviceMoney : 0))/100)}}
