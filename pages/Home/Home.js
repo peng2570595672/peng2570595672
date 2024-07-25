@@ -192,7 +192,8 @@ Page({
 		isBail: false, // 是否有保证金退回的订单（false: 没有，true: 有）
 		PingAn: false, // 是否展示平安获客banner,
 		isXinKeControl: true, // 联网中心存量用户切换为信科用户的弹窗开关配置
-		adDoc: 0
+		adDoc: 0,
+		isHomePagePopupList: []// 订单列表里的单个订单支付前是否弹窗
 	},
 	async onLoad (options) {
 		util.resetData(); // 重置数据
@@ -1386,6 +1387,10 @@ Page({
 		app.globalData.processFlowVersion = orderInfo.flowVersion;
 		app.globalData.truckLicensePlate = orderInfo.vehPlates;
 		app.globalData.isCheckCarChargeType = orderInfo.obuCardType === 1 && (orderInfo.orderType === 11 || orderInfo.orderType === 12 || orderInfo.orderType === 21 || orderInfo.orderType === 71 || orderInfo.promoterType === 41) && orderInfo.auditStatus === 0;
+		if (orderInfo.orderType === 31 && orderInfo?.isHomePagePopup && !this.data.isHomePagePopupList.includes(orderInfo.id)) {	// 请先同意办理提示 是否需要首页弹窗 0-否，1-是
+			this.handleTip(e);
+			return;
+		}
 		if (orderInfo.orderType === 31 && orderInfo.status === 0) {
 			util.alert({
 				title: '提示',
@@ -1440,6 +1445,27 @@ Page({
 			38: () => this.goPingAn()	// 跳转平安获客绑车
 		};
 		fun[orderInfo.selfStatus].call();
+	},
+	async handleTip (obj) {	// 办理提醒
+		let params = {
+			orderId: app.globalData.orderInfo.orderId,
+			isHomePagePopup: 1
+		};
+		let pop = {
+			type: 'handleTip',
+			title: '办理提醒',
+			btnCancel: '不同意',
+			btnconfirm: '同意办理',
+			delayTime: 10
+		};
+		let that = this;
+		let content = '尊敬的车主，您正在办理的高速通行ETC订单包含1套ETC设备及相关质保服务，您支付的款项为一次性购买商品费用，该费用不可用于通行费抵扣及押金返还，请您注意确认，若您理解并同意请击下一步办理，否则请终止办理。';
+		util.addHandleOrAgreementTip(that, params, pop, content, async () => {
+			let isHomePagePopupList = that.data.isHomePagePopupList;
+			isHomePagePopupList.push(app.globalData.orderInfo.orderId);
+			that.setData({isHomePagePopupList: [...new Set(isHomePagePopupList)]}); // 已确认
+			await that.onClickVehicle(obj);
+		});
 	},
 	async goPingAn () {	// 跳转平安获客绑车
 		let res = await util.getDataFromServersV2('/consumer/order/pingan/get-bind-veh-url', {

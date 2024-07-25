@@ -266,8 +266,7 @@
 .alert-for-not-finished-content .countdownPopUpBox .custom-scrollbar {
   margin-bottom: 30rpx;
   text-align: justify;
-  line-height: 40rpx;
-  min-height: 400rpx;
+  min-height: 300rpx;
 }
 .alert-for-not-finished-content .countdownPopUpBox .custom-scrollbar .content {
   width: 100%;

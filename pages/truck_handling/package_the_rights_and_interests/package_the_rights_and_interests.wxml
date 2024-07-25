@@ -142,6 +142,7 @@
             </view>
         </view>
     </view>
+    <popTipComp id="popTipComp" bind:confirmHandle="confirmHandle" bind:cancelHandle="cancelHandle"></popTipComp>
     <!-- 自定义出入方向的弹窗 -->
     <customDirectionPopup id="cdPopup" bind:cDPopup="cDPopup" />
 </view>
