@@ -2437,6 +2437,7 @@ async function addHandleOrAgreementTip(that, params, pop, content, callBack) {
 		const result = await getDataFromServersV2('consumer/order/query-right-confirm-dialog', {
 			orderId: params.orderId // 订单id
 		});
+		// console.log('查询：',result);
 		if (!result) return;
 		if (result.code === 0) {
 			// console.log(Object.keys(params)[1]);

@@ -784,7 +784,7 @@ Page({
 					if (renew === '1') {
 						that.goUserInfo(e);
 					} else if (renew === '3') {
-						that.getUserProfile();
+						that.getUserProfiles();
 					} else if (renew === '5') {
 						that.cardChange(e);
 					} else if (renew === '7') {
@@ -798,7 +798,7 @@ Page({
 			if (renew === '1') {
 				that.goUserInfo(e);
 			} else if (renew === '3') {
-				that.getUserProfile();
+				that.getUserProfiles();
 			} else if (renew === '5') {
 				that.cardChange(e);
 			} else if (renew === '7') {

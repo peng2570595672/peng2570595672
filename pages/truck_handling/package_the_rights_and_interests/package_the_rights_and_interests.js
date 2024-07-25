@@ -190,7 +190,7 @@ Page({
 		if (this.data.activeIndex === -1) {
 			return util.showToastNoIcon('亲，请选套餐哦');
 		}
-		if (!this.data.getAgreement && this.data.listOfPackages[this.data.activeIndex].orderType === 31 && this.data.listOfPackages[this.data.activeIndex]?.isAgreementRead && !this.data?.isAgreementRead && this.data.listOfPackages[this.data.activeIndex].agreements.length > 0) { // 请先阅读办理协议
+		if (!this.data.getAgreement && this.data.orderInfo?.base.orderType === 31 && this.data.listOfPackages[this.data.activeIndex]?.isAgreementRead && !this.data?.isAgreementRead && this.data.listOfPackages[this.data.activeIndex].agreements.length > 0) { // 请先阅读办理协议
 			this.pleaseReadAgreeMent();
 			return;
 		}
@@ -316,7 +316,7 @@ Page({
 				return;
 			}
 		}
-		if (this.data.listOfPackages[this.data.activeIndex]?.isPaymentPopupConfirmation && this.data.listOfPackages[this.data.activeIndex].orderType === 31 && !this.data?.isPaymentPopupConfirmation) {	// 办理提醒
+		if (this.data.listOfPackages[this.data.activeIndex]?.isPaymentPopupConfirmation && this.data.orderInfo?.base.orderType === 31 && !this.data?.isPaymentPopupConfirmation) {	// 办理提醒
 			this.handleTip();
 			return;
 		}

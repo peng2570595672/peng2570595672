@@ -1388,7 +1388,7 @@ Page({
 		app.globalData.truckLicensePlate = orderInfo.vehPlates;
 		app.globalData.isCheckCarChargeType = orderInfo.obuCardType === 1 && (orderInfo.orderType === 11 || orderInfo.orderType === 12 || orderInfo.orderType === 21 || orderInfo.orderType === 71 || orderInfo.promoterType === 41) && orderInfo.auditStatus === 0;
 		if (orderInfo.orderType === 31 && orderInfo?.isHomePagePopup && !this.data.isHomePagePopupList.includes(orderInfo.id)) {	// 请先同意办理提示 是否需要首页弹窗 0-否，1-是
-			this.handleTip(e);
+			this.handleTip();
 			return;
 		}
 		if (orderInfo.orderType === 31 && orderInfo.status === 0) {
@@ -1400,7 +1400,7 @@ Page({
 			});
 			return;
 		}
-		if ((orderInfo.orderType === 31 && orderInfo.pledgeStatus === 0) || (orderInfo.orderType === 51 && orderInfo.contractStatus !== 1)) {
+		if ((orderInfo.orderType === 31 && orderInfo.selfStatus === 3 && orderInfo.pledgeStatus === 0) || (orderInfo.orderType === 51 && orderInfo.contractStatus !== 1)) {
 			// 业务员端办理 & 待支付
 			if (orderInfo.isShowRightsDesc === 1 && ((orderInfo.isNeedSign === 1 && (!orderInfo.userSign || !orderInfo.verifyCode)) || orderInfo.isNeedSign === 0)) {
 				// 需要查看权益
@@ -1446,7 +1446,7 @@ Page({
 		};
 		fun[orderInfo.selfStatus].call();
 	},
-	async handleTip (obj) {	// 办理提醒
+	async handleTip () {	// 办理提醒
 		let params = {
 			orderId: app.globalData.orderInfo.orderId,
 			isHomePagePopup: 1
@@ -1464,7 +1464,7 @@ Page({
 			let isHomePagePopupList = that.data.isHomePagePopupList;
 			isHomePagePopupList.push(app.globalData.orderInfo.orderId);
 			that.setData({isHomePagePopupList: [...new Set(isHomePagePopupList)]}); // 已确认
-			await that.onClickVehicle(obj);
+			await that.onClickVehicle();
 		});
 	},
 	async goPingAn () {	// 跳转平安获客绑车
@@ -1597,6 +1597,8 @@ Page({
 			util.go(`/pages/device_upgrade/package/package?orderId=${orderInfo.id}`);
 			return;
 		}
+		console.log('辽宁移动线下办理',orderInfo?.orderExtCardType);
+		console.log('辽宁移动线下办理',orderInfo.selfStatus);
 		if (orderInfo.selfStatus === 3 && orderInfo?.orderExtCardType === 5) { // 辽宁移动线下办理
 			util.go(`/pages/function_fewer_pages/che_e_bao/che_e_bao?flag=1`);
 			return;
