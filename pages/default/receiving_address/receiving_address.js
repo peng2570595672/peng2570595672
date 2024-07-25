@@ -375,9 +375,27 @@ Page({
 			const orderInfo = etcRes.data[0];
 			app.globalData.orderInfo.orderId = orderInfo.id; // 订单id
 			if (!orderInfo.status) {
-				wx.reLaunch({
-					url: '/pages/default/information_list/information_list?source=henanMobile'
-				});
+				if (this.data.isNeedPay) {
+					// 选择套餐页面
+					const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default'; // 去到客车还是货车的套餐页
+					await util.initLocationInfo(orderInfo);
+					if (!app.globalData.newPackagePageData.listOfPackages?.length) return;// 没有套餐
+					console.log(app.globalData.newPackagePageData.type, '==============================');
+					if (app.globalData.newPackagePageData.type) {
+						if (this.data.shopProductInfo?.shopProductId && (this.data.shopProductInfo?.cmType || app.globalData.productList.lnmProductUnder.includes(this.data.shopProductInfo.shopProductId))) {	// 辽宁移动
+							util.go(`/pages/function_fewer_pages/che_e_bao/che_e_bao?flag=1`);
+							return;
+						}
+						// 只有分对分套餐 || 只有总对总套餐
+						util.go(`/pages/${path}/package_the_rights_and_interests/package_the_rights_and_interests?type=${orderInfo.shopProductId ? '' : app.globalData.newPackagePageData.type}`);
+					} else {
+						util.go(`/pages/default/choose_the_way_to_handle/choose_the_way_to_handle`);
+					}
+				} else {
+					wx.reLaunch({
+						url: '/pages/default/information_list/information_list?source=henanMobile'
+					});
+				}
 			} else {
 				wx.reLaunch({
 					url: '/pages/default/processing_progress/processing_progress?source=henanMobile'
