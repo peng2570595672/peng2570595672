@@ -808,7 +808,7 @@ Page({
 			type: 'handleTip',
 			title: '办理提醒',
 			btnCancel: '不同意',
-			btnconfirm: '同意办理',
+			btnconfirm: '同意并支付',
 			delayTime: 10
 		};
 		let that = this;
