@@ -28,7 +28,7 @@
         </view>
         <text wx:if="{{details.deductStatus === 2 || details.deductStatus === 10}}">扣款失败</text>
     </view>
-    <view class="deduction-amount" wx:else>{{details.etcMoney ? details.etcMoney/100 : ''}}</view>
+    <view class="deduction-amount" wx:else>{{(details.totalMmout + details.serviceMoney + (details.insPoundage ? details.insPoundage : 0)  +  (details.poundageFlag ? details.poundage || 0 : 0) - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}}</view>
     <view class="text0">扣费金额</view>
     <!-- 扣费金额结束 -->
     <!-- 扣费详情开始 -->
@@ -77,10 +77,10 @@
                 <view>{{(details.etcMoney + details.serviceMoney)/100}}</view>
             </view>
             <view class="subModle" wx:if="{{details.totalMmout > 0}}">
-                <view>高速通行费</view>
+                <view>{{details.eexitType !== 5 ? '高速通行费' : '通行服务费'}}</view>
                 <view>{{details.totalMmout/100}}</view>
             </view>
-            <view class="subModle" wx:if="{{details.poundageFlag && details.poundage}}">
+            <view class="subModle" wx:if="{{details.poundageFlag && details.poundage && details.eexitType !== 5}}">
                 <view>通行服务费</view>
                 <view>{{details.poundage/100}}</view>
             </view>
@@ -100,7 +100,7 @@
             </view>
             <view class="subModle">
                 <view>扣费类型</view>
-                <view class="fontColor1">[高速扣费]</view>
+                <view class="fontColor1">[{{details.eexitType === 5 ? '通行服务费' : '高速通行费'}}]</view>
             </view>
             <!-- <view class="subModle" wx:if="{{details.orderInsurance === 1}}">
                 <view>扣款状态</view>
@@ -144,13 +144,13 @@
         <view class="deduction-details">
             <view
                 wx:if="{{(details.etcMoney && details.etcMoney > 0) || (details.flowVersion === 2 && details.totalMmout > 0)}}">
-                <view>通行费（折后）</view>
+                <view>{{details.eexitType !== 5 ? '通行费（折后）' : '通行服务费'}}</view>
                 <!-- <view wx:if="{{details.flowVersion === 2}}">¥{{details.totalMmout/100}}</view> -->
                 <!-- <view wx:else>¥{{details.etcMoney/100}}</view> -->
                 <view>¥{{(details.totalMmout || details.etcMoney)/100}}</view>
             </view>
             <!-- --------@cyl---------start ------------------ -->
-            <view wx:if="{{details.poundageFlag && details.poundage}}">
+            <view wx:if="{{details.poundageFlag && details.poundage && details.eexitType !== 5}}">
                 <view>综合服务费（2%）</view>
                 <view>¥{{details.poundage/100}}</view>
             </view>
@@ -203,13 +203,13 @@
         <view class="deduction-details">
             <view class="consumption-type">
                 <view>消费类型</view>
-                <view>高速通行</view>
+                <view>[{{details.eexitType === 5 ? '通行服务费' : '高速通行费'}}]</view>
             </view>
             <view class="consumption-type {{refundDetails && refundDetails.refundMoney > 0 ? 'add-border' : ''}}">
                 <view>扣款方式</view>
                 <view wx:if="{{details.flowVersion !== 4}}">
                     <view wx:if="{{details.flowVersion !== 1}}">
-                        {{details.flowVersion === 2 || details.flowVersion === 3 ? '银行卡扣款' : 'ETC货车账户支付'}}
+                        {{(details.flowVersion === 2 || details.flowVersion === 3) && details.isNewTrucks !== 1 ? '银行卡扣款' : 'ETC货车账户支付'}}
                     </view>
                     <view wx:else>
                         {{contractMode.ctPass.contractVersion === 1 || contractMode.ctPass.contractVersion === 2 ? '微信零钱支付' : '' }}
