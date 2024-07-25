@@ -28,7 +28,7 @@
         </view>
         <text wx:if="{{details.deductStatus === 2 || details.deductStatus === 10}}">扣款失败</text>
     </view>
-    <view class="deduction-amount" wx:else>{{details.etcMoney ? details.etcMoney/100 : ''}}</view>
+    <view class="deduction-amount" wx:else>{{(details.totalMmout + details.serviceMoney + (details.insPoundage ? details.insPoundage : 0)  +  (details.poundageFlag ? details.poundage || 0 : 0) - (details.wxDiscountAmount || 0) - (details.discountMount || 0) - (details.refundMoney || 0))/100}}</view>
     <view class="text0">扣费金额</view>
     <!-- 扣费金额结束 -->
     <!-- 扣费详情开始 -->
