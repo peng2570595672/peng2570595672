@@ -1597,8 +1597,6 @@ Page({
 			util.go(`/pages/device_upgrade/package/package?orderId=${orderInfo.id}`);
 			return;
 		}
-		console.log('辽宁移动线下办理',orderInfo?.orderExtCardType);
-		console.log('辽宁移动线下办理',orderInfo.selfStatus);
 		if (orderInfo.selfStatus === 3 && orderInfo?.orderExtCardType === 5) { // 辽宁移动线下办理
 			util.go(`/pages/function_fewer_pages/che_e_bao/che_e_bao?flag=1`);
 			return;
