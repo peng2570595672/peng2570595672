@@ -220,6 +220,12 @@ Page({
 	},
 	// 查询账单详情
 	getBillDetail () {
+		if (app.globalData.billingDetails?.flowVersion === 2) {
+			this.setData({
+				details: app.globalData.billingDetails
+			});
+			return;
+		}
 		if (this.data.requestBillNum > 0) return;
 		this.setData({
 			requestBillNum: 1
