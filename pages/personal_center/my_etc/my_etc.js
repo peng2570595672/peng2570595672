@@ -214,7 +214,7 @@ Page({
 			};
 			console.log('encodeParam',encodeParam);
 			// 去往湖南高速办理
-			handleJumpHunanMini(app.globalData.orderInfo.orderId,null,18,encodeParam); // 18 携带新的跳转参数
+			handleJumpHunanMini(orderInfo.id,null,18,encodeParam); // 18 携带新的跳转参数
 			return;
 		}
 		app.globalData.isCheckCarChargeType = orderInfo.obuCardType === 1 && (orderInfo.orderType === 11 || orderInfo.orderType === 12 || orderInfo.orderType === 21 || orderInfo.orderType === 71 || orderInfo.promoterType === 41) && orderInfo.auditStatus === 0;

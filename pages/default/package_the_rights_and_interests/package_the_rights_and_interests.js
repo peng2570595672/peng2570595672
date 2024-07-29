@@ -1137,7 +1137,7 @@ Page({
 							// 新版小程序空发
 							util.go('/pages/empty_hair/processing_progress/processing_progress');
 						}
-						// util.go('/pages/default/information_list/information_list?type=1');
+						util.go('/pages/default/information_list/information_list?type=1');
 					} else {
 						util.showToastNoIcon('支付失败！');
 					}

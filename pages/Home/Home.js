@@ -1388,7 +1388,7 @@ Page({
 			};
 			console.log('encodeParam',encodeParam);
 			// 去往湖南高速办理
-			handleJumpHunanMini(app.globalData.orderInfo.orderId,null,18,encodeParam); // 18 携带新的跳转参数
+			handleJumpHunanMini(orderInfo.id,null,18,encodeParam); // 18 携带新的跳转参数
 			return;
 		}
 		if (orderInfo.orderType === 51 && orderInfo.status !== 1) {
@@ -1921,7 +1921,7 @@ Page({
 			};
 			console.log('encodeParam',encodeParam);
 			// 去往湖南高速办理
-			handleJumpHunanMini(app.globalData.orderInfo.orderId,null,18,encodeParam); // 18 携带新的跳转参数
+			handleJumpHunanMini(orderInfo.id,null,18,encodeParam); // 18 携带新的跳转参数
 			return;
 		}
 		if (orderInfo.promoterType === 41 && orderInfo.vehPlates.length === 11) { // 业务员空发

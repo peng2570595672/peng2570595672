@@ -102,8 +102,12 @@ Page({
 			util.showToastNoIcon('请勾选知晓套餐权益！');
 			return;
 		}
+		if (this.data.singFinish && this.data.payFinish) {
+			// 湖南湘通流程 已经签名 并且 支付完成了
+			console.log('南湘通流程 已经签名 并且 支付完成');
+			return;
+		}
 		util.showLoading('加载中');
-		const that = this;
 		wx.canvasToTempFilePath({
 			canvasId: 'canvas-id',
 			fileType: 'png',
@@ -152,9 +156,13 @@ Page({
 		const result = await util.getDataFromServersV2('consumer/order/user/sign', params);
 		if (!result) return;
 		if (result.code === 0) {
+			this.setData({
+				singFinish: true
+			});
 			const obj = this.data.orderInfo;
-			console.log('obj',obj);
+			console.log('判断支付状态1',obj);
 			if (obj.pledgeType || obj.addEquity?.aepIndex !== -1) {
+				// 前往支付
 				await this.marginPayment(obj.pledgeType);
 				return;
 			}
@@ -209,6 +217,7 @@ Page({
 		}
 		if (result.code === 0) {
 			let extraData = result.data.extraData;
+			const that = this;
 			wx.requestPayment({
 				nonceStr: extraData.nonceStr,
 				package: extraData.package,
@@ -216,23 +225,29 @@ Page({
 				signType: extraData.signType,
 				timeStamp: extraData.timeStamp,
 				success: async (res) => {
-					this.setData({ isRequest: false });
+					that.setData({
+						isRequest: false
+					});
 					if (res.errMsg === 'requestPayment:ok') {
-						await this.getOrderInfo(false, 12, true);// 更新订单数据
-						console.log('支付成功',this.data.listOfPackages[this.data.activeIndex],this.data.etcCardId);
-						const { etcCardId, orderExtCardType } = this.data.listOfPackages[this.data.activeIndex];
-						if ((etcCardId === 10 && orderExtCardType === 2) || this.data.etcCardId === 10) {
-							await this.getOrderInfo(true, 2, true);// 更新订单数据
+						that.setData({
+							payFinish: true
+						});
+						await that.getOrderInfo(true, 12, true);// 更新订单数据
+						const { etcCardId, orderExtCardType,productName } = that.data.listOfPackages[0];
+						console.log(that.data.listOfPackages[0] , 'etcCardId', etcCardId,'orderExtCardType',orderExtCardType);
+						if ((etcCardId === 10 && orderExtCardType === 2) || etcCardId === 10) {
+							await that.getOrderInfo(true, 2, true);// 更新订单数据
 							// 湖南湘通卡 & 单片机   湖南信科 // 新流程
 							let encodeParam = {
-								productName: this.data.orderInfo.receive?.productName,
+								productName: that.data.orderInfo.receive?.productName || productName,
 								modelName: '黑色',
-								receiveName: this.data.orderInfo.receive?.receiveMan,
-								receiveAddress: this.data.orderInfo.receive?.receiveAddress,
-								receiveTel: this.data.orderInfo.receive?.receivePhone,
-								orderType: this.data.receive_orderType // 区分线上线下
+								receiveName: that.data.orderInfo.receive?.receiveMan,
+								receiveAddress: that.data.orderInfo.receive?.receiveAddress,
+								receiveTel: that.data.orderInfo.receive?.receivePhone,
+								orderType: that.data.receive_orderType // 区分线上线下
 							};
 							console.log('支付后前往湖南高速小程序', encodeParam);
+							console.log('app.globalData.orderInfo.orderId', app.globalData.orderInfo.orderId);
 							// 去往湖南高速办理;
 							handleJumpHunanMini(app.globalData.orderInfo.orderId, null, 18, encodeParam);
 						}
@@ -241,7 +256,7 @@ Page({
 					}
 				},
 				fail: (res) => {
-					this.setData({ isRequest: false });
+					that.setData({ isRequest: false });
 					if (res.errMsg !== 'requestPayment:fail cancel') {
 						util.showToastNoIcon('支付失败！');
 					}
@@ -287,7 +302,7 @@ Page({
 				// 当是湖南信科新流程时 仅更新请求回来数据
 				this.setData({
 					orderInfo: result.data,
-					'orderInfo.receive.productName': this.data.listOfPackages[this.data.activeIndex]?.productName
+					'orderInfo.receive.productName': result.data.base?.productName
 				});
 				if (dataType === 12) { // 保存线上线下字段
 					this.setData({
