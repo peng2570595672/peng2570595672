@@ -77,7 +77,7 @@ Component({
 				paramsList: this.data.paramsList,
 				tipObj,
 				noSliding: true,
-				countdownText: `${tipObj.delayTime} 秒后自动关闭`,
+				countdownText: `${tipObj.delayTime} 秒${tipObj.type === 'countdownPopUpBox' ? '后自动关闭' : ''}`,
 				duration: parseInt(tipObj.delayTime) // 如果time未提供，默认10秒
 			});
 			console.log(this.data.tipObj, 'show');
@@ -94,16 +94,10 @@ Component({
 			});
 		},
 		onScrolltolower () { // 滑动触底
-			console.log('哈哈哈哈');
-			if (!this.data.duration && this.data.tipObj.type === 'countdownPopUpBox') {
+			if (!this.data.duration && (this.data.tipObj.type === 'countdownPopUpBox' || (this.data.tipObj?.all && this.data.tipObj.type === 'handleTip'))) {
 				this.setData({
 					'tipObj.showConfirmButton': true,
-					'tipObj.btnconfirm': '我已知晓协议内容，同意继续办理'
-				});
-			}
-			if (this.data.tipObj.type === 'handleTip') {
-				this.setData({
-					'tipObj.showConfirmButton': true
+					'tipObj.btnconfirm': this.data.tipObj.type === 'countdownPopUpBox' ? '我已知晓协议内容，同意继续办理' : this.data.tipObj.btnconfirm
 				});
 			}
 			this.setData({
@@ -114,16 +108,16 @@ Component({
 			let countdown = this.data.duration;
 			this.data.intervalId = setInterval(() => {
 				countdown--;
-				console.log('倒计时结束', this.data.bottomingOut);
+				// console.log('倒计时结束', this.data.bottomingOut);
 				if (countdown <= 0) {
-					console.log('倒计时结束', this.data.bottomingOut);
-					if (this.data.bottomingOut && this.data.tipObj.type === 'countdownPopUpBox') { // 触底显示按钮
+					console.log('倒计时结束', this.data.bottomingOut , this.data.bottomingOut);
+					if (this.data.bottomingOut && (this.data.tipObj.type === 'countdownPopUpBox' || (this.data.tipObj?.all && this.data.tipObj.type === 'handleTip'))) { // 触底显示按钮
 						this.setData({
 							'tipObj.showConfirmButton': true,
-							'tipObj.btnconfirm': '我已知晓协议内容，同意继续办理'
+							'tipObj.btnconfirm': this.data.tipObj.type === 'countdownPopUpBox' ? '我已知晓协议内容，同意继续办理' : this.data.tipObj.btnconfirm
 						});
 					}
-					if (this.data.tipObj.type === 'handleTip') {
+					if (this.data.tipObj.type === 'handleTip' && !this.data.tipObj?.all) {
 						this.setData({
 							'tipObj.showConfirmButton': true
 						});
@@ -168,7 +162,7 @@ Component({
 			}
 			if (this.data.tipObj.type === 'handleTip') {	// 办理提醒
 				if (!this.data.tipObj.showConfirmButton) return;
-				this.data.paramsList[0].callBack('dddd');
+				this.data.paramsList[0].callBack();
 				this.hide(false);
 			}
 		},

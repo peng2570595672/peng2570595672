@@ -619,6 +619,11 @@ Page({
 		if (this.data.activeIndex === -1) {
 			return util.showToastNoIcon('亲，请选套餐哦');
 		}
+		let obj = this.data.listOfPackages[this.data.activeIndex];
+		if (!this.data.getAgreement && this.data.orderInfo?.base.orderType === 31 && obj?.isAgreementRead && !this.data?.isAgreementRead && obj?.agreements && obj?.agreements.length > 0) { // 请先阅读办理协议
+			this.pleaseReadAgreeMent();
+			return;
+		}
 		let getAgreement = !this.data.getAgreement;
 		this.setData({
 			getAgreement,
@@ -825,6 +830,10 @@ Page({
 				});
 				return;
 			}
+		}
+		if (this.data.listOfPackages[this.data.activeIndex]?.isPaymentPopupConfirmation && this.data.orderInfo?.base.orderType === 31 && !this.data?.isPaymentPopupConfirmation) {	// 办理提醒
+			this.handleTip();
+			return;
 		}
 		await this.saveOrderInfo();
 	},
@@ -1599,6 +1608,50 @@ Page({
 					util.showToastNoIcon('支付失败！');
 				}
 			}
+		});
+	},
+	// 请先阅读办理协议
+	async pleaseReadAgreeMent () {
+		let params = {
+			orderId: app.globalData.orderInfo.orderId,
+			isAgreementRead: 1
+		};
+		let pop = {
+			type: 'handleTip',
+			title: '请先阅读办理协议',
+			btnCancel: '取消',
+			btnconfirm: '我已阅读',
+			delayTime: 10,
+			all: true
+		};
+		let that = this;
+		let agreementContent = '';
+		that.data.listOfPackages[that.data.activeIndex].agreements.map(item => {
+			agreementContent += `<br><h1 style="text-align: center;">${item.name}</h1><br>` + item.content;
+		});
+		let content = agreementContent;
+		util.addHandleOrAgreementTip(that, params, pop, content, () => {
+			that.setData({isAgreementRead: 1}); // 已确认
+			that.onClickAgreementHandle();
+		});
+	},
+	async handleTip () {	// 办理提醒
+		let params = {
+			orderId: app.globalData.orderInfo.orderId,
+			isPaymentPopupConfirmation: 1
+		};
+		let pop = {
+			type: 'handleTip',
+			title: '办理提醒',
+			btnCancel: '不同意',
+			btnconfirm: '同意并支付',
+			delayTime: 10
+		};
+		let that = this;
+		let content = '尊敬的车主，您正在办理的高速通行ETC订单包含1套ETC设备及相关质保服务，您支付的款项为一次性购买商品费用，该费用不可用于通行费抵扣及押金返还，请您注意确认，若您理解并同意请击下一步办理，否则请终止办理。';
+		util.addHandleOrAgreementTip(that, params, pop, content, async () => {
+			that.setData({isPaymentPopupConfirmation: 1});	// 已确认
+			await that.saveOrderInfo();
 		});
 	}
 });
