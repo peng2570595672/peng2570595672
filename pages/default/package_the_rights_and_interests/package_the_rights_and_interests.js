@@ -876,6 +876,17 @@ Page({
 	},
 	// 提交订单
 	async saveOrderInfo () {
+		let obj1 = this.data.listOfPackages[this.data.choiceIndex];
+		if (obj1?.isCallBack && obj1.flowVersion === 8 && !this.data?.aiReturn && (obj1?.pledgePrice || this.data.equityListMap.addEquityList[this.data.choiceIndex].aepIndex !== -1) && (this.data.orderInfo?.base.orderType === 31 || this.data.orderInfo?.base.orderType === 51)) {
+			// 9901 流程支付前拉起ai回访弹窗
+			let that = this;
+			util.aiReturn(that,'#popTipComp',app.globalData.orderInfo.orderId,async () => {
+				that.setData({aiReturn: 1});
+				await that.saveOrderInfo();
+			});
+			return;
+		}
+
 		if (!this.data.isLoaded) {
 			util.showToastNoIcon('数据加载中,请稍后重试');
 			return;
@@ -925,21 +936,31 @@ Page({
 					productShopId: app.globalData.newPackagePageData?.shopId
 				});
 			}
-			if (this.data.listOfPackages[this.data.choiceIndex]?.cmType) { // 辽宁移动 支付
-				this.liaoNingMovePay();
-				return;
-			}
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice || addEquity.aepIndex !== -1) {
-				const {isNeedSign,isShowRightsDesc,etcCardId} = this.data.listOfPackages[this.data.choiceIndex];
-				const {orderType,userSign,verifyCode} = this.data.orderInfo?.base;
-				console.log('userSign',userSign,verifyCode ,!userSign,!verifyCode);
-				if (isNeedSign === 1 && isShowRightsDesc === 1 && etcCardId === 10 && (!userSign || !verifyCode)) {
-					// 选择【湖南湘通卡】且办理平台选择【小程序套餐】，是否展示权益说明选择【是】是否需要二次确认选择【是】时
-					// 需要去签字
-					util.go(`/pages/default/statement_of_interest/statement_of_interest?isNeedSign=${isNeedSign}&orderType=${orderType}&etcCardId=${etcCardId}`);
+				if (this.data.listOfPackages[this.data.choiceIndex]?.cmType) { // 辽宁移动 支付
+					this.liaoNingMovePay();
 					return;
 				}
 				await this.marginPayment(this.data.listOfPackages[this.data.choiceIndex].pledgeType);
+				return;
+			}
+			if (this.data.listOfPackages[this.data.activeIndex].etcCardId === 10 && this.data.orderInfo.base?.orderExtCardType === 2) {
+				await this.getOrderInfo(true,null,2,true);// 更新订单数据
+				// 湖南湘通卡 & 单片机   湖南信科 // 新流程
+				let encodeParam = {
+					productName: this.data.orderInfo.receive?.productName,
+					modelName: '黑色',
+					receiveName: this.data.orderInfo.receive?.receiveMan,
+					receiveAddress: this.data.orderInfo.receive?.receiveAddress,
+					receiveTel: this.data.orderInfo.receive?.receivePhone,
+					receiveProvince: orderInfo.receive?.receiveProvince,
+					receiveCity: orderInfo.receive?.receiveCity,
+					receiveCounty: orderInfo.receive?.receiveCounty,
+					orderType: this.data.receive_orderType // 区分线上线下
+				};
+				console.log('去往湖南高速办理',encodeParam);
+				// 去往湖南高速办理;
+				handleJumpHunanMini(app.globalData.orderInfo.orderId,null,18,encodeParam);
 				return;
 			}
 			if (this.data.orderInfo?.base?.orderType === 61) {
@@ -1508,7 +1529,7 @@ Page({
 				header: {'content-type': 'application/json'}, // 默认值
 				method: 'POST',
 				async success (res) {
-				  let callbacks = JSON.parse([res.data.substring(9,res.data.length - 1)]);
+					let callbacks = JSON.parse([res.data.substring(9,res.data.length - 1)]);
 					let result = await util.getDataFromServersV2('consumer/order/public/getLnPayParam', {
 						respData: callbacks.RespData,
 						respInfo: callbacks.RespInfo,
@@ -1527,7 +1548,7 @@ Page({
 					wx.hideLoading();
 					console.log(res);
 				}
-			  });
+			});
 		} else {
 			wx.hideLoading();
 			util.showToastNoIcon(res.message);

@@ -162,6 +162,7 @@ Component({
 			}
 			if (this.data.tipObj.type === 'handleTip') {	// 办理提醒
 				if (!this.data.tipObj.showConfirmButton) return;
+				this.setData({'tipObj.showConfirmButton': false});
 				this.data.paramsList[0].callBack();
 				this.hide(false);
 			}

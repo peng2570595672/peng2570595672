@@ -8,7 +8,9 @@ Page({
 		obuNumber: '', // obu号码 sn
 		kaNumber: '', // 卡签号码
 		isNewTrucks: undefined,
-		orderId: ''
+		orderId: '',
+		pictureWidth: 0, // 压缩图片
+		pictureHeight: 0
 	},
 
 	onLoad (options) {
@@ -31,32 +33,41 @@ Page({
 	// 拍照或选择图片
 	chooseImage (e) {
 		let that = this;
-		wx.chooseImage({
-			count: 1,
-			sizeType: ['original', 'compressed'],
-			sourceType: ['album', 'camera'],
+		wx.showActionSheet({
+			itemList: ['拍照', '相册选择'],
 			success: (res) => {
-				that.uploadCardOrcFile(res.tempFilePaths[0]);
-			},
-			fail: (res) => {
-				if (res.errMsg !== 'chooseImage:fail cancel') {
-					util.showToastNoIcon('选择图片失败！');
-					return;
+				if (res.tapIndex === 0) {
+					let type = '14';
+					let typeTip = '录入OBU和卡签号';
+					util.go(`/pages/default/camera/camera?type=${type}&title=${typeTip}`);
+				} else {
+					wx.chooseImage({
+						count: 1,
+						sizeType: ['original', 'compressed'],
+						sourceType: ['album'],
+						success: (res) => {
+							that.uploadCardOrcFile(res.tempFilePaths[0]);
+						},
+						fail: (res) => {
+							if (res.errMsg !== 'chooseImage:fail cancel') {
+								util.showToastNoIcon('选择图片失败！');
+							}
+						}
+					});
 				}
-				util.showToastNoIcon(res.errMsg);
 			}
 		});
 	},
 
 	// 裁剪压缩图片 并缓存
 	uploadCardOrcFile (path) {
-		let that = this;
+		// let that = this;
 		let picPath = '';
 		// 裁剪压缩图片
-		compressPicturesUtils.processingPictures(that, path, 'pressCanvas', 640, (res) => {
-			picPath = res ? res : path;
-		});
-		that.uploadOcrFile(picPath || path,14);
+		// compressPicturesUtils.processingPictures(this, path, 'pressCanvas', 640, (res) => {
+		// 	picPath = res ? res : path;
+		// });
+		this.uploadOcrFile(picPath || path,14);
 	},
 
 	// 识别图片
@@ -64,7 +75,7 @@ Page({
 		util.showLoading();
 		let that = this;
 		util.uploadOcrFile(path, type, () => {
-		   util.showToastNoIcon('上传失败');
+			util.showToastNoIcon('上传失败');
 		}, (res) => {
 			if (!res) {
 				wx.hideLoading();
@@ -73,22 +84,19 @@ Page({
 			}
 			res = JSON.parse(res);
 			if (res.code === 0) {
-				let ocrObject = res.data[0].ocrObject;
-				console.log('数据：',Object.values(ocrObject));
-				Object.values(ocrObject).map(item => {
-					if (item.includes('SN号') || item.includes('S/N')) {
-						that.setData({
-							obuNumber: item.split(':')[1],
-							available: true
-						});
-					}
-					if (item.includes('卡号') || item.includes('卡')) {
-						that.setData({
-							kaNumber: item.split(':')[1]
-						});
-					}
-					wx.hideLoading();
-				});
+				wx.hideLoading();
+				try {
+					let ocrObject = res.data[0].ocrObject;
+					// that.data.formData.cpuId = ocrObject.DetectedText0.split(':')[1];
+					// that.data.formData.obuId = ocrObject.DetectedText1.split(':')[1];
+					that.setData({
+						// formData: that.data.formData,
+						obuNumber: ocrObject.DetectedText1.split(':')[1],
+						available: true
+					});
+				} catch (e) {
+					util.showToastNoIcon('OCR数据解析异常');
+				}
 			} else {
 				wx.hideLoading();
 				util.showToastNoIcon(res.message);
@@ -97,7 +105,7 @@ Page({
 	},
 
 	async next () {
-		util.go(`/pages/default/receiving_address/receiving_address?isNewTrucks=${this.data.isNewTrucks}&perfect=0&isPost=1`);
+		util.go(`/pages/default/receiving_address/receiving_address?isNewTrucks=${this.data.isNewTrucks}&perfect=0&isPost=1&newEmptyOne=1&obuNo=${this.data.obuNumber}`);
 		if (!this.data.available) return;
 		this.setData({
 			isRequest: true
@@ -114,19 +122,15 @@ Page({
 					await this.getOrderDetail();
 				} else {
 					// 去创建订单
-					util.go(`/pages/default/receiving_address/receiving_address?isNewTrucks=${this.data.isNewTrucks}&perfect=0&isPost=1`);
+					util.go(`/pages/default/receiving_address/receiving_address?isNewTrucks=${this.data.isNewTrucks}&perfect=0&isPost=1&newEmptyOne=1&obuNo=${this.data.obuNumber}`);
 				}
 			} else {
-				this.setData({
-					isRequest: false
-				});
+				this.setData({ isRequest: false });
 				util.showToastNoIcon(res.message);
 			}
 		}, app.globalData.userInfo.accessToken, () => {
 			util.hideLoading();
-			this.setData({
-				isRequest: false
-			});
+			this.setData({ isRequest: false });
 		});
 	},
 	async getOrderDetail () { // 根据订单ID 查询订单

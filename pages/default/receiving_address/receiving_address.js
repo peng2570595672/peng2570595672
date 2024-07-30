@@ -231,6 +231,12 @@ Page({
 				available: true
 			});
 		}
+		// if (options.newEmptyOne) {	// 新空发流程
+		// 	this.setData({
+		// 		newEmptyOne: +options.newEmptyOne,
+		// 		obuNo: options.obuNo
+		// 	});
+		// }
 	},
 	async onShow () {
 		let result = wx.getLaunchOptionsSync();
@@ -636,6 +642,10 @@ Page({
 			params['axleNum'] = this.data.formData.axleNum; // 货车车轴数量
 			params['vehColor'] = this.data.formData.currentCarNoColorTruck; // 货车颜色
 		}
+		// if (this.data?.newEmptyOne) {	// 新空发订单
+		// 	params['orderType'] = 72;
+		// 	params['obuNo'] = this.data?.obuNo;
+		// }
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		if (!result) return;
 		this.setData({
