@@ -912,11 +912,11 @@ Page({
 					productShopId: app.globalData.newPackagePageData?.shopId
 				});
 			}
-			if (this.data.listOfPackages[this.data.choiceIndex]?.cmType) { // 辽宁移动 支付
-				this.liaoNingMovePay();
-				return;
-			}
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice || addEquity.aepIndex !== -1) {
+				if (this.data.listOfPackages[this.data.choiceIndex]?.cmType) { // 辽宁移动 支付
+					this.liaoNingMovePay();
+					return;
+				}
 				await this.marginPayment(this.data.listOfPackages[this.data.choiceIndex].pledgeType);
 				return;
 			}
