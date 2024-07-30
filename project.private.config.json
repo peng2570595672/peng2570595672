@@ -247,6 +247,13 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "办理进度页",
+                    "pathName": "pages/default/processing_progress/processing_progress",
+                    "query": "orderId=",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
