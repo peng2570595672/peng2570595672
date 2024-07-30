@@ -571,17 +571,17 @@ Page({
 		if (url === 'tonTonQuan') {	// 跳转通通券
 			jumpCouponMini();
 		}
-		if (obj.appId === 'wxfd9fbd2b4e45c38f') {	// 跳转平安贷款
-			// 跳转到另一个小程序
-			wx.navigateToMiniProgram({
-				appId: obj.appId,
-				path: obj.jumpUrl,
-				envVersion: 'release',
-				fail () {
-					util.showToastNoIcon('调起小程序失败, 请重试！');
-				}
-			});
-		}
+		// if (obj.appId === 'wxfd9fbd2b4e45c38f') {	// 跳转平安贷款
+		// 	// 跳转到另一个小程序
+		// 	wx.navigateToMiniProgram({
+		// 		appId: obj.appId,
+		// 		path: obj.jumpUrl,
+		// 		envVersion: 'release',
+		// 		fail () {
+		// 			util.showToastNoIcon('调起小程序失败, 请重试！');
+		// 		}
+		// 	});
+		// }
 	},
 	onClickAccountManagement () {
 		wx.uma.trackEvent('personal_center_for_account_management');
