@@ -36,7 +36,7 @@
                     '待签约银行')) : ''}}
                     {{item.selfStatus === 10 || item.selfStatus === 17 || item.selfStatus === 28 ? '审核通过' : ''}}
                     {{item.selfStatus === 11 || item.selfStatus === 26 || item.selfStatus === 36 ? '待激活' : ''}}
-                    {{item.selfStatus === 12 || item.selfStatus === 30 || item.selfStatus === 32 || item.selfStatus ===
+                    {{item.selfStatus === 12 || item.selfStatus === 30 || item.selfStatus === 32 || item.selfStatus === 39 || item.selfStatus ===
                     33 ? '已激活' : ''}}
                     {{item.selfStatus === 13 || item.selfStatus === 19 || item.selfStatus === 20 ? '待开户' : ''}}
                     {{item.selfStatus === 15 ? '待充保证金' : ''}}
@@ -72,6 +72,7 @@
                     {{(item.selfStatus === 7 && item.flowVersion !== 4) || item.selfStatus === 27 ? '修改资料' : ''}}
                     {{item.selfStatus === 7 && item.flowVersion === 4 ? '取消办理' : ''}}
                     {{item.selfStatus === 8 ? '查看进度' : ''}}
+                    {{item.selfStatus === 39 ? '查看详情' : ''}}
                     {{item.selfStatus === 10 || item.selfStatus === 26 || item.selfStatus === 28 ? '查看进度' : ''}}
                     {{item.selfStatus === 11 ? '去激活' : ''}}
                     {{item.selfStatus === 12 || item.selfStatus === 32 ? item.deviceUpgrade ? '设备升级' : '' : ''}}

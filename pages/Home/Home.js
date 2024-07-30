@@ -1385,6 +1385,9 @@ Page({
 				receiveName: orderInfo.receiveName,
 				receiveAddress: orderInfo.receiveAddress,
 				receiveTel: orderInfo.receiveMobile,
+				receiveProvince: orderInfo.receiveProvince,
+				receiveCity: orderInfo.receiveCity,
+				receiveCounty: orderInfo.receiveCounty,
 				orderType: orderInfo.orderType
 			};
 			console.log('encodeParam',encodeParam);
@@ -1943,6 +1946,9 @@ Page({
 				receiveName: orderInfo.receiveName,
 				receiveAddress: orderInfo.receiveAddress,
 				receiveTel: orderInfo.receiveMobile,
+				receiveProvince: orderInfo.receiveProvince,
+				receiveCity: orderInfo.receiveCity,
+				receiveCounty: orderInfo.receiveCounty,
 				orderType: orderInfo.orderType
 			};
 			console.log('encodeParam',encodeParam);

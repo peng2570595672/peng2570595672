@@ -244,6 +244,9 @@ Page({
 								receiveName: that.data.orderInfo.receive?.receiveMan,
 								receiveAddress: that.data.orderInfo.receive?.receiveAddress,
 								receiveTel: that.data.orderInfo.receive?.receivePhone,
+								receiveProvince: that.data.orderInfo.receive?.receiveProvince,
+								receiveCity: that.data.orderInfo.receive?.receiveCity,
+								receiveCounty: that.data.orderInfo.receive?.receiveCounty,
 								orderType: that.data.receive_orderType // 区分线上线下
 							};
 							console.log('支付后前往湖南高速小程序', encodeParam);

@@ -31,7 +31,7 @@
 			{{orderInfo.selfStatus === 9 ? (orderInfo.flowVersion === 2 ? '待签约高速' : (orderInfo.flowVersion === 7 ? '待开户' : '待签约银行')) : ''}}
 			{{orderInfo.selfStatus === 10 || orderInfo.selfStatus === 17 || orderInfo.selfStatus === 28 ? '审核通过' : ''}}
 			{{orderInfo.selfStatus === 11 || orderInfo.selfStatus === 36 ? '待激活' : ''}}
-			{{orderInfo.selfStatus === 12 || orderInfo.selfStatus === 30  || orderInfo.selfStatus === 32 || orderInfo.selfStatus === 33 ? '已激活' : ''}}
+			{{orderInfo.selfStatus === 12 || orderInfo.selfStatus === 30  || orderInfo.selfStatus === 32 || orderInfo.selfStatus === 33 || orderInfo.selfStatus === 39 ? '已激活' : ''}}
 			{{orderInfo.selfStatus === 13 || orderInfo.selfStatus === 19 || orderInfo.selfStatus === 20 ? '待开户' : ''}}
 			{{orderInfo.selfStatus === 15 ? '待充保证金' : ''}}
 			{{orderInfo.selfStatus === 16 ? '完成验证绑定代扣' : ''}}
@@ -114,11 +114,12 @@
 			{{orderInfo.selfStatus === 30 ? '退还权益金' : ''}}
 			{{orderInfo.selfStatus === 31 || orderInfo.selfStatus === 32 ? '签约激活' : ''}}
 			{{orderInfo.selfStatus === 35 ? '继续办理' : ''}}
+			{{orderInfo.selfStatus === 39 ? '查看详情' : ''}}
 			{{orderInfo.selfStatus === 36 ? '办理产品并激活' : ''}}
 			{{orderInfo.selfStatus === 37 ? '申请信用卡' : ''}}
 			{{orderInfo.selfStatus === 38 ? '去绑车' : ''}}
 		</button>
-		<view class="btn-wrapper" wx:if="{{orderInfo.orderType === 11 || orderInfo.orderType === 12 || orderInfo.orderType === 81 || (orderInfo.orderType === 71 && orderInfo.promoterType === 44)}}">
+		<view class="btn-wrapper" wx:if="{{(orderInfo.orderType === 11 && orderInfo.orderExtCardType !== 2) || orderInfo.orderType === 12 || orderInfo.orderType === 81 || (orderInfo.orderType === 71 && orderInfo.promoterType === 44)}}">
 			<view wx:if="{{!orderInfo.pledgeStatus || orderInfo.pledgeStatus === 0}}" catchtap="onClickCancelHandle" >取消办理</view>
 			<view wx:if="{{(orderInfo.pledgeStatus === 1 && orderInfo.flowVersion !== 8) || (orderInfo.pledgeStatus === 1 && orderInfo.flowVersion === 8 && !orderInfo.hwContractStatus)}}" catchtap="goOnlineServer">取消办理</view>
 		</view>

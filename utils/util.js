@@ -871,6 +871,9 @@ function getStatus(orderInfo) {
 			}
 			return 31;
 		}
+		if (orderInfo.obuStatus === 1 || orderInfo.obuStatus === 5) { // 已激活
+			return 39;
+		}
 		return 32;
 	}
 	if (orderInfo.orderType === 81) {
