@@ -196,11 +196,8 @@ Page({
 				productName: orderInfo.productName,
 				modelName: '黑色',
 				receiveName: orderInfo.receiveName,
-				receiveAddress: orderInfo.receiveAddress,
+				receiveAddress: orderInfo.receiveProvince + orderInfo.receiveCity + orderInfo.receiveCounty + orderInfo.receiveAddress,
 				receiveTel: orderInfo.receiveMobile,
-				receiveProvince: orderInfo.receiveProvince,
-				receiveCity: orderInfo.receiveCity,
-				receiveCounty: orderInfo.receiveCounty,
 				orderType: orderInfo.orderType
 			};
 			console.log('encodeParam',encodeParam);

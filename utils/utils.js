@@ -209,7 +209,7 @@ export function handleJumpHunanMini(orderId, outTradeNo, selfStatus,encodeParam)
 	let url;
 	switch (selfStatus) {
 		case 18:
-			const {productName,modelName,receiveName,receiveAddress,receiveTel,receiveProvince,receiveCity,receiveCounty,orderType} = encodeParam;
+			const {productName,modelName,receiveName,receiveAddress,receiveTel,orderType} = encodeParam;
 			if (orderType === 11) { //11 邮寄 31 业务员端
 				let extraParam = {
 					productName,
@@ -217,9 +217,6 @@ export function handleJumpHunanMini(orderId, outTradeNo, selfStatus,encodeParam)
 					receiveName,
 					receiveAddress,
 					receiveTel,
-					receiveProvince,
-					receiveCity,
-					receiveCounty
 				}
 				url =`/myPackage/service/newMineIssure/router/router?processCode=NEWSJHTONLINE&promotionCode=88880123&accessNo=${orderId}&extraParam=${JSON.stringify(extraParam)}`;
 			}

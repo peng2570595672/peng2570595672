@@ -951,11 +951,8 @@ Page({
 					productName: this.data.orderInfo.receive?.productName,
 					modelName: '黑色',
 					receiveName: this.data.orderInfo.receive?.receiveMan,
-					receiveAddress: this.data.orderInfo.receive?.receiveAddress,
+					receiveAddress: this.data.orderInfo.receive?.receiveProvince + this.data.orderInfo.receive?.receiveCity + this.data.orderInfo.receive?.receiveCounty + this.data.orderInfo.receive?.receiveAddress,
 					receiveTel: this.data.orderInfo.receive?.receivePhone,
-					receiveProvince: orderInfo.receive?.receiveProvince,
-					receiveCity: orderInfo.receive?.receiveCity,
-					receiveCounty: orderInfo.receive?.receiveCounty,
 					orderType: this.data.receive_orderType // 区分线上线下
 				};
 				console.log('去往湖南高速办理',encodeParam);
@@ -1125,11 +1122,8 @@ Page({
 								productName: this.data.orderInfo.receive?.productName,
 								modelName: '黑色',
 								receiveName: this.data.orderInfo.receive?.receiveMan,
-								receiveAddress: this.data.orderInfo.receive?.receiveAddress,
+								receiveAddress: this.data.orderInfo.receive?.receiveProvince + this.data.orderInfo.receive?.receiveCity + this.data.orderInfo.receive?.receiveCounty + this.data.orderInfo.receive?.receiveAddress,
 								receiveTel: this.data.orderInfo.receive?.receivePhone,
-								receiveProvince: orderInfo.receive?.receiveProvince,
-								receiveCity: orderInfo.receive?.receiveCity,
-								receiveCounty: orderInfo.receive?.receiveCounty,
 								orderType: this.data.receive_orderType // 区分线上线下
 							};
 							console.log('去往湖南高速办理',encodeParam);
@@ -1578,11 +1572,8 @@ Page({
 							productName: this.data.orderInfo.receive?.productName,
 							modelName: '黑色',
 							receiveName: this.data.orderInfo.receive?.receiveMan,
-							receiveAddress: this.data.orderInfo.receive?.receiveAddress,
+							receiveAddress: this.data.orderInfo.receive?.receiveProvince + this.data.orderInfo.receive?.receiveCity + this.data.orderInfo.receive?.receiveCounty + this.data.orderInfo.receive?.receiveAddress,
 							receiveTel: this.data.orderInfo.receive?.receivePhone,
-							receiveProvince: orderInfo.receive?.receiveProvince,
-							receiveCity: orderInfo.receive?.receiveCity,
-							receiveCounty: orderInfo.receive?.receiveCounty,
 							orderType: this.data.receive_orderType // 区分线上线下
 						};
 						console.log('去往湖南高速办理',encodeParam);
