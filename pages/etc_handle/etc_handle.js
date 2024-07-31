@@ -168,7 +168,7 @@ Page({
 			}
 			let imagesConfig = {
 				backgroundColor: '#46976D',
-				marketingImgUrl: 'https://file.cyzl.com/g001/M03/4B/D0/oYYBAGYMw8WAHxi0AAFLKwLny9Q434.png'
+				marketingImgUrl: 'https://file.cyzl.com/g001/M03/A0/1E/oYYBAGap3GKAEBSyAABSChMxFAE953.png'
 			};
 			this.setData({ // 如果是货车 配置暂时写死
 				imagesConfig: +options.isNewTrucks === 1 ? imagesConfig : data.imagesConfig,
@@ -177,7 +177,7 @@ Page({
 		} else {
 			let imagesConfig = {
 				backgroundColor: +options.isNewTrucks === 1 ? '#46976D' : '#2A4F44',
-				marketingImgUrl: +options.isNewTrucks === 1 ? 'https://file.cyzl.com/g001/M03/4B/D0/oYYBAGYMw8WAHxi0AAFLKwLny9Q434.png' : 'https://file.cyzl.com/g001/M01/D1/10/oYYBAGQiQxuAUiQdAABFf46DvQQ847.png'
+				marketingImgUrl: +options.isNewTrucks === 1 ? 'https://file.cyzl.com/g001/M03/A0/1E/oYYBAGap3GKAEBSyAABSChMxFAE953.png' : 'https://file.cyzl.com/g001/M01/D1/10/oYYBAGQiQxuAUiQdAABFf46DvQQ847.png'
 			};
 			this.setData({ // 如果是货车 配置暂时写死
 				imagesConfig,
@@ -291,7 +291,7 @@ Page({
 		let isNewTrucks = +e.currentTarget.dataset['type'];
 		let imagesConfig = {
 			backgroundColor: isNewTrucks === 1 ? '#46976D' : '#2A4F44',
-			marketingImgUrl: isNewTrucks === 1 ? 'https://file.cyzl.com/g001/M03/4B/D0/oYYBAGYMw8WAHxi0AAFLKwLny9Q434.png' : 'https://file.cyzl.com/g001/M01/D1/10/oYYBAGQiQxuAUiQdAABFf46DvQQ847.png'
+			marketingImgUrl: isNewTrucks === 1 ? 'https://file.cyzl.com/g001/M03/A0/1E/oYYBAGap3GKAEBSyAABSChMxFAE953.png' : 'https://file.cyzl.com/g001/M01/D1/10/oYYBAGQiQxuAUiQdAABFf46DvQQ847.png'
 		};
 		this.setData({
 			isNewTrucks,
