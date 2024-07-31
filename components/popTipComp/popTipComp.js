@@ -134,7 +134,7 @@ Component({
 				}
 			}, 1000);
 		},
-		onConfirm () {
+		onConfirm (e) {
 			if (this.data.tipObj.type === 'accidentInsurance') {
 				this.hide(false);
 				const that = this;
@@ -162,9 +162,8 @@ Component({
 			}
 			if (this.data.tipObj.type === 'handleTip') {	// 办理提醒
 				if (!this.data.tipObj.showConfirmButton) return;
-				this.setData({'tipObj.showConfirmButton': false});
 				this.data.paramsList[0].callBack();
-				this.hide(false);
+				this.hide(e);
 			}
 		},
 		openFullScreenImage (e) {

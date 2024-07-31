@@ -368,7 +368,7 @@
             </scroll-view>
             
             <view class="bottomBtn">
-                <view class="ok  {{tipObj.showConfirmButton ? 'highlighted' : ''}}" catchtap="onConfirm">
+                <view class="ok  {{tipObj.showConfirmButton ? 'highlighted' : ''}}" data-title="{{tipObj.title}}" catchtap="onConfirm">
                     <view>{{tipObj.btnconfirm}}<text wx:if="{{tipObj.type === 'handleTip'}}">{{countdownText}}</text></view>
                     <view class="countdownText" wx:if="{{countdownText && tipObj.type === 'countdownPopUpBox'}}">{{countdownText}}</view>
                 </view>
