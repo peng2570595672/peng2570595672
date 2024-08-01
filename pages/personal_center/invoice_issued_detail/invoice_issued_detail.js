@@ -17,6 +17,12 @@ Page({
 	async onLoad (options) {
 		this.data.origin = parseInt(options.origin);
 		let invoiceInfo = options.infoStr ? JSON.parse(options.infoStr) : {};
+		this.setData({
+			invoiceTypes: [
+				{name: '公司开票'},
+				{name: '个人开票'}
+			]
+		});
 		if (this.data.origin === 0) {
 			invoiceInfo.userPhone = app.globalData.mobilePhone;
 			invoiceInfo.invoiceType = 2;
