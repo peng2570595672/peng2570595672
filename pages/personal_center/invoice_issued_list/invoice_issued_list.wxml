@@ -18,7 +18,7 @@
 						<text wx:elif="{{item.invoiceStatus === 1}}">已开票成功，请查看手机短信或邮箱</text>
 						<text wx:elif="{{item.invoiceStatus === 2}}">开票失败，请重试</text>
 					</view>
-					<view class="right {{(item.invoiceStatus !== 1 && item.invoiceStatus !== 2  && item.invoiceStatus !== 4) ? 'green' :'' }}">{{(item.invoiceStatus !== 1 && item.invoiceStatus !== 2  && item.invoiceStatus !== 4) ? '开票': '详情'}}</view>
+					<view class="right {{(item.invoiceStatus !== 1 && item.invoiceStatus !== 4) ? 'green' :'' }}">{{(item.invoiceStatus !== 1 && item.invoiceStatus !== 2  && item.invoiceStatus !== 4) ? '开票': item.invoiceStatus === 2 ? '重开发票' : '详情'}}</view>
 					<view class="arrow-icon iconfont"></view>
 				</view>
 			</view>
