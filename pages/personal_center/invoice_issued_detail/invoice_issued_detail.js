@@ -21,7 +21,7 @@ Page({
 			invoiceInfo.userPhone = app.globalData.mobilePhone;
 			invoiceInfo.invoiceType = 2;
 		} else {
-			const index = invoiceInfo.invoiceType === 2 ? 0 : 1;
+			const index = invoiceInfo.invoiceType === 2 ? 1 : 0;
 			this.data.invoiceTypes.splice(index,1);
 		}
 		this.setData({
