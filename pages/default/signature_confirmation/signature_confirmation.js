@@ -1,7 +1,7 @@
 import {
 	wxApi2Promise
 } from '../../../utils/utils';
-import {handleJumpHunanMini} from '../../../utils/utils.js';
+import { handleJumpHunanMini } from '../../../utils/utils.js';
 /**
  * @author 老刘
  * @desc 签字确认-真机调试不能绘制
@@ -105,6 +105,9 @@ Page({
 		if (this.data.singFinish && this.data.payFinish) {
 			// 湖南湘通流程 已经签名 并且 支付完成了
 			console.log('南湘通流程 已经签名 并且 支付完成');
+			wx.switchTab({
+				url: '/pages/Home/Home'
+			});
 			return;
 		}
 		util.showLoading('加载中');
@@ -152,7 +155,7 @@ Page({
 			userSign: fileUrl,
 			orderId: app.globalData.orderInfo.orderId // 订单id
 		};
-		console.log('保存签名信息',params);
+		console.log('保存签名信息', params);
 		const result = await util.getDataFromServersV2('consumer/order/user/sign', params);
 		if (!result) return;
 		if (result.code === 0) {
@@ -160,7 +163,7 @@ Page({
 				singFinish: true
 			});
 			const obj = this.data.orderInfo;
-			console.log('判断支付状态1',obj);
+			console.log('判断支付状态1', obj);
 			if (obj.pledgeType || obj.addEquity?.aepIndex !== -1) {
 				// 前往支付
 				await this.marginPayment(obj.pledgeType);
@@ -233,24 +236,19 @@ Page({
 							payFinish: true
 						});
 						await that.getOrderInfo(true, 12, true);// 更新订单数据
-						const { etcCardId, orderExtCardType,productName } = that.data.listOfPackages[0];
-						console.log(that.data.listOfPackages[0] , 'etcCardId', etcCardId,'orderExtCardType',orderExtCardType);
+						const { etcCardId, orderExtCardType, productName } = that.data.listOfPackages[0];
 						if ((etcCardId === 10 && orderExtCardType === 2) || etcCardId === 10) {
-							await that.getOrderInfo(true, 2, true);// 更新订单数据
+							await that.getOrderInfo(true, null, 2, true);// 更新订单数据
 							// 湖南湘通卡 & 单片机   湖南信科 // 新流程
 							let encodeParam = {
 								productName: that.data.orderInfo.receive?.productName || productName,
 								modelName: '黑色',
 								receiveName: that.data.orderInfo.receive?.receiveMan,
-								receiveAddress: that.data.orderInfo.receive?.receiveAddress,
+								receiveAddress: that.data.orderInfo.receive?.receiveProvince + that.data.orderInfo.receive?.receiveCity + that.data.orderInfo.receive?.receiveCounty + that.data.orderInfo.receive?.receiveAddress,
 								receiveTel: that.data.orderInfo.receive?.receivePhone,
-								receiveProvince: that.data.orderInfo.receive?.receiveProvince,
-								receiveCity: that.data.orderInfo.receive?.receiveCity,
-								receiveCounty: that.data.orderInfo.receive?.receiveCounty,
 								orderType: that.data.receive_orderType // 区分线上线下
 							};
-							console.log('支付后前往湖南高速小程序', encodeParam);
-							console.log('app.globalData.orderInfo.orderId', app.globalData.orderInfo.orderId);
+							console.log('去往湖南高速办理', encodeParam);
 							// 去往湖南高速办理;
 							handleJumpHunanMini(app.globalData.orderInfo.orderId, null, 18, encodeParam);
 						}

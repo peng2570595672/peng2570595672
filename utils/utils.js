@@ -212,7 +212,7 @@ export function handleJumpHunanMini(orderId, outTradeNo, selfStatus,encodeParam)
 			const {productName,modelName,receiveName,receiveAddress,receiveTel,orderType} = encodeParam;
 			if (orderType === 11) { //11 邮寄 31 业务员端
 				let extraParam = {
-					productName,
+					productName:'世纪恒通300元车主服务',
 					modelName,
 					receiveName,
 					receiveAddress,
@@ -222,7 +222,7 @@ export function handleJumpHunanMini(orderId, outTradeNo, selfStatus,encodeParam)
 			}
 			if (orderType === 31) { //11 邮寄 31 业务员端
 				let extraParam = {
-					productName,
+					productName:'世纪恒通300元车主服务',
 					modelName,
 				}
 				url =`/myPackage/service/newMineIssure/router/router?processCode=NEWSJHTOFFLINE&promotionCode=88880123&accessNo=${orderId}&extraParam=${JSON.stringify(extraParam)}`;
@@ -235,7 +235,7 @@ export function handleJumpHunanMini(orderId, outTradeNo, selfStatus,encodeParam)
 			url = `/myPackage/service/newMineIssure/router/router?processCode=SJHT&promotionCode=88880123&accessNo=${orderId}&outTradeNo=${outTradeNo}`
 		}
 	console.log('encodeParam',encodeParam);
-	console.log('实际传入url',url);
+	console.log('实际传入url--->',url);
 	wx.navigateToMiniProgram({
 		appId: 'wxf546f6c7ccd8fbfe',
 		path: `${url}`,

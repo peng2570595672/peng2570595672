@@ -936,6 +936,15 @@ Page({
 					productShopId: app.globalData.newPackagePageData?.shopId
 				});
 			}
+			// 是否需要签名确认
+			const {isNeedSign,isShowRightsDesc,etcCardId} = this.data.listOfPackages[this.data.choiceIndex];
+			const {orderType,userSign,verifyCode} = this.data.orderInfo?.base;
+			if (isNeedSign === 1 && isShowRightsDesc === 1 && (!userSign || !verifyCode)) {
+				// 选择【湖南湘通卡】且办理平台选择【小程序套餐】，是否展示权益说明选择【是】是否需要二次确认选择【是】时
+				// 需要去签字
+				util.go(`/pages/default/statement_of_interest/statement_of_interest?isNeedSign=${isNeedSign}&orderType=${orderType}&etcCardId=${etcCardId}`);
+				return;
+			}
 			if (this.data.listOfPackages[this.data.choiceIndex]?.pledgePrice || addEquity.aepIndex !== -1) {
 				if (this.data.listOfPackages[this.data.choiceIndex]?.cmType) { // 辽宁移动 支付
 					this.liaoNingMovePay();
