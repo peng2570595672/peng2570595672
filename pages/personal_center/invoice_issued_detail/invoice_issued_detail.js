@@ -17,11 +17,17 @@ Page({
 	async onLoad (options) {
 		this.data.origin = parseInt(options.origin);
 		let invoiceInfo = options.infoStr ? JSON.parse(options.infoStr) : {};
+		this.setData({
+			invoiceTypes: [
+				{name: '公司开票'},
+				{name: '个人开票'}
+			]
+		});
 		if (this.data.origin === 0) {
 			invoiceInfo.userPhone = app.globalData.mobilePhone;
 			invoiceInfo.invoiceType = 2;
 		} else {
-			const index = invoiceInfo.invoiceType === 2 ? 0 : 1;
+			const index = invoiceInfo.invoiceType === 2 ? 1 : 0;
 			this.data.invoiceTypes.splice(index,1);
 		}
 		this.setData({
