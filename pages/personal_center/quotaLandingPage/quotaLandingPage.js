@@ -23,7 +23,7 @@ Page({
 	async onLoad (options) {
 		// 页面显示时的逻辑
 		this.setData({
-			couponIds: app.globalData.test ? '1259868120X753905664,1259868736523870208' : '1265244206912905216,1265243124656775168' // 创建卡券批次Id
+			couponIds: app.globalData.test ? '1259868120753905664,1259868736523870208' : '1265244206912905216,1265243124656775168' // 创建卡券批次Id
 		});
 	},
 	/**
@@ -102,7 +102,9 @@ Page({
 	 */
 	onClickCommit (e) {
 		this.useBriedPoint();
-		if (this.data.verifyCode === 5001) {
+		console.log(this.data.verifyCode,'返回码');
+		console.log(this.data.valueList,'获取奖励');
+		if (this.data.verifyCode === 5001 || (this.data.valueList.length && this.data.valueList.length > 0)) {
 			this.thereAreCoupons();
 			return;
 		};
@@ -240,7 +242,7 @@ Page({
 		// 转换为数组形式
 		let coupons = Object.values(groupedCoupons);
 
-		console.log(coupons);
+		console.log('coupons',coupons);
 		// 显示卡券奖励
 		this.selectComponent('#popTipComp').show({
 			type: 'coupons',
