@@ -57,7 +57,7 @@
                 </view>
             </view>
             <!-- 描述 -->
-            <view class="description">本活动由ETC+合作伙伴提供及赞助，ETC+将在获得您的同意后跳转第三方活动参与贝面。</view>
+            <view class="description">本活动由ETC+合作伙伴提供及赞助，ETC+将在获得您的同意后跳转第三方活动参与页面。</view>
             <view class="eventAwards {{ verifyCode === 5001 ||  verifyCode === 5002 ? 'over' : ''}}" catchtap="onClickCommit">{{showText}}</view>
         </view>
         <!--  券额图片-->
@@ -67,7 +67,7 @@
         <image class="images" mode="widthFix"
             src="https://file.cyzl.com/g001/M03/87/CA/oYYBAGaE86SAW9cXAAA9Zm7vIuI167.png" />
         <image class="images" mode="widthFix"
-            src="https://file.cyzl.com/g001/M03/87/CA/oYYBAGaE8-uAER_qAACR1cmZJic912.png" />
+            src="https://file.cyzl.com/g001/M03/A1/CA/oYYBAGask0iAKqUMAAA52G6nd-g244.png" />
         <!-- 占位 -->
         <view class="split"></view>
         <view class="popup" wx:if="{{showPopup}}">
