@@ -107,6 +107,8 @@ Page({
 		});
 	},
 	async onLoad (options) {
+		console.log('测试：',options);
+
 		app.globalData.orderInfo.orderId = '';
 		if ((app.globalData.scanCodeToHandle && app.globalData.scanCodeToHandle.hasOwnProperty('isCrowdsourcing')) || Object.keys(options).length) {
 			wx.hideHomeButton();
@@ -231,12 +233,13 @@ Page({
 				available: true
 			});
 		}
-		// if (options.newEmptyOne) {	// 新空发流程
-		// 	this.setData({
-		// 		newEmptyOne: +options.newEmptyOne,
-		// 		obuNo: options.obuNo
-		// 	});
-		// }
+		if (options.newEmptyOne) {	// 新空发流程
+			this.setData({
+				newEmptyOne: +options.newEmptyOne,
+				obuNo: options.obuNo,
+				shopId: options.shopId
+			});
+		}
 	},
 	async onShow () {
 		let result = wx.getLaunchOptionsSync();
@@ -642,10 +645,11 @@ Page({
 			params['axleNum'] = this.data.formData.axleNum; // 货车车轴数量
 			params['vehColor'] = this.data.formData.currentCarNoColorTruck; // 货车颜色
 		}
-		// if (this.data?.newEmptyOne) {	// 新空发订单
-		// 	params['orderType'] = 72;
-		// 	params['obuNo'] = this.data?.obuNo;
-		// }
+		if (this.data?.newEmptyOne) {	// 新空发订单
+			params['orderType'] = 72;
+			params['obuNo'] = this.data?.obuNo;
+			params['shopId'] = this.data.shopId;
+		}
 		const result = await util.getDataFromServersV2('consumer/order/save-order-info', params);
 		if (!result) return;
 		this.setData({

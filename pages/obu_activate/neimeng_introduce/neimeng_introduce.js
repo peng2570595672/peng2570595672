@@ -7,7 +7,8 @@ Page({
 	data: {
 		wrapper: false,
 		mask: false,
-		baseInfo: undefined
+		baseInfo: undefined,
+		orderDetail: undefined
 	},
 	onLoad () {
 		if (app.globalData.obuActiveUpDateInfo.isUpDate) {
@@ -25,6 +26,18 @@ Page({
 		let endIndex = installGuid.indexOf('（') !== -1 ? installGuid.indexOf('（') : installGuid.indexOf('(');
 		app.globalData.obuActiveUpDateInfo.isUpDate ? wx.setNavigationBarTitle({title: 'ETC开关'}) : wx.setNavigationBarTitle({title: `安装指引-${installGuid.substring(0,endIndex).trim()}`});
 		this.setData({baseInfo: baseInfo});
+		this.orderDetail(baseInfo);
+	},
+	async orderDetail (obj) {
+		const result = await util.getDataFromServersV2('consumer/order/order-detail', {
+			orderId: obj.orderId
+		});
+		if (!result) return;
+		if (result.code === 0) {
+			this.setData({orderDetail: result.data});
+		} else {
+			util.showToastNoIcon(result.message);
+		}
 	},
 	hide () {
 		this.setData({

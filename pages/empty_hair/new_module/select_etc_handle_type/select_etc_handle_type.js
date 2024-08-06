@@ -9,7 +9,8 @@ Page({
 	onLoad (options) {
 		console.log(options);
 		this.setData({
-			isNewTrucks: +options.isNewTrucks
+			isNewTrucks: +options.isNewTrucks,
+			shopId: options.shopId
 		});
 	},
 
@@ -58,7 +59,7 @@ Page({
 	// 跳转
 	go (e) {
 		let type = +e.currentTarget.dataset['type'];
-		util.go(`/pages/empty_hair/new_module/input_obu_card_number/input_obu_card_number?isNewTrucks=${this.data.isNewTrucks}`);
+		util.go(`/pages/empty_hair/new_module/input_obu_card_number/input_obu_card_number?isNewTrucks=${this.data.isNewTrucks}&shopId=${this.data.shopId}`);
 	},
 
 	onUnload () {
