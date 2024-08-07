@@ -244,7 +244,7 @@ Page({
 				console.log('获取账单详情');
 				console.log(res.data);
 				let { mergeId, deductType } = res.data;
-				if (mergeId === 0 && deductType === 2) {
+				if (mergeId === 0 && (deductType === 2 || deductType === 1)) {
 					// 周结合并流水账单
 					this.getWeeksToCombineAndFlow();
 				}

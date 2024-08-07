@@ -124,18 +124,14 @@ flexCenter($align=normal, $justify=normal)
 		padding 0 32rpx 32rpx
 		position relative
 		.first
-			display flex
+			flexCenter(center,space-between)
+			padding 26rpx 0
 			font-size 28rpx
-			padding-top 26rpx
-			&>view
-				flex 1
-				height 48rpx
-				margin 20rpx 0
-				color #66666D
-				.color_text
-					display inline
-					color #039EEB
-					padding 0 10rpx
+			color #66666D
+			.color_text
+				display inline
+				color #039EEB
+				padding 0 10rpx
 		.line_text
 			display flex
 			font-size 28rpx

@@ -121,7 +121,7 @@ page {
 .my_order .order-list .order-list-content .site > view:first-child {
   flex: 1 1 auto;
 }
-.my_order .order-list .order-list-content .site > view:first-child text::after {
+.my_order .order-list .order-list-content .site > view:first-child .icon1::after {
   content: '\e651';
   color: $fontColor6;
   font-size: 24rpx;
@@ -143,6 +143,9 @@ page {
 }
 .my_order .order-list .order-list-content .site > view.spilt-deductions {
   background: rgba(247,110,0,0.41);
+}
+.my_order .order-list .order-list-content .site .blueColor {
+  color: #39a6f8;
 }
 .my_order .order-list .order-list-content .order-list-bottom {
   display: flex;
