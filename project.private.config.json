@@ -230,7 +230,7 @@
                 {
                     "name": "新空发流程",
                     "pathName": "pages/empty_hair/new_module/select_etc_handle_type/select_etc_handle_type",
-                    "query": "isNewTrucks=0",
+                    "query": "isNewTrucks=0&shopId=1262783006056128512",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -252,6 +252,20 @@
                     "name": "办理进度页",
                     "pathName": "pages/default/processing_progress/processing_progress",
                     "query": "orderId=",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "订单详情",
+                    "pathName": "pages/personal_center/my_etc_detail/my_etc_detail",
+                    "query": "orderId=1269313393912320000",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "湖南握奇插件",
+                    "pathName": "pages/obu_activate/hunan/watchdata_plugn/watchdata_plugn",
+                    "query": "",
                     "launchMode": "default",
                     "scene": null
                 }

@@ -9,22 +9,35 @@
 		<view>注意：ios用户请打开微信蓝牙授权，</view>
 		<view>操作路径为：设置- 隐私-蓝牙-开启微信授权</view>
 	</view>
-	<view class="logo">
-		<image src="../images/instructions/neimeng/step3.png" mode="widthFix"></image>
-	</view>
-	<view class="title">2.打开设备蓝牙</view>
-	<view class="sub-title">
-		<view wx:if="{{baseInfo.channel === 23}}">按2下设备上的按键打开设备蓝牙，开启后设备绿灯闪烁</view>
-		<view wx:else>
-			<view>按一下设备上的按键打开设备蓝牙，</view>
-			<view>开启后设备将会响1声并长亮</view>
+	<view wx:if="{{orderDetail.shopProductId === '1151465291720040448'}}">
+		<view class="logo">
+			<image src="../images/instructions/neimeng/step5.png" mode="widthFix"></image>
 		</view>
+		<view class="title">2.开启设备蓝牙</view>
+		<view class="sub-title">
+			找到ETC设备顶部拨码开关，推至<text class="text1">中间对应蓝牙标识位置，蓝灯闪烁，</text>代表ETC蓝牙已开启
+		</view>
+		<view class="tips tip2">ETC蓝牙开启后大约1分钟左右会关闭，请尽快操作</view>
+		<view class="tips">注意：操作过程中请勿关闭手机和设备蓝牙</view>
 	</view>
-	<view class="tips">
-		<view class="label">注意：</view>
-		<view >
-			<view>全程保持车辆熄火状态，避免连接到车载蓝牙</view>
-			<view>保证您的网络正常；请勿退出小程序避免激活失败</view>
+	<view wx:else>
+		<view class="logo">
+			<image src="../images/instructions/neimeng/step3.png" mode="widthFix"></image>
+		</view>
+		<view class="title">2.打开设备蓝牙</view>
+		<view class="sub-title">
+			<view wx:if="{{baseInfo.channel === 23}}">按2下设备上的按键打开设备蓝牙，开启后设备绿灯闪烁</view>
+			<view wx:else>
+				<view>按一下设备上的按键打开设备蓝牙，</view>
+				<view>开启后设备将会响1声并长亮</view>
+			</view>
+		</view>
+		<view class="tips">
+			<view class="label">注意：</view>
+			<view >
+				<view>全程保持车辆熄火状态，避免连接到车载蓝牙</view>
+				<view>保证您的网络正常；请勿退出小程序避免激活失败</view>
+			</view>
 		</view>
 	</view>
 	<view class="btn" catchtap="handleActivate">{{obuActive_upDate ? '设备蓝牙已打开，立即搜索' :'蓝牙已打开，下一步'}}</view>

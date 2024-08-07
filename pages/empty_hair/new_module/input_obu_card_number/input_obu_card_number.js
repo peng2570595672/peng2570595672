@@ -10,12 +10,14 @@ Page({
 		isNewTrucks: undefined,
 		orderId: '',
 		pictureWidth: 0, // 压缩图片
-		pictureHeight: 0
+		pictureHeight: 0,
+		shopId: ''
 	},
 
 	onLoad (options) {
 		this.setData({
-			isNewTrucks: +options.isNewTrucks
+			isNewTrucks: +options.isNewTrucks,
+			shopId: options.shopId
 		});
 	},
 
@@ -105,7 +107,7 @@ Page({
 	},
 
 	async next () {
-		util.go(`/pages/default/receiving_address/receiving_address?isNewTrucks=${this.data.isNewTrucks}&perfect=0&isPost=1&newEmptyOne=1&obuNo=${this.data.obuNumber}`);
+		util.go(`/pages/default/receiving_address/receiving_address?isNewTrucks=${this.data.isNewTrucks}&perfect=0&isPost=1&newEmptyOne=1&obuNo=${this.data.obuNumber}&shopId=${this.data.shopId}`);
 		if (!this.data.available) return;
 		this.setData({
 			isRequest: true
@@ -122,7 +124,7 @@ Page({
 					await this.getOrderDetail();
 				} else {
 					// 去创建订单
-					util.go(`/pages/default/receiving_address/receiving_address?isNewTrucks=${this.data.isNewTrucks}&perfect=0&isPost=1&newEmptyOne=1&obuNo=${this.data.obuNumber}`);
+					util.go(`/pages/default/receiving_address/receiving_address?isNewTrucks=${this.data.isNewTrucks}&perfect=0&isPost=1&newEmptyOne=1&obuNo=${this.data.obuNumber}&shopId=${this.data.shopId}`);
 				}
 			} else {
 				this.setData({ isRequest: false });
