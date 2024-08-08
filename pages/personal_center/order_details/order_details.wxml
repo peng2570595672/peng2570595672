@@ -289,7 +289,7 @@
         <view class="first">
             <view>车牌号码</view>
             <view>{{details.vehPlate}}</view>
-            <view>共<text class="color_text">{{details.weekList.length}}</text>两条通行记录</view>
+            <view>共<text class="color_text">{{details.weekList.length}}</text>条通行记录</view>
         </view>
         <view class="line_text" wx:for="{{details.weekList}}" wx:key="index" wx:if="{{!line_open}}">
             <view>

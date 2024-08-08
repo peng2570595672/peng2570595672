@@ -43,7 +43,7 @@
 				</view>
 				<view class="site">
 					<view>
-						{{item.inStationName}}<text class="iconfont icon1"></text>{{item.stationName ? item.stationName : item.outStationName}}<text wx:if="{{item.isNewTrucks === 1 && item.mergeId === 0}}"> 等<text class="blueColor">{{item.detailCount}}</text>条通行记录 </text>
+						{{item.inStationName}}<text class="iconfont icon1"></text>{{item.stationName ? item.stationName : item.outStationName}}<text wx:if="{{item.detailCount > 1}}"> 等<text class="blueColor">{{item.detailCount}}</text>条通行记录 </text>
 					</view>
 					<view class="refund" wx:if="{{item.refundMoney && item.refundMoney > 0 && item.refundMoney !== item.etcMoney}}">部分退款</view>
 					<view class="refund spilt-deductions" wx:if="{{item.splitState && item.splitState === 1}}">拆分扣款</view>
