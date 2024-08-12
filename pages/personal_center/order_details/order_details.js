@@ -374,7 +374,8 @@ Page({
 			btnName: '平安绑车弹窗',
 			pageName: '办理进度页'
 		};
-		if (this.data.details?.vehPlates.includes('云')) {
+		let str = this.data.details?.vehPlates || '';
+		if (str.includes('云')) {
 			this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)',params});
 		} else {
 			this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)',params});
