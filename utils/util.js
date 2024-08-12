@@ -1945,7 +1945,7 @@ async function getUserIsVip() {
 	const result = await getDataFromServersV2('consumer/order/member/userType', {}, 'POST', false);
 	if (!result) return;
 	if (result.code === 0) {
-		app.globalData.need_filterBannerList = result.data.showCe;
+		// app.globalData.need_filterBannerList = result.data.showCe;
 		if (result.data.userType === 2) {
 			app.globalData.isVip = true
 		} else {

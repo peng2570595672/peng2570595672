@@ -1,0 +1,214 @@
+.page {
+  background-color: #ececec;
+  padding: 5rpx 20rpx;
+}
+.page .container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-bottom: 200rpx;
+  overflow: scroll;
+  border-radius: 20rpx;
+  background: #fff;
+}
+.page .container.notBtn {
+  padding-bottom: 0;
+}
+.page .container .inputContainer {
+  padding: 30rpx;
+}
+.page .container .inputContainer .inputItem {
+  height: 110rpx;
+  padding: 0 20rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #ededed;
+}
+.page .container .inputContainer .inputItem .labels {
+  width: 130rpx;
+  margin-right: 40rpx;
+  font-size: 28rpx;
+  color: #333;
+  text-align: right;
+}
+.page .container .inputContainer .inputItem .label {
+  width: 160rpx;
+  margin-right: 40rpx;
+  font-size: 28rpx;
+  color: #333;
+  text-align: right;
+}
+.page .container .inputContainer .inputItem .label::before {
+  content: '*';
+  font-size: 24rpx;
+  margin: 0 8rpx;
+  font-weight: normal;
+  color: #f00;
+}
+.page .container .inputContainer .inputItem .val {
+  flex: 1;
+  font-family: PingFang SC;
+  font-size: 28rpx;
+  font-weight: normal;
+}
+.page .container .inputContainer .inputItem .val .selectInfo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.page .container .inputContainer .inputItem .val .selectInfo::after {
+  position: absolute;
+  right: 0;
+  font-size: 24rpx;
+  content: '\e652';
+  color: #666;
+}
+.page .container .inputContainer .inputItem .val .item {
+  display: flex;
+}
+.page .container .inputContainer .inputItem .val .item .confirm {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 1px solid #dddbdb;
+  margin: 0 15rpx;
+}
+.page .container .inputContainer .inputItem .val .item .tick::before {
+  display: block;
+  width: 32rpx;
+  height: 32rpx;
+  content: '\e669';
+  color: #fff;
+  size: 28rpx;
+  text-align: center;
+  line-height: 30rpx;
+  border-radius: 50%;
+  background-color: #2a4f44;
+}
+.page .container .inputContainer .inputItem .val .textarea {
+  width: 100%;
+  height: 100rpx;
+}
+.page .container .inputContainer .inputItem .val .input-placeholder-text {
+  border: 1px solid #000;
+  color: #999;
+  display: flex;
+  align-items: center /* 垂直居中 */;
+}
+.page .container .inputContainer .inputItem .val .input-placeholder {
+  color: #999;
+}
+.page .container .inputContainer .inputItem .val.blueColor {
+  color: #276ad9;
+}
+.page .container .inputContainer .inputItem .val.yellowColor {
+  color: #ff8f1f;
+}
+.page .container .inputContainer .inputItem .val.blackColor {
+  color: #222;
+}
+.page .container .inputContainer .inputItem .val.whiteColor {
+  color: #222;
+  opacity: 0.5;
+}
+.page .container .inputContainer .inputItem .val.greenColor {
+  color: #5ebe68;
+}
+.page .container .inputContainer .inputItem .val.auditIng {
+  color: #ff8f1f;
+}
+.page .container .inputContainer .inputItem .val.auditFail {
+  color: #fa5151;
+}
+.page .container .inputContainer .inputItem .val.cancelled {
+  color: #00b578;
+}
+.page .container .inputContainer .reasonItem {
+  padding: 32rpx 20rpx;
+  height: auto;
+  align-items: center;
+}
+.page .container .imgList {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 34rpx;
+}
+.page .container .imgList .img {
+  width: 157.5rpx;
+  height: 157.5rpx;
+  margin-right: 20rpx;
+}
+.page .container .imgList .img:nth-child(4n) {
+  margin-right: 0;
+}
+.page .container .imgList .img:nth-child(n+5):nth-child(-n+10) {
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+.page .container .deliveryAddress .subTitle {
+  font-family: PingFang SC;
+  font-size: 22rpx;
+  color: #f01b1b;
+  line-height: 32rpx;
+  padding: 40rpx 0 16rpx;
+}
+.page .container .deliveryAddress .deliveryInfo {
+  border-radius: 16rpx;
+  background: #f7f7f7;
+  line-height: 36rpx;
+  font-size: 24rpx;
+  padding: 24rpx;
+  color: #999;
+}
+.page .container .deliveryAddress .deliveryInfo .userInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14rpx;
+}
+.page .container .deliveryAddress .deliveryInfo .userInfo .userName {
+  color: #222;
+}
+.page .container .deliveryAddress .deliveryInfo .userInfo .userName text {
+  margin-left: 20rpx;
+}
+.page .container .btn-wrapper {
+  position: fixed;
+  min-height: 230rpx;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  border-radius: 16rpx 16rpx 0rpx 0rpx;
+  padding: 24rpx 44rpx;
+  box-sizing: border-box;
+  background: #fff;
+}
+.page .container .btn-wrapper .btn {
+  flex: 1;
+  height: 110rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 55rpx;
+  box-shadow: 0rpx 4rpx 2rpx 0rpx rgba(212,212,212,0);
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #fff;
+}
+.page .container .btn-wrapper .btn.available {
+  -webkit-animation: btnFadeIn 0.3s;
+          animation: btnFadeIn 0.3s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  background: #2a4f44;
+}
+.page .container .btn-wrapper .btn.unavailable {
+  -webkit-animation: btnFadeOut 0.3s;
+          animation: btnFadeOut 0.3s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  background: #eaf6f1;
+}

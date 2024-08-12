@@ -8,6 +8,7 @@ Page({
 			{icon: '',title: '售后工单',url: 'work_order',img: '',show: false},
 			{icon: '',title: '设备注销',url: 'device_logout',img: '',show: true},
 			{icon: '',title: 'ETC开关',url: 'select_device',img: '',show: true}
+			// {icon: '',title: '更换设备',url: 'replace_device',img: '',show: true}
 		]
 	},
 	onLoad () {
@@ -20,10 +21,12 @@ Page({
 	goPath (e) {
 		let index = +e.currentTarget.dataset['index'];
 		const item = this.data.jumpList[index];
-		if (item.url === 'select_device') {
-			util.go(`/pages/after_sales/device_switch_peocess/${item.url}/${item.url}`);
-		} else {
-			util.go(`/pages/after_sales/${item.url}/${item.url}`);
+		switch (item.url) {
+			case 'select_device':
+				util.go(`/pages/after_sales/device_switch_peocess/${item.url}/${item.url}`);
+				break;
+			default:
+				util.go(`/pages/after_sales/${item.url}/${item.url}`);
 		}
 	},
 	async login () {

@@ -1,0 +1,112 @@
+<view class="page">
+    <view class="container ">
+        <view class="inputContainer">
+            <view class="inputItem">
+                <!-- afterSaleInfo 存储回显数据 -->
+                <view class="label">车牌号码</view>
+                <view class="val">
+                    <picker class="input" bindchange="handleSelectChange" data-type="vehPlates" value="{{carIndex}}"
+                            range="{{carList}}" range-key="vehPlates">
+                        <view class="selectInfo iconfont {{carIndex === -1 ? 'input-placeholder' : ''}}">
+                            {{carIndex === -1 ? '请选择更换设备的车牌' : carList[carIndex].vehPlates}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+            <view class="inputItem">
+                <view class="label">旧设备类型</view>
+                <view class="val">
+                    <view  class="item">
+                        <block wx:for="{{deviceTypeList}}" wx:key="index" >
+                            <view class="confirm iconfont {{item.cheacked ? 'tick' : ''}}"
+                            catchtap="chooseType" data-index="{{item.value}}"></view>
+                            <view  catchtap="chooseType" data-index="{{item.value}}">
+                                {{item.label}}
+                            </view>
+                        </block>
+                    </view>
+                </view>
+                <!-- <view class="val">
+                    <picker class="input" bindchange="handleSelectChange" data-type="deviceType" value="{{deviceTypeIndex}}"
+                            range="{{deviceTypeList}}" range-key="label">
+                        <view class="selectInfo iconfont {{deviceTypeIndex === -1 ? 'input-placeholder' : ''}}">
+                            {{deviceTypeIndex === -1 ? '请选择设备类型' : deviceTypeList[deviceTypeIndex].label}}
+                        </view>
+                    </picker>
+                </view> -->
+            </view>
+            <view class="inputItem">
+                <view class="label">更换选项</view>
+                <view class="val">
+                    <picker class="input" bindchange="handleSelectChange" data-type="changeDevice" value="{{changeIndex}}"
+                            range="{{changeList}}" range-key="label">
+                        <view class="selectInfo iconfont {{changeIndex === -1 ? 'input-placeholder' : ''}}">
+                            {{changeIndex === -1 ? '请选择更换选项' : changeList[changeIndex].label}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+            <view class="inputItem reasonItem">
+                <view class="label">更换原因</view>
+                <view class="val">
+                    <textarea class="textarea" placeholder='请输入' value="{{formData.reason}}" data-key="reason"
+                              placeholder-class="input-placeholder-text" maxlength="100" bindinput="onInputChangedHandle">
+                    </textarea>
+                </view>
+            </view>
+            <view class="inputItem">
+                <view class="label">收货地址</view>
+                <view class="val">
+                    <input class="input" type="text" value="{{formData.deliveryAddress}}"
+                           bindinput="onInputChangedHandle" data-key="deliveryAddress" maxlength="100"
+                           placeholder-class="input-placeholder" placeholder="请输入新设备的收货地址" />
+                </view>
+            </view>
+            <view class="inputItem">
+                <view class="label">收货人</view>
+                <view class="val">
+                    <input class="input" type="text" value="{{formData.name}}"
+                           bindinput="onInputChangedHandle" data-key="name" maxlength="20"
+                           placeholder-class="input-placeholder" placeholder="请输入收货人名称" />
+                </view>
+            </view>
+            <view class="inputItem">
+                <view class="label">手机号码</view>
+                <view class="val">
+                    <input class="input" type="number" value="{{formData.phoneNumber}}" 
+                           bindinput="onInputChangedHandle" data-key="phoneNumber" maxlength="11"
+                            placeholder="请输入收货人手机号码" />
+                </view>
+            </view>
+            <view class="inputItem">
+                <view class="label">快递单号</view>
+                <view class="val">
+                    <input class="input" type="text" value="{{formData.logisticsNo}}"
+                           bindinput="onInputChangedHandle" data-key="logisticsNo" 
+                           placeholder-class="input-placeholder" placeholder="请输入更换设备寄出的快递单号" />
+                </view>
+            </view>
+            <view class="deliveryAddress">
+                <view class="subTitle">请将旧设备邮寄到以下地址进行更换，请检查并正确填写邮寄地址，如有疑问请联系客服咨询。</view>
+                <view class="inputItem">
+                    <view class="labels">邮寄地址</view>
+                    <view class="val">贵州省贵阳市白云区科教街188号世纪恒通科技股份有限公司运营部</view>
+                </view>
+                <view class="inputItem">
+                    <view class="labels">收货人</view>
+                    <view class="val">运营部</view>
+                </view>
+                <view class="inputItem">
+                    <view class="labels">手机号码</view>
+                    <view class="val">15519168692(不支持咨询,仅对接快递)</view>
+                </view>
+            </view>
+        </view>
+        <view class="btn-wrapper">
+            <view bindtap="handleSubmit" class="btn {{available ? 'available' : 'unavailable'}}">提交工单</view>
+        </view>
+    </view>
+</view>
+<popTipComp id="popTipComp" bind:onHandle="onHandle"></popTipComp>
+<logoutExample id="logoutExample"></logoutExample>
+<privacy_popup></privacy_popup>

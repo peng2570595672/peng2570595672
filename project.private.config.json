@@ -4,6 +4,13 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "pages/after_sales/replace_device/replace_device",
+                    "pathName": "pages/after_sales/replace_device/replace_device",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
                     "name": "",
                     "pathName": "pages/personal_center/my_order/my_order",
                     "query": "",
