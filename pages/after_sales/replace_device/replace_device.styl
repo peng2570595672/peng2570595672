@@ -1,0 +1,155 @@
+// @import "../../../style/base.styl";
+// @import "../../../style/my_animate.styl";
+.page
+    background-color #ECECEC
+    padding 5rpx 20rpx
+    .container
+        display flex
+        flex-direction column
+        min-height 100vh
+        margin-bottom 200rpx
+        overflow scroll
+        border-radius 20rpx
+        background #ffffff
+        &.notBtn
+            padding-bottom 0
+        .inputContainer
+            padding 30rpx
+            .inputItem
+                height 110rpx
+                padding 0 20rpx
+                display flex
+                align-items center
+                border-bottom: 1rpx solid #EDEDED;
+                .labels
+                    width 130rpx
+                    margin-right 40rpx
+                    font-size 28rpx
+                    color: #333333
+                    text-align right 
+                .label
+                    width 130rpx
+                    margin-right 40rpx
+                    font-size 28rpx
+                    color: #333333
+                    text-align right 
+                    &::before
+                        content '*'
+                        font-size: 24rpx
+                        margin 0 8rpx
+                        font-weight: normal
+                        color: #FF0000
+                .val
+                    flex 1
+                    font-family: PingFang SC;
+                    font-size: 28rpx;
+                    font-weight: normal;
+                    .selectInfo
+                        width 100%
+                        display flex
+                        align-items center
+                        position relative
+                        &::after
+                            position absolute
+                            right 0
+                            font-size 24rpx
+                            content '\e652'
+                            color #666666
+                    .textarea
+                        width 100%
+                        height 100rpx
+                    .input-placeholder-text
+                        border 1px solid #000
+                        color #999999
+                        display flex
+                        align-items center /* 垂直居中 */
+                    .input-placeholder
+                        color: #999999;
+                    &.blueColor
+                        color #276AD9
+                    &.yellowColor
+                        color #FF8F1F
+                    &.blackColor
+                        color #222222
+                    &.whiteColor
+                        color #222222
+                        opacity .5
+                    &.greenColor
+                        color #5EBE68
+                    &.auditIng
+                        color #FF8F1F
+                    &.auditFail
+                        color #FA5151
+                    &.cancelled
+                        color #00B578
+            .reasonItem
+                padding 32rpx 20rpx
+                height auto
+                align-items center
+        .imgList
+            display flex
+            flex-wrap wrap
+            padding-top 34rpx
+            .img
+                width: 157.5rpx;
+                height: 157.5rpx;
+                margin-right 20rpx
+                &:nth-child(4n)
+                    margin-right 0
+                &:nth-child(n+5):nth-child(-n+10)
+                    // 范围 选择第5个到第10个
+                    margin-top 20rpx
+                    margin-bottom 20rpx
+        .deliveryAddress
+                .subTitle
+                    font-family: PingFang SC;
+                    font-size: 22rpx;
+                    color: rgb(240, 27, 27);
+                    line-height 32rpx
+                    padding 40rpx 0 16rpx
+                .deliveryInfo
+                    border-radius: 16rpx;
+                    background: #F7F7F7;
+                    line-height 36rpx
+                    font-size 24rpx
+                    padding 24rpx
+                    color #999
+                    .userInfo
+                        display flex
+                        align-items center
+                        justify-content space-between
+                        padding-bottom 14rpx
+                        .userName
+                            color: #222222;
+                            text
+                                margin-left 20rpx
+        .btn-wrapper
+            position fixed
+            min-height 230rpx
+            width 100%
+            left 0
+            bottom 0
+            z-index 100
+            border-radius: 16rpx 16rpx 0rpx 0rpx;
+            padding 24rpx 44rpx
+            box-sizing border-box
+            background: #FFFFFF;
+            .btn
+                flex 1
+                height: 110rpx;
+                display flex
+                align-items center
+                justify-content center
+                border-radius: 55rpx;
+                box-shadow: 0rpx 4rpx 2rpx 0rpx rgba(212, 212, 212, 0);
+                font-size: 36rpx;
+                font-weight: 600;
+                color: #FFFFFF;
+                &.available
+                    animation btnFadeIn .3s
+                    animation-fill-mode forwards
+                    background: #2A4F44
+                &.unavailable
+                    animation btnFadeOut .3s
+                    animation-fill-mode forwards
+                    background: #eaf6f1

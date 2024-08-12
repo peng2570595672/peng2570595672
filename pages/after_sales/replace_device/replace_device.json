@@ -1,0 +1,9 @@
+{
+	"navigationBarTitleText": "更换设备",
+	"navigationBarBackgroundColor": "#ECECEC",
+	"backgroundColor": "#ECECEC",
+	"navigationBarTextStyle": "black",
+    "usingComponents": {
+        "popTipComp": "/components/popTipComp/popTipComp"
+    }
+}
