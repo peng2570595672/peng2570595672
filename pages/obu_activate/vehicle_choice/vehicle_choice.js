@@ -70,6 +70,7 @@ Page({
 			carNoStr: item.vehPlates,
 			obuStatus: item.obuStatus
 		});
+		// app.globalData.newEmptyObuNo = result.data.orderType === 72 && item.obuCardType !== 1 && item.obuCardType !== 21 && item.obuCardType !== 10 ? result.data.obuNo : '';
 		switch (item.obuCardType) {
 			case 1:// 贵州 黔通卡
 			case 21:

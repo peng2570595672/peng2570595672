@@ -30,7 +30,7 @@ Page({
 	},
 	async orderDetail (obj) {
 		const result = await util.getDataFromServersV2('consumer/order/order-detail', {
-			orderId: obj.orderId
+			orderId: obj.orderId || app.globalData.orderInfo.orderId
 		});
 		if (!result) return;
 		if (result.code === 0) {

@@ -228,9 +228,16 @@
                     "scene": null
                 },
                 {
-                    "name": "新空发流程",
+                    "name": "新空发流程-客车",
                     "pathName": "pages/empty_hair/new_module/select_etc_handle_type/select_etc_handle_type",
-                    "query": "isNewTrucks=0&shopId=1262783006056128512",
+                    "query": "isNewTrucks=0&shopId=1224307861486575616",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "新空发流程-货车",
+                    "pathName": "pages/empty_hair/new_module/select_etc_handle_type/select_etc_handle_type",
+                    "query": "isNewTrucks=1&shopId=1224307861486575616",
                     "launchMode": "default",
                     "scene": null
                 },

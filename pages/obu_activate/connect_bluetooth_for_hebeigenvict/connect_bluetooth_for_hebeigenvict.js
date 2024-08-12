@@ -327,6 +327,12 @@ Page({
             console.log('系统信息',res);
             if (res.code === '0') {
                 var systemInfo = res.systemInfo;
+                if (app.globalData.newEmptyObuNo) {
+                    if (app.globalData.newEmptyObuNo !== systemInfo.serialNumber) {
+                        this.isOver(`当前设备卡号与下单设备卡号不一致`);
+                        return;
+                    }
+                }
                 that.mySetData({
                     obuNo: systemInfo.serialNumber
                 });

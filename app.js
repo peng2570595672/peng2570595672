@@ -169,7 +169,8 @@ App({
 			lnmShopIdsAbove: ['1239594660693811200','1237451403885551616']	// 辽宁移动线上商户ID（正式||测试）
 		},
 		productList: definedData.productList,// 套餐ID集合
-		advertisementClickId: '' // 广告点击ID
+		advertisementClickId: '', // 广告点击ID
+		newEmptyObuNo: ''// 新空发流程OBUNO
 	},
 	onLaunch (options) {
 		// 统计逻辑结束
