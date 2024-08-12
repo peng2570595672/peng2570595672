@@ -7,11 +7,10 @@ Page({
 		afterSaleId: '',
 		afterSaleInfo: {},
 		carIndex: -1,
-		deviceTypeIndex: -1,
 		changeIndex: -1,
 		changeList: [
-			{value: 0, label: '换全套'},
-			{value: 1, label: '换卡、换设备'}
+			{value: 0, label: '换卡、换设备'}
+			// {value: 1, label: '换全套'},
 		],
 		carList: [
 			{value: 0, vehPlates: '京A12345'},
@@ -19,8 +18,8 @@ Page({
 			{value: 2, vehPlates: '京A12349'}
 		],
 		deviceTypeList: [
-			{value: 0, label: '插卡式'},
-			{value: 1, label: '单片式'}
+			{value: 0, label: '插卡式', cheacked: true},
+			{value: 1, label: '单片式', cheacked: false}
 		],
 		formData: {
 			reason: '',
@@ -49,7 +48,7 @@ Page({
 						app.globalData.memberId = result.data.memberId;
 						app.globalData.mobilePhone = result.data.mobilePhone;
 						util.hideLoading();
-						this.getDetail();
+						this.getCarList();
 					} else {
 						wx.setStorageSync('login_info', JSON.stringify(this.data.loginInfo));
 						util.go('/pages/login/login/login');
@@ -83,10 +82,10 @@ Page({
 			if (isToast) util.showToastNoIcon('请选择车牌！');
 			return false;
 		}
-		if (this.data.deviceTypeIndex === -1) {
-			if (isToast) util.showToastNoIcon('请选择设备类型！');
-			return false;
-		}
+		// if (this.data.deviceTypeIndex === -1) {
+		// 	if (isToast) util.showToastNoIcon('请选择设备类型！');
+		// 	return false;
+		// }
 		if (!this.data.changeIndex === -1) {
 			if (isToast) util.showToastNoIcon('请选择更换选项！');
 			return false;
@@ -122,30 +121,27 @@ Page({
 		// });
 		this.login();
 	},
+	chooseType (e) {
+		this.setData({
+			deviceTypeList: [
+				{value: 0, label: '插卡式', cheacked: false},
+				{value: 1, label: '单片式', cheacked: false}
+			]
+		});
+		let index = e.currentTarget.dataset['index'];
+		this.data.deviceTypeList[index].cheacked = true;
+		this.setData({
+			deviceTypeList: this.data.deviceTypeList,
+			changeList: !index ? [
+				{value: 0, label: '换卡、换设备'}
+			] : [
+				{value: 1, label: '换全套'}
+			]
+		});
+	},
 	handleSelectChange (e) {
-		console.log('this.data.deviceTypeIndex',this.data.deviceTypeIndex);
-
 		let type = e.currentTarget.dataset['type'];
-		if (type === 'deviceType') {
-			this.setData({
-				deviceTypeIndex: +e.detail.value
-			});
-			// 根据设备类型 对应设置 更换选项列表
-			if (this.data.deviceTypeIndex === 0) {
-				this.setData({
-					changeList: [
-						{value: 0, label: '换全套'}
-					]
-				});
-			}
-			if (this.data.deviceTypeIndex === 1) {
-				this.setData({
-					changeList: [
-						{value: 1, label: '换卡、换设备'}
-					]
-				});
-			}
-		} else if (type === 'vehPlates') {
+		if (type === 'vehPlates') {
 			this.setData({
 				carIndex: +e.detail.value
 			});
@@ -177,6 +173,7 @@ Page({
 			}
 			// 不是电话格式就清空
 			if (value.length === 11 && !/^1[3456789]\d{9}$/.test(value)) {
+				util.showToastNoIcon('输入格式错误');
 				value = '';
 			}
 		}

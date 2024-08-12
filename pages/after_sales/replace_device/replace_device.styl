@@ -28,7 +28,7 @@
                     color: #333333
                     text-align right 
                 .label
-                    width 130rpx
+                    width 160rpx
                     margin-right 40rpx
                     font-size 28rpx
                     color: #333333
@@ -55,6 +55,27 @@
                             font-size 24rpx
                             content '\e652'
                             color #666666
+                    .item
+                        display flex
+                        .confirm
+                            width 32rpx
+                            height 32rpx
+                            border-radius 50%
+                            background-color #fff
+                            border 1px solid #dddbdb
+                            margin: 0 15rpx
+                        .tick
+                            &::before
+                                display block
+                                width 32rpx
+                                height 32rpx
+                                content '\e669'
+                                color #FFFFFF
+                                size 28rpx
+                                text-align center
+                                line-height 30rpx
+                                border-radius 50%
+                                background-color #2A4F44
                     .textarea
                         width 100%
                         height 100rpx

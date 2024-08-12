@@ -7,8 +7,8 @@ Page({
 		jumpList: [
 			{icon: '',title: '售后工单',url: 'work_order',img: '',show: false},
 			{icon: '',title: '设备注销',url: 'device_logout',img: '',show: true},
-			{icon: '',title: 'ETC开关',url: 'select_device',img: '',show: true},
-			{icon: '',title: '更换设备',url: 'replace_device',img: '',show: true}
+			{icon: '',title: 'ETC开关',url: 'select_device',img: '',show: true}
+			// {icon: '',title: '更换设备',url: 'replace_device',img: '',show: true}
 		]
 	},
 	onLoad () {

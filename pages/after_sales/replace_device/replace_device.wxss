@@ -32,7 +32,7 @@
   text-align: right;
 }
 .page .container .inputContainer .inputItem .label {
-  width: 130rpx;
+  width: 160rpx;
   margin-right: 40rpx;
   font-size: 28rpx;
   color: #333;
@@ -63,6 +63,29 @@
   font-size: 24rpx;
   content: '\e652';
   color: #666;
+}
+.page .container .inputContainer .inputItem .val .item {
+  display: flex;
+}
+.page .container .inputContainer .inputItem .val .item .confirm {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 1px solid #dddbdb;
+  margin: 0 15rpx;
+}
+.page .container .inputContainer .inputItem .val .item .tick::before {
+  display: block;
+  width: 32rpx;
+  height: 32rpx;
+  content: '\e669';
+  color: #fff;
+  size: 28rpx;
+  text-align: center;
+  line-height: 30rpx;
+  border-radius: 50%;
+  background-color: #2a4f44;
 }
 .page .container .inputContainer .inputItem .val .textarea {
   width: 100%;

@@ -2,6 +2,7 @@
     <view class="container ">
         <view class="inputContainer">
             <view class="inputItem">
+                <!-- afterSaleInfo 存储回显数据 -->
                 <view class="label">车牌号码</view>
                 <view class="val">
                     <picker class="input" bindchange="handleSelectChange" data-type="vehPlates" value="{{carIndex}}"
@@ -13,15 +14,26 @@
                 </view>
             </view>
             <view class="inputItem">
-                <view class="label">设备类型</view>
+                <view class="label">旧设备类型</view>
                 <view class="val">
+                    <view  class="item">
+                        <block wx:for="{{deviceTypeList}}" wx:key="index" >
+                            <view class="confirm iconfont {{item.cheacked ? 'tick' : ''}}"
+                            catchtap="chooseType" data-index="{{item.value}}"></view>
+                            <view  catchtap="chooseType" data-index="{{item.value}}">
+                                {{item.label}}
+                            </view>
+                        </block>
+                    </view>
+                </view>
+                <!-- <view class="val">
                     <picker class="input" bindchange="handleSelectChange" data-type="deviceType" value="{{deviceTypeIndex}}"
                             range="{{deviceTypeList}}" range-key="label">
                         <view class="selectInfo iconfont {{deviceTypeIndex === -1 ? 'input-placeholder' : ''}}">
                             {{deviceTypeIndex === -1 ? '请选择设备类型' : deviceTypeList[deviceTypeIndex].label}}
                         </view>
                     </picker>
-                </view>
+                </view> -->
             </view>
             <view class="inputItem">
                 <view class="label">更换选项</view>
@@ -62,7 +74,7 @@
                 <view class="label">手机号码</view>
                 <view class="val">
                     <input class="input" type="number" value="{{formData.phoneNumber}}" 
-                           bindinput="onInputChangedHandle" data-key="phoneNumber" maxlength="18"
+                           bindinput="onInputChangedHandle" data-key="phoneNumber" maxlength="11"
                             placeholder="请输入收货人手机号码" />
                 </view>
             </view>
