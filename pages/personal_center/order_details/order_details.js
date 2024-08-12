@@ -244,7 +244,7 @@ Page({
 				console.log('获取账单详情');
 				console.log(res.data);
 				let { mergeId, deductType } = res.data;
-				if (mergeId === 0 && deductType === 2) {
+				if (mergeId === 0 && (deductType === 2 || deductType === 1)) {
 					// 周结合并流水账单
 					this.getWeeksToCombineAndFlow();
 				}
@@ -374,7 +374,8 @@ Page({
 			btnName: '平安绑车弹窗',
 			pageName: '办理进度页'
 		};
-		if (this.data.details?.vehPlates.includes('云')) {
+		let str = this.data.details?.vehPlates || '';
+		if (str.includes('云')) {
 			this.selectComponent('#popTipComp').show({type: 'newPop',title: '云',bgColor: 'rgba(0,0,0, 0.6)',params});
 		} else {
 			this.selectComponent('#popTipComp').show({type: 'newPop',title: '全国',bgColor: 'rgba(0,0,0, 0.6)',params});

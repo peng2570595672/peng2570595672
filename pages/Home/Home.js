@@ -12,7 +12,7 @@ Page({
 		isContinentInsurance: app.globalData.isContinentInsurance, // 是否是大地
 		btnSwitch: false,
 		shouldBindChange: true,
-		need_filterBannerList: true, // 默认筛选 平安贷款
+		// need_filterBannerList: true, // 默认筛选 平安贷款
 		entranceList: [{
 			title: '通行发票',
 			ico: 'invoice',
@@ -285,7 +285,7 @@ Page({
 			let interval = data.rotationChartConfig.interval * 1000; // 轮播图间隔时间
 			let interval1 = data.middleRotationChartConfig?.interval ? data.middleRotationChartConfig?.interval * 1000 : 5000;// 广告banner轮播图间隔时间,默认5000ms
 			let bannerList = data.rotationChartConfig.rotationCharts.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime)); // 过滤掉当前时间不在规定时间内的数据，得到合格的数据
-			app.globalData?.need_filterBannerList ? '' : bannerList = bannerList.filter(item => item.appId !== 'wxfd9fbd2b4e45c38f');
+			// app.globalData?.need_filterBannerList ? '' : bannerList = bannerList.filter(item => item.appId !== 'wxfd9fbd2b4e45c38f');
 			bannerList.sort(this.compare('sort')); // 排序
 			// 账单、权益、发票、在线 模块
 			let funcListOne = data.importantFuncConfig.funcs.filter(item => util.isDuringDate(item.affectStartTime, item.affectEndTime));

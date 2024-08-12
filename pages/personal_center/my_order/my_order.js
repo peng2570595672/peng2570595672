@@ -319,6 +319,13 @@ Page({
 					hash[item2['passId']] ? '' : hash[item2['passId']] = true && item1.push(item2);
 					return item1;
 				}, []);
+				let subDetailIds = [];	// 子流水ID集合
+				this.data.successBillList.map(item => {
+					if (item?.subDetailIds) {
+						subDetailIds = subDetailIds.concat(item.subDetailIds);
+					}
+				});
+				this.data.successBillList = this.data.successBillList.filter(item => !subDetailIds.includes(item.id));	// 过滤掉子流水账单
 				this.setData({
 					successBillList: this.data.successBillList
 				});

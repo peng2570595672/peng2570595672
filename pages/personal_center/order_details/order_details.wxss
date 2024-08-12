@@ -124,16 +124,13 @@
 }
 .order_details .deduction-details-truck .first {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26rpx 0;
   font-size: 28rpx;
-  padding-top: 26rpx;
-}
-.order_details .deduction-details-truck .first>view {
-  flex: 1;
-  height: 48rpx;
-  margin: 20rpx 0;
   color: #66666d;
 }
-.order_details .deduction-details-truck .first>view .color_text {
+.order_details .deduction-details-truck .first .color_text {
   display: inline;
   color: #039eeb;
   padding: 0 10rpx;
