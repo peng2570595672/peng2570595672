@@ -97,6 +97,7 @@ Page({
 				if (!this.data.isGoOwnerService) {
 					this.getStatus();
 				} else {
+					// this.exchangeCarOrderList();
 					this.getMyETCList();
 				}
 			}
@@ -163,6 +164,34 @@ Page({
 					ownerServiceArrearsList: app.globalData.ownerServiceArrearsList
 				});
 				app.globalData.myEtcList = res.data;
+				// this.exchangeCarOrderList();
+				this.getMyETCList();
+			} else {
+				util.showToastNoIcon(res.message);
+			}
+		}, app.globalData.userInfo.accessToken);
+	},
+	// 换车前的订单
+	exchangeCarOrderList () {
+		util.showLoading();
+		let params = {
+			openId: app.globalData.openId
+		};
+		util.getDataFromServer('/consumer/order/my-old-order-list', params, () => {
+			util.hideLoading();
+		}, (res) => {
+			util.hideLoading();
+			if (res.code === 0) {
+				let oldEtcList = res.data;
+				let oldOwnerServiceArrearsList = oldEtcList.filter(item => item.paySkipParams !== undefined); // 筛选车主服务欠费
+				app.globalData.ownerServiceArrearsList = app.globalData.ownerServiceArrearsList.concat(oldOwnerServiceArrearsList);
+				this.setData({
+					ownerServiceArrearsList: app.globalData.ownerServiceArrearsList
+				});
+				app.globalData.myEtcList = app.globalData.myEtcList.concat(oldEtcList);
+				console.log(oldEtcList);
+				console.log(app.globalData.myEtcList);
+
 				this.getMyETCList();
 			} else {
 				util.showToastNoIcon(res.message);

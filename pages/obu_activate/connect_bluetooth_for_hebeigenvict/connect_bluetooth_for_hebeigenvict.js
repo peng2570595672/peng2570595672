@@ -348,7 +348,8 @@ Page({
                 if (baseInfo.obuStatus === 1 || baseInfo.obuStatus === 5) {
                     that.secondActive(baseInfo.obuStatus); // 二次激活
                 } else if (baseInfo.obuStatus === 2) { // 换卡换签
-                    that.pubFunc2(1,3);
+                    that.orderOnline(baseInfo.obuStatus);
+                    // that.pubFunc2(1,3);
                 } else {
                     that.setData({newOrderNo: ''});
                     that.orderOnline(baseInfo.obuStatus); // 第一次激活
@@ -389,7 +390,7 @@ Page({
     orderOnline (obuStatus) {
         const that = this;
         let params = {
-            orderType: obuStatus === 1 || obuStatus === 5 ? '2' : '1', // 1:设备二发;2:标签二次激活 ;3:标签注销;4:更换标签;11:更换车辆信息;12:注销清户;13:更换发行卡
+            orderType: obuStatus === 1 || obuStatus === 5 ? '2' : obuStatus === 2 ? '4' : '1', // 1:设备二发;2:标签二次激活 ;3:标签注销;4:更换标签;11:更换车辆信息;12:注销清户;13:更换发行卡
             obuNo: that.data.ui.obuNo,
             cardNo: that.data.ui.cardNo,
             orderId: that.data.newOrderNo || app.globalData.orderInfo.orderId // 订单号
@@ -399,7 +400,11 @@ Page({
             that.isOver('订单开始发行失败');
         }, (res) => {
             if (res.code === 0) {
-                that.pubFunc2(1,3);
+                if (obuStatus === 2) {
+                    that.pubFunc2(1,3);
+                } else {
+                    that.pubFunc2(1,3);
+                }
                 that.setData({handleCount: 0});
             } else if (res.code === 105 && (obuStatus === 1 || obuStatus === 5)) {
                 if (++that.data.handleCount > 4) {

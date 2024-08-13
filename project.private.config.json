@@ -282,6 +282,13 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "etc账单列表",
+                    "pathName": "pages/personal_center/my_order/my_order",
+                    "query": "isCheckTwoPercent=false",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
