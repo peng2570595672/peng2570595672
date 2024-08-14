@@ -677,7 +677,8 @@ Page({
 					shopId: params.shopId ,
 					thirdGeneralizeNo: params.thirdGeneralizeNo || '',
 					promoterType: params.promoterType || '',
-					isNewTrucks: +this.data.isNewTrucks === 1 ? 1 : 0
+					isNewTrucks: +this.data.isNewTrucks === 1 ? 1 : 0,
+					orderType: params['orderType']
 				};
 				const path = orderInfo.isNewTrucks === 1 ? 'truck_handling' : 'default'; // 去到客车还是货车的套餐页
 				await util.initLocationInfo(orderInfo);

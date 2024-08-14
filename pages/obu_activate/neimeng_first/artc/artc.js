@@ -170,6 +170,12 @@ Page({
 				// 合同结束日期
 				let endTime = info.slice(44, 52);
 				console.log('合同结束日期：' + endTime);
+				if (app.globalData.newEmptyObuNo) {
+					if (app.globalData.newEmptyObuNo !== contractNumber) {
+						this.isOver(`当前设备卡号与下单设备卡号不一致`);
+						return;
+					}
+				}
 				// 设置数据
 				this.setData({
 					idInfo: idInfo.toUpperCase(),

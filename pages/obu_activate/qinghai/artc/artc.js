@@ -509,6 +509,12 @@ Page({
 				// 截取合同号
 				let serialNumber = reapdu[1].slice(20, 36);
 				console.log('合同序列号：' + serialNumber);
+				if (app.globalData.newEmptyObuNo) {
+					if (app.globalData.newEmptyObuNo !== serialNumber) {
+						this.isOver(`当前设备卡号与下单设备卡号不一致`);
+						return;
+					}
+				}
 				this.mySetData({
 					sysInfo: tempSysInfo,
 					version: version,

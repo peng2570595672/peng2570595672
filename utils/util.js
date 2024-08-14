@@ -1457,13 +1457,14 @@ async function getLocationInfo(orderInfo) {
 // 获取套餐列表
 async function getListOfPackages(orderInfo, regionCode, notList) {
 	showLoading();
+	// productType: 套餐类型 1-业务员套餐 2-小程序套餐  3-H5套餐  4-后台办理套餐，5-APi办理  6-空发套餐
 	let params = {
 		needRightsPackageIds: true,
 		areaCode: '',
-		productType: 2,
+		productType: orderInfo?.orderType === 72 ? 6 : 2,
 		vehType: 1,
 		platformId: app.globalData.platformId,
-		shopId: orderInfo.shopId || app.globalData.miniProgramServiceProvidersId
+		shopId: orderInfo?.shopId || app.globalData.miniProgramServiceProvidersId
 	};
 	if (+orderInfo.isNewTrucks === 1 || +app.globalData.orderInfo.isNewTrucks === 1) {// 是否是货车办理
 		params.vehType = 2;

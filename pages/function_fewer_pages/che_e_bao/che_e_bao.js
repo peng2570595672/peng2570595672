@@ -83,6 +83,7 @@ Page({
                 carNoStr: this.data.vehPlates,
                 obuStatus: this.data.obuStatus
             });
+            // app.globalData.newEmptyObuNo = result.data.orderType === 72 && this.data.obuCardType !== 1 && this.data.obuCardType !== 21 && this.data.obuCardType !== 10 ? result.data.obuNo : '';
             switch (this.data.obuCardType) {
                 case 1: // 贵州 黔通卡
                 case 21:

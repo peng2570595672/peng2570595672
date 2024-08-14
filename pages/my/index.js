@@ -418,7 +418,7 @@ Page({
 			this.handleMall();
 			return;
 		}
-		if (item.jumpUrl === '平安测额' || obj.jumpUrl === '/pages/personal_center/quotaLandingPage/quotaLandingPage') {
+		if (item.jumpUrl === '平安测额' || item.jumpUrl === '/pages/personal_center/quotaLandingPage/quotaLandingPage') {
 			util.go('/pages/personal_center/quotaLandingPage/quotaLandingPage');
 			return;
 		}

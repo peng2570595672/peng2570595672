@@ -269,6 +269,9 @@ Page({
             return;
           }
           if (data.contractStatus !== 1 && this.data.etcContractId !== -1) return;
+          // if (this.data.channel !== 1 && this.data.channel !== 21 && this.data.channel !== 10) {
+          //   this.orderDetails();
+          // }
           // 缓存数据
           wx.setStorageSync('baseInfo', {
             orderId: app.globalData.orderInfo.orderId,
@@ -419,6 +422,9 @@ Page({
       let data = res.data;
       if (res.code === 0) {
         if (data.contractStatus !== 1 && this.data.etcContractId !== -1) return;
+        // if (this.data.channel !== 1 && this.data.channel !== 21 && this.data.channel !== 10) {
+        //   this.orderDetails();
+        // }
         // 缓存数据
         wx.setStorageSync('baseInfo', {
           orderId: app.globalData.orderInfo.orderId,
@@ -556,6 +562,16 @@ Page({
       this.setData({
         getAgreement: true
       });
+    }
+  },
+  // 获取订单详情
+  async orderDetails () {
+    const result = await util.getDataFromServersV2('consumer/order/order-detail', {
+			orderId: app.globalData.orderInfo.orderId
+		});
+    if (!result) return;
+    if (result.code === 0) {
+      app.globalData.newEmptyObuNo = result.data.orderType === 72 ? result.data.obuNo : '';
     }
   }
 });

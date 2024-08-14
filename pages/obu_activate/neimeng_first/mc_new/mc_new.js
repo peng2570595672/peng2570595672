@@ -242,6 +242,12 @@ Page({
 				// 暂时没用到这个数据
 				let isActivating = info.slice(52, 54);
 				console.log('OBU是否已激活：' + isActivating);
+				if (app.globalData.newEmptyObuNo) {
+					if (app.globalData.newEmptyObuNo !== contractNumber) {
+						this.isOver(`当前设备卡号与下单设备卡号不一致`);
+						return;
+					}
+				}
 				// 设置数据
 				this.setData({
 					IssuerMarking,

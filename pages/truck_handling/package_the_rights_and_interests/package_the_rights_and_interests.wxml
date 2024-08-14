@@ -126,14 +126,15 @@
             <view class="moneyPay {{isFade ? 'confirmPackage' : ''}}" style="margin-top: 60rpx;"
                 wx:if="{{choiceIndex !== -1 && (listOfPackages[activeIndex].pledgePrice || (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))}}">
                 <view class="money" style="font-size: 30rpx; width: 500rpx; font-weight: 400;font-style: normal;" wx:if="{{isFade}}">
-                    <text wx:if="{{!isSalesmanOrder}}">押金</text><span class="mpneySpan"
+                    <text wx:if="{{!isSalesmanOrder && orderInfo.base.orderType !== 72}}">押金</text>
+                    <span class="mpneySpan"
                         style="font-size: 56rpx; font-weight: 600;">￥{{activeIndex !== -1 ? tools.parseNum((listOfPackages[activeIndex].pledgePrice + (equityListMap.addEquityList[activeIndex].aepIndex !== -1 ? equityListMap.addEquityList[activeIndex].subData[equityListMap.addEquityList[activeIndex].aepIndex].payMoney : 0))/100) : tools.parseNum(listOfPackages[activeIndex].pledgePrice/100)}}
                         <span style="font-size: 24rpx;color: #979797;text-decoration: line-through;" wx:if="{{!isSalesmanOrder}}">原价299</span>
                     </span>
-                    <view wx:if="{{!isSalesmanOrder}}" style="font-size: 24rpx;">设备激活后返回全部押金</view>
+                    <view wx:if="{{!isSalesmanOrder && orderInfo.base.orderType !== 72}}" style="font-size: 24rpx;">设备激活后返回全部押金</view>
                 </view>
                 <view class="pay {{ !isFade ? 'payWidth' : ''}} {{getAgreement ? 'payColor' : ''}}"
-                    data-isconfirm="{{getAgreement}}" catchtap="next">{{'立即支付'}}</view>
+                    data-isconfirm="{{getAgreement}}" catchtap="next">{{orderInfo.base.orderType !== 72 ? '立即支付' : '立即办理'}}</view>
             </view>
             <view class="nextSign" wx:else>
                 <button class="btns {{choiceIndex === -1 || getAgreement ? 'payColor' : ''}}" catchtap="next">

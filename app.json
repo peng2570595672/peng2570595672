@@ -154,6 +154,7 @@
           "work_order/work_order",
           "device_logout/device_logout",
           "work_order_info/work_order_info",
+          "replace_device/replace_device",
           "device_switch_peocess/select_device/select_device",
           "device_switch_peocess/bootstrap_example/bootstrap_example",
           "device_switch_peocess/option_switch/option_switch"
